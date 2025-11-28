@@ -4,11 +4,13 @@
 
 ### 0.1 The singularity control thesis
 
-A **hypostructure** is an axiomatic framework for dynamical systems—deterministic or stochastic, continuous or discrete—that provides **complete structural control over singularities**. The central thesis is:
+A **hypostructure** is a diagnostic framework for dynamical systems—deterministic or stochastic, continuous or discrete—that provides **complete structural classification of singularities**. The central thesis is:
 
-> **If a dynamical system admits a hypostructure satisfying the axioms (C, D, R, Cap, LS, Reg, SC, BG, TB), then finite-energy trajectories cannot develop uncontrolled singularities.**
+> **The axioms (C, D, R, Cap, LS, SC) act as a complete set of structural filters. For any finite-energy trajectory, either all axioms hold (leading to regularity or soliton resolution), or exactly one axiom fails locally, identifying the precise "mode" of the singularity.**
 
-More precisely, we establish that any finite-time breakdown must fall into one of finitely many **structural failure modes**, each of which is explicitly characterized and, under the axioms, shown to be impossible or dynamically invisible.
+In particular, **Axiom C (Compactness) is not a global assumption** of the theory, but a conditional property tested per trajectory. Its failure is not a defect of the framework, but a classification of the singularity as "unstructured" (Mode 2: Compactness Breakdown).
+
+More precisely, we establish that any finite-time breakdown must fall into one of finitely many **structural failure modes**, each of which is explicitly characterized. The framework does not require proving all axioms hold globally; it uses axiom failures as diagnostic labels for singularity types.
 
 ### 0.2 Conceptual architecture
 
@@ -24,21 +26,27 @@ The framework rests on three pillars:
 
 From these axioms, we derive:
 
-* **Structural trichotomy (Theorem 6.1).** Any finite-time breakdown falls into exactly one of six classified failure modes.
-* **Type II exclusion (Theorem 6.2).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
-* **Capacity barrier (Theorem 6.3).** Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
-* **Topological suppression (Theorem 6.4).** Nontrivial topological sectors are exponentially rare under the invariant measure.
-* **Structured vs failure dichotomy (Theorem 6.5).** Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
-* **Canonical Lyapunov functional (Theorem 6.6).** There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
-* **Functional reconstruction (Theorems 6.7.1, 6.7.3).** Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
+* **Structural trichotomy (Theorem 7.1).** Any finite-time breakdown falls into exactly one of six classified failure modes.
+* **Type II exclusion (Theorem 7.2).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
+* **Capacity barrier (Theorem 7.3).** Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
+* **Topological suppression (Theorem 7.4).** Nontrivial topological sectors are exponentially rare under the invariant measure.
+* **Structured vs failure dichotomy (Theorem 7.5).** Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
+* **Canonical Lyapunov functional (Theorem 7.6).** There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
+* **Functional reconstruction (Theorems 7.7.1, 7.7.3).** Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
 
 ### 0.4 Scope of instantiation
 
 The framework is designed to be instantiated in:
 
-* **PDE flows:** Navier–Stokes and Euler equations, geometric flows (mean curvature, Ricci), reaction–diffusion, dispersive equations.
+* **PDE flows:** Parabolic, hyperbolic, and dispersive equations; geometric flows (mean curvature, Ricci); reaction–diffusion systems.
 * **Kinetic and probabilistic systems:** McKean–Vlasov dynamics, Fleming–Viot processes, interacting particle systems, Langevin dynamics.
 * **Discrete and computational systems:** λ-calculus reduction, interaction nets, graph rewriting systems.
+
+**Remark 0.1 (What instantiation does not require).** Instantiation does not require pre-proving that solutions stay compact. It only requires:
+1. Identifying the symmetries $G$ (translations, scalings, gauge transformations),
+2. Verifying the "algebraic" axioms (SC, Cap, D) via dimensional analysis.
+
+The framework then outputs the conditional result: *"Self-similar blow-up is impossible; only dispersive singularities or regularity remain."* This converts a hard global regularity problem into a conditional classification, where the remaining analytical work is confined to understanding dispersion—often a more tractable regime.
 
 ---
 
@@ -170,13 +178,17 @@ A **hypostructure** is a structural flow datum $\mathcal{S}$ satisfying the foll
 
 ### 2.1 Compactness (C)
 
-**Axiom C (Compactness along bounded trajectories).** There exists a locally compact topological group $G$ acting continuously on $X$ by isometries (i.e., $d(g \cdot x, g \cdot y) = d(x, y)$ for all $g \in G$, $x, y \in X$) such that:
+**Structural Data (Symmetry Group).** The system admits a continuous action by a locally compact topological group $G$ acting on $X$ by isometries (i.e., $d(g \cdot x, g \cdot y) = d(x, y)$ for all $g \in G$, $x, y \in X$). This is structural data about the system, not an assumption to be verified per trajectory.
 
-Along any trajectory $u(t) = S_t x$ with bounded energy $\sup_{t < T_*(x)} \Phi(u(t)) \leq E < \infty$, any sequence of times $t_n \nearrow T_*(x)$ admits a subsequence $(t_{n_k})$ and elements $g_k \in G$ such that $(g_k \cdot u(t_{n_k}))$ converges in $X$.
+**Axiom C (Structural Compactness Potential).** We say a trajectory $u(t) = S_t x$ with bounded energy $\sup_{t < T_*(x)} \Phi(u(t)) \leq E < \infty$ **satisfies Axiom C** if: for every sequence of times $t_n \nearrow T_*(x)$, there exists a subsequence $(t_{n_k})$ and elements $g_k \in G$ such that $(g_k \cdot u(t_{n_k}))$ converges in $X$.
 
 When $G$ is trivial, this reduces to ordinary precompactness of bounded-energy trajectory tails.
 
-**Fallback (Mode 2).** When Axiom C fails along a trajectory—i.e., no subsequence converges modulo $G$—the trajectory exhibits **compactness breakdown** (Trichotomy mode 2, Theorem 6.1). This is a classified failure mode, not an obstruction to the framework.
+**Role (Diagnostic Filter).** Axiom C is **local and conditional**. We do not assume Axiom C holds for all trajectories. Instead:
+- If Axiom C **holds** along a trajectory, the singularity is **Structured**, allowing for profile extraction (the Canonical Profile / Maximizer of Section 7).
+- If Axiom C **fails** along a trajectory, the singularity is **Unstructured** (Dispersion/Dust), corresponding to **Mode 2 (Compactness Breakdown)** in the Trichotomy (Theorem 7.1).
+
+This framing is essential: Axiom C is a **classification criterion** that partitions trajectories into two analytic regimes, not a prerequisite that must be established before applying the framework.
 
 **Definition 2.1 (Modulus of compactness).** The **modulus of compactness** along a trajectory $u(t)$ with $\sup_t \Phi(u(t)) \leq E$ is:
 $$
@@ -200,7 +212,7 @@ where the **drift term** $C_u(t_1, t_2)$ satisfies:
 * **On the good region $\mathcal{G}$:** $C_u(t_1, t_2) = 0$ when $u(s) \in \mathcal{G}$ for all $s \in [t_1, t_2]$.
 * **Outside $\mathcal{G}$:** $C_u(t_1, t_2) \leq C \cdot \mathrm{Leb}\{s \in [t_1, t_2] : u(s) \notin \mathcal{G}\}$ for some constant $C \geq 0$.
 
-**Fallback (Mode 1).** When Axiom D fails—i.e., the energy grows without bound—the trajectory exhibits **energy blow-up** (Trichotomy mode 1, Theorem 6.1). The drift term is controlled by Axiom R, which bounds time outside $\mathcal{G}$.
+**Fallback (Mode 1).** When Axiom D fails—i.e., the energy grows without bound—the trajectory exhibits **energy blow-up** (Trichotomy mode 1, Theorem 7.1). The drift term is controlled by Axiom R, which bounds time outside $\mathcal{G}$.
 
 **Corollary 2.3 (Integral bound).** For any trajectory with finite time in bad regions (guaranteed by Axiom R when $\mathcal{C}_*(x) < \infty$):
 $$
@@ -253,7 +265,7 @@ $$
 \int_0^{\min(T, T_*(x))} c(u(t)) \, dt \leq C_{\mathrm{cap}} \int_0^{\min(T, T_*(x))} \mathfrak{D}(u(t)) \, dt + C_0 \Phi(x).
 $$
 
-**Fallback (Mode 4).** When Axiom Cap fails along a trajectory—i.e., the trajectory concentrates on high-capacity sets without commensurate dissipation—the trajectory exhibits **geometric concentration** (Trichotomy mode 4, Theorem 6.1).
+**Fallback (Mode 4).** When Axiom Cap fails along a trajectory—i.e., the trajectory concentrates on high-capacity sets without commensurate dissipation—the trajectory exhibits **geometric concentration** (Trichotomy mode 4, Theorem 7.1).
 
 **Definition 2.6 (Capacity of a set).** The **capacity** of a measurable set $B \subseteq X$ is
 $$
@@ -286,7 +298,7 @@ $$
 \Phi(x) - \Phi_{\min} \geq C_{\mathrm{LS}} \cdot \mathrm{dist}(x, M)^{1/\theta}.
 $$
 
-**Fallback (Mode 6).** Axiom LS is **local by design**: it applies only in the neighbourhood $U$ of $M$. When a trajectory approaches the boundary of $U$ or the inequality fails—the trajectory exhibits **stiffness breakdown** (Trichotomy mode 6, Theorem 6.1). Outside $U$, other axioms (C, D, R) govern behaviour.
+**Fallback (Mode 6).** Axiom LS is **local by design**: it applies only in the neighbourhood $U$ of $M$. When a trajectory approaches the boundary of $U$ or the inequality fails—the trajectory exhibits **stiffness breakdown** (Trichotomy mode 6, Theorem 7.1). Outside $U$, other axioms (C, D, R) govern behaviour.
 
 **Remark 2.9.** The exponent $\theta$ is called the **Łojasiewicz exponent**. When $\theta = 1$, this is a linear coercivity condition; smaller values of $\theta$ indicate stronger degeneracy near $M$.
 
@@ -319,17 +331,17 @@ The axioms are not independent. We record the key relationships:
 6. (D) + (LS) + (GC) $\implies$ The Lyapunov functional $\mathcal{L}$ is explicitly reconstructible from dissipation data alone.
 
 **Proposition 2.12 (Minimal axiom sets).** The main theorems require the following minimal axiom combinations:
-* Theorem 6.1 (Trichotomy): (C), (D), (Reg)
-* Theorem 6.2.1 (GN as metatheorem): (D), (SC)
-* Theorem 6.2 (Type II exclusion): (D), (SC)
-* Theorem 6.3 (Capacity barrier): (Cap), (BG)
-* Theorem 6.4 (Topological suppression): (TB), (LSI)
-* Theorem 6.5 (Dichotomy): (D), (R), (Cap)
-* Theorem 6.6 (Canonical Lyapunov): (C), (D), (R), (LS), (Reg)
-* Theorem 6.7.1 (Action Reconstruction): (D), (LS), (GC)
-* Theorem 6.7.3 (Hamilton–Jacobi Generator): (D), (LS), (GC)
+* Theorem 7.1 (Trichotomy): (C), (D), (Reg)
+* Theorem 7.2.1 (GN as metatheorem): (D), (SC)
+* Theorem 7.2 (Type II exclusion): (D), (SC)
+* Theorem 7.3 (Capacity barrier): (Cap), (BG)
+* Theorem 7.4 (Topological suppression): (TB), (LSI)
+* Theorem 7.5 (Dichotomy): (D), (R), (Cap)
+* Theorem 7.6 (Canonical Lyapunov): (C), (D), (R), (LS), (Reg)
+* Theorem 7.7.1 (Action Reconstruction): (D), (LS), (GC)
+* Theorem 7.7.3 (Hamilton–Jacobi Generator): (D), (LS), (GC)
 
-**Proposition 2.13 (Axiom failure modes).** When an axiom fails along a trajectory, the failure manifests as a specific mode of the Structural Trichotomy (Theorem 6.1). The complete classification is:
+**Proposition 2.13 (Axiom failure modes).** When an axiom fails along a trajectory, the failure manifests as a specific mode of the Structural Trichotomy (Theorem 7.1). The complete classification is:
 
 | Axiom | Failure Mode | Description |
 |-------|--------------|-------------|
@@ -340,9 +352,9 @@ The axioms are not independent. We record the key relationships:
 | **LS** (Local Stiffness) | Mode 6 | Stiffness breakdown: gradient of $\mathfrak{D}$ is not controlled by metric near $M$ |
 | **SC** (Scaling) | Mode 3 | Supercritical cascade: scaling exponents violate $\alpha > \beta$, enabling Type II blow-up |
 | **TB** (Topological) | Mode 5 | Topological metastasis: background invariants are not preserved under concentration |
-| **GC** (Gradient Consistency) | — | Reconstruction theorems (6.7.x) do not apply; Theorem 6.6 still provides Lyapunov functional via abstract construction |
+| **GC** (Gradient Consistency) | — | Reconstruction theorems (7.7.x) do not apply; Theorem 7.6 still provides Lyapunov functional via abstract construction |
 
-*Remark 2.14 (Exhaustiveness).* The Structural Trichotomy (Theorem 6.1) is precisely the exhaustive classification of axiom failures. Every trajectory either:
+*Remark 2.14 (Exhaustiveness).* The Structural Trichotomy (Theorem 7.1) is precisely the exhaustive classification of axiom failures. Every trajectory either:
 1. Satisfies all relevant axioms and converges to the safe manifold $M$, or
 2. Fails exactly one axiom, triggering the corresponding mode of blow-up/breakdown.
 
@@ -350,51 +362,148 @@ This ensures the framework degrades gracefully: when a local axiom fails, the tr
 
 ---
 
-## 3. Normalization and gauge structure
+## 3. The taxonomy of dynamical breakdown
 
-### 3.1 Symmetry groups
+### 3.1 The structural definition of singularity
 
-**Definition 3.1 (Symmetry group action).** Let $G$ be a locally compact Hausdorff topological group. A **continuous action** of $G$ on $X$ is a continuous map $G \times X \to X$, $(g, x) \mapsto g \cdot x$, such that:
+In classical analysis, a singularity is often defined negatively—as a point where regularity is lost. In the hypostructure framework, we define it positively as a specific dynamical event where the trajectory attempts to exit the admissible state space.
+
+Let $\mathcal{S} = (X, (S_t), \Phi, \mathfrak{D})$ be a structural flow datum. Let $u(t) = S_t x$ be a trajectory defined on a maximal interval $[0, T_*)$.
+
+**Definition 3.1 (Singularity).** A trajectory $u(t)$ exhibits a **singularity** at $T_* < \infty$ if it cannot be extended beyond $T_*$ within the topology of $X$, despite satisfying the energy constraint $\Phi(u(0)) < \infty$.
+
+The central thesis of this framework is that singularities are not random chaotic events, but are **isomorphic to the failure of specific structural axioms**. The axioms (C, D, SC, Cap, TB, LS) form a diagnostic system. By determining exactly *which* axiom fails along a singular sequence, we classify the breakdown into one of six mutually exclusive modes.
+
+### 3.2 Class I: Energetic divergence
+
+The first class corresponds to the failure of the global energy budget. The system exits the state space simply because the height functional becomes infinite.
+
+**Mode 1: Dissipation Failure (Energy Blow-up).**
+- **Axiom Violated:** **(D) Dissipation**
+- **Diagnostic Test:**
+$$
+\limsup_{t \nearrow T_*} \Phi(u(t)) = \infty
+$$
+- **Structural Mechanism:** The dissipative power $\mathfrak{D}$ is insufficient to counteract the drift or forcing terms in the energy inequality. The trajectory escapes every compact sublevel set $K_E$.
+- **Status:** The singularity is detected purely by scalar estimates; no geometric analysis of the state $u(t)$ is required.
+
+### 3.3 Class II: Structural dispersion
+
+The second class occurs when the energy remains finite ($\sup_{t < T_*} \Phi(u(t)) < \infty$), but the trajectory fails to converge to a well-defined limit in the quotient space $X/G$.
+
+**Mode 2: Compactness Breakdown.**
+- **Axiom Violated:** **(C) Structural Compactness**
+- **Diagnostic Test:** There exists a sequence $t_n \nearrow T_*$ such that the orbit sequence $\{u(t_n)\}$ admits **no convergent subsequence** in $X$ modulo the symmetry group $G$.
+- **Structural Mechanism:** The energy does not diverge, but it "scatters" or "cascades" into modes that are invisible to the strong topology of $X$ (e.g., oscillation to infinite frequency, loss of mass to spatial infinity, or defect measure formation).
+- **Status:** The system approaches a "weak" limit that lies outside the admissible state space. This mode represents **unstructured breakdown**.
+
+### 3.4 Class III: Structural concentration
+
+The third and most critical class occurs when the trajectory remains energy-bounded *and* retains compactness (a limiting profile exists modulo symmetries), but the limiting object itself violates the geometric or local regularity axioms.
+
+This class represents **Structured Singularities**. The breakdown is further stratified by *which* specific geometric constraint is violated by the limiting profile.
+
+**Mode 3: Supercritical Cascade.**
+- **Axiom Violated:** **(SC) Scaling Structure**
+- **Diagnostic Test:** A limiting profile $v \in X$ exists, but the gauge sequence $g_n \in G$ required to extract it is **supercritical**. Specifically, the scaling parameters $\lambda_n \to \infty$ diverge such that the associated cost exceeds the temporal compression, violating Property GN:
+$$
+\int_0^\infty \tilde{\mathfrak{D}}(S_t v) \, dt = \infty
+$$
+- **Structural Mechanism:** The system organizes into a self-similar profile that collapses at a rate where the generation of dissipation dominates the shrinking time horizon. The scaling exponents satisfy $\alpha \leq \beta$ (Cost $\leq$ Time Compression).
+- **Status:** A "focusing" singularity where the profile remains regular in renormalized coordinates, but the renormalization factors become singular.
+
+**Mode 4: Geometric Concentration.**
+- **Axiom Violated:** **(Cap) Capacity**
+- **Diagnostic Test:** The limiting probability measure or occupation time concentrates on a set $E \subset X$ with vanishing capacity or effective dimension lower than required for regularity:
+$$
+\limsup_{t \nearrow T_*} \frac{\mathrm{Leb}\{s \in [0,t] : u(s) \in B_\epsilon\}}{\mathrm{Cap}(B_\epsilon)} = \infty
+$$
+where $B_\epsilon$ are neighborhoods of a capacity-zero set.
+- **Structural Mechanism:** The trajectory spends a disproportionate amount of time in "thin" regions of the state space relative to the dissipation budget available.
+- **Status:** Dimensional collapse (e.g., formation of defect sets of codimension $\geq 2$).
+
+**Mode 5: Topological Metastasis.**
+- **Axiom Violated:** **(TB) Topological Background**
+- **Diagnostic Test:** The limiting profile $v = \lim u(t_n)$ resides in a topological sector $\tau(v)$ distinct from the initial sector $\tau(u(0))$, or the limit is obstructed by an action gap:
+$$
+\Phi(v) < \mathcal{A}_{\min}(\tau(u(0)))
+$$
+- **Structural Mechanism:** The trajectory is energetically or geometrically forced into a configuration forbidden by the topological invariants of the flow, necessitating a discontinuity to resolve the sector index.
+- **Status:** Phase slips or discrete topological transitions.
+
+**Mode 6: Stiffness Breakdown.**
+- **Axiom Violated:** **(LS) Local Stiffness**
+- **Diagnostic Test:** The trajectory enters the neighborhood $U$ of the Safe Manifold $M$ but fails to converge at the required rate, satisfying:
+$$
+\int_{T_0}^{T_*} \|\dot{u}(t)\| \, dt = \infty \quad \text{while} \quad \mathrm{dist}(u(t), M) \to 0
+$$
+or the gradient inequality $|\nabla \Phi| \geq C \Phi^\theta$ fails.
+- **Structural Mechanism:** The energy landscape becomes "flat" (degenerate) near the target manifold, allowing the trajectory to creep indefinitely or oscillate without stabilizing, preventing the final regularization.
+- **Status:** Asymptotic stagnation or infinite-time blow-up in finite time (if time rescaling is involved).
+
+### 3.5 The diagnostic logic
+
+The classification implies a sequential diagnostic procedure for any singular trajectory. The proof of regularity for a specific system corresponds to sequentially closing these failure modes.
+
+**Theorem 3.2 (The Exhaustion Principle).** Let $\mathcal{S}$ be a hypostructure. A trajectory $u(t)$ extends to $T = +\infty$ (Global Regularity) if and only if:
+
+1. **Mode 1 is excluded** (Energy is a priori bounded via Axiom D).
+2. **Mode 2 is excluded** (The orbit is precompact via Axiom C).
+3. **Modes 3–6 are excluded** (The limiting profile satisfies Axioms SC, Cap, TB, and LS).
+
+*Proof.* If Mode 1 is excluded, the trajectory remains in a bounded energy set. If Mode 2 is excluded, the trajectory has a non-empty $\omega$-limit set of profiles $V$ in the quotient space. If Modes 3–6 are excluded, any such profile $V$ must lie in the Safe Manifold $M$ and satisfy the local regularity conditions, implying the solution can be extended. $\square$
+
+**Remark 3.3 (Softness of the framework).** It is crucial to note that establishing a hypostructure does **not** require proving that Modes 2–6 are impossible *a priori*.
+- If a system admits Mode 2 singularities (Compactness Breakdown), the framework simply classifies them as such.
+- The framework is a **classifier**, not a regularity theorem. It converts the question "Is this regular?" into the structural question "Which axiom fails?"
+
+---
+
+## 4. Normalization and gauge structure
+
+### 4.1 Symmetry groups
+
+**Definition 4.1 (Symmetry group action).** Let $G$ be a locally compact Hausdorff topological group. A **continuous action** of $G$ on $X$ is a continuous map $G \times X \to X$, $(g, x) \mapsto g \cdot x$, such that:
 1. $e \cdot x = x$ for all $x \in X$ (where $e$ is the identity),
 2. $(gh) \cdot x = g \cdot (h \cdot x)$ for all $g, h \in G$, $x \in X$.
 
-**Definition 3.2 (Isometric action).** The action is **isometric** if $d(g \cdot x, g \cdot y) = d(x, y)$ for all $g \in G$, $x, y \in X$.
+**Definition 4.2 (Isometric action).** The action is **isometric** if $d(g \cdot x, g \cdot y) = d(x, y)$ for all $g \in G$, $x, y \in X$.
 
-**Definition 3.3 (Proper action).** The action is **proper** if for every compact $K \subseteq X$, the set $\{g \in G : g \cdot K \cap K \neq \emptyset\}$ is compact in $G$.
+**Definition 4.3 (Proper action).** The action is **proper** if for every compact $K \subseteq X$, the set $\{g \in G : g \cdot K \cap K \neq \emptyset\}$ is compact in $G$.
 
-**Example 3.4 (Common symmetry groups).**
+**Example 4.4 (Common symmetry groups).**
 1. **Translations:** $G = \mathbb{R}^n$ acting by $(a, u) \mapsto u(\cdot - a)$ on function spaces.
 2. **Rotations:** $G = SO(n)$ acting by $(R, u) \mapsto u(R^{-1} \cdot)$.
 3. **Scalings:** $G = \mathbb{R}_{> 0}$ acting by $(\lambda, u) \mapsto \lambda^\alpha u(\lambda \cdot)$ for some $\alpha$.
 4. **Parabolic rescaling:** $G = \mathbb{R}_{> 0}$ acting by $(\lambda, u) \mapsto \lambda^\alpha u(\lambda \cdot, \lambda^2 \cdot)$.
 5. **Gauge transformations:** $G = \mathcal{G}$ (a gauge group) acting by $(g, A) \mapsto g^{-1} A g + g^{-1} dg$.
 
-### 3.2 Gauge maps and normalized slices
+### 4.2 Gauge maps and normalized slices
 
-**Definition 3.5 (Gauge map).** A **gauge map** is a measurable function $\Gamma: X \to G$ such that the **normalized state**
+**Definition 4.5 (Gauge map).** A **gauge map** is a measurable function $\Gamma: X \to G$ such that the **normalized state**
 $$
 \tilde{x} := \Gamma(x) \cdot x
 $$
 lies in a designated **normalized slice** $\Sigma \subseteq X$.
 
-**Definition 3.6 (Normalized slice).** A **normalized slice** is a measurable subset $\Sigma \subseteq X$ such that:
+**Definition 4.6 (Normalized slice).** A **normalized slice** is a measurable subset $\Sigma \subseteq X$ such that:
 1. **Transversality:** For $\mu$-almost every $x \in X$, the orbit $G \cdot x$ intersects $\Sigma$.
 2. **Uniqueness (up to discrete ambiguity):** For each orbit $G \cdot x$, the intersection $G \cdot x \cap \Sigma$ is a discrete (possibly singleton) set.
 
-**Proposition 3.7 (Existence of gauge maps).** Suppose the action of $G$ on $X$ is proper and isometric. Then for any normalized slice $\Sigma$, there exists a measurable gauge map $\Gamma: X \to G$.
+**Proposition 4.7 (Existence of gauge maps).** Suppose the action of $G$ on $X$ is proper and isometric. Then for any normalized slice $\Sigma$, there exists a measurable gauge map $\Gamma: X \to G$.
 
 *Proof.* For each $x \in X$, let $\pi(x) \in \Sigma$ be a point in $G \cdot x \cap \Sigma$ (using the axiom of choice, or constructively via a measurable selection theorem since the action is proper). Define $\Gamma(x)$ to be any $g \in G$ such that $g \cdot x = \pi(x)$. The properness of the action ensures this is well-defined and measurable. $\square$
 
-**Definition 3.8 (Bounded gauge).** The gauge map $\Gamma$ is **bounded on energy sublevels** if for each $E < \infty$, there exists a compact set $K_G \subseteq G$ such that $\Gamma(x) \in K_G$ for all $x \in K_E$.
+**Definition 4.8 (Bounded gauge).** The gauge map $\Gamma$ is **bounded on energy sublevels** if for each $E < \infty$, there exists a compact set $K_G \subseteq G$ such that $\Gamma(x) \in K_G$ for all $x \in K_E$.
 
-### 3.3 Normalized functionals
+### 4.3 Normalized functionals
 
-**Definition 3.9 (Normalized height and dissipation).** The **normalized height** and **normalized dissipation** are
+**Definition 4.9 (Normalized height and dissipation).** The **normalized height** and **normalized dissipation** are
 $$
 \tilde{\Phi}(x) := \Phi(\Gamma(x) \cdot x), \qquad \tilde{\mathfrak{D}}(x) := \mathfrak{D}(\Gamma(x) \cdot x).
 $$
 
-**Definition 3.10 (Normalized trajectory).** For a trajectory $u(t) = S_t x$, the **normalized trajectory** is
+**Definition 4.10 (Normalized trajectory).** For a trajectory $u(t) = S_t x$, the **normalized trajectory** is
 $$
 \tilde{u}(t) := \Gamma(u(t)) \cdot u(t).
 $$
@@ -405,15 +514,15 @@ c_1(E) \Phi(y) \leq \tilde{\Phi}(y) \leq c_2(E) \Phi(y), \qquad c_1(E) \mathfrak
 $$
 for all $y$ on the trajectory.
 
-**Fallback.** When Axiom N degenerates (i.e., $c_1(E) \to 0$ or $c_2(E) \to \infty$ as $E \to \infty$), one works in unnormalized coordinates. The theorems requiring normalization (Theorem 6.2) apply only where N holds with controlled constants.
+**Fallback.** When Axiom N degenerates (i.e., $c_1(E) \to 0$ or $c_2(E) \to \infty$ as $E \to \infty$), one works in unnormalized coordinates. The theorems requiring normalization (Theorem 7.2) apply only where N holds with controlled constants.
 
-### 3.4 Scaling structure (SC)
+### 4.4 Scaling structure (SC)
 
 The Scaling Structure axiom provides the minimal geometric data needed to derive normalization constraints from scaling arithmetic alone. It applies **on orbits where the scaling subgroup acts**.
 
-**Definition 3.11 (Scaling subgroup).** A **scaling subgroup** is a one-parameter subgroup $(\mathcal{S}_\lambda)_{\lambda > 0} \subset G$ of the symmetry group, with $\mathcal{S}_1 = e$ and $\mathcal{S}_\lambda \circ \mathcal{S}_\mu = \mathcal{S}_{\lambda\mu}$.
+**Definition 4.11 (Scaling subgroup).** A **scaling subgroup** is a one-parameter subgroup $(\mathcal{S}_\lambda)_{\lambda > 0} \subset G$ of the symmetry group, with $\mathcal{S}_1 = e$ and $\mathcal{S}_\lambda \circ \mathcal{S}_\mu = \mathcal{S}_{\lambda\mu}$.
 
-**Definition 3.12 (Scaling exponents).** The **scaling exponents** along an orbit where $(\mathcal{S}_\lambda)$ acts are constants $\alpha > 0$ and $\beta > 0$ such that:
+**Definition 4.12 (Scaling exponents).** The **scaling exponents** along an orbit where $(\mathcal{S}_\lambda)$ acts are constants $\alpha > 0$ and $\beta > 0$ such that:
 1. **Dissipation scaling:** There exists $C_\alpha \geq 1$ such that for all $x$ on the orbit and $\lambda > 0$:
 $$
 C_\alpha^{-1} \lambda^\alpha \mathfrak{D}(x) \leq \mathfrak{D}(\mathcal{S}_\lambda \cdot x) \leq C_\alpha \lambda^\alpha \mathfrak{D}(x).
@@ -425,13 +534,13 @@ $$
 \alpha > \beta.
 $$
 
-**Fallback (Mode 3).** When Axiom SC fails along a trajectory—either because no scaling subgroup acts, or the subcritical condition $\alpha > \beta$ is violated—the trajectory may exhibit **supercritical symmetry cascade** (Trichotomy mode 3, Theorem 6.1). Property GN is not derived in this case; Type II blow-up must be excluded by other means or accepted as a possible failure mode.
+**Fallback (Mode 3).** When Axiom SC fails along a trajectory—either because no scaling subgroup acts, or the subcritical condition $\alpha > \beta$ is violated—the trajectory may exhibit **supercritical symmetry cascade** (Trichotomy mode 3, Theorem 7.1). Property GN is not derived in this case; Type II blow-up must be excluded by other means or accepted as a possible failure mode.
 
-**Definition 3.13 (Supercritical sequence).** A sequence $(\lambda_n) \subset \mathbb{R}_{> 0}$ is **supercritical** if $\lambda_n \to \infty$.
+**Definition 4.13 (Supercritical sequence).** A sequence $(\lambda_n) \subset \mathbb{R}_{> 0}$ is **supercritical** if $\lambda_n \to \infty$.
 
-**Remark 3.14.** The exponent $\alpha$ measures how strongly dissipation responds to zooming; $\beta$ measures how remaining time compresses under scaling. The condition $\alpha > \beta$ ensures that supercritical rescaling amplifies dissipation faster than it compresses time, making infinite-cost profiles unavoidable in the limit.
+**Remark 4.14.** The exponent $\alpha$ measures how strongly dissipation responds to zooming; $\beta$ measures how remaining time compresses under scaling. The condition $\alpha > \beta$ ensures that supercritical rescaling amplifies dissipation faster than it compresses time, making infinite-cost profiles unavoidable in the limit.
 
-**Remark 3.15 (Scaling structure is soft).** For most systems of interest, the scaling structure is immediate from dimensional analysis:
+**Remark 4.15 (Scaling structure is soft).** For most systems of interest, the scaling structure is immediate from dimensional analysis:
 * For parabolic PDEs with scaling $(x, t) \mapsto (\lambda x, \lambda^2 t)$, the exponents follow from computing how $\mathfrak{D}$ and $dt$ transform.
 * For kinetic systems, the scaling comes from velocity-space rescaling.
 * For discrete systems, the scaling may be combinatorial (e.g., term depth).
@@ -439,13 +548,13 @@ $$
 
 No hard analysis is required to identify SC where it applies; it is a purely structural/dimensional property.
 
-### 3.5 Generic normalization as derived property (GN)
+### 4.5 Generic normalization as derived property (GN)
 
 With Scaling Structure (SC) in place, Generic Normalization becomes a derived consequence rather than an independent axiom.
 
-**Definition 3.16 (Scale parameter).** A **scale parameter** is a continuous function $\sigma: G \to \mathbb{R}_{> 0}$ such that $\sigma(e) = 1$ and $\sigma(gh) = \sigma(g) \sigma(h)$ (i.e., $\sigma$ is a group homomorphism to $(\mathbb{R}_{> 0}, \times)$). For the scaling subgroup, $\sigma(\mathcal{S}_\lambda) = \lambda$.
+**Definition 4.16 (Scale parameter).** A **scale parameter** is a continuous function $\sigma: G \to \mathbb{R}_{> 0}$ such that $\sigma(e) = 1$ and $\sigma(gh) = \sigma(g) \sigma(h)$ (i.e., $\sigma$ is a group homomorphism to $(\mathbb{R}_{> 0}, \times)$). For the scaling subgroup, $\sigma(\mathcal{S}_\lambda) = \lambda$.
 
-**Definition 3.17 (Supercritical rescaling).** A sequence $(g_n) \subset G$ is **supercritical** if $\sigma(g_n) \to 0$ or $\sigma(g_n) \to \infty$ (depending on convention: the scale escapes the critical regime).
+**Definition 4.17 (Supercritical rescaling).** A sequence $(g_n) \subset G$ is **supercritical** if $\sigma(g_n) \to 0$ or $\sigma(g_n) \to \infty$ (depending on convention: the scale escapes the critical regime).
 
 **Property GN (Generic Normalization).** For any trajectory $u(t) = S_t x$ with finite total cost $\mathcal{C}_*(x) < \infty$, if:
 * $(t_n)$ is a sequence with $t_n \nearrow T_*(x)$,
@@ -457,17 +566,17 @@ $$
 \int_0^\infty \tilde{\mathfrak{D}}(S_t v_\infty) \, dt = \infty.
 $$
 
-**Remark 3.18.** Property GN says: any would-be Type II blow-up profile, when viewed in normalized coordinates, has infinite dissipation. Thus such profiles cannot arise from finite-cost trajectories. Under Axiom SC, this is not an additional assumption but a theorem (see Theorem 6.2.1).
+**Remark 4.18.** Property GN says: any would-be Type II blow-up profile, when viewed in normalized coordinates, has infinite dissipation. Thus such profiles cannot arise from finite-cost trajectories. Under Axiom SC, this is not an additional assumption but a theorem (see Theorem 7.2.1).
 
 ---
 
-## 4. Background structures
+## 5. Background structures
 
 Background structures provide reusable geometric and topological constraints that can be instantiated across different settings.
 
-### 4.1 Geometric background (BG)
+### 5.1 Geometric background (BG)
 
-**Definition 4.1 (Geometric background).** A **geometric background** is a triple $(X, d, \mu, Q)$ where:
+**Definition 5.1 (Geometric background).** A **geometric background** is a triple $(X, d, \mu, Q)$ where:
 * $(X, d)$ is a metric space,
 * $\mu$ is a Borel measure on $X$,
 * $Q > 0$ is the **dimension parameter**,
@@ -487,14 +596,14 @@ $$
 $$
 where $f_B = \fint_B f \, d\mu$ is the average.
 
-### 4.2 Capacity-geometry connection
+### 5.2 Capacity-geometry connection
 
-**Definition 4.2 (Tubular neighbourhood).** For a set $A \subseteq X$ and $r > 0$, the **$r$-tubular neighbourhood** is
+**Definition 5.2 (Tubular neighbourhood).** For a set $A \subseteq X$ and $r > 0$, the **$r$-tubular neighbourhood** is
 $$
 A^{(r)} := \{x \in X : \mathrm{dist}(x, A) < r\}.
 $$
 
-**Definition 4.3 (Effective codimension).** A set $A \subseteq X$ has **effective codimension** $\kappa > 0$ if
+**Definition 5.3 (Effective codimension).** A set $A \subseteq X$ has **effective codimension** $\kappa > 0$ if
 $$
 \mu(A^{(r)}) \lesssim r^\kappa \quad \text{as } r \to 0.
 $$
@@ -509,22 +618,22 @@ $$
 \lim_{k \to \infty} \mathrm{Leb}\{t \in [0, T] : S_t x \in A_k\} = 0.
 $$
 
-### 4.3 Topological background (TB)
+### 5.3 Topological background (TB)
 
-**Definition 4.5 (Topological sector).** A **topological sector structure** on $X$ is:
+**Definition 5.4 (Topological sector).** A **topological sector structure** on $X$ is:
 * a discrete (or more generally, locally finite) index set $\mathcal{T}$,
 * a measurable function $\tau: X \to \mathcal{T}$ called the **sector index**,
 * a distinguished element $0 \in \mathcal{T}$ called the **trivial sector**.
 
-**Definition 4.6 (Sector invariance).** The sector index is **flow-invariant** if $\tau(S_t x) = \tau(x)$ for all $t \in [0, T_*(x))$.
+**Definition 5.5 (Sector invariance).** The sector index is **flow-invariant** if $\tau(S_t x) = \tau(x)$ for all $t \in [0, T_*(x))$.
 
-**Example 4.7 (Topological charges).**
+**Example 5.6 (Topological charges).**
 1. **Degree:** For maps $u: S^n \to S^n$, $\tau(u) = \deg(u) \in \mathbb{Z}$.
 2. **Chern number:** For connections on a bundle, $\tau(A) = c_1(A) \in \mathbb{Z}$.
 3. **Homotopy class:** $\tau(u) = [u] \in \pi_n(M)$.
 4. **Vorticity:** $\tau(u) = \int \omega \, dx$ for fluid flows.
 
-**Definition 4.8 (Action functional).** An **action functional** is a function $\mathcal{A}: X \to [0, \infty]$ that measures the "cost" associated with topological non-triviality.
+**Definition 5.7 (Action functional).** An **action functional** is a function $\mathcal{A}: X \to [0, \infty]$ that measures the "cost" associated with topological non-triviality.
 
 **Axiom TB1 (Action gap).** There exists $\Delta > 0$ such that for all $x$ with $\tau(x) \neq 0$:
 $$
@@ -537,14 +646,14 @@ $$
 \mathcal{A}(x) \leq C_{\mathcal{A}} \Phi(x).
 $$
 
-### 4.4 Combined geometric-topological structure
+### 5.4 Combined geometric-topological structure
 
-**Definition 4.9 (Stratification).** The state space admits a **geometric-topological stratification**:
+**Definition 5.8 (Stratification).** The state space admits a **geometric-topological stratification**:
 $$
 X = \bigsqcup_{\tau \in \mathcal{T}} X_\tau, \quad \text{where } X_\tau = \{x \in X : \tau(x) = \tau\}.
 $$
 
-**Definition 4.10 (Sector-dependent dimension).** Each sector $X_\tau$ may have its own effective dimension $Q_\tau$, with $Q_0 = Q$ (the ambient dimension) and $Q_\tau \leq Q$ for $\tau \neq 0$.
+**Definition 5.9 (Sector-dependent dimension).** Each sector $X_\tau$ may have its own effective dimension $Q_\tau$, with $Q_0 = Q$ (the ambient dimension) and $Q_\tau \leq Q$ for $\tau \neq 0$.
 
 **Axiom BG-TB (Sector capacity bound).** For nontrivial sectors $\tau \neq 0$:
 $$
@@ -554,13 +663,13 @@ with $c_\tau \to \infty$ as $|\tau| \to \infty$ (in an appropriate sense).
 
 ---
 
-## 5. Preparatory lemmas
+## 6. Preparatory lemmas
 
 Before proving the main theorems, we establish key technical lemmas.
 
-### 5.1 Compactness extraction lemma
+### 6.1 Compactness extraction lemma
 
-**Lemma 5.1 (Compactness extraction).** Assume Axiom C. Let $(x_n) \subset K_E$ be a sequence in an energy sublevel. Then there exist:
+**Lemma 6.1 (Compactness extraction).** Assume Axiom C. Let $(x_n) \subset K_E$ be a sequence in an energy sublevel. Then there exist:
 * a subsequence $(x_{n_k})$,
 * elements $g_k \in G$,
 * a limit point $x_\infty \in X$ with $\Phi(x_\infty) \leq E$,
@@ -569,9 +678,9 @@ such that $g_k \cdot x_{n_k} \to x_\infty$ in $X$.
 
 *Proof.* Axiom C directly asserts precompactness modulo $G$. Apply the definition to the sequence $(x_n)$ to obtain $g_n \in G$ and a subsequence such that $g_{n_k} \cdot x_{n_k}$ converges. The limit $x_\infty$ satisfies $\Phi(x_\infty) \leq E$ by lower semicontinuity of $\Phi$. $\square$
 
-### 5.2 Dissipation chain rule
+### 6.2 Dissipation chain rule
 
-**Lemma 5.2 (Dissipation chain rule).** Assume Axiom D. For any trajectory $u(t) = S_t x$, the function $t \mapsto \Phi(u(t))$ satisfies, for almost every $t \in [0, T_*(x))$:
+**Lemma 6.2 (Dissipation chain rule).** Assume Axiom D. For any trajectory $u(t) = S_t x$, the function $t \mapsto \Phi(u(t))$ satisfies, for almost every $t \in [0, T_*(x))$:
 $$
 \frac{d}{dt} \Phi(u(t)) \leq -\alpha \mathfrak{D}(u(t)) + C.
 $$
@@ -590,9 +699,9 @@ $$
 $$
 This shows $\Phi(u(\cdot))$ has bounded variation on compact intervals. Since $\mathfrak{D}(u(\cdot)) \in L^1_{\mathrm{loc}}$, the function $t \mapsto \int_0^t \mathfrak{D}(u(s)) \, ds$ is absolutely continuous. Thus $\Phi(u(\cdot))$ is absolutely continuous, and the differential inequality holds a.e. $\square$
 
-### 5.3 Cost-recovery duality
+### 6.3 Cost-recovery duality
 
-**Lemma 5.3 (Cost-recovery duality).** Assume Axioms D and R. For any trajectory $u(t) = S_t x$:
+**Lemma 6.3 (Cost-recovery duality).** Assume Axioms D and R. For any trajectory $u(t) = S_t x$:
 $$
 \mathrm{Leb}\{t \in [0, T) : u(t) \notin \mathcal{G}\} \leq \frac{C_0}{r_0} \mathcal{C}_T(x).
 $$
@@ -604,9 +713,9 @@ r_0 \cdot \mathrm{Leb}(A) \leq \int_A \mathcal{R}(u(t)) \, dt \leq C_0 \int_0^T 
 $$
 Dividing by $r_0$ gives the result. If $\mathcal{C}_*(x) < \infty$, then $\mathrm{Leb}(A) < \infty$ for $T = T_*(x)$, so $A$ has finite measure. $\square$
 
-### 5.4 Occupation measure bounds
+### 6.4 Occupation measure bounds
 
-**Lemma 5.4 (Occupation measure bounds).** Assume Axiom Cap. For any measurable set $B \subseteq X$ with $\mathrm{Cap}(B) > 0$ and any trajectory $u(t) = S_t x$:
+**Lemma 6.4 (Occupation measure bounds).** Assume Axiom Cap. For any measurable set $B \subseteq X$ with $\mathrm{Cap}(B) > 0$ and any trajectory $u(t) = S_t x$:
 $$
 \mathrm{Leb}\{t \in [0, T] : u(t) \in B\} \leq \frac{C_{\mathrm{cap}}(\Phi(x) + T)}{\mathrm{Cap}(B)}.
 $$
@@ -617,20 +726,20 @@ $$
 $$
 By Axiom Cap, the last integral is bounded by $C_{\mathrm{cap}}(\Phi(x) + T)$. $\square$
 
-**Corollary 5.5 (High-capacity sets are avoided).** If $(B_k)$ is a sequence with $\mathrm{Cap}(B_k) \to \infty$, then for any fixed trajectory:
+**Corollary 6.5 (High-capacity sets are avoided).** If $(B_k)$ is a sequence with $\mathrm{Cap}(B_k) \to \infty$, then for any fixed trajectory:
 $$
 \lim_{k \to \infty} \mathrm{Leb}\{t \in [0, T] : u(t) \in B_k\} = 0.
 $$
 
-### 5.5 Łojasiewicz decay
+### 6.5 Łojasiewicz decay
 
-**Lemma 5.6 (Łojasiewicz decay estimate).** Assume Axioms D and LS with $C = 0$ (strict Lyapunov). Suppose $u(t) = S_t x$ remains in the neighbourhood $U$ of the safe manifold $M$ for all $t \geq t_0$. Then:
+**Lemma 6.6 (Łojasiewicz decay estimate).** Assume Axioms D and LS with $C = 0$ (strict Lyapunov). Suppose $u(t) = S_t x$ remains in the neighbourhood $U$ of the safe manifold $M$ for all $t \geq t_0$. Then:
 $$
 \mathrm{dist}(u(t), M) \leq C \cdot (t - t_0 + 1)^{-\theta/(1-\theta)} \quad \text{for all } t \geq t_0,
 $$
 where $C$ depends on $\Phi(u(t_0))$, $\alpha$, $C_{\mathrm{LS}}$, and $\theta$.
 
-*Proof.* Let $\psi(t) := \Phi(u(t)) - \Phi_{\min} \geq 0$. By Lemma 5.2 (with $C = 0$):
+*Proof.* Let $\psi(t) := \Phi(u(t)) - \Phi_{\min} \geq 0$. By Lemma 6.2 (with $C = 0$):
 $$
 \psi'(t) \leq -\alpha \mathfrak{D}(u(t)) \quad \text{a.e.}
 $$
@@ -654,9 +763,9 @@ $$
 $$
 giving polynomial decay of $\psi(t)$ and hence of $\mathrm{dist}(u(t), M)$ via the Łojasiewicz inequality. The general case $\theta \in (0, 1]$ follows by similar ODE analysis. $\square$
 
-### 5.6 Ergodic concentration from log-Sobolev
+### 6.6 Ergodic concentration from log-Sobolev
 
-**Lemma 5.7 (Herbst argument).** Assume an invariant probability measure $\mu$ satisfies a log-Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$. Then for any Lipschitz function $F: X \to \mathbb{R}$ with Lipschitz constant $\|F\|_{\mathrm{Lip}} \leq 1$:
+**Lemma 6.7 (Herbst argument).** Assume an invariant probability measure $\mu$ satisfies a log-Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$. Then for any Lipschitz function $F: X \to \mathbb{R}$ with Lipschitz constant $\|F\|_{\mathrm{Lip}} \leq 1$:
 $$
 \mu\left(\left\{x : F(x) - \int F \, d\mu > r\right\}\right) \leq \exp\left(-\lambda_{\mathrm{LS}} r^2 / 2\right).
 $$
@@ -675,30 +784,38 @@ $$
 $$
 Integrating and using Chebyshev's inequality yields the Gaussian concentration. $\square$
 
-**Corollary 5.8 (Sector suppression from LSI).** If the action functional $\mathcal{A}$ satisfies $\|\mathcal{A}\|_{\mathrm{Lip}} \leq L$ and Axiom TB1 holds with gap $\Delta$, then:
+**Corollary 6.8 (Sector suppression from LSI).** If the action functional $\mathcal{A}$ satisfies $\|\mathcal{A}\|_{\mathrm{Lip}} \leq L$ and Axiom TB1 holds with gap $\Delta$, then:
 $$
 \mu(\{x : \tau(x) \neq 0\}) \leq \mu(\{x : \mathcal{A}(x) \geq \mathcal{A}_{\min} + \Delta\}) \leq C \exp\left(-\frac{\lambda_{\mathrm{LS}} \Delta^2}{2L^2}\right).
 $$
 
 ---
 
-## 6. Main meta-theorems with full proofs
+## 7. Main meta-theorems with full proofs
 
-### 6.1 Structural trichotomy
+### 7.1 Structural trichotomy
 
-**Theorem 6.1 (Structural trichotomy).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (C), (D), and (Reg). Fix $x \in X$ with $\Phi(x) < \infty$, and suppose $T_*(x) < \infty$ (finite-time breakdown). Then at least one of the following structural failure modes occurs along some sequence $t_n \nearrow T_*(x)$:
+**Theorem 7.1 (Structural trichotomy).** Let $\mathcal{S}$ be a structural flow datum satisfying the minimal regularity (Reg) and dissipation (D) axioms. Let $u(t) = S_t x$ be *any* finite-energy trajectory with breakdown time $T_*(x) < \infty$.
 
-1. **Energy blow-up:** $\Phi(S_{t_n} x) \to \infty$.
+Then the behavior of $u(t)$ falls into exactly one of the following classes:
 
-2. **Compactness breakdown:** There is no subsequence of $(S_{t_n} x)$ converging modulo symmetries, i.e., Axiom C fails along the trajectory.
+**Class I: Unstructured Breakdown (Axiom C Fails)**
 
-3. **Supercritical symmetry cascade:** In normalized coordinates, a GN-forbidden profile appears (Type II self-similar blow-up).
+1. **Energy blow-up (Mode 1):** $\Phi(S_{t_n} x) \to \infty$ for some sequence $t_n \nearrow T_*(x)$.
 
-4. **Geometric concentration:** The trajectory spends asymptotically all its time in sets $(B_k)$ with $\mathrm{Cap}(B_k) \to \infty$ (concentration on thin tubes or high-codimension defects).
+2. **Compactness breakdown (Mode 2):** Energy remains bounded, but no subsequence of $(S_{t_n} x)$ converges modulo symmetries. The singularity disperses or fractalizes such that no coherent profile emerges modulo $G$.
 
-5. **Topological metastasis:** The trajectory is trapped in a nontrivial topological sector with action exceeding the gap (TB failure).
+**Class II: Structured Breakdown (Axiom C Holds)**
 
-6. **Stiffness breakdown:** The trajectory approaches a limit point in $U \setminus M$ with height comparable to $\Phi_{\min}$, violating the Łojasiewicz inequality.
+If Axiom C holds along the trajectory, a **Canonical Profile** $V$ emerges (see Section 8). The breakdown is then classified by which *subsequent* axiom forbids this profile:
+
+3. **Supercritical symmetry cascade (Mode 3):** Violation of Axiom SC (Scaling). In normalized coordinates, a GN-forbidden profile appears (Type II self-similar blow-up).
+
+4. **Geometric concentration (Mode 4):** Violation of Axiom Cap (Capacity). The trajectory spends asymptotically all its time in sets $(B_k)$ with $\mathrm{Cap}(B_k) \to \infty$ (concentration on thin tubes or high-codimension defects).
+
+5. **Topological obstruction (Mode 5):** Violation of Axiom TB. The trajectory is constrained to a nontrivial topological sector with action exceeding the gap.
+
+6. **Stiffness breakdown (Mode 6):** Violation of Axiom LS near $M$. The trajectory approaches a limit point in $U \setminus M$ with height comparable to $\Phi_{\min}$, violating the Łojasiewicz inequality.
 
 *Proof.* We proceed by exhaustive case analysis. Assume $T_*(x) < \infty$. Consider the trajectory $u(t) = S_t x$ for $t \in [0, T_*(x))$.
 
@@ -720,7 +837,7 @@ Thus, if gauges remain bounded, the limit must be a singular point where the loc
 
 **Sub-case 2b: Compactness fails.** If no subsequence of $(u(t_n))$ converges modulo $G$, then mode (2) occurs.
 
-**Case 3: Geometric concentration.** Suppose neither (1), (2), nor (3) occurs. Consider where the trajectory spends its time. By Lemma 5.4, the occupation time in any set $B$ with $\mathrm{Cap}(B) = M$ is at most $C_{\mathrm{cap}}(\Phi(x) + T)/M$.
+**Case 3: Geometric concentration.** Suppose neither (1), (2), nor (3) occurs. Consider where the trajectory spends its time. By Lemma 6.4, the occupation time in any set $B$ with $\mathrm{Cap}(B) = M$ is at most $C_{\mathrm{cap}}(\Phi(x) + T)/M$.
 
 If the trajectory remains well-behaved away from high-capacity regions, then by the arguments above it should extend past $T_*(x)$. If instead the trajectory spends increasing fractions of time near high-capacity regions as $t \to T_*(x)$, mode (4) occurs.
 
@@ -733,7 +850,7 @@ If the trajectory remains well-behaved away from high-capacity regions, then by 
 - loss of compactness (2),
 - supercritical rescaling (3),
 - concentration on thin sets (4),
-- topological trapping (5),
+- topological obstruction (5),
 - approach to a degenerate limit (6).
 
 These modes are exhaustive because we have accounted for all possible behaviours of:
@@ -743,7 +860,7 @@ These modes are exhaustive because we have accounted for all possible behaviours
 - the topological sector (trivial or nontrivial),
 - the local stiffness (satisfied or violated). $\square$
 
-**Corollary 6.1.1 (Trichotomy as axiom failure classification).** The six modes of Theorem 6.1 are precisely the manifestations of local axiom failures:
+**Corollary 7.1.1 (Trichotomy as axiom failure classification).** The six modes of Theorem 7.1 are precisely the manifestations of local axiom failures:
 
 | Mode | Failure Type | Axiom Failed |
 |------|--------------|--------------|
@@ -754,18 +871,18 @@ These modes are exhaustive because we have accounted for all possible behaviours
 | (5) | Topological metastasis | **TB** — topological invariants not preserved |
 | (6) | Stiffness breakdown | **LS** — Łojasiewicz inequality fails near $M$ |
 
-*Remark 6.1.2 (Mutual exclusivity and completeness).* Each axiom has exactly one associated failure mode, and the trichotomy is exhaustive in the following sense:
+*Remark 7.1.2 (Mutual exclusivity and completeness).* Each axiom has exactly one associated failure mode, and the trichotomy is exhaustive in the following sense:
 1. **Completeness:** If a trajectory $u(t) = S_t x$ has finite-time breakdown $T_*(x) < \infty$, then at least one axiom must fail locally along the trajectory, triggering the corresponding mode.
-2. **Diagnosis:** By determining which mode occurs (via the proof structure of Theorem 6.1), one identifies precisely which axiom fails—providing a diagnostic tool for analyzing singular trajectories.
+2. **Diagnosis:** By determining which mode occurs (via the proof structure of Theorem 7.1), one identifies precisely which axiom fails—providing a diagnostic tool for analyzing singular trajectories.
 3. **Graceful degradation:** The framework does not require all axioms to hold globally. Each axiom is invoked only along trajectories where it applies, and when it fails, the corresponding trichotomy mode describes the resulting singular behavior.
 
 This establishes the Structural Trichotomy as the complete classification of dynamical singularities in hypostructures: every trajectory either satisfies all relevant axioms and converges to $M$, or fails exactly one axiom and exhibits the corresponding breakdown mode.
 
-### 6.2 Scaling-based exclusion of supercritical blow-up
+### 7.2 Scaling-based exclusion of supercritical blow-up
 
-#### 6.2.1 GN as a metatheorem from scaling structure
+#### 7.2.1 GN as a metatheorem from scaling structure
 
-**Theorem 6.2.1 (GN from SC + D).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC) with scaling exponents $(\alpha, \beta)$ satisfying $\alpha > \beta$. Then Property GN holds: any supercritical blow-up profile has infinite dissipation cost.
+**Theorem 7.2.1 (GN from SC + D).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC) with scaling exponents $(\alpha, \beta)$ satisfying $\alpha > \beta$. Then Property GN holds: any supercritical blow-up profile has infinite dissipation cost.
 
 More precisely: suppose $u(t) = S_t x$ is a trajectory with finite total cost $\mathcal{C}_*(x) < \infty$ and finite blow-up time $T_*(x) < \infty$. Suppose there exist:
 * a supercritical sequence $\lambda_n \to \infty$,
@@ -794,7 +911,7 @@ Introduce the rescaled time $s = \lambda_n^\beta (t - t_n)$, so that $t = t_n + 
 $$
 \mathfrak{D}(u(t)) = \mathfrak{D}(\mathcal{S}_{\lambda_n}^{-1} \cdot v_n(s)) \sim \lambda_n^{-\alpha} \mathfrak{D}(v_n(s)),
 $$
-where $\sim$ denotes equality up to the constant $C_\alpha$ from Definition 3.12.
+where $\sim$ denotes equality up to the constant $C_\alpha$ from Definition 4.12.
 
 **Step 3: Cost transformation.** Substituting into the cost integral:
 $$
@@ -835,7 +952,7 @@ Summing over dyadic scales $\lambda_n \sim 2^n$: if $\alpha > \beta$, the prefac
 
 This establishes Property GN from Axioms D and SC alone. $\square$
 
-**Remark 6.2.2 (No PDE-specific ingredients).** The proof uses only:
+**Remark 7.2.2 (No PDE-specific ingredients).** The proof uses only:
 1. The scaling transformation law for $\mathfrak{D}$ (from SC),
 2. The time-scaling exponent $\beta$ (from SC),
 3. The subcritical condition $\alpha > \beta$ (from SC),
@@ -843,21 +960,21 @@ This establishes Property GN from Axioms D and SC alone. $\square$
 
 No system-specific estimates, no Caffarelli–Kohn–Nirenberg, no backward uniqueness—just scaling arithmetic. This is the sense in which GN is a **metatheorem**: once SC is verified (which requires only dimensional analysis), GN follows automatically.
 
-#### 6.2.2 Type II exclusion
+#### 7.2.2 Type II exclusion
 
-**Theorem 6.2 (SC + D kills Type II blow-up).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC). Let $x \in X$ with $\Phi(x) < \infty$ and $\mathcal{C}_*(x) < \infty$ (finite total cost). Then no supercritical self-similar blow-up can occur at $T_*(x)$.
+**Theorem 7.2 (SC + D kills Type II blow-up).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC). Let $x \in X$ with $\Phi(x) < \infty$ and $\mathcal{C}_*(x) < \infty$ (finite total cost). Then no supercritical self-similar blow-up can occur at $T_*(x)$.
 
 More precisely: there do not exist a supercritical sequence $(\lambda_n) \subset \mathbb{R}_{>0}$ with $\lambda_n \to \infty$ and times $t_n \nearrow T_*(x)$ such that $v_n := \mathcal{S}_{\lambda_n} \cdot S_{t_n} x$ converges to a nontrivial profile $v_\infty \in X$.
 
-*Proof.* Immediate from Theorem 6.2.1. By that theorem, any such limit profile $v_\infty$ must satisfy $\int_{-\infty}^0 \mathfrak{D}(v_\infty(s)) ds = \infty$. But a nontrivial self-similar blow-up profile, by definition, has finite local dissipation (otherwise it would not be a coherent limiting object). This contradiction excludes the existence of such profiles.
+*Proof.* Immediate from Theorem 7.2.1. By that theorem, any such limit profile $v_\infty$ must satisfy $\int_{-\infty}^0 \mathfrak{D}(v_\infty(s)) ds = \infty$. But a nontrivial self-similar blow-up profile, by definition, has finite local dissipation (otherwise it would not be a coherent limiting object). This contradiction excludes the existence of such profiles.
 
-Alternatively: the finite-cost trajectory $u(t)$ has dissipation budget $\mathcal{C}_*(x) < \infty$. The scaling arithmetic of Theorem 6.2.1 shows this budget cannot produce a nontrivial infinite-dissipation limit. Hence no supercritical blow-up. $\square$
+Alternatively: the finite-cost trajectory $u(t)$ has dissipation budget $\mathcal{C}_*(x) < \infty$. The scaling arithmetic of Theorem 7.2.1 shows this budget cannot produce a nontrivial infinite-dissipation limit. Hence no supercritical blow-up. $\square$
 
-**Corollary 6.2.3 (Type II blow-up is framework-forbidden).** In any hypostructure satisfying (D) and (SC) with $\alpha > \beta$, Type II (supercritical self-similar) blow-up is impossible for finite-cost trajectories. This holds regardless of the specific dynamics; it is a consequence of scaling structure alone.
+**Corollary 7.2.3 (Type II blow-up is framework-forbidden).** In any hypostructure satisfying (D) and (SC) with $\alpha > \beta$, Type II (supercritical self-similar) blow-up is impossible for finite-cost trajectories. This holds regardless of the specific dynamics; it is a consequence of scaling structure alone.
 
-### 6.3 Capacity barrier
+### 7.3 Capacity barrier
 
-**Theorem 6.3 (Capacity barrier).** Let $\mathcal{S}$ be a hypostructure with geometric background (BG) satisfying Axiom Cap. Let $(B_k)$ be a sequence of subsets of $X$ of increasing geometric "thinness" (e.g., $r_k$-tubular neighbourhoods of codimension-$\kappa$ sets with $r_k \to 0$) such that:
+**Theorem 7.3 (Capacity barrier).** Let $\mathcal{S}$ be a hypostructure with geometric background (BG) satisfying Axiom Cap. Let $(B_k)$ be a sequence of subsets of $X$ of increasing geometric "thinness" (e.g., $r_k$-tubular neighbourhoods of codimension-$\kappa$ sets with $r_k \to 0$) such that:
 $$
 \mathrm{Cap}(B_k) \gtrsim r_k^{-\kappa} \to \infty.
 $$
@@ -867,7 +984,7 @@ $$
 \lim_{k \to \infty} \mathrm{Leb}\{t \in [0, T] : u(t) \in B_k\} = 0.
 $$
 
-*Proof.* By Lemma 5.4 (occupation measure bounds), for each $k$:
+*Proof.* By Lemma 6.4 (occupation measure bounds), for each $k$:
 $$
 \tau_k := \mathrm{Leb}\{t \in [0, T] : u(t) \in B_k\} \leq \frac{C_{\mathrm{cap}}(\Phi(x) + T)}{\mathrm{Cap}(B_k)}.
 $$
@@ -879,18 +996,18 @@ $$
 
 This shows that the fraction of time spent in $B_k$ tends to zero. $\square$
 
-**Corollary 6.4 (No concentration on thin structures).** Blow-up scenarios relying on persistent concentration inside:
+**Corollary 7.4 (No concentration on thin structures).** Blow-up scenarios relying on persistent concentration inside:
 - arbitrarily thin tubes,
 - arbitrarily small neighbourhoods of lower-dimensional manifolds,
 - fractal defect sets of Hausdorff dimension $< Q$,
 
 are incompatible with finite energy and the capacity axiom.
 
-*Proof.* Such sets have capacity tending to infinity by Axiom BG4. Apply Theorem 6.3. $\square$
+*Proof.* Such sets have capacity tending to infinity by Axiom BG4. Apply Theorem 7.3. $\square$
 
-### 6.4 Topological sector suppression
+### 7.4 Topological sector suppression
 
-**Theorem 6.4 (Exponential suppression of nontrivial sectors).** Assume the topological background (TB) with action gap $\Delta > 0$ and an invariant probability measure $\mu$ satisfying a log-Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$. Then:
+**Theorem 7.4 (Exponential suppression of nontrivial sectors).** Assume the topological background (TB) with action gap $\Delta > 0$ and an invariant probability measure $\mu$ satisfying a log-Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$. Then:
 $$
 \mu(\{x : \tau(x) \neq 0\}) \leq C \exp(-c \lambda_{\mathrm{LS}} \Delta)
 $$
@@ -902,7 +1019,7 @@ Moreover, for $\mu$-typical trajectories, the fraction of time spent in nontrivi
 
 **Step 1: Concentration from LSI.** By Axiom TB1, $\tau(x) \neq 0 \implies \mathcal{A}(x) \geq \mathcal{A}_{\min} + \Delta$.
 
-If $\mathcal{A}$ is Lipschitz with constant $L$, Lemma 5.7 gives:
+If $\mathcal{A}$ is Lipschitz with constant $L$, Lemma 6.7 gives:
 $$
 \mu(\{x : \mathcal{A}(x) - \bar{\mathcal{A}} \geq \Delta/2\}) \leq \exp\left(-\frac{\lambda_{\mathrm{LS}} \Delta^2}{8L^2}\right),
 $$
@@ -922,11 +1039,11 @@ $$
 $$
 as $T \to \infty$, $\mu$-almost surely. $\square$
 
-**Remark 6.5.** If the action gap $\Delta$ is large (strong topological protection), nontrivial sectors are exponentially rare. This captures, abstractly, why exotic topological configurations (instantons, monopoles, defects with nontrivial homotopy) are statistically suppressed under thermal equilibrium.
+**Remark 7.5.** If the action gap $\Delta$ is large (strong topological protection), nontrivial sectors are exponentially rare. This captures, abstractly, why exotic topological configurations (instantons, monopoles, defects with nontrivial homotopy) are statistically suppressed under thermal equilibrium.
 
-### 6.5 Structured vs failure dichotomy
+### 7.5 Structured vs failure dichotomy
 
-**Theorem 6.5 (Structured vs failure dichotomy).** Let $X = \mathcal{S} \cup \mathcal{F}$ be decomposed into:
+**Theorem 7.5 (Structured vs failure dichotomy).** Let $X = \mathcal{S} \cup \mathcal{F}$ be decomposed into:
 - the **structured region** $\mathcal{S}$ where the safe manifold $M \subset \mathcal{S}$ lies and good regularity holds,
 - the **failure region** $\mathcal{F} = X \setminus \mathcal{S}$.
 
@@ -936,7 +1053,7 @@ Either $u(t)$ enters $\mathcal{S}$ in finite time and remains at uniformly bound
 
 *Proof.*
 
-**Step 1: Time in failure region is bounded.** By Lemma 5.3 (cost-recovery duality), the time spent outside the good region $\mathcal{G}$ satisfies:
+**Step 1: Time in failure region is bounded.** By Lemma 6.3 (cost-recovery duality), the time spent outside the good region $\mathcal{G}$ satisfies:
 $$
 \mathrm{Leb}\{t : u(t) \notin \mathcal{G}\} \leq \frac{C_0}{r_0} \mathcal{C}_*(x) < \infty.
 $$
@@ -952,7 +1069,7 @@ $$
 
 In the latter case, by lower semicontinuity and Axiom Reg, we can perturb to ensure $u(t) \in \mathcal{S}$ for almost all $t \geq T_0$.
 
-**Step 3: Convergence to $M$.** Once in $\mathcal{S}$, by Axiom LS, the Łojasiewicz inequality holds near $M$. If the trajectory enters the neighbourhood $U$ of $M$, Lemma 5.6 gives convergence:
+**Step 3: Convergence to $M$.** Once in $\mathcal{S}$, by Axiom LS, the Łojasiewicz inequality holds near $M$. If the trajectory enters the neighbourhood $U$ of $M$, Lemma 6.6 gives convergence:
 $$
 \mathrm{dist}(u(t), M) \to 0 \quad \text{as } t \to \infty.
 $$
@@ -961,15 +1078,15 @@ If the trajectory remains in $\mathcal{S} \setminus U$, then by the properties o
 
 **Step 4: Contradiction from persistent failure.** Suppose the trajectory spends infinite time in $\mathcal{F}$ or never stabilizes in $\mathcal{S}$. Then either:
 - the trajectory has infinite cost (contradicting $\mathcal{C}_*(x) < \infty$), or
-- the trajectory enters high-capacity regions (excluded by Theorem 6.3), or
-- the trajectory exhibits supercritical blow-up (excluded by Theorem 6.2), or
-- the trajectory is trapped in a nontrivial topological sector (excluded by Theorem 6.4 for typical data).
+- the trajectory enters high-capacity regions (excluded by Theorem 7.3), or
+- the trajectory exhibits supercritical blow-up (excluded by Theorem 7.2), or
+- the trajectory is constrained to a nontrivial topological sector (excluded by Theorem 7.4 for typical data).
 
 All alternatives are incompatible with the assumptions. $\square$
 
-### 6.6 Canonical Lyapunov functional
+### 7.6 Canonical Lyapunov functional
 
-**Theorem 6.6 (Canonical Lyapunov functional).** Assume Axioms (C), (D) with $C = 0$, (R), (LS), and (Reg). Then there exists a functional $\mathcal{L}: X \to \mathbb{R} \cup \{\infty\}$ with the following properties:
+**Theorem 7.6 (Canonical Lyapunov functional).** Assume Axioms (C), (D) with $C = 0$, (R), (LS), and (Reg). Then there exists a functional $\mathcal{L}: X \to \mathbb{R} \cup \{\infty\}$ with the following properties:
 
 1. **Monotonicity.** Along any trajectory $u(t) = S_t x$ with finite cost, $t \mapsto \mathcal{L}(u(t))$ is nonincreasing and strictly decreasing whenever $u(t) \notin M$.
 
@@ -1035,7 +1152,7 @@ $$
 \mathcal{L}(x) \leq \Phi_{\min} + \mathcal{C}(x \to M) \leq \Phi_{\min} + \frac{1}{\alpha}(\Phi(x) - \Phi_{\min}) = \Phi_{\min} + \frac{\Phi(x) - \Phi_{\min}}{\alpha}.
 $$
 
-Combined with the lower bound from LS (Lemma 5.6), this gives the equivalence.
+Combined with the lower bound from LS (Lemma 6.6), this gives the equivalence.
 
 **Step 5: Uniqueness.** Suppose $\Psi$ is another Lyapunov functional with the same properties. Define $f: \mathrm{Im}(\mathcal{L}) \to \mathbb{R}$ by $f(\mathcal{L}(x)) = \Psi(x)$.
 
@@ -1043,28 +1160,28 @@ This is well-defined because if $\mathcal{L}(x_1) = \mathcal{L}(x_2)$, then by t
 
 Monotonicity of both $\mathcal{L}$ and $\Psi$ along trajectories, combined with their strict decrease outside $M$, implies $f$ is increasing. $\square$
 
-**Remark 6.7 (Ultimate loss interpretation).** The functional $\mathcal{L}$ can be interpreted as the "ultimate loss" of the system: it measures the total cost required to reach the optimal manifold $M$. This is the structural analogue of loss functions in optimization and machine learning, but derived from the dynamical axioms rather than designed ad hoc.
+**Remark 7.7 (Ultimate loss interpretation).** The functional $\mathcal{L}$ can be interpreted as the "ultimate loss" of the system: it measures the total cost required to reach the optimal manifold $M$. This is the structural analogue of loss functions in optimization and machine learning, but derived from the dynamical axioms rather than designed ad hoc.
 
-### 6.7 Functional reconstruction meta-theorems
+### 7.7 Functional reconstruction meta-theorems
 
-The theorems in Sections 6.1–6.6 assume a height functional $\Phi$ is given and verify its properties. We now provide a **generator**: a mechanism to explicitly recover the Lyapunov functional $\mathcal{L}$ solely from the dynamical data $(S_t)$ and the dissipation structure $(\mathfrak{D})$, without prior knowledge of $\Phi$.
+The theorems in Sections 7.1–7.6 assume a height functional $\Phi$ is given and verify its properties. We now provide a **generator**: a mechanism to explicitly recover the Lyapunov functional $\mathcal{L}$ solely from the dynamical data $(S_t)$ and the dissipation structure $(\mathfrak{D})$, without prior knowledge of $\Phi$.
 
 This moves the framework from **verification** (checking if a given $\Phi$ works) to **discovery** (finding the correct $\Phi$).
 
-#### 6.7.1 Gradient consistency
+#### 7.7.1 Gradient consistency
 
-**Definition 6.8 (Metric structure).** A hypostructure has **metric structure** if the state space $(X, d)$ is equipped with a Riemannian (or Finsler) metric $g$ such that the metric $d$ is induced by $g$: for smooth paths $\gamma: [0, 1] \to X$,
+**Definition 7.8 (Metric structure).** A hypostructure has **metric structure** if the state space $(X, d)$ is equipped with a Riemannian (or Finsler) metric $g$ such that the metric $d$ is induced by $g$: for smooth paths $\gamma: [0, 1] \to X$,
 $$
 d(x, y) = \inf_{\gamma: x \to y} \int_0^1 \|\dot{\gamma}(s)\|_g \, ds.
 $$
 
-**Definition 6.9 (Gradient consistency).** A hypostructure with metric structure is **gradient-consistent** if, for almost all $t \in [0, T_*(x))$ along any trajectory $u(t) = S_t x$:
+**Definition 7.9 (Gradient consistency).** A hypostructure with metric structure is **gradient-consistent** if, for almost all $t \in [0, T_*(x))$ along any trajectory $u(t) = S_t x$:
 $$
 \|\dot{u}(t)\|_g^2 = \mathfrak{D}(u(t)),
 $$
 where $\dot{u}(t)$ is the metric velocity of the trajectory.
 
-**Remark 6.10.** Gradient consistency encodes that the system is "maximally efficient" at converting dissipation into motion—a defining property of gradient flows where $\dot{u} = -\nabla \Phi$ and $\mathfrak{D} = \|\nabla \Phi\|^2$. This is **not** an additional axiom to verify case-by-case; it is a structural property that holds automatically for:
+**Remark 7.10.** Gradient consistency encodes that the system is "maximally efficient" at converting dissipation into motion—a defining property of gradient flows where $\dot{u} = -\nabla \Phi$ and $\mathfrak{D} = \|\nabla \Phi\|^2$. This is **not** an additional axiom to verify case-by-case; it is a structural property that holds automatically for:
 * Gradient flows in Hilbert spaces,
 * Wasserstein gradient flows of free energies,
 * $L^2$ gradient flows of geometric functionals,
@@ -1072,11 +1189,11 @@ where $\dot{u}(t)$ is the metric velocity of the trajectory.
 
 **Axiom GC (Gradient Consistency on gradient-flow orbits).** Along any trajectory $u(t) = S_t x$ that evolves by gradient flow (i.e., $\dot{u} = -\nabla_g \Phi$), the gradient consistency condition $\|\dot{u}(t)\|_g^2 = \mathfrak{D}(u(t))$ holds.
 
-**Fallback.** When Axiom GC fails along a trajectory—i.e., the trajectory is not a gradient flow—the reconstruction theorems (6.7.1–6.7.3) do not apply. The Lyapunov functional still exists by Theorem 6.6 via the abstract construction, but cannot be computed explicitly via the Jacobi metric or Hamilton–Jacobi equation.
+**Fallback.** When Axiom GC fails along a trajectory—i.e., the trajectory is not a gradient flow—the reconstruction theorems (7.7.1–7.7.3) do not apply. The Lyapunov functional still exists by Theorem 7.6 via the abstract construction, but cannot be computed explicitly via the Jacobi metric or Hamilton–Jacobi equation.
 
-#### 6.7.2 The action reconstruction principle
+#### 7.7.2 The action reconstruction principle
 
-**Theorem 6.7.1 (Action Reconstruction).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the canonical Lyapunov functional $\mathcal{L}(x)$ is explicitly the **minimal geodesic action** from $x$ to the safe manifold $M$ with respect to the **Jacobi metric** $g_{\mathfrak{D}} := \sqrt{\mathfrak{D}} \cdot g$.
+**Theorem 7.7.1 (Action Reconstruction).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the canonical Lyapunov functional $\mathcal{L}(x)$ is explicitly the **minimal geodesic action** from $x$ to the safe manifold $M$ with respect to the **Jacobi metric** $g_{\mathfrak{D}} := \sqrt{\mathfrak{D}} \cdot g$.
 
 **Formula:**
 $$
@@ -1125,11 +1242,11 @@ $$
 
 This recovers the energy–dissipation identity exactly. Uniqueness follows from Axiom LS. $\square$
 
-**Corollary 6.7.2 (Explicit Lyapunov from dissipation).** Under the hypotheses of Theorem 6.7.1, the Lyapunov functional is **explicitly computable** from the dissipation structure alone: no prior knowledge of an energy functional is required.
+**Corollary 7.7.2 (Explicit Lyapunov from dissipation).** Under the hypotheses of Theorem 7.7.1, the Lyapunov functional is **explicitly computable** from the dissipation structure alone: no prior knowledge of an energy functional is required.
 
-#### 6.7.3 The Hamilton–Jacobi generator
+#### 7.7.3 The Hamilton–Jacobi generator
 
-**Theorem 6.7.3 (Hamilton–Jacobi characterization).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the Lyapunov functional $\mathcal{L}(x)$ is the unique viscosity solution to the static **Hamilton–Jacobi equation**:
+**Theorem 7.7.3 (Hamilton–Jacobi characterization).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the Lyapunov functional $\mathcal{L}(x)$ is the unique viscosity solution to the static **Hamilton–Jacobi equation**:
 $$
 \|\nabla_g \mathcal{L}(x)\|_g^2 = \mathfrak{D}(x)
 $$
@@ -1164,13 +1281,13 @@ $$
 
 **Step 4: Viscosity solution.** The distance function to a closed set is the unique viscosity solution of the eikonal equation with zero boundary data on the set. Thus $\mathcal{L}$ is the unique viscosity solution of the Hamilton–Jacobi equation with boundary condition $\mathcal{L}|_M = \Phi_{\min}$. $\square$
 
-**Remark 6.11 (From guessing to solving).** Theorem 6.7.3 transforms the search for a Lyapunov functional from an art (guessing the right entropy) into a well-posed PDE problem on state space. Given only $\mathfrak{D}$ and $M$, one solves the Hamilton–Jacobi equation to obtain $\mathcal{L}$.
+**Remark 7.11 (From guessing to solving).** Theorem 7.7.3 transforms the search for a Lyapunov functional from an art (guessing the right entropy) into a well-posed PDE problem on state space. Given only $\mathfrak{D}$ and $M$, one solves the Hamilton–Jacobi equation to obtain $\mathcal{L}$.
 
-#### 6.7.4 Instantiation examples
+#### 7.7.4 Instantiation examples
 
 The power of the reconstruction theorems is that they produce known Lyapunov functionals automatically from minimal input.
 
-**Example 6.12 (Recovering Boltzmann–Shannon entropy).**
+**Example 7.12 (Recovering Boltzmann–Shannon entropy).**
 
 *Input:*
 * State space: $X = \mathcal{P}_2(\mathbb{R}^d)$ (probability measures with finite second moment).
@@ -1178,7 +1295,7 @@ The power of the reconstruction theorems is that they produce known Lyapunov fun
 * Flow: Heat equation $\partial_t \rho = \Delta \rho$.
 * Dissipation: Fisher information $\mathfrak{D}(\rho) = I(\rho) = \int_{\mathbb{R}^d} \frac{|\nabla \rho|^2}{\rho} \, dx$.
 
-*Framework output:* By Theorem 6.7.3, solve $\|\nabla_{W_2} \mathcal{L}\|_{W_2}^2 = I(\rho)$.
+*Framework output:* By Theorem 7.7.3, solve $\|\nabla_{W_2} \mathcal{L}\|_{W_2}^2 = I(\rho)$.
 
 The Otto calculus identifies $\|\nabla_{W_2} f\|_{W_2}^2 = \int |\nabla \frac{\delta f}{\delta \rho}|^2 \rho \, dx$ for functionals $f$ on $\mathcal{P}_2$.
 
@@ -1189,7 +1306,7 @@ $$
 
 *Conclusion:* The Boltzmann–Shannon entropy is **derived**, not postulated.
 
-**Example 6.13 (Recovering the Ricci flow functional).**
+**Example 7.13 (Recovering the Ricci flow functional).**
 
 *Input:*
 * State space: $X = \mathrm{Met}(M) / \mathrm{Diff}(M)$ (Riemannian metrics modulo diffeomorphisms).
@@ -1197,17 +1314,17 @@ $$
 * Flow: Ricci flow $\partial_t g = -2\mathrm{Ric}$.
 * Dissipation: $\mathfrak{D}(g) = \int_M |\mathrm{Ric}|^2 \, dV_g$ (squared Ricci curvature).
 
-*Framework output:* By Theorem 6.7.1, the Lyapunov functional is the geodesic distance to the soliton manifold $M$ (Einstein metrics or Ricci solitons) in the $\sqrt{\mathfrak{D}}$-weighted metric.
+*Framework output:* By Theorem 7.7.1, the Lyapunov functional is the geodesic distance to the soliton manifold $M$ (Einstein metrics or Ricci solitons) in the $\sqrt{\mathfrak{D}}$-weighted metric.
 
 This construction recovers the **reduced length**:
 $$
 \ell(\gamma, \tau) = \frac{1}{2\sqrt{\tau}} \int_0^\tau \sqrt{s} \left( R + |\dot{\gamma}|^2 \right) ds,
 $$
-and the **reduced volume** as its integral. The monotonicity formula is precisely the Lyapunov property from Theorem 6.7.1.
+and the **reduced volume** as its integral. The monotonicity formula is precisely the Lyapunov property from Theorem 7.7.1.
 
 *Conclusion:* The canonical Lyapunov functional for Ricci flow is derived from the dissipation structure alone.
 
-**Example 6.14 (Recovering Dirichlet energy).**
+**Example 7.14 (Recovering Dirichlet energy).**
 
 *Input:*
 * State space: $X = H^1(\Omega)$ for a bounded domain $\Omega$.
@@ -1215,7 +1332,7 @@ and the **reduced volume** as its integral. The monotonicity formula is precisel
 * Flow: Heat equation $\partial_t u = \Delta u$.
 * Dissipation: $\mathfrak{D}(u) = \|\Delta u\|_{L^2}^2$.
 
-*Framework output:* By Theorem 6.7.3, solve $\|\nabla_{L^2} \mathcal{L}\|_{L^2}^2 = \|\Delta u\|_{L^2}^2$.
+*Framework output:* By Theorem 7.7.3, solve $\|\nabla_{L^2} \mathcal{L}\|_{L^2}^2 = \|\Delta u\|_{L^2}^2$.
 
 In the $L^2$ metric, $\nabla_{L^2} \mathcal{L} = \frac{\delta \mathcal{L}}{\delta u}$. The equation becomes:
 $$
@@ -1241,32 +1358,32 @@ $$
 
 4. **Identify the safe manifold** $M$ (equilibria, ground states, solitons).
 
-5. **Apply Theorem 6.7.1:** The Lyapunov functional is the $\sqrt{\mathfrak{D}}$-weighted geodesic distance to $M$:
+5. **Apply Theorem 7.7.1:** The Lyapunov functional is the $\sqrt{\mathfrak{D}}$-weighted geodesic distance to $M$:
 $$
 \mathcal{L}(x) = \inf_{\gamma: x \to M} \int_0^1 \sqrt{\mathfrak{D}(\gamma(s))} \|\dot{\gamma}(s)\|_g \, ds.
 $$
 
-6. **Or apply Theorem 6.7.3:** Solve the Hamilton–Jacobi equation $\|\nabla_g \mathcal{L}\|_g^2 = \mathfrak{D}$ with $\mathcal{L}|_M = 0$.
+6. **Or apply Theorem 7.7.3:** Solve the Hamilton–Jacobi equation $\|\nabla_g \mathcal{L}\|_g^2 = \mathfrak{D}$ with $\mathcal{L}|_M = 0$.
 
-**Remark 6.16 (No guessing required).** The reconstruction protocol eliminates the need to "guess" the entropy functional. The framework builds it automatically from the dissipation structure. Historical insight is not required—only the identification of the cost function $\mathfrak{D}$.
+**Remark 7.16 (No guessing required).** The reconstruction protocol eliminates the need to "guess" the entropy functional. The framework builds it automatically from the dissipation structure. Historical insight is not required—only the identification of the cost function $\mathfrak{D}$.
 
 ---
 
-## 7. Structural resolution: The emergence and elimination of maximizers
+## 8. Structural resolution: The emergence and elimination of maximizers
 
-### 7.1 The philosophical pivot
+### 8.1 The philosophical pivot
 
 Standard analysis often asks: *Does a global maximizer of the energy functional exist?* If the answer is "no" or "maybe," the analysis stalls.
 
 The hypostructure framework inverts this dependency. We do not assume the existence of a global maximizer to define the system. Instead, we use **Axiom C (Compactness)** to prove that **if** a singularity attempts to form, it must structurally reorganize the solution into a "local maximizer" (a Canonical Profile).
 
-Maximizers are treated not as static objects that *must* exist globally, but as **asymptotic ghosts** that emerge only when the system is under the extreme stress of a blow-up.
+Maximizers are treated not as static objects that *must* exist globally, but as **asymptotic limits** that emerge only when the trajectory approaches a finite-time singularity.
 
-### 7.2 Formal definition: Structural resolution
+### 8.2 Formal definition: Structural resolution
 
 We formalize the "Maximizer" concept via the principle of **Structural Resolution** (a generalization of Profile Decomposition).
 
-**Definition 7.1 (Asymptotic maximizer extraction).** Let $\mathcal{S}$ be a hypostructure satisfying Axiom C. Let $u(t)$ be a trajectory approaching a finite blow-up time $T_*$. A **Structural Resolution** of the singularity is a decomposition of the sequence $u(t_n)$ (where $t_n \nearrow T_*$) into:
+**Definition 8.1 (Asymptotic maximizer extraction).** Let $\mathcal{S}$ be a hypostructure satisfying Axiom C. Let $u(t)$ be a trajectory approaching a finite blow-up time $T_*$. A **Structural Resolution** of the singularity is a decomposition of the sequence $u(t_n)$ (where $t_n \nearrow T_*$) into:
 $$
 u(t_n) = \underbrace{g_n \cdot V}_{\text{The Maximizer}} + \underbrace{w_n}_{\text{Dispersion}}
 $$
@@ -1275,44 +1392,52 @@ where:
 2. **$g_n \in G$ (The Gauge Sequence):** A sequence of symmetry transformations (scalings, translations) that diverge as $n \to \infty$ (e.g., $\lambda_n \to \infty$ for scaling).
 3. **$w_n$ (The Residual):** A term that vanishes or disperses in the relevant topology (structurally irrelevant).
 
-**Remark 7.2 (The key insight).** We do not assume $V$ exists *a priori*.
+**Remark 8.2 (The key insight).** We do not assume $V$ exists *a priori*.
 - If the sequence $u(t_n)$ experiences **Compactness Breakdown** (Failure Mode 2), then $V = 0$ (or does not exist). The branch is empty; no singularity forms via structure.
 - If the sequence concentrates, Axiom C **forces** $V$ to exist.
 
-### 7.3 The taxonomy of maximizers
+**Remark 8.2.1 (On global compactness).** A common misconception is that one must prove global compactness (e.g., a universal Rellich–Kondrachov theorem) to use this framework. This is false. The hypostructure framework accepts trajectories where compactness fails—it classifies them as **Mode 2 (Compactness Breakdown)**.
+
+The framework analyzes both branches: when compactness fails (Mode 2), and when compactness holds. In the latter case, algebraic constraints (Axioms SC, Cap) exclude structured singularities, reducing the analysis to the dispersive regime. In many applications, dispersive singularities are either:
+- Well-understood via scattering theory, or
+- Excluded by conservation laws or other structural arguments.
+
+Thus the framework converts a global compactness problem into a conditional classification.
+
+### 8.3 The taxonomy of maximizers
 
 Once Axiom C extracts the profile $V$, the hypostructure framework classifies it immediately. The "Maximizer" $V$ must fall into one of two categories:
 
 **Type A: The Safe Maximizer ($V \in M$).**
 The profile $V$ lies in the **Safe Manifold** (e.g., a soliton, a ground state, or a vacuum state).
 - **Mechanism:** The trajectory is simply zooming in on a regular structure (like a soliton).
-- **Outcome:** **Axiom LS (Stiffness)** applies. The trajectory is trapped near $M$. Since elements of $M$ are global solutions with infinite existence time, this is not a singularity; it is **Soliton Resolution**.
+- **Outcome:** **Axiom LS (Stiffness)** applies. The trajectory is constrained near $M$. Since elements of $M$ are global solutions with infinite existence time, this is not a singularity; it is **Soliton Resolution**.
 
-**Type B: The Alien Maximizer ($V \notin M$).**
-The profile $V$ is a "structured monster"—a self-similar blow-up profile or a high-energy bubble that is *not* safe.
-- **Mechanism:** The system is trying to construct a Type II blow-up.
-- **Outcome:** The **Sieve** activates. We do not need to analyze the PDE evolution of $V$. We only need to check if $V$ can *afford* to exist.
+**Type B: Non-safe profile ($V \notin M$).**
+The profile $V$ is a self-similar blow-up profile or a high-energy bubble that is *not* in the safe manifold.
+- **Mechanism:** The system is attempting to construct a Type II blow-up.
+- **Outcome:** The **Admissibility Tests** apply. We do not need to analyze the PDE evolution of $V$. We only need to verify whether $V$ satisfies the axiom constraints.
 
-### 7.4 Disabling conservation of difficulty: The sieve
+### 8.4 Disabling conservation of difficulty: Admissibility tests
 
-This is where the framework replaces hard analysis with algebra. We test the "Alien Maximizer" $V$ against the structural axioms.
+This is where the framework replaces hard analysis with algebra. We test the non-safe profile $V$ against the structural axioms.
 
-**Test 1: The Cost of Existence (Scaling Sieve).**
+**Test 1: Scaling Admissibility.**
 Even if $V$ is a valid profile, it must be generated by the gauge sequence $g_n$ (specifically the scaling $\lambda_n \to \infty$).
-By **Axiom SC** and **Theorem 6.2 (Property GN)**:
+By **Axiom SC** and **Theorem 7.2 (Property GN)**:
 $$
 \text{Cost of Generating } V \sim \int (\text{Dissipation of } g_n \cdot V)
 $$
 
-- If the scaling exponents satisfy $\alpha > \beta$ (Subcriticality), the cost of generating *any* non-trivial Alien Maximizer via scaling is **infinite**.
-- **Result:** The Alien Maximizer $V$ is vetoed. It cannot be formed from finite energy.
+- If the scaling exponents satisfy $\alpha > \beta$ (Subcriticality), the cost of generating *any* non-trivial non-safe profile via scaling is **infinite**.
+- **Result:** The non-safe profile $V$ is excluded. It cannot be formed from finite energy.
 
-**Test 2: The Geometry of Existence (Capacity Sieve).**
+**Test 2: Capacity Admissibility.**
 If $V$ is supported on a "thin" set (e.g., a singular filament with dimension $< Q$):
-- By **Axiom Cap** and **Theorem 6.3**, the time available to create such a profile goes to zero faster than the profile can form.
-- **Result:** The Alien Maximizer is vetoed by geometry.
+- By **Axiom Cap** and **Theorem 7.3**, the time available to create such a profile goes to zero faster than the profile can form.
+- **Result:** The non-safe profile is excluded by geometric constraints.
 
-### 7.5 The no-assumption logic flow
+### 8.5 The no-assumption logic flow
 
 To clarify why the framework does not assume existence, we present the following logical flowchart:
 
@@ -1326,18 +1451,18 @@ To clarify why the framework does not assume existence, we present the following
 
 **Step 3: Is the Maximizer Safe?** ($V \in M$ test)
 - **YES:** Soliton Resolution / Asymptotic Stability. (Singularity fails via Mode 6 / Stability).
-- **NO:** It is an **Alien Maximizer**. Proceed to Step 4.
+- **NO:** It is a **non-safe profile**. Proceed to Step 4.
 
-**Step 4: Can the Alien Afford the Rent?** (Axiom SC test)
+**Step 4: Does the profile satisfy the scaling constraint?** (Axiom SC test)
 - **NO:** Property GN proves infinite cost. (Singularity fails via Mode 3).
-- **YES:** (Only possible if $\alpha \leq \beta$, i.e., Supercritical Physics).
+- **YES:** (Only possible if $\alpha \leq \beta$, i.e., supercritical regime).
 
 **Conclusion:** We never assume a global maximizer exists.
 - If the branch is empty (no concentration), we win by default.
 - If the branch is full (concentration), Axiom C *produces* the maximizer $V$ for us.
-- We then execute $V$ using Scaling Algebra.
+- We then exclude $V$ using scaling algebra.
 
-### 7.6 Implementation guide: How to endow solutions
+### 8.6 Implementation guide: How to endow solutions
 
 When instantiating the framework for a specific system, one does not search for the global maximizer of the functional. The procedure is as follows:
 
@@ -1353,15 +1478,15 @@ Prove that any sequence with bounded critical norm that does *not* disperse has 
 
 **Step 4: The Check.**
 Is $\alpha > \beta$?
-- **Yes:** Then **Theorem 6.2** guarantees that *whatever* the profile $V$ extracted in Step 2 is, it cannot sustain a Type II blow-up. The "Alien Maximizer" is structurally illegal.
+- **Yes:** Then **Theorem 7.2** guarantees that *whatever* the profile $V$ extracted in Step 2 is, it cannot sustain a Type II blow-up. The non-safe profile is structurally inadmissible.
 
-**Remark 7.3 (Decoupling existence from admissibility).** The hypostructure framework decouples the *existence* of singular profiles from their *admissibility*. We do not require the existence of a global maximizer to define the theory. Instead, Axiom C ensures that if a singularity attempts to form via concentration, a local maximizer (Canonical Profile) must emerge asymptotically. Axiom SC then evaluates the metabolic cost of this emerging profile. If the cost is infinite (GN), the profile is forbidden from materializing, regardless of whether a global maximizer exists for the static functional.
+**Remark 8.3 (Decoupling existence from admissibility).** The hypostructure framework decouples the *existence* of singular profiles from their *admissibility*. We do not require the existence of a global maximizer to define the theory. Instead, Axiom C ensures that if a singularity attempts to form via concentration, a local maximizer (Canonical Profile) must emerge asymptotically. Axiom SC then evaluates the scaling cost of this emerging profile. If the cost is infinite (GN), the profile is forbidden from materializing, regardless of whether a global maximizer exists for the static functional.
 
 ---
 
-## 8. Instantiation guide
+## 9. Instantiation guide
 
-### 8.1 General instantiation protocol
+### 9.1 General instantiation protocol
 
 To instantiate the hypostructure framework for a specific dynamical system:
 
@@ -1402,22 +1527,22 @@ To instantiate the hypostructure framework for a specific dynamical system:
 - Compute the dissipation scaling exponent $\alpha$: how does $\mathfrak{D}(\mathcal{S}_\lambda \cdot x)$ scale with $\lambda$?
 - Compute the temporal scaling exponent $\beta$: how does $dt$ transform under rescaling?
 - Verify the subcritical condition $\alpha > \beta$.
-- **Note:** This is pure dimensional analysis—no hard lemmas required. Once SC is verified, Property GN follows automatically from Theorem 6.2.1.
+- **Note:** This is pure dimensional analysis—no hard lemmas required. Once SC is verified, Property GN follows automatically from Theorem 7.2.1.
 
 **Step 8: Specify background structures.**
 - **(BG) Geometric:** Specify dimension $Q$, verify Ahlfors regularity, capacity-codimension bounds.
 - **(TB) Topological:** Identify topological sectors $\tau$, action functional $\mathcal{A}$, action gap $\Delta$.
 
-**Conclusion:** Once all axioms are verified, Theorems 6.1–6.6 apply, giving complete singularity control for the system.
+**Conclusion:** Once all axioms are verified, Theorems 7.1–7.6 apply, giving complete singularity control for the system.
 
-### 8.2 PDE instantiation tips
+### 9.2 PDE instantiation tips
 
-For parabolic PDEs (e.g., Navier–Stokes, reaction–diffusion, geometric flows):
+For parabolic PDEs (e.g., semilinear heat equations, reaction–diffusion, geometric flows):
 
 **State space:**
 - Sobolev spaces $H^s(\Omega)$, $W^{k,p}(\Omega)$
 - Besov spaces $B^s_{p,q}$ for critical regularity
-- Weak solution spaces (e.g., Leray–Hopf for Navier–Stokes)
+- Weak solution spaces (e.g., energy class solutions)
 
 **Compactness (C):**
 - Rellich–Kondrachov: $H^1 \hookrightarrow\hookrightarrow L^2$ on bounded domains.
@@ -1426,7 +1551,7 @@ For parabolic PDEs (e.g., Navier–Stokes, reaction–diffusion, geometric flows
 - Profile decomposition: for dispersive/wave equations.
 
 **Dissipation (D):**
-- Viscous dissipation: $\mathfrak{D}(u) = \nu \|\nabla u\|_{L^2}^2$ for Navier–Stokes.
+- Viscous dissipation: $\mathfrak{D}(u) = \nu \|\nabla u\|_{L^2}^2$ for diffusive systems.
 - Entropy production: $\mathfrak{D}(f) = \int |\nabla \log f|^2 f \, dx$ for Fokker–Planck.
 - Verify the energy identity/inequality from the PDE.
 
@@ -1438,7 +1563,7 @@ For parabolic PDEs (e.g., Navier–Stokes, reaction–diffusion, geometric flows
 **Capacity (Cap):**
 - Capacity from scaling-critical norms: $c(u) = \|u\|_{\dot{H}^{s_c}}^p$ at critical regularity $s_c$.
 - Frequency localization: high-frequency concentration increases capacity.
-- CKN (Caffarelli–Kohn–Nirenberg) theory for Navier–Stokes.
+- Concentration-compactness methods for critical problems.
 
 **Local stiffness (LS):**
 - Linearized spectrum around equilibria.
@@ -1450,9 +1575,9 @@ For parabolic PDEs (e.g., Navier–Stokes, reaction–diffusion, geometric flows
 - Compute $\alpha$: how $\mathfrak{D}$ transforms under $u \mapsto \mathcal{S}_\lambda \cdot u$. This is dimensional analysis.
 - Compute $\beta$: the temporal exponent from $dt \to \lambda^{-\beta} ds$.
 - Verify $\alpha > \beta$: the subcritical dissipation condition.
-- **Key point:** This is pure dimensional analysis—no PDE estimates needed. Once exponents are identified, GN follows automatically from Theorem 6.2.1.
+- **Key point:** This is pure dimensional analysis—no PDE estimates needed. Once exponents are identified, GN follows automatically from Theorem 7.2.1.
 
-### 8.3 Kinetic/probabilistic instantiation tips
+### 9.3 Kinetic/probabilistic instantiation tips
 
 For kinetic equations, interacting particle systems, and stochastic dynamics:
 
@@ -1492,7 +1617,7 @@ For kinetic equations, interacting particle systems, and stochastic dynamics:
 - Subcritical condition from entropy-production scaling.
 - **Key point:** Once scaling exponents are computed, GN follows automatically.
 
-### 8.4 Discrete/computational instantiation tips
+### 9.4 Discrete/computational instantiation tips
 
 For λ-calculus, interaction nets, term rewriting, and graph dynamics:
 
@@ -1535,37 +1660,38 @@ For λ-calculus, interaction nets, term rewriting, and graph dynamics:
 
 ---
 
-## 9. Extended instantiation sketches
+## 10. Extended instantiation sketches
 
-### 9.1 Navier–Stokes type systems
+### 10.1 Semilinear parabolic systems
 
-Consider the incompressible Navier–Stokes equations on $\Omega \subseteq \mathbb{R}^3$:
+Consider a semilinear parabolic system on $\Omega \subseteq \mathbb{R}^n$:
 $$
-\partial_t u + (u \cdot \nabla) u = \nu \Delta u - \nabla p, \quad \nabla \cdot u = 0.
+\partial_t u = \nu \Delta u + f(u, \nabla u),
 $$
+where $f$ satisfies appropriate growth conditions.
 
 **Hypostructure data:**
-- $X = L^2_\sigma(\Omega)$ (divergence-free $L^2$ vector fields) or $H^1_\sigma(\Omega)$.
-- $S_t$: Leray–Hopf weak solution operator.
-- $\Phi(u) = \frac{1}{2}\|u\|_{L^2}^2$ (kinetic energy).
-- $\mathfrak{D}(u) = \nu \|\nabla u\|_{L^2}^2$ (enstrophy/dissipation).
+- $X = H^1(\Omega)$ or $W^{1,p}(\Omega)$ depending on the nonlinearity.
+- $S_t$: mild solution operator.
+- $\Phi(u) = \frac{1}{2}\|\nabla u\|_{L^2}^2 + F(u)$ (energy functional with potential $F$).
+- $\mathfrak{D}(u) = \nu \|\Delta u\|_{L^2}^2$ or appropriate dissipation from the system.
 
 **Axiom verification:**
 - **(C):** Aubin–Lions gives compactness of bounded energy trajectories in $L^2_{\mathrm{loc}}$.
-- **(D):** Energy inequality: $\frac{1}{2}\|u(t)\|_{L^2}^2 + \nu \int_0^t \|\nabla u\|_{L^2}^2 \, ds \leq \frac{1}{2}\|u_0\|_{L^2}^2$.
-- **(R):** Local smoothing in regions of bounded enstrophy.
-- **(Cap):** Capacity from critical Besov norm $\|u\|_{\dot{B}^{-1}_{\infty,\infty}}$ or Type I condition.
-- **(LS):** Linearized Stokes operator has spectral gap on bounded domains.
+- **(D):** Energy inequality derived from testing the equation against $\partial_t u$.
+- **(R):** Local smoothing via parabolic regularity in regions of bounded energy.
+- **(Cap):** Capacity from scaling-critical norms at the critical Sobolev exponent.
+- **(LS):** Linearized operator spectrum around equilibria.
 
-**SC verification:** The parabolic scaling is $u_\lambda(x,t) = \lambda u(\lambda x, \lambda^2 t)$. Under this scaling:
-- Dissipation $\mathfrak{D} = \nu\|\nabla u\|^2$ transforms with exponent $\alpha$ determined by dimensional analysis.
+**SC verification:** The parabolic scaling is $u_\lambda(x,t) = \lambda^\gamma u(\lambda x, \lambda^2 t)$ with $\gamma$ determined by the nonlinearity. Under this scaling:
+- Dissipation $\mathfrak{D}$ transforms with exponent $\alpha$ determined by dimensional analysis.
 - Time transforms with exponent $\beta = 2$.
-- The subcritical condition $\alpha > \beta$ is verified by direct computation.
-- **Consequence:** By Theorem 6.2.1, GN holds automatically—Type II blow-up is framework-forbidden.
+- The subcritical condition $\alpha > \beta$ is verified by direct computation when the nonlinearity is energy-subcritical.
+- **Consequence:** By Theorem 7.2.1, GN holds automatically—Type II blow-up is framework-forbidden.
 
-**Conclusion:** If all axioms are verified (open problem for 3D Navier–Stokes!), global regularity follows.
+**Conclusion:** Once all axioms are verified, Theorems 7.1–7.6 apply, giving complete singularity classification.
 
-### 9.2 Geometric flows
+### 10.2 Geometric flows
 
 Consider mean curvature flow of hypersurfaces $M_t \subset \mathbb{R}^{n+1}$:
 $$
@@ -1587,7 +1713,7 @@ where $H$ is mean curvature and $\nu$ is the unit normal.
 
 **Surgery as gauge:** At singularities, Huisken–Sinestrari surgery modifies the surface, acting as a "gauge transformation" that removes the singular part and continues the flow.
 
-### 9.3 Interacting particle systems
+### 10.3 Interacting particle systems
 
 Consider $N$ particles with positions $X_i \in \mathbb{R}^d$ evolving by:
 $$
@@ -1606,11 +1732,11 @@ $$
 - **(LS):** Log-Sobolev inequality from uniform convexity of $V + W * \mu$.
 - **(TB):** Topological sectors from homotopy classes of configurations (for topological particles).
 
-**SC verification:** Scaling of Fisher information under measure dilation gives exponent $\alpha$; diffusive time scaling gives $\beta$. The subcritical condition follows from entropy-production structure. GN then follows automatically from Theorem 6.2.1.
+**SC verification:** Scaling of Fisher information under measure dilation gives exponent $\alpha$; diffusive time scaling gives $\beta$. The subcritical condition follows from entropy-production structure. GN then follows automatically from Theorem 7.2.1.
 
 **Mean-field limit:** As $N \to \infty$, propagation of chaos shows convergence to McKean–Vlasov dynamics. Uniform-in-$N$ estimates ensure SC holds uniformly.
 
-### 9.4 λ-calculus and interaction nets
+### 10.4 λ-calculus and interaction nets
 
 Consider the pure λ-calculus with β-reduction:
 $$
