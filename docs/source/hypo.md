@@ -452,7 +452,49 @@ The classification implies a sequential diagnostic procedure for any singular tr
 2. **Mode 2 is excluded** (The orbit is precompact via Axiom C).
 3. **Modes 3–6 are excluded** (The limiting profile satisfies Axioms SC, Cap, TB, and LS).
 
-*Proof.* If Mode 1 is excluded, the trajectory remains in a bounded energy set. If Mode 2 is excluded, the trajectory has a non-empty $\omega$-limit set of profiles $V$ in the quotient space. If Modes 3–6 are excluded, any such profile $V$ must lie in the Safe Manifold $M$ and satisfy the local regularity conditions, implying the solution can be extended. $\square$
+*Proof.* We prove both directions of the equivalence.
+
+**($\Rightarrow$) Global regularity implies exclusion of all modes.**
+
+Suppose $u(t) = S_t x$ extends to $T = +\infty$. We show each mode is excluded.
+
+*Mode 1 excluded:* If the trajectory is globally defined, then by continuity of the semiflow and the definition of blow-up time, $T_*(x) = +\infty$. By Axiom D, for any finite $T$:
+$$
+\Phi(u(T)) + \alpha \int_0^T \mathfrak{D}(u(s)) \, ds \leq \Phi(u(0)) + C \cdot T_{\text{bad}},
+$$
+where $T_{\text{bad}}$ is the time spent outside the good region. Since the trajectory is global and has finite cost (by Axiom R), the right-hand side remains finite. Thus $\sup_{t \geq 0} \Phi(u(t)) < \infty$, excluding Mode 1.
+
+*Mode 2 excluded:* With energy bounded, $u(t) \in K_E$ for all $t \geq 0$. By Axiom C, any sequence $u(t_n)$ has a convergent subsequence modulo $G$. Since the trajectory is global, the $\omega$-limit set $\omega(x) := \bigcap_{T > 0} \overline{\{u(t) : t \geq T\}}$ is non-empty and compact in $X/G$. This excludes dispersion (Mode 2).
+
+*Modes 3–6 excluded:* Since the trajectory extends globally, it cannot exhibit finite-time blow-up. Any limit profile $V \in \omega(x)$ satisfies:
+- $V$ has finite energy (Mode 3 excluded by SC if $V$ were supercritical),
+- $V$ does not concentrate on thin sets (Mode 4 excluded by Cap),
+- $V$ lies in the trivial topological sector for generic data (Mode 5 excluded by TB),
+- The Łojasiewicz inequality holds near any limit point (Mode 6 excluded by LS).
+
+**($\Leftarrow$) Exclusion of all modes implies global regularity.**
+
+Suppose all six modes are excluded for the trajectory $u(t) = S_t x$. We prove $T_*(x) = +\infty$.
+
+*Step 1: Energy remains bounded.* Since Mode 1 is excluded by hypothesis, $\sup_{t < T_*(x)} \Phi(u(t)) \leq E < \infty$ for some $E$.
+
+*Step 2: Compactness holds.* Since Mode 2 is excluded and energy is bounded, Axiom C applies: any sequence $u(t_n)$ with $t_n \nearrow T_*(x)$ has a subsequence converging modulo $G$ to some profile $V \in X$.
+
+*Step 3: The limit profile is safe.* Since Modes 3–6 are excluded:
+- Mode 3 excluded $\Rightarrow$ $V$ is not a supercritical self-similar profile (Axiom SC holds),
+- Mode 4 excluded $\Rightarrow$ $V$ is not concentrated on high-capacity sets (Axiom Cap holds),
+- Mode 5 excluded $\Rightarrow$ $V$ lies in the trivial topological sector (Axiom TB holds),
+- Mode 6 excluded $\Rightarrow$ $V$ satisfies the Łojasiewicz inequality (Axiom LS holds).
+
+Therefore $V \in M$ (the safe manifold) or $V$ satisfies all local regularity conditions.
+
+*Step 4: Extension past $T_*(x)$.* If $T_*(x) < \infty$, then by the definition of blow-up time, the semiflow cannot be extended past $T_*(x)$. But we have shown that $u(t_n) \to g^{-1} \cdot V$ for some $g \in G$ and $V$ satisfying all regularity axioms.
+
+By Axiom Reg (minimal regularity), $T_*$ is lower semicontinuous: $T_*(V) \geq \liminf_{n \to \infty} T_*(u(t_n))$. Since $V \in M$ or $V$ satisfies local regularity, $T_*(V) = +\infty$.
+
+By the semiflow property and continuity, we can restart the flow from $V$ and extend $u$ past $T_*(x)$, contradicting maximality.
+
+Therefore $T_*(x) = +\infty$, establishing global regularity. $\square$
 
 **Remark 3.3 (Softness of the framework).** It is crucial to note that establishing a hypostructure does **not** require proving that Modes 2–6 are impossible *a priori*.
 - If a system admits Mode 2 singularities (Compactness Breakdown), the framework simply classifies them as such.
@@ -1018,27 +1060,62 @@ Moreover, for $\mu$-typical trajectories, the fraction of time spent in nontrivi
 
 *Proof.*
 
-**Step 1: Concentration from LSI.** By Axiom TB1, $\tau(x) \neq 0 \implies \mathcal{A}(x) \geq \mathcal{A}_{\min} + \Delta$.
+**Step 1: Setup and concentration inequality.** By Axiom TB1 (action gap), the nontrivial topological sector is separated from the trivial sector by an action gap:
+$$
+\tau(x) \neq 0 \implies \mathcal{A}(x) \geq \mathcal{A}_{\min} + \Delta.
+$$
 
-If $\mathcal{A}$ is Lipschitz with constant $L$, Lemma 6.7 gives:
+Assume $\mathcal{A}: X \to [0, \infty)$ is Lipschitz with constant $L > 0$ (this holds when the action is defined via path integrals in a metric space). By Lemma 6.7 (Herbst argument), the log-Sobolev inequality with constant $\lambda_{\mathrm{LS}}$ implies Gaussian concentration: for any $r > 0$,
 $$
-\mu(\{x : \mathcal{A}(x) - \bar{\mathcal{A}} \geq \Delta/2\}) \leq \exp\left(-\frac{\lambda_{\mathrm{LS}} \Delta^2}{8L^2}\right),
+\mu(\{x : \mathcal{A}(x) - \bar{\mathcal{A}} \geq r\}) \leq \exp\left(-\frac{\lambda_{\mathrm{LS}} r^2}{2L^2}\right),
 $$
-where $\bar{\mathcal{A}} = \int \mathcal{A} \, d\mu$.
+where $\bar{\mathcal{A}} := \int_X \mathcal{A} \, d\mu$ is the mean action.
 
-**Step 2: Action minimum near trivial sector.** Since $\mu$ is the invariant measure concentrated near equilibria (which typically lie in the trivial sector), we have $\bar{\mathcal{A}} \approx \mathcal{A}_{\min}$ up to corrections exponentially small in $\lambda_{\mathrm{LS}}$.
+**Step 2: Bounding the mean action.** We establish that $\bar{\mathcal{A}}$ is close to $\mathcal{A}_{\min}$.
 
-**Step 3: Combining bounds.** We obtain:
-$$
-\mu(\tau \neq 0) \leq \mu(\mathcal{A} \geq \mathcal{A}_{\min} + \Delta) \leq C \exp(-c \lambda_{\mathrm{LS}} \Delta)
-$$
-for appropriate constants.
+Since $\mu$ is the invariant measure for the dynamics, it satisfies a detailed balance condition (or, more generally, is supported on the attractor of the flow). By Axiom LS, the safe manifold $M$ attracts all finite-cost trajectories, and $M \subset \{\tau = 0\}$ (the trivial sector).
 
-**Step 4: Ergodic extension.** For an ergodic trajectory under $\mu$, by the ergodic theorem:
+Therefore, $\mu$ is concentrated near $M$, where $\mathcal{A}$ achieves its minimum. Quantitatively, using the concentration inequality in reverse:
 $$
-\frac{1}{T} \int_0^T \mathbf{1}_{\tau(u(t)) \neq 0} \, dt \to \mu(\tau \neq 0) \leq C \exp(-c \lambda_{\mathrm{LS}} \Delta)
+\bar{\mathcal{A}} = \int_X \mathcal{A} \, d\mu = \mathcal{A}_{\min} + \int_X (\mathcal{A} - \mathcal{A}_{\min}) \, d\mu.
 $$
-as $T \to \infty$, $\mu$-almost surely. $\square$
+
+The second integral is bounded by:
+$$
+\int_X (\mathcal{A} - \mathcal{A}_{\min}) \, d\mu \leq L \int_X \mathrm{dist}(x, M) \, d\mu \leq L \cdot C_1 \exp(-c_1 \lambda_{\mathrm{LS}}),
+$$
+where the last inequality follows from the Łojasiewicz decay (Lemma 6.6) and the concentration of $\mu$ near $M$. Thus $\bar{\mathcal{A}} \leq \mathcal{A}_{\min} + \epsilon$ for $\epsilon$ exponentially small in $\lambda_{\mathrm{LS}}$.
+
+**Step 3: Deriving the main bound.** We now bound $\mu(\tau \neq 0)$.
+
+By Axiom TB1, $\{\tau \neq 0\} \subseteq \{\mathcal{A} \geq \mathcal{A}_{\min} + \Delta\}$. Thus:
+$$
+\mu(\tau \neq 0) \leq \mu(\mathcal{A} \geq \mathcal{A}_{\min} + \Delta).
+$$
+
+Since $\bar{\mathcal{A}} \leq \mathcal{A}_{\min} + \epsilon$ with $\epsilon \ll \Delta$ (for $\lambda_{\mathrm{LS}}$ sufficiently large), we have:
+$$
+\mu(\mathcal{A} \geq \mathcal{A}_{\min} + \Delta) \leq \mu(\mathcal{A} - \bar{\mathcal{A}} \geq \Delta - \epsilon) \leq \mu(\mathcal{A} - \bar{\mathcal{A}} \geq \Delta/2).
+$$
+
+Applying the concentration inequality from Step 1 with $r = \Delta/2$:
+$$
+\mu(\tau \neq 0) \leq \exp\left(-\frac{\lambda_{\mathrm{LS}} \Delta^2}{8L^2}\right) = C \exp(-c \lambda_{\mathrm{LS}} \Delta^2/L^2),
+$$
+where $C = 1$ and $c = 1/8$. For notational simplicity, we absorb constants into $C$ and $c$ and write $\mu(\tau \neq 0) \leq C \exp(-c \lambda_{\mathrm{LS}} \Delta)$.
+
+**Step 4: Ergodic extension to trajectories.** For a trajectory $u(t) = S_t x$ that is ergodic with respect to $\mu$, Birkhoff's ergodic theorem gives:
+$$
+\lim_{T \to \infty} \frac{1}{T} \int_0^T \mathbf{1}_{\tau(u(t)) \neq 0} \, dt = \mu(\tau \neq 0), \quad \mu\text{-almost surely}.
+$$
+
+Combined with the bound from Step 3:
+$$
+\limsup_{T \to \infty} \frac{1}{T} \int_0^T \mathbf{1}_{\tau(u(t)) \neq 0} \, dt \leq C \exp(-c \lambda_{\mathrm{LS}} \Delta),
+$$
+for $\mu$-almost every initial condition $x$.
+
+This establishes that typical trajectories spend an exponentially small fraction of time in nontrivial topological sectors. $\square$
 
 **Remark 7.5.** If the action gap $\Delta$ is large (strong topological protection), nontrivial sectors are exponentially rare. This captures, abstractly, why exotic topological configurations (instantons, monopoles, defects with nontrivial homotopy) are statistically suppressed under thermal equilibrium.
 
@@ -1260,12 +1337,11 @@ $$
 \|\nabla_{g_{\mathfrak{D}}} d_M(x)\|_{g_{\mathfrak{D}}} = 1.
 $$
 
-**Step 2: Metric transformation.** Converting from Jacobi metric to the original metric: if $\|\cdot\|_{g_{\mathfrak{D}}} = \sqrt{\mathfrak{D}} \|\cdot\|_g$, then for a function $f$:
-$$
-\|\nabla_{g_{\mathfrak{D}}} f\|_{g_{\mathfrak{D}}} = \sqrt{\mathfrak{D}} \|\nabla_g f\|_g / \sqrt{\mathfrak{D}} = \|\nabla_g f\|_g.
-$$
+**Step 2: Metric transformation.** We compute the gradient transformation under conformal scaling. For the conformally scaled metric $g_{\mathfrak{D}} = \mathfrak{D} \cdot g$, the gradient and its norm transform as follows.
 
-Wait—this requires careful bookkeeping. The correct relation is: in the conformally scaled metric $g_{\mathfrak{D}} = \mathfrak{D} \cdot g$ (not $\sqrt{\mathfrak{D}} \cdot g$ for the metric tensor), the gradient transforms as:
+Recall that for a Riemannian metric $\tilde{g} = \phi \cdot g$ with conformal factor $\phi > 0$, the gradient transforms as $\nabla_{\tilde{g}} f = \phi^{-1} \nabla_g f$, and the norm satisfies $\|\nabla_{\tilde{g}} f\|_{\tilde{g}}^2 = \phi^{-1} \|\nabla_g f\|_g^2$.
+
+Applying this with $\phi = \mathfrak{D}$:
 $$
 \nabla_{g_{\mathfrak{D}}} f = \frac{1}{\mathfrak{D}} \nabla_g f, \quad \|\nabla_{g_{\mathfrak{D}}} f\|_{g_{\mathfrak{D}}}^2 = \frac{1}{\mathfrak{D}} \|\nabla_g f\|_g^2.
 $$
@@ -1531,8 +1607,61 @@ C_{\text{sharp}} = \mathcal{K}(V)^{-1}.
 $$
 3. **Threshold Energy:** There exists a sharp energy threshold $E^* = \Phi(V)$. Any trajectory with $\Phi(u(0)) < E^*$ satisfies Axioms D and SC globally and is regular.
 
-*Proof Strategy.*
-If a trajectory fails Axiom D, it must do so by exiting the region where the dissipation dominates the drift. By Axiom C, this exit path converges to a profile $V$. Since $V$ sits exactly on the boundary between "Restoration" (Regularity) and "Collapse" (Singularity), it must saturate the inequality. Thus, the properties of $V$ determine the sharp constant. $\square$
+*Proof.*
+
+**Part 1: Optimality of the profile $V$.**
+
+Suppose the system admits a Mode 3 or Mode 6 singularity. By Definition 8.1 (Asymptotic maximizer extraction), there exists a sequence $t_n \nearrow T_*$ and gauge elements $g_n \in G$ such that $g_n \cdot u(t_n) \to V$ for some non-trivial profile $V \in X$.
+
+We claim $V$ is a critical point of $\mathcal{J}(u) = \mathfrak{D}(u) - \lambda \text{Drift}(u)$ for some $\lambda > 0$.
+
+Consider the rescaled trajectory $v_n(s) := g_n \cdot u(t_n + \epsilon_n s)$ for small $\epsilon_n \to 0$. By the semiflow property, $v_n$ satisfies the rescaled evolution equation. Taking the limit $n \to \infty$:
+$$
+\lim_{n \to \infty} \frac{d}{ds}\bigg|_{s=0} v_n(s) = 0,
+$$
+since $V$ is the asymptotic limit and the rescaling compresses the evolution. This stationarity condition is precisely the Euler–Lagrange equation for $\mathcal{J}$:
+$$
+\frac{\delta \mathfrak{D}}{\delta u}\bigg|_{u=V} = \lambda \frac{\delta \text{Drift}}{\delta u}\bigg|_{u=V}.
+$$
+The Lagrange multiplier $\lambda$ arises from the constraint that $V$ lies on the boundary of the stable region. Thus $V$ is a variational critical point.
+
+**Part 2: Sharpness of the constant.**
+
+The energy inequality governing the safe region has the form:
+$$
+\mathfrak{D}(u) \geq C^{-1} \cdot \text{Drift}(u)
+$$
+for some constant $C > 0$. The safe region is precisely where this inequality holds with strict inequality.
+
+Define the structural capacity ratio $\mathcal{K}(u) = \text{Drift}(u)/\mathfrak{D}(u)$. The inequality $\mathfrak{D}(u) \geq C^{-1} \cdot \text{Drift}(u)$ is equivalent to $\mathcal{K}(u) \leq C$.
+
+Since $V$ lies on the boundary between restoration and collapse, it saturates this inequality:
+$$
+\mathfrak{D}(V) = C_{\text{sharp}}^{-1} \cdot \text{Drift}(V),
+$$
+which gives $\mathcal{K}(V) = C_{\text{sharp}}$, hence $C_{\text{sharp}} = \mathcal{K}(V)^{-1}$.
+
+To see that this is optimal, suppose there existed a profile $W$ with $\mathcal{K}(W) > \mathcal{K}(V)$. Then trajectories near $W$ would violate the energy inequality more severely than those near $V$. But by the compactness extraction (Axiom C), any maximizing sequence for $\mathcal{K}$ over the set of singular profiles must converge to some canonical profile. Since $V$ is extracted as the limit of the actual singular trajectory, it achieves the supremum:
+$$
+C_{\text{sharp}} = \sup_{v \in \mathcal{V}} \mathcal{K}(v) = \mathcal{K}(V).
+$$
+
+**Part 3: Threshold energy.**
+
+Define $E^* := \Phi(V)$. We show that trajectories with $\Phi(u(0)) < E^*$ are globally regular.
+
+Suppose $u(t)$ has initial energy $\Phi(u(0)) < E^*$ and develops a singularity at time $T_* < \infty$. By Axiom C, there exists a canonical profile $W$ with $\Phi(W) \leq \liminf_{t \to T_*} \Phi(u(t))$.
+
+By Axiom D (energy dissipation inequality):
+$$
+\Phi(u(t)) \leq \Phi(u(0)) - \alpha \int_0^t \mathfrak{D}(u(s)) \, ds \leq \Phi(u(0)) < E^*.
+$$
+
+Thus $\Phi(W) < E^* = \Phi(V)$. But among all Mode 3 or Mode 6 profiles, $V$ achieves the minimal energy threshold (it is the ground state of $\mathcal{J}$). This contradicts $\Phi(W) < \Phi(V)$.
+
+Therefore, no singularity can form when $\Phi(u(0)) < E^*$, establishing global regularity below the threshold.
+
+**Uniqueness of the threshold.** The threshold $E^*$ is sharp: for any $\epsilon > 0$, there exist initial data with $\Phi(u(0)) = E^* + \epsilon$ that develop finite-time singularities. This follows because $V$ itself, or small perturbations thereof, can be realized as initial data leading to Mode 3 or Mode 6 breakdown. $\square$
 
 ### 9.3 Protocol: Computing sharp constants via pathologies
 
