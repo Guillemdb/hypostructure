@@ -150,5 +150,3 @@ In our forthcoming work, we will operationalize this ontology by constructing th
 *   **Propagators as Graph Laplacians:** We will derive particle propagators not as fundamental objects, but as the Green's functions of the discrete Laplacian on $\mathcal{F}$.
 
 Thus, we claim that **General Relativity** (the geometry of the CST) and **Quantum Mechanics** (the topology of the IG) are not distinct theories, but merely the vertical (temporal) and horizontal (informational) projections of a single, unified, algorithmically generated Fractal Set.
-
-**Q.E.D.**
