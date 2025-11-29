@@ -2990,7 +2990,11 @@ The energy budget $\Phi_0$ constrains the initial data to a compact region of ph
 *Lemma 9.38.2 (Shannon Capacity of Energy-Constrained Channels).* Consider a communication channel where the signal power is constrained by $P_{\text{signal}} \leq \Phi$ and the noise power is $P_{\text{noise}} = \epsilon_{\text{noise}}$. The channel capacity is:
 $$C = \frac{1}{2}\log_2\left(1 + \frac{P_{\text{signal}}}{P_{\text{noise}}}\right) \leq \frac{1}{2}\log_2\left(1 + \frac{\Phi}{\epsilon_{\text{noise}}}\right).$$
 
-*Proof of Lemma.* This is the Shannon-Hartley theorem. The capacity is achieved by Gaussian-distributed signals and represents the maximum mutual information between input and output. $\square$
+*Proof of Lemma.* The Shannon-Hartley theorem [C.E. Shannon, "A mathematical theory of communication," Bell System Tech. J. 27 (1948), 379–423, 623–656] establishes that for a continuous-time channel with bandwidth $B$, signal power $P$, and additive white Gaussian noise with power spectral density $N_0/2$:
+$$C = B \log_2\left(1 + \frac{P}{N_0 B}\right).$$
+For a single degree of freedom ($B = 1/2$ in normalized units), this reduces to $C = \frac{1}{2}\log_2(1 + P/N)$.
+
+The achievability proof constructs random Gaussian codebooks: sample $2^{nR}$ codewords i.i.d. from $\mathcal{N}(0, P)$. For $R < C$, joint typicality decoding succeeds with probability $\to 1$ as $n \to \infty$. The converse uses Fano's inequality: any code with rate $R > C$ has error probability bounded away from zero. $\square$
 
 In the supercritical hollow regime, the renormalized profile has energy:
 $$\Phi(V_\lambda) = \lambda^{-\gamma} \Phi(V)$$
@@ -3264,7 +3268,11 @@ Let $\sigma$ be the candidate structure, with characteristic class $c(\sigma) \i
 *Lemma 9.46.1 (Naturality of Characteristic Classes).* Characteristic classes are natural transformations: for any continuous map $f: Y \to X$ and structure $\sigma$ on $X$, the pullback structure $f^*\sigma$ on $Y$ satisfies:
 $$c(f^*\sigma) = f^*(c(\sigma)).$$
 
-*Proof of Lemma.* This is the defining property of characteristic classes. For vector bundles, the Chern/Stiefel-Whitney classes are defined via the classifying map to $BU(n)$ or $BO(n)$, and naturality follows from functoriality of cohomology. $\square$
+*Proof of Lemma.* Characteristic classes are defined via classifying spaces [J. Milnor and J. Stasheff, *Characteristic Classes*, Princeton University Press, 1974, §5–7]. For a rank-$n$ complex vector bundle $E \to X$, there exists a classifying map $f_E: X \to BU(n)$ (unique up to homotopy) such that $E \cong f_E^* \gamma^n$ where $\gamma^n \to BU(n)$ is the universal bundle. The Chern classes are defined as $c_i(E) := f_E^*(c_i(\gamma^n))$ where $c_i(\gamma^n) \in H^{2i}(BU(n); \mathbb{Z})$ are the universal Chern classes.
+
+Naturality follows: for $g: Y \to X$ and $E \to X$, the classifying map of $g^*E$ is $f_{g^*E} = f_E \circ g$. Hence:
+$$c_i(g^*E) = f_{g^*E}^*(c_i(\gamma^n)) = (f_E \circ g)^*(c_i(\gamma^n)) = g^*(f_E^*(c_i(\gamma^n))) = g^*(c_i(E)).$$
+The argument for Stiefel-Whitney classes (using $BO(n)$ and $\mathbb{Z}/2$ coefficients) is identical. $\square$
 
 The existence of $\sigma$ imposes constraints on $c(\sigma)$ through:
 - **Geometric constraints:** If $\sigma$ is a section of a bundle $E \to X$, then $c(\sigma) = e(E)$ (Euler class). If $\sigma$ is a nowhere-vanishing vector field, then $e(TX) = 0$.
@@ -3298,7 +3306,11 @@ These relations constrain which cohomology classes can arise as images under Ste
 $$\text{Sq}^i(x) = v_i \cup x \quad \text{for all } x \in H^{n-i}(M; \mathbb{Z}/2).$$
 The Wu classes are related to Stiefel-Whitney classes by: $w = \text{Sq}(v)$, where $\text{Sq} = \sum_i \text{Sq}^i$ is the total Steenrod square.
 
-*Proof of Lemma.* This is Wu's theorem. The Wu classes exist by Poincaré duality: $\text{Sq}^i$ defines a linear functional on $H^{n-i}(M)$, which by duality corresponds to a class $v_i$. $\square$
+*Proof of Lemma.* Wu's theorem [W.-T. Wu, "Classes caractéristiques et $i$-carrés d'une variété," C. R. Acad. Sci. Paris 230 (1950), 508–511; see also Milnor-Stasheff, *Characteristic Classes*, §11] establishes the existence and properties of Wu classes.
+
+**Existence:** For a closed $n$-manifold $M$, Poincaré duality gives an isomorphism $H^{n-i}(M; \mathbb{Z}/2) \cong \text{Hom}(H^{n-i}(M; \mathbb{Z}/2), \mathbb{Z}/2)$. The Steenrod square $\text{Sq}^i$ defines a linear functional $\phi_i: H^{n-i}(M) \to H^n(M) \cong \mathbb{Z}/2$ via $\phi_i(x) = \langle \text{Sq}^i(x), [M] \rangle$. By duality, there exists a unique class $v_i \in H^i(M; \mathbb{Z}/2)$ with $\phi_i(x) = \langle v_i \cup x, [M] \rangle$ for all $x$.
+
+**Wu formula:** The relation $w = \text{Sq}(v)$ (i.e., $w_k = \sum_{i=0}^k \text{Sq}^{k-i}(v_i)$) follows from the defining property of Wu classes and the Cartan formula applied to $\text{Sq}(v \cup x) = \text{Sq}(v) \cup \text{Sq}(x)$. $\square$
 
 Suppose the geometric requirement forces $c(\sigma) \in H^n(X)$ to satisfy certain conditions. Apply the cohomology operation $\mathcal{O}$:
 
@@ -3325,7 +3337,13 @@ The Steenrod operations refine this: the number of linearly independent vector f
 $$o_n \in H^n(B; \pi_{n-1}(F)).$$
 The section extends iff $o_n = 0$.
 
-*Proof of Lemma.* This is classical obstruction theory. The obstruction class measures the failure of local sections to patch together globally, detected by the homotopy groups of the fiber. $\square$
+*Proof of Lemma.* Obstruction theory [N. Steenrod, *The Topology of Fibre Bundles*, Princeton University Press, 1951, Part III; A. Hatcher, *Algebraic Topology*, Cambridge University Press, 2002, §4.3] proceeds by induction on skeleta.
+
+**Construction:** Given a section $s_{n-1}: B^{(n-1)} \to E$ over the $(n-1)$-skeleton, for each $n$-cell $e_\alpha: D^n \to B$, the restriction $s_{n-1}|_{\partial e_\alpha}$ defines a map $S^{n-1} \to F$ (the fiber over $e_\alpha(0)$). This represents an element $[s_{n-1}|_{\partial e_\alpha}] \in \pi_{n-1}(F)$.
+
+**Obstruction cocycle:** The assignment $e_\alpha \mapsto [s_{n-1}|_{\partial e_\alpha}]$ defines a cellular cochain $o_n \in C^n(B; \pi_{n-1}(F))$. One verifies $\delta o_n = 0$ (cocycle condition) by checking compatibility on $(n+1)$-cells. The cohomology class $[o_n] \in H^n(B; \pi_{n-1}(F))$ is independent of choices.
+
+**Vanishing criterion:** The section extends to $B^{(n)}$ if and only if $[o_n] = 0$, which occurs precisely when each attaching map $s_{n-1}|_{\partial e_\alpha}$ is null-homotopic in $F$. $\square$
 
 The characteristic sieve operates by showing that the obstruction class $o_n$ must be non-zero:
 1. The geometric requirement implies certain properties of $o_n$.
@@ -3529,7 +3547,7 @@ Each restriction $P|_{L_\alpha}$ is a univariate polynomial of degree $\leq d$ t
 
 *Lemma 9.54.4 (Fundamental Theorem of Algebra Consequence).* Let $Q(t)$ be a univariate polynomial of degree $d$ over $\mathbb{F}$. If $Q$ has more than $d$ zeros (counting multiplicity), then $Q = 0$.
 
-*Proof of Lemma.* This is the fundamental theorem: a non-zero polynomial of degree $d$ has at most $d$ roots. $\square$
+*Proof of Lemma.* This follows from the factor theorem and induction on degree. If $Q(t) = \sum_{i=0}^d a_i t^i$ with $a_d \neq 0$ has a root $r$, then $Q(t) = (t - r)Q_1(t)$ where $\deg Q_1 = d - 1$ (polynomial division). Inductively, if $Q$ has $k > d$ distinct roots $r_1, \ldots, r_k$, then $Q(t) = (t - r_1)\cdots(t - r_d) Q_d(t)$ where $\deg Q_d = 0$. But then $Q(r_{d+1}) = (r_{d+1} - r_1)\cdots(r_{d+1} - r_d) Q_d \neq 0$ since all factors are non-zero—contradiction. Over algebraically closed fields, this is the fundamental theorem of algebra [C.F. Gauss, *Demonstratio nova theorematis...*, 1799]; over general fields, it is the factor theorem. $\square$
 
 *Application:* For each line $L_\alpha$ in the skeleton:
 - The restriction $P|_{L_\alpha}$ has degree $\leq d$.
@@ -3976,7 +3994,15 @@ In bits per unit renormalized time, this is $\mathcal{R} / \ln 2$.
 *Lemma 9.66.7 (Nair-Evans Data-Rate Theorem).* Consider a linear unstable system $\dot{x} = Ax$ with $A$ having unstable eigenvalues $\{\mu_i\}_{i=1}^{n_+}$. For the system to be stabilizable via feedback through a communication channel of capacity $C$ (bits per second), it is necessary that:
 $$C \geq \frac{1}{\ln 2} \sum_{i=1}^{n_+} \text{Re}(\mu_i).$$
 
-*Proof of Lemma.* This is the Nair-Evans theorem from networked control theory. The unstable modes generate information at rate $\sum \text{Re}(\mu_i)$ nats/second. To counteract this divergence, the controller must receive at least this much information about the state. A channel with capacity $C$ bits/second can transmit $C \ln 2$ nats/second. The inequality follows. $\square$
+*Proof of Lemma.* The Nair-Evans theorem [G.N. Nair and R.J. Evans, "Stabilizability of stochastic linear systems with finite feedback data rates," SIAM J. Control Optim. 43 (2004), 413–436; see also G.N. Nair, R.J. Evans, I.M.Y. Mareels, and W. Moran, "Topological feedback entropy and nonlinear stabilization," IEEE Trans. Automat. Control 49 (2004), 1585–1597] establishes the fundamental limit for stabilization under communication constraints.
+
+**Setup:** Consider $\dot{x} = Ax + Bu$ with state $x \in \mathbb{R}^n$, control $u$, and $A$ having eigenvalues $\{\mu_i\}$. The feedback loop contains a digital channel of capacity $C$ bits/second.
+
+**Information generation:** The unstable subspace (spanned by eigenvectors for $\text{Re}(\mu_i) > 0$) expands at rate $\sum_{\text{Re}(\mu_i) > 0} \text{Re}(\mu_i)$ nats/second. This is the topological entropy $h(A)$ of the linear map.
+
+**Necessary condition:** To stabilize, the controller must acquire information about the state at least as fast as instability generates it. The channel can transmit at most $C \ln 2$ nats/second. Hence $C \ln 2 \geq h(A) = \sum_{\text{Re}(\mu_i) > 0} \text{Re}(\mu_i)$, yielding $C \geq \frac{1}{\ln 2}\sum_i \text{Re}(\mu_i)$.
+
+**Sufficiency:** Nair-Evans prove this bound is tight: there exists a stabilizing controller achieving arbitrarily close to this rate. $\square$
 
 *Extension to nonlinear systems:* For nonlinear systems near an unstable equilibrium, the same bound applies to the linearization. The nonlinearity provides implicit "feedback," but the information-theoretic constraint remains.
 
@@ -6974,3 +7000,345 @@ $$
 - $\mathfrak{D}$: cost per interaction step.
 - Confluence and strong normalization give the axioms.
 - **Spectral lift:** Active pairs as quanta; interaction kernel from graph connectivity. Deadlock-free nets maintain $H_\perp \geq 0$.
+
+---
+
+## 14. Bibliography
+
+This chapter provides complete bibliographic information for all works cited in this document, formatted in BibTeX for reference management systems.
+
+### 14.1 Analysis and PDEs
+
+```bibtex
+@book{courant1962methods,
+  author    = {Courant, Richard and Hilbert, David},
+  title     = {Methods of Mathematical Physics},
+  volume    = {II: Partial Differential Equations},
+  publisher = {Interscience Publishers},
+  year      = {1962},
+  address   = {New York}
+}
+
+@book{henry1981geometric,
+  author    = {Henry, Daniel},
+  title     = {Geometric Theory of Semilinear Parabolic Equations},
+  series    = {Lecture Notes in Mathematics},
+  volume    = {840},
+  publisher = {Springer-Verlag},
+  year      = {1981},
+  address   = {Berlin}
+}
+
+@article{lions1984concentration,
+  author  = {Lions, Pierre-Louis},
+  title   = {The concentration-compactness principle in the calculus of variations. {T}he locally compact case, {P}art {I}},
+  journal = {Ann. Inst. H. Poincaré Anal. Non Linéaire},
+  volume  = {1},
+  number  = {2},
+  pages   = {109--145},
+  year    = {1984}
+}
+
+@book{pazy1983semigroups,
+  author    = {Pazy, Amnon},
+  title     = {Semigroups of Linear Operators and Applications to Partial Differential Equations},
+  publisher = {Springer-Verlag},
+  year      = {1983},
+  address   = {New York},
+  series    = {Applied Mathematical Sciences},
+  volume    = {44}
+}
+
+@book{reed1980methods,
+  author    = {Reed, Michael and Simon, Barry},
+  title     = {Methods of Modern Mathematical Physics {I}: Functional Analysis},
+  publisher = {Academic Press},
+  year      = {1980},
+  edition   = {Revised and Enlarged},
+  address   = {San Diego}
+}
+```
+
+### 14.2 Algebra and Number Theory
+
+```bibtex
+@article{faugere1999new,
+  author  = {Faugère, Jean-Charles},
+  title   = {A new efficient algorithm for computing {G}röbner bases ({$F_4$})},
+  journal = {J. Pure Appl. Algebra},
+  volume  = {139},
+  number  = {1--3},
+  pages   = {61--88},
+  year    = {1999}
+}
+
+@book{kaplansky1957introduction,
+  author    = {Kaplansky, Irving},
+  title     = {An Introduction to Differential Algebra},
+  publisher = {Hermann},
+  year      = {1957},
+  address   = {Paris}
+}
+
+@book{kolchin1973differential,
+  author    = {Kolchin, Ellis R.},
+  title     = {Differential Algebra and Algebraic Groups},
+  publisher = {Academic Press},
+  year      = {1973},
+  address   = {New York},
+  series    = {Pure and Applied Mathematics},
+  volume    = {54}
+}
+
+@book{lang2002algebra,
+  author    = {Lang, Serge},
+  title     = {Algebra},
+  publisher = {Springer-Verlag},
+  year      = {2002},
+  edition   = {3rd},
+  address   = {New York},
+  series    = {Graduate Texts in Mathematics},
+  volume    = {211}
+}
+
+@article{northcott1949inequality,
+  author  = {Northcott, Douglas Geoffrey},
+  title   = {An inequality in the theory of arithmetic on algebraic varieties},
+  journal = {Proc. Cambridge Philos. Soc.},
+  volume  = {45},
+  pages   = {502--509},
+  year    = {1949}
+}
+
+@book{serre1977linear,
+  author    = {Serre, Jean-Pierre},
+  title     = {Linear Representations of Finite Groups},
+  publisher = {Springer-Verlag},
+  year      = {1977},
+  address   = {New York},
+  series    = {Graduate Texts in Mathematics},
+  volume    = {42},
+  note      = {Translated from the second French edition by Leonard L. Scott}
+}
+```
+
+### 14.3 Topology and Geometry
+
+```bibtex
+@book{arnold1992catastrophe,
+  author    = {Arnold, Vladimir I.},
+  title     = {Catastrophe Theory},
+  publisher = {Springer-Verlag},
+  year      = {1992},
+  edition   = {3rd},
+  address   = {Berlin}
+}
+
+@book{hatcher2002algebraic,
+  author    = {Hatcher, Allen},
+  title     = {Algebraic Topology},
+  publisher = {Cambridge University Press},
+  year      = {2002},
+  address   = {Cambridge}
+}
+
+@book{milnor1963morse,
+  author    = {Milnor, John W.},
+  title     = {Morse Theory},
+  publisher = {Princeton University Press},
+  year      = {1963},
+  address   = {Princeton, NJ},
+  series    = {Annals of Mathematics Studies},
+  volume    = {51}
+}
+
+@book{milnor1974characteristic,
+  author    = {Milnor, John W. and Stasheff, James D.},
+  title     = {Characteristic Classes},
+  publisher = {Princeton University Press},
+  year      = {1974},
+  address   = {Princeton, NJ},
+  series    = {Annals of Mathematics Studies},
+  volume    = {76}
+}
+
+@book{steenrod1951topology,
+  author    = {Steenrod, Norman},
+  title     = {The Topology of Fibre Bundles},
+  publisher = {Princeton University Press},
+  year      = {1951},
+  address   = {Princeton, NJ},
+  series    = {Princeton Mathematical Series},
+  volume    = {14}
+}
+
+@book{thom1972structural,
+  author    = {Thom, René},
+  title     = {Structural Stability and Morphogenesis},
+  publisher = {W. A. Benjamin},
+  year      = {1972},
+  address   = {Reading, MA},
+  note      = {Translated from the French by D. H. Fowler}
+}
+
+@article{wu1950classes,
+  author  = {Wu, Wen-Tsün},
+  title   = {Classes caractéristiques et $i$-carrés d'une variété},
+  journal = {C. R. Acad. Sci. Paris},
+  volume  = {230},
+  pages   = {508--511},
+  year    = {1950}
+}
+```
+
+### 14.4 Dynamical Systems and Ergodic Theory
+
+```bibtex
+@book{bowen1975equilibrium,
+  author    = {Bowen, Rufus},
+  title     = {Equilibrium States and the Ergodic Theory of {A}nosov Diffeomorphisms},
+  publisher = {Springer-Verlag},
+  year      = {1975},
+  address   = {Berlin},
+  series    = {Lecture Notes in Mathematics},
+  volume    = {470}
+}
+
+@article{ruelle1976measure,
+  author  = {Ruelle, David},
+  title   = {A measure associated with {A}xiom {A} attractors},
+  journal = {Amer. J. Math.},
+  volume  = {98},
+  number  = {3},
+  pages   = {619--654},
+  year    = {1976}
+}
+
+@book{shub1987global,
+  author    = {Shub, Michael},
+  title     = {Global Stability of Dynamical Systems},
+  publisher = {Springer-Verlag},
+  year      = {1987},
+  address   = {New York}
+}
+
+@article{sinai1972gibbs,
+  author  = {Sinai, Yakov G.},
+  title   = {Gibbs measures in ergodic theory},
+  journal = {Russian Math. Surveys},
+  volume  = {27},
+  number  = {4},
+  pages   = {21--69},
+  year    = {1972}
+}
+```
+
+### 14.5 Information Theory and Control
+
+```bibtex
+@article{nair2004stabilizability,
+  author  = {Nair, Girish N. and Evans, Robin J.},
+  title   = {Stabilizability of stochastic linear systems with finite feedback data rates},
+  journal = {SIAM J. Control Optim.},
+  volume  = {43},
+  number  = {2},
+  pages   = {413--436},
+  year    = {2004}
+}
+
+@article{nair2004topological,
+  author  = {Nair, Girish N. and Evans, Robin J. and Mareels, Iven M. Y. and Moran, William},
+  title   = {Topological feedback entropy and nonlinear stabilization},
+  journal = {IEEE Trans. Automat. Control},
+  volume  = {49},
+  number  = {9},
+  pages   = {1585--1597},
+  year    = {2004}
+}
+
+@article{robbins1951stochastic,
+  author  = {Robbins, Herbert and Monro, Sutton},
+  title   = {A stochastic approximation method},
+  journal = {Ann. Math. Statist.},
+  volume  = {22},
+  number  = {3},
+  pages   = {400--407},
+  year    = {1951}
+}
+
+@article{shannon1948mathematical,
+  author  = {Shannon, Claude E.},
+  title   = {A mathematical theory of communication},
+  journal = {Bell System Tech. J.},
+  volume  = {27},
+  number  = {3},
+  pages   = {379--423, 623--656},
+  year    = {1948}
+}
+```
+
+### 14.6 Mathematical Physics
+
+```bibtex
+@article{lewkowycz2013generalized,
+  author  = {Lewkowycz, Aitor and Maldacena, Juan},
+  title   = {Generalized gravitational entropy},
+  journal = {J. High Energy Phys.},
+  volume  = {2013},
+  number  = {8},
+  pages   = {090},
+  year    = {2013}
+}
+
+@article{wigner1958distribution,
+  author  = {Wigner, Eugene P.},
+  title   = {On the distribution of the roots of certain symmetric matrices},
+  journal = {Ann. of Math. (2)},
+  volume  = {67},
+  number  = {2},
+  pages   = {325--327},
+  year    = {1958}
+}
+```
+
+### 14.7 Historical References
+
+```bibtex
+@phdthesis{gauss1799demonstratio,
+  author  = {Gauss, Carl Friedrich},
+  title   = {Demonstratio nova theorematis omnem functionem algebraicam rationalem integram unius variabilis in factores reales primi vel secundi gradus resolvi posse},
+  school  = {University of Helmstedt},
+  year    = {1799},
+  note    = {First rigorous proof of the fundamental theorem of algebra}
+}
+```
+
+### 14.8 Citation Index
+
+The following table maps in-text citations to bibliography entries:
+
+| Citation Location | Reference |
+|-------------------|-----------|
+| Morse Lemma (§9.14) | `milnor1963morse` |
+| Spectral theorem (§9.20, §9.66) | `reed1980methods` |
+| Lewkowycz-Maldacena (§9.30) | `lewkowycz2013generalized` |
+| Shannon-Hartley (§9.38) | `shannon1948mathematical` |
+| Concentration-compactness (§9.42) | `lions1984concentration` |
+| Characteristic classes (§9.46) | `milnor1974characteristic` |
+| Wu's theorem (§9.46) | `wu1950classes` |
+| Obstruction theory (§9.46) | `steenrod1951topology`, `hatcher2002algebraic` |
+| Galois theory (§9.50) | `lang2002algebra` |
+| Picard-Vessiot theory (§9.50) | `kaplansky1957introduction`, `kolchin1973differential` |
+| Northcott's theorem (§9.50) | `northcott1949inequality` |
+| Fundamental theorem of algebra (§9.54) | `gauss1799demonstratio` |
+| Domain of dependence (§9.58) | `courant1962methods` |
+| Stable manifold theorem (§9.66) | `henry1981geometric` |
+| Sectorial operators (§9.66) | `pazy1983semigroups` |
+| Nair-Evans theorem (§9.66) | `nair2004stabilizability`, `nair2004topological` |
+| Wigner semicircle law (§9.70) | `wigner1958distribution` |
+| Gröbner bases (§9.76) | `faugere1999new` |
+| Schur's lemma (§9.84) | `serre1977linear` |
+| Hadamard-Perron theorem (§9.90) | `shub1987global` |
+| SRB measures (§9.92) | `sinai1972gibbs`, `ruelle1976measure`, `bowen1975equilibrium` |
+| Thom normal form (§9.82) | `thom1972structural`, `arnold1992catastrophe` |
+| Robbins-Monro (§10) | `robbins1951stochastic` |
