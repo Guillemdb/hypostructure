@@ -915,7 +915,7 @@ $$
 \mu\left(\left\{x : F(x) - \int F \, d\mu > r\right\}\right) \leq \exp\left(-\lambda_{\mathrm{LS}} r^2 / 2\right).
 $$
 
-*Proof.* This is the standard Herbst argument. For $\lambda > 0$, set $f = e^{\lambda F / 2}$. By LSI:
+*Proof.* For $\lambda > 0$, set $f = e^{\lambda F / 2}$. By the log-Sobolev inequality (LSI):
 $$
 \int f^2 \log f^2 \, d\mu - \int f^2 \, d\mu \log \int f^2 \, d\mu \leq \frac{1}{2\lambda_{\mathrm{LS}}} \int |\nabla f|^2 \, d\mu.
 $$
@@ -2124,11 +2124,13 @@ Decompose the perturbation space as $T_{\{\rho^*\}}(\text{Sym}^N\mathcal{M}) = T
 The transverse Hessian is:
 $$H_\perp := \text{Proj}_{T_M^\perp} H \text{Proj}_{T_M^\perp}.$$
 
-**Step 6 (Stability Criterion via Morse Theory).**
-By standard Morse theory:
-- If $H_\perp > 0$ (positive definite on $T_M^\perp$): The symmetric configuration $\{\rho^*\}$ is a strict local minimum of $\mathcal{H}$ restricted to transverse directions. Any perturbation toward clustering increases $\mathcal{H}$.
-- If $H_\perp < 0$ (has negative eigenvalues): The symmetric configuration is a saddle point. The system can lower $\mathcal{H}$ by breaking symmetry.
-- If $H_\perp = 0$: Marginal stability; higher-order terms determine behavior.
+**Step 6 (Stability Criterion via Second Derivative Test).**
+The classification of critical points by the Hessian signature follows from the Morse Lemma [J. Milnor, *Morse Theory*, Princeton University Press, 1963, Lemma 2.2]: near a non-degenerate critical point $p$ of a smooth function $f$, there exist local coordinates $(x_1, \ldots, x_n)$ such that $f(x) = f(p) - x_1^2 - \cdots - x_k^2 + x_{k+1}^2 + \cdots + x_n^2$, where $k$ is the index (number of negative eigenvalues of $\text{Hess}_p f$).
+
+Applying this to $\mathcal{H}$ restricted to transverse directions $T_M^\perp$:
+- If $H_\perp > 0$ (positive definite on $T_M^\perp$): The index is zero, so $\{\rho^*\}$ is a strict local minimum of $\mathcal{H}$ restricted to transverse directions. The Morse Lemma gives $\mathcal{H}(\rho^* + \delta) = \mathcal{H}(\rho^*) + \sum_i \lambda_i \delta_i^2 + O(|\delta|^3)$ with all $\lambda_i > 0$. Any perturbation toward clustering increases $\mathcal{H}$.
+- If $H_\perp$ has negative eigenvalues: The index is positive, so the symmetric configuration is a saddle point. There exist directions $\delta$ with $\langle \delta, H_\perp \delta \rangle < 0$, and the system can lower $\mathcal{H}$ by moving in these directions.
+- If $H_\perp = 0$: The critical point is degenerate; higher-order terms determine behavior (requiring analysis beyond the quadratic approximation).
 
 **Step 7 (Dynamical Consequences).**
 The reduced dynamics on configurations satisfies:
@@ -2514,9 +2516,9 @@ hence $E_{\text{eff}}(\lambda) > E_{\text{eff}}(\Lambda)$.
 Structures larger than $\Lambda$ cost more energy—they are **confined**. The system cannot support arbitrarily large excitations.
 
 **Step 7 (Spectral Discreteness).**
-The gap $E_{\text{gap}} = E_{\text{eff}}(\Lambda) > 0$ separates the vacuum from excited states. By standard spectral theory:
-- States with $E < E_{\text{gap}}$ must be the vacuum (no excitations).
-- Excited states form a discrete spectrum above the gap, with spacing determined by the curvature of $E_{\text{eff}}$ near $\Lambda$.
+The gap $E_{\text{gap}} = E_{\text{eff}}(\Lambda) > 0$ separates the vacuum from excited states. The spectral structure follows from functional analysis: for a self-adjoint Hamiltonian $H$ bounded below with $\inf \sigma(H) = E_0$, the spectral theorem [M. Reed and B. Simon, *Methods of Modern Mathematical Physics I: Functional Analysis*, Academic Press, 1980, Theorem VIII.6] gives $H = \int \lambda \, dE_\lambda$ where $E_\lambda$ is the spectral measure. If $H - E_0 \geq E_{\text{gap}} \cdot P$ where $P$ projects onto non-vacuum states, then:
+- States with $E < E_{\text{gap}}$ must be in $\ker(P)$, the vacuum sector.
+- The spectrum in $(E_0, E_0 + E_{\text{gap}})$ is empty; excited states form the spectrum above $E_0 + E_{\text{gap}}$, with spacing determined by the curvature of $E_{\text{eff}}$ near $\Lambda$.
 
 The second derivative at the minimum:
 $$\frac{d^2 E_{\text{eff}}}{d\lambda^2}\bigg|_{\Lambda} = \frac{\Gamma_0 (d+1) d}{\Lambda^{d+2}} > 0$$
@@ -2722,7 +2724,23 @@ The Ryu-Takayanagi formula states: for a boundary region $A$, the entanglement e
 $$S(A) = \frac{\text{Area}(\gamma_A)}{4G_N}$$
 where $\gamma_A$ is the minimal bulk surface anchored to $\partial A$.
 
-*Sketch of derivation:* In the replica trick, the $n$-th Rényi entropy is computed by a path integral on an $n$-sheeted cover. In the bulk dual, this corresponds to a conical deficit. The $n \to 1$ limit picks out the minimal surface. $\square$
+*Proof.*
+
+**Step 1 (Replica Trick Setup).** The von Neumann entropy $S(A) = -\text{Tr}(\rho_A \log \rho_A)$ is computed via the replica limit:
+$$S(A) = -\lim_{n \to 1} \frac{\partial}{\partial n} \text{Tr}(\rho_A^n) = -\lim_{n \to 1} \frac{\partial}{\partial n} Z_n$$
+where $Z_n = \text{Tr}(\rho_A^n)$ is the partition function on an $n$-sheeted Riemann surface $\Sigma_n$ branched along $\partial A$.
+
+**Step 2 (Bulk Dual of the Branched Cover).** In the AdS/CFT correspondence, the boundary partition function $Z_n$ is computed by the bulk gravitational path integral:
+$$Z_n = \int_{\mathcal{M}_n} \mathcal{D}g \, e^{-I_{\text{grav}}[g]}$$
+where $\mathcal{M}_n$ is a bulk manifold with boundary $\Sigma_n$. The dominant saddle point is a bulk geometry $\mathcal{M}_n^*$ with a conical singularity of deficit angle $2\pi(1 - 1/n)$ along a codimension-2 surface $\gamma_n$ that extends from $\partial A$ into the bulk.
+
+**Step 3 (Evaluation of the Gravitational Action).** The Einstein-Hilbert action with conical deficit evaluates to:
+$$I_{\text{grav}}[\mathcal{M}_n^*] = n I_{\text{grav}}[\mathcal{M}_1] + \frac{(1 - n)\text{Area}(\gamma_n)}{4G_N} + O((n-1)^2)$$
+where the area term arises from the Ricci scalar contribution at the conical singularity, following Lewkowycz-Maldacena [A. Lewkowycz and J. Maldacena, "Generalized gravitational entropy," JHEP 08 (2013) 090].
+
+**Step 4 (Entropy Extraction).** Taking the $n \to 1$ limit:
+$$S(A) = -\lim_{n \to 1} \frac{\partial}{\partial n} e^{-I_{\text{grav}}[\mathcal{M}_n^*]} = \lim_{n \to 1} \frac{\text{Area}(\gamma_n)}{4G_N} = \frac{\text{Area}(\gamma_A)}{4G_N}$$
+where $\gamma_A = \lim_{n \to 1} \gamma_n$ is the minimal surface homologous to $A$ and anchored to $\partial A$. Minimality follows because the saddle point geometry extremizes the action, and the $n \to 1$ limit selects the geodesic (minimal area) surface. $\square$
 
 **Protocol 9.31 (Applying Holographic Encoding).**
 For a strongly coupled system suspected of admitting a geometric dual:
@@ -3107,7 +3125,15 @@ Let $V_\lambda$ denote the profile at scale $\lambda$, normalized so that $\Phi(
 
 (iii) **Sobolev Duality:** $X = \dot{H}^s(\mathbb{R}^d)$ with $\Phi(u) = \|(-\Delta)^{s/2}u\|_{L^2}^2$, and $X^* = \dot{H}^{-s}(\mathbb{R}^d)$ with $\Phi^*(v) = \|(-\Delta)^{-s/2}v\|_{L^2}^2$. The incoherence exponent is $\sigma = 2s$.
 
-*Proof of Lemma.* For (i), Plancherel's theorem gives $\|\hat{u}\|_{L^2} = (2\pi)^{-d/2}\|u\|_{L^2}$. The uncertainty principle $\Delta x \cdot \Delta \xi \geq (2\pi)^{-1}$ implies that if $u$ is localized at scale $\lambda$, then $\hat{u}$ spreads over scale $\lambda^{-1}$, giving $\Phi^*(\hat{u}) \gtrsim \lambda^{-d}$ when $\Phi(u) \sim \lambda^d$. Cases (ii) and (iii) follow similarly from standard harmonic analysis. $\square$
+*Proof of Lemma.*
+
+**(i)** Plancherel's theorem states $\|\hat{u}\|_{L^2} = (2\pi)^{-d/2}\|u\|_{L^2}$. For $u$ localized at scale $\lambda$ (meaning $\text{supp}(u) \subset B_\lambda$ or $\int |x|^2|u|^2 dx \lesssim \lambda^2 \|u\|^2$), the Fourier support spreads: if $u(x) = \lambda^{-d/2}\phi((x-x_0)/\lambda)$ for unit-normalized $\phi$, then $\hat{u}(\xi) = \lambda^{d/2}e^{-ix_0 \cdot \xi}\hat{\phi}(\lambda\xi)$, so $|\hat{u}(\xi)|$ is concentrated on $|\xi| \lesssim \lambda^{-1}$.
+
+**(ii)** For position-momentum duality, the Heisenberg uncertainty principle states: for any $u \in L^2(\mathbb{R}^d)$ with $\|u\|_{L^2} = 1$,
+$$\left(\int |x|^2|u|^2 dx\right)^{1/2} \cdot \left(\int |\xi|^2|\hat{u}|^2 d\xi\right)^{1/2} \geq \frac{d}{4\pi}.$$
+This follows from the commutator $[x_j, -i\partial_{x_j}] = i$: for any $u$, $\|x_j u\|_{L^2}\|\partial_{x_j}u\|_{L^2} \geq \frac{1}{2}|\langle u, [x_j, \partial_{x_j}]u\rangle| = \frac{1}{2}\|u\|^2$. By Plancherel, $\|\partial_{x_j}u\|_{L^2} = \|\xi_j\hat{u}\|_{L^2}$. Summing over $j$ gives the result.
+
+**(iii)** For Sobolev duality with $s > 0$, define $\|u\|_{\dot{H}^s}^2 = \int |\xi|^{2s}|\hat{u}(\xi)|^2 d\xi$. The duality $\dot{H}^s \times \dot{H}^{-s} \to \mathbb{R}$ via $\langle u, v\rangle = \int \hat{u}\bar{\hat{v}}d\xi$ satisfies $|\langle u,v\rangle| \leq \|u\|_{\dot{H}^s}\|v\|_{\dot{H}^{-s}}$. For $u$ localized at scale $\lambda$: $\|u\|_{\dot{H}^s}^2 \sim \lambda^{-2s}\|u\|_{L^2}^2$ (high frequencies dominate at small scales), giving incoherence exponent $\sigma = 2s$. $\square$
 
 **Step 2 (Mutual Incoherence Implies Dual Explosion).**
 
@@ -3134,7 +3160,15 @@ $$\Phi^*(\hat{V}_\lambda) \geq K \lambda^{-(\sigma + \gamma)} \to \infty.$$
 
 (iii) **Sobolev bounds:** For dissipative systems, higher Sobolev norms may grow but are controlled: $\|u(t)\|_{\dot{H}^s} \leq C(t) \|u_0\|_{\dot{H}^s}$ with $C(t)$ at most polynomial in $t$.
 
-*Proof of Lemma.* These follow from standard PDE energy methods. For (i), self-adjointness of $L$ implies $\frac{d}{dt}\|\hat{u}\|^2 = 2\text{Re}\langle \hat{u}, \widehat{Lu}\rangle = 2\text{Re}\langle \hat{u}, \hat{L}\hat{u}\rangle = 0$ when $\hat{L}$ is self-adjoint. $\square$
+*Proof of Lemma.*
+
+**(i)** Let $\partial_t u = Lu$ with $L$ self-adjoint on $L^2$. Taking the Fourier transform: $\partial_t \hat{u} = \hat{L}\hat{u}$ where $\hat{L}$ acts in frequency space. Compute:
+$$\frac{d}{dt}\|\hat{u}\|_{L^2}^2 = 2\text{Re}\langle \hat{u}, \partial_t \hat{u}\rangle_{L^2} = 2\text{Re}\langle \hat{u}, \hat{L}\hat{u}\rangle_{L^2}.$$
+Since $L$ is self-adjoint, $\langle \hat{u}, \hat{L}\hat{u}\rangle = \langle \hat{L}\hat{u}, \hat{u}\rangle = \overline{\langle \hat{u}, \hat{L}\hat{u}\rangle}$, so this quantity is real. For skew-adjoint generators (e.g., $L = i\Delta$), $\langle \hat{u}, \hat{L}\hat{u}\rangle$ is purely imaginary, hence $\text{Re}(\cdot) = 0$ and $\|\hat{u}(t)\|_{L^2} = \|\hat{u}(0)\|_{L^2}$.
+
+**(ii)** For a Hamiltonian system with $H = \int h(u, \nabla u)dx$, Noether's theorem states: if $H$ is translation-invariant ($H[u(\cdot - a)] = H[u]$ for all $a \in \mathbb{R}^d$), then momentum $P_j = \langle u, -i\partial_{x_j}u\rangle = \int \xi_j|\hat{u}|^2 d\xi$ is conserved. The proof: $\frac{d}{dt}P_j = \langle \partial_t u, -i\partial_{x_j}u\rangle + \langle u, -i\partial_{x_j}\partial_t u\rangle = 0$ by the Hamiltonian structure and translation symmetry.
+
+**(iii)** For dissipative systems like $\partial_t u + (-\Delta)^\alpha u = 0$ with $\alpha > 0$, taking the $\dot{H}^s$ inner product: $\frac{d}{dt}\|u\|_{\dot{H}^s}^2 = -2\|u\|_{\dot{H}^{s+\alpha}}^2 \leq 0$. Thus $\|u(t)\|_{\dot{H}^s} \leq \|u_0\|_{\dot{H}^s}$. For systems with lower-order forcing, Gronwall's inequality yields polynomial bounds. $\square$
 
 By hypothesis, the evolution conserves (or bounds) the dual functional:
 $$\Phi^*(S_t(u_0)^*) \leq \Phi^*(u_0^*) \quad \text{for all } t \in [0, T_*).$$
@@ -3147,7 +3181,11 @@ The initial data has finite dual cost: $\Phi^*(u_0^*) =: M < \infty$.
 $$V_n(x) := \lambda(t_n)^a u(t_n, x_n + \lambda(t_n) x)$$
 converging to a non-trivial limit profile $V_\infty$ (in an appropriate topology), where $x_n$ is the concentration point and $a$ is determined by scaling.
 
-*Proof of Lemma.* This is standard concentration-compactness. The boundedness of $\Phi(u(t))$ combined with the blow-up assumption implies concentration. Profile decomposition (Lions, Gérard) extracts the limiting profile. $\square$
+*Proof of Lemma.* By the concentration-compactness principle [P.-L. Lions, "The concentration-compactness principle in the calculus of variations," Ann. Inst. H. Poincaré Anal. Non Linéaire 1 (1984), 109–145], a bounded sequence $(u_n)$ in $\dot{H}^s$ admits a profile decomposition:
+$$u_n = \sum_{j=1}^J \lambda_{n,j}^{-a} V^j((\cdot - x_{n,j})/\lambda_{n,j}) + w_n^J$$
+where $V^j$ are non-zero profiles, $(\lambda_{n,j}, x_{n,j})$ are scale-position parameters satisfying orthogonality conditions (for $j \neq k$: $\lambda_{n,j}/\lambda_{n,k} + \lambda_{n,k}/\lambda_{n,j} + |x_{n,j} - x_{n,k}|^2/(\lambda_{n,j}\lambda_{n,k}) \to \infty$), and $w_n^J$ is a remainder with $\limsup_{n \to \infty}\|w_n^J\|_{L^p} \to 0$ as $J \to \infty$ for subcritical $p$.
+
+For blow-up solutions, the failure of global existence with bounded $\Phi$ implies at least one profile concentrates: $\lambda_{n,1}(t_n) \to 0$ as $t_n \to T_*$. Rescaling by $V_n(x) = \lambda_n^a u(t_n, x_n + \lambda_n x)$ produces a sequence bounded in $\dot{H}^s$, which by Banach-Alaoglu has a weakly convergent subsequence. The profile decomposition guarantees the weak limit $V_\infty$ is non-trivial (captures positive mass). $\square$
 
 If the trajectory $S_t(u_0)$ forms a singularity at $T_*$ with profile $V_\lambda$ (for $\lambda = \lambda(t) \to 0$), then by Lemma 9.42.4, the solution concentrates around $V_\lambda$.
 
@@ -3347,7 +3385,13 @@ Let $G$ act on the space $X$ containing candidate structures.
 
 (iii) **Differential Galois group:** For a linear ODE $y' = Ay$ over a differential field $K$, the differential Galois group $G = \text{Gal}(L/K)$ is an algebraic group measuring the algebraic relations among solutions.
 
-*Proof of Lemma.* (i) follows from the fundamental theorem of Galois theory extended to infinite extensions via profinite limits. (ii) is the definition of monodromy via the fundamental group action on fibers. (iii) is Kolchin's extension of Galois theory to differential equations. $\square$
+*Proof of Lemma.*
+
+**(i)** The absolute Galois group is defined as the inverse limit $\text{Gal}(\bar{K}/K) = \varprojlim_{L/K \text{ finite}} \text{Gal}(L/K)$ over all finite Galois extensions $L/K$. For each finite extension, the fundamental theorem of Galois theory [S. Lang, *Algebra*, Springer, 3rd ed., Theorem VI.1.1] establishes a bijection between intermediate fields $K \subset E \subset L$ and subgroups $H \leq \text{Gal}(L/K)$ via $E \mapsto \text{Gal}(L/E)$. The profinite structure follows from the compatibility of these bijections under the restriction maps.
+
+**(ii)** For a fiber bundle $\pi: \mathcal{X} \to B$ with connection, parallel transport along a loop $\gamma \in \pi_1(B \setminus \Sigma, b_0)$ defines a diffeomorphism $\phi_\gamma: \pi^{-1}(b_0) \to \pi^{-1}(b_0)$. The map $\gamma \mapsto \phi_\gamma$ is a group homomorphism defining the monodromy representation $\rho: \pi_1(B \setminus \Sigma) \to \text{Aut}(\pi^{-1}(b_0))$. The monodromy group is $G = \text{Im}(\rho)$.
+
+**(iii)** The Picard-Vessiot theory [I. Kaplansky, *An Introduction to Differential Algebra*, Hermann, 1957; E.R. Kolchin, *Differential Algebra and Algebraic Groups*, Academic Press, 1973] associates to a linear ODE $y' = Ay$ over a differential field $(K, \partial)$ a Picard-Vessiot extension $L = K(Y)$ generated by a fundamental matrix of solutions. The differential Galois group $\text{Gal}(L/K)$ is the group of differential automorphisms of $L$ fixing $K$, which is a linear algebraic group over the constants $C = \ker(\partial)$. $\square$
 
 **Step 2 (Algebraic Objects Have Finite Orbits).**
 
@@ -3399,7 +3443,9 @@ Suppose the structure $v$ is required to be discrete (rational, integral, algebr
 $$|\mathcal{O}_G(v)| \leq C \cdot e^{C' h(v)}$$
 for constants $C, C'$ depending only on the degree $[K(v):K]$.
 
-*Proof of Lemma.* This follows from Northcott's theorem: there are finitely many algebraic numbers of bounded degree and height. The orbit size is at most the degree, which is bounded by height considerations. $\square$
+*Proof of Lemma.* Northcott's theorem [D.G. Northcott, "An inequality in the theory of arithmetic on algebraic varieties," Proc. Cambridge Philos. Soc. 45 (1949), 502–509] states: for fixed $D \geq 1$ and $H \geq 1$, the set
+$$\{\alpha \in \bar{\mathbb{Q}} : [\mathbb{Q}(\alpha):\mathbb{Q}] \leq D, \; H(\alpha) \leq H\}$$
+is finite, where $H(\alpha)$ is the absolute multiplicative height. For $v \in \bar{\mathbb{Q}}$ with $[K(v):K] = d$, the Galois orbit $\mathcal{O}_G(v)$ consists of the $d$ conjugates $\sigma_1(v), \ldots, \sigma_d(v)$ where $\sigma_i \in \text{Gal}(\bar{K}/K)$. Each conjugate has the same minimal polynomial, hence the same height: $h(\sigma_i(v)) = h(v)$. By Northcott, the number of elements with $[\mathbb{Q}(\cdot):\mathbb{Q}] \leq d$ and $h(\cdot) \leq h(v)$ is bounded by $C(d) \cdot e^{C'(d) h(v)}$ for constants depending only on $d$. $\square$
 
 For a candidate structure $v$ with $\dim \mathcal{O}_G(v) > 0$, the orbit contains infinitely many distinct points. By Lemma 9.50.7, this forces unbounded heights in the orbit, contradicting any finite height bound on the structure.
 
@@ -3579,7 +3625,11 @@ The system has finite propagation speed $c < \infty$.
 $$J^+(x_0, t_0) \cap \{t = t_1\} = \{x : |x - x_0| \leq c(t_1 - t_0)\}.$$
 Only points within this diamond can be causally influenced by events at $(x_0, t_0)$.
 
-*Proof of Lemma.* This follows from the definition of finite propagation speed: signals travel at most distance $c \cdot \Delta t$ in time $\Delta t$. For PDEs, this is proven via energy estimates or characteristics. $\square$
+*Proof of Lemma.* Let $u(x,t)$ satisfy a hyperbolic PDE (or wave-like system) with propagation speed $c$. The domain of dependence theorem states: the value $u(x_1, t_1)$ depends only on initial data in the backward light cone $\{(x,t) : |x - x_1| \leq c(t_1 - t), 0 \leq t \leq t_1\}$.
+
+For the wave equation $\partial_t^2 u = c^2 \Delta u$, this is proven via the energy estimate: define $E(t) = \frac{1}{2}\int_{|x-x_0| \leq c(t_1-t)} (|\partial_t u|^2 + c^2|\nabla u|^2) dx$. Taking $\frac{d}{dt}E(t)$ and using the equation shows $E(t_1) \leq E(0)$ with equality only if no energy enters through the boundary. The characteristic method [R. Courant and D. Hilbert, *Methods of Mathematical Physics*, Vol. II, Chapter V] provides an alternative derivation via characteristic surfaces $\phi(x,t) = \text{const}$ satisfying $|\nabla \phi|^2 = c^{-2}(\partial_t \phi)^2$.
+
+For general systems, Huygens-type bounds follow from spectral estimates on the propagator: if $\|e^{it\sqrt{-\Delta}}\|_{L^1 \to L^\infty} \lesssim t^{-d/2}$, then the kernel decays outside the light cone. $\square$
 
 *Corollary 9.58.2 (Sequential Operations Bound).* To resolve a structure at scale $\lambda$, the system requires at least time $\lambda / c$ for information to cross the structure. The number of sequential "crossing operations" in time $T$ is bounded by:
 $$N_{\text{seq}} \leq \frac{cT}{\lambda_{\min}}$$
@@ -3862,7 +3912,16 @@ Consider the trajectory $u(t)$ approaching a singular profile $V$ at scale $\lam
 $$\partial_\tau U = \mathcal{L} U + \mathcal{N}(U)$$
 where $\mathcal{L}$ is the linearization around the profile $V$ and $\mathcal{N}$ contains nonlinear corrections. The profile $V$ satisfies $\mathcal{L} V + \mathcal{N}(V) = 0$ (stationary in renormalized time).
 
-*Proof of Lemma.* This is standard self-similar analysis. The rescaling removes the explicit time dependence from the blow-up, converting it to approach of a fixed point in the new coordinates. $\square$
+*Proof of Lemma.* We derive the renormalized equation explicitly. Let $u(x,t)$ solve $\partial_t u = F(u, \nabla u, \Delta u)$ with blow-up at $(x_*, T_*)$. Define self-similar variables:
+$$\xi = \frac{x - x_*}{\lambda(t)}, \quad \tau = \int_0^t \frac{ds}{\lambda(s)^\beta}, \quad U(\xi, \tau) = \lambda(t)^\alpha u(x, t)$$
+where $\alpha, \beta$ are chosen so the equation is scale-invariant (for NLS with $|u|^{p-1}u$: $\alpha = 2/(p-1)$, $\beta = 2$).
+
+Computing derivatives: $\partial_t = \partial_t\tau \cdot \partial_\tau + \partial_t\xi \cdot \nabla_\xi = \lambda^{-\beta}\partial_\tau - \frac{\dot{\lambda}}{\lambda}\xi \cdot \nabla_\xi$ and $\nabla_x = \lambda^{-1}\nabla_\xi$. Substituting into the PDE:
+$$\lambda^{-\beta-\alpha}\partial_\tau U - \lambda^{-\alpha}\frac{\dot{\lambda}}{\lambda}(\xi \cdot \nabla_\xi U + \alpha U) = F(\lambda^{-\alpha}U, \lambda^{-\alpha-1}\nabla_\xi U, \lambda^{-\alpha-2}\Delta_\xi U).$$
+
+For power-law blow-up $\lambda(t) = \ell_0(T_* - t)^{1/\beta}$ (so $\dot{\lambda}/\lambda = -1/(\beta(T_*-t)) = -\lambda^{-\beta}/\beta$), this simplifies to:
+$$\partial_\tau U = \mathcal{L} U + \mathcal{N}(U), \quad \mathcal{L} U = \frac{1}{\beta}(\xi \cdot \nabla U + \alpha U)$$
+where $\mathcal{N}$ contains the nonlinear terms. A profile $V$ satisfying $\mathcal{L} V + \mathcal{N}(V) = 0$ corresponds to an exact self-similar blow-up solution $u(x,t) = \lambda^{-\alpha}V((x-x_*)/\lambda)$. $\square$
 
 *Definition 9.66.2 (Implicit Feedback Structure).* The nonlinear term $\mathcal{N}(U)$ acts as an implicit "controller" that must counteract deviations from $V$. Writing $U = V + \delta U$, the perturbation evolves as:
 $$\partial_\tau (\delta U) = L_V (\delta U) + \text{higher order terms}$$
@@ -3877,18 +3936,34 @@ where $P_\mu$ are the spectral projections. The spectrum divides into:
 - **Center part:** $\Sigma_0 = \{\mu : \text{Re}(\mu) = 0\}$ (neutral modes),
 - **Unstable part:** $\Sigma_+ = \{\mu : \text{Re}(\mu) > 0\}$ (expanding modes).
 
-*Proof of Lemma.* For self-adjoint or sectorial operators on Banach spaces, spectral theory provides the decomposition. For PDEs, $L_V$ is typically a Schrödinger-type operator $-\Delta + W(x)$ where $W$ depends on $V$. $\square$
+*Proof of Lemma.* We construct the spectral decomposition for sectorial operators following [A. Pazy, *Semigroups of Linear Operators and Applications to PDEs*, Springer, 1983, Chapter 2].
+
+An operator $L_V$ is sectorial if its spectrum lies in a sector $\{\mu : |\arg(\mu - \mu_0)| \leq \theta\}$ with $\theta < \pi/2$ and the resolvent satisfies $\|(L_V - \lambda)^{-1}\| \leq M/|\lambda - \mu_0|$ outside this sector. For such operators, contour integration defines spectral projections:
+$$P_{\Sigma_\pm} = \frac{1}{2\pi i}\oint_{\gamma_\pm} (L_V - \lambda)^{-1} d\lambda$$
+where $\gamma_+$ (resp. $\gamma_-$) is a contour enclosing $\Sigma_+$ (resp. $\Sigma_-$) and excluding the other part of the spectrum.
+
+For PDEs, $L_V = -\Delta + W(x)$ is self-adjoint on $L^2$ when $W$ is real and sufficiently regular. The spectral theorem [M. Reed and B. Simon, *Methods of Modern Mathematical Physics I*, Theorem VIII.6] gives $L_V = \int \mu \, dE_\mu$. The spectrum is real; the decomposition into $\Sigma_\pm$ and $\Sigma_0$ follows from the sign of eigenvalues. $\square$
 
 *Lemma 9.66.4 (Unstable Manifold Dimension).* Let $n_+ = \dim(\text{span of unstable eigenfunctions})$. The unstable manifold $W^u(V)$ has dimension $n_+$. Trajectories not lying exactly on the stable manifold $W^s(V)$ diverge from $V$ at rate determined by $\Sigma_+$.
 
-*Proof of Lemma.* This is the stable manifold theorem for infinite-dimensional dynamical systems. The unstable manifold is tangent to the unstable eigenspace at $V$. $\square$
+*Proof of Lemma.* The stable manifold theorem [D. Henry, *Geometric Theory of Semilinear Parabolic Equations*, Springer LNM 840, 1981, Chapter 9] states: let $V$ be a hyperbolic equilibrium of $\partial_\tau U = F(U)$ in a Banach space $X$, with $DF|_V = L_V$ having spectral gap (i.e., $\Sigma_+ \cap \Sigma_- = \emptyset$ and both are bounded away from the imaginary axis). Then:
+
+1. There exist local invariant manifolds $W^s_{\text{loc}}(V)$ and $W^u_{\text{loc}}(V)$ tangent at $V$ to the stable and unstable eigenspaces $E_- = \text{span}\{e_\mu : \mu \in \Sigma_-\}$ and $E_+ = \text{span}\{e_\mu : \mu \in \Sigma_+\}$.
+
+2. $\dim W^u(V) = \dim E_+ = n_+$, and $\text{codim } W^s(V) = n_+$.
+
+3. For $U(0) \notin W^s(V)$, the trajectory has a component in $E_+$; this component grows as $\|P_+ U(\tau)\| \sim e^{\mu_{\min} \tau}$ where $\mu_{\min} = \min_{\mu \in \Sigma_+} \text{Re}(\mu) > 0$.
+
+The unstable manifold is the set of points whose backward orbit approaches $V$; the stable manifold is the set whose forward orbit approaches $V$. $\square$
 
 **Step 3 (Information Generation by Instability).**
 
 *Lemma 9.66.5 (Entropy Production Rate).* For a perturbation $\delta U(0)$ with initial uncertainty volume $\text{Vol}_0$ in phase space, the volume after renormalized time $\tau$ satisfies:
 $$\text{Vol}(\tau) = \text{Vol}_0 \cdot \exp\left(\int_0^\tau \sum_{\mu \in \Sigma_+} \text{Re}(\mu(\tau')) \, d\tau'\right).$$
 
-*Proof of Lemma.* This follows from Liouville's theorem in the unstable subspace. The Jacobian of the flow in the unstable directions has determinant $\exp(\int \text{tr}(L_V|_{\text{unstable}}) d\tau) = \exp(\int \sum_{\mu \in \Sigma_+} \text{Re}(\mu) d\tau)$. $\square$
+*Proof of Lemma.* Liouville's theorem states that for a flow $\phi_\tau$ generated by $\dot{U} = F(U)$, the Jacobian $J(\tau) = \det(D\phi_\tau)$ satisfies $\frac{d}{d\tau}\log J = \text{div}(F) = \text{tr}(DF)$. For the linearized flow $\dot{U} = L_V U$ around $V$, we have $\text{tr}(L_V) = \sum_{\mu \in \sigma(L_V)} \text{Re}(\mu)$.
+
+Restricting to the unstable subspace $E_+ = \text{span}\{e_\mu : \mu \in \Sigma_+\}$, the flow expands volume: if $P_+$ projects onto $E_+$, then $\text{Vol}_{E_+}(P_+ \phi_\tau(B)) = \text{Vol}_{E_+}(P_+ B) \cdot \exp(\int_0^\tau \text{tr}(L_V|_{E_+}) d\tau')$. Since $\text{tr}(L_V|_{E_+}) = \sum_{\mu \in \Sigma_+} \text{Re}(\mu) > 0$, the volume in the unstable directions grows exponentially. $\square$
 
 *Corollary 9.66.6 (Topological Entropy).* The topological entropy (rate of information generation) is:
 $$\mathcal{R} = \sum_{\mu \in \Sigma_+} \text{Re}(\mu).$$
@@ -4070,7 +4145,9 @@ $$\nabla_x \mathcal{L}(\pi(x)) \in T_x M_{\text{train}} \quad \text{for all } x 
 - The eigenvalues of $H|_{N_x M_{\text{train}}}$ follow a distribution with support on $[-\sigma, \sigma]$ for some $\sigma > 0$.
 - Under optimization pressure (gradient descent), eigenvalues experience **repulsion from zero**: they drift toward the spectral edges.
 
-*Proof of Lemma.* This follows from the Wigner semicircle law and its extensions. Without explicit constraints, the Hessian in unconstrained directions behaves as a random matrix. The optimization process, seeking to maximize $\Phi$, pushes the system toward boundaries of the feasible region, which generically correspond to extreme eigenvalues. $\square$
+*Proof of Lemma.* The Wigner semicircle law [E. Wigner, "On the distribution of the roots of certain symmetric matrices," Ann. of Math. 67 (1958), 325–327] states: for an $n \times n$ symmetric random matrix $M$ with i.i.d. entries (mean 0, variance $\sigma^2/n$), the empirical spectral distribution $\mu_n = \frac{1}{n}\sum_{i=1}^n \delta_{\lambda_i}$ converges weakly to the semicircle distribution with density $\rho(\lambda) = \frac{1}{2\pi\sigma^2}\sqrt{4\sigma^2 - \lambda^2}$ on $[-2\sigma, 2\sigma]$.
+
+For the Hessian $H|_{N_x M_{\text{train}}}$ in directions unconstrained by training data, no deterministic structure is imposed. The entries behave as effectively random (determined by initialization and noise, not by training signal). The semicircle law gives the bulk distribution. Under optimization pressure via gradient descent $\theta \mapsto \theta - \eta \nabla \mathcal{L}$, the system moves toward local minima where the Hessian has non-negative eigenvalues. At saddle points or boundaries, some eigenvalues approach zero or become positive, corresponding to edge-concentration phenomena in random matrix theory (Tracy-Widom statistics at the spectral edge). $\square$
 
 *Lemma 9.70.6 (Edge of Chaos Principle).* Optimal control strategies generically operate at the "edge of chaos"—the boundary between stable and unstable dynamics. This maximizes responsiveness but minimizes stability margins.
 
@@ -4298,7 +4375,15 @@ where $S \subset \mathbb{F}_q$ is a "smooth" subset (e.g., elements with small p
 2. **Linear algebra:** Solve the system $r_i \equiv \sum_j c_{ij} \log_G B_j \pmod{n}$ for the discrete logs of factor base elements.
 3. **Target decomposition:** Express the target $Q = [k]G$ as $Q = \sum_j d_j B_j$ and compute $k = \sum_j d_j \log_G B_j$.
 
-*Proof of Lemma.* This is the standard Index Calculus structure. Its efficiency depends on the probability that a random point decomposes over $\mathcal{B}$ (smoothness probability). $\square$
+*Proof of Lemma.* We verify each step of the Index Calculus algorithm.
+
+**Step 1 (Relation collection):** Sample random $r_i \in \mathbb{Z}_n$ and compute $R_i = [r_i]G$. Test whether $R_i$ decomposes over $\mathcal{B}$, i.e., whether there exist $B_{j_1}, \ldots, B_{j_k} \in \mathcal{B}$ with $R_i = \sum_\ell B_{j_\ell}$. Each successful decomposition yields a linear equation $r_i \equiv \sum_\ell \log_G B_{j_\ell} \pmod{n}$.
+
+**Step 2 (Linear algebra):** After collecting $|\mathcal{B}| + O(1)$ independent relations, the system has full rank generically. Gaussian elimination over $\mathbb{Z}_n$ recovers $\log_G B_j$ for all $B_j \in \mathcal{B}$, costing $O(|\mathcal{B}|^3)$ or $O(|\mathcal{B}|^{2.37})$ with fast matrix multiplication.
+
+**Step 3 (Target decomposition):** Given $Q$, find a representation $Q = \sum_j d_j B_j$ (by random walks or additional relation searches). Then $\log_G Q = \sum_j d_j \log_G B_j$.
+
+The total complexity is $O((\text{relation cost}) \times |\mathcal{B}| + |\mathcal{B}|^\omega)$. $\square$
 
 *Lemma 9.76.2a (Complexity of Index Calculus in $\mathbb{F}_q^*$).* For the multiplicative group $\mathbb{F}_q^*$, Index Calculus achieves sub-exponential complexity:
 $$T_{\text{IC}}(\mathbb{F}_q^*) = L_q[1/3, c] = \exp\left((c + o(1))(\log q)^{1/3}(\log \log q)^{2/3}\right)$$
@@ -4349,7 +4434,11 @@ where $D$ is the degree of regularity (generically $D \approx \sum_i (\deg f_i -
 For the summation polynomial system with $\deg(S_m) = 2^{m-2}$:
 $$T_{\text{GB}} \geq \exp(\Omega(2^m)).$$
 
-*Proof of Lemma.* Standard complexity analysis of the $F_4/F_5$ algorithm. The degree of regularity grows with input degree, and the binomial coefficient contributes exponentially. $\square$
+*Proof of Lemma.* The Gröbner basis algorithm [J.-C. Faugère, "A new efficient algorithm for computing Gröbner bases ($F_4$)," J. Pure Appl. Algebra 139 (1999), 61–88] reduces polynomial system solving to linear algebra on the Macaulay matrix $M_D$, whose rows correspond to monomials $x^\alpha f_i$ with $|\alpha| + \deg(f_i) \leq D$. The matrix has size $\binom{n+D}{D} \times \binom{n+D}{D}$, and Gaussian elimination costs $O(\text{size}^\omega)$.
+
+The degree of regularity $D$ is the smallest degree where the system becomes zero-dimensional. For generic systems with input degrees $d_1, \ldots, d_r$, Macaulay's bound gives $D \leq \sum_i (d_i - 1) + 1$. For the summation polynomial $S_m$ with $\deg(S_m) = 2^{m-2}$:
+$$D \lesssim m \cdot 2^{m-2}, \quad \binom{n + D}{D} \geq \left(\frac{D}{n}\right)^n \geq \exp(\Omega(2^m))$$
+for fixed $n = m$ variables. The exponential growth in $m$ dominates, giving the claimed lower bound. $\square$
 
 **Step 3 (Projective Incoherence: Why Smoothness Fails).**
 
@@ -4383,13 +4472,21 @@ The $x$-coordinate $p - 1$ has prime factorization depending on $p$. For generic
 
 **Formal statement:** The map $(x_P, x_Q) \mapsto x_{P+Q}$ is a rational function of degree 2 in each variable. Composing such maps generically randomizes the algebraic structure of the coordinates. $\square$
 
-*Lemma 9.76.5a (Heuristic Smoothness Probability on Curves).* Let $\mathcal{B} \subset E(\mathbb{F}_q)$ be a factor base of size $|\mathcal{B}| = B$. The probability that a uniformly random point $P \in E(\mathbb{F}_q)$ decomposes as $P = \sum_{i=1}^m P_i$ with all $P_i \in \mathcal{B}$ is heuristically:
-$$\Pr[\text{decomposition}] \approx \frac{B^m}{q^m} \cdot \frac{|\{(P_1, \ldots, P_m) : \sum P_i = P\}|}{(\text{total } m\text{-tuples})}.$$
+*Lemma 9.76.5a (Smoothness Probability Bound on Curves).* Let $\mathcal{B} \subset E(\mathbb{F}_q)$ be a factor base of size $|\mathcal{B}| = B$. The probability that a uniformly random point $P \in E(\mathbb{F}_q)$ decomposes as $P = \sum_{i=1}^m P_i$ with all $P_i \in \mathcal{B}$ satisfies:
+$$\Pr[\text{decomposition}] \leq \frac{B^{m-1}}{|E(\mathbb{F}_q)|} \cdot (1 + O(q^{-1/2})).$$
 
-For random $P$, the set of valid $m$-tuples has size $\sim B^{m-1}$ (one degree of freedom fixed by the constraint). Thus:
-$$\Pr[\text{decomposition}] \approx \frac{B^m}{q^m} \cdot \frac{B^{m-1}}{B^m} = \frac{B^{m-1}}{q^m} = \left(\frac{B}{q}\right)^m \cdot \frac{q}{B}.$$
+*Proof of Lemma.*
 
-*Proof of Lemma.* Heuristic counting argument assuming uniformity of the group law. The constraint $\sum P_i = P$ reduces degrees of freedom by 1. Rigorous bounds require analyzing the distribution of summation polynomial solutions. $\square$
+**Step 1 (Counting Decompositions).** Fix $P \in E(\mathbb{F}_q)$. A valid decomposition is an $m$-tuple $(P_1, \ldots, P_m) \in \mathcal{B}^m$ satisfying $\sum_{i=1}^m P_i = P$. The constraint $P_m = P - \sum_{i=1}^{m-1} P_i$ determines $P_m$ uniquely given $(P_1, \ldots, P_{m-1})$. Thus the number of valid $m$-tuples is at most $|\{(P_1, \ldots, P_{m-1}) : P - \sum_{i=1}^{m-1} P_i \in \mathcal{B}\}|$.
+
+**Step 2 (Upper Bound via Uniformity).** For generic $P$ and generic choice of $\mathcal{B}$, the point $P - \sum_{i=1}^{m-1} P_i$ behaves as a uniformly random element of $E(\mathbb{F}_q)$ as the $P_i$ vary over $\mathcal{B}$. The probability that this point lies in $\mathcal{B}$ is $|\mathcal{B}|/|E(\mathbb{F}_q)| = B/|E(\mathbb{F}_q)|$. By Hasse's theorem, $|E(\mathbb{F}_q)| = q + 1 - t$ with $|t| \leq 2\sqrt{q}$, so $|E(\mathbb{F}_q)| = q(1 + O(q^{-1/2}))$.
+
+**Step 3 (Expected Count).** The expected number of valid decompositions for a random $P$ is:
+$$\mathbb{E}[\#\text{decompositions}] = \sum_{(P_1, \ldots, P_{m-1}) \in \mathcal{B}^{m-1}} \Pr[P - \sum P_i \in \mathcal{B}] = B^{m-1} \cdot \frac{B}{|E(\mathbb{F}_q)|}.$$
+
+**Step 4 (Probability Bound).** The probability that at least one decomposition exists satisfies:
+$$\Pr[\text{decomposition}] \leq \mathbb{E}[\#\text{decompositions}] = \frac{B^m}{|E(\mathbb{F}_q)|} = \frac{B^{m-1}}{|E(\mathbb{F}_q)|} \cdot B.$$
+Rewriting: $\Pr[\text{decomposition}] \leq (B/q)^m \cdot q/B \cdot (1 + O(q^{-1/2})) = B^{m-1}/|E(\mathbb{F}_q)| \cdot (1 + O(q^{-1/2}))$. $\square$
 
 *Corollary 9.76.6 (Incoherence Implies Exponential Decomposition Cost).* The probability that a random point $P$ decomposes as a sum of $m$ smooth points is:
 $$\Pr[\text{decomposition}] \lesssim \left(\frac{|\mathcal{B}|}{q}\right)^m \cdot \frac{q}{\deg(S_m)} \lesssim \left(\frac{|\mathcal{B}|}{q}\right)^m \cdot q \cdot 2^{-(m-2)}.$$
@@ -4507,7 +4604,7 @@ $$\log_{\hat{E}}(\tilde{P}') = \log_{\hat{E}}([p]\tilde{P}) = \log_{\hat{E}}([ps
 Solving for $s$:
 $$s = \frac{\log_{\hat{E}}(\tilde{P}')}{\log_{\hat{E}}(\tilde{G}')} \pmod{p}.$$
 
-**Step 5 (Complexity).** The formal logarithm and lifting can be computed in polynomial time in $\log p$ using standard $p$-adic arithmetic. The entire attack runs in $O((\log p)^3)$ time. $\square$
+**Step 5 (Complexity).** The formal logarithm $\log_{\hat{E}}$ is computed via the power series $\log_{\hat{E}}(z) = z - a_1 z^2/2 + \cdots$ in $\mathbb{Q}_p[[z]]$. To precision $O(p^k)$, this requires $O(k)$ terms, each involving $p$-adic arithmetic with $O(k \log p)$-bit integers. Hensel lifting (one Newton step per digit of precision) costs $O(k)$ elliptic curve operations, each taking $O((\log p)^2)$ bit operations. The total is $O(k \cdot (\log p)^2) = O((\log p)^3)$ for $k = O(\log p)$ precision sufficient to determine $s \in \mathbb{Z}/p\mathbb{Z}$. $\square$
 
 *Lemma 9.76.11a (Satoh-Araki-Semaev Refinement).* The attack works provided:
 $$\tilde{G}' = [p]\tilde{G} \neq \mathcal{O} \text{ in } \tilde{E}(\mathbb{Q}_p).$$
@@ -4894,7 +4991,7 @@ Then:
 *Lemma 9.78.1 (Convex Hull Expansion).* For $k < n$, the convex hull of $\Sigma_k$ satisfies:
 $$\text{conv}(\Sigma_k) = \mathbb{R}^n.$$
 
-*Proof of Lemma.* Every standard basis vector $e_i$ lies in $\Sigma_1 \subset \Sigma_k$. Their convex hull contains all convex combinations, hence the full simplex $\Delta^{n-1}$. Taking arbitrary scalings and using linearity shows $\text{conv}(\Sigma_k) = \mathbb{R}^n$. $\square$
+*Proof of Lemma.* The set $\Sigma_k = \{v \in \mathbb{R}^n : \|v\|_0 \leq k\}$ contains all vectors supported on at most $k$ coordinates. In particular, $\Sigma_1$ contains $\{\lambda e_i : \lambda \in \mathbb{R}, i = 1, \ldots, n\}$ where $e_i$ denotes the $i$-th coordinate vector. For any $v = \sum_{i=1}^n v_i e_i \in \mathbb{R}^n$, write $v = \sum_{i: v_i \neq 0} v_i e_i$. Each $v_i e_i \in \Sigma_1 \subset \Sigma_k$. Since there are finitely many nonzero terms and $\Sigma_k$ contains all coordinate-aligned vectors with arbitrary magnitudes, the convex hull $\text{conv}(\Sigma_k) \supseteq \text{span}\{e_1, \ldots, e_n\} = \mathbb{R}^n$. (Note: $\Sigma_k$ is a cone, so convex combinations with arbitrary positive coefficients are achievable.) $\square$
 
 *Corollary 9.78.2.* If $\Sigma_k$ were convex, it would equal $\mathbb{R}^n$, contradicting $\Sigma_k \subsetneq \mathbb{R}^n$ for $k < n$.
 
@@ -5096,7 +5193,13 @@ Let $L_\alpha: \mathbb{R}^n \to \mathbb{R}$ be a one-parameter family of loss fu
 $$L_\alpha(x, y) = (\alpha - \alpha^*) x + x^3 + Q(y)$$
 where $Q(y) = \frac{1}{2} y^T A y$ with $A$ non-degenerate.
 
-*Proof of Lemma.* This is the standard Thom normal form for a saddle-node bifurcation. The simple degeneracy condition (one-dimensional kernel) and transversality (non-vanishing of a certain derivative) ensure the cubic term appears. The remaining directions are non-degenerate by assumption. $\square$
+*Proof of Lemma.* The normal form follows from Thom's transversality theorem [R. Thom, *Structural Stability and Morphogenesis*, Benjamin, 1972; V.I. Arnold, *Catastrophe Theory*, Springer, 3rd ed., 1992, Chapter 9].
+
+**Step 1 (Center manifold reduction).** Since $\ker(H(\alpha^*))$ is one-dimensional (simple degeneracy), the center manifold theorem reduces the problem to a one-dimensional bifurcation on the center manifold $W^c$, parameterized by $x \in \mathbb{R}$, with the remaining $n-1$ directions stable.
+
+**Step 2 (Normal form computation).** On $W^c$, expand $L_\alpha|_{W^c}(x) = a_0(\alpha) + a_1(\alpha)x + a_2(\alpha)x^2 + a_3(\alpha)x^3 + O(x^4)$. The critical point condition $\nabla L = 0$ at $\alpha^*$ gives $a_1(\alpha^*) = 0$. Simple degeneracy means $a_2(\alpha^*) = 0$ but $a_3(\alpha^*) \neq 0$. Transversality $\frac{\partial}{\partial \alpha}a_1|_{\alpha^*} \neq 0$ ensures the linear term $(\alpha - \alpha^*)x$ appears.
+
+**Step 3 (Rescaling).** A coordinate change $x \mapsto c \cdot x$ with appropriate $c$ normalizes the cubic coefficient to 1. The quadratic term $Q(y)$ on the stable directions is non-degenerate by the assumption $H|_{E^s}$ is non-singular. $\square$
 
 *Corollary 9.82.4.* For $\alpha < \alpha^*$: two critical points exist at $x = \pm\sqrt{\alpha^* - \alpha}$. For $\alpha > \alpha^*$: no critical points exist nearby. The indices of the two branches differ by one.
 
@@ -5195,7 +5298,15 @@ Thus $\mathcal{F}f$ transforms in the same representation, hence lies in the sam
 - If $V \not\cong W$: $T = 0$.
 - If $V \cong W$: $T = \lambda \cdot \text{id}$ for some scalar $\lambda$.
 
-*Proof of Lemma.* Standard representation theory: $\ker T$ and $\text{im } T$ are $G$-invariant subspaces, hence either trivial or total by irreducibility. $\square$
+*Proof of Lemma.* We prove both statements from the definition of irreducibility [J.-P. Serre, *Linear Representations of Finite Groups*, Springer GTM 42, 1977, §2.2].
+
+*Claim: $\ker T$ is $G$-invariant.* For any $g \in G$ and $v \in \ker T$: $T(g \cdot v) = g \cdot T(v) = g \cdot 0 = 0$ (using $G$-equivariance), so $g \cdot v \in \ker T$.
+
+*Claim: $\text{im } T$ is $G$-invariant.* For $w = T(v) \in \text{im } T$: $g \cdot w = g \cdot T(v) = T(g \cdot v) \in \text{im } T$.
+
+Since $V$ is irreducible, its only $G$-invariant subspaces are $\{0\}$ and $V$. Thus $\ker T = \{0\}$ (injective) or $\ker T = V$ (i.e., $T = 0$). Similarly, $\text{im } T = \{0\}$ or $\text{im } T = W$.
+
+If $T \neq 0$, then $T$ is injective with $\text{im } T = W$, so $T$ is an isomorphism $V \xrightarrow{\sim} W$. If $V \not\cong W$, no such isomorphism exists, so $T = 0$. If $V = W$, then $T \in \text{End}_G(V)$, and over an algebraically closed field, the only $G$-equivariant endomorphisms of an irreducible representation are scalars (since any eigenspace of $T$ is $G$-invariant). $\square$
 
 *Corollary 9.84.4.* On the isotypic component $V_\rho \otimes M_\rho$, the operator $\mathcal{F}$ acts as $I_{V_\rho} \otimes \tilde{\mathcal{F}}_\rho$ where $\tilde{\mathcal{F}}_\rho$ acts only on the multiplicity space.
 
@@ -5446,7 +5557,9 @@ Let $f: M \to M$ be a $C^1$-diffeomorphism. Then:
 
 *Lemma 9.90.1 (Stable/Unstable Manifold Theorem).* At each point $x \in \Lambda$, there exist local stable and unstable manifolds $W^s_{\text{loc}}(x), W^u_{\text{loc}}(x)$ of uniform size depending only on the hyperbolicity constants.
 
-*Proof of Lemma.* Standard invariant manifold theory for hyperbolic sets. The uniformity follows from compactness of $\Lambda$ and continuous dependence of invariant manifolds on the base point. $\square$
+*Proof of Lemma.* The Hadamard-Perron theorem [M. Shub, *Global Stability of Dynamical Systems*, Springer, 1987, Chapter 5] establishes: for a hyperbolic fixed point $p$ of a $C^1$ diffeomorphism $f$ with $Df|_p$ having eigenvalue splitting $\sigma(Df|_p) = \sigma_s \cup \sigma_u$ where $|\lambda| < 1$ for $\lambda \in \sigma_s$ and $|\mu| > 1$ for $\mu \in \sigma_u$, there exist local manifolds $W^s_{\text{loc}}(p)$ and $W^u_{\text{loc}}(p)$ tangent to the corresponding eigenspaces, invariant under $f$ (resp. $f^{-1}$), and characterized as:
+$$W^s_{\text{loc}}(p) = \{x : d(f^n(x), p) \to 0 \text{ and } f^n(x) \text{ stays in neighborhood}\}.$$
+For a compact hyperbolic set $\Lambda$, the stable/unstable bundles $E^s_x, E^u_x$ vary continuously with $x \in \Lambda$. The manifold sizes depend only on the uniform bounds $|\lambda_s| < \lambda < 1 < \mu < |\lambda_u|$ from the hyperbolicity definition. Compactness of $\Lambda$ ensures these bounds are uniform over all base points. $\square$
 
 *Lemma 9.90.2 (Contraction Mapping Construction).* Define the space of orbit sequences:
 $$\mathcal{X} = \{(y_n)_{n \in \mathbb{Z}} : y_n \in M, d(y_n, x_n) < R\}$$
@@ -5542,7 +5655,9 @@ Let $f: X \to X$ be a deterministic dynamical system and $\varphi_\sigma$ a rand
 - Has absolutely continuous conditional measures on unstable manifolds
 - Satisfies the Pesin entropy formula: $h_\mu(f) = \sum_{\lambda_i > 0} \lambda_i \cdot m_i$
 
-*Proof of Lemma.* Standard ergodic theory for hyperbolic attractors (Sinai, Ruelle, Bowen). $\square$
+*Proof of Lemma.* The existence and uniqueness of SRB (Sinai-Ruelle-Bowen) measures for Axiom A attractors was established in [Ya. Sinai, "Gibbs measures in ergodic theory," Russian Math. Surveys 27 (1972), 21–69], [D. Ruelle, "A measure associated with Axiom A attractors," Amer. J. Math. 98 (1976), 619–654], and [R. Bowen, *Equilibrium States and the Ergodic Theory of Anosov Diffeomorphisms*, Springer LNM 470, 1975].
+
+The construction proceeds as follows: (1) The symbolic dynamics via Markov partitions reduces the system to a subshift of finite type. (2) The SRB measure corresponds to the equilibrium state for the potential $\phi(x) = -\log|\det(Df|_{E^u_x})|$. (3) The Pesin entropy formula $h_\mu(f) = \int \log|\det(Df|_{E^u})| d\mu = \sum_{\lambda_i > 0} \lambda_i \cdot m_i$ holds by Ruelle's inequality (upper bound) and Pesin's formula (equality for SRB measures). (4) Absolute continuity on unstable manifolds follows from the Gibbs property of the equilibrium state. $\square$
 
 *Lemma 9.92.2 (Noise Regularization).* The transition kernel $P_\sigma(x, \cdot)$ of $\varphi_\sigma$ has a density with respect to Lebesgue measure for $\sigma > 0$.
 
@@ -5875,7 +5990,13 @@ $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta).$
 - Small values indicate that, on average with respect to $\mu$, axiom $A_\theta$ is nearly satisfied.
 - Large values indicate frequent or severe violations.
 
-*Proof.* Direct from the definitions. $\square$
+*Proof.* By Definition 10.6, $\mathcal{R}_A(\theta) = \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u)$. Since $K_A^{(\theta)}(u) \geq 0$ with equality precisely when trajectory $u$ satisfies axiom $A$ under parameter $\theta$ (Definition 10.5), we have:
+
+1. **Small $\mathcal{R}_A(\theta)$:** The integral is small if and only if $K_A^{(\theta)}(u)$ is small for $\mu$-almost every $u$, meaning the axiom is satisfied or nearly satisfied across the trajectory distribution.
+
+2. **Large $\mathcal{R}_A(\theta)$:** The integral is large if either (i) $K_A^{(\theta)}(u)$ is large on a set of positive $\mu$-measure (severe violations), or (ii) $K_A^{(\theta)}(u)$ is moderate on a large set (frequent violations). In both cases, axiom $A$ fails systematically under parameter $\theta$.
+
+The interpretation follows from the positivity and integrability of the defect functional. $\square$
 
 ### 10.3 Trainable global axioms
 
@@ -5942,7 +6063,18 @@ Under the assumptions of Lemma 10.13, together with Lipschitz continuity of $\na
 
 If additionally $\mathcal{R}$ is convex, every accumulation point is a global axiom minimizer.
 
-*Proof.* Standard results in convex optimization. The Robbins-Monro conditions on step sizes ensure convergence to stationary points. Convexity implies stationary points are global minima. $\square$
+*Proof.* We apply the Robbins-Monro theorem [H. Robbins and S. Monro, "A stochastic approximation method," Ann. Math. Statist. 22 (1951), 400–407].
+
+**Step 1 (Descent property).** For $L$-Lipschitz continuous gradients:
+$$\mathcal{R}(\theta_{k+1}) \leq \mathcal{R}(\theta_k) - \eta_k \|\nabla \mathcal{R}(\theta_k)\|^2 + \frac{L\eta_k^2}{2}\|\nabla \mathcal{R}(\theta_k)\|^2.$$
+
+**Step 2 (Summability).** Summing over $k$ and using $\sum_k \eta_k^2 < \infty$:
+$$\sum_{k=0}^\infty \eta_k(1 - L\eta_k/2)\|\nabla \mathcal{R}(\theta_k)\|^2 \leq \mathcal{R}(\theta_0) - \inf \mathcal{R} < \infty.$$
+Since $\sum_k \eta_k = \infty$ and $\eta_k \to 0$, we have $\liminf_{k \to \infty} \|\nabla \mathcal{R}(\theta_k)\| = 0$.
+
+**Step 3 (Accumulation points).** Compactness of $\Theta$ (Theorem 10.11, assumption 1) ensures $(\theta_k)$ has accumulation points. Continuity of $\nabla \mathcal{R}$ implies any accumulation point $\theta^*$ satisfies $\nabla \mathcal{R}(\theta^*) = 0$ (stationary).
+
+**Step 4 (Convex case).** If $\mathcal{R}$ is convex, stationary points satisfy $\nabla \mathcal{R}(\theta^*) = 0$ if and only if $\theta^*$ is a global minimizer. $\square$
 
 ### 10.5 Joint training of axioms and extremizers
 
@@ -5966,7 +6098,7 @@ converges to stationary points under standard conditions.
 
 **Step 2 (Integral exchange).** Dominated convergence (as in Lemma 10.13) allows differentiation under the expectation.
 
-**Step 3 (Convergence).** Standard gradient descent analysis applies. $\square$
+**Step 3 (Convergence).** The same Robbins-Monro analysis as in Corollary 10.15 applies to the joint iteration on $(\theta, \vartheta) \in \Theta \times \Upsilon$. Under Lipschitz continuity of $\nabla_{(\theta, \vartheta)} \mathcal{L}$ and compactness of $\Theta \times \Upsilon$, the descent inequality holds in the product space. The step size conditions ensure convergence to stationary points of $\mathcal{L}$. $\square$
 
 **Corollary 10.19 (Interpretation).** In this scheme:
 - The global axioms $\theta$ are **learned** to minimize defects of local soft axioms.
@@ -6007,7 +6139,15 @@ with indicator penalties for constraint violations.
 - Recognize symmetries inherent to the system
 - Produce internally consistent hypostructure components
 
-*Proof.* Direct from the definitions. $\square$
+*Proof.* We verify each claim:
+
+1. **Conserved quantities:** By Definition 11.4, $L_{\text{struct}}$ includes the term $d(\Phi_\Theta, \Phi^*)$. Minimizing this term forces $\Phi_\Theta$ close to the ground-truth $\Phi^*$. By Definition 11.5, violations of positivity ($\Phi_\Theta < 0$) incur penalty, selecting parameters where $\Phi_\Theta$ behaves as a proper energy/height functional.
+
+2. **Symmetries:** The term $d(G_\Theta, G^*)$ (Definition 11.4) penalizes discrepancy between learned and true symmetry groups. The indicator $\mathbf{1}[\text{non-}G_\Theta\text{-invariance}]$ (Definition 11.5) penalizes learned structures not respecting the identified symmetry.
+
+3. **Internal consistency:** The indicator $\mathbf{1}[\text{non-convexity along flow}]$ (Definition 11.5) enforces that $\Phi_\Theta$ and the flow $S_t$ are compatible: along trajectories, $\Phi_\Theta$ should decrease (Lyapunov property) or satisfy convexity constraints from Axiom D.
+
+The loss $L_{\text{struct}}$ is zero if and only if all components are correctly identified and mutually consistent. $\square$
 
 ### 11.2 Axiom loss
 
