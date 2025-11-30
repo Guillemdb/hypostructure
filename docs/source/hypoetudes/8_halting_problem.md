@@ -1,4 +1,4 @@
-# Étude 5: The Halting Problem and Hypostructure in Computability Theory
+# Étude 8: The Halting Problem and Hypostructure in Computability Theory
 
 ## Abstract
 
@@ -567,7 +567,7 @@ $$\text{Thm}_F = \{n : \exists p\, \text{Prov}_F(p, n)\}$$
 
 ## 17. Connections to Other Études
 
-### 17.1. Navier-Stokes (Étude 2)
+### 17.1. Navier-Stokes (Étude 6)
 
 **Observation 17.1.1**. *The regularity problem for Navier-Stokes involves:*
 - *Potential blow-up detection (Axiom D question)*
@@ -575,7 +575,7 @@ $$\text{Thm}_F = \{n : \exists p\, \text{Prov}_F(p, n)\}$$
 
 *Computability enters through undecidability of continuous dynamics: determining blow-up from initial data may be as hard as the halting problem.*
 
-### 17.2. Yang-Mills (Étude 4)
+### 17.2. Yang-Mills (Étude 7)
 
 **Observation 17.2.1**. *Mass gap existence involves:*
 - *Discreteness of spectrum (compactness, Axiom C)*

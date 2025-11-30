@@ -1,4 +1,4 @@
-# Étude 3: The Birch and Swinnerton-Dyer Conjecture via Hypostructure
+# Étude 2: The Birch and Swinnerton-Dyer Conjecture via Hypostructure
 
 ## 0. Introduction
 

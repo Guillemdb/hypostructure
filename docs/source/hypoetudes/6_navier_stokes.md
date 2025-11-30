@@ -1,4 +1,4 @@
-# Étude 2: Navier-Stokes Regularity via Hypostructure
+# Étude 6: Navier-Stokes Regularity via Hypostructure
 
 ## 0. Introduction
 

@@ -1,4 +1,4 @@
-# Étude 6: The Riemann Hypothesis and Hypostructure in Analytic Number Theory
+# Étude 1: The Riemann Hypothesis and Hypostructure in Analytic Number Theory
 
 ## Abstract
 
@@ -435,17 +435,17 @@ $$\beta_{\max} < 1 - \frac{c}{(\log T)^{2/3}(\log\log T)^{1/3}}$$
 
 ## 16. Connections to Other Études
 
-### 16.1. BSD Conjecture (Étude 3)
+### 16.1. BSD Conjecture (Étude 2)
 
 **Observation 16.1.1**. *The BSD L-function $L(E,s)$ is conjecturally in the Selberg class. Its behavior at $s = 1$ encodes arithmetic data, analogous to $\zeta(s)$ at $s = 1$ encoding prime density.*
 
-### 16.2. Yang-Mills (Étude 4)
+### 16.2. Yang-Mills (Étude 7)
 
 **Observation 16.2.1**. *The spectral zeta function of the Yang-Mills Hamiltonian:*
 $$\zeta_{YM}(s) = \sum_{\lambda_n > 0} \lambda_n^{-s}$$
 *connects spectral gaps to analytic number theory.*
 
-### 16.3. Halting Problem (Étude 5)
+### 16.3. Halting Problem (Étude 8)
 
 **Observation 16.3.1**. *The Riemann Hypothesis is independent of PA if and only if no Turing machine can verify all its computational consequences—a statement about Axiom R failure in logic.*
 

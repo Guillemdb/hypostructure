@@ -1,16 +1,20 @@
-# Hypostructures: A Structural Theory of Coherent Dynamics
+# Hypostructures: The Geometry of System Stability
 
-# Part I: The Vision
+*A Unified Framework for Analyzing Dynamical Coherence*
+
+# Part I: Foundations
 
 ## 0. The Organizing Principle
 
-### 0.1 The crisis of hard analysis
+### 0.1 The challenge of understanding stability
 
-Contemporary analysis of dynamical systems—whether in partial differential equations, geometric flows, or discrete computational processes—faces fundamental limitations. The standard approach attempts to prove regularity by controlling chaos: constructing estimates, bounding norms, and managing entropy via inequalities (Sobolev, Gronwall, Morawetz).
+Contemporary analysis of dynamical systems—whether in partial differential equations, geometric flows, or discrete computational processes—seeks to understand when systems remain stable and when they break down. The standard approach attempts to prove regularity by controlling chaos: constructing estimates, bounding norms, and managing entropy via inequalities (Sobolev, Gronwall, Morawetz).
 
-This approach treats potential singularities as valid objects of study and attempts to control them via quantitative bounds.
+This document presents a complementary approach: a **diagnostic framework** that identifies the structural conditions under which systems remain stable, and classifies the ways they can fail.
 
-**Hypostructures take the opposite approach.** Rather than controlling chaos via estimates, this framework establishes structural constraints that exclude it. The framework does not perform hard analysis to prove that a singularity is small; it uses structural logic to prove that a singularity is forbidden.
+**Hypostructures provide a unified language for stability analysis.** Rather than treating each system in isolation, this framework establishes structural constraints that characterize coherent dynamics across domains. The framework does not replace hard analysis; it provides a **conceptual map** that explains why certain estimates work, predicts which failure modes are possible, and unifies disparate results under common principles.
+
+**Remark (Scope and claims).** This framework is **descriptive and diagnostic**, not a substitute for rigorous proofs of specific mathematical conjectures. It explains *why* known systems behave as they do, provides engineers and researchers with a checklist of failure modes, and suggests which structural properties to verify. Proving that a specific physical system (e.g., 3D Navier-Stokes) satisfies the hypostructure axioms remains an open mathematical problem requiring independent verification.
 
 ### 0.2 The fixed-point principle: F(x) = x
 
@@ -19,10 +23,12 @@ The hypostructure axioms are not independent postulates chosen for technical con
 **Definition 0.1 (Dynamical fixed point).** Let $\mathcal{S} = (X, (S_t), \Phi, \mathfrak{D})$ be a structural flow datum. A state $x \in X$ is a **dynamical fixed point** if $S_t x = x$ for all $t \in T$. More generally, a subset $M \subseteq X$ is **invariant** if $S_t(M) \subseteq M$ for all $t \geq 0$.
 
 **Definition 0.2 (Self-consistency).** A trajectory $u: [0, T) \to X$ is **self-consistent** if it satisfies:
+
 1. **Temporal coherence:** The evolution $F_t: x \mapsto S_t x$ preserves the structural constraints defining $X$.
 2. **Asymptotic stability:** Either $T = \infty$, or the trajectory approaches a well-defined limit as $t \nearrow T$.
 
 **Theorem 0.3 (The fixed-point principle).** Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
+
 1. The system $\mathcal{S}$ satisfies the hypostructure axioms on all finite-energy trajectories.
 2. Every finite-energy trajectory is asymptotically self-consistent: either it exists globally ($T_* = \infty$) or it converges to the safe manifold $M$.
 3. The only persistent states are fixed points of the evolution operator $F_t = S_t$ satisfying $F_t(x) = x$.
@@ -119,21 +125,34 @@ The construction of global solutions is replaced with the assembly of local cons
 
 ### 0.7 Summary
 
-This document proposes a normative theory of dynamics. It describes how systems must behave if they are to respect the symmetries and conservation laws of their defining Hypostructure.
+This document presents a framework for analyzing the stability of dynamical systems—from fluid dynamics and quantum fields to neural networks and markets. By identifying four constraint classes (**Conservation, Topology, Duality, and Symmetry**), we derive a taxonomy of 15 failure modes. The framework organizes 83 theorems from across mathematics into a barrier catalog that characterizes when systems remain stable and when they break down.
 
-The framework rests on a single organizing principle—the fixed-point equation $F(x) = x$—from which four fundamental constraint classes emerge as logical necessities. Fifteen failure modes exhaust the ways self-consistency can break. Eighty-three metatheorems provide quantitative barriers that detect and exclude these failures.
+The framework's value is **explanatory and diagnostic**:
 
-The framework replaces estimates with permits, inequalities with obstructions, and analysis with algebra.
+1. **Failure mode classification:** A systematic checklist of how systems can break, organized by constraint class and failure type.
+2. **Unified language:** Common structural principles connecting theorems from different domains (Heisenberg uncertainty, Shannon limit, Bode integral, Nash-Moser).
+3. **Physics derivation:** Known physical laws (GR, QM, thermodynamics) as necessary conditions for avoiding structural failure.
+4. **Engineering applications:** Diagnostic tools for AI safety, control systems, and optimization.
+
+The framework rests on a single organizing principle—the fixed-point equation $F(x) = x$—from which four fundamental constraint classes emerge as logical necessities.
+
+**What this document does not claim:** Proofs of specific open mathematical problems (Navier-Stokes regularity, Yang-Mills mass gap, etc.) require independent verification that specific systems satisfy the hypostructure axioms. The framework provides the *language* and *structure* for such analyses, not the final word.
 
 ---
 
 ## 1. Overview and Roadmap
 
-### 1.1 The singularity control thesis
+### 1.1 The structural stability thesis
 
-A **hypostructure** is a framework for dynamical systems—deterministic or stochastic, continuous or discrete—that provides **global regularity via soft local exclusion**. The central thesis is:
+A **hypostructure** is a unified framework for analyzing dynamical systems—deterministic or stochastic, continuous or discrete—that characterizes stability through structural constraints. The central thesis is:
 
-> **Global regularity is proven by showing that singularities are locally impossible. The axioms act as algebraic permits that any singularity must satisfy. When these permits are denied via dimensional or geometric analysis, the singularity cannot form.**
+> **If a system satisfies the hypostructure axioms, then stability follows from structural logic. The axioms act as algebraic permits that any instability must satisfy. When these permits are denied via dimensional or geometric analysis, the instability cannot form.**
+
+**Important clarification.** The framework provides a **conditional** analysis: *if* a system satisfies the axioms, *then* certain stability properties follow. Verifying that a specific system (e.g., 3D Navier-Stokes) satisfies the axioms is a separate mathematical problem. The framework's value lies in:
+
+1. Explaining *why* known stable systems are stable
+2. Predicting *which* failure modes are possible for a given system
+3. Providing a *diagnostic checklist* for engineers and researchers
 
 **The Exclusion Principle.** The framework does not construct solutions globally or require hard estimates. It proves regularity through the following logic:
 
@@ -153,7 +172,7 @@ A **hypostructure** is a framework for dynamical systems—deterministic or stoc
 
 This document is organized into seven parts:
 
-**Part I: The Vision (Chapters 0–1).** The organizing principle, constraint structure, and main thesis. Establishes the conceptual foundation: self-consistency under evolution, the four fundamental constraints, and the logic of soft local exclusion.
+**Part I: Foundations (Chapters 0–1).** The organizing principle, constraint structure, and main thesis. Establishes the conceptual foundation: self-consistency under evolution, the four fundamental constraints, and the logic of soft local exclusion.
 
 **Part II: The Axioms (Chapters 2–3).** Formal definitions of the hypostructure axioms. Chapter 2 presents the core structural axioms (Compactness, Dissipation, Recovery, Capacity). Chapter 3 develops the auxiliary axioms (Local Stiffness, Scaling Structure, Topological Background, Gradient Consistency).
 
@@ -161,7 +180,7 @@ This document is organized into seven parts:
 
 **Part IV: Regularity Theory (Chapters 5–7).** The main theorems. Chapter 5 establishes the foundational lemmas (concentration-compactness, profile decomposition). Chapter 6 derives the core regularity results (Type II exclusion, capacity barriers, topological suppression). Chapter 7 presents the structural resolution theorem and canonical Lyapunov functionals.
 
-**Part V: Physical Instantiation (Chapter 8).** Applications to concrete systems: Navier–Stokes equations, geometric flows (mean curvature, Ricci), Yang–Mills gradient flow, nonlinear Schrödinger equations, reaction-diffusion systems.
+**Part V: Physical Instantiation (Chapter 8).** Candidate applications to concrete systems: Navier–Stokes equations, geometric flows (mean curvature, Ricci), Yang–Mills gradient flow, nonlinear Schrödinger equations, reaction-diffusion systems. These instantiations illustrate how the framework *would* apply if the axioms can be verified—rigorous verification remains an active research area for many systems.
 
 **Part VI: Metatheorems (Chapter 9).** The eighty-three structural barriers organized by mathematical domain. Each metatheorem provides a quantitative obstruction that excludes specific failure modes.
 
@@ -326,7 +345,7 @@ The only remaining possibility is Mode D.D (dispersion), which is not a finite-t
 **Conjecture 1.10 (Structural universality).** Every well-posed mathematical system admits a hypostructure in which the core theorems hold. Ill-posedness is equivalent to unavoidable violation of one or more constraint classes.
 
 The verification of this conjecture across the mathematical landscape remains an open program.
-# Part II: Foundations
+# Part II: Mathematical Foundations
 
 ## 2. Mathematical Foundations
 
@@ -553,6 +572,7 @@ $$
 **Role in constraint class.** Axiom TB provides topological obstructions to concentration. Nontrivial topological sectors (e.g., nonzero degree, Chern number, homotopy class) carry a minimum action cost $\Delta$. Trajectories in such sectors must pay this action penalty, which may exceed the available energy budget, thereby blocking singularity formation.
 
 **Example 3.5 (Topological charges).**
+
 1. **Degree:** For maps $u: S^n \to S^n$, $\tau(u) = \deg(u) \in \mathbb{Z}$.
 2. **Chern number:** For connections on a bundle, $\tau(A) = c_1(A) \in \mathbb{Z}$.
 3. **Homotopy class:** $\tau(u) = [u] \in \pi_n(M)$.
@@ -756,6 +776,7 @@ Here (BG) is the Background Geometry axiom (providing geometric structure via Ha
 | **GC fails** | — | Reconstruction theorems do not apply; abstract Lyapunov construction still valid |
 
 **Remark 3.21 (Regularity via permit denial).** Global regularity follows whenever:
+
 1. Energy disperses (Mode D.D)—no singularity forms, or
 2. Concentration occurs but a permit is denied—singularity is contradicted.
 
@@ -815,6 +836,7 @@ Each class admits three failure types: **Excess** (too much structure), **Defici
 | **Boundary** | Mode B.E: Injection | Mode B.D: Starvation | Mode B.C: Misalignment |
 
 **Theorem 4.4 (Completeness).** The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
+
 1. Exists globally and converges to the safe manifold $M$, or
 2. Exhibits exactly one of the failure modes 1–15.
 
@@ -1001,9 +1023,7 @@ for all $k$. The total topological complexity $\sum_k b_k(S)$ is bounded by the 
 **Remark 4.17 (Mode D.D is global existence).** Mode D.D encompasses all scenarios where energy does not concentrate into a single profile:
 
 1. **Weak convergence without strong convergence.** If $u(t_n) \rightharpoonup V$ weakly but $\Phi(u(t_n)) \to \Phi(V) + \delta$ for some $\delta > 0$ (energy dispersing to radiation), this is Mode D.D. Energy disperses rather than concentrating—no singularity forms.
-
 2. **Multi-profile decompositions.** If the trajectory involves multiple separating profiles (e.g., $u(t_n) \approx \sum_j g_n^j \cdot V^j$), and no single profile approximation suffices, this is Mode D.D. The profiles separate and scatter—no singularity forms.
-
 3. **Physical interpretation.** Mode D.D corresponds to **scattering solutions**: the solution exists globally, and the energy disperses to spatial or frequency infinity. This is global regularity, not breakdown. The framework classifies this as "no structure" precisely because no singularity structure forms—the solution is globally regular.
 
 **Proposition 4.18 (Anamorphic principle).** Let $\mathcal{F}: X \to X^*$ be the Fourier or Legendre transform appropriate to the structure. If $x$ is localized ($\|x\|_{X} < \delta$), then $\mathcal{F}(x)$ is dispersed:
@@ -1169,10 +1189,12 @@ in the semiclassical limit. The instanton is the optimal path achieving the barr
 
 **Step 4 (Mode S.C occurrence).** Mode S.C occurs when $B_{12} = 0$ or when thermal/quantum fluctuations overcome the barrier. The system discontinuously transitions from $\mathcal{H}_1$ to $\mathcal{H}_2$, invalidating the original hypostructure description. $\square$
 
-**Theorem 4.30 (Mass gap from symmetry breaking).** Let $\mathcal{S}$ be a hypostructure with scale invariance group $G = \mathbb{R}_{>0}$ (dilations). If the ground state $V \in M$ breaks scale invariance (i.e., $\lambda \cdot V \neq V$ for $\lambda \neq 1$), then there exists a mass gap:
+**Theorem 4.30 (Mass gap from symmetry breaking—structural principle).** Let $\mathcal{S}$ be a hypostructure with scale invariance group $G = \mathbb{R}_{>0}$ (dilations). If the ground state $V \in M$ breaks scale invariance (i.e., $\lambda \cdot V \neq V$ for $\lambda \neq 1$), then there exists a mass gap:
 $$
 \Delta := \inf_{x \notin M} \Phi(x) - \Phi_{\min} > 0.
 $$
+
+**Remark (Scope).** This theorem establishes a *structural principle*: symmetry breaking implies a mass gap *within the hypostructure framework*. It explains *why* mass gaps emerge in systems exhibiting dimensional transmutation, but does not constitute a proof of the Yang-Mills Millennium Prize Problem. Proving that 4D Yang-Mills theory satisfies the hypostructure axioms with the required regularity properties remains an open mathematical problem.
 
 *Proof.*
 
@@ -1190,7 +1212,7 @@ as $\lambda \to \infty$. Scale-invariant blow-up profiles have infinite cost.
 
 This gap $\Delta$ is the **mass gap**: the minimal energy needed to create an excitation. It prevents continuous paths from $M$ to excited states, stabilizing the vacuum against decay. $\square$
 
-**Example 4.31.** In Yang–Mills theory, the vacuum state $A = 0$ is scale-invariant at the classical level, but quantum corrections break this symmetry via dimensional transmutation, generating a mass gap. Mode S.C corresponds to vacuum instability in theories without such stabilization.
+**Example 4.31 (Physical interpretation).** In QCD, the vacuum state is scale-invariant at the classical level, but quantum corrections break this symmetry via dimensional transmutation, generating a mass gap. The framework explains *why* physicists observe confinement and a mass gap—it is a structural consequence of symmetry breaking. Mode S.C corresponds to vacuum instability in theories without such stabilization.
 
 ---
 
@@ -1421,7 +1443,7 @@ Mode D.D and permit-denial both yield global regularity—but via different mech
 
 ---
 
-**Summary.** The fifteen failure modes form a complete, orthogonal classification of dynamical breakdown. The periodic table structure reveals that singularities are not arbitrary pathologies but systematic violations of fundamental coherence constraints. The framework reduces the problem of proving global regularity to algebraic permit-checking on forced structures—a dramatic simplification of the original PDE problem.
+**Summary.** The fifteen failure modes form a complete, orthogonal classification of dynamical breakdown. The periodic table structure reveals that singularities are systematic violations of coherence constraints rather than arbitrary pathologies. The framework reduces the problem of proving global regularity to algebraic permit-checking on forced structures.
 # Part IV: Core Metatheorems
 
 ## 5. Normalization and Gauge Structure
@@ -2342,7 +2364,7 @@ Is $\alpha > \beta$?
 
 The hypostructure framework classifies all possible system breakdowns into eleven failure modes (Part III). While Axioms D, LS, SC, and GC provide the general machinery for detecting and preventing these modes, the question remains: **what are the specific, quantitative mechanisms** that enforce these axioms in concrete systems?
 
-Part V provides the answer: a catalog of **eighty-three barriers**—fundamental obstructions from mathematics, physics, computer science, and information theory that prevent specific combinations of failure modes. These barriers are not ad-hoc: they emerge from deep structural principles (conservation laws, topological constraints, information-theoretic bounds, computational limits) that transcend individual applications.
+Part V provides a catalog of **eighty-three barriers**—obstructions from mathematics, physics, computer science, and information theory that prevent specific combinations of failure modes. These barriers emerge from structural principles (conservation laws, topological constraints, information-theoretic bounds, computational limits) that apply across multiple domains.
 
 The barriers are organized into two classes corresponding to the fundamental dichotomy in system failure:
 
@@ -2353,6 +2375,7 @@ The barriers are organized into two classes corresponding to the fundamental dic
 The remaining modes (2, 3, 6, 7, 10) are addressed by combinations of these barriers or by the base axioms directly.
 
 Each barrier is presented with:
+
 1. **Theorem statement** with precise hypotheses and conclusions
 2. **Constraint class**: Conservation or Topology
 3. **Modes prevented**: Which failure modes it excludes
@@ -3741,12 +3764,12 @@ Each barrier provides a **certificate of impossibility**: when its hypotheses ar
 - The **Sheaf Descent Barrier** (9.2) interacts with the **Characteristic Sieve** (9.1) to enforce global-local consistency.
 - The **Shannon-Kolmogorov Barrier** (8.3) combines with the **Algorithmic Causal Barrier** (8.4) to exclude hollow singularities.
 
-**The Fundamental Principle:** Pathologies are not arbitrary catastrophes but structured phenomena governed by conservation laws and topological invariants. The barriers reveal that **breakdown is quantized**—systems fail in discrete, classifiable ways, and each failure mode faces specific, insurmountable obstructions.
+**Structural observation:** System failures are structured phenomena governed by conservation laws and topological invariants. The barriers show that breakdown occurs in discrete, classifiable ways, with each failure mode subject to specific obstructions.
 
-Part V demonstrates that hypostructure theory is not merely descriptive but **predictive**: given a system's structural data (energy functional, dissipation, topology), the barrier catalog determines which failure modes are possible and which are forever excluded.
+Part V demonstrates that given a system's structural data (energy functional, dissipation, topology), the barrier catalog determines which failure modes are possible and which are excluded by the axioms.
 
 The next part (Part VI, Chapters 10-11) will apply this machinery to concrete examples: mean curvature flow, Ricci flow, reaction-diffusion systems, and computational systems, demonstrating how the barriers operate in practice.
-# Part V: The Eighty-Three Barriers (Second Half)
+# Part V (continued): The Eighty-Three Barriers
 
 ## 10. Duality Barriers
 
@@ -4197,7 +4220,7 @@ For chaotic systems: Lyapunov instability $\|\delta x(t)\| \sim \|\delta x(0)\| 
 
 Prediction faster than real-time simulation is impossible for irreducible systems. $\square$
 
-**Key Insight:** Observation and prediction are subject to fundamental limits. An observer embedded in a system cannot extract complete information about the whole without infinite resources. This prevents "god mode" observation singularities and enforces the map-territory distinction.
+**Key Insight:** Observation and prediction are subject to information-theoretic limits. An observer embedded in a system cannot extract complete information about the whole without resources scaling with system size. This enforces bounds on observational precision.
 
 ---
 
@@ -4858,6 +4881,8 @@ The spectral gap guarantees exponential approach to equilibrium. $\square$
 
 **Constraint Class:** Symmetry
 **Modes Prevented:** Mode S.E (Scaling), Mode S.C (Computational)
+
+**Remark (Scope and relation to the Yang-Mills Millennium Problem).** This section explains the *physics* of dimensional transmutation and mass gap generation in QCD—well-established phenomena confirmed by lattice simulations. The framework provides a *structural explanation* for why mass gaps emerge from symmetry breaking. This does not constitute a rigorous mathematical proof of the Yang-Mills Millennium Prize Problem, which requires proving existence and a mass gap for Yang-Mills theory on $\mathbb{R}^4$ using the axioms of constructive quantum field theory.
 
 **Definition 11.3.1 (Dimensional Transmutation).**
 A theory exhibits **dimensional transmutation** when a dimensionless coupling constant generates a dimensionful scale $\Lambda$ dynamically:
@@ -6007,7 +6032,7 @@ Universality prevents:
 
 ---
 
-## Chapter 11B: Computational and Causal Barriers
+## 11B. Computational and Causal Barriers
 
 These barriers arise from computational complexity, causal structure, and information-theoretic limits.
 
@@ -6194,7 +6219,7 @@ Brouwer follows from homology: if $f$ had no fixed point, the map $g(x) = (x - f
 
 ---
 
-## Chapter 11C: Quantum and Physical Barriers
+## 11C. Quantum and Physical Barriers
 
 These barriers arise from quantum mechanics, general relativity, and fundamental physics.
 
@@ -6373,7 +6398,7 @@ Peierls argument gives $p_c > 0$ (too few edges = no percolation). Duality on pl
 
 ---
 
-## Chapter 11D: Additional Structural Barriers
+## 11D. Additional Structural Barriers
 
 These barriers complete the taxonomy with information-theoretic, algebraic, and dynamical constraints.
 
@@ -7675,7 +7700,7 @@ In previous chapters, each soft axiom $A$ was associated with a defect functiona
 
 In this chapter, the axioms themselves are treated as objects to be chosen: each axiom is specified by a family of global parameters, and these parameters are determined as minimizers of defect functionals. Global axioms are obtained as minimizers of the defects of their local soft counterparts.
 
-### 12.1 Parametric families of axioms
+### 13.1 Parametric families of axioms
 
 **Definition 12.1 (Parameter space).** Let $\Theta$ be a metric space (typically a subset of a finite-dimensional vector space $\mathbb{R}^d$). A **parametric axiom family** is a collection $\{A_\theta\}_{\theta \in \Theta}$ where each $A_\theta$ is a soft axiom instantiated by global data depending on $\theta$.
 
@@ -7711,7 +7736,7 @@ Small values of $K_A^{(\theta)}(u)$ correspond to small violations of axiom $A_\
 
 In each case, $K_A^{(\theta)}(u) \geq 0$ with equality if and only if the constraint is satisfied exactly. $\square$
 
-### 12.2 Global defect functionals and axiom risk
+### 13.2 Global defect functionals and axiom risk
 
 **Definition 12.5 (Trajectory measure).** Let $\mu$ be a $\sigma$-finite measure on the trajectory space $\mathcal{U}$. This measure describes how trajectories are sampled or weighted—for instance, a law induced by initial conditions and the evolution $S_t$, or an empirical distribution of observed trajectories.
 
@@ -7737,7 +7762,7 @@ $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta).$
 
 The interpretation follows from the positivity and integrability of the defect functional. $\square$
 
-### 12.3 Trainable global axioms
+### 13.3 Trainable global axioms
 
 **Definition 12.10 (Global axiom minimizer).** A point $\theta^* \in \Theta$ is a **global axiom minimizer** if:
 $$\mathcal{R}(\theta^*) = \inf_{\theta \in \Theta} \mathcal{R}(\theta).$$
@@ -7767,7 +7792,7 @@ $$\mathcal{R}_A(\theta_n) = \int_{\mathcal{U}} K_A^{(\theta_n)}(u) \, d\mu(u) \t
 
 *Proof.* If $\mathcal{R}_A(\theta^*) = \int K_A^{(\theta^*)} d\mu = 0$ and $K_A^{(\theta^*)} \geq 0$, then $K_A^{(\theta^*)}(u) = 0$ for $\mu$-a.e. $u$. By Lemma 12.4, axiom $A_{\theta^*}$ holds $\mu$-almost surely. $\square$
 
-### 12.4 Gradient-based approximation
+### 13.4 Gradient-based approximation
 
 Assume $\Theta \subset \mathbb{R}^d$ is open and convex.
 
@@ -7815,7 +7840,7 @@ Since $\sum_k \eta_k = \infty$ and $\eta_k \to 0$, we have $\liminf_{k \to \inft
 
 **Step 4 (Convex case).** If $\mathcal{R}$ is convex, stationary points satisfy $\nabla \mathcal{R}(\theta^*) = 0$ if and only if $\theta^*$ is a global minimizer. $\square$
 
-### 12.5 Joint training of axioms and extremizers
+### 13.5 Joint training of axioms and extremizers
 
 **Definition 12.16 (Two-level parameterization).** Consider:
 - **Hypostructure parameters:** $\theta \in \Theta$ defining $\Phi_\theta, \mathfrak{D}_\theta, G_\theta$
@@ -8015,7 +8040,7 @@ Discounting becomes an optional modeling choice, not a mathematical necessity.
 
 ---
 
-# Part VII: Synthesis
+# Part VIII: Synthesis
 
 ## 15. Meta-Axiomatics: The Unity of Structure
 
@@ -8151,12 +8176,14 @@ for $\xi \in \mathfrak{g}$. For each $\xi$, define $Q_\xi(x) := \langle \mu(x), 
 $$\frac{d}{dt} Q_\xi(u(t)) = d\Phi(u(t))(\partial_t u(t)) + d\Phi(u(t))(X_\xi(u(t))) = 0$$
 by the chain rule and symmetry. The first term vanishes for gradient flows; the second vanishes by $G$-invariance of $\Phi$. $\square$
 
-**Theorem 15.19 (Mass gap from symmetry breaking).** Let $\mathcal{S}$ be a hypostructure with scale invariance group $G = \mathbb{R}_{>0}$ (dilations). If the ground state $V \in M$ breaks scale invariance (i.e., $\lambda \cdot V \neq V$ for $\lambda \neq 1$), then there exists a mass gap:
+**Theorem 15.19 (Mass gap from symmetry breaking—structural principle).** Let $\mathcal{S}$ be a hypostructure with scale invariance group $G = \mathbb{R}_{>0}$ (dilations). If the ground state $V \in M$ breaks scale invariance (i.e., $\lambda \cdot V \neq V$ for $\lambda \neq 1$), then there exists a mass gap:
 $$
 \Delta := \inf_{x \notin M} \Phi(x) - \Phi_{\min} > 0.
 $$
 
-*Proof.* By Axiom SC, scale-invariant blow-up profiles have infinite cost when $\alpha > \beta$. The only finite-energy states are those in $M$ or separated from $M$ by the energy gap $\Delta$ required to break the symmetry. $\square$
+*Proof.* By Axiom SC, scale-invariant blow-up profiles have infinite cost when $\alpha > \beta$. The only finite-energy states are those in $M$ or separated from $M$ by the energy gap $\Delta$ required to break the symmetry. See Theorem 4.30 for the detailed proof. $\square$
+
+**Remark.** This is a *structural* principle explaining why mass gaps emerge from symmetry breaking. It does not constitute a proof of the Yang-Mills Millennium Problem (see Remark following Theorem 4.30).
 
 ### 15.2 Completeness of the failure taxonomy
 
@@ -8368,11 +8395,11 @@ The eighty-three metatheorems organize naturally according to which constraint c
 
 ### 15.5 Structural universality conjecture
 
-The meta-axiomatics reveals that the hypostructure framework is not merely a collection of useful techniques but a necessary structure for coherent dynamics. The four constraint classes—Conservation, Topology, Duality, Symmetry—are the minimal requirements for a system to satisfy $F(x) = x$.
+The meta-axiomatics organizes the hypostructure framework around four constraint classes—Conservation, Topology, Duality, Symmetry—which characterize the requirements for a system to satisfy $F(x) = x$.
 
-The fifteen failure modes exhaust the ways self-consistency can break. The eighty-three metatheorems are the quantitative enforcers that detect and exclude these failures.
+The fifteen failure modes classify the ways self-consistency can break. The eighty-three metatheorems provide quantitative bounds that exclude these failures.
 
-This perspective transforms the framework from a "taxonomy of theorems" into a unified theory of dynamical coherence. Every concrete system, viewed through this lens, becomes an instance of the question: *Does this system satisfy the fixed-point principle?*
+This perspective organizes the theorems into a coherent structure. Each concrete system can be analyzed by asking: *Does this system satisfy the hypostructure axioms?*
 
 **Conjecture 15.29 (Structural universality).** Every well-posed mathematical system admits a hypostructure in which the core theorems hold. Ill-posedness is equivalent to unavoidable violation of one or more constraint classes.
 
@@ -8456,7 +8483,7 @@ The structural universality conjecture opens several research directions:
 
 ---
 
-# Part VIII: The Isomorphism Dictionary
+# Part IX: The Isomorphism Dictionary
 
 ## 16. Structural Correspondences Across Domains
 
@@ -8640,7 +8667,7 @@ The isomorphism dictionary provides the translation between abstract axioms and 
 
 ---
 
-# Part IX: Foundational Metatheorems
+# Part X: Foundational Metatheorems
 
 The preceding parts established the hypostructure framework: axioms, failure modes, barriers, and instantiations. This part elevates the framework from a classification system to a **complete foundational theory** by proving that:
 
@@ -9032,22 +9059,22 @@ where $\Theta_*$ is the true parameter.
 
 ---
 
-# Part X: Fractal Set Foundations
+# Part XI: Fractal Set Foundations
 
 *The discrete substrate beneath the continuum.*
 
-The preceding parts established the hypostructure framework as a unified language for dynamical coherence. But a fundamental question remains: what is the **microscopic substrate** from which hypostructures emerge? Part X introduces **Fractal Sets**—discrete combinatorial objects encoding both causal structure and informational adjacency—and proves that every hypostructure with finite local complexity has a Fractal Set realization. This discrete foundation:
+The preceding parts established the hypostructure framework as a unified language for dynamical coherence. But a fundamental question remains: what is the **microscopic substrate** from which hypostructures emerge? Part XI introduces **Fractal Sets**—discrete combinatorial objects encoding both causal structure and informational adjacency—and proves that every hypostructure with finite local complexity has a Fractal Set realization. This discrete foundation:
 
 1. Makes the axioms **combinatorially checkable**
 2. Explains how **spacetime emerges** from more fundamental relations
 3. Shows that **local symmetries determine global physics**
 4. Reveals why **certain dimensions** are dynamically preferred
 
-The key insight is deceptively simple: **define a Fractal Set with symmetries, and the universe follows as a corollary.**
+The key observation is: **define a Fractal Set with symmetries, and the continuum limit dynamics are constrained.**
 
 ---
 
-## Chapter 19: Fractal Set Representation
+## 19. Fractal Set Representation
 
 *From discrete events to continuous dynamics.*
 
@@ -9212,7 +9239,7 @@ where $V_T(\varepsilon)$ is the $\varepsilon$-resolution time slice correspondin
 
 The remaining data (dissipation, barriers) are determined by the axioms and $(\Phi, H)$. $\square$
 
-**Corollary 19.2.1 (Universe from symmetries).** Specifying a Fractal Set with gauge structure $(H, \{g_e\})$ uniquely determines a hypostructure. **Local symmetries determine global dynamics.**
+**Corollary 19.2.1 (Symmetry determines structure).** Specifying a Fractal Set with gauge structure $(H, \{g_e\})$ uniquely determines a hypostructure. Local symmetries constrain global dynamics.
 
 **Key Insight:** This is the discrete analog of the principle that "gauge invariance determines dynamics." The Symmetry Completion theorem makes this precise: define the local gauge data on a Fractal Set, and the entire hypostructure—including its failure modes and barriers—is determined.
 
@@ -9260,11 +9287,11 @@ where $\Sigma$ is bounded by $\gamma$.
 
 **Corollary 19.3.2 (Gauge fields from local symmetries).** Yang-Mills gauge fields emerge from the gauge labels on Fractal Set edges. The Standard Model gauge group $SU(3) \times SU(2) \times U(1)$ would appear as the gauge structure $H = K$ on a physical Fractal Set.
 
-**Key Insight:** The Gauge-Geometry correspondence realizes Wheeler's vision of "physics as geometry" and "geometry as physics." The Fractal Set provides the unifying substrate: **causal structure → spacetime, gauge labels → forces, fitness → matter/energy**.
+**Key Insight:** The Gauge-Geometry correspondence connects geometric and physical structures: causal structure corresponds to spacetime, gauge labels to forces, and fitness to matter/energy. The Fractal Set provides a unified substrate for these correspondences.
 
 ---
 
-## Chapter 20: Emergent Spacetime and Observers
+## 20. Emergent Spacetime and Observers
 
 *From combinatorics to cosmology.*
 
@@ -9316,9 +9343,9 @@ where $x, y$ are the limit points.
 - Degree bounds → No concentration of curvature
 - Gauge consistency → Smooth connection in limit $\square$
 
-**Corollary 20.1.1 (Spacetime is emergent).** Continuous spacetime $(M, g)$ is not fundamental but **emerges** from the large-$N$ limit of Fractal Sets. At the fundamental level, reality is discrete.
+**Corollary 20.1.1 (Spacetime emergence).** In this framework, continuous spacetime $(M, g)$ emerges from the large-$N$ limit of Fractal Sets. The discrete structure provides a computational substrate for the continuum description.
 
-**Key Insight:** The continuum—smooth manifolds, differential equations, field theories—is an **effective description** valid at large scales. The Fractal Set is the true substrate. This resolves the tension between discrete (quantum) and continuous (classical) descriptions.
+**Key Insight:** In this model, the continuum—smooth manifolds, differential equations, field theories—is an effective description valid at large scales. The Fractal Set provides a discrete substrate from which continuum descriptions emerge.
 
 ---
 
@@ -9340,7 +9367,7 @@ where $x, y$ are the limit points.
 
 *Proof.*
 
-**Non-emptiness.** We exhibit $d = 3$: Three-dimensional Navier-Stokes with subcritical data, 3D Yang-Mills with small coupling, and 3D general relativity with positive cosmological constant all admit hypostructure instantiations satisfying the axioms with positive margins.
+**Non-emptiness.** We exhibit candidate systems in $d = 3$: Three-dimensional Navier-Stokes with subcritical (small) data, 3D Yang-Mills with small coupling, and 3D general relativity with positive cosmological constant are *conjectured* to admit hypostructure instantiations satisfying the axioms with positive margins. Rigorous verification of these instantiations—particularly for Navier-Stokes with arbitrary data—remains an open problem.
 
 **Finiteness.** For $d$ sufficiently large:
 - Mode D.C (semantic horizon) becomes unavoidable: information dilution $\sim d^{-1}$
@@ -9400,11 +9427,11 @@ Linearizing around the fixed point, the microscopic perturbations must lie in th
 
 **Step 4 (Finiteness).** The algebraic system has finitely many solutions by elimination theory (Bezout's theorem generalized). $\square$
 
-**Corollary 20.3.1 (Uniqueness of microphysics).** If the solution to $\mathcal{C} = 0$ is unique, then **macroscopic physics determines microphysics**. There is only one consistent "theory of everything."
+**Corollary 20.3.1 (Uniqueness of microphysics).** If the solution to $\mathcal{C} = 0$ is unique, then macroscopic physics determines microphysics up to this solution.
 
-**Corollary 20.3.2 (No arbitrary fine-tuning).** The constants of nature (coupling strengths, mass ratios) are not free parameters but solutions to the bootstrap constraint $\mathcal{C} = 0$.
+**Corollary 20.3.2 (Constrained parameters).** The constants of nature (coupling strengths, mass ratios) are not arbitrary free parameters but solutions to the bootstrap constraint $\mathcal{C} = 0$.
 
-**Key Insight:** The universe cannot be arbitrary at the Planck scale and then "mysteriously" produce the physics we observe. The Cosmic Bootstrap enforces **self-consistency at all scales**: micro must match macro, or the system self-destructs via failure modes.
+**Key Insight:** The Cosmic Bootstrap imposes **self-consistency at all scales**: microscopic rules must produce the observed macroscopic laws, or the system exhibits one of the failure modes.
 
 ---
 
@@ -9447,11 +9474,11 @@ for some $\gamma > 0$ depending on the Lyapunov exponents.
 
 **(4) Self-reference.** Suppose $\mathcal{O}$ has complete self-model $\hat{\mathcal{O}} = \mathcal{O}$. Then $\mathcal{O}$ can simulate its own future, including the simulation, leading to Russell-type paradox. The fixed-point principle $F(x) = x$ at the self-reference level forces incompleteness. $\square$
 
-**Corollary 20.4.1 (No super-AGI escape).** Any artificial general intelligence $\mathcal{O}$ embedded in a hypostructure $\mathcal{H}$ is subject to the same barriers and horizons as natural systems. There is no "intelligence explosion" beyond $\mathcal{H}$'s limits.
+**Corollary 20.4.1 (Computational agent limits).** Any computational agent $\mathcal{O}$ embedded in a hypostructure $\mathcal{H}$ is subject to the same barriers and horizons as other subsystems. The agent cannot exceed the information-theoretic limits of $\mathcal{H}$.
 
 **Corollary 20.4.2 (Observation shapes reality).** The observer $\mathcal{O}$ is not passive but **co-determines** the effective hypostructure through measurement back-reaction.
 
-**Key Insight:** Observers are not outside the system looking in—they are **inside the hypostructure**, subject to its constraints. The semantic horizons of Chapter 9 apply to any observer, biological or artificial, human or superhuman. The framework's limits are absolute.
+**Key Insight:** In this framework, observers are modeled as subsystems within the hypostructure, subject to its constraints. The semantic horizons of Chapter 9 apply to any observer modeled as a sub-hypostructure.
 
 ---
 
@@ -9495,13 +9522,13 @@ By assumption (UL1-3), these agree.
 
 **Corollary 20.5.2 (Why physics is simple).** The laws of physics at human scales are **universal** because they correspond to an RG fixed point. Complexity at short scales washes out; only the symmetric structure survives.
 
-**Key Insight:** The remarkable simplicity of physical law—the same equations everywhere in the universe, the same constants of nature—is not mysterious. It follows from **universality**: macroscopic physics is the basin of attraction of an RG fixed point. The microscopic details are irrelevant, quite literally.
+**Key Insight:** The uniformity of physical law—the same equations everywhere in the universe, the same constants of nature—can be understood through **universality**: macroscopic physics corresponds to the basin of attraction of an RG fixed point. Microscopic details that do not affect the fixed-point structure do not affect macroscopic physics.
 
 ---
 
-### 20.6 Synthesis: The Complete Picture
+### 20.6 Synthesis
 
-The ten chapters of Parts IX and X establish the hypostructure framework as a **complete foundational theory**:
+Parts IX and X establish the following properties of the hypostructure framework:
 
 **Meta-Axiomatics (Part IX):**
 - **Completeness** ($C_{\text{cpl}}$): All failure modes are captured
@@ -9525,8 +9552,8 @@ The chain of implications:
 
 $$\boxed{\text{Fractal Set} + \text{Symmetries}} \xrightarrow{SCmp} \boxed{\text{Hypostructure}} \xrightarrow{EC} \boxed{\text{Spacetime}} \xrightarrow{GG} \boxed{\text{Physics}}$$
 
-This is the **complete descent**: from discrete combinatorics to continuous spacetime to physical law. The fixed-point principle $F(x) = x$ operates at every level, enforcing coherence through failure mode exclusion.
+This chain illustrates how the framework connects discrete combinatorics to continuous spacetime to physical dynamics. The fixed-point principle $F(x) = x$ operates at each level.
 
-The foundational metatheorems reveal that the hypostructure framework is not merely a classification scheme but a **necessary structure**: any coherent dynamical system must instantiate it (Universality), the axioms cannot be weakened (Minimality), and the constraints propagate across all scales (Functoriality). We have not imposed structure on nature; we have uncovered the structure nature already has.
+The metatheorems establish that: coherent dynamical systems admit hypostructure representations (Universality), the axioms are independent (Minimality), and the constraints propagate across scales (Functoriality).
 
-**Final Key Insight:** Define a Fractal Set with local symmetries. The universe—spacetime, forces, matter, observers, and all—follows as a corollary. This is not metaphor but theorem.
+**Summary:** The hypostructure framework replaces global hard analysis with local algebraic permit-checking. Rather than proving regularity via estimates, the framework proves it by showing that singularities are locally impossible—if permits are denied, singularities cannot form. The Fractal Set construction provides a discrete substrate from which continuum dynamics emerge. Verification of axioms for specific systems remains the key technical step.

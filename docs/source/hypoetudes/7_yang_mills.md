@@ -1,4 +1,4 @@
-# Étude 4: Reformulating the Yang-Mills Mass Gap Problem via Hypostructure
+# Étude 7: Reformulating the Yang-Mills Mass Gap Problem via Hypostructure
 
 ## 0. Introduction
 

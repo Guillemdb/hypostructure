@@ -1,4 +1,4 @@
-# Étude 7: P versus NP and Hypostructure in Computational Complexity
+# Étude 9: P versus NP and Hypostructure in Computational Complexity
 
 ## Abstract
 
@@ -553,7 +553,7 @@ Both are VERIFICATION questions, not proof-vs-no-proof questions.
 
 ## 16. Connections to Other Études
 
-### 16.1. Halting Problem (Étude 5)
+### 16.1. Halting Problem (Étude 8)
 
 **Observation 16.1.1**. *The halting problem shows Axiom R can fail absolutely (undecidability). P vs NP asks whether Axiom R can fail for bounded resources while verification remains efficient.*
 
@@ -561,11 +561,11 @@ Both are VERIFICATION questions, not proof-vs-no-proof questions.
 - *Computability: Axiom R fails absolutely for $K$*
 - *Complexity: Axiom R fails resource-wise for NP (conjecturally)*
 
-### 16.2. Riemann Hypothesis (Étude 6)
+### 16.2. Riemann Hypothesis (Étude 1)
 
 **Observation 16.2.1**. *RH concerns optimal scale coherence. P vs NP concerns whether scale coherence at level 1 (NP) can be reduced to level 0 (P).*
 
-### 16.3. BSD Conjecture (Étude 3)
+### 16.3. BSD Conjecture (Étude 2)
 
 **Observation 16.3.1**. *Computing Mordell-Weil rank is at least as hard as certain NP problems. Axiom R failure may be inherited from computational complexity.*
 
@@ -641,9 +641,9 @@ Both are VERIFICATION questions, not proof-vs-no-proof questions.
 
 **Observation 17.5.1** (Isomorphism with Other Problems). *P vs NP has the same structure as:*
 
-- **Halting Problem (Étude 5):** Axiom R fails absolutely (undecidability)
-- **Navier-Stokes (Étude 1):** Recovery of smooth solutions from data (regularity)
-- **Riemann Hypothesis (Étude 6):** Recovery of primes from zeros (scale coherence)
+- **Halting Problem (Étude 8):** Axiom R fails absolutely (undecidability)
+- **Navier-Stokes (Étude 6):** Recovery of smooth solutions from data (regularity)
+- **Riemann Hypothesis (Étude 1):** Recovery of primes from zeros (scale coherence)
 - **P vs NP (This étude):** Recovery of witnesses from instances (complexity)
 
 *All ask: "What is the Axiom R verification status?" in their respective domains.*

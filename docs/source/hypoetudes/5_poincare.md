@@ -1,4 +1,4 @@
-# Étude 1: The Poincaré Conjecture via Hypostructure
+# Étude 5: The Poincaré Conjecture via Hypostructure
 
 ## 0. Introduction
 

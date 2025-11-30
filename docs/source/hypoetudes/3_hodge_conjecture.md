@@ -1,4 +1,4 @@
-# Étude 8: The Hodge Conjecture and Hypostructure in Algebraic Geometry
+# Étude 3: The Hodge Conjecture and Hypostructure in Algebraic Geometry
 
 ## Abstract
 
@@ -474,7 +474,7 @@ The conjecture asserts this recovery is always possible.
 
 ## 16. Connections to Other Études
 
-### 16.1. BSD Conjecture (Étude 3)
+### 16.1. BSD Conjecture (Étude 2)
 
 **Observation 16.1.1**. *Both Hodge and BSD involve cohomological invariants of algebraic varieties:*
 - *Hodge: Hodge classes in $H^{2p}$*
@@ -482,13 +482,13 @@ The conjecture asserts this recovery is always possible.
 
 *Both ask when transcendental data is "algebraic."*
 
-### 16.2. Riemann Hypothesis (Étude 6)
+### 16.2. Riemann Hypothesis (Étude 1)
 
 **Observation 16.2.1**. *The Weil conjectures (proved by Deligne) are the characteristic $p$ analogue:*
 - *Frobenius eigenvalues lie on circles (RH analogue)*
 - *Cohomological interpretation via Hodge-theoretic methods*
 
-### 16.3. Yang-Mills (Étude 4)
+### 16.3. Yang-Mills (Étude 7)
 
 **Observation 16.3.1**. *Hodge theory on vector bundles:*
 - *Yang-Mills connections are harmonic representatives*
