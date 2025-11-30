@@ -22,9 +22,17 @@ $$\phi \cdot g := \phi^* g$$
 $$X := \mathcal{M}_1(M) / \text{Diff}_0(M)$$
 where $\mathcal{M}_1(M) := \{g \in \mathcal{M}(M) : \text{Vol}(M, g) = 1\}$ and $\text{Diff}_0(M)$ is the identity component.
 
-**Proposition 1.1.4.** $(X, d_{CG})$ is a Polish space, where $d_{CG}$ is the Cheeger-Gromov distance.
+**Definition 1.1.4.** The Cheeger-Gromov distance between $[g_1], [g_2] \in X$ is:
+$$d_{CG}([g_1], [g_2]) := \inf_{\phi \in \text{Diff}_0(M)} \sum_{k=0}^{\infty} 2^{-k} \frac{\|\phi^*g_1 - g_2\|_{C^k}}{1 + \|\phi^*g_1 - g_2\|_{C^k}}$$
 
-*Proof.* The space $\mathcal{M}_1(M)$ with the $C^\infty$ Fréchet topology is a Fréchet manifold. The quotient by the proper action of $\text{Diff}_0(M)$ yields a metrizable space. Completeness follows from the Arzelà-Ascoli theorem applied to sequences with uniform $C^k$ bounds. Separability follows from density of metrics with rational coefficients in local coordinates. $\square$
+**Proposition 1.1.5.** $(X, d_{CG})$ is a Polish space.
+
+*Proof.*
+**(i) Metrizability.** The infimum over $\text{Diff}_0(M)$ is well-defined since the action is continuous. The triangle inequality follows from $d_{CG}([g_1], [g_3]) \leq d_{CG}([g_1], [g_2]) + d_{CG}([g_2], [g_3])$ by composing diffeomorphisms.
+
+**(ii) Completeness.** Let $([g_n])$ be Cauchy in $(X, d_{CG})$. Choose representatives $g_n$ and diffeomorphisms $\phi_{n,m}$ with $\|\phi_{n,m}^* g_n - g_m\|_{C^k} \to 0$ for each $k$. By Arzelà-Ascoli, extract a subsequence with $\phi_{n_j, n_1}^* g_{n_j} \to g_\infty$ in $C^\infty$. The volume constraint $\text{Vol}(M, g_\infty) = 1$ is preserved by uniform convergence.
+
+**(iii) Separability.** Fix a finite atlas $\{(U_\alpha, \psi_\alpha)\}$. Metrics with rational polynomial coefficients in each chart form a countable dense subset. $\square$
 
 ### 1.2 The Semiflow
 
@@ -36,8 +44,9 @@ where $r(g) := \frac{1}{\text{Vol}(M,g)} \int_M R_g \, dV_g$ is the average scal
 $$T_*([g_0]) := \sup\{T > 0 : \exists \text{ smooth solution } g(t) \text{ on } [0, T) \text{ with } g(0) = g_0\}$$
 
 **Theorem 1.2.3 (Hamilton [H82]).** For any $g_0 \in \mathcal{M}_1(M)$:
-1. There exists a unique maximal smooth solution $g(t)$ on $[0, T_*)$.
-2. If $T_* < \infty$, then $\limsup_{t \to T_*} \sup_M |Rm_{g(t)}| = \infty$.
+1. **(Existence)** There exists $T_* = T_*(g_0) \in (0, \infty]$ and a unique smooth solution $g: M \times [0, T_*) \to S^2_+(T^*M)$ to Definition 1.2.1 with $g(0) = g_0$.
+2. **(Maximality)** If $T_* < \infty$, then $\limsup_{t \to T_*} \sup_{x \in M} |Rm_{g(t)}|(x) = \infty$.
+3. **(Regularity)** For each $0 < T < T_*$ and $k \geq 0$, there exists $C_k(T) < \infty$ with $\sup_{M \times [0,T]} |\nabla^k Rm| \leq C_k(T)$.
 
 **Definition 1.2.4.** The semiflow $S_t: X \to X$ is defined for $t < T_*([g_0])$ by:
 $$S_t([g_0]) := [g(t)]$$
@@ -87,21 +96,39 @@ where $\mathbb{R}_{>0}$ acts by parabolic scaling: $\lambda \cdot (g, t) := (\la
 
 ## 2. Verification of Axiom C (Compactness)
 
-**Theorem 2.1 (Hamilton Compactness [H95]).** Let $(M_i, g_i, p_i)$ be a sequence of complete pointed Riemannian 3-manifolds satisfying:
-1. $|Rm_{g_i}| \leq K$ on $B_{g_i}(p_i, r_0)$
-2. $\text{inj}_{g_i}(p_i) \geq i_0 > 0$
+**Theorem 2.1 (Hamilton Compactness [H95]).** Let $(M_i, g_i, p_i)_{i \in \mathbb{N}}$ be a sequence of complete pointed Riemannian $n$-manifolds. Suppose there exist constants $K, r_0, i_0 > 0$ such that for all $i$:
+1. **(Curvature bound)** $\sup_{x \in B_{g_i}(p_i, r_0)} |Rm_{g_i}|(x) \leq K$
+2. **(Non-collapsing)** $\text{inj}_{g_i}(p_i) \geq i_0$
 
-Then there exists a subsequence converging in $C^\infty_{loc}$ to a complete pointed Riemannian manifold $(M_\infty, g_\infty, p_\infty)$.
+Then there exist:
+- A subsequence $(i_j)_{j \in \mathbb{N}}$
+- A complete pointed Riemannian manifold $(M_\infty, g_\infty, p_\infty)$
+- Diffeomorphisms $\phi_j: B_{g_\infty}(p_\infty, r_0/2) \to \phi_j(B_{g_\infty}(p_\infty, r_0/2)) \subset M_{i_j}$ with $\phi_j(p_\infty) = p_{i_j}$
 
-**Theorem 2.2 (Perelman No-Local-Collapsing [P02]).** Let $g(t)$ be a Ricci flow on $[0, T)$ with $T < \infty$. There exists $\kappa = \kappa(g(0), T) > 0$ such that for all $(x, t) \in M \times [0, T)$ and $r \leq \sqrt{t}$:
+such that $\phi_j^* g_{i_j} \to g_\infty$ in $C^\infty_{loc}(B_{g_\infty}(p_\infty, r_0/2))$.
 
-If $|Rm| \leq r^{-2}$ on $B_{g(t)}(x, r)$, then $\text{Vol}_{g(t)}(B_{g(t)}(x, r)) \geq \kappa r^3$.
+**Theorem 2.2 (Perelman No-Local-Collapsing [P02]).** Let $(M^3, g(t))_{t \in [0,T)}$ be a Ricci flow with $T < \infty$ and $g(0)$ a smooth metric. There exists $\kappa = \kappa(g(0), T) > 0$ such that for all $(x, t) \in M \times (0, T)$ and all $r \in (0, \sqrt{t}]$:
 
-*Proof.* By contradiction using the reduced volume monotonicity. Define:
+$$\sup_{B_{g(t)}(x,r)} |Rm_{g(t)}| \leq r^{-2} \implies \text{Vol}_{g(t)}(B_{g(t)}(x, r)) \geq \kappa r^3$$
+
+*Proof.*
+**(i) Reduced distance.** For $(x, t)$ fixed and $\tau \in (0, t]$, define the $\mathcal{L}$-length of a path $\gamma: [0, \tau] \to M$ by:
+$$\mathcal{L}(\gamma) := \int_0^\tau \sqrt{s}\left(R_{g(t-s)}(\gamma(s)) + |\gamma'(s)|^2_{g(t-s)}\right) ds$$
+
+The reduced distance is $l(q, \tau) := \frac{1}{2\sqrt{\tau}} \inf_\gamma \mathcal{L}(\gamma)$ where $\gamma(0) = x$, $\gamma(\tau) = q$.
+
+**(ii) Reduced volume.** Define:
 $$\tilde{V}(\tau) := \int_M (4\pi\tau)^{-3/2} e^{-l(q, \tau)} dV_{g(t-\tau)}(q)$$
-where $l(q, \tau)$ is the reduced distance from $(x, t)$. Perelman proves $\tilde{V}(\tau) \leq 1$ and $\tilde{V}(\tau)$ is non-increasing in $\tau$.
 
-Suppose the conclusion fails for a sequence $(x_i, t_i, r_i)$ with $\text{Vol}/r_i^3 \to 0$. Rescale by $r_i^{-2}$ to obtain a sequence violating the reduced volume bound, contradicting monotonicity. $\square$
+**(iii) Monotonicity.** Perelman proves:
+- $\tilde{V}(\tau) \leq 1$ for all $\tau \in (0, t]$ (comparison with Euclidean space)
+- $\frac{d}{d\tau} \tilde{V}(\tau) \leq 0$ (monotonicity from $\mathcal{L}$-geodesic variation)
+
+**(iv) Contradiction argument.** Suppose the conclusion fails: there exist $(x_i, t_i, r_i)$ with $r_i \leq \sqrt{t_i}$, $|Rm| \leq r_i^{-2}$ on $B_{g(t_i)}(x_i, r_i)$, and $\text{Vol}(B_{g(t_i)}(x_i, r_i))/r_i^3 \to 0$.
+
+Rescale: $\tilde{g}_i(s) := r_i^{-2} g(t_i + r_i^2 s)$. The rescaled flows have $|Rm_{\tilde{g}_i}| \leq 1$ on $B_{\tilde{g}_i(0)}(x_i, 1)$ and $\text{Vol}_{\tilde{g}_i(0)}(B(x_i, 1)) \to 0$.
+
+The reduced volume at scale 1 satisfies $\tilde{V}_i(1) \leq C \cdot \text{Vol}(B(x_i, 1)) \to 0$, contradicting $\tilde{V}_i(t_i/r_i^2) \leq 1$ and monotonicity for $t_i/r_i^2 \geq 1$. $\square$
 
 **Theorem 2.3 (Axiom C for Ricci Flow).** For each $E > 0$, the sublevel set:
 $$\{\Phi \leq E\} \subset X$$
