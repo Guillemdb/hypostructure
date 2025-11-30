@@ -17,6 +17,7 @@ This document presents a **Complete Closed-World Theory** comprising **eighty-th
 This work is constructed in the spirit of formalism. We define a mathematical universe governed by specific laws—the Hypostructure Axioms (Compactness, Dissipation, Scaling, Capacity). Within this axiomatic system, the results are rigorous consequences of the definitions.
 
 The central logical operation of this framework is **exclusion**, not approximation:
+
 1. We do not prove that solutions are smooth by constructing them.
 2. We prove that singularities are impossible by showing that their existence would contradict the structural axioms.
 
@@ -29,6 +30,7 @@ A critical distinction in this framework is the treatment of **dispersion (Mode 
 In classical analysis, a solution that loses compactness (disperses to high-frequency noise) is often considered a failure of the method or a loss of regularity.
 
 **In the Hypostructure framework, dispersion is defined as success.** The framework posits a binary outcome for any high-energy event:
+
 1. **Concentration:** The energy focuses into a structured profile (a soliton, bubble, or singularity).
 2. **Dispersion:** The energy scatters.
 
@@ -127,108 +129,125 @@ The framework rests on three pillars:
 From these axioms, we derive:
 
 **Core meta-theorems (Chapter 7):**
-* **Structural Resolution (Theorem 7.1).** Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity.
-* **Type II exclusion (Theorem 7.2).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
-* **Capacity barrier (Theorem 7.3).** Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
-* **Topological suppression (Theorem 7.4).** Nontrivial topological sectors are exponentially rare under the invariant measure.
-* **Structured vs failure dichotomy (Theorem 7.5).** Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
-* **Canonical Lyapunov functional (Theorem 7.6).** There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
-* **Functional reconstruction (Theorems 7.7.1, 7.7.3).** Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
+
+- **Structural Resolution (Theorem 7.1).** Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity.
+- **Type II exclusion (Theorem 7.2).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
+- **Capacity barrier (Theorem 7.3).** Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
+- **Topological suppression (Theorem 7.4).** Nontrivial topological sectors are exponentially rare under the invariant measure.
+- **Structured vs failure dichotomy (Theorem 7.5).** Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
+- **Canonical Lyapunov functional (Theorem 7.6).** There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
+- **Functional reconstruction (Theorems 7.7.1, 7.7.3).** Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
 
 **Quantitative metatheorems (Chapter 9):** The framework provides **eighty-three structural barriers** organized into thirty-six categories:
 
 *Classical and Geometric Barriers:*
-* **Coherence Quotient, Spectral Convexity, Gap-Quantization** — Energy alignment, interaction potentials, phase transitions
-* **Symplectic Transmission, Non-Squeezing** — Phase space rigidity and rank conservation
-* **Dimensional Rigidity, Isoperimetric Resilience** — Geometric topology preservation
-* **Wasserstein Transport, Chiral Anomaly Lock** — Mass movement and helicity conservation
+
+- **Coherence Quotient, Spectral Convexity, Gap-Quantization** — Energy alignment, interaction potentials, phase transitions
+- **Symplectic Transmission, Non-Squeezing** — Phase space rigidity and rank conservation
+- **Dimensional Rigidity, Isoperimetric Resilience** — Geometric topology preservation
+- **Wasserstein Transport, Chiral Anomaly Lock** — Mass movement and helicity conservation
 
 *Information-Theoretic Barriers:*
-* **Shannon–Kolmogorov, Bekenstein-Landauer** — Entropy bounds and information-energy coupling
-* **Holographic Encoding, Holographic Compression** — Scale-geometry duality and isospectral locking
-* **Cardinality Compression** — Separable Hilbert space constraints
+
+- **Shannon–Kolmogorov, Bekenstein-Landauer** — Entropy bounds and information-energy coupling
+- **Holographic Encoding, Holographic Compression** — Scale-geometry duality and isospectral locking
+- **Cardinality Compression** — Separable Hilbert space constraints
 
 *Algebraic and Arithmetic Barriers:*
-* **Galois–Monodromy Lock** — Orbit exclusion via field theory
-* **Algebraic Compressibility** — Degree-volume locking via Northcott bounds
-* **Arithmetic Height** — Diophantine avoidance of resonances
+
+- **Galois–Monodromy Lock** — Orbit exclusion via field theory
+- **Algebraic Compressibility** — Degree-volume locking via Northcott bounds
+- **Arithmetic Height** — Diophantine avoidance of resonances
 
 *Computational and Logical Barriers:*
-* **Algorithmic Causal Barrier** — Logical depth exclusion
-* **Gödel-Turing Censor** — Chronology protection from self-reference
-* **Tarski Truth Barrier** — Undefinability of truth predicates
-* **Semantic Resolution Barrier** — Berry paradox and descriptive complexity
+
+- **Algorithmic Causal Barrier** — Logical depth exclusion
+- **Gödel-Turing Censor** — Chronology protection from self-reference
+- **Tarski Truth Barrier** — Undefinability of truth predicates
+- **Semantic Resolution Barrier** — Berry paradox and descriptive complexity
 
 *Control-Theoretic Barriers:*
-* **Nyquist–Shannon Stability, Bode Sensitivity Integral** — Bandwidth and sensitivity conservation
-* **Causal Lag Barrier** — Delay feedback stability
-* **Synchronization Manifold** — Coupled oscillator stability
+
+- **Nyquist–Shannon Stability, Bode Sensitivity Integral** — Bandwidth and sensitivity conservation
+- **Causal Lag Barrier** — Delay feedback stability
+- **Synchronization Manifold** — Coupled oscillator stability
 
 *Quantum and Foundational Barriers:*
-* **Isometric Cloning Prohibition, Entanglement Monogamy** — Quantum information constraints
-* **Quantum Zeno Suppression, QEC Threshold** — Measurement and error correction
-* **Vacuum Nucleation Barrier** — Coleman-De Luccia stability
+
+- **Isometric Cloning Prohibition, Entanglement Monogamy** — Quantum information constraints
+- **Quantum Zeno Suppression, QEC Threshold** — Measurement and error correction
+- **Vacuum Nucleation Barrier** — Coleman-De Luccia stability
 
 *Graph-Theoretic and Combinatorial Barriers:*
-* **Byzantine Fault Tolerance** — Consensus threshold in distributed systems (n ≥ 3f+1)
-* **Percolation Threshold** — Phase transitions in random graphs
-* **Near-Decomposability** — Block diagonal structure in adjacency matrices
+
+- **Byzantine Fault Tolerance** — Consensus threshold in distributed systems (n ≥ 3f+1)
+- **Percolation Threshold** — Phase transitions in random graphs
+- **Near-Decomposability** — Block diagonal structure in adjacency matrices
 
 *Function Space and Optimization Barriers:*
-* **No Free Lunch Theorem** — Uniform bounds on learning functionals
-* **Johnson-Lindenstrauss** — Dimension reduction in normed spaces
-* **Pseudospectral Bound** — Transient amplification via resolvent norms
+
+- **No Free Lunch Theorem** — Uniform bounds on learning functionals
+- **Johnson-Lindenstrauss** — Dimension reduction in normed spaces
+- **Pseudospectral Bound** — Transient amplification via resolvent norms
 
 *Scaling and Iteration Barriers:*
-* **Power-Law Scaling** — Fractional exponent constraints on functional growth
-* **Eigen Error Threshold** — Mutation-selection balance in discrete dynamical systems
-* **Martingale Conservation** — No-arbitrage in filtered probability spaces
+
+- **Power-Law Scaling** — Fractional exponent constraints on functional growth
+- **Eigen Error Threshold** — Mutation-selection balance in discrete dynamical systems
+- **Martingale Conservation** — No-arbitrage in filtered probability spaces
 
 *Reconstruction and Embedding Barriers:*
-* **Takens Embedding** — Diffeomorphism from delay coordinates to attractor
-* **Hyperbolic Shadowing** — Pseudo-orbit tracing in Axiom A systems
-* **Stochastic Stability** — Persistence of invariant measures under perturbation
+
+- **Takens Embedding** — Diffeomorphism from delay coordinates to attractor
+- **Hyperbolic Shadowing** — Pseudo-orbit tracing in Axiom A systems
+- **Stochastic Stability** — Persistence of invariant measures under perturbation
 
 *Holonomy and Curvature Barriers:*
-* **Sagnac-Holonomy Effect** — Path-dependent phase in fiber bundles
-* **Maximum Force Conjecture** — Upper bounds on stress-energy flux
+
+- **Sagnac-Holonomy Effect** — Path-dependent phase in fiber bundles
+- **Maximum Force Conjecture** — Upper bounds on stress-energy flux
 
 *Definability and Semantic Barriers:*
-* **Sorites Threshold** — Vagueness in predicate extensions
-* **Intersubjective Consistency** — Compatibility of observation frames
-* **Counterfactual Stability** — Acyclicity in causal DAGs
+
+- **Sorites Threshold** — Vagueness in predicate extensions
+- **Intersubjective Consistency** — Compatibility of observation frames
+- **Counterfactual Stability** — Acyclicity in causal DAGs
 
 *Computational Complexity Barriers:*
-* **Amdahl Scaling Limit** — Parallelization bounds on speedup functions
-* **Recursive Simulation Limit** — Information-theoretic bounds on self-modeling
-* **Epistemic Horizon** — Computational irreducibility in cellular automata
+
+- **Amdahl Scaling Limit** — Parallelization bounds on speedup functions
+- **Recursive Simulation Limit** — Information-theoretic bounds on self-modeling
+- **Epistemic Horizon** — Computational irreducibility in cellular automata
 
 **Trainable hypostructures (Chapter 10):**
-* Axioms treated as learnable parameters optimized via defect minimization.
-* Parametric families of height functionals, dissipation structures, and symmetry groups.
-* Joint optimization over hypostructure components and extremal profiles.
+
+- Axioms treated as learnable parameters optimized via defect minimization.
+- Parametric families of height functionals, dissipation structures, and symmetry groups.
+- Joint optimization over hypostructure components and extremal profiles.
 
 **AGI loss (Chapter 11):**
-* Training objective for systems that instantiate, verify, and optimize over hypostructures.
-* Four loss components: structural loss (energy/symmetry identification), axiom loss (soft axiom satisfaction), variational loss (extremal candidate quality), meta-loss (cross-system generalization).
+
+- Training objective for systems that instantiate, verify, and optimize over hypostructures.
+- Four loss components: structural loss (energy/symmetry identification), axiom loss (soft axiom satisfaction), variational loss (extremal candidate quality), meta-loss (cross-system generalization).
 
 ### 1.4 Scope of instantiation
 
 The framework instantiates across the following mathematical structures:
 
-* **Partial differential equations:** Parabolic, hyperbolic, and dispersive equations; geometric flows (mean curvature flow, Ricci flow); Navier–Stokes and Euler equations on Riemannian manifolds.
-* **Stochastic processes:** McKean–Vlasov equations, Fleming–Viot processes, interacting particle systems, Langevin dynamics, Itô diffusions on manifolds.
-* **Discrete dynamical systems:** λ-calculus reduction systems, interaction nets, graph rewriting systems, Turing machine configurations, cellular automata on $\mathbb{Z}^d$.
-* **Algebraic structures:** Elliptic curves over finite fields, algebraic varieties, Galois representations, height functions on projective varieties.
-* **Function spaces:** Banach space optimization, Fréchet manifolds, loss landscapes on parameter spaces, kernel methods in reproducing kernel Hilbert spaces.
-* **Operator semigroups:** $C_0$-semigroups, transfer operators, Koopman operators, pseudospectral analysis, delay differential equations.
-* **Random graphs:** Erdős–Rényi percolation, configuration models, consensus dynamics on graphs, spectral graph theory.
-* **Hilbert space operators:** Unitary groups, self-adjoint extensions, quantum channels, completely positive maps, tensor products.
-* **Fiber bundles:** Principal bundles with connection, holonomy groups, characteristic classes, Chern-Weil theory.
-* **Iteration schemes:** Recursive function composition, fixed-point theorems, contraction mappings, asymptotic analysis.
-* **Attractor theory:** Strange attractors, fractal dimension, box-counting dimension, Hausdorff measure, delay embeddings.
+- **Partial differential equations:** Parabolic, hyperbolic, and dispersive equations; geometric flows (mean curvature flow, Ricci flow); Navier–Stokes and Euler equations on Riemannian manifolds.
+- **Stochastic processes:** McKean–Vlasov equations, Fleming–Viot processes, interacting particle systems, Langevin dynamics, Itô diffusions on manifolds.
+- **Discrete dynamical systems:** λ-calculus reduction systems, interaction nets, graph rewriting systems, Turing machine configurations, cellular automata on $\mathbb{Z}^d$.
+- **Algebraic structures:** Elliptic curves over finite fields, algebraic varieties, Galois representations, height functions on projective varieties.
+- **Function spaces:** Banach space optimization, Fréchet manifolds, loss landscapes on parameter spaces, kernel methods in reproducing kernel Hilbert spaces.
+- **Operator semigroups:** $C_0$-semigroups, transfer operators, Koopman operators, pseudospectral analysis, delay differential equations.
+- **Random graphs:** Erdős–Rényi percolation, configuration models, consensus dynamics on graphs, spectral graph theory.
+- **Hilbert space operators:** Unitary groups, self-adjoint extensions, quantum channels, completely positive maps, tensor products.
+- **Fiber bundles:** Principal bundles with connection, holonomy groups, characteristic classes, Chern-Weil theory.
+- **Iteration schemes:** Recursive function composition, fixed-point theorems, contraction mappings, asymptotic analysis.
+- **Attractor theory:** Strange attractors, fractal dimension, box-counting dimension, Hausdorff measure, delay embeddings.
 
 **Remark 0.1 (No hard estimates required).** Instantiation does not require proving global compactness or global regularity *a priori*. It requires only:
+
 1. Identifying the symmetries $G$ (translations, scalings, gauge transformations),
 2. Computing the algebraic data (scaling exponents $\alpha, \beta$; capacity dimensions; Łojasiewicz exponents).
 
@@ -254,15 +273,17 @@ $$
 \mathcal{S} = (X, d, \mathcal{B}, \mu, (S_t)_{t \in T}, \Phi, \mathfrak{D})
 $$
 where:
-* $(X, d)$ is a Polish space with metric $d$,
-* $\mathcal{B}$ is the Borel $\sigma$-algebra on $X$,
-* $\mu$ is a $\sigma$-finite Borel measure on $(X, \mathcal{B})$,
-* $T \in \{\mathbb{R}_{\geq 0}, \mathbb{Z}_{\geq 0}\}$ is the time monoid,
-* $(S_t)_{t \in T}$ is a semiflow (Definition 1.5),
-* $\Phi: X \to [0, \infty]$ is the height functional (Definition 1.9),
-* $\mathfrak{D}: X \to [0, \infty]$ is the dissipation functional (Definition 1.12).
+
+- $(X, d)$ is a Polish space with metric $d$,
+- $\mathcal{B}$ is the Borel $\sigma$-algebra on $X$,
+- $\mu$ is a $\sigma$-finite Borel measure on $(X, \mathcal{B})$,
+- $T \in \{\mathbb{R}_{\geq 0}, \mathbb{Z}_{\geq 0}\}$ is the time monoid,
+- $(S_t)_{t \in T}$ is a semiflow (Definition 1.5),
+- $\Phi: X \to [0, \infty]$ is the height functional (Definition 1.9),
+- $\mathfrak{D}: X \to [0, \infty]$ is the dissipation functional (Definition 1.12).
 
 **Definition 1.3 (Morphisms of structural flows).** A morphism $f: \mathcal{S}_1 \to \mathcal{S}_2$ between structural flow data is a continuous map $f: X_1 \to X_2$ such that:
+
 1. $f$ is equivariant: $f \circ S^1_t = S^2_t \circ f$ for all $t \in T$,
 2. $f$ is height-nonincreasing: $\Phi_2(f(x)) \leq \Phi_1(x)$ for all $x \in X_1$,
 3. $f$ is dissipation-compatible: $\mathfrak{D}_2(f(x)) \leq C_f \mathfrak{D}_1(x)$ for some constant $C_f \geq 1$.
@@ -274,6 +295,7 @@ This defines the category $\mathbf{StrFlow}$ of structural flows.
 ### 2.2 State spaces and regularity
 
 **Definition 1.5 (Semiflow).** A **semiflow** on a Polish space $X$ is a family of maps $(S_t: X \to X)_{t \in T}$ satisfying:
+
 1. **Identity:** $S_0 = \mathrm{Id}_X$,
 2. **Semigroup property:** $S_{t+s} = S_t \circ S_s$ for all $t, s \in T$,
 3. **Continuity:** The map $(t, x) \mapsto S_t x$ is continuous on $T \times X$.
@@ -297,6 +319,7 @@ $$
 and similarly for dissipation.
 
 **Definition 1.8 (Generalized semiflow).** For systems with non-unique solutions (e.g., weak solutions of PDEs), we define a **generalized semiflow** as a set-valued map $S_t: X \rightrightarrows X$ such that:
+
 1. $S_0(x) = \{x\}$ for all $x$,
 2. $S_{t+s}(x) \subseteq S_t(S_s(x)) := \bigcup_{y \in S_s(x)} S_t(y)$ for all $t, s \geq 0$,
 3. The graph $\{(t, x, y) : y \in S_t(x)\}$ is closed in $T \times X \times X$.
@@ -304,6 +327,7 @@ and similarly for dissipation.
 ### 2.3 Height functionals
 
 **Definition 1.9 (Height functional).** A **height functional** on a structural flow is a function $\Phi: X \to [0, \infty]$ satisfying:
+
 1. **Lower semicontinuity:** $\Phi$ is lower semicontinuous, i.e., $\{x : \Phi(x) \leq E\}$ is closed for all $E \geq 0$,
 2. **Non-triviality:** $\{x : \Phi(x) < \infty\}$ is nonempty,
 3. **Properness:** For each $E < \infty$, the sublevel set $K_E := \{x \in X : \Phi(x) \leq E\}$ has compact closure in $X$.
@@ -350,6 +374,7 @@ we say the system satisfies an **energy–dissipation identity** (balance law).
 ### 2.5 Bornological and uniform structures
 
 **Definition 1.17 (Bornology).** A **bornology** on $X$ is a collection $\mathcal{B}$ of subsets of $X$ (called bounded sets) such that:
+
 1. $\mathcal{B}$ covers $X$: $\bigcup_{B \in \mathcal{B}} B = X$,
 2. $\mathcal{B}$ is hereditary: if $A \subseteq B \in \mathcal{B}$, then $A \in \mathcal{B}$,
 3. $\mathcal{B}$ is stable under finite unions.
@@ -395,10 +420,11 @@ $$
 Axiom C holds along a trajectory iff $\omega_C(\varepsilon, u) < \infty$ for all $\varepsilon > 0$.
 
 **Remark 2.2.** In the PDE context, concentration behavior is typically described by:
-* Rellich–Kondrachov compactness for Sobolev embeddings,
-* Aubin–Lions lemma for parabolic regularity,
-* Concentration-compactness à la Lions for critical problems,
-* Profile decomposition à la Gérard–Bahouri–Chemin for dispersive equations.
+
+- Rellich–Kondrachov compactness for Sobolev embeddings,
+- Aubin–Lions lemma for parabolic regularity,
+- Concentration-compactness à la Lions for critical problems,
+- Profile decomposition à la Gérard–Bahouri–Chemin for dispersive equations.
 
 ### 3.2 Dissipation (D)
 
@@ -407,8 +433,9 @@ $$
 \Phi(u(t_2)) + \alpha \int_{t_1}^{t_2} \mathfrak{D}(u(s)) \, ds \leq \Phi(u(t_1)) + C_{u}(t_1, t_2),
 $$
 where the **drift term** $C_u(t_1, t_2)$ satisfies:
-* **On the good region $\mathcal{G}$:** $C_u(t_1, t_2) = 0$ when $u(s) \in \mathcal{G}$ for all $s \in [t_1, t_2]$.
-* **Outside $\mathcal{G}$:** $C_u(t_1, t_2) \leq C \cdot \mathrm{Leb}\{s \in [t_1, t_2] : u(s) \notin \mathcal{G}\}$ for some constant $C \geq 0$.
+
+- **On the good region $\mathcal{G}$:** $C_u(t_1, t_2) = 0$ when $u(s) \in \mathcal{G}$ for all $s \in [t_1, t_2]$.
+- **Outside $\mathcal{G}$:** $C_u(t_1, t_2) \leq C \cdot \mathrm{Leb}\{s \in [t_1, t_2] : u(s) \notin \mathcal{G}\}$ for some constant $C \geq 0$.
 
 **Fallback (Mode 1).** When Axiom D fails—i.e., the energy grows without bound—the trajectory exhibits **energy blow-up** (Resolution mode 1, Theorem 7.1). The drift term is controlled by Axiom R, which bounds time outside $\mathcal{G}$.
 
@@ -419,19 +446,22 @@ $$
 where $\tau_{\mathrm{bad}} = \mathrm{Leb}\{t : u(t) \notin \mathcal{G}\}$ is finite by Axiom R.
 
 **Remark 2.4 (Connection to entropy methods).** In gradient flow and entropy method contexts:
-* $\Phi$ is the free energy or relative entropy,
-* $\mathfrak{D}$ is the entropy production rate or Fisher information,
-* The inequality becomes the entropy–entropy production inequality,
-* The drift $C_u = 0$ on the good region is the entropy-dissipation identity.
+
+- $\Phi$ is the free energy or relative entropy,
+- $\mathfrak{D}$ is the entropy production rate or Fisher information,
+- The inequality becomes the entropy–entropy production inequality,
+- The drift $C_u = 0$ on the good region is the entropy-dissipation identity.
 
 ### 3.3 Recovery (R)
 
 **Axiom R (Recovery inequality along trajectories).** Along any trajectory $u(t) = S_t x$, there exist:
-* a measurable subset $\mathcal{G} \subseteq X$ called the **good region**,
-* a measurable function $\mathcal{R}: X \to [0, \infty)$ called the **recovery functional**,
-* a constant $C_0 > 0$,
+
+- a measurable subset $\mathcal{G} \subseteq X$ called the **good region**,
+- a measurable function $\mathcal{R}: X \to [0, \infty)$ called the **recovery functional**,
+- a constant $C_0 > 0$,
 
 such that:
+
 1. **Positivity outside $\mathcal{G}$:** $\mathcal{R}(x) > 0$ for all $x \in X \setminus \mathcal{G}$ (spatially varying, not necessarily uniform),
 2. **Recovery inequality:** For any interval $[t_1, t_2] \subset [0, T_*(x))$ during which $u(t) \in X \setminus \mathcal{G}$:
 $$
@@ -455,8 +485,9 @@ $$
 ### 3.4 Capacity (Cap)
 
 **Axiom Cap (Capacity bound along trajectories).** Along any trajectory $u(t) = S_t x$, there exist:
-* a measurable function $c: X \to [0, \infty]$ called the **capacity density**,
-* constants $C_{\mathrm{cap}} > 0$ and $C_0 \geq 0$,
+
+- a measurable function $c: X \to [0, \infty]$ called the **capacity density**,
+- constants $C_{\mathrm{cap}} > 0$ and $C_0 \geq 0$,
 
 such that the capacity integral is controlled by the dissipation budget:
 $$
@@ -485,11 +516,13 @@ $$
 ### 3.5 Local stiffness (LS)
 
 **Axiom LS (Local stiffness / Łojasiewicz–Simon inequality).** In a neighbourhood of the safe manifold, there exist:
-* a closed subset $M \subseteq X$ called the **safe manifold** (the set of equilibria, ground states, or canonical patterns),
-* an open neighbourhood $U \supseteq M$,
-* constants $\theta \in (0, 1]$ and $C_{\mathrm{LS}} > 0$,
+
+- a closed subset $M \subseteq X$ called the **safe manifold** (the set of equilibria, ground states, or canonical patterns),
+- an open neighbourhood $U \supseteq M$,
+- constants $\theta \in (0, 1]$ and $C_{\mathrm{LS}} > 0$,
 
 such that:
+
 1. **Minimum on $M$:** $\Phi$ attains its infimum on $M$: $\Phi_{\min} := \inf_{x \in X} \Phi(x) = \inf_{x \in M} \Phi(x)$,
 2. **Łojasiewicz–Simon inequality:** For all $x \in U$:
 $$
@@ -517,6 +550,7 @@ $$
 ### 3.6 Minimal regularity (Reg)
 
 **Axiom Reg (Regularity).** The following regularity conditions hold:
+
 1. **Semiflow continuity:** The map $(t, x) \mapsto S_t x$ is continuous on $\{(t, x) : 0 \leq t < T_*(x)\}$.
 2. **Measurability:** The functionals $\Phi$, $\mathfrak{D}$, $c$, $\mathcal{R}$ are Borel measurable.
 3. **Local boundedness:** On each energy sublevel $K_E$, the functionals $\mathfrak{D}$, $c$, $\mathcal{R}$ are locally bounded.
@@ -530,6 +564,7 @@ $$
 The axioms are not independent. The relationships are:
 
 **Proposition 2.11 (Implications).**
+
 1. (D) + (Reg) $\implies$ sublevel sets are forward-invariant up to drift.
 2. (C) + (D) + (Reg) $\implies$ existence of limit points along trajectories.
 3. (C) + (D) + (LS) + (Reg) $\implies$ convergence to $M$ for bounded trajectories.
@@ -538,15 +573,16 @@ The axioms are not independent. The relationships are:
 6. (D) + (LS) + (GC) $\implies$ The Lyapunov functional $\mathcal{L}$ is explicitly reconstructible from dissipation data alone.
 
 **Proposition 2.12 (Minimal axiom sets).** The theorems require the following minimal axiom combinations:
-* Theorem 7.1 (Resolution): (C), (D), (Reg)
-* Theorem 7.2.1 (GN as metatheorem): (D), (SC)
-* Theorem 7.2 (Type II exclusion): (D), (SC)
-* Theorem 7.3 (Capacity barrier): (Cap), (BG)
-* Theorem 7.4 (Topological suppression): (TB), (LSI)
-* Theorem 7.5 (Dichotomy): (D), (R), (Cap)
-* Theorem 7.6 (Canonical Lyapunov): (C), (D), (R), (LS), (Reg)
-* Theorem 7.7.1 (Action Reconstruction): (D), (LS), (GC)
-* Theorem 7.7.3 (Hamilton–Jacobi Generator): (D), (LS), (GC)
+
+- Theorem 7.1 (Resolution): (C), (D), (Reg)
+- Theorem 7.2.1 (GN as metatheorem): (D), (SC)
+- Theorem 7.2 (Type II exclusion): (D), (SC)
+- Theorem 7.3 (Capacity barrier): (Cap), (BG)
+- Theorem 7.4 (Topological suppression): (TB), (LSI)
+- Theorem 7.5 (Dichotomy): (D), (R), (Cap)
+- Theorem 7.6 (Canonical Lyapunov): (C), (D), (R), (LS), (Reg)
+- Theorem 7.7.1 (Action Reconstruction): (D), (LS), (GC)
+- Theorem 7.7.3 (Hamilton–Jacobi Generator): (D), (LS), (GC)
 
 **Proposition 2.13 (The mode classification).** The Structural Resolution (Theorem 7.1) classifies trajectories based on which condition fails:
 
@@ -562,6 +598,7 @@ The axioms are not independent. The relationships are:
 | **GC fails** | — | Reconstruction theorems (7.7.x) do not apply; abstract Lyapunov construction still valid |
 
 *Remark 2.14 (Regularity via permit denial).* Global regularity follows whenever:
+
 1. Energy disperses (Mode 2)—no singularity forms, or
 2. Concentration occurs but a permit is denied—singularity is contradicted.
 
@@ -770,6 +807,7 @@ The framework's power lies in showing that **when concentration does occur** (Ti
 **No global compactness proof is required.** The framework converts PDE regularity into local algebraic permit-checking on forced structure.
 
 **Remark 3.8 (The decision structure).** The classification operates as follows:
+
 1. Is energy bounded? If no: **Mode 1** (genuine blow-up). If yes: proceed.
 2. Does concentration occur? If no: **Mode 2** (global existence via dispersion). If yes: proceed.
 3. Test the forced profile $V$ against algebraic permits. Permit denial $\Rightarrow$ contradiction $\Rightarrow$ **global regularity**.
@@ -784,6 +822,7 @@ Mode 2 and permit-denial both yield global regularity—but via different mechan
 ### 5.1 Symmetry groups
 
 **Definition 5.1 (Symmetry group action).** Let $G$ be a locally compact Hausdorff topological group. A **continuous action** of $G$ on $X$ is a continuous map $G \times X \to X$, $(g, x) \mapsto g \cdot x$, such that:
+
 1. $e \cdot x = x$ for all $x \in X$ (where $e$ is the identity),
 2. $(gh) \cdot x = g \cdot (h \cdot x)$ for all $g, h \in G$, $x \in X$.
 
@@ -792,6 +831,7 @@ Mode 2 and permit-denial both yield global regularity—but via different mechan
 **Definition 5.3 (Proper action).** The action is **proper** if for every compact $K \subseteq X$, the set $\{g \in G : g \cdot K \cap K \neq \emptyset\}$ is compact in $G$.
 
 **Example 5.4 (Common symmetry groups).**
+
 1. **Translations:** $G = \mathbb{R}^n$ acting by $(a, u) \mapsto u(\cdot - a)$ on function spaces.
 2. **Rotations:** $G = SO(n)$ acting by $(R, u) \mapsto u(R^{-1} \cdot)$.
 3. **Scalings:** $G = \mathbb{R}_{> 0}$ acting by $(\lambda, u) \mapsto \lambda^\alpha u(\lambda \cdot)$ for some $\alpha$.
@@ -807,6 +847,7 @@ $$
 lies in a designated **normalized slice** $\Sigma \subseteq X$.
 
 **Definition 4.6 (Normalized slice).** A **normalized slice** is a measurable subset $\Sigma \subseteq X$ such that:
+
 1. **Transversality:** For $\mu$-almost every $x \in X$, the orbit $G \cdot x$ intersects $\Sigma$.
 2. **Uniqueness (up to discrete ambiguity):** For each orbit $G \cdot x$, the intersection $G \cdot x \cap \Sigma$ is a discrete (possibly singleton) set.
 
@@ -843,6 +884,7 @@ The Scaling Structure axiom provides the minimal geometric data needed to derive
 **Definition 4.11 (Scaling subgroup).** A **scaling subgroup** is a one-parameter subgroup $(\mathcal{S}_\lambda)_{\lambda > 0} \subset G$ of the symmetry group, with $\mathcal{S}_1 = e$ and $\mathcal{S}_\lambda \circ \mathcal{S}_\mu = \mathcal{S}_{\lambda\mu}$.
 
 **Definition 4.12 (Scaling exponents).** The **scaling exponents** along an orbit where $(\mathcal{S}_\lambda)$ acts are constants $\alpha > 0$ and $\beta > 0$ such that:
+
 1. **Dissipation scaling:** There exists $C_\alpha \geq 1$ such that for all $x$ on the orbit and $\lambda > 0$:
 $$
 C_\alpha^{-1} \lambda^\alpha \mathfrak{D}(x) \leq \mathfrak{D}(\mathcal{S}_\lambda \cdot x) \leq C_\alpha \lambda^\alpha \mathfrak{D}(x).
@@ -861,10 +903,11 @@ $$
 **Remark 4.14.** The exponent $\alpha$ measures how strongly dissipation responds to zooming; $\beta$ measures how remaining time compresses under scaling. The condition $\alpha > \beta$ ensures that supercritical rescaling amplifies dissipation faster than it compresses time, making infinite-cost profiles unavoidable in the limit.
 
 **Remark 4.15 (Scaling structure is soft).** For most systems of interest, the scaling structure is immediate from dimensional analysis:
-* For parabolic PDEs with scaling $(x, t) \mapsto (\lambda x, \lambda^2 t)$, the exponents follow from computing how $\mathfrak{D}$ and $dt$ transform.
-* For kinetic systems, the scaling comes from velocity-space rescaling.
-* For discrete systems, the scaling may be combinatorial (e.g., term depth).
-* For systems without natural scaling symmetry, SC does not apply and GN must be established by other structural means.
+
+- For parabolic PDEs with scaling $(x, t) \mapsto (\lambda x, \lambda^2 t)$, the exponents follow from computing how $\mathfrak{D}$ and $dt$ transform.
+- For kinetic systems, the scaling comes from velocity-space rescaling.
+- For discrete systems, the scaling may be combinatorial (e.g., term depth).
+- For systems without natural scaling symmetry, SC does not apply and GN must be established by other structural means.
 
 No hard analysis is required to identify SC where it applies; it is a purely structural/dimensional property.
 
@@ -877,9 +920,10 @@ With Scaling Structure (SC) in place, Generic Normalization becomes a derived co
 **Definition 4.17 (Supercritical rescaling).** A sequence $(g_n) \subset G$ is **supercritical** if $\sigma(g_n) \to 0$ or $\sigma(g_n) \to \infty$ (depending on convention: the scale escapes the critical regime).
 
 **Property GN (Generic Normalization).** For any trajectory $u(t) = S_t x$ with finite total cost $\mathcal{C}_*(x) < \infty$, if:
-* $(t_n)$ is a sequence with $t_n \nearrow T_*(x)$,
-* $(g_n) \subset G$ is a supercritical sequence,
-* the rescaled states $v_n := g_n \cdot u(t_n)$ converge to a limit $v_\infty \in X$,
+
+- $(t_n)$ is a sequence with $t_n \nearrow T_*(x)$,
+- $(g_n) \subset G$ is a supercritical sequence,
+- the rescaled states $v_n := g_n \cdot u(t_n)$ converge to a limit $v_\infty \in X$,
 
 then the normalized dissipation integral along any trajectory through $v_\infty$ must diverge:
 $$
@@ -897,9 +941,10 @@ Background structures provide reusable geometric and topological constraints tha
 ### 6.1 Geometric background (BG)
 
 **Definition 5.1 (Geometric background).** A **geometric background** is a triple $(X, d, \mu, Q)$ where:
-* $(X, d)$ is a metric space,
-* $\mu$ is a Borel measure on $X$,
-* $Q > 0$ is the **dimension parameter**,
+
+- $(X, d)$ is a metric space,
+- $\mu$ is a Borel measure on $X$,
+- $Q > 0$ is the **dimension parameter**,
 
 satisfying the following conditions.
 
@@ -941,13 +986,15 @@ $$
 ### 6.3 Topological background (TB)
 
 **Definition 5.4 (Topological sector).** A **topological sector structure** on $X$ is:
-* a discrete (or more generally, locally finite) index set $\mathcal{T}$,
-* a measurable function $\tau: X \to \mathcal{T}$ called the **sector index**,
-* a distinguished element $0 \in \mathcal{T}$ called the **trivial sector**.
+
+- a discrete (or more generally, locally finite) index set $\mathcal{T}$,
+- a measurable function $\tau: X \to \mathcal{T}$ called the **sector index**,
+- a distinguished element $0 \in \mathcal{T}$ called the **trivial sector**.
 
 **Definition 5.5 (Sector invariance).** The sector index is **flow-invariant** if $\tau(S_t x) = \tau(x)$ for all $t \in [0, T_*(x))$.
 
 **Example 5.6 (Topological charges).**
+
 1. **Degree:** For maps $u: S^n \to S^n$, $\tau(u) = \deg(u) \in \mathbb{Z}$.
 2. **Chern number:** For connections on a bundle, $\tau(A) = c_1(A) \in \mathbb{Z}$.
 3. **Homotopy class:** $\tau(u) = [u] \in \pi_n(M)$.
@@ -990,9 +1037,10 @@ Before proving the theorems, we establish technical lemmas.
 ### 7.1 Compactness extraction lemma
 
 **Lemma 6.1 (Compactness extraction).** Assume Axiom C. Let $(x_n) \subset K_E$ be a sequence in an energy sublevel. Then there exist:
-* a subsequence $(x_{n_k})$,
-* elements $g_k \in G$,
-* a limit point $x_\infty \in X$ with $\Phi(x_\infty) \leq E$,
+
+- a subsequence $(x_{n_k})$,
+- elements $g_k \in G$,
+- a limit point $x_\infty \in X$ with $\Phi(x_\infty) \leq E$,
 
 such that $g_k \cdot x_{n_k} \to x_\infty$ in $X$.
 
@@ -1200,6 +1248,7 @@ These modes are exhaustive because we have accounted for all possible behaviours
 | (6) | LS permit denied | Łojasiewicz fails | **Global regularity** (stiffness breakdown impossible) |
 
 *Remark 7.1.2 (Regularity pathways).* The resolution reveals multiple pathways to global regularity:
+
 1. **Mode 2 (Dispersion):** Energy does not concentrate—no singularity forms.
 2. **Modes 3–6 (Permit denial):** Energy concentrates but the forced structure fails an algebraic permit—singularity is contradicted.
 3. **Mode 1 avoided:** Energy remains bounded (Axiom D holds).
@@ -1213,9 +1262,10 @@ These modes are exhaustive because we have accounted for all possible behaviours
 **Theorem 7.2.1 (GN from SC + D).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC) with scaling exponents $(\alpha, \beta)$ satisfying $\alpha > \beta$. Then Property GN holds: any supercritical blow-up profile has infinite dissipation cost.
 
 More precisely: suppose $u(t) = S_t x$ is a trajectory with finite total cost $\mathcal{C}_*(x) < \infty$ and finite blow-up time $T_*(x) < \infty$. Suppose there exist:
-* a supercritical sequence $\lambda_n \to \infty$,
-* times $t_n \nearrow T_*(x)$,
-* such that the rescaled states
+
+- a supercritical sequence $\lambda_n \to \infty$,
+- times $t_n \nearrow T_*(x)$,
+- such that the rescaled states
 $$
 v_n(s) := \mathcal{S}_{\lambda_n} \cdot u\left(t_n + \lambda_n^{-\beta} s\right)
 $$
@@ -1275,12 +1325,14 @@ $$
 Summing over dyadic scales $\lambda_n \sim 2^n$: if $\alpha > \beta$, the prefactor $\lambda_n^{-\alpha}$ decays faster than any polynomial growth in $S_n$ can compensate, **unless** $v_\infty$ has infinite dissipation. More precisely, if $\int_{-\infty}^0 \mathfrak{D}(v_\infty(s)) ds < \infty$, then the cost contributions would sum to a finite value, but the supercritical convergence $v_n \to v_\infty$ with expanding windows requires that the dissipation profile $v_\infty$ absorbs all the rescaled dissipation—which must diverge for the limit to exist nontrivially.
 
 **Step 7: Contradiction.** Therefore:
-* If $v_\infty$ is nontrivial and $\int_{-\infty}^0 \mathfrak{D}(v_\infty) ds < \infty$, the scaling arithmetic shows $\mathcal{C}_*(x) < \infty$ cannot hold.
-* Conversely, if $\mathcal{C}_*(x) < \infty$, then either $v_\infty$ is trivial or $\int_{-\infty}^0 \mathfrak{D}(v_\infty) ds = \infty$.
+
+- If $v_\infty$ is nontrivial and $\int_{-\infty}^0 \mathfrak{D}(v_\infty) ds < \infty$, the scaling arithmetic shows $\mathcal{C}_*(x) < \infty$ cannot hold.
+- Conversely, if $\mathcal{C}_*(x) < \infty$, then either $v_\infty$ is trivial or $\int_{-\infty}^0 \mathfrak{D}(v_\infty) ds = \infty$.
 
 This establishes Property GN from Axioms D and SC alone. $\square$
 
 **Remark 7.2.2 (No PDE-specific ingredients).** The proof uses only:
+
 1. The scaling transformation law for $\mathfrak{D}$ (from SC),
 2. The time-scaling exponent $\beta$ (from SC),
 3. The subcritical condition $\alpha > \beta$ (from SC),
@@ -1545,10 +1597,11 @@ $$
 where $\dot{u}(t)$ is the metric velocity of the trajectory.
 
 **Remark 7.10.** Gradient consistency encodes that the system is "maximally efficient" at converting dissipation into motion—a defining property of gradient flows where $\dot{u} = -\nabla \Phi$ and $\mathfrak{D} = \|\nabla \Phi\|^2$. This is **not** an additional axiom to verify case-by-case; it is a structural property that holds automatically for:
-* Gradient flows in Hilbert spaces,
-* Wasserstein gradient flows of free energies,
-* $L^2$ gradient flows of geometric functionals,
-* Any system where the "velocity equals negative gradient" structure is present.
+
+- Gradient flows in Hilbert spaces,
+- Wasserstein gradient flows of free energies,
+- $L^2$ gradient flows of geometric functionals,
+- Any system where the "velocity equals negative gradient" structure is present.
 
 **Axiom GC (Gradient Consistency on gradient-flow orbits).** Along any trajectory $u(t) = S_t x$ that evolves by gradient flow (i.e., $\dot{u} = -\nabla_g \Phi$), the gradient consistency condition $\|\dot{u}(t)\|_g^2 = \mathfrak{D}(u(t))$ holds.
 
@@ -1664,10 +1717,11 @@ The reconstruction theorems produce known Lyapunov functionals from minimal inpu
 **Example 7.12 (Recovering Boltzmann–Shannon entropy).**
 
 *Input:*
-* State space: $X = \mathcal{P}_2(\mathbb{R}^d)$ (probability measures with finite second moment).
-* Metric: Wasserstein-2 metric $W_2$.
-* Flow: Heat equation $\partial_t \rho = \Delta \rho$.
-* Dissipation: Fisher information $\mathfrak{D}(\rho) = I(\rho) = \int_{\mathbb{R}^d} \frac{|\nabla \rho|^2}{\rho} \, dx$.
+
+- State space: $X = \mathcal{P}_2(\mathbb{R}^d)$ (probability measures with finite second moment).
+- Metric: Wasserstein-2 metric $W_2$.
+- Flow: Heat equation $\partial_t \rho = \Delta \rho$.
+- Dissipation: Fisher information $\mathfrak{D}(\rho) = I(\rho) = \int_{\mathbb{R}^d} \frac{|\nabla \rho|^2}{\rho} \, dx$.
 
 *Framework output:* By Theorem 7.7.3, solve $\|\nabla_{W_2} \mathcal{L}\|_{W_2}^2 = I(\rho)$.
 
@@ -1683,10 +1737,11 @@ $$
 **Example 7.13 (Recovering the Ricci flow functional).**
 
 *Input:*
-* State space: $X = \mathrm{Met}(M) / \mathrm{Diff}(M)$ (Riemannian metrics modulo diffeomorphisms).
-* Metric: $L^2$ metric on symmetric 2-tensors.
-* Flow: Ricci flow $\partial_t g = -2\mathrm{Ric}$.
-* Dissipation: $\mathfrak{D}(g) = \int_M |\mathrm{Ric}|^2 \, dV_g$ (squared Ricci curvature).
+
+- State space: $X = \mathrm{Met}(M) / \mathrm{Diff}(M)$ (Riemannian metrics modulo diffeomorphisms).
+- Metric: $L^2$ metric on symmetric 2-tensors.
+- Flow: Ricci flow $\partial_t g = -2\mathrm{Ric}$.
+- Dissipation: $\mathfrak{D}(g) = \int_M |\mathrm{Ric}|^2 \, dV_g$ (squared Ricci curvature).
 
 *Framework output:* By Theorem 7.7.1, the Lyapunov functional is the geodesic distance to the soliton manifold $M$ (Einstein metrics or Ricci solitons) in the $\sqrt{\mathfrak{D}}$-weighted metric.
 
@@ -1701,10 +1756,11 @@ and the **reduced volume** as its integral. The monotonicity formula is precisel
 **Example 7.14 (Recovering Dirichlet energy).**
 
 *Input:*
-* State space: $X = H^1(\Omega)$ for a bounded domain $\Omega$.
-* Metric: $L^2$ metric.
-* Flow: Heat equation $\partial_t u = \Delta u$.
-* Dissipation: $\mathfrak{D}(u) = \|\Delta u\|_{L^2}^2$.
+
+- State space: $X = H^1(\Omega)$ for a bounded domain $\Omega$.
+- Metric: $L^2$ metric.
+- Flow: Heat equation $\partial_t u = \Delta u$.
+- Dissipation: $\mathfrak{D}(u) = \|\Delta u\|_{L^2}^2$.
 
 *Framework output:* By Theorem 7.7.3, solve $\|\nabla_{L^2} \mathcal{L}\|_{L^2}^2 = \|\Delta u\|_{L^2}^2$.
 
@@ -1762,6 +1818,7 @@ $$
 u(t_n) = \underbrace{g_n \cdot V}_{\text{The Maximizer}} + \underbrace{w_n}_{\text{Dispersion}}
 $$
 where:
+
 1. **$V \in X$ (The Canonical Profile):** A fixed, non-trivial element of the state space. This is the "Maximizer" of the local concentration.
 2. **$g_n \in G$ (The Gauge Sequence):** A sequence of symmetry transformations (scalings, translations) that diverge as $n \to \infty$ (e.g., $\lambda_n \to \infty$ for scaling).
 3. **$w_n$ (The Residual):** A term that vanishes or disperses in the relevant topology (structurally irrelevant).
@@ -1776,6 +1833,7 @@ where:
 - The framework checks algebraic permits on the forced structure.
 
 The two-tier logic:
+
 1. **Tier 1 (Dispersion):** If energy disperses, no singularity forms—global existence via scattering.
 2. **Tier 2 (Concentration):** If energy concentrates, check algebraic permits on the forced structure. Permit denial yields regularity via contradiction.
 
@@ -11523,6 +11581,7 @@ The Takens Embedding Theorem establishes:
 4. The reconstructed dynamics preserves topological properties. $\square$
 
 **Protocol 9.213 (Reconstruction Audit).**
+
 1. **Estimate dimension:** Compute attractor dimension $d_A$ from data.
 2. **Choose embedding:** Set $m \geq 2d_A + 1$ and appropriate delay $\tau$.
 3. **Construct embedding:** Build delay vectors from time series.
@@ -11624,40 +11683,75 @@ The framework now possesses **eighty-three** complementary diagnostic tools form
 The eighty-three metatheorems partition into the following categories, covering every major failure mode in mathematical history:
 
 1. **Classical Physics Failures** (Energy, Dissipation, Chaos): Theorems 9.10–9.34, 9.94–9.100.
+
 2. **Information-Theoretic Barriers** (Entropy, Compression, Complexity): Theorems 9.38, 9.42, 9.58, 9.78, 9.148.
+
 3. **Algebraic Obstructions** (Galois, Monodromy, Arithmetic): Theorems 9.50, 9.54, 9.76, 9.126.
+
 4. **Topological Constraints** (Characteristic Classes, Sieve, Sparsity, Sheaves): Theorems 9.46, 9.74, 9.80, 9.82, 9.158.
+
 5. **Geometric Rigidity** (Symplectic, Dimensional, Isoperimetric): Theorems 9.103, 9.108, 9.120.
+
 6. **Control-Theoretic Bounds** (Nyquist, Synchronization, Lag): Theorems 9.66, 9.98, 9.105.
+
 7. **Transport and Mixing** (Wasserstein, Chiral, Ergodic): Theorems 9.111, 9.114, 9.117.
+
 8. **Measure-Theoretic Foundations** (Borel, Banach-Tarski Exclusion): Theorem 9.128.
+
 9. **Analytic Regularity** (Distributional Products, Derivative Loss, Multifractal): Theorems 9.130, 9.136, 9.160.
+
 10. **Model-Theoretic Tameness** (O-Minimality, Wild Topology Exclusion): Theorem 9.132.
+
 11. **Gauge and Coordinate** (Gribov, Removable Singularities, Covariant Slicing): Theorems 9.134, 9.146.
+
 12. **Probabilistic Barriers** (Large Deviations, Black Swan Exclusion): Theorems 9.96, 9.138.
+
 13. **Non-Standard Analysis** (Archimedean Property, Infinitesimal Exclusion): Theorem 9.140.
+
 14. **Logical Foundations** (Paradox Exclusion, Chronology Protection, Truth Hierarchies): Theorems 9.142, 9.174, 9.178.
+
 15. **Categorical Structure** (Coherence, Functorial Covariance): Theorems 9.144, 9.168.
+
 16. **Quantum Information** (No-Cloning, Monogamy, Zeno, QEC): Theorems 9.164, 9.166, 9.170, 9.172.
+
 17. **Gravitational Bounds** (Maximum Force, Vacuum Stability): Theorems 9.150, 9.162.
+
 18. **Computational Limits** (Epistemic Horizon, UV-IR Decoupling, Simulation): Theorems 9.152, 9.154, 9.156.
+
 19. **Observer-Theoretic** (Intersubjective Consistency): Theorem 9.176.
+
 20. **Causal Structure** (Counterfactual Stability): Theorem 9.180.
+
 21. **Cosmological** (Entropy Gap, Past Hypothesis): Theorem 9.182.
+
 22. **Economic and Financial** (Arbitrage, Market Efficiency): Theorem 9.184.
+
 23. **Control-Theoretic Extensions** (Sensitivity Conservation, Feedback Limits): Theorem 9.186.
+
 24. **Distributed Systems** (Byzantine Consensus, Fault Tolerance): Theorem 9.188.
+
 25. **Machine Learning** (No Free Lunch, Inductive Bias Necessity): Theorem 9.190.
+
 26. **Biological Scaling** (Allometric Laws, Metabolic Constraints): Theorem 9.192.
+
 27. **Philosophical Logic** (Sorites, Vagueness, Tolerance): Theorem 9.194.
+
 28. **Self-Improvement Limits** (Amdahl Barriers, Intelligence Amplification): Theorem 9.196.
+
 29. **Network Phase Transitions** (Percolation, Giant Component Emergence): Theorem 9.198.
+
 30. **Fundamental Physics Bounds** (Bekenstein-Landauer, Information-Energy): Theorem 9.200.
+
 31. **Modular Complexity** (Near-Decomposability, Hierarchical Structure): Theorem 9.202.
+
 32. **Evolutionary Information** (Error Threshold, Genome Limits): Theorem 9.204.
+
 33. **Relativistic Geometry** (Sagnac-Holonomy, Synchronization Barriers): Theorem 9.206.
+
 34. **Non-Normal Dynamics** (Pseudospectral Bounds, Transient Amplification): Theorem 9.208.
+
 35. **Dimensionality Reduction** (Johnson-Lindenstrauss, Random Projections): Theorem 9.210.
+
 36. **Dynamical Reconstruction** (Takens Embedding, Attractor Analysis): Theorem 9.212.
 
 The original seven address regularity, consistency, and effective dynamics. The seventy-six additional metatheorems address information-theoretic, algebraic, topological, causal, control-theoretic, computational, cryptographic, adversarial, statistical, symplectic, transport-theoretic, chiral, ergodic, geometric, non-local, arithmetic, measure-theoretic, analytic, model-theoretic, gauge-theoretic, probabilistic, non-standard, logical, categorical, quantum-informational, gravitational, observer-theoretic, cosmological, economic, distributed systems, machine learning, biological, philosophical, self-improvement, network, relativistic, dynamical, and dimensionality barriers to singularity formation and system fragility.
