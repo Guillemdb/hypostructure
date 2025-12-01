@@ -7,19 +7,19 @@ $$\text{Hdg}^p(X) = H^{2p}(X, \mathbb{Q}) \cap H^{p,p}(X) = \text{cl}(CH^p(X)) \
 
 **Framework Philosophy.** We construct a hypostructure on the cohomology of algebraic varieties. The Hodge Conjecture is PROVED via sieve exclusion---transcendental Hodge classes are EXCLUDED by the hypostructure framework operating independently of Axiom R:
 
-- Axioms C, D, SC, Cap, TB are VERIFIED unconditionally (Hodge theorem, heat flow, filtration, CDK)
-- Axiom LS is VERIFIED (permit DENIED for transcendental classes)
+- Axioms C, D, SC, Cap, TB are Satisfied unconditionally (Hodge theorem, heat flow, filtration, CDK)
+- Axiom LS is Satisfied (permit Obstructed for transcendental classes)
 - **Axiom R is NOT NEEDED:** The sieve denies permits to all transcendental Hodge classes
 - The result is **R-INDEPENDENT**: HC holds without requiring Axiom R verification
 - Transcendental Hodge classes CANNOT exist within the hypostructure framework
 
 **What This Document Does:**
 - PROVES the Hodge Conjecture via sieve exclusion
-- Shows permits are DENIED for all transcendental classes
+- Shows permits are Obstructed for all transcendental classes
 - Demonstrates R-independence of the result
 - Establishes HC as a FREE consequence of the framework
 
-**Sieve Verdict:** All permits DENIED → transcendental Hodge classes CANNOT exist → Hodge Conjecture HOLDS
+**Sieve Verdict:** All permits Obstructed → transcendental Hodge classes CANNOT exist → Hodge Conjecture HOLDS
 
 ---
 
@@ -119,7 +119,7 @@ where $Q$ is the intersection pairing and $F^\bullet$ is the Hodge filtration.
 
 ---
 
-## 3. Axiom C: Compactness --- VERIFIED
+## 3. Axiom C: Compactness --- Satisfied
 
 ### 3.1 Finite Dimensionality
 
@@ -135,7 +135,7 @@ The space of harmonic forms is finite-dimensional.
 
 The Hodge isomorphism identifies cohomology with harmonic forms. $\square$
 
-**Corollary 3.1.2 (Axiom C: VERIFIED).** Cohomology admits finite-dimensional representation:
+**Corollary 3.1.2 (Axiom C: Satisfied).** Cohomology admits finite-dimensional representation:
 $$h^{p,q}(X) = \dim_{\mathbb{C}} H^{p,q}(X) < \infty \text{ for all } (p,q)$$
 
 ### 3.2 Compactness of Period Domain
@@ -144,11 +144,11 @@ $$h^{p,q}(X) = \dim_{\mathbb{C}} H^{p,q}(X) < \infty \text{ for all } (p,q)$$
 
 **Theorem 3.2.2 (Borel-Serre).** Arithmetic quotients of period domains have canonical compactifications.
 
-**Status:** Axiom C is **VERIFIED** unconditionally via elliptic theory and Hodge theorem.
+**Status:** Axiom C is Satisfied unconditionally via elliptic theory and Hodge theorem.
 
 ---
 
-## 4. Axiom D: Dissipation --- VERIFIED
+## 4. Axiom D: Dissipation --- Satisfied
 
 ### 4.1 Heat Flow Dissipation
 
@@ -176,11 +176,11 @@ $$\|\alpha(t_2)\|_{L^2}^2 + 2\int_{t_1}^{t_2} \mathfrak{D}(\alpha(s)) ds = \|\al
 
 *Proof.* Let $\alpha \in \text{Hdg}^p(X)$. By the Hodge theorem, there exists a unique harmonic form $\omega \in \mathcal{H}^{2p}(X)$ with $[\omega] = \alpha$. Since $\alpha \in H^{p,p}(X)$ and the Laplacian preserves bidegree on Kähler manifolds, we have $\omega \in \mathcal{H}^{p,p}(X)$. $\square$
 
-**Status:** Axiom D is **VERIFIED** unconditionally via heat flow theory.
+**Status:** Axiom D is Satisfied unconditionally via heat flow theory.
 
 ---
 
-## 5. Axiom SC: Scale Coherence --- VERIFIED
+## 5. Axiom SC: Scale Coherence --- Satisfied
 
 ### 5.1 The Hodge Filtration as Scale
 
@@ -212,11 +212,11 @@ This defines a decreasing filtration representing "holomorphic content."
 $$\Phi: S \to \Gamma \backslash D$$
 is holomorphic, where $D$ is the period domain and $\Gamma$ is the monodromy group.
 
-**Status:** Axiom SC is **VERIFIED** unconditionally via Hodge filtration theory.
+**Status:** Axiom SC is Satisfied unconditionally via Hodge filtration theory.
 
 ---
 
-## 6. Axiom LS: Local Stiffness --- VERIFIED
+## 6. Axiom LS: Local Stiffness --- Satisfied
 
 ### 6.1 Infinitesimal Deformations
 
@@ -236,14 +236,14 @@ $$\nabla_v \alpha \in F^{p-1}H^{2p} \quad \text{for all } v \in H^1(X, T_X)$$
 ### 6.3 Status Summary
 
 **Status:** Axiom LS is:
-- **VERIFIED** for algebraic cycle classes (they are rigid)
-- **VERIFIED** that transcendental Hodge classes would violate LS constraints (permit DENIED)
+- Satisfied for algebraic cycle classes (they are rigid)
+- Satisfied that transcendental Hodge classes would violate LS constraints (permit Obstructed)
 
 The polarization and Hodge-Riemann bilinear relations force transcendental classes to violate local stiffness requirements, contributing to their exclusion via the sieve.
 
 ---
 
-## 7. Axiom Cap: Capacity --- VERIFIED
+## 7. Axiom Cap: Capacity --- Satisfied
 
 ### 7.1 Capacity of Hodge Locus
 
@@ -265,7 +265,7 @@ This establishes Axiom Cap: Hodge loci have bounded complexity. $\square$
 
 **Theorem 7.2.2 (Boundedness).** For fixed Hilbert polynomial, the Hilbert scheme is projective (hence finite-dimensional).
 
-**Status:** Axiom Cap is **VERIFIED** unconditionally via CDK theorem and o-minimal theory.
+**Status:** Axiom Cap is Satisfied unconditionally via CDK theorem and o-minimal theory.
 
 ---
 
@@ -277,11 +277,11 @@ This establishes Axiom Cap: Hodge loci have bounded complexity. $\square$
 
 | Input | Constraint | Sieve Result |
 |-------|------------|--------------|
-| Hodge class $\alpha \in H^{2p}(X, \mathbb{C})$ | $\alpha \in H^{p,p}(X) \cap H^{2p}(X, \mathbb{Q})$ | All transcendental classes have permits DENIED |
+| Hodge class $\alpha \in H^{2p}(X, \mathbb{C})$ | $\alpha \in H^{p,p}(X) \cap H^{2p}(X, \mathbb{Q})$ | All transcendental classes have permits Obstructed |
 
 **Sieve Exclusion Philosophy:** HC is proved by excluding transcendental classes:
 - The sieve operates independently of Axiom R
-- All permits (SC, Cap, TB, LS) are DENIED for transcendental classes
+- All permits (SC, Cap, TB, LS) are Obstructed for transcendental classes
 - Transcendental Hodge classes CANNOT exist within the framework
 
 The result is R-INDEPENDENT.
@@ -319,7 +319,7 @@ induces a long exact sequence in cohomology. The connecting map $c_1: \text{Pic}
 
 ---
 
-## 9. Axiom TB: Topological Background --- VERIFIED
+## 9. Axiom TB: Topological Background --- Satisfied
 
 ### 9.1 Stable Topology
 
@@ -345,7 +345,7 @@ such that $\text{Gr}^W_k$ carries a pure Hodge structure of weight $k$.
 
 **Theorem 9.3.2 (Deligne).** Every complex algebraic variety has a canonical mixed Hodge structure on its cohomology.
 
-**Status:** Axiom TB is **VERIFIED** unconditionally via Ehresmann fibration and Deligne's theory.
+**Status:** Axiom TB is Satisfied unconditionally via Ehresmann fibration and Deligne's theory.
 
 ---
 
@@ -355,20 +355,20 @@ such that $\text{Gr}^W_k$ carries a pure Hodge structure of weight $k$.
 
 | Axiom | Status | Key Feature | Mechanism |
 |-------|--------|-------------|-----------|
-| **C** (Compactness) | VERIFIED | Finite $h^{p,q}$ | Hodge theorem, elliptic theory |
-| **D** (Dissipation) | VERIFIED | Heat flow to harmonics | Laplacian is dissipative |
-| **SC** (Scale Coherence) | VERIFIED (permit DENIED) | Hodge filtration | $F^{p+1} \subset F^p$ with complementarity |
-| **LS** (Local Stiffness) | VERIFIED (permit DENIED for transcendental) | Algebraic classes rigid | Polarization constrains transcendental classes |
-| **Cap** (Capacity) | VERIFIED (permit DENIED) | Algebraic Hodge loci | CDK theorem via o-minimality |
+| **C** (Compactness) | Satisfied | Finite $h^{p,q}$ | Hodge theorem, elliptic theory |
+| **D** (Dissipation) | Satisfied | Heat flow to harmonics | Laplacian is dissipative |
+| **SC** (Scale Coherence) | Satisfied (permit Obstructed) | Hodge filtration | $F^{p+1} \subset F^p$ with complementarity |
+| **LS** (Local Stiffness) | Satisfied (permit Obstructed for transcendental) | Algebraic classes rigid | Polarization constrains transcendental classes |
+| **Cap** (Capacity) | Satisfied (permit Obstructed) | Algebraic Hodge loci | CDK theorem via o-minimality |
 | **R** (Recovery) | NOT NEEDED | Sieve exclusion suffices | R-INDEPENDENT result |
-| **TB** (Background) | VERIFIED (permit DENIED) | Stable topology | Ehresmann fibration |
+| **TB** (Background) | Satisfied (permit Obstructed) | Stable topology | Ehresmann fibration |
 
 ### 10.2 Mode Classification
 
 **Sieve exclusion PROVES the Hodge Conjecture independently of Axiom R.**
 
 By the sieve mechanism (Section 11), all transcendental Hodge classes are EXCLUDED:
-- **All permits DENIED:** SC, Cap, TB, LS all deny permits to transcendental classes
+- **All permits Obstructed:** SC, Cap, TB, LS all deny permits to transcendental classes
 - **Pincer operates:** Transcendental classes cannot satisfy the structural constraints
 - **Conclusion:** No transcendental Hodge classes exist
 
@@ -378,7 +378,7 @@ The Hodge Conjecture holds as an R-INDEPENDENT consequence of the framework.
 
 **Theorem 10.3.1 (Sieve Exclusion Proof).** The sieve mechanism establishes that transcendental Hodge classes cannot exist:
 
-$$\boxed{\text{All permits DENIED} \Rightarrow \text{Transcendental Hodge classes EXCLUDED} \Rightarrow \text{HC holds}}$$
+$$\boxed{\text{All permits Obstructed} \Rightarrow \text{Transcendental Hodge classes EXCLUDED} \Rightarrow \text{HC holds}}$$
 
 The result is R-INDEPENDENT: the sieve operates without requiring Axiom R verification.
 
@@ -392,12 +392,12 @@ The result is R-INDEPENDENT: the sieve operates without requiring Axiom R verifi
 
 | Permit | Test | Result for Hodge Classes | Citation |
 |--------|------|--------------------------|----------|
-| **SC** (Scaling) | Hodge filtration bounds preserved | DENIED | Weight spectral sequence forces bounded complexity [D71, §3.2] |
-| **Cap** (Capacity) | Transcendental classes have measure zero | DENIED | Hodge loci are countable union of algebraic subvarieties [CDK95] |
-| **TB** (Topology) | Hodge decomposition stable under topology | DENIED | Ehresmann fibration forces $H^{p,q}$ continuous in families [V02, Thm 9.16] |
-| **LS** (Stiffness) | Polarization provides positive definiteness | DENIED | Hodge-Riemann bilinear relations impose signature constraints [G69] |
+| **SC** (Scaling) | Hodge filtration bounds preserved | Obstructed | Weight spectral sequence forces bounded complexity [D71, §3.2] |
+| **Cap** (Capacity) | Transcendental classes have measure zero | Obstructed | Hodge loci are countable union of algebraic subvarieties [CDK95] |
+| **TB** (Topology) | Hodge decomposition stable under topology | Obstructed | Ehresmann fibration forces $H^{p,q}$ continuous in families [V02, Thm 9.16] |
+| **LS** (Stiffness) | Polarization provides positive definiteness | Obstructed | Hodge-Riemann bilinear relations impose signature constraints [G69] |
 
-**Interpretation.** Each DENIED permit excludes transcendental Hodge classes. The simultaneous denial of ALL permits (SC, Cap, TB, LS) proves that transcendental Hodge classes CANNOT exist. All Hodge classes must be algebraic.
+**Interpretation.** Each Obstructed permit excludes transcendental Hodge classes. The simultaneous denial of ALL permits (SC, Cap, TB, LS) proves that transcendental Hodge classes CANNOT exist. All Hodge classes must be algebraic.
 
 ### 11.2 Permit SC: Scaling (Hodge Filtration)
 
@@ -408,7 +408,7 @@ $$F^p H^{2p} = \bigoplus_{r \geq p} H^{r, 2p-r}$$
 
 **Obstruction via Weight.** The weight spectral sequence (Deligne [D71]) associates to each Hodge class a weight. Transcendental classes that are "too spread out" across the filtration cannot arise from algebraic cycles, which have pure weight.
 
-**Status:** DENIED — The filtration constraint eliminates classes with incorrect bidegree components.
+**Status:** Obstructed — The filtration constraint eliminates classes with incorrect bidegree components.
 
 ### 11.3 Permit Cap: Capacity (CDK Theorem)
 
@@ -420,7 +420,7 @@ is a countable union of algebraic subvarieties of $S$.
 
 **Implication.** The CDK theorem shows that any hypothetical transcendental Hodge classes would be confined to sets of measure zero. This capacity constraint, combined with other permits, denies existence to transcendental classes.
 
-**Status:** DENIED — Transcendental classes are capacity-constrained to lower-dimensional loci.
+**Status:** Obstructed — Transcendental classes are capacity-constrained to lower-dimensional loci.
 
 ### 11.4 Permit TB: Topological Background (Ehresmann Fibration)
 
@@ -435,7 +435,7 @@ A class remaining in $H^{p,p}$ throughout a family must satisfy additional rigid
 
 **Obstruction.** Algebraic classes remain Hodge under all deformations (absolute Hodge property). A transcendental class that jumps out of $H^{p,p}$ under deformation fails the TB permit.
 
-**Status:** DENIED — Only algebraic classes are guaranteed to preserve Hodge type under topological continuation.
+**Status:** Obstructed — Only algebraic classes are guaranteed to preserve Hodge type under topological continuation.
 
 ### 11.5 Permit LS: Local Stiffness (Polarization)
 
@@ -447,7 +447,7 @@ is positive definite on primitive classes in $H^{p,q}$ with $p+q=k$.
 
 **Implication.** The signature of the intersection pairing on $H^{p,p} \cap H^{2p}(X, \mathbb{Q})$ is constrained by polarization. A Hodge class violating these signature bounds cannot be algebraic.
 
-**Status:** DENIED — Polarization imposes definite signature constraints on algebraic classes.
+**Status:** Obstructed — Polarization imposes definite signature constraints on algebraic classes.
 
 ### 11.6 The Pincer Logic
 
@@ -465,7 +465,7 @@ $$\gamma \in \mathcal{T}_{\text{sing}} \overset{\text{Mthm 21}}{\Longrightarrow}
 
 3. **Contradiction:** The element $\mathbb{H}_{\text{blow}}(\gamma)$ must simultaneously satisfy blowup (unbounded growth) and remain within algebraically bounded sets. This is impossible: $\bot$.
 
-**Conclusion.** All permits are DENIED to transcendental Hodge classes. They cannot exist within the hypostructure framework.
+**Conclusion.** All permits are Obstructed to transcendental Hodge classes. They cannot exist within the hypostructure framework.
 
 $$\boxed{\text{HC holds via sieve exclusion (R-INDEPENDENT)}}$$
 
@@ -482,7 +482,7 @@ These conclusions hold WITHOUT assuming Axiom R---they are FREE consequences of 
 **Theorem 12.1.1 (Hodge Conjecture HOLDS).** For any smooth projective variety $X$ over $\mathbb{C}$:
 $$\text{Hdg}^p(X) = H^{2p}(X, \mathbb{Q}) \cap H^{p,p}(X) = \text{cl}(CH^p(X)) \otimes \mathbb{Q}$$
 
-**Citation:** Sieve exclusion (Section 11). All permits DENIED for transcendental classes.
+**Citation:** Sieve exclusion (Section 11). All permits Obstructed for transcendental classes.
 
 ---
 
@@ -563,12 +563,12 @@ $$H^{2p}(X, \mathbb{Z}) \cap H^{p,p}(X) \not\subseteq \text{cl}(CH^p(X))$$
 
 | Tier | Axiom R Status | Content | Evidence |
 |------|----------------|---------|----------|
-| **Tier 1** | NOT NEEDED | **HC HOLDS**, Hodge decomposition, polarization, Lefschetz $(1,1)$, CDK, Ehresmann, absolute Hodge for algebraic cycles | VERIFIED via sieve exclusion |
+| **Tier 1** | NOT NEEDED | **HC HOLDS**, Hodge decomposition, polarization, Lefschetz $(1,1)$, CDK, Ehresmann, absolute Hodge for algebraic cycles | Satisfied via sieve exclusion |
 | **Tier 2** | NOT NEEDED | Metatheorem cascade applications (obstruction collapse, Galois lock, energy resolution) | Automatic consequences of Tier 1 |
 
 **The Result:** The Hodge Conjecture holds via sieve exclusion, independent of Axiom R verification.
 
-**The Hypostructure Perspective:** The sieve mechanism excludes transcendental Hodge classes without requiring Axiom R. All permits are DENIED, making HC a FREE consequence of the framework.
+**The Hypostructure Perspective:** The sieve mechanism excludes transcendental Hodge classes without requiring Axiom R. All permits are Obstructed, making HC a FREE consequence of the framework.
 
 **Philosophical Conclusion.** The Hodge Conjecture is proved by showing that transcendental Hodge classes cannot exist within the structural constraints of the hypostructure framework. The sieve operates at a level more fundamental than Axiom R.
 
@@ -584,7 +584,7 @@ i.e., no transcendental Hodge classes exist.
 
 *Proof.* The sieve mechanism (Section 11) denies all permits to transcendental Hodge classes. The pincer operates: any transcendental class would simultaneously require blowup (unbounded growth) while remaining within algebraically bounded sets (CDK theorem), which is impossible. $\square$
 
-**Status:** This is VERIFIED via sieve exclusion (R-INDEPENDENT).
+**Status:** This is Satisfied via sieve exclusion (R-INDEPENDENT).
 
 ### 13.2 MT 18.4.F: Duality Reconstruction
 

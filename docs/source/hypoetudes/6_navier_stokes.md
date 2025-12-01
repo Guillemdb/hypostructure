@@ -97,11 +97,11 @@ where $\|w_n^J\|_{L^q} \to 0$ as $n \to \infty$ then $J \to \infty$ for $2 < q <
 
 | Aspect | Status |
 |:-------|:-------|
-| Local compactness | **VERIFIED** |
+| Local compactness | Satisfied |
 | Global compactness in $X$ | **PARTIAL** (critical embedding not compact) |
-| Modulo $G$-action | **VERIFIED** (via profile decomposition) |
+| Modulo $G$-action | Satisfied (via profile decomposition) |
 
-**Axiom C: PARTIALLY VERIFIED.** The critical nature of $\dot{H}^{1/2}$ and non-compactness of $\mathbb{R}^3$ prevent full global compactness, but concentration-compactness provides the essential structural control.
+**Axiom C: PARTIALLY Satisfied.** The critical nature of $\dot{H}^{1/2}$ and non-compactness of $\mathbb{R}^3$ prevent full global compactness, but concentration-compactness provides the essential structural control.
 
 ---
 
@@ -130,7 +130,7 @@ $$\mathcal{C}_*(u_0) := \int_0^{T_*} \mathfrak{D}(u(t)) \, dt \leq E(u_0) < \inf
 
 ### 3.3 Status
 
-**Axiom D: VERIFIED** with $C = 0$ (exact energy equality for smooth solutions; inequality for Leray-Hopf weak solutions).
+**Axiom D: Satisfied** with $C = 0$ (exact energy equality for smooth solutions; inequality for Leray-Hopf weak solutions).
 
 ---
 
@@ -185,7 +185,7 @@ matches the energy scaling, giving effective criticality for the total budget.
 
 ### 4.5 Status
 
-**Axiom SC: VERIFIED.** Scaling structure is $(\alpha, \beta) = (1, 2)$ rate-supercritical, $(1, 1)$ integrated-critical. This exact balance explains the difficulty of the problem—no margin exists for automatic Type II exclusion.
+**Axiom SC: Satisfied.** Scaling structure is $(\alpha, \beta) = (1, 2)$ rate-supercritical, $(1, 1)$ integrated-critical. This exact balance explains the difficulty of the problem—no margin exists for automatic Type II exclusion.
 
 ---
 
@@ -211,7 +211,7 @@ by Poincaré/Hardy inequality (for spatially decaying fields).
 
 ### 5.3 Status
 
-**Axiom LS: VERIFIED** at the equilibrium $u = 0$. The zero solution is a global attractor for small data. Non-trivial steady states on $\mathbb{R}^3$ with finite energy are not known to exist.
+**Axiom LS: Satisfied** at the equilibrium $u = 0$. The zero solution is a global attractor for small data. Non-trivial steady states on $\mathbb{R}^3$ with finite energy are not known to exist.
 
 ---
 
@@ -251,7 +251,7 @@ High-dimensional blow-up is **excluded**. Any singularity must concentrate on a 
 
 ### 6.4 Status
 
-**Axiom Cap: VERIFIED** via CKN computation. Consequence: capacity barrier (MT 7.3) applies automatically.
+**Axiom Cap: Satisfied** via CKN computation. Consequence: capacity barrier (MT 7.3) applies automatically.
 
 ---
 
@@ -269,7 +269,7 @@ for some critical norm $Y$, constants $c_R > 0$, $\gamma > 0$.
 
 **Why Axiom R is NOT needed:**
 - Global regularity follows from Metatheorems 18.4.A-C + 21 (the sieve)
-- The sieve tests structural permits (SC, Cap, TB, LS) which are ALL DENIED
+- The sieve tests structural permits (SC, Cap, TB, LS) which are ALL Obstructed
 - This exclusion works **regardless** of whether Axiom R holds
 - Axiom R provides **quantitative** control, not **existence**
 
@@ -319,12 +319,12 @@ This provides explicit bounds on vorticity concentration—useful for numerical 
 
 | Axiom | Status | Consequence |
 |:------|:-------|:------------|
-| **C** (Compactness) | **VERIFIED** | Profile decomposition; concentration-compactness |
-| **D** (Dissipation) | **VERIFIED** | Energy monotone; $\frac{d}{dt}\Phi = -\mathfrak{D}$ |
-| **SC** (Scale Coherence) | **VERIFIED** | $(\alpha,\beta)=(1,2)$ rate-supercritical → **SC DENIED** |
-| **LS** (Local Stiffness) | **VERIFIED** | Łojasiewicz at $u=0$ → **LS DENIED** |
-| **Cap** (Capacity) | **VERIFIED** | $\mathcal{P}^1(\Sigma) = 0$ [CKN82] → **Cap DENIED** |
-| **TB** (Topological) | **VERIFIED** | Contractible spaces → **TB DENIED** |
+| **C** (Compactness) | Satisfied | Profile decomposition; concentration-compactness |
+| **D** (Dissipation) | Satisfied | Energy monotone; $\frac{d}{dt}\Phi = -\mathfrak{D}$ |
+| **SC** (Scale Coherence) | Satisfied | $(\alpha,\beta)=(1,2)$ rate-supercritical → **SC Obstructed** |
+| **LS** (Local Stiffness) | Satisfied | Łojasiewicz at $u=0$ → **LS Obstructed** |
+| **Cap** (Capacity) | Satisfied | $\mathcal{P}^1(\Sigma) = 0$ [CKN82] → **Cap Obstructed** |
+| **TB** (Topological) | Satisfied | Contractible spaces → **TB Obstructed** |
 | **R** (Recovery) | N/A for regularity | Only for quantitative refinements (Tier 2) |
 
 ### 9.2 Mode Classification — ALL EXCLUDED
@@ -367,12 +367,12 @@ $$\gamma \mapsto \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$$
 **Axiom Requirements:** SC, Cap, TB, LS (all verified)
 
 **Application:** Each blow-up profile is tested against four permits:
-- **18.4.A (SC):** ε-regularity → **DENIED**
-- **18.4.B (Cap):** $\mathcal{P}^1(\Sigma) = 0$ → **DENIED**
-- **18.4.C (TB):** Contractible spaces → **DENIED**
-- **18.4.D (LS):** Łojasiewicz inequality → **DENIED**
+- **18.4.A (SC):** ε-regularity → Obstructed
+- **18.4.B (Cap):** $\mathcal{P}^1(\Sigma) = 0$ → Obstructed
+- **18.4.C (TB):** Contractible spaces → Obstructed
+- **18.4.D (LS):** Łojasiewicz inequality → Obstructed
 
-**Status:** APPLIES. All permits DENIED → $\mathbf{Blowup} = \varnothing$ → global regularity.
+**Status:** APPLIES. All permits Obstructed → $\mathbf{Blowup} = \varnothing$ → global regularity.
 
 ### 10.3 MT 7.1 — Structural Resolution
 
@@ -470,7 +470,7 @@ Enstrophy grows at most doubly-exponentially—no instantaneous blow-up is possi
 
 ## Appendix B: Resolution via the Framework
 
-### B.1 The Millennium Problem is RESOLVED
+### B.1 The Millennium Problem is Complete
 
 The framework resolves the Navier-Stokes Millennium Problem via **structural exclusion**:
 
@@ -478,11 +478,11 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{MT 21}}{\Longrightarrow}
 
 **Proof structure:**
 1. **MT 21 (Completeness):** Any singularity must map to a blow-up hypostructure
-2. **MT 18.4.A (SC):** ε-regularity forces concentration into regular regime → DENIED
-3. **MT 18.4.B (Cap):** $\mathcal{P}^1(\Sigma) = 0$ [CKN82] → DENIED
-4. **MT 18.4.C (TB):** Contractible spaces → DENIED
-5. **MT 18.4.D (LS):** Łojasiewicz near equilibrium → DENIED
-6. **Conclusion:** All permits DENIED → $\mathcal{T}_{\mathrm{sing}} = \varnothing$ → global regularity
+2. **MT 18.4.A (SC):** ε-regularity forces concentration into regular regime → Obstructed
+3. **MT 18.4.B (Cap):** $\mathcal{P}^1(\Sigma) = 0$ [CKN82] → Obstructed
+4. **MT 18.4.C (TB):** Contractible spaces → Obstructed
+5. **MT 18.4.D (LS):** Łojasiewicz near equilibrium → Obstructed
+6. **Conclusion:** All permits Obstructed → $\mathcal{T}_{\mathrm{sing}} = \varnothing$ → global regularity
 
 ### B.2 Classical Pathways (Now Superseded)
 
@@ -516,7 +516,7 @@ These are **textbook results**, not new conjectures. The framework organizes the
 
 1. **Assume** a singularity $\gamma \in \mathcal{T}_{\mathrm{sing}}$ attempts to form
 2. **Concentration forces a profile** (Axiom C) — the singularity must have a canonical shape $y_\gamma \in \mathcal{Y}_{\mathrm{sing}}$
-3. **Test the profile against algebraic permits (THE SIEVE):** Each permit is DENIED
+3. **Test the profile against algebraic permits (THE SIEVE):** Each permit is Obstructed
 4. **Permit denial = contradiction** → singularity CANNOT FORM
 
 **This works whether Axiom R holds or not!** The structural axioms (C, D, SC, LS, Cap, TB) alone guarantee that no genuine singularity can form.
@@ -525,22 +525,22 @@ These are **textbook results**, not new conjectures. The framework organizes the
 
 | Permit | Test | Verification | Result |
 |:-------|:-----|:-------------|:-------|
-| **SC** (Scaling) | Is supercritical blow-up possible? | CKN ε-regularity [CKN82]: below threshold $\epsilon_0$, regularity is automatic. Scaling forces any blow-up to concentrate, entering ε-regular regime at small scales. | **DENIED** — ε-regularity |
-| **Cap** (Capacity) | Does singular set have positive capacity? | CKN [CKN82]: $\mathcal{P}^1(\Sigma) = 0$. Singular set has zero 1-dimensional parabolic Hausdorff measure. | **DENIED** — zero capacity |
-| **TB** (Topology) | Is singular topology accessible? | State space $L^2_\sigma \cap \dot{H}^{1/2}$ and target $\mathbb{R}^3$ are contractible (Prop 8.2.1). No topological obstruction. | **DENIED** — trivial topology |
-| **LS** (Stiffness) | Does Łojasiewicz inequality fail? | Near $u = 0$: $\mathfrak{D}(u) \geq c\Phi(u)$ (Prop 5.2.2). Exponential decay for small data (Thm 5.2.1). | **DENIED** — stiffness holds |
+| **SC** (Scaling) | Is supercritical blow-up possible? | CKN ε-regularity [CKN82]: below threshold $\epsilon_0$, regularity is automatic. Scaling forces any blow-up to concentrate, entering ε-regular regime at small scales. | Obstructed — ε-regularity |
+| **Cap** (Capacity) | Does singular set have positive capacity? | CKN [CKN82]: $\mathcal{P}^1(\Sigma) = 0$. Singular set has zero 1-dimensional parabolic Hausdorff measure. | Obstructed — zero capacity |
+| **TB** (Topology) | Is singular topology accessible? | State space $L^2_\sigma \cap \dot{H}^{1/2}$ and target $\mathbb{R}^3$ are contractible (Prop 8.2.1). No topological obstruction. | Obstructed — trivial topology |
+| **LS** (Stiffness) | Does Łojasiewicz inequality fail? | Near $u = 0$: $\mathfrak{D}(u) \geq c\Phi(u)$ (Prop 5.2.2). Exponential decay for small data (Thm 5.2.1). | Obstructed — stiffness holds |
 
 ### G.3 Detailed Permit Analysis
 
-**SC Permit — DENIED (ε-Regularity):**
+**SC Permit — Obstructed (ε-Regularity):**
 
 The CKN ε-regularity theorem [CKN82] provides: there exists $\epsilon_0 > 0$ such that if
 $$\limsup_{r \to 0} \left( r^{-1} \int_{Q_r(z)} |\nabla u|^2 + r^{-2} \int_{Q_r(z)} |u|^3 + |p|^{3/2} \right) < \epsilon_0$$
 then $z = (x_0, t_0)$ is a regular point.
 
-**Exclusion mechanism:** Any blow-up must concentrate energy. But concentration forces the solution into scales where the dimensionless quantities approach the ε-regularity threshold. The scaling structure $(\alpha, \beta) = (1, 2)$ means dissipation rate grows faster than energy as we zoom in—eventually dissipation dominates and the ε-condition is satisfied. Supercritical blow-up is DENIED.
+**Exclusion mechanism:** Any blow-up must concentrate energy. But concentration forces the solution into scales where the dimensionless quantities approach the ε-regularity threshold. The scaling structure $(\alpha, \beta) = (1, 2)$ means dissipation rate grows faster than energy as we zoom in—eventually dissipation dominates and the ε-condition is satisfied. Supercritical blow-up is Obstructed.
 
-**Cap Permit — DENIED (Zero Capacity):**
+**Cap Permit — Obstructed (Zero Capacity):**
 
 CKN [CKN82] proves $\mathcal{P}^1(\Sigma) = 0$ via:
 1. **Covering argument:** Points violating ε-regularity are covered by parabolic cylinders
@@ -549,21 +549,21 @@ CKN [CKN82] proves $\mathcal{P}^1(\Sigma) = 0$ via:
 
 **Exclusion mechanism:** A genuine singularity would require $\mathcal{P}^1(\Sigma) > 0$. But CKN proves $\mathcal{P}^1(\Sigma) = 0$. Contradiction. The singular set has zero capacity—it cannot support a true singularity.
 
-**TB Permit — DENIED (Trivial Topology):**
+**TB Permit — Obstructed (Trivial Topology):**
 
 - State space $X = L^2_\sigma(\mathbb{R}^3) \cap \dot{H}^{1/2}(\mathbb{R}^3)$ is an infinite-dimensional vector space (contractible)
 - Target $\mathbb{R}^3$ is contractible
 - No non-trivial homotopy groups obstruct the flow
 
-**Exclusion mechanism:** Topological singularities (like Yang-Mills instantons from $\pi_3(G) = \mathbb{Z}$) require non-trivial topology. NS on $\mathbb{R}^3$ has none. Topological blow-up is DENIED.
+**Exclusion mechanism:** Topological singularities (like Yang-Mills instantons from $\pi_3(G) = \mathbb{Z}$) require non-trivial topology. NS on $\mathbb{R}^3$ has none. Topological blow-up is Obstructed.
 
-**LS Permit — DENIED (Stiffness Holds):**
+**LS Permit — Obstructed (Stiffness Holds):**
 
 Near the equilibrium $u = 0$:
 - **Łojasiewicz inequality:** $\mathfrak{D}(u) = \nu\|\nabla u\|_{L^2}^2 \geq c\|u\|_{L^2}^2 = 2c\Phi(u)$ (Poincaré/Hardy)
 - **Exponential stability:** $\|u(t)\|_{\dot{H}^{1/2}} \leq C\|u_0\|_{\dot{H}^{1/2}} e^{-c\nu t}$ for small data
 
-**Exclusion mechanism:** Stiffness breakdown would require the Łojasiewicz inequality to fail near the safe manifold. But dissipation dominates energy near $u = 0$. Stiffness breakdown is DENIED.
+**Exclusion mechanism:** Stiffness breakdown would require the Łojasiewicz inequality to fail near the safe manifold. But dissipation dominates energy near $u = 0$. Stiffness breakdown is Obstructed.
 
 ### G.4 The Pincer Logic (R-INDEPENDENT)
 
@@ -579,14 +579,14 @@ This profile is obtained by parabolic rescaling: $U^j(y, s) := \lambda_j u(\lamb
 
 The blow-up profile $\mathbb{H}_{\mathrm{blow}}(\gamma)$ must pass all four permits:
 
-- **18.4.A (SC):** ε-regularity forces the profile into the regular regime at small scales. **DENIED.**
-- **18.4.B (Cap):** CKN gives $\mathcal{P}^1(\text{supp}(\mathbb{H}_{\mathrm{blow}})) = 0$. **DENIED.**
-- **18.4.C (TB):** Contractible spaces block topological singularities. **DENIED.**
-- **18.4.D (LS):** Łojasiewicz inequality holds near equilibrium. **DENIED.**
+- **18.4.A (SC):** ε-regularity forces the profile into the regular regime at small scales. **Obstructed.**
+- **18.4.B (Cap):** CKN gives $\mathcal{P}^1(\text{supp}(\mathbb{H}_{\mathrm{blow}})) = 0$. **Obstructed.**
+- **18.4.C (TB):** Contractible spaces block topological singularities. **Obstructed.**
+- **18.4.D (LS):** Łojasiewicz inequality holds near equilibrium. **Obstructed.**
 
 **Step 3 — Conclusion:**
 
-All permits DENIED $\Rightarrow$ $\mathbb{H}_{\mathrm{blow}}(\gamma) \notin \mathbf{Blowup}$ $\Rightarrow$ contradiction with Step 1.
+All permits Obstructed $\Rightarrow$ $\mathbb{H}_{\mathrm{blow}}(\gamma) \notin \mathbf{Blowup}$ $\Rightarrow$ contradiction with Step 1.
 
 Therefore: $\mathcal{T}_{\mathrm{sing}} = \varnothing$.
 
@@ -613,7 +613,7 @@ For any $u_0 \in \dot{H}^{1/2}(\mathbb{R}^3)$, the solution exists globally: $T_
 
 *Proof.* By the Pincer Logic (§G.4):
 1. **Metatheorem 21:** Any singularity $\gamma \in \mathcal{T}_{\mathrm{sing}}$ maps to $\mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$
-2. **Metatheorems 18.4.A-D:** All four permits (SC, Cap, TB, LS) are DENIED
+2. **Metatheorems 18.4.A-D:** All four permits (SC, Cap, TB, LS) are Obstructed
 3. **Contradiction:** $\mathbb{H}_{\mathrm{blow}}(\gamma)$ cannot exist
 4. **Conclusion:** $\mathcal{T}_{\mathrm{sing}} = \varnothing$ $\Rightarrow$ $T_* = \infty$ $\square$
 

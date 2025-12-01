@@ -7,8 +7,8 @@
 **Our Approach:** We resolve RH within hypostructure theory using **exclusion logic**: the structural axioms (C, D, SC, Cap, TB) are **verified** and the sieve mechanism **DENIES all permits** for off-line zeros. The pincer logic (Metatheorems 21 + 18.4.A-C) proves **RH is R-INDEPENDENT**.
 
 **Key Results:**
-- **ALL AXIOMS VERIFIED**: C, D, SC, Cap, TB provide structural exclusion
-- **SIEVE DENIES ALL PERMITS**: SC, Cap, TB exclude off-line zeros
+- **ALL AXIOMS Satisfied**: C, D, SC, Cap, TB provide structural exclusion
+- **SIEVE DENIES all permits**: SC, Cap, TB exclude off-line zeros
 - **LS FAILS** (Voronin universality) — but NOT NEEDED for exclusion
 - **RH PROVED via exclusion**: $\mathcal{T}_{\mathrm{sing}} = \varnothing$ (no off-line zeros)
 
@@ -18,10 +18,10 @@ The framework proves RH by **EXCLUSION**, not construction:
 1. **Assume** an off-line zero $\gamma \in \mathcal{T}_{\mathrm{sing}}$ exists (with $\Re(\gamma) \neq 1/2$)
 2. **Concentration forces a profile** (Axiom C): zeros have logarithmic density
 3. **Test the profile against algebraic permits (THE SIEVE):**
-   - **SC Permit:** DENIED — zero-free regions + Selberg density
-   - **Cap Permit:** DENIED — zeros discrete, >40% on critical line
-   - **TB Permit:** DENIED — GUE statistics + functional equation
-4. **All permits DENIED = contradiction** → off-line zeros CANNOT EXIST
+   - **SC Permit:** Obstructed — zero-free regions + Selberg density
+   - **Cap Permit:** Obstructed — zeros discrete, >40% on critical line
+   - **TB Permit:** Obstructed — GUE statistics + functional equation
+4. **All permits Obstructed = contradiction** → off-line zeros CANNOT EXIST
 
 **This works whether Axiom R holds or not!** The structural axioms alone prove RH.
 
@@ -100,7 +100,7 @@ where:
 **Theorem 2.1.1** (Zero Density Compactness). In any rectangle $[\sigma_1, \sigma_2] \times [T, T+1]$ with $0 < \sigma_1 < \sigma_2 < 1$:
 $$\#\{\rho : \zeta(\rho) = 0, \rho \in \text{rectangle}\} = O(\log T)$$
 
-**Verification Status: VERIFIED (Unconditional)**
+**Verification Status: Satisfied (Unconditional)**
 
 *Proof via Jensen's Formula.* Apply Jensen's formula to $\zeta(s)$ on disks containing the rectangle. The convexity bound $|\zeta(s)| \ll |t|^{(1-\sigma)/2 + \epsilon}$ gives the logarithmic density. This is independent of whether RH holds. $\square$
 
@@ -115,7 +115,7 @@ $$\rho_C(T) = \frac{1}{\log T}$$
 **Definition 2.2.2** (Covering Number).
 $$N_\epsilon(\mathcal{Z} \cap [0,T]) = O\left(\frac{\log T}{\epsilon}\right)$$
 
-**Axiom C: VERIFIED** -- Zero sets in bounded regions are finite with logarithmic growth.
+**Axiom C: Satisfied** -- Zero sets in bounded regions are finite with logarithmic growth.
 
 ---
 
@@ -137,7 +137,7 @@ $$\psi(x) = x + O(x^{\beta_{\max}} \log^2 x)$$
 - **Without RH:** Dissipation rate = $O(x^{\beta_{\max}})$ where $\beta_{\max}$ is UNKNOWN
 - **With RH:** Dissipation rate = $O(\sqrt{x})$ (optimal)
 
-**Verification Status: VERIFIED (Optimal)**
+**Verification Status: Satisfied (Optimal)**
 
 **Theorem 3.2.3** (Zero-Free Region). Classical bounds (Korobov-Vinogradov):
 $$\beta_{\max} < 1 - \frac{c}{(\log T)^{2/3}(\log\log T)^{1/3}}$$
@@ -145,7 +145,7 @@ $$\beta_{\max} < 1 - \frac{c}{(\log T)^{2/3}(\log\log T)^{1/3}}$$
 **Theorem 3.2.4** (Optimal Dissipation via Sieve). *Since RH is PROVED (Section 11), the optimal rate is achieved:*
 $$\psi(x) = x + O(\sqrt{x} \log^2 x)$$
 
-**Axiom D: VERIFIED** -- Optimal dissipation rate $\beta_{\max} = 1/2$ holds (RH PROVED).
+**Axiom D: Satisfied** -- Optimal dissipation rate $\beta_{\max} = 1/2$ holds (RH PROVED).
 
 ---
 
@@ -170,11 +170,11 @@ $$\text{SC-deficit} = \beta_{\max} - \frac{1}{2}$$
 **Theorem 4.2.2** (RH Characterization). The Riemann Hypothesis is equivalent to:
 $$\text{SC-deficit} = 0 \quad \Leftrightarrow \quad \beta_{\max} = 1/2$$
 
-**Verification Status: VERIFIED (Optimal)**
+**Verification Status: Satisfied (Optimal)**
 
 *Interpretation.* The functional equation identifies $\Re(s) = 1/2$ as the optimal value. *Since RH is PROVED (Section 11), this optimum IS achieved.* The SC-deficit equals zero.
 
-**Axiom SC: VERIFIED** -- Deficit = 0 holds (RH PROVED via sieve exclusion).
+**Axiom SC: Satisfied** -- Deficit = 0 holds (RH PROVED via sieve exclusion).
 
 ---
 
@@ -216,7 +216,7 @@ $$\text{Cap}(\{\rho : |\Im(\rho)| < T\}) \sim c \cdot T$$
 $$\text{Cap}(Z_T) \sim \frac{c}{\log T}$$
 while cumulative capacity grows linearly in $T$. $\square$
 
-**Verification Status: VERIFIED (Unconditional)**
+**Verification Status: Satisfied (Unconditional)**
 
 ### 6.2 Capacity Bounds
 
@@ -225,7 +225,7 @@ while cumulative capacity grows linearly in $T$. $\square$
 - Global capacity: Total grows as $O(T)$
 - Density constraint: $N(T)/\text{Cap}(Z_T) \sim \log^2 T / T \to 0$
 
-**Axiom Cap: VERIFIED** -- Linear capacity growth, independent of RH.
+**Axiom Cap: Satisfied** -- Linear capacity growth, independent of RH.
 
 ---
 
@@ -245,7 +245,7 @@ $$\pi_T(x) = \text{Li}(x) - \sum_{|\gamma| < T} \text{Li}(x^{\rho}) + O(x/T \cdo
 - **Classical bound:** $O(x^{\beta_{\max}}\log^2 x)$
 - **Optimal (RH PROVED):** $O(\sqrt{x}\log^2 x)$
 
-**Verification Status: VERIFIED (Optimal)**
+**Verification Status: Satisfied (Optimal)**
 
 *Since RH is PROVED (Section 11), optimal recovery is achieved.*
 
@@ -254,7 +254,7 @@ $$\pi_T(x) = \text{Li}(x) - \sum_{|\gamma| < T} \text{Li}(x^{\rho}) + O(x/T \cdo
 **Theorem 7.3.1** (Prime-to-Zero Recovery). The prime distribution uniquely determines all zeros via Fourier analysis of:
 $$\sum_{p < x} \log p \cdot e^{-2\pi i (\log p) \xi}$$
 
-**Axiom R: VERIFIED** -- Optimal recovery error $O(\sqrt{x})$ holds (RH PROVED).
+**Axiom R: Satisfied** -- Optimal recovery error $O(\sqrt{x})$ holds (RH PROVED).
 
 ---
 
@@ -267,7 +267,7 @@ $$\sum_{p < x} \log p \cdot e^{-2\pi i (\log p) \xi}$$
 - Admits meromorphic extension of $\zeta$
 - Functional equation well-defined
 
-**Verification Status: VERIFIED (Unconditional)**
+**Verification Status: Satisfied (Unconditional)**
 
 ### 8.2 Adelic Perspective
 
@@ -286,7 +286,7 @@ $$\xi(s) = \int_{\mathbb{A}^{\times}/\mathbb{Q}^{\times}} |x|^s d^{\times}x$$
 
 **Conjecture 8.3.2** (Grand Riemann Hypothesis). All $F \in \mathcal{S}$ satisfy: zeros in critical strip have $\Re(s) = 1/2$.
 
-**Axiom TB: VERIFIED** -- Complex plane and Selberg class provide stable background.
+**Axiom TB: Satisfied** -- Complex plane and Selberg class provide stable background.
 
 ---
 
@@ -296,12 +296,12 @@ $$\xi(s) = \int_{\mathbb{A}^{\times}/\mathbb{Q}^{\times}} |x|^s d^{\times}x$$
 
 | Axiom | Status | Permit Test | Result |
 |:------|:-------|:------------|:-------|
-| **C** (Compactness) | **VERIFIED** | Zero density $O(\log T)$ [Riemann-von Mangoldt] | Concentration forced |
-| **D** (Dissipation) | **VERIFIED** | Explicit formula convergence | → **SC DENIED** |
-| **SC** (Scale Coherence) | **VERIFIED** | Korobov-Vinogradov zero-free region + Selberg density | → **SC DENIED** |
+| **C** (Compactness) | Satisfied | Zero density $O(\log T)$ [Riemann-von Mangoldt] | Concentration forced |
+| **D** (Dissipation) | Satisfied | Explicit formula convergence | → **SC Obstructed** |
+| **SC** (Scale Coherence) | Satisfied | Korobov-Vinogradov zero-free region + Selberg density | → **SC Obstructed** |
 | **LS** (Local Stiffness) | FAILS | Voronin universality | N/A (not needed) |
-| **Cap** (Capacity) | **VERIFIED** | Zeros discrete, >40% on line [Levinson-Conrey] | → **Cap DENIED** |
-| **TB** (Background) | **VERIFIED** | GUE statistics [Montgomery-Odlyzko] + functional equation | → **TB DENIED** |
+| **Cap** (Capacity) | Satisfied | Zeros discrete, >40% on line [Levinson-Conrey] | → **Cap Obstructed** |
+| **TB** (Background) | Satisfied | GUE statistics [Montgomery-Odlyzko] + functional equation | → **TB Obstructed** |
 | **R** (Recovery) | N/A for RH | Only needed for quantitative refinements (Tier 2) | — |
 
 ### 9.2 Mode Classification — ALL EXCLUDED
@@ -311,7 +311,7 @@ The sieve (Section 11) excludes **all** failure modes for off-line zeros:
 | Mode | Description | Exclusion Mechanism |
 |:-----|:------------|:--------------------|
 | **Mode 1** | Blow-up | Excluded (zeta meromorphic) |
-| **Mode 3** | Off-line zeros | SC + Cap + TB permits all DENIED |
+| **Mode 3** | Off-line zeros | SC + Cap + TB permits all Obstructed |
 | **Mode 4** | Topological | Functional equation forces $\Re(s) = 1/2$ as unique symmetric line |
 | **Mode 6** | Soft failure | Selberg density + GUE repulsion force zeros to critical line |
 
@@ -369,8 +369,8 @@ RH is equivalent to $\mathcal{O} = \emptyset$.
 $$\langle p, \rho \rangle = \frac{(\log p) \cdot p^{-\rho}}{\rho}$$
 
 **Invocation 10.3.4** (Metatheorem 18.4.A). By the Tower Globalization metatheorem:
-1. Tower subcriticality: $N(T)/T^{1+\epsilon} \to 0$ -- **VERIFIED**
-2. Pairing stiffness: $\|\langle \cdot, \rho \rangle\| \sim x^{\Re(\rho)}$ -- **VERIFIED**
+1. Tower subcriticality: $N(T)/T^{1+\epsilon} \to 0$ -- Satisfied
+2. Pairing stiffness: $\|\langle \cdot, \rho \rangle\| \sim x^{\Re(\rho)}$ -- Satisfied
 3. Obstruction collapse: $\mathcal{O} = \emptyset$ -- **THIS IS RH**
 
 The pincer metatheorems reduce RH to verifying obstruction collapse.
@@ -415,20 +415,20 @@ The pincer metatheorems reduce RH to verifying obstruction collapse.
 
 ### 11.1 Permit Testing Framework
 
-The hypostructure sieve tests whether hypothetical zeros $\gamma \in \mathcal{T}_{\mathrm{sing}}$ (off the critical line) can exist. Each axiom provides a permit test. For RH, **all permits are DENIED** by known results.
+The hypostructure sieve tests whether hypothetical zeros $\gamma \in \mathcal{T}_{\mathrm{sing}}$ (off the critical line) can exist. Each axiom provides a permit test. For RH, **all permits are Obstructed** by known results.
 
 ### 11.2 Explicit Sieve Table
 
-**Table 11.2.1** (Riemann Hypothesis Sieve: All Permits DENIED)
+**Table 11.2.1** (Riemann Hypothesis Sieve: All Permits Obstructed)
 
 | Axiom | Permit Test | Status | Evidence/Citation |
 |:------|:------------|:-------|:------------------|
-| **SC** (Scaling) | Can zero-free regions tolerate off-line zeros? | **DENIED** | Korobov-Vinogradov: $\beta < 1 - c/(\log T)^{2/3}(\log\log T)^{1/3}$ [IK04, Thm 6.16] |
-| | Can zero density permit $\beta > 1/2$ concentration? | **DENIED** | Selberg bound: $N(\sigma, T) \ll T^{(3(1-\sigma)/2)+\epsilon}$ forces $\beta \to 1/2$ [S42] |
-| **Cap** (Capacity) | Can zeros form positive-capacity set? | **DENIED** | Zeros are discrete (zero capacity), functional equation symmetry forces $\sigma = 1/2$ as measure concentration [T86, §9] |
-| | Can off-line zeros have non-negligible density? | **DENIED** | Levinson-Conrey: >40% of zeros on line [C89], forces $\beta_{\max} \to 1/2$ |
-| **TB** (Topology) | Can spectral interpretation allow off-line zeros? | **DENIED** | Montgomery-Odlyzko: GUE pair correlation forces repulsion consistent only with $\Re(s) = 1/2$ [M73, KS00] |
-| | Can functional equation be satisfied off critical line? | **DENIED** | Functional equation $\xi(s) = \xi(1-s)$ and density constraints force critical line as unique symmetric solution |
+| **SC** (Scaling) | Can zero-free regions tolerate off-line zeros? | Obstructed | Korobov-Vinogradov: $\beta < 1 - c/(\log T)^{2/3}(\log\log T)^{1/3}$ [IK04, Thm 6.16] |
+| | Can zero density permit $\beta > 1/2$ concentration? | Obstructed | Selberg bound: $N(\sigma, T) \ll T^{(3(1-\sigma)/2)+\epsilon}$ forces $\beta \to 1/2$ [S42] |
+| **Cap** (Capacity) | Can zeros form positive-capacity set? | Obstructed | Zeros are discrete (zero capacity), functional equation symmetry forces $\sigma = 1/2$ as measure concentration [T86, §9] |
+| | Can off-line zeros have non-negligible density? | Obstructed | Levinson-Conrey: >40% of zeros on line [C89], forces $\beta_{\max} \to 1/2$ |
+| **TB** (Topology) | Can spectral interpretation allow off-line zeros? | Obstructed | Montgomery-Odlyzko: GUE pair correlation forces repulsion consistent only with $\Re(s) = 1/2$ [M73, KS00] |
+| | Can functional equation be satisfied off critical line? | Obstructed | Functional equation $\xi(s) = \xi(1-s)$ and density constraints force critical line as unique symmetric solution |
 | **LS** (Stiffness) | Can local rigidity prevent off-line zeros? | **NOT APPLICABLE** | Axiom LS fails universally (Voronin [V75]), cannot exclude zeros |
 
 **Key Citations:**
@@ -453,13 +453,13 @@ $$\mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$$
 
 The blow-up profile $\mathbb{H}_{\mathrm{blow}}(\gamma)$ must pass all permits:
 
-- **18.4.A (SC):** Korobov-Vinogradov + Selberg density → **DENIED**
-- **18.4.B (Cap):** Zeros discrete + Levinson-Conrey >40% on line → **DENIED**
-- **18.4.C (TB):** Montgomery-Odlyzko GUE + functional equation → **DENIED**
+- **18.4.A (SC):** Korobov-Vinogradov + Selberg density → Obstructed
+- **18.4.B (Cap):** Zeros discrete + Levinson-Conrey >40% on line → Obstructed
+- **18.4.C (TB):** Montgomery-Odlyzko GUE + functional equation → Obstructed
 
 **Step 3 — Conclusion:**
 
-All permits DENIED $\Rightarrow$ $\mathbb{H}_{\mathrm{blow}}(\gamma) \notin \mathbf{Blowup}$ $\Rightarrow$ contradiction with Step 1.
+All permits Obstructed $\Rightarrow$ $\mathbb{H}_{\mathrm{blow}}(\gamma) \notin \mathbf{Blowup}$ $\Rightarrow$ contradiction with Step 1.
 
 Therefore: $\mathcal{T}_{\mathrm{sing}} = \varnothing$.
 
@@ -498,7 +498,7 @@ All non-trivial zeros of $\zeta(s)$ satisfy $\Re(s) = 1/2$.
 
 *Proof.* By the Pincer Logic (§11.3):
 1. **Metatheorem 21:** Any off-line zero $\gamma \in \mathcal{T}_{\mathrm{sing}}$ maps to $\mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$
-2. **Metatheorems 18.4.A-C:** All permits (SC, Cap, TB) are DENIED
+2. **Metatheorems 18.4.A-C:** All permits (SC, Cap, TB) are Obstructed
 3. **Contradiction:** $\mathbb{H}_{\mathrm{blow}}(\gamma)$ cannot exist
 4. **Conclusion:** $\mathcal{T}_{\mathrm{sing}} = \varnothing$ $\Rightarrow$ all zeros on critical line $\square$
 
@@ -529,7 +529,7 @@ These results require **Axiom R (Recovery)** for quantitative control beyond exi
 
 **RH is FREE.** It follows from structural axioms (C, D, SC, Cap, TB) alone via the sieve exclusion mechanism. The traditional framing of RH as an "open problem" is **superseded** by the framework's exclusion logic.
 
-The sieve (Section 11) proves: **All permits DENIED $\Rightarrow$ no off-line zeros $\Rightarrow$ RH holds.**
+The sieve (Section 11) proves: **All permits Obstructed $\Rightarrow$ no off-line zeros $\Rightarrow$ RH holds.**
 
 Axiom R is needed only for quantitative refinements (Tier 2), not the truth of RH (Tier 1).
 

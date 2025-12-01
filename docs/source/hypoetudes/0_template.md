@@ -9,10 +9,10 @@ Absolutely — here is the **master template** for solving **all Études** using
 1. **Assume** a singularity attempts to form
 2. **Concentration forces a profile** (Axiom C) — the singularity must have a canonical shape
 3. **Test the profile against algebraic permits (THE SIEVE):**
-   - **Scaling Permit (SC):** Is $\alpha > \beta$? If yes → supercritical blow-up DENIED
-   - **Capacity Permit (Cap):** Does singular set have positive capacity? If no → collapse DENIED
-   - **Topological Permit (TB):** Is the topological sector accessible? If no → obstruction DENIED
-   - **Stiffness Permit (LS):** Does Łojasiewicz hold? If yes → stiffness breakdown DENIED
+   - **Scaling Permit (SC):** Is $\alpha > \beta$? If yes → supercritical blow-up Obstructed
+   - **Capacity Permit (Cap):** Does singular set have positive capacity? If no → collapse Obstructed
+   - **Topological Permit (TB):** Is the topological sector accessible? If no → obstruction Obstructed
+   - **Stiffness Permit (LS):** Does Łojasiewicz hold? If yes → stiffness breakdown Obstructed
 4. **Permit denial = contradiction** → singularity CANNOT FORM
 
 **This works whether Axiom R holds or not!** The structural axioms are universal. Only the problem-specific dictionary correspondence requires R.
@@ -222,10 +222,10 @@ The framework proves by **EXCLUSION**, not construction:
 
 | Permit | Test | Verification | Result |
 |--------|------|--------------|--------|
-| **SC** (Scaling) | Is $\alpha > \beta$ (supercritical)? | [Cite textbook result showing subcritical] | **DENIED** — subcritical |
-| **Cap** (Capacity) | Does singular set have positive capacity? | [Cite capacity bound, e.g., codimension estimate] | **DENIED** — zero capacity |
-| **TB** (Topology) | Is singular topology accessible? | [Cite topological constraint] | **DENIED** — topologically blocked |
-| **LS** (Stiffness) | Does Łojasiewicz inequality fail? | [Cite gradient/entropy monotonicity] | **DENIED** — stiffness holds |
+| **SC** (Scaling) | Is $\alpha > \beta$ (supercritical)? | [Cite textbook result showing subcritical] | Obstructed — subcritical |
+| **Cap** (Capacity) | Does singular set have positive capacity? | [Cite capacity bound, e.g., codimension estimate] | Obstructed — zero capacity |
+| **TB** (Topology) | Is singular topology accessible? | [Cite topological constraint] | Obstructed — topologically blocked |
+| **LS** (Stiffness) | Does Łojasiewicz inequality fail? | [Cite gradient/entropy monotonicity] | Obstructed — stiffness holds |
 
 For each Étude, fill in:
 - **SC**: [Specific scaling analysis showing subcriticality]
@@ -308,7 +308,7 @@ and derive *new cross-disciplinary insights*.
 
 ### I.2. For each Étude, apply:
 
-1. **The Sieve (Section G):** Test algebraic permits (SC, Cap, TB, LS) and show all are DENIED
+1. **The Sieve (Section G):** Test algebraic permits (SC, Cap, TB, LS) and show all are Obstructed
 2. **Metatheorem 21:** Force all singular behaviors into blowup class
 3. **Metatheorems 18.4.A-C:** Prove blowup class is structurally inconsistent
 4. **Pincer Logic:** $\gamma \in \mathcal{T}_{\mathrm{sing}} \Rightarrow \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup} \Rightarrow \bot$

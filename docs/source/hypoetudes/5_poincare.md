@@ -82,7 +82,7 @@ $$G := \text{Diff}(M) \ltimes \mathbb{R}_{>0}$$
 
 **Axiom C** (Compactness). *Energy sublevel sets $\{[g] \in X : \Phi([g]) \leq E\}$ have compact closure in $(X, d_{CG})$.*
 
-### 2.2 Verification: VERIFIED
+### 2.2 Verification: Satisfied
 
 **Theorem 2.2.1** (Hamilton Compactness [H95]). *Let $(M_i, g_i, p_i)_{i \in \mathbb{N}}$ be a sequence of complete pointed Riemannian 3-manifolds with:*
 1. *Curvature bound:* $\sup_{B_{g_i}(p_i, r_0)} |Rm_{g_i}| \leq K$
@@ -95,7 +95,7 @@ $$\sup_{B_{g(t)}(x,r)} |Rm_{g(t)}| \leq r^{-2} \implies \text{Vol}_{g(t)}(B_{g(t
 
 **Verification 2.2.3.** The no-local-collapsing theorem provides uniform injectivity radius bounds. Combined with entropy-controlled curvature bounds, Hamilton's compactness theorem applies to sublevel sets of $\Phi$, establishing Axiom C.
 
-**Status:** $\checkmark$ **VERIFIED** (Perelman [P02])
+**Status:** $\checkmark$ Satisfied (Perelman [P02])
 
 ---
 
@@ -106,7 +106,7 @@ $$\sup_{B_{g(t)}(x,r)} |Rm_{g(t)}| \leq r^{-2} \implies \text{Vol}_{g(t)}(B_{g(t
 **Axiom D** (Dissipation). *Along flow trajectories:*
 $$\Phi(S_{t_2}x) + \int_{t_1}^{t_2} \mathfrak{D}(S_s x) \, ds \leq \Phi(S_{t_1}x)$$
 
-### 3.2 Verification: VERIFIED
+### 3.2 Verification: Satisfied
 
 **Theorem 3.2.1** (Perelman Monotonicity [P02]). *Let $g(t)$ be a Ricci flow solution on $[0, T)$. For $\tau(t) := T - t$ and the associated minimizer $f(t)$:*
 $$\frac{d}{dt} \mathcal{W}(g(t), f(t), \tau(t)) = 2\tau \int_M \left|\text{Ric} + \nabla^2 f - \frac{g}{2\tau}\right|^2 u \, dV = \mathfrak{D}(g(t)) \geq 0$$
@@ -119,7 +119,7 @@ $$\mu(g(t_2), \tau_0) \geq \mu(g(t_1), \tau_0) \quad \text{for } t_2 > t_1$$
 **Corollary 3.2.3** (Bounded Total Cost). *The total dissipation is bounded:*
 $$\mathcal{C}_*(x) := \int_0^{T_*(x)} \mathfrak{D}(S_t x) \, dt \leq \Phi(x) - \inf_X \Phi < \infty$$
 
-**Status:** $\checkmark$ **VERIFIED** (Perelman [P02])
+**Status:** $\checkmark$ Satisfied (Perelman [P02])
 
 ---
 
@@ -130,7 +130,7 @@ $$\mathcal{C}_*(x) := \int_0^{T_*(x)} \mathfrak{D}(S_t x) \, dt \leq \Phi(x) - \
 **Axiom SC** (Scale Coherence). *The dissipation scales faster than time under blow-up:*
 $$\mathfrak{D}(\lambda g) \sim \lambda^{-\alpha}, \quad t \sim \lambda^{-\beta}, \quad \text{with } \alpha > \beta$$
 
-### 4.2 Verification: VERIFIED
+### 4.2 Verification: Satisfied
 
 **Theorem 4.2.1** (Parabolic Scaling). *Under the parabolic rescaling $g \mapsto \lambda g$, $t \mapsto \lambda t$:*
 1. Ricci tensor: $\text{Ric}_{\lambda g} = \text{Ric}_g$ (scale-invariant)
@@ -152,7 +152,7 @@ $$\int_0^{T_*} \mathfrak{D}(g(t)) \, dt = \infty$$
 
 **Remark 4.2.4** (Soft Exclusion Philosophy). *We do NOT prove Type II exclusion by computing blow-up sequences. We VERIFY the local scaling condition $\alpha > \beta$, and Metatheorem 7.2 handles the rest automatically.*
 
-**Status:** $\checkmark$ **VERIFIED** with $(\alpha, \beta) = (2, 1)$
+**Status:** $\checkmark$ Satisfied with $(\alpha, \beta) = (2, 1)$
 
 ---
 
@@ -164,7 +164,7 @@ $$\int_0^{T_*} \mathfrak{D}(g(t)) \, dt = \infty$$
 $$\|E(g)\|_{H^{k-2}} \geq C|\mathcal{W}(g) - \mathcal{W}(g_{eq})|^{1-\theta}$$
 *for some $C > 0$, $\theta \in (0,1)$, where $E(g) = \text{Ric}_g - \frac{R_g}{3}g$ is the traceless Ricci tensor.*
 
-### 5.2 Verification: VERIFIED
+### 5.2 Verification: Satisfied
 
 **Theorem 5.2.1** (Linearized Stability at Round $S^3$). *Let $L := D_g E|_{g_{S^3}}$ be the linearization at the round metric. Then:*
 1. $\ker L = \{h : h = L_V g_{S^3} + \lambda g_{S^3}\}$ (infinitesimal diffeomorphisms and scaling)
@@ -181,7 +181,7 @@ $$\|E(g)\|_{H^{k-2}} \geq C|\mathcal{W}(g) - \mathcal{W}(g_{S^3})|^{1/2}$$
 **Corollary 5.2.3** (Polynomial Convergence). *SINCE Axiom LS holds with exponent $\theta = 1/2$, flows near equilibrium converge polynomially:*
 $$\|g(t) - g_{S^3}\|_{H^k} \leq C(1 + t)^{-\theta/(1-2\theta)} = C(1+t)^{-1}$$
 
-**Status:** $\checkmark$ **VERIFIED** with Lojasiewicz exponent $\theta = 1/2$
+**Status:** $\checkmark$ Satisfied with Lojasiewicz exponent $\theta = 1/2$
 
 ---
 
@@ -192,7 +192,7 @@ $$\|g(t) - g_{S^3}\|_{H^k} \leq C(1 + t)^{-\theta/(1-2\theta)} = C(1+t)^{-1}$$
 **Axiom Cap** (Capacity). *The capacity cost of singular regions is controlled by total dissipation:*
 $$\int_0^{T_*} \text{Cap}_{1,2}(\{|Rm| \geq \Lambda(t)\}) \, dt \leq C \cdot \mathcal{C}_*(g_0)$$
 
-### 6.2 Verification: VERIFIED
+### 6.2 Verification: Satisfied
 
 **Theorem 6.2.1** (Curvature-Volume Lower Bound). *For Ricci flow with non-collapsing constant $\kappa$, the high-curvature set $K_t := \{x : |Rm_{g(t)}|(x) \geq \Lambda\}$ satisfies:*
 $$\text{Vol}_{g(t)}(K_t) \geq c(\kappa) \Lambda^{-3/2}$$
@@ -211,7 +211,7 @@ $$\dim_P(\Sigma) \leq n - 2 = 1$$
 
 *Sheet-like or cloud-like singularities are AUTOMATICALLY excluded.*
 
-**Status:** $\checkmark$ **VERIFIED**
+**Status:** $\checkmark$ Satisfied
 
 ---
 
@@ -231,7 +231,7 @@ $$\int_{t_1}^{t_2} \mathbf{1}_{X \setminus \mathcal{S}}(S_t x) \, dt \leq c_R^{-
 
 **Theorem 7.2.2** (Perelman Canonical Neighborhood [P02, P03]). *For each $\epsilon > 0$, there exists $r_\epsilon > 0$ such that: if $|Rm|(x, t) \geq r_\epsilon^{-2}$, then $(x, t)$ is $\epsilon$-canonical.*
 
-### 7.3 Verification: VERIFIED
+### 7.3 Verification: Satisfied
 
 **Definition 7.3.1** (Structured Region). *Define:*
 $$\mathcal{S} := \{[g] \in X : |Rm_g| \leq \Lambda_0 \text{ or } g \text{ is } \epsilon_0\text{-canonical everywhere}\}$$
@@ -247,7 +247,7 @@ $$\mathcal{S} := \{[g] \in X : |Rm_g| \leq \Lambda_0 \text{ or } g \text{ is } \
 - Surgery construction would be impossible
 - System would be in Mode 5 (uncontrolled singularities)
 
-**Status:** $\checkmark$ **VERIFIED** (via canonical neighborhood theorem)
+**Status:** $\checkmark$ Satisfied (via canonical neighborhood theorem)
 
 ---
 
@@ -257,7 +257,7 @@ $$\mathcal{S} := \{[g] \in X : |Rm_g| \leq \Lambda_0 \text{ or } g \text{ is } \
 
 **Axiom TB** (Topological Background). *The topological sector is stable under the flow, and non-trivial sectors are suppressed.*
 
-### 8.2 Verification: VERIFIED
+### 8.2 Verification: Satisfied
 
 **Theorem 8.2.1** (Perelman Geometrization [P02, P03]). *Let $M$ be a closed, orientable 3-manifold. After finite time, Ricci flow with surgery decomposes $M$ into pieces, each admitting one of Thurston's eight geometries.*
 
@@ -273,7 +273,7 @@ $$\frac{d}{dt} W(M, g(t)) \leq -4\pi + C \cdot W(M, g(t))$$
 **Corollary 8.2.4** (Poincare from Topology). *If $\pi_1(M) = 0$, then near extinction the manifold consists of nearly-round components. Since $\pi_1(S^3/\Gamma) = \Gamma \neq 0$ for non-trivial $\Gamma$, all components are $S^3$. Therefore:*
 $$M \cong S^3$$
 
-**Status:** $\checkmark$ **VERIFIED**
+**Status:** $\checkmark$ Satisfied
 
 ---
 
@@ -285,15 +285,15 @@ $$M \cong S^3$$
 
 | Axiom | Status | Key Feature | Reference |
 |:------|:------:|:------------|:----------|
-| **C** (Compactness) | $\checkmark$ VERIFIED | No-local-collapsing + Hamilton compactness | [P02] Thm 4.1 |
-| **D** (Dissipation) | $\checkmark$ VERIFIED | $\mu$-monotonicity formula | [P02] Thm 1.1 |
-| **SC** (Scale Coherence) | $\checkmark$ VERIFIED | $\alpha = 2 > \beta = 1$ (subcritical) | Thm 4.2.2 |
-| **LS** (Local Stiffness) | $\checkmark$ VERIFIED | Lojasiewicz-Simon with $\theta = 1/2$ | [S83] |
-| **Cap** (Capacity) | $\checkmark$ VERIFIED | Dissipation controls capacity | Thm 6.2.2 |
-| **R** (Recovery) | $\checkmark$ VERIFIED | Canonical neighborhoods | [P03] Thm 12.1 |
-| **TB** (Topological) | $\checkmark$ VERIFIED | Finite extinction, $\pi_1 = 0 \Rightarrow S^3$ | [CM05] |
+| **C** (Compactness) | $\checkmark$ Satisfied | No-local-collapsing + Hamilton compactness | [P02] Thm 4.1 |
+| **D** (Dissipation) | $\checkmark$ Satisfied | $\mu$-monotonicity formula | [P02] Thm 1.1 |
+| **SC** (Scale Coherence) | $\checkmark$ Satisfied | $\alpha = 2 > \beta = 1$ (subcritical) | Thm 4.2.2 |
+| **LS** (Local Stiffness) | $\checkmark$ Satisfied | Lojasiewicz-Simon with $\theta = 1/2$ | [S83] |
+| **Cap** (Capacity) | $\checkmark$ Satisfied | Dissipation controls capacity | Thm 6.2.2 |
+| **R** (Recovery) | $\checkmark$ Satisfied | Canonical neighborhoods | [P03] Thm 12.1 |
+| **TB** (Topological) | $\checkmark$ Satisfied | Finite extinction, $\pi_1 = 0 \Rightarrow S^3$ | [CM05] |
 
-**ALL AXIOMS VERIFIED** $\Rightarrow$ Poincare Conjecture follows from metatheorems.
+**ALL AXIOMS Satisfied** $\Rightarrow$ Poincare Conjecture follows from metatheorems.
 
 ### 9.2 Mode Classification
 
@@ -301,12 +301,12 @@ $$M \cong S^3$$
 
 | Mode | Description | Exclusion Mechanism |
 |:-----|:------------|:--------------------|
-| **Mode 1** | Energy Escape | **DENIED** by Axiom C (permit verified) |
+| **Mode 1** | Energy Escape | Obstructed by Axiom C (permit verified) |
 | **Mode 2** | Dispersion to Equilibrium | **ALLOWED** --- smooth convergence to $S^3$ |
-| **Mode 3** | Type II Blow-up | **DENIED** by Axiom SC (permit verified) |
-| **Mode 4** | Topological Obstruction | **DENIED** by Axiom TB (permit verified) |
-| **Mode 5** | Positive Capacity Singular Set | **DENIED** by Axiom Cap (permit verified) |
-| **Mode 6** | Equilibrium Instability | **DENIED** by Axiom LS (permit verified) |
+| **Mode 3** | Type II Blow-up | Obstructed by Axiom SC (permit verified) |
+| **Mode 4** | Topological Obstruction | Obstructed by Axiom TB (permit verified) |
+| **Mode 5** | Positive Capacity Singular Set | Obstructed by Axiom Cap (permit verified) |
+| **Mode 6** | Equilibrium Instability | Obstructed by Axiom LS (permit verified) |
 
 **Conclusion:** Only Mode 2 (smooth convergence to round $S^3$) remains.
 
@@ -345,7 +345,7 @@ $$M \cong S^3$$
 - Analyze PDE asymptotics via hard estimates
 - Treat metatheorems as things to "prove"
 
-*We VERIFIED local axioms and let metatheorems handle the rest.*
+*We Satisfied local axioms and let metatheorems handle the rest.*
 
 ---
 
@@ -362,37 +362,37 @@ $$M \cong S^3$$
 | **TB** | Topology | Non-trivial topological sector | Topological suppression |
 | **LS** | Stiffness | Łojasiewicz fails near fixed points | Łojasiewicz inequality holds |
 
-**Principle 10.1.2** (The Sieve). *IF any permit is DENIED, THEN genuine singularities are AUTOMATICALLY excluded. The blow-up must be:*
+**Principle 10.1.2** (The Sieve). *IF any permit is Obstructed, THEN genuine singularities are AUTOMATICALLY excluded. The blow-up must be:*
 - Gauge artifact (Mode 1: energy escape)
 - Surgical singularity (removable by surgery)
 - Fake singularity (sequence doesn't converge)
 
-### 10.2 Permit Testing for Ricci Flow (All Permits DENIED)
+### 10.2 Permit Testing for Ricci Flow (All Permits Obstructed)
 
 **Table 10.2.1** (Complete Sieve Analysis for Poincaré via Ricci Flow):
 
 | Permit | Status | Explicit Verification | Reference |
 |:-------|:------:|:----------------------|:----------|
-| **SC** (Scaling) | **DENIED** (permit verified) | Parabolic scaling: $\alpha = 2 > \beta = 1$ (subcritical) | Thm 4.2.2 |
-| **Cap** (Capacity) | **DENIED** (permit verified) | Singular set has $\dim_P(\Sigma) \leq 1 < 3$ (codim $\geq 2$) | Thm 6.2.1, [CN15] |
-| **TB** (Topology) | **DENIED** (permit verified) | $\pi_1(M) = 0$ forces extinction to $S^3$ (no exotic sector) | Thm 8.2.2, [CM05] |
-| **LS** (Stiffness) | **DENIED** (permit verified) | Łojasiewicz holds at round $S^3$ with $\theta = 1/2$ | Thm 5.2.2, [S83] |
+| **SC** (Scaling) | Obstructed (permit verified) | Parabolic scaling: $\alpha = 2 > \beta = 1$ (subcritical) | Thm 4.2.2 |
+| **Cap** (Capacity) | Obstructed (permit verified) | Singular set has $\dim_P(\Sigma) \leq 1 < 3$ (codim $\geq 2$) | Thm 6.2.1, [CN15] |
+| **TB** (Topology) | Obstructed (permit verified) | $\pi_1(M) = 0$ forces extinction to $S^3$ (no exotic sector) | Thm 8.2.2, [CM05] |
+| **LS** (Stiffness) | Obstructed (permit verified) | Łojasiewicz holds at round $S^3$ with $\theta = 1/2$ | Thm 5.2.2, [S83] |
 
-**Verdict 10.2.2.** ALL FOUR PERMITS DENIED $\Rightarrow$ No genuine singularities possible.
+**Verdict 10.2.2.** ALL FOUR PERMITS Obstructed $\Rightarrow$ No genuine singularities possible.
 
 ### 10.3 Detailed Permit Verification
 
-**Permit SC (Scaling) — DENIED**
+**Permit SC (Scaling) — Obstructed**
 
 **Proposition 10.3.1** (Subcritical Scaling). *Ricci flow has parabolic scaling:*
 $$\mathfrak{D}(\lambda g) = \lambda^{-2} \mathfrak{D}(g), \quad t \mapsto \lambda t$$
-*giving $\alpha = 2 > \beta = 1$. Permit SC is DENIED.*
+*giving $\alpha = 2 > \beta = 1$. Permit SC is Obstructed.*
 
 **Consequence:** Type II blow-up ($\Theta = \infty$) is automatically excluded by Metatheorem 21 (Scaling Pincer).
 
 ---
 
-**Permit Cap (Capacity) — DENIED**
+**Permit Cap (Capacity) — Obstructed**
 
 **Theorem 10.3.2** (Cheeger-Naber Stratification [CN15]). *For Ricci flow on 3-manifolds, the singular set $\Sigma$ satisfies:*
 $$\mathcal{H}^{d}(\Sigma) = 0 \quad \text{for all } d > 1$$
@@ -400,31 +400,31 @@ $$\mathcal{H}^{d}(\Sigma) = 0 \quad \text{for all } d > 1$$
 
 **Verification 10.3.3.** The capacity bound:
 $$\int_0^{T_*} \text{Cap}_{1,2}(\{|Rm| \geq \Lambda\}) dt \leq C \mathcal{C}_* < \infty$$
-forces $\dim_P(\Sigma) \leq n - 2 = 1$. Permit Cap is DENIED.
+forces $\dim_P(\Sigma) \leq n - 2 = 1$. Permit Cap is Obstructed.
 
 **Consequence:** Sheet-like or cloud-like singularities (dimension $\geq 2$) are automatically excluded.
 
 ---
 
-**Permit TB (Topology) — DENIED**
+**Permit TB (Topology) — Obstructed**
 
 **Theorem 10.3.4** (Finite Extinction). *For simply connected 3-manifolds ($\pi_1(M) = 0$):*
 $$T_*(M, g_0) < \infty$$
 *and the flow becomes extinct (manifold disappears via shrinking spheres).*
 
-**Verification 10.3.5.** The topological sector is TRIVIAL: $\pi_1(M) = 0$ forces geometric decomposition into round $S^3$ components only. Exotic topological sectors (lens spaces, hyperbolic pieces) are absent. Permit TB is DENIED.
+**Verification 10.3.5.** The topological sector is TRIVIAL: $\pi_1(M) = 0$ forces geometric decomposition into round $S^3$ components only. Exotic topological sectors (lens spaces, hyperbolic pieces) are absent. Permit TB is Obstructed.
 
 **Consequence:** Topological obstructions to convergence are automatically excluded.
 
 ---
 
-**Permit LS (Stiffness) — DENIED**
+**Permit LS (Stiffness) — Obstructed**
 
 **Theorem 10.3.6** (Łojasiewicz-Simon at Round $S^3$). *The round metric $g_{S^3}$ satisfies:*
 $$\|\text{Ric}_g + \nabla^2 f - \frac{g}{2\tau}\|_{H^{k-2}} \geq C|\mu(g) - \mu(g_{S^3})|^{1/2}$$
 *for all metrics in a neighborhood. The Łojasiewicz exponent is $\theta = 1/2$.*
 
-**Verification 10.3.7.** The linearization has spectral gap $\lambda_1 \geq 6 > 0$ on TT-tensors, giving stiffness. Permit LS is DENIED.
+**Verification 10.3.7.** The linearization has spectral gap $\lambda_1 \geq 6 > 0$ on TT-tensors, giving stiffness. Permit LS is Obstructed.
 
 **Consequence:** Equilibrium instability (Mode 6) is automatically excluded; flows near $S^3$ converge polynomially.
 
@@ -441,7 +441,7 @@ $$\gamma \in \mathcal{T}_{\text{sing}} \overset{\text{Mthm 21}}{\Longrightarrow}
 
 **Conclusion:** All blow-up sequences are FAKE (gauge artifacts or surgical singularities). $\square$
 
-**Remark 10.4.2** (Solved Problem Status). *For Poincaré via Ricci flow, ALL permits are DENIED by known results:*
+**Remark 10.4.2** (Solved Problem Status). *For Poincaré via Ricci flow, ALL permits are Obstructed by known results:*
 - **SC**: Perelman's entropy bounds [P02]
 - **Cap**: Cheeger-Naber stratification [CN15]
 - **TB**: Colding-Minicozzi extinction [CM05]
@@ -468,10 +468,10 @@ This is a **SOLVED PROBLEM** with complete axiom verification.
 | **Singular set structure** | $\dim_P(\Sigma) \leq 1$ (codim $\geq 2$) | [CN15] |
 | **Poincaré Conjecture** | $\pi_1(M) = 0 \Rightarrow M \cong S^3$ | [P02,P03] |
 
-**Remark 11.1.2.** These results follow from Axioms C, D, SC, LS, Cap, TB alone. Since ALL four permits (SC, Cap, TB, LS) are DENIED (see Section 10.2.1), the Poincaré Conjecture is R-INDEPENDENT. This is consistent with Perelman's proof fitting the framework without explicit use of Recovery axiom structure beyond what's already encoded in canonical neighborhoods.
+**Remark 11.1.2.** These results follow from Axioms C, D, SC, LS, Cap, TB alone. Since ALL four permits (SC, Cap, TB, LS) are Obstructed (see Section 10.2.1), the Poincaré Conjecture is R-INDEPENDENT. This is consistent with Perelman's proof fitting the framework without explicit use of Recovery axiom structure beyond what's already encoded in canonical neighborhoods.
 
 **Boxed Conclusion 11.1.3.**
-$$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All permits DENIED} \Rightarrow \pi_1(M) = 0 \Rightarrow M \cong S^3}$$
+$$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All permits Obstructed} \Rightarrow \pi_1(M) = 0 \Rightarrow M \cong S^3}$$
 
 ### 11.2 Tier 2: R-Dependent Results (Other Results)
 
@@ -553,12 +553,12 @@ $$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All per
 - Additional geometric properties follow
 
 **THE SIEVE:**
-- All four algebraic permits (SC, Cap, TB, LS) are DENIED
+- All four algebraic permits (SC, Cap, TB, LS) are Obstructed
 - No genuine singularities can occur (pincer logic)
 - Only Mode 2 (smooth convergence) remains
 - **R-INDEPENDENT** status confirmed (all permits denied in Section 10.2.1)
 
-**Conclusion:** Poincaré Conjecture is EQUIVALENT to axiom verification for the Ricci flow hypostructure on simply connected 3-manifolds, and is R-INDEPENDENT since all permits are DENIED. This is consistent with Perelman's proof fitting the framework. $\square$
+**Conclusion:** Poincaré Conjecture is EQUIVALENT to axiom verification for the Ricci flow hypostructure on simply connected 3-manifolds, and is R-INDEPENDENT since all permits are Obstructed. This is consistent with Perelman's proof fitting the framework. $\square$
 
 ---
 

@@ -145,6 +145,27 @@ The framework rests on a single organizing principle—the fixed-point equation 
 
 **The framework's methodology:** Reduce difficult global questions to easy local checks. Verifying that a system satisfies the hypostructure axioms requires only standard calculations; the framework then delivers structural conclusions about stability, failure modes, and long-time behavior.
 
+### 0.8 Physics Hypotheses (Conditional Assumptions)
+
+Certain results in this document apply specifically to physical systems and depend on physics conjectures that are not mathematically proven. These are labeled with hypothesis tags:
+
+| **Hypothesis** | **Name** | **Status** |
+|----------------|----------|------------|
+| **H.GSL** | Generalized Second Law of thermodynamics | Physics conjecture |
+| **H.BH** | Black hole thermodynamics ($S = A/4\ell_P^2$) | Semi-classical result |
+| **H.Holo** | Holographic Principle ('t Hooft-Susskind) | Physics conjecture |
+| **H.AdS** | AdS/CFT correspondence (Maldacena) | Physics conjecture |
+| **H.QCD** | QCD confinement and dimensional transmutation | Physics conjecture |
+| **H.ETH** | Eigenstate Thermalization Hypothesis | Physics conjecture |
+| **H.RSB** | Replica Symmetry Breaking in spin glasses | Physics conjecture |
+
+**Reading convention:**
+- **Unconditional results:** Proven from hypostructure axioms alone. No hypothesis label.
+- **Conditional results:** Labeled `[Conditional on H.XYZ]`. These hold IF the stated physics hypotheses are true.
+- **Physical motivation:** Prefixed with "Physical motivation:" or "Heuristic:". These are illustrative, not rigorous.
+
+Readers who accept the physics hypotheses obtain the full results. Readers who reject them can identify exactly which theorems to treat as conditional.
+
 ---
 
 ## 1. Overview and Roadmap
@@ -4993,7 +5014,10 @@ The spectral gap guarantees exponential approach to equilibrium. $\square$
 **Constraint Class:** Symmetry
 **Modes Prevented:** Mode S.E (Scaling), Mode S.C (Computational)
 
-**Remark (Physical context).** This section explains the physics of dimensional transmutation and mass gap generation in gauge theories—phenomena confirmed by lattice simulations. The framework provides a structural explanation for why mass gaps emerge from symmetry breaking, with the logic applying universally to gauge theories satisfying the axioms.
+> **[Conditional on H.QCD]**
+> This section applies to quantum field theories with asymptotic freedom. The connection to physical mass gaps and confinement assumes H.QCD (that QCD exhibits confinement and dimensional transmutation).
+
+**Remark (Physical context).** This section explains the physics of dimensional transmutation and mass gap generation in gauge theories—phenomena suggested by lattice simulations but not rigorously proven. The framework provides a structural explanation for why mass gaps emerge from symmetry breaking, conditional on H.QCD.
 
 **Definition 11.3.1 (Dimensional Transmutation).**
 A theory exhibits **dimensional transmutation** when a dimensionless coupling constant generates a dimensionful scale $\Lambda$ dynamically:
@@ -5101,6 +5125,9 @@ The dimensional transmutation mechanism converts the scale-invariance problem in
 
 **Constraint Class:** Symmetry
 **Modes Prevented:** Mode S.E (Scaling), Mode S.D (Stiffness), Mode S.C (Computational)
+
+> **[Conditional on H.GSL, H.BH, H.Holo, H.AdS]**
+> This section derives consequences from physics hypotheses that are not mathematically proven. Results hold if the stated hypotheses are accepted.
 
 **Definition 11.4.1 (Holographic Principle).**
 The maximum entropy contained in a region of space is proportional to its boundary area, not its volume:

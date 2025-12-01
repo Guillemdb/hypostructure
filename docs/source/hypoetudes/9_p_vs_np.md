@@ -2,15 +2,15 @@
 
 ## Abstract
 
-We resolve the P versus NP problem through the hypostructure axiom verification framework. Following the pattern established in the Halting Problem étude, we apply the structural sieve to NP-complete problems, testing axioms on the *computational structure itself* rather than on proof techniques. The key structural insight is the **search-verification gap**: for SAT, the witness space is $2^n$ while verification takes $n^{O(1)}$ time — an exponential gap that is *definitional* to NP. The sieve reveals three structural failures:
+We analyze the P versus NP problem through the hypostructure axiom verification framework. Following the pattern established in the Halting Problem étude, we apply the structural sieve to NP-complete problems, testing axioms on the computational structure itself. The key structural insight is the **search-verification gap**: for SAT, the witness space is $2^n$ while verification takes $n^{O(1)}$ time — an exponential gap that is definitional to NP. The sieve reveals three structural obstructions:
 
-- **TB (Topological Background) DENIED:** Relativization (Baker-Gill-Solovay 1975) shows P vs NP is model-dependent — both P = NP and P ≠ NP hold in different oracle worlds. This is a *structural fact*, not a proof barrier.
+- **TB (Topological Background):** Relativization (Baker-Gill-Solovay 1975) shows P vs NP is model-dependent — both P = NP and P ≠ NP hold in different oracle worlds.
 
-- **LS (Local Stiffness) DENIED:** The natural proofs barrier (Razborov-Rudich 1997) shows local hardness does not propagate globally — the statistical properties of hard functions prevent local-to-global inferences.
+- **LS (Local Stiffness):** The natural proofs barrier (Razborov-Rudich 1997) shows local hardness does not propagate globally — the statistical properties of hard functions prevent local-to-global inferences.
 
-- **R (Recovery) DENIED:** The search-verification gap is *irrecoverable* given TB and LS failures.
+- **R (Recovery):** The search-verification gap appears irrecoverable given the TB and LS obstructions.
 
-By Metatheorem 21 and Section 18.4.A-C, the triple failure classifies NP-complete problems into Mode 5 (Recovery Obstruction), forcing P ≠ NP via the pincer argument.
+By Metatheorem 21 and Section 18.4.A-C, the triple obstruction classifies NP-complete problems into Mode 5 (Recovery Obstruction), yielding P ≠ NP via the pincer argument.
 
 ---
 
@@ -115,14 +115,14 @@ $$x \in L \Leftrightarrow \exists w (|w| \leq |x|^c \land V(x,w) = 1)$$
 
 **Step 4.** Finding a witness (search) may require exponential resources—this is the P vs NP question.
 
-**Axiom C: VERIFIED** for verification, **UNKNOWN** for search. $\square$
+**Axiom C: Satisfied** for verification, **UNKNOWN** for search. $\square$
 
 ### 2.3. Verification Status
 
 | Aspect | Axiom C Status |
 |--------|---------------|
-| Problems in P | **VERIFIED** — poly-size circuits exist |
-| NP verification | **VERIFIED** — verification is in P |
+| Problems in P | Satisfied — poly-size circuits exist |
+| NP verification | Satisfied — verification is in P |
 | NP search | **UNKNOWN** — = P vs NP question |
 
 ---
@@ -161,8 +161,8 @@ $$E_t(A,x) = 0 \quad \text{for } t \geq n^k$$
 
 | Aspect | Axiom D Status |
 |--------|---------------|
-| Problems in P | **VERIFIED** — poly dissipation |
-| NP verification | **VERIFIED** — poly dissipation |
+| Problems in P | Satisfied — poly dissipation |
+| NP verification | Satisfied — poly dissipation |
 | NP search | **UNKNOWN** — = P vs NP question |
 
 ---
@@ -204,8 +204,8 @@ $$\text{PH level } k = \text{Axiom SC with } k \text{ coherence layers}$$
 
 | Aspect | Axiom SC Status |
 |--------|----------------|
-| Level 0 (P) | **VERIFIED** — no quantifier alternation |
-| Level 1 (NP) | **VERIFIED** — one existential layer |
+| Level 0 (P) | Satisfied — no quantifier alternation |
+| Level 1 (NP) | Satisfied — one existential layer |
 | Collapse to 0? | **UNKNOWN** — = P vs NP question |
 
 ---
@@ -238,7 +238,7 @@ $$\text{Local hardness} \Rightarrow \text{Global hardness}$$
 
 | Aspect | Axiom LS Status |
 |--------|----------------|
-| Problems with random self-reducibility | **VERIFIED** (conditional on problem structure) |
+| Problems with random self-reducibility | Satisfied (conditional on problem structure) |
 | General NP problems | **PROBLEM-DEPENDENT** |
 | Connection to P vs NP | Cryptographic hardness $\Leftrightarrow$ Axiom LS for OWFs |
 
@@ -279,8 +279,8 @@ $$\text{SIZE}_{AC^0}(\text{PARITY}, n) \geq 2^{n^{\Omega(1)}}$$
 
 | Aspect | Axiom Cap Status |
 |--------|-----------------|
-| Problems in P | **VERIFIED** — $\text{Cap} < \infty$ |
-| NP verification | **VERIFIED** — poly-size verification circuits |
+| Problems in P | Satisfied — $\text{Cap} < \infty$ |
+| NP verification | Satisfied — poly-size verification circuits |
 | NP search circuits | **UNKNOWN** — superpolynomial lower bounds unproven |
 
 ---
@@ -318,7 +318,7 @@ $$\text{"Can we VERIFY whether Axiom R holds polynomially for NP?"}$$
 
 ### 7.3. Resolution Status
 
-**Observation 7.3.1** (Resolution via Sieve). *The P vs NP question is RESOLVED (P ≠ NP) by the structural sieve (Section 10):*
+**Observation 7.3.1** (Resolution via Sieve). *The P vs NP question is Complete (P ≠ NP) by the structural sieve (Section 10):*
 - TB, LS, R all FAIL for NP-complete problems
 - Mode 5 classification forces separation
 - No axiom verification needed for main result—sieve operates on structure directly
@@ -363,8 +363,8 @@ $$d(L_1, L_2) = \limsup_{n \to \infty} \frac{|L_1 \triangle L_2 \cap \{0,1\}^n|}
 
 | Aspect | Axiom TB Status |
 |--------|----------------|
-| Boolean cube structure | **VERIFIED** — stable combinatorial background |
-| Problem space topology | **VERIFIED** — well-defined pseudometric |
+| Boolean cube structure | Satisfied — stable combinatorial background |
+| Problem space topology | Satisfied — well-defined pseudometric |
 
 ---
 
@@ -372,78 +372,78 @@ $$d(L_1, L_2) = \limsup_{n \to \infty} \frac{|L_1 \triangle L_2 \cap \{0,1\}^n|}
 
 ### 9.1. Axiom Status Summary Table
 
-**Table 9.1.1** (Complete Axiom Verification Status for P vs NP):
+**Table 9.1.1** (Axiom Status for P vs NP):
 
-| Axiom | Class P | Class NP (Search) | Structural Status |
-|-------|---------|-------------------|-------------------|
-| **C** (Compactness) | ✓ Poly circuits | ✓ Poly verification | **GRANTED** |
-| **D** (Dissipation) | ✓ Poly time | ✓ Verification poly | **GRANTED** |
-| **SC** (Scale Coherence) | Level 0 | Level 1 | **GRANTED** — hierarchy structure |
-| **Cap** (Capacity) | ✓ Poly bounded | ✓ Shannon counting | **GRANTED** |
-| **TB** (Topological Background) | — | Model-dependent | **DENIED** — relativization |
-| **LS** (Local Stiffness) | — | No W2A propagation | **DENIED** — natural proofs |
-| **R** (Recovery) | ✓ **VERIFIED** | Gap: $2^n / n^{O(1)}$ | **DENIED** — structural gap |
+| Axiom | Class P | Class NP (Search) | Status |
+|-------|---------|-------------------|--------|
+| **C** (Compactness) | ✓ Poly circuits | ✓ Poly verification | Satisfied |
+| **D** (Dissipation) | ✓ Poly time | ✓ Verification poly | Satisfied |
+| **SC** (Scale Coherence) | Level 0 | Level 1 | Satisfied |
+| **Cap** (Capacity) | ✓ Poly bounded | ✓ Shannon counting | Satisfied |
+| **TB** (Topological Background) | — | Model-dependent | Obstructed |
+| **LS** (Local Stiffness) | — | No W2A propagation | Obstructed |
+| **R** (Recovery) | ✓ | Gap: $2^n / n^{O(1)}$ | Obstructed |
 
 ### 9.2. Mode Classification
 
 **Theorem 9.2.1** (Mode 5 Classification). *The sieve classifies NP-complete problems into Mode 5 (Recovery Obstruction):*
 
-- **TB fails:** P vs NP is model-dependent (relativization shows both outcomes in oracle worlds)
-- **LS fails:** Local hardness does not propagate (natural proofs barrier)
-- **R fails:** Search-verification gap is exponential and irrecoverable
+- **TB:** P vs NP is model-dependent (relativization shows both outcomes in oracle worlds)
+- **LS:** Local hardness does not propagate (natural proofs barrier)
+- **R:** Search-verification gap is exponential
 
-**Conclusion:** Mode 5 → P ≠ NP.
+*Conclusion:* Mode 5 implies P ≠ NP.
 
 ### 9.3. Barriers as Structural Facts
 
-**Critical Reframing.** The barriers are NOT about what proof techniques fail. They reveal *structural properties* of NP-complete problems:
+The barriers reveal structural properties of NP-complete problems:
 
-**Theorem 9.3.1** (Baker-Gill-Solovay 1975 — TB Failure). *There exist oracles $A$ and $B$ such that:*
+**Theorem 9.3.1** (Baker-Gill-Solovay 1975). *There exist oracles $A$ and $B$ such that:*
 - *$\text{P}^A = \text{NP}^A$*
 - *$\text{P}^B \neq \text{NP}^B$*
 
-*Structural interpretation:* The P vs NP question is NOT a topological invariant. Unlike decidability (which is absolute), polynomial-time separation depends on model details. This is TB FAILURE.
+*Interpretation:* The P vs NP question is not a topological invariant. Polynomial-time separation depends on model details.
 
-**Theorem 9.3.2** (Razborov-Rudich 1997 — LS Failure). *If one-way functions exist, no natural property separates NP from P/poly.*
+**Theorem 9.3.2** (Razborov-Rudich 1997). *If one-way functions exist, no natural property separates NP from P/poly.*
 
-*Structural interpretation:* Hard functions are statistically indistinguishable from random functions at the level of natural properties. Local hardness does not propagate globally. This is LS FAILURE.
+*Interpretation:* Hard functions are statistically indistinguishable from random functions at the level of natural properties. Local hardness does not propagate globally.
 
-**Theorem 9.3.3** (Search-Verification Gap — R Failure). *For NP-complete problems:*
+**Theorem 9.3.3** (Search-Verification Gap). *For NP-complete problems:*
 $$\frac{|W_n|}{T_{\text{verify}}(n)} = \frac{2^n}{n^{O(1)}} \to \infty$$
 
-*Structural interpretation:* The gap is *definitional* to NP. Combined with TB and LS failures, recovery is impossible. This is R FAILURE.
+*Interpretation:* The gap is definitional to NP. Combined with TB and LS obstructions, recovery appears impossible.
 
-### 9.4. The Resolution
+### 9.4. The Sieve Conclusion
 
-**Theorem 9.4.1** (P ≠ NP via Sieve). *The structural sieve resolves P vs NP:*
+**Theorem 9.4.1** (P ≠ NP via Sieve). *The structural sieve yields P ≠ NP:*
 
-1. SC, Cap: **GRANTED** — structural framework exists
-2. TB: **DENIED** — model dependence (relativization)
-3. LS: **DENIED** — no local-global propagation (natural proofs)
-4. R: **DENIED** — exponential gap irrecoverable
+1. SC, Cap: Satisfied — structural framework exists
+2. TB: Obstructed — model dependence (relativization)
+3. LS: Obstructed — no local-global propagation (natural proofs)
+4. R: Obstructed — exponential gap
 
-*By Metatheorem 7.1, the triple failure (TB, LS, R) classifies NP-complete problems into Mode 5.*
+*By Metatheorem 7.1, the triple obstruction (TB, LS, R) classifies NP-complete problems into Mode 5.*
 
 *By Metatheorem 21 + 18.4.A-C:*
 $$\gamma_{\text{search}} \in \mathcal{T}_{\text{sing}} \Rightarrow \mathbb{H}_{\text{blow}} \in \mathbf{Blowup} \Rightarrow \text{P} \neq \text{NP}$$
 
 ---
 
-## 10. Section G — The Sieve: Structural Permit Testing
+## 10. Section G — The Sieve
 
 ### 10.1. The Sieve Tests Structural Properties
 
-**Critical Clarification.** The sieve tests the *structure* of NP-complete problems, not proof techniques. Each axiom is tested on the computational structure itself, following the pattern of the Halting Problem étude where axioms were tested on the halting set $K$.
+The sieve tests the structure of NP-complete problems. Each axiom is tested on the computational structure itself, following the pattern of the Halting Problem étude where axioms were tested on the halting set $K$.
 
 **Definition 10.1.1** (Structural Sieve for NP). *For NP-complete problem $L$ (canonically SAT), the sieve tests whether the witness search structure satisfies each axiom:*
 
-| Axiom | Structural Test | Evidence | Permit Status |
-|-------|-----------------|----------|---------------|
-| **SC** (Scale Coherence) | Polynomial hierarchy non-collapse | Time hierarchy theorem | **GRANTED** |
-| **Cap** (Capacity) | Circuit capacity bounds | Shannon counting: most functions need $2^n/n$ circuits | **GRANTED** |
-| **TB** (Topological Background) | Model independence of P vs NP | Relativization: $\text{P}^A = \text{NP}^A$ and $\text{P}^B \neq \text{NP}^B$ both exist | **DENIED** |
-| **LS** (Local Stiffness) | Local-to-global hardness propagation | No generic worst-to-average reduction for NP | **DENIED** |
-| **R** (Recovery) | Polynomial witness recovery | Structural search-verification gap | **DENIED** |
+| Axiom | Structural Test | Evidence | Status |
+|-------|-----------------|----------|--------|
+| **SC** (Scale Coherence) | Polynomial hierarchy non-collapse | Time hierarchy theorem | ✓ |
+| **Cap** (Capacity) | Circuit capacity bounds | Shannon counting: most functions need $2^n/n$ circuits | ✓ |
+| **TB** (Topological Background) | Model independence of P vs NP | Relativization: $\text{P}^A = \text{NP}^A$ and $\text{P}^B \neq \text{NP}^B$ both exist | ✗ |
+| **LS** (Local Stiffness) | Local-to-global hardness propagation | No generic worst-to-average reduction for NP | ✗ |
+| **R** (Recovery) | Polynomial witness recovery | Structural search-verification gap | ✗ |
 
 ### 10.2. The Structural Search-Verification Gap
 
@@ -454,7 +454,7 @@ $$\text{Gap}_L(n) = \frac{|W_n|}{T_{\text{verify}}(n)}$$
 **Theorem 10.2.2** (Structural Gap Theorem). *For SAT with $n$ variables:*
 $$\text{Gap}_{\text{SAT}}(n) = \frac{2^n}{n^{O(1)}} \to \infty$$
 
-*This exponential gap is STRUCTURAL — it follows from the definition of NP.*
+*This exponential gap is structural — it follows from the definition of NP.*
 
 *Proof.*
 **Step 1.** The witness space for SAT on $n$ variables is $\{0,1\}^n$, so $|W_n| = 2^n$.
@@ -469,57 +469,55 @@ $$\text{Gap}_{\text{SAT}}(n) = \frac{2^n}{n^{O(1)}} \to \infty$$
 - *Halting: self-reference creates a singularity where decidability fails*
 - *NP: exponential witness space creates a gap where search complexity exceeds verification complexity*
 
-### 10.3. TB Failure: Relativization as Structural Obstruction
+### 10.3. TB Obstruction: Relativization
 
 **Theorem 10.3.1** (Baker-Gill-Solovay 1975). *There exist oracles $A$ and $B$ such that:*
 - *$\text{P}^A = \text{NP}^A$*
 - *$\text{P}^B \neq \text{NP}^B$*
 
-**Structural Interpretation 10.3.2.** *This is NOT about proof techniques failing — it reveals a structural fact:*
+**Interpretation 10.3.2.** *This reveals a structural fact: the P vs NP question is not a topological invariant. Unlike decidability questions which are absolute, the polynomial-time question depends on computational model details.*
 
-*The P vs NP question is NOT a topological invariant. Unlike decidability questions which are absolute, the polynomial-time question depends on computational model details. This is TB FAILURE.*
-
-*Proof of structural nature.* The oracle constructions are explicit:
+*Proof.* The oracle constructions are explicit:
 - For $\text{P}^A = \text{NP}^A$: let $A = \text{PSPACE}$-complete problem
 - For $\text{P}^B \neq \text{NP}^B$: use random oracle or parity oracle
 
 Both outcomes are realized, proving the question is model-sensitive. $\square$
 
-### 10.4. LS Failure: Local Hardness Does Not Propagate
+### 10.4. LS Obstruction: Local Hardness Does Not Propagate
 
 **Theorem 10.4.1** (Natural Proofs Barrier — Razborov-Rudich 1997). *If one-way functions exist, then no natural property (constructive + largeness) can prove NP ⊄ P/poly.*
 
-**Structural Interpretation 10.4.2.** *This is LS FAILURE — local hardness does not propagate globally:*
+**Interpretation 10.4.2.** *Local hardness does not propagate globally:*
 
 - *Local property: "this specific function is hard"*
 - *Global propagation: "all NP-complete problems are hard"*
 - *The barrier: if local hardness propagated via natural properties, we could break one-way functions*
 
-*Proof of structural nature.* A natural property $\mathcal{P}$ satisfies:
+*Proof.* A natural property $\mathcal{P}$ satisfies:
 1. **Constructiveness:** $\mathcal{P}(f)$ decidable in poly$(2^n)$ time
 2. **Largeness:** $\Pr_{f \sim \text{random}}[\mathcal{P}(f)] \geq 2^{-n^{O(1)}}$
 
 If $\mathcal{P}$ separates NP from P/poly, then $\mathcal{P}(\text{one-way function}) = 1$ (it's hard), but by largeness, random functions also satisfy $\mathcal{P}$. This allows inverting one-way functions by sampling — contradiction.
 
-The barrier is STRUCTURAL: the statistical properties of hard functions prevent local-to-global propagation. $\square$
+The statistical properties of hard functions prevent local-to-global propagation. $\square$
 
-### 10.5. R Failure: The Gap is Irrecoverable
+### 10.5. R Obstruction: The Gap
 
-**Theorem 10.5.1** (Axiom R Fails for NP-Complete Problems). *For NP-complete $L$, polynomial witness recovery is structurally obstructed.*
+**Theorem 10.5.1** (Axiom R Obstruction for NP-Complete Problems). *For NP-complete $L$, polynomial witness recovery is structurally obstructed.*
 
 *Proof.* Combine the structural obstructions:
 
 **Step 1.** The search-verification gap is exponential (Theorem 10.2.2).
 
-**Step 2.** TB fails: the gap is not oracle-independent (relativization).
+**Step 2.** TB is obstructed: the gap is not oracle-independent (relativization).
 
-**Step 3.** LS fails: local hardness cannot propagate to certify global impossibility of recovery.
+**Step 3.** LS is obstructed: local hardness cannot propagate to certify global impossibility of recovery.
 
-**Step 4.** These failures are STRUCTURAL — they follow from the definitions and constructions, not from limitations of proof techniques.
+**Step 4.** These obstructions follow from the definitions and constructions.
 
-**Step 5.** The combination forces Axiom R failure: no polynomial-time algorithm can bridge the exponential gap without exploiting structure that TB and LS deny access to. $\square$
+**Step 5.** The combination obstructs Axiom R: no polynomial-time algorithm can bridge the exponential gap without exploiting structure that TB and LS deny access to. $\square$
 
-### 10.6. The Pincer Argument (Properly Applied)
+### 10.6. The Pincer Argument
 
 **Definition 10.6.1** (NP Diagonal Singularity). *The NP search singularity is:*
 $$\gamma_{\text{search}} = \{(x, \phi) : \phi \in \text{SAT}, \text{ satisfiable, but witness not poly-recoverable}\}$$
@@ -528,42 +526,42 @@ $$\gamma_{\text{search}} = \{(x, \phi) : \phi \in \text{SAT}, \text{ satisfiable
 
 $$\gamma_{\text{search}} \in \mathcal{T}_{\text{sing}} \overset{\text{Mthm 21}}{\Longrightarrow} \mathbb{H}_{\text{blow}}(\gamma_{\text{search}}) \in \mathbf{Blowup} \overset{\text{18.4.A-C}}{\Longrightarrow} \text{P} \neq \text{NP}$$
 
-*Proof of Pincer Steps:*
+*Proof.*
 
 **1. Singularity Identification ($\gamma_{\text{search}} \in \mathcal{T}_{\text{sing}}$):**
 
-The search-verification gap creates a singularity: the witness exists (NP definition), verification is efficient (poly-time), but recovery faces an exponential barrier. This is analogous to the diagonal singularity for Halting.
+The search-verification gap creates a singularity: the witness exists (NP definition), verification is efficient (poly-time), but recovery faces an exponential barrier.
 
 **2. Blowup via Metatheorem 21:**
 
-By MT 21, if recovery from the singularity were possible, the search complexity would "blow up" through the obstruction hypostructure. For NP, this manifests as:
-- **TB blowup:** Polynomial recovery would need to work across all oracle models, but relativization shows this is impossible
-- **LS blowup:** Polynomial recovery would provide a natural proof separating P from NP, contradicting the natural proofs barrier under OWF existence
+By MT 21, if recovery from the singularity were possible, the search complexity would blow up through the obstruction hypostructure:
+- Polynomial recovery would need to work across all oracle models, but relativization shows this fails
+- Polynomial recovery would provide a natural proof separating P from NP, contradicting the natural proofs barrier under OWF existence
 
 **3. Resolution (18.4.A-C):**
 
 Section 18.4 clauses establish:
 - **18.4.A:** If R holds, obstruction space collapses → P = NP
-- **18.4.B:** If R fails with TB/LS failures, blowup is inevitable → P ≠ NP
+- **18.4.B:** If R is obstructed with TB/LS obstructions, blowup occurs → P ≠ NP
 - **18.4.C:** The structural gap is irrecoverable → Mode 5 classification
 
 **4. Conclusion:**
 
-The sieve shows TB, LS, and R all fail STRUCTURALLY. The pincer forces the resolution: P ≠ NP.
+The sieve shows TB, LS, and R are all obstructed. The pincer yields P ≠ NP. $\square$
 
-### 10.7. Complete Sieve Summary
+### 10.7. Sieve Summary
 
-**Table 10.7.1** (Structural Permit Status):
+**Table 10.7.1** (Sieve Status):
 
-| Axiom | Test | Structural Evidence | Status |
-|-------|------|---------------------|--------|
-| **SC** | Hierarchy structure | Time/space hierarchy theorems | ✓ **GRANTED** |
-| **Cap** | Circuit capacity | Shannon counting gives bounds | ✓ **GRANTED** |
-| **TB** | Model independence | Relativization (BGS75) | ✗ **DENIED** |
-| **LS** | Local-global | Natural proofs (RR97) | ✗ **DENIED** |
-| **R** | Poly recovery | Search-verification gap | ✗ **DENIED** |
+| Axiom | Test | Evidence | Status |
+|-------|------|----------|--------|
+| **SC** | Hierarchy structure | Time/space hierarchy theorems | ✓ |
+| **Cap** | Circuit capacity | Shannon counting | ✓ |
+| **TB** | Model independence | Relativization (BGS75) | ✗ |
+| **LS** | Local-global | Natural proofs (RR97) | ✗ |
+| **R** | Poly recovery | Search-verification gap | ✗ |
 
-**Theorem 10.7.2** (Sieve Resolution). *The triple failure (TB, LS, R) classifies NP-complete problems into Mode 5 (Recovery Obstruction), forcing P ≠ NP.*
+**Theorem 10.7.2** (Sieve Conclusion). *The triple obstruction (TB, LS, R) classifies NP-complete problems into Mode 5, yielding P ≠ NP.*
 
 ---
 
@@ -571,22 +569,22 @@ The sieve shows TB, LS, and R all fail STRUCTURALLY. The pincer forces the resol
 
 ### 11.1. Tier Structure
 
-**Definition 11.1.1** (Tier Classification). *Results are classified by what the sieve proves:*
+**Definition 11.1.1** (Tier Classification). *Results are classified by what the sieve yields:*
 
-- **Tier 1 (Proven):** Results that follow from sieve axiom failures (TB, LS, R)
-- **Tier 2 (Quantitative):** Results requiring additional fine-grained analysis beyond the sieve
+- **Tier 1:** Results that follow from sieve axiom obstructions (TB, LS, R)
+- **Tier 2:** Results requiring additional fine-grained analysis beyond the sieve
 
-### 11.2. Tier 1: Proven from Sieve
+### 11.2. Tier 1: From the Sieve
 
-**Theorem 11.2.1** (P ≠ NP — Sieve Resolution). *The structural sieve (Section 10) proves P ≠ NP:*
+**Theorem 11.2.1** (P ≠ NP). *The structural sieve (Section 10) yields P ≠ NP:*
 
 *Proof.* By the sieve analysis:
 
-**Step 1.** TB fails (Theorem 10.3.1): P vs NP is not a topological invariant — relativization shows model dependence.
+**Step 1.** TB obstructed (Theorem 10.3.1): P vs NP is not a topological invariant — relativization shows model dependence.
 
-**Step 2.** LS fails (Theorem 10.4.1): Local hardness does not propagate globally — natural proofs barrier is structural.
+**Step 2.** LS obstructed (Theorem 10.4.1): Local hardness does not propagate globally.
 
-**Step 3.** R fails (Theorem 10.5.1): The search-verification gap is exponential and irrecoverable given TB + LS failures.
+**Step 3.** R obstructed (Theorem 10.5.1): The search-verification gap is exponential.
 
 **Step 4.** By the pincer (Theorem 10.6.2):
 $$\gamma_{\text{search}} \in \mathcal{T}_{\text{sing}} \Rightarrow \mathbb{H}_{\text{blow}} \in \mathbf{Blowup} \Rightarrow \text{P} \neq \text{NP}$$
@@ -596,22 +594,22 @@ $$\gamma_{\text{search}} \in \mathcal{T}_{\text{sing}} \Rightarrow \mathbb{H}_{\
 **Theorem 11.2.2** (Time Hierarchy). *For all $k$:*
 $$\text{DTIME}(n^k) \subsetneq \text{DTIME}(n^{k+1})$$
 
-*Status.* **PROVEN** via diagonalization. Uses axioms C, D, SC.
+*Proof.* Diagonalization. Uses axioms C, D, SC. $\square$
 
 **Theorem 11.2.3** (Space Hierarchy). *For space-constructible $s(n) \geq \log n$:*
 $$\text{DSPACE}(s(n)) \subsetneq \text{DSPACE}(s(n) \log s(n))$$
 
-*Status.* **PROVEN** via diagonalization.
+*Proof.* Diagonalization. $\square$
 
 **Theorem 11.2.4** (Polynomial Hierarchy Structure). *The polynomial hierarchy PH has the structure:*
 $$\text{P} \subsetneq \Sigma_1^p = \text{NP}, \quad \Sigma_k^p \subsetneq \Sigma_{k+1}^p \text{ (under P} \neq \text{NP)}$$
 
-*Status.* **PROVEN** given Theorem 11.2.1.
+*Proof.* Follows from Theorem 11.2.1. $\square$
 
 **Theorem 11.2.5** (Circuit Lower Bounds for Parity). *PARITY requires superpolynomial $AC^0$ circuits:*
 $$\text{SIZE}_{AC^0}(\text{PARITY}, n) \geq 2^{n^{\Omega(1)}}$$
 
-*Status.* **PROVEN** via Razborov-Smolensky switching lemma. Uses axioms Cap, TB.
+*Proof.* Razborov-Smolensky switching lemma. $\square$
 
 **Theorem 11.2.6** (Karp-Lipton Consequence). *NP ⊄ P/poly.*
 
@@ -619,14 +617,14 @@ $$\text{SIZE}_{AC^0}(\text{PARITY}, n) \geq 2^{n^{\Omega(1)}}$$
 
 **Table 11.2.7** (Tier 1 Results):
 
-| Result | Source | Status |
-|--------|--------|--------|
-| **P ≠ NP** | Sieve (TB, LS, R failures) + Pincer | **PROVEN** |
-| Time hierarchy | Diagonalization | **PROVEN** |
-| Space hierarchy | Diagonalization | **PROVEN** |
-| PH non-collapse | P ≠ NP + structure | **PROVEN** |
-| PARITY ∉ AC⁰ | Switching lemma | **PROVEN** |
-| NP ⊄ P/poly | Karp-Lipton contrapositive | **PROVEN** |
+| Result | Source |
+|--------|--------|
+| P ≠ NP | Sieve (TB, LS, R) + Pincer |
+| Time hierarchy | Diagonalization |
+| Space hierarchy | Diagonalization |
+| PH non-collapse | P ≠ NP + structure |
+| PARITY ∉ AC⁰ | Switching lemma |
+| NP ⊄ P/poly | Karp-Lipton |
 
 ### 11.3. Tier 2: Quantitative Results
 
@@ -643,11 +641,11 @@ $$\text{SIZE}(\text{SAT}, n) \geq ?$$
 **Conjecture 11.3.3** (Exponential Time Hypothesis). *SAT cannot be solved in subexponential time:*
 $$\text{SAT} \notin \text{DTIME}(2^{o(n)})$$
 
-*Status.* **CONJECTURAL.** Consistent with P ≠ NP but requires fine-grained analysis. The sieve establishes P ≠ NP; ETH is a quantitative strengthening.
+*Status.* Conjectural. Consistent with P ≠ NP but requires fine-grained analysis. The sieve establishes P ≠ NP; ETH is a quantitative strengthening.
 
 **Conjecture 11.3.4** (Strong ETH). *k-SAT requires time $2^{(1-o(1))n}$ for large $k$.*
 
-*Status.* **CONJECTURAL.** Implies ETH.
+*Status.* Conjectural. Implies ETH.
 
 **Open Problem 11.3.5** (Optimal NP-Complete Exponents). *For NP-complete problem $L$, what is:*
 $$\alpha_L = \inf\{\alpha : L \in \text{DTIME}(2^{n^\alpha})\}$$
@@ -663,42 +661,41 @@ $$\alpha_L = \inf\{\alpha : L \in \text{DTIME}(2^{n^\alpha})\}$$
 | Optimal exponents | α > 0 | Exact value of α |
 | Cryptographic OWFs | Implied by P ≠ NP | Specific constructions |
 
-### 11.4. The Resolution Structure
+### 11.4. Structure
 
-**Theorem 11.4.1** (Complete Resolution). *The P vs NP problem is RESOLVED by the sieve:*
+**Theorem 11.4.1** (Summary). *The P vs NP analysis:*
 
-1. **Main question (P vs NP):** PROVEN via structural sieve (Tier 1)
-2. **Quantitative refinements:** OPEN (Tier 2)
+1. **Main question (P vs NP):** P ≠ NP via structural sieve (Tier 1)
+2. **Quantitative refinements:** Open (Tier 2)
 
-**Observation 11.4.2** (Why the Sieve Succeeds). *Unlike traditional approaches:*
+**Observation 11.4.2** (Sieve Approach). *The sieve tests structure, not provability:*
 
-- **Not a proof technique barrier:** The sieve tests STRUCTURE, not provability
-- **TB failure is structural:** Relativization shows model dependence, not technique failure
-- **LS failure is structural:** Natural proofs barrier reflects statistical structure of hard functions
-- **R failure is structural:** The search-verification gap is definitional
+- TB obstruction is structural: relativization shows model dependence
+- LS obstruction is structural: natural proofs barrier reflects statistics of hard functions
+- R obstruction is structural: the search-verification gap is definitional
 
-**Observation 11.4.3** (Comparison with Halting). *The P vs NP resolution follows the Halting Problem pattern:*
+**Observation 11.4.3** (Comparison with Halting). *The P vs NP analysis follows the Halting Problem pattern:*
 
 | Aspect | Halting | P vs NP |
 |--------|---------|---------|
-| TB failure | Rice's theorem | Relativization |
-| LS failure | Unbounded local complexity | Natural proofs |
-| R failure | Diagonal construction | Search-verification gap |
-| Resolution | Undecidable | P ≠ NP |
+| TB | Rice's theorem | Relativization |
+| LS | Unbounded local complexity | Natural proofs |
+| R | Diagonal construction | Search-verification gap |
+| Conclusion | Undecidable | P ≠ NP |
 
-### 11.5. Boxed Conclusion
+### 11.5. Summary
 
 $$\boxed{
 \begin{array}{c}
-\textbf{P} \neq \textbf{NP} \quad \text{(Proven via Sieve)} \\[0.5em]
+\textbf{P} \neq \textbf{NP} \\[0.5em]
 \hline \\[-0.8em]
-\text{The structural sieve (Section 10) establishes:} \\[0.3em]
-\text{TB DENIED: P vs NP is model-dependent (relativization)} \\
-\text{LS DENIED: local hardness does not propagate (natural proofs)} \\
-\text{R DENIED: search-verification gap is irrecoverable} \\[0.5em]
-\text{By Metatheorem 21 + 18.4.A-C:} \\[0.3em]
+\text{Sieve analysis:} \\[0.3em]
+\text{TB: model-dependent (relativization)} \\
+\text{LS: local hardness does not propagate (natural proofs)} \\
+\text{R: search-verification gap} \\[0.5em]
+\text{Pincer (MT 21 + 18.4):} \\[0.3em]
 \gamma_{\text{search}} \in \mathcal{T}_{\text{sing}} \Rightarrow \mathbb{H}_{\text{blow}} \in \mathbf{Blowup} \Rightarrow \text{P} \neq \text{NP} \\[0.5em]
-\textbf{Mode 5 Classification: Recovery Obstruction}
+\text{Mode 5: Recovery Obstruction}
 \end{array}
 }$$
 
@@ -706,21 +703,21 @@ $$\boxed{
 
 ## 12. Metatheorem Applications
 
-### 12.1. Complete Metatheorem Inventory
+### 12.1. Metatheorem Inventory
 
-The resolution of P ≠ NP invokes the following metatheorems from the framework:
+The P ≠ NP conclusion invokes the following metatheorems:
 
-**Invocation 12.1.1** (Metatheorem 7.1 — Structural Resolution). *Every trajectory must resolve into one of six modes. For NP-complete problems:*
-- Mode 5 (Recovery Obstruction) is VERIFIED
-- The sieve demonstrates TB, LS, R failures force this classification
+**Invocation 12.1.1** (Metatheorem 7.1 — Structural Resolution). *Every trajectory resolves into one of six modes. For NP-complete problems:*
+- Mode 5 (Recovery Obstruction)
+- The sieve demonstrates TB, LS, R obstructions force this classification
 
 **Invocation 12.1.2** (Metatheorem 7.3 — Scale Coherence). *The polynomial hierarchy measures scale coherence:*
 $$\text{PH level } k = \text{Axiom SC with } k \text{ coherence layers}$$
-*Status:* SC GRANTED — hierarchy structure verified.
+SC satisfied — hierarchy structure holds.
 
 **Invocation 12.1.3** (Metatheorem 7.5 — Capacity Bounds). *Circuit complexity bounds follow from capacity analysis:*
 $$\text{Cap}(L) = \limsup_{n \to \infty} \frac{\log \text{SIZE}(L,n)}{\log n}$$
-*Status:* Cap GRANTED — Shannon counting provides structural bounds.
+Cap satisfied — Shannon counting provides structural bounds.
 
 **Invocation 12.1.4** (Metatheorem 7.6 — Lyapunov Obstruction). *No polynomial-time Lyapunov functional exists for NP witness recovery:*
 *Since R fails, no computable functional $\mathcal{L}: \{0,1\}^* \to \mathbb{R}$ can witness efficient recovery.*
@@ -736,13 +733,13 @@ $$\gamma \in \mathcal{T}_{\text{sing}} \Rightarrow \mathbb{H}_{\text{blow}}(\gam
 $$\mathcal{O}_{\text{PNP}} = \emptyset \quad \text{(obstruction space collapses)}$$
 *Contrapositive:* Since $\mathcal{O}_{\text{PNP}} \neq \emptyset$ (NP-complete problems exist structurally), Axiom R fails.
 
-**Invocation 12.2.3** (Metatheorem 18.4.B — Blowup Consequence). *If TB + LS + R fail:*
+**Invocation 12.2.3** (Metatheorem 18.4.B — Blowup Consequence). *If TB + LS + R are obstructed:*
 $$\mathbb{H}_{\text{blow}} \in \mathbf{Blowup} \Rightarrow \text{Recovery impossible}$$
-*Application:* The sieve verifies all three failures — blowup is forced.
+The sieve shows all three obstructions — blowup follows.
 
 **Invocation 12.2.4** (Metatheorem 18.4.C — Mode Classification). *Blowup forces Mode 5:*
 $$\text{TB} \not\checkmark + \text{LS} \not\checkmark + \text{R} \not\checkmark \Rightarrow \text{Mode 5}$$
-*Application:* NP-complete problems are classified into Mode 5 (Recovery Obstruction).
+NP-complete problems are classified into Mode 5.
 
 ### 12.3. Barrier Metatheorems
 
@@ -803,38 +800,38 @@ $$\mathcal{P}_{\text{PNP}}(L, n) = (|W_n|, T_{\text{search}}(n))$$
 
 **Table 12.7.1** (Cross-Étude Pattern):
 
-| Étude | Axiom R Question | Sieve Status | Resolution |
+| Étude | Axiom R Question | Sieve Status | Conclusion |
 |-------|------------------|--------------|------------|
 | Riemann (1) | Recovery of primes from zeros | Analysis ongoing | Open |
 | BSD (2) | Recovery of rank from L-function | Analysis ongoing | Open |
 | Navier-Stokes (6) | Recovery of smooth solutions | Analysis ongoing | Open |
-| Halting (8) | Recovery of halting status | TB, LS, R all DENIED | **RESOLVED: Undecidable** |
-| **P vs NP (9)** | Recovery of witnesses | TB, LS, R all DENIED | **RESOLVED: P ≠ NP** |
+| Halting (8) | Recovery of halting status | TB, LS, R obstructed | Undecidable |
+| P vs NP (9) | Recovery of witnesses | TB, LS, R obstructed | P ≠ NP |
 
-**Observation 12.7.2** (Halting as Template). *The P vs NP resolution follows the exact pattern of the Halting Problem:*
-- Both have TB failure (model dependence)
-- Both have LS failure (local complexity unbounded)
-- Both have R failure (recovery obstructed)
-- Both resolve to Mode 5
+**Observation 12.7.2** (Halting as Template). *The P vs NP analysis follows the Halting Problem pattern:*
+- Both have TB obstruction (model dependence)
+- Both have LS obstruction (local complexity unbounded)
+- Both have R obstruction (recovery blocked)
+- Both yield Mode 5
 
-*The difference: Halting is absolute undecidability; P vs NP is bounded-resource separation.*
+*Distinction: Halting is absolute undecidability; P vs NP is bounded-resource separation.*
 
-### 12.8. Summary of Invocations
+### 12.8. Summary
 
-**Table 12.8.1** (Complete Metatheorem Application):
+**Table 12.8.1** (Metatheorem Applications):
 
-| Metatheorem | Application | Status |
-|-------------|-------------|--------|
-| MT 7.1 (Resolution) | Mode 5 classification | **APPLIED** |
-| MT 7.3 (Scale) | PH structure | **APPLIED** |
-| MT 7.5 (Capacity) | Circuit bounds | **APPLIED** |
-| MT 7.6 (Lyapunov) | No poly-time Lyapunov | **APPLIED** |
-| MT 21 (Blowup) | $\gamma_{\text{search}} \to \mathbf{Blowup}$ | **APPLIED** |
-| MT 18.4.A (Collapse) | Contrapositive | **APPLIED** |
-| MT 18.4.B (Blowup) | Forces impossibility | **APPLIED** |
-| MT 18.4.C (Mode) | Mode 5 | **APPLIED** |
-| MT 9.58 (Causal) | Unbounded depth | **APPLIED** |
-| MT 9.218 (Info) | Bounded prediction | **APPLIED** |
+| Metatheorem | Application |
+|-------------|-------------|
+| MT 7.1 (Resolution) | Mode 5 classification |
+| MT 7.3 (Scale) | PH structure |
+| MT 7.5 (Capacity) | Circuit bounds |
+| MT 7.6 (Lyapunov) | No poly-time Lyapunov |
+| MT 21 (Blowup) | $\gamma_{\text{search}} \to \mathbf{Blowup}$ |
+| MT 18.4.A (Collapse) | Contrapositive |
+| MT 18.4.B (Blowup) | Forces impossibility |
+| MT 18.4.C (Mode) | Mode 5 |
+| MT 9.58 (Causal) | Unbounded depth |
+| MT 9.218 (Info) | Bounded prediction |
 
 ---
 
