@@ -7595,9 +7595,7 @@ where:
 - $W: \mathbb{R}^d \to \mathbb{R}$ is an interaction kernel,
 - $(W * \rho)(x) = \int_{\mathbb{R}^d} W(x-y) \rho(y) \, dy$ is the nonlocal convolution.
 
-This is a **nonlinear, nonlocal, globally coupled** mean-field equation describing interacting particle systems in the mean-field limit.
-
-**1.2 Problem Type.** This étude belongs to **Type T = Convergence** within the hypostructure classification. The central question is:
+**1.2 Problem Type.** Type T = Convergence. The central question is:
 
 > **Theorem Goal (Convergence).** For suitable $(V, W)$, prove that every solution $\rho_t$ converges exponentially fast to the unique equilibrium $\rho_\infty$, with explicit structural rate $\lambda > 0$.
 
@@ -7609,8 +7607,6 @@ where:
 - Interaction energy: $E_W(\rho) = \frac{1}{2} \iint W(x-y) \rho(x) \rho(y) \, dx \, dy$
 - Second moment: $M_2(\rho) = \int |x|^2 \rho(x) \, dx$
 - Center of mass: $m(\rho) = \int x \rho(x) \, dx$
-
-The PDE state $\rho$ is seen only through these structural features.
 
 ##### Section 2: Three Canonical Hypostructures
 
@@ -7675,13 +7671,19 @@ with equality iff $\rho$ is a stationary solution.
 - **(A.3) Capacity bounds:** Singular sets in $\mathcal{P}_2$ have zero capacity: for admissible $(V, W)$, no finite-time blow-up occurs, hence $\mathrm{cap}(\mathrm{sing}) = 0$.
 
 **4.3 Axiom B (Compactness and Stability).**
-- **(B.1) Compactness (Coercivity):** Assume $V(x) \geq a|x|^2 - b$ for $a > 0$. Then:
-$$\mathcal{F}[\rho] \geq c_1 M_2(\rho) - c_2$$
-for constants $c_1, c_2 > 0$. Bounded $\mathcal{F}$ implies bounded second moment, which gives **tightness** and hence precompactness in $\mathcal{P}_2$.
+- **(B.1) Compactness (Coercivity):** Assume $V(x) \geq a|x|^2 - b$ for $a > 0$, $b \in \mathbb{R}$, and $W \geq -c$ for some $c \geq 0$. Then:
+$$\mathcal{F}[\rho] = H(\rho) + E_V(\rho) + E_W(\rho) \geq H(\rho) + a M_2(\rho) - b - \frac{c}{2}$$
+Since $H(\rho) \geq -C_d(1 + M_2(\rho)^{d/(d+2)})$ by standard entropy bounds, we obtain for $a$ sufficiently large:
+$$\mathcal{F}[\rho] \geq \frac{a}{2} M_2(\rho) - C$$
+for some $C > 0$. Thus bounded $\mathcal{F}$ implies bounded $M_2$, which gives tightness of $\{\rho_t\}_{t \geq 0}$ in $\mathcal{P}_2(\mathbb{R}^d)$ by Prokhorov's theorem.
 
-- **(B.2) Local stiffness (LS inequality):** Assume $\mathcal{F}$ is **$\lambda$-convex along Wasserstein geodesics** for $\lambda > 0$. Then the **entropy-dissipation inequality** holds:
-$$\mathcal{I}[\rho] \geq 2\lambda \big( \mathcal{F}[\rho] - \mathcal{F}[\rho_\infty] \big) \quad \forall \rho \in \mathcal{P}_2$$
-This is the LS axiom: local stiffness in the Wasserstein geometry.
+- **(B.2) Local stiffness (LS inequality):** Assume:
+  - $V$ is $\lambda_V$-uniformly convex: $\nabla^2 V \geq \lambda_V I$ for some $\lambda_V > 0$
+  - $W$ is convex: $\nabla^2 W \geq 0$
+
+Then $\mathcal{F}$ is $\lambda$-convex along Wasserstein geodesics with $\lambda = \lambda_V$, and the entropy-dissipation inequality holds:
+$$\mathcal{I}[\rho] \geq 2\lambda \big( \mathcal{F}[\rho] - \mathcal{F}[\rho_\infty] \big) \quad \forall \rho \in \mathcal{P}_2(\mathbb{R}^d)$$
+This follows from the HWI inequality \cite[Theorem 20.1]{Villani2003}.
 
 - **(B.3) Gap condition:** Uniqueness of minimizer: $\mathcal{F}[\rho] = \mathcal{F}[\rho_\infty]$ iff $\rho = \rho_\infty$.
 
@@ -7707,10 +7709,10 @@ The structural correspondence $D$ translates:
 
 **5.2 Recovery Map.** The dictionary provides the **recovery mechanism**: given the structural inequality $\mathcal{I} \geq 2\lambda(\mathcal{F} - \mathcal{F}_\infty)$, exponential convergence follows automatically via Grönwall.
 
-**5.3 Conditions for Axiom Satisfaction.**
-- **C granted:** $V$ uniformly convex at infinity
-- **D granted:** Always (by construction of $\mathcal{I}$)
-- **LS granted:** $V$ uniformly convex and $W$ convex (or small negative part)
+**5.3 Sufficient Conditions for Axiom Satisfaction.**
+- **C granted:** $V(x) \geq a|x|^2 - b$ for some $a > 0$, $b \in \mathbb{R}$, and $W$ bounded below
+- **D granted:** Holds for all smooth solutions (energy identity is structural)
+- **LS granted:** $\nabla^2 V \geq \lambda I$ for some $\lambda > 0$ and $\nabla^2 W \geq 0$
 
 ##### Section 6: Metatheorem Application
 
@@ -7753,14 +7755,12 @@ where $\mathcal{R}(\theta) = \mathbb{E}_{(V,W)}[K_{\mathrm{axiom}}(\rho_0; \thet
 - Discover critical interaction strengths where LS fails
 - Identify phase transition boundaries in $(V, W)$ parameter space
 
-##### Section 8: The Sieve and Pincer Exclusion (THE CORE)
+##### Section 8: Permit Verification
 
-This section contains the **central argument**: exponential convergence follows from permit verification alone.
-
-**Step 1: Formulate the Convergence Question.**
+**Step 1: Problem Statement.**
 Given initial data $\rho_0 \in \mathcal{P}_2(\mathbb{R}^d)$ with $\mathcal{F}[\rho_0] < \infty$, does $\rho_t \to \rho_\infty$ exponentially in $W_2$?
 
-**Step 2: Verify Structural Permits (THE SIEVE).**
+**Step 2: Permit Table.**
 
 | Permit | Test | Verification | Result |
 |--------|------|--------------|--------|
@@ -7768,13 +7768,22 @@ Given initial data $\rho_0 \in \mathcal{P}_2(\mathbb{R}^d)$ with $\mathcal{F}[\r
 | **D** (Dissipation) | Does $d\mathcal{F}/dt = -\mathcal{I} \leq 0$? | Direct computation (Section 4.2) | **GRANTED** |
 | **LS** (Stiffness) | Does $\mathcal{I} \geq 2\lambda(\mathcal{F} - \mathcal{F}_\infty)$? | $\lambda$-convexity of $\mathcal{F}$ along geodesics | **GRANTED** |
 
-**Step 3: Compute Dissipation Identity.**
-For smooth solutions:
-$$\frac{d}{dt} \mathcal{F}[\rho_t] = \int (\log \rho_t + 1 + V + W * \rho_t) \partial_t \rho_t \, dx$$
-Integration by parts yields:
-$$\frac{d}{dt} \mathcal{F}[\rho_t] = -\int \rho_t \left| \nabla(\log \rho_t + V + W * \rho_t) \right|^2 dx = -\mathcal{I}[\rho_t] \leq 0$$
-Moreover, $\mathcal{I}[\rho] = 0$ iff $\nabla(\log \rho + V + W * \rho) = 0$ a.e., i.e., $\rho$ is the stationary Gibbs measure:
+**Step 3: Dissipation Identity (Proof).**
+
+*Claim:* $\frac{d}{dt} \mathcal{F}[\rho_t] = -\mathcal{I}[\rho_t]$.
+
+*Proof.* Compute each term:
+$$\frac{d}{dt} H(\rho_t) = \int (\log \rho_t + 1) \partial_t \rho_t \, dx$$
+$$\frac{d}{dt} E_V(\rho_t) = \int V \partial_t \rho_t \, dx$$
+$$\frac{d}{dt} E_W(\rho_t) = \int (W * \rho_t) \partial_t \rho_t \, dx$$
+
+Substituting $\partial_t \rho = \nabla \cdot (\nabla \rho + \rho \nabla(V + W * \rho))$ and integrating by parts:
+$$\frac{d}{dt} \mathcal{F}[\rho_t] = -\int \nabla(\log \rho_t + V + W * \rho_t) \cdot (\nabla \rho_t + \rho_t \nabla(V + W * \rho_t)) \, dx$$
+$$= -\int \rho_t |\nabla(\log \rho_t + V + W * \rho_t)|^2 \, dx = -\mathcal{I}[\rho_t]$$
+
+The equilibrium condition $\mathcal{I}[\rho] = 0$ holds iff $\nabla(\log \rho + V + W * \rho) = 0$ a.e., giving the self-consistent equation:
 $$\rho_\infty(x) = \frac{1}{Z} \exp\big( -V(x) - (W * \rho_\infty)(x) \big)$$
+where $Z = \int \exp(-V - W * \rho_\infty) \, dx$ is the normalization constant. $\square$
 
 **Step 4: Verify LS Inequality.**
 Under $\lambda$-convexity of $\mathcal{F}$ (ensured by uniform convexity of $V$ and convexity of $W$):
@@ -7785,20 +7794,25 @@ This is the **HWI inequality** or **entropy-entropy production inequality**.
 All permits granted. By Section 6.1:
 $$G(t) := \mathcal{F}[\rho_t] - \mathcal{F}[\rho_\infty] \leq e^{-2\lambda t} G(0)$$
 
-**Step 6: Upgrade to Wasserstein Decay.**
-Under the Talagrand inequality $W_2^2(\rho, \rho_\infty) \leq \frac{2}{\lambda}(\mathcal{F}[\rho] - \mathcal{F}[\rho_\infty])$:
+**Step 6: Wasserstein Decay.**
+
+The $\lambda$-convexity of $\mathcal{F}$ implies the Talagrand inequality \cite[Theorem 22.17]{Villani2003}:
+$$W_2^2(\rho, \rho_\infty) \leq \frac{2}{\lambda}(\mathcal{F}[\rho] - \mathcal{F}[\rho_\infty])$$
+
+Combined with the energy decay from Step 5:
+$$W_2^2(\rho_t, \rho_\infty) \leq \frac{2}{\lambda} e^{-2\lambda t} (\mathcal{F}[\rho_0] - \mathcal{F}[\rho_\infty])$$
+
+Taking square roots and using $W_2^2(\rho_0, \rho_\infty) \leq \frac{2}{\lambda}(\mathcal{F}[\rho_0] - \mathcal{F}[\rho_\infty])$:
 $$W_2(\rho_t, \rho_\infty) \leq e^{-\lambda t} W_2(\rho_0, \rho_\infty)$$
 
 **Step 7: Conclusion.**
 $$\boxed{\text{Permits C, D, LS granted} \Rightarrow \text{Exponential convergence in } \mathcal{F} \text{ and } W_2}$$
 
-The entire argument requires **no Sobolev estimates, no bootstrap, no a priori regularity theory**. The hard analysis is quarantined into verifying a single structural inequality (LS).
-
 ##### Section 9: Two-Tier Conclusions
 
-**Tier 1: R-Independent Results (FREE from Structural Axioms)**
+**Tier 1: R-Independent Results**
 
-These results follow automatically from permit verification, **regardless of problem-specific details**:
+Results following from permit verification:
 
 | Result | Source |
 |--------|--------|
@@ -7821,7 +7835,7 @@ These results require Axiom R (the specific dictionary for $(V, W)$):
 | Propagation of chaos bounds | Axiom R + particle system analysis |
 | Regularity of $\rho_\infty$ | Axiom R + elliptic regularity |
 
-**9.3 Failure Mode Exclusion Summary.**
+**Failure Mode Exclusion.**
 
 | Failure Mode | How Excluded |
 |--------------|--------------|
@@ -7829,8 +7843,6 @@ These results require Axiom R (the specific dictionary for $(V, W)$):
 | **D.E** (Dissipation failure) | $d\mathcal{F}/dt = -\mathcal{I}$ always holds |
 | **LS.E** (Stiffness breakdown) | $\lambda$-convexity ensures gap |
 | **T.E** (Topological obstruction) | Mass conserved, no topology change |
-
-**The key insight**: Exponential convergence (Tier 1) is **FREE**. It follows from three structural permits. The problem-specific analysis (Tier 2) is only needed for quantitative refinements.
 
 ##### Section 10: Implementation Notes
 
@@ -7859,22 +7871,7 @@ Output: Sequence rho_n converging to rho_infty
 - **Bounded domains**: $\rho$ on $\Omega \subset \mathbb{R}^d$ with boundary conditions
 - **Non-convex interactions**: $W$ with multiple wells (phase transitions)
 
-**10.4 How This Showcases "Solving Hardcore Equations for Free".**
-
-In standard analysis, proving exponential convergence for MVFP requires:
-- Pages of a priori estimates
-- Tightness / compactness arguments
-- Careful derivation of the entropy-dissipation inequality
-- Second round of arguments to upgrade $\mathcal{F}$ decay to $W_2$ decay
-
-In Hypo style, the entire result is:
-1. Define $\mathcal{F}$ and $\mathcal{I}$
-2. Verify three permits (C, D, LS), each in a few lines
-3. Invoke the generic theorem "C + D + LS $\Rightarrow$ exponential convergence"
-
-**The "hard" PDE is reduced to: Does this system grant permits C, D, LS?**
-
-**10.5 Key References.**
+**10.4 Key References.**
 - \cite{AmbrosioGigliSavare2008} Gradient Flows in Metric Spaces
 - \cite{Villani2003} Topics in Optimal Transportation
 - \cite{CarrilloMcCannVillani2003} Kinetic equilibration rates
