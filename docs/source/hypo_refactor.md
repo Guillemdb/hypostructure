@@ -1,3 +1,9 @@
+---
+title: "Hypostructures: The Geometry of System Stability"
+subtitle: "A Unified Framework for Analyzing Dynamical Coherence"
+author: "Guillem Duran Ballester"
+---
+
 # Hypostructures: The Geometry of System Stability
 
 *A Unified Framework for Analyzing Dynamical Coherence*
