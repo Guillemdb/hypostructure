@@ -125,16 +125,17 @@ The construction of global solutions is replaced with the assembly of local cons
 
 ### 0.7 Summary
 
-This document presents a framework for analyzing the stability of dynamical systems—from fluid dynamics and quantum fields to neural networks and markets. By identifying four constraint classes (**Conservation, Topology, Duality, and Symmetry**), we derive a taxonomy of 15 failure modes. The framework organizes 83 theorems from across mathematics into a barrier catalog that characterizes when systems remain stable and when they break down.
+This document presents a framework for analyzing the stability of dynamical systems—from fluid dynamics and quantum fields to neural networks and markets. By identifying four constraint classes (**Conservation, Topology, Duality, and Symmetry**), we derive a taxonomy of 15 failure modes. The framework organizes 83 structural barriers from across mathematics into a catalog that characterizes when systems remain stable and when they break down.
 
-The framework's value is **explanatory and diagnostic**:
+The framework's value is **explanatory, diagnostic, and learnable**:
 
 1. **Failure mode classification:** A systematic checklist of how systems can break, organized by constraint class and failure type.
 2. **Unified language:** Common structural principles connecting theorems from different domains (Heisenberg uncertainty, Shannon limit, Bode integral, Nash-Moser).
 3. **Physics derivation:** Known physical laws (GR, QM, thermodynamics) as necessary conditions for avoiding structural failure.
 4. **Engineering applications:** Diagnostic tools for AI safety, control systems, and optimization.
+5. **Trainable axioms:** A complete meta-theory of learning hypostructures from data, with theorems on consistency, generalization, error localization, robustness, curriculum stability, and equivariance.
 
-The framework rests on a single organizing principle—the fixed-point equation $F(x) = x$—from which four fundamental constraint classes emerge as logical necessities.
+The framework rests on a single organizing principle—the fixed-point equation $F(x) = x$—from which four fundamental constraint classes emerge as logical necessities. Part VII develops trainable hypostructures where axioms become learnable parameters, establishing that defect minimization converges to axiom-consistent structures and that learned hypostructures inherit the symmetries and failure-mode predictions of true theories.
 
 **What this document does not claim:** Proofs of specific open mathematical problems (Navier-Stokes regularity, Yang-Mills mass gap, etc.) require independent verification that specific systems satisfy the hypostructure axioms. The framework provides the *language* and *structure* for such analyses, not the final word.
 
@@ -170,25 +171,31 @@ A **hypostructure** is a unified framework for analyzing dynamical systems—det
 
 ### 1.2 How to read this document
 
-This document is organized into seven parts:
+This document is organized into eleven parts:
 
 **Part I: Foundations (Chapters 0–1).** The organizing principle, constraint structure, and main thesis. Establishes the conceptual foundation: self-consistency under evolution, the four fundamental constraints, and the logic of soft local exclusion.
 
-**Part II: The Axioms (Chapters 2–3).** Formal definitions of the hypostructure axioms. Chapter 2 presents the core structural axioms (Compactness, Dissipation, Recovery, Capacity). Chapter 3 develops the auxiliary axioms (Local Stiffness, Scaling Structure, Topological Background, Gradient Consistency).
+**Part II: Mathematical Foundations (Chapters 2–3).** Formal definitions of the hypostructure axioms. Chapter 2 presents the mathematical preliminaries (state spaces, semiflows, functional calculus). Chapter 3 develops the complete axiom system: core axioms (C, D, R) and structural axioms (SC, Cap, LS, TB, GC, Reg).
 
-**Part III: Failure Modes (Chapter 4).** Complete classification of the fifteen ways self-consistency can break. Each mode is defined rigorously with diagnostic criteria, prototypical examples, and exclusion conditions.
+**Part III: The Failure Taxonomy (Chapter 4).** Complete classification of the fifteen ways self-consistency can break. Each mode is defined rigorously with diagnostic criteria, prototypical examples, and exclusion conditions. Organized by constraint class (Conservation, Topology, Duality, Symmetry, Boundary) and failure type (Excess, Deficiency, Complexity).
 
-**Part IV: Regularity Theory (Chapters 5–7).** The main theorems. Chapter 5 establishes the foundational lemmas (concentration-compactness, profile decomposition). Chapter 6 derives the core regularity results (Type II exclusion, capacity barriers, topological suppression). Chapter 7 presents the structural resolution theorem and canonical Lyapunov functionals.
+**Part IV: Core Metatheorems (Chapters 5–7).** The main theorems. Chapter 5 establishes normalization and gauge structure (Bubbling Decomposition, Profile Classification). Chapter 6 derives the resolution theorems (Type II Exclusion, Capacity Barriers, Topological Suppression, Canonical Lyapunov, Action Reconstruction). Chapter 7 presents the structural resolution of maximizers and compactness restoration.
 
-**Part V: Physical Instantiation (Chapter 8).** Candidate applications to concrete systems: Navier–Stokes equations, geometric flows (mean curvature, Ricci), Yang–Mills gradient flow, nonlinear Schrödinger equations, reaction-diffusion systems. These instantiations illustrate how the framework *would* apply if the axioms can be verified—rigorous verification remains an active research area for many systems.
+**Part V: The Eighty-Three Barriers (Chapters 8–11).** The complete barrier catalog organized by constraint class: Conservation barriers (Chapter 8), Topology barriers (Chapter 9), Duality barriers (Chapter 10), Symmetry barriers (Chapter 11), plus computational, quantum, and additional structural barriers (Chapters 11B–11D). Each barrier provides a quantitative obstruction excluding specific failure modes.
 
-**Part VI: Metatheorems (Chapter 9).** The eighty-three structural barriers organized by mathematical domain. Each metatheorem provides a quantitative obstruction that excludes specific failure modes.
+**Part VI: Concrete Instantiations (Chapter 12).** Candidate applications to physical and mathematical systems: Navier–Stokes equations, geometric flows (mean curvature, Ricci), Yang–Mills gradient flow, nonlinear Schrödinger equations, reaction-diffusion systems. These instantiations illustrate how the framework applies when axioms can be verified.
 
-**Part VII: Learning and Synthesis (Chapters 10–11).** Trainable hypostructures where axioms are learned parameters. Chapter 10 develops the optimization framework. Chapter 11 presents the AGI loss function for systems that instantiate and verify hypostructures.
+**Part VII: Trainable Hypostructures and Learning (Chapters 13–14).** The meta-theory of learning axioms. Chapter 13 develops trainable hypostructures with nine metatheorems: Consistency and Convergence (§13.6), Meta-Error Localization (§13.7), Block Factorization (§13.8), Meta-Generalization (§13.9), Expressivity (§13.10), Active Probing (§13.11), Robustness of Failure-Mode Predictions (§13.12), Curriculum Stability (§13.13), and Equivariance (§13.14). Chapter 14 presents the General Loss functional with structural identifiability theorems.
 
-**Appendices.** Chapter 15 develops the meta-axiomatics. Additional chapters cover the mathematical background, proof details, and open problems.
+**Part VIII: Synthesis (Chapter 15).** Meta-axiomatics and the unity of structure. Establishes that the hypostructure axioms form a minimal complete system: necessary and sufficient for structural coherence, with no redundancy.
 
-**How to approach the text.** Readers familiar with PDE regularity theory can begin with Part III (failure modes) and Part IV (regularity results), referring to Part II for axiom definitions as needed. Readers interested in foundations should read Parts I–II sequentially. Readers seeking applications can proceed directly to Part V after reviewing the axioms in Part II.
+**Part IX: The Isomorphism Dictionary (Chapter 16).** Structural correspondences across mathematical domains. Shows how the same barrier mechanisms manifest in different settings (PDE, probability, algebra, computation).
+
+**Part X: Foundational Metatheorems (Chapters 17–18).** Completeness, minimality, universality, and identifiability of hypostructures. Proves that the axiom system is the unique minimal system capturing structural coherence.
+
+**Part XI: Fractal Set Foundations (Chapters 19–20).** Advanced topics: fractal set representation of singular structures, emergent spacetime from hypostructure dynamics, and observer-dependent perspectives.
+
+**How to approach the text.** Readers familiar with PDE regularity theory can begin with Part III (failure modes) and Part IV (core metatheorems), referring to Part II for axiom definitions as needed. Readers interested in foundations should read Parts I–II sequentially. Readers seeking applications can proceed directly to Part VI after reviewing the axioms. Researchers in machine learning should focus on Part VII (trainable hypostructures) after understanding the axiom system in Parts II–III.
 
 ### 1.3 Main consequences
 
@@ -291,16 +298,29 @@ From the hypostructure axioms, we derive:
 - **Recursive Simulation Limit** — Information-theoretic bounds on self-modeling
 - **Epistemic Horizon** — Computational irreducibility in cellular automata
 
-**Trainable hypostructures (Chapter 10):**
+**Trainable hypostructures (Chapter 13):**
 
-- Axioms treated as learnable parameters optimized via defect minimization.
-- Parametric families of height functionals, dissipation structures, and symmetry groups.
-- Joint optimization over hypostructure components and extremal profiles.
+- Axioms treated as learnable parameters optimized via defect minimization
+- Parametric families of height functionals, dissipation structures, and symmetry groups
+- Joint optimization over hypostructure components and extremal profiles
 
-**AGI loss (Chapter 11):**
+*Nine metatheorems establishing the meta-theory of learning axioms:*
 
-- Training objective for systems that instantiate, verify, and optimize over hypostructures.
-- Four loss components: structural loss (energy/symmetry identification), axiom loss (soft axiom satisfaction), variational loss (extremal candidate quality), meta-loss (cross-system generalization).
+- **Theorem 13.20 (Trainable Hypostructure Consistency):** Gradient descent on joint axiom risk converges to axiom-consistent hypostructures
+- **Theorem 13.29 (Meta-Error Localization):** Block-restricted reoptimization identifies which axiom blocks are misspecified
+- **Theorem 13.37 (Meta-Generalization):** Training on system distributions generalizes with $O(\sqrt{\varepsilon + 1/\sqrt{N}})$ bounds
+- **Theorem 13.40 (Axiom-Expressivity):** Parametric families can approximate any admissible hypostructure with arbitrarily small defect
+- **Theorem 13.44 (Active Probing):** Sample complexity for hypostructure identification is $O(d\sigma^2/\Delta^2)$
+- **Theorem 13.50 (Robustness of Failure-Mode Predictions):** Discrete permit-denial judgments are stable under small axiom risk
+- **Theorem 13.54 (Curriculum Stability):** Warm-start training tracks the structural path without jumping to spurious ontologies
+- **Theorem 13.61 (Equivariance):** Learned hypostructures inherit all symmetries of the system distribution
+
+**General loss (Chapter 14):**
+
+- Training objective for systems that instantiate, verify, and optimize over hypostructures
+- Four loss components: structural loss (energy/symmetry identification), axiom loss (soft axiom satisfaction), variational loss (extremal candidate quality), meta-loss (cross-system generalization)
+- **Theorem 14.27 (Defect Reconstruction):** Defect signatures determine hypostructure components from axioms alone
+- **Theorem 14.30 (Meta-Identifiability):** Parameters are learnable under persistent excitation and nondegenerate parametrization
 
 ### 1.4 Scope of instantiation
 
@@ -7869,9 +7889,853 @@ converges to stationary points under standard conditions.
 - The extremal profiles $\vartheta$ are simultaneously tuned to probe and saturate the variational problems defined by these axioms.
 - The resulting pair $(\theta^*, \vartheta^*)$ consists of a globally adapted hypostructure and representative extremal trajectories within it.
 
+### 13.6 Trainable Hypostructure Consistency
+
+The preceding sections established that axiom defects can be minimized via gradient descent. This section proves the central metatheorem: under identifiability conditions, defect minimization provably recovers the true hypostructure and its structural predictions.
+
+**Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure $\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*})$ satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint axiom risk:
+$$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta), \quad \mathcal{R}_A(\theta) := \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u).$$
+
+**Theorem 13.20 (Trainable Hypostructure Consistency and Convergence).** Let $S$ be a dynamical system with a hypostructure representation $\mathcal{H}_{\Theta^*}$ inside a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$. Assume:
+
+1. **(Axiom validity at $\Theta^*$.)** The hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC). Consequently, $K_A^{(\Theta^*)}(u) = 0$ for $\mu$-a.e. trajectory $u \in \mathcal{U}$ and all $A \in \mathcal{A}$.
+
+2. **(Well-behaved defect functionals.)** The assumptions of Theorem 12.11 and Lemma 12.13 hold: $\Theta$ compact and metrizable, $\theta \mapsto K_A^{(\theta)}(u)$ continuous and differentiable with integrable majorants.
+
+3. **(Structural identifiability.)** The family satisfies the conditions of Theorem 14.30: persistent excitation (C1), nondegenerate parametrization (C2), and regular parameter space (C3).
+
+4. **(Defect reconstruction.)** The Defect Reconstruction Theorem (Theorem 14.27) holds: from $\{K_A^{(\theta)}\}_{A \in \mathcal{A}}$ on $\mathcal{U}$, one reconstructs $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \text{barriers}, M)$ up to Hypo-isomorphism.
+
+Consider gradient descent with step sizes $\eta_k > 0$ satisfying $\sum_k \eta_k = \infty$, $\sum_k \eta_k^2 < \infty$:
+$$\theta_{k+1} = \theta_k - \eta_k \nabla_\theta \mathcal{R}(\theta_k).$$
+
+Then:
+
+1. **(Correctness of global minimizer.)** $\Theta^*$ is a global minimizer of $\mathcal{R}$ with $\mathcal{R}(\Theta^*) = 0$. Conversely, any global minimizer $\hat{\theta}$ with $\mathcal{R}(\hat{\theta}) = 0$ satisfies $\mathcal{H}_{\hat{\theta}} \cong \mathcal{H}_{\Theta^*}$ (Hypo-isomorphic).
+
+2. **(Local quantitative identifiability.)** There exist $c, C, \varepsilon_0 > 0$ such that for $|\theta - \Theta^*| < \varepsilon_0$:
+$$c \, |\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C \, |\theta - \tilde{\Theta}|^2$$
+where $\tilde{\Theta}$ is a representative of $[\Theta^*]$. In particular: $\mathcal{R}(\theta) \leq \varepsilon \Rightarrow |\theta - \tilde{\Theta}| \leq \sqrt{\varepsilon/c}$.
+
+3. **(Convergence to true hypostructure.)** Every accumulation point of $(\theta_k)$ is stationary. Under the local strong convexity of (2), any sequence initialized sufficiently close to $[\Theta^*]$ converges to some $\tilde{\Theta} \in [\Theta^*]$.
+
+4. **(Barrier and failure-mode convergence.)** As $\theta_k \to \tilde{\Theta}$, barrier constants converge to those of $\mathcal{H}_{\Theta^*}$, and for all large $k$, $\mathcal{H}_{\theta_k}$ forbids exactly the same failure modes as $\mathcal{H}_{\Theta^*}$.
+
+*Proof.*
+
+**Step 1 ($\Theta^*$ is correct global minimizer).** By assumption (1), $K_A^{(\Theta^*)}(u) = 0$ for $\mu$-a.e. $u$ and all $A$. Thus $\mathcal{R}_A(\Theta^*) = 0$ for all $A$, hence $\mathcal{R}(\Theta^*) = 0$. Since $K_A^{(\theta)} \geq 0$, we have $\mathcal{R}(\theta) \geq 0$ for all $\theta$, so $\Theta^*$ achieves the global minimum.
+
+Conversely, if $\mathcal{R}(\hat{\theta}) = 0$, then $\mathcal{R}_A(\hat{\theta}) = 0$ for all $A$, so $K_A^{(\hat{\theta})}(u) = 0$ for $\mu$-a.e. $u$. By the Defect Reconstruction Theorem, both $\mathcal{H}_{\hat{\theta}}$ and $\mathcal{H}_{\Theta^*}$ reconstruct to the same structural data on the support of $\mu$. By structural identifiability (Theorem 14.30), $\mathcal{H}_{\hat{\theta}} \cong \mathcal{H}_{\Theta^*}$.
+
+**Step 2 (Local quadratic bounds).** By Defect Reconstruction and structural identifiability, the map $\theta \mapsto \mathsf{Sig}(\theta)$ is locally injective around $[\Theta^*]$ up to gauge. Since $\mathcal{R}(\Theta^*) = 0$ and $\nabla \mathcal{R}(\Theta^*) = 0$ (all defects vanish), Taylor expansion gives:
+$$\mathcal{R}(\theta) = \frac{1}{2}(\theta - \tilde{\Theta})^\top H (\theta - \tilde{\Theta}) + o(|\theta - \tilde{\Theta}|^2)$$
+where $H = \sum_A w_A H_A$ is the Hessian. Identifiability implies $H$ is positive definite on $\Theta_{\mathrm{adm}}/{\sim}$ (directions that leave all defects unchanged correspond to pure gauge). Thus for small $|\theta - \tilde{\Theta}|$:
+$$c \, |\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C \, |\theta - \tilde{\Theta}|^2.$$
+
+**Step 3 (Gradient descent convergence).** By Corollary 12.15, accumulation points are stationary. The local strong convexity from Step 2 implies: on $B(\tilde{\Theta}, \varepsilon_0)$, $\mathcal{R}$ is strongly convex (modulo gauge) with unique stationary point $\tilde{\Theta}$. Standard optimization theory for strongly convex functions with Robbins-Monro step sizes yields convergence of $(\theta_k)$ to $\tilde{\Theta}$ when initialized in this basin.
+
+**Step 4 (Barrier convergence).** Barrier constants and failure-mode classifications are continuous in the structural data $(\Phi, \mathfrak{D}, \alpha, \beta, \ldots)$ by Theorem 14.30. Since $\theta_k \to \tilde{\Theta}$, structural data converges, hence barriers converge and failure-mode predictions stabilize. $\square$
+
+**Key Insight (Axioms as learnable objects).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **axioms are learnable**. Defect minimization provably recovers the correct axiom data, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
+
 ---
 
-## 14. The Hypostructure AGI Loss
+**Remark 13.21 (What the metatheorem says).** In plain language:
+
+1. If a system admits a hypostructure satisfying the axioms for some $\Theta^*$,
+2. and the parametric family + data is rich enough to make that hypostructure identifiable,
+3. then defect minimization is a **consistent learning principle**:
+   - The global minimum corresponds exactly to $\Theta^*$ (mod gauge)
+   - Small risk means "almost recovered the true axioms"
+   - Gradient descent converges to the correct hypostructure
+   - All structural predictions (barriers, forbidden modes) converge
+
+**Corollary 13.22 (Verification via training).** A trained hypostructure with $\mathcal{R}(\theta_k) < \varepsilon$ provides:
+
+1. **Approximate axiom satisfaction:** Each axiom holds with defect at most $\varepsilon/w_A$
+2. **Approximate structural recovery:** Parameters within $\sqrt{\varepsilon/c}$ of truth
+3. **Correct qualitative predictions:** For $\varepsilon$ small enough, barrier signs and failure-mode classifications match the true system
+
+This connects the trainable framework to the diagnostic and verification goals of the hypostructure program.
+
+### 13.7 Meta-Error Localization
+
+The previous section established that defect minimization recovers the true hypostructure. This section addresses a finer question: when training yields nonzero residual risk, **which axiom block is misspecified?** We prove that the pattern of residual risks under blockwise retraining uniquely identifies the error location.
+
+#### Parameter block structure
+
+**Definition 13.23 (Block decomposition).** Decompose the parameter space into axiom-aligned blocks:
+$$\theta = (\theta^{\mathrm{dyn}}, \theta^{\mathrm{cap}}, \theta^{\mathrm{sc}}, \theta^{\mathrm{top}}, \theta^{\mathrm{ls}}) \in \Theta_{\mathrm{adm}}$$
+where:
+- $\theta^{\mathrm{dyn}}$: semiflow/dynamics parameters (C, D axioms)
+- $\theta^{\mathrm{cap}}$: capacity and barrier constants (Cap, TB axioms)
+- $\theta^{\mathrm{sc}}$: scaling exponents and structure (SC axiom)
+- $\theta^{\mathrm{top}}$: topological sector data (TB, topological aspects of Cap)
+- $\theta^{\mathrm{ls}}$: Łojasiewicz exponents and symmetry-breaking data (LS axiom)
+
+Let $\mathcal{B} := \{\mathrm{dyn}, \mathrm{cap}, \mathrm{sc}, \mathrm{top}, \mathrm{ls}\}$ denote the set of block labels.
+
+**Definition 13.24 (Block-restricted reoptimization).** For block $b \in \mathcal{B}$ and current parameter $\theta$, define:
+
+1. **Feasible set:** $\Theta^b(\theta) := \{\tilde{\theta} \in \Theta_{\mathrm{adm}} : \tilde{\theta}^c = \theta^c \text{ for all } c \neq b\}$
+2. **Block-restricted minimal risk:** $\mathcal{R}_b^*(\theta) := \inf_{\tilde{\theta} \in \Theta^b(\theta)} \mathcal{R}(\tilde{\theta})$
+
+This represents "retrain only block $b$" while freezing all other blocks.
+
+**Definition 13.25 (Response signature).** The **response signature** at $\theta$ is:
+$$\rho(\theta) := \big(\mathcal{R}_b^*(\theta)\big)_{b \in \mathcal{B}} \in \mathbb{R}_{\geq 0}^{|\mathcal{B}|}$$
+
+**Definition 13.26 (Error support).** Given true parameter $\Theta^* = (\Theta^{*,b})_{b \in \mathcal{B}}$ and current parameter $\theta$, the **error support** is:
+$$E(\theta) := \{b \in \mathcal{B} : \theta^b \not\sim \Theta^{*,b}\}$$
+where $\sim$ denotes gauge equivalence within Hypo-isomorphism classes.
+
+#### Localization assumptions
+
+**Definition 13.27 (Block-orthogonality conditions).** The parametric family satisfies **block-orthogonality** if in a neighborhood $\mathcal{N}$ of $[\Theta^*]$:
+
+1. **(Smooth risk.)** $\mathcal{R}$ is $C^2$ on $\mathcal{N}$ with Hessian $H := \nabla^2 \mathcal{R}(\Theta^*)$ positive definite modulo gauge.
+
+2. **(Block-diagonal Hessian.)** $H$ decomposes as:
+$$H = \bigoplus_{b \in \mathcal{B}} H_b$$
+where each $H_b$ is positive definite on its block. Cross-Hessian blocks $H_{bc} = 0$ for $b \neq c$ (modulo gauge).
+
+3. **(Quadratic approximation.)** There exists $\delta > 0$ such that for $|\theta - \Theta^*| < \delta$:
+$$\mathcal{R}(\theta) = \frac{1}{2}(\theta - \Theta^*)^\top H (\theta - \Theta^*) + O(|\theta - \Theta^*|^3)$$
+
+**Remark 13.28 (Interpretation of block-orthogonality).** Condition (2) means: perturbations in different axiom blocks contribute additively and independently to the risk at second order. No combination of "wrong capacity" and "wrong scaling" can cancel in the expected defect. This holds when the parametrization is factorized by axiom family without hidden re-encodings.
+
+#### The localization theorem
+
+**Theorem 13.29 (Meta-Error Localization).** Assume the block-orthogonality conditions (Definition 13.27). There exist $\mathcal{N}$, $c$, $C$, $\varepsilon_0 > 0$ such that for $\theta \in \mathcal{N}$ with $|\theta - \Theta^*| < \varepsilon_0$:
+
+1. **(Single-block error.)** If $E(\theta) = \{b^*\}$ (exactly one misspecified block), then:
+   - For block $b^*$: $\mathcal{R}_{b^*}^*(\theta) \leq C |\theta - \Theta^*|^3$
+   - For $b \neq b^*$: $\mathcal{R}_b^*(\theta) \geq c |\theta - \Theta^*|^2$
+
+   The uniquely smallest $\mathcal{R}_b^*(\theta)$ identifies the misspecified block.
+
+2. **(Multiple-block error.)** For arbitrary nonempty $E(\theta) \subseteq \mathcal{B}$:
+   - If $b \notin E(\theta)$: $\mathcal{R}_b^*(\theta) \geq c \sum_{c \in E(\theta)} |\theta^c - \Theta^{*,c}|^2$
+   - If $b \in E(\theta)$: $\mathcal{R}_b^*(\theta) \approx \frac{1}{2} \sum_{c \in E(\theta) \setminus \{b\}} (\theta^c - \Theta^{*,c})^\top H_c (\theta^c - \Theta^{*,c})$
+
+3. **(Signature injectivity.)** There exists $\gamma > 0$ such that:
+$$b \in E(\theta) \iff \mathcal{R}_b^*(\theta) \leq \gamma \cdot \min_{c \notin E(\theta)} \mathcal{R}_c^*(\theta)$$
+
+The map $E \mapsto \rho(\theta)$ is injective and stable: the response signature uniquely encodes the error support.
+
+*Proof.*
+
+Let $\delta\theta := \theta - \Theta^*$ with block decomposition $\delta\theta = (\delta\theta^b)_{b \in \mathcal{B}}$.
+
+**Step 1 (Quadratic structure).** By assumption, $\mathcal{R}(\theta) = \frac{1}{2}\delta\theta^\top H \delta\theta + O(|\delta\theta|^3)$. Block-diagonality gives:
+$$\delta\theta^\top H \delta\theta = \sum_{b \in \mathcal{B}} (\delta\theta^b)^\top H_b \delta\theta^b.$$
+Since each $H_b$ is positive definite, there exist $m_b, M_b > 0$ with:
+$$m_b |\delta\theta^b|^2 \leq (\delta\theta^b)^\top H_b \delta\theta^b \leq M_b |\delta\theta^b|^2.$$
+
+**Step 2 (Block-restricted optimization).** For block $b$, the restricted optimization varies only $\delta\theta^b$ while fixing $\delta\theta^c$ for $c \neq b$. The quadratic approximation:
+$$Q(\delta\theta) = \frac{1}{2} \sum_{c \in \mathcal{B}} (\delta\theta^c)^\top H_c \delta\theta^c$$
+splits by block. The minimum over $\delta\theta^b$ is achieved at $\delta\theta^b = 0$, giving:
+$$Q_b^*(\delta\theta) := \inf_{\tilde{\delta\theta}^b} Q = \frac{1}{2} \sum_{c \neq b} (\delta\theta^c)^\top H_c \delta\theta^c.$$
+The true minimal risk satisfies $|\mathcal{R}_b^*(\theta) - Q_b^*(\delta\theta)| \leq C_1 |\delta\theta|^3$.
+
+**Step 3 (Single-block case).** If $E(\theta) = \{b^*\}$, then $\delta\theta^c = 0$ for $c \neq b^*$.
+
+For $b = b^*$: $Q_{b^*}^* = \frac{1}{2}\sum_{c \neq b^*} (\delta\theta^c)^\top H_c \delta\theta^c = 0$, so $\mathcal{R}_{b^*}^* \leq C|\delta\theta|^3$.
+
+For $b \neq b^*$: $Q_b^* \geq \frac{1}{2} m_{b^*} |\delta\theta^{b^*}|^2 \geq c|\delta\theta|^2$, so $\mathcal{R}_b^* \geq c|\delta\theta|^2 - C_1|\delta\theta|^3 \geq \frac{c}{2}|\delta\theta|^2$ for small $|\delta\theta|$.
+
+**Step 4 (Multiple-block case).** For general $E(\theta)$:
+
+If $b \notin E(\theta)$: The sum $Q_b^* = \frac{1}{2}\sum_{c \neq b} (\delta\theta^c)^\top H_c \delta\theta^c$ includes all error blocks $c \in E(\theta)$, giving the lower bound.
+
+If $b \in E(\theta)$: The sum excludes block $b$, so $Q_b^* = \frac{1}{2}\sum_{c \in E(\theta) \setminus \{b\}} (\delta\theta^c)^\top H_c \delta\theta^c$.
+
+**Step 5 (Signature discrimination).** Blocks in $E(\theta)$ have systematically smaller $\mathcal{R}_b^*$ than blocks not in $E(\theta)$, by a multiplicative margin depending on the spectra of $H_c$. Taking $\gamma$ as the ratio of spectral bounds yields the equivalence. $\square$
+
+---
+
+**Key Insight (Built-in debugger).** A trainable hypostructure comes with principled error diagnosis:
+
+1. Train the full model to reduce $\mathcal{R}(\theta)$
+2. If residual risk remains, compute $\mathcal{R}_b^*$ for each block by retraining only that block
+3. The pattern $\rho(\theta) = (\mathcal{R}_b^*)_b$ provably identifies which axiom blocks are wrong
+
+**Corollary 13.30 (Diagnostic protocol).** Given trained parameters $\theta$ with $\mathcal{R}(\theta) > 0$:
+
+1. **Compute response signature:** For each $b \in \mathcal{B}$, solve $\mathcal{R}_b^*(\theta) = \min_{\tilde{\theta}^b} \mathcal{R}(\theta^{-b}, \tilde{\theta}^b)$
+2. **Identify error support:** $\hat{E} = \{b : \mathcal{R}_b^*(\theta) \text{ is anomalously small}\}$
+3. **Interpret:** The blocks in $\hat{E}$ are misspecified; blocks not in $\hat{E}$ are correct
+
+**Remark 13.31 (Error types and remediation).** The error support $E(\theta)$ indicates:
+
+| Error Support | Interpretation | Remediation |
+|--------------|----------------|-------------|
+| $\{\mathrm{dyn}\}$ | Dynamics model wrong | Revise semiflow ansatz |
+| $\{\mathrm{cap}\}$ | Capacity/barriers wrong | Adjust geometric estimates |
+| $\{\mathrm{sc}\}$ | Scaling exponents wrong | Recompute dimensional analysis |
+| $\{\mathrm{top}\}$ | Topological sectors wrong | Check sector decomposition |
+| $\{\mathrm{ls}\}$ | Łojasiewicz data wrong | Verify equilibrium structure |
+| Multiple | Combined misspecification | Address each block |
+
+This connects the trainable framework to systematic model debugging and refinement.
+
+### 13.8 Block Factorization Axiom
+
+The Meta-Error Localization Theorem (Theorem 13.29) assumes that when we restrict reoptimization to a single parameter block $\theta^b$, the result meaningfully tests whether that block is correct. This requires that the axiom defects factorize cleanly across parameter blocks—a structural condition we now formalize.
+
+**Definition 13.32 (Axiom-Support Set).** For each axiom $A \in \mathcal{A}$, define its **axiom-support set** $\mathrm{Supp}(A) \subseteq \mathcal{B}$ as the minimal collection of blocks such that:
+$$K_A^{(\theta)}(u) = K_A^{(\theta|_{\mathrm{Supp}(A)})}(u)$$
+for all trajectories $u$ and all parameters $\theta$. That is, $\mathrm{Supp}(A)$ contains exactly the blocks that the defect functional $K_A$ actually depends on.
+
+**Definition 13.33 (Semantic Block via Axiom Support).** A partition $\mathcal{B}$ of the parameter space $\theta = (\theta^b)_{b \in \mathcal{B}}$ is **semantically aligned** if each block $b$ corresponds to a coherent set of axiom dependencies:
+$$b \in \mathrm{Supp}(A) \implies \text{all parameters in } \theta^b \text{ influence } K_A$$
+
+**Block Factorization Axiom (BFA).** We say the hypostructure training problem satisfies the **Block Factorization Axiom** if:
+
+**(BFA-1) Sparse support:** Each axiom depends on few blocks:
+$$|\mathrm{Supp}(A)| \leq k \quad \text{for all } A \in \mathcal{A}$$
+for some constant $k \ll |\mathcal{B}|$.
+
+**(BFA-2) Block coverage:** Each block is responsible for at least one axiom:
+$$\forall b \in \mathcal{B}, \exists A \in \mathcal{A}: b \in \mathrm{Supp}(A)$$
+
+**(BFA-3) Separability:** The joint risk decomposes additively across axiom families:
+$$\mathcal{R}(\theta) = \sum_{A \in \mathcal{A}} w_A \mathcal{R}_A(\theta)$$
+where each $\mathcal{R}_A$ depends only on blocks in $\mathrm{Supp}(A)$.
+
+**(BFA-4) Independence of irrelevant alternatives:** For blocks $b \notin \mathrm{Supp}(A)$:
+$$\frac{\partial \mathcal{R}_A}{\partial \theta^b} = 0$$
+That is, blocks outside an axiom's support have zero gradient contribution to that axiom's risk.
+
+**Remark 13.34 (Interpretation).** BFA formalizes the intuition that:
+
+- **Dynamics parameters** ($\theta^{\mathrm{dyn}}$) govern D, R, C—the core semiflow structure
+- **Capacity parameters** ($\theta^{\mathrm{cap}}$) govern Cap, TB—geometric barriers
+- **Scaling parameters** ($\theta^{\mathrm{sc}}$) govern SC—dimensional analysis
+- **Topological parameters** ($\theta^{\mathrm{top}}$) govern GC—sector structure
+- **Łojasiewicz parameters** ($\theta^{\mathrm{ls}}$) govern LS—equilibrium geometry
+
+When BFA holds, testing whether $\theta^{\mathrm{cap}}$ is correct (by computing $\mathcal{R}_{\mathrm{cap}}^*$) cannot be confounded by errors in $\theta^{\mathrm{sc}}$, because capacity axioms don't depend on scaling parameters.
+
+**Lemma 13.35 (Stability of Block Factorization under Composition).** Let $(\mathcal{A}_1, \mathcal{B}_1)$ and $(\mathcal{A}_2, \mathcal{B}_2)$ be two axiom-block systems satisfying BFA with constants $k_1$ and $k_2$. If the systems have disjoint parameter spaces, then the combined system $(\mathcal{A}_1 \cup \mathcal{A}_2, \mathcal{B}_1 \cup \mathcal{B}_2)$ satisfies BFA with constant $\max(k_1, k_2)$.
+
+*Proof.* We verify each clause:
+
+**Step 1 (BFA-1).** For $A \in \mathcal{A}_1$, $\mathrm{Supp}(A) \subseteq \mathcal{B}_1$ with $|\mathrm{Supp}(A)| \leq k_1$. Similarly for $\mathcal{A}_2$. Thus all axioms satisfy sparse support with constant $\max(k_1, k_2)$.
+
+**Step 2 (BFA-2).** Each block in $\mathcal{B}_1$ is covered by some axiom in $\mathcal{A}_1$ (by BFA-2 for system 1). Similarly for $\mathcal{B}_2$. Union preserves coverage.
+
+**Step 3 (BFA-3).** Since parameter spaces are disjoint, $\mathcal{R}_A(\theta_1, \theta_2) = \mathcal{R}_A(\theta_1)$ for $A \in \mathcal{A}_1$. Additive decomposition extends to the union.
+
+**Step 4 (BFA-4).** For $A \in \mathcal{A}_1$ and $b \in \mathcal{B}_2$, the gradient $\partial \mathcal{R}_A / \partial \theta^b = 0$ because $\mathcal{R}_A$ doesn't depend on $\mathcal{B}_2$ parameters. Combined with original BFA-4 within each system, independence holds globally. $\square$
+
+**Remark 13.36 (Role in Meta-Error Localization).** The Meta-Error Localization Theorem (Theorem 13.29) requires BFA implicitly:
+
+- **Response signature well-defined:** $\mathcal{R}_b^*(\theta)$ tests block $b$ in isolation only if BFA-4 ensures other-block gradients don't interfere
+- **Error support meaningful:** The set $E(\theta) = \{b : \mathcal{R}_b^*(\theta) < \mathcal{R}(\theta)\}$ identifies the *actual* error blocks only if BFA-1 ensures axiom-block correspondences are sparse
+- **Diagnostic protocol valid:** Corollary 13.30's remediation table assumes the semantic alignment of Definition 13.33
+
+When BFA fails—for example, if capacity and scaling parameters are entangled—then $\mathcal{R}_{\mathrm{cap}}^*$ might decrease even when capacity is correct (because reoptimizing $\theta^{\mathrm{cap}}$ partially compensates for $\theta^{\mathrm{sc}}$ errors). This would produce false positives in error localization.
+
+> **Key Insight:** The Block Factorization Axiom is a *design constraint* on hypostructure parametrizations, not a theorem about dynamics. When constructing trainable hypostructures, one should choose parameter blocks that satisfy BFA—ensuring the Meta-Error Localization machinery works as intended.
+
+### 13.9 Meta-Generalization Across Systems
+
+In §13.6 we considered a single system $S$ and a parametric family of hypostructures $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$ with axiom-defect risk $\mathcal{R}_S(\Theta)$. We now move to a *distribution of systems* and show that defect-minimizing hypostructure parameters learned on a training distribution $\mathcal{S}_{\mathrm{train}}$ generalize to new systems drawn from the same structural class.
+
+We write $\mathcal{S}$ for a probability measure on a class of systems, and for each $S$ in the support of $\mathcal{S}$, we assume a hypostructure family $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$ and axiom-risk functionals $\mathcal{R}_S(\Theta)$ as in §13.
+
+#### Setting
+
+- Let $\mathcal{S}$ be a distribution over systems $S$ (e.g. PDEs, ODEs, control systems, RL environments) each admitting a hypostructure representation in the same parametric family $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$.
+
+- For each system $S$, the joint axiom-risk $\mathcal{R}_S(\Theta)$ is defined via the defect functionals:
+$$\mathcal{R}_S(\Theta) := \sum_{A \in \mathcal{A}} w_A \mathcal{R}_{A,S}(\Theta), \qquad \mathcal{R}_{A,S}(\Theta) := \int_{\mathcal{U}_S} K_{A,S}^{(\Theta)}(u) \, d\mu_S(u),$$
+where $\mathcal{U}_S$ is the trajectory class for $S$, $\mu_S$ a trajectory distribution, and $K_{A,S}^{(\Theta)}$ are the axiom defects (as in Part VII).
+
+- The **average axiom risk** over a distribution $\mathcal{S}$ is:
+$$\mathcal{R}_{\mathcal{S}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(\Theta)].$$
+
+- We consider two distributions $\mathcal{S}_{\mathrm{train}}$ and $\mathcal{S}_{\mathrm{test}}$. For simplicity we first treat the $\mathcal{S}_{\mathrm{train}} = \mathcal{S}_{\mathrm{test}}$ case, then note the extension to covariant shifts.
+
+#### Structural manifold of true hypostructures
+
+We assume that for each system $S$ in the support of $\mathcal{S}$, there exists a "true" parameter $\Theta^*(S) \in \Theta_{\mathrm{adm}}$ such that:
+
+- $\mathcal{H}_{\Theta^*(S),S}$ satisfies the hypostructure axioms (C, D, SC, Cap, LS, TB, Reg, GC) for that system;
+
+- all axiom defects vanish for the true parameter:
+$$\mathcal{R}_S(\Theta^*(S)) = 0, \qquad K_{A,S}^{(\Theta^*(S))}(u) = 0 \quad \mu_S\text{-a.e. for all } A \in \mathcal{A};$$
+
+- $\Theta^*(S)$ is uniquely determined up to Hypo-isomorphism by the structural data $(\Phi_{\Theta^*(S),S}, \mathfrak{D}_{\Theta^*(S),S}, \ldots)$ (structural identifiability, as in Theorem 14.30).
+
+We further assume that the map $S \mapsto \Theta^*(S)$ takes values in a compact $C^1$ submanifold $\mathcal{M} \subset \Theta_{\mathrm{adm}}$, which we call the **structural manifold**. Intuitively, $\mathcal{M}$ collects all true hypostructure parameters realized by systems in the support of $\mathcal{S}$.
+
+**Theorem 13.37 (Meta-Generalization Across Systems).** Let $\mathcal{S}$ be a distribution over systems $S$, and suppose that:
+
+1. **True hypostructures on a compact structural manifold.** For $\mathcal{S}$-a.e. $S$, there exists $\Theta^*(S) \in \Theta_{\mathrm{adm}}$ such that:
+   - $\mathcal{R}_S(\Theta^*(S)) = 0$;
+   - $\mathcal{H}_{\Theta^*(S),S}$ satisfies the hypostructure axioms (C, D, SC, Cap, LS, TB, Reg, GC);
+   - $\Theta^*(S)$ is structurally identifiable up to Hypo-isomorphism.
+
+   The image $\mathcal{M} := \{\Theta^*(S) : S \in \mathrm{supp}(\mathcal{S})\}$ is contained in a compact $C^1$ submanifold of $\Theta_{\mathrm{adm}}$.
+
+2. **Uniform local strong convexity near the structural manifold.** There exist constants $c, C, \rho > 0$ such that for all $S$ and all $\Theta$ with $\mathrm{dist}(\Theta, \mathcal{M}) \leq \rho$:
+$$c \, \mathrm{dist}(\Theta, \mathcal{M})^2 \leq \mathcal{R}_S(\Theta) \leq C \, \mathrm{dist}(\Theta, \mathcal{M})^2.$$
+(Here $\mathrm{dist}$ is taken modulo gauge; this is the multi-task version of the local quadratic bounds from Theorem 13.20 for a single system.)
+
+3. **Lipschitz continuity of risk in $\Theta$ and $S$.** There exists $L > 0$ such that for all $S, S'$ and $\Theta, \Theta'$ in a neighborhood of $\mathcal{M}$:
+$$|\mathcal{R}_S(\Theta) - \mathcal{R}_{S'}(\Theta')| \leq L \big( d_{\mathcal{S}}(S, S') + |\Theta - \Theta'| \big),$$
+where $d_{\mathcal{S}}$ is a metric on the space of systems compatible with $\mathcal{S}$.
+
+4. **Approximate empirical minimization on training systems.** Let $S_1, \ldots, S_N$ be i.i.d. samples from $\mathcal{S}$. Define the empirical average risk:
+$$\widehat{\mathcal{R}}_N(\Theta) := \frac{1}{N} \sum_{i=1}^N \mathcal{R}_{S_i}(\Theta).$$
+Suppose $\widehat{\Theta}_N \in \Theta_{\mathrm{adm}}$ satisfies:
+$$\widehat{\mathcal{R}}_N(\widehat{\Theta}_N) \leq \inf_{\Theta} \widehat{\mathcal{R}}_N(\Theta) + \varepsilon_N,$$
+for some optimization accuracy $\varepsilon_N \geq 0$.
+
+Then, with probability at least $1 - \delta$ over the draw of the $S_i$, the following hold for $N$ large enough:
+
+1. **(Average generalization of axiom risk.)** There exists a constant $C_1$, depending only on the structural manifold and the Lipschitz/convexity constants in (2)–(3), such that:
+$$\mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(\widehat{\Theta}_N)] \leq C_1 \left( \varepsilon_N + \sqrt{\frac{\log(1/\delta)}{N}} \right).$$
+
+2. **(Average closeness to true hypostructures.)** There exists a constant $C_2 > 0$ such that:
+$$\mathbb{E}_{S \sim \mathcal{S}} \big[ \mathrm{dist}(\widehat{\Theta}_N, \Theta^*(S)) \big] \leq C_2 \sqrt{ \varepsilon_N + \sqrt{\tfrac{\log(1/\delta)}{N}} }.$$
+
+3. **(Convergence as $N \to \infty$.)** In particular, if $\varepsilon_N \to 0$ as $N \to \infty$, then:
+$$\lim_{N \to \infty} \mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N) = 0, \qquad \lim_{N \to \infty} \mathbb{E}_{S \sim \mathcal{S}} \big[ \mathrm{dist}(\widehat{\Theta}_N, \Theta^*(S)) \big] = 0,$$
+i.e. the learned parameter $\widehat{\Theta}_N$ yields hypostructures that are asymptotically axiom-consistent and structurally correct on average across systems drawn from $\mathcal{S}$.
+
+*Proof.* By assumption (1), zero-risk parameters for each system lie on the manifold $\mathcal{M}$. For any $\Theta$ close to $\mathcal{M}$, the uniform quadratic bound (2) implies:
+$$c \, \mathrm{dist}(\Theta, \mathcal{M})^2 \leq \mathcal{R}_S(\Theta) \leq C \, \mathrm{dist}(\Theta, \mathcal{M})^2 \quad \text{for all } S.$$
+
+Taking expectations over $S \sim \mathcal{S}$ gives:
+$$c \, \mathrm{dist}(\Theta, \mathcal{M})^2 \leq \mathcal{R}_{\mathcal{S}}(\Theta) \leq C \, \mathrm{dist}(\Theta, \mathcal{M})^2.$$
+
+Thus small average risk and small average distance to $\mathcal{M}$ are equivalent up to constants.
+
+Next, $\mathcal{R}_S(\Theta)$ is bounded and Lipschitz in $\Theta$ and $S$ by (3), so standard uniform convergence arguments (e.g. covering number or Rademacher complexity bounds on the function class $\{\mathcal{R}_S(\cdot) : S \in \mathrm{supp}(\mathcal{S})\}$) imply that, with probability at least $1 - \delta$:
+$$\sup_{\Theta \in \Theta_{\mathrm{adm}}} \left| \widehat{\mathcal{R}}_N(\Theta) - \mathcal{R}_{\mathcal{S}}(\Theta) \right| \leq C_3 \sqrt{\frac{\log(1/\delta)}{N}},$$
+for some constant $C_3$ depending on the Lipschitz constants and the metric entropy of $\Theta_{\mathrm{adm}}$.
+
+By the approximate minimization condition:
+$$\widehat{\mathcal{R}}_N(\widehat{\Theta}_N) \leq \widehat{\mathcal{R}}_N(\Theta_{\mathcal{M}}^*) + \varepsilon_N,$$
+where $\Theta_{\mathcal{M}}^* \in \mathcal{M}$ is any selector (e.g. minimizing $\mathcal{R}_{\mathcal{S}}$ over $\mathcal{M}$, which is zero by (1)). Using uniform convergence, we get:
+$$\mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N) \leq \widehat{\mathcal{R}}_N(\widehat{\Theta}_N) + C_3 \sqrt{\tfrac{\log(1/\delta)}{N}} \leq \widehat{\mathcal{R}}_N(\Theta_{\mathcal{M}}^*) + \varepsilon_N + C_3 \sqrt{\tfrac{\log(1/\delta)}{N}} \leq \mathcal{R}_{\mathcal{S}}(\Theta_{\mathcal{M}}^*) + 2C_3 \sqrt{\tfrac{\log(1/\delta)}{N}} + \varepsilon_N.$$
+
+But $\mathcal{R}_{\mathcal{S}}(\Theta_{\mathcal{M}}^*) = 0$ by construction, so:
+$$\mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N) \leq \varepsilon_N + 2C_3 \sqrt{\tfrac{\log(1/\delta)}{N}}.$$
+This gives (1), up to renaming constants.
+
+Applying the lower bound in (2) to $\Theta = \widehat{\Theta}_N$:
+$$c \, \mathrm{dist}(\widehat{\Theta}_N, \mathcal{M})^2 \leq \mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N),$$
+and combining with the upper bound just obtained yields:
+$$\mathrm{dist}(\widehat{\Theta}_N, \mathcal{M}) \leq C_4 \sqrt{ \varepsilon_N + \sqrt{\tfrac{\log(1/\delta)}{N}} },$$
+for some constant $C_4$. Since for each $S$ the minimizer set $\{\Theta^*(S)\} \subset \mathcal{M}$, the distance to $\Theta^*(S)$ is bounded by the distance to $\mathcal{M}$, giving (2).
+
+The convergence statements in (3) follow immediately when $\varepsilon_N \to 0$ and $N \to \infty$. $\square$
+
+**Remark 13.38 (Interpretation).** The theorem shows that **average defect minimization over a distribution of systems** is a consistent procedure: if each system admits a hypostructure in the parametric family and the structural manifold is well-behaved, then a trainable hypostructure that approximately minimizes empirical axiom risk on finitely many training systems will, with high probability, yield **globally good** hypostructures for new systems drawn from the same structural class.
+
+**Remark 13.39 (Covariate shift).** Extensions to a **covariately shifted test distribution** $\mathcal{S}_{\mathrm{test}}$ (e.g. different but structurally equivalent systems) follow by the same argument, provided the map $S \mapsto \Theta^*(S)$ is Lipschitz between the supports of $\mathcal{S}_{\mathrm{train}}$ and $\mathcal{S}_{\mathrm{test}}$.
+
+> **Key Insight:** This gives Part VII a rigorous "meta-generalization" layer: trainable hypostructures do not just fit one system, but converge (in risk and in parameter space) to the correct structural manifold across a whole family of systems.
+
+### 13.10 Expressivity of Trainable Hypostructures
+
+Up to now we have assumed that the "true" hypostructure for a given system $S$ lives *inside* our parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$. In practice, this is an idealization: the true structure might lie outside our chosen parametrization, but we still expect to approximate it arbitrarily well.
+
+In this section we formalize this as an **expressivity / approximation** property: the parametric hypostructure family is rich enough that any admissible hypostructure satisfying the axioms can be approximated (in structural data) to arbitrary accuracy, and the **axiom-defect risk** then goes to zero.
+
+#### Structural metric on hypostructures
+
+Fix a system $S$ with state space $X$ and semiflow $S_t$. Let $\mathfrak{H}(S)$ denote the class of hypostructures on $S$ of the form:
+$$\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G)$$
+satisfying the axioms (C, D, SC, Cap, LS, TB, Reg, GC) and a uniform regularity condition (e.g. Lipschitz bounds on $\Phi, \mathfrak{D}$ and bounded barrier constants).
+
+We define a **structural metric**:
+$$d_{\mathrm{struct}} : \mathfrak{H}(S) \times \mathfrak{H}(S) \to [0, \infty)$$
+by choosing a reference measure $\nu$ on $X$ (e.g. invariant or finite-energy measure) and setting:
+$$d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}') := \|\Phi - \Phi'\|_{L^\infty(X, \nu)} + \|\mathfrak{D} - \mathfrak{D}'\|_{L^\infty(X, \nu)} + \mathrm{dist}_G(G, G'),$$
+where $\mathrm{dist}_G$ is any metric on the structural data $G$ (capacities, sectors, barrier constants, exponents) compatible with the topology used in Parts VI–X. Two hypostructures that differ only by a Hypo-isomorphism are identified in this metric (i.e. we work modulo gauge).
+
+#### Universal structural approximation
+
+Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures on $S$:
+$$\mathcal{H}_\Theta = (X, S_t, \Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta).$$
+
+We say this family is **universally structurally approximating** on $\mathfrak{H}(S)$ if:
+
+> For every $\mathcal{H}^* = (X, S_t, \Phi^*, \mathfrak{D}^*, G^*) \in \mathfrak{H}(S)$ and every $\delta > 0$, there exists $\Theta \in \Theta_{\mathrm{adm}}$ such that:
+> $$d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) < \delta.$$
+
+Intuitively, $\{\mathcal{H}_\Theta\}$ can approximate any admissible hypostructure arbitrarily well in energy, dissipation, and barrier data.
+
+#### Continuity of defects with respect to structure
+
+Recall that for each axiom $A \in \mathcal{A}$ and trajectory $u \in \mathcal{U}_S$, the defect functional $K_A^{(\Theta)}(u)$ is defined in terms of $(\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta)$ and the axioms (C, D, SC, Cap, LS, TB). Denote by $K_A^{(\mathcal{H})}(u)$ the corresponding defect when computed from a general hypostructure $\mathcal{H} \in \mathfrak{H}(S)$.
+
+We assume:
+
+> **Defect continuity.** There exists a constant $L_A > 0$ such that for all hypostructures $\mathcal{H}, \mathcal{H}' \in \mathfrak{H}(S)$, all trajectories $u \in \mathcal{U}_S$, and all $A \in \mathcal{A}$:
+> $$\big| K_A^{(\mathcal{H})}(u) - K_A^{(\mathcal{H}')}(u) \big| \leq L_A \, d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}').$$
+>
+> Equivalently, the mapping $\mathcal{H} \mapsto K_A^{(\mathcal{H})}(u)$ is Lipschitz with respect to the structural metric, uniformly over $u$ in the support of the trajectory measure $\mu_S$.
+
+This is a natural assumption given the explicit integral definitions of the defects (e.g. $K_D$ is an integral of the positive part of $\partial_t \Phi + \mathfrak{D}$, capacities/barriers enter via continuous inequalities, etc.).
+
+**Theorem 13.40 (Axiom-Expressivity of Trainable Hypostructures).** Let $S$ be a fixed system with trajectory distribution $\mu_S$ and trajectory class $\mathcal{U}_S$. Let $\mathfrak{H}(S)$ be the class of admissible hypostructures on $S$ as above. Suppose:
+
+1. **(True admissible hypostructure.)** There exists a "true" hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$ which exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) for $S$. Thus, for $\mu_S$-a.e. trajectory $u$:
+$$K_A^{(\mathcal{H}^*)}(u) = 0 \quad \forall A \in \mathcal{A}.$$
+
+2. **(Universally structurally approximating family.)** The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ is universally structurally approximating on $\mathfrak{H}(S)$ in the sense above.
+
+3. **(Defect continuity.)** Each defect functional $K_A^{(\mathcal{H})}(u)$ is Lipschitz in $\mathcal{H}$ with respect to $d_{\mathrm{struct}}$, uniformly in $u$ (defect continuity).
+
+Define the joint axiom risk of parameter $\Theta$ on system $S$ by:
+$$\mathcal{R}_S(\Theta) := \sum_{A \in \mathcal{A}} w_A \int_{\mathcal{U}_S} K_A^{(\Theta)}(u) \, d\mu_S(u),$$
+where $K_A^{(\Theta)} := K_A^{(\mathcal{H}_\Theta)}$ and $w_A \geq 0$ are fixed weights.
+
+Then:
+
+1. **(Approximate realizability of zero-risk.)** For every $\varepsilon > 0$ there exists $\Theta_\varepsilon \in \Theta_{\mathrm{adm}}$ such that:
+$$\mathcal{R}_S(\Theta_\varepsilon) \leq \varepsilon.$$
+In particular:
+$$\inf_{\Theta \in \Theta_{\mathrm{adm}}} \mathcal{R}_S(\Theta) = 0.$$
+
+2. **(Quantitative bound.)** More precisely, if for some $\delta > 0$ we pick $\Theta$ such that:
+$$d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq \delta,$$
+then:
+$$\mathcal{R}_S(\Theta) \leq \left( \sum_{A \in \mathcal{A}} w_A L_A \right) \delta.$$
+In particular, $\mathcal{R}_S(\Theta_\varepsilon) \leq \varepsilon$ holds whenever:
+$$d_{\mathrm{struct}}(\mathcal{H}_{\Theta_\varepsilon}, \mathcal{H}^*) \leq \frac{\varepsilon}{\sum_A w_A L_A}.$$
+
+In words: **any admissible true hypostructure can be approximated arbitrarily well by the trainable family, and the corresponding axiom risk can be driven arbitrarily close to zero**.
+
+*Proof.* Fix $\varepsilon > 0$. Let $L := \sum_{A \in \mathcal{A}} w_A L_A$, where the $L_A$'s are the Lipschitz constants from defect continuity.
+
+By universal structural approximation (assumption 2), there exists $\Theta_\varepsilon \in \Theta_{\mathrm{adm}}$ such that:
+$$d_{\mathrm{struct}}(\mathcal{H}_{\Theta_\varepsilon}, \mathcal{H}^*) \leq \delta_\varepsilon := \frac{\varepsilon}{L}.$$
+
+For any $A \in \mathcal{A}$ and trajectory $u$:
+$$\big| K_A^{(\Theta_\varepsilon)}(u) - K_A^{(\mathcal{H}^*)}(u) \big| = \big| K_A^{(\mathcal{H}_{\Theta_\varepsilon})}(u) - K_A^{(\mathcal{H}^*)}(u) \big| \leq L_A \, d_{\mathrm{struct}}(\mathcal{H}_{\Theta_\varepsilon}, \mathcal{H}^*) \leq L_A \delta_\varepsilon.$$
+
+But $K_A^{(\mathcal{H}^*)}(u) = 0$ $\mu_S$-a.s. by assumption (1), so:
+$$K_A^{(\Theta_\varepsilon)}(u) \leq L_A \delta_\varepsilon \quad \text{for } \mu_S\text{-a.e. } u.$$
+
+Integrating with respect to $\mu_S$:
+$$\mathcal{R}_{A,S}(\Theta_\varepsilon) = \int_{\mathcal{U}_S} K_A^{(\Theta_\varepsilon)}(u) \, d\mu_S(u) \leq L_A \delta_\varepsilon.$$
+
+Therefore:
+$$\mathcal{R}_S(\Theta_\varepsilon) = \sum_{A \in \mathcal{A}} w_A \mathcal{R}_{A,S}(\Theta_\varepsilon) \leq \sum_{A \in \mathcal{A}} w_A (L_A \delta_\varepsilon) = \left( \sum_{A \in \mathcal{A}} w_A L_A \right) \delta_\varepsilon = L \cdot \frac{\varepsilon}{L} = \varepsilon.$$
+
+This proves the quantitative bound and, in particular, the existence of parameters $\Theta_\varepsilon$ with $\mathcal{R}_S(\Theta_\varepsilon) \leq \varepsilon$ for every $\varepsilon > 0$. Taking the infimum over $\Theta$ and letting $\varepsilon \to 0$ yields:
+$$\inf_{\Theta \in \Theta_{\mathrm{adm}}} \mathcal{R}_S(\Theta) = 0. \quad \square$$
+
+**Remark 13.41 (No expressivity bottleneck).** The theorem isolates **what is needed** for axiom-expressivity:
+
+- a structural metric $d_{\mathrm{struct}}$ capturing the relevant pieces of hypostructure data,
+- universal approximation of $(\Phi, \mathfrak{D}, G)$ in that metric,
+- and Lipschitz dependence of defects on structural data.
+
+No optimization assumptions are used: this is a **pure representational metatheorem**. Combined with the trainability and convergence metatheorem (Theorem 13.20), it implies that the only remaining obstacles are optimization and data, not the expressivity of the hypostructure family.
+
+> **Key Insight:** The parametric family is **axiom-complete**: any structurally admissible dynamics can be encoded with arbitrarily small axiom defects. The only limitations are optimization and data, not the hypothesis class.
+
+### 13.11 Active Probing and Sample-Complexity of Hypostructure Identification
+
+So far we have treated the axiom-defect risk as given by a fixed trajectory distribution $\mu_S$. In many systems, however, the learner can **control** which trajectories are generated, by choosing initial conditions and controls. In other words, the learner can design *experiments*.
+
+In this section we show that, under a mild identifiability gap assumption, **actively chosen probes** (policies, initial data, controls) allow the learner to identify the correct hypostructure parameter with sample complexity essentially proportional to the parameter dimension and inverse-quadratic in the identifiability gap.
+
+#### Probes and defect observations
+
+Fix a system $S$ with state space $X$, trajectory space $\mathcal{U}_S$, and a parametric hypostructure family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$. We assume we can influence trajectories via a class of **probes**:
+$$\pi \in \mathfrak{P},$$
+where each $\pi$ denotes a rule for generating a trajectory $u_{S,\Theta,\pi} \in \mathcal{U}_S$ (e.g. a choice of initial condition and/or control policy). For each probe $\pi$ and parameter $\Theta$, we can evaluate the axiom defect functionals on the resulting trajectory.
+
+To simplify notation, write:
+$$K^{(\Theta)}(S, \pi) := \big( K_A^{(\Theta)}(u_{S,\Theta,\pi}) \big)_{A \in \mathcal{A}} \in \mathbb{R}^{|\mathcal{A}|}_{\geq 0}$$
+for the **defect fingerprint** induced by parameter $\Theta$ on system $S$ under probe $\pi$, and:
+$$D(\Theta, \Theta'; S, \pi) := \big| K^{(\Theta)}(S, \pi) - K^{(\Theta')}(S, \pi) \big|$$
+for its distance (e.g. $\ell^1$ or $\ell^2$ norm) between two parameters.
+
+In practice, the defects may be observed with noise. We thus write a single **noisy observation** of the defect fingerprint as:
+$$Y_t = K^{(\Theta^*)}(S, \pi_t) + \xi_t,$$
+where $\Theta^*$ is the true parameter and $\pi_t$ is the probe chosen at round $t$. The noise $\xi_t$ takes values in $\mathbb{R}^{|\mathcal{A}|}$ and models discretization error, finite sampling of trajectories, measurement noise, etc.
+
+**Definition 13.42 (Probe-wise identifiability gap).** Let $\Theta^* \in \Theta_{\mathrm{adm}}$ be the true parameter. We say that a class of probes $\mathfrak{P}$ has a **uniform identifiability gap** $\Delta > 0$ around $\Theta^*$ if there exist constants $\Delta > 0$ and $r > 0$ such that for every $\Theta \in \Theta_{\mathrm{adm}}$ with $|\Theta - \Theta^*| \geq r$:
+$$\sup_{\pi \in \mathfrak{P}} D(\Theta, \Theta^*; S, \pi) \geq \Delta.$$
+
+Equivalently: no parameter at distance at least $r$ from $\Theta^*$ can mimic the defect fingerprints of $\Theta^*$ under *all* probes; there is always some probe that amplifies the discrepancy to at least $\Delta$ in defect space.
+
+**Assumption 13.43 (Sub-Gaussian defect noise).** The noise variables $\xi_t$ are independent, mean-zero, and $\sigma$-sub-Gaussian in each coordinate:
+$$\mathbb{E}[\xi_t] = 0, \quad \mathbb{E}\big[ \exp(\lambda \xi_{t,j}) \big] \leq \exp\Big( \tfrac{1}{2} \sigma^2 \lambda^2 \Big) \quad \forall \lambda \in \mathbb{R}, \forall t, \forall j.$$
+
+Moreover, $\xi_t$ is independent of the probe choices $\pi_s$ and the past noise $\xi_s$ for $s < t$.
+
+**Theorem 13.44 (Active Probing for Hypostructure Identification).** Let $S$ be a fixed system and $\Theta^* \in \Theta_{\mathrm{adm}}$ the true hypostructure parameter. Assume:
+
+1. **(Local identifiability via defects.)** The single-system identifiability metatheorem holds for $S$: small uniform defect discrepancies imply small parameter distance, as in Theorem 13.20 and Theorem 14.30. In particular, there exist constants $c > 0$ and $\rho > 0$ such that:
+$$\sup_{\pi \in \mathfrak{P}} D(\Theta, \Theta^*; S, \pi) \leq \delta \implies |\Theta - \Theta^*| \leq c \delta$$
+for all $\Theta$ with $|\Theta - \Theta^*| \leq \rho$.
+
+2. **(Probe-wise identifiability gap.)** The probe class $\mathfrak{P}$ has a uniform identifiability gap $\Delta > 0$ in the sense of Definition 13.42, with some radius $r > 0$.
+
+3. **(Sub-Gaussian defect noise.)** The noise model of Assumption 13.43 holds with parameter $\sigma > 0$.
+
+4. **(Local regularity.)** The map $\Theta \mapsto K^{(\Theta)}(S, \pi)$ is Lipschitz in $\Theta$ uniformly over $\pi \in \mathfrak{P}$ in a neighborhood of $\Theta^*$:
+$$\big| K^{(\Theta)}(S, \pi) - K^{(\Theta')}(S, \pi) \big| \leq L |\Theta - \Theta'| \quad \text{for } |\Theta - \Theta^*|, |\Theta' - \Theta^*| \leq \rho.$$
+
+Consider an **adaptive probing strategy** over $T$ rounds:
+
+- At round $t$ we choose a probe $\pi_t = \pi_t(\mathcal{F}_{t-1}) \in \mathfrak{P}$, where $\mathcal{F}_{t-1}$ is the sigma-algebra generated by past probes and observations $\{(\pi_s, Y_s)\}_{s < t}$.
+- We observe a noisy defect fingerprint $Y_t = K^{(\Theta^*)}(S, \pi_t) + \xi_t$.
+- After $T$ rounds, we output an estimator $\widehat{\Theta}_T$ that is measurable with respect to $\mathcal{F}_T$.
+
+Then there exists an adaptive probing strategy and an estimator $\widehat{\Theta}_T$ such that for any confidence level $\delta \in (0, 1)$, we have:
+$$\mathbb{P}\big( |\widehat{\Theta}_T - \Theta^*| \geq \varepsilon \big) \leq \delta$$
+whenever:
+$$T \gtrsim \frac{d \, \sigma^2}{\Delta^2} \log \frac{1}{\delta},$$
+where $d := \dim(\Theta_{\mathrm{adm}})$, and the implicit constant depends only on the Lipschitz/identifiability constants $L, c, \rho$.
+
+In particular, the sample complexity of identifying the correct hypostructure parameter up to accuracy $\varepsilon$ with high probability scales at most linearly in the parameter dimension and inverse-quadratically in the identifiability gap $\Delta$.
+
+*Proof (sketch).* We outline a version based on a finite $\varepsilon$-net and uniform concentration.
+
+**Step 1 (Discretize parameter space).** Restrict attention to a compact neighborhood $B(\Theta^*, R) \subset \Theta_{\mathrm{adm}}$. For a given accuracy scale $\varepsilon > 0$, construct a minimal $\varepsilon$-net $\mathcal{N}_\varepsilon \subset B(\Theta^*, R)$ in parameter space. Standard covering arguments give $|\mathcal{N}_\varepsilon| \lesssim (R/\varepsilon)^d$.
+
+**Step 2 (Uniform separation via probes).** By the identifiability gap assumption, for any $\Theta$ with $|\Theta - \Theta^*| \geq r$ there exists a probe $\pi$ such that $D(\Theta, \Theta^*; S, \pi) \geq \Delta$. Using local regularity, for any $\Theta' \in \mathcal{N}_\varepsilon$ with $|\Theta' - \Theta^*| \geq r/2$, there exists $\pi \in \mathfrak{P}$ such that:
+$$\big| K^{(\Theta')}(S, \pi) - K^{(\Theta^*)}(S, \pi) \big| \geq \Delta/2.$$
+
+**Step 3 (Adaptive elimination strategy).** Maintain a candidate set $C_t \subseteq \mathcal{N}_\varepsilon$, initialized as $C_0 = \mathcal{N}_\varepsilon$. At each round $t$, choose a probe $\pi_t$ that maximally separates the remaining candidates in defect space. After observing $Y_t$, eliminate any $\Theta' \in C_{t-1}$ for which the predicted defect is statistically incompatible with the observation.
+
+By sub-Gaussian concentration, any candidate $\Theta'$ with a fixed defect gap $|K^{(\Theta')} - K^{(\Theta^*)}| \geq \Delta/2$ will be eliminated after $O(\sigma^2 \log(|\mathcal{N}_\varepsilon|/\delta)/\Delta^2)$ probes. Since $|\mathcal{N}_\varepsilon| \lesssim (R/\varepsilon)^d$, the total number of rounds is:
+$$T \lesssim \frac{\sigma^2}{\Delta^2} \Big( d \log(R/\varepsilon) + \log \tfrac{1}{\delta} \Big).$$
+
+**Step 4 (Accuracy and parameter error).** At the end, all remaining candidates satisfy $|\Theta' - \Theta^*| < r/2$. Using local Lipschitz identifiability, the final estimator's error is bounded by $O(\varepsilon)$. $\square$
+
+**Remark 13.45 (Experiments as a theorem).** The theorem shows that **defect-driven experiment design** is not just heuristic: under mild identifiability and regularity assumptions, actively chosen probes let a hypostructure learner identify the correct axioms with sample complexity comparable to classical parametric statistics ($O(d)$ up to logs and $\Delta^{-2}$).
+
+**Remark 13.46 (Connection to error localization).** This metatheorem pairs naturally with the **meta-error localization** theorem (Theorem 13.29): once the learner has identified that an axiom block is wrong, it can design probes specifically targeted to excite that block's defects, further improving the identifiability gap for that block and accelerating correction.
+
+> **Key Insight:** The identifiability gap $\Delta$ is a purely **structural quantity**: it measures how different the defect fingerprints of distinct hypostructures can be made by appropriate experiments. It plays exactly the role of an "information gap" in classical active learning.
+
+### 13.12 Robustness of Failure-Mode Predictions
+
+A central purpose of a hypostructure is not only to fit trajectories, but to make **sharp structural predictions**: which singularity or breakdown scenarios ("failure modes") are *permitted* or *ruled out* by the axioms, barrier constants, and capacities.
+
+In Parts VI–X we developed a "periodic table" of failure modes and associated **barrier inequalities**: each mode $f$ is excluded when certain barrier constants, exponents, or capacities lie beyond a critical threshold. We now show that, once a trainable hypostructure has sufficiently small axiom-defect risk, its **forbidden failure-mode set** is *exactly the same* as that of the true hypostructure. In other words, the discrete "permit denial" predictions are robust to small learning error.
+
+#### Failure modes and barrier thresholds
+
+Let $\mathcal{F}$ denote the (finite or countable) set of failure modes in the periodic table (e.g. blow-up, loss of uniqueness, loss of conservation, barrier penetration, glassy obstruction, etc.). For each failure mode $f \in \mathcal{F}$, the structural metatheorems of Parts VI–X associate:
+
+- a structural functional $B_f(\mathcal{H})$ (a barrier constant, capacity threshold, exponent, or combination thereof);
+- a critical value or region $B_f^{\mathrm{crit}}$ such that:
+
+> **Barrier exclusion principle for mode $f$.** If $B_f(\mathcal{H})$ lies in a certain "safe" region (e.g. above a critical constant, or outside a critical set), then failure mode $f$ is forbidden for the hypostructure $\mathcal{H}$. Conversely, if $B_f(\mathcal{H})$ lies in a complementary region, then either $f$ is not ruled out, or there exist sequences of approximate extremals compatible with $f$.
+
+Formally, there is a map $\mathrm{Forbidden}(\mathcal{H}) \subseteq \mathcal{F}$ determined by the structural data $(\Phi, \mathfrak{D}, G)$ and barrier functionals $B_f$, such that:
+$$f \in \mathrm{Forbidden}(\mathcal{H}) \iff B_f(\mathcal{H}) \in \mathcal{B}_f^{\mathrm{safe}},$$
+where $\mathcal{B}_f^{\mathrm{safe}}$ is the exclusion region in barrier space for mode $f$.
+
+**Definition 13.47 (Margin of failure-mode exclusion).** Let $\mathcal{H}^*$ be a hypostructure and $f \in \mathrm{Forbidden}(\mathcal{H}^*)$. We say that $\mathcal{H}^*$ excludes $f$ with margin $\gamma_f > 0$ if:
+$$\mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) \geq \gamma_f,$$
+where $\partial \mathcal{B}_f^{\mathrm{safe}}$ denotes the boundary of the safe region in the barrier space.
+
+We define the **global margin**:
+$$\gamma^* := \inf_{f \in \mathrm{Forbidden}(\mathcal{H}^*)} \gamma_f,$$
+with the convention $\gamma^* > 0$ if the infimum is over a finite set with strictly positive margins.
+
+**Assumption 13.48 (Barrier continuity).** For each failure mode $f \in \mathcal{F}$, the barrier functional $B_f(\mathcal{H})$ is Lipschitz in the structural metric: there exists $L_f > 0$ such that:
+$$\big| B_f(\mathcal{H}) - B_f(\mathcal{H}') \big| \leq L_f \, d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}') \quad \forall \mathcal{H}, \mathcal{H}' \in \mathfrak{H}(S).$$
+
+**Assumption 13.49 (Local structural control by risk).** Let $\mathcal{H}_\Theta$ be a parametric hypostructure family and $\mathcal{H}^*$ the true hypostructure. There exist constants $C_{\mathrm{struct}}, \varepsilon_0 > 0$ such that:
+$$\mathcal{R}_S(\Theta) \leq \varepsilon < \varepsilon_0 \implies d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}} \sqrt{\varepsilon}.$$
+
+This is precisely the local quantitative identifiability from Theorem 13.20, translated into structural space by the Defect Reconstruction Theorem.
+
+**Theorem 13.50 (Robustness of Failure-Mode Predictions).** Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with axiom-risk $\mathcal{R}_S(\Theta)$. Assume:
+
+1. **(True hypostructure with strict exclusion margin.)** The true hypostructure $\mathcal{H}^*$ exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) and excludes a set of failure modes $\mathcal{F}_{\mathrm{forbidden}}^* \subseteq \mathcal{F}$ with positive margin:
+$$\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) > 0.$$
+
+2. **(Barrier continuity.)** Each barrier functional $B_f(\mathcal{H})$ is Lipschitz with constant $L_f$ with respect to $d_{\mathrm{struct}}$, as in Assumption 13.48, and:
+$$L_{\max} := \max_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} L_f < \infty.$$
+
+3. **(Structural control by axiom risk.)** The parametric family $\mathcal{H}_\Theta$ satisfies Assumption 13.49: there exist $C_{\mathrm{struct}}, \varepsilon_0 > 0$ such that:
+$$\mathcal{R}_S(\Theta) \leq \varepsilon < \varepsilon_0 \implies d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}} \sqrt{\varepsilon}.$$
+
+Then there exists $\varepsilon_1 > 0$ such that for all $\Theta$ with $\mathcal{R}_S(\Theta) \leq \varepsilon_1$:
+
+1. **(Exact stability of forbidden modes.)**
+$$\mathrm{Forbidden}(\mathcal{H}_\Theta) = \mathrm{Forbidden}(\mathcal{H}^*) = \mathcal{F}_{\mathrm{forbidden}}^*.$$
+
+2. **(No spurious new exclusions.)** In particular, no failure mode that is allowed by $\mathcal{H}^*$ is spuriously excluded by $\mathcal{H}_\Theta$.
+
+Thus, once the axiom risk is small enough, the **discrete pattern** of forbidden failure modes becomes identical, not merely close, to that of the true hypostructure.
+
+*Proof.* Fix $\varepsilon > 0$ small, and let $\Theta$ be such that $\mathcal{R}_S(\Theta) \leq \varepsilon$. By structural control (Assumption 13.49):
+$$d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}} \sqrt{\varepsilon}.$$
+
+Let $f \in \mathcal{F}_{\mathrm{forbidden}}^*$. By definition of the margin $\gamma^*$:
+$$\mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) \geq \gamma^*.$$
+
+By barrier continuity (Assumption 13.48):
+$$\big| B_f(\mathcal{H}_\Theta) - B_f(\mathcal{H}^*) \big| \leq L_f \, d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq L_f C_{\mathrm{struct}} \sqrt{\varepsilon} \leq L_{\max} C_{\mathrm{struct}} \sqrt{\varepsilon}.$$
+
+Choose $\varepsilon_1 > 0$ small enough that:
+$$L_{\max} C_{\mathrm{struct}} \sqrt{\varepsilon_1} \leq \frac{1}{2} \gamma^*.$$
+
+Then for any $\varepsilon \leq \varepsilon_1$:
+$$\mathrm{dist}\big( B_f(\mathcal{H}_\Theta), \partial \mathcal{B}_f^{\mathrm{safe}} \big) \geq \mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) - |B_f(\mathcal{H}_\Theta) - B_f(\mathcal{H}^*)| \geq \gamma^* - \frac{1}{2}\gamma^* = \frac{1}{2}\gamma^* > 0.$$
+
+Thus, $B_f(\mathcal{H}_\Theta)$ remains *inside* the safe region $\mathcal{B}_f^{\mathrm{safe}}$, at positive distance from its boundary. Therefore:
+$$f \in \mathrm{Forbidden}(\mathcal{H}^*) \implies f \in \mathrm{Forbidden}(\mathcal{H}_\Theta)$$
+for all $\Theta$ with $\mathcal{R}_S(\Theta) \leq \varepsilon_1$. In other words:
+$$\mathcal{F}_{\mathrm{forbidden}}^* \subseteq \mathrm{Forbidden}(\mathcal{H}_\Theta).$$
+
+To show the reverse inclusion, suppose for contradiction that there exists $f \in \mathcal{F}$ with $f \in \mathrm{Forbidden}(\mathcal{H}_\Theta)$ but $f \notin \mathrm{Forbidden}(\mathcal{H}^*)$. By definition:
+$$B_f(\mathcal{H}_\Theta) \in \mathcal{B}_f^{\mathrm{safe}}, \qquad B_f(\mathcal{H}^*) \notin \mathcal{B}_f^{\mathrm{safe}}.$$
+
+Since $\mathcal{B}_f^{\mathrm{safe}}$ is closed, continuity of $B_f$ implies that the set $\{\lambda \in [0,1] : B_f((1-\lambda)\mathcal{H}^* + \lambda \mathcal{H}_\Theta) \in \mathcal{B}_f^{\mathrm{safe}}\}$ has a nonempty boundary in $[0,1]$ where the barrier lies on $\partial \mathcal{B}_f^{\mathrm{safe}}$. But by Lipschitz continuity:
+$$\mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) \leq L_f C_{\mathrm{struct}} \sqrt{\varepsilon_1} \leq \tfrac{1}{2}\gamma^*,$$
+contradicting the fact that either $f$ is forbidden at $\mathcal{H}^*$ with margin $\gamma_f \geq \gamma^*$, or else $B_f(\mathcal{H}^*)$ lies strictly in the *complement* of $\mathcal{B}_f^{\mathrm{safe}}$ at distance at least some fixed positive amount. For $\varepsilon_1$ sufficiently small, the "spurious exclusion" is impossible.
+
+Hence no new failure modes can enter the forbidden set when $\mathcal{R}_S(\Theta)$ is sufficiently small, and we have:
+$$\mathrm{Forbidden}(\mathcal{H}_\Theta) = \mathrm{Forbidden}(\mathcal{H}^*) = \mathcal{F}_{\mathrm{forbidden}}^*. \quad \square$$
+
+**Remark 13.51 (Margin is essential).** The key ingredient is the **margin** $\gamma^* > 0$: if the true hypostructure barely satisfies a barrier inequality, then arbitrarily small perturbations can change whether a mode is forbidden. The metatheorems in Parts VI–X typically provide such a margin (e.g. strict inequalities in energy/capacity thresholds) except in degenerate "critical" cases.
+
+> **Key Insight:** Learning doesn't just approximate numbers; it stabilizes the *discrete* "permit denial" judgments. Once the axiom risk is small enough, trainable hypostructures recover the **exact discrete permit-denial structure** of the underlying PDE/dynamical system.
+
+### 13.13 Curriculum Stability for Trainable Hypostructures
+
+In practice, one does not typically train a hypostructure learner directly on the most complex possible systems. Instead, it is natural to adopt a **curriculum**: start with simpler systems (e.g. linear ODEs, toy PDEs), then gradually increase complexity (e.g. nonlinear PDEs, multi-scale systems, control-coupled systems), at each stage refining the learned axioms.
+
+We now formalize a **Curriculum Stability** metatheorem: under mild conditions on the path of "true" hypostructure parameters along the curriculum, gradient-based training with warm starts tracks this path and converges to the final, fully complex hypostructure $\Theta^*_{\mathrm{full}}$, without jumping to a spurious ontology.
+
+#### Curriculum of task distributions
+
+Let $\mathcal{S}_1 \subseteq \mathcal{S}_2 \subseteq \cdots \subseteq \mathcal{S}_K$ be an increasing sequence of system distributions, each supported on systems $S$ that admit hypostructure representations in a common parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$.
+
+For each stage $k = 1, \ldots, K$, define the **stage-$k$ average axiom risk**:
+$$\mathcal{R}_k(\Theta) := \mathbb{E}_{S \sim \mathcal{S}_k}[\mathcal{R}_S(\Theta)],$$
+where $\mathcal{R}_S(\Theta)$ is the joint axiom risk for system $S$ with parameter $\Theta$ (as in §13).
+
+We think of $\mathcal{S}_1$ as a "simple" distribution (e.g. low-complexity systems), and $\mathcal{S}_K$ as the full, target distribution $\mathcal{S}_{\mathrm{full}}$.
+
+#### True hypostructures along the curriculum
+
+We assume that at each stage $k$, there exists a **true** parameter $\Theta^*_k \in \Theta_{\mathrm{adm}}$ such that:
+
+- $\mathcal{R}_k(\Theta^*_k) = 0$;
+- for $\mathcal{S}_k$-almost every system $S$, the hypostructure $\mathcal{H}_{\Theta^*_k}$ satisfies the axioms and defects vanish: $\mathcal{R}_S(\Theta^*_k) = 0$;
+- $\Theta^*_k$ is structurally identifiable up to Hypo-isomorphism on $\mathcal{S}_k$.
+
+We write $\Theta^*_{\mathrm{full}} := \Theta^*_K$ for the final-stage parameter.
+
+**Assumption 13.52 (Smooth structural path).** There exists a $C^1$ curve $\gamma : [0,1] \to \Theta_{\mathrm{adm}}$ such that:
+$$\gamma(t_k) = \Theta^*_k, \quad 0 = t_1 < t_2 < \cdots < t_K = 1,$$
+and $|\dot{\gamma}(t)|$ is bounded on $[0,1]$. We call $\gamma$ the **structural curriculum path**.
+
+**Assumption 13.53 (Stagewise strong convexity).** For each $k = 1, \ldots, K$, there exist constants $c_k, C_k, \rho_k > 0$ such that:
+$$c_k |\Theta - \Theta^*_k|^2 \leq \mathcal{R}_k(\Theta) - \mathcal{R}_k(\Theta^*_k) \leq C_k |\Theta - \Theta^*_k|^2$$
+for all $\Theta$ with $|\Theta - \Theta^*_k| \leq \rho_k$.
+
+We also assume that the gradients $\nabla \mathcal{R}_k$ are Lipschitz in $\Theta$ on these neighborhoods. Let:
+$$c_{\min} := \min_k c_k, \quad C_{\max} := \max_k C_k, \quad \rho := \min_k \rho_k.$$
+
+#### Warm-start gradient descent along the curriculum
+
+We consider the following **curriculum training** procedure:
+
+1. Initialize $\Theta^{(1)}_0$ in a small neighborhood of $\Theta^*_1$.
+
+2. For each stage $k = 1, \ldots, K$:
+   - Run gradient descent on $\mathcal{R}_k$:
+   $$\Theta^{(k)}_{t+1} = \Theta^{(k)}_t - \eta_{k,t} \nabla \mathcal{R}_k(\Theta^{(k)}_t),$$
+   with stepsizes $\eta_{k,t}$ satisfying $\sum_t \eta_{k,t} = \infty$, $\sum_t \eta_{k,t}^2 < \infty$, and small enough to stay in the local convexity region.
+   - Let $\widehat{\Theta}_k := \lim_{t \to \infty} \Theta^{(k)}_t$ (which exists and equals the unique minimizer in the basin).
+   - Use $\widehat{\Theta}_k$ as the initialization for the next stage: $\Theta^{(k+1)}_0 := \widehat{\Theta}_k$.
+
+**Theorem 13.54 (Curriculum Stability).** Under the above setting, suppose:
+
+1. **(Smooth curriculum path.)** Assumption 13.52 holds, and $|\dot{\gamma}(t)| \leq M$ for all $t \in [0,1]$.
+
+2. **(Stagewise strong convexity.)** Assumption 13.53 holds uniformly: $c_{\min} > 0$, $C_{\max} < \infty$, $\rho > 0$.
+
+3. **(Small curriculum steps.)** The time steps $t_k$ are chosen such that:
+$$|\Theta^*_{k+1} - \Theta^*_k| = |\gamma(t_{k+1}) - \gamma(t_k)| \leq \frac{\rho}{4} \quad \text{for all } k.$$
+Equivalently, $(t_{k+1} - t_k) \leq \rho/(4M)$.
+
+4. **(Accurate stagewise minimization.)** At each stage $k$, gradient descent on $\mathcal{R}_k$ is run long enough (with suitably small stepsizes) so that:
+$$|\widehat{\Theta}_k - \Theta^*_k| \leq \frac{\rho}{4}.$$
+
+Then for all stages $k = 1, \ldots, K$:
+
+1. **(Stay in the correct basin.)** The initialization for each stage lies in the strong-convexity neighborhood of the true parameter:
+$$|\Theta^{(k)}_0 - \Theta^*_k| = |\widehat{\Theta}_{k-1} - \Theta^*_k| \leq \frac{\rho}{2} < \rho.$$
+Hence gradient descent at stage $k$ remains in the basin of $\Theta^*_k$ and converges to it.
+
+2. **(Tracking the structural path.)** The sequence of stagewise minimizers $\widehat{\Theta}_k$ satisfies:
+$$|\widehat{\Theta}_k - \Theta^*_k| \leq \frac{\rho}{4} \quad \text{for all } k,$$
+and hence forms a discrete approximation to the structural path $\gamma$ staying uniformly close to it.
+
+3. **(Convergence to the full hypostructure.)** In particular, the final parameter $\widehat{\Theta}_K$ satisfies:
+$$|\widehat{\Theta}_K - \Theta^*_{\mathrm{full}}| \leq \frac{\rho}{4},$$
+i.e. curriculum training converges (modulo this small error, which can be made arbitrarily small by refining the steps and optimization accuracy) to the true full hypostructure.
+
+If, moreover, we let the number of stages $K \to \infty$ so that $\max_k(t_{k+1} - t_k) \to 0$ and increase the optimization accuracy at each stage, then in the limit the curriculum procedure tracks $\gamma$ arbitrarily closely and converges to $\Theta^*_{\mathrm{full}}$ in parameter space.
+
+*Proof.* We argue by induction on the curriculum stages.
+
+**Base case ($k = 1$).** By assumption, we choose $\Theta^{(1)}_0$ close to $\Theta^*_1$, in particular $|\Theta^{(1)}_0 - \Theta^*_1| \leq \rho/2$. By stagewise strong convexity (Assumption 13.53) and standard convergence results for gradient descent on strongly convex, smooth functions, the iterates $\Theta^{(1)}_t$ remain in the ball $B(\Theta^*_1, \rho)$ and converge to the unique minimizer $\Theta^*_1$. For sufficiently long training and small enough step sizes:
+$$|\widehat{\Theta}_1 - \Theta^*_1| \leq \rho/4.$$
+
+**Induction step.** Suppose that at stage $k$ we have $|\widehat{\Theta}_k - \Theta^*_k| \leq \rho/4$.
+
+We now consider stage $k+1$. By definition of the curriculum path:
+$$|\Theta^*_{k+1} - \Theta^*_k| = |\gamma(t_{k+1}) - \gamma(t_k)| \leq \frac{\rho}{4}.$$
+
+Thus the stage-$(k+1)$ initialization $\Theta^{(k+1)}_0 := \widehat{\Theta}_k$ satisfies:
+$$|\Theta^{(k+1)}_0 - \Theta^*_{k+1}| \leq |\Theta^{(k+1)}_0 - \Theta^*_k| + |\Theta^*_k - \Theta^*_{k+1}| \leq \frac{\rho}{4} + \frac{\rho}{4} = \frac{\rho}{2} < \rho.$$
+
+Therefore $\Theta^{(k+1)}_0$ lies in the strong-convexity neighborhood $B(\Theta^*_{k+1}, \rho)$. Gradient descent on $\mathcal{R}_{k+1}$ with sufficiently small step sizes stays inside $B(\Theta^*_{k+1}, \rho)$ and converges to the unique minimizer $\Theta^*_{k+1}$. By running it long enough:
+$$|\widehat{\Theta}_{k+1} - \Theta^*_{k+1}| \leq \rho/4,$$
+which is the induction hypothesis for the next stage.
+
+By induction, the statements in (1) and (2) hold for all $k = 1, \ldots, K$. The final claim (3) follows immediately for $k = K$, with $\Theta^*_{\mathrm{full}} = \Theta^*_K$.
+
+In the refined-curriculum limit where $K \to \infty$ and $\max_k(t_{k+1} - t_k) \to 0$ while per-stage optimization accuracy is driven to $0$, the discrete sequence $\{\widehat{\Theta}_k\}$ converges uniformly to the continuous path $\gamma(t_k)$ and hence to $\Theta^*_{\mathrm{full}}$ as $t_K \to 1$. $\square$
+
+**Remark 13.55 (Structural safety of curricula).** The theorem shows that **curriculum training is structurally safe** as long as:
+
+- each stage's average axiom risk is strongly convex in a neighborhood of its true parameter, and
+- successive true parameters $\Theta^*_k$ are not too far apart.
+
+Intuitively, the curriculum path $\gamma$ describes how the "true axioms" must deform as one moves from simple to complex systems. The theorem guarantees that a trainable hypostructure, initialized and trained at each stage using the previous stage's solution, will track $\gamma$ rather than jumping to unrelated minima.
+
+**Remark 13.56 (Practical implications).** Combined with the generalization and robustness metatheorems, this implies:
+
+- training on simple systems first fixes the core axioms,
+- advancing the curriculum refines these axioms instead of destabilizing them,
+- and the final hypostructure accurately captures the structural content of the full system distribution.
+
+> **Key Insight:** Increasing task complexity along a structurally coherent curriculum preserves the learned axiom structure and refines it, rather than destabilizing it. No spurious ontology (wrong hypostructure branch) is selected along the curriculum.
+
+### 13.14 Equivariance of Trainable Hypostructures Under Symmetry Groups
+
+Many system families carry natural symmetry groups: space-time translations, rotations, Galilean boosts, scaling symmetries, gauge groups, etc. A central expectation for a "structural" learner is that it should not break such symmetries arbitrarily: if the distribution of systems and the true hypostructure are symmetric under a group $G$, then the **learned hypostructure** should also be $G$-equivariant.
+
+In this section we formalize this as an **equivariance metatheorem**: under natural compatibility assumptions between $G$, the system distribution, the hypostructure family, and the axiom-risk, every risk minimizer is $G$-equivariant (up to gauge), and gradient flow preserves equivariance.
+
+#### Symmetry group acting on systems and hypostructures
+
+Let $G$ be a (locally compact) group acting on the state space $X$ and on the class of systems $S$. For each $g \in G$, we denote by $g \cdot S$ the transformed system obtained by pushing forward the dynamics under $g$ (e.g. conjugating the semiflow by $g$).
+
+**Assumption 13.57 (Group-covariant system distribution).** Let $\mathcal{S}$ be a distribution on systems $S$. We assume $\mathcal{S}$ is $G$-invariant:
+$$S \sim \mathcal{S} \implies g \cdot S \sim \mathcal{S} \quad \forall g \in G.$$
+
+Equivalently, for any measurable set of systems $\mathcal{A}$, $\mathcal{S}(\mathcal{A}) = \mathcal{S}(g \cdot \mathcal{A})$.
+
+Let $\Theta_{\mathrm{adm}}$ be the parameter space of a hypostructure family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$, with:
+$$\mathcal{H}_\Theta(S) = (X_S, S_t, \Phi_{\Theta,S}, \mathfrak{D}_{\Theta,S}, G_{\Theta,S})$$
+the hypostructure associated to system $S$ and parameter $\Theta$.
+
+**Assumption 13.58 (Equivariant parametrization).** There is a group action of $G$ on $\Theta_{\mathrm{adm}}$, denoted $(g, \Theta) \mapsto g \cdot \Theta$, such that for all $g \in G$, systems $S$, and parameters $\Theta$:
+$$g \cdot \mathcal{H}_\Theta(S) \simeq \mathcal{H}_{g \cdot \Theta}(g \cdot S)$$
+in the Hypo category, i.e. the hypostructure induced by first transforming $\Theta$ and $S$ by $G$ coincides (up to Hypo-isomorphism) with the pushforward of $\mathcal{H}_\Theta(S)$ by $g$.
+
+Intuitively, this means the family $\{\mathcal{H}_\Theta\}$ is expressive enough and parametrized in such a way that group transformations commute with hypostructure construction, up to the usual notion of "same" hypostructure (gauge).
+
+#### Symmetry of the axiom-risk
+
+For each system $S$ and parameter $\Theta$, we have the joint axiom-risk:
+$$\mathcal{R}_S(\Theta) := \sum_{A \in \mathcal{A}} w_A \mathcal{R}_{A,S}(\Theta), \qquad \mathcal{R}_{A,S}(\Theta) := \int_{\mathcal{U}_S} K_{A,S}^{(\Theta)}(u) \, d\mu_S(u),$$
+constructed from the defect functionals $K_{A,S}^{(\Theta)}$. The **average risk** over $\mathcal{S}$ is:
+$$\mathcal{R}_{\mathcal{S}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(\Theta)].$$
+
+**Assumption 13.59 (Group-invariance of defects and trajectories).** For each $g \in G$, the following hold:
+
+1. The transformation $u \mapsto g \cdot u$ maps trajectories of $S$ to trajectories of $g \cdot S$, and preserves the trajectory measure (or transforms it in a controlled way that cancels in expectation):
+$$\mu_{g \cdot S} = (g \cdot)_\# \mu_S.$$
+
+2. The defect functionals are compatible with the group action:
+$$K_{A, g \cdot S}^{(g \cdot \Theta)}(g \cdot u) = K_{A,S}^{(\Theta)}(u) \quad \text{for all } A \in \mathcal{A}, u \in \mathcal{U}_S.$$
+
+In particular, $\mathcal{R}_{g \cdot S}(g \cdot \Theta) = \mathcal{R}_S(\Theta)$.
+
+**Lemma 13.60 (Risk equivariance).** For all $g \in G$ and $\Theta \in \Theta_{\mathrm{adm}}$:
+$$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathcal{R}_{\mathcal{S}}(\Theta).$$
+
+*Proof.* Using $\mathcal{S}$-invariance and defect compatibility:
+$$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(g \cdot \Theta)] = \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_{g^{-1} \cdot S}(\Theta)] = \mathcal{R}_{\mathcal{S}}(\Theta),$$
+where we used the change of variable $S' = g^{-1} \cdot S$ and the invariance of $\mathcal{S}$. $\square$
+
+**Theorem 13.61 (Equivariance of Trainable Hypostructures).** Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Theta\}$ a parametric hypostructure family satisfying Assumptions 13.57–13.59. Consider the average axiom-risk $\mathcal{R}_{\mathcal{S}}(\Theta)$.
+
+Assume:
+
+1. **(Existence of a true equivariant hypostructure.)** There exists a parameter $\Theta^* \in \Theta_{\mathrm{adm}}$ such that:
+   - For $\mathcal{S}$-a.e. system $S$, $\mathcal{H}_{\Theta^*,S}$ satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC), and $\mathcal{R}_S(\Theta^*) = 0$.
+   - The true hypostructure is $G$-equivariant in Hypo: For all $g \in G$ and all $S$:
+   $$g \cdot \mathcal{H}_{\Theta^*,S} \simeq \mathcal{H}_{\Theta^*, g \cdot S}.$$
+   Equivalently, the orbit $G \cdot \Theta^*$ consists of gauge-equivalent parameters encoding the same equivariant hypostructure.
+
+2. **(Local uniqueness modulo $G$-gauge.)** The average risk $\mathcal{R}_{\mathcal{S}}(\Theta)$ admits a unique minimum orbit in a neighborhood of $\Theta^*$: there is a neighborhood $U \subset \Theta_{\mathrm{adm}}$ such that:
+$$\Theta \in U, \quad \mathcal{R}_{\mathcal{S}}(\Theta) = \inf_{\Theta'} \mathcal{R}_{\mathcal{S}}(\Theta') \implies \Theta \in G \cdot \Theta^*,$$
+and all points in $G \cdot \Theta^* \cap U$ are gauge-equivalent (represent the same Hypo object).
+
+3. **(Regularity for gradient flow.)** $\mathcal{R}_{\mathcal{S}}$ is $C^1$ on $\Theta_{\mathrm{adm}}$, with Lipschitz gradient on bounded sets.
+
+Then:
+
+1. **(Minimizers are $G$-equivariant (up to gauge).)** Every global minimizer $\widehat{\Theta}$ of $\mathcal{R}_{\mathcal{S}}$ in $U$ lies in the orbit $G \cdot \Theta^*$, and thus represents the same equivariant hypostructure as $\Theta^*$ in Hypo. In particular, the learned hypostructure is $G$-equivariant.
+
+2. **(Gradient flow preserves equivariance.)** Consider gradient flow on parameter space:
+$$\frac{d}{dt} \Theta_t = -\nabla \mathcal{R}_{\mathcal{S}}(\Theta_t), \qquad \Theta_{t=0} = \Theta_0.$$
+Then for any $g \in G$, $g \cdot \Theta_t$ solves the same gradient flow with initial condition $g \cdot \Theta_0$. In particular, if the initialization $\Theta_0$ is $G$-fixed (or lies in a $G$-orbit symmetric under a subgroup), the entire trajectory $\Theta_t$ remains in the fixed-point set (or corresponding orbit) of the group action.
+
+3. **(Convergence to equivariant hypostructures.)** If gradient descent or gradient flow on $\mathcal{R}_{\mathcal{S}}$ converges to a minimizer in $U$ (as in Theorem 13.20), then the limit hypostructure is gauge-equivalent to $\Theta^*$ and hence $G$-equivariant.
+
+In short: **trainable hypostructures inherit all symmetries of the system distribution**. They cannot spontaneously break a symmetry that the true hypostructure preserves, unless there exist distinct, non-equivariant minimizers of $\mathcal{R}_{\mathcal{S}}$ outside the neighborhood $U$ (i.e. unless the theory itself has symmetric and symmetry-broken branches).
+
+*Proof.* (1) follows directly from risk invariance and local uniqueness modulo $G$.
+
+By Lemma 13.60, $\mathcal{R}_{\mathcal{S}}$ is $G$-invariant:
+$$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathcal{R}_{\mathcal{S}}(\Theta) \quad \forall g \in G.$$
+
+Let $\widehat{\Theta} \in U$ be a global minimizer of $\mathcal{R}_{\mathcal{S}}$. Then for any $g \in G$:
+$$\mathcal{R}_{\mathcal{S}}(g \cdot \widehat{\Theta}) = \mathcal{R}_{\mathcal{S}}(\widehat{\Theta}) = \inf_{\Theta'} \mathcal{R}_{\mathcal{S}}(\Theta').$$
+Thus $g \cdot \widehat{\Theta}$ is also a minimizer in $U$. By local uniqueness modulo orbit (Assumption 2), all such minimizers in $U$ lie on the orbit $G \cdot \Theta^*$ and correspond to the same hypostructure in Hypo. Therefore $\widehat{\Theta} \in G \cdot \Theta^*$, and the corresponding hypostructure is $G$-equivariant.
+
+(2) Gradient flow equivariance follows from the invariance of $\mathcal{R}_{\mathcal{S}}$. By the chain rule and $G$-invariance:
+$$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathcal{R}_{\mathcal{S}}(\Theta) \implies D(g \cdot \Theta)^\top \nabla \mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \nabla \mathcal{R}_{\mathcal{S}}(\Theta),$$
+where $D(g \cdot \Theta)$ is the derivative of the group action at $\Theta$. Differentiating $\Theta_t \mapsto g \cdot \Theta_t$ in time gives:
+$$\frac{d}{dt}(g \cdot \Theta_t) = D(g \cdot \Theta_t) \dot{\Theta}_t = -D(g \cdot \Theta_t) \nabla \mathcal{R}_{\mathcal{S}}(\Theta_t) = -\nabla \mathcal{R}_{\mathcal{S}}(g \cdot \Theta_t),$$
+where the last equality uses the relation between gradients and the group action induced by $G$-invariance. Hence $g \cdot \Theta_t$ solves the same gradient flow with initial condition $g \cdot \Theta_0$.
+
+(3) If gradient descent or continuous-time gradient flow converges to a limit $\Theta_\infty \in U$, then by (1) that limit is in the orbit $G \cdot \Theta^*$ and corresponds to the same $G$-equivariant hypostructure. $\square$
+
+**Remark 13.62 (Key hypotheses).** The key hypotheses are:
+
+- **Equivariant parametrization** of the hypostructure family (Assumption 13.58), and
+- **Defect-level equivariance** (Assumption 13.59).
+
+Together, they ensure that "write down the axioms, compute defects, average risk, and optimize" defines a $G$-equivariant learning problem.
+
+**Remark 13.63 (No spontaneous symmetry breaking).** The theorem says that if the *true* structural laws of the systems are $G$-equivariant, and the training distribution respects that symmetry, then a trainable hypostructure will not invent a spurious symmetry-breaking ontology—unless such a symmetry-breaking branch is truly present as an alternative minimum of the risk.
+
+**Remark 13.64 (Structural analogue of equivariant networks).** This is a structural analogue of standard results for equivariant neural networks, but formulated at the level of **axiom learning**: the objects that remain invariant are not just predictions, but the entire hypostructure (Lyapunov, dissipation, capacities, barriers, etc.).
+
+> **Key Insight:** Trainable hypostructures inherit all symmetries of the underlying system distribution. The learned axioms preserve equivariance—not just at the level of predictions, but at the level of structural components ($\Phi$, $\mathfrak{D}$, barriers, capacities). Symmetry cannot be spontaneously broken by the learning process unless the true theory itself admits symmetry-broken branches.
+
+---
+
+## 14. The Hypostructure General Loss
 
 This chapter defines a training objective for systems that instantiate, verify, and optimize over hypostructures. The goal is to train a parametrized system to identify hypostructures, fit soft axioms, and solve the associated variational problems.
 
@@ -7884,8 +8748,8 @@ This chapter defines a training objective for systems that instantiate, verify, 
 
 **Definition 14.2 (System distribution).** Let $\mathcal{S}$ denote a probability distribution over dynamical systems. This includes PDEs, flows, discrete processes, stochastic systems, and other structures amenable to hypostructure analysis.
 
-**Definition 14.3 (AGI loss functional).** The **AGI loss** is:
-$$\mathcal{L}_{\text{AGI}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}\big[\lambda_{\text{struct}} L_{\text{struct}}(S, \Theta) + \lambda_{\text{axiom}} L_{\text{axiom}}(S, \Theta) + \lambda_{\text{var}} L_{\text{var}}(S, \Theta) + \lambda_{\text{meta}} L_{\text{meta}}(S, \Theta)\big]$$
+**Definition 14.3 (general loss functional).** The **general loss** is:
+$$\mathcal{L}_{\text{gen}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}\big[\lambda_{\text{struct}} L_{\text{struct}}(S, \Theta) + \lambda_{\text{axiom}} L_{\text{axiom}}(S, \Theta) + \lambda_{\text{var}} L_{\text{var}}(S, \Theta) + \lambda_{\text{meta}} L_{\text{meta}}(S, \Theta)\big]$$
 where $\lambda_{\text{struct}}, \lambda_{\text{axiom}}, \lambda_{\text{var}}, \lambda_{\text{meta}} \geq 0$ are weighting coefficients.
 
 ### 14.2 Structural loss
@@ -7953,14 +8817,14 @@ evaluated on held-out data from $S$.
 
 *Proof.* The meta-learning objective rewards parameters $\Theta$ from which few adaptation steps suffice to achieve low loss on any system $S$. This is the MAML principle applied to hypostructure learning. $\square$
 
-### 14.6 The combined AGI loss
+### 14.6 The combined general loss
 
-**Theorem 14.15 (Differentiability of AGI loss).** Under the following conditions:
+**Theorem 14.15 (Differentiability of general loss).** Under the following conditions:
 1. Neural network parameterization of $\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta$
 2. Defect functionals $K_A$ composed of integrals, norms, and algebraic expressions in the network outputs
 3. Dominated convergence conditions as in Lemma 12.13
 
-all components of $\mathcal{L}_{\text{AGI}}$ are differentiable in $\Theta$.
+all components of $\mathcal{L}_{\text{gen}}$ are differentiable in $\Theta$.
 
 *Proof.*
 
@@ -7972,12 +8836,12 @@ all components of $\mathcal{L}_{\text{AGI}}$ are differentiable in $\Theta$.
 
 **Step 3 (Expectation over $\mathcal{S}$).** Dominated convergence allows differentiation under the expectation over systems $S \sim \mathcal{S}$, given appropriate bounds. $\square$
 
-**Corollary 14.16 (Backpropagation through axioms).** Gradient descent on $\mathcal{L}_{\text{AGI}}(\Theta)$ is well-defined. The gradient can be computed via backpropagation through:
+**Corollary 14.16 (Backpropagation through axioms).** Gradient descent on $\mathcal{L}_{\text{gen}}(\Theta)$ is well-defined. The gradient can be computed via backpropagation through:
 - The neural network architecture
 - The defect functional computations
 - The meta-learning adaptation steps
 
-**Theorem 14.17 (Universal extremal solver characterization).** A system trained on $\mathcal{L}_{\text{AGI}}$ with sufficient capacity and training data over a diverse distribution $\mathcal{S}$ learns to:
+**Theorem 14.17 (Universal extremal solver characterization).** A system trained on $\mathcal{L}_{\text{gen}}$ with sufficient capacity and training data over a diverse distribution $\mathcal{S}$ learns to:
 1. **Recognize structure:** Identify state spaces, flows, height functionals, dissipation structures, and symmetry groups
 2. **Enforce soft axioms:** Fit hypostructure parameters that minimize global axiom defects
 3. **Solve variational problems:** Produce extremizers that approach sharp constants
@@ -8037,6 +8901,100 @@ Discounting becomes an optional modeling choice, not a mathematical necessity.
 2. Define a global Lyapunov/loss functional on trajectory space
 3. Differentiate its expectation with respect to agent parameters
 4. Perform gradient-based optimization without discounting
+
+---
+
+### 14.8 Structural Identifiability
+
+This section establishes that the defect functionals introduced in Chapter 13 determine the hypostructure components from axioms alone, and that parametric families of hypostructures are learnable under minimal extrinsic conditions.
+
+**Definition 14.24 (Defect signature).** For a parametric hypostructure $\mathcal{H}_\Theta$ and trajectory class $\mathcal{U}$, the **defect signature** is the function:
+$$\mathsf{Sig}(\Theta): \mathcal{U} \to \mathbb{R}^{|\mathcal{A}|}, \quad \mathsf{Sig}(\Theta)(u) := \big(K_A^{(\Theta)}(u)\big)_{A \in \mathcal{A}}$$
+where $\mathcal{A} = \{C, D, SC, Cap, LS, TB\}$ is the set of axiom labels.
+
+**Definition 14.25 (Rich trajectory class).** A trajectory class $\mathcal{U}$ is **rich** if:
+
+1. $\mathcal{U}$ is closed under time shifts: if $u \in \mathcal{U}$ and $s > 0$, then $u(\cdot + s) \in \mathcal{U}$.
+2. For $\mu$-almost every initial condition $x \in X$, at least one finite-energy trajectory starting at $x$ belongs to $\mathcal{U}$.
+
+**Definition 14.26 (Action reconstruction applicability).** The hypostructure $\mathcal{H}_\Theta$ satisfies **action reconstruction** if axioms (D), (LS), (GC) hold and the underlying metric structure is such that the canonical Lyapunov functional equals the geodesic action with respect to the Jacobi metric $g_{\mathfrak{D}} = \mathfrak{D}_\Theta \cdot g$.
+
+**Theorem 14.27 (Defect Reconstruction).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures satisfying axioms (C, D, SC, Cap, LS, TB, Reg) and (GC) on gradient-flow trajectories. Suppose:
+
+1. **(A1) Rich trajectories.** The trajectory class $\mathcal{U}$ is rich in the sense of Definition 14.25.
+2. **(A2) Action reconstruction.** Definition 14.26 holds for each $\Theta$.
+
+Then for each $\Theta$, the defect signature $\mathsf{Sig}(\Theta)$ determines, up to Hypo-isomorphism:
+
+1. The semiflow $S_t$ (on the support of $\mathcal{U}$)
+2. The dissipation $\mathfrak{D}_\Theta$ along trajectories
+3. The height functional $\Phi_\Theta$ (up to an additive constant)
+4. The scaling exponents and barrier constants
+5. The safe manifold $M$
+
+There exists a reconstruction operator $\mathcal{R}: \mathsf{Sig}(\Theta) \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta, S_t, \text{barriers}, M)$ built from the axioms and defect functional definitions alone.
+
+*Proof.*
+
+**Step 1 (Recover $S_t$ from $K_C$).** By Definition 13.1, $K_C^{(\Theta)}(u) := \|S_t(u(s)) - u(s+t)\|$ for appropriate $s, t$. Axiom (C) and (Reg) ensure that true trajectories are exactly those with $K_C = 0$ (Lemma 13.4). Since $\mathcal{U}$ is closed under time shifts (A1), the unique semiflow $S_t$ is determined as the one whose orbits saturate the zero-defect locus of $K_C$.
+
+**Step 2 (Recover $\partial_t \Phi_\Theta + \mathfrak{D}_\Theta$ from $K_D$).** By Definition 13.1:
+$$K_D^{(\Theta)}(u) = \int_T \max\big(0, \partial_t \Phi_\Theta(u(t)) + \mathfrak{D}_\Theta(u(t))\big) \, dt.$$
+Axiom (D) requires $\partial_t \Phi_\Theta + \mathfrak{D}_\Theta \leq 0$ along trajectories. Thus $K_D^{(\Theta)}(u) = 0$ if and only if the energy-dissipation balance holds exactly. The zero-defect condition identifies the canonical dissipation-saturated representative.
+
+**Step 3 (Recover $\mathfrak{D}_\Theta$ from metric and trajectories).** Axiom (Reg) provides metric structure with velocity $|\dot{u}(t)|_g$. Axiom (GC) on gradient-flow orbits gives $|\dot{u}|_g^2 = \mathfrak{D}_\Theta$. Combined with (D), propagation along the rich trajectory class determines $\mathfrak{D}_\Theta$ everywhere via the Action Reconstruction principle (Theorem 6.7.2).
+
+**Step 4 (Recover $\Phi_\Theta$ from $\mathfrak{D}_\Theta$ and LS + GC).** The Action Reconstruction Theorem states: (D) + (LS) + (GC) $\Rightarrow$ the canonical Lyapunov $\mathcal{L}$ is the geodesic action with respect to $g_{\mathfrak{D}}$. By the Canonical Lyapunov Theorem (Theorem 6.6), $\mathcal{L}$ equals $\Phi_\Theta$ up to an additive constant. Once $\mathfrak{D}_\Theta$ and $M$ are known, $\Phi_\Theta$ is reconstructed.
+
+**Step 5 (Recover exponents and barriers from remaining defects).** The SC defect compares observed scaling behavior with claimed exponents $(\alpha_\Theta, \beta_\Theta)$. Minimizing over trajectories identifies the unique exponents. Similarly, Cap/TB/LS defects compare actual behavior with capacity/topological/Łojasiewicz bounds; the barrier constants are the unique values at which defects transition from positive to zero. $\square$
+
+**Key Insight:** The reconstruction operator $\mathcal{R}$ is a derived object of the framework—not a new assumption. Every step uses existing axioms and metatheorems (Structural Resolution, Canonical Lyapunov, Action Reconstruction).
+
+---
+
+**Definition 14.28 (Persistent excitation).** A trajectory distribution $\mu$ on $\mathcal{U}$ satisfies **persistent excitation** if its support explores a full-measure subset of the accessible phase space: for every open set $U \subset X$ with positive Lebesgue measure, $\mu(\{u : u(t) \in U \text{ for some } t\}) > 0$.
+
+**Definition 14.29 (Nondegenerate parametrization).** The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ has **nondegenerate parametrization** if the map $\Theta \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta)$ is locally Lipschitz and injective: there exists $c > 0$ such that for $\mu$-almost every $x \in X$:
+$$|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| \geq c \, |\Theta - \Theta'|.$$
+
+**Theorem 14.30 (Meta-Identifiability).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family satisfying:
+
+1. Axioms (C, D, SC, Cap, LS, TB, Reg, GC) for each $\Theta$
+2. **(C1) Persistent excitation:** The trajectory distribution satisfies Definition 14.28
+3. **(C2) Nondegenerate parametrization:** Definition 14.29 holds
+4. **(C3) Regular parameter space:** $\Theta_{\mathrm{adm}}$ is a metric space
+
+Then:
+
+1. **(Exact identifiability up to gauge.)** If $\mathsf{Sig}(\Theta) = \mathsf{Sig}(\Theta')$ as functions on $\mathcal{U}$, then $\mathcal{H}_\Theta \cong \mathcal{H}_{\Theta'}$ as objects of Hypo.
+
+2. **(Local quantitative identifiability.)** There exist constants $C, \varepsilon_0 > 0$ such that if
+$$\sup_{u \in \mathcal{U}} \sum_{A \in \mathcal{A}} \big| K_A^{(\Theta)}(u) - K_A^{(\Theta^*)}(u) \big| \leq \varepsilon < \varepsilon_0,$$
+then there exists a representative $\tilde{\Theta}$ of the equivalence class $[\Theta^*]$ with $|\Theta - \tilde{\Theta}| \leq C \varepsilon$.
+
+The map $[\Theta] \in \Theta_{\mathrm{adm}}/{\sim} \mapsto \mathsf{Sig}(\Theta)$ is locally injective and well-conditioned.
+
+*Proof.*
+
+**Step 1 (Invoke Defect Reconstruction).** By Theorem 14.27, $\mathsf{Sig}(\Theta)$ determines $(\Phi_\Theta, \mathfrak{D}_\Theta, S_t, \text{barriers}, M)$ via the reconstruction operator $\mathcal{R}$.
+
+**Step 2 (Apply nondegeneracy).** By (C2), equal signatures imply equal structural data $(\Phi_\Theta, \mathfrak{D}_\Theta)$ up to gauge. Equal structural data plus equal $S_t$ (from Step 1) gives Hypo-isomorphism.
+
+**Step 3 (Quantitative bound).** The reconstruction $\mathcal{R}$ inherits Lipschitz constants from the axiom-derived formulas. Combined with the nondegeneracy constant $c$ from (C2), perturbations in signature of size $\varepsilon$ produce perturbations in $\Theta$ of size at most $C\varepsilon$ where $C = L_{\mathcal{R}}/c$. $\square$
+
+**Key Insight:** Meta-Identifiability reduces parameter learning to defect minimization. Minimizing $\mathcal{R}_A(\Theta) = \int_{\mathcal{U}} K_A^{(\Theta)}(u) \, d\mu(u)$ over $\Theta$ converges to the true hypostructure as trajectory data increases.
+
+---
+
+**Remark 14.31 (Irreducible extrinsic conditions).** The hypotheses (C1)–(C3) cannot be absorbed into the hypostructure axioms:
+
+1. **Nondegenerate parametrization (C2)** concerns the human choice of coordinates on the space of hypostructures. The axioms constrain $(\Phi, \mathfrak{D}, \ldots)$ once chosen, but do not force any particular parametrization to be injective or Lipschitz. This is about representation, not physics.
+
+2. **Data richness (C1)** concerns the observer's sampling procedure. The axioms determine what trajectories can exist; they do not guarantee that a given dataset $\mathcal{U}$ actually samples them representatively. This is about epistemics, not dynamics.
+
+Everything else—structure reconstruction, canonical Lyapunov, barrier constants, scaling exponents, failure mode classification—follows from the axioms and the metatheorems derived in Parts IV–VI.
+
+**Corollary 14.32 (Foundation for trainable hypostructures).** The Meta-Identifiability Theorem provides the theoretical foundation for the general loss (Definition 14.3): minimizing the axiom defect $\mathcal{R}_A(\Theta)$ over parameters $\Theta$ converges to the true hypostructure as data increases, with the only requirements being (C1)–(C3).
 
 ---
 
@@ -8466,7 +9424,7 @@ The structural universality conjecture opens several research directions:
 - Classify developmental abnormalities by failure mode
 - Predict robustness of developmental programs from structural data
 
-**Problem 7 (Trainable discovery).** Implement the AGI loss functional (Chapter 14) and train a neural system to discover hypostructure instantiations for novel PDEs, automatically identifying $\Phi$, $\mathfrak{D}$, symmetries, and sharp constants.
+**Problem 7 (Trainable discovery).** Implement the general loss functional (Chapter 14) and train a neural system to discover hypostructure instantiations for novel PDEs, automatically identifying $\Phi$, $\mathfrak{D}$, symmetries, and sharp constants.
 
 **Problem 8 (Algorithmic metatheorems).** Develop an algorithm that, given a dynamical system specification, automatically:
 1. Constructs the diagnostic decision tree (Algorithm 15.24)
@@ -9053,7 +10011,7 @@ where $\Theta_*$ is the true parameter.
 
 **Corollary 18.3.1 (Hypostructure learning is well-posed).** Given sufficient trajectory data and the constraint that the underlying dynamics satisfies the hypostructure axioms, there is a unique (up to symmetry) hypostructure consistent with the data.
 
-**Connection to AGI Loss (Chapter 14).** The identifiability theorem provides the theoretical foundation for the AGI loss: minimizing the axiom defect $\mathcal{R}_A(\Theta)$ over parameters $\Theta$ converges to the true hypostructure as data increases.
+**Connection to General Loss (Chapter 14).** The identifiability theorem provides the theoretical foundation for the general loss: minimizing the axiom defect $\mathcal{R}_A(\Theta)$ over parameters $\Theta$ converges to the true hypostructure as data increases.
 
 **Key Insight:** Hypostructures are **scientifically learnable**. An observer with access to trajectory data can recover the structural parameters, including all the barrier constants that determine which phenomena are forbidden.
 
