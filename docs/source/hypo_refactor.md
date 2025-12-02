@@ -157,6 +157,8 @@ The framework rests on a single organizing principle—the fixed-point equation 
 
 #### 1.1.1 The structural stability thesis
 
+This program follows the spirit of **Grothendieck's *Esquisse d'un Programme* \cite{Grothendieck84}**, seeking to identify the "anabelian" structural constraints that rigidify dynamical systems, allowing global properties to be recovered from local data.
+
 A **hypostructure** is a unified framework for analyzing dynamical systems—deterministic or stochastic, continuous or discrete—that characterizes stability through structural constraints. The central thesis is:
 
 > **If a system satisfies the hypostructure axioms, then stability follows from structural logic. The axioms act as algebraic permits that any instability must satisfy. When these permits are denied via dimensional or geometric analysis, the instability cannot form.**
@@ -182,6 +184,19 @@ A **hypostructure** is a unified framework for analyzing dynamical systems—det
 **No global estimates required.** The framework never requires proving global compactness or global bounds. All analysis is local: concentration forces structure, structure is tested against algebraic permits, permit denial implies regularity. The classification is **logically exhaustive**: every trajectory either disperses globally (Mode D.D), blows up via energy escape (Mode C.E), or has its blow-up attempt blocked by permit denial (Modes S.E–B.C contradict, yielding regularity).
 
 ### 1.2 How to read this document
+
+**Logical Dependencies (DAG Structure).** The framework is modular. The logical flow forms a directed acyclic graph:
+
+| Step | Parts | Function | Output |
+|:-----|:------|:---------|:-------|
+| 1 | **Foundations (I-II)** | Defines the Object | Hypostructure $\mathcal{H}$ |
+| 2 | **Taxonomy (III)** | Defines the Problem | Singular Locus $\mathcal{Y}_{\text{sing}}$ |
+| 3 | **Metatheorems (IV, X)** | Defines the Tools | Boolean Permits $\Pi_A$ |
+| 4 | **Barriers (V)** | Quantifies Permits | Sharp Constants |
+| 5 | **Instantiations (VI)** | Maps Reality to $\mathcal{H}$ | Concrete Systems |
+| 6 | **Learning (VII)** | Automates Step 5 | AGI Blueprint |
+
+**Dependencies:** (1) → (2) → (3) → (4); (1) → (5); (3) + (5) → (6). Parts VIII-XI extend the framework but are not prerequisites for applications.
 
 This document is organized into eleven parts:
 
@@ -15284,6 +15299,8 @@ Consequently, for admissible systems, classical analytic proofs are categoricall
 
 *Proof.* By Theorem 21.11(1), the equivalence $\mathbf{Hypo}^{\text{adm}} \simeq \mathbf{Anal}^{\text{adm}}$ preserves all categorical properties, including regularity (defined as terminal behavior of the flow object). The equivalence respects the logical structure by Proposition 21.15. Thus any regularity statement in $\mathbf{Anal}^{\text{adm}}$ has a logically equivalent formulation in $\mathbf{Hypo}^{\text{adm}}$, establishing redundancy in the sense of Theorem 21.10. $\square$
 
+**Remark 21.11.2 (The Curry-Howard Interpretation).** The isomorphism between the analytic proof of regularity and the algebraic satisfaction of permits is a dynamical instantiation of the **Curry-Howard Correspondence \cite{Howard80}**. The existence of a trajectory in the safe manifold corresponds to the existence of a program (witness) of finite type. The AGI's task is thus reduced from "intuition" to **Type Checking**: verifying that a candidate trajectory inhabits the type "Safe Trajectory" by checking permit satisfaction.
+
 ### 21.9 Summary
 
 | **Result** | **Content** |
@@ -15308,3 +15325,103 @@ The framework reduces regularity questions to:
 3. If all permits denied, conclude $T_* = \infty$
 
 ---
+
+## Appendix A: Index of Notation
+
+This appendix collects the principal symbols used throughout the document for reference.
+
+### A.1 State and Evolution
+
+| Symbol | Description | Definition |
+|:-------|:------------|:-----------|
+| $X$ | Primary state space (Polish space) | Def. 2.1 |
+| $(X, d)$ | Metric state space | Def. 2.2 |
+| $S_t$ | Dynamical semiflow (evolution operator) | Def. 2.5 |
+| $u(t) = S_t x$ | Trajectory starting at $x$ | §2.1 |
+| $T_*$ | Maximal existence time | Def. 4.1 |
+| $M$ | Safe Manifold (stable equilibria/attractors) | Def. 3.18 |
+| $\mathcal{A}$ | Global attractor | Temam \cite{Temam88} |
+| $\mathcal{T}_{\text{sing}}$ | Set of singular trajectories | Def. 21.1 |
+
+### A.2 Functionals
+
+| Symbol | Description | Definition |
+|:-------|:------------|:-----------|
+| $\Phi$ | Height Functional (Energy/Entropy/Complexity) | Def. 2.9 |
+| $\mathfrak{D}$ | Dissipation Functional | Def. 2.12 |
+| $\mathcal{R}$ | Recovery Functional (cost to return to $M$) | Axiom Rec |
+| $K_A$ | Defect Functional for Axiom $A$ | Def. 13.1 |
+| $\mathcal{L}$ | Canonical Lyapunov Functional | Thm. 6.6 |
+| $I(\rho)$ | Fisher Information | Def. 2.15 |
+| $H(\rho)$ | Entropy | Various |
+
+### A.3 Structure and Symmetry
+
+| Symbol | Description | Definition |
+|:-------|:------------|:-----------|
+| $G$ | Symmetry Group acting on $X$ | Axiom SC |
+| $\mathcal{G}$ | Gauge Group (for gauge theories) | §12 |
+| $\Theta$ | Structural parameter space | Def. 12.1 |
+| $\mathcal{O}$ | Obstruction Sector | Metatheorem 19.4.B |
+| $\mathcal{Y}_{\text{sing}}$ | Singular Locus in feature space | Def. 21.2 |
+| $V$ | Canonical blow-up profile | Def. 7.1 |
+
+### A.4 Scaling and Criticality
+
+| Symbol | Description | Definition |
+|:-------|:------------|:-----------|
+| $\alpha$ | Dissipation scaling exponent | Axiom SC |
+| $\beta$ | Time compression exponent | Axiom SC |
+| $\lambda$ | Scale parameter | §5.1 |
+| $\theta$ | Łojasiewicz exponent | Axiom LS |
+| $\kappa$ | Capacity threshold | Axiom Cap |
+
+### A.5 Axioms and Permits
+
+| Symbol | Axiom | Constraint Class |
+|:-------|:------|:-----------------|
+| **C** | Compactness | Conservation |
+| **D** | Dissipation | Conservation |
+| **Rec** | Recovery | Duality |
+| **SC** | Scaling Coherence | Symmetry |
+| **Cap** | Capacity | Conservation |
+| **LS** | Local Stiffness | Symmetry |
+| **TB** | Topological Background | Topology |
+| **GC** | Gradient Consistency | Symmetry |
+| **R** | Recovery/Dictionary | Duality |
+| $\Pi_A$ | Boolean permit for Axiom $A$ | Thm. 21.6 |
+
+### A.6 Categories and Metatheory
+
+| Symbol | Description | Definition |
+|:-------|:------------|:-----------|
+| $\mathbf{StrFlow}$ | Category of structural flows | Def. 2.3 |
+| $\mathbf{Hypo}_T$ | Category of admissible hypostructures of type $T$ | Def. 21.12 |
+| $\mathbf{Hypo}_T^{\neg R}$ | R-breaking subcategory | §18.4.J |
+| $\mathbb{H}$ | A hypostructure | Def. 2.2 |
+| $\mathbb{H}_{\text{bad}}^{(T)}$ | Universal R-breaking pattern | Metatheorem 19.4.J |
+| $F_{\text{PDE}}$, $G$ | Adjoint functors | Def. 21.16-17 |
+
+### A.7 Failure Modes
+
+| Mode | Name | Constraint Class | Type |
+|:-----|:-----|:-----------------|:-----|
+| C.E | Energy Blow-up | Conservation | Excess |
+| C.D | Geometric Collapse | Conservation | Deficiency |
+| C.C | Finite-Time Event Accumulation | Conservation | Complexity |
+| T.E | Topological Sector Transition | Topology | Excess |
+| T.D | Logical Paradox | Topology | Deficiency |
+| T.C | Labyrinthine Complexity | Topology | Complexity |
+| D.D | Dispersion (Global Existence) | Duality | Deficiency |
+| D.E | Observation Horizon | Duality | Excess |
+| D.C | Semantic Horizon | Duality | Complexity |
+| S.E | Structured Blow-up | Symmetry | Excess |
+| S.D | Stiffness Breakdown | Symmetry | Deficiency |
+| S.C | Parameter Manifold Instability | Symmetry | Complexity |
+| B.E | Injection Singularity | Boundary | Excess |
+| B.D | Resource Starvation | Boundary | Deficiency |
+| B.C | Boundary-Bulk Incompatibility | Boundary | Complexity |
+
+---
+
+*End of Document*
