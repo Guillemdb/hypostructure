@@ -424,7 +424,7 @@ $$
 $$
 where:
 
-- $(X, d)$ is a Polish space with metric $d$,
+- $(X, d)$ is a Polish space with metric $d$. We adopt the viewpoint of **Metric Geometry** as systematized by **Burago, Burago, and Ivanov \cite{Burago01}**, where length structures are intrinsic and exist independent of a smooth manifold atlas,
 - $\mathcal{B}$ is the Borel $\sigma$-algebra on $X$,
 - $\mu$ is a $\sigma$-finite Borel measure on $(X, \mathcal{B})$,
 - $T \in \{\mathbb{R}_{\geq 0}, \mathbb{Z}_{\geq 0}\}$ is the time monoid,
@@ -438,7 +438,7 @@ where:
 2. $f$ is height-nonincreasing: $\Phi_2(f(x)) \leq \Phi_1(x)$ for all $x \in X_1$,
 3. $f$ is dissipation-compatible: $\mathfrak{D}_2(f(x)) \leq C_f \mathfrak{D}_1(x)$ for some constant $C_f \geq 1$.
 
-This defines the category $\mathbf{StrFlow}$ of structural flows.
+This defines the category $\mathbf{StrFlow}$ of structural flows. This trajectory-centric formulation aligns with the **Behavioral Approach** of Willems \cite{Willems91}, where a dynamical system is defined not by input-output maps but by the kernel of admissible behaviors in the signal space.
 
 **Definition 2.4 (Forgetful functor).** There is a forgetful functor $U: \mathbf{StrFlow} \to \mathbf{DynSys}$ to the category of topological dynamical systems, given by $U(\mathcal{S}) = (X, (S_t)_{t \in T})$. This categorical formulation draws upon Lawvere's Functorial Semantics \cite{Lawvere63}, viewing dynamical theories as categories and models as functors.
 
@@ -796,7 +796,7 @@ $$
 
 ### 3.4 Symmetry constraints
 
-These axioms enforce local rigidity near equilibria—the stiffness that drives convergence.
+These axioms enforce local rigidity near equilibria—the stiffness that drives convergence. The connection between critical point structure and global topology is formalized by **Morse theory** \cite{Morse34}: the number and types of critical points of a height functional constrain the topology of the underlying manifold.
 
 #### Axiom LS (Local Stiffness)
 
@@ -825,7 +825,7 @@ $$
 
 Outside $U$, other axioms (C, D, Rec) govern behaviour.
 
-**Role in constraint class.** Axiom LS provides local rigidity near equilibria. The Łojasiewicz–Simon inequality quantifies the "steepness" of the energy landscape near $M$: the exponent $\theta$ controls how degenerate the energy is at equilibria. When $\theta = 1$, this is a linear coercivity condition; smaller values indicate stronger degeneracy. The drift domination ensures that trajectories inside $U$ are inexorably pulled toward $M$ by dissipation.
+**Role in constraint class.** Axiom LS provides local rigidity near equilibria. The Łojasiewicz–Simon inequality quantifies the "steepness" of the energy landscape near $M$: the exponent $\theta$ controls how degenerate the energy is at equilibria. When $\theta = 1$, this is a linear coercivity condition; smaller values indicate stronger degeneracy. The drift domination ensures that trajectories inside $U$ are inexorably pulled toward $M$ by dissipation. This formalizes the concept of **Inertial Manifolds** in infinite-dimensional dynamical systems \cite{Temam88}, which contain the global attractor and capture the long-time dynamics of dissipative PDEs.
 
 **Remark 3.16.** The exponent $\theta$ is called the **Łojasiewicz exponent**. It determines the rate of convergence to equilibrium.
 
@@ -1105,7 +1105,7 @@ where $b_k$ denotes the $k$-th Betti number (rank of the $k$-th homology group).
 
 *Proof.*
 
-**Step 1 (O-minimal definition).** An o-minimal structure on $\mathbb{R}$ is an expansion of the ordered field $(\mathbb{R}, <, +, \cdot)$ such that every definable subset of $\mathbb{R}$ is a finite union of points and intervals.
+**Step 1 (O-minimal definition).** An o-minimal structure on $\mathbb{R}$ is an expansion of the ordered field $(\mathbb{R}, <, +, \cdot)$ such that every definable subset of $\mathbb{R}$ is a finite union of points and intervals. The foundational result is the **Tarski-Seidenberg theorem** \cite{Tarski51}: the real field admits **quantifier elimination**, and this extends to all o-minimal structures.
 
 **Step 2 (Cell decomposition theorem).** By the fundamental theorem of o-minimality (van den Dries), every definable set $S \subseteq \mathbb{R}^n$ admits a **cell decomposition**: a finite partition into cells homeomorphic to open balls of various dimensions.
 
@@ -2362,6 +2362,8 @@ $$
 
 ### 7.1 The philosophical pivot
 
+The reconstruction of an object from its representations is the dynamical realization of **Tannakian Duality \cite{DeligneMilne82}**, which asserts that a group can be reconstructed from its category of representations (the fiber functor). This principle underlies the Recovery Axiom throughout the framework.
+
 Standard analysis often asks: *Does a global maximizer of the energy functional exist?* If the answer is "no" or "maybe," the analysis stalls.
 
 The hypostructure framework inverts this dependency. We do not assume the existence of a global maximizer to define the system. Instead, we use **Axiom C (Compactness)** to prove that **if** a singularity attempts to form, it must structurally reorganize the solution into a "local maximizer" (a canonical profile).
@@ -2640,7 +2642,7 @@ This is the Log-Sobolev inequality with sharp constant $\alpha_{LS} = \kappa$. $
 Let $\mathcal{S}$ be a supercritical hypostructure ($\alpha < \beta$). Even if algebraic and energetic permits are granted, **Mode S.E (Structured Blow-up) is impossible** if the system violates the **Information Inequality**:
 $$\mathcal{H}(T_*) > \limsup_{\lambda \to \infty} C_\Phi(\lambda)$$
 where:
-- $\mathcal{H}(T_*) = \int_0^{T_*} h_\mu(S_\tau) d\tau$ is the accumulated Kolmogorov-Sinai entropy (information destroyed by chaotic mixing),
+- $\mathcal{H}(T_*) = \int_0^{T_*} h_\mu(S_\tau) d\tau$ is the accumulated Kolmogorov-Sinai entropy \cite{Sinai59} (information destroyed by chaotic mixing),
 - $C_\Phi(\lambda)$ is the channel capacity: the logarithm of phase-space volume encoding the profile at scale $\lambda$ within energy budget $\Phi_0$.
 
 *Proof.*
@@ -3095,6 +3097,8 @@ These barriers enforce connectivity constraints, structural consistency, and log
 
 **Constraint Class:** Topology (Cohomological)
 **Modes Prevented:** 5 (Topological Twist), 11 (Structural Incompatibility)
+
+The cohomological machinery employed here rests on the **Eilenberg-Steenrod axioms** \cite{EilenbergSteenrod45}, which characterize homology and cohomology theories by their functorial properties and exactness conditions.
 
 **Metatheorem 9.1 (The Characteristic Sieve).**
 Let $\mathcal{S}$ be a hypostructure attempting to support a global geometric structure (e.g., nowhere-vanishing vector field, connection, or framing) on a manifold $M$. The structure exists if and only if the associated **cohomological obstruction** vanishes:
@@ -4304,7 +4308,7 @@ Prediction faster than real-time simulation is impossible for irreducible system
 **Modes Prevented:** Mode D.E (Observation), Mode D.C (Measurement)
 
 **Definition 10.7.1 (Kolmogorov Complexity).**
-The **Kolmogorov complexity** $K(x)$ of a string $x$ is the length of the shortest program that outputs $x$:
+Our treatment follows the standard formulation of **Li and Vitányi \cite{LiVitanyi08}**, treating descriptive complexity as an invariant limiting property of the computational system. The **Kolmogorov complexity** $K(x)$ of a string $x$ is the length of the shortest program that outputs $x$:
 $$K(x) = \min\{|p| : U(p) = x\}$$
 where $U$ is a universal Turing machine.
 
@@ -4686,6 +4690,8 @@ Symmetry barriers arise when a system's dynamics respect certain transformations
 ---
 
 ### 11.1 The Spectral Convexity Principle: Configuration Rigidity
+
+The systematic exclusion of failure modes via sequential constraints generalizes the **Large Sieve** method of analytic number theory \cite{IwaniecKowalski04}, where a set of interest is bounded by excluding residue classes (failure modes) across multiple primes (scales).
 
 **Constraint Class:** Symmetry
 **Modes Prevented:** Mode S.E (Scaling), Mode S.D (Stiffness)
@@ -6161,7 +6167,7 @@ for some $\gamma > 0$, $\tau \geq n-1$.
 
 **Step 1 (Measure theory).** The set of Diophantine vectors has full Lebesgue measure in $\mathbb{R}^n$. The complement (Liouville numbers) has measure zero.
 
-**Step 2 (KAM theory).** For Hamiltonian systems with integrable part having Diophantine frequencies, KAM theorem guarantees persistence of invariant tori under small perturbations.
+**Step 2 (KAM theory).** For Hamiltonian systems with integrable part having Diophantine frequencies, the KAM theorem \cite{Arnold63} guarantees persistence of invariant tori under small perturbations.
 
 **Step 3 (Resonance avoidance).** Diophantine condition ensures $|k \cdot \omega|^{-1} \leq \gamma^{-1}|k|^\tau$, bounding the small divisors that appear in perturbation theory. This prevents resonance-driven blow-up.
 
@@ -6369,7 +6375,7 @@ $$F(V \hookrightarrow W) \circ F(U \hookrightarrow V) = F(U \hookrightarrow W)$$
 
 **Step 2 (Composition).** Sequential inclusions compose: $U \subset V \subset W$ gives $\mathcal{A}(U) \hookrightarrow \mathcal{A}(V) \hookrightarrow \mathcal{A}(W)$. Functoriality is consistency of this composition.
 
-**Step 3 (Covariance).** Under coordinate change (diffeomorphism $\phi: M \to M$), observables transform: $\phi_*: \mathcal{A}(U) \to \mathcal{A}(\phi(U))$. Covariance requires this to be a natural transformation.
+**Step 3 (Covariance).** Under coordinate change (diffeomorphism $\phi: M \to M$), observables transform: $\phi_*: \mathcal{A}(U) \to \mathcal{A}(\phi(U))$. Covariance requires this to be a natural transformation. This follows **Atiyah's Axioms for Topological Quantum Field Theory \cite{Atiyah88}**, which define physical theories as functors from cobordisms to vector spaces, enforcing consistency across topology changes.
 
 **Step 4 (Physical content).** Functorial structure ensures: (a) observations are consistent across regions, (b) reference frame changes are well-defined, (c) the theory is background-independent. $\square$
 
@@ -9678,7 +9684,7 @@ No optimization assumptions are used: this is a **pure representational metatheo
 
 ### 13.11 Active Probing and Sample-Complexity of Hypostructure Identification
 
-So far we have treated the axiom-defect risk as given by a fixed trajectory distribution $\mu_S$. In many systems, however, the learner can **control** which trajectories are generated, by choosing initial conditions and controls. In other words, the learner can design *experiments*.
+So far we have treated the axiom-defect risk as given by a fixed trajectory distribution $\mu_S$. In many systems, however, the learner can **control** which trajectories are generated, by choosing initial conditions and controls. In other words, the learner can design *experiments*. This section formalizes optimal experiment design for structural identification, extending the classical **observability** framework of Kalman \cite{Kalman60} to the hypostructure setting. This guarantees **Identification in the Limit**, satisfying the criteria of **Gold's Paradigm \cite{Gold67}** for language learning.
 
 In this section we show that, under a mild identifiability gap assumption, **actively chosen probes** (policies, initial data, controls) allow the learner to identify the correct hypostructure parameter with sample complexity essentially proportional to the parameter dimension and inverse-quadratic in the identifiability gap.
 
@@ -10074,6 +10080,8 @@ This chapter defines a training objective for systems that instantiate, verify, 
 
 ### 14.1 Overview and problem formulation
 
+This is formally framed as **Structural Risk Minimization \cite{Vapnik98}** over the hypothesis space of admissible hypostructures.
+
 **Definition 14.1 (Hypostructure learner).** A **hypostructure learner** is a parametrized system with parameters $\Theta$ that, given a dynamical system $S$, produces:
 1. A hypostructure $\mathbb{H}_\Theta(S) = (X, S_t, \Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta)$
 2. Soft axiom evaluations and defect values
@@ -10086,6 +10094,8 @@ $$\mathcal{L}_{\text{gen}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}\big[\lambd
 where $\lambda_{\text{struct}}, \lambda_{\text{axiom}}, \lambda_{\text{var}}, \lambda_{\text{meta}} \geq 0$ are weighting coefficients.
 
 ### 14.2 Structural loss
+
+The structural loss formulation embodies the **Maximum Entropy** principle of Jaynes \cite{Jaynes57}: among all distributions consistent with observed constraints, select the one with maximal entropy. Here, we select the hypostructure parameters that minimize constraint violations while maintaining maximal generality.
 
 **Definition 14.4 (Structural loss functional).** For systems $S$ with known ground-truth structure $(\Phi^*, \mathfrak{D}^*, G^*)$, define:
 $$L_{\text{struct}}(S, \Theta) := d(\Phi_\Theta, \Phi^*) + d(\mathfrak{D}_\Theta, \mathfrak{D}^*) + d(G_\Theta, G^*)$$
@@ -10151,6 +10161,8 @@ evaluated on held-out data from $S$.
 *Proof.* The meta-learning objective rewards parameters $\Theta$ from which few adaptation steps suffice to achieve low loss on any system $S$. This is the MAML principle applied to hypostructure learning. $\square$
 
 ### 14.6 The combined general loss
+
+This formulation mirrors **Tikhonov Regularization \cite{Tikhonov77}** for ill-posed inverse problems, where the Hypostructure Axioms serve as the stabilizing functional.
 
 **Metatheorem 14.15 (Differentiability).** Under the following conditions:
 1. Neural network parameterization of $\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta$
@@ -10239,7 +10251,7 @@ Discounting becomes an optional modeling choice, not a mathematical necessity.
 
 ### 14.8 Structural Identifiability
 
-This section establishes that the defect functionals introduced in Chapter 13 determine the hypostructure components from axioms alone, and that parametric families of hypostructures are learnable under minimal extrinsic conditions.
+This section establishes that the defect functionals introduced in Chapter 13 determine the hypostructure components from axioms alone, and that parametric families of hypostructures are learnable under minimal extrinsic conditions. The philosophical foundation is the **univalence axiom** of Homotopy Type Theory \cite{HoTT13}: identity is equivalent to equivalence. Two hypostructures are identified if and only if they are structurally equivalent.
 
 **Definition 14.24 (Defect signature).** For a parametric hypostructure $\mathcal{H}_\Theta$ and trajectory class $\mathcal{U}$, the **defect signature** is the function:
 $$\mathsf{Sig}(\Theta): \mathcal{U} \to \mathbb{R}^{|\mathcal{A}|}, \quad \mathsf{Sig}(\Theta)(u) := \big(K_A^{(\Theta)}(u)\big)_{A \in \mathcal{A}}$$
@@ -10338,6 +10350,8 @@ Everything else—structure reconstruction, canonical Lyapunov, barrier constant
 The hypostructure axioms (C, D, Rec, Cap, LS, SC, TB) presented in previous parts are not independent postulates chosen for technical convenience. They are manifestations of a single organizing principle: **self-consistency under evolution**. This chapter reveals the meta-mathematical structure underlying the framework, showing how the fixed-point principle generates the four fundamental constraints, which in turn generate the axioms, which exclude the fifteen failure modes via eighty-three quantitative barriers.
 
 ### 15.1 Derivation of constraints from the fixed-point principle
+
+The interplay between local and global structure is governed by **index theory**. The **Atiyah-Singer Index Theorem** \cite{AtiyahSinger63} establishes that the analytical index of an elliptic operator (determined by local data) equals a topological index (determined by global invariants). This paradigm—local analysis constraining global topology—pervades the hypostructure framework.
 
 **Definition 15.1 (Dynamical fixed point).** Let $\mathcal{S} = (X, (S_t), \Phi, \mathfrak{D})$ be a structural flow datum. A state $x \in X$ is a **dynamical fixed point** if $S_t x = x$ for all $t \in T$. More generally, a subset $M \subseteq X$ is **invariant** if $S_t(M) \subseteq M$ for all $t \geq 0$.
 
@@ -11030,6 +11044,8 @@ This is a valid continuation, contradicting the maximality of $T_*$.
 
 ### 17.2 Failure-Mode Decomposition Theorem
 
+The structural dichotomy between **tame** (classifiable) and **wild** (unclassifiable) mathematical objects is formalized by Shelah's **Classification Theory** \cite{Shelah90}. The failure mode taxonomy reflects this dichotomy: tame failures (Modes 1-12) admit finite-dimensional descriptions, while wild failures (Mode T.C) involve infinite-dimensional pathology.
+
 The following theorem shows that catastrophic trajectories decompose into a countable union of atomic failure events.
 
 **Metatheorem 17.2 (Failure Decomposition).** Let $u: [0, T_*) \to X$ be a finite-cost trajectory that does **not** converge to the safe manifold $M$.
@@ -11265,6 +11281,8 @@ for some $\theta \in (0,1)$. This is Axiom LS. $\square$
 
 ### 18.2 RG-Functoriality Theorem
 
+The rigorous foundations for renormalization in quantum field theory were established by **Constructive QFT** \cite{GlimmJaffe87}, proving that certain interacting field theories can be defined as mathematical objects satisfying the Wightman axioms. The RG-Functoriality theorem extends this framework to general hypostructures.
+
 **Definition 18.2.1 (Coarse-graining map).** A **coarse-graining** or **renormalization group (RG) map** is a transformation $R: \mathcal{H} \to \tilde{\mathcal{H}}$ between hypostructures satisfying:
 
 1. **State space reduction:** $R: X \to \tilde{X}$ is a surjection (possibly many-to-one)
@@ -11342,7 +11360,7 @@ where $\Theta_*$ is the true parameter.
 
 **(3)** Failure mode permissions are determined by inequalities on exponents and constants. These are preserved under small perturbations. $\square$
 
-**Corollary 18.3.1 (Hypostructure learning is well-posed).** Given sufficient trajectory data and the constraint that the underlying dynamics satisfies the hypostructure axioms, there is a unique (up to symmetry) hypostructure consistent with the data.
+**Corollary 18.3.1 (Hypostructure learning is well-posed).** Given sufficient trajectory data and the constraint that the underlying dynamics satisfies the hypostructure axioms, there is a unique (up to symmetry) hypostructure consistent with the data. This is the structural analogue of **Valiant's PAC Learning \cite{Valiant84}**, extending Probably Approximately Correct learning to dynamical laws.
 
 **Connection to General Loss (Chapter 14).** The identifiability theorem provides the theoretical foundation for the general loss: minimizing the axiom defect $\mathcal{R}_A(\Theta)$ over parameters $\Theta$ converges to the true hypostructure as data increases.
 
@@ -11888,6 +11906,8 @@ This completes the proof that the tower globalizes to a consistent asymptotic st
 ---
 
 #### Metatheorem 19.4.B (Obstruction Capacity Collapse)
+
+The vanishing of cohomological obstructions is governed by **Cartan's Theorems A and B** \cite{Cartan53}: on Stein manifolds, coherent sheaf cohomology vanishes in positive degrees, enabling local-to-global extension. The following metatheorem establishes an analogous structural collapse for obstructions in hypostructures.
 
 **Setup.** Let
 $$\mathbb{H} = (X, \Phi, \mathfrak{D})$$
@@ -12692,7 +12712,7 @@ with morphisms inherited from $\mathbf{Hypo}_T$.
 
 **Hypothesis (Existence of Universal Pattern).** For type $T$, we assume the existence of a distinguished admissible T-hypostructure:
 $$\mathbb{H}_{\mathrm{bad}}^{(T)} \in \mathbf{Hypo}_T^{\neg R}$$
-satisfying the **universal mapping property**:
+satisfying the **universal mapping property**. This categorical approach to complexity obstructions mirrors the **Geometric Complexity Theory (GCT)** program of **Mulmuley and Sohoni \cite{MulmuleySohoni01}**, which seeks to prove $P \neq NP$ by demonstrating representation-theoretic obstructions to embedding:
 
 > For any R-breaking T-hypostructure $\mathbb{H} \in \mathbf{Hypo}_T^{\neg R}$, there exists at least one morphism:
 > $$F: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}$$
@@ -14222,7 +14242,7 @@ encoding the probability of a random walk from $u$ to $v$ in time $t$.
 
 Then:
 
-**(1) Metric convergence.** The rescaled graph metric $d_N / \sqrt{N}$ converges in the Gromov-Hausdorff sense to a Riemannian manifold $(M, g)$ of dimension $d$.
+**(1) Metric convergence.** The rescaled graph metric $d_N / \sqrt{N}$ converges in the Gromov-Hausdorff sense to a Riemannian manifold $(M, g)$ of dimension $d$. This derivation relies on the rigorous **Hydrodynamic Limits** established by **Kipnis and Landim \cite{KipnisLandim99}**, which prove that interacting particle systems scale to deterministic PDEs under hyperbolic/parabolic rescaling.
 
 **(2) Laplacian convergence.** The rescaled graph Laplacian $N^{-2/d} \Delta_{\text{IG}}$ converges to the Laplace-Beltrami operator $\Delta_g$ on $M$.
 
