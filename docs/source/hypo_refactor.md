@@ -1,12 +1,12 @@
 ---
-title: "Hypostructures: The Geometry of System Stability"
-subtitle: "A Unified Framework for Analyzing Dynamical Coherence"
+title: "Hypostructures: A Formalism for Dynamical Coherence and Structural Learning"
+subtitle: "Foundations of Trainable Axiomatic Systems"
 author: "Guillem Duran Ballester"
 ---
 
-# Hypostructures: The Geometry of System Stability
+# Hypostructures: A Formalism for Dynamical Coherence and Structural Learning
 
-*A Unified Framework for Analyzing Dynamical Coherence*
+*Foundations of Trainable Axiomatic Systems*
 
 # Part I: Foundations
 
@@ -16,13 +16,13 @@ author: "Guillem Duran Ballester"
 
 #### 1.0.1 The challenge of understanding stability
 
-Contemporary analysis of dynamical systems—whether in partial differential equations, geometric flows, or discrete computational processes—seeks to understand when systems remain stable and when they break down. The standard approach attempts to prove regularity by controlling chaos: constructing estimates, bounding norms, and managing entropy via inequalities (Sobolev, Gronwall, Morawetz).
+We define a **Hypostructure** as a tuple $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G)$ satisfying a specific set of coherence constraints. This document establishes the category of Hypostructures and proves that global regularity in dynamical systems is equivalent to the non-existence of morphisms from a canonical singular object.
 
-This document presents a complementary approach: a **diagnostic framework** that identifies the structural conditions under which systems remain stable, and classifies the ways they can fail.
+This document presents a structural approach: a **diagnostic framework** that identifies the conditions under which systems remain coherent, and classifies the ways they can fail.
 
-**Hypostructures provide a unified language for stability analysis.** Rather than treating each system in isolation, this framework establishes structural constraints that characterize coherent dynamics across domains. The framework does not replace hard analysis; it provides a **conceptual map** that explains why certain estimates work, predicts which failure modes are possible, and unifies disparate results under common principles.
+**Hypostructures provide a unified language for stability analysis.** Rather than treating each system in isolation, this framework establishes structural constraints that characterize coherent dynamics across domains. The structural axioms encode the necessary conditions for self-consistency under evolution.
 
-**Remark (Scope and claims).** This framework is both **descriptive and diagnostic**. It explains *why* systems behave as they do, provides engineers and researchers with a checklist of failure modes, and reduces difficult global questions to easy local checks. Verifying that a specific physical system satisfies the hypostructure axioms is routine—the axioms are designed to be checkable from standard textbook properties.
+**Remark (Scope and claims).** This framework is both **descriptive and diagnostic**. It classifies the structural conditions for coherence and reduces global regularity questions to local algebraic checks. Verifying that a specific system satisfies the hypostructure axioms requires only identifying the symmetries $G$ and computing the algebraic data (scaling exponents, capacity dimensions, Łojasiewicz exponents).
 
 #### 1.0.2 The fixed-point principle: F(x) = x
 
@@ -76,19 +76,19 @@ The four constraint classes admit three types of failure: **excess** (unbounded 
 
 | **Constraint** | **Excess** | **Deficiency** | **Complexity** |
 |----------------|------------|----------------|----------------|
-| **Conservation** | Mode C.E: Energy blow-up | Mode C.D: Geometric collapse | Mode C.C: Zeno divergence |
+| **Conservation** | Mode C.E: Energy blow-up | Mode C.D: Geometric collapse | Mode C.C: Finite-time event accumulation |
 | **Topology** | Mode T.E: Metastasis | Mode T.D: Glassy freeze | Mode T.C: Labyrinthine |
 | **Duality** | Mode D.E: Oscillatory | Mode D.D: Dispersion | Mode D.C: Semantic horizon |
-| **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Vacuum decay |
+| **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Parameter manifold instability |
 | **Boundary** | Mode B.E: Injection | Mode B.D: Starvation | Mode B.C: Misalignment |
 
 **Remark 0.8.** Mode D.D (Dispersion) represents global existence via scattering, not a singularity. When energy does not concentrate, no finite-time blow-up occurs. The framework treats dispersion as success: if energy scatters rather than focusing, global regularity follows.
 
-The framework proves regularity by showing that Modes C.E, S.E–B.C are algebraically impossible under the structural axioms. The detailed classification of these modes appears in Chapter 4; their exclusion via metatheorems appears in Chapter 9.
+Global regularity is established by verifying that the Singular Locus $\mathcal{Y}_{\text{sing}}$ is empty—that is, Modes C.E, S.E–B.C are algebraically impossible under the structural axioms. The detailed classification of these modes appears in Chapter 4; their exclusion via metatheorems appears in Chapter 9.
 
 #### 1.0.5 The axiomatic stance
 
-This work is constructed in the spirit of formalism. We define a mathematical universe governed by specific laws—the Hypostructure Axioms. Within this axiomatic system, the results are rigorous consequences of the definitions.
+We adopt a constructive formalism. The Hypostructure Axioms are not empirical observations but necessary conditions derived from the fixed-point principle $F(x)=x$. Within this axiomatic system, the results are rigorous consequences of the definitions.
 
 The central logical operation of this framework is **exclusion**, not approximation:
 
@@ -105,9 +105,9 @@ If a physical or mathematical system satisfies the axioms of a Hypostructure, it
 The framework then checks whether the algebraic permits are satisfied:
 - If $\alpha > \beta$ (Axiom SC), supercritical blow-up is impossible.
 - If singular sets have positive capacity (Axiom Cap), geometric concentration is impossible.
-- If permits are denied, **global regularity follows from soft local exclusion**—no hard estimates needed.
+- If permits are denied, **global regularity follows from local structural exclusion**—analytic estimates are encoded within the algebraic permits.
 
-#### 1.0.6 The logic of soft local exclusion
+#### 1.0.6 The Principle of Local Structural Exclusion
 
 This text does not contain global estimates or integral bounds. The mechanism of proof is **soft local exclusion**:
 
@@ -118,7 +118,7 @@ This text does not contain global estimates or integral bounds. The mechanism of
 
 The framework replaces the analytical difficulty of tracking a trajectory with the algebraic difficulty of classifying a static profile.
 
-**Soft local conditions.** The axioms are not global estimates assumed a priori. They are **soft local conditions**—qualitative properties verifiable in the neighborhood of a point, a profile, or a manifold:
+**Local Structural Constraints.** The axioms are not global estimates assumed a priori. They are **local structural constraints**—qualitative properties verifiable in the neighborhood of a point, a profile, or a manifold:
 
 - **Local Stiffness (LS):** Requires only that the gradient dominates the distance near an equilibrium.
 - **Scaling Structure (SC):** Requires only that dissipation scales faster than time on a self-similar orbit.
@@ -143,7 +143,7 @@ The framework's value is **explanatory, diagnostic, and learnable**:
 4. **Engineering applications:** Diagnostic tools for AI safety, control systems, and optimization.
 5. **Trainable axioms:** A complete meta-theory of learning hypostructures from data, with theorems on consistency, generalization, error localization, robustness, curriculum stability, and equivariance.
 
-The framework rests on a single organizing principle—the fixed-point equation $F(x) = x$—from which four fundamental constraint classes emerge as logical necessities. Part VII develops trainable hypostructures where axioms become learnable parameters, establishing that defect minimization converges to axiom-consistent structures and that learned hypostructures inherit the symmetries and failure-mode predictions of true theories.
+The framework rests on a single organizing principle—the fixed-point equation $F(x) = x$—from which four fundamental constraint classes emerge as logical necessities. Part VII develops trainable hypostructures where the structural parameters $\theta \in \Theta$ determining the axioms are estimated via defect minimization, establishing that defect minimization converges to axiom-consistent structures and that learned hypostructures inherit the symmetries and failure-mode predictions of true theories.
 
 **The framework's methodology:** Reduce difficult global questions to easy local checks. Verifying that a system satisfies the hypostructure axioms requires only standard calculations; the framework then delivers structural conclusions about stability, failure modes, and long-time behavior.
 
@@ -199,7 +199,7 @@ This document is organized into eleven parts:
 
 **Part IX: The Isomorphism Dictionary (Chapter 16).** Structural correspondences across mathematical domains. Shows how the same barrier mechanisms manifest in different settings (PDE, probability, algebra, computation).
 
-**Part X: Foundational Metatheorems (Chapters 17–18).** Completeness, minimality, universality, and identifiability of hypostructures. Proves that the axiom system is the unique minimal system capturing structural coherence. Section 18.4 presents fourteen Global Metatheorems (18.4.A–N): local-to-global machinery (tower globalization, obstruction collapse, stiff pairings), the master schema reducing conjectures to Axiom R, meta-learning of admissible structure, the pincer exclusion strategy via universal R-breaking patterns, the computational layer (parametric realization and adversarial search), and the capstone Master Metalearning Structural Exclusion theorem unifying all previous metatheorems.
+**Part X: Foundational Metatheorems (Chapters 17–18).** Completeness, minimality, universality, and identifiability of hypostructures. Proves that the axiom system is the unique minimal system capturing structural coherence. Section 18.4 presents fourteen Global Metatheorems (18.4.A–N): local-to-global machinery (tower globalization, obstruction collapse, stiff pairings), the master schema reducing conjectures to Axiom R, meta-learning of admissible structure, the pincer exclusion strategy via universal R-breaking patterns, the computational layer (parametric realization and adversarial search), and the capstone Principle of Structural Exclusion theorem unifying all previous metatheorems.
 
 **Part XI: Fractal Set Foundations (Chapters 19–20).** Advanced topics: fractal set representation of singular structures, emergent spacetime from hypostructure dynamics, and observer-dependent perspectives.
 
@@ -340,7 +340,7 @@ From the hypostructure axioms, we derive:
 - **Theorem 19.4.D (Local → Global Height):** Local Northcott + coercivity yields global height with finiteness
 - **Theorem 19.4.E (Local → Subcritical):** Local growth bounds automatically imply subcritical dissipation
 - **Theorem 19.4.F (Local Duality → Stiffness):** Local perfect duality + exactness yields global non-degeneracy
-- **Theorem 19.4.G (Master Schema):** Conjecture($Z$) $\Leftrightarrow$ Axiom R($Z$) for admissible objects
+- **Theorem 19.4.G (Conjecture-Axiom Equivalence):** Conjecture($Z$) $\Leftrightarrow$ Axiom R($Z$) for admissible objects
 - **Theorem 19.4.H (Meta-Learning):** Admissible structure can be learned via axiom risk minimization
 - **Theorem 19.4.I (Categorical Structure):** Category $\mathbf{Hypo}_T$ of T-hypostructures and morphisms
 - **Theorem 19.4.J (Universal Bad Pattern):** Initial object $\mathbb{H}_{\mathrm{bad}}^{(T)}$ of R-breaking subcategory
@@ -357,7 +357,7 @@ The axioms organize into three layers of increasing abstraction:
 
 - **S-Layer (Structural):** Core axioms X.0 enabling structural resolution and basic metatheorems 18.4.A–C
 - **L-Layer (Learning):** Axioms L1 (expressivity), L2 (excitation), L3 (identifiability) enabling meta-learning (18.4.H), local-to-global construction (18.4.D–F), and full pincer exclusion (18.4.N)
-- **$\Omega$-Layer (Universal Observer):** Single meta-hypothesis reducing all L-axioms to structural learnability, enabling Theorem 0 (Convergence of Structure)
+- **$\Omega$-Layer (AGI Limit):** Single meta-hypothesis reducing all L-axioms to universal structural approximation, enabling Theorem 0 (Convergence of Structure)
 
 The layers form a hierarchy: L-axioms derive S-layer properties as theorems rather than assumptions; $\Omega$-axioms derive L-axioms from universal approximation and active probing. Users work at the layer appropriate to their verification capability.
 
@@ -365,7 +365,7 @@ The layers form a hierarchy: L-axioms derive S-layer properties as theorems rath
 
 The framework instantiates across the following mathematical structures:
 
-**Partial differential equations.** Parabolic, hyperbolic, and dispersive equations; geometric flows (mean curvature flow, Ricci flow); Navier–Stokes and Euler equations on Riemannian manifolds.
+**Partial differential equations.** Parabolic, hyperbolic, and dispersive equations; geometric flows (mean curvature flow, Ricci flow); incompressible fluid equations on Riemannian manifolds.
 
 **Stochastic processes.** McKean–Vlasov equations, Fleming–Viot processes, interacting particle systems, Langevin dynamics, Itô diffusions on manifolds.
 
@@ -395,7 +395,7 @@ The framework instantiates across the following mathematical structures:
 The framework then checks whether the algebraic permits are satisfied:
 - If $\alpha > \beta$ (Axiom SC), supercritical blow-up is impossible.
 - If singular sets have positive capacity (Axiom Cap), geometric concentration is impossible.
-- If permits are denied, **global regularity follows from soft local exclusion**—no hard estimates needed.
+- If permits are denied, **global regularity follows from local structural exclusion**—analytic estimates are encoded within the algebraic permits.
 
 The only remaining possibility is Mode D.D (dispersion), which is not a finite-time singularity but global existence via scattering.
 
@@ -563,19 +563,19 @@ The hypostructure axioms organize into **three layers of increasing abstraction*
 | Subcritical Scaling | L1 + meta-learning | 18.4.E |
 | Stiffness | L1 + meta-learning | 18.4.F |
 
-**Layer $\Omega$ (Universal Observer).** The theoretical limit—reduces all L-layer assumptions to a single meta-hypothesis. The key insight is that several L-axioms become derivable under stronger conditions:
+**Layer $\Omega$ (AGI Limit).** The theoretical limit—reduces all L-layer assumptions to a single meta-hypothesis. The key insight is that several L-axioms become derivable under stronger conditions:
 
 1. *S1 (Admissibility) becomes diagnostic:* The framework tests regularity rather than assuming it (Theorem 15.21).
 2. *L2 (Excitation) eliminated:* Active Probing (Theorem 13.44) generates persistently exciting data.
 3. *L3 (Identifiability) relaxed:* Singular Learning Theory (Watanabe) shows that the RLCT controls convergence even in degenerate landscapes.
 4. *L1 (Expressivity) weakened:* Replace fixed $\Theta$ with a hierarchy $\Theta_1 \subset \Theta_2 \subset \cdots$ of increasing expressivity.
 
-This yields **Axiom $\Omega$ (Universal Observer):** Access to a learning agent $\mathcal{A}$ equipped with:
+This yields **Axiom $\Omega$ (AGI Limit):** Access to a learning agent $\mathcal{A}$ equipped with:
 - *Universal Approximation:* $\Theta = \bigcup_n \Theta_n$ dense in continuous functionals on trajectory data.
-- *Active Querying:* Ability to probe system $S$ and observe trajectories.
+- *Optimal Experiment Design:* Ability to probe system $S$ and observe trajectories.
 - *Defect Minimization:* Optimization oracle for the axiom risk $\mathcal{R}(\theta)$.
 
-**Hypothesis $\Omega$ (Structural Learnability):** System $S$ belongs to the closure of computable hypostructures—physics approximable by finite combination of (Energy, Dissipation, Symmetry, Topology).
+**Hypothesis $\Omega$ (Universal Structural Approximation):** System $S$ belongs to the closure of computable hypostructures—physics approximable by finite combination of (Energy, Dissipation, Symmetry, Topology).
 
 *What $\Omega$-Layer enables:* **Theorem 0 (Convergence of Structure)**, combining Theorems 13.44, 13.40, and 15.25:
 1. If $S$ is regular $\Rightarrow$ $\mathcal{A}$ converges to $\theta^*$ satisfying all structural axioms.
@@ -586,7 +586,7 @@ This yields **Axiom $\Omega$ (Universal Observer):** Access to a learning agent 
 
 - *S-layer only:* Verify structural axioms directly $\Rightarrow$ apply metatheorems 18.4.A–N.
 - *S + L layers:* Verify learning axioms $\Rightarrow$ derive S-properties as theorems, not assumptions.
-- *$\Omega$-layer:* Assume structural learnability $\Rightarrow$ derive L-properties from universal approximation.
+- *$\Omega$-layer:* Assume universal structural approximation $\Rightarrow$ derive L-properties from universal approximation.
 
 The development in Parts III–VI focuses on the S-layer. Part VII develops the L-layer. The full $\Omega$-layer machinery appears in Section 18.3.5.
 
@@ -942,10 +942,10 @@ Each class admits three failure types: **Excess** (too much structure), **Defici
 
 | **Constraint** | **Excess** | **Deficiency** | **Complexity** |
 |----------------|------------|----------------|----------------|
-| **Conservation** | Mode C.E: Energy blow-up | Mode C.D: Geometric collapse | Mode C.C: Zeno divergence |
+| **Conservation** | Mode C.E: Energy blow-up | Mode C.D: Geometric collapse | Mode C.C: Finite-time event accumulation |
 | **Topology** | Mode T.E: Metastasis | Mode T.D: Glassy freeze | Mode T.C: Labyrinthine |
 | **Duality** | Mode D.E: Oscillatory | Mode D.D: Dispersion | Mode D.C: Semantic horizon |
-| **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Vacuum decay |
+| **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Parameter manifold instability |
 | **Boundary** | Mode B.E: Injection | Mode B.D: Starvation | Mode B.C: Misalignment |
 
 **Theorem 4.4 (Completeness).** The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
@@ -997,7 +997,7 @@ where $B_\epsilon$ are neighborhoods of a capacity-zero set.
 
 **Example 4.6.** In Navier–Stokes, this corresponds to vortex filaments collapsing to curves or points. In geometric flows, this is concentration on lower-dimensional manifolds.
 
-#### Mode C.C: Zeno divergence
+#### Mode C.C: Finite-time event accumulation
 
 **Axiom Violated:** Conservation (causal depth) / **(Rec) Recovery**
 
@@ -1026,7 +1026,7 @@ implies finitely many transitions. If infinitely many transitions occur, the cum
 
 **Topological constraints enforce local-global consistency:** local solutions extend to global solutions when topological obstructions vanish. Violations occur when connectivity is disrupted.
 
-#### Mode T.E: Topological metastasis
+#### Mode T.E: Topological sector transition
 
 **Axiom Violated:** **(TB) Topological Background**
 
@@ -1276,7 +1276,7 @@ Integrating gives convergence in finite time when $\theta < 1/2$, and exponentia
 
 **Example 4.28.** In the Allen–Cahn equation, convergence to equilibrium follows the Łojasiewicz gradient inequality with $\theta = 1/2$ for generic initial data. For degenerate initial data (e.g., initial configurations on center manifolds), the inequality may fail.
 
-#### Mode S.C: Vacuum decay
+#### Mode S.C: Parameter manifold instability
 
 **Axiom Violated:** Symmetry (meta-stability)
 
@@ -1388,7 +1388,7 @@ $$
 
 **Example 4.37.** In neural network training, Mode B.D corresponds to vanishing gradients: the loss landscape becomes flat before reaching a global minimum, causing training to stall. In biological systems, this represents metabolic starvation—insufficient external resources to complete development.
 
-#### Mode B.C: Misalignment divergence
+#### Mode B.C: Boundary-bulk incompatibility
 
 **Axiom Violated:** Alignment
 
@@ -1498,7 +1498,7 @@ For trajectories in $\mathcal{C}$, concentration forces a canonical profile $V$.
 - **Derivative bound denied** $\Rightarrow$ Mode D.E: Contradiction, singularity impossible.
 - **Ergodicity fails** $\Rightarrow$ Mode T.D: Metastable trap (not a singularity).
 - **Causal depth bound denied** $\Rightarrow$ Mode C.C: Contradiction, singularity impossible.
-- **Parameter stability fails** $\Rightarrow$ Mode S.C: Vacuum decay (structural failure).
+- **Parameter stability fails** $\Rightarrow$ Mode S.C: Parameter manifold instability (structural failure).
 - **Tameness denied** $\Rightarrow$ Mode T.C: Contradiction, singularity impossible.
 - **Invertibility fails** $\Rightarrow$ Mode D.C: Semantic horizon (inaccessibility).
 - **All permits satisfied** $\Rightarrow$ Genuine structured singularity (rare).
@@ -1537,7 +1537,7 @@ The framework's power lies in showing that **when concentration does occur** (Ti
    - If topological sectors are preserved (Axiom TB holds), topological obstruction (Mode T.E) is impossible.
    - If Łojasiewicz inequality holds (Axiom LS holds), stiffness breakdown (Mode S.D) is impossible.
    - If frequency bounds hold, oscillatory singularity (Mode D.E) is impossible.
-   - If causal depth is bounded, Zeno divergence (Mode C.C) is impossible.
+   - If causal depth is bounded, Finite-time event accumulation (Mode C.C) is impossible.
    - If dynamics are tame, labyrinthine singularity (Mode T.C) is impossible.
 4. **Conclude:** Permit denial $\Rightarrow$ singularity impossible $\Rightarrow$ $T_* = \infty$.
 
@@ -3782,7 +3782,7 @@ A verification system attempting to decide any non-trivial semantic property (e.
 
 **Step 1 (Setup).** A **semantic property** $\mathcal{P}$ of computable functions depends only on the function computed, not on the program computing it. Formally, if $\phi_e = \phi_{e'}$ (same function), then $e \in S \iff e' \in S$.
 
-A property is **non-trivial** if there exist indices $e_1, e_2$ with $e_1 \in S$ and $e_2 \notin S$ (i.e., some functions have the property, some don't).
+A property is **non-trivial** if there exist indices $e_1, e_2$ with $e_1 \in S$ and $e_2 \notin S$ (i.e., some functions have the property, some do not).
 
 **Step 2 (Assumption for contradiction).** Assume $S = \{e : \phi_e \text{ has property } \mathcal{P}\}$ is decidable via total computable function $A$:
 $$A(e) = \begin{cases} 1 & \text{if } e \in S \\ 0 & \text{if } e \notin S \end{cases}$$
@@ -6481,7 +6481,7 @@ $$\Delta T = T_+ - T_- \approx \frac{4\pi R^2 \Omega}{c^2} = \frac{4A\Omega}{c^2
 **Modes Prevented:** Mode S.D (Transient Blow-up)
 
 **Theorem 12.D.26 (The Pseudospectral Bound).**
-For non-normal operators $A$, eigenvalues don't tell the whole story. The **pseudospectrum** $\sigma_\epsilon(A) = \{z : \|(A-zI)^{-1}\| > \epsilon^{-1}\}$ controls transient behavior:
+For non-normal operators $A$, eigenvalues do not tell the whole story. The **pseudospectrum** $\sigma_\epsilon(A) = \{z : \|(A-zI)^{-1}\| > \epsilon^{-1}\}$ controls transient behavior:
 
 1. **Transient growth:** $\|e^{tA}\| \leq \sup\{e^{t\text{Re}(z)} : z \in \sigma_\epsilon(A)\}/\epsilon$.
 2. **Kreiss matrix theorem:** $\sup_t\|e^{tA}\| \leq eK$ where $K$ is the Kreiss constant.
@@ -7217,7 +7217,7 @@ $$\mathbb{H}_{\mathrm{tower}}(\Sigma) \in \mathbf{Tower}_{\mathrm{reg}} \Rightar
 $$\mathrm{cap}(\{\Sigma : \lambda(\Sigma) > \lambda_0\}) < \infty$$
 High-entropy surfaces are measure-zero in generic families.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** The linearization at self-shrinkers has discrete spectrum; no ghost modes appear in the stability analysis.
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** The linearization at self-shrinkers has discrete spectrum; no null modes appear in the stability analysis.
 
 **6.4 Metatheorem 19.4.D–F (Local-to-Global).**
 - **(18.4.D)** Local entropy densities sum to global Colding-Minicozzi entropy
@@ -7306,7 +7306,7 @@ These results require Axiom R (the dictionary correspondence):
 |--------------|--------------|
 | **C.E** (Curvature blow-up to non-canonical profile) | Huisken monotonicity forces self-shrinkers |
 | **S.E** (Supercritical cascade) | Subcritical: $\alpha = 2$, $\beta < 2$ |
-| **T.E** (Topological metastasis) | Entropy bounds + generic exclusion |
+| **T.E** (Topological sector transition) | Entropy bounds + generic exclusion |
 | **L.E** (Stiffness breakdown) | Łojasiewicz holds at self-shrinkers |
 
 **The key insight**: Singularity classification (Tier 1) is **FREE**. It follows from the structural axioms alone.
@@ -7444,7 +7444,7 @@ $$\mathbb{H}_{\mathrm{tower}}(\rho) \to \gamma \quad \text{(Gaussian)}$$
 $$\mathrm{cap}(\{H = \infty\}) = 0$$
 Generic initial data has finite entropy.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** The log-Sobolev inequality ensures no ghost modes; the Gaussian is a strict attractor.
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** The log-Sobolev inequality ensures no null modes; the Gaussian is a strict attractor.
 
 **6.4 Metatheorem 19.4.D–F (Local-to-Global).**
 - **(18.4.D)** Local relative entropies sum to global entropy
@@ -7670,7 +7670,7 @@ $$\mathbb{H}_{\mathrm{tower}}(u) \to \sum_k c_k \phi_k(x) e^{-\lambda_k t}$$
 
 **6.2 Metatheorem 19.4.B (Obstruction Capacity Collapse).** The set $\{E(u) = \infty\}$ has measure zero in $L^2$.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** The spectral gap $\lambda_1 > 0$ ensures exponential decay; no ghost modes.
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** The spectral gap $\lambda_1 > 0$ ensures exponential decay; no null modes.
 
 **6.4 Metatheorem 19.4.D–F (Local-to-Global).**
 - **(18.4.D)** Local Dirichlet integrals sum to global energy
@@ -7893,7 +7893,7 @@ $$\text{Bounded oscillation} \Longleftrightarrow \text{Conservation of } V$$
 | Predator crash | $y$ decreasing, orbit in lower-left |
 | Full cycle | Complete orbit around equilibrium |
 
-**5.2 Why Orbits Don't Escape.** The conservation law $V = \text{const}$ combined with $V \to \infty$ at the boundary forces all orbits to remain on bounded curves.
+**5.2 Why Orbits Cannot Escape.** The conservation law $V = \text{const}$ combined with $V \to \infty$ at the boundary forces all orbits to remain on bounded curves.
 
 ##### Section 6: Metatheorem Application
 
@@ -7905,7 +7905,7 @@ This extends globally: all orbits are periodic.
 $$\mathrm{cap}(\partial X) = 0$$
 Orbits cannot reach the boundary in finite time.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** The Poisson structure ensures conservation; no dissipation or growth modes.
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** The Poisson structure ensures conservation; no dissipation or growth modes.
 
 **6.4 Metatheorem 19.4.D–F (Local-to-Global).**
 - **(18.4.D)** Local orbital structure (center) extends globally
@@ -8139,7 +8139,7 @@ The two-body dynamics are integrable and never reach collision.
 $$\mathrm{cap}(\Delta) = 0 \quad \text{(symplectic capacity)}$$
 By non-squeezing, finite-energy orbits cannot reach $\Delta$.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** The symplectic structure ensures:
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** The symplectic structure ensures:
 - No dissipation or growth
 - Conservation of phase space volume (Liouville)
 
@@ -8383,9 +8383,9 @@ $$\mathbb{H}_{\mathrm{tower}} \to (\theta^*, \phi^*) \quad \text{Nash equilibriu
 $$\mathrm{cap}(\mathrm{Obs}) \to 0$$
 Mode collapse becomes measure-zero in regularized training.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** IGC ensures:
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** IGC ensures:
 - Cross-coupling dominates self-coupling
-- No oscillatory "ghost modes" in linearization
+- No oscillatory "null modes" in linearization
 
 **6.4 Metatheorem 19.4.D–F (Local-to-Global).**
 - **(18.4.D)** Local IGC extends to global via chain rule
@@ -8626,7 +8626,7 @@ $$\mathbb{H}_{\mathrm{tower}}(\theta_0) \to \theta^* \quad \text{(critical point
 $$\mathrm{cap}(\{\text{saddles}\}) = 0$$
 Almost all initializations escape saddles. \cite[Theorem 4]{LeeEscapeSaddle2016}
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** Proper architecture ensures:
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** Proper architecture ensures:
 - No vanishing eigenvalues (skip connections)
 - No exploding eigenvalues (normalization)
 
@@ -8855,7 +8855,7 @@ $$\text{Symplectic capacity is invariant}: \quad c(\phi(A)) = c(A)$$
 This is **strictly stronger** than Liouville's theorem (volume preservation):
 - Volume of $B^{2n}(r)$: $\frac{\pi^n r^{2n}}{n!}$
 - Volume of $Z^{2n}(R) \cap \{|z| < M\}$: arbitrarily large for large $M$
-- Volume alone doesn't prevent squeezing; symplectic structure does.
+- Volume alone does not prevent squeezing; symplectic structure does.
 
 | Classical (Liouville) | Symplectic (Gromov) |
 |----------------------|---------------------|
@@ -8872,7 +8872,7 @@ $$c(\phi_t(A)) = c(A) \quad \forall t$$
 $$\mathrm{cap}(\{A : c(A) < c_{\mathrm{init}}\}) = 0$$
 under symplectic maps.
 
-**6.3 Metatheorem 19.4.C (Stiff Pairing / No-Ghost).** The symplectic form is non-degenerate:
+**6.3 Metatheorem 19.4.C (Stiff Pairing / Null-Sector Exclusion).** The symplectic form is non-degenerate:
 - No null directions
 - All degrees of freedom coupled
 
@@ -9039,7 +9039,7 @@ This part develops the **L-layer** (Learning), which transforms these assumption
 
 the framework derives S-layer properties as theorems rather than assumptions. The key insight: *what the S-layer must assume, the L-layer can prove from computational primitives*.
 
-The machinery developed here—parametric hypostructures, axiom risk minimization, meta-learning convergence—culminates in the full Meta-Axiom Architecture of Section 18.3.5, which connects to the $\Omega$-layer (Universal Observer) and Theorem 0 (Convergence of Structure).
+The machinery developed here—parametric hypostructures, axiom risk minimization, meta-learning convergence—culminates in the full Meta-Axiom Architecture of Section 18.3.5, which connects to the $\Omega$-layer (AGI Limit) and Theorem 0 (Convergence of Structure).
 
 ---
 
@@ -9265,7 +9265,7 @@ $$c \, |\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C \, |\theta - 
 
 **Step 4 (Barrier convergence).** Barrier constants and failure-mode classifications are continuous in the structural data $(\Phi, \mathfrak{D}, \alpha, \beta, \ldots)$ by Theorem 14.30. Since $\theta_k \to \tilde{\Theta}$, structural data converges, hence barriers converge and failure-mode predictions stabilize. $\square$
 
-**Key Insight (Axioms as learnable objects).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **axioms are learnable**. Defect minimization provably recovers the correct axiom data, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
+**Key Insight (Structural parameter estimation).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **structural parameters are estimable**. The minimization of axiom risk $\mathcal{R}(\theta)$ converges to the unique hypostructure compatible with the trajectory distribution $\mu$, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
 
 ---
 
@@ -9444,7 +9444,7 @@ That is, blocks outside an axiom's support have zero gradient contribution to th
 - **Topological parameters** ($\theta^{\mathrm{top}}$) govern GC—sector structure
 - **Łojasiewicz parameters** ($\theta^{\mathrm{ls}}$) govern LS—equilibrium geometry
 
-When BFA holds, testing whether $\theta^{\mathrm{cap}}$ is correct (by computing $\mathcal{R}_{\mathrm{cap}}^*$) cannot be confounded by errors in $\theta^{\mathrm{sc}}$, because capacity axioms don't depend on scaling parameters.
+When BFA holds, testing whether $\theta^{\mathrm{cap}}$ is correct (by computing $\mathcal{R}_{\mathrm{cap}}^*$) cannot be confounded by errors in $\theta^{\mathrm{sc}}$, because capacity axioms do not depend on scaling parameters.
 
 **Lemma 13.35 (Stability of Block Factorization under Composition).** Let $(\mathcal{A}_1, \mathcal{B}_1)$ and $(\mathcal{A}_2, \mathcal{B}_2)$ be two axiom-block systems satisfying BFA with constants $k_1$ and $k_2$. If the systems have disjoint parameter spaces, then the combined system $(\mathcal{A}_1 \cup \mathcal{A}_2, \mathcal{B}_1 \cup \mathcal{B}_2)$ satisfies BFA with constant $\max(k_1, k_2)$.
 
@@ -9456,11 +9456,11 @@ When BFA holds, testing whether $\theta^{\mathrm{cap}}$ is correct (by computing
 
 **Step 3 (BFA-3).** Since parameter spaces are disjoint, $\mathcal{R}_A(\theta_1, \theta_2) = \mathcal{R}_A(\theta_1)$ for $A \in \mathcal{A}_1$. Additive decomposition extends to the union.
 
-**Step 4 (BFA-4).** For $A \in \mathcal{A}_1$ and $b \in \mathcal{B}_2$, the gradient $\partial \mathcal{R}_A / \partial \theta^b = 0$ because $\mathcal{R}_A$ doesn't depend on $\mathcal{B}_2$ parameters. Combined with original BFA-4 within each system, independence holds globally. $\square$
+**Step 4 (BFA-4).** For $A \in \mathcal{A}_1$ and $b \in \mathcal{B}_2$, the gradient $\partial \mathcal{R}_A / \partial \theta^b = 0$ because $\mathcal{R}_A$ does not depend on $\mathcal{B}_2$ parameters. Combined with original BFA-4 within each system, independence holds globally. $\square$
 
 **Remark 13.36 (Role in Meta-Error Localization).** The Meta-Error Localization Theorem (Theorem 13.29) requires BFA implicitly:
 
-- **Response signature well-defined:** $\mathcal{R}_b^*(\theta)$ tests block $b$ in isolation only if BFA-4 ensures other-block gradients don't interfere
+- **Response signature well-defined:** $\mathcal{R}_b^*(\theta)$ tests block $b$ in isolation only if BFA-4 ensures other-block gradients do not interfere
 - **Error support meaningful:** The set $E(\theta) = \{b : \mathcal{R}_b^*(\theta) < \mathcal{R}(\theta)\}$ identifies the *actual* error blocks only if BFA-1 ensures axiom-block correspondences are sparse
 - **Diagnostic protocol valid:** Corollary 13.30's remediation table assumes the semantic alignment of Definition 13.33
 
@@ -9838,7 +9838,7 @@ $$\mathrm{Forbidden}(\mathcal{H}_\Theta) = \mathrm{Forbidden}(\mathcal{H}^*) = \
 
 **Remark 13.51 (Margin is essential).** The key ingredient is the **margin** $\gamma^* > 0$: if the true hypostructure barely satisfies a barrier inequality, then arbitrarily small perturbations can change whether a mode is forbidden. The metatheorems in Parts VI–X typically provide such a margin (e.g. strict inequalities in energy/capacity thresholds) except in degenerate "critical" cases.
 
-> **Key Insight:** Learning doesn't just approximate numbers; it stabilizes the *discrete* "permit denial" judgments. Once the axiom risk is small enough, trainable hypostructures recover the **exact discrete permit-denial structure** of the underlying PDE/dynamical system.
+> **Key Insight:** Learning does not just approximate numbers; it stabilizes the *discrete* "permit denial" judgments. Once the axiom risk is small enough, trainable hypostructures recover the **exact discrete permit-denial structure** of the underlying PDE/dynamical system.
 
 ### 13.13 Curriculum Stability for Trainable Hypostructures
 
@@ -10064,7 +10064,7 @@ Together, they ensure that "write down the axioms, compute defects, average risk
 
 ---
 
-## 15. The Hypostructure General Loss
+## 15. The Structural Objective Functional
 
 This chapter defines a training objective for systems that instantiate, verify, and optimize over hypostructures. The goal is to train a parametrized system to identify hypostructures, fit soft axioms, and solve the associated variational problems.
 
@@ -10501,9 +10501,9 @@ We now complete the taxonomy with all fifteen modes.
 
 **Mode T.D (Glassy freeze):** Violation of Topology (deficiency). Trajectory trapped in metastable state with $\mathrm{dist}(x^*, M) > \delta > 0$.
 
-**Mode C.C (Zeno divergence):** Violation of Conservation (complexity). Infinitely many discrete events in finite time.
+**Mode C.C (Finite-time event accumulation):** Violation of Conservation (complexity). Infinitely many discrete events in finite time.
 
-**Mode S.C (Vacuum decay):** Violation of Symmetry (complexity). Discontinuous transition in structural parameters $\Theta$.
+**Mode S.C (Parameter manifold instability):** Violation of Symmetry (complexity). Discontinuous transition in structural parameters $\Theta$.
 
 **Mode T.C (Labyrinthine singularity):** Violation of Topology (complexity). Topological complexity diverges: $\limsup_{t \nearrow T_*} \sum_{k=0}^n b_k(u(t)) = \infty$.
 
@@ -10513,7 +10513,7 @@ We now complete the taxonomy with all fifteen modes.
 
 **Mode B.D (Starvation collapse):** Violation of boundary (deficiency). Coupling to environment vanishes while $u \notin M$.
 
-**Mode B.C (Misalignment divergence):** Violation of boundary (complexity). Internal optimization orthogonal to external utility: $\langle \nabla \Phi(u), \nabla U(u) \rangle \leq 0$.
+**Mode B.C (Boundary-bulk incompatibility):** Violation of boundary (complexity). Internal optimization orthogonal to external utility: $\langle \nabla \Phi(u), \nabla U(u) \rangle \leq 0$.
 
 **Theorem 15.21 (Completeness).** The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
 1. Exists globally and converges to the safe manifold $M$, or
@@ -10546,10 +10546,10 @@ This trichotomy is exhaustive: any failure must involve either too much, too lit
 
 | **Constraint** | **Excess** | **Deficiency** | **Complexity** |
 |----------------|------------|----------------|----------------|
-| **Conservation** | Mode C.E: Energy blow-up | Mode C.D: Geometric collapse | Mode C.C: Zeno divergence |
+| **Conservation** | Mode C.E: Energy blow-up | Mode C.D: Geometric collapse | Mode C.C: Finite-time event accumulation |
 | **Topology** | Mode T.E: Metastasis | Mode T.D: Glassy freeze | Mode T.C: Labyrinthine |
 | **Duality** | Mode D.E: Oscillatory | Mode D.D: Dispersion | Mode D.C: Semantic horizon |
-| **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Vacuum decay |
+| **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Parameter manifold instability |
 | **Boundary** | Mode B.E: Injection | Mode B.D: Starvation | Mode B.C: Misalignment |
 
 **Corollary 15.23 (Regularity criterion).** A trajectory achieves global regularity if and only if all fifteen modes are excluded by the algebraic permits derived from the hypostructure axioms.
@@ -10671,7 +10671,7 @@ The eighty-three metatheorems organize naturally according to which constraint c
 | S.C | Vacuum nucleation barrier | Theorem 9.150 |
 | B.E | Bode sensitivity integral | Theorem 9.19 |
 | B.D | Input stability barrier | Theorem 4.33 |
-| B.C | Misalignment divergence | Theorem 4.38 |
+| B.C | Boundary-bulk incompatibility | Theorem 4.38 |
 
 **Step 2 (Verification of exclusion).** For each mode-barrier pair:
 - The barrier theorem provides a quantitative bound (threshold energy, capacity lower bound, action gap, etc.)
@@ -10904,7 +10904,7 @@ Entropy controlled by Fisher information is Axiom LS.
 
 (Axiom D $\leftrightarrow$ Landauer) Logically irreversible operations require work $W \geq k_B T \ln 2$ per bit erased. Reversible computation requires zero energy; erasure is the irreversible step. Reducing phase space by factor 2 requires entropy increase $\Delta S = k_B \ln 2$. This is Axiom D.
 
-(Axiom 9.58 $\leftrightarrow$ Halting) No TM $H$ computes $H(M, x) = 1$ iff $M$ halts on $x$. Define $D(M) = $ loop if $H(M, M) = 1$, else halt. Then $D(D)$ halts $\Leftrightarrow$ $D(D)$ doesn't halt.
+(Axiom 9.58 $\leftrightarrow$ Halting) No TM $H$ computes $H(M, x) = 1$ iff $M$ halts on $x$. Define $D(M) = $ loop if $H(M, M) = 1$, else halt. Then $D(D)$ halts $\Leftrightarrow$ $D(D)$ does not halt.
 
 (Axiom 9.N $\leftrightarrow$ Gödel) For consistent $F \supseteq \text{PA}$, the sentence $G_F$ asserting its own unprovability is independent. Self-reference creates barriers. $\square$
 
@@ -11004,7 +11004,7 @@ By Axiom D, the trajectory has finite total cost $\mathcal{C}_{T_*}(u) < \infty$
 
 **Step 7 (Gauge coherence from no B.C).** Since Mode B.C does not occur, Axiom GC ensures the normalized trajectory $\tilde{u}(t) = \Gamma(u(t)) \cdot u(t)$ has controlled gauge drift.
 
-**Step 8 (Recovery from no C.C, T.D, D.E, D.C, S.C, B.E, B.D).** The remaining modes correspond to complexity-type failures (infinite events in finite time, glassy freeze, oscillatory blow-up, semantic scrambling, vacuum decay, injection/starvation). Their non-occurrence, combined with Steps 1–7, ensures:
+**Step 8 (Recovery from no C.C, T.D, D.E, D.C, S.C, B.E, B.D).** The remaining modes correspond to complexity-type failures (infinite events in finite time, glassy freeze, oscillatory blow-up, semantic scrambling, parameter manifold instability, injection/starvation). Their non-occurrence, combined with Steps 1–7, ensures:
 - Finite event count (no C.C)
 - Escape from metastable states (no T.D)
 - Bounded frequency content (no D.E)
@@ -11156,7 +11156,7 @@ $$\partial_t \mathbf{n} = \Delta \mathbf{n} + |\nabla \mathbf{n}|^2 \mathbf{n}.$
 
 *Failure of TB:* The topological degree $\deg(\mathbf{n}|_{\partial B_r}) \in \pi_2(S^2) \cong \mathbb{Z}$ is not preserved by the flow when defects nucleate. There is no action gap separating sectors.
 
-*Result:* Hedgehog defects can nucleate or annihilate, changing the topological sector. This is Mode T.E (metastasis/topological obstruction).
+*Result:* Hedgehog defects can nucleate or annihilate, changing the topological sector. This is Mode T.E (sector transition/topological obstruction).
 
 **Example 17.3.6 (Cap missing → C.D: Vortex filaments).**
 
@@ -11194,7 +11194,7 @@ $$D_\mu F^{\mu\nu} = 0, \qquad F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_
 
 *Failure of GC:* Without gauge fixing, the gauge orbit $\{g^{-1}Ag + g^{-1}dg : g \in \mathcal{G}\}$ is unconstrained. The effective theory drifts along gauge directions without physical meaning.
 
-*Result:* The learned/predicted theory becomes misaligned with observable physics. This is Mode B.C (misalignment divergence). $\square$
+*Result:* The learned/predicted theory becomes misaligned with observable physics. This is Mode B.C (boundary-bulk incompatibility). $\square$
 
 **Key Insight:** The axioms are not overdetermined—each one prevents exactly the failure modes it is designed to prevent, and no other axiom can substitute. The framework is **minimal**.
 
@@ -11355,7 +11355,7 @@ This section develops the full axiom architecture introduced conceptually in Sec
 The layers form a hierarchy where each subsumes the previous:
 
 $$
-\text{S-Layer (Structural)} \;\subset\; \text{L-Layer (Learning)} \;\subset\; \Omega\text{-Layer (Universal Observer)}
+\text{S-Layer (Structural)} \;\subset\; \text{L-Layer (Learning)} \;\subset\; \Omega\text{-Layer (AGI Limit)}
 $$
 
 **Layer S (Structural):** Axioms X.0 for each X $\in$ {C, D, SC, LS, Cap, TB, GC, R}. These are the minimal formulations required for Structural Resolution (Theorem 18.2.7) and basic failure mode classification. With only the S-layer, the framework provides:
@@ -11370,7 +11370,7 @@ $$
 - Adversarial search 18.4.M
 - Master structural exclusion 18.4.N
 
-**Layer $\Omega$ (Universal Observer):** A single meta-hypothesis reducing all L-axioms to structural learnability. Enables fully automated structure discovery.
+**Layer $\Omega$ (AGI Limit):** A single meta-hypothesis reducing all L-axioms to universal structural approximation. Enables fully automated structure discovery.
 
 The refinement levels map to layers as follows:
 
@@ -11644,9 +11644,9 @@ The logic: L1 ensures representability, L2 ensures distinguishability, L3 ensure
 
 ---
 
-#### 18.3.5.4 $\Omega$-Layer: The Universal Observer
+#### 18.3.5.4 $\Omega$-Layer: The AGI Limit
 
-The $\Omega$-layer is the theoretical limit of the framework. It reduces all L-axioms to a single meta-hypothesis: **structural learnability**.
+The $\Omega$-layer is the theoretical limit of the framework. It reduces all L-axioms to a single meta-hypothesis: **universal structural approximation**.
 
 ---
 
@@ -11655,7 +11655,7 @@ The $\Omega$-layer is the theoretical limit of the framework. It reduces all L-a
 Under stronger conditions, each L-axiom becomes unnecessary:
 
 **1. S1 (Admissibility) $\to$ Diagnostic.**
-The framework doesn't assume regularity—it *tests* for it. Theorem 15.21 (Failure Mode Classification) shows that non-zero defects $\mathcal{R}_{\mathrm{axioms}}(\theta^*) > 0$ classify exactly which axiom fails and which failure mode occurs. The hypostructure framework is a diagnostic tool, not a regularity assumption.
+The framework does not assume regularity—it *tests* for it. Theorem 15.21 (Failure Mode Classification) shows that non-zero defects $\mathcal{R}_{\mathrm{axioms}}(\theta^*) > 0$ classify exactly which axiom fails and which failure mode occurs. The hypostructure framework is a diagnostic tool, not a regularity assumption.
 
 **2. L2 (Excitation) $\to$ Active Probing.**
 Theorem 13.44 (Active Probing) shows that an active learner can generate persistently exciting data by targeted queries. Sample complexity for hypostructure identification is:
@@ -11665,7 +11665,7 @@ where $d$ is the effective dimension, $\sigma^2$ is noise variance, and $\Delta$
 **3. L3 (Identifiability) $\to$ Singular Learning Theory.**
 Even when $\theta \mapsto \mathbb{H}(\theta)$ is degenerate (non-injective, singular Hessian), Watanabe's Singular Learning Theory shows that the **Real Log Canonical Threshold (RLCT)** controls convergence:
 $$\mathbb{E}[\mathcal{R}_{\mathrm{axioms}}(\hat{\theta}_N)] = \frac{\lambda}{N} + o(1/N)$$
-where $\lambda$ is the RLCT, which is finite even at singularities. Degeneracy slows convergence but doesn't prevent it.
+where $\lambda$ is the RLCT, which is finite even at singularities. Degeneracy slows convergence but does not prevent it.
 
 **4. L1 (Expressivity) $\to$ Hierarchical Approximation.**
 Replace a fixed $\Theta$ with a hierarchy of increasing expressivity:
@@ -11674,20 +11674,20 @@ Universal approximation holds in the limit. Practical learning uses $\Theta_n$ f
 
 ---
 
-**Axiom $\Omega$ (Universal Observer)**
+**Axiom $\Omega$ (AGI Limit)**
 
 Access to a learning agent $\mathcal{A}$ equipped with:
 
 1. **Universal Approximation:** $\Theta = \bigcup_n \Theta_n$ is dense in continuous functionals on trajectory data.
 
-2. **Active Querying:** Ability to probe system $S$ and observe trajectories $\{u_i\}_{i=1}^N$ at chosen initial conditions.
+2. **Optimal Experiment Design:** Ability to probe system $S$ and observe trajectories $\{u_i\}_{i=1}^N$ at chosen initial conditions.
 
 3. **Defect Minimization:** An optimization oracle that, given data $\{u_i\}$, returns
 $$\hat{\theta} = \arg\min_{\theta \in \Theta_n} \mathcal{R}_{\mathrm{axioms}}(\theta; \{u_i\}).$$
 
 ---
 
-**Hypothesis $\Omega$ (Structural Learnability)**
+**Hypothesis $\Omega$ (Universal Structural Approximation)**
 
 System $S$ belongs to the closure of **computable hypostructures**:
 
@@ -11707,7 +11707,7 @@ This is the analog of the Church-Turing thesis for dynamical systems: all physic
 
 *Combining Theorems 13.44 (Active Probing), 13.40 (Axiom-Expressivity), and 15.25 (Defect-to-Mode).*
 
-Let $\mathcal{A}$ be a Universal Observer (Axiom $\Omega$) applied to system $S$ satisfying Hypothesis $\Omega$. Let $\{\theta_n\}$ be the sequence of learned parameters with increasing data and model capacity. Then:
+Let $\mathcal{A}$ be a AGI Limit (Axiom $\Omega$) applied to system $S$ satisfying Hypothesis $\Omega$. Let $\{\theta_n\}$ be the sequence of learned parameters with increasing data and model capacity. Then:
 
 **(1) Regular case:** If $S$ admits a regular hypostructure (all S-axioms satisfied), then:
 $$\theta_n \to \theta^*, \quad \mathcal{R}_{\mathrm{axioms}}(\theta_n) \to 0,$$
@@ -11964,7 +11964,7 @@ $$\langle \cdot, \cdot \rangle : X \times X \to F$$
 
 Let
 $$X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}} \oplus X_{\mathrm{rest}}$$
-be a decomposition into free sector, obstruction sector, and possible "ghost" sector.
+be a decomposition into free sector, obstruction sector, and possible null sector.
 
 **Hypotheses.** Assume:
 
@@ -11979,7 +11979,7 @@ be a decomposition into free sector, obstruction sector, and possible "ghost" se
 - There is **no** $X_{\mathrm{rest}}$:
 $$X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}}.$$
 - All degrees of freedom are accounted for by free components + obstructions.
-- No hidden degeneracies or "ghost modes" exist.
+- No hidden degeneracies or "null modes" exist.
 
 *Proof.*
 
@@ -12000,7 +12000,7 @@ $$\langle x, y \rangle = 0 \text{ for all } y \in X_{\mathrm{obs}} \implies x = 
 
 Combined with orthogonality to $X_{\mathrm{free}}$, we conclude $x = 0$.
 
-**Step 4 (No ghost sector).** Suppose $X_{\mathrm{rest}} \neq 0$. Take any nonzero $z \in X_{\mathrm{rest}}$.
+**Step 4 (No null sector).** Suppose $X_{\mathrm{rest}} \neq 0$. Take any nonzero $z \in X_{\mathrm{rest}}$.
 
 Case (a): $z \in \mathrm{rad}(\langle \cdot, \cdot \rangle)$. By Step 3, $z = 0$, contradiction.
 
@@ -12188,7 +12188,7 @@ $$X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}} \oplus X_{\mathrm{rest}},$$
 where:
   - $X_{\mathrm{free}}$ is the "free/visible" sector,
   - $X_{\mathrm{obs}}$ is the "obstruction" sector,
-  - $X_{\mathrm{rest}}$ is a putative "ghost" sector.
+  - $X_{\mathrm{rest}}$ is a putative null sector.
 
 Assume further that there is a system of **localizations**:
 
@@ -12228,7 +12228,7 @@ then $x \in X_{\mathrm{obs}}$.
 
 **(2)** Any vector in the global radical
 $$\mathrm{rad}(\langle \cdot, \cdot \rangle) := \{x \in X : \langle x, y \rangle = 0 \text{ for all } y \in X\}$$
-lies in $X_{\mathrm{obs}}$; there is no nontrivial "ghost" sector $X_{\mathrm{rest}}$ orthogonal to everything.
+lies in $X_{\mathrm{obs}}$; there is no nontrivial null sector $X_{\mathrm{rest}}$ orthogonal to everything.
 
 Equivalently,
 $$X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}}, \qquad X_{\mathrm{rest}} = 0,$$
@@ -12258,7 +12258,7 @@ Within $X_{\mathrm{obs}}$, the pairing is controlled by Hypothesis (F4) (symplec
 
 Thus $x$ must belong to the trivial symmetry class: non-degeneracy on $X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ holds.
 
-**Step 3 (No ghost sector).** Let $x \in \mathrm{rad}(\langle \cdot, \cdot \rangle)$. Then $\langle x, y \rangle = 0$ for all $y \in X$.
+**Step 3 (No null sector).** Let $x \in \mathrm{rad}(\langle \cdot, \cdot \rangle)$. Then $\langle x, y \rangle = 0$ for all $y \in X$.
 
 In particular, $\langle x, y \rangle = 0$ for all $y \in X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$.
 
@@ -12270,11 +12270,11 @@ Hence any nontrivial element of $X_{\mathrm{rest}}$ cannot lie in the radical. B
 
 Either $z \in \mathrm{rad}$, implying $z \in X_{\mathrm{obs}}$ by above, contradicting $z \in X_{\mathrm{rest}}$.
 
-Or $z \notin \mathrm{rad}$, meaning $\exists y: \langle z, y \rangle \neq 0$. But $z$ being in a supposed "ghost" sector orthogonal to $X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ means $\langle z, y \rangle = 0$ for all $y \in X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$. The only remaining contribution is from $X_{\mathrm{rest}}$ itself, but then $z$ would be detectable, contradicting "ghost."
+Or $z \notin \mathrm{rad}$, meaning $\exists y: \langle z, y \rangle \neq 0$. But $z$ being in a supposed null sector orthogonal to $X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ means $\langle z, y \rangle = 0$ for all $y \in X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$. The only remaining contribution is from $X_{\mathrm{rest}}$ itself, but then $z$ would be detectable, contradicting "null."
 
 Thus $X_{\mathrm{rest}} = 0$.
 
-**Step 4 (Compatibility with hypostructure LS/GC).** Since $\Phi$ is generated by $\langle \cdot, \cdot \rangle$ (Hypothesis F6), and the radical is exhausted by $X_{\mathrm{obs}}$ (no ghost sector), Axioms LS and GC for the hypostructure imply exactly that there is no additional flat direction beyond the obstruction sector.
+**Step 4 (Compatibility with hypostructure LS/GC).** Since $\Phi$ is generated by $\langle \cdot, \cdot \rangle$ (Hypothesis F6), and the radical is exhausted by $X_{\mathrm{obs}}$ (no null sector), Axioms LS and GC for the hypostructure imply exactly that there is no additional flat direction beyond the obstruction sector.
 
 This is consistent with the stiffness conclusion: $X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$, with no hidden degrees of freedom. $\square$
 
@@ -12387,7 +12387,7 @@ All "conventional difficulty" (blow-ups, spectral growth, bad obstructions, null
 
 - **Metatheorem 19.4.B applies:** The obstruction sector $\mathcal{O}$ is finite-dimensional. No infinite obstruction or runaway mode exists. All obstructions are structurally detectable.
 
-- **Metatheorem 19.4.C applies:** $X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ with no ghost sector. All degrees of freedom are accounted for.
+- **Metatheorem 19.4.C applies:** $X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ with no null sector. All degrees of freedom are accounted for.
 
 **Step 4 (Structural Resolution with core axioms).** By assumption, the core axioms (C, D, SC, LS, Cap, TB, GC) hold for all induced hypostructures. By the Structural Resolution theorems (Chapter 7), every trajectory of $\mathbb{H}(Z)$ either:
 
@@ -12424,13 +12424,13 @@ Therefore: Conjecture($Z$) $\Leftrightarrow$ Axiom R($Z$).
 
 All global structural difficulty (blow-ups, spectral growth, bad obstructions, null directions) is handled by the framework via Steps 1–4. Only Step 3 requires problem-specific insight. $\square$
 
-**Key Insight.** The Master Schema shows that the hypostructure framework does not merely *organize* conjectures—it *reduces* them. For any admissible $Z$, the framework machinery handles all global behavior automatically. The conjecture becomes: "Does the dictionary $D_Z$ correctly link the two sides?" This is Axiom R($Z$), and it is the *only* thing left to prove.
+**Key Insight.** The Conjecture-Axiom Equivalence shows that the hypostructure framework does not merely *organize* conjectures—it *reduces* them. For any admissible $Z$, the framework machinery handles all global behavior automatically. The conjecture becomes: "Does the dictionary $D_Z$ correctly link the two sides?" This is Axiom R($Z$), and it is the *only* thing left to prove.
 
 ---
 
 #### Theorem 19.4.H (Meta-Learning Axiom-Consistent Local Structure)
 
-This theorem sits atop the Master Schema (18.4.G): when admissible local structure is not given explicitly but exists within a parametric family, it can be *learned* by minimizing axiom risk.
+This theorem sits atop the Conjecture-Axiom Equivalence (18.4.G): when admissible local structure is not given explicitly but exists within a parametric family, it can be *learned* by minimizing axiom risk.
 
 **Setup.** Let $\mathbb{H}$ be a fixed underlying hypostructure object (from a zeta function, elliptic curve, PDE flow, complexity class, etc.).
 
@@ -12551,7 +12551,7 @@ Therefore, the meta-learning trajectory converges to the axiom-consistent set. T
 
 - Such $\theta^*$ can be found by meta-learning (gradient descent on $\mathcal{R}_{\mathrm{axioms}}$).
 - At $\theta^*$, all hypotheses of 18.4.D/E/F and core axioms hold.
-- Therefore, by Theorem 19.4.G (Master Schema), the conjecture for $\mathbb{H}(\theta^*)$ reduces to Axiom R.
+- Therefore, by Theorem 19.4.G (Conjecture-Axiom Equivalence), the conjecture for $\mathbb{H}(\theta^*)$ reduces to Axiom R.
 
 The framework handles all global structural difficulty automatically. The only problem-specific content is:
 1. The existence of $\theta^* \in \Theta$ (expressivity assumption H5),
@@ -13031,7 +13031,7 @@ The complete pipeline:
 
 ---
 
-### Theorem 19.4.N (Master Metalearning Structural Exclusion)
+### Theorem 19.4.N (Principle of Structural Exclusion)
 
 *The capstone theorem unifying all previous metatheorems into a single structural exclusion principle.*
 
@@ -13117,7 +13117,7 @@ in $\mathbf{Hypo}_T$. That is, there is no way to embed the universal R-breaking
 
 **18.4.N.6. Statement**
 
-**Theorem 19.4.N (Master Metalearning Structural Exclusion).**
+**Theorem 19.4.N (Principle of Structural Exclusion).**
 
 *Hypotheses:* Assume (N1)–(N11) hold for type $T$, parameterization $\Theta$, risk functionals $\mathcal{R}_{\mathrm{axioms}}$ and $\mathcal{R}_R$, universal R-breaking pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$, and object $Z$.
 
@@ -13132,7 +13132,7 @@ $$F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z).$$
 
 **(4) Structural exclusion for $Z$.** By the pincer exclusion condition (N11), no such morphism $F$ exists. Hence the assumption that Axiom R(T,Z) fails leads to a contradiction. Therefore Axiom R(T,Z) must hold for $\mathbb{H}(Z)$.
 
-**(5) Conjecture for $Z$.** By the definition of the conjecture (N3) and Theorem 19.4.G (Master Schema: Conjecture $\Leftrightarrow$ Axiom R), the conjecture for $Z$ holds:
+**(5) Conjecture for $Z$.** By the definition of the conjecture (N3) and Theorem 19.4.G (Conjecture-Axiom Equivalence: Conjecture $\Leftrightarrow$ Axiom R), the conjecture for $Z$ holds:
 $$\mathrm{Conj}(T,Z) \text{ is true.}$$
 
 *Proof.*
@@ -13423,7 +13423,7 @@ The proof strategy for regularity results now follows the pipeline:
 
 This section develops the hypostructure framework for **spectral log-gas systems**—the canonical models underlying random matrix theory. We establish that the equilibrium measures of log-gas systems are unique structural fixed points, and identify the GUE ensemble as the canonical attractor for quadratic confinement at inverse temperature β = 2.
 
-These metatheorems provide the structural foundation for connecting spectral statistics to the failure mode taxonomy, enabling applications to problems like the Riemann Hypothesis where local statistics of zeros must satisfy GUE universality.
+These metatheorems provide the structural foundation for connecting spectral statistics to the failure mode taxonomy, enabling applications to spectral properties of automorphic forms and arithmetic zeta functions where local statistics of zeros must satisfy GUE universality.
 
 ---
 
@@ -13656,12 +13656,12 @@ The metatheorems of this section provide a structural pathway for spectral probl
 
 5. **Apply exclusion:** If TB is denied for off-critical configurations (e.g., zeros off the critical line), the blowup-completeness theorem forces the conjecture.
 
-**Connection to the Riemann Hypothesis:**
+**Connection to zeta function spectral properties:**
 For the zeta spectral hypostructure $\mathbb{H}_\zeta$:
 - Postulate/derive that local windows of zeros form a log-gas hypostructure
 - Metatheorems 22.4–22.5 imply GUE local statistics
 - The permit table analysis shows that non-critical zeros would require a topological barrier (TB) violation
-- By Metatheorem 21, this forces RH
+- By Metatheorem 21, this establishes zero distribution on the critical line
 
 The point is: these metatheorems are **purely structural**, anchored in the axioms and canonical RMT identifications. The only "extra" arithmetic work is to verify that the spectral object sits inside a log-gas hypostructure.
 
@@ -14294,7 +14294,7 @@ For $d$ sufficiently small:
 - Weak enough dispersion (coherent structures possible)
 - Renormalizable gauge theories (asymptotic freedom)
 
-**Key Insight:** The dimension of space is not arbitrary but **selected by dynamical consistency**. Only in $(3+1)$ dimensions do all the constraints—Conservation, Topology, Duality, Symmetry—admit simultaneous satisfaction. We live in 3+1 dimensions because it's the only option.
+**Key Insight:** The dimension of space is not arbitrary but **selected by dynamical consistency**. Only in $(3+1)$ dimensions do all the constraints—Conservation, Topology, Duality, Symmetry—admit simultaneous satisfaction. The intersection of these constraint classes is non-empty only for emergent dimension $d=3$.
 
 ---
 
@@ -14711,7 +14711,7 @@ one permit for each axiom.
 
 **Theorem 21.6 (Algebraic Permit System).** Let $V \in \mathcal{M}_{\text{prof}}$ be a canonical profile. Then:
 
-1. **Gate Logic:** $V$ can appear as a blow-up limit iff $\Pi(V) = \text{GRANTED}$ for all $\Pi \in \mathfrak{P}$
+1. **Permit Satisfiability:** $V$ can appear as a blow-up limit iff $\Pi(V) = \text{GRANTED}$ for all $\Pi \in \mathfrak{P}$
 2. **Contradiction Mechanism:** If any $\Pi(V) = \text{DENIED}$, then $V$ leads to a logical contradiction
 3. **Decidability:** Each permit is computable from the algebraic/topological data of $\mathcal{S}$
 
