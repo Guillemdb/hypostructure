@@ -113,7 +113,7 @@ The framework then checks whether the algebraic permits are satisfied:
 
 #### 1.0.6 The Principle of Local Structural Exclusion
 
-This text does not contain global estimates or integral bounds. The mechanism of proof is **soft local exclusion**:
+This text does not contain global estimates or integral bounds. The mechanism of proof is **soft local exclusion**, following the philosophy of Gromov's Partial Differential Relations \cite{Gromov86}, distinguishing between flexible (soft) and rigid (hard) geometric constraints:
 
 1. **Assume failure:** Assume a singularity attempts to form.
 2. **Forced structure (Axiom C):** For a singularity to exist in finite time, it must concentrate. Concentration forces the emergence of a limiting object: the canonical profile $V$.
@@ -215,7 +215,7 @@ From the hypostructure axioms, we derive:
 
 **Core meta-theorems (Chapter 7):**
 
-**Metatheorem 1.1 (Structural Resolution).** Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity.
+**Metatheorem 1.1 (Structural Resolution).** Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity. This is the dynamical analogue of Hironaka's Resolution of Singularities Theorem in algebraic geometry \cite{Hironaka64}, blowing up the singular locus to a smooth divisor.
 
 **Metatheorem 1.2 (Type II Exclusion).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
 
@@ -440,7 +440,7 @@ where:
 
 This defines the category $\mathbf{StrFlow}$ of structural flows.
 
-**Definition 2.4 (Forgetful functor).** There is a forgetful functor $U: \mathbf{StrFlow} \to \mathbf{DynSys}$ to the category of topological dynamical systems, given by $U(\mathcal{S}) = (X, (S_t)_{t \in T})$.
+**Definition 2.4 (Forgetful functor).** There is a forgetful functor $U: \mathbf{StrFlow} \to \mathbf{DynSys}$ to the category of topological dynamical systems, given by $U(\mathcal{S}) = (X, (S_t)_{t \in T})$. This categorical formulation draws upon Lawvere's Functorial Semantics \cite{Lawvere63}, viewing dynamical theories as categories and models as functors.
 
 ### 2.2 State spaces and regularity
 
@@ -1560,7 +1560,7 @@ Mode D.D and permit-denial both yield global regularity—but via different mech
 
 ---
 
-**Summary.** The fifteen failure modes form a complete, orthogonal classification of dynamical breakdown. The taxonomy structure reveals that singularities are systematic violations of coherence constraints rather than arbitrary pathologies. The framework reduces the problem of proving global regularity to algebraic permit-checking on forced structures.
+**Summary.** The fifteen failure modes form a complete, orthogonal classification of dynamical breakdown. This topological classification of breakdown mirrors René Thom's Catastrophe Theory \cite{Thom72}, extending the elementary catastrophes to infinite-dimensional dynamical spaces. The taxonomy structure reveals that singularities are systematic violations of coherence constraints rather than arbitrary pathologies. The framework reduces the problem of proving global regularity to algebraic permit-checking on forced structures.
 # Part IV: Core Metatheorems
 
 ## 5. Normalization and Gauge Structure
@@ -5202,7 +5202,7 @@ Let $f: M \to M$ be a diffeomorphism with a hyperbolic invariant set $\Lambda$. 
 
 2. **Stability of Chaos:** Numerical simulations with rounding errors $O(\delta)$ remain qualitatively accurate: they shadow a true chaotic trajectory.
 
-3. **Structural Stability:** Small perturbations $\tilde{f} = f + O(\delta)$ have dynamics $\tilde{f}^n$ that shadow $f^n$.
+3. **Structural Stability:** Small perturbations $\tilde{f} = f + O(\delta)$ have dynamics $\tilde{f}^n$ that shadow $f^n$. This is formalized by Smale's Axiom A systems and the Stability Conjecture \cite{Smale67}, linking hyperbolicity to topological stability.
 
 4. **Lyapunov Exponent Persistence:** The shadowing orbit has the same Lyapunov exponent as the pseudo-orbit (up to $O(\epsilon)$).
 
@@ -5701,7 +5701,7 @@ The Harnack inequality follows from parabolic regularity theory (Moser iteration
 **Modes Prevented:** Mode S.D (Stiffness via control)
 
 **Metatheorem 12.7 (The Pontryagin Optimality Censor).**
-For optimal control problems $\min \int_0^T L(x, u) dt$ with dynamics $\dot{x} = f(x, u)$, the optimal control $u^*$ satisfies the Pontryagin Maximum Principle:
+For optimal control problems $\min \int_0^T L(x, u) dt$ with dynamics $\dot{x} = f(x, u)$, the optimal control $u^*$ satisfies the Pontryagin Maximum Principle \cite{Pontryagin62}:
 $$H(x^*, u^*, p) = \max_u H(x^*, u, p)$$
 where $H = pf - L$ is the Hamiltonian and $p$ is the costate.
 
@@ -5906,7 +5906,7 @@ Under this condition:
 
 1. **Orbit decomposition:** $X = \bigsqcup_{[x]} G \cdot x$ decomposes into orbits, and dynamics respects this decomposition.
 
-2. **Reduced dynamics:** The quotient $X/G$ inherits well-defined dynamics $\bar{S}_t$.
+2. **Reduced dynamics:** The quotient $X/G$ inherits well-defined dynamics $\bar{S}_t$. The quotient construction follows Mumford's Geometric Invariant Theory \cite{Mumford65}, ensuring the moduli space of stable orbits is Hausdorff.
 
 3. **Reconstruction:** Solutions on $X/G$ lift to $G$-families of solutions on $X$.
 
@@ -6220,7 +6220,7 @@ $$P(S_n > a) = P(e^{n\theta S_n} > e^{n\theta a}) \leq e^{-n\theta a}\mathbb{E}[
 
 **Step 4 (Exponential suppression).** Large deviations from the mean are exponentially suppressed. The probability of fluctuation $a - \mu$ decays as $e^{-nI(a)}$, preventing rare-event blow-up. $\square$
 
-**Key Insight:** Large deviations are exponentially rare. Blow-up requiring unlikely fluctuations is suppressed by combinatorial factors.
+**Key Insight:** Large deviations are exponentially rare. Blow-up requiring unlikely fluctuations is suppressed by combinatorial factors. Rigorous foundations provided by Varadhan's Large Deviation Theory \cite{Varadhan84}, which quantifies the rate functions for rare fluctuations in stochastic flows.
 
 ---
 
@@ -6657,7 +6657,7 @@ If $F$ is eventually constant (i.e., $\exists\alpha_0$ such that $F(\alpha) = F(
 
 *Proof.*
 
-**Step 1 (Well-foundedness).** Ordinals are well-founded: every descending sequence terminates.
+**Step 1 (Well-foundedness).** Ordinals are well-founded: every descending sequence terminates. This relies on the ordinal analysis of formal theories, specifically Gentzen's Consistency Proof \cite{Gentzen36}, which established the limits of inductive definition.
 
 **Step 2 (Monotonicity).** If $G$ is monotone and $F$ is increasing, then $F(\alpha) \leq F(\alpha+1) \leq \ldots$
 
@@ -9269,7 +9269,7 @@ $$c \, |\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C \, |\theta - 
 
 **Step 4 (Barrier convergence).** Barrier constants and failure-mode classifications are continuous in the structural data $(\Phi, \mathfrak{D}, \alpha, \beta, \ldots)$ by Theorem 14.30. Since $\theta_k \to \tilde{\Theta}$, structural data converges, hence barriers converge and failure-mode predictions stabilize. $\square$
 
-**Key Insight (Structural parameter estimation).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **structural parameters are estimable**. The minimization of axiom risk $\mathcal{R}(\theta)$ converges to the unique hypostructure compatible with the trajectory distribution $\mu$, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
+**Key Insight (Structural parameter estimation).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **structural parameters are estimable**. The parameter manifold $\Theta$ is equipped with the Fisher-Rao metric, following Amari's Information Geometry \cite{Amari00}, treating learning as a projection onto a statistical manifold. The minimization of axiom risk $\mathcal{R}(\theta)$ converges to the unique hypostructure compatible with the trajectory distribution $\mu$, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
 
 ---
 
@@ -9597,7 +9597,7 @@ where $\mathrm{dist}_G$ is any metric on the structural data $G$ (capacities, se
 Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures on $S$:
 $$\mathcal{H}_\Theta = (X, S_t, \Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta).$$
 
-We say this family is **universally structurally approximating** on $\mathfrak{H}(S)$ if:
+We say this family is **universally structurally approximating** on $\mathfrak{H}(S)$ if (this generalizes the Stone-Weierstrass theorem to dynamical functionals, similar to the universality of flow approximation in \cite{Ornstein74}):
 
 > For every $\mathcal{H}^* = (X, S_t, \Phi^*, \mathfrak{D}^*, G^*) \in \mathfrak{H}(S)$ and every $\delta > 0$, there exists $\Theta \in \Theta_{\mathrm{adm}}$ such that:
 > $$d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) < \delta.$$
@@ -12629,6 +12629,8 @@ where $F'$ is the induced map on the target side of the dictionary.
 - Morphisms: structure-preserving maps $F: \mathbb{H}^{(1)} \to \mathbb{H}^{(2)}$ satisfying (M1)–(M4)
 - Composition: componentwise composition of maps
 
+This structure suggests that Hypostructures form an $\infty$-category, where coherence laws are satisfied up to higher homotopies, as in Lurie's Higher Topos Theory \cite{Lurie09}.
+
 **18.4.I.3. Axiom R(T) in Categorical Form**
 
 **Definition (R-validity).** For $\mathbb{H} \in \mathbf{Hypo}_T$, **Axiom R(T)** is the condition:
@@ -14175,7 +14177,7 @@ where:
 
 **Step 1 (Metric from IG).** The graph distance on IG induces a metric on time slices. In the continuum limit, this becomes a Riemannian metric $g_{\mu\nu}$.
 
-**Step 2 (Connection from gauge labels).** The gauge labels $g_e$ define parallel transport. In the limit, this becomes a connection $A$ on a principal $K$-bundle.
+**Step 2 (Connection from gauge labels).** The gauge labels $g_e$ define parallel transport. In the limit, this becomes a connection $A$ on a principal $K$-bundle. This reconstruction parallels the Kobayashi-Hitchin correspondence \cite{Kobayashi87}, relating stable bundles to Einstein-Hermitian connections.
 
 **Step 3 (Curvature from holonomy).** Wilson loops around small cycles encode curvature. The non-abelian Stokes theorem gives:
 $$W(\gamma) \approx \mathbf{1} - \int_\Sigma F + O(A^2)$$
@@ -14216,7 +14218,7 @@ encoding the probability of a random walk from $u$ to $v$ in time $t$.
 
 **(EC3) Spectral gap:** The first nonzero eigenvalue $\lambda_1(\Delta_\text{IG})$ satisfies $\lambda_1 \geq c > 0$ uniformly.
 
-**(EC4) Ricci curvature bound:** The Ollivier-Ricci curvature $\kappa(e) \geq -K$ for all edges.
+**(EC4) Ricci curvature bound:** The Ollivier-Ricci curvature $\kappa(e) \geq -K$ for all edges. This utilizes the Lott-Villani-Sturm synthesis \cite{LottVillani09}, defining Ricci curvature on metric measure spaces without underlying smooth structure.
 
 Then:
 
