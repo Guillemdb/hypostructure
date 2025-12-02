@@ -5,21 +5,21 @@
 **Conjecture 0.1 (Hodge Conjecture).** Let $X$ be a smooth projective variety over $\mathbb{C}$. Then every Hodge class on $X$ is a rational linear combination of classes of algebraic cycles:
 $$\text{Hdg}^p(X) = H^{2p}(X, \mathbb{Q}) \cap H^{p,p}(X) = \text{cl}(CH^p(X)) \otimes \mathbb{Q}$$
 
-**Framework Philosophy.** We construct a hypostructure on the cohomology of algebraic varieties. The Hodge Conjecture is PROVED via sieve exclusion---transcendental Hodge classes are EXCLUDED by the hypostructure framework operating independently of Axiom R:
+**Framework Philosophy.** We construct a hypostructure on the cohomology of algebraic varieties. The Hodge Conjecture is proved via sieve exclusion---transcendental Hodge classes are excluded by the hypostructure framework operating independently of Axiom R:
 
 - Axioms C, D, SC, Cap, TB are Satisfied unconditionally (Hodge theorem, heat flow, filtration, CDK)
 - Axiom LS is Satisfied (permit Obstructed for transcendental classes)
-- **Axiom R is NOT NEEDED:** The sieve denies permits to all transcendental Hodge classes
-- The result is **R-INDEPENDENT**: HC holds without requiring Axiom R verification
-- Transcendental Hodge classes CANNOT exist within the hypostructure framework
+- **Axiom R is not needed:** The sieve denies permits to all transcendental Hodge classes
+- The result is **R-independent**: HC holds without requiring Axiom R verification
+- Transcendental Hodge classes cannot exist within the hypostructure framework
 
 **What This Document Does:**
-- PROVES the Hodge Conjecture via sieve exclusion
+- Proves the Hodge Conjecture via sieve exclusion
 - Shows permits are Obstructed for all transcendental classes
 - Demonstrates R-independence of the result
-- Establishes HC as a FREE consequence of the framework
+- Establishes HC as a free consequence of the framework
 
-**Sieve Verdict:** All permits Obstructed → transcendental Hodge classes CANNOT exist → Hodge Conjecture HOLDS
+**Sieve Verdict:** All permits Obstructed → transcendental Hodge classes cannot exist → Hodge Conjecture holds
 
 ---
 
@@ -269,7 +269,7 @@ This establishes Axiom Cap: Hodge loci have bounded complexity. $\square$
 
 ---
 
-## 8. Axiom R: Recovery --- NOT NEEDED
+## 8. Axiom R: Recovery --- Not needed
 
 ### 8.1 The Core Recovery Problem
 
@@ -282,9 +282,9 @@ This establishes Axiom Cap: Hodge loci have bounded complexity. $\square$
 **Sieve Exclusion Philosophy:** HC is proved by excluding transcendental classes:
 - The sieve operates independently of Axiom R
 - All permits (SC, Cap, TB, LS) are Obstructed for transcendental classes
-- Transcendental Hodge classes CANNOT exist within the framework
+- Transcendental Hodge classes cannot exist within the framework
 
-The result is R-INDEPENDENT.
+The result is R-independent.
 
 ### 8.2 Known Special Cases
 
@@ -304,7 +304,7 @@ induces a long exact sequence in cohomology. The connecting map $c_1: \text{Pic}
 
 **Remark 8.2.3.** These special cases provided evidence for HC before the general sieve proof.
 
-### 8.3 The Integral Hodge Conjecture: FAILS
+### 8.3 The Integral Hodge Conjecture: Fails
 
 **Theorem 8.3.1 (Atiyah-Hirzebruch).** There exist smooth projective varieties with integral Hodge classes that are not algebraic.
 
@@ -313,9 +313,9 @@ induces a long exact sequence in cohomology. The connecting map $c_1: \text{Pic}
 ### 8.4 Status Summary
 
 **Status:** Axiom R is:
-- **NOT NEEDED** for the Hodge Conjecture (HC holds via sieve exclusion)
-- The sieve mechanism is R-INDEPENDENT
-- HC is a FREE consequence of the framework
+- **Not needed** for the Hodge Conjecture (HC holds via sieve exclusion)
+- The sieve mechanism is R-independent
+- HC is a free consequence of the framework
 
 ---
 
@@ -360,31 +360,31 @@ such that $\text{Gr}^W_k$ carries a pure Hodge structure of weight $k$.
 | **SC** (Scale Coherence) | Satisfied (permit Obstructed) | Hodge filtration | $F^{p+1} \subset F^p$ with complementarity |
 | **LS** (Local Stiffness) | Satisfied (permit Obstructed for transcendental) | Algebraic classes rigid | Polarization constrains transcendental classes |
 | **Cap** (Capacity) | Satisfied (permit Obstructed) | Algebraic Hodge loci | CDK theorem via o-minimality |
-| **R** (Recovery) | NOT NEEDED | Sieve exclusion suffices | R-INDEPENDENT result |
+| **R** (Recovery) | Not needed | Sieve exclusion suffices | R-independent result |
 | **TB** (Background) | Satisfied (permit Obstructed) | Stable topology | Ehresmann fibration |
 
 ### 10.2 Mode Classification
 
-**Sieve exclusion PROVES the Hodge Conjecture independently of Axiom R.**
+**Sieve exclusion proves the Hodge Conjecture independently of Axiom R.**
 
-By the sieve mechanism (Section 11), all transcendental Hodge classes are EXCLUDED:
+By the sieve mechanism (Section 11), all transcendental Hodge classes are excluded:
 - **All permits Obstructed:** SC, Cap, TB, LS all deny permits to transcendental classes
 - **Pincer operates:** Transcendental classes cannot satisfy the structural constraints
 - **Conclusion:** No transcendental Hodge classes exist
 
-The Hodge Conjecture holds as an R-INDEPENDENT consequence of the framework.
+The Hodge Conjecture holds as an R-independent consequence of the framework.
 
 ### 10.3 The Fundamental Insight
 
 **Theorem 10.3.1 (Sieve Exclusion Proof).** The sieve mechanism establishes that transcendental Hodge classes cannot exist:
 
-$$\boxed{\text{All permits Obstructed} \Rightarrow \text{Transcendental Hodge classes EXCLUDED} \Rightarrow \text{HC holds}}$$
+$$\boxed{\text{All permits Obstructed} \Rightarrow \text{Transcendental Hodge classes excluded} \Rightarrow \text{HC holds}}$$
 
-The result is R-INDEPENDENT: the sieve operates without requiring Axiom R verification.
+The result is R-independent: the sieve operates without requiring Axiom R verification.
 
 ---
 
-## 11. SECTION G — THE SIEVE: ALGEBRAIC PERMIT TESTING
+## 11. Section G — The sieve: Algebraic permit testing
 
 ### 11.1 The Sieve Methodology
 
@@ -397,7 +397,7 @@ The result is R-INDEPENDENT: the sieve operates without requiring Axiom R verifi
 | **TB** (Topology) | Hodge decomposition stable under topology | Obstructed | Ehresmann fibration forces $H^{p,q}$ continuous in families [V02, Thm 9.16] |
 | **LS** (Stiffness) | Polarization provides positive definiteness | Obstructed | Hodge-Riemann bilinear relations impose signature constraints [G69] |
 
-**Interpretation.** Each Obstructed permit excludes transcendental Hodge classes. The simultaneous denial of ALL permits (SC, Cap, TB, LS) proves that transcendental Hodge classes CANNOT exist. All Hodge classes must be algebraic.
+**Interpretation.** Each Obstructed permit excludes transcendental Hodge classes. The simultaneous denial of all permits (SC, Cap, TB, LS) proves that transcendental Hodge classes cannot exist. All Hodge classes must be algebraic.
 
 ### 11.2 Permit SC: Scaling (Hodge Filtration)
 
@@ -467,19 +467,19 @@ $$\gamma \in \mathcal{T}_{\text{sing}} \overset{\text{Mthm 21}}{\Longrightarrow}
 
 **Conclusion.** All permits are Obstructed to transcendental Hodge classes. They cannot exist within the hypostructure framework.
 
-$$\boxed{\text{HC holds via sieve exclusion (R-INDEPENDENT)}}$$
+$$\boxed{\text{HC holds via sieve exclusion (R-independent)}}$$
 
-**Status.** This IS a proof of the Hodge Conjecture via sieve exclusion. All transcendental Hodge classes are definitively EXCLUDED by the structural constraints of the framework.
+**Status.** This is a proof of the Hodge Conjecture via sieve exclusion. All transcendental Hodge classes are definitively excluded by the structural constraints of the framework.
 
 ---
 
-## 12. SECTION H — TWO-TIER CONCLUSIONS
+## 12. Section H — Two-tier conclusions
 
-### 12.1 Tier 1: R-Independent Results (FREE via Sieve)
+### 12.1 Tier 1: R-independent results (free via sieve)
 
-These conclusions hold WITHOUT assuming Axiom R---they are FREE consequences of the sieve mechanism:
+These conclusions hold without assuming Axiom R---they are free consequences of the sieve mechanism:
 
-**Theorem 12.1.1 (Hodge Conjecture HOLDS).** For any smooth projective variety $X$ over $\mathbb{C}$:
+**Theorem 12.1.1 (Hodge Conjecture holds).** For any smooth projective variety $X$ over $\mathbb{C}$:
 $$\text{Hdg}^p(X) = H^{2p}(X, \mathbb{Q}) \cap H^{p,p}(X) = \text{cl}(CH^p(X)) \otimes \mathbb{Q}$$
 
 **Citation:** Sieve exclusion (Section 11). All permits Obstructed for transcendental classes.
@@ -540,7 +540,7 @@ Since HC now holds (Tier 1), the metatheorem cascade automatically applies:
 
 ---
 
-**Theorem 12.2.2 (Integral Hodge Conjecture FAILS).** Even though HC holds over $\mathbb{Q}$, there exist integral Hodge classes NOT arising from algebraic cycles:
+**Theorem 12.2.2 (Integral Hodge Conjecture fails).** Even though HC holds over $\mathbb{Q}$, there exist integral Hodge classes not arising from algebraic cycles:
 $$H^{2p}(X, \mathbb{Z}) \cap H^{p,p}(X) \not\subseteq \text{cl}(CH^p(X))$$
 
 **Citation:** Atiyah-Hirzebruch counterexamples [AH62]. The integral version fails independently.
@@ -563,8 +563,8 @@ $$H^{2p}(X, \mathbb{Z}) \cap H^{p,p}(X) \not\subseteq \text{cl}(CH^p(X))$$
 
 | Tier | Axiom R Status | Content | Evidence |
 |------|----------------|---------|----------|
-| **Tier 1** | NOT NEEDED | **HC HOLDS**, Hodge decomposition, polarization, Lefschetz $(1,1)$, CDK, Ehresmann, absolute Hodge for algebraic cycles | Satisfied via sieve exclusion |
-| **Tier 2** | NOT NEEDED | Metatheorem cascade applications (obstruction collapse, Galois lock, energy resolution) | Automatic consequences of Tier 1 |
+| **Tier 1** | Not needed | **HC holds**, Hodge decomposition, polarization, Lefschetz $(1,1)$, CDK, Ehresmann, absolute Hodge for algebraic cycles | Satisfied via sieve exclusion |
+| **Tier 2** | Not needed | Metatheorem cascade applications (obstruction collapse, Galois lock, energy resolution) | Automatic consequences of Tier 1 |
 
 **The Result:** The Hodge Conjecture holds via sieve exclusion, independent of Axiom R verification.
 
@@ -584,7 +584,7 @@ i.e., no transcendental Hodge classes exist.
 
 *Proof.* The sieve mechanism (Section 11) denies all permits to transcendental Hodge classes. The pincer operates: any transcendental class would simultaneously require blowup (unbounded growth) while remaining within algebraically bounded sets (CDK theorem), which is impossible. $\square$
 
-**Status:** This is Satisfied via sieve exclusion (R-INDEPENDENT).
+**Status:** This is satisfied via sieve exclusion (R-independent).
 
 ### 13.2 MT 18.4.F: Duality Reconstruction
 
@@ -660,7 +660,7 @@ This rigidity constrains how Hodge classes can vary in families.
 5. Preserve symplectic structure: Maintain rank relationships
 6. Satisfy Hodge-Riemann: Non-degenerate pairing
 
-The simultaneous satisfaction of all constraints is IMPOSSIBLE. Transcendental Hodge classes CANNOT exist within the hypostructure framework.
+The simultaneous satisfaction of all constraints is impossible. Transcendental Hodge classes cannot exist within the hypostructure framework.
 
 ### 13.8 Summary Table
 

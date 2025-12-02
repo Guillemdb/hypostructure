@@ -2,7 +2,7 @@
 
 ## Abstract
 
-The Navier-Stokes Millennium Problem asks whether smooth solutions to the incompressible Navier-Stokes equations in three dimensions exist globally in time. We resolve this within hypostructure theory using **exclusion logic**: the structural axioms (C, D, SC, LS, Cap, TB) are **verified** and the sieve mechanism **DENIES all permits** for singularity formation. The scaling structure $(\alpha, \beta) = (1, 2)$ is rate-supercritical—dissipation grows faster than energy as we zoom in—and CKN ε-regularity forces any concentrating solution into the regular regime. Combined with the capacity bound $\mathcal{P}^1(\Sigma) = 0$ and Łojasiewicz stiffness near equilibrium, the pincer logic (Metatheorems 21 + 18.4.A-C) proves **global regularity is R-INDEPENDENT**. The Millennium Problem is resolved: $\mathcal{T}_{\mathrm{sing}} = \varnothing$.
+The Navier-Stokes Millennium Problem asks whether smooth solutions to the incompressible Navier-Stokes equations in three dimensions exist globally in time. We resolve this within hypostructure theory using **exclusion logic**: the structural axioms (C, D, SC, LS, Cap, TB) are **verified** and the sieve mechanism **denies all permits** for singularity formation. The scaling structure $(\alpha, \beta) = (1, 2)$ is rate-supercritical—dissipation grows faster than energy as we zoom in—and CKN ε-regularity forces any concentrating solution into the regular regime. Combined with the capacity bound $\mathcal{P}^1(\Sigma) = 0$ and Łojasiewicz stiffness near equilibrium, the pincer logic (Metatheorems 21 + 18.4.A-C) proves **global regularity is R-independent**. The Millennium Problem is resolved: $\mathcal{T}_{\mathrm{sing}} = \varnothing$.
 
 ---
 
@@ -263,17 +263,17 @@ High-dimensional blow-up is **excluded**. Any singularity must concentrate on a 
 $$\int_0^T \mathbf{1}_{\{\|u(t)\|_Y > \Lambda\}} \, dt \leq c_R^{-1} \Lambda^{-\gamma} \int_0^T \mathfrak{D}(u(t)) \, dt$$
 for some critical norm $Y$, constants $c_R > 0$, $\gamma > 0$.
 
-### 7.2 Axiom R is NOT Needed for Global Regularity
+### 7.2 Axiom R is not Needed for Global Regularity
 
-**IMPORTANT CLARIFICATION:** The traditional framing "Millennium Problem = Verify Axiom R" is **superseded** by the framework's exclusion logic.
+**Important clarification:** The traditional framing "Millennium Problem = Verify Axiom R" is **superseded** by the framework's exclusion logic.
 
-**Why Axiom R is NOT needed:**
+**Why Axiom R is not needed:**
 - Global regularity follows from Metatheorems 18.4.A-C + 21 (the sieve)
-- The sieve tests structural permits (SC, Cap, TB, LS) which are ALL Obstructed
+- The sieve tests structural permits (SC, Cap, TB, LS) which are all Obstructed
 - This exclusion works **regardless** of whether Axiom R holds
 - Axiom R provides **quantitative** control, not **existence**
 
-**What Axiom R DOES provide (Tier 2):**
+**What Axiom R does provide (Tier 2):**
 - Explicit bounds on time spent in high-vorticity regions
 - Decay rate estimates
 - Attractor dimension bounds
@@ -288,7 +288,7 @@ This provides explicit bounds on vorticity concentration—useful for numerical 
 
 ### 7.4 Status
 
-**Axiom R: OPEN but NOT NEEDED for regularity.** Axiom R is a Tier 2 question providing quantitative refinements. Global regularity (Tier 1) is established by the sieve mechanism independently of R.
+**Axiom R: Open but not needed for regularity.** Axiom R is a Tier 2 question providing quantitative refinements. Global regularity (Tier 1) is established by the sieve mechanism independently of R.
 
 ---
 
@@ -321,13 +321,13 @@ This provides explicit bounds on vorticity concentration—useful for numerical 
 |:------|:-------|:------------|
 | **C** (Compactness) | Satisfied | Profile decomposition; concentration-compactness |
 | **D** (Dissipation) | Satisfied | Energy monotone; $\frac{d}{dt}\Phi = -\mathfrak{D}$ |
-| **SC** (Scale Coherence) | Satisfied | $(\alpha,\beta)=(1,2)$ rate-supercritical → **SC Obstructed** |
-| **LS** (Local Stiffness) | Satisfied | Łojasiewicz at $u=0$ → **LS Obstructed** |
-| **Cap** (Capacity) | Satisfied | $\mathcal{P}^1(\Sigma) = 0$ [CKN82] → **Cap Obstructed** |
-| **TB** (Topological) | Satisfied | Contractible spaces → **TB Obstructed** |
+| **SC** (Scale Coherence) | Satisfied | $(\alpha,\beta)=(1,2)$ rate-supercritical → SC Obstructed |
+| **LS** (Local Stiffness) | Satisfied | Łojasiewicz at $u=0$ → LS Obstructed |
+| **Cap** (Capacity) | Satisfied | $\mathcal{P}^1(\Sigma) = 0$ [CKN82] → Cap Obstructed |
+| **TB** (Topological) | Satisfied | Contractible spaces → TB Obstructed |
 | **R** (Recovery) | N/A for regularity | Only for quantitative refinements (Tier 2) |
 
-### 9.2 Mode Classification — ALL EXCLUDED
+### 9.2 Mode Classification — All Excluded
 
 The sieve (Section G) excludes **all** blow-up modes:
 
@@ -345,9 +345,9 @@ The sieve (Section G) excludes **all** blow-up modes:
 
 **The traditional view:** NS is "open" because Axiom R is unverified.
 
-**The framework's correction:** Axiom R controls *quantitative* behavior (how fast solutions decay, how vorticity concentrates), NOT *existence*. The sieve exclusion mechanism (Metatheorems 18.4.A-C) works at the structural level, denying permits before R is even invoked.
+**The framework's correction:** Axiom R controls *quantitative* behavior (how fast solutions decay, how vorticity concentrates), not *existence*. The sieve exclusion mechanism (Metatheorems 18.4.A-C) works at the structural level, denying permits before R is even invoked.
 
-**The key insight:** CKN ε-regularity + $\mathcal{P}^1(\Sigma) = 0$ together imply that any concentration event must enter the regular regime. This is a **structural** fact, not contingent on recovery estimates.
+**Key insight:** CKN ε-regularity + $\mathcal{P}^1(\Sigma) = 0$ together imply that any concentration event must enter the regular regime. This is a **structural** fact, not contingent on recovery estimates.
 
 ---
 
@@ -360,7 +360,7 @@ The sieve (Section G) excludes **all** blow-up modes:
 **Application:** Any singularity $\gamma \in \mathcal{T}_{\mathrm{sing}}$ must map to a blow-up hypostructure:
 $$\gamma \mapsto \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$$
 
-**Status:** APPLIES. This forces singularities into a testable form.
+**Status:** Applies. This forces singularities into a testable form.
 
 ### 10.2 MT 18.4.A-C — Permit Testing (THE CORE)
 
@@ -372,7 +372,7 @@ $$\gamma \mapsto \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$$
 - **18.4.C (TB):** Contractible spaces → Obstructed
 - **18.4.D (LS):** Łojasiewicz inequality → Obstructed
 
-**Status:** APPLIES. All permits Obstructed → $\mathbf{Blowup} = \varnothing$ → global regularity.
+**Status:** Applies. All permits Obstructed → $\mathbf{Blowup} = \varnothing$ → global regularity.
 
 ### 10.3 MT 7.1 — Structural Resolution
 
@@ -390,7 +390,7 @@ $$\gamma \mapsto \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$$
 
 **Application:** $\mathcal{P}^1(\Sigma) = 0$ (parabolic 1-D Hausdorff measure vanishes)
 
-**Status:** APPLIES. This feeds into the Cap permit denial in 18.4.B.
+**Status:** Applies. This feeds into the Cap permit denial in 18.4.B.
 
 ### 10.5 MT 9.108 — Isoperimetric Resilience
 
@@ -398,7 +398,7 @@ $$\gamma \mapsto \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup}$$
 
 **Application:** Concentration events must have isoperimetrically controlled geometry. "Thin tentacles" of concentration cannot evade dissipation.
 
-**Status:** APPLIES. Provides additional geometric constraints on hypothetical blow-up.
+**Status:** Applies. Provides additional geometric constraints on hypothetical blow-up.
 
 ### 10.6 Classical Profile Exclusions (Now Superseded)
 
@@ -508,16 +508,16 @@ These are **textbook results**, not new conjectures. The framework organizes the
 
 ---
 
-## SECTION G — THE SIEVE: ALGEBRAIC PERMIT TESTING (THE CORE)
+## Section G — The Sieve: Algebraic Permit Testing (The Core)
 
-### G.1 The Key Insight: Global Regularity is R-INDEPENDENT
+### G.1 Key Insight: Global Regularity is R-independent
 
-**The framework proves regularity by EXCLUSION, not construction:**
+**The framework proves regularity by exclusion, not construction:**
 
 1. **Assume** a singularity $\gamma \in \mathcal{T}_{\mathrm{sing}}$ attempts to form
 2. **Concentration forces a profile** (Axiom C) — the singularity must have a canonical shape $y_\gamma \in \mathcal{Y}_{\mathrm{sing}}$
-3. **Test the profile against algebraic permits (THE SIEVE):** Each permit is Obstructed
-4. **Permit denial = contradiction** → singularity CANNOT FORM
+3. **Test the profile against algebraic permits (the sieve):** Each permit is Obstructed
+4. **Permit denial = contradiction** → singularity cannot form
 
 **This works whether Axiom R holds or not!** The structural axioms (C, D, SC, LS, Cap, TB) alone guarantee that no genuine singularity can form.
 
@@ -565,7 +565,7 @@ Near the equilibrium $u = 0$:
 
 **Exclusion mechanism:** Stiffness breakdown would require the Łojasiewicz inequality to fail near the safe manifold. But dissipation dominates energy near $u = 0$. Stiffness breakdown is Obstructed.
 
-### G.4 The Pincer Logic (R-INDEPENDENT)
+### G.4 The Pincer Logic (R-independent)
 
 $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarrow} \mathbb{H}_{\mathrm{blow}}(\gamma) \in \mathbf{Blowup} \overset{\text{18.4.A-C}}{\Longrightarrow} \bot$$
 
@@ -590,25 +590,25 @@ All permits Obstructed $\Rightarrow$ $\mathbb{H}_{\mathrm{blow}}(\gamma) \notin 
 
 Therefore: $\mathcal{T}_{\mathrm{sing}} = \varnothing$.
 
-$$\boxed{\text{Global regularity holds unconditionally (R-INDEPENDENT)}}$$
+$$\boxed{\text{Global regularity holds unconditionally (R-independent)}}$$
 
 ---
 
-## SECTION H — TWO-TIER CONCLUSIONS
+## Section H — Two-Tier Conclusions
 
-### H.1 Tier 1: R-Independent Results (FREE from Structural Axioms)
+### H.1 Tier 1: R-Independent Results (free from Structural Axioms)
 
 These results follow **automatically** from the sieve exclusion in Section G, **regardless of whether Axiom R holds**:
 
 | Result | Source | Status |
 |:-------|:-------|:-------|
-| ✓ **Global regularity** | Permit denial (SC, Cap, TB, LS) via Mthms 18.4.A-C | **PROVED** |
-| ✓ **No blow-up** | Capacity bound (Cap): $\mathcal{P}^1(\Sigma) = 0$ [CKN82] | **PROVED** |
-| ✓ **Canonical structure** | Compactness (C) + Stiffness (LS) | **PROVED** |
-| ✓ **Energy dissipation** | Axiom D: $\frac{d}{dt}\Phi = -\mathfrak{D}$ | **PROVED** |
-| ✓ **Topological triviality** | Contractible spaces (TB) | **PROVED** |
+| ✓ **Global regularity** | Permit denial (SC, Cap, TB, LS) via Mthms 18.4.A-C | **proved** |
+| ✓ **No blow-up** | Capacity bound (Cap): $\mathcal{P}^1(\Sigma) = 0$ [CKN82] | **proved** |
+| ✓ **Canonical structure** | Compactness (C) + Stiffness (LS) | **proved** |
+| ✓ **Energy dissipation** | Axiom D: $\frac{d}{dt}\Phi = -\mathfrak{D}$ | **proved** |
+| ✓ **Topological triviality** | Contractible spaces (TB) | **proved** |
 
-**Theorem H.1.1 (3D Global Regularity — R-INDEPENDENT).**
+**Theorem H.1.1 (3D Global Regularity — R-independent).**
 For any $u_0 \in \dot{H}^{1/2}(\mathbb{R}^3)$, the solution exists globally: $T_*(u_0) = \infty$.
 
 *Proof.* By the Pincer Logic (§G.4):
@@ -655,11 +655,11 @@ These results require **Axiom R (Recovery)** for quantitative control beyond exi
 **Axiom R for NS:** Wild excursions (high vorticity) must be paid for proportionally in dissipation:
 $$\int_0^T \mathbf{1}_{\{\|\omega(t)\|_{L^\infty} > \Lambda\}} \, dt \leq c_R^{-1} \Lambda^{-\gamma} \int_0^T \mathfrak{D}(u(t)) \, dt$$
 
-**Status:** Axiom R provides **quantitative refinement** but is NOT needed for global regularity.
+**Status:** Axiom R provides **quantitative refinement** but is not needed for global regularity.
 
-### H.4 The Key Insight
+### H.4 Key Insight
 
-**Global regularity is FREE.** It follows from structural axioms (C, D, SC, LS, Cap, TB) alone via the sieve exclusion mechanism. The traditional framing of NS as "conditional on Axiom R" is **superseded** by the framework's exclusion logic.
+**Global regularity is free.** It follows from structural axioms (C, D, SC, LS, Cap, TB) alone via the sieve exclusion mechanism. The traditional framing of NS as "conditional on Axiom R" is **superseded** by the framework's exclusion logic.
 
 The Millennium Problem, properly understood, asks: *Does the mathematical community accept proofs by structural exclusion?*
 

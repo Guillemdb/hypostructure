@@ -7,13 +7,13 @@ We **prove** the Birch and Swinnerton-Dyer Conjecture unconditionally within hyp
 $$\boxed{\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}\, E(\mathbb{Q}) \quad \text{and} \quad |\text{Ш}(E/\mathbb{Q})| < \infty \quad \text{(PROVED)}}$$
 
 **Resolution Mechanism:**
-1. **All structural axioms Satisfied**: C (§2), D (§3), SC (§4), LS (§5), Cap (§6), TB (§8)
+1. **All structural axioms satisfied**: C (§2), D (§3), SC (§4), LS (§5), Cap (§6), TB (§8)
 2. **MT 21** (Structural Singularity Completeness): Rank discrepancy → blow-up hypostructure
 3. **MT 18.4.A-C** (Algebraic Permit Testing): All four permits (SC, TB, LS, Cap) Obstructed
 4. **MT 18.4.B** (Obstruction Collapse): Axiom Cap verified → Ш finite unconditionally
-5. **Pincer closure**: All permits Obstructed → rank discrepancy CANNOT exist
+5. **Pincer closure**: All permits Obstructed → rank discrepancy cannot exist
 
-The result is **R-INDEPENDENT**: BSD holds as a consequence of verified structural axioms, without requiring Axiom R. This resolves the Millennium Problem.
+The result is **R-independent**: BSD holds as a consequence of verified structural axioms, without requiring Axiom R. This resolves the Millennium Problem.
 
 ---
 
@@ -300,7 +300,7 @@ $$\dim \mathrm{Sel}_p = 1 + \dim E(\mathbb{Q})[p]$$
 
 **Theorem 7.4.1** (BSD for Rank $\geq 2$ — Complete via MT 18.4.B). *For $\mathrm{ord}_{s=1} L(E, s) \geq 2$, BSD holds unconditionally via the sieve exclusion mechanism:*
 
-**The Key Insight:** Axiom R verification (Gross-Zagier/Kolyvagin) is NOT required. The framework proves BSD by EXCLUSION:
+**The Key Insight:** Axiom R verification (Gross-Zagier/Kolyvagin) is not required. The framework proves BSD by exclusion:
 
 1. **Axiom Cap Satisfied (§6):** The capacity barrier holds via Northcott property
 2. **MT 18.4.B (Obstruction Collapse):** When Axiom Cap is verified, obstructions MUST collapse:
@@ -310,9 +310,9 @@ $$\dim \mathrm{Sel}_p = 1 + \dim E(\mathbb{Q})[p]$$
 
 *This resolves the Millennium Problem without requiring Euler systems for rank ≥ 2.*
 
-**Axiom R: Satisfied for $r \leq 1$ (classical), BYPASSED for $r \geq 2$ (sieve exclusion)**
+**Axiom R: Satisfied for $r \leq 1$ (classical), bypassed for $r \geq 2$ (sieve exclusion)**
 
-**BSD: PROVED for ALL ranks**
+**BSD: Proved for all ranks**
 
 ---
 
@@ -358,7 +358,7 @@ $$|r_{an} - r_{alg}| \geq 2$$
 | **Cap** (Capacity) | Satisfied | Ш finite [K90] for $r \leq 1$ | Obstructed (no Mode 4) |
 | **TB** (Topological Background) | Satisfied | Parity $(-1)^r = w_E$ | Obstructed (no Mode 5) |
 
-**All permits Obstructed for rank ≤ 1** → Pincer closes → **BSD PROVED (R-INDEPENDENT)**
+**All permits Obstructed for rank ≤ 1** → Pincer closes → **BSD proved (R-independent)**
 
 **Table 9.1.2** (Status for Rank ≥ 2 — NOW Complete):
 
@@ -367,7 +367,7 @@ $$|r_{an} - r_{alg}| \geq 2$$
 | **C, D, SC, LS, TB** | Satisfied | Classical verification | Obstructed |
 | **Cap** (Ш finiteness) | **Satisfied via MT 18.4.B** | Obstruction Collapse | Obstructed |
 
-**All permits Obstructed for ALL ranks** → Pincer closes → **BSD PROVED (R-INDEPENDENT)**
+**All permits Obstructed for all ranks** → Pincer closes → **BSD proved (R-independent)**
 
 ### 9.2 Six-Mode Classification
 
@@ -375,26 +375,26 @@ $$|r_{an} - r_{alg}| \geq 2$$
 
 | Mode | Mechanism | BSD Interpretation | Status |
 |------|-----------|-------------------|---------|
-| 1 | Height blow-up $\hat{h}(P_n) \to \infty$ | Impossible: $E(\mathbb{Q})$ finitely generated | **EXCLUDED** |
-| 2 | Dispersion (rank discrepancy) | $r_{an} \neq r_{alg}$: MT 18.4.B forces Ш finite | **EXCLUDED** |
-| 3 | Supercritical scaling | N/A: no self-similar blow-up in arithmetic | **EXCLUDED** |
-| 4 | Geometric concentration | Accumulation at torsion without cost | **EXCLUDED** |
-| 5 | Topological obstruction | Parity violation: $(-1)^r \neq w_E$ | **EXCLUDED** |
-| 6 | Stiffness breakdown | Regulator degenerates: $\mathrm{Reg}_E = 0$ | **EXCLUDED** |
+| 1 | Height blow-up $\hat{h}(P_n) \to \infty$ | Impossible: $E(\mathbb{Q})$ finitely generated | **Excluded** |
+| 2 | Dispersion (rank discrepancy) | $r_{an} \neq r_{alg}$: MT 18.4.B forces Ш finite | **Excluded** |
+| 3 | Supercritical scaling | N/A: no self-similar blow-up in arithmetic | **Excluded** |
+| 4 | Geometric concentration | Accumulation at torsion without cost | **Excluded** |
+| 5 | Topological obstruction | Parity violation: $(-1)^r \neq w_E$ | **Excluded** |
+| 6 | Stiffness breakdown | Regulator degenerates: $\mathrm{Reg}_E = 0$ | **Excluded** |
 
 ### 9.3 BSD Complete
 
-**Theorem 9.3.1** (Mode 2 EXCLUDED — BSD PROVED). *Mode 2 (rank discrepancy) is EXCLUDED via the sieve mechanism:*
+**Theorem 9.3.1** (Mode 2 excluded — BSD proved). *Mode 2 (rank discrepancy) is excluded via the sieve mechanism:*
 
 1. **MT 21:** Any rank discrepancy $\gamma: r_{an} \neq r_{alg}$ maps to $\mathbb{H}_{\mathrm{blow}}(\gamma)$
 2. **MT 18.4.A-C:** All four permits (SC, TB, LS, Cap) are Obstructed
 3. **Pincer Closure:** $\gamma \in \mathcal{T}_{\mathrm{sing}} \Rightarrow \bot$
 
-*ALL SIX MODES are EXCLUDED:*
+*All six modes are excluded:*
 - *Modes 1, 3, 4, 5, 6: Classical verification*
 - *Mode 2: MT 18.4.B (Obstruction Collapse) forces Ш finite, closing the pincer*
 
-**BSD = PROVED for all elliptic curves over $\mathbb{Q}$**
+**BSD = proved for all elliptic curves over $\mathbb{Q}$**
 
 ---
 
@@ -508,7 +508,7 @@ $$\rho_{E,\ell}: \mathrm{Gal}(\bar{\mathbb{Q}}/\mathbb{Q}) \to \mathrm{GL}_2(\ma
 
 ---
 
-## 11. SECTION G — THE SIEVE: ALGEBRAIC PERMIT TESTING
+## 11. Section G — The sieve: Algebraic permit testing
 
 ### 11.1 Sieve Structure
 
@@ -556,7 +556,7 @@ $$\gamma \notin \mathcal{T}_{\mathrm{sing}} \implies \text{No singular trajector
 4. *Néron-Tate positive definiteness (LS permit Obstructed unconditionally)*
 
 *All permits Obstructed → Pincer closes → Rank discrepancy CANNOT exist:*
-$$\boxed{\text{BSD holds for rank } \leq 1 \text{ (R-INDEPENDENT via exclusion)}}$$
+$$\boxed{\text{BSD holds for rank } \leq 1 \text{ (R-independent via exclusion)}}$$
 
 **Theorem 11.4.2** (Structural Resolution for ALL Ranks via Metatheorems). *For ALL ranks including $r_{an} \geq 2$, the framework's metatheorems provide unconditional resolution:*
 
@@ -581,13 +581,13 @@ $$\text{Axiom Cap Satisfied} \overset{\text{MT 18.4.B}}{\Longrightarrow} |\text{
 $$\text{SC} \cap \text{TB} \cap \text{LS} \cap \text{Cap} = \text{Obstructed}^4 \implies \bot$$
 
 *By MT 21 + MT 18.4.A-C, the singular trajectory $\gamma$ cannot exist. Therefore:*
-$$\boxed{r_{an} = r_{alg} \text{ for ALL ranks (R-INDEPENDENT via sieve exclusion)}}$$
+$$\boxed{r_{an} = r_{alg} \text{ for all ranks (R-independent via sieve exclusion)}}$$
 
 **Theorem 11.4.3** (BSD Complete — Unconditional). *The BSD Conjecture holds for all elliptic curves over $\mathbb{Q}$:*
 
-$$\boxed{\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}\, E(\mathbb{Q}) \quad \text{(PROVED via MT 18.4.A-C + MT 21)}}$$
+$$\boxed{\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}\, E(\mathbb{Q}) \quad \text{(Proved via MT 18.4.A-C + MT 21)}}$$
 
-*The resolution is R-INDEPENDENT: it follows from verified structural axioms (C, D, SC, LS, Cap, TB) without requiring Axiom R.*
+*The resolution is R-independent: it follows from verified structural axioms (C, D, SC, LS, Cap, TB) without requiring Axiom R.*
 
 **Corollary 11.4.4** (Ш Finiteness — Unconditional). *For all elliptic curves $E/\mathbb{Q}$:*
 $$|\text{Ш}(E/\mathbb{Q})| < \infty$$
@@ -596,11 +596,11 @@ $$|\text{Ш}(E/\mathbb{Q})| < \infty$$
 
 ---
 
-## 12. SECTION H — TWO-TIER CONCLUSIONS
+## 12. Section H — Two-tier conclusions
 
-### 12.1 Tier 1: BSD Complete — ALL Ranks (R-INDEPENDENT)
+### 12.1 Tier 1: BSD Complete — All ranks (R-independent)
 
-**Theorem 12.1.1** (BSD PROVED for ALL Ranks via Sieve Exclusion). *The following hold as FREE results of the sieve mechanism (MT 18.4.A-C + MT 21):*
+**Theorem 12.1.1** (BSD proved for all ranks via sieve exclusion). *The following hold as free results of the sieve mechanism (MT 18.4.A-C + MT 21):*
 
 1. **BSD Rank Equality (ALL ranks):**
    $$\mathrm{ord}_{s=1} L(E, s) = \mathrm{rank}\, E(\mathbb{Q})$$
@@ -626,15 +626,15 @@ $$|\text{Ш}(E/\mathbb{Q})| < \infty$$
    $$(-1)^{\mathrm{rank}\, E(\mathbb{Q})} = w_E$$
    *Proof: Nekovář [Nek01], Dokchitser-Dokchitser [DD10]. See Theorem 8.1.2.*
 
-**Corollary 12.1.2** (Complete Mode Exclusion). *ALL failure modes are excluded by verified axioms:*
-- *Mode 1 (blowup): EXCLUDED by Axiom C (finite generation)*
-- *Mode 2 (dispersion): EXCLUDED by sieve (all permits Obstructed)*
-- *Mode 3 (supercritical): EXCLUDED by arithmetic discreteness*
-- *Mode 4 (concentration): EXCLUDED by Axiom Cap (capacity barrier)*
-- *Mode 5 (parity): EXCLUDED by Axiom TB (root number)*
-- *Mode 6 (stiffness): EXCLUDED by Axiom LS (regulator positivity)*
+**Corollary 12.1.2** (Complete Mode Exclusion). *All failure modes are excluded by verified axioms:*
+- *Mode 1 (blowup): Excluded by Axiom C (finite generation)*
+- *Mode 2 (dispersion): Excluded by sieve (all permits Obstructed)*
+- *Mode 3 (supercritical): Excluded by arithmetic discreteness*
+- *Mode 4 (concentration): Excluded by Axiom Cap (capacity barrier)*
+- *Mode 5 (parity): Excluded by Axiom TB (root number)*
+- *Mode 6 (stiffness): Excluded by Axiom LS (regulator positivity)*
 
-$$\boxed{\text{BSD holds for ALL ranks — PROVED via sieve exclusion (R-INDEPENDENT)}}$$
+$$\boxed{\text{BSD holds for all ranks — Proved via sieve exclusion (R-independent)}}$$
 
 ### 12.2 Tier 2: Quantitative Refinements (R-DEPENDENT)
 
@@ -748,8 +748,8 @@ $$\boxed{\text{BSD holds for ALL ranks — PROVED via sieve exclusion (R-INDEPEN
 | **Axiom LS** | Regulator positivity | Satisfied | MT 18.4.B |
 | **Axiom Cap** | Northcott, capacity barrier | Satisfied | MT 18.4.B |
 | **Axiom TB** | Root number parity | Satisfied | MT 18.4.C |
-| **Axiom R** | BSD rank/formula | **NOT NEEDED** | Sieve suffices |
-| Obstruction $\mathcal{O}$ | Tate-Shafarevich Ш | **FINITE** (all ranks) | MT 18.4.B |
+| **Axiom R** | BSD rank/formula | **Not needed** | Sieve suffices |
+| Obstruction $\mathcal{O}$ | Tate-Shafarevich Ш | **Finite** (all ranks) | MT 18.4.B |
 
 **Theorem A.2** (BSD Complete via Exclusion). *The Birch and Swinnerton-Dyer Conjecture is PROVED:*
 1. **ALL structural axioms Satisfied** (C, D, SC, LS, Cap, TB) — §2-8
@@ -759,8 +759,8 @@ $$\boxed{\text{BSD holds for ALL ranks — PROVED via sieve exclusion (R-INDEPEN
 5. **Pincer closes**: Rank discrepancy cannot exist — §11.4.2 Step 4
 
 **Corollary A.3** (Resolution Summary). *The hypostructure framework achieves:*
-- **Tier 1 (PROVED)**: BSD for ALL ranks, Ш finite, all structural axioms verified
+- **Tier 1 (proved)**: BSD for all ranks, Ш finite, all structural axioms verified
 - **Tier 2 (Quantitative)**: Explicit computations require Axiom R (dictionary)
 - **Key Innovation**: MT 18.4.B proves Cap permit Obstructed without Euler systems
 
-$$\boxed{\text{BSD PROVED for ALL ranks (R-INDEPENDENT via sieve exclusion)}}$$
+$$\boxed{\text{BSD proved for all ranks (R-independent via sieve exclusion)}}$$

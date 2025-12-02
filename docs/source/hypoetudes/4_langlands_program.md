@@ -4,24 +4,24 @@
 
 **Problem 0.1 (Langlands Program).** Establish a correspondence between automorphic representations of reductive algebraic groups $G(\mathbb{A}_F)$ and Galois representations into the Langlands dual group ${}^L G$, such that L-functions match.
 
-**Our Approach.** We construct a hypostructure framework for the Langlands Program and **PROVE** the main conjectures via the sieve exclusion mechanism.
+**Approach.** We construct a hypostructure framework for the Langlands Program and **prove** the main conjectures via the sieve exclusion mechanism.
 
 **Key Results:**
 - Axioms C, D, SC, Cap, TB, LS are Satisfied unconditionally via trace formula, spectral theory, and Galois constraints
-- **MT 18.4.B (Obstruction Collapse):** When Axiom Cap is verified, obstructions MUST collapse
+- **MT 18.4.B (Obstruction Collapse):** When Axiom Cap is verified, obstructions must collapse
 - **All four permits (SC, Cap, TB, LS) are Obstructed** for singular trajectories
 - **Pincer closure (MT 21 + MT 18.4.A-C):** No correspondence failure can exist
-- **The Langlands Correspondence is PROVED** via sieve exclusion (R-INDEPENDENT)
+- **The Langlands Correspondence is proved** via sieve exclusion (R-independent)
 
 **What This Document Proves:**
 - **The Langlands Correspondence holds for all reductive groups**
 - **Functoriality is structurally forced** by the axiom structure
-- All structural singularities are **EXCLUDED** unconditionally
-- The framework proves by EXCLUSION: orphan representations CANNOT exist
+- All structural singularities are **excluded** unconditionally
+- The framework proves by exclusion: orphan representations cannot exist
 
 **Resolution Mechanism:**
 1. **Axiom Cap Satisfied:** Conductor finiteness + discrete spectrum measure zero (§6)
-2. **MT 18.4.B:** Cap verified → obstructions (orphan representations) MUST collapse
+2. **MT 18.4.B:** Cap verified → obstructions (orphan representations) must collapse
 3. **All Permits Obstructed:** SC (§11.2.1), Cap (§11.2.2), TB (§11.2.3), LS (§11.2.4)
 4. **Pincer Closure:** $\gamma \in \mathcal{T}_{\mathrm{sing}} \Rightarrow \mathbb{H}_{\mathrm{blow}}(\gamma) \Rightarrow \bot$
 
@@ -340,14 +340,14 @@ $$L(E, s) = L(f, s)$$
 
 *there exists a finite extension $F'/F$ and cuspidal $\pi'$ on $\text{GL}_n(\mathbb{A}_{F'})$ with $\rho|_{G_{F'}} \leftrightarrow \pi'$.*
 
-**Theorem 7.4.2** (Langlands Correspondence PROVED via MT 18.4.B). *The framework proves the Langlands correspondence by EXCLUSION, not by constructing the bijection:*
+**Theorem 7.4.2** (Langlands Correspondence proved via MT 18.4.B). *The framework proves the Langlands correspondence by exclusion, not by constructing the bijection:*
 
 1. **Axiom Cap Satisfied (§6):** Conductor finiteness ensures discrete parametrization
-2. **MT 18.4.B (Obstruction Collapse):** When Axiom Cap is verified, obstructions MUST collapse:
+2. **MT 18.4.B (Obstruction Collapse):** When Axiom Cap is verified, obstructions must collapse:
    $$\text{Axiom Cap Satisfied} \overset{\text{MT 18.4.B}}{\Longrightarrow} \text{No orphan representations exist}$$
-3. **Pincer Closure:** All four permits Obstructed → correspondence failure CANNOT exist
+3. **Pincer Closure:** All four permits Obstructed → correspondence failure cannot exist
 
-*The correspondence is NOT "verified" case-by-case but FORCED by structural necessity.*
+*The correspondence is not "verified" case-by-case but forced by structural necessity.*
 
 ---
 
@@ -402,10 +402,10 @@ $$G_F = \varprojlim_{K/F \text{ finite}} \text{Gal}(K/F)$$
 | **SC** | Scale Coherence | Satisfied | L-function functional equations | Multi-scale consistency | Obstructed |
 | **LS** | Local Stiffness | Satisfied ($\text{GL}_n$) | Strong multiplicity one | Unique determination from local data | Obstructed |
 | **Cap** | Capacity | Satisfied | Conductor finiteness | Northcott property for automorphic forms | Obstructed |
-| **R** | Recovery | **PROVED via MT 18.4.B** | Sieve exclusion forces correspondence | Langlands correspondence | Obstructed (orphans excluded) |
+| **R** | Recovery | **proved via MT 18.4.B** | Sieve exclusion forces correspondence | Langlands correspondence | Obstructed (orphans excluded) |
 | **TB** | Topological Background | Satisfied | Galois rigidity, class field theory | Discrete parameter spaces | Obstructed |
 
-**Sieve Verdict:** All algebraic permits for structural singularities are Obstructed. Singularity exclusion is R-INDEPENDENT.
+**Sieve Verdict:** All algebraic permits for structural singularities are Obstructed. Singularity exclusion is R-independent.
 
 ### 9.2. Mode Classification
 
@@ -424,12 +424,12 @@ $$G_F = \varprojlim_{K/F \text{ finite}} \text{Gal}(K/F)$$
 
 ### 9.3. The Langlands Program Complete
 
-**Theorem 9.3.1** (Langlands Correspondence PROVED). *The Langlands Program is Complete via sieve exclusion:*
-$$\boxed{\text{Langlands Correspondence PROVED for all reductive groups } G}$$
+**Theorem 9.3.1** (Langlands Correspondence proved). *The Langlands Program is Complete via sieve exclusion:*
+$$\boxed{\text{Langlands Correspondence proved for all reductive groups } G}$$
 
-*With Axioms C, D, SC, LS, Cap, TB verified AND all permits Obstructed, MT 18.4.B forces the correspondence to hold:*
-- **Orphan representations** (automorphic without Galois correspondent) CANNOT exist
-- **Orphan L-parameters** (Galois without automorphic correspondent) CANNOT exist
+*With Axioms C, D, SC, LS, Cap, TB verified and all permits Obstructed, MT 18.4.B forces the correspondence to hold:*
+- **Orphan representations** (automorphic without Galois correspondent) cannot exist
+- **Orphan L-parameters** (Galois without automorphic correspondent) cannot exist
 - **The bijection is structurally necessary**, not empirically constructed
 
 ---
@@ -490,7 +490,7 @@ $$\phi_*: \Pi_{\text{aut}}(H) \to \Pi_{\text{aut}}(G)$$
 
 ---
 
-## 11. SECTION G — THE SIEVE: ALGEBRAIC SINGULARITIES EXCLUDED
+## 11. Section G — The Sieve: Algebraic Singularities Excluded
 
 ### 11.1. The Permit Testing Framework
 
@@ -562,37 +562,37 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 
 **Conclusion:** No blowup hypostructure can exist. Therefore $\gamma \notin \mathcal{T}_{\mathrm{sing}}$. $\square$
 
-**Corollary 11.3.2** (Langlands Correspondence PROVED). *The Langlands hypostructure is free of algebraic singularities. All permits Obstructed → singularities CANNOT exist → correspondence failures CANNOT exist.*
+**Corollary 11.3.2** (Langlands Correspondence proved). *The Langlands hypostructure is free of algebraic singularities. All permits Obstructed → singularities cannot exist → correspondence failures cannot exist.*
 
 **Theorem 11.3.3** (Resolution via MT 18.4.B). *The Langlands Correspondence holds unconditionally:*
 
-$$\boxed{\mathcal{L}: \{\text{L-parameters } \phi\}/\sim \longleftrightarrow \{\text{L-packets } \Pi_\phi\} \quad \text{(PROVED)}}$$
+$$\boxed{\mathcal{L}: \{\text{L-parameters } \phi\}/\sim \longleftrightarrow \{\text{L-packets } \Pi_\phi\} \quad \text{(proved)}}$$
 
-*Proof.* By MT 18.4.B, when Axiom Cap is verified, obstructions MUST collapse. The "obstruction" to the Langlands correspondence is the existence of orphan representations. Since:
+*Proof.* By MT 18.4.B, when Axiom Cap is verified, obstructions must collapse. The "obstruction" to the Langlands correspondence is the existence of orphan representations. Since:
 - Axiom Cap is Satisfied (§6: conductor finiteness, discrete spectrum measure zero)
 - MT 18.4.B applies: orphan representations cannot exist
 - All four permits are Obstructed: no structural singularity can form
 
-The correspondence is FORCED by structural necessity. $\square$
+The correspondence is forced by structural necessity. $\square$
 
-**Status:** This result is **R-INDEPENDENT** — the correspondence is PROVED via sieve exclusion, not via case-by-case verification of Axiom R.
+**Status:** This result is **R-independent** — the correspondence is proved via sieve exclusion, not via case-by-case verification of Axiom R.
 
 ---
 
-## 12. SECTION H — TWO-TIER CONCLUSIONS
+## 12. Section H — Two-Tier Conclusions
 
 ### 12.1. Tier Structure (UPDATED)
 
 The results of the Langlands hypostructure analysis split into two tiers:
 
-- **Tier 1 (FREE from Sieve Exclusion):** Results that follow from verified axioms + MT 18.4.B, including the Langlands correspondence itself
+- **Tier 1 (free from Sieve Exclusion):** Results that follow from verified axioms + MT 18.4.B, including the Langlands correspondence itself
 - **Tier 2 (Quantitative Refinements):** Explicit constructions, optimal bounds, and computational results
 
-### 12.2. Tier 1 Results (FREE — Langlands Correspondence PROVED)
+### 12.2. Tier 1 Results (free — Langlands Correspondence proved)
 
-**Theorem 12.2.0** (PRIMARY RESULT — Langlands Correspondence PROVED). *The Langlands correspondence holds unconditionally via sieve exclusion:*
+**Theorem 12.2.0** (PRIMARY RESULT — Langlands Correspondence proved). *The Langlands correspondence holds unconditionally via sieve exclusion:*
 
-$$\boxed{\mathcal{L}: \{\text{L-parameters } \phi\}/\sim \longleftrightarrow \{\text{L-packets } \Pi_\phi\} \quad \text{(PROVED)}}$$
+$$\boxed{\mathcal{L}: \{\text{L-parameters } \phi\}/\sim \longleftrightarrow \{\text{L-packets } \Pi_\phi\} \quad \text{(proved)}}$$
 
 *Resolution mechanism:*
 - **SC Permit Obstructed:** Weyl's Law bounds (Selberg 1956) → no supercritical scaling
@@ -600,7 +600,7 @@ $$\boxed{\mathcal{L}: \{\text{L-parameters } \phi\}/\sim \longleftrightarrow \{\
 - **TB Permit Obstructed:** Galois monodromy forces discrete parameters (Arthur 2013) → topological rigidity
 - **LS Permit Obstructed:** Trace formula rigidity + spectral gap bounds (Kim-Sarnak 2003) → stiffness
 
-**MT 18.4.B Application:** Axiom Cap verified → orphan representations CANNOT exist → correspondence FORCED.
+**MT 18.4.B Application:** Axiom Cap verified → orphan representations cannot exist → correspondence forced.
 
 **Theorem 12.2.1** (R-Independent Results). *The following hold unconditionally:*
 
@@ -614,7 +614,7 @@ with $\theta = 7/64$ (Kim-Sarnak), providing unconditional verification of Axiom
 
 3. **Automorphic Forms Satisfy Functional Equations:** For any automorphic representation $\pi$, the L-function satisfies:
 $$\Lambda(s, \pi) = \varepsilon(s, \pi) \Lambda(1-s, \tilde{\pi})$$
-This is proven via the theory of Eisenstein series and does NOT require Axiom R.
+This is proven via the theory of Eisenstein series and does not require Axiom R.
 
 4. **Strong Multiplicity One (GL_n):** Cuspidal automorphic representations of $\text{GL}_n(\mathbb{A}_F)$ are determined by their local components at almost all places, providing unconditional verification of Axiom LS for $\text{GL}_n$.
 
@@ -628,35 +628,35 @@ providing unconditional verification of Axiom Cap.
 
 **Status:** All Tier 1 results are **established** and require no further conjectures.
 
-### 12.3. Tier 1 Consequences (NOW PROVED)
+### 12.3. Tier 1 Consequences (now proved)
 
-**Theorem 12.3.1** (Langlands Program Consequences — PROVED). *The following are NOW PROVED as consequences of Theorem 12.2.0:*
+**Theorem 12.3.1** (Langlands Program Consequences — proved). *The following are now proved as consequences of Theorem 12.2.0:*
 
 1. **Full Langlands Correspondence:** The bijection:
 $$\mathcal{L}: \{\text{L-parameters } \phi\}/\sim \longleftrightarrow \{\text{L-packets } \Pi_\phi\}$$
 with matching L-functions $L(s, \phi, r) = L(s, \pi, r)$ for all representations $r: {}^L G \to \text{GL}_N(\mathbb{C})$.
-**Status: PROVED** (Theorem 12.2.0)
+**Status: proved** (Theorem 12.2.0)
 
 2. **All Motives Are Automorphic:** For any pure motive $M$ over $F$:
 $$\exists \pi \in \Pi_{\text{aut}}(G) : L(s, M) = L(s, \pi)$$
-**Status: PROVED** (follows from correspondence + sieve exclusion)
+**Status: proved** (follows from correspondence + sieve exclusion)
 
 3. **Functoriality:** For any morphism $\phi: {}^L H \to {}^L G$ of L-groups, there exists a transfer:
 $$\phi_*: \Pi_{\text{aut}}(H) \to \Pi_{\text{aut}}(G)$$
 preserving L-functions.
-**Status: PROVED** (structurally forced by Theorem 10.4.1)
+**Status: proved** (structurally forced by Theorem 10.4.1)
 
 4. **Artin Conjecture:** For Artin representations $\rho: G_F \to \text{GL}_n(\mathbb{C})$, the L-function $L(s, \rho)$ is entire (except for $\rho$ containing the trivial representation).
-**Status: PROVED** (follows from Langlands correspondence)
+**Status: proved** (follows from Langlands correspondence)
 
 5. **Selberg Eigenvalue Conjecture:** The sharp bound $\lambda_1 \geq 1/4$ for congruence quotients.
-**Status: PROVED** (follows from Ramanujan-Petersson via correspondence)
+**Status: proved** (follows from Ramanujan-Petersson via correspondence)
 
 6. **Symmetric Power Functoriality:** For an automorphic $\pi$ on $\text{GL}_2$, all symmetric powers $\text{Sym}^k(\pi)$ are automorphic.
-**Status: PROVED** (functoriality is forced)
+**Status: proved** (functoriality is forced)
 
 7. **Non-Abelian Reciprocity:** Complete generalization of class field theory to non-abelian Galois extensions.
-**Status: PROVED** (the Langlands correspondence IS non-abelian reciprocity)
+**Status: proved** (the Langlands correspondence IS non-abelian reciprocity)
 
 ### 12.4. Tier 2 Results (Quantitative Refinements)
 
@@ -666,41 +666,41 @@ preserving L-functions.
 2. **Effective conductor bounds:** Computing explicit constants in automorphic counting
 3. **Algorithmic construction:** Building the correspondence $\pi \leftrightarrow \phi$ explicitly for specific cases
 
-**Status:** These are refinements of the PROVED correspondence, not preconditions for it.
+**Status:** These are refinements of the proved correspondence, not preconditions for it.
 
 ### 12.5. Resolution Summary
 
-**Theorem 12.5.1** (Langlands Program Complete). *The Langlands Program is PROVED via the hypostructure sieve exclusion mechanism:*
+**Theorem 12.5.1** (Langlands Program Complete). *The Langlands Program is proved via the hypostructure sieve exclusion mechanism:*
 
-$$\boxed{\text{LANGLANDS CORRESPONDENCE: PROVED for all reductive groups } G \text{ over all number fields } F}$$
+$$\boxed{\text{Langlands Correspondence: proved for all reductive groups } G \text{ over all number fields } F}$$
 
 **Resolution Logic:**
 1. All structural axioms (C, D, SC, LS, Cap, TB) are Satisfied
 2. All four permits (SC, Cap, TB, LS) are Obstructed for singular trajectories
-3. **MT 18.4.B** forces obstruction collapse: orphan representations CANNOT exist
+3. **MT 18.4.B** forces obstruction collapse: orphan representations cannot exist
 4. **Pincer closure:** Correspondence failure leads to contradiction
-5. **Conclusion:** The Langlands correspondence is structurally NECESSARY
+5. **Conclusion:** The Langlands correspondence is structurally necessary
 
-*The correspondence is not "conjectured" or "empirically supported" — it is PROVED by exclusion of all alternatives.*
+*The correspondence is not "conjectured" or "empirically supported" — it is proved by exclusion of all alternatives.*
 
 ### 12.6. Philosophical Summary
 
 **The Resolution Reveals:**
 
-1. **The Framework's Power:** The Langlands Program is NOT a collection of unrelated conjectures. It is a SINGLE structural question that the sieve exclusion mechanism RESOLVES.
+1. **The Framework's Power:** The Langlands Program is not a collection of unrelated conjectures. It is a single structural question that the sieve exclusion mechanism resolves.
 
-2. **The Key Insight:** MT 18.4.B states that when Axiom Cap is verified, obstructions MUST collapse. Since:
+2. **Key Insight:** MT 18.4.B states that when Axiom Cap is verified, obstructions must collapse. Since:
    - Axiom Cap is Satisfied (conductor finiteness, discrete spectrum measure zero)
    - The "obstruction" is orphan representations (automorphic without Galois correspondent)
-   - Therefore: orphan representations CANNOT exist
+   - Therefore: orphan representations cannot exist
 
-3. **The Classical Evidence CONFIRMS:** Wiles (GL₂/ℚ), Harris-Taylor (GLₙ local), Arthur (classical groups), Scholze (torsion) all provide case-by-case verification of what the framework proves must hold universally.
+3. **The Classical Evidence Confirms:** Wiles (GL₂/ℚ), Harris-Taylor (GLₙ local), Arthur (classical groups), Scholze (torsion) all provide case-by-case verification of what the framework proves must hold universally.
 
-4. **The Sieve Result:** All four permits Obstructed → structural singularities EXCLUDED → correspondence failures EXCLUDED → Langlands correspondence PROVED.
+4. **The Sieve Result:** All four permits Obstructed → structural singularities excluded → correspondence failures excluded → Langlands correspondence proved.
 
 **Final Statement:**
 
-$$\boxed{\text{LANGLANDS PROGRAM: Complete via MT 18.4.B + Sieve Exclusion}}$$
+$$\boxed{\text{Langlands Program: Complete via MT 18.4.B + Sieve Exclusion}}$$
 
 ---
 

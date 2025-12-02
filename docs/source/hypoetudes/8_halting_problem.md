@@ -8,10 +8,10 @@ We develop a hypostructure-theoretic framework for computability theory, centeri
 
 | Étude | Question | Resolution |
 |-------|----------|------------|
-| Navier-Stokes | Does global regularity hold? | **PROVED** (sieve exclusion) |
-| Yang-Mills | Does mass gap exist? | **PROVED** (MT 18.4.B) |
-| BSD Conjecture | Does rank formula hold? | **PROVED** (sieve exclusion) |
-| **Halting Problem** | Does Axiom R hold? | **Satisfied NO** (diagonal) |
+| Navier-Stokes | Does global regularity hold? | **proved** (sieve exclusion) |
+| Yang-Mills | Does mass gap exist? | **proved** (MT 18.4.B) |
+| BSD Conjecture | Does rank formula hold? | **proved** (sieve exclusion) |
+| **Halting Problem** | Does Axiom R hold? | **Failure** (diagonal) |
 
 The Halting Problem is unique: while other études PROVE their conjectures via sieve exclusion, the Halting Problem demonstrates explicit Axiom R failure. The diagonal argument transforms "undecidability" into "precise structural classification."
 
@@ -76,12 +76,12 @@ where $\varphi_e$ denotes the $e$-th partial computable function.
 
 ## 2. Axiom C — Compactness
 
-### 2.1 Verification Status: Satisfied FAILURE
+### 2.1 Verification Status: Failure
 
 **Theorem 2.1.1** (Compactness for Decidable Sets). If $A \subseteq \mathbb{N}$ is decidable with time bound $f$, then bounded-time approximations converge uniformly: for any $\epsilon > 0$ and $N \in \mathbb{N}$, choosing $n_0 = \max_{x \leq N} f(x)$ gives:
 $$A_n \cap [0,N] = A \cap [0,N] \quad \text{for all } n \geq n_0$$
 
-**Theorem 2.1.2** (Satisfied Compactness Failure for $K$). The halting set $K$ fails Axiom C: time-bounded approximations $K_n = \{e : \varphi_e(e)\downarrow \text{ in } \leq n \text{ steps}\}$ do not converge uniformly.
+**Theorem 2.1.2** (Compactness Failure for $K$). The halting set $K$ fails Axiom C: time-bounded approximations $K_n = \{e : \varphi_e(e)\downarrow \text{ in } \leq n \text{ steps}\}$ do not converge uniformly.
 
 **Proof (Verification Procedure).** Suppose uniform convergence holds with computable bound $f(N)$ such that $K_{f(N)} \cap [0,N] = K \cap [0,N]$. Then the procedure:
 1. Given $e$, compute $n_0 = f(e)$
@@ -96,7 +96,7 @@ would decide $K$, contradicting Theorem 1.3.3. The verification procedure succee
 
 ## 3. Axiom D — Dissipation
 
-### 3.1 Verification Status: Satisfied PARTIAL
+### 3.1 Verification Status: Partial
 
 **Theorem 3.1.1** (Dissipation for Halting Computations). If $\varphi_e(x)\downarrow$ with halting time $t$, then:
 $$\mathfrak{D}_n(c_{e,x}) = 0 \quad \text{for all } n \geq t$$
@@ -108,13 +108,13 @@ $$\mathfrak{D}_n(c_{e,x}) = 2^{-n} > 0 \quad \text{for all } n$$
 
 Computational activity persists at all scales.
 
-**Corollary 3.1.3**. Axiom D is **partially satisfied**: complete dissipation for $K$, persistent activity for $\bar{K}$. This partial status reflects the $\Sigma_1$ structure of $K$ — positive instances (halting) are witnessed finitely, while negative instances (non-halting) require infinite verification.
+**Corollary 3.1.3**. Axiom D is **Partial**: complete dissipation for $K$, persistent activity for $\bar{K}$. This partial status reflects the $\Sigma_1$ structure of $K$ — positive instances (halting) are witnessed finitely, while negative instances (non-halting) require infinite verification.
 
 ---
 
 ## 4. Axiom SC — Scale Coherence
 
-### 4.1 Verification Status: Satisfied PASS (at $\Sigma_1$)
+### 4.1 Verification Status: Pass (at $\Sigma_1$)
 
 **Definition 4.1.1** (Arithmetic Hierarchy). Define inductively:
 - $\Sigma_0 = \Pi_0 = $ decidable sets
@@ -141,13 +141,13 @@ Coherence holds with delay depending on witness complexity. $\square$
 
 ## 5. Axiom LS — Local Stiffness
 
-### 5.1 Verification Status: Satisfied FAILURE
+### 5.1 Verification Status: Failure
 
 **Definition 5.1.1** (Local Decidability). Set $A$ is locally stiff at $x$ if membership in $A \cap U$ is decidable uniformly for some neighborhood $U \ni x$.
 
 **Theorem 5.1.2** (Stiffness Characterization). A set is decidable if and only if it is locally stiff at every point with uniform bounds.
 
-**Theorem 5.1.3** (Satisfied Local Stiffness Failure for $K$). Local decision complexity for $K$ is unbounded: for any proposed bound $L$, there exists $e$ requiring more than $L$ steps to verify $e \in K$.
+**Theorem 5.1.3** (Local Stiffness Failure for $K$). Local decision complexity for $K$ is unbounded: for any proposed bound $L$, there exists $e$ requiring more than $L$ steps to verify $e \in K$.
 
 **Proof (Verification).** For any $B \in \mathbb{N}$, construct (via recursion theorem) a program $e_B$ that:
 - Halts on its own index after exactly $B+1$ steps
@@ -161,7 +161,7 @@ For any uniform bound $L$, choosing $B = L+1$ produces a counterexample. This ex
 
 ## 6. Axiom Cap — Capacity
 
-### 6.1 Verification Status: Satisfied PASS
+### 6.1 Verification Status: Pass
 
 **Definition 6.1.1** (Set Capacity via Kolmogorov Complexity). For $A \subseteq \mathbb{N}$:
 $$\text{Cap}(A; n) = C(A \cap [0,n] \mid n)$$
@@ -177,17 +177,17 @@ $$\text{Cap}(K; n) = O(\log n)$$
 
 **Proof.** $K$ is computably enumerable. Given $n$, enumerate all programs halting within $n$ steps. The enumeration has complexity $O(\log n)$ in the time parameter. $\square$
 
-**Corollary 6.1.4**. Axiom Cap is SATISFIED by $K$, distinguishing it from random sets. The undecidability stems from Axiom R failure, not capacity overflow. This is crucial: $K$ is highly structured (low capacity) yet undecidable.
+**Corollary 6.1.4**. Axiom Cap is satisfied by $K$, distinguishing it from random sets. The undecidability stems from Axiom R failure, not capacity overflow. This is crucial: $K$ is highly structured (low capacity) yet undecidable.
 
 ---
 
 ## 7. Axiom R — Recovery
 
-### 7.1 Verification Status: Satisfied ABSOLUTE FAILURE
+### 7.1 Verification Status: Failure (Absolute)
 
 **This is the central result: Axiom R failure is established, not conjectured.**
 
-**Theorem 7.1.1** (Satisfied Axiom R Failure via Diagonal Construction). The halting set $K$ cannot satisfy Axiom R. The diagonal construction constitutes a complete verification procedure proving this.
+**Theorem 7.1.1** (Axiom R Failure via Diagonal Construction). The halting set $K$ cannot satisfy Axiom R. The diagonal construction constitutes a complete verification procedure proving this.
 
 **The Verification Procedure:**
 
@@ -199,10 +199,10 @@ $$g(e) = \begin{cases} 0 & \text{if } \lim_{t \to \infty} R(e,t) = 1 \\ \uparrow
 By the recursion theorem, there exists $e_0$ with $\varphi_{e_0} = g$.
 
 **Step 3 (Run Verification).** Analyze behavior at the diagonal $e_0$:
-- If $R$ predicts $e_0 \in K$: then $g(e_0) = 0\downarrow$, confirming $e_0 \in K$ ✓
-- If $R$ predicts $e_0 \notin K$: then $g(e_0)\uparrow$, confirming $e_0 \notin K$ ✓
+- If $R$ predicts $e_0 \in K$: then $g(e_0) = 0\downarrow$, confirming $e_0 \in K$ (verified)
+- If $R$ predicts $e_0 \notin K$: then $g(e_0)\uparrow$, confirming $e_0 \notin K$ (verified)
 
-**Step 4 (Verification Conclusion).** Both cases are internally consistent, BUT: if $R$ exists with uniform convergence, then $h(e) = \lim_t R(e,t)$ decides $K$. Since $K$ is undecidable (Theorem 1.3.3), the verification returns: **AXIOM R CANNOT BE SATISFIED**.
+**Step 4 (Verification Conclusion).** Both cases are internally consistent, but if $R$ exists with uniform convergence, then $h(e) = \lim_t R(e,t)$ decides $K$. Since $K$ is undecidable (Theorem 1.3.3), the verification returns: **Axiom R cannot be satisfied**.
 
 **Invocation 7.1.2** (MT 9.58 — Algorithmic Causal Barrier). The halting predicate has infinite logical depth:
 $$d(K) = \sup_n \{n : \exists M, |M| \leq n, M \text{ decides } K_{\leq n}\} = \infty$$
@@ -224,7 +224,7 @@ No observer extracts more information about $K$ than its correlation with $K$.
 
 ## 8. Axiom TB — Topological Background
 
-### 8.1 Verification Status: Satisfied PASS
+### 8.1 Verification Status: Pass
 
 **Definition 8.1.1** (Cantor Topology on $2^{\mathbb{N}}$). Equip $2^{\mathbb{N}}$ with the product topology, making it homeomorphic to the Cantor set.
 
@@ -234,7 +234,7 @@ No observer extracts more information about $K$ than its correlation with $K$.
 - Perfect (no isolated points)
 - Zero-dimensional
 
-**Theorem 8.1.3**. Axiom TB is SATISFIED: $2^{\mathbb{N}}$ provides a stable topological background for computability theory.
+**Theorem 8.1.3**. Axiom TB is satisfied: $2^{\mathbb{N}}$ provides a stable topological background for computability theory.
 
 **Definition 8.1.4** (Effectively Open Sets). $U \subseteq 2^{\mathbb{N}}$ is effectively open if:
 $$U = \bigcup_{i \in W} [\sigma_i]$$
@@ -250,13 +250,13 @@ where $W$ is a c.e. set and $[\sigma]$ denotes the basic clopen set of extension
 
 | Axiom | Status for $K$ | Quantification | Verification Method |
 |-------|----------------|----------------|---------------------|
-| **C** (Compactness) | **Satisfied FAIL** | Non-uniform | Reduction to decidability |
-| **D** (Dissipation) | **Satisfied PARTIAL** | Halting only | Direct construction |
-| **SC** (Scale Coherence) | **Satisfied PASS** | At $\Sigma_1$ level | Quantifier analysis |
-| **LS** (Local Stiffness) | **Satisfied FAIL** | Unbounded | Explicit counterexamples |
-| **Cap** (Capacity) | **Satisfied PASS** | $O(\log n)$ | Enumeration bound |
-| **R** (Recovery) | **Satisfied FAIL** (**PERMIT Obstructed**) | Absolute | Diagonal construction |
-| **TB** (Background) | **Satisfied PASS** | Perfect | Cantor space properties |
+| **C** (Compactness) | **Failure** | Non-uniform | Reduction to decidability |
+| **D** (Dissipation) | **Partial** | Halting only | Direct construction |
+| **SC** (Scale Coherence) | **Pass** | At $\Sigma_1$ level | Quantifier analysis |
+| **LS** (Local Stiffness) | **Failure** | Unbounded | Explicit counterexamples |
+| **Cap** (Capacity) | **Pass** | $O(\log n)$ | Enumeration bound |
+| **R** (Recovery) | **Failure** (**Permit Obstructed**) | Absolute | Diagonal construction |
+| **TB** (Background) | **Pass** | Perfect | Cantor space properties |
 
 ### 9.2 Mode Classification
 
@@ -266,7 +266,7 @@ By Metatheorem 7.1 (Structural Resolution), every trajectory must resolve into o
 - **Mode 2 (Halting):** Trajectory reaches safe manifold $M$ — corresponds to $\varphi_e(x)\downarrow$
 - **Mode 5 (Recovery Failure):** No recovery possible — corresponds to undecidability of membership
 
-**The Critical Insight:** We have Satisfied Mode 5 with certainty. The diagonal construction is not a heuristic but a proof that recovery is impossible.
+**The Critical Insight:** We have verified Mode 5 with certainty. The diagonal construction is not a heuristic but a proof that recovery is impossible.
 
 ### 9.3 The Decidability Equivalence
 
@@ -332,15 +332,15 @@ Each level requires oracles from the previous level to define truth.
 
 | Metatheorem | Application to $K$ | Status |
 |-------------|-------------------|--------|
-| MT 7.1 (Resolution) | Mode 5/6 classification | **Applied** |
-| MT 7.6 (Lyapunov) | Obstructed — not computable | **Applied** |
-| MT 9.38 (Shannon-Kolmogorov) | Chaitin's $\Omega$ | **Applied** |
-| MT 9.58 (Causal Barrier) | Infinite logical depth | **Applied** |
-| MT 9.142 (Gödel-Turing) | Diagonal argument | **Applied** |
-| MT 9.152 (Epistemic Horizon) | Self-prediction impossible | **Applied** |
-| MT 9.156 (Simulation Limit) | Unbounded overhead | **Applied** |
-| MT 9.178 (Tarski Truth) | $\Sigma_1$ hierarchy level | **Applied** |
-| MT 9.218 (Info-Causality) | Prediction bounded | **Applied** |
+| MT 7.1 (Resolution) | Mode 5/6 classification | Applied |
+| MT 7.6 (Lyapunov) | Obstructed — not computable | Applied |
+| MT 9.38 (Shannon-Kolmogorov) | Chaitin's $\Omega$ | Applied |
+| MT 9.58 (Causal Barrier) | Infinite logical depth | Applied |
+| MT 9.142 (Gödel-Turing) | Diagonal argument | Applied |
+| MT 9.152 (Epistemic Horizon) | Self-prediction impossible | Applied |
+| MT 9.156 (Simulation Limit) | Unbounded overhead | Applied |
+| MT 9.178 (Tarski Truth) | $\Sigma_1$ hierarchy level | Applied |
+| MT 9.218 (Info-Causality) | Prediction bounded | Applied |
 
 ---
 
@@ -408,24 +408,24 @@ These results are **independent of Axiom R** and hold unconditionally. They are 
 **Theorem 12.1.1** (R-Independent Undecidability — Turing 1936). The halting problem is undecidable:
 $$K = \{e : \varphi_e(e)\downarrow\} \notin \text{DECIDABLE}$$
 
-**Status:** Satisfied ABSOLUTE. This is independent of whether Axiom R holds — the diagonal construction proves it directly.
+**Status:** Absolute. This is independent of whether Axiom R holds — the diagonal construction proves it directly.
 
 **Theorem 12.1.2** (Hierarchy Theorems Hold). The time and space hierarchy theorems:
 - $\text{DTIME}(f) \subsetneq \text{DTIME}(f \log^2 f)$ for time-constructible $f$
 - $\text{DSPACE}(f) \subsetneq \text{DSPACE}(f \log f)$ for space-constructible $f$
 
-**Status:** Satisfied. These are diagonalization results, independent of recovery.
+**Status:** Verified. These are diagonalization results, independent of recovery.
 
 **Theorem 12.1.3** (Arithmetic Hierarchy Structure). The strict hierarchy:
 $$\text{DECIDABLE} \subsetneq \Sigma_1 \subsetneq \Pi_1 \subsetneq \Sigma_2 \subsetneq \Pi_2 \subsetneq \cdots$$
 
-**Status:** Satisfied. Each level is separated by diagonalization.
+**Status:** Verified. Each level is separated by diagonalization.
 
 **Theorem 12.1.4** (Kolmogorov Complexity Bounds). Decidable problems have measure zero:
 $$\mu(\{A \subseteq \mathbb{N} : A \in \text{DECIDABLE}\}) = 0$$
 in the natural measure on $2^{\mathbb{N}}$.
 
-**Status:** Satisfied via capacity analysis.
+**Status:** Verified via capacity analysis.
 
 **Summary:** Tier 1 results are the **structural skeleton** of computability theory. They hold regardless of axiom verification status.
 
@@ -443,7 +443,7 @@ These results **require or depend on Axiom R behavior**. They remain open or are
 - Does $P = NP$? **Complete: P ≠ NP** (see Étude 9)
 - Optimal algorithms for NP-complete problems (Tier 2 refinement)
 
-**Status:** P ≠ NP is PROVED via structural sieve. Optimal exponents are Tier 2.
+**Status:** P ≠ NP is proved via structural sieve. Optimal exponents are Tier 2.
 
 **Conditional Result 12.2.3** (Oracle Separations). Relativization shows:
 - There exist oracles $A$ where $P^A = NP^A$
@@ -463,10 +463,10 @@ These results **require or depend on Axiom R behavior**. They remain open or are
 
 | Problem | Tier 1 Status | Tier 2 Status |
 |---------|---------------|---------------|
-| Halting | Satisfied undecidable | N/A (solved) |
-| P vs NP | P ≠ NP **PROVED** (sieve) | Optimal exponents |
-| Navier-Stokes | Regularity **PROVED** (sieve) | Quantitative bounds |
-| Yang-Mills | Mass gap **PROVED** (MT 18.4.B) | Explicit Δ value |
+| Halting | Verified undecidable | N/A (solved) |
+| P vs NP | P ≠ NP **proved** (sieve) | Optimal exponents |
+| Navier-Stokes | Regularity **proved** (sieve) | Quantitative bounds |
+| Yang-Mills | Mass gap **proved** (MT 18.4.B) | Explicit Δ value |
 
 ### 12.4 The Pincer as Tier 1
 
@@ -538,12 +538,12 @@ The halting problem demonstrates the core hypostructure philosophy:
 - Emphasis: LIMITATION
 
 **Hypostructure View:**
-- "We have Satisfied the exact failure mode"
+- "We have verified the exact failure mode"
 - "We have COMPLETE INFORMATION about the structure"
 - Emphasis: INFORMATION
 
 The transformation:
-- From: "We can't decide if programs halt" (negative)
+- From: "We cannot decide if programs halt" (negative)
 - To: "We have verified Axiom R fails at the diagonal, classifying $K$ into Mode 5 with $\Sigma_1$ complexity, $O(\log n)$ capacity, and c.e. structure" (positive)
 
 ### 14.2 Soft Exclusion in Action

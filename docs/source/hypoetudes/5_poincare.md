@@ -293,7 +293,7 @@ $$M \cong S^3$$
 | **R** (Recovery) | $\checkmark$ Satisfied | Canonical neighborhoods | [P03] Thm 12.1 |
 | **TB** (Topological) | $\checkmark$ Satisfied | Finite extinction, $\pi_1 = 0 \Rightarrow S^3$ | [CM05] |
 
-**ALL AXIOMS Satisfied** $\Rightarrow$ Poincare Conjecture follows from metatheorems.
+**All axioms Satisfied** $\Rightarrow$ Poincare Conjecture follows from metatheorems.
 
 ### 9.2 Mode Classification
 
@@ -345,11 +345,11 @@ $$M \cong S^3$$
 - Analyze PDE asymptotics via hard estimates
 - Treat metatheorems as things to "prove"
 
-*We Satisfied local axioms and let metatheorems handle the rest.*
+*We satisfied local axioms and let metatheorems handle the rest.*
 
 ---
 
-## 10. SECTION G — THE SIEVE: ALGEBRAIC PERMIT TESTING
+## 10. Section G — The Sieve: Algebraic Permit Testing
 
 ### 10.1 The Sieve Philosophy
 
@@ -378,7 +378,7 @@ $$M \cong S^3$$
 | **TB** (Topology) | Obstructed (permit verified) | $\pi_1(M) = 0$ forces extinction to $S^3$ (no exotic sector) | Thm 8.2.2, [CM05] |
 | **LS** (Stiffness) | Obstructed (permit verified) | Łojasiewicz holds at round $S^3$ with $\theta = 1/2$ | Thm 5.2.2, [S83] |
 
-**Verdict 10.2.2.** ALL FOUR PERMITS Obstructed $\Rightarrow$ No genuine singularities possible.
+**Verdict 10.2.2.** All four permits Obstructed $\Rightarrow$ No genuine singularities possible.
 
 ### 10.3 Detailed Permit Verification
 
@@ -412,7 +412,7 @@ forces $\dim_P(\Sigma) \leq n - 2 = 1$. Permit Cap is Obstructed.
 $$T_*(M, g_0) < \infty$$
 *and the flow becomes extinct (manifold disappears via shrinking spheres).*
 
-**Verification 10.3.5.** The topological sector is TRIVIAL: $\pi_1(M) = 0$ forces geometric decomposition into round $S^3$ components only. Exotic topological sectors (lens spaces, hyperbolic pieces) are absent. Permit TB is Obstructed.
+**Verification 10.3.5.** The topological sector is trivial: $\pi_1(M) = 0$ forces geometric decomposition into round $S^3$ components only. Exotic topological sectors (lens spaces, hyperbolic pieces) are absent. Permit TB is Obstructed.
 
 **Consequence:** Topological obstructions to convergence are automatically excluded.
 
@@ -439,19 +439,19 @@ $$\gamma \in \mathcal{T}_{\text{sing}} \overset{\text{Mthm 21}}{\Longrightarrow}
 3. **Axiom TB**: Simple connectivity forces extinction to $S^3$, excluding topological obstructions.
 4. **Axiom LS**: Łojasiewicz inequality forces polynomial convergence near equilibrium.
 
-**Conclusion:** All blow-up sequences are FAKE (gauge artifacts or surgical singularities). $\square$
+**Conclusion:** All blow-up sequences are fake (gauge artifacts or surgical singularities). $\square$
 
-**Remark 10.4.2** (Solved Problem Status). *For Poincaré via Ricci flow, ALL permits are Obstructed by known results:*
+**Remark 10.4.2** (Solved Problem Status). *For Poincaré via Ricci flow, all permits are Obstructed by known results:*
 - **SC**: Perelman's entropy bounds [P02]
 - **Cap**: Cheeger-Naber stratification [CN15]
 - **TB**: Colding-Minicozzi extinction [CM05]
 - **LS**: Simon's Łojasiewicz theory [S83]
 
-This is a **SOLVED PROBLEM** with complete axiom verification.
+This is a **solved problem** with complete axiom verification.
 
 ---
 
-## 11. SECTION H — TWO-TIER CONCLUSIONS
+## 11. Section H — Two-Tier Conclusions
 
 ### 11.1 Tier 1: R-Independent Results (Universal for Ricci Flow)
 
@@ -468,10 +468,10 @@ This is a **SOLVED PROBLEM** with complete axiom verification.
 | **Singular set structure** | $\dim_P(\Sigma) \leq 1$ (codim $\geq 2$) | [CN15] |
 | **Poincaré Conjecture** | $\pi_1(M) = 0 \Rightarrow M \cong S^3$ | [P02,P03] |
 
-**Remark 11.1.2.** These results follow from Axioms C, D, SC, LS, Cap, TB alone. Since ALL four permits (SC, Cap, TB, LS) are Obstructed (see Section 10.2.1), the Poincaré Conjecture is R-INDEPENDENT. This is consistent with Perelman's proof fitting the framework without explicit use of Recovery axiom structure beyond what's already encoded in canonical neighborhoods.
+**Remark 11.1.2.** These results follow from Axioms C, D, SC, LS, Cap, TB alone. Since all four permits (SC, Cap, TB, LS) are Obstructed (see Section 10.2.1), the Poincaré Conjecture is R-independent. This is consistent with Perelman's proof fitting the framework without explicit use of Recovery axiom structure beyond what's already encoded in canonical neighborhoods.
 
 **Boxed Conclusion 11.1.3.**
-$$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All permits Obstructed} \Rightarrow \pi_1(M) = 0 \Rightarrow M \cong S^3}$$
+$$\boxed{\text{Poincaré Conjecture: Tier 1 (R-independent)} \quad \text{All permits Obstructed} \Rightarrow \pi_1(M) = 0 \Rightarrow M \cong S^3}$$
 
 ### 11.2 Tier 2: R-Dependent Results (Other Results)
 
@@ -510,9 +510,9 @@ $$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All per
 | **Poincaré Conjecture** | ✓ | ✓ | ✓ | ✓ | ✓ | | ✓ |
 | Finite extinction | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
-**Observation 11.3.2.** Poincaré requires SIX axioms (C, D, SC, LS, Cap, TB) but NOT R. It is R-INDEPENDENT. Removing any required axiom breaks the proof:
+**Observation 11.3.2.** Poincaré requires six axioms (C, D, SC, LS, Cap, TB) but not R. It is R-independent. Removing any required axiom breaks the proof:
 - No C: Hamilton compactness fails, no curvature control
-- No D: No monotonicity, no cost bounds
+- No D: no monotonicity, no cost bounds
 - No SC: Type II possible, blow-up analysis fails
 - No LS: Convergence near equilibrium uncontrolled
 - No Cap: Singular set may have positive capacity
@@ -532,11 +532,11 @@ $$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All per
 | **Poincaré** | Finite extinction + topology | Tier 2 result (Axiom TB) |
 | **Philosophy** | Hard estimates + blow-up analysis | Soft exclusion + metatheorems |
 
-**Remark 11.4.2** (What Hypostructure Adds). *The framework does NOT provide a new proof, but reveals:*
+**Remark 11.4.2** (What Hypostructure Adds). *The framework does not provide a new proof, but reveals:*
 1. **Modularity:** Tier 1 results are universal (any 3-manifold)
-2. **Inevitability:** Given axioms, metatheorems FORCE conclusions
+2. **Inevitability:** Given axioms, metatheorems force conclusions
 3. **Portability:** Same axioms apply to Mean Curvature Flow, Harmonic Map Heat Flow, etc.
-4. **Diagnosis:** Failure modes are NAMED (Modes 1-6) and EXCLUDED systematically
+4. **Diagnosis:** Failure modes are named (Modes 1-6) and excluded systematically
 
 ### 11.5 Summary: The Complete Picture
 
@@ -556,9 +556,9 @@ $$\boxed{\text{Poincaré Conjecture: TIER 1 (R-independent)} \quad \text{All per
 - All four algebraic permits (SC, Cap, TB, LS) are Obstructed
 - No genuine singularities can occur (pincer logic)
 - Only Mode 2 (smooth convergence) remains
-- **R-INDEPENDENT** status confirmed (all permits denied in Section 10.2.1)
+- **R-independent** status confirmed (all permits denied in Section 10.2.1)
 
-**Conclusion:** Poincaré Conjecture is EQUIVALENT to axiom verification for the Ricci flow hypostructure on simply connected 3-manifolds, and is R-INDEPENDENT since all permits are Obstructed. This is consistent with Perelman's proof fitting the framework. $\square$
+**Conclusion:** Poincaré Conjecture is equivalent to axiom verification for the Ricci flow hypostructure on simply connected 3-manifolds, and is R-independent since all permits are Obstructed. This is consistent with Perelman's proof fitting the framework. $\square$
 
 ---
 
