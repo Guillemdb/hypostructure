@@ -35,7 +35,7 @@ The hypostructure axioms are not independent postulates chosen for technical con
 1. **Temporal coherence:** The evolution $F_t: x \mapsto S_t x$ preserves the structural constraints defining $X$.
 2. **Asymptotic stability:** Either $T = \infty$, or the trajectory approaches a well-defined limit as $t \nearrow T$.
 
-**Theorem 0.3 (The fixed-point principle).** Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
+**Metatheorem 0.3 (The Fixed-Point Principle).** Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
 
 1. The system $\mathcal{S}$ satisfies the hypostructure axioms on all finite-energy trajectories.
 2. Every finite-energy trajectory is asymptotically self-consistent: either it exists globally ($T_* = \infty$) or it converges to the safe manifold $M$.
@@ -89,6 +89,10 @@ Global regularity is established by verifying that the Singular Locus $\mathcal{
 #### 1.0.5 The axiomatic stance
 
 We adopt a constructive formalism. The Hypostructure Axioms are not empirical observations but necessary conditions derived from the fixed-point principle $F(x)=x$. Within this axiomatic system, the results are rigorous consequences of the definitions.
+
+**Definition (Metatheorem).** A structural truth derived solely from the Hypostructure Axioms. Metatheorems apply universally to any system instantiating the framework or to the learning process itself.
+
+**Definition (Theorem).** A result pertaining to a specific mathematical object (e.g., Navier-Stokes), or a classical result cited from external literature.
 
 The central logical operation of this framework is **exclusion**, not approximation:
 
@@ -211,19 +215,19 @@ From the hypostructure axioms, we derive:
 
 **Core meta-theorems (Chapter 7):**
 
-**Theorem 1.1 (Structural Resolution).** Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity.
+**Metatheorem 1.1 (Structural Resolution).** Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity.
 
-**Theorem 1.2 (Type II exclusion).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
+**Metatheorem 1.2 (Type II Exclusion).** Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
 
-**Theorem 1.3 (Capacity barrier).** Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
+**Metatheorem 1.3 (Capacity Barrier).** Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
 
-**Theorem 1.4 (Topological suppression).** Nontrivial topological sectors are exponentially rare under the invariant measure.
+**Metatheorem 1.4 (Topological Suppression).** Nontrivial topological sectors are exponentially rare under the invariant measure.
 
-**Theorem 1.5 (Structured vs failure dichotomy).** Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
+**Metatheorem 1.5 (Structured vs Failure Dichotomy).** Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
 
-**Theorem 1.6 (Canonical Lyapunov functional).** There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
+**Metatheorem 1.6 (Canonical Lyapunov Functional).** There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
 
-**Theorem 1.7 (Functional reconstruction).** Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
+**Metatheorem 1.7 (Functional Reconstruction).** Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
 
 **Quantitative metatheorems (Chapter 9).** The framework provides **eighty-three structural barriers** organized into thirty-six categories:
 
@@ -314,21 +318,21 @@ From the hypostructure axioms, we derive:
 
 *Nine metatheorems establishing the meta-theory of learning axioms:*
 
-- **Theorem 13.20 (Trainable Hypostructure Consistency):** Gradient descent on joint axiom risk converges to axiom-consistent hypostructures
-- **Theorem 13.29 (Meta-Error Localization):** Block-restricted reoptimization identifies which axiom blocks are misspecified
-- **Theorem 13.37 (Meta-Generalization):** Training on system distributions generalizes with $O(\sqrt{\varepsilon + 1/\sqrt{N}})$ bounds
-- **Theorem 13.40 (Axiom-Expressivity):** Parametric families can approximate any admissible hypostructure with arbitrarily small defect
-- **Theorem 13.44 (Active Probing):** Sample complexity for hypostructure identification is $O(d\sigma^2/\Delta^2)$
-- **Theorem 13.50 (Robustness of Failure-Mode Predictions):** Discrete permit-denial judgments are stable under small axiom risk
-- **Theorem 13.54 (Curriculum Stability):** Warm-start training tracks the structural path without jumping to spurious ontologies
-- **Theorem 13.61 (Equivariance):** Learned hypostructures inherit all symmetries of the system distribution
+- **Metatheorem 13.20 (Trainable Hypostructure Consistency):** Gradient descent on joint axiom risk converges to axiom-consistent hypostructures
+- **Metatheorem 13.29 (Meta-Error Localization):** Block-restricted reoptimization identifies which axiom blocks are misspecified
+- **Metatheorem 13.37 (Meta-Generalization):** Training on system distributions generalizes with $O(\sqrt{\varepsilon + 1/\sqrt{N}})$ bounds
+- **Metatheorem 13.40 (Axiom-Expressivity):** Parametric families can approximate any admissible hypostructure with arbitrarily small defect
+- **Metatheorem 13.44 (Optimal Experiment Design):** Sample complexity for hypostructure identification is $O(d\sigma^2/\Delta^2)$
+- **Metatheorem 13.50 (Robustness of Failure-Mode Predictions):** Discrete permit-denial judgments are stable under small axiom risk
+- **Metatheorem 13.54 (Curriculum Stability):** Warm-start training tracks the structural path without jumping to spurious ontologies
+- **Metatheorem 13.61 (Equivariance):** Learned hypostructures inherit all symmetries of the system distribution
 
 **General loss (Chapter 14):**
 
 - Training objective for systems that instantiate, verify, and optimize over hypostructures
 - Four loss components: structural loss (energy/symmetry identification), axiom loss (soft axiom satisfaction), variational loss (extremal candidate quality), meta-loss (cross-system generalization)
-- **Theorem 14.27 (Defect Reconstruction):** Defect signatures determine hypostructure components from axioms alone
-- **Theorem 14.30 (Meta-Identifiability):** Parameters are learnable under persistent excitation and nondegenerate parametrization
+- **Metatheorem 14.27 (Defect Reconstruction):** Defect signatures determine hypostructure components from axioms alone
+- **Metatheorem 14.30 (Meta-Identifiability):** Parameters are learnable under persistent excitation and nondegenerate parametrization
 
 **Global Metatheorems (Section 18.4):**
 
@@ -337,17 +341,17 @@ From the hypostructure axioms, we derive:
 - **Metatheorem 19.4.A (Tower Globalization):** Local invariants determine global asymptotic structure
 - **Metatheorem 19.4.B (Obstruction Collapse):** Obstruction sectors are finite-dimensional under subcritical accumulation
 - **Metatheorem 19.4.C (Stiff Pairing):** Non-degenerate pairings exclude null directions
-- **Theorem 19.4.D (Local → Global Height):** Local Northcott + coercivity yields global height with finiteness
-- **Theorem 19.4.E (Local → Subcritical):** Local growth bounds automatically imply subcritical dissipation
-- **Theorem 19.4.F (Local Duality → Stiffness):** Local perfect duality + exactness yields global non-degeneracy
-- **Theorem 19.4.G (Conjecture-Axiom Equivalence):** Conjecture($Z$) $\Leftrightarrow$ Axiom R($Z$) for admissible objects
-- **Theorem 19.4.H (Meta-Learning):** Admissible structure can be learned via axiom risk minimization
-- **Theorem 19.4.I (Categorical Structure):** Category $\mathbf{Hypo}_T$ of T-hypostructures and morphisms
-- **Theorem 19.4.J (Universal Bad Pattern):** Initial object $\mathbb{H}_{\mathrm{bad}}^{(T)}$ of R-breaking subcategory
-- **Theorem 19.4.K (Pincer Exclusion):** No morphism from bad pattern $\Rightarrow$ R-validity
-- **Theorem 19.4.L (Parametric Realization):** $\Theta$-search equivalent to hypostructure search
-- **Theorem 19.4.M (Adversarial Training):** Min-max game discovers R-breaking patterns or certifies absence
-- **Theorem 19.4.N (Master Structural Exclusion):** Capstone unifying all metatheorems into single exclusion principle
+- **Metatheorem 19.4.D (Local → Global Height):** Local Northcott + coercivity yields global height with finiteness
+- **Metatheorem 19.4.E (Local → Subcritical):** Local growth bounds automatically imply subcritical dissipation
+- **Metatheorem 19.4.F (Local Duality → Stiffness):** Local perfect duality + exactness yields global non-degeneracy
+- **Metatheorem 19.4.G (Conjecture-Axiom Equivalence):** Conjecture($Z$) $\Leftrightarrow$ Axiom R($Z$) for admissible objects
+- **Metatheorem 19.4.H (Meta-Learning):** Admissible structure can be learned via axiom risk minimization
+- **Metatheorem 19.4.I (Categorical Structure):** Category $\mathbf{Hypo}_T$ of T-hypostructures and morphisms
+- **Metatheorem 19.4.J (Universal Bad Pattern):** Initial object $\mathbb{H}_{\mathrm{bad}}^{(T)}$ of R-breaking subcategory
+- **Metatheorem 19.4.K (Pincer Exclusion):** No morphism from bad pattern $\Rightarrow$ R-validity
+- **Metatheorem 19.4.L (Parametric Realization):** $\Theta$-search equivalent to hypostructure search
+- **Metatheorem 19.4.M (Adversarial Training):** Min-max game discovers R-breaking patterns or certifies absence
+- **Metatheorem 19.4.N (Principle of Structural Exclusion):** Capstone unifying all metatheorems into single exclusion principle
 - **Metatheorem 21 (Singularity Completeness):** Partition-of-unity gluing guarantees $\mathbf{Blowup}$ is universal for $\mathcal{T}_{\mathrm{sing}}$
 - **Corollary 21.1 (Singularity Exclusion):** Blowup exclusion + completeness $\Rightarrow$ $\mathcal{T}_{\mathrm{sing}} = \varnothing$
 
@@ -577,7 +581,7 @@ This yields **Axiom $\Omega$ (AGI Limit):** Access to a learning agent $\mathcal
 
 **Hypothesis $\Omega$ (Universal Structural Approximation):** System $S$ belongs to the closure of computable hypostructures—physics approximable by finite combination of (Energy, Dissipation, Symmetry, Topology).
 
-*What $\Omega$-Layer enables:* **Theorem 0 (Convergence of Structure)**, combining Theorems 13.44, 13.40, and 15.25:
+*What $\Omega$-Layer enables:* **Metatheorem 0 (Convergence of Structure)**, combining Theorems 13.44, 13.40, and 15.25:
 1. If $S$ is regular $\Rightarrow$ $\mathcal{A}$ converges to $\theta^*$ satisfying all structural axioms.
 2. If $S$ is singular $\Rightarrow$ non-zero defects classify the failure mode (Response Signature).
 3. Analytic properties (global bounds, coercivity, stiffness) emerge as properties of $\theta^*$.
@@ -948,7 +952,7 @@ Each class admits three failure types: **Excess** (too much structure), **Defici
 | **Symmetry** | Mode S.E: Supercritical | Mode S.D: Stiffness breakdown | Mode S.C: Parameter manifold instability |
 | **Boundary** | Mode B.E: Injection | Mode B.D: Starvation | Mode B.C: Misalignment |
 
-**Theorem 4.4 (Completeness).** The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
+**Metatheorem 4.4 (Completeness).** The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
 
 1. Exists globally and converges to the safe manifold $M$, or
 2. Exhibits exactly one of the failure modes 1–15.
@@ -1010,7 +1014,7 @@ $$
 
 **Status:** A **complexity failure**. Energy and spatial structure remain bounded, but the trajectory becomes causally dense—infinite logical depth in finite time.
 
-**Theorem 4.7 (Causal barrier).** Under Axiom D with $\alpha > 0$, Mode C.C requires $\mathcal{C}_*(x) = \infty$. For finite-cost trajectories, only finitely many discrete transitions occur.
+**Metatheorem 4.7 (Causal Barrier).** Under Axiom D with $\alpha > 0$, Mode C.C requires $\mathcal{C}_*(x) = \infty$. For finite-cost trajectories, only finitely many discrete transitions occur.
 
 *Proof.* Each transition dissipates at least $\delta > 0$ energy (by Axiom Rec). The total dissipation bound
 $$
@@ -1097,7 +1101,7 @@ where $b_k$ denotes the $k$-th Betti number (rank of the $k$-th homology group).
 
 **Status:** A **complexity failure**. This is a **genuine singularity** involving unbounded topological invariants.
 
-**Theorem 4.14 (O-minimal taming).** If the dynamics are definable in an o-minimal structure (e.g., generated by algebraic or analytic functions), then Mode T.C is excluded.
+**Metatheorem 4.14 (O-Minimal Taming).** If the dynamics are definable in an o-minimal structure (e.g., generated by algebraic or analytic functions), then Mode T.C is excluded.
 
 *Proof.*
 
@@ -1173,7 +1177,7 @@ $$
 
 **Example 4.19.** The function $u(t) = \sin(1/(T_* - t))$ remains bounded ($|u| \leq 1$) but has unbounded frequency $\omega(t) = 1/(T_* - t)^2 \to \infty$ as $t \to T_*$.
 
-**Theorem 4.20 (Frequency barrier).** Under Axiom SC with $\alpha > \beta$, Mode D.E is excluded for gradient flows. The Bode sensitivity integral provides the quantitative bound.
+**Metatheorem 4.20 (Frequency Barrier).** Under Axiom SC with $\alpha > \beta$, Mode D.E is excluded for gradient flows. The Bode sensitivity integral provides the quantitative bound.
 
 *Proof.* For gradient flows, $\|\partial_t u\|^2 = \mathfrak{D}(u)$. The energy–dissipation inequality bounds the time-integral of $\mathfrak{D}$:
 $$
@@ -1238,7 +1242,7 @@ $$
 
 **Status:** A "focusing" singularity where the profile remains regular in renormalized coordinates, but the renormalization factors become singular. This is a **genuine singularity** of cascade type.
 
-**Theorem 4.25 (Supercriticality exclusion).** If $\alpha > \beta$ (subcritical regime), then Mode S.E cannot occur.
+**Metatheorem 4.25 (Supercriticality Exclusion).** If $\alpha > \beta$ (subcritical regime), then Mode S.E cannot occur.
 
 *Proof.* The time-rescaled dissipation satisfies
 $$
@@ -1262,7 +1266,7 @@ or the gradient inequality $|\nabla \Phi| \geq C \Phi^\theta$ fails.
 
 **Status:** Asymptotic stagnation or infinite-time blow-up in finite time (if time rescaling is involved). This is a **deficiency failure**—insufficient energy gradient to drive convergence.
 
-**Theorem 4.27 (Łojasiewicz control).** If the Łojasiewicz inequality holds near $M$:
+**Metatheorem 4.27 (Łojasiewicz Control).** If the Łojasiewicz inequality holds near $M$:
 $$
 |\nabla \Phi(x)| \geq C \cdot \mathrm{dist}(x, M)^{1-\theta}
 $$
@@ -1302,7 +1306,7 @@ in the semiclassical limit. The instanton is the optimal path achieving the barr
 
 **Step 4 (Mode S.C occurrence).** Mode S.C occurs when $B_{12} = 0$ or when thermal/quantum fluctuations overcome the barrier. The system discontinuously transitions from $\mathcal{H}_1$ to $\mathcal{H}_2$, invalidating the original hypostructure description. $\square$
 
-**Theorem 4.30 (Mass gap from symmetry breaking—structural principle).** Let $\mathcal{S}$ be a hypostructure with scale invariance group $G = \mathbb{R}_{>0}$ (dilations). If the ground state $V \in M$ breaks scale invariance (i.e., $\lambda \cdot V \neq V$ for $\lambda \neq 1$), then there exists a mass gap:
+**Metatheorem 4.30 (Mass Gap Principle).** Let $\mathcal{S}$ be a hypostructure with scale invariance group $G = \mathbb{R}_{>0}$ (dilations). If the ground state $V \in M$ breaks scale invariance (i.e., $\lambda \cdot V \neq V$ for $\lambda \neq 1$), then there exists a mass gap:
 $$
 \Delta := \inf_{x \notin M} \Phi(x) - \Phi_{\min} > 0.
 $$
@@ -1402,7 +1406,7 @@ where $U: X \to \mathbb{R}$ is the external utility function.
 
 **Status:** A **boundary complexity failure**. The system may reach $M$ with respect to $\Phi$ but diverge with respect to $U$.
 
-**Theorem 4.38 (Goodhart's law).** If the internal objective $\Phi$ is optimized without constraint, while the external utility $U$ depends on $\Phi$ only through a proxy $\tilde{\Phi}$, then:
+**Metatheorem 4.38 (Goodhart's Law).** If the internal objective $\Phi$ is optimized without constraint, while the external utility $U$ depends on $\Phi$ only through a proxy $\tilde{\Phi}$, then:
 $$
 \lim_{t \to \infty} \Phi(u(t)) = \Phi_{\min} \quad \text{does not imply} \quad \lim_{t \to \infty} U(u(t)) = U_{\max}.
 $$
@@ -1419,7 +1423,7 @@ $$
 
 The framework proves global regularity via **soft local exclusion**: if blow-up cannot satisfy its permits, blow-up is impossible.
 
-**Theorem 4.41 (Regularity via Soft Local Exclusion).** Let $\mathcal{S}$ be a hypostructure. A trajectory $u(t)$ extends to $T = +\infty$ (Global Regularity) if any of the following hold:
+**Metatheorem 4.41 (Regularity via Soft Local Exclusion).** Let $\mathcal{S}$ be a hypostructure. A trajectory $u(t)$ extends to $T = +\infty$ (Global Regularity) if any of the following hold:
 
 1. **Mode D.D (Dispersion):** Energy does not concentrate—solution exists globally via scattering.
 2. **Modes S.E–D.C denied:** If energy concentrates (structure forced), but the forced structure $V$ fails any algebraic permit (SC, Cap, TB, LS, etc.), then blow-up is impossible—contradiction yields regularity.
@@ -1793,7 +1797,7 @@ $$
 
 (Originally Theorem 7.1 in source)
 
-**Theorem 6.1 (Structural Resolution).** Let $\mathcal{S}$ be a structural flow datum satisfying the minimal regularity (Reg) and dissipation (D) axioms. Let $u(t) = S_t x$ be any trajectory.
+**Metatheorem 6.1 (Structural Resolution).** Let $\mathcal{S}$ be a structural flow datum satisfying the minimal regularity (Reg) and dissipation (D) axioms. Let $u(t) = S_t x$ be any trajectory.
 
 **The Structural Resolution** classifies every trajectory into one of three outcomes:
 
@@ -1891,7 +1895,7 @@ These modes are exhaustive because we have accounted for all possible behaviours
 
 #### 6.2.1 GN as a metatheorem from scaling structure
 
-**Theorem 6.2.1 (GN from SC + D).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC) with scaling exponents $(\alpha, \beta)$ satisfying $\alpha > \beta$. Then Property GN holds: any supercritical blow-up profile has infinite dissipation cost.
+**Metatheorem 6.2.1 (GN from SC + D).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC) with scaling exponents $(\alpha, \beta)$ satisfying $\alpha > \beta$. Then Property GN holds: any supercritical blow-up profile has infinite dissipation cost.
 
 More precisely: suppose $u(t) = S_t x$ is a trajectory with finite total cost $\mathcal{C}_*(x) < \infty$ and finite blow-up time $T_*(x) < \infty$. Suppose there exist:
 
@@ -1974,7 +1978,7 @@ The proof uses only scaling arithmetic. Once SC is identified via dimensional an
 
 #### 6.2.2 Type II exclusion
 
-**Theorem 6.2 (SC + D kills Type II blow-up).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC). Let $x \in X$ with $\Phi(x) < \infty$ and $\mathcal{C}_*(x) < \infty$ (finite total cost). Then no supercritical self-similar blow-up can occur at $T_*(x)$.
+**Metatheorem 6.2 (Type II Exclusion).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC). Let $x \in X$ with $\Phi(x) < \infty$ and $\mathcal{C}_*(x) < \infty$ (finite total cost). Then no supercritical self-similar blow-up can occur at $T_*(x)$.
 
 More precisely: there do not exist a supercritical sequence $(\lambda_n) \subset \mathbb{R}_{>0}$ with $\lambda_n \to \infty$ and times $t_n \nearrow T_*(x)$ such that $v_n := \mathcal{S}_{\lambda_n} \cdot S_{t_n} x$ converges to a nontrivial profile $v_\infty \in X$.
 
@@ -1988,7 +1992,7 @@ Alternatively: the finite-cost trajectory $u(t)$ has dissipation budget $\mathca
 
 (Originally Theorem 7.3 in source)
 
-**Theorem 6.3 (Capacity barrier).** Let $\mathcal{S}$ be a hypostructure with geometric background (BG) satisfying Axiom Cap. Let $(B_k)$ be a sequence of subsets of $X$ of increasing geometric "thinness" (e.g., $r_k$-tubular neighbourhoods of codimension-$\kappa$ sets with $r_k \to 0$) such that:
+**Metatheorem 6.3 (Capacity Barrier).** Let $\mathcal{S}$ be a hypostructure with geometric background (BG) satisfying Axiom Cap. Let $(B_k)$ be a sequence of subsets of $X$ of increasing geometric "thinness" (e.g., $r_k$-tubular neighbourhoods of codimension-$\kappa$ sets with $r_k \to 0$) such that:
 $$
 \mathrm{Cap}(B_k) \gtrsim r_k^{-\kappa} \to \infty.
 $$
@@ -2023,7 +2027,7 @@ are incompatible with finite energy and the capacity axiom.
 
 (Originally Theorem 7.4 in source)
 
-**Theorem 6.4 (Exponential suppression of nontrivial sectors).** Assume the topological background (TB) with action gap $\Delta > 0$ and an invariant probability measure $\mu$ satisfying a log-Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$. Assume the action functional $\mathcal{A}$ is Lipschitz with constant $L > 0$. Then:
+**Metatheorem 6.4 (Topological Sector Suppression).** Assume the topological background (TB) with action gap $\Delta > 0$ and an invariant probability measure $\mu$ satisfying a log-Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$. Assume the action functional $\mathcal{A}$ is Lipschitz with constant $L > 0$. Then:
 $$
 \mu(\{x : \tau(x) \neq 0\}) \leq C \exp\left(-c \lambda_{\mathrm{LS}} \frac{\Delta^2}{L^2}\right)
 $$
@@ -2096,7 +2100,7 @@ This establishes that typical trajectories spend an exponentially small fraction
 
 (Originally Theorem 7.5 in source)
 
-**Theorem 6.5 (Structured vs failure dichotomy).** Let $X = \mathcal{S} \cup \mathcal{F}$ be decomposed into:
+**Metatheorem 6.5 (Structured vs Failure Dichotomy).** Let $X = \mathcal{S} \cup \mathcal{F}$ be decomposed into:
 - the **structured region** $\mathcal{S}$ where the safe manifold $M \subset \mathcal{S}$ lies and good regularity holds,
 - the **failure region** $\mathcal{F} = X \setminus \mathcal{S}$.
 
@@ -2141,7 +2145,7 @@ All alternatives are incompatible with the assumptions. $\square$
 
 (Originally Theorem 7.6 in source)
 
-**Theorem 6.6 (Canonical Lyapunov functional).** Assume Axioms (C), (D) with $C = 0$, (R), (LS), and (Reg). Then there exists a functional $\mathcal{L}: X \to \mathbb{R} \cup \{\infty\}$ with the following properties:
+**Metatheorem 6.6 (Canonical Lyapunov Functional).** Assume Axioms (C), (D) with $C = 0$, (R), (LS), and (Reg). Then there exists a functional $\mathcal{L}: X \to \mathbb{R} \cup \{\infty\}$ with the following properties:
 
 1. **Monotonicity.** Along any trajectory $u(t) = S_t x$ with finite cost, $t \mapsto \mathcal{L}(u(t))$ is nonincreasing and strictly decreasing whenever $u(t) \notin M$.
 
@@ -2251,7 +2255,7 @@ where $\dot{u}(t)$ is the metric velocity of the trajectory.
 
 #### 6.7.2 The action reconstruction principle
 
-**Theorem 6.7.1 (Action Reconstruction).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the canonical Lyapunov functional $\mathcal{L}(x)$ is explicitly the **minimal geodesic action** from $x$ to the safe manifold $M$ with respect to the **Jacobi metric** $g_{\mathfrak{D}} := \mathfrak{D} \cdot g$ (conformally scaled by the dissipation).
+**Metatheorem 6.7.1 (Action Reconstruction).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the canonical Lyapunov functional $\mathcal{L}(x)$ is explicitly the **minimal geodesic action** from $x$ to the safe manifold $M$ with respect to the **Jacobi metric** $g_{\mathfrak{D}} := \mathfrak{D} \cdot g$ (conformally scaled by the dissipation).
 
 **Formula:**
 $$
@@ -2316,7 +2320,7 @@ This recovers the energy–dissipation identity exactly. Uniqueness follows from
 
 #### 6.7.3 The Hamilton–Jacobi generator
 
-**Theorem 6.7.3 (Hamilton–Jacobi characterization).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the Lyapunov functional $\mathcal{L}(x)$ is the unique viscosity solution to the static **Hamilton–Jacobi equation**:
+**Metatheorem 6.7.3 (Hamilton–Jacobi Characterization).** Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the Lyapunov functional $\mathcal{L}(x)$ is the unique viscosity solution to the static **Hamilton–Jacobi equation**:
 $$
 \|\nabla_g \mathcal{L}(x)\|_g^2 = \mathfrak{D}(x)
 $$
@@ -2527,7 +2531,7 @@ These barriers enforce magnitude bounds through conservation laws, dissipation i
 **Constraint Class:** Conservation
 **Modes Prevented:** 1 (Energy Escape), 3 (Supercritical Cascade)
 
-**Theorem 8.1 (The Saturation Theorem).**
+**Metatheorem 8.1 (The Saturation Principle).**
 Let $\mathcal{S}$ be a hypostructure where Axiom D depends on an analytic inequality of the form $\Phi(u) + \alpha \mathfrak{D}(u) \leq \text{Drift}(u)$.
 
 If the system admits a **Mode S.E (Supercritical Cascade)** or **Mode S.D (Stiffness)** singularity profile $V$, then:
@@ -2574,7 +2578,7 @@ Hence $\Phi(u(t)) \leq \Phi(u(0)) < E^*$ for all $t \geq 0$. Suppose $u(t)$ form
 **Constraint Class:** Conservation
 **Modes Prevented:** 6 (Stiffness Failure), 1 (Energy Escape)
 
-**Theorem 8.2 (The Inequality Generator).**
+**Metatheorem 8.2 (The Spectral Generator).**
 Let $\mathcal{S}$ be a hypostructure satisfying Axioms D, LS, and GC. The local behavior of the system near the safe manifold $M$ determines the sharp functional inequality governing convergence:
 
 1. **Spectral Gap (Poincaré):** If the Dissipation Hessian $H_{\mathfrak{D}}$ is strictly positive definite with smallest eigenvalue $\lambda_{\min} > 0$, then:
@@ -2632,7 +2636,7 @@ This is the Log-Sobolev inequality with sharp constant $\alpha_{LS} = \kappa$. $
 **Constraint Class:** Conservation (Information)
 **Modes Prevented:** 3B (Hollow Singularity), 1 (Energy Escape)
 
-**Theorem 8.3 (The Shannon-Kolmogorov Barrier).**
+**Metatheorem 8.3 (The Shannon-Kolmogorov Barrier).**
 Let $\mathcal{S}$ be a supercritical hypostructure ($\alpha < \beta$). Even if algebraic and energetic permits are granted, **Mode S.E (Structured Blow-up) is impossible** if the system violates the **Information Inequality**:
 $$\mathcal{H}(T_*) > \limsup_{\lambda \to \infty} C_\Phi(\lambda)$$
 where:
@@ -2688,7 +2692,7 @@ For $\lambda > \lambda_* := \exp\left(\frac{\mathcal{H}(T_*)}{d}\right)$, the ri
 **Constraint Class:** Conservation (Computational Depth)
 **Modes Prevented:** 3 (Supercritical Cascade with $\alpha \geq 1$), 9 (Computational Overflow)
 
-**Theorem 8.4 (The Algorithmic Causal Barrier).**
+**Metatheorem 8.4 (The Algorithmic Causal Barrier).**
 Let $\mathcal{S}$ be a hypostructure with finite propagation speed $c < \infty$. If a candidate singularity requires computational depth:
 $$D(T_*) = \int_0^{T_*} \frac{c}{\lambda(\tau)} d\tau = \infty$$
 while the physical time $T_* < \infty$, then **the singularity is impossible**.
@@ -2734,7 +2738,7 @@ As $t \to T_*$: $(T_* - t)^{1-\alpha} \to +\infty$ since $1 - \alpha < 0$. Polyn
 **Constraint Class:** Conservation (Geometric)
 **Modes Prevented:** 5 (Topological Twist via pinch-off), 1 (Energy Escape)
 
-**Theorem 8.5 (The Isoperimetric Resilience Principle).**
+**Metatheorem 8.5 (The Isoperimetric Resilience Principle).**
 Let $\mathcal{S}$ be a hypostructure on an evolving domain $\Omega_t$ with surface-energy functional $\Phi = \int_{\partial \Omega} \sigma \, dA$. Then:
 
 1. **Cheeger Lower Bound:** If $\inf_{t < T^*} h(\Omega_t) \geq h_0 > 0$, then pinch-off is impossible.
@@ -2790,7 +2794,7 @@ Since $r_{\text{neck}} \geq c(h_0, V_{\min}) > 0$, we have $\Delta \Phi \geq \si
 **Constraint Class:** Conservation (Mass Transport)
 **Modes Prevented:** 1 (Energy Escape via mass teleportation), 9 (Instantaneous aggregation)
 
-**Theorem 8.6 (The Wasserstein Transport Barrier).**
+**Metatheorem 8.6 (The Wasserstein Transport Barrier).**
 Let $\mathcal{S}$ model density evolution $\partial_t \rho + \nabla \cdot (\rho v) = 0$ with velocity field $v$. Then:
 
 1. **Transport Cost Bound:**
@@ -2850,7 +2854,7 @@ Therefore $T \to 0$ (instantaneous concentration) requires $E_{\text{kin}} \to \
 **Constraint Class:** Conservation (Computational Resources)
 **Modes Prevented:** 9 (Computational Overflow via infinite nesting)
 
-**Theorem 8.8 (The Recursive Simulation Limit).**
+**Metatheorem 8.8 (The Recursive Simulation Limit).**
 Let $\mathcal{S}$ be capable of universal computation. Infinite recursion (nested simulations of depth $D \to \infty$) is impossible:
 
 1. **Overhead Accumulation:**
@@ -2907,7 +2911,7 @@ Thus $D_{\max} \sim 3000$ levels of nested simulation is an absolute upper bound
 **Constraint Class:** Conservation (Control Authority)
 **Modes Prevented:** 4 (Infinite Stiffness in control), 1 (Energy Escape via gain)
 
-**Theorem 8.8 (The Bode Sensitivity Integral).**
+**Theorem 8.9 (The Bode Sensitivity Integral).**
 Let $\mathcal{S}$ be a feedback control system with loop transfer function $L(s)$, sensitivity $S(s) = (1 + L(s))^{-1}$, and $n_p$ unstable poles. Then:
 
 1. **Waterbed Effect:**
@@ -2963,7 +2967,7 @@ This is the "waterbed effect": pushing down sensitivity at some frequencies forc
 **Constraint Class:** Conservation (Learning Capacity)
 **Modes Prevented:** 9 (Computational Overflow in learning), 1 (Energy Escape via universal learning)
 
-**Theorem 8.9 (The No Free Lunch Theorem).**
+**Theorem 8.10 (The No Free Lunch Theorem).**
 Let $\mathcal{S}$ be a learning hypostructure with finite input space $\mathcal{X}$, output space $\mathcal{Y}$, and function space $\mathcal{F} = \mathcal{Y}^{\mathcal{X}}$. Then:
 
 1. **Uniform Equivalence:** For the uniform distribution over $\mathcal{F}$:
@@ -3016,7 +3020,7 @@ This depends only on $n, k, d$—not on algorithm $A$. Hence all algorithms have
 **Constraint Class:** Conservation (Cybernetic)
 **Modes Prevented:** 4 (Infinite Stiffness in control), 1 (Energy Escape via control mismatch)
 
-**Theorem 8.10 (Ashby's Law of Requisite Variety).**
+**Metatheorem 8.11 (Ashby's Law of Requisite Variety).**
 Let $\mathcal{S}$ be a control system where a regulator $R$ attempts to maintain an essential variable $E$ within acceptable bounds despite disturbances $D$. Then:
 
 1. **Variety Matching:** The variety (number of distinguishable states) of the regulator must satisfy:
@@ -3092,7 +3096,7 @@ These barriers enforce connectivity constraints, structural consistency, and log
 **Constraint Class:** Topology (Cohomological)
 **Modes Prevented:** 5 (Topological Twist), 11 (Structural Incompatibility)
 
-**Theorem 9.1 (The Characteristic Sieve).**
+**Metatheorem 9.1 (The Characteristic Sieve).**
 Let $\mathcal{S}$ be a hypostructure attempting to support a global geometric structure (e.g., nowhere-vanishing vector field, connection, or framing) on a manifold $M$. The structure exists if and only if the associated **cohomological obstruction** vanishes:
 $$c_k(M) = 0 \in H^k(M; \mathbb{Z})$$
 where $c_k$ is the $k$-th characteristic class (Chern, Stiefel-Whitney, or Pontryagin).
@@ -3138,7 +3142,7 @@ Therefore no nowhere-vanishing vector field exists on $S^{2n}$. In particular, $
 **Constraint Class:** Topology (Local-Global Consistency)
 **Modes Prevented:** 5 (Topological Twist), 11 (Structural Incompatibility)
 
-**Theorem 9.2 (The Sheaf Descent Barrier).**
+**Metatheorem 9.2 (The Sheaf Descent Barrier).**
 Let $\mathcal{F}$ be a sheaf of local solutions on space $X$ with covering $\{U_i\}$. Global solutions exist if and only if the descent obstruction vanishes:
 $$H^1(X, \mathcal{G}) = 0$$
 where $\mathcal{G}$ is the sheaf of gauge transformations.
@@ -3196,7 +3200,7 @@ Examples:
 **Constraint Class:** Topology (Causal-Logical)
 **Modes Prevented:** 8 (Logical Paradox), 5 (Topological Twist via CTC)
 
-**Theorem 9.3 (The Gödel-Turing Censor).**
+**Metatheorem 9.3 (The Gödel-Turing Censor).**
 Let $(M, g, S_t)$ be a causal hypostructure (spacetime with dynamics). A state encoding a **self-referential paradox** is excluded:
 
 1. **Chronology Protection:** If $M$ admits no closed timelike curves, then $u(t)$ cannot depend on its own future, and self-reference is impossible.
@@ -3257,7 +3261,7 @@ In all cases, actual paradoxes are excluded. $\square$
 **Constraint Class:** Topology (Complexity Exclusion)
 **Modes Prevented:** 5 (Topological Twist via wild sets), 11 (Structural Incompatibility via fractals)
 
-**Theorem 9.4 (The O-Minimal Taming Principle).**
+**Metatheorem 9.4 (The O-Minimal Taming Principle).**
 Let $(X, S_t)$ be a dynamical system definable in an o-minimal structure $\mathcal{S}$. A singularity driven by **wild topology** (infinite oscillation, wild knotting, fractal boundaries) is structurally impossible:
 
 1. **Finite Stratification:** Every definable set admits a finite decomposition into smooth manifolds (cells).
@@ -3321,7 +3325,7 @@ All such "wild" topological behavior is structurally excluded. $\square$
 **Constraint Class:** Topology (Conservation of Linking)
 **Modes Prevented:** 5 (Topological Twist via vortex reconnection), 11 (Structural Incompatibility in 3D flows)
 
-**Theorem 9.5 (The Chiral Anomaly Lock).**
+**Metatheorem 9.5 (The Chiral Anomaly Lock).**
 Let $\mathcal{S}$ be a fluid system with helicity $\mathcal{H}(u) = \int u \cdot (\nabla \times u) \, dx$. Then:
 
 1. **Ideal Conservation:** For inviscid flow ($\nu = 0$):
@@ -3389,7 +3393,7 @@ Helicity decays. The decay rate $\sim \nu \|\nabla \omega\|^2$ allows reconnecti
 **Constraint Class:** Topology (Modular Structure)
 **Modes Prevented:** 11 (Structural Incompatibility via coupling mismatch), 4 (Infinite Stiffness)
 
-**Theorem 9.6 (The Near-Decomposability Principle).**
+**Metatheorem 9.6 (The Near-Decomposability Principle).**
 Let $\mathcal{S}$ be a modular hypostructure with dynamics $\dot{x} = Ax$ where $A$ is $\epsilon$-block-decomposable:
 $$A = \begin{pmatrix} A_{11} & \epsilon B_{12} \\ \epsilon B_{21} & A_{22} \end{pmatrix}$$
 
@@ -3593,7 +3597,7 @@ In Scenario 1, $B$ should decide 0 (indistinguishable from Scenario 2) but $C$ s
 **Constraint Class:** Topology (Measure-Theoretic)
 **Modes Prevented:** 11 (Structural Incompatibility via non-measurable sets), 1 (Energy Escape via measure paradoxes)
 
-**Theorem 9.9 (The Borel Sigma-Lock).**
+**Metatheorem 9.9 (The Borel Sigma-Lock).**
 Let $(X, S_t, \mu)$ be a dynamical system where $X$ is Polish, $\mu$ is Borel, and $S_t$ is Borel measurable. A singularity driven by **measure paradoxes** (volume duplication via non-measurable decompositions, à la Banach-Tarski) is structurally impossible:
 
 1. **Measurability Preservation:** If $A \in \mathcal{B}(X)$, then $S_t^{-1}(A) \in \mathcal{B}(X)$.
@@ -3860,7 +3864,7 @@ $$\langle \nabla \Phi(x), N(x) \rangle = 0 \quad \text{for all } x \in X.$$
 
 The primary Lyapunov functional cannot detect structural rearrangements caused by the nonlinearity.
 
-**Theorem 10.1 (The Coherence Quotient).**
+**Metatheorem 10.1 (The Coherence Quotient).**
 Let $\mathcal{S}$ exhibit skew-symmetric blindness, and let $\mathcal{F}(x)$ be a critical field controlling regularity. Decompose $\mathcal{F} = \mathcal{F}_\parallel + \mathcal{F}_\perp$ into coherent and dissipative components. Define the **Coherence Quotient**:
 $$Q(x) := \sup_{\text{concentration points}} \frac{\|\mathcal{F}_\parallel\|^2}{\|\mathcal{F}_\perp\|^2 + \lambda_{\min}(\text{Hess}_{\mathcal{F}} \mathfrak{D}) \cdot \ell^2}$$
 where $\ell > 0$ is the concentration length scale.
@@ -3923,7 +3927,7 @@ Let $(X, \omega)$ be a symplectic manifold with $\omega = \sum_i dq_i \wedge dp_
 **Definition 10.2.2 (Lagrangian Submanifold).**
 A submanifold $L \subset X$ is **Lagrangian** if $\dim L = \frac{1}{2}\dim X$ and $\omega|_L = 0$.
 
-**Theorem 10.2 (The Symplectic Transmission Principle).**
+**Metatheorem 10.2 (The Symplectic Transmission Principle).**
 Let $\mathcal{S}$ be a Hamiltonian hypostructure with symplectic structure $\omega$. Then:
 
 1. **Rank Conservation:** For any symplectic map $\phi_t$:
@@ -4073,7 +4077,7 @@ Examples include:
 - Frequency-time $(\omega, t)$ with $\mathcal{T} = \Delta\omega \cdot \Delta t$,
 - Space-scale $(x, s)$ in wavelet analysis.
 
-**Theorem 10.4 (The Anamorphic Duality Principle).**
+**Metatheorem 10.4 (The Anamorphic Duality Principle).**
 Let $\mathcal{S}$ be a hypostructure equipped with an anamorphic pair $(\mathcal{F}, \mathcal{G}, \mathcal{T})$. Then:
 
 1. **Conjugate Localization Exclusion:** Simultaneous localization $\|\mathcal{F}\|_{L^\infty} < \infty$ and $\|\mathcal{G}\|_{L^\infty} < \infty$ is impossible when $\mathcal{T}$ has a positive lower bound.
@@ -4154,7 +4158,7 @@ $$\mathcal{L}(u^*, v) \leq \mathcal{L}(u^*, v^*) \leq \mathcal{L}(u, v^*) \quad 
 The system satisfies **IGC** if:
 $$\sigma_{\min}(\nabla^2_{uv} \mathcal{L}) > \max\{\|\nabla^2_{uu} \mathcal{L}\|_{\text{op}}, \|\nabla^2_{vv} \mathcal{L}\|_{\text{op}}\}.$$
 
-**Theorem 10.5 (The Minimax Duality Barrier).**
+**Metatheorem 10.5 (The Minimax Duality Barrier).**
 Let $\mathcal{S}$ be an adversarial system satisfying IGC. Then:
 
 1. **Oscillation Locking:** Trajectories are confined to bounded regions. Self-similar spiraling blow-up is impossible.
@@ -4229,7 +4233,7 @@ An **observer subsystem** $\mathcal{O} \subset \mathcal{S}$ is capable of:
 $$\mathcal{P}(\mathcal{O} \to \mathcal{S}) = \max_{\text{strategies}} I(\mathcal{O}_{\text{output}} : \mathcal{S}_{\text{future}})$$
 where $I$ is mutual information.
 
-**Theorem 10.6 (The Epistemic Horizon Principle).**
+**Metatheorem 10.6 (The Epistemic Horizon Principle).**
 Let $\mathcal{S}$ contain observer $\mathcal{O}$. Then:
 
 1. **Information Bound:**
@@ -4311,7 +4315,7 @@ Consider the phrase: "The smallest positive integer not definable in under sixty
 For a formal system $\mathcal{F}$ with finite description length $L$, the **semantic horizon** is:
 $$N_{\mathcal{F}} = \max\{n : \exists \text{ object definable in } \mathcal{F} \text{ with complexity } n\}.$$
 
-**Theorem 10.7 (The Semantic Resolution Barrier).**
+**Metatheorem 10.7 (The Semantic Resolution Barrier).**
 Let $\mathcal{S}$ be a hypostructure formalized in a language $\mathcal{L}$ of finite complexity. Then:
 
 1. **Berry Bound:** For almost all strings $x$ of length $n$:
@@ -4386,7 +4390,7 @@ Consider a quantum measurement scenario:
 **Definition 10.8.2 (Facticity).**
 A measurement result is **factic** if all observers agree on its value once they communicate, regardless of their initial reference frames.
 
-**Theorem 10.8 (The Intersubjective Consistency Principle).**
+**Metatheorem 10.8 (The Intersubjective Consistency Principle).**
 Let $\mathcal{S}$ be a physical hypostructure containing multiple observers $\{\mathcal{O}_i\}$. Then:
 
 1. **No-Contradiction Theorem:** Observers cannot obtain mutually contradictory results for the same event once all information is shared:
@@ -4576,7 +4580,7 @@ For viscous fluid flow at high Reynolds number $\text{Re} = UL/\nu \gg 1$:
 - **Outer flow:** Inviscid (Euler equations), $\nu = 0$.
 - **Inner flow (boundary layer):** Viscous effects $\nu \nabla^2 u$ are $O(1)$ in the rescaled coordinate $\eta = y/\sqrt{\nu}$ near boundaries.
 
-**Theorem 10.12 (The Boundary Layer Separation Principle).**
+**Metatheorem 10.12 (The Boundary Layer Separation Principle).**
 Let $\mathcal{S}$ be a singularly perturbed hypostructure with small parameter $\epsilon$. Then:
 
 1. **Two-Scale Duality:** The solution decomposes as:
@@ -4693,7 +4697,7 @@ A **spectral lift** $\Sigma: X \to \text{Sym}^N(\mathcal{M})$ maps a continuous 
 $$\mathcal{H}(\{\rho\}) = \sum_{n=1}^N U(\rho_n) + \sum_{i < j} K(\rho_i, \rho_j)$$
 where $U$ is self-energy and $K$ is the interaction kernel.
 
-**Theorem 11.1 (The Spectral Convexity Principle).**
+**Metatheorem 11.1 (The Spectral Convexity Principle).**
 Let $\mathcal{S}$ admit a spectral lift with interaction kernel $K$. Define the **transverse Hessian**:
 $$H_\perp = \frac{\partial^2 K}{\partial \delta^2}\bigg|_{\text{perpendicular to } M}.$$
 
@@ -4771,7 +4775,7 @@ For a linear operator $L: H \to H$, the **spectral gap** is:
 $$\Delta = \lambda_1 - \lambda_0$$
 where $\lambda_0$ is the ground state energy and $\lambda_1$ is the first excited state energy.
 
-**Theorem 11.2 (The Gap-Quantization Principle).**
+**Metatheorem 11.2 (The Gap-Quantization Principle).**
 Let $\mathcal{S}$ be a hypostructure with Hamiltonian $H$ having discrete spectrum. Then:
 
 1. **Quantized Energy Ladder:** The system can only access energies in the spectrum $\{\lambda_n\}$:
@@ -4871,7 +4875,7 @@ For a polynomial $f(x) \in \mathbb{Q}[x]$, the **Galois group** $\text{Gal}(f)$ 
 **Definition 11.5.2 (Monodromy Group).**
 For a differential equation $y'' + p(x)y' + q(x)y = 0$ with singularities, the **monodromy group** describes how solutions transform when analytically continued around singularities.
 
-**Theorem 11.5 (The Galois-Monodromy Lock).**
+**Metatheorem 11.5 (The Galois-Monodromy Lock).**
 Let $\mathcal{S}$ be an algebraic hypostructure (polynomial dynamics, algebraic differential equations). Then:
 
 1. **Orbit Finiteness:** If $\text{Gal}(f)$ is finite, the orbit of any root under field automorphisms is finite:
@@ -4979,7 +4983,7 @@ $$V = \{x \in \mathbb{C}^n : f_1(x) = \cdots = f_k(x) = 0\}.$$
 **Definition 11.6.2 (Degree of a Variety).**
 The **degree** $\deg(V)$ is the number of intersection points of $V$ with a generic linear subspace of complementary dimension.
 
-**Theorem 11.4 (The Algebraic Compressibility Principle).**
+**Metatheorem 11.4 (The Algebraic Compressibility Principle).**
 Let $V \subset \mathbb{C}^n$ be an algebraic variety of dimension $d$ and degree $\delta$. Then:
 
 1. **Degree-Dimension Bound:** The degree controls the "volume":
@@ -5077,7 +5081,7 @@ for $\delta > 0$ (the "debt").
 **Definition 11.8.2 (Nash-Moser Iteration).**
 The **Nash-Moser implicit function theorem** allows solving $F(u) = 0$ even with loss of derivatives, using smoothing operators to "pay the debt."
 
-**Theorem 11.8 (The Derivative Debt Barrier).**
+**Metatheorem 11.8 (The Derivative Debt Barrier).**
 Let $\mathcal{S}$ be a nonlinear PDE exhibiting loss of derivatives. Then:
 
 1. **Classical Iteration Failure:** Standard Picard iteration or Newton's method fails:
@@ -5191,7 +5195,7 @@ instead of exact iteration $x_{n+1} = f(x_n)$.
 A pseudo-orbit is **$\epsilon$-shadowed** by a true orbit $\{y_n = f^n(y_0)\}$ if:
 $$d(x_n, y_n) \leq \epsilon \quad \forall n.$$
 
-**Theorem 11.6 (The Hyperbolic Shadowing Barrier).**
+**Metatheorem 11.6 (The Hyperbolic Shadowing Barrier).**
 Let $f: M \to M$ be a diffeomorphism with a hyperbolic invariant set $\Lambda$. Then:
 
 1. **Shadowing Lemma:** For any $\epsilon > 0$, there exists $\delta > 0$ such that every $\delta$-pseudo-orbit in $\Lambda$ is $\epsilon$-shadowed by a true orbit.
@@ -5292,7 +5296,7 @@ A measure $\mu$ is **invariant** if:
 $$\int \mathcal{L}^* \phi \, d\mu = 0 \quad \forall \phi$$
 where $\mathcal{L}^*$ is the adjoint of the generator $\mathcal{L} = f \cdot \nabla + \frac{\sigma^2}{2}\Delta$.
 
-**Theorem 11.7 (The Stochastic Stability Barrier).**
+**Metatheorem 11.7 (The Stochastic Stability Barrier).**
 Let $\mathcal{S}$ be a deterministic hypostructure with attractor $A$. Add noise: $dx_t = f(x_t)dt + \epsilon dW_t$. Then:
 
 1. **Invariant Measure Existence:** For $\epsilon > 0$ (any noise), there exists a unique invariant probability measure $\mu_\epsilon$ on the phase space.
@@ -5380,7 +5384,7 @@ where $Q_{ij}$ is the mutation probability $j \to i$, $f_i$ is the fitness, and 
 **Definition 11.12.2 (Error Catastrophe).**
 An **error catastrophe** occurs when the mutation rate $\mu$ exceeds a threshold, causing the population to lose coherent genetic information.
 
-**Theorem 11.8 (The Eigen Error Threshold).**
+**Theorem 11.8a (The Eigen Error Threshold).**
 Let $\mathcal{S}$ be a replicating population with mutation rate $\mu$ per base per generation and sequence length $L$. Then:
 
 1. **Critical Mutation Rate:** There exists $\mu_c$ such that:
@@ -5483,7 +5487,7 @@ A **fixed point** $g^*$ satisfies $\beta_i(g^*) = 0$. It corresponds to a scale-
 **Definition 11.13.3 (Universality Class).**
 A **universality class** is the set of theories that flow to the same IR (infrared) fixed point under RG.
 
-**Theorem 11.9 (The Universality Convergence).**
+**Metatheorem 11.9 (The Universality Convergence).**
 Let $\mathcal{S}$ be a statistical mechanical or quantum field theory hypostructure. Then:
 
 1. **Central Limit Theorem (CLT):** For sums of i.i.d. random variables $S_n = \sum_{i=1}^n X_i$:
@@ -5588,7 +5592,7 @@ These barriers arise from computational complexity, causal structure, boundary c
 **Constraint Class:** Computational (Bandwidth)
 **Modes Prevented:** Mode S.E (Supercritical), Mode C.E (Energy Escape)
 
-**Theorem 12.1 (The Nyquist-Shannon Stability Barrier).**
+**Metatheorem 12.1 (The Nyquist-Shannon Stability Barrier).**
 Let $u(t)$ be a trajectory approaching an unstable singular profile $V$ with instability rate $\mathcal{R} = \sum_{\mu \in \Sigma_+} \text{Re}(\mu)$ (sum of positive Lyapunov exponents). If the system's intrinsic bandwidth $\mathcal{B}(t)$ satisfies:
 $$\mathcal{B}(t) < \frac{\mathcal{R}}{\ln 2} \quad \text{as } t \to T_*,$$
 then **the singularity is impossible**.
@@ -5605,7 +5609,7 @@ The instability generates information at rate $\mathcal{R}/\ln 2$ bits per unit 
 **Constraint Class:** Computational (Learning)
 **Modes Prevented:** Mode B.E (Alignment Failure), Mode S.D (Stiffness)
 
-**Theorem 12.2 (The Transverse Instability Barrier).**
+**Metatheorem 12.2 (The Transverse Instability Barrier).**
 Let $\mathcal{S}$ be a hypostructure with policy $\pi^*$ optimized on training manifold $M_{\text{train}} \subset X$ with codimension $\kappa = \dim(X) - \dim(M_{\text{train}}) \gg 1$. If:
 1. The optimal policy lies on the stability boundary
 2. No regularization penalizes the transverse Hessian
@@ -5624,7 +5628,7 @@ Gradient descent provides no signal in normal directions $N_x M_{\text{train}}$.
 **Constraint Class:** Computational (Learning)
 **Modes Prevented:** Mode B.C (Misalignment)
 
-**Theorem 12.3 (The Isotropic Regularization Barrier).**
+**Metatheorem 12.3 (The Isotropic Regularization Barrier).**
 Standard regularizers ($L^2$ weight decay, spectral normalization, dropout) are **isotropic**—they penalize global complexity uniformly. The transverse instability (Theorem 12.2) is **anisotropic**—it exists only in specific normal directions.
 
 Therefore: Isotropic regularization cannot resolve anisotropic instability without height collapse (destroying the model's capacity).
@@ -5641,7 +5645,7 @@ To eliminate transverse instability, all eigenvalues of the normal Hessian must 
 **Constraint Class:** Conservation (Spectral)
 **Modes Prevented:** Mode D.E (Frequency Blow-up), Mode S.E (Cascade)
 
-**Theorem 12.4 (The Resonant Transmission Barrier).**
+**Metatheorem 12.4 (The Resonant Transmission Barrier).**
 Let $\mathcal{S}$ be a hypostructure with discrete spectrum $\{\omega_k\}$ (e.g., normal modes). Energy cascade to arbitrarily high frequencies is blocked if the resonance condition:
 $$\omega_{k_1} + \omega_{k_2} = \omega_{k_3} + \omega_{k_4}$$
 has only trivial solutions (Siegel condition) or the coupling coefficients $|H_{k_1 k_2 k_3 k_4}|^2 \lesssim k_{\max}^{-\alpha}$ decay sufficiently.
@@ -5658,7 +5662,7 @@ Energy transfer requires resonant triads/quartets. Non-resonance (incommensurabi
 **Constraint Class:** Conservation (Thermodynamic)
 **Modes Prevented:** Mode C.E (Energy Escape), Mode D.D (Scattering)
 
-**Theorem 12.5 (The Fluctuation-Dissipation Lock).**
+**Metatheorem 12.5 (The Fluctuation-Dissipation Lock).**
 For any system in thermal equilibrium at temperature $T$, the dissipation $\gamma$ and fluctuation strength $D$ are locked:
 $$D = 2\gamma k_B T$$
 (Einstein relation). Consequently:
@@ -5677,7 +5681,7 @@ The fluctuation-dissipation theorem follows from time-reversal symmetry of equil
 **Constraint Class:** Conservation (Parabolic)
 **Modes Prevented:** Mode C.D (Collapse), Mode C.E (Local Blow-up)
 
-**Theorem 12.6 (The Harnack Propagation Barrier).**
+**Metatheorem 12.6 (The Harnack Propagation Barrier).**
 For parabolic equations $\partial_t u = Lu$ with $L$ uniformly elliptic, the Harnack inequality holds:
 $$\sup_{B_r(x_0)} u(t_1) \leq C \inf_{B_r(x_0)} u(t_2)$$
 for $0 < t_1 < t_2$ and positive solutions $u > 0$.
@@ -5696,7 +5700,7 @@ The Harnack inequality follows from parabolic regularity theory (Moser iteration
 **Constraint Class:** Boundary (Control)
 **Modes Prevented:** Mode S.D (Stiffness via control)
 
-**Theorem 12.7 (The Pontryagin Optimality Censor).**
+**Metatheorem 12.7 (The Pontryagin Optimality Censor).**
 For optimal control problems $\min \int_0^T L(x, u) dt$ with dynamics $\dot{x} = f(x, u)$, the optimal control $u^*$ satisfies the Pontryagin Maximum Principle:
 $$H(x^*, u^*, p) = \max_u H(x^*, u, p)$$
 where $H = pf - L$ is the Hamiltonian and $p$ is the costate.
@@ -5715,7 +5719,7 @@ The costate $p$ evolves according to $\dot{p} = -\partial H/\partial x$. Near op
 **Constraint Class:** Topology
 **Modes Prevented:** Mode T.E (Defect Creation), Mode T.D (Annihilation)
 
-**Theorem 12.8 (The Index-Topology Lock).**
+**Metatheorem 12.8 (The Index-Topology Lock).**
 Let $V: M \to N$ be a vector field (or map) with isolated zeros. The total index (sum of local indices) is a topological invariant:
 $$\sum_{V(x_i) = 0} \text{ind}_{x_i}(V) = \chi(M)$$
 where $\chi(M)$ is the Euler characteristic. Defects (zeros) cannot be created or annihilated without pairwise creation/annihilation of opposite indices.
@@ -5732,7 +5736,7 @@ The Poincaré-Hopf theorem identifies the index sum with $\chi(M)$. Continuous d
 **Constraint Class:** Boundary (Relativistic)
 **Modes Prevented:** Mode C.E (Superluminal), Mode D.E (Acausal)
 
-**Theorem 12.9 (The Causal-Dissipative Link).**
+**Metatheorem 12.9 (The Causal-Dissipative Link).**
 For any relativistically causal evolution (signals propagate at $\leq c$), the system must be dissipative in the sense that:
 $$\text{Im}(\chi(\omega)) > 0 \quad \text{for } \omega > 0$$
 where $\chi$ is the response function. Causality implies dissipation (Kramers-Kronig relations).
@@ -5775,7 +5779,7 @@ These barriers complete the taxonomy with information-theoretic, algebraic, and 
 **Constraint Class:** Duality (System-Environment)
 **Modes Prevented:** Mode T.E (Metastasis), Mode D.C (Correlation Loss)
 
-**Theorem 12.D.1 (The Asymptotic Orthogonality Principle).**
+**Metatheorem 12.D.1 (The Asymptotic Orthogonality Principle).**
 Let $\mathcal{S}$ be a hypostructure with system-environment decomposition $X = X_S \times X_E$ where $\dim(X_E) \gg 1$. Then:
 
 1. **Preferred structure:** The interaction $\Phi_{\text{int}}$ selects a sector structure $X_S = \bigsqcup_i S_i$ where configurations in distinct sectors couple to orthogonal environmental states.
@@ -5811,7 +5815,7 @@ by mixing. The rate $\gamma = 2\pi|V_{12}|^2\rho_E$ follows from time-dependent 
 **Constraint Class:** Topology (Algebraic)
 **Modes Prevented:** Mode T.C (Structural Incompatibility), Mode B.C (Misalignment)
 
-**Theorem 12.D.2 (The Decomposition Coherence Barrier).**
+**Metatheorem 12.D.2 (The Decomposition Coherence Barrier).**
 Let $\mathcal{S}$ be a hypostructure with algebraic structure $(R, \cdot, +)$ admitting decomposition $R = R_1 \oplus R_2$. The decomposition is **coherent** if and only if:
 
 1. **Orthogonality:** $R_1 \cdot R_2 = \{0\}$ (products vanish across components)
@@ -5839,7 +5843,7 @@ If the decompositions differ, $\exists r$ with $\pi_1(r) \neq \pi_1'(r)$. Small 
 **Constraint Class:** Conservation (Geometric)
 **Modes Prevented:** Mode C.D (Concentration on Thin Sets)
 
-**Theorem 12.D.4 (The Singular Support Principle).**
+**Metatheorem 12.D.4 (The Singular Support Principle).**
 Let $u$ be a distribution (generalized function) on $\mathbb{R}^d$. The **singular support** $\text{sing supp}(u)$ is the complement of the largest open set where $u$ is smooth. Then:
 
 1. **Propagation:** If $Pu = 0$ for a differential operator $P$, then $\text{sing supp}(u)$ propagates along characteristics of $P$.
@@ -5865,7 +5869,7 @@ Let $u$ be a distribution (generalized function) on $\mathbb{R}^d$. The **singul
 **Constraint Class:** Symmetry (Critical Points)
 **Modes Prevented:** Mode S.D (Stiffness Failure), Mode T.D (Glassy Freeze)
 
-**Theorem 12.D.3 (The Hessian Bifurcation Principle).**
+**Metatheorem 12.D.3 (The Hessian Bifurcation Principle).**
 Let $\Phi: X \to \mathbb{R}$ be a smooth functional with critical point $x_0$ (i.e., $\nabla\Phi(x_0) = 0$). The **Morse index** $\lambda = \#\{\text{negative eigenvalues of } H_\Phi(x_0)\}$ determines local behavior:
 
 1. **Non-degenerate case:** If $\det(H_\Phi(x_0)) \neq 0$, then $x_0$ is isolated and $\Phi(x) - \Phi(x_0) = -\sum_{i=1}^\lambda y_i^2 + \sum_{i=\lambda+1}^n y_i^2$ in suitable coordinates.
@@ -5894,7 +5898,7 @@ These transitions change the qualitative dynamics. $\square$
 **Constraint Class:** Symmetry (Group Theory)
 **Modes Prevented:** Mode B.C (Symmetry Misalignment)
 
-**Theorem 12.D.4 (The Invariant Factorization Principle).**
+**Metatheorem 12.D.4 (The Invariant Factorization Principle).**
 Let $G$ be a symmetry group acting on state space $X$. The dynamics $S_t$ commutes with $G$ iff:
 $$S_t(g \cdot x) = g \cdot S_t(x) \quad \forall g \in G, x \in X$$
 
@@ -5923,7 +5927,7 @@ Under this condition:
 **Constraint Class:** Topology (Dynamical)
 **Modes Prevented:** Mode T.C (Structural Incompatibility)
 
-**Theorem 12.D.5 (The Manifold Conjugacy Principle).**
+**Metatheorem 12.D.5 (The Manifold Conjugacy Principle).**
 Two dynamical systems $(X_1, S_t^1)$ and $(X_2, S_t^2)$ are **topologically conjugate** if there exists a homeomorphism $h: X_1 \to X_2$ such that:
 $$h \circ S_t^1 = S_t^2 \circ h$$
 
@@ -5952,7 +5956,7 @@ Conjugate systems have identical:
 **Constraint Class:** Symmetry (Scale)
 **Modes Prevented:** Mode S.E (UV Catastrophe), Mode S.C (Computational)
 
-**Theorem 12.D.6 (The Causal Renormalization Principle).**
+**Metatheorem 12.D.6 (The Causal Renormalization Principle).**
 Let $\mathcal{S}$ be a hypostructure with multiscale structure. The **effective dynamics** at scale $\ell$ is determined by:
 
 1. **Coarse-graining:** Average over fluctuations at scales $< \ell$.
@@ -5980,7 +5984,7 @@ The RG flow $\beta_i = d g_i / d\ln\ell$ determines which microscopic details su
 **Constraint Class:** Topology (Coupled Systems)
 **Modes Prevented:** Mode T.E (Desynchronization), Mode D.E (Frequency Drift)
 
-**Theorem 12.D.7 (The Synchronization Manifold Barrier).**
+**Metatheorem 12.D.7 (The Synchronization Manifold Barrier).**
 Let $\mathcal{S}$ consist of $N$ coupled oscillators with phases $\theta_i$ evolving as:
 $$\dot{\theta}_i = \omega_i + \frac{K}{N} \sum_{j=1}^N \sin(\theta_j - \theta_i)$$
 (Kuramoto model). There exists a critical coupling $K_c$ such that:
@@ -6012,7 +6016,7 @@ $$K_c = \frac{2}{\pi g(0)}$$
 **Constraint Class:** Boundary (History Dependence)
 **Modes Prevented:** Mode T.D (Irreversible Trapping)
 
-**Theorem 12.D.8 (The Hysteresis Barrier).**
+**Metatheorem 12.D.8 (The Hysteresis Barrier).**
 Let $\mathcal{S}$ have a control parameter $\lambda$ and multiple stable states. Hysteresis occurs when:
 
 1. **Bistability:** For $\lambda \in (\lambda_1, \lambda_2)$, two stable states $x_+(\lambda)$ and $x_-(\lambda)$ coexist.
@@ -6038,7 +6042,7 @@ Let $\mathcal{S}$ have a control parameter $\lambda$ and multiple stable states.
 **Constraint Class:** Boundary (Delay)
 **Modes Prevented:** Mode S.E (Delay-Induced Blow-up)
 
-**Theorem 12.D.9 (The Causal Lag Barrier).**
+**Metatheorem 12.D.9 (The Causal Lag Barrier).**
 Let $\mathcal{S}$ have delayed feedback: $\dot{x}(t) = f(x(t), x(t-\tau))$ with delay $\tau > 0$. The system can blow up faster than it can react if:
 
 $$\tau > \tau_c = \frac{1}{\lambda_{\max}}$$
@@ -6064,7 +6068,7 @@ where $\lambda_{\max}$ is the maximum Lyapunov exponent of the instantaneous dyn
 **Constraint Class:** Conservation (Statistical)
 **Modes Prevented:** Mode T.D (Glassy Freeze), Mode C.E (Escape)
 
-**Theorem 12.D.10 (The Ergodic Mixing Barrier).**
+**Metatheorem 12.D.10 (The Ergodic Mixing Barrier).**
 Let $(X, S_t, \mu)$ be a measure-preserving dynamical system. The system is:
 
 1. **Ergodic** if for all measurable $A$ with $S_t(A) = A$, we have $\mu(A) \in \{0,1\}$.
@@ -6092,7 +6096,7 @@ $$\lim_{T\to\infty} \frac{1}{T}\int_0^T f(S_t x) dt = \int_X f d\mu \quad \text{
 **Constraint Class:** Conservation (Geometric)
 **Modes Prevented:** Mode C.D (Crumpling), Mode T.E (Fracture)
 
-**Theorem 12.D.11 (The Dimensional Rigidity Barrier).**
+**Metatheorem 12.D.11 (The Dimensional Rigidity Barrier).**
 Let $M^n$ be an $n$-dimensional manifold embedded in $\mathbb{R}^m$. The **bending energy** is:
 $$E_{\text{bend}} = \int_M |H|^2 dA$$
 where $H$ is mean curvature. Then:
@@ -6120,7 +6124,7 @@ where $H$ is mean curvature. Then:
 **Constraint Class:** Conservation (Integral)
 **Modes Prevented:** Mode C.E (Accumulation Blow-up)
 
-**Theorem 12.D.12 (The Non-Local Memory Barrier).**
+**Metatheorem 12.D.12 (The Non-Local Memory Barrier).**
 Let $\mathcal{S}$ have non-local interactions: $\Phi(x) = \int K(x,y)u(y)dy$ with kernel $K$. Then:
 
 1. **Screening:** If $K(x,y) \sim |x-y|^{-\alpha}e^{-|x-y|/\xi}$ (Yukawa), then influence decays beyond screening length $\xi$.
@@ -6146,7 +6150,7 @@ This bounds the non-local term.
 **Constraint Class:** Conservation (Diophantine)
 **Modes Prevented:** Mode S.E (Resonance Blow-up)
 
-**Theorem 12.D.13 (The Arithmetic Height Barrier).**
+**Metatheorem 12.D.13 (The Arithmetic Height Barrier).**
 Let $\mathcal{S}$ have frequencies $\omega = (\omega_1, \ldots, \omega_n) \in \mathbb{R}^n$. The system avoids exact resonances $k \cdot \omega = 0$ (for $k \in \mathbb{Z}^n \setminus \{0\}$) if $\omega$ satisfies a **Diophantine condition**:
 
 $$|k \cdot \omega| \geq \frac{\gamma}{|k|^\tau} \quad \forall k \neq 0$$
@@ -6172,7 +6176,7 @@ for some $\gamma > 0$, $\tau \geq n-1$.
 **Constraint Class:** Conservation (Regularity)
 **Modes Prevented:** Mode C.E (Product Singularity)
 
-**Theorem 12.D.14 (The Distributional Product Barrier).**
+**Metatheorem 12.D.14 (The Distributional Product Barrier).**
 Let $u, v$ be distributions on $\mathbb{R}^d$. The product $uv$ is well-defined only if the regularity indices satisfy:
 
 $$s_u + s_v > 0$$
@@ -6198,7 +6202,7 @@ where $s_u$ is the Hölder-Zygmund regularity of $u$ (e.g., $s_u = \alpha$ if $u
 **Constraint Class:** Conservation (Probabilistic)
 **Modes Prevented:** Mode C.E (Rare Event Blow-up)
 
-**Theorem 12.D.15 (The Large Deviation Suppression).**
+**Metatheorem 12.D.15 (The Large Deviation Suppression).**
 Let $X_n$ be i.i.d. random variables with mean $\mu$ and let $S_n = n^{-1}\sum_{i=1}^n X_i$. Then for $a > \mu$:
 
 $$P(S_n > a) \leq e^{-nI(a)}$$
@@ -6225,7 +6229,7 @@ $$P(S_n > a) = P(e^{n\theta S_n} > e^{n\theta a}) \leq e^{-n\theta a}\mathbb{E}[
 **Constraint Class:** Boundary (Infinitesimal)
 **Modes Prevented:** Mode C.E (Hidden Singularity)
 
-**Theorem 12.D.16 (The Archimedean Ratchet).**
+**Metatheorem 12.D.16 (The Archimedean Ratchet).**
 In standard analysis (real numbers $\mathbb{R}$), there are no infinitesimals: for any $\epsilon > 0$ and $M > 0$, there exists $n \in \mathbb{N}$ with $n\epsilon > M$ (Archimedean property).
 
 Consequence: Singularities cannot hide at infinitesimal scales.
@@ -6249,7 +6253,7 @@ Consequence: Singularities cannot hide at infinitesimal scales.
 **Constraint Class:** Symmetry (Gauge)
 **Modes Prevented:** Mode B.C (Coordinate Artifact)
 
-**Theorem 12.D.17 (The Covariant Slice Principle).**
+**Metatheorem 12.D.17 (The Covariant Slice Principle).**
 Let $\mathcal{S}$ be a gauge theory with gauge group $G$. A singularity is **physical** (not a coordinate artifact) iff it appears in all gauge choices, equivalently iff gauge-invariant observables diverge.
 
 *Proof.*
@@ -6271,7 +6275,7 @@ Let $\mathcal{S}$ be a gauge theory with gauge group $G$. A singularity is **phy
 **Constraint Class:** Conservation (Set-Theoretic)
 **Modes Prevented:** Mode C.E (Uncountable Overflow)
 
-**Theorem 12.D.18 (The Cardinality Compression Bound).**
+**Metatheorem 12.D.18 (The Cardinality Compression Bound).**
 Physical systems in separable Hilbert spaces have countable information content:
 
 1. **Separability:** The Hilbert space $\mathcal{H}$ has a countable orthonormal basis $\{e_n\}_{n=1}^\infty$.
@@ -6297,7 +6301,7 @@ Physical systems in separable Hilbert spaces have countable information content:
 **Constraint Class:** Conservation (Scaling)
 **Modes Prevented:** Mode C.D (Concentration), Mode S.E (Cascade)
 
-**Theorem 12.D.19 (The Multifractal Spectrum Bound).**
+**Metatheorem 12.D.19 (The Multifractal Spectrum Bound).**
 Let $\mu$ be a measure on $[0,1]$ with multifractal structure. The **local dimension** at $x$ is:
 $$\alpha(x) = \lim_{r\to 0} \frac{\log\mu(B(x,r))}{\log r}$$
 
@@ -6326,7 +6330,7 @@ The **multifractal spectrum** $f(\alpha) = \dim_H\{x : \alpha(x) = \alpha\}$ sat
 **Constraint Class:** Conservation (Quantum)
 **Modes Prevented:** Mode C.E (Information Cloning)
 
-**Theorem 12.D.20 (The No-Cloning Theorem).**
+**Metatheorem 12.D.20 (The No-Cloning Theorem).**
 There is no unitary operator $U$ that clones arbitrary quantum states:
 $$U|\psi\rangle|0\rangle = |\psi\rangle|\psi\rangle \quad \text{for all } |\psi\rangle$$
 
@@ -6351,7 +6355,7 @@ which differs from Step 2 by cross terms $|\psi\rangle|\phi\rangle + |\phi\rangl
 **Constraint Class:** Symmetry (Categorical)
 **Modes Prevented:** Mode B.C (Frame Inconsistency)
 
-**Theorem 12.D.21 (The Functorial Covariance Principle).**
+**Metatheorem 12.D.21 (The Functorial Covariance Principle).**
 Physical observables form a functor $F: \mathbf{SpaceTime} \to \mathbf{Obs}$ where:
 - $\mathbf{SpaceTime}$ has regions as objects and inclusions as morphisms
 - $\mathbf{Obs}$ has observable algebras as objects and algebra homomorphisms as morphisms
@@ -6378,7 +6382,7 @@ $$F(V \hookrightarrow W) \circ F(U \hookrightarrow V) = F(U \hookrightarrow W)$$
 **Constraint Class:** Conservation (Economic)
 **Modes Prevented:** Mode C.E (Value Creation from Nothing)
 
-**Theorem 12.D.22 (The Fundamental Theorem of Asset Pricing).**
+**Metatheorem 12.D.22 (The Fundamental Theorem of Asset Pricing).**
 A market is arbitrage-free iff there exists an equivalent martingale measure $\mathbb{Q}$ under which discounted asset prices are martingales:
 $$\mathbb{E}_{\mathbb{Q}}[S_T/B_T | \mathcal{F}_t] = S_t/B_t$$
 where $B_t$ is the risk-free asset (bond).
@@ -6402,7 +6406,7 @@ where $B_t$ is the risk-free asset (bond).
 **Constraint Class:** Conservation (Biological)
 **Modes Prevented:** Mode S.E (Metabolic Blow-up)
 
-**Theorem 12.D.23 (Kleiber's Law).**
+**Metatheorem 12.D.23 (Kleiber's Law).**
 Metabolic rate $P$ scales with body mass $M$ as:
 $$P \propto M^{3/4}$$
 across species spanning 20 orders of magnitude.
@@ -6426,7 +6430,7 @@ across species spanning 20 orders of magnitude.
 **Constraint Class:** Topology (Vagueness)
 **Modes Prevented:** Mode T.C (Boundary Paradox)
 
-**Theorem 12.D.24 (The Sorites Threshold).**
+**Metatheorem 12.D.24 (The Sorites Threshold).**
 For predicates with vague boundaries (e.g., "heap", "bald", "tall"), there is no sharp cutoff. Resolution requires:
 
 1. **Fuzzy logic:** Truth values in $[0,1]$ with gradual transition.
@@ -6455,7 +6459,7 @@ For predicates with vague boundaries (e.g., "heap", "bald", "tall"), there is no
 **Constraint Class:** Boundary (Relativistic)
 **Modes Prevented:** Mode T.C (Synchronization Failure)
 
-**Theorem 12.D.25 (The Sagnac Effect).**
+**Metatheorem 12.D.25 (The Sagnac Effect).**
 In a rotating reference frame, light traveling around a closed loop experiences a phase shift:
 $$\Delta\phi = \frac{4\pi\Omega A}{\lambda c}$$
 where $\Omega$ is angular velocity, $A$ is enclosed area, $\lambda$ is wavelength.
@@ -6480,7 +6484,7 @@ $$\Delta T = T_+ - T_- \approx \frac{4\pi R^2 \Omega}{c^2} = \frac{4A\Omega}{c^2
 **Constraint Class:** Duality (Non-Normal)
 **Modes Prevented:** Mode S.D (Transient Blow-up)
 
-**Theorem 12.D.26 (The Pseudospectral Bound).**
+**Metatheorem 12.D.26 (The Pseudospectral Bound).**
 For non-normal operators $A$, eigenvalues do not tell the whole story. The **pseudospectrum** $\sigma_\epsilon(A) = \{z : \|(A-zI)^{-1}\| > \epsilon^{-1}\}$ controls transient behavior:
 
 1. **Transient growth:** $\|e^{tA}\| \leq \sup\{e^{t\text{Re}(z)} : z \in \sigma_\epsilon(A)\}/\epsilon$.
@@ -6508,7 +6512,7 @@ where $\Gamma$ encloses the spectrum.
 **Constraint Class:** Duality (Fourier)
 **Modes Prevented:** Mode C.E (Dual-Space Blow-up)
 
-**Theorem 12.D.27 (The Conjugate Singularity Principle).**
+**Metatheorem 12.D.27 (The Conjugate Singularity Principle).**
 If $f$ has singularity of order $\alpha$ at $x_0$ (i.e., $|f(x)| \sim |x-x_0|^{-\alpha}$), then its Fourier transform $\hat{f}(\xi)$ decays as $|\xi|^{\alpha-d}$ for large $|\xi|$.
 
 *Proof.*
@@ -6532,7 +6536,7 @@ by explicit computation of the Fourier transform of $|x|^{-\alpha}$.
 **Constraint Class:** Symmetry (Scale)
 **Modes Prevented:** Mode S.C (Scale Collapse)
 
-**Theorem 12.D.28 (The Discrete-Critical Gap).**
+**Metatheorem 12.D.28 (The Discrete-Critical Gap).**
 Systems with scale invariance broken to discrete scale invariance exhibit **log-periodic oscillations**. The characteristic scale $\lambda$ appears as:
 $$\text{Observable} \sim A(\ln(t/t_c))^{\alpha}[1 + B\cos(2\pi\ln(t/t_c)/\ln\lambda + \phi)]$$
 near a critical point $t_c$.
@@ -6560,7 +6564,7 @@ The exponents are complex: $\alpha + 2\pi in/\ln\lambda_0$.
 **Constraint Class:** Conservation (Quantum Information)
 **Modes Prevented:** Mode D.E (Superluminal Signaling)
 
-**Theorem 12.D.29 (Information-Causality).**
+**Metatheorem 12.D.29 (Information-Causality).**
 The total information gain about a remote system is bounded by the classical communication:
 $$I(A_0, A_1, \ldots, A_{n-1} : B) \leq n \cdot H(M)$$
 where $M$ is the $n$-bit message sent from Alice to Bob.
@@ -6585,7 +6589,7 @@ $$\sum_{b=0}^{n-1} I(A_b : B, b) \leq n$$
 **Constraint Class:** Boundary (Open Systems)
 **Modes Prevented:** Mode C.E (Internal Blow-up)
 
-**Theorem 12.D.30 (The Structural Leakage Principle).**
+**Metatheorem 12.D.30 (The Structural Leakage Principle).**
 For open systems coupled to an environment, internal stress must leak to external degrees of freedom. If the internal dynamics would blow up in isolation, coupling to the environment provides a "release valve."
 
 Formally: Let $\mathcal{S}$ have internal variable $x$ and coupling strength $\gamma$ to environment. If $\dot{x} = f(x)$ has finite-time blow-up at $T_*$, then adding dissipative coupling $\dot{x} = f(x) - \gamma x$ either:
@@ -6613,7 +6617,7 @@ by Gronwall's inequality, provided $f$ is sublinear.
 **Constraint Class:** Topology (Combinatorial)
 **Modes Prevented:** Mode T.C (Disorder Instability)
 
-**Theorem 12.D.31 (Ramsey's Theorem).**
+**Metatheorem 12.D.31 (Ramsey's Theorem).**
 For any integers $r, k \geq 2$, there exists $R(r,k)$ such that any 2-coloring of edges of $K_n$ (complete graph on $n$ vertices) with $n \geq R(r,k)$ contains either:
 - A red $K_r$ (complete subgraph on $r$ vertices, all edges red), or
 - A blue $K_k$
@@ -6643,7 +6647,7 @@ Case 2: Similar with $B$.
 **Constraint Class:** Boundary (Ordinal)
 **Modes Prevented:** Mode C.C (Infinite Iteration)
 
-**Theorem 12.D.32 (Transfinite Recursion Termination).**
+**Metatheorem 12.D.32 (Transfinite Recursion Termination).**
 Let $F: \text{Ord} \to V$ be defined by transfinite recursion:
 - $F(0) = a$
 - $F(\alpha + 1) = G(F(\alpha))$
@@ -6672,7 +6676,7 @@ If $F$ is eventually constant (i.e., $\exists\alpha_0$ such that $F(\alpha) = F(
 **Constraint Class:** Duality (Spectral)
 **Modes Prevented:** Mode D.D (Subdominant Escape)
 
-**Theorem 12.D.33 (The Dominant Mode Projection).**
+**Metatheorem 12.D.33 (The Dominant Mode Projection).**
 For ergodic Markov chains with transition matrix $P$, the stationary distribution $\pi$ satisfies:
 $$\lim_{n\to\infty} P^n = \mathbf{1}\pi^T$$
 where $\mathbf{1}$ is the all-ones vector. The rate of convergence is $|\lambda_2|^n$ where $\lambda_2$ is the second-largest eigenvalue.
@@ -6696,7 +6700,7 @@ where $\mathbf{1}$ is the all-ones vector. The rate of convergence is $|\lambda_
 **Constraint Class:** Boundary (Computational)
 **Modes Prevented:** Mode T.C (Self-Reference Paradox)
 
-**Theorem 12.D.34 (The Semantic Opacity Principle).**
+**Metatheorem 12.D.34 (The Semantic Opacity Principle).**
 Sufficiently complex systems cannot fully model themselves. For a system $S$ with description length $L(S)$:
 $$L(S_{\text{self-model}}) \geq L(S) - O(\log L(S))$$
 
@@ -9116,7 +9120,7 @@ The interpretation follows from the positivity and integrability of the defect f
 **Definition 12.10 (Global axiom minimizer).** A point $\theta^* \in \Theta$ is a **global axiom minimizer** if:
 $$\mathcal{R}(\theta^*) = \inf_{\theta \in \Theta} \mathcal{R}(\theta).$$
 
-**Theorem 12.11 (Existence of axiom minimizers).** Assume:
+**Metatheorem 12.11 (Existence of Axiom Minimizers).** Assume:
 1. The parameter space $\Theta$ is compact and metrizable.
 2. For each $A \in \mathcal{A}$ and each $u \in \mathcal{U}$, the map $\theta \mapsto K_A^{(\theta)}(u)$ is continuous on $\Theta$.
 3. There exists an integrable majorant $M_A \in L^1(\mu)$ such that $0 \leq K_A^{(\theta)}(u) \leq M_A(u)$ for all $\theta \in \Theta$ and $\mu$-a.e. $u$.
@@ -9201,7 +9205,7 @@ where:
 - $\mathcal{A}$ indexes axioms whose defects are minimized
 - $\mathcal{B}$ indexes extremal problems whose values $F_B^{(\theta)}(u_\vartheta)$ are optimized
 
-**Theorem 12.18 (Joint training dynamics).** Under differentiability assumptions analogous to Lemma 12.13 for both $\theta$ and $\vartheta$, the objective $\mathcal{L}$ is differentiable in $(\theta, \vartheta)$. The joint gradient descent:
+**Metatheorem 12.18 (Joint Training Dynamics).** Under differentiability assumptions analogous to Lemma 12.13 for both $\theta$ and $\vartheta$, the objective $\mathcal{L}$ is differentiable in $(\theta, \vartheta)$. The joint gradient descent:
 $$(\theta_{k+1}, \vartheta_{k+1}) = (\theta_k, \vartheta_k) - \eta_k \nabla_{(\theta, \vartheta)} \mathcal{L}(\theta_k, \vartheta_k)$$
 converges to stationary points under standard conditions.
 
@@ -9225,7 +9229,7 @@ The preceding sections established that axiom defects can be minimized via gradi
 **Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure $\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*})$ satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint axiom risk:
 $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta), \quad \mathcal{R}_A(\theta) := \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u).$$
 
-**Theorem 13.20 (Trainable Hypostructure Consistency and Convergence).** Let $S$ be a dynamical system with a hypostructure representation $\mathcal{H}_{\Theta^*}$ inside a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$. Assume:
+**Metatheorem 13.20 (Trainable Hypostructure Consistency).** Let $S$ be a dynamical system with a hypostructure representation $\mathcal{H}_{\Theta^*}$ inside a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$. Assume:
 
 1. **(Axiom validity at $\Theta^*$.)** The hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC). Consequently, $K_A^{(\Theta^*)}(u) = 0$ for $\mu$-a.e. trajectory $u \in \mathcal{U}$ and all $A \in \mathcal{A}$.
 
@@ -9335,7 +9339,7 @@ $$\mathcal{R}(\theta) = \frac{1}{2}(\theta - \Theta^*)^\top H (\theta - \Theta^*
 
 #### The localization theorem
 
-**Theorem 13.29 (Meta-Error Localization).** Assume the block-orthogonality conditions (Definition 13.27). There exist $\mathcal{N}$, $c$, $C$, $\varepsilon_0 > 0$ such that for $\theta \in \mathcal{N}$ with $|\theta - \Theta^*| < \varepsilon_0$:
+**Metatheorem 13.29 (Meta-Error Localization).** Assume the block-orthogonality conditions (Definition 13.27). There exist $\mathcal{N}$, $c$, $C$, $\varepsilon_0 > 0$ such that for $\theta \in \mathcal{N}$ with $|\theta - \Theta^*| < \varepsilon_0$:
 
 1. **(Single-block error.)** If $E(\theta) = \{b^*\}$ (exactly one misspecified block), then:
    - For block $b^*$: $\mathcal{R}_{b^*}^*(\theta) \leq C |\theta - \Theta^*|^3$
@@ -9500,7 +9504,7 @@ $$\mathcal{R}_S(\Theta^*(S)) = 0, \qquad K_{A,S}^{(\Theta^*(S))}(u) = 0 \quad \m
 
 We further assume that the map $S \mapsto \Theta^*(S)$ takes values in a compact $C^1$ submanifold $\mathcal{M} \subset \Theta_{\mathrm{adm}}$, which we call the **structural manifold**. Intuitively, $\mathcal{M}$ collects all true hypostructure parameters realized by systems in the support of $\mathcal{S}$.
 
-**Theorem 13.37 (Meta-Generalization Across Systems).** Let $\mathcal{S}$ be a distribution over systems $S$, and suppose that:
+**Metatheorem 13.37 (Meta-Generalization).** Let $\mathcal{S}$ be a distribution over systems $S$, and suppose that:
 
 1. **True hypostructures on a compact structural manifold.** For $\mathcal{S}$-a.e. $S$, there exists $\Theta^*(S) \in \Theta_{\mathrm{adm}}$ such that:
    - $\mathcal{R}_S(\Theta^*(S)) = 0$;
@@ -9613,7 +9617,7 @@ We assume:
 
 This is a natural assumption given the explicit integral definitions of the defects (e.g. $K_D$ is an integral of the positive part of $\partial_t \Phi + \mathfrak{D}$, capacities/barriers enter via continuous inequalities, etc.).
 
-**Theorem 13.40 (Axiom-Expressivity of Trainable Hypostructures).** Let $S$ be a fixed system with trajectory distribution $\mu_S$ and trajectory class $\mathcal{U}_S$. Let $\mathfrak{H}(S)$ be the class of admissible hypostructures on $S$ as above. Suppose:
+**Metatheorem 13.40 (Axiom-Expressivity).** Let $S$ be a fixed system with trajectory distribution $\mu_S$ and trajectory class $\mathcal{U}_S$. Let $\mathfrak{H}(S)$ be the class of admissible hypostructures on $S$ as above. Suppose:
 
 1. **(True admissible hypostructure.)** There exists a "true" hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$ which exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) for $S$. Thus, for $\mu_S$-a.e. trajectory $u$:
 $$K_A^{(\mathcal{H}^*)}(u) = 0 \quad \forall A \in \mathcal{A}.$$
@@ -9704,7 +9708,7 @@ $$\mathbb{E}[\xi_t] = 0, \quad \mathbb{E}\big[ \exp(\lambda \xi_{t,j}) \big] \le
 
 Moreover, $\xi_t$ is independent of the probe choices $\pi_s$ and the past noise $\xi_s$ for $s < t$.
 
-**Theorem 13.44 (Active Probing for Hypostructure Identification).** Let $S$ be a fixed system and $\Theta^* \in \Theta_{\mathrm{adm}}$ the true hypostructure parameter. Assume:
+**Metatheorem 13.44 (Optimal Experiment Design).** Let $S$ be a fixed system and $\Theta^* \in \Theta_{\mathrm{adm}}$ the true hypostructure parameter. Assume:
 
 1. **(Local identifiability via defects.)** The single-system identifiability metatheorem holds for $S$: small uniform defect discrepancies imply small parameter distance, as in Theorem 13.20 and Theorem 14.30. In particular, there exist constants $c > 0$ and $\rho > 0$ such that:
 $$\sup_{\pi \in \mathfrak{P}} D(\Theta, \Theta^*; S, \pi) \leq \delta \implies |\Theta - \Theta^*| \leq c \delta$$
@@ -9786,7 +9790,7 @@ $$\mathcal{R}_S(\Theta) \leq \varepsilon < \varepsilon_0 \implies d_{\mathrm{str
 
 This is precisely the local quantitative identifiability from Theorem 13.20, translated into structural space by the Defect Reconstruction Theorem.
 
-**Theorem 13.50 (Robustness of Failure-Mode Predictions).** Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with axiom-risk $\mathcal{R}_S(\Theta)$. Assume:
+**Metatheorem 13.50 (Robustness of Failure-Mode Predictions).** Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with axiom-risk $\mathcal{R}_S(\Theta)$. Assume:
 
 1. **(True hypostructure with strict exclusion margin.)** The true hypostructure $\mathcal{H}^*$ exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) and excludes a set of failure modes $\mathcal{F}_{\mathrm{forbidden}}^* \subseteq \mathcal{F}$ with positive margin:
 $$\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) > 0.$$
@@ -9890,7 +9894,7 @@ We consider the following **curriculum training** procedure:
    - Let $\widehat{\Theta}_k := \lim_{t \to \infty} \Theta^{(k)}_t$ (which exists and equals the unique minimizer in the basin).
    - Use $\widehat{\Theta}_k$ as the initialization for the next stage: $\Theta^{(k+1)}_0 := \widehat{\Theta}_k$.
 
-**Theorem 13.54 (Curriculum Stability).** Under the above setting, suppose:
+**Metatheorem 13.54 (Curriculum Stability).** Under the above setting, suppose:
 
 1. **(Smooth curriculum path.)** Assumption 13.52 holds, and $|\dot{\gamma}(t)| \leq M$ for all $t \in [0,1]$.
 
@@ -10004,7 +10008,7 @@ $$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathcal{R}_{\mathcal{S}}(\Theta).
 $$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(g \cdot \Theta)] = \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_{g^{-1} \cdot S}(\Theta)] = \mathcal{R}_{\mathcal{S}}(\Theta),$$
 where we used the change of variable $S' = g^{-1} \cdot S$ and the invariance of $\mathcal{S}$. $\square$
 
-**Theorem 13.61 (Equivariance of Trainable Hypostructures).** Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Theta\}$ a parametric hypostructure family satisfying Assumptions 13.57–13.59. Consider the average axiom-risk $\mathcal{R}_{\mathcal{S}}(\Theta)$.
+**Metatheorem 13.61 (Equivariance).** Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Theta\}$ a parametric hypostructure family satisfying Assumptions 13.57–13.59. Consider the average axiom-risk $\mathcal{R}_{\mathcal{S}}(\Theta)$.
 
 Assume:
 
@@ -10148,7 +10152,7 @@ evaluated on held-out data from $S$.
 
 ### 14.6 The combined general loss
 
-**Theorem 14.15 (Differentiability of general loss).** Under the following conditions:
+**Metatheorem 14.15 (Differentiability).** Under the following conditions:
 1. Neural network parameterization of $\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta$
 2. Defect functionals $K_A$ composed of integrals, norms, and algebraic expressions in the network outputs
 3. Dominated convergence conditions as in Lemma 12.13
@@ -10170,7 +10174,7 @@ all components of $\mathcal{L}_{\text{gen}}$ are differentiable in $\Theta$.
 - The defect functional computations
 - The meta-learning adaptation steps
 
-**Theorem 14.17 (Universal extremal solver characterization).** A system trained on $\mathcal{L}_{\text{gen}}$ with sufficient capacity and training data over a diverse distribution $\mathcal{S}$ learns to:
+**Metatheorem 14.17 (Universal Solver).** A system trained on $\mathcal{L}_{\text{gen}}$ with sufficient capacity and training data over a diverse distribution $\mathcal{S}$ learns to:
 1. **Recognize structure:** Identify state spaces, flows, height functionals, dissipation structures, and symmetry groups
 2. **Enforce soft axioms:** Fit hypostructure parameters that minimize global axiom defects
 3. **Solve variational problems:** Produce extremizers that approach sharp constants
@@ -10207,7 +10211,7 @@ where $\log \pi_\theta(\tau) = \sum_{t=0}^{T-1} \log \pi_\theta(a_t | x_t)$.
 $$\nabla_\theta J(\theta) = \nabla_\theta \int \mathcal{L}(\tau) p_\theta(\tau) d\tau = \int \mathcal{L}(\tau) p_\theta(\tau) \nabla_\theta \log p_\theta(\tau) d\tau.$$
 The environment dynamics contribute to $p_\theta(\tau)$ but not to $\nabla_\theta \log p_\theta(\tau)$, which depends only on the policy. $\square$
 
-**Theorem 14.21 (Non-differentiable extension).** Even when the environment transition $x_{t+1} = f(x_t, a_t, \xi_t)$ is non-differentiable (discrete, stochastic, or black-box), the expected loss $J(\theta) = \mathbb{E}[\mathcal{L}(\tau)]$ is differentiable in the policy parameters $\theta$.
+**Metatheorem 14.21 (Non-Differentiable Extension).** Even when the environment transition $x_{t+1} = f(x_t, a_t, \xi_t)$ is non-differentiable (discrete, stochastic, or black-box), the expected loss $J(\theta) = \mathbb{E}[\mathcal{L}(\tau)]$ is differentiable in the policy parameters $\theta$.
 
 *Proof.* The key observation is that we differentiate the **expectation** of the trajectory functional, not the environment map itself. The dependence of the trajectory distribution on $\theta$ enters only through the policy $\pi_\theta$, which is differentiable. The score function gradient (Lemma 14.20) requires only:
 1. Sampling trajectories from $\pi_\theta$
@@ -10248,7 +10252,7 @@ where $\mathcal{A} = \{C, D, SC, Cap, LS, TB\}$ is the set of axiom labels.
 
 **Definition 14.26 (Action reconstruction applicability).** The hypostructure $\mathcal{H}_\Theta$ satisfies **action reconstruction** if axioms (D), (LS), (GC) hold and the underlying metric structure is such that the canonical Lyapunov functional equals the geodesic action with respect to the Jacobi metric $g_{\mathfrak{D}} = \mathfrak{D}_\Theta \cdot g$.
 
-**Theorem 14.27 (Defect Reconstruction).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures satisfying axioms (C, D, SC, Cap, LS, TB, Reg) and (GC) on gradient-flow trajectories. Suppose:
+**Metatheorem 14.27 (Defect Reconstruction).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures satisfying axioms (C, D, SC, Cap, LS, TB, Reg) and (GC) on gradient-flow trajectories. Suppose:
 
 1. **(A1) Rich trajectories.** The trajectory class $\mathcal{U}$ is rich in the sense of Definition 14.25.
 2. **(A2) Action reconstruction.** Definition 14.26 holds for each $\Theta$.
@@ -10286,7 +10290,7 @@ Axiom (D) requires $\partial_t \Phi_\Theta + \mathfrak{D}_\Theta \leq 0$ along t
 **Definition 14.29 (Nondegenerate parametrization).** The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ has **nondegenerate parametrization** if the map $\Theta \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta)$ is locally Lipschitz and injective: there exists $c > 0$ such that for $\mu$-almost every $x \in X$:
 $$|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| \geq c \, |\Theta - \Theta'|.$$
 
-**Theorem 14.30 (Meta-Identifiability).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family satisfying:
+**Metatheorem 14.30 (Meta-Identifiability).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family satisfying:
 
 1. Axioms (C, D, SC, Cap, LS, TB, Reg, GC) for each $\Theta$
 2. **(C1) Persistent excitation:** The trajectory distribution satisfies Definition 14.28
@@ -10971,7 +10975,7 @@ This chapter establishes that the hypostructure axioms are both necessary and su
 
 The taxonomy of failure modes (Chapter 4) lists fifteen modes. The following theorem proves this list is exhaustive.
 
-**Theorem 17.1 (Constraint Completeness).** Let $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G, M, \ldots)$ be a hypostructure satisfying axioms D, R, C, SC, Cap, TB, LS, and GC.
+**Metatheorem 17.1 (Constraint Completeness).** Let $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G, M, \ldots)$ be a hypostructure satisfying axioms D, R, C, SC, Cap, TB, LS, and GC.
 
 Let $u: [0, T_*) \to X$ be a trajectory such that **no** admissible continuation exists beyond $T_*$ in any topology compatible with:
 - the metric of $X$,
@@ -11028,7 +11032,7 @@ This is a valid continuation, contradicting the maximality of $T_*$.
 
 The following theorem shows that catastrophic trajectories decompose into a countable union of atomic failure events.
 
-**Theorem 17.2 (Failure Decomposition).** Let $u: [0, T_*) \to X$ be a finite-cost trajectory that does **not** converge to the safe manifold $M$.
+**Metatheorem 17.2 (Failure Decomposition).** Let $u: [0, T_*) \to X$ be a finite-cost trajectory that does **not** converge to the safe manifold $M$.
 
 Then there exists:
 1. A finite or countable set of **singular times** $\{T_i\}_{i \in I}$ with $T_i \nearrow T_*$
@@ -11066,7 +11070,7 @@ such that:
 
 The following theorem shows that each axiom is necessary: removing any one allows a new failure mode to occur.
 
-**Theorem 17.3 (Axiom Minimality).** For each axiom $A \in \{$D, R, C, SC, Cap, TB, LS, GC$\}$, there exists:
+**Metatheorem 17.3 (Axiom Minimality).** For each axiom $A \in \{$D, R, C, SC, Cap, TB, LS, GC$\}$, there exists:
 1. A hypostructure $\mathcal{H}_{\neg A}$ satisfying all axioms except $A$
 2. A trajectory $u$ in $\mathcal{H}_{\neg A}$ that realizes the corresponding failure mode
 
@@ -11206,7 +11210,7 @@ This chapter establishes that the hypostructure framework is not merely a conven
 
 ### 18.1 Universality Representation Theorem
 
-**Theorem 18.1 (Universality of Hypostructures).** Let $S_t: X \to X$ be a semiflow on a separable metric space $(X, d)$ satisfying:
+**Metatheorem 18.1 (Universality of Hypostructures).** Let $S_t: X \to X$ be a semiflow on a separable metric space $(X, d)$ satisfying:
 
 **(U1) Local well-posedness:** $S_t$ is continuous in $(t, x)$ and locally Lipschitz in $x$.
 
@@ -11267,7 +11271,7 @@ for some $\theta \in (0,1)$. This is Axiom LS. $\square$
 2. **Flow commutation:** $R(S_t x) = \tilde{S}_{c \cdot t}(Rx)$ for some scale factor $c > 0$
 3. **Energy monotonicity:** $\tilde{\Phi}(Rx) \leq C \cdot \Phi(x)$ for some $C < \infty$
 
-**Theorem 18.2 (RG-Functoriality).** Let $R: \mathcal{H} \to \tilde{\mathcal{H}}$ be a coarse-graining map. Then:
+**Metatheorem 18.2 (RG-Functoriality).** Let $R: \mathcal{H} \to \tilde{\mathcal{H}}$ be a coarse-graining map. Then:
 
 **(1) Functoriality.** The composition $R_1 \circ R_2$ of coarse-grainings is again a coarse-graining.
 
@@ -11310,7 +11314,7 @@ but varying in:
 - Scaling exponents $(\alpha_\Theta, \beta_\Theta)$
 - Barrier constants
 
-**Theorem 18.3 (Structural Identifiability).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\text{adm}}}$ be a parametric family. Suppose:
+**Metatheorem 18.3 (Structural Identifiability).** Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\text{adm}}}$ be a parametric family. Suppose:
 
 **(I1) Persistent excitation:** Observed trajectories explore a full-measure subset of the accessible phase space.
 
@@ -11379,7 +11383,7 @@ The refinement levels map to layers as follows:
 | X.0 | S | Structural Resolution, basic metatheorems |
 | X.A | L (localizability) | Theorems 18.4.D–F (local-to-global) |
 | X.B | L (parametric) | Theorems 18.4.H, 18.4.L–M (learning) |
-| X.C | L (representability) | Theorem 19.4.N (master exclusion) |
+| X.C | L (representability) | Metatheorem 19.4.N (master exclusion) |
 
 ---
 
@@ -11419,7 +11423,7 @@ is finite (or compact).
 
 **(C.A3) Global height via local data.** The global height $H(x) := \sum_{v \in V} w_v \lambda_v(x)$ satisfies: $\{x \in X : H(x) \leq B\}$ is compact/finite for all $B > 0$.
 
-*Remark.* Conditions (C.A1)–(C.A3) are precisely the hypotheses (D1)–(D5) of Theorem 19.4.D.
+*Remark.* Conditions (C.A1)–(C.A3) are precisely the hypotheses (D1)–(D5) of Metatheorem 19.4.D.
 
 **C.B (Parametric Compactness).** Let $\Theta$ be the parameter space. We require:
 
@@ -11453,7 +11457,7 @@ satisfying:
 - $|\mathcal{I}(t)| \leq C_1 G(t)$,
 - $\phi_\alpha(t) \leq C_2 G(t)$ for all $\alpha \in \mathcal{I}(t)$.
 
-*Remark.* Conditions (D.A1)–(D.A3) are hypotheses (E1)–(E2) of Theorem 19.4.E.
+*Remark.* Conditions (D.A1)–(D.A3) are hypotheses (E1)–(E2) of Metatheorem 19.4.E.
 
 **D.B (Parametric Dissipation Regularity).** We require:
 
@@ -11473,7 +11477,7 @@ satisfying:
 
 **SC.A (Local Scale Decomposition).** There exists a local scale transfer function $L: T \to \mathbb{R}$ such that:
 $$\Phi(t_2) - \Phi(t_1) = \sum_{u=t_1}^{t_2-1} L(u) + o(1),$$
-where $L(u)$ is expressible in terms of local quantities $\phi_\alpha(u)$ satisfying the hypotheses of Theorem 19.4.E.
+where $L(u)$ is expressible in terms of local quantities $\phi_\alpha(u)$ satisfying the hypotheses of Metatheorem 19.4.E.
 
 **SC.B (Parametric Scale Regularity).** The map $(\theta, t_1, t_2) \mapsto \Phi_\theta(t_2) - \Phi_\theta(t_1)$ is continuous, and the decomposition $L_\theta(u)$ varies continuously with $\theta$.
 
@@ -11501,7 +11505,7 @@ where $L(u)$ is expressible in terms of local quantities $\phi_\alpha(u)$ satisf
 $$0 \to X \xrightarrow{\mathrm{loc}} \bigoplus_v X_v \xrightarrow{\Delta} Y$$
 is exact.
 
-*Remark.* Conditions (LS.A) and (LS.B) are hypotheses (F1)–(F6) of Theorem 19.4.F.
+*Remark.* Conditions (LS.A) and (LS.B) are hypotheses (F1)–(F6) of Metatheorem 19.4.F.
 
 **LS.C (Parametric Duality Regularity).** The local maps $\mathrm{loc}_v$ and pairings $\langle \cdot, \cdot \rangle_v$ can be encoded by parameters $\theta$ preserving exactness and duality algebraically, with continuous dependence on $\theta$.
 
@@ -11513,7 +11517,7 @@ is exact.
 
 **Cap.A (Lyapunov Height on Obstructions).** There exists a global obstruction height:
 $$H_{\mathcal{O}}(x) := \sum_{v \in V} w_v \lambda_v(x)$$
-defined via local metrics as in Theorem 19.4.D, satisfying:
+defined via local metrics as in Metatheorem 19.4.D, satisfying:
 
 **(Cap.A1) Finite sublevel sets.** $\{x \in \mathcal{O} : H_{\mathcal{O}}(x) \leq B\}$ is finite for all $B > 0$.
 
@@ -11703,7 +11707,7 @@ This is the analog of the Church-Turing thesis for dynamical systems: all physic
 
 ---
 
-**Theorem 0 (Convergence of Structure)**
+**Metatheorem 0 (Convergence of Structure)**
 
 *Combining Theorems 13.44 (Active Probing), 13.40 (Axiom-Expressivity), and 15.25 (Defect-to-Mode).*
 
@@ -11786,9 +11790,9 @@ An Étude applying the framework must verify:
 3. **Pincer Exclusion (to prove conjecture):**
    - [ ] Characterize universal R-breaking pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$
    - [ ] Prove no morphism exists from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ to $\mathbb{H}(Z)$
-   - [ ] Apply Theorem 19.4.N
+   - [ ] Apply Metatheorem 19.4.N
 
-**Application.** For a problem type $T$ and object $Z$: verifying the X.A refinements enables Theorems 18.4.D–F (local-to-global construction); verifying X.B enables Theorems 18.4.H and 18.4.L–M (meta-learning and parametric search); verifying X.C ensures representational completeness for Theorem 19.4.N. Once all refinements are verified and the pincer exclusion condition holds (no morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ to $\mathbb{H}(Z)$), Theorem 19.4.N yields the conjecture for $Z$.
+**Application.** For a problem type $T$ and object $Z$: verifying the X.A refinements enables Theorems 18.4.D–F (local-to-global construction); verifying X.B enables Theorems 18.4.H and 18.4.L–M (meta-learning and parametric search); verifying X.C ensures representational completeness for Metatheorem 19.4.N. Once all refinements are verified and the pincer exclusion condition holds (no morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ to $\mathbb{H}(Z)$), Metatheorem 19.4.N yields the conjecture for $Z$.
 
 ---
 
@@ -12021,7 +12025,7 @@ Therefore $X_{\mathrm{rest}} = 0$, and $X = X_{\mathrm{free}} \oplus X_{\mathrm{
 
 ---
 
-#### Theorem 19.4.D (Local Metrics $\Rightarrow$ Global Obstruction Height)
+#### Metatheorem 19.4.D (Local Metrics $\Rightarrow$ Global Obstruction Height)
 
 **Setup.** Let $\mathcal{O}$ be a (possibly infinite) set, thought of as an **obstruction sector** inside some hypostructure. Let $V$ be an index set of "localities" (places, patches, modes, etc.).
 
@@ -12117,7 +12121,7 @@ Thus the global sublevel set is finite. This proves (3). $\square$
 
 ---
 
-#### Theorem 19.4.E (Local Growth Bounds $\Rightarrow$ Subcritical Tower Scaling)
+#### Metatheorem 19.4.E (Local Growth Bounds $\Rightarrow$ Subcritical Tower Scaling)
 
 **Setup.** Let $\mathbb{H} = (X_t, S_{t \to s}, \Phi, \mathfrak{D})$ be a tower hypostructure indexed by $t \in T$, where $T \subseteq \mathbb{N}$ or $T \subseteq \mathbb{R}_+$ is discrete and unbounded.
 
@@ -12175,7 +12179,7 @@ $$\sum_{t \in T} w(t) \mathfrak{D}(t) < \infty.$$
 
 ---
 
-#### Theorem 19.4.F (Local Duality + Exactness $\Rightarrow$ Stiff Global Pairing)
+#### Metatheorem 19.4.F (Local Duality + Exactness $\Rightarrow$ Stiff Global Pairing)
 
 **Setup.** Let $X$ be a (real, complex, $p$-adic, or abstract) vector space or abelian group equipped with:
 
@@ -12280,7 +12284,7 @@ This is consistent with the stiffness conclusion: $X = X_{\mathrm{free}} \oplus 
 
 ---
 
-#### Theorem 19.4.G (Master Local-to-Global Schema for Conjectures)
+#### Metatheorem 19.4.G (Master Local-to-Global Schema for Conjectures)
 
 This theorem synthesizes Metatheorems 18.4.A–C and Theorems 18.4.D–F into a single master schema: for any mathematical object admitting an admissible hypostructure, **all global structural difficulty is handled by the framework**, and the associated conjecture reduces entirely to Axiom R.
 
@@ -12310,13 +12314,13 @@ $$X = X_{\mathrm{free}} \oplus X_{\mathrm{obs}} \oplus X_{\mathrm{rest}}.$$
 - Local metrics $\lambda_v: \mathcal{O} \to [0, \infty)$,
 - Weights $w_v > 0$,
 
-such that hypotheses (D1)–(D5) of Theorem 19.4.D hold (finite support, coercivity, local Northcott, summable weights).
+such that hypotheses (D1)–(D5) of Metatheorem 19.4.D hold (finite support, coercivity, local Northcott, summable weights).
 
 **(ii) Tower sector.** For $T \ni t \mapsto X_t$, there exist:
 - Local indices $\mathcal{I}(t)$,
 - Local energy pieces $\phi_\alpha(t)$,
 
-such that hypotheses (E1)–(E3) of Theorem 19.4.E hold (local growth bounds, summable weighted growth, local dissipation control).
+such that hypotheses (E1)–(E3) of Metatheorem 19.4.E hold (local growth bounds, summable weighted growth, local dissipation control).
 
 **(iii) Pairing sector.** For $X$, there exist:
 - Local spaces $X_v$,
@@ -12324,7 +12328,7 @@ such that hypotheses (E1)–(E3) of Theorem 19.4.E hold (local growth bounds, su
 - Localization maps $\mathrm{loc}_v: X \to X_v$,
 - A local-to-global complex $0 \to X \xrightarrow{\mathrm{loc}} \bigoplus_v X_v \xrightarrow{\Delta} Y$,
 
-such that hypotheses (F1)–(F6) of Theorem 19.4.F hold (local perfect duality, exactness, sector identification, no hidden vanishing).
+such that hypotheses (F1)–(F6) of Metatheorem 19.4.F hold (local perfect duality, exactness, sector identification, no hidden vanishing).
 
 **Core axiom assumption.** Assume the induced hypostructures satisfy the core axioms (C, D, SC, LS, Cap, TB, GC, R) in the sense required by the Structural Resolution theorems.
 
@@ -12367,11 +12371,11 @@ All "conventional difficulty" (blow-ups, spectral growth, bad obstructions, null
 
 **Step 1 (Local structure implies local hypotheses).** By assumption, $Z$ admits admissible local structure. This means:
 
-- For the obstruction sector: The data $(\mathcal{O}, \{\lambda_v\}, \{w_v\})$ satisfies hypotheses (D1)–(D5) of Theorem 19.4.D.
+- For the obstruction sector: The data $(\mathcal{O}, \{\lambda_v\}, \{w_v\})$ satisfies hypotheses (D1)–(D5) of Metatheorem 19.4.D.
 
-- For the tower sector: The data $(\Phi_{\mathrm{tower}}, \{\phi_\alpha\}, G)$ satisfies hypotheses (E1)–(E3) of Theorem 19.4.E.
+- For the tower sector: The data $(\Phi_{\mathrm{tower}}, \{\phi_\alpha\}, G)$ satisfies hypotheses (E1)–(E3) of Metatheorem 19.4.E.
 
-- For the pairing sector: The data $(X, \{X_v\}, \{\langle \cdot, \cdot \rangle_v\}, \{\mathrm{loc}_v\})$ satisfies hypotheses (F1)–(F6) of Theorem 19.4.F.
+- For the pairing sector: The data $(X, \{X_v\}, \{\langle \cdot, \cdot \rangle_v\}, \{\mathrm{loc}_v\})$ satisfies hypotheses (F1)–(F6) of Metatheorem 19.4.F.
 
 **Step 2 (Local hypotheses imply global axioms via 18.4.D/E/F).** Applying the conclusions of Theorems 18.4.D, 18.4.E, 18.4.F:
 
@@ -12428,7 +12432,7 @@ All global structural difficulty (blow-ups, spectral growth, bad obstructions, n
 
 ---
 
-#### Theorem 19.4.H (Meta-Learning Axiom-Consistent Local Structure)
+#### Metatheorem 19.4.H (Meta-Learning Axiom-Consistent Local Structure)
 
 This theorem sits atop the Conjecture-Axiom Equivalence (18.4.G): when admissible local structure is not given explicitly but exists within a parametric family, it can be *learned* by minimizing axiom risk.
 
@@ -12449,11 +12453,11 @@ all over the same underlying object $\mathbb{H}$, with local structure determine
 
 **Definition (Axiom-risk functional).** For each $\theta$, define component risks:
 
-**(H1) Obstruction risk** $\mathcal{R}_{\mathrm{obs}}(\theta) \geq 0$: Zero iff the local data $\{\lambda_v(\cdot; \theta), w_v(\theta)\}$ satisfies all hypotheses of Theorem 19.4.D, so that the induced global height $H_{\mathcal{O}}$ satisfies Axioms $C_{\mathcal{O}}$ and $Cap_{\mathcal{O}}$, and Metatheorem 19.4.B applies.
+**(H1) Obstruction risk** $\mathcal{R}_{\mathrm{obs}}(\theta) \geq 0$: Zero iff the local data $\{\lambda_v(\cdot; \theta), w_v(\theta)\}$ satisfies all hypotheses of Metatheorem 19.4.D, so that the induced global height $H_{\mathcal{O}}$ satisfies Axioms $C_{\mathcal{O}}$ and $Cap_{\mathcal{O}}$, and Metatheorem 19.4.B applies.
 
-**(H2) Tower risk** $\mathcal{R}_{\mathrm{tower}}(\theta) \geq 0$: Zero iff the local decomposition $\Phi(t; \theta) = \sum_\alpha \phi_\alpha(t; \theta)$ and growth function $G_\theta(t)$ satisfy Theorem 19.4.E, so that subcritical Axiom $D_{\mathrm{tower}}$ holds and Metatheorem 19.4.A applies.
+**(H2) Tower risk** $\mathcal{R}_{\mathrm{tower}}(\theta) \geq 0$: Zero iff the local decomposition $\Phi(t; \theta) = \sum_\alpha \phi_\alpha(t; \theta)$ and growth function $G_\theta(t)$ satisfy Metatheorem 19.4.E, so that subcritical Axiom $D_{\mathrm{tower}}$ holds and Metatheorem 19.4.A applies.
 
-**(H3) Pairing risk** $\mathcal{R}_{\mathrm{pair}}(\theta) \geq 0$: Zero iff the local duality data satisfies all hypotheses of Theorem 19.4.F, so that Axioms LS and GC hold and Metatheorem 19.4.C applies.
+**(H3) Pairing risk** $\mathcal{R}_{\mathrm{pair}}(\theta) \geq 0$: Zero iff the local duality data satisfies all hypotheses of Metatheorem 19.4.F, so that Axioms LS and GC hold and Metatheorem 19.4.C applies.
 
 **(H4) Baseline axiom risk** $\mathcal{R}_{\mathrm{base}}(\theta) \geq 0$: Measuring violations of core global axioms (C, D, SC, Cap, TB, GC, local forms of R) on the three hypostructures.
 
@@ -12491,7 +12495,7 @@ For this $\theta^*$, the local data satisfies all hypotheses of Theorems 18.4.D,
 
 - $\mathbb{H}_{\mathrm{pair}}(\theta^*)$ satisfies LS and GC; Metatheorem 19.4.C applies.
 
-All global structural consequences from Metatheorems 18.4.A–C and Theorem 19.4.G apply to $\mathbb{H}(\theta^*)$.
+All global structural consequences from Metatheorems 18.4.A–C and Metatheorem 19.4.G apply to $\mathbb{H}(\theta^*)$.
 
 **(3) Meta-learning convergence.** Any sequence $(\theta_k)$ generated by $U$ with non-increasing $\mathcal{R}_{\mathrm{axioms}}(\theta_k)$ has accumulation points $\hat{\theta}$ satisfying
 $$\mathcal{R}_{\mathrm{axioms}}(\hat{\theta}) = 0.$$
@@ -12511,18 +12515,18 @@ Therefore, there exists $\theta^* \in \Theta$ with $\mathcal{R}_{\mathrm{axioms}
 **Step 2 (Zero risk implies all hypotheses hold).** Suppose $\mathcal{R}_{\mathrm{axioms}}(\theta^*) = 0$. Since $\mathcal{R}_{\mathrm{axioms}}$ is a sum of non-negative terms:
 $$\mathcal{R}_{\mathrm{axioms}}(\theta^*) = \mathcal{R}_{\mathrm{obs}}(\theta^*) + \mathcal{R}_{\mathrm{tower}}(\theta^*) + \mathcal{R}_{\mathrm{pair}}(\theta^*) + \mathcal{R}_{\mathrm{base}}(\theta^*) = 0$$
 implies each component vanishes:
-- $\mathcal{R}_{\mathrm{obs}}(\theta^*) = 0$: Hypotheses (D1)–(D5) of Theorem 19.4.D hold.
-- $\mathcal{R}_{\mathrm{tower}}(\theta^*) = 0$: Hypotheses (E1)–(E3) of Theorem 19.4.E hold.
-- $\mathcal{R}_{\mathrm{pair}}(\theta^*) = 0$: Hypotheses (F1)–(F6) of Theorem 19.4.F hold.
+- $\mathcal{R}_{\mathrm{obs}}(\theta^*) = 0$: Hypotheses (D1)–(D5) of Metatheorem 19.4.D hold.
+- $\mathcal{R}_{\mathrm{tower}}(\theta^*) = 0$: Hypotheses (E1)–(E3) of Metatheorem 19.4.E hold.
+- $\mathcal{R}_{\mathrm{pair}}(\theta^*) = 0$: Hypotheses (F1)–(F6) of Metatheorem 19.4.F hold.
 - $\mathcal{R}_{\mathrm{base}}(\theta^*) = 0$: Core axioms (C, D, SC, LS, Cap, TB, GC) hold.
 
 **Step 3 (Apply Theorems 18.4.D/E/F).** With all hypotheses satisfied at $\theta^*$:
 
-- **Theorem 19.4.D** $\Rightarrow$ Global obstruction height $H_{\mathcal{O}}$ is well-defined with gap property and Global Northcott. Thus $\mathbb{H}_{\mathrm{obs}}(\theta^*)$ satisfies Axioms $C_{\mathcal{O}}$ and $Cap_{\mathcal{O}}$.
+- **Metatheorem 19.4.D** $\Rightarrow$ Global obstruction height $H_{\mathcal{O}}$ is well-defined with gap property and Global Northcott. Thus $\mathbb{H}_{\mathrm{obs}}(\theta^*)$ satisfies Axioms $C_{\mathcal{O}}$ and $Cap_{\mathcal{O}}$.
 
-- **Theorem 19.4.E** $\Rightarrow$ Weighted dissipation $\sum_t w(t) \mathfrak{D}(t) < \infty$. Thus $\mathbb{H}_{\mathrm{tower}}(\theta^*)$ satisfies subcritical Axiom $D_{\mathrm{tower}}$.
+- **Metatheorem 19.4.E** $\Rightarrow$ Weighted dissipation $\sum_t w(t) \mathfrak{D}(t) < \infty$. Thus $\mathbb{H}_{\mathrm{tower}}(\theta^*)$ satisfies subcritical Axiom $D_{\mathrm{tower}}$.
 
-- **Theorem 19.4.F** $\Rightarrow$ Global pairing is non-degenerate on $X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ and $X_{\mathrm{rest}} = 0$. Thus $\mathbb{H}_{\mathrm{pair}}(\theta^*)$ satisfies Axioms LS and GC.
+- **Metatheorem 19.4.F** $\Rightarrow$ Global pairing is non-degenerate on $X_{\mathrm{free}} \oplus X_{\mathrm{obs}}$ and $X_{\mathrm{rest}} = 0$. Thus $\mathbb{H}_{\mathrm{pair}}(\theta^*)$ satisfies Axioms LS and GC.
 
 **Step 4 (Apply Metatheorems 18.4.A/B/C).** With global axioms established:
 
@@ -12551,7 +12555,7 @@ Therefore, the meta-learning trajectory converges to the axiom-consistent set. T
 
 - Such $\theta^*$ can be found by meta-learning (gradient descent on $\mathcal{R}_{\mathrm{axioms}}$).
 - At $\theta^*$, all hypotheses of 18.4.D/E/F and core axioms hold.
-- Therefore, by Theorem 19.4.G (Conjecture-Axiom Equivalence), the conjecture for $\mathbb{H}(\theta^*)$ reduces to Axiom R.
+- Therefore, by Metatheorem 19.4.G (Conjecture-Axiom Equivalence), the conjecture for $\mathbb{H}(\theta^*)$ reduces to Axiom R.
 
 The framework handles all global structural difficulty automatically. The only problem-specific content is:
 1. The existence of $\theta^* \in \Theta$ (expressivity assumption H5),
@@ -12559,7 +12563,7 @@ The framework handles all global structural difficulty automatically. The only p
 
 This proves (4). $\square$
 
-**Key Insight.** Theorem 19.4.H shows that admissible local structure need not be constructed by hand. If it exists within a parametric family, minimizing axiom risk will find it. Combined with Theorem 19.4.G, this means: *define a sufficiently expressive parameter space, train to zero axiom risk, and the only remaining question is Axiom R.*
+**Key Insight.** Metatheorem 19.4.H shows that admissible local structure need not be constructed by hand. If it exists within a parametric family, minimizing axiom risk will find it. Combined with Metatheorem 19.4.G, this means: *define a sufficiently expressive parameter space, train to zero axiom risk, and the only remaining question is Axiom R.*
 
 ---
 
@@ -12567,7 +12571,7 @@ This proves (4). $\square$
 
 ---
 
-### Theorem 19.4.I (Morphisms of Hypostructures and Axiom R)
+### Metatheorem 19.4.I (Morphisms of Hypostructures and Axiom R)
 
 *Categorical structure of the framework and R-validity as a morphism property.*
 
@@ -12594,7 +12598,7 @@ where:
 **Admissibility conditions:**
 - Core axioms C, D, SC, LS, Cap, TB, GC hold for each underlying sector.
 - Local hypotheses of Theorems 18.4.D, 18.4.E, 18.4.F are satisfied.
-- The object is admissible in the sense of Theorem 19.4.G.
+- The object is admissible in the sense of Metatheorem 19.4.G.
 
 **18.4.I.2. Morphisms of T-Hypostructures**
 
@@ -12668,7 +12672,7 @@ However, **R-validity does not automatically transfer along morphisms**. This is
 
 ---
 
-### Theorem 19.4.J (Universal R-Breaking Pattern for Type T)
+### Metatheorem 19.4.J (Universal R-Breaking Pattern for Type T)
 
 *Existence of an initial object in the R-breaking subcategory.*
 
@@ -12701,7 +12705,7 @@ satisfying the **universal mapping property**:
 
 **18.4.J.3. Characterization of Initiality**
 
-**Theorem 19.4.J (Universal Mapping Property).**
+**Metatheorem 19.4.J (Universal Mapping Property).**
 
 *Hypotheses:*
 - (H1) $T$ is a fixed problem type with category $\mathbf{Hypo}_T$.
@@ -12731,7 +12735,7 @@ Thus the "R-breaking pattern" of $\mathbb{H}_{\mathrm{bad}}^{(T)}$ appears withi
 
 ---
 
-### Theorem 19.4.K (Pincer Representation and Exclusion Schema)
+### Metatheorem 19.4.K (Pincer Representation and Exclusion Schema)
 
 *The reusable core of the pincer strategy.*
 
@@ -12741,9 +12745,9 @@ Thus the "R-breaking pattern" of $\mathbb{H}_{\mathrm{bad}}^{(T)}$ appears withi
 
 *Hypotheses:*
 - (H1) $T$ is a fixed problem type.
-- (H2) $\mathbb{H}_{\mathrm{bad}}^{(T)}$ exists as universal R-breaking pattern (Theorem 19.4.J).
+- (H2) $\mathbb{H}_{\mathrm{bad}}^{(T)}$ exists as universal R-breaking pattern (Metatheorem 19.4.J).
 - (H3) $Z$ is a concrete object of type $T$.
-- (H4) $\mathbb{H}(Z) \in \mathbf{Hypo}_T$ is its admissible T-hypostructure (via Theorem 19.4.G).
+- (H4) $\mathbb{H}(Z) \in \mathbf{Hypo}_T$ is its admissible T-hypostructure (via Metatheorem 19.4.G).
 
 *Conclusion:* If Axiom R(T) fails for $\mathbb{H}(Z)$, then there exists a morphism:
 $$F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$$
@@ -12754,7 +12758,7 @@ in $\mathbf{Hypo}_T$.
 **Step 1 (Hypothesis translation).** Assume Axiom R(T) fails for $\mathbb{H}(Z)$. By definition of R-breaking:
 $$\mathbb{H}(Z) \in \mathbf{Hypo}_T^{\neg R}.$$
 
-**Step 2 (Apply universal property).** By Theorem 19.4.J, $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is initial in $\mathbf{Hypo}_T^{\neg R}$. Since $\mathbb{H}(Z) \in \mathbf{Hypo}_T^{\neg R}$, there exists a morphism:
+**Step 2 (Apply universal property).** By Metatheorem 19.4.J, $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is initial in $\mathbf{Hypo}_T^{\neg R}$. Since $\mathbb{H}(Z) \in \mathbf{Hypo}_T^{\neg R}$, there exists a morphism:
 $$F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z).$$
 
 **Step 3 (Interpretation).** This is the "top jaw" of the pincer:
@@ -12764,7 +12768,7 @@ The morphism $F_Z$ witnesses how the R-failure in $\mathbb{H}(Z)$ arises from th
 
 **18.4.K.2. Pincer Exclusion Schema**
 
-**Theorem 19.4.K.2 (Pincer Exclusion Schema).**
+**Metatheorem 19.4.K (Pincer Exclusion Schema).**
 
 *Hypotheses:*
 - (H1) $T$ is a fixed problem type.
@@ -12789,7 +12793,7 @@ $$\text{(No morphism exists)} \Rightarrow \text{(Axiom R(T) does not fail)} \Lef
 **Step 3 (Apply exclusion hypothesis).** By hypothesis (H5), no such morphism exists. Therefore:
 $$\mathbb{H}(Z) \text{ is R-valid}.$$
 
-**Step 4 (Conjecture equivalence).** By the Conjecture Schema of Theorem 19.4.I:
+**Step 4 (Conjecture equivalence).** By the Conjecture Schema of Metatheorem 19.4.I:
 $$\text{(}\mathbb{H}(Z) \text{ is R-valid)} \Leftrightarrow \text{(Conjecture for } Z \text{ holds)}$$
 
 Thus the conjecture for $Z$ holds. $\square$
@@ -12806,7 +12810,7 @@ Thus the conjecture for $Z$ holds. $\square$
 
 4. **Conclude by 18.4.K.2:** The exclusion implies R-validity, hence the conjecture holds.
 
-*Proof.* Direct application of Theorem 19.4.K.2. $\square$
+*Proof.* Direct application of Metatheorem 19.4.K.2. $\square$
 
 **18.4.K.4. Methods for Morphism Exclusion**
 
@@ -12834,7 +12838,7 @@ What remains for each Étude is:
 
 ---
 
-### Theorem 19.4.L (Parametric Realization of Admissible T-Hypostructures)
+### Metatheorem 19.4.L (Parametric Realization of Admissible T-Hypostructures)
 
 *Representational completeness: searching over parameters is equivalent to searching over all admissible hypostructures.*
 
@@ -12860,7 +12864,7 @@ Equivalently: the parametric family $\{\mathbb{H}(\theta) : \theta \in \Theta\}$
 
 **18.4.L.3. Axiom-Risk on $\Theta$**
 
-Let $\mathcal{R}_{\mathrm{axioms}}: \Theta \to [0, \infty)$ be the axiom-risk functional from Theorem 19.4.H, measuring violations of:
+Let $\mathcal{R}_{\mathrm{axioms}}: \Theta \to [0, \infty)$ be the axiom-risk functional from Metatheorem 19.4.H, measuring violations of:
 - Core axioms: C, D, SC, LS, Cap, TB, GC
 - Local hypotheses of Theorems 18.4.D, 18.4.E, 18.4.F
 
@@ -12875,7 +12879,7 @@ $$\liminf_{n \to \infty} \mathcal{R}_{\mathrm{axioms}}(\theta_n) > 0.$$
 
 **18.4.L.4. Statement**
 
-**Theorem 19.4.L (Parametric Realization).**
+**Metatheorem 19.4.L (Parametric Realization).**
 
 *Hypotheses:*
 - (H1) $(\Theta, \theta \mapsto \mathbb{H}(\theta))$ is representationally complete for type $T$.
@@ -12907,11 +12911,11 @@ where $\theta_1 \sim_\theta \theta_2$ iff $\mathbb{H}(\theta_1) \cong \mathbb{H}
 
 Thus, optimization over $\Theta$ with $\mathcal{R}_{\mathrm{axioms}} = 0$ constraint is equivalent to optimization over $\mathbf{Hypo}_T$. $\square$
 
-**Key Insight.** Theorem 19.4.L transforms the abstract problem of "searching over all admissible hypostructures" into the concrete problem of "searching over parameter space $\Theta$." This makes the framework computationally actionable: rather than reasoning about abstract categories, we can optimize over parameters.
+**Key Insight.** Metatheorem 19.4.L transforms the abstract problem of "searching over all admissible hypostructures" into the concrete problem of "searching over parameter space $\Theta$." This makes the framework computationally actionable: rather than reasoning about abstract categories, we can optimize over parameters.
 
 ---
 
-### Theorem 19.4.M (Adversarial Training for R-Breaking Patterns)
+### Metatheorem 19.4.M (Adversarial Training for R-Breaking Patterns)
 
 *A min-max game over parameters that either discovers R-breaking patterns or certifies their absence.*
 
@@ -12919,8 +12923,8 @@ Thus, optimization over $\Theta$ with $\mathcal{R}_{\mathrm{axioms}} = 0$ constr
 
 Fix:
 - A type $T$ with category $\mathbf{Hypo}_T$.
-- A representationally complete parameterization $(\Theta, \theta \mapsto \mathbb{H}(\theta))$ (Theorem 19.4.L).
-- The axiom-risk functional $\mathcal{R}_{\mathrm{axioms}}: \Theta \to [0, \infty)$ (Theorem 19.4.H).
+- A representationally complete parameterization $(\Theta, \theta \mapsto \mathbb{H}(\theta))$ (Metatheorem 19.4.L).
+- The axiom-risk functional $\mathcal{R}_{\mathrm{axioms}}: \Theta \to [0, \infty)$ (Metatheorem 19.4.H).
 
 **Definition (R-violation functional).** The **correspondence-risk** or **R-violation functional** is:
 $$\mathcal{R}_R: \Theta \to [0, \infty)$$
@@ -12947,10 +12951,10 @@ $$V_{\mathrm{bad}} := \sup_{\theta \in \Theta} \mathcal{L}_{\mathrm{bad}}(\theta
 
 **18.4.M.3. Statement**
 
-**Theorem 19.4.M (Adversarial Hypostructure Search).**
+**Metatheorem 19.4.M (Adversarial Hypostructure Search).**
 
 *Hypotheses:*
-- (H1) $\Theta$ is representationally complete (Theorem 19.4.L).
+- (H1) $\Theta$ is representationally complete (Metatheorem 19.4.L).
 - (H2) $\mathcal{R}_{\mathrm{axioms}}$ and $\mathcal{R}_R$ are continuous.
 - (H3) Coercivity: sublevel sets of $\mathcal{L}_{\mathrm{good}}$ and superlevel sets of $\mathcal{L}_{\mathrm{bad}}$ (with bounded axiom-risk) are compact.
 - (H4) The supremum $V_{\mathrm{bad}}$ and infimum $V_{\mathrm{good}}$ are attained (or approximable by convergent sequences).
@@ -12967,7 +12971,7 @@ $$V_{\mathrm{bad}} := \sup_{\theta \in \Theta} \mathcal{L}_{\mathrm{bad}}(\theta
 
 3. **Connection to universal R-breaking pattern.** If R-breaking admissible hypostructures exist and adversarial search finds a family $\{\theta_{\mathrm{bad}, i}\}$ with:
    $$\mathcal{R}_{\mathrm{axioms}}(\theta_{\mathrm{bad}, i}) = 0, \quad \mathcal{R}_R(\theta_{\mathrm{bad}, i}) > 0,$$
-   whose images $\mathbb{H}(\theta_{\mathrm{bad}, i})$ form a directed system in $\mathbf{Hypo}_T^{\neg R}$, then any colimit of this system is a **candidate universal R-breaking pattern** $\mathbb{H}_{\mathrm{bad}}^{(T)}$ (Theorem 19.4.J).
+   whose images $\mathbb{H}(\theta_{\mathrm{bad}, i})$ form a directed system in $\mathbf{Hypo}_T^{\neg R}$, then any colimit of this system is a **candidate universal R-breaking pattern** $\mathbb{H}_{\mathrm{bad}}^{(T)}$ (Metatheorem 19.4.J).
 
 *Proof.*
 
@@ -13031,7 +13035,7 @@ The complete pipeline:
 
 ---
 
-### Theorem 19.4.N (Principle of Structural Exclusion)
+### Metatheorem 19.4.N (Principle of Structural Exclusion)
 
 *The capstone theorem unifying all previous metatheorems into a single structural exclusion principle.*
 
@@ -13117,7 +13121,7 @@ in $\mathbf{Hypo}_T$. That is, there is no way to embed the universal R-breaking
 
 **18.4.N.6. Statement**
 
-**Theorem 19.4.N (Principle of Structural Exclusion).**
+**Metatheorem 19.4.N (Principle of Structural Exclusion).**
 
 *Hypotheses:* Assume (N1)–(N11) hold for type $T$, parameterization $\Theta$, risk functionals $\mathcal{R}_{\mathrm{axioms}}$ and $\mathcal{R}_R$, universal R-breaking pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$, and object $Z$.
 
@@ -13132,7 +13136,7 @@ $$F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z).$$
 
 **(4) Structural exclusion for $Z$.** By the pincer exclusion condition (N11), no such morphism $F$ exists. Hence the assumption that Axiom R(T,Z) fails leads to a contradiction. Therefore Axiom R(T,Z) must hold for $\mathbb{H}(Z)$.
 
-**(5) Conjecture for $Z$.** By the definition of the conjecture (N3) and Theorem 19.4.G (Conjecture-Axiom Equivalence: Conjecture $\Leftrightarrow$ Axiom R), the conjecture for $Z$ holds:
+**(5) Conjecture for $Z$.** By the definition of the conjecture (N3) and Metatheorem 19.4.G (Conjecture-Axiom Equivalence: Conjecture $\Leftrightarrow$ Axiom R), the conjecture for $Z$ holds:
 $$\mathrm{Conj}(T,Z) \text{ is true.}$$
 
 *Proof.*
@@ -13154,16 +13158,16 @@ By Step 1, the constraint set $\{\theta : \mathcal{R}_{\mathrm{axioms}}(\theta) 
 
 By coercivity (N5) and continuity (N5, N6), together with attainment assumption (N7), suprema and infima are achieved or approximated. Adversarial maximization of $\mathcal{L}_{\mathrm{bad}}$ systematically explores the R-breaking subcategory $\mathbf{Hypo}_T^{\neg R}$.
 
-By Theorem 19.4.M, if R-breaking models exist, adversarial search discovers them. By Theorem 19.4.J, the universal R-breaking pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is initial in $\mathbf{Hypo}_T^{\neg R}$, so every R-breaking model receives a morphism from it. This proves (2).
+By Metatheorem 19.4.M, if R-breaking models exist, adversarial search discovers them. By Metatheorem 19.4.J, the universal R-breaking pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is initial in $\mathbf{Hypo}_T^{\neg R}$, so every R-breaking model receives a morphism from it. This proves (2).
 
 **Step 3 (Pincer representation).** Suppose, for contradiction, that Axiom R(T,Z) fails for $\mathbb{H}(Z)$. By definition of R-breaking:
 $$\mathbb{H}(Z) \in \mathbf{Hypo}_T^{\neg R}.$$
 
-By (N9), $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is an initial object of $\mathbf{Hypo}_T^{\neg R}$. By the universal property of initial objects (Theorem 19.4.J), there exists a morphism:
+By (N9), $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is an initial object of $\mathbf{Hypo}_T^{\neg R}$. By the universal property of initial objects (Metatheorem 19.4.J), there exists a morphism:
 $$F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$$
 in $\mathbf{Hypo}_T$.
 
-This morphism satisfies all structure-preservation conditions (M1)–(M4) of Theorem 19.4.I:
+This morphism satisfies all structure-preservation conditions (M1)–(M4) of Metatheorem 19.4.I:
 - (M1) Semiflow intertwining: $F_Z$ commutes with dynamics.
 - (M2) Lyapunov control: $F_Z$ respects energy and dissipation bounds.
 - (M3) Pairing preservation: $F_Z$ preserves bilinear structure.
@@ -13185,7 +13189,7 @@ Therefore Axiom R(T,Z) holds for $\mathbb{H}(Z)$. This proves (4).
 **Step 5 (Conjecture for $Z$).** By (N3), the conjecture for $Z$ is defined as:
 $$\mathrm{Conj}(T,Z) \quad \Longleftrightarrow \quad \text{Axiom R}(T,Z) \text{ holds}.$$
 
-By Theorem 19.4.G (Master Local-to-Global Schema), for admissible $\mathbb{H}(Z)$:
+By Metatheorem 19.4.G (Master Local-to-Global Schema), for admissible $\mathbb{H}(Z)$:
 $$\text{Conjecture for } Z \quad \Longleftrightarrow \quad \text{Axiom R}(Z).$$
 
 Step 4 established that Axiom R(T,Z) holds. Therefore:
@@ -13195,7 +13199,7 @@ This proves (5). $\square$
 
 **18.4.N.7. Synthesis: The Complete Structural Exclusion Pipeline**
 
-Theorem 19.4.N synthesizes the entire metatheoretic apparatus into a single principle:
+Metatheorem 19.4.N synthesizes the entire metatheoretic apparatus into a single principle:
 
 | Metatheorem | Role in 18.4.N |
 |-------------|----------------|
@@ -13220,7 +13224,7 @@ The proof strategy encoded in 18.4.N is:
 7. **Prove morphism exclusion:** Show no $F: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$ exists (18.4.K).
 8. **Conclude:** Axiom R(T,Z) holds by structural exclusion; conjecture follows.
 
-**Key Insight.** Theorem 19.4.N shows that proving a conjecture in the hypostructure framework reduces to a single task: **excluding morphisms from the universal R-breaking pattern**. All other structural difficulties (blow-ups, spectral growth, obstructions, null directions) are handled automatically by Metatheorems 18.4.A–M. The remaining problem-specific work is to show that the specific invariants, positivity conditions, integrality constraints, or functional equations of $\mathbb{H}(Z)$ are incompatible with any morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$.
+**Key Insight.** Metatheorem 19.4.N shows that proving a conjecture in the hypostructure framework reduces to a single task: **excluding morphisms from the universal R-breaking pattern**. All other structural difficulties (blow-ups, spectral growth, obstructions, null directions) are handled automatically by Metatheorems 18.4.A–M. The remaining problem-specific work is to show that the specific invariants, positivity conditions, integrality constraints, or functional equations of $\mathbb{H}(Z)$ are incompatible with any morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$.
 
 ---
 
@@ -13243,7 +13247,7 @@ The proof strategy encoded in 18.4.N is:
 | 18.4.M | Adversarial training | Find R-breaking patterns or certify absence |
 | 18.4.N | Master structural exclusion | Conjecture follows from morphism exclusion |
 
-The framework now encodes a complete proof strategy with computational realization: for any problem type $T$ and object $Z$, the conjecture reduces to excluding morphisms from the universal R-breaking pattern into $\mathbb{H}(Z)$. Theorem 19.4.N is the capstone result, showing that all metatheorems combine to yield: **if no morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ into $\mathbb{H}(Z)$ exists, then the conjecture for $Z$ holds**.
+The framework now encodes a complete proof strategy with computational realization: for any problem type $T$ and object $Z$, the conjecture reduces to excluding morphisms from the universal R-breaking pattern into $\mathbb{H}(Z)$. Metatheorem 19.4.N is the capstone result, showing that all metatheorems combine to yield: **if no morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ into $\mathbb{H}(Z)$ exists, then the conjecture for $Z$ holds**.
 
 ---
 
@@ -13337,7 +13341,7 @@ We require that this gluing procedure is:
 
 #### 21.4 Statement
 
-**Theorem 21 (Structural Singularity Completeness via Partition of Unity).**
+**Metatheorem 21 (Structural Singularity Completeness).**
 
 *Hypotheses:* Assume the structures and conditions of Sections 21.1–21.3 hold.
 
@@ -14052,7 +14056,7 @@ for paths traversed between times $0$ and $T$.
 
 ### 19.3 Fractal Representation Theorem
 
-**Theorem 19.1 (Fractal Representation — FR).** Let $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G, M, \ldots)$ be a hypostructure satisfying:
+**Metatheorem 19.1 (Fractal Representation).** Let $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G, M, \ldots)$ be a hypostructure satisfying:
 
 **(FR1) Finite local complexity:** For each energy level $E$, the number of local configurations (modulo $G$) is finite.
 
@@ -14106,7 +14110,7 @@ for some fixed $\delta > 0$ depending on the metric structure of $X/G$.
 - $g_e \in H$ for each edge $e \in E$ (the parallel transport)
 - Consistency: gauge transformations at vertices act as $g_e \mapsto h_v^{-1} g_e h_w$ for edge $e = \{v, w\}$
 
-**Theorem 19.2 (Symmetry Completion — SCmp).** Let $\mathcal{F}$ be a well-formed Fractal Set with local gauge structure $(H, \{g_e\})$. Then:
+**Metatheorem 19.2 (Symmetry Completion).** Let $\mathcal{F}$ be a well-formed Fractal Set with local gauge structure $(H, \{g_e\})$. Then:
 
 **(1) Existence.** There exists a unique (up to isomorphism) hypostructure $\mathcal{H}_{\mathcal{F}}$ such that:
 - The symmetry group $G$ of $\mathcal{H}_{\mathcal{F}}$ contains $H$ as a subgroup
@@ -14154,7 +14158,7 @@ where $\rho$ is a representation of the gauge group $H$.
 $$F_{\mu\nu} := \lim_{A \to 0} \frac{\text{hol}(\gamma) - \mathbf{1}}{A}$$
 where the limit is taken as the Fractal Set is refined.
 
-**Theorem 19.3 (Gauge-Geometry Correspondence — GG).** Let $\mathcal{F}$ be a Fractal Set with:
+**Metatheorem 19.3 (Gauge-Geometry Correspondence).** Let $\mathcal{F}$ be a Fractal Set with:
 - Gauge group $H = K \times \text{Diff}(M)$ where $K$ is a compact Lie group
 - IG approximating a $d$-dimensional manifold $M$ in the large-$N$ limit
 - Fitness functional $\Phi_V$ satisfying appropriate regularity
@@ -14204,7 +14208,7 @@ for functions $f: V \to \mathbb{R}$.
 $$p_t(u, v) := \langle \delta_u, e^{-t \Delta_\text{IG}} \delta_v \rangle$$
 encoding the probability of a random walk from $u$ to $v$ in time $t$.
 
-**Theorem 20.1 (Emergent Continuum — EC).** Let $\{\mathcal{F}_N\}_{N \to \infty}$ be a sequence of Fractal Sets with:
+**Metatheorem 20.1 (Emergent Continuum).** Let $\{\mathcal{F}_N\}_{N \to \infty}$ be a sequence of Fractal Sets with:
 
 **(EC1) Bounded degree:** $\sup_v \deg(v) \leq D$ uniformly in $N$.
 
@@ -14256,7 +14260,7 @@ where $x, y$ are the limit points.
 - **Semantic horizon severity:** $S(d)$ measures information-theoretic limits on coherent description
 - **Complexity-coherence balance:** $B(d) = T(d) + S(d)$ total constraint pressure
 
-**Theorem 20.2 (Dimension Selection — DSP).** There exists a non-empty finite set $D_{\text{admissible}} \subset \mathbb{Z}_{>0}$ such that:
+**Metatheorem 20.2 (Dimension Selection).** There exists a non-empty finite set $D_{\text{admissible}} \subset \mathbb{Z}_{>0}$ such that:
 
 **(1) Dimensions in $D_{\text{admissible}}$ avoid unavoidable failure modes:** For $d \in D_{\text{admissible}}$, there exist hypostructures with emergent dimension $d$ satisfying all axioms with positive barrier margins.
 
@@ -14306,7 +14310,7 @@ For $d$ sufficiently small:
 
 satisfying: The RG flow from $\mathcal{R}_\text{micro}$ converges to $\mathcal{H}_\text{macro}$.
 
-**Theorem 20.3 (Micro-Macro Consistency Condition — CB).** Let $\mathcal{H}_*$ be a macroscopic hypostructure (e.g., Standard Model + GR). Then:
+**Metatheorem 20.3 (Micro-Macro Consistency).** Let $\mathcal{H}_*$ be a macroscopic hypostructure (e.g., Standard Model + GR). Then:
 
 **(1) Constraint equations.** The microscopic rules $\mathcal{R}_\text{micro}$ must satisfy a system of algebraic constraints $\mathcal{C}(\mathcal{R}_\text{micro}, \mathcal{H}_*) = 0$ ensuring RG flow to $\mathcal{H}_*$.
 
@@ -14346,7 +14350,7 @@ Linearizing around the fixed point, the microscopic perturbations must lie in th
 
 **(O4) Prediction:** $\mathcal{O}$ constructs internal models $\hat{\mathcal{H}}$ of the ambient hypostructure.
 
-**Theorem 20.4 (Observer Universality — OU).** Let $\mathcal{O} \hookrightarrow \mathcal{H}$ be an observer. Then:
+**Metatheorem 20.4 (Observer Universality).** Let $\mathcal{O} \hookrightarrow \mathcal{H}$ be an observer. Then:
 
 **(1) Barrier inheritance.** Every barrier in $\mathcal{H}$ induces a barrier in $\mathcal{O}$:
 $$E^*_{\mathcal{O}} \leq E^*_{\mathcal{H}}$$
@@ -14387,7 +14391,7 @@ for some $\gamma > 0$ depending on the Lyapunov exponents.
 $$R^\infty(\mathcal{H}_1) = R^\infty(\mathcal{H}_2) =: \mathcal{H}_*$$
 where $R^\infty$ denotes the infinite RG flow (the IR fixed point).
 
-**Theorem 20.5 (Universality of Laws — UL).** Let $\mathcal{F}_1, \mathcal{F}_2$ be two Fractal Sets with:
+**Metatheorem 20.5 (Universality of Laws).** Let $\mathcal{F}_1, \mathcal{F}_2$ be two Fractal Sets with:
 
 **(UL1) Same gauge group:** $H_1 = H_2 = H$
 
@@ -14485,7 +14489,7 @@ where $\mathcal{M}_{15}$ is the taxonomy of 15 failure modes.
 
 **Definition 21.4 (Structural Regularity).** $\mathcal{P}_{\text{Structural}}$: The trajectory $\Phi(u(t))$ has zero intersection with $\mathcal{Y}_{\text{sing}}$ for all $t \in [0, \infty)$.
 
-**Theorem 21.3 (Equivalence Principle).**
+**Metatheorem 21.3 (Equivalence Principle).**
 $$\mathcal{P}_{\text{Analytic}} \iff \mathcal{P}_{\text{Structural}}$$
 
 *Moreover:* $\mathcal{P}_{\text{Structural}}$ is decidable purely via discrete algebraic checks (Permits), without reference to continuous estimates.
@@ -14568,7 +14572,7 @@ This procedure terminates in finite time with Boolean output. $\square$
 
 #### 21.3.1 Failure Quantization
 
-**Theorem 21.4 (Failure Quantization).** The singular locus $\mathcal{Y}_{\text{sing}}$ partitions into exactly 15 discrete modes:
+**Metatheorem 21.4 (Failure Quantization).** The singular locus $\mathcal{Y}_{\text{sing}}$ partitions into exactly 15 discrete modes:
 $$\mathcal{Y}_{\text{sing}} = \bigsqcup_{m=1}^{15} \mathcal{Y}_m$$
 The partition is:
 1. **Exhaustive:** Every singular trajectory lands in exactly one $\mathcal{Y}_m$
@@ -14635,7 +14639,7 @@ A trajectory cannot simultaneously have excess and deficiency of the same quanti
 $$\mathcal{M}_{\text{prof}} = \{V : \mathcal{L}[V] = 0, \ E(V) < \infty, \ V \text{ is symmetric}\} / G$$
 where $\mathcal{L}$ is the rescaled operator and $G$ is the symmetry group.
 
-**Theorem 21.5 (Profile Exactification).** Let $\mathcal{S}$ be a dynamical system satisfying Axiom C (Compactness). Then:
+**Metatheorem 21.5 (Profile Exactification).** Let $\mathcal{S}$ be a dynamical system satisfying Axiom C (Compactness). Then:
 
 1. **Existence:** Every blow-up sequence converges (modulo $G$) to some $V \in \mathcal{M}_{\text{prof}}$
 2. **Exactness:** $V$ satisfies $\mathcal{L}[V] = 0$ exactly, not approximately
@@ -14709,7 +14713,7 @@ that determines whether a canonical profile $V$ can exist as a blow-up limit.
 $$\mathfrak{P} = \{\Pi_{\text{SC}}, \Pi_{\text{Cap}}, \Pi_{\text{TB}}, \Pi_{\text{LS}}, \Pi_{\text{D}}, \Pi_{\text{C}}, \Pi_{\text{R}}\}$$
 one permit for each axiom.
 
-**Theorem 21.6 (Algebraic Permit System).** Let $V \in \mathcal{M}_{\text{prof}}$ be a canonical profile. Then:
+**Metatheorem 21.6 (Algebraic Permit System).** Let $V \in \mathcal{M}_{\text{prof}}$ be a canonical profile. Then:
 
 1. **Permit Satisfiability:** $V$ can appear as a blow-up limit iff $\Pi(V) = \text{GRANTED}$ for all $\Pi \in \mathfrak{P}$
 2. **Contradiction Mechanism:** If any $\Pi(V) = \text{DENIED}$, then $V$ leads to a logical contradiction
@@ -14964,7 +14968,7 @@ The isomorphism preserves:
 
 ### 21.6 Completeness and Canonicity
 
-**Theorem 21.8.** Let $\mathcal{S}$ be a dynamical system with admissible hypostructure $\mathbb{H}(\mathcal{S})$. Then:
+**Metatheorem 21.8 (Completeness and Canonicity).** Let $\mathcal{S}$ be a dynamical system with admissible hypostructure $\mathbb{H}(\mathcal{S})$. Then:
 
 **(1) Completeness:** Every question about the long-time behavior of $\mathcal{S}$ that can be answered by analysis can be answered by $\mathbb{H}(\mathcal{S})$.
 
@@ -15083,7 +15087,7 @@ $\square$
 2. The $\mathcal{F}$-proofs are no longer than the $\mathcal{T}$-proofs (in a suitable complexity measure)
 3. The $\mathcal{F}$-proofs provide equal or greater insight into the result
 
-**Theorem 21.10 (Formal Redundancy of Classical Analysis).** Let $\mathcal{S}$ be a dynamical system satisfying:
+**Metatheorem 21.10 (Formal Redundancy).** Let $\mathcal{S}$ be a dynamical system satisfying:
 
 **(H1)** $\mathcal{S}$ admits an admissible hypostructure $\mathbb{H}(\mathcal{S})$
 
@@ -15217,7 +15221,7 @@ The structural correspondence between hypostructure and analysis admits a precis
 
 #### 21.8.4 Equivalence Theorem
 
-**Theorem 21.11** (Categorical Equivalence and Strict Containment).
+**Metatheorem 21.11 (Categorical Equivalence).**
 
 1. *Equivalence on admissible subcategories*: The functors $F_{\text{PDE}}$ and $G$ establish an equivalence of categories:
    $$\mathbf{Hypo}^{\text{adm}} \simeq \mathbf{Anal}^{\text{adm}}$$
