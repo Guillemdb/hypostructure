@@ -18,7 +18,7 @@ author: "Guillem Duran Ballester"
 
 We define a **Hypostructure** as a tuple $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G)$ satisfying a specific set of coherence constraints. This document establishes the category of Hypostructures and proves that global regularity in dynamical systems is equivalent to the non-existence of morphisms from a canonical singular object.
 
-This document presents a structural approach: a **diagnostic framework** that identifies the conditions under which systems remain coherent, and classifies the ways they can fail.
+This document presents a structural approach: a **diagnostic framework** that identifies the conditions under which systems remain coherent, and classifies the ways they can fail. For classical background on partial differential equations and dispersive dynamics, see \cite{Evans10, Tao06}.
 
 **Hypostructures provide a unified language for stability analysis.** Rather than treating each system in isolation, this framework establishes structural constraints that characterize coherent dynamics across domains. The structural axioms encode the necessary conditions for self-consistency under evolution.
 
@@ -28,7 +28,7 @@ This document presents a structural approach: a **diagnostic framework** that id
 
 The hypostructure axioms are not independent postulates chosen for technical convenience. They are manifestations of a single organizing principle: **self-consistency under evolution**.
 
-**Definition 0.1 (Dynamical fixed point).** Let $\mathcal{S} = (X, (S_t), \Phi, \mathfrak{D})$ be a structural flow datum. A state $x \in X$ is a **dynamical fixed point** if $S_t x = x$ for all $t \in T$. More generally, a subset $M \subseteq X$ is **invariant** if $S_t(M) \subseteq M$ for all $t \geq 0$.
+**Definition 0.1 (Dynamical fixed point).** Let $\mathcal{S} = (X, (S_t), \Phi, \mathfrak{D})$ be a structural flow datum. A state $x \in X$ is a **dynamical fixed point** if $S_t x = x$ for all $t \in T$. More generally, a subset $M \subseteq X$ is **invariant** if $S_t(M) \subseteq M$ for all $t \geq 0$. The existence of fixed points under contraction mappings is guaranteed by the Banach fixed-point theorem \cite{Banach22}; for continuous mappings on compact convex sets, by Brouwer's theorem \cite{Brouwer11}.
 
 **Definition 0.2 (Self-consistency).** A trajectory $u: [0, T) \to X$ is **self-consistent** if it satisfies:
 
@@ -414,7 +414,7 @@ This document develops the framework systematically across multiple domains.
 
 ### 2.1 The category of structural flows
 
-We work in a categorical framework that unifies the treatment of different types of dynamical systems.
+We work in a categorical framework that unifies the treatment of different types of dynamical systems. The foundational theory of gradient flows in metric spaces is developed in \cite{AGS08}; for optimal transport and Wasserstein geometry, see \cite{Villani09}.
 
 **Definition 2.1 (Category of metrizable spaces).** Let $\mathbf{Pol}$ denote the category whose objects are Polish spaces (complete separable metric spaces) and whose morphisms are continuous maps. Let $\mathbf{Pol}_\mu$ denote the category of Polish measure spaces $(X, d, \mu)$ where $\mu$ is a $\sigma$-finite Borel measure, with morphisms being measurable maps that are absolutely continuous with respect to the measures.
 
@@ -764,7 +764,7 @@ Axiom C holds along a trajectory iff $\omega_C(\varepsilon, u) < \infty$ for all
 **Remark 3.11.** In the PDE context, concentration behavior is typically described by:
 - Rellich–Kondrachov compactness for Sobolev embeddings,
 - Aubin–Lions lemma for parabolic regularity,
-- Concentration-compactness à la Lions for critical problems,
+- Concentration-compactness à la Lions for critical problems \cite{Lions84},
 - Profile decomposition à la Gérard–Bahouri–Chemin for dispersive equations.
 
 #### Axiom SC (Scaling)
@@ -800,7 +800,7 @@ These axioms enforce local rigidity near equilibria—the stiffness that drives 
 
 #### Axiom LS (Local Stiffness)
 
-**Axiom LS (Local stiffness / Łojasiewicz–Simon inequality).** In a neighbourhood of the safe manifold, there exist:
+**Axiom LS (Local stiffness / Łojasiewicz–Simon inequality \cite{Simon83}).** In a neighbourhood of the safe manifold, there exist:
 
 - a closed subset $M \subseteq X$ called the **safe manifold** (the set of equilibria, ground states, or canonical patterns),
 - an open neighbourhood $U \supseteq M$,
@@ -2617,7 +2617,7 @@ The sharp constant is $1/\lambda_{\min}$ when $H_{\Phi} = I$ (normalized coordin
 
 **Step 4 (Log-Sobolev via Bakry-Émery).** For probabilistic systems with $X = \mathcal{P}(\Omega)$ and equilibrium $\rho_\infty = e^{-V}/Z$, consider the relative entropy $\Phi(\rho) = \int \rho \log(\rho/\rho_\infty) d\mu$ and Fisher information $\mathfrak{D}(\rho) = \int |\nabla \log(\rho/\rho_\infty)|^2 \rho \, d\mu$.
 
-The Bakry-Émery condition $\text{Hess}(V) \geq \kappa I$ implies the curvature-dimension condition $\text{CD}(\kappa, \infty)$. By the $\Gamma_2$-calculus:
+The Bakry-Émery condition \cite{Bakry85} $\text{Hess}(V) \geq \kappa I$ implies the curvature-dimension condition $\text{CD}(\kappa, \infty)$. By the $\Gamma_2$-calculus:
 $$\Gamma_2(f, f) := \frac{1}{2}L|\nabla f|^2 - \langle \nabla f, \nabla Lf \rangle \geq \kappa |\nabla f|^2$$
 
 where $L = \Delta - \nabla V \cdot \nabla$ is the generator. Integrating the Bochner identity and using Gronwall's inequality yields:
@@ -4001,7 +4001,7 @@ In $\mathbb{R}^{2n}$ with coordinates $(q_1, \ldots, q_n, p_1, \ldots, p_n)$:
 - The **symplectic ball** $B^{2n}(r)$ is $\{q_1^2 + p_1^2 + \cdots + q_n^2 + p_n^2 < r^2\}$.
 - The **symplectic cylinder** $Z^{2n}(r)$ is $\{q_1^2 + p_1^2 < r^2\}$ (no constraint on other coordinates).
 
-**Theorem 10.3 (Gromov's Non-Squeezing Theorem).**
+**Theorem 10.3 (Gromov's Non-Squeezing Theorem \cite{Gromov85, HoferZehnder94}).**
 Let $\phi: \mathbb{R}^{2n} \to \mathbb{R}^{2n}$ be a symplectic map. If $\phi(B^{2n}(r)) \subset Z^{2n}(R)$, then $r \leq R$.
 
 **Corollary 10.3.1 (Phase Space Rigidity).**
@@ -5078,7 +5078,7 @@ A nonlinear PDE exhibits **loss of derivatives** if each iteration of a solution
 $$u_{n+1} \in H^{s+\ell} \quad \text{requires} \quad u_n \in H^{s+\ell+\delta}$$
 for $\delta > 0$ (the "debt").
 
-**Definition 11.8.2 (Nash-Moser Iteration).**
+**Definition 11.8.2 (Nash-Moser Iteration \cite{Hamilton82}).**
 The **Nash-Moser implicit function theorem** allows solving $F(u) = 0$ even with loss of derivatives, using smoothing operators to "pay the debt."
 
 **Metatheorem 11.8 (The Derivative Debt Barrier).**
@@ -6861,7 +6861,7 @@ $$\mathcal{F}[\rho] = H(\rho) + E_V(\rho) + E_W(\rho) = \int \rho \log \rho \, d
 The obstruction set is $\mathrm{Obs} = \{ \rho : \mathcal{F}[\rho] > \mathcal{F}[\rho_\infty] + \delta \}$ for threshold $\delta > 0$.
 
 **2.3 Pairing Hypostructure $\mathbb{H}_{\mathrm{pair}}$.**
-The natural pairing is the **Wasserstein $L^2$ structure** (Otto calculus):
+The natural pairing is the **Wasserstein $L^2$ structure** (Otto calculus \cite{Otto01}):
 $$\langle \xi, \eta \rangle_\rho = \int \rho(x) \nabla \phi_\xi(x) \cdot \nabla \phi_\eta(x) \, dx$$
 where $\xi = -\nabla \cdot (\rho \nabla \phi_\xi)$. This identifies MVFP as **gradient flow of $\mathcal{F}$ in the Wasserstein metric**:
 $$\partial_t \rho = -\nabla_{W_2} \mathcal{F}[\rho]$$
@@ -7086,7 +7086,7 @@ These results require Axiom R (the specific dictionary for $(V, W)$):
 
 ##### Section 10: Implementation Notes
 
-**10.1 Numerical Implementation (JKO Scheme).** The gradient flow structure enables the **Jordan-Kinderlehrer-Otto** variational scheme:
+**10.1 Numerical Implementation (JKO Scheme \cite{JKO98}).** The gradient flow structure enables the **Jordan-Kinderlehrer-Otto** variational scheme:
 ```
 Input: Initial density rho_0, time step tau
 For n = 0, 1, 2, ...
@@ -7144,7 +7144,7 @@ $$\mathbb{H}_{\mathrm{tower}}(\Sigma) = \left( \Sigma^{(i)} \right)_{i \in \math
 where $\lambda_i = |A|(p_i, t_i) \to \infty$. Limits are **self-shrinkers**: surfaces satisfying $H = \langle x, \nu \rangle / 2$.
 
 **2.2 Obstruction Hypostructure $\mathbb{H}_{\mathrm{obs}}$.**
-The obstruction is Huisken's **Gaussian density**:
+The obstruction is Huisken's **Gaussian density** \cite{Huisken90}:
 $$\Theta(x_0, t_0; \Sigma_t) = \int_{\Sigma_t} \frac{e^{-|x-x_0|^2/4(t_0-t)}}{(4\pi(t_0-t))^{n/2}} \, d\mu$$
 The obstruction set is $\mathrm{Obs} = \{ \Sigma : \Theta(\cdot, T; \Sigma) \geq \Theta_{\mathrm{crit}} \}$ for appropriate threshold.
 
@@ -11667,7 +11667,7 @@ $$N = O\left(\frac{d \sigma^2}{\Delta^2}\right)$$
 where $d$ is the effective dimension, $\sigma^2$ is noise variance, and $\Delta$ is the minimum gap between distinct structures. The learner need not passively observe—it can actively probe.
 
 **3. L3 (Identifiability) $\to$ Singular Learning Theory.**
-Even when $\theta \mapsto \mathbb{H}(\theta)$ is degenerate (non-injective, singular Hessian), Watanabe's Singular Learning Theory shows that the **Real Log Canonical Threshold (RLCT)** controls convergence:
+Even when $\theta \mapsto \mathbb{H}(\theta)$ is degenerate (non-injective, singular Hessian), Watanabe's Singular Learning Theory \cite{Watanabe09} shows that the **Real Log Canonical Threshold (RLCT)** controls convergence:
 $$\mathbb{E}[\mathcal{R}_{\mathrm{axioms}}(\hat{\theta}_N)] = \frac{\lambda}{N} + o(1/N)$$
 where $\lambda$ is the RLCT, which is finite even at singularities. Degeneracy slows convergence but does not prevent it.
 
@@ -15150,7 +15150,7 @@ The classical proof secretly checks: Is the unique profile $\mathcal{W}$ energet
 
 *Example 2: Navier-Stokes.*
 
-Classical proof: "By the Caffarelli-Kohn-Nirenberg partial regularity theorem, the singular set $\Sigma$ satisfies $\mathcal{H}^1(\Sigma) = 0$ in 3D."
+Classical proof: "By the Caffarelli-Kohn-Nirenberg partial regularity theorem \cite{CKN82}, the singular set $\Sigma$ satisfies $\mathcal{H}^1(\Sigma) = 0$ in 3D."
 
 Structural translation: The CKN bound is exactly $\Pi_{\text{Cap}}$: checking whether concentration can occur on a set of Hausdorff dimension $< d_c = 1$. The parabolic scaling gives $d_c = 1$ for 3D NSE.
 
