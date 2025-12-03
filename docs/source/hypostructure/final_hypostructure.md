@@ -586,7 +586,7 @@ $$
 
 Axiom Rec (Recovery) and Axiom Rep (Structural Correspondence, Definition 16.1) govern distinct aspects of the same phenomenon: the capacity of a state to maintain structural coherence. This subsection establishes their categorical equivalence.
 
-**Proposition 3.17 (Recovery-Dictionary Isomorphism).** *Let $\mathbb{H}$ be a hypostructure equipped with Recovery functional $\mathcal{R}$ (Axiom Rec), and suppose the Dictionary map $D: X \to \mathcal{T}$ (Axiom R) exists. Then the Recovery functional admits the representation:*
+**Proposition 3.17 (Recovery-Dictionary Isomorphism).** *Let $\mathbb{H}$ be a hypostructure equipped with Recovery functional $\mathcal{R}$ (Axiom Rec), and suppose the Dictionary map $D: X \to \mathcal{T}$ (Axiom Rep) exists. Then the Recovery functional admits the representation:*
 
 $$\mathcal{R}(u) = \|D(u) - D^{-1}(D(u))\|_{\mathcal{T}}$$
 
@@ -608,9 +608,9 @@ where $\iota_D$ denotes instantiation and $\alpha_D$ denotes abstraction (Defini
 $$\mathcal{G} = \{u \in X : D^{-1}(D(u)) = u\} = \ker(\mathcal{R})$$
 consisting precisely of states for which the Dictionary is exact. $\square$
 
-**Corollary 3.17.1 (Unified Failure Mechanism).** *A trajectory fails to recover (violates Axiom Rec) if and only if its structural dictionary degrades (violates Axiom R). This establishes the equivalence of Conservation and Duality failures.*
+**Corollary 3.17.1 (Unified Failure Mechanism).** *A trajectory fails to recover (violates Axiom Repec) if and only if its structural dictionary degrades (violates Axiom Repep). This establishes the equivalence of Conservation and Duality failures.*
 
-**Remark 3.17.2 (Dual Perspectives).** Axiom Rec and Axiom R encode complementary perspectives on the same structural constraint:
+**Remark 3.17.2 (Dual Perspectives).** Axiom Rec and Axiom Rep encode complementary perspectives on the same structural constraint:
 
 | Perspective | Axiom | Quantity Measured | Domain |
 |:------------|:------|:------------------|:-------|
@@ -2688,32 +2688,32 @@ where $\Gamma(\mu,\nu)$ denotes the set of transport plans (couplings with margi
 $$|\partial \mathcal{F}|(\mu) := \limsup_{\nu \to \mu} \frac{[\mathcal{F}(\mu) - \mathcal{F}(\nu)]_+}{W_2(\mu, \nu)}$$
 where $[a]_+ := \max(a, 0)$. This generalizes the gradient norm to non-smooth settings (cf. Definition 6.3).
 
-The **relative entropy** (Boltzmann-Shannon) is $\mathcal{H}(\mu|\mathfrak{m}) := \int_X \rho \log \rho \, d\mathfrak{m}$ for $\mu = \rho \cdot \mathfrak{m}$. The **Fisher information** is:
+The **relative entropy** (Boltzmann-Shannon) is $H_{\text{rel}}(\mu|\mathfrak{m}) := \int_X \rho \log \rho \, d\mathfrak{m}$ for $\mu = \rho \cdot \mathfrak{m}$. The **Fisher information** is:
 $$I(\mu|\mathfrak{m}) := \int_X \frac{|\nabla \rho|^2}{\rho} \, d\mathfrak{m} = 4 \int_X |\nabla \sqrt{\rho}|^2 \, d\mathfrak{m}.$$
 
-For the entropy functional, the metric slope satisfies $|\partial \mathcal{H}|^2(\mu) = I(\mu|\mathfrak{m})$.
+For the entropy functional, the metric slope satisfies $|\partial H_{\text{rel}}|^2(\mu) = I(\mu|\mathfrak{m})$.
 
 **Definition 15.1.3 (RCD Curvature Condition).** A metric measure space $(X, d, \mathfrak{m})$ satisfies the **Riemannian Curvature-Dimension condition** $\mathrm{RCD}^*(K, \infty)$ with $K \in \mathbb{R}$ if for all $\mu_0, \mu_1 \in \mathcal{P}_2(X)$ with bounded densities, there exists a $W_2$-geodesic $(\mu_t)_{t \in [0,1]}$ such that for all $t \in [0,1]$:
-$$\mathcal{H}(\mu_t|\mathfrak{m}) \leq (1-t)\mathcal{H}(\mu_0|\mathfrak{m}) + t\mathcal{H}(\mu_1|\mathfrak{m}) - \frac{K}{2}t(1-t)W_2(\mu_0, \mu_1)^2.$$
+$$H_{\text{rel}}(\mu_t|\mathfrak{m}) \leq (1-t)H_{\text{rel}}(\mu_0|\mathfrak{m}) + tH_{\text{rel}}(\mu_1|\mathfrak{m}) - \frac{K}{2}t(1-t)W_2(\mu_0, \mu_1)^2.$$
 
-This is the **$K$-convexity** of $\mathcal{H}$ along Wasserstein geodesics. On smooth Riemannian manifolds, $\mathrm{RCD}^*(K, \infty)$ is equivalent to $\mathrm{Ric} \geq K$.
+This is the **$K$-convexity** of $H_{\text{rel}}$ along Wasserstein geodesics. On smooth Riemannian manifolds, $\mathrm{RCD}^*(K, \infty)$ is equivalent to $\mathrm{Ric} \geq K$.
 
 **Theorem 15.1.4 (Equivalence of Axioms and RCD Curvature).** Let $\mathcal{H} = (X, (S_t), \Phi, \mathfrak{D}, G, M)$ be a hypostructure satisfying:
 - **(H1)** The state space $X$ carries a metric measure structure $(X, d, \mathfrak{m})$
-- **(H2)** The height functional is the relative entropy: $\Phi = \mathcal{H}(\cdot|\mathfrak{m})$
+- **(H2)** The height functional is the relative entropy: $\Phi = H_{\text{rel}}(\cdot|\mathfrak{m})$
 - **(H3)** The evolution $S_t$ is the gradient flow of $\Phi$ in $(\mathcal{P}_2(X), W_2)$
 
 Then the following equivalences hold:
 
 1. **Axiom D $\Leftrightarrow$ EVI$_K$:** Axiom D (geodesic convexity of $\Phi$ with constant $K$) holds if and only if the evolution satisfies the **Evolution Variational Inequality**: for all comparison measures $\nu \in \mathcal{P}_2(X)$ and along the flow $(\mu_t)_{t \geq 0}$,
-$$\frac{1}{2}\frac{d^+}{dt} W_2(\mu_t, \nu)^2 + \frac{K}{2} W_2(\mu_t, \nu)^2 \leq \mathcal{H}(\nu|\mathfrak{m}) - \mathcal{H}(\mu_t|\mathfrak{m}).$$
+$$\frac{1}{2}\frac{d^+}{dt} W_2(\mu_t, \nu)^2 + \frac{K}{2} W_2(\mu_t, \nu)^2 \leq H_{\text{rel}}(\nu|\mathfrak{m}) - H_{\text{rel}}(\mu_t|\mathfrak{m}).$$
 
 2. **Axiom LS $\Leftrightarrow$ Talagrand:** Axiom LS (exponential convergence at rate $2K$) holds if and only if the **Talagrand inequality** holds: for all $\mu \ll \mathfrak{m}$,
-$$W_2(\mu, \mathfrak{m}_\infty)^2 \leq \frac{2}{K} \mathcal{H}(\mu|\mathfrak{m}_\infty)$$
-where $\mathfrak{m}_\infty$ denotes the equilibrium measure (minimizer of $\mathcal{H}$).
+$$W_2(\mu, \mathfrak{m}_\infty)^2 \leq \frac{2}{K} H_{\text{rel}}(\mu|\mathfrak{m}_\infty)$$
+where $\mathfrak{m}_\infty$ denotes the equilibrium measure (minimizer of $H_{\text{rel}}$).
 
 3. **Axiom C $\Leftrightarrow$ HWI:** The compactness structure of Axiom C (bounded sublevels precompact) holds under (H1)–(H3) if and only if the **Otto-Villani HWI inequality** holds:
-$$\mathcal{H}(\mu|\mathfrak{m}_\infty) \leq W_2(\mu, \mathfrak{m}_\infty) \sqrt{I(\mu|\mathfrak{m}_\infty)} - \frac{K}{2} W_2(\mu, \mathfrak{m}_\infty)^2.$$
+$$H_{\text{rel}}(\mu|\mathfrak{m}_\infty) \leq W_2(\mu, \mathfrak{m}_\infty) \sqrt{I(\mu|\mathfrak{m}_\infty)} - \frac{K}{2} W_2(\mu, \mathfrak{m}_\infty)^2.$$
 
 *Proof.*
 
@@ -2741,26 +2741,26 @@ $(\Leftarrow)$ Conversely, EVI$_K$ implies $K$-convexity by integration along ge
 
 **Part 2 (Axiom LS $\Leftrightarrow$ Talagrand).**
 
-$(\Rightarrow)$ Assume Axiom LS holds: $\mathcal{H}(\mu_t|\mathfrak{m}) - \mathcal{H}_{\min} \leq (\mathcal{H}(\mu_0|\mathfrak{m}) - \mathcal{H}_{\min}) e^{-2Kt}$.
+$(\Rightarrow)$ Assume Axiom LS holds: $H_{\text{rel}}(\mu_t|\mathfrak{m}) - H_{\text{rel,min}} \leq (H_{\text{rel}}(\mu_0|\mathfrak{m}) - H_{\text{rel,min}}) e^{-2Kt}$.
 
 **Step 2a (Bakry-Émery $\Gamma_2$-criterion).** The Bakry-Émery theory \cite{BakryEmery85} characterizes exponential entropy decay via the **$\Gamma_2$-condition**: for the generator $L = \Delta - \nabla V \cdot \nabla$ of the diffusion,
 $$\Gamma_2(f) := \frac{1}{2}L\Gamma(f) - \Gamma(f, Lf) \geq K \Gamma(f)$$
 where $\Gamma(f) = |\nabla f|^2$ is the carré du champ. This is equivalent to $\mathrm{Ric} + \mathrm{Hess}(V) \geq K$.
 
 **Step 2b (Equivalence with Log-Sobolev).** The $\Gamma_2 \geq K$ condition is equivalent to the **Log-Sobolev inequality**:
-$$\mathcal{H}(\mu|\mathfrak{m}_\infty) \leq \frac{1}{2K} I(\mu|\mathfrak{m}_\infty)$$
+$$H_{\text{rel}}(\mu|\mathfrak{m}_\infty) \leq \frac{1}{2K} I(\mu|\mathfrak{m}_\infty)$$
 which in turn implies exponential decay of entropy at rate $2K$ along the heat flow.
 
 **Step 2c (LSI implies Talagrand).** The Otto-Villani argument \cite{OttoVillani00} derives the Talagrand inequality from LSI: the gradient flow trajectory connects $\mu_0$ to $\mathfrak{m}_\infty$, so
-$$W_2(\mu_0, \mathfrak{m}_\infty) \leq \int_0^\infty |\dot{\mu}_t| \, dt = \int_0^\infty |\partial \mathcal{H}|(\mu_t) \, dt = \int_0^\infty \sqrt{I(\mu_t|\mathfrak{m}_\infty)} \, dt.$$
-Using LSI ($I \geq 2K\mathcal{H}$) and exponential decay ($\mathcal{H}(\mu_t) = \mathcal{H}(\mu_0)e^{-2Kt}$):
-$$W_2(\mu_0, \mathfrak{m}_\infty) \leq \int_0^\infty \sqrt{2K \mathcal{H}(\mu_0) e^{-2Kt}} \, dt = \sqrt{2K\mathcal{H}(\mu_0)} \cdot \frac{1}{K} = \sqrt{\frac{2\mathcal{H}(\mu_0)}{K}}.$$
+$$W_2(\mu_0, \mathfrak{m}_\infty) \leq \int_0^\infty |\dot{\mu}_t| \, dt = \int_0^\infty |\partial H_{\text{rel}}|(\mu_t) \, dt = \int_0^\infty \sqrt{I(\mu_t|\mathfrak{m}_\infty)} \, dt.$$
+Using LSI ($I \geq 2KH_{\text{rel}}$) and exponential decay ($H_{\text{rel}}(\mu_t) = H_{\text{rel}}(\mu_0)e^{-2Kt}$):
+$$W_2(\mu_0, \mathfrak{m}_\infty) \leq \int_0^\infty \sqrt{2K H_{\text{rel}}(\mu_0) e^{-2Kt}} \, dt = \sqrt{2KH_{\text{rel}}(\mu_0)} \cdot \frac{1}{K} = \sqrt{\frac{2H_{\text{rel}}(\mu_0)}{K}}.$$
 
 $(\Leftarrow)$ The Talagrand inequality combined with EVI$_K$ implies LSI by the Kuwada duality \cite{Kuwada10}.
 
 **Part 3 (Axiom C $\Leftrightarrow$ HWI).**
 
-$(\Rightarrow)$ Assume Axiom C holds: bounded sublevels of $\Phi = \mathcal{H}(\cdot|\mathfrak{m})$ are precompact.
+$(\Rightarrow)$ Assume Axiom C holds: bounded sublevels of $\Phi = H_{\text{rel}}(\cdot|\mathfrak{m})$ are precompact.
 
 **Step 3a (Otto calculus).** The Otto calculus \cite{Otto01} endows $(\mathcal{P}_2(X), W_2)$ with a formal Riemannian structure: the tangent space at $\mu = \rho \cdot \mathfrak{m}$ is $T_\mu \mathcal{P}_2 \cong \overline{\{\nabla \phi : \phi \in C_c^\infty\}}^{L^2(\mu)}$, and the metric is:
 $$\langle \nabla \phi, \nabla \psi \rangle_\mu := \int_X \nabla \phi \cdot \nabla \psi \, d\mu.$$
@@ -2768,16 +2768,16 @@ The squared Wasserstein distance admits the Benamou-Brenier formula:
 $$W_2(\mu, \nu)^2 = \inf \left\{ \int_0^1 \int_X |\nabla \phi_t|^2 \rho_t \, dx \, dt : \partial_t \rho_t + \nabla \cdot (\rho_t \nabla \phi_t) = 0 \right\}.$$
 
 **Step 3b (HWI as interpolation).** The HWI inequality interpolates three functionals:
-- **H**: Relative entropy $\mathcal{H}(\mu|\mathfrak{m}_\infty)$ (free energy)
+- **H**: Relative entropy $H_{\text{rel}}(\mu|\mathfrak{m}_\infty)$ (free energy)
 - **W**: Wasserstein distance $W_2(\mu, \mathfrak{m}_\infty)$ (transport cost)
 - **I**: Fisher information $I(\mu|\mathfrak{m}_\infty) = \int |\nabla \log \rho|^2 d\mu$ (squared velocity)
 
-**Step 3c (Derivation from $\kappa$-convexity).** Let $\kappa \in \mathbb{R}$ be the convexity constant of $\mathcal{H}$ along $W_2$-geodesics (equal to $K$ from Parts 1–2 when $\mathrm{RCD}^*(K,\infty)$ holds). Along the unit-speed geodesic $(\mu_s)_{s \in [0, W_2]}$ from $\mu$ to $\mathfrak{m}_\infty$:
-$$\frac{d}{ds} \mathcal{H}(\mu_s|\mathfrak{m}_\infty) \leq -\frac{\mathcal{H}(\mu|\mathfrak{m}_\infty) - \mathcal{H}(\mathfrak{m}_\infty|\mathfrak{m}_\infty)}{W_2} - \frac{\kappa}{2}(W_2 - s) = -\frac{\mathcal{H}(\mu|\mathfrak{m}_\infty)}{W_2} - \frac{\kappa}{2}(W_2 - s).$$
-At $s = 0$, the derivative satisfies $\left|\frac{d}{ds}\right|_{s=0} \mathcal{H}(\mu_s)| \leq \sqrt{I(\mu|\mathfrak{m}_\infty)}$ by the definition of metric slope. Combining:
-$$\mathcal{H}(\mu|\mathfrak{m}_\infty) \leq W_2 \sqrt{I(\mu|\mathfrak{m}_\infty)} - \frac{\kappa}{2}W_2^2.$$
+**Step 3c (Derivation from $\kappa$-convexity).** Let $\kappa \in \mathbb{R}$ be the convexity constant of $H_{\text{rel}}$ along $W_2$-geodesics (equal to $K$ from Parts 1–2 when $\mathrm{RCD}^*(K,\infty)$ holds). Along the unit-speed geodesic $(\mu_s)_{s \in [0, W_2]}$ from $\mu$ to $\mathfrak{m}_\infty$:
+$$\frac{d}{ds} H_{\text{rel}}(\mu_s|\mathfrak{m}_\infty) \leq -\frac{H_{\text{rel}}(\mu|\mathfrak{m}_\infty) - H_{\text{rel}}(\mathfrak{m}_\infty|\mathfrak{m}_\infty)}{W_2} - \frac{\kappa}{2}(W_2 - s) = -\frac{H_{\text{rel}}(\mu|\mathfrak{m}_\infty)}{W_2} - \frac{\kappa}{2}(W_2 - s).$$
+At $s = 0$, the derivative satisfies $\left|\frac{d}{ds}\right|_{s=0} H_{\text{rel}}(\mu_s)| \leq \sqrt{I(\mu|\mathfrak{m}_\infty)}$ by the definition of metric slope. Combining:
+$$H_{\text{rel}}(\mu|\mathfrak{m}_\infty) \leq W_2 \sqrt{I(\mu|\mathfrak{m}_\infty)} - \frac{\kappa}{2}W_2^2.$$
 
-$(\Leftarrow)$ The HWI inequality with $\kappa > 0$ implies that $\{\mu : \mathcal{H}(\mu|\mathfrak{m}_\infty) \leq C\}$ is bounded in $W_2$, hence precompact by the Prokhorov theorem. This is equivalent to Axiom C for entropic systems. $\square$
+$(\Leftarrow)$ The HWI inequality with $\kappa > 0$ implies that $\{\mu : H_{\text{rel}}(\mu|\mathfrak{m}_\infty) \leq C\}$ is bounded in $W_2$, hence precompact by the Prokhorov theorem. This is equivalent to Axiom C for entropic systems. $\square$
 
 **Key Insight:** The RCD correspondence shows that the hypostructure axioms encode optimal transport geometry—the setting for gradient flows on probability spaces. The equivalences EVI $\Leftrightarrow$ Axiom D, Talagrand $\Leftrightarrow$ Axiom LS, and HWI $\Leftrightarrow$ Axiom C demonstrate that the axioms capture the functional inequalities characterizing well-behaved diffusion processes.
 
@@ -4083,7 +4083,7 @@ An Étude applying the framework must verify:
 1. **S-Layer (mandatory):**
    - [ ] Define the three canonical hypostructures (tower, obstruction, pairing)
    - [ ] Verify X.0 for each axiom
-   - [ ] State Axiom R as the conjecture translation
+   - [ ] State Axiom Rep as the conjecture translation
 
 2. **L-Layer (for full metatheorems):**
    - [ ] Verify X.A refinements (local decompositions)
@@ -4611,7 +4611,7 @@ This is consistent with the stiffness conclusion: $X = X_{\mathrm{free}} \oplus 
 
 #### Metatheorem 8.5.G (Master Local-to-Global Schema for Conjectures)
 
-This theorem synthesizes Metatheorems 19.4.A–C and Theorems 19.4.D–F into a single master schema: for any mathematical object admitting an admissible hypostructure, **all global structural difficulty is handled by the framework**, and the associated conjecture reduces entirely to Axiom R.
+This theorem synthesizes Metatheorems 19.4.A–C and Theorems 19.4.D–F into a single master schema: for any mathematical object admitting an admissible hypostructure, **all global structural difficulty is handled by the framework**, and the associated conjecture reduces entirely to Axiom Rep.
 
 **Setup.** Let $Z$ be a mathematical object in any domain (e.g., an elliptic curve, a zeta function, a smooth flow, a gauge field, a complexity class).
 
@@ -4657,7 +4657,7 @@ such that hypotheses (F1)–(F6) of Metatheorem 19.4.F hold (local perfect duali
 
 **Core axiom assumption.** Assume the induced hypostructures satisfy the core axioms (C, D, SC, LS, Cap, TB, GC, R) in the sense required by the Structural Resolution theorems.
 
-**Definition (Axiom R for Z).** Define **Axiom Rep($Z$)** as the assertion that the dictionary $D_Z$ is:
+**Definition (Axiom Rep for Z).** Define **Axiom Rep($Z$)** as the assertion that the dictionary $D_Z$ is:
 - **Essentially surjective:** Every admissible object on the target side arises (up to equivalence) from the source side.
 - **Fully faithful:** It reflects and preserves all structural invariants (energies, heights, local data, tower behavior).
 - **Compatible:** With hypostructure operations $\Phi$, $\mathfrak{D}$, $S_{t \to s}$, pairings, and decompositions.
@@ -4724,7 +4724,7 @@ All "conventional difficulty" (blow-ups, spectral growth, bad obstructions, null
 - Converges to the safe manifold (permit denial),
 - Realizes a classified failure mode.
 
-Steps 2–3 show that all failure modes except "Axiom R fails" are excluded:
+Steps 2–3 show that all failure modes except "Axiom Rep fails" are excluded:
 
 - Energy blow-up (C.E): Excluded by Axiom D + tower subcriticality (19.4.E → 19.4.A).
 - Geometric collapse (C.D): Excluded by Axiom Cap + obstruction finiteness (19.4.D → 19.4.B).
@@ -4735,7 +4735,7 @@ Steps 2–3 show that all failure modes except "Axiom R fails" are excluded:
 
 The only remaining degree of freedom is whether Axiom Rep($Z$) holds.
 
-**Step 5 (Equivalence of conjecture and Axiom R).** By definition, Axiom Rep($Z$) asserts that the dictionary $D_Z$ correctly links the two sides of $Z$. Given Steps 1–4:
+**Step 5 (Equivalence of conjecture and Axiom Rep).** By definition, Axiom Rep($Z$) asserts that the dictionary $D_Z$ correctly links the two sides of $Z$. Given Steps 1–4:
 
 - If Axiom Rep($Z$) holds: The structural resolution forces the optimal configuration. All failure modes are excluded. The conjecture for $Z$ is true.
 
@@ -4826,7 +4826,7 @@ All global structural consequences from Metatheorems 19.4.A–C and Metatheorem 
 $$\mathcal{R}_{\mathrm{axioms}}(\hat{\theta}) = 0.$$
 Every convergent meta-learning trajectory reaching a local minimum lands in the axiom-consistent set, and all global axioms hold for $\mathbb{H}(\hat{\theta})$.
 
-**(4) Interpretation.** For any $\mathbb{H}$ that admits at least one good local presentation (some $\theta^*$ satisfying the axioms), the additional structure needed for all global metatheorems can be *learned* by minimizing $\mathcal{R}_{\mathrm{axioms}}$. Once such $\theta^*$ is found, all "conventional difficulty" in establishing global heights, subcritical scaling, and stiffness is automatic; only Axiom R remains problem-specific.
+**(4) Interpretation.** For any $\mathbb{H}$ that admits at least one good local presentation (some $\theta^*$ satisfying the axioms), the additional structure needed for all global metatheorems can be *learned* by minimizing $\mathcal{R}_{\mathrm{axioms}}$. Once such $\theta^*$ is found, all "conventional difficulty" in establishing global heights, subcritical scaling, and stiffness is automatic; only Axiom Rep remains problem-specific.
 
 *Proof.*
 
@@ -4880,15 +4880,15 @@ Therefore, the meta-learning trajectory converges to the axiom-consistent set. T
 
 - Such $\theta^*$ can be found by meta-learning (gradient descent on $\mathcal{R}_{\mathrm{axioms}}$).
 - At $\theta^*$, all hypotheses of 19.4.D/E/F and core axioms hold.
-- Therefore, by Metatheorem 19.4.G (Conjecture-Axiom Equivalence), the conjecture for $\mathbb{H}(\theta^*)$ reduces to Axiom R.
+- Therefore, by Metatheorem 19.4.G (Conjecture-Axiom Equivalence), the conjecture for $\mathbb{H}(\theta^*)$ reduces to Axiom Rep.
 
 The framework handles all global structural difficulty automatically. The only problem-specific content is:
 1. The existence of $\theta^* \in \Theta$ (expressivity assumption H5),
-2. The verification of Axiom R for $\mathbb{H}(\theta^*)$.
+2. The verification of Axiom Rep for $\mathbb{H}(\theta^*)$.
 
 This proves (4). $\square$
 
-**Key Insight.** Metatheorem 19.4.H shows that admissible local structure need not be constructed by hand. If it exists within a parametric family, minimizing axiom risk will find it. Combined with Metatheorem 19.4.G, this means: *define a sufficiently expressive parameter space, train to zero axiom risk, and the only remaining question is Axiom R.*
+**Key Insight.** Metatheorem 19.4.H shows that admissible local structure need not be constructed by hand. If it exists within a parametric family, minimizing axiom risk will find it. Combined with Metatheorem 19.4.G, this means: *define a sufficiently expressive parameter space, train to zero axiom risk, and the only remaining question is Axiom Rep.*
 
 ---
 
@@ -4896,7 +4896,7 @@ This proves (4). $\square$
 
 ---
 
-### 8.6 Metatheorem 8.6.I (Morphisms of Hypostructures and Axiom R)
+### 8.6 Metatheorem 8.6.I (Morphisms of Hypostructures and Axiom Rep)
 
 > **[Deps] Structural Dependencies**
 >
@@ -4910,7 +4910,7 @@ This proves (4). $\square$
 >     *   Morphisms preserve hypostructure properties and R-validity transfers
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom D** fails → **Mode C.E** (Energy blow-up)
 
 
@@ -5025,10 +5025,10 @@ However, **R-validity does not automatically transfer along morphisms**. This is
 >     *   [ ] **Axiom Rep:** Dictionary/Correspondence (structural translation)
 >
 > *   **Output (Structural Guarantee):**
->     *   Characterization of universal patterns that break Axiom R
+>     *   Characterization of universal patterns that break Axiom Rep
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom D** fails → **Mode C.E** (Energy blow-up)
 
 
@@ -5109,7 +5109,7 @@ where:
 
 *Proof.* Let $\mathbb{H} \in \mathbf{Hypo}_T^{\neg R}$ be any Rep-breaking T-hypostructure. We construct a morphism $F: \mathbb{H}_{\mathrm{bad}} \to \mathbb{H}$.
 
-**Step 1 (Profile embedding).** Since $\mathbb{H}$ breaks Axiom R, there exists a trajectory $u(t)$ with no valid dictionary translation. By concentration-compactness \cite{Lions84}, $u(t)$ concentrates to some profile $W$. The self-similar ansatz maps $V \mapsto W$ via rescaling.
+**Step 1 (Profile embedding).** Since $\mathbb{H}$ breaks Axiom Rep, there exists a trajectory $u(t)$ with no valid dictionary translation. By concentration-compactness \cite{Lions84}, $u(t)$ concentrates to some profile $W$. The self-similar ansatz maps $V \mapsto W$ via rescaling.
 
 **Step 2 (Dissipation ordering).** Since $\mathfrak{D}_{\mathrm{bad}} = 0$, any $\mathfrak{D}_{\mathbb{H}} \geq 0$ satisfies $\mathfrak{D}_{\mathrm{bad}} \leq \mathfrak{D}_{\mathbb{H}}$, giving the required monotonicity for morphisms in $\mathbf{Hypo}_T$.
 
@@ -5172,7 +5172,7 @@ The universal bad pattern corresponds to the **trivial connection** $A = 0$. For
 >     *   Obstruction to structural resolution via categorical invariants
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 
 
 *The reusable core of the obstruction strategy.*
@@ -5378,7 +5378,7 @@ Thus, optimization over $\Theta$ with $\mathcal{R}_{\mathrm{axioms}} = 0$ constr
 >     *   [ ] **Axiom Rep:** Dictionary/Correspondence (structural translation)
 >
 > *   **Output (Structural Guarantee):**
->     *   Characterization of universal patterns that break Axiom R
+>     *   Characterization of universal patterns that break Axiom Rep
 >
 > *   **Failure Condition (Debug):**
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
@@ -5499,7 +5499,7 @@ The complete pipeline:
 2. **Search adversarially** for Rep-breaking models (19.4.M).
 3. If found: **Extract universal pattern** $\mathbb{H}_{\mathrm{bad}}^{(T)}$ (19.4.J).
 4. For specific $Z$: **Prove exclusion** of morphisms $\mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$ (19.4.K).
-5. Conclude: Axiom R(T, Z) holds, hence the conjecture for $Z$ holds.
+5. Conclude: Axiom Rep(T, Z) holds, hence the conjecture for $Z$ holds.
 
 ---
 
@@ -5517,7 +5517,7 @@ The complete pipeline:
 >     *   Exclusion of singular trajectories via structural constraints
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
 
 
@@ -5541,7 +5541,7 @@ all satisfying the core axioms C, D, SC, LS, Cap, TB, GC and the local hypothese
 $$\mathbb{H}(Z) \in \mathbf{Hypo}_T.$$
 
 **(N3) Axiom Rep and conjecture definition.** We define **Axiom Rep(T,Z)** to mean that the dictionary $D$ in $\mathbb{H}(Z)$ is a full and faithful correspondence in the sense fixed for type $T$. The **conjecture for $Z$** (in the corresponding Étude) is, by definition,
-$$\mathrm{Conj}(T,Z) \quad \Longleftrightarrow \quad \text{Axiom R}(T,Z) \text{ holds}.$$
+$$\mathrm{Conj}(T,Z) \quad \Longleftrightarrow \quad \text{Axiom Rep}(T,Z) \text{ holds}.$$
 
 **19.4.N.2. Parametric Family and Risk Functionals**
 
@@ -5620,7 +5620,7 @@ $$F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z).$$
 
 **(4) Categorical obstruction.** By the obstruction condition (N11), no such morphism $F$ exists. Hence the assumption that Axiom Rep(T,Z) fails leads to a contradiction. Therefore Axiom Rep(T,Z) must hold for $\mathbb{H}(Z)$.
 
-**(5) Conjecture for $Z$.** By the definition of the conjecture (N3) and Metatheorem 19.4.G (Conjecture-Axiom Equivalence: Conjecture $\Leftrightarrow$ Axiom R), the conjecture for $Z$ holds:
+**(5) Conjecture for $Z$.** By the definition of the conjecture (N3) and Metatheorem 19.4.G (Conjecture-Axiom Equivalence: Conjecture $\Leftrightarrow$ Axiom Rep), the conjecture for $Z$ holds:
 $$\mathrm{Conj}(T,Z) \text{ is true.}$$
 
 *Proof.*
@@ -5662,21 +5662,21 @@ This proves (3).
 **Step 4 (Categorical obstruction).** By the obstruction condition (N11):
 $$\nexists \; F: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z) \text{ in } \mathbf{Hypo}_T.$$
 
-But Step 3 showed that if Axiom R(T,Z) fails, such a morphism $F_Z$ must exist. This is a contradiction:
-$$(\neg \text{Axiom R}(T,Z)) \Rightarrow (\exists F_Z) \quad \text{and} \quad (\nexists F) \text{ by (N11)}.$$
+But Step 3 showed that if Axiom Rep(T,Z) fails, such a morphism $F_Z$ must exist. This is a contradiction:
+$$(\neg \text{Axiom Rep}(T,Z)) \Rightarrow (\exists F_Z) \quad \text{and} \quad (\nexists F) \text{ by (N11)}.$$
 
 By modus tollens:
-$$\nexists F \Rightarrow \neg(\neg \text{Axiom R}(T,Z)) \Rightarrow \text{Axiom R}(T,Z).$$
+$$\nexists F \Rightarrow \neg(\neg \text{Axiom Rep}(T,Z)) \Rightarrow \text{Axiom Rep}(T,Z).$$
 
 Therefore Axiom Rep(T,Z) holds for $\mathbb{H}(Z)$. This proves (4).
 
 **Step 5 (Conjecture for $Z$).** By (N3), the conjecture for $Z$ is defined as:
-$$\mathrm{Conj}(T,Z) \quad \Longleftrightarrow \quad \text{Axiom R}(T,Z) \text{ holds}.$$
+$$\mathrm{Conj}(T,Z) \quad \Longleftrightarrow \quad \text{Axiom Rep}(T,Z) \text{ holds}.$$
 
 By Metatheorem 19.4.G (Master Local-to-Global Schema), for admissible $\mathbb{H}(Z)$:
 $$\text{Conjecture for } Z \quad \Longleftrightarrow \quad \text{Axiom Rep}(Z).$$
 
-Step 4 established that Axiom R(T,Z) holds. Therefore:
+Step 4 established that Axiom Rep(T,Z) holds. Therefore:
 $$\mathrm{Conj}(T,Z) \text{ is true.}$$
 
 This proves (5). $\square$
@@ -5689,7 +5689,7 @@ Metatheorem 19.4.N synthesizes the entire metatheoretic apparatus into a single 
 |-------------|----------------|
 | 19.4.A–C | Establish global structure from local data (tower, obstruction, pairing) |
 | 19.4.D–F | Verify local hypotheses yield global axioms |
-| 19.4.G | Identify conjecture with Axiom R |
+| 19.4.G | Identify conjecture with Axiom Rep |
 | 19.4.H | Learn admissible structure via risk minimization |
 | 19.4.I | Define categorical structure of $\mathbf{Hypo}_T$ |
 | 19.4.J | Construct universal Rep-breaking pattern |
@@ -5704,9 +5704,9 @@ The proof strategy encoded in 19.4.N is:
 3. **Explore adversarially:** Search for Rep-breaking patterns (19.4.M).
 4. **Extract universal pattern:** Identify $\mathbb{H}_{\mathrm{bad}}^{(T)}$ as initial object (19.4.J).
 5. **Verify admissibility:** Check core axioms and local hypotheses for $\mathbb{H}(Z)$ (19.4.D–F).
-6. **Apply master schema:** Identify conjecture with Axiom R (19.4.G).
+6. **Apply master schema:** Identify conjecture with Axiom Rep (19.4.G).
 7. **Prove morphism exclusion:** Show no $F: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$ exists (19.4.K).
-8. **Conclude:** Axiom R(T,Z) holds by structural exclusion; conjecture follows.
+8. **Conclude:** Axiom Rep(T,Z) holds by structural exclusion; conjecture follows.
 
 **Key Insight.** Metatheorem 19.4.N shows that proving a conjecture in the hypostructure framework reduces to a single task: **excluding morphisms from the universal Rep-breaking pattern**. All other structural difficulties (blow-ups, spectral growth, obstructions, null directions) are handled automatically by Metatheorems 19.4.A–M. The remaining problem-specific work is to show that the specific invariants, positivity conditions, integrality constraints, or functional equations of $\mathbb{H}(Z)$ are incompatible with any morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$.
 
@@ -6049,7 +6049,7 @@ This closes the "completeness gap" in the obstruction strategy: it guarantees th
 |-------------|------|
 | 19.4.A–C | Exclude blowup hypostructures via tower/obstruction/pairing inconsistency |
 | 19.4.D–F | Construct global structure from local data, verify axioms |
-| 19.4.J–K | Universal bad pattern and categorical obstruction for Axiom R |
+| 19.4.J–K | Universal bad pattern and categorical obstruction for Axiom Rep |
 | **21** | **Completeness**: every singular trajectory produces a blowup hypostructure |
 | **21.1** | **Exclusion**: blowup exclusion + completeness $\Rightarrow$ no singularities |
 
@@ -6351,7 +6351,7 @@ These metatheorems are **purely structural**, anchored in the axioms and canonic
 
 *Computational hardness as structural obstruction.*
 
-This section develops the hypostructure framework for **cryptographic hardness**—the structural conditions under which function inversion is computationally infeasible. We establish that one-way functions correspond to hypostructures where inversion flows violate Axiom R, providing a structural characterization of computational hardness.
+This section develops the hypostructure framework for **cryptographic hardness**—the structural conditions under which function inversion is computationally infeasible. We establish that one-way functions correspond to hypostructures where inversion flows violate Axiom Rep, providing a structural characterization of computational hardness.
 
 ---
 
@@ -6450,7 +6450,7 @@ for all $z \in \mathcal{G}_n$, where $\Phi_* = 0$ is the minimal possible height
 ---
 
 **Hypothesis CH5 (Rep-breaking for inversion flows).**
-For inversion flows $S^{A,(n)}_t$, **Axiom R fails** in a quantitative way: there is no constant $c_R$ such that for all PPT algorithms $A$, all $n$, all initial states $z_0$ with $y = f_n(x)$, and all polynomial time bounds $T_A(n)$, we have
+For inversion flows $S^{A,(n)}_t$, **Axiom Rep fails** in a quantitative way: there is no constant $c_R$ such that for all PPT algorithms $A$, all $n$, all initial states $z_0$ with $y = f_n(x)$, and all polynomial time bounds $T_A(n)$, we have
 $$\int_0^{T_A(n)} \mathbf{1}_{\mathcal{G}_n}\big(S^{A,(n)}_t(z_0)\big) \, dt \leq c_R \int_0^{T_A(n)} \mathfrak{D}_n\big(S^{A,(n)}_t(z_0)\big) \, dt.$$
 
 *Interpretation:* Inversion flows live in an **Rep-breaking regime** (Mode B.C in the failure taxonomy): they cannot spend significant time in "good" (low-$\Phi$) states without paying more dissipation cost than is allowed by the polynomial time budget. This is the structural obstruction: "Axiom Rep fails $\Rightarrow$ only a small set can enjoy good behavior."
@@ -6523,7 +6523,7 @@ $$\int_0^{T_A(n)} \mathfrak{D}_n\big(S^{A,(n)}_t(z_0)\big) \, dt \leq \Phi_{\mat
 **Step 5 (Rep-breaking obstruction).**
 By Hypothesis CH5 (Rep-breaking), there is no constant $c_R$ satisfying the R-axiom inequality for inversion flows. Quantitatively, for any trajectory reaching $\mathcal{G}_n$:
 $$\int_0^{T_A(n)} \mathbf{1}_{\mathcal{G}_n}\big(S^{A,(n)}_t(z_0)\big) \, dt > c_R \int_0^{T_A(n)} \mathfrak{D}_n\big(S^{A,(n)}_t(z_0)\big) \, dt$$
-would be required for successful inversion, but this violates Axiom R.
+would be required for successful inversion, but this violates Axiom Rep.
 
 More precisely, the Rep-breaking condition implies:
 $$\tau_{\min} > c_R \cdot D_{\max}(n)$$
@@ -6840,9 +6840,9 @@ Entropy controlled by Fisher information is Axiom LS.
 
 ### 9.7 The Sieve Detects Shadows of Structural Correspondences
 
-A fundamental methodological point clarifies the role of Axiom R (the existence of a full correspondence/dictionary) in the framework's regularity arguments.
+A fundamental methodological point clarifies the role of Axiom Rep (the existence of a full correspondence/dictionary) in the framework's regularity arguments.
 
-**Remark 17.6.1 (Shadow Detection).** The framework does not require Axiom R to detect regularity. Instead, the Sieve detects the **shadow** of Axiom R through other axioms:
+**Remark 17.6.1 (Shadow Detection).** The framework does not require Axiom Rep to detect regularity. Instead, the Sieve detects the **shadow** of Axiom Rep through other axioms:
 
 1. **Trace Formula (Axiom C):** The compactness condition on spectral data imposes constraints that are *isomorphic* to the existence of a correspondence. When spectral objects concentrate, they must do so in structured ways compatible with the underlying arithmetic or geometric data.
 
@@ -6897,7 +6897,7 @@ $$F_{\text{Prob}}: \mathbf{Hypo}|_{\mathcal{S}} \to \mathbf{Meas}$$
 >
 > *   **Failure Condition (Debug):**
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 
 
 **Corollary 17.8.** A metatheorem $\Theta$ proved using axioms $\mathfrak{A}_1, \ldots, \mathfrak{A}_k$ holds in any domain where the axioms instantiate:
@@ -7197,7 +7197,7 @@ $$
 
 **Remark 5.15 (Scaling structure is soft).** For most systems of interest, the scaling structure is immediate from dimensional analysis:
 
-- For parabolic PDEs with scaling $(x, t) \mapsto (\lambda x, \lambda^2 t)$, the exponents follow from computing how $\mathfrak{D}$ and $dt$ transform.
+- For parabolic PDEs with scaling $(x, t) \mapsto (\lambda x, \lambda^2 t)$, the exponents follow from computing how $\mathfrak{D}$ and $\mathrm{d}t$ transform.
 - For kinetic systems, the scaling comes from velocity-space rescaling.
 - For discrete systems, the scaling may be combinatorial (e.g., term depth).
 - For systems without natural scaling symmetry, SC does not apply and GN must be established by other structural means.
@@ -7462,7 +7462,7 @@ This follows from the HWI inequality \cite[Theorem 20.1]{Villani2003}.
 
 ##### Section 5: Dictionary and Axiom Rep
 
-**5.1 Axiom Rep (Structural Correspondence).** The MVFP satisfies Axiom R:
+**5.1 Axiom Rep (Structural Correspondence).** The MVFP satisfies Axiom Rep:
 $$\mathrm{Thm}(\text{Exponential Convergence}, (V, W)) \Longleftrightarrow \mathrm{Axiom\ R}(\text{Conv}, (V, W))$$
 
 The structural correspondence $D$ translates:
@@ -7594,15 +7594,15 @@ Results following from permit verification:
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Analysis)**
 
-These results require Axiom R (the specific dictionary for $(V, W)$):
+These results require Axiom Rep (the specific dictionary for $(V, W)$):
 
 | Result | Requires |
 |--------|----------|
-| Quantitative rate $\lambda$ for specific $(V, W)$ | Axiom R + convexity analysis |
-| Phase transitions for non-convex $W$ | Axiom R + bifurcation theory |
-| Metastability timescales | Axiom R + large deviations |
-| Propagation of chaos bounds | Axiom R + particle system analysis |
-| Regularity of $\rho_\infty$ | Axiom R + elliptic regularity |
+| Quantitative rate $\lambda$ for specific $(V, W)$ | Axiom Rep + convexity analysis |
+| Phase transitions for non-convex $W$ | Axiom Rep + bifurcation theory |
+| Metastability timescales | Axiom Rep + large deviations |
+| Propagation of chaos bounds | Axiom Rep + particle system analysis |
+| Regularity of $\rho_\infty$ | Axiom Rep + elliptic regularity |
 
 **Failure Mode Exclusion.**
 
@@ -7781,7 +7781,7 @@ discovers optimal singularity detection parameters.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: singularity classification follows from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: singularity classification follows from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singularity Formation.**
 Suppose $\gamma = (\Sigma_t)_{t \in [0,T)}$ develops a singularity at time $T < \infty$ with $\sup |A|^2 \to \infty$.
@@ -7807,13 +7807,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{All singularities are self-shrinkers; for generic }\Sigma_0\text{, only spheres and cylinders}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms alone force complete classification of singularities.
+**This holds whether Axiom Rep is true or false.** The structural axioms alone force complete classification of singularities.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -7825,13 +7825,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Complete classification of self-shrinkers | Axiom R + moduli theory |
-| Quantitative extinction time bounds | Axiom R + isoperimetric analysis |
-| Thomas-Yau conjecture for Lagrangian MCF | Axiom R + special Lagrangian geometry |
+| Complete classification of self-shrinkers | Axiom Rep + moduli theory |
+| Quantitative extinction time bounds | Axiom Rep + isoperimetric analysis |
+| Thomas-Yau conjecture for Lagrangian MCF | Axiom Rep + special Lagrangian geometry |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -8010,7 +8010,7 @@ where $C_{LS}$ is the log-Sobolev constant and $\sigma$ is the equilibrium varia
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: Lyapunov reconstruction and regularity follow from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: Lyapunov reconstruction and regularity follow from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (\rho_t)_{t \geq 0}$ attempts pathological behavior: concentration to delta masses, dispersion to vacuum, or non-convergence to equilibrium.
@@ -8036,13 +8036,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{Smooth positive density for all } t > 0; \quad \rho_t \to \gamma \text{ exponentially}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms alone guarantee regularity and convergence.
+**This holds whether Axiom Rep is true or false.** The structural axioms alone guarantee regularity and convergence.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -8054,13 +8054,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence between probabilistic and geometric sides):
+These results require Axiom Rep (the dictionary correspondence between probabilistic and geometric sides):
 
 | Result | Requires |
 |--------|----------|
-| Optimal log-Sobolev constants for specific domains | Axiom R + isoperimetry |
-| Explicit transport cost bounds $W_2(\rho, \gamma) \leq f(H)$ | Axiom R + Talagrand |
-| Generalization to Rényi/Tsallis entropies | Axiom R + functional calculus |
+| Optimal log-Sobolev constants for specific domains | Axiom Rep + isoperimetry |
+| Explicit transport cost bounds $W_2(\rho, \gamma) \leq f(H)$ | Axiom Rep + Talagrand |
+| Generalization to Rényi/Tsallis entropies | Axiom Rep + functional calculus |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -8236,7 +8236,7 @@ where $\lambda_1$ is the spectral gap and $C_P$ the Poincaré constant.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: global regularity and Lyapunov reconstruction follow from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: global regularity and Lyapunov reconstruction follow from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (u_t)_{t \geq 0}$ attempts pathological behavior: energy blow-up, gradient concentration, or non-convergence.
@@ -8262,13 +8262,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{Global smooth solutions for all } t > 0; \quad u_t \to 0 \text{ exponentially}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms alone guarantee regularity.
+**This holds whether Axiom Rep is true or false.** The structural axioms alone guarantee regularity.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -8280,13 +8280,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Explicit spectral gap $\lambda_1(\Omega)$ for specific domains | Axiom R + Faber-Krahn |
-| Quantitative smoothing estimates in $C^k$ norms | Axiom R + Schauder theory |
-| Extension to nonlinear heat equations | Axiom R + comparison principles |
+| Explicit spectral gap $\lambda_1(\Omega)$ for specific domains | Axiom Rep + Faber-Krahn |
+| Quantitative smoothing estimates in $C^k$ norms | Axiom Rep + Schauder theory |
+| Extension to nonlinear heat equations | Axiom Rep + comparison principles |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -8473,7 +8473,7 @@ The ecological parameters determine oscillation frequency and amplitude.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: global boundedness and periodicity follow from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: global boundedness and periodicity follow from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (x(t), y(t))_{t \geq 0}$ attempts pathological behavior: explosion to infinity or extinction (reaching the boundary $\{x=0\}$ or $\{y=0\}$).
@@ -8499,13 +8499,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{All trajectories are periodic; no extinction; no explosion}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms alone guarantee boundedness.
+**This holds whether Axiom Rep is true or false.** The structural axioms alone guarantee boundedness.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -8517,13 +8517,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Explicit period formula $T = T(V_0, \alpha, \beta, \gamma, \delta)$ | Axiom R + elliptic integral computation |
-| Response to parameter perturbations | Axiom R + sensitivity analysis |
-| Extension to multi-species Lotka-Volterra | Axiom R + graph-theoretic structure |
+| Explicit period formula $T = T(V_0, \alpha, \beta, \gamma, \delta)$ | Axiom Rep + elliptic integral computation |
+| Response to parameter perturbations | Axiom Rep + sensitivity analysis |
+| Extension to multi-species Lotka-Volterra | Axiom Rep + graph-theoretic structure |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -8708,7 +8708,7 @@ Circulations and initial positions determine all dynamics.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: vortex collision avoidance follows from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: vortex collision avoidance follows from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (z_1(t), \ldots, z_N(t))_{t \in [0,T)}$ attempts vortex collision: $z_i(t) \to z_j(t)$ as $t \to T^-$ for some $i \neq j$.
@@ -8734,13 +8734,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{Vortex collision is impossible for finite-energy initial data}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms alone guarantee collision avoidance.
+**This holds whether Axiom Rep is true or false.** The structural axioms alone guarantee collision avoidance.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -8752,13 +8752,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Explicit trajectories for $N$-vortex systems | Axiom R + integration techniques |
-| Classification of relative equilibria | Axiom R + algebraic geometry |
-| Chaotic dynamics characterization ($N \geq 4$) | Axiom R + KAM theory |
+| Explicit trajectories for $N$-vortex systems | Axiom Rep + integration techniques |
+| Classification of relative equilibria | Axiom Rep + algebraic geometry |
+| Chaotic dynamics characterization ($N \geq 4$) | Axiom Rep + KAM theory |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -8953,7 +8953,7 @@ Learning rates, gradient penalty coefficient, spectral normalization threshold.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: training stability follows from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: training stability follows from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (\theta_t, \phi_t)_{t \geq 0}$ exhibits pathological behavior: mode collapse, oscillatory divergence, or gradient explosion.
@@ -8979,13 +8979,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{GANs with IGC-preserving regularization converge to Nash equilibrium}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms (when enforced via regularization) guarantee convergence.
+**This holds whether Axiom Rep is true or false.** The structural axioms (when enforced via regularization) guarantee convergence.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms + Regularization)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -8997,13 +8997,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Sample quality metrics (FID, IS) | Axiom R + distribution matching |
-| Optimal regularization constants | Axiom R + architecture-specific tuning |
-| Convergence rate bounds | Axiom R + spectral analysis |
+| Sample quality metrics (FID, IS) | Axiom Rep + distribution matching |
+| Optimal regularization constants | Axiom Rep + architecture-specific tuning |
+| Convergence rate bounds | Axiom Rep + spectral analysis |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -9194,7 +9194,7 @@ Learning rate, weight decay, network structure.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: training convergence follows from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: training convergence follows from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (\theta_t)_{t \geq 0}$ exhibits pathological training: vanishing gradients, exploding gradients, or saddle trapping.
@@ -9220,13 +9220,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{sing}} \overset{\text{Mthm 21}}{\Longrightarro
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{ResNet + BatchNorm + proper initialization} \Rightarrow \text{convergence to critical point}}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms (when enforced via architecture) guarantee convergence.
+**This holds whether Axiom Rep is true or false.** The structural axioms (when enforced via architecture) guarantee convergence.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms + Architecture)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -9238,13 +9238,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Generalization bounds (test vs train) | Axiom R + statistical learning theory |
-| Optimal architecture for specific tasks | Axiom R + NAS |
-| Convergence rate quantification | Axiom R + spectral analysis |
+| Generalization bounds (test vs train) | Axiom Rep + statistical learning theory |
+| Optimal architecture for specific tasks | Axiom Rep + NAS |
+| Convergence rate quantification | Axiom Rep + spectral analysis |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -9441,7 +9441,7 @@ The Hamiltonian and canonical transformations.
 
 ##### Section 8: The Structural Exclusion Strategy Exclusion (THE CORE)
 
-This section contains the **central argument**: symplectic rigidity (non-squeezing) follows from structural axioms alone, **independent of whether Axiom R holds**.
+This section contains the **central argument**: symplectic rigidity (non-squeezing) follows from structural axioms alone, **independent of whether Axiom Rep holds**.
 
 **Step 1: Assume Singular Behavior.**
 Suppose $\gamma = (\phi_t(A))_{t \geq 0}$ attempts phase space squeezing: a ball $B^{2n}(r)$ evolving under Hamiltonian flow might enter a cylinder $Z^{2n}(R)$ with $R < r$.
@@ -9467,13 +9467,13 @@ $$\gamma \in \mathcal{T}_{\mathrm{squeeze}} \overset{\text{Mthm 21}}{\Longrighta
 **Step 6: Conclusion (R-INDEPENDENT).**
 $$\boxed{\text{Symplectic squeezing is impossible: } c(\phi(A)) = c(A)}$$
 
-**This holds whether Axiom R is true or false.** The structural axioms alone guarantee rigidity.
+**This holds whether Axiom Rep is true or false.** The structural axioms alone guarantee rigidity.
 
 ##### Section 9: Two-Tier Conclusions
 
 **Tier 1: R-Independent Results (FREE from Structural Axioms)**
 
-These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom R holds**:
+These results follow automatically from the sieve exclusion in Section 8, **regardless of whether Axiom Rep holds**:
 
 | Result | Source |
 |--------|--------|
@@ -9485,13 +9485,13 @@ These results follow automatically from the sieve exclusion in Section 8, **rega
 
 **Tier 2: R-Dependent Results (Require Problem-Specific Dictionary)**
 
-These results require Axiom R (the dictionary correspondence):
+These results require Axiom Rep (the dictionary correspondence):
 
 | Result | Requires |
 |--------|----------|
-| Explicit integrability (action-angle) | Axiom R + Liouville-Arnold theorem |
-| KAM stability for specific systems | Axiom R + diophantine conditions |
-| Floer homology computations | Axiom R + symplectic topology |
+| Explicit integrability (action-angle) | Axiom Rep + Liouville-Arnold theorem |
+| KAM stability for specific systems | Axiom Rep + diophantine conditions |
+| Floer homology computations | Axiom Rep + symplectic topology |
 
 **9.3 Failure Mode Exclusion Summary.**
 
@@ -11512,7 +11512,7 @@ $$S(\rho_{A_i}) + S(\rho_{A_j}) \leq S(\rho_{A_i \cup A_j}) + S(\rho_{A_i \cap A
 This ensures that information is consistent: the joint description contains no more information than the sum of individual descriptions plus correlations. Contradictory information would violate subadditivity.
 
 **Step 4 (Pointer basis and decoherence).** When system $S$ interacts with a large environment $E$, the total state becomes:
-$$|\Psi\rangle = \sum_k c_k |s_k\rangle |e_k\rangle |...\rangle$$
+$$|\Psi\rangle = \sum_k c_k |s_k\rangle |e_k\rangle |\ldots\rangle$$
 where $|e_k\rangle$ are approximately orthogonal environment states.
 
 The reduced density matrix of $S$ is:
@@ -12028,7 +12028,7 @@ For a "generic" quintic $f(x) = x^5 + a_4 x^4 + \cdots + a_0$ with algebraically
 
 Since $S_5$ is not solvable, the generic quintic cannot be solved by radicals. This is the Abel-Ruffini theorem.
 
-**Concrete example:** $f(x) = x^5 - x - 1$ has Galois group $S_5$. The root $\alpha \approx 1.1673...$ cannot be expressed using $+, -, \times, \div, \sqrt[n]{}$.
+**Concrete example:** $f(x) = x^5 - x - 1$ has Galois group $S_5$. The root $\alpha \approx 1.1673\ldots$ cannot be expressed using $+, -, \times, \div, \sqrt[n]{}$.
 
 **Step 6 (Monodromy for Differential Equations).**
 Consider a linear ODE on $\mathbb{C} \setminus \{z_1, \ldots, z_k\}$:
@@ -16128,7 +16128,7 @@ By assumption (UL1-3), these agree.
 
 ### 20.12 The Computational Closure Isomorphism
 
-This section establishes the connection between Axiom R (Representability) and **computational closure** from information-theoretic emergence theory \cite{Rosas2024}. The central result is that a system admits a well-defined "macroscopic software layer" if and only if it satisfies geometric stiffness conditions.
+This section establishes the connection between Axiom Rep (Representability) and **computational closure** from information-theoretic emergence theory \cite{Rosas2024}. The central result is that a system admits a well-defined "macroscopic software layer" if and only if it satisfies geometric stiffness conditions.
 
 **Definition 20.7.1 (Stochastic Dynamical System).** A **stochastic dynamical system** is a tuple $(\mathcal{X}, \mathcal{B}, \mu, T)$ where:
 - $(\mathcal{X}, \mathcal{B})$ is a standard Borel space (state space)
@@ -16208,20 +16208,20 @@ Iterating, $P(Y_{t+1}, Y_{t+2}, \ldots \mid X_t = x) = P(Y_{t+1}, Y_{t+2}, \ldot
 
 **Sufficiency.** Suppose both axioms hold at level $\ell$. By Metatheorem 20.7, (CC2) $\Rightarrow$ (CC1), so the projection $\Pi_{\ell+1}^\ell$ is computationally closed. By Axiom SC, the dynamics is a well-defined gradient flow, ensuring the ε-machine at level $\ell$ is faithful. $\square$
 
-**Corollary 20.7.2 (Axiom R as Computational Closure).** *A stochastic dynamical system $(\mathcal{X}, \mu, T)$ satisfies Axiom R (Representability) if and only if it is computationally closed with respect to its causal state decomposition. Moreover, the dictionary $D$ in Axiom R is canonically realized as:*
+**Corollary 20.7.2 (Axiom Rep as Computational Closure).** *A stochastic dynamical system $(\mathcal{X}, \mu, T)$ satisfies Axiom Rep (Representability) if and only if it is computationally closed with respect to its causal state decomposition. Moreover, the dictionary $D$ in Axiom Rep is canonically realized as:*
 $$D: \mathcal{M}_\epsilon \xrightarrow{\sim} \mathcal{Y}_R$$
-*where $\mathcal{Y}_R$ is the representation space of Axiom R.*
+*where $\mathcal{Y}_R$ is the representation space of Axiom Rep.*
 
 *Proof.*
 
-**($\Rightarrow$)** Suppose Axiom R holds: there exists a representation $\mathcal{Y}_R$ and dictionary $D$ such that the dynamics lifts to $\mathcal{Y}_R$ faithfully. "Faithfully" means no predictive information is lost, i.e., $I(Y_t; Y_{t+1}) = I(X_t; X_{t+1})$ where $Y_t$ is the $\mathcal{Y}_R$-representation of $X_t$. This is precisely computational closure.
+**($\Rightarrow$)** Suppose Axiom Rep holds: there exists a representation $\mathcal{Y}_R$ and dictionary $D$ such that the dynamics lifts to $\mathcal{Y}_R$ faithfully. "Faithfully" means no predictive information is lost, i.e., $I(Y_t; Y_{t+1}) = I(X_t; X_{t+1})$ where $Y_t$ is the $\mathcal{Y}_R$-representation of $X_t$. This is precisely computational closure.
 
 **($\Leftarrow$)** Suppose the system is computationally closed with respect to $\Pi_\epsilon$. The ε-machine $\mathcal{M}_\epsilon$ is, by construction, the unique minimal sufficient statistic for prediction \cite{Shalizi2001}. It provides a representation where:
 - Each causal state $[x]_\epsilon$ corresponds to an elementary dynamical unit
-- Transitions between causal states are the "elementary transitions" required by Axiom R
+- Transitions between causal states are the "elementary transitions" required by Axiom Rep
 - The dictionary $D$ is the bijection between causal states and representation elements
 
-Thus Axiom R is satisfied with $\mathcal{Y}_R = \mathcal{M}_\epsilon$. $\square$
+Thus Axiom Rep is satisfied with $\mathcal{Y}_R = \mathcal{M}_\epsilon$. $\square$
 
 **Key Insight:** The Closure-Curvature Duality reveals that geometric stiffness (positive Ollivier curvature) is the *physical cause* of computational emergence. A system can run reliable "software"—macro-level closed dynamics independent of micro-noise—if and only if its underlying geometry satisfies the curvature bounds of Axiom LS.
 
@@ -17569,7 +17569,7 @@ where:
 Computing the Gröbner basis:
 $$G = \{c - C\mathfrak{D}\}.$$
 
-This does **not** contain $1$, so $\mathcal{Y}_{\text{sing}}$ may be nonempty. The scheme $\text{Spec}(\mathcal{R}/I_{\text{sing}})$ is nontrivial, corresponding to **potential singular structures**. Verifying $\mathcal{Y}_{\text{sing}} = \emptyset$ requires additional permits (Axiom R, topological constraints). $\square$
+This does **not** contain $1$, so $\mathcal{Y}_{\text{sing}}$ may be nonempty. The scheme $\text{Spec}(\mathcal{R}/I_{\text{sing}})$ is nontrivial, corresponding to **potential singular structures**. Verifying $\mathcal{Y}_{\text{sing}} = \emptyset$ requires additional permits (Axiom Rep, topological constraints). $\square$
 
 **Step 6 (Conclusion).**
 
@@ -17917,7 +17917,7 @@ This proves conclusion (1).
 
 **Step 6 (Dictionary $D$ and Axiom Rep: Global Extension via Bernstein-Sato).**
 
-**Axiom R (Recovery).** The recovery functional $\mathfrak{R}$ provides a **dictionary** $D$ relating bad and good regions:
+**Axiom Rec (Recovery).** The recovery functional $\mathfrak{R}$ provides a **dictionary** $D$ relating bad and good regions:
 $$D: \mathcal{B} \to \mathcal{G}$$
 where $\mathcal{B}$ is the bad region (away from safe manifold $M$) and $\mathcal{G}$ is the good region (near $M$).
 
@@ -17934,7 +17934,7 @@ The roots of $b_f(s)$ are negative rational numbers, and they control the analyt
 (i) $D$ extends meromorphically to all of $X$ if and only if the Bernstein-Sato polynomial of the height functional $\Phi$ has only rational roots:
 $$b_\Phi(s) \in \mathbb{Q}[s], \quad \text{roots} \in \mathbb{Q}.$$
 
-(ii) If $D$ extends globally, then Axiom R holds with error $O(\Phi^{-N})$ for some $N \geq 1$ (polynomial decay).
+(ii) If $D$ extends globally, then Axiom Rep holds with error $O(\Phi^{-N})$ for some $N \geq 1$ (polynomial decay).
 
 *Proof.*
 
@@ -17950,11 +17950,11 @@ $$s = -\frac{p}{q}, \quad p, q \in \mathbb{N}, \; (p, q) = 1$$
 
 If all roots of $b_\Phi(s)$ are rational, then $\Phi^s$ is meromorphic in $s$, and the integral $D(u)$ extends via residue calculus.
 
-**Step 6b (Axiom R from Meromorphic Extension).** Suppose $D$ extends meromorphically. Then for $u$ in the bad region $\mathcal{B}$:
+**Step 6b (Axiom Rep from Meromorphic Extension).** Suppose $D$ extends meromorphically. Then for $u$ in the bad region $\mathcal{B}$:
 $$\mathfrak{R}(u) = |D(u)| \leq C \cdot \Phi(u)^{-N}$$
 where $N$ is the order of the pole at $s = 0$ (or the smallest root of $b_\Phi(s)$).
 
-This gives a polynomial decay estimate, which is Axiom R with error $O(\Phi^{-N})$. $\square$
+This gives a polynomial decay estimate, which is Axiom Rep with error $O(\Phi^{-N})$. $\square$
 
 **Example 22.4.8 (Heat Kernel and Gaussian Decay).** For the heat equation, $\Phi(u) = \int |u|^2$ and the dictionary is the heat kernel:
 $$D(u) = e^{t\Delta} u.$$
@@ -17964,7 +17964,7 @@ $$b_\Phi(s) = s + \frac{d}{2}$$
 where $d$ is the spatial dimension. The root $s = -d/2$ is rational, so the heat kernel extends globally. The decay is:
 $$\|D(u)\| \leq C t^{-d/2} e^{-|x|^2/(4t)} \quad (\text{Gaussian}).$$
 
-This is Axiom R with exponential decay (stronger than polynomial).
+This is Axiom Rep with exponential decay (stronger than polynomial).
 
 **Example 22.4.9 (Navier-Stokes and Poles).** For Navier-Stokes, the height $\Phi(u) = \int |u|^2$ has Bernstein-Sato polynomial:
 $$b_\Phi(s) = s + \frac{3}{2}$$
@@ -17976,7 +17976,7 @@ However, the nonlinearity $(u \cdot \nabla) u$ introduces additional poles in th
 
 The Bernstein-Sato polynomial is intimately connected to Hodge theory \cite{Saito88}. For a variation of Hodge structure (VHS) parametrized by $\mathcal{M}_{\text{prof}}$, period integrals satisfy differential equations with rational exponents.
 
-**Corollary 22.4.10 (Period Integrals are Hypergeometric).** If the profile moduli space $\mathcal{M}_{\text{prof}}$ is algebraic and Axiom R holds, then transition amplitudes between profiles (period integrals) satisfy hypergeometric differential equations with rational exponents.
+**Corollary 22.4.10 (Period Integrals are Hypergeometric).** If the profile moduli space $\mathcal{M}_{\text{prof}}$ is algebraic and Axiom Rep holds, then transition amplitudes between profiles (period integrals) satisfy hypergeometric differential equations with rational exponents.
 
 *Proof.* The period integral:
 $$\Pi(V_1, V_2) = \int_{V_1} \omega(V_2)$$
@@ -18420,7 +18420,7 @@ where $e(\text{Ob}^\vee)$ is the Euler class of the dual obstruction bundle and 
 $$\int_{[\mathcal{Y}_{\text{sing}}]^{\text{vir}}} \Pi = \int_{[\mathcal{M}]^{\text{vir}}} \mathbb{1}_{\{\Pi = 0\}} = \text{Defect Count}.$$
 This counts profiles satisfying $\Pi = 0$ (zero-permit locus) with virtual multiplicity.
 
-3. **GW/DT Invariants:** Gromov-Witten invariants count Axiom R defects (curves violating energy concentration) integrated over moduli of stable maps:
+3. **GW/DT Invariants:** Gromov-Witten invariants count Axiom Rep defects (curves violating energy concentration) integrated over moduli of stable maps:
 $$\text{GW}_{g,n,\beta}(X) = \int_{[\overline{M}_{g,n}(X, \beta)]^{\text{vir}}} \prod_{i=1}^n \text{ev}_i^*(\gamma_i).$$
 Donaldson-Thomas invariants count Axiom Cap defects (sheaves violating capacity bounds) integrated over Hilbert schemes:
 $$\text{DT}_n(X) = \int_{[\text{Hilb}^n(X)]^{\text{vir}}} 1.$$
@@ -18505,13 +18505,13 @@ When $\Pi$ is a regular section (transverse to zero), the zero locus is a finite
 $$\text{mult}(E) = \frac{1}{|\text{Aut}(E)|}$$
 (automorphisms reduce multiplicity in moduli spaces). Summing gives the total count. $\square$
 
-**Step 6 (Gromov-Witten Invariants as Axiom R Defects).**
+**Step 6 (Gromov-Witten Invariants as Axiom Rep Defects).**
 
 *Lemma 22.7.5 (GW Invariants Count Energy Defects).* Let $\overline{M}_{g,n}(X, \beta)$ be the moduli space of genus $g$ stable maps to $X$ with $n$ marked points, representing the curve class $\beta \in H_2(X)$. The Gromov-Witten invariant is:
 $$\text{GW}_{g,n,\beta}(X; \gamma_1, \ldots, \gamma_n) = \int_{[\overline{M}_{g,n}(X, \beta)]^{\text{vir}}} \prod_{i=1}^n \text{ev}_i^*(\gamma_i)$$
 where $\text{ev}_i: \mathcal{M} \to X$ evaluates the map at the $i$-th marked point, and $\gamma_i \in H^*(X)$ are cohomology insertions.
 
-This counts curves violating Axiom R (Energy Concentration): the defect functional is:
+This counts curves violating Axiom Rep (Energy Concentration): the defect functional is:
 $$\mathfrak{r}(f: C \to X) = \int_C f^*(\omega) - \text{const}$$
 where $\omega$ is the Kahler form on $X$.
 
@@ -18606,7 +18606,7 @@ Axiom C (Compactness) should be formulated on quotient stacks $[X/G]$, not on co
 $$\text{Cap}([X/G]) = \int_{[X/G]} \omega = \int_X \frac{\omega}{|G|} = \frac{1}{|G|} \int_X \omega.$$
 For orbifold points, the local contribution is weighted by $1/|\text{Aut}(x)|$, giving fractional capacity.
 
-4. **Gerbes and Axiom R:** The dictionary phase ambiguity (Axiom R) corresponds to Brauer classes: central extensions $1 \to \mathbb{C}^* \to \tilde{G} \to G \to 1$ create gerbes over $[X/G]$, encoding the failure of $G$ to act projectively.
+4. **Gerbes and Axiom Rep:** The dictionary phase ambiguity (Axiom Rep) corresponds to Brauer classes: central extensions $1 \to \mathbb{C}^* \to \tilde{G} \to G \to 1$ create gerbes over $[X/G]$, encoding the failure of $G$ to act projectively.
 
 *Proof.*
 
@@ -18710,13 +18710,13 @@ Axiom Cap must be formulated on the stack $[X/G]$ to correctly account for fract
 $$\text{Cap}_{\text{stack}}(K) = \frac{\text{Cap}_{\text{coarse}}(K)}{|G|}.$$
 This tightens the capacity bound, excluding more singular profiles. $\square$
 
-**Step 6 (Gerbes and Axiom R).**
+**Step 6 (Gerbes and Axiom Rep).**
 
 *Lemma 22.8.6 (Gerbes from Central Extensions).* Suppose the symmetry group $G$ acts on $X$ but fails to act projectively: there exists a central extension:
 $$1 \to \mathbb{C}^* \to \tilde{G} \to G \to 1$$
 where $\tilde{G}$ is the universal cover of $G$ and $\mathbb{C}^*$ is the center.
 
-The quotient stack $[X/\tilde{G}]$ is a gerbe over $[X/G]$, encoding the phase ambiguity of Axiom R.
+The quotient stack $[X/\tilde{G}]$ is a gerbe over $[X/G]$, encoding the phase ambiguity of Axiom Rep.
 
 *Proof of Lemma.* A gerbe is a stack where every object has automorphisms forming a group (typically $\mathbb{C}^*$ or $B\mathbb{Z}$). The quotient stack $[X/\tilde{G}]$ has objects $(x, \tilde{g})$ where $\tilde{g} \in \tilde{G}$ lifts $g \in G$.
 
@@ -18729,7 +18729,7 @@ In hypostructure terms, this encodes Axiom Rep (Dictionary phase ambiguity): the
 
 The Brauer class of the gerbe is:
 $$[\mathcal{G}] \in H^2(X/G, \mathbb{C}^*) = \text{Br}(X/G)$$
-(cohomological Brauer group). Non-trivial Brauer class means the dictionary cannot be made single-valued: Axiom R is obstructed. $\square$
+(cohomological Brauer group). Non-trivial Brauer class means the dictionary cannot be made single-valued: Axiom Rep is obstructed. $\square$
 
 **Step 7 (Twisted Sheaves and Projective Representations).**
 
@@ -18737,7 +18737,7 @@ $$[\mathcal{G}] \in H^2(X/G, \mathbb{C}^*) = \text{Br}(X/G)$$
 $$\lambda \cdot \mathcal{F} = \chi(\lambda) \mathcal{F}$$
 for some character $\chi: \mathbb{C}^* \to \mathbb{C}^*$.
 
-In hypostructure terms, twisted sheaves are profiles with non-trivial dictionary phase: they represent states where Axiom R fails (phase is not globally defined).
+In hypostructure terms, twisted sheaves are profiles with non-trivial dictionary phase: they represent states where Axiom Rep fails (phase is not globally defined).
 
 *Proof of Lemma.* A twisted sheaf on a gerbe $\mathcal{G}$ banded by $\mathbb{C}^*$ is a sheaf $\mathcal{F}$ on the total space of $\mathcal{G}$ such that:
 $$\mathcal{F}|_{\mathcal{G}_x} = \text{line bundle with fiber } \mathbb{C}$$
@@ -18749,7 +18749,7 @@ where $\chi: \mathbb{C}^* \to \mathbb{C}^*$ is the twisting character.
 
 For the hypostructure, this means the profile $\mathcal{F}$ has phase:
 $$\phi(\mathcal{F}) = \arg(\chi) \in S^1 / \mathbb{Z}$$
-(phase circle modulo integer shifts). Non-trivial twisting ($\chi \neq \text{id}$) corresponds to Axiom R failure: the phase is not single-valued on the coarse quotient $X/G$ but only on the gerbe $\mathcal{G}$. $\square$
+(phase circle modulo integer shifts). Non-trivial twisting ($\chi \neq \text{id}$) corresponds to Axiom Rep failure: the phase is not single-valued on the coarse quotient $X/G$ but only on the gerbe $\mathcal{G}$. $\square$
 
 **Step 8 (Example: Instantons on Orbifolds).**
 
@@ -18782,9 +18782,9 @@ On the coarse quotient $X/G$, ramification information is lost, and GW invariant
 
 **Step 10 (Conclusion).**
 
-The Stacky Quotient Principle establishes that Axiom C (Compactness) must be formulated on quotient stacks $[X/G]$, not coarse moduli spaces $X/G$. The stack preserves automorphism groups (stabilizers), which encode Mode S.E (symmetry enhancement) at orbifold points. Fractional multiplicities arise from the weighting $1/|\text{Aut}(x)|$ in integration, correcting Axiom Cap capacity bounds. Gerbes (central extensions) encode Axiom R phase ambiguity: when the symmetry group $G$ does not act projectively, the quotient $[X/G]$ is a gerbe, and twisted sheaves represent profiles with non-trivial phase. This converts stacky intersection theory (orbifold GW/DT invariants) into hypostructure analysis (fractional permit integration), unifying orbifold geometry and symmetry-enhanced dynamics. $\square$
+The Stacky Quotient Principle establishes that Axiom C (Compactness) must be formulated on quotient stacks $[X/G]$, not coarse moduli spaces $X/G$. The stack preserves automorphism groups (stabilizers), which encode Mode S.E (symmetry enhancement) at orbifold points. Fractional multiplicities arise from the weighting $1/|\text{Aut}(x)|$ in integration, correcting Axiom Cap capacity bounds. Gerbes (central extensions) encode Axiom Rep phase ambiguity: when the symmetry group $G$ does not act projectively, the quotient $[X/G]$ is a gerbe, and twisted sheaves represent profiles with non-trivial phase. This converts stacky intersection theory (orbifold GW/DT invariants) into hypostructure analysis (fractional permit integration), unifying orbifold geometry and symmetry-enhanced dynamics. $\square$
 
-**Key Insight.** Stacks are the natural language for hypostructures with symmetries. The coarse quotient $X/G$ discards essential information: automorphisms encode degrees of freedom reduction (Mode S.E), and fractional multiplicities ensure correct capacity bounds (Axiom Cap). Every orbifold point is a "ghost" in the coarse quotient—present but invisible. The stack $[X/G]$ makes ghosts explicit via automorphism groups. Gerbes extend this to projective actions, encoding phase ambiguity (Axiom R) via Brauer classes. The framework reveals that categorical geometry (stacks, gerbes) is the correct foundation for symmetry-aware dynamics, and coarse quotients are almost always incorrect for permit calculations.
+**Key Insight.** Stacks are the natural language for hypostructures with symmetries. The coarse quotient $X/G$ discards essential information: automorphisms encode degrees of freedom reduction (Mode S.E), and fractional multiplicities ensure correct capacity bounds (Axiom Cap). Every orbifold point is a "ghost" in the coarse quotient—present but invisible. The stack $[X/G]$ makes ghosts explicit via automorphism groups. Gerbes extend this to projective actions, encoding phase ambiguity (Axiom Rep) via Brauer classes. The framework reveals that categorical geometry (stacks, gerbes) is the correct foundation for symmetry-aware dynamics, and coarse quotients are almost always incorrect for permit calculations.
 
 ---
 
@@ -19389,19 +19389,19 @@ This is the hypostructure manifestation of **homological mirror symmetry**.
 
 The **monodromy logarithm** $N$ is the infinitesimal generator of mode transitions, encoding how cohomology classes "flow" between modes as the degeneration parameter $t \to 0$. The nilpotency $N^{k+1} = 0$ ensures finite-time transitions, consistent with Axiom TB's requirement of **bounded transition times**.
 
-The deep consequence for mirror symmetry: monodromy on the B-model (complex geometry) encodes instanton corrections on the A-model (symplectic geometry). The weight filtration is the bridge, with weights corresponding to instanton degrees. This is the ultimate realization of **Axiom R** (Reflection): geometric complexity on one side equals analytic complexity on the mirror side.
+The deep consequence for mirror symmetry: monodromy on the B-model (complex geometry) encodes instanton corrections on the A-model (symplectic geometry). The weight filtration is the bridge, with weights corresponding to instanton degrees. This is the ultimate realization of **Axiom Rep** (Reflection): geometric complexity on one side equals analytic complexity on the mirror side.
 
 $\square$
 
 **Metatheorem 22.12 (The Mirror Duality Isomorphism)**
 
-**Statement.** Let $(X, \omega)$ be a Calabi-Yau manifold equipped with a symplectic form (A-model), and let $(X^\vee, J)$ be its mirror equipped with a complex structure (B-model). Then there exists a pair of dual hypostructures $(\mathbb{H}_A, \mathbb{H}_B)$ satisfying Axiom R (Reflection) such that:
+**Statement.** Let $(X, \omega)$ be a Calabi-Yau manifold equipped with a symplectic form (A-model), and let $(X^\vee, J)$ be its mirror equipped with a complex structure (B-model). Then there exists a pair of dual hypostructures $(\mathbb{H}_A, \mathbb{H}_B)$ satisfying Axiom Rep (Reflection) such that:
 
 1. **Fukaya ≃ Derived**: The derived Fukaya category is equivalent to the derived category of coherent sheaves:
    $$
    D^b\text{Fuk}(X) \cong D^b(\text{Coh}(X^\vee)).
    $$
-   This is the homological manifestation of Axiom R.
+   This is the homological manifestation of Axiom Rep.
 
 2. **Instantons ↔ Periods**: Gromov-Witten invariants (A-model instanton corrections) equal variations of Hodge structure (B-model periods), as encoded by the Picard-Fuchs equation. A-model dissipation = B-model height variation.
 
@@ -19423,7 +19423,7 @@ $$
 D^b\text{Fuk}(X, \omega) \cong D^b(\text{Coh}(X^\vee)).
 $$
 
-This is the ultimate form of Axiom R (Reflection): A-model and B-model are **categorically equivalent**.
+This is the ultimate form of Axiom Rep (Reflection): A-model and B-model are **categorically equivalent**.
 
 **Step 1a: Fukaya category.**
 
@@ -19460,14 +19460,14 @@ sends a point $\{p\} \subset E$ (0-dimensional Lagrangian) to a skyscraper sheaf
 
 **Step 1d: Hypostructure interpretation.**
 
-The equivalence $D^b\text{Fuk}(X) \cong D^b(\text{Coh}(X^\vee))$ is the categorical version of Axiom R:
+The equivalence $D^b\text{Fuk}(X) \cong D^b(\text{Coh}(X^\vee))$ is the categorical version of Axiom Rep:
 - **Feasible region duality**: $\mathbb{F}_A \cong \mathbb{F}_B$ (state spaces identified)
 - **Mode correspondence**: Special Lagrangians $\leftrightarrow$ Stable sheaves (Mode C.C on both sides)
 - **Energy functional**: Symplectic area $\int_L \omega$ $\leftrightarrow$ Degree/Slope $\mu(\mathcal{F}) = \deg(\mathcal{F})/\text{rk}(\mathcal{F})$
 
-The mirror functor $\Phi$ is the **reflection isomorphism** $R: \mathbb{H}_A \to \mathbb{H}_B$ required by Axiom R.
+The mirror functor $\Phi$ is the **reflection isomorphism** $R: \mathbb{H}_A \to \mathbb{H}_B$ required by Axiom Rep.
 
-**Conclusion.** Homological mirror symmetry realizes Axiom R as a categorical equivalence between A-model and B-model. $\square_{\text{Step 1}}$
+**Conclusion.** Homological mirror symmetry realizes Axiom Rep as a categorical equivalence between A-model and B-model. $\square_{\text{Step 1}}$
 
 **Step 2 (Instanton-Period Correspondence).**
 
@@ -19615,11 +19615,11 @@ where $\Gamma, \Gamma^\vee$ are dual lattices.
 The SYZ base $B$ is the **large-scale quotient** of both $X$ and $X^\vee$. It encodes:
 - **Axiom LS**: Asymptotic behavior of $X, X^\vee$ at large scales (torus fibers flatten)
 - **Axiom SC**: Scaling $\lambda \to 0$ corresponds to collapsing fibers $T \to \text{pt}$
-- **Axiom R**: Reflection $(X, \omega) \leftrightarrow (X^\vee, J)$ via Legendre transform on $B$
+- **Axiom Rep**: Reflection $(X, \omega) \leftrightarrow (X^\vee, J)$ via Legendre transform on $B$
 
-The SYZ fibration is the **geometric realization of Axiom R** at the level of large-scale structure.
+The SYZ fibration is the **geometric realization of Axiom Rep** at the level of large-scale structure.
 
-**Conclusion.** The SYZ conjecture realizes mirror symmetry as T-duality of dual torus fibrations, providing the geometric foundation for Axiom R. $\square_{\text{Step 4}}$
+**Conclusion.** The SYZ conjecture realizes mirror symmetry as T-duality of dual torus fibrations, providing the geometric foundation for Axiom Rep. $\square_{\text{Step 4}}$
 
 **Remark 22.12.1 (Mirror Duality Synthesis).** The mirror duality isomorphism unifies three levels of mirror symmetry:
 
@@ -19627,19 +19627,19 @@ The SYZ fibration is the **geometric realization of Axiom R** at the level of la
    $$
    D^b\text{Fuk}(X) \cong D^b(\text{Coh}(X^\vee))
    $$
-   This is **Axiom R at the level of derived categories**, equating A-model Lagrangians with B-model sheaves.
+   This is **Axiom Rep at the level of derived categories**, equating A-model Lagrangians with B-model sheaves.
 
 2. **Numerical** (Instanton-Period Correspondence):
    $$
    F_g^{(A)}(q) = \text{PF}^{-1}(\Pi_g^{(B)}(t))
    $$
-   This is **Axiom R at the level of generating functions**, equating A-model Gromov-Witten invariants with B-model periods.
+   This is **Axiom Rep at the level of generating functions**, equating A-model Gromov-Witten invariants with B-model periods.
 
 3. **Geometric** (Stability Transfer):
    $$
    \text{Special Lagrangians} \leftrightarrow \text{Bridgeland-stable sheaves}
    $$
-   This is **Axiom R at the level of moduli spaces**, equating A-model calibrated geometry with B-model algebraic stability.
+   This is **Axiom Rep at the level of moduli spaces**, equating A-model calibrated geometry with B-model algebraic stability.
 
 The **SYZ conjecture** provides the geometric mechanism: mirror symmetry is T-duality of dual torus fibrations, realized as a Legendre transform on the affine base. The hypostructure axioms encode this as:
 
@@ -19647,11 +19647,11 @@ The **SYZ conjecture** provides the geometric mechanism: mirror symmetry is T-du
 - **Axiom LS**: Special Lagrangian calibration (A) $\leftrightarrow$ Bridgeland stability (B)
 - **Axiom SC**: Instanton expansion (A) $\leftrightarrow$ Picard-Fuchs solutions (B)
 - **Axiom TB**: Floer theory (A) $\leftrightarrow$ Deformation theory (B)
-- **Axiom R**: **Mirror functor $\Phi: \mathbb{H}_A \to \mathbb{H}_B$ is an equivalence**
+- **Axiom Rep**: **Mirror functor $\Phi: \mathbb{H}_A \to \mathbb{H}_B$ is an equivalence**
 
 The structural interpretation: **mirror symmetry is not a duality but an isomorphism**. The A-model and B-model are two presentations of the same underlying hypostructure. The mirror map is a **change of coordinates** in the space of hypostructures.
 
-This realizes Axiom R: **geometry and algebra correspond via the mirror functor**.
+This realizes Axiom Rep: **geometry and algebra correspond via the mirror functor**.
 
 $\square$
 
@@ -19662,7 +19662,7 @@ $\square$
 This section completes the algebraic-geometric coverage with descent theory (Grothendieck topologies), K-theory (Riemann-Roch), Tannakian categories (symmetry reconstruction), and the Langlands program (spectral-Galois duality).
 
 
-**Metatheorem 22.13 (The Grothendieck Descent Principle).** Upgrade Axiom R/TB to Grothendieck topologies: descent data for hypostructures encode cohomological obstructions to global existence from local data.
+**Metatheorem 22.13 (The Grothendieck Descent Principle).** Upgrade Axiom Rep/TB to Grothendieck topologies: descent data for hypostructures encode cohomological obstructions to global existence from local data.
 
 **Part 1 (Descent Datum ↔ Coherent Recovery).** Let $\tau$ be a Grothendieck topology on $X$ and $\{U_i \to X\}$ a $\tau$-covering. If local hypostructures $\mathbb{H}_i$ on $U_i$ satisfy the cocycle condition on overlaps $U_{ij} := U_i \times_X U_j$, then they descend to a global hypostructure $\mathbb{H}$ on $X$.
 
@@ -19885,7 +19885,7 @@ $$\text{Per}(\mathbb{H}) \cong \text{Hom}(G_{\text{mot}}, \mathbb{G}_m)$$
 
 **Part 3 (Differential Galois Group).** For the scaling flow $\Phi_t = e^{tS}$, the Picard-Vessiot group $G_{\text{PV}}$ classifies integrability:
 - **Integrable:** $G_{\text{PV}}$ is solvable (resonance conditions of Axiom Res satisfied)
-- **Chaotic:** $G_{\text{PV}} = \text{SL}_2$ or larger (Axiom R fails, sensitivity to initial conditions)
+- **Chaotic:** $G_{\text{PV}} = \text{SL}_2$ or larger (Axiom Rep fails, sensitivity to initial conditions)
 
 *Proof.*
 
@@ -19964,7 +19964,7 @@ $$G_{\text{PV}} := \{\sigma \in \text{Aut}(L/K) \mid \sigma \text{ commutes with
 
 **Step 11 (Integrability Criterion).** By \cite{Kolchin-DGT}, the equation $\nabla \Psi = S \cdot \Psi$ is integrable iff $G_{\text{PV}}$ is solvable. For hypostructures:
 - **Integrable case:** Axiom Res (Resonance) holds, implying $[S, \Delta] = 0$ modulo lower-order terms. Then $G_{\text{PV}}$ is a solvable group (e.g., triangular matrices, torus).
-- **Chaotic case:** Axiom R fails, and $[S, \Delta] \neq 0$. Then $G_{\text{PV}} = \text{SL}_2(\mathbb{C})$ or larger, indicating exponential sensitivity (Lyapunov exponents).
+- **Chaotic case:** Axiom Rep fails, and $[S, \Delta] \neq 0$. Then $G_{\text{PV}} = \text{SL}_2(\mathbb{C})$ or larger, indicating exponential sensitivity (Lyapunov exponents).
 
 **Step 12 (Classification by $G_{\text{PV}}$).** The structure of $G_{\text{PV}}$ classifies the dynamics:
 - $G_{\text{PV}} = \mathbb{G}_m$ (torus): Scaling flow is periodic or quasi-periodic (Axiom SC satisfied)
@@ -20172,7 +20172,7 @@ The sixteen metatheorems of this chapter establish a complete dictionary between
 | Conservation (Axiom C) | Arakelov Heights | **23.9** (Adelic Heights) |
 | Scaling (Axiom SC) | Tropical Geometry | **23.10** (Tropical Limit) |
 | Topology (Axiom TB) | Hodge Structures | **23.11** (Monodromy-Weight) |
-| Duality (Axiom R) | Mirror Symmetry / HMS | **23.12** (Mirror Duality) |
+| Duality (Axiom Rep) | Mirror Symmetry / HMS | **23.12** (Mirror Duality) |
 | Local-Global | Grothendieck Descent | **23.13** (Descent) |
 | Index Theory | K-Theory / Riemann-Roch | **23.14** (Index Lock) |
 | Symmetry Group | Tannakian Categories | **23.15** (Tannakian) |
@@ -20652,7 +20652,7 @@ Alternatively, if we insist $\Phi_V \geq 0$ always, then the infinite descending
 
 **Step 9 (Obstruction setup).** By Metatheorem 19.4.K (Categorical Obstruction Schema), the category $\mathbf{Hypo}$ of admissible hypostructures has a universal Rep-breaking pattern $\mathbb{H}_{\text{bad}}$ such that:
 
-- Any hypostructure $\mathbb{H}$ violating Axiom R (regularity/realizability) admits a morphism $F: \mathbb{H}_{\text{bad}} \to \mathbb{H}$.
+- Any hypostructure $\mathbb{H}$ violating Axiom Rep (regularity/realizability) admits a morphism $F: \mathbb{H}_{\text{bad}} \to \mathbb{H}$.
 
 - Conversely, if no such morphism exists, $\mathbb{H}$ is Rep-valid (axiom-compliant).
 
@@ -21857,7 +21857,7 @@ ordered lexicographically. The base case (planar graphs) is handled by the follo
 
 *Proof of Lemma.* Graphs of treewidth $\leq k$ have tree-decompositions with bags of size $\leq k+1$. The graph structure is encoded as a tree (WQO by Lemma 24.1.1) decorated with bounded labels (from a finite set). By the Product Lemma for WQO, the decorated trees remain WQO. $\square$
 
-**Step 2 (The Graph Structure Theorem / Axiom R).** Robertson and Seymour's deepest technical contribution is the **Graph Structure Theorem**: for any $H$ not containing $G$ as a minor, every graph in $\text{Excl}(G) := \{H : G \not\preceq_m H\}$ admits a structural decomposition.
+**Step 2 (The Graph Structure Theorem / Axiom Rep).** Robertson and Seymour's deepest technical contribution is the **Graph Structure Theorem**: for any $H$ not containing $G$ as a minor, every graph in $\text{Excl}(G) := \{H : G \not\preceq_m H\}$ admits a structural decomposition.
 
 **Lemma 24.1.3 (Graph Structure Theorem).** *For every graph $G$, there exists $k = k(G)$ such that every $H \in \text{Excl}(G)$ can be constructed by:*
 
@@ -21933,7 +21933,7 @@ ordered lexicographically. The base case (planar graphs) is handled by the follo
 >     *   Forbidden minor characterization via capacity bounds
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 
 
 #### 24.3.1 Motivation
@@ -22023,7 +22023,7 @@ where $K_5$ is the complete graph on 5 vertices and $K_{3,3}$ is the complete bi
 >     *   Treewidth-grid duality via topological barrier
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
 
 
@@ -22226,7 +22226,7 @@ for $\text{Re}(s)$ sufficiently large. The **dimension spectrum** $\Sigma \subse
 >     *   Morphisms preserve hypostructure properties and R-validity transfers
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom GC** fails → **Mode S.D** (Stiffness breakdown)
 
 
@@ -22738,7 +22738,7 @@ The stable limit is $\pi_1^s = \mathbb{Z}/2$, generated by the stable Hopf eleme
 
 ---
 
-### 26.3 Metatheorem 26.3: The Adams Resolution (Axiom R)
+### 26.3 Metatheorem 26.3: The Adams Resolution (Axiom Rec)
 
 > **[Deps] Structural Dependencies**
 >
@@ -22759,7 +22759,7 @@ The stable limit is $\pi_1^s = \mathbb{Z}/2$, generated by the stable Hopf eleme
 
 #### 26.3.1 Motivation
 
-**Axiom R (Recovery)** requires a dictionary between two descriptions of the system—typically a "source" (computable, algebraic) and a "target" (geometric, invariant). In stable homotopy, this dictionary is the **Adams spectral sequence**: it computes stable homotopy groups (geometric) from cohomology and the Steenrod algebra (algebraic).
+**Axiom Rec (Recovery)** requires a dictionary between two descriptions of the system—typically a "source" (computable, algebraic) and a "target" (geometric, invariant). In stable homotopy, this dictionary is the **Adams spectral sequence**: it computes stable homotopy groups (geometric) from cohomology and the Steenrod algebra (algebraic).
 
 The Adams spectral sequence is the topological analog of the Langlands correspondence or GAGA: two seemingly different invariants (homotopy and cohomology) are related by a systematic procedure with controlled "error terms" (differentials and extensions).
 
@@ -22819,7 +22819,7 @@ The extension problems from $E_\infty$ to actual homotopy groups encode group ex
 - $E_2^{2,4} = \mathbb{F}_2$ generated by $h_1^2$.
 - Survives to $E_\infty$, detecting $\eta^2 \in \pi_2^s$.
 
-**Conclusion.** The Adams spectral sequence provides the complete dictionary (Axiom R) between algebraic cohomology data and geometric homotopy groups. $\square$
+**Conclusion.** The Adams spectral sequence provides the complete dictionary (Axiom Rec) between algebraic cohomology data and geometric homotopy groups. $\square$
 
 #### 26.3.4 Consequences
 
@@ -22827,7 +22827,7 @@ The extension problems from $E_\infty$ to actual homotopy groups encode group ex
 
 **Corollary 26.2.2 (Nilpotence Detection).** *The nilpotence theorem (Devinatz-Hopkins-Smith) shows that Adams filtration detects nilpotence: $\alpha$ is nilpotent in $\pi_*^s$ if and only if it has positive Adams filtration at all primes.*
 
-**Key Insight:** The Adams spectral sequence realizes Axiom R by providing a computable bridge from cohomology (algebraic) to homotopy (geometric). The filtration degree $s$ is the topological analog of dissipation—elements with high $s$ are "faint" and require sophisticated detection.
+**Key Insight:** The Adams spectral sequence realizes Axiom Rec by providing a computable bridge from cohomology (algebraic) to homotopy (geometric). The filtration degree $s$ is the topological analog of dissipation—elements with high $s$ are "faint" and require sophisticated detection.
 
 **Remark 26.2.1 (Axiom D Connection).** The Adams filtration is Axiom D for stable homotopy. Higher filtration means the element is harder to detect—it has "dissipated" into higher cohomological complexity.
 
@@ -22853,7 +22853,7 @@ The extension problems from $E_\infty$ to actual homotopy groups encode group ex
 >     *   Chromatic convergence via topological barriers
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
 
 
@@ -23078,7 +23078,7 @@ $$\langle F(u^*), v - u^* \rangle \geq 0 \quad \forall v \in K$$
 >     *   Morphisms preserve hypostructure properties and R-validity transfers
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
 
 
@@ -23256,7 +23256,7 @@ where $\mathbf{1}_I$ is the characteristic vector of $I$.
 >     *   Greedy algorithm optimality via matroid convexity
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom GC** fails → **Mode S.D** (Stiffness breakdown)
 
 
@@ -23676,8 +23676,8 @@ The witness $w$ lies in a "hidden sector" of the prover's state space. The proto
 | **Entropy ($S$)** | Kolmogorov Complexity ($K$) | Height $\Phi$ |
 | **Free Energy ($F$)** | Circuit Complexity | — |
 | **Work ($W$)** | Computation Steps | Dissipation $\mathfrak{D}$ |
-| **Reversibility** | P-Isomorphism | Axiom R |
-| **Irreversibility** | One-Way Functions | Failure of Axiom R |
+| **Reversibility** | P-Isomorphism | Axiom Rep |
+| **Irreversibility** | One-Way Functions | Failure of Axiom Rep |
 | **Second Law** | Hardness Assumptions | Mode B.C |
 | **Maxwell's Demon** | NP Oracle | Axiom Cap Violation |
 
@@ -25692,7 +25692,7 @@ This measures the "distinguishability per unit dissipation" along trajectories.
 >     *   Time emerges from dissipation-driven ordering
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom D** fails → **Mode C.E** (Energy blow-up)
 
 
@@ -26129,7 +26129,7 @@ $$|\gamma_{\partial A}| \sim \text{Area}(\partial A) \cdot N^{(d-1)/d}$$
 
 For $L > 0$, $|\gamma_{\text{bulk}}| > |\gamma_{\partial A}|$ by volume comparison. Thus the minimal antichain localizes to the boundary.
 
-**Step 2 (Menger's Theorem as Axiom R).**
+**Step 2 (Menger's Theorem as Axiom Rep).**
 
 **Menger's Theorem** [@Menger27] (Graph Theory): *In a graph $G$, the maximum number of vertex-disjoint paths from $A$ to $B$ equals the minimum size of a vertex cut separating $A$ from $B$.*
 
@@ -26323,7 +26323,7 @@ $\square$
 >     *   Quantum sampling via dissipative fixed points
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom Cap** fails → **Mode C.D** (Geometric collapse)
 
 
@@ -26509,7 +26509,7 @@ This is always possible for full-rank density matrices.
 Construct the unitary flow:
 $$U(\tau) = e^{-i K_A \tau}$$
 
-By the **Tomita-Takesaki Theorem** (the operator-algebraic realization of Axiom R), this flow maps the algebra of observables $\mathcal{A}_A$ (operators localized in region $A$) to itself:
+By the **Tomita-Takesaki Theorem** (the operator-algebraic realization of Axiom Rep), this flow maps the algebra of observables $\mathcal{A}_A$ (operators localized in region $A$) to itself:
 $$U(\tau) \mathcal{A}_A U(\tau)^{-1} = \mathcal{A}_A$$
 
 This is the defining property of the modular automorphism.
@@ -26555,7 +26555,7 @@ The KMS condition with $\beta = 1$ in modular time means thermal equilibrium at 
 The boost parameter $\tau$ relates to proper time $t$ of the accelerating observer by:
 $$d\tau = \frac{a}{2\pi} dt$$
 
-(This follows from the Rindler metric: $ds^2 = -a^2 x^2 d\tau^2 + dx^2 + dy^2 + dz^2$, where proper time at $x = 1/a$ is $dt = a \cdot d\tau \cdot (1/a) = d\tau / 2\pi$... actually, let me recalculate.)
+(This follows from the Rindler metric: $ds^2 = -a^2 x^2 d\tau^2 + dx^2 + dy^2 + dz^2$, where proper time at $x = 1/a$ is $dt = a \cdot d\tau \cdot (1/a) = d\tau / 2\pi$\ldots\ actually, let me recalculate.)
 
 **Proper Derivation:** In Rindler coordinates:
 $$ds^2 = e^{2a\xi}(-d\tau^2 + d\xi^2) + dx_\perp^2$$
@@ -26606,7 +26606,7 @@ $\square$
 
 **Universality:** The derivation uses only:
 - The existence of a pure global state with cross-boundary correlations (Axiom LS)
-- The geometric interpretation of modular flow (Axiom R)
+- The geometric interpretation of modular flow (Axiom Rep)
 - The maximum entropy principle for restricted observations (Axiom D)
 
 Any system satisfying these axioms will exhibit Unruh-like behavior.
@@ -26817,7 +26817,7 @@ Each arrow represents a structural necessity, not an assumption.
 - **Axiom Cap:** Finite local information (capacity)
 - **Axiom TB:** Locality of information flow (topological barrier)
 - **Axiom LS:** Cross-boundary correlations (local stiffness)
-- **Axiom R:** Geometric interpretation of modular flow (representation)
+- **Axiom Rep:** Geometric interpretation of modular flow (representation)
 
 develops, in its continuum limit, a dynamical geometry satisfying Einstein's equations coupled to whatever matter is present.
 
@@ -27592,8 +27592,8 @@ $$\rho(p) \propto 2^{-l(p)}$$
 $\square$
 
 **Conclusion:** The **Cloning Operator** is a physical implementation of **Levin's Universal Search**.
-- Standard Levin Search iterates sequentially: "Try $p_1$ for 1 sec, $p_2$ for 0.5 sec..."
-- Fractal Gas iterates in parallel: "Allocate 100 walkers to $p_1$, 50 to $p_2$..."
+- Standard Levin Search iterates sequentially: "Try $p_1$ for 1 sec, $p_2$ for 0.5 sec\ldots"
+- Fractal Gas iterates in parallel: "Allocate 100 walkers to $p_1$, 50 to $p_2$\ldots"
 
 ---
 
@@ -27610,7 +27610,7 @@ $\square$
 >
 > *   **Failure Condition (Debug):**
 >     *   If **Axiom TB** fails → **Mode T.E** (Topological obstruction)
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 
 
 This theorem explains why the Fractal Gas can outperform standard Levin Search. Standard Levin Search cannot "mix" programs; it just enumerates them. The Fractal Gas adds **Geometry** to program space.
@@ -27841,7 +27841,7 @@ We prove that the Fractal Gas, when coupled with a learner, automatically perfor
 >     *   Morphisms preserve hypostructure properties and R-validity transfers
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom SC** fails → **Mode S.E** (Supercritical cascade)
 
 
@@ -27955,7 +27955,7 @@ This theorem links the **Time Evolution** of the gas to **Curriculum Learning** 
 >     *   Morphisms preserve hypostructure properties and R-validity transfers
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
 
 
@@ -28033,7 +28033,7 @@ The walkers climb the fitness peaks (which are the gravity wells of $\Phi$).
 >     *   Spontaneous symmetry breaking via energy landscape bifurcation
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 
 
 This theorem explains what happens when the swarm encounters a **Symmetry Point** (e.g., the peak of a hill between two valleys, or a saddle point).
@@ -28107,7 +28107,7 @@ where $\lambda_{\text{unstable}}$ is the positive Lyapunov exponent at the saddl
 >
 > *   **Failure Condition (Debug):**
 >     *   If **Axiom C** fails → **Mode D.D** (Dispersion/Global existence)
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 
 
 What if the fitness function has a **Continuous Symmetry**? (e.g., a ring of optimal solutions, like $x^2 + y^2 = R^2$).
@@ -28406,7 +28406,7 @@ This is precisely the statement that the Hypostructure describes itself. $\squar
 >     *   Autopoietic closure via self-maintaining dynamics
 >
 > *   **Failure Condition (Debug):**
->     *   If **Axiom R** fails → **Mode D.C** (Semantic horizon)
+>     *   If **Axiom Rep** fails → **Mode D.C** (Semantic horizon)
 >     *   If **Axiom D** fails → **Mode C.E** (Energy blow-up)
 
 
