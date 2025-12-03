@@ -1,0 +1,1641 @@
+\begin{thebibliography}{232}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Adams(1974)]{Adams74}
+John~Frank Adams.
+\newblock \emph{Stable Homotopy and Generalised Homology}.
+\newblock University of Chicago Press, Chicago, 1974.
+\newblock Adams spectral sequence; stable homotopy theory.
+
+\bibitem[Ambrosio et~al.(2008{\natexlab{a}})Ambrosio, Gigli, and
+  Savar\'e]{AGS08}
+Luigi Ambrosio, Nicola Gigli, and Giuseppe Savar\'e.
+\newblock \emph{Gradient Flows in Metric Spaces and in the Space of Probability
+  Measures}.
+\newblock Lectures in Mathematics ETH Z\"urich. Birkh\"auser, Basel, 2nd
+  edition, 2008{\natexlab{a}}.
+\newblock ISBN 978-3-7643-8721-1.
+
+\bibitem[Ambrosio et~al.(2008{\natexlab{b}})Ambrosio, Gigli, and
+  Savar\'e]{AmbrosioGigliSavare2008}
+Luigi Ambrosio, Nicola Gigli, and Giuseppe Savar\'e.
+\newblock \emph{Gradient Flows in Metric Spaces and in the Space of Probability
+  Measures}.
+\newblock In \emph{Lectures in Mathematics ETH Z\"urich} \citet{AGS08}, 2nd
+  edition, 2008{\natexlab{b}}.
+\newblock ISBN 978-3-7643-8721-1.
+
+\bibitem[Ambrosio et~al.(2014)Ambrosio, Gigli, and
+  Savar\'e]{AmbrosioGigliSavare15}
+Luigi Ambrosio, Nicola Gigli, and Giuseppe Savar\'e.
+\newblock Calculus and heat flow in metric measure spaces and applications to
+  spaces with {R}icci bounds from below.
+\newblock \emph{Inventiones Mathematicae}, 195\penalty0 (2):\penalty0 289--391,
+  2014.
+\newblock Extended version with RCD conditions.
+
+\bibitem[Aref(2007)]{ArefVortex2007}
+Hassan Aref.
+\newblock Point vortex dynamics: a classical mathematics playground.
+\newblock \emph{Journal of Mathematical Physics}, 48\penalty0 (6):\penalty0
+  065401, 2007.
+
+\bibitem[Arjovsky et~al.(2017)Arjovsky, Chintala, and Bottou]{ArjovskyWGAN2017}
+Martin Arjovsky, Soumith Chintala, and L{\'e}on Bottou.
+\newblock Wasserstein generative adversarial networks.
+\newblock 70:\penalty0 214--223, 2017.
+
+\bibitem[Armitage and Gardiner(2001)]{Armitage2001}
+David~H. Armitage and Stephen~J. Gardiner.
+\newblock \emph{Classical Potential Theory}.
+\newblock Springer Monographs in Mathematics. Springer-Verlag, London, 2001.
+\newblock ISBN 978-1-85233-618-0.
+
+\bibitem[Arnold(1963{\natexlab{a}})]{Arnold63}
+Vladimir~I. Arnold.
+\newblock \emph{Small denominators and problems of stability of motion in
+  classical and celestial mechanics}, volume~18.
+\newblock 1963{\natexlab{a}}.
+\newblock The KAM theorem: persistence of quasi-periodic motions under small
+  perturbations.
+
+\bibitem[Arnold(1963{\natexlab{b}})]{KAMTheory}
+Vladimir~I. Arnold.
+\newblock Proof of a theorem of {A}.{N}. {K}olmogorov on the preservation of
+  conditionally periodic motions under a small perturbation of the
+  {H}amiltonian.
+\newblock \emph{Russian Mathematical Surveys}, 18\penalty0 (5):\penalty0 9--36,
+  1963{\natexlab{b}}.
+\newblock The KAM theorem: persistence of quasi-periodic motions. See also
+  Kolmogorov (1954) and Moser (1962).
+
+\bibitem[Arnold(1989)]{ArnoldMechanics1989}
+Vladimir~I. Arnold.
+\newblock \emph{Mathematical Methods of Classical Mechanics}, volume~60 of
+  \emph{Graduate Texts in Mathematics}.
+\newblock Springer-Verlag, New York, 2nd edition, 1989.
+\newblock ISBN 978-0-387-96890-2.
+\newblock Translated by K. Vogtmann and A. Weinstein. The definitive geometric
+  treatment of Hamiltonian mechanics.
+
+\bibitem[Atiyah(1988)]{Atiyah88}
+Michael Atiyah.
+\newblock Topological quantum field theories.
+\newblock \emph{Publications Math{\'e}matiques de l'IH{\'E}S}, 68:\penalty0
+  175--186, 1988.
+\newblock Defines physical theories as functors from cobordisms to vector
+  spaces; validates categorical physics.
+
+\bibitem[Atiyah and Singer(1963{\natexlab{a}})]{Atiyah-Singer}
+Michael~F. Atiyah and Isadore~M. Singer.
+\newblock The index of elliptic operators on compact manifolds.
+\newblock \emph{Bulletin of the American Mathematical Society}, 69:\penalty0
+  422--433, 1963{\natexlab{a}}.
+
+\bibitem[Atiyah and Singer(1963{\natexlab{b}})]{AtiyahSinger63}
+Michael~F. Atiyah and Isadore~M. Singer.
+\newblock The index of elliptic operators on compact manifolds.
+\newblock \emph{Bulletin of the American Mathematical Society}, 69\penalty0
+  (3):\penalty0 422--433, 1963{\natexlab{b}}.
+\newblock Announcement of the Atiyah-Singer Index Theorem; full proof in Annals
+  of Mathematics (1968).
+
+\bibitem[Bakry and \'Emery(1985{\natexlab{a}})]{Bakry85}
+Dominique Bakry and Michel \'Emery.
+\newblock Diffusions hypercontractives.
+\newblock In \emph{S\'eminaire de probabilit\'es {XIX} 1983/84}, volume 1123 of
+  \emph{Lecture Notes in Mathematics}, pages 177--206. Springer, Berlin,
+  1985{\natexlab{a}}.
+
+\bibitem[Bakry and \'Emery(1985{\natexlab{b}})]{BakryEmery1985}
+Dominique Bakry and Michel \'Emery.
+\newblock Diffusions hypercontractives.
+\newblock In \emph{S\'eminaire de probabilit\'es {XIX} 1983/84}
+  \citet{Bakry85}, pages 177--206.
+
+\bibitem[Bakry et~al.(2014)Bakry, Gentil, and Ledoux]{BakryGentilLedoux2014}
+Dominique Bakry, Ivan Gentil, and Michel Ledoux.
+\newblock \emph{Analysis and Geometry of {M}arkov Diffusion Operators}, volume
+  348 of \emph{Grundlehren der mathematischen Wissenschaften}.
+\newblock Springer, Cham, 2014.
+\newblock ISBN 978-3-319-00226-2.
+
+\bibitem[Banach(1922)]{Banach22}
+Stefan Banach.
+\newblock Sur les op\'erations dans les ensembles abstraits et leur application
+  aux \'equations int\'egrales.
+\newblock \emph{Fundamenta Mathematicae}, 3:\penalty0 133--181, 1922.
+
+\bibitem[Barron et~al.(1998)Barron, Rissanen, and Yu]{Barron98}
+Andrew Barron, Jorma Rissanen, and Bin Yu.
+\newblock The minimum description length principle in coding and modeling.
+\newblock \emph{IEEE Transactions on Information Theory}, 44\penalty0
+  (6):\penalty0 2743--2760, 1998.
+\newblock \doi{10.1109/18.720554}.
+
+\bibitem[Bekenstein(1973)]{Bekenstein73New}
+Jacob~D. Bekenstein.
+\newblock Black holes and entropy.
+\newblock \emph{Physical Review D}, 7\penalty0 (8):\penalty0 2333--2346, 1973.
+\newblock \doi{10.1103/PhysRevD.7.2333}.
+
+\bibitem[Bellman(1957)]{Bellman57}
+Richard Bellman.
+\newblock \emph{Dynamic Programming}.
+\newblock Princeton University Press, Princeton, NJ, 1957.
+\newblock Foundation of optimal control; value functions as height functionals.
+
+\bibitem[Bengio et~al.(2009)Bengio, Louradour, Collobert, and Weston]{Bengio09}
+Yoshua Bengio, J{\'e}r{\^o}me Louradour, Ronan Collobert, and Jason Weston.
+\newblock Curriculum learning.
+\newblock In \emph{Proceedings of the 26th International Conference on Machine
+  Learning}, pages 41--48. ACM, 2009.
+
+\bibitem[Bennett et~al.(1998)Bennett, Gács, Li, Vitányi, and
+  Zurek]{Bennett98}
+Charles~H. Bennett, Péter Gács, Ming Li, Paul M.~B. Vitányi, and Wojciech~H.
+  Zurek.
+\newblock Information distance.
+\newblock \emph{IEEE Transactions on Information Theory}, 44\penalty0
+  (4):\penalty0 1407--1423, 1998.
+\newblock \doi{10.1109/18.681318}.
+
+\bibitem[Birch and Swinnerton-Dyer(1963/1965)]{BSD-Conjecture}
+Bryan~J. Birch and H.~P.~F. Swinnerton-Dyer.
+\newblock Notes on elliptic curves, {I} \& {II}.
+\newblock \emph{Journal f\"{u}r die reine und angewandte Mathematik},
+  212/218:\penalty0 7--25/79--108, 1963/1965.
+
+\bibitem[Bombelli et~al.(1987)Bombelli, Lee, Meyer, and Sorkin]{Bombelli87}
+Luca Bombelli, Joohan Lee, David Meyer, and Rafael~D. Sorkin.
+\newblock Space-time as a causal set.
+\newblock \emph{Physical Review Letters}, 59\penalty0 (5):\penalty0 521--524,
+  1987.
+\newblock \doi{10.1103/PhysRevLett.59.521}.
+
+\bibitem[Borel and Serre(1958)]{Grothendieck-RR}
+Armand Borel and Jean-Pierre Serre.
+\newblock Le th\'{e}or\`{e}me de {R}iemann-{R}och (d'apr\`{e}s {G}rothendieck).
+\newblock In \emph{S\'{e}minaire Bourbaki}, volume~6 of \emph{Expos\'{e}s
+  112--136}, pages 97--136. 1958.
+
+\bibitem[Boyd and Vandenberghe(2004)]{Boyd2004}
+Stephen Boyd and Lieven Vandenberghe.
+\newblock \emph{Convex Optimization}.
+\newblock Cambridge University Press, Cambridge, 2004.
+\newblock ISBN 978-0-521-83378-3.
+
+\bibitem[Braides(2002)]{Braides02}
+Andrea Braides.
+\newblock \emph{$\Gamma$-convergence for Beginners}, volume~22 of \emph{Oxford
+  Lecture Series in Mathematics}.
+\newblock Oxford University Press, 2002.
+
+\bibitem[Brouwer(1912)]{Brouwer11}
+L.~E.~J. Brouwer.
+\newblock \"{U}ber abbildung von mannigfaltigkeiten.
+\newblock \emph{Mathematische Annalen}, 71\penalty0 (1):\penalty0 97--115,
+  1912.
+\newblock First proof of the fixed point theorem for continuous mappings.
+
+\bibitem[Burago et~al.(2001)Burago, Burago, and Ivanov]{Burago01}
+Dmitri Burago, Yuri Burago, and Sergei Ivanov.
+\newblock \emph{A Course in Metric Geometry}, volume~33 of \emph{Graduate
+  Studies in Mathematics}.
+\newblock American Mathematical Society, Providence, RI, 2001.
+\newblock ISBN 978-0-8218-2129-9.
+\newblock Foundations of length spaces and intrinsic geometry independent of
+  smooth structure.
+
+\bibitem[Caffarelli et~al.(1982)Caffarelli, Kohn, and Nirenberg]{CKN82}
+Luis Caffarelli, Robert Kohn, and Louis Nirenberg.
+\newblock Partial regularity of suitable weak solutions of the
+  {N}avier-{S}tokes equations.
+\newblock \emph{Communications on Pure and Applied Mathematics}, 35\penalty0
+  (6):\penalty0 771--831, 1982.
+
+\bibitem[Carrillo et~al.(2003)Carrillo, McCann, and
+  Villani]{CarrilloMcCannVillani2003}
+Jos{\'e}~A. Carrillo, Robert~J. McCann, and C{\'e}dric Villani.
+\newblock Kinetic equilibration rates for granular media and related equations:
+  entropy dissipation and mass transportation estimates.
+\newblock \emph{Revista Matem{\'a}tica Iberoamericana}, 19\penalty0
+  (3):\penalty0 971--1018, 2003.
+
+\bibitem[Cartan(1953)]{Cartan53}
+Henri Cartan.
+\newblock Vari\\'et\\'es analytiques complexes et cohomologie.
+\newblock \emph{Colloque sur les fonctions de plusieurs variables, tenu \\`a
+  Bruxelles}, pages 41--55, 1953.
+\newblock Cartan's Theorems A and B: coherent sheaf cohomology vanishes on
+  Stein manifolds.
+
+\bibitem[Cartier(1979)]{Cartier-Satake}
+Pierre Cartier.
+\newblock Representations of $p$-adic groups: a survey.
+\newblock In \emph{Automorphic Forms, Representations and L-Functions},
+  volume~33 of \emph{Proceedings of Symposia in Pure Mathematics}, pages
+  111--155. American Mathematical Society, 1979.
+
+\bibitem[Cerezo and Ballester(2018)]{FractalAI18}
+Sergio~Hernandez Cerezo and Guillem~Duran Ballester.
+\newblock Fractal {AI}: A fragile theory of intelligence.
+\newblock \emph{arXiv preprint arXiv:1803.05049}, 2018.
+\newblock Introduces swarm-based planning via causal entropic forcing.
+
+\bibitem[Chaitin(1966)]{Chaitin66}
+Gregory~J. Chaitin.
+\newblock On the length of programs for computing finite binary sequences.
+\newblock \emph{Journal of the ACM}, 13\penalty0 (4):\penalty0 547--569, 1966.
+\newblock \doi{10.1145/321356.321363}.
+
+\bibitem[Chaloner and Verdinelli(1995)]{Chaloner95}
+Kathryn Chaloner and Isabella Verdinelli.
+\newblock Bayesian experimental design: A review.
+\newblock \emph{Statistical Science}, 10\penalty0 (3):\penalty0 273--304, 1995.
+\newblock \doi{10.1214/ss/1177009939}.
+
+\bibitem[Choromanska et~al.(2015)Choromanska, Henaff, Mathieu, Arous, and
+  LeCun]{Choromanska2015}
+Anna Choromanska, Mikael Henaff, Michael Mathieu, G{\'e}rard~Ben Arous, and
+  Yann LeCun.
+\newblock The loss surfaces of multilayer networks.
+\newblock In \emph{Proceedings of the 18th International Conference on
+  Artificial Intelligence and Statistics (AISTATS)}, volume~38 of \emph{PMLR},
+  pages 192--204, 2015.
+
+\bibitem[Cohen(1966)]{Cohen66}
+Paul~J. Cohen.
+\newblock \emph{Set Theory and the Continuum Hypothesis}.
+\newblock W. A. Benjamin, New York, 1966.
+\newblock Independence of CH; forcing method for model extension.
+
+\bibitem[Cohen-Steiner et~al.(2007)Cohen-Steiner, Edelsbrunner, and
+  Harer]{CohenSteinerEdelsbrunnerHarer07}
+David Cohen-Steiner, Herbert Edelsbrunner, and John Harer.
+\newblock Stability of persistence diagrams.
+\newblock \emph{Discrete \& Computational Geometry}, 37\penalty0 (1):\penalty0
+  103--120, 2007.
+
+\bibitem[Colding and II(2012)]{ColdingMinicozzi2012}
+Tobias~H. Colding and William P.~Minicozzi II.
+\newblock Generic mean curvature flow {I}: Generic singularities.
+\newblock \emph{Annals of Mathematics}, 175\penalty0 (2):\penalty0 755--833,
+  2012.
+
+\bibitem[Colding and II(2015)]{ColdingMinicozzi2015}
+Tobias~H. Colding and William P.~Minicozzi II.
+\newblock Uniqueness of blowups and {\l}ojasiewicz inequalities.
+\newblock \emph{Annals of Mathematics}, 182\penalty0 (1):\penalty0 221--285,
+  2015.
+
+\bibitem[Colding and II(2016)]{ColdingMinicozzi2016}
+Tobias~H. Colding and William P.~Minicozzi II.
+\newblock The singular set of mean curvature flow with generic singularities.
+\newblock \emph{Inventiones Mathematicae}, 204\penalty0 (2):\penalty0 443--471,
+  2016.
+
+\bibitem[Connes(1996)]{Connes96}
+Alain Connes.
+\newblock Gravity coupled with matter and the foundation of non-commutative
+  geometry.
+\newblock \emph{Communications in Mathematical Physics}, 182\penalty0
+  (1):\penalty0 155--176, 1996.
+\newblock \doi{10.1007/BF02506388}.
+\newblock Standard Model from spectral triples.
+
+\bibitem[Connes and Rovelli(1994)]{ConnesRovelli94}
+Alain Connes and Carlo Rovelli.
+\newblock Von {N}eumann algebra automorphisms and time-thermodynamics relation
+  in generally covariant quantum theories.
+\newblock \emph{Classical and Quantum Gravity}, 11:\penalty0 2899--2917, 1994.
+\newblock arXiv:gr-qc/9406019.
+
+\bibitem[Cook(1971)]{Cook71}
+Stephen~A. Cook.
+\newblock The complexity of theorem-proving procedures.
+\newblock In \emph{Proceedings of the 3rd Annual ACM Symposium on Theory of
+  Computing}, pages 151--158. ACM, 1971.
+\newblock \doi{10.1145/800157.805047}.
+\newblock NP-completeness; computational hardness barriers.
+
+\bibitem[Crutchfield and Young(1989)]{CrutchfieldYoung1989}
+James~P. Crutchfield and Karl Young.
+\newblock Inferring statistical complexity.
+\newblock \emph{Physical Review Letters}, 63\penalty0 (2):\penalty0 105--108,
+  1989.
+\newblock The ε-machine: minimal sufficient statistic for prediction.
+
+\bibitem[Davies(1989)]{Davies1989}
+E.~Brian Davies.
+\newblock \emph{Heat Kernels and Spectral Theory}, volume~92 of \emph{Cambridge
+  Tracts in Mathematics}.
+\newblock Cambridge University Press, Cambridge, 1989.
+\newblock ISBN 978-0-521-36136-1.
+
+\bibitem[Deligne(1974)]{Deligne74}
+Pierre Deligne.
+\newblock La conjecture de weil. i.
+\newblock \emph{Inst. Hautes {\'E}tudes Sci. Publ. Math.}, \penalty0
+  (43):\penalty0 273--307, 1974.
+\newblock Proof of the Weil conjectures.
+
+\bibitem[Deligne and Milne(1982{\natexlab{a}})]{Deligne-Milne-Tannakian}
+Pierre Deligne and James~S. Milne.
+\newblock Tannakian categories.
+\newblock In \emph{Hodge Cycles, Motives, and Shimura Varieties}, volume 900 of
+  \emph{Lecture Notes in Mathematics}, pages 101--228. Springer-Verlag, Berlin,
+  1982{\natexlab{a}}.
+
+\bibitem[Deligne and Milne(1982{\natexlab{b}})]{DeligneMilne82}
+Pierre Deligne and James~S. Milne.
+\newblock Tannakian categories.
+\newblock In \emph{Hodge Cycles, Motives, and Shimura Varieties}, volume 900 of
+  \emph{Lecture Notes in Mathematics}, pages 101--228. Springer, Berlin,
+  1982{\natexlab{b}}.
+\newblock The rigorous basis for recovering a structure from its category of
+  representations.
+
+\bibitem[Deutsch(1985)]{Deutsch85}
+David Deutsch.
+\newblock Quantum theory, the {C}hurch-{T}uring principle and the universal
+  quantum computer.
+\newblock \emph{Proceedings of the Royal Society of London A}, 400:\penalty0
+  97--117, 1985.
+\newblock \doi{10.1098/rspa.1985.0070}.
+
+\bibitem[Dobrushin and Shlosman(1985)]{DobrushinShlosman85}
+Roland~L. Dobrushin and Senya~B. Shlosman.
+\newblock Constructive criterion for the uniqueness of {G}ibbs field.
+\newblock In J.~Fritz, A.~Jaffe, and D.~Sz\'asz, editors, \emph{Statistical
+  Physics and Dynamical Systems: Rigorous Results}, volume~10 of \emph{Progress
+  in Physics}, pages 347--370. Birkh\"auser, Boston, 1985.
+\newblock Uniqueness conditions for Gibbs measures; exponential decay of
+  correlations from curvature.
+
+\bibitem[Draxler et~al.(2018)Draxler, Veschgini, Salmhofer, and
+  Hamprecht]{DraxlerModeConnect2018}
+Felix Draxler, Kambis Veschgini, Manfred Salmhofer, and Fred~A. Hamprecht.
+\newblock Essentially no barriers in neural network energy landscape.
+\newblock In \emph{Proceedings of the 35th International Conference on Machine
+  Learning (ICML)}, volume~80 of \emph{PMLR}, pages 1308--1317, 2018.
+
+\bibitem[Ecker(2004)]{Ecker2004}
+Klaus Ecker.
+\newblock \emph{Regularity Theory for Mean Curvature Flow}, volume~57 of
+  \emph{Progress in Nonlinear Differential Equations and Their Applications}.
+\newblock Birkh{\"a}user, Boston, 2004.
+\newblock ISBN 978-0-8176-3243-2.
+
+\bibitem[Ecoffet et~al.(2021)Ecoffet, Huizinga, Lehman, Stanley, and
+  Clune]{Ecoffet21}
+Adrien Ecoffet, Joost Huizinga, Joel Lehman, Kenneth~O. Stanley, and Jeff
+  Clune.
+\newblock First return, then explore.
+\newblock \emph{Nature}, 590:\penalty0 580--586, 2021.
+\newblock \doi{10.1038/s41586-020-03157-9}.
+\newblock Original arXiv preprint: 2019.
+
+\bibitem[Eilenberg and Steenrod(1945)]{EilenbergSteenrod45}
+Samuel Eilenberg and Norman Steenrod.
+\newblock \emph{Axiomatic approach to homology theory}, volume~31.
+\newblock 1945.
+\newblock The Eilenberg-Steenrod axioms characterizing homology theories;
+  expanded in their 1952 book.
+
+\bibitem[Evans(2010{\natexlab{a}})]{Evans10}
+Lawrence~C. Evans.
+\newblock \emph{Partial Differential Equations}, volume~19 of \emph{Graduate
+  Studies in Mathematics}.
+\newblock American Mathematical Society, Providence, RI, 2nd edition,
+  2010{\natexlab{a}}.
+\newblock ISBN 978-0-8218-4974-3.
+
+\bibitem[Evans(2010{\natexlab{b}})]{Evans2010}
+Lawrence~C. Evans.
+\newblock \emph{Partial Differential Equations}.
+\newblock Volume~19 of \emph{Graduate Studies in Mathematics} \citet{Evans10},
+  2nd edition, 2010{\natexlab{b}}.
+\newblock ISBN 978-0-8218-4974-3.
+
+\bibitem[Federer(1969)]{Federer69}
+Herbert Federer.
+\newblock \emph{Geometric Measure Theory}, volume 153 of \emph{Die Grundlehren
+  der mathematischen Wissenschaften}.
+\newblock Springer-Verlag, Berlin, 1969.
+
+\bibitem[Freudenthal(1937)]{Freudenthal37}
+Hans Freudenthal.
+\newblock {\"U}ber die {K}lassen der {S}ph{\"a}renabbildungen {I}. {G}rosse
+  {D}imensionen.
+\newblock \emph{Compositio Mathematica}, 5:\penalty0 299--314, 1937.
+\newblock Suspension theorem: homotopy stabilizes under suspension.
+
+\bibitem[Friston(2010)]{Friston10}
+Karl Friston.
+\newblock The free-energy principle: a unified brain theory?
+\newblock \emph{Nature Reviews Neuroscience}, 11:\penalty0 127--138, 2010.
+\newblock \doi{10.1038/nrn2787}.
+
+\bibitem[Friston and Kiebel(2009)]{FristonKiebel09}
+Karl Friston and Stefan Kiebel.
+\newblock Predictive coding under the free-energy principle.
+\newblock \emph{Philosophical Transactions of the Royal Society B},
+  364:\penalty0 1211--1221, 2009.
+\newblock \doi{10.1098/rstb.2008.0300}.
+
+\bibitem[Gentzen(1936)]{Gentzen36}
+Gerhard Gentzen.
+\newblock Die widerspruchsfreiheit der reinen zahlentheorie.
+\newblock \emph{Mathematische Annalen}, 112\penalty0 (1):\penalty0 493--565,
+  1936.
+\newblock Consistency of arithmetic via transfinite induction up to
+  $\varepsilon_0$; ordinal analysis.
+
+\bibitem[Gilbarg and Trudinger(2001)]{GilbargTrudinger2001}
+David Gilbarg and Neil~S. Trudinger.
+\newblock \emph{Elliptic Partial Differential Equations of Second Order}.
+\newblock Classics in Mathematics. Springer-Verlag, Berlin, 2001.
+\newblock ISBN 978-3-540-41160-4.
+\newblock Reprint of the 1998 edition. The definitive reference for elliptic
+  PDE theory.
+
+\bibitem[Giorgi(1993)]{DeGiorgi93}
+Ennio~De Giorgi.
+\newblock New problems on minimizing movements.
+\newblock 29:\penalty0 81--98, 1993.
+
+\bibitem[Glimm and Jaffe(1987)]{GlimmJaffe87}
+James Glimm and Arthur Jaffe.
+\newblock \emph{Quantum Physics: A Functional Integral Point of View}.
+\newblock Springer-Verlag, New York, 2nd edition, 1987.
+\newblock ISBN 978-0-387-96477-5.
+\newblock Rigorous construction of interacting QFT; Wightman axioms and path
+  integrals.
+
+\bibitem[G{\"o}del(1931)]{Godel31}
+Kurt G{\"o}del.
+\newblock {\"U}ber formal unentscheidbare {S}{\"a}tze der {P}rincipia
+  {M}athematica und verwandter {S}ysteme {I}.
+\newblock \emph{Monatshefte f{\"u}r Mathematik und Physik}, 38:\penalty0
+  173--198, 1931.
+\newblock \doi{10.1007/BF01700692}.
+
+\bibitem[Godement and Jacquet(1972)]{Godement-Jacquet}
+Roger Godement and Herv\'{e} Jacquet.
+\newblock \emph{Zeta Functions of Simple Algebras}, volume 260 of \emph{Lecture
+  Notes in Mathematics}.
+\newblock Springer-Verlag, Berlin, 1972.
+
+\bibitem[Gold(1967)]{Gold67}
+E.~Mark Gold.
+\newblock Language identification in the limit.
+\newblock \emph{Information and Control}, 10\penalty0 (5):\penalty0 447--474,
+  1967.
+\newblock The mathematical foundation of learnability from data; identification
+  in the limit.
+
+\bibitem[Goldstone(1961)]{Goldstone61}
+Jeffrey Goldstone.
+\newblock Field theories with {``Superconductor''} solutions.
+\newblock \emph{Il Nuovo Cimento}, 19\penalty0 (1):\penalty0 154--164, 1961.
+\newblock \doi{10.1007/BF02812722}.
+
+\bibitem[G{\'o}mez-G{\'a}lvez et~al.(2018)G{\'o}mez-G{\'a}lvez,
+  Vicente-Munuera, Tagua, Forja, Castro, Letu{\'r}ia, Valencia-Exp{\'o}sito,
+  Grima, Berm{\'u}dez-Gallardo, Serrano-P{\'e}rez-Higueras, Cavodeassi,
+  Sotillos, Mart{\'i}n-Bermudo, M{\'a}rquez, Buceta, and
+  Escudero]{GomezGalvez18}
+Pedro G{\'o}mez-G{\'a}lvez, Pablo Vicente-Munuera, Antonio Tagua, Cristina
+  Forja, Ana~M. Castro, Marta Letu{\'r}ia, Andrea Valencia-Exp{\'o}sito, Clara
+  Grima, Marina Berm{\'u}dez-Gallardo, {\'O}scar Serrano-P{\'e}rez-Higueras,
+  Florencia Cavodeassi, Sol Sotillos, Mar{\'i}a~D. Mart{\'i}n-Bermudo, Alberto
+  M{\'a}rquez, Javier Buceta, and Luis~M. Escudero.
+\newblock Scutoids are a geometrical solution to three-dimensional packing of
+  epithelia.
+\newblock \emph{Nature Communications}, 9:\penalty0 2960, 2018.
+\newblock \doi{10.1038/s41467-018-05376-1}.
+
+\bibitem[Goodfellow et~al.(2016{\natexlab{a}})Goodfellow, Bengio, and
+  Courville]{Goodfellow2016}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock \emph{Deep Learning}.
+\newblock MIT Press, Cambridge, MA, 2016{\natexlab{a}}.
+\newblock ISBN 978-0-262-03561-3.
+\newblock URL \url{http://www.deeplearningbook.org}.
+
+\bibitem[Goodfellow et~al.(2016{\natexlab{b}})Goodfellow, Bengio, and
+  Courville]{GoodfellowGAN2016}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock \emph{Deep Learning}.
+\newblock In  \citet{Goodfellow2016}, 2016{\natexlab{b}}.
+\newblock ISBN 978-0-262-03561-3.
+\newblock URL \url{http://www.deeplearningbook.org}.
+
+\bibitem[Goodfellow et~al.(2014)Goodfellow, Pouget-Abadie, Mirza, Xu,
+  Warde-Farley, Ozair, Courville, and Bengio]{GoodfellowGAN2014}
+Ian~J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David
+  Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio.
+\newblock Generative adversarial nets.
+\newblock In \emph{Advances in Neural Information Processing Systems 27 (NIPS
+  2014)}, pages 2672--2680, 2014.
+
+\bibitem[Gromov(1986)]{Gromov86}
+Mikhael Gromov.
+\newblock \emph{Partial Differential Relations}, volume~9 of \emph{Ergebnisse
+  der Mathematik und ihrer Grenzgebiete, 3. Folge}.
+\newblock Springer-Verlag, Berlin, 1986.
+\newblock ISBN 978-3-540-12177-0.
+\newblock Distinguishes formal (soft) solutions from genuine (hard) geometric
+  solutions; the h-principle.
+
+\bibitem[Gromov(1985{\natexlab{a}})]{Gromov1985}
+Mikhail Gromov.
+\newblock Pseudo holomorphic curves in symplectic manifolds.
+\newblock In \emph{Inventiones Mathematicae} \citet{Gromov85}, pages 307--347.
+
+\bibitem[Gromov(1985{\natexlab{b}})]{Gromov85}
+Mikhail Gromov.
+\newblock Pseudo holomorphic curves in symplectic manifolds.
+\newblock \emph{Inventiones Mathematicae}, 82\penalty0 (2):\penalty0 307--347,
+  1985{\natexlab{b}}.
+
+\bibitem[Grothendieck(1957--1962)]{Grothendieck-FGA}
+Alexander Grothendieck.
+\newblock \emph{Fondements de la G\'{e}om\'{e}trie Alg\'{e}brique}.
+\newblock S\'{e}minaire Bourbaki. Secr\'{e}tariat math\'{e}matique, Paris,
+  1957--1962.
+\newblock Expos\'{e}s 149, 182, 190, 195, 212, 221, 232, 236.
+
+\bibitem[Grothendieck(1969)]{Grothendieck-Motives}
+Alexander Grothendieck.
+\newblock Standard conjectures on algebraic cycles.
+\newblock In \emph{Algebraic Geometry, Bombay 1968}, pages 193--199. Oxford
+  University Press, 1969.
+
+\bibitem[Grothendieck(1997)]{Grothendieck84}
+Alexander Grothendieck.
+\newblock Esquisse d'un programme.
+\newblock In \emph{Geometric Galois Actions}, volume 242 of \emph{London
+  Mathematical Society Lecture Note Series}, pages 5--48. Cambridge University
+  Press, 1997.
+\newblock Written 1984. The manifesto for structural unification in modern
+  mathematics; anabelian geometry and dessins d'enfants.
+
+\bibitem[Grothendieck et~al.(1971)]{Grothendieck-SGA1}
+Alexander Grothendieck et~al.
+\newblock \emph{SGA 1: Rev\^{e}tements \'{E}tales et Groupe Fondamental},
+  volume 224 of \emph{Lecture Notes in Mathematics}.
+\newblock Springer-Verlag, Berlin, 1971.
+
+\bibitem[Gr{\"u}nwald(2007)]{Grunwald07}
+Peter~D. Gr{\"u}nwald.
+\newblock \emph{The Minimum Description Length Principle}.
+\newblock MIT Press, Cambridge, MA, 2007.
+
+\bibitem[Gulrajani et~al.(2017)Gulrajani, Ahmed, Arjovsky, Dumoulin, and
+  Courville]{GulrajaniWGANGP2017}
+Ishaan Gulrajani, Faruk Ahmed, Martin Arjovsky, Vincent Dumoulin, and Aaron
+  Courville.
+\newblock Improved training of {W}asserstein {GAN}s.
+\newblock In \emph{Advances in Neural Information Processing Systems 30 (NIPS
+  2017)}, pages 5767--5777, 2017.
+
+\bibitem[Hairer et~al.(2006)Hairer, Lubich, and Wanner]{HairerLubichWanner06}
+Ernst Hairer, Christian Lubich, and Gerhard Wanner.
+\newblock \emph{Geometric Numerical Integration: Structure-Preserving
+  Algorithms for Ordinary Differential Equations}, volume~31 of \emph{Springer
+  Series in Computational Mathematics}.
+\newblock Springer-Verlag, Berlin, 2nd edition, 2006.
+\newblock ISBN 978-3-540-30663-4.
+
+\bibitem[Hamilton(1982)]{Hamilton82}
+Richard~S. Hamilton.
+\newblock The inverse function theorem of {N}ash and {M}oser.
+\newblock \emph{Bulletin of the American Mathematical Society}, 7\penalty0
+  (1):\penalty0 65--222, 1982.
+
+\bibitem[Harris and Taylor(2001)]{HarrisTaylor-LLC}
+Michael Harris and Richard Taylor.
+\newblock \emph{The Geometry and Cohomology of Some Simple Shimura Varieties},
+  volume 151 of \emph{Annals of Mathematics Studies}.
+\newblock Princeton University Press, 2001.
+
+\bibitem[Hartshorne(1977)]{Hartshorne-AG3}
+Robin Hartshorne.
+\newblock \emph{Algebraic Geometry}, volume~52 of \emph{Graduate Texts in
+  Mathematics}.
+\newblock Springer-Verlag, New York, 1977.
+\newblock Chapter III: Cohomology of Sheaves.
+
+\bibitem[Haslhofer and Kleiner(2017)]{HaslhoferKleiner2017}
+Robert Haslhofer and Bruce Kleiner.
+\newblock Mean curvature flow of mean convex hypersurfaces.
+\newblock \emph{Communications on Pure and Applied Mathematics}, 70\penalty0
+  (3):\penalty0 511--546, 2017.
+
+\bibitem[Hawking(1975)]{Hawking75New}
+Stephen~W. Hawking.
+\newblock Particle creation by black holes.
+\newblock \emph{Communications in Mathematical Physics}, 43:\penalty0 199--220,
+  1975.
+\newblock \doi{10.1007/BF02345020}.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{HeResNet2016}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 770--778, 2016.
+
+\bibitem[Higgs(1964)]{Higgs64}
+Peter~W. Higgs.
+\newblock Broken symmetries and the masses of gauge bosons.
+\newblock \emph{Physical Review Letters}, 13\penalty0 (16):\penalty0 508--509,
+  1964.
+\newblock \doi{10.1103/PhysRevLett.13.508}.
+
+\bibitem[Hironaka(1964{\natexlab{a}})]{Hironaka-Resolution}
+Heisuke Hironaka.
+\newblock Resolution of singularities of an algebraic variety over a field of
+  characteristic zero.
+\newblock \emph{Annals of Mathematics}, 79\penalty0 (1--2):\penalty0 109--326,
+  1964{\natexlab{a}}.
+
+\bibitem[Hironaka(1964{\natexlab{b}})]{Hironaka64}
+Heisuke Hironaka.
+\newblock Resolution of singularities of an algebraic variety over a field of
+  characteristic zero.
+\newblock \emph{Annals of Mathematics}, 79\penalty0 (1):\penalty0 109--326,
+  1964{\natexlab{b}}.
+\newblock Fields Medal 1970.
+
+\bibitem[Hirzebruch(1966)]{Hirzebruch-RR}
+Friedrich Hirzebruch.
+\newblock \emph{Topological Methods in Algebraic Geometry}, volume 131 of
+  \emph{Grundlehren der mathematischen Wissenschaften}.
+\newblock Springer-Verlag, Berlin, 3rd edition, 1966.
+
+\bibitem[Hofer and Zehnder(1994{\natexlab{a}})]{HoferZehnder1994}
+Helmut Hofer and Eduard Zehnder.
+\newblock \emph{Symplectic Invariants and Hamiltonian Dynamics}.
+\newblock In \emph{Birkh\"auser Advanced Texts} \citet{HoferZehnder94},
+  1994{\natexlab{a}}.
+\newblock ISBN 978-3-7643-5066-6.
+
+\bibitem[Hofer and Zehnder(1994{\natexlab{b}})]{HoferZehnder94}
+Helmut Hofer and Eduard Zehnder.
+\newblock \emph{Symplectic Invariants and Hamiltonian Dynamics}.
+\newblock Birkh\"auser Advanced Texts. Birkh\"auser, Basel, 1994{\natexlab{b}}.
+\newblock ISBN 978-3-7643-5066-6.
+
+\bibitem[Howard(1980)]{Howard80}
+William~A. Howard.
+\newblock The formulae-as-types notion of construction.
+\newblock In \emph{To H.B. Curry: Essays on Combinatory Logic, Lambda Calculus
+  and Formalism}, pages 479--490. Academic Press, London, 1980.
+\newblock The Curry-Howard correspondence: proofs as programs, propositions as
+  types.
+
+\bibitem[Huisken(1984)]{Huisken1984}
+Gerhard Huisken.
+\newblock Flow by mean curvature of convex surfaces into spheres.
+\newblock \emph{Journal of Differential Geometry}, 20\penalty0 (1):\penalty0
+  237--266, 1984.
+
+\bibitem[Huisken(1990{\natexlab{a}})]{Huisken1990}
+Gerhard Huisken.
+\newblock Asymptotic behavior for singularities of the mean curvature flow.
+\newblock In \emph{Journal of Differential Geometry} \citet{Huisken90}, pages
+  285--299.
+
+\bibitem[Huisken(1990{\natexlab{b}})]{Huisken90}
+Gerhard Huisken.
+\newblock Asymptotic behavior for singularities of the mean curvature flow.
+\newblock \emph{Journal of Differential Geometry}, 31\penalty0 (1):\penalty0
+  285--299, 1990{\natexlab{b}}.
+
+\bibitem[Huisken and Sinestrari(2009)]{HuiskenSinestrari09}
+Gerhard Huisken and Carlo Sinestrari.
+\newblock Mean curvature flow with surgeries of two-convex hypersurfaces.
+\newblock \emph{Inventiones mathematicae}, 175:\penalty0 137--221, 2009.
+\newblock \doi{10.1007/s00222-008-0148-4}.
+
+\bibitem[Hutter(2005)]{Hutter05}
+Marcus Hutter.
+\newblock \emph{Universal Artificial Intelligence: Sequential Decisions Based
+  on Algorithmic Probability}.
+\newblock Springer, Berlin, 2005.
+
+\bibitem[ichi Amari(1998{\natexlab{a}})]{Amari1998}
+Shun ichi Amari.
+\newblock Natural gradient works efficiently in learning.
+\newblock \emph{Neural Computation}, 10\penalty0 (2):\penalty0 251--276,
+  1998{\natexlab{a}}.
+\newblock Information geometry and Fisher metric for optimization.
+
+\bibitem[ichi Amari(1998{\natexlab{b}})]{Amari98}
+Shun ichi Amari.
+\newblock Natural gradient works efficiently in learning.
+\newblock \emph{Neural Computation}, 10\penalty0 (2):\penalty0 251--276,
+  1998{\natexlab{b}}.
+\newblock \doi{10.1162/089976698300017746}.
+
+\bibitem[ichi Amari(2016)]{Amari16}
+Shun ichi Amari.
+\newblock \emph{Information Geometry and Its Applications}, volume 194 of
+  \emph{Applied Mathematical Sciences}.
+\newblock Springer, 2016.
+
+\bibitem[ichi Amari and Nagaoka(2000)]{Amari00}
+Shun ichi Amari and Hiroshi Nagaoka.
+\newblock \emph{Methods of Information Geometry}, volume 191 of
+  \emph{Translations of Mathematical Monographs}.
+\newblock American Mathematical Society, Providence, RI, 2000.
+\newblock ISBN 978-0-8218-4302-4.
+\newblock Translated from the 1993 Japanese original by Daishi Harada.
+
+\bibitem[Ioffe and Szegedy(2015)]{IoffeNorm2015}
+Sergey Ioffe and Christian Szegedy.
+\newblock Batch normalization: Accelerating deep network training by reducing
+  internal covariate shift.
+\newblock In \emph{Proceedings of the 32nd International Conference on Machine
+  Learning (ICML)}, volume~37 of \emph{PMLR}, pages 448--456, 2015.
+
+\bibitem[Iwaniec and Kowalski(2004)]{IwaniecKowalski04}
+Henryk Iwaniec and Emmanuel Kowalski.
+\newblock \emph{Analytic Number Theory}, volume~53 of \emph{American
+  Mathematical Society Colloquium Publications}.
+\newblock American Mathematical Society, Providence, RI, 2004.
+\newblock ISBN 978-0-8218-3633-0.
+\newblock The bible of modern sieve methods, L-functions, and exponential sums.
+
+\bibitem[Jacobson(1995)]{Jacobson95}
+Ted Jacobson.
+\newblock Thermodynamics of spacetime: The {E}instein equation of state.
+\newblock \emph{Physical Review Letters}, 75\penalty0 (7):\penalty0 1260--1263,
+  1995.
+\newblock \doi{10.1103/PhysRevLett.75.1260}.
+
+\bibitem[Jarzynski(1997)]{Jarzynski97}
+Christopher Jarzynski.
+\newblock Nonequilibrium equality for free energy differences.
+\newblock \emph{Physical Review Letters}, 78\penalty0 (14):\penalty0
+  2690--2693, 1997.
+\newblock \doi{10.1103/PhysRevLett.78.2690}.
+\newblock Equilibrium from nonequilibrium; work-free energy relation.
+
+\bibitem[Jaynes(1957)]{Jaynes57}
+Edwin~T. Jaynes.
+\newblock Information theory and statistical mechanics.
+\newblock \emph{Physical Review}, 106\penalty0 (4):\penalty0 620--630, 1957.
+\newblock Maximum entropy principle: select the distribution with maximal
+  entropy subject to constraints.
+
+\bibitem[Jordan et~al.(1998{\natexlab{a}})Jordan, Kinderlehrer, and
+  Otto]{JKO98}
+Richard Jordan, David Kinderlehrer, and Felix Otto.
+\newblock The variational formulation of the {F}okker-{P}lanck equation.
+\newblock \emph{SIAM Journal on Mathematical Analysis}, 29\penalty0
+  (1):\penalty0 1--17, 1998{\natexlab{a}}.
+
+\bibitem[Jordan et~al.(1998{\natexlab{b}})Jordan, Kinderlehrer, and
+  Otto]{JordanKinderlehrerOtto1998}
+Richard Jordan, David Kinderlehrer, and Felix Otto.
+\newblock The variational formulation of the {F}okker-{P}lanck equation.
+\newblock In \emph{SIAM Journal on Mathematical Analysis} \citet{JKO98}, pages
+  1--17.
+
+\bibitem[Kac(1949)]{Kac49}
+Mark Kac.
+\newblock On distributions of certain {W}iener functionals.
+\newblock \emph{Transactions of the American Mathematical Society}, 65\penalty0
+  (1):\penalty0 1--13, 1949.
+\newblock \doi{10.1090/S0002-9947-1949-0027960-X}.
+
+\bibitem[Kalman(1960)]{Kalman60}
+Rudolf~E. Kalman.
+\newblock On the general theory of control systems.
+\newblock \emph{IFAC Proceedings Volumes}, 1\penalty0 (1):\penalty0 491--502,
+  1960.
+\newblock Introduction of controllability and observability; the Kalman rank
+  conditions.
+
+\bibitem[Kashiwara and Schapira(1990)]{Kashiwara-Schapira}
+Masaki Kashiwara and Pierre Schapira.
+\newblock \emph{Sheaves on Manifolds}, volume 292 of \emph{Grundlehren der
+  mathematischen Wissenschaften}.
+\newblock Springer-Verlag, Berlin, 1990.
+
+\bibitem[Kassel and Turaev(2008)]{KasselTuraev2008}
+Christian Kassel and Vladimir Turaev.
+\newblock \emph{Braid Groups}, volume 247 of \emph{Graduate Texts in
+  Mathematics}.
+\newblock Springer, New York, 2008.
+\newblock ISBN 978-0-387-33841-5.
+
+\bibitem[Kipnis and Landim(1999)]{KipnisLandim99}
+Claude Kipnis and Claudio Landim.
+\newblock \emph{Scaling Limits of Interacting Particle Systems}, volume 320 of
+  \emph{Grundlehren der mathematischen Wissenschaften}.
+\newblock Springer-Verlag, Berlin, 1999.
+\newblock ISBN 978-3-540-64913-6.
+\newblock Rigorous derivation of PDEs from discrete stochastic systems; the
+  mathematical foundation for scaling limits.
+
+\bibitem[Kirchhoff(1876)]{Kirchhoff1876}
+Gustav Kirchhoff.
+\newblock \emph{Vorlesungen {\"u}ber mathematische {P}hysik: {M}echanik}.
+\newblock Teubner, Leipzig, 1876.
+
+\bibitem[Kobayashi(1987)]{Kobayashi87}
+Shoshichi Kobayashi.
+\newblock \emph{Differential Geometry of Complex Vector Bundles}, volume~5 of
+  \emph{Kan\^o Memorial Lectures}.
+\newblock Princeton University Press, Princeton, NJ, 1987.
+\newblock ISBN 978-0-691-08467-1.
+
+\bibitem[Kolchin(1973)]{Kolchin-DGT}
+Ellis~R. Kolchin.
+\newblock \emph{Differential Algebra and Algebraic Groups}.
+\newblock Academic Press, New York, 1973.
+
+\bibitem[Kolmogorov(1965)]{Kolmogorov65}
+Andrey~N. Kolmogorov.
+\newblock Three approaches to the quantitative definition of information.
+\newblock \emph{Problems of Information Transmission}, 1\penalty0 (1):\penalty0
+  1--7, 1965.
+
+\bibitem[Kuramoto(1984)]{Kuramoto84}
+Yoshiki Kuramoto.
+\newblock \emph{Chemical Oscillations, Waves, and Turbulence}, volume~19 of
+  \emph{Springer Series in Synergetics}.
+\newblock Springer-Verlag, Berlin, 1984.
+
+\bibitem[Kuwada(2010)]{Kuwada10}
+Kazumasa Kuwada.
+\newblock Duality on gradient estimates and {W}asserstein controls.
+\newblock \emph{Journal of Functional Analysis}, 258\penalty0 (11):\penalty0
+  3758--3774, 2010.
+
+\bibitem[Landauer(1961)]{Landauer61}
+Rolf Landauer.
+\newblock Irreversibility and heat generation in the computing process.
+\newblock \emph{IBM Journal of Research and Development}, 5\penalty0
+  (3):\penalty0 183--191, 1961.
+\newblock \doi{10.1147/rd.53.0183}.
+
+\bibitem[Lane(1971)]{MacLane71}
+Saunders~Mac Lane.
+\newblock \emph{Categories for the Working Mathematician}, volume~5 of
+  \emph{Graduate Texts in Mathematics}.
+\newblock Springer-Verlag, New York, 1971.
+
+\bibitem[Langlands(1970)]{Langlands-Functoriality}
+Robert~P. Langlands.
+\newblock Problems in the theory of automorphic forms.
+\newblock In \emph{Lectures in Modern Analysis and Applications III}, volume
+  170 of \emph{Lecture Notes in Mathematics}, pages 18--61. Springer-Verlag,
+  1970.
+
+\bibitem[Lawvere(1963)]{Lawvere63}
+F.~William Lawvere.
+\newblock \emph{Functorial Semantics of Algebraic Theories}.
+\newblock PhD thesis, Columbia University, 1963.
+\newblock Foundational text on categorical logic. Reprinted in Reprints in
+  Theory and Applications of Categories, No. 5 (2004), pp. 1--121.
+
+\bibitem[Lawvere(1969)]{Lawvere69}
+F.~William Lawvere.
+\newblock Diagonal arguments and cartesian closed categories.
+\newblock \emph{Lecture Notes in Mathematics}, 92:\penalty0 134--145, 1969.
+\newblock Reprinted in: Reprints in Theory and Applications of Categories, No.
+  15 (2006).
+
+\bibitem[Lee et~al.(2016)Lee, Simchowitz, Jordan, and
+  Recht]{LeeEscapeSaddle2016}
+Jason~D. Lee, Max Simchowitz, Michael~I. Jordan, and Benjamin Recht.
+\newblock Gradient descent only converges to minimizers.
+\newblock In \emph{Proceedings of the 29th Conference on Learning Theory
+  (COLT)}, volume~49 of \emph{PMLR}, pages 1246--1257, 2016.
+
+\bibitem[Lefschetz(1926)]{Lefschetz26}
+Solomon Lefschetz.
+\newblock Intersections and transformations of complexes and manifolds.
+\newblock \emph{Transactions of the American Mathematical Society}, 28\penalty0
+  (1):\penalty0 1--49, 1926.
+
+\bibitem[Levin(1973)]{Levin73}
+Leonid~A. Levin.
+\newblock Universal sequential search problems.
+\newblock \emph{Problems of Information Transmission}, 9\penalty0 (3):\penalty0
+  265--266, 1973.
+
+\bibitem[Li et~al.(2018)Li, Xu, Taylor, Studer, and Goldstein]{LiVisualize2018}
+Hao Li, Zheng Xu, Gavin Taylor, Christoph Studer, and Tom Goldstein.
+\newblock Visualizing the loss landscape of neural nets.
+\newblock In \emph{Advances in Neural Information Processing Systems 31
+  (NeurIPS 2018)}, pages 6389--6399, 2018.
+
+\bibitem[Li and Vit{\'a}nyi(2008)]{LiVitanyi08}
+Ming Li and Paul Vit{\'a}nyi.
+\newblock \emph{An Introduction to Kolmogorov Complexity and Its Applications}.
+\newblock Springer, New York, 3rd edition, 2008.
+\newblock ISBN 978-0-387-33998-6.
+\newblock The standard reference for descriptive complexity and algorithmic
+  information theory.
+
+\bibitem[Lindblad(1976)]{Lindblad76}
+G{\"o}ran Lindblad.
+\newblock On the generators of quantum dynamical semigroups.
+\newblock \emph{Communications in Mathematical Physics}, 48\penalty0
+  (2):\penalty0 119--130, 1976.
+\newblock \doi{10.1007/BF01608499}.
+
+\bibitem[Lions(1984)]{Lions84}
+Pierre-Louis Lions.
+\newblock The concentration-compactness principle in the calculus of
+  variations. {T}he locally compact case, {P}arts {I} and {II}.
+\newblock \emph{Annales de l'Institut Henri Poincar\'e C, Analyse non
+  lin\'eaire}, 1:\penalty0 109--145, 223--283, 1984.
+
+\bibitem[Lions(1985)]{Lions85}
+Pierre-Louis Lions.
+\newblock The concentration-compactness principle in the calculus of
+  variations. {T}he limit case, part 1.
+\newblock \emph{Revista Matem{\'a}tica Iberoamericana}, 1\penalty0
+  (1):\penalty0 145--201, 1985.
+\newblock \doi{10.4171/RMI/6}.
+\newblock Critical Sobolev exponent case; bubble extraction.
+
+\bibitem[Lloyd(2006)]{Lloyd06}
+Seth Lloyd.
+\newblock \emph{Programming the Universe: A Quantum Computer Scientist Takes on
+  the Cosmos}.
+\newblock Alfred A. Knopf, New York, 2006.
+
+\bibitem[L{\"o}b(1955)]{Loeb55}
+Martin~H. L{\"o}b.
+\newblock Solution of a problem of {L}eon {H}enkin.
+\newblock \emph{The Journal of Symbolic Logic}, 20\penalty0 (2):\penalty0
+  115--118, 1955.
+\newblock \doi{10.2307/2266895}.
+
+\bibitem[{\L}ojasiewicz(1963)]{LojasiewiczInequality}
+Stanis{\l}aw {\L}ojasiewicz.
+\newblock Une propri{\'e}t{\'e} topologique des sous-ensembles analytiques
+  r{\'e}els.
+\newblock \emph{Les {\'E}quations aux D{\'e}riv{\'e}es Partielles (Paris,
+  1962)}, pages 87--89, 1963.
+
+\bibitem[Lotka(1925)]{Lotka1925}
+Alfred~J. Lotka.
+\newblock \emph{Elements of Physical Biology}.
+\newblock Williams \& Wilkins, Baltimore, 1925.
+\newblock Reprinted as Elements of Mathematical Biology (Dover, 1956).
+
+\bibitem[Lott and Villani(2009)]{LottVillani09}
+John Lott and C\'edric Villani.
+\newblock Ricci curvature for metric-measure spaces via optimal transport.
+\newblock \emph{Annals of Mathematics}, 169\penalty0 (3):\penalty0 903--991,
+  2009.
+\newblock Defines curvature without a manifold substrate; the CD(K,N)
+  condition.
+
+\bibitem[Lurie(2009)]{Lurie09}
+Jacob Lurie.
+\newblock \emph{Higher Topos Theory}, volume 170 of \emph{Annals of Mathematics
+  Studies}.
+\newblock Princeton University Press, Princeton, NJ, 2009.
+\newblock ISBN 978-0-691-14049-0.
+\newblock Foundations for $\infty$-categories and structure-preserving mappings
+  up to homotopy.
+
+\bibitem[Magid(1994)]{Magid-Lectures-DGT}
+Andy~R. Magid.
+\newblock \emph{Lectures on Differential {G}alois Theory}, volume~7 of
+  \emph{University Lecture Series}.
+\newblock American Mathematical Society, Providence, RI, 1994.
+
+\bibitem[Maldacena(1998)]{Maldacena97}
+Juan~M. Maldacena.
+\newblock The large {N} limit of superconformal field theories and
+  supergravity.
+\newblock \emph{Advances in Theoretical and Mathematical Physics}, 2:\penalty0
+  231--252, 1998.
+\newblock arXiv:hep-th/9711200.
+
+\bibitem[Manin(1968)]{Manin68}
+Yuri~I. Manin.
+\newblock \emph{Correspondences, Motifs and Monoidal Transformations}, volume
+  77(119).
+\newblock 1968.
+\newblock Foundation of Chow motives.
+
+\bibitem[Marchioro and Pulvirenti(1994)]{MarchiorioPulvirenti1994}
+Carlo Marchioro and Mario Pulvirenti.
+\newblock \emph{Mathematical Theory of Incompressible Nonviscous Fluids},
+  volume~96 of \emph{Applied Mathematical Sciences}.
+\newblock Springer-Verlag, New York, 1994.
+\newblock ISBN 978-0-387-94044-1.
+
+\bibitem[Maso(1993)]{DalMaso93}
+Gianni~Dal Maso.
+\newblock \emph{An Introduction to $\Gamma$-convergence}, volume~8 of
+  \emph{Progress in Nonlinear Differential Equations}.
+\newblock Birkh{\"a}user, Boston, 1993.
+
+\bibitem[Maturana and Varela(1980)]{MaturanaVarela80}
+Humberto~R. Maturana and Francisco~J. Varela.
+\newblock \emph{Autopoiesis and Cognition: The Realization of the Living},
+  volume~42 of \emph{Boston Studies in the Philosophy of Science}.
+\newblock D. Reidel Publishing Company, Dordrecht, 1980.
+
+\bibitem[McDuff and Salamon(2017)]{McDuffSalamonSymplectic2017}
+Dusa McDuff and Dietmar Salamon.
+\newblock \emph{Introduction to Symplectic Topology}, volume~27 of \emph{Oxford
+  Graduate Texts in Mathematics}.
+\newblock Oxford University Press, Oxford, 3rd edition, 2017.
+\newblock ISBN 978-0-19-879489-9.
+
+\bibitem[Menger(1927)]{Menger27}
+Karl Menger.
+\newblock {\"U}ber regul{\"a}re baumkurven.
+\newblock \emph{Mathematische Annalen}, 96:\penalty0 572--582, 1927.
+
+\bibitem[Mescheder et~al.(2018)Mescheder, Geiger, and
+  Nowozin]{MeschederGAN2018}
+Lars Mescheder, Andreas Geiger, and Sebastian Nowozin.
+\newblock Which training methods for {GAN}s do actually converge?
+\newblock In \emph{Proceedings of the 35th International Conference on Machine
+  Learning (ICML)}, volume~80 of \emph{PMLR}, pages 3481--3490, 2018.
+
+\bibitem[Misra and Sudarshan(1977)]{Misra77}
+Baidyanath Misra and E.~C.~George Sudarshan.
+\newblock The {Z}eno's paradox in quantum theory.
+\newblock \emph{Journal of Mathematical Physics}, 18\penalty0 (4):\penalty0
+  756--763, 1977.
+\newblock \doi{10.1063/1.523304}.
+
+\bibitem[Miyato et~al.(2018)Miyato, Kataoka, Koyama, and
+  Yoshida]{MiyatoSpectral2018}
+Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida.
+\newblock Spectral normalization for generative adversarial networks.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2018.
+
+\bibitem[Morse(1934)]{Morse34}
+Marston Morse.
+\newblock \emph{The Calculus of Variations in the Large}, volume~18 of
+  \emph{American Mathematical Society Colloquium Publications}.
+\newblock American Mathematical Society, Providence, RI, 1934.
+\newblock Foundation of Morse theory: critical points of functions determine
+  topology.
+
+\bibitem[Mulmuley and Sohoni(2001)]{MulmuleySohoni01}
+Ketan~D. Mulmuley and Milind Sohoni.
+\newblock Geometric complexity theory {I}: An approach to the {P} vs. {NP} and
+  related problems.
+\newblock \emph{SIAM Journal on Computing}, 31\penalty0 (2):\penalty0 496--526,
+  2001.
+\newblock Precedent for using algebraic/representation-theoretic obstructions
+  to solve complexity problems.
+
+\bibitem[Mumford(1965)]{Mumford65}
+David Mumford.
+\newblock \emph{Geometric Invariant Theory}, volume~34 of \emph{Ergebnisse der
+  Mathematik und ihrer Grenzgebiete}.
+\newblock Springer-Verlag, Berlin, 1965.
+
+\bibitem[Murray(2002)]{Murray2002}
+James~D. Murray.
+\newblock \emph{Mathematical Biology {I}: An Introduction}, volume~17 of
+  \emph{Interdisciplinary Applied Mathematics}.
+\newblock Springer-Verlag, New York, 3rd edition, 2002.
+\newblock ISBN 978-0-387-95223-9.
+
+\bibitem[Nash(1956)]{Nash56}
+John Nash.
+\newblock The imbedding problem for {R}iemannian manifolds.
+\newblock \emph{Annals of Mathematics}, 63\penalty0 (1):\penalty0 20--63, 1956.
+\newblock \doi{10.2307/1969989}.
+\newblock Origin of Nash-Moser inverse function theorem.
+
+\bibitem[Newton(2001)]{NewtonVortex2001}
+Paul~K. Newton.
+\newblock \emph{The {N}-Vortex Problem: Analytical Techniques}, volume 145 of
+  \emph{Applied Mathematical Sciences}.
+\newblock Springer-Verlag, New York, 2001.
+\newblock ISBN 978-0-387-95226-0.
+
+\bibitem[Niyogi et~al.(2008)Niyogi, Smale, and
+  Weinberger]{NiyogiSmaleWeinberger08}
+Partha Niyogi, Stephen Smale, and Shmuel Weinberger.
+\newblock Finding the homology of submanifolds with high confidence from random
+  samples.
+\newblock \emph{Discrete \& Computational Geometry}, 39\penalty0
+  (1--3):\penalty0 419--441, 2008.
+
+\bibitem[{\O}ksendal(2003)]{Oksendal03}
+Bernt {\O}ksendal.
+\newblock \emph{Stochastic Differential Equations: An Introduction with
+  Applications}.
+\newblock Springer-Verlag, Berlin, 6th edition, 2003.
+
+\bibitem[Ollivier(2009)]{Ollivier09}
+Yann Ollivier.
+\newblock Ricci curvature of {M}arkov chains on metric spaces.
+\newblock \emph{Journal of Functional Analysis}, 256\penalty0 (3):\penalty0
+  810--864, 2009.
+\newblock Coarse Ricci curvature for discrete structures via optimal transport.
+
+\bibitem[Ollivier and Villani(2012)]{OllivierVillani12}
+Yann Ollivier and C\'edric Villani.
+\newblock A curved {B}runn-{M}inkowski inequality on the discrete hypercube,
+  or: what is the {R}icci curvature of the discrete hypercube?
+\newblock \emph{SIAM Journal on Discrete Mathematics}, 26\penalty0
+  (3):\penalty0 983--996, 2012.
+\newblock Discrete Ricci curvature recovers classical curvature in the
+  continuum limit.
+
+\bibitem[Ornstein(1974)]{Ornstein74}
+Donald~S. Ornstein.
+\newblock \emph{Ergodic Theory, Randomness, and Dynamical Systems}.
+\newblock Yale Mathematical Monographs. Yale University Press, New Haven, CT,
+  1974.
+\newblock James K. Whittemore Lectures in Mathematics.
+
+\bibitem[Otto(2001)]{Otto01}
+Felix Otto.
+\newblock The geometry of dissipative evolution equations: the porous medium
+  equation.
+\newblock \emph{Communications in Partial Differential Equations}, 26\penalty0
+  (1-2):\penalty0 101--174, 2001.
+
+\bibitem[Otto and Villani(2000)]{OttoVillani00}
+Felix Otto and C\'edric Villani.
+\newblock Generalization of an inequality by {T}alagrand and links with the
+  logarithmic {S}obolev inequality.
+\newblock \emph{Journal of Functional Analysis}, 173\penalty0 (2):\penalty0
+  361--400, 2000.
+
+\bibitem[Perelman(2002)]{Perelman02}
+Grigori Perelman.
+\newblock The entropy formula for the {R}icci flow and its geometric
+  applications.
+\newblock \emph{arXiv preprint math.DG/0211159}, 2002.
+
+\bibitem[Perelman(2003)]{Perelman03a}
+Grigori Perelman.
+\newblock Ricci flow with surgery on three-manifolds.
+\newblock \emph{arXiv preprint math.DG/0303109}, 2003.
+
+\bibitem[Perko(2001)]{Perko2001}
+Lawrence Perko.
+\newblock \emph{Differential Equations and Dynamical Systems}, volume~7 of
+  \emph{Texts in Applied Mathematics}.
+\newblock Springer-Verlag, New York, 3rd edition, 2001.
+\newblock ISBN 978-0-387-95116-4.
+
+\bibitem[Polyak(1964)]{Polyak1963}
+Boris~T. Polyak.
+\newblock Some methods of speeding up the convergence of iteration methods.
+\newblock \emph{USSR Computational Mathematics and Mathematical Physics},
+  4\penalty0 (5):\penalty0 1--17, 1964.
+\newblock Introduction of momentum (heavy ball method) for gradient descent.
+
+\bibitem[Pontryagin et~al.(1962)Pontryagin, Boltyanskii, Gamkrelidze, and
+  Mishchenko]{Pontryagin62}
+L.~S. Pontryagin, V.~G. Boltyanskii, R.~V. Gamkrelidze, and E.~F. Mishchenko.
+\newblock \emph{The Mathematical Theory of Optimal Processes}.
+\newblock Interscience Publishers, New York, 1962.
+\newblock Translated by K. N. Trirogoff; the geometry of constrained
+  optimization and the Maximum Principle.
+
+\bibitem[Prigogine(1978)]{Prigogine78}
+Ilya Prigogine.
+\newblock Time, structure, and fluctuations.
+\newblock \emph{Science}, 201\penalty0 (4358):\penalty0 777--785, 1978.
+\newblock \doi{10.1126/science.201.4358.777}.
+\newblock Nobel Lecture; dissipative structures and self-organization.
+
+\bibitem[Rahaman et~al.(2019)Rahaman, Baratin, Arpit, Draxler, Lin, Hamprecht,
+  Bengio, and Courville]{Rahaman19}
+Nasim Rahaman, Aristide Baratin, Devansh Arpit, Felix Draxler, Min Lin, Fred~A.
+  Hamprecht, Yoshua Bengio, and Aaron Courville.
+\newblock On the spectral bias of neural networks.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine
+  Learning}, volume~97 of \emph{PMLR}, pages 5301--5310, 2019.
+
+\bibitem[Reed and Simon(1978)]{ReedSimon78}
+Michael Reed and Barry Simon.
+\newblock \emph{Methods of Modern Mathematical Physics. {IV}. {A}nalysis of
+  Operators}.
+\newblock Academic Press, New York, 1978.
+
+\bibitem[Risken(1989)]{Risken89}
+Hannes Risken.
+\newblock \emph{The {F}okker-{P}lanck Equation: Methods of Solution and
+  Applications}, volume~18 of \emph{Springer Series in Synergetics}.
+\newblock Springer-Verlag, Berlin, 2nd edition, 1989.
+
+\bibitem[Rissanen(1978)]{Rissanen78}
+Jorma Rissanen.
+\newblock Modeling by shortest data description.
+\newblock \emph{Automatica}, 14\penalty0 (5):\penalty0 465--471, 1978.
+\newblock \doi{10.1016/0005-1098(78)90005-5}.
+
+\bibitem[Rivano(1972)]{Saavedra-Rivano}
+Neantro~Saavedra Rivano.
+\newblock \emph{Cat\'{e}gories Tannakiennes}, volume 265 of \emph{Lecture Notes
+  in Mathematics}.
+\newblock Springer-Verlag, Berlin, 1972.
+
+\bibitem[Robertson and Seymour(2004)]{RobertsonSeymour04}
+Neil Robertson and Paul~D. Seymour.
+\newblock Graph minors. {XX}. {W}agner's conjecture.
+\newblock \emph{Journal of Combinatorial Theory, Series B}, 92\penalty0
+  (2):\penalty0 325--357, 2004.
+\newblock \doi{10.1016/j.jctb.2004.08.001}.
+\newblock Ultimate discrete compactness theorem for graphs.
+
+\bibitem[Rogers and Williams(2000)]{RogersWilliams2000}
+L.~C.~G. Rogers and David Williams.
+\newblock \emph{Diffusions, Markov Processes and Martingales}, volume 2:
+  It{\^o} Calculus.
+\newblock Cambridge University Press, 2nd edition, 2000.
+\newblock ISBN 978-0-521-77593-2.
+\newblock Doob h-transforms and conditioning of diffusions.
+
+\bibitem[Rosas et~al.(2020)Rosas, Mediano, Jensen, Seth, Barrett,
+  Carhart-Harris, and Bor]{Rosas2024}
+Fernando~E. Rosas, Pedro A.~M. Mediano, Henrik~J. Jensen, Anil~K. Seth, Adam~B.
+  Barrett, Robin~L. Carhart-Harris, and Daniel Bor.
+\newblock Reconciling emergences: An information-theoretic approach to identify
+  causal emergence in multivariate data.
+\newblock \emph{PLOS Computational Biology}, 16\penalty0 (12):\penalty0
+  e1008289, 2020.
+\newblock Computational closure and causal emergence via information theory.
+
+\bibitem[Ruelle and Takens(1971)]{RuelleTakens71}
+David Ruelle and Floris Takens.
+\newblock On the nature of turbulence.
+\newblock \emph{Communications in Mathematical Physics}, 20\penalty0
+  (3):\penalty0 167--192, 1971.
+\newblock \doi{10.1007/BF01646553}.
+\newblock Strange attractors; chaos in fluid dynamics.
+
+\bibitem[Ryu and Takayanagi(2006)]{RyuTakayanagi06}
+Shinsei Ryu and Tadashi Takayanagi.
+\newblock Holographic derivation of entanglement entropy from {AdS/CFT}.
+\newblock \emph{Physical Review Letters}, 96:\penalty0 181602, 2006.
+\newblock \doi{10.1103/PhysRevLett.96.181602}.
+
+\bibitem[Sandier and Serfaty(2004)]{SandierSerfaty04}
+Etienne Sandier and Sylvia Serfaty.
+\newblock Gamma-convergence of gradient flows with applications to
+  {G}inzburg-{L}andau.
+\newblock \emph{Communications on Pure and Applied Mathematics}, 57\penalty0
+  (12):\penalty0 1627--1672, 2004.
+
+\bibitem[Scholl(1994)]{Scholl94}
+Anthony~J. Scholl.
+\newblock Classical motives.
+\newblock 55:\penalty0 163--187, 1994.
+
+\bibitem[Serre(1955)]{Serre-FAC}
+Jean-Pierre Serre.
+\newblock Faisceaux alg\'{e}briques coh\'{e}rents.
+\newblock \emph{Annals of Mathematics}, 61\penalty0 (2):\penalty0 197--278,
+  1955.
+
+\bibitem[Serre(1956)]{Serre56}
+Jean-Pierre Serre.
+\newblock G{\'e}om{\'e}trie alg{\'e}brique et g{\'e}om{\'e}trie analytique.
+\newblock \emph{Annales de l'institut Fourier}, 6:\penalty0 1--42, 1956.
+\newblock The GAGA principle: analytic = algebraic for projective varieties.
+
+\bibitem[Shalizi and Crutchfield(2001)]{Shalizi2001}
+Cosma~Rohilla Shalizi and James~P. Crutchfield.
+\newblock Computational mechanics: Pattern and prediction, structure and
+  simplicity.
+\newblock \emph{Journal of Statistical Physics}, 104:\penalty0 817--879, 2001.
+\newblock Causal states and computational mechanics.
+
+\bibitem[Shannon(1948)]{Shannon48}
+Claude~E. Shannon.
+\newblock A mathematical theory of communication.
+\newblock \emph{Bell System Technical Journal}, 27\penalty0 (3):\penalty0
+  379--423, 1948.
+\newblock \doi{10.1002/j.1538-7305.1948.tb01338.x}.
+\newblock Foundation of information theory.
+
+\bibitem[Shelah(1990)]{Shelah90}
+Saharon Shelah.
+\newblock \emph{Classification Theory and the Number of Non-isomorphic Models},
+  volume~92 of \emph{Studies in Logic and the Foundations of Mathematics}.
+\newblock North-Holland, Amsterdam, 2nd edition, 1990.
+\newblock ISBN 978-0-444-70260-9.
+\newblock The definitive treatment of stability theory and the dividing line
+  between tame and wild structures.
+
+\bibitem[Simon(1983)]{Simon83}
+Leon Simon.
+\newblock Asymptotics for a class of nonlinear evolution equations, with
+  applications to geometric problems.
+\newblock \emph{Annals of Mathematics}, 118\penalty0 (3):\penalty0 525--571,
+  1983.
+
+\bibitem[Sinai(1959)]{Sinai59}
+Ya.~G. Sinai.
+\newblock On the notion of entropy of a dynamical system.
+\newblock \emph{Doklady Akademii Nauk SSSR}, 124:\penalty0 768--771, 1959.
+\newblock Introduction of metric entropy (Kolmogorov-Sinai entropy) for
+  measure-preserving transformations.
+
+\bibitem[Smale(1967)]{Smale67}
+Stephen Smale.
+\newblock Differentiable dynamical systems.
+\newblock \emph{Bulletin of the American Mathematical Society}, 73\penalty0
+  (6):\penalty0 747--817, 1967.
+\newblock \doi{10.1090/S0002-9904-1967-11798-1}.
+
+\bibitem[Solomonoff(1964)]{Solomonoff64}
+Ray~J. Solomonoff.
+\newblock A formal theory of inductive inference. {P}art {I}.
+\newblock \emph{Information and Control}, 7\penalty0 (1):\penalty0 1--22, 1964.
+\newblock \doi{10.1016/S0019-9958(64)90223-2}.
+
+\bibitem[Solomonoff(1978)]{Solomonoff78}
+Ray~J. Solomonoff.
+\newblock Complexity-based induction systems: Comparisons and convergence
+  theorems.
+\newblock \emph{IEEE Transactions on Information Theory}, 24\penalty0
+  (4):\penalty0 422--432, 1978.
+\newblock \doi{10.1109/TIT.1978.1055913}.
+
+\bibitem[Sorkin(2003)]{Sorkin05}
+Rafael~D. Sorkin.
+\newblock Causal sets: Discrete gravity.
+\newblock \emph{arXiv preprint gr-qc/0309009}, 2003.
+\newblock Lectures on Quantum Gravity.
+
+\bibitem[Strogatz(2015)]{Strogatz2015}
+Steven~H. Strogatz.
+\newblock \emph{Nonlinear Dynamics and Chaos: With Applications to Physics,
+  Biology, Chemistry, and Engineering}.
+\newblock Westview Press, Boulder, CO, 2nd edition, 2015.
+\newblock ISBN 978-0-8133-4910-7.
+\newblock The standard introduction to nonlinear dynamics and bifurcation
+  theory.
+
+\bibitem[Struwe(1984)]{Struwe84}
+Michael Struwe.
+\newblock A global compactness result for elliptic boundary value problems
+  involving limiting nonlinearities.
+\newblock \emph{Mathematische Zeitschrift}, 187\penalty0 (4):\penalty0
+  511--517, 1984.
+\newblock \doi{10.1007/BF01174186}.
+\newblock Profile decomposition for critical elliptic problems.
+
+\bibitem[Sturm(2006)]{Sturm06}
+Karl-Theodor Sturm.
+\newblock On the geometry of metric measure spaces. {I}.
+\newblock \emph{Acta Mathematica}, 196\penalty0 (1):\penalty0 65--131, 2006.
+
+\bibitem[Susskind(1995)]{Susskind95}
+Leonard Susskind.
+\newblock The world as a hologram.
+\newblock \emph{Journal of Mathematical Physics}, 36:\penalty0 6377--6396,
+  1995.
+\newblock arXiv:hep-th/9409089.
+
+\bibitem[Sznitman(1991)]{Sznitman1991}
+Alain-Sol Sznitman.
+\newblock Topics in propagation of chaos.
+\newblock In \emph{{\'E}cole d'{\'E}t{\'e} de Probabilit{\'e}s de Saint-Flour
+  XIX---1989}, volume 1464 of \emph{Lecture Notes in Mathematics}, pages
+  165--251. Springer, Berlin, 1991.
+
+\bibitem[Szpruch and Szpruch(2020)]{LojasiewiczNN2020}
+{\L}ukasz Szpruch and Lukasz Szpruch.
+\newblock Convergence of gradient descent for deep neural networks.
+\newblock 2020.
+\newblock Multiple authors have established {\L}ojasiewicz inequalities for
+  neural network loss functions; see works by Chatterjee (2022) and others.
+
+\bibitem['t~Hooft(1993)]{tHooft93}
+Gerard 't~Hooft.
+\newblock Dimensional reduction in quantum gravity.
+\newblock \emph{arXiv preprint gr-qc/9310026}, 1993.
+
+\bibitem[Takesaki(1970)]{Takesaki70}
+Masamichi Takesaki.
+\newblock \emph{Tomita's Theory of Modular {H}ilbert Algebras and its
+  Applications}, volume 128 of \emph{Lecture Notes in Mathematics}.
+\newblock Springer-Verlag, Berlin, 1970.
+
+\bibitem[Tao(2006)]{Tao06}
+Terence Tao.
+\newblock \emph{Nonlinear Dispersive Equations: Local and Global Analysis},
+  volume 106 of \emph{CBMS Regional Conference Series in Mathematics}.
+\newblock American Mathematical Society, Providence, RI, 2006.
+\newblock ISBN 978-0-8218-4143-3.
+
+\bibitem[Tarski(1951)]{Tarski51}
+Alfred Tarski.
+\newblock \emph{A Decision Method for Elementary Algebra and Geometry}.
+\newblock University of California Press, Berkeley, 1951.
+\newblock Quantifier elimination for real closed fields; foundation of
+  o-minimality and tame topology.
+
+\bibitem[Temam(1988)]{Temam88}
+Roger Temam.
+\newblock \emph{Infinite-Dimensional Dynamical Systems in Mechanics and
+  Physics}, volume~68 of \emph{Applied Mathematical Sciences}.
+\newblock Springer-Verlag, New York, 1988.
+\newblock ISBN 978-0-387-96638-0.
+\newblock The standard reference for attractors and inertial manifolds in
+  dissipative PDEs.
+
+\bibitem[{The Univalent Foundations Program}(2013)]{HoTT13}
+{The Univalent Foundations Program}.
+\newblock \emph{Homotopy Type Theory: Univalent Foundations of Mathematics}.
+\newblock Institute for Advanced Study, Princeton, NJ, 2013.
+\newblock URL \url{https://homotopytypetheory.org/book/}.
+\newblock The univalence axiom: identity is equivalent to equivalence.
+
+\bibitem[Thom(1972)]{Thom72}
+Ren\'e Thom.
+\newblock \emph{Stabilit\'e structurelle et morphog\'en\`ese: essai d'une
+  th\'eorie g\'en\'erale des mod\`eles}.
+\newblock W.A. Benjamin, Reading, MA, 1972.
+\newblock English translation: Structural Stability and Morphogenesis (1975).
+  The foundational text on classifying structural failure modes.
+
+\bibitem[Tikhonov and Arsenin(1977)]{Tikhonov77}
+Andrey~N. Tikhonov and Vasiliy~Y. Arsenin.
+\newblock \emph{Solutions of Ill-Posed Problems}.
+\newblock Winston \& Sons, Washington, D.C., 1977.
+\newblock The rigorous basis for using constraints/regularization to solve
+  inverse problems.
+
+\bibitem[Trotter(1959)]{Trotter59}
+Hale~F. Trotter.
+\newblock On the product of semi-groups of operators.
+\newblock \emph{Proceedings of the American Mathematical Society}, 10\penalty0
+  (4):\penalty0 545--551, 1959.
+\newblock \doi{10.1090/S0002-9939-1959-0108732-6}.
+
+\bibitem[Unruh(1976)]{Unruh76}
+William~G. Unruh.
+\newblock Notes on black-hole evaporation.
+\newblock \emph{Physical Review D}, 14\penalty0 (4):\penalty0 870--892, 1976.
+\newblock \doi{10.1103/PhysRevD.14.870}.
+
+\bibitem[Valiant(1984)]{Valiant84}
+Leslie~G. Valiant.
+\newblock A theory of the learnable.
+\newblock \emph{Communications of the ACM}, 27\penalty0 (11):\penalty0
+  1134--1142, 1984.
+\newblock The definition of PAC learning and computational feasibility of
+  learning.
+
+\bibitem[Vapnik(1998)]{Vapnik98}
+Vladimir~N. Vapnik.
+\newblock \emph{Statistical Learning Theory}.
+\newblock Adaptive and Cognitive Dynamic Systems. Wiley, New York, 1998.
+\newblock ISBN 978-0-471-03003-4.
+\newblock The rigorous basis for generalization bounds and VC theory.
+
+\bibitem[Varadhan(1984)]{Varadhan84}
+S.~R.~S. Varadhan.
+\newblock \emph{Large Deviations and Applications}, volume~46 of \emph{CBMS-NSF
+  Regional Conference Series in Applied Mathematics}.
+\newblock SIAM, Philadelphia, 1984.
+\newblock The calculus of rare events; rate functions and exponential decay.
+
+\bibitem[Vidal(2007)]{Vidal2007}
+Guifr{\'e} Vidal.
+\newblock Entanglement renormalization.
+\newblock \emph{Physical Review Letters}, 99:\penalty0 220405, 2007.
+\newblock MERA: Multi-scale Entanglement Renormalization Ansatz.
+
+\bibitem[Villani(2003)]{Villani2003}
+C{\'e}dric Villani.
+\newblock \emph{Topics in Optimal Transportation}, volume~58 of \emph{Graduate
+  Studies in Mathematics}.
+\newblock American Mathematical Society, Providence, RI, 2003.
+\newblock ISBN 978-0-8218-3312-4.
+
+\bibitem[Villani(2009{\natexlab{a}})]{Villani09}
+C\'edric Villani.
+\newblock \emph{Optimal Transport: Old and New}, volume 338 of
+  \emph{Grundlehren der mathematischen Wissenschaften}.
+\newblock Springer-Verlag, Berlin, 2009{\natexlab{a}}.
+\newblock ISBN 978-3-540-71049-3.
+
+\bibitem[Villani(2009{\natexlab{b}})]{Villani2009}
+C\'edric Villani.
+\newblock \emph{Optimal Transport: Old and New}.
+\newblock Volume 338 of \emph{Grundlehren der mathematischen Wissenschaften}
+  \citet{Villani09}, 2009{\natexlab{b}}.
+\newblock ISBN 978-3-540-71049-3.
+
+\bibitem[Volterra(1926)]{Volterra1926}
+Vito Volterra.
+\newblock Variazioni e fluttuazioni del numero d'individui in specie animali
+  conviventi.
+\newblock \emph{Memorie della R. Accademia Nazionale dei Lincei}, 2:\penalty0
+  31--113, 1926.
+\newblock English: Variations and fluctuations of the number of individuals in
+  animal species living together.
+
+\bibitem[von Helmholtz(1858)]{Helmholtz1858}
+Hermann von Helmholtz.
+\newblock {\"U}ber {I}ntegrale der hydrodynamischen {G}leichungen, welche den
+  {W}irbelbewegungen entsprechen.
+\newblock \emph{Journal f{\"u}r die reine und angewandte Mathematik},
+  55:\penalty0 25--55, 1858.
+\newblock English translation: On Integrals of the Hydrodynamical Equations
+  which Express Vortex-motion (1867).
+
+\bibitem[von Neumann(1932)]{vonNeumann32}
+John von Neumann.
+\newblock \emph{Mathematische Grundlagen der Quantenmechanik}.
+\newblock Springer-Verlag, Berlin, 1932.
+\newblock English translation: Mathematical Foundations of Quantum Mechanics,
+  Princeton University Press, 1955.
+
+\bibitem[Wald(1984)]{Wald84}
+Robert~M. Wald.
+\newblock \emph{General Relativity}.
+\newblock University of Chicago Press, Chicago, 1984.
+
+\bibitem[Walters(1975)]{Walters76}
+Peter Walters.
+\newblock A variational principle for the pressure of continuous
+  transformations.
+\newblock \emph{American Journal of Mathematics}, 97\penalty0 (4):\penalty0
+  937--971, 1975.
+\newblock Topological entropy and the variational principle.
+
+\bibitem[Watanabe(2009)]{Watanabe09}
+Sumio Watanabe.
+\newblock \emph{Algebraic Geometry and Statistical Learning Theory}, volume~25
+  of \emph{Cambridge Monographs on Applied and Computational Mathematics}.
+\newblock Cambridge University Press, Cambridge, 2009.
+\newblock ISBN 978-0-521-86467-4.
+
+\bibitem[White(2000)]{White2000}
+Brian White.
+\newblock The size of the singular set in mean curvature flow of mean-convex
+  sets.
+\newblock \emph{Journal of the American Mathematical Society}, 13\penalty0
+  (3):\penalty0 665--695, 2000.
+
+\bibitem[White(2005)]{White2005}
+Brian White.
+\newblock A local regularity theorem for mean curvature flow.
+\newblock \emph{Annals of Mathematics}, 161\penalty0 (3):\penalty0 1487--1519,
+  2005.
+
+\bibitem[Willems(1991)]{Willems91}
+Jan~C. Willems.
+\newblock Paradigms and puzzles in the theory of dynamical systems.
+\newblock \emph{IEEE Transactions on Automatic Control}, 36\penalty0
+  (3):\penalty0 259--294, 1991.
+\newblock Foundational paper on the behavioral approach: systems defined by
+  trajectories, not input-output maps.
+
+\bibitem[Wilson(1971)]{Wilson71}
+Kenneth~G. Wilson.
+\newblock Renormalization group and critical phenomena. {I}. {R}enormalization
+  group and the {K}adanoff scaling picture.
+\newblock \emph{Physical Review B}, 4\penalty0 (9):\penalty0 3174--3183, 1971.
+\newblock \doi{10.1103/PhysRevB.4.3174}.
+\newblock Nobel Prize 1982; universality from scaling.
+
+\bibitem[Wiseman and Milburn(2009)]{Wiseman09}
+Howard~M. Wiseman and Gerard~J. Milburn.
+\newblock \emph{Quantum Measurement and Control}.
+\newblock Cambridge University Press, Cambridge, 2009.
+
+\bibitem[Wissner-Gross and Freer(2013)]{WissnerGross2013}
+Alexander~D. Wissner-Gross and Cameron~E. Freer.
+\newblock Causal entropic forces.
+\newblock \emph{Physical Review Letters}, 110\penalty0 (16):\penalty0 168702,
+  2013.
+\newblock Causal entropy maximization as a principle for intelligent behavior.
+
+\bibitem[Witten(1982)]{Witten82}
+Edward Witten.
+\newblock Supersymmetry and {M}orse theory.
+\newblock \emph{Journal of Differential Geometry}, 17\penalty0 (4):\penalty0
+  661--692, 1982.
+\newblock Physics derivation of cohomology from energy landscapes.
+
+\end{thebibliography}
