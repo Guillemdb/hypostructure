@@ -1,63 +1,63 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'hypostructures.blg'
-[66] biber:340> INFO - === Wed Dec  3, 2025, 21:26:23
-[76] Biber.pm:418> INFO - Reading 'hypostructures.bcf'
-[142] Biber.pm:972> INFO - Found 172 citekeys in bib section 0
-[151] Biber.pm:4383> INFO - Processing section 0
-[158] Biber.pm:4574> INFO - Looking for bibtex file 'references.bib' for section 0
-[163] bibtex.pm:1713> INFO - LaTeX decoding ...
-[311] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
-[690] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[690] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[690] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[690] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[752] bbl.pm:654> INFO - Writing 'hypostructures.bbl' with encoding 'UTF-8'
-[784] bbl.pm:757> INFO - Output to hypostructures.bbl
-[784] Biber.pm:130> WARN - Duplicate entry key: 'Hironaka64' in file 'references.bib', skipping ...
-[784] Biber.pm:130> WARN - Duplicate entry key: 'Ollivier09' in file 'references.bib', skipping ...
-[784] Biber.pm:130> WARN - Duplicate entry key: 'LiVitanyi08' in file 'references.bib', skipping ...
-[784] Biber.pm:130> WARN - Duplicate entry key: 'Lurie09' in file 'references.bib', skipping ...
-[784] Biber.pm:130> WARN - ISBN '978-0-521-86467-4' in entry 'Watanabe09' is invalid - run biber with '--validate_datamodel' for details.
-[784] Biber.pm:130> WARN - ISBN '978-3-540-64913-6' in entry 'KipnisLandim99' is invalid - run biber with '--validate_datamodel' for details.
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'AmbrosioGigliSavare08' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Maas11' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Elgindi21' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'MacLane98' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'DummitFoote04' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Palais61' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'KobayashiNomizu96' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'NarasimhanRamanan61' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Geroch70' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Fujita66' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Yang52' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Bishop67' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Zeilberger01' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Jech03' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Kunen80' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Ruelle69' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Vitali05' (section 0)
-[784] Biber.pm:130> WARN - I didn't find a database entry for 'Kac47' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Bekenstein73' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Hawking75' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Maldacena98' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'BanachTarski24' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Poincare90' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'FoiasTemam88' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Zorn35' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Tychonoff30' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Kelley55' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Leray34' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Kelley50' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Zermelo04' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Hodges79' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'HalpernLevy71' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Luxemburg69' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Schechter97' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Phelps01' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Jech06' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Rogers87' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Rudin91' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Solovay70' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Lang95' (section 0)
-[785] Biber.pm:130> WARN - I didn't find a database entry for 'Wainwright19' (section 0)
-[785] Biber.pm:132> INFO - WARNINGS: 47
+[60] biber:340> INFO - === Wed Dec  3, 2025, 23:40:31
+[74] Biber.pm:418> INFO - Reading 'hypostructures.bcf'
+[147] Biber.pm:972> INFO - Found 171 citekeys in bib section 0
+[156] Biber.pm:4383> INFO - Processing section 0
+[167] Biber.pm:4574> INFO - Looking for bibtex file 'references.bib' for section 0
+[175] bibtex.pm:1713> INFO - LaTeX decoding ...
+[332] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
+[767] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[767] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[767] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[767] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[837] bbl.pm:654> INFO - Writing 'hypostructures.bbl' with encoding 'UTF-8'
+[867] bbl.pm:757> INFO - Output to hypostructures.bbl
+[867] Biber.pm:130> WARN - Duplicate entry key: 'Hironaka64' in file 'references.bib', skipping ...
+[867] Biber.pm:130> WARN - Duplicate entry key: 'Ollivier09' in file 'references.bib', skipping ...
+[867] Biber.pm:130> WARN - Duplicate entry key: 'LiVitanyi08' in file 'references.bib', skipping ...
+[867] Biber.pm:130> WARN - Duplicate entry key: 'Lurie09' in file 'references.bib', skipping ...
+[867] Biber.pm:130> WARN - ISBN '978-0-521-86467-4' in entry 'Watanabe09' is invalid - run biber with '--validate_datamodel' for details.
+[867] Biber.pm:130> WARN - ISBN '978-3-540-64913-6' in entry 'KipnisLandim99' is invalid - run biber with '--validate_datamodel' for details.
+[867] Biber.pm:130> WARN - I didn't find a database entry for 'AmbrosioGigliSavare08' (section 0)
+[867] Biber.pm:130> WARN - I didn't find a database entry for 'Maas11' (section 0)
+[867] Biber.pm:130> WARN - I didn't find a database entry for 'Elgindi21' (section 0)
+[867] Biber.pm:130> WARN - I didn't find a database entry for 'MacLane98' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'DummitFoote04' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Palais61' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'KobayashiNomizu96' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'NarasimhanRamanan61' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Geroch70' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Fujita66' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Yang52' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Bishop67' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Zeilberger01' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Jech03' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Kunen80' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Ruelle69' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Vitali05' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Kac47' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Bekenstein73' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Hawking75' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Maldacena98' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'BanachTarski24' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'Poincare90' (section 0)
+[868] Biber.pm:130> WARN - I didn't find a database entry for 'FoiasTemam88' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Zorn35' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Tychonoff30' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Kelley55' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Leray34' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Kelley50' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Zermelo04' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Hodges79' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'HalpernLevy71' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Luxemburg69' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Schechter97' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Phelps01' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Jech06' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Rogers87' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Rudin91' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Solovay70' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Lang95' (section 0)
+[869] Biber.pm:130> WARN - I didn't find a database entry for 'Wainwright19' (section 0)
+[869] Biber.pm:132> INFO - WARNINGS: 47

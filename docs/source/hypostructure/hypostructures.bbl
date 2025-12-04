@@ -501,42 +501,6 @@
       \field{volume}{33}
       \field{year}{2001}
     \endentry
-    \entry{CKN82}{article}{}
-      \name{author}{3}{}{%
-        {{hash=3991522afc177c36148555b3758df0e0}{%
-           family={Caffarelli},
-           familyi={C\bibinitperiod},
-           given={Luis},
-           giveni={L\bibinitperiod}}}%
-        {{hash=eb1882a0a114f6c1c7967db0eb33d20d}{%
-           family={Kohn},
-           familyi={K\bibinitperiod},
-           given={Robert},
-           giveni={R\bibinitperiod}}}%
-        {{hash=eab0d0f737d44d10af4203211c6c6225}{%
-           family={Nirenberg},
-           familyi={N\bibinitperiod},
-           given={Louis},
-           giveni={L\bibinitperiod}}}%
-      }
-      \strng{namehash}{dc1d5b4bb040d996b5b880d5a6d2fdd6}
-      \strng{fullhash}{dc1d5b4bb040d996b5b880d5a6d2fdd6}
-      \strng{bibnamehash}{dc1d5b4bb040d996b5b880d5a6d2fdd6}
-      \strng{authorbibnamehash}{dc1d5b4bb040d996b5b880d5a6d2fdd6}
-      \strng{authornamehash}{dc1d5b4bb040d996b5b880d5a6d2fdd6}
-      \strng{authorfullhash}{dc1d5b4bb040d996b5b880d5a6d2fdd6}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Communications on Pure and Applied Mathematics}
-      \field{number}{6}
-      \field{title}{Partial regularity of suitable weak solutions of the {N}avier-{S}tokes equations}
-      \field{volume}{35}
-      \field{year}{1982}
-      \field{pages}{771\bibrangedash 831}
-      \range{pages}{61}
-    \endentry
     \entry{Cartan53}{article}{}
       \name{author}{1}{}{%
         {{hash=6824495566cd1d66f7c005461ffc6038}{%
