@@ -176,7 +176,7 @@
       \field{pages}{289\bibrangedash 391}
       \range{pages}{103}
     \endentry
-    \entry{AmbrosioGigliSavare08}{book}{}
+    \entry{AmbrosioGigliSavare2008}{book}{}
       \name{author}{3}{}{%
         {{hash=75c4bcbdd44f3d81980ee1e743ebfd0f}{%
            family={Ambrosio},
@@ -218,7 +218,7 @@
       \field{title}{Gradient Flows in Metric Spaces and in the Space of Probability Measures}
       \field{year}{2008}
     \endentry
-    \entry{AGS08}{book}{}
+    \entry{AmbrosioGigliSavare08}{book}{}
       \name{author}{3}{}{%
         {{hash=75c4bcbdd44f3d81980ee1e743ebfd0f}{%
            family={Ambrosio},
@@ -249,6 +249,48 @@
       \strng{authornamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
       \strng{authorfullhash}{d26d9e0f494cbb519cf26a3ccb38f899}
       \field{extraname}{3}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \strng{crossref}{AGS08}
+      \field{edition}{2nd}
+      \field{isbn}{978-3-7643-8721-1}
+      \field{series}{Lectures in Mathematics ETH Zürich}
+      \field{title}{Gradient Flows in Metric Spaces and in the Space of Probability Measures}
+      \field{year}{2008}
+    \endentry
+    \entry{AGS08}{book}{}
+      \name{author}{3}{}{%
+        {{hash=75c4bcbdd44f3d81980ee1e743ebfd0f}{%
+           family={Ambrosio},
+           familyi={A\bibinitperiod},
+           given={Luigi},
+           giveni={L\bibinitperiod}}}%
+        {{hash=139b12cad429d4671b5443bd26e4cce6}{%
+           family={Gigli},
+           familyi={G\bibinitperiod},
+           given={Nicola},
+           giveni={N\bibinitperiod}}}%
+        {{hash=d9b6eaad8ff003b7a52715955b3cd2e0}{%
+           family={Savaré},
+           familyi={S\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Basel}%
+      }
+      \list{publisher}{1}{%
+        {Birkhäuser}%
+      }
+      \strng{namehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{fullhash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{bibnamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{authorbibnamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{authornamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{authorfullhash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \field{extraname}{4}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
@@ -1037,6 +1079,40 @@
       \verb{doi}
       \verb 10.1098/rspa.1985.0070
       \endverb
+    \endentry
+    \entry{DummitFoote04}{book}{}
+      \name{author}{2}{}{%
+        {{hash=59d4df3a45fec18f996cea87a605b7f0}{%
+           family={Dummit},
+           familyi={D\bibinitperiod},
+           given={David\bibnamedelima S.},
+           giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=a4be3df6f2851332679975e063f36089}{%
+           family={Foote},
+           familyi={F\bibinitperiod},
+           given={Richard\bibnamedelima M.},
+           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Hoboken, NJ}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{8b86cd6dd2aec2fb7fc9a0e8ec2848ab}
+      \strng{fullhash}{8b86cd6dd2aec2fb7fc9a0e8ec2848ab}
+      \strng{bibnamehash}{8b86cd6dd2aec2fb7fc9a0e8ec2848ab}
+      \strng{authorbibnamehash}{8b86cd6dd2aec2fb7fc9a0e8ec2848ab}
+      \strng{authornamehash}{8b86cd6dd2aec2fb7fc9a0e8ec2848ab}
+      \strng{authorfullhash}{8b86cd6dd2aec2fb7fc9a0e8ec2848ab}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd}
+      \field{isbn}{978-0-471-43334-7}
+      \field{title}{Abstract Algebra}
+      \field{year}{2004}
     \endentry
     \entry{Ecoffet21}{article}{}
       \name{author}{5}{}{%
@@ -2336,42 +2412,6 @@
       \field{pages}{75\bibrangedash 76}
       \range{pages}{2}
     \endentry
-    \entry{KipnisLandim99}{book}{}
-      \name{author}{2}{}{%
-        {{hash=87f0dbfb5f038d1bf59df83c94e0c441}{%
-           family={Kipnis},
-           familyi={K\bibinitperiod},
-           given={Claude},
-           giveni={C\bibinitperiod}}}%
-        {{hash=64f8d19023803aecd7ec3ad54ff00c1c}{%
-           family={Landim},
-           familyi={L\bibinitperiod},
-           given={Claudio},
-           giveni={C\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Berlin}%
-      }
-      \list{publisher}{1}{%
-        {Springer-Verlag}%
-      }
-      \strng{namehash}{f71c61c18d41c8af99b7698da45bf82e}
-      \strng{fullhash}{f71c61c18d41c8af99b7698da45bf82e}
-      \strng{bibnamehash}{f71c61c18d41c8af99b7698da45bf82e}
-      \strng{authorbibnamehash}{f71c61c18d41c8af99b7698da45bf82e}
-      \strng{authornamehash}{f71c61c18d41c8af99b7698da45bf82e}
-      \strng{authorfullhash}{f71c61c18d41c8af99b7698da45bf82e}
-      \field{sortinit}{K}
-      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{isbn}{978-3-540-64913-6}
-      \field{note}{Rigorous derivation of PDEs from discrete stochastic systems; the mathematical foundation for scaling limits}
-      \field{series}{Grundlehren der mathematischen Wissenschaften}
-      \field{title}{Scaling Limits of Interacting Particle Systems}
-      \field{volume}{320}
-      \field{year}{1999}
-    \endentry
     \entry{Kirkpatrick83}{article}{}
       \name{author}{3}{}{%
         {{hash=0e3b0a89638ea2684bb35452d1dcd8c6}{%
@@ -2622,6 +2662,7 @@
       \strng{authorbibnamehash}{ee7e692312c310fd33fbfdd5f0ce2799}
       \strng{authornamehash}{ee7e692312c310fd33fbfdd5f0ce2799}
       \strng{authorfullhash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \field{extraname}{1}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
@@ -2630,6 +2671,38 @@
       \field{title}{Categories for the Working Mathematician}
       \field{volume}{5}
       \field{year}{1971}
+    \endentry
+    \entry{MacLane98}{book}{}
+      \name{author}{1}{}{%
+        {{hash=ee7e692312c310fd33fbfdd5f0ce2799}{%
+           family={Lane},
+           familyi={L\bibinitperiod},
+           given={Saunders\bibnamedelima Mac},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \strng{fullhash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \strng{bibnamehash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \strng{authorbibnamehash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \strng{authornamehash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \strng{authorfullhash}{ee7e692312c310fd33fbfdd5f0ce2799}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{isbn}{978-0-387-98403-2}
+      \field{series}{Graduate Texts in Mathematics}
+      \field{title}{Categories for the Working Mathematician}
+      \field{volume}{5}
+      \field{year}{1998}
     \endentry
     \entry{Lang95}{book}{}
       \name{author}{1}{}{%
@@ -4815,6 +4888,36 @@
       \field{note}{Presented in 1905, demonstrates existence of non-measurable sets}
       \field{title}{Sul problema della misura dei gruppi di punti di una retta}
     \endentry
+    \entry{Wainwright19}{book}{}
+      \name{author}{1}{}{%
+        {{hash=7eb03239453694f59946ad6008e9f0ab}{%
+           family={Wainwright},
+           familyi={W\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{7eb03239453694f59946ad6008e9f0ab}
+      \strng{fullhash}{7eb03239453694f59946ad6008e9f0ab}
+      \strng{bibnamehash}{7eb03239453694f59946ad6008e9f0ab}
+      \strng{authorbibnamehash}{7eb03239453694f59946ad6008e9f0ab}
+      \strng{authornamehash}{7eb03239453694f59946ad6008e9f0ab}
+      \strng{authorfullhash}{7eb03239453694f59946ad6008e9f0ab}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-108-49802-9}
+      \field{series}{Cambridge Series in Statistical and Probabilistic Mathematics}
+      \field{title}{High-Dimensional Statistics: A Non-Asymptotic Viewpoint}
+      \field{volume}{48}
+      \field{year}{2019}
+    \endentry
     \entry{Wald84}{book}{}
       \name{author}{1}{}{%
         {{hash=4517cb47549e9e42f6bfd204ca9456a7}{%
@@ -5067,9 +5170,6 @@
       \range{pages}{4}
     \endentry
   \enddatalist
-  \missing{DummitFoote04}
-  \missing{MacLane98}
-  \missing{Wainwright19}
 \endrefsection
 \endinput
 

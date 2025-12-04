@@ -13,23 +13,23 @@
 \contentsline {subsection}{\numberline {1.2.1}The structural stability thesis}{11}{subsection.1.2.1}%
 \contentsline {section}{\numberline {1.3}How to read this document}{12}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Main consequences}{13}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Scope of instantiation}{19}{section.1.5}%
-\contentsline {section}{\numberline {1.6}1.4 The Analytic-Motivic Isomorphism Principle}{20}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Statement}{20}{section.1.7}%
+\contentsline {section}{\numberline {1.5}Scope of instantiation}{20}{section.1.5}%
+\contentsline {section}{\numberline {1.6}1.4 The Analytic-Motivic Isomorphism Principle}{21}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Statement}{21}{section.1.7}%
 \contentsline {section}{\numberline {1.8}Formal Setup (\(\infty \)-Categorical Version)}{21}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Supporting Theorems}{23}{section.1.9}%
-\contentsline {subsection}{\numberline {1.9.1}Failure Quantization}{23}{subsection.1.9.1}%
-\contentsline {subsection}{\numberline {1.9.2}Profile Exactification}{25}{subsection.1.9.2}%
-\contentsline {subsection}{\numberline {1.9.3}Algebraic Permits as Dependent Types}{27}{subsection.1.9.3}%
-\contentsline {subsection}{\numberline {1.9.4}The Permit Algebra}{30}{subsection.1.9.4}%
-\contentsline {section}{\numberline {1.10}The Isomorphism Mapping}{32}{section.1.10}%
-\contentsline {section}{\numberline {1.11}Proof of the Metatheorem}{32}{section.1.11}%
+\contentsline {section}{\numberline {1.9}Supporting Theorems}{24}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}Failure Quantization}{24}{subsection.1.9.1}%
+\contentsline {subsection}{\numberline {1.9.2}Profile Exactification}{26}{subsection.1.9.2}%
+\contentsline {subsection}{\numberline {1.9.3}Algebraic Permits as Dependent Types}{28}{subsection.1.9.3}%
+\contentsline {subsection}{\numberline {1.9.4}The Permit Algebra}{31}{subsection.1.9.4}%
+\contentsline {section}{\numberline {1.10}The Isomorphism Mapping}{33}{section.1.10}%
+\contentsline {section}{\numberline {1.11}Proof of the Metatheorem}{33}{section.1.11}%
 \contentsline {section}{\numberline {1.12}Completeness and Canonicity}{37}{section.1.12}%
-\contentsline {section}{\numberline {1.13}Formal Redundancy}{39}{section.1.13}%
-\contentsline {section}{\numberline {1.14}Categorical Formulation}{41}{section.1.14}%
-\contentsline {subsection}{\numberline {1.14.1}Categories of Systems}{41}{subsection.1.14.1}%
-\contentsline {subsection}{\numberline {1.14.2}Structural Correspondence}{42}{subsection.1.14.2}%
-\contentsline {subsection}{\numberline {1.14.3}Functors}{42}{subsection.1.14.3}%
+\contentsline {section}{\numberline {1.13}Formal Redundancy}{40}{section.1.13}%
+\contentsline {section}{\numberline {1.14}Categorical Formulation}{42}{section.1.14}%
+\contentsline {subsection}{\numberline {1.14.1}Categories of Systems}{42}{subsection.1.14.1}%
+\contentsline {subsection}{\numberline {1.14.2}Structural Correspondence}{43}{subsection.1.14.2}%
+\contentsline {subsection}{\numberline {1.14.3}Functors}{43}{subsection.1.14.3}%
 \contentsline {subsection}{\numberline {1.14.4}Equivalence Theorem}{43}{subsection.1.14.4}%
 \contentsline {section}{\numberline {1.15}Summary}{45}{section.1.15}%
 \contentsline {chapter}{\numberline {2}Chapter 2: The Categorical Substrate}{47}{chapter.2}%
@@ -295,7 +295,7 @@
 \contentsline {section}{\numberline {8.4}Cohomological Completion}{451}{section.8.4}%
 \contentsline {section}{\numberline {8.5}Summary: The Complete Algebraic-Geometric Atlas}{467}{section.8.5}%
 \contentsline {subsection}{\numberline {8.5.1}The AG Atlas}{467}{subsection.8.5.1}%
-\contentsline {subsection}{\numberline {8.5.2}Field Coverage}{467}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.2}Field Coverage}{468}{subsection.8.5.2}%
 \contentsline {subsection}{\numberline {8.5.3}Synthesis}{468}{subsection.8.5.3}%
 \contentsline {chapter}{\numberline {9}Chapter 9: Topology and Homotopy}{469}{chapter.9}%
 \contentsline {section}{\numberline {9.1}The Stable Hypostructure}{469}{section.9.1}%
@@ -501,11 +501,11 @@
 \contentsline {subsection}{\numberline {14.18.2}Surgery Prerequisites}{602}{subsection.14.18.2}%
 \contentsline {subsection}{\numberline {14.18.3}Metatheorem 32.2: The Structural Surgery Principle \blx@tocontentsinit {0}\autocite {Perelman02}}{603}{subsection.14.18.3}%
 \contentsline {subsection}{\numberline {14.18.4}Surgery Classification}{606}{subsection.14.18.4}%
-\contentsline {section}{\numberline {14.19}Synthesis: The Flow-with-Surgery Theorem}{607}{section.14.19}%
+\contentsline {section}{\numberline {14.19}Synthesis: The Flow-with-Surgery Theorem}{606}{section.14.19}%
 \contentsline {section}{\numberline {14.20}Emergent Time and Goal-Directedness}{607}{section.14.20}%
 \contentsline {section}{\numberline {14.21}The Chronogenesis Principle}{607}{section.14.21}%
 \contentsline {subsection}{\numberline {14.21.1}Motivation}{607}{subsection.14.21.1}%
-\contentsline {subsection}{\numberline {14.21.2}The Information Metric}{608}{subsection.14.21.2}%
+\contentsline {subsection}{\numberline {14.21.2}The Information Metric}{607}{subsection.14.21.2}%
 \contentsline {subsection}{\numberline {14.21.3}Metatheorem 33.1: Chronogenesis}{608}{subsection.14.21.3}%
 \contentsline {subsection}{\numberline {14.21.4}Consequences}{611}{subsection.14.21.4}%
 \contentsline {section}{\numberline {14.22}The Teleological Isomorphism}{611}{section.14.22}%
