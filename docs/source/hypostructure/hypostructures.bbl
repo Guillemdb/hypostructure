@@ -176,7 +176,7 @@
       \field{pages}{289\bibrangedash 391}
       \range{pages}{103}
     \endentry
-    \entry{AGS08}{book}{}
+    \entry{AmbrosioGigliSavare08}{book}{}
       \name{author}{3}{}{%
         {{hash=75c4bcbdd44f3d81980ee1e743ebfd0f}{%
            family={Ambrosio},
@@ -207,6 +207,48 @@
       \strng{authornamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
       \strng{authorfullhash}{d26d9e0f494cbb519cf26a3ccb38f899}
       \field{extraname}{2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \strng{crossref}{AGS08}
+      \field{edition}{2nd}
+      \field{isbn}{978-3-7643-8721-1}
+      \field{series}{Lectures in Mathematics ETH Zürich}
+      \field{title}{Gradient Flows in Metric Spaces and in the Space of Probability Measures}
+      \field{year}{2008}
+    \endentry
+    \entry{AGS08}{book}{}
+      \name{author}{3}{}{%
+        {{hash=75c4bcbdd44f3d81980ee1e743ebfd0f}{%
+           family={Ambrosio},
+           familyi={A\bibinitperiod},
+           given={Luigi},
+           giveni={L\bibinitperiod}}}%
+        {{hash=139b12cad429d4671b5443bd26e4cce6}{%
+           family={Gigli},
+           familyi={G\bibinitperiod},
+           given={Nicola},
+           giveni={N\bibinitperiod}}}%
+        {{hash=d9b6eaad8ff003b7a52715955b3cd2e0}{%
+           family={Savaré},
+           familyi={S\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Basel}%
+      }
+      \list{publisher}{1}{%
+        {Birkhäuser}%
+      }
+      \strng{namehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{fullhash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{bibnamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{authorbibnamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{authornamehash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \strng{authorfullhash}{d26d9e0f494cbb519cf26a3ccb38f899}
+      \field{extraname}{3}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
@@ -248,6 +290,36 @@
       \field{year}{1963}
       \field{pages}{422\bibrangedash 433}
       \range{pages}{12}
+    \endentry
+    \entry{BanachTarski24}{article}{}
+      \name{author}{2}{}{%
+        {{hash=4f7d48e46d9fd2124f5634f8843e0811}{%
+           family={Banach},
+           familyi={B\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1d9d32785708836ac3a223ad31f277fe}{%
+           family={Tarski},
+           familyi={T\bibinitperiod},
+           given={Alfred},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{a8545e2e85036aaf5fd161e263073047}
+      \strng{fullhash}{a8545e2e85036aaf5fd161e263073047}
+      \strng{bibnamehash}{a8545e2e85036aaf5fd161e263073047}
+      \strng{authorbibnamehash}{a8545e2e85036aaf5fd161e263073047}
+      \strng{authornamehash}{a8545e2e85036aaf5fd161e263073047}
+      \strng{authorfullhash}{a8545e2e85036aaf5fd161e263073047}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Fundamenta Mathematicae}
+      \field{title}{Sur la décomposition des ensembles de points en parties respectivement congruentes}
+      \field{volume}{6}
+      \field{year}{1924}
+      \field{pages}{244\bibrangedash 277}
+      \range{pages}{34}
     \endentry
     \entry{Barron98}{article}{}
       \name{author}{3}{}{%
@@ -302,6 +374,7 @@
       \strng{authorbibnamehash}{e224b2afe21328dc3ce80bfb3d3c3d68}
       \strng{authornamehash}{e224b2afe21328dc3ce80bfb3d3c3d68}
       \strng{authorfullhash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \field{extraname}{1}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
@@ -316,6 +389,33 @@
       \verb{doi}
       \verb 10.1103/PhysRevD.7.2333
       \endverb
+    \endentry
+    \entry{Bekenstein73}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e224b2afe21328dc3ce80bfb3d3c3d68}{%
+           family={Bekenstein},
+           familyi={B\bibinitperiod},
+           given={Jacob\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \strng{fullhash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \strng{bibnamehash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \strng{authorbibnamehash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \strng{authornamehash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \strng{authorfullhash}{e224b2afe21328dc3ce80bfb3d3c3d68}
+      \field{extraname}{2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review D}
+      \field{number}{8}
+      \field{title}{Black Holes and Entropy}
+      \field{volume}{7}
+      \field{year}{1973}
+      \field{pages}{2333\bibrangedash 2346}
+      \range{pages}{14}
     \endentry
     \entry{Bengio09}{inproceedings}{}
       \name{author}{4}{}{%
@@ -358,6 +458,33 @@
       \field{year}{2009}
       \field{pages}{41\bibrangedash 48}
       \range{pages}{8}
+    \endentry
+    \entry{Bishop67}{book}{}
+      \name{author}{1}{}{%
+        {{hash=70b046269025a8b67acef0883970007b}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={Errett},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill}%
+      }
+      \strng{namehash}{70b046269025a8b67acef0883970007b}
+      \strng{fullhash}{70b046269025a8b67acef0883970007b}
+      \strng{bibnamehash}{70b046269025a8b67acef0883970007b}
+      \strng{authorbibnamehash}{70b046269025a8b67acef0883970007b}
+      \strng{authornamehash}{70b046269025a8b67acef0883970007b}
+      \strng{authorfullhash}{70b046269025a8b67acef0883970007b}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Foundations of Constructive Analysis}
+      \field{year}{1967}
     \endentry
     \entry{Bombelli87}{article}{}
       \name{author}{4}{}{%
@@ -992,6 +1119,32 @@
       \field{pages}{117\bibrangedash 120}
       \range{pages}{4}
     \endentry
+    \entry{Elgindi21}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1c430e312f05d7b86ca6880be0dfb89d}{%
+           family={Elgindi},
+           familyi={E\bibinitperiod},
+           given={Tarek\bibnamedelima M.},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1c430e312f05d7b86ca6880be0dfb89d}
+      \strng{fullhash}{1c430e312f05d7b86ca6880be0dfb89d}
+      \strng{bibnamehash}{1c430e312f05d7b86ca6880be0dfb89d}
+      \strng{authorbibnamehash}{1c430e312f05d7b86ca6880be0dfb89d}
+      \strng{authornamehash}{1c430e312f05d7b86ca6880be0dfb89d}
+      \strng{authorfullhash}{1c430e312f05d7b86ca6880be0dfb89d}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Mathematics}
+      \field{number}{3}
+      \field{title}{Finite-Time Singularity Formation for $C^{1,\alpha}$ Solutions to the Incompressible Euler Equations on $\mathbb{R}^3$}
+      \field{volume}{194}
+      \field{year}{2021}
+      \field{pages}{647\bibrangedash 727}
+      \range{pages}{81}
+    \endentry
     \entry{Evans10}{book}{}
       \name{author}{1}{}{%
         {{hash=0d72932a7775f85a51622d3af75ae26e}{%
@@ -1051,6 +1204,37 @@
       \field{title}{Geometric Measure Theory}
       \field{volume}{153}
       \field{year}{1969}
+    \endentry
+    \entry{FoiasTemam88}{article}{}
+      \name{author}{2}{}{%
+        {{hash=ca0eed1b10dfb3e40daadfd8e6a5d6cb}{%
+           family={Foias},
+           familyi={F\bibinitperiod},
+           given={Ciprian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d66ac417fd195a73c91d01dee8141642}{%
+           family={Temam},
+           familyi={T\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{83f43ad912512663bb7f228d2414ce36}
+      \strng{fullhash}{83f43ad912512663bb7f228d2414ce36}
+      \strng{bibnamehash}{83f43ad912512663bb7f228d2414ce36}
+      \strng{authorbibnamehash}{83f43ad912512663bb7f228d2414ce36}
+      \strng{authornamehash}{83f43ad912512663bb7f228d2414ce36}
+      \strng{authorfullhash}{83f43ad912512663bb7f228d2414ce36}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Functional Analysis}
+      \field{number}{2}
+      \field{title}{Gevrey Class Regularity for the Solutions of the Navier-Stokes Equations}
+      \field{volume}{87}
+      \field{year}{1989}
+      \field{pages}{359\bibrangedash 369}
+      \range{pages}{11}
     \endentry
     \entry{Freudenthal37}{article}{}
       \name{author}{1}{}{%
@@ -1138,6 +1322,57 @@
       \verb{doi}
       \verb 10.1098/rstb.2008.0300
       \endverb
+    \endentry
+    \entry{Fujita66}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d16f9fafe7f63289c10cc78b70a52066}{%
+           family={Fujita},
+           familyi={F\bibinitperiod},
+           given={Hiroshi},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{d16f9fafe7f63289c10cc78b70a52066}
+      \strng{fullhash}{d16f9fafe7f63289c10cc78b70a52066}
+      \strng{bibnamehash}{d16f9fafe7f63289c10cc78b70a52066}
+      \strng{authorbibnamehash}{d16f9fafe7f63289c10cc78b70a52066}
+      \strng{authornamehash}{d16f9fafe7f63289c10cc78b70a52066}
+      \strng{authorfullhash}{d16f9fafe7f63289c10cc78b70a52066}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Faculty of Science, University of Tokyo}
+      \field{title}{On the Blowing Up of Solutions of the Cauchy Problem for $u_t = \Delta u + u^{1+\alpha}$}
+      \field{volume}{13}
+      \field{year}{1966}
+      \field{pages}{109\bibrangedash 124}
+      \range{pages}{16}
+    \endentry
+    \entry{Geroch70}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dad1084ee28433a25720c279821ff8da}{%
+           family={Geroch},
+           familyi={G\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{dad1084ee28433a25720c279821ff8da}
+      \strng{fullhash}{dad1084ee28433a25720c279821ff8da}
+      \strng{bibnamehash}{dad1084ee28433a25720c279821ff8da}
+      \strng{authorbibnamehash}{dad1084ee28433a25720c279821ff8da}
+      \strng{authornamehash}{dad1084ee28433a25720c279821ff8da}
+      \strng{authorfullhash}{dad1084ee28433a25720c279821ff8da}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Mathematical Physics}
+      \field{number}{2}
+      \field{title}{Domain of Dependence}
+      \field{volume}{11}
+      \field{year}{1970}
+      \field{pages}{437\bibrangedash 449}
+      \range{pages}{13}
     \endentry
     \entry{GlimmJaffe87}{book}{}
       \name{author}{2}{}{%
@@ -1447,6 +1682,36 @@
       \field{volume}{31}
       \field{year}{2006}
     \endentry
+    \entry{HalpernLevy71}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b7006c046f8e47c5354d2276852766d5}{%
+           family={Halpern},
+           familyi={H\bibinitperiod},
+           given={Joseph\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=20821f66efc693cf7fbbb6e619e8399e}{%
+           family={Levy},
+           familyi={L\bibinitperiod},
+           given={Azriel},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{ab41c71630d6288d03ba65e0ff9759c2}
+      \strng{fullhash}{ab41c71630d6288d03ba65e0ff9759c2}
+      \strng{bibnamehash}{ab41c71630d6288d03ba65e0ff9759c2}
+      \strng{authorbibnamehash}{ab41c71630d6288d03ba65e0ff9759c2}
+      \strng{authornamehash}{ab41c71630d6288d03ba65e0ff9759c2}
+      \strng{authorfullhash}{ab41c71630d6288d03ba65e0ff9759c2}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Axiomatic Set Theory, Proceedings of Symposia in Pure Mathematics}
+      \field{title}{The Boolean Prime Ideal Theorem Does Not Imply the Axiom of Choice}
+      \field{volume}{13}
+      \field{year}{1971}
+      \field{pages}{83\bibrangedash 134}
+      \range{pages}{52}
+    \endentry
     \entry{Hartshorne-AG3}{book}{}
       \name{author}{1}{}{%
         {{hash=ee65baaab88f9233fbad3d51c399ee25}{%
@@ -1477,6 +1742,33 @@
       \field{volume}{52}
       \field{year}{1977}
     \endentry
+    \entry{Hawking75}{article}{}
+      \name{author}{1}{}{%
+        {{hash=906302c30c766570fe1df9446c425436}{%
+           family={Hawking},
+           familyi={H\bibinitperiod},
+           given={Stephen\bibnamedelima W.},
+           giveni={S\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{906302c30c766570fe1df9446c425436}
+      \strng{fullhash}{906302c30c766570fe1df9446c425436}
+      \strng{bibnamehash}{906302c30c766570fe1df9446c425436}
+      \strng{authorbibnamehash}{906302c30c766570fe1df9446c425436}
+      \strng{authornamehash}{906302c30c766570fe1df9446c425436}
+      \strng{authorfullhash}{906302c30c766570fe1df9446c425436}
+      \field{extraname}{1}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Communications in Mathematical Physics}
+      \field{number}{3}
+      \field{title}{Particle Creation by Black Holes}
+      \field{volume}{43}
+      \field{year}{1975}
+      \field{pages}{199\bibrangedash 220}
+      \range{pages}{22}
+    \endentry
     \entry{Hawking75New}{article}{}
       \name{author}{1}{}{%
         {{hash=906302c30c766570fe1df9446c425436}{%
@@ -1491,6 +1783,7 @@
       \strng{authorbibnamehash}{906302c30c766570fe1df9446c425436}
       \strng{authornamehash}{906302c30c766570fe1df9446c425436}
       \strng{authorfullhash}{906302c30c766570fe1df9446c425436}
+      \field{extraname}{2}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
@@ -1559,6 +1852,34 @@
       \field{year}{1964}
       \field{pages}{109\bibrangedash 326}
       \range{pages}{218}
+    \endentry
+    \entry{Hodges79}{book}{}
+      \name{author}{1}{}{%
+        {{hash=af4af1aaeaf8849af906a36e95a2bd53}{%
+           family={Hodges},
+           familyi={H\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{2}{%
+        {Simon}%
+        {Schuster}%
+      }
+      \strng{namehash}{af4af1aaeaf8849af906a36e95a2bd53}
+      \strng{fullhash}{af4af1aaeaf8849af906a36e95a2bd53}
+      \strng{bibnamehash}{af4af1aaeaf8849af906a36e95a2bd53}
+      \strng{authorbibnamehash}{af4af1aaeaf8849af906a36e95a2bd53}
+      \strng{authornamehash}{af4af1aaeaf8849af906a36e95a2bd53}
+      \strng{authorfullhash}{af4af1aaeaf8849af906a36e95a2bd53}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Alan Turing: The Enigma}
+      \field{year}{1983}
     \endentry
     \entry{tHooft93}{article}{}
       \name{author}{1}{}{%
@@ -1795,6 +2116,87 @@
       \field{pages}{620\bibrangedash 630}
       \range{pages}{11}
     \endentry
+    \entry{Jech03}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b8ddd852d7bc9bcd5d92f6c9c3251005}{%
+           family={Jech},
+           familyi={J\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{fullhash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{bibnamehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{authorbibnamehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{authornamehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{authorfullhash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \field{extraname}{1}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd}
+      \field{series}{Springer Monographs in Mathematics}
+      \field{title}{Set Theory}
+      \field{year}{2003}
+    \endentry
+    \entry{Jech06}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b8ddd852d7bc9bcd5d92f6c9c3251005}{%
+           family={Jech},
+           familyi={J\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{fullhash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{bibnamehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{authorbibnamehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{authornamehash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \strng{authorfullhash}{b8ddd852d7bc9bcd5d92f6c9c3251005}
+      \field{extraname}{2}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd corrected}
+      \field{series}{Springer Monographs in Mathematics}
+      \field{title}{Set Theory}
+      \field{year}{2006}
+    \endentry
+    \entry{Rogers87}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a51a3b25f5afaef7c7dba2964cded12a}{%
+           family={Jr.},
+           familyi={J\bibinitperiod},
+           given={Hartley\bibnamedelima Rogers},
+           giveni={H\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge, MA}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{a51a3b25f5afaef7c7dba2964cded12a}
+      \strng{fullhash}{a51a3b25f5afaef7c7dba2964cded12a}
+      \strng{bibnamehash}{a51a3b25f5afaef7c7dba2964cded12a}
+      \strng{authorbibnamehash}{a51a3b25f5afaef7c7dba2964cded12a}
+      \strng{authornamehash}{a51a3b25f5afaef7c7dba2964cded12a}
+      \strng{authorfullhash}{a51a3b25f5afaef7c7dba2964cded12a}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Theory of Recursive Functions and Effective Computability}
+      \field{year}{1987}
+    \endentry
     \entry{Kac49}{article}{}
       \name{author}{1}{}{%
         {{hash=cbe7a5c62ae18623547649ceb3ca1786}{%
@@ -1809,6 +2211,7 @@
       \strng{authorbibnamehash}{cbe7a5c62ae18623547649ceb3ca1786}
       \strng{authornamehash}{cbe7a5c62ae18623547649ceb3ca1786}
       \strng{authorfullhash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \field{extraname}{1}
       \field{sortinit}{K}
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
       \field{labelnamesource}{author}
@@ -1823,6 +2226,33 @@
       \verb{doi}
       \verb 10.1090/S0002-9947-1949-0027960-X
       \endverb
+    \endentry
+    \entry{Kac47}{article}{}
+      \name{author}{1}{}{%
+        {{hash=cbe7a5c62ae18623547649ceb3ca1786}{%
+           family={Kac},
+           familyi={K\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \strng{fullhash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \strng{bibnamehash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \strng{authorbibnamehash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \strng{authornamehash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \strng{authorfullhash}{cbe7a5c62ae18623547649ceb3ca1786}
+      \field{extraname}{2}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Mathematical Monthly}
+      \field{number}{7}
+      \field{title}{Random Walk and the Theory of Brownian Motion}
+      \field{volume}{54}
+      \field{year}{1947}
+      \field{pages}{369\bibrangedash 391}
+      \range{pages}{23}
     \endentry
     \entry{Kalman60}{article}{}
       \name{author}{1}{}{%
@@ -1851,6 +2281,60 @@
       \field{year}{1960}
       \field{pages}{491\bibrangedash 502}
       \range{pages}{12}
+    \endentry
+    \entry{Kelley55}{book}{}
+      \name{author}{1}{}{%
+        {{hash=e599089dd2abb589770ca140c4771b57}{%
+           family={Kelley},
+           familyi={K\bibinitperiod},
+           given={John\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Princeton, NJ}%
+      }
+      \list{publisher}{1}{%
+        {Van Nostrand}%
+      }
+      \strng{namehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{fullhash}{e599089dd2abb589770ca140c4771b57}
+      \strng{bibnamehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{authorbibnamehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{authornamehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{authorfullhash}{e599089dd2abb589770ca140c4771b57}
+      \field{extraname}{1}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{General Topology}
+      \field{year}{1955}
+    \endentry
+    \entry{Kelley50}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e599089dd2abb589770ca140c4771b57}{%
+           family={Kelley},
+           familyi={K\bibinitperiod},
+           given={John\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{fullhash}{e599089dd2abb589770ca140c4771b57}
+      \strng{bibnamehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{authorbibnamehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{authornamehash}{e599089dd2abb589770ca140c4771b57}
+      \strng{authorfullhash}{e599089dd2abb589770ca140c4771b57}
+      \field{extraname}{2}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Fundamenta Mathematicae}
+      \field{title}{The Tychonoff Product Theorem Implies the Axiom of Choice}
+      \field{volume}{37}
+      \field{year}{1950}
+      \field{pages}{75\bibrangedash 76}
+      \range{pages}{2}
     \endentry
     \entry{KipnisLandim99}{book}{}
       \name{author}{2}{}{%
@@ -1927,6 +2411,37 @@
       \verb 10.1126/science.220.4598.671
       \endverb
     \endentry
+    \entry{KobayashiNomizu96}{book}{}
+      \name{author}{2}{}{%
+        {{hash=6a80d28fcb3df1ce1c4b1226430560ba}{%
+           family={Kobayashi},
+           familyi={K\bibinitperiod},
+           given={Shoshichi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=327816883bbf71c9ecb4ab91f7c57ead}{%
+           family={Nomizu},
+           familyi={N\bibinitperiod},
+           given={Katsumi},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley-Interscience}%
+      }
+      \strng{namehash}{66c6c3a69f7c40341005c2681084d04a}
+      \strng{fullhash}{66c6c3a69f7c40341005c2681084d04a}
+      \strng{bibnamehash}{66c6c3a69f7c40341005c2681084d04a}
+      \strng{authorbibnamehash}{66c6c3a69f7c40341005c2681084d04a}
+      \strng{authornamehash}{66c6c3a69f7c40341005c2681084d04a}
+      \strng{authorfullhash}{66c6c3a69f7c40341005c2681084d04a}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Wiley Classics Library}
+      \field{title}{Foundations of Differential Geometry}
+      \field{volume}{1-2}
+      \field{year}{1996}
+    \endentry
     \entry{Kolchin-DGT}{book}{}
       \name{author}{1}{}{%
         {{hash=938ed246a3d05fcfe52c08feffe8ff37}{%
@@ -2002,6 +2517,32 @@
       \field{note}{Integration in Grothendieck ring of varieties; motivic measures}
       \field{title}{Motivic Integration}
       \field{year}{1995}
+    \endentry
+    \entry{Kunen80}{book}{}
+      \name{author}{1}{}{%
+        {{hash=9bbbc8091281c78067693611cdfae8a1}{%
+           family={Kunen},
+           familyi={K\bibinitperiod},
+           given={Kenneth},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {North-Holland}%
+      }
+      \strng{namehash}{9bbbc8091281c78067693611cdfae8a1}
+      \strng{fullhash}{9bbbc8091281c78067693611cdfae8a1}
+      \strng{bibnamehash}{9bbbc8091281c78067693611cdfae8a1}
+      \strng{authorbibnamehash}{9bbbc8091281c78067693611cdfae8a1}
+      \strng{authornamehash}{9bbbc8091281c78067693611cdfae8a1}
+      \strng{authorfullhash}{9bbbc8091281c78067693611cdfae8a1}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Studies in Logic and the Foundations of Mathematics}
+      \field{title}{Set Theory: An Introduction to Independence Proofs}
+      \field{volume}{102}
+      \field{year}{1980}
     \endentry
     \entry{Kuramoto84}{book}{}
       \name{author}{1}{}{%
@@ -2090,6 +2631,33 @@
       \field{volume}{5}
       \field{year}{1971}
     \endentry
+    \entry{Lang95}{book}{}
+      \name{author}{1}{}{%
+        {{hash=88c92ddced8d93c4ed4df52ee477b0c6}{%
+           family={Lang},
+           familyi={L\bibinitperiod},
+           given={Serge},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{88c92ddced8d93c4ed4df52ee477b0c6}
+      \strng{fullhash}{88c92ddced8d93c4ed4df52ee477b0c6}
+      \strng{bibnamehash}{88c92ddced8d93c4ed4df52ee477b0c6}
+      \strng{authorbibnamehash}{88c92ddced8d93c4ed4df52ee477b0c6}
+      \strng{authornamehash}{88c92ddced8d93c4ed4df52ee477b0c6}
+      \strng{authorfullhash}{88c92ddced8d93c4ed4df52ee477b0c6}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd}
+      \field{series}{Graduate Texts in Mathematics}
+      \field{title}{Algebra}
+      \field{volume}{211}
+      \field{year}{2002}
+    \endentry
     \entry{Lasry07}{article}{}
       \name{author}{2}{}{%
         {{hash=f9cd64b87afddba1ecd39427e07ee010}{%
@@ -2152,6 +2720,31 @@
       \field{year}{1969}
       \field{pages}{134\bibrangedash 145}
       \range{pages}{12}
+    \endentry
+    \entry{Leray34}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d1c85ad391835096e0ab05bb90e4a799}{%
+           family={Leray},
+           familyi={L\bibinitperiod},
+           given={Jean},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{d1c85ad391835096e0ab05bb90e4a799}
+      \strng{fullhash}{d1c85ad391835096e0ab05bb90e4a799}
+      \strng{bibnamehash}{d1c85ad391835096e0ab05bb90e4a799}
+      \strng{authorbibnamehash}{d1c85ad391835096e0ab05bb90e4a799}
+      \strng{authornamehash}{d1c85ad391835096e0ab05bb90e4a799}
+      \strng{authorfullhash}{d1c85ad391835096e0ab05bb90e4a799}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Acta Mathematica}
+      \field{title}{Sur le mouvement d'un liquide visqueux emplissant l'espace}
+      \field{volume}{63}
+      \field{year}{1934}
+      \field{pages}{193\bibrangedash 248}
+      \range{pages}{56}
     \endentry
     \entry{Levin73}{article}{}
       \name{author}{1}{}{%
@@ -2390,6 +2983,34 @@
       \field{volume}{170}
       \field{year}{2009}
     \endentry
+    \entry{Luxemburg69}{article}{}
+      \name{author}{1}{}{%
+        {{hash=04efedc64a9c2ce97b1c430308f97d00}{%
+           family={Luxemburg},
+           familyi={L\bibinitperiod},
+           given={W.\bibnamedelimi A.\bibnamedelimi J.},
+           giveni={W\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {Holt, Rinehart}%
+        {Winston}%
+      }
+      \strng{namehash}{04efedc64a9c2ce97b1c430308f97d00}
+      \strng{fullhash}{04efedc64a9c2ce97b1c430308f97d00}
+      \strng{bibnamehash}{04efedc64a9c2ce97b1c430308f97d00}
+      \strng{authorbibnamehash}{04efedc64a9c2ce97b1c430308f97d00}
+      \strng{authornamehash}{04efedc64a9c2ce97b1c430308f97d00}
+      \strng{authorfullhash}{04efedc64a9c2ce97b1c430308f97d00}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applications of Model Theory to Algebra, Analysis and Probability}
+      \field{title}{Reduced Powers of the Real Number System and Equivalents of the Hahn-Banach Extension Theorem}
+      \field{year}{1969}
+      \field{pages}{123\bibrangedash 137}
+      \range{pages}{15}
+    \endentry
     \entry{Magid-Lectures-DGT}{book}{}
       \name{author}{1}{}{%
         {{hash=10d706700895c806fb9b59b01e00f378}{%
@@ -2419,6 +3040,33 @@
       \field{volume}{7}
       \field{year}{1994}
     \endentry
+    \entry{Maldacena98}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d611177a3d8f74b52d7eb08ae1e6e54e}{%
+           family={Maldacena},
+           familyi={M\bibinitperiod},
+           given={Juan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{d611177a3d8f74b52d7eb08ae1e6e54e}
+      \strng{fullhash}{d611177a3d8f74b52d7eb08ae1e6e54e}
+      \strng{bibnamehash}{d611177a3d8f74b52d7eb08ae1e6e54e}
+      \strng{authorbibnamehash}{d611177a3d8f74b52d7eb08ae1e6e54e}
+      \strng{authornamehash}{d611177a3d8f74b52d7eb08ae1e6e54e}
+      \strng{authorfullhash}{d611177a3d8f74b52d7eb08ae1e6e54e}
+      \field{extraname}{1}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Theoretical and Mathematical Physics}
+      \field{number}{2}
+      \field{title}{The Large N Limit of Superconformal Field Theories and Supergravity}
+      \field{volume}{2}
+      \field{year}{1998}
+      \field{pages}{231\bibrangedash 252}
+      \range{pages}{22}
+    \endentry
     \entry{Maldacena97}{article}{}
       \name{author}{1}{}{%
         {{hash=4d7a4fa882e6513b69e6341caef6d885}{%
@@ -2433,6 +3081,7 @@
       \strng{authorbibnamehash}{4d7a4fa882e6513b69e6341caef6d885}
       \strng{authornamehash}{4d7a4fa882e6513b69e6341caef6d885}
       \strng{authorfullhash}{4d7a4fa882e6513b69e6341caef6d885}
+      \field{extraname}{2}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
@@ -2624,6 +3273,36 @@
       \field{volume}{34}
       \field{year}{1965}
     \endentry
+    \entry{NarasimhanRamanan61}{article}{}
+      \name{author}{2}{}{%
+        {{hash=391063868e07105f1b359e7b131990e3}{%
+           family={Narasimhan},
+           familyi={N\bibinitperiod},
+           given={Mudumbai\bibnamedelima S.},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=bdc45d912a312b8b8b8f07667ee372c8}{%
+           family={Ramanan},
+           familyi={R\bibinitperiod},
+           given={Sundararaman},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{a4f639b8d5e254f1c1cc30dcdfec2276}
+      \strng{fullhash}{a4f639b8d5e254f1c1cc30dcdfec2276}
+      \strng{bibnamehash}{a4f639b8d5e254f1c1cc30dcdfec2276}
+      \strng{authorbibnamehash}{a4f639b8d5e254f1c1cc30dcdfec2276}
+      \strng{authornamehash}{a4f639b8d5e254f1c1cc30dcdfec2276}
+      \strng{authorfullhash}{a4f639b8d5e254f1c1cc30dcdfec2276}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Mathematics}
+      \field{title}{Existence of Universal Connections}
+      \field{volume}{83}
+      \field{year}{1961}
+      \field{pages}{563\bibrangedash 572}
+      \range{pages}{10}
+    \endentry
     \entry{vonNeumann32}{book}{}
       \name{author}{1}{}{%
         {{hash=f8744afb2b8eb53c5804cbac615dbad1}{%
@@ -2743,6 +3422,29 @@
       \field{title}{Ergodic Theory, Randomness, and Dynamical Systems}
       \field{year}{1974}
     \endentry
+    \entry{Palais61}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4816c6f820298c38756d7303e6f0cbbe}{%
+           family={Palais},
+           familyi={P\bibinitperiod},
+           given={Richard\bibnamedelima S.},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{4816c6f820298c38756d7303e6f0cbbe}
+      \strng{fullhash}{4816c6f820298c38756d7303e6f0cbbe}
+      \strng{bibnamehash}{4816c6f820298c38756d7303e6f0cbbe}
+      \strng{authorbibnamehash}{4816c6f820298c38756d7303e6f0cbbe}
+      \strng{authornamehash}{4816c6f820298c38756d7303e6f0cbbe}
+      \strng{authorfullhash}{4816c6f820298c38756d7303e6f0cbbe}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Memoirs of the American Mathematical Society}
+      \field{title}{The Classification of G-Spaces}
+      \field{volume}{36}
+      \field{year}{1960}
+    \endentry
     \entry{Perelman03a}{article}{}
       \name{author}{1}{}{%
         {{hash=f80a4b8e7aec0519db48a02da8a278d1}{%
@@ -2788,6 +3490,58 @@
       \field{journaltitle}{arXiv preprint math.DG/0211159}
       \field{title}{The entropy formula for the {R}icci flow and its geometric applications}
       \field{year}{2002}
+    \endentry
+    \entry{Phelps01}{book}{}
+      \name{author}{1}{}{%
+        {{hash=2099ae5cb450665a9c975d23f8b9bdca}{%
+           family={Phelps},
+           familyi={P\bibinitperiod},
+           given={Robert\bibnamedelima R.},
+           giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2099ae5cb450665a9c975d23f8b9bdca}
+      \strng{fullhash}{2099ae5cb450665a9c975d23f8b9bdca}
+      \strng{bibnamehash}{2099ae5cb450665a9c975d23f8b9bdca}
+      \strng{authorbibnamehash}{2099ae5cb450665a9c975d23f8b9bdca}
+      \strng{authornamehash}{2099ae5cb450665a9c975d23f8b9bdca}
+      \strng{authorfullhash}{2099ae5cb450665a9c975d23f8b9bdca}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{series}{Lecture Notes in Mathematics}
+      \field{title}{Convex Functions, Monotone Operators and Differentiability}
+      \field{volume}{1364}
+      \field{year}{1993}
+    \endentry
+    \entry{Poincare90}{article}{}
+      \name{author}{1}{}{%
+        {{hash=ec9aac8108836d6b8e69d7ce94ebc275}{%
+           family={Poincaré},
+           familyi={P\bibinitperiod},
+           given={Henri},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{ec9aac8108836d6b8e69d7ce94ebc275}
+      \strng{fullhash}{ec9aac8108836d6b8e69d7ce94ebc275}
+      \strng{bibnamehash}{ec9aac8108836d6b8e69d7ce94ebc275}
+      \strng{authorbibnamehash}{ec9aac8108836d6b8e69d7ce94ebc275}
+      \strng{authornamehash}{ec9aac8108836d6b8e69d7ce94ebc275}
+      \strng{authorfullhash}{ec9aac8108836d6b8e69d7ce94ebc275}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Acta Mathematica}
+      \field{title}{Sur le problème des trois corps et les équations de la dynamique}
+      \field{volume}{13}
+      \field{year}{1890}
+      \field{pages}{1\bibrangedash 270}
+      \range{pages}{270}
     \endentry
     \entry{Prigogine78}{article}{}
       \name{author}{1}{}{%
@@ -3063,6 +3817,58 @@
       \field{pages}{e1008289}
       \range{pages}{-1}
     \endentry
+    \entry{Rudin91}{book}{}
+      \name{author}{1}{}{%
+        {{hash=33be2fc2739d3493c6d6cc5d56a4c41e}{%
+           family={Rudin},
+           familyi={R\bibinitperiod},
+           given={Walter},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill}%
+      }
+      \strng{namehash}{33be2fc2739d3493c6d6cc5d56a4c41e}
+      \strng{fullhash}{33be2fc2739d3493c6d6cc5d56a4c41e}
+      \strng{bibnamehash}{33be2fc2739d3493c6d6cc5d56a4c41e}
+      \strng{authorbibnamehash}{33be2fc2739d3493c6d6cc5d56a4c41e}
+      \strng{authornamehash}{33be2fc2739d3493c6d6cc5d56a4c41e}
+      \strng{authorfullhash}{33be2fc2739d3493c6d6cc5d56a4c41e}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{title}{Functional Analysis}
+      \field{year}{1991}
+    \endentry
+    \entry{Ruelle69}{book}{}
+      \name{author}{1}{}{%
+        {{hash=77374546b358b5dc2d6732508f9ed980}{%
+           family={Ruelle},
+           familyi={R\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {W. A. Benjamin}%
+      }
+      \strng{namehash}{77374546b358b5dc2d6732508f9ed980}
+      \strng{fullhash}{77374546b358b5dc2d6732508f9ed980}
+      \strng{bibnamehash}{77374546b358b5dc2d6732508f9ed980}
+      \strng{authorbibnamehash}{77374546b358b5dc2d6732508f9ed980}
+      \strng{authornamehash}{77374546b358b5dc2d6732508f9ed980}
+      \strng{authorfullhash}{77374546b358b5dc2d6732508f9ed980}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Statistical Mechanics: Rigorous Results}
+      \field{year}{1969}
+    \endentry
     \entry{RuelleTakens71}{article}{}
       \name{author}{2}{}{%
         {{hash=77374546b358b5dc2d6732508f9ed980}{%
@@ -3130,6 +3936,33 @@
       \verb{doi}
       \verb 10.1103/PhysRevLett.96.181602
       \endverb
+    \endentry
+    \entry{Schechter97}{book}{}
+      \name{author}{1}{}{%
+        {{hash=4b6f506e778d7971ac5b95121bfc5e80}{%
+           family={Schechter},
+           familyi={S\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Diego}%
+      }
+      \list{publisher}{1}{%
+        {Academic Press}%
+      }
+      \strng{namehash}{4b6f506e778d7971ac5b95121bfc5e80}
+      \strng{fullhash}{4b6f506e778d7971ac5b95121bfc5e80}
+      \strng{bibnamehash}{4b6f506e778d7971ac5b95121bfc5e80}
+      \strng{authorbibnamehash}{4b6f506e778d7971ac5b95121bfc5e80}
+      \strng{authornamehash}{4b6f506e778d7971ac5b95121bfc5e80}
+      \strng{authorfullhash}{4b6f506e778d7971ac5b95121bfc5e80}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Handbook of Analysis and Its Foundations}
+      \field{year}{1996}
     \endentry
     \entry{Serre-FAC}{article}{}
       \name{author}{1}{}{%
@@ -3394,6 +4227,32 @@
       \verb{doi}
       \verb 10.1109/TIT.1978.1055913
       \endverb
+    \endentry
+    \entry{Solovay70}{article}{}
+      \name{author}{1}{}{%
+        {{hash=f48640301c2ee285cda30fb82c1ed107}{%
+           family={Solovay},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima M.},
+           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{f48640301c2ee285cda30fb82c1ed107}
+      \strng{fullhash}{f48640301c2ee285cda30fb82c1ed107}
+      \strng{bibnamehash}{f48640301c2ee285cda30fb82c1ed107}
+      \strng{authorbibnamehash}{f48640301c2ee285cda30fb82c1ed107}
+      \strng{authornamehash}{f48640301c2ee285cda30fb82c1ed107}
+      \strng{authorfullhash}{f48640301c2ee285cda30fb82c1ed107}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Mathematics}
+      \field{number}{1}
+      \field{title}{A Model of Set-Theory in Which Every Set of Reals is Lebesgue Measurable}
+      \field{volume}{92}
+      \field{year}{1970}
+      \field{pages}{1\bibrangedash 56}
+      \range{pages}{56}
     \endentry
     \entry{Sorkin05}{article}{}
       \name{author}{1}{}{%
@@ -3714,6 +4573,32 @@
       \field{title}{Solutions of Ill-Posed Problems}
       \field{year}{1977}
     \endentry
+    \entry{Tychonoff30}{article}{}
+      \name{author}{1}{}{%
+        {{hash=73d5df73354de4632a83d08f87e8bd0d}{%
+           family={Tychonoff},
+           familyi={T\bibinitperiod},
+           given={Andrey},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{73d5df73354de4632a83d08f87e8bd0d}
+      \strng{fullhash}{73d5df73354de4632a83d08f87e8bd0d}
+      \strng{bibnamehash}{73d5df73354de4632a83d08f87e8bd0d}
+      \strng{authorbibnamehash}{73d5df73354de4632a83d08f87e8bd0d}
+      \strng{authornamehash}{73d5df73354de4632a83d08f87e8bd0d}
+      \strng{authorfullhash}{73d5df73354de4632a83d08f87e8bd0d}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematische Annalen}
+      \field{number}{1}
+      \field{title}{Über die topologische Erweiterung von Räumen}
+      \field{volume}{102}
+      \field{year}{1930}
+      \field{pages}{544\bibrangedash 561}
+      \range{pages}{18}
+    \endentry
     \entry{Unruh76}{article}{}
       \name{author}{1}{}{%
         {{hash=a99223485f39d853afcb92db3dd53f4c}{%
@@ -3908,6 +4793,28 @@
       \field{volume}{338}
       \field{year}{2009}
     \endentry
+    \entry{Vitali05}{article}{}
+      \name{author}{1}{}{%
+        {{hash=bd7d16dc17c2c9a5b50585125fc1226d}{%
+           family={Vitali},
+           familyi={V\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{bd7d16dc17c2c9a5b50585125fc1226d}
+      \strng{fullhash}{bd7d16dc17c2c9a5b50585125fc1226d}
+      \strng{bibnamehash}{bd7d16dc17c2c9a5b50585125fc1226d}
+      \strng{authorbibnamehash}{bd7d16dc17c2c9a5b50585125fc1226d}
+      \strng{authornamehash}{bd7d16dc17c2c9a5b50585125fc1226d}
+      \strng{authorfullhash}{bd7d16dc17c2c9a5b50585125fc1226d}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Rendiconti del Circolo Matematico di Palermo}
+      \field{note}{Presented in 1905, demonstrates existence of non-measurable sets}
+      \field{title}{Sul problema della misura dei gruppi di punti di una retta}
+    \endentry
     \entry{Wald84}{book}{}
       \name{author}{1}{}{%
         {{hash=4517cb47549e9e42f6bfd204ca9456a7}{%
@@ -4051,48 +4958,118 @@
       \field{pages}{661\bibrangedash 692}
       \range{pages}{32}
     \endentry
+    \entry{Yang52}{article}{}
+      \name{author}{2}{}{%
+        {{hash=038511b03bd690257f555dc172161358}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Chen-Ning},
+           giveni={C\bibinithyphendelim N\bibinitperiod}}}%
+        {{hash=cbdd920c3b99a268c4cc091e6b3d7947}{%
+           family={Mills},
+           familyi={M\bibinitperiod},
+           given={Robert\bibnamedelima L.},
+           giveni={R\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{aca7c6096b82196634a41dbdb34bab92}
+      \strng{fullhash}{aca7c6096b82196634a41dbdb34bab92}
+      \strng{bibnamehash}{aca7c6096b82196634a41dbdb34bab92}
+      \strng{authorbibnamehash}{aca7c6096b82196634a41dbdb34bab92}
+      \strng{authornamehash}{aca7c6096b82196634a41dbdb34bab92}
+      \strng{authorfullhash}{aca7c6096b82196634a41dbdb34bab92}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review}
+      \field{number}{1}
+      \field{title}{Conservation of Isotopic Spin and Isotopic Gauge Invariance}
+      \field{volume}{96}
+      \field{year}{1954}
+      \field{pages}{191\bibrangedash 195}
+      \range{pages}{5}
+    \endentry
+    \entry{Zeilberger01}{article}{}
+      \name{author}{1}{}{%
+        {{hash=96d80a8e65b1c29cb1c6faac4c31d3be}{%
+           family={Zeilberger},
+           familyi={Z\bibinitperiod},
+           given={Doron},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{96d80a8e65b1c29cb1c6faac4c31d3be}
+      \strng{fullhash}{96d80a8e65b1c29cb1c6faac4c31d3be}
+      \strng{bibnamehash}{96d80a8e65b1c29cb1c6faac4c31d3be}
+      \strng{authorbibnamehash}{96d80a8e65b1c29cb1c6faac4c31d3be}
+      \strng{authornamehash}{96d80a8e65b1c29cb1c6faac4c31d3be}
+      \strng{authorfullhash}{96d80a8e65b1c29cb1c6faac4c31d3be}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Combinatorics}
+      \field{number}{2}
+      \field{title}{The Holonomic Ansatz I: Foundations and Applications to Lattice Path Counting}
+      \field{volume}{4}
+      \field{year}{2000}
+      \field{pages}{131\bibrangedash 143}
+      \range{pages}{13}
+    \endentry
+    \entry{Zermelo04}{article}{}
+      \name{author}{1}{}{%
+        {{hash=600526095e043c5d00a279c38e6e47c1}{%
+           family={Zermelo},
+           familyi={Z\bibinitperiod},
+           given={Ernst},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{600526095e043c5d00a279c38e6e47c1}
+      \strng{fullhash}{600526095e043c5d00a279c38e6e47c1}
+      \strng{bibnamehash}{600526095e043c5d00a279c38e6e47c1}
+      \strng{authorbibnamehash}{600526095e043c5d00a279c38e6e47c1}
+      \strng{authornamehash}{600526095e043c5d00a279c38e6e47c1}
+      \strng{authorfullhash}{600526095e043c5d00a279c38e6e47c1}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematische Annalen}
+      \field{title}{Beweis, da{ß} jede Menge wohlgeordnet werden kann}
+      \field{volume}{59}
+      \field{year}{1904}
+      \field{pages}{514\bibrangedash 516}
+      \range{pages}{3}
+    \endentry
+    \entry{Zorn35}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d31c6145ed12c0a30d74372f6380d11f}{%
+           family={Zorn},
+           familyi={Z\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{d31c6145ed12c0a30d74372f6380d11f}
+      \strng{fullhash}{d31c6145ed12c0a30d74372f6380d11f}
+      \strng{bibnamehash}{d31c6145ed12c0a30d74372f6380d11f}
+      \strng{authorbibnamehash}{d31c6145ed12c0a30d74372f6380d11f}
+      \strng{authornamehash}{d31c6145ed12c0a30d74372f6380d11f}
+      \strng{authorfullhash}{d31c6145ed12c0a30d74372f6380d11f}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bulletin of the American Mathematical Society}
+      \field{number}{10}
+      \field{title}{A Remark on Method in Transfinite Algebra}
+      \field{volume}{41}
+      \field{year}{1935}
+      \field{pages}{667\bibrangedash 670}
+      \range{pages}{4}
+    \endentry
   \enddatalist
-  \missing{AmbrosioGigliSavare08}
-  \missing{BanachTarski24}
-  \missing{Bekenstein73}
-  \missing{Bishop67}
   \missing{DummitFoote04}
-  \missing{Elgindi21}
-  \missing{FoiasTemam88}
-  \missing{Fujita66}
-  \missing{Geroch70}
-  \missing{HalpernLevy71}
-  \missing{Hawking75}
-  \missing{Hodges79}
-  \missing{Jech03}
-  \missing{Jech06}
-  \missing{Kac47}
-  \missing{Kelley50}
-  \missing{Kelley55}
-  \missing{KobayashiNomizu96}
-  \missing{Kunen80}
-  \missing{Lang95}
-  \missing{Leray34}
-  \missing{Luxemburg69}
-  \missing{Maas11}
   \missing{MacLane98}
-  \missing{Maldacena98}
-  \missing{NarasimhanRamanan61}
-  \missing{Palais61}
-  \missing{Phelps01}
-  \missing{Poincare90}
-  \missing{Rogers87}
-  \missing{Rudin91}
-  \missing{Ruelle69}
-  \missing{Schechter97}
-  \missing{Solovay70}
-  \missing{Tychonoff30}
-  \missing{Vitali05}
   \missing{Wainwright19}
-  \missing{Yang52}
-  \missing{Zeilberger01}
-  \missing{Zermelo04}
-  \missing{Zorn35}
 \endrefsection
 \endinput
 
