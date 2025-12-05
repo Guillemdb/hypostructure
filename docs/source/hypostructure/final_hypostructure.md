@@ -1111,19 +1111,43 @@ The following tables formalize the **Isomorphism Atlas** as a structural corresp
 \hline
 \textbf{Metatheorem} & \textbf{Bridge Type} & \textbf{Invariant} & \textbf{Dictionary} & \textbf{Implication} \\
 \hline
-\textbf{Antichain-Surface Isomorphism} & Causal Sets $\leftrightarrow$ Riemannian Geometry & Cut Size & Antichain $\to$ Surface; Causal Order $\to$ Metric Structure & Discrete cuts converge to minimal surfaces \\
+\textbf{IS-01: Antichain-Surface Isomorphism} & Causal Sets $\leftrightarrow$ Riemannian Geometry & Cut Size & Antichain $\to$ Surface; Causal Order $\to$ Metric Structure & Discrete cuts converge to minimal surfaces \\
 \hline
-\textbf{Holographic Bound} & Information $\leftrightarrow$ Geometry & Entropy & Bulk Information $\to$ Boundary Area; Volume $\to$ Surface & Information bounded by boundary area \\
+\textbf{IS-02: Holographic Bound} & Information $\leftrightarrow$ Geometry & Entropy & Bulk Information $\to$ Boundary Area; Volume $\to$ Surface & Information bounded by boundary area \\
 \hline
-\textbf{Modular-Thermal Isomorphism} & Information $\leftrightarrow$ Thermodynamics & Entropy & Acceleration $\to$ Temperature; Causal Horizon $\to$ Modular Flow & Unruh effect: restriction creates thermal bath \\
+\textbf{IS-03: Modular-Thermal Isomorphism} & Information $\leftrightarrow$ Thermodynamics & Entropy & Acceleration $\to$ Temperature; Causal Horizon $\to$ Modular Flow & Unruh effect: restriction creates thermal bath \\
 \hline
-\textbf{Teleological Isomorphism} & Physics $\leftrightarrow$ Rational Agency & Meta-Action & Action Minimization $\to$ Utility Maximization; Geodesic $\to$ Optimal Policy & Defect minimization = goal pursuit \\
+\textbf{IS-04: Teleological Isomorphism} & Physics $\leftrightarrow$ Rational Agency & Meta-Action & Action Minimization $\to$ Utility Maximization; Geodesic $\to$ Optimal Policy & Defect minimization = goal pursuit \\
 \hline
-\textbf{Closure-Curvature Duality} & Information Theory $\leftrightarrow$ Metric Geometry & Predictability & Software Layer $\to$ Positive Curvature ($\kappa > 0$); Memory $\to$ Spectral Gap & Computation emerges on stiff substrates \\
+\textbf{IS-05: Closure-Curvature Duality} & Information Theory $\leftrightarrow$ Metric Geometry & Predictability & Software Layer $\to$ Positive Curvature ($\kappa > 0$); Memory $\to$ Spectral Gap & Computation emerges on stiff substrates \\
 \hline
-\textbf{Feynman-Kac Isomorphism} & Stochastic Processes $\leftrightarrow$ Quantum Mechanics & Ground State & Diffusion $\to$ Kinetic Energy; Cloning $\to$ Potential Energy & Fractal Gas samples Schrödinger ground state \\
+\textbf{IS-06: Feynman-Kac Isomorphism} & Stochastic Processes $\leftrightarrow$ Quantum Mechanics & Ground State & Diffusion $\to$ Kinetic Energy; Cloning $\to$ Potential Energy & Fractal Gas samples Schrödinger ground state \\
 \hline
-\textbf{Cloning-Lindblad Equivalence} & Fractal Gas $\leftrightarrow$ Open Quantum Systems & Density Matrix & Cloning Operator $\to$ Jump Operators $L_k$; Fitness $\to$ Environment & Optimization is quantum measurement \\
+\textbf{IS-07: Cloning-Lindblad Equivalence} & Fractal Gas $\leftrightarrow$ Open Quantum Systems & Density Matrix & Cloning Operator $\to$ Jump Operators $L_k$; Fitness $\to$ Environment & Optimization is quantum measurement \\
+\hline
+\end{tabular}
+\end{center}
+
+**Isomorphism Atlas Summary (Type 2 Metatheorems).** The following table consolidates all 7 structural isomorphisms:
+
+\begin{center}
+\begin{tabular}{|c|p{4cm}|p{4.5cm}|p{2cm}|p{4cm}|}
+\hline
+\textbf{IS\#} & \textbf{Metatheorem} & \textbf{Bridge Type} & \textbf{Invariant} & \textbf{Implication} \\
+\hline
+IS-01 & Antichain-Surface Isomorphism & Causal Sets $\leftrightarrow$ Riemannian Geometry & Cut Size & Discrete cuts converge to minimal surfaces \\
+\hline
+IS-02 & Holographic Bound & Information $\leftrightarrow$ Geometry & Entropy & Information bounded by boundary area \\
+\hline
+IS-03 & Modular-Thermal Isomorphism & Information $\leftrightarrow$ Thermodynamics & Entropy & Unruh effect: restriction creates thermal bath \\
+\hline
+IS-04 & Teleological Isomorphism & Physics $\leftrightarrow$ Rational Agency & Meta-Action & Defect minimization = goal pursuit \\
+\hline
+IS-05 & Closure-Curvature Duality & Information Theory $\leftrightarrow$ Metric Geometry & Predictability & Computation emerges on stiff substrates \\
+\hline
+IS-06 & Feynman-Kac Isomorphism & Stochastic Processes $\leftrightarrow$ Quantum Mechanics & Ground State & Fractal Gas samples Schrödinger ground state \\
+\hline
+IS-07 & Cloning-Lindblad Equivalence & Fractal Gas $\leftrightarrow$ Open Quantum Systems & Density Matrix & Optimization is quantum measurement \\
 \hline
 \end{tabular}
 \end{center}
@@ -1149,6 +1173,69 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \end{tabular}
 \end{center}
 
+**Constructor Atlas Summary (Type 3 Metatheorems).** The following table consolidates all 24 constructor metatheorems:
+
+\begin{center}
+\begin{longtable}{|c|p{4.5cm}|c|p{6.5cm}|}
+\hline
+\textbf{CT\#} & \textbf{Metatheorem} & \textbf{Class} & \textbf{Output Structure} \\
+\hline
+\endfirsthead
+\hline
+\textbf{CT\#} & \textbf{Metatheorem} & \textbf{Class} & \textbf{Output Structure} \\
+\hline
+\endhead
+CT-01 & Thermodynamic Gravity Principle & I & Einstein Field Equations \\
+\hline
+CT-02 & Chronogenesis Principle & I & Global Time Coordinate \\
+\hline
+CT-03 & QSD-Sampling Principle & I & Fractal Invariant Set \\
+\hline
+CT-04 & Geometric Diffusion Isomorphism & I & Laplace-Beltrami / Regge Calculus \\
+\hline
+CT-05 & Symmetry-Gauge Correspondence & II & Yang-Mills Action \\
+\hline
+CT-06 & Three-Tier Gauge Hierarchy & II & Standard Model Gauge Group \\
+\hline
+CT-07 & Antisymmetry-Fermion Theorem & II & Dirac Equation \\
+\hline
+CT-08 & Scalar-Reward Duality (Higgs) & II & Higgs Mechanism \\
+\hline
+CT-09 & IG-Quantum Isomorphism & II & Euclidean QFT \\
+\hline
+CT-10 & Spectral Action Principle & III & Standard Model Lagrangian \\
+\hline
+CT-11 & Antichain-Surface Correspondence & III & Minimal Surface \\
+\hline
+CT-12 & Scutoidal Interpolation & III & T1 Transition / Pachner Move \\
+\hline
+CT-13 & Canonical Lyapunov Functional & IV & Lyapunov Function \\
+\hline
+CT-14 & Action Reconstruction & IV & Action Functional \\
+\hline
+CT-15 & Profile Exactification & IV & Canonical Profile \\
+\hline
+CT-16 & Structural Singularity Completeness & IV & Universal Blowup Class \\
+\hline
+CT-17 & Motivic Flow Principle & V & Chow Motive \\
+\hline
+CT-18 & Schematic Sieve & V & Singular Scheme \\
+\hline
+CT-19 & Virtual Cycle Correspondence & V & Virtual Fundamental Class \\
+\hline
+CT-20 & Suspension Scaling Principle & V & Spectrum \\
+\hline
+CT-21 & Autopoietic Closure & VI & Self-Consistent Logic \\
+\hline
+CT-22 & Epistemic Fixed Point & VI & The Hypostructure \\
+\hline
+CT-23 & Teleological Isomorphism & VI & Rational Agent \\
+\hline
+CT-24 & Conley-Hypostructure Existence & VI & Valid Hypostructure \\
+\hline
+\end{longtable}
+\end{center}
+
 ---
 
 #### Constructor Class I: Spacetime \& Gravity Emergence
@@ -1160,13 +1247,13 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \hline
 \textbf{Metatheorem} & \textbf{Emergence Class} & \textbf{Input Substrate} & \textbf{Generative Mechanism} & \textbf{Output Structure} \\
 \hline
-\textbf{Thermodynamic Gravity Principle} & Spacetime Geometry & IG + Axiom Cap + Axiom D & Equation of State ($\delta Q = T\delta S$) & Einstein Field Equations \\
+\textbf{CT-01: Thermodynamic Gravity Principle} & Spacetime Geometry & IG + Axiom Cap + Axiom D & Equation of State ($\delta Q = T\delta S$) & Einstein Field Equations \\
 \hline
-\textbf{Chronogenesis Principle} & Time & Axiom D + $\Phi$ & Accumulated Distinguishability & Global Time Coordinate \\
+\textbf{CT-02: Chronogenesis Principle} & Time & Axiom D + $\Phi$ & Accumulated Distinguishability & Global Time Coordinate \\
 \hline
-\textbf{QSD-Sampling Principle} & Discrete Spacetime & Stochastic Semigroup + QSD & Diffeomorphism Invariance & Fractal Invariant Set \\
+\textbf{CT-03: QSD-Sampling Principle} & Discrete Spacetime & Stochastic Semigroup + QSD & Diffeomorphism Invariance & Fractal Invariant Set \\
 \hline
-\textbf{Geometric Diffusion Isomorphism} & Geometric Operators & Random Walk + Hessian & Heat Kernel Expansion & Laplace-Beltrami / Regge Calculus \\
+\textbf{CT-04: Geometric Diffusion Isomorphism} & Geometric Operators & Random Walk + Hessian & Heat Kernel Expansion & Laplace-Beltrami / Regge Calculus \\
 \hline
 \end{tabular}
 \end{center}
@@ -1182,15 +1269,15 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \hline
 \textbf{Metatheorem} & \textbf{Emergence Class} & \textbf{Input Substrate} & \textbf{Generative Mechanism} & \textbf{Output Structure} \\
 \hline
-\textbf{Symmetry-Gauge Correspondence} & Forces (Gauge Fields) & Symmetry Group $G$ + Kernel $K$ & Compensator Fields for Local Invariance & Yang-Mills Action \\
+\textbf{CT-05: Symmetry-Gauge Correspondence} & Forces (Gauge Fields) & Symmetry Group $G$ + Kernel $K$ & Compensator Fields for Local Invariance & Yang-Mills Action \\
 \hline
-\textbf{Three-Tier Gauge Hierarchy} & Gauge Groups & Multi-Agent System ($N$) & Symmetry Stratification & Standard Model Gauge Group \\
+\textbf{CT-06: Three-Tier Gauge Hierarchy} & Gauge Groups & Multi-Agent System ($N$) & Symmetry Stratification & Standard Model Gauge Group \\
 \hline
-\textbf{Antisymmetry-Fermion Theorem} & Matter (Fermions) & Directed Edges + Antisymmetry & Grassmann Integration & Dirac Equation \\
+\textbf{CT-07: Antisymmetry-Fermion Theorem} & Matter (Fermions) & Directed Edges + Antisymmetry & Grassmann Integration & Dirac Equation \\
 \hline
-\textbf{Scalar-Reward Duality (Higgs)} & Mass & Stable Manifold (Axiom LS) + Scalar Field & Spontaneous Symmetry Breaking & Higgs Mechanism \\
+\textbf{CT-08: Scalar-Reward Duality (Higgs)} & Mass & Stable Manifold (Axiom LS) + Scalar Field & Spontaneous Symmetry Breaking & Higgs Mechanism \\
 \hline
-\textbf{IG-Quantum Isomorphism} & Quantum Field Theory & IG + Gaussian Weights & Osterwalder-Schrader Reconstruction & Euclidean QFT \\
+\textbf{CT-09: IG-Quantum Isomorphism} & Quantum Field Theory & IG + Gaussian Weights & Osterwalder-Schrader Reconstruction & Euclidean QFT \\
 \hline
 \end{tabular}
 \end{center}
@@ -1206,11 +1293,11 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \hline
 \textbf{Metatheorem} & \textbf{Emergence Class} & \textbf{Input Substrate} & \textbf{Generative Mechanism} & \textbf{Output Structure} \\
 \hline
-\textbf{Spectral Action Principle} & Standard Model & Spectral Triple + Spectral Cutoff & Heat Kernel Expansion & Standard Model Lagrangian \\
+\textbf{CT-10: Spectral Action Principle} & Standard Model & Spectral Triple + Spectral Cutoff & Heat Kernel Expansion & Standard Model Lagrangian \\
 \hline
-\textbf{Antichain-Surface Correspondence} & Minimal Surfaces & Causal Graph + Axiom Cap & Min-Cut / Max-Flow & Minimal Surface \\
+\textbf{CT-11: Antichain-Surface Correspondence} & Minimal Surfaces & Causal Graph + Axiom Cap & Min-Cut / Max-Flow & Minimal Surface \\
 \hline
-\textbf{Scutoidal Interpolation} & Topology Change & Voronoi Cells + Axiom D & Energy Minimization & T1 Transition / Pachner Move \\
+\textbf{CT-12: Scutoidal Interpolation} & Topology Change & Voronoi Cells + Axiom D & Energy Minimization & T1 Transition / Pachner Move \\
 \hline
 \end{tabular}
 \end{center}
@@ -1226,13 +1313,13 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \hline
 \textbf{Metatheorem} & \textbf{Emergence Class} & \textbf{Input Substrate} & \textbf{Generative Mechanism} & \textbf{Output Structure} \\
 \hline
-\textbf{Canonical Lyapunov Functional} & Analysis / Stability & Dissipative Flow + Manifold $M$ & Infimal Convolution & Lyapunov Function \\
+\textbf{CT-13: Canonical Lyapunov Functional} & Analysis / Stability & Dissipative Flow + Manifold $M$ & Infimal Convolution & Lyapunov Function \\
 \hline
-\textbf{Action Reconstruction} & Lagrangian Dynamics & Dissipation $\mathfrak{D}$ + Metric & Jacobi Metric Construction & Action Functional \\
+\textbf{CT-14: Action Reconstruction} & Lagrangian Dynamics & Dissipation $\mathfrak{D}$ + Metric & Jacobi Metric Construction & Action Functional \\
 \hline
-\textbf{Profile Exactification} & Singularity Structure & Blowup Sequence + Axiom C & Concentration-Compactness & Canonical Profile \\
+\textbf{CT-15: Profile Exactification} & Singularity Structure & Blowup Sequence + Axiom C & Concentration-Compactness & Canonical Profile \\
 \hline
-\textbf{Structural Singularity Completeness} & Singularity Model & Local Blowups + Features & Partition of Unity Gluing & Universal Blowup Class \\
+\textbf{CT-16: Structural Singularity Completeness} & Singularity Model & Local Blowups + Features & Partition of Unity Gluing & Universal Blowup Class \\
 \hline
 \end{tabular}
 \end{center}
@@ -1248,13 +1335,13 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \hline
 \textbf{Metatheorem} & \textbf{Emergence Class} & \textbf{Input Substrate} & \textbf{Generative Mechanism} & \textbf{Output Structure} \\
 \hline
-\textbf{Motivic Flow Principle} & Algebraic Geometry & Hypostructure $\mathbb{H}$ & Moduli Construction & Chow Motive \\
+\textbf{CT-17: Motivic Flow Principle} & Algebraic Geometry & Hypostructure $\mathbb{H}$ & Moduli Construction & Chow Motive \\
 \hline
-\textbf{Schematic Sieve} & Algebraic Geometry & Permit Ideals + Axiom LS & Scheme Spectrum & Singular Scheme \\
+\textbf{CT-18: Schematic Sieve} & Algebraic Geometry & Permit Ideals + Axiom LS & Scheme Spectrum & Singular Scheme \\
 \hline
-\textbf{Virtual Cycle Correspondence} & Enumerative Geometry & Obstructed Moduli + Axiom Cap & Euler Class Intersection & Virtual Fundamental Class \\
+\textbf{CT-19: Virtual Cycle Correspondence} & Enumerative Geometry & Obstructed Moduli + Axiom Cap & Euler Class Intersection & Virtual Fundamental Class \\
 \hline
-\textbf{Suspension Scaling Principle} & Stable Homotopy & Space $X$ & Iterated Suspension & Spectrum \\
+\textbf{CT-20: Suspension Scaling Principle} & Stable Homotopy & Space $X$ & Iterated Suspension & Spectrum \\
 \hline
 \end{tabular}
 \end{center}
@@ -1270,13 +1357,13 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \hline
 \textbf{Metatheorem} & \textbf{Emergence Class} & \textbf{Input Substrate} & \textbf{Generative Mechanism} & \textbf{Output Structure} \\
 \hline
-\textbf{Autopoietic Closure} & Logic / Self-Reference & Cat(Theories) + Cat(Systems) & Adjunction Fixed Point & Self-Consistent Logic \\
+\textbf{CT-21: Autopoietic Closure} & Logic / Self-Reference & Cat(Theories) + Cat(Systems) & Adjunction Fixed Point & Self-Consistent Logic \\
 \hline
-\textbf{Epistemic Fixed Point} & Scientific Theory & Bayesian Framework + $\mathfrak{T}$ & Solomonoff Induction & The Hypostructure \\
+\textbf{CT-22: Epistemic Fixed Point} & Scientific Theory & Bayesian Framework + $\mathfrak{T}$ & Solomonoff Induction & The Hypostructure \\
 \hline
-\textbf{Teleological Isomorphism} & Agency & Meta-Action Functional & Geodesic Flow on Policy Space & Rational Agent \\
+\textbf{CT-23: Teleological Isomorphism} & Agency & Meta-Action Functional & Geodesic Flow on Policy Space & Rational Agent \\
 \hline
-\textbf{Conley-Hypostructure Existence} & Hypostructure Object & Dissipative Semiflow + Attractor & Lyapunov Construction & Valid Hypostructure \\
+\textbf{CT-24: Conley-Hypostructure Existence} & Hypostructure Object & Dissipative Semiflow + Attractor & Lyapunov Construction & Valid Hypostructure \\
 \hline
 \end{tabular}
 \end{center}
@@ -1291,38 +1378,38 @@ The following tables formalize the **Constructor Atlas** as a structural generat
 \item Joint optimization over hypostructure components and extremal profiles
 \end{itemize}
 
-\textit{Nine metatheorems establishing the meta-theory of learning axioms:}
+\textit{Nine metatheorems establishing the meta-theory of learning axioms (see Solver Atlas SV-01 to SV-09):}
 
-\begin{metatheorem}[Trainable Hypostructure Consistency]
-Gradient descent on joint axiom risk converges to axiom-consistent hypostructures
+\begin{metatheorem}[SV-01: Hypostructure-from-Raw-Data]
+Gradient descent on joint axiom risk converges to axiom-consistent hypostructures. \textit{Algorithmic Class:} End-to-End Meta-Learning. \textit{Convergence:} Structural Recovery.
 \end{metatheorem}
 
-\begin{metatheorem}[Meta-Error Localization]
-Block-restricted reoptimization identifies which axiom blocks are misspecified
+\begin{metatheorem}[SV-02: Meta-Error Localization]
+Block-restricted reoptimization identifies which axiom blocks are misspecified. \textit{Algorithmic Class:} Automated Debugging. \textit{Convergence:} Signature Injectivity.
 \end{metatheorem}
 
-\begin{metatheorem}[Meta-Generalization]
-Training on system distributions generalizes with $O(\sqrt{\varepsilon + 1/\sqrt{N}})$ bounds
+\begin{metatheorem}[SV-03: Meta-Generalization]
+Training on system distributions generalizes with $O(\sqrt{\varepsilon + 1/\sqrt{N}})$ bounds. \textit{Algorithmic Class:} Structural Risk Minimization. \textit{Convergence:} Uniform Convergence.
 \end{metatheorem}
 
-\begin{metatheorem}[Axiom-Expressivity]
-Parametric families can approximate any admissible hypostructure with arbitrarily small defect
+\begin{metatheorem}[SV-04: Axiom-Expressivity]
+Parametric families can approximate any admissible hypostructure with arbitrarily small defect. \textit{Algorithmic Class:} Approximation Theory. \textit{Convergence:} Universal Approximation.
 \end{metatheorem}
 
-\begin{metatheorem}[Optimal Experiment Design]
-Sample complexity for hypostructure identification is $O(d\sigma^2/\Delta^2)$
+\begin{metatheorem}[SV-05: Optimal Experiment Design]
+Sample complexity for hypostructure identification is $O(d\sigma^2/\Delta^2)$. \textit{Algorithmic Class:} Active Learning. \textit{Convergence:} Parameter Identification.
 \end{metatheorem}
 
-\begin{metatheorem}[Robustness of Failure-Mode Predictions]
-Discrete permit-denial judgments are stable under small axiom risk
+\begin{metatheorem}[SV-06: Robustness of Failure-Mode Predictions]
+Discrete permit-denial judgments are stable under small axiom risk. \textit{Algorithmic Class:} Verification / Safety. \textit{Convergence:} Discrete Stability.
 \end{metatheorem}
 
-\begin{metatheorem}[Curriculum Stability]
-Warm-start training tracks the structural path without jumping to spurious ontologies
+\begin{metatheorem}[SV-07: Curriculum Stability]
+Warm-start training tracks the structural path without jumping to spurious ontologies. \textit{Algorithmic Class:} Curriculum Learning. \textit{Convergence:} Path Tracking.
 \end{metatheorem}
 
-\begin{metatheorem}[Equivariance]
-Learned hypostructures inherit all symmetries of the system distribution
+\begin{metatheorem}[SV-08: Equivariance]
+Learned hypostructures inherit all symmetries of the system distribution. \textit{Algorithmic Class:} Geometric Deep Learning. \textit{Convergence:} Symmetry Preservation.
 \end{metatheorem}
 
 \textbf{General loss (Chapter 14):}
@@ -1332,11 +1419,11 @@ Learned hypostructures inherit all symmetries of the system distribution
 \end{itemize}
 
 \begin{metatheorem}[Defect Reconstruction]
-Defect signatures determine hypostructure components from axioms alone
+Defect signatures determine hypostructure components from axioms alone.
 \end{metatheorem}
 
-\begin{metatheorem}[Meta-Identifiability]
-Parameters are learnable under persistent excitation and nondegenerate parametrization
+\begin{metatheorem}[SV-09: Meta-Identifiability]
+Parameters are learnable under persistent excitation and nondegenerate parametrization. \textit{Algorithmic Class:} Parameter Estimation. \textit{Convergence:} Local Injectivity.
 \end{metatheorem}
 
 \textbf{Global Metatheorems (Section 18.4):}
@@ -1406,6 +1493,130 @@ Partition-of-unity gluing guarantees $\mathbf{Blowup}$ is universal for $\mathca
 \begin{corollary}[Singularity Exclusion]
 Blowup exclusion + completeness $\Rightarrow$ $\mathcal{T}_{\mathrm{sing}} = \varnothing$
 \end{corollary}
+
+---
+
+### Solver Atlas: Structural Dependency Graph for Learning & Optimization
+
+*Algorithms and guarantees for learning hypostructures from data.*
+
+**Solver Atlas Template (Type 4 Metatheorems).** Each solver metatheorem follows the template:
+
+\begin{center}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Algorithmic Class} & The category of algorithm: End-to-End, Debugging, Active, etc. \\
+\textbf{Objective Function} & The loss or risk functional being optimized \\
+\textbf{Convergence Guarantee} & The structural property ensured at convergence \\
+\textbf{Computational Complexity} & The cost scaling with problem parameters \\
+\hline
+\end{tabular}
+\end{center}
+
+**Solver Atlas Summary (Type 4 Metatheorems).** The following table consolidates all 15 solver metatheorems:
+
+\begin{center}
+\begin{longtable}{|c|p{4cm}|p{2.5cm}|p{4cm}|}
+\hline
+\textbf{SV\#} & \textbf{Metatheorem} & \textbf{Algorithmic Class} & \textbf{Convergence Guarantee} \\
+\hline
+\endfirsthead
+\hline
+\textbf{SV\#} & \textbf{Metatheorem} & \textbf{Algorithmic Class} & \textbf{Convergence Guarantee} \\
+\hline
+\endhead
+SV-01 & Hypostructure-from-Raw-Data & End-to-End Meta-Learning & Structural Recovery \\
+\hline
+SV-02 & Meta-Error Localization & Automated Debugging & Signature Injectivity \\
+\hline
+SV-03 & Meta-Generalization & Structural Risk Minimization & Uniform Convergence \\
+\hline
+SV-04 & Axiom-Expressivity & Approximation Theory & Universal Approximation \\
+\hline
+SV-05 & Optimal Experiment Design & Active Learning & Parameter Identification \\
+\hline
+SV-06 & Robustness of Failure-Mode & Verification / Safety & Discrete Stability \\
+\hline
+SV-07 & Curriculum Stability & Curriculum Learning & Path Tracking \\
+\hline
+SV-08 & Equivariance & Geometric Deep Learning & Symmetry Preservation \\
+\hline
+SV-09 & Meta-Identifiability & Parameter Estimation & Local Injectivity \\
+\hline
+SV-10 & Feynman-Kac Isomorphism & Stochastic Optimization & Ground State Convergence \\
+\hline
+SV-11 & Fisher Information Ratchet & Natural Gradient & Geodesic Flow \\
+\hline
+SV-12 & Complexity Tunneling & Barrier Crossing & Population Transfer \\
+\hline
+SV-13 & Landauer Optimality & Thermodynamic Computation & Landauer Bound \\
+\hline
+SV-14 & Levin Search Isomorphism & Program Synthesis & Universal Distribution \\
+\hline
+SV-15 & Cloning-Lindblad Equivalence & Open Quantum Systems & Lindblad Dynamics \\
+\hline
+\end{longtable}
+\end{center}
+
+---
+
+#### Solver Class: Learning & Meta-Learning (SV-01 to SV-09)
+
+*Trainable hypostructures: Algorithms for learning axioms from data.*
+
+\begin{center}
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{3cm}|p{2.5cm}|}
+\hline
+\textbf{Metatheorem} & \textbf{Algorithmic Class} & \textbf{Objective Function} & \textbf{Convergence Guarantee} & \textbf{Complexity} \\
+\hline
+\textbf{SV-01: Hypostructure-from-Raw-Data} & End-to-End Meta-Learning & Total Risk $\mathcal{L}_{total} = \mathcal{L}_{pred} + \lambda \mathcal{R}_{axioms}$ & Structural Recovery: Global minimizers recover $\mathcal{H}^*$ & SGD: compact connected stationary sets \\
+\hline
+\textbf{SV-02: Meta-Error Localization} & Automated Debugging & Block-Restricted Risk $\mathcal{R}^*_b(\theta)$ & Signature Injectivity: $\rho(\theta)$ identifies misspecified axiom block & Linear in $|\mathcal{B}|$ blocks \\
+\hline
+\textbf{SV-03: Meta-Generalization} & Structural Risk Minimization & Average Axiom Risk $\mathcal{R}_{\mathcal{S}}(\Theta)$ & Uniform Convergence: $O(\varepsilon_N + \sqrt{\log(1/\delta)/N})$ & Sample complexity via metric entropy \\
+\hline
+\textbf{SV-04: Axiom-Expressivity} & Approximation Theory & Structural Metric $d_{struct}$ & Universal Approximation: $\inf_\Theta \mathcal{R}_S(\Theta) = 0$ & N/A (existential) \\
+\hline
+\textbf{SV-05: Optimal Experiment Design} & Active Learning & Parameter Variance & Identification: recovers $\Theta^*$ with prob $1-\delta$ & $O(d \cdot \Delta^{-2})$ \\
+\hline
+\textbf{SV-06: Robustness of Failure-Mode} & Verification / Safety & Barrier Functionals $B_f(\mathcal{H})$ & Discrete Stability: forbidden modes identical below $\varepsilon_1$ & Threshold: valid below critical noise \\
+\hline
+\textbf{SV-07: Curriculum Stability} & Curriculum Learning & Stagewise Risk $\mathcal{R}_k(\Theta)$ & Path Tracking: gradient descent stays in correct basin & Polynomial in path length \\
+\hline
+\textbf{SV-08: Equivariance} & Geometric Deep Learning & Invariant Risk $\mathcal{R}_{\mathcal{S}}$ & Symmetry Preservation: minimizers in orbit $G \cdot \Theta^*$ & Reduced by symmetry group $G$ \\
+\hline
+\textbf{SV-09: Meta-Identifiability} & Parameter Estimation & Defect Signature $\text{Sig}(\Theta)$ & Local Injectivity: $|\Theta - \tilde{\Theta}| \le C\varepsilon$ & Well-conditioned stability \\
+\hline
+\end{tabular}
+\end{center}
+
+---
+
+#### Solver Class: Algorithmic Optimization (SV-10 to SV-15)
+
+*Fractal Gas and computational solvers: Physical algorithms for optimization.*
+
+\begin{center}
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{3cm}|p{2.5cm}|}
+\hline
+\textbf{Metatheorem} & \textbf{Algorithmic Class} & \textbf{Objective Function} & \textbf{Convergence Guarantee} & \textbf{Complexity} \\
+\hline
+\textbf{SV-10: Feynman-Kac Isomorphism} & Stochastic Optimization & Free Energy $F[\rho]$ & Ground State: swarm $\to$ Schrödinger ground state & Polynomial barrier tunneling \\
+\hline
+\textbf{SV-11: Fisher Information Ratchet} & Natural Gradient & Fisher Information Rate $\mathcal{I}(\rho_t)$ & Geodesic Flow: steepest descent on Fisher metric & Optimal information gain \\
+\hline
+\textbf{SV-12: Complexity Tunneling} & Barrier Crossing & Fitness Potential $\Phi$ & Population Transfer: rare events $\to$ deterministic flows & P vs BPP for rugged landscapes \\
+\hline
+\textbf{SV-13: Landauer Optimality} & Thermodynamic Computation & Entropy Cost $S$ & Landauer Bound: $k_B T \ln 2$ per bit & Thermodynamic limit \\
+\hline
+\textbf{SV-14: Levin Search Isomorphism} & Program Synthesis & Algorithmic Complexity $K(p)$ & Universal Distribution: resources $\to 2^{-l(p)}$ & $O(1)$ overhead vs optimal \\
+\hline
+\textbf{SV-15: Cloning-Lindblad} & Open Quantum Systems & Density Matrix $\rho$ & Lindblad Dynamics: ensemble $\to$ Lindblad equation & Quantum decoherence \\
+\hline
+\end{tabular}
+\end{center}
+
+---
 
 \textbf{Three-Layer Axiom Architecture (Sections 3.0 and 18.3.5):}
 
@@ -1672,7 +1883,7 @@ We construct the partition explicitly.
 $\{\text{blow-up behaviors}\} \cong \{1, \ldots, 15\}$.
 \end{corollary}
 
-#### Profile Exactification
+#### Profile Exactification [@Lions84; @Lions85; @Struwe96]
 
 \begin{definition}[Moduli Space of Profiles]
 The moduli space of canonical profiles is:
@@ -21355,11 +21566,11 @@ $$\ddot{x}^\mu + \Gamma^\mu_{\nu\rho} \dot{x}^\nu \dot{x}^\rho = -g^{\mu\nu} \pa
 
 ---
 
-### The Gauge Sector: Yang-Mills Generation
+### The Gauge Sector: Yang-Mills Generation [@Yang52; @Utiyama56]
 
 #### Motivation
 
-Gauge symmetry is the organizing principle of the Standard Model: electromagnetism ($U(1)$), weak force ($SU(2)$), and strong force ($SU(3)$) arise from local symmetries. We now prove that local symmetries of the interaction kernel on the IG necessarily generate gauge fields.
+Gauge symmetry is the organizing principle of the Standard Model: electromagnetism ($U(1)$), weak force ($SU(2)$), and strong force ($SU(3)$) arise from local symmetries [@Weinberg67]. We now prove that local symmetries of the interaction kernel on the IG necessarily generate gauge fields.
 
 #### Statement
 
@@ -21870,7 +22081,7 @@ This is the Coulomb potential with infinite range.
 
 ---
 
-### The Quantum Structure
+### The Quantum Structure [@OsterwalderSchrader73; @OsterwalderSchrader75]
 
 #### Motivation
 
@@ -22632,7 +22843,7 @@ This shows NCG unifies continuous and discrete geometry.
 
 #### Motivation
 
-This theorem maps **Axiom SC (Scaling)** and **Axiom D (Dissipation)** to the **Spectral Action Principle** [@Connes96]. The result is that physical laws—General Relativity and the Standard Model of particle physics—emerge from the asymptotic expansion of the spectral action.
+This theorem maps **Axiom SC (Scaling)** and **Axiom D (Dissipation)** to the **Spectral Action Principle** [@Connes96; @Chamseddine97]. The result is that physical laws—General Relativity and the Standard Model of particle physics—emerge from the asymptotic expansion of the spectral action.
 
 The physical content: counting eigenvalues of the Dirac operator, weighted by a cutoff function, yields the Einstein-Hilbert action for gravity, the Yang-Mills action for gauge fields, and the Higgs potential. The specific particle content (quarks, leptons, gauge bosons) is encoded in the choice of spectral triple.
 
@@ -23762,7 +23973,7 @@ The three metatheorems of sections 34.2-34.4 establish the structural foundation
 
 ---
 
-### Metatheorem 34.6: The Modular-Thermal Isomorphism (Unruh Effect [@Unruh76])
+### Metatheorem 34.6: The Modular-Thermal Isomorphism (Unruh Effect [@Unruh76; @Bisognano75; @Takesaki70])
 
 > **[Deps] Structural Dependencies**
 >
@@ -23939,7 +24150,7 @@ Any system satisfying these axioms will exhibit Unruh-like behavior.
 
 ---
 
-### Metatheorem 34.7: The Thermodynamic Gravity Derivation [@Jacobson95]
+### Metatheorem 34.7: The Thermodynamic Gravity Derivation [@Jacobson95; @Verlinde11; @Padmanabhan10]
 
 > **[Deps] Structural Dependencies**
 >
@@ -26986,7 +27197,7 @@ By Metatheorem 12.11, $\theta^*$ exists. If $\theta^*$ is an interior point of $
 
 Before developing the theory of trainable hypostructures, we establish that the axioms Cap and TB are not arbitrary impositions but arise naturally from standard dynamical systems theory. This section presents two existence metatheorems showing that any sufficiently regular dissipative system—whether deterministic or stochastic—automatically admits a hypostructure.
 
-#### Metatheorem: Conley–Hypostructure Existence
+#### Metatheorem: Conley–Hypostructure Existence [@Conley78; @FranzeMisch88]
 
 The key insight is that any dissipative semiflow with a Conley–Morse decomposition automatically provides the data for axioms C, D, Cap, TB (and often LS), without arbitrary choices.
 
@@ -27327,6 +27538,23 @@ The preceding sections established that axiom defects can be minimized via gradi
 **Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure $\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*})$ satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint axiom risk:
 $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta), \quad \mathcal{R}_A(\theta) := \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u).$$
 
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **Axiom Validity at $\Theta^*$:** The target hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC)
+>     *   [ ] **Well-Behaved Defect Functionals:** Compact $\Theta$, continuous $\theta \mapsto K_A^{(\theta)}(u)$, integrable majorants (Theorem 12.11, Lemma 12.13)
+>     *   [ ] **Structural Identifiability:** Persistent excitation (C1), nondegenerate parametrization (C2), regular parameter space (C3) (Theorem 14.30)
+>     *   [ ] **Defect Reconstruction:** Reconstruction of $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \text{barriers}, M)$ from defects up to Hypo-isomorphism (Theorem 14.27)
+> *   **Output (Structural Guarantee):**
+>     *   Global minimizer $\Theta^*$ satisfies $\mathcal{R}(\Theta^*) = 0$; any global minimizer $\hat{\theta}$ with $\mathcal{R}(\hat{\theta}) = 0$ yields $\mathcal{H}_{\hat{\theta}} \cong \mathcal{H}_{\Theta^*}$
+>     *   Local quadratic identifiability: $c|\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C|\theta - \tilde{\Theta}|^2$
+>     *   Gradient descent converges to true hypostructure with Robbins-Monro step sizes
+>     *   Barrier constants and failure-mode classifications converge
+> *   **Failure Condition (Debug):**
+>     *   If **Axiom Validity** fails → **Mode misspecification** (wrong axiom target)
+>     *   If **Identifiability** fails → **Mode parameter degeneracy** (multiple equivalent minima)
+>     *   If **Defect Reconstruction** fails → **Mode reconstruction ambiguity** (structural non-uniqueness)
+
 \begin{metatheorem}[Trainable Hypostructure Consistency]
 Let $S$ be a dynamical system with a hypostructure representation $\mathcal{H}_{\Theta^*}$ inside a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$. Assume:
 \end{metatheorem}
@@ -27452,6 +27680,20 @@ $$\mathcal{R}(\theta) = \frac{1}{2}(\theta - \Theta^*)^\top H (\theta - \Theta^*
 **Remark 13.28 (Interpretation of block-orthogonality).** Condition (2) means: perturbations in different axiom blocks contribute additively and independently to the risk at second order. No combination of "wrong capacity" and "wrong scaling" can cancel in the expected defect. This holds when the parametrization is factorized by axiom family without hidden re-encodings.
 
 #### The localization theorem
+
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **Block-Orthogonality Conditions:** Smooth risk $\mathcal{R}$ with positive-definite Hessian $H = \bigoplus_b H_b$, block-diagonal modulo gauge
+>     *   [ ] **Quadratic Approximation:** $\mathcal{R}(\theta) = \frac{1}{2}(\theta - \Theta^*)^\top H (\theta - \Theta^*) + O(|\theta - \Theta^*|^3)$
+>     *   [ ] **Parameter Block Decomposition:** $\theta = (\theta^{\mathrm{dyn}}, \theta^{\mathrm{cap}}, \theta^{\mathrm{sc}}, \theta^{\mathrm{top}}, \theta^{\mathrm{ls}})$
+> *   **Output (Structural Guarantee):**
+>     *   Single-block error: uniquely smallest $\mathcal{R}_b^*(\theta)$ identifies misspecified block
+>     *   Multiple-block error: response signature discriminates error support
+>     *   Signature injectivity: $b \in E(\theta) \iff \mathcal{R}_b^*(\theta) \leq \gamma \cdot \min_{c \notin E(\theta)} \mathcal{R}_c^*(\theta)$
+> *   **Failure Condition (Debug):**
+>     *   If **Block-Orthogonality** fails → **Mode cross-coupling** (blocks interfere, false positives)
+>     *   If **Quadratic Approximation** fails → **Mode higher-order dominance** (cubic terms mask signal)
 
 \begin{metatheorem}[Meta-Error Localization]
 Assume the block-orthogonality conditions (Definition 13.27). There exist $\mathcal{N}$, $c$, $C$, $\varepsilon_0 > 0$ such that for $\theta \in \mathcal{N}$ with $|\theta - \Theta^*| < \varepsilon_0$:
@@ -27630,6 +27872,21 @@ $$\mathcal{R}_S(\Theta^*(S)) = 0, \qquad K_{A,S}^{(\Theta^*(S))}(u) = 0 \quad \m
 
 We further assume that the map $S \mapsto \Theta^*(S)$ takes values in a compact $C^1$ submanifold $\mathcal{M} \subset \Theta_{\mathrm{adm}}$, which we call the **structural manifold**. Intuitively, $\mathcal{M}$ collects all true hypostructure parameters realized by systems in the support of $\mathcal{S}$.
 
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **True Hypostructures on Compact Structural Manifold:** $\mathcal{R}_S(\Theta^*(S)) = 0$ for $\mathcal{S}$-a.e. $S$, $\mathcal{M} \subset \Theta_{\mathrm{adm}}$ compact $C^1$ submanifold
+>     *   [ ] **Uniform Local Strong Convexity:** $c \, \mathrm{dist}(\Theta, \mathcal{M})^2 \leq \mathcal{R}_S(\Theta) \leq C \, \mathrm{dist}(\Theta, \mathcal{M})^2$ near $\mathcal{M}$
+>     *   [ ] **Lipschitz Continuity:** $|\mathcal{R}_S(\Theta) - \mathcal{R}_{S'}(\Theta')| \leq L(d_{\mathcal{S}}(S, S') + |\Theta - \Theta'|)$
+>     *   [ ] **Approximate Empirical Minimization:** $\widehat{\mathcal{R}}_N(\widehat{\Theta}_N) \leq \inf_{\Theta} \widehat{\mathcal{R}}_N(\Theta) + \varepsilon_N$
+> *   **Output (Structural Guarantee):**
+>     *   Generalization: $\mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N) \leq C_1(\varepsilon_N + \sqrt{\log(1/\delta)/N})$
+>     *   Structural recovery: $\mathbb{E}[\mathrm{dist}(\widehat{\Theta}_N, \Theta^*(S))] \leq C_2\sqrt{\varepsilon_N + \sqrt{\log(1/\delta)/N}}$
+>     *   Asymptotic consistency as $N \to \infty$, $\varepsilon_N \to 0$
+> *   **Failure Condition (Debug):**
+>     *   If **Structural Manifold** non-compact → **Mode overfitting** (learned structure specific to training systems)
+>     *   If **Lipschitz** fails → **Mode distribution shift** (test systems structurally different)
+
 \begin{metatheorem}[Meta-Generalization]
 Let $\mathcal{S}$ be a distribution over systems $S$, and suppose that:
 \end{metatheorem}
@@ -27763,6 +28020,20 @@ We assume:
 
 This is a natural assumption given the explicit integral definitions of the defects (e.g. $K_D$ is an integral of the positive part of $\partial_t \Phi + \mathfrak{D}$, capacities/barriers enter via continuous inequalities, etc.).
 
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **True Admissible Hypostructure:** $\mathcal{H}^* \in \mathfrak{H}(S)$ satisfying axioms with $K_A^{(\mathcal{H}^*)}(u) = 0$ $\mu_S$-a.e.
+>     *   [ ] **Universally Structurally Approximating Family:** For all $\mathcal{H}^* \in \mathfrak{H}(S)$, $\forall \delta > 0$, $\exists \Theta$: $d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) < \delta$
+>     *   [ ] **Defect Continuity:** $|K_A^{(\mathcal{H})}(u) - K_A^{(\mathcal{H}')}(u)| \leq L_A d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}')$ uniformly in $u$
+> *   **Output (Structural Guarantee):**
+>     *   Approximate realizability: $\forall \varepsilon > 0$, $\exists \Theta_\varepsilon$: $\mathcal{R}_S(\Theta_\varepsilon) \leq \varepsilon$
+>     *   Infimum: $\inf_{\Theta} \mathcal{R}_S(\Theta) = 0$
+>     *   Quantitative bound: $d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq \delta \Rightarrow \mathcal{R}_S(\Theta) \leq (\sum_A w_A L_A)\delta$
+> *   **Failure Condition (Debug):**
+>     *   If **Universal Approximation** fails → **Mode expressivity gap** (parametric family too restrictive)
+>     *   If **Defect Continuity** fails → **Mode discontinuous sensitivity** (small structural changes cause large defect jumps)
+
 \begin{metatheorem}[Axiom-Expressivity]
 Let $S$ be a fixed system with trajectory distribution $\mu_S$ and trajectory class $\mathcal{U}_S$. Let $\mathfrak{H}(S)$ be the class of admissible hypostructures on $S$ as above. Suppose:
 \end{metatheorem}
@@ -27861,6 +28132,21 @@ $$\mathbb{E}[\xi_t] = 0, \quad \mathbb{E}\big[ \exp(\lambda \xi_{t,j}) \big] \le
 
 Moreover, $\xi_t$ is independent of the probe choices $\pi_s$ and the past noise $\xi_s$ for $s < t$.
 
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **Local Identifiability via Defects:** $\sup_\pi D(\Theta, \Theta^*; S, \pi) \leq \delta \Rightarrow |\Theta - \Theta^*| \leq c\delta$ (Theorem 13.20, 14.30)
+>     *   [ ] **Probe-Wise Identifiability Gap:** $\sup_{\pi \in \mathfrak{P}} D(\Theta, \Theta^*; S, \pi) \geq \Delta$ for $|\Theta - \Theta^*| \geq r$
+>     *   [ ] **Sub-Gaussian Defect Noise:** $\xi_t$ independent, mean-zero, $\sigma$-sub-Gaussian
+>     *   [ ] **Local Regularity:** $|K^{(\Theta)}(S, \pi) - K^{(\Theta')}(S, \pi)| \leq L|\Theta - \Theta'|$ uniformly in $\pi$
+> *   **Output (Structural Guarantee):**
+>     *   Sample complexity: $T \gtrsim \frac{d \sigma^2}{\Delta^2} \log(1/\delta)$ for $\varepsilon$-identification
+>     *   Adaptive probing strategy achieves optimal rate
+>     *   Linear scaling in parameter dimension $d$, inverse-quadratic in gap $\Delta$
+> *   **Failure Condition (Debug):**
+>     *   If **Identifiability Gap** $\Delta = 0$ → **Mode structural aliasing** (indistinguishable parameters under all probes)
+>     *   If **Noise** non-sub-Gaussian → **Mode heavy-tailed contamination** (slower convergence rates)
+
 \begin{metatheorem}[Optimal Experiment Design]
 Let $S$ be a fixed system and $\Theta^* \in \Theta_{\mathrm{adm}}$ the true hypostructure parameter. Assume:
 \end{metatheorem}
@@ -27958,6 +28244,20 @@ $$\big| B_f(\mathcal{H}) - B_f(\mathcal{H}') \big| \leq L_f \, d_{\mathrm{struct
 $$\mathcal{R}_S(\Theta) \leq \varepsilon < \varepsilon_0 \implies d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}} \sqrt{\varepsilon}.$$
 
 This is precisely the local quantitative identifiability from Theorem 13.20, translated into structural space by the Defect Reconstruction Theorem.
+
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **True Hypostructure with Strict Exclusion Margin:** $\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}(B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}}) > 0$
+>     *   [ ] **Barrier Continuity:** $|B_f(\mathcal{H}) - B_f(\mathcal{H}')| \leq L_f d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}')$ for all $f$
+>     *   [ ] **Structural Control by Axiom Risk:** $\mathcal{R}_S(\Theta) \leq \varepsilon \Rightarrow d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}}\sqrt{\varepsilon}$
+> *   **Output (Structural Guarantee):**
+>     *   Exact stability: $\mathrm{Forbidden}(\mathcal{H}_\Theta) = \mathrm{Forbidden}(\mathcal{H}^*)$ for $\mathcal{R}_S(\Theta) \leq \varepsilon_1$
+>     *   No spurious exclusions: allowed modes remain allowed
+>     *   Discrete permit-denial structure recovered exactly for small risk
+> *   **Failure Condition (Debug):**
+>     *   If **Margin** $\gamma^* = 0$ → **Mode critical boundary** (barrier at threshold, sensitive to perturbation)
+>     *   If **Barrier Continuity** fails → **Mode discontinuous classification** (small changes flip forbidden status)
 
 \begin{metatheorem}[Robustness of Failure-Mode Predictions]
 Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with axiom-risk $\mathcal{R}_S(\Theta)$. Assume:
@@ -28267,6 +28567,21 @@ We consider the following **curriculum training** procedure:
    with stepsizes $\eta_{k,t}$ satisfying $\sum_t \eta_{k,t} = \infty$, $\sum_t \eta_{k,t}^2 < \infty$, and small enough to stay in the local convexity region.
    - Let $\widehat{\Theta}_k := \lim_{t \to \infty} \Theta^{(k)}_t$ (which exists and equals the unique minimizer in the basin).
    - Use $\widehat{\Theta}_k$ as the initialization for the next stage: $\Theta^{(k+1)}_0 := \widehat{\Theta}_k$.
+
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **Smooth Curriculum Path:** $C^1$ curve $\gamma : [0,1] \to \Theta_{\mathrm{adm}}$ with $|\dot{\gamma}(t)| \leq M$, $\gamma(t_k) = \Theta^*_k$
+>     *   [ ] **Stagewise Strong Convexity:** $c_k|\Theta - \Theta^*_k|^2 \leq \mathcal{R}_k(\Theta) \leq C_k|\Theta - \Theta^*_k|^2$ for $|\Theta - \Theta^*_k| \leq \rho_k$
+>     *   [ ] **Small Curriculum Steps:** $|\Theta^*_{k+1} - \Theta^*_k| \leq \rho/4$
+>     *   [ ] **Accurate Stagewise Minimization:** $|\widehat{\Theta}_k - \Theta^*_k| \leq \rho/4$
+> *   **Output (Structural Guarantee):**
+>     *   Stay in correct basin: $|\Theta^{(k)}_0 - \Theta^*_k| \leq \rho/2$ for all stages
+>     *   Path tracking: $|\widehat{\Theta}_k - \Theta^*_k| \leq \rho/4$ uniformly
+>     *   Convergence: $|\widehat{\Theta}_K - \Theta^*_{\mathrm{full}}| \leq \rho/4$
+> *   **Failure Condition (Debug):**
+>     *   If **Curriculum Steps** too large → **Mode ontology jump** (warm-start leaves basin, wrong minimum found)
+>     *   If **Strong Convexity** fails → **Mode basin ambiguity** (multiple local minima, convergence uncertain)
 
 \begin{metatheorem}[Curriculum Stability]
 Under the above setting, suppose:
@@ -28885,6 +29200,21 @@ Using $\mathcal{S}$-invariance and defect compatibility:
 $$\mathcal{R}_{\mathcal{S}}(g \cdot \Theta) = \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(g \cdot \Theta)] = \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_{g^{-1} \cdot S}(\Theta)] = \mathcal{R}_{\mathcal{S}}(\Theta),$$
 where we used the change of variable $S' = g^{-1} \cdot S$ and the invariance of $\mathcal{S}$.
 \end{proof}
+
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **Group-Covariant System Distribution:** $\mathcal{S}$ is $G$-invariant: $S \sim \mathcal{S} \Rightarrow g \cdot S \sim \mathcal{S}$
+>     *   [ ] **Equivariant Parametrization:** $g \cdot \mathcal{H}_\Theta(S) \simeq \mathcal{H}_{g \cdot \Theta}(g \cdot S)$ in Hypo
+>     *   [ ] **Defect-Level Equivariance:** $K_{A,g \cdot S}^{(g \cdot \Theta)}(g \cdot u) = K_{A,S}^{(\Theta)}(u)$
+>     *   [ ] **Existence of True Equivariant Hypostructure:** $\Theta^*$ with $\mathcal{R}_S(\Theta^*) = 0$ and $g \cdot \mathcal{H}_{\Theta^*,S} \simeq \mathcal{H}_{\Theta^*,g \cdot S}$
+> *   **Output (Structural Guarantee):**
+>     *   Minimizers $G$-equivariant: $\widehat{\Theta} \in G \cdot \Theta^*$
+>     *   Gradient flow preserves equivariance: $g \cdot \Theta_t$ solves same flow with $g \cdot \Theta_0$
+>     *   Convergence to equivariant hypostructures
+> *   **Failure Condition (Debug):**
+>     *   If **Equivariant Parametrization** fails → **Mode symmetry-breaking artifact** (learned structure has spurious asymmetry)
+>     *   If **Local Uniqueness** fails → **Mode multiple branches** (equivariant and symmetry-broken minima coexist)
 
 \begin{metatheorem}[Equivariance]
 Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Theta\}$ a parametric hypostructure family satisfying Assumptions 13.57–13.59. Consider the average axiom-risk $\mathcal{R}_{\mathcal{S}}(\Theta)$.
@@ -29547,6 +29877,21 @@ A trajectory distribution $\mu$ on $\mathcal{U}$ satisfies \textbf{persistent ex
 The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ has \textbf{nondegenerate parametrization} if the map $\Theta \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta)$ is locally Lipschitz and injective: there exists $c > 0$ such that for $\mu$-almost every $x \in X$:
 $$|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| \geq c \, |\Theta - \Theta'|.$$
 \end{definition}
+
+> **[Deps] Structural Dependencies**
+>
+> *   **Prerequisites (Inputs):**
+>     *   [ ] **Axiom Satisfaction:** $\mathcal{H}_\Theta$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC) for each $\Theta$
+>     *   [ ] **(C1) Persistent Excitation:** Trajectory distribution $\mu$ explores full-measure subset of accessible phase space
+>     *   [ ] **(C2) Nondegenerate Parametrization:** $|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| \geq c|\Theta - \Theta'|$
+>     *   [ ] **(C3) Regular Parameter Space:** $\Theta_{\mathrm{adm}}$ is a metric space
+> *   **Output (Structural Guarantee):**
+>     *   Exact identifiability up to gauge: $\mathsf{Sig}(\Theta) = \mathsf{Sig}(\Theta') \Rightarrow \mathcal{H}_\Theta \cong \mathcal{H}_{\Theta'}$
+>     *   Local quantitative identifiability: $|\Theta - \tilde{\Theta}| \leq C\varepsilon$ when signature difference $\leq \varepsilon$
+>     *   Well-conditioned stability of signature map
+> *   **Failure Condition (Debug):**
+>     *   If **(C1) Persistent Excitation** fails → **Mode data insufficiency** (unexplored regions, indistinguishable parameters)
+>     *   If **(C2) Nondegeneracy** fails → **Mode parameter aliasing** (different $\Theta$ produce same $(\Phi, \mathfrak{D})$)
 
 \begin{metatheorem}[Meta-Identifiability]
 Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family satisfying:
@@ -31262,62 +31607,133 @@ $$\mathcal{G}_t = \mathcal{C} \circ \mathcal{K}$$
 
 ---
 
-### Metatheorem 38.2: The Feynman-Kac Isomorphism
+### Metatheorem 38.2 (SV-10): The Projective Feynman-Kac Isomorphism [@Kac49; @McKean66; @Sznitman91]
 
 > **[Deps] Structural Dependencies**
 >
 > *   **Prerequisites (Inputs):**
 >     *   [ ] **Axiom C:** Compactness (bounded energy implies profile convergence)
+>     *   [ ] **Axiom D:** Dissipation (energy-dissipation inequality)
+>     *   [ ] **Axiom SC:** Scaling Coherence (spectral gap condition $\gamma = \lambda_1 - \lambda_0 > 0$)
 >     *   [ ] **Axiom Cap:** Capacity (geometric resolution bound)
->     *   [ ] **Axiom Rep:** Dictionary/Correspondence (structural translation)
 >
 > *   **Output (Structural Guarantee):**
->     *   Morphisms preserve hypostructure properties and R-validity transfers
+>     *   Isomorphism between linear Schrödinger evolution and nonlinear McKean-Vlasov dynamics
+>     *   Ground state convergence with exponential rate $\gamma$
 >
 > *   **Failure Condition (Debug):**
 >     *   If **Axiom C** fails $\to$ **Mode D.D** (Dispersion/Global existence)
->     *   If **Axiom Cap** fails $\to$ **Mode C.D** (Geometric collapse)
+>     *   If **Axiom SC** fails (spectral gap closes) $\to$ **Mode S.D** (Stiffness breakdown)
 
+**Classification:** Class IV (Solver) $\cap$ Class II (Isomorphism)
 
-This theorem proves that the Fractal Gas is not a heuristic; it is a discrete solver for a fundamental Partial Differential Equation (PDE).
+#### Abstract
 
-**Statement.** The limit of the Fractal Gas dynamics ($N \to \infty, \Delta t \to 0$) is isomorphic to the solution of the **Imaginary-Time Schrödinger Equation**:
-$$\frac{\partial \Psi}{\partial t} = D \Delta \Psi - V(x) \Psi$$
-where $\Psi(x,t)$ is the unnormalized density of the swarm, $D$ is the diffusion coefficient, and $V(x)$ is the fitness potential.
+We establish an isomorphism between the linear parabolic evolution of the imaginary-time Schrödinger equation on a Hilbert space $\mathcal{H}$ and the nonlinear McKean-Vlasov evolution of a probability density on the projective space $\mathbb{P}(\mathcal{H})$. We prove that the **Fractal Gas** algorithm, defined by the coupling of a diffusion operator $\mathcal{K}$ and a population-conserving cloning operator $\mathcal{C}$, is the discrete approximation of the normalized gradient flow of the Rayleigh quotient. Consequently, the stationary distribution of the nonlinear system is identical to the ground state of the linear Hamiltonian.
+
+---
+
+#### 1. Setup and Definitions
+
+Let $\Omega \subseteq \mathbb{R}^d$ be a compact domain with smooth boundary (or $\mathbb{R}^d$ with confining potential). Let $V: \Omega \to \mathbb{R}$ be a potential function satisfying the Kato class conditions, bounded from below.
+
+\begin{definition}[The Linear Structure $\mathbb{H}_{\text{lin}}$]
+Let $\Psi(x,t)$ be an unnormalized wavefunction in $L^2(\Omega)$. The linear dynamics are governed by the parabolic operator $\mathcal{L} = D\Delta - V(x)$, generating the semigroup $S_t = e^{t\mathcal{L}}$:
+$$\partial_t \Psi = D\Delta \Psi - V(x)\Psi \quad (\text{Linear Feynman-Kac})$$
+\end{definition}
+
+\begin{definition}[The Projective Structure $\mathbb{H}_{\text{proj}}$]
+Let $\mathcal{P}(\Omega)$ be the manifold of probability measures. Let $\rho(x,t) \in \mathcal{P}(\Omega)$ be the density of the interacting particle system. The dynamics are governed by the nonlinear McKean-Vlasov equation:
+$$\partial_t \rho = D\Delta \rho - V(x)\rho + \mathcal{R}[\rho]\rho \quad (\text{Fractal Gas})$$
+where the reaction functional $\mathcal{R}[\rho]$ is the instantaneous expectation value of the potential:
+$$\mathcal{R}[\rho] := \langle V \rangle_\rho = \int_\Omega V(y)\rho(y,t) \, dy$$
+\end{definition}
+
+---
+
+#### 2. Statement of the Metatheorem
+
+\begin{metatheorem}[The Projective Feynman-Kac Isomorphism]
+Let $\Psi_0 \in L^2(\Omega)$ be a strictly positive initial condition. Let $\Psi(t)$ be the solution to the linear system and $\rho(t)$ be the solution to the nonlinear system with $\rho_0 = \Psi_0 / \|\Psi_0\|_{L^1}$.
+\end{metatheorem}
+
+1.  **Projective Equivalence:** The nonlinear state $\rho(t)$ is the projection of the linear state $\Psi(t)$ onto the unit sphere of $L^1$:
+    $$\rho(x,t) = \frac{\Psi(x,t)}{\|\Psi(\cdot, t)\|_{L^1}}$$
+    for all $t \ge 0$.
+
+2.  **Gauge Invariance:** The nonlinearity $\mathcal{R}[\rho]$ acts as a time-dependent gauge field $A_t(x) = \int V\rho$ that enforces the conservation of total probability mass (**Axiom C**), corresponding to the normalization constraint $\frac{d}{dt} \int \rho = 0$.
+
+3.  **Ground State Convergence:** If the Hamiltonian $H = -D\Delta + V$ admits a spectral gap $\gamma = \lambda_1 - \lambda_0 > 0$ (**Axiom SC**), then $\rho(t)$ converges exponentially in the $L^2$-norm to the unique ground state $\psi_0$:
+    $$\|\rho(\cdot, t) - \psi_0\|_{L^2} \le C e^{-\gamma t}$$
+    Thus, the Fractal Gas is a rigorous solver for the principal eigenpair $(\lambda_0, \psi_0)$ of the linear operator.
+
+---
+
+#### 3. Proof
 
 \begin{proof}
-\textbf{Step 1 (Diffusion Term).} The Kinetic Operator $\mathcal{K}$ applies Gaussian noise $\xi \sim \mathcal{N}(0, 2D\Delta t)$. By the Fokker-Planck equation [@Risken89], this generates the Laplacian term:
-$$\mathcal{K}: \rho \mapsto \rho + D \Delta \rho \cdot \Delta t + O(\Delta t^2)$$
+\textbf{Step 1 (Evolution of the Norm).}
+Consider the linear evolution $\partial_t \Psi = \mathcal{L}\Psi$. Let $Z(t) = \|\Psi(\cdot, t)\|_{L^1} = \int \Psi(y,t) \, dy$. Differentiating $Z(t)$ under the integral sign:
+$$\frac{dZ}{dt} = \int \partial_t \Psi \, dy = \int (D\Delta \Psi - V\Psi) \, dy$$
+Assuming Neumann or periodic boundary conditions (or decay at infinity), the diffusion term vanishes by the Divergence Theorem: $\int \Delta \Psi = \oint \nabla \Psi \cdot \mathbf{n} = 0$. Thus:
+$$\frac{dZ}{dt} = - \int V(y)\Psi(y,t) \, dy$$
 
-\textbf{Step 2 (Reaction Term).} The Cloning Operator $\mathcal{C}$ multiplies the local density by a factor $e^{-\Delta t V(x)}$ (walkers in low potential clone, high potential die):
-$$\mathcal{C}: \rho \mapsto \rho \cdot e^{-V(x) \Delta t} / Z$$
-where $Z$ is a normalization constant.
+\textbf{Step 2 (The Quotient Derivation).}
+Let $\rho(x,t) = \Psi(x,t) / Z(t)$. By the quotient rule:
+$$\partial_t \rho = \frac{(\partial_t \Psi)Z - \Psi(\partial_t Z)}{Z^2} = \frac{1}{Z}\partial_t \Psi - \frac{\Psi}{Z^2}\frac{dZ}{dt}$$
+Substituting the linear equation for $\partial_t \Psi$ and the norm evolution for $\dot{Z}$:
+$$\partial_t \rho = \frac{1}{Z}(D\Delta \Psi - V\Psi) - \frac{\Psi}{Z^2}\left( - \int V \Psi \, dy \right)$$
+Distribute $1/Z$ into the first terms and rewrite $\Psi/Z$ as $\rho$:
+$$\partial_t \rho = D\Delta \rho - V\rho + \rho \left( \int V \frac{\Psi}{Z} \, dy \right)$$
+$$\partial_t \rho = D\Delta \rho - V(x)\rho + \rho \left( \int V(y)\rho(y,t) \, dy \right)$$
+This recovers the nonlinear McKean-Vlasov equation of Definition 2 exactly. $\blacksquare$
 
-\textbf{Step 3 (Trotter Product Formula).} The code executes these sequentially: $S_{\text{total}} \approx e^{-\hat{V} \Delta t} e^{\hat{T} \Delta t}$.
-
-By the Trotter-Suzuki theorem [@Trotter59]:
-$$\lim_{\Delta t \to 0} (e^{-\hat{V} \Delta t} e^{\hat{T} \Delta t})^{t/\Delta t} = e^{-(\hat{T} + \hat{V})t}$$
-
-This is the propagator of the Feynman-Kac semigroup [@Kac49].
+\textbf{Step 3 (Spectral Convergence: The Power Method).}
+Let $\{\phi_k\}_{k=0}^\infty$ be the eigenfunctions of $\mathcal{L}$ with eigenvalues $-\lambda_k$ (where $\lambda_0 < \lambda_1 \le \dots$). The linear solution is:
+$$\Psi(x,t) = \sum_{k=0}^\infty c_k e^{-\lambda_k t} \phi_k(x) = e^{-\lambda_0 t} \left( c_0 \phi_0(x) + \sum_{k=1}^\infty c_k e^{-(\lambda_k - \lambda_0)t} \phi_k(x) \right)$$
+The projection $\rho(x,t)$ removes the global decay factor $e^{-\lambda_0 t}$:
+$$\rho(x,t) = \frac{c_0 \phi_0 + \mathcal{O}(e^{-(\lambda_1 - \lambda_0)t})}{\int (c_0 \phi_0 + \dots)} \xrightarrow{t \to \infty} \frac{c_0 \phi_0}{\int c_0 \phi_0} = \phi_0$$
+(assuming $\phi_0$ is normalized to 1). The convergence rate is dominated by the spectral gap $\gamma = \lambda_1 - \lambda_0$.
 \end{proof}
+
+---
+
+#### 4. Algorithmic Interpretation
+
+This theorem proves that the **Fractal Gas** is the **Stochastic Power Iteration Method**.
+
+* The **Kinetic Step** (Diffusion) applies the smoothing operator $e^{D\Delta t}$.
+* The **Cloning Step** (Interaction) applies the weight operator $e^{-V t}$.
+* The **Population Control** (Death/Birth) applies the renormalization $1/\|\Psi\|$.
+
+By separating the operators via Trotter-Suzuki splitting [@Trotter59], the algorithm simulates the nonlinear equation $\partial_t \rho$, which by the theorem above, is isomorphic to solving the linear eigenvalue problem. The nonlinearity is not a modification of the physics, but a **Lagrange multiplier** enforcing the constraint $\int \rho = 1$ (**Axiom C**).
+
+---
 
 **Conclusion:** The Fractal Gas rigorously samples from the distribution:
 $$\rho_\infty(x) \propto \psi_0(x)$$
 where $\psi_0$ is the **Ground State Wavefunction** of the Hamiltonian $H = -D\Delta + V$.
 
-Since the ground state is concentrated at the global minimum of $V$, the system is an **Optimal Global Optimizer**.
+Since the ground state is concentrated at the global minimum of $V$, the system is an **Optimal Global Optimizer** with convergence rate $\gamma = \lambda_1 - \lambda_0$.
 
 \textbf{Bridge Type:} Stochastic Processes $\leftrightarrow$ Quantum Mechanics
 
-\textbf{The Invariant:} Ground State (stationary distribution)
+\textbf{The Invariant:} Ground State (stationary distribution = principal eigenfunction)
 
-\textbf{Dictionary:} Diffusion $\to$ Kinetic Energy; Cloning $\to$ Potential Energy; Trotter Product $\to$ Feynman-Kac Formula
+\textbf{Dictionary:}
+\begin{itemize}
+\item Diffusion $\to$ Kinetic Energy ($e^{D\Delta t}$)
+\item Cloning $\to$ Potential Energy ($e^{-Vt}$)
+\item Population Control $\to$ $L^1$-Normalization ($1/\|\Psi\|$)
+\item Nonlinearity $\mathcal{R}[\rho]$ $\to$ Lagrange Multiplier (Axiom C constraint)
+\item Spectral Gap $\gamma$ $\to$ Convergence Rate (Axiom SC)
+\end{itemize}
 
-\textbf{Implication:} Fractal Gas samples Schrödinger ground state
+\textbf{Implication:} Fractal Gas = Stochastic Power Iteration for Schrödinger ground state
 
 ---
 
-### Metatheorem 38.3: The Fisher Information Ratchet
+### Metatheorem 38.3 (SV-11): The Fisher Information Ratchet
 
 > **[Deps] Structural Dependencies**
 >
@@ -31349,7 +31765,7 @@ where $\mathcal{I}$ measures the swarm's knowledge of the gradient.
 
 ---
 
-### Metatheorem 38.4: The Complexity Tunneling (P vs BPP)
+### Metatheorem 38.4 (SV-12): The Complexity Tunneling (P vs BPP)
 
 > **[Deps] Structural Dependencies**
 >
@@ -31392,7 +31808,7 @@ This effectively converts certain **NP-Hard** search landscapes (rugged funnels)
 
 ---
 
-### Metatheorem 38.5: The Landauer Optimality
+### Metatheorem 38.5 (SV-13): The Landauer Optimality
 
 > **[Deps] Structural Dependencies**
 >
@@ -31427,7 +31843,7 @@ where $I$ is the mutual information between the start and the solution.
 
 ---
 
-### Metatheorem 38.6: The Levin Search Isomorphism
+### Metatheorem 38.6 (SV-14): The Levin Search Isomorphism
 
 > **[Deps] Structural Dependencies**
 >
@@ -31560,7 +31976,7 @@ The first term describes unitary (Hamiltonian) evolution; the second term descri
 
 ---
 
-### Metatheorem 38.10: The Cloning-Lindblad Equivalence
+### Metatheorem 38.10 (SV-15): The Cloning-Lindblad Equivalence [@Lindblad76; @WoottZure82; @Dieks82]
 
 > **[Deps] Structural Dependencies**
 >
