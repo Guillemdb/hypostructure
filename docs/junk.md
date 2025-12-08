@@ -1,111 +1,118 @@
 
 ```mermaid
 graph TD
-    Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. ENERGY CHECK</b><br>Is Energy Bounded?"}
+    Start(["<b>REGULARITY ANALYSIS</b>"]) --> EnergyCheck{"<b>1. A PRIORI ESTIMATES</b><br>Is Energy Bounded?"}
 
     %% --- LEVEL 1: CONSERVATION ---
-    EnergyCheck -- "No" --> BarrierSat{"<b>SATURATION BARRIER</b><br>Is Drift Controlled?<br><i>#91;Thm 6.2#93;</i>"}
+    EnergyCheck -- "No" --> BarrierSat{"<b>CONSERVATION LAWS</b><br>Is Drift Controlled?"}
     BarrierSat -- "Yes #40;Blocked#41;" --> ZenoCheck
-    BarrierSat -- "No #40;Breached#41;" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
+    BarrierSat -- "No #40;Breached#41;" --> ModeCE["<b>ENERGY BLOW-UP</b>"]
 
-    EnergyCheck -- "Yes" --> ZenoCheck{"<b>2. CAUSAL CHECK</b><br>Are Events Finite?"}
-    ZenoCheck -- "No" --> BarrierCausal{"<b>CAUSAL CENSOR</b><br>Is Depth Finite?<br><i>#91;Thm 85#93;</i>"}
-    BarrierCausal -- "No #40;Breached#41;" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
+    EnergyCheck -- "Yes" --> ZenoCheck{"<b>2. ZENO EXCLUSION</b><br>Are Events Well-Founded?"}
+    ZenoCheck -- "No" --> BarrierCausal{"<b>WELL-FOUNDEDNESS</b><br>Is Depth Finite?"}
+    BarrierCausal -- "No #40;Breached#41;" --> ModeCC["<b>ZENO SINGULARITY</b>"]
     BarrierCausal -- "Yes #40;Blocked#41;" --> CompactCheck
 
-    ZenoCheck -- "Yes" --> CompactCheck{"<b>3. COMPACTNESS</b><br>Does it Concentrate?"}
+    ZenoCheck -- "Yes" --> CompactCheck{"<b>3. CONCENTRATION-COMPACTNESS</b><br>Does Energy Concentrate?"}
 
     %% --- LEVEL 2: DUALITY ---
-    CompactCheck -- "No #40;Scatters#41;" --> BarrierScat{"<b>SCATTERING BARRIER</b><br>Is Interaction Finite?<br><i>#91;Thm 47#93;</i>"}
-    BarrierScat -- "Yes #40;Benign#41;" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
-    BarrierScat -- "No #40;Pathological#41;" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
+    CompactCheck -- "No #40;Scatters#41;" --> BarrierScat{"<b>DISPERSIVE ESTIMATES</b><br>Is Interaction Finite?"}
+    BarrierScat -- "Yes #40;Benign#41;" --> ModeDD["<b>GLOBAL EXISTENCE</b><br><i>#40;Scattering#41;</i>"]
+    BarrierScat -- "No #40;Pathological#41;" --> ModeCD_Alt["<b>CONCENTRATION SINGULARITY</b><br><i>#40;Via Escape#41;</i>"]
 
-    CompactCheck -- "Yes" --> Profile["<b>Canonical Profile V Emerges</b>"]
+    CompactCheck -- "Yes" --> Profile["<b>PROFILE DECOMPOSITION</b>"]
 
-    %% --- LEVEL 3: SYMMETRY ---
-    Profile --> ScaleCheck{"<b>4. SCALING CHECK</b><br>Is it Subcritical?"}
+    %% --- LEVEL 3: CRITICALITY ---
+    Profile --> ScaleCheck{"<b>4. CRITICALITY</b><br>Is Scaling Subcritical?"}
 
-    ScaleCheck -- "No #40;Supercritical#41;" --> BarrierTypeII{"<b>TYPE II BARRIER</b><br>Is Renorm Cost Infinite?<br><i>#91;Thm 56#93;</i>"}
-    BarrierTypeII -- "No #40;Breached#41;" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
+    ScaleCheck -- "No #40;Supercritical#41;" --> BarrierTypeII{"<b>SUBCRITICAL WELL-POSEDNESS</b><br>Is Renorm Cost Infinite?"}
+    BarrierTypeII -- "No #40;Breached#41;" --> ModeSE["<b>TYPE I BLOW-UP</b>"]
     BarrierTypeII -- "Yes #40;Blocked#41;" --> ParamCheck
 
-    ScaleCheck -- "Yes #40;Safe#41;" --> ParamCheck{"<b>5. PARAMETER CHECK</b><br>Are Constants Stable?"}
-    ParamCheck -- "No" --> BarrierVac{"<b>VACUUM BARRIER</b><br>Is Phase Stable?<br><i>#91;Thm 9.150#93;</i>"}
-    BarrierVac -- "No #40;Breached#41;" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
+    ScaleCheck -- "Yes #40;Safe#41;" --> ParamCheck{"<b>5. STRUCTURAL STABILITY</b><br>Are Parameters Stable?"}
+    ParamCheck -- "No" --> BarrierVac{"<b>PHASE STABILITY</b><br>Is Phase Stable?"}
+    BarrierVac -- "No #40;Breached#41;" --> ModeSC["<b>STRUCTURAL INSTABILITY</b>"]
     BarrierVac -- "Yes #40;Blocked#41;" --> GeomCheck
 
-    ParamCheck -- "Yes" --> GeomCheck{"<b>6. GEOMETRY CHECK</b><br>Is Dimension > Critical?"}
+    ParamCheck -- "Yes" --> GeomCheck{"<b>6. PARTIAL REGULARITY</b><br>Is dim#40;Sing#41; < Critical?"}
 
     %% --- LEVEL 4: GEOMETRY ---
-    GeomCheck -- "No #40;Too Thin#41;" --> BarrierCap{"<b>CAPACITY BARRIER</b><br>Is Measure Zero?<br><i>#91;Thm 58#93;</i>"}
-    BarrierCap -- "No #40;Breached#41;" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
+    GeomCheck -- "No #40;Too Thin#41;" --> BarrierCap{"<b>ε-REGULARITY</b><br>Is Measure Zero?"}
+    BarrierCap -- "No #40;Breached#41;" --> ModeCD["<b>CONCENTRATION SINGULARITY</b>"]
     BarrierCap -- "Yes #40;Blocked#41;" --> StiffnessCheck
 
-    GeomCheck -- "Yes #40;Safe#41;" --> StiffnessCheck{"<b>7. STIFFNESS CHECK</b><br>Is Hessian Positive?"}
+    GeomCheck -- "Yes #40;Safe#41;" --> StiffnessCheck{"<b>7. SPECTRAL ANALYSIS</b><br>Is Hessian Positive Definite?"}
 
-    %% --- LEVEL 5: STIFFNESS ---
-    StiffnessCheck -- "No #40;Flat#41;" --> BarrierGap{"<b>SPECTRAL BARRIER</b><br>Is there a Gap?<br><i>#91;Thm 83#93;</i>"}
+    %% --- LEVEL 5: STABILITY ---
+    StiffnessCheck -- "No #40;Flat#41;" --> BarrierGap{"<b>ASYMPTOTIC STABILITY</b><br>Is there a Spectral Gap?"}
     BarrierGap -- "Yes #40;Blocked#41;" --> TopoCheck
-    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>BIFURCATION CHECK</b><br>Is State Unstable?<br><i>#91;Thm 125 / 38.21#93;</i>"}
+    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>STABILITY OF PROFILE</b><br>Is Profile Unstable?"}
 
-    %% --- LEVEL 5b: DYNAMIC RESTORATION ---
-    BifurcateCheck -- "No #40;Stable#41;" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
-    BifurcateCheck -- "Yes #40;Unstable#41;" --> SSBCheck{"<b>SYMMETRY BREAKING?</b>"}
+    %% --- LEVEL 5b: INSTABILITY RESOLUTION (Deterministic) ---
+    BifurcateCheck -- "No #40;Stable#41;" --> ModeSD["<b>METASTABILITY</b><br><i>#40;Center Manifold#41;</i>"]
+    BifurcateCheck -- "Yes #40;Unstable#41;" --> SymCheck{"<b>SYMMETRY ANALYSIS</b><br>Is Vacuum Degenerate?<br><i>#40;Does Group G exist?#41;</i>"}
 
-    SSBCheck -- "Yes" --> ActionSSB["<b>ACTION: SYMMETRY BREAKING</b><br>Generates Mass Gap<br><i>#91;Thm 51#93;</i>"]
-    SSBCheck -- "No" --> ActionSurgery["<b>ACTION: SURGERY / FLIP</b><br>Dissipates Singularity<br><i>#91;Thm 32.2#93;</i>"]
+    %% Path A: Symmetry Breaking
+    SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>VACUUM STABILITY</b><br>Can Symmetry Break?"}
+    CheckSC -- "Yes" --> ActionSSB["<b>SPONTANEOUS SYMMETRY BREAKING</b><br>Generates Mass Gap"]
     ActionSSB --> BarrierExclusion
-    ActionSurgery --> BarrierExclusion
+    CheckSC -- "No" --> ModeSC_Rest["<b>STRUCTURAL INSTABILITY</b><br><i>#40;Vacuum Decay#41;</i>"]
 
-    StiffnessCheck -- "Yes #40;Safe#41;" --> TopoCheck{"<b>8. SECTOR CHECK</b><br>Is Sector Accessible?"}
+    %% Path B: Surgery
+    SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>ACTION COST</b><br>Is Surgery Affordable?"}
+    CheckTB -- "Yes" --> ActionSurgery["<b>SINGULARITY RESOLUTION</b><br>Topology Change"]
+    ActionSurgery --> BarrierExclusion
+    CheckTB -- "No" --> ModeTE_Rest["<b>TOPOLOGICAL DEFECT</b><br><i>#40;Persistent#41;</i>"]
+
+    StiffnessCheck -- "Yes #40;Safe#41;" --> TopoCheck{"<b>8. TOPOLOGICAL INVARIANTS</b><br>Is Sector Accessible?"}
 
     %% --- LEVEL 6: TOPOLOGY ---
-    TopoCheck -- "No #40;Protected#41;" --> BarrierAction{"<b>ACTION BARRIER</b><br>Is Energy < Gap?<br><i>#91;Thm 59#93;</i>"}
-    BarrierAction -- "No #40;Breached#41;" --> ModeTE["<b>Mode T.E</b>: Topological Twist"]
+    TopoCheck -- "No #40;Protected#41;" --> BarrierAction{"<b>ENERGY GAP</b><br>Is Energy < Gap?"}
+    BarrierAction -- "No #40;Breached#41;" --> ModeTE["<b>TOPOLOGICAL DEFECT</b>"]
     BarrierAction -- "Yes #40;Blocked#41;" --> TameCheck
 
-    TopoCheck -- "Yes #40;Safe#41;" --> TameCheck{"<b>9. TAMENESS CHECK</b><br>Is Topology Simple?"}
+    TopoCheck -- "Yes #40;Safe#41;" --> TameCheck{"<b>9. DEFINABILITY</b><br>Is Topology Tame?"}
 
-    TameCheck -- "No" --> BarrierOmin{"<b>O-MINIMAL BARRIER</b><br>Is it Definable?<br><i>#91;Thm 46#93;</i>"}
-    BarrierOmin -- "No #40;Breached#41;" --> ModeTC["<b>Mode T.C</b>: Labyrinthine"]
+    TameCheck -- "No" --> BarrierOmin{"<b>DEFINABILITY CRITERION</b><br>Is it Definable?"}
+    BarrierOmin -- "No #40;Breached#41;" --> ModeTC["<b>WILD TOPOLOGY</b>"]
     BarrierOmin -- "Yes #40;Blocked#41;" --> ErgoCheck
 
-    TameCheck -- "Yes" --> ErgoCheck{"<b>10. ERGODIC CHECK</b><br>Does it Mix?"}
+    TameCheck -- "Yes" --> ErgoCheck{"<b>10. ERGODICITY</b><br>Does System Mix?"}
 
-    ErgoCheck -- "No" --> BarrierMix{"<b>MIXING BARRIER</b><br>Is Trap Escapable?<br><i>#91;Thm 132#93;</i>"}
-    BarrierMix -- "No #40;Breached#41;" --> ModeTD["<b>Mode T.D</b>: Glassy Freeze"]
+    ErgoCheck -- "No" --> BarrierMix{"<b>ESCAPE RATE</b><br>Is Trap Escapable?"}
+    BarrierMix -- "No #40;Breached#41;" --> ModeTD["<b>DYNAMICAL TRAPPING</b>"]
     BarrierMix -- "Yes #40;Blocked#41;" --> ComplexCheck
 
-    ErgoCheck -- "Yes" --> ComplexCheck{"<b>11. COMPUTE CHECK</b><br>Is it Computable?"}
+    ErgoCheck -- "Yes" --> ComplexCheck{"<b>11. MODULI STRUCTURE</b><br>Is Solution Computable?"}
 
     %% --- LEVEL 7: COMPLEXITY ---
-    ComplexCheck -- "No" --> BarrierEpi{"<b>EPISTEMIC BARRIER</b><br>Is Description Finite?<br><i>#91;Thm 101#93;</i>"}
-    BarrierEpi -- "No #40;Breached#41;" --> ModeDC["<b>Mode D.C</b>: Semantic Horizon"]
+    ComplexCheck -- "No" --> BarrierEpi{"<b>FINITE DESCRIPTION</b><br>Is Description Finite?"}
+    BarrierEpi -- "No #40;Breached#41;" --> ModeDC["<b>UNDECIDABILITY</b>"]
     BarrierEpi -- "Yes #40;Blocked#41;" --> OscillateCheck
 
-    ComplexCheck -- "Yes" --> OscillateCheck{"<b>12. OSCILLATION CHECK</b><br>Does it Oscillate?"}
+    ComplexCheck -- "Yes" --> OscillateCheck{"<b>12. OSCILLATION</b><br>Does Solution Oscillate?"}
 
-    OscillateCheck -- "Yes" --> BarrierFreq{"<b>FREQUENCY BARRIER</b><br>Is Integral Finite?<br><i>#91;Thm 48#93;</i>"}
-    BarrierFreq -- "No #40;Breached#41;" --> ModeDE["<b>Mode D.E</b>: Oscillatory"]
+    OscillateCheck -- "Yes" --> BarrierFreq{"<b>OSCILLATION BOUND</b><br>Is Integral Finite?"}
+    BarrierFreq -- "No #40;Breached#41;" --> ModeDE["<b>OSCILLATORY BLOW-UP</b>"]
     BarrierFreq -- "Yes #40;Blocked#41;" --> BoundaryCheck
 
-    OscillateCheck -- "No" --> BoundaryCheck{"<b>13. BOUNDARY CHECK</b><br>Is System Open?"}
+    OscillateCheck -- "No" --> BoundaryCheck{"<b>13. BOUNDARY CONDITIONS</b><br>Is System Open?"}
 
     %% --- LEVEL 8: BOUNDARY ---
-    BoundaryCheck -- "Yes" --> OverloadCheck{"<b>14. OVERLOAD CHECK</b><br>Is there Overload?"}
+    BoundaryCheck -- "Yes" --> OverloadCheck{"<b>14. INPUT CONTROL</b><br>Is Input Bounded?"}
 
-    OverloadCheck -- "Yes" --> BarrierBode{"<b>BODE BARRIER</b><br>Is Sensitivity Bounded?<br><i>#91;Thm 13#93;</i>"}
-    BarrierBode -- "No #40;Breached#41;" --> ModeBE["<b>Mode B.E</b>: Injection"]
+    OverloadCheck -- "Yes" --> BarrierBode{"<b>SENSITIVITY BOUND</b><br>Is Sensitivity Bounded?"}
+    BarrierBode -- "No #40;Breached#41;" --> ModeBE["<b>INPUT SATURATION</b>"]
 
-    OverloadCheck -- "No" --> StarveCheck{"<b>15. STARVATION CHECK</b><br>Is there Starvation?"}
-    StarveCheck -- "Yes" --> BarrierInput{"<b>INPUT BARRIER</b><br>Is Reserve Sufficient?<br><i>#91;Prop 18#93;</i>"}
-    BarrierInput -- "No #40;Breached#41;" --> ModeBD["<b>Mode B.D</b>: Starvation"]
+    OverloadCheck -- "No" --> StarveCheck{"<b>15. RESOURCE SUPPLY</b><br>Is Input Sufficient?"}
+    StarveCheck -- "Yes" --> BarrierInput{"<b>RESOURCE BOUND</b><br>Is Reserve Sufficient?"}
+    BarrierInput -- "No #40;Breached#41;" --> ModeBD["<b>RESOURCE DEPLETION</b>"]
 
-    StarveCheck -- "No" --> AlignCheck{"<b>16. ALIGNMENT CHECK</b><br>Is it Aligned?"}
-    AlignCheck -- "No" --> BarrierVariety{"<b>VARIETY BARRIER</b><br>Does Control Match Disturbance?<br><i>#91;Thm 89#93;</i>"}
-    BarrierVariety -- "No #40;Breached#41;" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
+    StarveCheck -- "No" --> AlignCheck{"<b>16. CONTROL ALIGNMENT</b><br>Is it Aligned?"}
+    AlignCheck -- "No" --> BarrierVariety{"<b>REQUISITE VARIETY</b><br>Does Control Match Disturbance?"}
+    BarrierVariety -- "No #40;Breached#41;" --> ModeBC["<b>CONTROL MISMATCH</b>"]
 
-    %% --- LEVEL 9: THE FINAL GATE ---
+    %% --- LEVEL 9: STRUCTURAL EXCLUSION ---
     %% All successful paths funnel here
     BoundaryCheck -- "No" --> BarrierExclusion
     BarrierBode -- "Yes #40;Blocked#41;" --> BarrierExclusion
@@ -113,10 +120,10 @@ graph TD
     BarrierVariety -- "Yes #40;Blocked#41;" --> BarrierExclusion
     AlignCheck -- "Yes" --> BarrierExclusion
 
-    BarrierExclusion{"<b>17. THE CATEGORICAL LOCK</b><br>Is Hom#40;Bad, S#41; Empty?<br><i>#91;Metatheorem 76#93;</i>"}
+    BarrierExclusion{"<b>17. STRUCTURAL EXCLUSION</b><br>Is Hom#40;Sing, S#41; Empty?"}
 
-    BarrierExclusion -- "Yes #40;Blocked#41;" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
-    BarrierExclusion -- "No #40;Morphism Exists#41;" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
+    BarrierExclusion -- "Yes #40;Blocked#41;" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;All Obstructions Excluded#41;</i>"])
+    BarrierExclusion -- "No #40;Morphism Exists#41;" --> ModeCat["<b>LOGICAL INCONSISTENCY</b>"]
 
     %% ====== STYLES ======
     %% Success states - Green
@@ -179,13 +186,21 @@ graph TD
     style StarveCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
     style AlignCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
 
+    %% Restoration checks - Blue (standard axiom checks)
+    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
     %% Intermediate nodes - Purple
     style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
     style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
 
-    %% Dynamic Restoration nodes - Purple (escape mechanisms)
-    style BifurcateCheck fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SSBCheck fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    %% Restoration mechanisms - Purple (escape mechanisms)
     style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
     style ActionSurgery fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Restoration failure modes - Red
+    style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
 ```
