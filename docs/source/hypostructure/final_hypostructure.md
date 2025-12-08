@@ -308,7 +308,7 @@ This document is organized into eleven parts:
 
 **Part IX: The Isomorphism Dictionary (Chapter 16).** Structural correspondences across mathematical domains. Shows how the same barrier mechanisms manifest in different settings (PDE, probability, algebra, computation).
 
-**Part X: Foundational Metatheorems (Chapters 17–18).** Completeness, minimality, universality, and identifiability of hypostructures. Proves that the axiom system is the unique minimal system capturing structural coherence. Section 18.4 presents fourteen Global Metatheorems (19.4.A–N): local-to-global machinery (tower globalization, obstruction collapse, stiff pairings), the master schema reducing conjectures to Axiom Rep, meta-learning of admissible structure, the categorical obstruction strategy via universal Rep-breaking patterns, the computational layer (parametric realization and adversarial search), and the capstone Principle of Structural Exclusion theorem unifying all previous metatheorems.
+**Part X: Foundational Metatheorems (Chapters 17–18).** Completeness, minimality, universality, and identifiability of hypostructures. Proves that the axiom system is the unique minimal system capturing structural coherence. The fourteen Global Metatheorems (§5.4, 8.5.A–8.11.N) provide local-to-global machinery (tower globalization, obstruction collapse, stiff pairings), the master schema reducing conjectures to Axiom Rep, meta-learning of admissible structure, the categorical obstruction strategy via universal Rep-breaking patterns, the computational layer (parametric realization and adversarial search), and the capstone Principle of Structural Exclusion theorem unifying all previous metatheorems.
 
 **Part XI: Fractal Set Foundations (Chapters 19–20).** Advanced topics: fractal set representation of singular structures, emergent spacetime from hypostructure dynamics, and observer-dependent perspectives.
 
@@ -7657,11 +7657,11 @@ An Étude applying the framework must verify:
 
 This section presents fourteen framework-level metatheorems that serve as universal tools across all hypostructure instantiations. They are formulated purely in terms of the axiom system and abstract structures (towers, obstruction sectors, pairing sectors) without reference to any specific problem domain. The metatheorems divide into five groups:
 
-- **19.4.A–C:** Local-to-global structure (tower globalization, obstruction collapse, stiff pairings)
-- **19.4.D–H:** Construction machinery (global heights, subcriticality, duality, master schema, meta-learning)
-- **19.4.I–K:** Categorical obstruction machinery (morphisms, universal bad patterns, exclusion schema)
-- **19.4.L–M:** Computational layer (parametric realization, adversarial search for Rep-breaking patterns)
-- **19.4.N:** Master theorem (structural exclusion unifying all previous metatheorems)
+- **8.5.A–C:** Local-to-global structure (tower globalization, obstruction collapse, stiff pairings)
+- **8.5.D–H:** Construction machinery (global heights, subcriticality, duality, master schema, meta-learning)
+- **8.6.I–8.8.K:** Categorical obstruction machinery (morphisms, universal bad patterns, exclusion schema)
+- **8.9.L–8.10.M:** Computational layer (parametric realization, adversarial search for Rep-breaking patterns)
+- **8.11.N:** Master theorem (structural exclusion unifying all previous metatheorems)
 
 ---
 
@@ -30469,6 +30469,10 @@ The combined structure $\mathbb{H}_{\mathcal{F}}$ is a **discrete spacetime** wh
 ---
 
 
+## Chapter 19: Fractal Set Foundations (Discrete-to-Continuum Structure)
+
+This chapter develops the mathematical foundation for discretizing hypostructures into Fractal Sets and establishing the discrete-to-continuum correspondence. We prove that continuous hypostructures admit faithful discrete representations, establish convergence theorems for discretization schemes, and show how emergent spacetime geometry arises from the causal and informational structure of Fractal Sets.
+
 ### Fractal Set Representation and Emergent Spacetime
 
 *From discrete events to continuous dynamics.*
@@ -32309,7 +32313,7 @@ $$\mathbb{H}_{\text{FG}} \implies \text{Optimal Dataset}$$
 ---
 
 
-## Chapter 19: The AGI Limit (The Ω-Layer)
+## Chapter 20: The AGI Limit (The Ω-Layer)
 
 *The self-referential consistency of the Hypostructure framework via Algorithmic Information Theory and Categorical Logic.*
 
