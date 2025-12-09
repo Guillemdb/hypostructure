@@ -35,9 +35,11 @@ def render_to_pdf(mermaid_code: str, output_path: str):
 </html>'''
 
     with sync_playwright() as p:
+        print("launching browser...")
         browser = p.chromium.launch()
         page = browser.new_page()
         page.set_content(html)
+        print("rendering mermaid diagram...")
         page.wait_for_selector('.mermaid svg', timeout=60000)
 
         svg = page.query_selector('.mermaid svg')

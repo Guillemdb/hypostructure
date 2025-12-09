@@ -810,12 +810,393 @@ The flowchart in \textbf{Figure 1} is the heart of this process. It
 represents the \textbf{Structural Sieve}---a decision tree that filters
 dynamical systems.
 
+\hypertarget{the-rosetta-stone-of-structure}{%
+\section{5. The Rosetta Stone of
+Structure}\label{the-rosetta-stone-of-structure}}
+
 \begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth,height=0.92\textheight,keepaspectratio]{diagram_framework.pdf}
 \caption{\textbf{The Structural Sieve Algorithm.} A diagnostic flowchart that maps dynamical systems to failure fingerprints. The algorithm proceeds through five constraint classes (Conservation, Topology, Duality, Symmetry, Boundary), testing each for three failure types (Excess, Deficiency, Complexity). Each test yields a binary permit indicator $\pi_m \in \{0,1\}$, producing a 15-bit fingerprint that uniquely characterizes the system's vulnerability profile.}
 \label{fig:sieve}
 \end{figure}
+
+The diagram in \textbf{Figure 1} operates on two levels: the
+\textbf{Blue Checks} (the laws the system \emph{should} obey) and the
+\textbf{Orange Barriers} (the mechanisms that stop it when it breaks
+those laws).
+
+\hypertarget{table-4-the-blue-checks-the-axioms}{%
+\subsection{Table 4: The Blue Checks (The
+Axioms)}\label{table-4-the-blue-checks-the-axioms}}
+
+\emph{These nodes represent the physiological health checks of the
+system. In code, these are often implemented as regularization terms,
+architectural constraints, or hyperparameter choices.}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+\begin{minipage}[b]{0.16\columnwidth}\raggedright
+Diagnostic Question (From Diagram)\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+Axiom\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Math / Analysis Concept\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Physics Concept\strut
+\end{minipage} & \begin{minipage}[b]{0.39\columnwidth}\raggedright
+AI / Alignment Interpretation\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Is Global Energy Finite?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{D} (Dissipation)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+\(L^2\) Norm Boundedness\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Conservation of Energy\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Gradient Clipping / Bounded Loss.} Is the model's energy (error)
+exploding?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Are Discrete Events Finite?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{Rec} (Recovery)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Finite Interaction Rate\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Discretization of Time\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Discrete Steps.} Does the model try to do infinite computations
+in one step?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Does Energy Concentrate?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{C} (Compactness)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Concentration of Measure\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Particle Localization\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Weight Decay.} Do parameters stay within a meaningful, bounded
+range?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Is it Subcritical?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{SC} (Scaling)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Sobolev Embeddings\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Renormalization Group\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Scale Invariance.} Do features persist meaningfully across
+different zoom levels?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Is Dimension \textgreater{} Critical?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{Cap} (Capacity)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Hausdorff Dimension\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Entropy / Holevo Bound\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Model Capacity.} Is the parameter space large enough to hold the
+data?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Is Hessian Positive?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{LS} (Stiffness)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Ellipticity / Convexity\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Mass Gap\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Curvature.} Is the loss landscape steep enough to guide descent,
+or is it flat?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Is Sector Accessible?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{TB} (Topology)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Homotopy Type\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Topological Sector\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Latent Topology.} Is the model preserving the underlying shape
+of the data manifold?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Does it Mix?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{TB} (Mixing)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Ergodicity\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Thermalization\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Exploration.} Is the agent exploring the whole space, or stuck
+in one corner?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Does it Oscillate?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{GC} (Gradient)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Monotonicity\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Overdamping\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Learning Rate.} Is the update step stable, or is it oscillating
+wildly?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.16\columnwidth}\raggedright
+\textbf{Is it Aligned?}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\textbf{GC} (Gauge)\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Vector Alignment\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Gauge Invariance\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright
+\textbf{Alignment.} Is the proxy reward actually aligned with the true
+objective?\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{table-5-the-orange-barriers-the-enforcers}{%
+\subsection{Table 5: The Orange Barriers (The
+Enforcers)}\label{table-5-the-orange-barriers-the-enforcers}}
+
+\emph{These nodes are the ``immune system'' of the framework. When an
+Axiom fails, these theorems trigger to contain the damage. They act as
+the secondary layer of defense against singularities.}
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+\begin{minipage}[b]{0.14\columnwidth}\raggedright
+Barrier Question (From Diagram)\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+Barrier Name\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedright
+Ref. Theorem\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+Math / Analysis Realization\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+Physics Realization\strut
+\end{minipage} & \begin{minipage}[b]{0.33\columnwidth}\raggedright
+AI / Alignment Realization\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Drift Controlled?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Saturation Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 6.2{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Maximum Principle\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Saturation Density\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Tanh/Sigmoid Saturation.} Prevents neuron output from
+exploding.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Depth Finite?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Causal Censor}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 85{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Finite Propagation Speed\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Light Cone / Causality\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Causal Masking.} Prevents a Transformer from ``cheating'' by
+seeing the future.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Interaction Finite?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Scattering Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 47{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Dispersion Estimates\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Wave Scattering\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Dropout / Noise.} Disperses information to prevent
+overfitting.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Renorm Cost Infinite?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Type II Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 56{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Critical Exponents\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+UV Cutoff\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Regularization Cost.} Prevents the model from learning
+infinitely sharp features.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Phase Stable?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Vacuum Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 9.150{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Stability of Equilibria\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+False Vacuum Decay\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Initialization Stability.} Prevents ``dead neurons'' at the
+start of training.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Measure Zero?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Capacity Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 58{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Dimensional Rigidity\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Exclusion Principle\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Information Bottleneck.} Forces data compression to prevent
+memorization.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is there a Gap?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Spectral Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 83{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Poincaré Inequality\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Mass Gap\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Margin Maximization.} Forces decision boundaries to be distinct
+and separate.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Energy \textless{} Gap?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Action Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 59{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Tunneling Probability\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Potential Barrier\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Loss Barriers.} High-loss regions that prevent jumping to bad
+minima.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is it Definable?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{O-Minimal Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 46{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Tame Topology\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Finite Resolution\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Finite Precision.} Float16 limits prevent infinite fractal
+recursion.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Trap Escapable?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Mixing Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 132{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Mixing Times\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Heat Death\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Replay Buffer.} Shuffling data breaks correlations and prevents
+``loops.''\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Description Finite?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Epistemic Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 101{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Kolmogorov Complexity\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Heisenberg Uncertainty\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Universal Approx. Limit.} The limit of what a finite network can
+represent.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Sensitivity Bounded?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Bode Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 13{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Sensitivity Integral\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Info Conservation\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Robustness Trade-off.} High accuracy often decreases robustness
+to attacks.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Does Control Match Disturbance?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{Variety Barrier}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}Thm 89{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Ashby's Law\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Degrees of Freedom\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Parameter Count.} The model must have enough parameters to match
+data.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\textbf{Is Hom(Bad, S) Empty?}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+\textbf{The Categorical Lock}\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright
+{[}MetaThm 76{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Cohomological Obstruction\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Anomaly Cancellation\strut
+\end{minipage} & \begin{minipage}[t]{0.33\columnwidth}\raggedright
+\textbf{Structural Impossibility.} A proof that a failure mode
+\emph{cannot} exist.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \hypertarget{reading-the-sieve-a-logic-of-compensation}{%
 \subsection{Reading the Sieve: A Logic of
