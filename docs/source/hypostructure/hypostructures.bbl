@@ -528,6 +528,40 @@
       \field{title}{Foundations of Constructive Analysis}
       \field{year}{1967}
     \endentry
+    \entry{Bisognano75}{article}{}
+      \name{author}{2}{}{%
+        {{hash=30217aa8421cb9f2ca5e5e728c38424d}{%
+           family={Bisognano},
+           familyi={B\bibinitperiod},
+           given={Joseph\bibnamedelima J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=50ae673005fc386feeb178b6a545df0a}{%
+           family={Wichmann},
+           familyi={W\bibinitperiod},
+           given={Eyvind\bibnamedelima H.},
+           giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{ad46057d8915151ef29e8084654f5b90}
+      \strng{fullhash}{ad46057d8915151ef29e8084654f5b90}
+      \strng{bibnamehash}{ad46057d8915151ef29e8084654f5b90}
+      \strng{authorbibnamehash}{ad46057d8915151ef29e8084654f5b90}
+      \strng{authornamehash}{ad46057d8915151ef29e8084654f5b90}
+      \strng{authorfullhash}{ad46057d8915151ef29e8084654f5b90}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Mathematical Physics}
+      \field{number}{4}
+      \field{title}{On the Duality Condition for a Hermitian Scalar Field}
+      \field{volume}{16}
+      \field{year}{1975}
+      \field{pages}{985\bibrangedash 1007}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1063/1.522605
+      \endverb
+    \endentry
     \entry{Bombelli87}{article}{}
       \name{author}{4}{}{%
         {{hash=0bd36bdeb15015b1511588612995b20d}{%
@@ -789,6 +823,40 @@
       \verb 10.1214/ss/1177009939
       \endverb
     \endentry
+    \entry{Chamseddine97}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1d1b16c59f82d40c6757de517c534bef}{%
+           family={Chamseddine},
+           familyi={C\bibinitperiod},
+           given={Ali\bibnamedelima H.},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=3745cf9244a5815447aea11906514603}{%
+           family={Connes},
+           familyi={C\bibinitperiod},
+           given={Alain},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{5efbd78bc98b8d8bec17976cdce42c80}
+      \strng{fullhash}{5efbd78bc98b8d8bec17976cdce42c80}
+      \strng{bibnamehash}{5efbd78bc98b8d8bec17976cdce42c80}
+      \strng{authorbibnamehash}{5efbd78bc98b8d8bec17976cdce42c80}
+      \strng{authornamehash}{5efbd78bc98b8d8bec17976cdce42c80}
+      \strng{authorfullhash}{5efbd78bc98b8d8bec17976cdce42c80}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Communications in Mathematical Physics}
+      \field{number}{3}
+      \field{title}{The Spectral Action Principle}
+      \field{volume}{186}
+      \field{year}{1997}
+      \field{pages}{731\bibrangedash 750}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1007/s002200050126
+      \endverb
+    \endentry
     \entry{Cohen66}{book}{}
       \name{author}{1}{}{%
         {{hash=db90b622eba26dc7c0195a3ce34de469}{%
@@ -816,6 +884,36 @@
       \field{note}{Independence of CH; forcing method for model extension}
       \field{title}{Set Theory and the Continuum Hypothesis}
       \field{year}{1966}
+    \endentry
+    \entry{Conley78}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3cd9dd96c4f438b7b191ceb11133fc58}{%
+           family={Conley},
+           familyi={C\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Providence, RI}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{3cd9dd96c4f438b7b191ceb11133fc58}
+      \strng{fullhash}{3cd9dd96c4f438b7b191ceb11133fc58}
+      \strng{bibnamehash}{3cd9dd96c4f438b7b191ceb11133fc58}
+      \strng{authorbibnamehash}{3cd9dd96c4f438b7b191ceb11133fc58}
+      \strng{authornamehash}{3cd9dd96c4f438b7b191ceb11133fc58}
+      \strng{authorfullhash}{3cd9dd96c4f438b7b191ceb11133fc58}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-8218-1688-2}
+      \field{series}{CBMS Regional Conference Series in Mathematics}
+      \field{title}{Isolated Invariant Sets and the Morse Index}
+      \field{volume}{38}
+      \field{year}{1978}
     \endentry
     \entry{Connes96}{article}{}
       \name{author}{1}{}{%
@@ -1080,6 +1178,35 @@
       \verb 10.1098/rspa.1985.0070
       \endverb
     \endentry
+    \entry{Dieks82}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1d60173ec6fa23b9718cd1282b52ce4e}{%
+           family={Dieks},
+           familyi={D\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{1d60173ec6fa23b9718cd1282b52ce4e}
+      \strng{fullhash}{1d60173ec6fa23b9718cd1282b52ce4e}
+      \strng{bibnamehash}{1d60173ec6fa23b9718cd1282b52ce4e}
+      \strng{authorbibnamehash}{1d60173ec6fa23b9718cd1282b52ce4e}
+      \strng{authornamehash}{1d60173ec6fa23b9718cd1282b52ce4e}
+      \strng{authorfullhash}{1d60173ec6fa23b9718cd1282b52ce4e}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physics Letters A}
+      \field{number}{6}
+      \field{title}{Communication by {EPR} Devices}
+      \field{volume}{92}
+      \field{year}{1982}
+      \field{pages}{271\bibrangedash 272}
+      \range{pages}{2}
+      \verb{doi}
+      \verb 10.1016/0375-9601(82)90084-6
+      \endverb
+    \endentry
     \entry{DummitFoote04}{book}{}
       \name{author}{2}{}{%
         {{hash=59d4df3a45fec18f996cea87a605b7f0}{%
@@ -1311,6 +1438,40 @@
       \field{year}{1989}
       \field{pages}{359\bibrangedash 369}
       \range{pages}{11}
+    \endentry
+    \entry{FranzeMisch88}{book}{}
+      \name{author}{2}{}{%
+        {{hash=47d40d146e995601621d45aa793b629d}{%
+           family={Franzosa},
+           familyi={F\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d11814522a0686c1b24ab9291e66523b}{%
+           family={Mischaikow},
+           familyi={M\bibinitperiod},
+           given={Konstantin},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{ab1db929c6f6bc64795e066c27af88f0}
+      \strng{fullhash}{ab1db929c6f6bc64795e066c27af88f0}
+      \strng{bibnamehash}{ab1db929c6f6bc64795e066c27af88f0}
+      \strng{authorbibnamehash}{ab1db929c6f6bc64795e066c27af88f0}
+      \strng{authornamehash}{ab1db929c6f6bc64795e066c27af88f0}
+      \strng{authorfullhash}{ab1db929c6f6bc64795e066c27af88f0}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transactions of the American Mathematical Society}
+      \field{number}{2}
+      \field{title}{The Connection Matrix Theory for Morse Decompositions}
+      \field{volume}{311}
+      \field{year}{1989}
+      \field{pages}{561\bibrangedash 592}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1090/S0002-9947-1989-0978368-7
+      \endverb
     \endentry
     \entry{Freudenthal37}{article}{}
       \name{author}{1}{}{%
@@ -3196,6 +3357,35 @@
       \field{volume}{8}
       \field{year}{1993}
     \endentry
+    \entry{McKean66}{article}{}
+      \name{author}{1}{}{%
+        {{hash=990a26cc3bcaf98d44f4ddaeaadb9a23}{%
+           family={McKean},
+           familyi={M\bibinitperiod},
+           given={Henry\bibnamedelima P.},
+           giveni={H\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{990a26cc3bcaf98d44f4ddaeaadb9a23}
+      \strng{fullhash}{990a26cc3bcaf98d44f4ddaeaadb9a23}
+      \strng{bibnamehash}{990a26cc3bcaf98d44f4ddaeaadb9a23}
+      \strng{authorbibnamehash}{990a26cc3bcaf98d44f4ddaeaadb9a23}
+      \strng{authornamehash}{990a26cc3bcaf98d44f4ddaeaadb9a23}
+      \strng{authorfullhash}{990a26cc3bcaf98d44f4ddaeaadb9a23}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{number}{6}
+      \field{title}{A Class of Markov Processes Associated with Nonlinear Parabolic Equations}
+      \field{volume}{56}
+      \field{year}{1966}
+      \field{pages}{1907\bibrangedash 1911}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1073/pnas.56.6.1907
+      \endverb
+    \endentry
     \entry{Menger27}{article}{}
       \name{author}{1}{}{%
         {{hash=64c7bb111aa1c8152a2e3e2e7f53aa61}{%
@@ -3494,6 +3684,105 @@
       \field{series}{Yale Mathematical Monographs}
       \field{title}{Ergodic Theory, Randomness, and Dynamical Systems}
       \field{year}{1974}
+    \endentry
+    \entry{OsterwalderSchrader73}{article}{}
+      \name{author}{2}{}{%
+        {{hash=4a9a5bdcc30010dc439c8dc664dd6302}{%
+           family={Osterwalder},
+           familyi={O\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+        {{hash=c96f7534d0d06466b906f20fa8c8f0b1}{%
+           family={Schrader},
+           familyi={S\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{fullhash}{55abde65b551623ebed530af6e99df5d}
+      \strng{bibnamehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{authorbibnamehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{authornamehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{authorfullhash}{55abde65b551623ebed530af6e99df5d}
+      \field{extraname}{1}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Communications in Mathematical Physics}
+      \field{number}{2}
+      \field{title}{Axioms for Euclidean Green's Functions}
+      \field{volume}{31}
+      \field{year}{1973}
+      \field{pages}{83\bibrangedash 112}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10.1007/BF01645738
+      \endverb
+    \endentry
+    \entry{OsterwalderSchrader75}{article}{}
+      \name{author}{2}{}{%
+        {{hash=4a9a5bdcc30010dc439c8dc664dd6302}{%
+           family={Osterwalder},
+           familyi={O\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+        {{hash=c96f7534d0d06466b906f20fa8c8f0b1}{%
+           family={Schrader},
+           familyi={S\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{fullhash}{55abde65b551623ebed530af6e99df5d}
+      \strng{bibnamehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{authorbibnamehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{authornamehash}{55abde65b551623ebed530af6e99df5d}
+      \strng{authorfullhash}{55abde65b551623ebed530af6e99df5d}
+      \field{extraname}{2}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Communications in Mathematical Physics}
+      \field{number}{3}
+      \field{title}{Axioms for Euclidean Green's Functions {II}}
+      \field{volume}{42}
+      \field{year}{1975}
+      \field{pages}{281\bibrangedash 305}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1007/BF01608978
+      \endverb
+    \endentry
+    \entry{Padmanabhan10}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3c1881ebf7e16dbdc5cab44db2bef413}{%
+           family={Padmanabhan},
+           familyi={P\bibinitperiod},
+           given={Thanu},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{3c1881ebf7e16dbdc5cab44db2bef413}
+      \strng{fullhash}{3c1881ebf7e16dbdc5cab44db2bef413}
+      \strng{bibnamehash}{3c1881ebf7e16dbdc5cab44db2bef413}
+      \strng{authorbibnamehash}{3c1881ebf7e16dbdc5cab44db2bef413}
+      \strng{authornamehash}{3c1881ebf7e16dbdc5cab44db2bef413}
+      \strng{authorfullhash}{3c1881ebf7e16dbdc5cab44db2bef413}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Reports on Progress in Physics}
+      \field{number}{4}
+      \field{title}{Thermodynamical Aspects of Gravity: New insights}
+      \field{volume}{73}
+      \field{year}{2010}
+      \field{pages}{046901}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1088/0034-4885/73/4/046901
+      \endverb
     \endentry
     \entry{Palais61}{article}{}
       \name{author}{1}{}{%
@@ -4364,6 +4653,7 @@
       \strng{authorbibnamehash}{c8502c0ee43e96753d5bd087800519c6}
       \strng{authornamehash}{c8502c0ee43e96753d5bd087800519c6}
       \strng{authorfullhash}{c8502c0ee43e96753d5bd087800519c6}
+      \field{extraname}{1}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
@@ -4379,6 +4669,38 @@
       \verb{doi}
       \verb 10.1007/BF01174186
       \endverb
+    \endentry
+    \entry{Struwe96}{book}{}
+      \name{author}{1}{}{%
+        {{hash=c8502c0ee43e96753d5bd087800519c6}{%
+           family={Struwe},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{c8502c0ee43e96753d5bd087800519c6}
+      \strng{fullhash}{c8502c0ee43e96753d5bd087800519c6}
+      \strng{bibnamehash}{c8502c0ee43e96753d5bd087800519c6}
+      \strng{authorbibnamehash}{c8502c0ee43e96753d5bd087800519c6}
+      \strng{authornamehash}{c8502c0ee43e96753d5bd087800519c6}
+      \strng{authorfullhash}{c8502c0ee43e96753d5bd087800519c6}
+      \field{extraname}{2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{isbn}{978-3-540-60220-9}
+      \field{series}{Ergebnisse der Mathematik und ihrer Grenzgebiete}
+      \field{title}{Variational Methods: Applications to Nonlinear Partial Differential Equations and Hamiltonian Systems}
+      \field{volume}{34}
+      \field{year}{1996}
     \endentry
     \entry{Sturm06}{article}{}
       \name{author}{1}{}{%
@@ -4431,6 +4753,41 @@
       \field{year}{1995}
       \field{pages}{6377\bibrangedash 6396}
       \range{pages}{20}
+    \endentry
+    \entry{Sznitman91}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=74a29eb69de26e84c7aad2ba0ceeb464}{%
+           family={Sznitman},
+           familyi={S\bibinitperiod},
+           given={Alain-Sol},
+           giveni={A\bibinithyphendelim S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{74a29eb69de26e84c7aad2ba0ceeb464}
+      \strng{fullhash}{74a29eb69de26e84c7aad2ba0ceeb464}
+      \strng{bibnamehash}{74a29eb69de26e84c7aad2ba0ceeb464}
+      \strng{authorbibnamehash}{74a29eb69de26e84c7aad2ba0ceeb464}
+      \strng{authornamehash}{74a29eb69de26e84c7aad2ba0ceeb464}
+      \strng{authorfullhash}{74a29eb69de26e84c7aad2ba0ceeb464}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Ecole d'Eté de Probabilités de Saint-Flour XIX---1989}
+      \field{series}{Lecture Notes in Mathematics}
+      \field{title}{Topics in Propagation of Chaos}
+      \field{volume}{1464}
+      \field{year}{1991}
+      \field{pages}{165\bibrangedash 251}
+      \range{pages}{87}
+      \verb{doi}
+      \verb 10.1007/BFb0085169
+      \endverb
     \endentry
     \entry{Takesaki70}{book}{}
       \name{author}{1}{}{%
@@ -4646,6 +5003,35 @@
       \field{title}{Solutions of Ill-Posed Problems}
       \field{year}{1977}
     \endentry
+    \entry{Trotter59}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e09fa88c354435ceb0ca56abb52b1ee6}{%
+           family={Trotter},
+           familyi={T\bibinitperiod},
+           given={Hale\bibnamedelima F.},
+           giveni={H\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{e09fa88c354435ceb0ca56abb52b1ee6}
+      \strng{fullhash}{e09fa88c354435ceb0ca56abb52b1ee6}
+      \strng{bibnamehash}{e09fa88c354435ceb0ca56abb52b1ee6}
+      \strng{authorbibnamehash}{e09fa88c354435ceb0ca56abb52b1ee6}
+      \strng{authornamehash}{e09fa88c354435ceb0ca56abb52b1ee6}
+      \strng{authorfullhash}{e09fa88c354435ceb0ca56abb52b1ee6}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the American Mathematical Society}
+      \field{number}{4}
+      \field{title}{On the product of semi-groups of operators}
+      \field{volume}{10}
+      \field{year}{1959}
+      \field{pages}{545\bibrangedash 551}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1090/S0002-9939-1959-0108732-6
+      \endverb
+    \endentry
     \entry{Tychonoff30}{article}{}
       \name{author}{1}{}{%
         {{hash=73d5df73354de4632a83d08f87e8bd0d}{%
@@ -4699,6 +5085,35 @@
       \range{pages}{23}
       \verb{doi}
       \verb 10.1103/PhysRevD.14.870
+      \endverb
+    \endentry
+    \entry{Utiyama56}{article}{}
+      \name{author}{1}{}{%
+        {{hash=2974808447b8722974bbe8fe29c58e0d}{%
+           family={Utiyama},
+           familyi={U\bibinitperiod},
+           given={Ryoyu},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{2974808447b8722974bbe8fe29c58e0d}
+      \strng{fullhash}{2974808447b8722974bbe8fe29c58e0d}
+      \strng{bibnamehash}{2974808447b8722974bbe8fe29c58e0d}
+      \strng{authorbibnamehash}{2974808447b8722974bbe8fe29c58e0d}
+      \strng{authornamehash}{2974808447b8722974bbe8fe29c58e0d}
+      \strng{authorfullhash}{2974808447b8722974bbe8fe29c58e0d}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review}
+      \field{number}{5}
+      \field{title}{Invariant Theoretical Interpretation of Interaction}
+      \field{volume}{101}
+      \field{year}{1956}
+      \field{pages}{1597\bibrangedash 1607}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1103/PhysRev.101.1597
       \endverb
     \endentry
     \entry{Vapnik98}{book}{}
@@ -4760,6 +5175,35 @@
       \field{title}{Large Deviations and Applications}
       \field{volume}{46}
       \field{year}{1984}
+    \endentry
+    \entry{Verlinde11}{article}{}
+      \name{author}{1}{}{%
+        {{hash=bb173e9b623b7737a79f22558b0becc4}{%
+           family={Verlinde},
+           familyi={V\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb173e9b623b7737a79f22558b0becc4}
+      \strng{fullhash}{bb173e9b623b7737a79f22558b0becc4}
+      \strng{bibnamehash}{bb173e9b623b7737a79f22558b0becc4}
+      \strng{authorbibnamehash}{bb173e9b623b7737a79f22558b0becc4}
+      \strng{authornamehash}{bb173e9b623b7737a79f22558b0becc4}
+      \strng{authorfullhash}{bb173e9b623b7737a79f22558b0becc4}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of High Energy Physics}
+      \field{number}{4}
+      \field{title}{On the Origin of Gravity and the Laws of Newton}
+      \field{volume}{2011}
+      \field{year}{2011}
+      \field{pages}{29}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1007/JHEP04(2011)029
+      \endverb
     \endentry
     \entry{Vicsek95}{article}{}
       \name{author}{5}{}{%
@@ -4975,6 +5419,35 @@
       \field{volume}{25}
       \field{year}{2009}
     \endentry
+    \entry{Weinberg67}{article}{}
+      \name{author}{1}{}{%
+        {{hash=15e144c72b0b9d10db00ddc6d37a19e6}{%
+           family={Weinberg},
+           familyi={W\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{15e144c72b0b9d10db00ddc6d37a19e6}
+      \strng{fullhash}{15e144c72b0b9d10db00ddc6d37a19e6}
+      \strng{bibnamehash}{15e144c72b0b9d10db00ddc6d37a19e6}
+      \strng{authorbibnamehash}{15e144c72b0b9d10db00ddc6d37a19e6}
+      \strng{authornamehash}{15e144c72b0b9d10db00ddc6d37a19e6}
+      \strng{authorfullhash}{15e144c72b0b9d10db00ddc6d37a19e6}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review Letters}
+      \field{number}{21}
+      \field{title}{A Model of Leptons}
+      \field{volume}{19}
+      \field{year}{1967}
+      \field{pages}{1264\bibrangedash 1266}
+      \range{pages}{3}
+      \verb{doi}
+      \verb 10.1103/PhysRevLett.19.1264
+      \endverb
+    \endentry
     \entry{Willems91}{article}{}
       \name{author}{1}{}{%
         {{hash=c66cc2b980cfdfb796840f382612a0ce}{%
@@ -5060,6 +5533,39 @@
       \field{year}{1982}
       \field{pages}{661\bibrangedash 692}
       \range{pages}{32}
+    \endentry
+    \entry{WoottZure82}{article}{}
+      \name{author}{2}{}{%
+        {{hash=db3a2ac4bb7edc871a862059726651fe}{%
+           family={Wootters},
+           familyi={W\bibinitperiod},
+           given={William\bibnamedelima K.},
+           giveni={W\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=e4c35f00b8d96a7406a9b96178aad6b3}{%
+           family={Zurek},
+           familyi={Z\bibinitperiod},
+           given={Wojciech\bibnamedelima H.},
+           giveni={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{b86460684b3390dec544a8b01a7f2c9e}
+      \strng{fullhash}{b86460684b3390dec544a8b01a7f2c9e}
+      \strng{bibnamehash}{b86460684b3390dec544a8b01a7f2c9e}
+      \strng{authorbibnamehash}{b86460684b3390dec544a8b01a7f2c9e}
+      \strng{authornamehash}{b86460684b3390dec544a8b01a7f2c9e}
+      \strng{authorfullhash}{b86460684b3390dec544a8b01a7f2c9e}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{title}{A Single Quantum Cannot Be Cloned}
+      \field{volume}{299}
+      \field{year}{1982}
+      \field{pages}{802\bibrangedash 803}
+      \range{pages}{2}
+      \verb{doi}
+      \verb 10.1038/299802a0
+      \endverb
     \endentry
     \entry{Yang52}{article}{}
       \name{author}{2}{}{%

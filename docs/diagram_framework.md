@@ -55,13 +55,13 @@ graph TD
     %% Path A: Symmetry Breaking (Governed by Axiom SC)
     SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>AXIOM SC #40;Param#41;</b><br>Are Constants Stable?<br><i>#91;Thm 51#93;</i>"}
     CheckSC -- "Yes" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
-    ActionSSB --> BarrierExclusion
+    ActionSSB -- "Mass Gap Guarantees Stiffness" --> TopoCheck
     CheckSC -- "No" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
 
     %% Path B: Surgery (Governed by Axiom TB)
     SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>AXIOM TB #40;Action#41;</b><br>Is Cost Finite?<br><i>#91;Thm 32.2#93;</i>"}
     CheckTB -- "Yes" --> ActionSurgery["<b>ACTION: SURGERY</b><br>Dissipates Singularity"]
-    ActionSurgery --> BarrierExclusion
+    ActionSurgery -- "Re-verify Topology" --> TameCheck
     CheckTB -- "No" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
 
     StiffnessCheck -- "Yes #40;Safe#41;" --> TopoCheck{"<b>8. AXIOM TB #40;Topology#41;</b><br>Is Sector Accessible?"}
@@ -190,11 +190,13 @@ graph TD
     style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
     style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
 
-    %% Dynamic Restoration nodes - Purple (escape mechanisms)
-    style BifurcateCheck fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SymCheck fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style CheckSC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style CheckTB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    %% Restoration checks - Blue (standard axiom checks)
+    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    %% Restoration mechanisms - Purple (escape mechanisms)
     style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
     style ActionSurgery fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
 

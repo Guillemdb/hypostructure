@@ -1,21 +1,23 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
-[0] Config.pm:310> INFO - Logfile is 'hypostructures.blg'
-[53] biber:340> INFO - === Thu Dec  4, 2025, 14:27:03
-[65] Biber.pm:418> INFO - Reading 'hypostructures.bcf'
-[133] Biber.pm:972> INFO - Found 170 citekeys in bib section 0
-[142] Biber.pm:4383> INFO - Processing section 0
-[150] Biber.pm:4574> INFO - Looking for bibtex file 'references.bib' for section 0
-[158] bibtex.pm:1713> INFO - LaTeX decoding ...
-[371] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
-[925] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[925] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[925] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[925] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[1021] bbl.pm:654> INFO - Writing 'hypostructures.bbl' with encoding 'UTF-8'
-[1063] bbl.pm:757> INFO - Output to hypostructures.bbl
-[1063] Biber.pm:130> WARN - Duplicate entry key: 'Hironaka64' in file 'references.bib', skipping ...
-[1063] Biber.pm:130> WARN - Duplicate entry key: 'Ollivier09' in file 'references.bib', skipping ...
-[1063] Biber.pm:130> WARN - Duplicate entry key: 'LiVitanyi08' in file 'references.bib', skipping ...
-[1063] Biber.pm:130> WARN - Duplicate entry key: 'Lurie09' in file 'references.bib', skipping ...
-[1063] Biber.pm:130> WARN - ISBN '978-0-521-86467-4' in entry 'Watanabe09' is invalid - run biber with '--validate_datamodel' for details.
-[1063] Biber.pm:132> INFO - WARNINGS: 5
+[1] Config.pm:310> INFO - Logfile is 'hypostructures.blg'
+[99] biber:340> INFO - === Tue Dec  9, 2025, 16:51:26
+[119] Biber.pm:418> INFO - Reading 'hypostructures.bcf'
+[228] Biber.pm:972> INFO - Found 186 citekeys in bib section 0
+[241] Biber.pm:4383> INFO - Processing section 0
+[255] Biber.pm:4574> INFO - Looking for bibtex file 'references.bib' for section 0
+[266] bibtex.pm:1713> INFO - LaTeX decoding ...
+[527] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
+[1668] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1669] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1669] Biber.pm:4203> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[1669] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[1833] bbl.pm:654> INFO - Writing 'hypostructures.bbl' with encoding 'UTF-8'
+[1933] bbl.pm:757> INFO - Output to hypostructures.bbl
+[1934] Biber.pm:130> WARN - Duplicate entry key: 'Hironaka64' in file 'references.bib', skipping ...
+[1934] Biber.pm:130> WARN - Duplicate entry key: 'Ollivier09' in file 'references.bib', skipping ...
+[1934] Biber.pm:130> WARN - Duplicate entry key: 'LiVitanyi08' in file 'references.bib', skipping ...
+[1935] Biber.pm:130> WARN - Duplicate entry key: 'Lurie09' in file 'references.bib', skipping ...
+[1935] Biber.pm:130> WARN - Duplicate entry key: 'Takesaki70' in file 'references.bib', skipping ...
+[1935] Biber.pm:130> WARN - ISBN '978-3-540-60220-9' in entry 'Struwe96' is invalid - run biber with '--validate_datamodel' for details.
+[1935] Biber.pm:130> WARN - ISBN '978-0-521-86467-4' in entry 'Watanabe09' is invalid - run biber with '--validate_datamodel' for details.
+[1935] Biber.pm:132> INFO - WARNINGS: 7
