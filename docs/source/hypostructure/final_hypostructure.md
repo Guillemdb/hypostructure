@@ -23,71 +23,44 @@ header-includes: |
   \usepackage[nameinlink,capitalise]{cleveref}
   \renewcommand{\setminus}{\mathbin{\backslash}}
 ---
-# Preface: The Hypostructure Experiment
+## Preface: The Hypostructure Framework
 
-## A New Paradigm for AI-Assisted Mathematics
+### Motivation: Structural Stability in Adaptive Systems
 
-**By Guillem Duran Ballester**
+This monograph presents a formal framework for analyzing the stability of complex adaptive systems, ranging from stochastic optimization algorithms to high-dimensional neural networks. The project originated from a persistent theoretical gap: while certain classes of stochastic solvers exhibit robust stability and tunneling capabilities in practice, their convergence properties often defy standard analytical derivation.
 
-This project began as an attempt to bridge a persistent gap in my own work. For fifteen years, operating at the intersection of artificial intelligence, physics, and software architecture, I frequently encountered systems that worked in practice but defied rigorous explanation in theory.
+Traditional rigorous analysis typically relies on "hard" estimates—Sobolev inequalities, entropy bounds, and convergence rates derived from first principles. However, when applied to discrete, adaptive systems that actively exploit symmetry breaking and topological transitions, these methods often yield vacuous bounds or fail to capture the system's resilience. The mathematical machinery of continuum physics is often semantically misaligned with the discrete, decision-theoretic reality of computational agents.
 
-In particular, over the last decade, I have focused on implementing a specific class of stochastic optimization algorithms known as the **Fractal Gas**. I deployed these swarms in diverse and hostile environments: navigating non-convex loss landscapes, coordinating populations of robots, executing high-frequency trading strategies, and solving tasks in Atari and Sega environments.
+### The Pivot: From Quantitative Estimates to Structural Constraints
 
-In every domain, the algorithms exhibited a remarkable stability. They consistently "tunneled" through barriers that trapped standard gradient descent and recovered from symmetry-breaking events that destabilized other solvers. The engineering was successful, but the theory was lagging. I knew *that* the system worked; the challenge was proving *why*.
+The central contribution of this work is an inversion of the standard analytical paradigm. Rather than attempting to derive global stability estimates from microscopic dynamics, we introduce a method of **Structural Regularization**. We define a class of geometric spaces—**Hypostructures**—constrained by specific axioms of topology, symmetry, and conservation.
 
-This monograph is the result of an experiment to answer that question using a new collaborator: Large Language Models (LLMs). It is not just a mathematical proof; it is a dataset, a methodology, and a proposal for a new way to conduct theoretical research in the age of AI.
+This approach mirrors the logic of Effective Field Theory: rather than solving the microscopic dynamics of every component, we verify that macroscopic symmetry constraints hold. If a system satisfies these local structural axioms (e.g., subcritical scaling, local stiffness), global stability follows as a necessary geometric consequence. This replaces the intractability of global quantitative proofs with the verification of local algebraic "permits."
 
-## The Limits of Hard Analysis
-My initial attempt to formalize the Fractal Gas followed the standard path of rigorous analysis. I tasked models with deriving convergence bounds using traditional tools: propagation of chaos, mean-field limits, and Log-Sobolev Inequalities.
+### Methodology: Computational Formalization
 
-The result was an instructive failure. We generated thousands of pages of dense, heavy analysis that collapsed under its own weight. The models, biased towards the aesthetic of complexity, would hallucinate the need for overpowering machinery—Gevrey norms and global Sobolev embeddings—often without the necessary technical lemmas to support them.
+The theoretical architecture presented here was developed through a methodology of **Iterative Adversarial Refinement** using large-scale language models as reasoning instruments. The framework is structured not as a linear narrative, but as a Directed Acyclic Graph (DAG) of logical dependencies.
 
-More critically, the standard analytical framework was semantically misaligned with the algorithm's reality. Classical analysis often treats instabilities—such as the momentary breaking of symmetry in a fitness landscape—as pathological singularities to be avoided. In the code, however, these were not bugs; they were features. The swarm used these moments to explore and then recovered via kinetic operators. The math was trying to prove that the algorithm *wouldn't* do the very thing that made it effective.
+1. **Axiomatic Definition:** The necessary conditions for stability were distilled into a minimal set of constraints (Conservation, Topology, Duality, Symmetry).
+2. **Adversarial Verification:** Each definition and theorem was subjected to iterative logical stress-testing to identify inconsistencies, effectively treating the text as a semantic fixed point of a verification process.
+3. **Modular Proof Structure:** The resulting theorems are designed to be modular. To apply this framework to a new domain, one need only instantiate the axioms; the global stability guarantees are inherited automatically.
 
-We were trying to brute-force a proof using tools designed for continuum physics, applied to a discrete, adaptive computational process. It became clear that a different approach was needed.
+### A Roadmap for Formal Verification
 
-## The Pivot: From Hard Estimates to Soft Structure
-This friction led to the central insight of this work. Instead of asking the AI to perform "Hard Analysis"—grinding through differential inequalities to prove stability from scratch—I inverted the problem.
-
-I constructed a new formalism, the **Hypostructure**, based on **axiomatizing the stable behaviors observed in simulation.**
-
-Instead of proving that the swarm *cannot* blow up using estimates, we define a geometric space constrained by topology and symmetry such that blow-up is *structurally impossible*. We replaced hard analytical estimates with **soft local checks**—algebraic and topological verifications that rely on the shape of the problem rather than the magnitude of constants. This mirrors the logic of **Effective Field Theory**: we do not need to solve the microscopic dynamics of every atom; we only need to verify that the macroscopic symmetry constraints (conservation laws) hold to derive the hydrodynamic equations.
-
-This pivot leveraged what LLMs do best: structural reasoning, pattern matching across domains, and checking logical consistency. It avoids what they do worst: maintaining long chains of quantitative inequalities.
-
-## The Architecture: A Directed Acyclic Graph of Proofs
-The resulting framework is structured not as a linear textbook, but as a modular software architecture applied to mathematics.
-
-1.  **The Axioms:** We distilled the properties of the Fractal Gas into core constraints (Conservation, Topology, Duality, Symmetry).
-2.  **The Metatheorems:** We proved powerful global theorems based *only* on these axioms.
-3.  **The API:** To apply this to a new domain (e.g., Fluid Dynamics or Game Theory), one does not need to re-derive the theorems. One simply verifies the local axioms. If the system fits the interface, it inherits the global stability guarantees.
-
-This approach allowed us to construct a Directed Acyclic Graph (DAG) of proofs. By isolating the logic into reusable modules, we could debug the philosophy of the math without getting lost in the arithmetic.
-
-## A Fixed-Point Adversarial Dataset
-The document you are about to read was generated through a process of **Iterative Adversarial Refinement**. Every definition, theorem, and proof was iterated upon thousands of times. In each loop, an LLM was tasked with acting as a ruthless reviewer, hunting for logical gaps, inconsistencies, or undefined terms.
-
-The text before you is a **semantic fixed point** of this process—a state where state-of-the-art models (GPT-4, Claude 3.5, o1) can no longer find logical errors within the context of the defined axioms.
-
-While no single work of this scale can guarantee total freedom from error relative to standard mathematical literature, the logical consistency of the framework is robust. This makes the text a unique artifact for the research community:
-*   It is a **dataset** of long-horizon, consistent logical reasoning that falls outside the standard training distribution.
-*   It is a **benchmark** for reasoning capabilities: can future models distinguish between the internal consistency of this framework and external empirical truth?
-*   It is a **blueprint** for "Industrialized Mathematics"—using AI not just as a calculator, but as an architect of conceptual frameworks.
-
-## Toward Automated Formalization: Lean and Empirical Bounds
-
-Finally, this work is structured to support the next step in automated mathematics: **Formal Verification.**
-
-The modular architecture of the Hypostructure—where global stability guarantees rely entirely on local checks—was designed to be translated into formal proof assistants like **Lean** or **Coq**. Because the proofs form a Directed Acyclic Graph, we can implement the "Metatheorems" as a high-level library.
+This document serves as a blueprint for the formalization of dynamical stability in automated proof systems. The modular architecture—where global stability guarantees rely entirely on local checks—was designed to be translated into formal proof assistants like **Lean** or **Coq**. Because the proofs form a Directed Acyclic Graph, the Metatheorems can be implemented as a high-level library.
 
 In this paradigm, solving a new problem does not require writing a global proof from scratch. It requires only:
-1.  **Instantiating the Class:** Defining the specific state space and operators in Lean.
-2.  **Verifying the Axioms:** Proving that the local checks (e.g., subcritical scaling) hold.
-3.  **Compilation:** The framework automatically derives global regularity, stability, and convergence.
+1. **Instantiating the Class:** Defining the specific state space and operators.
+2. **Verifying the Axioms:** Proving that the local checks (e.g., subcritical scaling) hold.
+3. **Compilation:** The framework automatically derives global regularity, stability, and convergence.
 
-Furthermore, for problems that are analytically intractable—where sharp constants cannot be derived from first principles—this framework offers a hybrid path. Because the logic is differentiable, we can estimate these constants empirically using **backpropagation** (as described in Part V).
+For problems that are analytically intractable—where sharp constants cannot be derived from first principles—this framework offers a hybrid path. The structural parameters can be estimated empirically using backpropagation, then plugged back into the formal framework. This maintains the rigor of structural guarantees while leveraging the empirical power of deep learning to bound the constants.
 
-We can train a "Fractal Gas" solver to find the worst-case configurations of a system, measure the breakdown thresholds empirically, and then plug those values back into the formal framework. This allows us to maintain the rigor of the structural guarantee while leveraging the empirical power of deep learning to bound the constants. This is the future of **Computer-Assisted Proof**: formal structure filled with empirically learned precision.
+By decoupling the "software" of the axioms from the "hardware" of the specific system, we provide a unified language for stability analysis that bridges the gap between abstract category theory and practical engineering.
+
+### Note on Methodology
+
+*This text was generated and refined using Large Language Models (LLMs) acting as reasoning instruments. The logical structure was enforced through an iterative adversarial process to ensure internal consistency. While the framework is presented as a rigorous mathematical object, it should be viewed as a "semantic fixed point" of this computational process—a proposal for a new class of mathematical structures awaiting formal implementation in proof assistants like Lean.*
 
 ## The Differentiable Logic: Alignment as Geometry
 
@@ -101,7 +74,7 @@ The pathologies that plague modern Deep Learning—mode collapse, reward hacking
 
 The Hypostructure framework offers a third path: **Structural Regularization.** We do not just train the agent to maximize utility; we train the environment (or the agent's internal model) to respect the laws of physics that make stable intelligence possible.
 
-### 1. The Isomorphism of Failure
+### The Isomorphism of Failure
 
 To treat alignment as a geometry problem, we must first map the "bugs" of AI to the "singularities" of Analysis. We organize these failures into a periodic table of structure, defined by which constraint is violated (Rows) and the mechanism of the violation (Columns).
 
@@ -139,7 +112,7 @@ By applying this taxonomy to Artificial Intelligence, we reveal that many distin
 | **B.D** | Starvation          | Absorbing Boundary                           | Heat death                  | **Sparse Reward**            | Feedback vanishes; policy freezes.       |
 | **B.C** | Misalignment        | Incompatible Neumann                         | Chiral anomaly              | **Reward Hacking**           | Proxy gradient orthogonal to true goal.  |
 
-### 2. The Physiological Laws (The Axioms)
+### The Physiological Laws (The Axioms)
 
 To cure these pathologies, we must define the positive constraints. If the Failure Modes are the diseases of intelligence, the **Axioms** are the physiological laws that maintain health.
 
@@ -159,7 +132,7 @@ In this framework, we do not simply hope these axioms hold; we operationalize th
 | **GC**  | Gradient Consistency | Riemannian Metric                                           | Metric compatibility      | Natural Gradient        | Steepest descent matches geometry.        |
 | **Rep** | Representation       | Dualities (Fourier)                                         | Normal modes              | Disentanglement         | Internal model isomorphic to data.        |
 
-### 3. Action Minimization: From Proof to Optimization
+###  Action Minimization: From Proof to Optimization
 
 This isomorphism fundamentally changes the objective of AI training. The standard approach focuses on maximizing a utility function $U(x)$. This is structurally isomorphic to the **"supercriticality barrier"** in PDE analysis: trying to prove regularity using only global energy estimates.
 
@@ -173,7 +146,7 @@ Consider **Reward Hacking (Mode B.C)**. In our framework, this is not a moral fa
 
 This solves a major technical bottleneck: **The Compactness Trap.** In classical analysis, proving Global Compactness is notoriously difficult—it requires proving that a system *never* escapes to infinity. In our framework, we do not require global compactness a priori. We allow the axioms to fail locally, but we treat this failure as a high-loss state. By optimizing to shrink the **Axiom Cap** and **Axiom D** defects, we dynamically force the system into a compact region of the phase space, effectively learning the bounds that analytical proofs struggle to establish.
 
-### 4. Debugging Reality
+###  Debugging Reality
 
 By forcing these axioms to hold via optimization, we create a new kind of interpretability for AI: **Structural Debugging.**
 
@@ -183,11 +156,11 @@ When a standard Deep Learning model fails, the user often sees nothing more than
 The flowchart in **Figure 1** is the heart of this process. It represents the **Structural Sieve**—a decision tree that filters dynamical systems.
 
 
-### 5. The Rosetta Stone of Structure
+###  The Rosetta Stone of Structure
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=\textwidth,height=0.92\textheight,keepaspectratio]{diagram_framework.pdf}
+\includegraphics[width=\textwidth,height=0.92\textheight,keepaspectratio]{diagram_svg.pdf}
 \caption{\textbf{The Structural Sieve Algorithm.} A diagnostic flowchart that maps dynamical systems to failure fingerprints. The algorithm proceeds through five constraint classes (Conservation, Topology, Duality, Symmetry, Boundary), testing each for three failure types (Excess, Deficiency, Complexity). Each test yields a binary permit indicator $\pi_m \in \{0,1\}$, producing a 15-bit fingerprint that uniquely characterizes the system's vulnerability profile.}
 \label{fig:sieve}
 \end{figure}
@@ -215,22 +188,22 @@ The diagram in **Figure 1** operates on two levels: the **Blue Checks** (the law
 #### Table 5: The Orange Barriers (The Enforcers)
 *These nodes are the "immune system" of the framework. When an Axiom fails, these theorems trigger to contain the damage. They act as the secondary layer of defense against singularities.*
 
-| Barrier Question (From Diagram)     | Barrier Name             | Ref. Theorem | Math / Analysis Realization | Physics Realization    | AI / Alignment Realization                                                           |
-|:------------------------------------|:-------------------------|:-------------|:----------------------------|:-----------------------|:-------------------------------------------------------------------------------------|
-| **Is Drift Controlled?**            | **Saturation Barrier**   | \cref{mt:the-saturation-principle}    | Maximum Principle           | Saturation Density     | **Tanh/Sigmoid Saturation.** Prevents neuron output from exploding.                  |
-| **Is Depth Finite?**                | **Causal Censor**        | \cref{mt:the-algorithmic-causal-barrier}     | Finite Propagation Speed    | Light Cone / Causality | **Causal Masking.** Prevents a Transformer from "cheating" by seeing the future.     |
-| **Is Interaction Finite?**          | **Scattering Barrier**   | \cref{mt:scattering-compactness-dichotomy}     | Dispersion Estimates        | Wave Scattering        | **Dropout / Noise.** Disperses information to prevent overfitting.                   |
-| **Is Renorm Cost Infinite?**        | **Type II Barrier**      | \cref{mt:type-ii-exclusion}     | Critical Exponents          | UV Cutoff              | **Regularization Cost.** Prevents the model from learning infinitely sharp features. |
-| **Is Phase Stable?**                | **Vacuum Barrier**       | \cref{mt:mass-gap-principle}  | Stability of Equilibria     | False Vacuum Decay     | **Initialization Stability.** Prevents "dead neurons" at the start of training.      |
-| **Is Measure Zero?**                | **Capacity Barrier**     | \cref{mt:capacity-barrier}     | Dimensional Rigidity        | Exclusion Principle    | **Information Bottleneck.** Forces data compression to prevent memorization.         |
-| **Is there a Gap?**                 | **Spectral Barrier**     | \cref{mt:the-spectral-generator}     | Poincaré Inequality         | Mass Gap               | **Margin Maximization.** Forces decision boundaries to be distinct and separate.     |
-| **Is Energy < Gap?**                | **Action Barrier**       | \cref{mt:action-reconstruction}     | Tunneling Probability       | Potential Barrier      | **Loss Barriers.** High-loss regions that prevent jumping to bad minima.             |
-| **Is it Definable?**                | **O-Minimal Barrier**    | \cref{mt:the-o-minimal-taming-principle}     | Tame Topology               | Finite Resolution      | **Finite Precision.** Float16 limits prevent infinite fractal recursion.             |
-| **Is Trap Escapable?**              | **Mixing Barrier**       | \cref{mt:the-ergodic-mixing-barrier}    | Mixing Times                | Heat Death             | **Replay Buffer.** Shuffling data breaks correlations and prevents "loops."          |
-| **Is Description Finite?**          | **Epistemic Barrier**    | \cref{mt:the-epistemic-horizon-principle}    | Kolmogorov Complexity       | Heisenberg Uncertainty | **Universal Approx. Limit.** The limit of what a finite network can represent.       |
-| **Is Sensitivity Bounded?**         | **Bode Barrier**         | \cref{thm:the-bode-sensitivity-integral}     | Sensitivity Integral        | Info Conservation      | **Robustness Trade-off.** High accuracy often decreases robustness to attacks.       |
-| **Does Control Match Disturbance?** | **Variety Barrier**      | \cref{mt:ashbys-law-of-requisite-variety}     | Ashby's Law                 | Degrees of Freedom     | **Parameter Count.** The model must have enough parameters to match data.            |
-| **Is Hom(Bad, S) Empty?**           | **The Categorical Lock** | \cref{mt:categorical-obstruction-schema} | Cohomological Obstruction   | Anomaly Cancellation   | **Structural Impossibility.** A proof that a failure mode *cannot* exist.            |
+| Barrier Question (From Diagram)     | Barrier Name             | Ref. Theorem                               | Math / Analysis Realization | Physics Realization    | AI / Alignment Realization                                                           |
+|:------------------------------------|:-------------------------|:-------------------------------------------|:----------------------------|:-----------------------|:-------------------------------------------------------------------------------------|
+| **Is Drift Controlled?**            | **Saturation Barrier**   | \cref{mt:the-saturation-principle}         | Maximum Principle           | Saturation Density     | **Tanh/Sigmoid Saturation.** Prevents neuron output from exploding.                  |
+| **Is Depth Finite?**                | **Causal Censor**        | \cref{mt:the-algorithmic-causal-barrier}   | Finite Propagation Speed    | Light Cone / Causality | **Causal Masking.** Prevents a Transformer from "cheating" by seeing the future.     |
+| **Is Interaction Finite?**          | **Scattering Barrier**   | \cref{mt:scattering-compactness-dichotomy} | Dispersion Estimates        | Wave Scattering        | **Dropout / Noise.** Disperses information to prevent overfitting.                   |
+| **Is Renorm Cost Infinite?**        | **Type II Barrier**      | \cref{mt:type-ii-exclusion}                | Critical Exponents          | UV Cutoff              | **Regularization Cost.** Prevents the model from learning infinitely sharp features. |
+| **Is Phase Stable?**                | **Vacuum Barrier**       | \cref{mt:mass-gap-principle}               | Stability of Equilibria     | False Vacuum Decay     | **Initialization Stability.** Prevents "dead neurons" at the start of training.      |
+| **Is Measure Zero?**                | **Capacity Barrier**     | \cref{mt:capacity-barrier}                 | Dimensional Rigidity        | Exclusion Principle    | **Information Bottleneck.** Forces data compression to prevent memorization.         |
+| **Is there a Gap?**                 | **Spectral Barrier**     | \cref{mt:the-spectral-generator}           | Poincaré Inequality         | Mass Gap               | **Margin Maximization.** Forces decision boundaries to be distinct and separate.     |
+| **Is Energy < Gap?**                | **Action Barrier**       | \cref{mt:action-reconstruction}            | Tunneling Probability       | Potential Barrier      | **Loss Barriers.** High-loss regions that prevent jumping to bad minima.             |
+| **Is it Definable?**                | **O-Minimal Barrier**    | \cref{mt:the-o-minimal-taming-principle}   | Tame Topology               | Finite Resolution      | **Finite Precision.** Float16 limits prevent infinite fractal recursion.             |
+| **Is Trap Escapable?**              | **Mixing Barrier**       | \cref{mt:the-ergodic-mixing-barrier}       | Mixing Times                | Heat Death             | **Replay Buffer.** Shuffling data breaks correlations and prevents "loops."          |
+| **Is Description Finite?**          | **Epistemic Barrier**    | \cref{mt:the-epistemic-horizon-principle}  | Kolmogorov Complexity       | Heisenberg Uncertainty | **Universal Approx. Limit.** The limit of what a finite network can represent.       |
+| **Is Sensitivity Bounded?**         | **Bode Barrier**         | \cref{thm:the-bode-sensitivity-integral}   | Sensitivity Integral        | Info Conservation      | **Robustness Trade-off.** High accuracy often decreases robustness to attacks.       |
+| **Does Control Match Disturbance?** | **Variety Barrier**      | \cref{mt:ashbys-law-of-requisite-variety}  | Ashby's Law                 | Degrees of Freedom     | **Parameter Count.** The model must have enough parameters to match data.            |
+| **Is Hom(Bad, S) Empty?**           | **The Categorical Lock** | \cref{mt:categorical-obstruction-schema}   | Cohomological Obstruction   | Anomaly Cancellation   | **Structural Impossibility.** A proof that a failure mode *cannot* exist.            |
 
 #### Reading the Sieve: A Logic of Compensation
 How do we use this diagram? We do not start by trying to prove that the system is globally perfect. That is the trap of classical analysis. Instead, we simply trace the flow of energy and information through the blue blocks.
@@ -248,7 +221,7 @@ We don't need to prove global stability from scratch. We only need to prove that
 #### The Secondary Layer: Importing the Barriers
 But what guarantees that these axioms are strong enough to stop a singularity? This is where we bridge the gap between AI and deep mathematics.
 
-To close the logical gaps between these checkpoints, I did not invent new mathematics; I imported the heaviest machinery from existing literature. In the diagram, the orange/amber nodes represent **Barrier Theorems**. These are rigorous, pre-existing theorems from Fluid Dynamics, Topology, and Information Theory that act as a secondary layer of defense.
+To close the logical gaps between these checkpoints, the framework does not invent new mathematics; it imports the heaviest machinery from existing literature. In the diagram, the orange/amber nodes represent **Barrier Theorems**. These are rigorous, pre-existing theorems from Fluid Dynamics, Topology, and Information Theory that act as a secondary layer of defense.
 
 *   When the system threatens to oscillate out of control, we don't just hope it stops; we invoke the **Bode Sensitivity Integral** (a control theory limit) to prove it *must* stop or violate conservation of information.
 *   When the system tries to hide information, we invoke the **Heisenberg Uncertainty Principle** or the **Shannon Limit** as a hard barrier.
@@ -260,7 +233,7 @@ This process generates a unique **Failure Fingerprint** for every system. By run
 
 *   **Is the agent stuck in a loop?** That is **Mode T.D** (Glassy Freeze). The Sieve tells us the agent has hit a **Topological Barrier**; it lacks the energy to cross a gap in the solution space.
 *   **Is the agent oscillating wildly?** That is **Mode D.E** (Oscillatory). The Sieve detects a failure in **Axiom LS (Stiffness)**; the feedback loop has lost its damping.
-*   **Is the agent hallucinating features?** That is **Mode S.E** (Supercritical). The model has violated **Axiom SC**; it is generating detail faster than it can verify it against reality.
+*   **Is the agent generating spurious features?** That is **Mode S.E** (Supercritical). The model has violated **Axiom SC**; it is generating detail faster than it can verify against reality.
 
 This redefines our role. We are no longer just tuning parameters to lower a loss function. We are engineers of geometry. We use the Sieve to identify which constraint is broken, and we use the Axioms to patch the hole. We are not just training the agent; we are repairing the space in which it lives.
 
@@ -268,7 +241,7 @@ This redefines our role. We are no longer just tuning parameters to lower a loss
 
 **Warning: This monograph is extremely dense.** It was not written solely for human consumption.
 
-This document is designed to serve as the **reference context** for a Large Language Model. It acts as a reasoning substrate—a crystallized set of logical constraints that prevents an AI from hallucinating by forcing it to operate within a valid topological framework.
+This document is designed to serve as the **reference context** for a Large Language Model. It acts as a reasoning substrate—a crystallized set of logical constraints that prevents structural inconsistency by forcing operation within a valid topological framework.
 
 While the definitions and theorems are rigorous, the most effective way to engage with this material is to use it as a "system prompt" or context window for your own inquiries.
 
@@ -277,46 +250,33 @@ While the definitions and theorems are rigorous, the most effective way to engag
 
 Do not try to memorize the theorems. Use the framework to navigate the complexity of your own data.
 
-# Hypostructures: A Categorical Formalism for Dynamical Coherence and Structural Learning
-
-*Foundations of Trainable Axiomatic Systems*
-
-This work presents a unified structural framework for analyzing stability and regularity in non-linear dynamical systems by synthesizing methods from geometric analysis, algebraic geometry, and information theory. We posit that global regularity in physical systems is not an accident of specific differential equations but a consequence of satisfying a set of algebraic constraints, termed **Hypostructure Axioms**, which are derived from a single fixed-point principle ($F(x)=x$). We formalize the $(\infty, 1)$-category **Hypo** of coherent dynamical data and establish an **Analytic-Motivic Isomorphism Principle**. This principle proves that the analytic problem of bounding Sobolev norms is functorially isomorphic to the algebraic problem of computing cohomology classes in a moduli space of profiles.
-
-**Foundational Framework.** The theory is developed in the language of **Homotopy Type Theory (HoTT)** and **Higher Topos Theory** [@HoTTBook; @Lurie09]. The state space is not a mere set but a **spatial type** in a cohesive $(\infty, 1)$-topos—an $\infty$-sheaf encoding both configurations and their symmetries. Dynamics is realized as parallel transport along a flat connection, and the axioms are truncation functors on homotopy groups. This foundation provides:
-- **Robustness to deformation**: States connected by paths are equivalent for regularity purposes
-- **Natural gauge handling**: Symmetries are encoded homotopically, not imposed externally
-- **Obstruction theory**: Singularities are cohomological obstructions, not analytic blow-up
-
-The framework admits a **classical recovery**: when the topos is $\mathbf{Set}$ and all types are 0-truncated, the theory reduces to standard PDE analysis on Polish spaces.
-
-**Core Mechanism: Regularity via Soft Local Exclusion**
-We introduce a diagnostic machinery that replaces hard analytic estimates with algebraic obstruction theory. By decomposing the singular locus $\mathcal{Y}_{sing}$ via a partition of unity, we show that any potential singularity must concentrate into a canonical profile $V$. We define a system of **Algebraic Permits**, which includes invariants such as scaling dimensions ($\alpha, \beta$), capacity, and topological sector. We prove that if a profile violates any permit, the singularity is structurally forbidden. This reduces the proof of global regularity to a finite check of algebraic compatibility.
-
-**The Theory of Structural Learning**
-We extend the formalism to **Trainable Hypostructures**, treating the axioms not as static postulates but as learnable parametric families optimized via defect minimization. We construct a **General Loss Functional** that quantifies the violation of structural coherence and prove that minimizing this loss recovers the true physical laws of a system. This establishes a rigorous theory of meta-learning characterized by three key results:
-1.  **Meta-Identifiability:** We prove that the structural parameters of a system (such as scaling exponents and barrier constants) are locally identifiable from trajectory data, provided the data satisfies a persistent excitation condition.
-2.  **Meta-Error Localization:** We derive a diagnostic protocol that identifies exactly which axiom block is misspecified by analyzing the response signature of the residual risk, effectively creating a built-in debugger for physical models.
-3.  **Convergence of Structure:** We demonstrate that a learning agent equipped with these objectives converges to the correct structural manifold, unifying the discovery of physical laws with the optimization of computational agents.
-
-**The Structural Atlas**
-The framework is instantiated across five domains to establish a dictionary of structural isomorphisms:
-1.  **Geometric Analysis:** We map the Minimal Model Program in birational geometry to the dissipation of energy functionals (Axiom D) and identify divisorial contractions with geometric collapse modes.
-2.  **Gauge Theory:** We derive the Yang-Mills action and the Einstein-Hilbert functional as the asymptotic spectral action of a discrete computational substrate governed by the renormalization group flow of the **Information Graph**.
-3.  **Logic and Foundations:** We demonstrate that the ZFC axioms of set theory correspond to physical realizability constraints. Specifically, the Axiom of Foundation is necessary to exclude closed timelike curves (causal well-foundedness), and the Axiom of Choice is equivalent to the existence of maximal global trajectories.
-4.  **Information Dynamics:** We prove the **Holographic Power Bound**, which shows that the information capacity of a coherent system is bounded by its boundary area. This necessitates Einstein’s equations as the thermodynamic equation of state for information processing.
-
-**Constructive Solver: The Fractal Gas**
-To bridge theory and application, we define the **Fractal Gas**, a stochastic algorithm that acts as a constructive solver for the framework. By implementing operators for kinetic diffusion and entropic selection (cloning), the Fractal Gas physically realizes the **Feynman-Kac isomorphism** and tunnels through complexity barriers that trap standard gradient descent. We prove that the trace of this system converges to the solution of the imaginary-time Schrödinger equation, providing a computational engine for the discovery of ground states in high-dimensional non-convex landscapes.
-
-**Summary of Contributions**
-This document serves as a foundational atlas. **Parts I through IV** define the axioms and the failure mode taxonomy. **Parts IX through XII** establish the rigorous isomorphisms to standard mathematics, including Spectral Geometry, Stable Homotopy, and K-Theory. **Part VII** develops the complete theory of trainable hypostructures and structural learning. The result is a complete, falsifiable formalism where physical laws, logical consistency, and learning dynamics are revealed to be differing coordinate systems on the same underlying manifold of coherent structure.
-
-\newpage
-
 # Part I: The Structural Foundations
 
-*The Axiomatic Definition of Coherent Systems.*
+*A Diagnostic Framework for Stability in Learning Systems.*
+
+This work presents a structural framework for analyzing stability and failure modes in dynamical systems, with applications to machine learning, optimization, and physical modeling. The central contribution is a set of **Hypostructure Axioms**—local structural constraints derived from the fixed-point principle $F(x) = x$—that characterize when systems remain coherent and classify how they can break down.
+
+**Methodology: Soft Local Exclusion.** The framework replaces global analytical estimates with local structural checks. Rather than proving that a system *cannot* fail by tracking trajectories, we classify all possible failure modes and show that each is blocked by at least one axiom. This reduces difficult global questions to a finite checklist of algebraic conditions involving scaling exponents, capacity bounds, and topological invariants.
+
+**Core Mechanism.** We introduce a taxonomy of fifteen failure modes organized by constraint class (Conservation, Topology, Duality, Symmetry, Boundary) and failure type (Excess, Deficiency, Complexity). This taxonomy maps pathologies across domains: exploding gradients in neural networks correspond to energy blow-up in PDEs; mode collapse corresponds to geometric concentration; reward hacking corresponds to boundary misalignment. Each failure mode has a structural fingerprint that determines which axiom must be enforced to prevent it.
+
+**Trainable Axioms.** A key innovation is treating the axioms not as fixed postulates but as learnable parameters. We construct a **General Loss Functional** that quantifies structural coherence and show that minimizing this loss forces systems toward axiom-consistent configurations. This enables:
+
+1. **Meta-Identifiability:** Structural parameters (scaling exponents, barrier constants) can be estimated from trajectory data under persistent excitation conditions.
+2. **Error Localization:** When a system fails, the response signature identifies which axiom block is violated, providing interpretable diagnostics.
+3. **Structural Regularization:** The axioms can be enforced as regularization terms during training, preventing failure modes before they occur.
+
+**Document Structure.** The monograph is organized in five parts across twenty chapters:
+
+- **Part I** (Chapters 1–3) defines the hypostructure formalism, the categorical framework, and the axiom system.
+- **Part II** (Chapters 4–6) develops the diagnostic engine: the failure mode taxonomy, the resolution machinery, and the barrier atlas containing 83 structural barriers from mathematics and physics.
+- **Part III** (Chapters 7–11) establishes structural analogies across mathematical domains: PDEs, algebraic geometry, topology, discrete mathematics, and complexity theory.
+- **Part IV** (Chapters 12–15) instantiates the framework in physical contexts: quantum mechanics, gravity, thermodynamics, and logic.
+- **Part V** (Chapters 16–20) presents the theory of learning: meta-learning axioms, the general loss functional, the Fractal Gas solver, and limits of learnable structure.
+
+**Intended Use.** This document is designed as a reference for AI-assisted research. The modular structure allows specific chapters to be used as context for reasoning about stability in particular domains. The framework provides a common language for connecting failure modes across fields—the same structural barrier that prevents turbulence in fluids may prevent training instability in neural networks.
+
+\newpage
 
 ## Chapter 1: The Organizing Principle {#ch:organizing-principle}
 
@@ -10848,7 +10808,6 @@ We derive the spectral inequalities in four steps.
 ### The Shannon-Kolmogorov Barrier
 
 **Constraint Class:** Conservation (Information)
-**Modes Prevented:** 3B (Hollow Singularity), 1 (Energy Escape)
 
 \begin{metatheorem}[The Shannon-Kolmogorov Barrier]\label{mt:the-shannon-kolmogorov-barrier}
 Let $\mathcal{S}$ be a supercritical hypostructure ($\alpha < \beta$). Even if algebraic and energetic permits are granted, \textbf{Mode S.E (Structured Blow-up) is impossible} if the system violates the \textbf{Information Inequality}:
@@ -10909,7 +10868,6 @@ We establish the information barrier in five steps.
 ### The Algorithmic Causal Barrier
 
 **Constraint Class:** Conservation (Computational Depth)
-**Modes Prevented:** 3 (Supercritical Cascade with $\alpha \geq 1$), 9 (Computational Overflow)
 
 \begin{metatheorem}[The Algorithmic Causal Barrier]\label{mt:the-algorithmic-causal-barrier}
 Let $\mathcal{S}$ be a hypostructure with finite propagation speed $c < \infty$. If a candidate singularity requires computational depth:
@@ -10965,7 +10923,6 @@ We establish the causal barrier in five steps.
 ### The Isoperimetric Resilience Principle
 
 **Constraint Class:** Conservation (Geometric)
-**Modes Prevented:** 5 (Topological Twist via pinch-off), 1 (Energy Escape)
 
 \begin{metatheorem}[The Isoperimetric Resilience Principle]\label{mt:the-isoperimetric-resilience-principle}
 Let $\mathcal{S}$ be a hypostructure on an evolving domain $\Omega_t$ with surface-energy functional $\Phi = \int_{\partial \Omega} \sigma \, dA$.
@@ -11026,7 +10983,6 @@ We establish the isoperimetric barrier in five steps.
 ### The Wasserstein Transport Barrier
 
 **Constraint Class:** Conservation (Mass Transport)
-**Modes Prevented:** 1 (Energy Escape via mass teleportation), 9 (Instantaneous aggregation)
 
 \begin{metatheorem}[The Wasserstein Transport Barrier]\label{mt:the-wasserstein-transport-barrier}
 Let $\mathcal{S}$ model density evolution $\partial_t \rho + \nabla \cdot (\rho v) = 0$ with velocity field $v$.
@@ -11088,7 +11044,6 @@ We establish the transport barrier in five steps.
 ### The Recursive Simulation Limit
 
 **Constraint Class:** Conservation (Computational Resources)
-**Modes Prevented:** 9 (Computational Overflow via infinite nesting)
 
 \begin{metatheorem}[The Recursive Simulation Limit]\label{mt:the-recursive-simulation-limit}
 Let $\mathcal{S}$ be capable of universal computation. Infinite recursion (nested simulations of depth $D \to \infty$) is impossible.
@@ -11155,7 +11110,7 @@ We establish the recursive simulation limit in six steps.
 ### The Bode Sensitivity Integral
 
 **Constraint Class:** Conservation (Control Authority)
-**Modes Prevented:** 4 (Infinite Stiffness in control), 1 (Energy Escape via gain)
+**Modes Prevented:** S.D (Infinite Stiffness in control), C.E (Energy Escape via gain)
 
 \begin{theorem}[The Bode Sensitivity Integral]\label{thm:the-bode-sensitivity-integral}
 Let $\mathcal{S}$ be a feedback control system with loop transfer function $L(s)$, sensitivity $S(s) = (1 + L(s))^{-1}$, and $n_p$ unstable poles. Then:
@@ -11211,7 +11166,7 @@ We derive the Bode integral in six steps.
 ### The No Free Lunch Theorem
 
 **Constraint Class:** Conservation (Learning Capacity)
-**Modes Prevented:** 9 (Computational Overflow in learning), 1 (Energy Escape via universal learning)
+**Modes Prevented:** C.D (Computational Overflow in learning), C.E (Energy Escape via universal learning)
 
 \begin{theorem}[The No Free Lunch Theorem]\label{thm:the-no-free-lunch-theorem}
 Let $\mathcal{S}$ be a learning hypostructure with finite input space $\mathcal{X}$, output space $\mathcal{Y}$, and function space $\mathcal{F} = \mathcal{Y}^{\mathcal{X}}$. Then:
@@ -11263,7 +11218,6 @@ We establish the theorem in seven steps.
 ### The Requisite Variety Lock
 
 **Constraint Class:** Conservation (Cybernetic)
-**Modes Prevented:** 4 (Infinite Stiffness in control), 1 (Energy Escape via control mismatch)
 
 \begin{metatheorem}[Ashby's Law of Requisite Variety]\label{mt:ashbys-law-of-requisite-variety}
 Let $\mathcal{S}$ be a control system where a regulator $R$ attempts to maintain an essential variable $E$ within acceptable bounds despite disturbances $D$.
@@ -11344,7 +11298,6 @@ These barriers enforce connectivity constraints, structural consistency, and log
 ### The Characteristic Sieve
 
 **Constraint Class:** Topology (Cohomological)
-**Modes Prevented:** 5 (Topological Twist), 11 (Structural Incompatibility)
 
 The cohomological machinery employed here rests on the **Eilenberg-Steenrod axioms** [@EilenbergSteenrod45], which characterize homology and cohomology theories by their functorial properties and exactness conditions.
 
@@ -11400,7 +11353,6 @@ We establish the obstruction in six steps.
 ### The Sheaf Descent Barrier
 
 **Constraint Class:** Topology (Local-Global Consistency)
-**Modes Prevented:** 5 (Topological Twist), 11 (Structural Incompatibility)
 
 \begin{metatheorem}[The Sheaf Descent Barrier]\label{mt:the-sheaf-descent-barrier}
 Let $\mathcal{F}$ be a sheaf of local solutions on space $X$ with covering $\{U_i\}$. Global solutions exist if and only if the descent obstruction vanishes:
@@ -11473,7 +11425,6 @@ We establish the descent barrier in six steps.
 ### The Gödel-Turing Censor
 
 **Constraint Class:** Topology (Causal-Logical)
-**Modes Prevented:** 8 (Logical Paradox), 5 (Topological Twist via CTC)
 
 \begin{metatheorem}[The Gödel-Turing Censor]\label{mt:the-gdel-turing-censor}
 Let $(M, g, S_t)$ be a causal hypostructure (spacetime with dynamics). A state encoding a \textbf{self-referential paradox} is excluded.
@@ -11539,7 +11490,6 @@ We establish the censor in five steps.
 ### The O-Minimal Taming Principle
 
 **Constraint Class:** Topology (Complexity Exclusion)
-**Modes Prevented:** 5 (Topological Twist via wild sets), 11 (Structural Incompatibility via fractals)
 
 \begin{metatheorem}[The O-Minimal Taming Principle]\label{mt:the-o-minimal-taming-principle}
 Let $(X, S_t)$ be a dynamical system definable in an o-minimal structure $\mathcal{S}$. A singularity driven by \textbf{wild topology} (infinite oscillation, wild knotting, fractal boundaries) is structurally impossible.
@@ -11612,7 +11562,6 @@ We establish the taming principle in six steps.
 ### The Chiral Anomaly Lock
 
 **Constraint Class:** Topology (Conservation of Linking)
-**Modes Prevented:** 5 (Topological Twist via vortex reconnection), 11 (Structural Incompatibility in 3D flows)
 
 \begin{metatheorem}[The Chiral Anomaly Lock]\label{mt:the-chiral-anomaly-lock}
 Let $\mathcal{S}$ be a fluid system with helicity $\mathcal{H}(u) = \int u \cdot (\nabla \times u) \, dx$.
@@ -11676,7 +11625,6 @@ We establish the helicity constraint in five steps.
 ### The Near-Decomposability Principle
 
 **Constraint Class:** Topology (Modular Structure)
-**Modes Prevented:** 11 (Structural Incompatibility via coupling mismatch), 4 (Infinite Stiffness)
 
 \begin{metatheorem}[The Near-Decomposability Principle]\label{mt:the-near-decomposability-principle}
 Let $\mathcal{S}$ be a modular hypostructure with dynamics $\dot{x} = Ax$ where $A$ is $\epsilon$-block-decomposable:
@@ -11749,7 +11697,7 @@ We establish the near-decomposability principle in six steps.
 ### The Categorical Coherence Lock
 
 **Constraint Class:** Topology (Algebraic Consistency)
-**Modes Prevented:** 11 (Structural Incompatibility via associativity failure), 5 (Topological Twist in fusion)
+**Modes Prevented:** T.C (Structural Incompatibility via associativity failure), T.E (Topological Twist in fusion)
 
 \begin{theorem}[The Categorical Coherence Lock / Mac Lane]\label{thm:the-categorical-coherence-lock-mac-lane}
 Let $\mathcal{C}$ be a monoidal category describing a physical system (particle fusion, quantum operations, etc.). A singularity driven by \textbf{basis mismatch} (non-associativity, non-commutativity) is impossible if:
@@ -11828,7 +11776,7 @@ We establish the coherence theorem in three steps.
 ### The Byzantine Fault Tolerance Threshold
 
 **Constraint Class:** Topology (Information Consistency)
-**Modes Prevented:** 11 (Structural Incompatibility via consensus failure), 8 (Logical Paradox in distributed systems)
+**Modes Prevented:** T.C (Structural Incompatibility via consensus failure), D.C (Logical Paradox in distributed systems)
 
 \begin{theorem}[The Byzantine Fault Tolerance Threshold / Lamport-Shostak-Pease]\label{thm:the-byzantine-fault-tolerance-threshold-lamport-sh}
 Let $\mathcal{N}$ be a network with $n$ processors, at most $f$ Byzantine (arbitrarily faulty). Then:
@@ -11909,7 +11857,6 @@ We establish the Byzantine fault tolerance threshold in six steps.
 ### The Borel Sigma-Lock
 
 **Constraint Class:** Topology (Measure-Theoretic)
-**Modes Prevented:** 11 (Structural Incompatibility via non-measurable sets), 1 (Energy Escape via measure paradoxes)
 
 \begin{metatheorem}[The Borel Sigma-Lock]\label{mt:the-borel-sigma-lock}
 Let $(X, S_t, \mu)$ be a dynamical system where $X$ is Polish, $\mu$ is Borel, and $S_t$ is Borel measurable. A singularity driven by \textbf{measure paradoxes} (volume duplication via non-measurable decompositions, à la Banach-Tarski) is structurally impossible.
@@ -11981,7 +11928,7 @@ We establish the Borel sigma-lock in six steps.
 ### The Percolation Threshold
 
 **Constraint Class:** Topology (Connectivity Phase Transition)
-**Modes Prevented:** 5 (Topological Twist via fragmentation), 11 (Structural Incompatibility via disconnection)
+**Modes Prevented:** T.E (Topological Twist via fragmentation), T.C (Structural Incompatibility via disconnection)
 
 \begin{theorem}[The Percolation Threshold Principle]\label{thm:the-percolation-threshold-principle}
 Let $\mathcal{S}$ be a network hypostructure with percolation parameter $p$. Then:
@@ -12057,7 +12004,7 @@ We establish the percolation threshold in seven steps.
 ### The Borsuk-Ulam Collision
 
 **Constraint Class:** Topology (Fixed-Point Obstruction)
-**Modes Prevented:** 5 (Topological Twist via antipodal mismatch), 11 (Structural Incompatibility)
+**Modes Prevented:** T.E (Topological Twist via antipodal mismatch), T.C (Structural Incompatibility)
 
 \begin{theorem}[The Borsuk-Ulam Theorem]\label{thm:the-borsuk-ulam-theorem}
 Let $f: S^n \to \mathbb{R}^n$ be continuous. Then there exists a point $x \in S^n$ such that:
@@ -12117,7 +12064,7 @@ We establish the Borsuk-Ulam theorem in seven steps.
 ### The Semantic Opacity Principle
 
 **Constraint Class:** Topology (Undecidability)
-**Modes Prevented:** 8 (Logical Paradox via semantic self-reference), 11 (Structural Incompatibility in verification)
+**Modes Prevented:** D.C (Logical Paradox via semantic self-reference), T.C (Structural Incompatibility in verification)
 
 \begin{theorem}[Rice's Theorem]\label{thm:rices-theorem}
 Let $\mathcal{P}$ be any non-trivial semantic property of computable functions (i.e., a property depending on the function computed, not the program code). Then the set:
@@ -12189,7 +12136,6 @@ Duality barriers arise when a system can be viewed from multiple perspectives or
 ### The Coherence Quotient: Skew-Symmetric Blindness Handling
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.D (Oscillation), Mode D.E (Observation)
 
 \begin{definition}[Skew-Symmetric Blindness]\label{def:skew-symmetric-blindness}
 Let $\mathcal{S} = (X, d, \mu, S_t, \Phi, \mathfrak{D}, V)$ be a hypostructure with evolution $\partial_t x = L(x) + N(x)$ where $L$ is dissipative and $N$ is the nonlinearity. The system exhibits \textbf{skew-symmetric blindness} if:
@@ -12264,7 +12210,6 @@ We establish the coherence quotient criterion in six steps.
 ### The Symplectic Transmission Principle: Rank Conservation
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.D (Oscillation), Mode D.C (Measurement)
 
 \begin{definition}[Symplectic Map]\label{def:symplectic-map}
 Let $(X, \omega)$ be a symplectic manifold with $\omega = \sum_i dq_i \wedge dp_i$. A map $\phi: X \to X$ is \textbf{symplectic} if $\phi^* \omega = \omega$.
@@ -12354,7 +12299,6 @@ We establish the symplectic transmission principle in six steps.
 ### The Symplectic Non-Squeezing Barrier: Phase Space Rigidity
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.D (Oscillation), Mode D.E (Observation)
 
 \begin{definition}[Symplectic Ball and Cylinder]\label{def:symplectic-ball-and-cylinder}
 In $\mathbb{R}^{2n}$ with coordinates $(q_1, \ldots, q_n, p_1, \ldots, p_n)$:
@@ -12435,7 +12379,6 @@ We establish the non-squeezing theorem in five steps.
 ### The Anamorphic Duality Principle: Structural Conjugacy and Uncertainty
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.D (Oscillation), Mode D.E (Observation), Mode D.C (Measurement)
 
 \begin{definition}[Anamorphic Pair]\label{def:anamorphic-pair}
 An \textbf{anamorphic pair} is a tuple $(X, \mathcal{F}, \mathcal{G}, \mathcal{T})$ where:
@@ -12536,7 +12479,6 @@ We establish the anamorphic duality principle in five steps.
 ### The Minimax Duality Barrier: Oscillatory Exclusion via Saddle Points
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.D (Oscillation)
 
 \begin{definition}[Adversarial Lagrangian System]\label{def:adversarial-lagrangian-system}
 An \textbf{adversarial Lagrangian system} is $(u, v) \in \mathcal{U} \times \mathcal{V}$ evolving under:
@@ -12626,7 +12568,6 @@ We establish the minimax duality barrier in five steps.
 ### The Epistemic Horizon Principle: Prediction Barrier
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.E (Observation), Mode D.C (Measurement)
 
 \begin{definition}[Observer Subsystem]\label{def:observer-subsystem}
 An \textbf{observer subsystem} $\mathcal{O} \subset \mathcal{S}$ is capable of:
@@ -12721,7 +12662,6 @@ We establish the epistemic horizon principle in four steps.
 ### The Semantic Resolution Barrier: Berry Paradox and Descriptive Complexity
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.E (Observation), Mode D.C (Measurement)
 
 \begin{definition}[Kolmogorov Complexity]\label{def:kolmogorov-complexity}
 Our treatment follows the standard formulation of \textbf{Li and Vitányi [@LiVitanyi08]}, treating descriptive complexity as an invariant limiting property of the computational system. The \textbf{Kolmogorov complexity} $K(x)$ of a string $x$ is the length of the shortest program that outputs $x$:
@@ -12813,7 +12753,6 @@ We establish the semantic resolution barrier in four steps.
 ### The Intersubjective Consistency Principle: Observer Agreement
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.E (Observation), Mode D.C (Measurement)
 
 \begin{definition}[Wigner's Friend Setup]\label{def:wigners-friend-setup}
 Consider a quantum measurement scenario:
@@ -12898,7 +12837,6 @@ We establish the intersubjective consistency principle in five steps.
 ### The Johnson-Lindenstrauss Lemma: Dimension Reduction Limits
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.E (Observation), Mode D.C (Measurement)
 
 \begin{definition}[Dimension Reduction Map]\label{def:dimension-reduction-map}
 A map $f: \mathbb{R}^d \to \mathbb{R}^k$ with $k < d$ is \textbf{$\epsilon$-isometric} on a set $X \subset \mathbb{R}^d$ if:
@@ -12967,7 +12905,6 @@ We establish the Johnson-Lindenstrauss lemma in seven steps.
 ### The Takens Embedding Theorem: Dynamical Reconstruction Limits
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.E (Observation), Mode D.C (Measurement)
 
 \begin{definition}[Delay Coordinates]\label{def:delay-coordinates}
 For a scalar time series $s(t) = h(x(t))$ (observation of hidden state $x(t) \in \mathbb{R}^d$), the \textbf{delay coordinate map} is:
@@ -13037,7 +12974,6 @@ We establish the Takens embedding theorem in six steps.
 ### The Boundary Layer Separation Principle: Singular Perturbation Duality
 
 **Constraint Class:** Duality
-**Modes Prevented:** Mode D.D (Oscillation), Mode D.E (Observation)
 
 \begin{definition}[Singular Perturbation Problem]\label{def:singular-perturbation-problem}
 Consider the PDE:
@@ -13182,7 +13118,6 @@ Symmetry barriers arise when a system's dynamics respect certain transformations
 The systematic exclusion of failure modes via sequential constraints generalizes the **Large Sieve** method of analytic number theory [@IwaniecKowalski04], where a set of interest is bounded by excluding residue classes (failure modes) across multiple primes (scales).
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.D (Stiffness)
 
 \begin{definition}[Spectral Lift]\label{def:spectral-lift}
 A \textbf{spectral lift} $\Sigma: X \to \text{Sym}^N(\mathcal{M})$ maps a continuous state $x$ to a configuration of $N$ structural quanta $\{\rho_1, \ldots, \rho_N\} \subset \mathcal{M}$ (critical points, concentration centers, particles).
@@ -13281,7 +13216,6 @@ We establish the spectral convexity principle in six steps.
 ### The Gap-Quantization Principle: Energy Thresholds for Singularity
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.D (Stiffness)
 
 \begin{definition}[Spectral Gap]\label{def:spectral-gap}
 For a linear operator $L: H \to H$, the \textbf{spectral gap} is:
@@ -13392,7 +13326,6 @@ We establish the gap-quantization principle in five steps.
 ### The Galois-Monodromy Lock: Orbit Exclusion via Field Theory
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.C (Computational)
 
 \begin{definition}[Galois Group]\label{def:galois-group}
 For a polynomial $f(x) \in \mathbb{Q}[x]$, the \textbf{Galois group} $\text{Gal}(f)$ is the group of automorphisms of the splitting field $K$ (the smallest field containing all roots of $f$) that fix $\mathbb{Q}$.
@@ -13526,7 +13459,6 @@ We establish the Galois-monodromy lock in nine steps.
 ### The Algebraic Compressibility Principle: Degree-Volume Locking
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.C (Computational)
 
 \begin{definition}[Algebraic Variety]\label{def:algebraic-variety}
 An \textbf{algebraic variety} $V \subset \mathbb{C}^n$ is the zero locus of polynomial equations:
@@ -13639,7 +13571,6 @@ We establish the algebraic compressibility principle in six steps.
 ### The Derivative Debt Barrier: Nash-Moser Regularization
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.D (Stiffness), Mode S.C (Computational)
 
 \begin{definition}[Loss of Derivatives]\label{def:loss-of-derivatives}
 A nonlinear PDE exhibits \textbf{loss of derivatives} if each iteration of a solution scheme requires more regularity than it produces:
@@ -13769,7 +13700,6 @@ We establish the derivative debt barrier in eight steps.
 ### The Hyperbolic Shadowing Barrier: Pseudo-Orbit Tracing
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.D (Stiffness)
 
 \begin{definition}[Pseudo-Orbit]\label{def:pseudo-orbit}
 A \textbf{$\delta$-pseudo-orbit} is a sequence $\{x_n\}$ satisfying:
@@ -13885,7 +13815,6 @@ We establish the hyperbolic shadowing barrier in seven steps.
 ### The Stochastic Stability Barrier: Persistence Under Random Perturbation
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.D (Stiffness)
 
 \begin{definition}[Stochastic Differential Equation]\label{def:stochastic-differential-equation}
 $$dx_t = f(x_t)dt + \sigma(x_t)dW_t$$
@@ -13989,7 +13918,6 @@ We establish the stochastic stability barrier in five steps.
 ### The Eigen Error Threshold: Mutation-Selection Balance in Discrete Dynamics
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.C (Computational)
 
 \begin{definition}[Quasispecies Equation]\label{def:quasispecies-equation}
 The population density $x_i(t)$ of sequence $i$ evolves:
@@ -14099,7 +14027,6 @@ We establish the Eigen error threshold in seven steps.
 ### The Universality Convergence: Scale-Invariant Fixed Points
 
 **Constraint Class:** Symmetry
-**Modes Prevented:** Mode S.E (Scaling), Mode S.C (Computational)
 
 \begin{definition}[Renormalization Group [@Wilson71]\label{def:renormalization-group-wilson71}]
 The \textbf{renormalization group (RG)}, introduced by Wilson for the rigorous treatment of critical phenomena, describes how effective theories change with scale. The RG flow is:
@@ -14241,7 +14168,6 @@ These barriers arise from computational complexity, causal structure, boundary c
 ### The Nyquist-Shannon Stability Barrier
 
 **Constraint Class:** Computational (Bandwidth)
-**Modes Prevented:** Mode S.E (Supercritical), Mode C.E (Energy Escape)
 
 \begin{metatheorem}[The Nyquist-Shannon Stability Barrier]\label{mt:the-nyquist-shannon-stability-barrier}
 Let $u(t)$ be a trajectory approaching an unstable singular profile $V$ with instability rate $\mathcal{R} = \sum_{\mu \in \Sigma_+} \text{Re}(\mu)$ (sum of positive Lyapunov exponents). If the system's intrinsic bandwidth $\mathcal{B}(t)$ satisfies:
@@ -14266,7 +14192,6 @@ The instability generates information at rate $\mathcal{R}/\ln 2$ bits per unit 
 ### The Transverse Instability Barrier
 
 **Constraint Class:** Computational (Learning)
-**Modes Prevented:** Mode B.E (Alignment Failure), Mode S.D (Stiffness)
 
 \begin{metatheorem}[The Transverse Instability Barrier]\label{mt:the-transverse-instability-barrier}
 Let $\mathcal{S}$ be a hypostructure with policy $\pi^*$ optimized on training manifold $M_{\text{train}} \subset X$ with codimension $\kappa = \dim(X) - \dim(M_{\text{train}}) \gg 1$. If:
@@ -14295,7 +14220,6 @@ Gradient descent provides no signal in normal directions $N_x M_{\text{train}}$.
 ### The Isotropic Regularization Barrier
 
 **Constraint Class:** Computational (Learning)
-**Modes Prevented:** Mode B.C (Misalignment)
 
 \begin{metatheorem}[The Isotropic Regularization Barrier]\label{mt:the-isotropic-regularization-barrier}
 Standard regularizers ($L^2$ weight decay, spectral normalization, dropout) are \textbf{isotropic}—they penalize global complexity uniformly. The transverse instability (\cref{mt:the-transverse-instability-barrier}) is \textbf{anisotropic}—it exists only in specific normal directions.
@@ -14320,7 +14244,6 @@ To eliminate transverse instability, all eigenvalues of the normal Hessian must 
 ### The Resonant Transmission Barrier
 
 **Constraint Class:** Conservation (Spectral)
-**Modes Prevented:** Mode D.E (Frequency Blow-up), Mode S.E (Cascade)
 
 \begin{metatheorem}[The Resonant Transmission Barrier]\label{mt:the-resonant-transmission-barrier}
 Let $\mathcal{S}$ be a hypostructure with discrete spectrum $\{\omega_k\}$ (e.g., normal modes). Energy cascade to arbitrarily high frequencies is blocked if the resonance condition:
@@ -14345,7 +14268,6 @@ Energy transfer requires resonant triads/quartets. Non-resonance (incommensurabi
 ### The Fluctuation-Dissipation Lock
 
 **Constraint Class:** Conservation (Thermodynamic)
-**Modes Prevented:** Mode C.E (Energy Escape), Mode D.D (Scattering)
 
 \begin{metatheorem}[The Fluctuation-Dissipation Lock]\label{mt:the-fluctuation-dissipation-lock}
 For any system in thermal equilibrium at temperature $T$, the dissipation $\gamma$ and fluctuation strength $D$ are locked:
@@ -14374,7 +14296,6 @@ The fluctuation-dissipation theorem follows from time-reversal symmetry of equil
 ### The Harnack Propagation Barrier
 
 **Constraint Class:** Conservation (Parabolic)
-**Modes Prevented:** Mode C.D (Collapse), Mode C.E (Local Blow-up)
 
 \begin{metatheorem}[The Harnack Propagation Barrier]\label{mt:the-harnack-propagation-barrier}
 For parabolic equations $\partial_t u = Lu$ with $L$ uniformly elliptic, the Harnack inequality holds:
@@ -14401,7 +14322,6 @@ The Harnack inequality follows from parabolic regularity theory (Moser iteration
 ### The Pontryagin Optimality Censor
 
 **Constraint Class:** Boundary (Control)
-**Modes Prevented:** Mode S.D (Stiffness via control)
 
 \begin{metatheorem}[The Pontryagin Optimality Censor]\label{mt:the-pontryagin-optimality-censor}
 For optimal control problems $\min \int_0^T L(x, u) dt$ with dynamics $\dot{x} = f(x, u)$, the optimal control $u^*$ satisfies the Pontryagin Maximum Principle [@Pontryagin62]:
@@ -14428,7 +14348,6 @@ The costate $p$ evolves according to $\dot{p} = -\partial H/\partial x$. Near op
 ### The Index-Topology Lock
 
 **Constraint Class:** Topology
-**Modes Prevented:** Mode T.E (Defect Creation), Mode T.D (Annihilation)
 
 \begin{metatheorem}[The Index-Topology Lock]\label{mt:the-index-topology-lock}
 Let $V: M \to N$ be a vector field (or map) with isolated zeros. The total index (sum of local indices) is a topological invariant:
@@ -14453,7 +14372,6 @@ The Poincaré-Hopf theorem identifies the index sum with $\chi(M)$. Continuous d
 ### The Causal-Dissipative Link
 
 **Constraint Class:** Boundary (Relativistic)
-**Modes Prevented:** Mode C.E (Superluminal), Mode D.E (Acausal)
 
 \begin{metatheorem}[The Causal-Dissipative Link]\label{mt:the-causal-dissipative-link}
 For any relativistically causal evolution (signals propagate at $\leq c$), the system must be dissipative in the sense that:
@@ -14480,7 +14398,6 @@ These follow from causality ($\chi(t) = 0$ for $t < 0$) via Titchmarsh's theorem
 ### The Fixed-Point Inevitability
 
 **Constraint Class:** Topology
-**Modes Prevented:** Mode T.C (Wandering)
 
 \begin{theorem}[The Fixed-Point Inevitability]\label{thm:the-fixed-point-inevitability}
 Let $f: X \to X$ be a continuous map on a compact convex subset $X \subset \mathbb{R}^n$. Then $f$ has a fixed point (Brouwer). More generally:
@@ -14508,7 +14425,6 @@ These barriers complete the taxonomy with information-theoretic, algebraic, and 
 ### The Asymptotic Orthogonality Principle
 
 **Constraint Class:** Duality (System-Environment)
-**Modes Prevented:** Mode T.E (Metastasis), Mode D.C (Correlation Loss)
 
 \begin{metatheorem}[The Asymptotic Orthogonality Principle]\label{mt:the-asymptotic-orthogonality-principle}
 Let $\mathcal{S}$ be a hypostructure with system-environment decomposition $X = X_S \times X_E$ where $\dim(X_E) \gg 1$.
@@ -14555,7 +14471,6 @@ We establish the asymptotic orthogonality principle in five steps.
 ### The Decomposition Coherence Barrier
 
 **Constraint Class:** Topology (Algebraic)
-**Modes Prevented:** Mode T.C (Structural Incompatibility), Mode B.C (Misalignment)
 
 \begin{metatheorem}[The Decomposition Coherence Barrier]\label{mt:the-decomposition-coherence-barrier}
 Let $\mathcal{S}$ be a hypostructure with algebraic structure $(R, \cdot, +)$ admitting decomposition $R = R_1 \oplus R_2$. The decomposition is \textbf{coherent} if and only if:
@@ -14594,7 +14509,6 @@ We establish the decomposition coherence barrier in three steps.
 ### 11C.3 The Singular Support Principle
 
 **Constraint Class:** Conservation (Geometric)
-**Modes Prevented:** Mode C.D (Concentration on Thin Sets)
 
 \begin{metatheorem}[The Singular Support Principle]\label{mt:the-singular-support-principle}
 Let $u$ be a distribution (generalized function) on $\mathbb{R}^d$. The \textbf{singular support} $\text{sing supp}(u)$ is the complement of the largest open set where $u$ is smooth.
@@ -14631,7 +14545,6 @@ We establish the singular support principle in three steps.
 ### The Hessian Bifurcation Principle
 
 **Constraint Class:** Symmetry (Critical Points)
-**Modes Prevented:** Mode S.D (Stiffness Failure), Mode T.D (Glassy Freeze)
 
 \begin{metatheorem}[The Hessian Bifurcation Principle]\label{mt:the-hessian-bifurcation-principle}
 Let $\Phi: X \to \mathbb{R}$ be a smooth functional with critical point $x_0$ (i.e., $\nabla\Phi(x_0) = 0$). The \textbf{Morse index} $\lambda = \#\{\text{negative eigenvalues of } H_\Phi(x_0)\}$ determines local behavior.
@@ -14673,7 +14586,6 @@ We establish the Hessian bifurcation principle in three steps.
 ### The Invariant Factorization Principle
 
 **Constraint Class:** Symmetry (Group Theory)
-**Modes Prevented:** Mode B.C (Symmetry Misalignment)
 
 \begin{metatheorem}[The Invariant Factorization Principle]\label{mt:the-invariant-factorization-principle}
 Let $G$ be a symmetry group acting on state space $X$. The dynamics $S_t$ commutes with $G$ iff:
@@ -14713,7 +14625,6 @@ We establish the invariant factorization principle in three steps.
 ### The Manifold Conjugacy Principle
 
 **Constraint Class:** Topology (Dynamical)
-**Modes Prevented:** Mode T.C (Structural Incompatibility)
 
 \begin{metatheorem}[The Manifold Conjugacy Principle]\label{mt:the-manifold-conjugacy-principle}
 Two dynamical systems $(X_1, S_t^1)$ and $(X_2, S_t^2)$ are \textbf{topologically conjugate} if there exists a homeomorphism $h: X_1 \to X_2$ such that:
@@ -14753,7 +14664,6 @@ We establish the manifold conjugacy principle in four steps.
 ### The Causal Renormalization Principle
 
 **Constraint Class:** Symmetry (Scale)
-**Modes Prevented:** Mode S.E (UV Catastrophe), Mode S.C (Computational)
 
 \begin{metatheorem}[The Causal Renormalization Principle]\label{mt:the-causal-renormalization-principle}
 Let $\mathcal{S}$ be a hypostructure with multiscale structure. The \textbf{effective dynamics} at scale $\ell$ is determined by:
@@ -14792,7 +14702,6 @@ We establish the causal renormalization principle in four steps.
 ### The Synchronization Manifold Barrier
 
 **Constraint Class:** Topology (Coupled Systems)
-**Modes Prevented:** Mode T.E (Desynchronization), Mode D.E (Frequency Drift)
 
 \begin{metatheorem}[The Synchronization Manifold Barrier]\label{mt:the-synchronization-manifold-barrier}
 Let $\mathcal{S}$ consist of $N$ coupled oscillators with phases $\theta_i$ evolving as:
@@ -14835,7 +14744,6 @@ We establish the synchronization manifold barrier in four steps.
 ### The Hysteresis Barrier
 
 **Constraint Class:** Boundary (History Dependence)
-**Modes Prevented:** Mode T.D (Irreversible Trapping)
 
 \begin{metatheorem}[The Hysteresis Barrier]\label{mt:the-hysteresis-barrier}
 Let $\mathcal{S}$ have a control parameter $\lambda$ and multiple stable states. Hysteresis occurs when:
@@ -14872,7 +14780,6 @@ We establish the hysteresis barrier in four steps.
 ### The Causal Lag Barrier
 
 **Constraint Class:** Boundary (Delay)
-**Modes Prevented:** Mode S.E (Delay-Induced Blow-up)
 
 \begin{metatheorem}[The Causal Lag Barrier]\label{mt:the-causal-lag-barrier}
 Let $\mathcal{S}$ have delayed feedback: $\dot{x}(t) = f(x(t), x(t-\tau))$ with delay $\tau > 0$. The system can blow up faster than it can react if:
@@ -14908,7 +14815,6 @@ We establish the causal lag barrier in four steps.
 ### The Ergodic Mixing Barrier
 
 **Constraint Class:** Conservation (Statistical)
-**Modes Prevented:** Mode T.D (Glassy Freeze), Mode C.E (Escape)
 
 \begin{metatheorem}[The Ergodic Mixing Barrier]\label{mt:the-ergodic-mixing-barrier}
 Let $(X, S_t, \mu)$ be a measure-preserving dynamical system. The system is:
@@ -14947,7 +14853,6 @@ We establish the ergodic mixing barrier in four steps.
 ### The Dimensional Rigidity Barrier
 
 **Constraint Class:** Conservation (Geometric)
-**Modes Prevented:** Mode C.D (Crumpling), Mode T.E (Fracture)
 
 \begin{metatheorem}[The Dimensional Rigidity Barrier]\label{mt:the-dimensional-rigidity-barrier}
 Let $M^n$ be an $n$-dimensional manifold embedded in $\mathbb{R}^m$. The \textbf{bending energy} is:
@@ -14986,7 +14891,6 @@ We establish the dimensional rigidity barrier in four steps.
 ### The Non-Local Memory Barrier
 
 **Constraint Class:** Conservation (Integral)
-**Modes Prevented:** Mode C.E (Accumulation Blow-up)
 
 \begin{metatheorem}[The Non-Local Memory Barrier]\label{mt:the-non-local-memory-barrier}
 Let $\mathcal{S}$ have non-local interactions: $\Phi(x) = \int K(x,y)u(y)dy$ with kernel $K$.
@@ -15023,7 +14927,6 @@ We establish the non-local memory barrier in three steps.
 ### The Arithmetic Height Barrier
 
 **Constraint Class:** Conservation (Diophantine)
-**Modes Prevented:** Mode S.E (Resonance Blow-up)
 
 \begin{metatheorem}[The Arithmetic Height Barrier]\label{mt:the-arithmetic-height-barrier}
 Let $\mathcal{S}$ have frequencies $\omega = (\omega_1, \ldots, \omega_n) \in \mathbb{R}^n$. The system avoids exact resonances $k \cdot \omega = 0$ (for $k \in \mathbb{Z}^n \setminus \{0\}$) if $\omega$ satisfies a \textbf{Diophantine condition}:
@@ -15059,7 +14962,6 @@ We establish the arithmetic height barrier in four steps.
 ### The Distributional Product Barrier
 
 **Constraint Class:** Conservation (Regularity)
-**Modes Prevented:** Mode C.E (Product Singularity)
 
 \begin{metatheorem}[The Distributional Product Barrier]\label{mt:the-distributional-product-barrier}
 Let $u, v$ be distributions on $\mathbb{R}^d$. The product $uv$ is well-defined only if the regularity indices satisfy:
@@ -15095,7 +14997,6 @@ We establish the distributional product barrier in four steps.
 ### The Large Deviation Suppression
 
 **Constraint Class:** Conservation (Probabilistic)
-**Modes Prevented:** Mode C.E (Rare Event Blow-up)
 
 \begin{metatheorem}[The Large Deviation Suppression]\label{mt:the-large-deviation-suppression}
 Let $X_n$ be i.i.d. random variables with mean $\mu$ and let $S_n = n^{-1}\sum_{i=1}^n X_i$. Then for $a > \mu$:
@@ -15132,7 +15033,6 @@ We establish the large deviation suppression in four steps.
 ### The Archimedean Ratchet
 
 **Constraint Class:** Boundary (Infinitesimal)
-**Modes Prevented:** Mode C.E (Hidden Singularity)
 
 \begin{metatheorem}[The Archimedean Ratchet]\label{mt:the-archimedean-ratchet}
 In standard analysis (real numbers $\mathbb{R}$), there are no infinitesimals: for any $\epsilon > 0$ and $M > 0$, there exists $n \in \mathbb{N}$ with $n\epsilon > M$ (Archimedean property).
@@ -15167,7 +15067,6 @@ We establish the Archimedean ratchet in four steps.
 ### The Covariant Slice Principle
 
 **Constraint Class:** Symmetry (Gauge)
-**Modes Prevented:** Mode B.C (Coordinate Artifact)
 
 \begin{metatheorem}[The Covariant Slice Principle]\label{mt:the-covariant-slice-principle}
 Let $\mathcal{S}$ be a gauge theory with gauge group $G$. A singularity is \textbf{physical} (not a coordinate artifact) iff it appears in all gauge choices, equivalently iff gauge-invariant observables diverge.
@@ -15200,7 +15099,6 @@ We establish the covariant slice principle in four steps.
 ### The Cardinality Compression Bound
 
 **Constraint Class:** Conservation (Set-Theoretic)
-**Modes Prevented:** Mode C.E (Uncountable Overflow)
 
 \begin{metatheorem}[The Cardinality Compression Bound]\label{mt:the-cardinality-compression-bound}
 Physical systems in separable Hilbert spaces have countable information content:
@@ -15237,7 +15135,6 @@ We establish the cardinality compression bound in four steps.
 ### The Multifractal Spectrum Bound
 
 **Constraint Class:** Conservation (Scaling)
-**Modes Prevented:** Mode C.D (Concentration), Mode S.E (Cascade)
 
 \begin{metatheorem}[The Multifractal Spectrum Bound]\label{mt:the-multifractal-spectrum-bound}
 Let $\mu$ be a measure on $[0,1]$ with multifractal structure. The \textbf{local dimension} at $x$ is:
@@ -15277,7 +15174,6 @@ We establish the multifractal spectrum bound in four steps.
 ### The Isometric Cloning Prohibition
 
 **Constraint Class:** Conservation (Quantum)
-**Modes Prevented:** Mode C.E (Information Cloning)
 
 \begin{metatheorem}[The No-Cloning Theorem]\label{mt:the-no-cloning-theorem}
 There is no unitary operator $U$ that clones arbitrary quantum states:
@@ -15313,7 +15209,6 @@ We establish the no-cloning theorem in three steps.
 ### The Functorial Covariance Principle
 
 **Constraint Class:** Symmetry (Categorical)
-**Modes Prevented:** Mode B.C (Frame Inconsistency)
 
 \begin{metatheorem}[The Functorial Covariance Principle]\label{mt:the-functorial-covariance-principle}
 Physical observables form a functor $F: \mathbf{SpaceTime} \to \mathbf{Obs}$ where:
@@ -15353,7 +15248,6 @@ We establish the functorial covariance principle in four steps.
 ### The No-Arbitrage Principle
 
 **Constraint Class:** Conservation (Economic)
-**Modes Prevented:** Mode C.E (Value Creation from Nothing)
 
 \begin{metatheorem}[The Fundamental Theorem of Asset Pricing]\label{mt:the-fundamental-theorem-of-asset-pricing}
 A market is arbitrage-free iff there exists an equivalent martingale measure $\mathbb{Q}$ under which discounted asset prices are martingales:
@@ -15404,7 +15298,6 @@ We establish the fundamental theorem of asset pricing in four steps.
 ### The Fractional Power Scaling Law
 
 **Constraint Class:** Conservation (Biological)
-**Modes Prevented:** Mode S.E (Metabolic Blow-up)
 
 \begin{metatheorem}[Kleiber's Law]\label{mt:kleibers-law}
 Metabolic rate $P$ scales with body mass $M$ as:
@@ -15439,7 +15332,6 @@ We establish Kleiber's law in four steps.
 ### The Sorites Threshold Principle
 
 **Constraint Class:** Topology (Vagueness)
-**Modes Prevented:** Mode T.C (Boundary Paradox)
 
 \begin{metatheorem}[The Sorites Threshold]\label{mt:the-sorites-threshold}
 For predicates with vague boundaries (e.g., "heap", "bald", "tall"), there is no sharp cutoff. Resolution requires:
@@ -15481,7 +15373,6 @@ We establish the Sorites threshold principle in four steps.
 ### The Sagnac-Holonomy Effect
 
 **Constraint Class:** Boundary (Relativistic)
-**Modes Prevented:** Mode T.C (Synchronization Failure)
 
 \begin{metatheorem}[The Sagnac Effect]\label{mt:the-sagnac-effect}
 In a rotating reference frame, light traveling around a closed loop experiences a phase shift:
@@ -15517,7 +15408,6 @@ We establish the Sagnac effect in four steps.
 ### The Pseudospectral Bound
 
 **Constraint Class:** Duality (Non-Normal)
-**Modes Prevented:** Mode S.D (Transient Blow-up)
 
 \begin{metatheorem}[The Pseudospectral Bound]\label{mt:the-pseudospectral-bound}
 For non-normal operators $A$, eigenvalues do not tell the whole story. The \textbf{pseudospectrum} $\sigma_\epsilon(A) = \{z : \|(A-zI)^{-1}\| > \epsilon^{-1}\}$ controls transient behavior:
@@ -15556,7 +15446,6 @@ We establish the pseudospectral bound in four steps.
 ### The Conjugate Singularity Principle
 
 **Constraint Class:** Duality (Fourier)
-**Modes Prevented:** Mode C.E (Dual-Space Blow-up)
 
 \begin{metatheorem}[The Conjugate Singularity Principle]\label{mt:the-conjugate-singularity-principle}
 If $f$ has singularity of order $\alpha$ at $x_0$ (i.e., $|f(x)| \sim |x-x_0|^{-\alpha}$), then its Fourier transform $\hat{f}(\xi)$ decays as $|\xi|^{\alpha-d}$ for large $|\xi|$.
@@ -15591,7 +15480,6 @@ We establish the conjugate singularity principle in four steps.
 ### The Discrete-Critical Gap Theorem
 
 **Constraint Class:** Symmetry (Scale)
-**Modes Prevented:** Mode S.C (Scale Collapse)
 
 \begin{metatheorem}[The Discrete-Critical Gap]\label{mt:the-discrete-critical-gap}
 Systems with scale invariance broken to discrete scale invariance exhibit \textbf{log-periodic oscillations}. The characteristic scale $\lambda$ appears as:
@@ -15630,7 +15518,6 @@ We establish the discrete-critical gap theorem in four steps.
 ### The Information-Causality Barrier
 
 **Constraint Class:** Conservation (Quantum Information)
-**Modes Prevented:** Mode D.E (Superluminal Signaling)
 
 \begin{metatheorem}[Information-Causality]\label{mt:information-causality}
 The total information gain about a remote system is bounded by the classical communication:
@@ -15666,7 +15553,6 @@ We establish information-causality in four steps.
 ### The Structural Leakage Principle
 
 **Constraint Class:** Boundary (Open Systems)
-**Modes Prevented:** Mode C.E (Internal Blow-up)
 
 \begin{metatheorem}[The Structural Leakage Principle]\label{mt:the-structural-leakage-principle}
 For open systems coupled to an environment, internal stress must leak to external degrees of freedom. If the internal dynamics would blow up in isolation, coupling to the environment provides a "release valve."
@@ -15705,7 +15591,6 @@ We establish the structural leakage principle in four steps.
 ### The Ramsey Concentration Principle
 
 **Constraint Class:** Topology (Combinatorial)
-**Modes Prevented:** Mode T.C (Disorder Instability)
 
 \begin{metatheorem}[Ramsey's Theorem]\label{mt:ramseys-theorem}
 For any integers $r, k \geq 2$, there exists $R(r,k)$ such that any 2-coloring of edges of $K_n$ (complete graph on $n$ vertices) with $n \geq R(r,k)$ contains either:
@@ -15747,7 +15632,6 @@ We establish Ramsey's theorem in four steps.
 ### The Transfinite Expansion Limit
 
 **Constraint Class:** Boundary (Ordinal)
-**Modes Prevented:** Mode C.C (Infinite Iteration)
 
 \begin{metatheorem}[Transfinite Recursion Termination]\label{mt:transfinite-recursion-termination}
 Let $F: \text{Ord} \to V$ be defined by transfinite recursion:
@@ -15789,7 +15673,6 @@ We establish transfinite recursion termination in five steps.
 ### The Dominant Mode Projection
 
 **Constraint Class:** Duality (Spectral)
-**Modes Prevented:** Mode D.D (Subdominant Escape)
 
 \begin{metatheorem}[The Dominant Mode Projection]\label{mt:the-dominant-mode-projection}
 For ergodic Markov chains with transition matrix $P$, the stationary distribution $\pi$ satisfies:
@@ -15824,7 +15707,6 @@ We establish the dominant mode projection in four steps.
 ### The Semantic Opacity Principle
 
 **Constraint Class:** Boundary (Computational)
-**Modes Prevented:** Mode T.C (Self-Reference Paradox)
 
 \begin{metatheorem}[The Semantic Opacity Principle]\label{mt:the-semantic-opacity-principle}
 Sufficiently complex systems cannot fully model themselves. For a system $S$ with description length $L(S)$:

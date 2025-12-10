@@ -24,7 +24,7 @@ PANDOC_OPTS = --standalone \
 # --shell-escape is required for the svg package to call Inkscape
 LUALATEX_OPTS = -interaction=nonstopmode -halt-on-error --shell-escape
 
-.PHONY: pdf clean tex svg
+.PHONY: pdf clean tex svg arxiv
 
 # Default target
 pdf: $(PDF_OUTPUT)
@@ -73,3 +73,28 @@ cleanall: clean
 # Quick rebuild (skip biber if .bbl exists)
 quick:
 	lualatex $(LUALATEX_OPTS) $(TEX_INTERMEDIATE)
+
+# arXiv submission folder
+# NOTE: arXiv must use lualatex (not pdflatex) due to Unicode in the document
+ARXIV_DIR = arxiv
+ARXIV_SVG_CLEAN = diagram_clean.svg
+ARXIV_PDF_CLEAN = diagram_clean.pdf
+
+arxiv: $(PDF_OUTPUT)
+	@echo "=== Creating arXiv submission folder ==="
+	mkdir -p $(ARXIV_DIR)
+	@echo "=== Cleaning SVG for arXiv (removing embedded fonts) ==="
+	python3 clean_svg.py $(SVG_DIAGRAM) $(ARXIV_SVG_CLEAN)
+	@echo "=== Converting cleaned SVG to PDF ==="
+	node convert_svg.js $(ARXIV_SVG_CLEAN) $(ARXIV_PDF_CLEAN)
+	@echo "=== Copying files to arxiv/ ==="
+	cp $(TEX_INTERMEDIATE) $(ARXIV_DIR)/
+	cp hypostructures.bbl $(ARXIV_DIR)/
+	cp hypostructure-theorems.sty $(ARXIV_DIR)/
+	cp $(ARXIV_PDF_CLEAN) $(ARXIV_DIR)/diagram_svg.pdf
+	@echo "=== Creating 00README.XXX for arXiv lualatex ==="
+	@echo "nohypertex" > $(ARXIV_DIR)/00README.XXX
+	@echo "lualatex" >> $(ARXIV_DIR)/00README.XXX
+	@echo "=== arXiv folder ready at $(ARXIV_DIR)/ ==="
+	@echo "Files included:"
+	@ls -la $(ARXIV_DIR)/
