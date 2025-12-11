@@ -5754,7 +5754,7 @@ Axiom GC' strictly generalizes Axiom GC:
 \end{proof}
 
 \begin{metatheorem}[Extended Action Reconstruction]\label{mt:extended-action-reconstruction}
-Under Axiom GC' (dissipation-slope equality), the reconstruction theorems (\cref{theorems-5.7.x-functional-reconstruction}) extend to general metric spaces. The Lyapunov functional satisfies:
+Under Axiom GC' (dissipation-slope equality), the reconstruction theorems (\cref{mt:functional-reconstruction}) extend to general metric spaces. The Lyapunov functional satisfies:
 $$\mathcal{L}(x) = \Phi_{\min} + \inf_{\gamma: M \to x} \int_0^1 |\partial \Phi|(\gamma(s)) \cdot |\dot{\gamma}|(s) \, ds$$
 where the infimum ranges over all absolutely continuous curves from the safe manifold $M$ to $x$, and $|\dot{\gamma}|$ denotes the metric derivative.
 \end{metatheorem}
@@ -5775,7 +5775,7 @@ We establish the metric space generalization in three steps.
     $$\mathcal{L}(x) := \Phi_{\min} + \inf_{\gamma: M \to x} \int_0^1 |\partial \Phi|(\gamma(s)) \cdot |\dot{\gamma}|(s) \, ds$$
     where the infimum ranges over absolutely continuous curves from the safe manifold $M$ to $x$. By the Cauchy-Schwarz inequality:
     $$\int_0^1 |\partial \Phi|(\gamma) \cdot |\dot{\gamma}| \, ds \geq \sqrt{\int_0^1 |\partial \Phi|^2(\gamma) \, ds} \cdot \sqrt{\int_0^1 |\dot{\gamma}|^2 \, ds}$$
-    with equality if and only if $|\dot{\gamma}|(s) = c \cdot |\partial \Phi|(\gamma(s))$ for some constant $c > 0$. This equality holds along curves of maximal slope (where $|\dot{\gamma}| = |\partial \Phi|$). Thus the infimum is achieved by gradient flow curves, yielding $\mathcal{L}(x) = \Phi(x) - \Phi_{\min}$ when $M = \{\arg\min \Phi\}$. The reconstruction of \cref{theorems-5.7.x-functional-reconstruction} follows by the same optimality arguments, with metric slopes replacing gradient norms throughout.
+    with equality if and only if $|\dot{\gamma}|(s) = c \cdot |\partial \Phi|(\gamma(s))$ for some constant $c > 0$. This equality holds along curves of maximal slope (where $|\dot{\gamma}| = |\partial \Phi|$). Thus the infimum is achieved by gradient flow curves, yielding $\mathcal{L}(x) = \Phi(x) - \Phi_{\min}$ when $M = \{\arg\min \Phi\}$. The reconstruction of \cref{mt:functional-reconstruction} follows by the same optimality arguments, with metric slopes replacing gradient norms throughout.
 \end{enumerate}
 \end{proof}
 
@@ -5889,7 +5889,7 @@ We establish the action reconstruction in five steps.
 \textbf{Output Structure:} Action Functional $\mathcal{L}(x) = \text{dist}_{g_{\mathfrak{D}}}(x, M)$ — geodesic distance in Jacobi metric
 
 \begin{corollary}[Explicit Lyapunov from dissipation]\label{cor:explicit-lyapunov-from-dissipation}
-Under the hypotheses of \cref{theorems-5.7.x-functional-reconstruction}, the Lyapunov functional is \textbf{explicitly computable} from the dissipation structure alone: no prior knowledge of an energy functional is required.
+Under the hypotheses of \cref{mt:functional-reconstruction}, the Lyapunov functional is \textbf{explicitly computable} from the dissipation structure alone: no prior knowledge of an energy functional is required.
 \end{corollary}
 
 #### The Hamilton–Jacobi generator
@@ -5934,7 +5934,7 @@ We establish the Hamilton-Jacobi characterization in four steps.
 \end{proof}
 
 \begin{remark}[From guessing to solving]
-The results in \cref{theorems-5.7.x-functional-reconstruction} reduce the search for a Lyapunov functional to a well-posed PDE problem on state space. Given only $\mathfrak{D}$ and $M$, one solves the Hamilton--Jacobi equation to obtain $\mathcal{L}$.
+The results in \cref{mt:functional-reconstruction} reduce the search for a Lyapunov functional to a well-posed PDE problem on state space. Given only $\mathfrak{D}$ and $M$, one solves the Hamilton--Jacobi equation to obtain $\mathcal{L}$.
 \end{remark}
 
 ---
@@ -17126,7 +17126,7 @@ We establish the BRST cohomological lock in six steps, following the structure o
     The key cancellation: the gauge volume $\text{Vol}(\mathcal{G}) = \int_{\mathcal{G}} \mathcal{D}g$ is infinite, but
     $$\text{Vol}(\mathcal{G}) \cdot \delta(\partial^\mu A_\mu) = \text{finite measure on } \mathcal{A}/\mathcal{G}.$$
 
-    In capacity terms (\cref{def:capacity}):
+    In capacity terms (\cref{def:capacity-of-a-set}):
     \begin{itemize}
         \item $\text{Cap}(\text{gauge orbits}) = +\infty$ (infinite-dimensional fibers)
         \item $\text{Cap}(\text{ghost modes}) = -\infty$ (fermionic determinant with opposite sign)
@@ -27033,7 +27033,7 @@ The pair $(\mathcal{T}, \Theta)$ is the \textbf{thermodynamic phase space} with 
 
 \begin{definition}[Equilibrium Submanifold]\label{def:equilibrium-submanifold}
 The \textbf{equilibrium submanifold} $\mathcal{E} \subset \mathcal{T}$ is the $n$-dimensional submanifold defined by the constraint:
-$$\mathcal{E} := \left\{ Z \in \mathcal{T} : \Theta|_\mathcal{E} = 0, \quad I_a = \frac{\partial \Phi}{\partial E^a} \right\}$$
+$$\mathcal{E} := \left\{ Z \in \mathcal{T} : \Theta|_{\mathcal{E}} = 0, \quad I_a = \frac{\partial \Phi}{\partial E^a} \right\}$$
 This encodes the First Law of Thermodynamics: $d\Phi = I_a \, dE^a$ on $\mathcal{E}$.
 \end{definition}
 
@@ -27114,13 +27114,13 @@ transforms as $\Lambda \mapsto -\Lambda$ under total Legendre transformation, co
 \textbf{Step 3 (Pullback to Equilibrium Manifold).}
 
 On the equilibrium submanifold $\mathcal{E}$, we have $\Theta = 0$ and $I_a = \partial_a \Phi$. The restriction of $dI^b$ to $\mathcal{E}$ is:
-$$dI^b|_\mathcal{E} = d\left(\frac{\partial \Phi}{\partial E^b}\right) = \frac{\partial^2 \Phi}{\partial E^b \partial E^c} dE^c$$
+$$dI^b|_{\mathcal{E}} = d\left(\frac{\partial \Phi}{\partial E^b}\right) = \frac{\partial^2 \Phi}{\partial E^b \partial E^c} dE^c$$
 
 Thus the pullback of the bilinear part becomes:
-$$(\delta_{ab} \, dE^a \otimes dI^b)|_\mathcal{E} = \delta_{ab} \frac{\partial^2 \Phi}{\partial E^b \partial E^c} dE^a \otimes dE^c$$
+$$(\delta_{ab} \, dE^a \otimes dI^b)|_{\mathcal{E}} = \delta_{ab} \frac{\partial^2 \Phi}{\partial E^b \partial E^c} dE^a \otimes dE^c$$
 
-With the conformal factor $\Lambda|_\mathcal{E} = \delta_{ab} E^a (\partial_b \Phi)$:
-$$g^{(I)}_\mathcal{E} = \left(\delta_{ab} E^a \partial_b \Phi\right) \left( \delta_{cd} \frac{\partial^2 \Phi}{\partial E^c \partial E^e} dE^d \otimes dE^e \right)$$
+With the conformal factor $\Lambda|_{\mathcal{E}} = \delta_{ab} E^a (\partial_b \Phi)$:
+$$g^{(I)}_{\mathcal{E}} = \left(\delta_{ab} E^a \partial_b \Phi\right) \left( \delta_{cd} \frac{\partial^2 \Phi}{\partial E^c \partial E^e} dE^d \otimes dE^e \right)$$
 
 This is a conformally-weighted Hessian metric, where the conformal factor is the Euler homogeneous function $E^a I_a$ (related to the Gibbs-Duhem relation in thermodynamics).
 
@@ -31925,7 +31925,7 @@ There exists a reconstruction operator $\mathcal{R}: \mathsf{Sig}(\Theta) \mapst
 $$K_D^{(\Theta)}(u) = \int_T \max\big(0, \partial_t \Phi_\Theta(u(t)) + \mathfrak{D}_\Theta(u(t))\big) \, dt.$$
 Axiom (D) requires $\partial_t \Phi_\Theta + \mathfrak{D}_\Theta \leq 0$ along trajectories. Thus $K_D^{(\Theta)}(u) = 0$ if and only if the energy-dissipation balance holds exactly. The zero-defect condition identifies the canonical dissipation-saturated representative.
 
-\textbf{Step 3 (Recover $\mathfrak{D}_\Theta$ from metric and trajectories).} Axiom (Reg) provides metric structure with velocity $|\dot{u}(t)|_g$. Axiom (GC) on gradient-flow orbits gives $|\dot{u}|_g^2 = \mathfrak{D}_\Theta$. Combined with (D), propagation along the rich trajectory class determines $\mathfrak{D}_\Theta$ everywhere via the Action Reconstruction principle (\cref{theorems-5.7.x-functional-reconstruction}).
+\textbf{Step 3 (Recover $\mathfrak{D}_\Theta$ from metric and trajectories).} Axiom (Reg) provides metric structure with velocity $|\dot{u}(t)|_g$. Axiom (GC) on gradient-flow orbits gives $|\dot{u}|_g^2 = \mathfrak{D}_\Theta$. Combined with (D), propagation along the rich trajectory class determines $\mathfrak{D}_\Theta$ everywhere via the Action Reconstruction principle (\cref{mt:functional-reconstruction}).
 
 \textbf{Step 4 (Recover $\Phi_\Theta$ from $\mathfrak{D}_\Theta$ and LS + GC).} The Action Reconstruction Theorem states: (D) + (LS) + (GC) $\Rightarrow$ the canonical Lyapunov $\mathcal{L}$ is the geodesic action with respect to $g_{\mathfrak{D}}$. By the Canonical Lyapunov Theorem (\cref{theorem-5.6-canonical-lyapunov-functional}), $\mathcal{L}$ equals $\Phi_\Theta$ up to an additive constant. Once $\mathfrak{D}_\Theta$ and $M$ are known, $\Phi_\Theta$ is reconstructed.
 
@@ -35509,11 +35509,11 @@ The projective extension applies isomorphically to:
 Each case instantiates the projective extension with specific auxiliary spaces and regularization.
 
 \begin{enumerate}
-\item \textbf{(Field Extensions).} Consider the polynomial $p(x) = x^2 + 1$ over $\mathbb{R}$. The variety $V_\mathbb{R}(p) = \{x \in \mathbb{R} : x^2 + 1 = 0\} = \emptyset$ has zero capacity. The field extension $\mathbb{R} \hookrightarrow \mathbb{C}$ adjoins the auxiliary element $i$ with $i^2 = -1$. In the extended field:
+\item \textbf{(Field Extensions).} Consider the polynomial $p(x) = x^2 + 1$ over $\mathbb{R}$. The variety $V_{\mathbb{R}}(p) = \{x \in \mathbb{R} : x^2 + 1 = 0\} = \emptyset$ has zero capacity. The field extension $\mathbb{R} \hookrightarrow \mathbb{C}$ adjoins the auxiliary element $i$ with $i^2 = -1$. In the extended field:
 $$
-V_\mathbb{C}(p) = \{z \in \mathbb{C} : z^2 + 1 = 0\} = \{i, -i\}
+V_{\mathbb{C}}(p) = \{z \in \mathbb{C} : z^2 + 1 = 0\} = \{i, -i\}
 $$
-has $\mathrm{Cap}(V_\mathbb{C}) = 2$. The Fundamental Theorem of Algebra guarantees that every polynomial has roots in $\mathbb{C}$, making $\mathbb{C}$ algebraically closed. The auxiliary dimension is $\dim_\mathbb{R}(\mathbb{C}/\mathbb{R}) = 1$.
+has $\mathrm{Cap}(V_{\mathbb{C}}) = 2$. The Fundamental Theorem of Algebra guarantees that every polynomial has roots in $\mathbb{C}$, making $\mathbb{C}$ algebraically closed. The auxiliary dimension is $\dim_{\mathbb{R}}(\mathbb{C}/\mathbb{R}) = 1$.
 
 \item \textbf{(Linear Programming).} Consider the LP: minimize $c^T x$ subject to $Ax \leq b$. If the feasible region $P = \{x : Ax \leq b\}$ is empty, introduce slack variables $s \in \mathbb{R}^m_{\geq 0}$ and solve:
 $$
@@ -35908,7 +35908,6 @@ A singularity is \textbf{surgery-admissible} if:
 ---
 
 ##### Metatheorem 6.5: The Structural Surgery Principle
-\label{mt:structural-surgery}
 
 This generalizes Perelman's entropy-controlled surgery for Ricci flow [@Perelman02] to the hypostructure framework.
 
@@ -36095,9 +36094,9 @@ Excision removes handles (decreases $b_1$), and standard caps are topologically 
 
 ---
 
-#### Flow with Surgery Theorem {#mt:flow-with-surgery}
+#### Flow with Surgery Theorem {#mt:flow-with-surgery-topo}
 
-\begin{metatheorem}[Flow with Surgery]\label{mt:flow-with-surgery-topo}
+\begin{metatheorem}[Flow with Surgery]
 Let $\mathbb{H}$ be a hypostructure satisfying Axioms C, D, SC, LS, and Cap. Let $u_0 \in X$ be an initial state with $\Phi(u_0) < \infty$. Then there exists:
 \end{metatheorem}
 
@@ -36846,7 +36845,7 @@ $$
 for some order-one constant $C > 0$. This enforces Axiom Cap: no region of volume $\epsilon^d$ can support more than bounded mass/energy.
 \end{definition}
 
-\begin{metatheorem}[Discrete Saturation Principle]\label{mt:discrete-saturation}
+\begin{metatheorem}[Discrete Saturation Principle]
 Let $u(t)$ be a trajectory in a supercritical hypostructure approaching blow-up at $T_*$ (i.e., $\|u(t)\|_\infty \to \infty$ as $t \to T_*$). Let $u_\epsilon(t)$ be the approximation evolving under discrete dynamics with cutoff $\epsilon > 0$.
 
 \textbf{Required Axioms:} C (Compactness/Finiteness), Cap (Capacity), D (Dissipation)
@@ -37442,7 +37441,7 @@ The solution is **importance sampling with geometric correction**: particles sam
 
 **Setup.** Consider a particle configuration and its induced tessellation.
 
-\begin{definition}[Voronoi Tessellation]\label{def:voronoi-tessellation}
+\begin{definition}[Voronoi Tessellation]\label{def:voronoi-tessellation-alg}
 Let $\Psi = \{\psi_1, \ldots, \psi_N\} \subset \Omega$ be a particle configuration. The \textbf{Voronoi cell} of particle $i$ is:
 $$
 C_i := \{x \in \Omega : d(x, \psi_i) \leq d(x, \psi_j) \text{ for all } j \neq i\}
@@ -37796,7 +37795,7 @@ Then:
 
 \item \textbf{(Hausdorff Integral)} For $f: \mathcal{F} \to \mathbb{R}$ continuous, the Hausdorff integral is:
 $$
-\int_\mathcal{F} f \, d\mathcal{H}^s \approx \sum_{i=1}^N f(\psi_i) \cdot W_i
+\int_{\mathcal{F}} f \, d\mathcal{H}^s \approx \sum_{i=1}^N f(\psi_i) \cdot W_i
 $$
 where $W_i = r_k(\psi_i)^{d_i}$ and $d_i$ is the local dimension at $\psi_i$.
 \end{enumerate}
@@ -38023,7 +38022,7 @@ $$
 $$
 \end{definition}
 
-\begin{definition}[Metric Slope]\label{def:metric-slope}
+\begin{definition}[Metric Slope]\label{def:metric-slope-diff}
 For a function $f: (X, d) \to \mathbb{R}$ on a metric space, the \textbf{metric slope} (or local Lipschitz constant) at $x$ is:
 $$
 |\nabla f|(x) := \limsup_{y \to x} \frac{|f(y) - f(x)|}{d(x, y)}
@@ -38253,7 +38252,7 @@ The Fourier transform decomposes functions into sinusoidal modes—eigenfunction
 
 **Setup.** We define the graph Laplacian and its spectral decomposition.
 
-\begin{definition}[Graph Laplacian]\label{def:graph-laplacian}
+\begin{definition}[Graph Laplacian]\label{def:graph-laplacian-alg}
 For a weighted graph $G = (V, E, W)$, the \textbf{(unnormalized) graph Laplacian} is the $|V| \times |V|$ matrix:
 $$
 L_{ij} = \begin{cases} \sum_{k \neq i} W_{ik} & \text{if } i = j \\ -W_{ij} & \text{if } i \neq j \end{cases}
@@ -40033,3 +40032,216 @@ All statements labeled as "Metatheorem" in Part XVII are rigorously supported by
 ---
 
 *End of Appendix D*
+
+---
+
+### Appendix E
+
+Mermaid diagram representation of the sieve algorithm:
+
+
+```mermaid
+graph TD
+    Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. AXIOM D #40;Dissipation#41;</b><br>Is Global Energy Finite?"}
+
+    %% --- LEVEL 1: CONSERVATION ---
+    EnergyCheck -- "No" --> BarrierSat{"<b>SATURATION BARRIER</b><br>Is Drift Controlled?<br>"}
+    BarrierSat -- "Yes #40;Blocked#41;" --> ZenoCheck
+    BarrierSat -- "No #40;Breached#41;" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
+
+    EnergyCheck -- "Yes" --> ZenoCheck{"<b>2. AXIOM REC #40;Recovery#41;</b><br>Are Discrete Events Finite?"}
+    ZenoCheck -- "No" --> BarrierCausal{"<b>CAUSAL CENSOR</b><br>Is Depth Finite?<br>"}
+    BarrierCausal -- "No #40;Breached#41;" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
+    BarrierCausal -- "Yes #40;Blocked#41;" --> CompactCheck
+
+    ZenoCheck -- "Yes" --> CompactCheck{"<b>3. AXIOM C #40;Compactness#41;</b><br>Does Energy Concentrate?"}
+
+    %% --- LEVEL 2: DUALITY ---
+    CompactCheck -- "No #40;Scatters#41;" --> BarrierScat{"<b>SCATTERING BARRIER</b><br>Is Interaction Finite?<br>"}
+    BarrierScat -- "Yes #40;Benign#41;" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
+    BarrierScat -- "No #40;Pathological#41;" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
+
+    CompactCheck -- "Yes" --> Profile["<b>Canonical Profile V Emerges</b>"]
+
+    %% --- LEVEL 3: SYMMETRY ---
+    Profile --> ScaleCheck{"<b>4. AXIOM SC #40;Scaling#41;</b><br>Is it Subcritical?"}
+
+    ScaleCheck -- "No #40;Supercritical#41;" --> BarrierTypeII{"<b>TYPE II BARRIER</b><br>Is Renorm Cost Infinite?<br>"}
+    BarrierTypeII -- "No #40;Breached#41;" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
+    BarrierTypeII -- "Yes #40;Blocked#41;" --> ParamCheck
+
+    ScaleCheck -- "Yes #40;Safe#41;" --> ParamCheck{"<b>5. AXIOM SC #40;Stability#41;</b><br>Are Constants Stable?"}
+    ParamCheck -- "No" --> BarrierVac{"<b>VACUUM BARRIER</b><br>Is Phase Stable?<br>"}
+    BarrierVac -- "No #40;Breached#41;" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
+    BarrierVac -- "Yes #40;Blocked#41;" --> GeomCheck
+
+    ParamCheck -- "Yes" --> GeomCheck{"<b>6. AXIOM CAP #40;Capacity#41;</b><br>Is Dimension > Critical?"}
+
+    %% --- LEVEL 4: GEOMETRY ---
+    GeomCheck -- "No #40;Too Thin#41;" --> BarrierCap{"<b>CAPACITY BARRIER</b><br>Is Measure Zero?<br>"}
+    BarrierCap -- "No #40;Breached#41;" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
+    BarrierCap -- "Yes #40;Blocked#41;" --> StiffnessCheck
+
+    GeomCheck -- "Yes #40;Safe#41;" --> StiffnessCheck{"<b>7. AXIOM LS #40;Stiffness#41;</b><br>Is Hessian Positive?"}
+
+    %% --- LEVEL 5: STIFFNESS ---
+    StiffnessCheck -- "No #40;Flat#41;" --> BarrierGap{"<b>SPECTRAL BARRIER</b><br>Is there a Gap?<br>"}
+    BarrierGap -- "Yes #40;Blocked#41;" --> TopoCheck
+    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>BIFURCATION CHECK #40;Axiom LS#41;</b><br>Is State Unstable?<br>"}
+
+    %% --- LEVEL 5b: DYNAMIC RESTORATION (Deterministic) ---
+    BifurcateCheck -- "No #40;Stable#41;" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
+    BifurcateCheck -- "Yes #40;Unstable#41;" --> SymCheck{"<b>SYMMETRY CHECK</b><br>Is Vacuum Degenerate?<br><i>#40;Does Group G exist?#41;</i>"}
+
+    %% Path A: Symmetry Breaking (Governed by Axiom SC)
+    SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>AXIOM SC #40;Param#41;</b><br>Are Constants Stable?<br>"}
+    CheckSC -- "Yes" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
+    ActionSSB -- "Mass Gap Guarantees Stiffness" --> TopoCheck
+    CheckSC -- "No" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
+
+    %% Path B: Surgery (Governed by Axiom TB)
+    SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>AXIOM TB #40;Action#41;</b><br>Is Cost Finite?<br>"}
+    CheckTB -- "Yes" --> ActionSurgery["<b>ACTION: SURGERY</b><br>Dissipates Singularity"]
+    ActionSurgery -- "Re-verify Topology" --> TameCheck
+    CheckTB -- "No" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
+
+    StiffnessCheck -- "Yes #40;Safe#41;" --> TopoCheck{"<b>8. AXIOM TB #40;Topology#41;</b><br>Is Sector Accessible?"}
+
+    %% --- LEVEL 6: TOPOLOGY ---
+    TopoCheck -- "No #40;Protected#41;" --> BarrierAction{"<b>ACTION BARRIER</b><br>Is Energy < Gap?<br>"}
+    BarrierAction -- "No #40;Breached#41;" --> ModeTE["<b>Mode T.E</b>: Topological Twist"]
+    BarrierAction -- "Yes #40;Blocked#41;" --> TameCheck
+
+    TopoCheck -- "Yes #40;Safe#41;" --> TameCheck{"<b>9. AXIOM TB #40;Tameness#41;</b><br>Is Topology Simple?"}
+
+    TameCheck -- "No" --> BarrierOmin{"<b>O-MINIMAL BARRIER</b><br>Is it Definable?<br>"}
+    BarrierOmin -- "No #40;Breached#41;" --> ModeTC["<b>Mode T.C</b>: Labyrinthine"]
+    BarrierOmin -- "Yes #40;Blocked#41;" --> ErgoCheck
+
+    TameCheck -- "Yes" --> ErgoCheck{"<b>10. AXIOM TB #40;Mixing#41;</b><br>Does it Mix?"}
+
+    ErgoCheck -- "No" --> BarrierMix{"<b>MIXING BARRIER</b><br>Is Trap Escapable?<br>"}
+    BarrierMix -- "No #40;Breached#41;" --> ModeTD["<b>Mode T.D</b>: Glassy Freeze"]
+    BarrierMix -- "Yes #40;Blocked#41;" --> ComplexCheck
+
+    ErgoCheck -- "Yes" --> ComplexCheck{"<b>11. AXIOM REP #40;Dictionary#41;</b><br>Is it Computable?"}
+
+    %% --- LEVEL 7: COMPLEXITY ---
+    ComplexCheck -- "No" --> BarrierEpi{"<b>EPISTEMIC BARRIER</b><br>Is Description Finite?<br>"}
+    BarrierEpi -- "No #40;Breached#41;" --> ModeDC["<b>Mode D.C</b>: Semantic Horizon"]
+    BarrierEpi -- "Yes #40;Blocked#41;" --> OscillateCheck
+
+    ComplexCheck -- "Yes" --> OscillateCheck{"<b>12. AXIOM GC #40;Gradient#41;</b><br>Does it Oscillate?"}
+
+    OscillateCheck -- "Yes" --> BarrierFreq{"<b>FREQUENCY BARRIER</b><br>Is Integral Finite?<br>"}
+    BarrierFreq -- "No #40;Breached#41;" --> ModeDE["<b>Mode D.E</b>: Oscillatory"]
+    BarrierFreq -- "Yes #40;Blocked#41;" --> BoundaryCheck
+
+    OscillateCheck -- "No" --> BoundaryCheck{"<b>13. BOUNDARY CHECK</b><br>Is System Open?"}
+
+    %% --- LEVEL 8: BOUNDARY ---
+    BoundaryCheck -- "Yes" --> OverloadCheck{"<b>14. BOUNDARY: CONTROL</b><br>Is Input Bounded?"}
+
+    OverloadCheck -- "Yes" --> BarrierBode{"<b>BODE BARRIER</b><br>Is Sensitivity Bounded?<br>"}
+    BarrierBode -- "No #40;Breached#41;" --> ModeBE["<b>Mode B.E</b>: Injection"]
+
+    OverloadCheck -- "No" --> StarveCheck{"<b>15. BOUNDARY: SUPPLY</b><br>Is Input Sufficient?"}
+    StarveCheck -- "Yes" --> BarrierInput{"<b>INPUT BARRIER</b><br>Is Reserve Sufficient?<br>"}
+    BarrierInput -- "No #40;Breached#41;" --> ModeBD["<b>Mode B.D</b>: Starvation"]
+
+    StarveCheck -- "No" --> AlignCheck{"<b>16. BOUNDARY: GAUGE</b><br>Is it Aligned?"}
+    AlignCheck -- "No" --> BarrierVariety{"<b>VARIETY BARRIER</b><br>Does Control Match Disturbance?<br>"}
+    BarrierVariety -- "No #40;Breached#41;" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
+
+    %% --- LEVEL 9: THE FINAL GATE ---
+    %% All successful paths funnel here
+    BoundaryCheck -- "No" --> BarrierExclusion
+    BarrierBode -- "Yes #40;Blocked#41;" --> BarrierExclusion
+    BarrierInput -- "Yes #40;Blocked#41;" --> BarrierExclusion
+    BarrierVariety -- "Yes #40;Blocked#41;" --> BarrierExclusion
+    AlignCheck -- "Yes" --> BarrierExclusion
+
+    BarrierExclusion{"<b>17. THE CATEGORICAL LOCK</b><br>Is Hom#40;Bad, S#41; Empty?<br>"}
+
+    BarrierExclusion -- "Yes #40;Blocked#41;" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
+    BarrierExclusion -- "No #40;Morphism Exists#41;" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
+
+    %% ====== STYLES ======
+    %% Success states - Green
+    style VICTORY fill:#22c55e,stroke:#16a34a,color:#000000,stroke-width:4px
+    style ModeDD fill:#22c55e,stroke:#16a34a,color:#000000
+
+    %% Failure modes - Red
+    style ModeCE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCD_Alt fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeDC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeDE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeBE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeBD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeBC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCat fill:#ef4444,stroke:#dc2626,color:#ffffff
+
+    %% Barriers - Orange/Amber
+    style BarrierSat fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierCausal fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierScat fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierTypeII fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierVac fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierCap fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierGap fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierAction fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierOmin fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierMix fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierEpi fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierFreq fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierBode fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierInput fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierVariety fill:#f59e0b,stroke:#d97706,color:#000000
+
+    %% The Final Gate - Purple with thick border
+    style BarrierExclusion fill:#8b5cf6,stroke:#7c3aed,color:#ffffff,stroke-width:4px
+
+    %% Axiom Checks - Blue
+    style EnergyCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ZenoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CompactCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ScaleCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ParamCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style GeomCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style StiffnessCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style TopoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style TameCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ErgoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ComplexCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style OscillateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style BoundaryCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style OverloadCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style StarveCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style AlignCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    %% Intermediate nodes - Purple
+    style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Restoration checks - Blue (standard axiom checks)
+    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    %% Restoration mechanisms - Purple (escape mechanisms)
+    style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style ActionSurgery fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Restoration failure modes - Red
+    style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+```
