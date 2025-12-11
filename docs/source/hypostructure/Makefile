@@ -2,10 +2,10 @@
 # Uses pandoc + lualatex + biber for bibliography support
 
 # Source files
-MD_SOURCE = final_hypostructure.md
+MD_SOURCE = hypostructure.md
 BIB_SOURCE = references.bib
 TEX_INTERMEDIATE = hypostructures.tex
-PDF_OUTPUT = hypostructures.pdf
+PDF_OUTPUT = hypostructure.pdf
 
 # SVG files that need browser-based conversion
 SVG_DIAGRAM = diagram_svg.svg
