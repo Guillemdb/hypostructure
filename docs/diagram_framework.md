@@ -4,19 +4,19 @@ graph TD
     Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. AXIOM D #40;Dissipation#41;</b><br>Is Global Energy Finite?"}
 
     %% --- LEVEL 1: CONSERVATION ---
-    EnergyCheck -- "No" --> BarrierSat{"<b>SATURATION BARRIER</b><br>Is Drift Controlled?<br><i>#91;Thm 6.2#93;</i>"}
+    EnergyCheck -- "No" --> BarrierSat{"<b>SATURATION BARRIER</b><br>Is Drift Controlled?<br>"}
     BarrierSat -- "Yes #40;Blocked#41;" --> ZenoCheck
     BarrierSat -- "No #40;Breached#41;" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
 
     EnergyCheck -- "Yes" --> ZenoCheck{"<b>2. AXIOM REC #40;Recovery#41;</b><br>Are Discrete Events Finite?"}
-    ZenoCheck -- "No" --> BarrierCausal{"<b>CAUSAL CENSOR</b><br>Is Depth Finite?<br><i>#91;Thm 85#93;</i>"}
+    ZenoCheck -- "No" --> BarrierCausal{"<b>CAUSAL CENSOR</b><br>Is Depth Finite?<br>"}
     BarrierCausal -- "No #40;Breached#41;" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
     BarrierCausal -- "Yes #40;Blocked#41;" --> CompactCheck
 
     ZenoCheck -- "Yes" --> CompactCheck{"<b>3. AXIOM C #40;Compactness#41;</b><br>Does Energy Concentrate?"}
 
     %% --- LEVEL 2: DUALITY ---
-    CompactCheck -- "No #40;Scatters#41;" --> BarrierScat{"<b>SCATTERING BARRIER</b><br>Is Interaction Finite?<br><i>#91;Thm 47#93;</i>"}
+    CompactCheck -- "No #40;Scatters#41;" --> BarrierScat{"<b>SCATTERING BARRIER</b><br>Is Interaction Finite?<br>"}
     BarrierScat -- "Yes #40;Benign#41;" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
     BarrierScat -- "No #40;Pathological#41;" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
 
@@ -25,41 +25,41 @@ graph TD
     %% --- LEVEL 3: SYMMETRY ---
     Profile --> ScaleCheck{"<b>4. AXIOM SC #40;Scaling#41;</b><br>Is it Subcritical?"}
 
-    ScaleCheck -- "No #40;Supercritical#41;" --> BarrierTypeII{"<b>TYPE II BARRIER</b><br>Is Renorm Cost Infinite?<br><i>#91;Thm 56#93;</i>"}
+    ScaleCheck -- "No #40;Supercritical#41;" --> BarrierTypeII{"<b>TYPE II BARRIER</b><br>Is Renorm Cost Infinite?<br>"}
     BarrierTypeII -- "No #40;Breached#41;" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
     BarrierTypeII -- "Yes #40;Blocked#41;" --> ParamCheck
 
     ScaleCheck -- "Yes #40;Safe#41;" --> ParamCheck{"<b>5. AXIOM SC #40;Stability#41;</b><br>Are Constants Stable?"}
-    ParamCheck -- "No" --> BarrierVac{"<b>VACUUM BARRIER</b><br>Is Phase Stable?<br><i>#91;Thm 9.150#93;</i>"}
+    ParamCheck -- "No" --> BarrierVac{"<b>VACUUM BARRIER</b><br>Is Phase Stable?<br>"}
     BarrierVac -- "No #40;Breached#41;" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
     BarrierVac -- "Yes #40;Blocked#41;" --> GeomCheck
 
     ParamCheck -- "Yes" --> GeomCheck{"<b>6. AXIOM CAP #40;Capacity#41;</b><br>Is Dimension > Critical?"}
 
     %% --- LEVEL 4: GEOMETRY ---
-    GeomCheck -- "No #40;Too Thin#41;" --> BarrierCap{"<b>CAPACITY BARRIER</b><br>Is Measure Zero?<br><i>#91;Thm 58#93;</i>"}
+    GeomCheck -- "No #40;Too Thin#41;" --> BarrierCap{"<b>CAPACITY BARRIER</b><br>Is Measure Zero?<br>"}
     BarrierCap -- "No #40;Breached#41;" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
     BarrierCap -- "Yes #40;Blocked#41;" --> StiffnessCheck
 
     GeomCheck -- "Yes #40;Safe#41;" --> StiffnessCheck{"<b>7. AXIOM LS #40;Stiffness#41;</b><br>Is Hessian Positive?"}
 
     %% --- LEVEL 5: STIFFNESS ---
-    StiffnessCheck -- "No #40;Flat#41;" --> BarrierGap{"<b>SPECTRAL BARRIER</b><br>Is there a Gap?<br><i>#91;Thm 83#93;</i>"}
+    StiffnessCheck -- "No #40;Flat#41;" --> BarrierGap{"<b>SPECTRAL BARRIER</b><br>Is there a Gap?<br>"}
     BarrierGap -- "Yes #40;Blocked#41;" --> TopoCheck
-    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>BIFURCATION CHECK #40;Axiom LS#41;</b><br>Is State Unstable?<br><i>#91;Thm 125#93;</i>"}
+    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>BIFURCATION CHECK #40;Axiom LS#41;</b><br>Is State Unstable?<br>"}
 
     %% --- LEVEL 5b: DYNAMIC RESTORATION (Deterministic) ---
     BifurcateCheck -- "No #40;Stable#41;" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
     BifurcateCheck -- "Yes #40;Unstable#41;" --> SymCheck{"<b>SYMMETRY CHECK</b><br>Is Vacuum Degenerate?<br><i>#40;Does Group G exist?#41;</i>"}
 
     %% Path A: Symmetry Breaking (Governed by Axiom SC)
-    SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>AXIOM SC #40;Param#41;</b><br>Are Constants Stable?<br><i>#91;Thm 51#93;</i>"}
+    SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>AXIOM SC #40;Param#41;</b><br>Are Constants Stable?<br>"}
     CheckSC -- "Yes" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
     ActionSSB -- "Mass Gap Guarantees Stiffness" --> TopoCheck
     CheckSC -- "No" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
 
     %% Path B: Surgery (Governed by Axiom TB)
-    SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>AXIOM TB #40;Action#41;</b><br>Is Cost Finite?<br><i>#91;Thm 32.2#93;</i>"}
+    SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>AXIOM TB #40;Action#41;</b><br>Is Cost Finite?<br>"}
     CheckTB -- "Yes" --> ActionSurgery["<b>ACTION: SURGERY</b><br>Dissipates Singularity"]
     ActionSurgery -- "Re-verify Topology" --> TameCheck
     CheckTB -- "No" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
@@ -67,32 +67,32 @@ graph TD
     StiffnessCheck -- "Yes #40;Safe#41;" --> TopoCheck{"<b>8. AXIOM TB #40;Topology#41;</b><br>Is Sector Accessible?"}
 
     %% --- LEVEL 6: TOPOLOGY ---
-    TopoCheck -- "No #40;Protected#41;" --> BarrierAction{"<b>ACTION BARRIER</b><br>Is Energy < Gap?<br><i>#91;Thm 59#93;</i>"}
+    TopoCheck -- "No #40;Protected#41;" --> BarrierAction{"<b>ACTION BARRIER</b><br>Is Energy < Gap?<br>"}
     BarrierAction -- "No #40;Breached#41;" --> ModeTE["<b>Mode T.E</b>: Topological Twist"]
     BarrierAction -- "Yes #40;Blocked#41;" --> TameCheck
 
     TopoCheck -- "Yes #40;Safe#41;" --> TameCheck{"<b>9. AXIOM TB #40;Tameness#41;</b><br>Is Topology Simple?"}
 
-    TameCheck -- "No" --> BarrierOmin{"<b>O-MINIMAL BARRIER</b><br>Is it Definable?<br><i>#91;Thm 46#93;</i>"}
+    TameCheck -- "No" --> BarrierOmin{"<b>O-MINIMAL BARRIER</b><br>Is it Definable?<br>"}
     BarrierOmin -- "No #40;Breached#41;" --> ModeTC["<b>Mode T.C</b>: Labyrinthine"]
     BarrierOmin -- "Yes #40;Blocked#41;" --> ErgoCheck
 
     TameCheck -- "Yes" --> ErgoCheck{"<b>10. AXIOM TB #40;Mixing#41;</b><br>Does it Mix?"}
 
-    ErgoCheck -- "No" --> BarrierMix{"<b>MIXING BARRIER</b><br>Is Trap Escapable?<br><i>#91;Thm 132#93;</i>"}
+    ErgoCheck -- "No" --> BarrierMix{"<b>MIXING BARRIER</b><br>Is Trap Escapable?<br>"}
     BarrierMix -- "No #40;Breached#41;" --> ModeTD["<b>Mode T.D</b>: Glassy Freeze"]
     BarrierMix -- "Yes #40;Blocked#41;" --> ComplexCheck
 
     ErgoCheck -- "Yes" --> ComplexCheck{"<b>11. AXIOM REP #40;Dictionary#41;</b><br>Is it Computable?"}
 
     %% --- LEVEL 7: COMPLEXITY ---
-    ComplexCheck -- "No" --> BarrierEpi{"<b>EPISTEMIC BARRIER</b><br>Is Description Finite?<br><i>#91;Thm 101#93;</i>"}
+    ComplexCheck -- "No" --> BarrierEpi{"<b>EPISTEMIC BARRIER</b><br>Is Description Finite?<br>"}
     BarrierEpi -- "No #40;Breached#41;" --> ModeDC["<b>Mode D.C</b>: Semantic Horizon"]
     BarrierEpi -- "Yes #40;Blocked#41;" --> OscillateCheck
 
     ComplexCheck -- "Yes" --> OscillateCheck{"<b>12. AXIOM GC #40;Gradient#41;</b><br>Does it Oscillate?"}
 
-    OscillateCheck -- "Yes" --> BarrierFreq{"<b>FREQUENCY BARRIER</b><br>Is Integral Finite?<br><i>#91;Thm 48#93;</i>"}
+    OscillateCheck -- "Yes" --> BarrierFreq{"<b>FREQUENCY BARRIER</b><br>Is Integral Finite?<br>"}
     BarrierFreq -- "No #40;Breached#41;" --> ModeDE["<b>Mode D.E</b>: Oscillatory"]
     BarrierFreq -- "Yes #40;Blocked#41;" --> BoundaryCheck
 
@@ -101,15 +101,15 @@ graph TD
     %% --- LEVEL 8: BOUNDARY ---
     BoundaryCheck -- "Yes" --> OverloadCheck{"<b>14. BOUNDARY: CONTROL</b><br>Is Input Bounded?"}
 
-    OverloadCheck -- "Yes" --> BarrierBode{"<b>BODE BARRIER</b><br>Is Sensitivity Bounded?<br><i>#91;Thm 13#93;</i>"}
+    OverloadCheck -- "Yes" --> BarrierBode{"<b>BODE BARRIER</b><br>Is Sensitivity Bounded?<br>"}
     BarrierBode -- "No #40;Breached#41;" --> ModeBE["<b>Mode B.E</b>: Injection"]
 
     OverloadCheck -- "No" --> StarveCheck{"<b>15. BOUNDARY: SUPPLY</b><br>Is Input Sufficient?"}
-    StarveCheck -- "Yes" --> BarrierInput{"<b>INPUT BARRIER</b><br>Is Reserve Sufficient?<br><i>#91;Prop 18#93;</i>"}
+    StarveCheck -- "Yes" --> BarrierInput{"<b>INPUT BARRIER</b><br>Is Reserve Sufficient?<br>"}
     BarrierInput -- "No #40;Breached#41;" --> ModeBD["<b>Mode B.D</b>: Starvation"]
 
     StarveCheck -- "No" --> AlignCheck{"<b>16. BOUNDARY: GAUGE</b><br>Is it Aligned?"}
-    AlignCheck -- "No" --> BarrierVariety{"<b>VARIETY BARRIER</b><br>Does Control Match Disturbance?<br><i>#91;Thm 89#93;</i>"}
+    AlignCheck -- "No" --> BarrierVariety{"<b>VARIETY BARRIER</b><br>Does Control Match Disturbance?<br>"}
     BarrierVariety -- "No #40;Breached#41;" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
 
     %% --- LEVEL 9: THE FINAL GATE ---
@@ -120,7 +120,7 @@ graph TD
     BarrierVariety -- "Yes #40;Blocked#41;" --> BarrierExclusion
     AlignCheck -- "Yes" --> BarrierExclusion
 
-    BarrierExclusion{"<b>17. THE CATEGORICAL LOCK</b><br>Is Hom#40;Bad, S#41; Empty?<br><i>#91;Metatheorem 76#93;</i>"}
+    BarrierExclusion{"<b>17. THE CATEGORICAL LOCK</b><br>Is Hom#40;Bad, S#41; Empty?<br>"}
 
     BarrierExclusion -- "Yes #40;Blocked#41;" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
     BarrierExclusion -- "No #40;Morphism Exists#41;" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
