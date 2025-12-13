@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Algebraic Geometry Diagnostic Sieve</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: white;
+        }
+        .mermaid {
+            width: 100%;
+            max-width: 100%;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="mermaid">
+graph TD
+    Start(["<b>MODULI PROBLEM</b>"]) --> EnergyCheck{"<b>1. BOUNDEDNESS</b><br>Family in Bounded Hilbert Scheme?<br><i>(Matsusaka)</i>"}
+
+    %% --- LEVEL 1: PROPERNESS ---
+    EnergyCheck -- "No" --> BarrierSat{"<b>NOETHERIAN</b><br>Finite Type over Base?"}
+    BarrierSat -- "Yes (Blocked)" --> ZenoCheck
+    BarrierSat -- "No (Breached)" --> ModeCE["<b>Unbounded Family</b><br>(Escapes Hilbert Scheme)"]
+    ModeCE --> SurgCE["<b>SURGERY:</b><br>Compactification<br><i>(Deligne-Mumford)</i>"]
+    SurgCE -.-> ZenoCheck
+
+    EnergyCheck -- "Yes" --> ZenoCheck{"<b>2. LOCALLY OF FINITE TYPE</b><br>Finite Presentation?"}
+    ZenoCheck -- "No" --> BarrierCausal{"<b>VALUATIVE PROPERNESS</b><br>Satisfies Valuative Criterion?"}
+    BarrierCausal -- "No (Breached)" --> ModeCC["<b>Non-Proper</b><br>(Fails Existence of Limits)"]
+    ModeCC --> SurgCC["<b>SURGERY:</b><br>Spreading Out<br><i>(Finite Field Reduction)</i>"]
+    SurgCC -.-> CompactCheck
+    BarrierCausal -- "Yes (Blocked)" --> CompactCheck
+
+    ZenoCheck -- "Yes" --> CompactCheck{"<b>3. STABLE REDUCTION</b><br>Limit Exists over Punctured Disk?"}
+
+    %% --- LEVEL 2: LIMITS ---
+    CompactCheck -- "No (Scatters)" --> BarrierScat{"<b>FIBER STRUCTURE</b><br>Mori Fiber Space?"}
+    BarrierScat -- "Yes (Benign)" --> ModeDD["<b>Mori Fiber Space</b><br><i>(Fano Fibration)</i>"]
+    BarrierScat -- "No (Pathological)" --> ModeCD_Alt["<b>Bad Reduction</b><br><i>(Non-Semistable Fiber)</i>"]
+    ModeCD_Alt --> SurgCD_Alt["<b>SURGERY:</b><br>Semistable Reduction<br><i>(de Jong)</i>"]
+    SurgCD_Alt -.-> Profile
+
+    CompactCheck -- "Yes" --> Profile["<b>Central Fiber X₀</b>"]
+
+    %% --- LEVEL 3: SINGULARITIES ---
+    Profile --> ScaleCheck{"<b>4. SINGULARITY TYPE</b><br>Canonical Singularities?"}
+
+    ScaleCheck -- "No (Log-General)" --> BarrierTypeII{"<b>LOG-CANONICAL THRESHOLD</b><br>lct(X,D) > 0?"}
+    BarrierTypeII -- "No (Breached)" --> ModeSE["<b>Non-Canonical Singularity</b><br>(Worse than Log-Canonical)"]
+    ModeSE --> SurgSE["<b>SURGERY:</b><br>Resolution<br><i>(Hironaka)</i>"]
+    SurgSE -.-> ParamCheck
+    BarrierTypeII -- "Yes (Blocked)" --> ParamCheck
+
+    ScaleCheck -- "Yes (Safe)" --> ParamCheck{"<b>5. OPENNESS OF VERSALITY</b><br>Property Open under Deformation?"}
+    ParamCheck -- "No" --> BarrierVac{"<b>SEPARATEDNESS</b><br>Unique Limits?"}
+    BarrierVac -- "No (Breached)" --> ModeSC["<b>Non-Separated</b><br>(Double Point Pathology)"]
+    ModeSC --> SurgSC["<b>SURGERY:</b><br>Blow-up<br><i>(Hausdorffification)</i>"]
+    SurgSC -.-> GeomCheck
+    BarrierVac -- "Yes (Blocked)" --> GeomCheck
+
+    ParamCheck -- "Yes" --> GeomCheck{"<b>6. PURE DIMENSIONALITY</b><br>Equidimensional / Cohen-Macaulay?"}
+
+    %% --- LEVEL 4: SCHEME THEORY ---
+    GeomCheck -- "No (Impure)" --> BarrierCap{"<b>PURITY</b><br>Sheaf Torsion-Free?"}
+    BarrierCap -- "No (Breached)" --> ModeCD["<b>Embedded Component</b><br>(Non-Reduced Structure)"]
+    ModeCD --> SurgCD["<b>SURGERY:</b><br>Primary Decomposition"]
+    SurgCD -.-> StiffnessCheck
+    BarrierCap -- "Yes (Blocked)" --> StiffnessCheck
+
+    GeomCheck -- "Yes (Safe)" --> StiffnessCheck{"<b>7. K-STABILITY</b><br>Hilbert-Mumford Criterion?"}
+
+    %% --- LEVEL 5: GIT ---
+    StiffnessCheck -- "No (Unstable)" --> BarrierGap{"<b>AUTOMORPHISM FINITENESS</b><br>Finite Stabilizer?"}
+    BarrierGap -- "Yes (Blocked)" --> TopoCheck
+    BarrierGap -- "No (Infinite Aut)" --> BifurcateCheck{"<b>7a. WALL-CROSSING</b><br>Bridgeland Stability Changes?"}
+
+    %% --- LEVEL 5b: MMP RESTORATION ---
+    BifurcateCheck -- "No (Strictly Unstable)" --> ModeSD["<b>Strictly Unstable</b><br><i>(Empty GIT Quotient)</i>"]
+    ModeSD --> SurgSD["<b>SURGERY:</b><br>Kirwan Blow-up"]
+    SurgSD -.-> TopoCheck
+    BifurcateCheck -- "Yes (Polystable)" --> SymCheck{"<b>7b. REDUCTIVITY</b><br>Group G Reductive?"}
+
+    %% Path A: GIT Variation
+    SymCheck -- "Yes (Reductive)" --> CheckSC{"<b>7c. VARIATION OF GIT</b><br>New Linearization Exists?"}
+    CheckSC -- "Yes" --> ActionSSB["<b>ACTION: VGIT</b><br>Thaddeus Flip"]
+    ActionSSB --> TopoCheck
+    CheckSC -- "No" --> ModeSC_Rest["<b>Bad Quotient</b><br><i>(Stacky Obstruction)</i>"]
+    ModeSC_Rest --> SurgSC_Rest["<b>SURGERY:</b><br>Stacky Quotient [X/G]"]
+    SurgSC_Rest -.-> TopoCheck
+
+    %% Path B: Birational Geometry
+    SymCheck -- "No (Non-Reductive)" --> CheckTB{"<b>7d. BIRATIONAL CONTRACTION</b><br>Flip/Flop Exists?"}
+    CheckTB -- "Yes" --> ActionTunnel["<b>ACTION: FLIP/FLOP</b><br>MMP Step"]
+    ActionTunnel --> TameCheck
+    CheckTB -- "No" --> ModeTE_Rest["<b>Non-Algebraic</b><br><i>(Beyond GAGA)</i>"]
+    ModeTE_Rest --> SurgTE_Rest["<b>SURGERY:</b><br>Algebraization<br><i>(Artin Approx.)</i>"]
+    SurgTE_Rest -.-> TameCheck
+
+    StiffnessCheck -- "Yes (Stable)" --> TopoCheck{"<b>8. MONODROMY</b><br>Local System Trivial?"}
+
+    %% --- LEVEL 6: HODGE THEORY ---
+    TopoCheck -- "No (Non-Trivial)" --> BarrierAction{"<b>PERIOD MAP</b><br>Finite Monodromy Image?"}
+    BarrierAction -- "No (Breached)" --> ModeTE["<b>Non-Trivial Monodromy</b><br>(Picard-Lefschetz)"]
+    ModeTE --> SurgTE["<b>SURGERY:</b><br>Base Change"]
+    SurgTE -.-> TameCheck
+    BarrierAction -- "Yes (Blocked)" --> TameCheck
+
+    TopoCheck -- "Yes (Trivial)" --> TameCheck{"<b>9. CONSTRUCTIBILITY</b><br>Stratifiable / Definable?"}
+
+    TameCheck -- "No" --> BarrierOmin{"<b>GAGA PRINCIPLE</b><br>Algebraic Structure?"}
+    BarrierOmin -- "No (Breached)" --> ModeTC["<b>Transcendental</b><br>(Wild Analytic)"]
+    ModeTC --> SurgTC["<b>SURGERY:</b><br>Algebraization"]
+    SurgTC -.-> ErgoCheck
+    BarrierOmin -- "Yes (Blocked)" --> ErgoCheck
+
+    TameCheck -- "Yes" --> ErgoCheck{"<b>10. IRREDUCIBILITY</b><br>Moduli Space Connected?"}
+
+    ErgoCheck -- "No" --> BarrierMix{"<b>CONNECTEDNESS</b><br>Fulton-Hansen Applies?"}
+    BarrierMix -- "No (Breached)" --> ModeTD["<b>Reducible</b><br>(Multiple Components)"]
+    ModeTD --> SurgTD["<b>SURGERY:</b><br>Component Normalization"]
+    SurgTD -.-> ComplexCheck
+    BarrierMix -- "Yes (Blocked)" --> ComplexCheck
+
+    ErgoCheck -- "Yes" --> ComplexCheck{"<b>11. REPRESENTABILITY</b><br>Functor a Scheme?"}
+
+    %% --- LEVEL 7: STACKS ---
+    ComplexCheck -- "No" --> BarrierEpi{"<b>STACK STRUCTURE</b><br>DM or Artin Stack?"}
+    BarrierEpi -- "No (Breached)" --> ModeDC["<b>Non-Representable</b><br>(Bad Functor)"]
+    ModeDC --> SurgDC["<b>SURGERY:</b><br>Stackification"]
+    SurgDC -.-> OscillateCheck
+    BarrierEpi -- "Yes (Blocked)" --> OscillateCheck
+
+    ComplexCheck -- "Yes" --> OscillateCheck{"<b>12. PROJECTIVITY</b><br>Ample Line Bundle Exists?"}
+
+    OscillateCheck -- "Yes" --> BarrierFreq{"<b>NAKAI-MOISHEZON</b><br>Numerically Positive?"}
+    BarrierFreq -- "No (Breached)" --> ModeDE["<b>Moishezon</b><br>(Non-Projective Algebraic)"]
+    ModeDE --> SurgDE["<b>SURGERY:</b><br>Chow Lemma"]
+    SurgDE -.-> BoundaryCheck
+    BarrierFreq -- "Yes (Blocked)" --> BoundaryCheck
+
+    OscillateCheck -- "No" --> BoundaryCheck{"<b>13. BOUNDARY DIVISOR</b><br>Compactification Exists?"}
+
+    %% --- LEVEL 8: COMPACTIFICATION ---
+    BoundaryCheck -- "Yes" --> OverloadCheck{"<b>14. NORMAL CROSSINGS</b><br>Boundary Divisor NCD?"}
+
+    OverloadCheck -- "No" --> BarrierBode{"<b>LOG SMOOTHNESS</b><br>Log Structure Regular?"}
+    BarrierBode -- "No (Breached)" --> ModeBE["<b>Non-Toroidal Boundary</b><br>(Bad Compactification)"]
+    ModeBE --> SurgBE["<b>SURGERY:</b><br>Toroidal Blow-up"]
+    SurgBE -.-> StarveCheck
+    BarrierBode -- "Yes (Blocked)" --> StarveCheck
+
+    OverloadCheck -- "Yes" --> StarveCheck{"<b>15. POSITIVITY AT BOUNDARY</b><br>Stable Limits Exist?"}
+
+    StarveCheck -- "No" --> BarrierInput{"<b>SEMI-STABILITY</b><br>Boundary Points Stable?"}
+    BarrierInput -- "No (Breached)" --> ModeBD["<b>Unstable Limit</b><br>(Boundary Instability)"]
+    ModeBD --> SurgBD["<b>SURGERY:</b><br>Minimal Model"]
+    SurgBD -.-> AlignCheck
+    BarrierInput -- "Yes (Blocked)" --> AlignCheck
+
+    StarveCheck -- "Yes" --> AlignCheck{"<b>16. ADJUNCTION</b><br>Canonical Bundle Well-Behaved?"}
+    AlignCheck -- "No" --> BarrierVariety{"<b>KODAIRA DIMENSION</b><br>κ ≥ 0?"}
+    BarrierVariety -- "No (Breached)" --> ModeBC["<b>Uniruled</b><br>(κ = -∞)"]
+    ModeBC --> SurgBC["<b>SURGERY:</b><br>Canonical Model"]
+    SurgBC -.-> BarrierExclusion
+
+    %% --- LEVEL 9: THE FINAL GATE ---
+    BoundaryCheck -- "No" --> BarrierExclusion
+    BarrierVariety -- "Yes (Blocked)" --> BarrierExclusion
+    AlignCheck -- "Yes" --> BarrierExclusion
+
+    BarrierExclusion{"<b>17. OBSTRUCTION THEORY</b><br>H²(𝒯_X) = 0?"}
+
+    BarrierExclusion -- "Yes (Unobstructed)" --> VICTORY(["<b>SMOOTH MODULI SPACE</b><br><i>(Representable, Proper, Smooth)</i>"])
+    BarrierExclusion -- "No (Obstructed)" --> ModeCat["<b>SINGULAR MODULI</b><br>Virtual Fundamental Class Required"]
+
+    %% ====== STYLES ======
+    style VICTORY fill:#22c55e,stroke:#16a34a,color:#000000,stroke-width:4px
+    style ModeDD fill:#22c55e,stroke:#16a34a,color:#000000
+
+    style ModeCE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCD_Alt fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeDC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeDE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeBE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeBD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeBC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCat fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+
+    style BarrierSat fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierCausal fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierScat fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierTypeII fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierVac fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierCap fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierGap fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierAction fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierOmin fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierMix fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierEpi fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierFreq fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierBode fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierInput fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierVariety fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierExclusion fill:#8b5cf6,stroke:#7c3aed,color:#ffffff,stroke-width:4px
+
+    style EnergyCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ZenoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CompactCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ScaleCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ParamCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style GeomCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style StiffnessCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style TopoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style TameCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ErgoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ComplexCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style OscillateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style BoundaryCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style OverloadCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style StarveCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style AlignCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style ActionTunnel fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    style SurgCE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCD_Alt fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSC_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTE_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgDC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgDE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgBE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgBD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgBC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+</div>
+</body>
+</html>
