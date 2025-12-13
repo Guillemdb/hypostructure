@@ -2679,7 +2679,7 @@ graph TD
 
 ```mermaid
 graph TD
-    Converge["All paths converge"] --> Lock{"17.LOCK<br>Hom(Bad,S) Empty?"}
+    Converge["All paths converge"] --> Lock{"17.now pleaLOCK<br>Hom(Bad,S) Empty?"}
     Lock -- "Yes (Blocked)" --> Victory(["GLOBAL REGULARITY"])
     Lock -- "No (Morphism)" --> Fatal["FATAL ERROR"]
 

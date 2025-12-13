@@ -282,12 +282,28 @@ This work presents a structural framework for analyzing stability and failure mo
 
 #### Definition and scope
 
-A **Hypostructure** is a tuple $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G)$ satisfying coherence constraints that characterize stable dynamics. The components are: state space $X$, evolution semigroup $S_t$, height functional $\Phi$, dissipation $\mathfrak{D}$, and symmetry group $G$.
+\begin{definition}[Hypostructure]\label{def:hypostructure}
+A \textbf{Hypostructure} $\mathbb{H}$ is a structure implementing the \textbf{Gate Evaluator Interface}:
+\begin{enumerate}
+\item \textbf{State Space} $\mathcal{X}$: A Polish space (complete separable metric space) representing system configurations
+\item \textbf{Context Space} $\Gamma$: The algebra of certificates accumulated during sieve execution
+\item \textbf{Node Evaluation Map} $\mathcal{I}: \text{NodeID} \to (\mathcal{X} \times \Gamma \to \mathcal{O} \times \text{Cert} \times \mathcal{X} \times \Gamma)$
+\end{enumerate}
+The map $\mathcal{I}$ assigns to every node in the Sieve DAG an evaluation function that:
+\begin{itemize}
+\item Takes current state $x \in \mathcal{X}$ and context $\Gamma$
+\item Returns outcome $o \in \mathcal{O}$, certificate $K$, updated state $x'$, and updated context $\Gamma'$
+\end{itemize}
+\end{definition}
+
+\begin{remark}[Operational vs descriptive]
+This definition reframes the Hypostructure from a passive tuple $(X, S_t, \Phi, \mathfrak{D}, G)$ to an \textbf{active verification interface}. The traditional components (evolution $S_t$, height $\Phi$, dissipation $\mathfrak{D}$, symmetry $G$) become \textit{certificates} produced by node evaluators, not static properties assumed a priori.
+\end{remark}
 
 This document establishes the category of Hypostructures and proves that **global regularity is equivalent to the non-existence of morphisms from a canonical singular object**. Rather than constructing solutions, we prove singularities impossible by showing they would contradict structural axioms.
 
 \begin{remark}[Scope and claims]
-The framework is both \textbf{descriptive and diagnostic}. It reduces global regularity questions to local algebraic checks: identifying symmetries $G$ and computing algebraic data (scaling exponents, capacity dimensions, Łojasiewicz exponents). For background on PDEs and dispersive dynamics, see [@Evans10; @Tao06].
+The framework is both \textbf{operational and diagnostic}. It reduces global regularity questions to certificate-driven verification: each gate produces witness certificates that accumulate into a proof trace. For background on PDEs and dispersive dynamics, see [@Evans10; @Tao06].
 \end{remark}
 
 #### The fixed-point principle: F(x) = x
@@ -319,24 +335,55 @@ Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
 The equation $F(x) = x$ encapsulates the principle: structures that persist under their own evolution are precisely those that satisfy the hypostructure axioms. Singularities represent states where $F(x) \neq x$ in the limit---the evolution attempts to produce a state incompatible with its own definition.
 \end{remark}
 
+#### The Logic of Certificate Saturation
+
+The operational framework replaces "soft local exclusion" with **certificate saturation**: regularity is witnessed by a complete certificate trace through the Sieve DAG.
+
+\begin{definition}[Certificate]\label{def:certificate}
+A \textbf{certificate} $K$ is a finite witness object that records the outcome of a verification step. Certificates are typed: each certificate $K$ belongs to a certificate type $\mathcal{K}$ specifying what property it witnesses. The certificate must be verifiable from the given structural data.
+\end{definition}
+
+\begin{definition}[Proof trace]\label{def:proof-trace}
+A \textbf{proof} is a valid trace $\tau = (s_0, K_0) \to (s_1, K_1) \to \cdots \to (s_n, K_n)$ through the Sieve DAG terminating at \texttt{VICTORY} (the Lock node with Hom-emptiness certificate). Each transition is certificate-justified: the certificate $K_i$ logically implies the precondition for node $s_{i+1}$.
+\end{definition}
+
+\begin{definition}[Regularity (certificate form)]\label{def:regularity-certificate}
+A trajectory exhibits \textbf{global regularity} if and only if it possesses a $K_{\text{Lock}}^{\text{blk}}$ certificate (Blocked at the Lock node), derived from a complete context $\Gamma$ containing:
+\begin{itemize}
+\item All gate certificates $K_i^+$ or promoted equivalents
+\item All barrier certificates $K_j^{\text{blk}}$ for traversed barriers
+\item The Lock certificate proving $\mathrm{Hom}(\mathcal{Y}_{\text{bad}}, \text{trajectory}) = \emptyset$
+\end{itemize}
+\end{definition}
+
+\begin{principle}[Non-Circularity]\label{principle:non-circularity}
+A barrier triggered by the failure of predicate $P$ cannot list $P$ among its prerequisites. Formally: if gate $G_P$ routes NO to barrier $B$, then $\mathrm{Pre}(B) \not\supseteq \{K_P^+\}$.
+\end{principle}
+
+\begin{remark}[Certificate vs assertion]
+The operational framework does not merely \textit{assert} properties hold; it \textit{produces} certificates witnessing them. This distinction is critical: a certificate is a finite, checkable object that can be verified independently of the proof that generated it.
+\end{remark}
+
 #### The four fundamental constraints
 
 The hypostructure axioms decompose into four orthogonal categories, each enforcing a distinct aspect of self-consistency. This decomposition is not merely organizational—it reflects the mathematical structure of the obstruction space.
 
 \begin{definition}[Constraint classification]\label{def:constraint-classification}
-The structural constraints divide into four classes (see \cref{ch:axiom-system} for axiom definitions and \cref{ch:failure-modes} for failure mode details):
+The structural constraints divide into four classes, each mapped to specific gates in the Sieve DAG:
 \begin{center}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|}
 \hline
-\textbf{Class} & \textbf{Axioms} & \textbf{Enforces} & \textbf{Failure Modes} \\
+\textbf{Class} & \textbf{Axioms} & \textbf{Sieve Nodes} & \textbf{Enforces} & \textbf{Failure Modes} \\
 \hline
-Conservation & D, Rec & Magnitude bounds & C.E, C.D, C.C \\
-Topology & TB, Cap & Connectivity & T.E, T.D, T.C \\
-Duality & C, SC & Perspective coherence & D.E, D.D, D.C \\
-Symmetry & LS, GC & Cost structure & S.E, S.D, S.C \\
+Conservation & D, Rec & 1--2 & Magnitude bounds & C.E, C.D, C.C \\
+Topology & TB, Cap & 6, 8--10 & Connectivity & T.E, T.D, T.C \\
+Duality & C, SC & 3--5 & Perspective coherence & D.E, D.D, D.C \\
+Symmetry & LS, GC & 7, 12 & Cost structure & S.E, S.D, S.C \\
+Boundary & Bound & 13--16 & Open system control & B.E, B.D, B.C \\
 \hline
 \end{tabular}
 \end{center}
+The node numbering follows the canonical Sieve diagram: Node 1 (EnergyCheck) through Node 17 (Lock/BarrierExclusion).
 \end{definition}
 
 Each constraint class enforces a distinct aspect of $F(x) = x$:
@@ -387,18 +434,22 @@ The Hypostructure Axioms are necessary conditions derived from $F(x)=x$, not emp
 
 The central operation is **exclusion**: we prove singularities impossible by contradiction against structural axioms, not by constructing smooth solutions. Systems satisfying the axioms inherit global regularity theorems.
 
-#### The Principle of Local Structural Exclusion
+#### The Principle of Certificate-Driven Exclusion
 
-The mechanism of proof is **soft local exclusion**, following Gromov's Partial Differential Relations [@Gromov86]. The framework contains no global estimates or integral bounds:
+The mechanism of proof is **certificate saturation**, operationalizing Gromov's Partial Differential Relations [@Gromov86] as a state-machine traversal:
 
-1. **Assume failure:** Assume a singularity attempts to form (\cref{ch:failure-modes}).
-2. **Forced structure (Axiom C):** Concentration forces the emergence of a canonical profile $V$ (\cref{ch:resolution}).
-3. **Permit denial:** Test $V$ against algebraic constraints from \cref{ch:axiom-system}:
-   - If $\alpha > \beta$ (Axiom SC), supercritical blow-up is impossible.
-   - If singular sets have positive capacity (Axiom Cap), geometric concentration is impossible.
-4. **Contradiction:** If permits are denied, the singularity cannot form.
+1. **Enter the Sieve:** Initialize at Node 1 (EnergyCheck) with empty context $\Gamma_0 = \emptyset$.
+2. **Gate evaluation:** At each gate $i$, evaluate predicate $P_i(x)$:
+   - YES: Emit certificate $K_i^+$, proceed to next gate
+   - NO: Emit certificate $K_i^-$, route to barrier
+3. **Barrier defense:** At barrier $B$, attempt to block the failure:
+   - Blocked: Emit $K_B^{\text{blk}}$, continue through the sieve
+   - Breached: Emit $K_B^{\text{br}}$, activate surgery or terminal mode
+4. **Lock verification (Node 17):** Prove $\mathrm{Hom}(\mathcal{Y}_{\text{bad}}, \text{trajectory}) = \emptyset$:
+   - Blocked: VICTORY (global regularity established)
+   - MorphismExists: FATAL ERROR (structural inconsistency)
 
-The framework replaces tracking trajectories analytically with classifying static profiles algebraically.
+The framework replaces tracking trajectories analytically with accumulating certificates through the Sieve DAG.
 
 **Local Structural Constraints.** The axioms are **local**—verifiable in neighborhoods:
 
@@ -3524,6 +3575,174 @@ $$
 
 ---
 
+## Operational Semantics: The Sieve Machine {#ch:operational-semantics}
+
+This section defines the **Structural Sieve** as a deterministic state-transition system. The sieve is the "hardware" on which the axiom "software" runs.
+
+### The Canonical Sieve Topology
+
+\begin{definition}[Sieve graph]\label{def:sieve-graph}
+The \textbf{Sieve Graph} $\mathcal{G}_{\text{Sieve}} = (V, E)$ is a directed graph with:
+\begin{itemize}
+\item \textbf{Vertex set} $V = V_{\text{gate}} \sqcup V_{\text{barrier}} \sqcup V_{\text{mode}} \sqcup V_{\text{surgery}} \sqcup V_{\text{terminal}}$
+\item \textbf{Edge set} $E = E_{\text{control}} \sqcup E_{\text{surgery}}$ (control flow and surgery re-entry)
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Node numbering]\label{def:node-numbering}
+The canonical Sieve contains 17 numbered nodes (plus subnodes 7a--7d):
+
+\begin{center}
+\begin{tabular}{|c|l|l|l|}
+\hline
+\textbf{Node} & \textbf{Name} & \textbf{Axiom} & \textbf{Question} \\
+\hline
+1 & EnergyCheck & D & Is global energy finite? \\
+2 & ZenoCheck & Rec & Are discrete events finite? \\
+3 & CompactCheck & C & Does energy concentrate? \\
+4 & ScaleCheck & SC & Is scaling subcritical ($\alpha > \beta$)? \\
+5 & ParamCheck & SC & Are structural constants stable? \\
+6 & GeomCheck & Cap & Is singular set high codimension? \\
+7 & StiffnessCheck & LS & Does Łojasiewicz-Simon hold? \\
+7a & BifurcateCheck & LS & Is state dynamically unstable? \\
+7b & SymCheck & SC/LS & Is vacuum degenerate? \\
+7c & CheckSC & SC & SC recovery available? \\
+7d & CheckTB & TB & Action available? \\
+8 & TopoCheck & TB & Is topology well-behaved? \\
+9 & TameCheck & TB & Is the stratification o-minimal? \\
+10 & ErgoCheck & TB & Does the system mix? \\
+11 & ComplexCheck & Rep & Is the dictionary finite? \\
+12 & OscillateCheck & GC & Is oscillation bounded? \\
+13 & BoundaryCheck & Bound & Are boundaries well-posed? \\
+14 & OverloadCheck & Bound & Is control authority sufficient? \\
+15 & StarveCheck & Bound & Is supply adequate? \\
+16 & AlignCheck & Bound & Is gauge consistent? \\
+17 & BarrierExclusion & Lock & Is $\mathrm{Hom}(\mathcal{Y}_{\text{bad}}, -) = \emptyset$? \\
+\hline
+\end{tabular}
+\end{center}
+\end{definition}
+
+\begin{definition}[Node partition]\label{def:node-partition}
+The nodes partition into five categories:
+\begin{enumerate}
+\item \textbf{Gates} (Blue): Decision nodes evaluating axiom predicates. Output: YES/NO.
+\item \textbf{Barriers} (Orange): Defense nodes handling gate failures. Output: Blocked/Breached.
+\item \textbf{Modes} (Red): Terminal failure states (15 classified failure modes).
+\item \textbf{Surgeries} (Purple): State modification operations with re-entry.
+\item \textbf{Terminals} (Green/Black): VICTORY (Lock blocked) or FATAL ERROR (morphism exists).
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[DAG structure]\label{thm:dag-structure}
+The Sieve Graph $\mathcal{G}_{\text{Sieve}}$ is a Directed Acyclic Graph (modulo surgery epochs). Within a single epoch, every path is finite and visits at most $|V|$ nodes.
+\end{theorem}
+
+### Epoch and Trace Semantics
+
+\begin{definition}[Epoch]\label{def:epoch}
+An \textbf{epoch} is a sequence of transitions $s_0 \xrightarrow{K_0} s_1 \xrightarrow{K_1} \cdots \xrightarrow{K_{k-1}} s_k$ starting at Node 1 (EnergyCheck) and ending at either:
+\begin{itemize}
+\item A \textbf{Terminal Node}: VICTORY, Mode, or FATAL ERROR
+\item A \textbf{Surgery Node}: Triggering state modification and re-entry
+\end{itemize}
+Each transition is \textbf{certificate-justified}: $K_i \Rightarrow \mathrm{Pre}(s_{i+1})$.
+\end{definition}
+
+\begin{definition}[Complete run]\label{def:complete-run}
+A \textbf{complete run} is a finite sequence of epochs $E_1, E_2, \ldots, E_n$ where:
+\begin{itemize}
+\item Each epoch $E_i$ (for $i < n$) ends at a surgery node
+\item Surgery modifies state $x_i \to x_{i+1}$ and partially resets context $\Gamma$
+\item The final epoch $E_n$ terminates at a Terminal Node
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Context]\label{def:context}
+The \textbf{context} $\Gamma$ is a finite multiset of certificates accumulated during a sieve run:
+$$\Gamma = \{K_1, K_2, \ldots, K_n\}$$
+The context grows monotonically within an epoch: certificates are added but never removed (except at surgery re-entry, where context may be partially reset).
+\end{definition}
+
+### Termination Theorems
+
+\begin{theorem}[Epoch termination]\label{thm:epoch-termination}
+Every epoch terminates in finite time. Within a single epoch, the sieve visits at most $|V|$ nodes before reaching a terminal or surgery node.
+\end{theorem}
+
+\begin{proof}
+By \cref{thm:dag-structure}, the sieve is acyclic within an epoch. Each transition strictly advances through the DAG toward terminals.
+\end{proof}
+
+\begin{theorem}[Finite runs]\label{thm:finite-runs}
+A complete sieve run consists of finitely many epochs if either:
+\begin{enumerate}
+\item Surgeries are uniformly bounded: $|\{i : E_i \text{ ends in surgery}\}| \leq N$ for some $N < \infty$
+\item Complexity is well-founded: There exists a well-ordered complexity measure $\mathcal{C}: X \to \mathrm{Ord}$ such that surgery strictly decreases complexity: $\mathcal{C}(x_{i+1}) < \mathcal{C}(x_i)$
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Certificate justification]\label{thm:certificate-justification}
+Every transition in a sieve run is certificate-justified. Formally, if the sieve traverses edge $N_1 \xrightarrow{o} N_2$, then the certificate $K_o$ produced by $N_1$ with outcome $o$ satisfies $K_o \Rightarrow \mathrm{Pre}(N_2)$.
+\end{theorem}
+
+\begin{theorem}[Closure termination]\label{thm:closure-termination}
+The promotion closure $\mathrm{Cl}(\Gamma)$ terminates in at most $|K(T)|$ steps, where $|K(T)|$ is the number of certificate types for problem type $T$. Specifically:
+\begin{enumerate}
+\item Each promotion rule fires at most once per certificate type
+\item The certificate lattice has finite height
+\item Closure is monotonic: $\Gamma \subseteq \mathrm{Cl}(\Gamma)$
+\end{enumerate}
+\end{theorem}
+
+### Certificate Types
+
+\begin{definition}[Gate permits]\label{def:gate-permits}
+For each gate (blue node) $i$, the outcome alphabet is $\mathcal{O}_i = \{\texttt{YES}, \texttt{NO}\}$ with certificate types:
+\begin{itemize}
+\item $K_i^+$ (YES certificate): Witnesses that predicate $P_i$ holds on the current state/window
+\item $K_i^-$ (NO certificate): Witnesses that $P_i$ fails or cannot be certified from current $\Gamma$
+\end{itemize}
+\end{definition}
+
+\begin{remark}[Dichotomy classifiers]\label{rem:dichotomy}
+Some gates are \textbf{dichotomy classifiers} where NO is a benign branch rather than an error:
+\begin{itemize}
+\item \textbf{CompactCheck (Node 3)}: NO = scattering $\to$ global existence (Mode D.D)
+\item \textbf{OscillateCheck (Node 12)}: NO = no oscillation $\to$ proceed to boundary checks
+\end{itemize}
+For these gates, $K^-$ represents a classification outcome, not a failure certificate.
+\end{remark}
+
+\begin{definition}[Barrier permits]\label{def:barrier-permits}
+For each barrier (orange node), the outcome alphabet is:
+$$\mathcal{O}_{\text{barrier}} = \{\texttt{Blocked}, \texttt{Breached}\}$$
+with certificate types:
+\begin{itemize}
+\item $K^{\text{blk}}$ (Blocked): Barrier defense succeeds; enables passage to next gate
+\item $K^{\text{br}}$ (Breached): Barrier fails; activates failure mode or surgery
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Surgery re-entry permits]\label{def:reentry-permits}
+A surgery re-entry certificate has the form:
+$$K^{\text{re}} = (D_S, x', \pi)$$
+where $D_S$ is surgery data, $x'$ is the post-surgery state, and $\pi$ proves $\mathrm{Pre}(\text{TargetNode})$ holds for $x'$.
+\end{definition}
+
+\begin{definition}[YES-tilde permits]\label{def:yes-tilde-permits}
+A \textbf{YES-tilde certificate} $K_i^\sim$ witnesses YES \textit{up to admissible equivalence}:
+$$K_i^\sim = (K_{\text{equiv}}, K_{\text{transport}}, K_i^+[\tilde{x}])$$
+where:
+\begin{itemize}
+\item $K_{\text{equiv}}$: Certificate that $x \sim \tilde{x}$ via an admissible equivalence move
+\item $K_{\text{transport}}$: Certificate that the property transports across the equivalence
+\item $K_i^+[\tilde{x}]$: Standard YES certificate for the equivalent state $\tilde{x}$
+\end{itemize}
+\end{definition}
+
+---
+
 
 ## The Axiom System {#ch:axiom-system}
 
@@ -3589,26 +3808,67 @@ The development in Parts III–VI focuses on the S-layer. Part VII develops the 
 
 ---
 
+### Axiom Interface Schema
+
+In the operational framework, each axiom is an **interface to a Sieve node**. This standardizes the format and ensures clear traceability between axioms, gates, and failure modes.
+
+\begin{definition}[Axiom interface schema]\label{def:axiom-interface-schema}
+Each axiom interface specifies:
+\begin{enumerate}
+\item \textbf{Associated Node}: Mapping to a specific gate ID in the Sieve DAG
+\item \textbf{Predicate $P(x)$}: The mathematical condition evaluated at the gate
+\item \textbf{Input Context}: Required prior certificates from earlier gates
+\item \textbf{Output Specification}: Structure of YES/NO certificates
+\item \textbf{Barrier Handover}: Which barrier handles the NO case
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Schema discipline]
+This schema enforces:
+\begin{itemize}
+\item \textbf{Traceability}: Every axiom maps to exactly one gate
+\item \textbf{Completeness}: Every gate failure is handled by exactly one barrier
+\item \textbf{Non-circularity}: Barrier prerequisites never include the triggering gate's certificate
+\end{itemize}
+\end{remark}
+
+---
+
 ### Conservation constraints
 
 These axioms govern energy balance and recovery mechanisms—the thermodynamic backbone of the framework. The mathematical treatment draws on Prigogine's theory of dissipative structures [@Prigogine78] and the Jarzynski equality [@Jarzynski97] connecting nonequilibrium processes to equilibrium free energies.
 
-#### Axiom D (Dissipation)
+#### Axiom D (Dissipation Interface)
 
-\begin{axiom}[D (Dissipation bound along trajectories)]
-Along any trajectory $u(t) = S_t x$, there exists $\alpha > 0$ such that for all $0 \leq t_1 \leq t_2 < T_*(x)$:
+\begin{axiom}[D (Dissipation Interface)]\label{axiom:D-interface}
+\textbf{Associated Node}: Node 1 (EnergyCheck)
+
+\textbf{Predicate}: $\Phi(u(t)) < +\infty$ on the analysis window $[0, T]$
+
+\textbf{Input Context}: None (entry point of the sieve)
+
+\textbf{Output Specification}:
+\begin{itemize}
+\item $K_1^+$ (YES): $(\Phi_{\max}, T, \alpha, \text{bound proof})$ witnessing bounded energy
+\item $K_1^-$ (NO): $(\text{blow-up time } t^*, \text{escape witness})$ witnessing energy escape
+\end{itemize}
+
+\textbf{Barrier Handover}: $K_1^- \Rightarrow$ BarrierSat (Saturation Barrier)
+
+\textbf{Core inequality} (Lyapunov-with-drift): Along any trajectory $u(t) = S_t x$, there exists $\alpha > 0$ such that for all $0 \leq t_1 \leq t_2 < T_*(x)$:
 $$
-\Phi(u(t_2)) + \alpha \int_{t_1}^{t_2} \mathfrak{D}(u(s)) \, ds \leq \Phi(u(t_1)) + C_{u}(t_1, t_2),
+\Phi(u(t_2)) + \alpha \int_{t_1}^{t_2} \mathfrak{D}(u(s)) \, ds \leq \Phi(u(t_1)) + \mathrm{Drift}_u(t_1, t_2),
 $$
-where the \textbf{drift term} $C_u(t_1, t_2)$ satisfies:
+where the drift term satisfies:
+\begin{itemize}
+\item On the good region $\mathcal{G}$: $\mathrm{Drift}_u(t_1, t_2) = 0$
+\item Outside $\mathcal{G}$: $\mathrm{Drift}_u(t_1, t_2) \leq C \cdot \mathrm{Leb}\{s : u(s) \notin \mathcal{G}\}$
+\end{itemize}
 \end{axiom}
 
-- **On the good region $\mathcal{G}$:** $C_u(t_1, t_2) = 0$ when $u(s) \in \mathcal{G}$ for all $s \in [t_1, t_2]$.
-- **Outside $\mathcal{G}$:** $C_u(t_1, t_2) \leq C \cdot \mathrm{Leb}\{s \in [t_1, t_2] : u(s) \notin \mathcal{G}\}$ for some constant $C \geq 0$.
+\textbf{Failure Mode}: When $K_1^- \to$ BarrierSat(Breached), activates **Mode C.E (Energy Blow-up)**: trajectory exhibits $\Phi(u(t)) \to \infty$ as $t \nearrow T_*(x)$.
 
-**Fallback (Mode C.E: Energy Blow-up).** When Axiom D fails—i.e., the energy grows without bound—the trajectory exhibits **energy blow-up**. The drift term is uncontrolled, leading to $\Phi(u(t)) \to \infty$ as $t \nearrow T_*(x)$.
-
-**Role in constraint class.** Axiom D provides the fundamental energy–dissipation balance. It ensures that energy cannot increase without bound unless the system remains outside the good region $\mathcal{G}$ for an extended time. The drift term controls energy growth outside $\mathcal{G}$, and is regulated by Axiom Rec.
+\textbf{Role in constraint class}: Axiom D provides the fundamental energy–dissipation balance and is the entry gate for the entire sieve.
 
 \begin{corollary}[Integral bound]\label{cor:integral-bound}
 For any trajectory with finite time in bad regions (guaranteed by Axiom Rec when $\mathcal{C}_*(x) < \infty$):
@@ -3628,27 +3888,39 @@ In gradient flow and entropy method contexts:
 \end{itemize}
 \end{remark}
 
-#### Axiom Rec (Recovery)
+#### Axiom Rec (Recovery Interface)
 
-\begin{axiom}[Rec (Recovery inequality along trajectories)]
-Along any trajectory $u(t) = S_t x$, there exist:
-\end{axiom}
+\begin{axiom}[Rec (Recovery Interface)]\label{axiom:Rec-interface}
+\textbf{Associated Node}: Node 2 (ZenoCheck)
 
-- a measurable subset $\mathcal{G} \subseteq X$ called the **good region**,
-- a measurable function $\mathcal{R}: X \to [0, \infty)$ called the **recovery functional**,
-- a constant $C_0 > 0$,
+\textbf{Predicate}: Discrete events (surgeries, mode transitions) are finite on $[0, T]$
 
-such that:
+\textbf{Input Context}: $\{K_1^+\}$ (requires EnergyCheck YES)
 
-1. **Positivity outside $\mathcal{G}$:** $\mathcal{R}(x) > 0$ for all $x \in X \setminus \mathcal{G}$ (spatially varying, not necessarily uniform),
-2. **Recovery inequality:** For any interval $[t_1, t_2] \subset [0, T_*(x))$ during which $u(t) \in X \setminus \mathcal{G}$:
+\textbf{Output Specification}:
+\begin{itemize}
+\item $K_2^+$ (YES): $(N_{\text{events}}, \text{event list}, \text{finiteness proof})$ witnessing bounded discrete events
+\item $K_2^-$ (NO): $(\text{accumulation point}, \text{Zeno witness})$ witnessing event accumulation
+\end{itemize}
+
+\textbf{Barrier Handover}: $K_2^- \Rightarrow$ BarrierCausal (Causal Censor)
+
+\textbf{Required objects}:
+\begin{itemize}
+\item Good region $\mathcal{G} \subseteq X$
+\item Recovery functional $\mathcal{R}: X \to [0, \infty)$ with $\mathcal{R}(x) > 0$ for $x \notin \mathcal{G}$
+\item Constant $C_0 > 0$
+\end{itemize}
+
+\textbf{Recovery inequality}: For any interval $[t_1, t_2] \subset [0, T_*(x))$ during which $u(t) \notin \mathcal{G}$:
 $$
 \int_{t_1}^{t_2} \mathcal{R}(u(s)) \, ds \leq C_0 \int_{t_1}^{t_2} \mathfrak{D}(u(s)) \, ds.
 $$
+\end{axiom}
 
-**Fallback (Mode C.E: Energy Blow-up).** When Axiom Rec fails—i.e., recovery is impossible along a trajectory—the trajectory enters a **failure region** $\mathcal{F}$ where the drift term in Axiom D is uncontrolled, leading to energy blow-up.
+\textbf{Failure Mode}: When $K_2^- \to$ BarrierCausal(Breached), activates **Mode C.C (Event Accumulation/Zeno)**: infinitely many discrete events accumulate at finite time.
 
-**Role in constraint class.** Axiom Rec is the dual to Axiom D: it bounds the time a trajectory can spend outside the good region $\mathcal{G}$ in terms of dissipation cost. Together, D and Rec ensure that finite-cost trajectories cannot drift indefinitely in bad regions. The recovery functional $\mathcal{R}$ may vary spatially—some bad regions have fast recovery (large $\mathcal{R}$), others slow recovery (small $\mathcal{R}$).
+\textbf{Role in constraint class}: Axiom Rec is dual to Axiom D—it bounds time outside the good region $\mathcal{G}$ in terms of dissipation cost.
 
 \begin{proposition}[Time bound outside good region]\label{prop:time-bound-outside-good-region}
 Under Axioms D and Rec, for any trajectory with finite total cost $\mathcal{C}_*(x) < \infty$, define $r_{\min}(u) := \inf_{t : u(t) \notin \mathcal{G}} \mathcal{R}(u(t))$. If $r_{\min}(u) > 0$:
@@ -3818,28 +4090,40 @@ Capacity measures how ``expensive'' (in dissipation cost) it is to visit a regio
 
 These axioms enforce compactness and scaling balance—the self-similar structure of concentrating solutions.
 
-#### Axiom C (Compactness)
+#### Axiom C (Compactness Interface)
 
-**Structural Data (Symmetry Group).** The system admits a continuous action by a locally compact topological group $G$ acting on $X$ by isometries (i.e., $d(g \cdot x, g \cdot y) = d(x, y)$ for all $g \in G$, $x, y \in X$). This is structural data about the system, not an assumption to be verified per trajectory.
+\begin{axiom}[C (Compactness Interface)]\label{axiom:C-interface}
+\textbf{Associated Node}: Node 3 (CompactCheck)
 
-\begin{axiom}[C (Structural Compactness Potential)]
-We say a trajectory $u(t) = S_t x$ with bounded energy $\sup_{t < T_*(x)} \Phi(u(t)) \leq E < \infty$ \textbf{satisfies Axiom C} if: for every sequence of times $t_n \nearrow T_*(x)$, there exists a subsequence $(t_{n_k})$ and elements $g_k \in G$ such that $(g_k \cdot u(t_{n_k}))$ converges \textbf{strongly} in the topology of $X$ to a \textbf{single} limit profile $V \in X$.
+\textbf{Predicate}: Does energy concentrate? (dichotomy classifier)
+
+\textbf{Input Context}: $\{K_1^+, K_2^+\}$ (requires EnergyCheck and ZenoCheck YES)
+
+\textbf{Output Specification}:
+\begin{itemize}
+\item $K_3^+$ (YES = Concentration): Profile certificate $K_{\mathrm{prof}} = (V, \text{convergence data}, \lambda(t))$
+\item $K_3^-$ (NO = Dispersion): Nonconcentration certificate $K_{\mathrm{nonconc}} = (\text{scattering data})$
+\end{itemize}
+
+\textbf{Barrier Handover}: $K_3^- \Rightarrow$ BarrierScat (Scattering Barrier)
+
+\textbf{Structural Data}: Symmetry group $G$ acting on $X$ by isometries.
+
+\textbf{Compactness condition}: A trajectory $u(t) = S_t x$ with bounded energy satisfies Axiom C if: for every sequence $t_n \nearrow T_*(x)$, there exist $(t_{n_k})$ and $g_k \in G$ such that $(g_k \cdot u(t_{n_k})) \to V$ strongly.
 \end{axiom}
 
-When $G$ is trivial, this reduces to ordinary precompactness of bounded-energy trajectory tails.
+\begin{remark}[Dichotomy classifier]
+Node 3 is a \textbf{dichotomy classifier}: NO is not a failure but a classification outcome.
+\begin{itemize}
+\item $K_3^+$ (Concentration): Profile $V$ exists $\to$ continue to scaling checks
+\item $K_3^-$ (Dispersion): Energy scatters $\to$ \textbf{Mode D.D (Global Existence)}
+\end{itemize}
+Mode D.D represents global existence via scattering, not a singularity.
+\end{remark}
 
-**Fallback (Mode D.D: Dispersion/Global Existence).** If Axiom C fails (energy disperses), there is **no finite-time singularity**—the solution exists globally via scattering (dispersion). This is not a failure mode but **global existence**: energy disperses, no concentration occurs, and no singularity forms.
+\textbf{Note}: Multi-profile decompositions are allowed at the X.0 level; single-profile uniqueness is an upgrade (X.B layer).
 
-**Role in constraint class.** Axiom C embodies the forced structure principle: finite-time blow-up *requires* energy concentration, and concentration *forces* the emergence of canonical profiles. The mechanism is:
-
-1. **Finite-time blow-up requires concentration.** To form a singularity at $T_* < \infty$, energy must concentrate—otherwise the solution disperses globally and no singularity forms.
-2. **Concentration forces local structure.** Wherever energy concentrates, a canonical profile $V$ emerges. Axiom C holds locally at any blow-up locus.
-3. **No concentration = no singularity.** If Axiom C fails (energy disperses), there is no finite-time singularity—the solution exists globally via scattering (Mode D.D).
-
-Consequently:
-- **Mode D.D is not a singularity.** It represents global existence via dispersion, not a "failure mode."
-- **Modes S.E–S.D require Axiom C to hold** (structure exists), then test whether the structure satisfies algebraic permits.
-- **No global compactness proof is needed.** We observe that blow-up forces local compactness, then check permits on the forced structure.
+\textbf{Role in constraint class}: Axiom C embodies the forced structure principle: finite-time blow-up \textit{requires} concentration, and concentration \textit{forces} canonical profiles.
 
 \begin{remark}[Strong convergence is forced, not assumed]
 The requirement of strong convergence is not an assumption to verify---it is a \emph{consequence} of energy concentration. If a sequence converges only weakly ($u(t_n) \rightharpoonup V$) with energy loss ($\Phi(u(t_n)) \not\to \Phi(V)$), then energy has dispersed to dust, no true concentration occurred, and no finite-time singularity forms. This is Mode D.D: global existence via scattering.
@@ -3863,31 +4147,37 @@ In the PDE context, concentration behavior is typically described by:
 \end{itemize}
 \end{remark}
 
-#### Axiom SC (Scaling)
+#### Axiom SC (Scaling Interface)
 
-The Scaling Structure axiom provides the minimal geometric data needed to derive normalization constraints from scaling arithmetic alone. It applies **on orbits where the scaling subgroup acts**.
+\begin{axiom}[SC (Scaling Interface)]\label{axiom:SC-interface}
+\textbf{Associated Nodes}: Node 4 (ScaleCheck), Node 5 (ParamCheck)
+
+\textbf{Predicate}: Is scaling subcritical ($\alpha > \beta$)? Are structural constants stable?
+
+\textbf{Input Context}: $\{K_3^+\}$ (requires concentration profile)
+
+\textbf{Output Specification}:
+\begin{itemize}
+\item $K_4^+$ (YES): $(\alpha, \beta, \alpha > \beta \text{ proof})$ witnessing subcritical scaling
+\item $K_4^-$ (NO): $(\alpha, \beta, \alpha \leq \beta)$ witnessing critical/supercritical scaling
+\end{itemize}
+
+\textbf{Barrier Handover}: $K_4^- \Rightarrow$ BarrierTypeII (Type II Barrier)
+
+\textbf{Convention} ($\alpha/\beta$ semantics):
+\begin{itemize}
+\item $\alpha$: Height (energy) scaling exponent—$\Phi(\mathcal{S}_\lambda \cdot x) = \lambda^\alpha \Phi(x)$
+\item $\beta$: Dissipation (time) scaling exponent—$S_{\lambda^\beta t}(\mathcal{S}_\lambda \cdot x) = \mathcal{S}_\lambda \cdot S_t(x)$
+\end{itemize}
+\end{axiom}
 
 \begin{definition}[Scaling subgroup]\label{def:scaling-subgroup-2}
 A \textbf{scaling subgroup} is a one-parameter subgroup $(\mathcal{S}_\lambda)_{\lambda > 0} \subset G$ of the symmetry group, with $\mathcal{S}_1 = e$ and $\mathcal{S}_\lambda \circ \mathcal{S}_\mu = \mathcal{S}_{\lambda\mu}$.
 \end{definition}
 
-\begin{definition}[Scaling exponents]\label{def:scaling-exponents-2}
-The \textbf{scaling exponents} along an orbit where $(\mathcal{S}_\lambda)$ acts are constants $\alpha > 0$ and $\beta > 0$ such that:
-$$
-\Phi(\mathcal{S}_\lambda \cdot x) = \lambda^\alpha \Phi(x), \quad t \mapsto S_{\lambda^\beta t}(\mathcal{S}_\lambda \cdot x) = \mathcal{S}_\lambda \cdot S_t(x).
-$$
-\end{definition}
+\textbf{Failure Mode}: When $K_4^- \to$ BarrierTypeII(Breached), activates **Mode S.E (Supercritical Cascade)**: Type II (self-similar) blow-up becomes possible.
 
-\begin{axiom}[SC (Scaling Structure on orbits)]
-On any orbit where the scaling subgroup $(\mathcal{S}_\lambda)_{\lambda > 0}$ acts with well-defined scaling exponents $(\alpha, \beta)$, the \textbf{subcritical dissipation condition} holds:
-$$
-\alpha > \beta.
-$$
-\end{axiom}
-
-**Fallback (Mode S.E: Supercritical Symmetry Cascade).** When Axiom SC fails along a trajectory—either because no scaling subgroup acts, or the subcritical condition $\alpha > \beta$ is violated—the trajectory may exhibit **supercritical symmetry cascade**. Type II (self-similar) blow-up becomes possible; normalization constraints cannot exclude it.
-
-**Role in constraint class.** Axiom SC encodes the dimensional balance of the system. The exponent $\alpha$ governs how energy scales under dilation; $\beta$ governs how time scales. The condition $\alpha > \beta$ ensures that dissipation scales faster than time on self-similar orbits, rendering Type II blow-up impossible for finite-cost trajectories. This is a consequence of pure scaling arithmetic—no additional regularity assumptions are needed.
+\textbf{Role in constraint class}: Axiom SC encodes dimensional balance. The condition $\alpha > \beta$ ensures dissipation scales faster than time on self-similar orbits, rendering Type II blow-up impossible for finite-cost trajectories.
 
 \begin{remark}[Scaling structure is soft]
 For most systems of interest, the scaling structure is immediate from dimensional analysis:
@@ -3906,36 +4196,63 @@ Under Axiom SC, Property GN (Generic Normalization) becomes a derived consequenc
 
 These axioms enforce local rigidity near equilibria—the stiffness that drives convergence. The connection between critical point structure and global topology is formalized by **Morse theory** [@Morse34; @Witten82]: the number and types of critical points of a height functional constrain the topology of the underlying manifold. Witten's supersymmetric approach [@Witten82] provides the physical derivation of cohomology from energy landscapes.
 
-#### Axiom LS (Local Stiffness)
+#### Axiom LS (Local Stiffness Interface)
 
-\begin{axiom}[LS (Local stiffness / Łojasiewicz–Simon inequality [@Simon83])]
-In a neighbourhood of the safe manifold, there exist:
+\begin{axiom}[LS (Local Stiffness Interface)]\label{axiom:LS-interface}
+\textbf{Associated Node}: Node 7 (StiffnessCheck)
+
+\textbf{Predicate}: Does the Łojasiewicz-Simon inequality hold near equilibria?
+
+\textbf{Input Context}: $\{K_4^+\}$ or $\{K_4^{\text{blk}}\}$ (requires scaling check passed or barrier blocked)
+
+\textbf{Output Specification}:
+\begin{itemize}
+\item $K_7^+$ (YES): $(M, U, \theta, C_{\text{LS}}, \text{LS proof})$ witnessing stiffness
+\item $K_7^-$ (NO): $(\text{obstruction type}, \text{witness})$ identifying stiffness failure
+\end{itemize}
+
+\textbf{Barrier Handover}: $K_7^- \Rightarrow$ BarrierGap (Spectral Gap Barrier)
+
+\textbf{Required objects}:
+\begin{itemize}
+\item Safe manifold $M \subseteq X$ (equilibria, ground states, canonical patterns)
+\item Neighbourhood $U \supseteq M$
+\item Exponent $\theta \in (0, 1]$ and constant $C_{\text{LS}} > 0$
+\end{itemize}
+
+\textbf{Condition 1 (Minimum on $M$)}: $\Phi$ attains its global infimum on $M$:
+$$\Phi_{\min} := \inf_{x \in X} \Phi(x) = \inf_{x \in M} \Phi(x)$$
+
+\textbf{Condition 2 (\L{}ojasiewicz-Simon inequality)}: For all $x \in U$, either:
+
+\textit{Gradient form} (for differentiable $\Phi$):
+$$\|\nabla \Phi(x)\| \geq C_{\text{LS}} |\Phi(x) - \Phi_{\min}|^{1-\theta}$$
+
+\textit{Distance form} (more general, applies to non-smooth settings):
+$$\Phi(x) - \Phi_{\min} \geq C_{\text{LS}} \cdot \mathrm{dist}(x, M)^{1/\theta}$$
+
+These are equivalent under differentiability; the distance form extends to non-smooth Lyapunov functionals.
+
+\textbf{Condition 3 (Drift domination inside $U$)}: Along any trajectory $u(t) = S_t x$ remaining in $U$ on interval $[t_0, t_1]$, the drift is strictly dominated by dissipation:
+$$\frac{d}{dt}\Phi(u(t)) \leq -c \, \mathfrak{D}(u(t)) \quad \text{for some } c > 0 \text{ and a.e. } t \in [t_0, t_1].$$
+This ensures trajectories inside $U$ are inexorably pulled toward $M$ by dissipation.
 \end{axiom}
 
-- a closed subset $M \subseteq X$ called the **safe manifold** (the set of equilibria, ground states, or canonical patterns),
-- an open neighbourhood $U \supseteq M$,
-- constants $\theta \in (0, 1]$ and $C_{\mathrm{LS}} > 0$,
+\textbf{Restoration Subtree (Nodes 7a--7d)}: When $K_7^- \to$ BarrierGap(Stagnation), the sieve attempts stiffness \textit{repair}:
+\begin{itemize}
+\item \textbf{Node 7a (BifurcateCheck)}: Is the state dynamically unstable? $\to$ ActionBifurcate
+\item \textbf{Node 7b (SymCheck)}: Is the vacuum degenerate? $\to$ ActionSSB (symmetry breaking)
+\item \textbf{Node 7c (CheckSC)}: Can SC restore stiffness? $\to$ SC restoration
+\item \textbf{Node 7d (CheckTB)}: Can action gap restore stiffness? $\to$ TB restoration
+\end{itemize}
 
-such that:
+\textbf{Crucial}: LS$^0$ allows stiffness to be supplied by the \textbf{BarrierGap + restoration subtree}, i.e., stiffness may be \textit{repaired} rather than globally assumed. This is the key distinction from classical regularity theory.
 
-1. **Minimum on $M$:** $\Phi$ attains its infimum on $M$: $\Phi_{\min} := \inf_{x \in X} \Phi(x) = \inf_{x \in M} \Phi(x)$,
-2. **Łojasiewicz–Simon inequality:** For all $x \in U$:
-$$
-\Phi(x) - \Phi_{\min} \geq C_{\mathrm{LS}} \cdot \mathrm{dist}(x, M)^{1/\theta}.
-$$
-3. **Drift domination inside $U$:** Along any trajectory $u(t) = S_t x$ that remains in $U$ on some interval $[t_0, t_1]$, the drift is strictly dominated by dissipation:
-$$
-\frac{d}{dt}\Phi(u(t)) \leq -c \mathfrak{D}(u(t)) \quad \text{for some } c > 0 \text{ and a.e. } t \in [t_0, t_1].
-$$
+\textbf{Failure Mode}: When restoration fails, activates **Mode S.D (Stiffness Breakdown)**: trajectory cannot be pulled toward equilibrium despite bounded energy.
 
-**Fallback (Mode S.D: Stiffness Breakdown).** Axiom LS is **local by design**: it applies only in the neighbourhood $U$ of $M$. A trajectory exhibits **stiffness breakdown** if any of the following occur:
-- The trajectory approaches the boundary of $U$ without converging to $M$,
-- The Łojasiewicz inequality (condition 2) fails,
-- The drift domination (condition 3) fails—i.e., drift pushes the trajectory away from $M$ despite being inside $U$.
+\textbf{Role in constraint class}: Axiom LS provides local rigidity near equilibria. The \L{}ojasiewicz-Simon inequality quantifies the ``steepness'' of the energy landscape near $M$: the exponent $\theta$ controls degeneracy at equilibria. When $\theta = 1$, this is linear coercivity; smaller values indicate stronger degeneracy. The exponent $\theta$ determines convergence rate: $\theta = 1/2$ gives exponential decay (mass gap), $\theta < 1/2$ gives polynomial decay (gapless modes).
 
-Outside $U$, other axioms (C, D, Rec) govern behaviour.
-
-**Role in constraint class.** Axiom LS provides local rigidity near equilibria. The Łojasiewicz–Simon inequality quantifies the "steepness" of the energy landscape near $M$: the exponent $\theta$ controls how degenerate the energy is at equilibria. When $\theta = 1$, this is a linear coercivity condition; smaller values indicate stronger degeneracy. The drift domination ensures that trajectories inside $U$ are inexorably pulled toward $M$ by dissipation. This formalizes the concept of **Inertial Manifolds** in infinite-dimensional dynamical systems [@Temam88], which contain the global attractor and capture the long-time dynamics of dissipative PDEs.
+The \textbf{drift domination} (Condition 3) ensures that trajectories inside $U$ are inexorably pulled toward $M$ by dissipation. This formalizes the concept of \textbf{Inertial Manifolds} in infinite-dimensional dynamical systems [@Temam88], which contain the global attractor and capture long-time dynamics of dissipative PDEs. The key insight: Axiom LS$^0$ does not require global stiffness---only local stiffness within $U$, with the BarrierGap mechanism handling trajectories that leave $U$.
 
 \begin{remark}
 The exponent $\theta$ is called the \textbf{\L{}ojasiewicz exponent}. It determines the rate of convergence to equilibrium.
@@ -4092,6 +4409,198 @@ The axioms are organized into four constraint classes:
 \item \textbf{Symmetry (LS, Reg):} Local rigidity---stiffness near equilibria and minimal regularity.
 \end{enumerate}
 Each class addresses a different aspect of system behavior. Together, they provide a complete classification of dynamical breakdown modes.
+\end{remark}
+
+---
+
+## Terminal State Taxonomy {#sec:terminal-taxonomy}
+
+This section classifies the outcomes of a complete sieve run by their certificate trace.
+
+### Success Outcomes
+
+\begin{definition}[VICTORY (Global Regularity)]\label{def:victory}
+A trajectory achieves \textbf{VICTORY} if the sieve run terminates at the Lock (Node 17) with a $K_{17}^{\text{blk}}$ certificate (Hom-set emptiness). This establishes:
+$$\mathrm{Hom}(\mathcal{Y}_{\text{bad}}, \text{trajectory}) = \emptyset$$
+The trajectory cannot contain the universal bad pattern $\mathcal{Y}_{\text{bad}}$, proving global regularity.
+\end{definition}
+
+\begin{definition}[Mode D.D (Global Existence via Dispersion)]\label{def:mode-dd}
+A trajectory achieves \textbf{global existence} if the sieve run terminates at CompactCheck (Node 3) with a $K_3^-$ certificate (nonconcentration). Energy scatters rather than concentrates, so no finite-time singularity can form.
+\end{definition}
+
+### Failure Outcomes (15 Modes)
+
+Each failure mode corresponds to a specific barrier breach:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Mode} & \textbf{Trigger} & \textbf{Certificate} \\
+\hline
+C.E (Energy Blow-up) & BarrierSat(Breached) & $K_{\text{Sat}}^{\text{br}}$ \\
+C.C (Event Accumulation) & BarrierCausal(Breached) & $K_{\text{Causal}}^{\text{br}}$ \\
+C.D (Geometric Collapse) & BarrierCap(Breached) & $K_{\text{Cap}}^{\text{br}}$ \\
+S.E (Supercritical) & BarrierTypeII(Breached) & $K_{\text{TypeII}}^{\text{br}}$ \\
+S.C (Parameter Instability) & BarrierVac(Breached) & $K_{\text{Vac}}^{\text{br}}$ \\
+S.D (Stiffness Breakdown) & BarrierGap(Breached) & $K_{\text{Gap}}^{\text{br}}$ \\
+T.E (Metastasis) & BarrierAction(Breached) & $K_{\text{Action}}^{\text{br}}$ \\
+T.C (Labyrinthine) & BarrierOmin(Breached) & $K_{\text{Omin}}^{\text{br}}$ \\
+T.D (Glassy Freeze) & BarrierMix(Breached) & $K_{\text{Mix}}^{\text{br}}$ \\
+D.C (Semantic Horizon) & BarrierEpi(Breached) & $K_{\text{Epi}}^{\text{br}}$ \\
+D.E (Oscillatory) & BarrierFreq(Breached) & $K_{\text{Freq}}^{\text{br}}$ \\
+B.E (Injection) & BarrierBode(Breached) & $K_{\text{Bode}}^{\text{br}}$ \\
+B.D (Starvation) & BarrierInput(Breached) & $K_{\text{Input}}^{\text{br}}$ \\
+B.C (Misalignment) & BarrierVariety(Breached) & $K_{\text{Variety}}^{\text{br}}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+### Fatal Error
+
+\begin{definition}[FATAL ERROR (Structural Inconsistency)]\label{def:fatal-error}
+A sieve run terminates with \textbf{FATAL ERROR} if the Lock (Node 17) produces a $K_{17}^{\text{morph}}$ certificate (MorphismExists). This proves:
+$$\mathrm{Hom}(\mathcal{Y}_{\text{bad}}, \text{trajectory}) \neq \emptyset$$
+The trajectory \textit{contains} the universal bad pattern—the system is structurally inconsistent with the hypostructure axioms.
+\end{definition}
+
+---
+
+## Surgery and Recovery {#sec:surgery}
+
+### Profile Classification Trichotomy
+
+\begin{metatheorem}[Profile Classification Trichotomy]\label{mt:profile-trichotomy}
+At the Profile node (after CompactCheck YES), the framework produces exactly ONE of three certificates:
+
+\textbf{Case 1: Finite library membership}
+$$K_{\text{lib}} = (V, \text{canonical list } L, V \in L)$$
+Profile belongs to a finite pre-classified library.
+
+\textbf{Case 2: Tame stratification}
+$$K_{\text{strat}} = (V, \text{definable family } F, V \in F, \text{stratification data})$$
+Profiles are parameterized by an o-minimal family with finite stratification.
+
+\textbf{Case 3: Horizon certificate}
+$$K_{\text{hor}} = (\text{classification obstruction}, \text{wildness witness})$$
+Profile classification is not feasible under current Rep/definability regime. Routes to T.C/D.C-family modes.
+\end{metatheorem}
+
+### Surgery Admissibility Trichotomy
+
+\begin{metatheorem}[Surgery Admissibility Trichotomy]\label{mt:surgery-trichotomy}
+The framework produces exactly ONE of three certificates before any surgery:
+
+\textbf{Case 1: Admissible} ($K_{\text{adm}}$)
+$$K_{\text{adm}} = (M, D_S, \text{admissibility proof})$$
+Requires: (1) Profile in canonical library, (2) $\mathrm{codim}(\Sigma) \geq 2$, (3) $\mathrm{Cap}(\text{excision}) \leq \varepsilon_{\text{adm}}$.
+
+\textbf{Case 2: Admissible up to equivalence} ($K_{\text{adm}}^\sim$)
+$$K_{\text{adm}}^\sim = (K_{\text{equiv}}, K_{\text{transport}}, K_{\text{adm}}[\tilde{x}])$$
+After an admissible equivalence move (YES$^\sim$), the singularity becomes admissible.
+
+\textbf{Case 3: Not admissible} ($K_{\neg\text{adm}}$)
+$$K_{\neg\text{adm}} = (\text{failure reason}, \text{witness})$$
+Reasons: Capacity too large, codimension too small, or horizon (profile not classifiable).
+\end{metatheorem}
+
+### Structural Surgery Principle
+
+\begin{metatheorem}[Structural Surgery Principle (Certificate Form)]\label{mt:structural-surgery}
+Given inputs:
+\begin{itemize}
+\item $K^{\text{br}}$: Breach certificate from barrier
+\item $K_{\text{adm}}$ or $K_{\text{adm}}^\sim$: From Surgery Admissibility Trichotomy
+\item $D_S$: Surgery data
+\end{itemize}
+
+The surgery guarantees:
+\begin{enumerate}
+\item \textbf{Flow continuation}: Evolution continues past surgery time with state $x'$
+\item \textbf{Jump control}: $\Phi(x') \leq \Phi(x^-) + \delta_S$ (bounded energy jump)
+\item \textbf{Certificate production}: Re-entry certificate $K^{\text{re}}$ satisfying $K^{\text{re}} \Rightarrow \mathrm{Pre}(\text{target})$
+\item \textbf{Progress}: Bounded surgery count OR decreasing complexity
+\end{enumerate}
+
+When $K_{\neg\text{adm}}$ is produced, the sieve terminates at the corresponding failure mode (genuine singularity).
+\end{metatheorem}
+
+---
+
+## Forward Compatibility: The Metatheorem Protocol {#sec:metatheorem-protocol}
+
+This section establishes the standard for all theorems in Parts III--VI, ensuring they integrate cleanly with the operational framework.
+
+### Dependency Annotation Standard
+
+\begin{definition}[Metatheorem annotation]\label{def:metatheorem-annotation}
+Every metatheorem in this document must specify:
+\begin{enumerate}
+\item \textbf{Prerequisites}: List of required axiom certificates (e.g., $\{K_C^+, K_D^+, K_{\text{SC}}^+\}$)
+\item \textbf{Output}: The certificate produced by the metatheorem (e.g., ``Yields $K_{\text{CanLyap}}$'')
+\item \textbf{Failure Branch}: The failure mode triggered if prerequisites are unavailable
+\item \textbf{Layer}: Which axiom layer is assumed (X.0, X.A, X.B, or X.C)
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Metatheorem composability]
+The annotation standard ensures:
+\begin{itemize}
+\item \textbf{Traceability}: Every metatheorem maps to a certificate chain
+\item \textbf{Modularity}: Metatheorems compose via certificate dependencies
+\item \textbf{Failure handling}: Missing prerequisites route to explicit failure modes
+\end{itemize}
+\end{remark}
+
+### Example Annotation
+
+\begin{example}[Annotated metatheorem]
+\textbf{Metatheorem} (Type II Exclusion):
+\begin{itemize}
+\item \textbf{Prerequisites}: $\{K_3^+, K_4^+\}$ (Compactness YES, Scaling YES)
+\item \textbf{Output}: $K_{\text{TypeII-Excl}}$ (Type II blow-up excluded)
+\item \textbf{Failure Branch}: If $K_4^- \to$ BarrierTypeII, routes to Mode S.E
+\item \textbf{Layer}: X.0 (soft axiom layer)
+\end{itemize}
+\end{example}
+
+### The Factory Pattern
+
+For domain instantiation (e.g., Navier-Stokes, Ricci flow, neural networks), the framework provides factory interfaces:
+
+\begin{definition}[Gate Evaluator Factory]\label{def:gate-factory}
+A \textbf{Gate Evaluator Factory} for problem type $T$ is a mapping:
+$$\mathcal{F}_{\text{gate}}: \text{DomainTheorems}(T) \to \text{SieveGates}$$
+that assigns domain-specific verification results to gate evaluators.
+
+\textbf{Example} (Navier-Stokes):
+\begin{itemize}
+\item Ladyzhenskaya inequality $\to$ Node 1 (EnergyCheck) evaluator
+\item Caffarelli-Kohn-Nirenberg $\to$ Node 6 (GeomCheck) evaluator
+\item Lin's monotonicity formula $\to$ Node 4 (ScaleCheck) evaluator
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Barrier Factory]\label{def:barrier-factory}
+A \textbf{Barrier Factory} for problem type $T$ is a mapping:
+$$\mathcal{F}_{\text{barrier}}: \text{DomainInequalities}(T) \to \text{SieveBarriers}$$
+that assigns domain-specific estimates to barrier defenders.
+
+\textbf{Example} (Navier-Stokes):
+\begin{itemize}
+\item Prodi-Serrin criteria $\to$ BarrierSat (energy saturation defense)
+\item Escauriaza-Seregin-Šverák $\to$ BarrierTypeII (Type II defense)
+\item Bode integral constraint $\to$ BarrierBode (control authority)
+\end{itemize}
+\end{definition}
+
+\begin{remark}[Factory discipline]
+The factory pattern enforces:
+\begin{itemize}
+\item \textbf{Separation of concerns}: Domain analysis produces certificates; the sieve consumes them
+\item \textbf{Reusability}: The same sieve structure applies to different problem types
+\item \textbf{Extensibility}: New domains require only new factory implementations
+\end{itemize}
 \end{remark}
 
 ---
@@ -40449,10 +40958,14 @@ graph TD
     EnergyCheck -- "No" --> BarrierSat{"<b>SATURATION BARRIER</b><br>Is Drift Controlled?<br>"}
     BarrierSat -- "Yes #40;Blocked#41;" --> ZenoCheck
     BarrierSat -- "No #40;Breached#41;" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
+    ModeCE --> SurgCE["<b>SURGERY:</b><br>Ghost/Cap"]
+    SurgCE -.-> ZenoCheck
 
     EnergyCheck -- "Yes" --> ZenoCheck{"<b>2. AXIOM REC #40;Recovery#41;</b><br>Are Discrete Events Finite?"}
     ZenoCheck -- "No" --> BarrierCausal{"<b>CAUSAL CENSOR</b><br>Is Depth Finite?<br>"}
     BarrierCausal -- "No #40;Breached#41;" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
+    ModeCC --> SurgCC["<b>SURGERY:</b><br>Discrete Saturation"]
+    SurgCC -.-> CompactCheck
     BarrierCausal -- "Yes #40;Blocked#41;" --> CompactCheck
 
     ZenoCheck -- "Yes" --> CompactCheck{"<b>3. AXIOM C #40;Compactness#41;</b><br>Does Energy Concentrate?"}
@@ -40461,6 +40974,8 @@ graph TD
     CompactCheck -- "No #40;Scatters#41;" --> BarrierScat{"<b>SCATTERING BARRIER</b><br>Is Interaction Finite?<br>"}
     BarrierScat -- "Yes #40;Benign#41;" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
     BarrierScat -- "No #40;Pathological#41;" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
+    ModeCD_Alt --> SurgCD_Alt["<b>SURGERY:</b><br>Concentration-Compactness"]
+    SurgCD_Alt -.-> Profile
 
     CompactCheck -- "Yes" --> Profile["<b>Canonical Profile V Emerges</b>"]
 
@@ -40469,60 +40984,78 @@ graph TD
 
     ScaleCheck -- "No #40;Supercritical#41;" --> BarrierTypeII{"<b>TYPE II BARRIER</b><br>Is Renorm Cost Infinite?<br>"}
     BarrierTypeII -- "No #40;Breached#41;" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
+    ModeSE --> SurgSE["<b>SURGERY:</b><br>Regularity Lift"]
+    SurgSE -.-> ParamCheck
     BarrierTypeII -- "Yes #40;Blocked#41;" --> ParamCheck
 
     ScaleCheck -- "Yes #40;Safe#41;" --> ParamCheck{"<b>5. AXIOM SC #40;Stability#41;</b><br>Are Constants Stable?"}
     ParamCheck -- "No" --> BarrierVac{"<b>VACUUM BARRIER</b><br>Is Phase Stable?<br>"}
     BarrierVac -- "No #40;Breached#41;" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
+    ModeSC --> SurgSC["<b>SURGERY:</b><br>Convex Integration"]
+    SurgSC -.-> GeomCheck
     BarrierVac -- "Yes #40;Blocked#41;" --> GeomCheck
 
-    ParamCheck -- "Yes" --> GeomCheck{"<b>6. AXIOM CAP #40;Capacity#41;</b><br>Is Dimension > Critical?"}
+    ParamCheck -- "Yes" --> GeomCheck{"<b>6. AXIOM CAP #40;Capacity#41;</b><br>Is Codim ≥ Threshold?"}
 
     %% --- LEVEL 4: GEOMETRY ---
-    GeomCheck -- "No #40;Too Thin#41;" --> BarrierCap{"<b>CAPACITY BARRIER</b><br>Is Measure Zero?<br>"}
+    GeomCheck -- "No #40;Too Large#41;" --> BarrierCap{"<b>CAPACITY BARRIER</b><br>Is Measure Zero?<br>"}
     BarrierCap -- "No #40;Breached#41;" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
+    ModeCD --> SurgCD["<b>SURGERY:</b><br>Aux/Structural"]
+    SurgCD -.-> StiffnessCheck
     BarrierCap -- "Yes #40;Blocked#41;" --> StiffnessCheck
 
-    GeomCheck -- "Yes #40;Safe#41;" --> StiffnessCheck{"<b>7. AXIOM LS #40;Stiffness#41;</b><br>Is Hessian Positive?"}
+    GeomCheck -- "Yes #40;Safe#41;" --> StiffnessCheck{"<b>7. AXIOM LS #40;Stiffness#41;</b><br>Is Stiffness Certified?"}
 
     %% --- LEVEL 5: STIFFNESS ---
     StiffnessCheck -- "No #40;Flat#41;" --> BarrierGap{"<b>SPECTRAL BARRIER</b><br>Is there a Gap?<br>"}
     BarrierGap -- "Yes #40;Blocked#41;" --> TopoCheck
-    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>BIFURCATION CHECK #40;Axiom LS#41;</b><br>Is State Unstable?<br>"}
+    BarrierGap -- "No #40;Stagnation#41;" --> BifurcateCheck{"<b>7a. BIFURCATION CHECK #40;Axiom LS#41;</b><br>Is State Unstable?<br>"}
 
     %% --- LEVEL 5b: DYNAMIC RESTORATION (Deterministic) ---
     BifurcateCheck -- "No #40;Stable#41;" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
-    BifurcateCheck -- "Yes #40;Unstable#41;" --> SymCheck{"<b>SYMMETRY CHECK</b><br>Is Vacuum Degenerate?<br><i>#40;Does Group G exist?#41;</i>"}
+    ModeSD --> SurgSD["<b>SURGERY:</b><br>Ghost Extension"]
+    SurgSD -.-> TopoCheck
+    BifurcateCheck -- "Yes #40;Unstable#41;" --> SymCheck{"<b>7b. SYMMETRY CHECK</b><br>Is Vacuum Degenerate?<br><i>#40;Does Group G exist?#41;</i>"}
 
     %% Path A: Symmetry Breaking (Governed by Axiom SC)
-    SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>AXIOM SC #40;Param#41;</b><br>Are Constants Stable?<br>"}
+    SymCheck -- "Yes #40;Symmetric#41;" --> CheckSC{"<b>7c. AXIOM SC #40;Param#41;</b><br>Are Constants Stable?<br>"}
     CheckSC -- "Yes" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
     ActionSSB -- "Mass Gap Guarantees Stiffness" --> TopoCheck
     CheckSC -- "No" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
+    ModeSC_Rest --> SurgSC_Rest["<b>SURGERY:</b><br>Auxiliary Extension"]
+    SurgSC_Rest -.-> TopoCheck
 
     %% Path B: Surgery (Governed by Axiom TB)
-    SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>AXIOM TB #40;Action#41;</b><br>Is Cost Finite?<br>"}
-    CheckTB -- "Yes" --> ActionSurgery["<b>ACTION: SURGERY</b><br>Dissipates Singularity"]
-    ActionSurgery -- "Re-verify Topology" --> TameCheck
+    SymCheck -- "No #40;Asymmetric#41;" --> CheckTB{"<b>7d. AXIOM TB #40;Action#41;</b><br>Is Cost Finite?<br>"}
+    CheckTB -- "Yes" --> ActionTunnel["<b>ACTION: TUNNELING</b><br>Instanton Decay"]
+    ActionTunnel -- "New Sector Reached" --> TameCheck
     CheckTB -- "No" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
+    ModeTE_Rest --> SurgTE_Rest["<b>SURGERY:</b><br>Structural"]
+    SurgTE_Rest -.-> TameCheck
 
     StiffnessCheck -- "Yes #40;Safe#41;" --> TopoCheck{"<b>8. AXIOM TB #40;Topology#41;</b><br>Is Sector Accessible?"}
 
     %% --- LEVEL 6: TOPOLOGY ---
-    TopoCheck -- "No #40;Protected#41;" --> BarrierAction{"<b>ACTION BARRIER</b><br>Is Energy < Gap?<br>"}
+    TopoCheck -- "No #40;Obstructed#41;" --> BarrierAction{"<b>ACTION BARRIER</b><br>Is Energy < Gap?<br>"}
     BarrierAction -- "No #40;Breached#41;" --> ModeTE["<b>Mode T.E</b>: Topological Twist"]
+    ModeTE --> SurgTE["<b>SURGERY:</b><br>Tunnel"]
+    SurgTE -.-> TameCheck
     BarrierAction -- "Yes #40;Blocked#41;" --> TameCheck
 
     TopoCheck -- "Yes #40;Safe#41;" --> TameCheck{"<b>9. AXIOM TB #40;Tameness#41;</b><br>Is Topology Simple?"}
 
     TameCheck -- "No" --> BarrierOmin{"<b>O-MINIMAL BARRIER</b><br>Is it Definable?<br>"}
     BarrierOmin -- "No #40;Breached#41;" --> ModeTC["<b>Mode T.C</b>: Labyrinthine"]
+    ModeTC --> SurgTC["<b>SURGERY:</b><br>O-minimal Regularization"]
+    SurgTC -.-> ErgoCheck
     BarrierOmin -- "Yes #40;Blocked#41;" --> ErgoCheck
 
     TameCheck -- "Yes" --> ErgoCheck{"<b>10. AXIOM TB #40;Mixing#41;</b><br>Does it Mix?"}
 
     ErgoCheck -- "No" --> BarrierMix{"<b>MIXING BARRIER</b><br>Is Trap Escapable?<br>"}
     BarrierMix -- "No #40;Breached#41;" --> ModeTD["<b>Mode T.D</b>: Glassy Freeze"]
+    ModeTD --> SurgTD["<b>SURGERY:</b><br>Mixing Enhancement"]
+    SurgTD -.-> ComplexCheck
     BarrierMix -- "Yes #40;Blocked#41;" --> ComplexCheck
 
     ErgoCheck -- "Yes" --> ComplexCheck{"<b>11. AXIOM REP #40;Dictionary#41;</b><br>Is it Computable?"}
@@ -40530,12 +41063,16 @@ graph TD
     %% --- LEVEL 7: COMPLEXITY ---
     ComplexCheck -- "No" --> BarrierEpi{"<b>EPISTEMIC BARRIER</b><br>Is Description Finite?<br>"}
     BarrierEpi -- "No #40;Breached#41;" --> ModeDC["<b>Mode D.C</b>: Semantic Horizon"]
+    ModeDC --> SurgDC["<b>SURGERY:</b><br>Viscosity Solution"]
+    SurgDC -.-> OscillateCheck
     BarrierEpi -- "Yes #40;Blocked#41;" --> OscillateCheck
 
     ComplexCheck -- "Yes" --> OscillateCheck{"<b>12. AXIOM GC #40;Gradient#41;</b><br>Does it Oscillate?"}
 
     OscillateCheck -- "Yes" --> BarrierFreq{"<b>FREQUENCY BARRIER</b><br>Is Integral Finite?<br>"}
     BarrierFreq -- "No #40;Breached#41;" --> ModeDE["<b>Mode D.E</b>: Oscillatory"]
+    ModeDE --> SurgDE["<b>SURGERY:</b><br>De Giorgi-Nash-Moser"]
+    SurgDE -.-> BoundaryCheck
     BarrierFreq -- "Yes #40;Blocked#41;" --> BoundaryCheck
 
     OscillateCheck -- "No" --> BoundaryCheck{"<b>13. BOUNDARY CHECK</b><br>Is System Open?"}
@@ -40543,22 +41080,29 @@ graph TD
     %% --- LEVEL 8: BOUNDARY ---
     BoundaryCheck -- "Yes" --> OverloadCheck{"<b>14. BOUNDARY: CONTROL</b><br>Is Input Bounded?"}
 
-    OverloadCheck -- "Yes" --> BarrierBode{"<b>BODE BARRIER</b><br>Is Sensitivity Bounded?<br>"}
+    OverloadCheck -- "No" --> BarrierBode{"<b>BODE BARRIER</b><br>Is Sensitivity Bounded?<br>"}
     BarrierBode -- "No #40;Breached#41;" --> ModeBE["<b>Mode B.E</b>: Injection"]
+    ModeBE --> SurgBE["<b>SURGERY:</b><br>Saturation"]
+    SurgBE -.-> StarveCheck
+    BarrierBode -- "Yes #40;Blocked#41;" --> StarveCheck
 
-    OverloadCheck -- "No" --> StarveCheck{"<b>15. BOUNDARY: SUPPLY</b><br>Is Input Sufficient?"}
-    StarveCheck -- "Yes" --> BarrierInput{"<b>INPUT BARRIER</b><br>Is Reserve Sufficient?<br>"}
+    OverloadCheck -- "Yes" --> StarveCheck{"<b>15. BOUNDARY: SUPPLY</b><br>Is Input Sufficient?"}
+
+    StarveCheck -- "No" --> BarrierInput{"<b>INPUT BARRIER</b><br>Is Reserve Sufficient?<br>"}
     BarrierInput -- "No #40;Breached#41;" --> ModeBD["<b>Mode B.D</b>: Starvation"]
+    ModeBD --> SurgBD["<b>SURGERY:</b><br>Reservoir"]
+    SurgBD -.-> AlignCheck
+    BarrierInput -- "Yes #40;Blocked#41;" --> AlignCheck
 
-    StarveCheck -- "No" --> AlignCheck{"<b>16. BOUNDARY: GAUGE</b><br>Is it Aligned?"}
+    StarveCheck -- "Yes" --> AlignCheck{"<b>16. BOUNDARY: GAUGE</b><br>Is it Aligned?"}
     AlignCheck -- "No" --> BarrierVariety{"<b>VARIETY BARRIER</b><br>Does Control Match Disturbance?<br>"}
     BarrierVariety -- "No #40;Breached#41;" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
+    ModeBC --> SurgBC["<b>SURGERY:</b><br>Adjoint"]
+    SurgBC -.-> BarrierExclusion
 
     %% --- LEVEL 9: THE FINAL GATE ---
     %% All successful paths funnel here
     BoundaryCheck -- "No" --> BarrierExclusion
-    BarrierBode -- "Yes #40;Blocked#41;" --> BarrierExclusion
-    BarrierInput -- "Yes #40;Blocked#41;" --> BarrierExclusion
     BarrierVariety -- "Yes #40;Blocked#41;" --> BarrierExclusion
     AlignCheck -- "Yes" --> BarrierExclusion
 
@@ -40640,9 +41184,28 @@ graph TD
 
     %% Restoration mechanisms - Purple (escape mechanisms)
     style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style ActionSurgery fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style ActionTunnel fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
 
     %% Restoration failure modes - Red
     style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
     style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+
+    %% Surgery recovery nodes - Purple
+    style SurgCE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCD_Alt fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSC_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTE_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgDC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgDE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgBE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgBD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgBC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
 ```
