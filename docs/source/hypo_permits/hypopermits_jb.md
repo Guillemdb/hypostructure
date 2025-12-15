@@ -724,6 +724,8 @@ $$P_1 \equiv \sup_{t \in [0, T)} \Phi(u(t)) < \infty$$
 
 **NO routing**: BarrierSat (Saturation Barrier)
 
+**Literature:** Energy methods trace to Leray's seminal work on Navier-Stokes {cite}`Leray34` and the modern framework of dissipative evolution equations {cite}`Dafermos16`.
+
 :::
 
 ---
@@ -743,6 +745,8 @@ $$P_2 \equiv \#\{\text{events in } [0, T)\} < \infty \quad \forall T < T_*$$
 **NO certificate** $K_{\mathrm{Rec}_N}^- = (\text{accumulation point witness})$.
 
 **NO routing**: BarrierCausal (Causal Censor)
+
+**Literature:** Zeno phenomena and event accumulation in hybrid systems {cite}`Smale67`; surgery counting bounds for geometric flows {cite}`Hamilton97`; {cite}`Perelman03`.
 
 :::
 
@@ -768,6 +772,8 @@ $$P_3 \equiv \exists \text{ concentration profile as } t \to T_*$$
 
 **YES routing**: Profile node (canonical profile emerges)
 
+**Literature:** Concentration-compactness principle {cite}`Lions84`; {cite}`Lions85`; profile decomposition and bubbling {cite}`KenigMerle06`.
+
 :::
 
 ---
@@ -789,6 +795,8 @@ $$\Phi(\mathcal{S}_\lambda x) = \lambda^\alpha \Phi(x), \quad \mathfrak{D}(\math
 **NO certificate** $K_{\mathrm{SC}_\lambda}^- = (\alpha, \beta, \alpha \leq \beta \text{ witness})$.
 
 **NO routing**: BarrierTypeII (Type II Barrier)
+
+**Literature:** Scaling critical exponents in nonlinear PDE {cite}`KenigMerle06`; {cite}`KillipVisan10`; Type I/II blow-up classification {cite}`MerleZaag98`.
 
 :::
 
@@ -833,6 +841,8 @@ where $d$ is the ambient dimension and $d_{\text{crit}}$ is the critical codimen
 
 **NO routing**: BarrierCap (Capacity Barrier)
 
+**Literature:** Geometric measure theory and Hausdorff dimension {cite}`Federer69`; capacity and potential theory {cite}`AdamsHedberg96`; partial regularity {cite}`CaffarelliKohnNirenberg82`.
+
 :::
 
 ---
@@ -855,6 +865,8 @@ for all $x$ with $d(x, M) < \delta$, where $M$ is the set of critical points and
 **NO certificate** $K_{\mathrm{LS}_\sigma}^- = (\text{flatness witness}: \theta \to 0 \text{ or } C_{\text{LS}} \to 0 \text{ or degenerate Hessian})$.
 
 **NO routing**: BarrierGap (Spectral Barrier)
+
+**Literature:** Łojasiewicz gradient inequality {cite}`Lojasiewicz65`; Simon's extension to infinite dimensions {cite}`Simon83`; Kurdyka-Łojasiewicz theory {cite}`Kurdyka98`.
 
 :::
 
@@ -975,6 +987,8 @@ $$P_9 \equiv \text{Singular locus is o-minimally definable}$$
 
 **NO routing**: BarrierOmin (O-Minimal Barrier)
 
+**Literature:** O-minimal structures and tame topology {cite}`vandenDries98`; {cite}`vandenDriesMiller96`; model completeness {cite}`Wilkie96`.
+
 :::
 
 ---
@@ -995,6 +1009,8 @@ $$P_{10} \equiv \text{System is mixing with finite mixing time}$$
 
 **NO routing**: BarrierMix (Mixing Barrier)
 
+**Literature:** Ergodic theory and mixing {cite}`Birkhoff31`; {cite}`Furstenberg81`; Markov chain stability {cite}`MeynTweedie93`.
+
 :::
 
 ---
@@ -1014,6 +1030,8 @@ $$P_{11} \equiv \exists D: X \to \mathcal{T} \text{ with } |D(x)| < \infty$$
 **NO certificate** $K_{\mathrm{Rep}_K}^- = (\text{incomputability witness})$.
 
 **NO routing**: BarrierEpi (Epistemic Barrier)
+
+**Literature:** Kolmogorov complexity {cite}`Kolmogorov65`; algorithmic information theory {cite}`Chaitin66`; {cite}`LiVitanyi08`.
 
 :::
 
@@ -1200,6 +1218,8 @@ Each barrier is specified by:
 - **On Block:** Proceed to `ZenoCheck`.
 - **On Breach:** Trigger **Mode C.E** → Enable Surgery `SurgCE` → Re-enter at `ZenoCheck`.
 
+**Literature:** Saturation and drift bounds via Foster-Lyapunov conditions {cite}`MeynTweedie93`; energy dissipation in physical systems {cite}`Dafermos16`.
+
 :::
 
 ---
@@ -1231,6 +1251,8 @@ Each barrier is specified by:
 **Routing:**
 - **On Block:** Proceed to `CompactCheck`.
 - **On Breach:** Trigger **Mode C.C** → Enable Surgery `SurgCC` → Re-enter at `CompactCheck`.
+
+**Literature:** Causal structure and cosmic censorship {cite}`Penrose69`; {cite}`HawkingPenrose70`; computational depth bounds {cite}`Kolmogorov65`.
 
 :::
 
@@ -1266,6 +1288,8 @@ Each barrier is specified by:
 - **On Benign:** Exit to **Mode D.D** (Success: dispersion implies global existence).
 - **On Pathological:** Trigger **Mode C.D** → Enable Surgery `SurgCD_Alt` → Re-enter at `Profile`.
 
+**Literature:** Morawetz estimates and scattering {cite}`Morawetz68`; concentration-compactness rigidity {cite}`KenigMerle06`; {cite}`KillipVisan10`.
+
 :::
 
 ---
@@ -1300,6 +1324,8 @@ Each barrier is specified by:
 
 **Non-circularity note:** This barrier is triggered by ScaleCheck NO (supercritical: $\alpha \leq \beta$). Subcriticality ($\alpha > \beta$) may be used as an optional *sufficient* condition for Blocked (via Type I exclusion), but is not a *prerequisite* for barrier evaluation.
 
+**Literature:** Type II blow-up and renormalization {cite}`MerleZaag98`; {cite}`RaphaelSzeftel11`; {cite}`CollotMerleRaphael17`.
+
 :::
 
 ---
@@ -1332,6 +1358,8 @@ Each barrier is specified by:
 - **On Block:** Proceed to `GeomCheck`.
 - **On Breach:** Trigger **Mode S.C** → Enable Surgery `SurgSC` → Re-enter at `GeomCheck`.
 
+**Literature:** Vacuum stability and phase transitions {cite}`Goldstone61`; {cite}`Higgs64`; {cite}`Coleman75`.
+
 :::
 
 ---
@@ -1363,6 +1391,8 @@ Each barrier is specified by:
 **Routing:**
 - **On Block:** Proceed to `StiffnessCheck`.
 - **On Breach:** Trigger **Mode C.D** → Enable Surgery `SurgCD` → Re-enter at `StiffnessCheck`.
+
+**Literature:** Capacity and removable singularities {cite}`Federer69`; {cite}`EvansGariepy15`; {cite}`AdamsHedberg96`.
 
 :::
 
@@ -1397,6 +1427,8 @@ Each barrier is specified by:
 **Routing:**
 - **On Block:** Proceed to `TopoCheck`.
 - **On Stagnation:** Enter restoration subtree via `BifurcateCheck` (Node 7a).
+
+**Literature:** Spectral gap and gradient flows {cite}`Simon83`; {cite}`FeehanMaridakis19`; {cite}`Huang06`.
 
 :::
 
@@ -1439,6 +1471,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 - **On Block:** Proceed to `TameCheck`.
 - **On Breach:** Trigger **Mode T.E** → Enable Surgery `SurgTE` → Re-enter at `TameCheck`.
 
+**Literature:** Topological obstructions and action principles {cite}`Smale67`; {cite}`Conley78`; {cite}`Floer89`.
+
 :::
 
 ---
@@ -1470,6 +1504,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 **Routing:**
 - **On Block:** Proceed to `ErgoCheck`.
 - **On Breach:** Trigger **Mode T.C** → Enable Surgery `SurgTC` → Re-enter at `ErgoCheck`.
+
+**Literature:** O-minimal structures and tame topology {cite}`vandenDries98`; {cite}`Kurdyka98`; {cite}`Wilkie96`.
 
 :::
 
@@ -1503,6 +1539,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 - **On Block:** Proceed to `ComplexCheck`.
 - **On Breach:** Trigger **Mode T.D** → Enable Surgery `SurgTD` → Re-enter at `ComplexCheck`.
 
+**Literature:** Ergodic theory and mixing {cite}`Birkhoff31`; {cite}`Furstenberg81`; {cite}`MeynTweedie93`.
+
 :::
 
 ---
@@ -1534,6 +1572,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 **Routing:**
 - **On Block:** Proceed to `OscillateCheck`.
 - **On Breach:** Trigger **Mode D.C** → Enable Surgery `SurgDC` → Re-enter at `OscillateCheck`.
+
+**Literature:** Kolmogorov complexity {cite}`Kolmogorov65`; holographic bounds {cite}`tHooft93`; {cite}`Susskind95`; {cite}`Bousso02`.
 
 :::
 
@@ -1567,6 +1607,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 - **On Block:** Proceed to `BoundaryCheck`.
 - **On Breach:** Trigger **Mode D.E** → Enable Surgery `SurgDE` → Re-enter at `BoundaryCheck`.
 
+**Literature:** De Giorgi-Nash-Moser regularity theory {cite}`DeGiorgi57`; {cite}`Nash58`; {cite}`Moser60`.
+
 :::
 
 ---
@@ -1599,6 +1641,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 - **On Block:** Proceed to `StarveCheck`.
 - **On Breach:** Trigger **Mode B.E** → Enable Surgery `SurgBE` → Re-enter at `StarveCheck`.
 
+**Literature:** Bode integral constraints and robust control {cite}`DoyleFrancisTannenbaum92`; {cite}`Sontag98`.
+
 :::
 
 :::{prf:definition} Barrier Specification: Input Stability
@@ -1627,6 +1671,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 - **On Block:** Proceed to `AlignCheck`.
 - **On Breach:** Trigger **Mode B.D** → Enable Surgery `SurgBD` → Re-enter at `AlignCheck`.
 
+**Literature:** Input-to-state stability {cite}`Khalil02`; {cite}`Sontag98`.
+
 :::
 
 :::{prf:definition} Barrier Specification: Requisite Variety
@@ -1654,6 +1700,8 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 **Routing:**
 - **On Block:** Proceed to `BarrierExclusion`.
 - **On Breach:** Trigger **Mode B.C** → Enable Surgery `SurgBC` → Re-enter at `BarrierExclusion`.
+
+**Literature:** Requisite variety and cybernetics {cite}`Ashby56`; {cite}`ConantAshby70`.
 
 :::
 
@@ -1703,25 +1751,547 @@ $$\text{Trigger}(B) = \text{Gate}_i \text{ NO} \Rightarrow P_i \notin \mathrm{Pr
 
 ### Surgery Contract Template
 
-:::{prf:definition} Surgery contract schema
-:label: def-surgery-contract
+:::{prf:definition} Surgery Specification Schema
+:label: def-surgery-schema
 
-For surgery $S$ with mode $M$ and target $T$:
+A **Surgery Specification** is a transformation of the Hypostructure $\mathcal{H} \to \mathcal{H}'$. Each surgery defines:
 
-**Inputs**:
-- $K_M^{\mathrm{br}}$: Breach certificate activating mode $M$
-- $D_S$: Surgery data (excision region, cap model, etc.)
+**Surgery ID:** `[SurgeryID]` (e.g., SurgCE)
+**Target Mode:** `[ModeID]` (e.g., Mode C.E)
 
-**Precondition**: $\mathrm{SurgeryAdmissible}(M, D_S)$ --- verified by Surgery Admissibility Trichotomy
+**Interface Dependencies:**
+- **Primary:** `[InterfaceID_1]` (provides the singular object/profile $V$ and locus $\Sigma$)
+- **Secondary:** `[InterfaceID_2]` (provides the canonical library $\mathcal{L}_T$ or capacity bounds)
 
-**Action**: Abstract operation $\mathcal{O}_S: (x, D_S) \mapsto x'$
+**Admissibility Signature:**
+- **Input Certificate:** $K_{[\text{ModeID}]}^{\mathrm{br}}$ (The breach witnessing the singularity)
+- **Admissibility Predicate (The Diamond):**
+  $V \in \mathcal{L}_T \land \text{Cap}(\Sigma) \le \varepsilon_{\text{adm}}$
+  *(Conditions required to perform surgery safely, corresponding to Case 1 of the Trichotomy.)*
 
-**Postcondition**: Re-entry certificate $K_S^{\mathrm{re}}$ satisfying:
-$$K_S^{\mathrm{re}} \Rightarrow \mathrm{Pre}(T)$$
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = (X \setminus \Sigma_\varepsilon) \cup_{\partial} X_{\text{cap}}$
+- **Height Jump:** $\Phi(x') \le \Phi(x) - \delta_S$
+- **Topology:** $\tau(x') = [\text{New Sector}]$
 
-**Progress measure**: One of:
-1. **Bounded surgeries**: $\#\{\text{surgeries of type } S \text{ on } [0, T)\} \leq N(T)$ for some bound $N$
-2. **Well-founded complexity**: Complexity measure $\mathcal{C}$ strictly decreases: $\mathcal{C}(x') < \mathcal{C}(x)$
+**Postcondition:**
+- **Re-entry Certificate:** $K_{[\text{SurgeryID}]}^{\mathrm{re}}$
+- **Re-entry Target:** `[TargetNodeName]`
+- **Progress Guarantee:** `[Type A (Count) or Type B (Complexity)]`
+
+:::
+
+---
+
+### Surgery Specifications
+
+:::{prf:definition} Surgery Specification: Lyapunov Cap
+:label: def-surgery-ce
+
+**Surgery ID:** `SurgCE`
+**Target Mode:** `Mode C.E` (Energy Blow-up)
+
+**Interface Dependencies:**
+- **Primary:** $D_E$ (Energy Interface: provides the unbounded potential $\Phi$)
+- **Secondary:** $\mathrm{Cap}_H$ (Capacity Interface: provides the compactification metric)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{D_E}^{\mathrm{br}}$ (Energy unbounded)
+- **Admissibility Predicate:**
+  $\text{Growth}(\Phi) \text{ is conformal} \land \partial_\infty X \text{ is definable}$
+  *(The blow-up must allow conformal compactification.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $\hat{X} = X \cup \partial_\infty X$ (One-point or boundary compactification)
+- **Height Rescaling:** $\hat{\Phi} = \tanh(\Phi)$ (Maps $[0, \infty) \to [0, 1)$)
+- **Boundary Condition:** $\hat{S}_t |_{\partial_\infty X} = \text{Absorbing}$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgCE}}^{\mathrm{re}}$ (Witnesses $\hat{\Phi}$ is bounded)
+- **Re-entry Target:** `ZenoCheck` (Node 2)
+- **Progress Guarantee:** **Type A**. The system enters a bounded domain; blow-up is geometrically impossible in $\hat{X}$.
+
+**Literature:** Compactification and boundary conditions {cite}`Dafermos16`; energy methods {cite}`Leray34`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Discrete Saturation
+:label: def-surgery-cc
+
+**Surgery ID:** `SurgCC`
+**Target Mode:** `Mode C.C` (Event Accumulation)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{Rec}_N$ (Recovery Interface: provides event count $N$)
+- **Secondary:** $\mathrm{TB}_\pi$ (Topology Interface: provides sector structure)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{Rec}_N}^{\mathrm{br}}$ (Zeno accumulation detected)
+- **Admissibility Predicate:**
+  $\exists N_{\max} : \#\{\text{events in } [t, t+\epsilon]\} \leq N_{\max} \text{ for small } \epsilon$
+  *(Events must be locally finite, not truly Zeno.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X$ (no topological change)
+- **Time Reparametrization:** $t' = \int_0^t \frac{ds}{1 + \#\text{events}(s)}$
+- **Event Coarsening:** Merge events within $\epsilon$-windows
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgCC}}^{\mathrm{re}}$ (Witnesses finite event rate)
+- **Re-entry Target:** `CompactCheck` (Node 3)
+- **Progress Guarantee:** **Type A**. Event count bounded by $N(T, \Phi_0)$.
+
+**Literature:** Surgery bounds in Ricci flow {cite}`Perelman03`; {cite}`KleinerLott08`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Concentration-Compactness
+:label: def-surgery-cd-alt
+
+**Surgery ID:** `SurgCD_Alt`
+**Target Mode:** `Mode C.D` (via Escape/Soliton)
+
+**Interface Dependencies:**
+- **Primary:** $C_\mu$ (Compactness Interface: provides escaping profile $V$)
+- **Secondary:** $D_E$ (Energy Interface: provides energy tracking)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{C_\mu}^{\mathrm{path}}$ (Soliton-like escape detected)
+- **Admissibility Predicate:**
+  $V \in \mathcal{L}_{\text{soliton}} \land \|V\|_{H^1} < \infty$
+  *(Profile must be a recognizable traveling wave.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X / \sim_V$ (quotient by soliton orbit)
+- **Energy Subtraction:** $\Phi(x') = \Phi(x) - E(V)$
+- **Remainder:** Track $x - V$ in lower energy class
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgCD\_Alt}}^{\mathrm{re}}$ (Witnesses profile extracted)
+- **Re-entry Target:** `Profile` (Re-check for further concentration)
+- **Progress Guarantee:** **Type B**. Energy strictly decreases: $\Phi(x') < \Phi(x)$.
+
+**Literature:** Concentration-compactness principle {cite}`Lions84`; profile decomposition {cite}`KenigMerle06`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Regularity Lift
+:label: def-surgery-se
+
+**Surgery ID:** `SurgSE`
+**Target Mode:** `Mode S.E` (Supercritical Cascade)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{SC}_\lambda$ (Scaling Interface: provides critical exponent)
+- **Secondary:** $D_E$ (Energy Interface: provides energy bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{SC}_\lambda}^{\mathrm{br}}$ (Supercritical scaling detected)
+- **Admissibility Predicate:**
+  $\alpha - \beta < \epsilon_{\text{crit}} \land \text{Profile } V \text{ is smooth}$
+  *(Near-critical with smooth profile allows perturbative lift.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X$ (same space, better regularity)
+- **Regularity Upgrade:** Promote $x \in H^s$ to $x' \in H^{s+\delta}$
+- **Height Adjustment:** $\Phi' = \Phi + \text{regularization penalty}$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgSE}}^{\mathrm{re}}$ (Witnesses improved regularity)
+- **Re-entry Target:** `ParamCheck` (Node 5)
+- **Progress Guarantee:** **Type B**. Regularity index strictly increases.
+
+**Literature:** Regularity lift in critical problems {cite}`CaffarelliKohnNirenberg82`; bootstrap arguments {cite}`DeGiorgi57`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Convex Integration
+:label: def-surgery-sc
+
+**Surgery ID:** `SurgSC`
+**Target Mode:** `Mode S.C` (Parameter Instability)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{SC}_{\partial c}$ (Parameter Interface: provides drifting constants)
+- **Secondary:** $\mathrm{LS}_\sigma$ (Stiffness Interface: provides spectral data)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{SC}_{\partial c}}^{\mathrm{br}}$ (Parameter drift detected)
+- **Admissibility Predicate:**
+  $\|\partial_t \theta\| < C_{\text{adm}} \land \theta \in \Theta_{\text{stable}}$
+  *(Drift is slow and within stable region.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X \times \Theta'$ (extended parameter space)
+- **Parameter Freeze:** $\theta' = \theta_{\text{avg}}$ (time-averaged parameter)
+- **Convex Correction:** Add corrector field to absorb drift
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgSC}}^{\mathrm{re}}$ (Witnesses stable parameters)
+- **Re-entry Target:** `GeomCheck` (Node 6)
+- **Progress Guarantee:** **Type B**. Parameter variance strictly decreases.
+
+**Literature:** Convex integration method {cite}`DeLellisSzekelyhidi09`; {cite}`Isett18`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Auxiliary/Structural
+:label: def-surgery-cd
+
+**Surgery ID:** `SurgCD`
+**Target Mode:** `Mode C.D` (Geometric Collapse)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{Cap}_H$ (Capacity Interface: provides singular set measure)
+- **Secondary:** $\mathrm{LS}_\sigma$ (Stiffness Interface: provides local geometry)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{Cap}_H}^{\mathrm{br}}$ (Positive capacity singularity)
+- **Admissibility Predicate:**
+  $\text{Cap}_H(\Sigma) \leq \varepsilon_{\text{adm}} \land V \in \mathcal{L}_{\text{neck}}$
+  *(Small singular set with recognizable neck structure.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **Excision:** $X' = X \setminus B_\epsilon(\Sigma)$
+- **Capping:** Glue auxiliary space $X_{\text{aux}}$ matching boundary
+- **Height Drop:** $\Phi(x') \leq \Phi(x) - c \cdot \text{Vol}(\Sigma)^{2/n}$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgCD}}^{\mathrm{re}}$ (Witnesses smooth excision)
+- **Re-entry Target:** `StiffnessCheck` (Node 7)
+- **Progress Guarantee:** **Type B**. Singular set measure strictly decreases.
+
+**Literature:** Ricci flow surgery {cite}`Hamilton97`; {cite}`Perelman03`; geometric measure theory {cite}`Federer69`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Ghost Extension
+:label: def-surgery-sd
+
+**Surgery ID:** `SurgSD`
+**Target Mode:** `Mode S.D` (Stiffness Breakdown)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{LS}_\sigma$ (Stiffness Interface: provides spectral gap data)
+- **Secondary:** $\mathrm{GC}_\nabla$ (Gradient Interface: provides flow structure)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{LS}_\sigma}^{\mathrm{br}}$ (Zero spectral gap at equilibrium)
+- **Admissibility Predicate:**
+  $\dim(\ker(H_V)) < \infty \land V \text{ is isolated}$
+  *(Finite-dimensional kernel, isolated critical point.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $\hat{X} = X \times \mathbb{R}^k$ (ghost variables for null directions)
+- **Extended Potential:** $\hat{\Phi}(x, \xi) = \Phi(x) + \frac{1}{2}|\xi|^2$
+- **Artificial Gap:** New system has spectral gap $\lambda_1 > 0$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgSD}}^{\mathrm{re}}$ (Witnesses positive gap in extended system)
+- **Re-entry Target:** `TopoCheck` (Node 8)
+- **Progress Guarantee:** **Type A**. Bounded surgeries per unit time.
+
+**Literature:** Ghost variable methods {cite}`Simon83`; spectral theory {cite}`FeehanMaridakis19`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Vacuum Auxiliary
+:label: def-surgery-sc-rest
+
+**Surgery ID:** `SurgSC_Rest`
+**Target Mode:** `Mode S.C` (Vacuum Decay in Restoration)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{SC}_{\partial c}$ (Parameter Interface: provides vacuum instability)
+- **Secondary:** $\mathrm{LS}_\sigma$ (Stiffness Interface: provides mass gap)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{SC}_{\partial c}}^{\mathrm{br}}$ (Vacuum decay detected)
+- **Admissibility Predicate:**
+  $\Delta V > k_B T \land \text{tunneling rate } \Gamma < \Gamma_{\text{crit}}$
+  *(Mass gap exists and tunneling is slow.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X$ (same space)
+- **Vacuum Shift:** $v_0 \to v_0'$ (new stable vacuum)
+- **Energy Recentering:** $\Phi' = \Phi - \Phi(v_0') + \Phi(v_0)$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgSC\_Rest}}^{\mathrm{re}}$ (Witnesses new stable vacuum)
+- **Re-entry Target:** `TopoCheck` (Node 8)
+- **Progress Guarantee:** **Type B**. Vacuum energy strictly decreases.
+
+**Literature:** Vacuum stability {cite}`Coleman75`; symmetry breaking {cite}`Goldstone61`; {cite}`Higgs64`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Structural (Metastasis)
+:label: def-surgery-te-rest
+
+**Surgery ID:** `SurgTE_Rest`
+**Target Mode:** `Mode T.E` (Topological Metastasis in Restoration)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{TB}_\pi$ (Topology Interface: provides sector invariants)
+- **Secondary:** $C_\mu$ (Compactness Interface: provides profile structure)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{TB}_\pi}^{\mathrm{br}}$ (Sector transition via decay)
+- **Admissibility Predicate:**
+  $V \cong S^{n-1} \times I \land \text{instanton action } S[\gamma] < \infty$
+  *(Domain wall with finite tunneling action.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **Excision:** $X' = X \setminus (\text{domain wall})$
+- **Reconnection:** Connect sectors via instanton path
+- **Sector Update:** $\tau(x') = \tau_{\text{new}}$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgTE\_Rest}}^{\mathrm{re}}$ (Witnesses sector transition complete)
+- **Re-entry Target:** `TameCheck` (Node 9)
+- **Progress Guarantee:** **Type B**. Topological complexity (Betti sum) strictly decreases.
+
+**Literature:** Instanton tunneling {cite}`Coleman75`; topological field theory {cite}`Floer89`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Topological Tunneling
+:label: def-surgery-te
+
+**Surgery ID:** `SurgTE`
+**Target Mode:** `Mode T.E` (Topological Twist)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{TB}_\pi$ (Topology Interface: provides sector $\tau$ and invariants)
+- **Secondary:** $C_\mu$ (Compactness Interface: provides the neck profile $V$)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{TB}_\pi}^{\mathrm{br}}$ (Sector transition attempted)
+- **Admissibility Predicate:**
+  $V \cong S^{n-1} \times \mathbb{R}$ *(Canonical Neck)*
+  *(The singularity must be a recognizable neck pinch or domain wall.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **Excision:** $X' = X \setminus (S^{n-1} \times (-\varepsilon, \varepsilon))$
+- **Capping:** Glue two discs $D^n$ to the exposed boundaries.
+- **Sector Change:** $\tau(x') = \tau(x) \pm 1$ (Change in Euler characteristic/Betti number).
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgTE}}^{\mathrm{re}}$ (Witnesses new topology is manifold)
+- **Re-entry Target:** `TameCheck` (Node 9)
+- **Progress Guarantee:** **Type B**. Topological complexity (e.g., volume or Betti sum) strictly decreases: $\mathcal{C}(X') < \mathcal{C}(X)$.
+
+**Literature:** Topological surgery {cite}`Smale67`; {cite}`Conley78`; Ricci flow surgery {cite}`Perelman03`.
+
+:::
+
+:::{prf:definition} Surgery Specification: O-Minimal Regularization
+:label: def-surgery-tc
+
+**Surgery ID:** `SurgTC`
+**Target Mode:** `Mode T.C` (Labyrinthine/Wild Topology)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{TB}_O$ (Tameness Interface: provides definability structure)
+- **Secondary:** $\mathrm{Rep}_K$ (Dictionary Interface: provides complexity bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{TB}_O}^{\mathrm{br}}$ (Non-definable topology detected)
+- **Admissibility Predicate:**
+  $\Sigma \in \mathcal{O}_{\text{ext}}\text{-definable} \land \dim(\Sigma) < n$
+  *(Wild set is definable in extended o-minimal structure.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **Structure Extension:** $\mathcal{O}' = \mathcal{O}[\exp]$ or $\mathcal{O}[\text{Pfaffian}]$
+- **Stratification:** Replace $\Sigma$ with definable stratification
+- **Tameness Certificate:** Produce o-minimal cell decomposition
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgTC}}^{\mathrm{re}}$ (Witnesses tame stratification)
+- **Re-entry Target:** `ErgoCheck` (Node 10)
+- **Progress Guarantee:** **Type B**. Definability complexity strictly decreases.
+
+**Literature:** O-minimal structures {cite}`vandenDries98`; {cite}`Wilkie96`; stratification theory {cite}`Lojasiewicz65`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Mixing Enhancement
+:label: def-surgery-td
+
+**Surgery ID:** `SurgTD`
+**Target Mode:** `Mode T.D` (Glassy Freeze/Trapping)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{TB}_\rho$ (Mixing Interface: provides mixing time)
+- **Secondary:** $D_E$ (Energy Interface: provides energy landscape)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{TB}_\rho}^{\mathrm{br}}$ (Infinite mixing time detected)
+- **Admissibility Predicate:**
+  $\text{Trap } T \text{ is isolated} \land \partial T \text{ has positive measure}$
+  *(Trap has accessible boundary.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X$ (same space)
+- **Dynamics Modification:** Add noise term $\sigma dW_t$ to escape trap
+- **Mixing Acceleration:** $\tau'_{\text{mix}} = \tau_{\text{mix}} / (1 + \sigma^2)$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgTD}}^{\mathrm{re}}$ (Witnesses finite mixing time)
+- **Re-entry Target:** `ComplexCheck` (Node 11)
+- **Progress Guarantee:** **Type A**. Bounded mixing enhancement per unit time.
+
+**Literature:** Stochastic perturbation and mixing {cite}`MeynTweedie93`; {cite}`HairerMattingly11`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Viscosity Solution
+:label: def-surgery-dc
+
+**Surgery ID:** `SurgDC`
+**Target Mode:** `Mode D.C` (Semantic Horizon/Complexity Explosion)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{Rep}_K$ (Dictionary Interface: provides complexity measure)
+- **Secondary:** $\mathrm{Cap}_H$ (Capacity Interface: provides dimension bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{Rep}_K}^{\mathrm{br}}$ (Complexity exceeds bound)
+- **Admissibility Predicate:**
+  $K(x) \leq S_{\text{BH}} + \epsilon \land x \in W^{1,\infty}$
+  *(Near holographic bound with Lipschitz regularity.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X$ (same space, coarsened description)
+- **Viscosity Regularization:** $x' = x * \phi_\epsilon$ (convolution smoothing)
+- **Complexity Reduction:** $K(x') \leq K(x) - c \cdot \epsilon$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgDC}}^{\mathrm{re}}$ (Witnesses reduced complexity)
+- **Re-entry Target:** `OscillateCheck` (Node 12)
+- **Progress Guarantee:** **Type B**. Kolmogorov complexity strictly decreases.
+
+**Literature:** Viscosity solutions {cite}`CrandallLions83`; regularization and mollification {cite}`EvansGariepy15`.
+
+:::
+
+:::{prf:definition} Surgery Specification: De Giorgi-Nash-Moser
+:label: def-surgery-de
+
+**Surgery ID:** `SurgDE`
+**Target Mode:** `Mode D.E` (Oscillatory Divergence)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{GC}_\nabla$ (Gradient Interface: provides oscillation structure)
+- **Secondary:** $\mathrm{SC}_\lambda$ (Scaling Interface: provides frequency bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{GC}_\nabla}^{\mathrm{br}}$ (Infinite oscillation energy)
+- **Admissibility Predicate:**
+  $\int \omega^2 S(\omega) d\omega < \infty + \epsilon \land \text{uniform ellipticity}$
+  *(Near-finite oscillation with elliptic structure.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X$ (same space, improved regularity)
+- **Hölder Regularization:** Apply De Giorgi-Nash-Moser iteration
+- **Oscillation Damping:** $\text{osc}_{B_r}(x') \leq C r^\alpha \text{osc}_{B_1}(x)$
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgDE}}^{\mathrm{re}}$ (Witnesses Hölder continuity)
+- **Re-entry Target:** `BoundaryCheck` (Node 13)
+- **Progress Guarantee:** **Type A**. Bounded regularity improvements per unit time.
+
+**Literature:** De Giorgi's original regularity theorem {cite}`DeGiorgi57`; Nash's parabolic regularity {cite}`Nash58`; Moser's Harnack inequality and iteration {cite}`Moser61`; unified treatment in {cite}`GilbargTrudinger01`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Saturation
+:label: def-surgery-be
+
+**Surgery ID:** `SurgBE`
+**Target Mode:** `Mode B.E` (Sensitivity Injection)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{Bound}_B$ (Input Bound Interface: provides sensitivity integral)
+- **Secondary:** $\mathrm{LS}_\sigma$ (Stiffness Interface: provides gain bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{Bound}_B}^{\mathrm{br}}$ (Bode sensitivity violated)
+- **Admissibility Predicate:**
+  $\|S(i\omega)\|_\infty < M \land \text{phase margin } > 0$
+  *(Bounded gain with positive phase margin.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **Controller Modification:** Add saturation element $\text{sat}(u) = \text{sign}(u) \min(|u|, u_{\max})$
+- **Gain Limiting:** $\|S'\|_\infty \leq \|S\|_\infty / (1 + \epsilon)$
+- **Waterbed Conservation:** Redistribute sensitivity to safe frequencies
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgBE}}^{\mathrm{re}}$ (Witnesses bounded sensitivity)
+- **Re-entry Target:** `StarveCheck` (Node 15)
+- **Progress Guarantee:** **Type A**. Bounded saturation adjustments.
+
+**Literature:** Bode sensitivity integrals and waterbed effect {cite}`Bode45`; $\mathcal{H}_\infty$ robust control {cite}`ZhouDoyleGlover96`; anti-windup for saturating systems {cite}`SeronGoodwinDeCarlo00`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Reservoir
+:label: def-surgery-bd
+
+**Surgery ID:** `SurgBD`
+**Target Mode:** `Mode B.D` (Resource Starvation)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{Bound}_\int$ (Supply Interface: provides resource integral)
+- **Secondary:** $C_\mu$ (Compactness Interface: provides state bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{Bound}_\int}^{\mathrm{br}}$ (Resource depletion detected)
+- **Admissibility Predicate:**
+  $r_{\text{reserve}} > 0 \land \text{recharge rate } > \text{drain rate}$
+  *(Positive reserve with sustainable recharge.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **State Space:** $X' = X \times [0, R_{\max}]$ (add reservoir variable)
+- **Resource Dynamics:** $\dot{r} = \text{recharge} - \text{consumption}$
+- **Buffer Zone:** Maintain $r \geq r_{\min}$ always
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgBD}}^{\mathrm{re}}$ (Witnesses positive reservoir)
+- **Re-entry Target:** `AlignCheck` (Node 16)
+- **Progress Guarantee:** **Type A**. Bounded reservoir adjustments.
+
+**Literature:** Reservoir computing and echo state networks {cite}`Jaeger04`; resource-bounded computation {cite}`Bellman57`; stochastic inventory theory {cite}`Arrow58`.
+
+:::
+
+:::{prf:definition} Surgery Specification: Adjoint Control
+:label: def-surgery-bc
+
+**Surgery ID:** `SurgBC`
+**Target Mode:** `Mode B.C` (Control Misalignment)
+
+**Interface Dependencies:**
+- **Primary:** $\mathrm{GC}_T$ (Gauge Transform Interface: provides alignment data)
+- **Secondary:** $\mathrm{Cap}_H$ (Capacity Interface: provides entropy bounds)
+
+**Admissibility Signature:**
+- **Input Certificate:** $K_{\mathrm{GC}_T}^{\mathrm{br}}$ (Variety deficit detected)
+- **Admissibility Predicate:**
+  $H(u) < H(d) - \epsilon \land \exists u' : H(u') \geq H(d)$
+  *(Entropy gap exists but is bridgeable.)*
+
+**Transformation Law ($\mathcal{O}_S$):**
+- **Controller Upgrade:** Replace $u$ with adjoint-optimal $u^* = \arg\max_u \langle u, \nabla\Phi \rangle$
+- **Entropy Matching:** $H(u^*) \geq H(d)$
+- **Alignment Guarantee:** $\langle u^*, d \rangle \geq 0$ (non-adversarial)
+
+**Postcondition:**
+- **Re-entry Certificate:** $K_{\mathrm{SurgBC}}^{\mathrm{re}}$ (Witnesses entropy-sufficient control)
+- **Re-entry Target:** `BarrierExclusion` (Node 17)
+- **Progress Guarantee:** **Type B**. Entropy gap strictly decreases.
+
+**Literature:** Pontryagin maximum principle {cite}`Pontryagin62`; adjoint methods in optimal control {cite}`Lions71`; requisite variety in control {cite}`Ashby56`.
 
 :::
 
@@ -1740,6 +2310,8 @@ $$K_S^{\mathrm{re}} \Rightarrow \mathrm{Pre}(T)$$
 
 **Target**: TopoCheck (mass gap implies LS holds)
 
+**Literature:** Goldstone theorem on massless modes {cite}`Goldstone61`; Higgs mechanism for mass generation {cite}`Higgs64`; Anderson's gauge-invariant treatment {cite}`Anderson63`.
+
 :::
 
 :::{prf:definition} ActionTunnel (Instanton Decay)
@@ -1752,6 +2324,8 @@ $$K_S^{\mathrm{re}} \Rightarrow \mathrm{Pre}(T)$$
 **Output**: Sector transition certificate
 
 **Target**: TameCheck (new sector reached)
+
+**Literature:** Instanton calculus in quantum field theory {cite}`Coleman79`; 't Hooft's instanton solutions {cite}`tHooft76`; semiclassical tunneling {cite}`Vainshtein82`.
 
 :::
 
@@ -3325,17 +3899,25 @@ A barrier invoked because $P_i$ failed cannot assume $P_i$ as a prerequisite.
 :::{prf:definition} Surgery contract format
 :label: def-surgery-format
 
-Each surgery entry specifies:
+Each surgery entry follows the **Surgery Specification Schema** (Definition {prf:ref}`def-surgery-schema`):
 
-1. **Inputs**:
-   - Breach certificate $K^{\mathrm{br}}$ from triggering barrier
-   - Surgery data $D_S$ (excision region, cap model, regularization parameter)
-2. **Admissibility check**: Via Surgery Admissibility Trichotomy (Section 13)
-3. **Action**: Abstract operation $\mathcal{O}_S$
-4. **Postcondition**: Re-entry certificate $K^{\mathrm{re}}$ with:
-   $$K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target node})$$
-5. **Progress measure**: Ensures finite surgeries or termination
+1. **Surgery ID** and **Target Mode**: Unique identifier and triggering failure mode
+2. **Interface Dependencies**:
+   - **Primary:** Interface providing the singular object/profile $V$ and locus $\Sigma$
+   - **Secondary:** Interface providing canonical library $\mathcal{L}_T$ or capacity bounds
+3. **Admissibility Signature**:
+   - **Input Certificate:** $K^{\mathrm{br}}$ from triggering barrier
+   - **Admissibility Predicate:** Conditions for safe surgery (Case 1 of Trichotomy)
+4. **Transformation Law** ($\mathcal{O}_S$):
+   - **State Space:** How $X \to X'$
+   - **Height Jump:** Energy/height change guarantee
+   - **Topology:** Sector changes if any
+5. **Postcondition**:
+   - **Re-entry Certificate:** $K^{\mathrm{re}}$ with $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target node})$
+   - **Re-entry Target:** Node to resume sieve execution
+   - **Progress Guarantee:** Type A (bounded count) or Type B (well-founded complexity)
 
+See Section 7 for the complete catalog of 17 surgery specifications.
 :::
 
 :::{prf:definition} Progress measures
@@ -4003,6 +4585,8 @@ The Lock attempts five proof-producing tactics to establish Hom-emptiness:
 
 **Automation**: Fully automatable via linear algebra
 
+**Literature:** Brouwer invariance of domain {cite}`Brouwer11`; dimension theory in topology {cite}`HurewiczWallman41`.
+
 :::
 
 :::{prf:definition} E2: Invariant mismatch
@@ -4015,6 +4599,8 @@ The Lock attempts five proof-producing tactics to establish Hom-emptiness:
 **Certificate**: $(I, I_{\text{bad}}, I_{\mathcal{H}}, I_{\text{bad}} \neq I_{\mathcal{H}} \text{ proof})$
 
 **Automation**: Automatable for extractable invariants (Euler char, homology, etc.)
+
+**Literature:** Topological invariants {cite}`EilenbergSteenrod52`; algebraic K-theory invariants {cite}`Quillen73`; Euler characteristic computability.
 
 :::
 
@@ -4029,6 +4615,8 @@ The Lock attempts five proof-producing tactics to establish Hom-emptiness:
 
 **Automation**: Via semidefinite programming / cone analysis
 
+**Literature:** Positive energy theorems {cite}`SchoenYau79`; {cite}`Witten81`; convex cones {cite}`Rockafellar70`.
+
 :::
 
 :::{prf:definition} E4: Integrality obstruction
@@ -4042,6 +4630,8 @@ The Lock attempts five proof-producing tactics to establish Hom-emptiness:
 
 **Automation**: Via number theory / SMT with integer arithmetic
 
+**Literature:** Arithmetic obstructions {cite}`Serre73`; lattice theory {cite}`CasselsSwinnerton70`.
+
 :::
 
 :::{prf:definition} E5: Functional equation obstruction
@@ -4054,6 +4644,8 @@ The Lock attempts five proof-producing tactics to establish Hom-emptiness:
 **Certificate**: $(\text{functional eq.}, \text{unsolvability proof})$
 
 **Automation**: Via term rewriting / constraint solving
+
+**Literature:** Functional equations {cite}`AczélDhombres89`; rewriting systems {cite}`BaaderNipkow98`.
 
 :::
 
@@ -4290,6 +4882,759 @@ The following table provides a complete cross-reference between diagram node nam
 
 ---
 
+# Part X: Instantaneous Upgrade Metatheorems
+
+## 32. Instantaneous Certificate Upgrades
+
+The **Instantaneous Upgrade Metatheorems** formalize the logical principle that a "Blocked" barrier certificate or a "Surgery" re-entry certificate can be promoted to a full **YES** (or **YES$^\sim$**) permit under appropriate structural conditions. These upgrades occur *within* a single Sieve pass when the blocking condition itself implies a stronger regularity guarantee.
+
+**Logical Form:** $K_{\text{Node}}^- \wedge K_{\text{Barrier}}^{\mathrm{blk}} \Rightarrow K_{\text{Node}}^{\sim}$
+
+The key insight is that certain "obstructions" are themselves *certificates of regularity* when viewed from the correct perspective.
+
+---
+
+### 32.1 Saturation Promotion
+
+:::{prf:metatheorem} Saturation Promotion (BarrierSat $\to$ YES$^\sim$)
+:label: mt-saturation-promotion
+:class: metatheorem
+
+**Context:** Node 1 (EnergyCheck) fails ($E = \infty$), but BarrierSat is Blocked ($K_{\text{sat}}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)$ be a Hypostructure with:
+1. A height functional $\Phi: \mathcal{X} \to [0, \infty]$ that is unbounded ($\sup_x \Phi(x) = \infty$)
+2. A dissipation functional $\mathfrak{D}$ satisfying the drift condition: there exist $\lambda > 0$ and $b < \infty$ such that
+   $$\mathcal{L}\Phi(x) \leq -\lambda \Phi(x) + b \quad \text{for all } x \in \mathcal{X}$$
+   where $\mathcal{L}$ is the infinitesimal generator of the dynamics.
+3. A compact sublevel set $\{x : \Phi(x) \leq c\}$ for some $c > b/\lambda$.
+
+**Statement:** Under the drift condition, the process admits a unique invariant probability measure $\pi$ with $\int \Phi \, d\pi < \infty$. The system is equivalent to one with bounded energy under the renormalized measure $\pi$.
+
+**Certificate Logic:**
+$$K_{D_E}^- \wedge K_{\text{sat}}^{\mathrm{blk}} \Rightarrow K_{D_E}^{\sim}$$
+
+**Proof sketch:** The drift condition implies geometric ergodicity by the Foster-Lyapunov criterion (Meyn and Tweedie, 1993, Theorem 15.0.1). The invariant measure $\pi$ satisfies $\pi(\Phi) < \infty$ by Theorem 14.0.1 of the same reference. The renormalized height $\hat{\Phi} = \Phi - \pi(\Phi)$ is centered and the dynamics converge exponentially to equilibrium.
+
+**Axiom Satisfied:** Finite Energy (renormalized measure).
+
+**Literature:** {cite}`MeynTweedie93`; {cite}`HairerMattingly11`
+:::
+
+---
+
+### 32.2 Causal Censor Promotion
+
+:::{prf:metatheorem} Causal Censor Promotion (BarrierCausal $\to$ YES$^\sim$)
+:label: mt-causal-censor
+:class: metatheorem
+
+**Context:** Node 2 (ZenoCheck) fails ($N \to \infty$), but BarrierCausal is Blocked ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. An event counting functional $N: \mathcal{X} \times [0,T] \to \mathbb{N} \cup \{\infty\}$
+2. A singularity requiring infinite computational depth to resolve: the Cauchy development $D^+(S)$ is globally hyperbolic but $N(x, T) \to \infty$ as $x \to \Sigma$
+3. A cosmic censorship condition: the singular set $\Sigma$ is contained in the future boundary $\mathcal{I}^+ \cup i^+$ of conformally compactified spacetime.
+
+**Statement:** If the singularity is hidden behind an event horizon or lies at future null/timelike infinity, it is causally inaccessible to any physical observer. The event count is finite relative to any observer worldline $\gamma$ with finite proper time.
+
+**Certificate Logic:**
+$$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Rec}_N}^{\sim}$$
+
+**Proof sketch:** By the weak cosmic censorship conjecture (Penrose, 1969), generic gravitational collapse produces singularities cloaked by event horizons. The Hawking-Penrose theorems (1970) establish geodesic incompleteness, but the Christodoulou-Klainerman stability theorem (1993) ensures the exterior remains regular. Any observer worldline $\gamma \subset J^-(\mathcal{I}^+)$ experiences finite proper time and finite events before the singularity becomes causally relevant.
+
+**Axiom Satisfied:** Finite Event Count (physically observable).
+
+**Literature:** {cite}`Penrose69`; {cite}`ChristodoulouKlainerman93`; {cite}`HawkingPenrose70`
+:::
+
+---
+
+### 32.3 Scattering Promotion
+
+:::{prf:metatheorem} Scattering Promotion (BarrierScat $\to$ VICTORY)
+:label: mt-scattering-promotion
+:class: metatheorem
+
+**Context:** Node 3 (CompactCheck) fails (No concentration), but BarrierScat indicates Benign ($K_{C_\mu}^{\mathrm{ben}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure of type $T_{\text{dispersive}}$ with:
+1. A dispersive evolution $u(t)$ satisfying a nonlinear wave or Schrödinger equation
+2. The concentration-compactness dichotomy: either $\mu(V) > 0$ for some profile $V$, or dispersion dominates
+3. A finite Morawetz quantity: $\int_0^\infty \int_{\mathbb{R}^n} |x|^{-1} |u|^{p+1} \, dx \, dt < \infty$
+
+**Statement:** If energy disperses (no concentration) and the interaction functional is finite (Morawetz bound), the solution scatters to a free linear state: there exists $u_\pm \in H^1$ such that $\|u(t) - e^{it\Delta}u_\pm\|_{H^1} \to 0$ as $t \to \pm\infty$. This is a "Victory" condition equivalent to global existence and regularity.
+
+**Certificate Logic:**
+$$K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}} \Rightarrow \text{Global Regularity}$$
+
+**Proof sketch:** The Morawetz estimate (1968) provides spacetime integrability. Combined with Strichartz estimates and the concentration-compactness/rigidity methodology of Kenig and Merle (2006), the absence of concentration implies scattering. The limiting profile $u_\pm$ is obtained via the Cook method or profile decomposition.
+
+**Axiom Satisfied:** Global Existence (via dispersion).
+
+**Literature:** {cite}`Morawetz68`; {cite}`KenigMerle06`; {cite}`KillipVisan10`
+:::
+
+---
+
+### 32.4 Type II Suppression Promotion
+
+:::{prf:metatheorem} Type II Suppression (BarrierTypeII $\to$ YES$^\sim$)
+:label: mt-type-ii-suppression
+:class: metatheorem
+
+**Context:** Node 4 (ScaleCheck) fails (Supercritical), but BarrierTypeII is Blocked ($K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A supercritical scaling exponent $\alpha > \alpha_c$ (energy-supercritical regime)
+2. A Type II blow-up scenario where the solution concentrates at a point with unbounded $L^\infty$ norm but bounded energy
+3. An energy monotonicity formula $\frac{d}{dt}\mathcal{E}_\lambda(t) \leq 0$ for the localized energy at scale $\lambda$
+
+**Statement:** If the renormalization cost $\int_0^{T^*} \lambda(t)^{-\gamma} \, dt = \infty$ diverges logarithmically, the supercritical singularity is suppressed and cannot form in finite time. The blow-up rate satisfies $\lambda(t) \geq c(T^* - t)^{1/\gamma}$ for some $\gamma > 0$.
+
+**Certificate Logic:**
+$$K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{SC}_\lambda}^{\mathrm{blk}} \Rightarrow K_{\mathrm{SC}_\lambda}^{\sim}$$
+
+**Proof sketch:** The monotonicity formula (Merle and Zaag, 1998) bounds the blow-up rate from below. For Type II blow-up, the energy remains bounded while the scale $\lambda(t) \to 0$. The logarithmic divergence of the renormalization integral creates an energy barrier that prevents finite-time singularity formation. This mechanism underlies the Raphaël-Szeftel soliton resolution (2011).
+
+**Axiom Satisfied:** Subcritical Scaling (effective).
+
+**Literature:** {cite}`MerleZaag98`; {cite}`RaphaelSzeftel11`; {cite}`CollotMerleRaphael17`
+:::
+
+---
+
+### 32.5 Capacity Promotion
+
+:::{prf:metatheorem} Capacity Promotion (BarrierCap $\to$ YES$^\sim$)
+:label: mt-capacity-promotion
+:class: metatheorem
+
+**Context:** Node 6 (GeomCheck) fails (Codim too small), but BarrierCap is Blocked ($K_{\mathrm{Cap}_H}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A singular set $\Sigma \subset \mathcal{X}$ with Hausdorff dimension $\dim_H(\Sigma) \geq n-2$ (marginal codimension)
+2. A capacity bound: $\mathrm{Cap}_{1,2}(\Sigma) = 0$ where $\mathrm{Cap}_{1,2}$ is the $(1,2)$-capacity (Sobolev capacity)
+3. The solution $u \in H^1_{\text{loc}}(\mathcal{X} \setminus \Sigma)$
+
+**Statement:** If the singular set has zero capacity (even if its Hausdorff dimension is large), it is removable for the $H^1$ energy class. There exists a unique extension $\tilde{u} \in H^1(\mathcal{X})$ with $\tilde{u}|_{\mathcal{X} \setminus \Sigma} = u$.
+
+**Certificate Logic:**
+$$K_{\mathrm{Cap}_H}^- \wedge K_{\mathrm{Cap}_H}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Cap}_H}^{\sim}$$
+
+**Proof sketch:** By Federer's theorem on removable singularities (1969, Section 4.7), sets of zero $(1,p)$-capacity are removable for $W^{1,p}$ functions. For $p=2$, the extension follows from the Lax-Milgram theorem applied to the weak formulation. The uniqueness follows from the maximum principle. See also Evans and Gariepy (2015, Theorem 4.7.2).
+
+**Axiom Satisfied:** Removable Singularity.
+
+**Literature:** {cite}`Federer69`; {cite}`EvansGariepy15`; {cite}`AdamsHedberg96`
+:::
+
+---
+
+### 32.6 Spectral Gap Promotion
+
+:::{prf:metatheorem} Spectral Gap Promotion (BarrierGap $\to$ YES)
+:label: mt-spectral-gap
+:class: metatheorem
+
+**Context:** Node 7 (StiffnessCheck) fails (Flat), but BarrierGap is Blocked ($K_{\text{gap}}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A linearized operator $L = D^2\Phi(x^*)$ at a critical point $x^*$
+2. A spectral gap: $\lambda_1(L) > 0$ (smallest nonzero eigenvalue is positive)
+3. The nonlinear flow $\partial_t x = -\nabla \Phi(x)$ near $x^*$
+
+**Statement:** If a spectral gap $\lambda_1 > 0$ exists, the Łojasiewicz-Simon inequality automatically holds with optimal exponent $\theta = 1/2$. The convergence rate is exponential: $\|x(t) - x^*\| \leq Ce^{-\lambda_1 t/2}$.
+
+**Certificate Logic:**
+$$K_{\mathrm{LS}_\sigma}^- \wedge K_{\text{gap}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{LS}_\sigma}^+ \quad (\text{with } \theta=1/2)$$
+
+**Proof sketch:** The Łojasiewicz-Simon inequality states $|\Phi(x) - \Phi(x^*)|^{1-\theta} \leq C\|\nabla\Phi(x)\|$ for some $\theta \in (0,1/2]$. When the Hessian is non-degenerate ($\lambda_1 > 0$), Taylor expansion gives $\theta = 1/2$. The exponential convergence then follows from the Gronwall inequality applied to the energy functional. See Simon (1983, Theorem 3) and Feehan and Maridakis (2019).
+
+**Axiom Satisfied:** Gradient Domination / Stiffness.
+
+**Literature:** {cite}`Simon83`; {cite}`FeehanMaridakis19`; {cite}`Huang06`
+:::
+
+---
+
+### 32.7 O-Minimal Promotion
+
+:::{prf:metatheorem} O-Minimal Promotion (BarrierOmin $\to$ YES$^\sim$)
+:label: mt-o-minimal
+:class: metatheorem
+
+**Context:** Node 9 (TameCheck) fails (Wild), but BarrierOmin is Blocked ($K_{\mathrm{TB}_O}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A singular/wild set $W \subset \mathcal{X}$ that is a priori not regular
+2. Definability: $W$ is definable in an o-minimal expansion of $(\mathbb{R}, +, \cdot)$ (e.g., $\mathbb{R}_{\text{an,exp}}$)
+3. The dynamics are generated by a definable vector field
+
+**Statement:** If the wild set is definable in an o-minimal structure, it admits a finite Whitney stratification into smooth manifolds. The set is topologically tame: it has finite Betti numbers, satisfies the curve selection lemma, and admits no pathological embeddings.
+
+**Certificate Logic:**
+$$K_{\mathrm{TB}_O}^- \wedge K_{\mathrm{TB}_O}^{\mathrm{blk}} \Rightarrow K_{\mathrm{TB}_O}^{\sim}$$
+
+**Proof sketch:** The cell decomposition theorem (van den Dries, 1998, Chapter 3) guarantees that every definable set admits a finite partition into definable cells. The Kurdyka-Łojasiewicz inequality holds for definable functions (Kurdyka, 1998), ensuring gradient descent terminates in finite time or converges. The uniform finiteness theorem bounds topological complexity.
+
+**Axiom Satisfied:** Tame Topology.
+
+**Literature:** {cite}`vandenDries98`; {cite}`Kurdyka98`; {cite}`Wilkie96`
+:::
+
+---
+
+### 32.8 Surgery Promotion
+
+:::{prf:metatheorem} Surgery Promotion (Surgery $\to$ YES$^\sim$)
+:label: mt-surgery-promotion
+:class: metatheorem
+
+**Context:** Any Node fails, Barrier breached, but Surgery $S$ executes and issues re-entry certificate ($K^{\mathrm{re}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A singularity at $(t^*, x^*) \in \mathcal{X}$ with modal diagnosis $M \in \{C.E, C.C, \ldots, B.C\}$
+2. A valid surgery operator $\mathcal{O}_S: (\mathcal{X}, \Phi) \to (\mathcal{X}', \Phi')$ satisfying:
+   - Admissibility: singular profile $V \in \mathcal{L}_T$ (canonical library)
+   - Capacity bound: $\mathrm{Cap}(\text{excision}) \leq \varepsilon_{\text{adm}}$
+   - Progress: $\Phi'(x') \leq \Phi(x) - \delta_S$ (height decrease)
+
+**Statement:** If a valid surgery is performed, the flow continues on the modified Hypostructure $\mathcal{H}'$. The combined flow (pre-surgery on $\mathcal{X}$, post-surgery on $\mathcal{X}'$) constitutes a generalized (surgery/weak) solution.
+
+**Certificate Logic:**
+$$K_{\text{Node}}^- \wedge K_{\text{Surg}}^{\mathrm{re}} \Rightarrow K_{\text{Node}}^{\sim} \quad (\text{on } \mathcal{X}')$$
+
+**Proof sketch:** The surgery construction follows Hamilton (1997) for Ricci flow and Perelman (2002-2003) for the rigorous completion. The key ingredients are: (1) canonical neighborhood theorem ensuring surgery regions are standard, (2) non-collapsing estimates controlling geometry, (3) finite surgery time theorem bounding the number of surgeries. The post-surgery manifold inherits all regularity properties.
+
+**Axiom Satisfied:** Global Existence (in the sense of surgery/weak flow).
+
+**Literature:** {cite}`Hamilton97`; {cite}`Perelman03`; {cite}`KleinerLott08`
+:::
+
+---
+
+### 32.9 Lock Promotion
+
+:::{prf:metatheorem} Lock Promotion (BarrierExclusion $\to$ GLOBAL YES)
+:label: mt-lock-promotion
+:class: metatheorem
+
+**Context:** Node 17 (The Lock) is Blocked ($K_{\text{Lock}}^{\mathrm{blk}}$).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. The universal bad pattern $\mathcal{B}_{\text{univ}}$ defined via the Interface Registry
+2. The morphism obstruction: $\mathrm{Hom}_{\mathcal{C}}(\mathcal{B}_{\text{univ}}, \mathcal{H}) = \emptyset$ in the appropriate category $\mathcal{C}$
+3. Categorical coherence: all nodes converge to Node 17 with compatible certificates
+
+**Statement:** If the universal bad pattern cannot map into the system (Hom-set empty), no singularities of any type can exist. The Lock validates global regularity and retroactively confirms all earlier ambiguous certificates.
+
+**Certificate Logic:**
+$$K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow \text{Global Regularity}$$
+
+**Proof sketch:** The proof uses the contrapositive: if a singularity existed, it would generate a non-trivial morphism $\phi: \mathcal{B}_{\text{univ}} \to \mathcal{H}$ by the universal property. The emptiness of the Hom-set is established via cohomological/spectral obstructions (E1-E5 tactics). This is the "Grothendieck yoga" of reducing existence questions to non-existence of maps. See SGA 4 for the categorical framework.
+
+**Axiom Satisfied:** All Axioms (Retroactively).
+
+**Literature:** {cite}`SGA4`; {cite}`Lurie09`; {cite}`MacLane71`
+:::
+
+---
+
+### 32.10 Absorbing Boundary Promotion
+
+:::{prf:metatheorem} Absorbing Boundary Promotion (BoundaryCheck $\to$ EnergyCheck)
+:label: mt-absorbing-boundary
+:class: metatheorem
+
+**Context:** Node 1 (Energy) fails ($E \to \infty$), but Node 13 (Boundary) confirms an Open System with dissipative flux.
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A domain $\Omega$ with boundary $\partial\Omega$
+2. An energy functional $E(t) = \int_\Omega e(x,t) \, dx$
+3. A boundary flux condition: $\int_{\partial\Omega} \mathbf{n} \cdot \mathbf{F} \, dS < 0$ (strictly outgoing)
+4. Bounded input: $\int_0^T \|\text{source}\|_{L^2} \, dt < \infty$
+
+**Statement:** If the flux across the boundary is strictly outgoing (dissipative) and inputs are bounded, the internal energy cannot blow up. The boundary acts as a "heat sink" absorbing energy.
+
+**Certificate Logic:**
+$$K_{D_E}^- \wedge K_{\mathrm{Bound}_\partial}^+ \wedge (\text{Flux} < 0) \Rightarrow K_{D_E}^{\sim}$$
+
+**Proof sketch:** The energy identity $\frac{dE}{dt} = -\mathfrak{D}(t) + \int_{\partial\Omega} \text{flux} + \int_\Omega \text{source}$ with negative flux and dissipation $\mathfrak{D} \geq 0$ yields $E(t) \leq E(0) + \int_0^t \|\text{source}\| \, ds < \infty$. This is the energy method of Dafermos (2016, Chapter 5) applied to hyperbolic conservation laws with dissipative boundary conditions.
+
+**Axiom Satisfied:** Finite Energy (via Boundary Dissipation).
+
+**Literature:** {cite}`Dafermos16`; {cite}`DafermosRodnianski10`
+:::
+
+---
+
+### 32.11 Catastrophe Stability Promotion
+
+:::{prf:metatheorem} Catastrophe-Stability Promotion (BifurcateCheck $\to$ StiffnessCheck)
+:label: mt-catastrophe-stability
+:class: metatheorem
+
+**Context:** Node 7 (Stiffness) fails (Flat/Zero Eigenvalue), but Node 7a (Bifurcation) identifies a **Canonical Catastrophe**.
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A potential $V(x)$ with a degenerate critical point: $V''(x^*) = 0$
+2. A canonical catastrophe normal form: $V(x) = x^{k+1}/(k+1)$ for $k \geq 2$ (fold $k=2$, cusp $k=3$, etc.)
+3. Higher-order stiffness: $V^{(k)}(x^*) \neq 0$
+
+**Statement:** While the linear stiffness is zero ($\lambda_1 = 0$), the nonlinear stiffness is positive and bounded. The system is "Stiff" in a higher-order sense, ensuring polynomial convergence $t^{-1/(k-1)}$ instead of exponential.
+
+**Certificate Logic:**
+$$K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{LS}_{\partial^k V}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^{\sim} \quad (\text{Polynomial Rate})$$
+
+**Proof sketch:** The Łojasiewicz exponent at a degenerate critical point is $\theta = 1/k$ for the $A_{k-1}$ catastrophe (Thom, 1975). The gradient inequality $|V(x)|^{1-\theta} \leq C|\nabla V(x)|$ yields polynomial decay. Arnold's classification (1972) ensures these are the only structurally stable degeneracies. The convergence rate follows from integrating the gradient flow ODE.
+
+**Axiom Satisfied:** Gradient Domination (Higher Order).
+
+**Literature:** {cite}`Thom75`; {cite}`Arnold72`; {cite}`PostonStewart78`
+:::
+
+---
+
+### 32.12 Shadow-Sector Promotion
+
+:::{prf:metatheorem} Shadow-Sector Promotion (TopoCheck $\to$ ZenoCheck)
+:label: mt-shadow-sector
+:class: metatheorem
+
+**Context:** Node 2 (Zeno) fails (Infinite Events), but Node 8 (TopoCheck) confirms the trajectory is confined to a **Finite Sector Graph**.
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A sector decomposition $\mathcal{X} = \bigsqcup_{i=1}^N S_i$ with finitely many sectors
+2. Transition graph $\mathcal{G} = (V, E)$ where $V = \{S_1, \ldots, S_N\}$ and edges represent allowed transitions
+3. An action barrier: $\mathrm{Action}(S_i \to S_j) \geq \delta > 0$ for each transition
+4. Bounded energy: $E(t) \leq E_{\max}$
+
+**Statement:** If the topological sector graph is finite and the energy is insufficient to make infinitely many transitions, the system cannot undergo infinite distinct events (Zeno behavior). The number of sector transitions is bounded by $N_{\max} \leq E_{\max}/\delta$.
+
+**Certificate Logic:**
+$$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{TB}_\pi}^+ \wedge K_{\text{Action}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Rec}_N}^{\sim}$$
+
+**Proof sketch:** Each sector transition costs at least $\delta$ units of action/energy. With bounded total energy $E_{\max}$, at most $E_{\max}/\delta$ transitions can occur. This is the Conley index argument (1978) applied to gradient-like flows: the Morse-Conley theory bounds the number of critical point transitions by the total change in index. Combined with energy dissipation, this forbids Zeno accumulation.
+
+**Axiom Satisfied:** Finite Event Count (Topological Confinement).
+
+**Literature:** {cite}`Conley78`; {cite}`Smale67`; {cite}`Floer89`
+:::
+
+---
+
+# Part XI: Retroactive Promotion Theorems
+
+## 33. A-Posteriori Upgrade Rules
+
+The **Retroactive Promotion Theorems** (or "A-Posteriori Upgrade Rules") formalize the logical principle that a stronger global guarantee found late in the Sieve can resolve local ambiguities encountered earlier. These theorems propagate information *backwards* through the verification graph.
+
+**Logical Form:** $K_{\text{Early}}^{\text{ambiguous}} \wedge K_{\text{Late}}^{\text{strong}} \Rightarrow K_{\text{Early}}^{\text{proven}}$
+
+The key insight is that global constraints can retrospectively determine local behavior.
+
+---
+
+### 33.1 The Lock-Back Theorem
+
+:::{prf:metatheorem} Lock-Back Theorem (Lock $\to$ All Barriers)
+:label: mt-lock-back
+:class: metatheorem
+
+**Theorem:** Global Regularity Retro-Validation
+
+**Input:** $K_{\text{Lock}}^{\mathrm{blk}}$ (Node 17: Morphism Exclusion).
+
+**Target:** Any earlier "Blocked" Barrier certificate ($K_{\text{sat}}^{\mathrm{blk}}, K_{\text{cap}}^{\mathrm{blk}}, \ldots$).
+
+**Statement:** If the Lock proves that *no* singularity pattern can exist globally ($\mathrm{Hom}(\mathcal{B}_{\text{univ}}, \mathcal{H}) = \emptyset$), then all local "Blocked" states are retroactively validated as Regular points.
+
+**Certificate Logic:**
+$$K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow \forall i: K_{\text{Barrier}_i}^{\mathrm{blk}} \to K_{\text{Gate}_i}^+$$
+
+**Proof sketch:** The morphism obstruction at the Lock is a global invariant. If no bad pattern embeds globally, then any local certificate that was "Blocked" (i.e., locally ambiguous) must resolve to "Regular" since the alternative (singular) is globally forbidden. This is the "principle of the excluded middle" applied via the universal property of the bad pattern functor.
+
+**Physical Interpretation:** If the laws of physics forbid black holes (Lock), then any localized dense matter detected earlier (BarrierCap) must eventually disperse, regardless of local uncertainty.
+
+**Literature:** {cite}`Grothendieck57`; {cite}`SGA4`
+:::
+
+---
+
+### 33.2 The Symmetry-Gap Theorem
+
+:::{prf:metatheorem} Symmetry-Gap Theorem (SymCheck $\to$ Stiffness)
+:label: mt-symmetry-gap
+:class: metatheorem
+
+**Theorem:** Mass Gap Retro-Validation
+
+**Input:** $K_{\text{Sym}}^+$ (Node 7b: Rigid Symmetry) + $K_{\text{CheckSC}}^+$ (Node 7c: Constants Stable).
+
+**Target:** Node 7 ($K_{\mathrm{LS}_\sigma}^{\mathrm{stag}}$: Stagnation/Flatness).
+
+**Statement:** If the vacuum symmetry is rigid (SymCheck) and constants are stable (CheckSC), then the "Flatness" (Stagnation) detected at Node 7 is actually a **Spontaneous Symmetry Breaking** event. This mechanism generates a dynamic Mass Gap, satisfying the Stiffness requirement retroactively.
+
+**Certificate Logic:**
+$$K_{\mathrm{LS}_\sigma}^{\mathrm{stag}} \wedge K_{\text{Sym}}^+ \wedge K_{\text{CheckSC}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+ \text{ (with gap } \lambda > 0\text{)}$$
+
+**Proof sketch:** The Goldstone theorem (1961) states that spontaneous breaking of a continuous symmetry produces massless bosons. However, if the symmetry group is *compact* and the vacuum is unique (CheckSC), the would-be Goldstones acquire mass via the Higgs mechanism or explicit breaking. The resulting spectral gap $\lambda > 0$ provides stiffness. For gauge theories, this is the mass gap conjecture; for condensed matter, this is the BCS mechanism.
+
+**Application:** Used in Yang-Mills and Riemann Hypothesis to upgrade a "Flat Potential" diagnosis to a "Massive/Stiff Potential" proof.
+
+**Literature:** {cite}`Goldstone61`; {cite}`Higgs64`; {cite}`Coleman75`
+:::
+
+---
+
+### 33.3 The Tame-Topology Theorem
+
+:::{prf:metatheorem} Tame-Topology Theorem (TameCheck $\to$ GeomCheck)
+:label: mt-tame-topology
+:class: metatheorem
+
+**Theorem:** Stratification Retro-Validation
+
+**Input:** $K_{\mathrm{TB}_O}^+$ (Node 9: O-minimal Definability).
+
+**Target:** Node 6 ($K_{\mathrm{Cap}_H}^{\mathrm{blk}}$: Capacity Blocked).
+
+**Statement:** If the system is definable in an o-minimal structure (TameCheck), then any singular set $\Sigma$ with zero capacity detected at Node 6 is rigorously a **Removable Singularity** (a lower-dimensional stratum in the Whitney stratification).
+
+**Certificate Logic:**
+$$K_{\mathrm{Cap}_H}^{\mathrm{blk}} \wedge K_{\mathrm{TB}_O}^+ \Rightarrow K_{\mathrm{Cap}_H}^+$$
+
+**Proof sketch:** In an o-minimal structure, every definable set admits a Whitney stratification into smooth manifolds (Łojasiewicz, 1965; van den Dries-Miller, 1996). A set of zero capacity is contained in a stratum of positive codimension. By the Kurdyka-Łojasiewicz inequality, the solution extends uniquely across such strata. The gradient flow cannot accumulate on a positive-codimension set.
+
+**Application:** Ensures that "Blocked" singularities in geometric flows are not just "small," but geometrically harmless.
+
+**Literature:** {cite}`Lojasiewicz65`; {cite}`vandenDriesMiller96`; {cite}`Kurdyka98`
+:::
+
+---
+
+### 33.4 The Ergodic-Sat Theorem
+
+:::{prf:metatheorem} Ergodic-Sat Theorem (ErgoCheck $\to$ EnergyCheck)
+:label: mt-ergodic-sat
+:class: metatheorem
+
+**Theorem:** Recurrence Retro-Validation
+
+**Input:** $K_{\mathrm{TB}_\rho}^+$ (Node 10: Mixing/Ergodicity).
+
+**Target:** Node 1 ($K_{\text{sat}}^{\mathrm{blk}}$: Saturation).
+
+**Statement:** If the system is proven to be Ergodic (mixing), then the "Saturation" bound at Node 1 is not just a ceiling, but a **Recurrence Guarantee**. The system will infinitely often visit low-energy states. In particular, $\liminf_{t \to \infty} \Phi(x(t)) \leq \bar{\Phi}$ for $\mu$-a.e. initial condition.
+
+**Certificate Logic:**
+$$K_{\text{sat}}^{\mathrm{blk}} \wedge K_{\mathrm{TB}_\rho}^+ \Rightarrow K_{D_E}^+ \text{ (Poincaré Recurrence)}$$
+
+**Proof sketch:** The Poincaré recurrence theorem (1890) states that for a measure-preserving transformation, almost every point returns arbitrarily close to its initial position. Combined with mixing (strong ergodicity), the time averages converge to the space average: $\frac{1}{T}\int_0^T \Phi(x(t)) \, dt \to \int \Phi \, d\mu$. If the invariant measure has $\mu(\Phi) < \infty$ (Saturation), recurrence to low-energy states is guaranteed.
+
+**Application:** Upgrades "Bounded Drift" to "Thermodynamic Stability" in statistical mechanics systems.
+
+**Literature:** {cite}`Poincare90`; {cite}`Birkhoff31`; {cite}`Furstenberg81`
+:::
+
+---
+
+### 33.5 The Variety-Control Theorem
+
+:::{prf:metatheorem} Variety-Control Theorem (AlignCheck $\to$ ScaleCheck)
+:label: mt-variety-control
+:class: metatheorem
+
+**Theorem:** Cybernetic Retro-Validation
+
+**Input:** $K_{\mathrm{GC}_T}^+$ (Node 16: Alignment/Variety).
+
+**Target:** Node 4 ($K_{\mathrm{SC}_\lambda}^-$: Supercritical).
+
+**Statement:** If the controller possesses sufficient Requisite Variety to match the disturbance (Node 16), it can suppress the Supercritical Scaling instability (Node 4) via active feedback, rendering the effective system Subcritical.
+
+**Certificate Logic:**
+$$K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{GC}_T}^+ \Rightarrow K_{\mathrm{SC}_\lambda}^{\sim} \text{ (Controlled)}$$
+
+**Proof sketch:** Ashby's Law of Requisite Variety (1956) states that "only variety can absorb variety." If the controller has sufficient degrees of freedom ($\log|\mathcal{U}| \geq \log|\mathcal{D}|$), it can cancel any disturbance. The Conant-Ashby theorem (1970) formalizes this: every good regulator of a system must be a model of that system. Applied to scaling instabilities, a sufficiently complex controller can inject anti-scaling corrections that neutralize supercritical growth.
+
+**Application:** Used in Control Theory to prove that an inherently unstable (supercritical) plant can be stabilized by a complex controller.
+
+**Literature:** {cite}`Ashby56`; {cite}`ConantAshby70`; {cite}`DoyleFrancisTannenbaum92`
+:::
+
+---
+
+### 33.6 The Algorithm-Depth Theorem
+
+:::{prf:metatheorem} Algorithm-Depth Theorem (ComplexCheck $\to$ ZenoCheck)
+:label: mt-algorithm-depth
+:class: metatheorem
+
+**Theorem:** Computational Censorship Retro-Validation
+
+**Input:** $K_{\mathrm{Rep}_K}^+$ (Node 11: Finite Complexity).
+
+**Target:** Node 2 ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$: Causal Censor).
+
+**Statement:** If the solution has a finite description length (ComplexCheck), then any "Infinite Event Depth" (Zeno behavior) detected at Node 2 must be an artifact of the coordinate system, not physical reality. The singularity is removable by coordinate transformation.
+
+**Certificate Logic:**
+$$K_{\mathrm{Rec}_N}^{\mathrm{blk}} \wedge K_{\mathrm{Rep}_K}^+ \Rightarrow K_{\mathrm{Rec}_N}^+$$
+
+**Proof sketch:** Kolmogorov complexity bounds the information content of an object. If $K(x) \leq C$ for some constant $C$, then $x$ is compressible/simple. A genuinely singular object (fractal, infinitely complex) has $K(x) \to \infty$. Therefore, a Zeno singularity with finite complexity must be a coordinate artifact—like the event horizon in Schwarzschild coordinates, which disappears in Eddington-Finkelstein coordinates. Algorithmic removability follows.
+
+**Application:** Resolves coordinate singularities (like event horizons in bad coordinates) by proving the underlying object is algorithmically simple.
+
+**Literature:** {cite}`Kolmogorov65`; {cite}`Chaitin66`; {cite}`LiVitanyi08`
+:::
+
+---
+
+### 33.7 The Holographic-Regularity Theorem
+
+:::{prf:metatheorem} Holographic-Regularity Theorem (ComplexCheck $\to$ GeomCheck)
+:label: mt-holographic
+:class: metatheorem
+
+**Theorem:** Information-Theoretic Smoothing
+
+**Input:** $K_{\mathrm{Rep}_K}^+$ (Node 11: Low Kolmogorov Complexity).
+
+**Target:** Node 6 ($K_{\mathrm{Cap}_H}^-$: Marginal/Fractal Geometry).
+
+**Statement:** A singular set with non-integer (fractal) dimension requires infinite information to specify exactly. If ComplexCheck proves the description length is finite (low complexity), the singular set *must* be a standard geometric object (Point, Line, Surface) with integer dimension. This collapses the "Fractal" possibility into "Tame" geometry.
+
+**Certificate Logic:**
+$$K_{\mathrm{Cap}_H}^{\text{ambiguous}} \wedge K_{\mathrm{Rep}_K}^+ \Rightarrow K_{\mathrm{Cap}_H}^+ \text{ (Integer Dim)}$$
+
+**Proof sketch:** The Kolmogorov complexity of a fractal of Hausdorff dimension $d$ scales as $K(\Sigma|_\varepsilon) \sim \varepsilon^{-d}$ where $\Sigma|_\varepsilon$ is the $\varepsilon$-covering. For non-integer $d$, this diverges as $\varepsilon \to 0$, implying $K(\Sigma) = \infty$. Conversely, $K(\Sigma) < \infty$ forces $d \in \mathbb{Z}$. This is the holographic principle (Susskind, 1995): information stored on boundaries must be finite.
+
+**Application:** Proves that algorithmically simple systems cannot have fractal singularities.
+
+**Literature:** {cite}`tHooft93`; {cite}`Susskind95`; {cite}`Bousso02`
+:::
+
+---
+
+### 33.8 The Spectral-Quantization Theorem
+
+:::{prf:metatheorem} Spectral-Quantization Theorem (Lock $\to$ OscillateCheck)
+:label: mt-spectral-quant
+:class: metatheorem
+
+**Theorem:** Discrete Spectrum Enforcement
+
+**Input:** $K_{\text{Lock}}^{\mathrm{blk}}$ (Node 17: Integrality/E4 Tactic).
+
+**Target:** Node 12 ($K_{\mathrm{GC}_\nabla}^-$: Chaotic Oscillation).
+
+**Statement:** If the Lock proves that global invariants must be Integers (E4: Integrality), the spectrum of the evolution operator is forced to be discrete (Quantized). Continuous chaotic drift is impossible; the system must be Quasi-Periodic or Periodic.
+
+**Certificate Logic:**
+$$K_{\mathrm{GC}_\nabla}^{\text{chaotic}} \wedge K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{GC}_\nabla}^{\sim} \text{ (Quasi-Periodic)}$$
+
+**Proof sketch:** Weyl's law (1911) relates the spectral asymptotics $N(\lambda) \sim C\lambda^{n/2}$ to the geometry. If global invariants are quantized (integers), the spectrum is discrete: $\sigma(L) \subset \{\lambda_n\}_{n \in \mathbb{N}}$. By the Paley-Wiener theorem, functions with discrete spectrum are almost periodic. Kac's "Can one hear the shape of a drum?" (1966) shows geometry determines spectrum and vice versa.
+
+**Application:** Proves that chaotic oscillations are forbidden when integrality constraints exist.
+
+**Literature:** {cite}`Weyl11`; {cite}`Kac66`; {cite}`GordonWebbWolpert92`
+:::
+
+---
+
+### 33.9 The Unique-Attractor Theorem
+
+:::{prf:metatheorem} Unique-Attractor Theorem (ErgoCheck $\to$ Profile)
+:label: mt-unique-attractor
+:class: metatheorem
+
+**Theorem:** Global Selection Principle
+
+**Input:** $K_{\mathrm{TB}_\rho}^+$ (Node 10: Unique Invariant Measure).
+
+**Target:** Node 3 (Profile Trichotomy Cases).
+
+**Statement:** If the system is uniquely ergodic (Node 10), there can be only **one** stable profile in the library. All other profiles identified in the Library (Node 3) are transient/unstable. This resolves any ambiguity in the Profile Classification step.
+
+**Certificate Logic:**
+$$K_{\text{Profile}}^{\text{multimodal}} \wedge K_{\mathrm{TB}_\rho}^+ \Rightarrow K_{\text{Profile}}^{\text{unique}}$$
+
+**Proof sketch:** Unique ergodicity means there is exactly one invariant probability measure $\mu$. By the ergodic decomposition theorem (Birkhoff, 1931; Furstenberg, 1981), any other invariant measure is supported on a set of $\mu$-measure zero. Therefore, almost every orbit converges to the unique profile $V$ supporting $\mu$. All other profiles in $\mathcal{L}_T$ are transient saddle points.
+
+**Application:** Resolves "multi-modal" profile ambiguity in favor of a single global attractor.
+
+**Literature:** {cite}`Birkhoff31`; {cite}`Furstenberg61`; {cite}`Oxtoby52`
+:::
+
+---
+
+## 34. Retroactive Upgrade Summary Table
+
+| **Later Node (The Proof)** | **Earlier Node (The Problem)** | **Theorem** | **Upgrade Mechanism** |
+|:---|:---|:---|:---|
+| Node 17 (Lock) | All Barriers | {prf:ref}`mt-lock-back` | Global exclusion $\implies$ local regularity |
+| Node 7b (SymCheck) | Node 7 (Stiffness) | {prf:ref}`mt-symmetry-gap` | Symmetry breaking $\implies$ mass gap |
+| Node 9 (TameCheck) | Node 6 (Geometry) | {prf:ref}`mt-tame-topology` | Definability $\implies$ stratification |
+| Node 10 (ErgoCheck) | Node 1 (Energy) | {prf:ref}`mt-ergodic-sat` | Mixing $\implies$ recurrence |
+| Node 16 (AlignCheck) | Node 4 (Scale) | {prf:ref}`mt-variety-control` | High variety $\implies$ stabilization |
+| Node 11 (Complex) | Node 2 (Zeno) | {prf:ref}`mt-algorithm-depth` | Low complexity $\implies$ coordinate artifact |
+| Node 11 (Complex) | Node 6 (Geometry) | {prf:ref}`mt-holographic` | Finite info $\implies$ integer dimension |
+| Node 17 (Lock/E4) | Node 12 (Oscillate) | {prf:ref}`mt-spectral-quant` | Integrality $\implies$ discrete spectrum |
+| Node 10 (ErgoCheck) | Node 3 (Profile) | {prf:ref}`mt-unique-attractor` | Unique measure $\implies$ unique profile |
+
+---
+
+# Part XII: Stability & Composition Metatheorems
+
+## 35. Perturbation and Coupling
+
+The **Stability and Composition Metatheorems** govern how Sieve verdicts extend from individual systems to families of systems (perturbations) and coupled systems (compositions). These theorems answer the fundamental questions:
+
+1. *"If my model is slightly wrong, does the proof hold?"* (Stability)
+2. *"Can I build a regular system out of regular parts?"* (Composition)
+
+These metatheorems are **universal**: they apply to any valid Hypostructure because they operate on the Certificate algebra, not the underlying physics.
+
+---
+
+### 35.1 Openness of Regularity
+
+:::{prf:metatheorem} Openness of Regularity (Structural Stability)
+:label: mt-openness
+:class: metatheorem
+
+**Source:** Dynamical Systems (Morse-Smale Stability) / Geometric Analysis.
+
+**Hypotheses.** Let $\mathcal{H}(\theta_0)$ be a Hypostructure depending on parameters $\theta \in \Theta$ (a topological space). Assume:
+1. Global Regularity at $\theta_0$: $K_{\text{Lock}}^{\mathrm{blk}}(\theta_0)$
+2. Strict barriers: $\mathrm{Gap}(\theta_0) > \epsilon$, $\mathrm{Cap}(\theta_0) < \delta$ for some $\epsilon, \delta > 0$
+3. Continuous dependence: the certificate functionals are continuous in $\theta$
+
+**Statement:** The set of Globally Regular Hypostructures is **open** in the parameter topology. There exists a neighborhood $U \ni \theta_0$ such that $\forall \theta \in U$, $\mathcal{H}(\theta)$ is also Globally Regular.
+
+**Certificate Logic:**
+$$K_{\text{Lock}}^{\mathrm{blk}}(\theta_0) \wedge (\mathrm{Gap} > \epsilon) \wedge (\mathrm{Cap} < \delta) \Rightarrow \exists U: \forall \theta \in U, K_{\text{Lock}}^{\mathrm{blk}}(\theta)$$
+
+**Proof sketch:** Strict inequalities define open sets. The Morse-Smale stability theorem (Palis and de Melo, 1982) states that structurally stable systems form an open set. The key is non-degeneracy: if all eigenvalues are strictly away from zero and all capacities are strictly bounded, small perturbations preserve these properties. This is the implicit function theorem applied to the certificate functionals.
+
+**Use:** Validates that the proof is robust to small modeling errors or physical noise.
+
+**Literature:** {cite}`Smale67`; {cite}`PalisdeMelo82`; {cite}`Robinson99`
+:::
+
+---
+
+### 35.2 Shadowing Metatheorem
+
+:::{prf:metatheorem} Shadowing Metatheorem (Numerical Validity)
+:label: mt-shadowing
+:class: metatheorem
+
+**Source:** Hyperbolic Dynamics (Anosov Shadowing Lemma).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A Stiffness certificate: $K_{\mathrm{LS}_\sigma}^+$ with spectral gap $\lambda > 0$
+2. A numerical pseudo-orbit: $\{y_n\}$ with $d(f(y_n), y_{n+1}) < \varepsilon$ for all $n$
+3. Hyperbolicity: the tangent map $Df$ has exponential dichotomy
+
+**Statement:** For every $\varepsilon$-pseudo-orbit (numerical simulation), there exists a true orbit $\{x_n\}$ that $\delta(\varepsilon)$-shadows it: $d(x_n, y_n) < \delta(\varepsilon)$ for all $n$. The shadowing distance satisfies $\delta(\varepsilon) = O(\varepsilon/\lambda)$.
+
+**Certificate Logic:**
+$$K_{\mathrm{LS}_\sigma}^+ \wedge K_{\text{pseudo}}^{\varepsilon} \Rightarrow K_{\text{true}}^{\delta(\varepsilon)}$$
+
+**Proof sketch:** The Anosov shadowing lemma (1967) states that uniformly hyperbolic systems have the shadowing property. The spectral gap $\lambda$ controls the contraction rate, and the shadowing distance is $\delta \sim \varepsilon/\lambda$. Bowen (1975) extended this to Axiom A systems. Palmer (1988) gave a proof via the contraction mapping theorem on sequence spaces.
+
+**Use:** Upgrades a high-precision **Numerical Simulation** into a rigorous **Existence Proof** for a nearby solution (essential for $T_{\text{algorithmic}}$).
+
+**Literature:** {cite}`Anosov67`; {cite}`Bowen75`; {cite}`Palmer88`
+:::
+
+---
+
+### 35.3 Weak-Strong Uniqueness
+
+:::{prf:metatheorem} Weak-Strong Uniqueness (Duality)
+:label: mt-weak-strong
+:class: metatheorem
+
+**Source:** PDE Theory (Serrin/Prodi-Serrin Criteria).
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. A "Weak" solution $u_w$ constructed via concentration-compactness ($K_{C_\mu}$)
+2. A "Strong" local solution $u_s$ with Stiffness ($K_{\mathrm{LS}_\sigma}^+$) on $[0, T]$
+3. Both solutions have the same initial data: $u_w(0) = u_s(0)$
+
+**Statement:** If a "Strong" solution exists on $[0, T]$, it is unique. Any "Weak" solution constructed via Compactness/Surgery must coincide with the Strong solution almost everywhere: $u_w = u_s$ a.e. on $[0, T] \times \Omega$.
+
+**Certificate Logic:**
+$$K_{C_\mu}^{\text{weak}} \wedge K_{\mathrm{LS}_\sigma}^{\text{strong}} \Rightarrow K_{\text{unique}}$$
+
+**Proof sketch:** The weak-strong uniqueness principle uses energy estimates. If $v = u_w - u_s$, then $\frac{d}{dt}\|v\|^2 \leq C\|v\|^2 \cdot \|u_s\|_{X}$ for an appropriate norm $X$. If $u_s \in L^p([0,T]; X)$ (Serrin class), Gronwall's inequality gives $\|v(t)\| = 0$. For Navier-Stokes, $X = L^r$ with $\frac{2}{p} + \frac{3}{r} = 1$, $r > 3$ (Serrin, 1963; Lions, 1996).
+
+**Use:** Resolves the "Non-Uniqueness" anxiety in weak solutions. If you can prove stiffness locally, the weak solution cannot branch off.
+
+**Literature:** {cite}`Serrin63`; {cite}`Lions96`; {cite}`Prodi59`
+:::
+
+---
+
+### 35.4 Product-Regularity Metatheorem
+
+:::{prf:metatheorem} Product-Regularity (Composition)
+:label: mt-product
+:class: metatheorem
+
+**Source:** Product Topology / Künneth Formulas.
+
+**Hypotheses.** Let $\mathcal{H}_A$ and $\mathcal{H}_B$ be two Hypostructures with:
+1. Independent regularity: $K_{\text{Lock}}^A$ and $K_{\text{Lock}}^B$ (both globally regular)
+2. A coupling term $\Phi_{\text{int}}(x_A, x_B)$ with subcritical scaling:
+   $$\alpha(\Phi_{\text{int}}) < \min(\alpha_c^A, \alpha_c^B)$$
+3. The product system $\mathcal{H}_{A \times B} = (\mathcal{X}_A \times \mathcal{X}_B, \Phi_A + \Phi_B + \Phi_{\text{int}}, \ldots)$
+
+**Statement:** If $\mathcal{H}_A$ and $\mathcal{H}_B$ are Regular and their interaction energy is Subcritical (ScaleCheck), then the product system $\mathcal{H}_{A \times B}$ is Globally Regular.
+
+**Certificate Logic:**
+$$K_{\text{Lock}}^A \wedge K_{\text{Lock}}^B \wedge K_{\mathrm{SC}_\lambda}^{\text{int}} \Rightarrow K_{\text{Lock}}^{A \times B}$$
+
+**Proof sketch:** The product of regular systems is regular if the interaction is perturbative. The Künneth formula for homology shows $H_*(A \times B) \cong H_*(A) \otimes H_*(B)$, so topological complexity adds. The scaling condition ensures the interaction term doesn't create new singular directions. This is the principle behind modular verification: verify components separately, verify interfaces, conclude system safety.
+
+**Use:** Allows building complex Hypostructures (e.g., coupled Neural Net + Physics Engine) by verifying components and coupling separately.
+
+**Literature:** {cite}`Kunneth23`; {cite}`EilenbergSteenrod52`; {cite}`Spanier66`
+:::
+
+---
+
+### 35.5 Subsystem Inheritance
+
+:::{prf:metatheorem} Subsystem Inheritance
+:label: mt-subsystem
+:class: metatheorem
+
+**Source:** Invariant Manifold Theory.
+
+**Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
+1. Global Regularity: $K_{\text{Lock}}^{\mathrm{blk}}$
+2. An invariant subsystem $\mathcal{S} \subset \mathcal{H}$: if $x(0) \in \mathcal{S}$, then $x(t) \in \mathcal{S}$ for all $t$
+3. The subsystem inherits the Hypostructure: $\mathcal{H}|_{\mathcal{S}} = (\mathcal{S}, \Phi|_{\mathcal{S}}, \mathfrak{D}|_{\mathcal{S}}, G|_{\mathcal{S}})$
+
+**Statement:** Regularity is hereditary. If the parent system $\mathcal{H}$ admits no singularities (Lock Blocked), then no invariant subsystem $\mathcal{S} \subset \mathcal{H}$ can develop a singularity.
+
+**Certificate Logic:**
+$$K_{\text{Lock}}^{\mathrm{blk}}(\mathcal{H}) \wedge (\mathcal{S} \subset \mathcal{H} \text{ invariant}) \Rightarrow K_{\text{Lock}}^{\mathrm{blk}}(\mathcal{S})$$
+
+**Proof sketch:** If $\mathcal{S}$ developed a singularity, it would correspond to a morphism $\phi: \mathcal{B}_{\text{univ}} \to \mathcal{S} \hookrightarrow \mathcal{H}$. But this contradicts $\mathrm{Hom}(\mathcal{B}_{\text{univ}}, \mathcal{H}) = \emptyset$. The Fenichel invariant manifold theorem (1971) shows that normally hyperbolic invariant manifolds persist under perturbation; combined with Hirsch-Pugh-Shub (1977), the restriction maintains all regularity properties.
+
+**Use:** Proves safety for restricted dynamics (e.g., "If the general 3D fluid is safe, the axisymmetric flow is also safe").
+
+**Literature:** {cite}`Fenichel71`; {cite}`HirschPughShub77`; {cite}`Wiggins94`
+:::
+
+---
+
 # Appendix: Diagram Excerpts by Section
 
 ## Conservation Layer (Nodes 1--3)
@@ -4353,14 +5698,21 @@ graph TD
 
 # References
 
-The mathematical foundations draw from:
+The mathematical foundations of the Structural Sieve and Upgrade Metatheorems draw from the following literature. All citations in this document reference entries in the accompanying BibTeX file (`references.bib`).
 
-- **Hypostructure axiom system**: See main hypostructure.md document
-- **Concentration-compactness**: Lions, Struwe, Kenig-Merle
-- **Geometric flows and surgery**: Hamilton, Perelman, Huisken
-- **O-minimal theory**: van den Dries, Wilkie
-- **Category theory**: Mac Lane, Lurie
-- **Łojasiewicz-Simon theory**: Simon, Feehan-Maridakis
+:::{note}
+When building with Jupyter Book or Sphinx with `sphinxcontrib-bibtex`, add the following to your `_config.yml`:
+```yaml
+bibtex_bibfiles:
+  - hypo_permits/references.bib
+```
+:::
+
+```{bibliography}
+:style: unsrt
+```
+
+For the complete Hypostructure axiom system and proof framework, see the main *Hypostructure* monograph
 
 ---
 
