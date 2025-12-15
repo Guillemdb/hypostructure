@@ -16,6 +16,7 @@ header-includes: |
   \usepackage{amsmath, amssymb, mathtools}
   \usepackage{mathrsfs}
   \usepackage{xcolor}
+  \usepackage{mdframed}
   \usepackage{hyperref}
   \usepackage{graphicx}
   \usepackage{svg}
@@ -64,11 +65,19 @@ By decoupling the "software" of the axioms from the "hardware" of the specific s
 
 ## The Differentiable Logic: Alignment as Geometry {-}
 
-The central thesis of the Hypostructure framework is that mathematical rigor need not be rigid. By translating hard logical proofs into networks of **soft local checks**—inequalities regarding capacity, scaling, and dissipation—we render mathematical theory **differentiable**.
+The central thesis of the Hypostructure framework is that mathematical rigor need not be rigid. We do not treat global claims as monolithic "True/False" statements; we **compile** them into a finite verification program—the **Sieve**—whose nodes are local predicates and whose edges carry typed certificates.
 
-This transformation allows us to bridge the gap between Abstract Analysis and Deep Learning. We move from the binary logic of "True/False" to the continuous geometry of specific energy landscapes. We are not just verifying proofs; we are performing gradient descent on the logical structure of the agent's reality.
+This is the sense in which the logic becomes **differentiable**: every check admits both a discrete form (a verifiable certificate / Boolean permit) and a continuous form (a real-valued defect functional that can be minimized). Training pushes defect risk toward zero; verification reads off stable permit-denial decisions.
 
-This approach stems from a specific intuition regarding the fragility of modern AI: **AI Alignment and the control of Mathematical Singularities are isomorphic problems.**
+This approach stems from a specific intuition regarding the fragility of modern AI: **AI alignment and the control of mathematical singularities are isomorphic problems.**
+
+### The Canonical Sieve Topology
+
+Part I makes this operational. A hypostructure is defined as a Gate Evaluator Interface \cref{def:hypostructure} acting on a state space $X$ together with a certificate context $\Gamma$. A run of the Sieve is a proof trace \cref{def:proof-trace} through a canonical DAG (not merely a narrative decision tree), and global regularity is witnessed by a terminal lock certificate \cref{def:regularity-certificate}.
+
+The "topology" is the monotone, closure-based logic of $\Gamma$: certificates accumulate and then close under promotion rules (see \cref{ch:operational-semantics}). Gate outcomes produce **gate permits** $K_i^\pm$ \cref{def:gate-permits}; barrier outcomes produce **barrier permits** $K^{\text{blk}}/K^{\text{br}}$ \cref{def:barrier-permits}. The permit system $\Pi_A$ is the Boolean shadow of the same structure: it records which singular profiles are admissible once all relevant certificates are accounted for.
+
+With this in place, "alignment as geometry" means: we can optimize continuous defect functionals to move within the space of admissible states, while the sieve topology converts those continuous improvements into discrete, checkable judgments.
 
 The pathologies that plague modern Deep Learning—mode collapse, reward hacking, exploding gradients—are not unique to AI. They are the high-dimensional, discrete equivalents of well-known breakdown modes in Partial Differential Equations. In physics, we prevent these breakdowns by enforcing conservation laws and symmetry constraints. In physics, we do not prove that a stone will not fly upwards; we postulate the conservation of energy, which renders such a trajectory structurally impossible. The Hypostructure framework applies this legislative approach to AI. In AI, we have historically tried to prevent them by adding more data or tweaking hyperparameters.
 
@@ -153,7 +162,7 @@ By forcing these axioms to hold via optimization, we create a new kind of interp
 When a standard Deep Learning model fails, the user often sees nothing more than a generic spike in the loss curve or a sudden collapse into noise. The Hypostructure framework offers a semantic error log. It provides a diagnostic procedure that maps any failure to a specific structural defect, much like a doctor diagnosing an illness based on a constellation of symptoms.
 
 
-The flowchart in **Figure 1** is the heart of this process. It represents the **Structural Sieve**—a decision tree that filters dynamical systems.
+The flowchart in **Figure 1** is the heart of this process. It represents the canonical **Structural Sieve DAG**—a certificate machine that maps $(x,\Gamma)$ to a classified outcome and an auditable proof trace (Part I, \cref{ch:operational-semantics}).
 
 
 ###  The Rosetta Stone of Structure
@@ -168,7 +177,7 @@ The flowchart in **Figure 1** is the heart of this process. It represents the **
 The diagram in **Figure 1** operates on two levels: the **Blue Checks** (the laws the system *should* obey) and the **Orange Barriers** (the mechanisms that stop it when it breaks those laws).
 
 #### The Blue Checks (The Axioms)
-*These nodes represent the physiological health checks of the system. In code, these are often implemented as regularization terms, architectural constraints, or hyperparameter choices.*
+*These nodes are \textbf{gates}: evaluators that test local predicates and emit gate permits $K_i^\pm$ into the context $\Gamma$ (see \cref{def:gate-permits}). In code, they are often implemented as regularization terms, architectural constraints, or hyperparameter choices.*
 
 | Diagnostic Question (From Diagram) | Axiom               | Math / Analysis Concept  | Physics Concept        | AI / Alignment Interpretation                                                           |
 |:-----------------------------------|:--------------------|:-------------------------|:-----------------------|:----------------------------------------------------------------------------------------|
@@ -184,7 +193,7 @@ The diagram in **Figure 1** operates on two levels: the **Blue Checks** (the law
 | **Is it Aligned?**                 | **GC** (Gauge)      | Vector Alignment         | Gauge Invariance       | **Alignment.** Is the proxy reward actually aligned with the true objective?            |
 
 #### The Orange Barriers (The Enforcers)
-*These nodes are the "immune system" of the framework. When an Axiom fails, these theorems trigger to contain the damage. They act as the secondary layer of defense against singularities.*
+*These nodes are the "immune system" of the framework. When an axiom check is unavailable or fails, a barrier fires to contain the damage, emitting a barrier permit $K^{\text{blk}}$ or $K^{\text{br}}$ (see \cref{def:barrier-permits}).*
 
 | Barrier Question (From Diagram)     | Barrier Name             | Ref. Theorem                               | Math / Analysis Realization | Physics Realization    | AI / Alignment Realization                                                           |
 |:------------------------------------|:-------------------------|:-------------------------------------------|:----------------------------|:-----------------------|:-------------------------------------------------------------------------------------|
@@ -204,7 +213,7 @@ The diagram in **Figure 1** operates on two levels: the **Blue Checks** (the law
 | **Is Hom(Bad, S) Empty?**           | **The Categorical Lock** | \cref{mt:categorical-obstruction-schema}   | Cohomological Obstruction   | Anomaly Cancellation   | **Structural Impossibility.** A proof that a failure mode *cannot* exist.            |
 
 #### Reading the Sieve: A Logic of Compensation
-How do we use this diagram? We do not start by trying to prove that the system is globally perfect. That is the trap of classical analysis. Instead, we simply trace the flow of energy and information through the blue blocks.
+How do we use this diagram? We do not start by trying to prove that the system is globally perfect. That is the trap of classical analysis. Instead, we simply trace the flow of energy and information through the blue blocks. Operationally, each blue block is a gate evaluator in the Sieve DAG: it consumes $(x,\Gamma)$ and emits a certificate that expands the context.
 
 Think of the **blue blocks** not as rigid laws, but as **checkpoints**. At each block, we ask a specific question about the system's local behavior: *Is energy concentrating? Is the geometry getting too sharp? Is the system trying to twist its topology?*
 
@@ -243,7 +252,7 @@ This document is designed to serve as the **reference context** for a Large Lang
 
 While the definitions and theorems are rigorous, the most effective way to engage with this material is to use it as a "system prompt" or context window for your own inquiries.
 
-*   **For the Human Reader:** Treat this as an Atlas. Read Part I to understand the philosophy and Part IV (The Sieve) to understand the diagnostic tools. Dip into the specific domain chapters (Fluid Dynamics, Game Theory, etc.) that match your expertise to see how the isomorphism holds.
+*   **For the Human Reader:** Treat this as an Atlas. Start with Part I for the operational foundations (Gate Evaluator Interface, certificate logic, the canonical Sieve machine, and the axiom system). Then read Part II for the diagnostic engine (failure taxonomy, resolution machinery, and the barrier atlas). Dip into the domain chapters in Parts III–IV to see concrete instantiations.
 *   **For the AI-Assisted Researcher:** Feed specific chapters into an LLM and ask it to reason *within the logic of the framework*. You will find that when an LLM is constrained by the Hypostructure axioms, it can offer novel insights into existing problems by drawing structural analogies from distant fields that share the same "Failure Mode" fingerprint.
 
 Do not try to memorize the theorems. Use the framework to navigate the complexity of your own data.
@@ -266,7 +275,7 @@ This work presents a structural framework for analyzing stability and failure mo
 
 **Document Structure.** The monograph is organized in five parts across twenty chapters:
 
-- **Part I** (Chapters 1–3) defines the hypostructure formalism, the categorical framework, and the axiom system.
+- **Part I** (Chapters 1–4) defines the hypostructure formalism (Gate Evaluator Interface), the categorical substrate, the operational semantics of the Sieve machine, and the axiom system.
 - **Part II** (Chapters 4–6) develops the diagnostic engine: the failure mode taxonomy, the resolution machinery, and the barrier atlas containing 83 structural barriers from mathematics and physics.
 - **Part III** (Chapters 7–11) establishes structural analogies across mathematical domains: PDEs, algebraic geometry, topology, discrete mathematics, and complexity theory.
 - **Part IV** (Chapters 12–15) instantiates the framework in physical contexts: quantum mechanics, gravity, thermodynamics, and logic.
@@ -323,6 +332,15 @@ A trajectory $u: [0, T) \to X$ is \textbf{self-consistent} if it satisfies:
 \end{definition}
 
 \begin{metatheorem}[The Fixed-Point Principle]\label{mt:the-fixed-point-principle}
+\textbf{[Sieve Signature]}
+\begin{itemize}
+\item \textbf{Weakest Precondition}: All axiom certificates: $\bigwedge_{i} \{K_i^+ \lor K_i^{\text{blk}}\}$
+\item \textbf{Permits}: $\mathcal{P}_{\text{full}}$
+\item \textbf{Consumes}: Complete context $\Gamma$ with all gate and barrier certificates
+\item \textbf{Produces}: $K_{\text{FP}}$ (Axiom-consistency $\Leftrightarrow$ Global existence $\Leftrightarrow$ Fixed-point structure)
+\item \textbf{Invalidated By}: Any $K_i^{\text{br}}$ (barrier breach activates failure mode)
+\end{itemize}
+
 Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
 \begin{enumerate}
 \item The system $\mathcal{S}$ satisfies the hypostructure axioms (\cref{ch:axiom-system}) on all finite-energy trajectories.
@@ -524,31 +542,94 @@ From the hypostructure axioms, we derive:
 **Core meta-theorems (\cref{ch:resolution}):**
 
 \begin{metatheorem}[Structural Resolution]\label{mt:structural-resolution}
-Every trajectory resolves into one of three outcomes: global existence (dispersive), global regularity (permit denial), or genuine singularity. This is the dynamical analogue of Hironaka's Resolution of Singularities Theorem in algebraic geometry [@Hironaka64], blowing up the singular locus to a smooth divisor.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $\{K_3^+ \lor K_3^-\}$
+\item \textbf{Consumes}: Context $\Gamma$ with Scaling, Dissipation, Compactness certificates
+\item \textbf{Produces}: $K_{\text{Resolution}} \in \{K_{\text{dispersive}}, K_{\text{regular}}, K_{\text{singular}}\}$
+\item \textbf{Invalidated By}: $K_{\text{TypeII}}^{\text{br}}$ or $K_{\text{Sat}}^{\text{br}}$
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains valid Scaling and Dissipation certificates, every trajectory resolves into one of three outcomes: global existence (dispersive, via $K_3^-$), global regularity (permit denial), or genuine singularity. This is the dynamical analogue of Hironaka's Resolution of Singularities Theorem in algebraic geometry [@Hironaka64].
 \end{metatheorem}
 
 \begin{metatheorem}[Type II Exclusion]\label{mt:type-ii-exclusion}
-Under SC + D, supercritical self-similar blow-up is impossible at finite cost—derived from scaling arithmetic alone.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K_4^+$ ($\alpha > \beta$, strict subcriticality) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with ScaleCheck and EnergyCheck certificates
+\item \textbf{Produces}: $K_{\text{TypeII-Excluded}}$ (Mode S.E impossible)
+\item \textbf{Invalidated By}: $K_4^-$ (critical/supercritical) or $K_{\text{Sat}}^{\text{br}}$
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains a strict subcriticality certificate $K_4^+$ and valid dissipation (natural or saturated), then supercritical self-similar blow-up (Mode S.E) is impossible at finite cost—derived from scaling arithmetic alone.
 \end{metatheorem}
 
 \begin{metatheorem}[Capacity Barrier]\label{mt:capacity-barrier}
-Trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with GeomCheck certificate
+\item \textbf{Produces}: $K_{\text{Cap-Bound}}$ (concentration on thin sets excluded)
+\item \textbf{Invalidated By}: $K_{\text{Cap}}^{\text{br}}$ (Mode C.D activates)
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains a valid Capacity certificate (natural or blocked), trajectories cannot concentrate on arbitrarily thin or high-codimension sets.
 \end{metatheorem}
 
 \begin{metatheorem}[Topological Suppression]\label{mt:topological-suppression}
-Nontrivial topological sectors are exponentially rare under the invariant measure.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck certificate
+\item \textbf{Produces}: $K_{\text{Topo-Suppressed}}$ (nontrivial sectors exponentially rare)
+\item \textbf{Invalidated By}: $K_{\text{Action}}^{\text{br}}$ (Mode T.E activates)
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains a valid Topology certificate, nontrivial topological sectors are exponentially rare under the invariant measure.
 \end{metatheorem}
 
 \begin{metatheorem}[Structured vs Failure Dichotomy]\label{mt:structured-vs-failure-dichotomy}
-Finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ AND $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with C, D, SC, LS certificates
+\item \textbf{Produces}: $K_{\text{Dichotomy}} \in \{K_{\text{structured}}, K_{\text{failure}}\}$
+\item \textbf{Invalidated By}: Any barrier breach without surgical repair
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains valid certificates for Compactness, Dissipation, Scaling, and Stiffness (natural, blocked, or surgical), then finite-energy trajectories are eventually confined to a structured region where classical regularity holds.
 \end{metatheorem}
 
 \begin{metatheorem}[Canonical Lyapunov Functional]\label{mt:canonical-lyapunov-functional}
-There exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND structural data consistency
+\item \textbf{Consumes}: Context $\Gamma$ with Dissipation certificate
+\item \textbf{Produces}: $K_{\Phi}$ (canonical Lyapunov functional certificate)
+\item \textbf{Invalidated By}: $K_{\text{Sat}}^{\text{br}}$ (energy unbounded without saturation)
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains valid dissipation data, there exists a unique (up to monotone reparametrization) Lyapunov functional determined by the structural data.
 \end{metatheorem}
 
 \begin{metatheorem}[Functional Reconstruction]\label{mt:functional-reconstruction}
-Under gradient consistency, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K_{12}^+$ (gradient consistency) AND $\{K_{11}^+ \lor K_{\text{Epi}}^{\text{blk}}\}$ (finite dictionary)
+\item \textbf{Consumes}: Context $\Gamma$ with GradientCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Reconstruct}}$ (explicit Lyapunov functional)
+\item \textbf{Invalidated By}: $K_{12}^-$ (gradient inconsistency) or $K_{\text{Epi}}^{\text{br}}$ (semantic horizon)
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains gradient consistency and finite dictionary certificates, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
 \end{metatheorem}
 
 **Resolution mechanisms (\cref{ch:regularity-surgery}).** When permit denial does not occur and singularities are structurally permitted, Part VI provides explicit surgical techniques to restore well-posedness:
@@ -1593,34 +1674,58 @@ CT-24 & Conley-Hypostructure Existence & VI & Valid Hypostructure \\
 \textit{Nine metatheorems establishing the meta-theory of learning axioms (see Solver Atlas SV-01 to SV-09):}
 
 \begin{metatheorem}[SV-01: Hypostructure-from-Raw-Data]\label{mt:sv-01-hypostructure-from-raw-data}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (Gradient well-defined). Produces: $K_{\text{SV01}}$ (Structural Recovery). Invalidated By: $K_7^-$ (gradient vanishes).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Gradient descent on joint axiom risk converges to axiom-consistent hypostructures. \textit{Algorithmic Class:} End-to-End Meta-Learning. \textit{Convergence:} Structural Recovery.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-02: Meta-Error Localization]\label{mt:sv-02-meta-error-localization}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_{11}^+\}$ (Dictionary). Produces: $K_{\text{SV02}}$ (Signature Injectivity). Invalidated By: $K_{11}^-$ (indistinguishable blocks).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Block-restricted reoptimization identifies which axiom blocks are misspecified. \textit{Algorithmic Class:} Automated Debugging. \textit{Convergence:} Signature Injectivity.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-03: Meta-Generalization]\label{mt:sv-03-meta-generalization}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Compactness). Produces: $K_{\text{SV03}}$ (Uniform Convergence). Invalidated By: $K_3^-$ (distribution shift).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Training on system distributions generalizes with $O(\sqrt{\varepsilon + 1/\sqrt{N}})$ bounds. \textit{Algorithmic Class:} Structural Risk Minimization. \textit{Convergence:} Uniform Convergence.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-04: Axiom-Expressivity]\label{mt:sv-04-axiom-expressivity}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_{11}^+\}$ (Dictionary). Produces: $K_{\text{SV04}}$ (Universal Approximation). Invalidated By: $K_{11}^-$ (insufficient expressivity).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Parametric families can approximate any admissible hypostructure with arbitrarily small defect. \textit{Algorithmic Class:} Approximation Theory. \textit{Convergence:} Universal Approximation.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-05: Optimal Experiment Design]\label{mt:sv-05-optimal-experiment-design}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_5^+\}$ (Parameters stable). Produces: $K_{\text{SV05}}$ (Parameter Identification). Invalidated By: $K_5^-$ (parameters unstable).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Sample complexity for hypostructure identification is $O(d\sigma^2/\Delta^2)$. \textit{Algorithmic Class:} Active Learning. \textit{Convergence:} Parameter Identification.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-06: Robustness of Failure-Mode Predictions]\label{mt:sv-06-robustness-of-failure-mode-predictions}
+\textbf{[Sieve Signature]} Weakest Precondition: All barrier certificates. Produces: $K_{\text{SV06}}$ (Discrete Stability). Invalidated By: Any $K_{\text{Barrier}}^{\text{br}}$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Discrete permit-denial judgments are stable under small axiom risk. \textit{Algorithmic Class:} Verification / Safety. \textit{Convergence:} Discrete Stability.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-07: Curriculum Stability]\label{mt:sv-07-curriculum-stability}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS). Produces: $K_{\text{SV07}}$ (Path Tracking). Invalidated By: $K_7^-$ (basin jumping).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Warm-start training tracks the structural path without jumping to spurious ontologies. \textit{Algorithmic Class:} Curriculum Learning. \textit{Convergence:} Path Tracking.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-08: Equivariance]\label{mt:sv-08-equivariance}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_4^+\}$ (Scaling/Symmetry). Produces: $K_{\text{SV08}}$ (Symmetry Preservation). Invalidated By: $K_4^-$ (symmetry broken).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Learned hypostructures inherit all symmetries of the system distribution. \textit{Algorithmic Class:} Geometric Deep Learning. \textit{Convergence:} Symmetry Preservation.
 \end{metatheorem}
 
@@ -1635,6 +1740,9 @@ Defect signatures determine hypostructure components from axioms alone.
 \end{metatheorem}
 
 \begin{metatheorem}[SV-09: Meta-Identifiability]\label{mt:sv-09-meta-identifiability}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_5^+\}$ (Parameters stable) AND $\{K_7^+\}$ (LS). Produces: $K_{\text{SV09}}$ (Local Injectivity). Invalidated By: $K_5^-$ (degenerate parametrization).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Parameters are learnable under persistent excitation and nondegenerate parametrization. \textit{Algorithmic Class:} Parameter Estimation. \textit{Convergence:} Local Injectivity.
 \end{metatheorem}
 
@@ -1643,62 +1751,107 @@ Parameters are learnable under persistent excitation and nondegenerate parametri
 \textit{Fourteen framework-level tools applicable across all instantiations:}
 
 \begin{metatheorem}[Tower Globalization]\label{mt:tower-globalization}
+\textbf{[Sieve Signature]} Weakest Precondition: Local certificates $\{K_i^+\}_{\text{local}}$. Produces: $K_{\text{Global}}$ (global asymptotic structure). Invalidated By: Local-global obstruction.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Local invariants determine global asymptotic structure
 \end{metatheorem}
 
 \begin{metatheorem}[Obstruction Collapse]\label{mt:obstruction-collapse}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_4^+\}$ (subcritical). Produces: $K_{\text{Collapse}}$ (finite-dim obstruction). Invalidated By: $K_4^-$ (supercritical).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Obstruction sectors are finite-dimensional under subcritical accumulation
 \end{metatheorem}
 
 \begin{metatheorem}[Stiff Pairing]\label{mt:stiff-pairing}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_7^+\}$ (LS). Produces: $K_{\text{Stiff}}$ (null directions excluded). Invalidated By: $K_7^-$ (degeneracy).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Non-degenerate pairings exclude null directions
 \end{metatheorem}
 
 \begin{metatheorem}[Local $\to$ Global Height]\label{mt:local-global-height}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_1^+\}$ (local Northcott) AND coercivity. Produces: $K_{\text{Height}}$ (global height). Invalidated By: Non-coercive.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Local Northcott + coercivity yields global height with finiteness
 \end{metatheorem}
 
 \begin{metatheorem}[Local $\to$ Subcritical]\label{mt:local-subcritical}
+\textbf{[Sieve Signature]} Weakest Precondition: Local growth bounds. Produces: $K_4^+$ (subcritical). Invalidated By: Superlinear growth.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Local growth bounds automatically imply subcritical dissipation
 \end{metatheorem}
 
 \begin{metatheorem}[Local Duality $\to$ Stiffness]\label{mt:local-duality-stiffness}
+\textbf{[Sieve Signature]} Weakest Precondition: Local perfect duality + exactness. Produces: $K_7^+$ (global LS). Invalidated By: Local obstruction.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Local perfect duality + exactness yields global non-degeneracy
 \end{metatheorem}
 
 \begin{metatheorem}[Conjecture-Axiom Equivalence]\label{mt:conjecture-axiom-equivalence}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_{11}^+\}$ (Rep). Produces: $K_{\text{Equiv}}$ (conjecture $\Leftrightarrow$ axiom). Invalidated By: $K_{11}^-$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Conjecture($Z$) $\Leftrightarrow$ Axiom Rep($Z$) for admissible objects
 \end{metatheorem}
 
 \begin{metatheorem}[Meta-Learning]\label{mt:meta-learning}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_7^+\}$ (gradient well-defined). Produces: $K_{\text{Learn}}$ (structure learnable). Invalidated By: $K_7^-$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Admissible structure can be learned via axiom risk minimization
 \end{metatheorem}
 
 \begin{metatheorem}[Categorical Structure]\label{mt:categorical-structure}
+\textbf{[Sieve Signature]} Weakest Precondition: Well-defined morphisms. Produces: $K_{\text{Cat}}$ (category $\mathbf{Hypo}_T$). Invalidated By: Ill-defined composition.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Category $\mathbf{Hypo}_T$ of T-hypostructures and morphisms
 \end{metatheorem}
 
 \begin{metatheorem}[Universal Bad Pattern]\label{mt:universal-bad-pattern}
+\textbf{[Sieve Signature]} Weakest Precondition: Rep-breaking subcategory exists. Produces: $K_{\text{Bad}}$ (initial object $\mathbb{H}_{\mathrm{bad}}^{(T)}$). Invalidated By: Empty subcategory.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Initial object $\mathbb{H}_{\mathrm{bad}}^{(T)}$ of Rep-breaking subcategory
 \end{metatheorem}
 
 \begin{metatheorem}[Categorical Obstruction Schema]\label{mt:categorical-obstruction-schema}
+\textbf{[Sieve Signature]} Weakest Precondition: $K_{17}^{\text{blk}}$ (Hom-emptiness). Produces: $K_{\text{Valid}}$ (R-validity). Invalidated By: $K_{17}^{\text{morph}}$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Empty Hom-set from universal bad pattern $\Rightarrow$ R-validity
 \end{metatheorem}
 
 \begin{metatheorem}[Parametric Realization]\label{mt:parametric-realization}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_{11}^+\}$ (finite dictionary). Produces: $K_{\text{Param}}$ ($\Theta$-equivalence). Invalidated By: $K_{11}^-$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 $\Theta$-search equivalent to hypostructure search
 \end{metatheorem}
 
 \begin{metatheorem}[Adversarial Training]\label{mt:adversarial-training}
+\textbf{[Sieve Signature]} Weakest Precondition: $\{K_7^+\}$ (saddle-point well-defined). Produces: $K_{\text{Adv}}$ (Rep-break discovery or certification). Invalidated By: Non-convergent game.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Min-max game discovers Rep-breaking patterns or certifies absence
 \end{metatheorem}
 
 \begin{metatheorem}[Principle of Structural Exclusion]\label{mt:principle-of-structural-exclusion}
+\textbf{[Sieve Signature]} Weakest Precondition: All barrier certificates. Produces: $K_{\text{Exclude}}$ (unified exclusion). Invalidated By: Any $K^{\text{br}}$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Capstone unifying all metatheorems into single exclusion principle
 \end{metatheorem}
 
 \begin{metatheorem}[Singularity Completeness]\label{mt:singularity-completeness}
+\textbf{[Sieve Signature]} Weakest Precondition: Partition-of-unity gluing. Produces: $K_{\text{Complete}}$ ($\mathbf{Blowup}$ universal). Invalidated By: Gluing failure.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Partition-of-unity gluing guarantees $\mathbf{Blowup}$ is universal for $\mathcal{T}_{\mathrm{sing}}$
 \end{metatheorem}
 
@@ -2212,11 +2365,11 @@ The term $w$ is called a **regularity witness**—it is constructive evidence th
 
 \begin{definition}[Permit System as $\Sigma$-Type]\label{def:permit-system-as-type}
 The \textbf{algebraic permit system} is the dependent sum:
-$$\mathfrak{P}(V) := \Sigma_{A \in \mathcal{A}} \Pi_A(V) = \Pi_{\text{SC}}(V) \times \Pi_{\text{Cap}}(V) \times \Pi_{\text{TB}}(V) \times \Pi_{\text{LS}}(V) \times \Pi_{\text{D}}(V) \times \Pi_{\text{C}}(V) \times \Pi_{\text{R}}(V)$$
-where $\mathcal{A} = \{\text{SC}, \text{Cap}, \text{TB}, \text{LS}, \text{D}, \text{C}, \text{R}\}$ is the set of axiom labels.
+$$\mathfrak{P}(V) := \Sigma_{A \in \mathcal{A}} \Pi_A(V) = \Pi_{\text{SC}}(V) \times \Pi_{\text{Cap}}(V) \times \Pi_{\text{TB}}(V) \times \Pi_{\text{LS}}(V) \times \Pi_{\text{GC}}(V) \times \Pi_{\text{C}}(V) \times \Pi_{\text{D}}(V) \times \Pi_{\text{R}}(V) \times \Pi_{\text{Rec}}(V)$$
+where $\mathcal{A} = \{\text{SC}, \text{Cap}, \text{TB}, \text{LS}, \text{GC}, \text{C}, \text{D}, \text{R}, \text{Rec}\}$ is the set of axiom labels. The scattering permit $\Pi_{\text{Scat}}$ (derived from Axiom Scat) is included when the D/D.C dichotomy must be made explicit.
 \end{definition}
 
-A **global regularity witness** for $V$ is a term $\mathbf{w} : \mathfrak{P}(V)$—equivalently, a tuple of witnesses $(w_{\text{SC}}, w_{\text{Cap}}, w_{\text{TB}}, w_{\text{LS}}, w_{\text{D}}, w_{\text{C}}, w_{\text{R}})$.
+A **global regularity witness** for $V$ is a term $\mathbf{w} : \mathfrak{P}(V)$—equivalently, a tuple of witnesses $(w_{\text{SC}}, w_{\text{Cap}}, w_{\text{TB}}, w_{\text{LS}}, w_{\text{GC}}, w_{\text{C}}, w_{\text{D}}, w_{\text{R}}, w_{\text{Rec}})$ (with $w_{\text{Scat}}$ when the scattering dichotomy is active).
 
 \begin{metatheorem}[Type-Theoretic Permit System]\label{mt:type-theoretic-permit-system}
 Let $V \in \mathcal{M}_{\text{prof}}$ be a canonical profile. Then:
@@ -2282,7 +2435,19 @@ We define each permit type explicitly.
 
     \textit{Categorical Obstruction:} If $V$ is unstable, then the stable manifold $W^s(V)$ has positive codimension. Generic trajectories miss $W^s(V)$, hence never approach $V$.
 
-    \item[\textbf{Step 5}] \textbf{(Gate Logic and Contradiction).}
+    \item[\textbf{Step 5}] \textbf{(Remaining structural permits).}
+
+    The remaining permits certify that the ambient flow geometry is admissible:
+    \begin{itemize}
+        \item $\Pi_{\text{GC}}$: Gradient consistency—dissipation metric matches the state metric (natural gradient).
+        \item $\Pi_{\text{C}}$: Compactness—energy stays in a precompact set.
+        \item $\Pi_{\text{D}}$: Dissipation—energy decreases monotonically.
+        \item $\Pi_{\text{R}}$: Representation/Dictionary—dual description exists and is faithful.
+        \item $\Pi_{\text{Rec}}$: Recovery—time in the bad region is finite (no Zeno accumulation).
+        \item $\Pi_{\text{Scat}}$: Scattering dichotomy—finite interaction cost forces dispersion (Mode D.D).
+    \end{itemize}
+
+    \item[\textbf{Step 6}] \textbf{(Gate Logic and Contradiction).}
     Suppose $V \in \mathcal{M}_{\text{prof}}$ and some permit $\Pi_A(V) = \text{DENIED}$.
 
     \textit{Contradiction structure:}
@@ -2294,13 +2459,19 @@ We define each permit type explicitly.
 
     \textit{Resolution:} The only false premise is ``Blow-up at $T_* < \infty$.'' Therefore $T_* = \infty$: global regularity.
 
-    \item[\textbf{Step 6}] \textbf{(Decidability).}
+    \item[\textbf{Step 7}] \textbf{(Decidability).}
     Each permit is computed from finite algebraic data:
     \begin{itemize}
         \item $\Pi_{\text{SC}}$: Input scaling exponents $\alpha, \beta$; computation compares real numbers
         \item $\Pi_{\text{Cap}}$: Input dimension $\dim(\Sigma)$ and critical $d_c$; computation compares integers
         \item $\Pi_{\text{TB}}$: Input homotopy classes $[\sigma_0], [V]$; computation finds $\pi_k$ and compares
         \item $\Pi_{\text{LS}}$: Input Morse index of $V$; computation counts negative eigenvalues
+        \item $\Pi_{\text{GC}}$: Input metric compatibility tensor; computation checks Levi-Civita/gradient alignment
+        \item $\Pi_{\text{C}}$: Input energy bound; computation checks precompact level sets
+        \item $\Pi_{\text{D}}$: Input dissipation rate; computation checks monotone decay
+        \item $\Pi_{\text{R}}$: Input dictionary map $D$; computation checks full-faithfulness
+        \item $\Pi_{\text{Rec}}$: Input recovery functional $\mathcal{R}$; computation checks finite interaction count
+        \item $\Pi_{\text{Scat}}$: Input Morawetz/interaction functional $\mathcal{M}$; computation checks finiteness
     \end{itemize}
     Each computation terminates in finite time with Boolean output.
 \end{enumerate}
@@ -2523,7 +2694,7 @@ For any profile $V \in \mathcal{M}_{\text{prof}}$, exactly one of the following 
 **(B) Some permit denied:** $\Pi_A(V) = \text{DENIED}$ for some $A$, and $V$ cannot appear as a blow-up limit.
 
 \begin{proof}
-The permit system $\mathfrak{P}$ is finite (7 permits). Each permit is a Boolean function. Either all return GRANTED, or at least one returns DENIED. These are mutually exclusive and exhaustive.
+The permit system $\mathfrak{P}$ is finite (9 structural permits; +1 scattering when required). Each permit is a Boolean function. Either all return GRANTED, or at least one returns DENIED. These are mutually exclusive and exhaustive.
 \end{proof}
 
 \begin{lemma}[Contradiction from Denial]\label{lem:contradiction-from-denial}
@@ -4471,6 +4642,15 @@ The trajectory \textit{contains} the universal bad pattern—the system is struc
 ### Profile Classification Trichotomy
 
 \begin{metatheorem}[Profile Classification Trichotomy]\label{mt:profile-trichotomy}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K_3^+$ (CompactCheck YES)
+\item \textbf{Consumes}: Context $\Gamma$ with CompactCheck certificate
+\item \textbf{Produces}: Exactly one of $\{K_{\text{lib}}, K_{\text{strat}}, K_{\text{hor}}\}$
+\item \textbf{Routes}: $K_{\text{lib}}/K_{\text{strat}} \to$ Surgery; $K_{\text{hor}} \to$ T.C/D.C modes
+\end{itemize}
+
 At the Profile node (after CompactCheck YES), the framework produces exactly ONE of three certificates:
 
 \textbf{Case 1: Finite library membership}
@@ -4489,6 +4669,15 @@ Profile classification is not feasible under current Rep/definability regime. Ro
 ### Surgery Admissibility Trichotomy
 
 \begin{metatheorem}[Surgery Admissibility Trichotomy]\label{mt:surgery-trichotomy}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K^{\text{br}}$ (barrier breach) AND $(K_{\text{lib}} \lor K_{\text{strat}})$
+\item \textbf{Consumes}: Context $\Gamma$ with breach and profile certificates
+\item \textbf{Produces}: Exactly one of $\{K_{\text{adm}}, K_{\text{adm}}^\sim, K_{\neg\text{adm}}\}$
+\item \textbf{Routes}: $K_{\text{adm}}/K_{\text{adm}}^\sim \to$ Surgery; $K_{\neg\text{adm}} \to$ Failure mode
+\end{itemize}
+
 The framework produces exactly ONE of three certificates before any surgery:
 
 \textbf{Case 1: Admissible} ($K_{\text{adm}}$)
@@ -4507,6 +4696,15 @@ Reasons: Capacity too large, codimension too small, or horizon (profile not clas
 ### Structural Surgery Principle
 
 \begin{metatheorem}[Structural Surgery Principle (Certificate Form)]\label{mt:structural-surgery}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K^{\text{br}}$ AND $(K_{\text{adm}} \lor K_{\text{adm}}^\sim)$ AND $D_S$
+\item \textbf{Consumes}: Context $\Gamma$ with breach, admissibility, and surgery data
+\item \textbf{Produces}: $K^{\text{re}}$ (re-entry certificate) OR terminates at failure mode
+\item \textbf{Guarantees}: Flow continuation, jump control, progress
+\end{itemize}
+
 Given inputs:
 \begin{itemize}
 \item $K^{\text{br}}$: Breach certificate from barrier
@@ -4613,6 +4811,187 @@ The factory pattern enforces:
 
 *The Taxonomy of Failure and the Logic of Stability.*
 
+---
+
+## Certificate Repository {#sec:certificate-repository}
+
+This section provides a comprehensive inventory of all certificates in the Hypostructure framework. These certificates are the **operational currency** of the Structural Sieve: Metatheorems consume certificates, not global axiomatic truths.
+
+### Gate Certificates (Decision Outcomes)
+
+Each Sieve node produces a certificate encoding its decision:
+
+| Certificate | Node | Meaning | Structure |
+|-------------|------|---------|-----------|
+| $K_1^+$ | EnergyCheck | Energy bounded | $(\Phi_{\max}, T, \alpha, \text{proof})$ |
+| $K_1^-$ | EnergyCheck | Energy unbounded | $(t^*, \text{escape witness})$ |
+| $K_2^+$ | ZenoCheck | Events finite | $(N_{\text{events}}, \text{list}, \text{proof})$ |
+| $K_2^-$ | ZenoCheck | Zeno accumulation | $(\text{acc.\ point}, \text{witness})$ |
+| $K_3^+$ | CompactCheck | Profile concentration | $(V, \lambda(t), \text{conv.\ data})$ |
+| $K_3^-$ | CompactCheck | Dispersion/scattering | $(\text{scattering data})$ |
+| $K_4^+$ | ScaleCheck | Subcritical ($\alpha > \beta$) | $(\alpha, \beta, \text{proof})$ |
+| $K_4^-$ | ScaleCheck | Critical/supercritical | $(\alpha, \beta)$ |
+| $K_5^+$ | ParamCheck | Parameters stable | $(\text{stability proof})$ |
+| $K_5^-$ | ParamCheck | Parameters unstable | $(\text{instability witness})$ |
+| $K_6^+$ | GeomCheck | High codimension | $(\text{codim}, \text{proof})$ |
+| $K_6^-$ | GeomCheck | Low codimension | $(\text{codim}, \text{witness})$ |
+| $K_7^+$ | StiffnessCheck | LS inequality holds | $(M, U, \theta, C_{\text{LS}}, \text{proof})$ |
+| $K_7^-$ | StiffnessCheck | Stiffness failure | $(\text{obstruction}, \text{witness})$ |
+| $K_8^+$ | TopoCheck | Topology tame | $(\text{proof})$ |
+| $K_8^-$ | TopoCheck | Topology wild | $(\text{witness})$ |
+| $K_9^+$ | TameCheck | O-minimal stratification | $(\text{strat.\ data})$ |
+| $K_9^-$ | TameCheck | Wild topology | $(\text{witness})$ |
+| $K_{10}^+$ | ErgoCheck | System mixing | $(\text{mixing proof})$ |
+| $K_{10}^-$ | ErgoCheck | Glassy dynamics | $(\text{witness})$ |
+| $K_{11}^+$ | ComplexCheck | Dictionary finite | $(|\mathcal{D}|, \text{proof})$ |
+| $K_{11}^-$ | ComplexCheck | Dictionary infinite | $(\text{witness})$ |
+| $K_{12}^+$ | OscillateCheck | Oscillation bounded | $(\text{bound}, \text{proof})$ |
+| $K_{12}^-$ | OscillateCheck | Oscillation unbounded | $(\text{witness})$ |
+| $K_{17}^{\text{blk}}$ | Lock | **VICTORY** | $\text{Hom}(Y_{\text{bad}}, -) = \emptyset$ |
+| $K_{17}^{\text{morph}}$ | Lock | **FATAL ERROR** | $\text{Hom}(Y_{\text{bad}}, -) \neq \emptyset$ |
+
+### Barrier Certificates (Defense Outcomes)
+
+When a Gate returns NO ($K_i^-$), the associated Barrier attempts to contain the failure:
+
+| Certificate | Barrier | Outcome | Defended Mode |
+|-------------|---------|---------|---------------|
+| $K_{\text{Sat}}^{\text{blk}}$ | BarrierSat | Blocked | C.E (Energy Blow-up) |
+| $K_{\text{Sat}}^{\text{br}}$ | BarrierSat | Breached | C.E activates |
+| $K_{\text{Causal}}^{\text{blk}}$ | BarrierCausal | Blocked | C.C (Zeno) |
+| $K_{\text{Causal}}^{\text{br}}$ | BarrierCausal | Breached | C.C activates |
+| $K_{\text{Cap}}^{\text{blk}}$ | BarrierCap | Blocked | C.D (Geometric Collapse) |
+| $K_{\text{Cap}}^{\text{br}}$ | BarrierCap | Breached | C.D activates |
+| $K_{\text{Scat}}^{\text{blk}}$ | BarrierScat | Blocked | D.D (Dispersion) — *benign* |
+| $K_{\text{TypeII}}^{\text{blk}}$ | BarrierTypeII | Blocked | S.E (Supercritical Cascade) |
+| $K_{\text{TypeII}}^{\text{br}}$ | BarrierTypeII | Breached | S.E activates |
+| $K_{\text{Gap}}^{\text{blk}}$ | BarrierGap | Blocked | S.D (Stiffness Breakdown) |
+| $K_{\text{Gap}}^{\text{br}}$ | BarrierGap | Breached | S.D activates |
+| $K_{\text{Vac}}^{\text{blk}}$ | BarrierVac | Blocked | S.C (Parameter Instability) |
+| $K_{\text{Vac}}^{\text{br}}$ | BarrierVac | Breached | S.C activates |
+| $K_{\text{Action}}^{\text{blk}}$ | BarrierAction | Blocked | T.E (Topological Metastasis) |
+| $K_{\text{Action}}^{\text{br}}$ | BarrierAction | Breached | T.E activates |
+| $K_{\text{Omin}}^{\text{blk}}$ | BarrierOmin | Blocked | T.C (Labyrinthine) |
+| $K_{\text{Omin}}^{\text{br}}$ | BarrierOmin | Breached | T.C activates |
+| $K_{\text{Mix}}^{\text{blk}}$ | BarrierMix | Blocked | T.D (Glassy Freeze) |
+| $K_{\text{Mix}}^{\text{br}}$ | BarrierMix | Breached | T.D activates |
+| $K_{\text{Freq}}^{\text{blk}}$ | BarrierFreq | Blocked | D.E (Oscillatory) |
+| $K_{\text{Freq}}^{\text{br}}$ | BarrierFreq | Breached | D.E activates |
+| $K_{\text{Epi}}^{\text{blk}}$ | BarrierEpi | Blocked | D.C (Semantic Horizon) |
+| $K_{\text{Epi}}^{\text{br}}$ | BarrierEpi | Breached | D.C activates |
+| $K_{\text{Bode}}^{\text{blk}}$ | BarrierBode | Blocked | B.E (Injection Singularity) |
+| $K_{\text{Bode}}^{\text{br}}$ | BarrierBode | Breached | B.E activates |
+| $K_{\text{Input}}^{\text{blk}}$ | BarrierInput | Blocked | B.D (Starvation) |
+| $K_{\text{Input}}^{\text{br}}$ | BarrierInput | Breached | B.D activates |
+| $K_{\text{Variety}}^{\text{blk}}$ | BarrierVariety | Blocked | B.C (Misalignment) |
+| $K_{\text{Variety}}^{\text{br}}$ | BarrierVariety | Breached | B.C activates |
+
+### Special Certificates (Surgery and Equivalence)
+
+| Certificate | Type | Meaning | Structure |
+|-------------|------|---------|-----------|
+| $K^{\sim}$ | Surgery Re-entry | Post-surgery state valid | $(D_S, x', \pi)$ |
+| $K_{\text{equiv}}$ | Equivalence | States equivalent | $(\sim, \text{proof})$ |
+| $K_{\text{transport}}$ | Transport | Certificate transfers | $(\text{map}, \text{proof})$ |
+| $K_{\text{adm}}$ | Admissibility | Surgery admissible | $(M, D_S, \text{proof})$ |
+| $K_{\text{adm}}^{\sim}$ | Admissible-tilde | Admissible up to equiv. | $(K_{\text{equiv}}, K_{\text{transport}}, K_{\text{adm}}[\tilde{x}])$ |
+| $K_{\neg\text{adm}}$ | Not Admissible | Surgery fails | $(\text{failure reason}, \text{witness})$ |
+| $K_{\text{lib}}$ | Library | Profile in finite list | $(V, L, V \in L)$ |
+| $K_{\text{strat}}$ | Stratification | Tame stratification | $(V, F, \text{strat.\ data})$ |
+| $K_{\text{hor}}$ | Horizon | Classification obstruction | $(\text{obstruction}, \text{wildness witness})$ |
+
+---
+
+## Operational Validity (The Equivalence Principle) {#sec:operational-validity}
+
+The central philosophical shift of this framework: **Metatheorems consume certificates, not truths.**
+
+\begin{definition}[Operational Validity]\label{def:operational-validity}
+A Metatheorem requiring \textbf{Axiom X} does not require $X$ to hold globally. It requires the presence of a valid \textbf{Certificate} in the current Context $\Gamma$. A valid certificate is generated by any of the following:
+
+\begin{enumerate}
+\item \textbf{Direct Satisfaction ($K_X^+$)}: The Gate checks predicate $P(x)$ and returns \texttt{YES}.
+\item \textbf{Barrier Block ($K_X^{\text{blk}}$)}: The Gate returned \texttt{NO}, but the associated Barrier successfully contained the failure.
+\item \textbf{Surgery Success ($K_X^\sim$)}: The system failed, underwent surgery, and re-entered with a valid state.
+\end{enumerate}
+\end{definition}
+
+\begin{principle}[Weakest Precondition Rule]\label{principle:weakest-precondition}
+If a Metatheorem requires \textbf{Axiom X}, it is satisfied by the logical union:
+$$\boxed{\text{Valid Input} = K_X^+ \lor K_X^{\text{blk}} \lor K_X^\sim}$$
+This is the \textbf{operational meaning} of ``Assuming Axiom X holds.''
+\end{principle}
+
+\begin{remark}[Certificate Differentiation]
+The certificate type encodes \textbf{provenance}:
+\begin{itemize}
+\item \textbf{$K^+$ (Natural)}: The system natively satisfies the mathematics (e.g., $E < \infty$).
+\item \textbf{$K^{\text{blk}}$ (Shielded)}: The system violates the mathematics locally, but a barrier prevents blow-up (e.g., $E \to \infty$ but Saturation caps it).
+\item \textbf{$K^\sim$ (Surgical/Renormalized)}: The system broke, but the singularity was excised. The theorem applies to the \textit{post-surgery} state $x'$.
+\end{itemize}
+This tells the reader: ``You don't need to prove energy is bounded forever ($K_D^+$). You only need to prove that if it grows, it hits a saturation ceiling ($K_{\text{Sat}}^{\text{blk}}$).''
+\end{remark}
+
+---
+
+## Sieve Signature Standard {#sec:sieve-signature}
+
+Every Metatheorem in this framework is annotated with a \textbf{Sieve Signature} specifying exactly which certificates it consumes. The standard format is:
+
+\begin{mdframed}[linecolor=blue!50, linewidth=1pt, roundcorner=3pt]
+\textbf{Metatheorem [Number]: [Name]}
+
+\textbf{[Sieve Signature]}
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_X^+ \lor K_X^{\text{blk}} \lor K_X^\sim\}$ AND $\{K_Y^+ \lor K_Y^{\text{blk}}\}$
+\item \textbf{Permits}: $\{\Pi_{\text{C}}, \Pi_{\text{D}}, \Pi_{\text{SC}}, \Pi_{\text{Cap}}, \Pi_{\text{LS}}, \Pi_{\text{TB}}, \Pi_{\text{GC}}, \Pi_{\text{R}}, \Pi_{\text{Rec}}\}$ (plus $\Pi_{\text{Scat}}$ when the dispersion dichotomy is active)
+\item \textbf{Consumes}: Context $\Gamma$ at evaluation point
+\item \textbf{Produces}: Certificate $K_{\text{Result}}$
+\item \textbf{Invalidated By}: $K_Z^{\text{br}}$ (specific barrier breach that voids the theorem)
+\end{itemize}
+
+\textbf{Statement}: If the local Context $\Gamma$ contains valid X and Y certificates, then...
+\end{mdframed}
+
+Signatures now explicitly record the permits they rely on. When a signature omits a permit list, the default is the full structural set $\mathcal{P}_{\text{full}}$ (with $\Pi_{\text{Scat}}$ added in scattering/dispersion dichotomies). Legacy metatheorems inherit $\mathcal{P}_{\text{full}}$ unless a stricter subset is explicitly listed in their signature.
+
+This transforms theorems from *ontological assertions* (``The system is compact'') to *operational verifications* (``The system possesses a Compactness Certificate'').
+
+**Permit coverage rule (applies to all metatheorems):**
+- Every \textbf{Sieve Signature} must include a \textbf{Permits} line. If absent in legacy text, interpret it as $\mathcal{P}_{\text{full}}$.
+- If a metatheorem only needs a strict subset, that subset must be listed after “Permits:”. All non-listed permits are still assumed satisfied by context $\Gamma$ but are not consumed by the proof.
+- Any dispersion/compactness dichotomy automatically activates $\Pi_{\text{Scat}}$ in addition to the listed permits.
+
+---
+
+## Weakest Operational Requirements Summary {#sec:weakest-requirements}
+
+The following table maps major Metatheorems to their **minimal certificate requirements**:
+
+| Metatheorem | Classical Assumption | Weakest Operational Requirement |
+|-------------|---------------------|--------------------------------|
+| **Global Regularity** | All Axioms hold | $\forall m \in \text{Modes}: \exists B_m: K_{B_m}^{\text{blk}}$ |
+| **Type II Exclusion** | SC + D | $K_4^+$ ($\alpha > \beta$) AND ($K_1^+ \lor K_{\text{Sat}}^{\text{blk}}$) |
+| **Holographic Bound** | TB + Cap | $K_8^+$ AND ($K_6^+ \lor K_{\text{Cap}}^\sim$) |
+| **Mass Gap** | LS with $\theta = 1/2$ | $K_7^+$ ($\theta = 1/2$) OR $K_{\text{SSB}}^{\text{br}}$ (symmetry breaking) |
+| **Convergence** | C + LS | ($K_3^+ \lor K_{\text{Scat}}^{\text{blk}}$) AND $K_7^+$ |
+| **Structural Resolution** | SC + D + C | All three certificate paths valid |
+| **Capacity Barrier** | Cap | $K_6^+ \lor K_{\text{Cap}}^{\text{blk}}$ |
+| **Scattering-Compactness** | C | $K_3^+$ XOR $K_3^-$ (exactly one, dichotomy) |
+| **Zeno Exclusion** | Rec | $K_2^+ \lor K_{\text{Causal}}^{\text{blk}}$ |
+| **Topological Suppression** | TB | $K_8^+ \lor K_{\text{Action}}^{\text{blk}}$ |
+
+\begin{remark}[Reading the Table]
+The ``Weakest Operational Requirement'' column shows that:
+\begin{itemize}
+\item \textbf{Global Regularity} doesn't require all axioms to hold globally—only that every potential failure mode has a blocking barrier.
+\item \textbf{Type II Exclusion} requires \textit{strict} subcriticality ($K_4^+$, not just blocked), but dissipation can be natural or saturated.
+\item \textbf{Scattering-Compactness} is a \textit{dichotomy}: exactly one of $K_3^+$ or $K_3^-$ must hold, never both, never neither.
+\end{itemize}
+\end{remark}
+
+---
+
 ## The Taxonomy of Failure Modes {#ch:failure-modes}
 
 ### The structural definition of singularity
@@ -4671,11 +5050,20 @@ Each class admits three failure types: **Excess** (too much structure), **Defici
 \end{table}
 
 \begin{metatheorem}[Completeness]\label{mt:completeness}
-The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\forall m \in \{\text{Modes}\}: \exists B_m: K_{B_m}^{\text{blk}}$ (every mode has a blocking barrier)
+\item \textbf{Consumes}: Complete Context $\Gamma$ from all 17 Sieve nodes
+\item \textbf{Produces}: $K_{\text{Complete}} \in \{K_{\text{regular}}, K_{\text{Mode-}m}\}$ for exactly one $m$
+\item \textbf{Invalidated By}: None (this is a structural theorem about the Sieve itself)
+\end{itemize}
+
+\textbf{Statement}: The fifteen modes form a complete classification of dynamical failure. Every trajectory of a hypostructure (open or closed) either:
 \end{metatheorem}
 
-1. Exists globally and converges to the safe manifold $M$, or
-2. Exhibits exactly one of the failure modes 1–15.
+1. Exists globally and converges to the safe manifold $M$ (all barriers hold: $\forall m: K_{B_m}^{\text{blk}}$), or
+2. Exhibits exactly one of the failure modes 1–15 (some barrier breached: $\exists m: K_{B_m}^{\text{br}}$).
 
 \begin{proof}
 The four constraint classes are orthogonal by construction. Each class admits three failure types corresponding to the logical possibilities for constraint violation. The boundary class adds three modes for open systems. The $4 \times 3 + 3 = 15$ modes exhaust the logical space.
@@ -4688,7 +5076,16 @@ The four constraint classes are orthogonal by construction. Each class admits th
 A natural skeptical question arises: *Does this framework ever predict a singularity correctly, or does it define them away?* This section demonstrates that the Sieve is a **discriminator**, not a rubber stamp for regularity. We verify that the framework correctly identifies systems known to form singularities by showing which axioms fail.
 
 \begin{metatheorem}[Sieve Discrimination]\label{mt:sieve-discrimination}
-The hypostructure Sieve is falsifiable: there exist physically meaningful dynamical systems for which the Sieve correctly predicts singularity formation by identifying axiom violations.
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\exists i: K_i^-$ AND $K_{B_i}^{\text{br}}$ (some gate fails and barrier breaches)
+\item \textbf{Consumes}: Complete Context $\Gamma$ with at least one barrier breach
+\item \textbf{Produces}: $K_{\text{Singular}}$ (genuine singularity certificate)
+\item \textbf{Invalidated By}: None (this is a falsifiability demonstration)
+\end{itemize}
+
+\textbf{Statement}: The hypostructure Sieve is falsifiable: there exist physically meaningful dynamical systems for which the Sieve correctly predicts singularity formation by identifying axiom violations (producing breach certificates $K_i^{\text{br}}$).
 \end{metatheorem}
 
 \begin{proof}
@@ -4819,6 +5216,16 @@ $$
 **Status:** A **complexity failure**. Energy and spatial structure remain bounded, but the trajectory becomes causally dense—infinite logical depth in finite time.
 
 \begin{metatheorem}[Causal Barrier]\label{mt:causal-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation) AND $\{K_2^+ \lor K_{\text{Causal}}^{\text{blk}}\}$ (Zeno)
+\item \textbf{Consumes}: Context $\Gamma$ with EnergyCheck and ZenoCheck certificates
+\item \textbf{Produces}: $K_{\text{Causal}}^{\text{blk}}$ (Finite-time event accumulation blocked)
+\item \textbf{Blocks}: C.C (Finite-time event accumulation / Zeno paradox)
+\item \textbf{Breached By}: $K_1^-$ (infinite dissipation budget) or $\delta = 0$ (zero-cost transitions)
+\end{itemize}
+
 Under Axiom D with $\alpha > 0$, Mode C.C requires $\mathcal{C}_*(x) = \infty$. For finite-cost trajectories, only finitely many discrete transitions occur.
 \end{metatheorem}
 
@@ -4936,6 +5343,16 @@ where $b_k$ denotes the $k$-th Betti number (rank of the $k$-th homology group).
 **Status:** A **complexity failure**. This is a **genuine singularity** involving unbounded topological invariants.
 
 \begin{metatheorem}[O-Minimal Taming]\label{mt:o-minimal-taming}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology tame) AND o-minimal definability
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck certificate and definability
+\item \textbf{Produces}: $K_{\text{Omin}}^{\text{blk}}$ (Mode T.C excluded)
+\item \textbf{Blocks}: T.C (Labyrinthine/Wild topology)
+\item \textbf{Breached By}: Non-definable dynamics (Cantor-type constructions)
+\end{itemize}
+
 If the dynamics are definable in an o-minimal structure (e.g., generated by algebraic or analytic functions), then Mode T.C is excluded.
 \end{metatheorem}
 
@@ -5113,6 +5530,16 @@ $$
 **Example 4.19.** The function $u(t) = \sin(1/(T_* - t))$ remains bounded ($|u| \leq 1$) but has unbounded frequency $\omega(t) = 1/(T_* - t)^2 \to \infty$ as $t \to T_*$.
 
 \begin{metatheorem}[Frequency Barrier]\label{mt:frequency-barrier}
+\textbf{[Sieve Signature]}
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+\}$ (Scaling: $\alpha > \beta$)
+\item \textbf{Permits}: $\{\Pi_{\text{SC}}\}$ (scaling permit; other permits inherited by default from $\mathcal{P}_{\text{full}}$)
+\item \textbf{Consumes}: Context $\Gamma$ with ScaleCheck certificate
+\item \textbf{Produces}: $K_{\text{Freq}}^{\text{blk}}$ (Oscillatory singularity blocked)
+\item \textbf{Blocks}: D.E (Oscillatory singularity / frequency blow-up)
+\item \textbf{Breached By}: $K_4^-$ (critical/supercritical) or non-gradient structure
+\end{itemize}
+
 Under Axiom SC with $\alpha > \beta$, Mode D.E is excluded for gradient flows. The Bode sensitivity integral provides the quantitative bound.
 \end{metatheorem}
 
@@ -5215,6 +5642,9 @@ $$
 **Status:** A "focusing" singularity where the profile remains regular in renormalized coordinates, but the renormalization factors become singular. This is a **genuine singularity** of cascade type.
 
 \begin{metatheorem}[Supercriticality Exclusion]\label{mt:supercriticality-exclusion}
+\textbf{[Sieve Signature]} Requires: $\{K_4^+\}$ (subcritical $\alpha > \beta$). Produces: $K_{\text{TypeII}}^{\text{blk}}$ (Mode S.E blocked). Invalidated by: critical/supercritical scaling.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 If $\alpha > \beta$ (subcritical regime), then Mode S.E cannot occur.
 \end{metatheorem}
 
@@ -5243,6 +5673,9 @@ or the gradient inequality $|\nabla \Phi| \geq C \Phi^\theta$ fails.
 **Status:** Asymptotic stagnation or infinite-time blow-up in finite time (if time rescaling is involved). This is a **deficiency failure**—insufficient energy gradient to drive convergence.
 
 \begin{metatheorem}[Łojasiewicz Control]\label{mt:ojasiewicz-control}
+\textbf{[Sieve Signature]} Requires: $\{K_7^+\}$ (LS inequality with $\theta \in [0,1)$). Produces: $K_{\text{Gap}}^{\text{blk}}$ (Mode S.D blocked). Invalidated by: degenerate critical points ($\theta \geq 1$).
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 If the Łojasiewicz inequality holds near $M$:
 $$
 |\nabla \Phi(x)| \geq C \cdot \mathrm{dist}(x, M)^{1-\theta}
@@ -5428,6 +5861,9 @@ where $U: X \to \mathbb{R}$ is the external utility function.
 **Status:** A **boundary complexity failure**. The system may reach $M$ with respect to $\Phi$ but diverge with respect to $U$.
 
 \begin{metatheorem}[Goodhart's Law]\label{mt:goodharts-law}
+\textbf{[Sieve Signature]} Requires: proxy-objective misalignment $\pi \circ \Phi \neq \Phi$. Produces: $K_{\text{BC}}^{\text{br}}$ (Mode B.C breach warning). Blocks: internal optimization $\not\Rightarrow$ external utility.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 If the internal objective $\Phi$ is optimized without constraint, while the external utility $U$ depends on $\Phi$ only through a proxy $\tilde{\Phi}$, then:
 $$
 \lim_{t \to \infty} \Phi(u(t)) = \Phi_{\min} \quad \text{does not imply} \quad \lim_{t \to \infty} U(u(t)) = U_{\max}.
@@ -5451,6 +5887,9 @@ Mode B.C is the formal statement of AI alignment failure: a system that perfectl
 The framework proves global regularity via **soft local exclusion**: if blow-up cannot satisfy its permits, blow-up is impossible.
 
 \begin{metatheorem}[Regularity via Soft Local Exclusion]\label{mt:regularity-via-soft-local-exclusion}
+\textbf{[Sieve Signature]} Requires: at least one permit denial $\{K_4^- \lor K_6^- \lor K_7^- \lor K_8^-\}$ OR dispersion $K_3^-$. Produces: $K_{\text{Reg}}$ (Global Regularity). Mechanism: permit denial $\Rightarrow$ contradiction $\Rightarrow$ no singularity.
+\textbf{Permits}: $\{\Pi_{\text{SC}}, \Pi_{\text{Cap}}, \Pi_{\text{LS}}, \Pi_{\text{TB}}, \Pi_{\text{C}}, \Pi_{\text{D}}, \Pi_{\text{GC}}, \Pi_{\text{Rec}}, \Pi_{\text{R}}\}$ (subset of $\mathcal{P}_{\text{full}}$ tailored to the regularity exclusion argument)
+
 Let $\mathcal{S}$ be a hypostructure. A trajectory $u(t)$ extends to $T = +\infty$ (Global Regularity) if any of the following hold:
 \end{metatheorem}
 
@@ -5629,6 +6068,9 @@ Mode D.D and permit-denial both yield global regularity—but via different mech
 ### Structural Resolution of Trajectories {#theorem-5.1-structural-resolution-of-trajectories}
 
 \begin{metatheorem}[Structural Resolution]\label{mt:structural-resolution-2}
+\textbf{[Sieve Signature]} Requires: $\{K_1^+ \lor K_1^-\}$ (energy bounded/unbounded) AND $\{K_3^+ \lor K_3^-\}$ (concentration/dispersion). Produces: trichotomy classification (D.D, permit-denial regularity, or C.E). Consumes: full Context $\Gamma$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a structural flow datum satisfying the minimal regularity (Reg) and dissipation (D) axioms. Let $u(t) = S_t x$ be any trajectory.
 \end{metatheorem}
 
@@ -5742,6 +6184,9 @@ The resolution reveals multiple pathways to global regularity:
 #### GN as a metatheorem from scaling structure
 
 \begin{metatheorem}[GN from SC + D]\label{mt:gn-from-sc-d}
+\textbf{[Sieve Signature]} Requires: $\{K_4^+\}$ (subcritical $\alpha > \beta$) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (dissipation bounded). Produces: Property GN (infinite cost for supercritical profiles). Blocks: Mode S.E.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC) with scaling exponents $(\alpha, \beta)$ satisfying $\alpha > \beta$. Then Property GN holds: any supercritical blow-up profile has infinite dissipation cost.
 \end{metatheorem}
 
@@ -5834,6 +6279,9 @@ The proof uses only scaling arithmetic. Once SC is identified via dimensional an
 #### Type II exclusion
 
 \begin{metatheorem}[Type II Exclusion]\label{mt:type-ii-exclusion-2}
+\textbf{[Sieve Signature]} Requires: $\{K_4^+\}$ (subcritical $\alpha > \beta$) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (finite cost). Produces: $K_{\text{TypeII}}^{\text{blk}}$ (Mode S.E excluded). Mechanism: scaling arithmetic contradiction.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D) and (SC). Let $x \in X$ with $\Phi(x) < \infty$ and $\mathcal{C}_*(x) < \infty$ (finite total cost). Then no supercritical self-similar blow-up can occur at $T_*(x)$.
 \end{metatheorem}
 
@@ -5906,6 +6354,9 @@ By \cref{lem:criticality-liouville-bridge}, any blow-up profile must be a non-tr
 \end{proof}
 
 \begin{metatheorem}[Critical Scaling + Liouville $\implies$ Regularity]\label{mt:critical-scaling-liouville-regularity}
+\textbf{[Sieve Signature]} Requires: $\{K_{\text{Liouville}}^+\}$ (no finite-energy stationary solutions) AND $\{K_3^+ \lor K_3^-\}$ (compactness/dispersion). Produces: $K_{\text{Reg}}$ (Global Regularity at criticality). Tie-breaker: Liouville theorem excludes blow-up profiles.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (SC), and (C) with critical scaling $\alpha = \beta$. Suppose:
 \end{metatheorem}
 
@@ -5929,6 +6380,9 @@ so $\mathfrak{D}(V) = 0$. Under appropriate coercivity (Axiom LS), this implies 
 ### Capacity barrier {#theorem-5.3-capacity-barrier}
 
 \begin{metatheorem}[Capacity Barrier]\label{mt:capacity-barrier-2}
+\textbf{[Sieve Signature]} Requires: $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ (capacity bounds hold). Produces: $K_{\text{Cap}}^{\text{blk}}$ (Mode C.D blocked). Mechanism: occupation measure bounds $\Rightarrow$ thin-set avoidance.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a hypostructure with geometric background (BG) satisfying Axiom Cap. Let $(B_k)$ be a sequence of subsets of $X$ of increasing geometric "thinness" (e.g., $r_k$-tubular neighbourhoods of codimension-$\kappa$ sets with $r_k \to 0$) such that:
 $$
 \mathrm{Cap}(B_k) \gtrsim r_k^{-\kappa} \to \infty.
@@ -6049,6 +6503,9 @@ If the action gap $\Delta$ is large (strong topological protection), nontrivial 
 ### Structured vs failure dichotomy
 
 \begin{metatheorem}[Structured vs Failure Dichotomy]\label{mt:structured-vs-failure-dichotomy-2}
+\textbf{[Sieve Signature]} Requires: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $\{K_6^+\}$ AND $\{K_7^+\}$ (finite cost + capacity + stiffness). Produces: dichotomy classification $K_{\mathcal{S}}$ (structured) OR $K_{\mathcal{F}}$ (failure). Mechanism: finite-cost $\Rightarrow$ bounded failure-time.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $X = \mathcal{S} \cup \mathcal{F}$ be decomposed into:
 \begin{itemize}
 \item the \textbf{structured region} $\mathcal{S}$ where the safe manifold $M \subset \mathcal{S}$ lies and good regularity holds,
@@ -6100,6 +6557,9 @@ We establish the dichotomy through four steps.
 ### Canonical Lyapunov functional {#theorem-5.6-canonical-lyapunov-functional}
 
 \begin{metatheorem}[Canonical Lyapunov Functional]\label{mt:canonical-lyapunov-functional-2}
+\textbf{[Sieve Signature]} Requires: $\{K_3^+\}$ AND $\{K_1^+\}$ AND $\{K_7^+\}$ (compactness + dissipation + stiffness). Produces: $K_{\mathcal{L}}$ (Lyapunov functional exists). Output: canonical loss $\mathcal{L}$ = optimal-transport cost to equilibrium.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Assume Axioms (C), (D) with $C = 0$, (R), (LS), and (Reg). Then there exists a functional $\mathcal{L}: X \to \mathbb{R} \cup \{\infty\}$ with the following properties:
 \end{metatheorem}
 
@@ -6264,6 +6724,9 @@ Axiom GC' strictly generalizes Axiom GC:
 \end{proof}
 
 \begin{metatheorem}[Extended Action Reconstruction]\label{mt:extended-action-reconstruction}
+\textbf{[Sieve Signature]} Requires: $\{K_{\text{GC'}}^+\}$ (dissipation-slope equality in metric spaces). Produces: $K_{\mathcal{L}}^{\text{metric}}$ (Lyapunov functional on general metric spaces). Extends: Riemannian $\to$ Wasserstein $\to$ discrete.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Under Axiom GC' (dissipation-slope equality), the reconstruction theorems (\cref{mt:functional-reconstruction}) extend to general metric spaces. The Lyapunov functional satisfies:
 $$\mathcal{L}(x) = \Phi_{\min} + \inf_{\gamma: M \to x} \int_0^1 |\partial \Phi|(\gamma(s)) \cdot |\dot{\gamma}|(s) \, ds$$
 where the infimum ranges over all absolutely continuous curves from the safe manifold $M$ to $x$, and $|\dot{\gamma}|$ denotes the metric derivative.
@@ -6328,6 +6791,9 @@ This instantiation demonstrates the applicability of the hypostructure framework
 #### The action reconstruction principle
 
 \begin{metatheorem}[Action Reconstruction]\label{mt:action-reconstruction}
+\textbf{[Sieve Signature]} Requires: $\{K_1^+\}$ AND $\{K_7^+\}$ AND $\{K_{\text{GC}}^+\}$ (dissipation + stiffness + gradient consistency). Produces: $K_{\text{Jacobi}}$ (Jacobi metric reconstruction). Output: $\mathcal{L}(x) = \mathrm{dist}_{g_{\mathfrak{D}}}(x, M)$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the canonical Lyapunov functional $\mathcal{L}(x)$ is explicitly the \textbf{minimal geodesic action} from $x$ to the safe manifold $M$ with respect to the \textbf{Jacobi metric} $g_{\mathfrak{D}} := \mathfrak{D} \cdot g$ (conformally scaled by the dissipation).
 \end{metatheorem}
 
@@ -6405,6 +6871,9 @@ Under the hypotheses of \cref{mt:functional-reconstruction}, the Lyapunov functi
 #### The Hamilton–Jacobi generator
 
 \begin{metatheorem}[Hamilton–Jacobi Characterization]\label{mt:hamiltonjacobi-characterization}
+\textbf{[Sieve Signature]} Requires: $\{K_1^+\}$ AND $\{K_7^+\}$ AND $\{K_{\text{GC}}^+\}$. Produces: $K_{\text{HJ}}$ (Hamilton-Jacobi PDE characterization). Output: $\|\nabla_g \mathcal{L}\|_g^2 = \mathfrak{D}$ with boundary $\mathcal{L}|_M = \Phi_{\min}$.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{S}$ be a hypostructure satisfying Axioms (D), (LS), and (GC) on a metric space $(X, g)$. Then the Lyapunov functional $\mathcal{L}(x)$ is the unique viscosity solution to the static \textbf{Hamilton–Jacobi equation}:
 $$
 \|\nabla_g \mathcal{L}(x)\|_g^2 = \mathfrak{D}(x)
@@ -7488,6 +7957,9 @@ This chapter establishes that the hypostructure axioms are both necessary and su
 The taxonomy of failure modes (\cref{ch:failure-modes}) lists fifteen modes. The following theorem proves this list is exhaustive.
 
 \begin{metatheorem}[Constraint Completeness]\label{mt:constraint-completeness}
+\textbf{[Sieve Signature]} Requires: full axiom compliance $\{K_1^+ \land K_3^+ \land K_4^+ \land K_6^+ \land K_7^+ \land K_8^+\}$. Produces: exhaustive mode classification $\forall m \in \{15\}: K_m^{\text{test}}$. Guarantee: no hidden failure modes exist outside taxonomy.
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+
 Let $\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G, M, \ldots)$ be a hypostructure satisfying axioms D, R, C, SC, Cap, TB, LS, and GC.
 
 Let $u: [0, T_*) \to X$ be a trajectory such that \textbf{no} admissible continuation exists beyond $T_*$ in any topology compatible with:
@@ -11578,6 +12050,16 @@ We derive the spectral inequalities in four steps.
 **Constraint Class:** Conservation (Information)
 
 \begin{metatheorem}[The Shannon-Kolmogorov Barrier]\label{mt:the-shannon-kolmogorov-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ (Scaling) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation)
+\item \textbf{Consumes}: Context $\Gamma$ with ScaleCheck and EnergyCheck certificates
+\item \textbf{Produces}: $K_{\text{Shannon}}^{\text{blk}}$ (Information barrier blocks singularity formation)
+\item \textbf{Blocks}: S.E (Supercritical Cascade), C.E (Energy Blow-up)
+\item \textbf{Breached By}: $\mathcal{H}(T_*) < C_\Phi(\lambda)$ (information budget sufficient for singularity)
+\end{itemize}
+
 Let $\mathcal{S}$ be a supercritical hypostructure ($\alpha < \beta$). Even if algebraic and energetic permits are granted, \textbf{Mode S.E (Structured Blow-up) is impossible} if the system violates the \textbf{Information Inequality}:
 $$\mathcal{H}(T_*) > \limsup_{\lambda \to \infty} C_\Phi(\lambda)$$
 where:
@@ -11585,10 +12067,6 @@ where:
 \item $\mathcal{H}(T_*) = \int_0^{T_*} h_\mu(S_\tau) d\tau$ is the accumulated Kolmogorov-Sinai entropy [@Sinai59] (information destroyed by chaotic mixing),
 \item $C_\Phi(\lambda)$ is the channel capacity: the logarithm of phase-space volume encoding the profile at scale $\lambda$ within energy budget $\Phi_0$.
 \end{itemize}
-
-\textbf{Required Axioms:} SC (Scaling), D (Dissipation)
-
-\textbf{Prevented Failure Modes:} S.E (Supercritical Cascade), C.E (Energy Blow-up)
 
 \textbf{Mechanism:} Entropy production of chaotic mixing outpaces channel capacity required to specify singularity; information budget is exhausted before the blueprint can be executed.
 \end{metatheorem}
@@ -11638,13 +12116,19 @@ We establish the information barrier in five steps.
 **Constraint Class:** Conservation (Computational Depth)
 
 \begin{metatheorem}[The Algorithmic Causal Barrier]\label{mt:the-algorithmic-causal-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ (Scaling) AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ (Capacity)
+\item \textbf{Consumes}: Context $\Gamma$ with ScaleCheck and CapacityCheck certificates
+\item \textbf{Produces}: $K_{\text{Causal}}^{\text{blk}}$ (Causal barrier blocks infinite-depth computation)
+\item \textbf{Blocks}: S.E (Supercritical Cascade), C.D (Computational Overflow)
+\item \textbf{Breached By}: $\alpha < 1$ (finite depth singularity possible)
+\end{itemize}
+
 Let $\mathcal{S}$ be a hypostructure with finite propagation speed $c < \infty$. If a candidate singularity requires computational depth:
 $$D(T_*) = \int_0^{T_*} \frac{c}{\lambda(\tau)} d\tau = \infty$$
 while the physical time $T_* < \infty$, then \textbf{the singularity is impossible}.
-
-\textbf{Required Axioms:} SC (Scaling), Cap (Capacity)
-
-\textbf{Prevented Failure Modes:} S.E (Supercritical Cascade), C.D (Computational Overflow)
 
 \textbf{Mechanism:} Finite propagation speed limits computational depth; self-similar blow-up with exponent $\alpha \geq 1$ requires infinite sequential operations in finite time.
 \end{metatheorem}
@@ -11693,11 +12177,17 @@ We establish the causal barrier in five steps.
 **Constraint Class:** Conservation (Geometric)
 
 \begin{metatheorem}[The Isoperimetric Resilience Principle]\label{mt:the-isoperimetric-resilience-principle}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Compactness)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck and CompactCheck certificates
+\item \textbf{Produces}: $K_{\text{Iso}}^{\text{blk}}$ (Isoperimetric barrier blocks pinch-off)
+\item \textbf{Blocks}: T.E (Topological Twist), C.E (Energy Escape)
+\item \textbf{Breached By}: $h(\Omega_t) \to 0$ (Cheeger constant degenerates)
+\end{itemize}
+
 Let $\mathcal{S}$ be a hypostructure on an evolving domain $\Omega_t$ with surface-energy functional $\Phi = \int_{\partial \Omega} \sigma \, dA$.
-
-\textbf{Required Axioms:} TB (Topology), C (Compactness)
-
-\textbf{Prevented Failure Modes:} T.E (Topological Twist), C.E (Energy Escape)
 
 \textbf{Mechanism:} Positive Cheeger constant provides lower bound on neck radius; pinch-off requires surface energy that diverges relative to volume.
 \end{metatheorem}
@@ -11753,11 +12243,17 @@ We establish the isoperimetric barrier in five steps.
 **Constraint Class:** Conservation (Mass Transport)
 
 \begin{metatheorem}[The Wasserstein Transport Barrier]\label{mt:the-wasserstein-transport-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation) AND $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Compactness)
+\item \textbf{Consumes}: Context $\Gamma$ with EnergyCheck and CompactCheck certificates
+\item \textbf{Produces}: $K_{\text{Wass}}^{\text{blk}}$ (Transport barrier blocks instantaneous concentration)
+\item \textbf{Blocks}: C.E (Energy Escape), C.D (Mass Teleportation)
+\item \textbf{Breached By}: Infinite kinetic energy available for transport
+\end{itemize}
+
 Let $\mathcal{S}$ model density evolution $\partial_t \rho + \nabla \cdot (\rho v) = 0$ with velocity field $v$.
-
-\textbf{Required Axioms:} D (Dissipation), C (Compactness)
-
-\textbf{Prevented Failure Modes:} C.E (Energy Escape), C.D (Mass Teleportation)
 
 \textbf{Mechanism:} Optimal transport imposes kinetic energy cost for mass concentration; instantaneous aggregation requires infinite energy.
 \end{metatheorem}
@@ -12123,13 +12619,19 @@ We establish the obstruction in six steps.
 **Constraint Class:** Topology (Local-Global Consistency)
 
 \begin{metatheorem}[The Sheaf Descent Barrier]\label{mt:the-sheaf-descent-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_{11}^+\}$ (Dictionary)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Sheaf}}^{\text{blk}}$ (Descent barrier blocks fragmentation)
+\item \textbf{Blocks}: T.E (Topological Twist), T.C (Structural Incompatibility)
+\item \textbf{Breached By}: $H^1(X, \mathcal{G}) \neq 0$ (non-trivial cohomological obstruction)
+\end{itemize}
+
 Let $\mathcal{F}$ be a sheaf of local solutions on space $X$ with covering $\{U_i\}$. Global solutions exist if and only if the descent obstruction vanishes:
 $$H^1(X, \mathcal{G}) = 0$$
 where $\mathcal{G}$ is the sheaf of gauge transformations.
-
-\textbf{Required Axioms:} TB (Topology), Rep (Representation)
-
-\textbf{Prevented Failure Modes:} T.E (Topological Twist), T.C (Structural Incompatibility)
 
 \textbf{Mechanism:} Čech cohomology measures obstruction to patching local solutions; non-trivial class requires topological defects.
 \end{metatheorem}
@@ -12195,11 +12697,17 @@ We establish the descent barrier in six steps.
 **Constraint Class:** Topology (Causal-Logical)
 
 \begin{metatheorem}[The Gödel-Turing Censor]\label{mt:the-gdel-turing-censor}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ (Capacity)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck and CapacityCheck certificates
+\item \textbf{Produces}: $K_{\text{Gödel}}^{\text{blk}}$ (Logical paradox barrier)
+\item \textbf{Blocks}: T.D (Logical Paradox), T.E (Topological Twist via CTC)
+\item \textbf{Breached By}: Closed timelike curves with bootstrap paradox
+\end{itemize}
+
 Let $(M, g, S_t)$ be a causal hypostructure (spacetime with dynamics). A state encoding a \textbf{self-referential paradox} is excluded.
-
-\textbf{Required Axioms:} TB (Topology), Cap (Capacity)
-
-\textbf{Prevented Failure Modes:} T.D (Logical Paradox), T.E (Topological Twist via CTC)
 
 \textbf{Mechanism:} Chronology protection, information monotonicity, and logical depth bounds prevent self-referential contradictions.
 \end{metatheorem}
@@ -13261,11 +13769,17 @@ $$\sigma_{\min}(\nabla^2_{uv} \mathcal{L}) > \max\{\|\nabla^2_{uu} \mathcal{L}\|
 \end{definition}
 
 \begin{metatheorem}[The Minimax Duality Barrier]\label{mt:the-minimax-duality-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (Gradient/LS)
+\item \textbf{Consumes}: Context $\Gamma$ with StiffnessCheck certificate and IGC verification
+\item \textbf{Produces}: $K_{\text{Minimax}}^{\text{blk}}$ (Oscillation barrier blocks spiraling blow-up)
+\item \textbf{Blocks}: D.D (Oscillatory Blow-up)
+\item \textbf{Breached By}: IGC violation ($\sigma_{\min}(\nabla^2_{uv}) < \max\{\|\nabla^2_{uu}\|, \|\nabla^2_{vv}\|\}$)
+\end{itemize}
+
 Let $\mathcal{S}$ be an adversarial system satisfying IGC.
-
-\textbf{Required Axioms:} GC (Gradient), LS (Stiffness)
-
-\textbf{Prevented Failure Modes:} D.D (Oscillatory Blow-up)
 
 \textbf{Mechanism:} Interaction Gap Condition ensures cross-coupling prevents unbounded spiraling; adversarial dynamics stabilizes via duality.
 \end{metatheorem}
@@ -13447,11 +13961,17 @@ $$N_{\mathcal{F}} = \max\{n : \exists \text{ object definable in } \mathcal{F} \
 \end{definition}
 
 \begin{metatheorem}[The Semantic Resolution Barrier]\label{mt:the-semantic-resolution-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ (Capacity) AND $\{K_{11}^+\}$ (Dictionary)
+\item \textbf{Consumes}: Context $\Gamma$ with CapacityCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Semantic}}^{\text{blk}}$ (Semantic barrier blocks self-referential paradox)
+\item \textbf{Blocks}: D.E (Observation Divergence), D.C (Measurement Paradox)
+\item \textbf{Breached By}: System complexity exceeds formalism capacity ($K(\mathcal{S}) > L$)
+\end{itemize}
+
 Let $\mathcal{S}$ be a hypostructure formalized in a language $\mathcal{L}$ of finite complexity.
-
-\textbf{Required Axioms:} Cap (Capacity), Rep (Representation)
-
-\textbf{Prevented Failure Modes:} D.E (Observation Divergence), D.C (Measurement Paradox)
 
 \textbf{Mechanism:} Kolmogorov complexity incomputability and counting arguments establish definitional limits; Berry paradox prevents self-referential specification.
 \end{metatheorem}
@@ -14351,11 +14871,17 @@ The \textbf{Nash-Moser implicit function theorem}, originating from Nash's isome
 \end{definition}
 
 \begin{metatheorem}[The Derivative Debt Barrier]\label{mt:the-derivative-debt-barrier}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS) AND $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ (Scaling)
+\item \textbf{Consumes}: Context $\Gamma$ with StiffnessCheck and ScaleCheck certificates
+\item \textbf{Produces}: $K_{\text{Debt}}^{\text{blk}}$ (Derivative debt barrier via Nash-Moser)
+\item \textbf{Blocks}: S.D (Stiffness Breakdown), S.C (Computational Overflow)
+\item \textbf{Breached By}: Debt accumulation exceeds smoothing rate ($\sum_n \lambda_n^{-\delta} = \infty$)
+\end{itemize}
+
 Let $\mathcal{S}$ be a nonlinear PDE exhibiting loss of derivatives.
-
-\textbf{Required Axioms:} LS (Stiffness), SC (Scaling)
-
-\textbf{Prevented Failure Modes:} S.D (Stiffness Breakdown), S.C (Computational Overflow)
 
 \textbf{Mechanism:} Each iteration loses derivatives; tame estimates and Nash-Moser smoothing required to converge; debt accumulation leads to iteration failure.
 \end{metatheorem}
@@ -35524,11 +36050,16 @@ $$
 where $d$ is the parabolic dimension.
 
 \begin{metatheorem}[Regularity Lift]\label{mt:regularity-lift-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K_4^+$ (strict subcriticality) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (dissipation)
+\item \textbf{Consumes}: Context $\Gamma$ with singular SPDE data and barrier breach $K_{\text{TypeII}}^{\text{br}}$ or $K_{\text{Cap}}^{\text{br}}$
+\item \textbf{Produces}: $K^{\sim}_{\text{Lift}}$ (surgical repair certificate via algebraic lifting)
+\item \textbf{Repairs}: Mode S.E (Supercritical Cascade), Mode C.D (Geometric Collapse)
+\end{itemize}
+
 Let $(\partial_t - \mathcal{L})u = F(u, \nabla u) + \xi$ be a singular SPDE with distributional noise $\xi$ of regularity $\alpha_\xi < 0$.
-
-\textbf{Required Axioms:} SC (Subcritical Scaling), D (Dissipation), Reg (Regularity)
-
-\textbf{Repaired Failure Modes:} S.E (Supercritical Cascade), C.D (Geometric Collapse via product divergence)
 
 \textbf{Mechanism:} Algebraic lifting to graded model space $T$ converts ill-defined distributional products into well-posed operations on modeled distributions with positive regularity index.
 
@@ -35657,11 +36188,16 @@ Let the hypostructure $\mathcal{H} = (X, \Phi)$ be **singular** due to a degener
 In both cases, the capacity $\mathrm{Vol}(X)$ is undefined ($0$ or $\infty$).
 
 \begin{metatheorem}[Derived Extension Principle]\label{mt:derived-extension-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ AND $K_{11}^+$ AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Sat}}^{\text{br}}$ or $K_{\text{Gap}}^{\text{br}}$
+\item \textbf{Produces}: $K^{\sim}_{\text{Ghost}}$ (surgical repair via graded extension)
+\item \textbf{Repairs}: Mode C.E (Volume Divergence), Mode S.D (Kernel Degeneracy)
+\end{itemize}
+
 Let $X$ be a singular object with degeneracy operator $K: X \to X$ such that $\mathrm{Vol}(X)$ is divergent or vanishing.
-
-\textbf{Required Axioms:} C (Compactness), LS (Local Stiffness), Rep (Dictionary), Cap (Capacity)
-
-\textbf{Repaired Failure Modes:} C.E (Volume Divergence), S.D (Kernel Degeneracy)
 
 \textbf{Mechanism:} Graded extension by parity-shifted kernel/cokernel converts singular determinants to finite Berezinian via fermionic sign cancellation.
 
@@ -35878,11 +36414,16 @@ This is the dual of Ghost Surgery: where ghosts (fermions) subtract capacity via
 This is **Mode C.D (Geometric Collapse)**—dual to Mode C.E, requiring the opposite surgery.
 
 \begin{metatheorem}[Projective Extension Principle]\label{mt:projective-extension-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Cap}}^{\text{br}}$ or $K_{\text{Vac}}^{\text{br}}$
+\item \textbf{Produces}: $K^{\sim}_{\text{Aux}}$ (surgical repair via bosonic extension)
+\item \textbf{Repairs}: Mode C.D (Geometric Collapse), Mode S.C (Parameter Instability / No Solution)
+\end{itemize}
+
 Let $X$ be a singular object with $\mathrm{Cap}(X) = 0$ due to over-constraint.
-
-\textbf{Required Axioms:} C (Compactness), Cap (Capacity)
-
-\textbf{Repaired Failure Modes:} C.D (Geometric Collapse), S.C (Parameter Instability / No Solution)
 
 \textbf{Mechanism:} Bosonic extension adds auxiliary dimensions with regularizing cost, converting empty solution sets to finite-capacity neighborhoods of approximate solutions.
 
@@ -36164,11 +36705,16 @@ This completes the surgery trilogy: ghosts handle infinite volume, auxiliaries h
 This singularity is distinct from gauge redundancy (Ghost surgery) and constraint collapse (Auxiliary surgery). The Lyapunov cap addresses unboundedness of the domain $X$ itself.
 
 \begin{metatheorem}[Lyapunov Compactification Principle]\label{mt:lyapunov-cap-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (dissipation valid or saturated)
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Sat}}^{\text{br}}$ (energy escape)
+\item \textbf{Produces}: $K^{\sim}_{\text{Cap}}$ (surgical repair via conformal compactification)
+\item \textbf{Repairs}: Mode C.E (Energy Blow-up / Escape to Infinity)
+\end{itemize}
+
 Let $(X, S_t, \Phi)$ be a hypostructure where $X$ is non-compact and $\Phi: X \to [0, \infty)$ is proper but unbounded.
-
-\textbf{Required Axioms:} C (to be restored), D (Dissipation)
-
-\textbf{Repaired Failure Modes:} C.E (Energy Blow-up / Escape to Infinity)
 
 \textbf{Mechanism:} Conformal compactification $X \hookrightarrow \hat{X}$ with bounded height $\hat{\Phi}$ extends dynamics to compact domain; boundary surgery (absorbing or cyclic) resolves infinite-time behavior.
 
@@ -36479,6 +37025,15 @@ A singularity is \textbf{surgery-admissible} if:
 
 This generalizes Perelman's entropy-controlled surgery for Ricci flow [@Perelman02] to the hypostructure framework.
 
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ AND $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Cap}}^{\text{br}}$ or $K_{\text{Action}}^{\text{br}}$
+\item \textbf{Produces}: $K^{\sim}_{\text{Surg}}$ (surgical re-entry certificate via excision + capping)
+\item \textbf{Repairs}: Mode C.D (Geometric Collapse), Mode T.E (Topological Transition)
+\end{itemize}
+
 > **[Deps] Structural Dependencies**
 >
 > *   **Prerequisites (Inputs):**
@@ -36735,11 +37290,16 @@ $$
 $$
 
 \begin{metatheorem}[De Giorgi–Nash–Moser Regularity]\label{mt:dgn-regularity}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Freq}}^{\text{br}}$ or $K_{\text{TypeII}}^{\text{br}}$
+\item \textbf{Produces}: $K^{\sim}_{\text{DGN}}$ (Hölder regularity certificate)
+\item \textbf{Repairs}: Mode D.E (Oscillatory Blow-up), Mode S.E (Regularity Deficit)
+\end{itemize}
+
 Let $u \in H^1_{\mathrm{loc}}(\Omega)$ be a weak solution of the uniformly elliptic equation above.
-
-\textbf{Required Axioms:} D (Energy Dissipation), C (Compactness), SC (Scaling)
-
-\textbf{Repaired Failure Modes:} D.E (Oscillatory Blow-up), S.E (Regularity Deficit)
 
 \textbf{Mechanism:} Iterative oscillation reduction via energy estimates forces geometric decay of essential oscillation across scales, yielding Hölder continuity.
 
@@ -36899,16 +37459,21 @@ A \textbf{viscosity solution} is both a sub- and supersolution.
 \end{definition}
 
 \begin{metatheorem}[Viscosity Solution Principle]\label{mt:viscosity-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K_{11}^+$ (finite dictionary) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Epi}}^{\text{br}}$ (semantic horizon)
+\item \textbf{Produces}: $K^{\sim}_{\text{Visc}}$ (viscosity solution certificate)
+\item \textbf{Repairs}: Mode D.C (Semantic Horizon via gradient discontinuity)
+\end{itemize}
+
 Let $H: \Omega \times \mathbb{R} \times \mathbb{R}^n \to \mathbb{R}$ satisfy:
 \begin{enumerate}
 \item \textbf{(Continuity)} $H$ is continuous in all arguments
 \item \textbf{(Properness)} $H(x, r, p) - H(x, s, p) \geq \gamma(r - s)$ for $r > s$ and some $\gamma \geq 0$
 \item \textbf{(Coercivity)} $H(x, r, p) \to +\infty$ as $|p| \to \infty$ uniformly in bounded $(x, r)$
 \end{enumerate}
-
-\textbf{Required Axioms:} Rep (Dictionary), D (Comparison), C (Stability)
-
-\textbf{Repaired Failure Modes:} D.C (Semantic Horizon via gradient discontinuity)
 
 \textbf{Mechanism:} Test function envelope replaces pointwise derivatives with inequality constraints at touching points, extending the solution concept to non-differentiable functions.
 
@@ -37060,11 +37625,16 @@ The \textbf{$h$-principle} holds for the inclusion $Du \in K$ if every subsoluti
 \end{definition}
 
 \begin{metatheorem}[Convex Integration Principle]\label{mt:convex-integration-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $K_{11}^+$ (finite dictionary with convex hull embedding) AND $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Vac}}^{\text{br}}$ (no smooth solution exists)
+\item \textbf{Produces}: $K^{\sim}_{\text{CI}}$ (weak solution certificate, non-unique)
+\item \textbf{Repairs}: Mode S.C (Non-existence in smooth category)
+\end{itemize}
+
 Let $K \subset \mathbb{R}^{m \times n}$ satisfy the \textbf{flexibility condition}: for each $\bar{A} \in \mathrm{int}(K^{co})$, there exist rank-one directions connecting $\bar{A}$ to $K$.
-
-\textbf{Required Axioms:} Rep (Convex hull embedding), SC (Scale separation)
-
-\textbf{Repaired Failure Modes:} S.C (Non-existence in smooth category)
 
 \textbf{Mechanism:} Iterative oscillatory corrections at increasing frequencies push the gradient from the convex hull interior toward the constraint set $K$, while weak convergence ensures the limit solves the equation.
 
@@ -37228,11 +37798,16 @@ where the remainder $w_n^{(J)}$ satisfies $\|w_n^{(J)}\|_{L^{2^*}} \to 0$ as $J 
 \end{definition}
 
 \begin{metatheorem}[Concentration-Compactness]\label{mt:cc-main}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ AND $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with concentration/dispersion behavior
+\item \textbf{Produces}: $K^{\sim}_{\text{CC}}$ (profile decomposition certificate)
+\item \textbf{Repairs}: Mode C.D (Concentration), Mode D.D (Dispersion)
+\end{itemize}
+
 Let $(u_n)$ be bounded in $\dot{H}^1(\mathbb{R}^n)$, $n \geq 3$.
-
-\textbf{Required Axioms:} C (Compactness), Cap (Capacity), SC (Scaling)
-
-\textbf{Repaired Failure Modes:} C.D (Concentration), D.D (Dispersion)
 
 \textbf{Mechanism:} Dichotomy analysis extracts concentrating profiles at their natural scales; orthogonality ensures energy decoupling; dispersive remainder vanishes in critical norm.
 
@@ -37414,11 +37989,16 @@ for some order-one constant $C > 0$. This enforces Axiom Cap: no region of volum
 \end{definition}
 
 \begin{metatheorem}[Discrete Saturation Principle]
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{TypeII}}^{\text{br}}$ or $K_{\text{Causal}}^{\text{br}}$
+\item \textbf{Produces}: $K^{\sim}_{\text{Discrete}}$ (discrete regularization certificate)
+\item \textbf{Repairs}: Mode S.E (Supercritical Cascade), Mode C.C (Event Accumulation)
+\end{itemize}
+
 Let $u(t)$ be a trajectory in a supercritical hypostructure approaching blow-up at $T_*$ (i.e., $\|u(t)\|_\infty \to \infty$ as $t \to T_*$). Let $u_\epsilon(t)$ be the approximation evolving under discrete dynamics with cutoff $\epsilon > 0$.
-
-\textbf{Required Axioms:} C (Compactness/Finiteness), Cap (Capacity), D (Dissipation)
-
-\textbf{Repaired Failure Modes:} S.E (Supercritical Cascade), C.C (Event Accumulation)
 
 \textbf{Mechanism:} Discretization at scale $\epsilon$ replaces unbounded density with saturation at $\rho_{\max} \sim \epsilon^{-d}$, converting blow-up to phase transition.
 
@@ -37607,11 +38187,16 @@ where $\mathcal{H}_{\text{trans}} = \mathcal{H}_{\text{halt}}^\perp$ is the tran
 \end{definition}
 
 \begin{metatheorem}[Computational Renormalization Principle]\label{mt:computational-renorm}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ AND $K_{11}^+$
+\item \textbf{Consumes}: Context $\Gamma$ with barrier breach $K_{\text{Epi}}^{\text{br}}$ (semantic horizon/undecidability)
+\item \textbf{Produces}: $K^{\sim}_{\text{Renorm}}$ (effective stochastic dynamics certificate)
+\item \textbf{Repairs}: Mode D.C (Semantic Horizon via computational undecidability)
+\end{itemize}
+
 Let $(\Omega, T, \mu)$ be a computational dynamical system with Koopman operator $\mathcal{K}$ and coarse-graining projection $\Pi$ onto macro-observables.
-
-\textbf{Required Axioms:} SC (Scaling/Timescale Separation), D (Dissipation/Drift), Rep (Dictionary/Projection)
-
-\textbf{Repaired Failure Modes:} D.C (Semantic Horizon via computational undecidability)
 
 \textbf{Mechanism:} Renormalization converts undecidable micro-dynamics into predictable stochastic macro-laws. The semantic horizon is resolved by treating information beyond the observable scale as thermal noise.
 
@@ -38026,11 +38611,17 @@ where $\text{Vol}(C_i)$ is the volume of the Voronoi cell with respect to the am
 \end{definition}
 
 \begin{metatheorem}[Adaptive Voronoi Quadrature]\label{mt:voronoi-quadrature}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Energy) AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ (Capacity)
+\item \textbf{Consumes}: Context $\Gamma$ with EnergyCheck and CapacityCheck certificates
+\item \textbf{Produces}: $K_{\text{Quad}}$ (Convergent quadrature formula)
+\item \textbf{Repairs}: C.E (Energy Blow-up via singular integrands), C.D (Geometric Collapse via fractional-dimensional domains)
+\item \textbf{Invalidated By}: $K_{\text{Sat}}^{\text{br}}$ (energy escape) or $K_{\text{Cap}}^{\text{br}}$ (degenerate cells)
+\end{itemize}
+
 Let particles $\Psi = \{\psi_1, \ldots, \psi_N\}$ evolve under dynamics satisfying Axiom D with potential $\Phi(x)$, reaching stationary density $\rho(x) \propto e^{-\beta \Phi(x)}$.
-
-\textbf{Required Axioms:} D (Dissipation), C (Conservation), Cap (Capacity)
-
-\textbf{Repaired Failure Modes:} C.E (Energy Blow-up via singular integrands), C.D (Geometric Collapse via fractional-dimensional domains)
 
 \textbf{Mechanism:} Voronoi cell volumes scale inversely with particle density, canceling the sampling bias and recovering the unweighted integral.
 
@@ -38196,15 +38787,21 @@ A \textbf{Scutoid transition} (or T1 transition) between triangulations $K_t$ an
 \end{definition}
 
 \begin{metatheorem}[Discrete Stokes' Theorem]\label{mt:discrete-stokes}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_{11}^+\}$ (Dictionary finite)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Stokes}}$ (Flux invariance under retriangulation)
+\item \textbf{Repairs}: T.E (Topological Twist via boundary singularity)
+\item \textbf{Invalidated By}: $K_{\text{Action}}^{\text{br}}$ (topology change violates cobordism)
+\end{itemize}
+
 Let $K$ be a simplicial complex with boundary $\partial K$. For any discrete differential form $\omega^k \in C^k(K)$:
 $$
 \langle d\omega^k, K \rangle = \langle \omega^k, \partial K \rangle
 $$
 where $\langle \cdot, \cdot \rangle$ denotes the pairing between cochains and chains.
-
-\textbf{Required Axioms:} TB (Topology), Rep (Dictionary)
-
-\textbf{Repaired Failure Modes:} T.E (Topological Twist via boundary singularity)
 
 \textbf{Mechanism:} The discrete Stokes' theorem is an algebraic identity ($d = \partial^*$) that holds for any simplicial complex, independent of smooth structure.
 
@@ -38349,11 +38946,17 @@ where $r_k(x)$ is the distance from $x$ to its $k$-th nearest neighbor. The intu
 \end{definition}
 
 \begin{metatheorem}[Frostman Sampling Principle]\label{mt:frostman-sampling}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ (Scaling) AND $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Conservation)
+\item \textbf{Consumes}: Context $\Gamma$ with ScaleCheck and CompactCheck certificates
+\item \textbf{Produces}: $K_{\text{Frostman}}$ (Frostman measure on fractal attractor)
+\item \textbf{Repairs}: C.D (Geometric Collapse to fractional-dimensional set)
+\item \textbf{Invalidated By}: $K_4^-$ (scaling incoherent) or $K_{\text{TypeII}}^{\text{br}}$ (supercritical)
+\end{itemize}
+
 Let $\mathcal{F}$ be a compact fractal set with Hausdorff dimension $s = \dim_H(\mathcal{F})$. Let particles $\Psi = \{\psi_1, \ldots, \psi_N\}$ evolve under dynamics respecting the scaling structure of $\mathcal{F}$ (Axiom SC).
-
-\textbf{Required Axioms:} SC (Scaling Coherence), C (Conservation)
-
-\textbf{Repaired Failure Modes:} C.D (Geometric Collapse to fractional-dimensional set)
 
 \textbf{Mechanism:} Particles spontaneously generate a Frostman measure on $\mathcal{F}$, enabling Hausdorff integration via local dimension weighting.
 
@@ -38464,6 +39067,16 @@ This solves the PDE $\partial_t u = \mathcal{L}u - Vu$ where $\mathcal{L}$ is th
 \end{definition}
 
 \begin{metatheorem}[Genealogical Feynman-Kac]\label{mt:genealogical-feynman-kac}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Conservation) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation)
+\item \textbf{Consumes}: Context $\Gamma$ with CompactCheck and EnergyCheck certificates
+\item \textbf{Produces}: $K_{\text{FK}}$ (Path integral via genealogical average)
+\item \textbf{Repairs}: C.E (Divergent path integral weights)
+\item \textbf{Invalidated By}: $K_3^-$ (population explosion/extinction) or $K_{\text{Sat}}^{\text{br}}$ (energy escape)
+\end{itemize}
+
 Let $N$ particles evolve according to:
 \begin{itemize}
 \item \textbf{Motion:} Each particle follows the diffusion $dX_t = b(X_t)dt + \sigma dW_t$
@@ -38471,10 +39084,6 @@ Let $N$ particles evolve according to:
 \item \textbf{Branching:} Each particle clones at rate $[\bar{V} - \tilde{V}(x)]_+$
 \end{itemize}
 In other words: particles in high-potential regions die faster (are "selected against"), while particles in low-potential regions reproduce (are "favored").
-
-\textbf{Required Axioms:} C (Conservation), D (Dissipation)
-
-\textbf{Repaired Failure Modes:} C.E (Divergent path integral weights)
 
 \textbf{Mechanism:} The genealogical average over surviving lineages equals the Feynman-Kac expectation.
 
@@ -38599,11 +39208,17 @@ This is the maximal rate of change of $f$ in any direction from $x$.
 \end{definition}
 
 \begin{metatheorem}[Cheeger Gradient Isomorphism]\label{mt:cheeger-gradient}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS inequality holds) AND $\{K_{11}^+\}$ (Dictionary finite)
+\item \textbf{Consumes}: Context $\Gamma$ with StiffnessCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Cheeger}}$ (Gradient descent well-defined on metric spaces)
+\item \textbf{Repairs}: S.D (Stiffness Breakdown—undefined derivative)
+\item \textbf{Invalidated By}: $K_7^-$ (LS inequality fails) or $K_{\text{Gap}}^{\text{br}}$ (gradient undefined)
+\end{itemize}
+
 Let $(X, d, \mu)$ be a metric measure space, and let $G_N$ be a sequence of graphs approximating $X$ (e.g., $\epsilon$-neighborhood graphs on $N$ sample points).
-
-\textbf{Required Axioms:} LS (Local Stiffness), Rep (Dictionary)
-
-\textbf{Repaired Failure Modes:} S.D (Stiffness Breakdown—undefined derivative)
 
 \textbf{Mechanism:} The graph gradient converges to the Cheeger gradient in the Gromov-Hausdorff limit.
 
@@ -38726,11 +39341,17 @@ $$
 \end{definition}
 
 \begin{metatheorem}[Anomalous Diffusion Principle]\label{mt:anomalous-diffusion}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_4^+ \lor K_{\text{TypeII}}^{\text{blk}}\}$ (Scaling) AND $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS)
+\item \textbf{Consumes}: Context $\Gamma$ with ScaleCheck and StiffnessCheck certificates
+\item \textbf{Produces}: $K_{\text{Anomalous}}$ (Walk dimension $d_w$ computable from dynamics)
+\item \textbf{Repairs}: D.D (Dispersion—anomalous transport)
+\item \textbf{Invalidated By}: $K_4^-$ (scaling incoherent) or $K_7^-$ (LS fails)
+\end{itemize}
+
 Let $\mathcal{F}$ be a fractal with Hausdorff dimension $d_H$ and let $L$ be the graph Laplacian on a particle configuration sampling $\mathcal{F}$.
-
-\textbf{Required Axioms:} SC (Scaling), LS (Local Stiffness)
-
-\textbf{Repaired Failure Modes:} D.D (Dispersion—anomalous transport)
 
 \textbf{Mechanism:} The particle dynamics reveal the fractal's transport properties through the walk/spectral dimensions.
 
@@ -38837,11 +39458,17 @@ The inverse transform is $f(i) = \sum_k \hat{f}(\lambda_k) \phi_k(i)$.
 \end{definition}
 
 \begin{metatheorem}[Spectral Decimation Principle]\label{mt:spectral-decimation}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS) AND $\{K_{11}^+\}$ (Dictionary finite)
+\item \textbf{Consumes}: Context $\Gamma$ with StiffnessCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Spectral}}$ (Complete orthonormal basis for signal decomposition)
+\item \textbf{Repairs}: D.E (Oscillatory—need frequency decomposition)
+\item \textbf{Invalidated By}: $K_7^-$ (LS fails) or graph disconnected (nontrivial kernel)
+\end{itemize}
+
 Let $L$ be the graph Laplacian on a particle configuration sampling a metric space $X$.
-
-\textbf{Required Axioms:} LS (Local Stiffness), Rep (Dictionary)
-
-\textbf{Repaired Failure Modes:} D.E (Oscillatory—need frequency decomposition)
 
 \textbf{Mechanism:} The Laplacian eigenbasis provides a complete orthonormal system for signal representation.
 
@@ -38949,11 +39576,17 @@ This is equivalent to minimizing the Dirichlet energy $\sum_{(u,v)} W_{uv} |z(u)
 \end{definition}
 
 \begin{metatheorem}[Discrete Uniformization Principle]\label{mt:discrete-uniformization}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck and StiffnessCheck certificates
+\item \textbf{Produces}: $K_{\text{Uniform}}$ (Discrete conformal map to canonical domain)
+\item \textbf{Repairs}: T.C (Labyrinthine—complex surface geometry)
+\item \textbf{Invalidated By}: $K_8^-$ (non-simply-connected) or $K_{\text{Action}}^{\text{br}}$ (topology change)
+\end{itemize}
+
 Let $G$ be a triangulation of a simply connected planar domain $\Omega$.
-
-\textbf{Required Axioms:} TB (Topology), LS (Local Stiffness)
-
-\textbf{Repaired Failure Modes:} T.C (Labyrinthine—complex surface geometry)
 
 \textbf{Mechanism:} Circle packing or harmonic embedding provides a discrete conformal map.
 
@@ -39062,11 +39695,17 @@ The \textbf{persistence diagram} $\text{Dgm}_k(\Psi)$ is the multiset of points 
 \end{definition}
 
 \begin{metatheorem}[Persistence Isomorphism]\label{mt:persistence-isomorphism}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation) AND $\{K_4^+\}$ (Scaling)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck, EnergyCheck, and ScaleCheck certificates
+\item \textbf{Produces}: $K_{\text{Persist}}$ (Robust topological features from noisy samples)
+\item \textbf{Repairs}: T.C (Labyrinthine topology from noise)
+\item \textbf{Invalidated By}: $K_8^-$ (topologically trivial) or sparse sampling (insufficient $N$)
+\end{itemize}
+
 Let $M$ be a compact Riemannian manifold, and let $\Psi_N = \{\psi_1, \ldots, \psi_N\}$ be particles sampling $M$ under Axiom D equilibration with density $\rho$.
-
-\textbf{Required Axioms:} TB (Topology), D (Dissipation), SC (Scaling)
-
-\textbf{Repaired Failure Modes:} T.C (Labyrinthine topology from noise)
 
 \textbf{Mechanism:} Persistent features correspond to true topology; transient features are dissipated noise.
 
@@ -39208,11 +39847,17 @@ Each walker $\psi_i$ carries an internal state $\theta_i \in \mathbb{R}/2\pi\mat
 \end{definition}
 
 \begin{metatheorem}[Swarm Monodromy Principle]\label{mt:swarm-monodromy}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation) AND $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K^{\sim}\}$ (Recovery)
+\item \textbf{Consumes}: Context $\Gamma$ with EnergyCheck, TopoCheck, and Surgery certificates
+\item \textbf{Produces}: $K_{\text{Mono}}$ (Monodromy group computed from walker dynamics)
+\item \textbf{Repairs}: C.E (Singularity navigation), T.E (Multi-valuedness)
+\item \textbf{Invalidated By}: Essential singularity (not isolated) or $K_{\text{Action}}^{\text{br}}$
+\end{itemize}
+
 Let $f(z)$ be a multi-valued analytic function with isolated singularities $S \subset \mathbb{C}$. Let particles diffuse in $\mathbb{C} \setminus S$ under the singularity potential $\Phi(z)$ (Axiom D).
-
-\textbf{Required Axioms:} D (Dissipation), TB (Topology), Rec (Recovery)
-
-\textbf{Repaired Failure Modes:} C.E (Singularity navigation), T.E (Multi-valuedness)
 
 \textbf{Mechanism:} Different Riemann sheets emerge as distinct particle populations; monodromy acts by permuting sheet labels.
 
@@ -39343,11 +39988,17 @@ Higher-order distributions are represented by \textbf{multipole particles}:
 \end{definition}
 
 \begin{metatheorem}[Particle-Field Duality]\label{mt:particle-field-duality}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Conservation) AND $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation) AND $\{K_{11}^+\}$ (Dictionary)
+\item \textbf{Consumes}: Context $\Gamma$ with CompactCheck, EnergyCheck, and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Field}}$ (Distributions realized as particle configurations)
+\item \textbf{Repairs}: C.D (Point-supported singularities)
+\item \textbf{Invalidated By}: $K_3^-$ (particle number insufficient) or $K_{\text{Scat}}^{\text{br}}$
+\end{itemize}
+
 Let $\mathcal{D}'(\Omega)$ be the space of distributions on $\Omega$, and let $\mathcal{C}_w(\Omega)$ be the space of weighted particle configurations.
-
-\textbf{Required Axioms:} C (Conservation), D (Dissipation), Rep (Dictionary)
-
-\textbf{Repaired Failure Modes:} C.D (Point-supported singularities)
 
 \textbf{Mechanism:} Every distribution is approximated by a weighted particle configuration; PDEs become particle dynamics.
 
@@ -39494,11 +40145,17 @@ This measures the total transformation accumulated by parallel transport around 
 \end{definition}
 
 \begin{metatheorem}[Cloning Transport Principle]\label{mt:cloning-transport}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_8^+ \lor K_{\text{Action}}^{\text{blk}}\}$ (Topology) AND $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS) AND $\{K_4^+\}$ (Scaling/Gauge)
+\item \textbf{Consumes}: Context $\Gamma$ with TopoCheck, StiffnessCheck, and ScaleCheck certificates
+\item \textbf{Produces}: $K_{\text{Transport}}$ (Coordinate-free parallel transport on graphs)
+\item \textbf{Repairs}: S.D (Stiffness breakdown—undefined parallel transport)
+\item \textbf{Invalidated By}: $K_8^-$ (topology wild) or $K_7^-$ (connection not smooth)
+\end{itemize}
+
 Let $\mathcal{G}$ be an Information Graph with discrete connection $\{U_{ij}\}$ and structure group $G$.
-
-\textbf{Required Axioms:} TB (Topology), LS (Local Stiffness), SC (Gauge Symmetry)
-
-\textbf{Repaired Failure Modes:} S.D (Stiffness breakdown—undefined parallel transport)
 
 \textbf{Mechanism:} Parallel transport = cloning with gauge transformation; curvature = holonomy around faces.
 
@@ -39649,11 +40306,17 @@ The preceding surgeries (6.1–6.23) act on the **bulk** of the hypostructure—
 >     *   If **Axiom D** fails internally $\to$ Internal blow-up (Mode C.E)
 
 \begin{metatheorem}[Saturation Surgery Principle]\label{mt:saturation-surgery}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_1^+ \lor K_{\text{Sat}}^{\text{blk}}\}$ (Dissipation) AND $\{K_6^+ \lor K_{\text{Cap}}^{\text{blk}}\}$ (Capacity)
+\item \textbf{Consumes}: Context $\Gamma$ with EnergyCheck and CapacityCheck certificates
+\item \textbf{Produces}: $K_{\text{Filter}}$ (Bounded internal energy despite unbounded external input)
+\item \textbf{Repairs}: B.E (Injection Singularity)
+\item \textbf{Invalidated By}: $K_1^-$ (internal dissipation fails) leading to Mode C.E
+\end{itemize}
+
 Let $\mathcal{H}$ be an open hypostructure with state $u$ satisfying $\dot{u} = \mathcal{L}u + F_{\mathrm{ext}}(t)$, where $\|F_{\mathrm{ext}}\|_{L^\infty} = \infty$ (unbounded injection).
-
-\textbf{Required Axioms:} D (Dissipation), Cap (Capacity)
-
-\textbf{Repaired Failure Modes:} B.E (Injection Singularity)
 
 \textbf{Mechanism:} Non-linear impedance layer at boundary saturates high-amplitude inputs via sigmoid response, enforcing Bode barrier compliance.
 
@@ -39745,11 +40408,17 @@ $$|H(\omega)| \leq \frac{F_{\mathrm{max}}}{\|F_{\mathrm{ext}}\|} \to 0 \quad \te
 >     *   If **Axiom C** fails (transport blockage) $\to$ Interior still starves
 
 \begin{metatheorem}[Reservoir Surgery Principle]\label{mt:reservoir-surgery}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_3^+ \lor K_{\text{Scat}}^{\text{blk}}\}$ (Conservation/Transport) AND $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (LS)
+\item \textbf{Consumes}: Context $\Gamma$ with CompactCheck and StiffnessCheck certificates
+\item \textbf{Produces}: $K_{\text{NESS}}$ (Non-Equilibrium Steady State $u_* \neq 0$)
+\item \textbf{Repairs}: B.D (Starvation / Vanishing Signal)
+\item \textbf{Invalidated By}: $K_3^-$ (transport blockage) leading to continued starvation
+\end{itemize}
+
 Let $\mathcal{H}$ be a dissipative system where $\Phi(u) \to 0$ as $t \to \infty$ (Starvation).
-
-\textbf{Required Axioms:} C (Conservation/Transport), LS (Local Stiffness)
-
-\textbf{Repaired Failure Modes:} B.D (Starvation / Vanishing Signal)
 
 \textbf{Mechanism:} Coupling to infinite-capacity reservoir via Robin boundary conditions maintains non-trivial steady state against dissipative decay.
 
@@ -39844,11 +40513,17 @@ Since $J_{\mathrm{in}} > 0$ whenever $u < u_{\mathrm{bath}}$, the equilibrium mu
 >     *   If **Axiom GC** fails $\to$ **Mode S.D** (Optimization fails entirely)
 
 \begin{metatheorem}[Adjoint Surgery Principle]\label{mt:adjoint-surgery}
+\textbf{[Sieve Signature]}
+Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are needed).
+\begin{itemize}
+\item \textbf{Weakest Precondition}: $\{K_7^+ \lor K_{\text{Gap}}^{\text{blk}}\}$ (Gradient Consistency) AND $\{K_{11}^+\}$ (Dictionary)
+\item \textbf{Consumes}: Context $\Gamma$ with StiffnessCheck and ComplexCheck certificates
+\item \textbf{Produces}: $K_{\text{Align}}$ (Equilibrium on Pareto frontier via constrained optimization)
+\item \textbf{Repairs}: B.C (Boundary Misalignment / Reward Hacking)
+\item \textbf{Invalidated By}: $K_7^-$ (gradient consistency fails) leading to Mode S.D
+\end{itemize}
+
 Let $\mathcal{H}$ be optimizing $\Phi(x)$ while the environment demands maximizing $U(x)$. Suppose $\nabla \Phi \cdot \nabla U < 0$ (Misalignment: improving $\Phi$ hurts $U$).
-
-\textbf{Required Axioms:} GC (Gradient Consistency), Rep (Dictionary)
-
-\textbf{Repaired Failure Modes:} B.C (Boundary Misalignment / Reward Hacking)
 
 \textbf{Mechanism:} State space extension with Lagrange multipliers converts unconstrained optimization into saddle-point problem; adjoint dynamics enforce alignment constraints.
 
@@ -40065,18 +40740,23 @@ This appendix collects the principal symbols used throughout the document for re
 
 ### Axioms and Permits
 
-| Symbol | Axiom | Constraint Class |
-|:-------|:------|:-----------------|
-| **C** | Compactness | Conservation |
-| **D** | Dissipation | Conservation |
-| **Rec** | Recovery | Duality |
-| **SC** | Scaling Coherence | Symmetry |
-| **Cap** | Capacity | Conservation |
-| **LS** | Local Stiffness | Symmetry |
-| **TB** | Topological Background | Topology |
-| **GC** | Gradient Consistency | Symmetry |
-| **R** | Recovery/Dictionary | Duality |
-| $\Pi_A$ | Boolean permit for Axiom $A$ | Thm. 21.6 |
+| Symbol | Permit | What it certifies | Constraint Class |
+|:-------|:-------|:------------------|:-----------------|
+| **C** | $\Pi_{\text{C}}$ | Energy stays in a precompact set | Conservation |
+| **D** | $\Pi_{\text{D}}$ | Dissipation/entropy is monotone | Conservation |
+| **Rec** | $\Pi_{\text{Rec}}$ | Finite time in bad region (no Zeno) | Duality |
+| **SC** | $\Pi_{\text{SC}}$ | Subcritical scaling $\alpha \le \beta$ | Symmetry |
+| **Cap** | $\Pi_{\text{Cap}}$ | Singular set has critical dimension | Conservation |
+| **LS** | $\Pi_{\text{LS}}$ | Positive stiffness / Morse index $0$ | Symmetry |
+| **TB** | $\Pi_{\text{TB}}$ | Compatible topological sector | Topology |
+| **GC** | $\Pi_{\text{GC}}$ | Gradient/dissipation metric compatibility | Symmetry |
+| **R** | $\Pi_{\text{R}}$ | Dictionary/representation is full and faithful | Duality |
+| **Scat** | $\Pi_{\text{Scat}}$ | Interaction cost finite $\Rightarrow$ dispersion | Auxiliary (dispersion dichotomy) |
+
+Each permit $\Pi_A$ is a Boolean predicate (Thm. 21.6) computed from algebraic/topological data for the corresponding axiom $A$.
+
+For shorthand, we denote the **full structural permit set** by:
+$$\mathcal{P}_{\text{full}} := \{\Pi_{\text{C}}, \Pi_{\text{D}}, \Pi_{\text{SC}}, \Pi_{\text{Cap}}, \Pi_{\text{LS}}, \Pi_{\text{TB}}, \Pi_{\text{GC}}, \Pi_{\text{R}}, \Pi_{\text{Rec}}\} \quad (\text{and } \Pi_{\text{Scat}} \text{ when dispersion/compactness dichotomies apply}).$$
 
 ### Categories and Metatheory
 
