@@ -43,16 +43,17 @@ site:
   options:
     favicon: ""
     logo: ""
+    hide_toc: true
     static_files:
       - _static/custom.css
   nav:
     - title: Home
-      url: /index
+      url: /
     - title: Framework
-      url: /source/hypopermits_jb
+      url: /hypopermits-jb
     - title: Case Studies
-      url: /source/case_studies
+      url: /case-studies
     - title: Template
-      url: /source/template
+      url: /template
     - title: System Prompt
-      url: /source/system_prompt
+      url: /system-prompt

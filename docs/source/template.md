@@ -55,7 +55,7 @@ This document integrates the **Instantiation** (defining Thin Objects), **Execut
 |---|-----------|------|----------|------------------------|-------------|
 | 13 | $\mathrm{Bound}_\partial$ | BoundaryCheck | Is System Open? | Input $\mathcal{U}$, Output $\mathcal{Y}$, Maps $\iota, \pi$ | $K_{\mathrm{Bound}_\partial}^{\pm}$ |
 | 14 | $\mathrm{Bound}_B$ | OverloadCheck | Is Input Bounded? | Authority bound $\mathcal{C}$ | $K_{\mathrm{Bound}_B}^{\pm}$ |
-| 15 | $\mathrm{Bound}_\int$ | StarveCheck | Is Input Sufficient? | Minimum $u_{\min}$ | $K_{\mathrm{Bound}_\int}^{\pm}$ |
+| 15 | $\mathrm{Bound}_{\Sigma}$ | StarveCheck | Is Input Sufficient? | Minimum $u_{\min}$ | $K_{\mathrm{Bound}_{\Sigma}}^{\pm}$ |
 | 16 | $\mathrm{GC}_T$ | AlignCheck | Is Control Matched? | Alignment $\langle \iota(u), \nabla\Phi \rangle$ | $K_{\mathrm{GC}_T}^{\pm}$ |
 
 ### **0.3 The Lock (Node 17)**
@@ -484,7 +484,7 @@ For each node:
 
 ---
 
-#### **Node 15: StarveCheck ($\mathrm{Bound}_\int$)**
+#### **Node 15: StarveCheck ($\mathrm{Bound}_{\Sigma}$)**
 
 **Question:** Is the input sufficient (no resource starvation)?
 
@@ -496,8 +496,8 @@ For each node:
 5. [ ] If insufficient: Resource depletion will cause failure
 
 **Certificate:**
-* [ ] $K_{\mathrm{Bound}_\int}^+ = (r_{\min}, \int r\, dt, \text{sufficiency proof})$ → **Go to Node 16**
-* [ ] $K_{\mathrm{Bound}_\int}^-$ → Check BarrierInput
+* [ ] $K_{\mathrm{Bound}_{\Sigma}}^+ = (r_{\min}, \int r\, dt, \text{sufficiency proof})$ → **Go to Node 16**
+* [ ] $K_{\mathrm{Bound}_{\Sigma}}^-$ → Check BarrierInput
   * [ ] $K^{\mathrm{blk}}$: Reserve sufficient (buffer exists) → **Go to Node 16**
   * [ ] Breached: Enable Surgery `SurgBD` (Reservoir)
 

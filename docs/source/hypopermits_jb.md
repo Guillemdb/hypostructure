@@ -20,7 +20,7 @@ The framework introduces:
 
 ---
 
-# The Canonical Sieve Algorithm
+# Hypostructure instantiation: The Canonical Sieve Algorithm
 
 The following Mermaid diagram is the **authoritative specification** of the sieve control flow. All subsequent definitions and theorems must align with this diagram.
 
@@ -362,7 +362,7 @@ The following table is the **single source of truth** for all interfaces require
 | 12   | $\mathrm{GC}_\nabla$          | OscillateCheck   | $K_{\mathrm{GC}_\nabla}^+$ / $K_{\mathrm{GC}_\nabla}^-$                                               | $\nabla$       | Potential $V$            | $\mathfrak{D}$ on $\mathcal{X}$ | Gradient operator                  | Does Flow Oscillate?                            | $\dot{x} \neq -\nabla V$                      |
 | 13   | $\mathrm{Bound}_\partial$     | BoundaryCheck    | $K_{\mathrm{Bound}_\partial}^+$ / $K_{\mathrm{Bound}_\partial}^-$                                     | $\partial$     | Domain $\Omega$          | $\mathfrak{D}$ on $\mathcal{X}$ | Boundary operator                  | Is System Open?                                 | $\partial\Omega \neq \emptyset$               |
 | 14   | $\mathrm{Bound}_B$            | OverloadCheck    | $K_{\mathrm{Bound}_B}^+$ / $K_{\mathrm{Bound}_B}^-$                                                   | $B$            | Control signal $u$       | $\mathfrak{D}$ on $\Phi$        | Input operator                     | Is Input Bounded?                               | $\lVert Bu \rVert \leq M$                     |
-| 15   | $\mathrm{Bound}_\int$         | StarveCheck      | $K_{\mathrm{Bound}_\int}^+$ / $K_{\mathrm{Bound}_\int}^-$                                             | $\int$         | Resource $r$             | $\mathfrak{D}$ on $\Phi$        | Supply integral                    | Is Input Sufficient?                            | $\int_0^T r \, dt \geq r_{\min}$              |
+| 15   | $\mathrm{Bound}_{\Sigma}$         | StarveCheck      | $K_{\mathrm{Bound}_{\Sigma}}^+$ / $K_{\mathrm{Bound}_{\Sigma}}^-$                                             | $\int$         | Resource $r$             | $\mathfrak{D}$ on $\Phi$        | Supply integral                    | Is Input Sufficient?                            | $\int_0^T r \, dt \geq r_{\min}$              |
 | 16   | $\mathrm{GC}_T$               | AlignCheck       | $K_{\mathrm{GC}_T}^+$ / $K_{\mathrm{GC}_T}^-$                                                         | $T$            | Pair $(u,d)$             | $\mathfrak{D}$ on $\Phi$        | Gauge transform                    | Is Control Matched?                             | $T(u) \sim d$                                 |
 | 17   | $\mathrm{Cat}_{\mathrm{Hom}}$ | BarrierExclusion | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ | $\mathrm{Hom}$ | Morphisms $\mathrm{Mor}$ | $\mathfrak{D}$ categorical      | Hom functor                        | Is $\mathrm{Hom}(\mathrm{Bad}, S) = \emptyset$? | $\mathrm{Hom}(\mathcal{B}, S) = \emptyset$    |
 
@@ -391,8 +391,8 @@ The following table defines all **barriers** in the Structural Sieve. Each barri
 | 11   | BarrierEpi       | $\mathrm{Rep}_K$, $\mathrm{Cap}_H$               | $K_{\mathrm{TB}_\rho}^\pm$                 | $K_{\mathrm{Rep}_K}^{\mathrm{blk}}$ / $K_{\mathrm{Rep}_K}^{\mathrm{br}}$                              | $\sup_\epsilon K_\epsilon(x) \leq S_{\text{BH}}$               | Is approximable complexity within holographic bounds?        | Epistemic Horizon          |
 | 12   | BarrierFreq      | $\mathrm{GC}_\nabla$, $\mathrm{SC}_\lambda$      | $K_{\mathrm{Rep}_K}^\pm$                   | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ / $K_{\mathrm{GC}_\nabla}^{\mathrm{br}}$                      | $\int \omega^2 S(\omega) d\omega < \infty$                     | Is the total oscillation energy finite?                      | Frequency Barrier          |
 | 14   | BarrierBode      | $\mathrm{Bound}_B$, $\mathrm{LS}_\sigma$         | $K_{\mathrm{Bound}_\partial}^+$            | $K_{\mathrm{Bound}_B}^{\mathrm{blk}}$ / $K_{\mathrm{Bound}_B}^{\mathrm{br}}$                          | $\int_0^\infty \ln \lVert S(i\omega) \rVert d\omega > -\infty$ | Is the sensitivity integral conserved (waterbed effect)?     | Bode Sensitivity           |
-| 15   | BarrierInput     | $\mathrm{Bound}_\int$, $C_\mu$                   | $K_{\mathrm{Bound}_B}^\pm$                 | $K_{\mathrm{Bound}_\int}^{\mathrm{blk}}$ / $K_{\mathrm{Bound}_\int}^{\mathrm{br}}$                    | $r_{\text{reserve}} > 0$                                       | Is there a reservoir to prevent starvation?                  | Input Stability            |
-| 16   | BarrierVariety   | $\mathrm{GC}_T$, $\mathrm{Cap}_H$                | $K_{\mathrm{Bound}_\int}^\pm$              | $K_{\mathrm{GC}_T}^{\mathrm{blk}}$ / $K_{\mathrm{GC}_T}^{\mathrm{br}}$                                | $H(u) \geq H(d)$                                               | Does control entropy match disturbance entropy?              | Requisite Variety          |
+| 15   | BarrierInput     | $\mathrm{Bound}_{\Sigma}$, $C_\mu$                   | $K_{\mathrm{Bound}_B}^\pm$                 | $K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{blk}}$ / $K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{br}}$                    | $r_{\text{reserve}} > 0$                                       | Is there a reservoir to prevent starvation?                  | Input Stability            |
+| 16   | BarrierVariety   | $\mathrm{GC}_T$, $\mathrm{Cap}_H$                | $K_{\mathrm{Bound}_{\Sigma}}^\pm$              | $K_{\mathrm{GC}_T}^{\mathrm{blk}}$ / $K_{\mathrm{GC}_T}^{\mathrm{br}}$                                | $H(u) \geq H(d)$                                               | Does control entropy match disturbance entropy?              | Requisite Variety          |
 | 17   | BarrierExclusion | $\mathrm{Cat}_{\mathrm{Hom}}$                    | Full $\Gamma$                              | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{hor}}$ | $\mathrm{Hom}(\mathcal{B}, S) = \emptyset$                     | Is there a categorical obstruction to the bad pattern?       | Morphism Exclusion / Reconstruction |
 
 ## Surgery Registry
@@ -416,7 +416,7 @@ The following table defines all **surgeries** in the Structural Sieve. Each surg
 | S13 | SurgDC       | $\mathrm{Rep}_K$, $\mathrm{Cap}_H$               | $K_{\mathrm{Rep}_K}^{\mathrm{br}}$           | $K_{\mathrm{SurgDC}}^{\mathrm{re}}$       | $K(x) \leq S_{\text{BH}} + \varepsilon \land x \in W^{1,\infty}$                             | Viscosity Solution        | Mollification           |
 | S14 | SurgDE       | $\mathrm{GC}_\nabla$, $\mathrm{SC}_\lambda$      | $K_{\mathrm{GC}_\nabla}^{\mathrm{br}}$       | $K_{\mathrm{SurgDE}}^{\mathrm{re}}$       | $\exists\Lambda: \int_{\lvert\omega\rvert\leq\Lambda} \omega^2 S d\omega < \infty \land$ uniform ellipticity | De Giorgi-Nash-Moser      | Hölder Regularization   |
 | S15 | SurgBE       | $\mathrm{Bound}_B$, $\mathrm{LS}_\sigma$         | $K_{\mathrm{Bound}_B}^{\mathrm{br}}$         | $K_{\mathrm{SurgBE}}^{\mathrm{re}}$       | $\|S(i\omega)\|_\infty < M \land$ phase margin $> 0$                                         | Saturation                | Gain Limiting           |
-| S16 | SurgBD       | $\mathrm{Bound}_\int$, $C_\mu$                   | $K_{\mathrm{Bound}_\int}^{\mathrm{br}}$      | $K_{\mathrm{SurgBD}}^{\mathrm{re}}$       | $r_{\text{reserve}} > 0 \land$ recharge $>$ drain                                            | Reservoir                 | Buffer Addition         |
+| S16 | SurgBD       | $\mathrm{Bound}_{\Sigma}$, $C_\mu$                   | $K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{br}}$      | $K_{\mathrm{SurgBD}}^{\mathrm{re}}$       | $r_{\text{reserve}} > 0 \land$ recharge $>$ drain                                            | Reservoir                 | Buffer Addition         |
 | S17 | SurgBC       | $\mathrm{GC}_T$, $\mathrm{Cap}_H$                | $K_{\mathrm{GC}_T}^{\mathrm{br}}$            | $K_{\mathrm{SurgBC}}^{\mathrm{re}}$       | $H(u) < H(d) - \varepsilon \land \exists u': H(u') \geq H(d)$                                | Controller Augmentation   | Entropy Matching        |
 
 :::{note} Restoration vs. Barrier Surgeries
@@ -1232,14 +1232,14 @@ $$P_{14} \equiv \|u_{\text{in}}\|_{L^\infty} \leq U_{\max} \quad \text{and} \qua
 :::{prf:definition} Node 15: StarveCheck
 :label: def-node-starve
 
-**Interface ID:** $\mathrm{Bound}_\int$
+**Interface ID:** $\mathrm{Bound}_{\Sigma}$
 
 **Predicate** $P_{15}$: Input is sufficient (no starvation):
 $$P_{15} \equiv \int_0^T \|u_{\text{in}}(t)\| dt \geq U_{\min}(T) \quad \text{for required supply threshold } U_{\min}$$
 
-**YES certificate** $K_{\mathrm{Bound}_\int}^+ = (U_{\min}, \int u_{\text{in}}, \text{supply sufficiency proof})$: Documents the required supply threshold and that actual supply meets or exceeds it.
+**YES certificate** $K_{\mathrm{Bound}_{\Sigma}}^+ = (U_{\min}, \int u_{\text{in}}, \text{supply sufficiency proof})$: Documents the required supply threshold and that actual supply meets or exceeds it.
 
-**NO certificate** $K_{\mathrm{Bound}_\int}^- = (\text{starvation witness: supply deficit } \int u_{\text{in}} < U_{\min})$
+**NO certificate** $K_{\mathrm{Bound}_{\Sigma}}^- = (\text{starvation witness: supply deficit } \int u_{\text{in}} < U_{\min})$
 
 **YES routing**: AlignCheck (Node 16)
 
@@ -1793,7 +1793,7 @@ This barrier is triggered when Node 11 determines that exact complexity is uncom
 **Barrier ID:** `BarrierInput`
 
 **Interface Dependencies:**
-- **Primary:** $\mathrm{Bound}_\int$ (provides input reserve $r_{\text{reserve}}$ and flow integrals)
+- **Primary:** $\mathrm{Bound}_{\Sigma}$ (provides input reserve $r_{\text{reserve}}$ and flow integrals)
 - **Secondary:** $C_\mu$ (provides concentration structure for resource distribution)
 
 **Sieve Signature:**
@@ -1806,8 +1806,8 @@ This barrier is triggered when Node 11 determines that exact complexity is uncom
 *(Positive reserve ensures the system can buffer transient input deficits—the input stability principle prevents resource starvation.)*
 
 **Outcomes:**
-- **Blocked** ($K_{\mathrm{Bound}_\int}^{\mathrm{blk}}$): Reserve positive; buffer exists against starvation. Implies Pre(AlignCheck).
-- **Breached** ($K_{\mathrm{Bound}_\int}^{\mathrm{br}}$): Reserve depleted; system vulnerable to input starvation. Activates **Mode B.D** (Resource Depletion).
+- **Blocked** ($K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{blk}}$): Reserve positive; buffer exists against starvation. Implies Pre(AlignCheck).
+- **Breached** ($K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{br}}$): Reserve depleted; system vulnerable to input starvation. Activates **Mode B.D** (Resource Depletion).
 
 **Routing:**
 - **On Block:** Proceed to `AlignCheck`.
@@ -1827,7 +1827,7 @@ This barrier is triggered when Node 11 determines that exact complexity is uncom
 - **Secondary:** $\mathrm{Cap}_H$ (provides disturbance entropy $H(d)$ and capacity bounds)
 
 **Sieve Signature:**
-- **Weakest Precondition:** $\{K_{\mathrm{Bound}_\int}^{\pm}\}$
+- **Weakest Precondition:** $\{K_{\mathrm{Bound}_{\Sigma}}^{\pm}\}$
 - **Barrier Predicate (Blocked Condition):**
   $$H(u) \geq H(d)$$
 
@@ -2395,11 +2395,11 @@ The non-circularity checker must verify that the progress measure is compatible 
 **Target Mode:** `Mode B.D` (Resource Starvation)
 
 **Interface Dependencies:**
-- **Primary:** $\mathrm{Bound}_\int$ (Supply Interface: provides resource integral)
+- **Primary:** $\mathrm{Bound}_{\Sigma}$ (Supply Interface: provides resource integral)
 - **Secondary:** $C_\mu$ (Compactness Interface: provides state bounds)
 
 **Admissibility Signature:**
-- **Input Certificate:** $K_{\mathrm{Bound}_\int}^{\mathrm{br}}$ (Resource depletion detected)
+- **Input Certificate:** $K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{br}}$ (Resource depletion detected)
 - **Admissibility Predicate:**
   $r_{\text{reserve}} > 0 \land \text{recharge rate } > \text{drain rate}$
   *(Positive reserve with sustainable recharge.)*
@@ -2944,10 +2944,10 @@ $$\|Bu\|_{L^\infty} \leq M \quad \land \quad \int_0^T \|u(t)\|^2 dt < \infty$$
 - $K_{\mathrm{Bound}_B}^-$ (Overload): $(\text{overload witness}, t^*)$ — triggers BarrierBode.
 :::
 
-#### 8.14c. $\mathrm{Bound}_\int$ (Resource Interface)
+#### 8.14c. $\mathrm{Bound}_{\Sigma}$ (Resource Interface)
 *Enables Node 15: StarveCheck*
 
-:::{prf:definition} Interface $\mathrm{Bound}_\int$
+:::{prf:definition} Interface $\mathrm{Bound}_{\Sigma}$
 :label: def-interface-bound-int
 
 **Purpose:** Verifies that resource/energy supply is sufficient.
@@ -2960,9 +2960,9 @@ $$\|Bu\|_{L^\infty} \leq M \quad \land \quad \int_0^T \|u(t)\|^2 dt < \infty$$
 Is the integrated resource supply sufficient?
 $$\int_0^T r(t) \, dt \geq r_{\min}$$
 
-**Certificates ($\mathcal{K}_{\mathrm{Bound}_\int}$):**
-- $K_{\mathrm{Bound}_\int}^+$ (Sufficient Supply): $(r_{\min}, \text{sufficiency proof})$.
-- $K_{\mathrm{Bound}_\int}^-$ (Starvation): $(\text{deficit time})$ — triggers BarrierInput.
+**Certificates ($\mathcal{K}_{\mathrm{Bound}_{\Sigma}}$):**
+- $K_{\mathrm{Bound}_{\Sigma}}^+$ (Sufficient Supply): $(r_{\min}, \text{sufficiency proof})$.
+- $K_{\mathrm{Bound}_{\Sigma}}^-$ (Starvation): $(\text{deficit time})$ — triggers BarrierInput.
 :::
 
 #### 8.14d. $\mathrm{GC}_T$ (Control Alignment Interface)
@@ -3113,7 +3113,7 @@ The following table provides the complete mapping from Sieve nodes to interfaces
 | 12 | OscillateCheck | $\mathrm{GC}_\nabla$ | Gradient flow | Node 13 | BarrierFreq |
 | 13 | BoundaryCheck | $\mathrm{Bound}_\partial$ | Open system? | Node 14 | Node 17 |
 | 14 | OverloadCheck | $\mathrm{Bound}_B$ | Input bounded | Node 15 | BarrierBode |
-| 15 | StarveCheck | $\mathrm{Bound}_\int$ | Supply sufficient | Node 16 | BarrierInput |
+| 15 | StarveCheck | $\mathrm{Bound}_{\Sigma}$ | Supply sufficient | Node 16 | BarrierInput |
 | 16 | AlignCheck | $\mathrm{GC}_T$ | Control aligned | Node 17 | BarrierVariety |
 | 17 | **The Lock** | $\mathrm{Cat}_{\mathrm{Hom}}$ | $\text{Hom}=\emptyset$ | **VICTORY** | **FATAL** / **HORIZON** |
 
