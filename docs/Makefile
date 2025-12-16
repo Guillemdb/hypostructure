@@ -1,17 +1,22 @@
-# Makefile for diagram generation
+.PHONY: docs serve pdf clean install
 
-DIAGRAM_MMD = diagram_framework.mmd
-DIAGRAM_PDF = diagram_framework.pdf
+# Build the Jupyter Book
+docs:
+	. .venv/bin/activate && jupyter-book build
 
-.PHONY: diagram clean-diagram
+# Serve the built site on localhost:8000
+serve:
+	. .venv/bin/activate && jupyter-book start --port 8000
 
-# Render mermaid diagram to PDF using mmdc (Mermaid CLI)
-diagram: $(DIAGRAM_PDF)
+# Build PDF output
+pdf:
+	. .venv/bin/activate && jupyter-book build --pdf
 
-$(DIAGRAM_PDF): $(DIAGRAM_MMD)
-	@echo "=== Rendering mermaid diagram to PDF ==="
-	mmdc -i $(DIAGRAM_MMD) -o $(DIAGRAM_PDF)
-	@echo "=== Done: $(DIAGRAM_PDF) ==="
+# Clean build artifacts
+clean:
+	rm -rf _build
 
-clean-diagram:
-	rm -f $(DIAGRAM_PDF)
+# Install dependencies
+install:
+	uv venv .venv
+	. .venv/bin/activate && uv pip install jupyter-book sphinxcontrib-bibtex sphinx-design sphinxcontrib-mermaid

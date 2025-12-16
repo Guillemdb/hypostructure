@@ -1,0 +1,81 @@
+/* Custom styling for metatheorem directive */
+
+/* Metatheorem admonition - purple/violet theme */
+.admonition.metatheorem,
+div[data-kind="metatheorem"] {
+  border-left: 4px solid #7c3aed;
+  background-color: #f5f3ff;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 0.25em;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .admonition.metatheorem,
+  div[data-kind="metatheorem"] {
+    background-color: #2e1065;
+    border-left-color: #a78bfa;
+  }
+}
+
+/* Metatheorem title styling */
+.admonition.metatheorem .admonition-title,
+div[data-kind="metatheorem"] > .admonition-title,
+.metatheorem-title {
+  color: #5b21b6;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admonition.metatheorem .admonition-title,
+  div[data-kind="metatheorem"] > .admonition-title,
+  .metatheorem-title {
+    color: #c4b5fd;
+  }
+}
+
+/* Numbered metatheorem support */
+.metatheorem-number {
+  font-weight: bold;
+  color: #7c3aed;
+}
+
+/* ============ Table Styling ============ */
+
+/* Reduce table font size by ~2pt */
+table {
+  font-size: 0.875em;
+}
+
+/* ============ Mermaid Diagram Styling ============ */
+
+/* Make large Mermaid diagrams scrollable */
+.mermaid {
+  overflow: auto;
+  max-height: 80vh;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5em;
+  padding: 1em;
+  background: #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  .mermaid {
+    border-color: #374151;
+    background: #1f2937;
+  }
+}
+
+/* Ensure SVG inside mermaid is responsive but can grow */
+.mermaid svg {
+  max-width: none;
+  height: auto;
+  cursor: grab;
+}
+
+.mermaid svg:active {
+  cursor: grabbing;
+}

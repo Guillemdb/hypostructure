@@ -1,0 +1,58 @@
+# MyST configuration for Jupyter Book v2
+# https://mystmd.org/guide/frontmatter
+
+version: 1
+
+project:
+  title: The Structural Sieve
+  subtitle: A Certificate-Driven Framework for Singularity Exclusion
+  authors:
+    - name: Guillem Duran Ballester
+  copyright: "2025"
+
+  # Custom plugins
+  plugins:
+    - _extensions/metatheorem.mjs
+
+  # Table of contents
+  toc:
+    - file: index.md
+      title: Home
+    - file: source/hypopermits_jb.md
+      title: The Structural Sieve Framework
+    - file: source/case_studies.md
+      title: Case Studies
+    - file: source/template.md
+      title: Universal Solution Template
+    - file: source/system_prompt.md
+      title: System Prompt
+
+  # Bibliography
+  bibliography:
+    - source/references.bib
+
+  # PDF export configuration
+  exports:
+    - format: pdf
+      template: plain_latex_book
+      output: _build/exports/hypostructure.pdf
+
+site:
+  title: Hypostructure
+  template: book-theme
+  options:
+    favicon: ""
+    logo: ""
+    static_files:
+      - _static/custom.css
+  nav:
+    - title: Home
+      url: /index
+    - title: Framework
+      url: /source/hypopermits_jb
+    - title: Case Studies
+      url: /source/case_studies
+    - title: Template
+      url: /source/template
+    - title: System Prompt
+      url: /source/system_prompt
