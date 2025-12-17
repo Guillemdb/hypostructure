@@ -1,28 +1,418 @@
 ---
-title: "The Structural Sieve: A Certificate-Driven Framework for Singularity Exclusion"
-subtitle: "Operational Semantics and Permit Vocabulary for the Hypostructure Diagnostic Engine"
+title: "The Hypostructure Formalism: A Categorical Framework for Singularity Resolution"
+subtitle: "From Higher Topos Theory to Constructive Verification"
 author: "Guillem Duran Ballester"
 ---
 
-# The Structural Sieve: A Certificate-Driven Framework for Singularity Exclusion
+# The Hypostructure Formalism: A Categorical Framework for Singularity Resolution
 
 ## Abstract
 
-This document provides a rigorous mathematical foundation for the Structural Sieve—a diagnostic algorithm that determines whether a dynamical system admits global regularity or must encounter singularity. The sieve operates as a **certificate-driven workflow**: each node evaluation produces explicit certificates that justify subsequent transitions, transforming the global regularity question into a sequence of local algebraic checks.
+This document defines the **Hypostructure**, a mathematical object within a cohesive $(\infty, 1)$-topos that encodes the conservation laws, symmetries, and topological constraints of a dynamical system. We introduce a constructive method for verifying global regularity: rather than assuming hard analytic bounds *a priori*, we define **Thin Kernel Objects** (minimal physical data) and a **Structural Sieve** (a decidability functor). The Sieve acts as a **resolution functor** $\mathcal{S}: \mathbf{Thin}_T \to \mathbf{Hypo}_T^{\geq 0}$, attempting to promote Thin Objects into a valid Hypostructure via certificate saturation within a Postnikov tower.
 
-The framework introduces:
-1. **Operational semantics** making the sieve diagram executable as a proof-carrying program
-2. **Permit vocabulary** defining certificate types for all node outcomes
-3. **Node specifications** with predicates and certificate schemas for all 17+ diagnostic nodes
-4. **Barrier contracts** and **surgery contracts** with non-circular preconditions
-5. **Universal singularity modules** handling profile classification and surgery admissibility
+This approach resolves the "circularity of compactness" critique by treating compactness not as an assumption, but as a runtime branch (Concentration vs. Dispersion) within a rigorous diagnostic automaton. The framework provides:
+
+1. **Categorical foundations** in Higher Topos Theory with cohesive modalities
+2. **Constructive approach** via Thin Kernel Objects requiring only uncontroversial physical definitions
+3. **Axiom system** organized by constraint class (Conservation, Duality, Symmetry, Topology, Boundary)
+4. **Operational semantics** making the sieve diagram executable as a proof-carrying program
+5. **Certificate vocabulary** with explicit schemas for all node outcomes
 6. **Factory metatheorems** enabling type-based instantiation from definitions alone
 
 ---
 
-# Hypostructure instantiation: The Canonical Sieve Algorithm
+# Part I: Categorical Foundations
 
-The following Mermaid diagram is the **authoritative specification** of the sieve control flow. All subsequent definitions and theorems must align with this diagram.
+## 1. The Ambient Substrate
+
+To ensure robustness against deformation and gauge redundancies, we work within **Higher Topos Theory** and **Homotopy Type Theory (HoTT)**. This framework is strictly more expressive than ZFC set theory and naturally encodes the homotopical structure of configuration spaces.
+
+:::{prf:definition} Ambient $\infty$-Topos
+:label: def-ambient-topos
+
+Let $\mathcal{E}$ be a **cohesive $(\infty, 1)$-topos** equipped with the shape/flat/sharp modality adjunction:
+$$\Pi \dashv \flat \dashv \sharp : \mathcal{E} \to \infty\text{-Grpd}$$
+
+The cohesion structure provides:
+- **Shape** $\Pi$: Extracts the underlying homotopy type (fundamental $\infty$-groupoid)
+- **Flat** $\flat$: Includes discrete $\infty$-groupoids as "constant" objects
+- **Sharp** $\sharp$: Includes codiscrete objects (contractible path spaces)
+
+Standard examples include the topos of smooth $\infty$-stacks $\mathbf{Sh}_\infty(\mathbf{CartSp})$ and differential cohesive types.
+:::
+
+## 2. The Hypostructure Object
+
+A Hypostructure is not merely a set of equations, but a geometric object equipped with a connection and a filtration.
+
+:::{prf:definition} Categorical Hypostructure
+:label: def-categorical-hypostructure
+
+A **Hypostructure** is a tuple $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet, \tau, \partial_\bullet)$ where:
+
+1. **State Stack** $\mathcal{X} \in \text{Obj}(\mathcal{E})$: The **configuration stack** representing all possible states. This is an $\infty$-sheaf encoding both the state space and its symmetries. The homotopy groups $\pi_n(\mathcal{X})$ capture:
+   - $\pi_0$: Connected components (topological sectors)
+   - $\pi_1$: Gauge symmetries and monodromy
+   - $\pi_n$ ($n \geq 2$): Higher coherences and anomalies
+
+2. **Flat Connection** $\nabla: \mathcal{X} \to T\mathcal{X}$: A section of the tangent $\infty$-bundle, encoding the dynamics as **parallel transport**. The semiflow $S_t$ is recovered as the exponential map:
+   $$S_t = \exp(t \cdot \nabla): \mathcal{X} \to \mathcal{X}$$
+   The flatness condition $[\nabla, \nabla] = 0$ ensures consistency of time evolution.
+
+3. **Cohomological Height** $\Phi_\bullet: \mathcal{X} \to \mathbb{R}_\infty$: A **cohomological field theory** assigning to each state its energy/complexity. The notation $\Phi_\bullet$ indicates this is a **derived functor**—it comes equipped with higher coherences $\Phi_n$ for all $n$.
+
+4. **Truncation Structure** $\tau = (\tau_C, \tau_D, \tau_{SC}, \tau_{LS})$: The axioms are realized as **truncation functors** on the homotopy groups of $\mathcal{X}$:
+   - **Axiom C**: $\tau_C$ truncates unbounded orbits
+   - **Axiom D**: $\tau_D$ bounds the energy filtration
+   - **Axiom SC**: $\tau_{SC}$ constrains weight gradings
+   - **Axiom LS**: $\tau_{LS}$ truncates unstable modes
+
+5. **Boundary Morphism** $\partial_\bullet: \mathcal{X} \to \mathcal{X}_\partial$: A **restriction functor** to the boundary $\infty$-stack, representing the **Holographic Screen**—the interface between bulk dynamics and the external environment. Formally, $\partial_\bullet$ is the pullback along the inclusion $\iota: \partial\mathcal{X} \hookrightarrow \mathcal{X}$:
+   $$\partial_\bullet := \iota^*: \mathbf{Sh}_\infty(\mathcal{X}) \to \mathbf{Sh}_\infty(\partial\mathcal{X})$$
+
+   This structure satisfies:
+
+   - **Stokes' Constraint (Differential Cohomology):** Let $\hat{\Phi} \in \hat{H}^n(\mathcal{X}; \mathbb{R})$ be the differential refinement of the energy class. The **integration pairing** satisfies:
+     $$\langle d\hat{\Phi}, [\mathcal{X}] \rangle = \langle \hat{\Phi}, [\partial\mathcal{X}] \rangle$$
+     where $d: \hat{H}^n \to \Omega^{n+1}_{\text{cl}}$ is the curvature map. This rigidly links internal dissipation to boundary flux via the **de Rham-Cheeger-Simons sequence**.
+
+   - **Cobordism Interface:** For Surgery operations, $\partial_\bullet$ defines the gluing interface in the symmetric monoidal $(\infty,1)$-category $\mathbf{Bord}_n^{\text{or}}$. Given a cobordism $W: M_0 \rightsquigarrow M_1$, the boundary functor satisfies:
+     $$\partial W \simeq M_0 \sqcup \overline{M_1} \quad \text{in } \mathbf{Bord}_n$$
+     Surgery is a morphism in this category; gluing is composition.
+
+   - **Holographic Bound (Entropy as Cohomological Invariant):** The **cohomological entropy** $S(\mathcal{X}) := \log|\pi_0(\mathcal{X}_{\text{sing}})|$ is bounded by the boundary capacity:
+     $$S(\mathcal{X}) \leq C \cdot \chi(\partial\mathcal{X})$$
+     where $\chi$ denotes the Euler characteristic. This generalizes the Bekenstein bound to the categorical setting.
+:::
+
+:::{prf:remark} Classical Recovery
+When $\mathcal{E} = \mathbf{Set}$ (the trivial topos), the categorical definition reduces to classical structural flow data: $\mathcal{X}$ becomes a Polish space $X$, the connection $\nabla$ becomes a vector field generating a semiflow, the truncation functors become decidable propositions, and the boundary morphism $\partial_\bullet$ becomes the Sobolev trace operator $u \mapsto u|_{\partial\Omega}$ with flux $\mathcal{J} = \nabla u \cdot \nu$ (normal derivative).
+:::
+
+## 3. The Fixed-Point Principle
+
+The hypostructure axioms are not independent postulates chosen for technical convenience. They are manifestations of a single organizing principle: **self-consistency under evolution**.
+
+:::{prf:definition} Self-Consistency
+:label: def-self-consistency
+
+A trajectory $u: [0, T) \to X$ is **self-consistent** if:
+1. **Temporal coherence:** The evolution $F_t: x \mapsto S_t x$ preserves the structural constraints defining $X$.
+2. **Asymptotic stability:** Either $T = \infty$, or the trajectory approaches a well-defined limit as $t \nearrow T$.
+:::
+
+:::{prf:metatheorem} The Fixed-Point Principle
+:label: mt-fixed-point-principle
+
+Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
+1. The system $\mathcal{S}$ satisfies the hypostructure axioms on all finite-energy trajectories.
+2. Every finite-energy trajectory is asymptotically self-consistent.
+3. The only persistent states are fixed points of the evolution operator $F_t = S_t$ satisfying $F_t(x) = x$.
+
+**Interpretation:** The equation $F(x) = x$ encapsulates the principle: *structures that persist under their own evolution are precisely those that satisfy the hypostructure axioms*. Singularities represent states where $F(x) \neq x$ in the limit—the evolution attempts to produce a state incompatible with its own definition.
+:::
+
+---
+
+# Part II: The Constructive Approach
+
+## 4. The Thin Kernel (Minimal Inputs)
+
+Classical analysis often critiques structural approaches for assuming hard properties (like Compactness) that are as difficult to prove as the result itself. We resolve this by requiring only **Thin Objects**—uncontroversial physical definitions—as inputs.
+
+:::{prf:definition} Thin Kernel Objects
+:label: def-thin-objects
+
+To instantiate a system, the user provides only:
+
+1. **The Arena** $(\mathcal{X}^{\text{thin}})$: The metric space and measure (e.g., $L^2(\mathbb{R}^3)$, a Polish space with Borel $\sigma$-algebra).
+
+2. **The Potential** $(\Phi^{\text{thin}})$: The energy functional and its scaling dimension $\alpha$.
+
+3. **The Cost** $(\mathfrak{D}^{\text{thin}})$: The dissipation rate and its scaling dimension $\beta$.
+
+4. **The Invariance** $(G^{\text{thin}})$: The symmetry group and its action on $\mathcal{X}$.
+
+5. **The Interface** $(\partial^{\text{thin}})$: The boundary data specifying how the system couples to its environment, given as a tuple $(\mathcal{B}, \text{Tr}, \mathcal{J}, \mathcal{R})$:
+
+   - **Boundary Object** $\mathcal{B} \in \text{Obj}(\mathcal{E})$: An $\infty$-stack representing the space of boundary data (inputs, outputs, environmental states).
+
+   - **Trace Morphism** $\text{Tr}: \mathcal{X} \to \mathcal{B}$: A morphism in $\mathcal{E}$ implementing restriction to the boundary. In the classical setting, this is the Sobolev trace $u \mapsto u|_{\partial\Omega}$. Categorically, $\text{Tr}$ is the counit of the adjunction $\iota_! \dashv \iota^*$ where $\iota: \partial\mathcal{X} \hookrightarrow \mathcal{X}$.
+
+   - **Flux Morphism** $\mathcal{J}: \mathcal{B} \to \underline{\mathbb{R}}$: A morphism to the constant sheaf $\underline{\mathbb{R}}$, measuring energy/mass flow across the boundary. Conservation is expressed as:
+     $$\frac{d}{dt}\Phi \simeq -\mathcal{J} \circ \text{Tr} \quad \text{in } \text{Hom}_{\mathcal{E}}(\mathcal{X}, \underline{\mathbb{R}})$$
+
+   - **Reinjection Kernel** $\mathcal{R}: \mathcal{B} \to \mathcal{P}(\mathcal{X})$: A **Markov kernel** in the Kleisli category of the probability monad $\mathcal{P}$, implementing non-local boundary conditions (Fleming-Viot, McKean-Vlasov). This is a morphism $\mathcal{R}: \mathcal{B} \to \mathcal{P}(\mathcal{X})$ satisfying the **Feller property**: for each bounded continuous $f: \mathcal{X} \to \mathbb{R}$, the map $b \mapsto \int_\mathcal{X} f \, d\mathcal{R}(b)$ is continuous. Special cases:
+     - $\mathcal{R} \simeq 0$ (zero measure): absorbing boundary (Dirichlet)
+     - $\mathcal{R}(b) = \delta_{\iota(b)}$ (Dirac at inclusion): reflecting boundary (Neumann)
+     - $\mathcal{R}(b) = \mu_t$ (empirical measure): Fleming-Viot reinjection
+
+These are the **only** inputs. All other properties (compactness, stiffness, topological structure) are **derived** by the Sieve, not assumed.
+:::
+
+:::{prf:remark} The Structural Role of $\partial$
+:label: rem-boundary-role
+
+The Boundary Operator is not merely a geometric edge—it is a **Functor** between Bulk and Boundary categories that powers three critical subsystems:
+
+1. **Conservation Laws (Nodes 1-2):** Via the **Stokes morphism** in differential cohomology, $\partial_\bullet$ relates internal rate of change ($\mathfrak{D}$) to external flux ($\mathcal{J}$). In the $\infty$-categorical setting:
+   $$\mathfrak{D} \simeq \partial_\bullet^* \mathcal{J} \quad \text{in } \text{Hom}_{\mathcal{E}}(\mathcal{X}, \underline{\mathbb{R}})$$
+   Energy blow-up requires the flux morphism to be unbounded.
+
+2. **Control Layer (Nodes 13-16):** The Boundary Functor distinguishes:
+   - **Singularity** (internal blow-up, $\text{coker}(\text{Tr})$ trivial)
+   - **Injection** (external forcing, $\|\mathcal{J}\|_\infty \to \infty$)
+
+   Node 13 checks that $\text{Tr}$ is not an equivalence (system is open). Nodes 14-15 verify that $\mathcal{J}$ factors through a bounded subobject.
+
+3. **Surgery Interface (Cobordism):** In Metatheorem 16.1 (Structural Surgery), $\partial_\bullet$ defines the gluing interface in $\mathbf{Bord}_n$:
+   - **Cutting:** The excision defines a cobordism $W$ with $\partial W = \Sigma$
+   - **Gluing:** Composition in $\mathbf{Bord}_n$ via the pushout $u_{\text{bulk}} \sqcup_\Sigma u_{\text{cap}}$
+
+4. **Holographic Bound (Tactic E8):** If $|\pi_0(\mathcal{X}_{\text{sing}})| = \infty$ but $\chi(\partial\mathcal{X}) < \infty$, the singularity is **cohomologically excluded** by the entropy bound.
+:::
+
+## 5. The Sieve as Constructor
+
+The Structural Sieve is defined as a functor $F_{\text{Sieve}}: \mathbf{Thin} \to \mathbf{Result}$. It attempts to promote Thin Objects into a full Hypostructure via certificate saturation.
+
+:::{prf:definition} The Sieve Functor
+:label: def-sieve-functor
+
+Given Thin Kernel Objects $\mathcal{T} = (\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}^{\text{thin}}, G^{\text{thin}}, \partial^{\text{thin}})$, the Sieve produces:
+
+$$F_{\text{Sieve}}(\mathcal{T}) \in \{\texttt{REGULARITY}, \texttt{DISPERSION}, \texttt{FAILURE}(m)\}$$
+
+where $m \in \{C.E, C.D, C.C, S.E, S.D, S.C, T.E, T.D, T.C, D.E, D.C, B.E, B.D, B.C\}$ classifies the failure mode.
+:::
+
+### 5.1. The Adjunction Principle
+
+:::{prf:definition} Categories of Hypostructures
+:label: def-hypo-thin-categories
+
+We define two categories capturing the minimal and full structural data:
+
+1. **$\mathbf{Thin}_T$** (Category of Thin Objects): Objects are Thin Kernel tuples $\mathcal{T} = (\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}^{\text{thin}}, G^{\text{thin}}, \partial^{\text{thin}})$. Morphisms are structure-preserving maps respecting energy scaling, dissipation, symmetry, and boundary structure.
+
+2. **$\mathbf{Hypo}_T$** (Category of Hypostructures): Objects are full Hypostructures $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet, \tau, \partial_\bullet)$ with certificate data. Morphisms preserve all axiom certificates.
+
+3. **Forgetful Functor** $U: \mathbf{Hypo}_T \to \mathbf{Thin}_T$: Extracts the underlying thin data by forgetting derived structures and certificates.
+:::
+
+:::{prf:remark} The Sieve as Left Adjoint
+:label: rem-sieve-adjoint
+
+The Structural Sieve computes the **left adjoint** (free construction) to the forgetful functor:
+
+$$F_{\text{Sieve}} \dashv U : \mathbf{Hypo}_T \rightleftarrows \mathbf{Thin}_T$$
+
+**Interpretation:**
+- The **unit** $\eta_\mathcal{T}: \mathcal{T} \to U(F_{\text{Sieve}}(\mathcal{T}))$ embeds thin data into its promoted hypostructure.
+- The **counit** $\varepsilon_\mathbb{H}: F_{\text{Sieve}}(U(\mathbb{H})) \to \mathbb{H}$ witnesses that re-running the Sieve on already-verified data is idempotent.
+- **Freeness:** The promoted hypostructure $F_{\text{Sieve}}(\mathcal{T})$ is the "freest" (most general) valid hypostructure compatible with the thin data—it assumes no more than what the certificates prove.
+
+This categorical perspective explains why the Sieve construction is **canonical** (unique up to isomorphism) and **natural**: it is the universal solution to the problem "given minimal physical data, what is the most general valid structural completion?"
+
+**Literature:** {cite}`MacLane98`; {cite}`Awodey10`
+:::
+
+### The Resolution of the Compactness Critique
+
+The framework does **not** assume Axiom C (Compactness). Instead, **Node 3 (CompactCheck)** performs a runtime dichotomy check on the Thin Objects:
+
+:::{prf:theorem} Compactness Resolution
+:label: thm-compactness-resolution
+
+At Node 3, the Sieve executes:
+
+1. **Concentration Branch:** If energy concentrates ($\mu(V) > 0$ for some profile $V$), a **Canonical Profile** emerges via scaling limits. Axiom C is satisfied *constructively*—the certificate $K_{C_\mu}^+$ witnesses the concentration.
+
+2. **Dispersion Branch:** If energy scatters ($\mu(V) = 0$ for all profiles), compactness fails. However, this triggers **Mode D.D (Dispersion/Global Existence)**—a success state, not a failure.
+
+**Conclusion:** Regularity is decidable regardless of whether Compactness holds *a priori*. The dichotomy is resolved at runtime, not assumed.
+:::
+
+---
+
+# Part III: The Axiom System
+
+The Hypostructure $\mathbb{H}$ is valid if it satisfies the following structural constraints (Axioms). In the operational Sieve, these are verified as **Interface Permits** at the corresponding nodes.
+
+## 6. Conservation Constraints
+
+:::{prf:axiom} Axiom D (Dissipation)
+:label: ax-dissipation
+
+The energy-dissipation inequality holds:
+$$\Phi(S_t x) + \int_0^t \mathfrak{D}(S_s x) \, ds \leq \Phi(x)$$
+
+**Enforced by:** Node 1 (EnergyCheck) — Certificate $K_{D_E}^+$
+:::
+
+:::{prf:axiom} Axiom Rec (Recovery)
+:label: ax-recovery
+
+Discrete events are finite: $N(J) < \infty$ for any bounded interval $J$.
+
+**Enforced by:** Node 2 (ZenoCheck) — Certificate $K_{\text{Rec}_N}^+$
+:::
+
+## 7. Duality Constraints
+
+:::{prf:axiom} Axiom C (Compactness)
+:label: ax-compactness
+
+Bounded energy sequences admit convergent subsequences modulo the symmetry group $G$:
+$$\sup_n \Phi(u_n) < \infty \implies \exists (n_k), g_k \in G: g_k \cdot u_{n_k} \to u_\infty$$
+
+**Enforced by:** Node 3 (CompactCheck) — Certificate $K_{C_\mu}^+$ (or dispersion via $K_{C_\mu}^-$)
+:::
+
+:::{prf:axiom} Axiom SC (Scaling)
+:label: ax-scaling
+
+Dissipation scales faster than time: $\alpha > \beta$, where $\alpha$ is the energy scaling dimension and $\beta$ is the dissipation scaling dimension.
+
+**Enforced by:** Node 4 (ScaleCheck) — Certificate $K_{SC_\lambda}^+$
+:::
+
+## 8. Symmetry Constraints
+
+:::{prf:axiom} Axiom LS (Stiffness)
+:label: ax-stiffness
+
+The Łojasiewicz-Simon inequality holds near equilibria, ensuring a mass gap:
+$$\inf \sigma(L) > 0$$
+where $L$ is the linearized operator at equilibrium.
+
+**Enforced by:** Node 7 (StiffnessCheck) — Certificate $K_{LS_\sigma}^+$
+:::
+
+:::{prf:axiom} Axiom GC (Gradient Consistency)
+:label: ax-gradient-consistency
+
+Gauge invariance and metric compatibility: the control $T(u)$ matches the disturbance $d$.
+
+**Enforced by:** Node 16 (AlignCheck) — Certificate $K_{GC_T}^+$
+:::
+
+## 9. Topology Constraints
+
+:::{prf:axiom} Axiom TB (Topological Background)
+:label: ax-topology
+
+Topological sectors are separated by an action gap:
+$$[\pi] \in \pi_0(\mathcal{C})_{\text{acc}} \implies E < S_{\min} + \Delta$$
+
+**Enforced by:** Node 8 (TopoCheck) — Certificate $K_{TB_\pi}^+$
+:::
+
+:::{prf:axiom} Axiom Cap (Capacity)
+:label: ax-capacity
+
+Capacity density bounds prevent concentration on thin sets:
+$$\text{codim}(S) \geq 2 \implies \text{Cap}_H(S) = 0$$
+
+**Enforced by:** Node 6 (GeomCheck) — Certificate $K_{\text{Cap}_H}^+$
+:::
+
+## 10. Boundary Constraints
+
+The Boundary Constraints enforce coupling between bulk dynamics and environmental interface via the Thin Interface $\partial^{\text{thin}} = (\mathcal{B}, \text{Tr}, \mathcal{J}, \mathcal{R})$.
+
+:::{prf:axiom} Axiom Bound (Input/Output Coupling)
+:label: ax-boundary
+
+The system's boundary morphisms satisfy:
+- **Bound$_\partial$**: $\text{Tr}: \mathcal{X} \to \mathcal{B}$ is not an equivalence (open system) — Node 13
+- **Bound$_B$**: $\mathcal{J}$ factors through a bounded subobject $\mathcal{J}: \mathcal{B} \to \underline{[-M, M]}$ — Node 14
+- **Bound$_{\Sigma}$**: The integral $\int_0^T \mathcal{J}_{\text{in}}$ exists as a morphism in $\text{Hom}(\mathbf{1}, \underline{\mathbb{R}}_{\geq r_{\min}})$ — Node 15
+- **Bound$_{\mathcal{R}}$**: The **reinjection diagram** commutes:
+  $$\mathcal{J}_{\text{out}} \simeq \mathcal{J}_{\text{in}} \circ \mathcal{R} \quad \text{in } \text{Hom}_{\mathcal{E}}(\mathcal{B}, \underline{\mathbb{R}})$$
+
+**Enforced by:** Nodes 13-16 (BoundaryCheck, OverloadCheck, StarveCheck, AlignCheck)
+:::
+
+:::{prf:remark} Reinjection Boundaries (Fleming-Viot)
+:label: rem-reinjection
+
+When $\mathcal{R} \not\simeq 0$, the boundary acts as a **non-local transport morphism** rather than an absorbing terminal object. This captures:
+- **Fleming-Viot processes:** The reinjection factors through the **probability monad** $\mathcal{P}: \mathcal{E} \to \mathcal{E}$
+- **McKean-Vlasov dynamics:** $\mathcal{R}$ depends on global sections $\Gamma(\mathcal{X}, \mathcal{O}_\mu)$
+- **Piecewise Deterministic Markov Processes:** $\mathcal{R}$ is a morphism in the Kleisli category of the probability monad
+
+The Sieve verifies regularity by checking **Axiom Rec** at the boundary:
+1. **Node 13:** Detects that $\mathcal{J} \neq 0$ (non-trivial exit flux)
+2. **Node 15 (StarveCheck):** Verifies $\mathcal{R}$ preserves the **total mass section** ($K_{\text{Mass}}^+$)
+
+Categorically, this defines a **non-local boundary condition** as a span:
+$$\mathcal{X} \xleftarrow{\text{Tr}} \mathcal{B} \xrightarrow{\mathcal{R}} \mathcal{P}(\mathcal{X})$$
+The resulting integro-differential structure is tamed by **Axiom C** applied to the Wasserstein $\infty$-stack $\mathcal{P}_2(\mathcal{X})$.
+:::
+
+---
+
+# Part IV: The Structural Sieve
+
+## 11. The Homotopical Resolution of the Singularity Spectrum
+
+*A Postnikov decomposition of the Regularity Functor $\mathcal{R}$ in a cohesive $(\infty,1)$-topos.*
+
+The following diagram is the **authoritative specification** of the obstruction-theoretic resolution. All subsequent definitions and theorems must align with this categorical atlas.
+
+### 11.1. Computational Boundaries and Undecidability
+
+:::{prf:remark} Acknowledgment of Fundamental Limits
+:label: rem-undecidability
+
+The Structural Sieve operates within the computational limits imposed by fundamental results in mathematical logic:
+
+1. **Gödel's Incompleteness (1931):** No sufficiently powerful formal system can prove all true statements about arithmetic within itself.
+2. **Halting Problem (Turing, 1936):** There is no general algorithm to determine whether an arbitrary program will halt.
+3. **Rice's Theorem:** All non-trivial semantic properties of programs are undecidable.
+
+**Implication for the Sieve:** For sufficiently complex systems (e.g., those encoding universal computation), certain interface predicates $\mathcal{P}_i$ may be **undecidable**—no algorithm can determine their truth value in finite time for all inputs.
+
+The framework addresses this through **Horizon Certificates** $K^{\text{hor}}$:
+
+$$K^{\text{hor}} = (\text{Node}_i, \text{Reason} \in \{\texttt{TIMEOUT}, \texttt{UNDECIDABLE}, \texttt{INFINITE\_DESCENT}, \texttt{EPISTEMIC}\}, \text{PartialProgress}, \text{Bound})$$
+
+This design choice reflects intellectual honesty:
+- The Sieve does not claim to solve unsolvable problems
+- It identifies precisely where decidability boundaries occur
+- Systems producing Horizon certificates are flagged as "structurally ambiguous"—neither proven regular nor proven singular
+
+**Literature:** {cite}`Godel31`; {cite}`Turing36`
+:::
+
+:::{admonition} Categorical Interpretation
+:class: note
+
+This Directed Acyclic Graph represents the **spectral sequence** of obstructions to global regularity.
+
+- **Nodes (Objects):** Each node represents a **Classifying Stack** $\mathcal{M}_i$ for a specific obstruction class (Energy, Topology, Stiffness).
+- **Solid Edges (Morphisms):** Represent **Truncation Functors** $\tau_{\leq k}$. A traversal $A \to B$ indicates that the obstruction at $A$ vanishes (is trivial in cohomology), allowing the lift to the next covering space $B$.
+- **Dotted Edges (Surgery):** Represent **Cobordism Morphisms** in the category of manifolds. They denote a change of topology (Pushout) required to bypass a non-trivial cohomological obstruction.
+- **Terminals (Limits):** The "Victory" node represents the **Contractible Space** (Global Regularity), where all homotopy groups of the singularity vanish.
+:::
+
+:::{prf:remark} The Sieve as Spectral Sequence
+:label: rem-spectral-sequence
+
+The Structural Sieve admits a natural interpretation as a **spectral sequence** $\{E_r^{p,q}, d_r\}_{r \geq 0}$ converging to the regularity classification:
+
+- **$E_0^{p,q}$**: Initial Thin Kernel data, filtered by obstruction type ($p \in \{\text{Conservation}, \text{Duality}, \text{Symmetry}, \text{Topology}, \text{Boundary}\}$) and filtration level ($q$)
+- **Differentials** $d_r: E_r^{p,q} \to E_r^{p+r, q-r+1}$: Obstruction maps at each sieve node
+  - $d_1 \sim$ EnergyCheck: Tests finite energy ($\ker d_1 =$ bounded energy states)
+  - $d_2 \sim$ CompactCheck: Tests concentration vs. dispersion
+  - $d_3 \sim$ ScaleCheck: Tests subcriticality
+- **Gate Pass** ($K^+$): Class survives to next page ($d_r(\alpha) = 0$)
+- **Gate Fail** ($K^-$): Non-zero differential ($d_r(\alpha) \neq 0$), triggers barrier/surgery
+- **Global Regularity**: Collapse at $E_\infty$ with $E_\infty^{p,q} = 0$ for all $(p,q)$ corresponding to singular behavior
+
+This interpretation connects the Sieve to classical obstruction theory in algebraic topology {cite}`McCleary01`.
+:::
 
 :::{tip} Interactive Viewing Options
 :class: dropdown
@@ -37,7 +427,7 @@ This diagram is large. For better viewing:
 graph TD
     Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. D_E:</b> Is Energy Finite?<br>E[Φ] < ∞"}
 
-    %% --- LEVEL 1: CONSERVATION ---
+    %% --- LEVEL 1: 0-TRUNCATION (Energy Bounds) ---
     EnergyCheck -- "No: K-_DE" --> BarrierSat{"<b>B1. D_E:</b> Is Drift Bounded?<br>E[Φ] ≤ E_sat"}
     BarrierSat -- "Yes: Kblk_DE" --> ZenoCheck
     BarrierSat -- "No: Kbr_DE" --> SurgAdmCE{"<b>A1. SurgCE:</b> Admissible?<br>conformal ∧ ∂∞X def."}
@@ -55,7 +445,7 @@ graph TD
 
     ZenoCheck -- "Yes: K+_RecN" --> CompactCheck{"<b>3. C_μ:</b> Does Energy Concentrate?<br>μ(V) > 0"}
 
-    %% --- LEVEL 2: DUALITY ---
+    %% --- LEVEL 2: COMPACTNESS LOCUS (Profile Moduli) ---
     CompactCheck -- "No: K-_Cmu" --> BarrierScat{"<b>B3. C_μ:</b> Is Interaction Finite?<br>M[Φ] < ∞"}
     BarrierScat -- "Yes: Kben_Cmu" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
     BarrierScat -- "No: Kpath_Cmu" --> SurgAdmCD_Alt{"<b>A3. SurgCD_Alt:</b> Admissible?<br>V ∈ L_soliton ∧ ‖V‖_H¹ < ∞"}
@@ -65,7 +455,7 @@ graph TD
 
     CompactCheck -- "Yes: K+_Cmu" --> Profile["<b>Canonical Profile V Emerges</b>"]
 
-    %% --- LEVEL 3: SYMMETRY ---
+    %% --- LEVEL 3: EQUIVARIANT DESCENT ---
     Profile --> ScaleCheck{"<b>4. SC_λ:</b> Is Profile Subcritical?<br>λ(V) < λ_c"}
 
     ScaleCheck -- "No: K-_SClam" --> BarrierTypeII{"<b>B4. SC_λ:</b> Is Renorm Cost ∞?<br>∫D̃ dt = ∞"}
@@ -85,7 +475,7 @@ graph TD
 
     ParamCheck -- "Yes: K+_SCdc" --> GeomCheck{"<b>6. Cap_H:</b> Is Codim ≥ Threshold?<br>codim(S) ≥ 2"}
 
-    %% --- LEVEL 4: GEOMETRY ---
+    %% --- LEVEL 4: DIMENSION FILTRATION ---
     GeomCheck -- "No: K-_CapH" --> BarrierCap{"<b>B6. Cap_H:</b> Is Measure Zero?<br>Cap_H#40;S#41; = 0"}
     BarrierCap -- "No: Kbr_CapH" --> SurgAdmCD{"<b>A6. SurgCD:</b> Admissible?<br>Cap#40;Σ#41; ≤ ε ∧ V ∈ L_neck"}
     SurgAdmCD -- "Yes: K+_Neck" --> SurgCD["<b>S6. SurgCD:</b><br>Auxiliary/Structural"]
@@ -95,12 +485,12 @@ graph TD
 
     GeomCheck -- "Yes: K+_CapH" --> StiffnessCheck{"<b>7. LS_σ:</b> Is Gap Certified?<br>inf σ(L) > 0"}
 
-    %% --- LEVEL 5: STIFFNESS ---
+    %% --- LEVEL 5: SPECTRAL OBSTRUCTION ---
     StiffnessCheck -- "No: K-_LSsig" --> BarrierGap{"<b>B7. LS_σ:</b> Is Kernel Finite?<br>dim ker#40;L#41; < ∞ ∧ σ_ess > 0"}
     BarrierGap -- "Yes: Kblk_LSsig" --> TopoCheck
     BarrierGap -- "No: Kstag_LSsig" --> BifurcateCheck{"<b>7a. LS_∂²V:</b> Is State Unstable?<br>∂²V(x*) ⊁ 0"}
 
-    %% --- LEVEL 5b: DYNAMIC RESTORATION (Deterministic) ---
+    %% --- LEVEL 5b: SPECTRAL RESTORATION (Bifurcation Resolution) ---
     BifurcateCheck -- "No: K-_LSd2V" --> SurgAdmSD{"<b>A7. SurgSD:</b> Admissible?<br>dim ker#40;H#41; < ∞ ∧ V iso."}
     SurgAdmSD -- "Yes: K+_Iso" --> SurgSD["<b>S7. SurgSD:</b><br>Ghost Extension"]
     SurgAdmSD -- "No: K-_Iso" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
@@ -127,7 +517,7 @@ graph TD
 
     StiffnessCheck -- "Yes: K+_LSsig" --> TopoCheck{"<b>8. TB_π:</b> Is Sector Reachable?<br>[π] ∈ π₀(C)_acc"}
 
-    %% --- LEVEL 6: TOPOLOGY ---
+    %% --- LEVEL 6: HOMOTOPICAL OBSTRUCTIONS ---
     TopoCheck -- "No: K-_TBpi" --> BarrierAction{"<b>B8. TB_π:</b> Energy < Gap?<br>E < S_min + Δ"}
     BarrierAction -- "No: Kbr_TBpi" --> SurgAdmTE{"<b>A10. SurgTE:</b> Admissible?<br>V ≅ S^n×R #40;Neck#41;"}
     SurgAdmTE -- "Yes: K+_Topo" --> SurgTE["<b>S10. SurgTE:</b><br>Tunnel"]
@@ -155,7 +545,7 @@ graph TD
 
     ErgoCheck -- "Yes: K+_TBrho" --> ComplexCheck{"<b>11. Rep_K:</b> Is K(x) Computable?<br>K(x) ∈ ℕ"}
 
-    %% --- LEVEL 7: COMPLEXITY ---
+    %% --- LEVEL 7: KOLMOGOROV FILTRATION ---
     ComplexCheck -- "No: K-_RepK" --> BarrierEpi{"<b>B11. Rep_K:</b> Approx. Bounded?<br>sup K_ε#40;x#41; ≤ S_BH"}
     BarrierEpi -- "No: Kbr_RepK" --> SurgAdmDC{"<b>A13. SurgDC:</b> Admissible?<br>K ≤ S_BH+ε ∧ Lipschitz"}
     SurgAdmDC -- "Yes: K+_Lip" --> SurgDC["<b>S13. SurgDC:</b><br>Viscosity Solution"]
@@ -174,7 +564,7 @@ graph TD
 
     OscillateCheck -- "No: K-_GCnabla" --> BoundaryCheck{"<b>13. Bound_∂:</b> Is System Open?<br>∂Ω ≠ ∅"}
 
-    %% --- LEVEL 8: BOUNDARY ---
+    %% --- LEVEL 8: BOUNDARY COBORDISM ---
     BoundaryCheck -- "Yes: K+_Bound" --> OverloadCheck{"<b>14. Bound_B:</b> Is Input Bounded?<br>‖Bu‖ ≤ M"}
 
     OverloadCheck -- "No: K-_BoundB" --> BarrierBode{"<b>B14. Bound_B:</b> Waterbed Bounded?<br>∫ln‖S‖dω > -∞"}
@@ -200,7 +590,7 @@ graph TD
     SurgAdmBC -- "No: K-_Ent" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
     SurgBC -. "Kre_SurgBC" .-> BarrierExclusion
 
-    %% --- LEVEL 9: THE FINAL GATE ---
+    %% --- LEVEL 9: THE COHOMOLOGICAL BARRIER ---
     %% All successful paths funnel here
     BoundaryCheck -- "No: K-_Bound" --> BarrierExclusion
     BarrierVariety -- "Yes: Kblk_GCT" --> BarrierExclusion
@@ -336,11 +726,38 @@ graph TD
 
 ```
 
+:::{prf:remark} Operational Semantics of the Diagram
+:label: rem-operational-semantics
+
+We interpret this diagram as the computation of the **Limit** of a diagram of shapes in the $(\infty,1)$-topos of Hypostructures.
+
+The flow proceeds by **Iterative Obstruction Theory**:
+
+1. **Filtration:** The hierarchy (Levels 1–9) establishes a filtration of the moduli space of singularities by obstruction complexity.
+
+2. **Lifting:** A "Yes" branch represents the successful lifting of the solution across an obstruction class—e.g., from $L^2$ energy bounds to $H^1$ regularity. The functor projects the system onto the relevant cohomology; if the class is trivial, the system lifts to the next level.
+
+3. **Surgery as Cobordism:** The dotted "Surgery" loops represent the active cancellation of a non-trivial cohomology class (the singularity) via geometric modification. These are **Pushouts** in the category of manifolds—changing topology to bypass obstructions.
+
+4. **Convergence to the Limit:** The **Cohomological Obstruction** (Node 17) verifies that the **Inverse Limit** of this tower is the empty set—i.e., all obstruction classes vanish—thereby proving $\mathrm{Sing}(\Phi) = \emptyset$.
+
+5. **The Structure Sheaf:** The accumulation of certificates $\Gamma$ forms a **Structure Sheaf** $\mathcal{O}_{\mathrm{Reg}}$ over the trajectory space. A "Victory" is a proof that the **Global Sections** of the singularity sheaf vanish.
+:::
+
 ---
 
-## Interface Registry
+## Interface Registry: The Obstruction Atlas
 
-The following table is the **single source of truth** for all interfaces required to run the Structural Sieve end-to-end. Each interface is identified by a unique ID combining the governing interface permit with the interface symbol. To instantiate the sieve for a specific system, one must implement each interface for the relevant hypostructure component.
+The following table defines the **Obstruction Atlas**—the collection of classifying stacks and their associated projection functors. Each interface evaluates whether a specific cohomology class vanishes.
+
+| Interpretation | Engineering Term | Categorical Term |
+|----------------|------------------|------------------|
+| Node | Check | Classifying Stack $\mathcal{M}_i$ |
+| Edge (Yes) | Pass | Truncation Functor $\tau_{\leq k}$ |
+| Edge (No) | Fail | Non-trivial Obstruction Class |
+| Certificate | Token | Section of Structure Sheaf |
+
+To instantiate the sieve for a specific system, one must implement each projection functor for the relevant hypostructure component.
 
 | Node | ID                            | Name             | Certificates (Output)                                                                                 | Symbol         | Object                   | Hypostructure                   | Description                        | Question                                        | Predicate                                     |
 |------|-------------------------------|------------------|-------------------------------------------------------------------------------------------------------|----------------|--------------------------|---------------------------------|------------------------------------|-------------------------------------------------|-----------------------------------------------|
@@ -372,9 +789,9 @@ The following table is the **single source of truth** for all interfaces require
 Barrier checks compose multiple interfaces. For example, the **Saturation Barrier** at Node 1 combines the energy interface $D_E$ with a drift control predicate. Surgery admissibility checks (the light purple diamonds) query the same interfaces as their parent gates but with different predicates.
 :::
 
-## Barrier Registry
+## Barrier Registry: Secondary Obstruction Classes
 
-The following table defines all **barriers** in the Structural Sieve. Each barrier is a secondary defense triggered when its parent gate fails. The barrier checks a weaker condition that may still block singularity formation.
+The following table defines the **Secondary Obstruction Classes**—cohomological barriers that activate when the primary obstruction is non-trivial. Each barrier represents a weaker cohomology condition that may still force triviality of the singularity class.
 
 | Node | Barrier ID       | Interfaces                                       | Permits ($\Gamma$)                         | Certificates (Output)                                                                                 | Blocked Predicate                                              | Question                                                     | Metatheorem                |
 |------|------------------|--------------------------------------------------|--------------------------------------------|-------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|--------------------------------------------------------------|----------------------------|
@@ -395,9 +812,9 @@ The following table defines all **barriers** in the Structural Sieve. Each barri
 | 16   | BarrierVariety   | $\mathrm{GC}_T$, $\mathrm{Cap}_H$                | $K_{\mathrm{Bound}_{\Sigma}}^\pm$              | $K_{\mathrm{GC}_T}^{\mathrm{blk}}$ / $K_{\mathrm{GC}_T}^{\mathrm{br}}$                                | $H(u) \geq H(d)$                                               | Does control entropy match disturbance entropy?              | Requisite Variety          |
 | 17   | BarrierExclusion | $\mathrm{Cat}_{\mathrm{Hom}}$                    | Full $\Gamma$                              | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{hor}}$ | $\mathrm{Hom}(\mathcal{B}, S) = \emptyset$                     | Is there a categorical obstruction to the bad pattern?       | Morphism Exclusion / Reconstruction |
 
-## Surgery Registry
+## Surgery Registry: Cobordism Morphisms
 
-The following table defines all **surgeries** in the Structural Sieve. Each surgery is a repair mechanism triggered when a barrier is breached and admits recovery. The surgery transforms the system to re-enter the sieve at a designated node.
+The following table defines the **Cobordism Morphisms**—categorical pushouts that modify the topology of the state space to cancel non-trivial obstruction classes. Each surgery constructs a new manifold where the obstruction vanishes, enabling re-entry into the resolution tower.
 
 | #   | Surgery ID   | Interfaces                                       | Input Certificate                            | Output Certificate                        | Admissibility Predicate                                                                      | Action                    | Metatheorem             |
 |-----|--------------|--------------------------------------------------|----------------------------------------------|-------------------------------------------|----------------------------------------------------------------------------------------------|---------------------------|-------------------------|
@@ -493,7 +910,7 @@ This ensures that no surgery executes without verified admissibility, and no fai
 
 ---
 
-# Part I: The Kernel
+# Part V: The Kernel
 
 ## 1. The Sieve as a Proof-Carrying Program
 
@@ -810,7 +1227,7 @@ Horizon certificates make ``super pathological'' cases first-class outputs rathe
 
 ---
 
-# Part II: Node Specifications
+# Part VI: Node Specifications
 
 ## 5. Gate Node Specifications (Blue Nodes)
 
@@ -847,6 +1264,16 @@ $$P_1 \equiv \sup_{t \in [0, T)} \Phi(u(t)) < \infty$$
 
 **Literature:** Energy methods trace to Leray's seminal work on Navier-Stokes {cite}`Leray34` and the modern framework of dissipative evolution equations {cite}`Dafermos16`.
 
+:::
+
+:::{admonition} Physics Dictionary: First Law of Thermodynamics
+:class: seealso
+
+**Physical Interpretation:** Node 1 enforces **energy conservation**. The predicate $\sup_t \Phi(u(t)) < \infty$ is the mathematical formulation of the **First Law of Thermodynamics**: energy cannot be created from nothing—only transformed or transferred.
+
+- **$K_{D_E}^+$ (Bounded):** System respects conservation; energy remains finite.
+- **$K_{D_E}^-$ (Blow-up):** Apparent energy creation—indicates either external forcing or mathematical pathology (non-physical solution).
+- **BarrierSat:** Even if instantaneous energy is formally unbounded, bounded drift (Foster-Lyapunov) ensures long-term stability via entropy production bounds.
 :::
 
 ---
@@ -895,6 +1322,17 @@ $$P_3 \equiv \exists \text{ concentration profile as } t \to T_*$$
 
 **Literature:** Concentration-compactness principle {cite}`Lions84`; {cite}`Lions85`; profile decomposition and bubbling {cite}`KenigMerle06`.
 
+:::
+
+:::{admonition} Physics Dictionary: Phase Transitions and Condensation
+:class: seealso
+
+**Physical Interpretation:** Node 3 detects whether energy **concentrates** (condenses) or **disperses** (scatters). This corresponds to fundamental phase transition phenomena:
+
+- **Concentration ($K_{C_\mu}^+$):** Energy localizes into coherent structures (solitons, vortices, droplets). Analogous to **Bose-Einstein condensation**, **nucleation** in first-order phase transitions, or **droplet formation** in supersaturated systems.
+- **Dispersion ($K_{C_\mu}^-$):** Energy spreads uniformly—no localized structures persist. This is the **normal state** of gases and high-temperature systems approaching thermal equilibrium.
+
+The dichotomy mirrors the **thermodynamic distinction** between ordered (low-entropy, concentrated) and disordered (high-entropy, dispersed) phases. The critical threshold separating these regimes is the **phase boundary**.
 :::
 
 ---
@@ -1136,6 +1574,18 @@ $$P_{10} \equiv \tau_{\text{mix}} < \infty$$
 
 :::
 
+:::{admonition} Physics Dictionary: Thermalization and the H-Theorem
+:class: seealso
+
+**Physical Interpretation:** Node 10 verifies **ergodicity**—whether the system explores its full phase space over time. This connects to fundamental statistical mechanics:
+
+- **Boltzmann's H-Theorem (1872):** The H-function (negative entropy) decreases monotonically, driving systems toward thermal equilibrium. Finite mixing time $\tau_{\text{mix}} < \infty$ ensures equilibration occurs on observable timescales.
+- **Thermalization:** An ergodic system eventually samples all accessible states according to the equilibrium distribution (Gibbs measure). This is the foundation of **statistical mechanics**.
+- **Glassy Freeze ($K_{\mathrm{TB}_\rho}^-$):** Non-ergodic systems become trapped in metastable states—like glasses that never reach crystalline equilibrium. The mixing barrier captures this phenomenon.
+
+The spectral gap $\rho > 0$ quantifies how fast the Second Law of Thermodynamics operates: larger gaps mean faster equilibration.
+:::
+
 ---
 
 ### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
@@ -1310,6 +1760,18 @@ where $\mathcal{L}_{\text{proxy}}$ is the optimized/measured objective and $\mat
 - E11: Bridge certificate (symmetry descent)
 - E12: Rigidity certificate (semisimplicity/tameness/spectral gap)
 
+:::
+
+:::{admonition} Physics Dictionary: Pauli Exclusion and Information Conservation
+:class: seealso
+
+**Physical Interpretation:** Node 17 (the Lock) enforces a **categorical exclusion principle**—analogous to fundamental physics principles:
+
+- **Pauli Exclusion Principle:** Two identical fermions cannot occupy the same quantum state. The Lock enforces: "A valid hypostructure cannot morphically embed a bad pattern"—certain configurations are **structurally forbidden**.
+- **Conservation of Information:** In unitary quantum mechanics, information is never destroyed (Hawking's resolution of the black hole information paradox). The Lock ensures: $\text{Hom}(\mathbb{H}_{\text{bad}}, \mathcal{H}) = \varnothing$ means singularity formation would require information destruction incompatible with the system's structure.
+- **No-Cloning Theorem:** Quantum states cannot be perfectly copied. Similarly, the Lock prevents "copying" of bad patterns into a valid hypostructure.
+
+The **exclusion tactics (E1–E12)** are analogous to **selection rules** in quantum mechanics—symmetry and conservation laws that forbid certain transitions.
 :::
 
 ---
@@ -2487,7 +2949,7 @@ The non-circularity checker must verify that the progress measure is compatible 
 
 ---
 
-# Part III: The Soft Interface Permits (X.0)
+# Part VII: The Soft Interface Permits (X.0)
 
 ## 8. The Universal Gate Evaluator Interface
 
@@ -4543,7 +5005,7 @@ A **type** $T$ is a class of dynamical systems sharing:
 
 ---
 
-# Part IV: Barrier and Surgery Contracts
+# Part VIII: Barrier and Surgery Contracts
 
 ## 12. Certificate-Driven Barrier Atlas
 
@@ -4618,7 +5080,7 @@ $$\mathcal{O}_S(x) = x' \Rightarrow \mathcal{C}(x') < \mathcal{C}(x)$$
 
 ---
 
-# Part V: Universal Singularity Modules
+# Part IX: Universal Singularity Modules
 
 **Design Philosophy:** These metatheorems act as **Factory Functions** that automatically implement the `ProfileExtractor` and `SurgeryOperator` interfaces from Section 8.A. Users do not invent surgery procedures or profile classifiers—the Framework constructs them from the thin kernel objects.
 
@@ -5041,10 +5503,10 @@ The Sieve automatically:
 
 ---
 
-# Part VI: Equivalence and Transport
+# Part X: Equivalence and Transport
 
 \begin{remark}[Naming convention]
-This part defines **equivalence moves** (Eq1--Eq5) and **transport lemmas** (T1--T6). These are distinct from the **Lock tactics** (E1--E10) defined in Part VII, Section 22. The ``Eq'' prefix distinguishes equivalence moves from Lock tactics.
+This part defines **equivalence moves** (Eq1--Eq5) and **transport lemmas** (T1--T6). These are distinct from the **Lock tactics** (E1--E10) defined in Part XI, Section 22. The ``Eq'' prefix distinguishes equivalence moves from Lock tactics.
 
 :::
 
@@ -5235,7 +5697,7 @@ Given final context $\Gamma_{\text{final}}$, the **replay** is a re-execution of
 
 ---
 
-# Part VII: The Lock (Conjecture Prover Backend)
+# Part XI: The Lock (Conjecture Prover Backend)
 
 ## 21. Node 17 Contract
 
@@ -5667,7 +6129,7 @@ This is treated as MorphismExists (conservative) unless additional structure bec
 
 ---
 
-# Part VIII: Factory Metatheorems
+# Part XII: Factory Metatheorems
 
 ## 23. TM-1: Gate Evaluator Factory
 
@@ -5786,7 +6248,7 @@ For any type $T$ with $\mathrm{Rep}_K$ available, there exist E1--E10 tactics fo
 
 ---
 
-# Part IX: Instantiation
+# Part XIII: Instantiation
 
 ## 28. Certificate Generator Library
 
@@ -5895,11 +6357,11 @@ The following table provides a complete cross-reference between diagram node nam
 | 14 | OverloadCheck | {ref}`def-node-overload` | BarrierBode ({ref}`def-barrier-bode`) |
 | 15 | StarveCheck | {ref}`def-node-starve` | BarrierInput ({ref}`def-barrier-input`) |
 | 16 | AlignCheck | {ref}`def-node-align` | BarrierVariety ({ref}`def-barrier-variety`) |
-| 17 | BarrierExclusion | {ref}`def-node-lock` | Lock (Part VII) |
+| 17 | BarrierExclusion | {ref}`def-node-lock` | Lock (Part XI) |
 
 ---
 
-# Part X: Instantaneous Upgrade Metatheorems
+# Part XIV: Instantaneous Upgrade Metatheorems
 
 ## 32. Instantaneous Certificate Upgrades
 
@@ -6124,6 +6586,13 @@ $$K_{\text{Node}}^- \wedge K_{\text{Surg}}^{\mathrm{re}} \Rightarrow K_{\text{No
 
 **Proof sketch:** The surgery construction follows Hamilton (1997) for Ricci flow and Perelman (2002-2003) for the rigorous completion. The key ingredients are: (1) canonical neighborhood theorem ensuring surgery regions are standard, (2) non-collapsing estimates controlling geometry, (3) finite surgery time theorem bounding the number of surgeries. The post-surgery manifold inherits all regularity properties.
 
+**Canonical Neighborhoods (Uniqueness):** The **Canonical Neighborhood Theorem** (Perelman 2003) ensures surgery is essentially unique: near any high-curvature point $p$ with $|Rm|(p) \geq r^{-2}$, the pointed manifold $(M, g, p)$ is $\varepsilon$-close (in the pointed Cheeger-Gromov sense) to one of:
+- A round shrinking sphere $S^n / \Gamma$
+- A round shrinking cylinder $S^{n-1} \times \mathbb{R}$
+- A Bryant soliton
+
+This **classification of local models** eliminates surgery ambiguity: the excision location and cap geometry are determined by the canonical structure up to diffeomorphism. Different valid surgery choices yield **diffeomorphic** post-surgery manifolds, making the surgery operation **functorial** in $\mathbf{Bord}_n$.
+
 **Interface Permit Validated:** Global Existence (in the sense of surgery/weak flow).
 
 **Literature:** {cite}`Hamilton97`; {cite}`Perelman03`; {cite}`KleinerLott08`
@@ -6213,7 +6682,7 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{LS}_{\partial^k V}}^+ \Rightarrow K
 
 ---
 
-# Part XI: Retroactive Promotion Theorems
+# Part XV: Retroactive Promotion Theorems
 
 ## 33. A-Posteriori Upgrade Rules
 
@@ -6505,7 +6974,7 @@ $$K_{\text{Profile}}^{\text{multimodal}} \wedge K_{\mathrm{TB}_\rho}^+ \Rightarr
 
 ---
 
-# Part XII: Stability & Composition Metatheorems
+# Part XVI: Stability & Composition Metatheorems
 
 ## 35. Perturbation and Coupling
 
@@ -6654,9 +7123,9 @@ $$K_{\text{Lock}}^{\mathrm{blk}}(\mathcal{H}) \wedge (\mathcal{S} \subset \mathc
 
 ---
 
-# Part XIII: Mathematical Foundations
+# Part XVII: Mathematical Foundations
 
-This Part imports **twenty-one rigorous metatheorems** from the companion Hypostructure manuscript. These theorems provide the **mathematical engine** that substantiates the operational Sieve defined in Parts I–XII. Each theorem supplies either:
+This Part imports **twenty-one rigorous metatheorems** from the companion Hypostructure manuscript. These theorems provide the **mathematical engine** that substantiates the operational Sieve defined in Parts V–XVI. Each theorem supplies either:
 
 - **Kernel Logic**: Proofs that the Sieve is a valid proof machine (categorical exclusion, structural resolution)
 - **Gate Evaluator Predicates**: Exact mathematical predicates for YES/NO checks at blue nodes
@@ -7673,7 +8142,7 @@ The following is the complete Mermaid source code for the Canonical Sieve Algori
 graph TD
     Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. D_E:</b> Is Energy Finite?<br>E[Φ] < ∞"}
 
-    %% --- LEVEL 1: CONSERVATION ---
+    %% --- LEVEL 1: 0-TRUNCATION (Energy Bounds) ---
     EnergyCheck -- "No: K-_DE" --> BarrierSat{"<b>B1. D_E:</b> Is Drift Bounded?<br>E[Φ] ≤ E_sat"}
     BarrierSat -- "Yes: Kblk_DE" --> ZenoCheck
     BarrierSat -- "No: Kbr_DE" --> SurgAdmCE{"<b>A1. SurgCE:</b> Admissible?<br>conformal ∧ ∂∞X def."}
@@ -7691,7 +8160,7 @@ graph TD
 
     ZenoCheck -- "Yes: K+_RecN" --> CompactCheck{"<b>3. C_μ:</b> Does Energy Concentrate?<br>μ(V) > 0"}
 
-    %% --- LEVEL 2: DUALITY ---
+    %% --- LEVEL 2: COMPACTNESS LOCUS (Profile Moduli) ---
     CompactCheck -- "No: K-_Cmu" --> BarrierScat{"<b>B3. C_μ:</b> Is Interaction Finite?<br>M[Φ] < ∞"}
     BarrierScat -- "Yes: Kben_Cmu" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
     BarrierScat -- "No: Kpath_Cmu" --> SurgAdmCD_Alt{"<b>A3. SurgCD_Alt:</b> Admissible?<br>V ∈ L_soliton ∧ ‖V‖_H¹ < ∞"}
@@ -7701,7 +8170,7 @@ graph TD
 
     CompactCheck -- "Yes: K+_Cmu" --> Profile["<b>Canonical Profile V Emerges</b>"]
 
-    %% --- LEVEL 3: SYMMETRY ---
+    %% --- LEVEL 3: EQUIVARIANT DESCENT ---
     Profile --> ScaleCheck{"<b>4. SC_λ:</b> Is Profile Subcritical?<br>λ(V) < λ_c"}
 
     ScaleCheck -- "No: K-_SClam" --> BarrierTypeII{"<b>B4. SC_λ:</b> Is Renorm Cost ∞?<br>∫D̃ dt = ∞"}
@@ -7721,7 +8190,7 @@ graph TD
 
     ParamCheck -- "Yes: K+_SCdc" --> GeomCheck{"<b>6. Cap_H:</b> Is Codim ≥ Threshold?<br>codim(S) ≥ 2"}
 
-    %% --- LEVEL 4: GEOMETRY ---
+    %% --- LEVEL 4: DIMENSION FILTRATION ---
     GeomCheck -- "No: K-_CapH" --> BarrierCap{"<b>B6. Cap_H:</b> Is Measure Zero?<br>Cap_H#40;S#41; = 0"}
     BarrierCap -- "No: Kbr_CapH" --> SurgAdmCD{"<b>A6. SurgCD:</b> Admissible?<br>Cap#40;Σ#41; ≤ ε ∧ V ∈ L_neck"}
     SurgAdmCD -- "Yes: K+_Neck" --> SurgCD["<b>S6. SurgCD:</b><br>Auxiliary/Structural"]
@@ -7731,12 +8200,12 @@ graph TD
 
     GeomCheck -- "Yes: K+_CapH" --> StiffnessCheck{"<b>7. LS_σ:</b> Is Gap Certified?<br>inf σ(L) > 0"}
 
-    %% --- LEVEL 5: STIFFNESS ---
+    %% --- LEVEL 5: SPECTRAL OBSTRUCTION ---
     StiffnessCheck -- "No: K-_LSsig" --> BarrierGap{"<b>B7. LS_σ:</b> Is Kernel Finite?<br>dim ker#40;L#41; < ∞ ∧ σ_ess > 0"}
     BarrierGap -- "Yes: Kblk_LSsig" --> TopoCheck
     BarrierGap -- "No: Kstag_LSsig" --> BifurcateCheck{"<b>7a. LS_∂²V:</b> Is State Unstable?<br>∂²V(x*) ⊁ 0"}
 
-    %% --- LEVEL 5b: DYNAMIC RESTORATION (Deterministic) ---
+    %% --- LEVEL 5b: SPECTRAL RESTORATION (Bifurcation Resolution) ---
     BifurcateCheck -- "No: K-_LSd2V" --> SurgAdmSD{"<b>A7. SurgSD:</b> Admissible?<br>dim ker#40;H#41; < ∞ ∧ V iso."}
     SurgAdmSD -- "Yes: K+_Iso" --> SurgSD["<b>S7. SurgSD:</b><br>Ghost Extension"]
     SurgAdmSD -- "No: K-_Iso" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
@@ -7763,7 +8232,7 @@ graph TD
 
     StiffnessCheck -- "Yes: K+_LSsig" --> TopoCheck{"<b>8. TB_π:</b> Is Sector Reachable?<br>[π] ∈ π₀(C)_acc"}
 
-    %% --- LEVEL 6: TOPOLOGY ---
+    %% --- LEVEL 6: HOMOTOPICAL OBSTRUCTIONS ---
     TopoCheck -- "No: K-_TBpi" --> BarrierAction{"<b>B8. TB_π:</b> Energy < Gap?<br>E < S_min + Δ"}
     BarrierAction -- "No: Kbr_TBpi" --> SurgAdmTE{"<b>A10. SurgTE:</b> Admissible?<br>V ≅ S^n×R #40;Neck#41;"}
     SurgAdmTE -- "Yes: K+_Topo" --> SurgTE["<b>S10. SurgTE:</b><br>Tunnel"]
@@ -7791,7 +8260,7 @@ graph TD
 
     ErgoCheck -- "Yes: K+_TBrho" --> ComplexCheck{"<b>11. Rep_K:</b> Is K(x) Computable?<br>K(x) ∈ ℕ"}
 
-    %% --- LEVEL 7: COMPLEXITY ---
+    %% --- LEVEL 7: KOLMOGOROV FILTRATION ---
     ComplexCheck -- "No: K-_RepK" --> BarrierEpi{"<b>B11. Rep_K:</b> Approx. Bounded?<br>sup K_ε#40;x#41; ≤ S_BH"}
     BarrierEpi -- "No: Kbr_RepK" --> SurgAdmDC{"<b>A13. SurgDC:</b> Admissible?<br>K ≤ S_BH+ε ∧ Lipschitz"}
     SurgAdmDC -- "Yes: K+_Lip" --> SurgDC["<b>S13. SurgDC:</b><br>Viscosity Solution"]
@@ -7810,7 +8279,7 @@ graph TD
 
     OscillateCheck -- "No: K-_GCnabla" --> BoundaryCheck{"<b>13. Bound_∂:</b> Is System Open?<br>∂Ω ≠ ∅"}
 
-    %% --- LEVEL 8: BOUNDARY ---
+    %% --- LEVEL 8: BOUNDARY COBORDISM ---
     BoundaryCheck -- "Yes: K+_Bound" --> OverloadCheck{"<b>14. Bound_B:</b> Is Input Bounded?<br>‖Bu‖ ≤ M"}
 
     OverloadCheck -- "No: K-_BoundB" --> BarrierBode{"<b>B14. Bound_B:</b> Waterbed Bounded?<br>∫ln‖S‖dω > -∞"}
@@ -7836,7 +8305,7 @@ graph TD
     SurgAdmBC -- "No: K-_Ent" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
     SurgBC -. "Kre_SurgBC" .-> BarrierExclusion
 
-    %% --- LEVEL 9: THE FINAL GATE ---
+    %% --- LEVEL 9: THE COHOMOLOGICAL BARRIER ---
     %% All successful paths funnel here
     BoundaryCheck -- "No: K-_Bound" --> BarrierExclusion
     BarrierVariety -- "Yes: Kblk_GCT" --> BarrierExclusion
@@ -8920,6 +9389,82 @@ The failure mode **N.A (Non-Algebraic)** is excluded.
 | $F_{\text{Rec}}$ | Cycle class map $\text{cl}: \mathcal{Z}^k \to H^{2k}$ |
 
 The lemma provides the rigorous **a posteriori proof** that stiffness + tameness forces algebraicity, implementing the "soft implies hard" principle for Hodge theory.
+
+---
+
+# Notation Index
+
+The following notation is used consistently throughout this document. Symbols are organized by their role in the Hypostructure formalism.
+
+## Core Objects
+
+| Symbol | Name | Definition | Section |
+|--------|------|------------|---------|
+| $\mathcal{X}$ | State Space | Configuration $\infty$-stack representing system states | 2, 8.A |
+| $\mathcal{B}$ | Boundary Space | Environmental interface / boundary data | 4.5, 10 |
+| $\Phi$ | Height / Energy | Cohomological height functional | 2, 8.A |
+| $\mathfrak{D}$ | Dissipation | Rate of energy loss / entropy production | 2, 8.A |
+| $G$ | Symmetry Group | Invariance group acting on $\mathcal{X}$ | 2, 8.A |
+| $\mathbb{H}$ | Hypostructure | Full 5-tuple $(\mathcal{X}, \nabla, \Phi_\bullet, \tau, \partial_\bullet)$ | 2 |
+| $\mathcal{T}$ | Thin Object | Minimal 5-tuple of physical data | 4 |
+
+## Energy and Scaling
+
+| Symbol | Name | Context |
+|--------|------|---------|
+| $E$ | Specific Energy | Instance of height $\Phi$; $E[\Phi] = \sup_t \Phi(u(t))$ |
+| $\alpha$ | Energy Scaling | Exponent: $\Phi(\mathcal{S}_\lambda x) = \lambda^\alpha \Phi(x)$ |
+| $\beta$ | Dissipation Scaling | Exponent: $\mathfrak{D}(\mathcal{S}_\lambda x) = \lambda^\beta \mathfrak{D}(x)$ |
+| $E_{\text{sat}}$ | Saturation Ceiling | Upper bound on drift (BarrierSat) |
+| $\mathcal{S}_\lambda$ | Scaling Operator | One-parameter family of dilations |
+
+## Boundary and Reinjection
+
+| Symbol | Name | Definition |
+|--------|------|------------|
+| $\partial_\bullet$ | Boundary Morphism | Restriction functor $\iota^*: \mathbf{Sh}_\infty(\mathcal{X}) \to \mathbf{Sh}_\infty(\partial\mathcal{X})$ |
+| $\text{Tr}$ | Trace Morphism | $\text{Tr}: \mathcal{X} \to \mathcal{B}$ (restriction to boundary) |
+| $\mathcal{J}$ | Flux Morphism | $\mathcal{J}: \mathcal{B} \to \underline{\mathbb{R}}$ (energy flow across boundary) |
+| $\mathcal{R}$ | Reinjection Kernel | $\mathcal{R}: \mathcal{B} \to \mathcal{P}(\mathcal{X})$ (Markov kernel with Feller property) |
+
+## Certificate Notation
+
+| Symbol | Meaning |
+|--------|---------|
+| $K^+$ | Positive certificate (predicate holds) |
+| $K^-$ | Negative certificate (predicate fails) |
+| $K^{\text{blk}}$ | Blocked certificate (barrier holds, obstruction present) |
+| $K^{\text{br}}$ | Breached certificate (barrier fails, requires surgery) |
+| $K^{\text{re}}$ | Re-entry certificate (surgery completed successfully) |
+| $K^{\text{hor}}$ | Horizon certificate (undecidable / computational limit) |
+| $\Gamma$ | Certificate accumulator (full chain of certificates) |
+
+## Categorical Notation
+
+| Symbol | Name | Definition |
+|--------|------|------------|
+| $\mathcal{E}$ | Ambient Topos | Cohesive $(\infty,1)$-topos |
+| $\mathbf{Hypo}_T$ | Hypostructure Category | Category of type-$T$ hypostructures |
+| $\mathbf{Thin}_T$ | Thin Category | Category of thin kernel objects |
+| $\mathbb{H}_{\text{bad}}$ | Bad Pattern | Universal singularity object |
+| $\text{Hom}(\cdot, \cdot)$ | Hom Functor | Morphism space (Node 17 Lock) |
+| $F_{\text{Sieve}}$ | Sieve Functor | Left adjoint $F_{\text{Sieve}} \dashv U$ |
+
+## Interface Identifiers
+
+| ID | Name | Node |
+|----|------|------|
+| $D_E$ | Energy Interface | Node 1 |
+| $\mathrm{Rec}_N$ | Recovery Interface | Node 2 |
+| $C_\mu$ | Compactness Interface | Node 3 |
+| $\mathrm{SC}_\lambda$ | Scaling Interface | Node 4 |
+| $\mathrm{Cap}_H$ | Capacity Interface | Node 6 |
+| $\mathrm{LS}_\sigma$ | Stiffness Interface | Node 7 |
+| $\mathrm{TB}_\pi$ | Topology Interface | Node 8 |
+| $\mathrm{TB}_\rho$ | Mixing Interface | Node 10 |
+| $\mathrm{Rep}_K$ | Complexity Interface | Node 11 |
+| $\mathrm{GC}_\nabla$ | Gradient Interface | Node 12 |
+| $\mathrm{Cat}_{\mathrm{Hom}}$ | Categorical Interface | Node 17 |
 
 ---
 
