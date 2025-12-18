@@ -1,30 +1,264 @@
-Based on the `hypopermits_jb.md` document, here is the **Universal Hypostructure Solution Template**.
+---
+title: "Hypostructure Proof Object"
+problem: "[PROBLEM NAME]"
+type: "[System Type]"
+date: "[YYYY-MM-DD]"
+status: "[Draft/Final]"
+---
 
-This document integrates the **Instantiation** (defining Thin Objects), **Execution** (running the Sieve), and **Extraction** (mining results via Metatheorems) into a single workflow. It uses the exact nomenclature ($K$ certificates, Barrier IDs, Interface definitions) from the framework.
+# Structural Sieve Proof: [PROBLEM NAME]
 
-***
+## Metadata
 
-# **Universal Hypostructure Solution Template**
-
-**Project:** Structural Sieve Analysis of [Insert Problem Name]
-**Target System Type ($T$):** [e.g., $T_{\text{parabolic}}$, $T_{\text{dispersive}}$, $T_{\text{arithmetic}}$, $T_{\text{algorithmic}}$]
+| Field | Value |
+|-------|-------|
+| **Problem** | [Full problem statement, e.g., "Global regularity for 3D Navier-Stokes"] |
+| **System Type** | $T_{\text{[type]}}$ (e.g., $T_{\text{parabolic}}$, $T_{\text{dispersive}}$, $T_{\text{arithmetic}}$, $T_{\text{algorithmic}}$) |
+| **Target Claim** | [e.g., Global Regularity, Existence, Uniqueness, Finite-Time Blowup] |
+| **Framework Version** | Hypostructure v1.0 |
+| **Date** | [YYYY-MM-DD] |
 
 ---
 
-## **Note for LLM Agents: Algorithmic Mindset**
+## Abstract
 
-> **IMPORTANT:** When using this template, you are NOT doing traditional mathematical analysis. You are executing a deterministic diagnostic algorithm.
->
-> **Abandon the traditional mathematician mindset.** Do not try to "understand" or "prove" anything creatively. Instead:
->
-> 1. **Implement interfaces mechanically.** Each interface permit has a checklist. Fill in the blanks with the problem's data.
-> 2. **Run the sieve node-by-node.** At each node, check a single yes/no predicate. Record the certificate.
-> 3. **Follow the flowchart.** If YES → go to next node. If NO → check barrier. If barrier blocked → continue. If breached → enable surgery.
-> 4. **Trust the framework.** The mathematical heavy lifting is already encoded in the metatheorems. You just need to verify textbook properties one at a time.
->
-> **Think of yourself as a compiler, not a mathematician.** You parse the problem into the interface format, then execute the sieve algorithm. The theorems fall out automatically from the certificate chain.
->
-> This is **software engineering for mathematics**: define types (interfaces), implement methods (permits), run tests (sieve nodes), collect output (certificates).
+This document presents a **machine-checkable proof object** for **[PROBLEM NAME]** using the Hypostructure framework.
+
+**Approach:** [Brief description of the approach, e.g., "We instantiate the parabolic hypostructure with energy $\Phi$, dissipation $\mathfrak{D}$, and verify all 17 sieve nodes to establish global regularity."]
+
+**Result:** [Brief statement of the result, e.g., "The Lock is blocked via Tactic E7 (thermodynamic), establishing global smoothness for all $H^1$ initial data."]
+
+---
+
+## Theorem Statement
+
+::::{prf:theorem} [Problem Name]
+:label: thm-main
+
+**Given:**
+- State space: $\mathcal{X} = $ [Define]
+- Dynamics: [Equation or evolution rule]
+- Initial data: [Constraints]
+
+**Claim:** [Precise mathematical statement to prove]
+
+**Notation:**
+| Symbol | Definition |
+|--------|------------|
+| $\mathcal{X}$ | State space |
+| $\Phi$ | Height functional |
+| $\mathfrak{D}$ | Dissipation rate |
+| $S_t$ | Flow/semigroup |
+| $\Sigma$ | Singular set |
+
+::::
+
+---
+
+:::{dropdown} **LLM Execution Protocol** (Click to expand)
+:icon: cpu
+:color: secondary
+
+## Note for LLM Agents: Complete Algorithmic Protocol
+
+> **IMPORTANT:** When using this template, you are NOT doing traditional mathematical analysis. You are executing a **deterministic diagnostic algorithm** that produces a **machine-checkable proof object**.
+
+---
+
+### **A.1 Mindset Shift**
+
+**Abandon the traditional mathematician mindset.** Do not try to "understand" or "prove" anything creatively. Instead:
+
+1. **Implement interfaces mechanically.** Each interface permit has a checklist. Fill in the blanks with the problem's data.
+2. **Run the sieve node-by-node.** At each node, check a single predicate. Record the certificate.
+3. **Follow the flowchart.** If YES → next node. If NO → check barrier. If INC → record obligation, continue.
+4. **Trust the framework.** The mathematical heavy lifting is already encoded in the metatheorems.
+
+**Think of yourself as a compiler, not a mathematician.** You parse the problem into the interface format, then execute the sieve algorithm. The theorems fall out automatically from the certificate chain.
+
+**Core principle: Unknown is recoverable.** If you cannot verify a condition, emit `K^{inc}` with a structured payload. Do NOT guess, do NOT skip, do NOT pretend success.
+
+---
+
+### **A.2 Certificate Outcome Types**
+
+Every node produces exactly one certificate. Here is the decision tree:
+
+| Outcome | Symbol | Meaning | Action |
+|---------|--------|---------|--------|
+| **YES** | $K_X^+$ | Condition X verified | Record witnesses, continue |
+| **NO** | $K_X^-$ | Condition X violated | Check barrier |
+| **INCONCLUSIVE** | $K_X^{\mathrm{inc}}$ | Cannot determine | Record obligation payload, continue |
+| **BLOCKED** | $K_X^{\mathrm{blk}}$ | Barrier prevented bad behavior | Continue (bad case excluded) |
+| **BREACHED** | $K_X^{\mathrm{br}}$ | Barrier failed | Trigger surgery protocol |
+
+**Decision flowchart at each node:**
+```
+Can you verify the predicate?
+├─ YES → Emit K^+, go to next node
+├─ NO (with proof) → Emit K^-, check barrier
+│   ├─ Barrier blocks → Emit K^{blk}, go to next node
+│   └─ Barrier breached → Emit K^{br}, trigger surgery
+└─ CANNOT DETERMINE → Emit K^{inc} with payload, go to next node
+```
+
+---
+
+### **A.3 Inc Permit Protocol**
+
+When you cannot close an estimate or verify a property:
+
+1. **DO NOT** return $K^+$ (that would be unsound)
+2. **DO NOT** return $K^-$ (you haven't disproved it)
+3. **EMIT** $K^{\mathrm{inc}}$ with structured payload:
+
+```
+K_X^{inc} = {
+  obligation: "What needs to be established",
+  missing: ["List of certificates that would close the gap"],
+  failure_code: "STANDARDIZED_CODE",
+  trace: "Where in your reasoning the gap occurred"
+}
+```
+
+**Standard failure codes:**
+| Code | Meaning | Typical Resolution |
+|------|---------|-------------------|
+| `MISSING_EMBEDDING` | Need Sobolev/interpolation inequality | Add embedding certificate |
+| `MISSING_SPECTRAL_GAP` | Need spectral gap/Poincaré inequality | Add spectral gap certificate |
+| `MISSING_CAPACITY_BOUND` | Need Hausdorff dimension estimate | Add capacity certificate |
+| `MISSING_VORTICITY_LINK` | Need elliptic regularity / Biot-Savart | Switch to vorticity formulation |
+| `MISSING_STIFFNESS` | Need Łojasiewicz-Simon inequality | Add stiffness certificate |
+| `MISSING_COMPACTNESS` | Need profile decomposition | Add concentration-compactness |
+| `NEEDS_UPGRADE` | Premises exist but upgrade not yet applied | Apply upgrade rule |
+
+---
+
+### **A.4 Upgrade Rule Execution**
+
+After the sieve pass, execute upgrade rules to discharge inc certificates:
+
+**Step 1: Scan** Γ for all $K^{\mathrm{inc}}$ certificates.
+
+**Step 2: For each** $K^{\mathrm{inc}}$, check if any upgrade rule $U$ applies:
+- **Premises:** Does Γ contain all certificates listed in `missing`?
+- **Non-circularity:** The target $K^+$ must NOT be used to derive the premises.
+
+**Step 3: If upgrade applies:**
+- Add $K^+$ to Γ
+- Mark obligation as discharged in ledger
+- Keep $K^{\mathrm{inc}}$ as audit trail
+
+**Upgrade rule template:**
+```
+U_{X→+}: K_X^{inc} ∧ K_A^+ ∧ K_B^+ ⟹ K_X^+
+
+Premises: {K_A^+, K_B^+} ⊆ Γ
+Target: K_X^{inc} (with missing = {A, B})
+Non-circularity: K_X^+ not used to derive K_A^+ or K_B^+
+```
+
+**Two upgrade types:**
+1. **Instantaneous** (same pass): Premises available before the inc certificate was emitted.
+2. **A-posteriori** (after surgery/later nodes): Premises obtained from subsequent nodes or surgery.
+
+---
+
+### **A.5 Breach Detection and Surgery**
+
+When $K^-$ is emitted at a barrier node:
+
+**Step 1: Check if barrier blocks.**
+- Does existing Γ contradict the bad scenario?
+- Are there certificates that exclude the failure mode?
+
+**Step 2: If blocked:**
+- Emit $K^{\mathrm{blk}}$ with reason
+- Continue to next node
+
+**Step 3: If breached:**
+- Emit $K^{\mathrm{br}}$ with breach obligations
+- Trigger surgery protocol:
+
+**Surgery Protocol:**
+1. **Select surgery map:** Choose a semantics-preserving transformation (e.g., velocity → vorticity, Fourier → physical space).
+2. **Emit** $K_{\mathrm{Surg}}^+(\text{map\_id})$ certifying the transformation preserves the theorem.
+3. **Run post-surgery nodes:** Execute new verification nodes in the transformed representation.
+4. **Re-enter:** Use new certificates to discharge the breach obligations.
+5. **Apply a-posteriori upgrades:** Check if new certificates enable upgrades of earlier inc permits.
+
+---
+
+### **A.6 Obligation Tracking**
+
+**Maintain an obligation ledger throughout the run:**
+
+| Event | Action |
+|-------|--------|
+| $K^{\mathrm{inc}}$ emitted | Add obligation to ledger with ID |
+| Upgrade succeeds | Mark obligation as DISCHARGED |
+| $K^{\mathrm{br}}$ emitted | Add breach obligations to ledger |
+| Re-entry succeeds | Mark breach obligations as DISCHARGED |
+
+**The ledger must be EMPTY for a valid proof object.**
+
+---
+
+### **A.7 Completion Criteria**
+
+A proof object is **VALID** if and only if:
+
+- [ ] **All nodes executed** (no skips)
+- [ ] **Lock passed:** $K_{\mathrm{Lock}}^{\mathrm{blk}}$ or $K_{\mathrm{Lock}}^+$
+- [ ] **Obligation ledger is EMPTY**
+- [ ] **No unresolved** $K^{\mathrm{inc}}$ in final Γ (all upgraded or discharged)
+
+If any of these fail, the run produces a **conditional proof object** that documents exactly what remains to be established.
+
+---
+
+### **A.8 Step-by-Step Implementation Guide for New Problems**
+
+**Phase 1: Instantiation (Part I)**
+1. Identify the system type $T$ from the taxonomy.
+2. Fill in the four Thin Objects: Arena, Potential, Cost, Invariance.
+3. For each, implement the required interface templates from Part 0.
+
+**Phase 2: Sieve Execution (Part II)**
+1. Execute nodes 1-12 (core) sequentially.
+2. At each node, follow the decision flowchart (A.2).
+3. Record every certificate in Γ (accumulating context).
+4. Record every inc obligation in the ledger.
+
+**Phase 3: Boundary Nodes (if open system)**
+1. Execute nodes 13-16.
+2. If system is closed, skip to Lock.
+
+**Phase 4: Lock (Node 17)**
+1. Construct universal bad pattern $\mathcal{H}_{\text{bad}}$.
+2. Apply exclusion tactics E1-E10 until one succeeds.
+3. Emit Lock verdict.
+
+**Phase 5: Upgrade Pass (Part II-B)**
+1. Scan Γ for all $K^{\mathrm{inc}}$.
+2. Apply all applicable upgrade rules.
+3. Update obligation ledger.
+
+**Phase 6: Surgery (if needed, Part II-C)**
+1. If any barriers breached, execute surgery protocol.
+2. Re-enter and discharge obligations.
+
+**Phase 7: Closure (Part III)**
+1. If Lyapunov reconstruction conditions met, construct $\mathcal{L}$.
+2. Extract results via metatheorems.
+3. Apply retroactive upgrades.
+
+**Phase 8: Finalization (Part IV)**
+1. Verify completion criteria.
+2. Assemble final certificate chain.
+3. Document proof summary.
+
+:::
 
 ---
 
@@ -155,6 +389,166 @@ This document integrates the **Instantiation** (defining Thin Objects), **Execut
 
 ---
 
+:::{dropdown} **Part 0.5: Certificate Schemas and Upgrade Protocol** (Reference - Click to expand)
+:icon: book
+:color: info
+
+*Reference: For formal definitions, see `hypopermits_jb.md` Definitions `def-typed-no-certificates`, `def-inc-upgrades`, `def-promotion-permits`, `def-closure`.*
+
+### **0.5.1 Certificate Schemas**
+
+Every node emits one of these certificate types:
+
+#### **Positive Certificate ($K_X^+$)**
+```
+K_X^+ = (witness_1, witness_2, ..., witness_n)
+```
+**Contents:** Explicit witnesses that verify the predicate. These are mathematical objects (bounds, functions, exponents) that can be checked independently.
+
+**Example:** $K_{D_E}^+ = (\Phi, \mathfrak{D}, B)$ where $B$ is the explicit energy bound.
+
+#### **Negative Certificate ($K_X^-$)**
+```
+K_X^- = (counterexample, reason)
+```
+**Contents:** Evidence that the predicate fails. Triggers barrier check.
+
+**Example:** $K_{\mathrm{SC}_\lambda}^- = (\alpha - \beta = -1, \text{"supercritical"})$
+
+#### **Inconclusive Certificate ($K_X^{\mathrm{inc}}$)**
+```
+K_X^{inc} = {
+  obligation: "What must be established to resolve",
+  missing: ["K_A", "K_B", ...],  // certificates needed
+  failure_code: "STANDARDIZED_CODE",
+  trace: "Step N of NodeCheck where gap occurred"
+}
+```
+**Contents:** Structured payload documenting exactly what is missing. This certificate is **recoverable** via upgrade rules.
+
+**Example:**
+```
+K_{NL}^{inc} = {
+  obligation: "Close H¹ differential inequality",
+  missing: ["K_Emb^+", "K_SG^+"],
+  failure_code: "MISSING_EMBEDDING",
+  trace: "Step 4 of NonlinearityControl"
+}
+```
+
+#### **Blocked Certificate ($K_X^{\mathrm{blk}}$)**
+```
+K_X^{blk} = (barrier_id, blocking_reason, blocking_certificates)
+```
+**Contents:** Evidence that the barrier prevents the bad scenario. The predicate failed ($K^-$) but the failure mode is excluded.
+
+**Example:** $K_{\text{Sat}}^{\mathrm{blk}} = (\text{BarrierSat}, \text{"drift controlled by saturation"}, \{K_{D_E}^+\})$
+
+#### **Breached Certificate ($K_X^{\mathrm{br}}$)**
+```
+K_X^{br} = {
+  barrier_id: "Which barrier failed",
+  reason: "Why it couldn't block",
+  obligations: ["O1", "O2", ...]  // what surgery must provide
+}
+```
+**Contents:** Documents barrier failure and what must be recovered via surgery.
+
+---
+
+### **0.5.2 Upgrade Rule Schema**
+
+Upgrade rules convert $K^{\mathrm{inc}}$ to $K^+$ when prerequisites are satisfied.
+
+#### **Rule Template**
+```
+U_{X→+}(premises, target, guard):
+  IF   K_X^{inc} ∈ Γ
+  AND  ∀ m ∈ missing(K_X^{inc}): K_m^+ ∈ Γ
+  AND  K_X^+ ∉ depends(premises)   // non-circularity
+  THEN Γ := Γ ∪ {K_X^+}
+       discharge(obligation(K_X^{inc}))
+```
+
+#### **Non-Circularity Guard**
+The upgrade is **invalid** if any premise certificate depends on the target $K_X^+$. This prevents circular reasoning.
+
+**Check:** For each premise $K_m^+$, trace its derivation. If $K_X^+$ appears anywhere in that derivation, the upgrade is blocked.
+
+#### **Upgrade Types**
+
+| Type | When Applied | Premises From |
+|------|--------------|---------------|
+| **Instantaneous** | Same sieve pass | Earlier nodes |
+| **A-posteriori** | After surgery or later nodes | Later nodes or surgery |
+
+---
+
+### **0.5.3 Surgery Certificate Schema**
+
+When a barrier is breached, surgery changes the representation.
+
+```
+K_Surg^+ = {
+  map_id: "Transformation name (e.g., Curl2D)",
+  source: "Original representation",
+  target: "New representation",
+  preservation: "Proof that theorem is unchanged",
+  recovery: "How to translate back (if needed)"
+}
+```
+
+**Example (2D NS):**
+```
+K_Surg^+(Curl2D) = {
+  map_id: "Curl2D",
+  source: "velocity (u, p)",
+  target: "vorticity ω = curl(u)",
+  preservation: "Biot-Savart recovers u from ω",
+  recovery: "u = ∇⊥(-Δ)^{-1}ω"
+}
+```
+
+---
+
+### **0.5.4 Re-entry Certificate Schema**
+
+After surgery, re-entry certificates discharge breach obligations.
+
+```
+K_re^+(item) = {
+  discharged: "Which obligation/missing item",
+  via: "How it was established post-surgery",
+  certificates: ["K_A^+", "K_B^+", ...]  // supporting certs
+}
+```
+
+**Example:**
+```
+K_re^+(GradBound) = {
+  discharged: "Control |∇u|_2 on [0,T]",
+  via: "Enstrophy bound + Biot-Savart",
+  certificates: ["K_Ens^+", "K_BS^+"]
+}
+```
+
+---
+
+### **0.5.5 Context Accumulation**
+
+The **context** Γ accumulates certificates throughout the run:
+
+$$\Gamma_0 = \{K_{\text{Init}}^+\}$$
+$$\Gamma_{n+1} = \Gamma_n \cup \{\text{certificate from Node } n+1\}$$
+
+The **promotion closure** $\mathrm{Cl}(\Gamma)$ applies all upgrade rules until fixed point:
+$$\mathrm{Cl}(\Gamma) = \bigcup_{k=0}^{\infty} \Gamma_k$$
+where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
+
+:::
+
+---
+
 ## **Part I: The Instantiation (Thin Object Definitions)**
 *User Input: Define the four "Thin Objects" (Section 8.C). The Factory Metatheorems (TM-1 to TM-4) automatically expand these into the full Kernel Objects.*
 
@@ -217,6 +611,13 @@ For each node:
 * [ ] $K_{D_E}^-$ → Check BarrierSat
   * [ ] $K_{\text{sat}}^{\mathrm{blk}}$: Drift controlled → **Go to Node 2**
   * [ ] Breached: Enable Surgery `SurgCE`
+* [ ] $K_{D_E}^{\mathrm{inc}}$ → **Record obligation, Go to Node 2**
+  ```
+  { obligation: "Establish energy bound B",
+    missing: ["explicit_bound", "dissipation_rate"],
+    failure_code: "MISSING_ENERGY_BOUND",
+    trace: "Step 1-3 of EnergyCheck" }
+  ```
 
 ---
 
@@ -235,6 +636,13 @@ For each node:
 * [ ] $K_{\mathrm{Rec}_N}^-$ → Check BarrierCausal
   * [ ] $K^{\mathrm{blk}}$: Depth censored → **Go to Node 3**
   * [ ] Breached: Enable Surgery `SurgCC`
+* [ ] $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ → **Record obligation, Go to Node 3**
+  ```
+  { obligation: "Prove finite bad-event count",
+    missing: ["recovery_map", "event_bound"],
+    failure_code: "MISSING_RECOVERY",
+    trace: "Step 2-4 of ZenoCheck" }
+  ```
 
 ---
 
@@ -255,6 +663,13 @@ For each node:
 * [ ] $K_{C_\mu}^-$ → Check BarrierScat
   * [ ] Benign scattering: **VICTORY (Mode D.D) - Global Existence**
   * [ ] Pathological: Enable Surgery `SurgCD_Alt`
+* [ ] $K_{C_\mu}^{\mathrm{inc}}$ → **Record obligation, Go to Node 4**
+  ```
+  { obligation: "Establish compactness modulo symmetry",
+    missing: ["symmetry_group", "profile_decomposition"],
+    failure_code: "MISSING_COMPACTNESS",
+    trace: "Step 3-4 of CompactCheck" }
+  ```
 
 ---
 
@@ -278,6 +693,13 @@ For each node:
 * [ ] $K_{\mathrm{SC}_\lambda}^-$ → Check BarrierTypeII
   * [ ] $K^{\mathrm{blk}}$: Renorm cost infinite → **Go to Node 5**
   * [ ] Breached: Enable Surgery `SurgSE`
+* [ ] $K_{\mathrm{SC}_\lambda}^{\mathrm{inc}}$ → **Record obligation, Go to Node 5**
+  ```
+  { obligation: "Determine scaling exponents α, β",
+    missing: ["scaling_action", "exponent_computation"],
+    failure_code: "MISSING_SCALING",
+    trace: "Step 1-3 of ScaleCheck" }
+  ```
 
 ---
 
@@ -296,6 +718,13 @@ For each node:
 * [ ] $K_{\mathrm{SC}_{\partial c}}^-$ → Check BarrierVac
   * [ ] $K^{\mathrm{blk}}$: Phase stable → **Go to Node 6**
   * [ ] Breached: Enable Surgery `SurgSC`
+* [ ] $K_{\mathrm{SC}_{\partial c}}^{\mathrm{inc}}$ → **Record obligation, Go to Node 6**
+  ```
+  { obligation: "Establish parameter stability",
+    missing: ["parameter_space", "stability_bound"],
+    failure_code: "MISSING_PARAM_STABILITY",
+    trace: "Step 3-4 of ParamCheck" }
+  ```
 
 ---
 
@@ -317,6 +746,13 @@ For each node:
 * [ ] $K_{\mathrm{Cap}_H}^-$ → Check BarrierCap
   * [ ] $K^{\mathrm{blk}}$: Capacity zero → **Go to Node 7**
   * [ ] Breached: Enable Surgery `SurgCD`
+* [ ] $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ → **Record obligation, Go to Node 7**
+  ```
+  { obligation: "Establish Hausdorff dimension of singular set",
+    missing: ["capacity_estimate", "removability_theorem"],
+    failure_code: "MISSING_CAPACITY_BOUND",
+    trace: "Step 2-4 of GeomCheck" }
+  ```
 
 ---
 
@@ -335,6 +771,13 @@ For each node:
 * [ ] $K_{\mathrm{LS}_\sigma}^-$ → Check BarrierGap
   * [ ] $K^{\mathrm{blk}}$: Gap exists → **Go to Node 8**
   * [ ] Stagnation: Enter Restoration Subtree (SymCheck → SSB)
+* [ ] $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ → **Record obligation, Go to Node 8**
+  ```
+  { obligation: "Establish Łojasiewicz-Simon inequality",
+    missing: ["critical_set", "lojasiewicz_exponent"],
+    failure_code: "MISSING_STIFFNESS",
+    trace: "Step 2-3 of StiffnessCheck" }
+  ```
 
 ---
 
@@ -356,6 +799,13 @@ For each node:
 * [ ] $K_{\mathrm{TB}_\pi}^-$ → Check BarrierAction
   * [ ] $K^{\mathrm{blk}}$: Energy below action gap → **Go to Node 9**
   * [ ] Breached: Enable Surgery `SurgTE` (Tunnel)
+* [ ] $K_{\mathrm{TB}_\pi}^{\mathrm{inc}}$ → **Record obligation, Go to Node 9**
+  ```
+  { obligation: "Determine sector preservation",
+    missing: ["topological_invariant", "sector_map"],
+    failure_code: "MISSING_TOPOLOGY",
+    trace: "Step 1-4 of TopoCheck" }
+  ```
 
 ---
 
@@ -377,6 +827,13 @@ For each node:
 * [ ] $K_{\mathrm{TB}_O}^-$ → Check BarrierOmin
   * [ ] $K^{\mathrm{blk}}$: Definability recoverable → **Go to Node 10**
   * [ ] Breached: Enable Surgery `SurgTC` (O-minimal Regularization)
+* [ ] $K_{\mathrm{TB}_O}^{\mathrm{inc}}$ → **Record obligation, Go to Node 10**
+  ```
+  { obligation: "Establish o-minimal definability of singular set",
+    missing: ["o_minimal_structure", "definability_proof"],
+    failure_code: "MISSING_TAMENESS",
+    trace: "Step 2-4 of TameCheck" }
+  ```
 
 ---
 
@@ -398,6 +855,13 @@ For each node:
 * [ ] $K_{\mathrm{TB}_\rho}^-$ → Check BarrierMix
   * [ ] $K^{\mathrm{blk}}$: Trap escapable → **Go to Node 11**
   * [ ] Breached: Enable Surgery `SurgTD` (Mixing Enhancement)
+* [ ] $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ → **Record obligation, Go to Node 11**
+  ```
+  { obligation: "Establish mixing/ergodicity",
+    missing: ["invariant_measure", "mixing_time"],
+    failure_code: "MISSING_MIXING",
+    trace: "Step 1-4 of ErgoCheck" }
+  ```
 
 ---
 
@@ -419,6 +883,13 @@ For each node:
 * [ ] $K_{\mathrm{Rep}_K}^-$ → Check BarrierEpi
   * [ ] $K^{\mathrm{blk}}$: Description within holographic bound → **Go to Node 12**
   * [ ] Breached: Enable Surgery `SurgDC` (Viscosity Solution)
+* [ ] $K_{\mathrm{Rep}_K}^{\mathrm{inc}}$ → **Record obligation, Go to Node 12**
+  ```
+  { obligation: "Establish finite description complexity",
+    missing: ["description_language", "complexity_bound"],
+    failure_code: "MISSING_FINITE_DESCRIPTION",
+    trace: "Step 2-4 of ComplexCheck" }
+  ```
 
 ---
 
@@ -442,6 +913,13 @@ For each node:
 * [ ] $K_{\mathrm{GC}_\nabla}^+$ (YES oscillation) → Check BarrierFreq
   * [ ] $K^{\mathrm{blk}}$: Oscillation integral finite → **Go to Node 13**
   * [ ] Breached: Enable Surgery `SurgDE` (De Giorgi-Nash-Moser)
+* [ ] $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$ → **Record obligation, Go to Node 13**
+  ```
+  { obligation: "Determine if flow is gradient-like",
+    missing: ["metric_tensor", "monotonicity_proof"],
+    failure_code: "MISSING_GRADIENT_STRUCTURE",
+    trace: "Step 1-2 of OscillateCheck" }
+  ```
 
 ---
 
@@ -464,6 +942,8 @@ For each node:
 * [ ] $K_{\mathrm{Bound}_\partial}^+$ (System is OPEN) → **Go to Node 14 (OverloadCheck)**
 * [ ] $K_{\mathrm{Bound}_\partial}^-$ (System is CLOSED: $\partial\Omega = \emptyset$) → **Go to Node 17 (Lock)**
 
+*Note: This is a dichotomy classifier. Both outcomes are valid; they determine which path to follow.*
+
 ---
 
 #### **Node 14: OverloadCheck ($\mathrm{Bound}_B$)**
@@ -481,6 +961,13 @@ For each node:
 * [ ] $K_{\mathrm{Bound}_B}^-$ → Check BarrierBode
   * [ ] $K^{\mathrm{blk}}$: Sensitivity bounded (waterbed constraint satisfied) → **Go to Node 15**
   * [ ] Breached: Enable Surgery `SurgBE` (Saturation)
+* [ ] $K_{\mathrm{Bound}_B}^{\mathrm{inc}}$ → **Record obligation, Go to Node 15**
+  ```
+  { obligation: "Establish input boundedness",
+    missing: ["input_bound", "sensitivity_estimate"],
+    failure_code: "MISSING_INPUT_BOUND",
+    trace: "Step 1-2 of OverloadCheck" }
+  ```
 
 ---
 
@@ -500,6 +987,13 @@ For each node:
 * [ ] $K_{\mathrm{Bound}_{\Sigma}}^-$ → Check BarrierInput
   * [ ] $K^{\mathrm{blk}}$: Reserve sufficient (buffer exists) → **Go to Node 16**
   * [ ] Breached: Enable Surgery `SurgBD` (Reservoir)
+* [ ] $K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{inc}}$ → **Record obligation, Go to Node 16**
+  ```
+  { obligation: "Establish input sufficiency",
+    missing: ["minimum_requirement", "supply_estimate"],
+    failure_code: "MISSING_INPUT_SUFFICIENCY",
+    trace: "Step 1-3 of StarveCheck" }
+  ```
 
 ---
 
@@ -520,6 +1014,13 @@ For each node:
 * [ ] $K_{\mathrm{GC}_T}^-$ → Check BarrierVariety
   * [ ] $K^{\mathrm{blk}}$: Variety sufficient → **Go to Node 17**
   * [ ] Breached: Enable Surgery `SurgBC` (Adjoint)
+* [ ] $K_{\mathrm{GC}_T}^{\mathrm{inc}}$ → **Record obligation, Go to Node 17**
+  ```
+  { obligation: "Establish control-disturbance alignment",
+    missing: ["control_variety", "alignment_proof"],
+    failure_code: "MISSING_ALIGNMENT",
+    trace: "Step 3-4 of AlignCheck" }
+  ```
 
 ---
 
@@ -548,6 +1049,86 @@ For each node:
 **Lock Verdict:**
 * [ ] **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$) via Tactic E__ → **GLOBAL REGULARITY ESTABLISHED**
 * [ ] **MORPHISM EXISTS** ($K_{\text{Lock}}^{\mathrm{morph}}$) → **SINGULARITY CONFIRMED**
+* [ ] **INCONCLUSIVE** ($K_{\text{Lock}}^{\mathrm{inc}}$) → **Record obligation**
+  ```
+  { obligation: "Resolve Lock verdict",
+    missing: ["successful_tactic", "morphism_construction"],
+    failure_code: "LOCK_UNDECIDED",
+    trace: "All tactics E1-E10 exhausted without resolution" }
+  ```
+  *Note: An inc Lock means the proof object is conditional. Document exactly which tactics were attempted and what additional structure might resolve the verdict.*
+
+---
+
+## **Part II-B: Upgrade Pass**
+*After completing the sieve, apply upgrade rules to discharge inc certificates.*
+
+### **Upgrade Pass Protocol**
+
+**Step 1: Collect all inc certificates**
+List all $K_X^{\mathrm{inc}}$ in Γ:
+| ID | Node | Obligation | Missing |
+|----|------|------------|---------|
+| | | | |
+
+**Step 2: For each inc certificate, check upgrade applicability**
+
+For each $K_X^{\mathrm{inc}}$:
+1. [ ] List certificates in `missing`
+2. [ ] Check if all missing certificates are now in Γ
+3. [ ] Verify non-circularity: target $K_X^+$ not used to derive premises
+4. [ ] If applicable: Apply upgrade, emit $K_X^+$, discharge obligation
+
+**Step 3: Iterate until no more upgrades apply**
+
+The upgrade pass terminates when no $K^{\mathrm{inc}}$ can be upgraded.
+
+---
+
+## **Part II-C: Breach/Surgery/Re-entry Protocol**
+*If any barrier was breached, execute this protocol.*
+
+### **Breach Detection**
+
+Collect all $K_X^{\mathrm{br}}$ certificates:
+| Barrier | Reason | Obligations |
+|---------|--------|-------------|
+| | | |
+
+### **Surgery Selection**
+
+For each breach, select an appropriate surgery:
+
+| Breach Type | Recommended Surgery | Map ID |
+|-------------|---------------------|--------|
+| Energy/Dissipation | Change functional | SurgCE |
+| Zeno/Recovery | Regularization | SurgCC |
+| Compactness | Profile decomposition | SurgCD_Alt |
+| Scaling | Renormalization | SurgSE |
+| Capacity | Removable singularity | SurgCD |
+| Stiffness | Symmetry breaking | SSB |
+| Topology | Tunnel/Sector | SurgTE |
+| Tameness | O-minimal extension | SurgTC |
+| Mixing | Ergodic enhancement | SurgTD |
+| Complexity | Viscosity | SurgDC |
+| Oscillation | Regularization | SurgDE |
+| Boundary | Control redesign | SurgB* |
+
+### **Surgery Execution**
+
+For each surgery:
+1. [ ] Emit $K_{\mathrm{Surg}}^+(\text{map\_id})$
+2. [ ] Document semantics preservation
+3. [ ] Execute post-surgery nodes in new representation
+4. [ ] Collect new certificates
+
+### **Re-entry Protocol**
+
+For each breach obligation:
+1. [ ] Identify which new certificates address the obligation
+2. [ ] Emit $K_{\mathrm{re}}^+(\text{item})$
+3. [ ] Apply a-posteriori upgrades to earlier inc certificates
+4. [ ] Update obligation ledger
 
 ---
 
@@ -669,8 +1250,70 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 
 ---
 
+## **Part III-C: Obligation Ledger**
+*Track all obligations introduced during the run and their discharge status.*
+
+### **Introduced Obligations**
+
+| ID | Node | Certificate | Obligation | Missing | Status |
+|----|------|-------------|------------|---------|--------|
+| O1 | [#] | $K_X^{\mathrm{inc}}$ | [Description] | [List] | [ ] Pending / [ ] Discharged |
+| O2 | [#] | $K_Y^{\mathrm{br}}$ | [Description] | [List] | [ ] Pending / [ ] Discharged |
+| ... | | | | | |
+
+### **Discharge Events**
+
+| Obligation ID | Discharged At | Mechanism | Using Certificates |
+|---------------|---------------|-----------|-------------------|
+| O1 | Node [#] / Upgrade Pass | Upgrade $U_{X\to+}$ | $K_A^+, K_B^+$ |
+| O2 | Re-entry | $K_{\mathrm{re}}^+$ | $K_C^+, K_D^+$ |
+| ... | | | |
+
+### **Remaining Obligations**
+
+**Count:** ___
+
+| ID | Obligation | Why Unresolved |
+|----|------------|----------------|
+| | | |
+
+### **Ledger Validation**
+
+* [ ] **All inc certificates either upgraded or documented as conditional**
+* [ ] **All breach obligations either discharged or documented**
+* [ ] **Remaining obligations count = 0** (for unconditional proof)
+
+**Ledger Status:** [ ] EMPTY (valid unconditional proof) / [ ] NON-EMPTY (conditional proof)
+
+---
+
 ## **Part IV: Final Certificate Chain**
-**Conclusion:** The Conjecture is [TRUE / FALSE / UNDECIDABLE].
+
+### **4.1 Validity Checklist**
+
+Before declaring the proof object complete, verify:
+
+- [ ] **All 12 core nodes executed** (Nodes 1-12)
+- [ ] **Boundary nodes executed** (Nodes 13-16, if system is open)
+- [ ] **Lock executed** (Node 17)
+- [ ] **Lock verdict obtained:** $K_{\text{Lock}}^{\mathrm{blk}}$ or $K_{\text{Lock}}^+$ or $K_{\text{Lock}}^{\mathrm{morph}}$
+- [ ] **Upgrade pass completed** (Part II-B)
+- [ ] **Surgery/Re-entry completed** (Part II-C, if any breaches)
+- [ ] **Obligation ledger is EMPTY** (Part III-C)
+- [ ] **No unresolved $K^{\mathrm{inc}}$** in final Γ
+
+**Validity Status:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF
+
+### **4.2 Context Accumulation Trace**
+
+**Final Γ:**
+$$\Gamma_{\text{final}} = \{K_{\text{Init}}^+, K_{D_E}^{?}, K_{\mathrm{Rec}_N}^{?}, \ldots, K_{\text{Lock}}^{?}\}$$
+
+*Replace ? with actual certificate type (+, blk, inc, etc.)*
+
+### **4.3 Conclusion**
+
+**Conclusion:** The Conjecture is [TRUE / FALSE / UNDECIDABLE / CONDITIONAL].
 
 **Proof Summary ($\Gamma$):**
 "The system is [Regular/Singular] because:
@@ -682,3 +1325,72 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 
 **Full Certificate Chain:**
 $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
+
+---
+
+## **Formal Proof**
+
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-main`
+
+The proof proceeds by structural sieve analysis in seven phases:
+
+**Phase 1 (Instantiation):** We defined the hypostructure $({\mathcal{X}, \Phi, \mathfrak{D}, G})$ in Part I, implementing the required interface permits.
+
+**Phase 2 (Conservation):** Nodes 1-3 established energy control ($K_{D_E}$), finite bad events ($K_{\mathrm{Rec}_N}$), and compactness modulo symmetry ($K_{C_\mu}$).
+
+**Phase 3 (Scaling):** Nodes 4-5 verified subcriticality ($K_{\mathrm{SC}_\lambda}$) and parameter stability ($K_{\mathrm{SC}_{\partial c}}$).
+
+**Phase 4 (Geometry):** Nodes 6-7 established small singular set ($K_{\mathrm{Cap}_H}$) and stiffness ($K_{\mathrm{LS}_\sigma}$).
+
+**Phase 5 (Topology):** Nodes 8-12 verified sector preservation ($K_{\mathrm{TB}_\pi}$), tameness ($K_{\mathrm{TB}_O}$), mixing ($K_{\mathrm{TB}_\rho}$), finite complexity ($K_{\mathrm{Rep}_K}$), and gradient structure ($K_{\mathrm{GC}_\nabla}$).
+
+**Phase 6 (Boundary):** [If applicable] Nodes 13-16 verified boundary conditions.
+
+**Phase 7 (Lock):** Node 17 blocked the universal bad pattern $\mathcal{H}_{\text{bad}}$ via Tactic E[X], establishing $K_{\text{Lock}}^{\mathrm{blk}}$.
+
+**Conclusion:** By the Lock Metatheorem (MT 9), the blocked Lock certificate implies the target claim.
+
+$$\therefore \text{[CLAIM]} \quad \square$$
+
+::::
+
+---
+
+## **Verification Summary**
+
+| Component | Status | Certificate |
+|-----------|--------|-------------|
+| Nodes 1-12 (Core) | [PASS/FAIL/INC] | [List] |
+| Nodes 13-16 (Boundary) | [N/A/PASS/FAIL] | [List] |
+| Node 17 (Lock) | [BLOCKED/MORPHISM/INC] | $K_{\text{Lock}}^{?}$ |
+| Obligation Ledger | [EMPTY/NON-EMPTY] | — |
+| Upgrade Pass | [COMPLETE] | [List upgrades] |
+
+**Final Verdict:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF / [ ] SINGULARITY CONFIRMED
+
+---
+
+## **References**
+
+1. Hypostructure Framework v1.0 (`hypopermits_jb.md`)
+2. [Add relevant mathematical references]
+3. [Add relevant prior work]
+
+---
+
+## **Document Information**
+
+| Field | Value |
+|-------|-------|
+| **Generated** | [Date/Time] |
+| **Framework** | Hypostructure v1.0 |
+| **Certificate Chain** | Verified: [ ] YES / [ ] NO |
+| **Obligation Ledger** | Status: [ ] EMPTY / [ ] NON-EMPTY |
+| **Proof Status** | [ ] Draft / [ ] Final |
+
+---
+
+*This document constitutes a machine-checkable proof object under the Hypostructure framework.*
+*Each certificate can be independently verified against the definitions in `hypopermits_jb.md`.*
+
+**QED**
