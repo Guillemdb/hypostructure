@@ -325,10 +325,10 @@ The Boundary Constraints enforce coupling between bulk dynamics and environmenta
 :label: ax-boundary
 
 The system's boundary morphisms satisfy:
-- **Bound$_\partial$**: $\text{Tr}: \mathcal{X} \to \mathcal{B}$ is not an equivalence (open system) — Node 13
-- **Bound$_B$**: $\mathcal{J}$ factors through a bounded subobject $\mathcal{J}: \mathcal{B} \to \underline{[-M, M]}$ — Node 14
-- **Bound$_{\Sigma}$**: The integral $\int_0^T \mathcal{J}_{\text{in}}$ exists as a morphism in $\text{Hom}(\mathbf{1}, \underline{\mathbb{R}}_{\geq r_{\min}})$ — Node 15
-- **Bound$_{\mathcal{R}}$**: The **reinjection diagram** commutes:
+- $\mathbf{Bound}_\partial$: $\text{Tr}: \mathcal{X} \to \mathcal{B}$ is not an equivalence (open system) — Node 13
+- $\mathbf{Bound}_B$: $\mathcal{J}$ factors through a bounded subobject $\mathcal{J}: \mathcal{B} \to \underline{[-M, M]}$ — Node 14
+- $\mathbf{Bound}_{\Sigma}$: The integral $\int_0^T \mathcal{J}_{\text{in}}$ exists as a morphism in $\text{Hom}(\mathbf{1}, \underline{\mathbb{R}}_{\geq r_{\min}})$ — Node 15
+- $\mathbf{Bound}_{\mathcal{R}}$: The **reinjection diagram** commutes:
   $$\mathcal{J}_{\text{out}} \simeq \mathcal{J}_{\text{in}} \circ \mathcal{R} \quad \text{in } \text{Hom}_{\mathcal{E}}(\mathcal{B}, \underline{\mathbb{R}})$$
 
 **Enforced by:** Nodes 13-16 (BoundaryCheck, OverloadCheck, StarveCheck, AlignCheck)
@@ -368,22 +368,57 @@ The following diagram is the **authoritative specification** of the obstruction-
 
 The Structural Sieve operates within the computational limits imposed by fundamental results in mathematical logic:
 
-1. **Gödel's Incompleteness (1931):** No sufficiently powerful formal system can prove all true statements about arithmetic within itself.
-2. **Halting Problem (Turing, 1936):** There is no general algorithm to determine whether an arbitrary program will halt.
-3. **Rice's Theorem:** All non-trivial semantic properties of programs are undecidable.
+1. **Gödel's Incompleteness (1931):** No sufficiently powerful formal system can prove all true statements about arithmetic within itself {cite}`Godel31`.
+2. **Halting Problem (Turing, 1936):** There is no general algorithm to determine whether an arbitrary program will halt {cite}`Turing36`.
+3. **Rice's Theorem (1953):** All non-trivial semantic properties of programs are undecidable {cite}`Rice53`.
 
 **Implication for the Sieve:** For sufficiently complex systems (e.g., those encoding universal computation), certain interface predicates $\mathcal{P}_i$ may be **undecidable**—no algorithm can determine their truth value in finite time for all inputs.
 
-The framework addresses this through **Horizon Certificates** $K^{\text{hor}}$:
+The framework addresses this through **Binary Certificate Logic** with typed NO certificates. Every predicate evaluation returns exactly YES or NO—never a third truth value. The NO certificate carries type information distinguishing *refutation* from *inconclusiveness*.
 
-$$K^{\text{hor}} = (\text{Node}_i, \text{Reason} \in \{\texttt{TIMEOUT}, \texttt{UNDECIDABLE}, \texttt{INFINITE\_DESCENT}, \texttt{EPISTEMIC}\}, \text{PartialProgress}, \text{Bound})$$
+:::{prf:definition} Typed NO Certificates (Binary Certificate Logic)
+:label: def-typed-no-certificates
 
-This design choice reflects intellectual honesty:
-- The Sieve does not claim to solve unsolvable problems
-- It identifies precisely where decidability boundaries occur
-- Systems producing Horizon certificates are flagged as "structurally ambiguous"—neither proven regular nor proven singular
+For any predicate $P$ with YES certificate $K_P^+$, the NO certificate is a **coproduct** (sum type) in the category of certificate objects:
+$$K_P^- := K_P^{\mathrm{wit}} + K_P^{\mathrm{inc}}$$
 
-**Literature:** {cite}`Godel31`; {cite}`Turing36`
+**Component 1: NO-with-witness** ($K_P^{\mathrm{wit}}$)
+
+A constructive refutation consisting of a counterexample or breach object that demonstrates $\neg P$. Formally:
+$$K_P^{\mathrm{wit}} := (\mathsf{witness}: W_P, \mathsf{verification}: W_P \vdash \neg P)$$
+where $W_P$ is the type of refutation witnesses for $P$.
+
+**Component 2: NO-inconclusive** ($K_P^{\mathrm{inc}}$)
+
+A record of evaluator failure that does *not* constitute a semantic refutation. Formally:
+$$K_P^{\mathrm{inc}} := (\mathsf{obligation}: P, \mathsf{missing}: \mathcal{M}, \mathsf{code}: \mathcal{C}, \mathsf{trace}: \mathcal{T})$$
+where:
+- $\mathsf{obligation} \in \mathrm{Pred}(\mathcal{H})$: The exact predicate instance attempted
+- $\mathsf{missing} \in \mathcal{P}(\mathrm{Template} \cup \mathrm{Precond})$: Prerequisites or capabilities absent
+- $\mathsf{code} \in \{\texttt{TEMPLATE\_MISS}, \texttt{PRECOND\_MISS}, \texttt{NOT\_IMPLEMENTED}, \texttt{RESOURCE\_LIMIT}, \texttt{UNDECIDABLE}\}$
+- $\mathsf{trace} \in \mathrm{Log}$: Reproducible evaluation trace (template DB hash, attempted tactics, bounds)
+
+**Injection Maps:** The coproduct structure provides canonical injections:
+$$\iota_{\mathrm{wit}}: K_P^{\mathrm{wit}} \to K_P^-, \quad \iota_{\mathrm{inc}}: K_P^{\mathrm{inc}} \to K_P^-$$
+
+**Case Analysis:** Any function $f: K_P^- \to X$ factors uniquely through case analysis:
+$$f = [f_{\mathrm{wit}}, f_{\mathrm{inc}}] \circ \mathrm{case}$$
+where $f_{\mathrm{wit}}: K_P^{\mathrm{wit}} \to X$ and $f_{\mathrm{inc}}: K_P^{\mathrm{inc}} \to X$.
+:::
+
+:::{prf:remark} Routing Semantics
+:label: rem-routing-semantics
+
+The Sieve branches on certificate kind via case analysis:
+- **NO with $K^{\mathrm{wit}}$** $\mapsto$ Fatal route (structural inconsistency confirmed; no reconstruction possible)
+- **NO with $K^{\mathrm{inc}}$** $\mapsto$ Reconstruction route (invoke MT 42.1; add interface/refine library/extend templates)
+
+This design maintains **proof-theoretic honesty**:
+- The verdict is always in $\{$YES, NO$\}$—classical two-valued logic
+- The certificate carries the epistemic distinction between "refuted" and "not yet proven"
+- Reconstruction is triggered by $K^{\mathrm{inc}}$, never by $K^{\mathrm{wit}}$
+
+**Literature:** {cite}`Godel31`; {cite}`Turing36`; {cite}`Rice53`. For sum types in type theory: {cite}`MartinLof84`; {cite}`HoTTBook`.
 :::
 
 :::{admonition} Categorical Interpretation
@@ -600,7 +635,7 @@ graph TD
 
     BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
     BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
-    BarrierExclusion -- "Horizon: Khor_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
+    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
     ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
     ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
 
@@ -1087,6 +1122,29 @@ Promotion rules are applied during context closure (Definition {ref}`def-closure
 
 :::
 
+:::{prf:definition} Inconclusive upgrade permits
+:label: def-inc-upgrades
+
+**Inconclusive upgrade permits** discharge NO-inconclusive certificates by supplying certificates that satisfy their $\mathsf{missing}$ prerequisites (Definition {prf:ref}`def-typed-no-certificates`).
+
+**Immediate inc-upgrade** (past/current): An inconclusive certificate may be upgraded if certificates satisfying its missing prerequisites are present:
+$$K_P^{\mathrm{inc}} \wedge \bigwedge_{j \in J} K_j^+ \Rightarrow K_P^+$$
+where $J$ indexes the certificate types listed in $\mathsf{missing}(K_P^{\mathrm{inc}})$.
+
+**A-posteriori inc-upgrade** (future-enabled): An inconclusive certificate may be upgraded after later nodes provide the missing prerequisites:
+$$K_P^{\mathrm{inc}} \wedge \bigwedge_{j \in J'} K_j^+ \Rightarrow K_P^+$$
+where $J'$ indexes certificates produced by nodes evaluated after the node that produced $K_P^{\mathrm{inc}}$.
+
+**To YES$^\sim$** (equivalence-tolerant): An inconclusive certificate may upgrade to YES$^\sim$ when the discharge is valid only up to an admissible equivalence move (Definition {prf:ref}`def-yes-tilde`):
+$$K_P^{\mathrm{inc}} \wedge \bigwedge_{j \in J} K_j^+ \Rightarrow K_P^{\sim}$$
+
+**Discharge condition (obligation matching):** An inc-upgrade rule is admissible only if its premises imply the concrete obligation instance recorded in the payload:
+$$\bigwedge_{j \in J} K_j^+ \Rightarrow \mathsf{obligation}(K_P^{\mathrm{inc}})$$
+
+This makes inc-upgrades structurally symmetric with blocked-certificate promotions (Definition {prf:ref}`def-promotion-permits`).
+
+:::
+
 ---
 
 ## 4. Kernel Theorems
@@ -1183,16 +1241,16 @@ where:
 For type $T$, the certificate language $\mathcal{K}(T)$ satisfies the **finiteness condition** if either:
 1. **Bounded description length**: Certificates have bounded description complexity (finite precision, bounded parameters), or
 2. **Depth budget**: Closure is computed to a specified depth/complexity budget $D_{\max}$
-Non-termination under infinite certificate language is treated as a horizon certificate (Remark {ref}`rem-horizon-general`).
+Non-termination under infinite certificate language is treated as a NO-inconclusive certificate (Remark {prf:ref}`rem-inconclusive-general`).
 
 :::
 
 :::{prf:definition} Promotion closure
 :label: def-closure
 
-The **promotion closure** $\mathrm{Cl}(\Gamma)$ is the least fixed point of the context under all promotion rules:
+The **promotion closure** $\mathrm{Cl}(\Gamma)$ is the least fixed point of the context under all promotion and upgrade rules:
 $$\mathrm{Cl}(\Gamma) = \bigcup_{n=0}^{\infty} \Gamma_n$$
-where $\Gamma_0 = \Gamma$ and $\Gamma_{n+1}$ applies all applicable immediate and a-posteriori promotions to $\Gamma_n$.
+where $\Gamma_0 = \Gamma$ and $\Gamma_{n+1}$ applies all applicable immediate and a-posteriori promotions (Definition {prf:ref}`def-promotion-permits`) **and all applicable inc-upgrades** (Definition {prf:ref}`def-inc-upgrades`) to $\Gamma_n$.
 
 :::
 
@@ -1209,19 +1267,61 @@ Under the certificate finiteness condition (Definition {ref}`def-cert-finite`), 
 
 Under bounded description length: the certificate universe is finite (bounded by the number of distinct certificate types, the number of nodes, and the description length bound). Each promotion rule strictly increases the certificate set. Hence the iteration terminates in at most $|\mathcal{K}(T)|$ steps.
 
-Under depth budget: closure computation halts after $D_{\max}$ iterations with a partial closure $\mathrm{Cl}_{D_{\max}}(\Gamma)$. If the true fixed point is not reached, a horizon certificate is produced indicating ``promotion depth exceeded.''
+Under depth budget: closure computation halts after $D_{\max}$ iterations with a partial closure $\mathrm{Cl}_{D_{\max}}(\Gamma)$. If the true fixed point is not reached, a NO-inconclusive certificate ($K_{\mathrm{Promo}}^{\mathrm{inc}}$) is produced indicating ``promotion depth exceeded.''
 
 :::
 
-:::{prf:remark} Horizon certificates
-:label: rem-horizon-general
+:::{prf:remark} NO-Inconclusive Certificates ($K^{\mathrm{inc}}$)
+:label: rem-inconclusive-general
 
-The framework produces explicit **horizon certificates** when classification or verification is infeasible:
-- **Profile Trichotomy Case 3**: Classification obstruction witness
-- **Surgery Admissibility Case 3**: Inadmissibility reason certificate
-- **Promotion Closure**: Non-termination horizon (under infinite certificate language)
-- **Lock (E1--E10 fail)**: Tactic exhaustion certificate
-Horizon certificates make ``super pathological'' cases first-class outputs rather than silent failures. When produced, the sieve terminates with an explicit obstruction witness that can be inspected, potentially upgraded with additional structure, or accepted as a genuine horizon.
+The framework produces explicit **NO-inconclusive certificates** ($K^{\mathrm{inc}}$) when classification or verification is infeasible with current methods—these are NO verdicts that do *not* constitute semantic refutations:
+
+- **Profile Trichotomy Case 3**: $K_{\mathrm{prof}}^{\mathrm{inc}}$ with classification obstruction witness
+- **Surgery Admissibility Case 3**: $K_{\mathrm{Surg}}^{\mathrm{inc}}$ with inadmissibility reason
+- **Promotion Closure**: $K_{\mathrm{Promo}}^{\mathrm{inc}}$ recording non-termination under budget
+- **Lock (E1--E12 fail)**: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ with tactic exhaustion trace
+
+The certificate structure (Definition {prf:ref}`def-typed-no-certificates`) ensures these are first-class outputs rather than silent failures. When $K^{\mathrm{inc}}$ is produced, the Sieve routes to reconstruction (MT 42.1) rather than fatal error, since inconclusiveness does not imply existence of a counterexample.
+
+:::
+
+:::{prf:definition} Obligation ledger
+:label: def-obligation-ledger
+
+Given a certificate context $\Gamma$, define the **obligation ledger**:
+$$\mathsf{Obl}(\Gamma) := \{ (\mathsf{id}, \mathsf{obligation}, \mathsf{missing}, \mathsf{code}) : K_P^{\mathrm{inc}} \in \Gamma \}$$
+
+Each entry corresponds to a NO-inconclusive certificate (Definition {prf:ref}`def-typed-no-certificates`) with payload $K_P^{\mathrm{inc}} = (\mathsf{obligation}, \mathsf{missing}, \mathsf{code}, \mathsf{trace})$.
+
+Each entry records an undecided predicate—one where the verifier could not produce either $K_P^+$ or $K_P^{\mathrm{wit}}$.
+
+:::
+
+:::{prf:definition} Goal dependency cone
+:label: def-goal-cone
+
+Fix a goal certificate type $K_{\mathrm{Goal}}$ (e.g., $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ for the Lock).
+The **goal dependency cone** $\Downarrow(K_{\mathrm{Goal}})$ is the set of certificate types that may be referenced by the verifier or promotion rules that produce $K_{\mathrm{Goal}}$.
+
+Formally, $\Downarrow(K_{\mathrm{Goal}})$ is the least set closed under:
+1. $K_{\mathrm{Goal}} \in \Downarrow(K_{\mathrm{Goal}})$
+2. If a verifier or upgrade rule has premise certificate types $\{K_1, \ldots, K_n\}$ and conclusion type in $\Downarrow(K_{\mathrm{Goal}})$, then all premise types are in $\Downarrow(K_{\mathrm{Goal}})$
+3. If a certificate type is required by a transport lemma used by a verifier in $\Downarrow(K_{\mathrm{Goal}})$, it is also in $\Downarrow(K_{\mathrm{Goal}})$
+
+**Purpose:** The goal cone determines which `inc` certificates are relevant to a given proof goal. Obligations outside the cone do not affect proof completion for that goal.
+
+:::
+
+:::{prf:definition} Proof completion criterion
+:label: def-proof-complete
+
+A sieve run with final context $\Gamma_{\mathrm{final}}$ **proves the goal** $K_{\mathrm{Goal}}$ if:
+1. $\Gamma_{\mathrm{final}}$ contains the designated goal certificate (e.g., $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$, or $K_{\mathrm{Cat}_{\mathrm{Hom}}}^+$ after promotion closure), and
+2. $\mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))$ contains **no entries whose certificate type lies in the goal dependency cone** $\Downarrow(K_{\mathrm{Goal}})$
+
+Equivalently, all NO-inconclusive obligations relevant to the goal have been discharged.
+
+**Consequence:** An `inc` certificate whose type lies outside $\Downarrow(K_{\mathrm{Goal}})$ does not affect proof completion for that goal.
 
 :::
 
@@ -1237,6 +1337,15 @@ Each gate node is specified by:
 - **NO certificate** $K_i^-$: Witnesses $P_i$ fails or is uncertifiable
 - **Context update**: What is added to $\Gamma$
 - **NO routing**: Where the NO edge leads
+
+:::{prf:remark} Mandatory inconclusive output
+:label: rem-mandatory-inc
+
+If a node verifier cannot produce either a YES certificate $K_P^+$ or a NO-with-witness certificate $K_P^{\mathrm{wit}}$, it **MUST** return a NO-inconclusive certificate $K_P^{\mathrm{inc}}$ with payload $(\mathsf{obligation}, \mathsf{missing}, \mathsf{code}, \mathsf{trace})$.
+
+This rule preserves determinism (two-valued outcomes: YES or NO) while recording epistemic uncertainty in the certificate structure (Definition {prf:ref}`def-typed-no-certificates`). Silent failures or undefined behavior are prohibited—every predicate evaluation must produce a typed certificate.
+
+:::
 
 ---
 
@@ -1738,17 +1847,18 @@ where $\mathcal{L}_{\text{proxy}}$ is the optimized/measured objective and $\mat
 "Is there a categorical obstruction to the bad pattern?"
 *(If no morphism exists from the universal bad pattern $\mathbb{H}_{\mathrm{bad}}$ to the system $\mathcal{H}$, then the system structurally cannot exhibit singular behavior—the morphism exclusion principle.)*
 
-**Outcome Alphabet:** $\{\texttt{Blocked}, \texttt{MorphismExists}, \texttt{Horizon}\}$ (terminal or reconstruction)
+**Outcome Alphabet:** $\{\texttt{Blocked}, \texttt{Breached}\}$ (binary verdict with typed certificates)
 
 **Outcomes:**
 - **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; no morphism to bad pattern exists. **VICTORY: Global Regularity Confirmed.**
-- **MorphismExists** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$): Explicit morphism witness found; structural inconsistency. **FATAL ERROR.**
-- **Horizon** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{hor}}$): Tactics E1–E12 exhausted without deciding Hom-emptiness. Partial progress indicators available (dimension bounds, invariant constraints, obstruction witnesses). Triggers **MT 42.1** (Structural Reconstruction Principle).
+- **Breached** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br}}$): NO verdict with typed certificate (sum type $K^{\mathrm{br}} := K^{\mathrm{br\text{-}wit}} \sqcup K^{\mathrm{br\text{-}inc}}$):
+  - **Breached-with-witness** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}wit}}$): Explicit morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$ found; structural inconsistency. **FATAL ERROR.**
+  - **Breached-inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$): Tactics E1–E12 exhausted without deciding Hom-emptiness. Certificate records $(\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$. Triggers **MT 42.1** (Structural Reconstruction Principle).
 
 **Routing:**
 - **On Block:** Exit with **GLOBAL REGULARITY** (structural exclusion confirmed).
-- **On MorphismExists:** Exit with **FATAL ERROR** (structural inconsistency—requires interface permit revision).
-- **On Horizon:** Invoke **MT 42.1** (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
+- **On Breached-with-witness:** Exit with **FATAL ERROR** (structural inconsistency—requires interface permit revision).
+- **On Breached-inconclusive:** Invoke **MT 42.1** (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
 
 **Exclusion Tactics (E1–E12):** The emptiness proof may invoke:
 - E1: Dimension count (bad pattern requires impossible dimension)
@@ -2998,11 +3108,12 @@ A **Height Object** $\mathcal{H}$ in $\mathcal{E}$ is an object equipped with:
 
 An **Interface Permit** $I$ is a tuple $(\mathcal{D}, \mathcal{P}, \mathcal{K})$ consisting of:
 1. **Required Structure** $\mathcal{D}$: Objects and morphisms in $\mathcal{E}$ the system must define.
-2. **Evaluator** $\mathcal{P}$: A deterministic procedure $\mathcal{P}: \mathcal{D} \to \{\texttt{YES}, \texttt{NO}, \texttt{HORIZON}\}$:
-   - **YES:** Predicate holds with constructive witness
-   - **NO:** Predicate fails with constructive counterexample
-   - **HORIZON:** Evaluation exceeds computational bounds; produces horizon certificate with partial progress
-3. **Certificate Type** $\mathcal{K}$: The witness structure produced by the evaluation.
+2. **Evaluator** $\mathcal{P}$: A deterministic procedure $\mathcal{P}: \mathcal{D} \to \{\texttt{YES}, \texttt{NO}\}$ with typed certificates:
+   - **YES:** Predicate holds with constructive witness ($K^+$)
+   - **NO:** Predicate fails, with certificate distinguishing:
+     - $K^{\mathrm{wit}}$: Constructive counterexample (actual refutation)
+     - $K^{\mathrm{inc}}$: Evaluation exceeds computational bounds or method insufficient (not a semantic refutation)
+3. **Certificate Type** $\mathcal{K}$: The witness structure produced by the evaluation, always a sum type $K^+ \sqcup K^{\mathrm{wit}} \sqcup K^{\mathrm{inc}}$.
 
 A system **implements** Interface $I$ if it provides interpretations for all objects in $\mathcal{D}$ and a computable evaluator for $\mathcal{P}$.
 
@@ -3225,6 +3336,45 @@ $$\|\nabla \Phi(x)\| \geq C |\Phi(x) - \Phi(V)|^{1-\theta}$$
 
 ---
 
+### 8.8.1. $\mathrm{Mon}_\phi$ (Monotonicity Interface)
+*The Virial/Morawetz Interface. Enables Soft→Rigidity Compilation*
+
+:::{prf:definition} Interface $\mathrm{Mon}_\phi$ (Monotonicity / Virial-Morawetz)
+:label: def-interface-mon
+
+**Purpose:** Defines monotonicity identities that force dispersion or concentration for almost-periodic solutions.
+
+**Required Structure ($\mathcal{D}$):**
+- **Monotonicity Functional:** $M: \mathcal{X} \times \mathbb{R} \to \mathbb{R}$ (Morawetz/virial action).
+- **Weight Function:** $\phi: \mathcal{X} \to \mathbb{R}$ (typically radial or localized convex weight).
+- **Sign Certificate:** $\sigma \in \{+, -, 0\}$ (convexity type determining inequality direction).
+
+**Evaluator ($\mathcal{P}_{\mathrm{Mon}}$ - MonotonicityCheck):**
+Does the monotonicity identity hold with definite sign for the declared functional?
+$$\frac{d^2}{dt^2} M_\phi(t) \geq c \cdot \|\nabla u\|^2 - C \cdot \|u\|^2$$
+(or $\leq$ depending on $\sigma$), where $M_\phi(t) = \int \phi(x) |u(t,x)|^2 dx$ or appropriate variant.
+
+**Certificates ($\mathcal{K}_{\mathrm{Mon}_\phi}$):**
+- $K_{\mathrm{Mon}_\phi}^+ := (\phi, M, \sigma, \mathsf{identity\_proof})$ asserting:
+  1. The identity is algebraically verifiable from the equation structure
+  2. For almost-periodic solutions mod $G$, integration forces dispersion or concentration
+  3. The sign $\sigma$ is definite (not degenerate)
+- $K_{\mathrm{Mon}_\phi}^- := \text{witness that no monotonicity identity holds with useful sign}$
+
+**Evaluator (Computable for Good Types):**
+- Check if equation has standard form (semilinear wave/Schrödinger/heat with power nonlinearity)
+- Verify convexity of $\phi$ and compute second derivative identity algebraically
+- Return YES with $K_{\mathrm{Mon}_\phi}^+$ if sign is definite; else NO with $K_{\mathrm{Mon}_\phi}^{\mathrm{inc}}$ (if verification method insufficient) or $K_{\mathrm{Mon}_\phi}^{\mathrm{wit}}$ (if sign is provably indefinite)
+
+**Does Not Promise:** Rigidity directly. Combined with $K_{\mathrm{LS}_\sigma}^+$ and Lock obstruction, enables hybrid rigidity derivation.
+
+**Used by:** MT-SOFT→Rigidity compilation metatheorem ({prf:ref}`mt-soft-rigidity`).
+
+**Literature:** Morawetz estimates {cite}`Morawetz68`; virial identities {cite}`GlasseyScattering77`; interaction Morawetz {cite}`CollianderKeelStaffilaniTakaokaTao08`.
+:::
+
+---
+
 ### 8.9. $\mathrm{TB}_\pi$ (Topology Interface)
 *The Invariant Interface. Enables Node 8: TopoCheck*
 
@@ -3327,7 +3477,7 @@ $$K(D(x)) < \infty$$
 
 **Does Not Promise:** Computability.
 
-**Epistemic Role:** $\mathrm{Rep}_K$ is the boundary between "analysis engine" and "conjecture prover engine." When $\mathrm{Rep}_K$ produces a horizon certificate, the Lock uses only geometric tactics (E1--E3).
+**Epistemic Role:** $\mathrm{Rep}_K$ is the boundary between "analysis engine" and "conjecture prover engine." When $\mathrm{Rep}_K$ produces a NO-inconclusive certificate ($K_{\mathrm{Rep}_K}^{\mathrm{inc}}$), the Lock uses only geometric tactics (E1--E3).
 :::
 
 ---
@@ -3481,7 +3631,7 @@ The Lock evaluator checks whether any morphism exists from any bad pattern to th
   - **E5 (Modular):** Obstruction from modular/arithmetic properties
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{morph}}$ (Breached/FATAL): Explicit morphism $f: B_i \to \mathcal{H}$ for some $i$, witnessing that singularity formation is possible.
 
-**Does Not Promise:** That the Lock is decidable. Tactics E1-E10 may exhaust without resolution, yielding a Horizon certificate.
+**Does Not Promise:** That the Lock is decidable. Tactics E1-E12 may exhaust without resolution, yielding a Breached-inconclusive certificate ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$).
 
 **Remark (Library vs. Universal Object):**
 The "universal bad object" formulation assumes a single object $\mathcal{H}_{\text{bad}}$ from which all singularities factor. Such an object may not exist as a set-sized entity in $\mathbf{Hypo}_T$. The library formulation is weaker but constructive: we commit to a finite list of known bad patterns and prove each is excluded.
@@ -3506,7 +3656,316 @@ These are obtained by **upgrades**:
 - Promotion rules (blocked $\to$ YES via certificate accumulation)
 - Lock tactics (E1--E10 for Hom-emptiness proofs)
 
-This separation makes the framework **honest about its assumptions** and enables systematic identification of what additional structure is needed when a horizon certificate is produced.
+This separation makes the framework **honest about its assumptions** and enables systematic identification of what additional structure is needed when an inconclusive NO certificate ($K^{\mathrm{inc}}$) is produced.
+
+---
+
+### 8.16.5. Backend-Specific Permits (Specialized Certificates)
+
+The following permits capture **backend-specific hypotheses** that are required by particular metatheorems. Unlike the universal interfaces (8.1–8.15), these permits encode deep theorems from specific mathematical domains (e.g., dispersive PDE, dynamical systems, algebraic geometry) that cannot be derived from the generic interface structure alone.
+
+:::{prf:definition} Permit $\mathrm{WP}_{s_c}$ (Critical Well-Posedness + Continuation)
+:label: def-permit-wp-sc
+
+**Name:** CriticalWP
+
+**Question:** Does the evolution problem $T$ admit local well-posedness in the critical phase space $X_c$ (typically $X_c = \dot{H}^{s_c}$), with a continuation criterion?
+
+**YES certificate**
+$$K_{\mathrm{WP}_{s_c}}^+ := \big(\mathsf{LWP},\ \mathsf{uniq},\ \mathsf{cont},\ \mathsf{crit\_blowup}\big)$$
+where the payload asserts all of:
+1. (**Local existence**) For every $u_0 \in X_c$ there exists $T(u_0) > 0$ and a solution $u \in C([0,T]; X_c)$.
+2. (**Uniqueness**) The solution is unique in the specified solution class.
+3. (**Continuous dependence**) The data-to-solution map is continuous (or Lipschitz) on bounded sets in $X_c$.
+4. (**Continuation criterion**) If $T_{\max} < \infty$ then a specified *critical control norm* blows up:
+   $$\|u\|_{S([0, T_{\max}))} = \infty \quad (\text{for a declared control norm } S).$$
+
+**NO certificate** (sum type $K_{\mathrm{WP}_{s_c}}^- := K_{\mathrm{WP}_{s_c}}^{\mathrm{wit}} \sqcup K_{\mathrm{WP}_{s_c}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{WP}_{s_c}}^{\mathrm{wit}} := (\mathsf{counterexample}, \mathsf{mode})$$
+where $\mathsf{mode} \in \{\texttt{NORM\_INFLATION}, \texttt{NON\_UNIQUE}, \texttt{ILL\_POSED}, \texttt{NO\_CONTINUATION}\}$ identifies which of (1)–(4) fails, with an explicit counterexample (e.g., a sequence demonstrating norm inflation, or a pair of distinct solutions from identical data).
+
+*NO-inconclusive:*
+$$K_{\mathrm{WP}_{s_c}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "no matching WP template (parabolic/dispersive/hyperbolic)", "state space $X_c$ not recognized", "operator conditions not provided by soft layer".
+
+**Used by:** `mt-auto-profile` Mechanism A (CC+Rig), and any node that invokes "critical LWP + continuation".
+:::
+
+:::{prf:definition} Permit $\mathrm{ProfDec}_{s_c,G}$ (Profile Decomposition modulo Symmetries)
+:label: def-permit-profdec-scg
+
+**Name:** ProfileDecomp
+
+**Question:** Does every bounded sequence in $X_c$ admit a Bahouri–Gérard/Lions type profile decomposition modulo the symmetry group $G$?
+
+**YES certificate**
+$$K_{\mathrm{ProfDec}_{s_c,G}}^+ := \big(\{\phi^j\}_{j \geq 1},\ \{g_n^j\}_{n,j},\ \{r_n^J\}_{n,J},\ \mathsf{orth},\ \mathsf{rem}\big)$$
+meaning: for every bounded $(u_n) \subset X_c$ there exist profiles $\phi^j \in X_c$ and symmetry parameters $g_n^j \in G$ such that for every $J$,
+$$u_n = \sum_{j=1}^J g_n^j \phi^j + r_n^J,$$
+with:
+1. (**Asymptotic orthogonality**) The parameters $(g_n^j)$ are pairwise orthogonal in the standard sense for $G$.
+2. (**Decoupling**) Conserved quantities/energies decouple across profiles up to $o_n(1)$ errors.
+3. (**Remainder smallness**) The remainder $r_n^J$ is small in the critical control norm:
+   $$\lim_{J \to \infty}\ \limsup_{n \to \infty}\ \|r_n^J\|_S = 0.$$
+
+**NO certificate** (sum type $K_{\mathrm{ProfDec}}^- := K_{\mathrm{ProfDec}}^{\mathrm{wit}} \sqcup K_{\mathrm{ProfDec}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{ProfDec}}^{\mathrm{wit}} := (\mathsf{bounded\_seq}, \mathsf{failed\_property})$$
+where $\mathsf{failed\_property} \in \{\texttt{NO\_ORTH}, \texttt{NO\_DECOUPLE}, \texttt{NO\_REMAINDER\_SMALL}\}$ identifies which of (1)–(3) fails, with a concrete bounded sequence $(u_n)$ demonstrating the failure.
+
+*NO-inconclusive:*
+$$K_{\mathrm{ProfDec}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "symmetry group $G$ not recognized as standard decomposition group", "control norm $S$ not provided or checkable", "space not in supported class (Hilbert/Banach with required compactness structure)".
+
+**Used by:** `mt-auto-profile` Mechanism A (CC+Rig).
+
+**Literature:** {cite}`BahouriGerard99`; {cite}`Lions84`; {cite}`Lions85`.
+:::
+
+:::{prf:definition} Permit $\mathrm{KM}_{\mathrm{CC+stab}}$ (Concentration–Compactness + Stability Machine)
+:label: def-permit-km-ccstab
+
+**Name:** KM-Machine
+
+**Question:** Can failure of the target property (regularity/scattering/etc.) be reduced to a *minimal counterexample* that is almost periodic modulo symmetries, using concentration–compactness plus a perturbation/stability lemma?
+
+**YES certificate**
+$$K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+ := \big(\mathsf{min\_obj},\ \mathsf{ap\_modG},\ \mathsf{stab},\ \mathsf{nl\_profiles}\big)$$
+where the payload asserts:
+1. (**Minimal counterexample extraction**) If the target property fails, there exists a solution $u^*$ minimal with respect to a declared size functional (energy/mass/critical norm threshold).
+2. (**Almost periodicity**) The orbit $\{u^*(t)\}$ is precompact in $X_c$ modulo $G$ ("almost periodic mod $G$").
+3. (**Long-time perturbation**) A stability lemma: any approximate solution close in the control norm remains close to an exact solution globally on the interval.
+4. (**Nonlinear profile control**) The nonlinear evolution decouples across profiles to the extent needed for the minimal-element argument.
+
+**NO certificate** (sum type $K_{\mathrm{KM}}^- := K_{\mathrm{KM}}^{\mathrm{wit}} \sqcup K_{\mathrm{KM}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{KM}}^{\mathrm{wit}} := (\mathsf{failure\_obj}, \mathsf{step\_failed})$$
+where $\mathsf{step\_failed} \in \{\texttt{NO\_MIN\_EXTRACT}, \texttt{NO\_ALMOST\_PERIODIC}, \texttt{NO\_STABILITY}, \texttt{NO\_PROFILE\_CONTROL}\}$ identifies which of (1)–(4) fails, with a concrete object demonstrating the failure.
+
+*NO-inconclusive:*
+$$K_{\mathrm{KM}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "composition requires $K_{\mathrm{WP}}^+$ which was not derived", "profile decomposition not available", "stability lemma not computable for this equation class".
+
+**Used by:** `mt-auto-profile` Mechanism A (CC+Rig).
+
+**Literature:** {cite}`KenigMerle06`; {cite}`KillipVisan10`; {cite}`DuyckaertsKenigMerle11`.
+:::
+
+:::{prf:definition} Permit $\mathrm{Attr}^+$ (Global Attractor Existence)
+:label: def-permit-attractor
+
+**Name:** GlobalAttractor
+
+**Question:** Does the semiflow $(S_t)_{t \geq 0}$ on a phase space $X$ admit a compact global attractor?
+
+**YES certificate**
+$$K_{\mathrm{Attr}}^+ := (\mathsf{semiflow},\ \mathsf{absorbing},\ \mathsf{asymp\_compact},\ \mathsf{attractor})$$
+asserting:
+1. (**Semiflow structure**) $S_{t+s} = S_t \circ S_s$, $S_0 = \mathrm{id}$, and $S_t$ is continuous on bounded sets.
+2. (**Dissipativity**) There exists a bounded absorbing set $B \subset X$.
+3. (**Asymptotic compactness**) For any bounded $B_0 \subset X$ and any $t_n \to \infty$, the set $S_{t_n}(B_0)$ has precompact closure.
+4. (**Attractor**) There exists a compact invariant set $\mathcal{A}$ attracting bounded sets:
+   $$\mathrm{dist}(S_t(B_0), \mathcal{A}) \to 0 \quad (t \to \infty).$$
+
+**NO certificate** (sum type $K_{\mathrm{Attr}}^- := K_{\mathrm{Attr}}^{\mathrm{wit}} \sqcup K_{\mathrm{Attr}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{Attr}}^{\mathrm{wit}} := (\mathsf{obstruction}, \mathsf{type})$$
+where $\mathsf{type} \in \{\texttt{NO\_SEMIFLOW}, \texttt{NO\_ABSORBING\_SET}, \texttt{NO\_ASYMP\_COMPACT}, \texttt{NO\_ATTRACTOR}\}$ identifies which of (1)–(4) fails, with a concrete obstruction object.
+
+*NO-inconclusive:*
+$$K_{\mathrm{Attr}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "cannot verify asymptotic compactness from current soft interfaces", "Temam-Raugel template requires compactness lemma not provided", "insufficient bounds to certify absorbing set".
+
+**Used by:** `mt-auto-profile` Mechanism B (Attr+Morse) and any node invoking global attractor machinery.
+
+**Literature:** {cite}`Temam97`; {cite}`Raugel02`; {cite}`HaleBook88`.
+:::
+
+:::{prf:definition} Permit $\mathrm{DegImage}_m$ (Degree-of-Image Bound for Degree-$m$ Maps)
+:label: def-permit-degimage
+
+**Name:** DegImageBound
+
+**Question:** For the chosen "compression map" $\phi$ of (algebraic) degree $\leq m$, does the standard degree inequality for images apply in your setting?
+
+**YES certificate**
+$$K_{\mathrm{DegImage}_m}^+ := (\phi,\ \mathsf{model},\ \mathsf{basepointfree},\ \mathsf{deg\_ineq})$$
+asserting:
+1. (**Model choice fixed**) You specify whether $\phi$ is a morphism $W \to \mathbb{P}^N$, or a rational map represented via its graph / resolution of indeterminacy.
+2. (**Base-point-free representation**) After the chosen resolution/graph step, $\phi$ is induced by a base-point-free linear system of degree $\leq m$.
+3. (**Degree inequality**) For projective closures, the inequality holds:
+   $$\deg(\overline{\phi(W)}) \leq m^{\dim W} \cdot \deg(W)$$
+   (or your preferred standard variant with the same monotone dependence on $m$).
+
+**NO certificate** (sum type $K_{\mathrm{DegImage}_m}^- := K_{\mathrm{DegImage}_m}^{\mathrm{wit}} \sqcup K_{\mathrm{DegImage}_m}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{DegImage}_m}^{\mathrm{wit}} := (\mathsf{map\_model}, \mathsf{violation})$$
+where $\mathsf{violation} \in \{\texttt{NOT\_BPF}, \texttt{DEGREE\_EXCEEDS}, \texttt{INDETERMINACY\_UNRESOLVABLE}\}$ specifies which hypothesis fails with a concrete witness (e.g., a base locus, or a degree computation exceeding the bound).
+
+*NO-inconclusive:*
+$$K_{\mathrm{DegImage}_m}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "resolution of indeterminacy not computable", "degree of image not algorithmically determinable for this variety class", "base-point-free verification requires Bertini-type theorem not available".
+
+**Used by:** `def-e12` Backend C (morphism/compression).
+
+**Literature:** {cite}`Lazarsfeld04`; {cite}`Fulton84`.
+:::
+
+:::{prf:definition} Permit $\mathrm{CouplingSmall}^+$ (Coupling Control in Product Regularity)
+:label: def-permit-couplingsmall
+
+**Name:** CouplingSmall
+
+**Question:** Is the interaction term $\Phi_{\mathrm{int}}$ controlled strongly enough (in the norms used by $K_{\mathrm{Lock}}^A, K_{\mathrm{Lock}}^B$) to prevent the coupling from destroying the component bounds?
+
+**YES certificate**
+$$K_{\mathrm{CouplingSmall}}^+ := (\varepsilon,\ C_\varepsilon,\ \mathsf{bound\_form},\ \mathsf{closure})$$
+asserting the existence of an inequality of one of the following standard "closure" types (declare which one you use):
+- (**Energy absorbability**) For a product energy $E = E_A + E_B$,
+  $$\left|\frac{d}{dt} E_{\mathrm{int}}(t)\right| \leq \varepsilon \, E(t) + C_\varepsilon,$$
+  with $\varepsilon$ small enough to be absorbed by dissipation/Grönwall.
+- (**Relative boundedness**) $\Phi_{\mathrm{int}}$ is bounded or relatively bounded w.r.t. the product generator (for semigroup closure).
+- (**Local Lipschitz + small parameter**) $\|\Phi_{\mathrm{int}}(u_A, u_B)\| \leq \varepsilon \, F(\|u_A\|, \|u_B\|) + C$ with $\varepsilon$ in the regime required by the bootstrap.
+
+**NO certificate** (sum type $K_{\mathrm{CouplingSmall}}^- := K_{\mathrm{CouplingSmall}}^{\mathrm{wit}} \sqcup K_{\mathrm{CouplingSmall}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{CouplingSmall}}^{\mathrm{wit}} := (\mathsf{interaction}, \mathsf{unbounded\_mode})$$
+where $\mathsf{unbounded\_mode} \in \{\texttt{ENERGY\_SUPERLINEAR}, \texttt{NOT\_REL\_BOUNDED}, \texttt{LIPSCHITZ\_FAILS}\}$ specifies which closure-usable bound fails, with a concrete sequence/trajectory demonstrating growth.
+
+*NO-inconclusive:*
+$$K_{\mathrm{CouplingSmall}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "absorbability constant $\varepsilon$ not computable from current interfaces", "relative boundedness requires spectral information not provided", "Lipschitz constant estimation exceeds available bounds".
+
+**Used by:** `mt-product` Backend A (when "subcritical scaling" is intended to imply analytic absorbability), and as a general interface to justify persistence of Lock bounds under coupling.
+:::
+
+:::{prf:definition} Permit $\mathrm{ACP}^+$ (Abstract Cauchy Problem Formulation)
+:label: def-permit-acp
+
+**Name:** AbstractCauchyProblem
+
+**Question:** Can the dynamics be represented (equivalently, in the sense you require) as an abstract Cauchy problem on a Banach/Hilbert space?
+
+**YES certificate**
+$$K_{\mathrm{ACP}}^+ := (X,\ A,\ D(A),\ \mathsf{mild},\ \mathsf{equiv})$$
+asserting:
+1. (**State space**) A Banach/Hilbert space $X$ is fixed for the evolution state.
+2. (**Generator**) A (possibly nonlinear) operator $A$ with declared domain $D(A)$ is specified such that the evolution is
+   $$u'(t) = A(u(t)) \quad (\text{or } u'(t) = Au(t) + F(u(t)) \text{ in the semilinear case}).$$
+3. (**Mild/strong solutions**) A mild formulation exists (e.g., Duhamel/variation of constants) in the class used by the Sieve.
+4. (**Equivalence**) Solutions in the analytic/PDE sense correspond to (mild/strong) solutions of the ACP in the time intervals under consideration.
+
+**NO certificate** (sum type $K_{\mathrm{ACP}}^- := K_{\mathrm{ACP}}^{\mathrm{wit}} \sqcup K_{\mathrm{ACP}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{ACP}}^{\mathrm{wit}} := (\mathsf{space\_candidate}, \mathsf{obstruction})$$
+where $\mathsf{obstruction} \in \{\texttt{NO\_GENERATOR}, \texttt{DOMAIN\_MISMATCH}, \texttt{MILD\_FAILS}, \texttt{EQUIV\_BREAKS}\}$ specifies which of (1)–(4) fails, with a concrete witness (e.g., a solution in the PDE sense not representable in the ACP framework).
+
+*NO-inconclusive:*
+$$K_{\mathrm{ACP}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "generator domain $D(A)$ not characterizable from soft interfaces", "mild solution formula requires semigroup estimates not provided", "equivalence of solution notions requires regularity theory beyond current scope".
+
+**Used by:** `mt-product` Backend B (semigroup/perturbation route), and anywhere you invoke generator/semigroup theorems.
+
+**Literature:** {cite}`EngelNagel00`; {cite}`Pazy83`.
+:::
+
+---
+
+:::{prf:definition} Permit $\mathrm{Rigidity}_T^+$ (Rigidity / No-Minimal-Counterexample Theorem)
+:label: def-permit-rigidity
+
+**Name:** Rigidity
+
+**Question:** Given an almost-periodic (mod symmetries) minimal obstruction $u^\ast$ produced by the CC+stability machine, can it be ruled out (or classified into an explicit finite library) by a rigidity argument for this specific type $T$?
+
+**Input prerequisites (expected):**
+- A critical well-posedness + continuation certificate $K_{\mathrm{WP}_{s_c}}^+$.
+- A profile decomposition certificate $K_{\mathrm{ProfDec}_{s_c,G}}^+$.
+- A CC+stability machine certificate $K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$ producing a minimal almost-periodic $u^\ast$ (mod $G$).
+- A declared target property $\mathcal P$ (e.g. scattering, global regularity) and a declared minimality functional (energy/mass/etc.).
+
+**YES certificate**
+$$K_{\mathrm{Rigidity}_T}^+ := \big(\mathsf{rigid\_statement},\ \mathsf{hypotheses},\ \mathsf{conclusion},\ \mathsf{proof\_ref}\big)$$
+where the payload contains:
+1. (**Rigidity statement**) A precise proposition of the form:
+   > If $u$ is a maximal-lifespan solution of type $T$ which is almost periodic modulo $G$ and minimal among counterexamples to $\mathcal P$, then $u$ is impossible (contradiction), **or** $u$ lies in an explicitly listed finite family $\mathcal L_T$ (soliton, self-similar, traveling wave, etc.).
+2. (**Hypotheses**) The exact analytic assumptions required (e.g. Morawetz/virial identity validity, monotonicity formula, coercivity, channel of energy, interaction Morawetz, frequency-localized estimates, etc.).
+3. (**Conclusion**) One of:
+   - (**Elimination**) no such $u$ exists (hence $\mathcal P$ holds globally), or
+   - (**Classification**) every such $u$ belongs to the declared library $\mathcal L_T$.
+4. (**Proof reference**) Either (a) a full internal proof in the current manuscript, or (b) an external theorem citation with the exact matching hypotheses.
+
+**NO certificate** (sum type $K_{\mathrm{Rigidity}_T}^- := K_{\mathrm{Rigidity}_T}^{\mathrm{wit}} \sqcup K_{\mathrm{Rigidity}_T}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{Rigidity}_T}^{\mathrm{wit}} := (u^*, \mathsf{failure\_mode})$$
+where $u^*$ is an almost-periodic minimal counterexample that exists and is not eliminated/classified, and $\mathsf{failure\_mode} \in \{\texttt{NOT\_ELIMINATED}, \texttt{NOT\_IN\_LIBRARY}, \texttt{MONOTONICITY\_FAILS}, \texttt{LS\_CLOSURE\_FAILS}\}$ records which rigidity argument fails.
+
+*NO-inconclusive:*
+$$K_{\mathrm{Rigidity}_T}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "$K_{\mathrm{Mon}_\phi}^+$ certificate insufficient to validate monotonicity inequality", "$K_{\mathrm{LS}_\sigma}^+$ constants/exponent missing", "no rigidity template (Morawetz/virial/channel-of-energy) matches type $T$".
+
+**Used by:** `mt-auto-profile` Mechanism A (CC+Rig), Step "Hybrid Rigidity".
+
+**Literature:** {cite}`DuyckaertsKenigMerle11`; {cite}`KenigMerle06`.
+:::
+
+---
+
+:::{prf:definition} Permit $\mathrm{MorseDecomp}^+$ (Attractor Structure via Morse/Conley or Gradient-like Dynamics)
+:label: def-permit-morsedecomp
+
+**Name:** MorseDecomp
+
+**Question:** Does the semiflow $(S_t)_{t\ge0}$ admit a *structural decomposition* of the global attractor sufficient to classify all bounded complete trajectories into equilibria and connecting orbits (or other explicitly described recurrent pieces)?
+
+**Input prerequisites (expected):**
+- A global attractor existence certificate $K_{\mathrm{Attr}}^+$ (compact attractor $\mathcal A$ exists).
+
+**YES certificate**
+$$K_{\mathrm{MorseDecomp}}^+ := \big(\mathsf{structure\_type},\ \{\mathcal M_i\}_{i=1}^N,\ \mathsf{order},\ \mathsf{chain\_rec},\ \mathsf{classification}\big)$$
+where the payload asserts one of the following **declared structure types** (choose one and commit to it in the theorem that uses this permit):
+
+**(A) Gradient-like / Lyapunov structure backend:**
+- There exists a continuous strict Lyapunov function $L:X\to\mathbb R$ such that:
+  1. $t\mapsto L(S_t x)$ is strictly decreasing unless $x$ is an equilibrium;
+  2. the set of equilibria $\mathcal E$ is compact (often finite/mod-$G$);
+  3. every bounded complete trajectory has $\alpha$- and $\omega$-limits contained in $\mathcal E$.
+- **Classification payload:** every bounded complete trajectory is an equilibrium or a heteroclinic connection between equilibria; no periodic orbits occur.
+
+**(B) Morse–Smale backend (stronger, if you want it):**
+- The flow on $\mathcal A$ is Morse–Smale (hyperbolic equilibria/periodic orbits, transverse invariant manifolds, no complicated recurrence).
+- **Classification payload:** $\mathcal A$ is a finite union of invariant sets (equilibria and possibly finitely many periodic orbits) plus their stable/unstable manifolds; every trajectory converges to one of the basic pieces.
+
+**(C) Conley–Morse decomposition backend (most general/topological):**
+- There exists a finite Morse decomposition $\{\mathcal M_i\}_{i=1}^N$ of $\mathcal A$ with a partial order $\preceq$ such that:
+  1. each $\mathcal M_i$ is isolated invariant;
+  2. every full trajectory in $\mathcal A$ either lies in some $\mathcal M_i$ or connects from $\mathcal M_i$ to $\mathcal M_j$ with $i\succ j$;
+  3. the chain recurrent set is contained in $\bigcup_i \mathcal M_i$.
+- **Classification payload:** bounded dynamics reduce to membership in one of the Morse sets plus connecting orbits; recurrent behavior is completely captured by the declared Morse sets.
+
+**NO certificate** (sum type $K_{\mathrm{MorseDecomp}}^- := K_{\mathrm{MorseDecomp}}^{\mathrm{wit}} \sqcup K_{\mathrm{MorseDecomp}}^{\mathrm{inc}}$)
+
+*NO-with-witness:*
+$$K_{\mathrm{MorseDecomp}}^{\mathrm{wit}} := (\mathsf{recurrence\_obj}, \mathsf{failure\_type})$$
+where $\mathsf{failure\_type} \in \{\texttt{STRANGE\_ATTRACTOR}, \texttt{UNCAPTURED\_CYCLE}, \texttt{INFINITE\_CHAIN\_REC}\}$ identifies recurrence in $\mathcal{A}$ not captured by any declared decomposition type, with a concrete witness object.
+
+*NO-inconclusive:*
+$$K_{\mathrm{MorseDecomp}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
+Typical $\mathsf{missing}$: "Lyapunov function not verified to be strict", "$K_{D_E}^+$ provides weak inequality only", "Conley index computation not supported for this system class".
+
+**Used by:** `mt-auto-profile` Mechanism B (Attr+Morse), anywhere you claim "all bounded trajectories are equilibria/heteroclinic/periodic" or a finite Morse decomposition of $\mathcal A$.
+
+**Literature:** {cite}`Conley78`; {cite}`Hale88`; {cite}`SellYou02`.
+:::
 
 ---
 
@@ -3577,9 +4036,9 @@ The following table provides the complete mapping from Sieve nodes to interfaces
 | 14 | OverloadCheck | $\mathrm{Bound}_B$ | Input bounded | Node 15 | BarrierBode |
 | 15 | StarveCheck | $\mathrm{Bound}_{\Sigma}$ | Supply sufficient | Node 16 | BarrierInput |
 | 16 | AlignCheck | $\mathrm{GC}_T$ | Control aligned | Node 17 | BarrierVariety |
-| 17 | **The Lock** | $\mathrm{Cat}_{\mathrm{Hom}}$ | $\text{Hom}=\emptyset$ | **VICTORY** | **FATAL** / **HORIZON** |
+| 17 | **The Lock** | $\mathrm{Cat}_{\mathrm{Hom}}$ | $\text{Hom}=\emptyset$ | **VICTORY** | **NO** (typed) |
 
-*Note: Node 17 has three-valued output: YES → VICTORY, NO → FATAL, HORIZON → Reconstruction (see Section 20).*
+*Note: Node 17 has binary output with typed NO certificates: Blocked → VICTORY, Breached-with-witness → FATAL, Breached-inconclusive → Reconstruction (see Section 20).*
 
 #### Restoration Subtree (Mode D Recovery)
 
@@ -3941,12 +4400,12 @@ The **Symmetry Object** is a tuple $G = (\mathcal{G}, \rho, \mathcal{S}, \mathfr
 2. Concrete implementations $(\mathcal{X}, \Phi, \mathfrak{D}, G)$ satisfying the specifications of Section 8.A
 3. For each relevant interface $I \in \{\text{Reg}^0, \text{D}^0, \ldots, \text{Lock}^0\}$:
    - The required structure $\mathcal{D}_I$ from the interface definition
-   - A computable predicate $\mathcal{P}_I$ evaluating to $\{\text{YES}, \text{NO}, \text{Blocked}, \text{Horizon}\}$
-   - Certificate schemas $\mathcal{K}_I^+$ and $\mathcal{K}_I^-$
+   - A computable predicate $\mathcal{P}_I$ evaluating to $\{\text{YES}, \text{NO}, \text{Blocked}\}$ with typed NO certificates ($K^{\mathrm{wit}}$ or $K^{\mathrm{inc}}$)
+   - Certificate schemas $\mathcal{K}_I^+$, $\mathcal{K}_I^{\mathrm{wit}}$, and $\mathcal{K}_I^{\mathrm{inc}}$
 
 **Consequence:** Upon valid instantiation, the Sieve Algorithm becomes a well-defined computable function:
 $$\text{Sieve}: \text{Instance}(\mathcal{H}) \to \text{Result}$$
-where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{Horizon}, \text{FatalError}\}$.
+where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{FatalError}\}$. NO-inconclusive certificates route to reconstruction rather than terminating as a separate outcome.
 
 **Verification Checklist:**
 - [ ] Each kernel object is defined in $\mathcal{E}$
@@ -4233,6 +4692,259 @@ Given thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}
 
 ---
 
+### 8.19. Soft-to-Backend Compilation
+
+This section defines the **compilation layer** that automatically derives backend permits from soft interfaces for good types. Users implement only soft interfaces; the framework derives WP, ProfDec, KM, Rigidity, etc.
+
+#### 8.19.1 Architecture
+
+```
+USER PROVIDES (Soft Layer)
+────────────────────────────────────────
+D_E, C_μ, SC_λ, LS_σ, Mon_φ, Rep_K, TB_π, TB_O
+────────────────────────────────────────
+         ↓ Compilation Metatheorems
+────────────────────────────────────────
+FRAMEWORK DERIVES (Backend Layer)
+────────────────────────────────────────
+WP_{s_c}, ProfDec, KM, Rigidity, MorseDecomp, Attr
+────────────────────────────────────────
+         ↓ Existing Metatheorems
+────────────────────────────────────────
+FINAL RESULTS
+────────────────────────────────────────
+Lock^blk, K_prof^+, Global Regularity
+```
+
+For **good types** (satisfying the Automation Guarantee, Definition {prf:ref}`def-automation-guarantee`), soft interface verification **automatically discharges** backend permits via compilation metatheorems.
+
+---
+
+:::{prf:metatheorem} Soft→WP Compilation
+:label: mt-soft-wp
+:class: metatheorem
+
+**Statement:** For good types $T$ satisfying the Automation Guarantee, critical well-posedness is derived from soft interfaces.
+
+**Soft Hypotheses:**
+$$K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$$
+
+**Produces:**
+$$K_{\mathrm{WP}_{s_c}}^+$$
+
+**Mechanism (Template Matching):**
+The evaluator `Eval_WP(T)` checks whether $T$ matches a known well-posedness template:
+
+| Template | Soft Signature | WP Theorem Applied |
+|----------|----------------|---------------------|
+| Semilinear parabolic | $D_E^+$ (coercive) + $\mathrm{Bound}^+$ (Dirichlet/Neumann) | Energy-space LWP |
+| Semilinear wave | $\mathrm{SC}_\lambda^+$ (finite speed) + $\mathrm{Bound}^+$ | Strichartz estimates |
+| Semilinear Schrödinger | $\mathrm{SC}_\lambda^+$ + $D_E^+$ (conservation) | Dispersive estimates |
+| Symmetric hyperbolic | $\mathrm{Rep}_K^+$ (finite description) | Friedrichs method |
+
+**Certificate Emitted:**
+$K_{\mathrm{WP}_{s_c}}^+ = (\mathsf{template\_ID}, \mathsf{theorem\_citation}, s_c, \mathsf{continuation\_criterion})$
+
+**NO-Inconclusive Case:** If $T$ matches no template, emit $K_{\mathrm{WP}}^{\mathrm{inc}}$ with $\mathsf{failure\_code} = \texttt{TEMPLATE\_MISS}$. The user may supply a WP proof manually or extend the template database.
+
+**Literature:** {cite}`CazenaveSemilinear03`; {cite}`Tao06`.
+:::
+
+---
+
+:::{prf:metatheorem} Soft→ProfDec Compilation
+:label: mt-soft-profdec
+:class: metatheorem
+
+**Statement:** For good types with concentration and scaling, profile decomposition is derived.
+
+**Soft Hypotheses:**
+$$K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$$
+
+**Produces:**
+$$K_{\mathrm{ProfDec}_{s_c,G}}^+$$
+
+**Mechanism:**
+1. **Space Check:** $C_\mu^+$ certifies concentration occurs (profile $V$ exists)
+2. **Symmetry Check:** $\mathrm{SC}_\lambda^+$ certifies scaling group $G = \mathbb{R}^+ \times \mathbb{R}^d$ (or subgroup)
+3. **Decomposition Theorem:** Apply Bahouri-Gérard / Lions profile decomposition:
+   $$u_n = \sum_{j=1}^J g_n^{(j)} \cdot V^{(j)} + w_n^{(J)}$$
+   - Orthogonality from $\mathrm{SC}_\lambda^+$ (scaling parameters diverge)
+   - Remainder vanishes in control norm from $C_\mu^+$ (no further concentration)
+
+**Certificate Emitted:**
+$$K_{\mathrm{ProfDec}}^+ = (\{V^{(j)}\}, \{g_n^{(j)}\}, \mathsf{orthogonality}, \mathsf{remainder\_smallness})$$
+
+**Evaluator `Eval_ProfDec(T)`:**
+- Check: Is state space a Hilbert/Banach space with scaling action?
+- Check: Is symmetry group $G$ standard (translations + scaling)?
+- If both YES: emit YES with $K_{\mathrm{ProfDec}}^+$
+- Else: emit NO with $K_{\mathrm{ProfDec}}^{\mathrm{inc}}$ (recording which check failed)
+
+**Literature:** {cite}`BahouriGerard99`; {cite}`Lions84`.
+:::
+
+---
+
+:::{prf:metatheorem} Soft→KM Compilation
+:label: mt-soft-km
+:class: metatheorem
+
+**Statement:** The concentration-compactness + stability machine is derived from WP, ProfDec, and soft interfaces.
+
+**Hypotheses (Mix of Derived + Soft):**
+$$K_{\mathrm{WP}_{s_c}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+$$
+
+**Produces:**
+$$K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$$
+
+**Mechanism:**
+1. **Minimal Element Extraction:** From $D_E^+$ (energy bounded below) + $\mathrm{ProfDec}^+$ (profiles extracted)
+2. **Almost Periodicity:** From $\mathrm{SC}_\lambda^+$ (scaling controls trajectory)
+3. **Stability/Perturbation:** From $\mathrm{WP}^+$ (small data → small evolution deviation)
+
+**Certificate Emitted:**
+$$K_{\mathrm{KM}}^+ = (\mathsf{minimal\_u^*}, E_c, \mathsf{almost\_periodic\_mod\_G}, \mathsf{perturbation\_lemma})$$
+
+**Note:** This is a **composition** of derived permits, not a new template match. The Sieve assembles it automatically once WP and ProfDec are derived.
+
+**Literature:** {cite}`KenigMerle06`.
+:::
+
+---
+
+:::{prf:metatheorem} Soft→Rigidity Compilation (Hybrid)
+:label: mt-soft-rigidity
+:class: metatheorem
+
+**Statement:** Rigidity is derived via monotonicity-interface producing a rigidity-check that feeds into Lock/obstruction.
+
+**Soft Hypotheses:**
+$$K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
+
+**Produces:**
+$$K_{\mathrm{Rigidity}_T}^+$$
+
+**Hybrid Mechanism (3 Steps):**
+
+*Step 1 (Monotonicity Check).* By $K_{\mathrm{Mon}_\phi}^+$, the almost-periodic solution $u^*$ (from $K_{\mathrm{KM}}^+$) satisfies a monotonicity identity:
+$$\frac{d^2}{dt^2} M_\phi(t) \geq c \|\nabla u^*\|^2 - C\|u^*\|^2$$
+For almost-periodic $u^*$, integrate: either $u^*$ disperses (contradiction to almost-periodicity) or $u^*$ concentrates to a stationary/self-similar profile.
+
+*Step 2 (Łojasiewicz Closure).* By $K_{\mathrm{LS}_\sigma}^+$, near critical points:
+$$\|\nabla \Phi(u^*)\| \geq c|\Phi(u^*) - \Phi(V)|^{1-\theta}$$
+This prevents oscillation: $u^*$ must converge to equilibrium $V$.
+
+*Step 3 (Lock Exclusion).* By $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$, any "bad" $u^*$ (counterexample to regularity) has $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathcal{H}) = \emptyset$.
+- If $u^* \notin \mathcal{L}_T$ (library): it would embed a bad pattern → Lock blocks
+- Therefore $u^* \in \mathcal{L}_T$ (classified into library)
+
+**Certificate Emitted:**
+$$K_{\mathrm{Rigidity}}^+ = (\mathsf{Mon\_identity}, \mathsf{LS\_closure}, \mathsf{Lock\_exclusion}, \mathcal{L}_T)$$
+
+**Key Insight:** Rigidity becomes **categorical** (Lock) rather than purely analytic. The monotonicity interface provides the analytic input; Lock provides the conclusion.
+
+**Literature:** {cite}`DuyckaertsKenigMerle11`; {cite}`KillipVisan10`.
+:::
+
+---
+
+:::{prf:metatheorem} Soft→Attr Compilation
+:label: mt-soft-attr
+:class: metatheorem
+
+**Statement:** Global attractor existence is derived from soft interfaces for dissipative systems.
+
+**Soft Hypotheses:**
+$$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$$
+
+**Produces:**
+$$K_{\mathrm{Attr}}^+$$
+
+**Mechanism:**
+1. **Dissipation:** $D_E^+$ ensures energy is bounded and decreasing
+2. **Compactness:** $C_\mu^+$ ensures sublevel sets are precompact modulo symmetries
+3. **Semigroup Structure:** $\mathrm{TB}_\pi^+$ ensures continuous evolution
+
+By the Temam-Raugel attractor existence theorem (encapsulated in the permit payload), these conditions imply the global attractor $\mathcal{A}$ exists, is compact, invariant, and attracting.
+
+**Certificate Emitted:**
+$$K_{\mathrm{Attr}}^+ = (\mathcal{A}, \mathsf{absorbing\_set}, \mathsf{asymptotic\_compactness})$$
+
+**Literature:** {cite}`Temam97`; {cite}`Raugel02`.
+:::
+
+---
+
+:::{prf:metatheorem} Soft→MorseDecomp Compilation
+:label: mt-soft-morsedecomp
+:class: metatheorem
+
+**Statement:** Morse/gradient-like decomposition is derived from attractor existence + soft interfaces.
+
+**Hypotheses:**
+$$K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$$
+
+**Produces:**
+$$K_{\mathrm{MorseDecomp}}^+$$
+
+**Mechanism:**
+1. **Attractor Exists:** From $K_{\mathrm{Attr}}^+$ (compact, invariant, attracting)
+2. **Lyapunov Function:** $D_E^+$ certifies $\Phi$ decreases along trajectories (dissipation)
+3. **Gradient-like Structure:** If $\Phi$ is strictly decreasing except at equilibria, apply gradient-like backend
+4. **Łojasiewicz Prevents Cycles:** $\mathrm{LS}_\sigma^+$ ensures trajectories cannot oscillate indefinitely
+
+**Certificate Emitted:**
+$$K_{\mathrm{MorseDecomp}}^+ = (\mathsf{gradient\_like}, \mathcal{E}, \{W^u(\xi)\}, \mathsf{no\_periodic})$$
+
+**Evaluator:** Check if $D_E^+$ is strict (not just $\leq$). If strict → gradient-like. If not → may need Morse-Smale or Conley backend.
+
+**Literature:** {cite}`Conley78`; {cite}`Hale88`.
+:::
+
+---
+
+:::{prf:theorem} Soft-to-Backend Completeness
+:label: thm-soft-backend-complete
+:class: theorem
+
+**Statement:** For good types $T$ satisfying the Automation Guarantee, all backend permits are derived from soft interfaces.
+
+$$\underbrace{K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{Mon}_\phi}^+}_{\text{Soft Layer (User Provides)}}$$
+$$\Downarrow \text{Compilation}$$
+$$\underbrace{K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{Rigidity}}^+}_{\text{Backend Layer (Framework Derives)}}$$
+
+**Proof:** Chain of MT-SOFT→WP ({prf:ref}`mt-soft-wp`), MT-SOFT→ProfDec ({prf:ref}`mt-soft-profdec`), MT-SOFT→KM ({prf:ref}`mt-soft-km`), MT-SOFT→Rigidity ({prf:ref}`mt-soft-rigidity`).
+
+**Consequence:** The public signature of `mt-auto-profile` requires only soft interfaces. Backend permits appear only in the **internal compilation proof**, not in the user-facing hypotheses.
+:::
+
+---
+
+#### 8.19.2 Evaluators for Derived Permits
+
+The Sieve implements proof-producing evaluators for each derived permit. Every evaluator returns a binary YES/NO verdict with typed certificates:
+
+| Evaluator | Input | YES Output | NO Output | Template Database |
+|-----------|-------|------------|-----------|-------------------|
+| `Eval_WP(T)` | Type $T$, soft certs | $K_{\mathrm{WP}}^+$ | $K_{\mathrm{WP}}^{\mathrm{wit}}$ or $K_{\mathrm{WP}}^{\mathrm{inc}}$ | Semilinear parabolic, wave, Schrödinger, hyperbolic |
+| `Eval_ProfDec(T)` | Type $T$, $C_\mu^+$, $\mathrm{SC}_\lambda^+$ | $K_{\mathrm{ProfDec}}^+$ | $K_{\mathrm{ProfDec}}^{\mathrm{wit}}$ or $K_{\mathrm{ProfDec}}^{\mathrm{inc}}$ | Hilbert space + standard symmetry |
+| `Eval_KM(T)` | $\mathrm{WP}^+$, $\mathrm{ProfDec}^+$, $D_E^+$ | $K_{\mathrm{KM}}^+$ | $K_{\mathrm{KM}}^{\mathrm{wit}}$ or $K_{\mathrm{KM}}^{\mathrm{inc}}$ | Composition (no template needed) |
+| `Eval_Rigidity(T)` | $\mathrm{Mon}^+$, $\mathrm{KM}^+$, $\mathrm{LS}^+$, Lock | $K_{\mathrm{Rigidity}}^+$ | $K_{\mathrm{Rigidity}}^{\mathrm{wit}}$ or $K_{\mathrm{Rigidity}}^{\mathrm{inc}}$ | Hybrid mechanism |
+| `Eval_Attr(T)` | $D_E^+$, $C_\mu^+$, $\mathrm{TB}_\pi^+$ | $K_{\mathrm{Attr}}^+$ | $K_{\mathrm{Attr}}^{\mathrm{wit}}$ or $K_{\mathrm{Attr}}^{\mathrm{inc}}$ | Temam-Raugel theorem |
+| `Eval_MorseDecomp(T)` | $\mathrm{Attr}^+$, $D_E^+$, $\mathrm{LS}^+$ | $K_{\mathrm{MorseDecomp}}^+$ | $K_{\mathrm{MorseDecomp}}^{\mathrm{wit}}$ or $K_{\mathrm{MorseDecomp}}^{\mathrm{inc}}$ | Gradient-like / Morse-Smale |
+
+**NO-Inconclusive Policy:** If no template matches, the evaluator returns NO with $K_P^{\mathrm{inc}}$ (not a semantic refutation). The user may then:
+1. Supply the backend permit manually (escape hatch)
+2. Add a new template to the database
+3. Accept that the type is "non-good" and requires custom proof
+
+**Routing on NO Certificates:** The Sieve branches on certificate type:
+- **NO with $K^{\mathrm{wit}}$**: Fatal route—a genuine counterexample exists
+- **NO with $K^{\mathrm{inc}}$**: Reconstruction route—try adding interfaces, refining library, or extending templates
+
+---
+
 ## 9. The Weakest Precondition Principle
 
 The interface formalism of Section 8 embodies a fundamental design principle: **regularity is an output, not an input**.
@@ -4259,7 +4971,7 @@ To instantiate the Structural Sieve for a dynamical system, users need only:
 - Know where singularities occur
 - Classify all possible blow-up profiles in advance
 
-The verdict $\mathcal{V} \in \{\text{YES}, \text{NO}, \text{Blocked}, \text{Horizon}\}$ emerges from the certificate-driven computation.
+The verdict $\mathcal{V} \in \{\text{YES}, \text{NO}, \text{Blocked}\}$ emerges from the certificate-driven computation. NO verdicts carry typed certificates ($K^{\mathrm{wit}}$ or $K^{\mathrm{inc}}$) distinguishing refutation from inconclusiveness.
 
 **Literature:** Dijkstra's weakest precondition calculus {cite}`Dijkstra76`; predicate transformer semantics {cite}`Back80`.
 :::
@@ -4325,9 +5037,9 @@ This is the layer that turns the sieve into a **general singularity recovery eng
 
 2. **Tame stratification**: $K_{\mathrm{strat}}$: finite stratification $\bigsqcup_{k=1}^K \mathcal P_k\subseteq\mathbb R^{d_k}$ and classifier $K_{\mathrm{class}}$
 
-3. **Horizon/wildness certificate**: $K_{\mathrm{horizon}}$: formal obstruction that classification is not possible under current Rep/definability regime
+3. **NO certificate (wild or inconclusive)**: $K_{\mathrm{Surg}}^{\mathrm{wild}}$ or $K_{\mathrm{Surg}}^{\mathrm{inc}}$: classification not possible under current Rep/definability regime (wildness witness or method exhaustion)
 
-**Layer requirement**: Under X.A, outcomes (1) or (2) always occur for admissible profiles (i.e., horizon is ruled out for the admissible type $T$).
+**Layer requirement**: Under X.A, outcomes (1) or (2) always occur for admissible profiles (i.e., classification failure is ruled out for the admissible type $T$).
 
 #### X.A.2 Surgery Admissibility Trichotomy (built-in)
 
@@ -4337,7 +5049,7 @@ This is the layer that turns the sieve into a **general singularity recovery eng
 
 2. **Admissible up to equivalence**: $K_{\mathrm{adm}^\sim}$: after an admissible equivalence move (YES$^\sim$), the singularity becomes admissible
 
-3. **Not admissible**: $K_{\neg\mathrm{adm}}$: explicit reason (cap too large, codim too small, horizon)
+3. **Not admissible**: $K_{\neg\mathrm{adm}}$: explicit reason (cap too large, codim too small, classification failure)
 
 **Layer requirement**: Under X.A, if a singularity is encountered, it is either admissible (1) or admissible up to equivalence (2). The ``not admissible'' case becomes a certified rare/horizon mode for types outside X.A.
 
@@ -5145,9 +5857,12 @@ The limiting profile $V$ belongs to a finite, pre-classified library $\mathcal{L
 $$K_{\text{strat}} = (V, \text{definable family } \mathcal{F}, V \in \mathcal{F}, \text{stratification data})$$
 Profiles are parameterized in a definable (o-minimal) family $\mathcal{F}$ with finite stratification. Classification is tractable though not finite.
 
-**Case 3: Horizon certificate**
-$$K_{\text{hor}} = (\text{classification obstruction}, \text{wildness witness})$$
-Profile classification is not feasible under current Rep/definability constraints. Routes to T.C/D.C-family modes (Labyrinthine/Semantic Horizon).
+**Case 3: Classification Failure (NO-inconclusive or NO-wild)**
+$$K_{\mathrm{prof}}^- := K_{\mathrm{prof}}^{\mathrm{wild}} \sqcup K_{\mathrm{prof}}^{\mathrm{inc}}$$
+- **NO-wild** ($K_{\mathrm{prof}}^{\mathrm{wild}}$): Profile exhibits wildness witness (chaotic attractor, turbulent cascade, undecidable structure)
+- **NO-inconclusive** ($K_{\mathrm{prof}}^{\mathrm{inc}}$): Classification methods exhausted without refutation (Rep/definability constraints insufficient)
+
+Routes to T.C/D.C-family modes for reconstruction or explicit wildness acknowledgment.
 
 **Literature:** Concentration-compactness profile decomposition {cite}`Lions84`; {cite}`Lions85`; blow-up profile classification {cite}`MerleZaag98`; o-minimal stratification {cite}`vandenDries98`.
 
@@ -5170,7 +5885,7 @@ Profile classification is not feasible under current Rep/definability constraint
 $$V_{n+p} \approx V_n \quad \text{for some period } p$$
 then the profile $V$ is defined as the **orbit** $\{V_n\}_{n \mod p}$, which falls into Case 2 (Tame Family) with a finite-dimensional parameter space $\mathbb{Z}/p\mathbb{Z}$ or $\mathbb{T}^k$ (torus for quasi-periodic).
 
-**Case 3a (Wild oscillations):** If oscillations are unbounded or aperiodic without definable structure, the system produces a Horizon certificate (Case 3). This is common in:
+**Case 3a (Wild oscillations):** If oscillations are unbounded or aperiodic without definable structure, the system produces a NO-wild certificate ($K_{\mathrm{prof}}^{\mathrm{wild}}$, Case 3). This is common in:
 - Turbulent cascades (energy spreads across all scales)
 - Chaotic attractors with positive Lyapunov exponent
 - Undecidable algorithmic dynamics
@@ -5220,14 +5935,193 @@ The Framework implements `ProfileExtractor` as follows:
 **Output:** Profile $V$ with classification certificate
 :::
 
-:::{prf:metatheorem} Automatic Profile Classification
+:::{prf:metatheorem} Automatic Profile Classification (Multi-Mechanism OR-Schema)
 :label: mt-auto-profile
+:class: metatheorem
 
-For any Hypostructure satisfying the Automation Guarantee (Definition {prf:ref}`def-automation-guarantee`), the Profile Classification Trichotomy (MT {prf:ref}`mt-profile-trichotomy`) is **automatically computed** by the Sieve without user-provided classification code.
+**Sieve Target:** ProfileExtractor / Profile Classification Trichotomy
 
-**Proof sketch:** The scaling limit $V$ is determined by $\alpha$ from $\Phi^{\text{thin}}$ and the symmetry action $\rho$ from $G^{\text{thin}}$. The moduli space $\mathcal{M}_{\text{prof}}$ is computed as the $G$-quotient of scaling-invariant critical points.
+**Goal Certificate:** $K_{\mathrm{prof}}^+ \in \{K_{\text{lib}}, K_{\text{strat}}, K_{\text{hor}}\}$
 
-**Literature:** Scaling invariance and self-similar solutions {cite}`Tao06`; moduli space computability {cite}`MumfordFogartyKirwan94`.
+For any Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)$ satisfying the Automation Guarantee (Definition {prf:ref}`def-automation-guarantee`), the Profile Classification Trichotomy (MT {prf:ref}`mt-profile-trichotomy`) is **automatically computed** by the Sieve without user-provided classification code.
+
+### Unified Output Certificate
+
+**Profile Classification Certificate:**
+$$K_{\mathrm{prof}}^+ := (V, \mathcal{L}_T \text{ or } \mathcal{F}_T, \mathsf{route\_tag}, \mathsf{classification\_data})$$
+
+where $\mathsf{route\_tag} \in \{\text{CC-Rig}, \text{Attr-Morse}, \text{Tame-LS}, \text{Lock-Excl}\}$ indicates which mechanism produced the certificate.
+
+**Downstream Independence:** All subsequent theorems (Lock promotion, surgery admissibility, etc.) depend only on $K_{\mathrm{prof}}^+$, never on which mechanism produced it.
+
+---
+
+### Public Signature (Soft Interfaces Only)
+
+**User-Provided (Soft Core):**
+$$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+$$
+
+**Mechanism-Specific Soft Extensions:**
+| Mechanism | Additional Soft Interfaces |
+|-----------|---------------------------|
+| A: CC+Rigidity | $K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{Rep}_K}^+$ |
+| B: Attractor+Morse | $K_{\mathrm{TB}_\pi}^+$ |
+| C: Tame+LS | $K_{\mathrm{TB}_O}^+$ (o-minimal definability) |
+| D: Lock/Hom-Exclusion | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (Lock blocked) |
+
+**Certificate Logic (Multi-Mechanism Disjunction):**
+$$\underbrace{K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+}_{\text{SoftCore}} \wedge \big(\text{MechA} \lor \text{MechB} \lor \text{MechC} \lor \text{MechD}\big) \Rightarrow K_{\mathrm{prof}}^+$$
+
+**Key Architectural Point:** Backend permits ($K_{\mathrm{WP}}$, $K_{\mathrm{ProfDec}}$, $K_{\mathrm{KM}}$, $K_{\mathrm{Rigidity}}$, $K_{\mathrm{Attr}}$, $K_{\mathrm{MorseDecomp}}$) are **derived internally** via the Soft-to-Backend Compilation layer (Section {ref}`sec-soft-backend-compilation`), not required from users.
+
+- **Produces:** $K_{\text{prof}}^+ \in \{K_{\text{lib}}, K_{\text{strat}}, K_{\text{hor}}\}$
+- **Blocks:** Mode C.D (Geometric Collapse), Mode T.C (Labyrinthine), Mode D.C (Semantic Horizon)
+- **Breached By:** Wild/undecidable dynamics, non-good types
+
+---
+
+### Dispatcher Logic
+
+The Sieve tries mechanisms in order until one succeeds:
+
+```
+try MechA(SoftCore); if YES → emit K_prof^+ (tag: CC-Rig)
+else try MechB(SoftCore); if YES → emit K_prof^+ (tag: Attr-Morse)
+else try MechC(SoftCore); if YES → emit K_prof^+ (tag: Tame-LS)
+else try MechD(SoftCore); if YES → emit K_prof^+ (tag: Lock-Excl)
+else emit NO with K_prof^inc (mechanism_failures: [A,B,C,D])
+```
+
+---
+
+### Mechanism A: Concentration-Compactness + Rigidity
+
+**Best For:** NLS, NLW, critical dispersive PDEs
+
+**Sufficient Soft Condition:**
+$$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{Rep}_K}^+$$
+
+**Proof (5 Steps via Compilation):**
+
+*Step A1 (Well-Posedness).* By MT-SOFT→WP (MT {prf:ref}`mt-soft-wp`), derive $K_{\mathrm{WP}_{s_c}}^+$ from template matching. The evaluator recognizes the equation structure and applies the appropriate critical LWP theorem.
+
+*Step A2 (Profile Decomposition).* By MT-SOFT→ProfDec (MT {prf:ref}`mt-soft-profdec`), derive $K_{\mathrm{ProfDec}_{s_c,G}}^+$ from $K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+$. Any bounded sequence $\{u_n\}$ in $\dot{H}^{s_c}$ admits:
+$$u_n = \sum_{j=1}^J g_n^{(j)} \cdot V^{(j)} + w_n^{(J)}$$
+with orthogonal symmetry parameters and vanishing remainder.
+
+*Step A3 (Kenig-Merle Machine).* By MT-SOFT→KM (MT {prf:ref}`mt-soft-km`), derive $K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$ from composition of $K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{D_E}^+$. This extracts the minimal counterexample $u^*$ with:
+- $\Phi(u^*) = E_c$ (critical energy threshold),
+- Trajectory is **almost periodic modulo $G$**.
+
+*Step A4 (Hybrid Rigidity).* By MT-SOFT→Rigidity (MT {prf:ref}`mt-soft-rigidity`), derive $K_{\mathrm{Rigidity}_T}^+$ via the hybrid mechanism:
+1. **Monotonicity:** $K_{\mathrm{Mon}_\phi}^+$ provides virial/Morawetz identity forcing dispersion or concentration.
+2. **Łojasiewicz Closure:** $K_{\mathrm{LS}_\sigma}^+$ prevents oscillation near critical points.
+3. **Lock Exclusion:** Any "bad" $u^*$ would embed a forbidden pattern; Lock blocks this.
+
+Conclusion: almost-periodic solutions are either **stationary** (soliton/ground state) or **self-similar**.
+
+*Step A5 (Emit Certificate).* Classify $u^*$ into $\mathcal{L}_T$:
+- **Case 1 (Library):** $V \in \mathcal{L}_T$ isolated. Emit YES with $K_{\text{lib}} = (V, \mathcal{L}_T, \text{Aut}(V), \text{CC-Rig})$
+- **Case 2 (Tame Stratification):** $V \in \mathcal{F}_T$ definable. Emit YES with $K_{\text{strat}} = (V, \mathcal{F}_T, \dim, \text{CC-Rig})$
+- **Case 3 (Classification Failure):** Emit NO with $K_{\mathrm{prof}}^{\mathrm{wild}}$ (if wildness witness found) or $K_{\mathrm{prof}}^{\mathrm{inc}}$ (if method insufficient)
+
+**Literature:** Concentration-compactness {cite}`Lions84`; profile decomposition {cite}`BahouriGerard99`; Kenig-Merle {cite}`KenigMerle06`; rigidity {cite}`DuyckaertsKenigMerle11`.
+
+---
+
+### Mechanism B: Attractor + Morse Decomposition
+
+**Best For:** Reaction-diffusion, Navier-Stokes (bounded domain), MCF
+
+**Sufficient Soft Condition:**
+$$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{TB}_\pi}^+$$
+
+**Proof (4 Steps via Compilation):**
+
+*Step B1 (Global Attractor).* By MT-SOFT→Attr (MT {prf:ref}`mt-soft-attr`), derive $K_{\mathrm{Attr}}^+$ from $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$. The attractor $\mathcal{A}$ exists, is compact, invariant, and attracts bounded sets:
+$$\mathcal{A} := \bigcap_{t \geq 0} \overline{\bigcup_{s \geq t} S_s(\mathcal{X})}$$
+
+*Step B2 (Morse Decomposition).* By MT-SOFT→MorseDecomp (MT {prf:ref}`mt-soft-morsedecomp`), derive $K_{\mathrm{MorseDecomp}}^+$ from $K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$. For gradient-like systems, the attractor decomposes as:
+$$\mathcal{A} = \mathcal{E} \cup \bigcup_{\xi \in \mathcal{E}} W^u(\xi)$$
+where $\mathcal{E}$ is the equilibrium set. No periodic orbits exist (Lyapunov monotonicity).
+
+*Step B3 (Profile Identification).* The profile space is:
+$$\mathcal{M}_{\text{prof}} = \mathcal{A} / G$$
+By compactness of $\mathcal{A}$, this is a compact moduli space. The canonical library is:
+$$\mathcal{L}_T := \{\xi \in \mathcal{E} / G : \xi \text{ isolated}, |\text{Stab}(\xi)| < \infty\}$$
+
+*Step B4 (Emit Certificate).* Classify rescaling limits into $\mathcal{A}/G$:
+- **Case 1 (Library):** Isolated equilibrium. Emit YES with $K_{\text{lib}} = (V, \mathcal{L}_T, \text{Morse index}, \text{Attr-Morse})$
+- **Case 2 (Tame Stratification):** Connecting orbit. Emit YES with $K_{\text{strat}} = (V, W^u(\xi)/G, \dim, \text{Attr-Morse})$
+- **Case 3 (Classification Failure):** Strange attractor detected. Emit NO with $K_{\mathrm{prof}}^{\mathrm{wild}} = (\text{strange\_attractor}, h_{\text{top}}(\mathcal{A}))$
+
+**Literature:** Global attractor theory {cite}`Temam97`; gradient-like structure {cite}`HaleBook88`; Morse decomposition {cite}`Conley78`.
+
+---
+
+### Mechanism C: Tame + Łojasiewicz (O-Minimal Types)
+
+**Best For:** Algebraic/analytic systems, polynomial nonlinearities
+
+**Sufficient Soft Condition:**
+$$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{TB}_O}^+$$
+
+**Proof (3 Steps):**
+
+*Step C1 (Definability).* By $K_{\mathrm{TB}_O}^+$, the profile space $\mathcal{M}_{\text{prof}}$ is **o-minimal definable** in the structure $\mathbb{R}_{\text{an}}$ (or $\mathbb{R}_{\text{alg}}$ for polynomial systems). This captures all algebraic, semialgebraic, and globally subanalytic families.
+
+*Step C2 (Cell Decomposition).* By the o-minimal cell decomposition theorem, the profile space admits a **finite stratification**:
+$$\mathcal{M}_{\text{prof}} = \bigsqcup_{i=1}^N C_i$$
+where each $C_i$ is a definable cell (diffeomorphic to $(0,1)^{d_i}$). The stratification is canonical and computable from the defining formulas.
+
+*Step C3 (Łojasiewicz Convergence + Emit).* By $K_{\mathrm{LS}_\sigma}^+$, trajectories converge to strata (no oscillation across cells). Emit:
+- **Case 1 (Library):** Limit in 0-dimensional stratum. Emit YES with $K_{\text{lib}} = (V, \mathcal{L}_T, \text{cell ID}, \text{Tame-LS})$
+- **Case 2 (Tame Stratification):** Limit in positive-dimensional stratum. Emit YES with $K_{\text{strat}} = (V, C_i, \dim C_i, \text{Tame-LS})$
+- **Case 3 (Classification Failure):** Non-definable family (escape from o-minimal). Emit NO with $K_{\mathrm{prof}}^{\mathrm{wild}} = (\text{non\_definable}, \mathsf{escape\_witness})$
+
+**Key Advantage:** No PDE-specific machinery required—works purely from definability + gradient structure.
+
+**Literature:** O-minimal structures {cite}`vandenDries98`; tame geometry {cite}`Shiota97`; Łojasiewicz inequality {cite}`Lojasiewicz84`.
+
+---
+
+### Mechanism D: Lock / Hom-Exclusion (Categorical Types)
+
+**Best For:** Systems where categorical obstruction is stronger than analytic classification
+
+**Sufficient Soft Condition:**
+$$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
+
+**Proof (2 Steps):**
+
+*Step D1 (Lock Obstruction).* By $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$, the Lock mechanism certifies:
+$$\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathcal{H}) = \emptyset$$
+for all "bad patterns" $\mathbb{H}_{\mathrm{bad}}$ (singularity templates, wild dynamics markers). This is a **categorical statement**: no morphism from any forbidden object can land in the hypostructure.
+
+*Step D2 (Emit Trivial Classification).* Since no singularity can form (Lock blocks all singular behavior), profile classification is **vacuous or trivial**:
+- All solutions remain regular
+- The "library" is just the space of smooth solutions
+- Emit $K_{\text{lib}} = (\text{smooth}, \mathcal{L}_T := \emptyset, \text{vacuous}, \text{Lock-Excl})$
+
+Alternatively, if Lock blocks specific patterns but allows others, classify the allowed profiles as in other mechanisms.
+
+**Key Advantage:** No hard estimates needed—regularity follows from **categorical obstruction** rather than analytic a priori bounds.
+
+**Literature:** Lock mechanism (Section {ref}`sec-lock`); categorical obstructions in PDE {cite}`Fargues21`.
+
+---
+
+### Mechanism Comparison
+
+| Mechanism | Additional Soft | Best For | Hard Estimates? | Route Tag |
+|-----------|-----------------|----------|-----------------|-----------|
+| **A: CC+Rig** | $K_{\mathrm{Mon}_\phi}^+$, $K_{\mathrm{Rep}_K}^+$ | NLS, NLW, dispersive | No (compiled) | CC-Rig |
+| **B: Attr+Morse** | $K_{\mathrm{TB}_\pi}^+$ | Reaction-diffusion, MCF | No (gradient-like) | Attr-Morse |
+| **C: Tame+LS** | $K_{\mathrm{TB}_O}^+$ | Algebraic, polynomial | No (definability) | Tame-LS |
+| **D: Lock** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Categorical systems | No (obstruction) | Lock-Excl |
+
+**Mechanism Selection:** The Sieve automatically selects the first applicable mechanism based on which soft interfaces are available. Users may also specify a preferred mechanism via the `route_hint` parameter.
+
 :::
 
 ---
@@ -5361,7 +6255,7 @@ Let $M$ be a failure mode with breach certificate $K^{\mathrm{br}}$, and let $S$
 3. **Certificate production**: Re-entry certificate $K^{\mathrm{re}}$ satisfying $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target})$
 4. **Progress**: Either bounded surgery count or decreasing complexity
 
-**Failure case**: If $K_{\text{inadm}}$ is produced, no surgery is performed; the run terminates at the mode as a genuine singularity (or routes to horizon handling).
+**Failure case**: If $K_{\text{inadm}}$ is produced, no surgery is performed; the run terminates at the mode as a genuine singularity (or routes to reconstruction via MT 42.1).
 
 **Literature:** Hamilton's surgery program {cite}`Hamilton97`; Perelman's surgery algorithm {cite}`Perelman03`; {cite}`KleinerLott08`.
 
@@ -5683,8 +6577,10 @@ Example: Full Lock passage ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^+$) may retroactive
 :label: def-promotion-closure
 
 The **promotion closure** $\mathrm{Cl}(\Gamma)$ is the least fixed point:
-$$\Gamma_0 = \Gamma, \quad \Gamma_{n+1} = \Gamma_n \cup \{K : \text{promoted from } \Gamma_n\}$$
+$$\Gamma_0 = \Gamma, \quad \Gamma_{n+1} = \Gamma_n \cup \{K : \text{promoted or inc-upgraded from } \Gamma_n\}$$
 $$\mathrm{Cl}(\Gamma) = \bigcup_n \Gamma_n$$
+
+This includes both blocked-certificate promotions (Definition {prf:ref}`def-promotion-permits`) and inconclusive-certificate upgrades (Definition {prf:ref}`def-inc-upgrades`).
 
 :::
 
@@ -5718,8 +6614,10 @@ Where:
 - $\mathcal{H}$ is the system under analysis
 
 **Outcomes**:
-- **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^+$): Hom-set empty; implies GLOBAL REGULARITY
+- **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ or $K_{\mathrm{Cat}_{\mathrm{Hom}}}^+$): Hom-set empty; implies GLOBAL REGULARITY
 - **MorphismExists** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^-$): Explicit morphism $\phi: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$; implies FATAL ERROR
+
+**Goal Certificate:** For Node 17, the designated goal certificate for the proof completion criterion (Definition {prf:ref}`def-proof-complete`) is $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$. This certificate suffices for proof completion—no additional promotion to $K_{\mathrm{Cat}_{\mathrm{Hom}}}^+$ is required. The blocked outcome at the Lock establishes morphism exclusion directly.
 
 :::
 
@@ -6037,65 +6935,146 @@ $$K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (\mathrm{Gal}(f) \tex
 
 :::
 
-:::{prf:definition} E12: Algebraic Compressibility (Bézout)
+:::{prf:definition} E12: Algebraic Compressibility (Permit Schema with Alternative Backends)
 :label: def-e12
 
 **Sieve Signature:**
-- **Required Permits:** $\mathrm{Rep}_K$ (representation/algebraic variety), $\mathrm{SC}_\lambda$ (scaling/degree), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+, K_{\mathrm{SC}_\lambda}^+\}$ (variety structure and degree bounds available)
+- **Required Permits (Alternative Backends):**
+  - **Backend A:** $K_{\mathrm{Rep}_K}^+$ (hypersurface) + $K_{\mathrm{SC}_\lambda}^{\text{deg}}$ → $K_{\mathrm{E12}}^{\text{hypersurf}}$
+  - **Backend B:** $K_{\mathrm{Rep}_K}^+$ (complete intersection) + $K_{\mathrm{SC}_\lambda}^{\text{Bez}}$ → $K_{\mathrm{E12}}^{\text{c.i.}}$
+  - **Backend C:** $K_{\mathrm{Rep}_K}^+$ (morphism) + $K_{\mathrm{DegImage}_m}^+$ + $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{deg}}$ → $K_{\mathrm{E12}}^{\text{morph}}$
+- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+\}$ (algebraic variety structure available)
 - **Produces:** $K_{\mathrm{E12}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** S.E (Supercritical Cascade); S.C (Computational Overflow)
-- **Breached By:** Degree compatibility or linear structure
+- **Breached By:** Degree compatibility, linear structure, or compatible morphism exists
+
+**Context:** Algebraic compressibility obstructions arise when attempting to approximate or represent a high-degree variety using lower-degree data. The degree of an algebraic variety is an intrinsic geometric invariant that resists compression.
+
+**Critical Remark:** The naive claim "degree $\delta$ cannot be represented by polynomials of degree $< \delta$" is **imprecise** for general varieties (e.g., a parametric representation can use lower-degree maps). The following backends make the obstruction precise by specifying what "representation" means.
 
 :::{prf:definition} Algebraic Variety
 :label: def-algebraic-variety-permit
 
-An **algebraic variety** $V \subset \mathbb{C}^n$ is the zero locus of polynomial equations:
-$$V = \{x \in \mathbb{C}^n : f_1(x) = \cdots = f_k(x) = 0\}$$
+An **algebraic variety** $V \subset \mathbb{P}^n$ (or $\mathbb{C}^n$) is the zero locus of polynomial equations:
+$$V = \{x \in \mathbb{P}^n : f_1(x) = \cdots = f_k(x) = 0\}$$
 :::
 
 :::{prf:definition} Degree of a Variety
 :label: def-variety-degree-permit
 
-The **degree** $\deg(V)$ is the number of intersection points of $V$ with a generic linear subspace of complementary dimension.
+The **degree** $\deg(V)$ of an irreducible variety $V \subset \mathbb{P}^n$ of dimension $d$ is the number of intersection points with a generic linear subspace $L$ of complementary dimension $(n-d)$:
+$$\deg(V) = \#(V \cap L)$$
+counted with multiplicity. Equivalently, $\deg(V) = \int_V c_1(\mathcal{O}(1))^d$.
 :::
 
-**Method**: Intersection theory / Bézout theorem analysis
-
-**Mechanism**: If morphisms must preserve algebraic structure but target has incompatible degree bounds, no low-degree approximation exists. The key constraints are:
-
-1. **Degree-Dimension Bound:** The degree controls the "volume":
-   $$\deg(V) \geq 1, \quad \text{with equality iff } V \text{ is a linear subspace}$$
-
-2. **Bézout's Theorem:** For two varieties $V$ and $W$ intersecting transversely:
-   $$\#(V \cap W) = \deg(V) \cdot \deg(W)$$
-
-3. **Projection Formula:** Under projection $\pi: \mathbb{C}^n \to \mathbb{C}^m$:
-   $$\deg(\pi(V)) \leq \deg(V)$$
-   Equality holds generically; strict inequality indicates algebraic degeneracy.
-
-4. **Compressibility Limit:** A variety of degree $\delta$ cannot be represented by polynomials of degree $< \delta$ (generically). Low-degree approximations necessarily distort high-degree features.
-
 **Certificate Logic:**
-$$K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge (\deg(\mathbb{H}_{\mathrm{bad}}) > \deg(\mathcal{H})) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
+$$K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge \left(K_{\mathrm{E12}}^{\text{hypersurf}} \vee K_{\mathrm{E12}}^{\text{c.i.}} \vee K_{\mathrm{E12}}^{\text{morph}}\right) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
 
-**Proof Sketch (Bézout Incompressibility):**
+---
 
-*Step 1 (Degree via intersection).* For variety $V \subset \mathbb{C}^n$ of dimension $d$, define $\deg(V) = \#(V \cap L)$ where $L$ is a generic $(n-d)$-plane. For hypersurface $V = \{f = 0\}$ with $\deg(f) = \delta$, restriction to generic line yields degree-$\delta$ univariate polynomial with exactly $\delta$ roots.
+#### Backend A: Hypersurface Form
 
-*Step 2 (Bézout's theorem).* For hypersurfaces $V_1 = \{f_1 = 0\}$, $V_2 = \{f_2 = 0\}$ of degrees $d_1, d_2$ in $\mathbb{P}^n$ intersecting transversely: $\#(V_1 \cap V_2) = d_1 \cdot d_2$. Proof via resultant: $\mathrm{Res}(f_1, f_2)$ has degree $d_1 d_2$ in remaining variables.
+**Hypotheses:**
+1. $V = Z(f) \subset \mathbb{P}^n$ is an **irreducible hypersurface**
+2. $f \in \mathbb{C}[x_0, \ldots, x_n]$ is irreducible with $\deg(f) = \delta$
+3. "Representation" means: a single polynomial whose zero locus is $V$
 
-*Step 3 (Degree lower bound).* $\deg(V) \geq 1$ with equality iff $V$ is linear. Non-linear varieties contain non-linear curves whose generic line intersections have multiplicity $\geq 2$.
+**Certificate:** $K_{\mathrm{E12}}^{\text{hypersurf}} = (\delta, f, \text{irreducibility witness})$
 
-*Step 4 (Projection inequality).* Under linear projection $\pi: \mathbb{C}^n \to \mathbb{C}^m$: $\deg(\pi(V)) \leq \deg(V)$. Strict inequality when $\pi|_V$ has positive-dimensional fibers.
+**Proof (5 Steps):**
 
-*Step 5 (Compressibility obstruction).* If $V$ has degree $\delta$ and $\tilde{V}$ approximates $V$ with $\deg(\tilde{V}) < \delta$, then $V \cap \tilde{V}$ is proper. By Bézout, $\deg(V \cap \tilde{V}) \leq \delta \cdot \tilde{\delta}$. For irreducible $V$: $\dim(V \setminus \tilde{V}) = \dim(V)$—no low-degree variety covers $V$.
+*Step 1 (Hypersurface Setup).* Let $V = Z(f)$ where $f$ is an irreducible homogeneous polynomial of degree $\delta$. The degree of $V$ as a variety equals $\delta$ (a generic line intersects $V$ in $\delta$ points by Bézout).
 
-**Certificate Payload**: $(\deg(\mathbb{H}_{\mathrm{bad}}), \deg(\mathcal{H}), \text{Bézout intersection witness})$
+*Step 2 (Defining Equation Characterization).* A polynomial $g$ defines the same hypersurface ($Z(g) = V$) if and only if $g$ and $f$ have the same irreducible factors (up to units). Since $f$ is irreducible, $Z(g) = V$ implies $\sqrt{(g)}^{\mathrm{sat}} = (f)$ in the homogeneous coordinate ring, where $(-)^{\mathrm{sat}}$ denotes saturation by the irrelevant ideal $(x_0, \ldots, x_n)$. (In the affine case, saturation is automatic.)
 
-**Automation**: Via degree computation / resultant analysis / intersection multiplicity bounds
+*Step 3 (Degree Lower Bound via Irreducibility).* Since $Z(g) = Z(f) = V$, the radical ideals coincide: $\sqrt{(g)} = \sqrt{(f)}$. Because $f$ is irreducible, $(f)$ is a prime ideal, so $\sqrt{(f)} = (f)$. Hence $g \in \sqrt{(g)} = (f)$, which means $f | g$ (i.e., $g = f \cdot h$ for some polynomial $h$). Therefore:
+$$\deg(g) = \deg(f) + \deg(h) \geq \deg(f) = \delta$$
 
-**Literature:** Bézout's theorem {cite}`Fulton84`; intersection theory {cite}`EisenbudHarris16`; algebraic geometry {cite}`Hartshorne77`; elimination theory {cite}`CoxLittleOShea15`.
+*Step 4 (Sharpness).* The bound is achieved by $g = f$ itself. No polynomial of degree $< \delta$ can define $V$.
+
+*Step 5 (Certificate Construction).* The obstruction: if $\mathbb{H}_{\mathrm{bad}}$ requires representing $V$ with $\deg < \delta$, this is impossible.
+
+**Literature:** Irreducibility and defining equations {cite}`Hartshorne77`; Nullstellensatz {cite}`CoxLittleOShea15`
+
+---
+
+#### Backend B: Complete Intersection Form
+
+**Hypotheses:**
+1. $V \subset \mathbb{P}^n$ is a **complete intersection** of codimension $k$
+2. $V = Z(f_1, \ldots, f_k)$ where $\deg(f_i) = d_i$ and $\dim V = n - k$ (expected dimension)
+3. "Representation" means: $k$ equations cutting out $V$ scheme-theoretically
+
+**Certificate:** $K_{\mathrm{E12}}^{\text{c.i.}} = (\deg(V), k, (d_1, \ldots, d_k))$
+
+**Proof (5 Steps):**
+
+*Step 1 (Complete Intersection Definition).* $V$ is a complete intersection if it is cut out by exactly $\text{codim}(V)$ equations and has the expected dimension. The ideal $I_V = (f_1, \ldots, f_k)$ is generated by a regular sequence.
+
+*Step 2 (Degree via Bézout / Intersection Theory).* For a complete intersection:
+$$\deg(V) = d_1 \cdot d_2 \cdots d_k$$
+This follows from iterative application of Bézout's theorem {cite}`Fulton84` (Example 8.4.6).
+
+*Step 3 (Representation Bounds).* Suppose $V = Z(g_1, \ldots, g_k)$ is another complete intersection representation with $\deg(g_i) = e_i$, **where $(g_1, \ldots, g_k)$ is also a regular sequence cutting out $V$ scheme-theoretically in expected codimension**. Then:
+$$\deg(V) = e_1 \cdots e_k = d_1 \cdots d_k$$
+The product of degrees is an invariant of the scheme structure.
+
+*Step 4 (AM-GM Minimum Degree Constraint).* Among all complete intersection representations, the maximum single-equation degree satisfies:
+$$\max_i(e_i) \geq \deg(V)^{1/k}$$
+by AM-GM. If $d_1 \geq d_2 \geq \cdots \geq d_k$, then $d_1 \geq \deg(V)^{1/k}$.
+
+*Step 5 (Certificate Construction).* The obstruction: if all $e_i < \deg(V)^{1/k}$, then $e_1 \cdots e_k < \deg(V)$, contradiction. Cannot uniformly lower defining degrees.
+
+**Literature:** Bézout's theorem {cite}`Fulton84`; complete intersections {cite}`EisenbudHarris16`
+
+---
+
+#### Backend C: Morphism / Compression Form
+
+**Hypotheses:**
+1. $V \subset \mathbb{P}^n$ is an irreducible variety of dimension $d$ and degree $\delta$
+2. A "compression of complexity $m$" is a generically finite morphism $\phi: W \to V$ of degree $\leq m$ from a variety $W$ of degree $< \delta$
+3. Equivalently: $V$ is the image of a low-degree variety under a low-degree map
+
+**Certificate:** $K_{\mathrm{E12}}^{\text{morph}} = (\delta, d, m_{\min}, \text{Bézout witness})$
+
+**Proof (5 Steps):**
+
+*Step 1 (Morphism Degree Definition).* For a generically finite morphism $\phi: W \to V$, the **degree** $d_\phi$ is the generic fiber cardinality: $d_\phi = |\phi^{-1}(p)|$ for generic $p \in V$.
+
+*Step 2 (Projection Formula).* For a finite morphism $\phi: W \to V$ of degree $d_\phi$:
+$$\deg(V) \cdot d_\phi = \deg(\phi^* H^{\dim V})$$
+More directly: $\deg(V) \leq d_\phi \cdot \deg(W)$ with equality for finite morphisms.
+
+*Step 3 (Degree Bound for Images).* By permit $K_{\mathrm{DegImage}_m}^+$ (degree-of-image bound, Definition {prf:ref}`def-permit-degimage`), after resolving indeterminacy (or using the graph), if $\phi$ is induced by a base-point-free linear system of degree $\leq m$, then:
+$$\deg(\overline{\phi(W)}) \leq m^{\dim W} \cdot \deg(W)$$
+The permit payload specifies whether $\phi$ is treated as a morphism $W \to \mathbb{P}^N$ or a rational map with resolved base locus.
+
+*Step 4 (Compression Obstruction).* Suppose we want to represent $V$ (degree $\delta$) as $\phi(W)$ where $\deg(W) = w < \delta$ and $\phi$ has degree $\leq m$. Then:
+$$\delta = \deg(V) \leq m^d \cdot w < m^d \cdot \delta$$
+This is only possible if $m^d \geq \delta/w > 1$, hence $m \geq (\delta/w)^{1/d}$.
+
+*Step 5 (Certificate Construction).* The morphism complexity lower bound:
+$$m_{\min} = \left(\frac{\delta}{\deg(W)}\right)^{1/\dim V}$$
+Any compression must have complexity at least $m_{\min}$.
+
+**Literature:** Degrees of morphisms {cite}`Lazarsfeld04`; projection formulas {cite}`Fulton84`
+
+---
+
+**Backend Selection Logic:**
+
+| Backend | Hypothesis | Best For |
+|:-------:|:----------:|:--------:|
+| A | $V$ is irreducible hypersurface | Single-equation varieties, cryptographic hardness |
+| B | $V$ is complete intersection | Multi-equation varieties, computational algebra |
+| C | Morphism/parametric representation | Parametrization complexity, circuit lower bounds |
+
+**Automation:** Via degree computation / resultant analysis / intersection multiplicity bounds / Gröbner bases
+
+**Use:** Blocks attempts to approximate high-complexity algebraic patterns using low-degree/low-complexity tools. Essential for: cryptographic hardness, complexity lower bounds, and geometric obstructions.
+
+**Literature:** Bézout's theorem {cite}`Fulton84`; intersection theory {cite}`EisenbudHarris16`; algebraic geometry {cite}`Hartshorne77`; elimination theory {cite}`CoxLittleOShea15`; positivity {cite}`Lazarsfeld04`.
 
 :::
 
@@ -6116,14 +7095,14 @@ $$K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge (\deg(\mathbb{H}_
 | E11 | Galois-Monodromy | $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E11}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | S.E (solvability) |
 | E12 | Algebraic Compressibility | $\mathrm{Rep}_K$, $\mathrm{SC}_\lambda$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E12}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | S.E (degree) |
 
-:::{prf:definition} Horizon certificate (Lock failure)
-:label: def-lock-horizon
+:::{prf:definition} Breached-Inconclusive Certificate (Lock Tactic Exhaustion)
+:label: def-lock-breached-inc
 
 If all twelve tactics fail to prove Hom-emptiness but also fail to construct an explicit morphism:
 
-$$K_{\text{horizon}}^{17} = (\text{tactic exhaustion}, \text{partial progress})$$
+$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}} = (\mathsf{tactics\_exhausted}: \{E1,\ldots,E12\}, \mathsf{partial\_progress}, \mathsf{trace})$$
 
-This is treated as MorphismExists (conservative) unless additional structure becomes available.
+This is a NO verdict (Breached) with inconclusive subtype—routing to MT 42.1 (Structural Reconstruction) rather than fatal error. The certificate records which tactics were attempted and any partial progress (e.g., dimension bounds that narrowed but did not close, spectral gaps that are positive but not sufficient).
 
 :::
 
@@ -6195,7 +7174,7 @@ For any type $T$ admitting surgery, there exist default surgery operators matchi
 - Re-entry certificate generator
 - Progress measure
 
-**Fallback**: If type $T$ does not admit surgery, output "surgery unavailable" certificate routing to horizon handling.
+**Fallback**: If type $T$ does not admit surgery, output "surgery unavailable" certificate ($K_{\mathrm{Surg}}^{\mathrm{inc}}$) routing to reconstruction (MT 42.1).
 
 **Literature:** Hamilton-Perelman surgery {cite}`Hamilton97`; {cite}`Perelman03`; surgery in mean curvature flow {cite}`HuiskenSinestrari09`.
 
@@ -6305,7 +7284,7 @@ For any system of type $T$ with user-supplied functionals, there exists a canoni
 **Output**: Sound sieve run yielding either:
 - Regularity certificate (VICTORY)
 - Mode certificate with admissible repair (surgery path)
-- Horizon certificate (explicit obstruction to classification/repair)
+- NO-inconclusive certificate ($K^{\mathrm{inc}}$) (explicit obstruction to classification/repair)
 
 **Literature:** Type-theoretic instantiation {cite}`HoTTBook`; certified regularity proofs {cite}`Leroy09`; singularity resolution via surgery {cite}`Perelman03`.
 
@@ -6682,6 +7661,60 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{LS}_{\partial^k V}}^+ \Rightarrow K
 
 ---
 
+### 32.12 Inconclusive Discharge Upgrades
+
+The following metatheorems formalize inc-upgrade rules. Blocked certificates indicate "cannot proceed"; inconclusive certificates indicate "cannot decide with current prerequisites."
+
+:::{prf:metatheorem} Inconclusive Discharge by Missing-Premise Completion
+:label: mt-inc-completion
+:class: metatheorem
+
+**Context:** A node returns $K_P^{\mathrm{inc}} = (\mathsf{obligation}, \mathsf{missing}, \mathsf{code}, \mathsf{trace})$ where $\mathsf{missing}$ specifies the certificate types that would enable decision.
+
+**Hypotheses:** For each $m \in \mathsf{missing}$, the context $\Gamma$ contains a certificate $K_m^+$ such that:
+$$\bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow \mathsf{obligation}$$
+
+**Statement:** The inconclusive permit upgrades immediately to YES:
+$$K_P^{\mathrm{inc}} \wedge \bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow K_P^+$$
+
+**Certificate Logic:**
+$$\mathsf{Obl}(\Gamma) \setminus \{(\mathsf{id}_P, \ldots)\} \cup \{K_P^+\}$$
+
+**Proof sketch:** The NO-inconclusive certificate records an epistemic gap, not a semantic refutation (Definition {prf:ref}`def-typed-no-certificates`). When all prerequisites in $\mathsf{missing}$ are satisfied, the original predicate $P$ becomes decidable. The discharge condition (Definition {prf:ref}`def-inc-upgrades`) ensures the premises genuinely imply the obligation. The upgrade is sound because $K^{\mathrm{inc}}$ records the exact obligation and its missing prerequisites; when those prerequisites are satisfied, the original predicate $P$ holds by the discharge condition.
+
+**Interface Permit Validated:** Original predicate $P$ (via prerequisite completion).
+
+**Literature:** Binary Certificate Logic (Definition {prf:ref}`def-typed-no-certificates`); Obligation Ledger (Definition {prf:ref}`def-obligation-ledger`).
+
+:::
+
+:::{prf:metatheorem} A-Posteriori Inconclusive Discharge
+:label: mt-inc-aposteriori
+:class: metatheorem
+
+**Context:** $K_P^{\mathrm{inc}}$ is produced at node $i$, and later nodes add certificates that satisfy its $\mathsf{missing}$ set.
+
+**Hypotheses:** Let $\Gamma_i$ be the context at node $i$ with $K_P^{\mathrm{inc}} \in \Gamma_i$. Later nodes produce $\{K_{j_1}^+, \ldots, K_{j_k}^+\}$ such that:
+$$\{j_1, \ldots, j_k\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}})$$
+
+**Statement:** During promotion closure (Definition {prf:ref}`def-closure`), the inconclusive certificate upgrades:
+$$K_P^{\mathrm{inc}} \wedge \bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow K_P^+$$
+
+**Certificate Logic:**
+$$\mathrm{Cl}(\Gamma_{\mathrm{final}}) \ni K_P^+ \quad \text{(discharged from } K_P^{\mathrm{inc}} \text{)}$$
+
+**Proof sketch:** The promotion closure iterates until fixed point. On each iteration, inc-upgrade rules (Definition {prf:ref}`def-inc-upgrades`) are applied alongside blk-promotion rules. The a-posteriori discharge is triggered when certificates from later nodes enter the closure and match the $\mathsf{missing}$ set. Termination follows from the certificate finiteness condition (Definition {prf:ref}`def-cert-finite`).
+
+**Consequence:** The obligation ledger $\mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))$ contains strictly fewer entries than $\mathsf{Obl}(\Gamma_{\mathrm{final}})$ if any inc-upgrades fired during closure.
+
+**Interface Permit Validated:** Original predicate $P$ (retroactively).
+
+**Literature:** Promotion Closure (Definition {prf:ref}`def-promotion-closure`); Kleene fixed-point iteration {cite}`Kleene52`.
+
+:::
+
+---
+
 # Part XV: Retroactive Promotion Theorems
 
 ## 33. A-Posteriori Upgrade Rules
@@ -6934,26 +7967,132 @@ $$K_{\mathrm{GC}_\nabla}^{\text{chaotic}} \wedge K_{\text{Lock}}^{\mathrm{blk}} 
 
 ### 33.10 The Unique-Attractor Theorem
 
-:::{prf:metatheorem} Unique-Attractor Theorem (ErgoCheck $\to$ Profile)
+:::{prf:metatheorem} Unique-Attractor Theorem (Permit Schema with Alternative Backends)
 :label: mt-unique-attractor
 :class: metatheorem
 
 **Theorem:** Global Selection Principle
 
+**Sieve Target:** Node 3 (Profile Trichotomy Cases)
+
 **Input:** $K_{\mathrm{TB}_\rho}^+$ (Node 10: Unique Invariant Measure).
 
-**Target:** Node 3 (Profile Trichotomy Cases).
+**Critical Remark:** Unique ergodicity **alone** does NOT imply convergence to a single profile. Counterexample: irrational rotation $T_\alpha: x \mapsto x + \alpha \mod 1$ on the torus is uniquely ergodic (Lebesgue measure is the unique invariant measure), but orbits are **dense** and do not converge to any point. Additional dynamical hypotheses are required.
 
-**Statement:** If the system is uniquely ergodic (Node 10), there can be only **one** stable profile in the library. All other profiles identified in the Library (Node 3) are transient/unstable. This resolves any ambiguity in the Profile Classification step.
+**Statement:** Under appropriate additional hypotheses (specified per backend), if the system possesses a unique invariant measure (Node 10), there can be only **one** stable profile in the library. All other profiles are transient/unstable.
 
 **Certificate Logic:**
-$$K_{\text{Profile}}^{\text{multimodal}} \wedge K_{\mathrm{TB}_\rho}^+ \Rightarrow K_{\text{Profile}}^{\text{unique}}$$
+$$K_{\text{Profile}}^{\text{multimodal}} \wedge K_{\mathrm{TB}_\rho}^+ \wedge K_{\text{Backend}}^+ \Rightarrow K_{\text{Profile}}^{\text{unique}}$$
 
-**Proof sketch:** Unique ergodicity means there is exactly one invariant probability measure $\mu$. By the ergodic decomposition theorem (Birkhoff, 1931; Furstenberg, 1981), any other invariant measure is supported on a set of $\mu$-measure zero. Therefore, almost every orbit converges to the unique profile $V$ supporting $\mu$. All other profiles in $\mathcal{L}_T$ are transient saddle points.
+where $K_{\text{Backend}}^+$ is one of:
+- $K_{\text{UA-A}}^+$: Unique Ergodicity + Discrete Attractor hypothesis
+- $K_{\text{UA-B}}^+$: Gradient structure + Łojasiewicz-Simon convergence
+- $K_{\text{UA-C}}^+$: Contraction / Spectral-gap mixing
 
-**Application:** Resolves "multi-modal" profile ambiguity in favor of a single global attractor.
+---
 
-**Literature:** {cite}`Birkhoff31`; {cite}`Furstenberg61`; {cite}`Oxtoby52`
+#### Backend A: Unique Ergodicity + Discrete Attractor
+
+**Additional Hypotheses:**
+1. **Finite Profile Library:** $|\mathcal{L}_T| < \infty$ (Profile Classification Trichotomy Case 1)
+2. **Discrete Attractor:** The $\omega$-limit sets satisfy $\omega(x) \subseteq \bigcup_{i=1}^N \{V_i\}$ for a finite set of profiles
+3. **Continuous-Time Semiflow:** $(S_t)_{t \geq 0}$ is a continuous-time semiflow, OR each $V_i$ is an equilibrium ($S_t V_i = V_i$ for all $t$). (This excludes periodic orbits on finite invariant sets in discrete time.)
+
+**Certificate:** $K_{\text{UA-A}}^+ = (K_{\mathrm{TB}_\rho}^+, K_{\text{lib}}, N < \infty, \omega\text{-inclusion}, \text{time-model})$
+
+**Proof (5 Steps):**
+
+*Step 1 (Ergodic Support Characterization).* Let $\mu$ be the unique invariant measure. By the ergodic decomposition theorem {cite}`Furstenberg81`, every ergodic invariant measure is extremal in $\mathcal{M}_{\text{inv}}(\mathcal{X})$. Since $\mu$ is unique, it is extremal, hence ergodic. The support $\text{supp}(\mu)$ is closed and invariant; for $x \in \text{supp}(\mu)$, the orbit stays in $\text{supp}(\mu)$, hence $\omega(x) \subseteq \text{supp}(\mu)$.
+
+*Step 2 (Support Containment via Invariance).* The support $\text{supp}(\mu)$ is closed and forward-invariant: $S_t(\text{supp}(\mu)) \subseteq \text{supp}(\mu)$. By Step 1, if $x \in \text{supp}(\mu)$, then $\omega(x) \subseteq \text{supp}(\mu)$. The discrete attractor hypothesis gives $\omega(x) \subseteq \{V_1, \ldots, V_N\}$ for all $x$. Therefore:
+$$\text{supp}(\mu) \cap \{V_1, \ldots, V_N\} \neq \emptyset \implies \text{supp}(\mu) \subseteq \{V_1, \ldots, V_N\}$$
+since $\omega$-limits of points in $\text{supp}(\mu)$ must lie in the finite discrete set.
+
+*Step 3 (Measure Concentration on Singleton).* Since $\mu$ is ergodic and $\text{supp}(\mu) \subseteq \{V_1, \ldots, V_N\}$ with $N < \infty$, the measure must concentrate on an ergodic component. For a finite discrete set, each point is its own ergodic component. Therefore $\mu = \delta_{V^*}$ for some unique profile $V^* \in \mathcal{L}_T$.
+
+*Step 4 (Transience of Other Profiles).* For any $V_i \neq V^*$, we have $\mu(\{V_i\}) = 0$. By Birkhoff's ergodic theorem:
+$$\lim_{T \to \infty} \frac{1}{T} \int_0^T \mathbf{1}_{\{V_i\}}(S_t x) \, dt = \mu(\{V_i\}) = 0 \quad \mu\text{-a.s.}$$
+Hence orbits spend asymptotically zero fraction of time near $V_i$.
+
+*Step 5 (Convergence Conclusion).* The discrete topology on $\{V_1, \ldots, V_N\}$ combined with $\mu = \delta_{V^*}$ implies that for $\mu$-a.e. initial condition, $\omega(x) = \{V^*\}$. All other profiles are transient saddle points with measure-zero basins.
+
+**Literature:** {cite}`Birkhoff31`; {cite}`Furstenberg81`; {cite}`Oxtoby52`; {cite}`MeynTweedie93`
+
+---
+
+#### Backend B: Gradient + Łojasiewicz-Simon Convergence
+
+**Additional Hypotheses:**
+1. **Gradient Structure:** $K_{\mathrm{GC}_\nabla}^-$ (OscillateCheck NO: dynamics is gradient-like)
+2. **Strict Lyapunov Function:** $K_{\mathrm{LS}_\sigma}^+$ with $\frac{d}{dt}\Phi(S_t x) \leq -c\mathfrak{D}(S_t x)$ for $c > 0$
+3. **Precompact Trajectories:** Bounded orbits have compact closure in $\mathcal{X}$
+
+**Certificate:** $K_{\text{UA-B}}^+ = (K_{\mathrm{TB}_\rho}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{LS}_\sigma}^+, K_{C_\mu}^+)$
+
+**Proof (5 Steps):**
+
+*Step 1 (Gradient-Like Dynamics with Strict Lyapunov Function).* By $K_{\mathrm{GC}_\nabla}^-$, the flow $S_t$ is gradient-like: $\dot{x} = -\nabla_g \Phi(x) + R(x)$ where $R$ satisfies $\langle R, \nabla\Phi \rangle \leq 0$. The strict Lyapunov condition ensures:
+$$\frac{d}{dt}\Phi(S_t x) = -\|\nabla\Phi(S_t x)\|^2 + \langle R, \nabla\Phi \rangle \leq -\|\nabla\Phi(S_t x)\|^2$$
+Hence $\Phi$ is strictly decreasing away from critical points. The global attractor $\mathcal{A}$ consists of equilibria and connecting orbits.
+
+*Step 2 (Bounded Trajectories are Precompact).* By $K_{C_\mu}^+$ (compactness), sublevel sets $\{\Phi \leq c\}$ are precompact modulo symmetry. For any bounded trajectory, the orbit closure is compact. This is the "asymptotic compactness" condition {cite}`Temam97`.
+
+*Step 3 (Łojasiewicz-Simon Inequality Near Critical Points).* By the Łojasiewicz-Simon gradient inequality {cite}`Simon83`:
+$$\|\nabla\Phi(x)\| \geq C_{\text{LS}} |\Phi(x) - \Phi(V)|^{1-\theta}$$
+for $x$ in a neighborhood of any critical point $V$, with exponent $\theta \in (0, 1/2]$. This prevents oscillation near equilibria and ensures finite-length gradient flow curves.
+
+*Step 4 (Convergence of Trajectories to Single Equilibrium).* The Łojasiewicz-Simon inequality implies:
+$$\int_0^\infty \|\dot{S}_t x\| \, dt = \int_0^\infty \|\nabla\Phi(S_t x)\| \, dt < \infty$$
+Hence the trajectory has **finite arc length** and converges to a single limit $V^* = \lim_{t \to \infty} S_t x$. By continuity, $\nabla\Phi(V^*) = 0$.
+
+*Step 5 (Unique Invariant Measure Implies Unique Equilibrium).* For gradient flows, every equilibrium $V$ generates an invariant measure $\delta_V$ (since $S_t V = V$). If there existed distinct equilibria $V_1 \neq V_2$ in $\mathcal{A}$, then $\delta_{V_1}$ and $\delta_{V_2}$ would both be invariant measures, contradicting the uniqueness hypothesis $K_{\mathrm{TB}_\rho}^+$. Hence the attractor contains exactly one equilibrium: $\mathcal{A} \cap \{\text{equilibria}\} = \{V^*\}$. Combined with Step 4 (every trajectory converges to some equilibrium), we conclude $\mu = \delta_{V^*}$.
+
+**Literature:** {cite}`Simon83`; {cite}`Huang06`; {cite}`Raugel02`; {cite}`Temam97`
+
+---
+
+#### Backend C: Contraction / Spectral-Gap Mixing
+
+**Additional Hypotheses:**
+1. **Strictly Contractive Semigroup:** $d(S_t x, S_t y) \leq e^{-\lambda t} d(x, y)$ for some $\lambda > 0$, OR
+2. **Harris/Doeblin Condition:** For Markov dynamics, a small set $C$ with $\sup_{x \in C} \mathbb{E}_x[\tau_C] < \infty$ and minorization
+
+**Certificate:** $K_{\text{UA-C}}^+ = (K_{\mathrm{TB}_\rho}^+, \lambda > 0, K_{\text{spec-gap}})$
+
+**Proof (5 Steps):**
+
+*Step 1 (Strictly Contractive Semigroup in Metric).* Assume $d(S_t x, S_t y) \leq e^{-\lambda t} d(x, y)$ for all $x, y \in \mathcal{X}$ with contraction rate $\lambda > 0$. This is the "uniformly dissipative" condition {cite}`Temam97`. For Markov chains, the analogous condition is the Harris chain criterion with geometric drift {cite}`MeynTweedie93`:
+$$\mathcal{L}V \leq -\lambda V + b\mathbf{1}_C$$
+for a Lyapunov function $V$ and small set $C$.
+
+*Step 2 (Unique Invariant Measure / Stationary State).* Contraction implies the existence of a unique fixed point $V^* = \lim_{t \to \infty} S_t x$ for any initial condition. For measures, the pushforward satisfies:
+$$W_1(S_t^* \mu, S_t^* \nu) \leq e^{-\lambda t} W_1(\mu, \nu)$$
+in Wasserstein-1 distance. Hence there is a unique invariant measure $\mu^* = \delta_{V^*}$.
+
+*Step 3 (Spectral Gap and Mixing Rate).* If a spectral gap $\text{gap}(\mathcal{L}) \geq \lambda_{\text{sg}} > 0$ is declared (certificate $K_{\text{spec-gap}}$), then mixing-time bounds follow. For Markov semigroups, the spectral gap equals the gap between the leading eigenvalue (1 for probability-preserving) and the second eigenvalue. The mixing time satisfies:
+$$\tau_{\text{mix}}(\varepsilon) \leq \frac{1}{\lambda_{\text{sg}}} \log\left(\frac{1}{\varepsilon}\right)$$
+**Note:** The contraction rate $\lambda$ (hypothesis 1) and spectral gap $\lambda_{\text{sg}}$ are related but not generally equal; in many settings $\lambda_{\text{sg}} \leq 2\lambda$. This step is optional—uniqueness of profile follows from Steps 1-2 alone.
+
+*Step 4 (Contraction Upgrades Uniqueness to Global Attraction).* Unlike mere unique ergodicity (which only guarantees time-average convergence), contraction provides **pointwise** convergence:
+$$d(S_t x, V^*) \leq e^{-\lambda t} d(x, V^*) \to 0 \quad \text{as } t \to \infty$$
+for **all** initial conditions $x \in \mathcal{X}$. The basin of attraction of $V^*$ is the entire space.
+
+*Step 5 (Conclusion: Unique Profile with Global Attraction).* The combination of unique invariant measure $\mu^* = \delta_{V^*}$, global pointwise convergence to $V^*$, and exponential mixing implies the Profile Library reduces to a singleton: $\mathcal{L}_T = \{V^*\}$. All other profiles are transient or absent.
+
+**Literature:** {cite}`MeynTweedie93`; {cite}`HairerMattingly11`; {cite}`LevinPeresWilmer09`; {cite}`Temam97`
+
+---
+
+**Backend Selection Logic:**
+
+| Backend | Required Additional Certificates | Best For |
+|:-------:|:--------------------------------:|:--------:|
+| A | $K_{\text{lib}}$ (finite library), $\omega$-discreteness | Discrete/finite-state systems |
+| B | $K_{\mathrm{GC}_\nabla}^-$, $K_{\mathrm{LS}_\sigma}^+$, $K_{C_\mu}^+$ | Gradient flows, PDEs, geometric analysis |
+| C | $\lambda > 0$ (contraction rate) or Harris condition | Markov chains, stochastic systems, SDEs |
+
+**Application:** Resolves "multi-modal" profile ambiguity in favor of a single global attractor. Converts $K_{\text{Profile}}^{\text{multimodal}}$ to $K_{\text{Profile}}^{\text{unique}}$.
+
 :::
 
 ---
@@ -7070,28 +8209,141 @@ $$K_{C_\mu}^{\text{weak}} \wedge K_{\mathrm{LS}_\sigma}^{\text{strong}} \Rightar
 
 ### 35.4 Product-Regularity Metatheorem
 
-:::{prf:metatheorem} Product-Regularity (Composition)
+:::{prf:metatheorem} Product-Regularity (Permit Schema with Alternative Backends)
 :label: mt-product
 :class: metatheorem
 
-**Source:** Product Topology / Künneth Formulas.
+**Sieve Signature:**
+- **Required Permits (Alternative Backends):**
+  - **Backend A:** $K_{\text{Lock}}^A \wedge K_{\text{Lock}}^B \wedge K_{\mathrm{SC}_\lambda}^{\text{sub}} \wedge K_{\mathrm{CouplingSmall}}^+$ (Subcritical Scaling + Coupling Control)
+  - **Backend B:** $K_{\text{Lock}}^A \wedge K_{\text{Lock}}^B \wedge K_{D_E}^{\text{pert}} \wedge K_{\mathrm{ACP}}^+$ (Semigroup + Perturbation + ACP)
+  - **Backend C:** $K_{\text{Lock}}^A \wedge K_{\text{Lock}}^B \wedge K_{\mathrm{LS}_\sigma}^{\text{abs}}$ (Energy + Absorbability)
+- **Weakest Precondition:** $\{K_{\text{Lock}}^A, K_{\text{Lock}}^B\}$ (component regularity certified)
+- **Produces:** $K_{\text{Lock}}^{A \times B}$ (product system globally regular)
+- **Blocks:** All failure modes on product space
+- **Breached By:** Strong coupling exceeding perturbation bounds
 
-**Hypotheses.** Let $\mathcal{H}_A$ and $\mathcal{H}_B$ be two Hypostructures with:
-1. Independent regularity: $K_{\text{Lock}}^A$ and $K_{\text{Lock}}^B$ (both globally regular)
-2. A coupling term $\Phi_{\text{int}}(x_A, x_B)$ with subcritical scaling:
-   $$\alpha(\Phi_{\text{int}}) < \min(\alpha_c^A, \alpha_c^B)$$
-3. The product system $\mathcal{H}_{A \times B} = (\mathcal{X}_A \times \mathcal{X}_B, \Phi_A + \Phi_B + \Phi_{\text{int}}, \ldots)$
-
-**Statement:** If $\mathcal{H}_A$ and $\mathcal{H}_B$ are Regular and their interaction energy is Subcritical (ScaleCheck), then the product system $\mathcal{H}_{A \times B}$ is Globally Regular.
+**Context:** Product systems arise when composing verified components (e.g., Neural Net + Physics Engine, multi-scale PDE systems, coupled oscillators). The principle of **modular verification** requires that certified components remain certified under weak coupling.
 
 **Certificate Logic:**
-$$K_{\text{Lock}}^A \wedge K_{\text{Lock}}^B \wedge K_{\mathrm{SC}_\lambda}^{\text{int}} \Rightarrow K_{\text{Lock}}^{A \times B}$$
+$$K_{\text{Lock}}^A \wedge K_{\text{Lock}}^B \wedge \left((K_{\mathrm{SC}_\lambda}^{\text{sub}} \wedge K_{\mathrm{CouplingSmall}}^+) \vee (K_{D_E}^{\text{pert}} \wedge K_{\mathrm{ACP}}^+) \vee K_{\mathrm{LS}_\sigma}^{\text{abs}}\right) \Rightarrow K_{\text{Lock}}^{A \times B}$$
 
-**Proof sketch:** The product of regular systems is regular if the interaction is perturbative. The Künneth formula for homology shows $H_*(A \times B) \cong H_*(A) \otimes H_*(B)$, so topological complexity adds. The scaling condition ensures the interaction term doesn't create new singular directions. This is the principle behind modular verification: verify components separately, verify interfaces, conclude system safety.
+---
 
-**Use:** Allows building complex Hypostructures (e.g., coupled Neural Net + Physics Engine) by verifying components and coupling separately.
+#### Backend A: Subcritical Scaling
 
-**Literature:** {cite}`Kunneth23`; {cite}`EilenbergSteenrod52`; {cite}`Spanier66`
+**Hypotheses:**
+1. Component Hypostructures $\mathcal{H}_A = (\mathcal{X}_A, \Phi_A, \mathfrak{D}_A)$ and $\mathcal{H}_B = (\mathcal{X}_B, \Phi_B, \mathfrak{D}_B)$
+2. Lock certificates: $K_{\text{Lock}}^A$ and $K_{\text{Lock}}^B$ (global regularity for each)
+3. Coupling term $\Phi_{\text{int}}: \mathcal{X}_A \times \mathcal{X}_B \to \mathbb{R}$ with scaling exponent $\alpha_{\text{int}}$
+4. **Subcritical condition:** $\alpha_{\text{int}} < \min(\alpha_c^A, \alpha_c^B)$
+5. **Coupling control** (permit $K_{\mathrm{CouplingSmall}}^+$, {prf:ref}`def-permit-couplingsmall`): Dissipation domination constants $\lambda_A, \lambda_B > 0$ with $\mathfrak{D}_i \geq \lambda_i E_i$, and energy absorbability $|\dot{E}_{\text{int}}| \leq \varepsilon(E_A + E_B) + C_\varepsilon$ for some $\varepsilon < \min(\lambda_A, \lambda_B)$
+
+**Certificate:** $K_{\mathrm{SC}_\lambda}^{\text{sub}} \wedge K_{\mathrm{CouplingSmall}}^+ = (\alpha_{\text{int}}, \alpha_c^A, \alpha_c^B, \delta, \lambda_A, \lambda_B, \varepsilon, \text{absorbability witness})$
+
+**Proof (5 Steps):**
+
+*Step 1 (Scaling Structure).* Define the scaling action $\lambda \cdot (x_A, x_B) = (\lambda^{a_A} x_A, \lambda^{a_B} x_B)$ where $a_A, a_B$ are the homogeneity weights. The total height functional transforms as:
+$$\Phi_{\text{tot}}(\lambda \cdot x) = \lambda^{\alpha_A} \Phi_A(x_A) + \lambda^{\alpha_B} \Phi_B(x_B) + \lambda^{\alpha_{\text{int}}} \Phi_{\text{int}}(x_A, x_B)$$
+
+*Step 2 (Subcritical Dominance).* Since $\alpha_{\text{int}} < \min(\alpha_c^A, \alpha_c^B)$, the interaction term is asymptotically subdominant. For large $\lambda$:
+$$|\Phi_{\text{int}}(\lambda \cdot x)| \leq C \lambda^{\alpha_{\text{int}}} = o(\lambda^{\alpha_c})$$
+The interaction cannot drive blow-up faster than the natural scaling.
+
+*Step 3 (Decoupled Barrier Transfer).* The Lock certificates $K_{\text{Lock}}^A, K_{\text{Lock}}^B$ provide a priori bounds:
+$$\|u_A(t)\|_{\mathcal{X}_A} \leq M_A, \quad \|u_B(t)\|_{\mathcal{X}_B} \leq M_B \quad \forall t \geq 0$$
+Under subcritical coupling, these bounds persist with at most polynomial growth correction.
+
+*Step 4 (Energy Control).* The total energy $E_{\text{tot}} = E_A + E_B + E_{\text{int}}$ satisfies:
+$$\frac{d}{dt} E_{\text{tot}} \leq -\mathfrak{D}_A - \mathfrak{D}_B + |\dot{E}_{\text{int}}|$$
+where $\mathfrak{D}_A, \mathfrak{D}_B \geq 0$ are the dissipation rates (energy loss per unit time). Subcriticality implies $|\dot{E}_{\text{int}}| \leq \varepsilon (E_A + E_B) + C_\varepsilon$ for any $\varepsilon > 0$. Choosing $\varepsilon$ small enough that $\varepsilon < \min(\lambda_A, \lambda_B)$ (where $\mathfrak{D}_i \geq \lambda_i E_i$), the dissipation dominates the interaction.
+
+*Step 5 (Grönwall Closure + Global Existence).* Standard Grönwall inequality closes the estimate. **Product local well-posedness** follows from standard semilinear theory: component LWP (guaranteed by the Lock certificates $K_{\text{Lock}}^A, K_{\text{Lock}}^B$) extends to the product system under Lipschitz coupling with subcritical growth (Hypotheses 3-4). Combined with the uniform energy bound from Step 4, global existence follows: no singularity can form in the product space.
+
+**Literature:** Scaling analysis {cite}`Tao06`; subcritical perturbation {cite}`CazenaveSemilinear03`
+
+---
+
+#### Backend B: Semigroup + Perturbation Theory
+
+**Hypotheses:**
+1. Each component generates a $C_0$-semigroup: $T_A(t) = e^{tA_A}$ on $\mathcal{X}_A$, $T_B(t) = e^{tA_B}$ on $\mathcal{X}_B$
+2. Global bounds: $\|T_A(t)\| \leq M_A e^{\omega_A t}$, $\|T_B(t)\| \leq M_B e^{\omega_B t}$ with $\omega_A, \omega_B \leq 0$ (dissipative)
+3. Coupling operator $B: D(A_A) \times D(A_B) \to \mathcal{X}_A \times \mathcal{X}_B$ is either:
+   - (i) **Bounded:** $\|B\| < \infty$, or
+   - (ii) **$A$-relatively bounded:** $\|Bx\| \leq a\|(A_A \oplus A_B)x\| + b\|x\|$ with $a < 1$
+4. Lock certificates translate to: trajectories remain in generator domain
+5. **Abstract Cauchy Problem formulation** (permit $K_{\mathrm{ACP}}^+$, {prf:ref}`def-permit-acp`): The product dynamics are represented by the abstract Cauchy problem $\dot{u} = Au$, $u(0) = u_0$ on state space $X = \mathcal{X}_A \times \mathcal{X}_B$ with generator $A = A_A \oplus A_B + B$ and domain $D(A) \supseteq D(A_A) \times D(A_B)$
+
+**Certificate:** $K_{D_E}^{\text{pert}} \wedge K_{\mathrm{ACP}}^+ = (A_A, A_B, B, \text{perturbation type}, X, D(A), \text{mild/strong equivalence})$
+
+**Proof (5 Steps):**
+
+*Step 1 (Product Semigroup).* On $\mathcal{X} = \mathcal{X}_A \times \mathcal{X}_B$, the uncoupled generator $A_0 = A_A \oplus A_B$ generates $T_0(t) = T_A(t) \times T_B(t)$ with:
+$$\|T_0(t)\| \leq M_A M_B e^{\max(\omega_A, \omega_B) t}$$
+
+*Step 2 (Perturbation Classification).* The total generator is $A = A_0 + B$ where $B$ represents coupling. By hypothesis, $B$ is either bounded or relatively bounded with bound $< 1$.
+
+*Step 3 (Perturbation Theorem Application).*
+- If $B$ bounded: **Bounded Perturbation Theorem** (Pazy, Theorem 3.1.1) yields $A$ generates $C_0$-semigroup.
+- If $B$ relatively bounded with $a < 1$: **Relatively Bounded Perturbation** (Engel-Nagel, III.2.10) yields same.
+
+*Step 4 (A Priori Bounds from Lock).* The Lock certificates provide:
+$$\sup_{t \in [0,T]} \|(u_A(t), u_B(t))\|_{D(A_0)} < \infty$$
+Standard semigroup theory: if $u(t) \in D(A)$ initially and $A$ generates $C_0$-semigroup, solution exists globally.
+
+*Step 5 (Conclusion).* The perturbed semigroup $e^{tA}$ is globally defined on $\mathcal{X}_A \times \mathcal{X}_B$. No finite-time blow-up.
+
+**Literature:** Semigroup theory {cite}`EngelNagel00`; perturbation of generators {cite}`Pazy83`; coupled parabolic systems {cite}`Cardanobile10`
+
+---
+
+#### Backend C: Energy + Absorbability
+
+**Hypotheses:**
+1. Coercive Lyapunov/energy functionals $E_A: \mathcal{X}_A \to \mathbb{R}$, $E_B: \mathcal{X}_B \to \mathbb{R}$:
+   $$E_A(u) \geq c_A \|u\|_{\mathcal{X}_A}^p - C_A, \quad E_B(v) \geq c_B \|v\|_{\mathcal{X}_B}^q - C_B$$
+2. Dissipation structure from Lock certificates:
+   $$\frac{d}{dt} E_A \leq -\lambda_A E_A + d_A, \quad \frac{d}{dt} E_B \leq -\lambda_B E_B + d_B$$
+3. **Absorbability condition:** The coupling contribution to energy evolution satisfies:
+   $$\left|\frac{d}{dt}\Phi_{\text{int}}(u(t), v(t))\right| \leq \varepsilon (E_A(u) + E_B(v)) + C_\varepsilon$$
+   for some $\varepsilon < \min(\lambda_A, \lambda_B)$. (This bounds the *rate* of energy exchange, not the potential itself.)
+
+**Certificate:** $K_{\mathrm{LS}_\sigma}^{\text{abs}} = (E_A, E_B, \lambda_A, \lambda_B, \varepsilon, \text{absorbability witness})$
+
+**Proof (5 Steps):**
+
+*Step 1 (Total Energy Construction).* Define $E_{\text{tot}} = E_A + E_B$. By coercivity:
+$$E_{\text{tot}}(u, v) \geq c_{\min}(\|u\|^p + \|v\|^q) - C_{\max}$$
+This controls the product norm.
+
+*Step 2 (Energy Evolution).* The time derivative:
+$$\frac{d}{dt} E_{\text{tot}} = \frac{d}{dt} E_A + \frac{d}{dt} E_B + \underbrace{\text{coupling contribution}}_{\leq \varepsilon E_{\text{tot}} + C_\varepsilon}$$
+
+*Step 3 (Grönwall Closure).* Combining dissipation and absorbability:
+$$\frac{d}{dt} E_{\text{tot}} \leq -(\lambda_{\min} - \varepsilon) E_{\text{tot}} + C$$
+where $\lambda_{\min} = \min(\lambda_A, \lambda_B)$. Since $\varepsilon < \lambda_{\min}$, the coefficient is negative.
+
+*Step 4 (Global Bound).* Standard Grönwall inequality:
+$$E_{\text{tot}}(t) \leq E_{\text{tot}}(0) e^{-(\lambda_{\min} - \varepsilon)t} + \frac{C}{\lambda_{\min} - \varepsilon}$$
+Bounded uniformly in time.
+
+*Step 5 (Conclusion + Global Existence).* Coercivity translates energy bound to norm bound. **Product local well-posedness** follows from standard energy-space theory: the coercive energy bounds (Hypothesis 1) provide control of the state space norms, and the Lipschitz coupling control implicit in the absorbability condition (Hypothesis 3) ensures local existence extends from components to the product. Combined with the uniform bound from Step 4, global existence follows.
+
+**Literature:** Grönwall inequalities {cite}`Gronwall19`; energy methods {cite}`Lions69`; dissipative systems {cite}`Temam97`
+
+---
+
+**Backend Selection Logic:**
+
+| Backend | Required Certificates | Best For |
+|:-------:|:--------------------:|:--------:|
+| A | $K_{\mathrm{SC}_\lambda}^{\text{sub}}$ (subcritical exponent) | Scaling-critical PDEs, dispersive equations |
+| B | $K_{D_E}^{\text{pert}}$ (semigroup perturbation) | Linear/semilinear PDEs, evolution systems |
+| C | $K_{\mathrm{LS}_\sigma}^{\text{abs}}$ (energy absorbability) | Dissipative systems, thermodynamic applications |
+
+**Use:** Allows building complex Hypostructures by verifying components and coupling separately. The three backends accommodate different proof styles: scaling-based (A), operator-theoretic (B), and energy-based (C).
+
 :::
 
 ---
@@ -7232,44 +8484,7 @@ then Interface Permit $\mathrm{Rep}_K(T, Z)$ holds, and hence the conjecture for
 
 ---
 
-### 36.3 Profile Classification Trichotomy
-
-:::{prf:metatheorem} Profile Classification Trichotomy (MT 14.1)
-:label: mt-imported-profile-trichotomy
-:class: metatheorem
-
-**Source:** Hypostructure MT 14.1 (Surgery and Recovery)
-
-**Sieve Target:** Node 11 (ComplexCheck) — formal classification into Library/Tame/Horizon
-
-**Statement:** When compactness holds ($K_3^+$), the profile extraction procedure classifies every canonical profile $V$ into exactly one of three categories:
-
-| **Category** | **Structure** | **Complexity** |
-|--------------|---------------|----------------|
-| Finite Library | $V \in \{V_1, \ldots, V_N\}$ | Finite, enumerable |
-| Tame Stratification | $V$ lies in o-minimal definable family | Infinite but tame |
-| Horizon | $V$ not finitely describable | Complexity barrier |
-
-**Hypotheses:**
-1. Compactness: $K_3^+$ (concentration occurs)
-2. Profile extraction: canonical limiting profile $V$ exists
-3. O-minimal structure on parameter space
-
-**Proof:**
-*Step 1 (Finiteness test).* Check if the extracted profile $V$ belongs to a finite library of known profiles. If yes → Finite Library.
-
-*Step 2 (Tameness test).* Check if $V$ lies in a definable family with respect to an o-minimal structure $\mathcal{O}$ (e.g., $\mathbb{R}_{\text{an,exp}}$). By the cell decomposition theorem, definable families have finite stratifications. If yes → Tame Stratification.
-
-*Step 3 (Horizon case).* If neither test succeeds, the profile exhibits complexity beyond finite description → Horizon. This indicates a semantic boundary where the Sieve cannot proceed without additional structure.
-
-**Certificate Produced:** $K_{11}^{\text{lib}}$, $K_{11}^{\text{tame}}$, or $K_{11}^{\text{horizon}}$
-
-**Literature:** {cite}`vandenDries98`; {cite}`Kurdyka98`; {cite}`CosteRoy88`; {cite}`Wilkie96`
-:::
-
----
-
-### 36.4 Equivariance of Trainable Hypostructures
+### 36.3 Equivariance of Trainable Hypostructures
 
 :::{prf:metatheorem} Equivariance (MT 13.57 / SV-08)
 :label: mt-imported-equivariance
@@ -8094,7 +9309,7 @@ The following table provides the complete mapping from Sieve components to their
 |---------------------|------------------------|-----------------|------------------------|
 | Node 17 (Lock) | MT 8.11.N (Structural Exclusion) | $K_{\text{Lock}}^{\text{blk}}$ | Grothendieck, Mac Lane |
 | Node 3 (CompactCheck) | MT 5.1 (Structural Resolution) | Trichotomy | Lions, Kenig-Merle |
-| Node 11 (ComplexCheck) | MT 14.1 (Profile Trichotomy) | $K_{11}^{\text{lib/tame/horizon}}$ | van den Dries, Kurdyka |
+| Node 11 (ComplexCheck) | MT 14.1 (Profile Trichotomy) | $K_{11}^{\text{lib/tame/inc}}$ | van den Dries, Kurdyka |
 | Meta-Learning | MT 13.57 (Equivariance) | $K_{\text{SV08}}^+$ | Noether, Cohen-Welling |
 
 ### 40.2 Gate Evaluator Cross-Reference
@@ -8315,7 +9530,7 @@ graph TD
 
     BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
     BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
-    BarrierExclusion -- "Horizon: Khor_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
+    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
     ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
     ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
 
@@ -8987,7 +10202,7 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
   - $K_{C_\mu}^+$ (concentration on finite-dimensional profile space)
   - $K_{\mathrm{SC}_\lambda}^+$ (subcritical scaling exponents)
   - $K_{\mathrm{LS}_\sigma}^+$ (Łojasiewicz-Simon gradient inequality)
-  - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{Horizon}}$ (tactic exhaustion at Node 17 with partial progress)
+  - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ (tactic exhaustion at Node 17 with partial progress)
   - $K_{\text{Bridge}}$ (critical symmetry $\Lambda$ descends from $\mathcal{A}$ to $\mathcal{S}$)
   - $K_{\text{Rigid}}$ (subcategory $\langle\Lambda\rangle_{\mathcal{S}}$ satisfies semisimplicity, tameness, or spectral gap)
 - **Produces:** $K_{\text{Rec}}^+$ (constructive dictionary $D_{\text{Rec}}: \mathcal{A} \to \mathcal{S}$ with Hom isomorphism, Lock resolution)
@@ -8999,7 +10214,7 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
 - $K_{\mathrm{SC}_\lambda}^+$: Scaling exponents $(\alpha, \beta)$ satisfy subcriticality: $\alpha < \beta + \lambda_c$
 - $K_{\mathrm{LS}_\sigma}^+$: Łojasiewicz-Simon gradient inequality holds: $\|\nabla\Phi\| \geq C|\Phi - \Phi_{\min}|^\theta$ with $\theta \in (0,1)$
 
-- $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{Horizon}}$: Tactics E1-E12 fail at Node 17 with partial progress indicators:
+- $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$: Tactics E1-E12 fail at Node 17 with partial progress indicators:
   - Dimension bounds: $\dim \text{Hom}_{\mathcal{A}}(\mathcal{H}_{\text{bad}}, \mathcal{X}) \leq d_{\max}$ (via $K_{C_\mu}^+$)
   - Invariant constraints: $\mathcal{H}_{\text{bad}}$ annihilated by cone $\mathcal{C} \subset \text{End}(\mathcal{X})$
   - Obstruction witness: Critical symmetry group $G_{\text{crit}} \subseteq \text{Aut}(\mathcal{X})$
@@ -9028,9 +10243,9 @@ satisfying the following properties:
    - Finite representation: $|F_{\text{Rec}}(X)| < \infty$ for all $X \in \mathcal{A}$ (guaranteed by $K_{C_\mu}^+$)
    - Effectiveness: $F_{\text{Rec}}$ is computable given the input certificates
 
-3. **Lock Resolution:** The horizon at Node 17 is decidable:
-   $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{Horizon}} \wedge K_{\text{Bridge}} \wedge K_{\text{Rigid}} \Longrightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$$
-   where verdict $\in \{\text{blk}, \text{morph}\}$.
+3. **Lock Resolution:** The inconclusive verdict at Node 17 is resolvable:
+   $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}} \wedge K_{\text{Bridge}} \wedge K_{\text{Rigid}} \Longrightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$$
+   where verdict $\in \{\text{blk}, \text{br-wit}\}$ (blocked or breached-with-witness).
 
 4. **Type Universality:** The construction is uniform across hypostructure types $T \in \{T_{\text{alg}}, T_{\text{para}}, T_{\text{quant}}\}$.
 
@@ -9040,7 +10255,7 @@ satisfying the following properties:
 
 **Proof (7 Steps):**
 
-*Step 1 (Horizon certificate analysis).* The certificate $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{Horizon}}$ records that tactics E1-E12 have been exhausted at Node 17 without determining whether $\text{Hom}_{\mathcal{A}}(\mathcal{H}_{\text{bad}}, \mathcal{X}) = \emptyset$. The upstream certificates $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$ provide **partial progress data**:
+*Step 1 (Breached-inconclusive certificate analysis).* The certificate $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ records that tactics E1-E12 have been exhausted at Node 17 without determining whether $\text{Hom}_{\mathcal{A}}(\mathcal{H}_{\text{bad}}, \mathcal{X}) = \emptyset$. The upstream certificates $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$ provide **partial progress data**:
 
 - **Dimension bounds** (from $K_{C_\mu}^+$): $\dim \text{Hom}_{\mathcal{A}}(\mathcal{H}_{\text{bad}}, \mathcal{X}) \leq d_{\max}$ via concentration on $\mathcal{P}$
 - **Scaling constraints** (from $K_{\mathrm{SC}_\lambda}^+$): The exponents $(\alpha, \beta)$ stratify the Hom-space by weight
@@ -9168,7 +10383,7 @@ The sieve issues certificate $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{morph}}$ wi
 - *Parabolic:* O-minimal cell decomposition is effective ({cite}`vandenDries98`, Thm. 1.8.1); profile matching uses $K_{C_\mu}^+$
 - *Quantum:* Spectral projections are computable for discrete spectrum ({cite}`ReedSimon78`); gap from $K_{\text{Rigid}}$ ensures isolation
 
-The horizon is resolved: **partial progress (from $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$) + structural symmetry ($K_{\text{Bridge}}$) + rigidity ($K_{\text{Rigid}}$) = decidable answer**.
+The inconclusive verdict is resolved: **partial progress (from $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$) + structural symmetry ($K_{\text{Bridge}}$) + rigidity ($K_{\text{Rigid}}$) = decidable answer**.
 
 *Step 7 (Certificate assembly).* Construct the output certificate incorporating all upstream permit data:
 $$K_{\text{Rec}}^+ = \left(F_{\text{Rec}}, \Phi_{\text{Rec}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}, T, D_{\text{Rec}}\right)$$
@@ -9190,6 +10405,23 @@ $$K_{\text{Rec}}^+ = \left(F_{\text{Rec}}, \Phi_{\text{Rec}}, K_{\mathrm{Cat}_{\
 - *Dispersive PDEs:* {cite}`KenigMerle06`; {cite}`MerleZaag98`; {cite}`DKM19`
 - *Spectral Theory:* {cite}`Simon83`; {cite}`ReedSimon78`; {cite}`Kato95`; {cite}`GlimmJaffe87`; {cite}`FSS76`
 - *Algebraic Geometry:* {cite}`Kleiman68`; {cite}`Humphreys72`
+:::
+
+:::{prf:remark} Reconstruction uses obligation ledgers
+:label: rem-rec-uses-ledger
+
+When MT 42.1 is invoked (from any $K^{\mathrm{inc}}$ route, particularly $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$), its input includes the **obligation ledger** $\mathsf{Obl}(\Gamma)$ (Definition {prf:ref}`def-obligation-ledger`).
+
+The reconstruction procedure must produce one of the following outcomes:
+1. **New certificates that discharge entries:** MT 42.1 produces $K_{\text{Bridge}}$, $K_{\text{Rigid}}$, and ultimately $K_{\text{Rec}}^+$, which enable inc-upgrades (Definition {prf:ref}`def-inc-upgrades`) to fire during closure, discharging relevant $K^{\mathrm{inc}}$ entries from the ledger.
+
+2. **Refined missing set:** If full discharge is not possible, MT 42.1 may refine the $\mathsf{missing}$ component of existing $K^{\mathrm{inc}}$ certificates into a strictly more explicit set of prerequisites—smaller template requirements, stronger preconditions, or more specific structural data. This refinement produces a new $K^{\mathrm{inc}}$ with updated payload.
+
+**Formalization:**
+$$\text{MT 42.1}: \mathsf{Obl}(\Gamma) \to \left(\{K^+_{\text{new}}\} \text{ enabling discharge}\right) \cup \left(\mathsf{Obl}'(\Gamma) \text{ with refined } \mathsf{missing}\right)$$
+
+This ensures reconstruction makes definite progress: either discharging obligations or producing a strictly refined $\mathsf{missing}$ specification.
+
 :::
 
 ---
@@ -9220,7 +10452,7 @@ The following table summarizes how the Structural Reconstruction Principle insta
 :::{prf:corollary} Bridge-Rigidity Dichotomy
 :label: cor-bridge-rigidity
 
-If $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{Horizon}}$ is issued at Node 17 (with upstream certificates $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$ satisfied), then exactly one of the following holds:
+If $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ is issued at Node 17 (with upstream certificates $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$ satisfied), then exactly one of the following holds:
 
 1. **Bridge Certificate obtainable:** $K_{\text{Bridge}}$ can be established, and the Lock resolves via MT 42.1 producing $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$
 2. **Bridge obstruction identified:** The failure of $K_{\text{Bridge}}$ provides a new certificate $K_{\text{Bridge}}^-$ containing:
@@ -9432,11 +10664,12 @@ The following notation is used consistently throughout this document. Symbols ar
 | Symbol | Meaning |
 |--------|---------|
 | $K^+$ | Positive certificate (predicate holds) |
-| $K^-$ | Negative certificate (predicate fails) |
+| $K^-$ | Negative certificate (sum type: $K^{\mathrm{wit}} \sqcup K^{\mathrm{inc}}$) |
+| $K^{\mathrm{wit}}$ | NO-with-witness certificate (actual refutation / counterexample found) |
+| $K^{\mathrm{inc}}$ | NO-inconclusive certificate (method insufficient, not a semantic refutation) |
 | $K^{\text{blk}}$ | Blocked certificate (barrier holds, obstruction present) |
-| $K^{\text{br}}$ | Breached certificate (barrier fails, requires surgery) |
+| $K^{\text{br}}$ | Breached certificate (barrier fails: $K^{\mathrm{br\text{-}wit}}$ or $K^{\mathrm{br\text{-}inc}}$) |
 | $K^{\text{re}}$ | Re-entry certificate (surgery completed successfully) |
-| $K^{\text{hor}}$ | Horizon certificate (undecidable / computational limit) |
 | $\Gamma$ | Certificate accumulator (full chain of certificates) |
 
 ## Categorical Notation
