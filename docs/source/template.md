@@ -20,6 +20,18 @@ status: "[Draft/Final]"
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{[type]}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for **[PROBLEM NAME]** using the Hypostructure framework.
@@ -1304,14 +1316,36 @@ Before declaring the proof object complete, verify:
 
 **Validity Status:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF
 
-### **4.2 Context Accumulation Trace**
+### **4.2 Certificate Accumulation Trace**
 
-**Final Γ:**
-$$\Gamma_{\text{final}} = \{K_{\text{Init}}^+, K_{D_E}^{?}, K_{\mathrm{Rec}_N}^{?}, \ldots, K_{\text{Lock}}^{?}\}$$
+```
+Node 1:  K_{D_E}^? (energy-dissipation)
+Node 2:  K_{Rec_N}^? (recovery/surgeries)
+Node 3:  K_{C_μ}^? (compactness)
+Node 4:  K_{SC_λ}^? (scaling)
+Node 5:  K_{SC_∂c}^? (parameters)
+Node 6:  K_{Cap_H}^? (capacity/geometry)
+Node 7:  K_{LS_σ}^? (stiffness)
+Node 8:  K_{TB_π}^? (topology)
+Node 9:  K_{TB_O}^? (tameness)
+Node 10: K_{TB_ρ}^? (mixing)
+Node 11: K_{Rep_K}^? (complexity)
+Node 12: K_{GC_∇}^? (gradient)
+Node 13: K_{Bound_∂}^? (boundary)
+---
+[Surgery: K_{Surg}^? if applicable]
+[Re-Entry: K^{re}_{...} if applicable]
+---
+Node 17: K_{Cat_Hom}^? (Lock)
+```
 
-*Replace ? with actual certificate type (+, blk, inc, etc.)*
+*Replace ? with actual certificate type (+, -, blk, inc, br, etc.)*
 
-### **4.3 Conclusion**
+### **4.3 Final Certificate Set**
+
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{?}, K_{\mathrm{Rec}_N}^{?}, K_{C_\mu}^{?}, K_{\mathrm{SC}_\lambda}^{?}, K_{\mathrm{SC}_{\partial c}}^{?}, K_{\mathrm{Cap}_H}^{?}, K_{\mathrm{LS}_\sigma}^{?}, K_{\mathrm{TB}_\pi}^{?}, K_{\mathrm{TB}_O}^{?}, K_{\mathrm{TB}_\rho}^{?}, K_{\mathrm{Rep}_K}^{?}, K_{\mathrm{GC}_\nabla}^{?}, K_{\mathrm{Bound}_\partial}^{?}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{?}\}$$
+
+### **4.4 Conclusion**
 
 **Conclusion:** The Conjecture is [TRUE / FALSE / UNDECIDABLE / CONDITIONAL].
 
@@ -1378,15 +1412,30 @@ $$\therefore \text{[CLAIM]} \quad \square$$
 
 ---
 
-## **Document Information**
+## Appendix: Replay Bundle (Machine-Checkability)
+
+This proof object is replayed by providing:
+1. `trace.json`: ordered node outcomes
+2. `certs/`: serialized certificates with payload hashes
+3. `inputs.json`: thin objects and initial-state hash
+4. `closure.cfg`: promotion/closure settings
+
+**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
+
+---
+
+## Document Information
 
 | Field | Value |
 |-------|-------|
-| **Generated** | [Date/Time] |
+| **Document Type** | Proof Object |
 | **Framework** | Hypostructure v1.0 |
-| **Certificate Chain** | Verified: [ ] YES / [ ] NO |
-| **Obligation Ledger** | Status: [ ] EMPTY / [ ] NON-EMPTY |
-| **Proof Status** | [ ] Draft / [ ] Final |
+| **Problem Class** | [e.g., Classical PDE, Open Problem] |
+| **System Type** | $T_{\text{[type]}}$ |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | [N] introduced, [M] discharged |
+| **Final Status** | [ ] Draft / [ ] Final |
+| **Generated** | [YYYY-MM-DD] |
 
 ---
 

@@ -163,7 +163,7 @@ The Boundary Operator is not merely a geometric edge—it is a **Functor** betwe
    - **Singularity** (internal blow-up, $\text{coker}(\text{Tr})$ trivial)
    - **Injection** (external forcing, $\|\mathcal{J}\|_\infty \to \infty$)
 
-   Node 13 checks that $\text{Tr}$ is not an equivalence (system is open). Nodes 14-15 verify that $\mathcal{J}$ factors through a bounded subobject.
+   {prf:ref}`def-node-boundary` checks that $\text{Tr}$ is not an equivalence (system is open). {prf:ref}`def-node-overload` and {prf:ref}`def-node-starve` verify that $\mathcal{J}$ factors through a bounded subobject.
 
 3. **Surgery Interface (Cobordism):** In Metatheorem 16.1 (Structural Surgery), $\partial_\bullet$ defines the gluing interface in $\mathbf{Bord}_n$:
    - **Cutting:** The excision defines a cobordism $W$ with $\partial W = \Sigma$
@@ -219,7 +219,7 @@ This categorical perspective explains why the Sieve construction is **canonical*
 
 ### The Resolution of the Compactness Critique
 
-The framework does **not** assume Axiom C (Compactness). Instead, **Node 3 (CompactCheck)** performs a runtime dichotomy check on the Thin Objects:
+The framework does **not** assume Axiom C (Compactness). Instead, **{prf:ref}`def-node-compact`** performs a runtime dichotomy check on the Thin Objects:
 
 :::{prf:theorem} Compactness Resolution
 :label: thm-compactness-resolution
@@ -247,7 +247,7 @@ The Hypostructure $\mathbb{H}$ is valid if it satisfies the following structural
 The energy-dissipation inequality holds:
 $$\Phi(S_t x) + \int_0^t \mathfrak{D}(S_s x) \, ds \leq \Phi(x)$$
 
-**Enforced by:** Node 1 (EnergyCheck) — Certificate $K_{D_E}^+$
+**Enforced by:** {prf:ref}`def-node-energy` — Certificate $K_{D_E}^+$
 :::
 
 :::{prf:axiom} Axiom Rec (Recovery)
@@ -255,7 +255,7 @@ $$\Phi(S_t x) + \int_0^t \mathfrak{D}(S_s x) \, ds \leq \Phi(x)$$
 
 Discrete events are finite: $N(J) < \infty$ for any bounded interval $J$.
 
-**Enforced by:** Node 2 (ZenoCheck) — Certificate $K_{\text{Rec}_N}^+$
+**Enforced by:** {prf:ref}`def-node-zeno` — Certificate $K_{\text{Rec}_N}^+$
 :::
 
 ## 7. Duality Constraints
@@ -266,7 +266,7 @@ Discrete events are finite: $N(J) < \infty$ for any bounded interval $J$.
 Bounded energy sequences admit convergent subsequences modulo the symmetry group $G$:
 $$\sup_n \Phi(u_n) < \infty \implies \exists (n_k), g_k \in G: g_k \cdot u_{n_k} \to u_\infty$$
 
-**Enforced by:** Node 3 (CompactCheck) — Certificate $K_{C_\mu}^+$ (or dispersion via $K_{C_\mu}^-$)
+**Enforced by:** {prf:ref}`def-node-compact` — Certificate $K_{C_\mu}^+$ (or dispersion via $K_{C_\mu}^-$)
 :::
 
 :::{prf:axiom} Axiom SC (Scaling)
@@ -274,7 +274,7 @@ $$\sup_n \Phi(u_n) < \infty \implies \exists (n_k), g_k \in G: g_k \cdot u_{n_k}
 
 Dissipation scales faster than time: $\alpha > \beta$, where $\alpha$ is the energy scaling dimension and $\beta$ is the dissipation scaling dimension.
 
-**Enforced by:** Node 4 (ScaleCheck) — Certificate $K_{SC_\lambda}^+$
+**Enforced by:** {prf:ref}`def-node-scale` — Certificate $K_{SC_\lambda}^+$
 :::
 
 ## 8. Symmetry Constraints
@@ -286,7 +286,7 @@ The Łojasiewicz-Simon inequality holds near equilibria, ensuring a mass gap:
 $$\inf \sigma(L) > 0$$
 where $L$ is the linearized operator at equilibrium.
 
-**Enforced by:** Node 7 (StiffnessCheck) — Certificate $K_{LS_\sigma}^+$
+**Enforced by:** {prf:ref}`def-node-stiffness` — Certificate $K_{LS_\sigma}^+$
 :::
 
 :::{prf:axiom} Axiom GC (Gradient Consistency)
@@ -294,7 +294,7 @@ where $L$ is the linearized operator at equilibrium.
 
 Gauge invariance and metric compatibility: the control $T(u)$ matches the disturbance $d$.
 
-**Enforced by:** Node 16 (AlignCheck) — Certificate $K_{GC_T}^+$
+**Enforced by:** {prf:ref}`def-node-align` — Certificate $K_{GC_T}^+$
 :::
 
 ## 9. Topology Constraints
@@ -305,7 +305,7 @@ Gauge invariance and metric compatibility: the control $T(u)$ matches the distur
 Topological sectors are separated by an action gap:
 $$[\pi] \in \pi_0(\mathcal{C})_{\text{acc}} \implies E < S_{\min} + \Delta$$
 
-**Enforced by:** Node 8 (TopoCheck) — Certificate $K_{TB_\pi}^+$
+**Enforced by:** {prf:ref}`def-node-topo` — Certificate $K_{TB_\pi}^+$
 :::
 
 :::{prf:axiom} Axiom Cap (Capacity)
@@ -314,7 +314,7 @@ $$[\pi] \in \pi_0(\mathcal{C})_{\text{acc}} \implies E < S_{\min} + \Delta$$
 Capacity density bounds prevent concentration on thin sets:
 $$\text{codim}(S) \geq 2 \implies \text{Cap}_H(S) = 0$$
 
-**Enforced by:** Node 6 (GeomCheck) — Certificate $K_{\text{Cap}_H}^+$
+**Enforced by:** {prf:ref}`def-node-geom` — Certificate $K_{\text{Cap}_H}^+$
 :::
 
 ## 10. Boundary Constraints
@@ -325,13 +325,13 @@ The Boundary Constraints enforce coupling between bulk dynamics and environmenta
 :label: ax-boundary
 
 The system's boundary morphisms satisfy:
-- $\mathbf{Bound}_\partial$: $\text{Tr}: \mathcal{X} \to \mathcal{B}$ is not an equivalence (open system) — Node 13
-- $\mathbf{Bound}_B$: $\mathcal{J}$ factors through a bounded subobject $\mathcal{J}: \mathcal{B} \to \underline{[-M, M]}$ — Node 14
-- $\mathbf{Bound}_{\Sigma}$: The integral $\int_0^T \mathcal{J}_{\text{in}}$ exists as a morphism in $\text{Hom}(\mathbf{1}, \underline{\mathbb{R}}_{\geq r_{\min}})$ — Node 15
+- $\mathbf{Bound}_\partial$: $\text{Tr}: \mathcal{X} \to \mathcal{B}$ is not an equivalence (open system) — {prf:ref}`def-node-boundary`
+- $\mathbf{Bound}_B$: $\mathcal{J}$ factors through a bounded subobject $\mathcal{J}: \mathcal{B} \to \underline{[-M, M]}$ — {prf:ref}`def-node-overload`
+- $\mathbf{Bound}_{\Sigma}$: The integral $\int_0^T \mathcal{J}_{\text{in}}$ exists as a morphism in $\text{Hom}(\mathbf{1}, \underline{\mathbb{R}}_{\geq r_{\min}})$ — {prf:ref}`def-node-starve`
 - $\mathbf{Bound}_{\mathcal{R}}$: The **reinjection diagram** commutes:
   $$\mathcal{J}_{\text{out}} \simeq \mathcal{J}_{\text{in}} \circ \mathcal{R} \quad \text{in } \text{Hom}_{\mathcal{E}}(\mathcal{B}, \underline{\mathbb{R}})$$
 
-**Enforced by:** Nodes 13-16 (BoundaryCheck, OverloadCheck, StarveCheck, AlignCheck)
+**Enforced by:** {prf:ref}`def-node-boundary`, {prf:ref}`def-node-overload`, {prf:ref}`def-node-starve`, {prf:ref}`def-node-align`
 :::
 
 :::{prf:remark} Reinjection Boundaries (Fleming-Viot)
@@ -343,8 +343,8 @@ When $\mathcal{R} \not\simeq 0$, the boundary acts as a **non-local transport mo
 - **Piecewise Deterministic Markov Processes:** $\mathcal{R}$ is a morphism in the Kleisli category of the probability monad
 
 The Sieve verifies regularity by checking **Axiom Rec** at the boundary:
-1. **Node 13:** Detects that $\mathcal{J} \neq 0$ (non-trivial exit flux)
-2. **Node 15 (StarveCheck):** Verifies $\mathcal{R}$ preserves the **total mass section** ($K_{\text{Mass}}^+$)
+1. **{prf:ref}`def-node-boundary`:** Detects that $\mathcal{J} \neq 0$ (non-trivial exit flux)
+2. **{prf:ref}`def-node-starve`:** Verifies $\mathcal{R}$ preserves the **total mass section** ($K_{\text{Mass}}^+$)
 
 Categorically, this defines a **non-local boundary condition** as a span:
 $$\mathcal{X} \xleftarrow{\text{Tr}} \mathcal{B} \xrightarrow{\mathcal{R}} \mathcal{P}(\mathcal{X})$$
@@ -411,7 +411,7 @@ where $f_{\mathrm{wit}}: K_P^{\mathrm{wit}} \to X$ and $f_{\mathrm{inc}}: K_P^{\
 
 The Sieve branches on certificate kind via case analysis:
 - **NO with $K^{\mathrm{wit}}$** $\mapsto$ Fatal route (structural inconsistency confirmed; no reconstruction possible)
-- **NO with $K^{\mathrm{inc}}$** $\mapsto$ Reconstruction route (invoke MT 42.1; add interface/refine library/extend templates)
+- **NO with $K^{\mathrm{inc}}$** $\mapsto$ Reconstruction route (invoke {prf:ref}`mt-structural-reconstruction`; add interface/refine library/extend templates)
 
 This design maintains **proof-theoretic honesty**:
 - The verdict is always in $\{$YES, NO$\}$—classical two-valued logic
@@ -774,7 +774,7 @@ The flow proceeds by **Iterative Obstruction Theory**:
 
 3. **Surgery as Cobordism:** The dotted "Surgery" loops represent the active cancellation of a non-trivial cohomology class (the singularity) via geometric modification. These are **Pushouts** in the category of manifolds—changing topology to bypass obstructions.
 
-4. **Convergence to the Limit:** The **Cohomological Obstruction** (Node 17) verifies that the **Inverse Limit** of this tower is the empty set—i.e., all obstruction classes vanish—thereby proving $\mathrm{Sing}(\Phi) = \emptyset$.
+4. **Convergence to the Limit:** The **Cohomological Obstruction** ({prf:ref}`def-node-lock`) verifies that the **Inverse Limit** of this tower is the empty set—i.e., all obstruction classes vanish—thereby proving $\mathrm{Sing}(\Phi) = \emptyset$.
 
 5. **The Structure Sheaf:** The accumulation of certificates $\Gamma$ forms a **Structure Sheaf** $\mathcal{O}_{\mathrm{Reg}}$ over the trajectory space. A "Victory" is a proof that the **Global Sections** of the singularity sheaf vanish.
 :::
@@ -821,7 +821,7 @@ To instantiate the sieve for a specific system, one must implement each projecti
 :::{prf:remark} Interface Composition
 :label: rem-interface-composition
 
-Barrier checks compose multiple interfaces. For example, the **Saturation Barrier** at Node 1 combines the energy interface $D_E$ with a drift control predicate. Surgery admissibility checks (the light purple diamonds) query the same interfaces as their parent gates but with different predicates.
+Barrier checks compose multiple interfaces. For example, the **Saturation Barrier** at {prf:ref}`def-node-energy` combines the energy interface $D_E$ with a drift control predicate. Surgery admissibility checks (the light purple diamonds) query the same interfaces as their parent gates but with different predicates.
 :::
 
 ## Barrier Registry: Secondary Obstruction Classes
@@ -1054,8 +1054,8 @@ with certificate types:
 :label: rem-dichotomy
 
 Some gates are **dichotomy classifiers** where NO is a benign branch rather than an error:
-- **CompactCheck (Node 3)**: NO = scattering $\to$ global existence (Mode D.D)
-- **OscillateCheck (Node 12)**: NO = no oscillation $\to$ proceed to boundary checks
+- **{prf:ref}`def-node-compact`**: NO = scattering $\to$ global existence (Mode D.D)
+- **{prf:ref}`def-node-oscillate`**: NO = no oscillation $\to$ proceed to boundary checks
 For these gates, $K^-$ represents a classification outcome, not a failure certificate.
 
 :::
@@ -1281,7 +1281,7 @@ The framework produces explicit **NO-inconclusive certificates** ($K^{\mathrm{in
 - **Promotion Closure**: $K_{\mathrm{Promo}}^{\mathrm{inc}}$ recording non-termination under budget
 - **Lock (E1--E12 fail)**: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ with tactic exhaustion trace
 
-The certificate structure (Definition {prf:ref}`def-typed-no-certificates`) ensures these are first-class outputs rather than silent failures. When $K^{\mathrm{inc}}$ is produced, the Sieve routes to reconstruction (MT 42.1) rather than fatal error, since inconclusiveness does not imply existence of a counterexample.
+The certificate structure (Definition {prf:ref}`def-typed-no-certificates`) ensures these are first-class outputs rather than silent failures. When $K^{\mathrm{inc}}$ is produced, the Sieve routes to reconstruction ({prf:ref}`mt-structural-reconstruction`) rather than fatal error, since inconclusiveness does not imply existence of a counterexample.
 
 :::
 
@@ -1853,12 +1853,12 @@ where $\mathcal{L}_{\text{proxy}}$ is the optimized/measured objective and $\mat
 - **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; no morphism to bad pattern exists. **VICTORY: Global Regularity Confirmed.**
 - **Breached** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br}}$): NO verdict with typed certificate (sum type $K^{\mathrm{br}} := K^{\mathrm{br\text{-}wit}} \sqcup K^{\mathrm{br\text{-}inc}}$):
   - **Breached-with-witness** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}wit}}$): Explicit morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$ found; structural inconsistency. **FATAL ERROR.**
-  - **Breached-inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$): Tactics E1–E12 exhausted without deciding Hom-emptiness. Certificate records $(\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$. Triggers **MT 42.1** (Structural Reconstruction Principle).
+  - **Breached-inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$): Tactics E1–E12 exhausted without deciding Hom-emptiness. Certificate records $(\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$. Triggers {prf:ref}`mt-structural-reconstruction` (Structural Reconstruction Principle).
 
 **Routing:**
 - **On Block:** Exit with **GLOBAL REGULARITY** (structural exclusion confirmed).
 - **On Breached-with-witness:** Exit with **FATAL ERROR** (structural inconsistency—requires interface permit revision).
-- **On Breached-inconclusive:** Invoke **MT 42.1** (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
+- **On Breached-inconclusive:** Invoke {prf:ref}`mt-structural-reconstruction` (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
 
 **Exclusion Tactics (E1–E12):** The emptiness proof may invoke:
 - E1: Dimension count (bad pattern requires impossible dimension)
@@ -3071,8 +3071,8 @@ To support everything from **Navier-Stokes** to **Graph Theory** to **Homotopy T
 
 ### 8.0. Ambient Structure
 
-:::{prf:definition} Ambient Topos
-:label: def-ambient-topos
+:::{prf:definition} Ambient Topos (Formal)
+:label: def-ambient-topos-formal
 
 An **Ambient Topos** for hypostructure analysis is a cohesive $(\infty,1)$-topos $\mathcal{E}$ equipped with:
 1. A terminal object $1 \in \mathcal{E}$
@@ -4625,9 +4625,9 @@ $$G^{\text{thin}} = (\text{Grp}, \rho, \mathcal{S})$$
 
 | Derived Component | Construction | Used By |
 |-------------------|--------------|---------|
-| ProfileExtractor | MT 14.1 (Profile Classification) | Modes 2-3 |
+| ProfileExtractor | {prf:ref}`mt-profile-trichotomy` (Profile Classification) | Modes 2-3 |
 | VacuumStabilizer | Isotropy group of vacuum | $\mathrm{Rep}_K$ |
-| SurgeryOperator | MT 16.1 (Structural Surgery) | Modes 4+barrier |
+| SurgeryOperator | {prf:ref}`mt-structural-surgery` (Structural Surgery) | Modes 4+barrier |
 | Parameter Moduli | $\Theta = \mathcal{X}/G$ | $\mathrm{SC}_{\partial c}$ |
 :::
 
@@ -4677,11 +4677,11 @@ Given thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}
    - $\mathcal{X}_{\text{bad}} \leftarrow \{x : R(x) \to \infty\}$
    - $\Sigma \leftarrow \text{support of singular measure}$
 
-3. **Profile Classification (MT 14.1):**
+3. **Profile Classification** ({prf:ref}`mt-profile-trichotomy`):
    - ProfileExtractor $\leftarrow$ scaling group orbit analysis
    - Canonical library $\leftarrow$ moduli space computation
 
-4. **Surgery Construction (MT 16.1):**
+4. **Surgery Construction** ({prf:ref}`mt-structural-surgery`):
    - SurgeryOperator $\leftarrow$ pushout along excision
    - Admissibility $\leftarrow$ capacity bounds from $\mu$
 
@@ -5803,11 +5803,11 @@ The Universal Singularity Modules implement a **dependency injection** pattern:
 
 | Interface | Factory Metatheorem | Input | Output |
 |-----------|---------------------|-------|--------|
-| `ProfileExtractor` | MT 14.1 (Profile Classification) | $G^{\text{thin}}, \Phi^{\text{thin}}$ | Canonical library $\mathcal{L}_T$ |
-| `SurgeryAdmissibility` | MT 15.1 (Surgery Admissibility) | $\mu, \mathfrak{D}^{\text{thin}}$ | Admissibility predicate |
-| `SurgeryOperator` | MT 16.1 (Structural Surgery) | Full $\mathcal{H}$ | Pushout surgery $\mathcal{O}_S$ |
+| `ProfileExtractor` | {prf:ref}`mt-profile-trichotomy` | $G^{\text{thin}}, \Phi^{\text{thin}}$ | Canonical library $\mathcal{L}_T$ |
+| `SurgeryAdmissibility` | {prf:ref}`mt-surgery-trichotomy` | $\mu, \mathfrak{D}^{\text{thin}}$ | Admissibility predicate |
+| `SurgeryOperator` | {prf:ref}`mt-structural-surgery` | Full $\mathcal{H}$ | Pushout surgery $\mathcal{O}_S$ |
 
-**Key Insight:** Given thin objects satisfying the consistency conditions of MT {prf:ref}`mt-thin-expansion`, these factories produce valid implementations for all required interfaces. The user's task reduces to specifying the physics (energy, dissipation, symmetry); the Framework handles the singularity theory.
+**Key Insight:** Given thin objects satisfying the consistency conditions of {prf:ref}`mt-thin-expansion`, these factories produce valid implementations for all required interfaces. The user's task reduces to specifying the physics (energy, dissipation, symmetry); the Framework handles the singularity theory.
 :::
 
 :::{prf:definition} Automation Guarantee
@@ -6255,7 +6255,7 @@ Let $M$ be a failure mode with breach certificate $K^{\mathrm{br}}$, and let $S$
 3. **Certificate production**: Re-entry certificate $K^{\mathrm{re}}$ satisfying $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target})$
 4. **Progress**: Either bounded surgery count or decreasing complexity
 
-**Failure case**: If $K_{\text{inadm}}$ is produced, no surgery is performed; the run terminates at the mode as a genuine singularity (or routes to reconstruction via MT 42.1).
+**Failure case**: If $K_{\text{inadm}}$ is produced, no surgery is performed; the run terminates at the mode as a genuine singularity (or routes to reconstruction via {prf:ref}`mt-structural-reconstruction`).
 
 **Literature:** Hamilton's surgery program {cite}`Hamilton97`; Perelman's surgery algorithm {cite}`Perelman03`; {cite}`KleinerLott08`.
 
@@ -6359,12 +6359,12 @@ The Universal Singularity Modules provide an **end-to-end automated pipeline**:
 
 | Stage | Sieve Node | Input | Module | Output |
 |-------|------------|-------|--------|--------|
-| 1. Detect | Node 3 (CompactCheck) | Flow $x(t)$ | — | Singular point $(t^*, x^*)$ |
-| 2. Profile | Node 4 (Profile) | $(t^*, x^*)$ | MT 14.1 | Profile $V$ with certificate |
-| 3. Barrier | Mode Barrier | $V$ | MT 12.1 | Breach certificate $K^{\text{br}}$ |
-| 4. Admissibility | Pre-Surgery | $(\Sigma, V)$ | MT 15.1 | Admissibility certificate |
-| 5. Surgery | Surgery | $K_{\text{adm}}$ | MT 16.1 | Surgered state $x'$ |
-| 6. Re-entry | Post-Surgery | $x'$ | MT 16.1 | Re-entry certificate $K^{\text{re}}$ |
+| 1. Detect | {prf:ref}`def-node-compact` | Flow $x(t)$ | — | Singular point $(t^*, x^*)$ |
+| 2. Profile | {prf:ref}`def-node-scale` | $(t^*, x^*)$ | {prf:ref}`mt-profile-trichotomy` | Profile $V$ with certificate |
+| 3. Barrier | Mode Barrier | $V$ | {prf:ref}`mt-barrier-factory` | Breach certificate $K^{\text{br}}$ |
+| 4. Admissibility | Pre-Surgery | $(\Sigma, V)$ | {prf:ref}`mt-surgery-trichotomy` | Admissibility certificate |
+| 5. Surgery | Surgery | $K_{\text{adm}}$ | {prf:ref}`mt-structural-surgery` | Surgered state $x'$ |
+| 6. Re-entry | Post-Surgery | $x'$ | {prf:ref}`mt-structural-surgery` | Re-entry certificate $K^{\text{re}}$ |
 
 **User Input:** Thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}^{\text{thin}}, G^{\text{thin}})$
 
@@ -7102,7 +7102,7 @@ If all twelve tactics fail to prove Hom-emptiness but also fail to construct an 
 
 $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}} = (\mathsf{tactics\_exhausted}: \{E1,\ldots,E12\}, \mathsf{partial\_progress}, \mathsf{trace})$$
 
-This is a NO verdict (Breached) with inconclusive subtype—routing to MT 42.1 (Structural Reconstruction) rather than fatal error. The certificate records which tactics were attempted and any partial progress (e.g., dimension bounds that narrowed but did not close, spectral gaps that are positive but not sufficient).
+This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}`mt-structural-reconstruction` (Structural Reconstruction) rather than fatal error. The certificate records which tactics were attempted and any partial progress (e.g., dimension bounds that narrowed but did not close, spectral gaps that are positive but not sufficient).
 
 :::
 
@@ -7174,7 +7174,7 @@ For any type $T$ admitting surgery, there exist default surgery operators matchi
 - Re-entry certificate generator
 - Progress measure
 
-**Fallback**: If type $T$ does not admit surgery, output "surgery unavailable" certificate ($K_{\mathrm{Surg}}^{\mathrm{inc}}$) routing to reconstruction (MT 42.1).
+**Fallback**: If type $T$ does not admit surgery, output "surgery unavailable" certificate ($K_{\mathrm{Surg}}^{\mathrm{inc}}$) routing to reconstruction ({prf:ref}`mt-structural-reconstruction`).
 
 **Literature:** Hamilton-Perelman surgery {cite}`Hamilton97`; {cite}`Perelman03`; surgery in mean curvature flow {cite}`HuiskenSinestrari09`.
 
@@ -9307,42 +9307,42 @@ The following table provides the complete mapping from Sieve components to their
 
 | **Sieve Component** | **Foundation Theorem** | **Certificate** | **Primary Literature** |
 |---------------------|------------------------|-----------------|------------------------|
-| Node 17 (Lock) | MT 8.11.N (Structural Exclusion) | $K_{\text{Lock}}^{\text{blk}}$ | Grothendieck, Mac Lane |
-| Node 3 (CompactCheck) | MT 5.1 (Structural Resolution) | Trichotomy | Lions, Kenig-Merle |
-| Node 11 (ComplexCheck) | MT 14.1 (Profile Trichotomy) | $K_{11}^{\text{lib/tame/inc}}$ | van den Dries, Kurdyka |
-| Meta-Learning | MT 13.57 (Equivariance) | $K_{\text{SV08}}^+$ | Noether, Cohen-Welling |
+| {prf:ref}`def-node-lock` | {prf:ref}`mt-imported-structural-exclusion` | $K_{\text{Lock}}^{\text{blk}}$ | Grothendieck, Mac Lane |
+| {prf:ref}`def-node-compact` | {prf:ref}`mt-imported-structural-resolution` | Trichotomy | Lions, Kenig-Merle |
+| {prf:ref}`def-node-complex` | {prf:ref}`mt-profile-trichotomy` | $K_{11}^{\text{lib/tame/inc}}$ | van den Dries, Kurdyka |
+| Meta-Learning | {prf:ref}`mt-imported-equivariance` | $K_{\text{SV08}}^+$ | Noether, Cohen-Welling |
 
 ### 40.2 Gate Evaluator Cross-Reference
 
 | **Blue Node** | **Foundation Theorem** | **Predicate** | **Primary Literature** |
 |---------------|------------------------|---------------|------------------------|
-| Node 4 (ScaleCheck) | MT 5.2 (Type II Exclusion) | $\alpha > \beta$ | Merle-Zaag, Kenig-Merle |
-| Node 7 (StiffnessCheck) | MT 5.5 (Spectral Generator) | $\sigma_{\min} > 0$ | Łojasiewicz, Simon |
-| Node 10 (ErgoCheck) | MT 24.5 (Ergodic Mixing) | $\tau_{\text{mix}} < \infty$ | Birkhoff, Sinai |
-| Node 12 (OscillateCheck) | MT 25.2 (Spectral Distance) | $\|[D,a]\| < \infty$ | Connes |
-| Node 13 (BoundaryCheck) | MT 34.2 (Antichain-Surface) | min-cut/max-flow | Menger, De Giorgi |
+| {prf:ref}`def-node-scale` | {prf:ref}`mt-imported-type-ii-exclusion` | $\alpha > \beta$ | Merle-Zaag, Kenig-Merle |
+| {prf:ref}`def-node-stiffness` | {prf:ref}`mt-imported-spectral-generator` | $\sigma_{\min} > 0$ | Łojasiewicz, Simon |
+| {prf:ref}`def-node-ergo` | {prf:ref}`mt-imported-ergodic-mixing` | $\tau_{\text{mix}} < \infty$ | Birkhoff, Sinai |
+| {prf:ref}`def-node-oscillate` | {prf:ref}`mt-imported-spectral-distance` | $\|[D,a]\| < \infty$ | Connes |
+| {prf:ref}`def-node-boundary` | {prf:ref}`mt-imported-antichain-surface` | min-cut/max-flow | Menger, De Giorgi |
 
 ### 40.3 Barrier Defense Cross-Reference
 
 | **Orange Barrier** | **Foundation Theorem** | **Blocking Mechanism** | **Primary Literature** |
 |--------------------|------------------------|------------------------|------------------------|
-| BarrierSat | MT 5.4 (Saturation) | $\mathcal{L}\mathcal{V} \leq -\lambda\mathcal{V} + b$ | Meyn-Tweedie, Hairer |
-| BarrierCausal | MT 5.6 (Causal Barrier) | $d(u) < \infty \Rightarrow t < \infty$ | Bennett, Penrose |
-| BarrierCap | MT 5.3 (Capacity Barrier) | $\text{Cap}(B) < \infty \Rightarrow \mu_T(B) < \infty$ | Federer, Maz'ya |
-| BarrierAction | MT 5.7 (Topological Suppression) | $\mu(\tau \neq 0) \leq e^{-c\Delta^2}$ | Herbst, Łojasiewicz |
-| BarrierBode | Thm 27.1 (Bode Integral) | $\int \log|S| d\omega = \pi \sum p_i$ | Bode, Doyle |
-| BarrierEpi | MT 28.1 (Epistemic Horizon) | $I(X;Z) \leq I(X;Y)$ | Cover-Thomas, Landauer |
+| {prf:ref}`def-barrier-sat` | {prf:ref}`mt-imported-saturation` | $\mathcal{L}\mathcal{V} \leq -\lambda\mathcal{V} + b$ | Meyn-Tweedie, Hairer |
+| {prf:ref}`def-barrier-causal` | {prf:ref}`mt-imported-causal-barrier` | $d(u) < \infty \Rightarrow t < \infty$ | Bennett, Penrose |
+| {prf:ref}`def-barrier-cap` | {prf:ref}`mt-imported-capacity-barrier` | $\text{Cap}(B) < \infty \Rightarrow \mu_T(B) < \infty$ | Federer, Maz'ya |
+| {prf:ref}`def-barrier-action` | {prf:ref}`mt-imported-topological-suppression` | $\mu(\tau \neq 0) \leq e^{-c\Delta^2}$ | Herbst, Łojasiewicz |
+| {prf:ref}`def-barrier-bode` | Thm 27.1 (Bode Integral) | $\int \log|S| d\omega = \pi \sum p_i$ | Bode, Doyle |
+| {prf:ref}`def-barrier-epi` | {prf:ref}`mt-imported-epistemic-horizon` | $I(X;Z) \leq I(X;Y)$ | Cover-Thomas, Landauer |
 
 ### 40.4 Surgery Construction Cross-Reference
 
 | **Purple Surgery** | **Foundation Theorem** | **Construction** | **Primary Literature** |
 |--------------------|------------------------|------------------|------------------------|
-| SurgSE (Regularity) | MT 6.1 (Regularity Lift) | $\mathscr{T} = (T, A, G)$ | Hairer (2014) |
-| SurgTE (Tunnel) | MT 6.5 (Structural Surgery) | Excise + Cap | Perelman (2002-03) |
-| SurgCD (Auxiliary) | MT 6.3 (Projective Extension) | Slack variables | Boyd-Vandenberghe |
-| SurgSD (Ghost) | MT 6.2 (BRST) | Ghost fields $(c, \bar{c})$ | Faddeev-Popov, BRST |
-| SurgBC (Adjoint) | MT 6.26 (Adjoint Surgery) | Lagrange $\lambda$ | Pontryagin |
-| SurgCE (Cap) | MT 6.4 (Lyapunov Compact.) | Conformal $\Omega$ | Penrose |
+| {prf:ref}`def-surgery-se` | {prf:ref}`mt-imported-regularity-lift` | $\mathscr{T} = (T, A, G)$ | Hairer (2014) |
+| SurgTE (Tunnel) | {prf:ref}`mt-imported-structural-surgery` | Excise + Cap | Perelman (2002-03) |
+| {prf:ref}`def-surgery-cd` | {prf:ref}`mt-imported-projective-extension` | Slack variables | Boyd-Vandenberghe |
+| SurgSD (Ghost) | {prf:ref}`mt-imported-brst` | Ghost fields $(c, \bar{c})$ | Faddeev-Popov, BRST |
+| SurgBC (Adjoint) | {prf:ref}`mt-imported-adjoint-surgery` | Lagrange $\lambda$ | Pontryagin |
+| {prf:ref}`def-surgery-ce` | {prf:ref}`mt-imported-lyapunov-compactification` | Conformal $\Omega$ | Penrose |
 
 ---
 
@@ -9661,57 +9661,229 @@ graph TD
 
 ```mermaid
 graph TD
-    Start(["START"]) --> EnergyCheck{"1. D_E:<br>E[Φ] < ∞?"}
-    EnergyCheck -- "Yes" --> ZenoCheck{"2. Rec_N:<br>N(J) < ∞?"}
-    EnergyCheck -- "No" --> BarrierSat{"SATURATION"}
-    ZenoCheck -- "Yes" --> CompactCheck{"3. C_μ:<br>μ(V) > 0?"}
-    ZenoCheck -- "No" --> BarrierCausal{"CAUSAL"}
-    CompactCheck -- "Yes" --> Profile["Profile V"]
-    CompactCheck -- "No" --> BarrierScat{"SCATTERING"}
+    Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. D_E:</b> Is Energy Finite?<br>E[Φ] < ∞"}
 
-    style EnergyCheck fill:#3b82f6,color:#fff
-    style ZenoCheck fill:#3b82f6,color:#fff
-    style CompactCheck fill:#3b82f6,color:#fff
-    style BarrierSat fill:#f59e0b
-    style BarrierCausal fill:#f59e0b
-    style BarrierScat fill:#f59e0b
+    %% --- LEVEL 1: 0-TRUNCATION (Energy Bounds) ---
+    EnergyCheck -- "No: K-_DE" --> BarrierSat{"<b>B1. D_E:</b> Is Drift Bounded?<br>E[Φ] ≤ E_sat"}
+    BarrierSat -- "Yes: Kblk_DE" --> ZenoCheck
+    BarrierSat -- "No: Kbr_DE" --> SurgAdmCE{"<b>A1. SurgCE:</b> Admissible?<br>conformal ∧ ∂∞X def."}
+    SurgAdmCE -- "Yes: K+_Conf" --> SurgCE["<b>S1. SurgCE:</b><br>Ghost/Cap Extension"]
+    SurgAdmCE -- "No: K-_Conf" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
+    SurgCE -. "Kre_SurgCE" .-> ZenoCheck
+
+    EnergyCheck -- "Yes: K+_DE" --> ZenoCheck{"<b>2. Rec_N:</b> Are Discrete Events Finite?<br>N(J) < ∞"}
+    ZenoCheck -- "No: K-_RecN" --> BarrierCausal{"<b>B2. Rec_N:</b> Infinite Depth?<br>D#40;T*#41; = ∞"}
+    BarrierCausal -- "No: Kbr_RecN" --> SurgAdmCC{"<b>A2. SurgCC:</b> Admissible?<br>∃N_max: events ≤ N_max"}
+    SurgAdmCC -- "Yes: K+_Disc" --> SurgCC["<b>S2. SurgCC:</b><br>Discrete Saturation"]
+    SurgAdmCC -- "No: K-_Disc" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
+    SurgCC -. "Kre_SurgCC" .-> CompactCheck
+    BarrierCausal -- "Yes: Kblk_RecN" --> CompactCheck
+
+    ZenoCheck -- "Yes: K+_RecN" --> CompactCheck{"<b>3. C_μ:</b> Does Energy Concentrate?<br>μ(V) > 0"}
+
+    %% --- LEVEL 2: COMPACTNESS LOCUS (Profile Moduli) ---
+    CompactCheck -- "No: K-_Cmu" --> BarrierScat{"<b>B3. C_μ:</b> Is Interaction Finite?<br>M[Φ] < ∞"}
+    BarrierScat -- "Yes: Kben_Cmu" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
+    BarrierScat -- "No: Kpath_Cmu" --> SurgAdmCD_Alt{"<b>A3. SurgCD_Alt:</b> Admissible?<br>V ∈ L_soliton ∧ ‖V‖_H¹ < ∞"}
+    SurgAdmCD_Alt -- "Yes: K+_Prof" --> SurgCD_Alt["<b>S3. SurgCD_Alt:</b><br>Concentration-Compactness"]
+    SurgAdmCD_Alt -- "No: K-_Prof" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
+    SurgCD_Alt -. "Kre_SurgCD_Alt" .-> Profile
+
+    CompactCheck -- "Yes: K+_Cmu" --> Profile["<b>Canonical Profile V Emerges</b>"]
+
+    %% ====== STYLES ======
+    %% Success states - Green
+    style ModeDD fill:#22c55e,stroke:#16a34a,color:#000000
+
+    %% Failure modes - Red
+    style ModeCE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCD_Alt fill:#ef4444,stroke:#dc2626,color:#ffffff
+
+    %% Barriers - Orange/Amber
+    style BarrierSat fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierCausal fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierScat fill:#f59e0b,stroke:#d97706,color:#000000
+
+    %% Interface Checks - Blue
+    style EnergyCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ZenoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CompactCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    %% Intermediate nodes - Purple
+    style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Surgery recovery nodes - Purple
+    style SurgCE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCD_Alt fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Surgery Admissibility checks - Light Purple with border
+    style SurgAdmCE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmCC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmCD_Alt fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
 ```
 
 ## Symmetry/Geometry Layer (Nodes 4--7)
 
 ```mermaid
 graph TD
-    Profile["Profile V"] --> ScaleCheck{"4. SC_λ:<br>λ(V) < λ_c?"}
-    ScaleCheck --> ParamCheck{"5. SC_∂c:<br>‖∂c‖ < ε?"}
-    ParamCheck --> GeomCheck{"6. Cap_H:<br>codim(S) ≥ 2?"}
-    GeomCheck --> StiffnessCheck{"7. LS_σ:<br>inf σ(L) > 0?"}
+    %% --- LEVEL 3: EQUIVARIANT DESCENT ---
+    Profile["<b>Canonical Profile V Emerges</b>"] --> ScaleCheck{"<b>4. SC_λ:</b> Is Profile Subcritical?<br>λ(V) < λ_c"}
 
-    ScaleCheck -- "No" --> BarrierTypeII{"TYPE II"}
-    ParamCheck -- "No" --> BarrierVac{"VACUUM"}
-    GeomCheck -- "No" --> BarrierCap{"CAPACITY"}
-    StiffnessCheck -- "No" --> BarrierGap{"SPECTRAL"}
+    ScaleCheck -- "No: K-_SClam" --> BarrierTypeII{"<b>B4. SC_λ:</b> Is Renorm Cost ∞?<br>∫D̃ dt = ∞"}
+    BarrierTypeII -- "No: Kbr_SClam" --> SurgAdmSE{"<b>A4. SurgSE:</b> Admissible?<br>α-β < ε_crit ∧ V smooth"}
+    SurgAdmSE -- "Yes: K+_Lift" --> SurgSE["<b>S4. SurgSE:</b><br>Regularity Lift"]
+    SurgAdmSE -- "No: K-_Lift" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
+    SurgSE -. "Kre_SurgSE" .-> ParamCheck
+    BarrierTypeII -- "Yes: Kblk_SClam" --> ParamCheck
 
-    style ScaleCheck fill:#3b82f6,color:#fff
-    style ParamCheck fill:#3b82f6,color:#fff
-    style GeomCheck fill:#3b82f6,color:#fff
-    style StiffnessCheck fill:#3b82f6,color:#fff
-    style BarrierTypeII fill:#f59e0b
-    style BarrierVac fill:#f59e0b
-    style BarrierCap fill:#f59e0b
-    style BarrierGap fill:#f59e0b
+    ScaleCheck -- "Yes: K+_SClam" --> ParamCheck{"<b>5. SC_∂c:</b> Are Constants Stable?<br>‖∂c‖ < ε"}
+    ParamCheck -- "No: K-_SCdc" --> BarrierVac{"<b>B5. SC_∂c:</b> Is Phase Stable?<br>ΔV > k_B T"}
+    BarrierVac -- "No: Kbr_SCdc" --> SurgAdmSC{"<b>A5. SurgSC:</b> Admissible?<br>‖∂θ‖ < C_adm ∧ θ stable"}
+    SurgAdmSC -- "Yes: K+_Stab" --> SurgSC["<b>S5. SurgSC:</b><br>Convex Integration"]
+    SurgAdmSC -- "No: K-_Stab" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
+    SurgSC -. "Kre_SurgSC" .-> GeomCheck
+    BarrierVac -- "Yes: Kblk_SCdc" --> GeomCheck
+
+    ParamCheck -- "Yes: K+_SCdc" --> GeomCheck{"<b>6. Cap_H:</b> Is Codim ≥ Threshold?<br>codim(S) ≥ 2"}
+
+    %% --- LEVEL 4: DIMENSION FILTRATION ---
+    GeomCheck -- "No: K-_CapH" --> BarrierCap{"<b>B6. Cap_H:</b> Is Measure Zero?<br>Cap_H#40;S#41; = 0"}
+    BarrierCap -- "No: Kbr_CapH" --> SurgAdmCD{"<b>A6. SurgCD:</b> Admissible?<br>Cap#40;Σ#41; ≤ ε ∧ V ∈ L_neck"}
+    SurgAdmCD -- "Yes: K+_Neck" --> SurgCD["<b>S6. SurgCD:</b><br>Auxiliary/Structural"]
+    SurgAdmCD -- "No: K-_Neck" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
+    SurgCD -. "Kre_SurgCD" .-> StiffnessCheck
+    BarrierCap -- "Yes: Kblk_CapH" --> StiffnessCheck
+
+    GeomCheck -- "Yes: K+_CapH" --> StiffnessCheck{"<b>7. LS_σ:</b> Is Gap Certified?<br>inf σ(L) > 0"}
+
+    %% --- LEVEL 5: SPECTRAL OBSTRUCTION ---
+    StiffnessCheck -- "No: K-_LSsig" --> BarrierGap{"<b>B7. LS_σ:</b> Is Kernel Finite?<br>dim ker#40;L#41; < ∞ ∧ σ_ess > 0"}
+    BarrierGap -- "Yes: Kblk_LSsig" --> TopoCheck
+    BarrierGap -- "No: Kstag_LSsig" --> BifurcateCheck{"<b>7a. LS_∂²V:</b> Is State Unstable?<br>∂²V(x*) ⊁ 0"}
+
+    %% --- LEVEL 5b: SPECTRAL RESTORATION (Bifurcation Resolution) ---
+    BifurcateCheck -- "No: K-_LSd2V" --> SurgAdmSD{"<b>A7. SurgSD:</b> Admissible?<br>dim ker#40;H#41; < ∞ ∧ V iso."}
+    SurgAdmSD -- "Yes: K+_Iso" --> SurgSD["<b>S7. SurgSD:</b><br>Ghost Extension"]
+    SurgAdmSD -- "No: K-_Iso" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
+    SurgSD -. "Kre_SurgSD" .-> TopoCheck
+    BifurcateCheck -- "Yes: K+_LSd2V" --> SymCheck{"<b>7b. G_act:</b> Is G-orbit Degenerate?<br>⎸G·v₀⎸ = 1"}
+
+    %% Path A: Symmetry Breaking (Governed by SC_∂c)
+    SymCheck -- "Yes: K+_Gact" --> CheckSC{"<b>7c. SC_∂c:</b> Are Constants Stable?<br>‖∂c‖ < ε"}
+    CheckSC -- "Yes: K+_SCdc" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
+    ActionSSB -- "Kgap" --> TopoCheck
+    CheckSC -- "No: K-_SCdc" --> SurgAdmSC_Rest{"<b>A8. SurgSC_Rest:</b> Admissible?<br>ΔV > k_B T ∧ Γ < Γ_crit"}
+    SurgAdmSC_Rest -- "Yes: K+_Vac" --> SurgSC_Rest["<b>S8. SurgSC_Rest:</b><br>Auxiliary Extension"]
+    SurgAdmSC_Rest -- "No: K-_Vac" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
+    SurgSC_Rest -. "Kre_SurgSC_Rest" .-> TopoCheck
+
+    %% Path B: Tunneling (Governed by TB_S)
+    SymCheck -- "No: K-_Gact" --> CheckTB{"<b>7d. TB_S:</b> Is Tunneling Finite?<br>S[γ] < ∞"}
+    CheckTB -- "Yes: K+_TBS" --> ActionTunnel["<b>ACTION: TUNNELING</b><br>Instanton Decay"]
+    ActionTunnel -- "Ktunnel" --> TameCheck
+    CheckTB -- "No: K-_TBS" --> SurgAdmTE_Rest{"<b>A9. SurgTE_Rest:</b> Admissible?<br>V ≅ S^n×I ∧ S_R[γ] < ∞"}
+    SurgAdmTE_Rest -- "Yes: K+_Inst" --> SurgTE_Rest["<b>S9. SurgTE_Rest:</b><br>Structural"]
+    SurgAdmTE_Rest -- "No: K-_Inst" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
+    SurgTE_Rest -. "Kre_SurgTE_Rest" .-> TameCheck
+
+    StiffnessCheck -- "Yes: K+_LSsig" --> TopoCheck{"<b>8. TB_π:</b> Is Sector Reachable?<br>[π] ∈ π₀(C)_acc"}
+
+    %% Placeholder exits (connect to next layer)
+    TopoCheck --> NextLayer["→ Topology Layer"]
+    TameCheck["<b>9. TB_O:</b> Is Topology Tame?<br>Σ ∈ O-min"] --> NextLayer
+
+    %% ====== STYLES ======
+    %% Failure modes - Red
+    style ModeSE fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSC fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeCD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSD fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
+
+    %% Barriers - Orange/Amber
+    style BarrierTypeII fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierVac fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierCap fill:#f59e0b,stroke:#d97706,color:#000000
+    style BarrierGap fill:#f59e0b,stroke:#d97706,color:#000000
+
+    %% Interface Checks - Blue
+    style ScaleCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style ParamCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style GeomCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style StiffnessCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style TopoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style TameCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    %% Intermediate nodes - Purple
+    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style NextLayer fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Restoration checks - Blue (interface permit checks)
+    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+    %% Restoration mechanisms - Purple (escape mechanisms)
+    style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style ActionTunnel fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Surgery recovery nodes - Purple
+    style SurgSE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgCD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgSC_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+    style SurgTE_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
+
+    %% Surgery Admissibility checks - Light Purple with border
+    style SurgAdmSE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmSC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmCD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmSD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmSC_Rest fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
+    style SurgAdmTE_Rest fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
 ```
 
 ## The Lock (Node 17)
 
 ```mermaid
 graph TD
-    Converge["All paths converge"] --> Lock{"17.now pleaLOCK<br>Hom(Bad,S) Empty?"}
-    Lock -- "Yes (Blocked)" --> Victory(["GLOBAL REGULARITY"])
-    Lock -- "No (Morphism)" --> Fatal["FATAL ERROR"]
+    %% --- LEVEL 9: THE COHOMOLOGICAL BARRIER ---
+    %% All successful paths funnel here
+    BoundaryCheck["← From Boundary Layer"] --> BarrierExclusion
+    BarrierVariety["← From Control Layer"] --> BarrierExclusion
+    AlignCheck["← From Alignment Layer"] --> BarrierExclusion
 
-    style Lock fill:#8b5cf6,color:#fff,stroke-width:4px
-    style Victory fill:#22c55e,stroke-width:4px
-    style Fatal fill:#ef4444,color:#fff
+    BarrierExclusion{"<b>17. Cat_Hom:</b> Is Hom#40;Bad, S#41; = ∅?<br>Hom#40;B, S#41; = ∅"}
+
+    BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
+    BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
+    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
+    ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
+    ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
+
+    %% ====== STYLES ======
+    %% Success states - Green
+    style VICTORY fill:#22c55e,stroke:#16a34a,color:#000000,stroke-width:4px
+
+    %% Failure modes - Red
+    style ModeCat fill:#ef4444,stroke:#dc2626,color:#ffffff
+
+    %% Reconstruction Loop - Yellow/Gold
+    style ReconstructionLoop fill:#fbbf24,stroke:#f59e0b,color:#000000,stroke-width:2px
+
+    %% The Final Gate - Purple with thick border
+    style BarrierExclusion fill:#8b5cf6,stroke:#7c3aed,color:#ffffff,stroke-width:4px
+
+    %% Input nodes - Light gray
+    style BoundaryCheck fill:#d1d5db,stroke:#6b7280,color:#000000
+    style BarrierVariety fill:#d1d5db,stroke:#6b7280,color:#000000
+    style AlignCheck fill:#d1d5db,stroke:#6b7280,color:#000000
 ```
 
 ---
@@ -10410,15 +10582,15 @@ $$K_{\text{Rec}}^+ = \left(F_{\text{Rec}}, \Phi_{\text{Rec}}, K_{\mathrm{Cat}_{\
 :::{prf:remark} Reconstruction uses obligation ledgers
 :label: rem-rec-uses-ledger
 
-When MT 42.1 is invoked (from any $K^{\mathrm{inc}}$ route, particularly $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$), its input includes the **obligation ledger** $\mathsf{Obl}(\Gamma)$ (Definition {prf:ref}`def-obligation-ledger`).
+When {prf:ref}`mt-structural-reconstruction` is invoked (from any $K^{\mathrm{inc}}$ route, particularly $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$), its input includes the **obligation ledger** $\mathsf{Obl}(\Gamma)$ (Definition {prf:ref}`def-obligation-ledger`).
 
 The reconstruction procedure must produce one of the following outcomes:
-1. **New certificates that discharge entries:** MT 42.1 produces $K_{\text{Bridge}}$, $K_{\text{Rigid}}$, and ultimately $K_{\text{Rec}}^+$, which enable inc-upgrades (Definition {prf:ref}`def-inc-upgrades`) to fire during closure, discharging relevant $K^{\mathrm{inc}}$ entries from the ledger.
+1. **New certificates that discharge entries:** {prf:ref}`mt-structural-reconstruction` produces $K_{\text{Bridge}}$, $K_{\text{Rigid}}$, and ultimately $K_{\text{Rec}}^+$, which enable inc-upgrades (Definition {prf:ref}`def-inc-upgrades`) to fire during closure, discharging relevant $K^{\mathrm{inc}}$ entries from the ledger.
 
-2. **Refined missing set:** If full discharge is not possible, MT 42.1 may refine the $\mathsf{missing}$ component of existing $K^{\mathrm{inc}}$ certificates into a strictly more explicit set of prerequisites—smaller template requirements, stronger preconditions, or more specific structural data. This refinement produces a new $K^{\mathrm{inc}}$ with updated payload.
+2. **Refined missing set:** If full discharge is not possible, {prf:ref}`mt-structural-reconstruction` may refine the $\mathsf{missing}$ component of existing $K^{\mathrm{inc}}$ certificates into a strictly more explicit set of prerequisites—smaller template requirements, stronger preconditions, or more specific structural data. This refinement produces a new $K^{\mathrm{inc}}$ with updated payload.
 
 **Formalization:**
-$$\text{MT 42.1}: \mathsf{Obl}(\Gamma) \to \left(\{K^+_{\text{new}}\} \text{ enabling discharge}\right) \cup \left(\mathsf{Obl}'(\Gamma) \text{ with refined } \mathsf{missing}\right)$$
+$$\text{Structural Reconstruction}: \mathsf{Obl}(\Gamma) \to \left(\{K^+_{\text{new}}\} \text{ enabling discharge}\right) \cup \left(\mathsf{Obl}'(\Gamma) \text{ with refined } \mathsf{missing}\right)$$
 
 This ensures reconstruction makes definite progress: either discharging obligations or producing a strictly refined $\mathsf{missing}$ specification.
 
@@ -10454,7 +10626,7 @@ The following table summarizes how the Structural Reconstruction Principle insta
 
 If $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ is issued at Node 17 (with upstream certificates $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$ satisfied), then exactly one of the following holds:
 
-1. **Bridge Certificate obtainable:** $K_{\text{Bridge}}$ can be established, and the Lock resolves via MT 42.1 producing $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$
+1. **Bridge Certificate obtainable:** $K_{\text{Bridge}}$ can be established, and the Lock resolves via {prf:ref}`mt-structural-reconstruction` producing $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$
 2. **Bridge obstruction identified:** The failure of $K_{\text{Bridge}}$ provides a new certificate $K_{\text{Bridge}}^-$ containing:
    - A counterexample to structural descent: $\Lambda \notin \text{End}_{\mathcal{S}}(\mathcal{X})$
    - An analytic automorphism not preserving structure: $g \in G_{\text{crit}}$ with $g(\mathcal{S}) \not\subseteq \mathcal{S}$
@@ -10466,7 +10638,7 @@ In either case, the epistemic deadlock at Node 17 is resolved.
 :::{prf:corollary} Analytic-Structural Equivalence
 :label: cor-analytic-structural
 
-Under the hypotheses of MT 42.1 (with all interface permits $D_E$, $C_\mu$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$, $\mathrm{Cat}_{\mathrm{Hom}}$ satisfied), the categories $\mathcal{A}$ and $\mathcal{S}$ are **Hom-equivalent** on the subcategory generated by $\mathcal{H}_{\text{bad}}$:
+Under the hypotheses of {prf:ref}`mt-structural-reconstruction` (with all interface permits $D_E$, $C_\mu$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$, $\mathrm{Cat}_{\mathrm{Hom}}$ satisfied), the categories $\mathcal{A}$ and $\mathcal{S}$ are **Hom-equivalent** on the subcategory generated by $\mathcal{H}_{\text{bad}}$:
 $$\mathcal{A}|_{\langle\mathcal{H}_{\text{bad}}\rangle} \simeq_{\text{Hom}} \mathcal{S}|_{\langle F_{\text{Rec}}(\mathcal{H}_{\text{bad}})\rangle}$$
 
 This equivalence is the rigorous formulation of "soft implies hard" for morphisms. In particular:
@@ -10495,7 +10667,7 @@ Each arrow represents a certificate dependency. The output $K_{\mathrm{Cat}_{\ma
 
 ### 42.4 The Analytic-Algebraic Rigidity Lemma
 
-*This lemma provides the rigorous "engine" that powers the algebraic case ($T_{\text{alg}}$) of the Structural Reconstruction Principle (MT 42.1). It formalizes the a posteriori inference: analytic stiffness plus tameness forces algebraicity.*
+*This lemma provides the rigorous "engine" that powers the algebraic case ($T_{\text{alg}}$) of the Structural Reconstruction Principle ({prf:ref}`mt-structural-reconstruction`). It formalizes the a posteriori inference: analytic stiffness plus tameness forces algebraicity.*
 
 :::{prf:lemma} Analytic-Algebraic Rigidity
 :label: lem-analytic-algebraic-rigidity
@@ -10610,10 +10782,10 @@ The failure mode **N.A (Non-Algebraic)** is excluded.
 
 ---
 
-**Connection to MT 42.1:** This lemma is the **algebraic instantiation** of the Structural Reconstruction Principle:
+**Connection to {prf:ref}`mt-structural-reconstruction`:** This lemma is the **algebraic instantiation** of the Structural Reconstruction Principle:
 
-| MT 42.1 Component | Lemma Instantiation |
-|:------------------|:--------------------|
+| Structural Reconstruction Component | Lemma Instantiation |
+|:------------------------------------|:--------------------|
 | $\mathcal{A}$ (Analytic Observables) | Harmonic $(k,k)$-forms in $H^{2k}(X, \mathbb{C})$ |
 | $\mathcal{S}$ (Structural Objects) | Algebraic cycles $\mathcal{Z}^k(X)_{\mathbb{Q}}$ |
 | $K_{\text{Bridge}}$ | Lefschetz operator $L$ is algebraic (Standard Conjecture B) |
@@ -10714,7 +10886,6 @@ bibtex_bibfiles:
 :::
 
 ```{bibliography}
-:style: unsrt
 ```
 
 For the complete Hypostructure interface permit system and proof framework, see the main *Hypostructure* monograph
