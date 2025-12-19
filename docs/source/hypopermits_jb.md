@@ -4031,7 +4031,7 @@ The following table provides the complete mapping from Sieve nodes to interfaces
 | 9 | TameCheck | $\mathrm{TB}_O$ | $\mathcal{O}$-definable | Node 10 | BarrierOmin |
 | 10 | ErgoCheck | $\mathrm{TB}_\rho$ | Mixing finite | Node 11 | BarrierMix |
 | 11 | ComplexCheck | $\mathrm{Rep}_K$ | $K(u) < \infty$ | Node 12 | BarrierEpi |
-| 12 | OscillateCheck | $\mathrm{GC}_\nabla$ | Gradient flow | Node 13 | BarrierFreq |
+| 12 | OscillateCheck | $\mathrm{GC}_\nabla$ | Oscillation present | BarrierFreq | Node 13 |
 | 13 | BoundaryCheck | $\mathrm{Bound}_\partial$ | Open system? | Node 14 | Node 17 |
 | 14 | OverloadCheck | $\mathrm{Bound}_B$ | Input bounded | Node 15 | BarrierBode |
 | 15 | StarveCheck | $\mathrm{Bound}_{\Sigma}$ | Supply sufficient | Node 16 | BarrierInput |
