@@ -270,6 +270,15 @@ If any of these fail, the run produces a **conditional proof object** that docum
 2. Assemble final certificate chain.
 3. Document proof summary.
 
+**Phase 0: Dashboard Generation (Post-Run)**
+*Once Phase 8 is complete, return to the top and fill the Executive Summary.*
+1. Fill the **System Instantiation** table with the Arena, Potential, Cost, and Invariance definitions.
+2. Fill the **Execution Trace** table using data from your completed run.
+   - **Crucial:** The table must match the `trace.json` logic exactly.
+   - If you performed surgery, show the branching rows clearly (use `--` for Surgery/Re-entry rows).
+3. Fill the **Lock Mechanism** table showing which tactics E1-E10 were attempted and their outcomes.
+4. Fill the **Final Verdict** with Status, Obligation Ledger state, and Singularity Set description.
+
 :::
 
 ---
@@ -387,6 +396,11 @@ If any of these fail, the run produces a **conditional proof object** that docum
 #### **Template: $\mathrm{Cat}_{\mathrm{Hom}}$ (Lock Interface)**
 - [ ] **Category $\mathbf{Hypo}_T$:** [Define morphisms in hypostructure category]
 - [ ] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** [Construct worst-case singularity]
+- [ ] **Primary Tactic Selected:** [e.g., E2, E7, etc.]
+- [ ] **Tactic Logic:**
+    * $I(\mathcal{H}) = $ [Value for the actual hypostructure]
+    * $I(\mathcal{H}_{\text{bad}}) = $ [Value for the bad pattern]
+    * Conclusion: Mismatch $\implies$ $\mathrm{Hom} = \emptyset$.
 - [ ] **Exclusion Tactics Available:**
   - [ ] E1 (Dimension): $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$?
   - [ ] E2 (Invariant): $I(\mathcal{H}_{\text{bad}}) \neq I(\mathcal{H})$?
@@ -1421,6 +1435,69 @@ This proof object is replayed by providing:
 4. `closure.cfg`: promotion/closure settings
 
 **Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
+
+---
+
+## Executive Summary: The Proof Dashboard
+*Fill this section after completing the sieve run (Phase 0: Dashboard Generation).*
+
+### 1. System Instantiation (The Physics)
+*Mapping the physical problem to the Hypostructure categories.*
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | [e.g., $H^1(\mathbb{R}^3)$] | State Space |
+| **Potential ($\Phi$)** | [e.g., Energy $E(u)$] | Lyapunov Functional |
+| **Cost ($\mathfrak{D}$)** | [e.g., Enstrophy $\|\nabla u\|^2$] | Dissipation |
+| **Invariance ($G$)** | [e.g., $SO(3) \times \mathbb{R}^3$] | Symmetry Group |
+
+### 2. Execution Trace (The Logic)
+*The chronological flow of the Sieve. If Surgery occurs, list the re-entry steps.*
+
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | Energy Bound | [YES/NO/INC] | [e.g., $E(t) \le E_0$] | `[]` |
+| **2** | Zeno Check | [YES/NO/INC] | [Payload] | `[]` |
+| **3** | Compact Check | [YES/NO/INC] | [Payload] | `[]` |
+| **4** | Scale Check | [YES/NO/INC] | [Payload] | `[]` |
+| **5** | Param Check | [YES/NO/INC] | [Payload] | `[]` |
+| **6** | Geom Check | [YES/NO/INC] | [Payload] | `[]` |
+| **7** | Stiffness Check | [YES/NO/INC] | [Payload] | `[]` |
+| **8** | Topo Check | [YES/NO/INC] | [Payload] | `[]` |
+| **9** | Tame Check | [YES/NO/INC] | [Payload] | `[]` |
+| **10** | Ergo Check | [YES/NO/INC] | [Payload] | `[]` |
+| **11** | Complex Check | [YES/NO/INC] | [Payload] | `[]` |
+| **12** | Oscillate Check | [YES/NO/INC] | [Payload] | `[]` |
+| **13** | Boundary Check | [OPEN/CLOSED] | [Payload] | `[]` |
+| **14** | Overload Check | [YES/NO/INC/N/A] | [Payload] | `[]` |
+| **15** | Starve Check | [YES/NO/INC/N/A] | [Payload] | `[]` |
+| **16** | Align Check | [YES/NO/INC/N/A] | [Payload] | `[]` |
+| **--** | **SURGERY** | **[EXEC/N/A]** | [Surgery Name] | `[OBL-?]` |
+| **--** | **RE-ENTRY** | **[OK/N/A]** | [Recovery proof] | `[]` |
+| **17** | **LOCK** | **[BLOCK/MORPH/INC]** | [Tactic ID] | `[]` |
+
+### 3. Lock Mechanism (The Exclusion)
+*How the singularity is structurally forbidden at Node 17.*
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Dimension | [PASS/FAIL/N/A] | [e.g., $d < d_c$] |
+| **E2** | Invariant | [PASS/FAIL/N/A] | [e.g., Conservation vs Blowup] |
+| **E3** | Positivity | [PASS/FAIL/N/A] | [e.g., Cone condition] |
+| **E4** | Integrality | [PASS/FAIL/N/A] | [e.g., Index mismatch] |
+| **E5** | Functional | [PASS/FAIL/N/A] | [e.g., Unsolvable PDE] |
+| **E6** | Causal | [PASS/FAIL/N/A] | [e.g., Well-foundedness] |
+| **E7** | Thermodynamic | [PASS/FAIL/N/A] | [e.g., Entropy production] |
+| **E8** | Holographic | [PASS/FAIL/N/A] | [e.g., Bekenstein bound] |
+| **E9** | Ergodic | [PASS/FAIL/N/A] | [e.g., Mixing rates] |
+| **E10** | Definability | [PASS/FAIL/N/A] | [e.g., O-minimal structure] |
+
+### 4. Final Verdict
+
+* **Status:** [UNCONDITIONAL / CONDITIONAL]
+* **Obligation Ledger:** [EMPTY / NON-EMPTY (list remaining)]
+* **Singularity Set:** $\Sigma = \emptyset$ (or description of allowable set)
+* **Primary Blocking Tactic:** [E? - Description]
 
 ---
 

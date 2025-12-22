@@ -142,6 +142,11 @@ This document presents a **machine-checkable proof object** for the **global reg
 ### 0.3 The Lock (Node 17)
 - [x] **Category $\mathbf{Hypo}_{T_{\text{para}}}$:** Parabolic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time $H^1$ blow-up
+- [x] **Primary Tactic Selected:** E1 + E2
+- [x] **Tactic Logic:**
+    * $I(\mathcal{H}) = E(t) \le E_0$ (energy bounded, $\|u\|_{L^\infty}$ controlled by 1D embedding)
+    * $I(\mathcal{H}_{\text{bad}}) = E \to \infty$ or $\|u\|_{L^\infty} \to \infty$ (blow-up)
+    * Conclusion: 1D embedding + energy decay $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
   - [x] E1 (Dimension): 1D Sobolev embedding $H^1 \hookrightarrow L^\infty$ prevents blow-up
   - [x] E2 (Invariant Mismatch): Energy decay contradicts blow-up
@@ -594,6 +599,62 @@ This proof object is replayed by providing:
 
 ---
 
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | $H^1(\mathbb{T})$ | State Space |
+| **Potential ($\Phi$)** | $E(u) = \frac{1}{2}\|u\|_{L^2}^2$ | Lyapunov Functional |
+| **Cost ($\mathfrak{D}$)** | $D = \nu\|u_x\|_{L^2}^2$ | Dissipation |
+| **Invariance ($G$)** | $S^1$ (translations on $\mathbb{T}$) | Symmetry Group |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Γ (Certificate Accumulation) |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | Energy Bound | YES | $\frac{d}{dt}E + D = 0$, $E(t) \le E_0$ | $\{K_{D_E}^+\}$ |
+| **2** | Zeno Check | YES | No surgeries needed | $\Gamma_1 \cup \{K_{\mathrm{Rec}}^+\}$ |
+| **3** | Compact Check | YES | $H^1 \hookrightarrow C^{0,1/2}$, no concentration | $\Gamma_2 \cup \{K_{C_\mu}^+\}$ |
+| **4** | Scale Check | YES | $\alpha = \beta = 2$, resolved by embedding | $\Gamma_3 \cup \{K_{\mathrm{SC}_\lambda}^+\}$ |
+| **5** | Param Check | YES | $\nu$, $m_0$ conserved | $\Gamma_4 \cup \{K_{\mathrm{SC}_{\partial c}}^+\}$ |
+| **6** | Geom Check | YES | $\Sigma = \emptyset$, codim $= \infty$ | $\Gamma_5 \cup \{K_{\mathrm{Cap}}^+\}$ |
+| **7** | Stiffness Check | YES | $c_P^{-1}\nu$, exponential decay | $\Gamma_6 \cup \{K_{\mathrm{LS}}^+\}$ |
+| **8** | Topo Check | YES | Mean $m$ conserved | $\Gamma_7 \cup \{K_{\mathrm{TB}_\pi}^+\}$ |
+| **9** | Tame Check | YES | $\mathbb{R}_{\text{an}}$, $\Sigma = \emptyset$ | $\Gamma_8 \cup \{K_{\mathrm{TB}_O}^+\}$ |
+| **10** | Ergo Check | YES | Dissipative, exponential decay | $\Gamma_9 \cup \{K_{\mathrm{TB}_\rho}^+\}$ |
+| **11** | Complex Check | YES | $\|u\|_{H^1}$ bounded | $\Gamma_{10} \cup \{K_{\mathrm{Rep}}^+\}$ |
+| **12** | Oscillate Check | NO | $E$ is Lyapunov (gradient-like) | $\Gamma_{11} \cup \{K_{\mathrm{GC}}^-\}$ |
+| **13** | Boundary Check | CLOSED | $\partial\mathbb{T} = \emptyset$ | $\Gamma_{12} \cup \{K_{\mathrm{Bound}}^-\}$ |
+| **--** | **SURGERY** | **N/A** | — | $\Gamma_{13}$ |
+| **--** | **RE-ENTRY** | **N/A** | — | $\Gamma_{13}$ |
+| **17** | **LOCK** | **BLOCK** | E1+E2 | $\Gamma_{13} \cup \{K_{\mathrm{Lock}}^{\mathrm{blk}}\} = \Gamma_{\mathrm{final}}$ |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Dimension | PASS | 1D Sobolev: $\|u\|_{L^\infty} \le C_{\text{emb}}\|u\|_{H^1}$ |
+| **E2** | Invariant | PASS | Energy decay: $\frac{d}{dt}E \le 0$ contradicts blow-up |
+| **E3** | Positivity | N/A | — |
+| **E4** | Integrality | N/A | — |
+| **E5** | Functional | N/A | — |
+| **E6** | Causal | N/A | — |
+| **E7** | Thermodynamic | N/A | — |
+| **E8** | Holographic | N/A | — |
+| **E9** | Ergodic | N/A | — |
+| **E10** | Definability | N/A | — |
+
+### 4. Final Verdict
+
+* **Status:** UNCONDITIONAL
+* **Obligation Ledger:** EMPTY
+* **Singularity Set:** $\Sigma = \emptyset$
+* **Primary Blocking Tactic:** E1+E2 (1D Sobolev embedding + Energy decay)
+
+---
+
 ## Document Information
 
 | Field | Value |
@@ -754,6 +815,11 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 ### 0.3 The Lock (Node 17)
 - [x] **Category $\mathbf{Hypo}_{T_{\text{para}}}$:** Parabolic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time $H^1$ blow-up
+- [x] **Primary Tactic Selected:** E1 + E2
+- [x] **Tactic Logic:**
+    * $I(\mathcal{H}) = \Omega(t) \le \Omega_0$ (enstrophy bounded, no vortex stretching in 2D)
+    * $I(\mathcal{H}_{\text{bad}}) = \|\omega\|_{L^2} \to \infty$ or $\|\nabla u\|_{L^2} \to \infty$ (blow-up)
+    * Conclusion: Enstrophy bound + Biot–Savart $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
   - [x] E1 (Dimension): 2D enstrophy bound prevents concentration
   - [x] E2 (Invariant Mismatch): Enstrophy conservation contradicts blow-up
@@ -1297,6 +1363,63 @@ This proof object is replayed by providing:
 4. `closure.cfg`: promotion/closure settings
 
 **Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
+
+---
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | Div-free $H^1(\mathbb{T}^2; \mathbb{R}^2)$ | State Space |
+| **Potential ($\Phi$)** | $E(u) = \frac{1}{2}\|u\|_{L^2}^2$, $\Omega = \frac{1}{2}\|\omega\|_{L^2}^2$ | Energy + Enstrophy |
+| **Cost ($\mathfrak{D}$)** | $D = \nu\|\nabla u\|_{L^2}^2 = \nu\|\omega\|_{L^2}^2$ | Dissipation |
+| **Invariance ($G$)** | $\mathbb{T}^2 \rtimes SO(2)$ | Translations + Rotations |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Γ (Certificate Accumulation) |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | Energy Bound | YES | $\frac{d}{dt}E + D = 0$, $E(t) \le E_0$ | $\{K_{D_E}^+\}$ |
+| **2** | Zeno Check | YES | No surgeries needed | $\Gamma_1 \cup \{K_{\mathrm{Rec}}^+\}$ |
+| **3** | Compact Check | YES | Ladyzhenskaya, no concentration | $\Gamma_2 \cup \{K_{C_\mu}^+\}$ |
+| **4** | Scale Check | YES | Enstrophy subcritical | $\Gamma_3 \cup \{K_{\mathrm{SC}_\lambda}^+\}$ |
+| **5** | Param Check | YES | $\nu$, $n=2$ fixed | $\Gamma_4 \cup \{K_{\mathrm{SC}_{\partial c}}^+\}$ |
+| **6** | Geom Check | YES | $\Sigma = \emptyset$ | $\Gamma_5 \cup \{K_{\mathrm{Cap}}^+\}$ |
+| **7** | Stiffness Check | YES | Enstrophy spectral gap | $\Gamma_6 \cup \{K_{\mathrm{LS}}^+\}$ |
+| **7*** | Velocity $H^1$ | INC | Missing vorticity link | $\Gamma_7 \cup \{K_{H^1}^{\mathrm{inc}}\}$; **OBL-1 introduced** |
+| **8** | Topo Check | YES | Circulation conserved | $\Gamma_{7^*} \cup \{K_{\mathrm{TB}_\pi}^+\}$; `[OBL-1]` |
+| **9** | Tame Check | YES | $\mathbb{R}_{\text{an}}$, $\Sigma = \emptyset$ | $\Gamma_8 \cup \{K_{\mathrm{TB}_O}^+\}$; `[OBL-1]` |
+| **10** | Ergo Check | YES | Dissipative | $\Gamma_9 \cup \{K_{\mathrm{TB}_\rho}^+\}$; `[OBL-1]` |
+| **11** | Complex Check | YES | Enstrophy bounded | $\Gamma_{10} \cup \{K_{\mathrm{Rep}}^+\}$; `[OBL-1]` |
+| **12** | Oscillate Check | NO | $E$, $\Omega$ Lyapunov | $\Gamma_{11} \cup \{K_{\mathrm{GC}}^-\}$; `[OBL-1]` |
+| **13** | Boundary Check | CLOSED | $\partial\mathbb{T}^2 = \emptyset$ | $\Gamma_{12} \cup \{K_{\mathrm{Bound}}^-\}$; `[OBL-1]` |
+| **--** | **SURGERY** | **EXEC** | Curl2D: $u \mapsto \omega$ | $\Gamma_{13} \cup \{K_{\mathrm{Surg}}^+\}$; `[OBL-1]` |
+| **--** | **RE-ENTRY** | **OK** | $K_{\mathrm{Ens}}^+$, $K^{\mathrm{re}}_{\mathrm{GradBound}}$ | $\Gamma_S \cup \{K_{\mathrm{Ens}}^+, K_{\mathrm{re}}^+\}$; **OBL-1 discharged** ✓ |
+| **17** | **LOCK** | **BLOCK** | E1+E2 | $\Gamma_R \cup \{K_{\mathrm{Lock}}^{\mathrm{blk}}\} = \Gamma_{\mathrm{final}}$ |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Dimension | PASS | 2D: Enstrophy $\frac{d}{dt}\Omega \le 0$ (no vortex stretching) |
+| **E2** | Invariant | PASS | Biot–Savart: $\|\nabla u\|_{L^2} \le c_{BS}\|\omega\|_{L^2}$ |
+| **E3** | Positivity | N/A | — |
+| **E4** | Integrality | N/A | — |
+| **E5** | Functional | N/A | — |
+| **E6** | Causal | N/A | — |
+| **E7** | Thermodynamic | N/A | — |
+| **E8** | Holographic | N/A | — |
+| **E9** | Ergodic | N/A | — |
+| **E10** | Definability | N/A | — |
+
+### 4. Final Verdict
+
+* **Status:** UNCONDITIONAL
+* **Obligation Ledger:** EMPTY (OBL-1 discharged via a-posteriori upgrade U2)
+* **Singularity Set:** $\Sigma = \emptyset$
+* **Primary Blocking Tactic:** E1+E2 (Enstrophy bound + Biot–Savart recovery)
 
 ---
 

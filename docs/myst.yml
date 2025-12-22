@@ -26,6 +26,8 @@ project:
       title: Case Studies
     - file: source/examples.md
       title: Examples
+    - file: source/landau_damping.md
+      title: Landau Damping
     - file: source/template.md
       title: Universal Solution Template
     - file: source/system_prompt.md
@@ -61,6 +63,8 @@ site:
       url: /case-studies
     - title: Examples
       url: /examples
+    - title: Landau Damping
+      url: /landau-damping
     - title: Template
       url: /template
     - title: System Prompt
