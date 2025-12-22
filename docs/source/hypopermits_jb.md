@@ -112,6 +112,90 @@ Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
 **Interpretation:** The equation $F(x) = x$ encapsulates the principle: *structures that persist under their own evolution are precisely those that satisfy the hypostructure axioms*. Singularities represent states where $F(x) \neq x$ in the limit—the evolution attempts to produce a state incompatible with its own definition.
 :::
 
+### 3.1 Foundation Theorems
+
+The following metatheorems establish the logical soundness of the Sieve before examining any specific node. They prove that the framework's categorical approach to singularity resolution is mathematically valid.
+
+:::{prf:metatheorem} Principle of Structural Exclusion (MT 8.11.N)
+:label: mt-imported-structural-exclusion
+:class: metatheorem
+
+**Source:** Hypostructure MT 8.11.N (Capstone Theorem)
+
+**Sieve Target:** Node 17 (Lock) — proves the Lock mechanism is valid
+
+**Statement:** Let $T$ be a problem type with category of admissible T-hypostructures $\mathbf{Hypo}_T$. Let $\mathbb{H}_{\mathrm{bad}}^{(T)}$ be the universal Rep-breaking pattern. For any concrete object $Z$ with admissible hypostructure $\mathbb{H}(Z)$, if:
+
+$$\mathrm{Hom}_{\mathbf{Hypo}_T}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$$
+
+then Interface Permit $\mathrm{Rep}_K(T, Z)$ holds, and hence the conjecture for $Z$ holds.
+
+**Hypotheses (N1–N11):**
+1. **(N1)** Category $\mathbf{Hypo}_T$ of admissible T-hypostructures satisfying core interface permits $C_\mu$, $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{GC}_\nabla$
+2. **(N2)** Hypostructure assignment $Z \mapsto \mathbb{H}(Z)$
+3. **(N3)** Conjecture equivalence: $\mathrm{Conj}(T,Z) \Leftrightarrow \text{Interface Permit } \mathrm{Rep}_K(T,Z)$
+4. **(N8)** Representational completeness of parametrization $\Theta$
+5. **(N9)** Existence of universal Rep-breaking pattern with initiality property
+6. **(N10)** Admissibility of $\mathbb{H}(Z)$
+7. **(N11)** Obstruction condition: $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$
+
+**Conclusion:** Global regularity via categorical obstruction: singularities cannot embed into admissible structures.
+
+**Certificate Produced:** $K_{\text{Lock}}^{\mathrm{blk}}$ with payload $(\mathrm{Hom} = \emptyset, Z, T)$
+
+**Literature:** {cite}`Grothendieck67`; {cite}`MacLane71`; {cite}`KashiwaraSchapira06`; {cite}`Lurie09`
+:::
+
+:::{prf:metatheorem} Structural Resolution (MT 5.1)
+:label: mt-imported-structural-resolution
+:class: metatheorem
+
+**Source:** Hypostructure MT 5.1 (Resolution Machinery)
+
+**Sieve Target:** Node 3 (CompactCheck) — justifies the Concentration/Dispersion dichotomy
+
+**Statement:** Let $\mathcal{S}$ be a structural flow datum satisfying minimal regularity (Reg) and dissipation ($D_E$) interface permits. Every trajectory $u(t) = S_t x$ with finite breakdown time $T_*(x) < \infty$ classifies into exactly one of three outcomes:
+
+| **Outcome** | **Modes** | **Mechanism** |
+|-------------|-----------|---------------|
+| Global Existence | Mode D.D | Energy disperses, no concentration, solution scatters |
+| Global Regularity | Modes S.E, C.D, T.E, S.D | Concentration but forced structure fails permits |
+| Genuine Singularity | Mode C.E | Energy escapes or structured blow-up with all permits |
+
+**Hypotheses:**
+1. **(Reg)** Minimal regularity: semiflow $S_t$ well-defined on $X$
+2. **(D)** Dissipation: energy-dissipation inequality holds
+3. **(C)** Compactness: bounded energy implies profile convergence modulo $G$
+
+**Certificate Produced:** Trichotomy classification $\{K_{\text{D.D}}, K_{\text{Reg}}, K_{\text{C.E}}\}$
+
+**Literature:** {cite}`Lions84`; {cite}`KenigMerle06`; {cite}`Hironaka64`; {cite}`Struwe90`
+:::
+
+:::{prf:metatheorem} Equivariance (MT 13.57 / SV-08)
+:label: mt-imported-equivariance
+:class: metatheorem
+
+**Source:** Hypostructure MT 13.57 (Learning Theory)
+
+**Sieve Target:** Meta-Learning — guarantees learned parameters preserve symmetry group $G$
+
+**Statement:** Let $G$ be a compact Lie group acting on the system distribution $\mathcal{S}$ and parameter space $\Theta$. Under compatibility assumptions:
+
+1. **(Group-Covariant Distribution)** $S \sim \mathcal{S} \Rightarrow g \cdot S \sim \mathcal{S}$ for all $g \in G$
+2. **(Equivariant Parametrization)** $g \cdot \mathcal{H}_\Theta(S) \simeq \mathcal{H}_{g \cdot \Theta}(g \cdot S)$
+3. **(Defect-Level Equivariance)** $K_{A,g \cdot S}^{(g \cdot \Theta)}(g \cdot u) = K_{A,S}^{(\Theta)}(u)$
+
+Then:
+- Every risk minimizer $\widehat{\Theta}$ lies in the $G$-orbit: $\widehat{\Theta} \in G \cdot \Theta^*$
+- Gradient flow preserves equivariance: if $\Theta_0$ is $G$-equivariant, so is $\Theta_t$
+- Learned hypostructures inherit all symmetries of the system distribution
+
+**Certificate Produced:** $K_{\text{SV08}}^+$ (Symmetry Preservation)
+
+**Literature:** {cite}`Noether18`; {cite}`CohenWelling16`; {cite}`Kondor18`; {cite}`Weyl46`
+:::
+
 ---
 
 # Part II: The Constructive Approach
@@ -454,7 +538,7 @@ This interpretation connects the Sieve to classical obstruction theory in algebr
 
 This diagram is large. For better viewing:
 - **Zoom**: Use your browser's zoom (Ctrl/Cmd + scroll)
-- **Full-screen editor**: [Open in Mermaid Live Editor](https://mermaid.live) and paste the code from the [Appendix](#complete-sieve-algorithm)
+- **Full-screen editor**: [Open in Mermaid Live Editor](https://mermaid.live) and paste the code from the diagram below
 - **Download**: In Mermaid Live Editor, use the export button to download as SVG or PNG
 :::
 
@@ -635,7 +719,7 @@ graph TD
 
     BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
     BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
-    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
+    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 41.1:</b><br>Structural Reconstruction"]
     ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
     ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
 
@@ -781,7 +865,7 @@ The flow proceeds by **Iterative Obstruction Theory**:
 
 ---
 
-## Interface Registry: The Obstruction Atlas
+### 11.2 Interface Registry: The Obstruction Atlas
 
 The following table defines the **Obstruction Atlas**—the collection of classifying stacks and their associated projection functors. Each interface evaluates whether a specific cohomology class vanishes.
 
@@ -824,7 +908,7 @@ To instantiate the sieve for a specific system, one must implement each projecti
 Barrier checks compose multiple interfaces. For example, the **Saturation Barrier** at {prf:ref}`def-node-energy` combines the energy interface $D_E$ with a drift control predicate. Surgery admissibility checks (the light purple diamonds) query the same interfaces as their parent gates but with different predicates.
 :::
 
-## Barrier Registry: Secondary Obstruction Classes
+### 11.3 Barrier Registry: Secondary Obstruction Classes
 
 The following table defines the **Secondary Obstruction Classes**—cohomological barriers that activate when the primary obstruction is non-trivial. Each barrier represents a weaker cohomology condition that may still force triviality of the singularity class.
 
@@ -847,7 +931,7 @@ The following table defines the **Secondary Obstruction Classes**—cohomologica
 | 16   | BarrierVariety   | $\mathrm{GC}_T$, $\mathrm{Cap}_H$                | $K_{\mathrm{Bound}_{\Sigma}}^\pm$              | $K_{\mathrm{GC}_T}^{\mathrm{blk}}$ / $K_{\mathrm{GC}_T}^{\mathrm{br}}$                                | $H(u) \geq H(d)$                                               | Does control entropy match disturbance entropy?              | Requisite Variety          |
 | 17   | BarrierExclusion | $\mathrm{Cat}_{\mathrm{Hom}}$                    | Full $\Gamma$                              | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ / $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{hor}}$ | $\mathrm{Hom}(\mathcal{B}, S) = \emptyset$                     | Is there a categorical obstruction to the bad pattern?       | Morphism Exclusion / Reconstruction |
 
-## Surgery Registry: Cobordism Morphisms
+### 11.4 Surgery Registry: Cobordism Morphisms
 
 The following table defines the **Cobordism Morphisms**—categorical pushouts that modify the topology of the state space to cancel non-trivial obstruction classes. Each surgery constructs a new manifold where the obstruction vanishes, enabling re-entry into the resolution tower.
 
@@ -947,7 +1031,7 @@ This ensures that no surgery executes without verified admissibility, and no fai
 
 # Part V: The Kernel
 
-## 1. The Sieve as a Proof-Carrying Program
+## 12. The Sieve as a Proof-Carrying Program
 
 :::{prf:definition} Sieve epoch
 :label: def-sieve-epoch
@@ -974,7 +1058,7 @@ The sieve contains the following node classes:
 
 ---
 
-## 2. Operational Semantics
+## 13. Operational Semantics
 
 :::{prf:definition} State space
 :label: def-state-space
@@ -1037,7 +1121,7 @@ This ensures the sieve is deterministic: UNKNOWN is conservatively treated as NO
 
 ---
 
-## 3. Permit Vocabulary and Certificate Types
+## 14. Permit Vocabulary and Certificate Types
 
 :::{prf:definition} Gate permits
 :label: def-gate-permits
@@ -1147,7 +1231,7 @@ This makes inc-upgrades structurally symmetric with blocked-certificate promotio
 
 ---
 
-## 4. Kernel Theorems
+## 15. Kernel Theorems
 
 :::{prf:theorem} DAG structure
 :label: thm-dag
@@ -1329,7 +1413,7 @@ Equivalently, all NO-inconclusive obligations relevant to the goal have been dis
 
 # Part VI: Node Specifications
 
-## 5. Gate Node Specifications (Blue Nodes)
+## 16. Gate Node Specifications (Blue Nodes)
 
 Each gate node is specified by:
 - **Predicate** $P_i$: The property being tested
@@ -1886,7 +1970,7 @@ The **exclusion tactics (E1–E12)** are analogous to **selection rules** in qua
 
 ---
 
-## 6. Barrier Node Specifications (Orange Nodes)
+## 17. Barrier Node Specifications (Orange Nodes)
 
 Each barrier is specified by:
 - **Trigger**: Which gate's NO invokes it
@@ -2421,7 +2505,7 @@ This barrier is triggered when Node 11 determines that exact complexity is uncom
 
 ---
 
-## 7. Surgery Node Specifications (Purple Nodes)
+## 18. Surgery Node Specifications (Purple Nodes)
 
 Each surgery is specified by:
 - **Inputs**: Breach certificate + surgery data
@@ -3059,9 +3143,9 @@ The non-circularity checker must verify that the progress measure is compatible 
 
 ---
 
-# Part VII: The Soft Interface Permits (X.0)
+# Part VII: The Soft Interface Permits
 
-## 8. The Universal Gate Evaluator Interface
+## 19. The Universal Gate Evaluator Interface
 
 A Hypostructure $\mathbb{H}$ is an object in a cohesive $(\infty, 1)$-topos $\mathcal{E}$ equipped with a **Gate Evaluator Interface**. This interface maps abstract structural data to decidable types (Propositions) that the Sieve machine can verify.
 
@@ -3069,7 +3153,7 @@ To support everything from **Navier-Stokes** to **Graph Theory** to **Homotopy T
 
 ---
 
-### 8.0. Ambient Structure
+### 19.0. Ambient Structure
 
 :::{prf:definition} Ambient Topos (Formal)
 :label: def-ambient-topos-formal
@@ -3128,7 +3212,7 @@ This enables:
 
 ---
 
-### 8.1. $\mathcal{H}_0$ (Substrate Interface)
+### 19.1. $\mathcal{H}_0$ (Substrate Interface)
 *The Substrate Definition.*
 
 :::{prf:definition} Interface $\mathcal{H}_0$
@@ -3154,7 +3238,7 @@ $$\vdash S_t \in \text{Hom}_{\mathcal{E}}(\mathcal{X}, \mathcal{X})$$
 
 ---
 
-### 8.2. $D_E$ (Energy Interface)
+### 19.2. $D_E$ (Energy Interface)
 *The Cost Interface. Enables Node 1: EnergyCheck*
 
 :::{prf:definition} Interface $D_E$
@@ -3180,7 +3264,7 @@ $$\Phi(S_t x) \leq \Phi(x) + \int \mathfrak{D}$$
 
 ---
 
-### 8.3. $\mathrm{Rec}_N$ (Recovery Interface)
+### 19.3. $\mathrm{Rec}_N$ (Recovery Interface)
 *The Discrete Event Interface. Enables Node 2: ZenoCheck*
 
 :::{prf:definition} Interface $\mathrm{Rec}_N$
@@ -3206,7 +3290,7 @@ $$\#\{t \mid S_t(x) \in \mathcal{B}\} < \infty$$
 
 ---
 
-### 8.4. $C_\mu$ (Compactness Interface)
+### 19.4. $C_\mu$ (Compactness Interface)
 *The Limit Interface. Enables Node 3: CompactCheck*
 
 :::{prf:definition} Interface $C_\mu$
@@ -3232,7 +3316,7 @@ $$\exists V \in \mathcal{X} // G : x_n \to V$$
 
 ---
 
-### 8.5. $\mathrm{SC}_\lambda$ (Scaling Interface)
+### 19.5. $\mathrm{SC}_\lambda$ (Scaling Interface)
 *The Homogeneity Interface. Enables Node 4: ScaleCheck*
 
 :::{prf:definition} Interface $\mathrm{SC}_\lambda$
@@ -3258,7 +3342,7 @@ $$\alpha(V) > \beta(V)$$
 
 ---
 
-### 8.6. $\mathrm{SC}_{\partial c}$ (Parameter Interface)
+### 19.6. $\mathrm{SC}_{\partial c}$ (Parameter Interface)
 *Enables Node 5: ParamCheck*
 
 :::{prf:definition} Interface $\mathrm{SC}_{\partial c}$
@@ -3285,7 +3369,7 @@ $$\forall t.\, d(\theta(S_t x), \theta_0) \leq C$$
 
 ---
 
-### 8.7. $\mathrm{Cap}_H$ (Capacity Interface)
+### 19.7. $\mathrm{Cap}_H$ (Capacity Interface)
 *The Measure/Dimension Interface. Enables Node 6: GeomCheck*
 
 :::{prf:definition} Interface $\mathrm{Cap}_H$
@@ -3311,7 +3395,7 @@ $$\text{Cap}(\Sigma) < C_{\text{crit}}$$
 
 ---
 
-### 8.8. $\mathrm{LS}_\sigma$ (Stiffness Interface)
+### 19.8. $\mathrm{LS}_\sigma$ (Stiffness Interface)
 *The Local Convexity Interface. Enables Node 7: StiffnessCheck*
 
 :::{prf:definition} Interface $\mathrm{LS}_\sigma$
@@ -3336,7 +3420,7 @@ $$\|\nabla \Phi(x)\| \geq C |\Phi(x) - \Phi(V)|^{1-\theta}$$
 
 ---
 
-### 8.8.1. $\mathrm{Mon}_\phi$ (Monotonicity Interface)
+### 19.8.1. $\mathrm{Mon}_\phi$ (Monotonicity Interface)
 *The Virial/Morawetz Interface. Enables Soft→Rigidity Compilation*
 
 :::{prf:definition} Interface $\mathrm{Mon}_\phi$ (Monotonicity / Virial-Morawetz)
@@ -3375,7 +3459,7 @@ $$\frac{d^2}{dt^2} M_\phi(t) \geq c \cdot \|\nabla u\|^2 - C \cdot \|u\|^2$$
 
 ---
 
-### 8.9. $\mathrm{TB}_\pi$ (Topology Interface)
+### 19.9. $\mathrm{TB}_\pi$ (Topology Interface)
 *The Invariant Interface. Enables Node 8: TopoCheck*
 
 :::{prf:definition} Interface $\mathrm{TB}_\pi$
@@ -3400,7 +3484,7 @@ $$\tau(S_t x) = \tau(x)$$
 
 ---
 
-### 8.10. $\mathrm{TB}_O$ (Tameness Interface)
+### 19.10. $\mathrm{TB}_O$ (Tameness Interface)
 *Enables Node 9: TameCheck*
 
 :::{prf:definition} Interface $\mathrm{TB}_O$
@@ -3425,7 +3509,7 @@ $$\Sigma \in \mathcal{O}\text{-definable}$$
 
 ---
 
-### 8.11. $\mathrm{TB}_\rho$ (Mixing Interface)
+### 19.11. $\mathrm{TB}_\rho$ (Mixing Interface)
 *Enables Node 10: ErgoCheck*
 
 :::{prf:definition} Interface $\mathrm{TB}_\rho$
@@ -3451,7 +3535,7 @@ $$\tau_{\text{mix}}(x) < \infty$$
 
 ---
 
-### 8.12. $\mathrm{Rep}_K$ (Dictionary Interface)
+### 19.12. $\mathrm{Rep}_K$ (Dictionary Interface)
 *The Equivalence Interface. Enables Node 11: ComplexCheck*
 
 :::{prf:definition} Interface $\mathrm{Rep}_K$
@@ -3482,7 +3566,7 @@ $$K(D(x)) < \infty$$
 
 ---
 
-### 8.13. $\mathrm{GC}_\nabla$ (Gradient Interface)
+### 19.13. $\mathrm{GC}_\nabla$ (Gradient Interface)
 *The Geometry Interface. Enables Node 12: OscillateCheck*
 
 :::{prf:definition} Interface $\mathrm{GC}_\nabla$
@@ -3510,12 +3594,12 @@ $$\mathfrak{D}(x) = \|\nabla_g \Phi(x)\|^2$$
 
 ---
 
-### 8.14. Open System Interfaces
+### 19.14. Open System Interfaces
 *Enables Nodes 13-16: BoundaryCheck, OverloadCheck, StarveCheck, AlignCheck*
 
 The open system checks are split into four distinct interfaces, each handling a specific aspect of boundary coupling.
 
-#### 8.14a. $\mathrm{Bound}_\partial$ (Boundary Interface)
+#### 19.14a. $\mathrm{Bound}_\partial$ (Boundary Interface)
 *Enables Node 13: BoundaryCheck*
 
 :::{prf:definition} Interface $\mathrm{Bound}_\partial$
@@ -3535,7 +3619,7 @@ $$\partial\mathcal{X} \neq \emptyset$$
 - $K_{\mathrm{Bound}_\partial}^-$ (Closed System): Witness that system is closed; skip to Node 17.
 :::
 
-#### 8.14b. $\mathrm{Bound}_B$ (Input Bound Interface)
+#### 19.14b. $\mathrm{Bound}_B$ (Input Bound Interface)
 *Enables Node 14: OverloadCheck*
 
 :::{prf:definition} Interface $\mathrm{Bound}_B$
@@ -3556,7 +3640,7 @@ $$\|Bu\|_{L^\infty} \leq M \quad \land \quad \int_0^T \|u(t)\|^2 dt < \infty$$
 - $K_{\mathrm{Bound}_B}^-$ (Overload): $(\text{overload witness}, t^*)$ — triggers BarrierBode.
 :::
 
-#### 8.14c. $\mathrm{Bound}_{\Sigma}$ (Resource Interface)
+#### 19.14c. $\mathrm{Bound}_{\Sigma}$ (Resource Interface)
 *Enables Node 15: StarveCheck*
 
 :::{prf:definition} Interface $\mathrm{Bound}_{\Sigma}$
@@ -3577,7 +3661,7 @@ $$\int_0^T r(t) \, dt \geq r_{\min}$$
 - $K_{\mathrm{Bound}_{\Sigma}}^-$ (Starvation): $(\text{deficit time})$ — triggers BarrierInput.
 :::
 
-#### 8.14d. $\mathrm{GC}_T$ (Control Alignment Interface)
+#### 19.14d. $\mathrm{GC}_T$ (Control Alignment Interface)
 *Enables Node 16: AlignCheck*
 
 :::{prf:definition} Interface $\mathrm{GC}_T$
@@ -3601,7 +3685,7 @@ $$\Delta(T(u), d) \leq \varepsilon_{\text{align}}$$
 
 ---
 
-### 8.15. $\mathrm{Cat}_{\mathrm{Hom}}$ (Categorical Interface)
+### 19.15. $\mathrm{Cat}_{\mathrm{Hom}}$ (Categorical Interface)
 *Enables Node 17: The Lock (BarrierExclusion)*
 
 :::{prf:definition} Interface $\mathrm{Cat}_{\mathrm{Hom}}$
@@ -3639,7 +3723,7 @@ The "universal bad object" formulation assumes a single object $\mathcal{H}_{\te
 
 ---
 
-### 8.16. What X.0 Does NOT Promise
+### 19.16. What base level Does NOT Promise
 
 At the soft layer, the framework does **not** assume:
 
@@ -3660,7 +3744,7 @@ This separation makes the framework **honest about its assumptions** and enables
 
 ---
 
-### 8.16.5. Backend-Specific Permits (Specialized Certificates)
+### 19.16.5. Backend-Specific Permits (Specialized Certificates)
 
 The following permits capture **backend-specific hypotheses** that are required by particular metatheorems. Unlike the universal interfaces (8.1–8.15), these permits encode deep theorems from specific mathematical domains (e.g., dispersive PDE, dynamical systems, algebraic geometry) that cannot be derived from the generic interface structure alone.
 
@@ -3969,7 +4053,7 @@ Typical $\mathsf{missing}$: "Lyapunov function not verified to be strict", "$K_{
 
 ---
 
-### 8.17. Summary Tables
+### 19.17. Summary Tables
 
 #### Interface Summary Table
 
@@ -4014,7 +4098,7 @@ This table constitutes the **Type Signature** of a Hypostructure.
 
 ---
 
-### 8.18. Master Node Map
+### 19.18. Master Node Map
 
 The following table provides the complete mapping from Sieve nodes to interfaces:
 
@@ -4038,7 +4122,7 @@ The following table provides the complete mapping from Sieve nodes to interfaces
 | 16 | AlignCheck | $\mathrm{GC}_T$ | Control aligned | Node 17 | BarrierVariety |
 | 17 | **The Lock** | $\mathrm{Cat}_{\mathrm{Hom}}$ | $\text{Hom}=\emptyset$ | **VICTORY** | **NO** (typed) |
 
-*Note: Node 17 has binary output with typed NO certificates: Blocked → VICTORY, Breached-with-witness → FATAL, Breached-inconclusive → Reconstruction (see Section 20).*
+*Note: Node 17 has binary output with typed NO certificates: Blocked → VICTORY, Breached-with-witness → FATAL, Breached-inconclusive → Reconstruction (see Section 31).*
 
 #### Restoration Subtree (Mode D Recovery)
 
@@ -4053,7 +4137,7 @@ When CompactCheck (Node 3) returns NO with a concentration profile, the system e
 
 ---
 
-### 8.A. The Kernel Objects: Interface Implementations
+### 19.A. The Kernel Objects: Interface Implementations
 
 A Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)$ consists of four **kernel objects**. Each kernel object implements a subset of the interfaces defined in Sections 8.1–8.15.
 
@@ -4065,7 +4149,7 @@ This serves as a "header file" for instantiation — users can read the table an
 
 ---
 
-#### 8.A.1. $\mathcal{X}$ — The State Object
+#### 19.A.1. $\mathcal{X}$ — The State Object
 **Implements Interfaces:** **$\mathcal{H}_0$**, **$\mathrm{Cap}_H$**, **$\mathrm{TB}_\pi$**, **$\mathrm{TB}_O$**, **$\mathrm{Rep}_K$**, **$\mathrm{Bound}$**, **$\mathrm{Cat}_{\mathrm{Hom}}$**
 
 | Component | Mathematical Type | Interface | Role / Description |
@@ -4160,7 +4244,7 @@ The **State Object** is a tuple $\mathcal{X} = (\mathcal{X}, \mathcal{T}, S, \ma
 
 ---
 
-#### 8.A.2. $\Phi$ — The Height Object
+#### 19.A.2. $\Phi$ — The Height Object
 **Implements Interfaces:** **$D_E$**, **$\mathrm{SC}_\lambda$**, **$\mathrm{LS}_\sigma$**
 
 | Component | Mathematical Type | Interface | Role / Description |
@@ -4240,7 +4324,7 @@ The **Height Object** is a tuple $\Phi = (\Phi, \mathcal{H}, \leq, +, 0, \infty,
 
 ---
 
-#### 8.A.3. $\mathfrak{D}$ — The Dissipation Object
+#### 19.A.3. $\mathfrak{D}$ — The Dissipation Object
 **Implements Interfaces:** **$D_E$**, **$\mathrm{Rec}_N$**, **$\mathrm{SC}_\lambda$**, **$\mathrm{GC}_\nabla$**, **$\mathrm{TB}_\rho$**
 
 | Component | Mathematical Type | Interface | Role / Description |
@@ -4306,7 +4390,7 @@ The **Dissipation Object** is a tuple $\mathfrak{D} = (\mathfrak{D}, \beta, \mat
 
 ---
 
-#### 8.A.4. $G$ — The Symmetry Object
+#### 19.A.4. $G$ — The Symmetry Object
 **Implements Interfaces:** **$\mathcal{H}_0$**, **$C_\mu$**, **$\mathrm{SC}_\lambda$**, **$\mathrm{LS}_\sigma$**, **$\mathrm{SC}_{\partial c}$**
 
 | Component | Mathematical Type | Interface | Role / Description |
@@ -4389,7 +4473,7 @@ The **Symmetry Object** is a tuple $G = (\mathcal{G}, \rho, \mathcal{S}, \mathfr
 
 ---
 
-### 8.B. The Instantiation Metatheorem
+### 19.B. The Instantiation Metatheorem
 
 :::{prf:metatheorem} Valid Instantiation
 :label: mt-valid-instantiation
@@ -4412,7 +4496,7 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 - [ ] Each interface's required structure is provided
 - [ ] Predicates are computable (or semi-decidable with timeout)
 - [ ] Certificate schemas are well-formed
-- [ ] Type $T$ is specified from the catalog (Section 11)
+- [ ] Type $T$ is specified from the catalog (Section 22)
 
 **Literature:** Higher topos theory {cite}`Lurie09`; internal logic of toposes {cite}`Johnstone77`; type-theoretic semantics {cite}`HoTTBook`.
 :::
@@ -4429,9 +4513,9 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 4. **The Symmetry Group** $G$ with action $\rho$ and scaling subgroup $\mathcal{S}$
 
 **The Framework (Sieve) automatically derives:**
-1. **Profiles:** Via Universal Profile Trichotomy (Section 14)
-2. **Admissibility:** Via Surgery Admissibility Predicate (Section 15)
-3. **Regularization:** Via Structural Surgery Operator (Section 16)
+1. **Profiles:** Via Universal Profile Trichotomy (Section 25)
+2. **Admissibility:** Via Surgery Admissibility Predicate (Section 26)
+3. **Regularization:** Via Structural Surgery Operator (Section 27)
 4. **Topology:** Via persistent homology on measure $\mu$
 5. **Bad Sets:** Via concentration locus of $\mathfrak{D}$
 
@@ -4471,9 +4555,9 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 
 ---
 
-### 8.C Thin Kernel Objects
+### 19.C Thin Kernel Objects
 
-**Design Principle:** The full Kernel Objects of Section 8.A contain both *structural data* (user-provided) and *algorithmic machinery* (Framework-derived). This section extracts the **minimal user burden**—the "thin" objects that users must specify. Everything else is automatically constructed by the Sieve via the Universal Singularity Modules (Section 14-16).
+**Design Principle:** The full Kernel Objects of Section 19.A contain both *structural data* (user-provided) and *algorithmic machinery* (Framework-derived). This section extracts the **minimal user burden**—the "thin" objects that users must specify. Everything else is automatically constructed by the Sieve via the Universal Singularity Modules (Section 25-27).
 
 :::{prf:definition} User vs Framework Responsibility
 :label: def-user-framework-split
@@ -4490,7 +4574,7 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 
 ---
 
-#### 8.C.1 $\mathcal{X}^{\text{thin}}$ — Thin State Object
+#### 19.C.1 $\mathcal{X}^{\text{thin}}$ — Thin State Object
 
 **Motto:** *"The Arena"*
 
@@ -4529,7 +4613,7 @@ $$\mathcal{X}^{\text{thin}} = (\mathcal{X}, d, \mu)$$
 
 ---
 
-#### 8.C.2 $\Phi^{\text{thin}}$ — Thin Height Object
+#### 19.C.2 $\Phi^{\text{thin}}$ — Thin Height Object
 
 **Motto:** *"The Potential"*
 
@@ -4568,7 +4652,7 @@ $$\Phi^{\text{thin}} = (F, \nabla, \alpha)$$
 
 ---
 
-#### 8.C.3 $\mathfrak{D}^{\text{thin}}$ — Thin Dissipation Object
+#### 19.C.3 $\mathfrak{D}^{\text{thin}}$ — Thin Dissipation Object
 
 **Motto:** *"The Cost"*
 
@@ -4605,7 +4689,7 @@ $$\mathfrak{D}^{\text{thin}} = (R, \beta)$$
 
 ---
 
-#### 8.C.4 $G^{\text{thin}}$ — Thin Symmetry Object
+#### 19.C.4 $G^{\text{thin}}$ — Thin Symmetry Object
 
 **Motto:** *"The Invariance"*
 
@@ -4644,7 +4728,7 @@ $$G^{\text{thin}} = (\text{Grp}, \rho, \mathcal{S})$$
 
 ---
 
-#### 8.C.5 Summary: The Four Thin Objects
+#### 19.C.5 Summary: The Four Thin Objects
 
 :::{prf:remark} Minimal Instantiation Burden
 :label: rem-minimal-burden
@@ -4692,11 +4776,12 @@ Given thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}
 
 ---
 
-### 8.19. Soft-to-Backend Compilation
+(sec-soft-backend-compilation)=
+### 19.19. Soft-to-Backend Compilation
 
 This section defines the **compilation layer** that automatically derives backend permits from soft interfaces for good types. Users implement only soft interfaces; the framework derives WP, ProfDec, KM, Rigidity, etc.
 
-#### 8.19.1 Architecture
+#### 19.19.1 Architecture
 
 ```
 USER PROVIDES (Soft Layer)
@@ -4921,7 +5006,7 @@ $$\underbrace{K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{\mathrm{
 
 ---
 
-#### 8.19.2 Evaluators for Derived Permits
+#### 19.19.2 Evaluators for Derived Permits
 
 The Sieve implements proof-producing evaluators for each derived permit. Every evaluator returns a binary YES/NO verdict with typed certificates:
 
@@ -4945,9 +5030,9 @@ The Sieve implements proof-producing evaluators for each derived permit. Every e
 
 ---
 
-## 9. The Weakest Precondition Principle
+## 20. The Weakest Precondition Principle
 
-The interface formalism of Section 8 embodies a fundamental design principle: **regularity is an output, not an input**.
+The interface formalism of Section 19 embodies a fundamental design principle: **regularity is an output, not an input**.
 
 :::{prf:metatheorem} Weakest Precondition Principle
 :label: mt-weakest-precondition
@@ -5004,34 +5089,25 @@ A researcher can contribute a new interface implementation without understanding
 
 ---
 
-## 10. Stronger Interface Permit Layers (X.A / X.B / X.C)
+## 21. Rigidity & Recovery Metatheorems
 
-This section defines **optional strengthening layers** above the soft interface permits X.0. Each layer:
-- is **strictly stronger** than X.0,
-- corresponds to **clear level-up certificates** in the sieve context $\Gamma$,
-- unlocks **stronger metatheorems** (uniqueness, rates, explicit reconstruction, decidability),
-- remains reusable across many instantiations.
-
-Think of these as ``difficulty settings'' for the hypostructure engine:
-- **X.0** = minimal interfaces to run the sieve
-- **X.A** = tame classification and admissible recovery are guaranteed
-- **X.B** = analytic rigidity and canonical Lyapunov become available
-- **X.C** = effective/algorithmic proof backend (lock decidability) becomes available
+This section defines **strengthening metatheorems** that upgrade soft interface permits to stronger analytical guarantees. These metatheorems provide:
+- **Tame recovery** ($K_{\text{Tame}}$): Singularity classification and surgery admissibility
+- **Rigidity** ($K_{\text{Rigid}}$): Canonical Lyapunov functions and convergence rates
+- **Effectivity** ($K_{\text{Eff}}$): Algorithmic decidability of lock exclusion
 
 ---
 
-### X.A — Tame Singularity and Recovery Layer
+### 21.1 Tame Singularity and Recovery
 
-**Purpose**: Guarantee that the ``singularity middle-game'' is **uniformly solvable**:
+**Purpose**: Guarantee that the "singularity middle-game" is **uniformly solvable**:
 - profiles can be classified (finite or tame),
 - surgery admissibility can be certified (possibly up to equivalence),
 - recovery steps can be executed systematically.
 
-This is the layer that turns the sieve into a **general singularity recovery engine**.
+#### 21.1.1 Profile Classification Trichotomy
 
-#### X.A.1 Profile Classification Trichotomy (built-in)
-
-**X.A assumes** there exists a verified metatheorem (usable for type $T$) that, given a profile $V$, outputs exactly one of:
+The Tame Certificate ($K_{\text{Tame}}$) requires a verified metatheorem that, given a profile $V$, outputs exactly one of:
 
 1. **Finite canonical library**: $K_{\mathrm{lib}}: \{V_1,\dots,V_N\}$ and membership certificate $K_{\mathrm{can}}: V\sim V_i$
 
@@ -5039,11 +5115,11 @@ This is the layer that turns the sieve into a **general singularity recovery eng
 
 3. **NO certificate (wild or inconclusive)**: $K_{\mathrm{Surg}}^{\mathrm{wild}}$ or $K_{\mathrm{Surg}}^{\mathrm{inc}}$: classification not possible under current Rep/definability regime (wildness witness or method exhaustion)
 
-**Layer requirement**: Under X.A, outcomes (1) or (2) always occur for admissible profiles (i.e., classification failure is ruled out for the admissible type $T$).
+**Requirement**: For types with $K_{\text{Tame}}$, outcomes (1) or (2) always occur for admissible profiles (i.e., classification failure is ruled out).
 
-#### X.A.2 Surgery Admissibility Trichotomy (built-in)
+#### 21.1.2 Surgery Admissibility Trichotomy
 
-**X.A assumes** a verified metatheorem that, given Surgery Data $(\Sigma, V, \lambda(t), \mathrm{Cap}(\Sigma))$, outputs exactly one of:
+The Tame Certificate requires a verified metatheorem that, given Surgery Data $(\Sigma, V, \lambda(t), \mathrm{Cap}(\Sigma))$, outputs exactly one of:
 
 1. **Admissible**: $K_{\mathrm{adm}}$: canonical + codim bound + cap bound (as in MT {prf:ref}`mt-surgery-trichotomy`)
 
@@ -5051,62 +5127,62 @@ This is the layer that turns the sieve into a **general singularity recovery eng
 
 3. **Not admissible**: $K_{\neg\mathrm{adm}}$: explicit reason (cap too large, codim too small, classification failure)
 
-**Layer requirement**: Under X.A, if a singularity is encountered, it is either admissible (1) or admissible up to equivalence (2). The ``not admissible'' case becomes a certified rare/horizon mode for types outside X.A.
+**Requirement**: For types with $K_{\text{Tame}}$, if a singularity is encountered, it is either admissible (1) or admissible up to equivalence (2). The "not admissible" case becomes a certified rare/horizon mode for types without the Tame Certificate.
 
-#### X.A.3 Structural Surgery is available
+#### 21.1.3 Structural Surgery Availability
 
-X.A includes the premise needed to invoke the **Structural Surgery Principle** uniformly:
+The Tame Certificate includes the premise needed to invoke the **Structural Surgery Principle** uniformly:
 - surgery operator exists when admissible,
 - flow extends past surgery time,
 - finite surgeries on finite windows (or well-founded complexity decrease).
 
-**Level-up certificate**: `HasRecoveryEngine(T)`.
+**Certificate produced**: $K_{\text{Tame}}$ with `HasRecoveryEngine(T)`.
 
 ---
 
-### X.B — Rigidity and Canonical Energy Layer
+### 21.2 Rigidity and Canonical Energy
 
-**Purpose**: Upgrade from ``we can recover'' to ``we can prove uniqueness, convergence, and canonical Lyapunov structure.''
+**Purpose**: Upgrade from "we can recover" to "we can prove uniqueness, convergence, and canonical Lyapunov structure."
 
-X.B is where Perelman-like monotone functionals, canonical Lyapunov uniqueness, and rate results become derivable.
+The Rigidity Certificate ($K_{\text{Rigid}}$) enables Perelman-like monotone functionals, canonical Lyapunov uniqueness, and rate results.
 
-#### X.B.1 Local Stiffness is promoted to a core regime (LS upgraded)
+#### 21.2.1 Local Stiffness Core Regime
 
-Under X.B, any time the system is in the safe neighborhood $U$, the stiffness check can be made **core**, not merely ``blocked'':
+With the Rigidity Certificate, any time the system is in the safe neighborhood $U$, the stiffness check can be made **core**, not merely "blocked":
 - either StiffnessCheck = YES directly,
 - or BarrierGap(Blocked) plus standard promotion rules yields LS-YES (often with $\theta=1/2$ when a gap exists).
 
-**Level-up certificate**: `LS-Core`.
+**Certificate produced**: $K_{\text{Rigid}}$ with `LS-Core`.
 
-#### X.B.2 Canonical Lyapunov Functional is available
+#### 21.2.2 Canonical Lyapunov Functional is available
 
-Under X.B, the conditions needed for canonical Lyapunov recovery hold in the relevant regime:
-- existence of a Lyapunov-like progress function (already in X.0),
+With the Rigidity Certificate, the conditions needed for canonical Lyapunov recovery hold in the relevant regime:
+- existence of a Lyapunov-like progress function (already in base level),
 - plus rigidity/local structure sufficient for **uniqueness up to monotone reparameterization**.
 
 **Level-up certificate**: `Lyapunov-Canonical`.
 
-#### X.B.3 Quantitative convergence upgrades
+#### 21.2.3 Quantitative convergence upgrades
 
-Under X.B, you may state and reuse quantitative convergence metatheorems:
+With the Rigidity Certificate, you may state and reuse quantitative convergence metatheorems:
 - exponential or polynomial rates (depending on LS exponent),
 - uniqueness of limit objects (no wandering among equilibria),
 - stability of attractor structure.
 
 **Level-up certificate**: `Rates`.
 
-#### X.B.4 Stratified Lyapunov across surgery times
+#### 21.2.4 Stratified Lyapunov across surgery times
 
-Under X.B, even with surgeries, you can define a **piecewise / stratified Lyapunov**:
+With the Rigidity Certificate, even with surgeries, you can define a **piecewise / stratified Lyapunov**:
 - decreasing between surgeries,
 - jumps bounded by a certified jump rule,
 - global progress because surgery count is finite or complexity decreases.
 
 **Level-up certificate**: `Lyapunov-Stratified`.
 
-#### X.B.5 Lyapunov Existence via Value Function
+#### 21.2.5 Lyapunov Existence via Value Function
 
-Under X.B, with validated interface permits $D_E$, $C_\mu$, and $\mathrm{LS}_\sigma$, a canonical Lyapunov functional exists and can be explicitly constructed.
+With the Rigidity Certificate, with validated interface permits $D_E$, $C_\mu$, and $\mathrm{LS}_\sigma$, a canonical Lyapunov functional exists and can be explicitly constructed.
 
 **Level-up certificate:** `Lyapunov-Existence`.
 
@@ -5153,7 +5229,7 @@ Hence $\mathcal{L}(S_t x) \leq \mathcal{L}(x) - \int_0^t \mathfrak{D}(S_s x)\, d
 **Literature:** {cite}`AmbrosioGigliSavare08,Villani09`
 :::
 
-#### X.B.6 Action Reconstruction via Jacobi Metric
+#### 21.2.6 Action Reconstruction via Jacobi Metric
 
 When gradient consistency ($\mathrm{GC}_\nabla$) is additionally validated, the Lyapunov functional becomes explicitly computable as geodesic distance in a conformally scaled metric.
 
@@ -5199,7 +5275,7 @@ $$\mathrm{dist}_{g_{\mathfrak{D}}}(x, M) = \inf_{\gamma: x \to M} \mathrm{Length
 **Literature:** {cite}`Mielke16,AmbrosioGigliSavare08`
 :::
 
-#### X.B.7 Hamilton-Jacobi PDE Characterization
+#### 21.2.7 Hamilton-Jacobi PDE Characterization
 
 The Lyapunov functional satisfies a static Hamilton-Jacobi equation, providing a PDE route to explicit computation.
 
@@ -5250,7 +5326,7 @@ with boundary condition $\mathcal{L}|_M = \Phi_{\min}$.
 **Literature:** {cite}`Evans10,CrandallLions83`
 :::
 
-#### X.B.8 Extended Action Reconstruction (Metric Spaces)
+#### 21.2.8 Extended Action Reconstruction (Metric Spaces)
 
 For non-Riemannian settings (Wasserstein spaces, discrete graphs), the reconstruction extends using metric slope.
 
@@ -5313,7 +5389,7 @@ This extends MT-Lyap-2 to non-smooth settings where $|\partial\Phi|$ replaces $\
 
 ---
 
-#### X.B.9 Soft Local Tower Globalization
+#### 21.2.9 Soft Local Tower Globalization
 
 For **tower hypostructures** (multiscale systems), local data at each scale determines global asymptotic behavior.
 
@@ -5411,7 +5487,7 @@ for any $\gamma > 0$, contradicting $K_{D_E^{\mathrm{tower}}}^+$.
 
 ---
 
-#### X.B.10 Obstruction Capacity Collapse
+#### 21.2.10 Obstruction Capacity Collapse
 
 The "Sha Killer" — proves obstruction sectors (like Tate-Shafarevich groups) are finite. Analogous to Cartan's Theorems A/B for coherent sheaf cohomology.
 
@@ -5485,7 +5561,7 @@ for some $\delta > 0$. But accumulating such obstructions requires $\sum_n H_{\m
 
 ---
 
-#### X.B.11 Stiff Pairing / No Null Directions
+#### 21.2.11 Stiff Pairing / No Null Directions
 
 Guarantees no hidden "ghost sectors" where singularities can hide. All degrees of freedom are accounted for by free components + obstructions.
 
@@ -5540,18 +5616,18 @@ Let $\mathcal{X} = X_{\mathrm{free}} \oplus X_{\mathrm{obs}} \oplus X_{\mathrm{r
 
 ---
 
-### X.C — Effective (Algorithmic) Proof Layer
+### 21.3 Effective (Algorithmic) Proof
 
 **Purpose**: Turn the sieve into an **effective conjecture prover**:
 - certificates are finite,
 - closure terminates,
 - lock tactics are decidable or semi-decidable.
 
-This layer is about **Rep + computability**.
+The Effective Certificate ($K_{\text{Eff}}$) provides **Rep + computability**.
 
-#### X.C.1 Finite certificate language (bounded description)
+#### 21.3.1 Finite Certificate Language
 
-X.C assumes the certificate schemas used by the run live in a **finite or bounded-description language** for the chosen type $T$:
+The Effective Certificate assumes the certificate schemas used by the run live in a **finite or bounded-description language** for the chosen type $T$:
 - bounded precision, bounded term size, finite invariant basis, etc.
 
 This ensures:
@@ -5560,7 +5636,7 @@ This ensures:
 
 **Level-up certificate**: `Cert-Finite(T)`.
 
-#### X.C.2 Rep is constructive
+#### 21.3.2 Rep is constructive
 
 Rep is not merely ``exists,'' but comes with:
 - a concrete dictionary $D$,
@@ -5569,7 +5645,7 @@ Rep is not merely ``exists,'' but comes with:
 
 **Level-up certificate**: `Rep-Constructive`.
 
-#### X.C.3 Lock backend tactics are effective
+#### 21.3.3 Lock backend tactics are effective
 
 E1--E10 tactics become effective procedures:
 - dimension checks, invariant mismatch checks, positivity/integrality constraints, functional equations,
@@ -5581,9 +5657,9 @@ Outcome:
 
 **Level-up certificate**: `Lock-Decidable` or `Lock-SemiDecidable`.
 
-#### X.C.4 Decidable/Effective classification (optional)
+#### 21.3.4 Decidable/Effective classification (optional)
 
-If you also assume effective profile stratification (X.A) and effective transport toolkit:
+If you also assume effective profile stratification (Tame Certificate) and effective transport toolkit:
 - classification of profiles becomes decidable within the type $T$,
 - admissibility and surgery selection can be automated.
 
@@ -5591,30 +5667,30 @@ If you also assume effective profile stratification (X.A) and effective transpor
 
 ---
 
-### Relationship between layers (summary)
+### Relationship between Certificate Levels (Summary)
 
-- **X.0**: You can run the sieve; you can classify failures; you can recover when surgery is certified; horizon modes are explicit.
-- **X.A**: You can *systematically classify profiles* and *systematically recover* from singularities for admissible types.
-- **X.B**: You can derive *canonical Lyapunov structure*, *uniqueness*, and *rates* (including stratified Lyapunov across surgery).
-- **X.C**: You can make large parts of the engine *algorithmic/decidable* (proof backend becomes executable).
+- **Base level**: You can run the sieve; you can classify failures; you can recover when surgery is certified; horizon modes are explicit.
+- **$K_{\text{Tame}}$**: You can *systematically classify profiles* and *systematically recover* from singularities for admissible types.
+- **$K_{\text{Rigid}}$**: You can derive *canonical Lyapunov structure*, *uniqueness*, and *rates* (including stratified Lyapunov across surgery).
+- **$K_{\text{Eff}}$**: You can make large parts of the engine *algorithmic/decidable* (proof backend becomes executable).
 
 ---
 
-### How to use these layers in theorem statements
+### How to Use These Certificates in Theorem Statements
 
 Every strong metatheorem should be written as:
-- **Minimal preconditions**: certificates available under X.0 (works broadly, weaker conclusion).
-- **Upgrade preconditions**: additional layer certificates (X.A/X.B/X.C), yielding stronger conclusions.
+- **Minimal preconditions**: certificates available at base level (works broadly, weaker conclusion).
+- **Upgrade preconditions**: additional certificates ($K_{\text{Tame}}$/$K_{\text{Rigid}}$/$K_{\text{Eff}}$), yielding stronger conclusions.
 
 **Example schema**:
-- ``Soft Lyapunov exists'' (X.0)
-- ``Canonical Lyapunov unique up to reparam'' (X.B)
-- ``Explicit reconstruction (HJ/Jacobi)'' (X.B + GC certificates)
-- ``Algorithmic lock proof (E1--E10 decidable)'' (X.C)
+- "Soft Lyapunov exists" (base level)
+- "Canonical Lyapunov unique up to reparam" ($K_{\text{Rigid}}$)
+- "Explicit reconstruction (HJ/Jacobi)" ($K_{\text{Rigid}}$ + $K_{\text{GC}}$ certificates)
+- "Algorithmic lock proof (E1--E10 decidable)" ($K_{\text{Eff}}$)
 
 ---
 
-## 11. The Type System
+## 22. The Type System
 
 :::{prf:definition} Problem type
 :label: def-problem-type
@@ -5719,7 +5795,7 @@ A **type** $T$ is a class of dynamical systems sharing:
 
 # Part VIII: Barrier and Surgery Contracts
 
-## 12. Certificate-Driven Barrier Atlas
+## 23. Certificate-Driven Barrier Atlas
 
 :::{prf:definition} Barrier contract format
 :label: def-barrier-format
@@ -5749,7 +5825,7 @@ A barrier invoked because $P_i$ failed cannot assume $P_i$ as a prerequisite.
 
 ---
 
-## 13. Surgery Contracts
+## 24. Surgery Contracts
 
 :::{prf:definition} Surgery contract format
 :label: def-surgery-format
@@ -5772,7 +5848,7 @@ Each surgery entry follows the **Surgery Specification Schema** (Definition {prf
    - **Re-entry Target:** Node to resume sieve execution
    - **Progress Guarantee:** Type A (bounded count) or Type B (well-founded complexity)
 
-See Section 7 for the complete catalog of 17 surgery specifications.
+See Section 18 for the complete catalog of 17 surgery specifications.
 :::
 
 :::{prf:definition} Progress measures
@@ -5841,7 +5917,7 @@ A Hypostructure $\mathcal{H}$ satisfies the **Automation Guarantee** if:
 
 ---
 
-## 14. Profile Classification Trichotomy
+## 25. Profile Classification Trichotomy
 
 :::{prf:theorem} Profile Classification Trichotomy
 :label: mt-profile-trichotomy
@@ -5910,7 +5986,7 @@ where $V_1 \sim V_2$ if related by symmetry action: $V_2 = g \cdot V_1$ for $g \
 $$\mathcal{M}_{\text{prof}}(T) = \{V : \mathcal{S} \cdot V = V, \nabla F(V) = 0\} / \text{Grp}$$
 :::
 
-### 14.A Implementation in Sieve
+### 36.A Implementation in Sieve
 
 :::{prf:remark} Profile Extraction Algorithm
 :label: rem-profile-extraction
@@ -6126,7 +6202,7 @@ Alternatively, if Lock blocks specific patterns but allows others, classify the 
 
 ---
 
-## 15. Surgery Admissibility Trichotomy
+## 26. Surgery Admissibility Trichotomy
 
 :::{prf:theorem} Surgery Admissibility Trichotomy
 :label: mt-surgery-trichotomy
@@ -6192,7 +6268,7 @@ A type $T$ is **good** if:
 **Algorithmic types:** $T_{\text{algorithmic}}$ is good when the complexity measure $\mathcal{C}$ is well-founded (terminates in finite steps). In this case, "profiles" are limit cycles or fixed points of the discrete dynamics.
 :::
 
-### 15.A Implementation in Sieve
+### 37.A Implementation in Sieve
 
 :::{prf:remark} Admissibility Check Algorithm
 :label: rem-admissibility-algorithm
@@ -6236,7 +6312,7 @@ using the measure $\mu$ from $\mathcal{X}^{\text{thin}}$ and the metric $d$.
 
 ---
 
-## 16. Structural Surgery Principle
+## 27. Structural Surgery Principle
 
 :::{prf:theorem} Structural Surgery Principle (Certificate Form)
 :label: mt-structural-surgery
@@ -6309,7 +6385,7 @@ For any admissible surgery $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{
 **Proof Structure:** Energy drop follows from excision of high-curvature region. Regularization follows from gluing in smooth cap. Countability follows from energy monotonicity.
 :::
 
-### 16.A Implementation in Sieve
+### 38.A Implementation in Sieve
 
 :::{prf:remark} Surgery Operator Construction
 :label: rem-surgery-construction
@@ -6350,7 +6426,7 @@ For any Hypostructure satisfying the Automation Guarantee, the Structural Surger
 **Literature:** Pushouts in category theory {cite}`MacLane71`; surgery caps in geometric flows {cite}`Hamilton97`; {cite}`KleinerLott08`.
 :::
 
-### 16.B Automated Workflow Summary
+### 38.B Automated Workflow Summary
 
 :::{prf:remark} Complete Automation Pipeline
 :label: rem-automation-pipeline
@@ -6404,7 +6480,7 @@ This part defines **equivalence moves** (Eq1--Eq5) and **transport lemmas** (T1-
 
 :::
 
-## 17. Equivalence Library
+## 28. Equivalence Library
 
 :::{prf:definition} Admissible equivalence move
 :label: def-equiv-move
@@ -6471,7 +6547,7 @@ with inverse bounds.
 
 ---
 
-## 18. YES$^\sim$ Permits
+## 29. YES$^\sim$ Permits
 
 :::{prf:definition} YES$^\sim$ certificate
 :label: def-yes-tilde-cert
@@ -6496,7 +6572,7 @@ That is, YES$^\sim$ certificates may substitute for YES certificates in the meta
 
 ---
 
-## 19. Transport Toolkit
+## 30. Transport Toolkit
 
 :::{prf:definition} T1: Inequality transport
 :label: def-transport-t1
@@ -6548,7 +6624,7 @@ $$K[x|_{X \setminus E}] = K[x'|_{X \setminus E}]$$
 
 ---
 
-## 20. Promotion System
+## 31. Promotion System
 
 :::{prf:definition} Immediate promotion
 :label: def-promotion-immediate
@@ -6593,9 +6669,10 @@ Given final context $\Gamma_{\text{final}}$, the **replay** is a re-execution of
 
 ---
 
+(sec-lock)=
 # Part XI: The Lock (Conjecture Prover Backend)
 
-## 21. Node 17 Contract
+## 32. Node 17 Contract
 
 :::{prf:definition} Lock contract
 :label: def-lock-contract
@@ -6623,7 +6700,7 @@ Where:
 
 ---
 
-## 22. E1--E10 Exclusion Tactics
+## 33. E1--E10 Exclusion Tactics
 
 The Lock attempts ten proof-producing tactics to establish Hom-emptiness:
 
@@ -7110,7 +7187,7 @@ This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}
 
 # Part XII: Factory Metatheorems
 
-## 23. TM-1: Gate Evaluator Factory
+## 34. TM-1: Gate Evaluator Factory
 
 :::{prf:theorem} Gate Evaluator Factory
 :label: mt-gate-factory
@@ -7132,7 +7209,7 @@ For any system of type $T$ with user-defined objects $(\Phi, \mathfrak{D}, G, \m
 
 ---
 
-## 24. TM-2: Barrier Implementation Factory
+## 35. TM-2: Barrier Implementation Factory
 
 :::{prf:theorem} Barrier Implementation Factory
 :label: mt-barrier-factory
@@ -7158,7 +7235,7 @@ For any system of type $T$, there exist default barrier implementations with cor
 
 ---
 
-## 25. TM-3: Surgery Schema Factory
+## 36. TM-3: Surgery Schema Factory
 
 :::{prf:theorem} Surgery Schema Factory
 :label: mt-surgery-factory
@@ -7182,7 +7259,7 @@ For any type $T$ admitting surgery, there exist default surgery operators matchi
 
 ---
 
-## 26. TM-4: Equivalence + Transport Factory
+## 37. TM-4: Equivalence + Transport Factory
 
 :::{prf:theorem} Equivalence + Transport Factory
 :label: mt-transport-factory
@@ -7204,7 +7281,7 @@ For any type $T$, there exists a library of admissible equivalence moves and tra
 
 ---
 
-## 27. TM-5: Lock Backend Factory
+## 38. TM-5: Lock Backend Factory
 
 :::{prf:theorem} Lock Backend Factory
 :label: mt-lock-factory
@@ -7229,7 +7306,7 @@ For any type $T$ with $\mathrm{Rep}_K$ available, there exist E1--E10 tactics fo
 
 # Part XIII: Instantiation
 
-## 28. Certificate Generator Library
+## 39. Certificate Generator Library
 
 The **Certificate Generator Library** maps standard literature lemmas to permits:
 
@@ -7256,7 +7333,7 @@ The **Certificate Generator Library** maps standard literature lemmas to permits
 
 ---
 
-## 29. Minimal Instantiation Checklist
+## 40. Minimal Instantiation Checklist
 
 :::{prf:theorem} Instantiation Metatheorem
 :label: mt-instantiation
@@ -7292,7 +7369,7 @@ For any system of type $T$ with user-supplied functionals, there exists a canoni
 
 ---
 
-## 30. Metatheorem Unlock Table
+## 41. Metatheorem Unlock Table
 
 The following table specifies which metatheorems are unlocked by which certificates:
 
@@ -7310,7 +7387,7 @@ The following table specifies which metatheorems are unlocked by which certifica
 
 ---
 
-## 31. Diagram ↔ Specification Cross-Reference
+## 42. Diagram ↔ Specification Cross-Reference
 
 The following table provides a complete cross-reference between diagram node names and their formal definitions:
 
@@ -7342,7 +7419,7 @@ The following table provides a complete cross-reference between diagram node nam
 
 # Part XIV: Instantaneous Upgrade Metatheorems
 
-## 32. Instantaneous Certificate Upgrades
+## 43. Instantaneous Certificate Upgrades
 
 The **Instantaneous Upgrade Metatheorems** formalize the logical principle that a "Blocked" barrier certificate or a "Surgery" re-entry certificate can be promoted to a full **YES** (or **YES$^\sim$**) permit under appropriate structural conditions. These upgrades occur *within* a single Sieve pass when the blocking condition itself implies a stronger regularity guarantee.
 
@@ -7352,7 +7429,7 @@ The key insight is that certain "obstructions" are themselves *certificates of r
 
 ---
 
-### 32.1 Saturation Promotion
+### 43.1 Saturation Promotion
 
 :::{prf:metatheorem} Saturation Promotion (BarrierSat $\to$ YES$^\sim$)
 :label: mt-saturation-promotion
@@ -7381,7 +7458,7 @@ $$K_{D_E}^- \wedge K_{\text{sat}}^{\mathrm{blk}} \Rightarrow K_{D_E}^{\sim}$$
 
 ---
 
-### 32.2 Causal Censor Promotion
+### 43.2 Causal Censor Promotion
 
 :::{prf:metatheorem} Causal Censor Promotion (BarrierCausal $\to$ YES$^\sim$)
 :label: mt-causal-censor
@@ -7408,7 +7485,7 @@ $$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}} \Rightarrow K_{\
 
 ---
 
-### 32.3 Scattering Promotion
+### 43.3 Scattering Promotion
 
 :::{prf:metatheorem} Scattering Promotion (BarrierScat $\to$ VICTORY)
 :label: mt-scattering-promotion
@@ -7435,7 +7512,7 @@ $$K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}} \Rightarrow \text{Global Regularit
 
 ---
 
-### 32.4 Type II Suppression Promotion
+### 43.4 Type II Suppression Promotion
 
 :::{prf:metatheorem} Type II Suppression (BarrierTypeII $\to$ YES$^\sim$)
 :label: mt-type-ii-suppression
@@ -7462,7 +7539,7 @@ $$K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{SC}_\lambda}^{\mathrm{blk}} \Right
 
 ---
 
-### 32.5 Capacity Promotion
+### 43.5 Capacity Promotion
 
 :::{prf:metatheorem} Capacity Promotion (BarrierCap $\to$ YES$^\sim$)
 :label: mt-capacity-promotion
@@ -7489,7 +7566,7 @@ $$K_{\mathrm{Cap}_H}^- \wedge K_{\mathrm{Cap}_H}^{\mathrm{blk}} \Rightarrow K_{\
 
 ---
 
-### 32.6 Spectral Gap Promotion
+### 43.6 Spectral Gap Promotion
 
 :::{prf:metatheorem} Spectral Gap Promotion (BarrierGap $\to$ YES)
 :label: mt-spectral-gap
@@ -7516,7 +7593,7 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\text{gap}}^{\mathrm{blk}} \Rightarrow K_{\
 
 ---
 
-### 32.7 O-Minimal Promotion
+### 43.7 O-Minimal Promotion
 
 :::{prf:metatheorem} O-Minimal Promotion (BarrierOmin $\to$ YES$^\sim$)
 :label: mt-o-minimal
@@ -7543,7 +7620,7 @@ $$K_{\mathrm{TB}_O}^- \wedge K_{\mathrm{TB}_O}^{\mathrm{blk}} \Rightarrow K_{\ma
 
 ---
 
-### 32.8 Surgery Promotion
+### 43.8 Surgery Promotion
 
 :::{prf:metatheorem} Surgery Promotion (Surgery $\to$ YES$^\sim$)
 :label: mt-surgery-promotion
@@ -7579,7 +7656,7 @@ This **classification of local models** eliminates surgery ambiguity: the excisi
 
 ---
 
-### 32.9 Lock Promotion
+### 43.9 Lock Promotion
 
 :::{prf:metatheorem} Lock Promotion (BarrierExclusion $\to$ GLOBAL YES)
 :label: mt-lock-promotion
@@ -7606,7 +7683,7 @@ $$K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow \text{Global Regularity}$$
 
 ---
 
-### 32.10 Absorbing Boundary Promotion
+### 43.10 Absorbing Boundary Promotion
 
 :::{prf:metatheorem} Absorbing Boundary Promotion (BoundaryCheck $\to$ EnergyCheck)
 :label: mt-absorbing-boundary
@@ -7634,7 +7711,7 @@ $$K_{D_E}^- \wedge K_{\mathrm{Bound}_\partial}^+ \wedge (\text{Flux} < 0) \Right
 
 ---
 
-### 32.11 Catastrophe Stability Promotion
+### 43.11 Catastrophe Stability Promotion
 
 :::{prf:metatheorem} Catastrophe-Stability Promotion (BifurcateCheck $\to$ StiffnessCheck)
 :label: mt-catastrophe-stability
@@ -7661,7 +7738,7 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{LS}_{\partial^k V}}^+ \Rightarrow K
 
 ---
 
-### 32.12 Inconclusive Discharge Upgrades
+### 43.12 Inconclusive Discharge Upgrades
 
 The following metatheorems formalize inc-upgrade rules. Blocked certificates indicate "cannot proceed"; inconclusive certificates indicate "cannot decide with current prerequisites."
 
@@ -7717,7 +7794,7 @@ $$\mathrm{Cl}(\Gamma_{\mathrm{final}}) \ni K_P^+ \quad \text{(discharged from } 
 
 # Part XV: Retroactive Promotion Theorems
 
-## 33. A-Posteriori Upgrade Rules
+## 44. A-Posteriori Upgrade Rules
 
 The **Retroactive Promotion Theorems** (or "A-Posteriori Upgrade Rules") formalize the logical principle that a stronger global guarantee found late in the Sieve can resolve local ambiguities encountered earlier. These theorems propagate information *backwards* through the verification graph.
 
@@ -7727,7 +7804,7 @@ The key insight is that global constraints can retrospectively determine local b
 
 ---
 
-### 33.1 Shadow-Sector Retroactive Promotion
+### 44.1 Shadow-Sector Retroactive Promotion
 
 :::{prf:metatheorem} Shadow-Sector Retroactive Promotion (TopoCheck $\to$ ZenoCheck)
 :label: mt-shadow-sector-retroactive
@@ -7757,7 +7834,7 @@ $$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{TB}_\pi}^+ \wedge K_{\text{Action}}^{\m
 
 ---
 
-### 33.2 The Lock-Back Theorem
+### 44.2 The Lock-Back Theorem
 
 :::{prf:metatheorem} Lock-Back Theorem (Lock $\to$ All Barriers)
 :label: mt-lock-back
@@ -7783,7 +7860,7 @@ $$K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow \forall i: K_{\text{Barrier}_i}^{\m
 
 ---
 
-### 33.3 The Symmetry-Gap Theorem
+### 44.3 The Symmetry-Gap Theorem
 
 :::{prf:metatheorem} Symmetry-Gap Theorem (SymCheck $\to$ Stiffness)
 :label: mt-symmetry-gap
@@ -7809,7 +7886,7 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{stag}} \wedge K_{\text{Sym}}^+ \wedge K_{\text
 
 ---
 
-### 33.4 The Tame-Topology Theorem
+### 44.4 The Tame-Topology Theorem
 
 :::{prf:metatheorem} Tame-Topology Theorem (TameCheck $\to$ GeomCheck)
 :label: mt-tame-topology
@@ -7835,7 +7912,7 @@ $$K_{\mathrm{Cap}_H}^{\mathrm{blk}} \wedge K_{\mathrm{TB}_O}^+ \Rightarrow K_{\m
 
 ---
 
-### 33.5 The Ergodic-Sat Theorem
+### 44.5 The Ergodic-Sat Theorem
 
 :::{prf:metatheorem} Ergodic-Sat Theorem (ErgoCheck $\to$ EnergyCheck)
 :label: mt-ergodic-sat
@@ -7861,7 +7938,7 @@ $$K_{\text{sat}}^{\mathrm{blk}} \wedge K_{\mathrm{TB}_\rho}^+ \Rightarrow K_{D_E
 
 ---
 
-### 33.6 The Variety-Control Theorem
+### 44.6 The Variety-Control Theorem
 
 :::{prf:metatheorem} Variety-Control Theorem (AlignCheck $\to$ ScaleCheck)
 :label: mt-variety-control
@@ -7887,7 +7964,7 @@ $$K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{GC}_T}^+ \Rightarrow K_{\mathrm{SC
 
 ---
 
-### 33.7 The Algorithm-Depth Theorem
+### 44.7 The Algorithm-Depth Theorem
 
 :::{prf:metatheorem} Algorithm-Depth Theorem (ComplexCheck $\to$ ZenoCheck)
 :label: mt-algorithm-depth
@@ -7913,7 +7990,7 @@ $$K_{\mathrm{Rec}_N}^{\mathrm{blk}} \wedge K_{\mathrm{Rep}_K}^+ \Rightarrow K_{\
 
 ---
 
-### 33.8 The Holographic-Regularity Theorem
+### 44.8 The Holographic-Regularity Theorem
 
 :::{prf:metatheorem} Holographic-Regularity Theorem (ComplexCheck $\to$ GeomCheck)
 :label: mt-holographic
@@ -7939,7 +8016,7 @@ $$K_{\mathrm{Cap}_H}^{\text{ambiguous}} \wedge K_{\mathrm{Rep}_K}^+ \Rightarrow 
 
 ---
 
-### 33.9 The Spectral-Quantization Theorem
+### 44.9 The Spectral-Quantization Theorem
 
 :::{prf:metatheorem} Spectral-Quantization Theorem (Lock $\to$ OscillateCheck)
 :label: mt-spectral-quant
@@ -7965,7 +8042,7 @@ $$K_{\mathrm{GC}_\nabla}^{\text{chaotic}} \wedge K_{\text{Lock}}^{\mathrm{blk}} 
 
 ---
 
-### 33.10 The Unique-Attractor Theorem
+### 44.10 The Unique-Attractor Theorem
 
 :::{prf:metatheorem} Unique-Attractor Theorem (Permit Schema with Alternative Backends)
 :label: mt-unique-attractor
@@ -8097,7 +8174,7 @@ for **all** initial conditions $x \in \mathcal{X}$. The basin of attraction of $
 
 ---
 
-## 34. Retroactive Upgrade Summary Table
+## 45. Retroactive Upgrade Summary Table
 
 | **Later Node (The Proof)** | **Earlier Node (The Problem)** | **Theorem** | **Upgrade Mechanism** |
 |:---|:---|:---|:---|
@@ -8115,7 +8192,7 @@ for **all** initial conditions $x \in \mathcal{X}$. The basin of attraction of $
 
 # Part XVI: Stability & Composition Metatheorems
 
-## 35. Perturbation and Coupling
+## 46. Perturbation and Coupling
 
 The **Stability and Composition Metatheorems** govern how Sieve verdicts extend from individual systems to families of systems (perturbations) and coupled systems (compositions). These theorems answer the fundamental questions:
 
@@ -8126,7 +8203,7 @@ These metatheorems are **universal**: they apply to any valid Hypostructure beca
 
 ---
 
-### 35.1 Openness of Regularity
+### 46.1 Openness of Regularity
 
 :::{prf:metatheorem} Openness of Regularity (Structural Stability)
 :label: mt-openness
@@ -8153,7 +8230,7 @@ $$K_{\text{Lock}}^{\mathrm{blk}}(\theta_0) \wedge (\mathrm{Gap} > \epsilon) \wed
 
 ---
 
-### 35.2 Shadowing Metatheorem
+### 46.2 Shadowing Metatheorem
 
 :::{prf:metatheorem} Shadowing Metatheorem (Numerical Validity)
 :label: mt-shadowing
@@ -8180,7 +8257,7 @@ $$K_{\mathrm{LS}_\sigma}^+ \wedge K_{\text{pseudo}}^{\varepsilon} \Rightarrow K_
 
 ---
 
-### 35.3 Weak-Strong Uniqueness
+### 46.3 Weak-Strong Uniqueness
 
 :::{prf:metatheorem} Weak-Strong Uniqueness (Duality)
 :label: mt-weak-strong
@@ -8207,7 +8284,7 @@ $$K_{C_\mu}^{\text{weak}} \wedge K_{\mathrm{LS}_\sigma}^{\text{strong}} \Rightar
 
 ---
 
-### 35.4 Product-Regularity Metatheorem
+### 46.4 Product-Regularity Metatheorem
 
 :::{prf:metatheorem} Product-Regularity (Permit Schema with Alternative Backends)
 :label: mt-product
@@ -8348,7 +8425,7 @@ Bounded uniformly in time.
 
 ---
 
-### 35.5 Subsystem Inheritance
+### 46.5 Subsystem Inheritance
 
 :::{prf:metatheorem} Subsystem Inheritance
 :label: mt-subsystem
@@ -8377,161 +8454,25 @@ $$K_{\text{Lock}}^{\mathrm{blk}}(\mathcal{H}) \wedge (\mathcal{S} \subset \mathc
 
 # Part XVII: Mathematical Foundations
 
-This Part imports **twenty-one rigorous metatheorems** from the companion Hypostructure manuscript. These theorems provide the **mathematical engine** that substantiates the operational Sieve defined in Parts V–XVI. Each theorem supplies either:
+This Part imports **eighteen rigorous metatheorems** from the companion Hypostructure manuscript. These theorems provide the **mathematical engine** that substantiates the operational Sieve defined in Parts V–XVI. Each theorem supplies either:
 
-- **Kernel Logic**: Proofs that the Sieve is a valid proof machine (categorical exclusion, structural resolution)
 - **Gate Evaluator Predicates**: Exact mathematical predicates for YES/NO checks at blue nodes
 - **Barrier Defense Mechanisms**: Proofs that barriers actually stop singularities
 - **Surgery Constructions**: Constructive methods for purple surgery nodes
+
+> **Note:** The three foundational *Kernel Logic* theorems (MT 8.11.N, MT 5.1, MT 13.57) establishing the Sieve as a valid proof machine have been relocated to **Part I, Section 3.1** to front-load the framework's authority.
 
 The imported theorems are organized by functional role and cross-referenced to their target Sieve components.
 
 ---
 
-## 36. Kernel Logic Theorems
-
-*These theorems prove that the Sieve is a valid proof machine.*
-
----
-
-### 36.1 Principle of Structural Exclusion
-
-:::{prf:metatheorem} Principle of Structural Exclusion (MT 8.11.N)
-:label: mt-imported-structural-exclusion
-:class: metatheorem
-
-**Source:** Hypostructure MT 8.11.N (Capstone Theorem)
-
-**Sieve Target:** Node 17 (Lock) — proves the Lock mechanism is valid
-
-**Statement:** Let $T$ be a problem type with category of admissible T-hypostructures $\mathbf{Hypo}_T$. Let $\mathbb{H}_{\mathrm{bad}}^{(T)}$ be the universal Rep-breaking pattern. For any concrete object $Z$ with admissible hypostructure $\mathbb{H}(Z)$, if:
-
-$$\mathrm{Hom}_{\mathbf{Hypo}_T}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$$
-
-then Interface Permit $\mathrm{Rep}_K(T, Z)$ holds, and hence the conjecture for $Z$ holds.
-
-**Hypotheses (N1–N11):**
-1. **(N1)** Category $\mathbf{Hypo}_T$ of admissible T-hypostructures satisfying core interface permits $C_\mu$, $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{GC}_\nabla$
-2. **(N2)** Hypostructure assignment $Z \mapsto \mathbb{H}(Z)$
-3. **(N3)** Conjecture equivalence: $\mathrm{Conj}(T,Z) \Leftrightarrow \text{Interface Permit } \mathrm{Rep}_K(T,Z)$
-4. **(N8)** Representational completeness of parametrization $\Theta$
-5. **(N9)** Existence of universal Rep-breaking pattern with initiality property
-6. **(N10)** Admissibility of $\mathbb{H}(Z)$
-7. **(N11)** Obstruction condition: $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$
-
-**Conclusion:** Global regularity via categorical obstruction: singularities cannot embed into admissible structures.
-
-**Proof (5 Steps):**
-
-*Step 1 (Structure of hypostructure space).* By representational completeness (N8), for any admissible $\mathbb{H} \in \mathbf{Hypo}_T$, there exists $\theta \in \Theta$ with $\mathbb{H}(\theta) \cong \mathbb{H}$. The zero level set $\{\theta : \mathcal{R}_{\mathrm{permits}}(\theta) = 0\}$ parametrizes all admissible T-hypostructures.
-
-*Step 2 (Adversarial exploration).* Maximizing $\mathcal{L}_{\mathrm{bad}}(\theta) = \mathcal{R}_R(\theta) - \lambda \mathcal{R}_{\mathrm{permits}}(\theta)$ explores all admissible Rep-breaking patterns. Any universal Rep-breaking pattern can be constructed from such parametric models.
-
-*Step 3 (Universal mapping).* If Interface Permit $\mathrm{Rep}_K(T,Z)$ failed for $\mathbb{H}(Z)$, then $\mathbb{H}(Z) \in \mathbf{Hypo}_T^{\neg R}$, and by initiality of $\mathbb{H}_{\mathrm{bad}}^{(T)}$ there would exist a morphism $F_Z: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$.
-
-*Step 4 (Categorical obstruction).* By the obstruction condition (N11), no such morphism exists. Hence the assumption that Interface Permit $\mathrm{Rep}_K(T,Z)$ fails leads to contradiction.
-
-*Step 5 (Conclusion).* Therefore Interface Permit $\mathrm{Rep}_K(T,Z)$ holds, and by conjecture-permit equivalence (N3), $\mathrm{Conj}(T,Z)$ is true.
-
-**Certificate Produced:** $K_{\text{Lock}}^{\mathrm{blk}}$ with payload $(\mathrm{Hom} = \emptyset, Z, T)$
-
-**Literature:** {cite}`Grothendieck67`; {cite}`MacLane71`; {cite}`KashiwaraSchapira06`; {cite}`Lurie09`
-:::
-
----
-
-### 36.2 Structural Resolution Theorem
-
-:::{prf:metatheorem} Structural Resolution (MT 5.1)
-:label: mt-imported-structural-resolution
-:class: metatheorem
-
-**Source:** Hypostructure MT 5.1 (Resolution Machinery)
-
-**Sieve Target:** Node 3 (CompactCheck) — justifies the Concentration/Dispersion dichotomy
-
-**Statement:** Let $\mathcal{S}$ be a structural flow datum satisfying minimal regularity (Reg) and dissipation ($D_E$) interface permits. Every trajectory $u(t) = S_t x$ with finite breakdown time $T_*(x) < \infty$ classifies into exactly one of three outcomes:
-
-| **Outcome** | **Modes** | **Mechanism** |
-|-------------|-----------|---------------|
-| Global Existence | Mode D.D | Energy disperses, no concentration, solution scatters |
-| Global Regularity | Modes S.E, C.D, T.E, S.D | Concentration but forced structure fails permits |
-| Genuine Singularity | Mode C.E | Energy escapes or structured blow-up with all permits |
-
-**Hypotheses:**
-1. **(Reg)** Minimal regularity: semiflow $S_t$ well-defined on $X$
-2. **(D)** Dissipation: energy-dissipation inequality holds
-3. **(C)** Compactness: bounded energy implies profile convergence modulo $G$
-
-**Proof (Exhaustive Case Analysis):**
-
-*Case 1: Energy blow-up.* If $\limsup_{t \to T_*(x)} \Phi(u(t)) = \infty$, then Mode C.E occurs (genuine singularity via energy escape).
-
-*Case 2: Energy bounded, compactness holds.* By interface permit $C_\mu$, any sequence $u(t_n)$ with $t_n \nearrow T_*(x)$ has a convergent subsequence modulo $G$:
-- *Sub-case 2a-i: Gauges bounded.* Limit must be singular point where local theory fails (Mode S.D if near $M$).
-- *Sub-case 2a-ii: Gauges unbounded.* Rescaling becomes supercritical → Mode S.E.
-
-*Case 3: Compactness fails.* No subsequence converges modulo $G$ → Mode D.D (dispersion, global existence).
-
-*Cases 4–6: Permit violations.* Geometric concentration (Mode C.D), topological obstruction (Mode T.E), or stiffness violation (Mode S.D).
-
-*Exhaustiveness.* These modes account for all behaviors of: height functional (bounded/unbounded), gauge sequence (bounded/unbounded), spatial concentration (diffuse/concentrated), topological sector (trivial/nontrivial), local stiffness (satisfied/violated).
-
-**Certificate Produced:** Trichotomy classification $\{K_{\text{D.D}}, K_{\text{Reg}}, K_{\text{C.E}}\}$
-
-**Literature:** {cite}`Lions84`; {cite}`KenigMerle06`; {cite}`Hironaka64`; {cite}`Struwe90`
-:::
-
----
-
-### 36.3 Equivariance of Trainable Hypostructures
-
-:::{prf:metatheorem} Equivariance (MT 13.57 / SV-08)
-:label: mt-imported-equivariance
-:class: metatheorem
-
-**Source:** Hypostructure MT 13.57 (Learning Theory)
-
-**Sieve Target:** Meta-Learning — guarantees learned parameters preserve symmetry group $G$
-
-**Statement:** Let $G$ be a compact Lie group acting on the system distribution $\mathcal{S}$ and parameter space $\Theta$. Under compatibility assumptions:
-
-1. **(Group-Covariant Distribution)** $S \sim \mathcal{S} \Rightarrow g \cdot S \sim \mathcal{S}$ for all $g \in G$
-2. **(Equivariant Parametrization)** $g \cdot \mathcal{H}_\Theta(S) \simeq \mathcal{H}_{g \cdot \Theta}(g \cdot S)$
-3. **(Defect-Level Equivariance)** $K_{A,g \cdot S}^{(g \cdot \Theta)}(g \cdot u) = K_{A,S}^{(\Theta)}(u)$
-
-Then:
-- Every risk minimizer $\widehat{\Theta}$ lies in the $G$-orbit: $\widehat{\Theta} \in G \cdot \Theta^*$
-- Gradient flow preserves equivariance: if $\Theta_0$ is $G$-equivariant, so is $\Theta_t$
-- Learned hypostructures inherit all symmetries of the system distribution
-
-**Proof (Gradient Flow Preservation):**
-
-*Step 1 (Risk invariance).* By the equivariance assumptions:
-$$\mathcal{R}(g \cdot \Theta) = \mathbb{E}_{S \sim \mathcal{S}}[\text{defect}(g \cdot \Theta, S)] = \mathbb{E}_{S \sim \mathcal{S}}[\text{defect}(\Theta, g^{-1} \cdot S)] = \mathcal{R}(\Theta)$$
-The risk is $G$-invariant.
-
-*Step 2 (Gradient equivariance).* Since $\mathcal{R}$ is $G$-invariant, $\nabla \mathcal{R}$ is $G$-equivariant:
-$$\nabla \mathcal{R}(g \cdot \Theta) = g \cdot \nabla \mathcal{R}(\Theta)$$
-
-*Step 3 (Flow preservation).* The gradient flow $\dot{\Theta}_t = -\nabla \mathcal{R}(\Theta_t)$ commutes with $G$-action. If $\Theta_0 \in G \cdot \Theta^*$, then $\Theta_t \in G \cdot \Theta^*$ for all $t$.
-
-*Step 4 (Minimizers in orbit).* Global minimizers form a $G$-invariant set; by uniqueness up to symmetry, all minimizers lie in a single $G$-orbit.
-
-**Certificate Produced:** $K_{\text{SV08}}^+$ (Symmetry Preservation)
-
-**Literature:** {cite}`Noether18`; {cite}`CohenWelling16`; {cite}`Kondor18`; {cite}`Weyl46`
-:::
-
----
-
-## 37. Gate Evaluator Theorems
+## 47. Gate Evaluator Theorems
 
 *These theorems define exact mathematical predicates for YES/NO checks at blue nodes.*
 
 ---
 
-### 37.1 Type II Exclusion (ScaleCheck Predicate)
+### 47.1 Type II Exclusion (ScaleCheck Predicate)
 
 :::{prf:metatheorem} Type II Exclusion (MT 5.2)
 :label: mt-imported-type-ii-exclusion
@@ -8569,7 +8510,7 @@ $$\int_0^{S_n} \mathfrak{D}(v_n(s)) \, ds \gtrsim C_0 \lambda_n^\beta(T_*(x) - t
 
 ---
 
-### 37.2 Spectral Generator (StiffnessCheck Predicate)
+### 47.2 Spectral Generator (StiffnessCheck Predicate)
 
 :::{prf:metatheorem} Spectral Generator (MT 5.5)
 :label: mt-imported-spectral-generator
@@ -8611,7 +8552,7 @@ This gives the Łojasiewicz exponent $\theta = 1/2$ (optimal for analytic functi
 
 ---
 
-### 37.3 Ergodic Mixing Barrier (ErgoCheck Predicate)
+### 47.3 Ergodic Mixing Barrier (ErgoCheck Predicate)
 
 :::{prf:metatheorem} Ergodic Mixing Barrier (MT 24.5)
 :label: mt-imported-ergodic-mixing
@@ -8652,7 +8593,7 @@ For small $\varepsilon$, the measure of return diminishes, preventing persistent
 
 ---
 
-### 37.4 Spectral Distance Isomorphism (OscillateCheck Predicate)
+### 47.4 Spectral Distance Isomorphism (OscillateCheck Predicate)
 
 :::{prf:metatheorem} Spectral Distance Isomorphism (MT 25.2)
 :label: mt-imported-spectral-distance
@@ -8692,7 +8633,7 @@ The interface permit $\mathrm{GC}_\nabla$ (Gradient Consistency) is equivalent t
 
 ---
 
-### 37.5 Antichain-Surface Correspondence (BoundaryCheck Predicate)
+### 47.5 Antichain-Surface Correspondence (BoundaryCheck Predicate)
 
 :::{prf:metatheorem} Antichain-Surface Correspondence (MT 34.2)
 :label: mt-imported-antichain-surface
@@ -8735,13 +8676,13 @@ for hypersurfaces $Σ$ in the continuum limit.
 
 ---
 
-## 38. Barrier Defense Theorems
+## 48. Barrier Defense Theorems
 
 *These theorems prove that barriers actually stop singularities.*
 
 ---
 
-### 38.1 Saturation Principle (BarrierSat)
+### 48.1 Saturation Principle (BarrierSat)
 
 :::{prf:metatheorem} Saturation Principle (MT 5.4)
 :label: mt-imported-saturation
@@ -8785,7 +8726,7 @@ $$\limsup_{t \to \infty} \mathbb{E}[\mathcal{V}(X_t)] \leq \frac{b}{\lambda} = E
 
 ---
 
-### 38.2 Physical Computational Depth Limit (BarrierCausal)
+### 48.2 Physical Computational Depth Limit (BarrierCausal)
 
 :::{prf:metatheorem} Physical Computational Depth Limit (MT 5.6)
 :label: mt-imported-causal-barrier
@@ -8833,7 +8774,7 @@ $$N \leq \frac{4}{\pi\hbar} \int_0^T E(t) \, dt$$
 
 ---
 
-### 38.3 Capacity Barrier (BarrierCap)
+### 48.3 Capacity Barrier (BarrierCap)
 
 :::{prf:metatheorem} Capacity Barrier (MT 5.3)
 :label: mt-imported-capacity-barrier
@@ -8877,7 +8818,7 @@ A zero-energy profile cannot mediate blow-up.
 
 ---
 
-### 38.4 Topological Sector Suppression (BarrierAction)
+### 48.4 Topological Sector Suppression (BarrierAction)
 
 :::{prf:metatheorem} Topological Sector Suppression (MT 5.7)
 :label: mt-imported-topological-suppression
@@ -8916,7 +8857,7 @@ $$\mu(\{x : \tau(x) \neq 0\}) \leq \exp\left(-\frac{\lambda_{\text{LS}} (\Delta/
 
 ---
 
-### 38.5 Bode Sensitivity Integral (BarrierBode)
+### 48.5 Bode Sensitivity Integral (BarrierBode)
 
 :::{prf:theorem} Bode Sensitivity Integral (Thm 27.1)
 :label: thm-imported-bode
@@ -8962,7 +8903,7 @@ where the sum is over unstable poles of $L(s)$.
 
 ---
 
-### 38.6 Epistemic Horizon Principle (BarrierEpi)
+### 48.6 Epistemic Horizon Principle (BarrierEpi)
 
 :::{prf:metatheorem} Epistemic Horizon Principle (MT 28.1)
 :label: mt-imported-epistemic-horizon
@@ -9008,13 +8949,13 @@ If entropy production exceeds channel capacity, the singularity cannot form.
 
 ---
 
-## 39. Surgery Construction Theorems
+## 49. Surgery Construction Theorems
 
 *These theorems provide constructive methods for purple surgery nodes.*
 
 ---
 
-### 39.1 Regularity Lift Principle (SurgSE)
+### 49.1 Regularity Lift Principle (SurgSE)
 
 :::{prf:metatheorem} Regularity Lift Principle (MT 6.1)
 :label: mt-imported-regularity-lift
@@ -9062,7 +9003,7 @@ in the space of modelled distributions. The fixed point exists by Banach contrac
 
 ---
 
-### 39.2 Structural Surgery Principle (SurgTE)
+### 49.2 Structural Surgery Principle (SurgTE)
 
 :::{prf:metatheorem} Structural Surgery Principle (MT 6.5)
 :label: mt-imported-structural-surgery
@@ -9115,7 +9056,7 @@ Surgeries only decrease entropy by controlled amounts.
 
 ---
 
-### 39.3 Projective Extension (SurgCD)
+### 49.3 Projective Extension (SurgCD)
 
 :::{prf:metatheorem} Projective Extension (MT 6.3)
 :label: mt-imported-projective-extension
@@ -9157,7 +9098,7 @@ The central path follows $\nabla f_\mu = 0$ as $\mu \to 0$.
 
 ---
 
-### 39.4 Derived Extension / BRST (SurgSD)
+### 49.4 Derived Extension / BRST (SurgSD)
 
 :::{prf:metatheorem} Derived Extension (MT 6.2)
 :label: mt-imported-brst
@@ -9205,7 +9146,7 @@ This exactly cancels the divergent gauge orbit volume, yielding finite $Z$.
 
 ---
 
-### 39.5 Adjoint Surgery (SurgBC)
+### 49.5 Adjoint Surgery (SurgBC)
 
 :::{prf:metatheorem} Adjoint Surgery (MT 6.26)
 :label: mt-imported-adjoint-surgery
@@ -9255,7 +9196,7 @@ The Hamiltonian $H = f + \lambda^T \dot{x}$ couples state and costate dynamics.
 
 ---
 
-### 39.6 Lyapunov Compactification (SurgCE)
+### 49.6 Lyapunov Compactification (SurgCE)
 
 :::{prf:metatheorem} Lyapunov Compactification (MT 6.4)
 :label: mt-imported-lyapunov-compactification
@@ -9299,11 +9240,11 @@ The trajectory reaches $\partial_\Omega M$ in finite $\tilde{g}$-time, preventin
 
 ---
 
-## 40. Foundation ↔ Sieve Cross-Reference
+## 50. Foundation ↔ Sieve Cross-Reference
 
 The following table provides the complete mapping from Sieve components to their substantiating foundational theorems.
 
-### 40.1 Kernel Logic Cross-Reference
+### 50.1 Kernel Logic Cross-Reference
 
 | **Sieve Component** | **Foundation Theorem** | **Certificate** | **Primary Literature** |
 |---------------------|------------------------|-----------------|------------------------|
@@ -9312,7 +9253,7 @@ The following table provides the complete mapping from Sieve components to their
 | {prf:ref}`def-node-complex` | {prf:ref}`mt-profile-trichotomy` | $K_{11}^{\text{lib/tame/inc}}$ | van den Dries, Kurdyka |
 | Meta-Learning | {prf:ref}`mt-imported-equivariance` | $K_{\text{SV08}}^+$ | Noether, Cohen-Welling |
 
-### 40.2 Gate Evaluator Cross-Reference
+### 50.2 Gate Evaluator Cross-Reference
 
 | **Blue Node** | **Foundation Theorem** | **Predicate** | **Primary Literature** |
 |---------------|------------------------|---------------|------------------------|
@@ -9322,7 +9263,7 @@ The following table provides the complete mapping from Sieve components to their
 | {prf:ref}`def-node-oscillate` | {prf:ref}`mt-imported-spectral-distance` | $\|[D,a]\| < \infty$ | Connes |
 | {prf:ref}`def-node-boundary` | {prf:ref}`mt-imported-antichain-surface` | min-cut/max-flow | Menger, De Giorgi |
 
-### 40.3 Barrier Defense Cross-Reference
+### 50.3 Barrier Defense Cross-Reference
 
 | **Orange Barrier** | **Foundation Theorem** | **Blocking Mechanism** | **Primary Literature** |
 |--------------------|------------------------|------------------------|------------------------|
@@ -9333,7 +9274,7 @@ The following table provides the complete mapping from Sieve components to their
 | {prf:ref}`def-barrier-bode` | Thm 27.1 (Bode Integral) | $\int \log|S| d\omega = \pi \sum p_i$ | Bode, Doyle |
 | {prf:ref}`def-barrier-epi` | {prf:ref}`mt-imported-epistemic-horizon` | $I(X;Z) \leq I(X;Y)$ | Cover-Thomas, Landauer |
 
-### 40.4 Surgery Construction Cross-Reference
+### 50.4 Surgery Construction Cross-Reference
 
 | **Purple Surgery** | **Foundation Theorem** | **Construction** | **Primary Literature** |
 |--------------------|------------------------|------------------|------------------------|
@@ -9346,555 +9287,14 @@ The following table provides the complete mapping from Sieve components to their
 
 ---
 
-# Appendix: Diagram Excerpts by Section
 
-(complete-sieve-algorithm)=
-## Complete Sieve Algorithm
-
-The following is the complete Mermaid source code for the Canonical Sieve Algorithm diagram. This diagram is the authoritative specification of the sieve control flow.
-
-```mermaid
-graph TD
-    Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. D_E:</b> Is Energy Finite?<br>E[Φ] < ∞"}
-
-    %% --- LEVEL 1: 0-TRUNCATION (Energy Bounds) ---
-    EnergyCheck -- "No: K-_DE" --> BarrierSat{"<b>B1. D_E:</b> Is Drift Bounded?<br>E[Φ] ≤ E_sat"}
-    BarrierSat -- "Yes: Kblk_DE" --> ZenoCheck
-    BarrierSat -- "No: Kbr_DE" --> SurgAdmCE{"<b>A1. SurgCE:</b> Admissible?<br>conformal ∧ ∂∞X def."}
-    SurgAdmCE -- "Yes: K+_Conf" --> SurgCE["<b>S1. SurgCE:</b><br>Ghost/Cap Extension"]
-    SurgAdmCE -- "No: K-_Conf" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
-    SurgCE -. "Kre_SurgCE" .-> ZenoCheck
-
-    EnergyCheck -- "Yes: K+_DE" --> ZenoCheck{"<b>2. Rec_N:</b> Are Discrete Events Finite?<br>N(J) < ∞"}
-    ZenoCheck -- "No: K-_RecN" --> BarrierCausal{"<b>B2. Rec_N:</b> Infinite Depth?<br>D#40;T*#41; = ∞"}
-    BarrierCausal -- "No: Kbr_RecN" --> SurgAdmCC{"<b>A2. SurgCC:</b> Admissible?<br>∃N_max: events ≤ N_max"}
-    SurgAdmCC -- "Yes: K+_Disc" --> SurgCC["<b>S2. SurgCC:</b><br>Discrete Saturation"]
-    SurgAdmCC -- "No: K-_Disc" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
-    SurgCC -. "Kre_SurgCC" .-> CompactCheck
-    BarrierCausal -- "Yes: Kblk_RecN" --> CompactCheck
-
-    ZenoCheck -- "Yes: K+_RecN" --> CompactCheck{"<b>3. C_μ:</b> Does Energy Concentrate?<br>μ(V) > 0"}
-
-    %% --- LEVEL 2: COMPACTNESS LOCUS (Profile Moduli) ---
-    CompactCheck -- "No: K-_Cmu" --> BarrierScat{"<b>B3. C_μ:</b> Is Interaction Finite?<br>M[Φ] < ∞"}
-    BarrierScat -- "Yes: Kben_Cmu" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
-    BarrierScat -- "No: Kpath_Cmu" --> SurgAdmCD_Alt{"<b>A3. SurgCD_Alt:</b> Admissible?<br>V ∈ L_soliton ∧ ‖V‖_H¹ < ∞"}
-    SurgAdmCD_Alt -- "Yes: K+_Prof" --> SurgCD_Alt["<b>S3. SurgCD_Alt:</b><br>Concentration-Compactness"]
-    SurgAdmCD_Alt -- "No: K-_Prof" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
-    SurgCD_Alt -. "Kre_SurgCD_Alt" .-> Profile
-
-    CompactCheck -- "Yes: K+_Cmu" --> Profile["<b>Canonical Profile V Emerges</b>"]
-
-    %% --- LEVEL 3: EQUIVARIANT DESCENT ---
-    Profile --> ScaleCheck{"<b>4. SC_λ:</b> Is Profile Subcritical?<br>λ(V) < λ_c"}
-
-    ScaleCheck -- "No: K-_SClam" --> BarrierTypeII{"<b>B4. SC_λ:</b> Is Renorm Cost ∞?<br>∫D̃ dt = ∞"}
-    BarrierTypeII -- "No: Kbr_SClam" --> SurgAdmSE{"<b>A4. SurgSE:</b> Admissible?<br>α-β < ε_crit ∧ V smooth"}
-    SurgAdmSE -- "Yes: K+_Lift" --> SurgSE["<b>S4. SurgSE:</b><br>Regularity Lift"]
-    SurgAdmSE -- "No: K-_Lift" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
-    SurgSE -. "Kre_SurgSE" .-> ParamCheck
-    BarrierTypeII -- "Yes: Kblk_SClam" --> ParamCheck
-
-    ScaleCheck -- "Yes: K+_SClam" --> ParamCheck{"<b>5. SC_∂c:</b> Are Constants Stable?<br>‖∂c‖ < ε"}
-    ParamCheck -- "No: K-_SCdc" --> BarrierVac{"<b>B5. SC_∂c:</b> Is Phase Stable?<br>ΔV > k_B T"}
-    BarrierVac -- "No: Kbr_SCdc" --> SurgAdmSC{"<b>A5. SurgSC:</b> Admissible?<br>‖∂θ‖ < C_adm ∧ θ stable"}
-    SurgAdmSC -- "Yes: K+_Stab" --> SurgSC["<b>S5. SurgSC:</b><br>Convex Integration"]
-    SurgAdmSC -- "No: K-_Stab" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
-    SurgSC -. "Kre_SurgSC" .-> GeomCheck
-    BarrierVac -- "Yes: Kblk_SCdc" --> GeomCheck
-
-    ParamCheck -- "Yes: K+_SCdc" --> GeomCheck{"<b>6. Cap_H:</b> Is Codim ≥ Threshold?<br>codim(S) ≥ 2"}
-
-    %% --- LEVEL 4: DIMENSION FILTRATION ---
-    GeomCheck -- "No: K-_CapH" --> BarrierCap{"<b>B6. Cap_H:</b> Is Measure Zero?<br>Cap_H#40;S#41; = 0"}
-    BarrierCap -- "No: Kbr_CapH" --> SurgAdmCD{"<b>A6. SurgCD:</b> Admissible?<br>Cap#40;Σ#41; ≤ ε ∧ V ∈ L_neck"}
-    SurgAdmCD -- "Yes: K+_Neck" --> SurgCD["<b>S6. SurgCD:</b><br>Auxiliary/Structural"]
-    SurgAdmCD -- "No: K-_Neck" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
-    SurgCD -. "Kre_SurgCD" .-> StiffnessCheck
-    BarrierCap -- "Yes: Kblk_CapH" --> StiffnessCheck
-
-    GeomCheck -- "Yes: K+_CapH" --> StiffnessCheck{"<b>7. LS_σ:</b> Is Gap Certified?<br>inf σ(L) > 0"}
-
-    %% --- LEVEL 5: SPECTRAL OBSTRUCTION ---
-    StiffnessCheck -- "No: K-_LSsig" --> BarrierGap{"<b>B7. LS_σ:</b> Is Kernel Finite?<br>dim ker#40;L#41; < ∞ ∧ σ_ess > 0"}
-    BarrierGap -- "Yes: Kblk_LSsig" --> TopoCheck
-    BarrierGap -- "No: Kstag_LSsig" --> BifurcateCheck{"<b>7a. LS_∂²V:</b> Is State Unstable?<br>∂²V(x*) ⊁ 0"}
-
-    %% --- LEVEL 5b: SPECTRAL RESTORATION (Bifurcation Resolution) ---
-    BifurcateCheck -- "No: K-_LSd2V" --> SurgAdmSD{"<b>A7. SurgSD:</b> Admissible?<br>dim ker#40;H#41; < ∞ ∧ V iso."}
-    SurgAdmSD -- "Yes: K+_Iso" --> SurgSD["<b>S7. SurgSD:</b><br>Ghost Extension"]
-    SurgAdmSD -- "No: K-_Iso" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
-    SurgSD -. "Kre_SurgSD" .-> TopoCheck
-    BifurcateCheck -- "Yes: K+_LSd2V" --> SymCheck{"<b>7b. G_act:</b> Is G-orbit Degenerate?<br>⎸G·v₀⎸ = 1"}
-
-    %% Path A: Symmetry Breaking (Governed by SC_∂c)
-    SymCheck -- "Yes: K+_Gact" --> CheckSC{"<b>7c. SC_∂c:</b> Are Constants Stable?<br>‖∂c‖ < ε"}
-    CheckSC -- "Yes: K+_SCdc" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
-    ActionSSB -- "Kgap" --> TopoCheck
-    CheckSC -- "No: K-_SCdc" --> SurgAdmSC_Rest{"<b>A8. SurgSC_Rest:</b> Admissible?<br>ΔV > k_B T ∧ Γ < Γ_crit"}
-    SurgAdmSC_Rest -- "Yes: K+_Vac" --> SurgSC_Rest["<b>S8. SurgSC_Rest:</b><br>Auxiliary Extension"]
-    SurgAdmSC_Rest -- "No: K-_Vac" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
-    SurgSC_Rest -. "Kre_SurgSC_Rest" .-> TopoCheck
-
-    %% Path B: Tunneling (Governed by TB_S)
-    SymCheck -- "No: K-_Gact" --> CheckTB{"<b>7d. TB_S:</b> Is Tunneling Finite?<br>S[γ] < ∞"}
-    CheckTB -- "Yes: K+_TBS" --> ActionTunnel["<b>ACTION: TUNNELING</b><br>Instanton Decay"]
-    ActionTunnel -- "Ktunnel" --> TameCheck
-    CheckTB -- "No: K-_TBS" --> SurgAdmTE_Rest{"<b>A9. SurgTE_Rest:</b> Admissible?<br>V ≅ S^n×I ∧ S_R[γ] < ∞"}
-    SurgAdmTE_Rest -- "Yes: K+_Inst" --> SurgTE_Rest["<b>S9. SurgTE_Rest:</b><br>Structural"]
-    SurgAdmTE_Rest -- "No: K-_Inst" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
-    SurgTE_Rest -. "Kre_SurgTE_Rest" .-> TameCheck
-
-    StiffnessCheck -- "Yes: K+_LSsig" --> TopoCheck{"<b>8. TB_π:</b> Is Sector Reachable?<br>[π] ∈ π₀(C)_acc"}
-
-    %% --- LEVEL 6: HOMOTOPICAL OBSTRUCTIONS ---
-    TopoCheck -- "No: K-_TBpi" --> BarrierAction{"<b>B8. TB_π:</b> Energy < Gap?<br>E < S_min + Δ"}
-    BarrierAction -- "No: Kbr_TBpi" --> SurgAdmTE{"<b>A10. SurgTE:</b> Admissible?<br>V ≅ S^n×R #40;Neck#41;"}
-    SurgAdmTE -- "Yes: K+_Topo" --> SurgTE["<b>S10. SurgTE:</b><br>Tunnel"]
-    SurgAdmTE -- "No: K-_Topo" --> ModeTE["<b>Mode T.E</b>: Topological Twist"]
-    SurgTE -. "Kre_SurgTE" .-> TameCheck
-    BarrierAction -- "Yes: Kblk_TBpi" --> TameCheck
-
-    TopoCheck -- "Yes: K+_TBpi" --> TameCheck{"<b>9. TB_O:</b> Is Topology Tame?<br>Σ ∈ O-min"}
-
-    TameCheck -- "No: K-_TBO" --> BarrierOmin{"<b>B9. TB_O:</b> Is It Definable?<br>S ∈ O-min"}
-    BarrierOmin -- "No: Kbr_TBO" --> SurgAdmTC{"<b>A11. SurgTC:</b> Admissible?<br>Σ ∈ O-ext def. ∧ dim < n"}
-    SurgAdmTC -- "Yes: K+_Omin" --> SurgTC["<b>S11. SurgTC:</b><br>O-minimal Regularization"]
-    SurgAdmTC -- "No: K-_Omin" --> ModeTC["<b>Mode T.C</b>: Labyrinthine"]
-    SurgTC -. "Kre_SurgTC" .-> ErgoCheck
-    BarrierOmin -- "Yes: Kblk_TBO" --> ErgoCheck
-
-    TameCheck -- "Yes: K+_TBO" --> ErgoCheck{"<b>10. TB_ρ:</b> Does Flow Mix?<br>τ_mix < ∞"}
-
-    ErgoCheck -- "No: K-_TBrho" --> BarrierMix{"<b>B10. TB_ρ:</b> Mixing Finite?<br>τ_mix < ∞"}
-    BarrierMix -- "No: Kbr_TBrho" --> SurgAdmTD{"<b>A12. SurgTD:</b> Admissible?<br>Trap iso. ∧ ∂T > 0"}
-    SurgAdmTD -- "Yes: K+_Mix" --> SurgTD["<b>S12. SurgTD:</b><br>Mixing Enhancement"]
-    SurgAdmTD -- "No: K-_Mix" --> ModeTD["<b>Mode T.D</b>: Glassy Freeze"]
-    SurgTD -. "Kre_SurgTD" .-> ComplexCheck
-    BarrierMix -- "Yes: Kblk_TBrho" --> ComplexCheck
-
-    ErgoCheck -- "Yes: K+_TBrho" --> ComplexCheck{"<b>11. Rep_K:</b> Is K(x) Computable?<br>K(x) ∈ ℕ"}
-
-    %% --- LEVEL 7: KOLMOGOROV FILTRATION ---
-    ComplexCheck -- "No: K-_RepK" --> BarrierEpi{"<b>B11. Rep_K:</b> Approx. Bounded?<br>sup K_ε#40;x#41; ≤ S_BH"}
-    BarrierEpi -- "No: Kbr_RepK" --> SurgAdmDC{"<b>A13. SurgDC:</b> Admissible?<br>K ≤ S_BH+ε ∧ Lipschitz"}
-    SurgAdmDC -- "Yes: K+_Lip" --> SurgDC["<b>S13. SurgDC:</b><br>Viscosity Solution"]
-    SurgAdmDC -- "No: K-_Lip" --> ModeDC["<b>Mode D.C</b>: Semantic Horizon"]
-    SurgDC -. "Kre_SurgDC" .-> OscillateCheck
-    BarrierEpi -- "Yes: Kblk_RepK" --> OscillateCheck
-
-    ComplexCheck -- "Yes: K+_RepK" --> OscillateCheck{"<b>12. GC_∇:</b> Does Flow Oscillate?<br>ẋ ≠ -∇V"}
-
-    OscillateCheck -- "Yes: K+_GCnabla" --> BarrierFreq{"<b>B12. GC_∇:</b> Oscillation Finite?<br>∫ω²S dω < ∞"}
-    BarrierFreq -- "No: Kbr_GCnabla" --> SurgAdmDE{"<b>A14. SurgDE:</b> Admissible?<br>∃Λ: trunc. moment < ∞ ∧ elliptic"}
-    SurgAdmDE -- "Yes: K+_Ell" --> SurgDE["<b>S14. SurgDE:</b><br>De Giorgi-Nash-Moser"]
-    SurgAdmDE -- "No: K-_Ell" --> ModeDE["<b>Mode D.E</b>: Oscillatory"]
-    SurgDE -. "Kre_SurgDE" .-> BoundaryCheck
-    BarrierFreq -- "Yes: Kblk_GCnabla" --> BoundaryCheck
-
-    OscillateCheck -- "No: K-_GCnabla" --> BoundaryCheck{"<b>13. Bound_∂:</b> Is System Open?<br>∂Ω ≠ ∅"}
-
-    %% --- LEVEL 8: BOUNDARY COBORDISM ---
-    BoundaryCheck -- "Yes: K+_Bound" --> OverloadCheck{"<b>14. Bound_B:</b> Is Input Bounded?<br>‖Bu‖ ≤ M"}
-
-    OverloadCheck -- "No: K-_BoundB" --> BarrierBode{"<b>B14. Bound_B:</b> Waterbed Bounded?<br>∫ln‖S‖dω > -∞"}
-    BarrierBode -- "No: Kbr_BoundB" --> SurgAdmBE{"<b>A15. SurgBE:</b> Admissible?<br>‖S‖_∞ < M ∧ φ_margin > 0"}
-    SurgAdmBE -- "Yes: K+_Marg" --> SurgBE["<b>S15. SurgBE:</b><br>Saturation"]
-    SurgAdmBE -- "No: K-_Marg" --> ModeBE["<b>Mode B.E</b>: Injection"]
-    SurgBE -. "Kre_SurgBE" .-> StarveCheck
-    BarrierBode -- "Yes: Kblk_BoundB" --> StarveCheck
-
-    OverloadCheck -- "Yes: K+_BoundB" --> StarveCheck{"<b>15. Bound_∫:</b> Is Input Sufficient?<br>∫r dt ≥ r_min"}
-
-    StarveCheck -- "No: K-_BoundInt" --> BarrierInput{"<b>B15. Bound_∫:</b> Reserve Positive?<br>r_reserve > 0"}
-    BarrierInput -- "No: Kbr_BoundInt" --> SurgAdmBD{"<b>A16. SurgBD:</b> Admissible?<br>r_res > 0 ∧ recharge > drain"}
-    SurgAdmBD -- "Yes: K+_Res" --> SurgBD["<b>S16. SurgBD:</b><br>Reservoir"]
-    SurgAdmBD -- "No: K-_Res" --> ModeBD["<b>Mode B.D</b>: Starvation"]
-    SurgBD -. "Kre_SurgBD" .-> AlignCheck
-    BarrierInput -- "Yes: Kblk_BoundInt" --> AlignCheck
-
-    StarveCheck -- "Yes: K+_BoundInt" --> AlignCheck{"<b>16. GC_T:</b> Is Control Matched?<br>T(u) ~ d"}
-    AlignCheck -- "No: K-_GCT" --> BarrierVariety{"<b>B16. GC_T:</b> Variety Sufficient?<br>H#40;u#41; ≥ H#40;d#41;"}
-    BarrierVariety -- "No: Kbr_GCT" --> SurgAdmBC{"<b>A17. SurgBC:</b> Admissible?<br>H#40;u#41; < H#40;d#41; ∧ bridgeable"}
-    SurgAdmBC -- "Yes: K+_Ent" --> SurgBC["<b>S17. SurgBC:</b><br>Controller Augmentation"]
-    SurgAdmBC -- "No: K-_Ent" --> ModeBC["<b>Mode B.C</b>: Misalignment"]
-    SurgBC -. "Kre_SurgBC" .-> BarrierExclusion
-
-    %% --- LEVEL 9: THE COHOMOLOGICAL BARRIER ---
-    %% All successful paths funnel here
-    BoundaryCheck -- "No: K-_Bound" --> BarrierExclusion
-    BarrierVariety -- "Yes: Kblk_GCT" --> BarrierExclusion
-    AlignCheck -- "Yes: K+_GCT" --> BarrierExclusion
-
-    BarrierExclusion{"<b>17. Cat_Hom:</b> Is Hom#40;Bad, S#41; = ∅?<br>Hom#40;B, S#41; = ∅"}
-
-    BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
-    BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
-    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
-    ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
-    ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
-
-    %% ====== STYLES ======
-    %% Success states - Green
-    style VICTORY fill:#22c55e,stroke:#16a34a,color:#000000,stroke-width:4px
-    style ModeDD fill:#22c55e,stroke:#16a34a,color:#000000
-
-    %% Failure modes - Red
-    style ModeCE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeSE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeSC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCD fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCD_Alt fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeSD fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeTE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeTC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeTD fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeDC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeDE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeBE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeBD fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeBC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCat fill:#ef4444,stroke:#dc2626,color:#ffffff
-
-    %% Barriers - Orange/Amber
-    style BarrierSat fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierCausal fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierScat fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierTypeII fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierVac fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierCap fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierGap fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierAction fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierOmin fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierMix fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierEpi fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierFreq fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierBode fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierInput fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierVariety fill:#f59e0b,stroke:#d97706,color:#000000
-
-    %% Reconstruction Loop - Yellow/Gold
-    style ReconstructionLoop fill:#fbbf24,stroke:#f59e0b,color:#000000,stroke-width:2px
-
-    %% The Final Gate - Purple with thick border
-    style BarrierExclusion fill:#8b5cf6,stroke:#7c3aed,color:#ffffff,stroke-width:4px
-
-    %% Interface Checks - Blue
-    style EnergyCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ZenoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style CompactCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ScaleCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ParamCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style GeomCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style StiffnessCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style TopoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style TameCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ErgoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ComplexCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style OscillateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style BoundaryCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style OverloadCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style StarveCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style AlignCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-
-    %% Intermediate nodes - Purple
-    style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Restoration checks - Blue (interface permit checks)
-    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
-
-    %% Restoration mechanisms - Purple (escape mechanisms)
-    style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style ActionTunnel fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Restoration failure modes - Red
-    style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
-
-    %% Surgery recovery nodes - Purple
-    style SurgCE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgCC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgCD_Alt fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgCD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSC_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgTE_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgTE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgTC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgTD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgDC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgDE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgBE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgBD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgBC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Surgery Admissibility checks - Light Purple with border
-    style SurgAdmCE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmCC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmCD_Alt fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmCD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSC_Rest fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmTE_Rest fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmTE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmTC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmTD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmDC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmDE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmBE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmBD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmBC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-```
-
----
-
-## Conservation Layer (Nodes 1--3)
-
-```mermaid
-graph TD
-    Start(["<b>START DIAGNOSTIC</b>"]) --> EnergyCheck{"<b>1. D_E:</b> Is Energy Finite?<br>E[Φ] < ∞"}
-
-    %% --- LEVEL 1: 0-TRUNCATION (Energy Bounds) ---
-    EnergyCheck -- "No: K-_DE" --> BarrierSat{"<b>B1. D_E:</b> Is Drift Bounded?<br>E[Φ] ≤ E_sat"}
-    BarrierSat -- "Yes: Kblk_DE" --> ZenoCheck
-    BarrierSat -- "No: Kbr_DE" --> SurgAdmCE{"<b>A1. SurgCE:</b> Admissible?<br>conformal ∧ ∂∞X def."}
-    SurgAdmCE -- "Yes: K+_Conf" --> SurgCE["<b>S1. SurgCE:</b><br>Ghost/Cap Extension"]
-    SurgAdmCE -- "No: K-_Conf" --> ModeCE["<b>Mode C.E</b>: Energy Blow-Up"]
-    SurgCE -. "Kre_SurgCE" .-> ZenoCheck
-
-    EnergyCheck -- "Yes: K+_DE" --> ZenoCheck{"<b>2. Rec_N:</b> Are Discrete Events Finite?<br>N(J) < ∞"}
-    ZenoCheck -- "No: K-_RecN" --> BarrierCausal{"<b>B2. Rec_N:</b> Infinite Depth?<br>D#40;T*#41; = ∞"}
-    BarrierCausal -- "No: Kbr_RecN" --> SurgAdmCC{"<b>A2. SurgCC:</b> Admissible?<br>∃N_max: events ≤ N_max"}
-    SurgAdmCC -- "Yes: K+_Disc" --> SurgCC["<b>S2. SurgCC:</b><br>Discrete Saturation"]
-    SurgAdmCC -- "No: K-_Disc" --> ModeCC["<b>Mode C.C</b>: Event Accumulation"]
-    SurgCC -. "Kre_SurgCC" .-> CompactCheck
-    BarrierCausal -- "Yes: Kblk_RecN" --> CompactCheck
-
-    ZenoCheck -- "Yes: K+_RecN" --> CompactCheck{"<b>3. C_μ:</b> Does Energy Concentrate?<br>μ(V) > 0"}
-
-    %% --- LEVEL 2: COMPACTNESS LOCUS (Profile Moduli) ---
-    CompactCheck -- "No: K-_Cmu" --> BarrierScat{"<b>B3. C_μ:</b> Is Interaction Finite?<br>M[Φ] < ∞"}
-    BarrierScat -- "Yes: Kben_Cmu" --> ModeDD["<b>Mode D.D</b>: Dispersion<br><i>#40;Global Existence#41;</i>"]
-    BarrierScat -- "No: Kpath_Cmu" --> SurgAdmCD_Alt{"<b>A3. SurgCD_Alt:</b> Admissible?<br>V ∈ L_soliton ∧ ‖V‖_H¹ < ∞"}
-    SurgAdmCD_Alt -- "Yes: K+_Prof" --> SurgCD_Alt["<b>S3. SurgCD_Alt:</b><br>Concentration-Compactness"]
-    SurgAdmCD_Alt -- "No: K-_Prof" --> ModeCD_Alt["<b>Mode C.D</b>: Geometric Collapse<br><i>#40;Via Escape#41;</i>"]
-    SurgCD_Alt -. "Kre_SurgCD_Alt" .-> Profile
-
-    CompactCheck -- "Yes: K+_Cmu" --> Profile["<b>Canonical Profile V Emerges</b>"]
-
-    %% ====== STYLES ======
-    %% Success states - Green
-    style ModeDD fill:#22c55e,stroke:#16a34a,color:#000000
-
-    %% Failure modes - Red
-    style ModeCE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCD_Alt fill:#ef4444,stroke:#dc2626,color:#ffffff
-
-    %% Barriers - Orange/Amber
-    style BarrierSat fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierCausal fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierScat fill:#f59e0b,stroke:#d97706,color:#000000
-
-    %% Interface Checks - Blue
-    style EnergyCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ZenoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style CompactCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-
-    %% Intermediate nodes - Purple
-    style Start fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Surgery recovery nodes - Purple
-    style SurgCE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgCC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgCD_Alt fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Surgery Admissibility checks - Light Purple with border
-    style SurgAdmCE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmCC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmCD_Alt fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-```
-
-## Symmetry/Geometry Layer (Nodes 4--7)
-
-```mermaid
-graph TD
-    %% --- LEVEL 3: EQUIVARIANT DESCENT ---
-    Profile["<b>Canonical Profile V Emerges</b>"] --> ScaleCheck{"<b>4. SC_λ:</b> Is Profile Subcritical?<br>λ(V) < λ_c"}
-
-    ScaleCheck -- "No: K-_SClam" --> BarrierTypeII{"<b>B4. SC_λ:</b> Is Renorm Cost ∞?<br>∫D̃ dt = ∞"}
-    BarrierTypeII -- "No: Kbr_SClam" --> SurgAdmSE{"<b>A4. SurgSE:</b> Admissible?<br>α-β < ε_crit ∧ V smooth"}
-    SurgAdmSE -- "Yes: K+_Lift" --> SurgSE["<b>S4. SurgSE:</b><br>Regularity Lift"]
-    SurgAdmSE -- "No: K-_Lift" --> ModeSE["<b>Mode S.E</b>: Supercritical Cascade"]
-    SurgSE -. "Kre_SurgSE" .-> ParamCheck
-    BarrierTypeII -- "Yes: Kblk_SClam" --> ParamCheck
-
-    ScaleCheck -- "Yes: K+_SClam" --> ParamCheck{"<b>5. SC_∂c:</b> Are Constants Stable?<br>‖∂c‖ < ε"}
-    ParamCheck -- "No: K-_SCdc" --> BarrierVac{"<b>B5. SC_∂c:</b> Is Phase Stable?<br>ΔV > k_B T"}
-    BarrierVac -- "No: Kbr_SCdc" --> SurgAdmSC{"<b>A5. SurgSC:</b> Admissible?<br>‖∂θ‖ < C_adm ∧ θ stable"}
-    SurgAdmSC -- "Yes: K+_Stab" --> SurgSC["<b>S5. SurgSC:</b><br>Convex Integration"]
-    SurgAdmSC -- "No: K-_Stab" --> ModeSC["<b>Mode S.C</b>: Parameter Instability"]
-    SurgSC -. "Kre_SurgSC" .-> GeomCheck
-    BarrierVac -- "Yes: Kblk_SCdc" --> GeomCheck
-
-    ParamCheck -- "Yes: K+_SCdc" --> GeomCheck{"<b>6. Cap_H:</b> Is Codim ≥ Threshold?<br>codim(S) ≥ 2"}
-
-    %% --- LEVEL 4: DIMENSION FILTRATION ---
-    GeomCheck -- "No: K-_CapH" --> BarrierCap{"<b>B6. Cap_H:</b> Is Measure Zero?<br>Cap_H#40;S#41; = 0"}
-    BarrierCap -- "No: Kbr_CapH" --> SurgAdmCD{"<b>A6. SurgCD:</b> Admissible?<br>Cap#40;Σ#41; ≤ ε ∧ V ∈ L_neck"}
-    SurgAdmCD -- "Yes: K+_Neck" --> SurgCD["<b>S6. SurgCD:</b><br>Auxiliary/Structural"]
-    SurgAdmCD -- "No: K-_Neck" --> ModeCD["<b>Mode C.D</b>: Geometric Collapse"]
-    SurgCD -. "Kre_SurgCD" .-> StiffnessCheck
-    BarrierCap -- "Yes: Kblk_CapH" --> StiffnessCheck
-
-    GeomCheck -- "Yes: K+_CapH" --> StiffnessCheck{"<b>7. LS_σ:</b> Is Gap Certified?<br>inf σ(L) > 0"}
-
-    %% --- LEVEL 5: SPECTRAL OBSTRUCTION ---
-    StiffnessCheck -- "No: K-_LSsig" --> BarrierGap{"<b>B7. LS_σ:</b> Is Kernel Finite?<br>dim ker#40;L#41; < ∞ ∧ σ_ess > 0"}
-    BarrierGap -- "Yes: Kblk_LSsig" --> TopoCheck
-    BarrierGap -- "No: Kstag_LSsig" --> BifurcateCheck{"<b>7a. LS_∂²V:</b> Is State Unstable?<br>∂²V(x*) ⊁ 0"}
-
-    %% --- LEVEL 5b: SPECTRAL RESTORATION (Bifurcation Resolution) ---
-    BifurcateCheck -- "No: K-_LSd2V" --> SurgAdmSD{"<b>A7. SurgSD:</b> Admissible?<br>dim ker#40;H#41; < ∞ ∧ V iso."}
-    SurgAdmSD -- "Yes: K+_Iso" --> SurgSD["<b>S7. SurgSD:</b><br>Ghost Extension"]
-    SurgAdmSD -- "No: K-_Iso" --> ModeSD["<b>Mode S.D</b>: Stiffness Breakdown"]
-    SurgSD -. "Kre_SurgSD" .-> TopoCheck
-    BifurcateCheck -- "Yes: K+_LSd2V" --> SymCheck{"<b>7b. G_act:</b> Is G-orbit Degenerate?<br>⎸G·v₀⎸ = 1"}
-
-    %% Path A: Symmetry Breaking (Governed by SC_∂c)
-    SymCheck -- "Yes: K+_Gact" --> CheckSC{"<b>7c. SC_∂c:</b> Are Constants Stable?<br>‖∂c‖ < ε"}
-    CheckSC -- "Yes: K+_SCdc" --> ActionSSB["<b>ACTION: SYM. BREAKING</b><br>Generates Mass Gap"]
-    ActionSSB -- "Kgap" --> TopoCheck
-    CheckSC -- "No: K-_SCdc" --> SurgAdmSC_Rest{"<b>A8. SurgSC_Rest:</b> Admissible?<br>ΔV > k_B T ∧ Γ < Γ_crit"}
-    SurgAdmSC_Rest -- "Yes: K+_Vac" --> SurgSC_Rest["<b>S8. SurgSC_Rest:</b><br>Auxiliary Extension"]
-    SurgAdmSC_Rest -- "No: K-_Vac" --> ModeSC_Rest["<b>Mode S.C</b>: Parameter Instability<br><i>#40;Vacuum Decay#41;</i>"]
-    SurgSC_Rest -. "Kre_SurgSC_Rest" .-> TopoCheck
-
-    %% Path B: Tunneling (Governed by TB_S)
-    SymCheck -- "No: K-_Gact" --> CheckTB{"<b>7d. TB_S:</b> Is Tunneling Finite?<br>S[γ] < ∞"}
-    CheckTB -- "Yes: K+_TBS" --> ActionTunnel["<b>ACTION: TUNNELING</b><br>Instanton Decay"]
-    ActionTunnel -- "Ktunnel" --> TameCheck
-    CheckTB -- "No: K-_TBS" --> SurgAdmTE_Rest{"<b>A9. SurgTE_Rest:</b> Admissible?<br>V ≅ S^n×I ∧ S_R[γ] < ∞"}
-    SurgAdmTE_Rest -- "Yes: K+_Inst" --> SurgTE_Rest["<b>S9. SurgTE_Rest:</b><br>Structural"]
-    SurgAdmTE_Rest -- "No: K-_Inst" --> ModeTE_Rest["<b>Mode T.E</b>: Topological Twist<br><i>#40;Metastasis#41;</i>"]
-    SurgTE_Rest -. "Kre_SurgTE_Rest" .-> TameCheck
-
-    StiffnessCheck -- "Yes: K+_LSsig" --> TopoCheck{"<b>8. TB_π:</b> Is Sector Reachable?<br>[π] ∈ π₀(C)_acc"}
-
-    %% Placeholder exits (connect to next layer)
-    TopoCheck --> NextLayer["→ Topology Layer"]
-    TameCheck["<b>9. TB_O:</b> Is Topology Tame?<br>Σ ∈ O-min"] --> NextLayer
-
-    %% ====== STYLES ======
-    %% Failure modes - Red
-    style ModeSE fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeSC fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeCD fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeSD fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeSC_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style ModeTE_Rest fill:#ef4444,stroke:#dc2626,color:#ffffff
-
-    %% Barriers - Orange/Amber
-    style BarrierTypeII fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierVac fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierCap fill:#f59e0b,stroke:#d97706,color:#000000
-    style BarrierGap fill:#f59e0b,stroke:#d97706,color:#000000
-
-    %% Interface Checks - Blue
-    style ScaleCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style ParamCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style GeomCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style StiffnessCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style TopoCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style TameCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-
-    %% Intermediate nodes - Purple
-    style Profile fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style NextLayer fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Restoration checks - Blue (interface permit checks)
-    style BifurcateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style SymCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style CheckSC fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style CheckTB fill:#3b82f6,stroke:#2563eb,color:#ffffff
-
-    %% Restoration mechanisms - Purple (escape mechanisms)
-    style ActionSSB fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style ActionTunnel fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Surgery recovery nodes - Purple
-    style SurgSE fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSC fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgCD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSD fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgSC_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-    style SurgTE_Rest fill:#8b5cf6,stroke:#7c3aed,color:#ffffff
-
-    %% Surgery Admissibility checks - Light Purple with border
-    style SurgAdmSE fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSC fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmCD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSD fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmSC_Rest fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-    style SurgAdmTE_Rest fill:#e9d5ff,stroke:#9333ea,color:#000000,stroke-width:2px
-```
-
-## The Lock (Node 17)
-
-```mermaid
-graph TD
-    %% --- LEVEL 9: THE COHOMOLOGICAL BARRIER ---
-    %% All successful paths funnel here
-    BoundaryCheck["← From Boundary Layer"] --> BarrierExclusion
-    BarrierVariety["← From Control Layer"] --> BarrierExclusion
-    AlignCheck["← From Alignment Layer"] --> BarrierExclusion
-
-    BarrierExclusion{"<b>17. Cat_Hom:</b> Is Hom#40;Bad, S#41; = ∅?<br>Hom#40;B, S#41; = ∅"}
-
-    BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
-    BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
-    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 42.1:</b><br>Structural Reconstruction"]
-    ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
-    ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
-
-    %% ====== STYLES ======
-    %% Success states - Green
-    style VICTORY fill:#22c55e,stroke:#16a34a,color:#000000,stroke-width:4px
-
-    %% Failure modes - Red
-    style ModeCat fill:#ef4444,stroke:#dc2626,color:#ffffff
-
-    %% Reconstruction Loop - Yellow/Gold
-    style ReconstructionLoop fill:#fbbf24,stroke:#f59e0b,color:#000000,stroke-width:2px
-
-    %% The Final Gate - Purple with thick border
-    style BarrierExclusion fill:#8b5cf6,stroke:#7c3aed,color:#ffffff,stroke-width:4px
-
-    %% Input nodes - Light gray
-    style BoundaryCheck fill:#d1d5db,stroke:#6b7280,color:#000000
-    style BarrierVariety fill:#d1d5db,stroke:#6b7280,color:#000000
-    style AlignCheck fill:#d1d5db,stroke:#6b7280,color:#000000
-```
-
----
-
-## 41. Algebraic-Geometric Metatheorems
+## 51. Algebraic-Geometric Metatheorems
 
 *These metatheorems establish the bridge between the sieve framework and algebraic geometry. They enable sieve execution for problems involving algebraic cycles, cohomology, period domains, and moduli spaces.*
 
 ---
 
-### 41.1 Motivic Flow Principle
+### 51.1 Motivic Flow Principle
 
 :::{prf:metatheorem} Motivic Flow Principle (MT 22.1)
 :label: mt-imported-motivic-flow
@@ -9963,7 +9363,7 @@ containing the motive, Künneth projectors, weight filtration, scaling exponents
 
 ---
 
-### 41.2 Schematic Sieve
+### 51.2 Schematic Sieve
 
 :::{prf:metatheorem} Semialgebraic Exclusion (MT 22.2)
 :label: mt-imported-schematic-sieve
@@ -10026,7 +9426,7 @@ The original Nullstellensatz formulation applies to equalities over $\mathbb{C}$
 
 ---
 
-### 41.3 Kodaira-Spencer Stiffness Link
+### 51.3 Kodaira-Spencer Stiffness Link
 
 :::{prf:metatheorem} Kodaira-Spencer Stiffness Link (MT 22.3)
 :label: mt-imported-kodaira-spencer
@@ -10098,7 +9498,7 @@ where classification $\in \{\text{rigid}, \text{obstructed}, \text{unobstructed-
 
 ---
 
-### 41.4 Virtual Cycle Correspondence
+### 51.4 Virtual Cycle Correspondence
 
 :::{prf:metatheorem} Virtual Cycle Correspondence (MT 22.7)
 :label: mt-imported-virtual-cycle
@@ -10181,7 +9581,7 @@ with virtual class, dimension, obstruction theory, and computed invariants.
 
 ---
 
-### 41.5 Monodromy-Weight Lock
+### 51.5 Monodromy-Weight Lock
 
 :::{prf:metatheorem} Monodromy-Weight Lock (MT 22.11)
 :label: mt-imported-monodromy-weight
@@ -10266,7 +9666,7 @@ containing the limiting Hodge filtration, weight filtration, monodromy data, cyc
 
 ---
 
-### 41.6 Tannakian Recognition Principle
+### 51.6 Tannakian Recognition Principle
 
 :::{prf:metatheorem} Tannakian Recognition Principle (MT 22.15)
 :label: mt-imported-tannakian-recognition
@@ -10354,15 +9754,15 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
 
 ---
 
-## 42. Structural Reconstruction Principle
+## 52. Structural Reconstruction Principle
 
 *This section introduces a universal metatheorem that resolves epistemic deadlock at Node 17 (Lock) for any hypostructure type. The Structural Reconstruction Principle generalizes Tannakian reconstruction to encompass algebraic, parabolic, and quantum systems, providing a canonical bridge between analytic observables and structural objects.*
 
 ---
 
-### 42.1 The Reconstruction Metatheorem
+### 52.1 The Reconstruction Metatheorem
 
-:::{prf:metatheorem} Structural Reconstruction Principle (MT 42.1)
+:::{prf:metatheorem} Structural Reconstruction Principle (MT 41.1)
 :label: mt-structural-reconstruction
 :class: metatheorem
 
@@ -10598,7 +9998,7 @@ This ensures reconstruction makes definite progress: either discharging obligati
 
 ---
 
-### 42.2 Type Instantiation Table
+### 52.2 Type Instantiation Table
 
 The following table summarizes how the Structural Reconstruction Principle instantiates across the three fundamental hypostructure types. Each row shows how the interface permits $D_E$, $C_\mu$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$ specialize to the given type:
 
@@ -10619,7 +10019,7 @@ The following table summarizes how the Structural Reconstruction Principle insta
 
 ---
 
-### 42.3 Corollaries
+### 52.3 Corollaries
 
 :::{prf:corollary} Bridge-Rigidity Dichotomy
 :label: cor-bridge-rigidity
@@ -10665,7 +10065,7 @@ Each arrow represents a certificate dependency. The output $K_{\mathrm{Cat}_{\ma
 
 ---
 
-### 42.4 The Analytic-Algebraic Rigidity Lemma
+### 52.4 The Analytic-Algebraic Rigidity Lemma
 
 *This lemma provides the rigorous "engine" that powers the algebraic case ($T_{\text{alg}}$) of the Structural Reconstruction Principle ({prf:ref}`mt-structural-reconstruction`). It formalizes the a posteriori inference: analytic stiffness plus tameness forces algebraicity.*
 
@@ -10796,7 +10196,7 @@ The lemma provides the rigorous **a posteriori proof** that stiffness + tameness
 
 ---
 
-# 43. The Taxonomy of Dynamical Complexity
+## 53. The Taxonomy of Dynamical Complexity
 
 In the preceding chapters, we established the Hypostructure as a categorical object $\mathbb{H}$ within a cohesive $(\infty, 1)$-topos and developed the Structural Sieve as a deterministic compiler of proof objects. We now address the fundamental problem of **Classification**: if the Sieve is a universal diagnostic automaton, then every dynamical system must possess a unique **Structural DNA**—a certificate signature—within the certificate space.
 
@@ -10807,7 +10207,7 @@ The v3.0 framework expands the classification to include:
 - **8 Families** (including new Gauged, Synthetic, and Singular families)
 - **168 unique structural slots** forming the complete 8×21 Classification Matrix
 
-## 43.1 The Periodic Table of Invariants
+## 53.1 The Periodic Table of Invariants
 
 :::{prf:definition} Structural DNA (Extended)
 :label: def-structural-dna
@@ -10829,7 +10229,7 @@ where $\mathrm{type}(K) \in \{+, \circ, \sim, \mathrm{re}, \mathrm{ext}, \mathrm
 
 The Periodic Table organizes problems into **Eight Families** based on their dominant certificate type, mapped against the **Twenty-One Strata** of the extended Sieve. This transposed configuration serves as the definitive taxonomical map for mathematical and physical inquiry, providing **168 unique structural slots** for classification.
 
-## 43.2 The Master Transposed Table
+## 53.2 The Master Transposed Table
 
 The following tables present the complete 8×21 classification matrix. Each cell contains the **permit type** and **characteristic behavior** for that Family-Stratum intersection. The eight families are organized by certificate type:
 
@@ -11014,7 +10414,7 @@ Without the 7a-7d expansion, every problem in Families III-VIII that fails at No
 | **VII. Singular** ($K^{\mathrm{morph}}$) | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ Morphism |
 | **VIII. Horizon** ($K^{\mathrm{inc}}$) | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{hor}}$ Paradox |
 
-## 43.3 The Eight Families of Inquiry
+## 53.3 The Eight Families of Inquiry
 
 The rows of the Classification Matrix represent the **dominant certificate type** of the problem—the maximal obstruction encountered along the Sieve path. With the extended classification, we identify **eight** distinct families, each corresponding to a qualitatively different resolution pathway.
 
@@ -11142,7 +10542,7 @@ The subtree yields: 7a (singular Hessian), 7b (anomaly), 7c (vacuum landscape), 
 **Certificate Signature:** Terminal $K^{\mathrm{inc}}$ or $K^{\mathrm{hor}}$ at multiple nodes, particularly at Node 9 (Undecidable tameness) and Node 17 (Paradox Lock).
 :::
 
-## 43.4 The Structural Anatomy of Strata
+## 53.4 The Structural Anatomy of Strata
 
 The columns of the Periodic Table represent the **Filter Strata**—the sequence of diagnostic checkpoints through which every problem is processed.
 
@@ -11242,7 +10642,7 @@ represent increasingly sophisticated restoration mechanisms. A system that clear
 
 - **Node 17 (Lock $\mathrm{Cat}_{\mathrm{Hom}}$):** Does $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, S) = \emptyset$? This is the ultimate categorical barrier—the "Bad Pattern" cannot embed into any valid solution.
 
-## 43.5 The Isomorphism Principle
+## 53.5 The Isomorphism Principle
 
 A key consequence of the Classification Matrix is the **Structural Isomorphism Principle**, which enables cross-domain transfer of proofs.
 
@@ -11260,7 +10660,7 @@ where $\sim$ denotes equivalence of certificate types at each node.
 
 **Outline:**
 
-1. **Necessity ($\Rightarrow$):** If $\mathbb{H}_A \cong \mathbb{H}_B$, then by {prf:ref}`mt-equivalence-factory` (Equivalence Factory, MT 27.1), there exists a natural isomorphism $\eta: F_{\mathrm{Sieve}}(\mathbb{H}_A) \xrightarrow{\sim} F_{\mathrm{Sieve}}(\mathbb{H}_B)$. Since the Sieve functor is deterministic and certificate types are preserved under natural isomorphism, we have $\mathrm{type}(K_N^A) = \mathrm{type}(K_N^B)$ for all $N$.
+1. **Necessity ($\Rightarrow$):** If $\mathbb{H}_A \cong \mathbb{H}_B$, then by {prf:ref}`mt-transport-factory` (Equivalence + Transport Factory, TM-4), there exists a natural isomorphism $\eta: F_{\mathrm{Sieve}}(\mathbb{H}_A) \xrightarrow{\sim} F_{\mathrm{Sieve}}(\mathbb{H}_B)$. Since the Sieve functor is deterministic and certificate types are preserved under natural isomorphism, we have $\mathrm{type}(K_N^A) = \mathrm{type}(K_N^B)$ for all $N$.
 
 2. **Sufficiency ($\Leftarrow$):** Suppose $\mathrm{DNA}(\mathbb{H}_A) \sim \mathrm{DNA}(\mathbb{H}_B)$. By the **Structural Completeness Theorem** (each certificate type uniquely determines the accessible proof strategies), the Sieve produces isomorphic resolution objects. The naturality of $F_{\mathrm{Sieve}}$ then implies $\mathbb{H}_A \cong \mathbb{H}_B$ in $\mathbf{Hypo}_T$.
 
@@ -11301,9 +10701,9 @@ $$\mathrm{Family}(\mathbb{H}) = \max_{N \in \mathcal{N}} \mathrm{type}(K_N)$$
 The transitions are **irreversible within a proof attempt**: once a system enters Family IV (Resurrected), it cannot return to Family II (Relaxed) without restructuring the problem formulation.
 :::
 
-## 43.6 The Periodic Law of Hypostructures
+## 53.6 The Periodic Law of Hypostructures
 
-:::{prf:metatheorem} The Periodic Law (MT 43.1)
+:::{prf:metatheorem} The Periodic Law (MT 42.1)
 :label: mt-periodic-law
 
 The proof strategy for any dynamical system is determined by its location in the **8×21 Periodic Table**. Specifically:
