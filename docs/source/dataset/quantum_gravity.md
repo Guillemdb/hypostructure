@@ -1,9 +1,6 @@
 ---
-title: "Hypostructure Proof Object"
-problem: "Quantum Gravity"
-type: "T_quant (Categorical / Quantum / Geometric)"
+title: "Quantum Gravity"
 date: "2025-12-22"
-status: "Final (Horizon Detected)"
 ---
 
 # Quantum Gravity
@@ -69,8 +66,6 @@ This document presents a **machine-checkable proof object** for **Quantum Gravit
 ---
 
 :::{dropdown} **LLM Execution Protocol** (Click to expand)
-:icon: cpu
-:color: secondary
 
 ## Note for LLM Agents: Complete Algorithmic Protocol
 
@@ -417,8 +412,6 @@ If any of these fail, the run produces a **conditional proof object** that docum
 ---
 
 :::{dropdown} **Part 0.5: Certificate Schemas and Upgrade Protocol** (Reference - Click to expand)
-:icon: book
-:color: info
 
 *Reference: For formal definitions, see `hypopermits_jb.md` Definitions `def-typed-no-certificates`, `def-inc-upgrades`, `def-promotion-permits`, `def-closure`.*
 

@@ -49,10 +49,13 @@ project:
           title: Landau Damping
         - file: source/dataset/quantum_gravity.md
           title: Quantum Gravity
-    - file: source/template.md
-      title: Universal Solution Template
-    - file: source/system_prompt.md
-      title: System Prompt
+    - file: source/prompts/prompts.md
+      title: Prompts
+      children:
+        - file: source/prompts/system_prompt.md
+          title: System Prompt
+        - file: source/prompts/template.md
+          title: Universal Solution Template
 
   # Bibliography
   bibliography:
@@ -75,14 +78,15 @@ site:
       - _static/custom.css
   nav:
     - title: Home
-      url: /
+      url: /index
     - title: Framework
       url: /hypopermits-jb
     - title: Meta-Learning
       url: /metalearning
     - title: Dataset
-      url: /dataset
       children:
+        - title: Overview
+          url: /dataset
         - title: Poincaré Conjecture
           url: /poincare-conjecture
         - title: P vs NP
@@ -107,7 +111,11 @@ site:
           url: /landau-damping
         - title: Quantum Gravity
           url: /quantum-gravity
-    - title: Template
-      url: /template
-    - title: System Prompt
-      url: /system-prompt
+    - title: Prompts
+      children:
+        - title: Overview
+          url: /prompts
+        - title: System Prompt
+          url: /system-prompt
+        - title: Universal Solution Template
+          url: /template

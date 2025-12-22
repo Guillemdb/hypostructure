@@ -1324,9 +1324,9 @@ Thus the Mode C.E condition $\sup_{t < T^*} \Phi_\theta(u(t)) = +\infty$ is impo
 
 ### Robust Latent Mode Suppression
 
-We now prove a robust version of {prf:ref}`mt-imported-topological-suppression`, showing that the measure of nontrivial latent modes decays exponentially even when the mode separation gap TB1 holds only approximately.
+We now prove a robust version of the **Topological Suppression Metatheorem**, showing that the measure of nontrivial latent modes decays exponentially even when the mode separation gap TB1 holds only approximately.
 
-**Recall: Original {prf:ref}`mt-imported-topological-suppression`.** Assume:
+**Recall: Original Topological Suppression Metatheorem.** Assume:
 - Axiom TB with mode separation gap $\Delta > 0$,
 - an invariant probability measure $\mu$ satisfying a log–Sobolev inequality with constant $\lambda_{\mathrm{LS}} > 0$,
 - the cost functional $\mathcal{A}: X \to [0, \infty)$ is Lipschitz with constant $L > 0$.
@@ -1372,7 +1372,7 @@ $$\mu\big(\{x : \tau(x) \neq 0\}\big) \leq \eta + \exp\left(-\frac{\lambda_{\mat
 In particular:
 - If the **bad set disappears** ($\eta = 0$) and the gap is exact ($\varepsilon_{\mathrm{gap}} = 0$), and if $\Delta \geq 2L\sqrt{\pi/(2\lambda_{\mathrm{LS}})}$, then $\Delta_{\mathrm{eff}} \geq \Delta/2$ and:
   $$\mu\{\tau \neq 0\} \leq \exp\left(-\frac{\lambda_{\mathrm{LS}} \Delta^2}{8L^2}\right),$$
-  which recovers the original {prf:ref}`mt-imported-topological-suppression` bound with $C = 1$, $c = 1/8$ up to the mild "large gap" condition.
+  which recovers the original Topological Suppression bound with $C = 1$, $c = 1/8$ up to the mild "large gap" condition.
 
 - As $\varepsilon_{\mathrm{gap}} \to 0$ and $\eta \to 0$, $\Delta_{\mathrm{eff}} \uparrow \Delta - L\sqrt{\pi/(2\lambda_{\mathrm{LS}})}$, so the suppression bound smoothly tends to the exact one.
 

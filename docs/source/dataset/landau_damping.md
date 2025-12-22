@@ -1,9 +1,6 @@
 ---
-title: "Hypostructure Proof Object"
-problem: "Nonlinear Landau Damping (Asymptotic Stability of Vlasov-Poisson Equilibria)"
-type: "T_kinetic"
+title: "Nonlinear Landau Damping"
 date: "2025-12-19"
-status: "Final"
 ---
 
 # Nonlinear Landau Damping

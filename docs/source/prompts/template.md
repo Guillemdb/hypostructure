@@ -1,9 +1,5 @@
 ---
-title: "Hypostructure Proof Object"
-problem: "[PROBLEM NAME]"
-type: "[System Type]"
-date: "[YYYY-MM-DD]"
-status: "[Draft/Final]"
+title: "Hypostructure Proof Object Template"
 ---
 
 # Structural Sieve Proof: [PROBLEM NAME]
@@ -45,7 +41,7 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 ## Theorem Statement
 
 ::::{prf:theorem} [Problem Name]
-:label: thm-main
+:label: thm-template-main
 
 **Given:**
 - State space: $\mathcal{X} = $ [Define]
@@ -68,8 +64,6 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 ---
 
 :::{dropdown} **LLM Execution Protocol** (Click to expand)
-:icon: cpu
-:color: secondary
 
 ## Note for LLM Agents: Complete Algorithmic Protocol
 
@@ -416,8 +410,6 @@ If any of these fail, the run produces a **conditional proof object** that docum
 ---
 
 :::{dropdown} **Part 0.5: Certificate Schemas and Upgrade Protocol** (Reference - Click to expand)
-:icon: book
-:color: info
 
 *Reference: For formal definitions, see `hypopermits_jb.md` Definitions `def-typed-no-certificates`, `def-inc-upgrades`, `def-promotion-permits`, `def-closure`.*
 

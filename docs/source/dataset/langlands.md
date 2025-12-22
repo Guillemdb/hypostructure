@@ -63,19 +63,19 @@ This document presents a **machine-checkable proof object** for the **Global Lan
 
 #### Galois Side Permits
 
-##### Template: $D_E^{(\mathcal{G})}$ (Galois Energy Interface)
+#### Template: $D_E^{(\mathcal{G})}$ (Galois Energy Interface)
 - [x] **Height Functional $\Phi$:** $L(s, \rho) = \prod_v L_v(s, \rho_v)$ (Galois L-function)
 - [x] **Observable $\mathfrak{D}$:** Conductor $\mathfrak{f}(\rho) = \prod_v v^{f_v}$ (ramification)
 - [x] **Energy Inequality:** L-functions have analytic continuation and functional equation
 - [x] **Bound Witness:** $B = \text{Cond}(\rho) < \infty$ (finite conductor)
 
-##### Template: $C_\mu^{(\mathcal{G})}$ (Galois Compactness Interface)
+#### Template: $C_\mu^{(\mathcal{G})}$ (Galois Compactness Interface)
 - [x] **Symmetry Group $G$:** $\text{Gal}(\bar{F}/F)$
 - [x] **Group Action $\rho$:** Continuous action on representations
 - [x] **Quotient Space:** $\mathcal{G}_n$ modulo conjugation
 - [x] **Concentration Measure:** Chebotarev density
 
-##### Template: $\mathrm{SC}_\lambda^{(\mathcal{G})}$ (Galois Scaling Interface)
+#### Template: $\mathrm{SC}_\lambda^{(\mathcal{G})}$ (Galois Scaling Interface)
 - [x] **Scaling Action:** Twist by characters $\rho \otimes \chi$
 - [x] **Height Exponent $\alpha$:** $L(s, \rho \otimes \chi) = L(s - s_\chi, \rho)$
 - [x] **Temperedness:** Ramanujan-Petersson bounds
@@ -83,25 +83,25 @@ This document presents a **machine-checkable proof object** for the **Global Lan
 
 #### Automorphic Side Permits
 
-##### Template: $D_E^{(\mathcal{A})}$ (Automorphic Energy Interface)
+#### Template: $D_E^{(\mathcal{A})}$ (Automorphic Energy Interface)
 - [x] **Height Functional $\Phi$:** $L(s, \pi) = \prod_v L_v(s, \pi_v)$ (Automorphic L-function)
 - [x] **Observable $\mathfrak{D}$:** Conductor $\mathfrak{f}(\pi)$
 - [x] **Energy Inequality:** Godement-Jacquet (1972): Standard L-functions are entire
 - [x] **Bound Witness:** $B = |L(s, \pi)| < \infty$ on vertical strips
 
-##### Template: $\mathrm{Rec}_N^{(\mathcal{A})}$ (Automorphic Recovery Interface)
+#### Template: $\mathrm{Rec}_N^{(\mathcal{A})}$ (Automorphic Recovery Interface)
 - [x] **Spectral Space:** $L^2(GL_n(F)\backslash GL_n(\mathbb{A}_F))_{\text{cusp}}$
 - [x] **Recovery Map $\mathcal{R}$:** Discrete spectrum decomposition
 - [x] **Event Counter $\#$:** Gelfand-Piatetski-Shapiro: cuspidal spectrum is discrete with finite multiplicity
 - [x] **Finiteness:** $N(T) < \infty$ (finite multiplicity)
 
-##### Template: $C_\mu^{(\mathcal{A})}$ (Automorphic Compactness Interface)
+#### Template: $C_\mu^{(\mathcal{A})}$ (Automorphic Compactness Interface)
 - [x] **Symmetry Group $G$:** $GL_n(\mathbb{A}_F)$
 - [x] **Group Action $\rho$:** Right translation on automorphic forms
 - [x] **Quotient Space:** Hecke eigenspaces
 - [x] **Concentration Measure:** Plancherel measure on unitary dual
 
-##### Template: $\mathrm{SC}_\lambda^{(\mathcal{A})}$ (Automorphic Scaling Interface)
+#### Template: $\mathrm{SC}_\lambda^{(\mathcal{A})}$ (Automorphic Scaling Interface)
 - [x] **Scaling Action:** Twist by characters $\pi \otimes \chi$
 - [x] **Height Exponent $\alpha$:** Central character twist
 - [x] **Temperedness:** Luo-Rudnick-Sarnak bounds (subcritical)
@@ -109,25 +109,25 @@ This document presents a **machine-checkable proof object** for the **Global Lan
 
 #### Bridge Permits
 
-##### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
+#### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
 - [x] **Operator $\nabla$:** Hecke algebra action
 - [x] **Critical Set $M$:** Automorphic forms with fixed local data
 - [x] **Rigidity Theorem:** Strong Multiplicity One (Piatetski-Shapiro, Shalika)
 - [x] **Rigidity Property:** $\pi_v \cong \pi'_v$ for almost all $v$ $\Rightarrow$ $\pi \cong \pi'$
 
-##### Template: $\mathrm{Cap}_H$ (Capacity Interface)
+#### Template: $\mathrm{Cap}_H$ (Capacity Interface)
 - [x] **Capacity Functional:** Hausdorff dimension on parameter space
 - [x] **Singular Set $\Sigma$:** Mismatched representations
 - [x] **Codimension:** Failures are measure-zero (Chebotarev density)
 - [x] **Capacity Bound:** $\text{Cap}(\Sigma) = 0$
 
-##### Template: $\mathrm{TB}_O$ (Tameness Interface)
+#### Template: $\mathrm{TB}_O$ (Tameness Interface)
 - [x] **O-minimal Structure $\mathcal{O}$:** Algebraic geometry of Shimura varieties
 - [x] **Definability $\text{Def}$:** Local parameters are algebraic
 - [x] **Singular Set Tameness:** Geometric structures are Noetherian
 - [x] **Cell Decomposition:** Stratification via Newton polygons
 
-##### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Local parameters $\{A_\pi(v), \text{Frob}_v\}$
 - [x] **Dictionary $D$:** Satake parameters $\leftrightarrow$ Frobenius eigenvalues
 - [x] **Complexity Measure $K$:** $K(\pi) = \log \mathfrak{f}(\pi)$ (conductor)
