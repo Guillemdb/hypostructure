@@ -22,12 +22,33 @@ project:
       title: The Structural Sieve Framework
     - file: source/metalearning.md
       title: Meta-Learning Theory
-    - file: source/case_studies.md
-      title: Case Studies
-    - file: source/examples.md
-      title: Examples
-    - file: source/landau_damping.md
-      title: Landau Damping
+    - file: source/dataset/dataset.md
+      title: Dataset
+      children:
+        - file: source/dataset/poincare_conjecture.md
+          title: Poincaré Conjecture
+        - file: source/dataset/p_vs_np.md
+          title: P vs NP
+        - file: source/dataset/navier_stokes_3d.md
+          title: Navier-Stokes 3D
+        - file: source/dataset/bsd_conjecture.md
+          title: BSD Conjecture
+        - file: source/dataset/hodge_conjecture.md
+          title: Hodge Conjecture
+        - file: source/dataset/riemann_hypothesis.md
+          title: Riemann Hypothesis
+        - file: source/dataset/yang_mills.md
+          title: Yang-Mills Mass Gap
+        - file: source/dataset/langlands.md
+          title: Langlands Correspondence
+        - file: source/dataset/burgers_1d.md
+          title: 1D Viscous Burgers
+        - file: source/dataset/navier_stokes_2d.md
+          title: 2D Navier-Stokes
+        - file: source/dataset/landau_damping.md
+          title: Landau Damping
+        - file: source/dataset/quantum_gravity.md
+          title: Quantum Gravity
     - file: source/template.md
       title: Universal Solution Template
     - file: source/system_prompt.md
@@ -59,12 +80,33 @@ site:
       url: /hypopermits-jb
     - title: Meta-Learning
       url: /metalearning
-    - title: Case Studies
-      url: /case-studies
-    - title: Examples
-      url: /examples
-    - title: Landau Damping
-      url: /landau-damping
+    - title: Dataset
+      url: /dataset
+      children:
+        - title: Poincaré Conjecture
+          url: /poincare-conjecture
+        - title: P vs NP
+          url: /p-vs-np
+        - title: Navier-Stokes 3D
+          url: /navier-stokes-3d
+        - title: BSD Conjecture
+          url: /bsd-conjecture
+        - title: Hodge Conjecture
+          url: /hodge-conjecture
+        - title: Riemann Hypothesis
+          url: /riemann-hypothesis
+        - title: Yang-Mills Mass Gap
+          url: /yang-mills
+        - title: Langlands Correspondence
+          url: /langlands
+        - title: 1D Viscous Burgers
+          url: /burgers-1d
+        - title: 2D Navier-Stokes
+          url: /navier-stokes-2d
+        - title: Landau Damping
+          url: /landau-damping
+        - title: Quantum Gravity
+          url: /quantum-gravity
     - title: Template
       url: /template
     - title: System Prompt

@@ -6,7 +6,7 @@ date: "2025-12-19"
 status: "Final"
 ---
 
-# Structural Sieve Proof: Nonlinear Landau Damping
+# Nonlinear Landau Damping
 
 ## Metadata
 
