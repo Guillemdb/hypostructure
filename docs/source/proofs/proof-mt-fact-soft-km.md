@@ -75,7 +75,7 @@ $$u_{n,0} = \sum_{j=1}^J g_n^j \phi^j + r_n^J$$
 with energy decoupling:
 $$\Phi(u_{n,0}) = \sum_{j=1}^J \Phi(\phi^j) + \Phi(r_n^J) + o_n(1)$$
 
-**Step 1.2.3 (Energy Concentration):** Since $\|r_n^J\|_S \to 0$ as $J \to \infty$ then $n \to \infty$, and scattering is controlled by the $S$-norm (by the continuation criterion), the remainder $r_n^J$ scatters for $J$ large. Therefore, non-scattering behavior must be encoded in at least one profile.
+**Step 1.2.3 (Energy Concentration):** Since $\|r_n^J\|_S \to 0$ as first $J \to \infty$ and then $n \to \infty$, and scattering is controlled by the $S$-norm (by the continuation criterion), the remainder $r_n^J$ scatters for $J$ sufficiently large. Therefore, non-scattering behavior must be encoded in at least one profile.
 
 **Claim:** At least one profile $\phi^{j_0}$ is non-scattering with $\Phi(\phi^{j_0}) \geq E_c$.
 
@@ -102,8 +102,8 @@ This is the **critical element**.
 **Statement:** There exists $\delta > 0$ such that if $\Phi(v_0) < E_c - \delta$, then the solution $v(t)$ scatters.
 
 **Proof:** By contrapositive. Suppose not: there exists a sequence $(v_n)$ with $\Phi(v_{n,0}) < E_c - 1/n$ and $v_n$ non-scattering. Then:
-$$E_c \leq \inf\{\Phi(w_0) : w \text{ non-scattering}\} \leq \lim_{n \to \infty} \Phi(v_{n,0}) \leq E_c - \delta$$
-for some $\delta > 0$, contradicting the definition of $E_c$ as the infimum.
+$$E_c \leq \lim_{n \to \infty} \Phi(v_{n,0}) \leq \lim_{n \to \infty} (E_c - 1/n) = E_c$$
+with the middle inequality being strict for all finite $n$: $\Phi(v_{n,0}) < E_c - 1/n < E_c$. This contradicts the definition of $E_c$ as the infimum of non-scattering energies.
 
 **Quantitative Bound:** By the proof structure, $\delta$ can be taken as $\delta = \min(1, \text{Gap}(E_c, E_{\mathrm{NS}} \setminus \{E_c\}))$ where the gap measures the distance to the next energy level in $E_{\mathrm{NS}}$.
 
@@ -133,7 +133,7 @@ for some constant $C < \infty$ (in the conservative case, $\mathfrak{D} \equiv 0
 $$u^*(t_n) = \sum_{j=1}^J g_n^j \psi^j + r_n^J$$
 with energy decoupling and vanishing remainder.
 
-**Step 2.1.3 (Ruling Out Dispersion):** Suppose $u^*(t_n) \rightharpoonup 0$ (weak convergence to zero, i.e., dispersion). Then by the continuation criterion in $K_{\mathrm{WP}_{s_c}}^+$ and Sobolev embedding, $\|u^*(t_n)\|_{L^p} \to 0$ for subcritical $p$. By standard scattering criteria (cf. {cite}`Tao06` Theorem 3.6), this implies $u^*$ scatters, contradicting the construction of $u^*$ as non-scattering.
+**Step 2.1.3 (Ruling Out Dispersion):** Suppose $u^*(t_n) \rightharpoonup 0$ (weak convergence to zero, i.e., dispersion). Then by the continuation criterion in $K_{\mathrm{WP}_{s_c}}^+$ and Sobolev embedding, $\|u^*(t_n)\|_{L^p} \to 0$ for subcritical $p$. By standard scattering criteria (cf. {cite}`Tao06`), this implies $u^*$ scatters, contradicting the construction of $u^*$ as non-scattering.
 
 **Step 2.1.4 (Single Profile Concentration):** Therefore, at least one profile $\psi^{j_0}$ is non-zero. By energy decoupling:
 $$E_c + o(1) = \Phi(u^*(t_n)) = \sum_j \Phi(\psi^j) + o(1)$$
@@ -318,8 +318,8 @@ via the following logical chain:
 | Property | Bound | Source |
 |----------|-------|--------|
 | Critical energy | $E_c \in [-B, \infty)$ | Lemma 1.1 ($K_{D_E}^+$) |
-| Perturbation threshold | $\delta = \mathcal{O}(\text{Gap}(E_c, E_{\mathrm{NS}}))$ | Lemma 1.3 |
-| Modulation accuracy | $\|g(t_n) \cdot u^*(t_n) - \psi\|_{X_c} \to 0$ | Lemma 2.1 ($K_{\mathrm{ProfDec}}^+$) |
+| Perturbation threshold | $\delta = \min(1, \text{Gap}(E_c, E_{\mathrm{NS}} \setminus \{E_c\}))$ | Lemma 1.3 |
+| Modulation accuracy | $\|g(t_n) \cdot u^*(t_n) - \psi\|_{X_c} \to 0$ | Lemma 2.1 ($K_{\mathrm{ProfDec}_{s_c,G}}^+$) |
 | Continuous dependence | $\|u(t) - u^*(t)\|_{X_c} \leq C e^{CT} \|u_0 - u^*_0\|_{X_c}$ | Lemma 3.1 ($K_{\mathrm{WP}_{s_c}}^+$) |
 
 ### Certificate Payload Structure
@@ -382,6 +382,6 @@ Examples: energy-critical NLS ($\dot{H}^1$ in dimensions $d \geq 3$), energy-cri
 **Downstream Usage:** The certificate $K_{\mathrm{KM}}^+$ serves as input to:
 - **Rigidity Analysis** ({prf:ref}`mt-fact-soft-rigidity`): Uses $u^*$ to derive contradictions or classify solutions into the library $\mathcal{L}_T$.
 - **Profile Classification** ({prf:ref}`mt-resolve-auto-profile`): Mechanism A (CC+Rig) consumes $K_{\mathrm{KM}}^+$ and produces $K_{\mathrm{prof}}^+$.
-- **Lock Barrier** ({prf:ref}`thm-lock`): Categorical exclusion uses almost periodicity to show $\text{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) = \emptyset$.
+- **Lock Barrier** ({prf:ref}`mt-fact-lock`): Categorical exclusion uses almost periodicity to show $\text{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) = \emptyset$.
 
 :::

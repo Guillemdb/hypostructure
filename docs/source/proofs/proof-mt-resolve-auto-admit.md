@@ -178,7 +178,7 @@ $$\text{Cap}_{H^1}(\Sigma) := \inf\left\{\int_\mathcal{X} (|\nabla \phi|^2 + \ph
 For types where the profile $V$ has additional structure, we can obtain sharper bounds.
 
 **Proposition 3.2.1 (Profile-Based Codimension):** If the profile $V \in \mathcal{L}_T$ is a self-similar solution with scaling dimension $\alpha$, then:
-$$\text{codim}(\Sigma) \geq \frac{2\alpha}{\beta}$$
+$$\text{codim}(\Sigma) = \frac{\alpha n}{\alpha + \beta}$$
 
 where $\beta$ is the dissipation scaling exponent from $\mathfrak{D}^{\text{thin}}$.
 
@@ -197,12 +197,15 @@ Matching energy and dissipation scaling:
 $$\alpha \cdot \dim_H(\Sigma) = \beta \cdot (n - \dim_H(\Sigma))$$
 
 Solving for $\dim_H(\Sigma)$:
-$$\dim_H(\Sigma) = \frac{\beta n}{\alpha + \beta} = n - \frac{2\alpha}{\alpha + \beta} \cdot n$$
+$$\dim_H(\Sigma) = \frac{\beta n}{\alpha + \beta} = n - \frac{\alpha n}{\alpha + \beta}$$
 
-For $\alpha \geq \beta$ (typical for parabolic PDE), this gives:
-$$\text{codim}(\Sigma) = n - \dim_H(\Sigma) \geq \frac{2\alpha}{\alpha + \beta} \cdot n \geq 2$$
+Therefore:
+$$\text{codim}(\Sigma) = n - \dim_H(\Sigma) = \frac{\alpha n}{\alpha + \beta}$$
 
-provided $\alpha \geq \beta \cdot \frac{n}{n-2}$. □
+For parabolic PDE with $\alpha \geq \beta$, and requiring $\text{codim}(\Sigma) \geq 2$, we need:
+$$\frac{\alpha n}{\alpha + \beta} \geq 2 \quad \Rightarrow \quad \alpha \geq \frac{2\beta}{n-2}$$
+
+which holds for typical parabolic systems when $n \geq 3$ and $\alpha \geq \beta$. □
 
 ---
 
@@ -510,9 +513,9 @@ where:
 
 **Type Examples:**
 - $T_{\text{Ricci}}$: Profiles are solitons {cite}`Perelman03`, library size 3
-- $T_{\text{MCF}}$: Profiles are self-similar solutions {cite}`Huisken90`, library size $n+1$
-- $T_{\text{NLS}}$: Profiles are ground states {cite}`MerleRaphael05`, library size 2
-- $T_{\text{wave}}$: Profiles are harmonic maps {cite}`Shatah88`, library size 1
+- $T_{\text{MCF}}$: Profiles are self-similar solutions {cite}`HuiskenSinestrari09`, library size $n+1$
+- $T_{\text{NLS}}$: Profiles are ground states {cite}`CollotMerleRaphael17`, library size 2
+- $T_{\text{wave}}$: Profiles are harmonic maps (library size 1)
 
 For each type, the canonical library $\mathcal{L}_T$ is precomputed and stored in the framework. □
 

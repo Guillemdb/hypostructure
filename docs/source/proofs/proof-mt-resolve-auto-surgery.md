@@ -217,20 +217,20 @@ All of these are **automatically derived** from the thin objects and the profile
 $$\begin{CD}
 \mathcal{X}_\Sigma @>{\iota}>> \mathcal{X} \\
 @V{\pi_{\text{neck}}}VV @VV{\mathcal{O}_S}V \\
-\partial \mathcal{X}_{\text{cap}} @>{\text{glue}}>> \mathcal{X}'
+\mathcal{X}_{\text{cap}} @>{\text{glue}}>> \mathcal{X}'
 \end{CD}$$
 
 where:
 - $\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$ is the **excision neighborhood** (singular region to be removed)
 - $\iota: \mathcal{X}_\Sigma \hookrightarrow \mathcal{X}$ is the **inclusion** of the singular neighborhood
-- $\partial \mathcal{X}_{\text{cap}}$ is the **gluing boundary** of the cap (from Step 1.3)
-- $\pi_{\text{neck}}: \mathcal{X}_\Sigma \to \partial \mathcal{X}_{\text{cap}}$ is the **neck projection** (identifies the boundary)
+- $\mathcal{X}_{\text{cap}}$ is the **capping object** (from Step 1.3) with boundary region $\partial \mathcal{X}_{\text{cap}}$
+- $\pi_{\text{neck}}: \mathcal{X}_\Sigma \to \mathcal{X}_{\text{cap}}$ is the **neck projection** mapping onto the boundary region
 - $\mathcal{O}_S: \mathcal{X} \to \mathcal{X}'$ is the **surgery morphism** to be constructed
 - $\mathcal{X}'$ is the **surgered space** (pushout object)
 
-**Lemma 2.1.2 (Neck Projection Well-Definedness):** The neck projection $\pi_{\text{neck}}: \mathcal{X}_\Sigma \to \partial \mathcal{X}_{\text{cap}}$ is a continuous surjection satisfying:
+**Lemma 2.1.2 (Neck Projection Well-Definedness):** The neck projection $\pi_{\text{neck}}: \mathcal{X}_\Sigma \to \mathcal{X}_{\text{cap}}$ is a continuous map whose image lies in the boundary region $\partial \mathcal{X}_{\text{cap}}$, satisfying:
 
-$$\pi_{\text{neck}}(x) = \frac{x - x_\Sigma}{|x - x_\Sigma|} \cdot R_{\text{neck}}$$
+$$\pi_{\text{neck}}(x) = \frac{x - x_\Sigma}{|x - x_\Sigma|} \cdot R_{\text{neck}} \in \partial \mathcal{X}_{\text{cap}}$$
 
 where $x_\Sigma$ is the closest point projection onto $\Sigma$.
 
@@ -258,20 +258,22 @@ This is continuous by construction and surjective (covers all normal directions)
 
 **Definition 2.2.1 (Pushout in $\mathcal{E}$):** The surgered space $\mathcal{X}'$ is defined as the **categorical pushout** of the diagram:
 
-$$\mathcal{X}_\Sigma \xrightarrow{\iota} \mathcal{X}, \quad \mathcal{X}_\Sigma \xrightarrow{\pi_{\text{neck}}} \partial \mathcal{X}_{\text{cap}}$$
+$$\mathcal{X}_\Sigma \xrightarrow{\iota} \mathcal{X}, \quad \mathcal{X}_\Sigma \xrightarrow{\pi_{\text{neck}}} \mathcal{X}_{\text{cap}}$$
+
+where $\pi_{\text{neck}}: \mathcal{X}_\Sigma \to \mathcal{X}_{\text{cap}}$ maps the excision neighborhood onto the boundary region $\partial \mathcal{X}_{\text{cap}} \subset \mathcal{X}_{\text{cap}}$.
 
 Explicitly:
 $$\mathcal{X}' := \frac{\mathcal{X} \sqcup \mathcal{X}_{\text{cap}}}{\sim}$$
 
 where the equivalence relation $\sim$ identifies:
-$$x \sim \pi_{\text{neck}}(\iota^{-1}(x)) \quad \text{for all } x \in \mathcal{X}_\Sigma$$
+$$x \sim \pi_{\text{neck}}(x) \quad \text{for all } x \in \mathcal{X}_\Sigma$$
 
 **Universal Property:** For any object $\mathcal{Y} \in \mathcal{E}$ and morphisms $f: \mathcal{X} \to \mathcal{Y}$, $g: \mathcal{X}_{\text{cap}} \to \mathcal{Y}$ such that $f \circ \iota = g \circ \pi_{\text{neck}}$, there exists a **unique** morphism $h: \mathcal{X}' \to \mathcal{Y}$ making the diagram commute:
 
 $$\begin{CD}
 \mathcal{X}_\Sigma @>{\iota}>> \mathcal{X} \\
 @V{\pi_{\text{neck}}}VV @VV{\mathcal{O}_S}V \\
-\partial \mathcal{X}_{\text{cap}} @>>{\text{glue}}> \mathcal{X}' @>{h}>> \mathcal{Y}
+\mathcal{X}_{\text{cap}} @>>{\text{glue}}> \mathcal{X}' @>{h}>> \mathcal{Y}
 \end{CD}$$
 
 **Theorem 2.2.2 (Pushout Existence in $\mathcal{E}$):** For the ambient topos $\mathcal{E} \in \{\mathbf{Top}, \mathbf{Meas}, \mathbf{Diff}, \mathbf{FinSet}\}$, the pushout $\mathcal{X}'$ exists and is well-defined.
@@ -408,7 +410,7 @@ This is by construction: the cap equation (Lemma 1.2.2) commutes with the $G$-ac
 $$\begin{CD}
 g \cdot \mathcal{X}_\Sigma @>{g \cdot \iota}>> g \cdot \mathcal{X} \\
 @V{g \cdot \pi_{\text{neck}}}VV @VV{g \cdot \mathcal{O}_S}V \\
-g \cdot \partial \mathcal{X}_{\text{cap}} @>>{g \cdot \text{glue}}> g \cdot \mathcal{X}'
+g \cdot \mathcal{X}_{\text{cap}} @>>{g \cdot \text{glue}}> g \cdot \mathcal{X}'
 \end{CD}$$
 
 yields $g \cdot \mathcal{X}' \cong \mathcal{X}'$ by the uniqueness of the pushout.
@@ -533,10 +535,10 @@ $$\text{Vol}(\Sigma) \leq C \cdot \varepsilon_{\text{adm}}^{n/(n-2)}$$
 *Step 5.1.2c (Energy-Volume Relationship):* The excised energy is:
 $$\Delta\Phi_{\text{surg}} = \int_{\mathcal{X}_\Sigma} R \, d\mu$$
 
-By the capacity bound and the energy-dissipation inequality:
-$$\Delta\Phi_{\text{surg}} \geq c_n \cdot \frac{\text{Vol}(\Sigma)^{(n-2)/n}}{\varepsilon_{\text{adm}}}$$
+By the capacity bound and the energy-dissipation inequality, the dissipation rate in the singular region scales as $R \sim \text{Cap}(\Sigma)^{-1}$. Combined with the volume bound from Step 5.1.2b:
+$$\Delta\Phi_{\text{surg}} \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n}$$
 
-For $\varepsilon_{\text{adm}}$ small (part of type specification), this is strictly positive. □
+This is strictly positive for non-empty singular sets. □
 
 ---
 

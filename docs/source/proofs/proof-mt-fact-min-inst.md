@@ -300,7 +300,7 @@ When $K_{\text{adm}}$ is produced, construct the surgery operator as a categoric
 
 where:
 - $\Sigma$ is the singular locus
-- $\Sigmã$ is the capped/resolved singularity (e.g., $\Sigma \cup \{\text{pt}\}$ for point excision)
+- $\tilde{\Sigma}$ is the capped/resolved singularity (e.g., $\Sigma \cup \{\text{pt}\}$ for point excision)
 - $\phi: \Sigma \to \tilde{\Sigma}$ is the excision map
 - $\sigma: X^- \to X'$ is the induced surgery
 
@@ -319,12 +319,12 @@ This is proven in {cite}`KleinerLott08` (Theorem 70.1) for Ricci flow and genera
 
 **Flow Continuation:** Post-surgery, the state $X'$ is smooth away from a set with $\mathrm{Cap}_2(\Sigma) \le \varepsilon_{\text{adm}}$ and $\mathrm{Codim}_{\ge 2}(\Sigma)$. In analytic/Sobolev types, removable-singularity results for small-capacity codimension-$\ge 2$ sets allow extending the flow across the excised locus (see Lemma 4.2 and {cite}`EvansGariepy15`). The gradient flow equation:
 $$\frac{dx}{dt} = -\nabla F(x)$$
-has unique solutions in $X' \setminus \Sigmã$ by standard ODE theory. The removable singularity theorem {cite}`EvansGariepy15` (Theorem 4.7.2) ensures the flow extends across $\Sigmã$.
+has unique solutions in $X' \setminus \tilde{\Sigma}$ by standard ODE theory. The removable singularity theorem {cite}`EvansGariepy15` (Theorem 4.7.2) ensures the flow extends across $\tilde{\Sigma}$.
 
 **Certificate Generation:** The re-entry certificate contains:
 $$K^{\text{re}} = (\text{"surgery completed"}, X', F(X'), \text{jump}(\delta_S), \text{target}(\text{node}))$$
 
-The target node is determined by the surgery type (see {prf:ref}`def-surgery-table`). □
+The target node is determined by the surgery type (see {prf:ref}`def-surgery-schema`). □
 
 ---
 

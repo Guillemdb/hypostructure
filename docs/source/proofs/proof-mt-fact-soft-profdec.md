@@ -224,7 +224,7 @@ $$\|u_n\|_{\mathcal{X}}^2 = \sum_{j=1}^J \|V^{(j)}\|_{\mathcal{X}}^2 + \|w_n^{(J
 
 ## Step 5: Certificate Assembly and Explicit Construction
 
-**Goal:** Package the extracted data into the profile decomposition certificate $K_{\mathrm{ProfDec}}^+$.
+**Goal:** Package the extracted data into the profile decomposition certificate $K_{\mathrm{ProfDec}_{s_c,G}}^+$.
 
 ### Step 5.1: Profile List
 
@@ -272,14 +272,17 @@ The right-hand side can be computed explicitly from the profiles.
 ### Step 5.5: Certificate Structure
 
 The complete certificate is the tuple:
-$$K_{\mathrm{ProfDec}}^+ = (\mathcal{V}, \{\mathbf{g}^{(j)}\}_{j=1}^J, \mathsf{orthogonality}, \mathsf{remainder\_smallness}, J, E, \delta_0).$$
+$$K_{\mathrm{ProfDec}_{s_c,G}}^+ = (\{V^{(j)}\}_{j=1}^J, \{g_n^{(j)}\}_{j=1}^J, \mathsf{orthogonality}, \mathsf{remainder\_smallness}).$$
+
+**Extended Internal Representation:** For implementation purposes, the certificate may include additional metadata:
+$$(\{V^{(j)}\}_{j=1}^J, \{g_n^{(j)}\}_{j=1}^J, \mathsf{orthogonality}, \mathsf{remainder\_smallness}, s_c, G, J, E, \delta_0).$$
 
 **Metadata:**
 - $J \in \mathbb{N}$: number of profiles
 - $E \in \mathbb{R}_{\geq 0}$: energy bound on the original sequence
 - $\delta_0 > 0$: concentration threshold (minimum energy quantum per profile)
 
-**Verification Algorithm:** Given a sequence $(u_n)$ and a claimed certificate $K_{\mathrm{ProfDec}}^+$, a verifier can check:
+**Verification Algorithm:** Given a sequence $(u_n)$ and a claimed certificate $K_{\mathrm{ProfDec}_{s_c,G}}^+$, a verifier can check:
 1. **Reconstruction:** Compute $\tilde{u}_n := \sum_{j=1}^J g_n^{(j)} \cdot V^{(j)}$ and verify $\|u_n - \tilde{u}_n\|_{\mathcal{X}} \to 0$
 2. **Energy Balance:** Verify $\Phi(u_n) = \sum_{j=1}^J \Phi(V^{(j)}) + o(1)$
 3. **Orthogonality:** Verify $d_G(g_n^{(j)}, g_n^{(k)}) \to \infty$ for $j \neq k$
@@ -321,7 +324,7 @@ The Bahouri-Gérard theorem ({cite}`BahouriGerard99`, Theorem 1.1) applies under
 2. Among profiles with equal energy, choose the one with **minimal spatial extent** (compactly supported or rapidly decaying)
 3. Break remaining ties using a lexicographic ordering on the parameter space
 
-This canonicalization ensures that the certificate $K_{\mathrm{ProfDec}}^+$ is uniquely determined by the input sequence $(u_n)$ up to subsequence extraction.
+This canonicalization ensures that the certificate $K_{\mathrm{ProfDec}_{s_c,G}}^+$ is uniquely determined by the input sequence $(u_n)$ up to subsequence extraction.
 
 ### Step 6.3: Stability Under Perturbations
 
@@ -340,7 +343,7 @@ This canonicalization ensures that the certificate $K_{\mathrm{ProfDec}}^+$ is u
 For the nonlinear Schrödinger equation (NLS), the symmetry group is extended to include **Galilean boosts**:
 $$G_{\text{Galilei}} = \mathbb{R}^+ \times \mathbb{R}^d \times \mathbb{R}^d$$
 with action
-$$(g \cdot u)(x) = \lambda^{-d/2} e^{i \langle v, x - x_0 \rangle / \lambda^2} u(\lambda^{-1}(x - x_0) - v t)$$
+$$(g \cdot u)(x) = \lambda^{-d/2} e^{i \langle v, x - x_0 \rangle / \lambda} u(\lambda^{-1}(x - x_0))$$
 where $g = (\lambda, x_0, v)$.
 
 **Modification:** The orthogonality condition is extended to include velocity divergence:
@@ -382,12 +385,12 @@ We have established the existence of the profile decomposition under the soft hy
 4. **Finite Termination** (Step 2.4) guarantees $J < \infty$ profiles
 5. **Remainder Vanishing** (Step 3) certifies that the remainder is dispersive
 6. **Orthogonality** (Step 4) verifies asymptotic orthogonality in the sense of parameter divergence
-7. **Certificate Construction** (Step 5) packages the data into $K_{\mathrm{ProfDec}}^+$
+7. **Certificate Construction** (Step 5) packages the data into $K_{\mathrm{ProfDec}_{s_c,G}}^+$
 
 The resulting certificate is:
-$$K_{\mathrm{ProfDec}}^+ = (\{V^{(j)}\}_{j=1}^J, \{g_n^{(j)}\}_{j=1}^J, \mathsf{orthogonality}, \mathsf{remainder\_smallness}, J, E, \delta_0).$$
+$$K_{\mathrm{ProfDec}_{s_c,G}}^+ = (\{V^{(j)}\}_{j=1}^J, \{g_n^{(j)}\}_{j=1}^J, \mathsf{orthogonality}, \mathsf{remainder\_smallness}).$$
 
-This certificate enables downstream metatheorems (e.g., the Kenig-Merle roadmap via {prf:ref}`mt-fact-soft-km`) by providing the concentration-compactness structure necessary for critical function theory.
+This certificate enables downstream metatheorems (e.g., the Kenig-Merle roadmap via {prf:ref}`mt-fact-soft-km`) by providing the concentration-compactness structure necessary for critical function theory. The subscripts $s_c$ (critical regularity) and $G$ (symmetry group) are determined during the evaluation process and recorded in the certificate.
 
 ---
 
@@ -426,9 +429,9 @@ The iterative extraction of orthogonal profiles with **diverging scale parameter
 **Applicability to Hypostructures:** The scaling control certificate $K_{\mathrm{SC}_\lambda}^+$ formalizes the requirement that the energy decouples for orthogonal scales. This is essential for the Pythagorean theorem (Step 2.3), which in turn ensures finite termination (Step 2.4). Without scaling control, the decomposition could fail to terminate (infinite profiles with vanishing energy quantum).
 
 **Profile Decomposition for Other Equations:**
-- **Schrödinger maps:** {cite}`BejenaruTao06` (includes Galilean boosts)
-- **Wave maps:** {cite}`Tao01` (Lorentz group action)
-- **Yang-Mills equations:** {cite}`Oh08` (gauge transformations as symmetry group)
+- **Schrödinger maps:** Bejenaru-Tao (2006) (includes Galilean boosts)
+- **Wave maps:** Tao (2001) (Lorentz group action)
+- **Yang-Mills equations:** Oh (2008) (gauge transformations as symmetry group)
 
 **Non-Applicability:** Profile decomposition fails for:
 - **Supercritical equations:** The symmetry group $G$ does not act isometrically on the critical space, breaking the energy decoupling
@@ -436,7 +439,7 @@ The iterative extraction of orthogonal profiles with **diverging scale parameter
 - **Quasilinear equations:** The nonlinearity can create new concentration mechanisms beyond the symmetry group (e.g., shock formation)
 
 **Certificate Emission Logic:**
-- **YES case:** If the equation has standard symmetry group $G \subseteq \mathbb{R}^+ \times \mathbb{R}^d$ and scale-critical energy, emit $K_{\mathrm{ProfDec}}^+$
+- **YES case:** If the equation has standard symmetry group $G \subseteq \mathbb{R}^+ \times \mathbb{R}^d$ and scale-critical energy, emit $K_{\mathrm{ProfDec}_{s_c,G}}^+$
 - **NO case:** If $G$ is non-standard or energy is not scale-critical, emit $K_{\mathrm{ProfDec}}^{\mathrm{inc}}$
 - **Inconclusive case:** If the structure is unknown (e.g., novel equation), request user input or defer to a more general compactness analysis
 

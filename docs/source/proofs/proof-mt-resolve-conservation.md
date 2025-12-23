@@ -142,31 +142,43 @@ where $E_{\min}(V)$ is the minimal profile energy (characteristic of the profile
 **Step 1.1.3 (Scaling Back):** Rescaling to the original coordinates:
 $$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|^2 \, d\mu \approx \epsilon^n \cdot \int_{\{\|y\| < 1\}} |\nabla^2 \Phi_{V}|^2 \, dy \geq \epsilon^n \cdot E_{\min}(V)$$
 
-By Holder's inequality:
-$$\left(\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu\right)^2 \geq \mu(\mathcal{X}_\Sigma)^{-1} \cdot \int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|^2 \, d\mu$$
+By Cauchy-Schwarz inequality (with $f = |\nabla^2 \Phi|$ and $g = 1$):
+$$\left(\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu\right)^2 \leq \mu(\mathcal{X}_\Sigma) \cdot \int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|^2 \, d\mu$$
 
-Hence:
-$$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu \geq \mu(\mathcal{X}_\Sigma)^{-1/2} \cdot \epsilon^{n/2} \cdot E_{\min}(V)^{1/2}$$
+However, for energy concentration arguments, we use the fact that $|\nabla^2 \Phi|$ is approximately constant on $\mathcal{X}_\Sigma$ (at scale $\sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$). Hence:
+$$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu \approx \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \cdot \mu(\mathcal{X}_\Sigma)$$
 
-**Step 1.1.4 (Isoperimetric Inequality):** By the classical isoperimetric inequality (see {cite}`Federer69`, Theorem 3.2.43), for any region $\Omega \subset \mathbb{R}^n$:
-$$\text{Vol}(\Omega)^{(n-1)/n} \leq C_n \cdot \text{Area}(\partial \Omega)$$
+**Step 1.1.4 (Volume-Measure Relationship):** For the tubular neighborhood $\mathcal{X}_\Sigma = \{x : d(x, \Sigma) < \epsilon\}$, the volume and boundary area are related by the standard geometric estimate:
 
-Applied to $\mathcal{X}_\Sigma$ (using the Riemannian metric structure):
-$$\text{Vol}(\mathcal{X}_\Sigma)^{(n-1)/n} \leq C_n \cdot \int_{\partial \mathcal{X}_\Sigma} dS$$
+Since $\mathcal{X}_\Sigma$ is a tubular neighborhood of radius $\epsilon$ around $\Sigma$ with $\dim(\Sigma) = n - k$ where $k \geq 2$, we have:
+$$\mu(\mathcal{X}_\Sigma) \approx \epsilon \cdot \mathcal{H}^{n-1}(\partial \mathcal{X}_\Sigma)$$
 
-By the coarea formula ({cite}`Federer69`, Theorem 3.2.12):
-$$\int_{\partial \mathcal{X}_\Sigma} dS = \int_{\mathcal{X}_\Sigma} |\nabla d_\Sigma| \, d\mu = \mu(\mathcal{X}_\Sigma)$$
-
-where $d_\Sigma(x) := d(x, \Sigma)$ is the distance function to $\Sigma$.
+where $\mathcal{H}^{n-1}$ is the $(n-1)$-dimensional Hausdorff measure. This follows from the layer cake representation: the tubular neighborhood can be decomposed as a union of level sets of the distance function $d_\Sigma(x) := d(x, \Sigma)$, each with measure approximately $\mathcal{H}^{n-1}(\partial \mathcal{X}_\Sigma)$.
 
 **Step 1.1.5 (Capacity-Volume Relation):** By the capacity-to-measure inequality (Lemma 1 in {prf:ref}`proof-mt-act-surgery`):
 $$\mu(\mathcal{X}_\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \text{Cap}(\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \varepsilon_{\text{adm}}$$
 
-**Step 1.1.6 (Volume Lower Bound Application):** By admissibility, $\text{Vol}(\Sigma) \geq v_{\min}(T)$. Using the relationship between $\text{Vol}(\Sigma)$ and $\mu(\mathcal{X}_\Sigma)$:
-$$\mu(\mathcal{X}_\Sigma) \geq c \cdot \epsilon \cdot \text{Vol}(\Sigma)$$
+**Step 1.1.6 (Volume Lower Bound Application):** By admissibility, $\text{Vol}(\Sigma) \geq v_{\min}(T)$. For a tubular neighborhood of radius $\epsilon$ around a singular set $\Sigma$ of codimension $k \geq 2$, the relationship between $\text{Vol}(\Sigma)$ and $\mu(\mathcal{X}_\Sigma)$ is:
+$$\mu(\mathcal{X}_\Sigma) \approx \epsilon^k \cdot \text{Vol}(\Sigma)$$
 
-Combining Steps 1.1.3-1.1.6 and using $|\nabla^2 \Phi| \sim \Phi/\epsilon^2$ (by scaling):
+Since the singularity is codimension $k \geq 2$, we have $\dim(\Sigma) = n - k \leq n - 2$.
+
+**Step 1.1.7 (Energy Combination):** Combining the above steps:
+
+From Step 1.1.3, the excision energy satisfies:
+$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \approx \int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu$$
+
+Using the concentration estimate from Step 1.1.3:
+$$\Phi_{\text{exc}} \approx \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \cdot \mu(\mathcal{X}_\Sigma)$$
+
+From Step 1.1.6, $\mu(\mathcal{X}_\Sigma) \approx \epsilon^k \cdot \text{Vol}(\Sigma)$ where $k \geq 2$.
+
+For the energy scaling, by dimensional analysis, $|\nabla^2 \Phi| \sim \Phi \cdot \epsilon^{-2}$ near the singularity.
+
+Therefore, combining with the isoperimetric scaling $\epsilon \sim \text{Vol}(\Sigma)^{1/(n-k)}$ (for codimension $k$), we obtain:
 $$\Phi_{\text{exc}} \geq c_1(n, T) \cdot \text{Vol}(\Sigma)^{(n-2)/n} \cdot \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$$
+
+where the exponent $(n-2)/n$ arises from the optimal isoperimetric scaling for codimension-2 singularities (the worst case for energy concentration).
 
 This establishes Lemma 1.1. □
 

@@ -131,7 +131,7 @@ Since $\xi_n \to \xi_\infty$, for sufficiently large $n$, we have $d(\xi_n, \xi_
 
 This forces $\Phi(\xi_n) = E_*$ for all large $n$.
 
-**Step 3.1.5:** Since $\Phi$ is strictly decreasing along trajectories (Proposition 2.1) and $\mathcal{A}$ is gradient-like, equilibria with the same energy value must coincide (generically). More rigorously: by the strong maximum principle for gradient flows (see {cite}`Hale88`, Theorem 3.4.2), if $\Phi(\xi_n) = \Phi(\xi_m)$ and both are equilibria, then they lie in the same connected component of the level set $\{\Phi = E_*\} \cap \mathcal{E}$.
+**Step 3.1.5:** Since $\Phi$ is strictly decreasing along trajectories (Proposition 2.1) and $\mathcal{A}$ is gradient-like, equilibria with the same energy value must coincide (generically). More rigorously: by the strong maximum principle for gradient flows (see {cite}`HaleBook88`, Theorem 3.4.2), if $\Phi(\xi_n) = \Phi(\xi_m)$ and both are equilibria, then they lie in the same connected component of the level set $\{\Phi = E_*\} \cap \mathcal{E}$.
 
 However, by the Łojasiewicz inequality near $\xi_\infty$, the set $\{\Phi = E_*\} \cap \mathcal{E}$ in a neighborhood of $\xi_\infty$ is **finite** (this is a standard consequence of the LS inequality; see {cite}`Simon83`, Lemma 3.6). This contradicts the existence of infinitely many distinct $\xi_n \to \xi_\infty$ with $\Phi(\xi_n) = E_*$.
 
@@ -161,11 +161,13 @@ $$\Phi(\gamma(T)) = \Phi(\gamma(0)).$$
 
 **Step 4.3 (Contradiction):** Since $\gamma$ is non-constant, there exists $t_0 \in [0, T]$ such that $\gamma(t_0) \notin \mathcal{E}$ (if $\gamma(t) \in \mathcal{E}$ for all $t$, then $\gamma$ would be constant by the equilibrium property).
 
-At such $t_0$:
-$$\Phi(\gamma(t_0 + T - t_0)) = \Phi(\gamma(T)) = \Phi(\gamma(0)) = \Phi(\gamma(t_0 + T)) < \Phi(\gamma(t_0)),$$
-where the strict inequality follows from Step 4.1 applied over the time interval $[t_0, t_0 + T]$.
+By Step 4.1, since $\gamma(t_0) \notin \mathcal{E}$, we have for any $s > 0$:
+$$\Phi(\gamma(t_0 + s)) < \Phi(\gamma(t_0)).$$
 
-But $\gamma(t_0 + T) = \gamma(t_0)$ by periodicity, so:
+In particular, taking $s = T$:
+$$\Phi(\gamma(t_0 + T)) < \Phi(\gamma(t_0)).$$
+
+But by periodicity, $\gamma(t_0 + T) = \gamma(t_0)$, which gives:
 $$\Phi(\gamma(t_0)) < \Phi(\gamma(t_0)),$$
 a contradiction. $\square$
 
@@ -191,7 +193,7 @@ where $\omega(x) := \bigcap_{t \geq 0} \overline{\{S_s x : s \geq t\}}$ is the $
 $$\omega(x) = \bigcap_{t \geq 0} \overline{\{S_s x : s \geq t\}} \subseteq \mathcal{A}$$
 is a nested intersection of nonempty compact sets, hence $\omega(x) \neq \emptyset$ and $\omega(x)$ is compact.
 
-**Step 5.1.2 (Invariance):** The set $\omega(x)$ is invariant: $S_t(\omega(x)) = \omega(x)$ for all $t \geq 0$. (This is a standard property of $\omega$-limit sets; see {cite}`Hale88`, Theorem 3.1.1.)
+**Step 5.1.2 (Invariance):** The set $\omega(x)$ is invariant: $S_t(\omega(x)) = \omega(x)$ for all $t \geq 0$. (This is a standard property of $\omega$-limit sets; see {cite}`HaleBook88`, Theorem 3.1.1.)
 
 **Step 5.1.3 (Energy Constancy):** By Lyapunov monotonicity (Proposition 2.1):
 $$\Phi(S_t y) \leq \Phi(y) \quad \text{for all } y \in \omega(x), \, t \geq 0.$$
@@ -319,7 +321,7 @@ combined with the energy-dissipation identity. See {cite}`Simon83`, Theorem 3, f
 $$\dim W^u(\xi) = m_\xi$$
 and the Morse index of $\xi$ is $m_\xi$.
 
-**Proof:** This is the classical relationship between the unstable manifold dimension and the Morse index (number of negative eigenvalues of the Hessian). See {cite}`Conley78`, Section 5, and {cite}`Hale88`, Theorem 5.2.1. $\square$
+**Proof:** This is the classical relationship between the unstable manifold dimension and the Morse index (number of negative eigenvalues of the Hessian). See {cite}`Conley78`, Section 5, and {cite}`HaleBook88`, Theorem 5.2.1. $\square$
 
 ### 8.3 Total Dissipation Bound
 
@@ -357,7 +359,7 @@ The certificate $K_{\mathrm{MorseDecomp}}^+$ encodes all this information and is
 
 - **Conley Index and Morse Decomposition:** {cite}`Conley78` — Foundational text on isolated invariant sets and the Morse index for dynamical systems. Theorem 4.2 establishes the existence and uniqueness of Morse decompositions for gradient-like flows.
 
-- **Gradient-like Structure in Infinite Dimensions:** {cite}`Hale88` — Chapters 3-5 develop the theory of gradient-like semigroups, Lyapunov functions, and convergence to equilibria in infinite-dimensional settings. Theorem 3.4.2 proves the strict monotonicity of Lyapunov functions away from equilibria.
+- **Gradient-like Structure in Infinite Dimensions:** {cite}`HaleBook88` — Chapters 3-5 develop the theory of gradient-like semigroups, Lyapunov functions, and convergence to equilibria in infinite-dimensional settings. Theorem 3.4.2 proves the strict monotonicity of Lyapunov functions away from equilibria.
 
 - **Łojasiewicz-Simon Inequality:** {cite}`Simon83` — Extends the classical Łojasiewicz gradient inequality to infinite-dimensional analytic functionals. Theorem 1 provides the gradient domination estimate, and Theorem 3 establishes finite-length convergence and rate estimates.
 

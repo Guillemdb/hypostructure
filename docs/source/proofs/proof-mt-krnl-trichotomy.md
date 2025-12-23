@@ -54,8 +54,8 @@ This proof establishes the structural trichotomy for trajectories with finite br
 Prove that exactly one of the following three mutually exclusive outcomes occurs:
 
 1. **Mode D.D (Dispersion, Global Existence):** Energy disperses, no concentration, solution scatters to free evolution
-2. **Mode S.E, C.D, T.E, S.D (Global Regularity via Barrier):** Concentration occurs but violates at least one interface permit, triggering a benign barrier
-3. **Mode C.E (Genuine Singularity):** Energy escapes or structured blow-up satisfying all interface permits
+2. **Mode S.E, C.D, T.E, S.D (Global Regularity via Barrier):** Concentration occurs but all interface permits are satisfied, preventing singularity formation
+3. **Mode C.E (Genuine Singularity):** Energy escapes or structured blow-up with at least one interface permit violated
 
 ---
 
@@ -106,7 +106,7 @@ In this case, energy is trapped in the system. We proceed to Step 2 to extract t
 **Claim:** There exist:
 1. A sequence $t_n \nearrow T_*$
 2. Symmetry elements $g_n \in G$ (encoding translation, scaling, rotation)
-3. A non-trivial profile $v^* \in \mathcal{X}$ with $\Phi(v^*) \geq \Phi_*/2$
+3. A non-trivial profile $v^* \in \mathcal{X}$ with $0 < \Phi(v^*) \leq \Phi_*$
 
 such that:
 $$g_n \cdot u(t_n) \rightharpoonup v^* \quad \text{(weakly in } \mathcal{X}\text{)}$$
@@ -124,15 +124,18 @@ By hypothesis (C), there exist a subsequence (still denoted $t_n$), symmetry ele
 $$g_n \cdot u(t_n) \rightharpoonup v^* \quad \text{(weakly)}$$
 
 **Step 2.3 (Non-Triviality):**
-We claim $v^* \neq 0$. Suppose for contradiction that $v^* = 0$. Then by weak convergence:
-$$\Phi(v^*) = 0$$
+We claim $v^* \neq 0$. Suppose for contradiction that $v^* = 0$. By Lions' vanishing lemma (Lemma I.1 of {cite}`Lions84`), if $g_n \cdot u(t_n) \rightharpoonup 0$ weakly, then the sequence disperses to spatial infinity, meaning:
+$$\lim_{n \to \infty} \Phi(u(t_n)) = 0$$
 
-However, by weak lower semicontinuity of the energy functional $\Phi$ (a standard property for convex functionals on reflexive Banach spaces):
+However, from Case 1.2, we know that:
+$$\lim_{n \to \infty} \Phi(u(t_n)) = \Phi_* > 0$$
+
+This is a contradiction. Hence $v^* \neq 0$.
+
+Moreover, by weak lower semicontinuity of the energy functional $\Phi$ (a standard property for convex functionals on reflexive Banach spaces):
 $$\Phi(v^*) \leq \liminf_{n \to \infty} \Phi(g_n \cdot u(t_n)) = \liminf_{n \to \infty} \Phi(u(t_n)) = \Phi_*$$
 
-Since $G$ acts by isometries (energy-preserving), $\Phi(g_n \cdot u(t_n)) = \Phi(u(t_n))$.
-
-If $v^* = 0$, then $0 = \Phi(v^*) \geq \Phi_* > 0$ by weak lower semicontinuity and Case 1.2 assumption—a contradiction. Hence $v^* \neq 0$.
+since $G$ acts by isometries (energy-preserving), so $\Phi(g_n \cdot u(t_n)) = \Phi(u(t_n))$.
 
 **Step 2.4 (Profile Decomposition à la Bahouri-Gérard):**
 
@@ -434,11 +437,13 @@ $$K_{\mathrm{SC}_\lambda}^+ \implies \alpha - \beta \geq \delta_{\text{crit}} > 
 then the trajectory extends globally with uniform bound:
 $$\sup_{t \geq 0} \Phi(u(t)) \leq C(\delta_{\text{crit}}, E_0)$$
 
-**Proof:** By Grönwall's inequality applied to the energy-dissipation inequality:
+**Proof:** By Grönwall's inequality applied to the energy-dissipation inequality. For subcritical scaling ($\beta < \alpha$):
 $$\frac{d}{dt}\Phi(u) \leq -\delta_{\text{crit}} \Phi(u)^{\beta/\alpha}$$
 
-Integrating:
-$$\Phi(u(t)) \leq \Phi(u_0) e^{-\delta_{\text{crit}} t}$$
+Separating variables and integrating:
+$$\Phi(u(t))^{1-\beta/\alpha} \leq \Phi(u_0)^{1-\beta/\alpha} - (1-\beta/\alpha)\delta_{\text{crit}} t$$
+
+For large $t$, this implies decay (possibly finite-time extinction if the right side vanishes). In all cases, the trajectory remains bounded.
 
 **Mode C.E (Genuine Singularity Quantitative Bound):**
 

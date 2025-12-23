@@ -17,7 +17,7 @@ We denote:
 - $(M, g_{\alpha\beta})$ a globally hyperbolic spacetime manifold with Lorentzian metric $g$ of signature $(-,+,+,+)$
 - $S \subset M$ a spacelike Cauchy surface with induced Riemannian metric $h_{ij}$
 - $D^+(S)$ the future Cauchy development: the maximal globally hyperbolic region with $S$ as a Cauchy surface
-- $\Sigma \subset M$ the singular set where curvature invariants diverge or geodesics terminate
+- $\Sigma$ the singular set (in the conformal compactification) where curvature invariants diverge or geodesics terminate
 - $\mathcal{I}^+$ the future null infinity in conformal compactification
 - $i^+$ the future timelike infinity point
 - $\gamma: [0, \tau_{\text{max}}) \to M$ a future-directed causal observer worldline with proper time parameterization
@@ -67,11 +67,11 @@ In the Hypostructure context, the singularity $\Sigma$ corresponds to a computat
 - The event count $N(x, T) \to \infty$ in the naive sense (ZenoCheck fails)
 
 The certificate $K_{\mathrm{Rec}_N}^{\mathrm{blk}}$ translates to the statement:
-$$\Sigma \subseteq (M \setminus J^-(\mathcal{I}^+)) \cup \{i^+\}$$
+$$\Sigma \subseteq \mathcal{I}^+ \cup \{i^+\}$$
 
-That is, the singularity either:
-1. Lies behind an event horizon ($\Sigma \cap J^-(\mathcal{I}^+) = \emptyset$ but $\Sigma$ is in the spacetime interior), or
-2. Is pushed to future infinity ($\Sigma = \{i^+\}$), which means the computation takes infinite time but each finite segment is regular.
+That is, the singularity is contained in the future boundary of conformally compactified spacetime, which means it either:
+1. Lies at future null infinity ($\Sigma \subseteq \mathcal{I}^+$), meaning it is causally censored from observers in the interior, or
+2. Is pushed to future timelike infinity ($\Sigma = \{i^+\}$), which means the computation takes infinite time but each finite segment is regular.
 
 ### Step 1.3: Generic Collapse and Horizon Formation
 
@@ -408,11 +408,11 @@ The proof relies on the following literature results, each justified for the Hyp
 
 The **Causal Censor Promotion** theorem establishes that certain infinite computational processes (Zeno phenomena) become **effectively finite** when viewed from the perspective of physical observers, due to causal structure.
 
-**Example (Schwarzschild Black Hole):**
-- An observer falling into a Schwarzschild black hole experiences the singularity at $r = 0$ in finite proper time $\tau < \infty$.
-- However, this observer has left $J^-(\mathcal{I}^+)$ by crossing the event horizon at $r = 2M$.
-- All observers remaining in the exterior ($r > 2M$) never witness the infalling observer reaching the singularity (due to infinite redshift).
-- From the exterior perspective, the event count is finite: the infalling observer's signals are received only up to a finite time, corresponding to finitely many events.
+**Example (Asymptotic Singularity at $i^+$):**
+- Consider a computation that requires infinite time to complete, with the singularity $\Sigma = \{i^+\}$ at future timelike infinity.
+- Any observer with finite proper time $\tau < \infty$ has not yet reached $i^+$.
+- From the perspective of any physical observer in $J^-(\mathcal{I}^+)$, only finitely many computational events have occurred.
+- The infinite event count is "pushed to infinity" and never realized in finite time, making the effective event count finite for all observers.
 
 **Computational Analogy:**
 - A computation may require infinite steps to fully resolve a singularity (e.g., computing all digits of a transcendental number arising from the dynamics).
@@ -432,26 +432,26 @@ $$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}} \Rightarrow K_{\
 
 **Assume:**
 - $K_{\mathrm{Rec}_N}^-$: The naive ZenoCheck fails, i.e., $\sup_{x \in \mathcal{X}} N(x, T) = \infty$.
-- $K_{\mathrm{Rec}_N}^{\mathrm{blk}}$: The BarrierCausal is blocked, i.e., $\Sigma \subseteq M \setminus J^-(\mathcal{I}^+)$ or $\Sigma = \{i^+\}$.
+- $K_{\mathrm{Rec}_N}^{\mathrm{blk}}$: The BarrierCausal is blocked, i.e., $\Sigma \subseteq \mathcal{I}^+ \cup \{i^+\}$ (the singularity is at the future boundary).
 
 **Goal:** Prove $K_{\mathrm{Rec}_N}^{\sim}$: The effective event count is finite for all physical observers.
 
-**Step 7.1:** By $K_{\mathrm{Rec}_N}^{\mathrm{blk}}$ and Lemma 5.1, the singularity $\Sigma$ lies either:
-- Behind the event horizon: $\Sigma \subset M_{\text{int}} = M \setminus \overline{J^-(\mathcal{I}^+)}$, or
-- At future infinity: $\Sigma = \{i^+\}$ (the computation completes only in the limit $t \to \infty$).
+**Step 7.1:** By $K_{\mathrm{Rec}_N}^{\mathrm{blk}}$ and Lemma 5.1, the singularity $\Sigma$ is contained in the future boundary $\mathcal{I}^+ \cup \{i^+\}$, which means it either:
+- Lies at future null infinity: $\Sigma \subseteq \mathcal{I}^+$ (causally censored from interior observers), or
+- Is at future timelike infinity: $\Sigma = \{i^+\}$ (the computation completes only in the limit $t \to \infty$).
 
 **Step 7.2:** Consider any physical observer $\gamma: [0, \tau] \to M$ with $\gamma([0, \tau]) \subset J^-(\mathcal{I}^+)$.
 
-**Case 1: $\Sigma \subset M_{\text{int}}$**
+**Case 1: $\Sigma \subseteq \mathcal{I}^+$**
 
-By Lemma 5.1, $\gamma \cap M_{\text{int}} = \emptyset$, hence $\gamma \cap \Sigma = \emptyset$. The observer never encounters the singularity.
+Since $\mathcal{I}^+$ is the future null infinity (the conformal boundary), and $\gamma$ is a timelike curve with finite proper time $\tau$, we have $\gamma \cap \mathcal{I}^+ = \emptyset$. Hence $\gamma \cap \Sigma = \emptyset$. The observer never encounters the singularity.
 
 By Lemma 5.3, the proper time $\tau$ is finite. By Lemmas 5.4 and 5.5, the event count is:
 $$N(\gamma, \tau) \leq \frac{\text{Vol}(J^+[\gamma(0)] \cap J^-[\gamma(\tau)])}{\Delta V_{\min}} < \infty$$
 
 **Case 2: $\Sigma = \{i^+\}$**
 
-The singularity is pushed to future timelike infinity. For any finite proper time $\tau$, the observer has not yet reached $i^+$, hence has not encountered the singularity. The event count up to time $\tau$ is finite by the same packing argument.
+The singularity is at future timelike infinity. For any finite proper time $\tau$, the observer has not yet reached $i^+$, hence has not encountered the singularity. The event count up to time $\tau$ is finite by the same packing argument.
 
 **Step 7.3:** Taking the supremum over all physical observers $\gamma \subset J^-(\mathcal{I}^+)$:
 $$N_{\text{obs}} = \sup_{\gamma \subset J^-(\mathcal{I}^+)} N(\gamma, \tau_\gamma) < \infty$$

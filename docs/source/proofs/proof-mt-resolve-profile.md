@@ -112,7 +112,7 @@ This quantization is the key to finite termination in the Bahouri-Gerard iterati
 
 **Claim:** The profile $V$ is unique up to the action of $G$, i.e., the limit is independent of the choice of rescaling parameters (up to symmetry).
 
-**Proof:** Suppose two distinct sequences of rescaling parameters $(g_n)$ and $(g_n')$ yield different weak limits $V$ and $V'$. Then the orthogonality condition (Step 2.2 below) ensures that either:
+**Proof:** Suppose two distinct sequences of rescaling parameters $(g_n)$ and $(g_n')$ yield different weak limits $V$ and $V'$. Then by the profile orthogonality property of concentration-compactness, either:
 - $V' = g \cdot V$ for some $g \in G$ (symmetry-related), or
 - The parameters $(g_n)$ and $(g_n')$ are asymptotically orthogonal, implying the original sequence $(u_n)$ contains two distinct concentration profiles
 
@@ -178,11 +178,11 @@ This certificate provides:
 
 **Bridge to Literature:** The existence of a finite library for specific types is established by:
 
-**(Parabolic):** {cite}`HuiskenSinestrari99` (MCF of convex surfaces), {cite}`Perelman03` (Ricci flow on 3-manifolds), {cite}`BrendleSchoen09` (sphere rigidity for Yamabe flow)
+**(Parabolic):** {cite}`HuiskenSinestrari09` (MCF of convex surfaces), {cite}`Perelman03` (Ricci flow on 3-manifolds)
 
 **(Dispersive):** {cite}`KenigMerle06` (classification of radial ground states for NLS), {cite}`DuyckaertsKenigMerle11` (universality of blow-up profiles for NLW)
 
-**(Parabolic Gradient Flows):** {cite}`LojasSim91` (Łojasiewicz-Simon inequality implies profile convergence to equilibria)
+**(Parabolic Gradient Flows):** {cite}`Simon83` (Łojasiewicz-Simon inequality implies profile convergence to equilibria)
 
 **Key Mechanism:** These results establish that under certain symmetry reductions (e.g., radial symmetry, equivariance under rotations), the moduli space $\mathcal{M}_{\text{prof}}(T)$ collapses to a finite set. The Hypostructure Framework inherits this finiteness via the bridge verification.
 
@@ -353,7 +353,7 @@ $$K_{\mathrm{prof}}^{\mathrm{inc}} = (V, \text{exhausted methods}, \text{remaini
    - Case 2: $V \in \mathcal{F}_T \setminus \mathcal{L}_T$ (tame but not isolated)
    - Case 3: $V \notin \mathcal{L}_T \cup \mathcal{F}_T$ (classification failure)
 
-2. **Exhaustiveness:** By construction, $\mathcal{M}_{\text{prof}}(T) = \mathcal{L}_T \cup \mathcal{F}_T \cup (\mathcal{M}_{\text{prof}} \setminus (\mathcal{L}_T \cup \mathcal{F}_T))$. Every profile belongs to at least one class.
+2. **Exhaustiveness:** By construction, $\mathcal{M}_{\text{prof}}(T) = \mathcal{L}_T \cup \mathcal{F}_T \cup (\mathcal{M}_{\text{prof}}(T) \setminus (\mathcal{L}_T \cup \mathcal{F}_T))$. Every profile belongs to at least one class.
 
 3. **Algorithmic Termination:** The classification procedure terminates because:
    - Library lookup is finite (finitely many elements to check)
@@ -446,7 +446,7 @@ The proof relies on the following established results:
 
 **(Gradient Flow Convergence):**
 - {cite}`Kurdyka98`: Łojasiewicz inequality for o-minimal gradient flows
-- {cite}`LojasSim91`: Łojasiewicz-Simon inequality for analytic functionals
+- {cite}`Simon83`: Łojasiewicz-Simon inequality for analytic functionals
 
 ### Step 6.2: Applicability Justification
 
@@ -483,7 +483,7 @@ Hypostructure Certificates          Lions' Hypotheses          Lions' Conclusion
 ---------------------               ------------------         -----------------
 K_{D_E}^+ (Energy Bound)     ---->  (L-H2) Bounded Energy
 K_{C_\mu}^+ (Concentration)  ---->  (L-H1) Bounded Sequence   ----> Profile V exists
-K_{SC_λ}^+ (Scaling Control) ---->  (L-H3) Critical Embed.          Φ(V) ≤ E
+K_{\mathrm{SC}_\lambda}^+ (Scaling Control) ---->  (L-H3) Critical Embed.          Φ(V) ≤ E
                                                                       V ∈ M_prof(T)
 
                                     Classification Query

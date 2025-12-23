@@ -1,6 +1,6 @@
 # Dataset
 
-This dataset serves as a comprehensive stress-test suite for evaluating the capabilities of the Hypostructure framework. It contains 37 carefully selected mathematical problems spanning diverse domains—from millennium prize problems to classical textbook results—designed to probe the framework's ability to generate machine-checkable proof objects across varying levels of difficulty and structural complexity.
+This dataset serves as a comprehensive stress-test suite for evaluating the capabilities of the Hypostructure framework. It contains 40 carefully selected mathematical problems spanning diverse domains—from millennium prize problems to classical textbook results—designed to probe the framework's ability to generate machine-checkable proof objects across varying levels of difficulty and structural complexity.
 
 ## Overview
 
@@ -92,17 +92,18 @@ The dataset includes problems that exercise all major components of the Structur
 |---------|------|--------|---------|-------------|---------------------|
 | [Pentagon Tiling](pentagon_tiling.md) | $T_{\text{combinatorial}}$ | Discrete Geometry | SINGULARITY | (VI-Forbidden, 1) | Yes (classical) |
 
-### Frontier Problem (1)
+### Frontier Problems (2)
 
 | Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
 |---------|------|--------|---------|-------------|---------------------|
 | [Quantum Gravity](quantum_gravity.md) | $T_{\text{quant}}$ | Theoretical Physics | HORIZON | (VIII-Horizon, 12) | N/A (no consensus) |
+| [Stochastic Einstein-Boltzmann](stochastic_einstein_boltzmann.md) | $T_{\text{parabolic}}$ | Relativistic Kinetic Theory | SOLVED | (VI-Forbidden, 17) | Open |
 
 ## Verdict Distribution
 
 | Verdict | Count | Description |
 |---------|-------|-------------|
-| **SOLVED** | 31 | Lock successfully blocked; unconditional proof object generated |
+| **SOLVED** | 32 | Lock successfully blocked; unconditional proof object generated |
 | **SINGULARITY** | 3 | Morphism exists; singularity confirmed (P ≠ NP, Logistic Map, Pentagon Tiling) |
 | **HORIZON** | 2 | Lock breached; requires meta-learning for resolution |
 | **PARTIAL** | 1 | Some nodes pass, others inconclusive |
@@ -232,9 +233,11 @@ Format: `(Family, Node)` where Family indicates the certificate type and Node in
 
 - **Pentagon Tiling**: Regular pentagons cannot tile the plane. SINGULARITY CONFIRMED via E1 (Dimension): Angle defect (108° × 5 = 540° ≠ 360°) blocks vertex completion; no tiling morphism exists. *Matches Literature: Yes (classical impossibility)*
 
-### Frontier Problem (1)
+### Frontier Problems (2)
 
 - **Quantum Gravity**: Reconciliation of general relativity with quantum mechanics. HORIZON: Information paradox and holographic bound violations detected; requires meta-learning for resolution. *Matches Literature: N/A (no consensus)*
+
+- **Stochastic Einstein-Boltzmann**: Global regularity for the coupled Einstein-Boltzmann system with stochastic forcing and free boundaries. Lock BLOCKED via E8 (Holographic): Bekenstein bound excludes naked singularities; SurgCD surgery resolves horizons via interior capping. *Matches Literature: Open*
 
 ## Usage
 

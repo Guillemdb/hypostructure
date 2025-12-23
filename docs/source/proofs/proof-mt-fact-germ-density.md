@@ -141,7 +141,7 @@ for $\varepsilon > 0$ small enough that $\varepsilon$-closeness implies morphism
 **Factorization Construction:** For each germ $[P, \pi]$:
 - **Step 2.1.1:** Let $B_i$ be the nearest library element: $i = \arg\min_j \|\pi - B_j\|_{\dot{H}^1}$
 - **Step 2.1.2:** Define $\alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to B_i$ as the canonical inclusion induced by the $\dot{H}^1$ proximity: since $\|\pi - B_i\|_{\dot{H}^1} \leq \varepsilon$, the profile $\pi$ is a small perturbation of $B_i$, inducing a natural morphism in $\mathbf{Hypo}_{T_{\mathrm{para}}}$
-- **Step 2.1.3:** Let $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{para}})}$ be the canonical map from the library element into the colimit (Lemma 3.1)
+- **Step 2.1.3:** For each library element $B_i$, we define the coprojection $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{para}})}$ by requiring that for all germs $[P,\pi]$ whose factorization uses $B_i$ (via Step 2.1.1), we have $\beta_i \circ \alpha_{[P,\pi]} = \iota_{[P,\pi]}$. The existence and consistency of such $\beta_i$ follows from the universal property of the colimit (see Lemma 3.1 for detailed verification)
 
 **Verification:** The composition:
 $$\beta_i \circ \alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{para}})}$$

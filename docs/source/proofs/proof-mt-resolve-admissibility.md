@@ -171,7 +171,7 @@ By o-minimality {cite}`vandenDries98`, the set of such geodesics is definable an
 
 **Query:** Is $V \notin \mathcal{F}_T$ (unclassifiable, wild, or undecidable)?
 
-If the profile $V$ does not belong to the definable family $\mathcal{F}_T$, we have reached the **Horizon** (Definition {prf:ref}`rem-good-types`).
+If the profile $V$ does not belong to the definable family $\mathcal{F}_T$, we have reached the **Horizon** ({prf:ref}`rem-good-types`).
 
 **Horizon Indicators:**
 1. **Wild oscillations:** Profile exhibits unbounded or aperiodic oscillations without definable structure (e.g., turbulent cascades)
@@ -266,13 +266,13 @@ By the classification of canonical profiles:
 
   All have codimension $\geq 2$.
 
-- **Mean curvature flow** ({cite}`White00`, {cite}`IlmanenWhite95`): Canonical profiles are spheres $S^n$ or cylinders $S^k \times \mathbb{R}^{n-k}$:
+- **Mean curvature flow**: Canonical profiles are spheres $S^n$ or cylinders $S^k \times \mathbb{R}^{n-k}$:
   - $S^n$: Point singularity (codim = $n+1$)
   - $S^k \times \mathbb{R}^{n-k}$: $k$-dimensional singularity (codim = $n-k$)
 
   For $k \leq n-2$, we have codim $\geq 2$. Profiles with $k = n-1$ (e.g., $S^{n-1} \times \mathbb{R}$) are excluded from the canonical library for this reason.
 
-- **Dispersive PDE** ({cite}`KenigMerle06`, {cite}`MerleRaphael05`): Ground states and solitons are smooth localized functions. The "singular set" is the spatial support, which for dispersive equations is typically a point or discrete set (codim = $n$).
+- **Dispersive PDE** ({cite}`KenigMerle06`): Ground states and solitons are smooth localized functions. The "singular set" is the spatial support, which for dispersive equations is typically a point or discrete set (codim = $n$).
 
 In all cases, the canonical library is constructed to ensure codimension $\geq 2$. This is a design invariant of the library. □
 
@@ -659,6 +659,6 @@ The trichotomy is **exhaustive** (every surgery produces one certificate) and **
 - **Case 2 (Admissible up to equivalence):** Canonicity via equivalence move; certificate $K_{\text{adm}}^{\sim}$ authorizes surgery on transformed profile
 - **Case 3 (Not admissible):** At least one check fails; certificate $K_{\text{inadm}}$ blocks surgery with explicit reason
 
-This trichotomy implements a general, type-agnostic framework for surgery admissibility, unifying classical results from Ricci flow {cite}`Perelman03`, mean curvature flow {cite}`White00`, dispersive PDE {cite}`KenigMerle06`, and geometric measure theory {cite}`Federer69` under a single categorical abstraction.
+This trichotomy implements a general, type-agnostic framework for surgery admissibility, unifying classical results from Ricci flow {cite}`Perelman03`, mean curvature flow, dispersive PDE {cite}`KenigMerle06`, and geometric measure theory {cite}`Federer69` under a single categorical abstraction.
 
 :::

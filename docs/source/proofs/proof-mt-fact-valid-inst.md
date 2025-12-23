@@ -134,11 +134,11 @@ This is checked using the **entailment relation** of $\mathcal{E}$'s internal lo
 If any implication fails, return **FatalError: Certificate Schema Incoherent**.
 
 **Quantitative Bound:** The number of certificate schemas is finite:
-- Number of nodes: $|V| = O(100)$ (fixed by Sieve diagram)
+- Number of nodes: $|V| = 89$ (fixed by Sieve diagram)
 - Outcomes per node: $\leq 3$ (YES/NO/Blocked)
-- Total certificate schemas: $\leq 3 \times |V| = O(300)$
+- Total certificate schemas: $\leq 3 \times 89 = 267$
 
-Verification complexity: $O(|V|^2)$ implications to check (one per edge in the DAG).
+Verification complexity: $O(|V|^2) = O(89^2) \approx 7921$ implications to check (one per edge in the DAG).
 
 ---
 
@@ -167,21 +167,25 @@ Let $\pi$ denote the topological ordering function $\pi: V \to \mathbb{N}$ where
 
 The longest path from Start to any terminal node has length $\leq |V|$.
 
-**Explicit Bound:** The Sieve diagram (cf. diagram in lines 1023-1199) has:
-- Main nodes: 17 decision gates (D_E, Rec_N, C_μ, SC_λ, SC_∂c, Cap_H, LS_σ, TB_π, TB_O, TB_ρ, Rep_K, GC_∇, Bound_∂, Bound_B, Bound_∫, GC_T, Cat_Hom)
-- Barrier nodes: 16 barriers (B1-B16)
-- Surgery nodes: 17 surgery operators (S1-S17)
-- Admissibility nodes: 17 admissibility checks (A1-A17)
-- Terminal nodes: 1 VICTORY + 15 Mode nodes + 1 FatalError
-- Special nodes: 7a-7d (bifurcation resolution subtree)
+**Explicit Bound:** The Sieve diagram (cf. diagram in lines 1023-1324 of `hypopermits_jb.md`) has:
+- 1 Start node
+- 17 Main decision gates (D_E, Rec_N, C_μ, SC_λ, SC_∂c, Cap_H, LS_σ, TB_π, TB_O, TB_ρ, Rep_K, GC_∇, Bound_∂, Bound_B, Bound_∫, GC_T, Cat_Hom)
+- 15 Barrier nodes (B1-B12, B14-B16; note B13 does not exist as Bound_∂ skips directly to Lock on failure)
+- 17 Surgery operators (S1-S17)
+- 17 Admissibility checks (A1-A17)
+- 17 Terminal nodes (1 VICTORY + 15 Mode nodes + 1 FatalError)
+- 4 Restoration subtree nodes (7a-7d for bifurcation resolution)
+- 1 ReconstructionLoop node (LOCK-Reconstruction)
 
-Total node count: $|V| \leq 17 + 16 + 17 + 17 + 17 + 5 = 89$ nodes.
+Total node count: $|V| = 1 + 17 + 15 + 17 + 17 + 17 + 4 + 1 = 89$ nodes.
 
 **Path Length Bound:** Any execution path traverses at most 89 nodes.
 
-**Surgery Re-entry:** Surgery nodes (S1-S17) create dotted edges that "jump" back to earlier gates. However, by {prf:ref}`thm-dag`, these edges are **forward-pointing** in the topological order:
-- Surgery edges target nodes with higher $\pi$ value
-- Example: SurgCE (S1) re-enters at ZenoCheck (node 2), but $\pi(\text{SurgCE}) < \pi(\text{ZenoCheck})$ in the augmented DAG including surgery edges
+**Surgery Re-entry:** Surgery nodes (S1-S17) create dotted edges that re-enter the Sieve at later gates. By {prf:ref}`thm-dag`, these edges maintain the DAG property:
+- Surgery re-entry targets are **later in topological order** than the failure point that triggered the surgery
+- Example: EnergyCheck (node 1) fails → triggers SurgCE (S1) → re-enters at ZenoCheck (node 2), where $\pi(\text{EnergyCheck}) < \pi(\text{ZenoCheck})$
+- Although surgery involves "going back" in the execution flow to retry earlier checks, the re-entry point is always topologically later than the original failure point
+- This ensures no infinite loops: each surgery re-entry progresses forward in the topological order, guaranteeing termination
 
 **Termination Guarantee:** Every execution reaches a terminal node in $\leq 89$ steps.
 
@@ -325,7 +329,7 @@ $$\text{Start} \xrightarrow{K^+_1} N_1 \xrightarrow{K^+_2} N_2 \xrightarrow{K^+_
 1. All 17 main gates produce YES certificates: $K^+_1, K^+_2, \ldots, K^+_{17}$
 2. Final gate (Cat_Hom) produces blocking certificate $K^{\text{blk}}_{\text{CatHom}}$ witnessing $\text{Hom}(\mathbb{H}_{\text{bad}}, \mathbb{H}) = \emptyset$
 
-**Categorical Interpretation:** By the Lock Theorem {prf:ref}`thm-lock`, global regularity is equivalent to the absence of morphisms from the initial "bad" object to the system object:
+**Categorical Interpretation:** By the Principle of Structural Exclusion {prf:ref}`mt-krnl-exclusion`, global regularity is equivalent to the absence of morphisms from the initial "bad" object to the system object:
 $$\text{GlobalRegularity}(\mathbb{H}) \iff \text{Hom}_{\mathbf{Hypo}_T}(\mathbb{H}_{\text{bad}}^{(T)}, \mathbb{H}) = \emptyset$$
 
 **Certificate Payload:** The VICTORY certificate $K^{\text{blk}}_{\text{CatHom}}$ contains:
@@ -396,7 +400,7 @@ $$\text{GlobalRegularity}(\mathbb{H}) \iff \text{Hom}_{\mathbf{Hypo}_T}(\mathbb{
 
 **Proof:** Let:
 - $n = \dim(\mathcal{X})$ (dimension of state space)
-- $N = |V| \leq 89$ (number of nodes)
+- $N = |V| = 89$ (number of nodes)
 - $T_{\max}$ (timeout for semi-decidable predicates)
 
 **Worst-Case Path:** Traverse all 89 nodes.
@@ -558,8 +562,8 @@ satisfying:
 | Maximum path length | $\leq 89$ nodes |
 | Worst-case time complexity | $O(89 \times \max(f(n), T_{\max}))$ |
 | Worst-case space complexity | $O(89 \times n)$ |
-| Number of certificate schemas | $\leq 300$ |
-| Number of certificate implications to verify | $O(89^2) \approx 8000$ |
+| Number of certificate schemas | $\leq 267$ |
+| Number of certificate implications to verify | $O(89^2) \approx 7921$ |
 
 ### Literature
 

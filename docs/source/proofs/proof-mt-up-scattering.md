@@ -131,14 +131,14 @@ using the splitting $(1 + 4/n) = (4/n) + 1$ and choosing $L^p$ exponents appropr
 $$\|u(t)\|_{L^{2n/(n-2)}_x} \leq C \|u(t)\|_{H^1} \leq C \sqrt{E_0}$$
 
 **Step 2.3.5 (Morawetz Integration):** Observe that:
-$$\||u|^{4/n}\|_{L^{n/2}_x}^{n/2} = \int_{\mathbb{R}^n} |u|^{2 \cdot 4/n \cdot n/2} dx = \int_{\mathbb{R}^n} |u|^{4} dx$$
-For $n \geq 3$, we can relate this to the Morawetz functional using Hardy's inequality (or direct interpolation):
-$$\int_0^\infty \int_{\mathbb{R}^n} |u|^{1+4/n} dx \, dt \leq C(n) \left( \int_0^\infty \int_{\mathbb{R}^n} \frac{|u|^{1+4/n}}{|x|} dx \, dt \right)^{\alpha} \cdot E_0^{1-\alpha}$$
-for some $\alpha \in (0,1)$ depending on $n$. By the Morawetz bound (Lemma 1.1), the right-hand side is finite.
+$$\||u|^{4/n}\|_{L^{n/2}_x}^{n/2} = \int_{\mathbb{R}^n} (|u|^{4/n})^{n/2} dx = \int_{\mathbb{R}^n} |u|^{2} dx$$
+For $n \geq 3$, we can relate the full spacetime integral of the nonlinearity to the Morawetz functional using Hardy's inequality (or direct interpolation):
+$$\int_0^\infty \int_{\mathbb{R}^n} |u|^{p+1} dx \, dt \leq C(n) \left( \int_0^\infty \int_{\mathbb{R}^n} \frac{|u|^{p+1}}{|x|} dx \, dt \right)^{\alpha} \cdot E_0^{1-\alpha}$$
+for some $\alpha \in (0,1)$ depending on $n$ (where $p+1 = 1 + 4/n$). By the Morawetz bound (Lemma 1.1), the right-hand side is finite.
 
 **Step 2.3.6 (Conclusion):** Combining Steps 2.3.3-2.3.5:
-$$\int_0^\infty \|N(u(t))\|_{L^{r'}_x} dt \leq C \sqrt{E_0} \left( \int_0^\infty \int_{\mathbb{R}^n} \frac{|u|^{1+4/n}}{|x|} dx \, dt \right)^{\beta} < \infty$$
-for some $\beta > 0$, completing the proof.
+$$\int_0^\infty \|N(u(t))\|_{L^{r'}_x} dt \leq C \sqrt{E_0} \left( \int_0^\infty \int_{\mathbb{R}^n} \frac{|u|^{p+1}}{|x|} dx \, dt \right)^{\beta} < \infty$$
+for some $\beta > 0$ (where $p+1 = 1 + 4/n$), completing the proof.
 
 ---
 
@@ -163,7 +163,7 @@ $$E_c := \inf\{E[u_0] : u \text{ is a maximal non-scattering solution}\}$$
 Let $(u_n)$ be a minimizing sequence of non-scattering solutions with $E[u_{n,0}] \to E_c$.
 
 **Step 3.1.2 (Profile Decomposition):** By the Bahouri-Gérard profile decomposition (cf. {cite}`BahouriGerard99`), up to extraction:
-$$u_{n,0} = \sum_{j=1}^J \phi^j(\cdot - x_n^j) e^{i\theta_n^j} / \lambda_n^{j,n/2} + r_n^J$$
+$$u_{n,0} = \sum_{j=1}^J \frac{1}{(\lambda_n^j)^{n/2}} \phi^j\left(\frac{\cdot - x_n^j}{\lambda_n^j}\right) e^{i\theta_n^j} + r_n^J$$
 with asymptotic orthogonality and energy decoupling.
 
 **Step 3.1.3 (Single Profile Extraction):** By the minimality argument (similar to Lemma 1.2 in the soft KM proof), exactly one profile $\phi^*$ is non-zero and carries all the energy: $E[\phi^*] = E_c$.

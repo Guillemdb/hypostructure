@@ -554,7 +554,7 @@ Full DAG (all barriers/surgeries/restoration subtree): see the Mermaid graph in 
 
 These are only needed if you are learning/optimizing hypostructure components from data rather than hand-defining them.
 
-- `mt-existence-of-axiom-minimizers` ({prf:ref}`mt-existence-of-axiom-minimizers`): compact $\Theta$ + continuity + dominated bound ⇒ existence of global axiom minimizer $\theta^*$.
+- `mt-existence-of-defect-minimizers` ({prf:ref}`mt-existence-of-defect-minimizers`): compact $\Theta$ + continuity + dominated bound ⇒ existence of global defect minimizer $\theta^*$.
 - `mt-joint-training-dynamics` ({prf:ref}`mt-joint-training-dynamics`): coupled gradient flow on joint risk ⇒ convergence/trajectory characterization for $(\theta_t)$ under standard regularity assumptions.
 - `mt-meta-identifiability-sv09` ({prf:ref}`mt-sv-09-meta-identifiability`): identifiability conditions on defect families ⇒ recovery of true axiom parameters up to symmetry.
 - `mt-functional-reconstruction` ({prf:ref}`mt-functional-reconstruction`): sufficient observation/defect data ⇒ reconstruct $\Phi_\theta,\mathfrak{D}_\theta,G_\theta$ within the parametric family.

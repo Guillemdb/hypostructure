@@ -272,8 +272,8 @@ The empty Hom-set (N11) verifies the antecedent, yielding the consequent.
 | **Outcome** | **Modes** | **Mechanism** |
 |-------------|-----------|---------------|
 | Global Existence | Mode D.D | Energy disperses, no concentration, solution scatters |
-| Global Regularity | Modes S.E, C.D, T.E, S.D | Concentration but forced structure fails permits |
-| Genuine Singularity | Mode C.E | Energy escapes or structured blow-up with all permits |
+| Global Regularity | Modes S.E, C.D, T.E, S.D | Concentration but all permits satisfied, preventing singularity |
+| Genuine Singularity | Mode C.E | Energy escapes or structured blow-up with permits violated |
 
 **Hypotheses:**
 1. **(Reg)** Minimal regularity: semiflow $S_t$ well-defined on $X$

@@ -101,7 +101,7 @@ Thus $R$ is $G$-invariant. **QED Claim.**
 
 **Claim:** If $R$ is $C^1$ and $G$-invariant, then the gradient is $G$-equivariant:
 $$\nabla R(g \cdot \Theta) = \rho'(g)[\nabla R(\Theta)]$$
-where $\rho'(g): T_\Theta \Theta \to T_{g \cdot \Theta}\Theta$ is the derivative of the group action.
+where $\rho'(g): T_\Theta \Theta \to T_{g \cdot \Theta}\Theta$ is the pushforward of the group action on the tangent bundle.
 
 **Proof of Claim:**
 
@@ -120,7 +120,7 @@ h(g \cdot \Theta)(\nabla R(g \cdot \Theta), w)
 &= h(\Theta)(\nabla R(\Theta), \rho'(g^{-1}) \cdot w)
 \end{align*}
 
-If the metric $h$ is $G$-invariant (i.e., $h(g \cdot \Theta)(\rho'(g) \cdot v, \rho'(g) \cdot w) = h(\Theta)(v, w)$), then:
+**Assumption:** We assume the metric $h$ is $G$-invariant: $h(g \cdot \Theta)(\rho'(g) \cdot v, \rho'(g) \cdot w) = h(\Theta)(v, w)$ for all $g \in G$. (This is standard for equivariant learning; if not, one can average over $G$ to construct an invariant metric.) Then:
 \begin{align*}
 h(g \cdot \Theta)(\nabla R(g \cdot \Theta), w)
 &= h(g \cdot \Theta)(\rho'(g)[\nabla R(\Theta)], w)
@@ -151,7 +151,7 @@ Therefore, if $\Theta_0 \in G \cdot \Theta^*$, then $\Theta_t \in G \cdot \Theta
 
 ## Step 3: Risk Minimizers Lie in Symmetry Orbits
 
-**Claim:** Every global minimizer $\widehat{\Theta}$ of $R$ satisfies $\widehat{\Theta} \in G \cdot \Theta^*$ for some $\Theta^* \in \Theta$.
+**Claim:** The set of global minimizers of $R$ is a union of complete $G$-orbits. That is, if $\widehat{\Theta}$ is a minimizer, then the entire orbit $G \cdot \widehat{\Theta}$ consists of minimizers.
 
 **Proof of Claim:**
 
@@ -198,14 +198,12 @@ K_{A,g \cdot S}^{(\widehat{\Theta})}(g \cdot u)
 If $\widehat{\Theta}$ is $G$-invariant (i.e., $g \cdot \widehat{\Theta} = \widehat{\Theta}$ for all $g$, which occurs when $\widehat{\Theta}$ is a fixed point of the $G$-action), then:
 $$K_{A,g \cdot S}^{(\widehat{\Theta})}(g \cdot u) = K_{A,S}^{(\widehat{\Theta})}(u)$$
 
-More generally, if $\widehat{\Theta}$ is only in the orbit $G \cdot \Theta^*$, we write $\widehat{\Theta} = h \cdot \Theta^*$ for some $h \in G$. Then:
+More generally, if $\widehat{\Theta}$ is only in the orbit $G \cdot \Theta^*$, we write $\widehat{\Theta} = h \cdot \Theta^*$ for some $h \in G$. Then by directly applying hypothesis (H3) with parameter $\widehat{\Theta} = h \cdot \Theta^*$:
 \begin{align*}
-K_{A,g \cdot S}^{(h \cdot \Theta^*)}(g \cdot u)
-&= K_{A,g \cdot S}^{(gh \cdot (g^{-1}h) \cdot \Theta^*)}(g \cdot u) \\
-&= K_{A,g \cdot S}^{(gh \cdot h^{-1}g^{-1}gh \cdot \Theta^*)}(g \cdot u) \\
-&= K_{A,S}^{((g^{-1}gh) \cdot \Theta^*)}(u) \quad \text{(by hypothesis (H3))} \\
-&= K_{A,S}^{(h \cdot \Theta^*)}(u)
+K_{A,g \cdot S}^{(g \cdot \widehat{\Theta})}(g \cdot u)
+&= K_{A,S}^{(\widehat{\Theta})}(u) \quad \text{(by hypothesis (H3))}
 \end{align*}
+Since $\widehat{\Theta}$ is a minimizer and by Step 1, $g \cdot \widehat{\Theta}$ is also a minimizer with $R(g \cdot \widehat{\Theta}) = R(\widehat{\Theta})$. The certificate structure is thus preserved under the group action.
 
 Thus the certificates exhibit the same symmetry pattern as the input distribution.
 
@@ -376,18 +374,18 @@ We have established all three conclusions of the theorem:
 
 ### (1) Risk Minimizers Lie in Symmetry Orbits
 
-By Steps 1 and 3, every global minimizer $\widehat{\Theta}$ of $R(\Theta)$ satisfies:
-$$\widehat{\Theta} \in G \cdot \Theta^*$$
-for some representative $\Theta^* \in \Theta/G$. This follows from $G$-invariance of $R$ and the fact that $\mathcal{M} = \{\Theta : R(\Theta) = \inf R\}$ is a union of $G$-orbits.
+By Steps 1 and 3, the set of global minimizers $\mathcal{M} = \{\Theta : R(\Theta) = \inf R\}$ is a union of complete $G$-orbits:
+$$\mathcal{M} = \bigcup_{[\Theta^*] \in \mathcal{M}/G} G \cdot \Theta^*$$
+This means that if $\widehat{\Theta}$ is a minimizer, then the entire orbit $G \cdot \widehat{\Theta}$ consists of minimizers with equal risk. This follows from $G$-invariance of $R$.
 
 ### (2) Gradient Flow Preserves Equivariance
 
 By Step 2, the gradient flow $\dot{\Theta}_t = -\nabla R(\Theta_t)$ satisfies:
-- If $\Theta_0 \in G \cdot \Theta^*$, then $\Theta_t \in G \cdot \Theta^*$ for all $t \geq 0$
-- The gradient is $G$-equivariant: $\nabla R(g \cdot \Theta) = \rho'(g)[\nabla R(\Theta)]$
-- In particular, if $\Theta_0$ is $G$-invariant (a fixed point), then $\Theta_t$ remains $G$-invariant
+- **Orbit Preservation:** If $\Theta_0 \in G \cdot \Theta^*$ (i.e., $\Theta_0$ lies in a $G$-orbit), then $\Theta_t \in G \cdot \Theta^*$ for all $t \geq 0$
+- **Gradient Equivariance:** $\nabla R(g \cdot \Theta) = \rho'(g)[\nabla R(\Theta)]$ for all $g \in G$
+- **Fixed Point Case:** In particular, if $\Theta_0$ is $G$-invariant (i.e., $g \cdot \Theta_0 = \Theta_0$ for all $g \in G$), then $\Theta_t$ remains $G$-invariant for all $t \geq 0$
 
-This is practically significant: **initializing parameters with symmetry guarantees preservation throughout training.**
+This is practically significant: **initializing parameters with symmetry (either as a fixed point or within a specific orbit) guarantees preservation throughout training.**
 
 ### (3) Learned Hypostructures Inherit System Symmetries
 

@@ -262,18 +262,12 @@ In particular, $\pi(\Phi^2) < \infty$, so $\pi(\hat{\Phi}^2) < \infty$. $\square
 
 **Claim 3.2:** The renormalized height $\hat{\Phi}$ satisfies the drift condition:
 $$\mathcal{L}\hat{\Phi}(x) \leq -\lambda \hat{\Phi}(x) + b'$$
-for some constant $b' := b + \lambda \pi(\Phi)$.
+for some constant $b' := b - \lambda \pi(\Phi)$.
 
 **Proof:** By linearity of the generator:
 $$\mathcal{L}\hat{\Phi}(x) = \mathcal{L}(\Phi(x) - \pi(\Phi)) = \mathcal{L}\Phi(x) - \mathcal{L}(\pi(\Phi)) = \mathcal{L}\Phi(x)$$
 
-since $\pi(\Phi)$ is a constant. Applying the drift condition:
-$$\mathcal{L}\hat{\Phi}(x) = \mathcal{L}\Phi(x) \leq -\lambda \Phi(x) + b = -\lambda(\hat{\Phi}(x) + \pi(\Phi)) + b = -\lambda \hat{\Phi}(x) + (b - \lambda \pi(\Phi))$$
-
-Wait, let me recalculate this correctly:
-$$\mathcal{L}\Phi(x) \leq -\lambda \Phi(x) + b$$
-
-Substituting $\Phi(x) = \hat{\Phi}(x) + \pi(\Phi)$:
+since $\pi(\Phi)$ is a constant. Applying the drift condition $\mathcal{L}\Phi(x) \leq -\lambda \Phi(x) + b$ and substituting $\Phi(x) = \hat{\Phi}(x) + \pi(\Phi)$:
 $$\mathcal{L}\hat{\Phi}(x) \leq -\lambda(\hat{\Phi}(x) + \pi(\Phi)) + b = -\lambda \hat{\Phi}(x) - \lambda \pi(\Phi) + b$$
 
 Define $b' := b - \lambda \pi(\Phi)$. Then:

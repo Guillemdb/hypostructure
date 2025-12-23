@@ -158,7 +158,11 @@ Let $B$ be a bounded set. By Step 1, there exists $T_0 = T_0(B)$ such that $S_t 
 For $t \geq T_0$, we have:
 $$S_t B = S_{t - T_0}(S_{T_0} B) \subset S_{t - T_0} B_R.$$
 
-Since $B_R$ is precompact (by $K_{C_\mu}^+$) and the semigroup is continuous (by $K_{\mathrm{TB}_\pi}^+$), the orbit $\{S_\tau B_R : \tau \geq 0\}$ is precompact.
+**Claim (Forward Invariance of $B_R$):** $S_\tau B_R \subset B_R$ for all $\tau \geq 0$.
+
+**Proof:** For any $x \in B_R$, we have $\Phi(x) \leq R$. By the dissipation certificate $K_{D_E}^+$, $\Phi(S_\tau x) \leq \Phi(x) \leq R$, hence $S_\tau x \in B_R$.
+
+**Consequence:** $\bigcup_{\tau \geq 0} S_\tau B_R \subset B_R$. Since $B_R$ is precompact (by $K_{C_\mu}^+$), the orbit $\bigcup_{\tau \geq 0} S_\tau B_R$ is precompact.
 
 By Proposition 2.2, the omega-limit set $\omega(B_R)$ is compact and non-empty.
 
@@ -167,9 +171,15 @@ By Proposition 2.2, the omega-limit set $\omega(B_R)$ is compact and non-empty.
 **Proof of Claim:** Assume by contradiction that there exist $\epsilon > 0$, a sequence $t_n \to \infty$, and points $x_n \in B$ such that
 $$\mathrm{dist}(S_{t_n} x_n, \omega(B_R)) \geq \epsilon.$$
 
-For $t_n \geq T_0$, we have $S_{t_n} x_n \in S_{t_n - T_0} B_R$. Since $B_R$ is precompact, the sequence $\{S_{t_n - T_0} y_n\}$ (where $y_n \in B_R$ with $S_{t_n} x_n = S_{t_n - T_0} y_n$) has a convergent subsequence.
+For $t_n \geq T_0$, we have $S_{t_n} x_n \in S_{t_n - T_0} B_R$. Since $\bigcup_{\tau \geq 0} S_\tau B_R$ is precompact, the sequence $\{S_{t_n} x_n\}$ has a convergent subsequence.
 
-Let $S_{t_{n_k} - T_0} y_{n_k} \to z$ as $k \to \infty$. By definition, $z \in \omega(B_R)$, contradicting the assumption that $\mathrm{dist}(S_{t_n} x_n, \omega(B_R)) \geq \epsilon$.
+Let $S_{t_{n_k}} x_{n_k} \to z$ as $k \to \infty$. We claim that $z \in \omega(B_R)$.
+
+**Verification:** For any $s \geq 0$, since $t_{n_k} \to \infty$, for sufficiently large $k$ we have $t_{n_k} - T_0 \geq s$, hence
+$$S_{t_{n_k}} x_{n_k} = S_{t_{n_k} - T_0}(S_{T_0} x_{n_k}) \in S_{t_{n_k} - T_0} B_R \subset \bigcup_{t \geq s} S_t B_R.$$
+Since $S_{t_{n_k}} x_{n_k} \to z$, we have $z \in \overline{\bigcup_{t \geq s} S_t B_R}$ for all $s \geq 0$. Therefore, $z \in \bigcap_{s \geq 0} \overline{\bigcup_{t \geq s} S_t B_R} = \omega(B_R)$.
+
+This contradicts the assumption that $\mathrm{dist}(S_{t_n} x_n, \omega(B_R)) \geq \epsilon$ along the subsequence.
 
 Thus, the semigroup is asymptotically compact with compact attracting set $K = \omega(B_R)$.
 
@@ -181,11 +191,8 @@ Thus, the semigroup is asymptotically compact with compact attracting set $K = \
 
 ### Step 3.1: Definition of the Global Attractor
 
-Following the classical construction (see {cite}`Temam97` Theorem 1.1, {cite}`Raugel02` Section 2.3, and {cite}`Hale88` Chapter 3), we define:
-$$\mathcal{A} := \omega(B_R) = \bigcap_{t \geq 0} \overline{S_t B_R}.$$
-
-Equivalently, by the absorption property:
-$$\mathcal{A} = \bigcap_{s \geq 0} \overline{\bigcup_{t \geq s} S_t B_R}.$$
+Following the classical construction (see {cite}`Temam97` Theorem 1.1, {cite}`Raugel02` Section 2.3, and {cite}`HaleBook88` Chapter 3), we define:
+$$\mathcal{A} := \omega(B_R) = \bigcap_{s \geq 0} \overline{\bigcup_{t \geq s} S_t B_R}.$$
 
 ### Step 3.2: Compactness of $\mathcal{A}$
 
@@ -222,13 +229,22 @@ $$\Phi(S_\tau y) + \int_0^\tau \mathfrak{D}(S_s y) \, ds \leq \Phi(y).$$
 
 Since $y \in \mathcal{A} \subset B_R$ and $S_t \mathcal{A} \subset \mathcal{A} \subset B_R$ (by forward invariance), the trajectory $S_\tau y$ remains in $B_R$ for all $\tau \geq 0$.
 
-Assume by contradiction that $\int_0^\infty \mathfrak{D}(S_s y) \, ds > 0$. Then for some $\tau^* > 0$:
-$$\Phi(S_{\tau^*} y) < \Phi(y) - \delta$$
-for some $\delta > 0$.
+Assume by contradiction that $\int_0^\infty \mathfrak{D}(S_s y) \, ds > 0$. Then there exists $\tau^* > 0$ such that
+$$\Phi(S_{\tau^*} y) \leq \Phi(y) - \delta$$
+for some $\delta > 0$ (by the energy-dissipation inequality).
 
-However, $y \in \omega(B_R)$ implies that for arbitrarily large times $T$, there exist $z \in B_R$ with $S_T z$ arbitrarily close to $y$. By forward invariance and continuity, $S_{T + \tau^*} z$ is close to $S_{\tau^*} y$, which has strictly lower energy than $y$.
+By forward invariance (Step 3.3.1), $S_{\tau^*} y \in \mathcal{A} = \omega(B_R)$. Therefore, there exist sequences $T_n' \to \infty$ and $w_n \in B_R$ such that
+$$S_{T_n'} w_n \to S_{\tau^*} y.$$
 
-But $y$ is in the omega-limit set, meaning it is a limit of trajectories from $B_R$ at arbitrarily large times. If the energy strictly decreases along the trajectory through $y$, then $y$ cannot be in the omega-limit set (since points with lower energy cannot limit to points with higher energy as $t \to \infty$). This contradiction establishes energy stationarity.
+By lower semicontinuity of $\Phi$:
+$$\Phi(S_{\tau^*} y) \leq \liminf_{n \to \infty} \Phi(S_{T_n'} w_n) \leq \liminf_{n \to \infty} \Phi(w_n) \leq R.$$
+
+Now, since $y \in \omega(B_R)$, there also exist sequences $T_n \to \infty$ and $z_n \in B_R$ such that $S_{T_n} z_n \to y$. By continuity of $\Phi$ (or lower semicontinuity):
+$$\Phi(y) \leq \liminf_{n \to \infty} \Phi(S_{T_n} z_n) \leq R.$$
+
+The key observation is that both $y$ and $S_{\tau^*} y$ are in $\mathcal{A} = \omega(B_R)$. If $\Phi(S_{\tau^*} y) < \Phi(y) - \delta$, then by iterating the forward map, we would have
+$$\Phi(S_{k\tau^*} y) \leq \Phi(y) - k\delta \to -\infty \quad \text{as } k \to \infty,$$
+contradicting $\Phi \geq 0$. Thus, $\Phi(S_{\tau^*} y) = \Phi(y)$, which by the energy-dissipation inequality implies $\int_0^{\tau^*} \mathfrak{D}(S_s y) \, ds = 0$. Since this holds for all $\tau^* > 0$, we have $\int_0^\infty \mathfrak{D}(S_s y) \, ds = 0$, establishing energy stationarity.
 
 **Consequence (Dissipation Vanishes on $\mathcal{A}$):**
 $$\mathfrak{D}(S_\tau y) = 0 \quad \text{for all } \tau \geq 0, \ y \in \mathcal{A}.$$
@@ -282,12 +298,21 @@ for some $\alpha > 0$ and $C(B) < \infty$ (see {cite}`Temam97` Theorem 3.1 for t
 
 **Proof of Proposition 3.3:**
 
-Suppose $\mathcal{A}'$ is another compact invariant set attracting all bounded sets. Then $\mathcal{A}'$ attracts $B_R$:
+Suppose $\mathcal{A}'$ is another compact invariant set attracting all bounded sets. We will show $\mathcal{A} \subset \mathcal{A}'$, proving that $\mathcal{A}$ is minimal.
+
+Since $\mathcal{A}'$ attracts all bounded sets, in particular it attracts $B_R$:
 $$\lim_{t \to \infty} \mathrm{dist}(S_t B_R, \mathcal{A}') = 0.$$
 
-By invariance of $\mathcal{A}'$, for any $y \in \mathcal{A}'$ and $t \geq 0$, we have $S_t y = y' \in \mathcal{A}'$ (by forward invariance). Taking $t \to \infty$ along a sequence witnessing $y \in \omega(B_R)$, we obtain $\mathcal{A}' \supset \omega(B_R) = \mathcal{A}$.
+Let $y \in \mathcal{A} = \omega(B_R)$. Then there exist sequences $t_n \to \infty$ and $x_n \in B_R$ such that $S_{t_n} x_n \to y$.
 
-Thus, $\mathcal{A}$ is the unique minimal global attractor.
+By the attraction property, for any $\epsilon > 0$, there exists $T > 0$ such that for all $t \geq T$:
+$$\mathrm{dist}(S_t B_R, \mathcal{A}') < \epsilon.$$
+
+For $n$ large enough that $t_n \geq T$, we have $\mathrm{dist}(S_{t_n} x_n, \mathcal{A}') < \epsilon$. Since $S_{t_n} x_n \to y$ and $\mathcal{A}'$ is closed (being compact), we obtain $y \in \mathcal{A}'$.
+
+Thus, $\mathcal{A} \subset \mathcal{A}'$ for any compact invariant attracting set $\mathcal{A}'$, proving minimality.
+
+**Uniqueness:** If both $\mathcal{A}$ and $\mathcal{A}'$ are minimal global attractors, then $\mathcal{A} \subset \mathcal{A}'$ and $\mathcal{A}' \subset \mathcal{A}$, hence $\mathcal{A} = \mathcal{A}'$.
 
 ---
 
@@ -350,6 +375,6 @@ when the system admits a strict Lyapunov structure (gradient-like flow). This co
 **Literature:**
 - {cite}`Temam97`: Infinite-Dimensional Dynamical Systems in Mechanics and Physics (2nd edition, Springer 1997) — Theorem 1.1 (global attractor existence), Chapter 1 (absorbing sets and asymptotic compactness)
 - {cite}`Raugel02`: Global Attractors in Partial Differential Equations, Handbook of Dynamical Systems Vol. 2 (Elsevier 2002) — comprehensive survey of attractor theory, Section 2.3 (construction methods)
-- {cite}`Hale88`: Asymptotic Behavior of Dissipative Systems, Mathematical Surveys and Monographs Vol. 25 (AMS 1988) — Chapter 3 (gradient-like semigroups and omega-limit sets)
+- {cite}`HaleBook88`: Asymptotic Behavior of Dissipative Systems, Mathematical Surveys and Monographs Vol. 25 (AMS 1988) — Chapter 3 (gradient-like semigroups and omega-limit sets)
 - {cite}`LaSalle76`: Stability theory and invariance principles (Academic Press 1976) — Barbalat's Lemma and energy-dissipation arguments
 :::

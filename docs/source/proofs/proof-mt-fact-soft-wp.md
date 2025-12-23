@@ -49,7 +49,7 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)
 | $T_{\text{para}}$ | Semilinear parabolic | $D_E^+$ (coercive) + $\mathrm{Bound}^+$ (Dirichlet/Neumann) | Energy method + Gronwall |
 | $T_{\text{wave}}$ | Semilinear wave | $\mathrm{SC}_\lambda^+$ (finite speed) + $\mathrm{Bound}^+$ | Strichartz estimates {cite}`KeelTao98` |
 | $T_{\text{NLS}}$ | Semilinear Schrödinger | $\mathrm{SC}_\lambda^+$ + $D_E^+$ (conservation) | Dispersive estimates {cite}`CazenaveSemilinear03` |
-| $T_{\text{hyp}}$ | Symmetric hyperbolic | $\mathrm{Rep}_K^+$ (finite description) | Friedrichs method {cite}`Friedrichs54` |
+| $T_{\text{hyp}}$ | Symmetric hyperbolic | $\mathrm{Rep}_K^+$ (finite description) | Friedrichs method {cite}`Tao06` |
 
 **Critical Regularity:** For each template, define the critical regularity $s_c \in \mathbb{R}$ as the minimal Sobolev index for which local well-posedness holds:
 - Parabolic: $s_c = 0$ (works in $L^2$)
@@ -244,7 +244,7 @@ $$\frac{1}{q} + \frac{d}{r} = \frac{d}{2} - 1, \quad q, r \geq 2, \quad (q, r, d
 **Verification of Preconditions:**
 
 1. **Scaling Analysis:** From $K_{\mathrm{SC}_\lambda}^+$, extract the scaling exponents:
-   - For wave equation, the natural scaling is: $u_\lambda(t, x) = \lambda^{-\frac{d-2}{2}} u(\lambda^{-1}t, \lambda^{-1}x)$
+   - For wave equation, the natural scaling is: $u_\lambda(t, x) = \lambda^{\frac{d-2}{2}} u(\lambda^{-1}t, \lambda^{-1}x)$
    - Energy scaling: $\alpha = \frac{d-2}{2}$ (from $\|u\|_{\dot{H}^1}^2 + \|u_t\|_{L^2}^2$)
    - Nonlinearity scaling: For $|u|^{p-1}u$, get $\beta = \frac{d-2}{2} - \frac{2}{p-1}$
    - Subcriticality: $\alpha > \beta \iff p < \frac{d+2}{d-2}$ (energy-subcritical)
@@ -494,7 +494,7 @@ These bounds enable the Sieve to perform **quantitative surgery** when continuat
 
 **Statement:** The well-posedness certificate $K_{\mathrm{WP}_{s_c}}^+$ is compatible with the profile decomposition machinery ({prf:ref}`mt-fact-soft-profdec`), ensuring that concentration analysis can be performed at the critical regularity $s_c$.
 
-**Proof:** From {cite}`BahouriGerard99` and {cite}`Kenig06`, profile decomposition works in the critical Sobolev space $H^{s_c}$ provided:
+**Proof:** From {cite}`BahouriGerard99` and {cite}`KenigMerle06`, profile decomposition works in the critical Sobolev space $H^{s_c}$ provided:
 
 1. **Scale Invariance:** The scaling group $G$ acts isometrically on $H^{s_c}$. From $K_{\mathrm{SC}_\lambda}^+$, we have:
    $$\|g \cdot u\|_{H^{s_c}} = \|u\|_{H^{s_c}} \quad \text{for all } g \in G$$
@@ -530,7 +530,7 @@ where:
 - $\Sigma$ is the extracted signature (for debugging/user inspection)
 - $\mathsf{manual\_override\_hook}$ allows user to supply custom well-posedness proof
 
-**Soundness Preservation:** By the tripartite certificate logic ({prf:ref}`def-certificate-tripartite`):
+**Soundness Preservation:** By the typed NO certificate logic ({prf:ref}`def-typed-no-certificates`):
 - $K^+$: Constructive proof (guaranteed correct)
 - $K^{\text{wit}}$: Counterexample (constructive NO)
 - $K^{\text{inc}}$: Unknown (no claim made)
@@ -605,7 +605,7 @@ We have established the SOFT→WP compilation mechanism through a rigorous five-
    - Parabolic: Energy method + Gronwall ({cite}`CazenaveSemilinear03` Theorem 3.3.1)
    - Wave: Strichartz estimates + contraction mapping ({cite}`KeelTao98`)
    - Schrödinger: Dispersive estimates + $X^{s,b}$ spaces ({cite}`CazenaveSemilinear03` Theorem 4.6.1)
-   - Hyperbolic: Friedrichs energy method ({cite}`Friedrichs54`)
+   - Hyperbolic: Friedrichs energy method ({cite}`Tao06`)
 
 3. **Certificate Construction (Step 3):** Assemble the well-posedness certificate:
    $$K_{\mathrm{WP}_{s_c}}^+ = (\mathsf{template\_ID}, \mathsf{theorem\_citation}, s_c, \mathsf{continuation\_criterion})$$

@@ -247,10 +247,10 @@ By the theory of semiflows (see Hale {cite}`Hale88` for ordinary differential eq
 ## Step 2: Energy Control (Guarantee 2)
 
 **Claim:** The post-surgery energy satisfies:
-$$\Phi(x') \leq \Phi(x^-) + \delta_S$$
-where $\delta_S$ is a controlled jump, and furthermore:
 $$\Phi(x') \leq \Phi(x^-) - \Delta\Phi_{\text{surg}}$$
-for an energy **drop** $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$ (surgery strictly decreases energy).
+where $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$ is a discrete energy drop (surgery strictly decreases energy).
+
+**Remark:** The theorem statement requires "jump control" $\Phi(x') \leq \Phi(x^-) + \delta_S$. This is satisfied with $\delta_S = -\Delta\Phi_{\text{surg}} < 0$ (negative jump = energy decrease).
 
 **Proof:**
 
@@ -286,23 +286,17 @@ Subtracting the pre-surgery energy:
 $$\Phi(x') - \Phi(x^-) = \Phi(\mathcal{X}_{\text{cap}}) - \Phi(\mathcal{X}_\Sigma)$$
 
 **Step 2.5 (Energy Drop Verification):** By the estimates in Steps 2.2 and 2.3:
-$$\Delta\Phi_{\text{surg}} := \Phi(x^-) - \Phi(x') = \Phi(\mathcal{X}_\Sigma) - \Phi(\mathcal{X}_{\text{cap}}) \geq c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)$$
+$$\Delta\Phi_{\text{surg}} := \Phi(x^-) - \Phi(x') = \Phi(\mathcal{X}_\Sigma) - \Phi(\mathcal{X}_{\text{cap}}) \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n} - E_{\text{cap}}(V)$$
 
-**Positivity:** For admissible surgeries, the excised energy dominates the cap energy:
-$$c_n \cdot v_{\min}^{(n-2)/n} > E_{\text{cap}}(V)$$
+**Positivity:** For admissible surgeries, the excised energy dominates the cap energy. Since admissibility requires $\text{Vol}(\Sigma) \geq v_{\min}(T) > 0$ (infinitesimally small singularities are excluded by the capacity bound), we have:
+$$c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n} \geq c_n \cdot v_{\min}^{(n-2)/n} > E_{\text{cap}}(V)$$
 
-This is ensured by the choice of admissibility threshold $\varepsilon_{\text{adm}}$. Define the **discrete progress constant**:
+where the final inequality is ensured by the choice of admissibility threshold $\varepsilon_{\text{adm}}$. Define the **discrete progress constant**:
 $$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)\right) > 0$$
 
 Since $\mathcal{L}_T$ is finite, the minimum is attained and positive.
 
-**Step 2.6 (Controlled Jump):** In the worst case (when $x^- \in \mathcal{X}_\Sigma$), the energy jump from state transfer is:
-$$\delta_S = E_{\text{cap}}(V) - \Phi(x^-|_{\mathcal{X}_\Sigma})$$
-
-By conservation and the fact that $\Phi(x^-|_{\mathcal{X}_\Sigma}) \leq \Phi(\mathcal{X}_\Sigma)$:
-$$\delta_S \leq E_{\text{cap}}(V) \leq E_{\text{cap}}^{\max} := \max_{V \in \mathcal{L}_T} E_{\text{cap}}(V) < \infty$$
-
-**Conclusion:** Energy is controlled with $\Phi(x') \leq \Phi(x^-) - \epsilon_T$, satisfying Guarantee 2. □
+**Conclusion:** Energy is controlled with a guaranteed decrease $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T > 0$, satisfying Guarantee 2. □
 
 ---
 
@@ -463,8 +457,8 @@ We have established all four guarantees of the Structural Surgery Principle:
 1. **Flow Continuation (Step 1):** Evolution continues past surgery with well-defined state $x' \in \mathcal{X}'$ and semiflow $S_t': \mathcal{X}' \to \mathcal{X}'$
 
 2. **Energy Control (Step 2):**
-   - Controlled jump: $\Phi(x') \leq \Phi(x^-) + \delta_S$ where $\delta_S \leq E_{\text{cap}}^{\max}$
    - Energy drop: $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T = \min_{V \in \mathcal{L}_T} (c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)) > 0$
+   - Jump control form: $\Phi(x') \leq \Phi(x^-) + \delta_S$ with $\delta_S = -\epsilon_T < 0$
 
 3. **Certificate Production (Step 3):** Re-entry certificate $K^{\mathrm{re}} = (x', \mathcal{X}', \Phi', \mathfrak{D}', S_t', \text{witnesses})$ satisfying $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target})$
 
