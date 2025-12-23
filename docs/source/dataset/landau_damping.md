@@ -333,7 +333,7 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 ### 3.1 Global Theorems
 *   **Global Regularity & Decay:** From Node 17 Blocked + `mt-lock-promotion`.
     *   *Result:* The electric field $E(t)$ decays asymptotically to zero.
-*   **Scattering:** From Node 3/BarrierScat + `mt-scattering-promotion`.
+*   **Scattering:** From Node 3/BarrierScat + `mt-up-scattering`.
     *   *Result:* The distribution function $f(t)$ scatters to a profile $f_\infty$ in the weak topology.
 
 ### 3.2 Quantitative Bounds
@@ -361,7 +361,7 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 *   **Critical inequality:** Mixing rate $\alpha \sim t$ exceeds echo feedback $\beta \sim \exp(-|k|^\sigma)$
 *   **Certificate:** Lock BLOCKED via E9 + E1
 
-### **4. Scattering (MT {prf:ref}`mt-scattering-promotion`)**
+### **4. Scattering (MT {prf:ref}`mt-up-scattering`)**
 *   **Input:** $K_{C_\mu}^{\mathrm{ben}}$ (BarrierScat BENIGN)
 *   **Logic:** Interaction is finite; system scatters to free state
 *   **Output:** Mode D.D (Dispersion/Global Existence)
