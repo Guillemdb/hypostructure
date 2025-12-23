@@ -17,7 +17,9 @@
 
 This document presents a **machine-checkable proof object** for **global regularity** of the 3D incompressible Navier-Stokes equations.
 
-**Approach:** We instantiate the parabolic hypostructure with the Navier-Stokes flow. The key insight is dimensional: by the CKN Theorem, singular sets have Hausdorff dimension $\le 1$. Combined with tameness ($K_{\mathrm{TB}_O}^+$), singularities are curves or points. Curve singularities reduce to 2D NS (globally regular). Point singularities imply ancient solutions, excluded by Liouville rigidity.
+**Approach:** We instantiate the parabolic hypostructure with the Navier-Stokes flow. The key insight is **permit-based dimensional analysis**: the CKN Theorem is a **Fixed Structural Fact** (not an estimate) that bounds singular set dimension to $\le 1$. This is a **Capacity Permit** ($K_{\mathrm{Cap}_H}^+$). Combined with tameness ($K_{\mathrm{TB}_O}^+$), any singularity must be a curve or point.
+
+Assume a singularity forms at $T_*$. This forces a **Canonical Profile** (Ancient Solution). We audit this profile against the **Liouville Permit**: Seregin-Šverák (2009) is a **Fixed Structural Fact** that *denies* the permit for non-trivial bounded ancient solutions. The singularity is **Excluded by Algebraic Rigidity**, not closed by estimates.
 
 **Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Dimensional Reduction (2D NS regularity) and Tactic E2 (Liouville invariant mismatch). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged; the proof is unconditional.
 

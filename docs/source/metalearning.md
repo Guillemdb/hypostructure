@@ -1,4 +1,4 @@
-# Part V: The Theory of Learning
+# The Theory of Learning
 
 *The Agent, The Loss, and The Solver.*
 

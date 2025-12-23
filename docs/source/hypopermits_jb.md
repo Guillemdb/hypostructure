@@ -4,7 +4,8 @@ subtitle: "From Higher Topos Theory to Constructive Verification"
 author: "Guillem Duran Ballester"
 ---
 
-# The Hypostructure Formalism: A Categorical Framework for Singularity Resolution
+# The Hypostructure Formalism
+A Categorical Framework for Singularity Resolution
 
 ## Abstract
 

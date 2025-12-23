@@ -4,7 +4,7 @@
 version: 1
 
 project:
-  title: The Structural Sieve
+  title: Hypostructures
   subtitle: A Certificate-Driven Framework for Singularity Exclusion
   authors:
     - name: Guillem Duran Ballester
@@ -25,6 +25,7 @@ project:
     - file: source/dataset/dataset.md
       title: Dataset
       children:
+        # Millennium Prize Problems (7)
         - file: source/dataset/poincare_conjecture.md
           title: Poincaré Conjecture
         - file: source/dataset/p_vs_np.md
@@ -39,16 +40,73 @@ project:
           title: Riemann Hypothesis
         - file: source/dataset/yang_mills.md
           title: Yang-Mills Mass Gap
+        # Famous Solved Problems (5)
+        - file: source/dataset/fermat_last_theorem.md
+          title: Fermat's Last Theorem
+        - file: source/dataset/four_color_theorem.md
+          title: Four Color Theorem
+        - file: source/dataset/kam_theory.md
+          title: KAM Theory
+        - file: source/dataset/kepler_conjecture.md
+          title: Kepler Conjecture
+        - file: source/dataset/finite_simple_groups.md
+          title: Finite Simple Groups
+        # Fields Medal Results (5)
         - file: source/dataset/langlands.md
           title: Langlands Correspondence
+        - file: source/dataset/fundamental_lemma.md
+          title: Fundamental Lemma
+        - file: source/dataset/julia_sets.md
+          title: Julia Sets (MLC)
+        - file: source/dataset/bounded_primes_gaps.md
+          title: Bounded Prime Gaps
+        - file: source/dataset/kervaire_invariant.md
+          title: Kervaire Invariant One
+        # Classical PDE Problems (5)
         - file: source/dataset/burgers_1d.md
           title: 1D Viscous Burgers
         - file: source/dataset/navier_stokes_2d.md
           title: 2D Navier-Stokes
         - file: source/dataset/landau_damping.md
           title: Landau Damping
+        - file: source/dataset/wave_1d.md
+          title: 1D Wave Equation
+        - file: source/dataset/eikonal.md
+          title: Eikonal Equation
+        # Textbook Problems (5)
+        - file: source/dataset/fundamental_theorem_algebra.md
+          title: Fundamental Theorem of Algebra
+        - file: source/dataset/heat_equation.md
+          title: Heat Equation Stability
+        - file: source/dataset/jordan_curve_theorem.md
+          title: Jordan Curve Theorem
+        - file: source/dataset/ergodic_markov_chains.md
+          title: Ergodic Markov Chains
+        - file: source/dataset/dirac_theorem.md
+          title: Dirac's Theorem
+        # Algorithmic Problems (2)
+        - file: source/dataset/bubble_sort.md
+          title: Bubble Sort Termination
+        - file: source/dataset/newton_matrix.md
+          title: Newton's Method (Matrix)
+        # Dynamical Systems (3)
+        - file: source/dataset/pendulum.md
+          title: Simple Pendulum
+        - file: source/dataset/logistic_map.md
+          title: Logistic Map
+        - file: source/dataset/irrational_rotation.md
+          title: Irrational Rotation
+        # Statistical Physics (1)
+        - file: source/dataset/ising_2d.md
+          title: 2D Ising Model
+        # Geometry/Tilings (1)
+        - file: source/dataset/pentagon_tiling.md
+          title: Pentagon Tiling
+        # Frontier/Open Problems (2)
         - file: source/dataset/quantum_gravity.md
           title: Quantum Gravity
+        - file: source/dataset/collatz.md
+          title: Collatz Conjecture
     - file: source/prompts/prompts.md
       title: Prompts
       children:
@@ -87,6 +145,7 @@ site:
       children:
         - title: Overview
           url: /dataset
+        # Millennium Prize Problems
         - title: Poincaré Conjecture
           url: /poincare-conjecture
         - title: P vs NP
@@ -101,16 +160,73 @@ site:
           url: /riemann-hypothesis
         - title: Yang-Mills Mass Gap
           url: /yang-mills
+        # Famous Solved Problems
+        - title: Fermat's Last Theorem
+          url: /fermat-last-theorem
+        - title: Four Color Theorem
+          url: /four-color-theorem
+        - title: KAM Theory
+          url: /kam-theory
+        - title: Kepler Conjecture
+          url: /kepler-conjecture
+        - title: Finite Simple Groups
+          url: /finite-simple-groups
+        # Fields Medal Results
         - title: Langlands Correspondence
           url: /langlands
+        - title: Fundamental Lemma
+          url: /fundamental-lemma
+        - title: Julia Sets (MLC)
+          url: /julia-sets
+        - title: Bounded Prime Gaps
+          url: /bounded-primes-gaps
+        - title: Kervaire Invariant One
+          url: /kervaire-invariant
+        # Classical PDE Problems
         - title: 1D Viscous Burgers
           url: /burgers-1d
         - title: 2D Navier-Stokes
           url: /navier-stokes-2d
         - title: Landau Damping
           url: /landau-damping
+        - title: 1D Wave Equation
+          url: /wave-1d
+        - title: Eikonal Equation
+          url: /eikonal
+        # Textbook Problems
+        - title: Fundamental Theorem of Algebra
+          url: /fundamental-theorem-algebra
+        - title: Heat Equation Stability
+          url: /heat-equation
+        - title: Jordan Curve Theorem
+          url: /jordan-curve-theorem
+        - title: Ergodic Markov Chains
+          url: /ergodic-markov-chains
+        - title: Dirac's Theorem
+          url: /dirac-theorem
+        # Algorithmic Problems
+        - title: Bubble Sort Termination
+          url: /bubble-sort
+        - title: Newton's Method (Matrix)
+          url: /newton-matrix
+        # Dynamical Systems
+        - title: Simple Pendulum
+          url: /pendulum
+        - title: Logistic Map
+          url: /logistic-map
+        - title: Irrational Rotation
+          url: /irrational-rotation
+        # Statistical Physics
+        - title: 2D Ising Model
+          url: /ising-2d
+        # Geometry/Tilings
+        - title: Pentagon Tiling
+          url: /pentagon-tiling
+        # Frontier/Open Problems
         - title: Quantum Gravity
           url: /quantum-gravity
+        - title: Collatz Conjecture
+          url: /collatz
     - title: Prompts
       children:
         - title: Overview

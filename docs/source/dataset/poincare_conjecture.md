@@ -29,7 +29,11 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGua
 
 This document presents a **machine-checkable proof object** for the **Poincaré Conjecture** using the Hypostructure framework.
 
-**Approach:** We instantiate the parabolic hypostructure with the Ricci flow on closed 3-manifolds. The naive energy $\Phi_0 = -\int R\,dV$ fails energy bounds (Node 1 breached), triggering Lyapunov reconstruction. Perelman's $\mathcal{F}$ and $\mathcal{W}$ functionals are recovered via MT-Lyap-1/2, discharging the stiffness inc certificate. Surgery handles singularities via canonical profiles.
+**Approach:** The Ricci Flow is a **Parabolic Hypostructure**. When $|Rm| \to \infty$, it triggers **Mode C.D (Geometric Collapse)**. This is not a failure—it is a **Topological Transition** encoded in the **SectorMap ($K_{\mathrm{TB}_\pi}$)**.
+
+We audit the resulting **Neck Profile** at the singularity. The audit confirms that the "Neck" has a **Symmetry Permit** ($K_{\mathrm{Rec}_N}^+$) for excision: the canonical $S^2 \times \mathbb{R}$ profile is **structurally rigid** (Perelman's canonical neighborhoods). Surgery is not a "human fix"—it is the **Recovery Interface** operating automatically on permitted singularity types.
+
+The naive energy $\Phi_0 = -\int R\,dV$ fails energy bounds (Node 1 breached), triggering Lyapunov reconstruction. Perelman's $\mathcal{F}$ and $\mathcal{W}$ functionals are recovered via MT-Lyap-1/2, discharging the stiffness inc certificate.
 
 **Result:** The Lock is blocked via Tactics E2 (Invariant Mismatch) and E10 (Definability), establishing global regularity with surgery. All inc certificates are discharged; the proof is unconditional.
 
