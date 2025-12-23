@@ -1,6 +1,6 @@
 # Dataset
 
-This dataset serves as a comprehensive stress-test suite for evaluating the capabilities of the Hypostructure framework. It contains 36 carefully selected mathematical problems spanning diverse domains—from millennium prize problems to classical textbook results—designed to probe the framework's ability to generate machine-checkable proof objects across varying levels of difficulty and structural complexity.
+This dataset serves as a comprehensive stress-test suite for evaluating the capabilities of the Hypostructure framework. It contains 37 carefully selected mathematical problems spanning diverse domains—from millennium prize problems to classical textbook results—designed to probe the framework's ability to generate machine-checkable proof objects across varying levels of difficulty and structural complexity.
 
 ## Overview
 
@@ -15,96 +15,134 @@ The dataset includes problems that exercise all major components of the Structur
 
 ### Millennium Prize Problems (7)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Poincaré Conjecture](poincare_conjecture.md) | $T_{\text{parabolic}}$ | Geometric Topology | SOLVED | Yes (Perelman 2003) |
-| [P vs NP](p_vs_np.md) | $T_{\text{algorithmic}}$ | Complexity Theory | SINGULARITY | Open |
-| [Navier-Stokes 3D](navier_stokes_3d.md) | $T_{\text{parabolic}}$ | Fluid Dynamics | SOLVED | Open |
-| [BSD Conjecture](bsd_conjecture.md) | $T_{\text{alg}}$ | Arithmetic Geometry | SOLVED | Open |
-| [Hodge Conjecture](hodge_conjecture.md) | $T_{\text{alg}}$ | Algebraic Geometry | SOLVED | Open |
-| [Riemann Hypothesis](riemann_hypothesis.md) | $T_{\text{quant}}$ | Analytic Number Theory | SOLVED | Open |
-| [Yang-Mills Mass Gap](yang_mills.md) | $T_{\text{quant}}$ | Quantum Field Theory | SOLVED | Open |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Poincaré Conjecture](poincare_conjecture.md) | $T_{\text{parabolic}}$ | Geometric Topology | SOLVED | (IV-Resurrected, 12) | Yes (Perelman 2003) |
+| [P vs NP](p_vs_np.md) | $T_{\text{algorithmic}}$ | Complexity Theory | SINGULARITY | (VII-Singular, 9) | Open |
+| [Navier-Stokes 3D](navier_stokes_3d.md) | $T_{\text{parabolic}}$ | Fluid Dynamics | SOLVED | (II-Relaxed, 12) | Open |
+| [BSD Conjecture](bsd_conjecture.md) | $T_{\text{alg}}$ | Arithmetic Geometry | SOLVED | (I-Stable, 12) | Open |
+| [Hodge Conjecture](hodge_conjecture.md) | $T_{\text{alg}}$ | Algebraic Geometry | SOLVED | (I-Stable, 12) | Open |
+| [Riemann Hypothesis](riemann_hypothesis.md) | $T_{\text{quant}}$ | Analytic Number Theory | SOLVED | (I-Stable, 12) | Open |
+| [Yang-Mills Mass Gap](yang_mills.md) | $T_{\text{quant}}$ | Quantum Field Theory | SOLVED | (III-Gauged, 12) | Open |
 
-### Famous Solved Problems (5)
+### Famous Solved Problems (6)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Fermat's Last Theorem](fermat_last_theorem.md) | $T_{\text{algebraic}}$ | Number Theory | SOLVED | Yes (Wiles 1995) |
-| [Four Color Theorem](four_color_theorem.md) | $T_{\text{combinatorial}}$ | Graph Theory | SOLVED | Yes (Appel-Haken 1976) |
-| [KAM Theory](kam_theory.md) | $T_{\text{hamiltonian}}$ | Dynamical Systems | SOLVED | Yes (KAM 1954-63) |
-| [Kepler Conjecture](kepler_conjecture.md) | $T_{\text{geometric}}$ | Discrete Geometry | SOLVED | Yes (Hales 2005) |
-| [Finite Simple Groups](finite_simple_groups.md) | $T_{\text{algebraic}}$ | Group Theory | SOLVED | Yes (Gorenstein et al) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Fermat's Last Theorem](fermat_last_theorem.md) | $T_{\text{algebraic}}$ | Number Theory | SOLVED | (I-Stable, 12) | Yes (Wiles 1995) |
+| [Four Color Theorem](four_color_theorem.md) | $T_{\text{combinatorial}}$ | Graph Theory | SOLVED | (V-Synthetic, 12) | Yes (Appel-Haken 1976) |
+| [KAM Theory](kam_theory.md) | $T_{\text{hamiltonian}}$ | Dynamical Systems | SOLVED | (II-Relaxed, 7) | Yes (KAM 1954-63) |
+| [Kepler Conjecture](kepler_conjecture.md) | $T_{\text{geometric}}$ | Discrete Geometry | SOLVED | (V-Synthetic, 12) | Yes (Hales 2005) |
+| [Finite Simple Groups](finite_simple_groups.md) | $T_{\text{algebraic}}$ | Group Theory | SOLVED | (V-Synthetic, 12) | Yes (Gorenstein et al) |
+| [Kodaira-Spencer Deformation](kodaira_spencer.md) | $T_{\text{alg}}$ | Complex Geometry | SOLVED | (II-Relaxed, 7) | Yes (Kodaira-Spencer 1958) |
 
 ### Fields Medal Results (5)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Langlands Correspondence](langlands.md) | $T_{\text{hybrid}}$ | Number Theory | SOLVED | Open (partial) |
-| [Fundamental Lemma](fundamental_lemma.md) | $T_{\text{algebraic}}$ | Representation Theory | SOLVED | Yes (Ngô 2008) |
-| [Julia Sets (MLC)](julia_sets.md) | $T_{\text{dynamical}}$ | Complex Dynamics | SOLVED | Yes (Yoccoz 1994) |
-| [Bounded Prime Gaps](bounded_primes_gaps.md) | $T_{\text{analytic}}$ | Number Theory | SOLVED | Yes (Zhang/Maynard 2013-15) |
-| [Kervaire Invariant One](kervaire_invariant.md) | $T_{\text{homotopical}}$ | Algebraic Topology | SOLVED | Yes (HHR 2016) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Langlands Correspondence](langlands.md) | $T_{\text{hybrid}}$ | Number Theory | SOLVED | (III-Gauged, 12) | Open (partial) |
+| [Fundamental Lemma](fundamental_lemma.md) | $T_{\text{algebraic}}$ | Representation Theory | SOLVED | (III-Gauged, 12) | Yes (Ngô 2008) |
+| [Julia Sets (MLC)](julia_sets.md) | $T_{\text{dynamical}}$ | Complex Dynamics | SOLVED | (II-Relaxed, 9) | Yes (Yoccoz 1994) |
+| [Bounded Prime Gaps](bounded_primes_gaps.md) | $T_{\text{analytic}}$ | Number Theory | SOLVED | (I-Stable, 12) | Yes (Zhang/Maynard 2013-15) |
+| [Kervaire Invariant One](kervaire_invariant.md) | $T_{\text{homotopical}}$ | Algebraic Topology | SOLVED | (I-Stable, 12) | Yes (HHR 2016) |
 
 ### Classical PDE Problems (3)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [1D Viscous Burgers](burgers_1d.md) | $T_{\text{parabolic}}$ | Scalar PDE | SOLVED | Yes (classical) |
-| [2D Navier-Stokes](navier_stokes_2d.md) | $T_{\text{parabolic}}$ | Fluid Dynamics | SOLVED | Yes (Ladyzhenskaya 1959) |
-| [Landau Damping](landau_damping.md) | $T_{\text{kinetic}}$ | Plasma Physics | SOLVED | Yes (Mouhot-Villani 2011) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [1D Viscous Burgers](burgers_1d.md) | $T_{\text{parabolic}}$ | Scalar PDE | SOLVED | (I-Stable, 12) | Yes (classical) |
+| [2D Navier-Stokes](navier_stokes_2d.md) | $T_{\text{parabolic}}$ | Fluid Dynamics | SOLVED | (I-Stable, 12) | Yes (Ladyzhenskaya 1959) |
+| [Landau Damping](landau_damping.md) | $T_{\text{kinetic}}$ | Plasma Physics | SOLVED | (II-Relaxed, 9) | Yes (Mouhot-Villani 2011) |
 
 ### Textbook Problems (5)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Fundamental Theorem of Algebra](fundamental_theorem_algebra.md) | $T_{\text{topological}}$ | Complex Analysis | SOLVED | Yes (classical) |
-| [Heat Equation Stability](heat_equation.md) | $T_{\text{parabolic}}$ | PDE Theory | SOLVED | Yes (classical) |
-| [Jordan Curve Theorem](jordan_curve_theorem.md) | $T_{\text{topological}}$ | Point-Set Topology | SOLVED | Yes (classical) |
-| [Ergodic Markov Chains](ergodic_markov_chains.md) | $T_{\text{stochastic}}$ | Probability Theory | SOLVED | Yes (classical) |
-| [Dirac's Theorem](dirac_theorem.md) | $T_{\text{combinatorial}}$ | Graph Theory | SOLVED | Yes (Dirac 1952) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Fundamental Theorem of Algebra](fundamental_theorem_algebra.md) | $T_{\text{topological}}$ | Complex Analysis | SOLVED | (I-Stable, 12) | Yes (classical) |
+| [Heat Equation Stability](heat_equation.md) | $T_{\text{parabolic}}$ | PDE Theory | SOLVED | (I-Stable, 12) | Yes (classical) |
+| [Jordan Curve Theorem](jordan_curve_theorem.md) | $T_{\text{topological}}$ | Point-Set Topology | SOLVED | (I-Stable, 12) | Yes (classical) |
+| [Ergodic Markov Chains](ergodic_markov_chains.md) | $T_{\text{stochastic}}$ | Probability Theory | SOLVED | (I-Stable, 9) | Yes (classical) |
+| [Dirac's Theorem](dirac_theorem.md) | $T_{\text{combinatorial}}$ | Graph Theory | SOLVED | (I-Stable, 12) | Yes (Dirac 1952) |
 
 ### Algorithmic Problems (2)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Bubble Sort Termination](bubble_sort.md) | $T_{\text{discrete}}$ | Algorithm Analysis | SOLVED | Yes (classical) |
-| [Newton's Method (Matrix)](newton_method.md) | $T_{\text{hybrid}}$ | Numerical Analysis | SOLVED | Yes (classical) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Bubble Sort Termination](bubble_sort.md) | $T_{\text{discrete}}$ | Algorithm Analysis | SOLVED | (I-Stable, 6) | Yes (classical) |
+| [Newton's Method (Matrix)](newton_method.md) | $T_{\text{hybrid}}$ | Numerical Analysis | SOLVED | (III-Gauged, 12) | Yes (classical) |
 
 ### Dynamical Systems (4)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Simple Pendulum](simple_pendulum.md) | $T_{\text{hamiltonian}}$ | Classical Mechanics | SOLVED | Yes (classical) |
-| [Logistic Map](logistic_map.md) | $T_{\text{discrete}}$ | Chaos Theory | SINGULARITY | Yes (Feigenbaum 1978) |
-| [Irrational Rotation](irrational_rotation.md) | $T_{\text{discrete}}$ | Ergodic Theory | HORIZON | N/A (epistemic) |
-| [Collatz Conjecture](collatz.md) | $T_{\text{discrete}}$ | Number Theory/Dynamics | SOLVED | Open |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Simple Pendulum](simple_pendulum.md) | $T_{\text{hamiltonian}}$ | Classical Mechanics | SOLVED | (IV-Resurrected, 7) | Yes (classical) |
+| [Logistic Map](logistic_map.md) | $T_{\text{discrete}}$ | Chaos Theory | SINGULARITY | (VII-Singular, 9) | Yes (Feigenbaum 1978) |
+| [Irrational Rotation](irrational_rotation.md) | $T_{\text{discrete}}$ | Ergodic Theory | HORIZON | (VIII-Horizon, 9) | N/A (epistemic) |
+| [Collatz Conjecture](collatz.md) | $T_{\text{discrete}}$ | Number Theory/Dynamics | SOLVED | (II-Relaxed, 9) | Open |
 
 ### Statistical Physics (1)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [2D Ising Model](ising_model.md) | $T_{\text{stochastic}}$ | Statistical Mechanics | SOLVED | Yes (Onsager 1944) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [2D Ising Model](ising_model.md) | $T_{\text{stochastic}}$ | Statistical Mechanics | SOLVED | (IV-Resurrected, 7) | Yes (Onsager 1944) |
 
 ### Geometry & Tilings (1)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Pentagon Tiling](pentagon_tiling.md) | $T_{\text{combinatorial}}$ | Discrete Geometry | SOLVED | Yes (classical) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Pentagon Tiling](pentagon_tiling.md) | $T_{\text{combinatorial}}$ | Discrete Geometry | SINGULARITY | (VI-Forbidden, 1) | Yes (classical) |
 
 ### Frontier Problem (1)
 
-| Problem | Type | Domain | Verdict | Matches Literature? |
-|---------|------|--------|---------|---------------------|
-| [Quantum Gravity](quantum_gravity.md) | $T_{\text{quant}}$ | Theoretical Physics | HORIZON | N/A (no consensus) |
+| Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
+|---------|------|--------|---------|-------------|---------------------|
+| [Quantum Gravity](quantum_gravity.md) | $T_{\text{quant}}$ | Theoretical Physics | HORIZON | (VIII-Horizon, 12) | N/A (no consensus) |
 
 ## Verdict Distribution
 
 | Verdict | Count | Description |
 |---------|-------|-------------|
 | **SOLVED** | 31 | Lock successfully blocked; unconditional proof object generated |
-| **SINGULARITY** | 2 | Morphism exists; singularity confirmed (P ≠ NP, Logistic Map chaos) |
+| **SINGULARITY** | 3 | Morphism exists; singularity confirmed (P ≠ NP, Logistic Map, Pentagon Tiling) |
 | **HORIZON** | 2 | Lock breached; requires meta-learning for resolution |
 | **PARTIAL** | 1 | Some nodes pass, others inconclusive |
+
+## 8×21 Classification (Periodic Table)
+
+Each problem is classified by its **Cell (8×21)** position in the Structural Anatomy of Strata, defined by two coordinates:
+
+### Certificate Families (Rows I–VIII)
+
+| Family | Symbol | Description | Count |
+|--------|--------|-------------|-------|
+| I-Stable | $K^+$ | Direct certificate, no regularization | 14 |
+| II-Relaxed | $K^+$ | Certificate after soft regularization | 6 |
+| III-Gauged | $K^+$ | Certificate with gauge-fixed interface | 4 |
+| IV-Resurrected | $K^+$ | Certificate after breach-surgery | 3 |
+| V-Synthetic | $K^+$ | Computer-verified certificate | 3 |
+| VI-Forbidden | $K^-$ | Structural impossibility proven | 1 |
+| VII-Singular | $K^{\mathrm{br}}$ | Singularity confirmed | 2 |
+| VIII-Horizon | $K^{\mathrm{blk}}$ | Epistemic boundary reached | 2 |
+
+### Filter Strata (Columns 1–17)
+
+| Node | Name | Problems at This Stratum |
+|------|------|--------------------------|
+| 1 | Dimension | 1 (Pentagon Tiling) |
+| 6 | Causal | 1 (Bubble Sort) |
+| 7 | Stiffness/Bifurcation | 4 (KAM, Kodaira-Spencer, Pendulum, Ising) |
+| 9 | Ergodic | 7 (P vs NP, Collatz, Julia Sets, Landau Damping, Ergodic Markov, Logistic Map, Irrational Rotation) |
+| 12 | Lock | 22 (most problems reach lock mechanism) |
+
+### Cell Notation
+
+Format: `(Family, Node)` where Family indicates the certificate type and Node indicates the stratum where the maximal certificate is achieved.
+
+**Examples:**
+- `(I-Stable, 12)`: Direct $K^+$ certificate at Node 12 lock (e.g., BSD Conjecture)
+- `(IV-Resurrected, 12)`: Certificate after surgery, lock at Node 12 (e.g., Poincaré Conjecture)
+- `(IV-Resurrected, 7)`: Certificate after surgery at Node 7 bifurcation (e.g., 2D Ising Model)
+- `(VII-Singular, 9)`: Singularity confirmed at Node 9 ergodic (e.g., P vs NP)
 
 ## Problem Descriptions
 
@@ -135,6 +173,8 @@ The dataset includes problems that exercise all major components of the Structur
 - **Kepler Conjecture**: The densest sphere packing in $\mathbb{R}^3$ has density $\pi/(3\sqrt{2})$. Lock BLOCKED via E10 (Definability): O-minimal Permit certifies finite search; computer-assisted verification blocks denser packings. *Matches Literature: Yes (Hales 2005)*
 
 - **Classification of Finite Simple Groups**: Every finite simple group belongs to one of 4 families (cyclic, alternating, Lie type, 26 sporadic). Lock BLOCKED via E10 (Definability): Exhaustive case Permit; finite check blocks undiscovered groups. *Matches Literature: Yes (Gorenstein et al)*
+
+- **Kodaira-Spencer Deformation Theory**: Compact complex manifolds admit versal deformations with moduli space (Kuranishi space) controlled by cohomology $H^i(T_M)$. Lock BLOCKED via E10 (Definability): Kuranishi space is analytic germ, hence o-minimal definable; Stiffness Restoration Subtree passes via bifurcation ($H^2$) and automorphism ($H^0$) tracking. *Matches Literature: Yes (Kodaira-Spencer 1958, Kuranishi 1965)*
 
 ### Fields Medal Results (5)
 

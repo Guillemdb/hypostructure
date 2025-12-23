@@ -447,6 +447,7 @@ Full DAG (all barriers/surgeries/restoration subtree): see the Mermaid graph in 
 - `mt-fact-soft-rigidity` ({prf:ref}`mt-fact-soft-rigidity`): $K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Rigidity}_T}^+$.
 - `mt-fact-soft-attr` ({prf:ref}`mt-fact-soft-attr`): $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$ ⇒ $K_{\mathrm{Attr}}^+$.
 - `mt-fact-soft-morse` ({prf:ref}`mt-fact-soft-morse`): $K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$ ⇒ $K_{\mathrm{MorseDecomp}}^+$.
+- `mt-fact-germ-density` ({prf:ref}`mt-fact-germ-density`): $\mathcal{B}$ dense in $\mathbb{H}_{\mathrm{bad}}^{(T)}$ ⇒ finite library suffices for Lock (Node 17).
 - `mt-resolve-weakest-pre` ({prf:ref}`mt-resolve-weakest-pre`): define thin objects + implement interface predicates ⇒ run Sieve; regularity is an output certificate, not an assumption.
 
 ### 6.2 Lyapunov reconstruction (`hypopermits_jb.md`)

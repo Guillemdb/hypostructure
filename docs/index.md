@@ -40,22 +40,6 @@ This is why the framework includes nodes that might seem strange for pure mathem
 
 ---
 
-## The Problem: The "Page 30" Wall
-
-Ask a SOTA model to write a 50-page proof. It will fail.
-
-Not because it lacks knowledge. Because it **drifts**. By page 30, the model is making claims that subtly contradict assumptions from page 12. It loses track of which variables are bound, which lemmas are in scope, which case of the induction it's actually in.
-
-Here's the core issue: **LLMs have a context window for tokens, but they don't have a context window for logic.**
-
-They can remember what you said. They can't remember what they've *proven*. There's no persistent state-machine tracking logical invariants across a long derivation.
-
-We treat proofs like essays. But proofs are programs. They have state, dependencies, and invariants that must hold at every step.
-
-So I built a compiler.
-
----
-
 ## The Machine: A 17-Node "Linter" for Proofs
 
 The **Structural Sieve** is a 17-node directed acyclic graph that acts as a type-checker for mathematical arguments. You feed it a problem, and it executes a diagnostic pass that either:
