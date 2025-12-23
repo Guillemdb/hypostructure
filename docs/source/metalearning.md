@@ -66,7 +66,7 @@ We verify the characterization for each axiom $A \in \mathcal{A}$:
 In each case, $K_A^{(\theta)}(u) \geq 0$ with equality if and only if the constraint is satisfied exactly.
 :::
 
-### Global defect functionals and axiom risk
+### Global defect functionals and defect risk
 
 :::{prf:definition} Trajectory measure
 :label: def-trajectory-measure
@@ -89,15 +89,15 @@ For an admissible class $\mathcal{U}_{\text{adm}} \subset \mathcal{U}$, define:
 $$\mathcal{K}_A(\theta) := \sup_{u \in \mathcal{U}_{\text{adm}}} K_A^{(\theta)}(u).$$
 :::
 
-:::{prf:definition} Joint axiom risk
-:label: def-joint-axiom-risk
+:::{prf:definition} Joint defect risk
+:label: def-joint-defect-risk
 
-For a finite family of soft axioms $\mathcal{A}$ with nonnegative weights $(w_A)_{A \in \mathcal{A}}$, define the **joint axiom risk**:
+For a finite family of soft axioms $\mathcal{A}$ with nonnegative weights $(w_A)_{A \in \mathcal{A}}$, define the **joint defect risk**:
 $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta).$$
 :::
 
-:::{prf:lemma} Interpretation of axiom risk
-:label: lem-interpretation-of-axiom-risk
+:::{prf:lemma} Interpretation of defect risk
+:label: lem-interpretation-of-defect-risk
 
 The quantity $\mathcal{R}_A(\theta)$ measures the global quality of axiom $A_\theta$:
 
@@ -120,7 +120,7 @@ The interpretation follows from the positivity and integrability of the defect f
 
 #### The Meta-Objective Functional
 
-The joint axiom risk $\mathcal{R}(\theta)$ admits a variational interpretation. We introduce the **Meta-Objective Functional** and the **Principle of Least Structural Defect**.
+The joint defect risk $\mathcal{R}(\theta)$ admits a variational interpretation. We introduce the **Meta-Objective Functional** and the **Principle of Least Structural Defect**.
 
 :::{prf:definition} Meta-Objective Functional
 :label: def-meta-action-functional
@@ -150,7 +150,7 @@ $$
 :::{prf:proposition} Variational Characterization
 :label: prop-variational-characterization
 
-Under the assumptions of {prf:ref}`mt-existence-of-axiom-minimizers`, the global axiom minimizer $\theta^*$ satisfies the variational equation:
+Under the assumptions of {prf:ref}`mt-existence-of-defect-minimizers`, the global defect minimizer $\theta^*$ satisfies the variational equation:
 $$
 \nabla_\theta \mathcal{S}_{\text{meta}}(\theta^*) = 0.
 $$
@@ -158,20 +158,20 @@ Moreover, if $\mathcal{S}_{\text{meta}}$ is strictly convex, $\theta^*$ is uniqu
 :::
 
 :::{prf:proof}
-By {prf:ref}`mt-existence-of-axiom-minimizers`, $\theta^*$ exists. If $\theta^*$ is an interior point of $\Theta$, the first-order necessary condition is $\nabla_\theta \mathcal{S}_{\text{meta}}(\theta^*) = 0$. Strict convexity implies uniqueness by standard arguments.
+By {prf:ref}`mt-existence-of-defect-minimizers`, $\theta^*$ exists. If $\theta^*$ is an interior point of $\Theta$, the first-order necessary condition is $\nabla_\theta \mathcal{S}_{\text{meta}}(\theta^*) = 0$. Strict convexity implies uniqueness by standard arguments.
 :::
 
-### Trainable global axioms
+### Trainable global permits
 
-:::{prf:definition} Global axiom minimizer
-:label: def-global-axiom-minimizer
+:::{prf:definition} Global defect minimizer
+:label: def-global-defect-minimizer
 
-A point $\theta^* \in \Theta$ is a **global axiom minimizer** if:
+A point $\theta^* \in \Theta$ is a **global defect minimizer** if:
 $$\mathcal{R}(\theta^*) = \inf_{\theta \in \Theta} \mathcal{R}(\theta).$$
 :::
 
-:::{prf:metatheorem} Existence of Axiom Minimizers
-:label: mt-existence-of-axiom-minimizers
+:::{prf:metatheorem} Existence of Defect Minimizers
+:label: mt-existence-of-defect-minimizers
 
 Assume:
 
@@ -179,7 +179,7 @@ Assume:
 2. For each $A \in \mathcal{A}$ and each $u \in \mathcal{U}$, the map $\theta \mapsto K_A^{(\theta)}(u)$ is continuous on $\Theta$.
 3. There exists an integrable majorant $M_A \in L^1(\mu)$ such that $0 \leq K_A^{(\theta)}(u) \leq M_A(u)$ for all $\theta \in \Theta$ and $\mu$-a.e. $u$.
 
-Then, for each $A \in \mathcal{A}$, the expected defect $\mathcal{R}_A(\theta)$ is finite and continuous on $\Theta$. Consequently, the joint risk $\mathcal{R}(\theta)$ is continuous and attains its infimum on $\Theta$. There exists at least one global axiom minimizer $\theta^* \in \Theta$.
+Then, for each $A \in \mathcal{A}$, the expected defect $\mathcal{R}_A(\theta)$ is finite and continuous on $\Theta$. Consequently, the joint risk $\mathcal{R}(\theta)$ is continuous and attains its infimum on $\Theta$. There exists at least one global defect minimizer $\theta^* \in \Theta$.
 :::
 
 :::{prf:proof}
@@ -210,8 +210,8 @@ If $\mathcal{R}_A(\theta^*) = \int K_A^{(\theta^*)} d\mu = 0$ and $K_A^{(\theta^
 
 Assume $\Theta \subset \mathbb{R}^d$ is open and convex.
 
-:::{prf:lemma} Leibniz rule for axiom risk
-:label: lem-leibniz-rule-for-axiom-risk
+:::{prf:lemma} Leibniz rule for defect risk
+:label: lem-leibniz-rule-for-defect-risk
 
 Assume:
 
@@ -238,7 +238,7 @@ By dominated convergence, differentiation passes through the integral.
 :::{prf:corollary} Gradient of joint risk
 :label: cor-gradient-of-joint-risk
 
-Under the assumptions of {prf:ref}`lem-leibniz-rule-for-axiom-risk`:
+Under the assumptions of {prf:ref}`lem-leibniz-rule-for-defect-risk`:
 $$\nabla_\theta \mathcal{R}(\theta) = \sum_{A \in \mathcal{A}} w_A \int_{\mathcal{U}} \nabla_\theta K_A^{(\theta)}(u) \, d\mu(u).$$
 :::
 
@@ -250,9 +250,9 @@ $$\theta_{k+1} = \theta_k - \eta_k \nabla_\theta \mathcal{R}(\theta_k)$$
 with step sizes $\eta_k > 0$ satisfying $\sum_k \eta_k = \infty$ and $\sum_k \eta_k^2 < \infty$.
 :::
 
-Under the assumptions of {prf:ref}`lem-leibniz-rule-for-axiom-risk`, together with Lipschitz continuity of $\nabla_\theta \mathcal{R}$, the sequence $(\theta_k)$ has accumulation points, and every accumulation point is a stationary point of $\mathcal{R}$.
+Under the assumptions of {prf:ref}`lem-leibniz-rule-for-defect-risk`, together with Lipschitz continuity of $\nabla_\theta \mathcal{R}$, the sequence $(\theta_k)$ has accumulation points, and every accumulation point is a stationary point of $\mathcal{R}$.
 
-If additionally $\mathcal{R}$ is convex, every accumulation point is a global axiom minimizer.
+If additionally $\mathcal{R}$ is convex, every accumulation point is a global defect minimizer.
 
 :::{prf:proof}
 We apply the Robbins-Monro theorem.
@@ -264,7 +264,7 @@ $$\mathcal{R}(\theta_{k+1}) \leq \mathcal{R}(\theta_k) - \eta_k \|\nabla \mathca
 $$\sum_{k=0}^\infty \eta_k(1 - L\eta_k/2)\|\nabla \mathcal{R}(\theta_k)\|^2 \leq \mathcal{R}(\theta_0) - \inf \mathcal{R} < \infty.$$
 Since $\sum_k \eta_k = \infty$ and $\eta_k \to 0$, we have $\liminf_{k \to \infty} \|\nabla \mathcal{R}(\theta_k)\| = 0$.
 
-**Step 3 (Accumulation points).** Compactness of $\Theta$ ({prf:ref}`mt-existence-of-axiom-minimizers`, assumption 1) ensures $(\theta_k)$ has accumulation points. Continuity of $\nabla \mathcal{R}$ implies any accumulation point $\theta^*$ satisfies $\nabla \mathcal{R}(\theta^*) = 0$ (stationary).
+**Step 3 (Accumulation points).** Compactness of $\Theta$ ({prf:ref}`mt-existence-of-defect-minimizers`, assumption 1) ensures $(\theta_k)$ has accumulation points. Continuity of $\nabla \mathcal{R}$ implies any accumulation point $\theta^*$ satisfies $\nabla \mathcal{R}(\theta^*) = 0$ (stationary).
 
 **Step 4 (Convex case).** If $\mathcal{R}$ is convex, stationary points satisfy $\nabla \mathcal{R}(\theta^*) = 0$ if and only if $\theta^*$ is a global minimizer.
 :::
@@ -296,7 +296,7 @@ where:
 :::{prf:metatheorem} Joint Training Dynamics
 :label: mt-joint-training-dynamics
 
-Under differentiability assumptions analogous to {prf:ref}`lem-leibniz-rule-for-axiom-risk` for both $\theta$ and $\vartheta$, the objective $\mathcal{L}$ is differentiable in $(\theta, \vartheta)$. The joint gradient descent:
+Under differentiability assumptions analogous to {prf:ref}`lem-leibniz-rule-for-defect-risk` for both $\theta$ and $\vartheta$, the objective $\mathcal{L}$ is differentiable in $(\theta, \vartheta)$. The joint gradient descent:
 $$(\theta_{k+1}, \vartheta_{k+1}) = (\theta_k, \vartheta_k) - \eta_k \nabla_{(\theta, \vartheta)} \mathcal{L}(\theta_k, \vartheta_k)$$
 converges to stationary points under standard conditions.
 :::
@@ -304,7 +304,7 @@ converges to stationary points under standard conditions.
 :::{prf:proof}
 **Step 1 (Differentiability).** Both $\theta \mapsto K_A^{(\theta)}(u_\vartheta)$ and $\vartheta \mapsto u_\vartheta$ are differentiable by assumption. Chain rule gives differentiability of the composition.
 
-**Step 2 (Integral exchange).** Dominated convergence (as in {prf:ref}`lem-leibniz-rule-for-axiom-risk`) allows differentiation under the expectation.
+**Step 2 (Integral exchange).** Dominated convergence (as in {prf:ref}`lem-leibniz-rule-for-defect-risk`) allows differentiation under the expectation.
 
 **Step 3 (Convergence).** The same Robbins-Monro analysis as in {prf:ref}`cor-gradient-descent-convergence` applies to the joint iteration on $(\theta, \vartheta) \in \Theta \times \Upsilon$. Under Lipschitz continuity of $\nabla_{(\theta, \vartheta)} \mathcal{L}$ and compactness of $\Theta \times \Upsilon$, the descent inequality holds in the product space. The step size conditions ensure convergence to stationary points of $\mathcal{L}$.
 :::
@@ -363,14 +363,14 @@ Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are n
 
 The preceding sections established that axiom defects can be minimized via gradient descent. This section proves the central metatheorem: under identifiability conditions, defect minimization provably recovers the true hypostructure and its structural predictions.
 
-**Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure $\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*})$ satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint axiom risk:
+**Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure $\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*})$ satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint defect risk:
 $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta), \quad \mathcal{R}_A(\theta) := \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u).$$
 
 > **[Deps] Structural Dependencies**
 >
 > *   **Prerequisites (Inputs):**
 >     *   [ ] **Axiom Validity at $\Theta^*$:** The target hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC)
->     *   [ ] **Well-Behaved Defect Functionals:** Compact $\Theta$, continuous $\theta \mapsto K_A^{(\theta)}(u)$, integrable majorants ({prf:ref}`lem-leibniz-rule-for-axiom-risk`)
+>     *   [ ] **Well-Behaved Defect Functionals:** Compact $\Theta$, continuous $\theta \mapsto K_A^{(\theta)}(u)$, integrable majorants ({prf:ref}`lem-leibniz-rule-for-defect-risk`)
 >     *   [ ] **Structural Identifiability:** Persistent excitation (C1), nondegenerate parametrization (C2), regular parameter space (C3) ({prf:ref}`mt-sv-09-meta-identifiability`)
 >     *   [ ] **Defect Reconstruction:** Reconstruction of $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \text{barriers}, M)$ from defects up to Hypo-isomorphism ({prf:ref}`mt-defect-reconstruction-2`)
 > *   **Output (Structural Guarantee):**
@@ -390,7 +390,7 @@ Let $S$ be a dynamical system with a hypostructure representation $\mathcal{H}_{
 
 1. **(Axiom validity at $\Theta^*$.)** The hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC). Consequently, $K_A^{(\Theta^*)}(u) = 0$ for $\mu$-a.e. trajectory $u \in \mathcal{U}$ and all $A \in \mathcal{A}$.
 
-2. **(Well-behaved defect functionals.)** The assumptions of {prf:ref}`lem-leibniz-rule-for-axiom-risk` hold: $\Theta$ compact and metrizable, $\theta \mapsto K_A^{(\theta)}(u)$ continuous and differentiable with integrable majorants.
+2. **(Well-behaved defect functionals.)** The assumptions of {prf:ref}`lem-leibniz-rule-for-defect-risk` hold: $\Theta$ compact and metrizable, $\theta \mapsto K_A^{(\theta)}(u)$ continuous and differentiable with integrable majorants.
 
 3. **(Structural identifiability.)** The family satisfies the conditions of {prf:ref}`mt-sv-09-meta-identifiability`: persistent excitation (C1), nondegenerate parametrization (C2), and regular parameter space (C3).
 
@@ -427,7 +427,7 @@ $$c \, |\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C \, |\theta - 
 **Step 4 (Barrier convergence).** Barrier constants and failure-mode classifications are continuous in the structural data $(\Phi, \mathfrak{D}, \alpha, \beta, \ldots)$ by {prf:ref}`mt-sv-09-meta-identifiability`. Since $\theta_k \to \tilde{\Theta}$, structural data converges, hence barriers converge and failure-mode predictions stabilize.
 :::
 
-**Key Insight (Structural parameter estimation).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **structural parameters are estimable**. The parameter manifold $\Theta$ is equipped with the Fisher-Rao metric, following Amari's Information Geometry [@Amari00], treating learning as a projection onto a statistical manifold. The minimization of axiom risk $\mathcal{R}(\theta)$ converges to the unique hypostructure compatible with the trajectory distribution $\mu$, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
+**Key Insight (Structural parameter estimation).** This theorem elevates Part VII from "we can optimize a loss" to a metatheorem: under identifiability, **structural parameters are estimable**. The parameter manifold $\Theta$ is equipped with the Fisher-Rao metric, following Amari's Information Geometry [@Amari00], treating learning as a projection onto a statistical manifold. The minimization of defect risk $\mathcal{R}(\theta)$ converges to the unique hypostructure compatible with the trajectory distribution $\mu$, and all high-level structural predictions (barrier constants, forbidden failure modes) converge with it.
 
 ---
 
@@ -714,17 +714,17 @@ When BFA fails---for example, if capacity and scaling parameters are entangled--
 
 In §13.6 we considered a single system $S$ and a parametric family of hypostructures $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$ with axiom-defect risk $\mathcal{R}_S(\Theta)$. We now move to a *distribution of systems* and show that defect-minimizing hypostructure parameters learned on a training distribution $\mathcal{S}_{\mathrm{train}}$ generalize to new systems drawn from the same structural class.
 
-We write $\mathcal{S}$ for a probability measure on a class of systems, and for each $S$ in the support of $\mathcal{S}$, we assume a hypostructure family $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$ and axiom-risk functionals $\mathcal{R}_S(\Theta)$ as in §13.
+We write $\mathcal{S}$ for a probability measure on a class of systems, and for each $S$ in the support of $\mathcal{S}$, we assume a hypostructure family $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$ and defect-risk functionals $\mathcal{R}_S(\Theta)$ as in §13.
 
 #### Setting
 
 - Let $\mathcal{S}$ be a distribution over systems $S$ (e.g. PDEs, ODEs, control systems, RL environments) each admitting a hypostructure representation in the same parametric family $\{\mathcal{H}_{\Theta,S}\}_{\Theta \in \Theta_{\mathrm{adm}}}$.
 
-- For each system $S$, the joint axiom-risk $\mathcal{R}_S(\Theta)$ is defined via the defect functionals:
+- For each system $S$, the joint defect-risk $\mathcal{R}_S(\Theta)$ is defined via the defect functionals:
 $$\mathcal{R}_S(\Theta) := \sum_{A \in \mathcal{A}} w_A \mathcal{R}_{A,S}(\Theta), \qquad \mathcal{R}_{A,S}(\Theta) := \int_{\mathcal{U}_S} K_{A,S}^{(\Theta)}(u) \, d\mu_S(u),$$
 where $\mathcal{U}_S$ is the trajectory class for $S$, $\mu_S$ a trajectory distribution, and $K_{A,S}^{(\Theta)}$ are the axiom defects (as in Part VII).
 
-- The **average axiom risk** over a distribution $\mathcal{S}$ is:
+- The **average defect risk** over a distribution $\mathcal{S}$ is:
 $$\mathcal{R}_{\mathcal{S}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(\Theta)].$$
 
 - We consider two distributions $\mathcal{S}_{\mathrm{train}}$ and $\mathcal{S}_{\mathrm{test}}$. For simplicity we first treat the $\mathcal{S}_{\mathrm{train}} = \mathcal{S}_{\mathrm{test}}$ case, then note the extension to covariant shifts.
@@ -785,7 +785,7 @@ for some optimization accuracy $\varepsilon_N \geq 0$.
 
 Then, with probability at least $1 - \delta$ over the draw of the $S_i$, the following hold for $N$ large enough:
 
-1. **(Average generalization of axiom risk.)** There exists a constant $C_1$, depending only on the structural manifold and the Lipschitz/convexity constants in (2)–(3), such that:
+1. **(Average generalization of defect risk.)** There exists a constant $C_1$, depending only on the structural manifold and the Lipschitz/convexity constants in (2)–(3), such that:
 $$\mathcal{R}_{\mathcal{S}}(\widehat{\Theta}_N) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(\widehat{\Theta}_N)] \leq C_1 \left( \varepsilon_N + \sqrt{\frac{\log(1/\delta)}{N}} \right).$$
 
 2. **(Average closeness to true hypostructures.)** There exists a constant $C_2 > 0$ such that:
@@ -829,7 +829,7 @@ The convergence statements in (3) follow immediately when $\varepsilon_N \to 0$ 
 
 :::{prf:remark} Interpretation
 
-The theorem shows that **average defect minimization over a distribution of systems** is a consistent procedure: if each system admits a hypostructure in the parametric family and the structural manifold is well-behaved, then a trainable hypostructure that approximately minimizes empirical axiom risk on finitely many training systems will, with high probability, yield **globally good** hypostructures for new systems drawn from the same structural class.
+The theorem shows that **average defect minimization over a distribution of systems** is a consistent procedure: if each system admits a hypostructure in the parametric family and the structural manifold is well-behaved, then a trainable hypostructure that approximately minimizes empirical defect risk on finitely many training systems will, with high probability, yield **globally good** hypostructures for new systems drawn from the same structural class.
 :::
 
 :::{prf:remark} Covariate shift
@@ -927,7 +927,7 @@ $$K_A^{(\mathcal{H}^*)}(u) = 0 \quad \forall A \in \mathcal{A}.$$
 
 3. **(Defect continuity.)** Each defect functional $K_A^{(\mathcal{H})}(u)$ is Lipschitz in $\mathcal{H}$ with respect to $d_{\mathrm{struct}}$, uniformly in $u$ (defect continuity).
 
-Define the joint axiom risk of parameter $\Theta$ on system $S$ by:
+Define the joint defect risk of parameter $\Theta$ on system $S$ by:
 $$\mathcal{R}_S(\Theta) := \sum_{A \in \mathcal{A}} w_A \int_{\mathcal{U}_S} K_A^{(\Theta)}(u) \, d\mu_S(u),$$
 where $K_A^{(\Theta)} := K_A^{(\mathcal{H}_\Theta)}$ and $w_A \geq 0$ are fixed weights.
 
@@ -945,7 +945,7 @@ $$\mathcal{R}_S(\Theta) \leq \left( \sum_{A \in \mathcal{A}} w_A L_A \right) \de
 In particular, $\mathcal{R}_S(\Theta_\varepsilon) \leq \varepsilon$ holds whenever:
 $$d_{\mathrm{struct}}(\mathcal{H}_{\Theta_\varepsilon}, \mathcal{H}^*) \leq \frac{\varepsilon}{\sum_A w_A L_A}.$$
 
-In words: **any admissible true hypostructure can be approximated arbitrarily well by the trainable family, and the corresponding axiom risk can be driven arbitrarily close to zero**.
+In words: **any admissible true hypostructure can be approximated arbitrarily well by the trainable family, and the corresponding defect risk can be driven arbitrarily close to zero**.
 :::
 
 :::{prf:proof}
@@ -1148,7 +1148,7 @@ This is precisely the local quantitative identifiability from {prf:ref}`mt-train
 > *   **Prerequisites (Inputs):**
 >     *   [ ] **True Hypostructure with Strict Exclusion Margin:** $\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}(B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}}) > 0$
 >     *   [ ] **Barrier Continuity:** $|B_f(\mathcal{H}) - B_f(\mathcal{H}')| \leq L_f d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}')$ for all $f$
->     *   [ ] **Structural Control by Axiom Risk:** $\mathcal{R}_S(\Theta) \leq \varepsilon \Rightarrow d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}}\sqrt{\varepsilon}$
+>     *   [ ] **Structural Control by Defect Risk:** $\mathcal{R}_S(\Theta) \leq \varepsilon \Rightarrow d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}}\sqrt{\varepsilon}$
 > *   **Output (Structural Guarantee):**
 >     *   Exact stability: $\mathrm{Forbidden}(\mathcal{H}_\Theta) = \mathrm{Forbidden}(\mathcal{H}^*)$ for $\mathcal{R}_S(\Theta) \leq \varepsilon_1$
 >     *   No spurious exclusions: allowed modes remain allowed
@@ -1160,7 +1160,7 @@ This is precisely the local quantitative identifiability from {prf:ref}`mt-train
 :::{prf:metatheorem} Robustness of Failure-Mode Predictions
 :label: mt-robustness-of-failure-mode-predictions
 
-Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with axiom-risk $\mathcal{R}_S(\Theta)$. Assume:
+Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with defect-risk $\mathcal{R}_S(\Theta)$. Assume:
 
 1. **(True hypostructure with strict exclusion margin.)** The true hypostructure $\mathcal{H}^*$ exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) and excludes a set of failure modes $\mathcal{F}_{\mathrm{forbidden}}^* \subseteq \mathcal{F}$ with positive margin:
 $$\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) > 0.$$
@@ -1168,7 +1168,7 @@ $$\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}\big(
 2. **(Barrier continuity.)** Each barrier functional $B_f(\mathcal{H})$ is Lipschitz with constant $L_f$ with respect to $d_{\mathrm{struct}}$, as in Assumption 13.48, and:
 $$L_{\max} := \max_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} L_f < \infty.$$
 
-3. **(Structural control by axiom risk.)** The parametric family $\mathcal{H}_\Theta$ satisfies Assumption 13.49: there exist $C_{\mathrm{struct}}, \varepsilon_0 > 0$ such that:
+3. **(Structural control by defect risk.)** The parametric family $\mathcal{H}_\Theta$ satisfies Assumption 13.49: there exist $C_{\mathrm{struct}}, \varepsilon_0 > 0$ such that:
 $$\mathcal{R}_S(\Theta) \leq \varepsilon < \varepsilon_0 \implies d_{\mathrm{struct}}(\mathcal{H}_\Theta, \mathcal{H}^*) \leq C_{\mathrm{struct}} \sqrt{\varepsilon}.$$
 
 Then there exists $\varepsilon_1 > 0$ such that for all $\Theta$ with $\mathcal{R}_S(\Theta) \leq \varepsilon_1$:
@@ -1178,7 +1178,7 @@ $$\mathrm{Forbidden}(\mathcal{H}_\Theta) = \mathrm{Forbidden}(\mathcal{H}^*) = \
 
 2. **(No spurious new exclusions.)** In particular, no failure mode that is allowed by $\mathcal{H}^*$ is spuriously excluded by $\mathcal{H}_\Theta$.
 
-Thus, once the axiom risk is small enough, the **discrete pattern** of forbidden failure modes becomes identical, not merely close, to that of the true hypostructure.
+Thus, once the defect risk is small enough, the **discrete pattern** of forbidden failure modes becomes identical, not merely close, to that of the true hypostructure.
 :::
 
 :::{prf:proof}
@@ -1219,7 +1219,7 @@ $$
 The key ingredient is the **margin** $\gamma^* > 0$: if the true hypostructure barely satisfies a barrier inequality, then arbitrarily small perturbations can change whether a mode is forbidden. The metatheorems in Parts VI--X typically provide such a margin (e.g.\ strict inequalities in energy/capacity thresholds) except in degenerate ``critical'' cases.
 :::
 
-> **Key Insight:** Learning does not just approximate numbers; it stabilizes the *discrete* "permit denial" judgments. Once the axiom risk is small enough, trainable hypostructures recover the **exact discrete permit-denial structure** of the underlying PDE/dynamical system.
+> **Key Insight:** Learning does not just approximate numbers; it stabilizes the *discrete* "permit denial" judgments. Once the defect risk is small enough, trainable hypostructures recover the **exact discrete permit-denial structure** of the underlying PDE/dynamical system.
 
 ### Robust Divergence Control (Mode C.E)
 
@@ -1444,9 +1444,9 @@ We now formalize a **Curriculum Stability** metatheorem: under mild conditions o
 
 Let $\mathcal{S}_1 \subseteq \mathcal{S}_2 \subseteq \cdots \subseteq \mathcal{S}_K$ be an increasing sequence of system distributions, each supported on systems $S$ that admit hypostructure representations in a common parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$.
 
-For each stage $k = 1, \ldots, K$, define the **stage-$k$ average axiom risk**:
+For each stage $k = 1, \ldots, K$, define the **stage-$k$ average defect risk**:
 $$\mathcal{R}_k(\Theta) := \mathbb{E}_{S \sim \mathcal{S}_k}[\mathcal{R}_S(\Theta)],$$
-where $\mathcal{R}_S(\Theta)$ is the joint axiom risk for system $S$ with parameter $\Theta$ (as in §13).
+where $\mathcal{R}_S(\Theta)$ is the joint defect risk for system $S$ with parameter $\Theta$ (as in §13).
 
 We think of $\mathcal{S}_1$ as a "simple" distribution (e.g. low-complexity systems), and $\mathcal{S}_K$ as the full, target distribution $\mathcal{S}_{\mathrm{full}}$.
 
@@ -1559,7 +1559,7 @@ In the refined-curriculum limit where $K \to \infty$ and $\max_k(t_{k+1} - t_k) 
 
 The theorem shows that **curriculum training is structurally safe** as long as:
 
-- each stage's average axiom risk is strongly convex in a neighborhood of its true parameter, and
+- each stage's average defect risk is strongly convex in a neighborhood of its true parameter, and
 - successive true parameters $\Theta^*_k$ are not too far apart.
 
 Intuitively, the curriculum path $\gamma$ describes how the ``true axioms'' must deform as one moves from simple to complex systems. The theorem guarantees that a trainable hypostructure, initialized and trained at each stage using the previous stage's solution, will track $\gamma$ rather than jumping to unrelated minima.
@@ -1775,7 +1775,7 @@ In the meta-learning story: A meta-learner that finds a hypostructure with small
 
 The preceding robust metatheorems establish that approximate axiom satisfaction (small defects) still yields meaningful structural conclusions. We now address a more fundamental question: **can we learn hypostructures directly from raw observational data, without prior knowledge of the state space or dynamics?**
 
-This section presents a rigorous meta-theorem showing that training on **prediction + axiom-risk** from raw observations recovers the latent hypostructure (up to isomorphism) in the population limit, provided such a hypostructure exists.
+This section presents a rigorous meta-theorem showing that training on **prediction + defect-risk** from raw observations recovers the latent hypostructure (up to isomorphism) in the population limit, provided such a hypostructure exists.
 
 #### Setup: Systems, Data, and Models
 
@@ -1845,7 +1845,7 @@ Given $(\psi, \varphi)$ and a system $s$, the **effective hypostructure on laten
 $$\mathcal{H}^{(s)}_{\psi,\varphi} := (Z, F_{\theta_{s,\varphi}}, \Phi_{\theta_{s,\varphi}}, \mathfrak{D}_{\theta_{s,\varphi}}, c_{\theta_{s,\varphi}}, \tau_{\theta_{s,\varphi}}, \mathcal{A}_{\theta_{s,\varphi}}, \ldots)$$
 restricted to the support of latent trajectories $z^{(\psi)}_t$ obtained from $Y^{(s)} \sim \mathbb{P}_s$.
 
-#### Losses: Prediction + Axiom-Risk
+#### Losses: Prediction + Defect-Risk
 
 ##### Prediction Loss
 
@@ -1857,7 +1857,7 @@ where $t$ is any fixed time index (stationarity or shift-invariance of $\mathbb{
 
 This is the usual latent one-step prediction risk.
 
-##### Axiom-Risk
+##### Defect-Risk
 
 For each soft axiom $A$ in the list (C, D, SC, Cap, TB, LS, GC, ...), and for each $\theta$, we have an **axiom defect functional**:
 $$K_A(\mathcal{H}_\theta; z_\bullet)$$
@@ -1868,7 +1868,7 @@ for a latent trajectory $z_\bullet = (z_t)_{t \in \mathbb{Z}}$, such that:
 Fix nonnegative weights $\lambda_A \geq 0$ and define, for each $(\psi, \varphi)$:
 $$\mathcal{R}_{\mathrm{axioms}}(\psi, \varphi) := \sum_A \lambda_A \int_{\mathcal{S}} \mathbb{E}_{Y \sim \mathbb{P}_s}\left[K_A\big(\mathcal{H}_{\theta_{s,\varphi}}; z^{(\psi)}_\bullet\big)\right] \nu(ds).$$
 
-This is the **population axiom-risk**: average defect across tasks and trajectories.
+This is the **population defect-risk**: average defect across tasks and trajectories.
 
 ##### Total Risk
 
@@ -1964,7 +1964,7 @@ Assume (H1)–(H4). Then:
      $$\lim_{n \to \infty} \mathcal{L}_{\mathrm{total}}(\psi_n, \varphi_n) = 0.$$
      Thus, for any sequence of iterates converging to some $(\bar{\psi}, \bar{\varphi})$, we have $(\bar{\psi}, \bar{\varphi}) \in \mathcal{M}$, and the structural recovery property of (2) applies.
 
-So: under the assumption that **there exists some encoder + hypernetwork that can express the true hypostructure**, generic deep-learning-style training on **prediction + axiom-risk** from **raw observations** is guaranteed (in the population limit) to recover that hypostructure up to isomorphism.
+So: under the assumption that **there exists some encoder + hypernetwork that can express the true hypostructure**, generic deep-learning-style training on **prediction + defect-risk** from **raw observations** is guaranteed (in the population limit) to recover that hypostructure up to isomorphism.
 :::
 
 :::{prf:proof}
@@ -2076,7 +2076,7 @@ This meta-theorem establishes that:
 
 - The user only provides raw trajectories and a big NN architecture,
 - All inductive bias is: ``there exists some encoder + hypostructure in this NN class that matches reality'' (exactly the same kind of bias deep learning already assumes),
-- Under that assumption, minimizing **prediction + axiom-risk** recovers the latent hypostructure from pixels, in the population limit, with a standard SGD convergence argument.
+- Under that assumption, minimizing **prediction + defect-risk** recovers the latent hypostructure from pixels, in the population limit, with a standard SGD convergence argument.
 
 :::
 
@@ -2086,7 +2086,7 @@ This meta-theorem establishes that:
 
 Many system families carry natural symmetry groups: space-time translations, rotations, Galilean boosts, scaling symmetries, gauge groups, etc. A central expectation for a "structural" learner is that it should not break such symmetries arbitrarily: if the distribution of systems and the true hypostructure are symmetric under a group $G$, then the **learned hypostructure** should also be $G$-equivariant.
 
-In this section we formalize this as an **equivariance metatheorem**: under natural compatibility assumptions between $G$, the system distribution, the hypostructure family, and the axiom-risk, every risk minimizer is $G$-equivariant (up to gauge), and gradient flow preserves equivariance.
+In this section we formalize this as an **equivariance metatheorem**: under natural compatibility assumptions between $G$, the system distribution, the hypostructure family, and the defect-risk, every risk minimizer is $G$-equivariant (up to gauge), and gradient flow preserves equivariance.
 
 #### Symmetry group acting on systems and hypostructures
 
@@ -2107,9 +2107,9 @@ in the Hypo category, i.e. the hypostructure induced by first transforming $\The
 
 Intuitively, this means the family $\{\mathcal{H}_\Theta\}$ is expressive enough and parametrized in such a way that group transformations commute with hypostructure construction, up to the usual notion of "same" hypostructure (gauge).
 
-#### Symmetry of the axiom-risk
+#### Symmetry of the defect-risk
 
-For each system $S$ and parameter $\Theta$, we have the joint axiom-risk:
+For each system $S$ and parameter $\Theta$, we have the joint defect-risk:
 $$\mathcal{R}_S(\Theta) := \sum_{A \in \mathcal{A}} w_A \mathcal{R}_{A,S}(\Theta), \qquad \mathcal{R}_{A,S}(\Theta) := \int_{\mathcal{U}_S} K_{A,S}^{(\Theta)}(u) \, d\mu_S(u),$$
 constructed from the defect functionals $K_{A,S}^{(\Theta)}$. The **average risk** over $\mathcal{S}$ is:
 $$\mathcal{R}_{\mathcal{S}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{R}_S(\Theta)].$$
@@ -2155,7 +2155,7 @@ where we used the change of variable $S' = g^{-1} \cdot S$ and the invariance of
 :::{prf:metatheorem} Equivariance
 :label: mt-equivariance
 
-Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Theta\}$ a parametric hypostructure family satisfying Assumptions 13.57–13.59. Consider the average axiom-risk $\mathcal{R}_{\mathcal{S}}(\Theta)$.
+Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Theta\}$ a parametric hypostructure family satisfying Assumptions 13.57–13.59. Consider the average defect-risk $\mathcal{R}_{\mathcal{S}}(\Theta)$.
 
 Assume:
 
@@ -2414,7 +2414,7 @@ Under the following conditions:
 
 1. Neural network parameterization of $\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta$
 2. Defect functionals $K_A$ composed of integrals, norms, and algebraic expressions in the network outputs
-3. Dominated convergence conditions as in {prf:ref}`lem-leibniz-rule-for-axiom-risk`
+3. Dominated convergence conditions as in {prf:ref}`lem-leibniz-rule-for-defect-risk`
 
 :::
 
@@ -2424,7 +2424,7 @@ all components of $\mathcal{L}_{\text{gen}}$ are differentiable in $\Theta$.
 **Step 1 (Component differentiability).** Each loss component $L_{\text{struct}}, L_{\text{axiom}}, L_{\text{var}}$ is differentiable by:
 
 - Neural network differentiability (backpropagation)
-- Dominated convergence for integral expressions ({prf:ref}`lem-leibniz-rule-for-axiom-risk`)
+- Dominated convergence for integral expressions ({prf:ref}`lem-leibniz-rule-for-defect-risk`)
 
 
 **Step 2 (Meta-learning differentiability).** The adapted parameters $\Theta'_S$ depend differentiably on $\Theta$ via the chain rule through gradient steps. This is the key observation enabling MAML-style meta-learning.

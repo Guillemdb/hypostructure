@@ -88,10 +88,10 @@ Applying this to $u(x) = d(x, \Sigma)$, we have $|\nabla u| = 1$ almost everywhe
 $$\mu(\mathcal{X}_\Sigma) = \mu(\{u < \epsilon\}) \leq \int_0^\epsilon \mathcal{H}^{n-1}(\{d(\cdot, \Sigma) = t\}) \, dt$$
 
 **Step 1.3 (Capacity Estimate):** The capacity of $\Sigma$ controls the surface area of level sets. By the Sobolev inequality in the form of Adams-Hedberg {cite}`AdamsHedberg96` (Theorem 5.1.2):
-$$\mathcal{H}^{n-1}(\partial \mathcal{X}_\Sigma) \leq C \cdot \epsilon^{-1} \cdot \text{Cap}(\Sigma)$$
+$$\mathcal{H}^{n-1}(\{d(\cdot, \Sigma) = t\}) \leq C \cdot t \cdot \text{Cap}(\Sigma) \quad \text{for } 0 < t \leq \epsilon$$
 
 Integrating over $t \in [0, \epsilon]$ and using the monotonicity of level sets:
-$$\mu(\mathcal{X}_\Sigma) \leq C \int_0^\epsilon t^{-1} \cdot \text{Cap}(\Sigma) \cdot t \, dt = C \cdot \epsilon^2 \cdot \text{Cap}(\Sigma)$$
+$$\mu(\mathcal{X}_\Sigma) \leq C \int_0^\epsilon t \cdot \text{Cap}(\Sigma) \, dt \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \text{Cap}(\Sigma)$$
 
 **Step 1.4 (Admissibility Bound):** Since $\text{Cap}(\Sigma) \leq \varepsilon_{\text{adm}}$ by hypothesis, we obtain:
 $$\mu(\mathcal{X}_\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \varepsilon_{\text{adm}} < \infty$$
@@ -126,7 +126,7 @@ Isolation ensures a finite automorphism group $\text{Aut}(V) = \{g \in G : g \cd
 - The gluing is smooth by the implicit function theorem applied to the Ricci flow equations in the neck region
 
 **Example 2 (Mean Curvature Flow):** For $V = S^n$ (round sphere singularity), the cap is the **empty set** (the sphere is simply removed):
-- This is the classical surgery introduced by Huisken {cite}`Huisken90` for mean-convex flows
+- This is the classical mean-convex surgery scheme (see e.g. {cite}`HuiskenSinestrari09`)
 - Boundary matching is vacuous since the excision removes the entire sphere
 - Energy bound: $\Phi(\emptyset) = 0$
 
@@ -143,7 +143,7 @@ $$\begin{CD}
 
 This diagram commutes in the sense that the solution on $\mathcal{X}_{\text{cap}}$ limits to profile $V$ at the boundary.
 
-**Step 2.4 (Regularity Inheritance):** By the maximum principle and parabolic regularity theory (e.g., Lieberman {cite}`Lieberman96` for parabolic equations), the cap inherits bounded geometry from $V$:
+**Step 2.4 (Regularity Inheritance):** By the maximum principle and parabolic regularity theory (e.g., Evans {cite}`Evans10`), the cap inherits bounded geometry from $V$:
 - Since $V \in \mathcal{L}_T$ is a canonical profile, it satisfies the type-specific regularity estimates (e.g., curvature bounds for Ricci flow, mean curvature bounds for MCF)
 - The asymptotic matching ensures these bounds propagate to $\mathcal{X}_{\text{cap}}$ with constants $C_k(V)$ depending only on $V$ and the decay rate
 
@@ -238,7 +238,7 @@ where $S_t^{\text{cap}}$ is the flow on the cap (governed by the same PDE restri
 **Step 1.3 (Initial Value Problem):** With state $x' \in \mathcal{X}'$ and semiflow $S_t': \mathcal{X}' \to \mathcal{X}'$, the post-surgery trajectory is:
 $$u'(t) = S_t' x' \quad \text{for } t \geq 0$$
 
-By the theory of semiflows (see Hale {cite}`Hale88` for ordinary differential equations, Robinson {cite}`Robinson01` for PDEs), the trajectory $u'(t)$ is well-defined and continuous in $\mathcal{X}'$ for $t$ in the maximal interval of existence $[0, T_*')$.
+By the theory of semiflows (see Hale {cite}`Hale88` for ordinary differential equations, Temam {cite}`Temam97` for dissipative PDE semiflows), the trajectory $u'(t)$ is well-defined and continuous in $\mathcal{X}'$ for $t$ in the maximal interval of existence $[0, T_*')$.
 
 **Conclusion:** Flow continuation is achieved with well-defined state $x' \in \mathcal{X}'$ and semiflow $S_t'$. □
 
@@ -265,12 +265,12 @@ $$\Phi(\mathcal{X}_\Sigma) \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n}$$
 where $c_n > 0$ is a dimension-dependent constant, and we use the isoperimetric inequality:
 $$\text{Vol}(\Sigma) \geq v_{\min}(T) > 0$$
 
-The positivity of $v_{\min}(T)$ follows from admissibility: infinitesimally small singularities (with $\text{Vol}(\Sigma) \to 0$) are excluded by the capacity bound.
+Write $v_{\min} := v_{\min}(T)$. The positivity of $v_{\min}$ follows from admissibility: infinitesimally small singularities (with $\text{Vol}(\Sigma) \to 0$) are excluded by the capacity bound.
 
 **Literature Justification:**
 - For **Ricci flow**, Perelman's entropy formula {cite}`Perelman03` gives $\Phi(\mathcal{X}_\Sigma) = \int R \log R \, dV \geq c \cdot \text{Vol}(\Sigma)^{2/3}$ in dimension 3
-- For **mean curvature flow**, Huisken's monotonicity formula {cite}`Huisken90` provides $\Phi(\mathcal{X}_\Sigma) = \int H^2 \, dA \geq c \cdot \text{Area}(\Sigma)$ where $H$ is mean curvature
-- For **harmonic map flow**, Struwe's energy gap {cite}`Struwe96` ensures $\Phi(\mathcal{X}_\Sigma) \geq \epsilon_0 > 0$ for any non-trivial bubble
+- For **mean curvature flow**, monotonicity estimates (see e.g. {cite}`HuiskenSinestrari09`) provide $\Phi(\mathcal{X}_\Sigma) = \int H^2 \, dA \geq c \cdot \text{Area}(\Sigma)$ where $H$ is mean curvature
+- For **harmonic map flow**, Struwe's analysis {cite}`Struwe88` ensures $\Phi(\mathcal{X}_\Sigma) \geq \epsilon_0 > 0$ for any non-trivial bubble
 
 **Step 2.3 (Capping Energy):** By Lemma 2 (Step 2.4), the cap has bounded energy:
 $$\Phi(\mathcal{X}_{\text{cap}}) \leq E_{\text{cap}}(V)$$
@@ -292,7 +292,7 @@ $$\Delta\Phi_{\text{surg}} := \Phi(x^-) - \Phi(x') = \Phi(\mathcal{X}_\Sigma) - 
 $$c_n \cdot v_{\min}^{(n-2)/n} > E_{\text{cap}}(V)$$
 
 This is ensured by the choice of admissibility threshold $\varepsilon_{\text{adm}}$. Define the **discrete progress constant**:
-$$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(c_n \cdot v_{\min}(V)^{(n-2)/n} - E_{\text{cap}}(V)\right) > 0$$
+$$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)\right) > 0$$
 
 Since $\mathcal{L}_T$ is finite, the minimum is attained and positive.
 
@@ -464,7 +464,7 @@ We have established all four guarantees of the Structural Surgery Principle:
 
 2. **Energy Control (Step 2):**
    - Controlled jump: $\Phi(x') \leq \Phi(x^-) + \delta_S$ where $\delta_S \leq E_{\text{cap}}^{\max}$
-   - Energy drop: $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T = \min_{V \in \mathcal{L}_T} (c_n v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)) > 0$
+   - Energy drop: $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T = \min_{V \in \mathcal{L}_T} (c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)) > 0$
 
 3. **Certificate Production (Step 3):** Re-entry certificate $K^{\mathrm{re}} = (x', \mathcal{X}', \Phi', \mathfrak{D}', S_t', \text{witnesses})$ satisfying $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target})$
 
@@ -503,10 +503,9 @@ $$K^{\mathrm{re}} = \left(
 - **Composability**: Sequential surgeries compose via pushout pasting lemmas
 
 **Applicability Beyond Ricci Flow:** While the theorem is anchored in Perelman's work {cite}`Perelman03`, the categorical formulation extends to:
-- **Mean curvature flow**: Huisken's surgery {cite}`Huisken90`
-- **Harmonic map flow**: Bubble tree surgery {cite}`Struwe96`
+- **Mean curvature flow**: Mean-convex surgery {cite}`HuiskenSinestrari09`
+- **Harmonic map flow**: Bubble tree surgery {cite}`Struwe88`
 - **Yang-Mills flow**: Gauge theory surgery {cite}`DonaldsonKronheimer90`
-- **Calabi flow**: Kähler surgery {cite}`Chen00`
 
 Each type $T$ has a specific canonical library $\mathcal{L}_T$ and energy estimates, but the abstract framework applies uniformly.
 
@@ -551,8 +550,8 @@ The following references are cited with specific theorem/page numbers where appl
 - {cite}`AdamsHedberg96`: Function Spaces and Potential Theory, Sobolev capacity (Theorem 5.1.2), removable singularities (Chapter 6)
 - {cite}`Federer69`: Geometric Measure Theory, Hausdorff dimension and capacity (§2.10), coarea formula (§3.2)
 - {cite}`MacLane71`: Categories for the Working Mathematician, pushouts and colimits (Chapter III)
-- {cite}`Huisken90`: Asymptotic behavior for singularities of the mean curvature flow, monotonicity formula (Theorem 3.1)
-- {cite}`Lieberman96`: Second Order Parabolic Differential Equations, regularity theory (Chapter 3)
-- {cite}`Struwe96`: Geometric evolution equations (harmonic map heat flow), bubble tree analysis (Chapter 4)
+- {cite}`HuiskenSinestrari09`: Mean curvature flow with surgeries of two-convex hypersurfaces
+- {cite}`Evans10`: Partial Differential Equations, regularity theory
+- {cite}`Struwe88`: Evolution of harmonic maps, bubble analysis
 - {cite}`Hale88`: Asymptotic Behavior of Dissipative Systems, semiflow theory (Chapter 1)
-- {cite}`Robinson01`: Infinite-Dimensional Dynamical Systems, PDE semiflows (Chapter 3)
+- {cite}`Temam97`: Infinite-Dimensional Dynamical Systems in Mechanics and Physics, PDE semiflows

@@ -5,7 +5,7 @@
 
 **Theorem Reference:** {prf:ref}`mt-fact-germ-density`
 
-This proof establishes that the finite Bad Pattern Library $\mathcal{B} = \{B_i\}_{i \in I}$ is categorically dense in the universal bad pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$, ensuring that the categorical Lock mechanism at Node 17 is logically exhaustive. The key result is that checking emptiness of $\mathrm{Hom}(B_i, \mathbb{H}(Z))$ for all finite library elements suffices to determine emptiness of $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z))$, enabling decidable verification of the Rep-breaking obstruction.
+This proof establishes that the finite Bad Pattern Library $\mathcal{B} = \{B_i\}_{i \in I}$ is categorically dense in the universal bad pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$ in the sense that every germ coprojection factors through some $B_i$. As a consequence, if $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all library elements, then $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$. This is the soundness guarantee needed for the categorical Lock mechanism at Node 17.
 
 ## Setup and Notation
 
@@ -57,7 +57,7 @@ witnessing:
 2. **Density Consequence:** The coprojections $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T)}$ form a jointly epimorphic family
 
 3. **Hom-Set Reduction:**
-   $$\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset \iff \forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$$
+   $$(\forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset) \Rightarrow \mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$$
 
 ---
 
@@ -141,7 +141,7 @@ for $\varepsilon > 0$ small enough that $\varepsilon$-closeness implies morphism
 **Factorization Construction:** For each germ $[P, \pi]$:
 - **Step 2.1.1:** Let $B_i$ be the nearest library element: $i = \arg\min_j \|\pi - B_j\|_{\dot{H}^1}$
 - **Step 2.1.2:** Define $\alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to B_i$ as the canonical inclusion induced by the $\dot{H}^1$ proximity: since $\|\pi - B_i\|_{\dot{H}^1} \leq \varepsilon$, the profile $\pi$ is a small perturbation of $B_i$, inducing a natural morphism in $\mathbf{Hypo}_{T_{\mathrm{para}}}$
-- **Step 2.1.3:** Let $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{para}}}$ be the coprojection from the library to the colimit (constructed below in Step 3)
+- **Step 2.1.3:** Let $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{para}})}$ be the canonical map from the library element into the colimit (Lemma 3.1)
 
 **Verification:** The composition:
 $$\beta_i \circ \alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{para}})}$$
@@ -237,30 +237,9 @@ $$
 $$
 
 **Proof:**
-
-**Step 3.1.1 (Universal Property Invocation):** By the universal property of colimits, $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is the terminal object in the category of cocones over the diagram $\{\mathbb{H}_{[P,\pi]}\}_{[P,\pi] \in \mathcal{G}_T}$. Specifically, for any object $\mathbb{H} \in \mathbf{Hypo}_T$ equipped with morphisms:
-$$\{\gamma_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}\}_{[P,\pi] \in \mathcal{G}_T}$$
-there exists a **unique** mediating morphism:
-$$\mu: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}$$
-such that $\mu \circ \iota_{[P,\pi]} = \gamma_{[P,\pi]}$ for all germs.
-
-**Step 3.1.2 (Library Element as Cocone):** Fix $B_i \in \mathcal{B}$. By Lemma 2.1, every germ factors through some library element. Consider the subset:
-$$\mathcal{G}_i := \{[P,\pi] \in \mathcal{G}_T : \text{fact}_{[P,\pi]} \text{ uses } B_i\}$$
-For each $[P,\pi] \in \mathcal{G}_i$, we have the factorization morphism $\alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to B_i$.
-
-**Step 3.1.3 (Cocone Structure):** The collection $\{\alpha_{[P,\pi]}\}_{[P,\pi] \in \mathcal{G}_i}$ defines a partial cocone. To extend to all germs, define:
-$$\gamma_{[P,\pi]} := \begin{cases}
-\alpha_{[P,\pi]} & \text{if } [P,\pi] \in \mathcal{G}_i \\
-\text{canonical constant map} & \text{if } [P,\pi] \notin \mathcal{G}_i
-\end{cases}$$
-This gives a compatible family of morphisms $\mathbb{H}_{[P,\pi]} \to B_i$ (compatibility verified by the factorization diagrams).
-
-**Step 3.1.4 (Mediating Morphism):** By the universal property, there exists a unique morphism:
-$$\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T)}$$
-making the diagram commute:
-$$\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]} \quad \forall [P,\pi] \in \mathcal{G}_i$$
-
-**Step 3.1.5 (Alternative Direct Construction):** More directly, since each $B_i$ is itself a hypostructure in $\mathbf{Hypo}_T$, and $B_i$ receives morphisms from germs (via $\alpha_{[P,\pi]}$), we can view $B_i$ as approximating a sub-colimit. The inclusion of $B_i$ into the full colimit $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is the coprojection $\beta_i$.
+By the density certificate (Lemma 2.1), for each library element $B_i$ we fix a morphism $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T)}$ such that for every germ whose factorization uses $B_i$ we have:
+$$\beta_i \circ \alpha_{[P,\pi]} = \iota_{[P,\pi]}$$
+This identity is exactly the commutativity of the square in the statement. □
 
 **Remark:** In concrete models, $\beta_i$ is often an inclusion map embedding $B_i$ as a subobject of $\mathbb{H}_{\mathrm{bad}}^{(T)}$.
 
@@ -269,124 +248,24 @@ $$\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]} \quad \forall [P,\pi] \in \ma
 **Statement:** The family $\{\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T)}\}_{i \in I}$ is jointly epimorphic: the coprojections jointly cover $\mathbb{H}_{\mathrm{bad}}^{(T)}$.
 
 **Proof:**
-
-**Step 3.2.1 (Coverage via Factorization):** By Lemma 2.1, every germ coprojection $\iota_{[P,\pi]}$ factors through some $\beta_i$:
-$$\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]}$$
-Therefore, the image of each $\iota_{[P,\pi]}$ is contained in the union of images:
-$$\text{Im}(\iota_{[P,\pi]}) \subseteq \bigcup_{i \in I} \text{Im}(\beta_i)$$
-
-**Step 3.2.2 (Colimit Generates from Germs):** Since $\mathbb{H}_{\mathrm{bad}}^{(T)} = \mathrm{colim}_{[P,\pi] \in \mathcal{G}_T} \mathbb{H}_{[P,\pi]}$, every element of $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is in the image of some coprojection $\iota_{[P,\pi]}$ (colimits are exhaustive).
-
-**Step 3.2.3 (Transitivity):** Combining Steps 3.2.1 and 3.2.2:
-$$\mathbb{H}_{\mathrm{bad}}^{(T)} = \bigcup_{[P,\pi] \in \mathcal{G}_T} \text{Im}(\iota_{[P,\pi]}) \subseteq \bigcup_{i \in I} \text{Im}(\beta_i)$$
-Hence:
-$$\mathbb{H}_{\mathrm{bad}}^{(T)} = \bigcup_{i \in I} \text{Im}(\beta_i)$$
-
-**Step 3.2.4 (Categorical Epimorphism):** In categorical terms, a family of morphisms $\{f_i: X_i \to Y\}$ is jointly epimorphic if for any pair of morphisms $g, h: Y \to Z$ with $g \circ f_i = h \circ f_i$ for all $i$, we have $g = h$.
-
-**Verification:** Suppose $g, h: \mathbb{H}_{\mathrm{bad}}^{(T)} \to Z$ satisfy $g \circ \beta_i = h \circ \beta_i$ for all $i \in I$. Then for any germ $[P,\pi]$:
+Let $g,h: \mathbb{H}_{\mathrm{bad}}^{(T)} \to Z$ satisfy $g \circ \beta_i = h \circ \beta_i$ for all $i \in I$. Fix any germ $[P,\pi] \in \mathcal{G}_T$. By Lemma 2.1, its coprojection factors as $\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]}$ for some $i$. Then:
 $$g \circ \iota_{[P,\pi]} = g \circ \beta_i \circ \alpha_{[P,\pi]} = h \circ \beta_i \circ \alpha_{[P,\pi]} = h \circ \iota_{[P,\pi]}$$
-By the universal property of colimits (which requires agreement on all coprojections $\iota_{[P,\pi]}$), we have $g = h$.
-
-**Conclusion:** The library coprojections $\{\beta_i\}_{i \in I}$ are jointly epimorphic.
+Since morphisms out of a colimit are determined by their composites with the coprojections $\{\iota_{[P,\pi]}\}$, we conclude $g=h$. Hence $\{\beta_i\}_{i \in I}$ is jointly epimorphic. □
 
 ---
 
 ## Step 4: Hom-Set Reduction
 
-We establish the key equivalence: checking emptiness on the finite library suffices to determine emptiness for the universal object.
+We establish the key consequence used by Lock: emptiness on the finite library certifies emptiness for the universal object.
 
-### Theorem 4.1: Hom-Set Factorization
+### Lemma 4.1: Hom-Set Reduction (Soundness)
 
-**Statement:** For any $\mathbb{H}(Z) \in \mathbf{Hypo}_T$:
-$$\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset \iff \forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$$
+**Statement:** For any $\mathbb{H}(Z) \in \mathbf{Hypo}_T$,
+$$(\forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset) \Rightarrow \mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset.$$
 
-**Proof:**
+**Proof:** Suppose $\Phi: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$ exists. For each $i \in I$, the composite $\Phi \circ \beta_i: B_i \to \mathbb{H}(Z)$ is a morphism, so $\mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset$. This contradicts the assumption that $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all $i$. Hence no such $\Phi$ exists. □
 
-**Direction 1 ($\Rightarrow$): Universal Implies Library**
-
-**Step 4.1.1:** Assume $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$.
-
-**Step 4.1.2:** Suppose for contradiction that there exists $i_0 \in I$ with $\mathrm{Hom}(B_{i_0}, \mathbb{H}(Z)) \neq \emptyset$. Let $\phi: B_{i_0} \to \mathbb{H}(Z)$ be such a morphism.
-
-**Step 4.1.3:** By Lemma 3.1, there exists a coprojection $\beta_{i_0}: B_{i_0} \to \mathbb{H}_{\mathrm{bad}}^{(T)}$.
-
-**Step 4.1.4:** Consider the composition:
-$$\Phi := \phi \circ \beta_{i_0}^{-1}: \mathbb{H}_{\mathrm{bad}}^{(T)} \dashrightarrow \mathbb{H}(Z)$$
-where $\beta_{i_0}^{-1}$ denotes a choice of section (which may not exist globally, so we need a different approach).
-
-**Step 4.1.5 (Corrected Argument):** Instead, use the universal property directly. Consider the family of morphisms:
-$$\{\phi \circ \alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}(Z)\}_{[P,\pi] \in \mathcal{G}_{i_0}}$$
-where $\mathcal{G}_{i_0} = \{[P,\pi]: \text{fact}_{[P,\pi]} \text{ uses } B_{i_0}\}$ and $\alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to B_{i_0}$ is the factorization morphism.
-
-**Step 4.1.6:** This defines a partial cocone. To extend to all germs, for $[P,\pi] \notin \mathcal{G}_{i_0}$, choose the factorization through a different library element $B_j$ (which exists by Lemma 2.1) and similarly define $\phi_j \circ \alpha_{[P,\pi]}$ for some $\phi_j: B_j \to \mathbb{H}(Z)$.
-
-**Wait — this requires all $B_i$ to map to $\mathbb{H}(Z)$, which we don't have yet.**
-
-**Step 4.1.7 (Corrected Argument via Empty Contradiction):** Actually, the forward direction is trivial: if $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$, then in particular, there is no morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ to $\mathbb{H}(Z)$. For any $B_i$, if there existed $\phi: B_i \to \mathbb{H}(Z)$, and we had a coprojection $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T)}$, then...
-
-Actually, we need to argue more carefully. The issue is that $\beta_i$ goes FROM $B_i$ TO $\mathbb{H}_{\mathrm{bad}}^{(T)}$, not the reverse.
-
-**Step 4.1.8 (Correct Forward Direction):** The forward direction ($\Rightarrow$) is actually trivial by contrapositive. We will prove the reverse direction first, then the forward follows.
-
-**Direction 2 ($\Leftarrow$): Library Implies Universal (Main Result)**
-
-**Step 4.2.1 (Setup):** Assume $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all $i \in I$.
-
-**Step 4.2.2 (Goal):** Show $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$.
-
-**Step 4.2.3 (Contrapositive Approach):** Suppose for contradiction that there exists a morphism:
-$$\Phi: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$$
-
-**Step 4.2.4 (Restriction to Germs):** By precomposition with the germ coprojections $\iota_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}_{\mathrm{bad}}^{(T)}$, we obtain morphisms:
-$$\Phi \circ \iota_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}(Z)$$
-for every germ $[P,\pi] \in \mathcal{G}_T$.
-
-**Step 4.2.5 (Factorization Through Library):** By Lemma 2.1, each germ coprojection factors:
-$$\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]}$$
-for some $i = i([P,\pi]) \in I$.
-
-**Step 4.2.6 (Induced Library Morphism):** Therefore:
-$$\Phi \circ \iota_{[P,\pi]} = \Phi \circ \beta_i \circ \alpha_{[P,\pi]} = (\Phi \circ \beta_i) \circ \alpha_{[P,\pi]}$$
-
-**Step 4.2.7 (Existence of Library Morphism):** Define:
-$$\phi_i := \Phi \circ \beta_i: B_i \to \mathbb{H}(Z)$$
-This is a morphism from $B_i$ to $\mathbb{H}(Z)$, hence $\mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset$.
-
-**Step 4.2.8 (Contradiction):** This contradicts the assumption that $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all $i \in I$.
-
-**Step 4.2.9 (Conclusion):** Therefore, no such morphism $\Phi$ can exist, and $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$.
-
-**Direction 1 Revisited ($\Rightarrow$): Universal Implies Library**
-
-**Step 4.3.1:** Now assume $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$.
-
-**Step 4.3.2:** Suppose for contradiction that $\mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset$ for some $i \in I$. Let $\phi: B_i \to \mathbb{H}(Z)$ be such a morphism.
-
-**Step 4.3.3 (Cannot Lift to Universal Object):** The issue is that $\beta_i: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T)}$ is a coprojection (goes FROM library TO universal), not a projection. So we cannot directly compose $\phi$ with some inverse of $\beta_i$ to get a morphism $\mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$.
-
-**Step 4.3.4 (Alternative Argument via Germs):** However, recall that every germ factors through $B_i$. Choose any germ $[P,\pi] \in \mathcal{G}_i$ (the set of germs factoring through $B_i$). Then:
-$$\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]}$$
-
-**Step 4.3.5 (Induced Germ Morphism):** Composing $\phi: B_i \to \mathbb{H}(Z)$ with $\alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to B_i$:
-$$\phi \circ \alpha_{[P,\pi]}: \mathbb{H}_{[P,\pi]} \to \mathbb{H}(Z)$$
-
-**Step 4.3.6 (Cocone Compatibility):** This defines morphisms from germs to $\mathbb{H}(Z)$. To apply the universal property of the colimit, we need **all** germs to map compatibly to $\mathbb{H}(Z)$.
-
-**Step 4.3.7 (Coverage by Library):** By Lemma 2.1, every germ $[P,\pi]$ factors through **some** library element $B_{i([P,\pi])}$. If $\mathrm{Hom}(B_j, \mathbb{H}(Z)) \neq \emptyset$ for even one $j$, this does not immediately give morphisms from all germs unless we have morphisms from **all** library elements.
-
-**Step 4.3.8 (Dead End):** This direction is trickier because one library element having a morphism to $\mathbb{H}(Z)$ does not immediately yield a morphism from the entire colimit.
-
-**Step 4.3.9 (Correct Argument via Density):** The key is to use the **density** (joint epimorphism) from Lemma 3.2. However, the joint epimorphism of $\{\beta_i\}$ means that the $\beta_i$ jointly **cover** $\mathbb{H}_{\mathrm{bad}}^{(T)}$ (the images of the $\beta_i$ generate $\mathbb{H}_{\mathrm{bad}}^{(T)}$), but this does not directly imply that $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z))$ factors through $\mathrm{Hom}(B_i, \mathbb{H}(Z))$ in the forward direction.
-
-**Step 4.3.10 (Realization):** The forward direction ($\Rightarrow$) is actually trivially true by the contrapositive of Direction 2. We have proven:
-$$(\forall i.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset) \Rightarrow \mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$$
-The contrapositive is:
-$$\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) \neq \emptyset \Rightarrow (\exists i.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset)$$
-which is equivalent to the forward direction.
-
-**Conclusion of Theorem 4.1:** The equivalence holds:
-$$\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset \iff \forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$$
+**Corollary (Contrapositive):** If $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) \neq \emptyset$, then $\mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset$ for every $i \in I$.
 
 ---
 
@@ -414,46 +293,7 @@ $$\varprojlim_{[P,\pi]} \mathrm{Hom}(\mathbb{H}_{[P,\pi]}, \mathbb{H}(Z)) = \lef
 Compatibility requires that for any morphism $\alpha: [P,\pi] \to [P',\pi']$ in the index category:
 $$\phi_{[P',\pi']} \circ \mathbb{H}(\alpha) = \phi_{[P,\pi]}$$
 
-### Lemma 5.2: Density Implies Inverse Limit Factorization
-
-**Statement:** The inverse limit factorizes through the library:
-$$\varprojlim_{[P,\pi] \in \mathcal{G}_T} \mathrm{Hom}(\mathbb{H}_{[P,\pi]}, \mathbb{H}(Z)) \cong \varprojlim_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z))$$
-
-**Proof:**
-
-**Step 5.2.1 (Factorization Morphisms):** By Lemma 2.1, each germ coprojection factors:
-$$\iota_{[P,\pi]} = \beta_i \circ \alpha_{[P,\pi]}$$
-
-**Step 5.2.2 (Induced Map on Hom-Sets):** Applying $\mathrm{Hom}(-, \mathbb{H}(Z))$:
-$$\mathrm{Hom}(\mathbb{H}_{[P,\pi]}, \mathbb{H}(Z)) \xleftarrow{\alpha_{[P,\pi]}^*} \mathrm{Hom}(B_i, \mathbb{H}(Z))$$
-where $\alpha_{[P,\pi]}^*(\phi) = \phi \circ \alpha_{[P,\pi]}$.
-
-**Step 5.2.3 (Compatibility with Limits):** The factorizations $\{\alpha_{[P,\pi]}\}$ define a natural transformation between the diagram of germs and the diagram of library elements. By the universal property of limits, this induces an isomorphism:
-$$\varprojlim_{[P,\pi]} \mathrm{Hom}(\mathbb{H}_{[P,\pi]}, \mathbb{H}(Z)) \cong \varprojlim_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z))$$
-
-**Step 5.2.4 (Finite Limit):** Since $I$ is finite ($|\mathcal{B}| < \infty$ by Lemma 2.2), the inverse limit over library elements is just a product:
-$$\varprojlim_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \prod_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z))$$
-
-**Step 5.2.5 (Emptiness Condition):** The product is empty if and only if at least one factor is empty:
-$$\prod_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset \iff \exists i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$$
-
-**Wait, this gives the wrong direction!**
-
-**Step 5.2.6 (Correction):** The product is **non-empty** if and only if **all** factors are non-empty:
-$$\prod_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset \iff \forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset$$
-
-**Step 5.2.7 (Contrapositive for Emptiness):** The product is **empty** if and only if **at least one** factor is empty:
-$$\prod_{i \in I} \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset \iff \exists i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$$
-
-**This still doesn't match our desired conclusion!**
-
-**Step 5.2.8 (Issue Identified):** The problem is that the factorization reduces the colimit of germs to a **smaller** colimit over library elements, but the inverse limit (Hom-set) doesn't reduce in the same way. The limit over library is related but not identical.
-
-**Step 5.2.9 (Alternative Approach):** Instead of using the limit formula, we rely on Theorem 4.1, which was proven directly via morphism composition. The key insight is that:
-- If **any** morphism $\Phi: \mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$ exists, it restricts to morphisms $\Phi \circ \beta_i: B_i \to \mathbb{H}(Z)$ for **all** $i$ (not just one)
-- Conversely, if **all** $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$, then no such $\Phi$ can exist
-
-The key is the **density** (joint epimorphism): the library coprojections $\{\beta_i\}$ jointly generate $\mathbb{H}_{\mathrm{bad}}^{(T)}$, so any morphism from $\mathbb{H}_{\mathrm{bad}}^{(T)}$ is determined by its restrictions to the images of $\{\beta_i\}$.
+**Remark:** The density statement (Lemma 3.2) does not generally identify the inverse limit over germs with a product over the finite library. What we use in the Sieve is the weaker but sufficient consequence in Lemma 4.1: if all $\mathrm{Hom}(B_i, \mathbb{H}(Z))$ are empty, then $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z))$ is empty.
 
 ---
 
@@ -509,12 +349,12 @@ where:
 
 ### Main Consequence (Restatement)
 
-**Theorem (Hom-Set Reduction):** For any $\mathbb{H}(Z) \in \mathbf{Hypo}_T$:
-$$\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset \iff \forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$$
+**Lemma (Hom-Set Reduction):** For any $\mathbb{H}(Z) \in \mathbf{Hypo}_T$:
+$$(\forall i \in I.\, \mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset) \Rightarrow \mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$$
 
-**Proof:** Theorem 4.1. $\square$
+**Proof:** Lemma 4.1. $\square$
 
-**Practical Implication:** The Lock mechanism at Node 17 of the Structural Sieve can check the categorical obstruction $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$ by verifying the **finite** set of conditions:
+**Practical Implication:** The Lock mechanism at Node 17 of the Structural Sieve can certify the categorical obstruction $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$ by verifying the **finite** set of conditions:
 $$\mathrm{Hom}(B_1, \mathbb{H}(Z)) = \emptyset, \ldots, \mathrm{Hom}(B_N, \mathbb{H}(Z)) = \emptyset$$
 This makes the Lock verification algorithmically feasible (though not necessarily decidable, as noted in the Interface specification).
 
@@ -558,9 +398,9 @@ This theorem justifies Node 17 (Lock) of the Structural Sieve:
 
 - **Verification:** Check $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all $i \in I$ using tactics E1–E12
 
-- **Output:** If all checks pass, emit $K_{\text{Lock}}^{\mathrm{blk}}$ certifying $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$, which implies $\mathrm{Rep}_K(T,Z)$ holds (by the Initiality Lemma {prf:ref}`mt-krnl-initiality`)
+- **Output:** If all checks pass, emit $K_{\text{Lock}}^{\mathrm{blk}}$ certifying $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$, which implies $\mathrm{Rep}_K(T,Z)$ holds (by the Initiality Lemma {prf:ref}`mt-krnl-exclusion`)
 
-The density theorem ensures that this finite verification is **logically complete**: if the universal obstruction holds, then all library obstructions hold (forward direction), and conversely, if all library obstructions hold, then the universal obstruction holds (reverse direction, which is the useful direction for the Sieve).
+The density theorem ensures that this finite verification is sound for certifying the Lock: if $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all $i \in I$, then $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$ (Lemma 4.1). Equivalently, if a morphism $\mathbb{H}_{\mathrm{bad}}^{(T)} \to \mathbb{H}(Z)$ exists, then $\mathrm{Hom}(B_i, \mathbb{H}(Z)) \neq \emptyset$ for every $i \in I$ (contrapositive).
 
 :::
 

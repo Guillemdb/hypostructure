@@ -247,18 +247,18 @@ This is the core of the experiment. We treat the [formalization parameters](./so
 - Each node emits a typed certificate: K⁺ (pass), K⁻ (fail), or Kⁱⁿᶜ (inconclusive)
 
 **The Loss Function:**
-We define **[Axiom Risk](./source/metalearning.md#def-joint-axiom-risk)** as the degree to which certificates fail. Failed or inconclusive certificates represent *logical friction*—structural defect in the axiomatic model.
+We define **[Defect Risk](./source/metalearning.md#def-joint-defect-risk)** as the degree to which certificates fail. Failed or inconclusive certificates represent *logical friction*—structural defect in the axiomatic model.
 
 **The Optimization:**
-Because the Sieve is deterministic, we can treat the entire proof process as a differentiable graph. We use the LLM as an optimization engine, adjusting θ to minimize Axiom Risk until the system reaches an **[Epistemic Fixed Point](./source/metalearning.md#mt-epistemic-fixed-point)**—a point θ* in **[Parameter Space Θ](./source/metalearning.md#def-parameter-space)** where the evolution operator $F_t$ preserves its own structural constraints. At this fixed point, axioms are maximally consistent with the structure they describe.
+Because the Sieve is deterministic, we can treat the entire proof process as a differentiable graph. We use the LLM as an optimization engine, adjusting θ to minimize Defect Risk until the system reaches an **[Epistemic Fixed Point](./source/metalearning.md#mt-epistemic-fixed-point)**—a point θ* in **[Parameter Space Θ](./source/metalearning.md#def-parameter-space)** where the evolution operator $F_t$ preserves its own structural constraints. At this fixed point, axioms are maximally consistent with the structure they describe.
 
 In plain terms: **The AI isn't just proving theorems. It's discovering which axioms make those theorems provable.**
 
-We are backpropagating through the foundations of mathematics itself—not in a metaphorical sense, but via the **[Leibniz Rule for Axiom Risk](./source/metalearning.md#lem-leibniz-rule-for-axiom-risk)**, which provides the actual gradient.
+We are backpropagating through the foundations of mathematics itself—not in a metaphorical sense, but via the **[Leibniz Rule for Defect Risk](./source/metalearning.md#lem-leibniz-rule-for-defect-risk)**, which provides the actual gradient.
 
 ### Renormalization: Learning Effective Laws
 
-When a system becomes too complex to analyze directly, the framework uses **[Axiomatic Defect Minimization](./source/metalearning.md#def-joint-axiom-risk)** to learn the "Effective Laws of Physics" for that scale. This is **Renormalization** in the physicist's sense:
+When a system becomes too complex to analyze directly, the framework uses **[Defect Minimization](./source/metalearning.md#def-global-defect-minimizer)** to learn the "Effective Laws of Physics" for that scale. This is **Renormalization** in the physicist's sense:
 
 - The **General Loss** acts as a **Composite Lyapunov Function** derived from local data
 - The system remains self-consistent even when the underlying representation shifts
