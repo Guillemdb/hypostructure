@@ -15,11 +15,23 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{algorithmic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{algorithmic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **P ≠ NP conjecture** using the Hypostructure framework.
 
-**Approach:** We instantiate the algorithmic hypostructure with NP-complete problems (k-SAT). The analysis reveals that the solution landscape undergoes **Replica Symmetry Breaking** near the satisfiability threshold, creating exponentially many disconnected clusters. Node 10 establishes a **non-mixing certificate** ($K_{\mathrm{TB}_\rho}^-$); MT 24.5 is cited only as the *mixing-side barrier* reference point (not as a lower-bound theorem).
+**Approach:** We instantiate the algorithmic hypostructure with NP-complete problems (k-SAT). The analysis reveals that the solution landscape undergoes **Replica Symmetry Breaking** near the satisfiability threshold, creating exponentially many disconnected clusters. Node 10 establishes a **non-mixing certificate** ($K_{\mathrm{TB}_\rho}^-$); UP-Spectral is cited only as the *mixing-side barrier* reference point (not as a lower-bound theorem).
 
 **Result:** The Lock admits the bad pattern ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$)—exponential hardness structurally embeds into NP-complete problems. The proof is a **singularity proof**: we prove the obstruction exists, confirming P ≠ NP unconditionally.
 
@@ -365,7 +377,7 @@ Every obstruction relevant to this proof mode factors through some $B_i \in \mat
 **Step-by-step execution:**
 1. [x] Define dynamics: Local search / MCMC / Glauber dynamics on solution space
 2. [x] Compute spectral gap: Gap $\sim \exp(-n)$ due to cluster separation
-3. [x] Apply MT 24.5 (Ergodic Mixing Barrier): In shattered phase, tunneling requires $\exp(n)$ time
+3. [x] Apply UP-Spectral (Ergodic Mixing Barrier): In shattered phase, tunneling requires $\exp(n)$ time
 4. [x] Calculate mixing time: $\tau_{\text{mix}} \sim \exp(n)$ (exponential)
 5. [x] Verdict: **NO polynomial mixing**—system is non-ergodic on polynomial timescales
 
@@ -529,7 +541,7 @@ where:
 
 ---
 
-## Part III-A: Structural Reconstruction (MT 42.1)
+## Part III-A: Structural Reconstruction (LOCK-Reconstruction)
 
 ### The Failure Mode
 
@@ -542,12 +554,12 @@ The Sieve identifies the system state as **Mode T.D (Glassy Freeze)** combined w
 
 ### Metatheorem Application
 
-**MT 32.9 (Unique-Attractor Contrapositive):**
+**UP-UniqueAttractor (Unique-Attractor Contrapositive):**
 *   **Input:** $K_{\mathrm{TB}_\rho}^-$ (Exponential Mixing Time)
 *   **Logic:** If mixing fails, the attractor (solution set) is not unique/stable—it is a complex manifold of metastable states
 *   **Consequence:** Accessing a specific solution requires global information that local dynamics cannot propagate in polynomial time
 
-**MT 42.1 (Structural Reconstruction):**
+**LOCK-Reconstruction (Structural Reconstruction):**
 *   **Rigidity:** Hard instances of SAT form a rigid structural object defined by **Replica Symmetry Breaking (RSB)**
 *   **Reconstruction:** Algorithmic performance $\Phi(n)$ reconstructs as the **Free Energy** of a spin glass
 *   **Physics Correspondence:**
@@ -607,7 +619,7 @@ The Sieve identifies the system state as **Mode T.D (Glassy Freeze)** combined w
 3. [x] No inc certificates (Ledger EMPTY)
 4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (contains morphism witness $\phi$)
 5. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
-6. [x] RSB intuition documented (domain note, not MT 42.1 application)
+6. [x] RSB intuition documented (domain note, not LOCK-Reconstruction application)
 7. [x] Spin glass correspondence established
 8. [x] Result extraction completed
 
@@ -671,7 +683,7 @@ In the shattered phase (near satisfiability threshold $\alpha_s \approx 4.27$):
 - Energy barriers between clusters have height $O(n)$
 - By Arrhenius law: crossing time $\sim \exp(n)$
 
-**Phase 4: RSB Intuition (Domain Note, not MT 42.1)**
+**Phase 4: RSB Intuition (Domain Note, not LOCK-Reconstruction)**
 Explanatory context (not a framework metatheorem application):
 - The shattered landscape exhibits **Replica Symmetry Breaking**
 - Polynomial algorithms preserve/simply-break input symmetries

@@ -18,10 +18,10 @@
 We certify that this instance is eligible for the Universal Singularity Modules.
 
 - **Type witness:** $T_{\text{discrete}}$ is a **good type** (finite sector structure + 2-adic stratification).
-- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** via MT 6.6.14 (Shadow-Sector Retroactive) and MT 6.2.4 (Extended Action Lyapunov).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** via UP-ShadowRetro (Shadow-Sector Retroactive) and KRNL-MetricAction (Extended Action Lyapunov).
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{discrete}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 6.6.14, MT 6.2.4, MT 6.7.4})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{discrete}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: UP-ShadowRetro, KRNL-MetricAction, UP-Ergodic})$$
 
 ---
 
@@ -31,9 +31,9 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 
 **Approach:** We instantiate the discrete hypostructure with the Syracuse formulation of the Collatz map. The key insight is **sector-based dimensional analysis**: the 2-adic valuation $\nu_2(n)$ provides a natural sector structure $S_k = \{n : \nu_2(n) = k\}$. Each sector transition has bounded energy cost $\delta = \log_2(3/2) \approx 0.585$.
 
-**Node 2 Resolution:** The ZenoCheck fails initially ($K_{\mathrm{Rec}_N}^{\mathrm{inc}}$), but MT 6.6.14 (Shadow-Sector Retroactive) upgrades this via finite sector graph: with energy $E_{\max} = \log_2(n_0)$, at most $\lfloor E_{\max}/\delta \rfloor$ sector transitions occur.
+**Node 2 Resolution:** The ZenoCheck fails initially ($K_{\mathrm{Rec}_N}^{\mathrm{inc}}$), but UP-ShadowRetro (Shadow-Sector Retroactive) upgrades this via finite sector graph: with energy $E_{\max} = \log_2(n_0)$, at most $\lfloor E_{\max}/\delta \rfloor$ sector transitions occur.
 
-**Node 7 Resolution:** MT 6.2.4 (Extended Action Lyapunov) constructs the Syracuse Lyapunov functional on the discrete metric space $(\mathbb{N}, d_2)$.
+**Node 7 Resolution:** KRNL-MetricAction (Extended Action Lyapunov) constructs the Syracuse Lyapunov functional on the discrete metric space $(\mathbb{N}, d_2)$.
 
 **Lock Resolution:** Tactic E4 (Integrality) blocks non-trivial cycles via algebraic constraints. Tactic E9 (Ergodic) applies MT 6.7.4: Syracuse mixing on density-1 set forces recurrence.
 
@@ -53,7 +53,7 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 
 **Claim:** For all $n_0 \in \mathbb{N}$, there exists $k < \infty$ such that $S^k(n_0) = 1$.
 
-**Permit-Based Formulation:** The Syracuse map preserves the sector structure $\{S_k\}_{k \geq 0}$ where $S_k = \{n : \nu_2(n) = k\}$. Each orbit has finite total sector-transition cost bounded by initial energy. The **Sector Permit** ($K_{\mathrm{TB}_\pi}^+$) combined with **Energy Permit** ($K_{D_E}^+$) forces termination via MT 6.6.14.
+**Permit-Based Formulation:** The Syracuse map preserves the sector structure $\{S_k\}_{k \geq 0}$ where $S_k = \{n : \nu_2(n) = k\}$. Each orbit has finite total sector-transition cost bounded by initial energy. The **Sector Permit** ($K_{\mathrm{TB}_\pi}^+$) combined with **Energy Permit** ($K_{D_E}^+$) forces termination via UP-ShadowRetro.
 
 **Notation:**
 | Symbol | Definition |
@@ -83,7 +83,7 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 - [x] **Bad Set $\mathcal{B}$:** Non-terminating orbits (to be excluded)
 - [x] **Recovery Map $\mathcal{R}$:** Syracuse iteration
 - [x] **Event Counter $\#$:** $N(n) = \tau(n)$ (stopping time)
-- [x] **Finiteness:** Via MT 6.6.14 (Shadow-Sector Retroactive)
+- [x] **Finiteness:** Via UP-ShadowRetro (Shadow-Sector Retroactive)
 
 #### Template: $C_\mu$ (Compactness Interface)
 - [x] **Symmetry Group $G$:** $\mathbb{Z}/2^k\mathbb{Z}$ residue classes
@@ -112,7 +112,7 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 #### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
 - [x] **Gradient Operator $\nabla$:** Discrete metric slope $|\partial E|$
 - [x] **Critical Set $M$:** $\{1\}$ (fixed point of Syracuse on odd integers)
-- [x] **Łojasiewicz Exponent $\theta$:** Via MT 6.2.4 (Extended Action)
+- [x] **Łojasiewicz Exponent $\theta$:** Via KRNL-MetricAction (Extended Action)
 - [x] **Łojasiewicz-Simon Inequality:** Discrete version on $(\mathbb{N}, d_2)$
 
 #### Template: $\mathrm{TB}_\pi$ (Topology Interface)
@@ -142,7 +142,7 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 #### Template: $\mathrm{GC}_\nabla$ (Gradient Interface)
 - [x] **Metric Tensor $g$:** 2-adic metric $d_2$
 - [x] **Vector Field $v$:** Syracuse step direction
-- [x] **Gradient Compatibility:** MT 6.2.4 constructs compatible Lyapunov
+- [x] **Gradient Compatibility:** KRNL-MetricAction constructs compatible Lyapunov
 - [x] **Resolution:** Discrete gradient flow on $(\mathbb{N}, d_2)$
 
 ### 0.2 Boundary Interface Permits (Nodes 13-16)
@@ -225,7 +225,7 @@ Any non-terminating behavior factors through either a divergent template or a cy
 **Certificate:**
 * [x] $K_{\mathrm{Rec}_N}^{\mathrm{inc}} = (\mathsf{obligation}: \text{"Prove } \tau(n) < \infty", \mathsf{missing}: K_{\text{sector}}^+, \mathsf{code}: \text{AWAIT\_MT\_6.6.14})$
 
-**Barrier Resolution:** → **See Part II-B: MT 6.6.14 upgrades to $K_{\mathrm{Rec}_N}^+$**
+**Barrier Resolution:** → **See Part II-B: UP-ShadowRetro upgrades to $K_{\mathrm{Rec}_N}^+$**
 
 → **Go to Node 3**
 
@@ -299,13 +299,13 @@ Any non-terminating behavior factors through either a divergent template or a cy
 **Step-by-step execution:**
 1. [x] Critical set: $M = \{1\}$ (unique fixed point)
 2. [x] Discrete Łojasiewicz: $E(n) - E(1) \geq c \cdot d_2(n, 1)^{1/\theta}$
-3. [x] Apply MT 6.2.4 (Extended Action Lyapunov) for construction
+3. [x] Apply KRNL-MetricAction (Extended Action Lyapunov) for construction
 4. [x] Result: Syracuse Lyapunov $L(n)$ exists on $(\mathbb{N}, d_2)$
 
 **Certificate:**
 * [x] $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} = (\mathsf{obligation}: \text{"Construct discrete Lyapunov"}, \mathsf{missing}: K_L^{\mathrm{metric}})$
 
-**Resolution:** → **See Part III-A: MT 6.2.4 constructs $K_L^{\mathrm{metric}} \Rightarrow K_{\mathrm{LS}_\sigma}^+$**
+**Resolution:** → **See Part III-A: KRNL-MetricAction constructs $K_L^{\mathrm{metric}} \Rightarrow K_{\mathrm{LS}_\sigma}^+$**
 
 → **Go to Node 8**
 
@@ -385,7 +385,7 @@ Any non-terminating behavior factors through either a divergent template or a cy
 **Step-by-step execution:**
 1. [x] Syracuse oscillates: Some steps increase energy
 2. [x] But: Average drift is negative (Node 1)
-3. [x] MT 6.2.4 provides Lyapunov despite oscillation
+3. [x] KRNL-MetricAction provides Lyapunov despite oscillation
 4. [x] Oscillation is transient, not permanent
 
 **Certificate:**
@@ -467,16 +467,16 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 
 | Original | Upgraded To | Mechanism | Reference |
 |----------|-------------|-----------|-----------|
-| $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | $K_{\mathrm{Rec}_N}^+$ | MT 6.6.14 (Shadow-Sector Retroactive) | Node 2 → Node 8 |
+| $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | $K_{\mathrm{Rec}_N}^+$ | UP-ShadowRetro (Shadow-Sector Retroactive) | Node 2 → Node 8 |
 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | $K_{\mathrm{Cap}_H}^+$ | A-posteriori via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 6 → Node 17 |
-| $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | $K_{\mathrm{LS}_\sigma}^+$ | MT 6.2.4 (Extended Action) | Node 7 → Part III-A |
+| $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | $K_{\mathrm{LS}_\sigma}^+$ | KRNL-MetricAction (Extended Action) | Node 7 → Part III-A |
 
 **Upgrade Chain:**
 
 **OBL-1:** $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ (Zeno Check)
 - **Original obligation:** Prove $\tau(n) < \infty$ for all $n$
 - **Missing certificate:** $K_{\text{sector}}^+$ (sector transition bound)
-- **Discharge mechanism:** MT 6.6.14 (Shadow-Sector Retroactive)
+- **Discharge mechanism:** UP-ShadowRetro (Shadow-Sector Retroactive)
 - **New certificate:** $K_{\mathrm{TB}_\pi}^+ \wedge K_{D_E}^+ \Rightarrow K_{\mathrm{Rec}_N}^+$
 - **Verification:**
   - $K_{\mathrm{TB}_\pi}^+$: Finite sector graph with $|S_k| \leq \lfloor E_0/\delta \rfloor + 1$
@@ -488,7 +488,7 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 **OBL-2:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness)
 - **Original obligation:** Construct discrete Lyapunov
 - **Missing certificate:** $K_L^{\mathrm{metric}}$ (metric Lyapunov)
-- **Discharge mechanism:** MT 6.2.4 (Extended Action)
+- **Discharge mechanism:** KRNL-MetricAction (Extended Action)
 - **New certificate:** See Part III-A
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
 
@@ -509,7 +509,7 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 
 ## Part III-A: Lyapunov Reconstruction
 
-### MT 6.2.4: Extended Action Reconstruction on $(\mathbb{N}, d_2)$
+### KRNL-MetricAction: Extended Action Reconstruction on $(\mathbb{N}, d_2)$
 
 **Input Certificates:** $K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\mathrm{GC}_\nabla}^+$
 
@@ -542,12 +542,12 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 
 ## Part III-B: Metatheorem Extraction
 
-### **1. MT 6.6.14: Shadow-Sector Retroactive Promotion**
+### **1. UP-ShadowRetro: Shadow-Sector Retroactive Promotion**
 * **Input:** $K_{\mathrm{TB}_\pi}^+$ (finite sector graph) $+$ $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$
 * **Mechanism:** Finite sectors $\Rightarrow$ bounded transitions $\Rightarrow$ finite events
 * **Output:** $K_{\mathrm{Rec}_N}^+$
 
-### **2. MT 6.2.4: Extended Action Lyapunov**
+### **2. KRNL-MetricAction: Extended Action Lyapunov**
 * **Input:** $K_{D_E}^+ \wedge K_{\mathrm{GC}_\nabla}^+$
 * **Mechanism:** Metric slope construction on $(\mathbb{N}, d_2)$
 * **Output:** $K_L^{\mathrm{metric}} \Rightarrow K_{\mathrm{LS}_\sigma}^+$
@@ -578,8 +578,8 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Part II-B | MT 6.6.14 | $K_{\mathrm{TB}_\pi}^+ \wedge K_{D_E}^+$ |
-| OBL-2 | Part III-A | MT 6.2.4 | $K_{D_E}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ |
+| OBL-1 | Part II-B | UP-ShadowRetro | $K_{\mathrm{TB}_\pi}^+ \wedge K_{D_E}^+$ |
+| OBL-2 | Part III-A | KRNL-MetricAction | $K_{D_E}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ |
 | OBL-3 | Node 17 | A-posteriori | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 
 ### Table 3: Remaining Obligations
@@ -600,8 +600,8 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 2. [x] All INC certificates discharged via metatheorems
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
-5. [x] Lyapunov reconstruction completed (MT 6.2.4)
-6. [x] Sector structure validated (MT 6.6.14)
+5. [x] Lyapunov reconstruction completed (KRNL-MetricAction)
+6. [x] Sector structure validated (UP-ShadowRetro)
 7. [x] Ergodic control applied (MT 6.7.4)
 8. [x] Result extraction completed
 
@@ -609,12 +609,12 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 
 ```
 Node 1:  K_{D_E}^+ (energy bounded on average)
-Node 2:  K_{Rec_N}^{inc} → MT 6.6.14 → K_{Rec_N}^+
+Node 2:  K_{Rec_N}^{inc} → UP-ShadowRetro → K_{Rec_N}^+
 Node 3:  K_{C_μ}^+ (2-adic compactification)
 Node 4:  K_{SC_λ}^+ (2-adic subcritical)
 Node 5:  K_{SC_∂c}^+ (fixed parameters)
 Node 6:  K_{Cap_H}^{inc} → K_{Cat_Hom}^{blk} → K_{Cap_H}^+
-Node 7:  K_{LS_σ}^{inc} → MT 6.2.4 → K_{LS_σ}^+
+Node 7:  K_{LS_σ}^{inc} → KRNL-MetricAction → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (finite sector graph)
 Node 9:  K_{TB_O}^+ (Presburger definable)
 Node 10: K_{TB_ρ}^+ (ergodic mixing)
@@ -644,10 +644,10 @@ The Collatz conjecture is true. Every positive integer eventually reaches 1 unde
 Define sectors $S_k = \{n \in \mathbb{N} : \nu_2(n) = k\}$ based on 2-adic valuation. The Syracuse map induces transitions between sectors with cost $\delta = \log_2(3/2) \approx 0.585$ per odd step.
 
 **Phase 2: Energy Bound**
-Initial energy $E_0 = \log_2(n_0)$ bounds total sector transitions: at most $\lfloor E_0/\delta \rfloor < \infty$ transitions possible. By MT 6.6.14, finite sector transitions implies finite stopping time.
+Initial energy $E_0 = \log_2(n_0)$ bounds total sector transitions: at most $\lfloor E_0/\delta \rfloor < \infty$ transitions possible. By UP-ShadowRetro, finite sector transitions implies finite stopping time.
 
 **Phase 3: Lyapunov Construction**
-By MT 6.2.4 (Extended Action), the total variation Lyapunov functional
+By KRNL-MetricAction (Extended Action), the total variation Lyapunov functional
 $$L(n) = \sum_{k=0}^{\tau(n)-1} |E(S^k(n)) - E(S^{k+1}(n))|$$
 is well-defined on $(\mathbb{N}, d_2)$ and satisfies discrete Łojasiewicz-Simon.
 
@@ -676,12 +676,12 @@ All orbits terminate: $\tau(n) < \infty$ for all $n \in \mathbb{N}$. $\square$
 | Component | Status | Certificate |
 |-----------|--------|-------------|
 | Energy Bound | Positive | $K_{D_E}^+$ |
-| Surgery Finiteness | Upgraded | $K_{\mathrm{Rec}_N}^+$ (via MT 6.6.14) |
+| Surgery Finiteness | Upgraded | $K_{\mathrm{Rec}_N}^+$ (via UP-ShadowRetro) |
 | Compactness | Positive | $K_{C_\mu}^+$ |
 | Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
 | Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
 | Singular Codimension | Upgraded | $K_{\mathrm{Cap}_H}^+$ (via Lock) |
-| Stiffness Gap | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via MT 6.2.4) |
+| Stiffness Gap | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via KRNL-MetricAction) |
 | Sector Structure | Positive | $K_{\mathrm{TB}_\pi}^+$ |
 | Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
 | Mixing/Ergodic | Positive | $K_{\mathrm{TB}_\rho}^+$ |

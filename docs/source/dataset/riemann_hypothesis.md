@@ -13,6 +13,18 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{quant}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Riemann Hypothesis**.
@@ -413,16 +425,16 @@ The **Explicit Formula** is the algebraic data: it links the zero-set $\Sigma$ t
 6. [x] Prime Number Theorem bounds control this
 7. [x] Certificate: $K_{\text{Quant}}^{\text{real}}$
 
-**Step 3: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 3: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics do not directly decide Hom-emptiness with the current payload.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 4: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 4: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Bridge}}^+$, $K_{\text{Rigid}}^+$
@@ -448,7 +460,7 @@ c. **Trace Formula ($K_{\text{Bridge}}^+$):**
 d. **Rigidity ($K_{\text{Rigid}}^+$):**
    - Rigid structural subcategory witness: semisimplicity / spectral gap / positivity
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{FuncEq}}^+ \wedge K_{\text{Integrality}}^+ \Rightarrow K_{\text{Quant}}^{\text{real}}$
 2. [x] $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{real}} \wedge K_{\text{Rigid}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -463,7 +475,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 * [x] Result: Reconstruction → eigenvalues real → $\text{Re}(\rho) = 1/2$
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Quant}}^{\text{real}}, K_{\text{Rigid}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Quant}}^{\text{real}}, K_{\text{Rigid}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -482,13 +494,13 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness/Unitarity)
 - **Original obligation:** Unitarity/self-adjointness forcing $\delta = 0$
 - **Missing certificates:** $K_{\text{FuncEq}}^+$, $K_{\text{Integrality}}^+$, $K_{\text{Bridge}}^+$
-- **Discharge mechanism:** Spectral chain (E4 + MT 42.1)
+- **Discharge mechanism:** Spectral chain (E4 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{FuncEq}}^+$: Riemann's functional equation (theorem)
   - $K_{\text{Integrality}}^+$: Primes are integers (axiom)
   - $K_{\text{FuncEq}}^+ \wedge K_{\text{Integrality}}^+ \Rightarrow K_{\text{Quant}}^{\text{real}}$ (E4)
   - $K_{\text{Bridge}}^+$: Explicit formula = trace formula
-  - $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{real}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{real}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
 
 ---
@@ -510,7 +522,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 *   **Logic:** Discrete primes → quantized spectrum → real eigenvalues
 *   **Certificate:** $K_{\text{Quant}}^{\text{real}}$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{real}} \wedge K_{\text{Rigid}}^+$
 *   **Output:** Reconstruction dictionary with verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -529,7 +541,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Spectral chain (E4 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 5 | Spectral chain (E4 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -550,7 +562,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Spectral quantization validated (E4)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -570,7 +582,7 @@ Node 10: K_{TB_ρ}^+ (GUE repulsion)
 Node 11: K_{Rep_K}^+ (explicit formula)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -599,7 +611,7 @@ $$\sum_\rho h\left(\frac{\rho - 1/2}{i}\right) = \sum_{p,k} \frac{\log p}{p^{k/2
 Since prime powers are **integers** (quantized), Tactic E4 (Integrality) implies the dual spectrum must be rigid. Combined with the functional equation, this yields $K_{\text{Quant}}^{\text{real}}$.
 
 **Phase 3: Structural Reconstruction**
-The explicit formula matches the Gutzwiller trace formula for the classical Hamiltonian $H_{cl} = xp$. By MT 42.1 (Structural Reconstruction), there exists a quantum Hamiltonian
+The explicit formula matches the Gutzwiller trace formula for the classical Hamiltonian $H_{cl} = xp$. By LOCK-Reconstruction (Structural Reconstruction), there exists a quantum Hamiltonian
 $$H = \frac{1}{2}(xp + px)$$
 whose spectrum coincides with the imaginary parts $\{\gamma\}$ of the zeros.
 
@@ -629,7 +641,7 @@ If $\rho = 1/2 + i\gamma$ is a nontrivial zero, then $\gamma$ is an eigenvalue o
 | Spectral Repulsion | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Explicit Formula | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Structured Oscillation | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and path verification are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{combinatorial}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{combinatorial}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -467,7 +467,56 @@ All barriers passed without breach. System exhibits clean monotonic descent with
 
 ---
 
-## Part III: Formal Proof
+## Part III-A: Result Extraction
+
+### **1. Path Construction**
+*   **Input:** Graph $G$ with $\delta(G) \ge n/2$
+*   **Output:** Maximal path $P = (v_1, \ldots, v_k)$
+*   **Certificate:** $K_{D_E}^+$ (bounded energy)
+
+### **2. Cycle Closure**
+*   **Input:** Maximal path with $k$ vertices
+*   **Output:** If $k = n$, path closes to Hamiltonian cycle
+*   **Certificate:** $K_{\mathrm{Cap}_H}^+$ (capacity constraint forces $k = n$)
+
+### **3. Capacity Exclusion**
+*   **Input:** Degree bound $\delta \ge n/2$
+*   **Output:** Non-Hamiltonian graphs are excluded
+*   **Certificate:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via E6 (GeomCheck)
+
+---
+
+## Part III-C: Obligation Ledger
+
+### Table 1: Introduced Obligations
+
+| ID | Node | Certificate | Obligation | Missing | Status |
+|----|------|-------------|------------|---------|--------|
+| — | — | — | — | — | — |
+
+*No inc certificates introduced. All nodes passed directly.*
+
+### Table 2: Discharge Events
+
+| Obligation ID | Discharged At | Mechanism | Using Certificates |
+|---------------|---------------|-----------|-------------------|
+| — | — | — | — |
+
+*No discharge events required.*
+
+### Table 3: Remaining Obligations
+
+| ID | Obligation | Why Unresolved |
+|----|------------|----------------|
+| — | — | — |
+
+*No remaining obligations.*
+
+**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+
+---
+
+## Formal Proof
 
 ::::{prf:proof} Proof of Theorem {prf:ref}`thm-dirac`
 
@@ -632,6 +681,62 @@ This proof object is replayed by providing:
 | $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
 | $K_{\mathrm{Cap}_H}^+$ | Node 6 (GeomCheck) | `[computed]` |
 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
+
+---
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | Simple graphs $G = (V,E)$ with $\|V\| = n \ge 3$, $\delta(G) \ge n/2$, + partial paths | State Space |
+| **Potential ($\Phi$)** | Path length deficit: $\Phi_0(G,P) = n - \|V(P)\|$ | Height Functional |
+| **Cost ($\mathfrak{D}$)** | $\#\{v \in V \setminus V(P) : v \text{ adjacent to endpoints}\}$ | Path Extension Opportunities |
+| **Invariance ($G$)** | $\text{Aut}(G)$ (graph automorphisms) | Symmetry Group |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | EnergyCheck | YES | $K_{D_E}^+$: Energy bounded by $n$ | `[]` |
+| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: $N \le n$ operations | `[]` |
+| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Hamiltonian cycle profile | `[]` |
+| **4** | ScaleCheck | YES | $K_{\mathrm{SC}_\lambda}^+$: $\alpha - \beta = 1$ (subcritical) | `[]` |
+| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: $n, \delta$ stable | `[]` |
+| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\delta \ge n/2$ capacity | `[]` |
+| **7** | StiffnessCheck | YES | $K_{\mathrm{LS}_\sigma}^+$: Discrete descent $\theta = 1$ | `[]` |
+| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Graph structure preserved | `[]` |
+| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: Discrete/finite, tame | `[]` |
+| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Deterministic convergence | `[]` |
+| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: $O(n \log n)$ complexity | `[]` |
+| **12** | OscillateCheck | NO | $K_{\mathrm{GC}_\nabla}^-$: Monotonic gradient flow | `[]` |
+| **13** | BoundaryCheck | NO | $K_{\mathrm{Bound}_\partial}^-$: Closed system | `[]` |
+| **14-16** | Boundary Subgraph | SKIP | Not triggered | `[]` |
+| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E6+E8+E11 | `[]` |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Dimension | N/A | — |
+| **E2** | Invariant | N/A | — |
+| **E3** | Positivity | N/A | — |
+| **E4** | Integrality | N/A | — |
+| **E5** | Functional | N/A | — |
+| **E6** | Causal/Capacity | **PASS** | Degree bound $\delta \ge n/2$ excludes non-Hamiltonian |
+| **E7** | Thermodynamic | N/A | — |
+| **E8** | Topological | **PASS** | Hamiltonian cycle is topological property |
+| **E9** | Ergodic | N/A | — |
+| **E10** | Definability | N/A | — |
+| **E11** | Complexity | **PASS** | Finite graph → bounded complexity |
+
+### 4. Final Verdict
+
+* **Status:** UNCONDITIONAL
+* **Obligation Ledger:** EMPTY
+* **Singularity Set:** $\Sigma = \emptyset$
+* **Primary Blocking Tactic:** E6 (Capacity Constraint via Degree Bound)
 
 ---
 

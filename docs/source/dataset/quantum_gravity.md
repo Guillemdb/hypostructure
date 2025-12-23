@@ -25,7 +25,7 @@ We certify that this instance is **NOT** eligible for standard Universal Singula
 - **Automation witness:** The Automation Guarantee fails because the "Kinematic State Space" violates the **Holographic Power Bound** (Metatheorem 34.3).
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^- = (T_{\text{quant}}\ \text{type mismatch},\ \text{AutomationGuarantee fails},\ \text{Holographic Bound violated: MT 34.3})$$
+$$K_{\mathrm{Auto}}^- = (T_{\text{quant}}\ \text{type mismatch},\ \text{AutomationGuarantee fails},\ \text{Holographic Bound violated: UP-TameSmoothing})$$
 
 ---
 
@@ -537,7 +537,7 @@ The **promotion closure** $\mathrm{Cl}(\Gamma)$ applies all upgrade rules until 
 - **Metric ($d$):** DeWitt Metric (on superspace of 3-metrics).
   $$G_{ijkl} = \frac{1}{2}(g_{ik}g_{jl} + g_{il}g_{jk} - g_{ij}g_{kl})$$
 - **Measure ($\mu$):** The Path Integral Measure $\mathcal{D}g$.
-    * *Framework Derivation:* Capacity Functional via MT 15.1 (FAILS - measure ill-defined).
+    * *Framework Derivation:* Capacity Functional via RESOLVE-AutoAdmit (FAILS - measure ill-defined).
 
 ### **2. The Potential ($\Phi^{\text{thin}}$)**
 *Implements: $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$*
@@ -562,7 +562,7 @@ The **promotion closure** $\mathrm{Cl}(\Gamma)$ applies all upgrade rules until 
 - **Symmetry Group ($G$):** Diffeomorphism Group $\text{Diff}(\mathcal{M})$.
 - **Action ($\rho$):** Coordinate transformations $x^\mu \to x'^\mu(x)$.
 - **Constraint:** Background Independence (No fixed prior geometry).
-    * *Framework Derivation:* Profile Library via MT 14.1 → Black Hole (canonical profile).
+    * *Framework Derivation:* Profile Library via RESOLVE-AutoProfile → Black Hole (canonical profile).
 
 ---
 
@@ -784,7 +784,7 @@ For each node:
 3. [x] Compute complexity:
    - **QFT (Volume Law):** $\dim(\mathcal{H}_V) \sim e^{V/\ell_P^3}$
    - **GR (Area Law):** $S_{BH} \leq A/4G_N \sim (A/\ell_P^2)$
-4. [x] The Contradiction (MT 34.3 - Holographic Power Bound):
+4. [x] The Contradiction (UP-TameSmoothing - Holographic Power Bound):
    - $\dim(\mathcal{H}_{\text{QFT}}) \gg e^{S_{BH}}$
    - Most states in the QFT Hilbert space correspond to black holes too large to fit
    - The dictionary $D$ is **undefined** for the vast majority of states
@@ -796,7 +796,7 @@ K_{Rep_K}^{inc} = {
   obligation: "Define map from Hilbert Space to Spacetime",
   missing: ["Holographic Dictionary", "UV Completion"],
   failure_code: "KINEMATIC_EXPLOSION",
-  trace: "MT 34.3 Holographic Power Bound Violated"
+  trace: "UP-TameSmoothing Holographic Power Bound Violated"
 }
 ```
 
@@ -1056,9 +1056,9 @@ No canonical Lyapunov functional exists for quantum gravity in its current formu
 
 ### **3.4 Retroactive Upgrades**
 
-- [ ] **Lock-Back (MT 33.1):** NOT APPLICABLE (Lock BREACHED)
-- [ ] **Symmetry-Gap (MT 33.2):** NOT APPLICABLE (no gap)
-- [ ] **Tame-Topology (MT 33.3):** NOT APPLICABLE (tameness lost)
+- [ ] **Lock-Back (UP-LockBack):** NOT APPLICABLE (Lock BREACHED)
+- [ ] **Symmetry-Gap (UP-SymmetryBridge):** NOT APPLICABLE (no gap)
+- [ ] **Tame-Topology (UP-TameSmoothing):** NOT APPLICABLE (tameness lost)
 
 ---
 

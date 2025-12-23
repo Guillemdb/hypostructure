@@ -13,6 +13,18 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{hyperbolic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{hyperbolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for **global regularity of the 1D wave equation**.
@@ -170,11 +182,10 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 **Question:** Is the height functional bounded/well-defined?
 
 **Step-by-step execution:**
-1. [x] Define energy functional: $E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx$
-2. [x] Verify energy identity: Multiply equation by $u_t$, integrate by parts
-   $$\frac{d}{dt}\int \frac{1}{2}(u_t^2 + u_x^2)\,dx = \int u_t u_{tt} + u_x u_{xt}\,dx = \int u_t(u_{xx}) + u_x u_{xt}\,dx = 0$$
-3. [x] Check initial energy: $(u_0, u_1) \in H^1 \times L^2 \Rightarrow E(0) < \infty$
-4. [x] Propagate: $E(t) = E(0) < \infty$ for all $t$
+1. [x] Height functional: $E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx$
+2. [x] Energy conservation: $\frac{d}{dt}E = 0$ (standard for wave equation)
+3. [x] Initial energy: $(u_0, u_1) \in H^1 \times L^2 \Rightarrow E(0) < \infty$
+4. [x] Bound: $E(t) = E(0) < \infty$ for all $t$
 
 **Certificate:**
 * [x] $K_{D_E}^+ = (E(t) = E(0), \text{conservation identity})$ → **Go to Node 2**
@@ -596,7 +607,7 @@ Smooth initial data yields global smooth solutions with energy conservation.
 **Phase 1: Explicit Solution Construction**
 Consider the 1D wave equation $u_{tt} = c^2 u_{xx}$ with initial data $(u_0, u_1) \in H^s \times H^{s-1}$.
 
-By D'Alembert's formula (1747):
+We apply the D'Alembert Permit ($K_{\text{D'Alembert}}^+$, 1747):
 $$u(x,t) = \frac{1}{2}[u_0(x-ct) + u_0(x+ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} u_1(s)\,ds$$
 
 This formula is well-defined for all $(x,t) \in \mathbb{R} \times [0,\infty)$.
@@ -611,16 +622,8 @@ $$\|u(t)\|_{H^s} \leq C(\|u_0\|_{H^s} + \|u_1\|_{H^{s-1}})$$
 where $C$ is independent of $t$.
 
 **Phase 3: Energy Conservation**
-Multiply the wave equation by $u_t$ and integrate:
-$$\int u_t u_{tt}\,dx = c^2 \int u_t u_{xx}\,dx$$
-
-Integration by parts (assuming decay at $\pm\infty$):
-$$\frac{1}{2}\frac{d}{dt}\int u_t^2\,dx = -c^2 \int u_{tx} u_x\,dx = -\frac{c^2}{2}\frac{d}{dt}\int u_x^2\,dx$$
-
-Therefore:
-$$\frac{d}{dt}\left[\frac{1}{2}\int (u_t^2 + c^2 u_x^2)\,dx\right] = 0$$
-
-The energy is conserved: $E(t) = E(0)$ for all $t \geq 0$.
+The wave equation energy is conserved (standard result):
+$$E(t) = \frac{1}{2}\int (u_t^2 + c^2 u_x^2)\,dx = E(0) \quad \text{for all } t \geq 0$$
 
 **Phase 4: Exclusion of Blow-Up**
 Suppose blow-up occurs at time $t^* < \infty$: $\lim_{t \to t^*} \|u(t)\|_{H^s} = \infty$.
@@ -628,7 +631,7 @@ Suppose blow-up occurs at time $t^* < \infty$: $\lim_{t \to t^*} \|u(t)\|_{H^s} 
 By energy conservation:
 $$\|u_x(t)\|_{L^2}^2 = \|u_x(0)\|_{L^2}^2 < \infty \quad \forall t$$
 
-By D'Alembert formula:
+Via the D'Alembert Permit ($K_{\text{D'Alembert}}^+$):
 $$\|u(t)\|_{H^s} \leq C(\|u_0\|_{H^s} + \|u_1\|_{H^{s-1}}) < \infty \quad \forall t$$
 
 Contradiction. Therefore, no blow-up occurs.

@@ -13,13 +13,71 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{ergodic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{ergodic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Circle $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ with Lebesgue measure |
+| **Potential** | Discrepancy $D_N = \sup_I \|\frac{\#\{n < N : n\alpha \in I\}}{N} - \|I\|\|$ |
+| **Cost** | Cesàro averaging $\frac{1}{N} \sum_{n=0}^{N-1} \delta_{R_\alpha^n(x)} \to \mu_{\text{Leb}}$ |
+| **Invariance** | Circle rotations $\mathbb{T}$ (abelian group) |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (Weyl discrepancy bound) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (Cesàro averaging) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ (Lebesgue unique invariant) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (critical scaling) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (irrationality stable) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (dense orbit) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (minimal system) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (definable) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (uniquely ergodic) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (Weyl criterion) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (conservative) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed circle) |
+| 14-16 | Boundary Nodes | Not triggered (closed system) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E4 + LOCK-Reconstruction) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E1 | Applied | Structural Reconstruction via Three-Distance Theorem |
+| E4 | **Primary** | Integrality — Irrationality forces dispersion via continued fractions |
+| LOCK-Reconstruction | Applied | Continued fraction chain produces $K_{\text{Rec}}^+$ |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** |
+| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
+| **Singularity Set** | $\emptyset$ (orbit is dense) |
+| **Primary Blocking Tactic** | E4 (Integrality via Continued Fractions) |
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for **Irrational Rotation Unique Ergodicity** using the Hypostructure framework.
 
 **Approach:** We instantiate the ergodic hypostructure with irrational rotation $R_\alpha: \mathbb{T} \to \mathbb{T}$ where $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ (circle). The height functional is the deviation from uniform distribution (discrepancy). The key insight is that irrationality forces dispersion: orbit segments equidistribute via continued fraction approximations (Tactic E4 - Integrality). The Lebesgue measure is the unique invariant measure.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and MT 42.1 (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional. This is a paradigm case of **DISPERSION** - orbits spread uniformly across the circle.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional. This is a paradigm case of **DISPERSION** - orbits spread uniformly across the circle.
 
 ---
 
@@ -401,16 +459,16 @@ Equivalently:
 4. [x] Irrational rotation forces dispersion (no resonances)
 5. [x] Certificate: $K_{\text{Irrat}}^{\text{disperse}}$
 
-**Step 3: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 3: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics do not directly decide Hom-emptiness with current payload.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 4: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 4: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Bridge}}^+$, $K_{\text{Rigid}}^+$
@@ -442,7 +500,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
    - No other ergodic decomposition possible
    - Structural rigidity from irrationality
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Irrat}}^+ \wedge K_{\text{ContFrac}}^+ \Rightarrow K_{\text{ThreeDist}}^+$
 2. [x] $K_{\text{ThreeDist}}^+ \wedge K_{\text{Bridge}}^+ \wedge K_{\text{Rigid}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -457,7 +515,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 * [x] Result: Reconstruction → unique measure → equidistribution
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Irrat}}^{\text{disperse}}, K_{\text{Rigid}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Irrat}}^{\text{disperse}}, K_{\text{Rigid}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -476,14 +534,22 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Diophantine Quantification)
 - **Original obligation:** Quantitative irrationality via continued fractions
 - **Missing certificates:** $K_{\text{ContFrac}}^+$, $K_{\text{ThreeDist}}^+$, $K_{\text{Bridge}}^+$
-- **Discharge mechanism:** Continued fraction chain (E4 + MT 42.1)
+- **Discharge mechanism:** Continued fraction chain (E4 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Irrat}}^+$: $\alpha$ is irrational (hypothesis)
   - $K_{\text{ContFrac}}^+$: Continued fraction expansion + convergents
   - $K_{\text{Irrat}}^+ \wedge K_{\text{ContFrac}}^+ \Rightarrow K_{\text{ThreeDist}}^+$ (E4)
   - $K_{\text{Bridge}}^+$: Weyl equidistribution theorem
-  - $K_{\text{ThreeDist}}^+ \wedge K_{\text{Bridge}}^+ \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{ThreeDist}}^+ \wedge K_{\text{Bridge}}^+ \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The irrational rotation is a minimal, uniquely ergodic dynamical system with no singularities.*
+
+**Breach Log:** EMPTY
 
 ---
 
@@ -504,7 +570,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 *   **Logic:** Continued fractions → three-distance theorem → discrepancy $O(N^{-1} \log N)$
 *   **Certificate:** $K_{\text{ThreeDist}}^+$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Bridge}}^+ \wedge K_{\text{ThreeDist}}^+ \wedge K_{\text{Rigid}}^+$
 *   **Output:** Reconstruction dictionary with verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -523,7 +589,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Continued fraction chain (E4 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 5 | Continued fraction chain (E4 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -544,7 +610,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Irrationality validated (E4)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -564,7 +630,7 @@ Node 10: K_{TB_ρ}^+ (uniquely ergodic)
 Node 11: K_{Rep_K}^+ (Weyl criterion)
 Node 12: K_{GC_∇}^- (conservative)
 Node 13: K_{Bound_∂}^- (closed circle)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -598,7 +664,7 @@ $$\left|\alpha - \frac{p_k}{q_k}\right| < \frac{1}{q_k q_{k+1}} < \frac{1}{q_k^2
 These are the **best rational approximations** to $\alpha$.
 
 **Phase 3: Three-Distance Theorem**
-By the Three-Distance Theorem (Steinhaus, Sós, Surányi), for any $N$, the points $\{0, \alpha, 2\alpha, \ldots, (N-1)\alpha\}$ modulo 1 partition the circle into at most **three distinct gap lengths**.
+We apply the Three-Distance Permit ($K_{\text{3-Dist}}^+$, Steinhaus-Sós-Surányi): for any $N$, the points $\{0, \alpha, 2\alpha, \ldots, (N-1)\alpha\}$ modulo 1 partition the circle into at most **three distinct gap lengths**.
 
 The gap lengths are determined by the continued fraction convergents $q_k$ where $q_k \le N < q_{k+1}$. As $N \to \infty$, the distribution becomes increasingly uniform.
 
@@ -621,13 +687,13 @@ $$\lim_{N \to \infty} \frac{1}{N} \sum_{n=0}^{N-1} f(x_0 + n\alpha) = \hat{f}(0)
 Let $\mu$ be any $R_\alpha$-invariant probability measure on $\mathbb{T}$. For any continuous $f$:
 $$\int f \, d\mu = \int f \circ R_\alpha \, d\mu = \int f \, d\mu$$
 
-By Birkhoff's Ergodic Theorem and Weyl equidistribution, for $\mu$-a.e. $x$:
+Via the Birkhoff-Weyl Permit ($K_{\text{Birkhoff-Weyl}}^+$), for $\mu$-a.e. $x$:
 $$\lim_{N \to \infty} \frac{1}{N} \sum_{n=0}^{N-1} f(R_\alpha^n(x)) = \int f \, d\mu$$
 
 But by Weyl, this limit equals $\int f \, d\mu_{\text{Leb}}$ for **all** $x$. Therefore $\mu = \mu_{\text{Leb}}$.
 
 **Phase 6: Discrepancy Bound**
-By Weyl's inequality and continued fraction estimates:
+Via the Weyl Permit ($K_{\text{Weyl}}^+$) and continued fraction estimates:
 $$D_N = \sup_{I \subset \mathbb{T}} \left|\frac{\#\{n < N : n\alpha \in I\}}{N} - |I|\right| \le \frac{C(\alpha)}{N} \log N$$
 
 where $C(\alpha)$ depends on the continued fraction coefficients of $\alpha$.
@@ -636,9 +702,9 @@ where $C(\alpha)$ depends on the continued fraction coefficients of $\alpha$.
 Define the forbidden object family:
 $$\mathbb{H}_{\mathrm{bad}} = \{\text{non-equidistribution},\ \text{persistent clustering}\}$$
 
-Using Lock tactics (E4 + MT 42.1):
+Using Lock tactics (E4 + LOCK-Reconstruction):
 - **E4 (Irrationality):** $\alpha \notin \mathbb{Q}$ excludes rational resonances → forces dispersion
-- **MT 42.1 (Continued Fractions):** Three-distance theorem + Weyl criterion → unique measure
+- **LOCK-Reconstruction (Continued Fractions):** Three-distance theorem + Weyl criterion → unique measure
 
 The Lock is **BLOCKED**: $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathcal{H}) = \emptyset$
 
@@ -672,7 +738,7 @@ $\therefore$ Irrational rotation is uniquely ergodic (Weyl equidistribution) $\s
 | Weyl Criterion | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Conservative Flow | Negative | $K_{\mathrm{GC}_\nabla}^-$ (isometry) |
 | Closed Circle | Negative | $K_{\mathrm{Bound}_\partial}^-$ (no boundary) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

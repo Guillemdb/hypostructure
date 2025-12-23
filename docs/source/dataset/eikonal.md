@@ -13,6 +13,18 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{hyperbolic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{hyperbolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **global regularity of the Eikonal equation** via characteristic theory and viscosity solution framework.
@@ -257,12 +269,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 5. [x] Obligation: Show non-generic (codim-1) caustics are measure zero
 
 **Certificate:**
-* [x] $K_{\mathrm{Cap}_H}^{\mathrm{inc}} = \{
-    \text{obligation: "Caustics generically codim-2"},
-    \text{missing: Whitney stratification},
-    \text{failure_code: CODIM_VERIFICATION},
-    \text{trace: "Node 6 → Node 17"}
-  \}$
+* [x] $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ = {obligation: "Caustics generically codim-2", missing: Whitney stratification, failure\_code: CODIM\_VERIFICATION, trace: "Node 6 → Node 17"}
   → **Record obligation OBL-1, Go to Node 7**
 
 ---
@@ -469,6 +476,17 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 ---
 
+## Part II-C: Breach/Surgery Protocol
+
+*Classical solutions breach at caustics (characteristic crossings). Viscosity solution framework provides surgery via Lax-Oleinik formula.*
+
+**Breach Log:**
+- **Breach Type:** Caustic formation (characteristics cross)
+- **Surgery:** Extension to viscosity solutions in $\text{Lip}(\Omega)$
+- **Re-entry:** Global existence in weak sense with codimension-2 singular set
+
+---
+
 ## Part III-A: Result Extraction
 
 ### **1. Classical Solutions**
@@ -576,8 +594,8 @@ Arnold's singularity theory classifies generic caustics:
 - **Fold caustics:** Codimension 1 in phase space → codimension 2 in $\Omega$
 - **Cusp caustics:** Codimension 2 in phase space → codimension 3 in $\Omega$
 
-By Whitney stratification:
-$$K_{\text{Whitney}}^+: \quad \Sigma_{\text{caus}} = \bigcup_{k \ge 2} \Sigma_k, \quad \dim(\Sigma_k) = n - k$$
+Via the Whitney Stratification Permit ($K_{\text{Whitney}}^+$):
+$$\Sigma_{\text{caus}} = \bigcup_{k \ge 2} \Sigma_k, \quad \dim(\Sigma_k) = n - k$$
 
 Measure: $\mathcal{H}^{n-2}(\Sigma_{\text{caus}}) < \infty$ (finite).
 

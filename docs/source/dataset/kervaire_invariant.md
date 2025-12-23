@@ -21,7 +21,52 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery obstruction computation are executed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{topological}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{topological}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Framed cobordism group $\Omega_{4k+2}^{\mathrm{fr}} \cong \pi_*^s$ |
+| **Potential** | Surgery obstruction height $\Phi(M) = \mathrm{rk}(H_{2k+1}(M; \mathbb{Z}))$ |
+| **Cost** | Arf invariant $\kappa(M) = \mathrm{Arf}(q) \in \mathbb{Z}/2$ |
+| **Invariance** | $C_8 \times \mathrm{Diff}^{\mathrm{fr}}$ (equivariant detection + diffeomorphisms) |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (surgery height bounded) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (finite obstruction $N=1$) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ ($C_8$-equivariant concentration) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (suspension scaling, $v_2$-periodic) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (stable framing parameters) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (discrete cobordism classes) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (surgery exact sequence gap) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ ($C_2$ sector, chromatic height 2) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (Wall groups computable) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (discrete, static) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite complexity, chromatic $h=2$) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (monotone filtration) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed cobordism) |
+| 14-16 | Boundary Nodes | Not triggered (closed system) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E2 + E7, HHR slice differentials) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E2 | **Primary** | Homotopy-theoretic obstruction — Slice spectral sequence kills $\theta_j$ for $j \geq 7$ |
+| E7 | Applied | Surgery obstruction — $L$-theoretic obstruction to realizing Kervaire manifolds |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** (for $j \geq 7$); **OPEN** (for $j = 6$, dimension 126) |
+| **Obligation Ledger** | OBL-126 (HORIZON for $j=6$) |
+| **Singularity Set** | $\{\theta_j : j \geq 7\} = \emptyset$ (non-existent) |
+| **Primary Blocking Tactic** | E2 (Homotopy-theoretic Obstruction via HHR) |
 
 ---
 
@@ -611,32 +656,32 @@ where $C_n$ consists of elements detected by Morava K-theory $K(n)$.
 
 ## Part III-B: Metatheorem Extraction
 
-### **1. Surgery Classification (MT 16.1 - Structural Surgery)**
+### **1. Surgery Classification (RESOLVE-AutoSurgery - Structural Surgery)**
 *   **Input:** Framed manifold $M^{4k+2}$ with surgery problem.
 *   **Logic:** Surgery exact sequence $\mathcal{S} \to \mathcal{N} \to L_{4k+1}(\mathbb{Z})$.
 *   **Obstruction:** $\kappa(M) = \text{Arf}(q) \in \mathbb{Z}/2$.
 *   **Output:** $K_{\text{Surg}}^+ = (L_{4k+1}(\mathbb{Z}) = \mathbb{Z}/2, \text{Arf obstruction})$.
 
-### **2. Pontryagin-Thom Equivalence (MT 6.1)**
+### **2. Pontryagin-Thom Equivalence (ACT-Projective)**
 *   **Input:** Framed cobordism group $\Omega_n^{\mathrm{fr}}$.
 *   **Action:** Pontryagin-Thom construction.
 *   **Isomorphism:** $\Omega_n^{\mathrm{fr}} \cong \pi_n^s$ (stable homotopy groups).
 *   **Certificate:** $K_{\text{PT}}^+ = (\Omega_*^{\mathrm{fr}} \cong \pi_*^s, \text{framing } \leftrightarrow \text{stable map})$.
 
-### **3. Chromatic Concentration (MT {prf:ref}`mt-auto-profile`)**
+### **3. Chromatic Concentration (MT {prf:ref}`mt-resolve-auto-profile`)**
 *   **Input:** Stable homotopy groups $\pi_*^s$ with chromatic filtration.
 *   **Logic:** Elements $\theta_j$ lie in $C_2$ (height $h=2$, prime $p=2$).
 *   **Concentration:** $v_2$-periodic family with period $2^3 = 8$.
 *   **Output:** $K_{\text{Chrom}}^+ = (h=2, p=2, v_2\text{-periodic})$.
 
-### **4. Equivariant Detection (MT {prf:ref}`mt-lock-factory`)**
+### **4. Equivariant Detection (MT {prf:ref}`mt-fact-lock`)**
 *   **Input:** $C_8$-equivariant detection spectrum $\Omega$.
 *   **Logic:** $\theta_j$ detected by $\pi_*^{C_8}(\Omega)$ via slice spectral sequence.
 *   **Differentials:** For $j \geq 7$, $d_r(\alpha_j) = \beta_j \cdot \theta_j$ with $\beta_j \neq 0$.
 *   **Exclusion:** $\theta_j = 0$ in $E_\infty$ for $j \geq 7$.
 *   **Output:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{HHR detection}, \text{slice SS kills } \theta_j)$.
 
-### **5. Surgery Obstruction (MT {prf:ref}`mt-imported-structural-surgery`)**
+### **5. Surgery Obstruction (MT {prf:ref}`mt-act-surgery`)**
 *   **Input:** Surgery problem on $M^{4k+2}$ with $\kappa(M) = 1$.
 *   **Logic:** Wall group $L_{4k+1}(\mathbb{Z}) = \mathbb{Z}/2$ obstructs surgery.
 *   **Realization:** Requires $[\theta_j] \neq 0$ in $\pi_{n_j}^s$.
@@ -734,7 +779,7 @@ Instantiate the topological hypostructure with:
 
 **Phase 2: Pontryagin-Thom Equivalence**
 
-By Pontryagin-Thom construction:
+Via the Pontryagin-Thom Permit ($K_{\text{PT}}^+$):
 $$\Omega_n^{\mathrm{fr}} \cong \pi_n^s$$
 
 Therefore, the problem reduces to determining whether $\theta_j \in \pi_{n_j}^s$ is non-zero for $n_j = 2^{j+1} - 2$.
@@ -882,9 +927,9 @@ This proof object is replayed by providing:
 | Certificate | Source | Payload Hash |
 |-------------|--------|--------------|
 | $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\text{PT}}^+$ | Pontryagin-Thom (MT 6.1) | `[computed]` |
-| $K_{\text{Chrom}}^+$ | Chromatic concentration (MT {prf:ref}`mt-auto-profile`) | `[computed]` |
-| $K_{\text{Surg}}^+$ | Surgery obstruction (MT 16.1) | `[computed]` |
+| $K_{\text{PT}}^+$ | Pontryagin-Thom (ACT-Projective) | `[computed]` |
+| $K_{\text{Chrom}}^+$ | Chromatic concentration (RESOLVE-AutoProfile) | `[computed]` |
+| $K_{\text{Surg}}^+$ | Surgery obstruction (RESOLVE-AutoSurgery) | `[computed]` |
 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Lock (Node 17, E2+E7) | `[computed]` |
 
 ---

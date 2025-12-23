@@ -13,13 +13,25 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{arithmetic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{arithmetic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Fundamental Lemma** of the Langlands Program.
 
 **Approach:** We instantiate the arithmetic hypostructure with weighted orbital integrals on reductive groups over local fields. The state space is the space of orbital integrals $O_\gamma(f)$ parametrized by conjugacy classes. The height functional measures discrepancy between orbital integrals on $G$ and the endoscopic group $H$. The safe manifold is the locus where the fundamental lemma identity holds. The key insight is Ngo's geometric approach via the Hitchin fibration on moduli stacks of $G$-bundles, which translates the problem into intersection cohomology of perverse sheaves on affine Springer fibers.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E17 (Cohomological Correspondence) and MT 42.1 (Structural Reconstruction). The matching identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ is established unconditionally. This proof was completed by Ngo Bao Chau (2008), earning him the Fields Medal (2010).
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E17 (Cohomological Correspondence) and LOCK-Reconstruction (Structural Reconstruction). The matching identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ is established unconditionally. This proof was completed by Ngo Bao Chau (2008), earning him the Fields Medal (2010).
 
 ---
 
@@ -447,9 +459,9 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 **Certificate E17:**
 * [x] $K_{\text{Cohom}}^+ = (\text{motivic integration}, \text{purity}, \text{support theorem})$
 
-**Step 3: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 3: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{Cap}_H}^+$, $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$
 - $K_{\mathrm{TB}_O}^+$ (definability), $K_{\text{Cohom}}^+$ (cohomological correspondence)
 
@@ -471,7 +483,7 @@ d. **Decomposition ($K_{\text{Decomp}}^+$):**
    - BBD Decomposition Theorem (1982 — theorem)
    - $R\chi_* \mathbb{Q}_\ell = \bigoplus IC(\bar{S}_i)[d_i]$
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Hitchin}}^+ \wedge K_{\text{Purity}}^+ \Rightarrow K_{\text{Geometric}}^+$
 2. [x] $K_{\text{Support}}^+ \wedge K_{\text{Decomp}}^+ \wedge K_{\text{Geometric}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -486,7 +498,7 @@ d. **Decomposition ($K_{\text{Decomp}}^+$):**
 * [x] Result: Cohomological correspondence → perverse sheaf matching → orbital integral identity
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E17 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Cohom}}^+, K_{\text{Geometric}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E17 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Cohom}}^+, K_{\text{Geometric}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -505,14 +517,22 @@ d. **Decomposition ($K_{\text{Decomp}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Geometric Transfer)
 - **Original obligation:** Perverse sheaf matching $IC(\mathfrak{X}_\gamma) \cong IC(\mathfrak{X}^H_{\gamma'})$
 - **Missing certificates:** $K_{\text{Hitchin}}^+$, $K_{\text{Purity}}^+$, $K_{\text{Support}}^+$
-- **Discharge mechanism:** Cohomological chain (E17 + MT 42.1)
+- **Discharge mechanism:** Cohomological chain (E17 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Hitchin}}^+$: Hitchin fibration structure (Hitchin 1987, Ngo 2006)
   - $K_{\text{Purity}}^+$: Ngo's purity theorem (2006 — theorem)
   - $K_{\text{Support}}^+$: Ngo's support theorem (2008 — theorem)
   - $K_{\text{Hitchin}}^+ \wedge K_{\text{Purity}}^+ \Rightarrow K_{\text{Geometric}}^+$ (geometric control)
-  - $K_{\text{Support}}^+ \wedge K_{\text{Decomp}}^+ \wedge K_{\text{Geometric}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Support}}^+ \wedge K_{\text{Decomp}}^+ \wedge K_{\text{Geometric}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The algebraic-geometric structure is inherently regular via the Hitchin fibration.*
+
+**Breach Log:** EMPTY
 
 ---
 
@@ -533,7 +553,7 @@ d. **Decomposition ($K_{\text{Decomp}}^+$):**
 *   **Output:** $R\text{Spr}_{\gamma,*}\mathbb{Q}_\ell = \bigoplus_i IC(\bar{S}_i)[d_i]$
 *   **Certificate:** $K_{C_\mu}^+$
 
-### **4. Geometric Transfer (E17 + MT 42.1)**
+### **4. Geometric Transfer (E17 + LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Hitchin}}^+ \wedge K_{\text{Purity}}^+ \wedge K_{\text{Support}}^+$
 *   **Logic:** Cohomological correspondence via motivic integration
 *   **Output:** Orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$
@@ -553,7 +573,7 @@ d. **Decomposition ($K_{\text{Decomp}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 4 | Cohomological chain (E17 + MT 42.1) | $K_{\text{Rec}}^+$ (and embedded verdict) |
+| OBL-1 | Node 17, Step 4 | Cohomological chain (E17 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -574,7 +594,7 @@ d. **Decomposition ($K_{\text{Decomp}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Cohomological correspondence validated (E17)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -594,7 +614,7 @@ Node 10: K_{TB_ρ}^+ (discrete spectrum)
 Node 11: K_{Rep_K}^+ (Satake, converse theorem)
 Node 12: K_{GC_∇}^- (static)
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -619,14 +639,14 @@ Let $G$ be a reductive group over a local field $F$, and $H$ an endoscopic group
 $$O_\gamma(f) = \int_{G_\gamma(F)\backslash G(F)} f(g^{-1}\gamma g)\,dg$$
 
 **Phase 2: Hitchin Fibration**
-By Hitchin (1987) and Ngo (2006), there exists a proper algebraic morphism:
+Via the Hitchin-Ngô Permit ($K_{\text{HN}}^+$, 1987/2006), there exists a proper algebraic morphism:
 $$\chi: \mathcal{M}_G \to \mathfrak{a}_G$$
 where $\mathcal{M}_G$ is the moduli stack of $G$-bundles on a curve $C$, and $\mathfrak{a}_G = \bigoplus_{i=1}^r H^0(C, \mathcal{O}_C(d_i K_C))$ is the Hitchin base (spectral data).
 
 Generic fibers $\chi^{-1}(a)$ are abelian varieties (Jacobians of spectral curves). Singular fibers are degenerate with finite stratification.
 
 **Phase 3: Perverse Sheaves**
-By the Decomposition Theorem (Beilinson-Bernstein-Deligne 1982), the pushforward decomposes into intersection cohomology complexes:
+Via the BBD Decomposition Permit ($K_{\text{BBD}}^+$, 1982), the pushforward decomposes into intersection cohomology complexes:
 $$R\chi_* \mathbb{Q}_\ell[\dim \mathcal{M}_G] = \bigoplus_i IC(\bar{S}_i)[d_i]$$
 
 The affine Springer fiber $\mathfrak{X}_\gamma$ (fiber of the Springer resolution) carries a canonical perverse sheaf $IC(\mathfrak{X}_\gamma)$.
@@ -684,7 +704,7 @@ The orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ holds for all m
 | Spectral Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (static) |
-| Geometric Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Geometric Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |
@@ -702,6 +722,55 @@ The orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ holds for all m
 - A. Beilinson, J. Bernstein, P. Deligne, *Faisceaux pervers*, Astérisque 100 (1982)
 - R. P. Langlands, *Les débuts d'une formule des traces stable*, Publications Mathématiques de l'Université Paris VII 13 (1983)
 - T. A. Springer, *A purity result for fixed point varieties in flag manifolds*, Journal of Faculty of Science, University of Tokyo 31 (1984), 271-282
+
+---
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | Weighted orbital integrals $\{O_\gamma(f) : \gamma \in G(F)_{\text{reg}}\}$ | State Space |
+| **Potential ($\Phi$)** | $\Phi(f) = \|\|O_\gamma(f) - O^H_{\gamma'}(f^H)\|\|_{\sup}$ | Height Functional |
+| **Cost ($\mathfrak{D}$)** | $\dim IC(\mathfrak{X}_\gamma)$ (intersection cohomology) | Dissipation |
+| **Invariance ($G$)** | Hecke algebra $\mathcal{H}(G)$ | Symmetry Group |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | EnergyCheck | YES | $K_{D_E}^+$: Bounded orbital integrals | `[]` |
+| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: Springer resolution finite | `[]` |
+| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Decomposition Theorem | `[]` |
+| **4** | ScaleCheck | ~ | $K_{\mathrm{SC}_\lambda}^{\sim}$: Critical/algebraic | `[]` |
+| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: Endoscopic data discrete | `[]` |
+| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\text{codim} \ge 2$ (Ngô purity) | `[]` |
+| **7** | StiffnessCheck | INC→+ | $K_{\mathrm{LS}_\sigma}^+$: Upgraded via $K_{\text{Rec}}^+$ | `[OBL-1]→[]` |
+| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Endoscopic transfer functorial | `[]` |
+| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: Whitney stratification | `[]` |
+| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Discrete spectrum | `[]` |
+| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: Satake + converse theorem | `[]` |
+| **12** | OscillateCheck | NO | $K_{\mathrm{GC}_\nabla}^-$: Static system | `[]` |
+| **13** | BoundaryCheck | NO | $K_{\mathrm{Bound}_\partial}^-$: Closed system | `[]` |
+| **14-16** | Boundary Subgraph | SKIP | Not triggered | `[]` |
+| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E17 + LOCK-Reconstruction | `[]` |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Structural Reconstruction | **PASS** | Hitchin fibration → geometric transfer |
+| **E2-E9** | Various | N/A | — |
+| **E10** | Definability | N/A | — |
+| **E17** | Cohomological | **PASS** | Perverse sheaf matching via motivic integration |
+
+### 4. Final Verdict
+
+* **Status:** UNCONDITIONAL
+* **Obligation Ledger:** EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$)
+* **Singularity Set:** $\Sigma = \emptyset$ (codim $\ge 2$ singular locus)
+* **Primary Blocking Tactic:** E17 (Cohomological Correspondence via Ngô's Proof)
 
 ---
 

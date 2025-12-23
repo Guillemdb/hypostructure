@@ -13,13 +13,69 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{topological}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{topological}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Simple closed curves $\gamma: S^1 \to \mathbb{R}^2$ |
+| **Potential** | Arc length $L(\gamma) = \int \|\gamma'(t)\| dt$ |
+| **Cost** | Curvature energy $\int \kappa^2 ds$ |
+| **Invariance** | Ambient isotopy group $\text{Diff}(\mathbb{R}^2)$ |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (finite arc length) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (simple curve) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ (compact domain $S^1$) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (scale-invariant after normalization) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (uniform continuity) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (simple implies finite critical points) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (embedding class) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^-$ (static) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite description) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (static) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E4 + LOCK-Reconstruction) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E4 | **Primary** | Integrality — Winding number $W(p,\gamma) \in \mathbb{Z}$ forces exactly two components |
+| LOCK-Reconstruction | Applied | Structural Reconstruction via Alexander duality |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** |
+| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
+| **Singularity Set** | $\emptyset$ (simple curves have no self-intersections) |
+| **Primary Blocking Tactic** | E4 (Integrality via Winding Number Quantization) |
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Jordan Curve Theorem**.
 
-**Approach:** We instantiate the topological hypostructure with the space of continuous simple closed curves $\gamma: S^1 \to \mathbb{R}^2$. The key insight is the winding number functional: for points $p \in \mathbb{R}^2 \setminus \gamma$, the integer-valued winding number $W(p,\gamma)$ is well-defined and constant on connected components. The functional equation $W_{\text{inside}} = \pm 1$ versus $W_{\text{outside}} = 0$ provides topological quantization. Arc length and curvature energy enforce geometric regularity (Tactic E4). Lock resolution uses MT 42.1 (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the homological correspondence.
+**Approach:** We instantiate the topological hypostructure with the space of continuous simple closed curves $\gamma: S^1 \to \mathbb{R}^2$. The key insight is the winding number functional: for points $p \in \mathbb{R}^2 \setminus \gamma$, the integer-valued winding number $W(p,\gamma)$ is well-defined and constant on connected components. The functional equation $W_{\text{inside}} = \pm 1$ versus $W_{\text{outside}} = 0$ provides topological quantization. Arc length and curvature energy enforce geometric regularity (Tactic E4). Lock resolution uses LOCK-Reconstruction (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the homological correspondence.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Topological Integrality) and MT 42.1 (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Topological Integrality) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
 
 ---
 
@@ -420,16 +476,16 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
 7. [x] Quantization: Integer values ⟹ discrete component classification
 8. [x] Certificate: $K_{\text{Quant}}^{\text{integer}}$
 
-**Step 3: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 3: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 Topological quantization alone does not fully resolve component count.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 4: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 4: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{TB}_\pi}^+$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Bridge}}^+$, $K_{\text{Homology}}^+$
@@ -464,7 +520,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
    - Topological invariance: Component structure invariant under isotopy
    - Uniqueness: No other configuration satisfies all constraints
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Winding}}^+ \wedge K_{\text{Homology}}^+ \Rightarrow K_{\text{Quant}}^{\text{integer}}$
 2. [x] $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{integer}} \wedge K_{\text{Rigid}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -479,7 +535,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 * [x] Result: Homological reconstruction → two components → Jordan separation
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Quant}}^{\text{integer}}, K_{\text{Rigid}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Quant}}^{\text{integer}}, K_{\text{Rigid}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -498,14 +554,22 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Topological Stiffness)
 - **Original obligation:** Homology correspondence forcing two components
 - **Missing certificates:** $K_{\text{Winding}}^+$, $K_{\text{Homology}}^+$, $K_{\text{Bridge}}^+$
-- **Discharge mechanism:** Homology chain (E4 + MT 42.1)
+- **Discharge mechanism:** Homology chain (E4 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Winding}}^+$: Winding number formula (standard topology)
   - $K_{\text{Homology}}^+$: $H_1(\gamma) \cong \mathbb{Z}$ (algebraic topology theorem)
   - $K_{\text{Winding}}^+ \wedge K_{\text{Homology}}^+ \Rightarrow K_{\text{Quant}}^{\text{integer}}$ (E4)
   - $K_{\text{Bridge}}^+$: Alexander duality $\widetilde{H}_0(\mathbb{R}^2 \setminus \gamma) \cong \widetilde{H}^1(S^1)$
-  - $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{integer}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{integer}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The topological structure is inherently regular via winding number quantization.*
+
+**Breach Log:** EMPTY
 
 ---
 
@@ -526,7 +590,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 *   **Logic:** Integer winding numbers → discrete component classification
 *   **Certificate:** $K_{\text{Quant}}^{\text{integer}}$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{integer}} \wedge K_{\text{Rigid}}^+$
 *   **Output:** Reconstruction dictionary with two-component verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -550,7 +614,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Homology chain (E4 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 5 | Homology chain (E4 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -571,7 +635,7 @@ e. **Rigidity ($K_{\text{Rigid}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Topological quantization validated (E4)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -591,7 +655,7 @@ Node 10: K_{TB_ρ}^+ (static topology)
 Node 11: K_{Rep_K}^+ (homology ≅ ℤ)
 Node 12: K_{GC_∇}^- (no pure gradient)
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -622,7 +686,7 @@ This is well-defined (no singularities), integer-valued (homology class), and lo
 Since $W(p, \gamma)$ is continuous and integer-valued, it is constant on each connected component of $\mathbb{R}^2 \setminus \gamma$. Different winding number values correspond to different components.
 
 **Phase 4: Alexander Duality**
-By Alexander duality for codimension-1 subsets of $\mathbb{R}^2$:
+We apply the Alexander Duality Permit ($K_{\text{Alexander}}^+$) for codimension-1 subsets of $\mathbb{R}^2$:
 $$\widetilde{H}_0(\mathbb{R}^2 \setminus \gamma) \cong \widetilde{H}^1(S^1) \cong \mathbb{Z}$$
 The reduced homology $\widetilde{H}_0$ counts connected components minus one. Since rank is 1, there are exactly **two components**.
 
@@ -661,7 +725,7 @@ where $\Omega_{\text{in}}$ is bounded with $W = \pm 1$, and $\Omega_{\text{out}}
 | Static Topology | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Homology Structure | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (non-monotone) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

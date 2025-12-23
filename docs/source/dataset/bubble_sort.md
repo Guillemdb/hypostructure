@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{algorithmic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{algorithmic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -433,6 +433,14 @@ This document presents a **machine-checkable proof object** for the **terminatio
 
 ---
 
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The discrete dynamics on finite state space $S_n$ are inherently regular.*
+
+**Breach Log:** EMPTY
+
+---
+
 ## Part III-A: Lyapunov Reconstruction
 
 *Not required: The inversion count $\Phi(\sigma) = \text{inv}(\sigma)$ already serves as a valid strict Lyapunov function with unit dissipation per swap. No ghost extension needed.*
@@ -441,10 +449,10 @@ This document presents a **machine-checkable proof object** for the **terminatio
 
 ## Part III-B: Metatheorem Extraction
 
-### **1. Surgery Admissibility (MT 15.1)**
+### **1. Surgery Admissibility (RESOLVE-AutoAdmit)**
 *Not applicable: No singularities occur in finite discrete algorithmic dynamics.*
 
-### **2. Structural Surgery (MT 16.1)**
+### **2. Structural Surgery (RESOLVE-AutoSurgery)**
 *Not applicable: No surgery needed.*
 
 ### **3. The Lock (Node 17)**

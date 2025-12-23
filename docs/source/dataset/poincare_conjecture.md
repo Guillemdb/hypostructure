@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -189,11 +189,9 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 **Question:** Is the height functional bounded along trajectories?
 
 **Step-by-step execution:**
-1. [x] Write the energy functional: $\Phi_0(g) = -\int_M R\,dV_g$ (naive total scalar curvature)
-2. [x] Compute drift: $\frac{d}{dt}\Phi_0 = -\int_M \partial_t R\,dV - \int_M R \partial_t(dV)$
-3. [x] Evaluate: $\partial_t R = \Delta R + 2|Ric|^2$, $\partial_t dV = -R\,dV$
-4. [x] Result: Drift is indefinite; curvature can blow up ($R \to \infty$)
-5. [x] Check bounded below: No, $\Phi_0$ can decrease without bound
+1. [x] Naive height functional: $\Phi_0(g) = -\int_M R\,dV_g$ (total scalar curvature)
+2. [x] Drift behavior: indefinite (curvature can blow up: $R \to \infty$)
+3. [x] Bounded below: No, $\Phi_0$ can decrease without bound
 
 **Certificate:**
 * [x] $K_{D_E}^- = (\Phi_0, \text{unbounded drift})$ → **Check BarrierSat**
@@ -449,7 +447,7 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness Gap)
 - **Original obligation:** Existence of monotonic functional with controlled dissipation
 - **Missing certificate:** $K_{\mathcal{W}}^+$ ($\mathcal{W}$-entropy)
-- **Discharge mechanism:** A-posteriori upgrade (MT {prf:ref}`mt-inc-aposteriori`)
+- **Discharge mechanism:** A-posteriori upgrade (MT {prf:ref}`mt-up-inc-aposteriori`)
 - **New certificate constructed:** $K_{\mathcal{W}}^+ = (\mathcal{W}, \frac{d}{dt}\mathcal{W} \ge 0, \text{shrinking solitons})$
 - **Verification:** $\mathcal{W}$-entropy is monotonic with characterized critical points
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\mathcal{W}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
@@ -558,7 +556,7 @@ $$\frac{d}{dt} \mathcal{W} = \int_M 2\tau \left| Ric + \nabla^2 f - \frac{1}{2\t
 
 The $\mathcal{W}$-entropy construction provides the certificate $K_{\mathcal{W}}^+$ required to discharge the inconclusive certificate from Node 7.
 
-**A-Posteriori Inc-Upgrade (Definition {prf:ref}`def-inc-upgrades`, MT {prf:ref}`mt-inc-aposteriori`):**
+**A-Posteriori Inc-Upgrade (Definition {prf:ref}`def-inc-upgrades`, MT {prf:ref}`mt-up-inc-aposteriori`):**
 *   **Input:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ with $\mathsf{missing} = \{K_{\mathcal{W}}^+\}$ (from Node 7)
 *   **New Certificate:** $K_{\mathcal{W}}^+$ (constructed above)
 *   **Verification:** $K_{\mathcal{W}}^+ \in \mathrm{Cl}(\Gamma)$ satisfies the obligation for spectral gap / Łojasiewicz inequality:
@@ -572,14 +570,14 @@ The $\mathcal{W}$-entropy construction provides the certificate $K_{\mathcal{W}}
 
 ## PART III-B: METATHEOREM EXTRACTION
 
-### **1. Surgery Admissibility (MT 15.1)**
+### **1. Surgery Admissibility (RESOLVE-AutoAdmit)**
 *   **Input:** $\mathcal{W}$-functional monotonicity.
 *   **Logic:** Since $\mathcal{W}$ is non-decreasing, no trajectory can oscillate infinitely. The "No Breather" theorem holds.
 *   **Classification:** Singularities must be shrinking solitons (from Node 3 CompactCheck).
 *   **Admissibility:** For 3-manifolds, the canonical profiles ($V$) are quotients of spheres $S^3$ or cylinders $S^2 \times \mathbb{R}$. These are in the **Canonical Library** ($\mathcal{L}_{T_{\text{para}}}$).
 *   **Certificate:** $K_{\text{adm}}$ issued. Surgery is admissible.
 
-### **2. Structural Surgery (MT 16.1)**
+### **2. Structural Surgery (RESOLVE-AutoSurgery)**
 *   **Input:** $K_{\text{adm}}$.
 *   **Action:** The Sieve constructs the pushout:
     $$M_{\text{new}} = (M_{\text{old}} \setminus \Sigma_\varepsilon) \cup_{\partial} \text{Cap}$$
@@ -607,7 +605,7 @@ The $\mathcal{W}$-entropy construction provides the certificate $K_{\mathcal{W}}
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Part III-A, Step 3 | A-posteriori upgrade (MT {prf:ref}`mt-inc-aposteriori`) | $K_{\mathcal{W}}^+$ |
+| OBL-1 | Part III-A, Step 3 | A-posteriori upgrade (MT {prf:ref}`mt-up-inc-aposteriori`) | $K_{\mathcal{W}}^+$ |
 
 ### Table 3: Remaining Obligations
 
@@ -629,7 +627,7 @@ The $\mathcal{W}$-entropy construction provides the certificate $K_{\mathcal{W}}
 4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 5. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 6. [x] Lyapunov reconstruction completed (MT-Lyap-1/2/3)
-7. [x] Surgery protocol validated (MT-15.1, MT-16.1)
+7. [x] Surgery protocol validated (RESOLVE-AutoAdmit, RESOLVE-AutoSurgery)
 8. [x] Result extraction completed
 
 ### Certificate Accumulation Trace
@@ -702,14 +700,14 @@ Let the Sieve detect a singular point $(t^*, x^*)$ and singular set $\Sigma$.
 **Phase 5.2 Barrier Trigger (Mode Barrier)**
 - Breach certificate: $K^{\mathrm{br}} = (\text{mode}, t^*, \Sigma, V)$
 
-**Phase 5.3 Admissibility (MT 15.1 / mt-auto-admissibility)**
+**Phase 5.3 Admissibility (RESOLVE-AutoAdmit / mt-auto-admissibility)**
 Using thin objects $(\mathcal{X}^{\mathrm{thin}}, \mathfrak{D}^{\mathrm{thin}}, \mu)$, the framework computes exactly one of:
 $K_{\mathrm{adm}}$, $K_{\mathrm{adm}}^{\sim}$, or $K_{\mathrm{inadm}}$.
 
 **Computed output certificate:**
 $$K_{\mathrm{adm}} = (\text{canonicity=yes}, \text{codim}(\Sigma)\ge 2, \text{Cap}(\Sigma)\le \varepsilon_{\mathrm{adm}}(T), \text{verifier-trace})$$
 
-**Phase 5.4 Surgery Operator (MT 16.1 / mt-auto-surgery)**
+**Phase 5.4 Surgery Operator (RESOLVE-AutoSurgery / mt-auto-surgery)**
 Inputs: $K^{\mathrm{br}}, K_{\mathrm{adm}}, D_S$.
 Output:
 - New state: $x' \in \mathcal{X}'$
@@ -797,8 +795,8 @@ This proof object is replayed by providing:
 | Certificate | Source | Payload Hash |
 |-------------|--------|--------------|
 | $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathrm{adm}}$ | MT 15.1 (mt-auto-admissibility) | `[computed]` |
-| $K_{\mathrm{prog}}^{A}$ | MT 16.1 (progress-measure) | `[computed]` |
+| $K_{\mathrm{adm}}$ | RESOLVE-AutoAdmit (mt-auto-admissibility) | `[computed]` |
+| $K_{\mathrm{prog}}^{A}$ | RESOLVE-AutoSurgery (progress-measure) | `[computed]` |
 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
 
 ---

@@ -13,13 +13,71 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{discrete}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{discrete}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Unit interval $[0,1]$ with Lebesgue/SRB measure |
+| **Potential** | Entropy functional $\Phi(x) = -x\ln x - (1-x)\ln(1-x)$ |
+| **Cost** | Lyapunov exponent $\lambda(r) = \lim_{n\to\infty} \frac{1}{n}\sum \ln\|f_r'(x_k)\|$ |
+| **Invariance** | Reflection symmetry $x \leftrightarrow 1-x$ (conjugacy) |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (entropy bounded $\le \ln 2$) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (periods discrete) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ (SRB measure, attractor concentration) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (RG fixed point $g^*$, $\delta \approx 4.669$) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (periods $2^n$, $\delta$ universal) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (Cantor attractor, $\dim < 1$) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (kneading invariant, binary tree) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (Bernoulli, exponential mixing) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (kneading sequence, entropy finite) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
+| 14-16 | Boundary Nodes | Not triggered (closed system) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E4 + LOCK-Reconstruction) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E1 | Applied | Structural Reconstruction via Kneading Theory |
+| E4 | **Primary** | Integrality — Period multiplicities are powers of 2 → renormalization rigidity |
+| LOCK-Reconstruction | Applied | Renormalization chain produces $K_{\text{Rec}}^+$ |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** |
+| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
+| **Singularity Set** | Accumulation points of unstable periodic orbits |
+| **Primary Blocking Tactic** | E4 (Integrality via Renormalization Quantization) |
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **logistic map** dynamical system.
 
-**Approach:** We instantiate the discrete hypostructure with the one-dimensional interval map $f_r(x) = rx(1-x)$ on $[0,1]$. The key insight is the renormalization-group duality: the period-doubling cascade exhibits self-similar structure encoded in the Feigenbaum functional equation. The topological kneading theory provides symbolic dynamics; integrality of period multiplicities enforces quantization (Tactic E4). Lock resolution uses MT 42.1 (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the renormalization fixed-point correspondence.
+**Approach:** We instantiate the discrete hypostructure with the one-dimensional interval map $f_r(x) = rx(1-x)$ on $[0,1]$. The key insight is the renormalization-group duality: the period-doubling cascade exhibits self-similar structure encoded in the Feigenbaum functional equation. The topological kneading theory provides symbolic dynamics; integrality of period multiplicities enforces quantization (Tactic E4). Lock resolution uses LOCK-Reconstruction (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the renormalization fixed-point correspondence.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and MT 42.1 (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
 
 ---
 
@@ -416,16 +474,16 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 6. [x] Sharkovsky's theorem + negative Schwarzian control this
 7. [x] Certificate: $K_{\text{Quant}}^{\text{int}}$
 
-**Step 3: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 3: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics do not directly decide Hom-emptiness with the current payload.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 4: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 4: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{RG}}^+$, $K_{\text{Rigid}}^+$
@@ -453,7 +511,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
    - Rigid structural subcategory witness: Hyperbolicity of $\mathcal{R}$ at $g^*$
    - Sullivan's rigidity theorem for unimodal maps
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Schwarzian}}^+ \wedge K_{\text{Integrality}}^+ \Rightarrow K_{\text{Quant}}^{\text{int}}$
 2. [x] $K_{\text{RG}}^+ \wedge K_{\text{Quant}}^{\text{int}} \wedge K_{\text{Rigid}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -468,7 +526,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 * [x] Result: Reconstruction → renormalization hyperbolic → universal scaling $\delta$
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Quant}}^{\text{int}}, K_{\text{Rigid}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Quant}}^{\text{int}}, K_{\text{Rigid}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -487,13 +545,13 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness/Hyperbolicity)
 - **Original obligation:** Hyperbolicity via renormalization fixed point
 - **Missing certificates:** $K_{\text{Schwarzian}}^+$, $K_{\text{Integrality}}^+$, $K_{\text{RG}}^+$
-- **Discharge mechanism:** Renormalization chain (E4 + MT 42.1)
+- **Discharge mechanism:** Renormalization chain (E4 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Schwarzian}}^+$: Negative Schwarzian derivative (theorem)
   - $K_{\text{Integrality}}^+$: Periods are powers of 2 (observation)
   - $K_{\text{Schwarzian}}^+ \wedge K_{\text{Integrality}}^+ \Rightarrow K_{\text{Quant}}^{\text{int}}$ (E4)
   - $K_{\text{RG}}^+$: Feigenbaum renormalization fixed point
-  - $K_{\text{RG}}^+ \wedge K_{\text{Quant}}^{\text{int}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{RG}}^+ \wedge K_{\text{Quant}}^{\text{int}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
 
 ---
@@ -515,7 +573,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 *   **Logic:** Discrete period multiplicities → quantized renormalization → universal scaling
 *   **Certificate:** $K_{\text{Quant}}^{\text{int}}$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{RG}}^+ \wedge K_{\text{Quant}}^{\text{int}} \wedge K_{\text{Rigid}}^+$
 *   **Output:** Reconstruction dictionary with verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -539,7 +597,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Renormalization chain (E4 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 5 | Renormalization chain (E4 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -560,7 +618,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Renormalization quantization validated (E4)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -580,7 +638,7 @@ Node 10: K_{TB_ρ}^+ (Bernoulli mixing)
 Node 11: K_{Rep_K}^+ (kneading sequence)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -609,7 +667,7 @@ The period-doubling cascade occurs at parameters $r_1 < r_2 < r_3 < \ldots$ conv
 By the kneading theory, the symbolic dynamics are encoded by binary sequences. Since period multiplicities are **integers** (specifically, powers of 2), Tactic E4 (Integrality) implies the renormalization structure must be rigid. Combined with the negative Schwarzian constraint, this yields $K_{\text{Quant}}^{\text{int}}$.
 
 **Phase 4: Structural Reconstruction**
-The renormalization operator $\mathcal{R}(g)(x) = -\frac{1}{\alpha}g(g(-\alpha x))$ has a hyperbolic fixed point $g^*$ discovered by Feigenbaum (1978). By MT 42.1 (Structural Reconstruction), the eigenvalue structure:
+The renormalization operator $\mathcal{R}(g)(x) = -\frac{1}{\alpha}g(g(-\alpha x))$ has a hyperbolic fixed point $g^*$ discovered by Feigenbaum (1978). By LOCK-Reconstruction (Structural Reconstruction), the eigenvalue structure:
 - Unstable direction: $\delta \approx 4.669201...$
 - Stable direction: $-\alpha \approx -2.502907...$
 
@@ -642,7 +700,7 @@ Since the renormalization fixed point $g^*$ is hyperbolic and universal (indepen
 | Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Symbolic Dynamics | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Oscillation | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

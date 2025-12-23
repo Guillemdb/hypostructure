@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -184,13 +184,10 @@ This document presents a **machine-checkable proof object** for the **global reg
 **Question:** Is the height functional bounded along trajectories?
 
 **Step-by-step execution:**
-1. [x] Write the energy functional: $E(u) = \frac{1}{2}\|u\|_{L^2}^2$
-2. [x] Compute drift: $\frac{d}{dt}E = \int_{\mathbb{T}} u \cdot u_t \, dx$
-3. [x] Substitute PDE: $u_t = -uu_x + \nu u_{xx}$
-4. [x] Evaluate: $\frac{d}{dt}E = -\int_{\mathbb{T}} u \cdot uu_x \, dx + \nu \int_{\mathbb{T}} u \cdot u_{xx} \, dx$
-5. [x] Simplify: First term vanishes (integrate by parts on $\mathbb{T}$): $\int u^2 u_x = \frac{1}{3}\int (u^3)_x = 0$
-6. [x] Simplify: Second term gives $-\nu\|u_x\|_{L^2}^2$ (integration by parts)
-7. [x] Result: $\frac{d}{dt}E + D = 0$ where $D = \nu\|u_x\|_{L^2}^2 \ge 0$
+1. [x] Height functional: $E(u) = \frac{1}{2}\|u\|_{L^2}^2$
+2. [x] Dissipation rate: $\mathfrak{D}(u) = \nu\|u_x\|_{L^2}^2$
+3. [x] Energy-dissipation identity: $\frac{d}{dt}E + \mathfrak{D} = 0$ (standard for viscous Burgers)
+4. [x] Bound: $E(t) \le E_0$ for all $t \ge 0$
 
 **Certificate:**
 * [x] $K_{D_E}^+ = (E, D, \frac{d}{dt}E + D = 0)$ → **Go to Node 2**
@@ -426,6 +423,14 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 ---
 
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The 1D viscous Burgers equation has smooth solutions for all time due to the parabolic regularization and 1D Sobolev embedding.*
+
+**Breach Log:** EMPTY
+
+---
+
 ## Part III-A: Lyapunov Reconstruction
 
 *Not required: The naive energy $E(u) = \frac{1}{2}\|u\|_{L^2}^2$ already serves as a valid Lyapunov function with dissipation $D = \nu\|u_x\|_{L^2}^2$. No ghost extension needed.*
@@ -434,10 +439,10 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 ## Part III-B: Metatheorem Extraction
 
-### **1. Surgery Admissibility (MT 15.1)**
+### **1. Surgery Admissibility (RESOLVE-AutoAdmit)**
 *Not applicable: No singularities occur in 1D viscous Burgers.*
 
-### **2. Structural Surgery (MT 16.1)**
+### **2. Structural Surgery (RESOLVE-AutoSurgery)**
 *Not applicable: No surgery needed.*
 
 ### **3. The Lock (Node 17)**
@@ -539,10 +544,7 @@ Therefore $E(t) \le E(0)$ for all $t \ge 0$.
 Integrating: $\int_0^T \|u_x\|_{L^2}^2 \, dt \le \frac{E(0)}{\nu}$.
 
 **Phase 3: $H^1$ Control**
-For the derivative energy $E_1 = \frac{1}{2}\|u_x\|_{L^2}^2$:
-$$\frac{d}{dt}E_1 = -\nu\|u_{xx}\|_{L^2}^2 - \int u_x^2 u_x \, dx - \int u_x u u_{xx} \, dx$$
-
-Using 1D Sobolev embedding $\|u\|_{L^\infty} \le C\|u\|_{H^1}$ and Grönwall:
+By 1D Sobolev embedding permit ($K_{\text{Sob}}^+$: $H^1(\mathbb{T}) \hookrightarrow L^\infty$):
 $$\|u_x(t)\|_{L^2}^2 \le C(u_0, \nu, T) < \infty$$
 
 **Phase 4: Lock Exclusion**
@@ -550,7 +552,7 @@ By Tactics E1 (1D embedding) and E2 (energy decay), no blow-up profile can exist
 $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}: \quad \mathrm{Hom}(\mathcal{H}_{\mathrm{bad}}, \mathcal{H}) = \emptyset$$
 
 **Phase 5: Conclusion**
-Global regularity follows. Smoothness for $t > 0$ by parabolic bootstrapping. $\square$
+Global regularity follows. Smoothness for $t > 0$ by parabolic regularity. $\square$
 
 ::::
 

@@ -13,11 +13,23 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{algebraic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{algebraic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Fundamental Theorem of Algebra**.
 
-**Approach:** We instantiate the algebraic hypostructure with the modulus function $|p(z)|$ on a large disk. The key insight is the winding number argument: a non-vanishing polynomial would have constant degree around a circle, but the minimum principle forces descent. The contradiction arises from topology (degree theory) and compactness (disk closure). Lock resolution uses MT 42.1 (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the topological degree certificate.
+**Approach:** We instantiate the algebraic hypostructure with the modulus function $|p(z)|$ on a large disk. The key insight is the winding number argument: a non-vanishing polynomial would have constant degree around a circle, but the minimum principle forces descent. The contradiction arises from topology (degree theory) and compactness (disk closure). Lock resolution uses LOCK-Reconstruction (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the topological degree certificate.
 
 **Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 (Structural Reconstruction) and degree theory. OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
 
@@ -457,16 +469,16 @@ Equivalently: The field $\mathbb{C}$ is algebraically closed.
 6. [x] But $\deg(p) \geq 1$ means $p$ is non-constant
 7. [x] Partial progress: Minimum must occur at boundary (but boundary is at infinity!)
 
-**Step 3: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 3: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics do not directly decide Hom-emptiness with the current payload.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 4: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 4: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Bridge}}^+$, $K_{\text{Rigid}}^+$
@@ -495,7 +507,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
    - Degree $n > 0$ is topologically rigid (homotopy invariant)
    - Cannot be deformed away without zeros
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Winding}}^+ \wedge K_{\text{Degree}}^+ \Rightarrow K_{\text{TopoObstruction}}$
 2. [x] $K_{\text{Bridge}}^+ \wedge K_{\text{TopoObstruction}} \wedge K_{\text{Rigid}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -510,7 +522,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 * [x] Result: Topological obstruction → degree contradiction → root existence
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E3 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{TopoObstruction}}, K_{\text{Rigid}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E3 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{TopoObstruction}}, K_{\text{Rigid}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -529,14 +541,22 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Topological Stiffness)
 - **Original obligation:** Degree theory forcing $m = 0$
 - **Missing certificates:** $K_{\text{Winding}}^+$, $K_{\text{Degree}}^+$, $K_{\text{Bridge}}^+$
-- **Discharge mechanism:** Degree chain (E3 + MT 42.1)
+- **Discharge mechanism:** Degree chain (E3 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Winding}}^+$: Winding number $d(p, R) = n$ (topology)
   - $K_{\text{Degree}}^+$: Degree theory for circle maps
   - $K_{\text{Winding}}^+ \wedge K_{\text{Degree}}^+ \Rightarrow K_{\text{TopoObstruction}}$ (E3)
   - $K_{\text{Bridge}}^+$: Minimum principle + winding contradiction
-  - $K_{\text{Bridge}}^+ \wedge K_{\text{TopoObstruction}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Bridge}}^+ \wedge K_{\text{TopoObstruction}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The topological argument via winding number is inherently regular.*
+
+**Breach Log:** EMPTY
 
 ---
 
@@ -552,12 +572,12 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 *   **Output:** Winding number $d(p, R) = n$ for large $R$
 *   **Certificate:** $K_{\text{Winding}}^+$
 
-### **3. Degree Theory (E3 + MT 42.1)**
+### **3. Degree Theory (E3 + LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Winding}}^+ \wedge K_{\text{Degree}}^+ \wedge K_{\text{Bridge}}^+$
 *   **Logic:** Non-zero winding number → topological obstruction → root existence
 *   **Certificate:** $K_{\text{TopoObstruction}}$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Bridge}}^+ \wedge K_{\text{TopoObstruction}} \wedge K_{\text{Rigid}}^+$
 *   **Output:** Reconstruction dictionary with root existence verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -576,7 +596,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Degree chain (E3 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 5 | Degree chain (E3 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -597,7 +617,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Degree theory validated (E3)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -620,7 +640,7 @@ Node 13: K_{Bound_∂}^+ (interior minimum)
 Node 14: K_{Flux_∂}^+ (Cauchy theorem)
 Node 15: K_{Trace_∂}^+ (degree preservation)
 Node 16: K_{Compat_∂}^+ (interior-boundary compatible)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -687,7 +707,7 @@ Both arguments (minimum principle and winding number) force $p$ to have a zero. 
 | Zero Flux | Positive | $K_{\mathrm{Flux}_\partial}^+$ |
 | Degree Preservation | Positive | $K_{\mathrm{Trace}_\partial}^+$ |
 | Interior-Boundary Compatibility | Positive | $K_{\mathrm{Compat}_\partial}^+$ |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |
@@ -701,6 +721,57 @@ Both arguments (minimum principle and winding number) force $p$ to have a zero. 
 - A.-L. Cauchy, *Cours d'Analyse de l'École Royale Polytechnique*, 1821 (complex analysis approach)
 - K. Weierstrass, *Über die analytische Darstellbarkeit...*, 1891 (rigorous complex analysis)
 - E. Artin, *Galois Theory*, 1942 (algebraic approach via field theory)
+
+---
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | Complex plane $\mathbb{C}$; large disk $\{\|z\| \le R\}$ | State Space |
+| **Potential ($\Phi$)** | $\Phi(z) = \|p(z)\|$ (polynomial modulus) | Height Functional |
+| **Cost ($\mathfrak{D}$)** | Gradient descent on $\|p\|^2$ | Dissipation |
+| **Invariance ($G$)** | Rotation by $n$-th roots of unity | Symmetry Group |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | EnergyCheck | YES | $K_{D_E}^+$: Polynomial continuous | `[]` |
+| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: Roots isolated, $\le n$ | `[]` |
+| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Disk compactness | `[]` |
+| **4** | ScaleCheck | YES | $K_{\mathrm{SC}_\lambda}^+$: Degree $n$ scaling | `[]` |
+| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: Coefficient stability | `[]` |
+| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\#\Sigma \le n$, dim = 0 | `[]` |
+| **7** | StiffnessCheck | INC→+ | $K_{\mathrm{LS}_\sigma}^+$: Upgraded via $K_{\text{Rec}}^+$ | `[OBL-1]→[]` |
+| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Winding number $d(p,R) = n$ | `[]` |
+| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: Semi-algebraic | `[]` |
+| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Rotation symmetry | `[]` |
+| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: Coefficient representation | `[]` |
+| **12** | OscillateCheck | YES→BLK | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$: Via BarrierFreq | `[]` |
+| **13** | BoundaryCheck | YES | $K_{\mathrm{Bound}_\partial}^+$: Interior minimum | `[]` |
+| **14** | FluxCheck | YES | $K_{\mathrm{Flux}_\partial}^+$: Cauchy theorem | `[]` |
+| **15** | TraceCheck | YES | $K_{\mathrm{Trace}_\partial}^+$: Degree preservation | `[]` |
+| **16** | CompatCheck | YES | $K_{\mathrm{Compat}_\partial}^+$: Interior-boundary compatible | `[]` |
+| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E3 + LOCK-Reconstruction | `[]` |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Dimension | N/A | — |
+| **E2** | Invariant | N/A | — |
+| **E3** | Monotonicity | **PASS** | Minimum principle + degree theory |
+| **E4-E10** | Various | N/A | — |
+
+### 4. Final Verdict
+
+* **Status:** UNCONDITIONAL
+* **Obligation Ledger:** EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$)
+* **Singularity Set:** $\Sigma = \{z : p(z) = 0\}$ (non-empty, proves theorem)
+* **Primary Blocking Tactic:** E3 (Monotonicity via Degree Theory)
 
 ---
 

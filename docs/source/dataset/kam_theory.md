@@ -13,13 +13,25 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{hamiltonian}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{hamiltonian}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for **KAM (Kolmogorov-Arnold-Moser) Theory**.
 
-**Approach:** We instantiate the Hamiltonian hypostructure with the perturbed integrable system on $T^*\mathbb{T}^n$. The key insight is the symplectic-arithmetic duality: Diophantine frequencies (arithmetic rigidity) prevent resonances (dynamic rigidity). The action-angle decomposition provides the profile structure; integrality of winding numbers enforces quantization. Lock resolution uses MT 42.1 (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the Nash-Moser iteration convergence.
+**Approach:** We instantiate the Hamiltonian hypostructure with the perturbed integrable system on $T^*\mathbb{T}^n$. The key insight is the symplectic-arithmetic duality: Diophantine frequencies (arithmetic rigidity) prevent resonances (dynamic rigidity). The action-angle decomposition provides the profile structure; integrality of winding numbers enforces quantization. Lock resolution uses LOCK-Reconstruction (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the Nash-Moser iteration convergence.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and MT 42.1 (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
 
 ---
 
@@ -416,16 +428,16 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 6. [x] Diophantine frequencies have controlled denominators (no resonance)
 7. [x] Certificate: $K_{\text{Diophantine}}^{\text{exclude}}$
 
-**Step 3: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 3: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics do not directly decide Hom-emptiness with the current payload.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 4: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 4: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Twist}}^+$, $K_{\text{Nash-Moser}}^+$
@@ -467,7 +479,7 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
    - Stable/unstable directions have exponential separation
    - Diophantine condition ensures gap: $\lambda^s < 0 < \lambda^u$
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Diophantine}}^+ \wedge K_{\text{Twist}}^+ \Rightarrow K_{\text{SmallDivisor}}^{\text{ctrl}}$
 2. [x] $K_{\text{Nash-Moser}}^+ \wedge K_{\text{SmallDivisor}}^{\text{ctrl}} \wedge K_{\text{Dichotomy}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -482,7 +494,7 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
 * [x] Result: Nash-Moser convergence → exponential dichotomy → stiffness
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Diophantine}}^+, K_{\text{Nash-Moser}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Diophantine}}^+, K_{\text{Nash-Moser}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -501,13 +513,13 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness/Exponential Dichotomy)
 - **Original obligation:** Nash-Moser iteration convergence (smoothing operators)
 - **Missing certificates:** $K_{\text{Diophantine}}^+$, $K_{\text{Twist}}^+$, $K_{\text{Nash-Moser}}^+$
-- **Discharge mechanism:** Nash-Moser chain (E4 + MT 42.1)
+- **Discharge mechanism:** Nash-Moser chain (E4 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Diophantine}}^+$: Diophantine condition (definition/assumption)
   - $K_{\text{Twist}}^+$: Non-degeneracy of frequency map (theorem)
   - $K_{\text{Diophantine}}^+ \wedge K_{\text{Twist}}^+ \Rightarrow K_{\text{SmallDivisor}}^{\text{ctrl}}$ (E4)
   - $K_{\text{Nash-Moser}}^+$: Iteration convergence (construction)
-  - $K_{\text{Nash-Moser}}^+ \wedge K_{\text{SmallDivisor}}^{\text{ctrl}} \wedge K_{\text{Dichotomy}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Nash-Moser}}^+ \wedge K_{\text{SmallDivisor}}^{\text{ctrl}} \wedge K_{\text{Dichotomy}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
 
 ---
@@ -529,7 +541,7 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
 *   **Logic:** Integer Fourier modes → Diophantine frequencies avoid resonances
 *   **Certificate:** $K_{\text{Diophantine}}^{\text{exclude}}$
 
-### **4. Nash-Moser Reconstruction (MT 42.1)**
+### **4. Nash-Moser Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Nash-Moser}}^+ \wedge K_{\text{SmallDivisor}}^{\text{ctrl}} \wedge K_{\text{Dichotomy}}^+$
 *   **Output:** Convergence to invariant torus
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -554,7 +566,7 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Nash-Moser chain (E4 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 5 | Nash-Moser chain (E4 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -575,7 +587,7 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Diophantine exclusion validated (E4)
-6. [x] Nash-Moser reconstruction validated (MT 42.1)
+6. [x] Nash-Moser reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -595,7 +607,7 @@ Node 10: K_{TB_ρ}^+ (unique ergodicity)
 Node 11: K_{Rep_K}^+ (Fourier series)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -641,7 +653,7 @@ For $\varepsilon$ sufficiently small and $\omega \in \mathcal{DC}_{\gamma,\tau}$
 5. **Convergence:** For $\varepsilon < \varepsilon_0(\gamma, \tau, \|H_1\|_{C^\ell})$, the sequence $u_n$ converges in $C^\infty$ to an analytic invariant torus $u^*$.
 
 **Phase 4: Exponential Dichotomy**
-The linearized flow on the normal bundle to the torus exhibits exponential dichotomy. The Diophantine condition ensures that the spectrum of the linearized operator is bounded away from zero, yielding hyperbolicity. By MT 42.1 (Structural Reconstruction), this produces $K_{\text{Rec}}^+$ with the convergence certificate.
+The linearized flow on the normal bundle to the torus exhibits exponential dichotomy. The Diophantine condition ensures that the spectrum of the linearized operator is bounded away from zero, yielding hyperbolicity. By LOCK-Reconstruction (Structural Reconstruction), this produces $K_{\text{Rec}}^+$ with the convergence certificate.
 
 **Phase 5: Measure Estimate**
 The set of Diophantine frequencies satisfies
@@ -649,7 +661,7 @@ $$\mathrm{meas}(\mathcal{DC}_{\gamma,\tau}) \geq 1 - C\gamma$$
 for $\tau > n-1$. As $\gamma \to 0$, the Diophantine set has full measure. Therefore, "most" tori (in the measure-theoretic sense) persist under small perturbations.
 
 **Phase 6: Conclusion**
-Combining the Diophantine exclusion (E4), twist condition, and Nash-Moser convergence (MT 42.1), we conclude that for $\varepsilon < \varepsilon_0$ and $\omega \in \mathcal{DC}_{\gamma,\tau}$, the perturbed Hamiltonian $H = H_0 + \varepsilon H_1$ possesses an invariant $n$-torus with frequency $\omega$, which is a smooth deformation of the unperturbed torus. $\square$
+Combining the Diophantine exclusion (E4), twist condition, and Nash-Moser convergence (LOCK-Reconstruction), we conclude that for $\varepsilon < \varepsilon_0$ and $\omega \in \mathcal{DC}_{\gamma,\tau}$, the perturbed Hamiltonian $H = H_0 + \varepsilon H_1$ possesses an invariant $n$-torus with frequency $\omega$, which is a smooth deformation of the unperturbed torus. $\square$
 
 ::::
 
@@ -671,7 +683,7 @@ Combining the Diophantine exclusion (E4), twist condition, and Nash-Moser conver
 | Unique Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Fourier Representation | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Hamiltonian Structure | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Nash-Moser Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Nash-Moser Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

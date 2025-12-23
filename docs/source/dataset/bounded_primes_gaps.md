@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{analytic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{analytic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -441,7 +441,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 
 ## PART III-B: METATHEOREM EXTRACTION
 
-### **1. Admissibility (MT 15.1)**
+### **1. Admissibility (RESOLVE-AutoAdmit)**
 *   **Input:** Admissible tuple $\mathcal{H}$ (congruence constraints).
 *   **Logic:** Chinese Remainder Theorem + sieve combinatorics ensure admissibility is preserved.
 *   **Certificate:** $K_{\text{adm}}$ issued (implicit in Node 8).
@@ -649,7 +649,7 @@ This proof object is replayed by providing:
 | Certificate | Source | Payload Hash |
 |-------------|--------|--------------|
 | $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathrm{adm}}$ | MT 15.1 (admissibility) | `[computed]` |
+| $K_{\mathrm{adm}}$ | RESOLVE-AutoAdmit (admissibility) | `[computed]` |
 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
 
 ---

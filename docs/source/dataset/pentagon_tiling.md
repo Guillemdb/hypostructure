@@ -13,6 +13,18 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{geometric}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{geometric}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Convex Pentagon Tiling Classification Theorem**.
@@ -23,7 +35,7 @@ This document presents a **machine-checkable proof object** for the **Convex Pen
 1. Vertex-angle equations constraining tile shape
 2. Edge-length relationships enforcing periodicity
 3. Symmetry group analysis eliminating redundancies
-4. Exhaustive enumeration certified by MT 42.1 (Structural Reconstruction)
+4. Exhaustive enumeration certified by LOCK-Reconstruction (Structural Reconstruction)
 
 The proof is unconditional. All 15 types are constructively exhibited; no 16th type can exist.
 
@@ -140,7 +152,7 @@ The proof is unconditional. All 15 types are constructively exhibited; no 16th t
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Hypothetical 16th tiling type
 - [x] **Exclusion Tactics:**
   - [x] E4 (Integrality): Vertex-angle equations admit only 15 solutions
-  - [x] E1 (Structural Reconstruction): MT 42.1 exhaustive enumeration
+  - [x] E1 (Structural Reconstruction): LOCK-Reconstruction exhaustive enumeration
 
 ---
 
@@ -447,9 +459,9 @@ The proof is unconditional. All 15 types are constructively exhibited; no 16th t
 **Certificate:**
 * [x] $K_{\text{Vertex}}^+ = (\text{vertex equations}, k_i \in \mathbb{Z}_{\geq 0})$
 
-**Step 3: Apply MT 42.1 (Structural Reconstruction Principle)**
+**Step 3: Apply LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$: Defect functional bounded below
 - $K_{C_\mu}^+$: 15 discrete types identified
 - $K_{\mathrm{SC}_\lambda}^+$: Scale-invariant constraints
@@ -481,7 +493,7 @@ d. **Exhaustive Enumeration ($K_{\text{Enum}}^+$):**
      - Verify tiling exists (constructive)
    - Result: **15 types found, search complete**
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{VertexSys}}^+ \wedge K_{\text{EdgePer}}^+ \Rightarrow K_{\text{Constraints}}^{\text{complete}}$
 2. [x] $K_{\text{Constraints}}^{\text{complete}} \wedge K_{\text{Enum}}^+ \wedge K_{\text{Sym}}^+ \Rightarrow K_{\text{Rec}}^+$
 3. [x] $K_{\text{Rec}}^+ = $ **Reconstructive dictionary certifying exactly 15 types**
@@ -502,7 +514,7 @@ d. **Exhaustive Enumeration ($K_{\text{Enum}}^+$):**
 * [x] Therefore: $\text{Hom}(\mathcal{T}_{16}, \mathcal{H}) = \emptyset$ (no morphism embedding 16th type)
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + MT 42.1}, K_{\text{Rec}}^+, \text{15 types exhaustive})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4 + LOCK-Reconstruction}, K_{\text{Rec}}^+, \text{15 types exhaustive})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -633,7 +645,7 @@ d. **Exhaustive Enumeration ($K_{\text{Enum}}^+$):**
 2. [x] All inc certificates discharged (none generated)
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
-5. [x] Exhaustive enumeration validated (E4 + MT 42.1)
+5. [x] Exhaustive enumeration validated (E4 + LOCK-Reconstruction)
 6. [x] Structural reconstruction validated
 7. [x] Completeness certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed: 15 types classified
@@ -654,7 +666,7 @@ Node 10: K_{TB_ρ}^- (no dynamics)
 Node 11: K_{Rep_K}^+ (finite descriptions)
 Node 12: K_{GC_∇}^- (no dynamics)
 Node 13: K_{Bound_∂}^- (unbounded ℝ²)
-Node 17: K_{Cat_Hom}^{blk} (E4 + MT 42.1 → 15 types complete)
+Node 17: K_{Cat_Hom}^{blk} (E4 + LOCK-Reconstruction → 15 types complete)
 ```
 
 ### Final Certificate Set
@@ -712,7 +724,7 @@ Rao (2017) proved no 16th type exists by:
 - Proof that search space was exhaustively covered
 
 **Phase 6: Lock Exclusion**
-By Tactic E4 (Integrality) combined with MT 42.1 (Structural Reconstruction):
+By Tactic E4 (Integrality) combined with LOCK-Reconstruction (Structural Reconstruction):
 - Vertex equations impose discrete integrality constraints
 - Combined with edge periodicity, only 15 solutions exist
 - Any hypothetical 16th type would violate constraint compatibility
@@ -742,7 +754,7 @@ The classification is complete and unconditional. Exactly 15 convex pentagon typ
 | Finite Description | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (static) |
 | Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ (unbounded) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY | — |
 | **Final Status** | **UNCONDITIONAL CLASSIFICATION** | 15 types |
@@ -1161,7 +1173,7 @@ The classification is complete and unconditional. Exactly 15 convex pentagon typ
 | 11 | $\mathrm{Rep}_K$ | Finite description? | YES | $K = O(1)$ |
 | 12 | $\mathrm{GC}_\nabla$ | Oscillatory? | NO | Static |
 | 13 | $\mathrm{Bound}_\partial$ | Open system? | NO | Unbounded $\mathbb{R}^2$ |
-| 17 | $\mathrm{Cat}_{\mathrm{Hom}}$ | Hom empty? | **BLOCKED** | E4 + MT 42.1 |
+| 17 | $\mathrm{Cat}_{\mathrm{Hom}}$ | Hom empty? | **BLOCKED** | E4 + LOCK-Reconstruction |
 
 **Verdict:** UNCONDITIONAL CLASSIFICATION (15 types, complete)
 
@@ -1174,7 +1186,7 @@ This classification exemplifies **Tactic E4 (Integrality)** at the Lock:
 1. **Integrality:** Vertex-angle equations require integer coefficients $k_i \in \mathbb{Z}_{\geq 0}$
 2. **Finite Search:** Combined with convexity and angle sum, only finitely many $(k_A, k_B, k_C, k_D, k_E)$ tuples are feasible
 3. **Exhaustion:** Computer-assisted search verifies all candidates
-4. **Reconstruction (MT 42.1):** Structural analysis proves exactly 15 types exist
+4. **Reconstruction (LOCK-Reconstruction):** Structural analysis proves exactly 15 types exist
 5. **Lock Blocked:** No 16th type can exist (search space exhaustively covered)
 
 **Contrast with Regular Pentagon:**

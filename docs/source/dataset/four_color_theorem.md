@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and dictionary verification are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{combinatorial}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{combinatorial}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -516,7 +516,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 **OBL-1:** $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ (Singular Set Emptiness)
 - **Original obligation:** Prove $\Sigma = \varnothing$ (no non-4-colorable planar graphs exist)
 - **Missing certificates:** $K_{\mathcal{D}}^+$ (unavoidable set), $K_{\mathfrak{R}}^+$ (reducibility)
-- **Discharge mechanism:** A-posteriori upgrade (MT {prf:ref}`mt-inc-aposteriori`)
+- **Discharge mechanism:** A-posteriori upgrade (MT {prf:ref}`mt-up-inc-aposteriori`)
 - **New certificates constructed:**
   - $K_{\mathcal{D}}^+ = (\mathcal{D}, \text{unavoidable}, |\mathcal{D}| = 633)$ (Node 11)
   - $K_{\mathfrak{R}}^+ = (\text{all } C_i \in \mathcal{D} \text{ reducible})$ (Node 11)
@@ -638,7 +638,7 @@ $$K_{\mathfrak{R}}^+ = (\text{all } C_i \in \mathcal{D} \text{ reducible}, \text
 
 The dictionary construction provides the certificates $K_{\mathcal{D}}^+$ and $K_{\mathfrak{R}}^+$ required to discharge the inconclusive certificate from Node 6.
 
-**A-Posteriori Inc-Upgrade (Definition {prf:ref}`def-inc-upgrades`, MT {prf:ref}`mt-inc-aposteriori`):**
+**A-Posteriori Inc-Upgrade (Definition {prf:ref}`def-inc-upgrades`, MT {prf:ref}`mt-up-inc-aposteriori`):**
 *   **Input:** $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ with $\mathsf{missing} = \{K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+\}$ (from Node 6)
 *   **New Certificates:** $K_{\mathcal{D}}^+$ and $K_{\mathfrak{R}}^+$ (constructed above)
 *   **Verification:**
@@ -654,14 +654,14 @@ The dictionary construction provides the certificates $K_{\mathcal{D}}^+$ and $K
 
 ## PART III-B: METATHEOREM EXTRACTION
 
-### **1. Dictionary Admissibility (MT 15.1)**
+### **1. Dictionary Admissibility (RESOLVE-AutoAdmit)**
 *   **Input:** Finite unavoidable set $\mathcal{D}$.
 *   **Logic:** Every planar graph contains at least one configuration from $\mathcal{D}$, so the dictionary is complete.
 *   **Classification:** Configurations are canonical representatives of local structure.
 *   **Admissibility:** All 633 configurations verified to be reducible (in Canonical Library $\mathcal{L}_{T_{\text{comb}}}$).
 *   **Certificate:** $K_{\text{adm}}$ issued. Dictionary-based reduction is admissible.
 
-### **2. Configuration Reduction (MT 16.1)**
+### **2. Configuration Reduction (RESOLVE-AutoSurgery)**
 *   **Input:** $K_{\text{adm}}$.
 *   **Action:** The Sieve constructs the reduction:
     $$G_{\text{new}} = G_{\text{old}} \setminus C_i$$
@@ -690,7 +690,7 @@ The dictionary construction provides the certificates $K_{\mathcal{D}}^+$ and $K
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Part III-A, Step 3 | A-posteriori upgrade (MT {prf:ref}`mt-inc-aposteriori`) | $K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+$ |
+| OBL-1 | Part III-A, Step 3 | A-posteriori upgrade (MT {prf:ref}`mt-up-inc-aposteriori`) | $K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+$ |
 
 ### Table 3: Remaining Obligations
 

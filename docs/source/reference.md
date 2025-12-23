@@ -39,7 +39,7 @@ Only these are user primitives; everything else is derived via factories and met
 | Invariance | $G^{\text{thin}}=(G,\rho,\mathcal{S})$ | symmetry group, action, scaling subgroup/action |
 | Boundary (optional) | $\partial^{\text{thin}}=(\mathcal{B},\mathrm{Tr},\mathcal{J},\mathcal{R})$ | boundary object, trace, flux, reinjection (open systems only) |
 
-Pointers (full definitions): Thin objects {prf:ref}`def-thin-objects`, Thin-to-Full Expansion {prf:ref}`mt-thin-expansion`.
+Pointers (full definitions): Thin objects {prf:ref}`def-thin-objects`, Thin-to-Full Expansion {prf:ref}`mt-resolve-expansion`.
 
 ---
 
@@ -437,115 +437,115 @@ Full DAG (all barriers/surgeries/restoration subtree): see the Mermaid graph in 
 
 ### 6.1 Core / instantiation / compilation (`hypopermits_jb.md`)
 
-- `mt-fixed-point-principle` ({prf:ref}`mt-fixed-point-principle`): hypostructure axioms on finite-energy trajectories ⇔ asymptotic self-consistency ⇔ persistent states are fixed points.
-- `mt-valid-instantiation` ({prf:ref}`mt-valid-instantiation`): topos + $(\mathcal{X},\Phi,\mathfrak{D},G)$ + evaluators/certificate schemas ⇒ Sieve is a well-defined computable function.
-- `mt-minimal-instantiation` ({prf:ref}`mt-minimal-instantiation`): provide thin objects $(\mathcal{X},\Phi,\mathfrak{D},G)$ ⇒ Framework derives profiles/admissibility/surgery/topology/bad sets.
-- `mt-thin-expansion` ({prf:ref}`mt-thin-expansion`): thin objects + basic consistency ⇒ full kernel objects + derived structures (SectorMap, bad set, ProfileExtractor, SurgeryOperator).
-- `mt-soft-wp` ({prf:ref}`mt-soft-wp`): SoftCore ($K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$) ⇒ $K_{\mathrm{WP}_{s_c}}^+$.
-- `mt-soft-profdec` ({prf:ref}`mt-soft-profdec`): $K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$ ⇒ $K_{\mathrm{ProfDec}_{s_c,G}}^+$.
-- `mt-soft-km` ({prf:ref}`mt-soft-km`): $K_{\mathrm{WP}_{s_c}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+$ ⇒ $K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$.
-- `mt-soft-rigidity` ({prf:ref}`mt-soft-rigidity`): $K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Rigidity}_T}^+$.
-- `mt-soft-attr` ({prf:ref}`mt-soft-attr`): $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$ ⇒ $K_{\mathrm{Attr}}^+$.
-- `mt-soft-morsedecomp` ({prf:ref}`mt-soft-morsedecomp`): $K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$ ⇒ $K_{\mathrm{MorseDecomp}}^+$.
-- `mt-weakest-precondition` ({prf:ref}`mt-weakest-precondition`): define thin objects + implement interface predicates ⇒ run Sieve; regularity is an output certificate, not an assumption.
+- `mt-krnl-consistency` ({prf:ref}`mt-krnl-consistency`): hypostructure axioms on finite-energy trajectories ⇔ asymptotic self-consistency ⇔ persistent states are fixed points.
+- `mt-fact-valid-inst` ({prf:ref}`mt-fact-valid-inst`): topos + $(\mathcal{X},\Phi,\mathfrak{D},G)$ + evaluators/certificate schemas ⇒ Sieve is a well-defined computable function.
+- `mt-fact-min-inst` ({prf:ref}`mt-fact-min-inst`): provide thin objects $(\mathcal{X},\Phi,\mathfrak{D},G)$ ⇒ Framework derives profiles/admissibility/surgery/topology/bad sets.
+- `mt-resolve-expansion` ({prf:ref}`mt-resolve-expansion`): thin objects + basic consistency ⇒ full kernel objects + derived structures (SectorMap, bad set, ProfileExtractor, SurgeryOperator).
+- `mt-fact-soft-wp` ({prf:ref}`mt-fact-soft-wp`): SoftCore ($K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$) ⇒ $K_{\mathrm{WP}_{s_c}}^+$.
+- `mt-fact-soft-profdec` ({prf:ref}`mt-fact-soft-profdec`): $K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$ ⇒ $K_{\mathrm{ProfDec}_{s_c,G}}^+$.
+- `mt-fact-soft-km` ({prf:ref}`mt-fact-soft-km`): $K_{\mathrm{WP}_{s_c}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+$ ⇒ $K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$.
+- `mt-fact-soft-rigidity` ({prf:ref}`mt-fact-soft-rigidity`): $K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Rigidity}_T}^+$.
+- `mt-fact-soft-attr` ({prf:ref}`mt-fact-soft-attr`): $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$ ⇒ $K_{\mathrm{Attr}}^+$.
+- `mt-fact-soft-morse` ({prf:ref}`mt-fact-soft-morse`): $K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$ ⇒ $K_{\mathrm{MorseDecomp}}^+$.
+- `mt-resolve-weakest-pre` ({prf:ref}`mt-resolve-weakest-pre`): define thin objects + implement interface predicates ⇒ run Sieve; regularity is an output certificate, not an assumption.
 
 ### 6.2 Lyapunov reconstruction (`hypopermits_jb.md`)
 
-- `mt-canonical-lyapunov-existence` ({prf:ref}`mt-canonical-lyapunov-existence`): $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma}^+$ ⇒ $K_{\mathcal{L}}^+$ (canonical Lyapunov exists).
-- `mt-jacobi-reconstruction` ({prf:ref}`mt-jacobi-reconstruction`): $K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ ⇒ $K_{\mathrm{Jacobi}}^+$ (Lyapunov as Jacobi-metric action).
-- `mt-hamilton-jacobi` ({prf:ref}`mt-hamilton-jacobi`): $K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ ⇒ $K_{\mathrm{HJ}}^+$ (static Hamilton–Jacobi characterization).
-- `mt-extended-action` ({prf:ref}`mt-extended-action`): prior Lyapunov certificates + surgery/transport compatibility ⇒ extended action/Lyapunov across surgeries.
+- `mt-krnl-lyapunov` ({prf:ref}`mt-krnl-lyapunov`): $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma}^+$ ⇒ $K_{\mathcal{L}}^+$ (canonical Lyapunov exists).
+- `mt-krnl-jacobi` ({prf:ref}`mt-krnl-jacobi`): $K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ ⇒ $K_{\mathrm{Jacobi}}^+$ (Lyapunov as Jacobi-metric action).
+- `mt-krnl-hamilton-jacobi` ({prf:ref}`mt-krnl-hamilton-jacobi`): $K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ ⇒ $K_{\mathrm{HJ}}^+$ (static Hamilton–Jacobi characterization).
+- `mt-krnl-metric-action` ({prf:ref}`mt-krnl-metric-action`): prior Lyapunov certificates + surgery/transport compatibility ⇒ extended action/Lyapunov across surgeries.
 
 ### 6.3 Towers / obstructions (`hypopermits_jb.md`)
 
-- `mt-tower-globalization` ({prf:ref}`mt-tower-globalization`): local/tower interface permits across strata ⇒ globalized tower certificate (soft local → global).
-- `mt-obstruction-collapse` ({prf:ref}`mt-obstruction-collapse`): obstruction interface + capacity control ⇒ obstruction class collapses (reduces to small-capacity case).
-- `mt-stiff-pairing` ({prf:ref}`mt-stiff-pairing`): stiffness pairing conditions ⇒ no null directions / kernel control for stiffness layer.
+- `mt-resolve-tower` ({prf:ref}`mt-resolve-tower`): local/tower interface permits across strata ⇒ globalized tower certificate (soft local → global).
+- `mt-resolve-obstruction` ({prf:ref}`mt-resolve-obstruction`): obstruction interface + capacity control ⇒ obstruction class collapses (reduces to small-capacity case).
+- `mt-krnl-stiff-pairing` ({prf:ref}`mt-krnl-stiff-pairing`): stiffness pairing conditions ⇒ no null directions / kernel control for stiffness layer.
 
 ### 6.4 Universal Singularity Modules & automation (`hypopermits_jb.md`)
 
-- `mt-profile-trichotomy` ({prf:ref}`mt-profile-trichotomy`): at Profile node ⇒ exactly one of $K_{\text{lib}}$, $K_{\text{strat}}$, or $K_{\mathrm{prof}}^-$ (wild/inc).
-- `mt-auto-profile` ({prf:ref}`mt-auto-profile`): Automation Guarantee + SoftCore (+ one mechanism extension) ⇒ computed $K_{\mathrm{prof}}^+$.
-- `mt-surgery-trichotomy` ({prf:ref}`mt-surgery-trichotomy`): before surgery ⇒ exactly one of $K_{\text{adm}}$, $K_{\text{adm}}^{\sim}$, $K_{\text{inadm}}$.
-- `mt-auto-admissibility` ({prf:ref}`mt-auto-admissibility`): Automation Guarantee + thin objects ⇒ computed admissibility certificate (no user code).
-- `mt-structural-surgery` ({prf:ref}`mt-structural-surgery`): $K^{\mathrm{br}} \wedge (K_{\text{adm}} \text{ or } K_{\text{adm}}^{\sim})$ ⇒ surgery pushout + re-entry certificate $K^{\mathrm{re}}$.
-- `mt-conservation-flow` ({prf:ref}`mt-conservation-flow`): admissible surgery ⇒ energy drop + regularization + bounded surgery count.
-- `mt-auto-surgery` ({prf:ref}`mt-auto-surgery`): Automation Guarantee + $V\in\mathcal{L}_T$ ⇒ surgery executed automatically (pushout + re-entry).
+- `mt-resolve-profile` ({prf:ref}`mt-resolve-profile`): at Profile node ⇒ exactly one of $K_{\text{lib}}$, $K_{\text{strat}}$, or $K_{\mathrm{prof}}^-$ (wild/inc).
+- `mt-resolve-auto-profile` ({prf:ref}`mt-resolve-auto-profile`): Automation Guarantee + SoftCore (+ one mechanism extension) ⇒ computed $K_{\mathrm{prof}}^+$.
+- `mt-resolve-admissibility` ({prf:ref}`mt-resolve-admissibility`): before surgery ⇒ exactly one of $K_{\text{adm}}$, $K_{\text{adm}}^{\sim}$, $K_{\text{inadm}}$.
+- `mt-resolve-auto-admit` ({prf:ref}`mt-resolve-auto-admit`): Automation Guarantee + thin objects ⇒ computed admissibility certificate (no user code).
+- `mt-act-surgery` ({prf:ref}`mt-act-surgery`): $K^{\mathrm{br}} \wedge (K_{\text{adm}} \text{ or } K_{\text{adm}}^{\sim})$ ⇒ surgery pushout + re-entry certificate $K^{\mathrm{re}}$.
+- `mt-resolve-conservation` ({prf:ref}`mt-resolve-conservation`): admissible surgery ⇒ energy drop + regularization + bounded surgery count.
+- `mt-resolve-auto-surgery` ({prf:ref}`mt-resolve-auto-surgery`): Automation Guarantee + $V\in\mathcal{L}_T$ ⇒ surgery executed automatically (pushout + re-entry).
 
 ### 6.5 Factory metatheorems (`hypopermits_jb.md`)
 
-- `mt-gate-factory` ({prf:ref}`mt-gate-factory`): type $T$ + user definitions ⇒ canonical verifiers for Nodes 1–17 (sound YES certificates).
-- `mt-barrier-factory` ({prf:ref}`mt-barrier-factory`): type $T$ + literature lemmas ⇒ default barrier implementations (non-circular, valid certs).
-- `mt-surgery-factory` ({prf:ref}`mt-surgery-factory`): type $T$ admitting surgery ⇒ default surgery operators + admissibility + re-entry certs (else $K_{\mathrm{Surg}}^{\mathrm{inc}}$).
-- `mt-transport-factory` ({prf:ref}`mt-transport-factory`): type $T$ ⇒ equivalence moves + transport lemmas + promotion rules.
-- `mt-lock-factory` ({prf:ref}`mt-lock-factory`): type $T$ + $\mathrm{Rep}_K$ ⇒ Lock tactics; if $\mathrm{Rep}_K$ unavailable ⇒ limited Lock (geometry-only).
-- `mt-instantiation` ({prf:ref}`mt-instantiation`): user provides $(X,G,\Phi,\mathfrak{D},\ldots)$ + type $T$ ⇒ compiled, sound sieve implementation (via TM-1…TM-5).
+- `mt-fact-gate` ({prf:ref}`mt-fact-gate`): type $T$ + user definitions ⇒ canonical verifiers for Nodes 1–17 (sound YES certificates).
+- `mt-fact-barrier` ({prf:ref}`mt-fact-barrier`): type $T$ + literature lemmas ⇒ default barrier implementations (non-circular, valid certs).
+- `mt-fact-surgery` ({prf:ref}`mt-fact-surgery`): type $T$ admitting surgery ⇒ default surgery operators + admissibility + re-entry certs (else $K_{\mathrm{Surg}}^{\mathrm{inc}}$).
+- `mt-fact-transport` ({prf:ref}`mt-fact-transport`): type $T$ ⇒ equivalence moves + transport lemmas + promotion rules.
+- `mt-fact-lock` ({prf:ref}`mt-fact-lock`): type $T$ + $\mathrm{Rep}_K$ ⇒ Lock tactics; if $\mathrm{Rep}_K$ unavailable ⇒ limited Lock (geometry-only).
+- `mt-fact-instantiation` ({prf:ref}`mt-fact-instantiation`): user provides $(X,G,\Phi,\mathfrak{D},\ldots)$ + type $T$ ⇒ compiled, sound sieve implementation (via TM-1…TM-5).
 
 ### 6.6 Instantaneous promotions / upgrades (`hypopermits_jb.md`)
 
-- `mt-saturation-promotion` ({prf:ref}`mt-saturation-promotion`): $K_{D_E}^- \wedge K_{\text{sat}}^{\mathrm{blk}}$ ⇒ $K_{D_E}^{\sim}$ (finite energy under renormalized measure).
-- `mt-causal-censor` ({prf:ref}`mt-causal-censor`): $K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Rec}_N}^{\sim}$ (finite observable event count).
-- `mt-scattering-promotion` ({prf:ref}`mt-scattering-promotion`): $K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}}$ ⇒ VICTORY (Mode D.D dispersion/scattering).
-- `mt-type-ii-suppression` ({prf:ref}`mt-type-ii-suppression`): $K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{II}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{SC}_\lambda}^{\sim}$ (effective subcriticality after renorm).
-- `mt-capacity-promotion` ({prf:ref}`mt-capacity-promotion`): $K_{\mathrm{Cap}_H}^- \wedge K_{\text{cap}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Cap}_H}^{\sim}$ (removable singular set).
-- `mt-spectral-gap` ({prf:ref}`mt-spectral-gap`): $K_{\mathrm{LS}_\sigma}^- \wedge K_{\text{gap}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{LS}_\sigma}^+$ (stiffness via finite kernel / essential gap).
-- `mt-o-minimal` ({prf:ref}`mt-o-minimal`): $K_{\mathrm{TB}_O}^- \wedge K_{\mathrm{TB}_O}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{TB}_O}^{\sim}$ (tameness via definability).
-- `mt-surgery-promotion` ({prf:ref}`mt-surgery-promotion`): $K_S^{\mathrm{re}}$ + target preconditions ⇒ corresponding gate YES$^\sim$.
-- `mt-lock-promotion` ({prf:ref}`mt-lock-promotion`): $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ ⇒ GLOBAL YES (regularity verdict; retroactive permit validation).
-- `mt-absorbing-boundary` ({prf:ref}`mt-absorbing-boundary`): absorbing boundary certificate ⇒ reduces boundary energy accounting to Node 1 (EnergyCheck).
-- `mt-catastrophe-stability` ({prf:ref}`mt-catastrophe-stability`): bifurcation/instability evidence + catastrophe-stability condition ⇒ promotes to StiffnessCheck continuation.
-- `mt-inc-completion` ({prf:ref}`mt-inc-completion`): $K_P^{\mathrm{inc}}$ + all listed missing prerequisites in $\Gamma$ ⇒ upgrade to $K_P^+$.
-- `mt-inc-aposteriori` ({prf:ref}`mt-inc-aposteriori`): later certificates (post-surgery/Lock) satisfy missing prerequisites ⇒ retro-upgrade earlier $K_P^{\mathrm{inc}}$ to $K_P^+$.
-- `mt-shadow-sector-retroactive` ({prf:ref}`mt-shadow-sector-retroactive`): TopoCheck shadow-sector constraint ⇒ retroactive promotion affecting ZenoCheck (topological confinement of events).
+- `mt-up-saturation` ({prf:ref}`mt-up-saturation`): $K_{D_E}^- \wedge K_{\text{sat}}^{\mathrm{blk}}$ ⇒ $K_{D_E}^{\sim}$ (finite energy under renormalized measure).
+- `mt-up-censorship` ({prf:ref}`mt-up-censorship`): $K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Rec}_N}^{\sim}$ (finite observable event count).
+- `mt-up-scattering` ({prf:ref}`mt-up-scattering`): $K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}}$ ⇒ VICTORY (Mode D.D dispersion/scattering).
+- `mt-up-type-ii` ({prf:ref}`mt-up-type-ii`): $K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{II}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{SC}_\lambda}^{\sim}$ (effective subcriticality after renorm).
+- `mt-up-capacity` ({prf:ref}`mt-up-capacity`): $K_{\mathrm{Cap}_H}^- \wedge K_{\text{cap}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{Cap}_H}^{\sim}$ (removable singular set).
+- `mt-up-spectral` ({prf:ref}`mt-up-spectral`): $K_{\mathrm{LS}_\sigma}^- \wedge K_{\text{gap}}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{LS}_\sigma}^+$ (stiffness via finite kernel / essential gap).
+- `mt-up-o-minimal` ({prf:ref}`mt-up-o-minimal`): $K_{\mathrm{TB}_O}^- \wedge K_{\mathrm{TB}_O}^{\mathrm{blk}}$ ⇒ $K_{\mathrm{TB}_O}^{\sim}$ (tameness via definability).
+- `mt-up-surgery` ({prf:ref}`mt-up-surgery`): $K_S^{\mathrm{re}}$ + target preconditions ⇒ corresponding gate YES$^\sim$.
+- `mt-up-lock` ({prf:ref}`mt-up-lock`): $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ ⇒ GLOBAL YES (regularity verdict; retroactive permit validation).
+- `mt-up-absorbing` ({prf:ref}`mt-up-absorbing`): absorbing boundary certificate ⇒ reduces boundary energy accounting to Node 1 (EnergyCheck).
+- `mt-up-catastrophe` ({prf:ref}`mt-up-catastrophe`): bifurcation/instability evidence + catastrophe-stability condition ⇒ promotes to StiffnessCheck continuation.
+- `mt-up-inc-complete` ({prf:ref}`mt-up-inc-complete`): $K_P^{\mathrm{inc}}$ + all listed missing prerequisites in $\Gamma$ ⇒ upgrade to $K_P^+$.
+- `mt-up-inc-aposteriori` ({prf:ref}`mt-up-inc-aposteriori`): later certificates (post-surgery/Lock) satisfy missing prerequisites ⇒ retro-upgrade earlier $K_P^{\mathrm{inc}}$ to $K_P^+$.
+- `mt-up-shadow-retroactive` ({prf:ref}`mt-up-shadow-retroactive`): TopoCheck shadow-sector constraint ⇒ retroactive promotion affecting ZenoCheck (topological confinement of events).
 
 ### 6.7 Cross-gate interaction theorems (`hypopermits_jb.md`)
 
-- `mt-lock-back` ({prf:ref}`mt-lock-back`): Lock blocked ⇒ can retroactively block/promote earlier barriers (global obstruction controls local failures).
-- `mt-symmetry-gap` ({prf:ref}`mt-symmetry-gap`): symmetry structure ⇒ stiffness/gap (SymCheck → StiffnessCheck).
-- `mt-tame-topology` ({prf:ref}`mt-tame-topology`): tameness ⇒ geometry/capacity control (TameCheck → GeomCheck).
-- `mt-ergodic-sat` ({prf:ref}`mt-ergodic-sat`): ergodicity/mixing ⇒ saturation/energy control (ErgoCheck → EnergyCheck).
-- `mt-variety-control` ({prf:ref}`mt-variety-control`): alignment/requisite variety ⇒ scaling control (AlignCheck → ScaleCheck).
-- `mt-algorithm-depth` ({prf:ref}`mt-algorithm-depth`): computational depth bound ⇒ excludes Zeno/event accumulation (ComplexCheck → ZenoCheck).
-- `mt-holographic` ({prf:ref}`mt-holographic`): holographic/complexity bound ⇒ capacity/geom control (ComplexCheck → GeomCheck).
-- `mt-spectral-quant` ({prf:ref}`mt-spectral-quant`): Lock obstruction ⇒ oscillation quantization control (Lock → OscillateCheck).
-- `mt-unique-attractor` ({prf:ref}`mt-unique-attractor`): suitable permit schema (alternative backends) ⇒ unique attractor certificate.
+- `mt-up-lockback` ({prf:ref}`mt-up-lockback`): Lock blocked ⇒ can retroactively block/promote earlier barriers (global obstruction controls local failures).
+- `mt-up-symmetry-bridge` ({prf:ref}`mt-up-symmetry-bridge`): symmetry structure ⇒ stiffness/gap (SymCheck → StiffnessCheck).
+- `mt-up-tame-smoothing` ({prf:ref}`mt-up-tame-smoothing`): tameness ⇒ geometry/capacity control (TameCheck → GeomCheck).
+- `mt-up-ergodic` ({prf:ref}`mt-up-ergodic`): ergodicity/mixing ⇒ saturation/energy control (ErgoCheck → EnergyCheck).
+- `mt-up-variety-control` ({prf:ref}`mt-up-variety-control`): alignment/requisite variety ⇒ scaling control (AlignCheck → ScaleCheck).
+- `mt-up-algorithm-depth` ({prf:ref}`mt-up-algorithm-depth`): computational depth bound ⇒ excludes Zeno/event accumulation (ComplexCheck → ZenoCheck).
+- `mt-up-holographic` ({prf:ref}`mt-up-holographic`): holographic/complexity bound ⇒ capacity/geom control (ComplexCheck → GeomCheck).
+- `mt-lock-spectral-quant` ({prf:ref}`mt-lock-spectral-quant`): Lock obstruction ⇒ oscillation quantization control (Lock → OscillateCheck).
+- `mt-lock-unique-attractor` ({prf:ref}`mt-lock-unique-attractor`): suitable permit schema (alternative backends) ⇒ unique attractor certificate.
 
 ### 6.8 Stability / composition metatheorems (`hypopermits_jb.md`)
 
-- `mt-openness` ({prf:ref}`mt-openness`): regularity is open under small perturbations (structural stability).
-- `mt-shadowing` ({prf:ref}`mt-shadowing`): numerical shadowing certificate ⇒ validity of approximate trajectories (numerical-to-true lift).
-- `mt-weak-strong` ({prf:ref}`mt-weak-strong`): weak + strong solution coexistence ⇒ uniqueness/upgrade (duality mechanism).
-- `mt-product` ({prf:ref}`mt-product`): product system permits ⇒ product-regularity certificate (composition).
-- `mt-subsystem` ({prf:ref}`mt-subsystem`): subsystem permits ⇒ inheritance of regularity/obstruction properties.
+- `mt-krnl-openness` ({prf:ref}`mt-krnl-openness`): regularity is open under small perturbations (structural stability).
+- `mt-krnl-shadowing` ({prf:ref}`mt-krnl-shadowing`): numerical shadowing certificate ⇒ validity of approximate trajectories (numerical-to-true lift).
+- `mt-krnl-weak-strong` ({prf:ref}`mt-krnl-weak-strong`): weak + strong solution coexistence ⇒ uniqueness/upgrade (duality mechanism).
+- `mt-lock-product` ({prf:ref}`mt-lock-product`): product system permits ⇒ product-regularity certificate (composition).
+- `mt-krnl-subsystem` ({prf:ref}`mt-krnl-subsystem`): subsystem permits ⇒ inheritance of regularity/obstruction properties.
 
 ### 6.9 Imported metatheorems (`hypopermits_jb.md`)
 
-- `mt-imported-structural-exclusion` ({prf:ref}`mt-imported-structural-exclusion`): Hom-emptiness at Lock + admissible $\mathbf{Hypo}_T$ hypotheses ⇒ $\mathrm{Rep}_K(T,Z)$ (conjecture/regularity) holds.
-- `mt-imported-structural-resolution` ({prf:ref}`mt-imported-structural-resolution`): minimal regularity + $D_E$ (+ compactness template) ⇒ trichotomy of behaviors (dispersion / regularity via obstructions / genuine singularity).
-- `mt-imported-equivariance` ({prf:ref}`mt-imported-equivariance`): $G$-covariant data + equivariant parametrization + defect equivariance ⇒ learned/minimizing parameters preserve symmetry (SV-08).
-- `mt-imported-type-ii-exclusion` ({prf:ref}`mt-imported-type-ii-exclusion`): $D_E^+ \wedge \mathrm{SC}_\lambda^+$ with $\alpha>\beta$ (+ finite total cost) ⇒ excludes supercritical self-similar blow-up (Type II).
-- `mt-imported-spectral-generator` ({prf:ref}`mt-imported-spectral-generator`): $D_E$ + $\mathrm{LS}_\sigma$ + $\mathrm{GC}_\nabla$ (+ Hessian positivity near $M$) ⇒ Łojasiewicz–Simon inequality / stiffness control.
-- `mt-imported-ergodic-mixing` ({prf:ref}`mt-imported-ergodic-mixing`): mixing barrier hypotheses ⇒ ergodic/mixing obstruction or its exclusion (BarrierMix justification).
-- `mt-imported-spectral-distance` ({prf:ref}`mt-imported-spectral-distance`): $C_\mu$ + $D_E$ ⇒ spectral/metric identification used by frequency/complexity barriers.
-- `mt-imported-antichain-surface` ({prf:ref}`mt-imported-antichain-surface`): boundary/min-cut–max-flow correspondence ⇒ boundary node realizations (bridge from combinatorics/geometry).
-- `mt-imported-saturation` ({prf:ref}`mt-imported-saturation`): $D_E$ + $\mathrm{SC}_\lambda$ ⇒ saturation barrier principle (BarrierSat justification).
-- `mt-imported-causal-barrier` ({prf:ref}`mt-imported-causal-barrier`): computational depth limitation ⇒ BarrierCausal justification.
-- `mt-imported-capacity-barrier` ({prf:ref}`mt-imported-capacity-barrier`): $\mathrm{Cap}_H$ (+ geometric background) ⇒ capacity barrier / removability criterion.
-- `mt-imported-topological-suppression` ({prf:ref}`mt-imported-topological-suppression`): $\mathrm{TB}_\pi$ (+ scaling/energy) ⇒ topological sector suppression (BarrierAction justification).
-- `mt-imported-epistemic-horizon` ({prf:ref}`mt-imported-epistemic-horizon`): representational/complexity assumptions ⇒ horizon principle (BarrierEpi justification).
-- `mt-imported-regularity-lift` ({prf:ref}`mt-imported-regularity-lift`): local regularity + scale subcriticality ⇒ lift to global regularity (regularity-lift surgery principle).
-- `mt-imported-structural-surgery` ({prf:ref}`mt-imported-structural-surgery`): admissible profile + gluing data ⇒ rigorous surgery construction (MT 6.5).
-- `mt-imported-projective-extension` ({prf:ref}`mt-imported-projective-extension`): projective compactification assumptions ⇒ extension across infinity (MT 6.3).
-- `mt-imported-brst` ({prf:ref}`mt-imported-brst`): ghost/derived extension assumptions ⇒ derived extension / BRST resolution (MT 6.2).
-- `mt-imported-adjoint-surgery` ({prf:ref}`mt-imported-adjoint-surgery`): primal-dual / constraint alignment assumptions ⇒ adjoint surgery move (MT 6.26).
-- `mt-imported-lyapunov-compactification` ({prf:ref}`mt-imported-lyapunov-compactification`): conformal/Jacobi compactification assumptions ⇒ compactify via Lyapunov metric (MT 6.4).
-- `mt-imported-motivic-flow` ({prf:ref}`mt-imported-motivic-flow`): $D_E^+ \wedge C_\mu^+ \wedge \mathrm{SC}_\lambda^+$ ⇒ motivic assignment certificate with weight filtration (MT 22.1).
-- `mt-imported-schematic-sieve` ({prf:ref}`mt-imported-schematic-sieve`): $\mathrm{Cap}_H^+ \wedge \mathrm{LS}_\sigma^+ \wedge \mathrm{SC}_\lambda^+ \wedge \mathrm{TB}_\pi^+$ ⇒ SOS/semialgebraic bad-pattern exclusion cert (MT 22.2).
-- `mt-imported-kodaira-spencer` ({prf:ref}`mt-imported-kodaira-spencer`): $\mathrm{LS}_\sigma^+ \wedge C_\mu^+$ ⇒ deformation cohomology / rigidity classification cert (MT 22.3).
-- `mt-imported-virtual-cycle` ({prf:ref}`mt-imported-virtual-cycle`): $\mathrm{Cap}_H^+ \wedge D_E^+ \wedge \mathrm{Rep}^+$ ⇒ virtual fundamental class / enumerative cert (MT 22.7).
-- `mt-imported-monodromy-weight` ({prf:ref}`mt-imported-monodromy-weight`): $\mathrm{TB}_\pi^+ \wedge \mathrm{SC}_\lambda^+ \wedge D_E^+$ ⇒ limiting mixed Hodge structure / lock cert (MT 22.11).
-- `mt-imported-tannakian-recognition` ({prf:ref}`mt-imported-tannakian-recognition`): $K_{\mathrm{Cat}_{\mathrm{Hom}}}^+ \wedge K_\Gamma^+$ ⇒ Tannakian group reconstruction / algebraicity criterion (MT 22.15).
-- `mt-structural-reconstruction` ({prf:ref}`mt-structural-reconstruction`): Lock breached-inconclusive + reconstruction functor assumptions ⇒ constructive dictionary resolving Lock (MT 42.1).
+- `mt-krnl-exclusion` ({prf:ref}`mt-krnl-exclusion`): Hom-emptiness at Lock + admissible $\mathbf{Hypo}_T$ hypotheses ⇒ $\mathrm{Rep}_K(T,Z)$ (conjecture/regularity) holds.
+- `mt-krnl-trichotomy` ({prf:ref}`mt-krnl-trichotomy`): minimal regularity + $D_E$ (+ compactness template) ⇒ trichotomy of behaviors (dispersion / regularity via obstructions / genuine singularity).
+- `mt-krnl-equivariance` ({prf:ref}`mt-krnl-equivariance`): $G$-covariant data + equivariant parametrization + defect equivariance ⇒ learned/minimizing parameters preserve symmetry (SV-08).
+- `mt-lock-tactic-scale` ({prf:ref}`mt-lock-tactic-scale`): $D_E^+ \wedge \mathrm{SC}_\lambda^+$ with $\alpha>\beta$ (+ finite total cost) ⇒ excludes supercritical self-similar blow-up (Type II).
+- `mt-lock-spectral-gen` ({prf:ref}`mt-lock-spectral-gen`): $D_E$ + $\mathrm{LS}_\sigma$ + $\mathrm{GC}_\nabla$ (+ Hessian positivity near $M$) ⇒ Łojasiewicz–Simon inequality / stiffness control.
+- `mt-lock-ergodic-mixing` ({prf:ref}`mt-lock-ergodic-mixing`): mixing barrier hypotheses ⇒ ergodic/mixing obstruction or its exclusion (BarrierMix justification).
+- `mt-lock-spectral-dist` ({prf:ref}`mt-lock-spectral-dist`): $C_\mu$ + $D_E$ ⇒ spectral/metric identification used by frequency/complexity barriers.
+- `mt-lock-antichain` ({prf:ref}`mt-lock-antichain`): boundary/min-cut–max-flow correspondence ⇒ boundary node realizations (bridge from combinatorics/geometry).
+- `mt-up-saturation-principle` ({prf:ref}`mt-up-saturation-principle`): $D_E$ + $\mathrm{SC}_\lambda$ ⇒ saturation barrier principle (BarrierSat justification).
+- `mt-up-causal-barrier` ({prf:ref}`mt-up-causal-barrier`): computational depth limitation ⇒ BarrierCausal justification.
+- `mt-lock-tactic-capacity` ({prf:ref}`mt-lock-tactic-capacity`): $\mathrm{Cap}_H$ (+ geometric background) ⇒ capacity barrier / removability criterion.
+- `mt-up-shadow` ({prf:ref}`mt-up-shadow`): $\mathrm{TB}_\pi$ (+ scaling/energy) ⇒ topological sector suppression (BarrierAction justification).
+- `mt-act-horizon` ({prf:ref}`mt-act-horizon`): representational/complexity assumptions ⇒ horizon principle (BarrierEpi justification).
+- `mt-act-lift` ({prf:ref}`mt-act-lift`): local regularity + scale subcriticality ⇒ lift to global regularity (regularity-lift surgery principle).
+- `mt-act-surgery-2` ({prf:ref}`mt-act-surgery-2`): admissible profile + gluing data ⇒ rigorous surgery construction (MT 6.5).
+- `mt-act-projective` ({prf:ref}`mt-act-projective`): projective compactification assumptions ⇒ extension across infinity (MT 6.3).
+- `mt-act-ghost` ({prf:ref}`mt-act-ghost`): ghost/derived extension assumptions ⇒ derived extension / BRST resolution (MT 6.2).
+- `mt-act-align` ({prf:ref}`mt-act-align`): primal-dual / constraint alignment assumptions ⇒ adjoint surgery move (MT 6.26).
+- `mt-act-compactify` ({prf:ref}`mt-act-compactify`): conformal/Jacobi compactification assumptions ⇒ compactify via Lyapunov metric (MT 6.4).
+- `mt-lock-motivic` ({prf:ref}`mt-lock-motivic`): $D_E^+ \wedge C_\mu^+ \wedge \mathrm{SC}_\lambda^+$ ⇒ motivic assignment certificate with weight filtration (MT 22.1).
+- `mt-lock-schematic` ({prf:ref}`mt-lock-schematic`): $\mathrm{Cap}_H^+ \wedge \mathrm{LS}_\sigma^+ \wedge \mathrm{SC}_\lambda^+ \wedge \mathrm{TB}_\pi^+$ ⇒ SOS/semialgebraic bad-pattern exclusion cert (MT 22.2).
+- `mt-lock-kodaira` ({prf:ref}`mt-lock-kodaira`): $\mathrm{LS}_\sigma^+ \wedge C_\mu^+$ ⇒ deformation cohomology / rigidity classification cert (MT 22.3).
+- `mt-lock-virtual` ({prf:ref}`mt-lock-virtual`): $\mathrm{Cap}_H^+ \wedge D_E^+ \wedge \mathrm{Rep}^+$ ⇒ virtual fundamental class / enumerative cert (MT 22.7).
+- `mt-lock-hodge` ({prf:ref}`mt-lock-hodge`): $\mathrm{TB}_\pi^+ \wedge \mathrm{SC}_\lambda^+ \wedge D_E^+$ ⇒ limiting mixed Hodge structure / lock cert (MT 22.11).
+- `mt-lock-tannakian` ({prf:ref}`mt-lock-tannakian`): $K_{\mathrm{Cat}_{\mathrm{Hom}}}^+ \wedge K_\Gamma^+$ ⇒ Tannakian group reconstruction / algebraicity criterion (MT 22.15).
+- `mt-lock-reconstruction` ({prf:ref}`mt-lock-reconstruction`): Lock breached-inconclusive + reconstruction functor assumptions ⇒ constructive dictionary resolving Lock (MT 42.1).
 
 ---
 
@@ -555,7 +555,7 @@ These are only needed if you are learning/optimizing hypostructure components fr
 
 - `mt-existence-of-axiom-minimizers` ({prf:ref}`mt-existence-of-axiom-minimizers`): compact $\Theta$ + continuity + dominated bound ⇒ existence of global axiom minimizer $\theta^*$.
 - `mt-joint-training-dynamics` ({prf:ref}`mt-joint-training-dynamics`): coupled gradient flow on joint risk ⇒ convergence/trajectory characterization for $(\theta_t)$ under standard regularity assumptions.
-- `mt-sv-09-meta-identifiability` ({prf:ref}`mt-sv-09-meta-identifiability`): identifiability conditions on defect families ⇒ recovery of true axiom parameters up to symmetry.
+- `mt-meta-identifiability-sv09` ({prf:ref}`mt-sv-09-meta-identifiability`): identifiability conditions on defect families ⇒ recovery of true axiom parameters up to symmetry.
 - `mt-functional-reconstruction` ({prf:ref}`mt-functional-reconstruction`): sufficient observation/defect data ⇒ reconstruct $\Phi_\theta,\mathfrak{D}_\theta,G_\theta$ within the parametric family.
 - `mt-trainable-hypostructure-consistency` ({prf:ref}`mt-trainable-hypostructure-consistency`): small joint defect risk ⇒ learned hypostructure satisfies permits approximately/consistently.
 - `mt-meta-error-localization` ({prf:ref}`mt-meta-error-localization`): defect decomposition + sensitivity ⇒ localize which permit/interface causes empirical failure.
@@ -574,6 +574,6 @@ These are only needed if you are learning/optimizing hypostructure components fr
 - `mt-the-learnability-threshold` ({prf:ref}`mt-the-learnability-threshold`): information/complexity threshold conditions ⇒ learnability vs impossibility boundary.
 - `mt-the-renormalization-variational-principle` ({prf:ref}`mt-the-renormalization-variational-principle`): renormalization variational setup ⇒ select effective axioms/parameters by minimizing meta-action.
 - `mt-non-differentiable-extension` ({prf:ref}`mt-non-differentiable-extension`): non-smooth defects ⇒ generalized (subgradient/variational) training still yields minimizers.
-- `mt-defect-reconstruction-2` ({prf:ref}`mt-defect-reconstruction-2`): defect observations ⇒ reconstruct missing defect functionals / calibrate penalties.
+- `mt-defect-reconstruction` ({prf:ref}`mt-defect-reconstruction-2`): defect observations ⇒ reconstruct missing defect functionals / calibrate penalties.
 - `mt-meta-identifiability` ({prf:ref}`mt-meta-identifiability`): meta-level identifiability assumptions ⇒ recover latent structure/parameters.
 - `mt-epistemic-fixed-point` ({prf:ref}`mt-epistemic-fixed-point`): stability of learning loop ⇒ epistemic fixed point (self-consistent learned theory).

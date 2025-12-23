@@ -21,7 +21,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -184,14 +184,10 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 **Question:** Is the height functional bounded along trajectories?
 
 **Step-by-step execution:**
-1. [x] Write the energy functional: $E(u) = \frac{1}{2}\|u\|_{L^2}^2$
-2. [x] Compute drift: $\frac{d}{dt}E = \int u \cdot u_t$
-3. [x] Substitute NSE: $u_t = -(u \cdot \nabla)u - \nabla p + \nu\Delta u$
-4. [x] Evaluate each term:
-   - Nonlinear: $\int u \cdot (u \cdot \nabla)u = 0$ (integrate by parts, use $\nabla \cdot u = 0$)
-   - Pressure: $\int u \cdot \nabla p = -\int p \nabla \cdot u = 0$
-   - Viscous: $\int u \cdot \nu\Delta u = -\nu\|\nabla u\|_{L^2}^2$
-5. [x] Result: $\frac{d}{dt}E + D = 0$ where $D = \nu\|\nabla u\|_{L^2}^2$
+1. [x] Height functional: $E(u) = \frac{1}{2}\|u\|_{L^2}^2$
+2. [x] Dissipation rate: $\mathfrak{D}(u) = \nu\|\nabla u\|_{L^2}^2$
+3. [x] Energy-dissipation identity: $\frac{d}{dt}E + \mathfrak{D} = 0$ (standard for 2D NS)
+4. [x] Bound: $E(t) \le E_0$ for all $t \ge 0$
 
 **Certificate:**
 * [x] $K_{D_E}^+ = (E, D, \frac{d}{dt}E + D = 0)$ → **Go to Node 2**
@@ -426,11 +422,10 @@ This section demonstrates how the Hypostructure framework handles an **inconclus
 **Scenario:** Attempt to close $\frac{d}{dt}\|\nabla u\|_{L^2}^2$ directly.
 
 **Step-by-step execution:**
-1. [x] Differentiate: $\frac{d}{dt}\|\nabla u\|_{L^2}^2 = 2\int \nabla u : \nabla u_t$
-2. [x] Substitute NSE and integrate by parts
-3. [x] Encounter nonlinear term: $\int |\nabla u|^2 |u|$ requires control of $\|u\|_{L^\infty}$
-4. [x] In 2D: Need $\|u\|_{L^\infty} \le C\|u\|_{H^1}$? No—2D embedding gives $H^1 \hookrightarrow L^p$ for $p < \infty$, not $L^\infty$
-5. [x] Attempt fails without additional structure
+1. [x] Attempt direct $H^1$ closure for velocity
+2. [x] Nonlinear term requires $L^\infty$ control of $u$
+3. [x] 2D Sobolev embedding insufficient: $H^1 \hookrightarrow L^p$ for $p < \infty$, not $L^\infty$
+4. [x] Velocity-based approach fails—triggers surgery to vorticity formulation
 
 **Barrier:** BarrierVelocityH1
 **Breach Certificate:**
@@ -516,10 +511,10 @@ No Lyapunov reconstruction or ghost extension is needed—the physical enstrophy
 
 ## Part III-B: Metatheorem Extraction
 
-### **1. Surgery Admissibility (MT 15.1)**
+### **1. Surgery Admissibility (RESOLVE-AutoAdmit)**
 *Not applicable in the standard sense: The "surgery" here is a change of variables (velocity → vorticity), not a topological modification. It is always admissible.*
 
-### **2. Structural Surgery (MT 16.1)**
+### **2. Structural Surgery (RESOLVE-AutoSurgery)**
 *The curl map $u \mapsto \omega$ is an invertible transformation (via Biot–Savart) that simplifies the analysis. No actual topological surgery.*
 
 ### **3. The Lock (Node 17)**
@@ -630,7 +625,7 @@ $$\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2 \le 0$$
 Therefore $\|\omega(t)\|_{L^2} \le \|\omega_0\|_{L^2}$ for all $t \ge 0$.
 
 **Phase 5: Velocity Gradient Control (Re-Entry)**
-By Biot–Savart (elliptic estimate):
+Via Biot–Savart certificate ($K_{\text{BS}}^+$):
 $$\|\nabla u(t)\|_{L^2} \le c_{BS}\|\omega(t)\|_{L^2} \le c_{BS}\|\omega_0\|_{L^2}$$
 
 The velocity gradient is bounded globally.

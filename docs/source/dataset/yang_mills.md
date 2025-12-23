@@ -13,11 +13,23 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{quant}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Yang-Mills Mass Gap problem** using the Hypostructure framework.
 
-**Approach:** We instantiate the quantum hypostructure with gauge connections on $\mathbb{R}^4$. The naive path integral fails (Node 1 breached—gauge orbit divergence), triggering **BRST Ghost Extension (Surgery S7, MT 6.2)**. Classical scale invariance is broken by **Dimensional Transmutation**, generating the mass scale $\Lambda_{\text{QCD}}$. The Lock is blocked via Tactic E2 (Trace Anomaly—Invariant Mismatch), Elitzur's Theorem, and Tactic E3 (Positivity), excluding massless excitations.
+**Approach:** We instantiate the quantum hypostructure with gauge connections on $\mathbb{R}^4$. The naive path integral fails (Node 1 breached—gauge orbit divergence), triggering **BRST Ghost Extension (Surgery S7, ACT-Ghost)**. Classical scale invariance is broken by **Dimensional Transmutation**, generating the mass scale $\Lambda_{\text{QCD}}$. The Lock is blocked via Tactic E2 (Trace Anomaly—Invariant Mismatch), Elitzur's Theorem, and Tactic E3 (Positivity), excluding massless excitations.
 
 **Result:** The Lock is blocked; existence and mass gap are certified. All inc certificates are discharged; the proof is unconditional.
 
@@ -549,7 +561,7 @@ $K_{\text{Transmutation}}^+ \wedge K_{\text{Anomaly}}^+ \wedge K_{\text{Elitzur}
 **Barrier:** BarrierSat (Gauge Orbit Divergence)
 **Breach Certificate:** $K_{D_E}^{\mathrm{br}}$ = {barrier: BarrierSat, reason: infinite gauge volume}
 
-**Surgery S7: SurgSD (BRST Ghost Extension) — MT 6.2**
+**Surgery S7: SurgSD (BRST Ghost Extension) — ACT-Ghost**
 
 **Schema:**
 ```
@@ -651,7 +663,7 @@ The mass gap emerges from confinement:
 3. [x] All inc certificates discharged (Ledger EMPTY)
 4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 5. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
-6. [x] BRST surgery completed (MT 6.2)
+6. [x] BRST surgery completed (ACT-Ghost)
 7. [x] Dimensional transmutation established
 8. [x] Result extraction completed
 

@@ -24,7 +24,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: MT 14.1, MT 15.1, MT 16.1})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
@@ -575,7 +575,7 @@ where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 * **State Space ($\mathcal{X}$):** [The set of all possible states, e.g., $H^1$ functions, Graphs, Inputs]
 * **Metric ($d$):** [Distance function, e.g., $L^2$ norm, Edit distance]
 * **Measure ($\mu$):** [Reference measure, e.g., Lebesgue, Counting]
-    * *Framework Derivation:* Capacity Functional $\text{Cap}(\Sigma)$ via MT 15.1.
+    * *Framework Derivation:* Capacity Functional $\text{Cap}(\Sigma)$ via RESOLVE-AutoAdmit.
 
 ### **2. The Potential ($\Phi^{\text{thin}}$)**
 *Implements: $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$ — see Section 0.4 for templates*
@@ -595,7 +595,7 @@ where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 * **Symmetry Group ($\text{Grp}$):** [Inherent symmetries, e.g., Rotation, Permutation, Gauge]
 * **Action ($\rho$):** [How the group transforms the state]
 * **Scaling Subgroup ($\mathcal{S}$):** [Dilations / Renormalization action]
-    * *Framework Derivation:* Profile Library $\mathcal{L}_T$ via MT 14.1 (Profile Trichotomy).
+    * *Framework Derivation:* Profile Library $\mathcal{L}_T$ via RESOLVE-AutoProfile (Profile Trichotomy).
 
 ---
 
@@ -1164,7 +1164,7 @@ If YES → Proceed with construction. If NO → Lyapunov may not exist canonical
 
 ---
 
-### **Step 1: Value Function Construction (MT-Lyap-1)**
+### **Step 1: Value Function Construction (KRNL-Lyapunov)**
 
 **Compute:**
 $$\mathcal{L}(x) := \inf\left\{\Phi(y) + \mathcal{C}(x \to y) : y \in M\right\}$$
@@ -1182,7 +1182,7 @@ $$\mathcal{C}(x \to y) := \inf\left\{\int_0^T \mathfrak{D}(S_s x)\, ds : S_T x =
 
 ---
 
-### **Step 2: Jacobi Metric Reconstruction (MT-Lyap-2)**
+### **Step 2: Jacobi Metric Reconstruction (KRNL-Jacobi)**
 
 **Additional requirement:** $K_{\mathrm{GC}_\nabla}^+$ (gradient consistency)
 
@@ -1201,7 +1201,7 @@ $$\mathcal{L}(x) = \Phi_{\min} + \inf_{\gamma: x \to M} \int_0^1 \sqrt{\mathfrak
 
 ---
 
-### **Step 3: Hamilton-Jacobi PDE (MT-Lyap-3)**
+### **Step 3: Hamilton-Jacobi PDE (KRNL-HamiltonJacobi)**
 
 **The Lyapunov satisfies the static Hamilton-Jacobi equation:**
 
@@ -1235,36 +1235,36 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 *Use the Extraction Metatheorems to pull rigorous math objects from the certificates.*
 
 ### **3.1 Global Theorems**
-* [ ] **Global Regularity Theorem:** (From Node 17 Blocked + MT 9).
+* [ ] **Global Regularity Theorem:** (From Node 17 Blocked + KRNL-Consistency).
     * *Statement:* "The system defined by $(\mathcal{X}, \Phi, \mathfrak{D})$ admits global regular solutions."
-* [ ] **Singularity Classification:** (From Node 3 + MT 14.1).
+* [ ] **Singularity Classification:** (From Node 3 + RESOLVE-AutoProfile).
     * *Statement:* "All singularities are isomorphic to the set: [List Profiles]."
 
 ### **3.2 Quantitative Bounds**
-* [ ] **Energy/Density Bound:** (From Node 1 / BarrierSat + MT 5.4).
+* [ ] **Energy/Density Bound:** (From Node 1 / BarrierSat + UP-Saturation).
     * *Formula:* $\Phi(t) \le$ [Insert Bound]
-* [ ] **Dimension Bound:** (From Node 6 / BarrierCap + MT 5.3).
+* [ ] **Dimension Bound:** (From Node 6 / BarrierCap + UP-Capacity).
     * *Formula:* $\text{dim}_{\mathcal{H}}(\Sigma) \le$ [Insert Value]
-* [ ] **Convergence Rate:** (From Node 7 / Stiffness + MT 5.5).
+* [ ] **Convergence Rate:** (From Node 7 / Stiffness + KRNL-Lyapunov).
     * *Formula:* Rate $\sim$ [Exp/Poly] (based on $\theta$).
 
 ### **3.3 Functional Objects**
-* [ ] **Strict Lyapunov Function ($\mathcal{L}$):** (From Part III-A / MT-Lyap-1 through MT-Lyap-4).
+* [ ] **Strict Lyapunov Function ($\mathcal{L}$):** (From Part III-A / KRNL-Lyapunov through KRNL-MetricAction).
     * *Definition:* $\mathcal{L}(x) = \Phi_{\min} + \mathrm{dist}_{g_{\mathfrak{D}}}(x, M)$ (Jacobi metric form, if gradient flow).
     * *Alternative:* $\mathcal{L}(x) = \inf\{\Phi(y) + \mathcal{C}(x \to y) : y \in M\}$ (Value function form, general case).
     * *Value:* Proves strict monotonicity, convergence to equilibrium, and defines stability basins.
-* [ ] **Surgery Operator ($\mathcal{O}_S$):** (From MT 16.1).
+* [ ] **Surgery Operator ($\mathcal{O}_S$):** (From RESOLVE-AutoSurgery).
     * *Definition:* Canonical pushout for [Profile Name].
     * *Value:* Defines the rigorous mechanism for extending flow past singularities.
-* [ ] **Spectral Constraint ($H$):** (From Node 17 / Tactic E4 + MT 27).
+* [ ] **Spectral Constraint ($H$):** (From Node 17 / Tactic E4 + LOCK-SpectralGen).
     * *Definition:* Operator satisfying Lock constraints.
     * *Value:* Defines the "Missing Physics" (e.g., Berry-Keating Hamiltonian).
 
 ### **3.4 Retroactive Upgrades**
 *Check if late-stage proofs upgrade earlier weak permits.*
-* [ ] **Lock-Back (MT 33.1):** Did Node 17 pass? $\implies$ All Barrier Blocks are **Regular**.
-* [ ] **Symmetry-Gap (MT 33.2):** Did SymCheck pass? $\implies$ Stiffness Stagnation is **Mass Gap**.
-* [ ] **Tame-Topology (MT 33.3):** Did TameCheck pass? $\implies$ Zero Capacity sets are **Removable**.
+* [ ] **Lock-Back (UP-LockBack):** Did Node 17 pass? $\implies$ All Barrier Blocks are **Regular**.
+* [ ] **Symmetry-Gap (UP-SymmetryBridge):** Did SymCheck pass? $\implies$ Stiffness Stagnation is **Mass Gap**.
+* [ ] **Tame-Topology (UP-TameSmoothing):** Did TameCheck pass? $\implies$ Zero Capacity sets are **Removable**.
 
 ---
 
@@ -1388,7 +1388,7 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 7 (Lock):** Node 17 blocked the universal bad pattern $\mathcal{H}_{\text{bad}}$ via Tactic E[X], establishing $K_{\text{Lock}}^{\mathrm{blk}}$.
 
-**Conclusion:** By the Lock Metatheorem (MT 9), the blocked Lock certificate implies the target claim.
+**Conclusion:** By the Lock Metatheorem (KRNL-Consistency), the blocked Lock certificate implies the target claim.
 
 $$\therefore \text{[CLAIM]} \quad \square$$
 

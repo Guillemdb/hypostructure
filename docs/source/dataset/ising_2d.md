@@ -13,13 +13,69 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{statistical}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{statistical}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Configuration space $\{-1,+1\}^\Lambda$ on square lattice |
+| **Potential** | Free energy $F = -k_B T \ln Z$ |
+| **Cost** | Hamiltonian $H(\sigma) = -J\sum_{\langle i,j \rangle} \sigma_i \sigma_j$ |
+| **Invariance** | $\mathbb{Z}_2$ spin-flip $\times$ lattice translations |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (bounded Hamiltonian) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (finite configuration space) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ (Gibbs measure concentration) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (critical scaling at $T_c$) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (temperature stable) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (finite lattice) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (phase boundary) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (discrete) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (Glauber dynamics mixing) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite states) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (equilibrium) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E3 + LOCK-Reconstruction) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E3 | **Primary** | Symmetry Breaking — $\mathbb{Z}_2$ spontaneously breaks below $T_c$ |
+| LOCK-Reconstruction | Applied | Structural Reconstruction via Onsager solution |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** |
+| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
+| **Singularity Set** | Critical point $T_c = 2J/k_B \ln(1+\sqrt{2})$ |
+| **Primary Blocking Tactic** | E3 (Symmetry Breaking via Peierls + Onsager) |
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **2D Ising Model phase transition**.
 
 **Approach:** We instantiate the statistical hypostructure with the Ising model's configuration space and Hamiltonian. The key insight is the duality between energy minimization (ground state) and free energy minimization (thermal equilibrium). Onsager's exact solution provides the critical temperature; the $\mathbb{Z}_2$ spin-flip symmetry and translation invariance enforce structural constraints. The Lock is resolved via Tactic E3 (Symmetry Breaking) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the phase-transition mechanism.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E3 (Symmetry Breaking) and MT 42.1 (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E3 (Symmetry Breaking) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
 
 ---
 
@@ -460,16 +516,16 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 7. [x] Singularity: $F$ is non-analytic at $T_c$ (logarithmic divergence in $C$)
 8. [x] Certificate: $K_{\text{Bridge}}^+$ (structural correspondence via duality)
 
-**Step 4: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 4: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics provide strong evidence but do not directly compute Hom-emptiness.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_partial}, \mathsf{symbreak + duality}, \mathsf{trace})$
 
-**Step 5: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 5: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Bridge}}^+$, $K_{\text{SymBreak}}^+$
@@ -500,7 +556,7 @@ d. **Symmetry Breaking ($K_{\text{SymBreak}}^+$):**
    - Mermin-Wagner: no continuous symmetry breaking in 2D
    - But discrete $\mathbb{Z}_2$ CAN break (no Goldstone theorem)
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Peierls}}^+ \wedge K_{\text{SymBreak}}^+ \Rightarrow K_{\text{StablePhase}}^{\text{thermal}}$
 2. [x] $K_{\text{Bridge}}^+ \wedge K_{\text{Onsager}}^+ \wedge K_{\text{StablePhase}}^{\text{thermal}} \Rightarrow K_{\text{Rec}}^+$
 
@@ -515,7 +571,7 @@ d. **Symmetry Breaking ($K_{\text{SymBreak}}^+$):**
 * [x] Result: Reconstruction → thermodynamic stability → legitimate phase transition
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E3 + E1 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{SymBreak}}^+, K_{\text{Onsager}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E3 + E1 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{SymBreak}}^+, K_{\text{Onsager}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -534,15 +590,23 @@ d. **Symmetry Breaking ($K_{\text{SymBreak}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness/Symmetry Breaking)
 - **Original obligation:** Thermodynamic stability of symmetry-broken phase
 - **Missing certificates:** $K_{\text{SymBreak}}^+$, $K_{\text{Peierls}}^+$, $K_{\text{Bridge}}^+$
-- **Discharge mechanism:** Phase-transition chain (E3 + E1 + MT 42.1)
+- **Discharge mechanism:** Phase-transition chain (E3 + E1 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Peierls}}^+$: Peierls argument (domain wall suppression)
   - $K_{\text{SymBreak}}^+$: Spontaneous $\mathbb{Z}_2$ breaking at $T < T_c$
   - $K_{\text{Bridge}}^+$: Kramers-Wannier duality fixes $T_c$
   - $K_{\text{Onsager}}^+$: Exact solution (1944)
   - $K_{\text{Peierls}}^+ \wedge K_{\text{SymBreak}}^+ \Rightarrow K_{\text{StablePhase}}^{\text{thermal}}$ (E3)
-  - $K_{\text{Bridge}}^+ \wedge K_{\text{Onsager}}^+ \wedge K_{\text{StablePhase}}^{\text{thermal}} \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Bridge}}^+ \wedge K_{\text{Onsager}}^+ \wedge K_{\text{StablePhase}}^{\text{thermal}} \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The phase transition is a smooth thermodynamic limit phenomenon with spontaneous symmetry breaking below $T_c$.*
+
+**Breach Log:** EMPTY
 
 ---
 
@@ -563,7 +627,7 @@ d. **Symmetry Breaking ($K_{\text{SymBreak}}^+$):**
 *   **Logic:** $\mathbb{Z}_2$ symmetry → degenerate vacua → spontaneous breaking
 *   **Certificate:** $K_{\text{SymBreak}}^+$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Bridge}}^+ \wedge K_{\text{Onsager}}^+ \wedge K_{\text{StablePhase}}^{\text{thermal}}$
 *   **Output:** Reconstruction dictionary with phase-transition verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -582,7 +646,7 @@ d. **Symmetry Breaking ($K_{\text{SymBreak}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 6 | Phase-transition chain (E3 + E1 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 6 | Phase-transition chain (E3 + E1 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -603,7 +667,7 @@ d. **Symmetry Breaking ($K_{\text{SymBreak}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Symmetry breaking validated (E3)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -623,7 +687,7 @@ Node 10: K_{TB_ρ}^+ (detailed balance, mixing)
 Node 11: K_{Rep_K}^+ (KW duality, Onsager exact)
 Node 12: K_{GC_∇}^- (gradient flow, no oscillation)
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -648,7 +712,7 @@ The Ising Hamiltonian $H(\sigma) = -J\sum_{\langle i,j \rangle} \sigma_i \sigma_
 **Phase 2: Symmetry Breaking Mechanism**
 For $h=0$, the Hamiltonian is invariant under $\mathbb{Z}_2$ spin-flip symmetry $\sigma \to -\sigma$. The ground states are $\sigma = +1$ (all up) and $\sigma = -1$ (all down), which are degenerate.
 
-By the **Peierls argument**:
+Via the **Peierls Permit** ($K_{\text{Peierls}}^+$):
 - Domain walls (boundaries between $+$ and $-$ regions) cost energy $\sim J \times$ (perimeter)
 - At low temperature $T \ll T_c$: probability of domain wall $\sim e^{-\beta J L}$ where $L$ is perimeter
 - This suppression stabilizes the ordered phase
@@ -681,7 +745,7 @@ The combination of:
 3. Kramers-Wannier duality fixing $T_c$ ($K_{\text{Bridge}}^+$)
 4. Onsager exact solution ($K_{\text{Onsager}}^+$)
 
-proves via MT 42.1 (Structural Reconstruction) that the phase transition is thermodynamically legitimate, not a phantom singularity.
+proves via LOCK-Reconstruction (Structural Reconstruction) that the phase transition is thermodynamically legitimate, not a phantom singularity.
 
 **Phase 6: Conclusion**
 For the 2D Ising model with $h=0$:
@@ -711,7 +775,7 @@ $\square$
 | Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Complexity/Duality | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Gradient Structure | Negative (gradient) | $K_{\mathrm{GC}_\nabla}^-$ |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

@@ -102,8 +102,8 @@ A trajectory $u: [0, T) \to X$ is **self-consistent** if:
 2. **Asymptotic stability:** Either $T = \infty$, or the trajectory approaches a well-defined limit as $t \nearrow T$.
 :::
 
-:::{prf:metatheorem} The Fixed-Point Principle
-:label: mt-fixed-point-principle
+:::{prf:metatheorem} [KRNL-Consistency] The Fixed-Point Principle
+:label: mt-krnl-consistency
 
 Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
 1. The system $\mathcal{S}$ satisfies the hypostructure axioms on all finite-energy trajectories.
@@ -127,8 +127,8 @@ Let $\mathcal{S}$ be a structural flow datum. The following are equivalent:
 
 The following metatheorems establish the logical soundness of the Sieve before examining any specific node. They prove that the framework's categorical approach to singularity resolution is mathematically valid.
 
-:::{prf:metatheorem} Principle of Structural Exclusion (MT 8.11.N)
-:label: mt-structural-exclusion
+:::{prf:metatheorem} [KRNL-Exclusion] Principle of Structural Exclusion
+:label: mt-krnl-exclusion
 :class: metatheorem
 
 **Sieve Target:** Node 17 (Lock) — proves the Lock mechanism is valid
@@ -163,8 +163,8 @@ then Interface Permit $\mathrm{Rep}_K(T, Z)$ holds, and hence the conjecture for
 **Literature:** {cite}`Grothendieck67` SGA 1 Exposé V (representability); {cite}`MacLane71` §III.3 (limits and colimits); {cite}`KashiwaraSchapira06` §8 (derived categories); {cite}`Lurie09` §5.5 (presentable $\infty$-categories)
 :::
 
-:::{prf:metatheorem} Structural Resolution (MT 5.1)
-:label: mt-structural-resolution
+:::{prf:metatheorem} [KRNL-Trichotomy] Structural Resolution
+:label: mt-krnl-trichotomy
 :class: metatheorem
 
 **Sieve Target:** Node 3 (CompactCheck) — justifies the Concentration/Dispersion dichotomy
@@ -195,8 +195,8 @@ then Interface Permit $\mathrm{Rep}_K(T, Z)$ holds, and hence the conjecture for
 **Literature:** {cite}`Lions84` Lemma I.1 (concentration-compactness); {cite}`BahouriGerard99` Theorem 1 (profile decomposition); {cite}`KenigMerle06` Theorem 1.1 (rigidity); {cite}`Struwe90` §3 (singularity analysis)
 :::
 
-:::{prf:metatheorem} Equivariance (MT 13.57 / SV-08)
-:label: mt-equivariance-hypo
+:::{prf:metatheorem} [KRNL-Equivariance] Equivariance Principle
+:label: mt-krnl-equivariance
 :class: metatheorem
 
 **Sieve Target:** Meta-Learning — guarantees learned parameters preserve symmetry group $G$
@@ -524,7 +524,7 @@ where $f_{\mathrm{wit}}: K_P^{\mathrm{wit}} \to X$ and $f_{\mathrm{inc}}: K_P^{\
 
 The Sieve branches on certificate kind via case analysis:
 - **NO with $K^{\mathrm{wit}}$** $\mapsto$ Fatal route (structural inconsistency confirmed; no reconstruction possible)
-- **NO with $K^{\mathrm{inc}}$** $\mapsto$ Reconstruction route (invoke {prf:ref}`mt-structural-reconstruction`; add interface/refine library/extend templates)
+- **NO with $K^{\mathrm{inc}}$** $\mapsto$ Reconstruction route (invoke {prf:ref}`mt-lock-reconstruction`; add interface/refine library/extend templates)
 
 This design maintains **proof-theoretic honesty**:
 - The verdict is always in $\{$YES, NO$\}$—classical two-valued logic
@@ -748,7 +748,7 @@ graph TD
 
     BarrierExclusion -- "Yes: Kblk_CatHom" --> VICTORY(["<b>GLOBAL REGULARITY</b><br><i>#40;Structural Exclusion Confirmed#41;</i>"])
     BarrierExclusion -- "No: Kmorph_CatHom" --> ModeCat["<b>FATAL ERROR</b><br>Structural Inconsistency"]
-    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>MT 41.1:</b><br>Structural Reconstruction"]
+    BarrierExclusion -- "NO(inc): Kbr-inc_CatHom" --> ReconstructionLoop["<b>LOCK-Reconstruction:</b><br>Structural Reconstruction"]
     ReconstructionLoop -- "Verdict: Kblk" --> VICTORY
     ReconstructionLoop -- "Verdict: Kmorph" --> ModeCat
 
@@ -1394,7 +1394,7 @@ The framework produces explicit **NO-inconclusive certificates** ($K^{\mathrm{in
 - **Promotion Closure**: $K_{\mathrm{Promo}}^{\mathrm{inc}}$ recording non-termination under budget
 - **Lock (E1--E12 fail)**: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ with tactic exhaustion trace
 
-The certificate structure (Definition {prf:ref}`def-typed-no-certificates`) ensures these are first-class outputs rather than silent failures. When $K^{\mathrm{inc}}$ is produced, the Sieve routes to reconstruction ({prf:ref}`mt-structural-reconstruction`) rather than fatal error, since inconclusiveness does not imply existence of a counterexample.
+The certificate structure (Definition {prf:ref}`def-typed-no-certificates`) ensures these are first-class outputs rather than silent failures. When $K^{\mathrm{inc}}$ is produced, the Sieve routes to reconstruction ({prf:ref}`mt-lock-reconstruction`) rather than fatal error, since inconclusiveness does not imply existence of a counterexample.
 
 :::
 
@@ -1967,12 +1967,12 @@ where $\mathcal{L}_{\text{proxy}}$ is the optimized/measured objective and $\mat
 - **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; no morphism to bad pattern exists. **VICTORY: Global Regularity Confirmed.**
 - **Breached** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br}}$): NO verdict with typed certificate (sum type $K^{\mathrm{br}} := K^{\mathrm{br\text{-}wit}} \sqcup K^{\mathrm{br\text{-}inc}}$):
   - **Breached-with-witness** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}wit}}$): Explicit morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$ found; structural inconsistency. **FATAL ERROR.**
-  - **Breached-inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$): Tactics E1–E12 exhausted without deciding Hom-emptiness. Certificate records $(\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$. Triggers {prf:ref}`mt-structural-reconstruction` (Structural Reconstruction Principle).
+  - **Breached-inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$): Tactics E1–E12 exhausted without deciding Hom-emptiness. Certificate records $(\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$. Triggers {prf:ref}`mt-lock-reconstruction` (Structural Reconstruction Principle).
 
 **Routing:**
 - **On Block:** Exit with **GLOBAL REGULARITY** (structural exclusion confirmed).
 - **On Breached-with-witness:** Exit with **FATAL ERROR** (structural inconsistency—requires interface permit revision).
-- **On Breached-inconclusive:** Invoke {prf:ref}`mt-structural-reconstruction` (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
+- **On Breached-inconclusive:** Invoke {prf:ref}`mt-lock-reconstruction` (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
 
 **Exclusion Tactics (E1–E12):** The emptiness proof may invoke:
 - E1: Dimension count (bad pattern requires impossible dimension)
@@ -3482,7 +3482,7 @@ $$\frac{d^2}{dt^2} M_\phi(t) \geq c \cdot \|\nabla u\|^2 - C \cdot \|u\|^2$$
 
 **Does Not Promise:** Rigidity directly. Combined with $K_{\mathrm{LS}_\sigma}^+$ and Lock obstruction, enables hybrid rigidity derivation.
 
-**Used by:** MT-SOFT→Rigidity compilation metatheorem ({prf:ref}`mt-soft-rigidity`).
+**Used by:** MT-SOFT→Rigidity compilation metatheorem ({prf:ref}`mt-fact-soft-rigidity`).
 
 **Literature:** Morawetz estimates {cite}`Morawetz68`; virial identities {cite}`GlasseyScattering77`; interaction Morawetz {cite}`CollianderKeelStaffilaniTakaokaTao08`.
 :::
@@ -4505,8 +4505,8 @@ The **Symmetry Object** is a tuple $G = (\mathcal{G}, \rho, \mathcal{S}, \mathfr
 
 ### 19.B. The Instantiation Metatheorem
 
-:::{prf:metatheorem} Valid Instantiation
-:label: mt-valid-instantiation
+:::{prf:metatheorem} [FACT-ValidInst] Valid Instantiation
+:label: mt-fact-valid-inst
 :class: metatheorem
 
 **Statement:** To instantiate a Hypostructure for a system $S$ of type $T$ is to provide:
@@ -4539,8 +4539,8 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 **Literature:** Higher topos theory {cite}`Lurie09`; internal logic of toposes {cite}`Johnstone77`; type-theoretic semantics {cite}`HoTTBook`.
 :::
 
-:::{prf:metatheorem} Minimal Instantiation
-:label: mt-minimal-instantiation
+:::{prf:metatheorem} [FACT-MinInst] Minimal Instantiation
+:label: mt-fact-min-inst
 :class: metatheorem
 
 **Statement:** To instantiate a Hypostructure for system $S$ using the **thin object** formalism (Section 8.C), the user provides only:
@@ -4568,7 +4568,7 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 | Bad Set | Dissipation $R$ | $\Sigma = \{x: R(x) \to \infty\}$ |
 | Profile Library | Symmetry $G$ | Canonical library via moduli |
 
-**Consequence:** The full instantiation of MT {prf:ref}`mt-valid-instantiation` is achieved by the **Thin-to-Full Expansion** (MT {prf:ref}`mt-thin-expansion`), reducing user burden from ~30 components to 10 primitive inputs.
+**Consequence:** The full instantiation of MT {prf:ref}`mt-fact-valid-inst` is achieved by the **Thin-to-Full Expansion** (MT {prf:ref}`mt-resolve-expansion`), reducing user burden from ~30 components to 10 primitive inputs.
 
 **Proof Sketch:**
 
@@ -4757,9 +4757,9 @@ $$G^{\text{thin}} = (\text{Grp}, \rho, \mathcal{S})$$
 
 | Derived Component | Construction | Used By |
 |-------------------|--------------|---------|
-| ProfileExtractor | {prf:ref}`mt-profile-trichotomy` (Profile Classification) | Modes 2-3 |
+| ProfileExtractor | {prf:ref}`mt-resolve-profile` (Profile Classification) | Modes 2-3 |
 | VacuumStabilizer | Isotropy group of vacuum | $\mathrm{Rep}_K$ |
-| SurgeryOperator | {prf:ref}`mt-structural-surgery` (Structural Surgery) | Modes 4+barrier |
+| SurgeryOperator | {prf:ref}`mt-act-surgery` (Structural Surgery) | Modes 4+barrier |
 | Parameter Moduli | $\Theta = \mathcal{X}/G$ | $\mathrm{SC}_{\partial c}$ |
 :::
 
@@ -4796,8 +4796,8 @@ $$\mathcal{H}^{\text{full}} = \text{Expand}(\mathcal{X}^{\text{thin}}, \Phi^{\te
 This expansion is performed by the **Universal Singularity Modules** (Sections 14-16), which implement the `ProfileExtractor` and `SurgeryOperator` interfaces as metatheorems rather than user-provided code.
 :::
 
-:::{prf:metatheorem} Thin-to-Full Expansion
-:label: mt-thin-expansion
+:::{prf:metatheorem} [RESOLVE-Expansion] Thin-to-Full Expansion
+:label: mt-resolve-expansion
 
 Given thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}^{\text{thin}}, G^{\text{thin}})$, the Framework automatically constructs:
 
@@ -4809,11 +4809,11 @@ Given thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}
    - $\mathcal{X}_{\text{bad}} \leftarrow \{x : R(x) \to \infty\}$
    - $\Sigma \leftarrow \text{support of singular measure}$
 
-3. **Profile Classification** ({prf:ref}`mt-profile-trichotomy`):
+3. **Profile Classification** ({prf:ref}`mt-resolve-profile`):
    - ProfileExtractor $\leftarrow$ scaling group orbit analysis
    - Canonical library $\leftarrow$ moduli space computation
 
-4. **Surgery Construction** ({prf:ref}`mt-structural-surgery`):
+4. **Surgery Construction** ({prf:ref}`mt-act-surgery`):
    - SurgeryOperator $\leftarrow$ pushout along excision
    - Admissibility $\leftarrow$ capacity bounds from $\mu$
 
@@ -4867,8 +4867,8 @@ For **good types** (satisfying the Automation Guarantee, Definition {prf:ref}`de
 
 ---
 
-:::{prf:metatheorem} Soft→WP Compilation
-:label: mt-soft-wp
+:::{prf:metatheorem} [FACT-SoftWP] Soft→WP Compilation
+:label: mt-fact-soft-wp
 :class: metatheorem
 
 **Statement:** For good types $T$ satisfying the Automation Guarantee, critical well-posedness is derived from soft interfaces.
@@ -4907,8 +4907,8 @@ $K_{\mathrm{WP}_{s_c}}^+ = (\mathsf{template\_ID}, \mathsf{theorem\_citation}, s
 
 ---
 
-:::{prf:metatheorem} Soft→ProfDec Compilation
-:label: mt-soft-profdec
+:::{prf:metatheorem} [FACT-SoftProfDec] Soft→ProfDec Compilation
+:label: mt-fact-soft-profdec
 :class: metatheorem
 
 **Statement:** For good types with concentration and scaling, profile decomposition is derived.
@@ -4949,8 +4949,8 @@ $$K_{\mathrm{ProfDec}}^+ = (\{V^{(j)}\}, \{g_n^{(j)}\}, \mathsf{orthogonality}, 
 
 ---
 
-:::{prf:metatheorem} Soft→KM Compilation
-:label: mt-soft-km
+:::{prf:metatheorem} [FACT-SoftKM] Soft→KM Compilation
+:label: mt-fact-soft-km
 :class: metatheorem
 
 **Statement:** The concentration-compactness + stability machine is derived from WP, ProfDec, and soft interfaces.
@@ -4984,8 +4984,8 @@ $$K_{\mathrm{KM}}^+ = (\mathsf{minimal\_u^*}, E_c, \mathsf{almost\_periodic\_mod
 
 ---
 
-:::{prf:metatheorem} Soft→Rigidity Compilation (Hybrid)
-:label: mt-soft-rigidity
+:::{prf:metatheorem} [FACT-SoftRigidity] Soft→Rigidity Compilation (Hybrid)
+:label: mt-fact-soft-rigidity
 :class: metatheorem
 
 **Statement:** Rigidity is derived via monotonicity-interface producing a rigidity-check that feeds into Lock/obstruction.
@@ -5020,8 +5020,8 @@ $$K_{\mathrm{Rigidity}}^+ = (\mathsf{Mon\_identity}, \mathsf{LS\_closure}, \math
 
 ---
 
-:::{prf:metatheorem} Soft→Attr Compilation
-:label: mt-soft-attr
+:::{prf:metatheorem} [FACT-SoftAttr] Soft→Attr Compilation
+:label: mt-fact-soft-attr
 :class: metatheorem
 
 **Statement:** Global attractor existence is derived from soft interfaces for dissipative systems.
@@ -5055,8 +5055,8 @@ $$K_{\mathrm{Attr}}^+ = (\mathcal{A}, \mathsf{absorbing\_set}, \mathsf{asymptoti
 
 ---
 
-:::{prf:metatheorem} Soft→MorseDecomp Compilation
-:label: mt-soft-morsedecomp
+:::{prf:metatheorem} [FACT-SoftMorse] Soft→MorseDecomp Compilation
+:label: mt-fact-soft-morse
 :class: metatheorem
 
 **Statement:** Morse/gradient-like decomposition is derived from attractor existence + soft interfaces.
@@ -5101,7 +5101,7 @@ $$\underbrace{K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wed
 $$\Downarrow \text{Compilation}$$
 $$\underbrace{K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{Rigidity}}^+}_{\text{Backend Layer (Framework Derives)}}$$
 
-**Proof:** Chain of MT-SOFT→WP ({prf:ref}`mt-soft-wp`), MT-SOFT→ProfDec ({prf:ref}`mt-soft-profdec`), MT-SOFT→KM ({prf:ref}`mt-soft-km`), MT-SOFT→Rigidity ({prf:ref}`mt-soft-rigidity`).
+**Proof:** Chain of MT-SOFT→WP ({prf:ref}`mt-fact-soft-wp`), MT-SOFT→ProfDec ({prf:ref}`mt-fact-soft-profdec`), MT-SOFT→KM ({prf:ref}`mt-fact-soft-km`), MT-SOFT→Rigidity ({prf:ref}`mt-fact-soft-rigidity`).
 
 **Consequence:** The public signature of `mt-auto-profile` requires only soft interfaces. Backend permits appear only in the **internal compilation proof**, not in the user-facing hypotheses.
 :::
@@ -5136,8 +5136,8 @@ The Sieve implements proof-producing evaluators for each derived permit. Every e
 
 The interface formalism of Section 19 embodies a fundamental design principle: **regularity is an output, not an input**.
 
-:::{prf:metatheorem} Weakest Precondition Principle
-:label: mt-weakest-precondition
+:::{prf:metatheorem} [RESOLVE-WeakestPre] Weakest Precondition Principle
+:label: mt-resolve-weakest-pre
 
 To instantiate the Structural Sieve for a dynamical system, users need only:
 
@@ -5223,7 +5223,7 @@ The Tame Certificate ($K_{\text{Tame}}$) requires a verified metatheorem that, g
 
 The Tame Certificate requires a verified metatheorem that, given Surgery Data $(\Sigma, V, \lambda(t), \mathrm{Cap}(\Sigma))$, outputs exactly one of:
 
-1. **Admissible**: $K_{\mathrm{adm}}$: canonical + codim bound + cap bound (as in MT {prf:ref}`mt-surgery-trichotomy`)
+1. **Admissible**: $K_{\mathrm{adm}}$: canonical + codim bound + cap bound (as in MT {prf:ref}`mt-resolve-admissibility`)
 
 2. **Admissible up to equivalence**: $K_{\mathrm{adm}^\sim}$: after an admissible equivalence move (YES$^\sim$), the singularity becomes admissible
 
@@ -5288,8 +5288,8 @@ With the Rigidity Certificate, with validated interface permits $D_E$, $C_\mu$, 
 
 **Level-up certificate:** `Lyapunov-Existence`.
 
-:::{prf:metatheorem} Canonical Lyapunov Functional (MT-Lyap-1)
-:label: mt-canonical-lyapunov-existence
+:::{prf:metatheorem} [KRNL-Lyapunov] Canonical Lyapunov Functional
+:label: mt-krnl-lyapunov
 :class: metatheorem
 
 **[Sieve Signature]**
@@ -5337,8 +5337,8 @@ When gradient consistency ($\mathrm{GC}_\nabla$) is additionally validated, the 
 
 **Level-up certificate:** `Lyapunov-Jacobi`.
 
-:::{prf:metatheorem} Action Reconstruction (MT-Lyap-2)
-:label: mt-jacobi-reconstruction
+:::{prf:metatheorem} [KRNL-Jacobi] Action Reconstruction
+:label: mt-krnl-jacobi
 :class: metatheorem
 
 **[Sieve Signature]**
@@ -5383,8 +5383,8 @@ The Lyapunov functional satisfies a static Hamilton-Jacobi equation, providing a
 
 **Level-up certificate:** `Lyapunov-HJ`.
 
-:::{prf:metatheorem} Hamilton-Jacobi Characterization (MT-Lyap-3)
-:label: mt-hamilton-jacobi
+:::{prf:metatheorem} [KRNL-HamiltonJacobi] Hamilton-Jacobi Characterization
+:label: mt-krnl-hamilton-jacobi
 :class: metatheorem
 
 **[Sieve Signature]**
@@ -5450,8 +5450,8 @@ $$\mathfrak{D}(u(t)) = |\partial \Phi|^2(u(t))$$
 This extends $\mathrm{GC}_\nabla$ from Riemannian to general metric spaces.
 :::
 
-:::{prf:metatheorem} Extended Action Reconstruction (MT-Lyap-4)
-:label: mt-extended-action
+:::{prf:metatheorem} [KRNL-MetricAction] Extended Action Reconstruction
+:label: mt-krnl-metric-action
 :class: metatheorem
 
 **[Sieve Signature]**
@@ -5531,8 +5531,8 @@ where each $L(u)$ is a **local contribution** determined by level $u$ data, and 
 $$\Phi(t) = F(\{I_\alpha(t)\}_\alpha) + O(1)$$
 :::
 
-::::{prf:metatheorem} Soft Local Tower Globalization (MT-Tower-1)
-:label: mt-tower-globalization
+::::{prf:metatheorem} [RESOLVE-Tower] Soft Local Tower Globalization
+:label: mt-resolve-tower
 :class: metatheorem
 
 **Sieve Signature:**
@@ -5617,8 +5617,8 @@ $$\sum_t w(t) \sum_{x \in \mathcal{O}_t} H_{\mathcal{O}}(x) < \infty$$
 **$D_E^{\mathcal{O}}$ (Subcritical obstruction dissipation):** The obstruction defect $\mathfrak{D}_{\mathcal{O}}$ grows strictly slower than structural permits allow for infinite accumulation.
 :::
 
-::::{prf:metatheorem} Obstruction Capacity Collapse (MT-Obs-1)
-:label: mt-obstruction-collapse
+::::{prf:metatheorem} [RESOLVE-Obstruction] Obstruction Capacity Collapse
+:label: mt-resolve-obstruction
 :class: metatheorem
 
 **Sieve Signature:**
@@ -5667,8 +5667,8 @@ for some $\delta > 0$. But accumulating such obstructions requires $\sum_n H_{\m
 
 Guarantees no hidden "ghost sectors" where singularities can hide. All degrees of freedom are accounted for by free components + obstructions.
 
-::::{prf:metatheorem} Stiff Pairing / No Null Directions (MT-Stiff-1)
-:label: mt-stiff-pairing
+::::{prf:metatheorem} [KRNL-StiffPairing] Stiff Pairing / No Null Directions
+:label: mt-krnl-stiff-pairing
 :class: metatheorem
 
 **Sieve Signature:**
@@ -5981,11 +5981,11 @@ The Universal Singularity Modules implement a **dependency injection** pattern:
 
 | Interface | Factory Metatheorem | Input | Output |
 |-----------|---------------------|-------|--------|
-| `ProfileExtractor` | {prf:ref}`mt-profile-trichotomy` | $G^{\text{thin}}, \Phi^{\text{thin}}$ | Canonical library $\mathcal{L}_T$ |
-| `SurgeryAdmissibility` | {prf:ref}`mt-surgery-trichotomy` | $\mu, \mathfrak{D}^{\text{thin}}$ | Admissibility predicate |
-| `SurgeryOperator` | {prf:ref}`mt-structural-surgery` | Full $\mathcal{H}$ | Pushout surgery $\mathcal{O}_S$ |
+| `ProfileExtractor` | {prf:ref}`mt-resolve-profile` | $G^{\text{thin}}, \Phi^{\text{thin}}$ | Canonical library $\mathcal{L}_T$ |
+| `SurgeryAdmissibility` | {prf:ref}`mt-resolve-admissibility` | $\mu, \mathfrak{D}^{\text{thin}}$ | Admissibility predicate |
+| `SurgeryOperator` | {prf:ref}`mt-act-surgery` | Full $\mathcal{H}$ | Pushout surgery $\mathcal{O}_S$ |
 
-**Key Insight:** Given thin objects satisfying the consistency conditions of {prf:ref}`mt-thin-expansion`, these factories produce valid implementations for all required interfaces. The user's task reduces to specifying the physics (energy, dissipation, symmetry); the Framework handles the singularity theory.
+**Key Insight:** Given thin objects satisfying the consistency conditions of {prf:ref}`mt-resolve-expansion`, these factories produce valid implementations for all required interfaces. The user's task reduces to specifying the physics (energy, dissipation, symmetry); the Framework handles the singularity theory.
 :::
 
 :::{prf:definition} Automation Guarantee
@@ -6021,8 +6021,8 @@ A Hypostructure $\mathcal{H}$ satisfies the **Automation Guarantee** if:
 
 ## 25. Profile Classification Trichotomy
 
-:::{prf:theorem} Profile Classification Trichotomy
-:label: mt-profile-trichotomy
+:::{prf:theorem} [RESOLVE-Profile] Profile Classification Trichotomy
+:label: mt-resolve-profile
 :class: metatheorem
 
 At the Profile node (after CompactCheck YES), the framework produces exactly one of three certificates:
@@ -6128,15 +6128,15 @@ The Framework implements `ProfileExtractor` as follows:
 **Output:** Profile $V$ with classification certificate
 :::
 
-:::{prf:metatheorem} Automatic Profile Classification (Multi-Mechanism OR-Schema)
-:label: mt-auto-profile
+:::{prf:metatheorem} [RESOLVE-AutoProfile] Automatic Profile Classification (Multi-Mechanism OR-Schema)
+:label: mt-resolve-auto-profile
 :class: metatheorem
 
 **Sieve Target:** ProfileExtractor / Profile Classification Trichotomy
 
 **Goal Certificate:** $K_{\mathrm{prof}}^+ \in \{K_{\text{lib}}, K_{\text{strat}}, K_{\text{hor}}\}$
 
-For any Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)$ satisfying the Automation Guarantee (Definition {prf:ref}`def-automation-guarantee`), the Profile Classification Trichotomy (MT {prf:ref}`mt-profile-trichotomy`) is **automatically computed** by the Sieve without user-provided classification code.
+For any Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)$ satisfying the Automation Guarantee (Definition {prf:ref}`def-automation-guarantee`), the Profile Classification Trichotomy (MT {prf:ref}`mt-resolve-profile`) is **automatically computed** by the Sieve without user-provided classification code.
 
 ### Unified Output Certificate
 
@@ -6213,17 +6213,17 @@ $$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathr
 
 **Proof (5 Steps via Compilation):**
 
-*Step A1 (Well-Posedness).* By MT-SOFT→WP (MT {prf:ref}`mt-soft-wp`), derive $K_{\mathrm{WP}_{s_c}}^+$ from template matching. The evaluator recognizes the equation structure and applies the appropriate critical LWP theorem.
+*Step A1 (Well-Posedness).* By MT-SOFT→WP (MT {prf:ref}`mt-fact-soft-wp`), derive $K_{\mathrm{WP}_{s_c}}^+$ from template matching. The evaluator recognizes the equation structure and applies the appropriate critical LWP theorem.
 
-*Step A2 (Profile Decomposition).* By MT-SOFT→ProfDec (MT {prf:ref}`mt-soft-profdec`), derive $K_{\mathrm{ProfDec}_{s_c,G}}^+$ from $K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+$. Any bounded sequence $\{u_n\}$ in $\dot{H}^{s_c}$ admits:
+*Step A2 (Profile Decomposition).* By MT-SOFT→ProfDec (MT {prf:ref}`mt-fact-soft-profdec`), derive $K_{\mathrm{ProfDec}_{s_c,G}}^+$ from $K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+$. Any bounded sequence $\{u_n\}$ in $\dot{H}^{s_c}$ admits:
 $$u_n = \sum_{j=1}^J g_n^{(j)} \cdot V^{(j)} + w_n^{(J)}$$
 with orthogonal symmetry parameters and vanishing remainder.
 
-*Step A3 (Kenig-Merle Machine).* By MT-SOFT→KM (MT {prf:ref}`mt-soft-km`), derive $K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$ from composition of $K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{D_E}^+$. This extracts the minimal counterexample $u^*$ with:
+*Step A3 (Kenig-Merle Machine).* By MT-SOFT→KM (MT {prf:ref}`mt-fact-soft-km`), derive $K_{\mathrm{KM}_{\mathrm{CC+stab}}}^+$ from composition of $K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{D_E}^+$. This extracts the minimal counterexample $u^*$ with:
 - $\Phi(u^*) = E_c$ (critical energy threshold),
 - Trajectory is **almost periodic modulo $G$**.
 
-*Step A4 (Hybrid Rigidity).* By MT-SOFT→Rigidity (MT {prf:ref}`mt-soft-rigidity`), derive $K_{\mathrm{Rigidity}_T}^+$ via the hybrid mechanism:
+*Step A4 (Hybrid Rigidity).* By MT-SOFT→Rigidity (MT {prf:ref}`mt-fact-soft-rigidity`), derive $K_{\mathrm{Rigidity}_T}^+$ via the hybrid mechanism:
 1. **Monotonicity:** $K_{\mathrm{Mon}_\phi}^+$ provides virial/Morawetz identity forcing dispersion or concentration.
 2. **Łojasiewicz Closure:** $K_{\mathrm{LS}_\sigma}^+$ prevents oscillation near critical points.
 3. **Lock Exclusion:** Any "bad" $u^*$ would embed a forbidden pattern; Lock blocks this.
@@ -6248,10 +6248,10 @@ $$K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathr
 
 **Proof (4 Steps via Compilation):**
 
-*Step B1 (Global Attractor).* By MT-SOFT→Attr (MT {prf:ref}`mt-soft-attr`), derive $K_{\mathrm{Attr}}^+$ from $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$. The attractor $\mathcal{A}$ exists, is compact, invariant, and attracts bounded sets:
+*Step B1 (Global Attractor).* By MT-SOFT→Attr (MT {prf:ref}`mt-fact-soft-attr`), derive $K_{\mathrm{Attr}}^+$ from $K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{TB}_\pi}^+$. The attractor $\mathcal{A}$ exists, is compact, invariant, and attracts bounded sets:
 $$\mathcal{A} := \bigcap_{t \geq 0} \overline{\bigcup_{s \geq t} S_s(\mathcal{X})}$$
 
-*Step B2 (Morse Decomposition).* By MT-SOFT→MorseDecomp (MT {prf:ref}`mt-soft-morsedecomp`), derive $K_{\mathrm{MorseDecomp}}^+$ from $K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$. For gradient-like systems, the attractor decomposes as:
+*Step B2 (Morse Decomposition).* By MT-SOFT→MorseDecomp (MT {prf:ref}`mt-fact-soft-morse`), derive $K_{\mathrm{MorseDecomp}}^+$ from $K_{\mathrm{Attr}}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{LS}_\sigma}^+$. For gradient-like systems, the attractor decomposes as:
 $$\mathcal{A} = \mathcal{E} \cup \bigcup_{\xi \in \mathcal{E}} W^u(\xi)$$
 where $\mathcal{E}$ is the equilibrium set. No periodic orbits exist (Lyapunov monotonicity).
 
@@ -6338,8 +6338,8 @@ Alternatively, if Lock blocks specific patterns but allows others, classify the 
 
 ## 26. Surgery Admissibility Trichotomy
 
-:::{prf:theorem} Surgery Admissibility Trichotomy
-:label: mt-surgery-trichotomy
+:::{prf:theorem} [RESOLVE-Admissibility] Surgery Admissibility Trichotomy
+:label: mt-resolve-admissibility
 :class: metatheorem
 
 Before invoking any surgery $S$ with mode $M$ and data $D_S$, the framework produces exactly one of three certificates:
@@ -6442,8 +6442,8 @@ The Framework implements `SurgeryAdmissibility` as follows:
 **Output:** Admissibility certificate
 :::
 
-:::{prf:metatheorem} Automatic Admissibility
-:label: mt-auto-admissibility
+:::{prf:metatheorem} [RESOLVE-AutoAdmit] Automatic Admissibility
+:label: mt-resolve-auto-admit
 
 For any Hypostructure satisfying the Automation Guarantee, the Surgery Admissibility Trichotomy is **automatically computed** from thin objects without user-provided admissibility code.
 
@@ -6457,7 +6457,7 @@ using the measure $\mu$ from $\mathcal{X}^{\text{thin}}$ and the metric $d$.
 
 *Step 2 (Capacity Computation).* Apply the Sobolev capacity formula. For $\Sigma$ of finite capacity, {cite}`AdamsHedberg96` provides the estimate $\text{Cap}(\Sigma) \sim \text{Vol}(\Sigma)^{(n-2)/n}$ in dimension $n$.
 
-*Step 3 (Trichotomy Application).* Feed $(\Sigma, V, \text{Cap}(\Sigma))$ into MT {prf:ref}`mt-surgery-trichotomy`. The output determines admissibility without user-provided verification code.
+*Step 3 (Trichotomy Application).* Feed $(\Sigma, V, \text{Cap}(\Sigma))$ into MT {prf:ref}`mt-resolve-admissibility`. The output determines admissibility without user-provided verification code.
 
 **Literature:** Sobolev capacity {cite}`AdamsHedberg96`; Hausdorff dimension bounds {cite}`Federer69`.
 :::
@@ -6466,8 +6466,8 @@ using the measure $\mu$ from $\mathcal{X}^{\text{thin}}$ and the metric $d$.
 
 ## 27. Structural Surgery Principle
 
-:::{prf:theorem} Structural Surgery Principle (Certificate Form)
-:label: mt-structural-surgery
+:::{prf:theorem} [ACT-Surgery] Structural Surgery Principle (Certificate Form)
+:label: mt-act-surgery
 :class: metatheorem
 
 Let $M$ be a failure mode with breach certificate $K^{\mathrm{br}}$, and let $S$ be the associated surgery with admissibility certificate $K_{\text{adm}}$ (or $K_{\text{adm}}^{\sim}$).
@@ -6483,7 +6483,7 @@ Let $M$ be a failure mode with breach certificate $K^{\mathrm{br}}$, and let $S$
 3. **Certificate production**: Re-entry certificate $K^{\mathrm{re}}$ satisfying $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target})$
 4. **Progress**: Either bounded surgery count or decreasing complexity
 
-**Failure case**: If $K_{\text{inadm}}$ is produced, no surgery is performed; the run terminates at the mode as a genuine singularity (or routes to reconstruction via {prf:ref}`mt-structural-reconstruction`).
+**Failure case**: If $K_{\text{inadm}}$ is produced, no surgery is performed; the run terminates at the mode as a genuine singularity (or routes to reconstruction via {prf:ref}`mt-lock-reconstruction`).
 
 **Proof Sketch:**
 
@@ -6527,8 +6527,8 @@ where:
 The transfer of structures ($\Phi', \mathfrak{D}'$) to $\mathcal{X}'$ uses the universal property: any structure on $\mathcal{X}$ that is constant on $\Sigma$ induces a unique structure on $\mathcal{X}'$.
 :::
 
-:::{prf:metatheorem} Conservation of Flow
-:label: mt-conservation-flow
+:::{prf:metatheorem} [RESOLVE-Conservation] Conservation of Flow
+:label: mt-resolve-conservation
 
 For any admissible surgery $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$, the following are conserved:
 
@@ -6588,8 +6588,8 @@ The Framework implements `SurgeryOperator` as follows:
 **Output:** Surgered state $x' \in \mathcal{X}'$ with re-entry certificate
 :::
 
-:::{prf:metatheorem} Automatic Surgery
-:label: mt-auto-surgery
+:::{prf:metatheorem} [RESOLVE-AutoSurgery] Automatic Surgery
+:label: mt-resolve-auto-surgery
 
 For any Hypostructure satisfying the Automation Guarantee, the Structural Surgery Principle is **automatically executed** by the Sieve using the pushout construction from $\mathcal{L}_T$.
 
@@ -6619,11 +6619,11 @@ The Universal Singularity Modules provide an **end-to-end automated pipeline**:
 | Stage | Sieve Node | Input | Module | Output |
 |-------|------------|-------|--------|--------|
 | 1. Detect | {prf:ref}`def-node-compact` | Flow $x(t)$ | — | Singular point $(t^*, x^*)$ |
-| 2. Profile | {prf:ref}`def-node-scale` | $(t^*, x^*)$ | {prf:ref}`mt-profile-trichotomy` | Profile $V$ with certificate |
-| 3. Barrier | Mode Barrier | $V$ | {prf:ref}`mt-barrier-factory` | Breach certificate $K^{\text{br}}$ |
-| 4. Admissibility | Pre-Surgery | $(\Sigma, V)$ | {prf:ref}`mt-surgery-trichotomy` | Admissibility certificate |
-| 5. Surgery | Surgery | $K_{\text{adm}}$ | {prf:ref}`mt-structural-surgery` | Surgered state $x'$ |
-| 6. Re-entry | Post-Surgery | $x'$ | {prf:ref}`mt-structural-surgery` | Re-entry certificate $K^{\text{re}}$ |
+| 2. Profile | {prf:ref}`def-node-scale` | $(t^*, x^*)$ | {prf:ref}`mt-resolve-profile` | Profile $V$ with certificate |
+| 3. Barrier | Mode Barrier | $V$ | {prf:ref}`mt-fact-barrier` | Breach certificate $K^{\text{br}}$ |
+| 4. Admissibility | Pre-Surgery | $(\Sigma, V)$ | {prf:ref}`mt-resolve-admissibility` | Admissibility certificate |
+| 5. Surgery | Surgery | $K_{\text{adm}}$ | {prf:ref}`mt-act-surgery` | Surgered state $x'$ |
+| 6. Re-entry | Post-Surgery | $x'$ | {prf:ref}`mt-act-surgery` | Re-entry certificate $K^{\text{re}}$ |
 
 **User Input:** Thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}^{\text{thin}}, G^{\text{thin}})$
 
@@ -7362,7 +7362,7 @@ If all twelve tactics fail to prove Hom-emptiness but also fail to construct an 
 
 $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}} = (\mathsf{tactics\_exhausted}: \{E1,\ldots,E12\}, \mathsf{partial\_progress}, \mathsf{trace})$$
 
-This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}`mt-structural-reconstruction` (Structural Reconstruction) rather than fatal error. The certificate records which tactics were attempted and any partial progress (e.g., dimension bounds that narrowed but did not close, spectral gaps that are positive but not sufficient).
+This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}`mt-lock-reconstruction` (Structural Reconstruction) rather than fatal error. The certificate records which tactics were attempted and any partial progress (e.g., dimension bounds that narrowed but did not close, spectral gaps that are positive but not sufficient).
 
 :::
 
@@ -7372,8 +7372,8 @@ This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}
 
 ## 34. TM-1: Gate Evaluator Factory
 
-:::{prf:theorem} Gate Evaluator Factory
-:label: mt-gate-factory
+:::{prf:theorem} [FACT-Gate] Gate Evaluator Factory
+:label: mt-fact-gate
 :class: metatheorem
 
 For any system of type $T$ with user-defined objects $(\Phi, \mathfrak{D}, G, \mathcal{R}, \mathrm{Cap}, \tau, D)$, there exist canonical verifiers for all gate nodes:
@@ -7427,8 +7427,8 @@ Two instantiations with the same inputs produce identical verifiers. This ensure
 
 ## 35. TM-2: Barrier Implementation Factory
 
-:::{prf:theorem} Barrier Implementation Factory
-:label: mt-barrier-factory
+:::{prf:theorem} [FACT-Barrier] Barrier Implementation Factory
+:label: mt-fact-barrier
 :class: metatheorem
 
 For any system of type $T$, there exist default barrier implementations with correct outcomes and non-circular preconditions:
@@ -7482,8 +7482,8 @@ The payload structure ensures downstream consumers (surgery, Lock) have all nece
 
 ## 36. TM-3: Surgery Schema Factory
 
-:::{prf:theorem} Surgery Schema Factory
-:label: mt-surgery-factory
+:::{prf:theorem} [FACT-Surgery] Surgery Schema Factory
+:label: mt-fact-surgery
 :class: metatheorem
 
 For any type $T$ admitting surgery, there exist default surgery operators matching diagram re-entry targets:
@@ -7496,7 +7496,7 @@ For any type $T$ admitting surgery, there exist default surgery operators matchi
 - Re-entry certificate generator
 - Progress measure
 
-**Fallback**: If type $T$ does not admit surgery, output "surgery unavailable" certificate ($K_{\mathrm{Surg}}^{\mathrm{inc}}$) routing to reconstruction ({prf:ref}`mt-structural-reconstruction`).
+**Fallback**: If type $T$ does not admit surgery, output "surgery unavailable" certificate ($K_{\mathrm{Surg}}^{\mathrm{inc}}$) routing to reconstruction ({prf:ref}`mt-lock-reconstruction`).
 
 **Proof (5 Steps):**
 
@@ -7519,7 +7519,7 @@ The correspondence is type-specific and encoded in the profile library: each $\m
 - **Energy bound:** $\Phi(\text{extracted}) \leq \delta \cdot \Phi(\text{total})$ for small $\delta$ ensures bounded energy loss
 - **Capacity bound:** $\mathrm{Cap}(\Sigma) \leq \varepsilon_{\text{adm}}$ by {cite}`Federer69` Theorem 2.10.19
 
-If any condition fails, return $K_{\text{inadm}}$ routing to reconstruction ({prf:ref}`mt-structural-reconstruction`).
+If any condition fails, return $K_{\text{inadm}}$ routing to reconstruction ({prf:ref}`mt-lock-reconstruction`).
 
 *Step 4 (Progress Measure).* Define the well-founded progress measure:
 $$\mathcal{P}(x, N_S) = (N_{\max} - N_S, \Phi_{\mathrm{residual}}(x)) \in \omega \times [0, \infty)$$
@@ -7545,8 +7545,8 @@ The certificate attests:
 
 ## 37. TM-4: Equivalence + Transport Factory
 
-:::{prf:theorem} Equivalence + Transport Factory
-:label: mt-transport-factory
+:::{prf:theorem} [FACT-Transport] Equivalence + Transport Factory
+:label: mt-fact-transport
 :class: metatheorem
 
 For any type $T$, there exists a library of admissible equivalence moves and transport lemmas:
@@ -7585,7 +7585,7 @@ The rule is applied automatically by the Sieve when an equivalence certificate i
 
 *Step 4 (Promotion Rules).* YES$^\sim$ promotes to YES$^+$ under bounded equivalence parameters:
 - **Immediate promotion:** If $|\lambda - 1| < \epsilon_{\text{prom}}$ or $d(g, e) < \delta_{\text{prom}}$, the equivalence is "small" and YES$^\sim$ becomes YES$^+$
-- **A-posteriori promotion:** If later gates provide stronger bounds that retroactively satisfy the promotion condition, apply promotion during closure ({prf:ref}`mt-inc-aposteriori`)
+- **A-posteriori promotion:** If later gates provide stronger bounds that retroactively satisfy the promotion condition, apply promotion during closure ({prf:ref}`mt-up-inc-aposteriori`)
 
 Promotion thresholds $\epsilon_{\text{prom}}, \delta_{\text{prom}}$ are type-specific and derived from the comparability bounds.
 
@@ -7601,8 +7601,8 @@ where $\sim_T$ is the type's intrinsic equivalence relation. For well-studied ty
 
 ## 38. TM-5: Lock Backend Factory
 
-:::{prf:theorem} Lock Backend Factory
-:label: mt-lock-factory
+:::{prf:theorem} [FACT-Lock] Lock Backend Factory
+:label: mt-fact-lock
 :class: metatheorem
 
 For any type $T$ with $\mathrm{Rep}_K$ available, there exist E1--E10 tactics for the Lock:
@@ -7643,7 +7643,7 @@ Each tactic is **complete for its class**: E1 catches all geometric obstructions
 *Step 4 (Horizon Fallback).* If all tactics fail, the Lock enters horizon mode:
 - Emit $K_{\mathrm{Lock}}^{\mathrm{inc}} = (\text{tactics\_exhausted}, \{E_1, \ldots, E_5\}, \text{partial\_progress})$
 - The certificate records which tactics were tried and any partial progress (near-obstructions, dimension bounds)
-- Route to {prf:ref}`mt-structural-reconstruction` for explicit construction attempt
+- Route to {prf:ref}`mt-lock-reconstruction` for explicit construction attempt
 
 This ensures **honest incompleteness**: the system admits when the problem exceeds current theory rather than producing false positives.
 
@@ -7691,8 +7691,8 @@ The **Certificate Generator Library** maps standard literature lemmas to permits
 
 ## 40. Minimal Instantiation Checklist
 
-:::{prf:theorem} Instantiation Metatheorem
-:label: mt-instantiation
+:::{prf:theorem} [FACT-Instantiation] Instantiation Metatheorem
+:label: mt-fact-instantiation
 :class: metatheorem
 
 For any system of type $T$ with user-supplied functionals, there exists a canonical sieve implementation satisfying all contracts:
@@ -7735,7 +7735,7 @@ For any system of type $T$ with user-supplied functionals, there exists a canoni
 
 The dependency graph is acyclic by construction: factories are numbered in topological order. No gate evaluator depends on its own output, and no barrier depends on the barrier it implements.
 
-*Step 3 (Soundness Inheritance).* Each factory produces sound implementations by {prf:ref}`mt-gate-factory` through {prf:ref}`mt-lock-factory`. Composition preserves soundness by transitivity:
+*Step 3 (Soundness Inheritance).* Each factory produces sound implementations by {prf:ref}`mt-fact-gate` through {prf:ref}`mt-fact-lock`. Composition preserves soundness by transitivity:
 - If $V_i^T(x, \Gamma) = (\text{YES}, K_i^+)$, then predicate $P_i^T(x)$ holds (TM-1 soundness)
 - If barrier $\mathcal{B}_j^T$ blocks, then the obstruction is genuine (TM-2 soundness)
 - Combined: if the Sieve reaches VICTORY, all 17 gates passed with valid certificates
@@ -7747,13 +7747,13 @@ The dependency graph is acyclic by construction: factories are numbered in topol
 
 *Step 5 (Termination).* The Sieve execution terminates in finite time:
 - **Gate termination:** Each $V_i^T$ terminates by TM-1 (finite computation on bounded data)
-- **Surgery termination:** Each surgery decreases a well-founded measure (energy + surgery count) by {prf:ref}`mt-surgery-trichotomy`
+- **Surgery termination:** Each surgery decreases a well-founded measure (energy + surgery count) by {prf:ref}`mt-resolve-admissibility`
 - **Global termination:** The Sieve DAG has finitely many nodes (17 + barriers + surgery). Surgery count is bounded by $N_{\max} = \lfloor \Phi(x_0)/\delta_{\text{surgery}} \rfloor$. Total steps $\leq 17 \cdot N_{\max} \cdot (\text{max barrier iterations})$.
 
 *Step 6 (Output Trichotomy).* The Sieve execution terminates with exactly one of:
 - **VICTORY:** All gates pass, Lock blocked → emit $K_{\text{Lock}}^{\mathrm{blk}}$ (Global Regularity)
 - **Surgery path:** Barrier breach + admissibility → surgery iteration, returns to Step 1 with surgered state
-- **$K^{\mathrm{inc}}$:** Tactic exhaustion at some node → emit $K_P^{\mathrm{inc}}$ with $\mathsf{missing}$ set, route to {prf:ref}`mt-structural-reconstruction`
+- **$K^{\mathrm{inc}}$:** Tactic exhaustion at some node → emit $K_P^{\mathrm{inc}}$ with $\mathsf{missing}$ set, route to {prf:ref}`mt-lock-reconstruction`
 
 The trichotomy is exhaustive: at each node, the verifier returns YES, NO-with-witness (barrier), or NO-inconclusive. These three outcomes cover all possibilities by the decidability of each gate predicate.
 
@@ -7825,8 +7825,8 @@ The key insight is that certain "obstructions" are themselves *certificates of r
 
 ### 43.1 Saturation Promotion
 
-:::{prf:metatheorem} Saturation Promotion (BarrierSat $\to$ YES$^\sim$)
-:label: mt-saturation-promotion
+:::{prf:metatheorem} [UP-Saturation] Saturation Promotion (BarrierSat $\to$ YES$^\sim$)
+:label: mt-up-saturation
 :class: metatheorem
 
 **Context:** Node 1 (EnergyCheck) fails ($E = \infty$), but BarrierSat is Blocked ($K_{\text{sat}}^{\mathrm{blk}}$).
@@ -7854,8 +7854,8 @@ $$K_{D_E}^- \wedge K_{\text{sat}}^{\mathrm{blk}} \Rightarrow K_{D_E}^{\sim}$$
 
 ### 43.2 Causal Censor Promotion
 
-:::{prf:metatheorem} Causal Censor Promotion (BarrierCausal $\to$ YES$^\sim$)
-:label: mt-causal-censor
+:::{prf:metatheorem} [UP-Censorship] Causal Censor Promotion (BarrierCausal $\to$ YES$^\sim$)
+:label: mt-up-censorship
 :class: metatheorem
 
 **Context:** Node 2 (ZenoCheck) fails ($N \to \infty$), but BarrierCausal is Blocked ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$).
@@ -7881,8 +7881,8 @@ $$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}} \Rightarrow K_{\
 
 ### 43.3 Scattering Promotion
 
-:::{prf:metatheorem} Scattering Promotion (BarrierScat $\to$ VICTORY)
-:label: mt-scattering-promotion
+:::{prf:metatheorem} [UP-Scattering] Scattering Promotion (BarrierScat $\to$ VICTORY)
+:label: mt-up-scattering
 :class: metatheorem
 
 **Context:** Node 3 (CompactCheck) fails (No concentration), but BarrierScat indicates Benign ($K_{C_\mu}^{\mathrm{ben}}$).
@@ -7922,8 +7922,8 @@ for admissible pairs $(q, r)$ satisfying $\frac{2}{q} + \frac{n}{r} = \frac{n}{2
 
 ### 43.4 Type II Suppression Promotion
 
-:::{prf:metatheorem} Type II Suppression (BarrierTypeII $\to$ YES$^\sim$)
-:label: mt-type-ii-suppression
+:::{prf:metatheorem} [UP-TypeII] Type II Suppression (BarrierTypeII $\to$ YES$^\sim$)
+:label: mt-up-type-ii
 :class: metatheorem
 
 **Context:** Node 4 (ScaleCheck) fails (Supercritical), but BarrierTypeII is Blocked ($K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}$).
@@ -7949,8 +7949,8 @@ $$K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{SC}_\lambda}^{\mathrm{blk}} \Right
 
 ### 43.5 Capacity Promotion
 
-:::{prf:metatheorem} Capacity Promotion (BarrierCap $\to$ YES$^\sim$)
-:label: mt-capacity-promotion
+:::{prf:metatheorem} [UP-Capacity] Capacity Promotion (BarrierCap $\to$ YES$^\sim$)
+:label: mt-up-capacity
 :class: metatheorem
 
 **Context:** Node 6 (GeomCheck) fails (Codim too small), but BarrierCap is Blocked ($K_{\mathrm{Cap}_H}^{\mathrm{blk}}$).
@@ -7976,8 +7976,8 @@ $$K_{\mathrm{Cap}_H}^- \wedge K_{\mathrm{Cap}_H}^{\mathrm{blk}} \Rightarrow K_{\
 
 ### 43.6 Spectral Gap Promotion
 
-:::{prf:metatheorem} Spectral Gap Promotion (BarrierGap $\to$ YES)
-:label: mt-spectral-gap
+:::{prf:metatheorem} [UP-Spectral] Spectral Gap Promotion (BarrierGap $\to$ YES)
+:label: mt-up-spectral
 :class: metatheorem
 
 **Context:** Node 7 (StiffnessCheck) fails (Flat), but BarrierGap is Blocked ($K_{\text{gap}}^{\mathrm{blk}}$).
@@ -8003,8 +8003,8 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\text{gap}}^{\mathrm{blk}} \Rightarrow K_{\
 
 ### 43.7 O-Minimal Promotion
 
-:::{prf:metatheorem} O-Minimal Promotion (BarrierOmin $\to$ YES$^\sim$)
-:label: mt-o-minimal
+:::{prf:metatheorem} [UP-OMinimal] O-Minimal Promotion (BarrierOmin $\to$ YES$^\sim$)
+:label: mt-up-o-minimal
 :class: metatheorem
 
 **Context:** Node 9 (TameCheck) fails (Wild), but BarrierOmin is Blocked ($K_{\mathrm{TB}_O}^{\mathrm{blk}}$).
@@ -8040,8 +8040,8 @@ This guarantees gradient descent converges in finite arc-length, preventing infi
 
 ### 43.8 Surgery Promotion
 
-:::{prf:metatheorem} Surgery Promotion (Surgery $\to$ YES$^\sim$)
-:label: mt-surgery-promotion
+:::{prf:metatheorem} [UP-Surgery] Surgery Promotion (Surgery $\to$ YES$^\sim$)
+:label: mt-up-surgery
 :class: metatheorem
 
 **Context:** Any Node fails, Barrier breached, but Surgery $S$ executes and issues re-entry certificate ($K^{\mathrm{re}}$).
@@ -8076,8 +8076,8 @@ This **classification of local models** eliminates surgery ambiguity: the excisi
 
 ### 43.9 Lock Promotion
 
-:::{prf:metatheorem} Lock Promotion (BarrierExclusion $\to$ GLOBAL YES)
-:label: mt-lock-promotion
+:::{prf:metatheorem} [UP-Lock] Lock Promotion (BarrierExclusion $\to$ GLOBAL YES)
+:label: mt-up-lock
 :class: metatheorem
 
 **Context:** Node 17 (The Lock) is Blocked ($K_{\text{Lock}}^{\mathrm{blk}}$).
@@ -8103,8 +8103,8 @@ $$K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow \text{Global Regularity}$$
 
 ### 43.10 Absorbing Boundary Promotion
 
-:::{prf:metatheorem} Absorbing Boundary Promotion (BoundaryCheck $\to$ EnergyCheck)
-:label: mt-absorbing-boundary
+:::{prf:metatheorem} [UP-Absorbing] Absorbing Boundary Promotion (BoundaryCheck $\to$ EnergyCheck)
+:label: mt-up-absorbing
 :class: metatheorem
 
 **Context:** Node 1 (Energy) fails ($E \to \infty$), but Node 13 (Boundary) confirms an Open System with dissipative flux.
@@ -8131,8 +8131,8 @@ $$K_{D_E}^- \wedge K_{\mathrm{Bound}_\partial}^+ \wedge (\text{Flux} < 0) \Right
 
 ### 43.11 Catastrophe Stability Promotion
 
-:::{prf:metatheorem} Catastrophe-Stability Promotion (BifurcateCheck $\to$ StiffnessCheck)
-:label: mt-catastrophe-stability
+:::{prf:metatheorem} [UP-Catastrophe] Catastrophe-Stability Promotion (BifurcateCheck $\to$ StiffnessCheck)
+:label: mt-up-catastrophe
 :class: metatheorem
 
 **Context:** Node 7 (Stiffness) fails (Flat/Zero Eigenvalue), but Node 7a (Bifurcation) identifies a **Canonical Catastrophe**.
@@ -8160,8 +8160,8 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{LS}_{\partial^k V}}^+ \Rightarrow K
 
 The following metatheorems formalize inc-upgrade rules. Blocked certificates indicate "cannot proceed"; inconclusive certificates indicate "cannot decide with current prerequisites."
 
-:::{prf:metatheorem} Inconclusive Discharge by Missing-Premise Completion
-:label: mt-inc-completion
+:::{prf:metatheorem} [UP-IncComplete] Inconclusive Discharge by Missing-Premise Completion
+:label: mt-up-inc-complete
 :class: metatheorem
 
 **Context:** A node returns $K_P^{\mathrm{inc}} = (\mathsf{obligation}, \mathsf{missing}, \mathsf{code}, \mathsf{trace})$ where $\mathsf{missing}$ specifies the certificate types that would enable decision.
@@ -8183,8 +8183,8 @@ $$\mathsf{Obl}(\Gamma) \setminus \{(\mathsf{id}_P, \ldots)\} \cup \{K_P^+\}$$
 
 :::
 
-:::{prf:metatheorem} A-Posteriori Inconclusive Discharge
-:label: mt-inc-aposteriori
+:::{prf:metatheorem} [UP-IncAposteriori] A-Posteriori Inconclusive Discharge
+:label: mt-up-inc-aposteriori
 :class: metatheorem
 
 **Context:** $K_P^{\mathrm{inc}}$ is produced at node $i$, and later nodes add certificates that satisfy its $\mathsf{missing}$ set.
@@ -8224,8 +8224,8 @@ The key insight is that global constraints can retrospectively determine local b
 
 ### 44.1 Shadow-Sector Retroactive Promotion
 
-:::{prf:metatheorem} Shadow-Sector Retroactive Promotion (TopoCheck $\to$ ZenoCheck)
-:label: mt-shadow-sector-retroactive
+:::{prf:metatheorem} [UP-ShadowRetro] Shadow-Sector Retroactive Promotion (TopoCheck $\to$ ZenoCheck)
+:label: mt-up-shadow-retroactive
 :class: metatheorem
 
 **Context:** Node 2 (Zeno) fails in an early epoch, but a later epoch confirms via Node 8 (TopoCheck) that the trajectory is confined to a **Finite Sector Graph**. This is a **retroactive** promotion requiring information from a completed run.
@@ -8254,8 +8254,8 @@ $$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{TB}_\pi}^+ \wedge K_{\text{Action}}^{\m
 
 ### 44.2 The Lock-Back Theorem
 
-:::{prf:metatheorem} Lock-Back Theorem (Lock $\to$ All Barriers)
-:label: mt-lock-back
+:::{prf:metatheorem} [UP-LockBack] Lock-Back Theorem
+:label: mt-up-lockback
 :class: metatheorem
 
 **Theorem:** Global Regularity Retro-Validation
@@ -8280,8 +8280,8 @@ $$K_{\text{Lock}}^{\mathrm{blk}} \Rightarrow \forall i: K_{\text{Barrier}_i}^{\m
 
 ### 44.3 The Symmetry-Gap Theorem
 
-:::{prf:metatheorem} Symmetry-Gap Theorem (SymCheck $\to$ Stiffness)
-:label: mt-symmetry-gap
+:::{prf:metatheorem} [UP-SymmetryBridge] Symmetry-Gap Theorem
+:label: mt-up-symmetry-bridge
 :class: metatheorem
 
 **Theorem:** Mass Gap Retro-Validation
@@ -8306,8 +8306,8 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{stag}} \wedge K_{\text{Sym}}^+ \wedge K_{\text
 
 ### 44.4 The Tame-Topology Theorem
 
-:::{prf:metatheorem} Tame-Topology Theorem (TameCheck $\to$ GeomCheck)
-:label: mt-tame-topology
+:::{prf:metatheorem} [UP-TameSmoothing] Tame-Topology Theorem
+:label: mt-up-tame-smoothing
 :class: metatheorem
 
 **Theorem:** Stratification Retro-Validation
@@ -8332,8 +8332,8 @@ $$K_{\mathrm{Cap}_H}^{\mathrm{blk}} \wedge K_{\mathrm{TB}_O}^+ \Rightarrow K_{\m
 
 ### 44.5 The Ergodic-Sat Theorem
 
-:::{prf:metatheorem} Ergodic-Sat Theorem (ErgoCheck $\to$ EnergyCheck)
-:label: mt-ergodic-sat
+:::{prf:metatheorem} [UP-Ergodic] Ergodic-Sat Theorem
+:label: mt-up-ergodic
 :class: metatheorem
 
 **Theorem:** Recurrence Retro-Validation
@@ -8358,8 +8358,8 @@ $$K_{\text{sat}}^{\mathrm{blk}} \wedge K_{\mathrm{TB}_\rho}^+ \Rightarrow K_{D_E
 
 ### 44.6 The Variety-Control Theorem
 
-:::{prf:metatheorem} Variety-Control Theorem (AlignCheck $\to$ ScaleCheck)
-:label: mt-variety-control
+:::{prf:metatheorem} [UP-VarietyControl] Variety-Control Theorem
+:label: mt-up-variety-control
 :class: metatheorem
 
 **Theorem:** Cybernetic Retro-Validation
@@ -8384,8 +8384,8 @@ $$K_{\mathrm{SC}_\lambda}^- \wedge K_{\mathrm{GC}_T}^+ \Rightarrow K_{\mathrm{SC
 
 ### 44.7 The Algorithm-Depth Theorem
 
-:::{prf:metatheorem} Algorithm-Depth Theorem (ComplexCheck $\to$ ZenoCheck)
-:label: mt-algorithm-depth
+:::{prf:metatheorem} [UP-AlgorithmDepth] Algorithm-Depth Theorem
+:label: mt-up-algorithm-depth
 :class: metatheorem
 
 **Theorem:** Computational Censorship Retro-Validation
@@ -8410,8 +8410,8 @@ $$K_{\mathrm{Rec}_N}^{\mathrm{blk}} \wedge K_{\mathrm{Rep}_K}^+ \Rightarrow K_{\
 
 ### 44.8 The Holographic-Regularity Theorem
 
-:::{prf:metatheorem} Holographic-Regularity Theorem (ComplexCheck $\to$ GeomCheck)
-:label: mt-holographic
+:::{prf:metatheorem} [UP-Holographic] Holographic-Regularity Theorem
+:label: mt-up-holographic
 :class: metatheorem
 
 **Theorem:** Information-Theoretic Smoothing
@@ -8436,8 +8436,8 @@ $$K_{\mathrm{Cap}_H}^{\text{ambiguous}} \wedge K_{\mathrm{Rep}_K}^+ \Rightarrow 
 
 ### 44.9 The Spectral-Quantization Theorem
 
-:::{prf:metatheorem} Spectral-Quantization Theorem (Lock $\to$ OscillateCheck)
-:label: mt-spectral-quant
+:::{prf:metatheorem} [LOCK-SpectralQuant] Spectral-Quantization Theorem
+:label: mt-lock-spectral-quant
 :class: metatheorem
 
 **Theorem:** Discrete Spectrum Enforcement
@@ -8462,8 +8462,8 @@ $$K_{\mathrm{GC}_\nabla}^{\text{chaotic}} \wedge K_{\text{Lock}}^{\mathrm{blk}} 
 
 ### 44.10 The Unique-Attractor Theorem
 
-:::{prf:metatheorem} Unique-Attractor Theorem (Permit Schema with Alternative Backends)
-:label: mt-unique-attractor
+:::{prf:metatheorem} [LOCK-UniqueAttractor] Unique-Attractor Theorem
+:label: mt-lock-unique-attractor
 :class: metatheorem
 
 **Theorem:** Global Selection Principle
@@ -8596,15 +8596,15 @@ for **all** initial conditions $x \in \mathcal{X}$. The basin of attraction of $
 
 | **Later Node (The Proof)** | **Earlier Node (The Problem)** | **Theorem** | **Upgrade Mechanism** |
 |:---|:---|:---|:---|
-| Node 17 (Lock) | All Barriers | {prf:ref}`mt-lock-back` | Global exclusion $\implies$ local regularity |
-| Node 7b (SymCheck) | Node 7 (Stiffness) | {prf:ref}`mt-symmetry-gap` | Symmetry breaking $\implies$ mass gap |
-| Node 9 (TameCheck) | Node 6 (Geometry) | {prf:ref}`mt-tame-topology` | Definability $\implies$ stratification |
-| Node 10 (ErgoCheck) | Node 1 (Energy) | {prf:ref}`mt-ergodic-sat` | Mixing $\implies$ recurrence |
-| Node 16 (AlignCheck) | Node 4 (Scale) | {prf:ref}`mt-variety-control` | High variety $\implies$ stabilization |
-| Node 11 (Complex) | Node 2 (Zeno) | {prf:ref}`mt-algorithm-depth` | Low complexity $\implies$ coordinate artifact |
-| Node 11 (Complex) | Node 6 (Geometry) | {prf:ref}`mt-holographic` | Finite info $\implies$ integer dimension |
-| Node 17 (Lock/E4) | Node 12 (Oscillate) | {prf:ref}`mt-spectral-quant` | Integrality $\implies$ discrete spectrum |
-| Node 10 (ErgoCheck) | Node 3 (Profile) | {prf:ref}`mt-unique-attractor` | Unique measure $\implies$ unique profile |
+| Node 17 (Lock) | All Barriers | {prf:ref}`mt-up-lockback` | Global exclusion $\implies$ local regularity |
+| Node 7b (SymCheck) | Node 7 (Stiffness) | {prf:ref}`mt-up-symmetry-bridge` | Symmetry breaking $\implies$ mass gap |
+| Node 9 (TameCheck) | Node 6 (Geometry) | {prf:ref}`mt-up-tame-smoothing` | Definability $\implies$ stratification |
+| Node 10 (ErgoCheck) | Node 1 (Energy) | {prf:ref}`mt-up-ergodic` | Mixing $\implies$ recurrence |
+| Node 16 (AlignCheck) | Node 4 (Scale) | {prf:ref}`mt-up-variety-control` | High variety $\implies$ stabilization |
+| Node 11 (Complex) | Node 2 (Zeno) | {prf:ref}`mt-up-algorithm-depth` | Low complexity $\implies$ coordinate artifact |
+| Node 11 (Complex) | Node 6 (Geometry) | {prf:ref}`mt-up-holographic` | Finite info $\implies$ integer dimension |
+| Node 17 (Lock/E4) | Node 12 (Oscillate) | {prf:ref}`mt-lock-spectral-quant` | Integrality $\implies$ discrete spectrum |
+| Node 10 (ErgoCheck) | Node 3 (Profile) | {prf:ref}`mt-lock-unique-attractor` | Unique measure $\implies$ unique profile |
 
 ---
 
@@ -8623,8 +8623,8 @@ These metatheorems are **universal**: they apply to any valid Hypostructure beca
 
 ### 46.1 Openness of Regularity
 
-:::{prf:metatheorem} Openness of Regularity (Structural Stability)
-:label: mt-openness
+:::{prf:metatheorem} [KRNL-Openness] Openness of Regularity
+:label: mt-krnl-openness
 :class: metatheorem
 
 **Source:** Dynamical Systems (Morse-Smale Stability) / Geometric Analysis.
@@ -8650,8 +8650,8 @@ $$K_{\text{Lock}}^{\mathrm{blk}}(\theta_0) \wedge (\mathrm{Gap} > \epsilon) \wed
 
 ### 46.2 Shadowing Metatheorem
 
-:::{prf:metatheorem} Shadowing Metatheorem (Numerical Validity)
-:label: mt-shadowing
+:::{prf:metatheorem} [KRNL-Shadowing] Shadowing Metatheorem
+:label: mt-krnl-shadowing
 :class: metatheorem
 
 **Source:** Hyperbolic Dynamics (Anosov Shadowing Lemma).
@@ -8677,8 +8677,8 @@ $$K_{\mathrm{LS}_\sigma}^+ \wedge K_{\text{pseudo}}^{\varepsilon} \Rightarrow K_
 
 ### 46.3 Weak-Strong Uniqueness
 
-:::{prf:metatheorem} Weak-Strong Uniqueness (Duality)
-:label: mt-weak-strong
+:::{prf:metatheorem} [KRNL-WeakStrong] Weak-Strong Uniqueness
+:label: mt-krnl-weak-strong
 :class: metatheorem
 
 **Source:** PDE Theory (Serrin/Prodi-Serrin Criteria).
@@ -8704,8 +8704,8 @@ $$K_{C_\mu}^{\text{weak}} \wedge K_{\mathrm{LS}_\sigma}^{\text{strong}} \Rightar
 
 ### 46.4 Product-Regularity Metatheorem
 
-:::{prf:metatheorem} Product-Regularity (Permit Schema with Alternative Backends)
-:label: mt-product
+:::{prf:metatheorem} [LOCK-Product] Product-Regularity
+:label: mt-lock-product
 :class: metatheorem
 
 **Sieve Signature:**
@@ -8845,8 +8845,8 @@ Bounded uniformly in time.
 
 ### 46.5 Subsystem Inheritance
 
-:::{prf:metatheorem} Subsystem Inheritance
-:label: mt-subsystem
+:::{prf:metatheorem} [KRNL-Subsystem] Subsystem Inheritance
+:label: mt-krnl-subsystem
 :class: metatheorem
 
 **Source:** Invariant Manifold Theory.
@@ -8878,7 +8878,7 @@ This Part imports **eighteen rigorous metatheorems** from the companion Hypostru
 - **Barrier Defense Mechanisms**: Proofs that barriers actually stop singularities
 - **Surgery Constructions**: Constructive methods for purple surgery nodes
 
-> **Note:** The three foundational *Kernel Logic* theorems (MT 8.11.N, MT 5.1, MT 13.57) establishing the Sieve as a valid proof machine have been relocated to **Part I, Section 3.1** to front-load the framework's authority.
+> **Note:** The three foundational *Kernel Logic* theorems (KRNL-Exclusion, KRNL-Trichotomy, KRNL-Equivariance) establishing the Sieve as a valid proof machine have been relocated to **Part I, Section 3.1** to front-load the framework's authority.
 
 The imported theorems are organized by functional role and cross-referenced to their target Sieve components.
 
@@ -8892,8 +8892,8 @@ The imported theorems are organized by functional role and cross-referenced to t
 
 ### 47.1 Type II Exclusion (ScaleCheck Predicate)
 
-:::{prf:metatheorem} Type II Exclusion (MT 5.2)
-:label: mt-type-ii-exclusion
+:::{prf:metatheorem} [LOCK-Tactic-Scale] Type II Exclusion
+:label: mt-lock-tactic-scale
 :class: metatheorem
 
 **Sieve Target:** Node 4 (ScaleCheck) — predicate $\alpha > \beta$ excludes supercritical blow-up
@@ -8928,8 +8928,8 @@ $$\int_0^{S_n} \mathfrak{D}(v_n(s)) \, ds \gtrsim C_0 \lambda_n^\beta(T_*(x) - t
 
 ### 47.2 Spectral Generator (StiffnessCheck Predicate)
 
-:::{prf:metatheorem} Spectral Generator (MT 5.5)
-:label: mt-spectral-generator
+:::{prf:metatheorem} [LOCK-SpectralGen] Spectral Generator
+:label: mt-lock-spectral-gen
 :class: metatheorem
 
 **Sieve Target:** Node 7 (StiffnessCheck) — spectral gap $\Rightarrow$ Łojasiewicz-Simon inequality
@@ -8968,8 +8968,8 @@ This gives the Łojasiewicz exponent $\theta = 1/2$ (optimal for analytic functi
 
 ### 47.3 Ergodic Mixing Barrier (ErgoCheck Predicate)
 
-:::{prf:metatheorem} Ergodic Mixing Barrier (MT 24.5)
-:label: mt-ergodic-mixing
+:::{prf:metatheorem} [LOCK-ErgodicMixing] Ergodic Mixing Barrier
+:label: mt-lock-ergodic-mixing
 :class: metatheorem
 
 **Sieve Target:** Node 10 (ErgoCheck) — mixing prevents localization
@@ -9007,8 +9007,8 @@ For small $\varepsilon$, the measure of return diminishes, preventing persistent
 
 ### 47.4 Spectral Distance Isomorphism (OscillateCheck Predicate)
 
-:::{prf:metatheorem} Spectral Distance Isomorphism (MT 25.2)
-:label: mt-spectral-distance
+:::{prf:metatheorem} [LOCK-SpectralDist] Spectral Distance Isomorphism
+:label: mt-lock-spectral-dist
 :class: metatheorem
 
 **Sieve Target:** Node 12 (OscillateCheck) — commutator $\|[D,a]\|$ detects oscillatory breakdown
@@ -9045,8 +9045,8 @@ The interface permit $\mathrm{GC}_\nabla$ (Gradient Consistency) is equivalent t
 
 ### 47.5 Antichain-Surface Correspondence (BoundaryCheck Predicate)
 
-:::{prf:metatheorem} Antichain-Surface Correspondence (MT 34.2)
-:label: mt-antichain-surface
+:::{prf:metatheorem} [LOCK-Antichain] Antichain-Surface Correspondence
+:label: mt-lock-antichain
 :class: metatheorem
 
 **Sieve Target:** Node 13 (BoundaryCheck) — boundary interaction measure via min-cut/max-flow
@@ -9092,8 +9092,8 @@ for hypersurfaces $Σ$ in the continuum limit.
 
 ### 48.1 Saturation Principle (BarrierSat)
 
-:::{prf:metatheorem} Saturation Principle (MT 5.4)
-:label: mt-saturation
+:::{prf:metatheorem} [UP-Saturation] Saturation Principle
+:label: mt-up-saturation-principle
 :class: metatheorem
 
 **Sieve Target:** BarrierSat — drift control prevents blow-up
@@ -9134,8 +9134,8 @@ $$\limsup_{t \to \infty} \mathbb{E}[\mathcal{V}(X_t)] \leq \frac{b}{\lambda} = E
 
 ### 48.2 Physical Computational Depth Limit (BarrierCausal)
 
-:::{prf:metatheorem} Physical Computational Depth Limit (MT 5.6)
-:label: mt-causal-barrier
+:::{prf:metatheorem} [UP-CausalBarrier] Physical Computational Depth Limit
+:label: mt-up-causal-barrier
 :class: metatheorem
 
 **Source:** Margolus-Levitin Theorem (1998)
@@ -9182,8 +9182,8 @@ $$N \leq \frac{4}{\pi\hbar} \int_0^T E(t) \, dt$$
 
 ### 48.3 Capacity Barrier (BarrierCap)
 
-:::{prf:metatheorem} Capacity Barrier (MT 5.3)
-:label: mt-capacity-barrier
+:::{prf:metatheorem} [LOCK-Tactic-Capacity] Capacity Barrier
+:label: mt-lock-tactic-capacity
 :class: metatheorem
 
 **Sieve Target:** BarrierCap — zero-capacity sets cannot sustain energy
@@ -9224,8 +9224,8 @@ A zero-energy profile cannot mediate blow-up.
 
 ### 48.4 Topological Sector Suppression (BarrierAction)
 
-:::{prf:metatheorem} Topological Sector Suppression (MT 5.7)
-:label: mt-topological-suppression
+:::{prf:metatheorem} [UP-Shadow] Topological Sector Suppression
+:label: mt-up-shadow
 :class: metatheorem
 
 **Sieve Target:** BarrierAction — exponential suppression by action gap
@@ -9305,8 +9305,8 @@ where the sum is over unstable poles of $L(s)$.
 
 ### 48.6 Epistemic Horizon Principle (BarrierEpi)
 
-:::{prf:metatheorem} Epistemic Horizon Principle (MT 28.1)
-:label: mt-epistemic-horizon
+:::{prf:metatheorem} [ACT-Horizon] Epistemic Horizon Principle
+:label: mt-act-horizon
 :class: metatheorem
 
 **Sieve Target:** BarrierEpi — one-way barrier via data processing inequality
@@ -9355,8 +9355,8 @@ If entropy production exceeds channel capacity, the singularity cannot form.
 
 ### 49.1 Regularity Lift Principle (SurgSE)
 
-:::{prf:metatheorem} Regularity Lift Principle (MT 6.1)
-:label: mt-regularity-lift
+:::{prf:metatheorem} [ACT-Lift] Regularity Lift Principle
+:label: mt-act-lift
 :class: metatheorem
 
 **Sieve Target:** SurgSE (Regularity Extension) — rough path $\to$ regularity structure lift
@@ -9401,8 +9401,8 @@ in the space of modelled distributions. The fixed point exists by Banach contrac
 
 ### 49.2 Structural Surgery Principle (SurgTE)
 
-:::{prf:metatheorem} Structural Surgery Principle (MT 6.5)
-:label: mt-structural-surgery-2
+:::{prf:metatheorem} [ACT-Surgery] Structural Surgery Principle
+:label: mt-act-surgery-2
 :class: metatheorem
 
 **Sieve Target:** SurgTE (Topological Extension) — Perelman cut-and-paste surgery
@@ -9452,8 +9452,8 @@ Surgeries only decrease entropy by controlled amounts.
 
 ### 49.3 Projective Extension (SurgCD)
 
-:::{prf:metatheorem} Projective Extension (MT 6.3)
-:label: mt-projective-extension
+:::{prf:metatheorem} [ACT-Projective] Projective Extension
+:label: mt-act-projective
 :class: metatheorem
 
 **Sieve Target:** SurgCD (Constraint Relaxation) — slack variable method for geometric collapse
@@ -9492,8 +9492,8 @@ The central path follows $\nabla f_\mu = 0$ as $\mu \to 0$.
 
 ### 49.4 Derived Extension / BRST (SurgSD)
 
-:::{prf:metatheorem} Derived Extension (MT 6.2)
-:label: mt-brst
+:::{prf:metatheorem} [ACT-Ghost] Derived Extension / BRST
+:label: mt-act-ghost
 :class: metatheorem
 
 **Sieve Target:** SurgSD (Symmetry Deformation) — ghost fields cancel divergent determinants
@@ -9538,8 +9538,8 @@ This exactly cancels the divergent gauge orbit volume, yielding finite $Z$.
 
 ### 49.5 Adjoint Surgery (SurgBC)
 
-:::{prf:metatheorem} Adjoint Surgery (MT 6.26)
-:label: mt-adjoint-surgery
+:::{prf:metatheorem} [ACT-Align] Adjoint Surgery
+:label: mt-act-align
 :class: metatheorem
 
 **Sieve Target:** SurgBC (Boundary Correction) — Lagrange multiplier / Actor-Critic mechanism
@@ -9586,8 +9586,8 @@ The Hamiltonian $H = f + \lambda^T \dot{x}$ couples state and costate dynamics.
 
 ### 49.6 Lyapunov Compactification (SurgCE)
 
-:::{prf:metatheorem} Lyapunov Compactification (MT 6.4)
-:label: mt-lyapunov-compactification
+:::{prf:metatheorem} [ACT-Compactify] Lyapunov Compactification
+:label: mt-act-compactify
 :class: metatheorem
 
 **Sieve Target:** SurgCE (Conformal Extension) — conformal rescaling bounds infinite domains
@@ -9634,42 +9634,42 @@ The following table provides the complete mapping from Sieve components to their
 
 | **Sieve Component** | **Foundation Theorem** | **Certificate** | **Primary Literature** |
 |---------------------|------------------------|-----------------|------------------------|
-| {prf:ref}`def-node-lock` | {prf:ref}`mt-structural-exclusion` | $K_{\text{Lock}}^{\text{blk}}$ | Grothendieck, Mac Lane |
-| {prf:ref}`def-node-compact` | {prf:ref}`mt-structural-resolution` | Trichotomy | Lions, Kenig-Merle |
-| {prf:ref}`def-node-complex` | {prf:ref}`mt-profile-trichotomy` | $K_{11}^{\text{lib/tame/inc}}$ | van den Dries, Kurdyka |
-| Meta-Learning | {prf:ref}`mt-equivariance` | $K_{\text{SV08}}^+$ | Noether, Cohen-Welling |
+| {prf:ref}`def-node-lock` | {prf:ref}`mt-krnl-exclusion` | $K_{\text{Lock}}^{\text{blk}}$ | Grothendieck, Mac Lane |
+| {prf:ref}`def-node-compact` | {prf:ref}`mt-krnl-trichotomy` | Trichotomy | Lions, Kenig-Merle |
+| {prf:ref}`def-node-complex` | {prf:ref}`mt-resolve-profile` | $K_{11}^{\text{lib/tame/inc}}$ | van den Dries, Kurdyka |
+| Meta-Learning | {prf:ref}`mt-krnl-equivariance` | $K_{\text{SV08}}^+$ | Noether, Cohen-Welling |
 
 ### 50.2 Gate Evaluator Cross-Reference
 
 | **Blue Node** | **Foundation Theorem** | **Predicate** | **Primary Literature** |
 |---------------|------------------------|---------------|------------------------|
-| {prf:ref}`def-node-scale` | {prf:ref}`mt-type-ii-exclusion` | $\alpha > \beta$ | Merle-Zaag, Kenig-Merle |
-| {prf:ref}`def-node-stiffness` | {prf:ref}`mt-spectral-generator` | $\sigma_{\min} > 0$ | Łojasiewicz, Simon |
-| {prf:ref}`def-node-ergo` | {prf:ref}`mt-ergodic-mixing` | $\tau_{\text{mix}} < \infty$ | Birkhoff, Sinai |
-| {prf:ref}`def-node-oscillate` | {prf:ref}`mt-spectral-distance` | $\|[D,a]\| < \infty$ | Connes |
-| {prf:ref}`def-node-boundary` | {prf:ref}`mt-antichain-surface` | min-cut/max-flow | Menger, De Giorgi |
+| {prf:ref}`def-node-scale` | {prf:ref}`mt-lock-tactic-scale` | $\alpha > \beta$ | Merle-Zaag, Kenig-Merle |
+| {prf:ref}`def-node-stiffness` | {prf:ref}`mt-lock-spectral-gen` | $\sigma_{\min} > 0$ | Łojasiewicz, Simon |
+| {prf:ref}`def-node-ergo` | {prf:ref}`mt-lock-ergodic-mixing` | $\tau_{\text{mix}} < \infty$ | Birkhoff, Sinai |
+| {prf:ref}`def-node-oscillate` | {prf:ref}`mt-lock-spectral-dist` | $\|[D,a]\| < \infty$ | Connes |
+| {prf:ref}`def-node-boundary` | {prf:ref}`mt-lock-antichain` | min-cut/max-flow | Menger, De Giorgi |
 
 ### 50.3 Barrier Defense Cross-Reference
 
 | **Orange Barrier** | **Foundation Theorem** | **Blocking Mechanism** | **Primary Literature** |
 |--------------------|------------------------|------------------------|------------------------|
-| {prf:ref}`def-barrier-sat` | {prf:ref}`mt-saturation` | $\mathcal{L}\mathcal{V} \leq -\lambda\mathcal{V} + b$ | Meyn-Tweedie, Hairer |
-| {prf:ref}`def-barrier-causal` | {prf:ref}`mt-causal-barrier` | $d(u) < \infty \Rightarrow t < \infty$ | Bennett, Penrose |
-| {prf:ref}`def-barrier-cap` | {prf:ref}`mt-capacity-barrier` | $\text{Cap}(B) < \infty \Rightarrow \mu_T(B) < \infty$ | Federer, Maz'ya |
-| {prf:ref}`def-barrier-action` | {prf:ref}`mt-topological-suppression` | $\mu(\tau \neq 0) \leq e^{-c\Delta^2}$ | Herbst, Łojasiewicz |
+| {prf:ref}`def-barrier-sat` | {prf:ref}`mt-up-saturation-principle` | $\mathcal{L}\mathcal{V} \leq -\lambda\mathcal{V} + b$ | Meyn-Tweedie, Hairer |
+| {prf:ref}`def-barrier-causal` | {prf:ref}`mt-up-causal-barrier` | $d(u) < \infty \Rightarrow t < \infty$ | Bennett, Penrose |
+| {prf:ref}`def-barrier-cap` | {prf:ref}`mt-lock-tactic-capacity` | $\text{Cap}(B) < \infty \Rightarrow \mu_T(B) < \infty$ | Federer, Maz'ya |
+| {prf:ref}`def-barrier-action` | {prf:ref}`mt-up-shadow` | $\mu(\tau \neq 0) \leq e^{-c\Delta^2}$ | Herbst, Łojasiewicz |
 | {prf:ref}`def-barrier-bode` | Thm 27.1 (Bode Integral) | $\int \log|S| d\omega = \pi \sum p_i$ | Bode, Doyle |
-| {prf:ref}`def-barrier-epi` | {prf:ref}`mt-epistemic-horizon` | $I(X;Z) \leq I(X;Y)$ | Cover-Thomas, Landauer |
+| {prf:ref}`def-barrier-epi` | {prf:ref}`mt-act-horizon` | $I(X;Z) \leq I(X;Y)$ | Cover-Thomas, Landauer |
 
 ### 50.4 Surgery Construction Cross-Reference
 
 | **Purple Surgery** | **Foundation Theorem** | **Construction** | **Primary Literature** |
 |--------------------|------------------------|------------------|------------------------|
-| {prf:ref}`def-surgery-se` | {prf:ref}`mt-regularity-lift` | $\mathscr{T} = (T, A, G)$ | Hairer (2014) |
-| SurgTE (Tunnel) | {prf:ref}`mt-structural-surgery-2` | Excise + Cap | Perelman (2002-03) |
-| {prf:ref}`def-surgery-cd` | {prf:ref}`mt-projective-extension` | Slack variables | Boyd-Vandenberghe |
-| SurgSD (Ghost) | {prf:ref}`mt-brst` | Ghost fields $(c, \bar{c})$ | Faddeev-Popov, BRST |
-| SurgBC (Adjoint) | {prf:ref}`mt-adjoint-surgery` | Lagrange $\lambda$ | Pontryagin |
-| {prf:ref}`def-surgery-ce` | {prf:ref}`mt-lyapunov-compactification` | Conformal $\Omega$ | Penrose |
+| {prf:ref}`def-surgery-se` | {prf:ref}`mt-act-lift` | $\mathscr{T} = (T, A, G)$ | Hairer (2014) |
+| SurgTE (Tunnel) | {prf:ref}`mt-act-surgery-2` | Excise + Cap | Perelman (2002-03) |
+| {prf:ref}`def-surgery-cd` | {prf:ref}`mt-act-projective` | Slack variables | Boyd-Vandenberghe |
+| SurgSD (Ghost) | {prf:ref}`mt-act-ghost` | Ghost fields $(c, \bar{c})$ | Faddeev-Popov, BRST |
+| SurgBC (Adjoint) | {prf:ref}`mt-act-align` | Lagrange $\lambda$ | Pontryagin |
+| {prf:ref}`def-surgery-ce` | {prf:ref}`mt-act-compactify` | Conformal $\Omega$ | Penrose |
 
 ---
 
@@ -9682,8 +9682,8 @@ The following table provides the complete mapping from Sieve components to their
 
 ### 51.1 Motivic Flow Principle
 
-:::{prf:metatheorem} Motivic Flow Principle (MT 22.1)
-:label: mt-motivic-flow
+:::{prf:metatheorem} [LOCK-Motivic] Motivic Flow Principle
+:label: mt-lock-motivic
 :class: metatheorem
 
 **Sieve Signature**
@@ -9749,8 +9749,8 @@ containing the motive, Künneth projectors, weight filtration, scaling exponents
 
 ### 51.2 Schematic Sieve
 
-:::{prf:metatheorem} Semialgebraic Exclusion (MT 22.2)
-:label: mt-schematic-sieve
+:::{prf:metatheorem} [LOCK-Schematic] Semialgebraic Exclusion
+:label: mt-lock-schematic
 :class: metatheorem
 
 **Source:** Stengle's Positivstellensatz (1974)
@@ -9812,8 +9812,8 @@ The original Nullstellensatz formulation applies to equalities over $\mathbb{C}$
 
 ### 51.3 Kodaira-Spencer Stiffness Link
 
-:::{prf:metatheorem} Kodaira-Spencer Stiffness Link (MT 22.3)
-:label: mt-kodaira-spencer
+:::{prf:metatheorem} [LOCK-Kodaira] Kodaira-Spencer Stiffness Link
+:label: mt-lock-kodaira
 :class: metatheorem
 
 **Sieve Signature**
@@ -9882,8 +9882,8 @@ where classification $\in \{\text{rigid}, \text{obstructed}, \text{unobstructed-
 
 ### 51.4 Virtual Cycle Correspondence
 
-:::{prf:metatheorem} Virtual Cycle Correspondence (MT 22.7)
-:label: mt-virtual-cycle
+:::{prf:metatheorem} [LOCK-Virtual] Virtual Cycle Correspondence
+:label: mt-lock-virtual
 :class: metatheorem
 
 **Sieve Signature**
@@ -9963,8 +9963,8 @@ with virtual class, dimension, obstruction theory, and computed invariants.
 
 ### 51.5 Monodromy-Weight Lock
 
-:::{prf:metatheorem} Monodromy-Weight Lock (MT 22.11)
-:label: mt-monodromy-weight
+:::{prf:metatheorem} [LOCK-Hodge] Monodromy-Weight Lock
+:label: mt-lock-hodge
 :class: metatheorem
 
 **Sieve Signature**
@@ -10046,8 +10046,8 @@ containing the limiting Hodge filtration, weight filtration, monodromy data, cyc
 
 ### 51.6 Tannakian Recognition Principle
 
-:::{prf:metatheorem} Tannakian Recognition Principle (MT 22.15)
-:label: mt-tannakian-recognition
+:::{prf:metatheorem} [LOCK-Tannakian] Tannakian Recognition Principle
+:label: mt-lock-tannakian
 :class: metatheorem
 
 **Sieve Signature**
@@ -10138,8 +10138,8 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
 
 ### 52.1 The Reconstruction Metatheorem
 
-:::{prf:metatheorem} Structural Reconstruction Principle (MT 41.1)
-:label: mt-structural-reconstruction
+:::{prf:metatheorem} [LOCK-Reconstruction] Structural Reconstruction Principle
+:label: mt-lock-reconstruction
 :class: metatheorem
 
 **Sieve Signature**
@@ -10356,12 +10356,12 @@ $$K_{\text{Rec}}^+ = \left(F_{\text{Rec}}, \Phi_{\text{Rec}}, K_{\mathrm{Cat}_{\
 :::{prf:remark} Reconstruction uses obligation ledgers
 :label: rem-rec-uses-ledger
 
-When {prf:ref}`mt-structural-reconstruction` is invoked (from any $K^{\mathrm{inc}}$ route, particularly $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$), its input includes the **obligation ledger** $\mathsf{Obl}(\Gamma)$ (Definition {prf:ref}`def-obligation-ledger`).
+When {prf:ref}`mt-lock-reconstruction` is invoked (from any $K^{\mathrm{inc}}$ route, particularly $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$), its input includes the **obligation ledger** $\mathsf{Obl}(\Gamma)$ (Definition {prf:ref}`def-obligation-ledger`).
 
 The reconstruction procedure must produce one of the following outcomes:
-1. **New certificates that discharge entries:** {prf:ref}`mt-structural-reconstruction` produces $K_{\text{Bridge}}$, $K_{\text{Rigid}}$, and ultimately $K_{\text{Rec}}^+$, which enable inc-upgrades (Definition {prf:ref}`def-inc-upgrades`) to fire during closure, discharging relevant $K^{\mathrm{inc}}$ entries from the ledger.
+1. **New certificates that discharge entries:** {prf:ref}`mt-lock-reconstruction` produces $K_{\text{Bridge}}$, $K_{\text{Rigid}}$, and ultimately $K_{\text{Rec}}^+$, which enable inc-upgrades (Definition {prf:ref}`def-inc-upgrades`) to fire during closure, discharging relevant $K^{\mathrm{inc}}$ entries from the ledger.
 
-2. **Refined missing set:** If full discharge is not possible, {prf:ref}`mt-structural-reconstruction` may refine the $\mathsf{missing}$ component of existing $K^{\mathrm{inc}}$ certificates into a strictly more explicit set of prerequisites—smaller template requirements, stronger preconditions, or more specific structural data. This refinement produces a new $K^{\mathrm{inc}}$ with updated payload.
+2. **Refined missing set:** If full discharge is not possible, {prf:ref}`mt-lock-reconstruction` may refine the $\mathsf{missing}$ component of existing $K^{\mathrm{inc}}$ certificates into a strictly more explicit set of prerequisites—smaller template requirements, stronger preconditions, or more specific structural data. This refinement produces a new $K^{\mathrm{inc}}$ with updated payload.
 
 **Formalization:**
 $$\text{Structural Reconstruction}: \mathsf{Obl}(\Gamma) \to \left(\{K^+_{\text{new}}\} \text{ enabling discharge}\right) \cup \left(\mathsf{Obl}'(\Gamma) \text{ with refined } \mathsf{missing}\right)$$
@@ -10400,7 +10400,7 @@ The following table summarizes how the Structural Reconstruction Principle insta
 
 If $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$ is issued at Node 17 (with upstream certificates $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$ satisfied), then exactly one of the following holds:
 
-1. **Bridge Certificate obtainable:** $K_{\text{Bridge}}$ can be established, and the Lock resolves via {prf:ref}`mt-structural-reconstruction` producing $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$
+1. **Bridge Certificate obtainable:** $K_{\text{Bridge}}$ can be established, and the Lock resolves via {prf:ref}`mt-lock-reconstruction` producing $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{verdict}}$
 2. **Bridge obstruction identified:** The failure of $K_{\text{Bridge}}$ provides a new certificate $K_{\text{Bridge}}^-$ containing:
    - A counterexample to structural descent: $\Lambda \notin \text{End}_{\mathcal{S}}(\mathcal{X})$
    - An analytic automorphism not preserving structure: $g \in G_{\text{crit}}$ with $g(\mathcal{S}) \not\subseteq \mathcal{S}$
@@ -10412,7 +10412,7 @@ In either case, the epistemic deadlock at Node 17 is resolved.
 :::{prf:corollary} Analytic-Structural Equivalence
 :label: cor-analytic-structural
 
-Under the hypotheses of {prf:ref}`mt-structural-reconstruction` (with all interface permits $D_E$, $C_\mu$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$, $\mathrm{Cat}_{\mathrm{Hom}}$ satisfied), the categories $\mathcal{A}$ and $\mathcal{S}$ are **Hom-equivalent** on the subcategory generated by $\mathcal{H}_{\text{bad}}$:
+Under the hypotheses of {prf:ref}`mt-lock-reconstruction` (with all interface permits $D_E$, $C_\mu$, $\mathrm{SC}_\lambda$, $\mathrm{LS}_\sigma$, $\mathrm{Cat}_{\mathrm{Hom}}$ satisfied), the categories $\mathcal{A}$ and $\mathcal{S}$ are **Hom-equivalent** on the subcategory generated by $\mathcal{H}_{\text{bad}}$:
 $$\mathcal{A}|_{\langle\mathcal{H}_{\text{bad}}\rangle} \simeq_{\text{Hom}} \mathcal{S}|_{\langle F_{\text{Rec}}(\mathcal{H}_{\text{bad}})\rangle}$$
 
 This equivalence is the rigorous formulation of "soft implies hard" for morphisms. In particular:
@@ -10441,7 +10441,7 @@ Each arrow represents a certificate dependency. The output $K_{\mathrm{Cat}_{\ma
 
 ### 52.4 The Analytic-Algebraic Rigidity Lemma
 
-*This lemma provides the rigorous "engine" that powers the algebraic case ($T_{\text{alg}}$) of the Structural Reconstruction Principle ({prf:ref}`mt-structural-reconstruction`). It formalizes the a posteriori inference: analytic stiffness plus tameness forces algebraicity.*
+*This lemma provides the rigorous "engine" that powers the algebraic case ($T_{\text{alg}}$) of the Structural Reconstruction Principle ({prf:ref}`mt-lock-reconstruction`). It formalizes the a posteriori inference: analytic stiffness plus tameness forces algebraicity.*
 
 :::{prf:lemma} Analytic-Algebraic Rigidity
 :label: lem-analytic-algebraic-rigidity
@@ -10554,7 +10554,7 @@ The failure mode **N.A (Non-Algebraic)** is excluded.
 
 ---
 
-**Connection to {prf:ref}`mt-structural-reconstruction`:** This lemma is the **algebraic instantiation** of the Structural Reconstruction Principle:
+**Connection to {prf:ref}`mt-lock-reconstruction`:** This lemma is the **algebraic instantiation** of the Structural Reconstruction Principle:
 
 | Structural Reconstruction Component | Lemma Instantiation |
 |:------------------------------------|:--------------------|
@@ -11032,7 +11032,7 @@ where $\sim$ denotes equivalence of certificate types at each node.
 
 **Outline:**
 
-1. **Necessity ($\Rightarrow$):** If $\mathbb{H}_A \cong \mathbb{H}_B$, then by {prf:ref}`mt-transport-factory` (Equivalence + Transport Factory, TM-4), there exists a natural isomorphism $\eta: F_{\mathrm{Sieve}}(\mathbb{H}_A) \xrightarrow{\sim} F_{\mathrm{Sieve}}(\mathbb{H}_B)$. Since the Sieve functor is deterministic and certificate types are preserved under natural isomorphism, we have $\mathrm{type}(K_N^A) = \mathrm{type}(K_N^B)$ for all $N$.
+1. **Necessity ($\Rightarrow$):** If $\mathbb{H}_A \cong \mathbb{H}_B$, then by {prf:ref}`mt-fact-transport` (Equivalence + Transport Factory, TM-4), there exists a natural isomorphism $\eta: F_{\mathrm{Sieve}}(\mathbb{H}_A) \xrightarrow{\sim} F_{\mathrm{Sieve}}(\mathbb{H}_B)$. Since the Sieve functor is deterministic and certificate types are preserved under natural isomorphism, we have $\mathrm{type}(K_N^A) = \mathrm{type}(K_N^B)$ for all $N$.
 
 2. **Sufficiency ($\Leftarrow$):** Suppose $\mathrm{DNA}(\mathbb{H}_A) \sim \mathrm{DNA}(\mathbb{H}_B)$. By the **Structural Completeness Theorem** (each certificate type uniquely determines the accessible proof strategies), the Sieve produces isomorphic resolution objects. The naturality of $F_{\mathrm{Sieve}}$ then implies $\mathbb{H}_A \cong \mathbb{H}_B$ in $\mathbf{Hypo}_T$.
 
@@ -11075,8 +11075,8 @@ The transitions are **irreversible within a proof attempt**: once a system enter
 
 ## 53.6 The Periodic Law of Hypostructures
 
-:::{prf:metatheorem} The Periodic Law (MT 42.1)
-:label: mt-periodic-law
+:::{prf:metatheorem} [LOCK-Periodic] The Periodic Law
+:label: mt-lock-periodic
 
 The proof strategy for any dynamical system is determined by its location in the **8×21 Periodic Table**. Specifically:
 
@@ -11114,9 +11114,9 @@ The proof strategy for any dynamical system is determined by its location in the
 
 By the construction of the Structural Sieve ({prf:ref}`def-sieve-functor`), every dynamical system follows a deterministic path through the **21 strata** (17 primary nodes plus 4 subsidiary nodes 7a-7d). The certificate emitted at each stratum partitions the space of problems into equivalence classes.
 
-1. **Completeness:** By {prf:ref}`mt-gate-factory` (Gate Factory, TM-1), every gate admits exactly one of the **eight certificate types** in its alphabet: $\{K^+, K^\circ, K^{\sim}, K^{\mathrm{re}}, K^{\mathrm{ext}}, K^{\mathrm{blk}}, K^{\mathrm{morph}}, K^{\mathrm{inc}}, \varnothing\}$. Hence every problem receives a complete extended DNA signature of length 21.
+1. **Completeness:** By {prf:ref}`mt-fact-gate` (Gate Factory, TM-1), every gate admits exactly one of the **eight certificate types** in its alphabet: $\{K^+, K^\circ, K^{\sim}, K^{\mathrm{re}}, K^{\mathrm{ext}}, K^{\mathrm{blk}}, K^{\mathrm{morph}}, K^{\mathrm{inc}}, \varnothing\}$. Hence every problem receives a complete extended DNA signature of length 21.
 
-2. **Determinism:** By the decidability of each node ({prf:ref}`mt-lock-factory`, TM-5), the signature is uniquely determined by the input Thin Kernel.
+2. **Determinism:** By the decidability of each node ({prf:ref}`mt-fact-lock`, TM-5), the signature is uniquely determined by the input Thin Kernel.
 
 3. **Subtree Coherence:** The Stiffness Restoration Subtree (7a-7d) forms a coherent sub-computation. A system that enters at 7a either exits via 7d with restored stiffness or terminates in the subtree with a blocking certificate.
 

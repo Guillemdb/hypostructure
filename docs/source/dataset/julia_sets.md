@@ -13,13 +13,69 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{holomorphic}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{holomorphic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Riemann sphere $\hat{\mathbb{C}}$ with iteration $f_c(z) = z^2 + c$ |
+| **Potential** | Green's function $G_c(z) = \lim_{n\to\infty} \frac{1}{2^n}\log\|f_c^n(z)\|$ |
+| **Cost** | Lyapunov exponent $\chi(z)$ |
+| **Invariance** | Möbius/conformal group |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (Green's function bounded) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (single critical point $z=0$) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ (harmonic measure on $J_c$) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (degree 2 scaling) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (Mandelbrot boundary) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (zero capacity of Julia set) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (connected vs Cantor dichotomy) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (hyperbolic mixing) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (external rays) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (iteration dynamics) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed Riemann sphere) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E1 + LOCK-Reconstruction) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E1 | **Primary** | Dimension/Structure — Conformal invariance forces Fatou-Julia dichotomy |
+| LOCK-Reconstruction | Applied | Structural Reconstruction via Sullivan's no wandering domains |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** (for hyperbolic parameters) |
+| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
+| **Singularity Set** | Julia set $J_c = \partial K_c$ |
+| **Primary Blocking Tactic** | E1 (Conformal Structure via Böttcher Coordinates) |
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Julia Set**.
 
-**Approach:** We instantiate the holomorphic hypostructure with the iteration dynamics of $f_c(z) = z^2 + c$ on the Riemann sphere. The key insight is the Lyapunov exponent (cost) governs escape dynamics; the Green's function (potential) encodes the basin structure. Conformal invariance (Tactic E1) and local connectivity (MT 42.1 via MLC conjecture for hyperbolic parameters) provide structural control. The Julia set is the critical boundary between attraction and repulsion.
+**Approach:** We instantiate the holomorphic hypostructure with the iteration dynamics of $f_c(z) = z^2 + c$ on the Riemann sphere. The key insight is the Lyapunov exponent (cost) governs escape dynamics; the Green's function (potential) encodes the basin structure. Conformal invariance (Tactic E1) and local connectivity (LOCK-Reconstruction via MLC conjecture for hyperbolic parameters) provide structural control. The Julia set is the critical boundary between attraction and repulsion.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 (Conformal/Structural) and MT 42.1 (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional for hyperbolic parameters.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 (Conformal/Structural) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional for hyperbolic parameters.
 
 ---
 
@@ -239,10 +295,10 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 1. [x] Parameter space: $c \in \mathbb{C}$
 2. [x] Mandelbrot set: $\mathcal{M} = \{c : 0 \in K_c\}$ is compact
 3. [x] Holomorphic motion: $J_c$ moves holomorphically for $c$ in hyperbolic components
-4. [x] Result: Parameters stable via λ-lemma
+4. [x] Result: Parameters stable via $\lambda$-lemma
 
 **Certificate:**
-* [x] $K_{\mathrm{SC}_{\partial c}}^+ = (\text{holomorphic motion}, \text{λ-lemma})$ → **Go to Node 6**
+* [x] $K_{\mathrm{SC}_{\partial c}}^+ = (\text{holomorphic motion}, \lambda\text{-lemma})$ → **Go to Node 6**
 
 ---
 
@@ -422,16 +478,16 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 4. [x] Contradiction: Wandering domains excluded by measure
 5. [x] Certificate: $K_{\text{Capacity}}^{\text{exc}}$
 
-**Step 4: Breached-inconclusive trigger (required for MT 42.1)**
+**Step 4: Breached-inconclusive trigger (required for LOCK-Reconstruction)**
 
 E-tactics directly decide Hom-emptiness for hyperbolic $c$, but for general $c$ need reconstruction.
 Record the Lock deadlock certificate:
 
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$
 
-**Step 5: Invoke MT 42.1 (Structural Reconstruction Principle)**
+**Step 5: Invoke LOCK-Reconstruction (Structural Reconstruction Principle)**
 
-Inputs (per MT 42.1 signature):
+Inputs (per LOCK-Reconstruction signature):
 - $K_{D_E}^+$, $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, $K_{\mathrm{LS}_\sigma}^+$
 - $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$
 - $K_{\text{Bridge}}^+$, $K_{\text{Rigid}}^+$
@@ -457,7 +513,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
    - Thurston rigidity: Postcritically finite maps are rigid (unique conformal conjugacy class)
    - MLC (Yoccoz, hyperbolic case): Local connectivity of $J_c$ for hyperbolic $c$
 
-**MT 42.1 Composition:**
+**LOCK-Reconstruction Composition:**
 1. [x] $K_{\text{Sullivan}}^+ \wedge K_{\text{Böttcher}}^+ \Rightarrow K_{\text{Dichotomy}}^{\text{complete}}$
 2. [x] $K_{\text{Bridge}}^+ \wedge K_{\text{Dichotomy}}^{\text{complete}} \wedge K_{\text{Rigid}}^+ \Rightarrow K_{\text{Rec}}^+$
 
@@ -472,7 +528,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 * [x] Result: Reconstruction → local connectivity (hyperbolic case) → rigidity
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E1 + MT 42.1}, \{K_{\text{Rec}}^+, K_{\text{Sullivan}}^+, K_{\text{Rigid}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E1 + LOCK-Reconstruction}, \{K_{\text{Rec}}^+, K_{\text{Sullivan}}^+, K_{\text{Rigid}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -491,14 +547,22 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness/Local Connectivity)
 - **Original obligation:** Local connectivity forcing quasisymmetric structure
 - **Missing certificates:** $K_{\text{Hyperbolic}}^+$, $K_{\text{MLC}}^+$, $K_{\text{Bridge}}^+$
-- **Discharge mechanism:** Conformal chain (E1 + MT 42.1)
+- **Discharge mechanism:** Conformal chain (E1 + LOCK-Reconstruction)
 - **Derivation:**
   - $K_{\text{Sullivan}}^+$: No wandering domains (theorem)
   - $K_{\text{Böttcher}}^+$: Conformal linearization (theorem)
   - $K_{\text{Sullivan}}^+ \wedge K_{\text{Böttcher}}^+ \Rightarrow K_{\text{Dichotomy}}^{\text{complete}}$ (E1)
   - $K_{\text{Bridge}}^+$: Fatou-Julia dichotomy
-  - $K_{\text{Bridge}}^+ \wedge K_{\text{Dichotomy}}^{\text{complete}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{MT 42.1}} K_{\text{Rec}}^+$
+  - $K_{\text{Bridge}}^+ \wedge K_{\text{Dichotomy}}^{\text{complete}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The holomorphic dynamics are inherently regular via conformal structure.*
+
+**Breach Log:** EMPTY
 
 ---
 
@@ -519,7 +583,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 *   **Logic:** Quasiconformal surgery → measure control → no wandering domains
 *   **Certificate:** $K_{\text{Sullivan}}^{\text{NWD}}$
 
-### **4. Structural Reconstruction (MT 42.1)**
+### **4. Structural Reconstruction (LOCK-Reconstruction)**
 *   **Input:** $K_{\text{Bridge}}^+ \wedge K_{\text{Dichotomy}}^{\text{complete}} \wedge K_{\text{Rigid}}^+$
 *   **Output:** Reconstruction dictionary with verdict
 *   **Certificate:** $K_{\text{Rec}}^+$
@@ -538,7 +602,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 6 | Conformal chain (E1 + MT 42.1) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| OBL-1 | Node 17, Step 6 | Conformal chain (E1 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
 
 ### Table 3: Remaining Obligations
 
@@ -559,7 +623,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Conformal rigidity validated (E1)
-6. [x] Structural reconstruction validated (MT 42.1)
+6. [x] Structural reconstruction validated (LOCK-Reconstruction)
 7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
 8. [x] Result extraction completed
 
@@ -579,7 +643,7 @@ Node 10: K_{TB_ρ}^+ (ergodic measure)
 Node 11: K_{Rep_K}^+ (Böttcher map)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → MT 42.1 → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
 ```
 
 ### Final Certificate Set
@@ -610,7 +674,7 @@ The Green's function $G_c(z) = \lim_{n\to\infty} \frac{1}{2^n}\log^+|f_c^n(z)|$ 
 The filled Julia set $K_c = \{z : G_c(z) = 0\}$ is the set of bounded orbits. The Julia set $J_c = \partial K_c$ is the boundary, where dynamics is chaotic and repelling periodic points are dense.
 
 **Phase 3: No Wandering Domains**
-By Sullivan's theorem (1985), rational maps have no wandering domains. The proof uses quasiconformal surgery to construct a conformal invariant that excludes wandering components. This yields $K_{\text{Sullivan}}^{\text{NWD}}$.
+We apply the Sullivan Permit ($K_{\text{Sullivan}}^{\text{NWD}}$, 1985): rational maps have no wandering domains. The proof uses quasiconformal surgery to construct a conformal invariant that excludes wandering components.
 
 **Phase 4: Böttcher Coordinate**
 The Böttcher coordinate $\phi_c : \mathbb{C} \setminus K_c \to \mathbb{C} \setminus \overline{\mathbb{D}}$ conjugates $f_c$ to $z \mapsto z^2$ near infinity:
@@ -618,14 +682,14 @@ $$\phi_c(f_c(z)) = \phi_c(z)^2$$
 This provides a linearization and external ray parametrization.
 
 **Phase 5: Structural Reconstruction**
-The Fatou-Julia dichotomy $\hat{\mathbb{C}} = F_c \sqcup J_c$ partitions the sphere. By MT 42.1 (Structural Reconstruction), the combination of Sullivan's theorem, Böttcher coordinate, and Thurston rigidity produces a reconstruction dictionary $K_{\text{Rec}}^+$ that classifies all Fatou components.
+The Fatou-Julia dichotomy $\hat{\mathbb{C}} = F_c \sqcup J_c$ partitions the sphere. By LOCK-Reconstruction (Structural Reconstruction), the combination of Sullivan's theorem, Böttcher coordinate, and Thurston rigidity produces a reconstruction dictionary $K_{\text{Rec}}^+$ that classifies all Fatou components.
 
 **Phase 6: Connectivity Dichotomy**
 If $0 \in K_c$ (i.e., $c \in \mathcal{M}$), the critical point stays bounded, so $K_c$ is connected, thus $J_c = \partial K_c$ is connected.
 If $0 \notin K_c$ (i.e., $c \notin \mathcal{M}$), the critical point escapes, so $K_c$ is totally disconnected (Cantor set), thus $J_c = K_c$ is totally disconnected.
 
 **Phase 7: Conclusion**
-The Julia set $J_c$ is completely characterized by the critical orbit. The Lock is blocked via Tactic E1 (conformal/Sullivan) and MT 42.1 (reconstruction). $\square$
+The Julia set $J_c$ is completely characterized by the critical orbit. The Lock is blocked via Tactic E1 (conformal/Sullivan) and LOCK-Reconstruction (reconstruction). $\square$
 
 ::::
 
@@ -647,7 +711,7 @@ The Julia set $J_c$ is completely characterized by the critical orbit. The Lock 
 | Ergodic Measure | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Böttcher Coordinate | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Conformal Dynamics | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (MT 42.1) |
+| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
 | Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 | Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
 | **Final Status** | **UNCONDITIONAL** | — |

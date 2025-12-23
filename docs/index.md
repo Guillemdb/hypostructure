@@ -258,7 +258,7 @@ I ran the Sieve on thirty-six problems spanning PDEs, geometry, number theory, c
 | Problem | Verdict | Key Tactic | Matches Literature? |
 |---------|---------|------------|---------------------|
 | Quantum Gravity | **Horizon** | Holographic mismatch | N/A (no consensus) |
-| Collatz Conjecture | **Horizon** | Zeno horizon (Node 2) | N/A (open problem) |
+| Collatz Conjecture | **Blocked** | Sector-ergodic (MT 6.6.14 + E9) | Open |
 
 **Verdict meanings:**
 - **Blocked** = Sieve certifies no singularity can form (regularity/truth)

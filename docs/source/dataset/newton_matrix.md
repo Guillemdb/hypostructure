@@ -13,6 +13,61 @@
 
 ---
 
+## Automation Witness (Framework Offloading Justification)
+
+We certify that this instance is eligible for the Universal Singularity Modules.
+
+- **Type witness:** $T_{\text{numerical}}$ is a **good type** (finite stratification + constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+
+**Certificate:**
+$K_{\mathrm{Auto}}^+ = (T_{\text{numerical}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+
+---
+
+## Executive Summary / Dashboard
+
+### 1. System Instantiation
+| Component | Value |
+|-----------|-------|
+| **Arena** | Matrix space $\mathbb{R}^{n \times n}$ |
+| **Potential** | Residual $\Phi(X) = \|I - AX\|$ |
+| **Cost** | Iteration step $\mathfrak{D}_k = \|X_{k+1} - X_k\|$ |
+| **Invariance** | Similarity transformations $X \mapsto PXP^{-1}$ |
+
+### 2. Execution Trace
+| Node | Name | Outcome |
+|------|------|---------|
+| 1 | EnergyCheck | $K_{D_E}^+$ (residual bounded when $\|R_0\| < 1$) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (finite iterations) |
+| 3 | CompactCheck | $K_{C_\mu}^+$ (convergence to $A^{-1}$) |
+| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (quadratic: $\alpha < \beta$) |
+| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (initial guess stable) |
+| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (contraction basin) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (fixed point at $A^{-1}$) |
+| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (invertibility preserved) |
+| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
+| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^-$ (deterministic descent) |
+| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (matrix entries finite) |
+| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (monotone descent) |
+| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E2) |
+
+### 3. Lock Mechanism
+| Tactic | Status | Description |
+|--------|--------|-------------|
+| E2 | **Primary** | Invariant Mismatch — Divergence patterns violate contraction $\|R_{k+1}\| = \|R_k\|^2$ |
+
+### 4. Final Verdict
+| Field | Value |
+|-------|-------|
+| **Status** | **UNCONDITIONAL** (within contraction basin) |
+| **Obligation Ledger** | EMPTY |
+| **Singularity Set** | $\emptyset$ (quadratic convergence) |
+| **Primary Blocking Tactic** | E2 (Invariant Mismatch via Quadratic Contraction) |
+
+---
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for the **Newton-Schulz method for matrix inversion**.
@@ -446,6 +501,14 @@ $$\|I - AX_k\| \le \|I - AX_0\|^{2^k} \to 0$$
 | — | — | — | — |
 
 **Note:** All nodes returned direct certificates (no inconclusive certificates requiring upgrade).
+
+---
+
+## Part II-C: Breach/Surgery Protocol
+
+*No breaches occurred during the sieve execution. The Newton-Schulz iteration is inherently regular when initialized within the contraction basin.*
+
+**Breach Log:** EMPTY
 
 ---
 
