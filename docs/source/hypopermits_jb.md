@@ -891,6 +891,21 @@ The resulting integro-differential structure is tamed by **Axiom C** applied to 
 
 The following diagram is the **authoritative specification** of the obstruction-theoretic resolution. All subsequent definitions and theorems must align with this categorical atlas.
 
+### 11.0. The Taxonomy of Failure Modes
+
+The singularity spectrum admits a natural classification by two orthogonal axes: the **constraint class** that is violated (Conservation, Topology, Duality, Symmetry, Boundary) and the **mechanism** of violation (Excess, Deficiency, Complexity). This yields the following periodic table of obstructions.
+
+**Table 1: The Taxonomy of Failure Modes**
+*The 15 fundamental ways a dynamical system can lose coherence.*
+
+| Constraint       | Excess (Unbounded Growth)    | Deficiency (Collapse)             | Complexity (Entanglement)            |
+|:-----------------|:-----------------------------|:----------------------------------|:-------------------------------------|
+| **Conservation** | **Mode C.E**: Energy Blow-up | **Mode C.D**: Geometric Collapse  | **Mode C.C**: Event Accumulation     |
+| **Topology**     | **Mode T.E**: Metastasis     | **Mode T.D**: Glassy Freeze       | **Mode T.C**: Labyrinthine           |
+| **Duality**      | **Mode D.E**: Oscillatory    | **Mode D.D**: Dispersion          | **Mode D.C**: Semantic Horizon       |
+| **Symmetry**     | **Mode S.E**: Supercritical  | **Mode S.D**: Stiffness Breakdown | **Mode S.C**: Parametric Instability |
+| **Boundary**     | **Mode B.E**: Injection      | **Mode B.D**: Starvation          | **Mode B.C**: Misalignment           |
+
 ### 11.1. Computational Boundaries and Undecidability
 
 :::{prf:remark} Acknowledgment of Fundamental Limits

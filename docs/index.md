@@ -56,6 +56,97 @@ Instead of proving global regularity directly (which is analytically hard), we p
 
 The 17 nodes include checks you might not expect in a pure math framework: **StiffnessCheck** (is the system resistant to small perturbations?) and **TameCheck** (are the decision boundaries geometrically well-behaved?). These aren't arbitrary—they're the mathematical formalization of "this system won't exhibit pathological behavior under stress."
 
+### The Isomorphism of Failure
+
+To treat alignment as a geometry problem, we must first map the "bugs" of AI to the "singularities" of Analysis. We organize these failures into a periodic table of structure, defined by which constraint is violated (Rows) and the mechanism of the violation (Columns).
+
+**Table 1: The Taxonomy of Failure Modes**
+*The 15 fundamental ways a dynamical system can lose coherence.*
+
+| Constraint       | Excess (Unbounded Growth)    | Deficiency (Collapse)             | Complexity (Entanglement)            |
+|:-----------------|:-----------------------------|:----------------------------------|:-------------------------------------|
+| **Conservation** | **Mode C.E**: Energy Blow-up | **Mode C.D**: Geometric Collapse  | **Mode C.C**: Event Accumulation     |
+| **Topology**     | **Mode T.E**: Metastasis     | **Mode T.D**: Glassy Freeze       | **Mode T.C**: Labyrinthine           |
+| **Duality**      | **Mode D.E**: Oscillatory    | **Mode D.D**: Dispersion          | **Mode D.C**: Semantic Horizon       |
+| **Symmetry**     | **Mode S.E**: Supercritical  | **Mode S.D**: Stiffness Breakdown | **Mode S.C**: Parametric Instability |
+| **Boundary**     | **Mode B.E**: Injection      | **Mode B.D**: Starvation          | **Mode B.C**: Misalignment           |
+
+By applying this taxonomy to Artificial Intelligence, we reveal that many distinct problems in Machine Learning are actually the same structural flaw manifesting in different contexts.
+
+**Table 2: The Translation Dictionary**
+*Mapping abstract structural defects across mathematics, physics, and AI.*
+
+| Mode    | Hypostructure Name  | PDE / Analysis Manifestation                 | Physics Manifestation       | AI / Alignment Manifestation | Structural Intuition                     |
+|:--------|:--------------------|:---------------------------------------------|:----------------------------|:-----------------------------|:-----------------------------------------|
+| **C.E** | Energy Blow-up      | Finite-time Singularity / $L^\infty$ Blow-up | Landau pole                 | **Exploding Gradients**      | Gain exceeds dissipation.                |
+| **C.D** | Geometric Collapse  | Concentration of Measure                     | Bose-Einstein condensate    | **Mode Collapse (GANs)**     | Volume collapses to zero capacity.       |
+| **C.C** | Event Accumulation  | Zeno Phenomenon                              | Zeno instability            | **Wireheading**              | Infinite logical steps in finite time.   |
+| **T.E** | Metastasis          | Phase Slip / Defect                          | Vacuum decay                | **Catastrophic Forgetting**  | Jump to new topological sector.          |
+| **T.D** | Glassy Freeze       | Metastable Trapping                          | Spin glass                  | **Local Optima Trap**        | Agent trapped in sub-optimal basin.      |
+| **T.C** | Labyrinthine        | Wild Embedding                               | Anderson localization       | **Adversarial Fragility**    | Decision boundary infinitely complex.    |
+| **D.D** | Dispersion          | Scattering                                   | Wave dispersion             | **Vanishing Gradients**      | Signal washes out into noise.            |
+| **D.E** | Oscillatory         | High-Freq Resonance                          | Parametric resonance        | **Training Instability**     | Self-amplifying feedback loops.          |
+| **D.C** | Semantic Horizon    | Ergodicity Problem                           | Information scrambling      | **Uninterpretability**       | Internal state too complex to decode.    |
+| **S.E** | Supercritical       | Self-Similar Focusing                        | Critical divergence         | **Feature Explosion**        | Recursive features fail to generalize.   |
+| **S.D** | Stiffness Breakdown | Loss of Ellipticity                          | Goldstone mode              | **Poor Conditioning**        | Landscape becomes flat (zero curvature). |
+| **S.C** | Param. Instability  | Phase Transition                             | Symmetry breaking           | **Spurious Correlations**    | Model breaks preserved symmetries.       |
+| **B.E** | Injection           | Incompatible Boundary                        | Shock injection             | **Data Poisoning**           | Input state unrepresentable internally.  |
+| **B.D** | Starvation          | Absorbing Boundary                           | Heat death                  | **Sparse Reward**            | Feedback vanishes; policy freezes.       |
+| **B.C** | Misalignment        | Incompatible Neumann                         | Chiral anomaly              | **Reward Hacking**           | Proxy gradient orthogonal to true goal.  |
+
+---
+
+## The Periodic Table of Problems: A Taxonomy of Complexity
+
+If the Sieve is a universal compiler, then every mathematical problem must possess a **Structural DNA**—a unique "fingerprint" defined by the sequence of certificates it emits as it traverses the 21 strata (the 17 primary nodes plus the stiffness restoration subtree).
+
+We realized that "difficulty" is a poor metric for a problem. Instead, we have created the **Exhaustive Periodic Table of Problems (v3.0)**. This table classifies problems not by their domain (fluids, primes, or logic), but by their **resolution topology**.
+
+In this framework, the **Rows (Families)** define the *Dominant Certificate Type* (how the system is saved or fails), and the **Columns (Strata)** define the *Filter Level* (where the system encounters its first major obstruction).
+
+### The Eight Families of Mathematical Reality
+
+By analyzing the path a problem takes through the Sieve, we can group all of human inquiry into eight fundamental families:
+
+1.  **Family I: The Stable ($K^+$) — "Noble Systems"**
+    *   *Behavior:* Immediate satisfaction. These systems pass every permit check without resistance.
+    *   *Examples:* The Heat Equation, Linear Schrödinger.
+2.  **Family II: The Relaxed ($\circ$) — "Scattering Systems"**
+    *   *Behavior:* These do not concentrate energy; they disperse it. They sit on the boundary of the energy manifold.
+    *   *Examples:* Defocusing NLS, Scattering Wave Equations.
+3.  **Family III: The Gauged ($K^{\sim}$ ) — "Transport Systems"**
+    *   *Behavior:* Problems solved via equivalence. The solution is "YES, up to a coordinate transformation."
+    *   *Examples:* Yang-Mills in temporal gauge, Optimal Transport.
+4.  **Family IV: The Resurrected ($K^{\mathrm{re}}$) — "Surgical Systems"**
+    *   *Behavior:* They encounter a singularity but are saved by **Structural Surgery**.
+    *   *Examples:* Ricci Flow (Poincaré), Mean Curvature Flow.
+5.  **Family V: The Synthetic ($K^{\mathrm{ext}}$) — "Extension Systems"**
+    *   *Behavior:* Regularity requires the introduction of auxiliary structures (ghost fields, viscosity variables).
+    *   *Examples:* BRST Quantization, Viscosity Solutions.
+6.  **Family VI: The Forbidden ($K^{\mathrm{blk}}$) — "Categorical Systems"**
+    *   *Behavior:* Estimates fail, but the "Bad Pattern" is **Categorically Blocked** by the Lock.
+    *   *Examples:* Navier-Stokes 3D, Riemann Hypothesis.
+7.  **Family VII: The Singular ($K^{\mathrm{morph}}$) — "Morphic Systems"**
+    *   *Behavior:* The Bad Pattern definitively embeds. The singularity is real.
+    *   *Examples:* Supercritical Blow-up, P vs NP (as a structural separation).
+8.  **Family VIII: The Horizon ($K^{\mathrm{inc}}$) — "Epistemic Systems"**
+    *   *Behavior:* The Sieve hits an undecidable limit or a categorical paradox.
+    *   *Examples:* The Halting Problem, Quantum Gravity (without UV completion).
+
+---
+
+### Domain Agnosticism: The Isomorphism Principle
+
+The most provocative feature of this table is that it is **Domain Agnostic**. In the Hypostructure framework, a problem in fluid dynamics can be **Structurally Isomorphic** to a problem in graph theory.
+
+For example, a 3D fluid that is "Resurrected" via a **Neck Surgery** at Node 6 possesses the same "Structural DNA" as a discrete algorithm that is "Resurrected" via a **Backtracking Map**. To the Sieve, they are the same "element" in the periodic table. They use the same proof strategy, share the same certificate logic, and suffer from the same potential pathologies.
+
+**We are no longer solving "Fluid Problems" or "Number Theory Problems." We are solving "Family IV, Stratum 6" problems.**
+
+This taxonomy allows us to perform **Cross-Domain Proof Transfer**. If we find a new exclusion tactic for the Lock in the domain of Algebraic Geometry, that tactic is immediately "linked" and available for any problem in the same Family, whether it's an AI alignment problem or a question about prime gaps.
+
+By industrializing the classification of singularities, we have turned the "Art of the Proof" into the "Science of the Fingerprint." By looking at a problem's DNA, you don't just see if it's true—you see **how it chooses to be true.**
+
 ---
 
 ## The Protocol: "Header Files" for Physical Systems
@@ -74,6 +165,22 @@ The four primitives:
 | **Invariance** | The symmetries | The type constraints |
 
 That's it. From these four things, the Sieve *derives* compactness, regularity, and topological constraints. Nothing is assumed that isn't witnessed by the construction.
+
+### The Inversion of Genius
+
+In classical mathematical analysis, proving the stability of a system—whether it's a 3D fluid or a deep neural network—usually hits a **Genius Bottleneck**.
+
+To prove a system doesn't blow up into a singularity, you typically have to "guess" a **Lyapunov Function** or a **Morawetz Estimate**. These are incredibly clever mathematical objects that stay finite over time, acting as a "leash" on the system's energy. In the history of mathematics, finding these functions has required literal sparks of genius; if you don't guess the right function, you have no proof.
+
+**Hypostructure inverts this entirely.**
+
+We realized that these "Genius Inputs" are actually just shadow-projections of the problem's underlying geometry. Instead of requiring the mathematician to provide the clever estimate as an *input*, our framework treats it as a **derived output**.
+
+When you feed Thin Objects into the Sieve, the framework executes a process called **Lyapunov Reconstruction**. Because the 17 nodes enforce categorical consistency, the framework *calculates* the necessary Lyapunov function as a geometric consequence of your definitions.
+
+We have effectively moved the "genius" from the mathematician to the compiler. If you define the "physics" of your problem correctly, the proof—including the clever estimates that usually take decades to discover—is squeezed out of the category theory like water from a sponge.
+
+In this paradigm, **genius isn't a mysterious spark; it's just a highly optimized path through a search space of structural invariants.** We are industrializing the "Aha!" moment.
 
 But here's the twist: **These primitives are not fixed. They're parameterized families.**
 
@@ -288,47 +395,45 @@ Either outcome advances the field. But only if we find the errors.
 
 ---
 
-## Red Team Invitation: How to Break This
+## Red Team Invitation: Auditing the "Semantic Wall"
 
-I'm publishing the complete framework as a Jupyter Book. All 17 nodes, the categorical machinery, the case studies with full reasoning traces. Everything is machine-readable.
+I genuinely don't know if I've built the "LLM-native" future of mathematics or an incredibly sophisticated class of **Structural Hallucination** that SOTA models are simply incapable of detecting.
 
-**Attack vectors:**
+During the development of this framework, we reached a "Saturation Point" where models like Claude 3.5, GPT-4o, and Gemini 1.5 Pro could no longer find a single technical gap in the proof objects. However, getting there required fighting through what I call the **Semantic Wall**—the boundary where LLMs consistently trade rigor for high-level jargon.
 
-**1. The Lock (Node 17)**
-Is categorical exclusion sufficient? Can you construct a counterexample where Hom(Bad, S) = ∅ but the singularity forms anyway?
+If you want to break this framework, look where the models failed. These are the most common "pathologies" I had to manually debug:
 
-**2. The Morphism Witnesses**
-Each case study provides an explicit morphism φ. If you can show a morphism exists where I claim it doesn't (or vice versa), the framework collapses.
+### 1. The "Magic Inverse" (Adjunction Errors)
+LLMs love using Category Theory as a "vibe" rather than a tool. A recurring error was the **$\Pi^{-1}$ leap**: the models would try to "calculate" the inverse of the Shape modality ($\Pi$). In category theory, $\Pi$ is a projection (a left adjoint); it doesn't have a canonical inverse. The models were effectively trying to "un-flatten" a projection without a section—a classic type error that sounds like deep math but is logically impossible.
 
-**3. The Certificate Upgrades**
-I use "Reconstruction Loops" to promote inconclusive certificates to positive ones. Is this valid inference, or sophisticated hallucination?
+### 2. The Commutator Trap (Geometric Fallacies)
+In the **Stiffness Subtree (Node 7a-d)**, models repeatedly argued that a connection was "flat" simply because the flow commuted with itself over time ($[v,v]=0$). This is a trivial property of any autonomous ODE, not a proof of gauge-theoretic flatness. They were pattern-matching the *terminology* of curvature without performing the *mechanics* of the commutator check.
 
-**4. The Learning Layer**
-Is "backpropagating through axioms" even coherent? Can you find a case where optimization converges to a **false fixed point**—axioms that are internally consistent but mathematically wrong?
+### 3. The Fractal Complexity Fallacy
+This was a persistent information-theoretic hallucination. The models assumed that because a blow-up profile has a **fractal dimension**, it must have **infinite Kolmogorov complexity**. This is demonstrably false (the Mandelbrot set is fractally complex but has very low description complexity). They were confusing "visual complexity" with "algorithmic information," a mistake that would render the **Epistemic Barrier (Node 11)** useless.
 
-**5. P vs NP Specifically**
-Is Replica Symmetry Breaking actually a categorical obstruction? Or am I pattern-matching physics concepts onto complexity theory without justification?
+### 4. Measure-Theoretic "Sloppiness"
+In **RESOLVE-Obstruction (Node 21.2.10)**, the models initially proposed a proof where a decaying weighted sum ($\sum w(t) N_t < \infty$) implied the number of obstructions ($N_t$) went to zero. But if the weight $w(t)$ decays fast enough, $N_t$ can stay $1$ forever and the sum remains finite. The models failed at simple limit analysis because they were too focused on the "categorical narrative" of collapse.
 
----
-
-## The Honest Admission
-
-I've been staring at this for six months. I'm probably blind to obvious errors. The framework has that seductive internal consistency that could mean it's correct, or could mean I've built an elaborate closed system where mistakes reinforce each other.
-
-The best attacks will come from people who look at this fresh and ask: *"Wait, why should that step work?"*
-
-I don't know if I've built something that changes how we do mathematics, or an elaborate sand castle. I'm hoping you'll help me find out.
+### 5. The "Bridge" Problem
+The most dangerous failure mode is the **Semantic Gap**. The Sieve is great at categorical logic, but the models often "forget" to prove that a physical blow-up in a PDE *actually induces* a morphism in the category. They assume the bridge exists because the names match.
 
 ---
 
-## Get Started
+## How to Attack
 
-- **[The Framework](./source/hypopermits_jb.md)** — Complete 17-node sieve specification
-- **[Case Studies](./source/dataset/dataset.md)** — Every proof object with full traces
-- **[Solution Template](./source/prompts/template.md)** — How to apply the Sieve to new problems
+The framework is now public. The 36 case studies include full execution traces. **I am inviting you to find the seams.**
+
+*   **Construct a counterexample:** Can you find a system where **Node 17 (The Lock)** says "Blocked" (Regular), but the analytic system actually blows up?
+*   **Audit the Morphisms:** Check the **Extraction Lemmas**. Does a singularity *really* force a morphism from the "Bad Pattern"? Or is there an escape hatch I've missed?
+*   **Break the Closure:** Is the **Promotion Logic (Node 31)** circular? Does it allow a node to "prove itself" through a future-enabled upgrade?
+
+**The Goal:** I want to know if we have mapped the ceiling of LLM reasoning. If these proofs are wrong, it means LLMs have a "stiffness" limit where they can no longer distinguish between a valid categorical derivation and a very fancy-looking word salad.
+
+**If you find a bug, I will be genuinely delighted.**
 
 ---
 
-*This isn't a declaration of new mathematical truth. It's an experiment on the nature of reasoning itself.*
-
-*If you find a bug, I will be genuinely delighted.*
+- **[The 17-Node Sieve Logic](./source/hypopermits_jb.md)**
+- **[CFSG, P vs NP, and Navier-Stokes traces](./source/dataset/dataset.md)**
+- **[The Sieve Template](./source/prompts/template.md)**
