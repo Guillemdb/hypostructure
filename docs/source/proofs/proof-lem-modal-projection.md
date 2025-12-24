@@ -3,7 +3,7 @@
 :::{prf:proof}
 :label: proof-lem-modal-projection
 
-**Theorem Reference:** {prf:ref}`lem-modal-projection`
+**Lemma (Modal Projection):** Singular behavior in higher homotopy groups necessarily projects to non-zero dissipation at the 0-morphism level.
 
 This proof establishes that singular behavior in higher homotopy groups (n-morphisms for $n \geq 1$) necessarily projects to non-zero defect at the 0-morphism level via the dissipation functional $\mathfrak{D}: \mathcal{X} \to \mathbb{R}$. The key mechanism is the **sharp modality** $\sharp$ of the cohesive $(\infty,1)$-topos, which contracts higher homotopy while preserving physically relevant information. This ensures that energy cannot "leak" into unmonitored higher coherences—the Sieve's base-level sensors are never "Modal-Blind."
 
@@ -30,7 +30,7 @@ We are provided with the following framework components from {prf:ref}`def-ambie
 
 3. **Dissipation Morphism:** $\mathfrak{D}: \mathcal{X} \to \underline{\mathbb{R}}$ where $\underline{\mathbb{R}}$ is the object of reals in $\mathcal{E}$. This is a 0-morphism (map between objects, not higher data).
 
-4. **Stiffness Pairing ({prf:ref}`mt-krnl-stiffpairing`):** Non-degenerate bilinear pairing:
+4. **Stiffness Pairing ({prf:ref}`mt-krnl-stiff-pairing`):** Non-degenerate bilinear pairing:
    $$\langle \cdot, \cdot \rangle: \mathcal{X} \times \mathcal{X} \to F$$
    ensuring no null modes in the free sector.
 
@@ -124,7 +124,7 @@ $$R_\nabla(x) \neq 0 \implies \mathfrak{D}(x) > 0$$
 
 **Proof:**
 
-**Step 2.2.1 (Dissipation Definition):** From {prf:ref}`def-dissipation-object`, the dissipation $\mathfrak{D}$ measures the instantaneous rate of height decrease:
+**Step 2.2.1 (Dissipation Definition):** From {prf:ref}`ax-dissipation`, the dissipation $\mathfrak{D}$ measures the instantaneous rate of height decrease:
 $$\frac{d}{dt}\Phi(S_t x) = -\mathfrak{D}(x) + \text{Source}(t)$$
 
 **Step 2.2.2 (Gradient Flow Structure):** When $\mathfrak{D}(x) = \|\nabla\Phi(x)\|_g^2$ (gradient flow), we have:
@@ -278,7 +278,7 @@ Weitzenböck formulas express Laplacians in terms of covariant derivatives and c
 
 ### KRNL-StiffPairing and No-Null-Modes
 
-**Reference:** {prf:ref}`mt-krnl-stiffpairing`
+**Reference:** {prf:ref}`mt-krnl-stiff-pairing`
 
 The StiffPairing metatheorem ensures no null modes exist in the pairing structure, complementing this Modal Projection Lemma.
 

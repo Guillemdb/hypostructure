@@ -256,12 +256,12 @@ $$\text{eval}_N: X \times \Gamma \to \mathcal{O}_N \times \mathcal{K}_N \times X
 3. **Implication:** Verify in $\mathcal{E}$'s internal logic that $K_o \vdash \text{Pre}(N_2)$
 
 **Example: Edge from EnergyCheck to ZenoCheck**
-- **Node:** $N_1 = \text{EnergyCheck}$ (Gate 1: D_E)
-- **Predicate:** $\mathcal{P}_{\text{D_E}}(\mathcal{X}, \Phi) = \text{YES}$ iff $E[\Phi] < \infty$
-- **Certificate:** $K^+_{\text{D_E}} = \text{witness of } E[\Phi] = c < \infty$ (finite energy bound)
-- **Target:** $N_2 = \text{ZenoCheck}$ (Gate 2: Rec_N)
+- **Node:** $N_1 = \text{EnergyCheck}$ (Gate 1: $D_E$)
+- **Predicate:** $\mathcal{P}_{D_E}(\mathcal{X}, \Phi) = \text{YES}$ iff $E[\Phi] < \infty$
+- **Certificate:** $K^+_{D_E} = \text{witness of } E[\Phi] = c < \infty$ (finite energy bound)
+- **Target:** $N_2 = \text{ZenoCheck}$ (Gate 2: $\text{Rec}_N$)
 - **Precondition:** $\text{Pre}(\text{ZenoCheck})$ requires finite energy to define discrete events
-- **Implication:** $K^+_{\text{D_E}} \vdash \text{Pre}(\text{ZenoCheck})$ holds because finite energy is a precondition for counting events
+- **Implication:** $K^+_{D_E} \vdash \text{Pre}(\text{ZenoCheck})$ holds because finite energy is a precondition for counting events
 
 **Soundness Guarantee:** By Lemma 1.3, all certificate schemas are coherent. Therefore, all edge implications are valid.
 

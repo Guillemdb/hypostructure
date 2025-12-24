@@ -3,7 +3,7 @@
 :::{prf:proof}
 :label: proof-lem-holographic-library-density
 
-**Theorem Reference:** {prf:ref}`lem-holographic-library-density`
+**Lemma (Holographic Library Density):** The finite Bad Pattern Library $\mathcal{B}$ is dense for all complexity-bounded germs satisfying $\sup_\varepsilon K_\varepsilon([P,\pi]) \leq S_{\text{BH}}$.
 
 This proof establishes that the finite Bad Pattern Library $\mathcal{B}$ is dense for all **complexity-bounded** germs—those satisfying the epistemic bound $\sup_\varepsilon K_\varepsilon([P,\pi]) \leq S_{\text{BH}}$ enforced by Node 11 (BarrierEpi). As a consequence, germs exceeding the Bekenstein-Hawking bound are physically unrepresentable and route to the Horizon mechanism, while all physically admissible germs factor through the finite library.
 

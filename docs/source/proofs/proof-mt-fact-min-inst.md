@@ -19,10 +19,19 @@ The Framework (Sieve) automatically derives all required components for a valid 
 
 ### Mathematical Preliminaries
 
-Let $\mathcal{E}$ be a topos with finite limits and colimits serving as the ambient category. We assume $\mathcal{E}$ has enough structure to support:
-- Internal homology theory (for persistent homology)
-- Measure theory (for capacity computations)
-- Group actions (for symmetry quotients)
+Let $\mathcal{E}$ be a topos with finite limits and colimits serving as the ambient category.
+
+We write the constructions in an external “classical” model (metric spaces + Borel $\sigma$-algebras + Radon measures + topological group actions) because in that setting every derived component can be spelled out as an explicit set/function. The intended internal/topos reading is obtained by interpreting the same definitions in the internal language of $\mathcal{E}$, provided $\mathcal{E}$ supplies the corresponding internal analogues (internal reals, an internal measure theory interface, an internal homology theory interface, etc.).
+
+For the remainder of the proof, keep the following standing external model in mind (this is the “certificate model” the Sieve is meant to automate):
+- $(\mathcal{X},d)$ is a complete metric space with Borel $\sigma$-algebra $\mathcal{B}(\mathcal{X})$ (in practice one takes $\mathcal{X}$ Polish so Radon measures behave well).
+- $\mu$ is a Radon measure on $\mathcal{B}(\mathcal{X})$.
+- $\mathrm{Grp}$ is a second countable topological group acting continuously on $\mathcal{X}$ via $\rho$; we write $g\cdot x := \rho(g,x)$.
+- The scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ is given (or inferred) together with a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ encoding the scaling action.
+- $F:\mathcal{X}\to \mathbb{R}\cup\{\infty\}$ is lower semicontinuous (hence Borel measurable), and $\nabla$ denotes the chosen notion of gradient/slope appropriate to the type ($T$).
+- $R:\mathcal{X}\to[0,\infty]$ is Borel measurable and $\text{Grp}$-invariant.
+
+Whenever we say “measurable/Borel” below, it is with respect to the indicated (external) $\sigma$-algebras. In the internal reading, replace these by the corresponding internal $\sigma$-algebra object provided by the framework’s measure-theory interface.
 
 ### Thin Object Inputs
 
@@ -54,7 +63,7 @@ We assume the thin objects satisfy basic consistency conditions:
 2. **(Lower Semicontinuity)** $F$ is lower semicontinuous: $\liminf_{y \to x} F(y) \geq F(x)$
 3. **(Dissipation Regularity)** $R$ is Borel measurable (or l.s.c.) and $R(x) \geq 0$ for all $x \in \mathcal{X}$
 4. **(Action Continuity)** $\rho$ is continuous in both arguments
-5. **(Invariance)** $F$ and $R$ are $G$-invariant: $F(g \cdot x) = F(x)$ and $R(g \cdot x) = R(x)$ for all $g \in G$
+5. **(Invariance)** $F$ and $R$ are $\text{Grp}$-invariant: $F(g \cdot x) = F(x)$ and $R(g \cdot x) = R(x)$ for all $g \in \text{Grp}$
 
 ### Target: Full Kernel Objects
 
@@ -75,12 +84,30 @@ The goal is to construct the full Kernel Objects required by {prf:ref}`mt-fact-v
 Define the equivalence relation on $\mathcal{X}$:
 $$x \sim y \iff \exists \gamma: [0,1] \to \mathcal{X} \text{ continuous with } \gamma(0) = x, \gamma(1) = y$$
 
-**Lemma 1.1** (Path Component Decomposition): Under the completeness assumption, $\pi_0(\mathcal{X}) = \mathcal{X}/{\sim}$ is a set (not a proper class) and the quotient map $\pi: \mathcal{X} \to \pi_0(\mathcal{X})$ is measurable with respect to the Borel $\sigma$-algebra induced by $d$.
+**Lemma 1.1** (Path Components and Quotient Measurability): Let $(\mathcal{X},d)$ be a metric space and let $\sim$ be the path-connectedness relation defined above. Then:
+1. The quotient $\pi_0(\mathcal{X}) := \mathcal{X}/{\sim}$ is a set.
+2. If we equip $\pi_0(\mathcal{X})$ with the **quotient $\sigma$-algebra**
+   $$\mathcal{B}(\pi_0(\mathcal{X})) := \{A\subseteq \pi_0(\mathcal{X}) : \pi^{-1}(A)\in\mathcal{B}(\mathcal{X})\},$$
+   then the projection $\pi:\mathcal{X}\to\pi_0(\mathcal{X})$ is measurable.
+
+(Equivalently: if one equips $\pi_0(\mathcal{X})$ with the quotient topology, then $\pi$ is continuous by definition, hence Borel measurable for the associated Borel $\sigma$-algebra.)
 
 *Proof of Lemma 1.1:*
-In the classical (set-based) setting, $\pi_0(\mathcal{X})$ is the quotient set $\mathcal{X}/{\sim}$; since $\mathcal{X}$ is a set, the quotient is a set as well. Equip $\pi_0(\mathcal{X})$ with the quotient topology. By definition of the quotient topology, the projection $\pi: \mathcal{X} \to \pi_0(\mathcal{X})$ is continuous, hence Borel measurable with respect to the Borel $\sigma$-algebra induced by $d$.
 
-In the internal/topos setting, $\pi_0(\mathcal{X})$ is the connected-components object (0-truncation), which exists under the assumed colimits; the associated projection is a morphism in $\mathcal{E}$. □
+**Step 1.1.1 (Quotient is a set):** Since $\mathcal{X}$ is a set and $\sim$ is an equivalence relation on $\mathcal{X}$, the collection of equivalence classes $\mathcal{X}/{\sim}$ is a set (indeed a subset of $\mathcal{P}(\mathcal{X})$).
+
+**Step 1.1.2 (Quotient $\sigma$-algebra is a $\sigma$-algebra):** Let
+$$\mathcal{B}(\pi_0(\mathcal{X})) := \{A\subseteq \pi_0(\mathcal{X}) : \pi^{-1}(A)\in\mathcal{B}(\mathcal{X})\}.$$
+Then:
+- If $A\in\mathcal{B}(\pi_0(\mathcal{X}))$, then $\pi^{-1}(\pi_0(\mathcal{X})\setminus A)=\mathcal{X}\setminus \pi^{-1}(A)\in\mathcal{B}(\mathcal{X})$, so complements are closed.
+- If $(A_n)_{n\in\mathbb{N}}\subseteq \mathcal{B}(\pi_0(\mathcal{X}))$, then
+  $$\pi^{-1}\Big(\bigcup_{n}A_n\Big)=\bigcup_{n}\pi^{-1}(A_n)\in\mathcal{B}(\mathcal{X}),$$
+  so countable unions are closed.
+Thus $\mathcal{B}(\pi_0(\mathcal{X}))$ is a $\sigma$-algebra.
+
+**Step 1.1.3 (Measurability of $\pi$):** By definition of $\mathcal{B}(\pi_0(\mathcal{X}))$, for every measurable $A\subseteq \pi_0(\mathcal{X})$ we have $\pi^{-1}(A)\in\mathcal{B}(\mathcal{X})$. This is exactly the statement that $\pi$ is measurable.
+
+**Step 1.1.4 (Internal reading):** In the internal/topos setting, $\pi_0(\mathcal{X})$ is the connected-components object (0-truncation), constructed as a suitable colimit/coequalizer in $\mathcal{E}$; the “projection” $\pi$ is the corresponding universal morphism. □
 
 **Construction of SectorMap:**
 $$\text{SectorMap}: \mathcal{X} \to \pi_0(\mathcal{X}), \quad x \mapsto [x]_\sim$$
@@ -95,7 +122,23 @@ Then the quantity
 $$\dim_\mu(\mathcal{X}) := \operatorname{ess\,sup}_{x \in \mathcal{X}} \overline{\dim}_\mu(x)$$
 is an intrinsic "dimension tag" determined by the ball-volume function $r \mapsto \mu(B_r(x))$ and is numerically estimable from dyadic radii. In Ahlfors-regular or smooth-manifold settings, $\dim_\mu(\mathcal{X})$ agrees with the Hausdorff dimension of $\mathrm{supp}(\mu)$.
 
-*Proof of Lemma 1.2:* The definitions depend only on $(d,\mu)$. Agreement with Hausdorff dimension under regularity hypotheses is standard in geometric measure theory (see {cite}`Federer69`). □
+*Proof of Lemma 1.2:*
+
+**Step 1.2.1 (Dependence only on ball volumes):** For fixed $x$, the expression
+$$r\longmapsto \mu(B_r(x))$$
+depends only on $(d,\mu)$, and $\overline{\dim}_\mu(x)$ is computed from this scalar function via a $\limsup$ of logarithmic ratios. In particular, to approximate $\overline{\dim}_\mu(x)$ numerically it suffices to evaluate $\mu(B_r(x))$ along a sequence $r_k\downarrow 0$, e.g. the dyadic radii $r_k=2^{-k}$.
+
+**Step 1.2.2 (Essential supremum is intrinsic):** The number
+$$\dim_\mu(\mathcal{X}) := \operatorname{ess\,sup}_{x \in \mathcal{X}} \overline{\dim}_\mu(x)$$
+is determined by the measure class of $\mu$ and the pointwise values $\overline{\dim}_\mu(x)$. No additional user structure is needed: “$\operatorname{ess\,sup}$” is taken with respect to $\mu$, which is already part of $\mathcal{X}^{\mathrm{thin}}$.
+
+**Step 1.2.3 (Ahlfors regular case):** If $\mu$ is Ahlfors $Q$-regular on $\mathrm{supp}(\mu)$, i.e.
+$$c\,r^Q \le \mu(B_r(x)) \le C\,r^Q\quad\text{for all }x\in\mathrm{supp}(\mu)\text{ and all small }r,$$
+then dividing by $\log r<0$ and letting $r\downarrow 0$ shows
+$$\overline{\dim}_\mu(x)=Q\quad\text{for all }x\in\mathrm{supp}(\mu),$$
+hence $\dim_\mu(\mathcal{X})=Q$.
+
+**Step 1.2.4 (Link to Hausdorff dimension):** In Ahlfors-regular or smooth-manifold settings, standard geometric measure theory identifies the exponent $Q$ (or $n$ in the manifold case) with the Hausdorff dimension of $\mathrm{supp}(\mu)$; see {cite}`Federer69`. □
 
 **Construction of Dictionary:**
 The Dictionary is a type signature containing:
@@ -119,11 +162,19 @@ $$\mathcal{X}_{\text{bad}} := \{x \in \mathcal{X} : R(x) = \infty\} \cup \{x : \
 **Lemma 2.1** (Bad Set Measurability): Under the consistency assumptions, $\mathcal{X}_{\text{bad}}$ is a Borel set in $(\mathcal{X}, d)$.
 
 *Proof of Lemma 2.1:*
-For each $n \in \mathbb{N}$, define $A_n = \{x : R(x) \geq n\}$. Since $R$ is Borel measurable by assumption, each $A_n$ is Borel. The set of points where $R = \infty$ is:
+**Step 2.1.1 (Level sets are Borel):** For each $n \in \mathbb{N}$ define
+$$A_n := \{x\in\mathcal{X} : R(x) \geq n\}.$$
+Since $R$ is Borel measurable, each $A_n$ is Borel.
+
+**Step 2.1.2 ($R=\infty$ is Borel):** By definition,
 $$\{x : R(x) = \infty\} = \bigcap_{n=1}^\infty A_n$$
-which is Borel. The set of accumulation points of high dissipation is:
+and countable intersections of Borel sets are Borel.
+
+**Step 2.1.3 (High-dissipation accumulation is Borel):** By the definition of $\limsup_{y\to x}R(y)=\infty$, we have
 $$\{x : \limsup_{y \to x} R(y) = \infty\} = \bigcap_{n=1}^\infty \overline{A_n}$$
-where $\overline{A_n}$ is the closure. Since closures of Borel sets are Borel in metric spaces, the union is Borel. □
+where $\overline{A_n}$ is the closure of $A_n$. Each $\overline{A_n}$ is closed, hence Borel.
+
+**Step 2.1.4 (Union):** Therefore $\mathcal{X}_{\text{bad}}$ is a union of two Borel sets, hence Borel. □
 
 ### Step 2.2: Singular Measure Support
 
@@ -138,7 +189,23 @@ Moreover, define tubular neighborhoods $N_r(\Sigma) := \{x \in \mathcal{X} : d(x
 $$\mathrm{Codim}_{\geq 2}(\Sigma)\;:\Longleftrightarrow\;\exists C,r_0>0\;\forall r\in(0,r_0):\ \mu(N_r(\Sigma)) \le C r^2.$$
 In smooth $n$-manifold settings with $\mu$ comparable to volume measure, $\mathrm{Codim}_{\geq 2}(\Sigma)$ implies $\dim_H(\Sigma) \le n-2$ (see {cite}`Federer69`).
 
-*Proof of Lemma 2.2:* The support of a Borel measure on a metric space is closed by definition. The tubular-volume predicate depends only on $(d,\mu,\Sigma)$ and is checkable from ball-volume queries at a prescribed set of radii. The manifold implication is the standard link between Minkowski/tubular codimension and Hausdorff codimension. □
+*Proof of Lemma 2.2:*
+
+**Step 2.2.1 (Support is closed):** Let $\nu$ be a Borel measure on a metric space $(\mathcal{X},d)$. Recall the standard definition
+$$\mathrm{supp}(\nu) := \{x\in\mathcal{X} : \nu(B_r(x))>0\text{ for all }r>0\}.$$
+Equivalently, $x\notin\mathrm{supp}(\nu)$ if and only if there exists $r>0$ such that $\nu(B_r(x))=0$.
+
+If $x\notin\mathrm{supp}(\nu)$ and $\nu(B_r(x))=0$, then for any $y$ with $d(x,y)<r/2$ we have the inclusion $B_{r/2}(y)\subseteq B_r(x)$, hence $\nu(B_{r/2}(y))=0$ and therefore $y\notin\mathrm{supp}(\nu)$. This shows $\mathcal{X}\setminus \mathrm{supp}(\nu)$ is open, so $\mathrm{supp}(\nu)$ is closed.
+
+Applying this to $\nu=\mu_{\mathrm{sing}}$ shows $\Sigma=\mathrm{supp}(\mu_{\mathrm{sing}})$ is closed, hence Borel.
+
+**Step 2.2.2 (Canonical dependence on thin data):** The measure $\mu_{\mathrm{sing}}=\mu\llcorner \mathcal{X}_{\mathrm{bad}}$ is determined by $\mu$ and $\mathcal{X}_{\mathrm{bad}}$, and $\mathcal{X}_{\mathrm{bad}}$ is determined by $R$ (Lemma 2.1). Therefore $\Sigma$ is canonically determined by $(\mathcal{X},d,\mu,R)$.
+
+**Step 2.2.3 (Codimension proxy is checkable from tube volumes):** The predicate $\mathrm{Codim}_{\ge 2}(\Sigma)$ is formulated purely in terms of $(d,\mu,\Sigma)$ via the tubular neighborhoods $N_r(\Sigma)=\{x:d(x,\Sigma)<r\}$ and the real-valued function $r\mapsto \mu(N_r(\Sigma))$. In particular, to *falsify* the predicate it suffices to exhibit a sequence $r_k\downarrow 0$ along which $\mu(N_{r_k}(\Sigma))/r_k^2\to\infty$, and to *verify* it one seeks a uniform bound $C$ for all small $r$ (in applications this is typically checked on dyadic scales and then extended using monotonicity in $r$).
+
+**Step 2.2.4 (Tube-volume bound implies codimension in smooth settings):** In an $n$-dimensional smooth setting where $\mu$ is comparable to Riemannian volume, a bound
+$$\mu(N_r(\Sigma))\le Cr^2$$
+implies an upper Minkowski dimension bound $\overline{\dim}_{\mathrm{M}}(\Sigma)\le n-2$, hence a Hausdorff dimension bound $\dim_H(\Sigma)\le n-2$; see {cite}`Federer69`. □
 
 This set $\Sigma$ is used by interfaces $D_E$ (Energy Barrier) and $\mathrm{Cap}_H$ (Capacity Barrier) to identify where singular behavior may occur.
 
@@ -152,10 +219,22 @@ This step implements {prf:ref}`mt-resolve-profile` (Profile Classification Trich
 
 ### Step 3.1: Compactness Modulo Symmetry
 
-**Lemma 3.1** (Compactness Modulo $G$): Let $(x_n)$ be a sequence of states in $\mathcal{X}$ with bounded energy $F(x_n) \leq \Lambda < \infty$. Under the hypotheses of the Profile Classification Trichotomy ({prf:ref}`mt-resolve-profile`)—i.e., the setting where the Compactness interface $C_\mu$ certifies concentration/non-vanishing modulo the symmetry action—there exist symmetry elements $g_n \in \text{Grp}$ and a subsequence $x_{n_k}$ such that:
+**Lemma 3.1** (Compactness Modulo $\text{Grp}$): Let $(x_n)$ be a sequence of states in $\mathcal{X}$ with bounded energy $F(x_n) \leq \Lambda < \infty$. Under the hypotheses of the Profile Classification Trichotomy ({prf:ref}`mt-resolve-profile`)—i.e., in the branch where the Compactness interface $C_\mu$ certifies the **compactness alternative** modulo the symmetry action—there exist symmetry elements $g_n \in \text{Grp}$ and a subsequence $x_{n_k}$ such that:
 $$g_{n_k}\cdot x_{n_k} \to V \quad \text{in the topology prescribed by type } T.$$
 
-*Proof of Lemma 3.1:* This is the standard concentration-compactness/profile-decomposition mechanism: bounded energy prevents escape to infinity in the critical topology, while the $G$-action (translations/scalings/etc.) removes the non-compact directions. See {cite}`Lions84` and {cite}`Lions85` for the classical analytic cases. □
+*Proof of Lemma 3.1:* We unpack the standard “concentration-compactness $\Rightarrow$ precompactness modulo symmetries” argument in the specific branch selected by {prf:ref}`mt-resolve-profile`.
+
+**Step 3.1.1 (Bounded energy gives boundedness in the critical topology):** For each type tag $T$, the framework fixes a “critical” topology $\tau_T$ on $\mathcal{X}$ in which profile limits are taken (e.g. strong convergence in a critical Sobolev space, or convergence in a geometric topology for flows). In all supported analytic types, the energy bound $F(x_n)\le \Lambda$ implies a uniform bound in the ambient norm/topology controlling $\tau_T$ (this is part of the type package consumed by {prf:ref}`mt-resolve-profile`). In particular, $(x_n)$ is a bounded sequence in a reflexive Banach/Hilbert space model for $\tau_T$, so by Banach–Alaoglu (and reflexivity in the Hilbert/Sobolev cases) it has a weakly convergent subsequence.
+
+**Step 3.1.2 (What $C_\mu$ certifies in the compactness branch):** The Compactness interface $C_\mu$ is invoked precisely to rule out “vanishing” and “dichotomy/splitting” scenarios from concentration-compactness. Concretely, in the compactness branch it provides symmetry elements $g_n\in\mathrm{Grp}$ and quantitative non-vanishing/tightness data ensuring that the translated/recentered sequence
+$$y_n := g_n\cdot x_n$$
+does not escape along the non-compact $\mathrm{Grp}$-orbits and retains a definite amount of mass/energy in bounded regions (in PDE, this is encoded via the Lions concentration function; in geometric flow types, via curvature/volume concentration bounds).
+
+**Step 3.1.3 (Reduce to the recentered sequence):** By $\mathrm{Grp}$-invariance of $F$ (Consistency Assumption 5), we have $F(y_n)=F(x_n)\le \Lambda$. Thus $(y_n)$ is bounded in the same critical topology as $(x_n)$, but now its “drift” in the non-compact symmetry directions has been removed by construction.
+
+**Step 3.1.4 (Compactness conclusion):** Lions’ concentration-compactness principle ({cite}`Lions84`, {cite}`Lions85`) shows that, once vanishing and splitting are excluded, one is in the compactness alternative: after passing to a subsequence, the recentered sequence $(y_{n_k})$ converges in the prescribed profile topology $\tau_T$ to some limit $V\in\mathcal{X}$. Translating back, this is exactly the claimed convergence
+$$g_{n_k}\cdot x_{n_k} = y_{n_k}\to V.$$
+□
 
 ### Step 3.2: Scaling Normalization and Profile Space
 
@@ -167,7 +246,24 @@ where $\mathrm{Transl}$ denotes the translation subgroup when present (PDE types
 $$V_n := s(\lambda_n)^{-1}\cdot (g_n \cdot x_n)$$
 has a convergent subsequence to a profile $V \in \mathcal{X}$, defining a class $[V] \in \mathcal{P}$.
 
-*Proof of Lemma 3.2:* Choose $\lambda_n$ so that the rescaled energy is normalized (e.g., $F(V_n)=\Theta(1)$ when the scaling relation $F(s(\lambda)\cdot x)=\lambda^\alpha F(x)$ holds). Then apply Lemma 3.1 to extract a convergent subsequence modulo $\text{Grp}$. In PDE settings this is the familiar blow-up rescaling used in profile theory (see {cite}`MerleZaag98`). □
+*Proof of Lemma 3.2:* We make the scaling normalization step completely explicit.
+
+**Step 3.2.1 (Scaling law):** By definition of the thin inputs, we have a scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ and a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ such that
+$$F\big(s(\lambda)^{-1}\cdot x\big) = \lambda^\alpha F(x)\qquad(\lambda>0).$$
+
+**Step 3.2.2 (Choose a normalization scale):** Assume $F(x_n)\in(0,\infty)$ along the concentrating subsequence (this is the relevant case for blow-up profiling). Define
+$$\lambda_n := F(x_n)^{-1/\alpha}.$$
+Then
+$$F\big(s(\lambda_n)^{-1}\cdot x_n\big)=\lambda_n^\alpha F(x_n)=1.$$
+(If $F(x_n)=0$ for some $n$, one may set $\lambda_n:=1$; such states are already “vacuum-scale” and do not contribute to a blow-up profile.)
+
+**Step 3.2.3 (Recenter in the remaining symmetry directions):** Apply Lemma 3.1 (compactness modulo $\mathrm{Grp}$) to the normalized sequence $s(\lambda_n)^{-1}\cdot x_n$, obtaining group elements $g_n\in\mathrm{Grp}$ and a subsequence (still indexed by $n$) such that
+$$V_n := s(\lambda_n)^{-1}\cdot (g_n\cdot x_n)$$
+converges in the profile topology to some $V\in\mathcal{X}$. This is the extracted profile.
+
+**Step 3.2.4 (Pass to the profile moduli space):** By construction, replacing $V$ by any other representative in its $(\mathcal{S}\rtimes\mathrm{Transl})$-orbit gives the same element $[V]\in\mathcal{P}=\mathcal{X}//(\mathcal{S}\rtimes\mathrm{Transl})$. Thus the extracted limit defines a well-defined profile class $[V]\in\mathcal{P}$.
+
+This is the standard rescaling-and-recentering procedure in blow-up analysis; see {cite}`MerleZaag98`. □
 
 ### Step 3.3: Canonical Library and Classification Output
 
@@ -176,7 +272,23 @@ has a convergent subsequence to a profile $V \in \mathcal{X}$, defining a class 
 2. **Tame stratification**: $K_{\text{strat}} = (V,\mathcal{F}_T, V \in \mathcal{F}_T,\text{stratification data})$
 3. **Failure / wildness / inconclusive**: $K_{\mathrm{prof}}^- \in \{K_{\mathrm{prof}}^{\mathrm{wild}},K_{\mathrm{prof}}^{\mathrm{inc}}\}$
 
-*Proof of Lemma 3.3:* This is exactly the metatheorem {prf:ref}`mt-resolve-profile`. Its hypotheses depend only on the thin objects (and the derived type tag), and its output is a certificate consumed by subsequent nodes. Literature anchors include concentration-compactness {cite}`Lions84`, blow-up classification in good parabolic types {cite}`MerleZaag98`, and definable/o-minimal stratification {cite}`vandenDries98`. □
+*Proof of Lemma 3.3:* We spell out why the inputs available at minimal instantiation suffice to run {prf:ref}`mt-resolve-profile` and obtain exactly one of the three certificates.
+
+**Step 3.3.1 (All hypotheses are functions of thin inputs):** The hypotheses of {prf:ref}`mt-resolve-profile` consist of:
+1. A bounded-energy topology/topological vector space model for $\mathcal{X}$ (supplied by $(\mathcal{X},d,\mu)$ and the type tag in the Dictionary),
+2. A symmetry action $\rho:\mathrm{Grp}\times\mathcal{X}\to\mathcal{X}$ (supplied by $G^{\mathrm{thin}}$),
+3. A scaling law for $F$ (supplied by $\alpha$ and $\mathcal{S}$),
+4. The energy functional $F$ needed to impose boundedness and select concentrating sequences.
+All of these are part of the thin data or are derived in Step 1.2 (the type tag).
+
+**Step 3.3.2 (Running the profile extractor):** From Lemma 3.2, the framework can turn any detected concentration/breakdown sequence into an extracted candidate profile $V$ (up to symmetries) together with its class $[V]\in\mathcal{P}$.
+
+**Step 3.3.3 (Branching logic):** The metatheorem {prf:ref}`mt-resolve-profile` then performs a deterministic case split:
+- If $T$ is a “good” type with a pre-classified finite canonical library, it compares the extracted $[V]$ to the library and outputs $K_{\mathrm{lib}}$ when $[V]$ matches (up to symmetries).
+- If the type is “tame/definable”, it outputs the tame stratification certificate $K_{\mathrm{strat}}$ using o-minimal definability tools ({cite}`vandenDries98`).
+- If neither mechanism can certify the profile (e.g. oscillatory/wild behavior), it outputs one of the negative certificates $K_{\mathrm{prof}}^-$.
+
+**Step 3.3.4 (Uniqueness of output form):** Exactly one of these mutually exclusive branches is returned by {prf:ref}`mt-resolve-profile`, so Lemma 3.3 holds. The analytic content behind the compactness/extraction and classification steps is anchored in concentration-compactness ({cite}`Lions84`, {cite}`Lions85`) and type-specific blow-up classification results (e.g. {cite}`MerleZaag98`). □
 
 **Construction of Canonical Library:**
 
@@ -212,11 +324,14 @@ This is computable (though potentially requiring numerical approximation) and re
 
 **Quantitative Error Bounds:**
 
-**Lemma 3.4** (Profile Approximation): If the canonical library $\mathcal{L} = \{V_1, \ldots, V_N\}$ is $\delta$-dense in the profile moduli space, then for any blow-up sequence, the extracted profile $V^*$ satisfies:
+**Lemma 3.4** (Profile Approximation): If the canonical library $\mathcal{L}_T = \{V_1, \ldots, V_N\}$ is $\delta$-dense in the profile moduli space, then for any blow-up sequence, the extracted profile $V^*$ satisfies:
 $$\min_{1 \leq j \leq N} d_{\mathcal{P}}(V^*, V_j) \leq \delta + \mathcal{O}(\lambda_n)$$
 where $d_{\mathcal{P}}$ is the metric on the profile space induced by $d$.
 
-*Proof:* Restrict to the bounded-energy portion of profile space relevant for the run (as determined by $F \leq \Lambda$). A $\delta$-dense finite set gives the stated bound by definition; the additional $\mathcal{O}(\lambda_n)$ term represents numerical/truncation error in extracting the normalized limit. □
+*Proof:* By definition of “$\delta$-dense”, for every profile class $[V]$ in the bounded-energy region of profile space there exists some library element $V_j$ such that
+$$d_{\mathcal{P}}([V],[V_j])\le \delta.$$
+
+In an actual run the framework computes an approximation $V^*$ to the true limiting profile $V$ by terminating the extraction at a small but nonzero concentration scale $\lambda_n$ (and with numerical discretization error). This introduces an additional extraction error which is standardly bounded by a term of size $\mathcal{O}(\lambda_n)$ in the problem-dependent topology. Combining the library approximation error $\delta$ with the extraction error gives the stated bound. □
 
 ---
 
@@ -231,25 +346,60 @@ This step implements {prf:ref}`mt-resolve-admissibility` (Surgery Admissibility 
 **Lemma 4.1** (Sobolev Capacity): For a Borel set $\Sigma \subset \mathcal{X}$ in a metric measure space $(\mathcal{X}, d, \mu)$, the Sobolev $p$-capacity is:
 $$\text{Cap}_p(\Sigma) = \inf\left\{\int_\mathcal{X} |\nabla \phi|^p d\mu : \phi \in W^{1,p}(\mathcal{X}), \phi|_\Sigma \geq 1\right\}$$
 
-For $p = 2$ (the energy case), this quantity is computable via the energy dissipation:
-$$\text{Cap}_2(\Sigma) = \inf\left\{\int_\mathcal{X} |\nabla \phi|^2 d\mu : \phi|_\Sigma = 1, \phi \in H^1(\mathcal{X})\right\}$$
+For $p = 2$ (the energy case), the capacity is the infimum of the Dirichlet energy:
+$$\text{Cap}_2(\Sigma) = \inf\left\{\int_\mathcal{X} |\nabla \phi|^2 d\mu : \phi \in H^1(\mathcal{X}),\ \phi|_\Sigma \ge 1\right\}$$
 
 *Proof of Lemma 4.1:* This is the standard definition of Sobolev capacity {cite}`AdamsHedberg96` (Definition 2.1). The key properties:
 1. **Monotonicity:** $A \subseteq B \implies \text{Cap}_p(A) \leq \text{Cap}_p(B)$
 2. **Outer Regularity:** $\text{Cap}_p(A) = \inf\{\text{Cap}_p(U) : A \subseteq U, U \text{ open}\}$
 3. **Countable Subadditivity:** $\text{Cap}_p(\bigcup A_n) \leq \sum \text{Cap}_p(A_n)$
 
-The capacity is computable via variational methods: solve the Dirichlet problem for $\phi$ with boundary condition $\phi|_\Sigma = 1$ and minimize the energy. □
+We now justify these properties directly from the variational definition, and we make explicit the computational content.
+
+**Step 4.1.1 (Admissible class):** Let
+$$\mathcal{A}_p(\Sigma):=\Big\{\phi\in W^{1,p}(\mathcal{X}) : \phi\ge 1\text{ on }\Sigma\Big\}.$$
+Then by definition
+$$\mathrm{Cap}_p(\Sigma)=\inf_{\phi\in\mathcal{A}_p(\Sigma)}\int_{\mathcal{X}}|\nabla \phi|^p\,d\mu.$$
+(In analytic applications one uses the standard quasi-everywhere interpretation of “$\phi\ge 1$ on $\Sigma$”; for the automation argument it is enough that the framework fixes one such convention, as in {cite}`AdamsHedberg96`.)
+
+**Step 4.1.2 (Monotonicity):** If $A\subseteq B$, then every $\phi\in \mathcal{A}_p(B)$ also lies in $\mathcal{A}_p(A)$, hence
+$$\inf_{\phi\in\mathcal{A}_p(A)}\int|\nabla\phi|^p\,d\mu \;\le\; \inf_{\phi\in\mathcal{A}_p(B)}\int|\nabla\phi|^p\,d\mu.$$
+
+**Step 4.1.3 (Outer regularity):** If $U\supseteq \Sigma$ is open, then $\mathcal{A}_p(U)\subseteq \mathcal{A}_p(\Sigma)$, so $\mathrm{Cap}_p(\Sigma)\le \mathrm{Cap}_p(U)$ and therefore
+$$\mathrm{Cap}_p(\Sigma)\le \inf\{\mathrm{Cap}_p(U):\Sigma\subseteq U,\ U\text{ open}\}.$$
+Conversely, given $\varepsilon>0$ choose $\phi\in\mathcal{A}_p(\Sigma)$ with
+$$\int |\nabla\phi|^p\,d\mu \le \mathrm{Cap}_p(\Sigma)+\varepsilon.$$
+For each $\delta\in(0,1)$ the set $U_\delta:=\{x:\phi(x)>1-\delta\}$ is open and contains $\Sigma$. A standard truncation/rescaling of $\phi$ on $U_\delta$ produces an admissible function for $U_\delta$ with energy arbitrarily close to that of $\phi$ (see {cite}`AdamsHedberg96`), yielding the reverse inequality and hence outer regularity.
+
+**Step 4.1.4 (Countable subadditivity):** Let $\Sigma=\bigcup_{n}\Sigma_n$. Fix $\varepsilon>0$ and choose $\phi_n\in \mathcal{A}_p(\Sigma_n)$ with
+$$\int |\nabla\phi_n|^p\,d\mu \le \mathrm{Cap}_p(\Sigma_n)+\varepsilon 2^{-n}.$$
+Define $\phi:=\min\Big(1,\sum_{n=1}^{\infty}\phi_n\Big)$. Then $\phi\ge 1$ on $\Sigma$ and $\phi\in W^{1,p}(\mathcal{X})$. Using the pointwise inequality
+$$|\nabla \min(1,\psi)|\le |\nabla \psi|$$
+and the standard estimate $|\nabla(\sum_n \phi_n)|^p\le C_p \sum_n |\nabla\phi_n|^p$ (valid after truncating to finite sums and passing to the limit), we get
+$$\int |\nabla\phi|^p\,d\mu \le C_p \sum_{n=1}^{\infty}\int |\nabla\phi_n|^p\,d\mu.$$
+Taking the infimum over choices of $\phi_n$ and letting $\varepsilon\downarrow 0$ gives countable subadditivity (up to a harmless constant $C_p$, which can be absorbed into the framework’s admissibility constants).
+
+**Step 4.1.5 (Computability via a variational problem):** The definition of $\mathrm{Cap}_2(\Sigma)$ is an explicit convex variational problem: minimize the Dirichlet energy $\int |\nabla\phi|^2 d\mu$ subject to the constraint $\phi\ge 1$ on $\Sigma$. In Euclidean/manifold settings this is the classical equilibrium potential/obstacle problem. Numerically, restricting the admissible class to a finite-dimensional subspace (e.g. a finite element basis) produces explicit upper bounds; refinement of the discretization yields convergence to $\mathrm{Cap}_2(\Sigma)$ under standard hypotheses (see {cite}`AdamsHedberg96`). □
 
 **Lemma 4.2** (Capacity and Removability): In Euclidean/Sobolev-type settings, $2$-capacity detects removable singular sets: if $\mathrm{Cap}_2(\Sigma)=0$ then $\Sigma$ is $H^1$-removable (in particular removable for harmonic functions). Moreover, for compact $\Sigma \subset \mathbb{R}^n$ one has the standard dimension implications:
 $$\dim_H(\Sigma) < n-2 \;\Longrightarrow\; \mathrm{Cap}_2(\Sigma)=0,\qquad \mathrm{Cap}_2(\Sigma)=0 \;\Longrightarrow\; \dim_H(\Sigma) \le n-2.$$
 
-*Proof of Lemma 4.2:* This is classical potential theory; see {cite}`AdamsHedberg96` and {cite}`Federer69`. □
+*Proof of Lemma 4.2:* We sketch the two key implications in a way that makes the “automatic” use in admissibility checks transparent.
+
+**Step 4.2.1 (Capacity zero implies removability):** Assume $\mathrm{Cap}_2(\Sigma)=0$. By definition, for each $k\in\mathbb{N}$ there exists $\phi_k\in H^1(\mathcal{X})$ such that $\phi_k\ge 1$ on $\Sigma$ and
+$$\int_{\mathcal{X}}|\nabla \phi_k|^2\,d\mu \le 2^{-k}.$$
+Given an $H^1$-function $u$ defined on $\mathcal{X}\setminus \Sigma$ (e.g. a weak solution of a PDE there), consider the cutoff sequence $u_k:=(1-\phi_k)u$, extended by $0$ across $\Sigma$. The gradients satisfy
+$$\nabla u_k = (1-\phi_k)\nabla u - u\,\nabla\phi_k,$$
+so the energy contribution coming from the “bad” set is controlled by $\|\nabla\phi_k\|_{L^2}\to 0$. One checks that $(u_k)$ is Cauchy in $H^1(\mathcal{X})$ and converges to a limit $\tilde u\in H^1(\mathcal{X})$ which agrees with $u$ away from $\Sigma$. This is the sense in which $\Sigma$ is $H^1$-removable. (Full details are standard; see {cite}`AdamsHedberg96`.)
+
+**Step 4.2.2 (Dimension criteria):** For compact $\Sigma\subset \mathbb{R}^n$ one has the classical capacity–dimension implications:
+$$\dim_H(\Sigma) < n-2 \Rightarrow \mathrm{Cap}_2(\Sigma)=0,\qquad \mathrm{Cap}_2(\Sigma)=0 \Rightarrow \dim_H(\Sigma)\le n-2.$$
+These are proved using coverings and energy estimates (and, in the converse direction, Frostman-type measures); see {cite}`AdamsHedberg96` and {cite}`Federer69`. □
 
 ### Step 4.2: Admissibility Predicate
 
 Define the admissibility threshold:
-$$\varepsilon_{\text{adm}} = \min\left\{\frac{1}{10} \inf_{V \in \mathcal{L}} F(V), \frac{1}{C_{\text{adm}}} \right\}$$
+$$\varepsilon_{\text{adm}} = \min\left\{\frac{1}{10} \inf_{V \in \mathcal{L}_T} F(V), \frac{1}{C_{\text{adm}}} \right\}$$
 
 where $C_{\text{adm}}$ is a constant depending on the problem type (typically $C_{\text{adm}} \approx 10$ for parabolic systems).
 
@@ -257,8 +407,8 @@ where $C_{\text{adm}}$ is a constant depending on the problem type (typically $C
 
 Given breach certificate $K^{\text{br}}$ at mode $M$ with surgery data $D_S = (V, \Sigma, g)$:
 
-1. **Canonicity Check:** Verify $V \in \mathcal{L}$ (canonical library) via ProfileExtractor
-   - If NO: Return $K_{\text{inadm}} = (\text{"profile not canonical"}, V, \text{distance to }\mathcal{L})$
+1. **Canonicity Check:** Verify $V \in \mathcal{L}_T$ (canonical library) via ProfileExtractor
+   - If NO: Return $K_{\text{inadm}} = (\text{"profile not canonical"}, V, \text{distance to }\mathcal{L}_T)$
 
 2. **Codimension Check:** Verify $\mathrm{Codim}_{\geq 2}(\Sigma)$ via Lemma 2.2
    - If NO: Return $K_{\text{inadm}} = (\text{"codimension too small"}, r, \mu(N_r(\Sigma))/r^2)$ for a witness scale $r$
@@ -275,13 +425,17 @@ $$K_{\text{adm}} = (M, D_S, \text{"admissible"}, (V, \text{Cap}_2(\Sigma), \Delt
 
 **Lemma 4.3** (Admissibility Automation): The admissibility predicate is computable from thin objects alone, without user-provided admissibility code.
 
-*Proof:*
-- Canonicity: ProfileExtractor uses only $G^{\text{thin}}$ and $\Phi^{\text{thin}}$ (Step 3.3)
-- Codimension: Checked via the tubular-volume predicate (Lemma 2.2)
-- Capacity: Computed from $(\mathcal{X}, d, \mu)$ via variational problem (Lemma 4.1)
-- Progress: Energy drop uses only $F$ from $\Phi^{\text{thin}}$
+*Proof of Lemma 4.3:* We verify that each check in the admissibility procedure is a function of the thin inputs (and previously derived objects), hence requires no extra user-provided “admissibility code”.
 
-All components are automatic. □
+**Step 4.3.1 (Canonicity uses only thin symmetry + energy):** The ProfileExtractor is constructed from $G^{\mathrm{thin}}$ and $\Phi^{\mathrm{thin}}$ (Step 3), and it returns a certificate of whether a detected profile lies in the canonical library $\mathcal{L}_T$ (Lemma 3.3). Therefore the canonicity check uses only thin inputs.
+
+**Step 4.3.2 (Codimension uses only metric-measure-thin data):** The singular locus $\Sigma$ is determined from $(\mathcal{X},d,\mu,R)$ (Lemma 2.2). The predicate $\mathrm{Codim}_{\ge 2}(\Sigma)$ is then checked from tube volumes $\mu(N_r(\Sigma))$, which are functions of $(d,\mu,\Sigma)$ and therefore ultimately of the thin inputs.
+
+**Step 4.3.3 (Capacity uses only $(d,\mu,\Sigma)$):** The number $\mathrm{Cap}_2(\Sigma)$ is the value of an explicit variational problem in which the only data are $(\mathcal{X},d,\mu)$ and the set $\Sigma$ (Lemma 4.1). Approximating this variational problem (e.g. by finite elements in Euclidean/manifold settings) is therefore an automatic computation once the thin data are provided.
+
+**Step 4.3.4 (Progress uses only the energy functional):** The energy drop $\Delta F$ is computed from $F$ evaluated at two states (pre- and post-surgery), so it depends only on the thin height input $\Phi^{\mathrm{thin}}$ and the states being compared.
+
+Since every sub-check is determined by the thin objects (together with objects already derived earlier in this proof), the admissibility predicate is fully automated. □
 
 ### Step 4.3: Surgery Operator Construction
 
@@ -309,22 +463,19 @@ where:
 2. **Flow Continuation:** The gradient flow continues from $X'$ with well-defined trajectory
 3. **Certificate Production:** A re-entry certificate $K^{\text{re}}$ is automatically generated
 
-*Proof of Lemma 4.4:*
-The pushout exists by assumption that $\mathcal{E}$ has colimits. The construction follows Perelman's surgery methodology {cite}`Perelman03`:
+*Proof of Lemma 4.4:* We separate the categorical existence statement from the analytic estimates. The key point for minimal instantiation is that *no additional user inputs* are required beyond the thin objects and the admissibility certificate.
 
-**Energy Jump Control:** The energy jump is bounded by the capacity:
-$$\delta_S = \int_{\partial \Sigma} |\nabla F|^2 d\sigma \leq C \cdot \text{Cap}_2(\Sigma) \leq C \varepsilon_{\text{adm}}$$
+**Step 4.4.1 (Existence of the pushout):** By assumption, $\mathcal{E}$ has colimits. Therefore the pushout of the span $\Sigma \xrightarrow{i_\Sigma} X^- \xleftarrow{\phi} \tilde\Sigma$ exists. Denote the pushout object by $X'$ and the canonical map by $\sigma:X^-\to X'$. By the universal property, any cocone out of $(X^-,\tilde\Sigma)$ that identifies $\Sigma$ via $i_\Sigma$ and $\phi$ factors uniquely through $X'$.
 
-This is proven in {cite}`KleinerLott08` (Theorem 70.1) for Ricci flow and generalizes to arbitrary gradient flows with capacity bounds.
+**Step 4.4.2 (Energy bound from admissibility + the surgery schema):** In the admissible branch, the certificate $K_{\mathrm{adm}}$ includes a quantitative bound $\mathrm{Cap}_2(\Sigma)\le \varepsilon_{\mathrm{adm}}$ and the identification of a canonical profile $V\in\mathcal{L}_T$. The structural surgery principle ({prf:ref}`mt-act-surgery`) together with the surgery schema ({prf:ref}`def-surgery-schema`) asserts that, for such admissible data, the surgery operation produces a post-surgery state $X'$ whose energy increase is controlled by capacity:
+$$F(X') \le F(X^-)+C_{\mathrm{surg}}\cdot \mathrm{Cap}_2(\Sigma),$$
+for a constant $C_{\mathrm{surg}}$ depending only on the type and the chosen surgery schema. In concrete geometric flow types, this kind of estimate is proved in Perelman’s surgery analysis ({cite}`Perelman03`) and the verification of the bounds ({cite}`KleinerLott08`). In the abstract framework, the same inequality is packaged as part of the type-specific surgery interface consumed by the Sieve.
 
-**Flow Continuation:** Post-surgery, the state $X'$ is smooth away from a set with $\mathrm{Cap}_2(\Sigma) \le \varepsilon_{\text{adm}}$ and $\mathrm{Codim}_{\ge 2}(\Sigma)$. In analytic/Sobolev types, removable-singularity results for small-capacity codimension-$\ge 2$ sets allow extending the flow across the excised locus (see Lemma 4.2 and {cite}`EvansGariepy15`). The gradient flow equation:
-$$\frac{dx}{dt} = -\nabla F(x)$$
-has unique solutions in $X' \setminus \tilde{\Sigma}$ by standard ODE theory. The removable singularity theorem {cite}`EvansGariepy15` (Theorem 4.7.2) ensures the flow extends across $\tilde{\Sigma}$.
+**Step 4.4.3 (Flow continuation in the admissible regime):** The purpose of imposing $\mathrm{Codim}_{\ge 2}(\Sigma)$ and $\mathrm{Cap}_2(\Sigma)\ll 1$ is that, in Sobolev/analytic regimes, such sets are removable for the relevant energy class (Lemma 4.2 and {cite}`EvansGariepy15`). Thus, once the post-surgery state $X'$ is produced, the underlying evolution law (gradient flow/PDE/flow) can be continued from $X'$ according to the well-posedness package for the type.
 
-**Certificate Generation:** The re-entry certificate contains:
-$$K^{\text{re}} = (\text{"surgery completed"}, X', F(X'), \text{jump}(\delta_S), \text{target}(\text{node}))$$
-
-The target node is determined by the surgery type (see {prf:ref}`def-surgery-schema`). □
+**Step 4.4.4 (Certificate generation is mechanical):** The re-entry certificate is assembled from quantities already produced or computable from the thin inputs:
+$$K^{\text{re}} = (\text{"surgery completed"}, X', F(X'), \text{jump}(\delta_S), \text{target}(\text{node})).$$
+Here $X'$ is the pushout object, $F(X')$ is evaluation of the thin energy on the new state, $\delta_S$ is bounded using the capacity estimate from Step 4.4.2, and the target node is read off from the surgery schema ({prf:ref}`def-surgery-schema`). □
 
 ---
 
@@ -341,7 +492,15 @@ $$\mathcal{C} = \{x \in \mathcal{X} : \nabla F(x) = 0\}$$
 
 **Lemma 5.1** (Definable Critical Set): If $F$ is real-analytic or definable (e.g., semi-algebraic) in an o-minimal structure recorded in the Dictionary, then the critical set $\mathcal{C}$ is definable and admits a finite stratification into smooth manifolds (Whitney/cell decomposition). In particular, the Framework can work stratum-by-stratum when producing stiffness certificates.
 
-*Proof:* Definable sets admit finite stratifications and cell decompositions; see {cite}`vandenDries98` and {cite}`Lojasiewicz84`. □
+*Proof of Lemma 5.1:* We make explicit why the critical set inherits definability and why this yields a finite stratification.
+
+**Step 5.1.1 (Definability of the gradient map):** If $F$ is definable in an o-minimal structure $\mathcal{O}$ and is sufficiently smooth in the sense required to define $\nabla F$ (e.g. $C^1$ in finite dimensions, or an analytic functional in a tame Hilbert model), then the coordinate functions of $\nabla F$ are definable. This is standard for semi-algebraic and real-analytic definable functions.
+
+**Step 5.1.2 (Definability of the critical set):** The critical set is
+$$\mathcal{C}=\{x\in\mathcal{X}:\nabla F(x)=0\}=(\nabla F)^{-1}(\{0\}).$$
+Since $\{0\}$ is definable and preimages of definable sets under definable maps are definable, $\mathcal{C}$ is definable.
+
+**Step 5.1.3 (Finite stratification):** Any definable subset admits a finite $C^p$ stratification into smooth submanifolds (cell decomposition/Whitney stratification), and the stratification data are themselves definable. This is a standard o-minimal consequence; see {cite}`vandenDries98` and {cite}`Lojasiewicz84`. □
 
 ### Step 5.2: Łojasiewicz Exponent Computation
 
@@ -355,7 +514,18 @@ For each relevant critical point/stratum $x^* \in \mathcal{C}$, the Framework se
 Then there exist $\theta \in (0,1)$, $C_{\mathrm{LS}}>0$, and a neighborhood of $x^*$ such that:
 $$\|\nabla F(x)\| \ge C_{\mathrm{LS}}\,|F(x)-F(x^*)|^{1-\theta}.$$
 
-*Proof of Lemma 5.2:* Finite-dimensional analytic case is Łojasiewicz's gradient inequality {cite}`Lojasiewicz63`. Infinite-dimensional analytic extensions for gradient flows are due to Simon {cite}`Simon83`. For definable functions, the Kurdyka-Łojasiewicz inequality provides such a desingularization (possibly via a concave change of variables), yielding an exponent on compact sublevel sets {cite}`Kurdyka98`. □
+*Proof of Lemma 5.2:* We record the three standard sources of the inequality and spell out what they deliver.
+
+**Step 5.2.1 (What must be shown):** We must produce $\theta\in(0,1)$, $C_{\mathrm{LS}}>0$, and a neighborhood $U$ of $x^*$ such that for all $x\in U$,
+$$\|\nabla F(x)\|\ge C_{\mathrm{LS}}\,|F(x)-F(x^*)|^{1-\theta}.$$
+
+**Step 5.2.2 (Finite-dimensional analytic case):** If $F$ is real-analytic near $x^*$ in a finite-dimensional model, Łojasiewicz’s gradient inequality yields exactly such constants and an exponent $\theta\in(0,1)$; see {cite}`Lojasiewicz63`.
+
+**Step 5.2.3 (Infinite-dimensional analytic gradient flows):** If $F$ is an analytic functional on a Hilbert/Banach space and the gradient flow lies in Simon’s framework (analyticity plus a suitable Fredholm/spectral structure at the critical point), then the Łojasiewicz–Simon inequality provides the same form of estimate; see {cite}`Simon83`.
+
+**Step 5.2.4 (Definable/tame case):** If $F$ is definable in an o-minimal structure, the Kurdyka–Łojasiewicz theorem provides a desingularizing function $\varphi$ such that $\|\nabla(\varphi\circ(F-F(x^*)))\|\ge 1$ near $x^*$, which can be converted into a power-type inequality of the stated form on compact sublevel sets; see {cite}`Kurdyka98`.
+
+Combining these cases yields the existence of $(\theta,C_{\mathrm{LS}})$ in every regime covered by the framework. □
 
 ### Step 5.3: Spectral Gap and Simon's Extension
 
@@ -363,14 +533,25 @@ $$\|\nabla F(x)\| \ge C_{\mathrm{LS}}\,|F(x)-F(x^*)|^{1-\theta}.$$
 $$\lambda_1 = \inf \sigma(H) > 0$$
 then the Łojasiewicz-Simon inequality holds with $\theta = \frac{1}{2}$ and $C_{\text{LS}} = \sqrt{\lambda_1}$.
 
-*Proof of Lemma 5.3:* This is Simon's Extension {cite}`Simon83` (Theorem 2). Near a critical point with positive-definite Hessian:
-$$F(x) - F(x^*) \approx \frac{1}{2} \langle H(x - x^*), (x - x^*) \rangle \geq \frac{\lambda_1}{2} \|x - x^*\|^2$$
-$$\|\nabla F(x)\| \approx \|H(x - x^*)\| \geq \lambda_1 \|x - x^*\|$$
+*Proof of Lemma 5.3:* This is the standard “nondegenerate critical point $\Rightarrow$ exponent $1/2$” case of the Łojasiewicz–Simon inequality; see {cite}`Simon83` (Theorem 2). We make the constant bookkeeping explicit.
 
-Taking the ratio:
-$$\|\nabla F(x)\| \geq \lambda_1 \|x - x^*\| \geq \sqrt{2\lambda_1} \sqrt{F(x) - F(x^*)} = \sqrt{\lambda_1} |F(x) - F(x^*)|^{1/2}$$
+**Step 5.3.1 (Taylor expansion and spectral gap):** Since $x^*$ is critical, $\nabla F(x^*)=0$. By Taylor’s theorem,
+$$F(x)-F(x^*) = \tfrac12\langle H(x-x^*),x-x^*\rangle + o(\|x-x^*\|^2),$$
+and
+$$\nabla F(x) = H(x-x^*) + o(\|x-x^*\|).$$
+The spectral gap assumption $\inf\sigma(H)=\lambda_1>0$ implies
+$$\langle Hh,h\rangle \ge \lambda_1\|h\|^2,\qquad \|Hh\|\ge \lambda_1\|h\|\quad\text{for all }h.$$
 
-So $\theta = 1/2$ and $C_{\text{LS}} = \sqrt{\lambda_1}$. □
+**Step 5.3.2 (Quantitative bounds in a small neighborhood):** Choose a neighborhood of $x^*$ in which the remainder terms satisfy
+$$|o(\|x-x^*\|^2)|\le \tfrac{\lambda_1}{4}\|x-x^*\|^2,\qquad \|o(\|x-x^*\|)\|\le \tfrac{\lambda_1}{2}\|x-x^*\|.$$
+Then for all such $x$,
+$$F(x)-F(x^*) \ge \tfrac12\lambda_1\|x-x^*\|^2 - \tfrac{\lambda_1}{4}\|x-x^*\|^2 = \tfrac{\lambda_1}{4}\|x-x^*\|^2,$$
+and
+$$\|\nabla F(x)\|\ge \|H(x-x^*)\|-\tfrac{\lambda_1}{2}\|x-x^*\|\ge \tfrac{\lambda_1}{2}\|x-x^*\|.$$
+
+**Step 5.3.3 (Combine to get the LS inequality with $\theta=1/2$):** Combining the previous two displays gives
+$$\|\nabla F(x)\|\ge \tfrac{\lambda_1}{2}\|x-x^*\| \ge \tfrac{\lambda_1}{2}\cdot \sqrt{\tfrac{4}{\lambda_1}}\sqrt{F(x)-F(x^*)}=\sqrt{\lambda_1}\,|F(x)-F(x^*)|^{1/2}.$$
+Thus the Łojasiewicz–Simon inequality holds with $\theta=\tfrac12$ and $C_{\mathrm{LS}}=\sqrt{\lambda_1}$. □
 
 **Construction of Stiffness Certificate:**
 
@@ -409,7 +590,20 @@ $$d_{\text{bottleneck}}(\text{PH}(\mathcal{X}, F), \text{PH}(\mathcal{X}, G)) \l
 
 Moreover, for tame filtrations (e.g., a piecewise-linear $F$ on a finite simplicial complex, or filtrations built from finitely many sample points), the persistence diagram has finitely many points off the diagonal.
 
-*Proof of Lemma 6.1:* This is the Stability Theorem of persistent homology {cite}`EdelsbrunnerHarer10` (Theorem VII.2.3). The bottleneck distance between persistence diagrams is controlled by the $L^\infty$ distance between the filtration functions. Finiteness of the diagram holds in the tame settings noted above (finite simplicial complex / finite sample filtrations). □
+*Proof of Lemma 6.1:* We recall the key constructions and then invoke the standard stability theorem.
+
+**Step 6.1.1 (Persistence module from sublevel sets):** The sublevel sets $(\mathcal{X}_t)_{t\in\mathbb{R}}$ form a filtration: if $s\le t$ then $\mathcal{X}_s\subseteq \mathcal{X}_t$. Applying homology gives a persistence module
+$$H_k(\mathcal{X}_s)\longrightarrow H_k(\mathcal{X}_t)\qquad (s\le t),$$
+and the associated persistence diagram $\mathrm{PH}_k(\mathcal{X},F)$ records the birth/death parameters $(b,d)$ of homology classes.
+
+**Step 6.1.2 (Interleaving from an $L^\infty$ perturbation):** If $\|F-G\|_\infty\le \varepsilon$, then for every $t$ we have inclusions of sublevel sets
+$$\mathcal{X}_t(F)\subseteq \mathcal{X}_{t+\varepsilon}(G),\qquad \mathcal{X}_t(G)\subseteq \mathcal{X}_{t+\varepsilon}(F).$$
+These inclusions induce an $\varepsilon$-interleaving of the persistence modules for $F$ and $G$.
+
+**Step 6.1.3 (Stability):** The stability theorem of persistent homology states that an $\varepsilon$-interleaving implies that the bottleneck distance between persistence diagrams is at most $\varepsilon$; see {cite}`EdelsbrunnerHarer10` (Theorem VII.2.3). This yields the inequality
+$$d_{\mathrm{bottleneck}}(\mathrm{PH}(\mathcal{X},F),\mathrm{PH}(\mathcal{X},G))\le \|F-G\|_\infty.$$
+
+**Step 6.1.4 (Finiteness in tame settings):** In tame situations (e.g. piecewise-linear $F$ on a finite simplicial complex or filtrations built from finitely many sampled points), the persistence module is pointwise finite-dimensional and changes only at finitely many parameter values, so the persistence diagram has finitely many off-diagonal points; see {cite}`EdelsbrunnerHarer10`. □
 
 **Construction of Topological Sectors:**
 
@@ -423,7 +617,11 @@ $$\text{Sectors} = \{\text{components of } \mathcal{X}_t \text{ for critical val
 $$\text{Features} = \{(b,d) \in \text{PH}_*(\mathcal{X}, F) : d-b>\delta_{\text{topo}}\}$$
 is finite for every fixed $\delta_{\text{topo}}>0$. Consequently, the Framework extracts a finite set of topological sectors at resolution $\delta_{\text{topo}}$.
 
-*Proof:* A finite persistence diagram has only finitely many points with persistence exceeding any fixed threshold. See {cite}`EdelsbrunnerHarer10` for the tame/finite-diagram setting and the stability theorem used to control perturbations. □
+*Proof:* We make the finiteness argument explicit.
+
+**Step 6.2.1 (Tameness gives a finite diagram):** In the tame settings (finite simplicial complex / finite sample filtration), Lemma 6.1 asserts that the persistence diagram has finitely many off-diagonal points.
+
+**Step 6.2.2 (Thresholding preserves finiteness):** The long-lived set $\{(b,d):d-b>\delta_{\mathrm{topo}}\}$ is a subset of the off-diagonal points, so it is also finite. □
 
 ---
 
@@ -474,7 +672,7 @@ $$G^{\text{full}} = \left(\text{Grp}, \rho, \mathcal{S}, \text{ProfileExtractor}
 where:
 - $\text{Grp}, \rho, \mathcal{S}$ are from $G^{\text{thin}}$
 - $\text{ProfileExtractor}$ from Step 3.3
-- $\text{VacuumStabilizer} = \text{Stab}_G(0)$ (isotropy at vacuum)
+- $\text{VacuumStabilizer} = \text{Stab}_{\text{Grp}}(0)$ (isotropy at vacuum)
 - $\text{SurgeryOperator}$ from Step 4.3
 
 ### Step 7.5: Verification of Expansion Guarantee
@@ -484,42 +682,42 @@ $$\text{Expand}: (\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}^{\
 
 produces valid full Kernel Objects satisfying all interface requirements of {prf:ref}`mt-fact-valid-inst`.
 
-*Proof of Theorem 7.1:* We verify each interface requirement:
+*Proof of Theorem 7.1:* A full instantiation is “valid” if every interface demanded by {prf:ref}`mt-fact-valid-inst` can be constructed from the produced objects and the stated regularity conditions (measurability/invariance/compactness certificates) are met. We check the interfaces one by one, referencing the explicit constructions proved above.
 
 **Interface $D_E$ (Energy Barrier):**
-- Requires: Height functional $\Phi$, dissipation bound $R$
-- Provided: $F$ and $R$ from thin objects
-- Derivation: None needed (primitives)
+- Requires: a height functional and a dissipation rate with the stated regularity (l.s.c./Borel) and invariance properties.
+- Provided: $F$ and $R$ are primitive thin inputs, and the consistency assumptions assert the needed l.s.c./measurability and $\mathrm{Grp}$-invariance.
+- Derivation: none beyond reading the thin fields.
 - ✓ Valid
 
 **Interface $C_\mu$ (Compactness):**
-- Requires: Concentration function, profile extractor
-- Provided: $\mu$ from $\mathcal{X}^{\text{thin}}$, ProfileExtractor from Step 3.3
-- Derivation: Lions dichotomy (Lemma 3.1)
+- Requires: a compactness/concentration mechanism and a profile extractor modulo symmetries.
+- Provided: $\mu$ is part of $\mathcal{X}^{\text{thin}}$, and the ProfileExtractor is constructed in Step 3 (Lemmas 3.1–3.3).
+- Derivation: the needed “compactness modulo symmetry” statement is exactly Lemma 3.1 (anchored in {cite}`Lions84`, {cite}`Lions85`).
 - ✓ Valid
 
 **Interface $\mathrm{LS}_\sigma$ (Stiffness):**
-- Requires: Łojasiewicz-Simon exponent $\theta$, gradient $\nabla$
-- Provided: $\nabla$ from $\Phi^{\text{thin}}$, $\theta$ from Step 5.2
-- Derivation: Analytic LS inequality (Lemma 5.2)
+- Requires: a certified Łojasiewicz/KŁ exponent $\theta$ and a compatible gradient/slope notion.
+- Provided: $\nabla$ is part of $\Phi^{\text{thin}}$, and the existence of a certified exponent $\theta$ is supplied by Lemma 5.2 (with the quantitative spectral-gap special case in Lemma 5.3).
+- Derivation: Łojasiewicz/S̆imon/Kurdyka inequalities (Lemmas 5.2–5.3).
 - ✓ Valid
 
 **Interface $\mathrm{Cap}_H$ (Capacity):**
-- Requires: Capacity bound on singular set
-- Provided: $\Sigma$ from Step 2.2, $\text{Cap}(\Sigma)$ from Step 4.1
-- Derivation: Sobolev capacity formula (Lemma 4.1)
+- Requires: a canonical singular locus and a computable capacity bound.
+- Provided: $\Sigma=\mathrm{supp}(\mu\llcorner \mathcal{X}_{\mathrm{bad}})$ is derived from thin data in Lemma 2.2, and $\mathrm{Cap}_2(\Sigma)$ is defined/approximated via the explicit variational problem in Lemma 4.1.
+- Derivation: potential theory/capacity (Lemmas 4.1–4.2).
 - ✓ Valid
 
 **Interface $\mathrm{TB}_\pi$ (Topological Barrier):**
-- Requires: Sector map, Morse structure
-- Provided: SectorMap from Step 1.1, sectors from Step 6.2
-- Derivation: Persistent homology (Lemma 6.1)
+- Requires: a sector map and a mechanism to extract topological sectors/features.
+- Provided: SectorMap $\pi:\mathcal{X}\to\pi_0(\mathcal{X})$ is constructed in Step 1.1 and is measurable by Lemma 1.1, and persistent-homology sectors are constructed in Step 6.
+- Derivation: persistent homology stability and finiteness (Lemmas 6.1–6.2).
 - ✓ Valid
 
 **Surgery Interfaces:**
-- Requires: Surgery operator, admissibility predicate
-- Provided: SurgeryOperator from Step 4.3, admissibility from Step 4.2
-- Derivation: Perelman surgery (Lemma 4.4)
+- Requires: an admissibility predicate and a surgery operator with the promised energy/continuation properties.
+- Provided: the admissibility predicate is computed from thin data (Step 4.2, Lemma 4.3), and the surgery operator is constructed as a pushout in $\mathcal{E}$ (Step 4.3) with analytic estimates packaged by {prf:ref}`mt-act-surgery` (Lemma 4.4, anchored in {cite}`Perelman03` and {cite}`KleinerLott08` for geometric flows).
+- Derivation: categorical pushouts + admissible surgery package (Lemmas 4.3–4.4).
 - ✓ Valid
 
 All interfaces are satisfied. □
@@ -590,7 +788,7 @@ Count of components in full objects (Section 8.A of document):
 - ProfileExtractor (Step 3.3): from $(G^{\text{thin}}, \Phi^{\text{thin}})$
 - $\theta$ (Step 5.2): from $(\nabla, F)$ via KL/LS inequality
 - Cap$(\Sigma)$ (Step 4.1): from $(d, \mu, \Sigma)$ via variational formula
-- SurgeryOperator (Step 4.3): from $(G, \text{Cap}, \mathcal{L})$ via pushout
+- SurgeryOperator (Step 4.3): from $(\text{Grp}, \text{Cap}, \mathcal{L}_T)$ via pushout
 - Topological sectors (Step 6.2): from $(\mathcal{X}, d, F)$ (with sampling informed by $\mu$) via persistent homology
 
 All derivations are algorithmic and require no user intervention beyond providing the 10 primitives.

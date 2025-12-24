@@ -50,7 +50,7 @@ Since $\Phi(x) < \infty$, this implies:
 
 ### Step 1.2: Precompactness of the Orbit
 
-The trajectory $\{S_t x : t \geq 0\}$ is bounded in energy. By the Compactness Axiom (implicit in the truncation structure $\tau_C$ from {prf:ref}`def-structural-flow-datum`), the sublevel set
+The trajectory $\{S_t x : t \geq 0\}$ is bounded in energy. By the Compactness Axiom ({prf:ref}`ax-compactness`), the sublevel set
 $$\{\xi \in \mathcal{X} : \Phi(\xi) \leq \Phi(x)\}$$
 is precompact in the weak topology of $\mathcal{X}$.
 
