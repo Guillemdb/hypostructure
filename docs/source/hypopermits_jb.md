@@ -299,7 +299,9 @@ The empty Hom-set (N11) verifies the antecedent, yielding the consequent.
 :label: lem-bridge
 :class: rigor-class-f
 
-**Statement:** Every analytic blow-up in a $T$-system induces a morphism from a singularity germ to the system's hypostructure.
+**Statement:** Every **profile-extractable** analytic blow-up in a $T$-system induces a morphism from a singularity germ to the system's hypostructure.
+
+**Hypothesis (Profile Extractability):** The blow-up must satisfy the concentration-compactness criterion of {prf:ref}`mt-krnl-trichotomy`, yielding a finite-energy limiting profile. This excludes wild oscillations, turbulent cascades, and non-compact symmetry orbits.
 
 **Mechanism:**
 1. **Analytic Input:** Trajectory $u(t)$ with breakdown time $T_* < \infty$
@@ -309,7 +311,12 @@ The empty Hom-set (N11) verifies the antecedent, yielding the consequent.
 
 **This lemma is the "handshake" between PDE analysis (Steps 1-2) and category theory (Steps 3-4).** Node 3 ({prf:ref}`def-node-compact`) performs Step 2; the Initiality Lemma in {prf:ref}`mt-krnl-exclusion` handles Steps 3-4.
 
-**Consequence:** The Sieve's categorical check (Node 17) is connected to physical reality by this bridge: every genuine singularity produces a morphism, and the Lock's Hom-emptiness test detects all such morphisms.
+**Remark (Non-Extractable Blow-ups):** Blow-ups failing the Profile Extractability hypothesis do not satisfy the Bridge conditions. Such cases—including wild oscillations with unbounded variation, turbulent cascades lacking definable structure, and profiles with non-compact automorphism groups—route to the **Horizon mechanism** ({prf:ref}`mt-resolve-admissibility`, Case 3) with certificate $K_{\text{inadm}}$ indicating "profile unclassifiable." The Lock (Node 17) remains sound because:
+1. Non-extractable blow-ups are explicitly excluded from this Bridge lemma
+2. Such blow-ups trigger the Horizon exit, halting the Sieve with an honest "unclassifiable" verdict
+3. No false positive (claiming regularity for a genuine singularity) can occur
+
+**Consequence:** The Sieve's categorical check (Node 17) is connected to physical reality by this bridge: every genuine *classifiable* singularity produces a morphism, and the Lock's Hom-emptiness test detects all such morphisms. Unclassifiable singularities are handled separately by the Horizon mechanism, ensuring the framework's soundness without claiming universal profile extractability.
 :::
 
 :::{prf:theorem} [KRNL-Equivariance] Equivariance Principle

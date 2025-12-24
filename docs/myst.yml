@@ -22,6 +22,77 @@ project:
       title: The Structural Sieve Framework
     - file: source/metalearning.md
       title: Meta-Learning Theory
+    - file: source/proofs/proofs.md
+      title: Extended Proofs
+      children:
+        # Core Theorems & Lemmas (3)
+        - file: source/proofs/proof-thm-ghost-conservation.md
+          title: Ghost Conservation Theorem
+        - file: source/proofs/proof-lem-holographic-library-density.md
+          title: Holographic Library Density
+        - file: source/proofs/proof-lem-modal-projection.md
+          title: Modal Projection Lemma
+        # Kernel Metatheorems (5)
+        - file: source/proofs/proof-mt-krnl-consistency.md
+          title: KRNL-Consistency
+        - file: source/proofs/proof-mt-krnl-equivariance.md
+          title: KRNL-Equivariance
+        - file: source/proofs/proof-mt-krnl-trichotomy.md
+          title: KRNL-Trichotomy
+        - file: source/proofs/proof-mt-krnl-shadowing.md
+          title: KRNL-Shadowing
+        - file: source/proofs/proof-mt-krnl-subsystem.md
+          title: KRNL-Subsystem
+        # Factory Metatheorems (7)
+        - file: source/proofs/proof-mt-fact-germ-density.md
+          title: FACT-GermDensity
+        - file: source/proofs/proof-mt-fact-min-inst.md
+          title: FACT-MinimalInstantiation
+        - file: source/proofs/proof-mt-fact-valid-inst.md
+          title: FACT-ValidInstantiation
+        - file: source/proofs/proof-mt-fact-soft-morse.md
+          title: FACT-SoftMorse
+        - file: source/proofs/proof-mt-fact-soft-km.md
+          title: FACT-SoftKenigMerle
+        - file: source/proofs/proof-mt-fact-soft-attr.md
+          title: FACT-SoftAttractor
+        - file: source/proofs/proof-mt-fact-soft-profdec.md
+          title: FACT-SoftProfileDecomposition
+        - file: source/proofs/proof-mt-fact-soft-wp.md
+          title: FACT-SoftWellPosedness
+        # Resolve Metatheorems (5)
+        - file: source/proofs/proof-mt-resolve-admissibility.md
+          title: RESOLVE-Admissibility
+        - file: source/proofs/proof-mt-resolve-profile.md
+          title: RESOLVE-Profile
+        - file: source/proofs/proof-mt-resolve-conservation.md
+          title: RESOLVE-Conservation
+        - file: source/proofs/proof-mt-resolve-auto-admit.md
+          title: RESOLVE-AutoAdmit
+        - file: source/proofs/proof-mt-resolve-auto-surgery.md
+          title: RESOLVE-AutoSurgery
+        # Action Metatheorems (1)
+        - file: source/proofs/proof-mt-act-surgery.md
+          title: ACT-Surgery
+        # Universal Property Metatheorems (10)
+        - file: source/proofs/proof-mt-up-scattering.md
+          title: UP-Scattering
+        - file: source/proofs/proof-mt-up-saturation.md
+          title: UP-Saturation
+        - file: source/proofs/proof-mt-up-censorship.md
+          title: UP-Censorship
+        - file: source/proofs/proof-mt-up-o-minimal.md
+          title: UP-OMinimal
+        - file: source/proofs/proof-mt-up-spectral.md
+          title: UP-Spectral
+        - file: source/proofs/proof-mt-up-surgery.md
+          title: UP-Surgery
+        - file: source/proofs/proof-mt-up-type-ii.md
+          title: UP-TypeII
+        - file: source/proofs/proof-mt-up-capacity.md
+          title: UP-Capacity
+        - file: source/proofs/proof-mt-up-inc-aposteriori.md
+          title: UP-IncAPosteriori
     - file: source/dataset/dataset.md
       title: Dataset
       children:
@@ -143,6 +214,78 @@ site:
       url: /hypopermits-jb
     - title: Meta-Learning
       url: /metalearning
+    - title: Proofs
+      children:
+        - title: Overview
+          url: /proofs
+        # Core Theorems & Lemmas
+        - title: Ghost Conservation
+          url: /proof-thm-ghost-conservation
+        - title: Holographic Density
+          url: /proof-lem-holographic-library-density
+        - title: Modal Projection
+          url: /proof-lem-modal-projection
+        # Kernel Metatheorems
+        - title: KRNL-Consistency
+          url: /proof-mt-krnl-consistency
+        - title: KRNL-Equivariance
+          url: /proof-mt-krnl-equivariance
+        - title: KRNL-Trichotomy
+          url: /proof-mt-krnl-trichotomy
+        - title: KRNL-Shadowing
+          url: /proof-mt-krnl-shadowing
+        - title: KRNL-Subsystem
+          url: /proof-mt-krnl-subsystem
+        # Factory Metatheorems
+        - title: FACT-GermDensity
+          url: /proof-mt-fact-germ-density
+        - title: FACT-MinimalInstantiation
+          url: /proof-mt-fact-min-inst
+        - title: FACT-ValidInstantiation
+          url: /proof-mt-fact-valid-inst
+        - title: FACT-SoftMorse
+          url: /proof-mt-fact-soft-morse
+        - title: FACT-SoftKenigMerle
+          url: /proof-mt-fact-soft-km
+        - title: FACT-SoftAttractor
+          url: /proof-mt-fact-soft-attr
+        - title: FACT-SoftProfileDecomposition
+          url: /proof-mt-fact-soft-profdec
+        - title: FACT-SoftWellPosedness
+          url: /proof-mt-fact-soft-wp
+        # Resolve Metatheorems
+        - title: RESOLVE-Admissibility
+          url: /proof-mt-resolve-admissibility
+        - title: RESOLVE-Profile
+          url: /proof-mt-resolve-profile
+        - title: RESOLVE-Conservation
+          url: /proof-mt-resolve-conservation
+        - title: RESOLVE-AutoAdmit
+          url: /proof-mt-resolve-auto-admit
+        - title: RESOLVE-AutoSurgery
+          url: /proof-mt-resolve-auto-surgery
+        # Action Metatheorems
+        - title: ACT-Surgery
+          url: /proof-mt-act-surgery
+        # Universal Property Metatheorems
+        - title: UP-Scattering
+          url: /proof-mt-up-scattering
+        - title: UP-Saturation
+          url: /proof-mt-up-saturation
+        - title: UP-Censorship
+          url: /proof-mt-up-censorship
+        - title: UP-OMinimal
+          url: /proof-mt-up-o-minimal
+        - title: UP-Spectral
+          url: /proof-mt-up-spectral
+        - title: UP-Surgery
+          url: /proof-mt-up-surgery
+        - title: UP-TypeII
+          url: /proof-mt-up-type-ii
+        - title: UP-Capacity
+          url: /proof-mt-up-capacity
+        - title: UP-IncAPosteriori
+          url: /proof-mt-up-inc-aposteriori
     - title: Dataset
       children:
         - title: Overview
