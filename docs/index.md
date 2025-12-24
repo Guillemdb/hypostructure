@@ -409,6 +409,20 @@ This leaves us with two possibilities: **Either these execution traces represent
 
 ---
 
+### Adversarial Hardening: The Millennium Stress-Test
+
+The inclusion of execution traces for Millennium Prize Problems is not a claim of sudden resolution; it is the result of an **adversarial debugging protocol**.
+
+In 2025, frontier models still suffer from "Sycophantic Agreement"—they tend to approve a user's mathematical steps if the stakes are low. To break this behavior, I used the Millennium Problems as **adversarial logic gates**. When an LLM is presented with a generic derivation, it predicts the next token; when presented with a potential solution to a Millennium Problem, it triggers a "Skepticism Subroutine."
+
+I chose these specific benchmarks because they are the only problems that force an LLM to become an aggressive, cynical critic. While GPT-5.2 or Claude Opus 4.5 might sycophantically approve a "normal" proof, they will hunt for the most microscopic errors in index notation, quantifier leaps, or scaling mismatches the moment a Millennium Problem is at stake.
+
+**The traces provided here are telemetry of survival.** I used these problems as the "fastest way to find my own mistakes." If a formalization "compiled"—passing all 17 nodes without the model finding a structural defect despite maximum skeptic settings—it was deemed a valid test of the framework's stiffness.
+
+This is not "I solved the Riemann Hypothesis." This is "I exploited the sycophancy threshold to find the most aggressive automated critics on earth, and these traces are what survived."
+
+---
+
 ## The Benchmark Interpretation
 
 Regardless of whether the proofs are correct, the Hypostructure framework functions as a unique benchmark: a "fresh slate" for tracking logical dependencies entirely outside the models' training distribution.
@@ -445,22 +459,22 @@ These systems pass every check without resistance—the "hydrogen atoms" of math
 
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
-| [Heat Equation](./source/dataset/heat_equation.md) | Compiled | [Energy dissipation](./source/dataset/heat_equation.md#key-mechanism) | [→](./source/dataset/heat_equation.md) |
-| [1D Wave Equation](./source/dataset/wave_1d.md) | Compiled | [D'Alembert solution](./source/dataset/wave_1d.md#key-mechanism) | [→](./source/dataset/wave_1d.md) |
-| [Burgers 1D](./source/dataset/burgers_1d.md) | Compiled | [Cole-Hopf transform](./source/dataset/burgers_1d.md#key-mechanism) | [→](./source/dataset/burgers_1d.md) |
-| [Navier-Stokes 2D](./source/dataset/navier_stokes_2d.md) | Compiled | [Vorticity transport](./source/dataset/navier_stokes_2d.md#key-mechanism) | [→](./source/dataset/navier_stokes_2d.md) |
-| [Fundamental Thm of Algebra](./source/dataset/fundamental_theorem_algebra.md) | Compiled | [Winding number](./source/dataset/fundamental_theorem_algebra.md#key-mechanism) | [→](./source/dataset/fundamental_theorem_algebra.md) |
-| [Jordan Curve Theorem](./source/dataset/jordan_curve_theorem.md) | Compiled | [Topological degree](./source/dataset/jordan_curve_theorem.md#key-mechanism) | [→](./source/dataset/jordan_curve_theorem.md) |
-| [Ergodic Markov Chains](./source/dataset/ergodic_markov_chains.md) | Compiled | [Spectral gap](./source/dataset/ergodic_markov_chains.md#key-mechanism) | [→](./source/dataset/ergodic_markov_chains.md) |
-| [Dirac's Theorem](./source/dataset/dirac_theorem.md) | Compiled | [Degree capacity](./source/dataset/dirac_theorem.md#key-mechanism) | [→](./source/dataset/dirac_theorem.md) |
-| [Bubble Sort](./source/dataset/bubble_sort.md) | Compiled | [Discrete dynamics](./source/dataset/bubble_sort.md#key-mechanism) | [→](./source/dataset/bubble_sort.md) |
-| [Newton's Method](./source/dataset/newton_matrix.md) | Compiled | [Gauged regularity](./source/dataset/newton_matrix.md#key-mechanism) | [→](./source/dataset/newton_matrix.md) |
-| [Simple Pendulum](./source/dataset/pendulum.md) | Compiled | [Hamiltonian structure](./source/dataset/pendulum.md#key-mechanism) | [→](./source/dataset/pendulum.md) |
+| [Heat Equation](./source/dataset/heat_equation.md) | Compiled | [Energy dissipation](./source/hypopermits_jb.md#ax-dissipation) | [→](./source/dataset/heat_equation.md) |
+| [1D Wave Equation](./source/dataset/wave_1d.md) | Compiled | [D'Alembert solution](./source/hypopermits_jb.md#def-node-geom) | [→](./source/dataset/wave_1d.md) |
+| [Burgers 1D](./source/dataset/burgers_1d.md) | Compiled | [Cole-Hopf transform](./source/hypopermits_jb.md#def-node-geom) | [→](./source/dataset/burgers_1d.md) |
+| [Navier-Stokes 2D](./source/dataset/navier_stokes_2d.md) | Compiled | [Vorticity transport](./source/hypopermits_jb.md#def-node-topo) | [→](./source/dataset/navier_stokes_2d.md) |
+| [Fundamental Thm of Algebra](./source/dataset/fundamental_theorem_algebra.md) | Compiled | [Winding number](./source/hypopermits_jb.md#def-node-topo) | [→](./source/dataset/fundamental_theorem_algebra.md) |
+| [Jordan Curve Theorem](./source/dataset/jordan_curve_theorem.md) | Compiled | [Topological degree](./source/hypopermits_jb.md#def-node-topo) | [→](./source/dataset/jordan_curve_theorem.md) |
+| [Ergodic Markov Chains](./source/dataset/ergodic_markov_chains.md) | Compiled | [Spectral gap](./source/hypopermits_jb.md#mt-up-spectral) | [→](./source/dataset/ergodic_markov_chains.md) |
+| [Dirac's Theorem](./source/dataset/dirac_theorem.md) | Compiled | [Degree capacity](./source/hypopermits_jb.md#ax-capacity) | [→](./source/dataset/dirac_theorem.md) |
+| [Bubble Sort](./source/dataset/bubble_sort.md) | Compiled | [Discrete dynamics](./source/hypopermits_jb.md#def-node-bifurcate) | [→](./source/dataset/bubble_sort.md) |
+| [Newton's Method](./source/dataset/newton_matrix.md) | Compiled | [Gauged regularity](./source/hypopermits_jb.md#def-node-sym) | [→](./source/dataset/newton_matrix.md) |
+| [Simple Pendulum](./source/dataset/pendulum.md) | Compiled | [Hamiltonian structure](./source/hypopermits_jb.md#def-thin-symmetry) | [→](./source/dataset/pendulum.md) |
 | [2D Ising Model](./source/dataset/ising_2d.md) | Compiled | [Symmetry breaking](./source/hypopermits_jb.md#def-node-sym) | [→](./source/dataset/ising_2d.md) |
-| [Eikonal Equation](./source/dataset/eikonal.md) | Compiled | [Viscosity solutions](./source/dataset/eikonal.md#key-mechanism) | [→](./source/dataset/eikonal.md) |
+| [Eikonal Equation](./source/dataset/eikonal.md) | Compiled | [Viscosity solutions](./source/hypopermits_jb.md#def-surgery-dc) | [→](./source/dataset/eikonal.md) |
 | [Pentagon Tiling](./source/dataset/pentagon_tiling.md) | Compiled | [Categorical exclusion](./source/hypopermits_jb.md#sec-lock) | [→](./source/dataset/pentagon_tiling.md) |
-| [Bezout Theorem](./source/dataset/bezout_theorem.md) | Compiled | [Intersection theory](./source/dataset/bezout_theorem.md#key-mechanism) | [→](./source/dataset/bezout_theorem.md) |
-| [Tannakian Duality](./source/dataset/tannakian_duality.md) | Compiled | [Fiber functor](./source/dataset/tannakian_duality.md#key-mechanism) | [→](./source/dataset/tannakian_duality.md) |
+| [Bezout Theorem](./source/dataset/bezout_theorem.md) | Compiled | [Intersection theory](./source/hypopermits_jb.md#mt-lock-tannakian) | [→](./source/dataset/bezout_theorem.md) |
+| [Tannakian Duality](./source/dataset/tannakian_duality.md) | Compiled | [Fiber functor](./source/hypopermits_jb.md#mt-lock-tannakian) | [→](./source/dataset/tannakian_duality.md) |
 
 ---
 
@@ -470,10 +484,10 @@ These encounter singularities but are "saved" by structural surgery—topologica
 
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
-| [Poincaré Conjecture](./source/dataset/poincare_conjecture.md) | Compiled | [Ricci flow surgery](./source/dataset/poincare_conjecture.md#key-mechanism) | [→](./source/dataset/poincare_conjecture.md) |
-| [Landau Damping](./source/dataset/landau_damping.md) | Compiled | [Phase mixing](./source/dataset/landau_damping.md#key-mechanism) | [→](./source/dataset/landau_damping.md) |
+| [Poincaré Conjecture](./source/dataset/poincare_conjecture.md) | Compiled | [Ricci flow surgery](./source/hypopermits_jb.md#mt-act-surgery-2) | [→](./source/dataset/poincare_conjecture.md) |
+| [Landau Damping](./source/dataset/landau_damping.md) | Compiled | [Phase mixing](./source/hypopermits_jb.md#def-barrier-mix) | [→](./source/dataset/landau_damping.md) |
 | [KAM Theory](./source/dataset/kam_theory.md) | Compiled | [Diophantine stiffness](./source/hypopermits_jb.md#ax-stiffness) | [→](./source/dataset/kam_theory.md) |
-| [Kodaira-Spencer](./source/dataset/kodaira_spencer.md) | Compiled | [Deformation theory](./source/dataset/kodaira_spencer.md#key-mechanism) | [→](./source/dataset/kodaira_spencer.md) |
+| [Kodaira-Spencer](./source/dataset/kodaira_spencer.md) | Compiled | [Deformation theory](./source/hypopermits_jb.md#mt-lock-kodaira) | [→](./source/dataset/kodaira_spencer.md) |
 
 ---
 
@@ -483,15 +497,15 @@ These fail standard estimates but the **[Lock](./source/hypopermits_jb.md#sec-lo
 
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
-| [Fermat's Last Theorem](./source/dataset/fermat_last_theorem.md) | Compiled | [Galois-Monodromy](./source/dataset/fermat_last_theorem.md#key-mechanism) | [→](./source/dataset/fermat_last_theorem.md) |
-| [Four Color Theorem](./source/dataset/four_color_theorem.md) | Compiled | [Finite dictionary](./source/dataset/four_color_theorem.md#key-mechanism) | [→](./source/dataset/four_color_theorem.md) |
+| [Fermat's Last Theorem](./source/dataset/fermat_last_theorem.md) | Compiled | [Galois-Monodromy](./source/hypopermits_jb.md#def-e11) | [→](./source/dataset/fermat_last_theorem.md) |
+| [Four Color Theorem](./source/dataset/four_color_theorem.md) | Compiled | [Finite dictionary](./source/hypopermits_jb.md#def-node-complex) | [→](./source/dataset/four_color_theorem.md) |
 | [Kepler Conjecture](./source/dataset/kepler_conjecture.md) | Compiled | [O-minimal definability](./source/hypopermits_jb.md#def-node-tame) | [→](./source/dataset/kepler_conjecture.md) |
-| [Finite Simple Groups](./source/dataset/finite_simple_groups.md) | Compiled | [Exhaustive classification](./source/dataset/finite_simple_groups.md#key-mechanism) | [→](./source/dataset/finite_simple_groups.md) |
-| [Fundamental Lemma](./source/dataset/fundamental_lemma.md) | Compiled | [Cohomological correspondence](./source/dataset/fundamental_lemma.md#key-mechanism) | [→](./source/dataset/fundamental_lemma.md) |
-| [Julia Sets (MLC)](./source/dataset/julia_sets.md) | Compiled | [Renormalization](./source/metalearning.md#def-global-defect-minimizer) | [→](./source/dataset/julia_sets.md) |
-| [Bounded Prime Gaps](./source/dataset/bounded_primes_gaps.md) | Compiled | [Sieve capacity](./source/dataset/bounded_primes_gaps.md#key-mechanism) | [→](./source/dataset/bounded_primes_gaps.md) |
-| [Kervaire Invariant](./source/dataset/kervaire_invariant.md) | Compiled | [Slice spectral sequence](./source/dataset/kervaire_invariant.md#key-mechanism) | [→](./source/dataset/kervaire_invariant.md) |
-| [Collatz Conjecture](./source/dataset/collatz.md) | Compiled | [Sector-ergodic](./source/dataset/collatz.md#key-mechanism) | [→](./source/dataset/collatz.md) |
+| [Finite Simple Groups](./source/dataset/finite_simple_groups.md) | Compiled | [Exhaustive classification](./source/hypopermits_jb.md#def-node-complex) | [→](./source/dataset/finite_simple_groups.md) |
+| [Fundamental Lemma](./source/dataset/fundamental_lemma.md) | Compiled | [Cohomological correspondence](./source/hypopermits_jb.md#mt-lock-motivic) | [→](./source/dataset/fundamental_lemma.md) |
+| [Julia Sets (MLC)](./source/dataset/julia_sets.md) | Compiled | [Renormalization](./source/hypopermits_jb.md#def-barrier-scat) | [→](./source/dataset/julia_sets.md) |
+| [Bounded Prime Gaps](./source/dataset/bounded_primes_gaps.md) | Compiled | [Sieve capacity](./source/hypopermits_jb.md#def-barrier-cap) | [→](./source/dataset/bounded_primes_gaps.md) |
+| [Kervaire Invariant](./source/dataset/kervaire_invariant.md) | Compiled | [Slice spectral sequence](./source/hypopermits_jb.md#mt-up-spectral) | [→](./source/dataset/kervaire_invariant.md) |
+| [Collatz Conjecture](./source/dataset/collatz.md) | Compiled | [Sector-ergodic](./source/hypopermits_jb.md#def-barrier-mix) | [→](./source/dataset/collatz.md) |
 
 ---
 
@@ -501,12 +515,12 @@ These fail standard estimates but the **[Lock](./source/hypopermits_jb.md#sec-lo
 
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
-| [Navier-Stokes 3D](./source/dataset/navier_stokes_3d.md) | Compiled | [Dimensional reduction](./source/dataset/navier_stokes_3d.md#key-mechanism) | [→](./source/dataset/navier_stokes_3d.md) |
+| [Navier-Stokes 3D](./source/dataset/navier_stokes_3d.md) | Compiled | [Dimensional reduction](./source/hypopermits_jb.md#def-node-scale) | [→](./source/dataset/navier_stokes_3d.md) |
 | [Riemann Hypothesis](./source/dataset/riemann_hypothesis.md) | Compiled | [Integrality Lock (E4)](./source/hypopermits_jb.md#def-e4) | [→](./source/dataset/riemann_hypothesis.md) |
-| [BSD Conjecture](./source/dataset/bsd_conjecture.md) | Compiled | [Height pairing](./source/dataset/bsd_conjecture.md#key-mechanism) | [→](./source/dataset/bsd_conjecture.md) |
-| [Yang-Mills](./source/dataset/yang_mills.md) | Compiled | [Gauge fixing](./source/hypopermits_jb.md#def-node-sym) | [→](./source/dataset/yang_mills.md) |
-| [Hodge Conjecture](./source/dataset/hodge_conjecture.md) | Partial | [Motivic descent](./source/dataset/hodge_conjecture.md#key-mechanism) | [→](./source/dataset/hodge_conjecture.md) |
-| [Langlands](./source/dataset/langlands.md) | Partial | [Automorphic lifting](./source/dataset/langlands.md#key-mechanism) | [→](./source/dataset/langlands.md) |
+| [BSD Conjecture](./source/dataset/bsd_conjecture.md) | Compiled | [Height pairing](./source/hypopermits_jb.md#def-kernel-phi) | [→](./source/dataset/bsd_conjecture.md) |
+| [Yang-Mills](./source/dataset/yang_mills.md) | Compiled | [Gauge fixing](./source/hypopermits_jb.md#mt-act-align) | [→](./source/dataset/yang_mills.md) |
+| [Hodge Conjecture](./source/dataset/hodge_conjecture.md) | Partial | [Motivic descent](./source/hypopermits_jb.md#mt-lock-motivic) | [→](./source/dataset/hodge_conjecture.md) |
+| [Langlands](./source/dataset/langlands.md) | Partial | [Automorphic lifting](./source/hypopermits_jb.md#mt-lock-kodaira) | [→](./source/dataset/langlands.md) |
 
 ---
 
@@ -517,7 +531,7 @@ The Sieve reports an irreducible structural barrier—what it interprets as a fu
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
 | [P vs NP](./source/dataset/p_vs_np.md) | Obstruction | [Replica symmetry breaking](./source/hypopermits_jb.md#def-node-sym) | [→](./source/dataset/p_vs_np.md) |
-| [Logistic Map](./source/dataset/logistic_map.md) | Obstruction | [Chaotic attractor](./source/dataset/logistic_map.md#key-mechanism) | [→](./source/dataset/logistic_map.md) |
+| [Logistic Map](./source/dataset/logistic_map.md) | Obstruction | [Chaotic attractor](./source/hypopermits_jb.md#def-permit-attractor) | [→](./source/dataset/logistic_map.md) |
 
 The **P vs NP** trace is notable: the Sieve classifies it as a structural obstruction—detecting a **[Topological Obstruction in the Group Action $G$](./source/hypopermits_jb.md#def-node-sym)** that prevents the solution landscape from being mapped into a tame, $O$-minimal representation.
 
@@ -534,7 +548,7 @@ The Sieve reaches an undecidable boundary or categorical paradox.
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
 | [Quantum Gravity](./source/dataset/quantum_gravity.md) | Epistemic Boundary | [Holographic mismatch](./source/hypopermits_jb.md#def-node-complex) | [→](./source/dataset/quantum_gravity.md) |
-| [Irrational Rotation](./source/dataset/irrational_rotation.md) | Epistemic Boundary | [Measure-preserving](./source/dataset/irrational_rotation.md#key-mechanism) | [→](./source/dataset/irrational_rotation.md) |
+| [Irrational Rotation](./source/dataset/irrational_rotation.md) | Epistemic Boundary | [Measure-preserving](./source/hypopermits_jb.md#def-barrier-mix) | [→](./source/dataset/irrational_rotation.md) |
 
 ---
 
@@ -542,7 +556,7 @@ The Sieve reaches an undecidable boundary or categorical paradox.
 
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
-| [Stochastic Einstein-Boltzmann](./source/dataset/stochastic_einstein_boltzmann.md) | Compiled | [Holographic exclusion](./source/hypopermits_jb.md#def-node-complex) + [SurgCD](./source/dataset/stochastic_einstein_boltzmann.md#key-mechanism) | [→](./source/dataset/stochastic_einstein_boltzmann.md) |
+| [Stochastic Einstein-Boltzmann](./source/dataset/stochastic_einstein_boltzmann.md) | Compiled | [Holographic exclusion](./source/hypopermits_jb.md#def-e8) + [SurgCD](./source/hypopermits_jb.md#def-surgery-dc) | [→](./source/dataset/stochastic_einstein_boltzmann.md) |
 
 ---
 
