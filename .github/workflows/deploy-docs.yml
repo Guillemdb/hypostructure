@@ -37,7 +37,7 @@ jobs:
         working-directory: docs
         env:
           BASE_URL: /${{ github.event.repository.name }}
-        run: npx myst build
+        run: npx myst build --html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -45,7 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/_build/site
+          path: docs/_build/html
 
   deploy:
     environment:

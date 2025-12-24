@@ -102,11 +102,13 @@ project:
         # Geometry/Tilings (1)
         - file: source/dataset/pentagon_tiling.md
           title: Pentagon Tiling
-        # Frontier/Open Problems (2)
+        # Frontier/Open Problems (3)
         - file: source/dataset/quantum_gravity.md
           title: Quantum Gravity
         - file: source/dataset/collatz.md
           title: Collatz Conjecture
+        - file: source/dataset/stochastic_einstein_boltzmann.md
+          title: Stochastic Einstein-Boltzmann
     - file: source/prompts/prompts.md
       title: Prompts
       children:
@@ -227,6 +229,8 @@ site:
           url: /quantum-gravity
         - title: Collatz Conjecture
           url: /collatz
+        - title: Stochastic Einstein-Boltzmann
+          url: /stochastic-einstein-boltzmann
     - title: Prompts
       children:
         - title: Overview
