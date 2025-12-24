@@ -661,7 +661,6 @@ These are the traces where finding a bug would be most significant:
 |---------|------------------|------------|
 | [P vs NP](./source/dataset/p_vs_np.md) | Claims structural obstruction | Is "Replica Symmetry Breaking" a valid categorical obstruction? |
 | [Quantum Gravity](./source/dataset/quantum_gravity.md) | Epistemic boundary | Does the Sieve correctly detect undecidability? |
-| [Hodge Conjecture](./source/dataset/hodge_conjecture.md) | Partial compilation | Why does it get stuck? Is that genuine? |
 
 ---
 
