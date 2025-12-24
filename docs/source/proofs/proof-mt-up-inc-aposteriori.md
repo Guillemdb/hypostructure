@@ -22,8 +22,8 @@ Let $\mathcal{H}$ be a Hypostructure of type $T$ equipped with the Binary Certif
 **Later Certificates:**
 Later nodes in the DAG (nodes $j_1, \ldots, j_k$ with $j_\ell > i$ in the topological ordering) produce YES certificates:
 $$\{K_{j_1}^+, \ldots, K_{j_k}^+\}$$
-such that the certificate types satisfy:
-$$\{j_1, \ldots, j_k\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}}) = \mathcal{M}$$
+such that the certificate types of these certificates satisfy the missing set:
+$$\{\mathrm{type}(K_{j_1}^+), \ldots, \mathrm{type}(K_{j_k}^+)\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}}) = \mathcal{M}$$
 
 **Final Context:**
 The final certificate context after all nodes have been evaluated is:
@@ -94,7 +94,7 @@ In words: If an inconclusive certificate $K_P^{\mathrm{inc}}$ is in the context 
 **Lemma 2.2.1 (Discharge Validity):** The upgrade $K_P^{\mathrm{inc}} \to K_P^+$ is logically sound: the conjunction of missing certificates implies the original obligation.
 
 *Proof:* By construction of the NO-inconclusive certificate (Definition {prf:ref}`def-typed-no-certificates`), the $\mathsf{missing}$ set is precisely the set of certificate types whose presence was required by the verifier to produce a YES verdict. The verifier's algorithm guarantees that:
-$$\bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow P$$
+$$\bigwedge_{m \in \mathsf{missing}(K_P^{\mathrm{inc}})} K_m^+ \Rightarrow P$$
 
 This discharge condition is recorded in the certificate structure and verified at upgrade time. By Definition {prf:ref}`def-inc-upgrades`, an inc-upgrade rule is admissible only if:
 $$\bigwedge_{m \in \mathcal{M}} K_m^+ \Rightarrow \mathsf{obligation}(K_P^{\mathrm{inc}})$$
@@ -105,8 +105,8 @@ Since $\mathsf{obligation}(K_P^{\mathrm{inc}}) = P$, the implication holds. $\ch
 
 In our setup, we have:
 - $K_P^{\mathrm{inc}} \in \Gamma_i \subseteq \Gamma_{\mathrm{final}} = \Gamma^{(0)}$
-- For each $m \in \mathsf{missing}(K_P^{\mathrm{inc}})$, there exists $j_\ell \in \{j_1, \ldots, j_k\}$ such that $K_m^+ = K_{j_\ell}^+$
-- By hypothesis, $\{j_1, \ldots, j_k\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}})$
+- For each $m \in \mathsf{missing}(K_P^{\mathrm{inc}})$, there exists $j_\ell \in \{j_1, \ldots, j_k\}$ such that $\mathrm{type}(K_{j_\ell}^+) = m$
+- By hypothesis, $\{\mathrm{type}(K_{j_1}^+), \ldots, \mathrm{type}(K_{j_k}^+)\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}})$
 - Therefore $\{K_{j_1}^+, \ldots, K_{j_k}^+\} \subseteq \Gamma_{\mathrm{final}} = \Gamma^{(0)}$
 
 **Consequence:** The premises of the a-posteriori inc-upgrade rule are satisfied in $\Gamma^{(0)}$:
@@ -137,7 +137,7 @@ $$K_{m_0} \in \Gamma^{(0)} \quad \xrightarrow{\text{promote/upgrade}} \quad K_m 
 for some iteration $k_m \geq 1$.
 
 The maximum iteration needed to produce all missing certificates is:
-$$k_{\max} = \max_{m \in \mathsf{missing}} k_m$$
+$$k_{\max} = \max_{m \in \mathsf{missing}(K_P^{\mathrm{inc}})} k_m$$
 
 Then the inc-upgrade rule for $K_P^{\mathrm{inc}}$ fires at iteration $k_{\max} \to k_{\max} + 1$:
 $$K_P^+ \in \Gamma^{(k_{\max} + 1)}$$
@@ -186,22 +186,21 @@ corresponding to $K_P^{\mathrm{inc}}$.
 - The original certificate $K_P^{\mathrm{inc}}$ (since closure is monotone and $K_P^{\mathrm{inc}} \in \Gamma^{(0)}$)
 - The upgraded certificate $K_P^+$ (produced by the inc-upgrade rule)
 
-However, the **effective obligation ledger** is defined as:
-$$\mathsf{Obl}_{\text{eff}}(\Gamma) = \{(\mathsf{id}, \mathsf{obligation}, \mathsf{missing}, \mathsf{code}) : K^{\mathrm{inc}} \in \Gamma \text{ and } K^+ \notin \Gamma\}$$
+By Definition {prf:ref}`def-obligation-ledger`, the obligation ledger includes entries only for predicates that remain undecided. Once $K_P^+$ is produced, the predicate $P$ is no longer undecided - it has a YES certificate. Therefore, the semantic interpretation of the obligation ledger excludes discharged obligations:
 
-That is, an inconclusive certificate creates an obligation only if the corresponding YES certificate is absent.
+An inconclusive certificate $K_P^{\mathrm{inc}}$ contributes to $\mathsf{Obl}(\Gamma)$ only when no corresponding YES certificate $K_P^+$ exists in $\Gamma$.
 
-Since $K_P^+ \in \mathrm{Cl}(\Gamma_{\mathrm{final}})$, the entry for $P$ is removed:
-$$(\mathsf{id}_P, P, \mathcal{M}, \mathsf{code}_P, \mathsf{trace}_P) \notin \mathsf{Obl}_{\text{eff}}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))$$
+Since $K_P^+ \in \mathrm{Cl}(\Gamma_{\mathrm{final}})$, the obligation for $P$ is discharged and does not appear in the obligation count:
+$$(\mathsf{id}_P, P, \mathcal{M}, \mathsf{code}_P, \mathsf{trace}_P) \notin \mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))$$
 $\checkmark$
 
 ### Step 4.3: Ledger Size Reduction
 
-**Corollary 4.3.1 (Strict Reduction):** If at least one inc-upgrade rule fires during closure, the effective obligation ledger is strictly smaller after closure:
-$$|\mathsf{Obl}_{\text{eff}}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))| < |\mathsf{Obl}(\Gamma_{\mathrm{final}})|$$
+**Corollary 4.3.1 (Strict Reduction):** If at least one inc-upgrade rule fires during closure, the obligation ledger is strictly smaller after closure:
+$$|\mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))| < |\mathsf{Obl}(\Gamma_{\mathrm{final}})|$$
 
-*Proof:* Each inc-upgrade removes one entry from the effective ledger. If $k$ inc-upgrades fire (with distinct obligations), then:
-$$|\mathsf{Obl}_{\text{eff}}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))| \leq |\mathsf{Obl}(\Gamma_{\mathrm{final}})| - k$$
+*Proof:* Each inc-upgrade discharges one obligation by producing a corresponding YES certificate. If $k$ inc-upgrades fire (with distinct obligations), then:
+$$|\mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}}))| \leq |\mathsf{Obl}(\Gamma_{\mathrm{final}})| - k$$
 
 Since $k \geq 1$ by hypothesis, the inequality is strict. $\checkmark$
 
@@ -302,7 +301,7 @@ $$N \leq |\mathcal{K}_{\text{finite}}(T)|$$
 
 *Proof:* Each iteration can add at most one new certificate (in the worst case where rules produce minimal new information). Since there are at most $|\mathcal{K}_{\text{finite}}(T)|$ possible certificates, the iteration must stabilize within this many steps. $\checkmark$
 
-**Remark:** In practice, the iteration converges much faster due to parallel application of multiple rules. Typical cases converge in 1-3 iterations (see empirical analysis in Section {prf:ref}`sec-closure-performance`).
+**Remark:** In practice, the iteration converges much faster due to parallel application of multiple rules. Typical cases converge in 1-3 iterations.
 
 ---
 
@@ -360,10 +359,10 @@ All strategies converge to the same least fixed point. $\checkmark$
 **Theorem 8.1.1 (Logical Soundness):** Every certificate produced by inc-upgrade is logically valid: if $K_P^+$ is produced by upgrading $K_P^{\mathrm{inc}}$, then $P$ holds in the Hypostructure $\mathcal{H}$.
 
 *Proof:* By the discharge condition (Definition {prf:ref}`def-inc-upgrades`), an inc-upgrade rule is admissible only if:
-$$\bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow \mathsf{obligation}(K_P^{\mathrm{inc}}) = P$$
+$$\bigwedge_{m \in \mathsf{missing}(K_P^{\mathrm{inc}})} K_m^+ \Rightarrow \mathsf{obligation}(K_P^{\mathrm{inc}}) = P$$
 
-The certificates $\{K_m^+ : m \in \mathsf{missing}\}$ are themselves logically sound (either produced by verified node evaluations or by sound promotion/upgrade rules). By modus ponens:
-$$\bigwedge_{m \in \mathsf{missing}} K_m^+ \quad \text{and} \quad \left(\bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow P\right) \quad \Rightarrow \quad P$$
+The certificates $\{K_m^+ : m \in \mathsf{missing}(K_P^{\mathrm{inc}})\}$ are themselves logically sound (either produced by verified node evaluations or by sound promotion/upgrade rules). By modus ponens:
+$$\bigwedge_{m \in \mathsf{missing}(K_P^{\mathrm{inc}})} K_m^+ \quad \text{and} \quad \left(\bigwedge_{m \in \mathsf{missing}(K_P^{\mathrm{inc}})} K_m^+ \Rightarrow P\right) \quad \Rightarrow \quad P$$
 
 Therefore, $P$ holds. $\checkmark$
 

@@ -8886,7 +8886,7 @@ The proof uses the contrapositive: if a singularity existed, it would generate a
 
 ### 43.10 Absorbing Boundary Promotion
 
-:::{prf:theorem} [UP-Absorbing] Absorbing Boundary Promotion (BoundaryCheck $\to$ EnergyCheck)
+::::{prf:theorem} [UP-Absorbing] Absorbing Boundary Promotion (BoundaryCheck $\to$ EnergyCheck)
 :label: mt-up-absorbing
 :class: metatheorem
 
@@ -8896,7 +8896,7 @@ The proof uses the contrapositive: if a singularity existed, it would generate a
 1. A domain $\Omega$ with boundary $\partial\Omega$
 2. An energy functional $E(t) = \int_\Omega e(x,t) \, dx$
 3. A boundary flux condition: $\int_{\partial\Omega} \mathbf{n} \cdot \mathbf{F} \, dS < 0$ (strictly outgoing)
-4. Bounded input: $\int_0^T \|\text{source}\|_{L^2} \, dt < \infty$
+4. Bounded input: $\int_0^T \|\text{source}(\cdot, t)\|_{L^1(\Omega)} \, dt < \infty$
 
 **Statement:** If the flux across the boundary is strictly outgoing (dissipative) and inputs are bounded, the internal energy cannot blow up. The boundary acts as a "heat sink" absorbing energy.
 
@@ -8906,12 +8906,18 @@ $$K_{D_E}^- \wedge K_{\mathrm{Bound}_\partial}^+ \wedge (\text{Flux} < 0) \Right
 **Interface Permit Validated:** Finite Energy (via Boundary Dissipation).
 
 **Literature:** {cite}`Dafermos16`; {cite}`DafermosRodnianski10`
-:::
+::::
 
 :::{prf:proof}
 :label: sketch-mt-up-absorbing
 
-The energy identity $\frac{dE}{dt} = -\mathfrak{D}(t) + \int_{\partial\Omega} \text{flux} + \int_\Omega \text{source}$ with negative flux and dissipation $\mathfrak{D} \geq 0$ yields $E(t) \leq E(0) + \int_0^t \|\text{source}\| \, ds < \infty$. This is the energy method of Dafermos (2016, Chapter 5) applied to hyperbolic conservation laws with dissipative boundary conditions.
+The energy identity is $\frac{dE}{dt} = -\mathfrak{D}(t) + \int_{\partial\Omega} \mathbf{n} \cdot \mathbf{F} \, dS + \int_\Omega \text{source}(x,t) \, dx$. By hypothesis 3, the flux term satisfies $\int_{\partial\Omega} \mathbf{n} \cdot \mathbf{F} \, dS < 0$ (strictly outgoing). Since dissipation satisfies $\mathfrak{D}(t) \geq 0$, we have:
+$$\frac{dE}{dt} \leq \int_\Omega \text{source}(x,t) \, dx \leq \|\text{source}(\cdot, t)\|_{L^1(\Omega)}$$
+
+Integrating from $0$ to $t$ and using hypothesis 4:
+$$E(t) \leq E(0) + \int_0^t \|\text{source}(\cdot, s)\|_{L^1(\Omega)} \, ds < \infty$$
+
+This is the energy method of Dafermos (2016, Chapter 5) applied to hyperbolic conservation laws with dissipative boundary conditions.
 :::
 
 ---
@@ -8927,7 +8933,7 @@ The energy identity $\frac{dE}{dt} = -\mathfrak{D}(t) + \int_{\partial\Omega} \t
 **Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
 1. A potential $V(x)$ with a degenerate critical point: $V''(x^*) = 0$
 2. A canonical catastrophe normal form: $V(x) = x^{k+1}/(k+1)$ for $k \geq 2$ (fold $k=2$, cusp $k=3$, etc.)
-3. Higher-order stiffness: $V^{(k)}(x^*) \neq 0$
+3. Higher-order stiffness: $V^{(k+1)}(x^*) \neq 0$
 
 **Statement:** While the linear stiffness is zero ($\lambda_1 = 0$), the nonlinear stiffness is positive and bounded. The system is "Stiff" in a higher-order sense, ensuring polynomial convergence $t^{-1/(k-1)}$ instead of exponential.
 
@@ -8942,7 +8948,7 @@ $$K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{LS}_{\partial^k V}}^+ \Rightarrow K
 :::{prf:proof}
 :label: sketch-mt-up-catastrophe
 
-The Łojasiewicz exponent at a degenerate critical point is $\theta = 1/k$ for the $A_{k-1}$ catastrophe (Thom, 1975). The gradient inequality $|V(x)|^{1-\theta} \leq C|\nabla V(x)|$ yields polynomial decay. Arnold's classification (1972) ensures these are the only structurally stable degeneracies. The convergence rate follows from integrating the gradient flow ODE.
+The Łojasiewicz exponent at a degenerate critical point is $\theta = 1/k$ for the $A_{k-1}$ catastrophe (Thom, 1975). For the normal form $V(x) = x^{k+1}/(k+1)$ with critical point at $x^* = 0$, we have $\nabla V(x) = x^k$ and $V(x) - V(x^*) = x^{k+1}/(k+1)$. The Łojasiewicz gradient inequality $\|\nabla V(x)\| \geq C|V(x) - V(x^*)|^{1-\theta}$ with $\theta = 1/k$ becomes $|x^k| \geq C|x^{k+1}|^{(k-1)/k}$. Since $(k+1)(k-1)/k = k - 1/k < k$ for $k \geq 2$, this holds near $x=0$. Integrating the gradient flow $\dot{x} = -x^k$ yields polynomial convergence $|x(t)| \sim t^{-1/(k-1)}$. Arnold's classification (1972) ensures these are the only structurally stable degeneracies.
 :::
 
 ---
@@ -8983,11 +8989,11 @@ The NO-inconclusive certificate records an epistemic gap, not a semantic refutat
 
 **Context:** $K_P^{\mathrm{inc}}$ is produced at node $i$, and later nodes add certificates that satisfy its $\mathsf{missing}$ set.
 
-**Hypotheses:** Let $\Gamma_i$ be the context at node $i$ with $K_P^{\mathrm{inc}} \in \Gamma_i$. Later nodes produce $\{K_{j_1}^+, \ldots, K_{j_k}^+\}$ such that:
-$$\{j_1, \ldots, j_k\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}})$$
+**Hypotheses:** Let $\Gamma_i$ be the context at node $i$ with $K_P^{\mathrm{inc}} \in \Gamma_i$. Later nodes produce $\{K_{j_1}^+, \ldots, K_{j_k}^+\}$ such that the certificate types satisfy:
+$$\{\mathrm{type}(K_{j_1}^+), \ldots, \mathrm{type}(K_{j_k}^+)\} \supseteq \mathsf{missing}(K_P^{\mathrm{inc}})$$
 
 **Statement:** During promotion closure (Definition {prf:ref}`def-closure`), the inconclusive certificate upgrades:
-$$K_P^{\mathrm{inc}} \wedge \bigwedge_{m \in \mathsf{missing}} K_m^+ \Rightarrow K_P^+$$
+$$K_P^{\mathrm{inc}} \wedge \bigwedge_{m \in \mathsf{missing}(K_P^{\mathrm{inc}})} K_m^+ \Rightarrow K_P^+$$
 
 **Certificate Logic:**
 $$\mathrm{Cl}(\Gamma_{\mathrm{final}}) \ni K_P^+ \quad \text{(discharged from } K_P^{\mathrm{inc}} \text{)}$$

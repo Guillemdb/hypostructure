@@ -131,93 +131,27 @@ $$|\Phi(x) - \Phi(x^*)|^{1/2} \leq C_{\mathrm{LS}} \|\nabla \Phi(x)\|$$
 
 Let $x \in U_{\delta_{\mathrm{LS}}}$ where $\delta_{\mathrm{LS}} := \min\{\delta, \lambda_1/(4C_R), \lambda_1/(4C_N)\}$ ensures both Corollary 1.5 and Lemma 2.2 hold.
 
-**Step 3.1:** By Corollary 1.5:
-$$\Phi(x) - \Phi(x^*) \geq \frac{\lambda_1}{4} \|x - x^*\|^2$$
+We will establish both upper and lower bounds on the energy in terms of $\|h\| := \|x - x^*\|$, then relate $\|h\|$ to $\|\nabla \Phi(x)\|$.
 
-Taking square roots:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \geq \left(\frac{\lambda_1}{4}\right)^{1/2} \|x - x^*\|$$
-
-**Step 3.2:** By Lemma 2.2:
-$$\|x - x^*\| \leq \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$$
-
-**Step 3.3:** Combining Steps 3.1 and 3.2:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \geq \left(\frac{\lambda_1}{4}\right)^{1/2} \|x - x^*\| \geq \left(\frac{\lambda_1}{4}\right)^{1/2} \cdot \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$$
-
-Simplifying:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \geq \frac{2}{(\lambda_1)^{1/2} \cdot 2} \|\nabla \Phi(x)\| = \frac{1}{\sqrt{\lambda_1}} \|\nabla \Phi(x)\|$$
-
-**Step 3.4:** Inverting the inequality:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \leq \sqrt{\lambda_1} \|\nabla \Phi(x)\|^{-1} \cdot |\Phi(x) - \Phi(x^*)|^{1/2}$$
-
-Wait, this is circular. Let me restart with the correct approach.
-
-**Corrected Step 3.1:** From Lemma 2.2:
-$$\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \|x - x^*\|$$
+**Step 3.1 (Gradient Lower Bound):** By Lemma 2.2:
+$$\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \|h\|$$
 
 Inverting:
-$$\|x - x^*\| \leq \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$$
-
-**Corrected Step 3.2:** From Corollary 1.5:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \geq \left(\frac{\lambda_1}{4}\right)^{1/2} \|x - x^*\|$$
-
-**Corrected Step 3.3:** We want to bound $|\Phi(x) - \Phi(x^*)|^{1/2}$ in terms of $\|\nabla \Phi(x)\|$. From Step 3.2:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \leq \left(\frac{\lambda_1}{4}\right)^{1/2} \|x - x^*\| + \text{(higher order)}$$
-
-Actually, we need a more careful approach using the exact quadratic approximation.
-
-**Rigorous Approach:**
-
-By Corollary 1.5: $\Phi(x) - \Phi(x^*) \geq \frac{\lambda_1}{4} \|h\|^2$ where $h = x - x^*$.
-
-By Lemma 2.2: $\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \|h\|$.
-
-Therefore:
 $$\|h\| \leq \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$$
 
-Squaring:
-$$\|h\|^2 \leq \frac{4}{\lambda_1^2} \|\nabla \Phi(x)\|^2$$
+**Step 3.2 (Energy Upper Bound):** By Lemma 1.2 and the spectral decomposition:
+$$\Phi(x) - \Phi(x^*) = \frac{1}{2} \langle L h, h \rangle + R(h) \leq \frac{\Lambda_{\max}}{2} \|h\|^2 + C_R \|h\|^3$$
 
-Now, using the energy bound:
-$$\Phi(x) - \Phi(x^*) \leq \frac{1}{2} \langle L h, h \rangle + C_R \|h\|^3 \leq \frac{1}{2} \|L\|_{\text{op}} \|h\|^2 + C_R \|h\|^3$$
+where $\Lambda_{\max} := \|L\|_{\text{op}}$ is the largest eigenvalue of $L$.
 
-For small $\|h\|$, the cubic term is negligible. Let's use a cleaner approach.
+For $\|h\| < \Lambda_{\max}/(4C_R)$, we have $C_R \|h\|^3 \leq \frac{\Lambda_{\max}}{4} \|h\|^2$, so:
+$$\Phi(x) - \Phi(x^*) \leq \frac{3\Lambda_{\max}}{4} \|h\|^2 \leq \Lambda_{\max} \|h\|^2$$
 
-**Final Correct Approach:**
+Taking square roots:
+$$|\Phi(x) - \Phi(x^*)|^{1/2} \leq \sqrt{\Lambda_{\max}} \|h\|$$
 
-From $\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \|h\|$, we have:
-$$\|h\|^2 \leq \frac{4}{\lambda_1^2} \|\nabla \Phi(x)\|^2$$
-
-From $\Phi(x) - \Phi(x^*) \geq \frac{\lambda_1}{4} \|h\|^2$, we get:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \geq \left(\frac{\lambda_1}{4}\right)^{1/2} \|h\|$$
-
-Thus:
-$$\|h\| \leq \frac{2}{\sqrt{\lambda_1}} |\Phi(x) - \Phi(x^*)|^{1/2}$$
-
-Substituting into the gradient bound $\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \|h\|$:
-$$\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \cdot \frac{2}{\sqrt{\lambda_1}} |\Phi(x) - \Phi(x^*)|^{1/2} = \sqrt{\lambda_1} |\Phi(x) - \Phi(x^*)|^{1/2}$$
-
-Wait, this gives the reverse inequality. Let me reconsider.
-
-**Actually Correct Derivation:**
-
-We have two relations:
-1. $\Phi(x) - \Phi(x^*) \geq \frac{\lambda_1}{4} \|h\|^2$ (energy bound)
-2. $\|\nabla \Phi(x)\| \geq \frac{\lambda_1}{2} \|h\|$ (gradient bound)
-
-From (2): $\|h\| \leq \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$
-
-Squaring: $\|h\|^2 \leq \frac{4}{\lambda_1^2} \|\nabla \Phi(x)\|^2$
-
-Now I need an **upper** bound on $\Phi(x) - \Phi(x^*)$ in terms of $\|h\|^2$. By Lemma 1.2 (ignoring the cubic for now):
-$$\Phi(x) - \Phi(x^*) \leq \frac{1}{2} \langle L h, h \rangle + C_R \|h\|^3 \leq \frac{\Lambda_{\max}}{2} \|h\|^2 + C_R \|h\|^3$$
-
-where $\Lambda_{\max} := \|L\|_{\text{op}}$ is the largest eigenvalue.
-
-For small $\|h\|$, say $\|h\| < \Lambda_{\max}/(4C_R)$:
-$$\Phi(x) - \Phi(x^*) \leq \Lambda_{\max} \|h\|^2$$
-
-Therefore:
-$$|\Phi(x) - \Phi(x^*)|^{1/2} \leq \sqrt{\Lambda_{\max}} \|h\| \leq \sqrt{\Lambda_{\max}} \cdot \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$$
+**Step 3.3 (Combining the Bounds):** Substituting the bound $\|h\| \leq \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$ from Step 3.1:
+$$|\Phi(x) - \Phi(x^*)|^{1/2} \leq \sqrt{\Lambda_{\max}} \cdot \frac{2}{\lambda_1} \|\nabla \Phi(x)\|$$
 
 Setting $C_{\mathrm{LS}} := \frac{2\sqrt{\Lambda_{\max}}}{\lambda_1}$ gives:
 $$|\Phi(x) - \Phi(x^*)|^{1/2} \leq C_{\mathrm{LS}} \|\nabla \Phi(x)\|$$
@@ -342,8 +276,9 @@ The Łojasiewicz exponent is $\theta = 1/4 < 1/2$, corresponding to the lack of 
 ## Step 7: Comparison with Literature
 
 **Literature Theorem (Simon 1983, Theorem 3):** Let $\Phi: \mathcal{X} \to \mathbb{R}$ be a $C^2$ functional on a Hilbert space satisfying the Łojasiewicz-Simon inequality near a critical point $x^*$ with exponent $\theta \in (0, 1)$. Then the gradient flow converges:
-- If $\theta = 1/2$: exponential convergence
-- If $\theta \in (0, 1/2)$: convergence in **finite time** (for $\theta < 1/2$) or **polynomial** rate (for $\theta = 1/2$ exactly)
+- If $\theta = 1/2$: **exponential convergence**
+- If $\theta \in (0, 1/2)$: convergence in **finite time**
+- If $\theta \in (1/2, 1)$: **polynomial convergence** rate
 
 **Our Contribution:** We establish that:
 $$\text{Spectral Gap } (\lambda_1 > 0) \quad \Longrightarrow \quad \text{Łojasiewicz exponent } \theta = 1/2$$

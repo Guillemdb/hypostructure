@@ -208,8 +208,11 @@ $$\frac{d}{dt} R_{\max}(t) \leq \frac{2}{n} R_{\max}(t)^2$$
 (from the maximum principle for scalar curvature). This implies:
 $$R_{\max}(t) \leq \frac{R_{\max}(t_k^+)}{1 - \frac{2}{n} R_{\max}(t_k^+) (t - t_k)}$$
 
-For the next surgery to occur at $t_{k+1}$ with $R_{\max}(t_{k+1}) = r_{\text{surg}}^{-2}$, a minimum time gap is required:
-$$t_{k+1} - t_k \geq \frac{n}{2} R_{\max}(t_k^+)^{-1} \left(r_{\text{surg}}^{-2} - R_{\max}(t_k^+)\right)^{-1} > 0$$
+For the next surgery to occur at $t_{k+1}$ with $R_{\max}(t_{k+1}) = r_{\text{surg}}^{-2}$, we require:
+$$r_{\text{surg}}^{-2} \leq \frac{R_{\max}(t_k^+)}{1 - \frac{2}{n} R_{\max}(t_k^+) (t_{k+1} - t_k)}$$
+
+Solving for the time gap (assuming $R_{\max}(t_k^+) < r_{\text{surg}}^{-2}$ post-surgery):
+$$t_{k+1} - t_k \geq \frac{n}{2 R_{\max}(t_k^+)} \left(1 - \frac{R_{\max}(t_k^+)}{r_{\text{surg}}^{-2}}\right) > 0$$
 
 This ensures no accumulation of surgery times in finite intervals.
 
@@ -226,7 +229,7 @@ This ensures no accumulation of surgery times in finite intervals.
 **Step 1.1 (Geometric Surgery Construction):** Following Perelman {cite}`Perelman03` (Section 13.2), the surgery proceeds:
 
 1. **Neck identification**: Identify an $\varepsilon$-neck: a region $N \cong S^{n-1} \times I$ where the metric is $\varepsilon$-close to the standard cylinder:
-   $$|g|_N - g_{\text{cyl}}|_{C^{[\varepsilon^{-1}]}} \leq \varepsilon$$
+   $$\|g|_N - g_{\text{cyl}}\|_{C^{[\varepsilon^{-1}]}} \leq \varepsilon$$
 
 2. **Excision**: Remove the central portion $S^{n-1} \times (-L, L) \subset N$, leaving two boundary components $\partial_1, \partial_2 \cong S^{n-1}$
 
@@ -252,10 +255,10 @@ where $g_{\text{cap}}$ is a standard metric (round metric on $D^n$ or smoothed s
 - **Metric continuity**: $g(t^-)|_{\partial N} = g_{\text{cap}}|_{\partial}$ up to $O(\varepsilon)$ by the neck approximation
 - **Curvature bounds**: $|\nabla^k Rm| \leq C_k r_{\text{surg}}^{-k-2}$ for all $k$ by canonical neighborhood
 
-**Step 1.4 (Evolution Continuation):** After surgery at time $t^-$, restart Ricci flow from $g'(t^+)$:
-$$\frac{\partial}{\partial t} g' = -2 \text{Ric}(g'), \quad g'(t^+) = g'(t^+)$$
+**Step 1.4 (Evolution Continuation):** After surgery at the singular time, restart Ricci flow from the post-surgery metric:
+$$\frac{\partial}{\partial t} g'(t) = -2 \text{Ric}(g'(t)), \quad t > t^+$$
 
-By standard short-time existence for Ricci flow (Hamilton {cite}`Hamilton97`, DeTurck's trick), the flow exists for $t \in [t^+, t^+ + \delta)$ with $\delta > 0$ depending on $\|Rm(g'(t^+))\|_{L^\infty}$.
+with initial condition $g'(t^+)$ being the surgered metric. By standard short-time existence for Ricci flow (Hamilton {cite}`Hamilton97`, DeTurck's trick), the flow exists for $t \in [t^+, t^+ + \delta)$ with $\delta > 0$ depending on $\|Rm(g'(t^+))\|_{L^\infty}$.
 
 **Step 1.5 (Regularity Inheritance):** The post-surgery metric $g'(t^+)$ inherits regularity:
 - **Bounded curvature**: $|Rm(g'(t^+))| \leq C r_{\text{surg}}^{-2}$ (controlled by surgery scale)
@@ -315,8 +318,8 @@ $$N_{\text{surg}}([0, T]) \leq C(n, E_0, v_0, r_{\text{surg}}) < \infty$$
 **Step 3.1 (Energy Functional):** Use Perelman's $\mathcal{W}$-functional as the Lyapunov function:
 $$\mathcal{W}(g, f, \tau) = \int_M \left[\tau(R + |\nabla f|^2) + f - n\right] (4\pi\tau)^{-n/2} e^{-f} \, dV$$
 
-This functional is:
-1. **Monotone under smooth flow**: $\frac{d}{dt} \mathcal{W} \geq 0$
+This functional (when properly coupled with the flow via the reduced volume) satisfies:
+1. **Monotone under smooth flow**: The reduced volume $\tilde{V}(t)$ is non-increasing, which bounds $\mathcal{W}$ from above
 2. **Decreases under surgery**: $\Delta \mathcal{W}_{\text{surg}} \leq -\delta_{\mathcal{W}} < 0$ by Lemma 3
 
 **Step 3.2 (Surgery Energy Budget):** Starting from initial entropy $\mathcal{W}_0 = \mathcal{W}(g(0))$, after $N$ surgeries:

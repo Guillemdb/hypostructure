@@ -16,7 +16,7 @@ We establish the framework for the Capacity Promotion theorem, which resolves th
 - **State Space:** $\mathcal{X} \subset \mathbb{R}^n$ is a bounded open domain with Lipschitz boundary, or more generally, a Riemannian manifold of dimension $n$
 - **Singular Set:** $\Sigma \subset \mathcal{X}$ is a closed set where the solution $u$ exhibits singular behavior (e.g., discontinuity, unbounded gradient, or loss of differentiability)
 - **Regular Domain:** $\mathcal{X}_{\mathrm{reg}} := \mathcal{X} \setminus \Sigma$ is the regular region where the solution is well-defined
-- **Solution Space:** $u \in H^1_{\mathrm{loc}}(\mathcal{X}_{\mathrm{reg}})$ is a function in the local Sobolev space
+- **Solution Space:** $u \in H^1_{\text{loc}}(\mathcal{X}_{\mathrm{reg}})$ is a function in the local Sobolev space
 
 ### Codimension and Hausdorff Dimension
 
@@ -68,8 +68,8 @@ $$\dim_H(\Sigma) \geq n - 2 \quad \Leftrightarrow \quad \mathrm{codim}(\Sigma) \
 **$K_{\mathrm{Cap}_H}^{\mathrm{blk}}$ (Capacity Barrier Blocked):** The BarrierCap defense has been engaged, certifying that despite the large Hausdorff dimension, the capacity is zero:
 $$\mathrm{Cap}_{1,2}(\Sigma) = 0$$
 
-**$K_{\mathrm{Cap}_H}^{\mathrm{blk}}$ (Additional Regularity):** The solution $u$ satisfies:
-$$u \in H^1_{\mathrm{loc}}(\mathcal{X} \setminus \Sigma) \quad \text{and} \quad \int_{\mathcal{X} \setminus \Sigma} |\nabla u|^2 + |u|^2 \, dx < \infty$$
+**Additional Regularity Hypothesis:** The solution $u$ satisfies:
+$$u \in H^1_{\text{loc}}(\mathcal{X} \setminus \Sigma) \quad \text{and} \quad \int_{\mathcal{X} \setminus \Sigma} |\nabla u|^2 + |u|^2 \, dx < \infty$$
 
 **Bridge to Federer Framework:** The certificates $K_{\mathrm{Cap}_H}^- \wedge K_{\mathrm{Cap}_H}^{\mathrm{blk}}$ translate precisely to the hypotheses of Federer's removable singularity theorem {cite}`Federer69`, Theorem 4.7.2:
 - **Hypothesis (F1):** The singular set $\Sigma$ is closed and has zero $(1,2)$-capacity
@@ -84,7 +84,7 @@ $$u \in H^1_{\mathrm{loc}}(\mathcal{X} \setminus \Sigma) \quad \text{and} \quad 
 
 ### Step 1.1: Weak Formulation on the Regular Domain
 
-Suppose $u \in H^1_{\mathrm{loc}}(\mathcal{X} \setminus \Sigma)$ is a weak solution to the elliptic PDE:
+Suppose $u \in H^1_{\text{loc}}(\mathcal{X} \setminus \Sigma)$ is a weak solution to the elliptic PDE:
 $$-\Delta u + V(x) u = f(x) \quad \text{in } \mathcal{X} \setminus \Sigma$$
 in the distributional sense, where $V \in L^\infty(\mathcal{X})$ is a potential and $f \in L^2(\mathcal{X})$ is a source term.
 
@@ -153,7 +153,7 @@ The same argument applies to the $L^2$ norm of $u$ itself. $\square$
 
 ### Step 2.1: Weak Maximum Principle in Sobolev Spaces
 
-**Theorem 2.1 (Weak Maximum Principle; see {cite}`EvansGariepy15`, Theorem 4.7.2):** Let $u_1, u_2 \in H^1(\mathcal{X})$ be weak solutions to:
+**Theorem 2.1 (Weak Maximum Principle):** Let $u_1, u_2 \in H^1(\mathcal{X})$ be weak solutions to:
 $$-\Delta u_i + V u_i = f \quad \text{in } \mathcal{X}$$
 in the sense that for all $\phi \in H^1_0(\mathcal{X})$:
 $$\int_{\mathcal{X}} \nabla u_i \cdot \nabla \phi + V u_i \phi \, dx = \int_{\mathcal{X}} f \phi \, dx$$
@@ -175,7 +175,7 @@ $$\nabla w = 0 \quad \text{and} \quad V w = 0 \quad \text{a.e. in } \mathcal{X}$
 
 ### Step 2.2: Application to Removable Singularities
 
-**Corollary 2.2 (Uniqueness of Extension):** Let $u \in H^1_{\mathrm{loc}}(\mathcal{X} \setminus \Sigma)$ be a weak solution to the PDE on $\mathcal{X} \setminus \Sigma$. If $\mathrm{Cap}_{1,2}(\Sigma) = 0$, then there exists a **unique** extension $\tilde{u} \in H^1(\mathcal{X})$ such that:
+**Corollary 2.2 (Uniqueness of Extension):** Let $u \in H^1_{\text{loc}}(\mathcal{X} \setminus \Sigma)$ be a weak solution to the PDE on $\mathcal{X} \setminus \Sigma$. If $\mathrm{Cap}_{1,2}(\Sigma) = 0$, then there exists a **unique** extension $\tilde{u} \in H^1(\mathcal{X})$ such that:
 $$\tilde{u}|_{\mathcal{X} \setminus \Sigma} = u \quad \text{and} \quad \tilde{u} \text{ satisfies the weak formulation on } \mathcal{X}$$
 
 **Proof of Corollary 2.2:**
@@ -208,7 +208,7 @@ The operator is surjective (every $v \in H^1(\mathcal{X})$ restricts to $v|_{\ma
 
 ### Step 3.1: Federer's Removable Singularity Theorem
 
-**Theorem 3.1 (Federer 1969; see {cite}`Federer69`, Section 4.7, Theorem 4.7.2):** Let $\Sigma \subset \mathbb{R}^n$ be a closed set with $\mathrm{Cap}_{1,p}(\Sigma) = 0$ for some $1 < p < \infty$. Let $u \in W^{1,p}_{\mathrm{loc}}(\mathbb{R}^n \setminus \Sigma)$ be a function with locally finite $W^{1,p}$ energy. Then there exists a unique extension $\tilde{u} \in W^{1,p}_{\mathrm{loc}}(\mathbb{R}^n)$ such that:
+**Theorem 3.1 (Federer 1969; see {cite}`Federer69`, Section 4.7, Theorem 4.7.2):** Let $\Sigma \subset \mathbb{R}^n$ be a closed set with $\mathrm{Cap}_{1,p}(\Sigma) = 0$ for some $1 < p < \infty$. Let $u \in W^{1,p}_{\text{loc}}(\mathbb{R}^n \setminus \Sigma)$ be a function with locally finite $W^{1,p}$ energy. Then there exists a unique extension $\tilde{u} \in W^{1,p}_{\text{loc}}(\mathbb{R}^n)$ such that:
 $$\tilde{u}|_{\mathbb{R}^n \setminus \Sigma} = u$$
 
 Moreover, the extension satisfies:
@@ -289,7 +289,7 @@ if the above identity holds for all $\phi \in H^1_0(\mathcal{X})$.
 
 ### Step 4.2: Elliptic Regularity
 
-**Theorem 4.1 (Interior Regularity):** If $\tilde{u} \in H^1(\mathcal{X})$ is a weak solution to the elliptic PDE with $f \in L^2(\mathcal{X})$ and $V \in L^\infty(\mathcal{X})$, then $\tilde{u} \in H^2_{\mathrm{loc}}(\mathcal{X})$ (the solution has two weak derivatives).
+**Theorem 4.1 (Interior Regularity):** If $\tilde{u} \in H^1(\mathcal{X})$ is a weak solution to the elliptic PDE with $f \in L^2(\mathcal{X})$ and $V \in L^\infty(\mathcal{X})$, then $\tilde{u} \in H^2_{\text{loc}}(\mathcal{X})$ (the solution has two weak derivatives).
 
 **Proof (Standard Elliptic Regularity):** This follows from the classical elliptic regularity theory (see {cite}`EvansGariepy15`, Chapter 6). The key steps are:
 
@@ -305,7 +305,7 @@ $$\int_{\mathcal{X}} \nabla (D_h^i u) \cdot \nabla \phi + V (D_h^i u) \phi \, dx
 **(II) Uniform Bound:** Taking $\phi = D_h^i u$ (after suitable truncation):
 $$\int_{\mathcal{X}} |\nabla (D_h^i u)|^2 \, dx \leq C \int_{\mathcal{X}} |D_h^i f|^2 \, dx + C \|u\|_{H^1}^2$$
 
-The right side is bounded uniformly in $h$ since $f \in L^2$. Thus $D_h^i u$ is bounded in $H^1$, which implies $\partial_i u \in H^1$ (i.e., $u \in H^2_{\mathrm{loc}}$).
+The right side is bounded uniformly in $h$ since $f \in L^2$. Thus $D_h^i u$ is bounded in $H^1$, which implies $\partial_i u \in H^1$ (i.e., $u \in H^2_{\text{loc}}$).
 
 **Application to Removable Singularities:** The regularity argument applies to $\tilde{u}$ on all of $\mathcal{X}$, not just on $\mathcal{X} \setminus \Sigma$. This is because the weak formulation holds on $\mathcal{X}$ by Step 4.1. Thus, even though the original solution $u$ may have been irregular on $\Sigma$, the extended solution $\tilde{u}$ is $H^2$ regular everywhere (assuming $f \in L^2$ and $V \in L^\infty$).
 
@@ -313,7 +313,7 @@ The right side is bounded uniformly in $h$ since $f \in L^2$. Thus $D_h^i u$ is 
 
 If $f$ and $V$ are smoother, then $\tilde{u}$ inherits higher regularity by the **elliptic bootstrap** argument:
 
-**Theorem 4.2 (Bootstrap Regularity):** If $f \in H^k(\mathcal{X})$ and $V \in C^{k,\alpha}(\mathcal{X})$ (Hölder continuous with $k$ derivatives), then $\tilde{u} \in H^{k+2}_{\mathrm{loc}}(\mathcal{X})$.
+**Theorem 4.2 (Bootstrap Regularity):** If $f \in H^k(\mathcal{X})$ and $V \in C^{k,\alpha}(\mathcal{X})$ (Hölder continuous with $k$ derivatives), then $\tilde{u} \in H^{k+2}_{\text{loc}}(\mathcal{X})$.
 
 **Proof (Induction):** The base case $k = 0$ is Theorem 4.1. For $k \geq 1$, differentiate the weak formulation in the distributional sense and apply the same difference quotient argument to $\partial^\beta u$ for multi-indices $|\beta| = k$. The coercivity of the elliptic operator ensures the induction step closes.
 
@@ -342,7 +342,7 @@ $$\int_{\mathcal{X}} \nabla \tilde{u} \cdot \nabla \phi + V \tilde{u} \phi \, dx
 
 **(C4) Uniqueness:** The extension is unique as an element of $H^1(\mathcal{X})$.
 
-**(C5) Regularity Inheritance:** If $u$ satisfies elliptic regularity on $\mathcal{X} \setminus \Sigma$ (e.g., $u \in H^2_{\mathrm{loc}}(\mathcal{X} \setminus \Sigma)$), then $\tilde{u} \in H^2_{\mathrm{loc}}(\mathcal{X})$ by Theorem 4.1.
+**(C5) Regularity Inheritance:** If $u$ satisfies elliptic regularity on $\mathcal{X} \setminus \Sigma$ (e.g., $u \in H^2_{\text{loc}}(\mathcal{X} \setminus \Sigma)$), then $\tilde{u} \in H^2_{\text{loc}}(\mathcal{X})$ by Theorem 4.1.
 
 **(C6) Capacity Zero Verification:** The capacity computation:
 $$\mathrm{Cap}_{1,2}(\Sigma) = \inf\left\{\|u\|_{H^1(\mathbb{R}^n)}^2 : u \geq 1 \text{ q.e. on } \Sigma\right\} = 0$$
@@ -423,7 +423,7 @@ The proof relies on the following foundational results:
 **Construction:** Let $\Sigma \subset \mathbb{R}^3$ be a Cantor-type set constructed iteratively:
 
 1. Start with the unit cube $Q_0 = [0,1]^3$
-2. At stage $k$, divide each cube into $8^k$ subcubes of side length $3^{-k}$ and remove the "middle" cubes, keeping only $2^{3k}$ cubes
+2. At stage $k$, each cube from stage $k-1$ is divided into $3^3 = 27$ subcubes of side length $3^{-k}$, and we keep only $2^3 = 8$ of them (removing the "middle" cubes), giving a total of $2^{3k}$ cubes at stage $k$
 3. Define $\Sigma := \bigcap_{k=0}^\infty \Sigma_k$ where $\Sigma_k$ is the union of cubes at stage $k$
 
 **Hausdorff Dimension:** The Hausdorff dimension is:
@@ -471,7 +471,7 @@ $$\mathrm{Cap}_{1,2}(\{x_0\}) = 0$$
 
 **Classical Example (Riemann Removable Singularity Theorem):** In complex analysis, a bounded holomorphic function $f: \mathbb{C} \setminus \{z_0\} \to \mathbb{C}$ extends uniquely to a holomorphic function on $\mathbb{C}$. The point $z_0$ is a **removable singularity**.
 
-**PDE Analogue:** Consider the Laplace equation $\Delta u = 0$ on $\mathbb{R}^n \setminus \{0\}$. If $u \in H^1_{\mathrm{loc}}(\mathbb{R}^n \setminus \{0\})$ is harmonic with finite energy:
+**PDE Analogue:** Consider the Laplace equation $\Delta u = 0$ on $\mathbb{R}^n \setminus \{0\}$. If $u \in H^1_{\text{loc}}(\mathbb{R}^n \setminus \{0\})$ is harmonic with finite energy:
 $$\int_{\mathbb{R}^n \setminus B_\epsilon(0)} |\nabla u|^2 \, dx < \infty$$
 for all $\epsilon > 0$, then $u$ extends to a harmonic function on all of $\mathbb{R}^n$.
 

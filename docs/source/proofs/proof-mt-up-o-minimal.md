@@ -7,7 +7,7 @@
 
 ## Setup and Notation
 
-We establish the framework for the O-Minimal Promotion theorem, which resolves the TameCheck failure ($K_{\text{Tame}}^-$) when the o-minimal barrier is blocked ($K_{\mathrm{TB}_O}^{\mathrm{blk}}$). The theorem applies the theory of o-minimal structures to show that wild sets, when definable in an o-minimal expansion of the real field, are topologically tame despite their apparent irregularity.
+We establish the framework for the O-Minimal Promotion theorem, which resolves the TameCheck failure ($K_{\mathrm{TB}_O}^-$) when the o-minimal barrier is blocked ($K_{\mathrm{TB}_O}^{\mathrm{blk}}$). The theorem applies the theory of o-minimal structures to show that wild sets, when definable in an o-minimal expansion of the real field, are topologically tame despite their apparent irregularity.
 
 ### O-Minimal Structures: Foundations
 
@@ -54,7 +54,7 @@ for polynomials $P_i$. This is o-minimal by Wilkie {cite}`Wilkie96`.
 
 The theorem assumes the following certificates have been issued:
 
-**$K_{\text{Tame}}^-$ (Wildness Detected):** The TameCheck node has failed, certifying that the set $W$ appears to be wild:
+**$K_{\mathrm{TB}_O}^-$ (Wildness Detected):** The TameCheck node has failed, certifying that the set $W$ appears to be wild:
 $$W \text{ fails naive tameness criteria (e.g., infinite Betti numbers, wild embeddings, etc.)}$$
 
 **$K_{\mathrm{TB}_O}^{\mathrm{blk}}$ (O-Minimal Barrier Blocked):** The BarrierOmin defense has been engaged, certifying that $W$ is definable in an o-minimal structure $\mathcal{M}$:
@@ -441,7 +441,7 @@ The certificate $K_{\mathrm{TB}_O}^{\sim}$ validates the interface permit for **
 
 **Validation Logic:**
 
-**(V1) Original System (Failed TameCheck):** The naive tameness check failed: $K_{\text{Tame}}^- = \text{NO}$. This means $W$ appeared to be wild (e.g., singular set, fractal-like boundary, etc.).
+**(V1) Original System (Failed TameCheck):** The naive tameness check failed: $K_{\mathrm{TB}_O}^- = \text{NO}$. This means $W$ appeared to be wild (e.g., singular set, fractal-like boundary, etc.).
 
 **(V2) O-Minimal Promotion:** The barrier certificate $K_{\mathrm{TB}_O}^{\mathrm{blk}}$ certifies that $W$ is definable in an o-minimal structure $\mathcal{M}$ (e.g., $\mathbb{R}_{\text{an,exp}}$).
 
@@ -462,7 +462,7 @@ $$K_{\mathrm{TB}_O}^- \wedge K_{\mathrm{TB}_O}^{\mathrm{blk}} \Rightarrow K_{\ma
 
 **Interpretation:**
 
-- **$K_{\text{Tame}}^-$ (Wildness Detected):** The set $W$ fails naive tameness criteria.
+- **$K_{\mathrm{TB}_O}^-$ (Wildness Detected):** The set $W$ fails naive tameness criteria.
 - **$K_{\mathrm{TB}_O}^{\mathrm{blk}}$ (O-Minimal Barrier Blocked):** The set $W$ is definable in an o-minimal structure, blocking the wildness.
 - **$K_{\mathrm{TB}_O}^{\sim}$ (Tame under O-Minimality):** The o-minimal structure promotes $W$ to a tame set with finite stratification, finite Betti numbers, and no pathological embeddings.
 
@@ -512,7 +512,7 @@ $$W = \{(x, y, z) \in \mathbb{R}^3 : x^2 + y^2 - z^2 = 0\}$$
 
 This is a **cone** with a singularity at the origin $(0, 0, 0)$.
 
-**TameCheck Failure:** At the origin, $W$ is not a smooth manifold (the tangent cone is the entire cone, not a linear subspace). Naive tameness checks fail: $K_{\text{Tame}}^- = \text{NO}$.
+**TameCheck Failure:** At the origin, $W$ is not a smooth manifold (the tangent cone is the entire cone, not a linear subspace). Naive tameness checks fail: $K_{\mathrm{TB}_O}^- = \text{NO}$.
 
 **O-Minimal Definability:** $W$ is semi-algebraic (defined by a polynomial equation), hence definable in the o-minimal structure $\mathcal{M}_{\text{alg}}$ of semi-algebraic sets.
 
@@ -542,7 +542,7 @@ $$W = \{(t e^{-t} \cos(t), t e^{-t} \sin(t)) : t \geq 0\}$$
 
 This is an **exponential spiral** spiraling into the origin as $t \to \infty$.
 
-**TameCheck Failure:** The spiral winds infinitely around the origin. A naive check might flag this as "wild oscillation," failing TameCheck: $K_{\text{Tame}}^- = \text{NO}$.
+**TameCheck Failure:** The spiral winds infinitely around the origin. A naive check might flag this as "wild oscillation," failing TameCheck: $K_{\mathrm{TB}_O}^- = \text{NO}$.
 
 **O-Minimal Definability:** The curve is definable in $\mathbb{R}_{\text{an,exp}}$ (it involves exponential and trigonometric functions, which are definable in the exponential field). The closure $\overline{W} = W \cup \{(0, 0)\}$ is also definable.
 
@@ -626,7 +626,7 @@ We have established the O-Minimal Promotion theorem via the following chain of r
 
 The promotion logic $K_{\mathrm{TB}_O}^- \wedge K_{\mathrm{TB}_O}^{\mathrm{blk}} \Rightarrow K_{\mathrm{TB}_O}^{\sim}$ is validated:
 
-- **Input Certificates:** $K_{\text{Tame}}^-$ (wildness detected) and $K_{\mathrm{TB}_O}^{\mathrm{blk}}$ (o-minimal definability)
+- **Input Certificates:** $K_{\mathrm{TB}_O}^-$ (wildness detected) and $K_{\mathrm{TB}_O}^{\mathrm{blk}}$ (o-minimal definability)
 - **Metatheorem Application:** O-minimal tame topology theory (van den Dries, Kurdyka, Wilkie)
 - **Output Certificate:** $K_{\mathrm{TB}_O}^{\sim}$ (tame topology under o-minimality)
 

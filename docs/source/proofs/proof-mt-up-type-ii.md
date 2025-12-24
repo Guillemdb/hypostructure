@@ -19,7 +19,7 @@ We are provided with the following certified permits and hypotheses:
    $$\partial_t u = \Delta u + |u|^{p-1}u, \quad p > p_c := 1 + \frac{4}{n}$$
    where $p_c$ is the critical Sobolev exponent for energy methods.
 
-2. **Supercritical Scaling:** The equation exhibits supercritical scaling: there exists an exponent $\alpha > \alpha_c$ where:
+2. **Supercritical Scaling:** The equation exhibits supercritical scaling: there exists an exponent $\alpha < \alpha_c$ where:
    $$\alpha := \frac{2}{p-1}, \quad \alpha_c := \frac{n}{2}$$
    and $\alpha < \alpha_c$ (equivalently $p > p_c$). This means that the natural scaling symmetry:
    $$u_\lambda(t, x) := \lambda^{\alpha} u(\lambda^2 t, \lambda x)$$
@@ -276,7 +276,7 @@ for some $\beta \geq 0$ and $\gamma > 0$ related to the supercriticality.
 
 ### Corollary 4.2: Renormalization Divergence from Rate Bound
 
-**Statement:** If $\lambda(t) \geq C(T^* - t)^{1/\gamma}$ with $\gamma > 2$, then:
+**Statement:** If $\lambda(t) \geq C(T^* - t)^{1/\gamma}$ for some $\gamma > 0$, then:
 $$\int_0^{T^*} \lambda(t)^{-\gamma} dt = \infty$$
 (logarithmic divergence).
 
@@ -470,3 +470,4 @@ for some $\alpha \in (0,1)$ and $C = C(n, p, R)$.
 
 **Application:** Parabolic regularity bootstraps $L^\infty$ bounds to Hölder regularity, enabling the modulation theory in Step 5. The uniformly bounded renormalized solution $v(\tau, y)$ gains higher regularity away from the blow-up time.
 
+:::
