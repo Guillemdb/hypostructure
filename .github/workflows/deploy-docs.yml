@@ -35,6 +35,8 @@ jobs:
 
       - name: Build MyST site
         working-directory: docs
+        env:
+          BASE_URL: /${{ github.event.repository.name }}
         run: npx myst build
 
       - name: Setup Pages
