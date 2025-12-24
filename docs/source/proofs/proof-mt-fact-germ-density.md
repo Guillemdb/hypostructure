@@ -96,12 +96,14 @@ $$d(x,y) \le d(x,d_{n_k}) + d(d_{n_k},y) < 2^{-k} + 2^{-k} = 2^{-k+1},$$
 so $d(x,y)=0$ and hence $x=y$. Thus we have an injection $X \hookrightarrow \mathbb{N}^{\mathbb{N}}$, and therefore
 $$|X| \le |\mathbb{N}^{\mathbb{N}}| = 2^{\aleph_0}.$$
 
-**Step 1.1.2 (Bounded Sobolev Balls Are Separable):** The homogeneous Sobolev space $\dot{H}^{s_c}(\mathbb{R}^d)$ is separable for the usual choices of $s_c$ in PDE applications. Hence the bounded set
+**Step 1.1.2 (Bounded Sobolev Balls Are Separable):** For the Sobolev/Hilbert-scale profile spaces used in the Sieve, $\dot{H}^{s_c}(\mathbb{R}^d)$ is separable for the usual choices of $s_c$ in PDE applications. (If one works in a nonseparable topology, the framework restricts to a separable “certificate model” of representatives, which is sufficient for set-sized indexing.) Hence the bounded set
 $$\mathcal{P}_T := \left\{\pi \in \dot{H}^{s_c}(\mathbb{R}^d) : \|\pi\|_{\dot{H}^{s_c}(\mathbb{R}^d)} \le \Lambda_T\right\}$$
 is a separable metric space (with the metric induced from $\dot{H}^{s_c}$). By Step 1.1.1,
 $$|\mathcal{P}_T| \le 2^{\aleph_0}.$$
 
 **Step 1.1.3 (Adding Auxiliary Germ Data Does Not Exceed Continuum):** A representative germ consists of a pair $(P,\pi)$, where $\pi\in\mathcal{P}_T$ and $P$ encodes local geometric/singularity data subject to the fixed type-$T$ constraints (subcriticality, bounded ambient dimension $d$, fixed local chart conventions). For fixed $T$ and $d$, such local model data can be encoded using countably many real parameters plus a finite combinatorial type (e.g., a finite atlas + transition data), hence ranges over at most $2^{\aleph_0}$ possibilities. Therefore, the set of all admissible representatives $(P,\pi)$ has cardinality $\le 2^{\aleph_0}$.
+
+Concretely, one may choose a countable “coding scheme” as follows: encode the local chart data and transition maps by their Taylor/Fourier coefficients in a fixed countable basis (truncated at increasing orders), and encode finite combinatorial choices (e.g. number of charts) as an integer. This gives an injection of admissible model data into a subset of $\mathbb{R}^{\mathbb{N}}\times \mathbb{N}$, whose cardinality is $2^{\aleph_0}$.
 
 **Step 1.1.4 (Passing to Germ Equivalence Classes):** The germ set $\mathcal{G}_T$ is the quotient of the admissible representatives by the equivalence relation “local diffeomorphism respecting blow-up structure”. A quotient cannot have larger cardinality than the set being quotiented, so:
 $$|\mathcal{G}_T| \le 2^{\aleph_0}.$$
@@ -213,7 +215,7 @@ and write $\dim_{\mathbb{C}}(V)=r<\infty$.
   for some coefficients $c_i\in\mathbb{C}$.
 - **Step 2.1.5 (Choose an Active Generator and Map to It):** Since $[\alpha]\neq 0$ in $V$ (i.e. $\alpha$ is non-algebraic), at least one coefficient is nonzero. Choose an index $i_0$ with $c_{i_0}\neq 0$, and take as part of the germ data a morphism
   $$\alpha_{[\alpha]}: \mathbb{H}_{[\alpha]} \to B_{i_0}.$$
-  Intuitively, $\alpha_{[\alpha]}$ records “the $B_{i_0}$-component” of the obstruction class.
+  Concretely, let $p_{i_0}:V\to \mathbb{C}\cdot[B_{i_0}]$ be a coordinate projection. In $\mathbf{Hypo}_{T_{\mathrm{alg}}}$, morphisms are taken to respect the linear/Hodge structure on these obstruction classes, so $p_{i_0}$ induces the required morphism $\alpha_{[\alpha]}$.
 - **Step 2.1.6 (Define the Library-to-Universal Map):** Define
   $$\beta_{i_0} := \iota_{B_{i_0}}: B_{i_0} \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{alg}})}$$
   as the canonical colimit coprojection for the germ object $B_{i_0}$.
@@ -244,7 +246,7 @@ which is a finite-dimensional manifold of dimension $\dim(\mathcal{M}_k) = 8k - 
 For each germ $[A] \in \mathcal{G}_{T_{\mathrm{quant}}}$:
 - **Step 2.1.7 (Choose the Charge Stratum):** Determine the topological charge $k$ of $[A]$ (so $[A]\in\mathcal{M}_k$).
 - **Step 2.1.8 (Choose a Nearby Library Vertex):** Use the triangulation to choose a vertex $B_i$ in the simplex containing (or nearest to) the point $[A]\in\mathcal{M}_k$.
-- **Step 2.1.9 (Produce the Germ-to-Library Morphism):** Use gauge-fixing plus Sobolev control to obtain a structure-preserving morphism
+- **Step 2.1.9 (Produce the Germ-to-Library Morphism):** Use Uhlenbeck gauge-fixing to place $A$ in a controlled Sobolev neighborhood of the representative connection underlying $B_i$. In $\mathbf{Hypo}_{T_{\mathrm{quant}}}$, such gauge-controlled proximity is precisely the hypothesis guaranteeing existence of a structure-preserving morphism, giving
   $$\alpha_{[A]}:\mathbb{H}_{[A]} \to B_i.$$
 - **Step 2.1.10 (Define the Library-to-Universal Map):** Define
   $$\beta_i := \iota_{B_i}: B_i \to \mathbb{H}_{\mathrm{bad}}^{(T_{\mathrm{quant}})}$$
@@ -426,7 +428,7 @@ in the sense discussed in {cite}`Voisin02`.
 
 Thus every non-algebraic germ maps to some generator in the finite library. □
 
-**Literature Justification:** {cite}`Voisin02` provides the structural theory of Hodge structures and algebraic cycles, establishing the finite generation of the non-algebraic part. This is a consequence of the Mordell-Weil theorem for abelian varieties and the Néron-Severi theorem.
+**Literature Justification:** {cite}`Voisin02` develops the Hodge-theoretic framework used to isolate the relevant obstruction space and to justify working with a finite-dimensional quotient of $(p,p)$-classes by algebraic classes.
 
 ### Verification 6.3: Quantum Type Completeness
 

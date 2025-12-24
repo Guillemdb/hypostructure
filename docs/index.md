@@ -245,13 +245,13 @@ By analyzing the path a problem takes through the Sieve, we can group all of hum
 2.  **Family II: The Relaxed ($\circ$) — "Scattering Systems"**
     *   *Behavior:* These do not concentrate energy; they disperse it. They sit on the boundary of the energy manifold.
     *   *Examples:* Defocusing NLS, Scattering Wave Equations.
-3.  **Family III: The Gauged ([$K^{\sim}$](./source/hypopermits_jb.md#def-gauge-permits)) — "Transport Systems"**
+3.  **Family III: The Gauged ([$K^{\sim}$](./source/hypopermits_jb.md#def-family-gauged)) — "Transport Systems"**
     *   *Behavior:* Problems solved via equivalence. The solution is "YES, up to a coordinate transformation."
     *   *Examples:* Yang-Mills in temporal gauge, Optimal Transport.
 4.  **Family IV: The Resurrected ([$K^{\mathrm{re}}$](./source/hypopermits_jb.md#def-surgery-permits)) — "Surgical Systems"**
     *   *Behavior:* They encounter a singularity but are saved by **[Structural Surgery](./source/hypopermits_jb.md#def-node-geom)**.
     *   *Examples:* Ricci Flow (Poincaré), Mean Curvature Flow.
-5.  **Family V: The Synthetic ([$K^{\mathrm{ext}}$](./source/hypopermits_jb.md#def-extension-permits)) — "Extension Systems"**
+5.  **Family V: The Synthetic ([$K^{\mathrm{ext}}$](./source/hypopermits_jb.md#def-family-synthetic)) — "Extension Systems"**
     *   *Behavior:* Regularity requires the introduction of auxiliary structures (ghost fields, viscosity variables).
     *   *Examples:* BRST Quantization, Viscosity Solutions.
 6.  **Family VI: The Forbidden ([$K^{\mathrm{blk}}$](./source/hypopermits_jb.md#def-barrier-permits)) — "Categorical Systems"**
@@ -365,8 +365,6 @@ This allows the pipeline to handle problems where the "true" physics is unknown�
 
 ## The Methodology: Augmented Formalization
 
-Let me address the elephant in the room: why would anyone publish execution traces for multiple Millennium Problems at once? Either I'm a crank, or something unusual is happening. Let me explain what that something is.
-
 In my day job as an AI researcher, I see models "melt" once a reasoning chain exceeds 50 steps. I didn't build this to "solve math"—I built this as a **Diagnostic Instrument** to measure the "Stiffness" of model reasoning. The fact that the Riemann Hypothesis "compiles" is a telemetry report from the instrument—one that I am now inviting you to audit for sensor errors.
 
 I used an adversarial human-in-the-loop protocol to **project physical intuition onto the Higher Topos**. The methodology:
@@ -411,9 +409,11 @@ This leaves us with two possibilities: **Either these execution traces represent
 
 ### Adversarial Hardening: The Millennium Stress-Test
 
+Let me address the elephant in the room: why would anyone publish execution traces for multiple Millennium Problems at once? Either I'm a crank, or something unusual is happening. Let me explain what that something is.
+
 The inclusion of execution traces for Millennium Prize Problems is not a claim of sudden resolution; it is the result of an **adversarial debugging protocol**.
 
-In 2025, frontier models still suffer from "Sycophantic Agreement"—they tend to approve a user's mathematical steps if the stakes are low. To break this behavior, I used the Millennium Problems as **adversarial logic gates**. When an LLM is presented with a generic derivation, it predicts the next token; when presented with a potential solution to a Millennium Problem, it triggers a "Skepticism Subroutine."
+Frontier models still suffer from "Sycophantic Agreement"—they tend to approve a user's mathematical steps if the stakes are low. To break this behavior, I used the Millennium Problems as **adversarial logic gates**. When an LLM is presented with a generic derivation, it predicts the next token; when presented with a potential solution to a Millennium Problem, it triggers a "Skepticism Subroutine."
 
 I chose these specific benchmarks because they are the only problems that force an LLM to become an aggressive, cynical critic. While GPT-5.2 or Claude Opus 4.5 might sycophantically approve a "normal" proof, they will hunt for the most microscopic errors in index notation, quantifier leaps, or scaling mismatches the moment a Millennium Problem is at stake.
 
@@ -505,7 +505,6 @@ These fail standard estimates but the **[Lock](./source/hypopermits_jb.md#sec-lo
 | [Julia Sets (MLC)](./source/dataset/julia_sets.md) | Compiled | [Renormalization](./source/hypopermits_jb.md#def-barrier-scat) | [→](./source/dataset/julia_sets.md) |
 | [Bounded Prime Gaps](./source/dataset/bounded_primes_gaps.md) | Compiled | [Sieve capacity](./source/hypopermits_jb.md#def-barrier-cap) | [→](./source/dataset/bounded_primes_gaps.md) |
 | [Kervaire Invariant](./source/dataset/kervaire_invariant.md) | Compiled | [Slice spectral sequence](./source/hypopermits_jb.md#mt-up-spectral) | [→](./source/dataset/kervaire_invariant.md) |
-| [Collatz Conjecture](./source/dataset/collatz.md) | Compiled | [Sector-ergodic](./source/hypopermits_jb.md#def-barrier-mix) | [→](./source/dataset/collatz.md) |
 
 ---
 
@@ -515,6 +514,7 @@ These fail standard estimates but the **[Lock](./source/hypopermits_jb.md#sec-lo
 
 | Problem | Sieve Status | Key Mechanism | Trace |
 |---------|--------------|---------------|-------|
+| [Collatz Conjecture](./source/dataset/collatz.md) | Compiled | [Sector-ergodic](./source/hypopermits_jb.md#def-barrier-mix) | [→](./source/dataset/collatz.md) |
 | [Navier-Stokes 3D](./source/dataset/navier_stokes_3d.md) | Compiled | [Dimensional reduction](./source/hypopermits_jb.md#def-node-scale) | [→](./source/dataset/navier_stokes_3d.md) |
 | [Riemann Hypothesis](./source/dataset/riemann_hypothesis.md) | Compiled | [Integrality Lock (E4)](./source/hypopermits_jb.md#def-e4) | [→](./source/dataset/riemann_hypothesis.md) |
 | [BSD Conjecture](./source/dataset/bsd_conjecture.md) | Compiled | [Height pairing](./source/hypopermits_jb.md#def-kernel-phi) | [→](./source/dataset/bsd_conjecture.md) |
