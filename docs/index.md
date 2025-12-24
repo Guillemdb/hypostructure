@@ -8,7 +8,7 @@ The Hypostructure framework doesn't "solve" math; it verifies if a system's stru
 
 I used the December 2025 releases of **GPT-5.2 Pro**, **Claude Opus 4.5**, and **Gemini 3 Pro** to see if they could maintain "logical stiffness" over long-horizon mathematical reasoning. **They can't.** I built a categorical instrument called **Hypostructure** to find out exactly where they melt.
 
-The framework is the result of 10 years of research into intelligence as a physical process. I architected the conceptual scaffolding—the **Thin Interfaces**, the **Postnikov Sieve**, and the **Singularity/Surgery** logic—and used these models as high-fidelity **categorical compilers**. The LLMs did not "invent" the framework; they translated my physical intuition into **Higher Topos Theory (HTT)** and **Homotopy Type Theory (HoTT)**.
+The framework is the result of 10 years of research into intelligence as a physical process. I architected the conceptual scaffolding—the **[Thin Interfaces](./source/hypopermits_jb.md#def-thin-objects)**, the **[Postnikov Sieve](./source/hypopermits_jb.md#sec-node-specs)**, and the **Singularity/Surgery** logic—and used these models as high-fidelity **categorical compilers**. The LLMs did not "invent" the framework; they translated my physical intuition into **[Higher Topos Theory (HTT)](./source/hypopermits_jb.md#def-ambient-topos)** and **Homotopy Type Theory (HoTT)**.
 
 The result: an **Industrial-Scale Formalization Pipeline** that projects physical intuition onto the cohesive (∞,1)-topos, plus execution traces for 40 problems that I need external eyes to audit.
 
@@ -16,9 +16,9 @@ The result: an **Industrial-Scale Formalization Pipeline** that projects physica
 
 ## Who This Is For
 
-**For the Category Theorist:** A framework for interpreting dissipative dynamical systems as flat connections on a cohesive (∞,1)-topos. The Sieve is the left adjoint $\mathcal{F}$ to a forgetful functor, computing the "freest" hypostructure from minimal data.
+**For the Category Theorist:** A framework for interpreting dissipative dynamical systems as flat connections on a [cohesive (∞,1)-topos](./source/hypopermits_jb.md#def-ambient-topos). The Sieve is the [left adjoint $\mathcal{F}$](./source/hypopermits_jb.md#thm-expansion-adjunction) to a forgetful functor, computing the "freest" hypostructure from minimal data.
 
-**For the PDE Analyst:** A structural method for regularity proofs that replaces "genius" Morawetz estimates with derived Lyapunov functionals via categorical consistency. The 17-node Sieve is a Postnikov decomposition of the regularity functor.
+**For the PDE Analyst:** A structural method for regularity proofs that replaces "genius" Morawetz estimates with derived Lyapunov functionals via categorical consistency. The 17-node Sieve is a [Postnikov decomposition](./source/hypopermits_jb.md#sec-node-specs) of the regularity functor.
 
 **For the AI Safety Researcher:** An isomorphism proving that AI Alignment is the "Global Regularity" problem of an agent's internal logic manifold. Proving alignment = proving singularities cannot form in the agent's decision landscape.
 
@@ -58,7 +58,7 @@ This isn't optimizing truth itself; it's optimizing the *type signature* that al
 
 One of the foundational insights driving this framework is not merely an analogy but an **isomorphism**: **AI Alignment and Global Regularity in PDEs are mathematically identical problems.**
 
-Proving that an agent is "aligned" is equivalent to proving that its evolution operator $F_t$ preserves the structural constraints (axioms) of its state stack $\mathcal{X}$ across all scales. If a model "wireheads" or "reward hacks," it is mathematically equivalent to a **Singularity**—a breakdown of the connection ∇ on the state stack where the flow ceases to be well-defined.
+Proving that an agent is "aligned" is equivalent to proving that its evolution operator $F_t$ preserves the structural constraints (axioms) of its [state stack $\mathcal{X}$](./source/hypopermits_jb.md#def-state-space) across all scales. If a model "wireheads" or "reward hacks," it is mathematically equivalent to a **[Singularity](./source/hypopermits_jb.md#def-rigor-classification)**—a breakdown of the connection ∇ on the state stack where the flow ceases to be well-defined.
 
 We realized that trying to align an intelligent agent using simple error minimization (loss functions) is functionally isomorphic to trying to prove the global regularity of a complex fluid using only energy estimates.
 
@@ -72,9 +72,9 @@ Our framework attempts to identify and certify these constraints. We're not figh
 
 This insight reframes alignment as a regularity problem. The same 17-node Sieve that proves a vortex cannot pinch into a singularity can prove that "Singular Misalignment" is categorically forbidden by a system's structural DNA. To align an agent, you don't just minimize its error—you must certify its **[Stiffness](./source/hypopermits_jb.md#ax-stiffness)** (resistance to perturbation) and **[Tameness](./source/hypopermits_jb.md#def-node-tame)** (bounded complexity of decision boundaries).
 
-The precise mechanism is **[Gradient Consistency (Axiom GC)](./source/hypopermits_jb.md#ax-gradient-consistency)**: alignment is certified when the **Dissipation Morphism 𝔇** is shown to be equivalent to the **Metric Slope |∂Φ|²**. If the flow ∇ isn't consistent with the potential Φ, you have a structural defect—the system's dynamics are fighting its own objective function.
+The precise mechanism is **[Gradient Consistency (Axiom GC)](./source/hypopermits_jb.md#ax-gradient-consistency)**: alignment is certified when the **[Dissipation Morphism 𝔇](./source/hypopermits_jb.md#ax-dissipation)** is shown to be equivalent to the **Metric Slope |∂Φ|²**. If the flow ∇ isn't consistent with the potential Φ, you have a structural defect—the system's dynamics are fighting its own objective function.
 
-By verifying **Stiffness** and **Tameness**, you are performing what we call **Structural Alignment**—proving that the agent's internal manifold is *physically incapable* of supporting a misaligned state. The topology itself forbids it.
+By verifying **[Stiffness](./source/hypopermits_jb.md#ax-stiffness)** and **[Tameness](./source/hypopermits_jb.md#def-node-tame)**, you are performing what we call **Structural Alignment**—proving that the agent's internal manifold is *physically incapable* of supporting a misaligned state. The topology itself forbids it.
 
 **The security implication:** We don't "align" models with RLHF and hope for the best. We verify their **[Stiffness](./source/hypopermits_jb.md#ax-stiffness)**—their physical inability to support a misaligned state. If the Sieve certifies a system, it means the categorical structure *prevents* reward hacking the same way a type system prevents null pointer exceptions.
 
@@ -102,9 +102,9 @@ Instead of proving global regularity directly (which is analytically hard), we p
 
 The 17 nodes decompose into three functional categories:
 
-1. **Check Nodes:** Implementing **Thin Interfaces**—the minimal API of a problem. These verify that your definitions are internally consistent.
-2. **Barrier Nodes:** Detecting and blocking analytic blow-ups (**Singularities**). These include **[StiffnessCheck](./source/hypopermits_jb.md#ax-stiffness)** and **[TameCheck](./source/hypopermits_jb.md#def-node-tame)**.
-3. **Surgery Nodes:** Categorical pushouts that recover regularity by modifying the state-space topology when a barrier is encountered.
+1. **Check Nodes:** Implementing **[Thin Interfaces](./source/hypopermits_jb.md#def-thin-objects)**—the minimal API of a problem. These verify that your definitions are internally consistent.
+2. **Barrier Nodes:** Detecting and blocking analytic blow-ups (**[Singularities](./source/hypopermits_jb.md#def-rigor-classification)**). These include **[StiffnessCheck](./source/hypopermits_jb.md#ax-stiffness)** and **[TameCheck](./source/hypopermits_jb.md#def-node-tame)**.
+3. **Surgery Nodes:** Categorical pushouts that recover regularity by modifying the state-space topology when a barrier is encountered. See **[Surgery Permits](./source/hypopermits_jb.md#def-surgery-permits)**.
 
 These aren't arbitrary checks—they're the mathematical formalization of "this system won't exhibit pathological behavior under stress."
 
@@ -153,7 +153,7 @@ flowchart TB
     style BLOCK fill:#4a4a00,color:#fff
 ```
 
-**Reading the flow:** A problem enters at the Gate (defining its "API"), passes through Barrier nodes (analytic estimates), and either compiles directly or routes through Surgery. The **Lock** (Node 17) is the final arbiter—it proves the "Bad Pattern" cannot categorically embed, or witnesses the singularity.
+**Reading the flow:** A problem enters at the Gate (defining its "API"), passes through Barrier nodes (analytic estimates), and either compiles directly or routes through Surgery. The **[Lock](./source/hypopermits_jb.md#sec-lock)** (Node 17) is the final arbiter—it proves the "Bad Pattern" cannot categorically embed, or witnesses the singularity.
 
 ### Inside a Sieve Node
 
@@ -180,12 +180,12 @@ graph TD
     style Mode fill:#8b0000,stroke:#7f1d1d,color:#ffffff
 ```
 
-**Certificate Types:**
-- **K⁺ (Pass):** Predicate satisfied; proceed to next node
-- **K⁻ (Fail):** Predicate fails; triggers barrier check
-- **K^blk (Blocked):** Barrier prevents pathology; proceed safely
-- **K^br (Breached):** Barrier breached; attempt surgery
-- **K^re (Re-entry):** Surgery succeeded; rejoin main flow
+**[Certificate Types](./source/hypopermits_jb.md#def-certificate):**
+- **[K⁺ (Pass)](./source/hypopermits_jb.md#def-gate-permits):** Predicate satisfied; proceed to next node
+- **[K⁻ (Fail)](./source/hypopermits_jb.md#def-gate-permits):** Predicate fails; triggers barrier check
+- **[K^blk (Blocked)](./source/hypopermits_jb.md#def-barrier-permits):** Barrier prevents pathology; proceed safely
+- **[K^br (Breached)](./source/hypopermits_jb.md#def-barrier-permits):** Barrier breached; attempt surgery
+- **[K^re (Re-entry)](./source/hypopermits_jb.md#def-surgery-permits):** Surgery succeeded; rejoin main flow
 
 ### The Isomorphism of Failure
 
@@ -229,7 +229,7 @@ By applying this taxonomy to Artificial Intelligence, we reveal that many distin
 
 ## The Periodic Table of Problems: A Taxonomy of Complexity
 
-If the Sieve is a universal compiler, then every mathematical problem must possess a **Structural DNA**—a unique "fingerprint" defined by the sequence of certificates it emits as it traverses the [21 strata](./source/hypopermits_jb.md#sec-node-specs) (the 17 primary nodes plus the stiffness restoration subtree).
+If the Sieve is a universal compiler, then every mathematical problem must possess a **Structural DNA**—a unique "[fingerprint](./source/hypopermits_jb.md#def-fingerprint)" defined by the sequence of certificates it emits as it traverses the [21 strata](./source/hypopermits_jb.md#sec-node-specs) (the 17 primary nodes plus the stiffness restoration subtree).
 
 We realized that "difficulty" is a poor metric for a problem. Instead, we have created the **Exhaustive Periodic Table of Problems**. This table classifies problems not by their domain (fluids, primes, or logic), but by their **resolution topology**.
 
@@ -239,28 +239,28 @@ In this framework, the **Rows (Families)** define the *Dominant Certificate Type
 
 By analyzing the path a problem takes through the Sieve, we can group all of human inquiry into eight fundamental families:
 
-1.  **Family I: The Stable ($K^+$) — "Noble Systems"**
+1.  **Family I: The Stable ([$K^+$](./source/hypopermits_jb.md#def-gate-permits)) — "Noble Systems"**
     *   *Behavior:* Immediate satisfaction. These systems pass every permit check without resistance.
     *   *Examples:* The Heat Equation, Linear Schrödinger.
 2.  **Family II: The Relaxed ($\circ$) — "Scattering Systems"**
     *   *Behavior:* These do not concentrate energy; they disperse it. They sit on the boundary of the energy manifold.
     *   *Examples:* Defocusing NLS, Scattering Wave Equations.
-3.  **Family III: The Gauged ($K^{\sim}$ ) — "Transport Systems"**
+3.  **Family III: The Gauged ([$K^{\sim}$](./source/hypopermits_jb.md#def-gauge-permits)) — "Transport Systems"**
     *   *Behavior:* Problems solved via equivalence. The solution is "YES, up to a coordinate transformation."
     *   *Examples:* Yang-Mills in temporal gauge, Optimal Transport.
-4.  **Family IV: The Resurrected ($K^{\mathrm{re}}$) — "Surgical Systems"**
+4.  **Family IV: The Resurrected ([$K^{\mathrm{re}}$](./source/hypopermits_jb.md#def-surgery-permits)) — "Surgical Systems"**
     *   *Behavior:* They encounter a singularity but are saved by **[Structural Surgery](./source/hypopermits_jb.md#def-node-geom)**.
     *   *Examples:* Ricci Flow (Poincaré), Mean Curvature Flow.
-5.  **Family V: The Synthetic ($K^{\mathrm{ext}}$) — "Extension Systems"**
+5.  **Family V: The Synthetic ([$K^{\mathrm{ext}}$](./source/hypopermits_jb.md#def-extension-permits)) — "Extension Systems"**
     *   *Behavior:* Regularity requires the introduction of auxiliary structures (ghost fields, viscosity variables).
     *   *Examples:* BRST Quantization, Viscosity Solutions.
-6.  **Family VI: The Forbidden ($K^{\mathrm{blk}}$) — "Categorical Systems"**
+6.  **Family VI: The Forbidden ([$K^{\mathrm{blk}}$](./source/hypopermits_jb.md#def-barrier-permits)) — "Categorical Systems"**
     *   *Behavior:* Estimates fail, but the "Bad Pattern" is **Categorically Blocked** by [the Lock](./source/hypopermits_jb.md#sec-lock).
     *   *Examples:* Stochastic Einstein-Boltzmann, Riemann Hypothesis.
-7.  **Family VII: The Singular ($K^{\mathrm{morph}}$) — "Morphic Systems"**
+7.  **Family VII: The Singular ([$K^{\mathrm{morph}}$](./source/hypopermits_jb.md#def-rigor-classification)) — "Morphic Systems"**
     *   *Behavior:* The Bad Pattern definitively embeds. The singularity is real.
     *   *Examples:* Supercritical Blow-up, P vs NP (structural obstruction detected).
-8.  **Family VIII: The Horizon ($K^{\mathrm{inc}}$) — "Epistemic Systems"**
+8.  **Family VIII: The Horizon ([$K^{\mathrm{inc}}$](./source/hypopermits_jb.md#def-rigor-classification)) — "Epistemic Systems"**
     *   *Behavior:* The Sieve hits an undecidable limit or a categorical paradox.
     *   *Examples:* The Halting Problem, Quantum Gravity (without UV completion).
 
@@ -292,10 +292,10 @@ The four primitives:
 
 | Object | What it specifies | Analogy |
 |--------|-------------------|---------|
-| **Arena** | The space (metric + measure) | The memory model |
-| **Potential** | The energy functional | The objective function |
-| **Cost** | What blows up at singularity | The error signal |
-| **Invariance** | The symmetries | The type constraints |
+| **[Arena](./source/hypopermits_jb.md#def-state-space)** | The space (metric + measure) | The memory model |
+| **[Potential](./source/hypopermits_jb.md#def-node-energy)** | The energy functional | The objective function |
+| **[Cost](./source/hypopermits_jb.md#ax-dissipation)** | What blows up at singularity | The error signal |
+| **[Invariance](./source/hypopermits_jb.md#def-node-sym)** | The symmetries | The type constraints |
 
 In code (Agda/HoTT-style):
 
@@ -303,11 +303,11 @@ In code (Agda/HoTT-style):
 -- The Minimal API for a Physical Problem (Thin Object)
 record Hypostructure (X : CohesiveTopos) : Type where
   field
-    arena       : Metric X × Measure X   -- The State Stack
-    potential   : X → ℝ                  -- The Energy Functional (Φ)
-    dissipation : X → Rate               -- The Cost/Entropy (𝔇)
-    symmetry    : GroupAction X          -- The Invariance (G)
-    connection  : FlatConnection X       -- The Dynamics (∇)
+    arena       : Metric X × Measure X   -- The State Stack (def-state-space)
+    potential   : X → ℝ                  -- The Energy Functional Φ (def-node-energy)
+    dissipation : X → Rate               -- The Cost/Entropy 𝔇 (ax-dissipation)
+    symmetry    : GroupAction X          -- The Invariance G (def-node-sym)
+    connection  : FlatConnection X       -- The Dynamics ∇ (def-categorical-hypostructure)
 ```
 
 That's it. From these five fields, the Sieve *derives* compactness, regularity, and topological constraints. Nothing is assumed that isn't witnessed by the construction.
@@ -355,7 +355,7 @@ We are backpropagating through the foundations of mathematics itself—not in a 
 
 When a system becomes too complex to analyze directly, the framework uses **[Defect Minimization](./source/metalearning.md#def-global-defect-minimizer)** to learn the "Effective Laws of Physics" for that scale. This is **Renormalization** in the physicist's sense:
 
-- The **General Loss** acts as a **Composite Lyapunov Function** derived from local data
+- The **[General Loss](./source/metalearning.md#def-general-loss-functional)** acts as a **Composite Lyapunov Function** derived from local data
 - The system remains self-consistent even when the underlying representation shifts
 - At each scale, the framework discovers the minimal axioms that preserve structural stability
 
@@ -688,7 +688,7 @@ These are the highest-value targets—the exact places where finding a flaw woul
 
 1. **Find a Coherence Violation in the Einstein-Boltzmann trace:** The [Stochastic Einstein-Boltzmann](./source/dataset/stochastic_einstein_boltzmann.md) execution routes through **holographic exclusion + SurgCD**—a barrier mechanism that excises singularities via horizon formation rather than direct regularity. Can you show that the **[Triangle Identities](./source/hypopermits_jb.md#def-higher-coherences)** for the Expansion Adjunction $\mathcal{F} \dashv U$ fail somewhere in that trace? A single coherence violation breaks the entire categorical foundation.
 
-2. **Break the Triangle Identities of $\mathcal{F} \dashv U$:** More generally, audit the adjunction that powers the Sieve. If the unit $\eta: \text{Id} \Rightarrow U \circ \mathcal{F}$ or counit $\varepsilon: \mathcal{F} \circ U \Rightarrow \text{Id}$ fail to satisfy the triangle laws in *any* execution trace, the universal property is violated and the construction is not canonical.
+2. **Break the [Triangle Identities](./source/hypopermits_jb.md#def-higher-coherences) of $\mathcal{F} \dashv U$:** More generally, audit the [adjunction](./source/hypopermits_jb.md#thm-expansion-adjunction) that powers the Sieve. If the unit $\eta: \text{Id} \Rightarrow U \circ \mathcal{F}$ or counit $\varepsilon: \mathcal{F} \circ U \Rightarrow \text{Id}$ fail to satisfy the triangle laws in *any* execution trace, the universal property is violated and the construction is not canonical.
 
 3. **Identify a "Smooth-but-Wild" profile that bypasses TameCheck (Node 9):** Can you construct a blow-up profile that is $C^\infty$-smooth but has sufficiently wild geometry (e.g., infinite-order tangency, essential singularity in analytic continuation) that **[TameCheck](./source/hypopermits_jb.md#def-node-tame)** incorrectly classifies it as "tame"? This would be a false negative—a singularity the Sieve fails to detect.
 
@@ -698,7 +698,7 @@ These are the highest-value targets—the exact places where finding a flaw woul
 
 I am offering a formal "Bug Bounty" for any identified violation of the **[Higher Coherence Conditions](./source/hypopermits_jb.md#def-higher-coherences)**. This is the highest-status target for anyone fluent in higher category theory:
 
-- **Triangle Identities:** If an LLM-synthesized proof fails the triangle laws for any adjunction in the Sieve, the trace is invalidated.
+- **[Triangle Identities](./source/hypopermits_jb.md#def-higher-coherences):** If an LLM-synthesized proof fails the triangle laws for any [adjunction](./source/hypopermits_jb.md#thm-expansion-adjunction) in the Sieve, the trace is invalidated.
 - **Pentagon Identity:** If the associator coherences fail in any monoidal structure used by the framework, the categorical foundation collapses.
 - **Naturality Failures:** If any claimed natural transformation fails to commute with the relevant functors, the proof is unsound.
 
