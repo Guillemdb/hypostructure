@@ -112,48 +112,42 @@ These aren't arbitrary checks—they're the mathematical formalization of "this 
 
 ```mermaid
 flowchart TB
-    subgraph GATE["GATE LAYER"]
-        N1[1. Ambient Topos]
-        N2[2. Energy Functional]
-        N3[3. Symmetry Group]
-    end
+    INPUT(["Problem"])
+    INPUT --> N1[1. Energy]
+    N1 --> N2[2. Zeno]
+    N2 --> N3[3. Compact]
+    N3 --> N4[4. Scale]
+    N4 --> N5[5. Param]
+    N5 --> N6[6. Geom]
+    N6 --> N7[7. Stiffness]
+    N7 --> N8[8. Topo]
+    N8 --> N9[9. Tame]
+    N9 --> N10[10. Ergo]
+    N10 --> N11[11. Complex]
+    N11 --> N12[12. Oscillate]
 
-    subgraph BARRIER["BARRIER LAYER"]
-        N4[4. Compactness]
-        N5[5. Dissipation]
-        N6[6. Geometry]
-        N7[7. Stiffness]
-        N8[8. Duality]
-        N9[9. Tameness]
-    end
+    N12 -->|"open system"| N13[13. Boundary]
+    N13 --> N14[14. Overload]
+    N14 --> N15[15. Starve]
+    N15 --> N16[16. Align]
+    N16 --> N17[17. Lock]
 
-    subgraph SURGERY["SURGERY LAYER"]
-        N10[10. Surgery]
-        N11[11. Complexity]
-        N12[12. Extension]
-    end
+    N12 -.->|"closed system"| N17
 
-    subgraph TERMINAL["TERMINAL"]
-        N17[17. The Lock]
-        PASS((K⁺))
-        FAIL((K⁻))
-        BLOCK((K^blk))
-    end
-
-    GATE --> BARRIER
-    BARRIER -->|"estimates hold"| PASS
-    BARRIER -->|"estimates fail"| SURGERY
-    SURGERY -->|"surgery succeeds"| PASS
-    SURGERY -->|"surgery fails"| N17
-    N17 -->|"pattern blocked"| BLOCK
-    N17 -->|"pattern embeds"| FAIL
+    N17 -->|"K⁺"| PASS((Pass))
+    N17 -->|"K^blk"| BLOCK((Blocked))
+    N17 -->|"K⁻"| FAIL((Fail))
 
     style PASS fill:#2d5016,color:#fff
     style FAIL fill:#8b0000,color:#fff
     style BLOCK fill:#4a4a00,color:#fff
+    style N13 fill:#6b7280,color:#fff
+    style N14 fill:#6b7280,color:#fff
+    style N15 fill:#6b7280,color:#fff
+    style N16 fill:#6b7280,color:#fff
 ```
 
-**Reading the flow:** A problem enters at the Gate (defining its "API"), passes through Barrier nodes (analytic estimates), and either compiles directly or routes through Surgery. The **[Lock](./source/hypopermits_jb.md#sec-lock)** (Node 17) is the final arbiter—it proves the "Bad Pattern" cannot categorically embed, or witnesses the singularity.
+**Reading the flow:** A problem enters at Node 1 and traverses the structural checks in sequence. Nodes 13-16 (gray) handle boundary conditions for open systems; closed systems skip directly to the Lock. Each node internally performs the gate→barrier→surgery logic shown in the next diagram. The **[Lock](./source/hypopermits_jb.md#sec-lock)** (Node 17) is the final arbiter—it proves the "Bad Pattern" cannot categorically embed, or witnesses the singularity.
 
 ### Inside a Sieve Node
 
