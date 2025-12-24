@@ -14,6 +14,19 @@ title: "Hypostructure Proof Object Template"
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | [YYYY-MM-DD] |
 
+### Label Naming Conventions
+
+When filling out this template, replace `[problem-slug]` with a lowercase, hyphenated identifier for your problem (e.g., `navier-stokes`, `riemann`, `yang-mills`). Use these label prefixes:
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Definitions | `def-[problem-slug]-*` | `def-navier-stokes-arena` |
+| Theorems | `thm-[problem-slug]-*` | `thm-navier-stokes-main` |
+| Lemmas | `lem-[problem-slug]-*` | `lem-navier-stokes-energy` |
+| Remarks | `rem-[problem-slug]-*` | `rem-navier-stokes-scaling` |
+| Proofs | `proof-[problem-slug]-*` | `proof-thm-navier-stokes-main` |
+| Proof Sketches | `sketch-[problem-slug]-*` | `sketch-thm-navier-stokes-main` |
+
 ---
 
 ## Automation Witness (Framework Offloading Justification)
@@ -41,7 +54,7 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 ## Theorem Statement
 
 ::::{prf:theorem} [Problem Name]
-:label: thm-template-main
+:label: thm-[problem-slug]-main
 
 **Given:**
 - State space: $\mathcal{X} = $ [Define]
@@ -1370,7 +1383,7 @@ $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambd
 
 ## **Formal Proof**
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-main`
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-[problem-slug]-main`
 
 The proof proceeds by structural sieve analysis in seven phases:
 

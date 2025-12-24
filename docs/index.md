@@ -1,12 +1,28 @@
 # Hypostructure: A Categorical Instrument for Verifying Physical Logic
 
-*Where December 2025 frontier models break down—and the telemetry to prove it*
+*I built a linter for physical logic. I fed it 40 of the hardest problems in history to see where the logic of 2025's best AIs would "melt." This is the telemetry of that experiment.*
+
+The Hypostructure framework doesn't "solve" math; it verifies if a system's structure is consistent enough to be solvable. It is an instrument for detecting **Logical Friction** in the foundations of physics and AI.
+
+---
 
 I used the December 2025 releases of **GPT-5.2 Pro**, **Claude Opus 4.5**, and **Gemini 3 Pro** to see if they could maintain "logical stiffness" over long-horizon mathematical reasoning. **They can't.** I built a categorical instrument called **Hypostructure** to find out exactly where they melt.
 
 The framework is the result of 10 years of research into intelligence as a physical process. I architected the conceptual scaffolding—the **Thin Interfaces**, the **Postnikov Sieve**, and the **Singularity/Surgery** logic—and used these models as high-fidelity **categorical compilers**. The LLMs did not "invent" the framework; they translated my physical intuition into **Higher Topos Theory (HTT)** and **Homotopy Type Theory (HoTT)**.
 
 The result: an **Industrial-Scale Formalization Pipeline** that projects physical intuition onto the cohesive (∞,1)-topos, plus execution traces for 40 problems that I need external eyes to audit.
+
+---
+
+## Who This Is For
+
+**For the Category Theorist:** A framework for interpreting dissipative dynamical systems as flat connections on a cohesive (∞,1)-topos. The Sieve is the left adjoint $\mathcal{F}$ to a forgetful functor, computing the "freest" hypostructure from minimal data.
+
+**For the PDE Analyst:** A structural method for regularity proofs that replaces "genius" Morawetz estimates with derived Lyapunov functionals via categorical consistency. The 17-node Sieve is a Postnikov decomposition of the regularity functor.
+
+**For the AI Safety Researcher:** An isomorphism proving that AI Alignment is the "Global Regularity" problem of an agent's internal logic manifold. Proving alignment = proving singularities cannot form in the agent's decision landscape.
+
+**For Everyone:** I need you to find the bugs. This is an invitation to audit, not a declaration of victory.
 
 ---
 
@@ -22,7 +38,7 @@ When the Sieve says a problem "compiles," it means: *the proof object passes all
 
 Both outcomes are scientifically significant. But we can only find out which by publishing the artifact and inviting attack. The Red Team section below describes exactly how to break this.
 
-I have been developing the intuition of Intelligence as a Physical Process for a decade. I built this framework because I finally found a "compiler"—the December 2025 frontier models—powerful enough to speak the language required to verify it.
+I built this framework because I finally found a "compiler"—the December 2025 frontier models—powerful enough to speak the language required to verify it.
 
 ---
 
@@ -91,6 +107,85 @@ The 17 nodes decompose into three functional categories:
 3. **Surgery Nodes:** Categorical pushouts that recover regularity by modifying the state-space topology when a barrier is encountered.
 
 These aren't arbitrary checks—they're the mathematical formalization of "this system won't exhibit pathological behavior under stress."
+
+### The Sieve at a Glance
+
+```mermaid
+flowchart TB
+    subgraph GATE["GATE LAYER"]
+        N1[1. Ambient Topos]
+        N2[2. Energy Functional]
+        N3[3. Symmetry Group]
+    end
+
+    subgraph BARRIER["BARRIER LAYER"]
+        N4[4. Compactness]
+        N5[5. Dissipation]
+        N6[6. Geometry]
+        N7[7. Stiffness]
+        N8[8. Duality]
+        N9[9. Tameness]
+    end
+
+    subgraph SURGERY["SURGERY LAYER"]
+        N10[10. Surgery]
+        N11[11. Complexity]
+        N12[12. Extension]
+    end
+
+    subgraph TERMINAL["TERMINAL"]
+        N17[17. The Lock]
+        PASS((K⁺))
+        FAIL((K⁻))
+        BLOCK((K^blk))
+    end
+
+    GATE --> BARRIER
+    BARRIER -->|"estimates hold"| PASS
+    BARRIER -->|"estimates fail"| SURGERY
+    SURGERY -->|"surgery succeeds"| PASS
+    SURGERY -->|"surgery fails"| N17
+    N17 -->|"pattern blocked"| BLOCK
+    N17 -->|"pattern embeds"| FAIL
+
+    style PASS fill:#2d5016,color:#fff
+    style FAIL fill:#8b0000,color:#fff
+    style BLOCK fill:#4a4a00,color:#fff
+```
+
+**Reading the flow:** A problem enters at the Gate (defining its "API"), passes through Barrier nodes (analytic estimates), and either compiles directly or routes through Surgery. The **Lock** (Node 17) is the final arbiter—it proves the "Bad Pattern" cannot categorically embed, or witnesses the singularity.
+
+### Inside a Sieve Node
+
+Each node in the Sieve follows a consistent three-stage template:
+
+```mermaid
+graph TD
+    Input(["Previous Node"]) --> GateCheck{"<b>N. Interface:</b> Predicate P?<br>Condition < Threshold"}
+
+    GateCheck -- "Yes: K⁺" --> NextNode(["Next Node"])
+    GateCheck -- "No: K⁻" --> Barrier{"<b>BN. Interface:</b> Fallback?<br>Weaker Condition"}
+
+    Barrier -- "Blocked: K^blk" --> NextNode
+    Barrier -- "Breached: K^br" --> SurgAdm{"<b>AN. SurgXX:</b> Admissible?<br>Surgery Precondition"}
+
+    SurgAdm -- "Yes: K⁺" --> Surgery["<b>SN. SurgXX:</b><br>Structural Recovery"]
+    SurgAdm -- "No: K⁻" --> Mode["<b>Mode X.Y</b>: Failure Class"]
+
+    Surgery -. "K^re" .-> NextNode
+
+    style GateCheck fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style Barrier fill:#f59e0b,stroke:#d97706,color:#000000
+    style Surgery fill:#10b981,stroke:#059669,color:#ffffff
+    style Mode fill:#8b0000,stroke:#7f1d1d,color:#ffffff
+```
+
+**Certificate Types:**
+- **K⁺ (Pass):** Predicate satisfied; proceed to next node
+- **K⁻ (Fail):** Predicate fails; triggers barrier check
+- **K^blk (Blocked):** Barrier prevents pathology; proceed safely
+- **K^br (Breached):** Barrier breached; attempt surgery
+- **K^re (Re-entry):** Surgery succeeded; rejoin main flow
 
 ### The Isomorphism of Failure
 
@@ -276,7 +371,7 @@ In my day job as an AI researcher, I see models "melt" once a reasoning chain ex
 
 I used an adversarial human-in-the-loop protocol to **project physical intuition onto the Higher Topos**. The methodology:
 
-1. **Human Architect:** I provided the conceptual scaffolding—the Thin Interfaces, the Postnikov decomposition, the Singularity/Surgery logic—based on 10 years of research into intelligence as a physical process.
+1. **Human Architect:** I provided the conceptual scaffolding—the Thin Interfaces, the Postnikov decomposition, the Singularity/Surgery logic.
 2. **LLM Compiler:** SOTA models (Claude Opus 4.5, GPT 5.2 Pro, Gemini 3 Pro) translated this scaffolding into the rigorous language of cohesive (∞,1)-toposes.
 3. **Adversarial Loop:** Over thousands of refinement cycles, I acted as the "linker" and "debugger," stress-testing each formalization against the internal consistency of [Higher Topos Theory](./source/hypopermits_jb.md#id-1-the-ambient-substrate).
 
@@ -469,6 +564,16 @@ For me, **Higher Topos Theory is machine code**—a language I can read but not 
 
 I provide the system architecture (the Thin Interfaces and the Sieve); the LLM provides the implementation in HoTT. Because I am not a native speaker of Topos Theory, there will be **translation bugs**. I am looking for "Native Speakers" (mathematicians) to help me find where the compiler hallucinated a lemma or took an unjustified leap.
 
+**The Pitch to Auditors:** I have used GPT-5.2/Claude Opus 4.5 as a high-fidelity but potentially buggy compiler. I am seeking "Native Speakers" of Higher Topos Theory to help me find where the compiler hallucinated a connection. Finding bugs in AI output is more satisfying than disproving someone's life work—and the bugs are genuinely there to be found.
+
+### The Linked History of Rigor: Math as Pre-Compiled Permits
+
+Hypostructure does not attempt to reinvent the wheel; it *indexes* the last century of mathematical breakthroughs as **[Literature-Anchored Bridge Permits (Rigor Class L)](./source/hypopermits_jb.md#def-rigor-classification)**. In our 17-node Sieve, these monumental theorems—from **Perelman's** entropy monotonicity to **Deligne's** Tannakian duality—act as "pre-compiled binary libraries."
+
+The framework achieves its "stiffness" by treating these masterpieces as verified structural modules. Rather than re-deriving the deep analytic estimates of a field from first principles, the Sieve verifies that your specific system is "structurally compatible" with the prerequisite axioms of the established literature. When the Sieve encounters a "Neck" singularity in a geometric flow, it doesn't struggle to close the estimate; it calls the **Perelman-Hamilton Permit**, a verified structural identity that satisfies the **Recovery Interface (Node 2)**.
+
+By linking the "Genius" of the 20th century directly into our nodes, we transform isolated mathematical breakthroughs into repeatable, machine-checkable diagnostic components. We are not replacing human intuition; we are building the **Linker** that connects it to a rigorous, categorical substrate.
+
 ### The Unjustified Leap Audit
 
 The most likely point of failure is the **[Analytic-to-Categorical Bridge](./source/hypopermits_jb.md#lem-bridge)**. Does a physical blow-up in a relativistic kinetic system *strictly* induce a morphism from a singularity germ into the hypostructure? If this bridge is a "hallucinated leap," the linter passes on a false premise. I need the community to help me certify these extraction lemmas.
@@ -510,7 +615,63 @@ I expect most errors to be syntactic. The structural architecture has been stres
 
 ---
 
-## How to Attack (Bug Bounty)
+## Where to Start Red Teaming
+
+Not all 40 traces are equally auditable. Here's a difficulty-rated guide to help you choose your attack vector:
+
+### Beginner: Sanity Checks (Start Here)
+These are textbook results. If the Sieve gets these wrong, the entire framework is broken:
+
+| Problem | Why Start Here | What to Check |
+|---------|----------------|---------------|
+| [Heat Equation](./source/dataset/heat_equation.md) | Classical parabolic regularity | Does energy dissipation certificate match textbook? |
+| [Fundamental Thm of Algebra](./source/dataset/fundamental_theorem_algebra.md) | Topological proof via winding number | Is the categorical translation of "winding" valid? |
+| [Bubble Sort](./source/dataset/bubble_sort.md) | Discrete dynamics, trivial | Does the Sieve even make sense for algorithms? |
+
+### Intermediate: Verify the Surgery
+These required non-trivial structural surgery. Check if the surgery is valid:
+
+| Problem | The Surgical Move | What Could Be Wrong |
+|---------|-------------------|---------------------|
+| [Poincaré Conjecture](./source/dataset/poincare_conjecture.md) | Ricci flow neck surgery | Is the categorical pushout correctly modeled? |
+| [Landau Damping](./source/dataset/landau_damping.md) | Phase mixing as "surgery" | Does phase mixing actually satisfy Surgery axioms? |
+| [KAM Theory](./source/dataset/kam_theory.md) | Diophantine stiffness | Is the stiffness bound correctly type-checked? |
+
+### Hard: The Categorical Lock
+These claim regularity via categorical exclusion—the "Bad Pattern" cannot embed. This is the novel mechanism:
+
+| Problem | The Lock Claim | Highest-Value Audit |
+|---------|----------------|---------------------|
+| [Fermat's Last Theorem](./source/dataset/fermat_last_theorem.md) | Galois-Monodromy blocks embedding | Does the Lock correctly invoke Wiles's modularity? |
+| [Riemann Hypothesis](./source/dataset/riemann_hypothesis.md) | [Integrality Lock (E4)](./source/hypopermits_jb.md#def-e4) | Is E4 actually a valid obstruction? |
+| [Stochastic Einstein-Boltzmann](./source/dataset/stochastic_einstein_boltzmann.md) | Holographic exclusion + SurgCD | Does horizon formation actually excise singularities? |
+
+### Extreme: The "Big" Audits
+These are the traces where finding a bug would be most significant:
+
+| Problem | Why It's Extreme | The Attack |
+|---------|------------------|------------|
+| [P vs NP](./source/dataset/p_vs_np.md) | Claims structural obstruction | Is "Replica Symmetry Breaking" a valid categorical obstruction? |
+| [Quantum Gravity](./source/dataset/quantum_gravity.md) | Epistemic boundary | Does the Sieve correctly detect undecidability? |
+| [Hodge Conjecture](./source/dataset/hodge_conjecture.md) | Partial compilation | Why does it get stuck? Is that genuine? |
+
+---
+
+## How to Segfault This Framework
+
+Here are the specific mathematical "Unit Tests" that would invalidate the framework. If you can exhibit any of these, the Sieve is broken:
+
+1. **Break the Bridge:** Prove that the **[Analytic-to-Categorical Bridge (Lemma 3.1.2)](./source/hypopermits_jb.md#lem-bridge)** is non-functorial for parabolic systems ($T_{\text{para}}$). If blow-ups don't induce morphisms, the entire Sieve is invalidated.
+
+2. **False Negative in TameCheck:** Find a singular profile that passes **[TameCheck (Node 9)](./source/hypopermits_jb.md#def-node-tame)** but is not $O$-minimal. This would be a singularity the Sieve fails to detect.
+
+3. **Categorical Ghost:** Exhibit a case where the Lock certifies "Blocked" but there exists a *physically realizable* initial condition that leads to finite-time blow-up. Categorical exclusion insufficient for analytic control.
+
+4. **Coherence Violation:** Show that the **[Triangle Identities](./source/hypopermits_jb.md#def-higher-coherences)** for the Expansion Adjunction $\mathcal{F} \dashv U$ fail in any execution trace. A single failure breaks the universal property.
+
+---
+
+## Additional Attack Vectors (Bug Bounty)
 
 The framework is now public. The 40 case studies include full execution traces. **I am inviting you to find the seams.**
 
