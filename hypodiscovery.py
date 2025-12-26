@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_swiss_roll, make_moons
 from tqdm import tqdm
-from barrier_surgery import MultiBarrierSurgery
 
 # ... [Include BRSTLinear and HypoNatural classes from previous code] ...
 # (They remain exactly the same)
@@ -36,26 +35,6 @@ class HypoDiscovery(nn.Module):
 
         # Buffer for history
         self.register_buffer('avg_usage', torch.ones(max_charts) / max_charts)
-
-        # HYPOSTRUCTURE: Dynamic barrier surgery for adaptive clipping
-        # Multiple barriers for different loss components with per-layer adaptation
-        self.barrier_surgery = MultiBarrierSurgery(
-            num_layers=3,  # Router, charts, separation layers
-            barrier_configs={
-                'separation': {
-                    'base_epsilon': 5.0,
-                    'surgery_mode': 'sigmoid',
-                    'temporal_schedule': 'warmup',
-                    'learnable': True,
-                },
-                'variance': {
-                    'base_epsilon': 1.0,
-                    'surgery_mode': 'linear',
-                    'temporal_schedule': None,
-                    'learnable': False,
-                },
-            }
-        )
 
         self.router = nn.Sequential(
             nn.Linear(input_dim, 256),
@@ -246,9 +225,8 @@ def natural_loss(z, x, weights, chart_outputs, model, epoch):
         # 5. Pairwise distances: [N_Valid, N_Valid]
         dists = torch.cdist(valid_centers, valid_centers, p=2)
 
-        # 6. HYPOSTRUCTURE: Dynamic barrier clipping (replaces fixed epsilon=5.0)
-        # Using barrier saturation surgery for adaptive separation threshold
-        hinge_matrix = model.barrier_surgery('separation', dists, layer_idx=2)
+        # 6. Hinge loss on upper triangle (i < j pairs only)
+        hinge_matrix = torch.relu(5.0 - dists)
         loss_sep = torch.triu(hinge_matrix, diagonal=1).sum()
 
     # E. Balance Loss (on BATCH weights - HAS GRADIENT to router!)
@@ -329,9 +307,6 @@ def run_minibatch():
 
             epoch_loss += loss.item()
 
-        # HYPOSTRUCTURE: Update barrier surgery temporal schedule
-        model.barrier_surgery.step_schedule()
-
         # --- LAZARUS STEP ---
         # Revive through heating AND maintenance phases (0-300)
         if epoch < 300/800 * epochs:
@@ -341,13 +316,7 @@ def run_minibatch():
             usage = model.avg_usage.detach().cpu().numpy()
             active = np.sum(usage > 0.05)
             usage_str = " ".join([f"{u:.2f}" for u in usage])
-
-            # HYPOSTRUCTURE: Get barrier surgery statistics
-            barrier_stats = model.barrier_surgery.get_all_stats()
-            sep_eps = barrier_stats['separation']['epsilons'][2]  # Layer 2 separation epsilon
-
-            tqdm.write(f"Epoch {epoch}: Loss={epoch_loss/len(dataloader):.2f} | Active={active} | "
-                      f"ε_sep={sep_eps:.2f} | Usage=[{usage_str}]")
+            tqdm.write(f"Epoch {epoch}: Loss={epoch_loss/len(dataloader):.2f} | Active={active} | Usage=[{usage_str}]")
 
     # 3. Vis (Use full dataset)
     model.eval()
