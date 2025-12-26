@@ -4,6 +4,7 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_swiss_roll, make_moons
+from barrier_surgery import BarrierSatSurgery
 
 # --- 1. The BRST Layer (Internal Stiffness) ---
 class BRSTLinear(nn.Module):
@@ -30,6 +31,17 @@ class HypoUniversal(nn.Module):
     def __init__(self, input_dim, latent_dim, num_charts=3):
         super().__init__()
         self.num_charts = num_charts
+
+        # HYPOSTRUCTURE: Dynamic barrier surgery for chart separation
+        self.barrier_surgery = BarrierSatSurgery(
+            num_layers=1,  # Single layer for separation
+            base_epsilon=4.0,
+            learnable=True,
+            surgery_mode='sigmoid',
+            temporal_schedule='warmup',
+            min_epsilon=2.0,
+            max_epsilon=10.0,
+        )
 
         # A. The Router (Topology / Axiom TB)
         # Standard layers are fine here; cuts don't need to be isometric
@@ -111,8 +123,11 @@ def universal_loss(z, x, weights, chart_outputs, model):
     if len(centers) > 1:
         for i in range(len(centers)):
             for j in range(i + 1, len(centers)):
-                dist = torch.norm(centers[i] - centers[j])
-                loss_sep += torch.relu(4.0 - dist) # Push 4 units apart
+                dist = torch.norm(centers[i] - centers[j]).unsqueeze(0)  # Make it 1D
+
+                # HYPOSTRUCTURE: Dynamic barrier clipping (replaces fixed epsilon=4.0)
+                # Using barrier saturation surgery for adaptive separation threshold
+                loss_sep += model.barrier_surgery(dist, layer_idx=0).squeeze()
 
     # 4. BRST (Internal Stiffness)
     loss_brst = model.compute_brst_loss()
@@ -181,9 +196,17 @@ def train_universal():
         loss.backward()
         optimizer.step()
 
+        # HYPOSTRUCTURE: Update barrier surgery temporal schedule
+        model.barrier_surgery.step_schedule()
+
         if epoch % 1000 == 0:
             usage = weights.mean(dim=0).detach().cpu().numpy()
-            print(f"Epoch {epoch}: Loss={loss.item():.4f} | Usage={usage}")
+
+            # HYPOSTRUCTURE: Get current barrier epsilon
+            barrier_stats = model.barrier_surgery.get_epsilon_stats()
+            epsilon_current = barrier_stats['epsilons'][0]
+
+            print(f"Epoch {epoch}: Loss={loss.item():.4f} | ε_sep={epsilon_current:.2f} | Usage={usage}")
 
     return model, X, labels
 

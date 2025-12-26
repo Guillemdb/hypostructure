@@ -4,12 +4,24 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from barrier_surgery import BarrierSatSurgery
 
 # --- 1. The Hypo-Atlas Architecture (Deeper Experts) ---
 class HypoAtlas(nn.Module):
     def __init__(self, input_dim, latent_dim, num_charts=2):
         super().__init__()
         self.num_charts = num_charts
+
+        # HYPOSTRUCTURE: Dynamic barrier surgery for chart separation
+        self.barrier_surgery = BarrierSatSurgery(
+            num_layers=1,  # Single layer for separation
+            base_epsilon=3.0,
+            learnable=True,
+            surgery_mode='sigmoid',
+            temporal_schedule='warmup',
+            min_epsilon=1.0,
+            max_epsilon=8.0,
+        )
 
         # The Router (Topology Learner)
         # Determines the "Atlas" structure
@@ -90,9 +102,11 @@ def atlas_loss(z, x, weights, model):
         center0 = z[mask0].mean(dim=0)
         center1 = z[mask1].mean(dim=0)
         # We want to MAXIMIZE distance, so we MINIMIZE negative distance
-        dist = torch.norm(center0 - center1)
-        # Hinge loss: push them until they are at least 3 units apart
-        loss_separation = torch.relu(3.0 - dist)
+        dist = torch.norm(center0 - center1).unsqueeze(0)  # Make it 1D for barrier surgery
+
+        # HYPOSTRUCTURE: Dynamic barrier clipping (replaces fixed epsilon=3.0)
+        # Using barrier saturation surgery for adaptive separation threshold
+        loss_separation = model.barrier_surgery(dist, layer_idx=0).squeeze()
     else:
         loss_separation = torch.tensor(0.0, device=x.device)
 
@@ -136,10 +150,18 @@ def train_atlas():
         loss.backward()
         optimizer.step()
 
+        # HYPOSTRUCTURE: Update barrier surgery temporal schedule
+        model.barrier_surgery.step_schedule()
+
         if epoch % 1000 == 0:
             # Monitor balance specifically
             usage = weights.mean(dim=0).detach().cpu().numpy()
-            print(f"Epoch {epoch}: Loss={loss.item():.4f} | Chart Usage: {usage}")
+
+            # HYPOSTRUCTURE: Get current barrier epsilon
+            barrier_stats = model.barrier_surgery.get_epsilon_stats()
+            epsilon_current = barrier_stats['epsilons'][0]
+
+            print(f"Epoch {epoch}: Loss={loss.item():.4f} | ε_sep={epsilon_current:.2f} | Chart Usage: {usage}")
 
     return model, X, colors
 

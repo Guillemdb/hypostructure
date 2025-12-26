@@ -4,6 +4,7 @@ import torch.optim as optim
 from sklearn.datasets import make_swiss_roll
 import matplotlib.pyplot as plt
 import numpy as np
+from barrier_surgery import BarrierSatSurgery
 
 # --- 1. The BRST Layer (Optimization Stiffness) ---
 class BRSTLinear(nn.Module):
@@ -42,6 +43,17 @@ class BRSTLinear(nn.Module):
 class HypoVICReg(nn.Module):
     def __init__(self, input_dim, hidden_dim, latent_dim):
         super().__init__()
+
+        # HYPOSTRUCTURE: Dynamic barrier surgery for variance clipping
+        self.barrier_surgery = BarrierSatSurgery(
+            num_layers=1,
+            base_epsilon=1.0,
+            learnable=True,
+            surgery_mode='linear',
+            temporal_schedule='warmup',
+            min_epsilon=0.5,
+            max_epsilon=2.0,
+        )
 
         # INTERFACE LAYERS (Standard Linear)
         # Allows diffeomorphism (bending/stretching) at the boundary
