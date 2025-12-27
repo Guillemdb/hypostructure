@@ -190,6 +190,10 @@ project:
     - file: source/sketches/ai/sketch-ai-index.md
       title: AI/ML Sketches
       children:
+        - file: source/sketches/ai/sketch-ai-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/ai/sketch-ai-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/ai/sketch-ai-act-align.md
           title: ACT-Align
         - file: source/sketches/ai/sketch-ai-act-compactify.md
@@ -389,6 +393,10 @@ project:
     - file: source/sketches/gmt/sketch-gmt-index.md
       title: GMT Sketches
       children:
+        - file: source/sketches/gmt/sketch-gmt-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/gmt/sketch-gmt-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/gmt/act-align.md
           title: ACT-Align
         - file: source/sketches/gmt/act-compactify.md
@@ -588,6 +596,10 @@ project:
     - file: source/sketches/discrete/sketch-discrete-index.md
       title: Complexity Theory Sketches
       children:
+        - file: source/sketches/discrete/sketch-discrete-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/discrete/sketch-discrete-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/discrete/sketch-discrete-mt-act-align.md
           title: ACT-Align
         - file: source/sketches/discrete/sketch-discrete-mt-act-compactify.md
@@ -793,6 +805,10 @@ project:
     - file: source/sketches/arithmetic/sketch-arithmetic-index.md
       title: Number Theory Sketches
       children:
+        - file: source/sketches/arithmetic/sketch-arithmetic-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/arithmetic/sketch-arithmetic-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/arithmetic/act-align.md
           title: ACT-Align
         - file: source/sketches/arithmetic/act-compactify.md
