@@ -190,6 +190,14 @@ project:
     - file: source/sketches/ai/sketch-ai-index.md
       title: AI/ML Sketches
       children:
+        - file: source/sketches/ai/sketch-ai-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/ai/sketch-ai-barriers.md
+          title: Fundamental Barriers and Constraints
+        - file: source/sketches/ai/sketch-ai-surgeries.md
+          title: Model Modifications and Training Interventions
+        - file: source/sketches/ai/sketch-ai-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/ai/sketch-ai-act-align.md
           title: ACT-Align
         - file: source/sketches/ai/sketch-ai-act-compactify.md
@@ -389,6 +397,14 @@ project:
     - file: source/sketches/gmt/sketch-gmt-index.md
       title: GMT Sketches
       children:
+        - file: source/sketches/gmt/sketch-gmt-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/gmt/sketch-gmt-barriers.md
+          title: Fundamental Barriers and Constraints
+        - file: source/sketches/gmt/sketch-gmt-surgeries.md
+          title: Geometric Modifications and Regularization
+        - file: source/sketches/gmt/sketch-gmt-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/gmt/act-align.md
           title: ACT-Align
         - file: source/sketches/gmt/act-compactify.md
@@ -588,6 +604,14 @@ project:
     - file: source/sketches/discrete/sketch-discrete-index.md
       title: Complexity Theory Sketches
       children:
+        - file: source/sketches/discrete/sketch-discrete-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/discrete/sketch-discrete-barriers.md
+          title: Fundamental Barriers and Constraints
+        - file: source/sketches/discrete/sketch-discrete-surgeries.md
+          title: Algorithm Modifications and Proof Transformations
+        - file: source/sketches/discrete/sketch-discrete-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/discrete/sketch-discrete-mt-act-align.md
           title: ACT-Align
         - file: source/sketches/discrete/sketch-discrete-mt-act-compactify.md
@@ -793,6 +817,14 @@ project:
     - file: source/sketches/arithmetic/sketch-arithmetic-index.md
       title: Number Theory Sketches
       children:
+        - file: source/sketches/arithmetic/sketch-arithmetic-interfaces.md
+          title: Core Interface Translations
+        - file: source/sketches/arithmetic/sketch-arithmetic-barriers.md
+          title: Fundamental Barriers and Constraints
+        - file: source/sketches/arithmetic/sketch-arithmetic-surgeries.md
+          title: Field Extensions and Reduction Modifications
+        - file: source/sketches/arithmetic/sketch-arithmetic-failure-modes.md
+          title: Failure Mode Translations
         - file: source/sketches/arithmetic/act-align.md
           title: ACT-Align
         - file: source/sketches/arithmetic/act-compactify.md
