@@ -187,6 +187,14 @@ project:
           title: System Prompt
         - file: source/prompts/template.md
           title: Universal Solution Template
+    - file: source/sketches/ai/sketch-ai-index.md
+      title: AI/ML Sketches
+    - file: source/sketches/gmt/sketch-gmt-index.md
+      title: GMT Sketches
+    - file: source/sketches/discrete/sketch-discrete-index.md
+      title: Complexity Theory Sketches
+    - file: source/sketches/arithmetic/sketch-arithmetic-index.md
+      title: Number Theory Sketches
 
   # Bibliography
   bibliography:
@@ -382,3 +390,13 @@ site:
           url: /system-prompt
         - title: Universal Solution Template
           url: /template
+    - title: Sketches
+      children:
+        - title: AI/ML Translation
+          url: /sketch-ai-index
+        - title: GMT Translation
+          url: /sketch-gmt-index
+        - title: Complexity Theory
+          url: /sketch-discrete-index
+        - title: Number Theory
+          url: /sketch-arithmetic-index
