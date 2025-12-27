@@ -189,12 +189,820 @@ project:
           title: Universal Solution Template
     - file: source/sketches/ai/sketch-ai-index.md
       title: AI/ML Sketches
+      children:
+        - file: source/sketches/ai/sketch-ai-act-align.md
+          title: ACT-Align
+        - file: source/sketches/ai/sketch-ai-act-compactify.md
+          title: ACT-Compactify
+        - file: source/sketches/ai/sketch-ai-act-ghost.md
+          title: ACT-Ghost
+        - file: source/sketches/ai/sketch-ai-act-horizon.md
+          title: ACT-Horizon
+        - file: source/sketches/ai/sketch-ai-act-lift.md
+          title: ACT-Lift
+        - file: source/sketches/ai/sketch-ai-act-projective.md
+          title: ACT-Projective
+        - file: source/sketches/ai/sketch-ai-act-surgery.md
+          title: ACT-Surgery
+        - file: source/sketches/ai/sketch-ai-fact-barrier.md
+          title: FACT-Barrier
+        - file: source/sketches/ai/sketch-ai-fact-gate.md
+          title: FACT-Gate
+        - file: source/sketches/ai/sketch-ai-fact-instantiation.md
+          title: FACT-Instantiation
+        - file: source/sketches/ai/sketch-ai-fact-lock.md
+          title: FACT-LOCK
+        - file: source/sketches/ai/sketch-ai-fact-soft-profdec.md
+          title: FACT-Soft-ProfileDecomposition
+        - file: source/sketches/ai/sketch-ai-fact-surgery.md
+          title: FACT-Surgery
+        - file: source/sketches/ai/sketch-ai-fact-transport.md
+          title: FACT-Transport
+        - file: source/sketches/ai/sketch-ai-lem-bridge.md
+          title: LEM-Bridge
+        - file: source/sketches/ai/sketch-ai-lock-antichain.md
+          title: LOCK-Antichain
+        - file: source/sketches/ai/sketch-ai-lock-entropy.md
+          title: LOCK-Entropy
+        - file: source/sketches/ai/sketch-ai-lock-ergodic-mixing.md
+          title: LOCK-Ergodic-Mixing
+        - file: source/sketches/ai/sketch-ai-lock-hodge.md
+          title: LOCK-Hodge
+        - file: source/sketches/ai/sketch-ai-lock-kodaira.md
+          title: LOCK-Kodaira
+        - file: source/sketches/ai/sketch-ai-lock-motivic.md
+          title: LOCK-Motivic
+        - file: source/sketches/ai/sketch-ai-lock-periodic.md
+          title: LOCK-Periodic
+        - file: source/sketches/ai/sketch-ai-lock-product.md
+          title: LOCK-Product
+        - file: source/sketches/ai/sketch-ai-lock-reconstruction.md
+          title: LOCK-Reconstruction
+        - file: source/sketches/ai/sketch-ai-lock-schematic.md
+          title: LOCK-Schematic
+        - file: source/sketches/ai/sketch-ai-lock-spectral-dist.md
+          title: LOCK-Spectral-Dist
+        - file: source/sketches/ai/sketch-ai-lock-spectral-gen.md
+          title: LOCK-Spectral-Gen
+        - file: source/sketches/ai/sketch-ai-lock-spectral-quant.md
+          title: LOCK-Spectral-Quant
+        - file: source/sketches/ai/sketch-ai-lock-tactic-capacity.md
+          title: LOCK-Tactic-Capacity
+        - file: source/sketches/ai/sketch-ai-lock-tactic-scale.md
+          title: LOCK-Tactic-Scale
+        - file: source/sketches/ai/sketch-ai-lock-tannakian.md
+          title: LOCK-Tannakian
+        - file: source/sketches/ai/sketch-ai-lock-unique-attractor.md
+          title: LOCK-Unique-Attractor
+        - file: source/sketches/ai/sketch-ai-lock-virtual.md
+          title: LOCK-Virtual
+        - file: source/sketches/ai/sketch-ai-mt-fact-germ-density.md
+          title: FACT-Germ-Density
+        - file: source/sketches/ai/sketch-ai-mt-fact-min-inst.md
+          title: FACT-Minimal-Instantiation
+        - file: source/sketches/ai/sketch-ai-mt-fact-soft-attr.md
+          title: FACT-Soft-Attractor
+        - file: source/sketches/ai/sketch-ai-mt-fact-soft-km.md
+          title: FACT-Soft-KM
+        - file: source/sketches/ai/sketch-ai-mt-fact-soft-morse.md
+          title: FACT-Soft-Morse
+        - file: source/sketches/ai/sketch-ai-mt-fact-soft-rigidity.md
+          title: FACT-Soft-Rigidity
+        - file: source/sketches/ai/sketch-ai-mt-fact-soft-wp.md
+          title: FACT-Soft-WP
+        - file: source/sketches/ai/sketch-ai-mt-fact-valid-inst.md
+          title: FACT-Valid-Instantiation
+        - file: source/sketches/ai/sketch-ai-mt-krnl-consistency.md
+          title: KRNL-Consistency
+        - file: source/sketches/ai/sketch-ai-mt-krnl-equivariance.md
+          title: KRNL-Equivariance
+        - file: source/sketches/ai/sketch-ai-mt-krnl-exclusion.md
+          title: KRNL-Exclusion
+        - file: source/sketches/ai/sketch-ai-mt-krnl-hamilton-jacobi.md
+          title: KRNL-Hamilton-Jacobi
+        - file: source/sketches/ai/sketch-ai-mt-krnl-jacobi.md
+          title: KRNL-Jacobi
+        - file: source/sketches/ai/sketch-ai-mt-krnl-lyapunov.md
+          title: KRNL-Lyapunov
+        - file: source/sketches/ai/sketch-ai-mt-krnl-metric-action.md
+          title: KRNL-Metric-Action
+        - file: source/sketches/ai/sketch-ai-mt-krnl-openness.md
+          title: KRNL-Openness
+        - file: source/sketches/ai/sketch-ai-mt-krnl-shadowing.md
+          title: KRNL-Shadowing
+        - file: source/sketches/ai/sketch-ai-mt-krnl-stiff-pairing.md
+          title: KRNL-Stiff-Pairing
+        - file: source/sketches/ai/sketch-ai-mt-krnl-subsystem.md
+          title: KRNL-Subsystem
+        - file: source/sketches/ai/sketch-ai-mt-krnl-trichotomy.md
+          title: KRNL-Trichotomy
+        - file: source/sketches/ai/sketch-ai-mt-krnl-weak-strong.md
+          title: KRNL-Weak-Strong
+        - file: source/sketches/ai/sketch-ai-mt-resolve-expansion.md
+          title: RESOLVE-Expansion
+        - file: source/sketches/ai/sketch-ai-resolve-admissibility.md
+          title: RESOLVE-Admissibility
+        - file: source/sketches/ai/sketch-ai-resolve-auto-admit.md
+          title: RESOLVE-Auto-Admit
+        - file: source/sketches/ai/sketch-ai-resolve-auto-profile.md
+          title: RESOLVE-Auto-Profile
+        - file: source/sketches/ai/sketch-ai-resolve-auto-surgery.md
+          title: RESOLVE-Auto-Surgery
+        - file: source/sketches/ai/sketch-ai-resolve-conservation.md
+          title: RESOLVE-Conservation
+        - file: source/sketches/ai/sketch-ai-resolve-obstruction.md
+          title: RESOLVE-Obstruction
+        - file: source/sketches/ai/sketch-ai-resolve-profile.md
+          title: RESOLVE-Profile
+        - file: source/sketches/ai/sketch-ai-resolve-tower.md
+          title: RESOLVE-Tower
+        - file: source/sketches/ai/sketch-ai-resolve-weakest-pre.md
+          title: RESOLVE-Weakest-Pre
+        - file: source/sketches/ai/sketch-ai-thm-168-slots.md
+          title: THM-168-Slots
+        - file: source/sketches/ai/sketch-ai-thm-categorical-completeness.md
+          title: THM-Categorical-Completeness
+        - file: source/sketches/ai/sketch-ai-thm-closure-termination.md
+          title: THM-Closure-Termination
+        - file: source/sketches/ai/sketch-ai-thm-compactness-resolution.md
+          title: THM-Compactness-Resolution
+        - file: source/sketches/ai/sketch-ai-thm-dag.md
+          title: THM-Dag
+        - file: source/sketches/ai/sketch-ai-thm-epoch-termination.md
+          title: THM-Epoch-Termination
+        - file: source/sketches/ai/sketch-ai-thm-expansion-adjunction.md
+          title: THM-Expansion-Adjunction
+        - file: source/sketches/ai/sketch-ai-thm-finite-runs.md
+          title: THM-Finite-Runs
+        - file: source/sketches/ai/sketch-ai-thm-meta-identifiability.md
+          title: THM-Meta-Identifiability
+        - file: source/sketches/ai/sketch-ai-thm-non-circularity.md
+          title: THM-Non-Circularity
+        - file: source/sketches/ai/sketch-ai-thm-soundness.md
+          title: THM-Soundness
+        - file: source/sketches/ai/sketch-ai-up-absorbing.md
+          title: UP-Absorbing
+        - file: source/sketches/ai/sketch-ai-up-algorithm-depth.md
+          title: UP-Algorithm-Depth
+        - file: source/sketches/ai/sketch-ai-up-capacity.md
+          title: UP-Capacity
+        - file: source/sketches/ai/sketch-ai-up-catastrophe.md
+          title: UP-Catastrophe
+        - file: source/sketches/ai/sketch-ai-up-causal-barrier.md
+          title: UP-Causal-Barrier
+        - file: source/sketches/ai/sketch-ai-up-censorship.md
+          title: UP-Censorship
+        - file: source/sketches/ai/sketch-ai-up-ergodic.md
+          title: UP-Ergodic
+        - file: source/sketches/ai/sketch-ai-up-holographic.md
+          title: UP-Holographic
+        - file: source/sketches/ai/sketch-ai-up-inc-aposteriori.md
+          title: UP-Inc-APosteriori
+        - file: source/sketches/ai/sketch-ai-up-inc-complete.md
+          title: UP-Inc-Complete
+        - file: source/sketches/ai/sketch-ai-up-lock-back.md
+          title: UP-LOCK-Back
+        - file: source/sketches/ai/sketch-ai-up-lock.md
+          title: UP-LOCK
+        - file: source/sketches/ai/sketch-ai-up-o-minimal.md
+          title: UP-O-Minimal
+        - file: source/sketches/ai/sketch-ai-up-saturation.md
+          title: UP-Saturation
+        - file: source/sketches/ai/sketch-ai-up-scattering.md
+          title: UP-Scattering
+        - file: source/sketches/ai/sketch-ai-up-shadow-retro.md
+          title: UP-Shadow-Retro
+        - file: source/sketches/ai/sketch-ai-up-shadow.md
+          title: UP-Shadow
+        - file: source/sketches/ai/sketch-ai-up-spectral.md
+          title: UP-Spectral
+        - file: source/sketches/ai/sketch-ai-up-surgery.md
+          title: UP-Surgery
+        - file: source/sketches/ai/sketch-ai-up-symmetry-bridge.md
+          title: UP-Symmetry-Bridge
+        - file: source/sketches/ai/sketch-ai-up-tame-smoothing.md
+          title: UP-Tame-Smoothing
+        - file: source/sketches/ai/sketch-ai-up-type-ii.md
+          title: UP-Type-Ii
+        - file: source/sketches/ai/sketch-ai-up-variety-control.md
+          title: UP-Variety-Control
     - file: source/sketches/gmt/sketch-gmt-index.md
       title: GMT Sketches
+      children:
+        - file: source/sketches/gmt/act-align.md
+          title: ACT-Align
+        - file: source/sketches/gmt/act-compactify.md
+          title: ACT-Compactify
+        - file: source/sketches/gmt/act-ghost.md
+          title: ACT-Ghost
+        - file: source/sketches/gmt/act-horizon.md
+          title: ACT-Horizon
+        - file: source/sketches/gmt/act-lift.md
+          title: ACT-Lift
+        - file: source/sketches/gmt/act-projective.md
+          title: ACT-Projective
+        - file: source/sketches/gmt/act-surgery.md
+          title: ACT-Surgery
+        - file: source/sketches/gmt/fact-barrier.md
+          title: FACT-Barrier
+        - file: source/sketches/gmt/fact-gate.md
+          title: FACT-Gate
+        - file: source/sketches/gmt/fact-germ-density.md
+          title: FACT-Germ-Density
+        - file: source/sketches/gmt/fact-instantiation.md
+          title: FACT-Instantiation
+        - file: source/sketches/gmt/fact-lock.md
+          title: FACT-LOCK
+        - file: source/sketches/gmt/fact-min-inst.md
+          title: FACT-Minimal-Instantiation
+        - file: source/sketches/gmt/fact-soft-attr.md
+          title: FACT-Soft-Attractor
+        - file: source/sketches/gmt/fact-soft-km.md
+          title: FACT-Soft-KM
+        - file: source/sketches/gmt/fact-soft-morse.md
+          title: FACT-Soft-Morse
+        - file: source/sketches/gmt/fact-soft-profdec.md
+          title: FACT-Soft-ProfileDecomposition
+        - file: source/sketches/gmt/fact-soft-rigidity.md
+          title: FACT-Soft-Rigidity
+        - file: source/sketches/gmt/fact-soft-wp.md
+          title: FACT-Soft-WP
+        - file: source/sketches/gmt/fact-surgery.md
+          title: FACT-Surgery
+        - file: source/sketches/gmt/fact-transport.md
+          title: FACT-Transport
+        - file: source/sketches/gmt/fact-valid-inst.md
+          title: FACT-Valid-Instantiation
+        - file: source/sketches/gmt/krnl-consistency.md
+          title: KRNL-Consistency
+        - file: source/sketches/gmt/krnl-equivariance.md
+          title: KRNL-Equivariance
+        - file: source/sketches/gmt/krnl-exclusion.md
+          title: KRNL-Exclusion
+        - file: source/sketches/gmt/krnl-hamilton-jacobi.md
+          title: KRNL-Hamilton-Jacobi
+        - file: source/sketches/gmt/krnl-jacobi.md
+          title: KRNL-Jacobi
+        - file: source/sketches/gmt/krnl-lyapunov.md
+          title: KRNL-Lyapunov
+        - file: source/sketches/gmt/krnl-metric-action.md
+          title: KRNL-Metric-Action
+        - file: source/sketches/gmt/krnl-openness.md
+          title: KRNL-Openness
+        - file: source/sketches/gmt/krnl-shadowing.md
+          title: KRNL-Shadowing
+        - file: source/sketches/gmt/krnl-stiff-pairing.md
+          title: KRNL-Stiff-Pairing
+        - file: source/sketches/gmt/krnl-subsystem.md
+          title: KRNL-Subsystem
+        - file: source/sketches/gmt/krnl-trichotomy.md
+          title: KRNL-Trichotomy
+        - file: source/sketches/gmt/krnl-weak-strong.md
+          title: KRNL-Weak-Strong
+        - file: source/sketches/gmt/lem-bridge.md
+          title: LEM-Bridge
+        - file: source/sketches/gmt/lock-antichain.md
+          title: LOCK-Antichain
+        - file: source/sketches/gmt/lock-entropy.md
+          title: LOCK-Entropy
+        - file: source/sketches/gmt/lock-ergodic-mixing.md
+          title: LOCK-Ergodic-Mixing
+        - file: source/sketches/gmt/lock-hodge.md
+          title: LOCK-Hodge
+        - file: source/sketches/gmt/lock-kodaira.md
+          title: LOCK-Kodaira
+        - file: source/sketches/gmt/lock-motivic.md
+          title: LOCK-Motivic
+        - file: source/sketches/gmt/lock-periodic.md
+          title: LOCK-Periodic
+        - file: source/sketches/gmt/lock-product.md
+          title: LOCK-Product
+        - file: source/sketches/gmt/lock-reconstruction.md
+          title: LOCK-Reconstruction
+        - file: source/sketches/gmt/lock-schematic.md
+          title: LOCK-Schematic
+        - file: source/sketches/gmt/lock-spectral-dist.md
+          title: LOCK-Spectral-Dist
+        - file: source/sketches/gmt/lock-spectral-gen.md
+          title: LOCK-Spectral-Gen
+        - file: source/sketches/gmt/lock-spectral-quant.md
+          title: LOCK-Spectral-Quant
+        - file: source/sketches/gmt/lock-tactic-capacity.md
+          title: LOCK-Tactic-Capacity
+        - file: source/sketches/gmt/lock-tactic-scale.md
+          title: LOCK-Tactic-Scale
+        - file: source/sketches/gmt/lock-tannakian.md
+          title: LOCK-Tannakian
+        - file: source/sketches/gmt/lock-unique-attractor.md
+          title: LOCK-Unique-Attractor
+        - file: source/sketches/gmt/lock-virtual.md
+          title: LOCK-Virtual
+        - file: source/sketches/gmt/resolve-admissibility.md
+          title: RESOLVE-Admissibility
+        - file: source/sketches/gmt/resolve-auto-admit.md
+          title: RESOLVE-Auto-Admit
+        - file: source/sketches/gmt/resolve-auto-profile.md
+          title: RESOLVE-Auto-Profile
+        - file: source/sketches/gmt/resolve-auto-surgery.md
+          title: RESOLVE-Auto-Surgery
+        - file: source/sketches/gmt/resolve-conservation.md
+          title: RESOLVE-Conservation
+        - file: source/sketches/gmt/resolve-expansion.md
+          title: RESOLVE-Expansion
+        - file: source/sketches/gmt/resolve-obstruction.md
+          title: RESOLVE-Obstruction
+        - file: source/sketches/gmt/resolve-profile.md
+          title: RESOLVE-Profile
+        - file: source/sketches/gmt/resolve-tower.md
+          title: RESOLVE-Tower
+        - file: source/sketches/gmt/resolve-weakest-pre.md
+          title: RESOLVE-Weakest-Pre
+        - file: source/sketches/gmt/thm-168-slots.md
+          title: THM-168-Slots
+        - file: source/sketches/gmt/thm-categorical-completeness.md
+          title: THM-Categorical-Completeness
+        - file: source/sketches/gmt/thm-closure-termination.md
+          title: THM-Closure-Termination
+        - file: source/sketches/gmt/thm-compactness-resolution.md
+          title: THM-Compactness-Resolution
+        - file: source/sketches/gmt/thm-dag.md
+          title: THM-Dag
+        - file: source/sketches/gmt/thm-epoch-termination.md
+          title: THM-Epoch-Termination
+        - file: source/sketches/gmt/thm-expansion-adjunction.md
+          title: THM-Expansion-Adjunction
+        - file: source/sketches/gmt/thm-finite-runs.md
+          title: THM-Finite-Runs
+        - file: source/sketches/gmt/thm-meta-identifiability.md
+          title: THM-Meta-Identifiability
+        - file: source/sketches/gmt/thm-non-circularity.md
+          title: THM-Non-Circularity
+        - file: source/sketches/gmt/thm-soundness.md
+          title: THM-Soundness
+        - file: source/sketches/gmt/up-absorbing.md
+          title: UP-Absorbing
+        - file: source/sketches/gmt/up-algorithm-depth.md
+          title: UP-Algorithm-Depth
+        - file: source/sketches/gmt/up-capacity.md
+          title: UP-Capacity
+        - file: source/sketches/gmt/up-catastrophe.md
+          title: UP-Catastrophe
+        - file: source/sketches/gmt/up-causal-barrier.md
+          title: UP-Causal-Barrier
+        - file: source/sketches/gmt/up-censorship.md
+          title: UP-Censorship
+        - file: source/sketches/gmt/up-ergodic.md
+          title: UP-Ergodic
+        - file: source/sketches/gmt/up-holographic.md
+          title: UP-Holographic
+        - file: source/sketches/gmt/up-inc-aposteriori.md
+          title: UP-Inc-APosteriori
+        - file: source/sketches/gmt/up-inc-complete.md
+          title: UP-Inc-Complete
+        - file: source/sketches/gmt/up-lock-back.md
+          title: UP-LOCK-Back
+        - file: source/sketches/gmt/up-lock.md
+          title: UP-LOCK
+        - file: source/sketches/gmt/up-o-minimal.md
+          title: UP-O-Minimal
+        - file: source/sketches/gmt/up-saturation.md
+          title: UP-Saturation
+        - file: source/sketches/gmt/up-scattering.md
+          title: UP-Scattering
+        - file: source/sketches/gmt/up-shadow-retro.md
+          title: UP-Shadow-Retro
+        - file: source/sketches/gmt/up-shadow.md
+          title: UP-Shadow
+        - file: source/sketches/gmt/up-spectral.md
+          title: UP-Spectral
+        - file: source/sketches/gmt/up-surgery.md
+          title: UP-Surgery
+        - file: source/sketches/gmt/up-symmetry-bridge.md
+          title: UP-Symmetry-Bridge
+        - file: source/sketches/gmt/up-tame-smoothing.md
+          title: UP-Tame-Smoothing
+        - file: source/sketches/gmt/up-type-ii.md
+          title: UP-Type-Ii
+        - file: source/sketches/gmt/up-variety-control.md
+          title: UP-Variety-Control
     - file: source/sketches/discrete/sketch-discrete-index.md
       title: Complexity Theory Sketches
+      children:
+        - file: source/sketches/discrete/sketch-discrete-mt-act-align.md
+          title: ACT-Align
+        - file: source/sketches/discrete/sketch-discrete-mt-act-compactify.md
+          title: ACT-Compactify
+        - file: source/sketches/discrete/sketch-discrete-mt-act-ghost.md
+          title: ACT-Ghost
+        - file: source/sketches/discrete/sketch-discrete-mt-act-horizon.md
+          title: ACT-Horizon
+        - file: source/sketches/discrete/sketch-discrete-mt-act-lift.md
+          title: ACT-Lift
+        - file: source/sketches/discrete/sketch-discrete-mt-act-projective.md
+          title: ACT-Projective
+        - file: source/sketches/discrete/sketch-discrete-mt-act-surgery.md
+          title: ACT-Surgery
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-barrier.md
+          title: FACT-Barrier
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-gate.md
+          title: FACT-Gate
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-germ-density.md
+          title: FACT-Germ-Density
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-instantiation.md
+          title: FACT-Instantiation
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-lock.md
+          title: FACT-LOCK
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-min-inst.md
+          title: FACT-Minimal-Instantiation
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-soft-attr.md
+          title: FACT-Soft-Attractor
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-soft-km.md
+          title: FACT-Soft-KM
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-soft-morse.md
+          title: FACT-Soft-Morse
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-soft-profdec.md
+          title: FACT-Soft-ProfileDecomposition
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-soft-rigidity.md
+          title: FACT-Soft-Rigidity
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-soft-wp.md
+          title: FACT-Soft-WP
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-surgery.md
+          title: FACT-Surgery
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-transport.md
+          title: FACT-Transport
+        - file: source/sketches/discrete/sketch-discrete-mt-fact-valid-inst.md
+          title: FACT-Valid-Instantiation
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-consistency.md
+          title: KRNL-Consistency
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-equivariance.md
+          title: KRNL-Equivariance
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-exclusion.md
+          title: KRNL-Exclusion
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-hamilton-jacobi.md
+          title: KRNL-Hamilton-Jacobi
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-jacobi.md
+          title: KRNL-Jacobi
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-lyapunov.md
+          title: KRNL-Lyapunov
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-metric-action.md
+          title: KRNL-Metric-Action
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-openness.md
+          title: KRNL-Openness
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-shadowing.md
+          title: KRNL-Shadowing
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-stiff-pairing-v2.md
+          title: KRNL-Stiff-Pairing-V2
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-stiff-pairing.md
+          title: KRNL-Stiff-Pairing
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-subsystem.md
+          title: KRNL-Subsystem
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-trichotomy.md
+          title: KRNL-Trichotomy
+        - file: source/sketches/discrete/sketch-discrete-mt-krnl-weak-strong.md
+          title: KRNL-Weak-Strong
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-antichain.md
+          title: LOCK-Antichain
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-entropy.md
+          title: LOCK-Entropy
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-ergodic-mixing.md
+          title: LOCK-Ergodic-Mixing
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-hodge.md
+          title: LOCK-Hodge
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-kodaira.md
+          title: LOCK-Kodaira
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-motivic.md
+          title: LOCK-Motivic
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-periodic.md
+          title: LOCK-Periodic
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-product.md
+          title: LOCK-Product
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-reconstruction.md
+          title: LOCK-Reconstruction
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-schematic.md
+          title: LOCK-Schematic
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-spectral-dist.md
+          title: LOCK-Spectral-Dist
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-spectral-gen.md
+          title: LOCK-Spectral-Gen
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-spectral-quant.md
+          title: LOCK-Spectral-Quant
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-tactic-capacity.md
+          title: LOCK-Tactic-Capacity
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-tactic-scale.md
+          title: LOCK-Tactic-Scale
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-tannakian.md
+          title: LOCK-Tannakian
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-unique-attractor.md
+          title: LOCK-Unique-Attractor
+        - file: source/sketches/discrete/sketch-discrete-mt-lock-virtual.md
+          title: LOCK-Virtual
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-admissibility.md
+          title: RESOLVE-Admissibility
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-auto-admit.md
+          title: RESOLVE-Auto-Admit
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-auto-surgery.md
+          title: RESOLVE-Auto-Surgery
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-autoprofile.md
+          title: RESOLVE-AutoProfile
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-conservation.md
+          title: RESOLVE-Conservation
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-expansion.md
+          title: RESOLVE-Expansion
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-obstruction.md
+          title: RESOLVE-Obstruction
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-profile.md
+          title: RESOLVE-Profile
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-tower.md
+          title: RESOLVE-Tower
+        - file: source/sketches/discrete/sketch-discrete-mt-resolve-weakest-pre.md
+          title: RESOLVE-Weakest-Pre
+        - file: source/sketches/discrete/sketch-discrete-mt-up-absorbing.md
+          title: UP-Absorbing
+        - file: source/sketches/discrete/sketch-discrete-mt-up-algorithm-depth.md
+          title: UP-Algorithm-Depth
+        - file: source/sketches/discrete/sketch-discrete-mt-up-capacity.md
+          title: UP-Capacity
+        - file: source/sketches/discrete/sketch-discrete-mt-up-catastrophe.md
+          title: UP-Catastrophe
+        - file: source/sketches/discrete/sketch-discrete-mt-up-causal-barrier.md
+          title: UP-Causal-Barrier
+        - file: source/sketches/discrete/sketch-discrete-mt-up-censorship.md
+          title: UP-Censorship
+        - file: source/sketches/discrete/sketch-discrete-mt-up-ergodic.md
+          title: UP-Ergodic
+        - file: source/sketches/discrete/sketch-discrete-mt-up-holographic.md
+          title: UP-Holographic
+        - file: source/sketches/discrete/sketch-discrete-mt-up-inc-aposteriori.md
+          title: UP-Inc-APosteriori
+        - file: source/sketches/discrete/sketch-discrete-mt-up-inc-complete.md
+          title: UP-Inc-Complete
+        - file: source/sketches/discrete/sketch-discrete-mt-up-lock-back.md
+          title: UP-LOCK-Back
+        - file: source/sketches/discrete/sketch-discrete-mt-up-lock.md
+          title: UP-LOCK
+        - file: source/sketches/discrete/sketch-discrete-mt-up-o-minimal.md
+          title: UP-O-Minimal
+        - file: source/sketches/discrete/sketch-discrete-mt-up-saturation.md
+          title: UP-Saturation
+        - file: source/sketches/discrete/sketch-discrete-mt-up-scattering.md
+          title: UP-Scattering
+        - file: source/sketches/discrete/sketch-discrete-mt-up-shadow-retro.md
+          title: UP-Shadow-Retro
+        - file: source/sketches/discrete/sketch-discrete-mt-up-shadow.md
+          title: UP-Shadow
+        - file: source/sketches/discrete/sketch-discrete-mt-up-spectral.md
+          title: UP-Spectral
+        - file: source/sketches/discrete/sketch-discrete-mt-up-surgery.md
+          title: UP-Surgery
+        - file: source/sketches/discrete/sketch-discrete-mt-up-symmetry-bridge.md
+          title: UP-Symmetry-Bridge
+        - file: source/sketches/discrete/sketch-discrete-mt-up-tame-smoothing.md
+          title: UP-Tame-Smoothing
+        - file: source/sketches/discrete/sketch-discrete-mt-up-type-ii.md
+          title: UP-Type-Ii
+        - file: source/sketches/discrete/sketch-discrete-mt-up-variety-control.md
+          title: UP-Variety-Control
+        - file: source/sketches/discrete/sketch-discrete-thm-168-slots.md
+          title: THM-168-Slots
+        - file: source/sketches/discrete/sketch-discrete-thm-bode-sensitivity.md
+          title: THM-Bode-Sensitivity
+        - file: source/sketches/discrete/sketch-discrete-thm-categorical-completeness.md
+          title: THM-Categorical-Completeness
+        - file: source/sketches/discrete/sketch-discrete-thm-closure-termination.md
+          title: THM-Closure-Termination
+        - file: source/sketches/discrete/sketch-discrete-thm-compactness-resolution.md
+          title: THM-Compactness-Resolution
+        - file: source/sketches/discrete/sketch-discrete-thm-dag.md
+          title: THM-Dag
+        - file: source/sketches/discrete/sketch-discrete-thm-epoch-termination.md
+          title: THM-Epoch-Termination
+        - file: source/sketches/discrete/sketch-discrete-thm-expansion-adjunction.md
+          title: THM-Expansion-Adjunction
+        - file: source/sketches/discrete/sketch-discrete-thm-finite-runs.md
+          title: THM-Finite-Runs
+        - file: source/sketches/discrete/sketch-discrete-thm-meta-identifiability.md
+          title: THM-Meta-Identifiability
+        - file: source/sketches/discrete/sketch-discrete-thm-non-circularity.md
+          title: THM-Non-Circularity
+        - file: source/sketches/discrete/sketch-discrete-thm-soft-backend-completeness.md
+          title: THM-Soft-Backend-Completeness
+        - file: source/sketches/discrete/sketch-discrete-thm-soundness.md
+          title: THM-Soundness
+        - file: source/sketches/discrete/sketch-discrete-translation-guide.md
+          title: Translation-Guide
     - file: source/sketches/arithmetic/sketch-arithmetic-index.md
       title: Number Theory Sketches
+      children:
+        - file: source/sketches/arithmetic/act-align.md
+          title: ACT-Align
+        - file: source/sketches/arithmetic/act-compactify.md
+          title: ACT-Compactify
+        - file: source/sketches/arithmetic/act-ghost.md
+          title: ACT-Ghost
+        - file: source/sketches/arithmetic/act-horizon.md
+          title: ACT-Horizon
+        - file: source/sketches/arithmetic/act-lift.md
+          title: ACT-Lift
+        - file: source/sketches/arithmetic/act-projective.md
+          title: ACT-Projective
+        - file: source/sketches/arithmetic/act-surgery-2.md
+          title: ACT-Surgery-2
+        - file: source/sketches/arithmetic/act-surgery.md
+          title: ACT-Surgery
+        - file: source/sketches/arithmetic/cor-minimal-user-burden.md
+          title: COR-Minimal-User-Burden
+        - file: source/sketches/arithmetic/cor-separation-concerns.md
+          title: COR-Separation-Concerns
+        - file: source/sketches/arithmetic/fact-barrier.md
+          title: FACT-Barrier
+        - file: source/sketches/arithmetic/fact-gate.md
+          title: FACT-Gate
+        - file: source/sketches/arithmetic/fact-germ-density.md
+          title: FACT-Germ-Density
+        - file: source/sketches/arithmetic/fact-instantiation.md
+          title: FACT-Instantiation
+        - file: source/sketches/arithmetic/fact-lock.md
+          title: FACT-LOCK
+        - file: source/sketches/arithmetic/fact-min-inst.md
+          title: FACT-Minimal-Instantiation
+        - file: source/sketches/arithmetic/fact-soft-attr.md
+          title: FACT-Soft-Attractor
+        - file: source/sketches/arithmetic/fact-soft-km.md
+          title: FACT-Soft-KM
+        - file: source/sketches/arithmetic/fact-soft-morse.md
+          title: FACT-Soft-Morse
+        - file: source/sketches/arithmetic/fact-soft-profdec.md
+          title: FACT-Soft-ProfileDecomposition
+        - file: source/sketches/arithmetic/fact-soft-rigidity.md
+          title: FACT-Soft-Rigidity
+        - file: source/sketches/arithmetic/fact-soft-wp.md
+          title: FACT-Soft-WP
+        - file: source/sketches/arithmetic/fact-surgery.md
+          title: FACT-Surgery
+        - file: source/sketches/arithmetic/fact-transport.md
+          title: FACT-Transport
+        - file: source/sketches/arithmetic/fact-valid-inst.md
+          title: FACT-Valid-Instantiation
+        - file: source/sketches/arithmetic/krnl-consistency.md
+          title: KRNL-Consistency
+        - file: source/sketches/arithmetic/krnl-equivariance.md
+          title: KRNL-Equivariance
+        - file: source/sketches/arithmetic/krnl-exclusion.md
+          title: KRNL-Exclusion
+        - file: source/sketches/arithmetic/krnl-hamilton-jacobi.md
+          title: KRNL-Hamilton-Jacobi
+        - file: source/sketches/arithmetic/krnl-jacobi.md
+          title: KRNL-Jacobi
+        - file: source/sketches/arithmetic/krnl-lyapunov.md
+          title: KRNL-Lyapunov
+        - file: source/sketches/arithmetic/krnl-metric-action.md
+          title: KRNL-Metric-Action
+        - file: source/sketches/arithmetic/krnl-openness.md
+          title: KRNL-Openness
+        - file: source/sketches/arithmetic/krnl-shadowing.md
+          title: KRNL-Shadowing
+        - file: source/sketches/arithmetic/krnl-stiff-pairing.md
+          title: KRNL-Stiff-Pairing
+        - file: source/sketches/arithmetic/krnl-subsystem.md
+          title: KRNL-Subsystem
+        - file: source/sketches/arithmetic/krnl-trichotomy.md
+          title: KRNL-Trichotomy
+        - file: source/sketches/arithmetic/krnl-weak-strong.md
+          title: KRNL-Weak-Strong
+        - file: source/sketches/arithmetic/lem-bridge.md
+          title: LEM-Bridge
+        - file: source/sketches/arithmetic/lem-gap-lojasiewicz.md
+          title: LEM-Gap-Lojasiewicz
+        - file: source/sketches/arithmetic/lock-antichain.md
+          title: LOCK-Antichain
+        - file: source/sketches/arithmetic/lock-entropy.md
+          title: LOCK-Entropy
+        - file: source/sketches/arithmetic/lock-ergodic-mixing.md
+          title: LOCK-Ergodic-Mixing
+        - file: source/sketches/arithmetic/lock-hodge.md
+          title: LOCK-Hodge
+        - file: source/sketches/arithmetic/lock-kodaira.md
+          title: LOCK-Kodaira
+        - file: source/sketches/arithmetic/lock-motivic.md
+          title: LOCK-Motivic
+        - file: source/sketches/arithmetic/lock-periodic.md
+          title: LOCK-Periodic
+        - file: source/sketches/arithmetic/lock-product.md
+          title: LOCK-Product
+        - file: source/sketches/arithmetic/lock-reconstruction.md
+          title: LOCK-Reconstruction
+        - file: source/sketches/arithmetic/lock-schematic.md
+          title: LOCK-Schematic
+        - file: source/sketches/arithmetic/lock-spectral-dist.md
+          title: LOCK-Spectral-Dist
+        - file: source/sketches/arithmetic/lock-spectral-gen.md
+          title: LOCK-Spectral-Gen
+        - file: source/sketches/arithmetic/lock-spectral-quant.md
+          title: LOCK-Spectral-Quant
+        - file: source/sketches/arithmetic/lock-tactic-capacity.md
+          title: LOCK-Tactic-Capacity
+        - file: source/sketches/arithmetic/lock-tactic-scale.md
+          title: LOCK-Tactic-Scale
+        - file: source/sketches/arithmetic/lock-tannakian.md
+          title: LOCK-Tannakian
+        - file: source/sketches/arithmetic/lock-unique-attractor.md
+          title: LOCK-Unique-Attractor
+        - file: source/sketches/arithmetic/lock-virtual.md
+          title: LOCK-Virtual
+        - file: source/sketches/arithmetic/resolve-admissibility.md
+          title: RESOLVE-Admissibility
+        - file: source/sketches/arithmetic/resolve-auto-admit.md
+          title: RESOLVE-Auto-Admit
+        - file: source/sketches/arithmetic/resolve-auto-profile.md
+          title: RESOLVE-Auto-Profile
+        - file: source/sketches/arithmetic/resolve-auto-surgery.md
+          title: RESOLVE-Auto-Surgery
+        - file: source/sketches/arithmetic/resolve-conservation.md
+          title: RESOLVE-Conservation
+        - file: source/sketches/arithmetic/resolve-expansion.md
+          title: RESOLVE-Expansion
+        - file: source/sketches/arithmetic/resolve-obstruction.md
+          title: RESOLVE-Obstruction
+        - file: source/sketches/arithmetic/resolve-profile.md
+          title: RESOLVE-Profile
+        - file: source/sketches/arithmetic/resolve-tower.md
+          title: RESOLVE-Tower
+        - file: source/sketches/arithmetic/resolve-weakest-pre.md
+          title: RESOLVE-Weakest-Pre
+        - file: source/sketches/arithmetic/thm-168-slots.md
+          title: THM-168-Slots
+        - file: source/sketches/arithmetic/thm-bode.md
+          title: THM-Bode
+        - file: source/sketches/arithmetic/thm-categorical-completeness.md
+          title: THM-Categorical-Completeness
+        - file: source/sketches/arithmetic/thm-closure-termination.md
+          title: THM-Closure-Termination
+        - file: source/sketches/arithmetic/thm-compactness-resolution.md
+          title: THM-Compactness-Resolution
+        - file: source/sketches/arithmetic/thm-dag-structure.md
+          title: THM-Dag-Structure
+        - file: source/sketches/arithmetic/thm-epoch-termination.md
+          title: THM-Epoch-Termination
+        - file: source/sketches/arithmetic/thm-expansion-adjunction.md
+          title: THM-Expansion-Adjunction
+        - file: source/sketches/arithmetic/thm-finite-runs.md
+          title: THM-Finite-Runs
+        - file: source/sketches/arithmetic/thm-meta-identifiability.md
+          title: THM-Meta-Identifiability
+        - file: source/sketches/arithmetic/thm-non-circularity.md
+          title: THM-Non-Circularity
+        - file: source/sketches/arithmetic/thm-soft-backend-complete.md
+          title: THM-Soft-Backend-Complete
+        - file: source/sketches/arithmetic/thm-soundness.md
+          title: THM-Soundness
+        - file: source/sketches/arithmetic/up-absorbing.md
+          title: UP-Absorbing
+        - file: source/sketches/arithmetic/up-algorithm-depth.md
+          title: UP-Algorithm-Depth
+        - file: source/sketches/arithmetic/up-capacity.md
+          title: UP-Capacity
+        - file: source/sketches/arithmetic/up-catastrophe.md
+          title: UP-Catastrophe
+        - file: source/sketches/arithmetic/up-causal-barrier.md
+          title: UP-Causal-Barrier
+        - file: source/sketches/arithmetic/up-censorship.md
+          title: UP-Censorship
+        - file: source/sketches/arithmetic/up-ergodic.md
+          title: UP-Ergodic
+        - file: source/sketches/arithmetic/up-holographic.md
+          title: UP-Holographic
+        - file: source/sketches/arithmetic/up-inc-aposteriori.md
+          title: UP-Inc-APosteriori
+        - file: source/sketches/arithmetic/up-inc-complete.md
+          title: UP-Inc-Complete
+        - file: source/sketches/arithmetic/up-lock.md
+          title: UP-LOCK
+        - file: source/sketches/arithmetic/up-lockback.md
+          title: UP-LockBack
+        - file: source/sketches/arithmetic/up-o-minimal.md
+          title: UP-O-Minimal
+        - file: source/sketches/arithmetic/up-saturation-principle.md
+          title: UP-Saturation-Principle
+        - file: source/sketches/arithmetic/up-saturation.md
+          title: UP-Saturation
+        - file: source/sketches/arithmetic/up-scattering.md
+          title: UP-Scattering
+        - file: source/sketches/arithmetic/up-shadow-retro.md
+          title: UP-Shadow-Retro
+        - file: source/sketches/arithmetic/up-shadow.md
+          title: UP-Shadow
+        - file: source/sketches/arithmetic/up-spectral.md
+          title: UP-Spectral
+        - file: source/sketches/arithmetic/up-surgery.md
+          title: UP-Surgery
+        - file: source/sketches/arithmetic/up-symmetry-bridge.md
+          title: UP-Symmetry-Bridge
+        - file: source/sketches/arithmetic/up-tame-smoothing.md
+          title: UP-Tame-Smoothing
+        - file: source/sketches/arithmetic/up-type-ii.md
+          title: UP-Type-Ii
+        - file: source/sketches/arithmetic/up-variety-control.md
+          title: UP-Variety-Control
 
   # Bibliography
   bibliography:
