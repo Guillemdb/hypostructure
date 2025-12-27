@@ -138,7 +138,16 @@ If any implication fails, return **FatalError: Certificate Schema Incoherent**.
 - Outcomes per node: $\leq 3$ (YES/NO/Blocked)
 - Total certificate schemas: $\leq 3 \times 89 = 267$
 
-Verification complexity: $O(|V|^2) = O(89^2) \approx 7921$ implications to check (one per edge in the DAG).
+:::{note}
+**Edge Count Clarification:**
+
+The number of **edges** in the Sieve DAG is NOT $|V|^2$. The actual structure is:
+- Each decision node has at most 3 outgoing edges (YES/NO/Blocked)
+- Most nodes have exactly 2 outgoing edges
+- The Sieve has approximately $|E| \approx 2 \times 89 \approx 178$ edges
+
+The number of **certificate implications to verify** is $|E| \approx 178$, not $|V|^2 \approx 7921$. Each edge corresponds to one implication: $K_{N_1}^o \vdash \text{Pre}(N_2)$.
+:::
 
 ---
 
@@ -148,7 +157,27 @@ Verification complexity: $O(|V|^2) = O(89^2) \approx 7921$ implications to check
 
 **Statement:** The Sieve Algorithm terminates in finite time.
 
-**Proof:** By {prf:ref}`thm-dag`, the Sieve diagram is a directed acyclic graph (DAG). This has two crucial consequences:
+**Proof:** We first establish that the Sieve diagram is a directed acyclic graph (DAG), then derive termination.
+
+:::{important}
+**DAG Property Proof:**
+
+The Sieve is a DAG because it admits a **topological ordering** based on the gate sequence:
+
+1. **Main gate ordering:** Gates $N_1$ (EnergyCheck) through $N_{17}$ (CatHom) are numbered in sequence. An edge $N_i \to N_j$ only exists if $i < j$ (forward progression through gates).
+
+2. **Barrier node ordering:** Each barrier $B_i$ is associated with gate $N_i$. The ordering $\pi(B_i) = \pi(N_i) + 0.5$ places barriers between their associated gate and the next.
+
+3. **Surgery re-entry ordering:** Surgery nodes $S_i$ re-enter at a gate $N_j$ with $j > i$. For example:
+   - $S_1$ (SurgCE) re-enters at $N_2$ (ZenoCheck): $1 < 2$ ✓
+   - $S_7$ (SurgLS) re-enters at $N_8$ (TunBarrier): $7 < 8$ ✓
+
+4. **Terminal nodes:** VICTORY and Mode nodes have $\pi = \infty$ (maximal ordering).
+
+**Verification:** Inspect the Sieve diagram (Section 23) to confirm no backward edges exist. Each surgery re-entry targets a strictly later gate in the numbering.
+:::
+
+This establishes the DAG property. It has two crucial consequences:
 
 **Consequence 1: No Cycles**
 The DAG property ensures no execution path can cycle:
@@ -563,7 +592,7 @@ satisfying:
 | Worst-case time complexity | $O(89 \times \max(f(n), T_{\max}))$ |
 | Worst-case space complexity | $O(89 \times n)$ |
 | Number of certificate schemas | $\leq 267$ |
-| Number of certificate implications to verify | $O(89^2) \approx 7921$ |
+| Number of edges (implications to verify) | $\approx 178$ |
 
 ### Literature
 

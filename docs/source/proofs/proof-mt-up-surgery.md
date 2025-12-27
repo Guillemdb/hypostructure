@@ -45,6 +45,12 @@ A valid surgery operator $\mathcal{O}_S: (\mathcal{X}, \Phi) \to (\mathcal{X}', 
 
 **Canonical Library (Type-Specific):**
 
+:::{admonition} Type-Specific Instantiation
+:class: warning
+
+The specific canonical library depends on the type $T$. The abstract framework requires a **finite** library of isolated profiles with finite automorphism groups. The instantiation below is for Ricci flow; other types have different libraries.
+:::
+
 For **Ricci flow in dimension 3**, the canonical library consists of exactly three elements:
 $$\mathcal{L}_{\text{Ricci}} = \left\{
 \begin{array}{l}
@@ -55,6 +61,14 @@ $$\mathcal{L}_{\text{Ricci}} = \left\{
 \right\}$$
 
 Each profile has finite automorphism group and is isolated in the moduli space of ancient solutions with bounded curvature.
+
+**Type-Specific Libraries for Other Types:**
+
+| Type $T$ | Canonical Library $\mathcal{L}_T$ | Reference |
+|----------|-----------------------------------|-----------|
+| Mean curvature flow (dim 2) | Round shrinking sphere, translating bowl | {cite}`HuiskenSinestrari09` |
+| Harmonic map flow | Bubble profiles (harmonic 2-spheres) | {cite}`Struwe88` |
+| Yang-Mills flow | Instantons with charge $|k| \leq k_{\max}$ | {cite}`DonaldsonKronheimer90` |
 
 **Goal:**
 

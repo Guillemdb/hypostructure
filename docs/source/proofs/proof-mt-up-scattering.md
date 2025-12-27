@@ -127,8 +127,12 @@ $$\|N(u)\|_{L^{r'}_x} = \||u|^{1+4/n}\|_{L^{2(n+2)/(n+4)}_x}$$
 $$\||u|^{1+4/n}\|_{L^{2(n+2)/(n+4)}_x} \leq \||u|^{4/n}\|_{L^{n/2}_x} \cdot \|u\|_{L^{2n/(n-2)}_x}$$
 using the splitting $(1 + 4/n) = (4/n) + 1$ and choosing $L^p$ exponents appropriately.
 
-**Step 2.3.4 (Sobolev Embedding):** By the Sobolev embedding $H^1(\mathbb{R}^n) \hookrightarrow L^{2n/(n-2)}(\mathbb{R}^n)$ (critical Sobolev exponent):
+**Step 2.3.4 (Sobolev Embedding):** By the Sobolev embedding $H^1(\mathbb{R}^n) \hookrightarrow L^{2n/(n-2)}(\mathbb{R}^n)$ (critical Sobolev exponent, **valid for $n \geq 3$**):
 $$\|u(t)\|_{L^{2n/(n-2)}_x} \leq C \|u(t)\|_{H^1} \leq C \sqrt{E_0}$$
+
+:::{note}
+This embedding requires $n \geq 3$ (see Dimensional Parameters at the beginning of this proof). For $n = 1, 2$, different embeddings apply and the argument must be modified accordingly.
+:::
 
 **Step 2.3.5 (Morawetz Integration):** Observe that:
 $$\||u|^{4/n}\|_{L^{n/2}_x}^{n/2} = \int_{\mathbb{R}^n} (|u|^{4/n})^{n/2} dx = \int_{\mathbb{R}^n} |u|^{2} dx$$

@@ -81,7 +81,7 @@ Thus $x^* \in \text{Fix}(S)$.
 
 ### Step 1.4: Energy Stationarity at the Limit
 
-Since $\mathfrak{D}$ is non-negative and $\int_0^\infty \mathfrak{D}(S_s x) \, ds < \infty$, by Barbalat's Lemma (see {cite}`LaSalle76`):
+Since $\mathfrak{D}$ is non-negative and $\int_0^\infty \mathfrak{D}(S_s x) \, ds < \infty$, we apply Barbalat's Lemma (see {cite}`LaSalle76`). This requires verifying uniform continuity of $t \mapsto \mathfrak{D}(S_t x)$, which follows from the joint continuity of $S_t$ and continuity of $\mathfrak{D}$ (assumptions implicit in the hypostructure framework). Barbalat's Lemma then yields:
 $$\lim_{t \to \infty} \mathfrak{D}(S_t x) = 0.$$
 
 Combined with the strict dissipation hypothesis:
@@ -246,12 +246,30 @@ completing the proof of the KRNL-Consistency Theorem.
 
 ### Convergence Rate
 
-When the Łojasiewicz gradient inequality holds with exponent $\theta \in (0, 1/2)$, the convergence rate to the fixed point $x^*$ is:
-$$\|S_t x - x^*\|_{\mathcal{X}} \leq C \cdot t^{-\frac{1}{1 - 2\theta}} \quad \text{for } t \gg 1.$$
+The convergence rate depends on the Łojasiewicz exponent $\theta \in (0, 1/2]$ (see {cite}`Simon83`, {cite}`Chill03`):
 
-For $\theta = 1/2$ (analytic case), the convergence is exponential:
+**Case 1: $\theta \in (0, 1/2)$ — Polynomial Convergence**
+
+$$\|S_t x - x^*\|_{\mathcal{X}} \leq C \cdot t^{-\frac{1-\theta}{1 - 2\theta}} \quad \text{for } t \gg 1$$
+
+Note: As $\theta \to 1/2^-$, the exponent $(1-\theta)/(1-2\theta) \to +\infty$, giving increasingly fast polynomial decay approaching exponential.
+
+**Case 2: $\theta = 1/2$ — Exponential Convergence**
+
 $$\|S_t x - x^*\|_{\mathcal{X}} \leq C \cdot e^{-\lambda t}$$
-for some $\lambda > 0$ depending on the spectral gap of the linearization at $x^*$.
+
+for some $\lambda > 0$ depending on the spectral gap of the linearization at $x^*$. This case is generic for analytic functionals.
+
+**Derivation:** The Łojasiewicz-Simon inequality $\|\nabla \Phi\| \geq C|\Phi - \Phi^*|^{1-\theta}$ combined with the energy-dissipation identity $\frac{d\Phi}{dt} = -\|\nabla \Phi\|^2$ yields:
+$$\frac{d}{dt}(\Phi - \Phi^*) \leq -C^2 |\Phi - \Phi^*|^{2(1-\theta)}$$
+
+For $\theta < 1/2$: Setting $\alpha = 2(1-\theta) > 1$ and $y = \Phi - \Phi^*$, we get $\dot{y} \leq -C^2 y^\alpha$, which integrates to polynomial decay.
+
+For $\theta = 1/2$: We have $\alpha = 1$, giving $\dot{y} \leq -C^2 y$, which integrates to exponential decay $y(t) \leq y(0) e^{-C^2 t}$.
+
+:::{note}
+The Łojasiewicz exponent satisfies $\theta \leq 1/2$ universally. Values $\theta > 1/2$ do not occur in the standard Łojasiewicz-Simon theory.
+:::
 
 ### Energy Dissipation Bound
 
@@ -316,8 +334,8 @@ The energy functional $\Phi$ serves as a Lyapunov function. Lyapunov's direct me
 **LaSalle's Invariance Principle ({cite}`LaSalle76`):**
 This principle provides the key tool for analyzing limit sets in systems with weak dissipation. It guarantees convergence to the maximal invariant set where dissipation vanishes, generalizing our result beyond gradient flows to broader dynamical systems.
 
-**Łojasiewicz Gradient Inequality ({cite}`Lojasiewicz84`):**
-For analytic or semi-algebraic energy functionals, this inequality provides convergence rates and ensures finite-time arrival at fixed points (when $\theta < 1/2$) or exponential convergence (when $\theta = 1/2$). This quantitative refinement is essential for algorithmic applications of the hypostructure framework.
+**Łojasiewicz Gradient Inequality ({cite}`Lojasiewicz84`, {cite}`Simon83`):**
+For analytic or semi-algebraic energy functionals, this inequality provides explicit convergence rates: polynomial decay $O(t^{-(1-\theta)/(1-2\theta)})$ when $\theta < 1/2$, or exponential convergence when $\theta = 1/2$. Note that the Łojasiewicz-Simon inequality guarantees asymptotic convergence but NOT finite-time arrival (trajectories approach the limit point asymptotically, reaching it only at $t = \infty$). This quantitative refinement is essential for algorithmic applications of the hypostructure framework.
 
 **Applicability to Hypostructures:**
 The Fixed-Point Principle is the cornerstone of the hypostructure methodology. It shows that:

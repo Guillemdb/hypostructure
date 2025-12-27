@@ -74,8 +74,39 @@ $$R := \sup_{x \in B} \limsup_{t \to \infty} \Phi(S_t x).$$
 
 By the monotonicity of $\Phi$ along trajectories (from $K_{D_E}^+$), we have $R \leq M$.
 
-In the general case (allowing for systems with external forcing or metastable states), we appeal to the **dissipation balance principle**: since $\int_0^\infty \mathfrak{D}(S_s x) \, ds < \infty$, by Barbalat's Lemma (see {cite}`LaSalle76`):
+In the general case (allowing for systems with external forcing or metastable states), we appeal to the **dissipation balance principle**: since $\int_0^\infty \mathfrak{D}(S_s x) \, ds < \infty$, and assuming $t \mapsto \mathfrak{D}(S_t x)$ is uniformly continuous (which follows from the joint continuity of $S_t$ in $K_{\mathrm{TB}_\pi}^+$ when $\mathfrak{D}$ is continuous), Barbalat's Lemma (see {cite}`LaSalle76`) yields:
 $$\lim_{t \to \infty} \mathfrak{D}(S_t x) = 0.$$
+
+:::{admonition} Barbalat's Lemma Preconditions
+:class: important
+
+**Barbalat's Lemma** ({cite}`LaSalle76`): If $f: [0, \infty) \to \mathbb{R}$ satisfies:
+1. $f(t) \geq 0$ for all $t \geq 0$
+2. $\int_0^\infty f(t) \, dt < \infty$
+3. $f$ is **uniformly continuous** on $[0, \infty)$
+
+then $\lim_{t \to \infty} f(t) = 0$.
+
+**Verification for $f(t) = \mathfrak{D}(S_t x)$:**
+
+- Condition (i): Satisfied by hypothesis ($\mathfrak{D} \geq 0$)
+- Condition (ii): Satisfied by Consequence 2 ($\int_0^\infty \mathfrak{D}(S_s x) \, ds \leq \Phi(x) < \infty$)
+- Condition (iii): **This requires verification.** Uniform continuity of $t \mapsto \mathfrak{D}(S_t x)$ holds if:
+  - $\mathfrak{D}: \mathcal{X} \to \mathbb{R}_{\geq 0}$ is **Lipschitz continuous**, AND
+  - The trajectory $t \mapsto S_t x$ is **Lipschitz in $t$** (bounded velocity)
+
+**When uniform continuity holds:**
+- Gradient flows: $\|dS_t x/dt\| = \|\nabla \Phi(S_t x)\| \leq C$ implies bounded velocity
+- Parabolic PDEs: Regularity theory gives uniform $C^{0,\alpha}$ bounds in time
+- Hamiltonian systems: Energy conservation implies bounded velocity
+
+**When uniform continuity may fail:**
+- Systems with blow-up (velocity becomes unbounded)
+- Discontinuous or impulsive dynamics
+- Highly oscillatory solutions
+
+If uniform continuity cannot be verified, alternative arguments (e.g., LaSalle's invariance principle via a different approach) may be needed.
+:::
 
 This implies that the trajectory asymptotically approaches a region where dissipation vanishes, which by the energy-dissipation inequality forces $\Phi$ to stabilize.
 
@@ -249,14 +280,16 @@ contradicting $\Phi \geq 0$. Thus, $\Phi(S_{\tau^*} y) = \Phi(y)$, which by the 
 **Consequence (Dissipation Vanishes on $\mathcal{A}$):**
 $$\mathfrak{D}(S_\tau y) = 0 \quad \text{for all } \tau \geq 0, \ y \in \mathcal{A}.$$
 
-**Backward Trajectory Construction:**
+**Backward Invariance via Forward Construction:**
 
 For $y \in \mathcal{A}$ and $t > 0$, we construct $z \in \mathcal{A}$ such that $S_t z = y$.
+
+**Remark (Semigroup Validity):** This construction does NOT require backward evolution of the semiflow. Instead, we exploit the omega-limit structure: since $y$ is a limit of forward orbits at arbitrarily large times, we can find "earlier" points on these forward orbits that map to $y$ after time $t$. All operations below use only forward applications of $S_\tau$ with $\tau > 0$.
 
 Since $y \in \omega(B_R)$, for each $n \in \mathbb{N}$, there exists $x_n \in B_R$ and $\tau_n \geq n + t$ such that
 $$d(S_{\tau_n} x_n, y) < \frac{1}{n}.$$
 
-Define $z_n := S_{\tau_n - t} x_n$. Then:
+Define $z_n := S_{\tau_n - t} x_n$. Note that $\tau_n - t \geq n > 0$, so $z_n$ is well-defined as a forward image of $x_n$. Then:
 $$S_t z_n = S_t(S_{\tau_n - t} x_n) = S_{\tau_n} x_n \to y \quad \text{as } n \to \infty.$$
 
 Since $\tau_n - t \geq n \to \infty$ and $x_n \in B_R$, we have $z_n \in S_{\tau_n - t} B_R$. The sequence $\{z_n\}$ lies in the precompact set $\bigcup_{\tau \geq 0} S_\tau B_R$, hence has a convergent subsequence $z_{n_k} \to z$.

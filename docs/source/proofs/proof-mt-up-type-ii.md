@@ -403,6 +403,16 @@ is validated by the proof above.
 2. **Non-degeneracy** (Lemma 3.2) — the blow-up profile must be non-trivial
 3. **Dimensional restrictions:** Some results (e.g., Theorem 5.1) require $n \geq 11$ for technical reasons related to spectral estimates
 
+:::{admonition} Dimensional Restrictions
+:class: warning
+
+The complete soliton resolution (Theorem 5.1 from {cite}`CollotMerleRaphael17`) requires $n \geq 11$ due to:
+- Spectral gap requirements for the linearized operator
+- Coercivity of the energy on stable manifolds
+
+For dimensions $3 \leq n \leq 10$, the monotonicity formula and rate bounds (Steps 1-4) still apply, but the full asymptotic profile decomposition remains open for some supercritical exponents.
+:::
+
 **Open Problems:**
 - **Low dimensions:** For $n \leq 10$, the complete soliton resolution remains open for some supercritical exponents
 - **Multiple blow-up points:** The interaction dynamics between multiple concentrating profiles is not fully understood

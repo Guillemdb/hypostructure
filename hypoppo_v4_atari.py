@@ -20,17 +20,20 @@ from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
 import gymnasium as gym
 import ale_py
+import argparse
+import time
 
 # Register ALE environments
 gym.register_envs(ale_py)
 
-# Import the scaling components from hypoppo_v4
-import sys
-sys.path.insert(0, '/home/user/hypostructure')
 from hypoppo_v4 import (
     ScalingCertificate,
     ScalingExponentEstimator,
     SubcriticalityEnforcer,
+    ScalingRegularizer,
+    LayerwiseTrustEnforcer,
+    SemanticScalingEstimator,
+    ActorCriticCoherenceRegularizer,
     Trajectory,
     TrajectoryBuffer
 )
@@ -87,24 +90,52 @@ class NatureCNN(nn.Module):
         return x
 
 
+class MLP(nn.Module):
+    """
+    Simple MLP for CartPole.
+    
+    Input: (batch, input_dim)
+    Output: (batch, 64)
+    """
+    def __init__(self, input_dim: int):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, 64),
+            nn.Tanh(),
+            nn.Linear(64, 64),
+            nn.Tanh()
+        )
+        self.feature_size = 64
+
+    def forward(self, x):
+        return self.net(x.float())
+
+
 class AtariActorCritic(nn.Module):
     """
     Actor-Critic with Nature DQN CNN backbone.
 
-    Shared convolutional features -> separate actor/critic heads
+    Shared convolutional features (Atari) or MLP (CartPole) -> separate actor/critic heads
     """
 
-    def __init__(self, in_channels: int, action_dim: int):
+    def __init__(self, input_shape: tuple, action_dim: int):
         super().__init__()
 
-        # Shared CNN backbone
-        self.backbone = NatureCNN(in_channels)
+        # Backbone selection
+        if len(input_shape) == 3:
+            # Atari: (C, H, W) -> NatureCNN
+            self.backbone = NatureCNN(input_shape[0])
+            feature_dim = 512
+        else:
+            # Vector env: (dim,) -> MLP
+            self.backbone = MLP(input_shape[0])
+            feature_dim = 64
 
         # Actor head (policy)
-        self.actor_head = nn.Linear(512, action_dim)
+        self.actor_head = nn.Linear(feature_dim, action_dim)
 
         # Critic head (value)
-        self.critic_head = nn.Linear(512, 1)
+        self.critic_head = nn.Linear(feature_dim, 1)
 
     def forward(self, state):
         # Shared features
@@ -126,44 +157,8 @@ class AtariActorCritic(nn.Module):
         return np.sqrt(total)
 
 
-class FrameStack:
-    """Stack of recent frames for Atari observation."""
 
-    def __init__(self, num_frames: int = 4):
-        self.num_frames = num_frames
-        self.frames = deque(maxlen=num_frames)
-
-    def reset(self, frame):
-        """Reset with initial frame."""
-        # Convert to grayscale and resize to 84x84
-        gray = self._preprocess(frame)
-        for _ in range(self.num_frames):
-            self.frames.append(gray)
-        return self.get_state()
-
-    def update(self, frame):
-        """Add new frame and return stacked state."""
-        gray = self._preprocess(frame)
-        self.frames.append(gray)
-        return self.get_state()
-
-    def _preprocess(self, frame):
-        """Convert RGB frame to 84x84 grayscale."""
-        # Convert to grayscale: Y = 0.299*R + 0.587*G + 0.114*B
-        if len(frame.shape) == 3:
-            gray = np.dot(frame[..., :3], [0.299, 0.587, 0.114])
-        else:
-            gray = frame
-
-        # Resize to 84x84 using simple subsampling
-        import cv2
-        resized = cv2.resize(gray, (84, 84), interpolation=cv2.INTER_AREA)
-
-        return resized.astype(np.uint8)
-
-    def get_state(self):
-        """Get current stacked state as (4, 84, 84)."""
-        return np.stack(self.frames, axis=0)
+# FrameStack class removed - using Gymnasium wrappers instead
 
 
 class HypoPPOv4Atari:
@@ -178,7 +173,7 @@ class HypoPPOv4Atari:
     """
 
     def __init__(self,
-                 in_channels: int,
+                 input_shape: tuple,
                  action_dim: int,
                  lr: float = 2.5e-4,
                  base_clip: float = 0.2,
@@ -190,7 +185,7 @@ class HypoPPOv4Atari:
                  device: str = 'cpu'):
 
         self.device = device
-        self.model = AtariActorCritic(in_channels, action_dim).to(device)
+        self.model = AtariActorCritic(input_shape, action_dim).to(device)
         self.base_lr = lr
         self.optimizer = optim.Adam(self.model.parameters(), lr=lr, eps=1e-5)
 
@@ -221,12 +216,40 @@ class HypoPPOv4Atari:
             base_clip=base_clip,
         )
 
+        # HYPOSTRUCTURE: Scaling Regularization (New Mechanism)
+        self.scaling_regularizer = ScalingRegularizer(
+            subcritical_margin=subcritical_margin
+        )
+
+        # HYPOSTRUCTURE: Layerwise Trust (uses Adam's v for per-layer trust)
+        self.layer_trust_enforcer = LayerwiseTrustEnforcer(
+            optimizer=self.optimizer,
+            base_trust=1.0,
+            sensitivity=1.0,
+        )
+
+        # HYPOSTRUCTURE: Semantic Scaling (α_V, β_π)
+        self.semantic_estimator = SemanticScalingEstimator()
+
+        # HYPOSTRUCTURE: Coherence Regularization
+        self.coherence_regularizer = ActorCriticCoherenceRegularizer()
+
         self.current_certificate: Optional[ScalingCertificate] = None
         self.update_count = 0
 
+        # Performance timing for 'bells & whistles'
+        self.timing = {
+            'scaling_est_update': 0,
+            'scaling_reg': 0,
+            'adam_record': 0,
+            'trust_scaling': 0,
+            'semantic_record': 0,
+            'total_updates': 0
+        }
+
     def select_action(self, state: np.ndarray) -> Tuple[int, float, float]:
         """Select action using current policy."""
-        state_t = torch.from_numpy(state).unsqueeze(0).to(self.device)
+        state_t = torch.from_numpy(state).unsqueeze(0).to(self.device).float()
 
         with torch.no_grad():
             logits, value = self.model(state_t)
@@ -235,6 +258,18 @@ class HypoPPOv4Atari:
             log_prob = dist.log_prob(action)
 
         return action.item(), log_prob.item(), value.item()
+
+    def select_actions_batch(self, states: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Select actions for a batch of states (vectorized)."""
+        states_t = torch.from_numpy(states).to(self.device).float()
+
+        with torch.no_grad():
+            logits, values = self.model(states_t)
+            dist = torch.distributions.Categorical(logits=logits)
+            actions = dist.sample()
+            log_probs = dist.log_prob(actions)
+
+        return actions.cpu().numpy(), log_probs.cpu().numpy(), values.squeeze(-1).cpu().numpy()
 
     def _compute_gae(self, rewards, values, dones, next_value):
         """Compute GAE with average reward baseline."""
@@ -308,12 +343,16 @@ class HypoPPOv4Atari:
             advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
 
         # HYPOSTRUCTURE: Update scaling certificate
+        t_est = time.time()
         self.current_certificate = self.scaling_estimator.update()
+        self.timing['scaling_est_update'] += time.time() - t_est
 
         # HYPOSTRUCTURE: Get enforcement parameters
         effective_clip, lr_scale = self.subcrit_enforcer.enforce(self.current_certificate)
 
-        # Adjust learning rate based on criticality
+        # Learning rate update and init timing
+        self.timing['total_updates'] += 1
+
         for param_group in self.optimizer.param_groups:
             param_group['lr'] = self.base_lr * lr_scale
 
@@ -369,12 +408,33 @@ class HypoPPOv4Atari:
                 # Total loss
                 loss_total = loss_policy + 0.5 * loss_value + loss_entropy
 
+                # HYPOSTRUCTURE: Add regularization penalty
+                if self.current_certificate:
+                    t_reg = time.time()
+                    loss_reg, penalty_coeff = self.scaling_regularizer.compute_penalty(
+                        self.model, self.current_certificate
+                    )
+                    loss_total += loss_reg
+                    self.timing['scaling_reg'] += time.time() - t_reg
+                else:
+                    loss_reg = 0.0
+                    penalty_coeff = 0.0
+
                 # Backward pass
                 self.optimizer.zero_grad()
                 loss_total.backward()
 
-                # HYPOSTRUCTURE: Record for scaling estimation
-                self._record_scaling_observation(loss_total.item(), self.model)
+                # HYPOSTRUCTURE: Record for scaling estimation (uses Adam's v for β)
+                t_record = time.time()
+                self.scaling_estimator.record_from_adam(
+                    self.optimizer, loss_total.item(), self.model
+                )
+                self.timing['adam_record'] += time.time() - t_record
+
+                # HYPOSTRUCTURE: Apply per-layer trust scaling
+                t_trust = time.time()
+                self.layer_trust_enforcer.apply_trust_scaling(self.model)
+                self.timing['trust_scaling'] += time.time() - t_trust
 
                 # Gradient clipping
                 grad_clip = 0.5 * lr_scale
@@ -391,6 +451,17 @@ class HypoPPOv4Atari:
                 # KL tracking
                 with torch.no_grad():
                     kl = (mb_old_log_probs - new_log_probs).mean()
+
+                # HYPOSTRUCTURE: Record semantic observations
+                t_semantic = time.time()
+                self.semantic_estimator.record(
+                    value_mean=values.mean().item(),
+                    value_var=values.var().item(),
+                    bellman_var=(values - mb_targets).var().item(),
+                    entropy=entropy.mean().item(),
+                    kl_div=kl.item()
+                )
+                self.timing['semantic_record'] += time.time() - t_semantic
 
                 history['loss_policy'].append(loss_policy.item())
                 history['loss_value'].append(loss_value.item())
@@ -409,6 +480,8 @@ class HypoPPOv4Atari:
             'entropy': np.mean(history['entropy']),
             'kl': np.mean(history['kl']),
             'clip_frac': np.mean(history['clip_fraction']),
+            'loss_reg': loss_reg.item() if isinstance(loss_reg, torch.Tensor) else 0.0,
+            'penalty_coeff': penalty_coeff,
             'rho': self.rho,
             'effective_clip': effective_clip,
             'lr_scale': lr_scale,
@@ -419,19 +492,44 @@ class HypoPPOv4Atari:
             stats['barrier_status'] = self.current_certificate.barrier_status
 
         stats.update(self.subcrit_enforcer.get_stats())
+        stats.update(self.layer_trust_enforcer.get_stats())
+
+        # HYPOSTRUCTURE: Semantic scaling stats
+        semantic_stats = self.semantic_estimator.estimate()
+        stats.update(semantic_stats)
+        stats.update(self.coherence_regularizer.get_stats())
 
         return stats
 
 
-def evaluate(agent: HypoPPOv4Atari, env_name: str, n_episodes: int = 5) -> float:
+def evaluate(agent: HypoPPOv4Atari, env_name: str, n_episodes: int = 5, is_atari: bool = False) -> float:
     """Evaluate agent performance."""
-    env = gym.make(env_name, frameskip=1)
+    # Setup environment with wrappers
+    if is_atari:
+        env = gym.make(env_name, frameskip=1)
+    else:
+        env = gym.make(env_name)
+    if is_atari:
+        env = gym.wrappers.AtariPreprocessing(
+            env, 
+            noop_max=30, 
+            frame_skip=4, 
+            screen_size=84, 
+            terminal_on_life_loss=False, 
+            grayscale_obs=True, 
+            grayscale_newaxis=True, 
+            scale_obs=False
+        )
+    
     total_rewards = []
 
     for _ in range(n_episodes):
         obs, _ = env.reset()
-        frame_stack = FrameStack(num_frames=4)
-        state = frame_stack.reset(obs)
+        # Transpose (84, 84, 1) -> (1, 84, 84)
+        if is_atari:
+            state = obs.transpose(2, 0, 1)
+        else:
+            state = obs
 
         episode_reward = 0
         done = False
@@ -440,7 +538,12 @@ def evaluate(agent: HypoPPOv4Atari, env_name: str, n_episodes: int = 5) -> float
         while not (done or truncated):
             action, _, _ = agent.select_action(state)
             obs, reward, done, truncated, _ = env.step(action)
-            state = frame_stack.update(obs)
+            # Transpose
+            if is_atari:
+                state = obs.transpose(2, 0, 1)
+            else:
+                state = obs
+            
             episode_reward += reward
 
         total_rewards.append(episode_reward)
@@ -449,31 +552,49 @@ def evaluate(agent: HypoPPOv4Atari, env_name: str, n_episodes: int = 5) -> float
     return np.mean(total_rewards)
 
 
-def train_mspacman():
-    """Train HypoPPO v4 on Ms. Pacman."""
+def train():
+    """Train HypoPPO v4 with vectorized environments."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--cartpole', action='store_true', help='Run on CartPole-v1 for debugging')
+    parser.add_argument('--profile', action='store_true', help='Enable profiling')
+    parser.add_argument('--num-envs', type=int, default=8, help='Number of parallel environments')
+    parser.add_argument('--max-updates', type=int, default=None, help='Limit number of updates (useful for profiling)')
+    args = parser.parse_args()
+
+    env_name = "CartPole-v1" if args.cartpole else "ALE/Pong-v5"
+    num_envs = args.num_envs
+    
     print("=" * 70)
-    print("HypoPPO v4 for Atari: Ms. Pacman")
+    print(f"HypoPPO v4: {env_name}")
     print("=" * 70)
-    print()
-    print("ARCHITECTURE: Nature DQN CNN")
-    print("  • Conv1: 32 filters, 8x8 kernel, stride 4")
-    print("  • Conv2: 64 filters, 4x4 kernel, stride 2")
-    print("  • Conv3: 64 filters, 3x3 kernel, stride 1")
-    print("  • FC: 512 units")
-    print("  • Separate actor/critic heads")
-    print()
-    print("HYPOSTRUCTURE: Scaling enforcement (α, β)")
-    print("  • Empirical estimation of scaling exponents")
-    print("  • Adaptive trust regions based on criticality")
-    print()
+    
+    if args.cartpole:
+        # Vectorized CartPole
+        def make_env():
+            return gym.make(env_name)
+        envs = gym.vector.SyncVectorEnv([make_env for _ in range(num_envs)])
+        input_shape = envs.single_observation_space.shape
+        is_atari = False
+        print(f"Backbone:  MLP (64x64) x{num_envs} envs")
+    else:
+        # Vectorized Atari (single for now, Atari is expensive)
+        num_envs = 1
+        def make_atari_env():
+            env = gym.make(env_name, frameskip=1)
+            env = gym.wrappers.AtariPreprocessing(
+                env, noop_max=30, frame_skip=4, screen_size=84,
+                terminal_on_life_loss=False, grayscale_obs=True,
+                grayscale_newaxis=True, scale_obs=False
+            )
+            return env
+        envs = gym.vector.SyncVectorEnv([make_atari_env for _ in range(num_envs)])
+        input_shape = (1, 84, 84)
+        is_atari = True
+        print(f"Backbone: Nature CNN x{num_envs} envs")
 
-    env_name = "ALE/MsPacman-v5"
-    env = gym.make(env_name, frameskip=1)
-
-    action_dim = env.action_space.n
-
-    print(f"Environment: {env_name}")
+    action_dim = envs.single_action_space.n
     print(f"Action dim: {action_dim}")
+    print(f"Input shape: {input_shape}")
     print()
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -481,86 +602,128 @@ def train_mspacman():
     print()
 
     agent = HypoPPOv4Atari(
-        in_channels=4,
+        input_shape=input_shape,
         action_dim=action_dim,
-        lr=2.5e-4,
+        lr=5e-3,  # Standard PPO LR
         base_clip=0.2,
         target_entropy=0.5,
         subcritical_margin=0.1,
-        scaling_window=100,
+        scaling_window=50,
         device=device
     )
 
-    max_steps = 1000000
-    update_interval = 2048
-    eval_interval = 50000
+    # OPTIMIZED HYPERPARAMETERS
+    max_steps = 500000
+    steps_per_env = 128  # Steps per env before update
+    update_interval = steps_per_env * num_envs  # Total steps before update
+    eval_interval = 25000
+    batch_size = 64
+    epochs = 3
 
     print(f"Training for {max_steps} steps...")
-    print(f"Update every {update_interval} steps")
+    print(f"Update every {update_interval} steps ({steps_per_env}/env x {num_envs} envs)")
+    print(f"Batch size: {batch_size}, Epochs: {epochs}")
     print("-" * 70)
 
-    obs, _ = env.reset()
-    frame_stack = FrameStack(num_frames=4)
-    state = frame_stack.reset(obs)
+    # Reset all envs
+    obs, _ = envs.reset()
+    if is_atari:
+        states = np.array([o.transpose(2, 0, 1) for o in obs])
+    else:
+        states = obs
 
-    episode_reward = 0
-    recent_rewards = deque(maxlen=20)
+    episode_rewards = np.zeros(num_envs)
+    recent_rewards = deque(maxlen=100)
 
     agent.buffer.start_trajectory()
+    
+    total_steps = 0
+    
+    # Optional profiling
+    if args.profile:
+        import cProfile
+        profiler = cProfile.Profile()
+        profiler.enable()
 
-    for step in range(1, max_steps + 1):
-        action, log_prob, value = agent.select_action(state)
-        obs, reward, terminated, truncated, _ = env.step(action)
-        done = terminated or truncated
+    max_updates = args.max_updates if args.max_updates else (max_steps // update_interval)
 
-        next_state = frame_stack.update(obs)
+    for update in range(1, max_updates + 1):
+        # Collect steps_per_env steps from each env
+        for _ in range(steps_per_env):
+            # Batched action selection (MUCH FASTER)
+            actions, log_probs, values = agent.select_actions_batch(states)
+            
+            next_obs, rewards, terminateds, truncateds, _ = envs.step(actions)
+            dones = np.logical_or(terminateds, truncateds)
+            
+            if is_atari:
+                next_states = np.array([o.transpose(2, 0, 1) for o in next_obs])
+            else:
+                next_states = next_obs
 
-        agent.buffer.add_step(state, action, reward, log_prob, value, done)
-        episode_reward += reward
-        state = next_state
+            # Add each env's step to buffer
+            for i in range(num_envs):
+                agent.buffer.add_step(states[i], actions[i], rewards[i], 
+                                     log_probs[i], values[i], dones[i])
+                episode_rewards[i] += rewards[i]
+                
+                if dones[i]:
+                    recent_rewards.append(episode_rewards[i])
+                    episode_rewards[i] = 0
+                    agent.buffer.start_trajectory()
+            
+            states = next_states
+            total_steps += num_envs
 
-        if done:
-            recent_rewards.append(episode_reward)
-            episode_reward = 0
-            obs, _ = env.reset()
-            state = frame_stack.reset(obs)
-            agent.buffer.start_trajectory()
-
-        if step % update_interval == 0 and agent.buffer.total_steps() > 0:
-            stats = agent.update(batch_size=32, epochs=4)
+        # Update
+        if agent.buffer.total_steps() > 0:
+            stats = agent.update(batch_size=batch_size, epochs=epochs)
 
             avg_reward = np.mean(recent_rewards) if recent_rewards else 0
 
             # Barrier status
             barrier = stats.get('barrier_status', 'unknown')
-            if barrier == 'clear':
-                barrier_sym = '✓'
-            elif barrier == 'warning':
-                barrier_sym = '⚠'
-            else:
-                barrier_sym = '✗'
+            barrier_sym = '✓' if barrier == 'clear' else ('⚠' if barrier == 'warning' else '✗')
 
-            print(f"Step {step:7d} | "
+            print(f"Step {total_steps:7d} | "
                   f"R: {avg_reward:7.1f} | "
-                  f"α: {stats.get('alpha', 0):5.2f} | "
-                  f"β: {stats.get('beta', 0):5.2f} | "
-                  f"α-β: {stats.get('criticality', 0):+5.2f} {barrier_sym} | "
-                  f"clip: {stats.get('effective_clip', 0.2):.3f}")
+                  f"α: {stats.get('alpha', 0):5.2f} β: {stats.get('beta', 0):5.2f} | "
+                  f"αV: {stats.get('alpha_V', 0):5.2f} βπ: {stats.get('beta_pi', 0):5.2f} | "
+                  f"clip: {stats.get('effective_clip', 0.2):.3f} {barrier_sym}")
 
-            if step % 50000 == 0:
-                print(f"         Subcritical: {stats.get('is_subcritical', False)} | "
-                      f"Confidence: {stats.get('confidence', 0):.2f} | "
-                      f"LR scale: {stats.get('lr_scale', 1.0):.2f}")
-
-        if step % eval_interval == 0:
-            eval_score = evaluate(agent, env_name, n_episodes=5)
+        if total_steps % eval_interval < update_interval:
+            eval_score = evaluate(agent, env_name, n_episodes=5, is_atari=is_atari)
             print(f"         >>> Evaluation: {eval_score:.1f}")
 
-    env.close()
+    envs.close()
+
+    if args.profile:
+        profiler.disable()
+        # Also print detailed hypostructure timing
+        if hasattr(agent, 'timing'):
+            print("\n" + "=" * 70)
+            print("HYPOSTRUCTURE 'BELLS & WHISTLES' TIMING:")
+            print("=" * 70)
+            t = agent.timing
+            n = t['total_updates']
+            print(f"Total updates: {n}")
+            print(f"Scaling Est Update: {1000*t['scaling_est_update']/n:7.2f} ms/update")
+            print(f"Scaling Reg      : {1000*t['scaling_reg']/n:7.2f} ms/update")
+            print(f"Adam Record      : {1000*t['adam_record']/n:7.2f} ms/update")
+            print(f"Trust Scaling    : {1000*t['trust_scaling']/n:7.2f} ms/update")
+            print(f"Semantic Record  : {1000*t['semantic_record']/n:7.2f} ms/update")
+            
+        import pstats
+        stats = pstats.Stats(profiler)
+        stats.sort_stats('cumulative')
+        print("\n" + "=" * 70)
+        print("PROFILING RESULTS (top 20):")
+        print("=" * 70)
+        stats.print_stats(20)
 
     print("-" * 70)
     print("Final Evaluation (10 episodes):")
-    final_score = evaluate(agent, env_name, n_episodes=10)
+    final_score = evaluate(agent, env_name, n_episodes=10, is_atari=is_atari)
     print(f"Average score: {final_score:.1f}")
 
     if agent.current_certificate:
@@ -577,4 +740,5 @@ def train_mspacman():
 
 
 if __name__ == "__main__":
-    agent, score = train_mspacman()
+    agent, score = train()
+

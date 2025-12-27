@@ -133,3 +133,105 @@ All proofs follow these conventions:
 2. **Certificates**: All proofs produce explicit certificate tuples (e.g., $K^+_{\text{adm}}$)
 3. **Literature**: Classical results are cited with precise theorem numbers
 4. **Rigor Class**: Proofs are tagged with rigor class (A-F) indicating formalization level
+
+---
+
+## Revision Notes
+
+### Batch 1 Corrections (Critical Structural Errors)
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| FACT-SoftAttractor | Removed invalid backward invariance claim for semiflows; restructured to prove positive invariance only |
+| KRNL-Consistency | Corrected Łojasiewicz exponent (was reversed: $|Φ-Φ^*|^{1-θ}$ → $|Φ-Φ^*|^θ$) |
+| FACT-SoftKenigMerle | Resolved circular definition between Lemmas 1.2 and 1.3; separated construction from existence |
+| Ghost Conservation | Added proof that BRST differential satisfies $s^2 = 0$; defined chain complex structure |
+| FACT-SoftMorse | Fixed Łojasiewicz-Simon inequality sign direction |
+| Modal Projection | Rewrote curvature-homotopy connection using correct Chern-Weil theory |
+
+### Batch 2 Corrections (Major Logical Gaps)
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| KRNL-Trichotomy | Added Kenig-Merle applicability checklist; clarified Lions' dichotomy hypotheses |
+| KRNL-Equivariance | Added explicit ρ'(g) notation (pushforward vs differential); clarified ODE uniqueness via Picard-Lindelöf |
+| FACT-SoftProfileDecomposition | Added energy orthogonality requirements (Brezis-Lieb); clarified scale invariance |
+| FACT-SoftWellPosedness | Fixed dimension-dependent Sobolev embedding conditions |
+| KRNL-Shadowing | Added explicit relationship between spectral gap λ and dichotomy exponent μ |
+| KRNL-Subsystem | Added formal morphism definition for category **Hypo**; clarified Fenichel theorem hypotheses |
+
+### Batch 3 Corrections (Moderate Issues)
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| Holographic Library Density | Fixed cardinality: germs are countable (ℵ₀), not finite (2^{S_{BH}}) |
+| FACT-GermDensity | Added justification for metric proximity → morphism existence |
+| FACT-ValidInstantiation | Fixed edge count (~178, not 7921); added explicit DAG proof with topological ordering |
+| FACT-MinimalInstantiation | Clarified volume-growth dimension vs Hausdorff dimension distinction |
+| ACT-Surgery | Separated universal framework from type-specific instantiations (Perelman's entropy applies to Ricci flow only) |
+
+### Batch 4 Corrections (Resolution Proofs)
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| RESOLVE-AutoSurgery | Clarified energy drop formula is type-specific; replaced dimension-specific exponent with generic $f_T$ |
+| RESOLVE-Conservation | Added abstract $f_T$ formulation for energy localization; generalized progress constant formula |
+| RESOLVE-AutoAdmit | Added type-specific instantiation table for energy-capacity relationships |
+| RESOLVE-Admissibility | Reviewed — capacity-dimension relationship correctly stated |
+| RESOLVE-Profile | Reviewed — Lions' dichotomy application is sound; o-minimal framework properly applied |
+
+### Batch 5 Corrections (Universal Property Proofs Part 1)
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| UP-Surgery | Added type-specific canonical library table (Ricci, MCF, harmonic map, Yang-Mills) |
+| UP-Censorship | Added explicit note that Weak Cosmic Censorship is unproven; listed known counterexamples |
+| UP-Spectral | Added infinite-dimensional applicability clarification; noted analyticity requirements |
+| UP-OMinimal | Reviewed — comprehensive and well-referenced (van den Dries, Kurdyka, Wilkie) |
+| UP-Scattering | Reviewed — correctly applies Morawetz, Strichartz, Kenig-Merle theory |
+| UP-Saturation | Reviewed — Foster-Lyapunov and Meyn-Tweedie ergodic theory correctly applied |
+
+### Batch 6 Corrections (Universal Property Proofs Part 2)
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| UP-TypeII | Added dimensional restriction warning ($n \geq 11$ for full soliton resolution) |
+| UP-Capacity | Reviewed — comprehensive; Federer, Evans-Gariepy, Adams-Hedberg correctly applied |
+| UP-IncAposteriori | Reviewed — Kleene fixed-point iteration sound; lattice theory correctly applied |
+
+---
+
+## Round 2 Refinements
+
+### Mathematical Corrections
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| FACT-SoftKM | Fixed energy inequality direction (was `Φ ≤ Φ₀ + ∫D`, corrected to `Φ ≤ Φ₀ - ∫D ≤ Φ₀`) |
+| KRNL-Consistency | Fixed Łojasiewicz rate formula: clarified θ=1/2 case (exponential), θ<1/2 case (polynomial), noted θ≤1/2 universally |
+| FACT-SoftMorse | Same rate formula fix; added note that θ>1/2 does not occur in standard LS theory |
+| Ghost Conservation | Fixed BRST inconsistency: proof shows s²≠0 for bosonic variables, now correctly describes homotopy equivalence mechanism instead of BRST cohomology |
+
+---
+
+## Round 3 Refinements
+
+### Technical Corrections
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| FACT-SoftWP | Fixed energy certificate statement: `Φ + ∫D ≤ Φ₀` (not `Φ ≤ Φ₀ + ∫D`) |
+| KRNL-Subsystem | Fixed incorrect claim about weak closure in reflexive spaces; added conditions for weak sequential closedness (Mazur: convexity, Kadec-Klee, etc.) |
+| FACT-SoftAttr | Expanded Barbalat's Lemma preconditions: clarified when uniform continuity holds (gradient flows, parabolic PDEs) and when it may fail (blow-up, oscillatory solutions) |
+
+---
+
+## Round 4 Refinements
+
+### Notation and Applicability Corrections
+
+| Proof | Issue Fixed |
+|-------|-------------|
+| UP-Saturation | Fixed "Haar measure on C" → reference measure μ (Lebesgue in ℝⁿ); C is a compact set, not a group |
+| UP-Scattering | Added explicit dimension reminder for Sobolev embedding (requires n ≥ 3) |
+| UP-OMinimal | Fixed Łojasiewicz exponent range: θ ∈ (0, 1/2], not (0, 1); added comprehensive exponent range box |

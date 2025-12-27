@@ -114,8 +114,22 @@ $$\|G_n^k\| \leq C e^{-\mu k}, \quad \|\tilde{G}_n^k\| \leq C e^{-\mu k}.$$
 For the linear problem (ignoring $R_n$ for now), we have:
 $$\|\xi_n\| \leq C \sum_{k=1}^\infty e^{-\mu k} \cdot \varepsilon = C \frac{e^{-\mu}}{1 - e^{-\mu}} \varepsilon.$$
 
-Since $\mu \sim \lambda$ (the spectral gap), we obtain:
-$$\|\xi_n\| \leq \frac{C}{\lambda} \varepsilon.$$
+**Relating μ and λ:**
+
+:::{important}
+The spectral gap $\lambda$ and dichotomy exponent $\mu$ are related but not identical:
+- $\lambda$ is the **spectral gap**: distance from $\sigma(L_n)$ to the imaginary axis
+- $\mu$ is the **dichotomy exponent**: rate of exponential growth/decay in the splitting
+
+In general: $\mu \leq \lambda$, with equality for normal operators. For non-normal operators, $\mu$ can be much smaller than $\lambda$ due to transient growth (pseudospectral effects).
+
+**Sufficient condition for $\mu \sim \lambda$:** If the operators $L_n$ are uniformly close to normal (i.e., $\|L_n L_n^* - L_n^* L_n\| \leq \epsilon_{\text{normal}}$ for small $\epsilon_{\text{normal}}$), then:
+$$\mu \geq \lambda - C_1 \epsilon_{\text{normal}}^{1/2}$$
+by perturbation theory {cite}`TrefethenEmbree05`. For general operators, one must verify the dichotomy directly.
+:::
+
+Assuming $\mu \geq c \lambda$ for some constant $c > 0$ (which holds when hyperbolicity is verified), we obtain:
+$$\|\xi_n\| \leq \frac{C}{c\lambda} \varepsilon = \frac{C'}{\lambda} \varepsilon.$$
 
 This shows that **in the linear approximation**, the shadowing distance is $O(\varepsilon/\lambda)$.
 
@@ -161,9 +175,18 @@ $$\|(\mathcal{T}\xi)_n - (\mathcal{T}\eta)_n\| \leq \sum_{k=0}^{n-1} C e^{-\mu(n
 Using $\|R_k(\xi_k) - R_k(\eta_k)\| \leq K(\|\xi_k\| + \|\eta_k\|) \cdot \|\xi_k - \eta_k\| \leq 2K\rho \cdot \|\xi_k - \eta_k\|$:
 $$\|(\mathcal{T}\xi) - (\mathcal{T}\eta)\|_\infty \leq \frac{C}{\lambda} \cdot 2K\rho \cdot \|\xi - \eta\|_\infty = \frac{2CK}{\lambda} \cdot \frac{2C\varepsilon}{\lambda} \cdot \|\xi - \eta\|_\infty.$$
 
-For $\varepsilon$ sufficiently small:
-$$\frac{4C^2 K \varepsilon}{\lambda^2} < 1,$$
-$\mathcal{T}$ is a contraction.
+**Quantitative Smallness Condition:** The contraction requires:
+$$\frac{4C^2 K \varepsilon}{\lambda^2} < 1 \quad \Leftrightarrow \quad \varepsilon < \varepsilon_0 := \frac{\lambda^2}{4C^2 K}$$
+
+where:
+- $C \geq 1$ is the dichotomy constant from Hypothesis 3
+- $K$ is the Lipschitz constant of $f$ (bounding nonlinearity)
+- $\lambda$ is the spectral gap
+
+**Explicit threshold:** For the contraction to hold with factor $\theta = 1/2$, we need:
+$$\varepsilon \leq \frac{\lambda^2}{8C^2 K}$$
+
+Thus $\mathcal{T}$ is a contraction on $B_\rho$ for $\varepsilon < \varepsilon_0$.
 
 ### Step 3.3: Existence and Uniqueness
 

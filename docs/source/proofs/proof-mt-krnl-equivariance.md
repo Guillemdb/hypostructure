@@ -99,9 +99,15 @@ Thus $R$ is $G$-invariant. **QED Claim.**
 
 ## Step 2: Gradient Equivariance and Flow Preservation
 
+**Notation Clarification:** Let $\rho: G \to \mathrm{Diff}(\Theta)$ denote the group action. For $g \in G$, define:
+- $\rho(g): \Theta \to \Theta$ is the diffeomorphism $\Theta \mapsto g \cdot \Theta$
+- $\rho'(g) = d\rho(g): T_\Theta \Theta \to T_{g \cdot \Theta}\Theta$ is the **pushforward** (differential) of this diffeomorphism
+
+Explicitly, for a tangent vector $v \in T_\Theta \Theta$ represented by a curve $\gamma: (-\epsilon, \epsilon) \to \Theta$ with $\gamma(0) = \Theta$ and $\gamma'(0) = v$:
+$$\rho'(g)[v] = \frac{d}{dt}\Big|_{t=0} g \cdot \gamma(t) \in T_{g \cdot \Theta}\Theta$$
+
 **Claim:** If $R$ is $C^1$ and $G$-invariant, then the gradient is $G$-equivariant:
 $$\nabla R(g \cdot \Theta) = \rho'(g)[\nabla R(\Theta)]$$
-where $\rho'(g): T_\Theta \Theta \to T_{g \cdot \Theta}\Theta$ is the pushforward of the group action on the tangent bundle.
 
 **Proof of Claim:**
 
@@ -142,8 +148,16 @@ If $\Theta_0$ lies on a $G$-orbit, say $\Theta_0 = g_0 \cdot \Theta^*$, then the
 &= -\nabla R(g_0^{-1} \cdot \Theta_t)
 \end{align*}
 
-Thus $\Theta_t' := g_0^{-1} \cdot \Theta_t$ also satisfies the gradient flow equation. By uniqueness of solutions to ODEs:
-$$g_0^{-1} \cdot \Theta_t = \Theta_t'(0) \exp(-t \nabla R)|_{\Theta_t'(0)}$$
+Thus $\Theta_t' := g_0^{-1} \cdot \Theta_t$ also satisfies the gradient flow equation:
+$$\frac{d\Theta_t'}{dt} = -\nabla R(\Theta_t')$$
+
+**ODE Uniqueness Application:** By the Picard-Lindelöf theorem, the gradient flow ODE has unique solutions under Lipschitz conditions on $\nabla R$. The key observation is:
+- Let $\widetilde{\Theta}_t$ denote the gradient flow starting from $\Theta_0' := g_0^{-1} \cdot \Theta_0$
+- Both $\Theta_t' = g_0^{-1} \cdot \Theta_t$ and $\widetilde{\Theta}_t$ satisfy the same ODE
+- Both start from the same initial condition: $\Theta_0' = g_0^{-1} \cdot \Theta_0$
+- By uniqueness: $\Theta_t' = \widetilde{\Theta}_t$ for all $t \geq 0$
+
+**Remark:** If $\nabla R$ is only locally Lipschitz (common for infinite-dimensional $\Theta$), uniqueness holds on the maximal existence interval. For neural network loss landscapes, local Lipschitz continuity typically follows from smoothness of the activation functions.
 
 Therefore, if $\Theta_0 \in G \cdot \Theta^*$, then $\Theta_t \in G \cdot \Theta^*$ for all $t \geq 0$. **The gradient flow preserves $G$-orbits.** **QED Claim.**
 

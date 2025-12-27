@@ -410,23 +410,37 @@ where:
 **Progress Certificate:** $K_\epsilon^+$ witnesses the discrete progress bound:
 $$\Delta\Phi_{\text{surg}} := \Phi(x^-) - \Phi(x') \geq \epsilon_T > 0$$
 
-For canonical profiles, this follows from the energy-capacity relationship {cite}`Perelman03`:
+:::{admonition} Type-Specific Formula
+:class: note
+
+The specific energy-capacity relationship depends on type $T$. The abstract framework requires $\Delta\Phi_{\text{surg}} \geq f_T(\text{size}(\Sigma))$ for some type-dependent function $f_T$. The formula below is the instantiation for geometric flows.
+:::
+
+For geometric flows (Ricci, MCF), this follows from the energy-capacity relationship:
 $$\Delta\Phi_{\text{surg}} \geq c(T) \cdot \text{Cap}(\Sigma)^{n/(n-2)}$$
 
 where $c(T) > 0$ is the type-dependent progress constant.
 
+**Type-Specific Instantiations:**
+
+| Type $T$ | Energy-Capacity Relationship | Reference |
+|----------|------------------------------|-----------|
+| Ricci flow | $\Delta\Phi \geq c \cdot \text{Cap}^{3/1}$ (dim 3) | {cite}`Perelman03` §4 |
+| Mean curvature flow | $\Delta\Phi \geq c \cdot \text{Cap}^{n/(n-2)}$ | {cite}`HuiskenSinestrari09` |
+| Harmonic map flow | $\Delta\Phi \geq \epsilon_0$ (bubble quantum) | {cite}`Struwe88` |
+
 **Lemma 6.1.1 (Progress Certificate Derivation):** For profiles $V \in \mathcal{L}_T$ with finite capacity, the progress certificate $K_\epsilon^+$ is automatically constructed.
 
-*Proof:* By the surgery energy formula {cite}`Perelman03`, the energy drop is:
+*Proof:* By the surgery energy formula (type-specific; see table above), the energy drop satisfies:
 $$\Phi(x') = \Phi(x^-) - \int_{\Sigma} |\nabla V|^2 \, d\mu + O(\epsilon_{\text{excise}}^2)$$
 
-The excision integral satisfies:
+The excision integral satisfies a type-dependent lower bound. For geometric flows with scaling exponent $(n-2)/n$:
 $$\int_{\Sigma} |\nabla V|^2 \, d\mu \geq c_0 \cdot \text{Cap}(\Sigma)^{n/(n-2)}$$
 
 where $c_0 = c_0(V)$ depends only on the canonical profile $V$. Since $V$ is from the finite library $\mathcal{L}_T$, the constant $c_0$ is bounded below:
-$$\epsilon_T := \min_{V \in \mathcal{L}_T} c_0(V) \cdot \varepsilon_{\text{adm}}(T)^{n/(n-2)} > 0$$
+$$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(f_T(v_{\min}) - E_{\text{cap}}(V)\right) > 0$$
 
-This is the discrete progress constant for type $T$. □
+where $f_T$ is the type-specific energy lower bound function. This is the discrete progress constant for type $T$. □
 
 ### Step 6.2: Certificate Schema for Case 2 (Admissible after Equivalence)
 

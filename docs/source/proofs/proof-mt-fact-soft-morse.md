@@ -206,15 +206,19 @@ contradicting the constancy of $\Phi$ on $\omega(x)$.
 
 Thus, $\omega(x) \subseteq \mathcal{E}$.
 
-**Step 5.1.5 (Connectedness via Łojasiewicz):** By the Łojasiewicz-Simon inequality, trajectories **converge at a definite rate** to their limit points. Specifically, if $y_n \to \xi$ for some $\xi \in \mathcal{E}$, then the Łojasiewicz inequality implies:
+**Step 5.1.5 (Convergence via Łojasiewicz):** By the Łojasiewicz-Simon inequality, trajectories **converge at a definite rate** to their limit points. Specifically, near an equilibrium $\xi \in \mathcal{E}$, the inequality:
+$$\|\nabla \Phi(x)\| \geq C_{\mathrm{LS}} |\Phi(x) - \Phi(\xi)|^{1-\theta}$$
 
-There exists $\theta \in (0, 1/2]$ such that:
-$$\frac{d}{dt} d(S_t y, \xi) \geq -C \cdot d(S_t y, \xi)^{1-\theta}$$
-for $y$ near $\xi$.
+combined with the gradient flow structure $\frac{d\Phi}{dt} = -\|\nabla \Phi\|^2$ yields:
+$$\frac{d}{dt}|\Phi(S_t y) - \Phi(\xi)| \leq -C |\Phi(S_t y) - \Phi(\xi)|^{2(1-\theta)}$$
 
-This differential inequality integrates to show **finite-time arrival** at $\xi$ (or exponential/polynomial convergence depending on $\theta$). See {cite}`Simon83`, Theorem 1, for the precise statement.
+This differential inequality integrates to give **polynomial or exponential convergence** (NOT finite-time arrival):
+- For $\theta < 1/2$: $|\Phi(S_t y) - \Phi(\xi)| \leq C t^{-(1-\theta)/(1-2\theta)}$
+- For $\theta = 1/2$: exponential decay
 
-**Consequence:** The trajectory $S_t x$ cannot oscillate between multiple equilibria. It must converge to a **single** equilibrium $\xi \in \mathcal{E}$.
+See {cite}`Simon83`, Theorem 1, for the precise statement.
+
+**Consequence:** The trajectory $S_t x$ converges monotonically to a limit point and cannot oscillate between multiple equilibria. It must converge to a **single** equilibrium $\xi \in \mathcal{E}$.
 
 Thus, $\omega(x) = \{\xi\}$ for some $\xi \in \mathcal{E}$. $\square$
 
@@ -302,18 +306,26 @@ For applications requiring quantitative bounds, we derive:
 
 ### 8.1 Convergence Rates
 
-**Theorem 8.1.1 (Łojasiewicz Convergence Rate):** For $x \in W^u(\xi)$ with $\omega(x) = \{\xi\}$, the Łojasiewicz-Simon inequality yields:
+**Theorem 8.1.1 (Łojasiewicz Convergence Rate):** For $x \in W^u(\xi)$ with $\omega(x) = \{\xi\}$, the Łojasiewicz-Simon inequality yields convergence rates depending on the exponent $\theta \in (0, 1/2]$:
 
 - **Case $\theta = 1/2$ (generic for analytic $\Phi$):** Exponential convergence:
   $$d(S_t x, \xi) \leq C e^{-\lambda t}$$
   for some $\lambda > 0$ depending on the spectral gap at $\xi$.
 
-- **Case $\theta < 1/2$:** Polynomial convergence:
-  $$d(S_t x, \xi) \leq C t^{-\frac{1}{1 - 2\theta}}$$
+- **Case $\theta \in (0, 1/2)$:** Polynomial convergence:
+  $$d(S_t x, \xi) \leq C t^{-\frac{1-\theta}{1 - 2\theta}}$$
 
-**Proof:** This follows from integrating the Łojasiewicz differential inequality:
-$$\frac{d}{dt} |\Phi(S_t x) - \Phi(\xi)|^{\theta} \leq -C_{\mathrm{LS}} \theta$$
-combined with the energy-dissipation identity. See {cite}`Simon83`, Theorem 3, for details. $\square$
+:::{note}
+The exponent $(1-\theta)/(1-2\theta) > 0$ for all $\theta < 1/2$, and diverges as $\theta \to 1/2^-$, giving increasingly fast polynomial decay approaching exponential. The Łojasiewicz exponent satisfies $\theta \leq 1/2$ universally.
+:::
+
+**Derivation:** From the Łojasiewicz-Simon inequality $\|\nabla \Phi\| \geq C|\Phi - \Phi^*|^{1-\theta}$ and the gradient flow identity $\frac{d\Phi}{dt} = -\|\nabla \Phi\|^2$, we obtain:
+$$\frac{d}{dt}(\Phi - \Phi^*) \leq -C^2 |\Phi - \Phi^*|^{2(1-\theta)}$$
+
+- For $\theta < 1/2$: The exponent $2(1-\theta) > 1$, yielding polynomial decay via separation of variables.
+- For $\theta = 1/2$: The exponent equals 1, yielding exponential decay $(\Phi - \Phi^*)(t) \leq (\Phi - \Phi^*)(0) e^{-C^2 t}$.
+
+The distance estimate follows from relating $d(x, \xi)$ to $|\Phi(x) - \Phi(\xi)|$ via parabolic regularity. See {cite}`Simon83`, Theorem 3, for details. $\square$
 
 ### 8.2 Morse Index Bounds
 

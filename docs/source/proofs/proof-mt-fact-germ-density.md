@@ -174,7 +174,27 @@ has $\dim(\mathcal{M}_{T_{\mathrm{para}}}) \leq d(p-1) + O(1)$.
 
 **Finite Cover:** Equip $\mathcal{M}_{T_{\mathrm{para}}}$ with the metric induced by $\dot{H}^1$. By compactness and Lemma 2.0, there exists a finite $\varepsilon$-net $\mathcal{B}_{\mathrm{para}} = \{B_1, \ldots, B_N\}$ such that:
 $$\forall [P, \pi] \in \mathcal{G}_{T_{\mathrm{para}}}.\, \exists B_i: \, \|\pi - B_i\|_{\dot{H}^1} \leq \varepsilon$$
-for $\varepsilon > 0$ small enough that $\varepsilon$-closeness implies morphism existence in $\mathbf{Hypo}_{T_{\mathrm{para}}}$.
+
+:::{important}
+**Metric Proximity → Morphism Existence:**
+
+The claim that $\varepsilon$-closeness in $\dot{H}^1$ implies a morphism in $\mathbf{Hypo}_{T_{\mathrm{para}}}$ requires justification:
+
+1. **Morphism definition for parabolic type:** A morphism $\alpha: \mathbb{H}_{[P,\pi]} \to \mathbb{H}_{[P',\pi']}$ consists of:
+   - A $C^1$ map $\phi: P \to P'$ intertwining the blow-up parametrizations
+   - Energy monotonicity: $\|\pi' \circ \phi\|_{\dot{H}^1} \leq \|\pi\|_{\dot{H}^1}$
+   - Compatibility with the semilinear structure
+
+2. **Implicit function theorem:** For $\|\pi - \pi'\|_{\dot{H}^1} < \varepsilon$ with $\varepsilon$ small, the map $\phi = \text{id} + \psi$ where $\psi$ solves a linearized equation provides the required morphism. This uses:
+   - Invertibility of the linearized operator (from spectral gap $\lambda > 0$)
+   - Lipschitz bounds on the nonlinearity
+
+3. **Threshold value:** The threshold $\varepsilon_0$ depends on the spectral gap and nonlinearity. Explicitly:
+   $$\varepsilon_0 \sim \frac{\lambda}{C_{\text{Lip}}(f)}$$
+   where $C_{\text{Lip}}(f)$ is the Lipschitz constant of the nonlinearity $f(u) = |u|^{p-1}u$.
+:::
+
+Choose $\varepsilon < \varepsilon_0$ so that $\varepsilon$-closeness implies morphism existence.
 
 **Normalization Note:** Because $\mathcal{M}_{T_{\mathrm{para}}}$ is a quotient by the symmetry group $G$, the statement “$\|\pi-B_i\|_{\dot{H}^1}\le\varepsilon$” should be read after choosing representatives in a fixed gauge/normalization. Equivalently, one can say: there exists $g\in G$ such that $\|\pi - g\cdot B_i\|_{\dot{H}^1}\le\varepsilon$. In $\mathbf{Hypo}_{T_{\mathrm{para}}}$, $g$ acts by an isomorphism, and we absorb this symmetry isomorphism into the morphism $\alpha_{[P,\pi]}$.
 

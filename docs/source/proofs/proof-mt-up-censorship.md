@@ -47,6 +47,17 @@ That is, if the naive event count is infinite ($K_{\mathrm{Rec}_N}^-$: ZenoCheck
 
 ### Step 1.1: Weak Cosmic Censorship Conjecture
 
+:::{admonition} Conjecture Status
+:class: caution
+
+The Weak Cosmic Censorship Conjecture is **unproven in full generality**. It has been verified for:
+- Spherically symmetric collapse (Christodoulou 1999)
+- Small perturbations of Schwarzschild/Kerr (Dafermos-Holzegel-Rodnianski)
+- Generic initial data under stability assumptions
+
+For non-generic or finely tuned initial data, **counterexamples exist** (Christodoulou's naked singularity examples in spherical dust collapse). The Hypostructure application assumes the generic case where censorship holds.
+:::
+
 The **Weak Cosmic Censorship Conjecture** (Penrose, 1969; {cite}`Penrose69`) asserts that gravitational collapse from generic initial data does not produce naked singularities observable from infinity. More precisely:
 
 **Conjecture (Penrose WCC):** Let $(S, h_{ij}, K_{ij})$ be a spacelike Cauchy surface with induced metric $h$ and extrinsic curvature $K$ satisfying:

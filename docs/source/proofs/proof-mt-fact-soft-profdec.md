@@ -66,8 +66,12 @@ If (V) fails, then there exists $\delta > 0$ and $R_0 > 0$ such that $Q_{R_0}(u_
 By weak lower semicontinuity of $\Phi$:
 $$\Phi(V^{(1)}) \leq \liminf_{n \to \infty} \Phi(v_n).$$
 
-Since $\Phi$ is scale-invariant (by $K_{\mathrm{SC}_\lambda}^+$ in the critical case) or scale-controlled (in the subcritical case), we have
-$$\Phi(v_n) = \Phi((g_n^{(1)})^{-1} \cdot u_n) \approx \Phi(u_n) \leq E.$$
+**Scale Invariance Verification:** For $\Phi$ to satisfy $\Phi(g \cdot u) = \Phi(u)$ (scale invariance), the energy must be defined in a **critical norm**. Specifically:
+- If $\Phi(u) = \|u\|_{\dot{H}^{s_c}}^2$ where $s_c = d/2 - 2/(p-1)$ is the critical regularity for the nonlinearity $|u|^{p-1}u$, then scale invariance holds exactly
+- If $\Phi$ includes subcritical terms (e.g., $L^2$ mass), these scale as $\Phi(g \cdot u) = \lambda^{d - 2\gamma} \Phi(u)$ and must be tracked separately
+
+By the scaling control certificate $K_{\mathrm{SC}_\lambda}^+$ (which verifies the above structure):
+$$\Phi(v_n) = \Phi((g_n^{(1)})^{-1} \cdot u_n) = \Phi(u_n) \leq E \quad \text{(exact in critical case)}$$
 
 Thus:
 $$\Phi(V^{(1)}) \leq E < \infty.$$
@@ -129,6 +133,27 @@ Using scale invariance (or controlled scaling):
 $$\Phi(g_n^{(j)} \cdot V^{(j)}) = \Phi(V^{(j)}) + o(1),$$
 we obtain the **Pythagorean decomposition**:
 $$\Phi(u_n) = \sum_{j=1}^J \Phi(V^{(j)}) + \Phi(w_n^{(J)}) + o(1).$$
+
+:::{important}
+**Energy Orthogonality Requirements:**
+
+The Pythagorean identity for energy is **not automatic** from L² orthogonality. It requires specific structure on $\Phi$:
+
+1. **Quadratic case** ($\Phi(u) = \|u\|_{\mathcal{X}}^2$): L² orthogonality suffices directly.
+
+2. **Nonlinear case** (e.g., $\Phi(u) = \int |\nabla u|^2 + \int |u|^{p+1}$): Decoupling requires:
+   - **Kinetic energy:** $\int |\nabla u|^2$ decouples by gradient orthogonality (same proof as L²)
+   - **Potential energy:** $\int |u|^{p+1}$ decouples by the **nonlinear orthogonality lemma**:
+
+   For $p \leq 2^* - 1$ (subcritical or critical), orthogonal profiles satisfy:
+   $$\int \Big|\sum_{j=1}^J g_n^{(j)} \cdot V^{(j)}\Big|^{p+1} = \sum_{j=1}^J \int |V^{(j)}|^{p+1} + o(1)$$
+
+   This follows from Brezis-Lieb concentration {cite}`BrezisLieb83`: for sequences with disjoint support asymptotically, nonlinear functionals split.
+
+3. **General coercive functional:** If $\Phi(u) = Q(u) + N(u)$ with $Q$ quadratic and $N$ lower-order, the dominated convergence theorem applies to $N$.
+
+**Verification for $K_{\mathrm{SC}_\lambda}^+$:** The certificate must include verification that $\Phi$ has one of the above structures.
+:::
 
 **Proof of Decoupling (Sketch):** The key is that for orthogonal profiles, the interaction terms vanish:
 $$\int_{\mathbb{R}^d} (g_n^{(j)} \cdot V^{(j)})(x) \cdot (g_n^{(k)} \cdot V^{(k)})(x) \, dx \to 0 \quad \text{as } n \to \infty$$

@@ -107,6 +107,9 @@ class ScalingExponentEstimator:
         self.log_losses: deque = deque(maxlen=window_size)
         self.log_grad_norms: deque = deque(maxlen=window_size)
 
+        # Storage for Adam-based v (cleaner β estimation)
+        self.log_v_from_adam: deque = deque(maxlen=window_size)
+
         # EMA estimates
         self.alpha_ema = 2.0  # Default: quadratic loss
         self.beta_ema = 2.0   # Default: quadratic gradient
@@ -135,6 +138,39 @@ class ScalingExponentEstimator:
 
         self.step_count += 1
 
+    def record_from_adam(self, optimizer: torch.optim.Adam, loss: float, model: nn.Module):
+        """
+        Record observations using Adam's internal state for cleaner β estimation.
+
+        ADVANTAGE:
+        - Adam's v = EMA of ||∇Φ||² is already smoothed (β₂ = 0.999)
+        - Much cleaner signal than instantaneous grad_norm
+        - Zero extra compute (v is already calculated)
+        """
+        param_norm = 0.0
+        for p in model.parameters():
+            param_norm += p.data.pow(2).sum().item()
+        param_norm = np.sqrt(param_norm)
+
+        # Extract v_total from Adam state
+        v_total = 0.0
+        for group in optimizer.param_groups:
+            for p in group['params']:
+                state = optimizer.state.get(p, {})
+                if 'exp_avg_sq' in state:
+                    v_total += state['exp_avg_sq'].sum().item()
+
+        # Record for α estimation (loss-based)
+        if loss > 0 and param_norm > 0:
+            self.log_losses.append(np.log(loss))
+            self.log_param_norms.append(np.log(param_norm))
+
+        # Record for β estimation (Adam-based, cleaner)
+        if v_total > 0 and param_norm > 0:
+            self.log_v_from_adam.append(np.log(v_total))
+
+        self.step_count += 1
+
     def estimate_exponents(self) -> Tuple[float, float, float]:
         """
         Estimate α and β via log-linear regression.
@@ -153,7 +189,6 @@ class ScalingExponentEstimator:
 
         x = np.array(self.log_param_norms)
         y_loss = np.array(self.log_losses)
-        y_grad = np.array(self.log_grad_norms)
 
         # Normalize for numerical stability
         x_mean, x_std = x.mean(), x.std() + 1e-8
@@ -163,14 +198,26 @@ class ScalingExponentEstimator:
         # log Φ = α log ||θ|| + c  →  slope = α
         alpha_raw = self._fit_slope(x_norm, y_loss)
 
-        # Estimate β from gradient norm scaling
-        # log ||∇Φ|| = (β/2) log ||θ|| + c  →  β = 2 * slope
-        beta_half_raw = self._fit_slope(x_norm, y_grad)
-        beta_raw = 2.0 * beta_half_raw
+        # Estimate β: prefer Adam-based v if available
+        if len(self.log_v_from_adam) >= self.min_samples:
+            # Use Adam's v directly (already ||∇Φ||², so no factor of 2)
+            y_v = np.array(self.log_v_from_adam)
+            # Align lengths (they should be same, but just in case)
+            min_len = min(len(x_norm), len(y_v))
+            beta_raw = self._fit_slope(x_norm[-min_len:], y_v[-min_len:])
+            r2_beta = self._compute_r2(x_norm[-min_len:], y_v[-min_len:], beta_raw)
+        elif len(self.log_grad_norms) >= self.min_samples:
+            # Fallback: use grad_norm (less clean)
+            y_grad = np.array(self.log_grad_norms)
+            beta_half_raw = self._fit_slope(x_norm, y_grad)
+            beta_raw = 2.0 * beta_half_raw
+            r2_beta = self._compute_r2(x_norm, y_grad, beta_half_raw)
+        else:
+            beta_raw = self.beta_ema
+            r2_beta = 0.0
 
         # Compute confidence from R² values
         r2_alpha = self._compute_r2(x_norm, y_loss, alpha_raw)
-        r2_beta = self._compute_r2(x_norm, y_grad, beta_half_raw)
         confidence = (r2_alpha + r2_beta) / 2.0
         confidence = np.clip(confidence, 0.0, 1.0)
 
@@ -365,6 +412,375 @@ class SubcriticalityEnforcer:
             'lr_modifier': self.lr_modifier,
             'interventions': self.interventions,
             'supercritical_steps': self.supercritical_steps,
+        }
+
+
+class ScalingRegularizer:
+    """
+    Regularizes model energy (param norm) when scaling exponents are critical.
+
+    HYPOSTRUCTURE CONNECTION:
+    -------------------------
+    Implements a soft constraint version of "Energy Check" (Node 1) feedback.
+    If ScaleCheck (Node 4) indicates criticality (α ≈ β), we increase the cost
+    of "Energy" (||θ||) to force the system into a lower energy state,
+    which typically restores subcriticality.
+    """
+
+    def __init__(self,
+                 reg_scale: float = 1e-3,
+                 subcritical_margin: float = 0.1):
+        self.reg_scale = reg_scale
+        self.subcritical_margin = subcritical_margin
+        self.last_penalty_coeff = 0.0
+
+    def compute_penalty(self, model: nn.Module, cert: ScalingCertificate) -> Tuple[torch.Tensor, float]:
+        """
+        Compute regularization penalty.
+
+        Returns: (penalty_loss, penalty_coefficient)
+        """
+        # Criticality gap: how far are we from safe margin?
+        # Safe: criticality > margin
+        # Danger: criticality < margin
+
+        gap = self.subcritical_margin - cert.criticality
+
+        if gap <= 0:
+            # Safe zone: no penalty
+            self.last_penalty_coeff = 0.0
+            device = next(model.parameters()).device
+            return torch.tensor(0.0, device=device), 0.0
+
+        # Danger zone: scale penalty by depth of violation
+        # Linear scaling: coeff = scale * gap
+        penalty_coeff = self.reg_scale * gap
+
+        # If supercritical (criticality < 0), amplify penalty
+        if cert.criticality < 0:
+            penalty_coeff *= 2.0
+
+        self.last_penalty_coeff = penalty_coeff
+
+        # Reg term: coeff * ||θ||²
+        # (We use squared norm for smoother gradients)
+        param_norm_sq = 0.0
+        for p in model.parameters():
+            param_norm_sq += p.pow(2).sum()
+
+        loss = penalty_coeff * param_norm_sq
+        return loss, penalty_coeff
+
+
+class LayerwiseTrustEnforcer:
+    """
+    Per-layer trust region enforcement using Adam's second moment (v).
+
+    HYPOSTRUCTURE CONNECTION:
+    -------------------------
+    Adam's v ≈ EMA of ||∇Φ||² per parameter, which is the dissipation D.
+    High v → high local β → layer is "critical" → apply tighter trust.
+    Low v → stable layer → allow looser trust.
+
+    This creates an adaptive, per-layer trust region derived from the
+    optimizer's internal state, at zero extra computational cost.
+    """
+
+    def __init__(self,
+                 optimizer: torch.optim.Adam,
+                 base_trust: float = 1.0,
+                 sensitivity: float = 1.0,
+                 min_trust: float = 0.1,
+                 max_trust: float = 2.0):
+        """
+        Args:
+            optimizer: Adam optimizer to extract v from.
+            base_trust: Default trust multiplier when v is at global mean.
+            sensitivity: How aggressively to scale trust based on v.
+            min_trust: Minimum trust multiplier (safety floor).
+            max_trust: Maximum trust multiplier (cap).
+        """
+        self.optimizer = optimizer
+        self.base_trust = base_trust
+        self.sensitivity = sensitivity
+        self.min_trust = min_trust
+        self.max_trust = max_trust
+
+        # Statistics
+        self.layer_trusts: Dict[str, float] = {}
+        self.global_v_mean = 1.0
+        self.update_count = 0
+
+    def compute_layer_trusts(self, model: nn.Module) -> Dict[str, float]:
+        """
+        Compute per-layer trust multipliers from Adam's v statistics.
+
+        Returns dict mapping parameter names to trust multipliers.
+        """
+        self.update_count += 1
+
+        # First pass: compute global v mean for normalization
+        v_values = []
+        for group in self.optimizer.param_groups:
+            for p in group['params']:
+                state = self.optimizer.state.get(p, {})
+                if 'exp_avg_sq' in state:
+                    v = state['exp_avg_sq']
+                    v_values.append(v.mean().item())
+
+        if not v_values:
+            # Optimizer not yet initialized
+            return {name: self.base_trust for name, _ in model.named_parameters()}
+
+        self.global_v_mean = np.mean(v_values) + 1e-8
+
+        # Second pass: compute per-layer trust
+        layer_trusts = {}
+        param_to_name = {id(p): name for name, p in model.named_parameters()}
+
+        for group in self.optimizer.param_groups:
+            for p in group['params']:
+                param_id = id(p)
+                if param_id not in param_to_name:
+                    continue
+
+                name = param_to_name[param_id]
+                state = self.optimizer.state.get(p, {})
+
+                if 'exp_avg_sq' in state:
+                    v = state['exp_avg_sq']
+                    v_mean = v.mean().item()
+
+                    # Trust formula: lower trust for higher v (more critical)
+                    # trust = base / (1 + sensitivity * (v / global_mean - 1))
+                    v_ratio = v_mean / self.global_v_mean
+                    trust = self.base_trust / (1.0 + self.sensitivity * (v_ratio - 1.0))
+
+                    # Clamp to bounds
+                    trust = np.clip(trust, self.min_trust, self.max_trust)
+                else:
+                    trust = self.base_trust
+
+                layer_trusts[name] = trust
+
+        self.layer_trusts = layer_trusts
+        return layer_trusts
+
+    def apply_trust_scaling(self, model: nn.Module):
+        """
+        Scale gradients in-place based on per-layer trust.
+
+        Call this AFTER loss.backward() and BEFORE optimizer.step().
+        """
+        layer_trusts = self.compute_layer_trusts(model)
+
+        for name, param in model.named_parameters():
+            if param.grad is not None and name in layer_trusts:
+                trust = layer_trusts[name]
+                param.grad.mul_(trust)
+
+    def get_stats(self) -> Dict[str, float]:
+        """Return statistics about trust distribution."""
+        if not self.layer_trusts:
+            return {'trust_mean': 1.0, 'trust_min': 1.0, 'trust_max': 1.0}
+
+        trusts = list(self.layer_trusts.values())
+        return {
+            'trust_mean': np.mean(trusts),
+            'trust_min': np.min(trusts),
+            'trust_max': np.max(trusts),
+            'global_v_mean': self.global_v_mean,
+        }
+
+
+class SemanticScalingEstimator:
+    """
+    Estimates semantic scaling exponents for Actor-Critic.
+
+    HYPOSTRUCTURE INTERPRETATION:
+    -----------------------------
+    - α_V (Value/Height): How value estimates scale with training progress.
+      High α_V = value function captures more "potential energy" from rewards.
+
+    - β_π (Policy/Dissipation): How policy divergence (KL/entropy) scales.
+      High β_π = policy changes are costly (high dissipation).
+
+    SUBCRITICALITY in Actor-Critic:
+    - We want α_V > β_π: value should improve faster than policy collapses.
+    - If β_π > α_V: policy is changing too fast relative to value improvement.
+    """
+
+    def __init__(self, window_size: int = 100, ema_decay: float = 0.95):
+        self.window_size = window_size
+        self.ema_decay = ema_decay
+
+        # Value tracking (Height)
+        self.value_means: deque = deque(maxlen=window_size)
+        self.value_vars: deque = deque(maxlen=window_size)
+        self.bellman_residual_vars: deque = deque(maxlen=window_size)
+
+        # Policy tracking (Dissipation)
+        self.entropies: deque = deque(maxlen=window_size)
+        self.kl_divs: deque = deque(maxlen=window_size)
+
+        # Step tracking (for scaling regression)
+        self.steps: deque = deque(maxlen=window_size)
+
+        # EMA estimates
+        self.alpha_V_ema = 1.0
+        self.beta_pi_ema = 1.0
+
+        self.step_count = 0
+
+    def record(self, value_mean: float, value_var: float, 
+               bellman_var: float, entropy: float, kl_div: float):
+        """Record semantic observations."""
+        self.step_count += 1
+        self.steps.append(self.step_count)
+
+        self.value_means.append(abs(value_mean) + 1e-8)
+        self.value_vars.append(value_var + 1e-8)
+        self.bellman_residual_vars.append(bellman_var + 1e-8)
+        self.entropies.append(entropy + 1e-8)
+        self.kl_divs.append(abs(kl_div) + 1e-8)
+
+    def estimate(self) -> Dict[str, float]:
+        """
+        Estimate semantic scaling exponents.
+
+        α_V: How value variance grows with steps (stability of value learning)
+        β_π: How KL divergence grows with steps (rate of policy change)
+        """
+        if len(self.steps) < 20:
+            return {
+                'alpha_V': self.alpha_V_ema,
+                'beta_pi': self.beta_pi_ema,
+                'semantic_criticality': self.alpha_V_ema - self.beta_pi_ema,
+                'bellman_var': 0.0,
+            }
+
+        log_steps = np.log(np.array(self.steps))
+        x = (log_steps - log_steps.mean()) / (log_steps.std() + 1e-8)
+
+        # α_V: Value variance scaling
+        # Higher = value estimates becoming more confident/stable
+        log_value_var = np.log(np.array(self.value_vars))
+        alpha_V_raw = -self._fit_slope(x, log_value_var)  # Negative: decreasing var is good
+
+        # β_π: KL divergence scaling
+        # Higher = policy changes becoming larger
+        log_kl = np.log(np.array(self.kl_divs))
+        beta_pi_raw = self._fit_slope(x, log_kl)
+
+        # EMA smoothing
+        self.alpha_V_ema = self.ema_decay * self.alpha_V_ema + (1 - self.ema_decay) * alpha_V_raw
+        self.beta_pi_ema = self.ema_decay * self.beta_pi_ema + (1 - self.ema_decay) * beta_pi_raw
+
+        return {
+            'alpha_V': self.alpha_V_ema,
+            'beta_pi': self.beta_pi_ema,
+            'semantic_criticality': self.alpha_V_ema - self.beta_pi_ema,
+            'bellman_var': np.mean(self.bellman_residual_vars),
+        }
+
+    def _fit_slope(self, x: np.ndarray, y: np.ndarray) -> float:
+        """Simple slope estimation."""
+        x_c = x - x.mean()
+        y_c = y - y.mean()
+        denom = np.dot(x_c, x_c) + 1e-8
+        return np.dot(x_c, y_c) / denom
+
+
+class ActorCriticCoherenceRegularizer:
+    """
+    Regularizes based on Actor-Critic coherence and Bellman residual.
+
+    REGULARIZATION TERMS:
+    ---------------------
+    1. Bellman Residual Variance: Penalizes high variance in TD errors.
+       High variance = unstable value estimates.
+
+    2. Gradient Coherence: Penalizes when actor and critic gradients conflict.
+       Low coherence = actor and critic fighting each other.
+
+    3. Semantic Subcriticality: Penalizes when β_π > α_V.
+       Policy changing faster than value improving = unstable.
+    """
+
+    def __init__(self,
+                 bellman_weight: float = 0.01,
+                 coherence_weight: float = 0.01,
+                 semantic_weight: float = 0.001):
+        self.bellman_weight = bellman_weight
+        self.coherence_weight = coherence_weight
+        self.semantic_weight = semantic_weight
+
+        self.last_coherence = 1.0
+        self.last_bellman_penalty = 0.0
+
+    def compute_bellman_variance_penalty(self, 
+                                         values: torch.Tensor,
+                                         targets: torch.Tensor) -> torch.Tensor:
+        """
+        Penalty for high variance in Bellman residuals.
+        """
+        residuals = values - targets
+        residual_var = residuals.var()
+
+        self.last_bellman_penalty = residual_var.item()
+        return self.bellman_weight * residual_var
+
+    def compute_gradient_coherence(self,
+                                   actor_grads: List[torch.Tensor],
+                                   critic_grads: List[torch.Tensor]) -> Tuple[torch.Tensor, float]:
+        """
+        Compute coherence between actor and critic gradients.
+
+        Coherence = cosine similarity of flattened gradients.
+        Penalty = 1 - coherence (penalize when they point opposite ways).
+        """
+        # Flatten and concatenate gradients
+        actor_flat = torch.cat([g.flatten() for g in actor_grads if g is not None])
+        critic_flat = torch.cat([g.flatten() for g in critic_grads if g is not None])
+
+        if len(actor_flat) == 0 or len(critic_flat) == 0:
+            return torch.tensor(0.0), 1.0
+
+        # Make same length (take min)
+        min_len = min(len(actor_flat), len(critic_flat))
+        actor_flat = actor_flat[:min_len]
+        critic_flat = critic_flat[:min_len]
+
+        # Cosine similarity
+        dot = torch.dot(actor_flat, critic_flat)
+        norm_a = actor_flat.norm() + 1e-8
+        norm_c = critic_flat.norm() + 1e-8
+        coherence = dot / (norm_a * norm_c)
+
+        self.last_coherence = coherence.item()
+
+        # Penalty for low/negative coherence
+        penalty = self.coherence_weight * (1.0 - coherence)
+        return penalty, coherence.item()
+
+    def compute_semantic_penalty(self,
+                                 semantic_stats: Dict[str, float]) -> torch.Tensor:
+        """
+        Penalty when policy divergence outpaces value improvement.
+        """
+        alpha_V = semantic_stats.get('alpha_V', 1.0)
+        beta_pi = semantic_stats.get('beta_pi', 1.0)
+
+        # Penalize when β_π > α_V (supercritical in semantic sense)
+        gap = beta_pi - alpha_V
+        if gap > 0:
+            return torch.tensor(self.semantic_weight * gap)
+        return torch.tensor(0.0)
+
+    def get_stats(self) -> Dict[str, float]:
+        return {
+            'grad_coherence': self.last_coherence,
+            'bellman_penalty': self.last_bellman_penalty,
         }
 
 
