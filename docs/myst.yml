@@ -192,6 +192,8 @@ project:
       children:
         - file: source/sketches/ai/sketch-ai-interfaces.md
           title: Core Interface Translations
+        - file: source/sketches/ai/sketch-ai-barriers.md
+          title: Fundamental Barriers and Constraints
         - file: source/sketches/ai/sketch-ai-failure-modes.md
           title: Failure Mode Translations
         - file: source/sketches/ai/sketch-ai-act-align.md
@@ -395,6 +397,8 @@ project:
       children:
         - file: source/sketches/gmt/sketch-gmt-interfaces.md
           title: Core Interface Translations
+        - file: source/sketches/gmt/sketch-gmt-barriers.md
+          title: Fundamental Barriers and Constraints
         - file: source/sketches/gmt/sketch-gmt-failure-modes.md
           title: Failure Mode Translations
         - file: source/sketches/gmt/act-align.md
@@ -598,6 +602,8 @@ project:
       children:
         - file: source/sketches/discrete/sketch-discrete-interfaces.md
           title: Core Interface Translations
+        - file: source/sketches/discrete/sketch-discrete-barriers.md
+          title: Fundamental Barriers and Constraints
         - file: source/sketches/discrete/sketch-discrete-failure-modes.md
           title: Failure Mode Translations
         - file: source/sketches/discrete/sketch-discrete-mt-act-align.md
@@ -807,6 +813,8 @@ project:
       children:
         - file: source/sketches/arithmetic/sketch-arithmetic-interfaces.md
           title: Core Interface Translations
+        - file: source/sketches/arithmetic/sketch-arithmetic-barriers.md
+          title: Fundamental Barriers and Constraints
         - file: source/sketches/arithmetic/sketch-arithmetic-failure-modes.md
           title: Failure Mode Translations
         - file: source/sketches/arithmetic/act-align.md
