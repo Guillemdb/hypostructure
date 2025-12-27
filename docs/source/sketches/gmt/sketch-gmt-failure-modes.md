@@ -335,7 +335,7 @@ A geometric flow exhibits Mode T.E if:
 **Hypostructure Interpretation:**
 Structural constraints force dispersion. The system's rigidity (spectral gap, unique continuation, structural stability) prevents concentration and enforces global regularity.
 
-**Arithmetic Translation:**
+**GMT Translation:**
 
 **Geometric Meaning:**
 **Rigidity; monotonicity formulas force uniqueness**. The geometric structure is rigid due to symmetry, uniqueness of tangent cones, or monotonicity formulas. This prevents singularities and ensures regularity or finiteness.
