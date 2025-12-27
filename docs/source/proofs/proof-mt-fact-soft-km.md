@@ -79,11 +79,11 @@ $$\Phi(u_{n,0}) = \sum_{j=1}^J \Phi(\phi^j) + \Phi(r_n^J) + o_n(1)$$
 
 **Claim:** At least one profile $\phi^{j_0}$ is non-scattering with $\Phi(\phi^{j_0}) \geq E_c$.
 
-**Proof of Claim:** Suppose all profiles scatter. By $K_{\mathrm{WP}_{s_c}}^+$ (continuous dependence), the sum $\sum_{j=1}^J g_n^j \phi^j$ for fixed $J$ behaves asymptotically like non-interacting scattering profiles (since the $g_n^j$ are asymptotically orthogonal). For $J$ large and $n$ large:
+**Proof of Claim:** Suppose all profiles scatter. By $K_{\mathrm{WP}_{s_c}}^+$ (continuous dependence and perturbation stability), the sum $\sum_{j=1}^J g_n^j \phi^j$ for fixed $J$ behaves asymptotically like non-interacting scattering profiles (since the $g_n^j$ are asymptotically orthogonal). For $J$ large and $n$ large:
 $$\left\|\sum_{j=1}^J g_n^j \phi^j - \text{(linear scattering)}\right\|_S \leq \varepsilon$$
 The nonlinear evolution of $u_n$ then satisfies:
 $$u_n(t) = \text{(scattering)} + O(\varepsilon) + r_n^J(t)$$
-By perturbation theory in $K_{\mathrm{WP}_{s_c}}^+$ (Lemma 1.3 below), small perturbations of scattering solutions scatter. This contradicts the assumption that $u_n$ is non-scattering. Therefore, at least one profile $\phi^{j_0}$ is non-scattering.
+By **perturbation stability of scattering** (a standard component of $K_{\mathrm{WP}_{s_c}}^+$, see {cite}`Tao06` Proposition 3.7): if $v$ scatters and $\|u_0 - v_0\|_{X_c}$ is sufficiently small, then $u$ also scatters. Since $r_n^J$ vanishes in the control norm, $u_n$ must scatter. This contradicts the assumption that $u_n$ is non-scattering. Therefore, at least one profile $\phi^{j_0}$ is non-scattering.
 
 **Step 1.2.4 (Minimality):** By energy decoupling:
 $$E_c + o(1) = \Phi(u_{n,0}) \geq \Phi(\phi^{j_0})$$
@@ -97,15 +97,22 @@ $$\Phi(\phi^{j_0}) = E_c$$
 
 This is the **critical element**.
 
-### Lemma 1.3: Perturbation Stability (Small Data Scattering)
+### Lemma 1.3: Scattering Below Critical Energy
 
 **Statement:** There exists $\delta > 0$ such that if $\Phi(v_0) < E_c - \delta$, then the solution $v(t)$ scatters.
 
-**Proof:** By contrapositive. Suppose not: there exists a sequence $(v_n)$ with $\Phi(v_{n,0}) < E_c - 1/n$ and $v_n$ non-scattering. Then:
-$$E_c \leq \lim_{n \to \infty} \Phi(v_{n,0}) \leq \lim_{n \to \infty} (E_c - 1/n) = E_c$$
-with the middle inequality being strict for all finite $n$: $\Phi(v_{n,0}) < E_c - 1/n < E_c$. This contradicts the definition of $E_c$ as the infimum of non-scattering energies.
+**Proof:** By contrapositive and the definition of $E_c$.
 
-**Quantitative Bound:** By the proof structure, $\delta$ can be taken as $\delta = \min(1, \text{Gap}(E_c, E_{\mathrm{NS}} \setminus \{E_c\}))$ where the gap measures the distance to the next energy level in $E_{\mathrm{NS}}$.
+**Remark (Logical Independence):** This lemma uses only the definition of $E_c = \inf E_{\mathrm{NS}}$ from Lemma 1.1, NOT the construction of $u^*$ from Lemma 1.2. The logical ordering is: Lemma 1.1 → Lemma 1.3 → Lemma 1.2, though we present them in pedagogical order.
+
+Suppose no such $\delta$ exists. Then for each $n \in \mathbb{N}$, there exists a solution $v_n$ with:
+$$\Phi(v_{n,0}) < E_c - \frac{1}{n} \quad \text{and} \quad v_n \text{ is non-scattering.}$$
+
+Since each $v_n$ is non-scattering, we have $\Phi(v_{n,0}) \in E_{\mathrm{NS}}$. Therefore:
+$$E_c = \inf E_{\mathrm{NS}} \leq \Phi(v_{n,0}) < E_c - \frac{1}{n}$$
+which is a contradiction for all $n \geq 1$.
+
+**Quantitative Bound:** The proof actually shows something stronger: scattering holds for ALL $\Phi(v_0) < E_c$, not just $\Phi(v_0) < E_c - \delta$. The parameter $\delta > 0$ provides a quantitative gap for applications where continuous dependence is needed. When there is a discrete spectral gap (common in variational problems), $\delta = \text{Gap}(E_c, E_{\mathrm{NS}} \setminus \{E_c\})$.
 
 ---
 
@@ -126,8 +133,12 @@ for an appropriate choice of symmetry parameters $g(t) \in G$.
 **Proof:** We use the profile decomposition and minimality to establish precompactness.
 
 **Step 2.1.1 (Uniform Energy Bound):** By energy conservation (or dissipation control from $K_{D_E}^+$):
-$$\Phi(u^*(t)) \leq \Phi(u^*_0) + \int_0^t \mathfrak{D}(u^*(s)) ds \leq E_c + C$$
-for some constant $C < \infty$ (in the conservative case, $\mathfrak{D} \equiv 0$ and $\Phi(u^*(t)) = E_c$ exactly).
+$$\Phi(u^*(t)) \leq \Phi(u^*_0) = E_c$$
+for all $t \geq 0$.
+
+**Derivation:** The dissipation certificate $K_{D_E}^+$ provides:
+$$\Phi(u^*(t)) + \int_0^t \mathfrak{D}(u^*(s)) \, ds \leq \Phi(u^*_0)$$
+Since $\mathfrak{D} \geq 0$, this implies $\Phi(u^*(t)) \leq \Phi(u^*_0) = E_c$. In the conservative case ($\mathfrak{D} \equiv 0$), energy is exactly conserved: $\Phi(u^*(t)) = E_c$.
 
 **Step 2.1.2 (Concentration Dichotomy):** Consider a sequence of times $t_n \to \infty$. The sequence $(u^*(t_n))$ is bounded in $X_c$ by Step 2.1.1. Apply $K_{\mathrm{ProfDec}_{s_c,G}}^+$:
 $$u^*(t_n) = \sum_{j=1}^J g_n^j \psi^j + r_n^J$$

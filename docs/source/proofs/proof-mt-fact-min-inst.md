@@ -138,7 +138,29 @@ then dividing by $\log r<0$ and letting $r\downarrow 0$ shows
 $$\overline{\dim}_\mu(x)=Q\quad\text{for all }x\in\mathrm{supp}(\mu),$$
 hence $\dim_\mu(\mathcal{X})=Q$.
 
-**Step 1.2.4 (Link to Hausdorff dimension):** In Ahlfors-regular or smooth-manifold settings, standard geometric measure theory identifies the exponent $Q$ (or $n$ in the manifold case) with the Hausdorff dimension of $\mathrm{supp}(\mu)$; see {cite}`Federer69`. □
+**Step 1.2.4 (Link to Hausdorff dimension):** In Ahlfors-regular or smooth-manifold settings, standard geometric measure theory identifies the exponent $Q$ (or $n$ in the manifold case) with the Hausdorff dimension of $\mathrm{supp}(\mu)$; see {cite}`Federer69`.
+
+:::{important}
+**Volume-Growth Dimension vs Hausdorff Dimension:**
+
+The dimension $\dim_\mu(\mathcal{X})$ defined by volume growth may differ from Hausdorff dimension in general:
+
+1. **When they agree:**
+   - Ahlfors $Q$-regular measures: $\dim_\mu = \dim_H = Q$
+   - Lebesgue measure on manifolds: $\dim_\mu = \dim_H = n$
+   - Measures satisfying doubling conditions with controlled growth
+
+2. **When they may differ:**
+   - Singular measures concentrated on fractals
+   - Measures with non-uniform density (e.g., $d\mu = f \, d\mathcal{H}^n$ with $f$ vanishing on sets)
+   - Measures on spaces with mixed scaling
+
+**Framework interpretation:** The Dictionary uses $\dim_\mu(\mathcal{X})$ as a **proxy dimension** for type classification. For applications where Hausdorff dimension is needed (e.g., capacity estimates), the framework assumes either:
+- (a) The measure $\mu$ is Ahlfors-regular on $\mathrm{supp}(\mu)$, or
+- (b) The user provides an explicit dimension bound as part of the thin data
+
+This assumption is verified at the soft interface level via the certificate $K_{\mathrm{SC}_\lambda}^+$ (scaling control).
+::: □
 
 **Construction of Dictionary:**
 The Dictionary is a type signature containing:

@@ -91,8 +91,8 @@ $$\int_0^\infty a(dt) P_t(x, \cdot) \geq \nu(\cdot) \quad \text{for all } x \in 
 *Step 1:* By the Feller property, $P_t$ maps bounded continuous functions to bounded continuous functions. For compact $C$, the transition probabilities $\{P_t(x, \cdot) : x \in C\}$ form a tight family of measures.
 
 *Step 2:* By the Krylov-Bogoliubov theorem (see {cite}`MeynTweedie93`, Theorem 12.0.1), there exists an occupation measure:
-$$\nu_C(\cdot) := \frac{1}{T} \int_0^T \left(\frac{1}{|C|} \int_C P_t(x, \cdot) dx\right) dt$$
-where $|C|$ denotes the Haar measure on $C$ (or Lebesgue measure if $C \subset \mathbb{R}^n$). For sufficiently large $T$, this measure is non-trivial.
+$$\nu_C(\cdot) := \frac{1}{T} \int_0^T \left(\frac{1}{\mu(C)} \int_C P_t(x, \cdot) \, d\mu(x)\right) dt$$
+where $\mu$ denotes a reference measure on $\mathcal{X}$ (Lebesgue measure if $\mathcal{X} \subseteq \mathbb{R}^n$, or the appropriate volume measure in the general metric space setting). For sufficiently large $T$, this measure is non-trivial.
 
 *Step 3:* Define the measure $a(dt) := \frac{1}{T} \mathbb{1}_{[0,T]}(t) dt$. Then for all $x \in C$:
 $$\int_0^\infty a(dt) P_t(x, \cdot) = \frac{1}{T} \int_0^T P_t(x, \cdot) dt \geq \nu_C(\cdot)$$

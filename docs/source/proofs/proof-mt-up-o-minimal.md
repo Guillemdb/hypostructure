@@ -274,7 +274,6 @@ $$|f(x) - f(x^*)|^{1-\theta} \leq C \|\nabla f(x)\|$$
 
 - A neighborhood $U$ of $x^*$
 - A constant $C > 0$
-- An exponent $\theta \in (0, 1)$
 - A **desingularizing function** $\psi: [0, \epsilon) \to [0, \infty)$ that is $C^1$, concave, and satisfies $\psi(0) = 0$, $\psi'(s) > 0$ for $s > 0$
 
 such that for all $x \in U$ with $\Phi(x^*) < \Phi(x) < \Phi(x^*) + \epsilon$:
@@ -282,8 +281,21 @@ $$\psi'(\Phi(x) - \Phi(x^*)) \|\nabla \Phi(x)\| \geq 1$$
 
 **Standard Form:** The desingularizing function can often be chosen as:
 $$\psi(s) = C s^{1-\theta}$$
-for some $\theta \in (0, 1)$ (typically $\theta \in (0, 1/2]$ for analytic functions). Then the inequality becomes:
+for some $\theta \in (0, 1/2]$ (the **Łojasiewicz exponent**). Then the inequality becomes:
 $$|\Phi(x) - \Phi(x^*)|^{1-\theta} \leq C \|\nabla \Phi(x)\|$$
+
+:::{important}
+**Łojasiewicz Exponent Range:**
+
+The exponent $\theta$ satisfies $0 < \theta \leq 1/2$ in all standard cases:
+- **Analytic functions:** $\theta \in (0, 1/2]$ (classical Łojasiewicz {cite}`Lojasiewicz63`)
+- **Subanalytic functions:** $\theta \in (0, 1/2]$ (same range)
+- **O-minimal definable functions:** $\theta \in (0, 1/2]$ (Kurdyka {cite}`Kurdyka98`)
+
+The case $\theta = 1/2$ is generic and yields **exponential convergence** for gradient flows. Values $\theta < 1/2$ yield **polynomial convergence** with rate $t^{-(1-\theta)/(1-2\theta)}$.
+
+The desingularizing function formulation with general $\psi$ allows for more flexibility than the power-law form, but in practice $\psi(s) = Cs^{1-\theta}$ with $\theta \leq 1/2$ suffices.
+:::
 
 **Proof (Kurdyka 1998):** The proof proceeds by:
 

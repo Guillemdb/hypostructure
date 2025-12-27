@@ -47,6 +47,31 @@ In other words, the subsystem $\mathcal{S}$ inherits the regularity of the paren
 
 ---
 
+## Preliminary: Morphisms in the Category Hypo
+
+:::{important}
+**Definition (Morphism in Hypo):** A morphism $\phi: \mathcal{H}_1 \to \mathcal{H}_2$ in the category $\mathbf{Hypo}$ consists of:
+
+1. **Underlying map:** A continuous map $\phi: \mathcal{X}_1 \to \mathcal{X}_2$ of state spaces
+
+2. **Flow compatibility:** Intertwining with the semiflows:
+   $$\phi \circ S_t^{(1)} = S_t^{(2)} \circ \phi \quad \text{for all } t \geq 0$$
+
+3. **Energy monotonicity:** $\Phi_2(\phi(x)) \leq \Phi_1(x)$ for all $x \in \mathcal{X}_1$
+   (morphisms do not increase energy)
+
+4. **Dissipation compatibility:** $\mathfrak{D}_2(\phi(x)) \leq \mathfrak{D}_1(x)$ for all $x \in \mathcal{X}_1$
+   (morphisms preserve or reduce dissipation)
+
+5. **Equivariance:** For any $g \in G_1 \cap G_2$: $\phi(g \cdot x) = g \cdot \phi(x)$
+
+**Special cases:**
+- **Inclusion** $\iota: \mathcal{S} \hookrightarrow \mathcal{H}$: All inequalities become equalities on $\mathcal{S}$
+- **Singularity morphism** $\mathcal{B}_{\text{univ}} \to \mathcal{H}$: Maps universal bad pattern into the system
+:::
+
+---
+
 ## Step 1: Categorical Obstruction Argument
 
 **Goal:** Show that any singularity in $\mathcal{S}$ would imply a singularity in $\mathcal{H}$.
@@ -99,6 +124,22 @@ The **Fenichel Invariant Manifold Theorem** ({cite}`Fenichel71`, Theorem 1) esta
 1. $M$ persists under small $C^r$ perturbations of the flow
 2. The perturbed manifold $M_\epsilon$ is $C^r$ if the original flow is $C^r$
 3. The restricted dynamics $\varphi_t|_M: M \to M$ inherits regularity from the ambient flow
+
+:::{important}
+**Normal Hyperbolicity Requirement:**
+
+Fenichel's theorem requires **normal hyperbolicity** of $M$: the linearized flow transverse to $M$ must have exponential dichotomy stronger than any rates within $M$.
+
+Formally: Let $N_x M$ denote the normal bundle at $x \in M$. Normal hyperbolicity requires:
+$$\limsup_{t \to \infty} \frac{1}{t} \log \|D\varphi_t|_{N_x M}\| < \liminf_{t \to \infty} \frac{1}{t} \log \|D\varphi_t|_{T_x M}\|^{-1}$$
+
+**When this applies to hypostructures:**
+- **Attracting subsystems:** If $\mathcal{S}$ is an attractor with basin $B(\mathcal{S})$, normal hyperbolicity follows from the attraction property
+- **Slow manifolds:** For systems with scale separation, center manifolds are normally hyperbolic
+- **Equilibrium sets:** Connected components of equilibria are normally hyperbolic if isolated in energy
+
+**When Fenichel does NOT apply:** For general invariant sets without normal hyperbolicity (e.g., neutral center manifolds, KAM tori), one must use the categorical argument (Step 1) instead.
+:::
 
 **Application to Hypostructures:** In our setting:
 - The ambient space is the state space $\mathcal{X}$ of $\mathcal{H}$
@@ -170,7 +211,21 @@ such that $g_k \cdot x_{n_k} \rightharpoonup v^*$ weakly in $\mathcal{X}$.
 
 **Claim:** $v^* \in \mathcal{S}$ (the limit lies in the subsystem).
 
-**Proof of Claim:** Since $\mathcal{S}$ is invariant under the symmetry group $G$ (by hypothesis 3), we have $g_k \cdot x_{n_k} \in \mathcal{S}$ for all $k$. Since $\mathcal{S}$ is closed in $\mathcal{X}$ (by hypothesis that $\mathcal{S}$ is a subsystem), and weak convergence in Banach spaces preserves closed sets (the weak topology is coarser than the strong topology, but closed sets are weakly closed in reflexive spaces), we conclude $v^* \in \mathcal{S}$.
+**Proof of Claim:** Since $\mathcal{S}$ is invariant under the symmetry group $G$ (by hypothesis 3), we have $g_k \cdot x_{n_k} \in \mathcal{S}$ for all $k$.
+
+:::{important}
+**Weak Sequential Closedness:** We need $\mathcal{S}$ to be **weakly sequentially closed** (if $y_n \in \mathcal{S}$ and $y_n \rightharpoonup y$, then $y \in \mathcal{S}$).
+
+This holds automatically if any of the following conditions is satisfied:
+1. **$\mathcal{S}$ is convex and strongly closed** (Mazur's theorem: convex closed sets are weakly closed)
+2. **$\mathcal{S}$ is finite-dimensional** (weak and strong topologies coincide)
+3. **$\mathcal{S}$ is defined by continuous linear constraints** (e.g., kernel of bounded linear functionals)
+4. **$\mathcal{X}$ has the Kadec-Klee property and $\mathcal{S}$ is closed** (Hilbert spaces have this property)
+
+For most physical subsystems arising as invariant sets of PDEs, condition (1) or (3) applies. If not, weak sequential closedness must be verified independently.
+:::
+
+Assuming $\mathcal{S}$ is weakly sequentially closed (or one of the sufficient conditions above holds), we conclude $v^* \in \mathcal{S}$.
 
 Therefore, $\mathcal{S}$ satisfies the compactness axiom.
 

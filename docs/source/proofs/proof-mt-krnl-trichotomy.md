@@ -50,6 +50,17 @@ This proof establishes the structural trichotomy for trajectories with finite br
 - Let $s_c$ denote the critical Sobolev exponent for $\mathcal{X}$. For dispersive equations on $\mathbb{R}^d$, typically $s_c = d/2 - 2/(p-2)$ where $p$ is the nonlinearity exponent.
 - We assume $\mathcal{X} \hookrightarrow \dot{H}^{s_c}(\mathbb{R}^d)$ (the homogeneous critical Sobolev space).
 
+**Mode Definitions:**
+
+| Mode | Name | Description |
+|------|------|-------------|
+| D.D | Dispersion-Decay | Energy disperses to spatial infinity, solution scatters |
+| S.E | Subcritical-Equilibration | Energy concentrates but subcritical scaling prevents blowup |
+| C.D | Concentration-Dispersion | Partial concentration with dispersion of residual |
+| T.E | Topological-Extension | Concentration resolved via topological completion |
+| S.D | Structural-Dispersion | Structural constraints force dispersion |
+| C.E | Concentration-Escape | Genuine singularity with energy escape |
+
 **Goal:**
 Prove that exactly one of the following three mutually exclusive outcomes occurs:
 
@@ -82,8 +93,11 @@ By hypothesis (C), bounded energy sequences have weakly convergent subsequences 
 **Lions' Dichotomy (Lemma I.1 of {cite}`Lions84`):** For sequences in $L^p(\mathbb{R}^d)$ with bounded $L^p$ norm, either:
 - **(Compactness)** A subsequence converges strongly in $L^p_{\text{loc}}$ (concentration)
 - **(Vanishing)** The sequence vanishes: $\lim_{n \to \infty} \sup_{y \in \mathbb{R}^d} \int_{B_R(y)} |u_n|^p = 0$ for all $R < \infty$ (dispersion)
+- **(Dichotomy)** Mass splits between escaping parts (Lions' third case, which we group with vanishing for trichotomy purposes)
 
-Applied to our setting with the sequence $u(t_n)$ for $t_n \nearrow T_*$, vanishing ($\Phi_* = 0$) implies dispersion. By standard scattering theory (e.g., Strichartz estimates for dispersive PDEs), the trajectory exists globally and converges to free evolution:
+**Applicability Remark:** Lions' lemma applies when $\Phi$ controls an $L^p$ norm (e.g., $\Phi(u) \geq c\|u\|_{L^p}^p$ for some embedding). For abstract hypostructures where this embedding is unclear, the vanishing/concentration dichotomy must be verified independently using the specific structure of $\mathcal{X}$.
+
+Applied to our setting with the sequence $u(t_n)$ for $t_n \nearrow T_*$: if $\Phi_* = 0$ and $\Phi$ dominates local mass, then the sequence must vanish in the Lions sense. By standard scattering theory (e.g., Strichartz estimates for dispersive PDEs), the trajectory exists globally and converges to free evolution:
 $$\lim_{t \to \infty} \|u(t) - U_t u_\infty\|_{\mathcal{X}} = 0$$
 where $U_t$ is the free evolution (linear semiflow) and $u_\infty \in \mathcal{X}$.
 
@@ -203,7 +217,21 @@ in $\mathbb{R}^d$, if a solution $u$ with bounded $\dot{H}^1$ norm satisfies:
 
 then $u$ must be a soliton solution (stationary or traveling wave) up to symmetries.
 
-**Application to General Systems:**
+**Application to General Hypostructures:**
+
+:::{important}
+The Kenig-Merle theorem was proved for specific dispersive PDEs (energy-critical NLS). Before applying it to a general hypostructure, the following **verification checklist** must be satisfied:
+
+| Hypothesis | NLS Verification | Hypostructure Verification |
+|------------|-----------------|---------------------------|
+| Critical scaling | $\dot{H}^1$-critical in $d \geq 3$ | Determine $s_c$ from dimensional analysis |
+| Profile decomposition | Bahouri-Gérard applies | Verify hypothesis (C) holds |
+| Variational structure | Ground state $Q$ exists | Identify $E_c$ via minimization |
+| Coercivity | $E[u] - E[Q] \gtrsim \|u - Q\|^2$ | Verify near critical points |
+| Monotonicity formula | Virial/Morawetz identity | Find analogous conserved quantity |
+
+Without this verification, the rigidity argument is a **template** showing what must be established, not a complete proof.
+:::
 
 The Kenig-Merle rigidity framework applies more broadly to systems satisfying:
 1. **Critical Well-Posedness:** Local well-posedness in $\dot{H}^{s_c}$ with continuous dependence
@@ -265,8 +293,15 @@ Dissipation becomes negligible relative to energy—the energy-dissipation inequ
 
 **Self-Similar Blowup Construction:**
 
-Let $\lambda(t) = \sqrt{T_* - t}$ (parabolic scaling). Define the similarity variable:
-$$w(s, y) = \lambda(t)^{\alpha/2} u(t, x), \quad s = -\log(T_* - t), \quad y = \frac{x}{\lambda(t)}$$
+**Remark (Scaling Ansatz):** The scaling function $\lambda(t)$ depends on the equation structure:
+- **Parabolic systems** (heat, Navier-Stokes): $\lambda(t) = \sqrt{T_* - t}$ (diffusive scaling)
+- **Dispersive systems** (NLS, NLW): $\lambda(t) = (T_* - t)^{1/(p-1)}$ where $p$ is the nonlinearity exponent
+- **Geometric flows** (Ricci, mean curvature): $\lambda(t) = \sqrt{2(T_* - t)}$ (curvature scaling)
+
+For a general hypostructure, the scaling exponent must be determined from the homogeneity of $\Phi$ and $\mathfrak{D}$ under the rescaling group action. Below we illustrate with parabolic scaling.
+
+Let $\lambda(t) = (T_* - t)^{1/\gamma}$ where $\gamma$ is determined by dimensional analysis. Define the similarity variable:
+$$w(s, y) = \lambda(t)^{\alpha/\gamma} u(t, x), \quad s = -\log(T_* - t), \quad y = \frac{x}{\lambda(t)}$$
 
 Substituting into the evolution equation and taking $s \to \infty$ (equivalent to $t \nearrow T_*$), the profile $w(s, \cdot)$ satisfies a limiting equation with no time dependence (the self-similar profile equation).
 

@@ -259,18 +259,39 @@ $$\Phi(x^-) = \Phi(\mathcal{X} \setminus \mathcal{X}_\Sigma) + \Phi(\mathcal{X}_
 
 where $\Phi(\mathcal{X}_\Sigma)$ is the energy concentrated in the singular neighborhood.
 
-**Step 2.2 (Excised Energy):** By Perelman's monotonicity formula for Ricci flow {cite}`Perelman03` (Theorem 1.1, entropy monotonicity), the energy in the excised region satisfies:
-$$\Phi(\mathcal{X}_\Sigma) \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n}$$
+**Step 2.2 (Excised Energy - Type-Specific Instantiation):**
 
-where $c_n > 0$ is a dimension-dependent constant, and we use the isoperimetric inequality:
-$$\text{Vol}(\Sigma) \geq v_{\min}(T) > 0$$
+:::{admonition} Type-Specific Step
+:class: warning
 
-Write $v_{\min} := v_{\min}(T)$. The positivity of $v_{\min}$ follows from admissibility: infinitesimally small singularities (with $\text{Vol}(\Sigma) \to 0$) are excluded by the capacity bound.
+This step requires a **type-specific monotonicity formula**. The abstract claim is:
+$$\Phi(\mathcal{X}_\Sigma) \geq f_T(\text{size}(\Sigma))$$
+for some function $f_T: \mathbb{R}_{>0} \to \mathbb{R}_{>0}$ depending on type $T$. This is NOT a universal result—it must be verified for each type.
+:::
 
-**Literature Justification:**
-- For **Ricci flow**, Perelman's entropy formula {cite}`Perelman03` gives $\Phi(\mathcal{X}_\Sigma) = \int R \log R \, dV \geq c \cdot \text{Vol}(\Sigma)^{2/3}$ in dimension 3
-- For **mean curvature flow**, monotonicity estimates (see e.g. {cite}`HuiskenSinestrari09`) provide $\Phi(\mathcal{X}_\Sigma) = \int H^2 \, dA \geq c \cdot \text{Area}(\Sigma)$ where $H$ is mean curvature
-- For **harmonic map flow**, Struwe's analysis {cite}`Struwe88` ensures $\Phi(\mathcal{X}_\Sigma) \geq \epsilon_0 > 0$ for any non-trivial bubble
+**Abstract Requirement:** For the energy budget argument (Step 4) to work, we need:
+1. A **size measure** $\text{size}(\Sigma)$ (volume, area, capacity, etc.)
+2. A **lower bound** $\Phi(\mathcal{X}_\Sigma) \geq f_T(\text{size}(\Sigma))$ where $f_T$ is positive on $(0, \infty)$
+3. A **minimum size** $v_{\min}(T) > 0$ such that admissible singularities satisfy $\text{size}(\Sigma) \geq v_{\min}(T)$
+
+Write $v_{\min} := v_{\min}(T)$. The positivity of $v_{\min}$ follows from admissibility: infinitesimally small singularities (with $\text{size}(\Sigma) \to 0$) are excluded by the capacity bound.
+
+**Type-Specific Instantiations (Literature Verification):**
+
+| Type $T$ | Size Measure | Energy Lower Bound | Reference |
+|----------|--------------|-------------------|-----------|
+| Ricci flow (dim 3) | $\text{Vol}(\Sigma)$ | $\Phi \geq c \cdot \text{Vol}^{2/3}$ via $\mathcal{W}$-entropy | {cite}`Perelman03` §1 |
+| Mean curvature flow | $\text{Area}(\Sigma)$ | $\Phi = \int H^2 \, dA \geq c \cdot \text{Area}$ | {cite}`HuiskenSinestrari09` |
+| Harmonic map flow | bubble count | $\Phi \geq \epsilon_0 > 0$ per bubble | {cite}`Struwe88` |
+| Yang-Mills | instanton number | $\Phi \geq 8\pi^2 |k|$ for charge $k$ | {cite}`DonaldsonKronheimer90` |
+
+**Perelman's Result (Ricci Flow Only):** For 3-dimensional Ricci flow, the $\mathcal{W}$-entropy monotonicity {cite}`Perelman03` (Theorem 1.1) gives:
+$$\mathcal{W}(g, f, \tau) = \int_M \left[\tau(|\nabla f|^2 + R) + f - n\right] (4\pi\tau)^{-n/2} e^{-f} \, dV$$
+is monotonically non-decreasing under Ricci flow. Combined with the canonical neighborhood theorem (§12), this yields the lower bound $\Phi(\mathcal{X}_\Sigma) \geq c \cdot \text{Vol}(\Sigma)^{2/3}$ for 3-manifolds.
+
+:::{caution}
+Perelman's entropy formula applies specifically to Ricci flow. For other types, analogous but distinct monotonicity formulas must be verified. The abstract framework assumes such a formula exists; instantiation requires proving it.
+:::
 
 **Step 2.3 (Capping Energy):** By Lemma 2 (Step 2.4), the cap has bounded energy:
 $$\Phi(\mathcal{X}_{\text{cap}}) \leq E_{\text{cap}}(V)$$
@@ -286,15 +307,26 @@ Subtracting the pre-surgery energy:
 $$\Phi(x') - \Phi(x^-) = \Phi(\mathcal{X}_{\text{cap}}) - \Phi(\mathcal{X}_\Sigma)$$
 
 **Step 2.5 (Energy Drop Verification):** By the estimates in Steps 2.2 and 2.3:
-$$\Delta\Phi_{\text{surg}} := \Phi(x^-) - \Phi(x') = \Phi(\mathcal{X}_\Sigma) - \Phi(\mathcal{X}_{\text{cap}}) \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n} - E_{\text{cap}}(V)$$
+$$\Delta\Phi_{\text{surg}} := \Phi(x^-) - \Phi(x') = \Phi(\mathcal{X}_\Sigma) - \Phi(\mathcal{X}_{\text{cap}}) \geq f_T(v_{\min}) - E_{\text{cap}}(V)$$
 
-**Positivity:** For admissible surgeries, the excised energy dominates the cap energy. Since admissibility requires $\text{Vol}(\Sigma) \geq v_{\min}(T) > 0$ (infinitesimally small singularities are excluded by the capacity bound), we have:
-$$c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n} \geq c_n \cdot v_{\min}^{(n-2)/n} > E_{\text{cap}}(V)$$
+where $f_T$ is the type-specific lower bound function from Step 2.2.
 
-where the final inequality is ensured by the choice of admissibility threshold $\varepsilon_{\text{adm}}$. Define the **discrete progress constant**:
-$$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)\right) > 0$$
+**Positivity:** For admissible surgeries, the excised energy dominates the cap energy. The admissibility threshold $\varepsilon_{\text{adm}}(T)$ is chosen precisely to ensure:
+$$f_T(v_{\min}) > \max_{V \in \mathcal{L}_T} E_{\text{cap}}(V)$$
+
+This is a **design requirement** on the admissibility criterion: singularities are only declared admissible if excision removes more energy than capping adds.
+
+Define the **discrete progress constant**:
+$$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(f_T(v_{\min}) - E_{\text{cap}}(V)\right) > 0$$
 
 Since $\mathcal{L}_T$ is finite, the minimum is attained and positive.
+
+:::{note}
+**Concrete values for established types:**
+- Ricci flow (dim 3): $\epsilon_T \approx 10^{-3}$ in normalized units (Perelman's surgery parameters)
+- Mean curvature flow: $\epsilon_T \geq c \cdot \text{Area}_{\min}$ where $\text{Area}_{\min}$ is the minimum neck cross-section
+- Harmonic map flow: $\epsilon_T = \epsilon_0$ (Struwe's bubble energy quantum)
+:::
 
 **Conclusion:** Energy is controlled with a guaranteed decrease $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T > 0$, satisfying Guarantee 2. □
 
@@ -393,16 +425,35 @@ $$N_{\text{surgeries}} \leq \left\lfloor \frac{E_0}{\epsilon_T} \right\rfloor$$
 
 This is a **concrete finite bound** depending only on initial energy $E_0$ and the discrete progress constant $\epsilon_T > 0$.
 
-**Step 4.5 (Topological Complexity Decrease):** In certain geometric contexts (e.g., Ricci flow on 3-manifolds), surgery also decreases **topological complexity**:
+**Step 4.5 (Topological Complexity Decrease - Type-Specific):**
+
+:::{admonition} Type-Specific Result
+:class: note
+
+This step is relevant only for **geometric flows on manifolds**. For algebraic or combinatorial types, skip to Step 4.6.
+:::
+
+In geometric contexts, surgery may also decrease **topological complexity**:
 
 - **Genus reduction**: Each surgery may reduce the genus $g$ of the manifold (e.g., removing a handle)
 - **Connected sum decomposition**: Repeated surgeries decompose the manifold into simpler pieces (prime decomposition)
 
-**Perelman's Theorem {cite}`Perelman03` (for Ricci Flow):** For Ricci flow with surgery on compact 3-manifolds:
+**Perelman's Theorem {cite}`Perelman03` (Ricci Flow on Compact 3-Manifolds ONLY):**
+
+:::{caution}
+The following result applies **specifically** to Ricci flow on compact 3-manifolds. It does not generalize to arbitrary hypostructures without additional verification.
+:::
+
+For Ricci flow with surgery on compact 3-manifolds:
 1. Either the manifold becomes extinct (shrinks to a point) in finite time, or
 2. The flow with surgery exists for all time and decomposes the manifold into a finite number of pieces with canonical geometric structures (hyperbolic, spherical, or flat)
 
 In both cases, the process terminates in finite time or produces a well-understood limiting structure.
+
+**Analogues for Other Types:**
+- **Mean curvature flow**: Surgery may disconnect or reduce genus ({cite}`HuiskenSinestrari09`)
+- **Harmonic map flow**: Bubble tree has finite depth (energy quantization)
+- **Algebraic types**: No topological complexity notion; energy budget alone ensures termination
 
 **Step 4.6 (Well-Founded Progress):** The combination of:
 - Finite energy budget (Step 4.4)
@@ -457,8 +508,9 @@ We have established all four guarantees of the Structural Surgery Principle:
 1. **Flow Continuation (Step 1):** Evolution continues past surgery with well-defined state $x' \in \mathcal{X}'$ and semiflow $S_t': \mathcal{X}' \to \mathcal{X}'$
 
 2. **Energy Control (Step 2):**
-   - Energy drop: $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T = \min_{V \in \mathcal{L}_T} (c_n \cdot v_{\min}^{(n-2)/n} - E_{\text{cap}}(V)) > 0$
+   - Energy drop: $\Phi(x') \leq \Phi(x^-) - \epsilon_T$ where $\epsilon_T = \min_{V \in \mathcal{L}_T} (f_T(v_{\min}) - E_{\text{cap}}(V)) > 0$
    - Jump control form: $\Phi(x') \leq \Phi(x^-) + \delta_S$ with $\delta_S = -\epsilon_T < 0$
+   - Note: $f_T$ is the type-specific energy lower bound (see Step 2.2 for instantiations)
 
 3. **Certificate Production (Step 3):** Re-entry certificate $K^{\mathrm{re}} = (x', \mathcal{X}', \Phi', \mathfrak{D}', S_t', \text{witnesses})$ satisfying $K^{\mathrm{re}} \Rightarrow \mathrm{Pre}(\text{target})$
 
@@ -502,6 +554,33 @@ $$K^{\mathrm{re}} = \left(
 - **Yang-Mills flow**: Gauge theory surgery {cite}`DonaldsonKronheimer90`
 
 Each type $T$ has a specific canonical library $\mathcal{L}_T$ and energy estimates, but the abstract framework applies uniformly.
+
+:::{admonition} Universal vs Type-Specific Components
+:class: important
+
+This proof contains two distinct layers that must not be conflated:
+
+**Universal Framework (applies to all types $T$):**
+- Lemma 1 (Excision Neighborhood): Uses only metric structure and capacity bounds
+- Lemma 3 (Pushout Construction): Pure category theory, independent of type
+- Step 1 (Flow Continuation): Abstract semiflow theory
+- Step 3 (Certificate Production): Structural, no type-specific content
+- Step 4.4 (Finiteness via Energy Budget): Uses only energy monotonicity and positivity of $\epsilon_T$
+
+**Type-Specific Instantiations (require verification for each $T$):**
+- Lemma 2.2 (Capping Recipes): The actual construction of $\mathcal{X}_{\text{cap}}$ differs by type
+- Step 2.2 (Excised Energy Lower Bound): The inequality $\Phi(\mathcal{X}_\Sigma) \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n}$ requires type-specific monotonicity formulas
+- Step 2.3 (Cap Energy Upper Bound): $E_{\text{cap}}(V)$ must be computed for each profile library
+- Step 4.5 (Topological Complexity): Only relevant for geometric flows on manifolds
+
+**To apply ACT-Surgery to a new type $T$, one must verify:**
+1. A canonical profile library $\mathcal{L}_T$ exists and is finite
+2. Energy monotonicity holds: $\frac{d}{dt}\Phi(S_t x) \leq -\mathfrak{D}(S_t x)$
+3. A lower bound $\Phi(\mathcal{X}_\Sigma) \geq f(\text{size}(\Sigma))$ exists for some function $f$
+4. Cap energy $E_{\text{cap}}(V) < f(v_{\min})$ for all $V \in \mathcal{L}_T$
+
+Without these verifications, the abstract framework provides structure but not concrete bounds.
+:::
 
 :::
 

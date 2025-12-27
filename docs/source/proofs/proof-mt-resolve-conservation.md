@@ -93,8 +93,8 @@ For type $T$, we define:
 - **Admissibility threshold:** $\varepsilon_{\text{adm}}(T) > 0$ (maximal admissible capacity)
 - **Minimum volume:** $v_{\min}(T) > 0$ (minimal surgery volume)
 - **Discrete progress constant:**
-  $$\epsilon_T := c_n \cdot v_{\min}(T)^{(n-2)/n} > 0$$
-  where $c_n$ is the isoperimetric constant for dimension $n$
+  $$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(f_T(v_{\min}) - E_{\text{cap}}(V)\right) > 0$$
+  where $f_T$ is the type-specific energy lower bound function (see Part I, Lemma 1.1)
 - **Initial energy:** $\Phi(x_0)$ for initial state $x_0 \in \mathcal{X}$
 - **Infimal energy:** $\Phi_{\min} := \inf_{x \in \mathcal{X}} \Phi(x) \geq 0$ (ground state energy)
 
@@ -120,8 +120,27 @@ This establishes **discrete progress**: each surgery decreases energy by a unifo
 
 ### Lemma 1.1: Energy Localization (Excision Energy Content)
 
-**Statement:** The energy removed by excision satisfies:
-$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \geq c_1(n, T) \cdot \text{Vol}(\Sigma)^{(n-2)/n} \cdot \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$$
+:::{admonition} Type-Specific Lemma
+:class: note
+
+The specific form of the energy lower bound depends on the type $T$. We state the abstract requirement and provide type-specific instantiations.
+:::
+
+**Abstract Statement:** The energy removed by excision satisfies:
+$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \geq f_T(\text{size}(\Sigma))$$
+where $f_T: \mathbb{R}_{>0} \to \mathbb{R}_{>0}$ is a type-dependent function.
+
+**Type-Specific Instantiations:**
+
+| Type $T$ | Size Measure | Energy Lower Bound $f_T$ |
+|----------|--------------|--------------------------|
+| Ricci flow (dim 3) | Volume | $c \cdot \text{Vol}^{1/3}$ |
+| Mean curvature flow | Area | $c \cdot \text{Area}$ |
+| Harmonic map flow | Bubble count | $\epsilon_0 \cdot (\# \text{bubbles})$ |
+| Dispersive (NLS) | Mass | $\epsilon_0$ (soliton mass) |
+
+**Classical Formulation (Geometric Flows):** For geometric flows with scaling dimension $(n-2)/n$:
+$$\Phi_{\text{exc}} \geq c_1(n, T) \cdot \text{Vol}(\Sigma)^{(n-2)/n} \cdot \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$$
 where $c_1(n, T) > 0$ depends only on dimension and type.
 
 **Proof of Lemma 1.1:**
@@ -671,7 +690,7 @@ We have established the **Conservation of Flow** theorem, proving that admissibl
 
 **1. Energy Drop (Discrete Progress):**
 $$\boxed{\Phi(x') \leq \Phi(x^-) - \epsilon_T}$$
-where $\epsilon_T = c_n \cdot v_{\min}(T)^{(n-2)/n} > 0$ is the type-specific discrete progress constant.
+where $\epsilon_T = \min_{V \in \mathcal{L}_T}(f_T(v_{\min}) - E_{\text{cap}}(V)) > 0$ is the type-specific discrete progress constant, with $f_T$ the type-dependent energy lower bound function.
 
 **Key Components:**
 - Energy localization in excision region (Lemma 1.1)

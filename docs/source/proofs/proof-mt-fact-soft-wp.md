@@ -18,7 +18,9 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)
 2. **Energy Certificate** $K_{D_E}^+$: A bound $B \in \mathbb{R}_{\geq 0}$ and structure $(\Phi, \mathfrak{D}, \leq)$ where:
    - $\Phi: \mathcal{X} \to \mathbb{R}_{\geq 0}$ is the energy/height functional
    - $\mathfrak{D}: \mathcal{X} \to \mathbb{R}_{\geq 0}$ is the dissipation functional
-   - Evolution satisfies: $\Phi(S_t x) \leq \Phi(x) + \int_0^t \mathfrak{D}(S_s x) ds$ ({prf:ref}`def-interface-de`)
+   - Evolution satisfies the **energy-dissipation inequality**:
+     $$\Phi(S_t x) + \int_0^t \mathfrak{D}(S_s x) \, ds \leq \Phi(x)$$
+     ({prf:ref}`def-interface-de`), which implies energy is non-increasing: $\Phi(S_t x) \leq \Phi(x)$
 
 3. **Boundary Certificate** $K_{\mathrm{Bound}}^+$: Specifies the boundary conditions. For open systems ($\partial\mathcal{X} \neq \emptyset$), this includes:
    - Boundary type: Dirichlet ($u|_{\partial\mathcal{X}} = 0$), Neumann ($\nabla u \cdot \nu|_{\partial\mathcal{X}} = 0$), Robin, or periodic
@@ -191,8 +193,14 @@ By {cite}`CazenaveSemilinear03` Theorem 3.3.1, construct the solution via Galerk
    Using the growth bound on $f$ and Hölder's inequality:
    $$\left|\int_\Omega f(u_n) u_n dx\right| \leq C\int_\Omega (1 + |u_n|^{p+1}) dx \leq C(|\Omega| + \|u_n\|_{L^{p+1}}^{p+1})$$
 
-   By Sobolev embedding $H^1(\Omega) \hookrightarrow L^{p+1}(\Omega)$ (valid since $p+1 \leq \frac{2d}{d-2}$ by subcriticality):
+   **Sobolev Embedding (dimension-dependent):**
+   - For $d \geq 3$: $H^1(\Omega) \hookrightarrow L^q(\Omega)$ for $q \leq 2^* := \frac{2d}{d-2}$
+   - For $d = 2$: $H^1(\Omega) \hookrightarrow L^q(\Omega)$ for all $q < \infty$
+   - For $d = 1$: $H^1(\Omega) \hookrightarrow L^\infty(\Omega) \hookrightarrow L^q(\Omega)$ for all $q \leq \infty$
+
+   The subcriticality condition $p < \frac{d+2}{d-2}$ (for $d \geq 3$) ensures $p+1 < \frac{2d}{d-2} = 2^*$, so the embedding $H^1(\Omega) \hookrightarrow L^{p+1}(\Omega)$ holds. Thus:
    $$\|u_n\|_{L^{p+1}} \leq C_{S}\|u_n\|_{H^1}$$
+   where $C_S = C_S(d, \Omega, p)$ is the Sobolev embedding constant.
 
 3. **Gronwall Argument:** The energy inequality becomes:
    $$\frac{d}{dt}\|u_n(t)\|_{L^2}^2 + \|\nabla u_n(t)\|_{L^2}^2 \leq C(1 + \|u_n(t)\|_{H^1}^{p+1})$$

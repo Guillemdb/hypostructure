@@ -62,24 +62,52 @@ witnessing:
 
 **Step 1.1.1 (Complexity as Description Length):** By definition of Kolmogorov complexity, $K_\varepsilon([P, \pi])$ measures the length of the shortest program that outputs an $\varepsilon$-approximation to $[P, \pi]$. The condition $\sup_\varepsilon K_\varepsilon \leq S_{\text{BH}}$ means that even as $\varepsilon \to 0$, the description length remains bounded.
 
-**Step 1.1.2 (Finite Alphabet):** There are at most $2^{S_{\text{BH}}}$ distinct programs of length $\leq S_{\text{BH}}$ over a binary alphabet. Each such program outputs at most one limit point in the germ space (possibly none if the program doesn't halt or outputs an inadmissible object).
+**Step 1.1.2 (Finite Alphabet):** There are at most $2^{S_{\text{BH}}}$ distinct programs of length $\leq S_{\text{BH}}$ over a binary alphabet.
+
+:::{important}
+**Cardinality Clarification:**
+
+The bound $2^{S_{\text{BH}}}$ applies to **programs**, not directly to **germs**. The relationship is:
+
+1. **Programs → ε-approximations:** Each program $p$ of length $\leq S_{\text{BH}}$ outputs (at most) one $\varepsilon$-approximation to some germ
+
+2. **Germs as limits:** A germ $[P, \pi]$ with $\sup_\varepsilon K_\varepsilon \leq S_{\text{BH}}$ is the **limit** of a sequence of approximations $\{\mathcal{U}(p_\varepsilon)\}_{\varepsilon \to 0}$ where each $|p_\varepsilon| \leq S_{\text{BH}}$
+
+3. **Countable, not finite:** The set $\mathcal{G}_T^{\text{bnd}}$ is **countable** (at most $\aleph_0$), not finite. This is because:
+   - For each $\varepsilon = 1/n$, there are $\leq 2^{S_{\text{BH}}}$ possible approximations
+   - A germ is determined by its approximation sequence
+   - The space of all such sequences is countable: $\prod_{n=1}^\infty 2^{S_{\text{BH}}} \sim \aleph_0$
+
+4. **Effective density:** The key point is not finiteness but **effective approximability**: every germ in $\mathcal{G}_T^{\text{bnd}}$ can be approximated to arbitrary precision by running finitely many short programs.
+:::
 
 **Step 1.1.3 (Cardinality Bound):** Therefore:
-$$|\mathcal{G}_T^{\text{bnd}}| \leq 2^{S_{\text{BH}}} < \infty$$
+$$|\mathcal{G}_T^{\text{bnd}}| \leq \aleph_0$$
 
-This is a **finite** bound, much stronger than the continuum bound $2^{\aleph_0}$ for the full germ set. □
+The set is **countable** (not finite), but this suffices for library coverage because:
+- Countable compact metric spaces are separable
+- Any separable space admits a countable dense subset
+- The library $\mathcal{B}$ can be chosen to be a finite $\varepsilon$-net for any fixed $\varepsilon > 0$
 
-### Lemma 1.2: Compactness of the Bounded Germ Space
+The physical interpretation: while there may be countably many complexity-bounded germs, any finite-precision detection (which is all that's physically realizable) only needs to distinguish finitely many. □
 
-**Statement:** The set $\mathcal{G}_T^{\text{bnd}}$ is compact in the topology induced by the $\dot{H}^{s_c}$ metric.
+### Lemma 1.2: Precompactness of the Bounded Germ Space
+
+**Statement:** The set $\mathcal{G}_T^{\text{bnd}}$ is **precompact** (totally bounded) in the topology induced by the $\dot{H}^{s_c}$ metric.
 
 **Proof:**
 
-**Step 1.2.1 (Finite Implies Compact):** By Lemma 1.1, $\mathcal{G}_T^{\text{bnd}}$ has cardinality at most $2^{S_{\text{BH}}}$. Any finite (or finitely-approximable) set equipped with the discrete topology is compact.
+**Step 1.2.1 (Total Boundedness):** For any $\varepsilon > 0$, consider all programs $p$ of length $\leq S_{\text{BH}}$. Running these produces at most $2^{S_{\text{BH}}}$ distinct $\varepsilon$-approximations. These form a finite $\varepsilon$-net for $\mathcal{G}_T^{\text{bnd}}$.
 
-**Step 1.2.2 (Metric Compactness):** More precisely, the complexity bound implies that the germs in $\mathcal{G}_T^{\text{bnd}}$ are effectively enumerable (by running all programs of length $\leq S_{\text{BH}}$). The closure of a finite set is finite, hence compact.
+**Step 1.2.2 (Precompact ≠ Compact for Countable Sets):** Note that $\mathcal{G}_T^{\text{bnd}}$ is countable (Lemma 1.1) and precompact, but may not be closed in the ambient germ space $\mathcal{G}_T$. Thus we have:
+- **Precompact:** Every sequence has a Cauchy subsequence
+- **Compact (if closed):** If $\mathcal{G}_T^{\text{bnd}}$ is closed (i.e., limits of bounded-complexity sequences have bounded complexity), then precompact implies compact
 
-**Step 1.2.3 (Sequential Compactness):** Any sequence in $\mathcal{G}_T^{\text{bnd}}$ has a convergent subsequence because there are only finitely many germs to choose from. □
+**Step 1.2.3 (Closure Under Limits):** The condition $\sup_\varepsilon K_\varepsilon \leq S_{\text{BH}}$ is preserved under $\dot{H}^{s_c}$ limits: if $[P_n, \pi_n] \to [P, \pi]$ and each $[P_n, \pi_n]$ has complexity $\leq S_{\text{BH}}$, then any $\varepsilon$-approximation to $[P, \pi]$ can be obtained by:
+1. Finding $n$ such that $d([P_n, \pi_n], [P, \pi]) < \varepsilon/2$
+2. Using a program of length $\leq S_{\text{BH}}$ to approximate $[P_n, \pi_n]$ to within $\varepsilon/2$
+
+Thus $\mathcal{G}_T^{\text{bnd}}$ is closed, hence compact. □
 
 ---
 

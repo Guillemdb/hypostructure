@@ -514,13 +514,29 @@ Hence the surgery operators are **essentially unique** (unique up to canonical i
    - Discrete progress: $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$ (bounded surgery count)
    - Well-founded complexity: $\mathcal{C}(x') < \mathcal{C}(x^-)$ (no Zeno behavior)
 
-**Lemma 5.1.2 (Energy Drop from Perelman):** For admissible surgeries, the energy drop satisfies:
-$$\Delta\Phi_{\text{surg}} \geq c_n \cdot \text{Vol}(\Sigma)^{(n-2)/n}$$
-where $c_n > 0$ depends only on the dimension $n = \dim(\mathcal{X})$.
+**Lemma 5.1.2 (Energy Drop - Type-Specific Instantiation):**
+
+:::{admonition} Type-Specific Result
+:class: warning
+
+This lemma requires a **type-specific energy-volume relationship**. The abstract framework guarantees energy drop; the specific formula depends on type $T$.
+:::
+
+For admissible surgeries, the energy drop satisfies:
+$$\Delta\Phi_{\text{surg}} \geq f_T(\text{Vol}(\Sigma))$$
+where $f_T: \mathbb{R}_{>0} \to \mathbb{R}_{>0}$ is a type-dependent function.
+
+**Type-Specific Instantiations:**
+
+| Type $T$ | Energy Drop Formula | Reference |
+|----------|---------------------|-----------|
+| Ricci flow (dim 3) | $\Delta\Phi \geq c \cdot \text{Vol}^{1/3}$ | {cite}`Perelman03` §4 |
+| Mean curvature flow | $\Delta\Phi \geq c \cdot \text{Area}$ | {cite}`HuiskenSinestrari09` |
+| Harmonic map flow | $\Delta\Phi \geq \epsilon_0$ (bubble energy) | {cite}`Struwe88` |
 
 **Proof of Lemma 5.1.2:**
 
-*Step 5.1.2a (Literature Anchoring - Perelman):* For Ricci flow ($T = T_{\text{Ricci}}$), Perelman's surgery theorem {cite}`Perelman03`, Section 4, establishes:
+*Step 5.1.2a (Literature Anchoring - Ricci Flow Only):* For Ricci flow ($T = T_{\text{Ricci}}$), Perelman's surgery theorem {cite}`Perelman03`, Section 4, establishes:
 
 > Each surgery removes a volume of at least $\delta^3$ where $\delta$ is the surgery scale, and releases energy (entropy) of order $\delta^{-2} \cdot \delta^3 = \delta$.
 
@@ -576,9 +592,16 @@ Hence $\Phi' \in C^{k_{\max}}(\mathcal{X}')$ with bounded derivatives. □
 $$N_{\text{surgeries}} \leq \frac{\Phi(x_0) - \Phi_{\min}}{\epsilon_T}$$
 
 where $\epsilon_T > 0$ is the type-dependent discrete progress constant:
-$$\epsilon_T := c_n \cdot v_{\min}(T)^{(n-2)/n}$$
+$$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(f_T(v_{\min}) - E_{\text{cap}}(V)\right)$$
 
-with $v_{\min}(T) > 0$ the minimum volume of admissible singularities for type $T$.
+with:
+- $f_T$ the type-specific energy lower bound function (from Lemma 5.1.2)
+- $v_{\min}(T) > 0$ the minimum size of admissible singularities for type $T$
+- $E_{\text{cap}}(V)$ the cap energy for profile $V$
+
+:::{note}
+For types where $f_T(\text{Vol}) = c_n \cdot \text{Vol}^{(n-2)/n}$ (e.g., Ricci flow), this simplifies to $\epsilon_T = c_n \cdot v_{\min}(T)^{(n-2)/n} - \max_V E_{\text{cap}}(V)$.
+:::
 
 **Proof of Theorem 5.3.1:**
 

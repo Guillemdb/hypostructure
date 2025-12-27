@@ -32,6 +32,18 @@ $$L := D^2 \Phi(x^*): \mathcal{X} \to \mathcal{X}$$
 4. **Coercivity:** There exists $\mu > 0$ such that for all $x \in U_\delta$:
    $$\langle D^2 \Phi(x) v, v \rangle \geq \mu \|v\|^2 \quad \text{for all } v \perp \ker L$$
 
+:::{admonition} Infinite-Dimensional Applicability
+:class: note
+
+**Finite Dimensions:** Hypotheses 1-4 are automatically satisfied for Morse functions on compact manifolds.
+
+**Infinite Dimensions:** The proof applies when:
+- $L$ has **compact resolvent** (ensuring discrete spectrum)
+- $\Phi$ is **analytic** or satisfies a **Łojasiewicz condition** (Simon's original setting {cite}`Simon83`)
+
+**Counterexamples:** For general $C^\infty$ functionals on Hilbert spaces, the spectral gap condition may **not** imply $\theta = 1/2$. Additional analyticity or definability assumptions are required.
+:::
+
 **Goal:** We will prove that the **Łojasiewicz-Simon inequality** holds with optimal exponent $\theta = 1/2$:
 
 $$|\Phi(x) - \Phi(x^*)|^{1/2} \leq C \|\nabla \Phi(x)\|$$
