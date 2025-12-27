@@ -276,7 +276,7 @@ This document provides comprehensive translations of all fundamental hypostructu
 | **Poincaré duality** | Poincaré duality for varieties | H^i ≅ H^{2d-i}* |
 | **Hodge duality** | Hodge *-operator | Complex conjugation on Hodge structure |
 | **Legendre duality** | Reciprocity law | Quadratic reciprocity |
-| **Pontryagin duality** | Pontrjagin duality (ℚ/ℤ)^ ≅ ℤ̂ | Character duality |
+| **Pontryagin duality** | Pontryagin duality (ℚ/ℤ)^ ≅ ℤ̂ | Character duality |
 | **Serre duality** | Serre duality | H^i(X, F) ≅ H^{n-i}(X, F* ⊗ ω_X)* |
 
 ---
