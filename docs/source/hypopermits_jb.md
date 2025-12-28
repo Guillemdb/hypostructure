@@ -2519,67 +2519,65 @@ The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
      - **Operational:** Collapse the expander region to a single black box node; the quotient reasoning graph remains CAT(0)
      - **Physical Interpretation:** The agent **cannot simulate the internals** (positively curved expander is unlearnable via continuous intuition) but **can use it as a tool** (symbolic abstraction)
 
-   - **If large boundary (hairball):** REJECT as Mode D.D (Dispersion/Unstructured Explosion)
-     - **Examples:** Thermal noise, random graphs, high-temperature gases
-     - **Failure Mode:** True chaos (positive curvature + no encapsulation boundary); neither geometric structure nor black box abstraction
+   - **If large boundary (hairball):** Proceed to Step 2d
+
+   **Step 2d: Spectral Resonance (Arithmetic Chaos vs Thermal Noise)**
+
+   If Step 2c fails (positive curvature + large boundary), test for **spectral rigidity** via structure factor (Permit $K_{\mathrm{Spec}}$, Definition {prf:ref}`permit-spectral-resonance`):
+
+   $$S(k) = \left|\sum_{n=1}^{N} e^{2\pi i k x_n}\right|^2$$
+
+   where $\{x_n\}$ are rescaled point positions (Riemann zeros, eigenvalues, etc.).
+
+   **Admission criterion:**
+   $$\max_k S(k) > \eta \cdot \overline{S} \qquad (\eta > 10)$$
+
+   Equivalently via **number variance**: $\Sigma^2(L) \sim \log L$ (GUE) vs $\Sigma^2(L) \sim L$ (Poisson).
+
+   - **If $K_{\mathrm{Spec}}^+$:** PASS (arithmetic chaos; eigenvalue repulsion from trace formula)
+   - **If $K_{\mathrm{Spec}}^-$:** REJECT as Mode D.D (thermal noise; no hidden order)
 
 **Why This Cascading 4-Way Check Is Necessary:**
 
-- **Spectral Gap Alone Is Insufficient:** Expander graphs, CAT(0) spaces, AND Euclidean spaces can all have spectral gaps. Spectral gap measures mixing, not geometry.
-
-- **Polynomial Growth (Step 2a):** Ensures finite Hausdorff dimension for Euclidean-like spaces (standard RCD theory). **Examples:** Image grids, low-dimensional physics.
-
-- **CAT(0) Geometry (Step 2b):** Admits ALL structured geometric expansion (triangles no fatter than Euclidean):
-  - **Hyperbolic (κ < 0):** Language models, reasoning systems, causal DAGs, hierarchical embeddings
-  - **Euclidean (κ = 0):** Vision models, grid-like state spaces, physical simulations
-  - **Higher-rank lattices:** Algebraic structures like $\text{SL}(3,\mathbb{Z})$, matrix groups, symmetric spaces with flat subgroups
-  - **Key:** Concentration of measure holds for ALL CAT(0) spaces (Theorem {prf:ref}`thm-lsi-cat0-density`)
-
-- **Black Box Encapsulation (Step 2c):** Admits **Cryptographic and Symbolic Modules** as atomic black boxes (positive curvature allowed if small interface). This captures the **Simulation vs. Abstraction** distinction: the agent cannot learn AES bit-by-bit (positively curved expander → unlearnable) but can use AES as a function (collapse to single node → tool). **Examples:** AES, SHA-256, SAT solvers, compiled libraries.
-
-- **Final Rejection (Step 2c fallback):** Rejects true random/thermal systems (high-temperature gases, expander hairballs with large boundaries) that have neither CAT(0) structure nor encapsulation boundaries (positive curvature + large interface). **Examples:** Thermal noise, chaotic high-dimensional random walks.
+- **Step 2a (Polynomial Growth):** RCD(K,D) theory for Euclidean-like spaces
+- **Step 2b (CAT(0)):** Non-positive curvature (hyperbolic, Euclidean, higher-rank lattices)
+- **Step 2c (Black Box):** Relative hyperbolicity (cryptographic modules with small boundary)
+- **Step 2d (Spectral Rigidity):** Arithmetic chaos (GUE statistics, eigenvalue repulsion)
+- **Final Rejection:** Thermal noise (positive curvature + large boundary + no spectral order)
 
 **Certificate Components:**
-- $\lambda_2 > 0$: Second eigenvalue of graph Laplacian
-- $D < \infty$ (if polynomial growth): Effective dimension (volume growth exponent)
-- **CAT(0) witness** (if exponential growth): One of:
-  - $\delta_{\text{Gromov}} < \epsilon \cdot \text{diam}$ (sufficient condition: strict hyperbolic)
-  - Bruhat-Tits 4-point check passed (necessary condition: triangles ≤ Euclidean)
-- $G = (V, E, W)$ or $G = (V, E, F)$: Thin Graph or Simplicial Complex structure
-- $\epsilon$: Uniform spectral gap bound
-- $C$: Volume growth constant
-- (Optional) $C_{\text{entropy}}$: Measured entropy decay rate from runtime telemetry
-- (Optional) Black box data: $|\partial R|/\text{Vol}(R)$ if Step 2c invoked
+- $\lambda_2 > 0$: Spectral gap (graph Laplacian)
+- $D < \infty$ (if polynomial): Effective dimension
+- $\delta_{\text{Gromov}}$ or Bruhat-Tits witness (if CAT(0))
+- $|\partial R|/\text{Vol}(R)$ (if black box)
+- $\max_k S(k) / \overline{S}$ (if spectral rigidity)
+- $G = (V, E, W)$ or $(V, E, F)$: Graph or simplicial structure
 
-**Routing (Cascading Logic with CAT(0)):**
-- **If Permit Granted ($K_{\mathrm{NPC}}^+$):** (Renamed to "Non-Positive Curvature")
-  - **Case 1 (Polynomial):** Spectral gap + polynomial growth → Standard RCD(K,D) certificate
-  - **Case 2 (CAT(0)):** Spectral gap + exponential growth + CAT(0) geometry → Generalized RCD certificate
-    - **Subcase 2a:** Hyperbolic (κ < 0) → Language models, reasoning systems
-    - **Subcase 2b:** Euclidean flat (κ = 0) → Grids, simulations
-    - **Subcase 2c:** Higher-rank lattices → $\text{SL}(3,\mathbb{Z})$, algebraic structures
-  - **Case 3 (Relative CAT(0)):** Black box encapsulation → Cryptographic modules admitted as atomic tools
-  - **All cases:** Issue enhanced stiffness certificate $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$ and proceed to TopoCheck (Node 8)
+**Routing:**
+- **If Permit Granted ($K_{\mathrm{NPC}}^+$):**
+  - **Case 1:** Polynomial growth → RCD(K,D)
+  - **Case 2:** CAT(0) geometry → Hyperbolic/Euclidean/Higher-rank
+  - **Case 3:** Black box (small boundary) → Relative CAT(0)
+  - **Case 4:** Spectral rigidity ($K_{\mathrm{Spec}}^+$) → Arithmetic chaos
+  - **All cases:** Issue $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$, proceed to TopoCheck (Node 8)
 
-- **If Spectral Gap Fails ($K_{\mathrm{NPC}}^{\text{gap-}}$):** Route to BarrierGap or Restoration Subtree
+- **If Spectral Gap Fails:** Route to BarrierGap
 
-- **If Geometry Fails ($K_{\mathrm{NPC}}^{\text{geom-}}$):**
-  - Exponential growth + positive curvature (triangles fatter than Euclidean) + large boundary
-  - **Failure Mode:** Mode D.D (Dispersion - Unstructured Explosion)
-  - **Routing:** Route to Barrier or Surgery (system is chaotic thermal noise with no structure)
+- **If Geometry Fails ($K_{\mathrm{NPC}}^-$ and $K_{\mathrm{Spec}}^-$):**
+  - Positive curvature + large boundary + no spectral order
+  - **Reject:** Mode D.D (thermal noise)
 
 **Decidability:** $\Sigma_1^0$ (recursively enumerable). Both $\lambda_2$ and volume growth exponent can be computed via finite linear algebra and graph traversal.
 
 **Usage Mode:** This permit is checked **in parallel** with the standard Łojasiewicz-Simon inequality at Node 7. For discrete systems (Markov chains, graph neural networks, finite element methods), this is the **primary verification route** because it bypasses PDE analysis entirely while maintaining rigorous convergence guarantees.
 
-**Dataset Coverage (Millennium Prize + Logic/Algebra):**
-- **Logic (P vs NP):** Proof search trees are hyperbolic (CAT(0)) ✅
-- **Topology (Poincaré, Hodge):** Manifolds locally Euclidean (CAT(0)) ✅
-- **Analysis (Navier-Stokes):** Fluid flow local + polynomial (CAT(0)) ✅
-- **Elliptic Curves (BSD):** Abelian groups have polynomial growth (CAT(0)) ✅
-- **Algebra (Higher-Rank):** $\text{SL}(3,\mathbb{Z})$ admits CAT(0) (mixed κ=0) ✅ (**NEW**)
-
-The CAT(0) upgrade extends coverage from 85% to **~100% of the dataset** by admitting higher-rank lattices.
+**Dataset Coverage:**
+- **P vs NP:** CAT(0) (hyperbolic proof trees)
+- **Poincaré, Hodge:** CAT(0) (locally Euclidean manifolds)
+- **Navier-Stokes:** Polynomial growth
+- **BSD:** Polynomial growth (abelian groups)
+- **Higher-rank lattices:** CAT(0) ($\text{SL}(3,\mathbb{Z})$)
+- **Riemann Hypothesis:** $K_{\mathrm{Spec}}^+$ (GUE statistics, Selberg trace)
 
 **Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; CAT(0) geometry {cite}`BridsonHaefliger99`; Higher-rank rigidity {cite}`Margulis91`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`.
 
@@ -2650,6 +2648,70 @@ This ensures that any exponential growth in state volume corresponds to a **tree
 - **Reject:** Cryptographic expanders, high-temperature gases, random graphs (chaotic)
 
 **Literature:** Gromov's hyperbolic groups {cite}`Gromov87`; Hyperbolic geometry of networks {cite}`KleinbergLiben-Nowell02`; Concentration in hyperbolic spaces {cite}`LedouxTalagrand91`.
+
+:::
+
+---
+
+:::{prf:definition} Arithmetic Chaos and Spectral Rigidity
+:label: def-arithmetic-chaos
+
+**Purpose:** Distinguish **number-theoretic structures** (Riemann zeros, prime gaps) that exhibit local chaos but global spectral order from **true thermal noise** (random expanders).
+
+**Gaussian Unitary Ensemble (GUE):**
+
+For random $N \times N$ Hermitian matrices $H$ with probability measure $d\mu(H) \propto e^{-\frac{N}{2}\text{Tr}(H^2)} dH$, eigenvalues $\{\lambda_i\}$ exhibit **level repulsion**:
+
+$$P(\lambda_1, \ldots, \lambda_N) = \frac{1}{Z_N} \prod_{i<j} |\lambda_i - \lambda_j|^2 \cdot e^{-\frac{N}{2}\sum_i \lambda_i^2}$$
+
+**Key statistics:**
+- **Nearest-neighbor spacing:** $p(s) \sim s \cdot e^{-\frac{\pi}{4}s^2}$ (Wigner surmise; linear repulsion near $s=0$)
+- **Number variance:** $\Sigma^2(L) = \frac{2}{\pi^2} \log L + O(1)$ (logarithmic rigidity)
+
+**Montgomery-Dyson Conjecture:**
+
+Let $\rho = \frac{1}{2} + i\gamma$ denote nontrivial zeros of $\zeta(s)$, rescaled to unit mean spacing. Define the **pair correlation function**:
+
+$$R_2(r) = 1 - \left(\frac{\sin(\pi r)}{\pi r}\right)^2 + \delta(r)$$
+
+This matches GUE eigenvalue statistics. Equivalently, normalized zero spacings $\{t_n = \gamma_n \cdot \frac{\log \gamma_n}{2\pi}\}$ satisfy:
+
+$$\lim_{T \to \infty} \frac{1}{N(T)} \sum_{\gamma_n < T} f(t_{n+1} - t_n) = \int_0^\infty f(s) \cdot p_{\text{GUE}}(s) \, ds$$
+
+**Selberg Trace Formula:**
+
+For automorphic L-functions, the explicit formula relates primes $p^m$ to spectral data:
+
+$$\sum_{n} h(\gamma_n) = \frac{1}{2\pi} \int_{-\infty}^\infty h(r) \Phi(r) dr - \sum_{p^m} \frac{\log p}{p^{m/2}} g(m \log p) + \text{(boundary terms)}$$
+
+where $\gamma_n$ are imaginary parts of zeros, $h$ is a test function, and $\Phi$ is the scattering phase. This is the **trace formula**: arithmetic spectrum (primes) ↔ spectral data (zeros).
+
+**The Distinguishing Feature: Spectral Rigidity**
+
+**Definition (Structure Factor):** For a point process $\{x_n\}$ (e.g., Riemann zeros, prime gaps), the **structure factor** is the Fourier transform of the pair correlation function:
+$$S(k) = \left|\sum_{n} e^{2\pi i k x_n}\right|^2$$
+
+**Classification:**
+
+| System | Local Behavior | Structure Factor S(k) | Physical Meaning |
+|--------|----------------|----------------------|------------------|
+| **Thermal noise** | Uncorrelated | Flat (white noise) | No hidden order |
+| **Crypto/expander** | Pseudorandom | Nearly flat | Designed confusion |
+| **Arithmetic chaos** | GUE-like | **Sharp peaks** (Bragg resonances) | Hidden periodicity |
+| **Riemann zeros** | GUE local statistics | Peaks at reciprocal lengths | Selberg trace formula |
+
+**Key Observation:** Arithmetic chaos "sings in a specific key" - the structure factor has **delta-function peaks** corresponding to the spectrum of the underlying operator (Laplacian on fundamental domain, Hecke operators).
+
+**The Selberg Trace Formula Connection:**
+
+For the Riemann zeta function, the **explicit formula** relates prime powers to Riemann zeros:
+$$\psi(x) = x - \sum_\rho \frac{x^\rho}{\rho} - \log(2\pi) - \frac{1}{2}\log(1 - x^{-2})$$
+
+This is a **trace formula**: it expresses a sum over primes (arithmetic object) as a sum over zeros (spectral object). The structure factor of the zeros encodes this duality.
+
+**Physical Analogy:** Arithmetic chaos is like a **quasicrystal** - locally disordered (GUE) but with long-range correlations (Bragg peaks). Thermal noise is like a **liquid** - truly disordered at all scales.
+
+**Literature:** Montgomery-Dyson conjecture {cite}`Montgomery73`; Random Matrix Theory of zeta {cite}`KeatingSnaith00`; Selberg trace formula {cite}`Selberg56`; Spectral rigidity {cite}`Berry85`.
 
 :::
 
@@ -2742,6 +2804,75 @@ If $R$ is admitted as a black box:
 **Usage Context:** This permit is checked **within Step 2c of the Gromov Gate** (when $\delta \to \infty$ is detected). It provides a **final escape hatch** before rejection, allowing cryptographic and symbolic modules to be safely encapsulated.
 
 **Literature:** Information hiding in software engineering {cite}`Parnas72`; Module systems in programming languages {cite}`MacQueen84`; Abstraction barriers {cite}`AbelsonSussman96`.
+
+:::
+
+---
+
+:::{prf:definition} Permit $K_{\mathrm{Spec}}$ (Spectral Resonance - The Arithmetic Exception)
+:label: permit-spectral-resonance
+
+**Permit ID:** $K_{\mathrm{Spec}}$
+
+**Purpose:** Admit **arithmetic chaos** (Riemann zeros, prime gaps, L-functions) that exhibits expander-like local statistics but **hidden global spectral order**, distinguishing "the music of the primes" from true thermal noise.
+
+**Admission Condition:**
+
+A kernel with expander-like geometry (positive curvature, $\delta \to \infty$) that fails both CAT(0) and black box encapsulation is admitted as **arithmetic chaos** if its **structure factor** exhibits spectral rigidity:
+
+$$\exists \text{ sharp peaks: } \max_k S(k) > \eta \cdot \text{mean}(S(k))$$
+
+where:
+- $S(k) = |\sum_n e^{2\pi i k x_n}|^2$ is the structure factor (Fourier transform of pair correlation)
+- $\{x_n\}$ is the point process (e.g., Riemann zeros, prime gaps)
+- $\eta > 10$ is the peak prominence threshold (Bragg resonance detection)
+
+**Physical Interpretation:**
+
+The structure factor measures **long-range correlations**:
+- **Flat S(k) ~ const:** White noise (uncorrelated) → Thermal chaos → REJECT
+- **Nearly flat with dips:** Crypto/expander (anti-correlated by design) → REJECT
+- **Sharp peaks (Bragg):** Quasicrystalline order (hidden periodicity) → ACCEPT as arithmetic
+
+**Equivalently (Variance Test):** For GUE-like systems, check the **number variance**:
+$$\Sigma^2(L) = \langle (\text{\# zeros in interval of length } L)^2 \rangle - \langle \text{\# zeros} \rangle^2$$
+
+- **Thermal/Poisson:** $\Sigma^2(L) \sim L$ (uncorrelated)
+- **Arithmetic/GUE:** $\Sigma^2(L) \sim \log L$ (spectral rigidity, level repulsion)
+
+**Certificate Components:**
+- $S(k)$: Structure factor (Fourier spectrum)
+- Peak locations $\{k_i\}$: Correspond to reciprocal lengths of fundamental domains
+- Peak prominence $\eta$: Ratio of max peak to mean
+- $\Sigma^2(L)$ behavior: Logarithmic vs. linear growth
+
+**Routing:**
+- **If Permit Granted ($K_{\mathrm{Spec}}^+$):** Arithmetic chaos detected; proceed with number-theoretic analysis (Riemann, L-functions)
+- **If Permit Denied ($K_{\mathrm{Spec}}^-$):** True thermal noise; final REJECT as Mode D.D (Dispersion)
+
+**Decidability:** $\Sigma_2^0$ (requires computing infinite Fourier transform, but can be approximated via finite window with confidence bounds).
+
+**Usage Context:** This permit is checked **as Step 2d** (final check before rejection) when:
+1. Polynomial growth fails (exponential detected)
+2. CAT(0) fails (positive curvature)
+3. Black box encapsulation fails (large boundary)
+4. **Before final rejection:** Check structure factor for hidden order
+
+**Examples:**
+- **Riemann zeros on critical line:** GUE local + Bragg peaks → ACCEPT
+- **Prime gaps:** Locally irregular + spectral rigidity → ACCEPT
+- **L-function zeros:** Arithmetic chaos → ACCEPT
+- **Cryptographic PRNG output:** Flat structure factor → REJECT
+- **Thermal noise (Brownian):** Flat structure factor → REJECT
+
+**Operational Meaning:**
+
+If arithmetic chaos is detected:
+1. The agent **cannot use continuous geometric intuition** (expander topology)
+2. The agent **must use spectral/harmonic methods** (Fourier analysis, trace formulas)
+3. The "reasoning" shifts from **geometry** (CAT(0) geodesics) to **spectral theory** (eigenvalues, resonances)
+
+**Literature:** Montgomery-Dyson conjecture {cite}`Montgomery73`; GUE statistics of Riemann zeros {cite}`Odlyzko87`; Spectral rigidity and number variance {cite}`Berry85`; Selberg trace formula {cite}`Selberg56`; Random Matrix Theory {cite}`MehtaRMT04`.
 
 :::
 
