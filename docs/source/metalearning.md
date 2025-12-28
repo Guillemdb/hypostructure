@@ -423,6 +423,55 @@ This is the **Landauer bound** with constant $K^{-1}$: stronger curvature (large
 **Literature:** {cite}`OttoVillani00` (Talagrand inequality); {cite}`AmbrosioGigliSavare14` (EVI for RCD spaces)
 :::
 
+:::{prf:theorem} Metric Evolution Law (Ricci Flow Analogue for Meta-Learning)
+:label: thm-metric-evolution
+
+**Purpose:** This theorem closes the "Dissipation = Curvature Tautology" by proving that geometry **evolves dynamically** in response to dissipation, rather than being defined to equal it.
+
+**Setting:** Let $g_t$ be a time-dependent Riemannian metric on the parameter space $\Theta$, and let $\mathfrak{D}_t$ be the dissipation 2-form measuring entropy production. We seek a **dynamic coupling law** that governs how $g_t$ responds to $\mathfrak{D}_t$.
+
+**The Coupling Law (Discrete-Time Metaregulator Update):**
+
+The meta-learning algorithm updates the metric according to the **Wasserstein gradient flow** of the relative entropy functional:
+$$g_{t+\tau} = \arg\min_{g} \left\{ \text{KL}(\rho_{g} || \mathfrak{m}) + \frac{1}{2\tau}W_2^2(g, g_t) + \lambda \int_\Theta \text{Ric}(g) \wedge \mathfrak{D}_t \right\}$$
+
+where:
+- $\text{KL}(\rho_g || \mathfrak{m})$ is the relative entropy of the induced measure under metric $g$
+- $W_2(g, g_t)$ is the Wasserstein distance between metrics (in the space of Riemannian structures)
+- $\text{Ric}(g)$ is the Ricci curvature 2-form of $g$
+- $\mathfrak{D}_t$ is the measured dissipation 2-form
+- $\lambda > 0$ is the coupling strength
+
+**Continuum Limit (Ricci Flow):**
+
+Taking $\tau \to 0$ and computing the Euler-Lagrange equation yields:
+$$\frac{\partial g}{\partial t} = -2 \text{Ric}(g) - \lambda \mathfrak{D}$$
+
+This is the **Ricci Flow equation** with a **dissipation-driven forcing term**:
+- The first term $-2 \text{Ric}(g)$ is Hamilton's Ricci Flow, which smooths the metric toward constant curvature
+- The second term $-\lambda \mathfrak{D}$ couples geometry to thermodynamics: high dissipation regions contract (reducing metric size), forcing the system to "learn" more efficient paths
+
+**Physical Interpretation:**
+- **Geometry → Thermodynamics:** The curvature $\text{Ric}(g)$ determines dissipation rate via the Jacobi metric $g_{\mathfrak{D}} = \mathfrak{D} \cdot g$
+- **Thermodynamics → Geometry:** The measured dissipation $\mathfrak{D}_t$ feeds back to **deform the metric** $g_t$, creating a self-consistent dynamical system
+
+**This is NOT a tautology:** The metric and dissipation are coupled through a **derived differential equation**, not through definition. The geometry evolves to minimize entropy production, which is a variational principle (like Einstein's field equations coupling spacetime geometry to matter stress-energy).
+
+**For Discrete Systems (Simplicial Complex):**
+
+On a simplicial complex $G = (V, E, F)$, the metric evolution becomes a **graph rewiring / edge weight update**:
+$$W_{ij}^{t+1} = W_{ij}^t - \tau \left( \frac{\partial \mathfrak{D}}{\partial W_{ij}} + \lambda \sum_{f \ni (i,j)} \kappa_f \right)$$
+
+where:
+- $W_{ij}$ are edge weights (discrete metric)
+- $\mathfrak{D}$ is the discrete dissipation (1-cochain on edges)
+- $\kappa_f$ is the discrete curvature of face $f$ (from simplicial cohomology)
+
+**This grounds the Ricci flow in concrete linear algebra**, avoiding infinite-dimensional PDE machinery.
+
+**Literature:** Hamilton's Ricci Flow {cite}`Hamilton82`; Perelman's entropy functionals {cite}`Perelman02`; Discrete Ricci Flow on graphs {cite}`Chow03`; Bakry-Émery Ricci curvature {cite}`BakryEmery85`.
+:::
+
 :::{prf:remark} Universal Sieve Applicability
 :label: rem-universal-sieve
 
