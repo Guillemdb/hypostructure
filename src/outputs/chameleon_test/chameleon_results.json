@@ -1,0 +1,27 @@
+{
+  "physicist": {
+    "agent": "Physicist",
+    "position_error": 45.46531677246094,
+    "position_r2": 0.0006522805545538003,
+    "temporal_smoothness": 0.017972368746995926,
+    "snr_improvement": 0.9967882043977588,
+    "error_window_1": 45.46531677246094,
+    "error_window_5": 45.530250549316406,
+    "error_window_10": 45.611812591552734,
+    "error_window_20": 45.77324295043945
+  },
+  "baseline": {
+    "agent": "Baseline",
+    "position_error": 46.37049102783203,
+    "position_r2": 0,
+    "temporal_smoothness": 0.0,
+    "snr_improvement": 1.0000418749548035,
+    "error_window_1": 46.37049102783203,
+    "error_window_5": 46.369625091552734,
+    "error_window_10": 46.36854934692383,
+    "error_window_20": 46.366397857666016
+  },
+  "physicist_wins": 5,
+  "baseline_wins": 2,
+  "snr": 1.4999999999999998
+}

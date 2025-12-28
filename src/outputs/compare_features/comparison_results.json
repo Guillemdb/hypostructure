@@ -1,0 +1,41 @@
+{
+  "Baseline": {
+    "eval": {
+      "stability_visible": 0.3507143259048462,
+      "stability_tunnel": 0.301330029964447,
+      "pos_error": 37.70867156982422,
+      "pos_error_visible": 37.038394927978516,
+      "pos_error_tunnel": 39.155059814453125
+    },
+    "num_params": 1962029,
+    "final_train_loss": 25.902641932169598,
+    "final_val_loss": 17.464599609375,
+    "final_closure_ratio": -428.3718564777506
+  },
+  "Physicist": {
+    "eval": {
+      "stability_visible": 0.47590649127960205,
+      "stability_tunnel": 0.47543439269065857,
+      "pos_error": 33.86232376098633,
+      "pos_error_visible": 33.95217514038086,
+      "pos_error_tunnel": 33.66842269897461
+    },
+    "num_params": 1938317,
+    "final_train_loss": 0.09908919284741084,
+    "final_val_loss": 0.09891758859157562,
+    "final_closure_ratio": -0.16636391025680974
+  },
+  "Physicist+": {
+    "eval": {
+      "stability_visible": 0.9498990774154663,
+      "stability_tunnel": 0.7599859833717346,
+      "pos_error": 47.22882843017578,
+      "pos_error_visible": 46.62196731567383,
+      "pos_error_tunnel": 48.5383415222168
+    },
+    "num_params": 2176408,
+    "final_train_loss": 1.5589678088823955,
+    "final_val_loss": 0.26141488552093506,
+    "final_closure_ratio": -1.2581234494003954
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "physicist": {
+    "agent": "Physicist",
+    "smoothness_visible": 0.24448207020759583,
+    "smoothness_occluded": 0.20724093914031982,
+    "smoothness_ratio": 0.8476733650216001,
+    "r2_visible": 0.5740086216275273,
+    "r2_occluded": 0.03407113999571809,
+    "r2_ratio": 0.05935649520230859,
+    "reemergence_error": 0.02493119053542614,
+    "num_occlusion_frames": 698,
+    "num_reemergence_events": 342
+  },
+  "baseline": {
+    "agent": "Baseline",
+    "smoothness_visible": 0.48180797696113586,
+    "smoothness_occluded": 1.1812034845352173,
+    "smoothness_ratio": 2.451606326622726,
+    "r2_visible": 0.044581650422546915,
+    "r2_occluded": 0.006494239295745052,
+    "r2_ratio": 0.14567067917388335,
+    "reemergence_error": 0.1019749566912651,
+    "num_occlusion_frames": 710,
+    "num_reemergence_events": 352
+  },
+  "physicist_wins": 6,
+  "baseline_wins": 1,
+  "verdict": "PHYSICIST ACHIEVES OBJECT PERMANENCE"
+}
