@@ -2456,21 +2456,34 @@ The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
    - **If δ-hyperbolic:** PASS (structured expansion like hierarchical reasoning trees; LSI holds in hyperbolic spaces).
    - **Physical Interpretation:** Exponential volume growth in hyperbolic space is **intrinsic to the geometry**, not a density explosion. The density $\rho = \frac{\text{mass}}{\text{Vol}}$ remains bounded because both numerator and denominator grow exponentially at the same rate.
 
-   **Step 2c: Reject Expander Graphs (Thermal Noise)**
+   **Step 2c: Black Box Encapsulation or Rejection (The Cryptography Escape Hatch)**
 
-   If both polynomial growth and δ-hyperbolicity fail:
-   - **Failure Mode:** Expander graph (exponential growth + $\delta \to \infty$)
-   - **Routing:** Route to Barrier or Surgery (Mode D.D: Dispersion/Unstructured Explosion)
+   If both polynomial growth and δ-hyperbolicity fail (expander detected: exponential growth + $\delta \to \infty$), check whether the expander can be **encapsulated as an opaque black box** (Permit $K_{\mathrm{Box}}$, Definition {prf:ref}`permit-opaque-encapsulation`):
 
-**Why This 3-Way Check Is Necessary:**
+   $$\frac{|\partial R|}{\text{Vol}(R)} \leq \epsilon_{\text{boundary}}$$
+
+   where $\partial R$ is the boundary (interface vertices) and $\text{Vol}(R)$ is the internal volume.
+
+   - **If small boundary (atomic module):** PASS with **relative hyperbolicity** (Definition {prf:ref}`def-relative-hyperbolicity`)
+     - **Examples:** Cryptographic functions (AES, SHA-256), compiled libraries, SAT solvers
+     - **Operational:** Collapse the expander region to a single black box node; the quotient reasoning graph remains hyperbolic
+     - **Physical Interpretation:** The agent **cannot simulate the internals** (expander is unlearnable via continuous intuition) but **can use it as a tool** (symbolic abstraction)
+
+   - **If large boundary (hairball):** REJECT as Mode D.D (Dispersion/Unstructured Explosion)
+     - **Examples:** Thermal noise, random graphs, high-temperature gases
+     - **Failure Mode:** True chaos with no encapsulation boundary; not a black box module
+
+**Why This Cascading 4-Way Check Is Necessary:**
 
 - **Spectral Gap Alone Is Insufficient:** Expander graphs, hyperbolic spaces, AND Euclidean spaces can all have spectral gaps. Spectral gap measures mixing, not geometry.
 
-- **Polynomial Growth (Step 2a):** Ensures finite Hausdorff dimension for Euclidean-like spaces (standard RCD theory).
+- **Polynomial Growth (Step 2a):** Ensures finite Hausdorff dimension for Euclidean-like spaces (standard RCD theory). **Examples:** Image grids, low-dimensional physics.
 
-- **Gromov Hyperbolicity (Step 2b):** Admits **Language Models** and **Reasoning Systems** whose latent spaces are naturally tree-like (hierarchical embeddings, causal attention graphs). These exhibit exponential volume growth but are NOT chaotic—they have **negative curvature** and concentration of measure still holds.
+- **Gromov Hyperbolicity (Step 2b):** Admits **Language Models** and **Reasoning Systems** whose latent spaces are naturally tree-like (hierarchical embeddings, causal attention graphs). These exhibit exponential volume growth but are NOT chaotic—they have **negative curvature** and concentration of measure still holds. **Examples:** Causal DAGs, reasoning trees, WordNet.
 
-- **Expander Rejection (Step 2c):** Rejects random/thermal systems (high-temperature gases, cryptographic expanders) that have no geometric structure.
+- **Black Box Encapsulation (Step 2c):** Admits **Cryptographic and Symbolic Modules** as atomic black boxes, provided they have small interfaces relative to internal complexity. This captures the **Simulation vs. Abstraction** distinction: the agent cannot learn AES bit-by-bit (expander → unlearnable) but can use AES as a function (collapse to single node → tool). **Examples:** AES, SHA-256, SAT solvers, compiled libraries.
+
+- **Final Rejection (Step 2c fallback):** Rejects true random/thermal systems (high-temperature gases, expander hairballs with large boundaries) that have neither hyperbolic structure nor encapsulation boundaries. **Examples:** Thermal noise, cryptographic expanders used for wrong purpose (trying to simulate internally instead of using as tool).
 
 **Certificate Components:**
 - $\lambda_2 > 0$: Second eigenvalue of graph Laplacian
@@ -2572,6 +2585,98 @@ This ensures that any exponential growth in state volume corresponds to a **tree
 
 ---
 
+:::{prf:definition} Relative Hyperbolicity (Hyperbolic Modulo Black Boxes)
+:label: def-relative-hyperbolicity
+
+**Purpose:** Extend hyperbolicity to systems containing **opaque encapsulated modules** (cryptographic functions, compiled binaries, symbolic oracles) that internally violate geometric structure but have small interfaces.
+
+**Motivation (The Cryptography Problem):**
+
+Cryptographic functions (AES, SHA-256, RSA) are **intentionally designed as expander graphs**:
+- **Goal:** Maximize confusion and diffusion (structured input → indistinguishable from random noise)
+- **Geometry:** Optimal expander with massive spectral gap + exponential volume growth
+- **Sieve Reaction:** Node 7c detects exponential growth + $\delta \to \infty$ → REJECT as Mode D.D (Dispersion)
+
+**But this is correct!** Cryptography **should not be learnable via continuous intuition**. The Sieve is telling the agent: *"You cannot use geometric reasoning here. You must use symbolic abstraction."*
+
+**The Fix:** A space $X$ is **hyperbolic relative to a collection of subspaces** $\{R_1, \ldots, R_k\}$ if:
+
+1. Each subspace $R_i \subset X$ may violate $\delta$-hyperbolicity (internal expander structure)
+2. The **quotient space** $X / \{R_1, \ldots, R_k\}$ (collapsing each $R_i$ to a single point) is $\delta$-hyperbolic
+3. Each $R_i$ has **small boundary** relative to its volume:
+   $$\frac{|\partial R_i|}{\text{Vol}(R_i)} \leq \epsilon_{\text{boundary}}$$
+
+**Geometric Interpretation:**
+
+- **$X$:** The full reasoning graph (including crypto operations)
+- **$R_i$:** A cryptographic subroutine (e.g., AES block, hash function)
+- **Condition:** If you treat each $R_i$ as an **atomic black box node**, the resulting abstracted graph is tree-like (hyperbolic)
+
+**Example:**
+
+- **Agent tries to simulate AES bit-by-bit:** The internal state graph is a 128-dimensional expander. $\delta \to \infty$. **REJECT.**
+- **Agent uses AES as a function:** The reasoning graph is `input → AES(key, plaintext) → output`, with AES as a single node. The logic using AES forms a DAG (tree-like). **ACCEPT** (encapsulate AES as $R_1$).
+
+**Literature:** Relatively hyperbolic groups {cite}`Farb98`; Bowditch's boundary theory {cite}`Bowditch12`; Hyperbolic dehn filling {cite}`Thurston86`.
+
+:::
+
+---
+
+:::{prf:definition} Permit $K_{\mathrm{Box}}$ (Opaque Encapsulation)
+:label: permit-opaque-encapsulation
+
+**Permit ID:** $K_{\mathrm{Box}}$
+
+**Purpose:** Admit **expander-like subregions** (cryptography, compiled code, oracles) as **black box atomic modules**, provided they have small interfaces relative to internal complexity.
+
+**Admission Condition:**
+
+Let $R \subset X$ be a subregion of the state space that violates $\delta$-hyperbolicity ($\delta_{\text{Gromov}}(R) > \epsilon \cdot \text{diam}(R)$, i.e., it's an expander). The region $R$ is admitted as a **black box** if:
+
+$$\frac{|\partial R|}{\text{Vol}(R)} \leq \epsilon_{\text{boundary}}$$
+
+where:
+- $\partial R$ is the **boundary** (interface vertices: nodes with edges connecting $R$ to $X \setminus R$)
+- $\text{Vol}(R) = |R|$ is the volume (number of vertices in $R$)
+- $\epsilon_{\text{boundary}}$ is the encapsulation tolerance (typically $\epsilon_{\text{boundary}} \sim 0.01$ to $0.05$)
+
+**Physical Interpretation:**
+
+The **boundary-to-volume ratio** measures how "atomic" the module is:
+- **Small ratio ($\ll 1$):** The module has a **small interface** (few input/output ports) relative to **high internal complexity**. This is characteristic of:
+  - Cryptographic primitives (AES: 2 inputs, 1 output; internal state: $2^{128}$)
+  - Compiled libraries (API: few functions; internal code: millions of instructions)
+  - Symbolic oracles (SAT solver: formula in/out; internal search: exponential)
+
+- **Large ratio ($\sim 1$):** The module is not encapsulated—it's a highly connected "hairball" (rejected as thermal noise).
+
+**Operational Meaning:**
+
+If $R$ is admitted as a black box:
+1. The agent **collapses $R$ to a single atomic node** $\boxed{R}$ in the abstracted reasoning graph
+2. The agent **does not attempt to simulate the internals** of $R$ (this would fail—expander graphs are unlearnable via geometric intuition)
+3. The agent **treats $R$ as a symbolic tool** with a known interface (input/output signature)
+
+**Routing:**
+- **If Permit Granted ($K_{\mathrm{Box}}^+$):** Encapsulate $R$ as black box; re-run Gromov check on quotient space $X / \{R\}$
+- **If Permit Denied ($K_{\mathrm{Box}}^-$):** Not atomic (large boundary/volume ratio); route to Mode D.D (Dispersion)
+
+**Certificate Components:**
+- $|\partial R|$: Boundary size (number of interface vertices)
+- $\text{Vol}(R)$: Internal volume (number of internal vertices)
+- $\epsilon_{\text{boundary}}$: Encapsulation threshold
+
+**Decidability:** $\Sigma_1^0$ (recursively enumerable). Boundary computation is graph traversal.
+
+**Usage Context:** This permit is checked **within Step 2c of the Gromov Gate** (when $\delta \to \infty$ is detected). It provides a **final escape hatch** before rejection, allowing cryptographic and symbolic modules to be safely encapsulated.
+
+**Literature:** Information hiding in software engineering {cite}`Parnas72`; Module systems in programming languages {cite}`MacQueen84`; Abstraction barriers {cite}`AbelsonSussman96`.
+
+:::
+
+---
+
 :::{admonition} Implementation: Monte Carlo δ-Hyperbolicity Estimation
 :class: dropdown
 
@@ -2624,9 +2729,32 @@ def compute_gromov_delta(distance_matrix, num_samples=100):
     return delta_est
 ```
 
-**Integration into Sieve:**
+**Integration into Sieve (with Relative Hyperbolicity):**
 
 ```python
+def is_atomic_module(subgraph, boundary_threshold=0.05):
+    """
+    Check if an expander subgraph can be encapsulated as a black box.
+
+    Args:
+        subgraph: NetworkX graph or adjacency matrix of the candidate module
+        boundary_threshold: Maximum allowed boundary/volume ratio
+
+    Returns:
+        (is_atomic, boundary_ratio): Tuple of bool and float
+    """
+    # Count internal vertices
+    volume = len(subgraph.nodes())
+
+    # Count boundary vertices (nodes with external edges)
+    boundary = sum(1 for node in subgraph.nodes()
+                   if any(neighbor not in subgraph.nodes()
+                         for neighbor in subgraph.neighbors(node)))
+
+    boundary_ratio = boundary / volume if volume > 0 else float('inf')
+
+    return (boundary_ratio <= boundary_threshold, boundary_ratio)
+
 # Within Node 7 (StiffnessCheck) after volume growth estimation
 volume_growth_rate = estimate_volume_growth(graph)
 
@@ -2639,12 +2767,39 @@ elif volume_growth_rate > polynomial_threshold:
     delta_est = compute_gromov_delta(distance_matrix, num_samples=100)
     diameter = distance_matrix.max().item()
 
-    if delta_est < epsilon * diameter:
+    if delta_est < epsilon_structure * diameter:
         # Hyperbolic structure detected → PASS
         return Certificate(LSI_PLUS, geometry="hyperbolic", delta=delta_est)
     else:
-        # Step 2c: Expander graph → REJECT
-        return Certificate(LSI_GEOM_MINUS, failure_mode="expander")
+        # Step 2c: Expander detected → Check for atomic encapsulation
+        is_atomic, boundary_ratio = is_atomic_module(graph, boundary_threshold=0.05)
+
+        if is_atomic:
+            # Black box encapsulation → Collapse to single node and re-check
+            # (In practice: replace subgraph with atomic token in reasoning graph)
+            quotient_graph = collapse_to_blackbox(graph)
+            delta_quotient = compute_gromov_delta(
+                quotient_graph.distance_matrix, num_samples=100
+            )
+
+            if delta_quotient < epsilon_structure * quotient_graph.diameter():
+                # Relatively hyperbolic → PASS
+                return Certificate(
+                    LSI_PLUS,
+                    geometry="relative_hyperbolic",
+                    blackboxes=[graph],
+                    boundary_ratio=boundary_ratio
+                )
+            else:
+                # Quotient still non-hyperbolic → REJECT
+                return Certificate(LSI_GEOM_MINUS, failure_mode="nested_expanders")
+        else:
+            # Not atomic (large boundary) → True thermal noise/chaos
+            return Certificate(
+                LSI_GEOM_MINUS,
+                failure_mode="expander_hairball",
+                boundary_ratio=boundary_ratio
+            )
 ```
 
 **Complexity:** $O(k)$ for $k$ samples, typically $k = 100$ suffices for $10^{-2}$ accuracy.
