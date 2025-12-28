@@ -2320,7 +2320,7 @@ Then $X$ is $\delta$-hyperbolic if $\delta_{\text{Gromov}}(X) < \infty$.
 
 **The Limitation of CAT(0):**
 
-CAT(0) (non-positive curvature) admits hyperbolic and higher-rank lattices but **rejects Sol geometry** (solvable Lie group with mixed positive/negative curvature). Sol appears in 3-manifold decompositions (Thurston geometries) and is essential for the Poincaré conjecture.
+CAT(0) (non-positive curvature) admits hyperbolic and higher-rank lattices but **rejects Sol geometry** (solvable Lie group with mixed positive/negative curvature). Sol appears in 3-manifold decompositions (Thurston geometries) and is essential for geometrization theorems.
 
 **Asymptotic Cone Classification:**
 
@@ -2366,9 +2366,9 @@ REJECT if $\dim(\text{Cone}_\omega(G)) = \infty$ (expander; no coarse geometric 
 :::{prf:definition} Sol Geometry and Thurston's 8 Geometries
 :label: def-sol-geometry
 
-**Purpose:** Classify 3-manifolds appearing in the Poincaré conjecture and geometrization theorem.
+**Purpose:** Classify 3-manifolds via geometric structures.
 
-**Thurston's Geometrization Conjecture:** Every closed 3-manifold decomposes into pieces, each admitting one of 8 geometric structures:
+**Thurston's Classification:** Every closed 3-manifold decomposes into pieces, each admitting one of 8 geometric structures:
 
 | Geometry | Curvature | Growth | $\dim(\text{Cone})$ | Admitted by Tits? |
 |----------|-----------|--------|---------------------|-------------------|
@@ -2397,7 +2397,7 @@ $$\text{Sol} = \left\{\begin{pmatrix} e^t & 0 & x \\ 0 & e^{-t} & y \\ 0 & 0 & 1
 - Finite-dimensional asymptotic cone (structured large-scale geometry)
 - Spectral gap from solvability (algebraic constraint)
 
-**Critical for Poincaré:** Sol fibers appear in Ricci Flow singularities during 3-manifold surgery. Rejecting Sol would invalidate the geometrization proof.
+**Critical for geometrization:** Sol fibers appear in Ricci Flow singularities during 3-manifold surgery. Rejecting Sol would invalidate completeness of the classification.
 
 **Literature:** Thurston geometries {cite}`Thurston97`; Sol geometry {cite}`Scott83`; Geometrization {cite}`PerelmanI02`.
 
@@ -2618,14 +2618,14 @@ The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
 
 **Usage Mode:** This permit is checked **in parallel** with the standard Łojasiewicz-Simon inequality at Node 7. For discrete systems (Markov chains, graph neural networks, finite element methods), this is the **primary verification route** because it bypasses PDE analysis entirely while maintaining rigorous convergence guarantees.
 
-**Dataset Coverage:**
-- **P vs NP:** $\dim(\text{Cone}) = 1$ (hyperbolic proof trees)
-- **Poincaré Conjecture:** $\dim(\text{Cone}) < \infty$ (Thurston geometries: $S^3$, $\mathbb{E}^3$, $\mathbb{H}^3$, Sol)
-- **Hodge:** Polynomial (locally Euclidean manifolds)
-- **Navier-Stokes:** Polynomial (local PDE)
-- **BSD:** Polynomial (abelian groups)
-- **Yang-Mills, Mass Gap:** $\dim(\text{Cone}) < \infty$ ($\text{SL}(3,\mathbb{Z})$, gauge groups)
-- **Riemann Hypothesis:** $K_{\mathrm{Spec}}^+$ (GUE, Selberg trace)
+**Domain Coverage:**
+- **Computational complexity:** $\dim(\text{Cone}) = 1$ (hyperbolic proof trees)
+- **3-manifold topology:** $\dim(\text{Cone}) < \infty$ (Thurston geometries: $S^3$, $\mathbb{E}^3$, $\mathbb{H}^3$, Sol)
+- **Algebraic geometry:** Polynomial (locally Euclidean)
+- **Parabolic PDEs:** Polynomial (local evolution)
+- **Abelian varieties:** Polynomial (group structure)
+- **Gauge theory:** $\dim(\text{Cone}) < \infty$ ($\text{SL}(3,\mathbb{Z})$, Lie groups)
+- **Analytic number theory:** $K_{\mathrm{Spec}}^+$ (GUE, trace formulas)
 
 **Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; Tits alternative {cite}`Tits72`; Asymptotic cones {cite}`Gromov93`; Sol geometry and Thurston geometries {cite}`Thurston97`; Higher-rank rigidity {cite}`Margulis91`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`; Geometric group theory {cite}`BridsonHaefliger99`.
 
