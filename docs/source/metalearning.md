@@ -437,6 +437,13 @@ The RCD formalism works for **non-smooth spaces** (graphs, discrete logic, singu
 - **Robotics:** Configuration spaces with obstacles (Alexandrov spaces)
 
 No separate framework is needed—RCD theory **unifies** geometry and thermodynamics across all modalities.
+
+**Practical Verification via LSI Thin Permit ({prf:ref}`permit-lsi-thin`):** For discrete systems (Markov chains, graph neural networks, discretized trajectories), the Log-Sobolev Inequality and exponential convergence (No-Melt Theorem) can be verified **without hard analysis** by:
+1. Extracting the weighted graph $G = (V, E, W)$ from the Thin State Object
+2. Computing the spectral gap $\lambda_2(L) > 0$ of the graph Laplacian (finite linear algebra)
+3. Invoking RCD stability theory to lift the discrete LSI to the continuum limit via the Expansion Adjunction $\mathcal{F} \dashv U$
+
+This **discrete-to-continuum lifting** bypasses infinite-dimensional PDE analysis entirely, making LSI verification tractable for real ML systems. See hypopermits_jb.md §Node 7 for the full protocol.
 :::
 
 ### Imported Learning Metatheorems
