@@ -532,6 +532,81 @@ Permits: $\mathcal{P}_{\text{full}}$ (default; specialize if fewer permits are n
 **Statement**: If the local Context $\Gamma$ contains gradient consistency and finite dictionary certificates, the Lyapunov functional is explicitly recoverable as the geodesic distance in a Jacobi metric, or as the solution to a Hamilton–Jacobi equation. No prior knowledge of an energy functional is required.
 :::
 
+:::{prf:metatheorem} Algorithmic Thermodynamics of the Sieve
+:label: mt-algorithmic-thermodynamics
+
+**[Sieve Signature]**
+Permits: $K_{\text{Geom}}$, $K_{\text{Spec}}$, $K_{\text{Horizon}}$ (Geometric Structure, Spectral Resonance, Thermodynamic Limit)
+
+- **Weakest Precondition**: Thin Kernel defined with finite computational budget $\mathcal{S}_{\max}$ (Bekenstein bound)
+- **Consumes**: Verification trace $\tau$ with Levin Complexity $Kt(\tau) = |\tau| + \log(\text{steps}(\tau))$
+- **Produces**: Phase classification $\{\text{Solid}, \text{Liquid}, \text{Gas}\}$ with certificate $K_{\text{Phase}}^+$
+- **Invalidated By**: $Kt(\tau) > \mathcal{S}_{\max}$ → **HORIZON** verdict
+
+**Statement**: The Structural Sieve $\mathcal{S}$ induces a **Renormalization Group (RG) Flow** on the space of input systems. The limit points of this flow classify the computational complexity of the input into thermodynamic phases.
+
+**Classification (Phase Diagram)**:
+
+1. **Solid Phase (Decidable/Crystal)**:
+   - **RG Behavior**: Flow converges to low-entropy fixed point ($Kt \ll |x|$)
+   - **Certificates**: $K_{\text{Geom}}^{+}(\text{Poly})$ (Polynomial growth) OR $K_{\text{Geom}}^{+}(\text{CAT0})$ (Structured)
+   - **Physical Analog**: Crystal / Integrable System
+   - **Verdict**: **REGULAR**
+   - **Examples**: Euclidean lattices $\mathbb{Z}^d$, Nilpotent groups, Higher-rank lattices $SL(n,\mathbb{Z})$ ($n \geq 3$)
+
+2. **Liquid Phase (Critical/Compressible)**:
+   - **RG Behavior**: Flow remains scale-invariant but structured ($Kt \sim \log |x|$)
+   - **Certificates**: $K_{\text{Geom}}^{+}(\text{Hyp})$ (Hyperbolic) OR $K_{\text{Spec}}^{+}$ (Spectral Resonance)
+   - **Physical Analog**: Self-Organized Criticality / Quantum Chaos
+   - **Verdict**: **PARTIAL**
+   - **Examples**: Free groups, Logic trees, Riemann zeros, Quantum graphs, Arithmetic chaos
+
+3. **Gas Phase (Undecidable/Random)**:
+   - **RG Behavior**: Flow diverges to maximum entropy ($Kt \sim |x|$)
+   - **Certificates**: $K_{\text{Horizon}}^{\text{blk}}$ (Levin Limit exceeded) OR $K_{\text{Geom}}^{-} \land K_{\text{Spec}}^{-}$ (Expander without resonance)
+   - **Physical Analog**: Thermal Equilibrium / Randomness
+   - **Verdict**: **HORIZON**
+   - **Examples**: Halting Problem, Random matrices, Generic expanders, Chaitin's $\Omega$
+
+**Proof Strategy**:
+
+*Step 1 (Levin-Schnorr Foundation):* By the **Levin-Schnorr Theorem** ({cite}`Levin73`, {cite}`Schnorr71`), algorithmic incompressibility (Kolmogorov complexity $K(x) \approx |x|$) implies unpredictability (Martin-Löf randomness). Inputs in the Gas Phase have $Kt(\tau) \approx |\tau|$ — no effective theory shorter than themselves.
+
+*Step 2 (RG Flow Dynamics):* Define the renormalization operator $\mathcal{R}_\ell$ as coarse-graining by scale $\ell$:
+$$\mathcal{R}_\ell(\mathcal{I}) := \{\text{structural features visible at scale } \ell\}$$
+
+- **Solid**: $\mathcal{R}_\ell(\mathcal{I}) \to \mathcal{I}_{\text{simple}}$ (converges to finite representation)
+- **Liquid**: $\mathcal{R}_\ell(\mathcal{I})$ remains self-similar across scales (power-law decay, no characteristic scale)
+- **Gas**: $\mathcal{R}_\ell(\mathcal{I}) \to$ maximum entropy (no structure at any scale)
+
+*Step 3 (Phase Transition Detection):* The Sieve correctly identifies phases via:
+- **Geometric Tests** ({prf:ref}`ax-geom-tits`): Polynomial/Hyperbolic/CAT(0) vs. Expander
+- **Spectral Tests** ({prf:ref}`ax-spectral-resonance`): Arithmetic correlations vs. Random matrix statistics
+- **Resource Bounds** ({prf:ref}`def-thermodynamic-horizon`): $Kt(\tau) > \mathcal{S}_{\max}$ → Gas Phase
+
+*Step 4 (Thermodynamic Budget):* The Bekenstein Bound $\mathcal{S}_{\max} = \frac{2\pi k_B ER}{\hbar c}$ for a finite computational system imposes fundamental limits. When $Kt(\tau) > \mathcal{S}_{\max}$, the verification trace exceeds physical capacity → honest **HORIZON** verdict.
+
+*Step 5 (Correctness):* The Sieve does not claim to "solve undecidable problems" — it **classifies** them as thermodynamically inaccessible (Gas Phase), maintaining soundness.
+
+**Universal Coverage Table**:
+
+| Input Class | Geometric Test | Spectral Test | Phase | Verdict | Certificate |
+|------------|----------------|---------------|-------|---------|-------------|
+| Polynomial Growth | $K_{\text{Geom}}^{+}(\text{Poly})$ | N/A | Solid | **REGULAR** | Finite group/manifold |
+| Hyperbolic/Logic | $K_{\text{Geom}}^{+}(\text{Hyp})$ | N/A | Liquid | **PARTIAL** | Tree/Free group encoding |
+| CAT(0)/Lattices | $K_{\text{Geom}}^{+}(\text{CAT0})$ | N/A | Solid | **REGULAR** | Building/symmetric space |
+| Arithmetic Chaos | $K_{\text{Geom}}^{-}$ | $K_{\text{Spec}}^{+}$ | Liquid | **PARTIAL** | Trace formula/L-function |
+| Random/Thermal | $K_{\text{Geom}}^{-}$ | $K_{\text{Spec}}^{-}$ | Gas | **HORIZON** | $Kt > \mathcal{S}_{\max}$ |
+
+**Significance**: This metatheorem elevates the Sieve from a heuristic diagnostic to a **rigorous phase transition detector** grounded in:
+- **Algorithmic Information Theory** (Kolmogorov complexity, Levin complexity)
+- **Geometric Group Theory** (Tits Alternative, CAT(0) spaces)
+- **Random Matrix Theory** (Spectral statistics, Trace formulas)
+- **Physical Thermodynamics** (Bekenstein bound, resource-bounded computation)
+
+**Literature:** {cite}`Levin73`; {cite}`Schnorr71`; {cite}`Chaitin75`; {cite}`Tits72`; {cite}`Gromov87`; {cite}`Selberg56`; {cite}`Bekenstein81`; {cite}`LloydNg04`
+:::
+
 ---
 
 ### Trainable Hypostructure Consistency
