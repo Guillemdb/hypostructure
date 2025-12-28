@@ -2313,82 +2313,128 @@ Then $X$ is $\delta$-hyperbolic if $\delta_{\text{Gromov}}(X) < \infty$.
 
 :::
 
-:::{prf:definition} CAT(0) Spaces (Non-Positive Curvature)
-:label: def-cat0-spaces
+:::{prf:definition} Asymptotic Cone and Tits Alternative
+:label: def-asymptotic-cone
 
-**Purpose:** Generalize δ-hyperbolicity to admit **higher-rank algebraic structures** (matrix groups, lattices) while still rejecting chaotic expanders.
+**Purpose:** Classify exponential growth geometries into **structured** (algebraic/hyperbolic) vs **chaotic** (expanders) via large-scale geometry.
 
-**The Algebra Problem with Strict Hyperbolicity:**
+**The Limitation of CAT(0):**
 
-Higher-rank lattices like $\text{SL}(3, \mathbb{Z})$ (3×3 integer matrices with determinant 1) have:
-- **Exponential growth:** Number of elements grows as $\sim k^r$ (fails polynomial check)
-- **Flat subgroups:** Commuting matrices form $\mathbb{Z}^2$ grids (Euclidean planes)
-- **Gromov δ → ∞:** Triangles containing these flat planes are "fat" (Euclidean), not "thin" (hyperbolic)
-- **Result:** Strict δ-hyperbolic permit would REJECT $\text{SL}(3, \mathbb{Z})$ as an expander, but it's NOT chaos—it has rigorous geometric structure (just not strictly negative curvature)
+CAT(0) (non-positive curvature) admits hyperbolic and higher-rank lattices but **rejects Sol geometry** (solvable Lie group with mixed positive/negative curvature). Sol appears in 3-manifold decompositions (Thurston geometries) and is essential for the Poincaré conjecture.
 
-**The CAT(0) Condition (Cartan-Alexandrov-Toponogov):**
+**Asymptotic Cone Classification:**
 
-A metric space $(X, d)$ is **CAT(0)** if **every geodesic triangle in $X$ is "at least as thin" as the corresponding comparison triangle in Euclidean space $\mathbb{E}^2$**.
+For a metric space $(X, d)$ with basepoint $o$, the **asymptotic cone** $\text{Cone}_\omega(X)$ is the ultralimit:
+$$\text{Cone}_\omega(X) = \lim_{\omega} (X, \frac{1}{n}d, o)$$
 
-**Formal Definition:** For every geodesic triangle $\Delta(x, y, z)$ in $X$ with sides of length $a, b, c$, and every point $p$ on a side, let $\bar{p}$ be the corresponding point on the comparison triangle $\bar{\Delta}$ in $\mathbb{E}^2$ (with the same side lengths). Then:
-$$d(p, \text{opposite vertex}) \leq d_{\mathbb{E}^2}(\bar{p}, \text{opposite vertex in } \bar{\Delta})$$
+where $\omega$ is a non-principal ultrafilter. Intuitively: "The view from infinity after rescaling."
 
-**Physical Interpretation:** "Triangles in $X$ are no fatter than Euclidean triangles."
+**Theorem (Tits Alternative for Groups):**
 
-**Curvature Hierarchy:**
+Let $\Gamma$ be a finitely generated group. Then exactly one holds:
+1. $\Gamma$ contains a free subgroup $F_2$ (hyperbolic behavior)
+2. $\Gamma$ is virtually solvable (polynomial or Sol-like)
 
-| Curvature | Space Type | Triangle Fatness | Gromov δ | Examples |
-|-----------|------------|------------------|----------|----------|
-| **κ < 0 (Negative)** | Hyperbolic | Thinner than Euclidean | $\delta < \infty$ | Trees, WordNet, causal DAGs |
-| **κ = 0 (Zero)** | Euclidean | Equal to Euclidean | $\delta \sim \log(N)$ | Grids, Hilbert spaces, $\mathbb{R}^n$ |
-| **κ = 0 (Mixed)** | Higher-rank | Contains flat planes | $\delta \to \infty$ | $\text{SL}(3,\mathbb{Z})$, symmetric spaces |
-| **κ > 0 (Positive)** | Spherical/Expander | Fatter than Euclidean | $\delta \to \infty$ | Expanders, random graphs, thermal noise |
+**Geometric Tits Alternative (Structure vs Chaos):**
 
-**Key Insight:** CAT(0) includes both strictly hyperbolic ($\delta$-thin) AND spaces with flat subregions (higher-rank lattices), but excludes positively curved expanders.
+For a graph $G$ with exponential growth, classify via asymptotic cone dimension:
 
-**Decidability for Graphs:** For a discrete graph $G$, CAT(0) can be checked via:
-1. **4-Point Condition (Bruhat-Tits):** For all 4-tuples, check triangle inequality strengthening
-2. **Complexity:** $O(N^4)$ exact, $O(k)$ Monte Carlo (same as Gromov δ)
+| Asymptotic Cone | Dimension | Group Type | Growth | Admit? |
+|----------------|-----------|------------|---------|---------|
+| **Tree** | 1 | Hyperbolic | $e^{\alpha r}$ | ✓ |
+| **$\mathbb{R}^n$** | $n < \infty$ | Nilpotent/Solvable | Polynomial/$e^{\sqrt{r}}$ | ✓ |
+| **Tits Building** | $n < \infty$ | Higher-rank lattice | $e^{\alpha r}$ | ✓ |
+| **Sol (Mixed)** | 3 | Solvable (non-nilpotent) | $e^{\alpha r}$ | ✓ |
+| **$\infty$-dimensional** | $\infty$ | Expander | $e^{\alpha r}$ | ✗ |
 
-**Literature:** CAT(0) geometry {cite}`BridsonHaefliger99`; Higher-rank rigidity {cite}`Margulis91`; Bruhat-Tits buildings {cite}`BrownBuildings89`.
+**Decidable Proxy (Coarse Geometric Invariants):**
+
+Compute asymptotic cone dimension via:
+1. **Polynomial growth:** $\dim(\text{Cone}) = \lim_{r \to \infty} \frac{\log |B_r|}{\log r}$
+2. **Exponential growth with flat subgroups:** Test for embedded $\mathbb{Z}^k$ (commuting elements)
+3. **Expander detection:** Check if all $\mathbb{Z}^k$ embeddings have $k \leq \log(\text{expansion})$ (expanders have no large Euclidean subgraphs)
+
+**Admission Criterion:**
+
+ADMIT if $\dim(\text{Cone}_\omega(G)) < \infty$ (finite-dimensional asymptotic geometry)
+REJECT if $\dim(\text{Cone}_\omega(G)) = \infty$ (expander; no coarse geometric structure)
+
+**Literature:** Tits alternative {cite}`Tits72`; Asymptotic cones {cite}`Gromov93`; Sol geometry {cite}`Thurston97`; Geometric group theory {cite}`BridsonHaefliger99`.
 
 :::
 
-:::{prf:theorem} LSI in CAT(0) Spaces (Generalized Density Argument)
-:label: thm-lsi-cat0-density
+:::{prf:definition} Sol Geometry and Thurston's 8 Geometries
+:label: def-sol-geometry
 
-**Claim:** Exponential volume growth in a CAT(0) space (including both δ-hyperbolic and higher-rank lattices) does NOT violate the Log-Sobolev Inequality or concentration of measure, provided the spectral gap holds.
+**Purpose:** Classify 3-manifolds appearing in the Poincaré conjecture and geometrization theorem.
+
+**Thurston's Geometrization Conjecture:** Every closed 3-manifold decomposes into pieces, each admitting one of 8 geometric structures:
+
+| Geometry | Curvature | Growth | $\dim(\text{Cone})$ | Admitted by Tits? |
+|----------|-----------|--------|---------------------|-------------------|
+| $S^3$ | Positive (spherical) | Polynomial | 3 | ✓ (Step 2a) |
+| $\mathbb{E}^3$ | Zero (Euclidean) | Polynomial | 3 | ✓ (Step 2a) |
+| $\mathbb{H}^3$ | Negative (hyperbolic) | Exponential | 1 | ✓ (Step 2b, $\delta < \infty$) |
+| $S^2 \times \mathbb{R}$ | Mixed (pos + flat) | Polynomial | 3 | ✓ (Step 2a) |
+| $\mathbb{H}^2 \times \mathbb{R}$ | Mixed (neg + flat) | Exponential | 2 | ✓ (Step 2b, embedded $\mathbb{Z}$) |
+| $\widetilde{\text{SL}_2(\mathbb{R})}$ | Negative | Exponential | 1 | ✓ (Step 2b, $\delta < \infty$) |
+| **Nil** | Zero (nilpotent) | Polynomial | 3 | ✓ (Step 2a, nilpotent → poly) |
+| **Sol** | **Mixed (pos + neg)** | **Exponential** | **3** | ✓ (Step 2b, solvable → $\dim < \infty$) |
+
+**Sol Geometry (Solvable Lie Group):**
+
+Matrix representation:
+$$\text{Sol} = \left\{\begin{pmatrix} e^t & 0 & x \\ 0 & e^{-t} & y \\ 0 & 0 & 1 \end{pmatrix} : t, x, y \in \mathbb{R}\right\}$$
+
+**Key properties:**
+- **Exponential growth:** $|B_r| \sim e^{\alpha r}$ (expanding in $t$ direction)
+- **Mixed curvature:** Positive in some directions, negative in others (NOT CAT(0))
+- **Solvable group:** $[\text{Sol}, [\text{Sol}, \text{Sol}]] = \{e\}$ (commutator series terminates)
+- **Asymptotic cone:** $\text{Cone}_\omega(\text{Sol}) \cong \mathbb{R}^3$ (finite-dimensional)
+
+**Why Sol is NOT an expander:**
+- Embedded $\mathbb{Z}^2$ subgroup (flat planes in $x$, $y$ directions)
+- Finite-dimensional asymptotic cone (structured large-scale geometry)
+- Spectral gap from solvability (algebraic constraint)
+
+**Critical for Poincaré:** Sol fibers appear in Ricci Flow singularities during 3-manifold surgery. Rejecting Sol would invalidate the geometrization proof.
+
+**Literature:** Thurston geometries {cite}`Thurston97`; Sol geometry {cite}`Scott83`; Geometrization {cite}`PerelmanI02`.
+
+:::
+
+:::{prf:theorem} LSI for Finite-Dimensional Asymptotic Cones
+:label: thm-lsi-finite-cone
+
+**Claim:** Exponential volume growth with finite-dimensional asymptotic cone does NOT violate LSI, provided spectral gap holds.
 
 **Proof Sketch:**
 
-**The Naive Objection:** In Euclidean space $\mathbb{R}^d$, if the number of states $|B_r|$ grows exponentially, the density $\rho = \frac{\text{mass}}{\text{Vol}(B_r)}$ must explode (violating finite energy).
+For metric space $(X,d)$ with $|B_r| \sim e^{\alpha r}$ and $\dim(\text{Cone}_\omega(X)) = n < \infty$:
 
-**The CAT(0) Resolution:** In a CAT(0) space with non-positive curvature, the **intrinsic volume** of balls can grow exponentially (both for strictly hyperbolic and higher-rank lattices):
+**Intrinsic volume growth** matches asymptotic dimension:
+$$\text{Vol}_{\text{intrinsic}}(B_r) \sim e^{\beta r} \quad \text{where } \beta = \alpha \text{ (geometric constraint)}$$
 
-- **Strictly hyperbolic (κ < 0):** $\text{Vol}(B_r) \sim e^{(n-1)\sqrt{|K|}r}$
-- **Higher-rank lattices:** $\text{Vol}(B_r) \sim e^{\text{rank} \cdot r}$ (exponential in the rank of the group)
+**Density ratio:**
+$$\rho(r) = \frac{|B_r|}{\text{Vol}_{\text{intrinsic}}(B_r)} = \frac{e^{\alpha r}}{e^{\beta r}} \approx \text{const.}$$
 
-Thus, the **density ratio** is:
-$$\rho(r) = \frac{|B_r|}{\text{Vol}_{\text{intrinsic}}(B_r)} = \frac{e^{\alpha r}}{e^{\beta r}} = e^{(\alpha - \beta)r}$$
+**LSI constant** (Bakry-Émery):
+- **Hyperbolic:** $K_{\text{LSI}} = |K|/(n-1)$
+- **Nilpotent/Solvable:** Polynomial or stretched exponential; LSI from spectral gap
+- **Higher-rank lattice:** $K_{\text{LSI}}$ from measured $\lambda_2$
 
-**The Key:** If the state expansion rate $\alpha$ matches the geometric volume expansion rate $\beta$ (which it does for intrinsic processes in CAT(0) spaces), then:
-$$\rho(r) \approx \text{const.}$$
-The density remains bounded, and finite energy is preserved.
+**Admitted Geometries:**
 
-**Consequence for LSI:** The Log-Sobolev Inequality generalizes to **CAT(0) spaces** via Bakry-Émery theory:
-- **Hyperbolic (κ < 0):** $K_{\text{LSI}} = |K|/(n-1)$
-- **Euclidean (κ = 0):** $K_{\text{LSI}} = 1/\text{diam}^2$ (Poincaré inequality)
-- **Higher-rank:** $K_{\text{LSI}}$ depends on spectral gap of the Laplacian (measured, not derived)
+| Type | Asymptotic Cone | Growth | Example |
+|------|----------------|---------|---------|
+| Hyperbolic | Tree | $e^{\alpha r}$ | Reasoning, DAGs |
+| Euclidean | $\mathbb{R}^n$ | $r^n$ | Image grids |
+| Sol | $\mathbb{R}^3$ (mixed) | $e^{\alpha r}$ | 3-manifolds |
+| Higher-rank | Tits Building | $e^{\alpha r}$ | $\text{SL}(3,\mathbb{Z})$ |
 
-**Physical Interpretation—What CAT(0) Admits:**
+**Key:** $\dim(\text{Cone}) < \infty$ ensures geometric constraint. Expanders have $\dim(\text{Cone}) = \infty$ (no LSI).
 
-1. **Language Models & Reasoning (Hyperbolic):** Hierarchical structure, causal DAGs, tree-like expansion
-2. **Vision & Grids (Euclidean):** Image lattices, low-dimensional physics, polynomial growth
-3. **Algebra & Group Theory (Higher-Rank):** Matrix groups like $\text{SL}(3,\mathbb{Z})$, symmetric spaces, algebraic structures with flat subgroups
-
-All three exhibit **exponential or polynomial scaling** but are NOT thermally chaotic because the expansion is **geometrically constrained** by non-positive curvature (triangles no fatter than Euclidean).
-
-**Literature:** Bakry-Émery Ricci curvature {cite}`BakryEmery85`; LSI on Riemannian manifolds {cite}`Ledoux01`; Hyperbolic neural networks {cite}`Ganea18`.
+**Literature:** Asymptotic cones {cite}`Gromov93`; LSI on metric spaces {cite}`Ledoux01`; Thurston geometries {cite}`Thurston97`.
 
 :::
 
@@ -2490,34 +2536,35 @@ The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
 
    - **If polynomial growth holds:** PASS immediately (Euclidean-like; finite dimension guaranteed).
 
-   **Step 2b: Test Exponential Growth with CAT(0) Structure (Reasoning Trees + Algebra)**
+   **Step 2b: Test Finite-Dimensional Asymptotic Cone (Tits Alternative)**
 
-   If Step 2a fails (exponential growth detected: $|B_r| \sim k^r$ for some $k > 1$), check whether the geometry satisfies the **CAT(0) condition** (Cartan-Alexandrov-Toponogov):
+   If Step 2a fails (exponential growth detected: $|B_r| \sim k^r$ for some $k > 1$), test whether $\dim(\text{Cone}_\omega(G)) < \infty$ via:
 
-   **CAT(0) Triangle Comparison:** Triangles in $G$ are no fatter than comparison triangles in Euclidean space (Definition {prf:ref}`def-cat0-spaces`).
+   **Decidable Proxy Tests:**
+   1. **δ-Hyperbolicity:** If $\delta_{\text{Gromov}} < \epsilon \cdot \text{diam}$, then Cone is a tree ($\dim = 1$)
+   2. **Flat Subgroup Test:** Search for commuting subgroups $\mathbb{Z}^k \hookrightarrow G$. If max $k < \infty$, then $\dim(\text{Cone}) \leq k$
+   3. **Expander Rejection:** If no $\mathbb{Z}^k$ with $k > \log(\lambda_1/\lambda_2)$, then $\dim(\text{Cone}) = \infty$ (expander)
 
-   This check can be implemented via:
-   - **Bruhat-Tits 4-point condition:** Monte Carlo sampling, $O(k)$ complexity
-   - **Or δ-hyperbolicity as sufficient condition:** If $\delta_{\text{Gromov}}(G) < \epsilon \cdot \text{diam}(G)$, then CAT(0) holds automatically (strict hyperbolic ⊂ CAT(0))
+   **Admitted Structures (Definition {prf:ref}`def-asymptotic-cone`):**
+   - **Hyperbolic:** $\delta < \infty$ → Cone is tree
+   - **Sol/Solvable:** Embedded $\mathbb{Z}^2$ → Cone is $\mathbb{R}^3$ (mixed curvature)
+   - **Higher-rank:** Embedded $\mathbb{Z}^k$ → Cone is Tits Building ($\dim = k$)
 
-   - **If CAT(0) holds:** PASS (structured expansion with non-positive curvature; LSI holds in CAT(0) spaces via Theorem {prf:ref}`thm-lsi-cat0-density`)
-   - **Physical Interpretation:** Exponential volume growth in CAT(0) spaces is **intrinsic to the geometry**, not a density explosion. Covers:
-     - **Hyperbolic (κ < 0):** Reasoning trees, language models, causal DAGs
-     - **Euclidean (κ = 0):** Low-dimensional grids, physics simulations
-     - **Higher-rank lattices:** $\text{SL}(3,\mathbb{Z})$, matrix groups, algebraic structures with flat subgroups
+   - **If $\dim(\text{Cone}) < \infty$:** PASS (structured; LSI via Theorem {prf:ref}`thm-lsi-finite-cone`)
+   - **Physical Interpretation:** Finite asymptotic cone ensures geometric constraint. Covers Thurston geometries (including Sol) and algebraic groups
 
-   **Step 2c: Black Box Encapsulation or Rejection (The Cryptography Escape Hatch)**
+   **Step 2c: Black Box Encapsulation (Cryptography Exception)**
 
-   If both polynomial growth and CAT(0) structure fail (positively curved expander detected: exponential growth + triangles fatter than Euclidean), check whether the expander can be **encapsulated as an opaque black box** (Permit $K_{\mathrm{Box}}$, Definition {prf:ref}`permit-opaque-encapsulation`):
+   If both polynomial growth and finite asymptotic cone fail (expander detected: $\dim(\text{Cone}) = \infty$), check for small boundary:
 
    $$\frac{|\partial R|}{\text{Vol}(R)} \leq \epsilon_{\text{boundary}}$$
 
    where $\partial R$ is the boundary (interface vertices) and $\text{Vol}(R)$ is the internal volume.
 
-   - **If small boundary (atomic module):** PASS with **relative CAT(0)** (Definition {prf:ref}`def-relative-hyperbolicity`)
+   - **If small boundary:** PASS (relative finite-cone; Definition {prf:ref}`def-relative-hyperbolicity`)
      - **Examples:** Cryptographic functions (AES, SHA-256), compiled libraries, SAT solvers
-     - **Operational:** Collapse the expander region to a single black box node; the quotient reasoning graph remains CAT(0)
-     - **Physical Interpretation:** The agent **cannot simulate the internals** (positively curved expander is unlearnable via continuous intuition) but **can use it as a tool** (symbolic abstraction)
+     - **Operational:** Collapse expander to single black box node; quotient graph has finite asymptotic cone
+     - **Physical Interpretation:** Agent cannot simulate internals (expander unlearnable) but can use as tool (symbolic abstraction)
 
    - **If large boundary (hairball):** Proceed to Step 2d
 
@@ -2539,47 +2586,48 @@ The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
 
 **Why This Cascading 4-Way Check Is Necessary:**
 
-- **Step 2a (Polynomial Growth):** RCD(K,D) theory for Euclidean-like spaces
-- **Step 2b (CAT(0)):** Non-positive curvature (hyperbolic, Euclidean, higher-rank lattices)
-- **Step 2c (Black Box):** Relative hyperbolicity (cryptographic modules with small boundary)
-- **Step 2d (Spectral Rigidity):** Arithmetic chaos (GUE statistics, eigenvalue repulsion)
-- **Final Rejection:** Thermal noise (positive curvature + large boundary + no spectral order)
+- **Step 2a:** Polynomial growth → RCD(K,D)
+- **Step 2b:** Finite asymptotic cone (Tits Alternative) → Hyperbolic/Sol/Higher-rank
+- **Step 2c:** Black box encapsulation → Crypto modules (small boundary)
+- **Step 2d:** Spectral rigidity → Arithmetic chaos (GUE)
+- **Reject:** Expander ($\dim(\text{Cone}) = \infty$ + large boundary + no spectral order)
 
 **Certificate Components:**
-- $\lambda_2 > 0$: Spectral gap (graph Laplacian)
+- $\lambda_2 > 0$: Spectral gap
 - $D < \infty$ (if polynomial): Effective dimension
-- $\delta_{\text{Gromov}}$ or Bruhat-Tits witness (if CAT(0))
+- $\dim(\text{Cone}_\omega(G))$ or $\delta_{\text{Gromov}}$ (if exponential)
 - $|\partial R|/\text{Vol}(R)$ (if black box)
-- $\max_k S(k) / \overline{S}$ (if spectral rigidity)
-- $G = (V, E, W)$ or $(V, E, F)$: Graph or simplicial structure
+- $\max_k S(k) / \overline{S}$ (if spectral)
+- $G = (V, E, W)$ or $(V, E, F)$: Graph or simplicial
 
 **Routing:**
-- **If Permit Granted ($K_{\mathrm{NPC}}^+$):**
-  - **Case 1:** Polynomial growth → RCD(K,D)
-  - **Case 2:** CAT(0) geometry → Hyperbolic/Euclidean/Higher-rank
-  - **Case 3:** Black box (small boundary) → Relative CAT(0)
-  - **Case 4:** Spectral rigidity ($K_{\mathrm{Spec}}^+$) → Arithmetic chaos
-  - **All cases:** Issue $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$, proceed to TopoCheck (Node 8)
+- **If Permit Granted ($K_{\mathrm{Tits}}^+$):**
+  - **Case 1:** Polynomial → RCD(K,D)
+  - **Case 2:** $\dim(\text{Cone}) < \infty$ → Hyperbolic/Sol/Higher-rank
+  - **Case 3:** Black box → Relative Tits
+  - **Case 4:** Spectral ($K_{\mathrm{Spec}}^+$) → Arithmetic
+  - **All:** Issue $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$, proceed to Node 8
 
 - **If Spectral Gap Fails:** Route to BarrierGap
 
-- **If Geometry Fails ($K_{\mathrm{NPC}}^-$ and $K_{\mathrm{Spec}}^-$):**
-  - Positive curvature + large boundary + no spectral order
-  - **Reject:** Mode D.D (thermal noise)
+- **If Tits Fails ($K_{\mathrm{Tits}}^-$ and $K_{\mathrm{Spec}}^-$):**
+  - $\dim(\text{Cone}) = \infty$ + large boundary + no spectral order
+  - **Reject:** Mode D.D (expander/thermal)
 
 **Decidability:** $\Sigma_1^0$ (recursively enumerable). Both $\lambda_2$ and volume growth exponent can be computed via finite linear algebra and graph traversal.
 
 **Usage Mode:** This permit is checked **in parallel** with the standard Łojasiewicz-Simon inequality at Node 7. For discrete systems (Markov chains, graph neural networks, finite element methods), this is the **primary verification route** because it bypasses PDE analysis entirely while maintaining rigorous convergence guarantees.
 
 **Dataset Coverage:**
-- **P vs NP:** CAT(0) (hyperbolic proof trees)
-- **Poincaré, Hodge:** CAT(0) (locally Euclidean manifolds)
-- **Navier-Stokes:** Polynomial growth
-- **BSD:** Polynomial growth (abelian groups)
-- **Higher-rank lattices:** CAT(0) ($\text{SL}(3,\mathbb{Z})$)
-- **Riemann Hypothesis:** $K_{\mathrm{Spec}}^+$ (GUE statistics, Selberg trace)
+- **P vs NP:** $\dim(\text{Cone}) = 1$ (hyperbolic proof trees)
+- **Poincaré Conjecture:** $\dim(\text{Cone}) < \infty$ (Thurston geometries: $S^3$, $\mathbb{E}^3$, $\mathbb{H}^3$, Sol)
+- **Hodge:** Polynomial (locally Euclidean manifolds)
+- **Navier-Stokes:** Polynomial (local PDE)
+- **BSD:** Polynomial (abelian groups)
+- **Yang-Mills, Mass Gap:** $\dim(\text{Cone}) < \infty$ ($\text{SL}(3,\mathbb{Z})$, gauge groups)
+- **Riemann Hypothesis:** $K_{\mathrm{Spec}}^+$ (GUE, Selberg trace)
 
-**Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; CAT(0) geometry {cite}`BridsonHaefliger99`; Higher-rank rigidity {cite}`Margulis91`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`.
+**Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; Tits alternative {cite}`Tits72`; Asymptotic cones {cite}`Gromov93`; Sol geometry and Thurston geometries {cite}`Thurston97`; Higher-rank rigidity {cite}`Margulis91`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`; Geometric group theory {cite}`BridsonHaefliger99`.
 
 :::
 
