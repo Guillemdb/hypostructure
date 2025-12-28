@@ -2342,34 +2342,53 @@ where:
 
 ---
 
-:::{prf:definition} Permit $K_{\mathrm{LSI}}$ (LSI via Thin Spectral Gap)
+:::{prf:definition} Permit $K_{\mathrm{LSI}}$ (LSI via Thin Spectral Gap + Volume Growth)
 :label: permit-lsi-thin
 
 **Permit ID:** $K_{\mathrm{LSI}}$
 
-**Purpose:** Certify exponential convergence (No-Melt Theorem) by verifying the Log-Sobolev Inequality through discrete spectral gap checking, avoiding hard infinite-dimensional analysis.
+**Purpose:** Certify exponential convergence (No-Melt Theorem) by verifying the Log-Sobolev Inequality through discrete spectral gap checking **and polynomial volume growth**, avoiding hard infinite-dimensional analysis while preventing the Expander Graph loophole.
 
-**Admission Condition:**
+**Admission Condition (Two-Part Check):**
 
-The system is admitted if the **discrete Laplacian of the Thin Kernel** (state graph, mesh, or discretized history) has a spectral gap:
-$$\lambda_2(L) > \epsilon$$
-for some $\epsilon > 0$ independent of discretization level.
+The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
+
+1. **Spectral Gap (Stiffness):**
+   $$\lambda_2(L) > \epsilon$$
+   for some $\epsilon > 0$ independent of discretization level, where $L$ is the graph Laplacian.
+
+2. **Volume Growth (Dimension Bound - Bishop-Gromov):**
+   $$\text{Vol}(B_r(x)) \leq C r^D$$
+   for all balls of radius $r$ centered at $x \in V$, where $D < \infty$ is the effective dimension and $C$ is a constant.
+
+   **Equivalently (Discrete Formulation):** The ball counting function satisfies
+   $$|B_r(x)| \leq C r^D$$
+   where $|B_r(x)|$ is the number of vertices within graph distance $r$ from $x$.
+
+**Why Both Conditions Are Necessary:**
+
+- **Spectral Gap Alone Is Insufficient:** Expander graphs have arbitrarily large spectral gaps ($\lambda_2 \sim \Omega(1)$) but exhibit **exponential volume growth** $\text{Vol}(B_r) \sim k^r$, converging to infinite-dimensional hyperbolic-like objects, not finite-dimensional Riemannian manifolds. Such "monsters" violate the dimension axioms in metalearning.md.
+
+- **Volume Growth Ensures Finite Dimension:** The Bishop-Gromov condition guarantees that the Gromov-Hausdorff limit is a metric-measure space with **Hausdorff dimension** $\leq D$. Combined with the spectral gap, this ensures convergence to an $\mathrm{RCD}(K, D)$ space (Riemannian Curvature-Dimension space with finite dimension $D$).
 
 **Certificate Components:**
 - $\lambda_2 > 0$: Second eigenvalue of graph Laplacian
+- $D < \infty$: Effective dimension (volume growth exponent)
 - $G = (V, E, W)$: Thin Graph structure
 - $\epsilon$: Uniform spectral gap bound
-- (Optional) $C$: Measured entropy decay rate from runtime telemetry
+- $C$: Volume growth constant
+- (Optional) $C_{\text{entropy}}$: Measured entropy decay rate from runtime telemetry
 
 **Routing:**
-- **If Permit Granted ($K_{\mathrm{LSI}}^+$):** Issue enhanced stiffness certificate $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$ and proceed to TopoCheck (Node 8)
-- **If Permit Denied ($K_{\mathrm{LSI}}^-$):** Spectral gap vanishes; route to BarrierGap or Restoration Subtree
+- **If Permit Granted ($K_{\mathrm{LSI}}^+$):** Both conditions satisfied; issue enhanced stiffness certificate $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$ and proceed to TopoCheck (Node 8)
+- **If Spectral Gap Fails ($K_{\mathrm{LSI}}^{\text{gap-}}$):** Route to BarrierGap or Restoration Subtree
+- **If Volume Growth Fails ($K_{\mathrm{LSI}}^{\text{vol-}}$):** Expander graph detected; route to Barrier or Surgery (system is infinite-dimensional)
 
-**Decidability:** $\Sigma_1^0$ (recursively enumerable). Computing $\lambda_2$ is a finite linear algebra problem.
+**Decidability:** $\Sigma_1^0$ (recursively enumerable). Both $\lambda_2$ and volume growth exponent can be computed via finite linear algebra and graph traversal.
 
-**Usage Mode:** This permit is checked **in parallel** with the standard Łojasiewicz-Simon inequality at Node 7. For discrete systems (Markov chains, graph neural networks, finite element methods), this is the **primary verification route** because it bypasses PDE analysis entirely.
+**Usage Mode:** This permit is checked **in parallel** with the standard Łojasiewicz-Simon inequality at Node 7. For discrete systems (Markov chains, graph neural networks, finite element methods), this is the **primary verification route** because it bypasses PDE analysis entirely while maintaining rigorous convergence guarantees.
 
-**Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`.
+**Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; Bishop-Gromov volume comparison {cite}`Gromov81`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`.
 
 :::
 
@@ -5391,13 +5410,14 @@ $$\mathcal{X}^{\text{thin}} = (\mathcal{X}, d, \mu)$$
 | $d$ | $\mathcal{X} \times \mathcal{X} \to [0,\infty]$ | Metric or distance structure |
 | $\mu$ | Measure on $\mathcal{X}$ | Reference measure for capacity computation |
 
-**Discrete Systems Enhancement (Weighted Graph Interface):**
+**Discrete Systems Enhancement (Weighted Graph & Simplicial Complex Interface):**
 
-For **discrete state spaces** (finite graphs, Markov chains, mesh discretizations, token spaces), the Thin State Object can be equivalently specified as a **Weighted Graph**:
-$$G = (V, E, W)$$
+For **discrete state spaces** (finite graphs, Markov chains, mesh discretizations, token spaces), the Thin State Object can be equivalently specified as a **Weighted Graph with Simplicial Structure**:
+$$G = (V, E, F, W)$$
 where:
-- $V$ is the vertex set (discrete states)
-- $E \subseteq V \times V$ is the edge set (transitions/adjacency)
+- $V$ is the vertex set (0-simplices: discrete states)
+- $E \subseteq V \times V$ is the edge set (1-simplices: transitions/adjacency)
+- $F \subseteq V \times V \times V$ is the face set (2-simplices: triangular plaquettes, optional)
 - $W: E \to \mathbb{R}_{>0}$ are edge weights (transition rates, affinities)
 
 The metric-measure tuple $(\mathcal{X}, d, \mu)$ is then derived from $G$ via:
@@ -5405,7 +5425,28 @@ The metric-measure tuple $(\mathcal{X}, d, \mu)$ is then derived from $G$ via:
 - $d(u,v) = $ graph distance (shortest path length)
 - $\mu = $ counting measure or weighted vertex measure
 
-**Purpose:** This weighted graph interface enables the **LSI Thin Permit** ({prf:ref}`permit-lsi-thin`), which verifies the Log-Sobolev Inequality by computing the spectral gap $\lambda_2(L) > 0$ of the graph Laplacian—a finite linear algebra problem that bypasses infinite-dimensional analysis.
+**Simplicial Complex Structure (for Cohomology):**
+
+The face set $F$ (when present) defines a **simplicial 2-complex** that grounds the De Rham-Cheeger-Simons sequence in concrete linear algebra:
+- **0-cochains** $C^0(G; \mathbb{R})$: Functions on vertices (energy/height)
+- **1-cochains** $C^1(G; \mathbb{R})$: Functions on edges (dissipation rate)
+- **2-cochains** $C^2(G; \mathbb{R})$: Functions on faces (curvature)
+
+The coboundary operators $\delta^0: C^0 \to C^1$ and $\delta^1: C^1 \to C^2$ are defined via:
+$$(\delta^0 f)(e) = f(v_1) - f(v_0) \quad \text{for edge } e = (v_0, v_1)$$
+$$(\delta^1 \omega)(f) = \omega(e_1) + \omega(e_2) - \omega(e_3) \quad \text{for face } f = (e_1, e_2, e_3)$$
+
+**Dissipation-Curvature Coupling (Avoiding the Tautology):**
+- The **Dissipation** $\mathfrak{D}$ is a 1-cochain (edge function) provided by the user
+- The **Curvature** 2-form is **derived** via $\delta^1(\mathfrak{D})$, measuring the failure of dissipation to close around triangular plaquettes
+- This is **not a definition**—it's a **derived observable** from the simplicial structure
+
+**Literature:** Sullivan's PL De Rham theorem {cite}`Sullivan77` establishes that simplicial cohomology of PL (piecewise-linear) spaces agrees with De Rham cohomology, validating the Cheeger-Simons sequence for discrete graphs.
+
+**Purpose:** This simplicial interface enables:
+1. **LSI Thin Permit** ({prf:ref}`permit-lsi-thin`) for spectral gap + volume growth checking
+2. **Rigorous cohomology** for the De Rham-Cheeger-Simons character lift
+3. **Curvature computation** via discrete exterior calculus
 
 **Automatically Derived by Framework:**
 
