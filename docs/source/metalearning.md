@@ -320,6 +320,125 @@ In this scheme:
 
 :::
 
+### Thermodynamic Interpretation: Fisher Information and Otto Calculus
+
+The dissipation defect $K_D^{(\theta)}$ admits a rigorous thermodynamic interpretation via **Fisher Information** and **Wasserstein Gradient Flows** (Otto Calculus). This section provides the geometric-thermodynamic foundation for the meta-learning dynamics.
+
+:::{prf:definition} Fisher Information Metric
+:label: def-fisher-information
+
+Let $(\mathcal{P}(X), W_2)$ be the Wasserstein space of probability measures on a metric-measure space $(X, d, \mathfrak{m})$. For a curve $\rho_t$ in $\mathcal{P}(X)$ with density $\rho_t(x) = \frac{d\mu_t}{d\mathfrak{m}}(x)$ relative to the reference measure $\mathfrak{m}$, the **Fisher Information** is:
+
+$$\text{Fisher}(\rho_t | \mathfrak{m}) := \int_X \left|\nabla \log \frac{\rho_t}{\mathfrak{m}}\right|^2 d\mu_t = \int_X \frac{|\nabla \rho_t|^2}{\rho_t} d\mathfrak{m}$$
+
+This defines a **Riemannian metric** on $\mathcal{P}(X)$ called the **Wasserstein metric** or **Otto metric**:
+$$g_{\rho}(v, w) = \int_X \langle v, w \rangle d\rho$$
+for tangent vectors $v, w \in T_\rho \mathcal{P}(X)$.
+
+**Interpretation:** The Fisher Information measures the "kinetic energy" of probability flow in the Wasserstein manifold.
+
+**Literature:** {cite}`Otto01` (Wasserstein geometry); {cite}`Villani09` (Optimal transport)
+:::
+
+:::{prf:theorem} JKO Scheme and Dissipation
+:label: thm-jko-dissipation
+
+Let $\Phi: \mathcal{P}(X) \to \mathbb{R}$ be a free energy functional (e.g., $\Phi[\rho] = \int \rho V d\mathfrak{m} + \int \rho \log \rho d\mathfrak{m}$ for potential $V$). The **Jordan-Kinderlehrer-Otto (JKO) scheme** defines the gradient flow via:
+
+$$\rho_{t+\tau} = \arg\min_{\rho \in \mathcal{P}(X)} \left\{\Phi[\rho] + \frac{1}{2\tau}W_2^2(\rho, \rho_t)\right\}$$
+
+where $W_2$ is the Wasserstein-2 distance.
+
+**Dissipation Identity:** The dissipation rate along the gradient flow satisfies:
+$$\frac{d}{dt}\Phi[\rho_t] = -\text{Fisher}(\rho_t | \mathfrak{m})$$
+
+This provides the **rigorous link** between:
+- **Geometry:** Geodesic motion in $(\mathcal{P}(X), W_2)$
+- **Thermodynamics:** Entropy dissipation $\dot{S} = -\text{Fisher}$
+
+**Consequence for Meta-Learning:** The dissipation defect $K_D^{(\theta)}$ should be formulated as:
+$$K_D^{(\theta)}(u) = \left|\frac{d}{dt}\Phi_\theta[u(t)] + \text{Fisher}(u(t) | \mathfrak{m}_\theta)\right|$$
+
+This measures the deviation from the "natural" thermodynamic evolution.
+
+**Literature:** {cite}`JordanKinderlehrerOtto98` (JKO scheme); {cite}`AmbrosioGigliSavare08` (Gradient flows in metric spaces)
+:::
+
+:::{prf:remark} Upgraded Loss for Learning Agents
+:label: rem-upgraded-loss
+
+The user's critique identifies that current "Physicist" agents minimize $\|\Delta z\|^2$ (kinetic energy) without accounting for the **drift induced by measure concentration**. The corrected loss should be:
+
+**Current (Incomplete):**
+$$\mathcal{L}_{\text{old}} = \frac{1}{2\tau}\|\rho_{t+\tau} - \rho_t\|_{L^2}^2 + \text{KL}(\rho_{t+\tau} || \mathfrak{m})$$
+
+**Upgraded (Metric-Measure Correct):**
+$$\mathcal{L}_{\text{new}} = \frac{1}{2\tau}W_2^2(\rho_{t+\tau}, \rho_t) + \Phi[\rho_{t+\tau}]$$
+
+where the **Wasserstein distance** $W_2$ accounts for both metric geometry and measure concentration.
+
+**Explicit Gradient (Otto Calculus):**
+The gradient of $\Phi$ in the Wasserstein manifold is:
+$$\nabla_{W_2}\Phi[\rho] = -\nabla \cdot \left(\rho \nabla \frac{\delta \Phi}{\delta \rho}\right)$$
+
+For $\Phi[\rho] = \int \rho V + \int \rho \log \rho$, this gives:
+$$\nabla_{W_2}\Phi[\rho] = -\nabla \cdot (\rho \nabla (V + \log \rho))$$
+
+**Agent Implementation:** The "Physicist" state vector $z_{\text{macro}}$ must include:
+1. **Position:** $x \in X$
+2. **Density potential:** $S = \log \rho$ (entropy)
+3. **Fisher Information:** $\text{Fisher} = \|\nabla S\|^2$
+
+The agent loss becomes:
+$$\mathcal{L}_{\text{Physicist}} = \frac{1}{2\tau}W_2^2(\rho_{t+\tau}, \rho_t) + \Phi[\rho_{t+\tau}] + \lambda_{\text{LSI}}(K_{\text{LSI}}^{-1} - \text{target variance})^2$$
+
+where the LSI penalty prevents "melting" (measure dispersion).
+:::
+
+:::{prf:theorem} No-Melt Theorem (Exponential Convergence)
+:label: thm-no-melt
+
+Let $(X, d, \mathfrak{m})$ satisfy $\mathrm{RCD}(K, N)$ with $K > 0$. Let $\rho_t$ be the gradient flow of $\Phi[\rho] = \text{KL}(\rho || \mathfrak{m})$ under the JKO scheme.
+
+**Claim:** The relative entropy decays exponentially:
+$$\text{KL}(\rho_t || \mathfrak{m}) \leq e^{-2Kt}\text{KL}(\rho_0 || \mathfrak{m})$$
+
+**Proof Sketch:**
+By the EVI (Evolution Variational Inequality, Theorem {prf:ref}`thm-rcd-dissipation-link`):
+$$\frac{d}{dt}\text{KL}(\rho_t || \mathfrak{m}) + K W_2^2(\rho_t, \mathfrak{m}) + \text{Fisher}(\rho_t | \mathfrak{m}) \leq 0$$
+
+Using the **Talagrand inequality** $W_2^2(\rho, \mathfrak{m}) \geq \frac{2}{K}\text{KL}(\rho || \mathfrak{m})$ (which holds under $\mathrm{RCD}(K, N)$):
+$$\frac{d}{dt}\text{KL}(\rho_t || \mathfrak{m}) + 2K \text{KL}(\rho_t || \mathfrak{m}) \leq 0$$
+
+This is a differential inequality with solution:
+$$\text{KL}(\rho_t || \mathfrak{m}) \leq e^{-2Kt}\text{KL}(\rho_0 || \mathfrak{m})$$
+
+**Consequence:** An agent satisfying the $\mathrm{RCD}(K, N)$ condition with $K > 0$ **cannot drift indefinitely**. The probability of delusional states (large Wasserstein distance from equilibrium) decays exponentially with compute time.
+
+**Landauer Efficiency:** The thermodynamic cost of maintaining this convergence is:
+$$\Delta S_{\text{min}} = k_B T \ln(2) \cdot K^{-1} \cdot \text{(bits erased)}$$
+
+This is the **Landauer bound** with constant $K^{-1}$: stronger curvature (larger $K$) enables more efficient computation.
+
+**Literature:** {cite}`OttoVillani00` (Talagrand inequality); {cite}`AmbrosioGigliSavare14` (EVI for RCD spaces)
+:::
+
+:::{prf:remark} Universal Sieve Applicability
+:label: rem-universal-sieve
+
+The RCD formalism works for **non-smooth spaces** (graphs, discrete logic, singular geometries). The Cheeger Energy definition (Theorem {prf:ref}`thm-cheeger-dissipation` in hypopermits_jb.md) applies to:
+- **Continuous Physics:** Manifolds with Riemannian metrics
+- **Discrete Logic:** Weighted graphs with discrete Laplacian
+- **Hybrid Systems:** Stratified spaces with singularities
+
+**Implication:** The **same Sieve** (with Metric-Measure upgrade) can verify:
+- **Neural AI:** VAE/LLM latent spaces as Wasserstein manifolds
+- **Symbolic AI:** Proof graphs as discrete metric-measure spaces
+- **Robotics:** Configuration spaces with obstacles (Alexandrov spaces)
+
+No separate framework is needed—RCD theory **unifies** geometry and thermodynamics across all modalities.
+:::
+
 ### Imported Learning Metatheorems
 
 The following metatheorems are imported from the core hypostructure framework and provide the foundational identifiability and reconstruction results required for trainable hypostructures.

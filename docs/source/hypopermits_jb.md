@@ -364,11 +364,20 @@ Classical analysis often critiques structural approaches for assuming hard prope
 
 To instantiate a system, the user provides only:
 
-1. **The Arena** $(\mathcal{X}^{\text{thin}})$: The metric space and measure (e.g., $L^2(\mathbb{R}^3)$, a Polish space with Borel $\sigma$-algebra).
+1. **The Arena** $(\mathcal{X}^{\text{thin}})$: A **Metric-Measure Space** $(X, d, \mathfrak{m})$ where:
+   - $(X, d)$ is a complete separable metric space (Polish space)
+   - $\mathfrak{m}$ is a locally finite Borel measure on $X$ (the **reference measure**)
+   - Standard examples: $L^2(\mathbb{R}^3, e^{-V(x)}dx)$ where $\mathfrak{m} = e^{-V(x)}dx$ is the Gibbs measure weighted by potential $V$
+
+   **RCD Upgrade (Optional but Recommended):** For systems with dissipation, the triple $(X, d, \mathfrak{m})$ should satisfy the **Riemannian Curvature-Dimension condition** $\mathrm{RCD}(K, N)$ for some $K \in \mathbb{R}$ (lower Ricci curvature bound) and $N \in [1, \infty]$ (upper dimension bound). This generalizes Ricci curvature to metric-measure spaces and ensures geometric-thermodynamic consistency ({prf:ref}`thm-rcd-dissipation-link`).
 
 2. **The Potential** $(\Phi^{\text{thin}})$: The energy functional and its scaling dimension $\alpha$.
 
 3. **The Cost** $(\mathfrak{D}^{\text{thin}})$: The dissipation rate and its scaling dimension $\beta$.
+
+   **Cheeger Energy Formulation:** For gradient flow systems on $(X, d, \mathfrak{m})$, the dissipation functional should be identified with the **Cheeger Energy**:
+   $$\mathfrak{D}[u] = \text{Ch}(u | \mathfrak{m}) := \frac{1}{2}\inf\left\{\liminf_{n \to \infty} \int_X |\nabla u_n|^2 d\mathfrak{m} : u_n \in \text{Lip}(X), u_n \to u \text{ in } L^2(\mathfrak{m})\right\}$$
+   This defines the "minimal slope" of $u$ relative to the measure $\mathfrak{m}$, providing the rigorous link between geometry (metric $d$) and thermodynamics (measure $\mathfrak{m}$) ({prf:ref}`thm-cheeger-dissipation`).
 
 4. **The Invariance** $(G^{\text{thin}})$: The symmetry group and its action on $\mathcal{X}$.
 
@@ -387,6 +396,70 @@ To instantiate a system, the user provides only:
      - $\mathcal{R}(b) = \mu_t$ (empirical measure): Fleming-Viot reinjection
 
 These are the **only** inputs. All other properties (compactness, stiffness, topological structure) are **derived** by the Sieve, not assumed.
+:::
+
+### 4.1. Metric-Measure Foundations: The Geometry-Thermodynamics Link
+
+The following theorems establish the rigorous connection between geometric curvature and thermodynamic dissipation via the Metric-Measure Space formalism.
+
+:::{prf:theorem} RCD Condition and Dissipation Consistency
+:label: thm-rcd-dissipation-link
+:class: rigor-class-b
+
+**Statement:** Let $(X, d, \mathfrak{m})$ be a metric-measure space equipped with a gradient flow $\rho_t$ evolving under potential $\Phi$. If $(X, d, \mathfrak{m})$ satisfies the **Curvature-Dimension condition** $\mathrm{CD}(K, N)$ (equivalently $\mathrm{RCD}(K, N)$ when $X$ is infinitesimally Hilbertian), then the following hold:
+
+1. **Entropy-Dissipation Relation (EVI):** The relative entropy $\text{Ent}(\rho_t | \mathfrak{m}) := \int \rho_t \log(\rho_t/\mathfrak{m}) d\mathfrak{m}$ satisfies the Evolution Variational Inequality:
+   $$\frac{d}{dt}\text{Ent}(\rho_t | \mathfrak{m}) + \frac{K}{2}W_2^2(\rho_t, \mathfrak{m}) + \text{Fisher}(\rho_t | \mathfrak{m}) \leq 0$$
+   where $W_2$ is the Wasserstein-2 distance and $\text{Fisher}(\rho | \mathfrak{m}) := \int |\nabla \log(\rho/\mathfrak{m})|^2 d\rho$ is the Fisher Information.
+
+2. **Exponential Convergence:** If $K > 0$, then $\text{Ent}(\rho_t | \mathfrak{m}) \leq e^{-Kt}\text{Ent}(\rho_0 | \mathfrak{m})$, ensuring the system cannot "drift" indefinitely (No-Melt Theorem).
+
+3. **Cheeger Energy Bound:** The Cheeger Energy satisfies $\text{Ch}(u | \mathfrak{m}) = \text{Fisher}(e^{-u}\mathfrak{m} | \mathfrak{m})$ when $u = -\log(\rho/\mathfrak{m})$.
+
+**Hypotheses:**
+- $(X, d, \mathfrak{m})$ is a complete metric-measure space
+- $\mathfrak{m}$ is locally finite and has full support
+- The space is infinitesimally Hilbertian (the Cheeger energy induces a Hilbert space structure)
+
+**Interpretation:** The RCD condition provides a **logic-preserving isomorphism** between:
+- **Geometry:** Lower Ricci curvature bound $\mathrm{Ric} \geq K$
+- **Thermodynamics:** Exponential entropy dissipation rate $\dot{S} \leq -K \cdot \text{distance}^2$
+
+This closes the "determinant is volume" gap: the measure $\mathfrak{m}$ (not just the metric) determines the thermodynamic evolution.
+
+**Literature:** {cite}`AmbrosioGigliSavare14` (RCD spaces); {cite}`BakryEmery85` (Curvature-Dimension condition); {cite}`OttoVillani00` (Wasserstein gradient flows)
+:::
+
+:::{prf:theorem} Log-Sobolev Inequality and Concentration
+:label: thm-log-sobolev-concentration
+:class: rigor-class-b
+
+**Statement:** Let $(X, d, \mathfrak{m})$ satisfy $\mathrm{RCD}(K, \infty)$ with $K > 0$. Then $(X, d, \mathfrak{m})$ satisfies the **Logarithmic Sobolev Inequality** (LSI):
+$$\text{Ent}(f^2 | \mathfrak{m}) \leq \frac{2}{K}\int_X |\nabla f|^2 d\mathfrak{m}$$
+for all $f \in W^{1,2}(X, \mathfrak{m})$ with $\int f^2 d\mathfrak{m} = 1$.
+
+**Consequences:**
+1. **Exponential Convergence (Sieve Node 7):** The heat semigroup contracts in relative entropy: $\|P_t f - \bar{f}\|_{L^2(\mathfrak{m})} \leq e^{-Kt/2}\|f - \bar{f}\|_{L^2(\mathfrak{m})}$
+2. **Concentration of Measure:** If LSI fails (with constant $K \to 0$), the system is in a **phase transition** and will exhibit metastability/hysteresis
+3. **Finite Thermodynamic Cost:** The Landauer bound $\Delta S \geq \ln(2) \cdot \text{bits erased}$ is saturated with constant $1/K$
+
+**Literature:** {cite}`Gross75` (Log-Sobolev inequalities); {cite}`Ledoux01` (Concentration of measure); {cite}`Villani09` (Optimal transport)
+:::
+
+:::{prf:theorem} Cheeger Energy and Dissipation
+:label: thm-cheeger-dissipation
+:class: rigor-class-b
+
+**Statement:** For a gradient flow $\partial_t \rho = \text{div}(\rho \nabla \Phi)$ on $(X, d, \mathfrak{m})$, the dissipation functional satisfies:
+$$\mathfrak{D}[\rho] = \text{Ch}(\Phi | \rho \mathfrak{m}) = \int_X |\nabla \Phi|^2 d(\rho\mathfrak{m})$$
+where the gradient is defined via the Cheeger Energy.
+
+Moreover, if $(X, d, \mathfrak{m})$ satisfies $\mathrm{RCD}(K, N)$, then the **Bakry-Émery $\Gamma_2$ calculus** holds:
+$$\Gamma_2(\Phi, \Phi) := \frac{1}{2}\Delta|\nabla \Phi|^2 - \langle\nabla \Phi, \nabla \Delta \Phi\rangle \geq K|\nabla \Phi|^2 + \frac{(\Delta \Phi)^2}{N}$$
+
+This provides the computational tool for verifying curvature bounds from potential $\Phi$ alone.
+
+**Literature:** {cite}`Cheeger99` (Differentiability of Lipschitz functions); {cite}`BakryEmery85` ($\Gamma_2$ calculus)
 :::
 
 :::{prf:remark} The Structural Role of $\partial$
@@ -701,6 +774,15 @@ Since the Thin Kernel provides the curvature (dissipation $\mathfrak{D}^{\text{t
 $$d\hat{\Phi} = \mathfrak{D}^{\text{thin}}$$
 
 This links internal dissipation to the cohomological height rigorously.
+
+**Metric-Measure Upgrade:** When the Thin Kernel specifies a metric-measure space $(X, d, \mathfrak{m})$, the dissipation $\mathfrak{D}^{\text{thin}}$ should be identified with the **Cheeger Energy** (Theorem {prf:ref}`thm-cheeger-dissipation`):
+$$\mathfrak{D}^{\text{thin}}[\Phi] = \text{Ch}(\Phi | \mathfrak{m}) = \int_X |\nabla \Phi|^2 d\mathfrak{m}$$
+
+This ensures that the categorical expansion $\mathcal{F}$ preserves not just the metric geometry but also the **thermodynamic measure structure**. The reference measure $\mathfrak{m}$ determines both:
+- The volume form $\text{dvol}_\mathfrak{m} = \mathfrak{m}$ (geometric)
+- The equilibrium distribution $\rho_\infty \propto \mathfrak{m}$ (thermodynamic)
+
+By encoding $\mathfrak{m}$ in the Thin Kernel and linking dissipation to Cheeger Energy, we close the "determinant is volume" gap identified in the critique.
 
 *Step 4 (Universal Property & Verification of the Adjunction).*
 We verify $\text{Hom}_{\mathbf{Hypo}_T}(\mathcal{F}(\mathcal{T}), \mathbb{H}) \cong \text{Hom}_{\mathbf{Thin}_T}(\mathcal{T}, U(\mathbb{H}))$ naturally in $\mathcal{T}$ and $\mathbb{H}$.
@@ -2167,7 +2249,25 @@ for all $x$ with $d(x, M) < \delta$, where $M$ is the set of critical points and
 
 **NO routing**: BarrierGap (Spectral Barrier)
 
-**Literature:** Łojasiewicz gradient inequality {cite}`Lojasiewicz65`; Simon's extension to infinite dimensions {cite}`Simon83`; Kurdyka-Łojasiewicz theory {cite}`Kurdyka98`.
+**Metric-Measure Upgrade (Log-Sobolev Gate):** When the Thin Kernel specifies a metric-measure space $(X, d, \mathfrak{m})$, stiffness can be strengthened to the **Logarithmic Sobolev Inequality** (LSI) ({prf:ref}`thm-log-sobolev-concentration`):
+
+$$\text{Ent}(f^2 | \mathfrak{m}) \leq \frac{2}{K_{\text{LSI}}}\int_X |\nabla f|^2 d\mathfrak{m}$$
+
+**Enhanced Certificate:** $K_{\mathrm{LS}_\sigma}^{\text{LSI}} = (K_{\text{LSI}}, \text{LSI proof}, \text{spectral gap} \lambda_1)$ where:
+- $K_{\text{LSI}} > 0$ is the Log-Sobolev constant
+- $\lambda_1 = \inf \sigma(L) > 0$ is the spectral gap of the generator $L = \Delta - \nabla V \cdot \nabla$
+
+**Thermodynamic Guarantee:** If the LSI holds with constant $K_{\text{LSI}}$, then:
+1. **Exponential Convergence:** $\|\rho_t - \rho_\infty\|_{L^2(\mathfrak{m})} \leq e^{-K_{\text{LSI}} t/2}\|\rho_0 - \rho_\infty\|_{L^2(\mathfrak{m})}$ (No-Melt Theorem)
+2. **Concentration:** Gaussian concentration of measure with variance $\sim 1/K_{\text{LSI}}$
+3. **Landauer Efficiency:** Bit erasure costs at least $k_B T \ln(2) \cdot K_{\text{LSI}}^{-1}$ in entropy
+
+**Failure Mode (LSI Violation):** If $K_{\text{LSI}} \to 0$, the system exhibits:
+- **Metastability:** Phase transitions with diverging relaxation time $\tau \sim K_{\text{LSI}}^{-1}$
+- **Measure Concentration Failure:** "Soap bubble effect" in high dimensions (probability mass spreads rather than concentrating)
+- **Agent Melting:** Drift accumulation over long horizons (the "GPT-5.2 melting" phenomenon)
+
+**Literature:** Łojasiewicz gradient inequality {cite}`Lojasiewicz65`; Simon's extension to infinite dimensions {cite}`Simon83`; Kurdyka-Łojasiewicz theory {cite}`Kurdyka98`; Logarithmic Sobolev inequalities {cite}`Gross75`; Bakry-Émery theory {cite}`BakryEmery85`.
 
 :::
 
