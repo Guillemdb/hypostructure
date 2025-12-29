@@ -594,10 +594,7 @@ The Levin Complexity $Kt(x) = K(x) + \log t(x)$ where $t(x)$ is the runtime of t
 forming the **resource-bounded** analog of algorithmic information.
 
 **Thermodynamic Budget**:
-The Bekenstein Bound for a computational system with energy $E$ and radius $R$ is:
-$$\mathcal{S}_{\max} = \frac{2\pi k_B ER}{\hbar c}$$
-
-For a finite computer, $\mathcal{S}_{\max} < \infty$ imposes fundamental limits on verification.
+The Channel Capacity Bound for a computational system with finite energy $E$ and radius $R$ is determined by the maximum transmission rate of the boundary surface. Consequently, $\mathcal{S}_{\max} < \infty$ imposes fundamental limits on verification.
 
 **Certificate**:
 When $Kt(\tau) > \mathcal{S}_{\max}$, emit:
@@ -684,7 +681,7 @@ Theorems whose mathematical rigor is offloaded to external, peer-reviewed litera
 | {prf:ref}`mt-up-scattering` | Morawetz 1968, Tao 2006 {cite}`Tao06` | Strichartz & Interaction Morawetz |
 | {prf:ref}`mt-lock-tannakian` | Deligne 1990 {cite}`Deligne90` | Tannakian Duality |
 | {prf:ref}`mt-lock-hodge` | Serre 1956, Griffiths 1968 {cite}`Griffiths68` | GAGA & Hodge Theory |
-| {prf:ref}`mt-lock-entropy` | Bekenstein 1981 {cite}`Bekenstein81` | Holographic Entropy Bound |
+| {prf:ref}`mt-lock-entropy` | Shannon 1948 {cite}`Shannon48` | Holographic Capacity Lock |
 
 **Rigor Class F (Framework-Original Categorical Proofs):**
 Theorems providing original structural glue, requiring first-principles categorical verification using $(\infty,1)$-topos theory. These establish framework-specific constructions not reducible to existing literature.
@@ -3992,7 +3989,7 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 
 **Interface Dependencies:**
 - **Primary:** $\mathrm{Rep}_K$ (provides Kolmogorov complexity $K(x)$ of state description)
-- **Secondary:** $\mathrm{Cap}_H$ (provides Bekenstein-Hawking entropy bound $S_{\text{BH}}$)
+- **Secondary:** $\mathrm{Cap}_H$ (provides DPI information bound $I_{\max}$)
 
 **Sieve Signature:**
 - **Weakest Precondition:** $\{K_{\mathrm{TB}_\rho}^{\pm}\}$
@@ -8834,7 +8831,7 @@ $$K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge (\Delta S_{\mathrm{bad}} < 0
 
 :::
 
-:::{prf:definition} E8: Holographic obstruction (Capacity)
+:::{prf:definition} E8: Data Processing Interaction (DPI)
 :label: def-e8
 
 **Sieve Signature:**
@@ -8842,20 +8839,20 @@ $$K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge (\Delta S_{\mathrm{bad}} < 0
 - **Weakest Precondition:** $\{K_{\mathrm{Cap}_H}^+, K_{\mathrm{TB}_\pi}^+\}$ (capacity bound and topology available)
 - **Produces:** $K_{\mathrm{E8}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** All failure modes (Global Regularity); specifically Mode C.D (geometric collapse)
-- **Breached By:** Information density within capacity or boundary not defined
+- **Breached By:** Information density exceeding channel capacity
 
-**Method**: Information-theoretic capacity bounds / Holographic principle
+**Method**: Data Processing Inequality / Channel Capacity Analysis
 
-**Mechanism**: If morphisms must respect the Bekenstein bound $S \leq \frac{2\pi E R}{\hbar c}$ (information bounded by boundary area) but $\mathbb{H}_{\mathrm{bad}}$ requires $S_{\text{bulk}} > S_{\text{boundary}}$, Hom is empty. The holographic principle constrains information density: bulk entropy cannot exceed boundary area divided by $4G_N$.
+**Mechanism**: The boundary $\partial \mathcal{X}$ acts as a communication channel $Y$ between the bulk system $X$ and the external observer $Z$. By the **Data Processing Inequality (DPI)**, processing cannot increase information: $I(X; Z) \leq I(X; Y)$. If the bulk requires transmitting more information than the boundary channel capacity $C(Y)$ allows ($I_{\text{bulk}} > C_{\text{boundary}}$), the interaction is impossible. The singularity is "hidden" because it cannot be faithfully observed.
 
 **Certificate Logic:**
-$$K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (I_{\mathrm{bad}} > I_{\max}(\partial \mathcal{H})) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
+$$K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (I_{\mathrm{bad}} > C_{\max}(\partial \mathcal{H})) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
 
-**Certificate Payload**: $(I_{\mathrm{bad}}, I_{\max}, \text{Bekenstein violation proof})$
+**Certificate Payload**: $(I_{\mathrm{bad}}, C_{\max}, \text{DPI violation proof})$
 
-**Automation**: Via information-theoretic bounds / entropy estimation / channel capacity computation
+**Automation**: Via mutual information estimation / channel capacity computation
 
-**Literature:** Bekenstein bound {cite}`Bekenstein73`; holographic principle {cite}`tHooft93`; {cite}`Susskind95`; channel capacity {cite}`Shannon48`.
+**Literature**: Data Processing Inequality {cite}`CoverThomas06`; Channel Capacity {cite}`Shannon48`.
 
 :::
 
@@ -9121,7 +9118,7 @@ Any compression must have complexity at least $m_{\min}$.
 | E5 | Functional Eq. | $\mathrm{Rep}_K$, $\mathrm{GC}_\nabla$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E5}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | All (unsolvable) |
 | E6 | Causal | $\mathrm{TB}_\pi$, $D_E$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E6}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | All (CTC) |
 | E7 | Thermodynamic | $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E7}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | C.E (2nd Law) |
-| E8 | Holographic | $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E8}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | C.D (Bekenstein) |
+| E8 | DPI | $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E8}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | C.D (Capacity) |
 | E9 | Ergodic | $\mathrm{TB}_\rho$, $C_\mu$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E9}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | T.D (mixing) |
 | E10 | Definability | $\mathrm{TB}_O$, $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E10}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | T.C (tameness) |
 | E11 | Galois-Monodromy | $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E11}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | S.E (solvability) |
@@ -11195,7 +11192,7 @@ $$K_{D_E}^+ \wedge (N_{\text{req}} = \infty) \Rightarrow K_{\mathrm{Rec}_N}^{\ma
 
 **Certificate Produced:** $K_{\mathrm{Rec}_N}^{\text{blk}}$ with payload $(E_{\max}, N_{\max}, T_{\text{horizon}})$ where $N_{\max} = \frac{4 E_{\max} T_{\text{horizon}}}{\pi\hbar}$
 
-**Literature:** {cite}`MargolisLevitin98`; {cite}`Lloyd00`; {cite}`BekensteinBound81`
+**Literature:** {cite}`MargolisLevitin98`; {cite}`Lloyd00`; {cite}`CoverThomas06`
 :::
 
 :::{prf:proof}
@@ -12218,51 +12215,51 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
 
 ### 51.7 Holographic Entropy Lock
 
-:::{prf:theorem} [LOCK-Entropy] Holographic Entropy Lock
+:::{prf:theorem} [LOCK-Capacity] Holographic Capacity Lock
 :label: mt-lock-entropy
 :class: metatheorem rigor-class-l
 
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
 
 **Bridge Verification:**
-1. *Hypothesis Translation:* Certificates $K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+$ imply: bounded boundary area $A(\partial\mathcal{X})$ and finite information content $I(\mathcal{X})$
-2. *Domain Embedding:* $\iota: \mathbf{Hypo}_T \to \mathbf{InfoGeom}$ mapping to information-geometric setting with metric $g_{ij} = \partial_i \partial_j S$
-3. *Conclusion Import:* Bekenstein bound {cite}`Bekenstein81` + Holographic principle {cite}`tHooft93` $\Rightarrow K_{\text{Holo}}^+$ (bulk entropy bounded by boundary capacity: $S_{\text{bulk}} \leq A/4G_N$)
+1. *Hypothesis Translation:* Certificates $K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+$ imply: bounded boundary channel capacity $C(\partial\mathcal{X})$
+2. *Domain Embedding:* $\iota: \mathbf{Hypo}_T \to \mathbf{InfoGeom}$ mapping to information-theoretic channel model $X \to Y \to Z$
+3. *Conclusion Import:* Shannon's Channel Coding Theorem {cite}`Shannon48` + Data Processing Inequality {cite}`CoverThomas06` $\Rightarrow K_{\text{Holo}}^+$ (bulk information retrieval bounded by boundary capacity)
 
 **Sieve Signature**
 - **Requires:** $K_{\mathrm{Cap}_H}^+$ (capacity certificate), $K_{\mathrm{TB}_\pi}^+$ (topological bound)
-- **Produces:** $K_{\text{Holo}}^+$ (holographic entropy certificate, information-theoretic lock)
+- **Produces:** $K_{\text{Holo}}^+$ (holographic capacity certificate, information-theoretic lock)
 
 **Statement:** Let $(\mathcal{X}, \Phi, \mathfrak{D})$ be a hypostructure with boundary $\partial\mathcal{X}$. If the sieve has issued:
-- $K_{\mathrm{Cap}_H}^+$: Capacity bound $\text{Cap}_H(\partial\mathcal{X}) \leq C_{\max}$
+- $K_{\mathrm{Cap}_H}^+$: Capacity bound $\text{Cap}_H(\partial\mathcal{X}) \leq \mathcal{C}_{\max}$
 - $K_{\mathrm{TB}_\pi}^+$: Topological bound on fundamental group $|\pi_1(\partial\mathcal{X})| < \infty$
 
-Then the **Bekenstein-Hawking bound** provides an information-theoretic lock:
+Then the **Data Processing Inequality** provides an information-theoretic lock:
 
-1. **Entropy Bound:** The bulk entropy satisfies:
-   $$S(\mathcal{X}) \leq \frac{A(\partial\mathcal{X})}{4G_N} = \frac{k_B c^3 A}{4 G \hbar}$$
-   where $A(\partial\mathcal{X})$ is the boundary area.
+1. **Information Bound:** The retrieveable information satisfies:
+   $$I(X; Z) \leq I(X; Y) \leq C(Y)$$
+   where $Y$ is the boundary channel and $C(Y)$ is its capacity.
 
 2. **Complexity Bound:** Kolmogorov complexity is bounded:
-   $$K(\mathcal{X}) \leq C \cdot \text{Cap}_H(\partial\mathcal{X})$$
+   $$K(\mathcal{X}) \leq \mathcal{C}_{\max} + O(1)$$
 
-3. **Lock Mechanism:** If $\mathbb{H}_{\mathrm{bad}}$ requires $S_{\mathrm{bad}} > S_{\max}$:
+3. **Lock Mechanism:** If $\mathbb{H}_{\mathrm{bad}}$ requires transmitting $I_{\mathrm{bad}} > \mathcal{C}_{\max}$:
    $$\text{Hom}_{\mathbf{Hypo}_T}(\mathbb{H}_{\mathrm{bad}}, \mathcal{X}) = \emptyset$$
-   The singularity is excluded by information-theoretic capacity.
+   The singularity is excluded by channel capacity.
 
-**Certificate Produced:** $K_{\text{Holo}}^+$ with payload $(S_{\max}, K_{\max}, A(\partial\mathcal{X}), \text{Bekenstein verification})$
+**Certificate Produced:** $K_{\text{Holo}}^+$ with payload $(\mathcal{C}_{\max}, K_{\max}, \text{DPI verification})$
 
-**Literature:** {cite}`Bekenstein81`; {cite}`Bekenstein73`; {cite}`tHooft93`; {cite}`Susskind95`; {cite}`Bousso02`
+**Literature:** {cite}`Shannon48`; {cite}`CoverThomas06`; {cite}`Levin73`
 :::
 
 :::{prf:proof} Proof Sketch
 :label: sketch-mt-lock-entropy
 
-*Step 1 (Bekenstein Bound).* For a system of energy $E$ confined to region of radius $R$, the maximum entropy is $S \leq 2\pi E R / \hbar c$ {cite}`Bekenstein81`. This follows from the generalized second law: throwing matter into a black hole cannot decrease total entropy (horizon + exterior).
+*Step 1 (Data Processing Inequality).* Consider the Markov chain $X \to Y \to Z$, where $X$ is the bulk state, $Y$ is the boundary state, and $Z$ is the observer's measurement. The Data Processing Inequality states that $I(X; Z) \leq I(X; Y)$.
 
-*Step 2 (Holographic Principle).* The holographic principle ({cite}`tHooft93`; {cite}`Susskind95`) strengthens this: information content of a region is bounded by its boundary area in Planck units, not volume. For the framework: $K(\mathcal{X}) \lesssim A(\partial\mathcal{X}) / \ell_P^2$.
+*Step 2 (Channel Capacity).* The mutual information $I(X; Y)$ is upper bounded by the capacity of the boundary channel: $I(X; Y) \leq C(Y) = \max_{p(x)} I(X; Y)$. If the boundary has finite measure/area/dimension, $C(Y)$ is finite.
 
-*Step 3 (Lock Application).* If $\mathbb{H}_{\mathrm{bad}}$ requires encoding $I_{\mathrm{bad}} > I_{\max}$ bits of information, it cannot embed into $\mathcal{X}$ with finite boundary. The morphism set is empty by information-theoretic obstruction.
+*Step 3 (Lock Application).* If $\mathbb{H}_{\mathrm{bad}}$ requires establishing an isomorphism or embedding that preserves $I_{\mathrm{bad}}$ bits of information, but $I_{\mathrm{bad}} > C(Y)$, such a morphism cannot exist. The attempt to observe the "bad" structure fails because the boundary cannot transmit the necessary bits to distinguish it.
 :::
 
 ---
