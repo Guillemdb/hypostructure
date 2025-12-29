@@ -87,7 +87,7 @@ A **Hypostructure** is a tuple $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet,
         $$S_{\text{coh}}(\mathcal{X}) \leq C \cdot \chi(\partial\mathcal{X})$$
         where $\chi$ denotes the Euler characteristic. This topological bound constrains how singularities can distribute across the boundary topology.
 
-     2. **Metric Bound (Bekenstein):** The thermodynamic entropy density is bounded by boundary area via the holographic principle: $S_{\text{thermo}} \leq A(\partial\mathcal{X})/4G_N$. This metric constraint is enforced by Tactic E8 ({prf:ref}`def-e8`) using the Capacity interface $\mathrm{Cap}_H$.
+     2. **Information Bound (Data Processing Inequality):** The mutual information between bulk and observer is bounded by the capacity of the boundary channel: $I(X; Z) \leq I(X; Y)$. This information-theoretic constraint is enforced by Tactic E8 ({prf:ref}`def-e8`) using the Capacity interface $\mathrm{Cap}_H$.
 
      The cohomological bound detects *topological* obstructions (too many singularity components for the boundary topology), while the metric bound detects *geometric* obstructions (too much information density for the boundary size). Both are necessary: the Sieve uses $\chi$ for categorical exclusion and Area for physical exclusion.
 :::
@@ -433,8 +433,6 @@ This theorem makes the framework's limitations **explicit and mathematically rig
 
 3. **Thermodynamic Interpretation**: Problems with $K(\mathcal{I}) > M_{\text{sieve}}$ are "thermodynamically irreducible" relative to the sieve's resources—analogous to measuring a temperature hotter than the thermometer's maximum rating.
 
-4. **Annals-Level Rigor**: By explicitly stating what the framework **cannot** do, we satisfy the highest standards of mathematical honesty required for top-tier publication.
-
 **Physical Analogy**: A balance scale with finite precision cannot distinguish masses differing by less than its resolution. Similarly, the sieve with finite memory cannot classify problems whose Kolmogorov complexity exceeds its capacity. Both are fundamental limits, not bugs.
 :::
 
@@ -568,7 +566,7 @@ The Boundary Operator is not merely a geometric edge—it is a **Functor** betwe
    - **Cutting:** The excision defines a cobordism $W$ with $\partial W = \Sigma$
    - **Gluing:** Composition in $\mathbf{Bord}_n$ via the pushout $u_{\text{bulk}} \sqcup_\Sigma u_{\text{cap}}$
 
-4. **Holographic Bound (Tactic E8):** If $|\pi_0(\mathcal{X}_{\text{sing}})| = \infty$ but $\chi(\partial\mathcal{X}) < \infty$, the singularity is **cohomologically excluded** by the entropy bound.
+4. **DPI Capacity Bound (Tactic E8):** If $|\pi_0(\mathcal{X}_{\text{sing}})| = \infty$ but $\chi(\partial\mathcal{X}) < \infty$, the singularity is **statistically excluded** by the channel capacity bound.
 :::
 
 :::{prf:definition} The Thermodynamic Horizon (Levin Limit)
@@ -583,7 +581,7 @@ where $|\tau|$ is the bitsize of the certificate chain and $\text{steps}(\tau)$ 
 **The Horizon Axiom:**
 A verification process is forcibly terminated with verdict **HORIZON** if:
 $$Kt(\tau) > \mathcal{S}_{\max}$$
-where $\mathcal{S}_{\max}$ is the Bekenstein Bound (maximum entropy) of the observer's memory buffer.
+where $\mathcal{C}_{\max}$ is the **Channel Capacity** of the observer's boundary interface, limited by the **Data Processing Inequality** rather than a hard thermodynamic horizon.
 
 **Physical Interpretation:**
 This formally identifies **Undecidable Problems** (like the Halting Problem or 4-Manifold Classification) as **Thermodynamically Inaccessible States** (Gas Phase), rather than "failures" of the logic.
@@ -605,7 +603,7 @@ For a finite computer, $\mathcal{S}_{\max} < \infty$ imposes fundamental limits 
 When $Kt(\tau) > \mathcal{S}_{\max}$, emit:
 $$K_{\text{Horizon}}^{\text{blk}} = (\text{"Levin Limit exceeded"}, Kt(\tau), \mathcal{S}_{\max}, \text{Gas Phase})$$
 
-**Literature:** {cite}`Levin73` (Resource-bounded complexity); {cite}`Bekenstein81` (Holographic bound); {cite}`LloydNg04` (Ultimate physical limits to computation)
+**Literature:** {cite}`Levin73` (Resource-bounded complexity); {cite}`Shannon48` (Channel Capacity); {cite}`CoverThomas06` (Data Processing Inequality)
 :::
 
 ---

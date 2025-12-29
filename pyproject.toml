@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "ale-py",
-    "gymnasium[atari]",
+    "gymnasium[atari,mujoco]",
     "matplotlib>=3.10.7",
     "opencv-python",
     "plangym>=0.1.30",

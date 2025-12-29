@@ -6,7 +6,7 @@ Implements VICReg and topology losses from the Hypostructure framework.
 
 import torch
 import torch.nn.functional as F
-from typing import List
+from typing import List, Optional
 
 
 # =============================================================================
@@ -228,6 +228,330 @@ def topology_loss(
     L_sep = chart_separation_loss(chart_outputs, weights, min_separation)
 
     return lambda_entropy * L_entropy + lambda_balance * L_balance + lambda_separation * L_sep
+
+
+# =============================================================================
+# Lyapunov & Geometric Losses
+# =============================================================================
+
+def lyapunov_loss(
+    critic: torch.nn.Module,
+    world_model: torch.nn.Module,
+    z_macro: torch.Tensor,
+    alpha: float = 0.1,
+    micro_dim: int = 32
+) -> torch.Tensor:
+    """
+    Lyapunov stability loss: enforce V̇(s)/|V(s)| ≤ -α for exponential stability.
+
+    Uses NORMALIZED formulation to prevent explosion with large V values:
+    L_Lyap = E[max(0, V̇/|V| + α)²]
+
+    This ensures the value function decreases at a relative rate of at least α,
+    regardless of the absolute magnitude of V.
+
+    Args:
+        critic: Critic network that computes V(z)
+        world_model: Physics engine that predicts z_next from z
+        z_macro: Current macro latent [batch, macro_dim]
+        alpha: Decay rate (larger = faster convergence required)
+        micro_dim: Dimension of micro latent (for dummy tensor)
+
+    Returns:
+        Scalar Lyapunov violation loss
+    """
+    # Ensure gradients flow through z_macro
+    z_macro = z_macro.detach().clone()
+    z_macro.requires_grad_(True)
+
+    # Create dummy z_micro for critic (zeros since we want V only on macro)
+    batch_size = z_macro.shape[0]
+    device = z_macro.device
+    z_micro_dummy = torch.zeros(batch_size, micro_dim, device=device)
+
+    # Compute V(z)
+    V = critic(z_macro, z_micro_dummy, drop_micro=True)
+
+    # Compute ∇V w.r.t. z_macro
+    grad_V = torch.autograd.grad(
+        V.sum(), z_macro, create_graph=True, retain_graph=True
+    )[0]
+
+    # Compute velocity: ṡ = WM(z) - z (residual dynamics)
+    z_next = world_model(z_macro)
+    velocity = z_next - z_macro
+
+    # Compute V̇ = ∇V · ṡ
+    V_dot = (grad_V * velocity).sum(dim=-1)
+
+    # NORMALIZED Lyapunov constraint: V̇/|V| + α ≤ 0
+    # This prevents explosion when V is large
+    V_squeeze = V.squeeze(-1)
+    V_abs = torch.abs(V_squeeze) + 1e-6  # Prevent division by zero
+
+    # Relative rate of change
+    relative_V_dot = V_dot / V_abs
+
+    # Violation of the normalized constraint
+    violation = torch.relu(relative_V_dot + alpha)
+
+    return violation.pow(2).mean()
+
+
+def eikonal_loss(
+    critic: torch.nn.Module,
+    z_macro: torch.Tensor,
+    micro_dim: int = 32
+) -> torch.Tensor:
+    """
+    Eikonal regularization: force ||∇V|| ≈ 1 (valid geodesic distance function).
+
+    Uses ASYMMETRIC penalty to prevent explosion when ||∇V|| >> 1:
+    - If ||∇V|| < 1: quadratic penalty (1 - ||∇V||)²
+    - If ||∇V|| > 1: linear penalty (||∇V|| - 1)
+
+    This ensures the critic represents a valid distance function while being
+    robust to large gradient norms during early training.
+
+    Args:
+        critic: Critic network that computes V(z)
+        z_macro: Macro latent [batch, macro_dim]
+        micro_dim: Dimension of micro latent (for dummy tensor)
+
+    Returns:
+        Scalar Eikonal loss
+    """
+    z_macro = z_macro.detach().clone()
+    z_macro.requires_grad_(True)
+
+    batch_size = z_macro.shape[0]
+    device = z_macro.device
+    z_micro_dummy = torch.zeros(batch_size, micro_dim, device=device)
+
+    V = critic(z_macro, z_micro_dummy, drop_micro=True)
+
+    grad_V = torch.autograd.grad(
+        V.sum(), z_macro, create_graph=True
+    )[0]
+
+    grad_norm = grad_V.norm(dim=-1)
+
+    # Asymmetric penalty: quadratic below 1, linear above 1
+    # This prevents explosion when grad_norm >> 1
+    below_one = torch.relu(1.0 - grad_norm).pow(2)  # (1 - x)² when x < 1
+    above_one = torch.relu(grad_norm - 1.0)          # (x - 1) when x > 1
+
+    return (below_one + above_one).mean()
+
+
+def gradient_stiffness_loss(
+    critic: torch.nn.Module,
+    z_macro: torch.Tensor,
+    epsilon: float = 0.1,
+    micro_dim: int = 32
+) -> torch.Tensor:
+    """
+    Gradient stiffness: ensure ||∇V|| ≥ ε (gradient doesn't vanish).
+
+    L_Stiff = max(0, ε - ||∇V||)²
+
+    Prevents the critic from having flat regions where learning stalls.
+
+    Args:
+        critic: Critic network
+        z_macro: Macro latent [batch, macro_dim]
+        epsilon: Minimum gradient norm threshold
+        micro_dim: Dimension of micro latent
+
+    Returns:
+        Scalar stiffness loss
+    """
+    z_macro = z_macro.detach().clone()
+    z_macro.requires_grad_(True)
+
+    batch_size = z_macro.shape[0]
+    device = z_macro.device
+    z_micro_dummy = torch.zeros(batch_size, micro_dim, device=device)
+
+    V = critic(z_macro, z_micro_dummy, drop_micro=True)
+
+    grad_V = torch.autograd.grad(
+        V.sum(), z_macro, create_graph=True
+    )[0]
+
+    grad_norm = grad_V.norm(dim=-1)
+    return torch.relu(epsilon - grad_norm).pow(2).mean()
+
+
+def zeno_loss(
+    action_mean_t: torch.Tensor,
+    action_std_t: torch.Tensor,
+    action_mean_prev: torch.Tensor,
+    action_std_prev: torch.Tensor,
+    mask: Optional[torch.Tensor] = None
+) -> torch.Tensor:
+    """
+    Zeno constraint: penalize rapid policy changes (no chattering).
+
+    L_Zeno = D_KL(π_t || π_{t-1})
+
+    Prevents the policy from oscillating rapidly, ensuring smooth control.
+
+    Args:
+        action_mean_t: Current policy mean [batch, action_dim]
+        action_std_t: Current policy std [batch, action_dim]
+        action_mean_prev: Previous policy mean [batch, action_dim]
+        action_std_prev: Previous policy std [batch, action_dim]
+        mask: Optional mask for valid transitions [batch] (1 = include, 0 = skip)
+
+    Returns:
+        Scalar Zeno loss (KL divergence between consecutive policies)
+    """
+    from torch.distributions import Normal, kl_divergence
+
+    dist_t = Normal(action_mean_t, action_std_t)
+    dist_prev = Normal(action_mean_prev, action_std_prev)
+
+    # KL divergence summed over action dimensions
+    kl = kl_divergence(dist_t, dist_prev).sum(dim=-1)
+    if mask is None:
+        return kl.mean()
+
+    mask = mask.to(device=kl.device, dtype=kl.dtype)
+    denom = mask.sum().clamp_min(1.0)
+    return (kl * mask).sum() / denom
+
+
+def sync_vae_wm_loss(
+    z_enc_next: torch.Tensor,
+    z_wm_pred: torch.Tensor
+) -> torch.Tensor:
+    """
+    VAE-WM synchronization: encoder output should match world model prediction.
+
+    L_Sync = ||z_{t+1,enc} - sg(WM(z_t, a_t))||²
+
+    Ensures the encoder and world model learn consistent representations.
+    Stop gradient on WM prediction to train encoder towards WM.
+
+    Args:
+        z_enc_next: Encoded next state [batch, macro_dim]
+        z_wm_pred: World model predicted next state [batch, macro_dim]
+
+    Returns:
+        Scalar synchronization loss
+    """
+    return F.mse_loss(z_enc_next, z_wm_pred.detach())
+
+
+# =============================================================================
+# Ruppeiner Metric (Riemannian Geometry from Adam Statistics)
+# =============================================================================
+
+def compute_ruppeiner_metric(
+    optimizer: torch.optim.Adam,
+    param_groups_filter: str = None
+) -> dict:
+    """
+    Extract Ruppeiner metric from Adam optimizer's second moment statistics.
+
+    The Ruppeiner metric g_ij encodes local curvature of the loss landscape:
+        g_ij ≈ E[∂L/∂θ_i · ∂L/∂θ_j] ≈ v_i (Adam's v is exponential average of grad²)
+
+    This provides a diagonal approximation to the Fisher information metric,
+    which can be used for:
+    1. Adaptive learning rates (natural gradient)
+    2. Detecting flat vs curved regions
+    3. Geometry-aware regularization
+
+    Args:
+        optimizer: Adam optimizer with state containing 'exp_avg_sq' (v)
+        param_groups_filter: Optional string to filter parameter groups by name
+
+    Returns:
+        Dictionary with:
+            - 'metric_diag': Diagonal of Ruppeiner metric (list of tensors)
+            - 'condition_number': Ratio of max/min eigenvalues (scalar)
+            - 'flatness': Mean inverse curvature (larger = flatter)
+    """
+    metric_diag = []
+    all_v = []
+
+    for group in optimizer.param_groups:
+        for p in group['params']:
+            if p.grad is None:
+                continue
+
+            state = optimizer.state[p]
+            if 'exp_avg_sq' not in state:
+                continue
+
+            v = state['exp_avg_sq']  # Second moment estimate
+            metric_diag.append(v.clone())
+            all_v.append(v.flatten())
+
+    if not all_v:
+        return {
+            'metric_diag': [],
+            'condition_number': 1.0,
+            'flatness': 1.0
+        }
+
+    # Concatenate all v values
+    v_all = torch.cat(all_v)
+
+    # Compute statistics
+    v_min = v_all.min().item() + 1e-8
+    v_max = v_all.max().item() + 1e-8
+    condition_number = v_max / v_min
+
+    # Flatness: inverse of average curvature
+    flatness = 1.0 / (v_all.mean().item() + 1e-8)
+
+    return {
+        'metric_diag': metric_diag,
+        'condition_number': condition_number,
+        'flatness': flatness,
+        'mean_curvature': v_all.mean().item(),
+        'max_curvature': v_max,
+        'min_curvature': v_min
+    }
+
+
+def ruppeiner_regularization_loss(
+    optimizer: torch.optim.Adam,
+    target_condition: float = 100.0
+) -> torch.Tensor:
+    """
+    Regularization based on Ruppeiner metric to prevent ill-conditioning.
+
+    L_Ruppeiner = max(0, κ - target_condition)²
+
+    where κ is the condition number (ratio of max/min curvature).
+
+    This encourages the loss landscape to be more isotropic, improving
+    optimization stability.
+
+    Args:
+        optimizer: Adam optimizer
+        target_condition: Maximum acceptable condition number
+
+    Returns:
+        Scalar regularization loss
+    """
+    metric = compute_ruppeiner_metric(optimizer)
+
+    if not metric['metric_diag']:
+        return torch.tensor(0.0)
+
+    device = metric['metric_diag'][0].device
+    condition = metric['condition_number']
+
+    return torch.tensor(
+        max(0, condition - target_condition) ** 2,
+        device=device,
+        requires_grad=False
+    )
 
 
 # =============================================================================

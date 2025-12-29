@@ -34,6 +34,90 @@ This tuple directly instantiates the core objects of the Hypostructure $\mathbb{
 | **Critic** | **Energy Functional ($\Phi$)** | **The Potential Field (Height):** Assigns a "height" (potential energy) to every point in $Z$, representing risk. | Defines the **Risk Gradient** $\nabla V$. |
 | **Policy** | **Dissipation ($\mathfrak{D}$)** | **The Actuator (Force):** Moves the agent particle through $Z$ against the potential gradient. | Applies **Force** to minimize Action. |
 
+### 2.3 The Bridge: RL as Dissipation (Neural Lyapunov Geometry)
+
+Standard Reinforcement Learning maximizes the sum of rewards. Control Theory stabilizes a system by dissipating energy. We bridge these by defining the **Value Function $V(s)$** as a **Control Lyapunov Function (CLF)** (Chang et al., 2019).
+
+| Perspective | Objective | Mechanism |
+|-------------|-----------|-----------|
+| **Physics** | Minimize potential energy $V(s)$ | Slide down the landscape |
+| **Control Theory** | Ensure exponential stability: $\dot{V}(s) \le -\lambda V(s)$ | Lyapunov constraint |
+| **Reinforcement Learning** | Maximize the time-derivative of Value ($\dot{V}$) | Policy gradient |
+
+The key insight is that these three perspectives are **isomorphic**: maximizing reward in RL is equivalent to dissipating energy in physics, which is equivalent to ensuring Lyapunov stability in control theory.
+
+### 2.4 The Ruppeiner Action Functional
+
+The agent moves through the latent space $Z$ to minimize the **Thermodynamic Action**:
+
+$$\mathcal{S} = \int \left( \underbrace{\frac{1}{2} \|\dot{\pi}\|^2_{G}}_{\text{Kinetic Cost}} - \underbrace{\frac{d V}{d \tau}}_{\text{Dissipation Gain}} \right) dt$$
+
+Where $\|\cdot\|_G$ is the norm under the **Ruppeiner Metric** (see Section 2.5). This forces the agent to follow the **Geodesics of Risk**, slowing down near phase transitions (cliffs) and accelerating in safe regions.
+
+**Comparison: Euclidean vs Riemannian Action**
+
+| Aspect | Euclidean (Standard RL) | Riemannian (Fragile Agent) |
+|--------|-------------------------|----------------------------|
+| **Metric** | $\|\cdot\|_2$ (flat) | $\|\cdot\|_G$ (curved) |
+| **Step Size** | Constant everywhere | Varies with curvature |
+| **Near Cliffs** | Large steps → instability | Small steps → safety |
+| **In Valleys** | Same as cliffs | Large steps → efficiency |
+| **Failure Mode** | BarrierBode (oscillation) | Prevented by geometry |
+
+### 2.5 Ruppeiner Geometry: Value *is* Geometry
+
+In Ruppeiner geometry (from thermodynamic fluctuation theory), the distance between two states is defined by the **probability of fluctuation** between them. For the Fragile Agent, "Fluctuation" is **Risk** (Amari, 1998).
+
+Instead of maximizing $V$ in a vacuum, we define the **Ruppeiner Metric Tensor** $G_{ij}$ using the curvature of the Critic (Potential Function):
+
+$$G_{ij} = \frac{\partial^2 V}{\partial z_i \partial z_j} = \text{Hess}(V)$$
+
+**Behavior in Different Regions:**
+
+* **Flat Region ($G \approx I$):** The Value function is linear/flat. Risk is uniform. The space is Euclidean.
+* **Curved Region ($G \gg I$):** The Value function is highly convex (a "cliff" or "trap"). The metric "stretches" space. A small step in parameter space equals a huge "Thermodynamic Distance."
+
+**The Upgrade: From Gradient Descent to Geodesic Flow**
+
+| Standard RL | Riemannian RL |
+|-------------|---------------|
+| $\theta \leftarrow \theta + \eta \nabla_\theta \mathcal{L}$ | $\theta \leftarrow \theta + \eta G^{-1} \nabla_\theta \mathcal{L}$ |
+| Euclidean gradient | Natural gradient (Amari) |
+| Ignores curvature | Respects curvature |
+
+In `hypo_ppo.py` the **Riemannian metric lives in state space**, not parameter space. The covariant derivative uses a **diagonal inverse metric** $M^{-1}(s)$ to scale $\dot{V}$:
+
+$$\dot{V}_M = \nabla V(s)^\top M^{-1}(s) \Delta s$$
+
+Current state-space metric options (diagonal approximations):
+
+* **Observation variance (whitening):**
+  $$M^{-1}_{ii}(s) = \frac{1}{\mathrm{Var}(s_i) + \epsilon}$$
+* **Policy Fisher on states:**
+  $$M^{-1}_{ii}(s) = \frac{1}{\mathbb{E}[(\partial_{s_i}\log \pi(a|s))^2] + \epsilon}$$
+* **Gradient RMS (critic):**
+  $$M^{-1}_{ii}(s) = \frac{1}{\sqrt{\mathbb{E}[(\partial_{s_i} V)^2]} + \epsilon}$$
+
+**Important:** Parameter-space statistics (e.g., Adam's $\hat{v}_t$) are *not* used for $M^{-1}(s)$ in `hypo_ppo.py`. They belong to optimizer diagnostics, not state-space geometry.
+
+This is mathematically analogous to **Newton's Method** in optimization (Kingma & Ba, 2015):
+* **Near Cliffs (High Curvature):** $G$ is large → $G^{-1}$ is small. The agent **slows down** automatically.
+* **In Valleys (Low Curvature):** $G$ is small → $G^{-1}$ is large. The agent **accelerates** in safe regions.
+
+**The "Fragile" Metric Tensor (Diagonal Approximation):**
+
+We construct a diagonal Ruppeiner Metric using the **Scaling Exponents** (Temperatures) from Section 3.2:
+
+$$G = \text{diag}(\alpha, \beta, \gamma, \delta)$$
+
+Where:
+* $\alpha$ (Critic Temp): Curvature of the risk landscape.
+* $\beta$ (Policy Temp): Plasticity of the actor.
+* $\gamma$ (World Model Temp): Volatility of physics.
+* $\delta$ (VAE Temp): Stability of geometry.
+
+This fuses the Cybernetic and Thermodynamic perspectives: the agent's "temperature" determines its responsiveness to risk gradients.
+
 ---
 
 ## 3. Physiology: Interfaces (The Vital Signs)
@@ -78,9 +162,9 @@ In the Hypostructure framework, **Thin Interfaces** are defined as minimal coupl
 
 ### 3.2 Scaling Exponents: Characterizing the Demon
 
-We characterize the behavior of the Minimum Viable Agent (MVA) using four **Scaling Exponents** (Temperatures), which can be estimated in real-time from the **Adam optimizer's second moment** ($\hat{v}_t$) for each network's parameters.
+We characterize the behavior of the Minimum Viable Agent (MVA) using four **Scaling Exponents** (Temperatures). These are *diagnostic* summaries of training dynamics. In earlier drafts this was tied to Adam's second-moment ($\hat{v}_t$), but in `hypo_ppo.py` the **geometry is state-space** and uses **policy Fisher / observation variance / gradient RMS** instead of Adam statistics.
 
-$$ \text{Scale}(\Theta) \approx \log_{10}(\|\hat{v}_t^{\Theta}\|_1) $$
+If you want a state-space-aligned proxy, replace $\hat{v}_t$ with a diagonal state metric (e.g., Fisher on states or observation variance).
 
 | Component | Exponent | Symbol | Physical Meaning | Diagnostics |
 | :--- | :--- | :--- | :--- | :--- |
@@ -107,9 +191,84 @@ We regulate the MVA by augmenting the loss function with specific terms for each
 *   **Contrastive Anchoring (Node 6):**
     $$ \mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(z_t, z_{t+k}))}{\sum \exp(\text{sim}(z_t, z_{neg}))} $$
     *   *Effect:* Ensures the latent space captures long-term structural dependencies (slow features), not just pixel reconstruction.
+
+*   **VICReg: Variance-Invariance-Covariance Regularization (Alternative to InfoNCE):**
+
+    VICReg (Bardes, Ponce, LeCun, 2022) provides an alternative approach to preventing representation collapse **without requiring negative samples**. While InfoNCE contrasts positive pairs against negatives, VICReg uses geometric constraints.
+
+    **The Collapse Problem:**
+    Self-supervised learning can produce trivial solutions where the encoder maps all inputs to a constant. VICReg prevents this through three orthogonal constraints:
+
+    **1. Invariance Loss (Metric Stability):**
+    $$\mathcal{L}_{\text{inv}} = \|z - z'\|^2$$
+    - $z, z'$ are embeddings of two augmented views of the same input
+    - *Effect:* Forces representations to be stable under perturbations
+
+    **2. Variance Loss (Non-Collapse):**
+    $$\mathcal{L}_{\text{var}} = \frac{1}{d} \sum_{j=1}^{d} \max(0, \gamma - \sqrt{\text{Var}(z_j) + \epsilon})$$
+    - $\gamma$ is the target standard deviation (typically 1)
+    - *Effect:* Forces each dimension to have non-trivial variance (prevents collapse to a point)
+
+    **3. Covariance Loss (Decorrelation):**
+    $$\mathcal{L}_{\text{cov}} = \frac{1}{d} \sum_{i \neq j} [\text{Cov}(z)]_{ij}^2$$
+    - *Effect:* Forces off-diagonal covariance to zero (decorrelates dimensions)
+
+    **Combined VICReg Loss:**
+    $$\mathcal{L}_{\text{VICReg}} = \lambda \mathcal{L}_{\text{inv}} + \mu \mathcal{L}_{\text{var}} + \nu \mathcal{L}_{\text{cov}}$$
+
+    **Comparison: InfoNCE vs VICReg vs Barlow Twins:**
+
+    | Method | Negative Samples | Collapse Prevention | Computation | Citation |
+    |--------|------------------|---------------------|-------------|----------|
+    | **InfoNCE** | Required ($B^2$ pairs) | Contrastive pushing | $O(B^2 Z)$ | Oord et al. (2018) |
+    | **VICReg** | None | Variance constraint | $O(B Z^2)$ | Bardes et al. (2022) |
+    | **Barlow Twins** | None | Cross-correlation identity | $O(B Z^2)$ | Zbontar et al. (2021) |
+
+    **When to Use Which:**
+    - **InfoNCE:** When you have large batches and care about discriminative features
+    - **VICReg:** When you want geometric guarantees without mining hard negatives
+    - **Barlow Twins:** When you want redundancy reduction (information-theoretic)
+
 *   **Gauge Fixing (Node 6 - Orthogonality):**
     $$ \mathcal{L}_{\text{Gauge}} = \Vert \text{Cov}(z) - I \Vert_F^2 \quad \text{or} \quad \| J_S^T J_S - I \|^2 $$
     *   *Effect:* Penalizes "sliding along gauge orbits" (flat directions in the manifold). Forces latent dimensions to be orthogonal and physically meaningful, preventing the agent from expending energy on "ghost variables" that do no work.
+
+*   **BRST Cohomology Interpretation (Gauge Theory Foundation):**
+
+    The orthogonality constraint above has deep roots in **BRST gauge theory** (Becchi, Rouet, Stora, Tyutin, 1970s). In quantum field theory, BRST symmetry provides a systematic way to handle gauge redundancy.
+
+    **The BRST Operator $Q$:**
+    - **Nilpotent:** $Q^2 = 0$ (applying the gauge transformation twice gives zero)
+    - **Physical States:** States $|\psi\rangle$ where $Q|\psi\rangle = 0$ (closed forms)
+    - **Gauge Redundancy:** States $|\psi\rangle \sim |\psi\rangle + Q|\chi\rangle$ (exact forms)
+    - **Cohomology:** Physical = Closed / Exact (the quotient space)
+
+    **Translation to Neural Networks (Saxe et al., 2019):**
+
+    | BRST Concept | Neural Network Analog | Role |
+    |--------------|----------------------|------|
+    | Gauge transformation | Weight rescaling | Redundant symmetry |
+    | BRST operator $Q$ | Orthogonality constraint | Fixes the gauge |
+    | Physical states | Orthogonal weight matrices | Unique representation |
+    | Gauge orbit | Covariance directions | Information-free dimensions |
+
+    **The BRST Defect Functional:**
+    $$\mathcal{L}_{\text{BRST}} = \|W^T W - I\|_F^2$$
+
+    This constraint "fixes the gauge" by forcing $W$ to be orthogonal:
+    - **Isometry:** Orthogonal maps preserve distances: $\|Wx\| = \|x\|$
+    - **No Crushing:** Information is not lost (determinant $\neq 0$)
+    - **No Explosion:** Gradients don't explode (spectral norm $= 1$)
+    - **Clean Unrolling:** The network can be "unrolled" without distortion
+
+    **Comparison: L2 vs BRST Regularization:**
+
+    | Regularization | Formula | Effect | Failure Mode Prevented |
+    |----------------|---------|--------|------------------------|
+    | **L2 (Standard)** | $\lambda\|W\|^2$ | Small weights | Overfitting |
+    | **BRST (Gauge)** | $\|W^TW - I\|^2$ | Orthogonal weights | Mode collapse, gradient issues |
+
+    The BRST constraint is strictly stronger: it doesn't just make weights small, it makes them **geometrically meaningful** by preserving the metric structure of the latent space.
 
 #### B. World Model Regulation (The Oracle)
 *   **Lipschitz Constraint (BarrierOmin / Node 9):**
@@ -120,7 +279,28 @@ We regulate the MVA by augmenting the loss function with specific terms for each
     $$ \mathcal{L}_{\text{pred}} = \| S(z_t, a_t) - z_{t+1} \|^2 $$
     *   *Effect:* Standard dynamics learning, but constrained by the Lyapunov potential (see below).
 
-#### C. Critic Regulation (The Potential)
+#### C. Critic Regulation (The Potential / Lyapunov Function)
+
+The Critic does not just predict reward; it defines the **Geometry of Stability**. It must satisfy the **Neural Lyapunov Condition** (Chang et al., 2019; Chow et al., 2018; Kolter et al., 2019).
+
+**Euclidean vs Riemannian Critic Losses:**
+
+| Loss Type | Euclidean (Standard) | Riemannian (Lyapunov) |
+|-----------|----------------------|----------------------|
+| **Primary** | $\mathcal{L} = \|V_{\text{pred}} - V_{\text{target}}\|^2$ | $\mathcal{L}_{\text{Lyap}} = \mathbb{E}[\max(0, \dot{V}(s) + \alpha V(s))^2]$ |
+| **Goal** | Accuracy | Stability guarantee |
+| **Failure Mode** | Flat plateaus, jagged landscapes | Prevented |
+| **Geometry** | Ignores curvature | Enforces valid distance function |
+
+*   **Lyapunov Decay (Node 7 - Stiffness):**
+    The Critic must guarantee that a descent direction *exists* everywhere (except the goal):
+    $$\mathcal{L}_{\text{Lyapunov}} = \mathbb{E}_{s} [\max(0, \dot{V}(s) + \alpha V(s))^2]$$
+    * *Mechanism:* If $\dot{V}$ (change in value) is not sufficiently negative (dissipating energy faster than rate $\alpha$), penalize the Critic. This forces the Critic to "tilt" the landscape to create a slide toward the goal.
+
+*   **Eikonal Regularization (BarrierGap - Geometric Constraint):**
+    $$\mathcal{L}_{\text{Eikonal}} = (\|\nabla_s V\| - 1)^2$$
+    * *Effect:* Forces the Value function to satisfy the **Eikonal Equation**, ensuring it represents a valid **Geodesic Distance Function**. This prevents the "Cliff" problem where gradients explode, and the "Plateau" problem where gradients vanish.
+
 *   **Lyapunov Stiffness (Node 7):**
     $$ \mathcal{L}_{\text{Stiff}} = \max(0, \epsilon - \|\nabla V(s)\|)^2 + \|\nabla V(s)\|^2_{\text{reg}} $$
     *   *Effect:* The gradient $\nabla V$ must be non-zero (to drive the policy) but bounded (to prevent explosion).
@@ -128,9 +308,31 @@ We regulate the MVA by augmenting the loss function with specific terms for each
     $$ \mathcal{L}_{\text{Risk}} = \lambda_{\text{safety}} \cdot \mathbb{E}[\max(0, V(s) - V_{\text{limit}})] $$
     *   *Effect:* Hard Lagrangian enforcement of the risk budget.
 
-#### D. Policy Regulation (The Actuator)
-*   **Zeno Constraint (Node 2):**
-    $$ \mathcal{L}_{\text{Zeno}} = D_{KL}(\pi(\cdot \mid s_t) \Vert \pi(\cdot \mid s_{t-1})) $$
+#### D. Policy Regulation (The Actuator / Geodesic Flow)
+
+The Policy is the **Shaping Agent** (Ng & Russell, 1999). Its sole objective is to maximize the dissipation rate of the Lyapunov function along the manifold's curvature. We replace standard Policy Gradient with **Natural Gradient Ascent** (Amari, 1998; Schulman et al., 2015; Martens, 2020).
+
+**Euclidean vs Riemannian Policy Losses:**
+
+| Loss Type | Euclidean (Standard) | Riemannian (Covariant) |
+|-----------|----------------------|------------------------|
+| **Primary** | $\mathcal{L} = -\log \pi(a|s) \cdot A(s,a)$ | $\mathcal{L}_{\text{cov}} = -\mathbb{E}\left[\frac{\nabla_s V(s) \cdot f(s, a)}{\sqrt{G_{ii}(s)}}\right]$ |
+| **What it maximizes** | Advantage (scalar) | Dissipation along geodesic |
+| **Geometry** | Blind to curvature | Respects Ruppeiner metric |
+| **Near cliffs** | Large steps → crash | Small steps → safety |
+| **Mechanism** | Push toward high reward | Push along manifold |
+
+*   **Dissipation Maximization (Node 10 - Covariant Gradient):**
+    $$\mathcal{L}_{\text{Dissipate}} = -\mathbb{E}_{s, a \sim \pi} \left[ \frac{\nabla_s V(s) \cdot f(s, a)}{\sqrt{G_{ii}(s)}} \right]$$
+    * *Mechanism:* Maximize the dot product of the Value Gradient $\nabla V$ and the Dynamics $f(s,a)$, normalized by the **Ruppeiner Metric** ($G_{ii}$).
+    * *Effect:* This is **Covariant Gradient Ascent**. The policy pushes the state $s$ down the slope of $V$, but scales the step size by the "Temperature" (Variance) of the space. When the Critic is uncertain ($G$ is large), the effective step shrinks automatically.
+
+*   **Geodesic Stiffness (Node 2 - Zeno Constraint):**
+    $$\mathcal{L}_{\text{Zeno}} = \|\pi_t - \pi_{t-1}\|^2_{G}$$
+    * *Effect:* Penalizes high-frequency switching, but **weighted by geometry**. Rapid switching is allowed in Hyperbolic (Tree) regions where exploration is cheap, but banned in Flat (Physical) regions where each step is costly.
+
+*   **Standard Zeno Constraint (Euclidean fallback):**
+    $$ \mathcal{L}_{\text{Zeno}}^{\text{Euc}} = D_{KL}(\pi(\cdot \mid s_t) \Vert \pi(\cdot \mid s_{t-1})) $$
     *   *Effect:* Penalizes high-frequency action switching (chattering).
 *   **Entropy Regularization (Node 10):**
     $$ \mathcal{L}_{\text{Ent}} = -\mathcal{H}(\pi(\cdot \mid s)) $$
@@ -460,6 +662,350 @@ $$
 
 See Section 8 for efficient implementations of the expensive terms.
 
+#### Tier 4: Riemannian MVA (Covariant Updates)
+
+This tier implements the full **Riemannian / Thermodynamic** framework, replacing Euclidean losses with their covariant equivalents. This approach is inspired by the Natural Gradient methods (Amari, 1998; Martens, 2020 - K-FAC) and Safe RL literature (Chow et al., 2018; Kolter et al., 2019).
+
+**Key Insight (Adam-Ruppeiner Equivalence):** The Adam optimizer's second moment ($v_t$) is mathematically an approximation of the diagonal of the Hessian (Fisher Information Matrix). We can reinterpret this as a **Metric Tensor** rather than just a learning rate scaler (Kingma & Ba, 2015).
+
+**A. compute_natural_gradient_loss(): Covariant Dissipation**
+
+```python
+def compute_natural_gradient_loss(
+    policy_action: torch.Tensor,    # a_t from Policy(s_t)
+    world_model: nn.Module,         # Dynamics function f(s, a)
+    critic: nn.Module,              # Value function V(s)
+    state: torch.Tensor,            # s_t
+    optimizer_stats: dict,          # Adam 'exp_avg_sq' from Critic optimizer
+    epsilon: float = 1e-8
+) -> torch.Tensor:
+    """
+    Computes the Covariant Dissipation Loss connecting Policy and Value.
+
+    EUCLIDEAN (Standard RL):
+        L = -log_prob * advantage  # Ignores geometry entirely
+
+    RIEMANNIAN (This function):
+        L = -<grad_V, velocity>_G  # Inner product under Ruppeiner metric
+
+    The key difference: Riemannian loss scales the gradient by the inverse
+    curvature. Near cliffs (high G), steps shrink. In valleys (low G), steps grow.
+
+    Related Work:
+    - Amari (1998): Natural Gradient
+    - Martens (2020): K-FAC for deep learning
+    - Schulman et al. (2015): TRPO (trust region as implicit curvature)
+    """
+
+    # 1. Get the Ruppeiner Metric G (Diagonal Approximation)
+    # We use the Critic's parameter variance to estimate the "temperature"
+    # If the Critic is uncertain/volatile about a dimension, G is high
+    with torch.no_grad():
+        v_t = optimizer_stats.get('exp_avg_sq', torch.ones_like(state))
+        metric_inv = 1.0 / (torch.sqrt(v_t) + epsilon)  # G^{-1}
+
+    # 2. Compute the Value Gradient (nabla_s V)
+    state.requires_grad_(True)
+    value_est = critic(state)
+    grad_v = torch.autograd.grad(
+        outputs=value_est.sum(),
+        inputs=state,
+        create_graph=True,
+        retain_graph=True
+    )[0]  # [Batch, Latent_Dim]
+
+    # 3. Compute Dynamics (s_dot)
+    # RIEMANNIAN: We need the actual dynamics, not just the action probability
+    next_state_pred = world_model(state, policy_action)
+    state_velocity = next_state_pred - state  # [Batch, Latent_Dim]
+
+    # 4. Compute the Natural Inner Product (Covariant Derivative)
+    # EUCLIDEAN would be: (grad_v * state_velocity).sum()
+    # RIEMANNIAN: weight by inverse metric
+    natural_dissipation = (grad_v * state_velocity * metric_inv).sum(dim=-1)
+
+    # 5. The Loss: MAXIMIZE dissipation (make V decrease fast)
+    return -natural_dissipation.mean()
+```
+
+**B. compute_control_theory_loss(): Neural Lyapunov with Ruppeiner Geometry**
+
+```python
+def compute_control_theory_loss(
+    policy_action: torch.Tensor,    # a_t
+    world_model_pred: torch.Tensor, # s_{t+1} - s_t (dynamics)
+    critic_values: torch.Tensor,    # V(s)
+    states: torch.Tensor,           # s_t
+    optimizer_stats: dict,          # Adam 'exp_avg_sq' (v_t)
+    lambda_lyapunov: float = 1.0,
+    target_decay: float = 0.1,      # alpha in Lyapunov constraint
+) -> torch.Tensor:
+    """
+    Implements Neural Lyapunov Control with Ruppeiner Geometry.
+
+    Combines two constraints:
+    1. COVARIANT DISSIPATION: Policy loss scaled by geometry
+    2. LYAPUNOV STABILITY: Critic must enforce V_dot <= -alpha * V
+
+    Related Work:
+    - Chang et al. (2019): Neural Lyapunov Control
+    - Chow et al. (2018): Lyapunov-based Safe RL
+    - Kolter et al. (2019): Differentiable Lyapunov verification
+    """
+
+    # 1. Estimate Ruppeiner Metric G from Adam stats (Physicist Approximation)
+    with torch.no_grad():
+        v_t = optimizer_stats.get('critic_params', torch.ones_like(states))
+        g_metric = torch.sqrt(v_t).mean(dim=0) + 1e-6  # Shape [Latent_Dim]
+
+    # 2. Compute Time-Derivative of Value (V_dot)
+    grad_v = torch.autograd.grad(
+        critic_values.sum(), states, create_graph=True
+    )[0]
+
+    # 3. Covariant Dissipation (Policy Loss)
+    # EUCLIDEAN: dissipation = (grad_v * dynamics).sum()
+    # RIEMANNIAN: scale by inverse metric
+    dynamics = world_model_pred
+    dissipation = (grad_v * dynamics) / g_metric.unsqueeze(0)
+    loss_policy = -dissipation.sum(dim=-1).mean()
+
+    # 4. Lyapunov Constraint (Critic Loss)
+    # Ensure V_dot <= -alpha * V (Exponential Stability)
+    # Penalize violations: ReLU(V_dot + alpha * V)^2
+    v_dot = (grad_v * dynamics).sum(dim=-1)
+    violation = torch.relu(v_dot + target_decay * critic_values)
+    loss_critic_lyapunov = violation.pow(2).mean()
+
+    return loss_policy + lambda_lyapunov * loss_critic_lyapunov
+```
+
+**C. PhysicistLearner: Complete Training Loop**
+
+```python
+class PhysicistLearner:
+    """
+    Complete training loop implementing Riemannian Control Theory.
+
+    Three-phase update:
+    1. GEOLOGIST (Critic): Map the Risk Landscape
+    2. MEASURER (Metric): Extract Ruppeiner Geometry from Adam stats
+    3. NAVIGATOR (Actor): Move along Geodesics of Maximum Dissipation
+
+    Difference from Standard RL:
+    - Standard: Maximize Q(s,a) (scalar value)
+    - Riemannian: Maximize Dissipation <grad_V, velocity>_G (vector dot product)
+
+    This forces the agent to understand cause and effect (dynamics), not just correlation.
+    """
+
+    def __init__(self, actor, critic, world_model, config):
+        self.actor = actor
+        self.critic = critic
+        self.world_model = world_model
+
+        # Adam is crucial for the Ruppeiner trick
+        self.actor_opt = torch.optim.Adam(actor.parameters(), lr=config.lr_actor)
+        self.critic_opt = torch.optim.Adam(critic.parameters(), lr=config.lr_critic)
+
+        self.gamma = config.gamma
+        self.device = config.device
+
+    def train_step(self, batch):
+        """
+        Performs one Cybernetic Update step.
+        Batch: (state, action, reward, next_state, done)
+        """
+        s, a, r, s_next, d = [x.to(self.device) for x in batch]
+
+        # --- PHASE 1: THE GEOLOGIST (Critic Update) ---
+        # Goal: Accurately map the Risk Landscape (V)
+
+        # RIEMANNIAN: Invert Reward to define "Thermodynamic Cost"
+        # (Standard RL would maximize reward; we minimize risk/cost)
+        cost = -r
+
+        # TD-Learning (Bellman Update)
+        with torch.no_grad():
+            target_v = cost + self.gamma * self.critic(s_next) * (1 - d)
+
+        current_v = self.critic(s)
+        critic_loss = nn.MSELoss()(current_v, target_v)
+
+        self.critic_opt.zero_grad()
+        critic_loss.backward()
+        self.critic_opt.step()
+
+        # --- PHASE 2: THE MEASURER (Metric Extraction) ---
+        # RIEMANNIAN: Extract curvature from Critic's uncertainty
+        # EUCLIDEAN: Would skip this entirely (assume flat space)
+        metric_g = self._extract_ruppeiner_metric(s)
+
+        # --- PHASE 3: THE NAVIGATOR (Actor Update) ---
+        # Goal: Move Policy along the Geodesic of Maximum Dissipation
+
+        for p in self.critic.parameters():
+            p.requires_grad = False
+
+        s.requires_grad_(True)
+        val = self.critic(s)
+        grad_v = torch.autograd.grad(val.sum(), s, create_graph=True)[0]
+
+        pred_action = self.actor(s)
+        s_velocity = self.world_model(s, pred_action) - s
+
+        # RIEMANNIAN: Dissipation = <Grad_V, Velocity>_G (weighted by curvature)
+        # EUCLIDEAN would be: dissipation = (grad_v * s_velocity).sum()
+        dissipation = (grad_v * s_velocity / (metric_g + 1e-6)).sum(dim=-1)
+
+        actor_loss = -dissipation.mean()
+
+        self.actor_opt.zero_grad()
+        actor_loss.backward()
+        self.actor_opt.step()
+
+        for p in self.critic.parameters():
+            p.requires_grad = True
+
+        return {"critic_loss": critic_loss.item(), "actor_loss": actor_loss.item()}
+
+    def _extract_ruppeiner_metric(self, state):
+        """
+        Extracts the Ruppeiner Metric G from the Critic's Optimizer stats.
+
+        Physics: G_ii ≈ sqrt(E[g²]) (Adam v_t)
+
+        This is the "Physicist's trick": the Adam optimizer was already computing
+        an approximation of the curvature. We just reinterpret it geometrically.
+        """
+        first_layer = list(self.critic.modules())[1]
+        if first_layer in self.critic_opt.state:
+            v_t = self.critic_opt.state[first_layer]['exp_avg_sq']
+            metric_diag = v_t.mean(dim=0)
+            return torch.sqrt(metric_diag).unsqueeze(0)
+        else:
+            return torch.ones_like(state)
+```
+
+**D. RiemannianFragileAgent (Algorithm 3): The Complete Specification**
+
+```python
+class RiemannianFragileAgent(nn.Module):
+    """
+    Algorithm 3: The Riemannian Fragile Agent
+
+    Notation:
+    - Z: The Thermodynamic Manifold (Latent Space)
+    - G: The Ruppeiner Metric Tensor (Curvature of Risk)
+    - z_macro, z_micro: The Macro (Signal) and Micro (Noise) coordinates
+    - Ω: The Thermodynamic Phase Order Parameter
+
+    This algorithm implements the Physicist Upgrade (Renormalization),
+    the Hypostructure Sieve (Phase Detection), and Neural Lyapunov Control
+    (Riemannian Optimization) in a single coherent loop.
+
+    Key differences from standard RL:
+    1. No Heuristics: Every loss term from physical principle
+    2. No Magic Numbers: Step sizes from Ruppeiner Metric
+    3. No Hallucinations: Sieve filters undecidable problems
+    4. No Euclidean Bias: Latent space is curved manifold
+    """
+
+    def train_step(self, batch, trackers):
+        # === PHASE I: TOPOLOGICAL SIEVE (Pre-Computation) ===
+        # Before any gradient update, diagnose the thermodynamic phase
+
+        # 1. Compute Levin Complexity (The Horizon)
+        # K_L(τ) = -log P(τ | U) where U is universal machine
+        # If K_L > S_observer (Observer Entropy): HALT (Verdict: HORIZON)
+        phase = self.sieve.diagnose_phase(batch.trace)
+        if phase == "PLASMA":
+            return "HALT"  # Problem is undecidable
+        if phase == "GAS":
+            return "REJECT"  # Pure noise, no structure
+
+        # === PHASE II: METRIC EXTRACTION ===
+        # Extract Ruppeiner Metric G from Critic's Adam stats
+        # G_inv acts as the "Speed of Light" limit for the update
+        with torch.no_grad():
+            v_t = self.critic_opt.state['exp_avg_sq']
+            G_inv = 1.0 / (torch.sqrt(v_t) + 1e-8)
+
+        # === PHASE III: RENORMALIZATION UPDATE (VAE) ===
+        # Enforce Causal Enclosure: Macro predicts Macro, Micro is Noise
+        z_macro, z_micro = self.vae(batch.obs)
+
+        # RIEMANNIAN: Closure loss forces macro to be self-predicting
+        closure_loss = self._compute_closure_loss(z_macro, z_micro)
+        self.vae_opt.step(self.elbo_loss + closure_loss)
+
+        # === PHASE IV: LYAPUNOV UPDATE (Critic) ===
+        # Enforce Exponential Stability constraint on V
+        V = self.critic(z_macro)
+        V_next = self.critic(z_macro_next)
+        V_dot = V_next - V
+
+        # RIEMANNIAN: Lyapunov constraint: V_dot <= -zeta * V
+        # EUCLIDEAN would just minimize TD error
+        lyap_loss = torch.relu(V_dot + self.zeta * V).pow(2).mean()
+        self.critic_opt.step(self.td_loss + lyap_loss)
+
+        # === PHASE V: COVARIANT UPDATE (Policy) ===
+        # Check Scaling Hierarchy (BarrierTypeII)
+        alpha = trackers.get_temp('critic')  # Critic temperature
+        beta = trackers.get_temp('actor')    # Actor temperature
+
+        if alpha > beta:  # Critic is steeper than Policy is hot
+            # Calculate Natural Gradient Direction
+            grad_V = torch.autograd.grad(V, z_macro)[0]
+            velocity = self.world_model(z_macro, self.policy(z_macro)) - z_macro
+
+            # RIEMANNIAN: Dissipation weighted by Curvature
+            # EUCLIDEAN would be: L = -(grad_V * velocity).mean()
+            L_ruppeiner = -torch.mean((grad_V * velocity) * G_inv)
+
+            # Geodesic Stiffness (Zeno Constraint)
+            L_zeno = self._geodesic_dist(self.policy_new, self.policy_old, G_inv)
+
+            self.actor_opt.step(L_ruppeiner + L_zeno)
+        else:
+            # Policy is too hot relative to Critic's certainty
+            # Agent "freezes" to let perception catch up (Wait state)
+            pass
+
+    def _compute_closure_loss(self, z_macro, z_micro):
+        """
+        Causal Enclosure: macro variables must predict themselves.
+
+        L_closure = ||z_macro_next - f(z_macro, a)||² + ||∇_micro z_macro_next||²
+
+        The second term penalizes any dependence of macro on micro.
+        """
+        z_macro_pred = self.world_model(z_macro, self.action)
+        z_macro_actual = self.vae.encode_macro(self.next_obs)
+
+        # Macro must be self-predicting
+        prediction_error = (z_macro_pred - z_macro_actual.detach()).pow(2).mean()
+
+        # Micro should NOT predict macro (independence)
+        micro_gradient = torch.autograd.grad(
+            z_macro_actual.sum(), z_micro, create_graph=True
+        )[0]
+        independence_loss = micro_gradient.pow(2).mean()
+
+        return prediction_error + 0.1 * independence_loss
+
+    def _geodesic_dist(self, policy_new, policy_old, G_inv):
+        """
+        Geodesic distance under the Ruppeiner metric.
+
+        EUCLIDEAN: ||π_new - π_old||²
+        RIEMANNIAN: ||π_new - π_old||²_G = (π_new - π_old)ᵀ G⁻¹ (π_new - π_old)
+        """
+        diff = policy_new - policy_old
+        return (diff * diff * G_inv).sum(dim=-1).mean()
+```
+
 ### 7.5 Cost-Benefit Decision Matrix
 
 | Compute Budget | Recommended Tier | Key Trade-offs |
@@ -483,6 +1029,454 @@ For training-time defect minimization:
 | $K_{TB}$ (Thermo Bounds) | DPI violations | $O(B^2)$ | Quadratic in batch |
 
 **Recommendation:** Use expected defect $\mathcal{R}_A(\theta) = \mathbb{E}[K_A^{(\theta)}(u)]$ with Monte Carlo sampling for tractability.
+
+### 7.7 Tier 5: Atlas-Based MVA (Multi-Chart Architecture)
+
+This tier introduces **manifold atlas** architecture—a principled approach for handling topologically complex latent spaces that cannot be covered by a single coordinate chart.
+
+#### 7.7.1 Manifold Atlas Theory: Why Single Charts Fail
+
+**The Fundamental Problem:**
+A single neural network encoder defines a single coordinate chart on the latent manifold. However, many manifolds **cannot** be covered by a single chart (Whitney, 1936; Lee, 2012):
+
+| Manifold | Minimum Charts | Why |
+|----------|----------------|-----|
+| **Sphere $S^2$** | 2 | No global flat coordinates (Hairy Ball Theorem) |
+| **Torus $T^2$** | 4 | Non-trivial first homology |
+| **Klein Bottle** | ∞ | Non-orientable |
+| **Swiss Roll** | 1 | Topologically trivial but geometrically challenging |
+
+**Symptoms of Single-Chart Failure:**
+- Representation collapse (everything maps to one region)
+- Discontinuities at chart boundaries
+- Poor generalization to unseen topology
+- Gradient instabilities near singularities
+
+**The Atlas Solution:**
+An **atlas** $\mathcal{A} = \{(U_i, \phi_i)\}_{i=1}^K$ is a collection of charts where:
+- Each $U_i \subset M$ is an open set (region of the manifold)
+- Each $\phi_i: U_i \to \mathbb{R}^d$ is a homeomorphism (local embedding)
+- $\bigcup_i U_i = M$ (charts cover the entire manifold)
+- Transition functions $\tau_{ij} = \phi_j \circ \phi_i^{-1}$ are smooth
+
+**Neural Atlas Architecture:**
+Replace a single encoder with a **Mixture of Experts** structure (Jacobs et al., 1991):
+- **Router** (Atlas Topology): Learns which chart covers each input
+- **Experts** (Local Charts): Each expert is a local encoder $\phi_i$
+- **Blending** (Transition Functions): Soft mixing via router weights
+
+#### 7.7.2 BRST Cohomology for Neural Networks
+
+To ensure each chart preserves geometric structure, we enforce **BRST gauge-fixing** (Becchi et al., 1970s) via orthogonal weight constraints.
+
+**BRSTLinear Layer Implementation:**
+
+```python
+import torch
+import torch.nn as nn
+
+class BRSTLinear(nn.Module):
+    """Linear layer with BRST gauge-fixing constraint.
+
+    Theoretical Foundation:
+    - BRST: Becchi-Rouet-Stora-Tyutin symmetry from gauge theory
+    - Constraint: W^T W ≈ I (orthogonality)
+    - Effect: Preserves geodesic distances in latent space (isometry)
+
+    The BRST defect measures deviation from orthogonality:
+        ||W^T W - I||²_F → 0 as training progresses
+
+    Benefits:
+    - Clean unrolling: Gradients flow without crushing/explosion
+    - Geometric fidelity: Distances are preserved under encoding
+    - Mode collapse prevention: Cannot map everything to a point
+    """
+    def __init__(self, in_features: int, out_features: int):
+        super().__init__()
+        self.linear = nn.Linear(in_features, out_features)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.linear(x)
+
+    def brst_defect(self) -> torch.Tensor:
+        """Compute the BRST gauge-fixing defect.
+
+        Returns ||W^T W - I||²_F where W is the weight matrix.
+        This forces W to be orthogonal (or semi-orthogonal).
+        """
+        W = self.linear.weight  # [out_features, in_features]
+
+        # Handle rectangular matrices: use smaller dimension
+        if W.shape[0] >= W.shape[1]:
+            gram = torch.matmul(W.t(), W)  # [in, in]
+            target = torch.eye(W.shape[1], device=W.device)
+        else:
+            gram = torch.matmul(W, W.t())  # [out, out]
+            target = torch.eye(W.shape[0], device=W.device)
+
+        return torch.norm(gram - target) ** 2
+```
+
+**Why Orthogonality?**
+
+| Property | Orthogonal $W$ | Arbitrary $W$ |
+|----------|----------------|---------------|
+| **Singular values** | All = 1 | Can be 0 or ∞ |
+| **Gradient flow** | Preserved | Explodes or vanishes |
+| **Distance preservation** | $\|Wx\| = \|x\|$ | $\|Wx\| \neq \|x\|$ |
+| **Inverse stability** | $W^{-1} = W^T$ | May not exist |
+| **Information loss** | None | Possible |
+
+#### 7.7.3 VICReg: Geometric Collapse Prevention
+
+Each chart must produce non-degenerate embeddings. We enforce this via **VICReg** (Bardes, Ponce, LeCun, 2022).
+
+```python
+def compute_vicreg_loss(
+    z: torch.Tensor,       # [B, Z] - embeddings from chart
+    z_prime: torch.Tensor, # [B, Z] - embeddings from augmented view
+    lambda_inv: float = 25.0,
+    lambda_var: float = 25.0,
+    lambda_cov: float = 1.0,
+    gamma: float = 1.0,    # Target standard deviation
+    eps: float = 1e-4,
+) -> tuple[torch.Tensor, dict]:
+    """VICReg loss: Variance-Invariance-Covariance Regularization.
+
+    Prevents representation collapse without negative samples.
+
+    Components:
+    - Invariance: Embeddings stable under perturbations
+    - Variance: Each dimension has sufficient spread
+    - Covariance: Dimensions are decorrelated
+
+    Args:
+        z: Embeddings from original input
+        z_prime: Embeddings from augmented input
+        lambda_inv, lambda_var, lambda_cov: Loss weights
+        gamma: Target standard deviation per dimension
+        eps: Numerical stability
+
+    Returns:
+        Total loss and dict of component losses
+    """
+    B, Z = z.shape
+
+    # 1. Invariance Loss: z ≈ z' (metric stability)
+    loss_inv = nn.functional.mse_loss(z, z_prime)
+
+    # 2. Variance Loss: std(z_d) >= gamma (non-collapse)
+    # Compute std per dimension, penalize if below gamma
+    std_z = torch.sqrt(z.var(dim=0) + eps)  # [Z]
+    std_z_prime = torch.sqrt(z_prime.var(dim=0) + eps)
+    loss_var = torch.mean(nn.functional.relu(gamma - std_z)) + \
+               torch.mean(nn.functional.relu(gamma - std_z_prime))
+
+    # 3. Covariance Loss: Cov(z_i, z_j) → 0 for i ≠ j (decorrelation)
+    z_centered = z - z.mean(dim=0)
+    z_prime_centered = z_prime - z_prime.mean(dim=0)
+
+    cov_z = (z_centered.T @ z_centered) / (B - 1)  # [Z, Z]
+    cov_z_prime = (z_prime_centered.T @ z_prime_centered) / (B - 1)
+
+    # Extract off-diagonal elements
+    def off_diagonal(x):
+        n = x.shape[0]
+        return x.flatten()[:-1].view(n - 1, n + 1)[:, 1:].flatten()
+
+    loss_cov = off_diagonal(cov_z).pow(2).sum() / Z + \
+               off_diagonal(cov_z_prime).pow(2).sum() / Z
+
+    # Combined loss
+    total = lambda_inv * loss_inv + lambda_var * loss_var + lambda_cov * loss_cov
+
+    return total, {
+        'invariance': loss_inv.item(),
+        'variance': loss_var.item(),
+        'covariance': loss_cov.item()
+    }
+```
+
+#### 7.7.4 The Universal Loss Functional
+
+The **Universal Loss** combines four components, each with a geometric interpretation:
+
+$$\mathcal{L}_{\text{universal}} = \mathcal{L}_{\text{vicreg}} + \mathcal{L}_{\text{topology}} + \mathcal{L}_{\text{separation}} + \mathcal{L}_{\text{brst}}$$
+
+**Component Breakdown:**
+
+| Component | Formula | Physical Meaning | Coefficient |
+|-----------|---------|------------------|-------------|
+| **VICReg** | $\mathcal{L}_{\text{inv}} + \mathcal{L}_{\text{var}} + \mathcal{L}_{\text{cov}}$ | Data manifold structure | 25 / 25 / 1 |
+| **Entropy** | $-\mathbb{E}[\sum w_i \log w_i]$ | Sharp chart boundaries | 2.0 |
+| **Balance** | $\|\text{usage} - 1/K\|^2$ | Atlas completeness | 100.0 |
+| **Separation** | $\sum_{i<j} \text{ReLU}(m - \|c_i - c_j\|)$ | Chart surgery | 10.0 |
+| **BRST** | $\sum_l \|W_l^T W_l - I\|^2$ | Isometry preservation | 0.01 |
+
+**Topology Loss (Atlas Structure):**
+```python
+def compute_topology_loss(
+    weights: torch.Tensor,  # [B, K] - router weights (softmax output)
+    num_charts: int,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Topology loss: Enforces atlas structure via information constraints.
+
+    Two components:
+    1. Entropy: Low entropy → sharp chart assignments
+    2. Balance: Equal usage → all charts contribute
+
+    Args:
+        weights: Router output probabilities [B, K]
+        num_charts: Number of charts K
+
+    Returns:
+        (entropy_loss, balance_loss)
+    """
+    # 1. Entropy loss: Encourage sharp assignments (low entropy)
+    # H(w) = -Σ w_i log w_i → want this small
+    entropy = -torch.sum(weights * torch.log(weights + 1e-6), dim=1)
+    loss_entropy = entropy.mean()
+
+    # 2. Balance loss: All charts should be used equally
+    # usage_i = E[w_i] → want this close to 1/K
+    mean_usage = weights.mean(dim=0)  # [K]
+    target_usage = torch.ones(num_charts, device=weights.device) / num_charts
+    loss_balance = torch.norm(mean_usage - target_usage) ** 2
+
+    return loss_entropy, loss_balance
+```
+
+**Separation Loss (Topological Surgery):**
+```python
+def compute_separation_loss(
+    chart_outputs: list[torch.Tensor],  # List of [B, Z] per chart
+    weights: torch.Tensor,               # [B, K] router weights
+    margin: float = 4.0,
+) -> torch.Tensor:
+    """Separation loss: Force chart centers apart.
+
+    This implements "topological surgery"—cutting the manifold
+    into distinct regions covered by different charts.
+
+    Args:
+        chart_outputs: List of embeddings from each expert
+        weights: Router attention weights
+        margin: Minimum distance between chart centers
+
+    Returns:
+        Scalar loss penalizing overlapping charts
+    """
+    # Compute weighted center for each chart
+    centers = []
+    for i, z_i in enumerate(chart_outputs):
+        w_i = weights[:, i:i+1]  # [B, 1]
+        if w_i.sum() > 0:
+            # Weighted mean of this chart's embeddings
+            center = (z_i * w_i).sum(dim=0) / (w_i.sum() + 1e-6)  # [Z]
+            centers.append(center)
+
+    # Penalize charts that are too close
+    loss_sep = torch.tensor(0.0, device=weights.device)
+    if len(centers) > 1:
+        for i in range(len(centers)):
+            for j in range(i + 1, len(centers)):
+                dist = torch.norm(centers[i] - centers[j])
+                # Hinge loss: penalize if dist < margin
+                loss_sep = loss_sep + torch.relu(margin - dist)
+
+    return loss_sep
+```
+
+#### 7.7.5 HypoUniversal: Complete Atlas Architecture
+
+```python
+class HypoUniversal(nn.Module):
+    """Universal Hypostructure Network with Atlas Architecture.
+
+    This implements a multi-chart latent space where:
+    - Router (Axiom TB): Learns topological cuts via soft attention
+    - Experts (Axiom LS): Each chart is a BRST-constrained encoder
+    - Output: Weighted blend of chart embeddings
+
+    Theoretical Foundation:
+    - Manifold Atlas: Complex manifolds need multiple charts
+    - BRST Gauge Fixing: Each chart preserves geodesic distances
+    - VICReg: Prevents collapse within each chart
+    - Separation: Forces charts to cover different regions
+
+    Example:
+        model = HypoUniversal(input_dim=3, latent_dim=2, num_charts=4)
+        z, weights, chart_outputs = model(x)
+        loss = universal_loss(z, x, weights, chart_outputs, model)
+    """
+
+    def __init__(self, input_dim: int, latent_dim: int, num_charts: int = 3):
+        super().__init__()
+        self.num_charts = num_charts
+
+        # A. The Router (Topology / Axiom TB)
+        # Learns which chart covers each input region
+        # Standard layers (no BRST needed—cuts don't need isometry)
+        self.router = nn.Sequential(
+            nn.Linear(input_dim, 128),
+            nn.ReLU(),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Linear(64, num_charts),
+            nn.Softmax(dim=1)
+        )
+
+        # B. The Experts (Geometry / Axiom LS)
+        # Each chart is a BRST Network for clean unrolling
+        self.charts = nn.ModuleList()
+        for _ in range(num_charts):
+            expert = nn.Sequential(
+                BRSTLinear(input_dim, 128),
+                nn.ReLU(),
+                BRSTLinear(128, 128),
+                nn.ReLU(),
+                BRSTLinear(128, latent_dim)
+            )
+            self.charts.append(expert)
+
+    def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor, list]:
+        """Forward pass through atlas architecture.
+
+        Args:
+            x: Input tensor [B, input_dim]
+
+        Returns:
+            z: Blended latent embedding [B, latent_dim]
+            weights: Router attention [B, num_charts]
+            chart_outputs: List of per-chart embeddings [B, latent_dim]
+        """
+        # Get chart selection weights
+        weights = self.router(x)  # [B, num_charts]
+
+        # Compute each chart's embedding
+        chart_outputs = []
+        z = torch.zeros(x.size(0), self.charts[0][-1].linear.out_features,
+                       device=x.device)
+
+        for i in range(self.num_charts):
+            z_i = self.charts[i](x)  # [B, latent_dim]
+            chart_outputs.append(z_i)
+            # Weighted contribution
+            z = z + weights[:, i:i+1] * z_i
+
+        return z, weights, chart_outputs
+
+    def compute_brst_loss(self) -> torch.Tensor:
+        """Compute total BRST defect across all charts."""
+        total_defect = torch.tensor(0.0)
+        for chart in self.charts:
+            for layer in chart:
+                if isinstance(layer, BRSTLinear):
+                    total_defect = total_defect + layer.brst_defect()
+        return total_defect
+
+
+def universal_loss(
+    z: torch.Tensor,
+    x: torch.Tensor,
+    weights: torch.Tensor,
+    chart_outputs: list[torch.Tensor],
+    model: HypoUniversal,
+    # VICReg weights
+    lambda_inv: float = 25.0,
+    lambda_var: float = 25.0,
+    lambda_cov: float = 1.0,
+    # Topology weights
+    lambda_entropy: float = 2.0,
+    lambda_balance: float = 100.0,
+    # Separation
+    lambda_sep: float = 10.0,
+    margin: float = 4.0,
+    # BRST
+    lambda_brst: float = 0.01,
+) -> torch.Tensor:
+    """Grand Unified Loss for Atlas-Based MVA.
+
+    Combines four loss families:
+    1. VICReg: Data manifold structure (no collapse)
+    2. Topology: Atlas structure (sharp, balanced charts)
+    3. Separation: Topological surgery (distinct regions)
+    4. BRST: Gauge fixing (isometry preservation)
+
+    Args:
+        z: Blended output [B, Z]
+        x: Original input [B, D]
+        weights: Router weights [B, K]
+        chart_outputs: Per-chart embeddings
+        model: The HypoUniversal model
+        lambda_*: Loss component weights
+        margin: Chart separation margin
+
+    Returns:
+        Total scalar loss
+    """
+    # 1. VICReg (Data Manifold)
+    # Create augmented view via small noise
+    x_aug = x + torch.randn_like(x) * 0.05
+    z_prime, _, _ = model(x_aug)
+    loss_vicreg, _ = compute_vicreg_loss(z, z_prime, lambda_inv, lambda_var, lambda_cov)
+
+    # 2. Topology (Router Constraints)
+    loss_entropy, loss_balance = compute_topology_loss(weights, model.num_charts)
+
+    # 3. Separation (Chart Surgery)
+    loss_sep = compute_separation_loss(chart_outputs, weights, margin)
+
+    # 4. BRST (Internal Stiffness)
+    loss_brst = model.compute_brst_loss()
+
+    # Combine all components
+    return (loss_vicreg +
+            lambda_entropy * loss_entropy +
+            lambda_balance * loss_balance +
+            lambda_sep * loss_sep +
+            lambda_brst * loss_brst)
+```
+
+#### 7.7.6 Training the Atlas-Based MVA
+
+```python
+def train_atlas_mva(
+    model: HypoUniversal,
+    data: torch.Tensor,
+    epochs: int = 8000,
+    lr: float = 1e-3,
+) -> HypoUniversal:
+    """Train the atlas-based MVA.
+
+    Example usage:
+        model = HypoUniversal(input_dim=3, latent_dim=2, num_charts=4)
+        model = train_atlas_mva(model, X, epochs=8000)
+    """
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+
+    for epoch in range(epochs):
+        optimizer.zero_grad()
+
+        z, weights, chart_outputs = model(data)
+        loss = universal_loss(z, data, weights, chart_outputs, model)
+
+        loss.backward()
+        optimizer.step()
+
+        if epoch % 1000 == 0:
+            usage = weights.mean(dim=0).detach().cpu().numpy()
+            print(f"Epoch {epoch}: Loss={loss.item():.4f} | "
+                  f"Chart Usage={usage}")
+
+    return model
+```
+
+**Expected Behavior:**
+- Charts should specialize to different topological regions
+- Usage should be roughly balanced (each chart ~25% for K=4)
+- BRST defect should decrease over training
+- Separation should increase to margin value
 
 ---
 
@@ -1704,3 +2698,220 @@ class HierarchicalPhysicist(nn.Module):
 | Real-world robotics | **Use Physicist** — sensor noise is significant |
 | Long-horizon planning | **Use Hierarchical Physicist** — multiple timescales |
 | Compute-constrained | Standard — Physicist adds ~10-15% overhead |
+
+### 9.9 Control Theory Translation: Dictionary
+
+To ensure rigorous connections to the established literature, we explicitly map Hypostructure components to their Control Theory and Physics equivalents.
+
+| Hypostructure Component | Control Theory / Physics Term | Role |
+|:------------------------|:------------------------------|:-----|
+| **Critic** | **Lyapunov Function** ($V$) | Defines the energy landscape and stability regions. |
+| **Policy** | **Lie Derivative Controller** ($\mathcal{L}_f V$) | Actuator that maximizes negative definiteness of $\dot{V}$. |
+| **World Model** | **System Dynamics** ($f(x, u)$) | The vector field governing the flow. |
+| **Fragile Index** | **Ruppeiner Metric** ($g_{ij}$) | The curvature of the thermodynamic manifold. |
+| **StiffnessCheck** | **LaSalle's Invariance Principle** | Guarantee that the system does not get stuck in limit cycles. |
+| **BarrierAction** | **Controllability Gramian** | Measure of whether the actuator can affect the state. |
+| **Scaling Exponents** ($\alpha, \beta, \gamma, \delta$) | **Thermodynamic Temperatures** | Rate of change / volatility at each component. |
+| **BarrierTypeII** | **Scaling Hierarchy** | Ensures faster components don't outrun slower ones. |
+
+**Related Work:**
+- Chang et al. (2019): Neural Lyapunov Control
+- Berkenkamp et al. (2017): Safe Model-Based RL with Stability Guarantees
+- LaSalle (1960): The Extent of Asymptotic Stability
+
+### 9.10 The General Relativity Isomorphism
+
+The Fragile Agent is not merely "inspired by" physics—it is solving the **Einstein Equation of Information**. By using the Ruppeiner Metric and Covariant Derivative, we are applying the same mathematical machinery that Einstein built for gravity.
+
+**The Core Analogy:**
+
+In General Relativity: **"Matter tells Space how to curve; Space tells Matter how to move."**
+
+In Hypostructure: **"Risk (Value) tells Latent Space how to curve; Latent Space tells Policy how to move."**
+
+**Translation Table:**
+
+| General Relativity | Hypostructure | Interpretation |
+|:-------------------|:--------------|:---------------|
+| **Mass / Energy** ($T_{\mu\nu}$) | **Risk / Value** ($V$) | The "source" that curves the space |
+| **Spacetime Curvature** ($R_{\mu\nu}$) | **Information Curvature** ($G_{ij}$) | Fisher/Hessian of the Critic |
+| **Geodesic Path** | **Natural Gradient Trajectory** | Path of least action |
+| **Speed of Light** ($c$) | **Levin Complexity Limit** ($K_{\min}$) | Maximum information processing rate |
+| **Black Hole** | **Undecidable Problem** (Gas Phase) | Singularity where computation halts |
+| **Event Horizon** | **Information Horizon** ($G \to \infty$) | Point of no return for the agent |
+| **Time Dilation** | **Step Size Reduction** | Agent slows down near singularities |
+| **Equivalence Principle** | **Renormalization Invariance** | Laws look the same at all scales |
+
+**The Geodesic Equation (Policy Update):**
+
+In GR, particles follow geodesics—the shortest path in curved spacetime:
+
+$$\frac{d^2 x^\mu}{d\tau^2} + \Gamma^\mu_{\alpha\beta} \frac{dx^\alpha}{d\tau} \frac{dx^\beta}{d\tau} = 0$$
+
+In Hypostructure, the policy follows geodesics in the risk manifold:
+
+$$\theta_{t+1} = \theta_t + \eta G^{-1} \nabla_\theta \mathcal{L}$$
+
+The term $G^{-1}$ accounts for the Christoffel symbols implicitly—the agent takes the "shortest path" in curved risk space, not the straightest path in flat parameter space.
+
+**The Event Horizon (The Horizon):**
+
+In GR, a black hole has an event horizon where time stops ($g_{tt} \to 0$).
+
+In Hypostructure, the **Levin Limit** creates an **Information Horizon**:
+- When risk variance $\text{Var}(V) \to \infty$, the metric $G \to \infty$
+- The step size $\eta G^{-1} \to 0$
+- **Result:** As the agent approaches an undecidable problem (a singularity), its internal clock stops. It freezes relative to the environment. This is **Time Dilation**.
+
+**Related Work:**
+- Bronstein et al. (2021): Geometric Deep Learning (geometry for inductive bias)
+- Amari (1998): Natural Gradient (information geometry)
+- Ruppeiner (1979): Thermodynamic Fluctuation Theory
+
+**Key Distinction from Geometric Deep Learning:**
+
+The Geometric Deep Learning community (Bronstein, Veličković et al.) uses geometry to design **architectures** (equivariant neural networks). The Fragile Agent uses geometry for **runtime regulation**—the curvature is not fixed by the data, but dynamically estimated from the Critic's uncertainty. This allows the agent to adapt its behavior to the local risk landscape.
+
+### 9.11 The Free Energy Functional
+
+Based on the Fragile Agent specification, the "Free Energy" is not a single scalar but a **Cybernetic Action Functional** ($\mathcal{F}$) that the agent actively minimizes. This functional represents the trade-off between the cost of computation (entropy) and the cost of survival (risk).
+
+**The Thermodynamic Action:**
+
+$$\mathcal{F} = \int \left( \underbrace{V(z)}_{\text{Potential (Risk)}} + \underbrace{D_{KL}(q(z|x) \| p(z))}_{\text{Dissipation (Complexity)}} \right) dt$$
+
+This definition is composed of two opposing forces derived from the Minimum Viable Agent (MVA) architecture:
+
+**1. Potential Energy ($V$): "Risk"**
+
+- **Source:** The Critic (Node 1/7)
+- **Physical Meaning:** The "height" of the current state in the latent landscape
+- **Role:** Represents the Pragmatic Value or Safety. High potential ($V \gg 0$) means high risk.
+- **Definition:** The agent minimizes the integral of this potential, effectively sliding down the "Risk Gradient" $\nabla V$
+
+**2. Dissipation ($D_{KL}$): "Complexity"**
+
+- **Source:** The VAE and Policy (Node 3/11)
+- **Physical Meaning:** The "kinetic energy" or effort required to maintain the state
+- **Role:** Represents the Epistemic Cost. It penalizes "complex" beliefs or "jittery" actions.
+- **Formulation:**
+  - **VAE Dissipation:** $D_{KL}(q(z|x) \| p(z))$ (Cost of Compression)
+  - **Policy Dissipation:** $D_{KL}(\pi_t \| \pi_{t-1})$ (Cost of Control/Zeno)
+
+**The Combined Free Energy Equation:**
+
+In the "Information-Control Tradeoff" (BarrierScat vs BarrierCap):
+
+$$\mathcal{L}_{\text{InfoControl}} = \underbrace{\beta D_{KL}(q(z \mid x) \Vert p(z))}_{\text{Compression (Recall)}} + \underbrace{\gamma \mathbb{E}[V(z, \pi(z))]}_{\text{Control (Utility)}}$$
+
+**Physical Interpretation:**
+
+The Fragile Agent minimizes this Free Energy to maintain **Homeostasis**:
+
+- **If Free Energy is too high:** The agent is either taking too much risk ($V$ high) or "thinking too hard" (high $D_{KL}$)
+- **Minimizing it:** Forces the agent to find the **Simplest Effective Theory**—the lowest complexity representation that still guarantees survival
+
+**Connection to Active Inference:**
+
+The Free Energy formulation connects directly to Karl Friston's Active Inference framework (Friston, 2010; Verses AI). The key differences:
+
+| Active Inference (Friston) | Fragile Agent (Hypostructure) |
+|:---------------------------|:-----------------------------|
+| Bayesian/Probabilistic | Riemannian/Geometric |
+| Free Energy Principle | Ruppeiner Action |
+| Beliefs | Curvature |
+| Model evidence | Levin Complexity |
+| Lacks topology | Has Tits Alternative, Cohomology |
+| Lacks renormalization | Has Macro/Micro split |
+
+**Related Work:**
+- Friston (2010): The Free-Energy Principle
+- Tishby & Zaslavsky (2015): Information Bottleneck
+- Bialek et al. (2001): Predictive Information
+
+### 9.12 Atlas-Manifold Dictionary: From Topology to Neural Networks
+
+This section provides a translation dictionary connecting **manifold theory** to the **neural network implementations** described in Section 7.7.
+
+#### Core Correspondences
+
+| Manifold Theory | Neural Implementation | Role | Section Reference |
+|-----------------|----------------------|------|-------------------|
+| **Manifold $M$** | Input data distribution | The space to be embedded | — |
+| **Chart $(U_i, \phi_i)$** | Expert network $i$ | Local embedding function | 7.7.1 |
+| **Atlas $\mathcal{A} = \{U_i\}$** | Router + Experts ensemble | Global coverage | 7.7.5 |
+| **Transition function $\tau_{ij}$** | Weighted soft blending | Chart overlap handling | 7.7.5 |
+| **Riemannian metric $g$** | BRST constraint $\|W^TW - I\|^2$ | Distance preservation | 7.7.2 |
+| **Geodesic $\gamma(t)$** | Latent space trajectory | Optimal path | 2.4 |
+| **Curvature $R$** | Hessian of loss landscape | Local complexity | 2.5 |
+| **Topological surgery** | Separation loss | Chart cutting | 7.7.4 |
+
+#### Gauge Theory Correspondences
+
+| BRST / Gauge Theory | Neural Network Analog | Mathematical Form |
+|--------------------|----------------------|-------------------|
+| **Gauge transformation** | Weight rescaling symmetry | $W \to \alpha W$, $x \to x/\alpha$ |
+| **Gauge orbit** | Covariance directions | $\text{Cov}(z) \neq I$ |
+| **BRST operator $Q$** | Orthogonality constraint | $Q: W \mapsto W^TW - I$ |
+| **Physical states ($Q\|\psi\rangle = 0$)** | Orthogonal weight matrices | $W^TW = I$ |
+| **Exact forms ($Q\|\chi\rangle$)** | Gauge-equivalent representations | $W \sim W + \epsilon Q$ |
+| **Cohomology $H = \text{Ker}/\text{Im}$** | Unique gauge-fixed solution | Orthonormal basis |
+
+#### Self-Supervised Learning Correspondences
+
+| SSL Concept | VICReg Term | Geometric Interpretation | Failure Mode Prevented |
+|-------------|-------------|-------------------------|------------------------|
+| **Augmentation invariance** | $\mathcal{L}_{\text{inv}}$ | Metric tensor stability | Sensitivity to noise |
+| **Non-collapse** | $\mathcal{L}_{\text{var}}$ | Non-degenerate metric | Trivial constant solution |
+| **Decorrelation** | $\mathcal{L}_{\text{cov}}$ | Coordinate independence | Redundant dimensions |
+| **Negative sampling** | (Not needed in VICReg) | Contrastive boundary | — |
+
+#### Mixture of Experts Correspondences
+
+| MoE Concept (Jacobs et al., 1991) | Atlas Concept | Implementation |
+|-----------------------------------|---------------|----------------|
+| **Gating network** | Chart selector | Router with softmax |
+| **Expert networks** | Local charts $\phi_i$ | BRST-constrained encoders |
+| **Expert specialization** | Chart coverage $U_i$ | Learned via separation loss |
+| **Load balancing** | Atlas completeness | Balance loss $\|\text{usage} - 1/K\|^2$ |
+| **Expert capacity** | Chart dimension | Latent dimension $d$ |
+
+#### Loss Function Decomposition
+
+The **Universal Loss** (Section 7.7.4) decomposes into geometric objectives:
+
+| Loss Component | Geometric Objective | Manifold Property Enforced |
+|----------------|--------------------|-----------------------------|
+| $\mathcal{L}_{\text{inv}}$ | Metric stability | Local isometry |
+| $\mathcal{L}_{\text{var}}$ | Non-degeneracy | Full rank Jacobian |
+| $\mathcal{L}_{\text{cov}}$ | Orthonormality | Riemannian normal coordinates |
+| $\mathcal{L}_{\text{entropy}}$ | Sharp boundaries | Distinct chart domains |
+| $\mathcal{L}_{\text{balance}}$ | Complete coverage | Atlas covers all of $M$ |
+| $\mathcal{L}_{\text{sep}}$ | Disjoint interiors | $U_i \cap U_j$ minimal |
+| $\mathcal{L}_{\text{brst}}$ | Isometric embedding | $\|Wx\| = \|x\|$ |
+
+#### When to Use Atlas Architecture
+
+| Data Topology | Single Chart | Atlas Required | Why |
+|---------------|--------------|----------------|-----|
+| Euclidean $\mathbb{R}^n$ | ✓ | — | Trivially covered |
+| Sphere $S^2$ | ✗ | ≥2 charts | Hairy Ball Theorem |
+| Torus $T^2$ | ✗ | ≥4 charts | Non-trivial $H_1$ |
+| Swiss Roll | ✓* | — | Topologically trivial |
+| Disconnected components | ✗ | ≥k charts | k components |
+| Mixed topology | ✗ | Adaptive | Data-dependent |
+
+*Swiss Roll is topologically trivial but may benefit from multiple charts for geometric reasons (unrolling).
+
+#### Key Citations
+
+| Concept | Citation | Contribution |
+|---------|----------|--------------|
+| **Manifold Atlas** | Lee (2012) | *Smooth Manifolds* textbook |
+| **Embedding Theorem** | Whitney (1936) | Any $n$-manifold embeds in $\mathbb{R}^{2n}$ |
+| **BRST Symmetry** | Becchi et al. (1970s) | Gauge fixing in QFT |
+| **Mixture of Experts** | Jacobs et al. (1991) | Gated expert networks |
+| **VICReg** | Bardes, Ponce, LeCun (2022) | Collapse prevention without negatives |
+| **Barlow Twins** | Zbontar et al. (2021) | Redundancy reduction |
+| **InfoNCE** | Oord et al. (2018) | Contrastive predictive coding |
+| **Information Geometry** | Saxe et al. (2019) | Fisher information in NNs |
