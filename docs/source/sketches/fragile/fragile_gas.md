@@ -8,20 +8,22 @@ title: "Hypostructure Proof Object: Fragile Gas (Parallel Rollout Generator)"
 
 | Field | Value |
 |-------|-------|
-| **Problem** | Parallel Rollout Generation via Policy-Value Cloning (Fragile Agent Swarm) |
-| **System Type** | $T_{\text{cybernetic}}$ (Feedback-controlled stochastic particles) |
-| **Target Claim** | Existence of a unique stationary distribution concentrated on high-value states |
+| **Problem** | Parallel rollout generation via Euclidean Gas (softmax pairing + momentum-conserving cloning) |
+| **System Type** | $T_{\text{cybernetic}}$ (feedback-controlled interacting particles) |
+| **Target Claim** | Rigorous constants; mean-field limit; QSD characterization (killed + cloning) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-29 |
 
 ### Label Naming Conventions
 
+When filling out this template, replace `[problem-slug]` with a lowercase, hyphenated identifier for your problem. Here, `[problem-slug] = fragile-gas`.
+
 | Type | Pattern | Example |
 |------|---------|---------|
-| Definitions | `def-fragile-gas-*` | `def-fragile-gas-state` |
+| Definitions | `def-fragile-gas-*` | `def-fragile-gas-distance` |
 | Theorems | `thm-fragile-gas-*` | `thm-fragile-gas-main` |
-| Lemmas | `lem-fragile-gas-*` | `lem-fragile-gas-cloning` |
-| Remarks | `rem-fragile-gas-*` | `rem-fragile-gas-barriers` |
+| Lemmas | `lem-fragile-gas-*` | `lem-fragile-gas-softmax` |
+| Remarks | `rem-fragile-gas-*` | `rem-fragile-gas-constants` |
 | Proofs | `proof-fragile-gas-*` | `proof-thm-fragile-gas-main` |
 
 ---
@@ -30,305 +32,666 @@ title: "Hypostructure Proof Object: Fragile Gas (Parallel Rollout Generator)"
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
-- **Type witness:** $T_{\text{cybernetic}}$ is a **good type** (finite stratification by program state).
+- **Type witness:** $T_{\text{cybernetic}}$ is a **good type** (finite stratification by program state and bounded operator interfaces).
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction and admissibility checks are delegated to the algorithmic factories.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{cybernetic}}\ \text{good},\ \text{AutomationGuarantee holds})$$
+$$K_{\mathrm{Auto}}^+ = (T_{\text{cybernetic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
 
 ---
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **Fragile Gas algorithm** (Parallel Rollout Generator) using the Hypostructure framework.
+This document presents a **machine-checkable proof object** for the **Fragile Gas** viewed as a **parallel rollout generator**: a constant-$N$ interacting particle system that (i) explores by a kinetic mutation operator and (ii) concentrates by fitness-based cloning.
 
-**Approach:** We instantiate the cybernetic hypostructure with a latent potential $\Phi = -V$ (negative Critic value), a dissipation rate $\mathfrak{D}$ governed by the Policy entropy and cloning formulation, and verify all 17 sieve nodes to establish the **Darwinian Ratchet Certificate**. The system represents a swarm of "Fragile Agents" (VAE-WorldModel-Critic-Policy tuples) undergoing evolution.
+**Approach:** We instantiate the Euclidean Gas thin interfaces (arena, potential/height, dissipation, invariance, boundary) using the concrete operators in:
+- `src/fragile/core/euclidean_gas.py` (step orchestrator),
+- `src/fragile/core/companion_selection.py` (softmax pairing, self-excluded on alive walkers),
+- `src/fragile/core/fitness.py` (bounded fitness via patched standardization + logistic rescale),
+- `src/fragile/core/cloning.py` (Gaussian position jitter + **momentum-conserving** inelastic collision on velocities),
+- `src/fragile/core/kinetic_operator.py` (BAOAB with **viscous force only**, **anisotropic diffusion always enabled**, and **velocity squashing always enabled**).
 
-**Result:** The Lock is blocked via Tactic E7 (Thermodynamic), establishing that the cloning operator defines a **Supermartingale** for the Free Energy functional, driving the swarm into the high-value modes of the Critic Value Function.
+**Result:** A complete constants table, derived constants computed from parameters, and a full sieve pass with no unresolved inconclusive certificates. Mean-field and QSD claims are reduced to the framework rate calculators in `src/fragile/convergence_bounds.py`.
 
 ---
 
 ## Theorem Statement
 
-::::{prf:theorem} Fragile Gas Convergence (Darwinian Ratchet Principle)
+::::{prf:theorem} Fragile Gas Step Operator (Softmax Pairing, Momentum-Conserving Cloning)
 :label: thm-fragile-gas-main
 
 **Given:**
-- **State space:** $\mathcal{X} = (\mathbb{R}^Z)^N$, representing the latent states of $N$ parallel rollouts.
-- **Dynamics:** A trusted-step operator $S_t = \mathcal{K}_{\text{pol}} \circ \mathcal{C}_{\text{val}}$.
-- **Objective:** A continuously differentiable Morse function $V: \mathbb{R}^Z \to \mathbb{R}$ (the **Critic Value Function**).
-- **Initial data:** $z_0 \sim \mathcal{N}(0, I)$.
+- State space: $\mathcal{X} = (B\times \overline{B_{V_{\mathrm{alg}}}})^N$ with state $s=(x,v)$.
+- Bounds: a compact box $B=\prod_{k=1}^d[\ell_k,u_k]\subset\mathbb{R}^d$ used to define the alive mask (no PBC).
+- Dynamics: the step operator $S_t$ defined below (softmax pairing + cloning + viscous-only BAOAB with anisotropic diffusion and squashing).
+- Initial data: $x_0,v_0\in\mathbb{R}^{N\times d}$ with at least two walkers initially alive (so softmax pairing with self-exclusion is well-defined), and parameters $\Theta$ (constants table).
 
-**Claim:**
-The Fragile Gas step operator defines a valid Markov transition kernel $P(z_{t+1} \mid z_t)$. Its stationary distribution $\pi_\infty$ concentrates probability mass on the high-fitness states, modulated by the selection pressure. Specifically, $\pi_\infty(z) \propto (d(z)^\beta r(z)^\alpha) \cdot \pi_{\text{prior}}(z)$, where $\alpha$ and $\beta$ are the fitness exponents for rewards and diversity, respectively.
+**Claim:** The Fragile Gas step operator defines a valid Markov transition kernel on the extended state space $\mathcal{X}\cup\{\dagger\}$, where $\dagger$ is a cemetery state for degenerate companion-selection events (e.g. $|\mathcal{A}|=0$ or $|\mathcal{A}|=1$ under self-exclusion). Companion selection (for both diversity measurement and cloning) is the softmax pairing rule with self-pairing excluded on alive walkers. For cloning, the inelastic collision map preserves the center-of-mass velocity on each collision group update (hence conserves group momentum whenever collision groups form a partition). In addition, once the quantitative constants $(m_\epsilon,\kappa_W,\kappa_{\mathrm{total}},C_{\mathrm{LSI}})$ are instantiated (Part III), the framework yields a propagation-of-chaos (mean-field) error bound and an LSI-based QSD/KL convergence rate characterization.
 
 **Notation:**
 | Symbol | Definition |
 |--------|------------|
-| $N$ | Number of walkers (batch size) |
-| $Z$ | Latent dimension of the VAE |
-| $V$ | Critic Value Function (Potential) |
-| $\pi_\theta$ | Policy Distribution (Dynamics) |
-| $\alpha$ | Reward Exponent (Fitness Channel $\alpha$) |
-| $\beta$ | Diversity Exponent (Fitness Channel $\beta$) |
-| $\beta_{\text{kin}}$ | Kinetic Inverse Temperature ($1/k_B T$) |
-| $\mathbf{z}$ | The full swarm state tensor $\mathbf{z} \in \mathbb{R}^{N \times Z}$ |
+| $N$ | Number of walkers |
+| $d$ | Latent/state dimension (rollout embedding dimension) |
+| $U$ | Potential function (user-supplied evaluator) |
+| $r=-U$ | Reward channel used by fitness |
+| $d_{\text{alg}}$ | Algorithmic distance |
+| $V_{\mathrm{fit}}$ | Fitness potential (bounded, used by cloning) |
+| $\Phi$ | Height functional |
+| $\mathfrak{D}$ | Dissipation rate |
+| $S_t$ | Discrete-time step operator |
+| $\Sigma$ | Singular/bad set (NaN/Inf, cemetery) |
 
 ::::
 
 ---
 
-## Algorithm Definition (Fragile Agent Specification)
+:::{dropdown} **LLM Execution Protocol** (Click to expand)
+See `docs/source/prompts/template.md` for the deterministic protocol. This document implements the full instantiation + sieve pass for this cybernetic/algorithmic type.
+:::
 
-### State and Distance
+---
 
-Let $z_i \in \mathbb{R}^Z$ be the latent state of walker $i \in \{1, \dots, N\}$.
-Define the algorithmic distance (Isometry Assumption):
+## Algorithm Definition (Variant: Softmax Pairing + Momentum-Conserving Cloning)
+
+This section defines the step operator in distribution, matching `src/fragile/core/euclidean_gas.py:EuclideanGas.step`.
+
+### State, Alive Mask, and Algorithmic Distance
+
+Let $x_i\in\mathbb{R}^d$ and $v_i\in\mathbb{R}^d$ be the position and velocity of walker $i\in\{1,\dots,N\}$, and write the swarm state as
 $$
-d_{\text{alg}}(i, j)^2 = \|z_i - z_j\|_2^2.
+s=(x,v)\in(\mathbb{R}^d\times\mathbb{R}^d)^N.
 $$
-The state space is constrained to a compact ball $\mathcal{B} = \{z : \|z\| \le R_{\text{bound}}\}$.
 
-### Kinetic Operator (Policy Rollout)
+Let the bounds be a compact box
+$$
+B=\prod_{k=1}^d[\ell_k,u_k].
+$$
+This proof object assumes **no periodic boundary conditions**, so the alive set is
+$$
+\mathcal{A}(x):=\{i:\ x_i\in B\},\qquad n_{\mathrm{alive}}:=|\mathcal{A}(x)|.
+$$
+If $n_{\mathrm{alive}}<2$, the self-exclusion constraint leaves no valid companions for alive walkers; this proof object treats that event as transition to the cemetery state $\dagger$.
+(Implementation note: `EuclideanGas.step` raises `ValueError` when $n_{\mathrm{alive}}=0$, and `select_companions_softmax` has a fallback that permits self-selection when $n_{\mathrm{alive}}=1$.)
 
-The kinetic operator $\mathcal{K}_{\text{pol}}$ updates walker states via the World Model $S_\phi$:
-1.  **Action Sampling:** $a_i \sim \pi_\theta(\cdot | z_i)$.
-2.  **Transition:** $z_i' = S_\phi(z_i, a_i) + \xi_i$, with $\xi_i \sim \mathcal{N}(0, \beta_{\text{kin}}^{-1} I)$.
-3.  **Boundary Enforcement:** If $\|z_i'\| > R_{\text{bound}}$, project to boundary (or reset).
+Define the squared algorithmic distance:
+:::{prf:definition} Algorithmic distance
+:label: def-fragile-gas-distance
+$$
+d_{\mathrm{alg}}(i,j)^2 := \|x_i-x_j\|_2^2 + \lambda_{\mathrm{alg}}\|v_i-v_j\|_2^2.
+$$
+:::
 
-### Step Operator
+### Companion Selection (Softmax, Self-Excluded on Alive Walkers)
 
-The full step operator is the composition:
-### Step Operator (The Fragile Loop)
+Fix $\epsilon>0$ (softmax range). For every alive walker $i\in\mathcal{A}(x)$, the companion index $c_i$ is drawn from $\mathcal{A}(x)\setminus\{i\}$ with:
+:::{prf:definition} Softmax companion selection
+:label: def-fragile-gas-softmax
+$$
+\mathbb{P}(c_i=j\mid x,v)\;=\;
+\frac{\exp\!\left(-\frac{d_{\mathrm{alg}}(i,j)^2}{2\epsilon^2}\right)}
+{\sum\limits_{\ell\in\mathcal{A}(x)\setminus\{i\}}
+\exp\!\left(-\frac{d_{\mathrm{alg}}(i,\ell)^2}{2\epsilon^2}\right)}
+\qquad (j\in\mathcal{A}(x)\setminus\{i\}).
+$$
+:::
 
-The step operator $S_t$ proceeds in six distinct phases (matching `EuclideanGas.step`):
+Dead walkers $i\notin\mathcal{A}(x)$ are assigned companions uniformly from the alive set (revival mechanism). This is implemented by `src/fragile/core/companion_selection.py:select_companions_softmax`.
 
-1.  **Rewards ($R$):**
-    Evaluate the raw potential: $r_i = -U(z_i)$.
-2.  **Companion Selection I (Diversity):**
-    Select companions $c^{(div)}_i$ to measure local density.
-    $$ d_i = \|z_i - z_{c^{(div)}_i}\| $$
-3.  **Fitness Evaluation ($V$):**
-    Compute fitness combining reward and diversity:
-    $$ V_i = (d_i)^{\beta} (r_i)^{\alpha} $$
-4.  **Companion Selection II (Cloning):**
-    Select companions $c^{(clone)}_i$ for potential replication.
-5.  **Selection Operator (Cloning):**
-    Compute cloning scores using $c^{(clone)}_i$:
-    $$ S_i = \frac{V(z_{c^{(clone)}_i}) - V(z_i)}{V(z_i) + \epsilon_{\text{clone}}} $$
-    Clone walker $i \leftarrow c^{(clone)}_i$ with probability $p_i = \text{clip}(S_i/p_{\max})$.
-6.  **Kinetic Operator (Dynamics):**
-    Apply Policy rollout to the new state:
-    $$ z_i' = \text{WorldModel}(z_i, a_i) + \xi_i $$
+### Fitness Operator (Bounded by Construction)
+
+Rewards are computed from a user-supplied evaluator $U$:
+$$
+r_i := -U(x_i).
+$$
+
+Fitness is computed by `src/fragile/core/fitness.py:compute_fitness` using:
+1. **Regularized distances** to a companion:
+$$
+d_i=\sqrt{\|x_i-x_{c_i}\|^2+\lambda_{\mathrm{alg}}\|v_i-v_{c_i}\|^2+\epsilon_{\mathrm{dist}}^2}.
+$$
+2. **Patched standardization** over alive walkers only:
+$$
+z_r(i)=\mathrm{Zscore}_{\text{alive}}(r_i),\qquad z_d(i)=\mathrm{Zscore}_{\text{alive}}(d_i).
+$$
+3. **Logistic rescale** $g_A(z)=A/(1+e^{-z})\in[0,A]$ and floor $\eta>0$:
+$$
+r_i' = g_A(z_r(i))+\eta,\qquad d_i' = g_A(z_d(i))+\eta.
+$$
+4. **Fitness potential** (alive walkers):
+$$
+V_{\mathrm{fit},i}=(d_i')^{\beta_{\mathrm{fit}}}\,(r_i')^{\alpha_{\mathrm{fit}}}.
+$$
+Dead walkers have $V_{\mathrm{fit},i}=0$.
+
+### Cloning Operator (Gaussian Position Jitter + Momentum-Conserving Collision)
+
+Given companion indices for cloning $c_i^{(\mathrm{clone})}$, cloning score and probability are (implemented by `src/fragile/core/cloning.py`):
+$$
+S_i := \frac{V_{\mathrm{fit},c_i}-V_{\mathrm{fit},i}}{V_{\mathrm{fit},i}+\epsilon_{\mathrm{clone}}},\qquad
+p_i := \min\!\Bigl(1,\max(0,S_i/p_{\max})\Bigr).
+$$
+Then $i$ clones iff $p_i > \xi_i$ with $\xi_i\sim\mathrm{Unif}[0,1]$. Dead walkers are forced to clone.
+
+Position update (cloners):
+$$
+x_i^{+} = x_{c_i} + \sigma_x \zeta_i,\qquad \zeta_i\sim\mathcal{N}(0,I_d).
+$$
+
+Velocity update is the inelastic collision map from `src/fragile/core/cloning.py:inelastic_collision_velocity`. For each collision group (companion + its cloners), letting $V_{\mathrm{COM}}$ be the group mean velocity, the post-collision velocities are
+$$
+v_k^{+} = V_{\mathrm{COM}} + \alpha_{\mathrm{rest}}(v_k - V_{\mathrm{COM}}),
+$$
+hence $\sum_k v_k$ (momentum) is preserved within each group.
+
+### Kinetic Operator (BAOAB, Viscous Force Only; Anisotropic Diffusion + Squashing Always On)
+
+The kinetic operator is the BAOAB integrator in `src/fragile/core/kinetic_operator.py:KineticOperator.apply` with:
+- **No potential force:** `use_potential_force=False` (no $-\nabla U$).
+- **No fitness force:** `use_fitness_force=False` and $\epsilon_F=0$.
+- **Viscous coupling only:** `use_viscous_coupling=True` with strength $\nu>0$.
+- **Anisotropic diffusion always:** `use_anisotropic_diffusion=True`, with
+$$
+\Sigma_{\mathrm{reg}} = (\nabla_x^2 V_{\mathrm{fit}} + \epsilon_\Sigma I)^{-1/2}
+$$
+implemented with eigenvalue/diagonal clamping. Here $\nabla_x^2 V_{\mathrm{fit}}$ is understood in the **implementation sense**: the per-walker Hessian blocks produced by `src/fragile/core/fitness.py:FitnessOperator.compute_hessian` (second derivatives of the scalar $\sum_k V_{\mathrm{fit},k}$ w.r.t. $x_i$, with sampled companions treated as fixed), followed by regularization/clamping in `src/fragile/core/kinetic_operator.py:KineticOperator._compute_diffusion_tensor`.
+- **Velocity squashing always:** `use_velocity_squashing=True` with bound $V_{\mathrm{alg}}$.
+
+### Step Operator (One Discrete Time Step)
+
+Given $s=(x,v)$, one step produces $s'=(x',v')$ by:
+1. Compute rewards $r=-U(x)$.
+2. Compute alive mask $\mathbf{1}_{\mathcal{A}(x)}$.
+3. Sample companions $c^{(\mathrm{dist})}$ by softmax pairing.
+4. Compute fitness $V_{\mathrm{fit}}$ from $(r,c^{(\mathrm{dist})})$.
+5. Sample companions $c^{(\mathrm{clone})}$ by softmax pairing and apply cloning to obtain $(x^{+},v^{+})$.
+6. Compute the fitness Hessian blocks $H_i$ (needed because anisotropic diffusion is always enabled), as implemented by `FitnessOperator.compute_hessian` with companions treated as fixed.
+7. Apply BAOAB kinetic step (viscous-only drift + anisotropic noise + squashing) to obtain $(x',v')$.
 
 ---
 
-## Thin Interfaces and Operator Contracts
+## Constants and Hyperparameters (Complete Table)
 
-### Thin Objects (Summary)
+This section lists **all algorithm constants** used by the Fragile Gas instantiation and their code witnesses.
 
-| Thin Object | Definition | Implementation |
-|-------------|------------|----------------|
-| **Arena** $\mathcal{X}^{\text{thin}}$ | $\mathcal{B}^N \subset (\mathbb{R}^Z)^N$ (Compact Ball) | `FragileState`, `config.R_bound` |
-| **Potential** $\Phi^{\text{thin}}$ | $\Phi(\mathbf{z}) = -\sum_i V_\psi(z_i)$ (Total Value) | `Critic.forward` |
-| **Cost** $\mathfrak{D}^{\text{thin}}$ | $\mathfrak{D}(\mathbf{z}) = \beta_{\text{kin}}^{-1} \sum_i \|\nabla \log \pi(a_i \mid z_i)\|^2$ (Fisher Info) | `Policy.entropy` |
-| **Invariance** $G^{\text{thin}}$ | $S_N$ (Permutation Symmetry) | `VectorizedEnv` |
-
-### Operator Contracts
-
-| Operator | Contract | Implementation |
-|----------|----------|----------------|
-| **Companion I** | $c^{(div)} \sim P(\cdot \mid z)$ | `CompanionSelection` |
-| **Fitness** | $V = f(r, d(z, c^{(div)}))$ | `FitnessOperator` |
-| **Companion II** | $c^{(clone)} \sim P(\cdot \mid z)$ | `CompanionSelection` |
-| **Selection** | $P(\text{clone } i \leftarrow j) \propto (V_j - V_i)_+$ | `CloneOperator` |
-| **Kinetic** | $z' \sim P_\theta(\cdot \mid z)$, $d(z, z') \le K_{Lip}$ | `RolloutGenerator` |
+| Channel | Symbol | Default | Meaning | Code witness |
+|---|---:|---:|---|---|
+| Swarm | $N$ | 50 | Number of walkers | `EuclideanGas.N` |
+| Swarm | $d$ | 2 | Dimension | `EuclideanGas.d` |
+| Swarm | `dtype` | float32 | Tensor dtype | `EuclideanGas.dtype` |
+| Swarm | `device` | cpu | Device | `EuclideanGas.device` |
+| Swarm | `enable_cloning` | True (fixed) | Cloning always enabled | `EuclideanGas.enable_cloning` |
+| Swarm | `enable_kinetic` | True (fixed) | Kinetic always enabled | `EuclideanGas.enable_kinetic` |
+| Swarm | `pbc` | False (fixed) | No periodic boundary conditions | `EuclideanGas.pbc` |
+| Companion | `method` | softmax (fixed) | Softmax pairing | `CompanionSelection.method` |
+| Companion | $\epsilon$ | 0.1 | Softmax range | `CompanionSelection.epsilon` |
+| Companion | $\lambda_{\text{alg}}$ | 0.0 | Velocity weight in $d_{\text{alg}}$ | `CompanionSelection.lambda_alg` |
+| Companion | `exclude_self` | True (fixed) | Exclude self-pairing for alive walkers | `CompanionSelection.exclude_self` |
+| Fitness | $\alpha_{\text{fit}}$ | 1.0 | Reward channel exponent | `FitnessOperator.alpha` |
+| Fitness | $\beta_{\text{fit}}$ | 1.0 | Diversity channel exponent | `FitnessOperator.beta` |
+| Fitness | $\eta$ | 0.1 | Positivity floor | `FitnessOperator.eta` |
+| Fitness | $\lambda_{\text{alg}}$ | $\lambda_{\text{alg}}$ | Velocity weight used inside $d_{\text{alg}}$ | `FitnessOperator.lambda_alg` |
+| Fitness | $\sigma_{\min}$ | 1e-8 | Standardization regularizer | `FitnessOperator.sigma_min` |
+| Fitness | $\epsilon_{\text{dist}}$ | 1e-8 | Distance smoothness regularizer | `FitnessOperator.epsilon_dist` |
+| Fitness | $A$ | 2.0 | Logistic rescale bound | `FitnessOperator.A` |
+| Fitness | $\rho$ | None | Localization scale (None = mean-field) | `FitnessOperator.rho` |
+| Cloning | $p_{\max}$ | 1.0 | Max cloning probability scale | `CloneOperator.p_max` |
+| Cloning | $\epsilon_{\text{clone}}$ | 0.01 | Cloning score regularizer | `CloneOperator.epsilon_clone` |
+| Cloning | $\sigma_x$ | 0.1 | Position jitter scale | `CloneOperator.sigma_x` |
+| Cloning | $\alpha_{\text{rest}}$ | 0.5 | Restitution coefficient | `CloneOperator.alpha_restitution` |
+| Kinetic | `integrator` | baoab (fixed) | BAOAB integrator | `KineticOperator.integrator` |
+| Kinetic | $\gamma$ | 1.0 | Friction coefficient | `KineticOperator.gamma` |
+| Kinetic | $\beta_{\text{kin}}$ | 1.0 | Inverse temperature (isotropic case) | `KineticOperator.beta` |
+| Kinetic | $\Delta t$ | 0.01 | Time step size | `KineticOperator.delta_t` |
+| Kinetic | $\epsilon_F$ | 0.0 (fixed) | Fitness-force strength (disabled) | `KineticOperator.epsilon_F` |
+| Kinetic | `use_fitness_force` | False (fixed) | Fitness force removed | `KineticOperator.use_fitness_force` |
+| Kinetic | `use_potential_force` | False (fixed) | Potential force removed | `KineticOperator.use_potential_force` |
+| Kinetic | $\epsilon_{\Sigma}$ | 0.1 | Hessian regularization | `KineticOperator.epsilon_Sigma` |
+| Kinetic | `use_anisotropic_diffusion` | True (fixed) | Enable anisotropic diffusion | `KineticOperator.use_anisotropic_diffusion` |
+| Kinetic | `diagonal_diffusion` | True | Diagonal diffusion only | `KineticOperator.diagonal_diffusion` |
+| Kinetic | `use_viscous_coupling` | True (fixed) | Viscous coupling always enabled | `KineticOperator.use_viscous_coupling` |
+| Kinetic | $\nu$ | $>0$ (required) | Viscous coupling strength | `KineticOperator.nu` |
+| Kinetic | $l$ | 1.0 | Viscous kernel length scale | `KineticOperator.viscous_length_scale` |
+| Kinetic | $V_{\text{alg}}$ | finite | Velocity squash bound | `KineticOperator.V_alg` |
+| Kinetic | `use_velocity_squashing` | True (fixed) | Enable velocity squashing | `KineticOperator.use_velocity_squashing` |
 
 ---
 
-## Instantiation Assumptions (Algorithmic Type)
+## Derived Constants (Computed from Parameters)
 
-- **A1 (Compactness):** The latent space is bounded by $R_{\text{bound}}$ (TanH/Norm constraints).
-- **A2 (Tameness):** The Critic $V_\psi$ and World Model $S_\phi$ are definable in an o-minimal structure (Neural Networks with standard activations).
-- **A3 (Smoothness):** $\Phi$ is $C^2$ bounded (Lipschitz gradients).
-- **A4 (Precision):** State is represented by IEEE 754 floats (finite description length).
+This section records derived constants computed deterministically from parameters (and the bounds object). These are the constants used in mean-field/QSD convergence statements.
+
+### Summary Table (Derived)
+
+| Derived constant | Expression | Notes |
+|---|---|---|
+| Box diameter | $D_x=\|u-\ell\|_2$ | $B=\prod_k[\ell_k,u_k]$ |
+| Velocity diameter | $D_v \le 2V_{\mathrm{alg}}$ | from velocity squashing |
+| Alg. diameter | $D_{\mathrm{alg}}^2 \le D_x^2 + 4\lambda_{\mathrm{alg}}V_{\mathrm{alg}}^2$ | alive set |
+| Softmax floor | $m_\epsilon=\exp(-D_{\mathrm{alg}}^2/(2\epsilon^2))$ | companion minorization |
+| Fitness bounds | $V_{\min}=\eta^{\alpha+\beta}$, $V_{\max}=(A+\eta)^{\alpha+\beta}$ | alive walkers |
+| Score bound | $S_{\max}=(V_{\max}-V_{\min})/(V_{\min}+\epsilon_{\mathrm{clone}})$ | alive walkers |
+| Effective selection | $\lambda_{\mathrm{alg}}^{\mathrm{eff}}=\mathbb{E}\!\left[\frac{1}{N}\sum_i \mathbf{1}\{\text{$i$ clones}\}\right]$ | estimated from `will_clone` |
+| Cloning noise | $\delta_x^2=\sigma_x^2$ | position jitter variance |
+| Viscous force max | $\|F_i\|\le 2\nu V_{\mathrm{alg}}$ | per walker |
+| Ellipticity window | $c_{\min}=1/(H_{\max}+\epsilon_\Sigma)$, $c_{\max}=1/\epsilon_\Sigma$ | clamped |
+| Box spectral gap | $\kappa_{\mathrm{conf}}^{(B)}\ge \pi^2\sum_k L_k^{-2}$ | Dirichlet on $B$ |
+
+### Domain and Metric Bounds
+
+Let $L_k=u_k-\ell_k$ and $D_x := \|u-\ell\|_2$. Velocity squashing enforces $\|v_i\| \le V_{\text{alg}}$, hence $D_v\le 2V_{\text{alg}}$.
+Therefore
+$$
+d_{\text{alg}}(i,j)^2 \le D_{\text{alg}}^2 := D_x^2 + \lambda_{\text{alg}} D_v^2
+\le D_x^2 + 4\lambda_{\text{alg}}V_{\text{alg}}^2.
+$$
+
+For softmax pairing, define
+$$
+m_\epsilon := \exp\!\left(-\frac{D_{\text{alg}}^2}{2\epsilon^2}\right)\in(0,1].
+$$
+
+### Softmax Pairing Minorization (Alive Set)
+
+Let $n_{\mathrm{alive}}:=|\mathcal{A}(x)|$. For any alive $i\in\mathcal{A}(x)$, excluding self-pairing gives weights in $[m_\epsilon,1]$ on $\mathcal{A}(x)\setminus\{i\}$, hence for every $j\in\mathcal{A}(x)\setminus\{i\}$:
+$$
+\frac{m_\epsilon}{n_{\mathrm{alive}}-1} \le \mathbb{P}(c_i=j)\le \frac{1}{m_\epsilon\,(n_{\mathrm{alive}}-1)}.
+$$
+Equivalently, writing $U_{i}$ for the uniform distribution on $\mathcal{A}(x)\setminus\{i\}$,
+$$
+\mathbb{P}(c_i\in\cdot)\ \ge\ m_\epsilon\, U_i(\cdot),
+$$
+which is the Doeblin/minorization constant used in mean-field and mixing arguments.
+
+:::{prf:lemma} Softmax pairing admits an explicit Doeblin constant
+:label: lem-fragile-gas-softmax-doeblin
+
+Assume $n_{\mathrm{alive}}\ge 2$ and that on the alive slice
+$d_{\mathrm{alg}}(i,j)^2 \le D_{\mathrm{alg}}^2$ for all $i,j\in\mathcal{A}(x)$ (so each softmax weight lies in $[m_\epsilon,1]$ with $m_\epsilon=\exp(-D_{\mathrm{alg}}^2/(2\epsilon^2))$).
+Then for each alive walker $i$, the softmax companion distribution $P_i(\cdot)$ on $\mathcal{A}(x)\setminus\{i\}$ satisfies the uniform minorization
+$$
+P_i(\cdot)\ \ge\ m_\epsilon\,U_i(\cdot),
+$$
+where $U_i$ is uniform on $\mathcal{A}(x)\setminus\{i\}$.
+:::
+
+:::{prf:proof}
+For any $j\in\mathcal{A}(x)\setminus\{i\}$,
+$$
+\mathbb{P}(c_i=j)
+=
+\frac{\exp\!\left(-\frac{d_{\mathrm{alg}}(i,j)^2}{2\epsilon^2}\right)}
+{\sum_{\ell\in\mathcal{A}(x)\setminus\{i\}}\exp\!\left(-\frac{d_{\mathrm{alg}}(i,\ell)^2}{2\epsilon^2}\right)}
+\ \ge\
+\frac{m_\epsilon}{n_{\mathrm{alive}}-1}
+= m_\epsilon\,U_i(\{j\}).
+$$
+This is the stated minorization.
+:::
+
+### Fitness Bounds (Exact)
+
+Because $g_A(z)\in[0,A]$ and a positivity floor $\eta>0$ is added,
+$$
+r_i' \in [\eta, A+\eta], \qquad d_i' \in [\eta, A+\eta].
+$$
+Hence, for exponents $\alpha_{\text{fit}},\beta_{\text{fit}}\ge 0$,
+$$
+V_{\min} := \eta^{\alpha_{\text{fit}}+\beta_{\text{fit}}}
+\le V_{\mathrm{fit},i} \le
+(A+\eta)^{\alpha_{\text{fit}}+\beta_{\text{fit}}} =: V_{\max},
+$$
+and dead walkers have $V_{\mathrm{fit},i}=0$.
+
+**With the defaults** $\alpha_{\text{fit}}=\beta_{\text{fit}}=1$, $\eta=0.1$, $A=2.0$:
+$$
+V_{\min}=0.1^2=10^{-2}, \qquad V_{\max}=(2.1)^2=4.41.
+$$
+
+:::{prf:lemma} Velocity squashing is bounded and 1-Lipschitz
+:label: lem-fragile-gas-velocity-squashing
+
+Let $V_{\mathrm{alg}}>0$ and define the velocity squashing map (as in `src/fragile/core/kinetic_operator.py:psi_v`)
+$$
+\psi_v(v) := \frac{V_{\mathrm{alg}}}{V_{\mathrm{alg}}+\|v\|}\,v,\qquad v\in\mathbb{R}^d.
+$$
+Then:
+1. **Boundedness:** $\|\psi_v(v)\| \le V_{\mathrm{alg}}$ for all $v$, and $\|\psi_v(v)\|<V_{\mathrm{alg}}$ for $v\neq 0$.
+2. **1-Lipschitz:** for all $v,w\in\mathbb{R}^d$,
+   $$
+   \|\psi_v(v)-\psi_v(w)\|\le \|v-w\|.
+   $$
+:::
+
+:::{prf:proof}
+Boundedness is immediate:
+$
+\|\psi_v(v)\|
+=
+V_{\mathrm{alg}}\frac{\|v\|}{V_{\mathrm{alg}}+\|v\|}
+\le V_{\mathrm{alg}}.
+$
+
+For $v\neq 0$, write $r=\|v\|$ and $u=v/r$. Then $\psi_v(v)=s(r)\,v$ with $s(r)=V_{\mathrm{alg}}/(V_{\mathrm{alg}}+r)\in(0,1]$.
+A direct Jacobian computation for $v\neq 0$ gives
+$$
+D\psi_v(v)=s(r)\,I-\frac{V_{\mathrm{alg}}\,r}{(V_{\mathrm{alg}}+r)^2}\,u u^\top,
+$$
+whose eigenvalues are $s(r)$ (multiplicity $d-1$) and $s(r)^2$ (radial direction). Hence $\|D\psi_v(v)\|_{\mathrm{op}}=s(r)\le 1$ for all $v\neq 0$. The map is continuous and differentiable at $0$ with $D\psi_v(0)=I$, so $\sup_v \|D\psi_v(v)\|_{\mathrm{op}}\le 1$, and the mean value theorem yields the global 1-Lipschitz bound.
+:::
+### Cloning Score Bound
+
+Cloning score:
+$$
+S_i = \frac{V_{\mathrm{fit},c_i}-V_{\mathrm{fit},i}}{V_{\mathrm{fit},i}+\epsilon_{\text{clone}}}.
+$$
+Using the fitness bounds, for alive walkers
+$$
+|S_i|\le S_{\max}:=\frac{V_{\max}-V_{\min}}{V_{\min}+\epsilon_{\text{clone}}}.
+$$
+With defaults $\epsilon_{\text{clone}}=0.01$, $V_{\min}=0.01$, $V_{\max}=4.41$:
+$$
+S_{\max}=\frac{4.41-0.01}{0.01+0.01}=220.
+$$
+
+### Effective Selection Pressure (Observable)
+
+Define the **effective discrete-time selection pressure**
+$$
+\lambda_{\mathrm{alg}}^{\mathrm{eff}}
+:=\mathbb{E}\!\left[\frac{1}{N}\sum_{i=1}^N \mathbf{1}\{\text{walker $i$ clones in a step}\}\right]\in[0,1].
+$$
+In the implementation, this is estimated directly from the step trace:
+- `EuclideanGas.step(..., return_info=True)["will_clone"].float().mean()` (per-step),
+- or equivalently `num_cloned / N`.
+
+:::{prf:lemma} Cloning selection is fitness-aligned (mean fitness increases at the selection stage)
+:label: lem-fragile-gas-selection-alignment
+
+Fix a step of the algorithm and condition on the realized companion indices $c=(c_i)$ and the realized fitness values $V=(V_i)$ that are fed into cloning (`compute_fitness` output, with dead walkers having $V_i=0$).
+Define the (alive-walker) cloning score and probability
+$$
+S_i=\frac{V_{c_i}-V_i}{V_i+\epsilon_{\mathrm{clone}}},\qquad
+p_i=\min\!\Bigl(1,\max(0,S_i/p_{\max})\Bigr),
+$$
+and for dead walkers set $p_i:=1$ (as enforced in `src/fragile/core/cloning.py`).
+Let $B_i\sim \mathrm{Bernoulli}(p_i)$ be the cloning decision, conditionally independent given $(V,c)$.
+Define the selection-stage surrogate fitness update
+$$
+V_i^{\mathrm{sel}}:=(1-B_i)V_i + B_i V_{c_i}.
+$$
+Then for every $i$,
+$$
+\mathbb{E}[V_i^{\mathrm{sel}}-V_i\mid V,c] = p_i\,(V_{c_i}-V_i)\ \ge\ 0,
+$$
+hence the mean fitness is nondecreasing in expectation across the selection stage:
+$
+\mathbb{E}\big[\frac{1}{N}\sum_i V_i^{\mathrm{sel}}\mid V,c\big]\ge \frac{1}{N}\sum_i V_i.
+$
+Equivalently, the height functional $\Phi:=V_{\max}-\frac{1}{N}\sum_i V_i$ is nonincreasing in expectation under the **selection component** of the step operator.
+
+**Scope:** This lemma is about the *selection/resampling* logic given the fitness values used for cloning. The full algorithm also applies mutation (clone jitter + BAOAB), which can decrease the next-step fitness; AlignCheck uses only this selection-stage alignment.
+:::
+
+:::{prf:proof}
+By definition,
+$
+V_i^{\mathrm{sel}}-V_i = B_i\,(V_{c_i}-V_i)
+$
+so $\mathbb{E}[V_i^{\mathrm{sel}}-V_i\mid V,c]=p_i(V_{c_i}-V_i)$.
+If $V_{c_i}\le V_i$ then $S_i\le 0$ and $p_i=0$, giving equality.
+If $V_{c_i}>V_i$ then $p_i\in(0,1]$ and $V_{c_i}-V_i>0$, giving strict positivity.
+For dead walkers, $p_i=1$ and $V_{c_i}\ge 0=V_i$, so the inequality still holds.
+Summing over $i$ yields the mean-fitness statement.
+:::
+
+### Viscous Force Bound (Exact)
+
+In the implementation (`src/fragile/core/kinetic_operator.py:KineticOperator._compute_viscous_force`), the viscous coupling weights are normalized by the local degree and then stabilized by a degree clamp, so the weights are **row-substochastic** (exactly stochastic unless the Gaussian kernel underflows numerically):
+$$
+F_{\mathrm{visc},i}(x,v) = \nu\sum_{j\ne i} w_{ij}(x)\,(v_j-v_i),\qquad 0<\sum_{j\ne i} w_{ij}(x)\le 1,\ w_{ij}\ge 0,
+$$
+With $\|v_i\|\le V_{\mathrm{alg}}$,
+$$
+\|F_{\mathrm{visc},i}\|\le \nu\sum_{j\ne i} w_{ij}\|v_j-v_i\|\le 2\nu V_{\mathrm{alg}}\sum_{j\ne i} w_{ij}\le 2\nu V_{\mathrm{alg}}.
+$$
+
+:::{prf:lemma} Viscous coupling is dissipative (degree-weighted energy)
+:label: lem-fragile-gas-viscous-dissipation
+
+Fix positions $x$ and define the symmetric kernel
+$$
+K_{ij}(x):=\exp\!\left(-\frac{\|x_i-x_j\|^2}{2l^2}\right),\qquad K_{ii}=0,
+$$
+the (possibly clamped) degrees $d_i:=\max(\sum_{j\ne i}K_{ij},\varepsilon_{\deg})$, and weights $w_{ij}:=K_{ij}/d_i$.
+Consider the deterministic viscous drift (the force part of the BAOAB B-step at fixed $x$):
+$$
+\dot v_i = \nu\sum_{j\ne i} w_{ij}(v_j-v_i).
+$$
+Then the degree-weighted kinetic energy
+$$
+E(v):=\frac{1}{2}\sum_{i=1}^N d_i\,\|v_i\|^2
+$$
+satisfies the exact dissipation identity
+$$
+\frac{d}{dt}E(v(t))\;=\;-\frac{\nu}{2}\sum_{i,j=1}^N K_{ij}\,\|v_i-v_j\|^2\ \le\ 0.
+$$
+:::
+
+:::{prf:proof}
+Differentiate $E$ along the ODE and use $d_i w_{ij}=K_{ij}$ and symmetry $K_{ij}=K_{ji}$ to obtain
+$\frac{d}{dt}E(v(t))=-\frac{\nu}{2}\sum_{i,j}K_{ij}\|v_i-v_j\|^2$.
+:::
+
+### Anisotropic Diffusion Window (Clamped)
+
+Anisotropic diffusion uses $\Sigma_{\mathrm{reg}}=(H+\epsilon_\Sigma I)^{-1/2}$ with diagonal/eigenvalue clamping below by $\epsilon_\Sigma$ in code (`_compute_diffusion_tensor`).
+Let
+$$
+H_{\max} := \sup_{(x,v)\in\Omega_{\mathrm{alive}}}\ \max_{1\le i\le N}\ \|H_i(x,v)\|_{\mathrm{op}} < \infty,
+$$
+where $H_i$ denotes the per-walker Hessian block actually passed to the kinetic operator (computed by `src/fragile/core/fitness.py:FitnessOperator.compute_hessian` as second derivatives of the scalar $\sum_k V_{\mathrm{fit},k}$ w.r.t. $x_i$, with sampled companions treated as fixed). Then the diffusion covariance satisfies
+$$
+\Sigma_{\mathrm{reg}}^2 \in \left[\frac{1}{H_{\max}+\epsilon_\Sigma},\,\frac{1}{\epsilon_\Sigma}\right]
+\quad\text{(as quadratic forms)}.
+$$
+We record the corresponding ellipticity window constants
+$$
+c_{\min}:=\frac{1}{H_{\max}+\epsilon_\Sigma},\qquad c_{\max}:=\frac{1}{\epsilon_\Sigma}.
+$$
+
+### Confinement Constant from Box Geometry (Dirichlet)
+
+Let $\kappa_{\mathrm{conf}}^{(B)}$ be the Dirichlet spectral gap of the box:
+$$
+\kappa_{\mathrm{conf}}^{(B)} := \lambda_1(-\Delta\ \text{on}\ B\ \text{with Dirichlet bc})
+\ \ge\ \pi^2\sum_{k=1}^d \frac{1}{L_k^2}.
+$$
 
 ---
 
-## Constants and Hyperparameters
+## Instantiation Assumptions (Admissibility)
 
-| Category | Symbol | Meaning | Source |
-|----------|--------|---------|--------|
-| Swarm | $N$ | Number of rollout threads | `FragileGas.N` |
-| Scaling | $\alpha$ | Reward Exponent | `FitnessOperator.alpha` |
-| Scaling | $\beta$ | Diversity Exponent | `FitnessOperator.beta` |
-| Kinetic | $\beta_{\text{kin}}$ | Inverse Temperature | `KineticOperator.beta` |
-| Scaling | $\gamma$ | World Model Flow Temp | `Scaling.gamma` |
-| Scaling | $\delta$ | VAE Geometry Temp | `Scaling.delta` |
-| Bounds | $V_{\max}$ | Maximum Critic Value | `BarrierSat` |
-| Bounds | $Z_{\text{dim}}$ | Latent Dimension | `Config.latent` |
-| Barrier | $K_{\text{Lip}}$ | Lipschitz Constant | `BarrierOmin` |
-| Barrier | $\epsilon_{\text{grad}}$ | Min Gradient Norm | `BarrierGap` |
+These are the admissibility assumptions used throughout the sieve.
+
+- **A1 (Finite parameters):** all parameters in the constants table are finite, with $\nu>0$, $\epsilon>0$, $\epsilon_{\Sigma}>0$.
+- **A2 (Compact bounds):** bounds $B$ are a compact box and PBC are disabled.
+- **A3 (Kinetic and cloning always enabled):** `enable_kinetic=True`, `enable_cloning=True`.
+- **A4 (Only viscous force):** `use_fitness_force=False`, `use_potential_force=False`, and `use_viscous_coupling=True`.
+- **A5 (No self-pairing on alive):** companions are sampled with `exclude_self=True` on alive walkers (requires $n_{\mathrm{alive}}\ge 2$ on the steps where softmax is invoked on the alive slice).
+- **A6 (Non-degenerate noise + squash):** anisotropic diffusion enabled with $\epsilon_\Sigma>0$, and velocity squashing enabled with finite $V_{\mathrm{alg}}$.
+
+---
+
+## Part 0: Interface Permit Implementation Checklist
+
+### Template: $D_E$ (Energy Interface)
+- **Height Functional $\Phi$:** $\Phi := V_{\max}-\frac{1}{N}\sum_i V_{\mathrm{fit},i}$ (bounded “negative mean fitness”).
+- **Dissipation Rate $\mathfrak{D}$:** $\mathfrak{D}(x,v) = \frac{\gamma}{N}\sum_i \|v_i\|^2 + \frac{\nu}{N}\sum_{i,j} K(\|x_i-x_j\|)\|v_i - v_j\|^2$.
+- **Bound Witness:** $B = V_{\max}$ (computed exactly above).
+
+### Template: $\mathrm{Rec}_N$ (Recovery Interface)
+- **Bad Set $\mathcal{B}$:** NaN/Inf states or out-of-bounds positions.
+- **Recovery Map $\mathcal{R}$:** cloning revives dead walkers by copying alive companions.
+- **Finiteness:** discrete-time (no Zeno accumulation).
+
+### Template: $C_\mu$ (Compactness Interface)
+- **Symmetry Group $G$:** $S_N$ (walker permutations).
+- **Compactness:** alive slice $(B\times\overline{B_{V_{\mathrm{alg}}}})^N$ is compact.
+
+### Template: $\mathrm{SC}_\lambda$ (Scaling Interface)
+- **Scaling Subgroup:** trivial on the compact alive slice.
+- **Criticality:** $\alpha=\beta=0$ handled via BarrierTypeII.
+
+### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
+- **Regularity:** $V_{\mathrm{fit}}$ is $C^2$ on the alive slice (explicit regularizers).
+- **Hessian witness:** $\|\nabla_x^2 V_{\mathrm{fit}}\|_{\mathrm{op}}\le H_{\max}$ on $B$.
 
 ---
 
 ## Part I: The Instantiation (Thin Object Definitions)
 
-We define the four "Thin Objects" required by the Hypostructure.
-
 ### 1. The Arena ($\mathcal{X}^{\text{thin}}$)
-*   **State Space ($\mathcal{X}$):** The compact product space $\mathcal{B}^N$ where $\mathcal{B} = \{z \in \mathbb{R}^Z : \|z\| \le R_{\text{bound}}\}$.
-*   **Metric ($d$):** The Frobenious norm of the difference tensor: $d(\mathbf{z}, \mathbf{z}') = \|\mathbf{z} - \mathbf{z}'\|_F$.
-*   **Measure ($\mu$):** The product Lebesgue measure restricted to $\mathcal{B}^N$.
-*   **Implied Structure:** A compact Riemannian manifold with boundary.
+* **State Space ($\mathcal{X}$):** $(x,v)\in(B\times\overline{B_{V_{\mathrm{alg}}}})^N$ on the alive slice.
+* **Metric ($d$):** $d((x,v),(x',v'))^2 = \sum_i \|x_i - x_i'\|^2 + \lambda_{\text{alg}} \|v_i - v_i'\|^2$.
 
 ### 2. The Potential ($\Phi^{\text{thin}}$)
-*   **Height Functional ($F$):** We define the potential as the *negative total value*:
-    $$\Phi(\mathbf{z}) = -\sum_{i=1}^N V(z_i)$$
-    Minimizing $\Phi$ is equivalent to maximizing the total swarm value.
-*   **Gradient ($\nabla$):** $\nabla \Phi = (-\nabla V(z_1), \dots, -\nabla V(z_N))^T$.
-*   **Scaling Exponent ($\alpha$):** 2 (assuming locally quadratic approximation of $V$ near peaks).
+* **Height Functional ($F$):** $\Phi(x,v) := V_{\max}-\frac{1}{N}\sum_i V_{\mathrm{fit},i}$.
+* **Gradient/Slope ($\nabla$):** Euclidean gradient on $\mathcal{X}$ (used for stiffness constants, not as a force term).
 
 ### 3. The Cost ($\mathfrak{D}^{\text{thin}}$)
-*   **Dissipation Rate ($\mathfrak{D}$):** The entropy production of the policy and the information loss due to cloning selection:
-    $$\mathfrak{D}(\mathbf{z}) = \sum_{i=1}^N H(\pi(\cdot \mid z_i)) + D_{KL}(\text{Post}_{\text{clone}} \| \text{Pre}_{\text{clone}})$$
-*   **Role:** Ensures the system does not converge to a Dirac mass (collapse) but maintains a "temperature" proportional to $1/\beta_{\text{kin}}$.
+* **Dissipation Rate ($R$):** $\mathfrak{D}(x,v) = \frac{\gamma}{N}\sum_i \|v_i\|^2 + \frac{\nu}{N}\sum_{i,j} K(\|x_i-x_j\|)\|v_i - v_j\|^2$.
 
 ### 4. The Invariance ($G^{\text{thin}}$)
-*   **Symmetry Group ($\text{Grp}$):** The permutation group $S_N$, reflecting that the walkers are indistinguishable exchangeable particles.
-*   **Action ($\rho$):** $\sigma \cdot (z_1, \dots, z_N) = (z_{\sigma(1)}, \dots, z_{\sigma(N)})$.
-*   **Quotient:** The operator is defined on the quotient space $\mathcal{X}/S_N$ (the space of empirical distributions).
+* **Symmetry Group ($\text{Grp}$):** $S_N$ (walker permutations).
+
+### 5. The Boundary ($\partial^{\text{thin}}$)
+* **Killing Set:** $\partial\Omega = \mathbb{R}^d\setminus B$.
+* **Recovery:** dead walkers are forced to clone from alive walkers; all-dead is a cemetery state.
+
+### Concrete Instantiation (Python)
+
+```python
+import torch
+
+from fragile.bounds import TorchBounds
+from fragile.core.companion_selection import CompanionSelection
+from fragile.core.fitness import FitnessOperator
+from fragile.core.cloning import CloneOperator
+from fragile.core.kinetic_operator import KineticOperator
+from fragile.core.euclidean_gas import EuclideanGas
+
+d = 2
+R = 5.0
+bounds = TorchBounds(low=-R * torch.ones(d), high=R * torch.ones(d))
+
+companion = CompanionSelection(method="softmax", epsilon=0.1, lambda_alg=0.0, exclude_self=True)
+fitness = FitnessOperator(alpha=1.0, beta=1.0, eta=0.1, A=2.0, rho=None, lambda_alg=0.0)
+clone = CloneOperator(p_max=1.0, epsilon_clone=0.01, sigma_x=0.1, alpha_restitution=0.5)
+kinetic = KineticOperator(
+    gamma=1.0,
+    beta=1.0,
+    delta_t=0.01,
+    use_potential_force=False,
+    use_fitness_force=False,
+    epsilon_F=0.0,
+    use_viscous_coupling=True,
+    nu=1.0,
+    viscous_length_scale=1.0,
+    use_anisotropic_diffusion=True,
+    diagonal_diffusion=True,
+    epsilon_Sigma=0.1,
+    use_velocity_squashing=True,
+    V_alg=1.0,
+    bounds=bounds,
+    pbc=False,
+)
+
+def potential(x: torch.Tensor) -> torch.Tensor:
+    return (x**2).sum(dim=1)
+
+gas = EuclideanGas(
+    N=50,
+    d=d,
+    potential=potential,
+    bounds=bounds,
+    companion_selection=companion,
+    fitness_op=fitness,
+    cloning=clone,
+    kinetic_op=kinetic,
+    enable_cloning=True,
+    enable_kinetic=True,
+    pbc=False,
+)
+```
 
 ---
 
 ## Part II: Sieve Execution (Verification Run)
 
-We execute the Sieve against the Fragile Gas specification.
-
-### EXECUTION PROTOCOL
-
-For each node:
-1.  **Read** the interface permit question.
-2.  **Check** the predicate using the rigorous definitions below.
-3.  **Record** the certificate: $K^+$ (yes), $K^-$ (no), or $K^{\mathrm{inc}}$ (inconclusive).
-
----
-
 ### Level 1: Conservation
 
 #### Node 1: EnergyCheck ($D_E$)
 
-**Question:** Is the height functional $\Phi$ bounded along trajectories?
-
-**Step-by-step execution:**
-1.  **Functional:** $\Phi(\mathbf{z}) = -\sum V(z_i)$.
-2.  **Analysis:** The Value function $V(z)$ is the output of a neural network (e.g., tanh activation or clipped output) or is naturally bounded by the task horizon $H \cdot R_{\max}$.
-3.  **Verification:** With bounded rewards and finite horizon (or discount factor $\gamma < 1$), $|V(z)| \le V_{\max}$.
-4.  **Conclusion:** $\Phi$ is bounded below by $-N \cdot V_{\max}$.
+**Execution:** $\Phi := V_{\max}-\frac{1}{N}\sum_i V_{\mathrm{fit},i}$ and $0\le V_{\mathrm{fit},i}\le V_{\max}$, hence $\Phi\in[0,V_{\max}]$ deterministically.
 
 **Certificate:**
-$$K_{D_E}^+ = (\Phi, V_{\max}, \forall z: |\Phi(z)| \le N V_{\max})$$
+$$K_{D_E}^+ = (\Phi, \mathfrak{D}, B), \quad B = V_{\max}.$$
 
 #### Node 2: ZenoCheck ($\mathrm{Rec}_N$)
 
-**Question:** Does the trajectory visit the bad set only finitely many times?
-
-**Step-by-step execution:**
-1.  **Bad Set:** $\mathcal{B} = \{ z : \|z\| > R_{\text{bound}} \}$ (Out of distribution/NaNs).
-2.  **Recovery:** The VAE decoder and World Model are regularized (e.g., LayerNorm), preventing divergence to infinity in finite steps.
-3.  **Event Count:** With a fixed horizon $T$ per rollout, the number of updates is strictly finite. Any NaN triggers an immediate reset (hard recovery).
-4.  **Conclusion:** The number of bad events is bounded by $T$.
+**Execution:** Discrete-time, so no Zeno accumulation; in $T$ steps there are at most $T$ bad events.
 
 **Certificate:**
-$$K_{\mathrm{Rec}_N}^+ = (\mathcal{B}, \mathcal{R}_{\text{reset}}, N_{\text{max}} = T)$$
+$$K_{\mathrm{Rec}_N}^+ = (\mathcal{B}, \mathcal{R}, N_{\max}=T).$$
 
 #### Node 3: CompactCheck ($C_\mu$)
 
-**Question:** Do sublevel sets of $\Phi$ have compact closure modulo symmetry?
-
-**Step-by-step execution:**
-1.  **Sublevel Set:** $S_E = \{ \mathbf{z} : \Phi(\mathbf{z}) \le E \}$.
-2.  **Analysis:** Since $V$ is continuous and the prior $p(z)$ is Gaussian (coercive), probability mass concentrates on a compact ball $B_R$.
-3.  **Quotient:** The quotient $\mathcal{X}/S_N$ preserves this compactness.
-**Comparison via Fernique's Theorem (1970):**
-Any Gaussian measure $\gamma$ on a Banach space $B$ satisfies $\int_B \exp(\alpha \|x\|^2) d\gamma(x) < \infty$ for sufficiently small $\alpha > 0$.
-Consequently, for any $\epsilon > 0$, there exists a compact ball $K_\epsilon \subset \mathcal{X}$ of radius $R_\epsilon$ such that $\mu(K_\epsilon^c) < \epsilon$.
-Explicitly, for the standard normal prior on $(\mathbb{R}^Z)^N$:
-$$R_\epsilon \approx \sqrt{N Z} + \sqrt{2 \ln(1/\epsilon)}$$
-This defines the **Effective Arena Radius**.
-The quotient map $\pi: \mathcal{X} \to \mathcal{X}/S_N$ is continuous, so $\pi(K_\epsilon)$ is compact.
+**Execution:** The alive-conditioned slice
+$$
+\Omega_{\mathrm{alive}} := (B\times \overline{B_{V_{\mathrm{alg}}}})^N
+$$
+is compact. Quotienting by $S_N$ preserves compactness.
 
 **Certificate:**
-$$K_{C_\mu}^+ = (S_N, R_{\text{eff}} = \sqrt{NZ} + \sqrt{2\ln(1/\epsilon)}, \text{Fernique Tightness})$$
+$$K_{C_\mu}^+ = (S_N, \Omega_{\mathrm{alive}}//S_N, \text{compactness witness}).$$
 
 ---
 
-### Level 2: Duality
+### Level 2: Duality & Symmetry
 
 #### Node 4: ScaleCheck ($\mathrm{SC}_\lambda$)
 
-**Question:** Is the scaling exponent subcritical ($\alpha - \beta > 0$)?
+**Execution:** Scaling is trivial on compact $B$, so $\alpha=\beta=0$.
 
-**Step-by-step execution:**
-1.  **Height Exponent:** For a locally quadratic potential (Gaussian approximation of peaks), $\alpha = 2$.
-2.  **Dissipation Exponent:** The entropy/diffusion term scales quadratically with distance (Brownian motion), so $\beta = 2$.
-3.  **Criticality:** $\alpha \approx \beta$ (Balance of Reward vs Diversity). This implies the system is **Critical**, putting it on the edge of phase transition (typical for self-organized systems).
-4.  **Risk:** Critical systems can exhibit power-law correlations.
-
-**Certificate:**
-$$K_{\mathrm{SC}_\lambda}^+ = (\alpha \approx \beta, \text{Fitness Criticality})$$
+**Certificates:**
+$$K_{\mathrm{SC}_\lambda}^- = (\alpha=0, \beta=0, \alpha-\beta=0),$$
+$$K_{\mathrm{TypeII}}^{\mathrm{blk}} = (\text{BarrierTypeII}, \text{compact arena}, \{K_{D_E}^+, K_{C_\mu}^+\}).$$
 
 #### Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)
 
-**Question:** Are physical constants stable under the flow?
-
-**Step-by-step execution:**
-1.  **Parameters:** $\Theta = (\alpha, \beta, \gamma, \delta, \text{Weights})$.
-2.  **Dynamics:** During the rollout phase, weights are **frozen** ($\dot{\Theta} = 0$).
-3.  **Stability:** $d(\Theta_{t+1}, \Theta_t) = 0$.
-4.  **Note:** During *training*, weights change, but the Fragile Gas algorithm describes the *rollout generation* process, which is an autonomous dynamical system for fixed $\Theta$.
+**Execution:** Parameters are constant along trajectories.
 
 **Certificate:**
-$$K_{\mathrm{SC}_{\partial c}}^+ = (\Theta, \dot{\Theta}=0, \text{Autonomous Flow})$$
+$$K_{\mathrm{SC}_{\partial c}}^+ = (\Theta, \theta_0, C=0).$$
 
 ---
 
-### Level 3: Geometry
+### Level 3: Geometry & Stiffness
 
 #### Node 6: GeomCheck ($\mathrm{Cap}_H$)
 
-**Question:** Is the singular set small (codimension $\ge 2$)?
-
-**Step-by-step execution:**
-1.  **Singularities:** Points where $\nabla V$ is undefined or infinite.
-**Analysis via Sauer-Shelah Lemma:**
-Let the singular set $\Sigma$ be the decision boundary set where $\nabla V$ is discontinuous or undefined.
-For neural networks with piecewise linear activations (ReLU), $\Sigma$ is a union of hyperplanes (polyhedral complex).
-The VC-dimension of the network is bounded by $d_{VC} \le C \cdot W \log W$, where $W$ is the number of weights.
-By the Sauer-Shelah Lemma, the number of linear regions is bounded by $\sum_{k=0}^{d_{VC}} \binom{M}{k} \approx (e M / d_{VC})^{d_{VC}}$ for $M$ samples.
-For smooth activations (definitely used here, see TameCheck), $\Sigma = \emptyset$.
-Thus, $\text{codim}(\Sigma) = \infty > 2$.
+**Execution:** Singularities are NaN/Inf numerical states and cemetery; out-of-bounds is boundary/killing repaired by cloning.
 
 **Certificate:**
-$$K_{\mathrm{Cap}_H}^+ = (\Sigma = \emptyset, N_{\text{regions}} \le (e M / W \log W)^{W \log W}, \text{Smooth Activation})$$
+$$K_{\mathrm{Cap}_H}^+ = (\Sigma=\{\text{NaN/Inf},\ \text{cemetery}\},\ \text{Cap}(\Sigma)=0\ \text{(framework sense)}).$$
 
 #### Node 7: StiffnessCheck ($\mathrm{LS}_\sigma$)
 
-**Question:** Does the Łojasiewicz-Simon (LS) inequality hold near critical points?
-
-**Step-by-step execution:**
-1.  **Critical Set:** $M = \{ z : \nabla V(z) = 0 \}$.
-2.  **Requirement:** $\|\nabla V(z)\| \ge c |V(z) - V^*|^\theta$.
-3.  **Analysis:** Analytic functions (or sub-analytic) satisfy LS. Neural networks are semi-algebraic (if ReLU) or analytic (if tanh).
-**Analysis via Łojasiewicz Gradient Inequality (1963):**
-For any real analytic function $f: U \to \mathbb{R}$ (or definable in an o-minimal structure), and any critical point $x_0$, there exist $C, \epsilon > 0$ and $\theta \in [1/2, 1)$ such that for $\|x-x_0\| < \epsilon$:
-$\|\nabla f(x)\| \ge C |f(x) - f(x_0)|^\theta$.
-Neural networks with analytic activations (Tanh, Sigmoid, Softplus) are real analytic functions.
-Therefore, the inequality holds structurally.
-The exponent $\theta$ governs the convergence rate of the gradient flow: dist$(x(t), x^*) \sim t^{-\frac{\theta}{2\theta-1}}$.
+**Execution:** Conditioned on the sampled companion indices and the alive mask (both treated as frozen during differentiation), `src/fragile/core/fitness.py:compute_fitness` is a composition of smooth primitives (exp, sqrt with $\epsilon_{\mathrm{dist}}$, logistic) and regularized moment maps (patched/local standardization with $\sigma_{\min}$). The only non-smoothness comes from numerical safety clamps, so the fitness is piecewise $C^2$ and has well-defined PyTorch autodiff Hessians almost everywhere on the alive slice. The anisotropic diffusion step depends only on the per-walker Hessian blocks computed by `FitnessOperator.compute_hessian` (companions fixed), so we record a uniform bound $H_{\max}$ on those blocks.
 
 **Certificate:**
-$$K_{\mathrm{LS}_\sigma}^+ = (\nabla V, \theta \in [1/2, 1), \text{Analytic Structure of NN})$$
+$$K_{\mathrm{LS}_\sigma}^+ = (\text{fitness Hessian blocks well-defined a.e.},\ \|H_i\|_{\mathrm{op}}\le H_{\max}\ \forall i\ \text{on}\ \Omega_{\mathrm{alive}}).$$
 
 ---
 
@@ -336,105 +699,105 @@ $$K_{\mathrm{LS}_\sigma}^+ = (\nabla V, \theta \in [1/2, 1), \text{Analytic Stru
 
 #### Node 8: TopoCheck ($\mathrm{TB}_\pi$)
 
-**Question:** Is the topological sector preserved?
-
-**Step-by-step execution:**
-1.  **Invariant:** $\beta_0(\mathcal{X}_{\text{safe}})$ (Number of connected components of the high-value region).
-2.  **Tunneling:** Cloning can "teleport" mass between disconnected modes of $V$.
-3.  **Preservation:** The individual walker is continuous, but the *swarm distribution* can tunnel.
-4.  **Verdict:** For the *swarm* (mean field), topology is mutable (feature, not bug). For the *individual*, preservation holds. The theorem applies to the density.
-5.  **Result:** Mode Collapse is the topological failure mode. We certify "Sector Mixing" rather than preservation.
+**Execution:** $B$ is convex/connected so there is one topological sector; sector preserved on alive-conditioned dynamics.
 
 **Certificate:**
-$$K_{\mathrm{TB}_\pi}^- \to \text{BarrierCap (Mode Collapse Checks)}$$
-*Note: We emit $K^-$ because sector preservation is strictly violated by the cloning teleportation, which is the intended behavior for exploration.*
+$$K_{\mathrm{TB}_\pi}^+ = (\tau \equiv \text{const}, \pi_0(\mathcal{X})=\{\ast\}, \text{sector preserved}).$$
 
 #### Node 9: TameCheck ($\mathrm{TB}_O$)
 
-**Question:** Is the geometry tame (o-minimal)?
-
-**Step-by-step execution:**
-1.  **Structure:** $\mathbb{R}_{\text{an, exp}}$ (Real field with restricted analytic functions and exp).
-2.  **Definability:** Neural networks with standard activations are definable in o-minimal structures.
-3.  **Conclusion:** The level sets and gradients have finite complexity (finite number of connected components).
-**Analysis via Wilkie's Theorem (1996):**
-The structure $\mathbb{R}_{\text{an, exp}}$ (real field with restricted analytic functions and the exponential function) is o-minimal.
-Neural networks with standard activations ($x \mapsto \tanh x$, $x \mapsto e^x$, $x \mapsto \log(1+e^x)$) are definable in $\mathbb{R}_{\text{an, exp}}$.
-O-minimality implies that every definable set has a finite number of connected components (Cell Decomposition Theorem).
-Therefore, the geometry of the Value landscape $V(z)$ cannot have pathological fractals or Cantor sets; it is "tame".
+**Execution:** Operators are definable (semi-algebraic + exp/sqrt/clamp), so the relevant sets are o-minimal and admit finite stratification.
 
 **Certificate:**
-$$K_{\mathrm{TB}_O}^+ = (\mathcal{O} = \mathbb{R}_{\text{an, exp}}, \text{Wilkie's Theorem})$$
-
-#### Node 10: ErgoCheck ($\mathrm{TB}_\rho$)
-
-**Question:** Does the flow mix?
-
-**Step-by-step execution:**
-1.  **Measure:** The stationary distribution $\pi_\infty(z) \propto (d(z)^\beta r(z)^\alpha) \cdot \pi_{\text{prior}}(z)$.
-2.  **Dynamics:** Langevin diffusion with cloning.
-3.  **Mixing Time:** For non-convex $V$, mixing can be exponentially slow (metastability).
-4.  **Cloning Effect:** Cloning provides "Rejection-Free" transport, reducing mixing time significantly (Complexity Tunneling).
-**Analysis via Roberts & Tweedie (1996) & Bakry-Émery (1985):**
-1.  **Drift:** The weight decay $\lambda \|z\|^2$ in the prior ensures a Lyapunov condition $L(z) = e^{\eta |z|}$ with drift constant $\lambda_{\text{drift}} < 1$.
-2.  **Curvature:** The effective potential $U(z) = -\log \pi_\infty(z) \approx \frac{1}{2}\|z\|^2 - \alpha \log r(z) - \beta \log d(z)$ has a Hessian bounded below by $\lambda_{\min}$ due to the regularization of $r$ and $d$.
-3.  **Log-Sobolev Constant:** Provided $\beta$ and $\alpha$ are finite, $U$ is strictly convex outside a compact set (dominated by the prior's $\|z\|^2$), implying a finite Log-Sobolev constant $\rho_{LS} > 0$.
-4.  **Convergence Rate:** The process mixes exponentially fast in $L^2(\pi_\infty)$ with rate $e^{-\rho_{LS} t}$.
-5.  **Cloning Acceleration:** The cloning operator induces a selection pressure $\alpha$. The survival probability is bounded by $e^{-N(E_{max} - E_{avg})}$.
-
-**Certificate:**
-**Certificate:**
-$$K_{\mathrm{TB}_\rho}^+ = \left( \rho_{LS} \ge \frac{\beta_{\text{kin}}}{K_{\text{Lip}}^2 e^{2 V_{\max}}}, \tau_{\text{mix}} \propto e^{U_{\text{barrier}}}, \text{Holley-Stroock} \right)$$
-
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
-
-**Question:** Is the description length finite?
-
-**Step-by-step execution:**
-1.  **Encoding:** All states are $Z$-dimensional vectors of 32-bit floats.
-2.  **Bounds:** $K(z) \le Z \cdot 32$.
-3.  **Faithfulness:** Assumed sufficient precision ($10^{-7}$).
-
-**Analysis via Kolmogorov Complexity & Wilkinson (1963):**
-Let $\mathcal{L}_{IEEE}$ be the language of IEEE 754 floating point arithmetic.
-The dictionary map $D: \mathcal{X} \to \{0,1\}^{32 \cdot N \cdot Z}$ is an injection (up to denormal exceptions).
-The Kolmogorov complexity $K(x)$ of any state is obviously bounded by $B = 32 \cdot N \cdot Z$ bits.
-The "faithfulness" condition requires that the computed dynamics $fl(S_t)$ shadow the true dynamics.
-**Wilkinson's Backward Error Analysis (1963):**
-The relative error is bounded by:
-$$\frac{\|fl(\mathbf{z}) - \mathbf{z}\|}{\|\mathbf{z}\|} \le \kappa(S_t) \cdot \mathbf{u}$$
-where $\mathbf{u} = 2^{-24}$ (machine epsilon) and $\kappa$ is the condition number of the transition matrix. Since the system is contractive/dissipative on average, errors do not explode (Shadowing Lemma).
-
-**Certificate:**
-$$K_{\mathrm{Rep}_K}^+ = (K \le 32NZ, \|\epsilon\| \le \kappa \cdot 2^{-24}, \text{Wilkinson Stability})$$
-
-#### Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)
-
-**Question:** Is the flow gradient-like?
-
-**Step-by-step execution:**
-1.  **Decomposition:** Vector field $X = \nabla V + \nabla \times A$ (Gradient + Curl).
-2.  **Check:** A pure RL policy can learn "cycles" (orbits), making $\nabla \times A \neq 0$.
-3.  **Constraint:** If the policy is optimizing a static reward $V$, it should converge to a fixed point (Gradient flow).
-4.  **Verdict:** Asymptotically gradient-like, but transiently oscillatory.
-
-**Certificate:**
-$$K_{\mathrm{GC}_\nabla}^+ = (g_{\text{Euclid}}, v \to -\nabla V, \text{Asymptotic Gradient})$$
+$$K_{\mathrm{TB}_O}^+ = (\mathbb{R}_{\mathrm{an},\exp},\ \Sigma\ \text{definable},\ \text{finite stratification}).$$
 
 ---
 
-### Level 7: Boundary
+### Level 5: Mixing
+
+#### Node 10: ErgoCheck ($\mathrm{TB}_\rho$)
+
+**Execution:** We certify a Doeblin-style mixing witness for the alive-conditioned dynamics by combining (i) explicit discrete minorization from companion refreshment and (ii) hypoelliptic smoothing from Langevin noise.
+
+1. **Companion refreshment (discrete Doeblin):** On the alive slice with $n_{\mathrm{alive}}\ge 2$, Lemma {prf:ref}`lem-fragile-gas-softmax-doeblin` gives the explicit minorization
+   $$
+   \mathbb{P}(c_i\in\cdot)\ \ge\ m_\epsilon\,U_i(\cdot),
+   \qquad m_\epsilon=\exp\!\left(-\frac{D_{\mathrm{alg}}^2}{2\epsilon^2}\right),
+   $$
+   for each alive walker $i$, where $U_i$ is uniform on $\mathcal{A}(x)\setminus\{i\}$. (When $n_{\mathrm{alive}}=1$, `select_companions_softmax` necessarily falls back to self-selection, so this minorization is inapplicable; the sieve uses $n_{\mathrm{alive}}\ge 2$ for mixing/QSD proxies.)
+
+2. **Mutation smoothing (hypoelliptic):** With `use_anisotropic_diffusion=True`, the BAOAB O-step injects Gaussian noise into velocities with a uniformly elliptic covariance window $(c_{\min},c_{\max})$ on the alive slice (Derived Constants). The remaining BAOAB substeps are smooth maps of $(x,v)$ with bounded drift (viscous force bound) and the final velocity squashing is globally 1-Lipschitz (Lemma {prf:ref}`lem-fragile-gas-velocity-squashing`. While a *single* BAOAB step is rank-deficient in $(x,v)$ (noise enters only through $v$), the *two-step* kernel $P^2$ is non-degenerate (standard hypoelliptic Langevin smoothing) and admits a jointly continuous, strictly positive density on any compact core $C\Subset \mathrm{int}(B)\times B_{V_{\mathrm{alg}}}$. Hence there exists $\varepsilon_C>0$ such that
+   $$
+   P^2(z,\cdot)\ \ge\ \varepsilon_C\,\mathrm{Unif}_C(\cdot)\qquad \forall z\in C,
+   $$
+   i.e. a small-set minorization for the alive-conditioned mutation kernel.
+
+3. **Doeblin witness $\Rightarrow$ finite mixing time:** Combining (1) and (2) yields a regeneration witness for the alive-conditioned chain; the framework consumes $(m_\epsilon,c_{\min},c_{\max},\varepsilon_C)$ as the quantitative inputs certifying $\tau_{\mathrm{mix}}(\delta)<\infty$ and enabling the Part III-A rate proxies.
+
+**Certificate:**
+$$
+K_{\mathrm{TB}_\rho}^+
+=
+\left(
+m_\epsilon>0,\ (c_{\min},c_{\max})\ \text{certified},\ \exists\,C\Subset \Omega_{\mathrm{alive}},\ \varepsilon_C>0:\ P^2\ge \varepsilon_C\,\mathrm{Unif}_C,\ \tau_{\mathrm{mix}}<\infty
+\right).
+$$
+
+---
+
+### Level 6: Complexity
+
+#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+
+**Execution:** Finite-precision program description.
+
+**Certificate:**
+$$K_{\mathrm{Rep}_K}^+ = (\mathcal{L}_{\mathrm{fp}}, D_{\mathrm{fp}}, K(x) \le C_{\mathrm{fp}}).$$
+
+#### Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)
+
+**Execution:** BAOAB + cloning is non-gradient; oscillations are bounded by velocity squashing.
+
+**Certificates:**
+$$K_{\mathrm{GC}_\nabla}^+ = (\text{non-gradient stochastic flow}),$$
+$$K_{\mathrm{Freq}}^{\mathrm{blk}} = (\text{BarrierFreq}, \text{oscillation bounded by } V_{\text{alg}}).$$
+
+---
+
+### Level 7: Boundary (Open Systems)
 
 #### Node 13: BoundaryCheck ($\mathrm{Bound}_\partial$)
 
-**Question:** Is the system open?
-
-**Execution:**
-1.  **Input:** The system receives no external input during rollout (autonomous).
-2.  **Conclusion:** Closed System.
+**Execution:** Yes: $B$ defines killing boundary and the algorithm injects noise (kinetic + cloning jitter) and recovers via cloning.
 
 **Certificate:**
-$$K_{\mathrm{Bound}_\partial}^- \implies \text{Closed System (Skip 14-16)}$$
+$$K_{\mathrm{Bound}_\partial}^+ = (\partial\Omega=\mathbb{R}^d\setminus B,\ \iota,\ \pi).$$
+
+#### Node 14: OverloadCheck ($\mathrm{Bound}_B$)
+
+**Execution:** Gaussian sources are unbounded, but squashing and boundary killing/recovery control the alive slice.
+
+**Certificates:**
+$$K_{\mathrm{Bound}_B}^- = (\text{Gaussian injection is unbounded}),$$
+$$K_{\mathrm{Bode}}^{\mathrm{blk}} = (\text{squashing + killing/recovery control injection on alive slice}).$$
+
+#### Node 15: StarveCheck ($\mathrm{Bound}_{\Sigma}$)
+
+**Execution:** QSD/mean-field statements are formulated on alive-conditioned dynamics; all-dead absorbed by cemetery.
+
+**Certificate:**
+$$K_{\mathrm{Bound}_{\Sigma}}^{\mathrm{blk}} = (\text{QSD conditioning excludes starvation; cemetery absorbs all-dead}).$$
+
+#### Node 16: AlignCheck ($\mathrm{GC}_T$)
+
+**Execution:** AlignCheck is a directionality check for the *selection/resampling* component. Conditional on the realized companion indices and realized fitness values fed into the cloning operator, Lemma {prf:ref}`lem-fragile-gas-selection-alignment` shows that the selection-stage surrogate update satisfies
+$$
+\mathbb{E}\!\left[\frac{1}{N}\sum_i V_i^{\mathrm{sel}}\ \middle|\ V,c\right]\ \ge\ \frac{1}{N}\sum_i V_i,
+$$
+equivalently $\mathbb{E}[\Phi^{\mathrm{sel}}-\Phi\mid V,c]\le 0$ for $\Phi:=V_{\max}-\frac{1}{N}\sum_i V_i$. (The mutation component BAOAB + jitter can reduce the next-step fitness; AlignCheck certifies only the selection-stage alignment.)
+
+**Certificate:**
+$$K_{\mathrm{GC}_T}^+ = (\mathbb{E}[\Phi^{\mathrm{sel}}-\Phi\mid V,c]\le 0\ \text{(selection-stage)},\ \text{fitness-aligned resampling}).$$
 
 ---
 
@@ -442,137 +805,260 @@ $$K_{\mathrm{Bound}_\partial}^- \implies \text{Closed System (Skip 14-16)}$$
 
 #### Node 17: BarrierExclusion ($\mathrm{Cat}_{\mathrm{Hom}}$)
 
-**Question:** Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$?
-
-**Tactic E7 (Thermodynamic):**
-1.  **Bad Pattern:** $\mathcal{H}_{\text{bad}}$ represents "Evolutionary Stagnation" (Average Fitness does not increase).
-2.  **Invariant:** The Lyapunov function $L(\pi_t) = \mathbb{E}_{\pi_t}[V] - \beta_{\text{kin}}^{-1} H(\pi_t)$ (Free Energy).
-3.  **Logic:** The Cloning step is a **sup-martingale** for the negative Free Energy (Theorem: Darwinian Ratchet).
-    $$ \mathbb{E}[L(\pi_{t+1}) \mid \pi_t] \ge L(\pi_t) $$
-    *(Cloning specifically targets regions of higher $V$, increasing the expected value).*
-4.  **Conclusion:** The free energy decreases (fitness increases) until equilibrium.
-5.  **Exclusion:** Stagnation is impossible while $V$ has unreached peaks measurable by the swarm.
+**Execution (Tactic E2 - Invariant):** $I(\mathcal{H})=B<\infty$ excludes the universal bad pattern requiring unbounded height.
 
 **Certificate:**
-$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{Tactic E7}, \text{Free Energy Decrease}, L(\pi_{t+1}) < L(\pi_t))$$
-
----
+$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E2-Invariant}, I(\mathcal{H})=B < \infty, I(\mathcal{H}_{\mathrm{bad}})=\infty).$$
 
 ---
 
 ## Part II-B: Upgrade Pass
 
-We scan the certificate context $\Gamma$ for inconclusive certificates ($K^{\mathrm{inc}}$) and apply upgrade rules.
+No $K^{\mathrm{inc}}$ certificates were emitted; the upgrade pass is vacuous.
 
-*   **Scan:** No $K^{\mathrm{inc}}$ certificates present. All core nodes returned $K^+$ or $K^{\mathrm{blk}}$.
-*   **Action:** Upgrade pass complete. $\Gamma_{\text{post}} = \Gamma_{\text{pre}}$.
+---
 
 ## Part II-C: Breach/Surgery/Re-entry Protocol
 
-We check for barrier breaches ($K^{\mathrm{br}}$) requiring surgery.
-
-*   **Scan:** No $K^{\mathrm{br}}$ certificates.
-    *   Node 8 (TopoCheck) returned $K^-$ but was effectively blocked by **BarrierCap** (Mode Collapse Checks) which accepts sector mixing as a feature of the generative model, not a bug.
-*   **Result:** No surgery required. The representation $\mathcal{X} = (\mathbb{R}^Z)^N$ remains valid.
+No barriers were breached; no surgery is executed.
 
 ---
 
-## Part III: Closure and Reconstruction
+## Part III-A: Quantitative Rates (Framework Constants)
 
-### III-A: Lyapunov Reconstruction
+This section ties the derived constants above to the quantitative convergence objects in `src/fragile/convergence_bounds.py`.
 
-Since the Energy ($D_E$) and Stiffness ($LS_\sigma$) checks passed, we construct the global Lyapunov function.
+### Foster–Lyapunov Component Rates
 
-**Construction:**
-$$L(\pi_t) = \mathcal{F}(\pi_t) = \mathbb{E}_{z \sim \pi_t}[V(z)] - \beta_{\text{kin}}^{-1} H(\pi_t)$$
-This functional (Negative Free Energy) is:
-1.  **Bounded Below:** By $D_E$ (EnergyCheck).
-2.  **Monotonic:** By Node 17 (Darwinian Ratchet/Martingale Property).
-3.  **Coercive:** By $C_\mu$ (CompactCheck).
+Let $\tau:=\Delta t$ be the time step. Let $\lambda_{\mathrm{alg}}^{\mathrm{eff}}\in[0,1]$ be the effective selection pressure defined above (empirically estimable from the `will_clone` mask).
 
-**Theorem (Lyapunov Stability):** The existence of $L$ certifies that the orbit $\pi_t$ converges asymptotically to the set of equilibrium measures $\mathcal{M}_{eq} = \{ \pi : \delta L/\delta \pi = 0 \}$, which are the Gibbs distributions.
+The framework uses component-rate proxies
+$$
+\kappa_v \approx \texttt{kappa\_v}(\gamma,\tau),\qquad
+\kappa_x \approx \texttt{kappa\_x}(\lambda_{\mathrm{alg}}^{\mathrm{eff}},\tau),
+$$
+and combines them by
+$$
+\kappa_{\mathrm{total}} = \texttt{kappa\_total}(\kappa_x,\kappa_v,\kappa_W,\kappa_b;\epsilon_{\mathrm{coupling}}).
+$$
 
-### III-B: Result Extraction (Quantitative Bounds)
+### Geometric LSI / KL Rate Proxy
 
-We extract the following guaranteed properties from the certificate chain:
+Let $\rho$ denote the localization scale parameter used by the geometric-gas LSI proof. In this instantiation the alive arena is globally bounded, so we may take $\rho:=D_{\mathrm{alg}}$ (full alive diameter) without loss.
 
-1.  **Safety:** The system never visits the set $\mathcal{B} = \{ z : \|z\| > \sqrt{Z_{\text{dim}}/\beta_{\text{kin}}} + K_{\text{Lip}} \}$ (from sub-Gaussian concentration).
-2.  **Liveness (Explicit Rate):** The system converges to the equilibrium distribution $\pi_\infty$ in Wasserstein distance $W_2$ with explicit rate:
-    $$W_2(\pi_t, \pi_\infty) \le W_2(\pi_0, \pi_\infty) \exp\left( -t \cdot \frac{\beta_{\text{kin}}}{K_{\text{Lip}}^2} e^{-2 V_{\max} \beta_{\text{kin}}} \right)$$
-    where the rate depends inversely on the "Arrhenius Factor" $e^{2 V_{\max} \beta_{\text{kin}}}$ (barrier height).
-3.  **Generativity:** The support of $\pi_\infty$ covers all modes of $V$ (from Fernique + Tame geometry).
-4.  **Cloning Gain:** The expected fitness improvement per step is bounded below by the variance of the fitness (Fisher's Fundamental Theorem):
-    $$\frac{d}{dt} \mathbb{E}[V] \ge \text{Var}_{\pi_t}(V)$$
-    *(Strictly follows from the fluctuation-dissipation relation in the cloning limit).*
+Using the clamped ellipticity window $(c_{\min},c_{\max})$ and the confinement proxy $\kappa_{\mathrm{conf}}^{(B)}$ (Dirichlet spectral gap of the box), the geometric LSI constant proxy is
+$$
+C_{\mathrm{LSI}}^{(\mathrm{geom})}
+\approx
+\texttt{C\_LSI\_geometric}\!\left(\rho,\ c_{\min},c_{\max},\ \gamma,\ \kappa_{\mathrm{conf}}^{(B)},\ \kappa_W\right),
+$$
+and KL decay is tracked by
+$$
+D_{\mathrm{KL}}(t)\ \le\ \exp\!\left(-\frac{t}{C_{\mathrm{LSI}}^{(\mathrm{geom})}}\right)\,D_{\mathrm{KL}}(0)
+\qquad (\texttt{KL\_convergence\_rate}).
+$$
 
----
+**Interpretation / hypotheses:** `C_LSI_geometric` is a framework-level upper bound for an idealized (continuous-time) uniformly elliptic geometric-gas diffusion; here it is used as a quantitative *proxy* for the alive-conditioned dynamics. Its use requires the following inputs to be positive and supplied by the instantiation: $\gamma>0$, $\kappa_{\mathrm{conf}}^{(B)}>0$, $\kappa_W>0$, and a certified ellipticity window with $0<c_{\min}\le c_{\max}<\infty$ (in this instantiation, $c_{\max}=1/\epsilon_\Sigma$ is the clamped upper bound induced by the implementation).
 
-## Part III-C: Obligation Ledger
-
-| ID | Node | Obligation | Status |
-|----|------|------------|--------|
-| - | - | None (All core nodes satisfied or blocked) | EMPTY |
-
-**Final Verdict:** **VALID PROOF OBJECT**
-
----
-
-## Part IV: Conclusion
-
-We have constructed a rigorous sieve proof for the Fragile Gas. The system is a valid **Cybernetic Hypostructure** that guarantees:
-1.  **Conservation:** Safety constraints ($D_E$, $\mathrm{Rec}_N$) are enforced by bounds and resets.
-2.  **Geometry:** The system operates on a tame, definable manifold ($C_\mu$, $\mathrm{TB}_O$).
-3.  **Convergence:** The Cloning operator acts as a thermodynamic ratchet, ensuring concentration on the high-value modes of the Critic Value Function (Node 17, Tactic E7).
-4.  **Exploration (Criticality):** The system maintains a "Critical" phase transition state where $\alpha \approx \beta$.
-    *   $\alpha$ (**Reward Exponent**): Controls the selection pressure on the Value/Reward channel.
-    *   $\beta$ (**Diversity Exponent**): Controls the selection pressure on the local density/distance channel.
-    *   **The Critical Point:** Balance between Reward maximization and Diversity maintenance.
-
-The **Fragile Gas** is therefore a sound algorithm for parallel rollout generation.
+The continuous-time QSD rate proxy used by the framework is
+$$
+\kappa_{\mathrm{QSD}} = \texttt{kappa\_QSD}(\kappa_{\mathrm{total}},\tau)\approx \kappa_{\mathrm{total}}\tau.
+$$
 
 ---
 
-## Appendix A: Derivation of the Quasi-Stationary Distribution
+## Part III-B: Mean-Field Limit (Propagation of Chaos)
 
-We provide a rigorous derivation of the stationary distribution form $\pi_\infty(z) \propto (d(z)^\beta r(z)^\alpha) \pi_{\text{prior}}(z)$ using the Feynman-Kac formalism for Interacting Particle Systems.
+Let $Z_i^N(k)=(x_i(k),v_i(k))$ and define the empirical measure
+$$
+\mu_k^N := \frac{1}{N}\sum_{i=1}^N \delta_{Z_i^N(k)}.
+$$
+Because companion selection and patched standardization depend on swarm-level statistics, the $N$-particle chain is an interacting particle system of McKean–Vlasov/Feynman–Kac type.
 
-### A.1. The Continuous-Time Limit (McKean-Vlasov)
+At fixed $\Delta t$, the mean-field limit is most naturally expressed as a nonlinear one-step map on measures obtained by composing:
+1. the **pairwise selection/resampling operator** induced by softmax companion choice + Bernoulli cloning (Appendix A, Equation defining $\mathcal{S}$), and
+2. the **mutation/killing operator** (BAOAB with boundary killing at $\partial B$).
 
-The Fragile Gas algorithm is a discrete-time approximation of a **Fleming-Viot Particle System** with soft killing/cloning.
-Let $\mu_t$ be the empirical measure of the swarm. The evolution of the density $\rho_t(z)$ is governed by two operators:
-1.  **Mutation (Kinetic):** Independent diffusion driven by the prior-restoring Ornstein-Uhlenbeck process (or approximate Langevin dynamics). Generator $\mathcal{L}$.
-2.  **Selection (Cloning):** Can be modeled as a jump process where particles at $z$ are killed at rate $V(z)^-$ and cloned at rate $V(z)^+$.
+In weak-selection continuous-time scalings (cloning probabilities $=O(\Delta t)$), this nonlinear map linearizes into a mutation–selection/replicator-type evolution with an *effective* selection functional induced by the pairwise rule; the proof object controls this only through explicit bounded ranges and minorization constants (rather than asserting $\tilde V\equiv V_{\mathrm{fit}}$ as an identity).
 
-For our **Pairwise Cloning** mechanism (Algorithm 1, Step 5), the probability of walker $i$ being overwritten by walker $j$ is proportional to $(V_j - V_i)_+$.
-In the mean-field limit ($N \to \infty$), the flux of probability mass due to selection is given by the **Replicator Equation**:
-$$ \partial_t \rho_{\text{sel}}(z) = \rho(z) \int (V(y) - V(z)) \rho(y) dy = \rho(z) (\bar{V}_t - V(z)) $$
-where $\bar{V}_t = \mathbb{E}_{\rho_t}[V]$.
+When a Wasserstein contraction rate $\kappa_W>0$ is certified, the framework uses the generic propagation-of-chaos proxy
+$$
+\mathrm{Err}_{\mathrm{MF}}(N,T)\ \lesssim\ \frac{e^{-\kappa_W T}}{\sqrt{N}}
+\qquad (\texttt{mean\_field\_error\_bound}(N,\kappa_W,T)).
+$$
 
-Combining kinetic and selection terms, we obtain the non-linear **Fokker-Planck equation with growth**:
-$$ \partial_t \rho_t = \mathcal{L}^* \rho_t + \rho_t (V - \bar{V}_t) $$
+### How Fitness and Cloning Enter
 
-### A.2. The Feynman-Kac Formula
+Fitness and cloning affect the mean-field/QSD regime through:
+1. **Minorization / locality:** $\epsilon$ and $D_{\mathrm{alg}}$ determine $m_\epsilon$, hence the strength of the companion-selection Doeblin constant.
+2. **Selection pressure:** $(\alpha_{\mathrm{fit}},\beta_{\mathrm{fit}},A,\eta,\epsilon_{\mathrm{clone}},p_{\max})$ determine $V_{\min},V_{\max},S_{\max}$ and therefore the range of clone probabilities; this controls $\lambda_{\mathrm{alg}}^{\mathrm{eff}}$ and $\kappa_x$.
+3. **Noise regularization:** $\sigma_x$ injects positional noise at cloning; this prevents genealogical collapse and enters the KL/LSI constants via $\delta_x^2=\sigma_x^2$.
 
-The solution to the linear counterpart (without the normalization term $-\bar{V}_t$) is given by the **Feynman-Kac formula**:
-$$ \gamma_t(f) = \mathbb{E}\left[ f(X_t) \exp\left( \int_0^t V(X_s) ds \right) \right] $$
-The normalized density is $\rho_t(z) = \frac{\gamma_t(z)}{\gamma_t(1)}$.
+---
 
-**Theorem (Del Moral, 2004):**
-Under mild regularity conditions on $V$ and $\mathcal{L}$ (satisfied by our **TameCheck** and **StiffnessCheck**), the measure $\rho_t$ converges geometrically to unique **Quasi-Stationary Distribution (QSD)** $\pi_\infty$.
-$\pi_\infty$ is the principal eigenfunction of the twisted operator $\mathcal{L} + V$ (associated with the top eigenvalue $\lambda_0$):
-$$ (\mathcal{L} + V) \pi_\infty = \lambda_0 \pi_\infty $$
+## Part III-C: Quasi-Stationary Distribution (QSD) Characterization
 
-### A.3. The Adiabatic Solution
+### Killed Kernel and QSD Definition (Discrete Time)
 
-If the mutation kernel $P(z'|z)$ is ergodic with stationary distribution $\pi_{\text{prior}}(z)$ (e.g., the isotropic Gaussian prior of the VAE) and satisfies detailed balance, then for the selection weight $W(z) = d(z)^\beta r(z)^\alpha$, the operator $\mathcal{L}$ acts as a "prior-restoring" force.
+Let $Q$ be the **sub-Markov** one-step kernel of the single-walker mutation dynamics on $E:=B\times\overline{B_{V_{\mathrm{alg}}}}$ with cemetery $^\dagger$, where exiting $B$ is killing (sent to $^\dagger$). A QSD is a probability measure $\nu$ and a scalar $\alpha\in(0,1)$ such that
+$$
+\nu Q = \alpha\,\nu.
+$$
 
-In the limit of **Perfect Resampling** (Genetic Algorithm limit), the stationary distribution is simply the importance-weighted prior:
-$$ \pi_\infty(z) \propto W(z) \pi_{\text{prior}}(z) $$
-$$ \pi_\infty(z) \propto (d(z)^\beta r(z)^\alpha) \cdot \pi_{\text{prior}}(z) $$
+### Fleming–Viot / Feynman–Kac Interpretation
 
-This confirms the form stated in Theorem {prf:ref}`thm-fragile-gas-main`. The exponents $\alpha$ and $\beta$ modulate the "temperature" of the selection, interpolating between the prior ($\alpha,\beta \to 0$) and the maximum of the objective ($\alpha,\beta \to \infty$).
+For pure boundary killing, the “kill + resample from survivors” mechanism is the classical Fleming–Viot particle system and provides an empirical approximation of the conditioned law/QSD of $Q$.
 
-**References:**
-1.  **Del Moral, P. (2004).** *Feynman-Kac Formulae: Genealogical and Interacting Particle Systems with Applications*. Springer.
-2.  **Villemonais, D. (2014).** "General, lower bound for the discrete time QSD existence". *ESAIM: Probability and Statistics*.
-3.  **Asselah, A. et al. (2011).** "Quasi-stationary distributions for Fleming-Viot particle systems".
+The implemented Fragile Gas additionally performs bounded fitness-based resampling among alive walkers (pairwise cloning). This is still a Del Moral interacting particle system (Appendix A): the mean-field evolution is a normalized nonlinear semigroup whose fixed points play the role of QSD/eigenmeasure objects for the killed/selection-corrected dynamics.
+
+In the idealized special case where selection is a classical Feynman–Kac weighting by a potential $G$ (Appendix A.2), the continuous-time analogue characterizes the stationary object as the principal eigenmeasure of the twisted generator:
+$$
+(\mathcal{L}+G)^* \nu \;=\; \lambda_0 \nu,
+$$
+with $\nu$ normalized to be a probability measure.
+
+---
+
+## Part III-D: Fitness/Cloning Sensitivity (What Moves the Rates)
+
+The constants make the dependence explicit:
+
+1. **Exponents $\alpha_{\mathrm{fit}},\beta_{\mathrm{fit}}$:** increasing $\alpha+\beta$ increases $V_{\max}/V_{\min}=\left(\frac{A+\eta}{\eta}\right)^{\alpha+\beta}$, pushing clone probabilities toward the clip ($0$ or $1$). This typically increases selection pressure but increases genealogical concentration, making $\sigma_x$ more important.
+2. **Floors $\eta,\epsilon_{\mathrm{clone}}$:** increasing either reduces $S_{\max}$, reducing selection pressure.
+3. **Softmax range $\epsilon$:** larger $\epsilon$ increases $m_\epsilon$ (stronger minorization, better mixing) but makes pairing less local.
+4. **Cloning jitter $\sigma_x$:** larger $\sigma_x$ increases regularization (better KL/LSI constants) but increases equilibrium variance; too small $\sigma_x$ risks collapse.
+5. **Diffusion regularization $\epsilon_\Sigma$:** larger $\epsilon_\Sigma$ improves ellipticity (reduces $c_{\max}/c_{\min}$) and improves KL rates, at the cost of injecting larger kinetic noise.
+6. **Noise threshold regime:** the KL/LSI metatheorem encodes an explicit noise floor $\delta>\delta_*$ (see `src/fragile/convergence_bounds.py:delta_star`). In this instantiation the cloning noise scale is $\delta=\sigma_x$, so too-small $\sigma_x$ can move the system out of the provable LSI/KL regime.
+
+---
+
+## Part III-E: Obligation Ledger
+
+No obligations were introduced in this run.
+
+**Ledger Status:** EMPTY (no $K^{\mathrm{inc}}$ emitted).
+
+---
+
+## Part IV: Final Certificate Chain
+
+### 4.1 Validity Checklist
+
+- [x] All 12 core nodes executed
+- [x] Boundary nodes executed (Nodes 13–16)
+- [x] Lock executed (Node 17)
+- [x] Upgrade pass completed (vacuous)
+- [x] Obligation ledger is EMPTY
+- [x] No unresolved $K^{\mathrm{inc}}$
+
+**Validity Status:** SIEVE CLOSED (0 inc certificates)
+
+### 4.2 Certificate Accumulation Trace
+
+```
+Node 1:  K_{D_E}^+
+Node 2:  K_{Rec_N}^+
+Node 3:  K_{C_mu}^+
+Node 4:  K_{SC_lambda}^- -> K_{TypeII}^{blk}
+Node 5:  K_{SC_∂c}^+
+Node 6:  K_{Cap_H}^+
+Node 7:  K_{LS_sigma}^+
+Node 8:  K_{TB_pi}^+
+Node 9:  K_{TB_O}^+
+Node 10: K_{TB_rho}^+
+Node 11: K_{Rep_K}^+
+Node 12: K_{GC_nabla}^+ -> K_{Freq}^{blk}
+Node 13: K_{Bound_∂}^+
+Node 14: K_{Bound_B}^- -> K_{Bode}^{blk}
+Node 15: K_{Bound_Σ}^{blk}
+Node 16: K_{GC_T}^+
+---
+Node 17: K_{Cat_Hom}^{blk}
+```
+
+---
+
+## Appendix A: Derivation of the Quasi-Stationary Distribution (Feynman–Kac / Fleming–Viot)
+
+This appendix records the standard QSD / interacting-particle interpretation used by the framework: (i) boundary killing defines a sub-Markov kernel with a quasi-stationary distribution (QSD), and (ii) constant-$N$ cloning is a Fleming–Viot/Del-Moral-style particle approximation of the corresponding normalized (conditioned) flow. The implemented fitness-based cloning is *Feynman–Kac-like* (a resampling/selection mechanism driven by bounded fitness values) but is not literally “multiply by $V_{\mathrm{fit}}$”; we therefore state the exact pairwise selection operator and then relate it to the classical normalized Feynman–Kac form as an idealized special case.
+
+### A.0 Quantitative Inputs (From This Proof Object)
+
+The abstract results in the QSD/Feynman–Kac literature reduce, in this instantiation, to the following explicit inputs:
+
+- **Bounded selection potential:** $0\le V_{\mathrm{fit}}\le V_{\max}$, with $V_{\max}=(A+\eta)^{\alpha_{\mathrm{fit}}+\beta_{\mathrm{fit}}}$ computed exactly above.
+- **Companion minorization:** on the alive slice, softmax pairing has an explicit Doeblin constant $m_\epsilon=\exp(-D_{\mathrm{alg}}^2/(2\epsilon^2))$.
+- **Non-degenerate mutation noise:** anisotropic diffusion is uniformly elliptic on the alive slice once $H_{\max}$ is certified, with window $(c_{\min},c_{\max})$.
+
+### A.1 Exact Discrete-Time Selection Operator (Implemented Pairwise Cloning)
+
+Let $E:=B\times \overline{B_{V_{\mathrm{alg}}}}$ and write $z=(x,v)\in E$. At mean-field level, companion selection induces a (nonlinear) Markov kernel $P_{\epsilon,\mu}(z,dz')$ obtained by softmax-tilting the current law $\mu$ by the algorithmic distance:
+$$
+P_{\epsilon,\mu}(z,dz')
+\propto
+\exp\!\left(-\frac{d_{\mathrm{alg}}(z,z')^2}{2\epsilon^2}\right)\,\mu(dz'),
+$$
+with the finite-$N$ implementation additionally excluding self-pairing for alive walkers.
+
+Given a pair $(z,z')$, define the cloning probability from the implemented score+clip rule (`src/fragile/core/cloning.py`):
+$$
+p(z,z')
+=
+\pi\!\left(
+\frac{V_{\mathrm{fit}}(z')-V_{\mathrm{fit}}(z)}{(V_{\mathrm{fit}}(z)+\epsilon_{\mathrm{clone}})\,p_{\max}}
+\right),
+\qquad
+\pi(s)=\min(1,\max(0,s)).
+$$
+Let $K_{\mathrm{clone}}(z,z',d\tilde z)$ be the clone-update kernel implementing:
+1. **Position jump with jitter:** $\tilde x = x' + \sigma_x \xi$ with $\xi\sim\mathcal{N}(0,I_d)$ (Definition `clone_position`),
+2. **Momentum-conserving velocity update:** the inelastic collision rule `inelastic_collision_velocity` (which is a bounded measurable map on the finite swarm; in mean-field it induces a well-defined marginal Markov kernel on $v$).
+
+Then the selection-stage mean-field operator $\mathcal{S}$ is the nonlinear map on measures defined by, for any bounded measurable $f$,
+$$
+(\mathcal{S}\mu)(f)
+=
+\int_E \mu(dz)\int_E P_{\epsilon,\mu}(z,dz')
+\Bigl[
+(1-p(z,z'))\,f(z)
+\;+\;
+p(z,z')\int_E f(\tilde z)\,K_{\mathrm{clone}}(z,z',d\tilde z)
+\Bigr].
+$$
+This operator is fitness-aligned at the selection stage: Lemma {prf:ref}`lem-fragile-gas-selection-alignment` shows it increases mean fitness (equivalently decreases $\Phi$) in conditional expectation, holding the companion choices fixed.
+
+### A.2 Relation to Classical Normalized Feynman–Kac (Idealized Special Case)
+
+Classical Feynman–Kac particle filters use *multiplicative* weighting by a bounded potential $G\ge 0$ followed by normalization:
+$$
+\gamma_{k+1}(f)=\gamma_k(M(Gf)),\qquad \mu_k=\frac{\gamma_k}{\gamma_k(1)},
+$$
+so
+$$
+\mu_{k+1}(f)=\frac{\mu_k(M(Gf))}{\mu_k(M(G))}.
+$$
+The implemented pairwise cloning rule is not literally of this form; however it plays the same structural role (a bounded selection/resampling correction applied to a mutation/killing kernel), and the framework uses QSD/Feynman–Kac theory as the reference envelope in which the thin-interface constants (boundedness, minorization, ellipticity, effective selection pressure) control mean-field and long-time behavior.
+
+### A.3 QSD Definition (Killed Kernel)
+
+Let $(X_k)_{k\ge 0}$ be a Markov chain on $E$ with cemetery state $^\dagger$ and killing time $\tau_\dagger:=\inf\{k\ge 0: X_k=^\dagger\}$. The associated **sub-Markov kernel** $Q$ on $E$ is
+$$
+Q(x,A):=\mathbb{P}_x(X_1\in A,\ X_1\neq {}^\dagger),\qquad A\subseteq E.
+$$
+A quasi-stationary distribution is $(\nu,\alpha)$ with $\nu$ a probability measure and $\alpha\in(0,1)$ such that
+$$
+\nu Q = \alpha \nu.
+$$
+Equivalently, if $X_0\sim \nu$ then $\mathcal{L}(X_k\mid k<\tau_\dagger)=\nu$ for all $k\ge 0$.
+
+### A.4 Fleming–Viot Particle Approximation (Constant Population)
+
+For pure boundary killing (walkers exiting $B$), the “kill + instantaneous resample from survivors” mechanism is the classical constant-$N$ Fleming–Viot particle system, which approximates the conditioned law and converges to the QSD of $Q$ under standard drift/minorization hypotheses.
+
+The implemented Fragile Gas additionally performs bounded fitness-based resampling even among alive walkers (pairwise cloning). This places it in the broader class of Del Moral interacting particle systems approximating a normalized nonlinear semigroup. Under standard hypotheses ensuring tightness and mixing (the kind of inputs tracked by $D_E$, $C_\mu$, and the Doeblin witness in Node 10), propagation of chaos holds and the empirical measure $\mu_k^N$ tracks the mean-field flow; stationary points correspond to QSD/eigenmeasure objects for the associated killed/selection-corrected dynamics.
+
+### A.5 References
+
+1. Del Moral, P. (2004). *Feynman–Kac Formulae: Genealogical and Interacting Particle Systems with Applications*. Springer.
+2. Villemonais, D. (2014). General lower bounds for discrete-time QSD existence. *ESAIM: Probability and Statistics*.
+3. Asselah, A. et al. (2011). Quasi-stationary distributions for Fleming–Viot particle systems.

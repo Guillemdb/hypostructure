@@ -1035,6 +1035,17 @@ project:
           title: UP-Type-Ii
         - file: source/sketches/arithmetic/up-variety-control.md
           title: UP-Variety-Control
+    - file: source/sketches/fragile/fragile-index.md
+      title: Fragile Agent Sketches
+      children:
+        - file: source/sketches/fragile/fractal-gas.md
+          title: Fractal Gas Theorems
+        - file: source/sketches/fragile/fragile_gas.md
+          title: Fragile Gas Proof Object
+        - file: source/sketches/fragile/geometric_gas.md
+          title: Geometric Gas Proof Object
+        - file: source/sketches/fragile/fractal-reference.md
+          title: Fractal Gas Reference
 
   # Bibliography
   bibliography:
@@ -1240,3 +1251,5 @@ site:
           url: /sketch-discrete-index
         - title: Number Theory
           url: /sketch-arithmetic-index
+        - title: Fragile Agent
+          url: /fragile-index

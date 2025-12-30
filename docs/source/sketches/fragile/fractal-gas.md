@@ -44,63 +44,85 @@ This sketch extracts all Fractal Gas, Fractal Set, CST/IG convergence, and physi
 - Axiom Rep -> $\mathrm{Rep}_K$
 - Axiom GC -> $\mathrm{GC}_\nabla$ or $\mathrm{GC}_T$ (context noted)
 
+## Status and Rigor Policy (Read This First)
+
+This file is a **sketch**: it is meant to be *compatible with* the Hypostructure thin-object + permit language, but it is **not itself** a full sieve proof object with a closed certificate chain.
+
+To keep the math honest and usable:
+
+- **Certified** statements are those that reduce to (or are instantiated by) an explicit sieve run in a dedicated proof object (e.g. `docs/source/sketches/fragile/geometric_gas.md`).
+- **Conditional** statements are standard results from analysis/probability/geometry that hold under explicit hypotheses stated in the block.
+- **Heuristic** statements are analogies/interpretations. They are included to guide intuition and design choices, not as proved mathematics.
+- **Default rule:** if a block does not explicitly declare a `Status`, treat it as **Heuristic**.
+
+When a statement depends on nontrivial analytic inputs (minorization, Lyapunov drift, Hessian bounds, reach, sampling density, etc.), this sketch records them as **assumptions** rather than silently upgrading to a theorem.
+
 ## Fractal Gas Core Theorems (Solver Dynamics)
 
-:::{prf:theorem} Geometric Adaptation
+:::{prf:theorem} Geometric Adaptation (Metric Distortion Under Representation)
 :label: thm:geometric-adaptation
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $G^{\text{thin}}$, embedding $\pi: X \to Y$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{SC}_\lambda$ (N4).
 
-**Statement:** The solver separates the intrinsic state space $X$ from its representation $Y$. Modifying the embedding map $\pi$ warps the emergent geometry $M$ without changing the underlying state space $X$. If two embeddings are related by a linear transformation $\pi_2 = T \circ \pi_1$, then the algebraic distance in the Information Graph transforms as:
-$$d_{\text{alg}}^{(2)}(i,j) = \|T\| \cdot d_{\text{alg}}^{(1)}(i,j) + O(\|T - I\|^2)$$
-Consequently, the Information Graph topology and geodesics shift, enabling "tunneling" by representation change.
+**Status:** Conditional (linear-algebraic; no solver assumptions).
+
+**Assumptions:**
+1. The algorithmic distance is computed from an embedding $\pi: X\to \mathbb{R}^n$ by
+   $$
+   d_{\mathrm{alg}}(x,y)=\|\pi(x)-\pi(y)\|_2
+   $$
+   (or any fixed Euclidean norm on the representation space).
+2. Two embeddings are related by a linear map $T:\mathbb{R}^n\to\mathbb{R}^n$ via $\pi_2=T\circ \pi_1$.
+
+**Statement:** For all $x,y\in X$,
+$$
+\sigma_{\min}(T)\, d_{\mathrm{alg}}^{(1)}(x,y)\ \le\ d_{\mathrm{alg}}^{(2)}(x,y)\ \le\ \|T\|\, d_{\mathrm{alg}}^{(1)}(x,y),
+$$
+where $\|T\|$ is the operator norm and $\sigma_{\min}(T)$ is the smallest singular value. In particular, if $T$ is invertible then $\pi_1$ and $\pi_2$ are bi-Lipschitz equivalent, and any Information Graph built from a monotone kernel of $d_{\mathrm{alg}}$ (e.g. Gaussian weights) changes only by a controlled rescaling/anisotropy of its effective neighborhood geometry.
+
+**Remark (What “tunneling” can and cannot mean):** Changing representation can change **graph geodesics** and therefore the solver’s navigation *metric*, but it does not create new topological paths in the intrinsic space $X$; it changes the geometry used to move through $X$.
 :::
 
 :::{prf:proof}
-**Step 1 (Induced Metric).**
-Let the embedding be $\pi: X \to \mathbb{R}^n$. The Euclidean metric on $\mathbb{R}^n$ induces a pullback metric on $X$:
-$$g_{ab} = \partial_a \pi^i \partial_b \pi^j \delta_{ij}$$
-The Information Graph (IG) distance approximates the geodesic distance on $(X, g)$.
-
-**Step 2 (Transformation).**
-Consider a transformation $T: \mathbb{R}^n \to \mathbb{R}^n$. The new embedding is $\pi' = T \circ \pi$. The new induced metric is:
-$$g'_{ab} = \partial_a (T^k \pi^k) \partial_b (T^l \pi^l) \delta_{kl} = (J^T J)_{mn} \partial_a \pi^m \partial_b \pi^n$$
-where $J$ is the Jacobian of $T$.
-
-**Step 3 (Metric Distortion).**
-If $T$ is a scaling $T = \lambda I$, then $g' = \lambda^2 g$, and distances scale by $\lambda$. If $T$ scales axes differently (anisotropic), geodesics change path. A "long" path in $\pi_1$ can become a "short" path in $\pi_2$, effectively bringing distant regions of state space close together.
-
-**Step 4 (Tunneling).**
-Optimization on the IG follows geodesics. By switching representations from $\pi_1$ to $\pi_2$, the solver can bypass high-energy barriers that are topologically obstructions in metric $g$ but trivial in metric $g'$. This constitutes "tunneling by representation change."
+Let $\Delta:=\pi_1(x)-\pi_1(y)\in\mathbb{R}^n$. Then $\pi_2(x)-\pi_2(y)=T\Delta$.
+By definition of the operator norm and smallest singular value,
+$$
+\sigma_{\min}(T)\,\|\Delta\|_2\ \le\ \|T\Delta\|_2\ \le\ \|T\|\,\|\Delta\|_2.
+$$
+Substituting $\|\Delta\|_2=d_{\mathrm{alg}}^{(1)}(x,y)$ and $\|T\Delta\|_2=d_{\mathrm{alg}}^{(2)}(x,y)$ yields the claim.
 :::
 
-:::{prf:metatheorem} The Darwinian Ratchet
+:::{prf:metatheorem} The Darwinian Ratchet (Reversible Case + Feynman–Kac Extension)
 :label: mt:darwinian-ratchet
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4).
 
-**Statement:** The stationary density of the Fractal Gas satisfies:
-$$\rho_{\text{FG}}(x) \propto \sqrt{\det g_{\text{eff}}(x)} \, e^{-\beta \Phi(x)}$$
-where $g_{\text{eff}}$ is the effective metric induced by the Information Graph. The system concentrates on fitness minima while preserving geometric diversity.
+**Status:** Conditional (standard reversible diffusion / QSD theory).
+
+**Statement (A: reversible Langevin limit).** Suppose the kinetic component admits a continuum limit on a Riemannian manifold $(M,g_{\mathrm{eff}})$ with generator of (overdamped) Langevin type at inverse temperature $\beta$ and potential $\Phi$:
+$$
+\mathcal{L} f=\Delta_{g_{\mathrm{eff}}} f-\beta\langle \nabla_{g_{\mathrm{eff}}}\Phi,\nabla_{g_{\mathrm{eff}}} f\rangle.
+$$
+Then the invariant probability measure is the Gibbs law
+$$
+d\mu_\beta(x)=Z^{-1} e^{-\beta \Phi(x)}\,d\mathrm{Vol}_{g_{\mathrm{eff}}}(x)
+\;=\;Z^{-1} e^{-\beta \Phi(x)}\sqrt{\det g_{\mathrm{eff}}(x)}\,dx
+$$
+in any coordinate chart $x$ on $M$.
+
+**Statement (B: with selection/cloning).** If, instead, selection/cloning acts as a Feynman–Kac weight (or killing/respawn mechanism), the long-time normalized limit (when it exists) is generally a **principal eigenmeasure / quasi-stationary distribution** solving an eigenproblem of the form
+$$
+(\mathcal{L}+V)^* \nu=\lambda\,\nu
+$$
+(continuous time) or $\nu Q=\alpha\nu$ (discrete time). There is no closed-form Gibbs density in general; the “ratchet” behavior is controlled by the principal eigenpair and the drift/minorization constants.
 :::
 
 :::{prf:proof}
-**Step 1 (Fokker-Planck Evolution).**
-The Fractal Gas dynamics combine diffusion (kinetic operator $\mathcal{K}$) and selection (cloning operator $\mathcal{C}$). The continuous limit is governed by a modified Fokker-Planck equation with a source term:
-$$\partial_t \rho = \nabla \cdot (D \nabla \rho - \mu \rho \nabla V) + \mathcal{R}[\rho]\rho$$
-where $\mathcal{R}[\rho]$ represents the net growth rate from cloning necessary to maintain constant population $N$.
+For (A), the stationary Fokker–Planck equation for $\mathcal{L}^*$ is solved by the Gibbs density with respect to the Riemannian volume form; this is the standard reversible Langevin computation on $(M,g_{\mathrm{eff}})$.
 
-**Step 2 (Stationary State).**
-At equilibrium, $\partial_t \rho = 0$. The flux Condition $J = 0$ (detailed balance) implies:
-$$D \nabla \rho - \mu \rho \nabla V = 0 \implies \nabla \ln \rho = \frac{\mu}{D} \nabla V$$
-
-**Step 3 (Geometric Factor).**
-On the curved manifold of the Information Graph, the Laplacian $\Delta_g$ includes the metric determinant. The invariant measure includes the volume form $dV = \sqrt{\det g} \, dx$.
-Thus, factoring in the Boltzmann weight from the potential $V = \Phi$:
-$$\rho(x) \propto e^{-\frac{\mu}{D}\Phi(x)} \sqrt{\det g(x)}$$
-Defining $\beta = \mu/D$, we recover the statement. The term $\sqrt{\det g}$ ensures that regions with high information density (high curvature) are sampled proportionally to their geometric volume.
+For (B), the normalized Feynman–Kac semigroup is governed by a twisted (killed/weighted) generator and its principal eigenpair. Existence/uniqueness and exponential convergence require additional assumptions (e.g. a Lyapunov drift condition and a small-set/Doeblin minorization), which are exactly the analytic inputs tracked by $D_E$ and $C_\mu$ and made explicit in the QSD block `mt:quasi-stationary-distribution-sampling`.
 :::
 
 :::{prf:principle} Coherence Phase Transition
@@ -131,60 +153,50 @@ When $l_\nu \ll l_\delta$, the clones disperse faster than viscosity can synchro
 The transition occurs at critical Reynolds number $\text{Re}_c \sim 1$ defined by these microscopics.
 :::
 
-:::{prf:theorem} Topological Regularization (Cheeger Bound)
+:::{prf:theorem} Topological Regularization (Cheeger Bound, Conditional)
 :label: thm:cheeger-bound
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_\pi$ (N8).
 
-**Statement:** Under the flow of the kinetic operator $\mathcal{K}_\nu$, the Cheeger constant of the Information Graph is bounded from below:
-$$h(G_t) \geq C(\nu) > 0$$
-Consequently, the swarm stays connected and avoids topological fracture ("pinch-off") as long as viscosity $\nu > 0$.
+**Status:** Conditional (graph/Markov-chain mixing; not implied by viscosity alone).
+
+**Assumption (uniform minorization / Doeblin condition):** The Information Graph induces a reversible Markov kernel $P_t$ on vertices with stationary law $\pi_t$, and there exists $\delta\in(0,1]$ such that for all times $t$ and all vertices $i$,
+$$
+P_t(i,\cdot)\ \ge\ \delta\,\pi_t(\cdot).
+$$
+
+**Statement:** Under this assumption, the chain has a uniform spectral gap $\lambda_1(P_t)\ge \delta$ and the Cheeger (conductance) constant is uniformly bounded below:
+$$
+h(G_t)\ \ge\ \frac{\lambda_1(P_t)}{2}\ \ge\ \frac{\delta}{2}\ >\ 0.
+$$
+In particular the graph stays connected and does not “pinch off”. (In concrete Fractal/Geometric Gas instantiations, a Doeblin $\delta$ typically comes from a **softmax floor** on companion/edge weights on a bounded diameter domain; viscosity $\nu$ affects *velocity mixing*, but does not by itself create edges.)
 :::
 
 :::{prf:proof}
-**Step 1 (Cheeger Constant).**
-The Cheeger constant $h(G)$ measures the "bottleneck" of a graph:
-$$h(G) = \min_{S} \frac{|\partial S|}{\min(\mathrm{Vol}(S), \mathrm{Vol}(S^c))}$$
-A small $h(G)$ implies the graph is easily cut into two large disconnected components (a "dumbbell" shape).
-
-**Step 2 (Viscosity as Glue).**
-The kinetic operator $\mathcal{K}_\nu$ acts as a heat diffusion on the graph. The rate at which the heat kernel $p_t(x,y)$ equilibrates is controlled by the spectral gap $\lambda_1$.
-By the **Cheeger Inequality**, $\lambda_1 \geq h^2/2$.
-Conversely, strong diffusion (high viscosity $\nu$) forces rapid equilibration, which implies a large spectral gap $\lambda_1(\nu)$.
-
-**Step 3 (Bound).**
-Since the dynamics ensure $\lambda_1 \geq c \cdot \nu$ (viscosity forces mixing), we have:
-$$h(G) \geq \sqrt{2 \lambda_1} \geq \sqrt{2 c \nu} > 0$$
-Thus, non-zero viscosity prevents geometric pinch-off.
+Under the Doeblin condition, $P_t$ is a strict contraction in total variation with coefficient at most $1-\delta$ (Dobrushin’s argument), implying geometric ergodicity and a spectral gap bounded below by $\delta$.
+For reversible chains, the (reverse) Cheeger inequality gives $h\ge \lambda_1/2$. Combining yields $h\ge \delta/2$.
 :::
 
-:::{prf:theorem} Induced Riemannian Structure
+:::{prf:principle} Induced Local Geometry (Quadratic Form from Landscape + Graph Energy)
 :label: thm:induced-riemannian-structure
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The Fractal Gas induces an effective Riemannian metric on the state space:
-$$g_{\text{FG}} = \nabla^2 \Phi + \lambda \nabla^2 \mathfrak{D} + \nu L$$
-where $L$ is the Information Graph Laplacian. This metric combines the cost landscape ($\Phi$), the dissipation landscape ($\mathfrak{D}$), and the information geometry ($L$).
+**Status:** Heuristic-to-conditional (becomes rigorous under uniform positive-definiteness).
+
+**Statement:** On a compact “alive” slice where $\Phi$ and $\mathfrak{D}$ are $C^2$, the Fractal/Information-Graph constructions canonically define a **positive semidefinite quadratic form** on perturbations $\delta z$ of the swarm state that combines:
+- local curvature of the landscape (via Hessians of $\Phi$ and $\mathfrak{D}$), and
+- discrete Dirichlet energy from the Information Graph (via its Laplacian).
+
+When this quadratic form is uniformly positive definite on the tangent space (e.g. near nondegenerate minima or under uniform ellipticity hypotheses), it defines a genuine Riemannian metric; otherwise it defines a sub-Riemannian/degenerate geometry.
+
+**Do not read this as a literal tensor identity** “$g=\nabla^2\Phi+\nu L$”: Hessians and graph Laplacians live on different objects and only combine meaningfully after a concrete discretization choice (finite-dimensional tangent space, chosen coordinates, and a graph energy functional).
 :::
 
 :::{prf:proof}
-**Step 1 (Energy Functional).**
-The total energy of a particle path $\gamma(t)$ is given by the action:
-$$S[\gamma] = \int \left( \frac{1}{2} \|\dot{\gamma}\|^2 + \Phi(\gamma) + \mathfrak{D}(\gamma) \right) dt$$
-
-**Step 2 (Jacobi Metric).**
-For a fixed energy level $E$, the trajectories are geodesics of the Jacobi metric:
-$$g_{ij} = (E - V(x)) \delta_{ij}$$
-Here, the effective potential is $V = \Phi + \mathfrak{D}$. The "kinetic energy" term $\|\dot{\gamma}\|^2$ is defined by the diffusion properties, which corresponds to the graph Laplacian $L$.
-
-**Step 3 (Effective Metric Construction).**
-The second-order expansion of the action around a minimum yields the Hessian.
-Incorporating the graph Laplacian (which defines the "kinetic" distance $d_{\text{IG}}$), the total distance element is:
-$$ds^2 = \langle dx, (\nabla^2 \Phi + \lambda \nabla^2 \mathfrak{D}) dx \rangle + \nu \langle dx, L^{-1} dx \rangle$$
-Interpreting the Laplacian term as part of the metric tensor (via the inverse diffusion tensor), we obtain the effective metric structure.
+This block is a design principle: a Taylor expansion of a smooth energy landscape produces Hessian quadratic forms, while graph-based “kinetic” regularization produces Dirichlet energies of the form $\sum_{i,j} w_{ij}\|\delta z_i-\delta z_j\|^2$, whose Euler–Lagrange operator is a graph Laplacian. Under uniform positive-definiteness, such quadratic forms define an inner product and therefore a Riemannian metric.
 :::
 
 ## Fractal Set, CST/IG Reconstruction, and Convergence
@@ -216,85 +228,72 @@ As $N \to \infty$, the graph Laplacian $L_G$ converges to the Laplace-Beltrami o
 The graph distance converges to the geodesic distance:
 $$\lim_{N \to \infty} d_{\text{IG}}(x,y) = \inf_\gamma \int_\gamma \sqrt{g_{ij} \dot{x}^i \dot{x}^j} dt$$
 
-**Step 4 (curvature).**
-The Ollivier-Ricci curvature of the graph converges to the Ricci curvature of the manifold (up to scaling). Thus, the discrete structure recovers the full Riemannian geometry of the fitness landscape.
+**Step 4 (Curvature proxies).**
+Discrete curvature notions (e.g. Ollivier–Ricci curvature) can serve as **proxies** for smooth curvature in regimes where the graph is a sufficiently fine geometric discretization of $(M,g)$ and the curvature definition is scaled appropriately. In general, curvature recovery is subtle and requires additional hypotheses (sampling density, bandwidth scaling, and curvature bounds), so this sketch treats curvature statements as conditional/diagnostic rather than automatic.
 :::
 
-:::{prf:theorem} Causal Horizon Lock (Holographic Information Bound)
+:::{prf:theorem} Causal Horizon Lock (Cut-Capacity / “Area Law”, Conditional)
 :label: thm:causal-horizon-lock
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4), $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_\pi$ (N8).
 
-**Statement:** For any region $\Sigma$ in the Causal Structure Tree (CST), the information flow across its boundary is bounded by the area of the boundary in the Information Graph:
-$$I(\Sigma \to \Sigma^c) \leq \alpha \cdot \mathrm{Area}_{\mathrm{IG}}(\partial \Sigma)$$
-This is the Holographic Principle for the Fractal Gas: the maximum information content of a region scaling with its surface area, not its volume.
+**Status:** Conditional (information-theoretic; requires a bounded per-edge channel model).
+
+**Assumption (bounded boundary capacity):** The dynamics on the Information Graph are implemented by a local message-passing / Markov update rule where each boundary edge carries at most $C_e$ nats of information per step (channel capacity bound). Define the discrete “area” of the boundary by the cut capacity
+$$
+\mathrm{Area}_{\mathrm{IG}}(\partial \Sigma)\ :=\ \sum_{e\in \partial \Sigma} C_e
+$$
+(or, in the unweighted case, $\mathrm{Area}_{\mathrm{IG}}(\partial\Sigma)=|\partial\Sigma|$ up to a constant factor).
+
+**Statement:** Under this assumption, the one-step information flow across the boundary satisfies the cut bound
+$$
+I(\Sigma\to \Sigma^c)\ \le\ \mathrm{Area}_{\mathrm{IG}}(\partial \Sigma).
+$$
+This is the precise mathematical content of the “area law” intuition: **boundary** degrees of freedom limit how much information can cross between inside and outside in one step.
 :::
 
 :::{prf:proof}
-**Step 1 (Information Flux).**
-Let $\Sigma$ be a subset of the state space. Information leaves $\Sigma$ only via particles crossing the boundary $\partial \Sigma$.
-The flux of particles is $J = \rho v \cdot n$.
-
-**Step 2 (Causal Decoupling).**
-The Lyapunov exponent $\lambda$ measures how fast trajectories diverge. Two points separated by the boundary become causally disconnected after time $t \sim \lambda^{-1} \ln(1/\epsilon)$ (the scrambled time).
-
-**Step 3 (Area Law).**
-The channel capacity of the boundary is proportional to the number of "pixels" (discrete states) on the surface $\partial \Sigma$.
-$$N_{\text{surface}} \sim \frac{\mathrm{Area}(\partial \Sigma)}{l_P^2}$$
-where $l_P$ is the minimal resolution length (set by the discretization).
-By the Shannon-Hartley theorem, the information flow is bounded by the channel capacity. Thus $I \leq C \cdot \mathrm{Area}$.
+This is a standard cut-capacity argument (max-flow/min-cut intuition): in one update step, information that moves from $\Sigma$ to $\Sigma^c$ must pass through the boundary edges. If each boundary edge is a channel of capacity $C_e$, the total one-step transferable mutual information is at most the sum of capacities across the cut. Formal proofs use the data-processing inequality and subadditivity of mutual information under independent channels.
 :::
 
-:::{prf:theorem} Scutoid Selection Principle
+:::{prf:principle} Scutoid Selection Principle (Heuristic Geometry)
 :label: thm:scutoid-selection
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Under the kinetic operator $\mathcal{K}_\nu$, Voronoi tessellations of the swarm undergo topological T1 (neighbor exchange) transitions. These transitions select "Scutoid" geometries (frustum-like prisms with vertex splittings) to minimize the discrete Regge action:
-$$S_{\text{Regge}} = \sum_{h} \mathrm{Vol}(h) \, \delta_h$$
-where $h$ are the hinges (codimension-2 faces) and $\delta_h$ is the deficit angle.
+**Status:** Heuristic.
+
+**Statement:** In 3D swarm dynamics with local neighbor exchange (cloning + companion reassignment), the induced Voronoi/Delaunay adjacency can undergo T1-like transitions. In some geometries this produces scutoid-like cell shapes. This provides a geometric analogy for “topological regularization,” but it is not asserted here as a variational minimization theorem (e.g. no claim is made that a Regge action is minimized by the algorithm).
 :::
 
 :::{prf:proof}
-**Step 1 (T1 Transition).**
-Consider four cells meeting at a vertex in 2D (or an edge in 3D). A T1 transition swaps neighbors: $AB + CD \to AC + BD$.
-In 3D, this separation creates a new face (a triangle or polygon) or collapses one.
-
-**Step 2 (Scutoid Geometry).**
-Ideally, cells in a curved tissue are prisms. However, if the curvature changes (e.g., tube bending), prisms cannot tile the space without gaps. The "Scutoid" shape (interpolating between a hexagon and a pentagon) solves this packing problem.
-
-**Step 3 (Action Minimization).**
-The energy of the packing is proportional to the surface tension (area) and the elastic bending energy (curvature).
-The discretized curvature energy is the Regge action.
-Standard prisms force high deficit angles $\delta_h$ on curved surfaces. Scutoid transitions introduce topological defects that lower the global curvature stress.
-Thus, the system spontaneously evolves towards scutoid configurations to relax the Regge action.
+This block is intentionally non-rigorous: it records a geometric interpretation (neighbor exchanges can induce scutoid-like adjacency changes) without claiming a precise variational principle.
 :::
 
-:::{prf:theorem} Archive Invariance (Quasi-Isometry)
+:::{prf:theorem} Archive Invariance (Gromov–Hausdorff Stability, Conditional)
 :label: thm:archive-invariance
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** Two Fractal Gas runs on the same problem instance, within the stability region $\alpha \approx \beta$, generate Fractal Sets $\mathcal{F}_1$ and $\mathcal{F}_2$ that are **quasi-isometric**.
-There exists a map $f: \mathcal{F}_1 \to \mathcal{F}_2$ and constants $C \geq 1, B \geq 0$ such that:
-$$\frac{1}{C} d_1(x,y) - B \leq d_2(f(x), f(y)) \leq C d_1(x,y) + B$$
-This implies they share the same large-scale geometric invariants (homology, dimension, asymptotic volume).
+**Status:** Conditional (metric-space convergence; “quasi-isometry” is not the right notion on compact spaces).
+
+**Assumption (common compact limit):** There exists a compact metric space $(M,d)$ and scales $\varepsilon_k\downarrow 0$ such that
+$$
+d_{\mathrm{GH}}(\mathcal{F}_1,M)\le \varepsilon_1,\qquad d_{\mathrm{GH}}(\mathcal{F}_2,M)\le \varepsilon_2.
+$$
+
+**Statement:** Then
+$$
+d_{\mathrm{GH}}(\mathcal{F}_1,\mathcal{F}_2)\ \le\ \varepsilon_1+\varepsilon_2,
+$$
+and there exists an $(\varepsilon_1+\varepsilon_2)$-approximation map between the two archives (an $\varepsilon$-isometry in the standard GH sense). Consequently, any **stable** geometric invariant (e.g. persistent homology at scales $\gg \varepsilon_1+\varepsilon_2$) agrees between the two runs.
 :::
 
 :::{prf:proof}
-**Step 1 (Canonical Limit).**
-Both $\mathcal{F}_1$ and $\mathcal{F}_2$ are discrete approximations of the same unique underlying manifold $M_{\Phi}$ (by the Geometric Reconstruction Principle).
-
-**Step 2 (Triangle Inequality).**
-Since $\mathcal{F}_1 \xrightarrow{GH} M$ and $\mathcal{F}_2 \xrightarrow{GH} M$ in the Gromov-Hausdorff sense, $\mathcal{F}_1$ is close to $\mathcal{F}_2$.
-$$d_{GH}(\mathcal{F}_1, \mathcal{F}_2) \leq d_{GH}(\mathcal{F}_1, M) + d_{GH}(\mathcal{F}_2, M)$$
-For sufficiently fine sampling ($N_1, N_2$ large), the distance is small.
-
-**Step 3 (Quasi-Isometry).**
-Gromov-Hausdorff closeness for length spaces implies quasi-isometry. The map $f$ maps checking points in $\mathcal{F}_1$ to their nearest neighbors in $\mathcal{F}_2$. The distortion is bounded by the sampling density and the curvature of $M$.
+The GH triangle inequality yields the bound on $d_{\mathrm{GH}}(\mathcal{F}_1,\mathcal{F}_2)$. The existence of an $\varepsilon$-approximation map is part of the definition of GH distance.
 :::
 
 ### Fractal Set Foundations (Discrete-to-Continuum)
@@ -336,24 +335,22 @@ The shift operator on the sequence space corresponds to the time-evolution opera
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
 
-**Statement:** As the discretization parameter $\varepsilon \to 0$, the discrete fitness functionals $\Phi_\varepsilon$ on the graph sequence **Gamma-converge** to the continuous height functional $\Phi$ on the state space.
-$$\Phi_{\mathcal{F}_\varepsilon} \xrightarrow{\Gamma} \Phi$$
-This guarantees that minimizers of the discrete problem converge to minimizers of the continuous problem.
+**Status:** Conditional (standard $\Gamma$-convergence; requires an identification of discrete states with continuum states).
+
+**Assumptions (one typical setting):**
+1. There is an identification/embedding map $\iota_\varepsilon:\mathcal{F}_\varepsilon\to X$ so that sequences $(x_\varepsilon\in\mathcal{F}_\varepsilon)$ can be compared via $\iota_\varepsilon(x_\varepsilon)\to x$ in $X$.
+2. The family $\{\Phi_\varepsilon\}$ is **equicoercive** with respect to this identification (sublevel sets are precompact).
+3. The $\Gamma$-liminf and $\Gamma$-limsup inequalities hold with respect to $\iota_\varepsilon$.
+
+**Statement:** Under these assumptions, the discrete functionals $\Phi_\varepsilon$ $\Gamma$-converge to $\Phi$ (in the sense above). Consequently, almost-minimizers of $\Phi_\varepsilon$ have accumulation points that minimize $\Phi$ (and minimizing values converge).
 :::
 
 :::{prf:proof}
-**Step 1 (Liminf Inequality - Lower Bound).**
-For any sequence $x_\varepsilon \to x$ in state space, we must show:
-$$\liminf_{\varepsilon \to 0} \Phi_\varepsilon(x_\varepsilon) \geq \Phi(x)$$
-This follows from the lower semi-continuity of $\Phi$. The discrete approximation cannot "hallucinate" low-energy states that don't exist in the continuum.
+This is the standard $\Gamma$-convergence implication:
+- the liminf and limsup inequalities are the definition of $\Gamma$-convergence (relative to $\iota_\varepsilon$), and
+- equicoercivity upgrades $\Gamma$-convergence to convergence of (almost-)minimizers.
 
-**Step 2 (Limsup Inequality - Recovery Sequence).**
-For any $x \in X$, there must exist a sequence $x_\varepsilon$ (the "recovery sequence") such that:
-$$\limsup_{\varepsilon \to 0} \Phi_\varepsilon(x_\varepsilon) \leq \Phi(x)$$
-We construct $x_\varepsilon$ by projecting $x$ onto the closest node in the Information Graph $G_\varepsilon$. Since the sampling is dense, the error vanishes.
-
-**Step 3 (Convergence of Minimizers).**
-A fundamental property of Gamma-convergence is that if $x_\varepsilon^*$ minimizes $\Phi_\varepsilon$, then every cluster point of the sequence $\{x_\varepsilon^*\}$ minimizes $\Phi$.
+The nontrivial content in applications is to verify (i) the approximation map $\iota_\varepsilon$ and (ii) the liminf/limsup bounds from the concrete discrete energy definition.
 :::
 
 :::{prf:theorem} Gromov-Hausdorff Convergence
@@ -362,25 +359,21 @@ A fundamental property of Gamma-convergence is that if $x_\varepsilon^*$ minimiz
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The sequence of Information Graph metric spaces $(V_\varepsilon, d_{\mathrm{IG}}^\varepsilon)$ converges to the manifold $(M, g)$ in the Gromov-Hausdorff sense:
-$$(V_\varepsilon, d_{\mathrm{IG}}^\varepsilon) \xrightarrow{\mathrm{GH}} (M, g)$$
-This means the "shape" of the computation converges to the "shape" of the physics.
+**Status:** Conditional (standard geometric-graph convergence results; requires sampling and scaling hypotheses).
+
+**Assumptions (one typical setting):**
+1. $(M,d_g)$ is a compact Riemannian manifold.
+2. The vertex set $V_\varepsilon\subset M$ is an $\varepsilon$-net (Hausdorff distance $\le \varepsilon$).
+3. The graph edges/weights are constructed from a kernel or neighborhood radius $r_\varepsilon\to 0$ in a regime that makes shortest-path distances approximate $d_g$ (e.g. dense enough to avoid “short-circuiting” and connected enough to avoid fragmentation).
+
+**Statement:** Under such hypotheses, the metric spaces $(V_\varepsilon,d_{\mathrm{IG}}^\varepsilon)$ converge to $(M,d_g)$ in the Gromov–Hausdorff sense:
+$$
+(V_\varepsilon, d_{\mathrm{IG}}^\varepsilon)\xrightarrow{\mathrm{GH}} (M, d_g).
+$$
 :::
 
 :::{prf:proof}
-**Step 1 (Correspondence).**
-Define a correspondence $\mathcal{R}_\varepsilon \subset V_\varepsilon \times M$ relating graph nodes to their locations in the manifold.
-For every $v \in V_\varepsilon$, there is an $x \in M$ with $d(v, x) < \delta$.
-For every $x \in M$, there is a $v \in V_\varepsilon$ with $d(x, v) < \delta$.
-
-**Step 2 (Bi-Lipschitz Distortion).**
-Show that the distance distortion vanishes:
-$$|d_{\mathrm{IG}}^\varepsilon(u, v) - d_g(x, y)| < \epsilon$$
-for all $(u,x), (v,y) \in \mathcal{R}_\varepsilon$.
-The graph distance is based on shortest paths through edges. As edge density increases, the "taxicab" deviations smooth out to the Riemannian geodesic.
-
-**Step 3 (Metric Limit).**
-The Gromov-Hausdorff distance is the infimum of the distortions over all correspondences. Since we constructed one with vanishing distortion, $d_{GH} \to 0$.
+Given an $\varepsilon$-net, the natural correspondence is $(v,x)$ with $x=v\in M$. The net property controls the Hausdorff part of GH distance. The nontrivial part is to bound the distortion of shortest-path distances by comparing graph paths to manifold geodesics and vice versa; this is where the edge radius/kernel scaling hypotheses enter.
 :::
 
 :::{prf:metatheorem} Convergence of Minimizing Movements
@@ -389,11 +382,13 @@ The Gromov-Hausdorff distance is the infimum of the distortions over all corresp
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7).
 
-**Statement:** The discrete "Minimizing Movement" scheme (iterative descent on the graph) defined by:
+**Status:** Conditional (standard minimizing-movements theory).
+
+**Assumptions:** $(X,d)$ is a complete metric space and $\Phi:X\to(-\infty,\infty]$ is proper, lower semicontinuous, and (geodesically) $\lambda$-convex for some $\lambda\in\mathbb{R}$ (or satisfies an alternative slope-compactness condition ensuring well-posed gradient flows).
+
+**Statement:** The discrete “minimizing movement” scheme
 $$x_{k+1} \in \mathrm{argmin}_y \left( \Phi(y) + \frac{1}{2\tau} d^2(x_k, y) \right)$$
-converges (as $\tau \to 0$) to the unique curve of maximal slope $x(t)$ satisfying the gradient flow equation $\dot{x} = -\nabla \Phi(x)$.
-Ideally, it satisfies the Energy-Dissipation Equality:
-$$\Phi(x(t)) + \int_0^t |\dot{x}(s)|^2 ds = \Phi(x(0))$$
+converges (as $\tau\to 0$) to the unique curve of maximal slope (metric gradient flow) for $\Phi$. Under the standard hypotheses above, the limit satisfies the Energy–Dissipation Inequality, and under additional regularity it satisfies the Energy–Dissipation Equality.
 :::
 
 :::{prf:proof}
@@ -404,8 +399,7 @@ The update rule is implicit Euler discretization of gradient descent. It balance
 Construct a continuous trajectory $\tilde{x}_\tau(t)$ by interpolating the discrete points.
 We check if the limit satisfies the weak formulation of the gradient flow.
 
-**Step 3 (Metric Slope).**
-Using the result of **Ambrosio-Gigli-Savaré**, if $\Phi$ is $\lambda$-convex (or compatible with certain regularity conditions), the discrete scheme converges to the gradient flow in the metric space (Wasserstein gradient flow).
+This is a classical result of Ambrosio–Gigli–Savaré: under the stated hypotheses, the interpolated discrete solutions are precompact and any limit is the gradient flow of $\Phi$.
 :::
 
 :::{prf:metatheorem} Symplectic Shadowing
@@ -414,9 +408,13 @@ Using the result of **Ambrosio-Gigli-Savaré**, if $\Phi$ is $\lambda$-convex (o
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Symplectic integrators do not track the exact Hamiltonian flow $H$, but they **shadow** the exact flow of a "modified Hamiltonian" $\tilde{H} = H + h H_1 + h^2 H_2 + \dots$ for exponentially long times.
-$$ \|\psi(t) - \tilde{\psi}(t)\| \leq C e^{-c/h} \quad \text{for} \quad t \leq e^{c/h} $$
-This explains why the discrete Fractal Gas conserves energy (on average) and preserves phase-space structure.
+**Status:** Conditional (backward error analysis for symplectic integrators).
+
+**Statement:** For sufficiently smooth (often analytic) Hamiltonians and sufficiently small step size $h$, a symplectic splitting scheme is the exact time-$h$ map of a **modified Hamiltonian**
+$$
+\tilde H = H + h H_1 + h^2 H_2 + \cdots
+$$
+up to a truncation error. As a consequence, the numerical energy error typically remains bounded and oscillatory over long times; in analytic settings one can obtain exponentially long stability times in $1/h$.
 :::
 
 :::{prf:proof}
@@ -428,7 +426,7 @@ Identifying $A$ and $B$ with Liouville operators for kinetic and potential parts
 We explicitly construct the formal power series for $\tilde{H}$. Since the integrator is symplectic, such a Hamiltonian exists (locally).
 
 **Step 3 (Energy Bound).**
-Because the system follows $\tilde{H}$ exactly, the value of $\tilde{H}$ is conserved. Since $\tilde{H} = H + O(h)$, the energy error oscillates boundedly within $O(h)$ and does not drift, provided the step step $h$ is small enough (within radius of convergence of BCH).
+Backward error analysis controls the difference between the numerical map and the modified Hamiltonian flow; bounded long-time energy error follows from conservation of $\tilde H$ for the modified flow and the smallness of $H-\tilde H$ at the chosen truncation order.
 :::
 
 :::{prf:metatheorem} Homological Reconstruction
@@ -437,20 +435,19 @@ Because the system follows $\tilde{H}$ exactly, the value of $\tilde{H}$ is cons
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Let samples $P$ be drawn from a manifold $M$ with reach $\tau$. If the sampling density $\epsilon$ satisfies $\epsilon < \tau/2$ (Niyogi-Smale-Weinberger bound), the Vietoris-Rips complex $\mathcal{R}_\epsilon(P)$ is homotopy equivalent to $M$.
-$$ H_k(\mathcal{R}_\epsilon(P)) \cong H_k(M) $$
-Thus, topological barriers in the discrete swarm correspond to true topological features of the state space.
+**Status:** Conditional (computational topology; requires reach + sampling hypotheses).
+
+**Statement (standard recovery pattern):** Let $M\subset \mathbb{R}^D$ be a compact $C^2$ submanifold with reach $\tau>0$, and let $P\subset M$ be an $\varepsilon$-sample (Hausdorff distance $\le\varepsilon$) with $\varepsilon<\tau/2$.
+Then:
+1. The union of balls $U_\varepsilon=\bigcup_{p\in P} B_\varepsilon(p)$ deformation retracts to $M$.
+2. The Čech complex $\check C_\varepsilon(P)$ is homotopy equivalent to $U_\varepsilon$ (Nerve Lemma), hence $\check C_\varepsilon(P)\simeq M$.
+3. The Vietoris–Rips and Čech filtrations are interleaved (up to a scale factor), so persistent homology of $\mathrm{VR}_r(P)$ recovers $H_\ast(M)$ at appropriate scales.
+
+This is the rigorous content behind using IG samples to infer topological invariants: topology recovery requires **geometric sampling conditions**, not just an algorithmic run.
 :::
 
 :::{prf:proof}
-**Step 1 (Niyogi-Smale-Weinberger Theorem).**
-The union of balls $U = \bigcup_{p \in P} B_\epsilon(p)$ deformation retracts to $M$ if $\epsilon$ is small enough relative to the minimum radius of curvature (reach).
-
-**Step 2 (Nerve Lemma).**
-The nerve of the cover $\{B_\epsilon(p)\}$ is the Cech complex. By the Nerve Lemma, the Cech complex is homotopy equivalent to $U$.
-
-**Step 3 (Vietoris-Rips Interleaving).**
-The Vietoris-Rips complex is sandwiched between Cech complexes: $C_\epsilon \subset VR_\epsilon \subset C_{2\epsilon}$. Under stronger density conditions, we can guarantee the correct homology groups are recovered.
+Items (1)–(2) follow from the Niyogi–Smale–Weinberger theorem and the Nerve Lemma. Item (3) is the standard Čech–Vietoris–Rips interleaving: $\check C_r(P)\subseteq \mathrm{VR}_{2r}(P)\subseteq \check C_{2r}(P)$ (in Euclidean ambient space), which yields homology recovery in the persistent sense.
 :::
 
 :::{prf:metatheorem} Symmetry Completion
@@ -1277,6 +1274,8 @@ The sample complexity depends on the covering number of $\mathcal{M}$, not the v
 
 ## Physics Emergence Theorems
 
+This section is primarily **interpretative**: it records correspondences between Fractal Gas / Information-Graph language and ideas from physics. Unless a block below explicitly declares a rigorous `Status` and hypotheses, treat it as **Heuristic** and do not use it as a certificate input.
+
 ### Quantum Foundations
 
 :::{prf:metatheorem} Hessian-Metric Isomorphism
@@ -1586,49 +1585,52 @@ $V_{d-1} \sim N^{(d-1)/d}$.
 A sequence of maximal antichains provides a discrete foliation of the spacetime, recovering the ADM formalism structure.
 :::
 
-:::{prf:metatheorem} Holographic Bound
+:::{prf:principle} Holographic Bound (Area-Law Heuristic)
 :label: mt:holographic-bound
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11), $C_\mu$ (N3).
 
-**Statement:** The Information capacity of a region in the Fractal Gas is bounded by the area of its boundary (Markov Blanket) in Planck units.
-$$ S(A) \leq \frac{\text{Area}(\partial A)}{4 l_p^2} $$
+**Status:** Heuristic (for a rigorous cut bound, see `thm:causal-horizon-lock`).
+
+**Statement:** In graph-based local dynamics, boundary degrees of freedom control how much information can flow between a region and its complement. This motivates an “area law” principle: information capacity across a cut scales with a discrete boundary measure (cut size / cut capacity), not with the region’s volume.
 :::
 
 :::{prf:proof}
-**Step 1 (Markov Blanket).**
-The boundary $\partial A$ shields the interior $A$ from the exterior.
-All information transfer must pass through the boundary nodes.
-
-**Step 2 (Channel Capacity).**
-The maximum entropy flux is proportional to the number of boundary degrees of freedom (cut size).
-$N_{\text{surface}} \sim \text{Area}$.
-
-**Step 3 (Bulk-Boundary).**
-Since the bulk state is reconstructed (holographically) from the boundary conditions (AdS/CFT analogy), the bulk entropy cannot exceed the boundary capacity.
+This is an interpretation of cut-capacity bounds for local update rules. It becomes rigorous once the update model is specified with a per-edge information bound (as in `thm:causal-horizon-lock`).
 :::
 
-:::{prf:metatheorem} Quasi-Stationary Distribution Sampling
+:::{prf:metatheorem} Quasi-Stationary Distribution Sampling (Killed Kernels and Fleming–Viot)
 :label: mt:quasi-stationary-distribution-sampling
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
 
-**Statement:** For a system with absorbing boundaries (or killing kernels), the conditioned long-time limit is the Quasi-Stationary Distribution (QSD). QSD sampling yields the unique diffeomorphism-invariant Fractal Set discretization of the emergent geometry.
+**Status:** Conditional (standard QSD / Fleming–Viot theory).
+
+**Setup (killing):** Let $(X_k)_{k\ge 0}$ be a Markov chain on a state space $E$ with a cemetery state $\partial$ and killing time $\tau_\partial=\inf\{k\ge 0: X_k=\partial\}$. Let $Q$ be the corresponding **sub-Markov kernel** on $E$:
+$$
+Q(x,A):=\mathbb{P}_x(X_1\in A,\ X_1\neq \partial),\qquad A\subseteq E.
+$$
+
+**Definition (QSD):** A probability measure $\nu$ on $E$ is a quasi-stationary distribution if there exists $\alpha\in(0,1)$ such that
+$$
+\nu Q=\alpha\,\nu.
+$$
+Equivalently, if $X_0\sim \nu$ then for all $k\ge 0$,
+$$
+\mathcal{L}(X_k\mid k<\tau_\partial)=\nu,\qquad \mathbb{P}(k<\tau_\partial)=\alpha^k.
+$$
+
+**Statement (existence/uniqueness and convergence):** Under standard hypotheses ensuring tightness and mixing—e.g. a Foster–Lyapunov drift condition and a small-set/Doeblin minorization on a compact set (precisely the kind of inputs tracked by $D_E$ and $C_\mu$)—a QSD exists, is unique, and the conditioned law converges to it at an exponential rate (in total variation / Wasserstein, depending on the model).
+
+**Statement (particle approximation):** The constant-$N$ Fleming–Viot particle system (kill-at-$\partial$ + instantaneous resampling from survivors) provides an empirical-measure approximation of the QSD: as $N\to\infty$, the empirical measure converges to the nonlinear normalized semigroup, and its stationary point is the QSD $\nu$.
+
+**Remark (what is and is not “canonical”):** QSD sampling is canonical **for the killed dynamics** $(Q,\partial)$ (up to measurable isomorphism). It does not imply a unique “diffeomorphism-invariant discretization” beyond that standard invariance.
 :::
 
 :::{prf:proof}
-**Step 1 (Spectral Definition).**
-The QSD is the ground state of the generator with Dirichlet boundary conditions (or absorptive potential).
-$\mathcal{L}^* \nu = -\lambda_1 \nu$.
-
-**Step 2 (Fleming-Viot Particle System).**
-The Fractal Gas (with killing/respawning) implements the Fleming-Viot process.
-Particles that hit the boundary (high error) are killed and respawned from survivors.
-
-**Step 3 (Invariance).**
-The QSD depends only on the domain geometry and the operator, not on the specific initial coordinates. It provides a canonical discretization of the manifold that respects its "shape" even in the presence of open boundaries.
+This is a standard theorem family in QSD theory. One route to the result is spectral: under compactness/regularity assumptions, the sub-Markov operator $Q$ has a principal eigenvalue/eigenmeasure pair $(\alpha,\nu)$, and a spectral gap gives exponential convergence of the conditioned semigroup. Another route uses Harris-type drift/minorization to prove existence/uniqueness and quantitative convergence. Fleming–Viot convergence follows from propagation-of-chaos arguments for interacting particle systems approximating the normalized semigroup.
 :::
 
 :::{prf:metatheorem} Modular-Thermal Isomorphism
