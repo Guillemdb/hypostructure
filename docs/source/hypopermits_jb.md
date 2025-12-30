@@ -87,7 +87,7 @@ A **Hypostructure** is a tuple $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet,
         $$S_{\text{coh}}(\mathcal{X}) \leq C \cdot \chi(\partial\mathcal{X})$$
         where $\chi$ denotes the Euler characteristic. This topological bound constrains how singularities can distribute across the boundary topology.
 
-     2. **Information Bound (Data Processing Inequality):** The mutual information between bulk and observer is bounded by the capacity of the boundary channel: $I(X; Z) \leq I(X; Y)$. This information-theoretic constraint is enforced by Tactic E8 ({prf:ref}`def-e8`) using the Capacity interface $\mathrm{Cap}_H$.
+     2. **Metric Bound (Bekenstein):** The thermodynamic entropy density is bounded by boundary area via the holographic principle: $S_{\text{thermo}} \leq A(\partial\mathcal{X})/4G_N$. This metric constraint is enforced by Tactic E8 ({prf:ref}`def-e8`) using the Capacity interface $\mathrm{Cap}_H$.
 
      The cohomological bound detects *topological* obstructions (too many singularity components for the boundary topology), while the metric bound detects *geometric* obstructions (too much information density for the boundary size). Both are necessary: the Sieve uses $\chi$ for categorical exclusion and Area for physical exclusion.
 :::
@@ -351,91 +351,6 @@ Then:
 *Step 3 (Defect Transfer).* By hypothesis (3), defects transform covariantly: $K_{A,g \cdot S}^{(g \cdot \Theta)}(g \cdot u) = K_{A,S}^{(\Theta)}(u)$. Symmetries of the input distribution transfer to learned parameters and their certificates.
 :::
 
-:::{prf:theorem} [KRNL-HorizonLimit] The Horizon Limit (Framework Boundaries)
-:label: mt-krnl-horizon-limit
-:class: metatheorem rigor-class-f
-
-**Rigor Class:** F (Framework-Original) — Explicit statement of framework limitations
-
-**Sieve Target:** Honest Epistemics — establishes what the Sieve **cannot** do
-
-**Statement:** For any computational problem $\mathcal{I}$ whose **Kolmogorov complexity** exceeds the Sieve's finite memory buffer $M_{\text{sieve}}$, the verdict is provably **HORIZON**. The Sieve does not solve undecidable problems; it classifies them as "thermodynamically irreducible."
-
-**Formal Statement**:
-Let $\mathcal{S}$ be the Structural Sieve with finite memory $M_{\text{sieve}} \in \mathbb{N}$ (in bits). For any problem $\mathcal{I} \subseteq \mathbb{N}$:
-
-$$K(\mathcal{I}) > M_{\text{sieve}} \Rightarrow \text{Verdict}(\mathcal{S}, \mathcal{I}) = \texttt{HORIZON}$$
-
-where $K(\mathcal{I}) := \min\{|p| : U(p) = \text{characteristic function of } \mathcal{I}\}$ is the Kolmogorov complexity ({cite}`LiVitanyi19`).
-
-**What the Sieve CAN do**:
-- ✓ Classify decidable problems as **REGULAR** (Axiom R holds)
-- ✓ Detect phase transitions between decidable/undecidable via AIT ({prf:ref}`thm-halting-ait-sieve-thermo`)
-- ✓ Provide certificates for Axiom R failure (diagonal construction, Rice's Theorem)
-- ✓ Classify profile-extractable blow-ups via concentration-compactness
-
-**What the Sieve CANNOT do (Horizon Limits)**:
-- ✗ Solve the Halting Problem (Turing 1936 {cite}`Turing36`)
-- ✗ Store/classify problems with $K(\mathcal{I}) > M_{\text{sieve}}$ (information-theoretic impossibility)
-- ✗ Provide infinite computational resources (finite memory/time constraint)
-- ✗ Classify non-extractable blow-ups (wild oscillations, turbulent cascades) → routes to **HORIZON** with $K_{\text{inadm}}$
-
-**Honest Verdict Protocol**:
-When $K(\mathcal{I}) > M_{\text{sieve}}$, emit:
-$$K_{\text{Horizon}}^{\text{blk}} = (\text{"Thermodynamically irreducible"}, K(\mathcal{I}) > M_{\text{sieve}}, \text{Axiom R failure proof})$$
-
-**Interpretation (Thermodynamic Analogy)**:
-Just as a thermometer with finite precision cannot measure temperature to infinite accuracy, a sieve with finite memory cannot classify arbitrarily complex problems. The **HORIZON** verdict is the framework's honest acknowledgment of fundamental computational limits.
-
-**Connection to Algorithmic Thermodynamics**:
-For the Halting Set $K = \{e : \varphi_e(e)\downarrow\}$:
-- **Energy**: $E(x) = K(x)$ (Kolmogorov complexity)
-- **Phase Transition**: Decidable (Crystal, $K(L_n) = O(\log n)$) vs. Random (Gas, $K(L_n) \approx n$)
-- **Critical Boundary**: C.e. sets like $K$ exhibit $K(K_n) = O(\log n)$ but Axiom R fails → **HORIZON**
-
-See {prf:ref}`thm-halting-ait-sieve-thermo` and `/docs/source/dataset/halting_problem.md` for complete AIT formalization.
-
-**Certificate Produced:** $K_{\text{Horizon}}^{\text{blk}}$ with payload documenting complexity bound
-
-**Literature:** {cite}`Turing36` (Halting Problem); {cite}`Chaitin75` (Algorithmic Randomness); {cite}`LiVitanyi19` (Kolmogorov Complexity); {cite}`Zurek89` (Thermodynamic Cost of Computation)
-:::
-
-:::{prf:proof} Proof
-:label: proof-mt-krnl-horizon-limit
-
-**Step 1 (Information-Theoretic Lower Bound)**:
-To decide membership in $\mathcal{I}$, the sieve must store a representation of $\mathcal{I}$ requiring at least $K(\mathcal{I})$ bits (by definition of Kolmogorov complexity). Any shorter representation would contradict the minimality of $K(\mathcal{I})$.
-
-**Step 2 (Memory Constraint)**:
-If $K(\mathcal{I}) > M_{\text{sieve}}$, no representation of $\mathcal{I}$ fits in the sieve's finite memory buffer.
-
-**Step 3 (Horizon Verdict)**:
-Unable to store $\mathcal{I}$, the sieve **cannot** execute the decision procedure. By the Honest Epistemics Protocol, it outputs **HORIZON** with certificate:
-$$K_{\text{Horizon}}^{\text{blk}} = (\text{"Complexity } K(\mathcal{I}) = [value] > M_{\text{sieve}}"}, \text{proof of memory insufficiency})$$
-
-**Step 4 (No False Negatives)**:
-The HORIZON verdict does **not** claim the problem is unsolvable in principle—only that it exceeds the sieve's finite capacity. This maintains soundness: the sieve never claims regularity for a problem it cannot classify.
-
-**Corollary (Halting Problem)**:
-For the halting set $K$, individual programs $e$ with $K(e) > M_{\text{sieve}}$ receive **HORIZON** verdict. The set $K$ itself has $K(K \cap [0,n]) = O(\log n)$ (c.e.), but Axiom R fails by diagonal argument → **HORIZON** via Axiom R obstruction, not memory limit.
-
-$\square$
-:::
-
-:::{prf:remark} Framework Boundaries and Honest Epistemics
-:label: rem-honest-epistemics
-
-This theorem makes the framework's limitations **explicit and mathematically rigorous**:
-
-1. **Computational Realism**: The sieve has finite memory $M_{\text{sieve}}$ and finite time, like any physical computer.
-
-2. **No Oracle Claims**: The sieve does not claim to solve undecidable problems. The HORIZON verdict is honest: "This exceeds my capacity."
-
-3. **Thermodynamic Interpretation**: Problems with $K(\mathcal{I}) > M_{\text{sieve}}$ are "thermodynamically irreducible" relative to the sieve's resources—analogous to measuring a temperature hotter than the thermometer's maximum rating.
-
-**Physical Analogy**: A balance scale with finite precision cannot distinguish masses differing by less than its resolution. Similarly, the sieve with finite memory cannot classify problems whose Kolmogorov complexity exceeds its capacity. Both are fundamental limits, not bugs.
-:::
-
 ---
 
 # Part II: The Constructive Approach
@@ -566,44 +481,8 @@ The Boundary Operator is not merely a geometric edge—it is a **Functor** betwe
    - **Cutting:** The excision defines a cobordism $W$ with $\partial W = \Sigma$
    - **Gluing:** Composition in $\mathbf{Bord}_n$ via the pushout $u_{\text{bulk}} \sqcup_\Sigma u_{\text{cap}}$
 
-4. **DPI Capacity Bound (Tactic E8):** If $|\pi_0(\mathcal{X}_{\text{sing}})| = \infty$ but $\chi(\partial\mathcal{X}) < \infty$, the singularity is **statistically excluded** by the channel capacity bound.
+4. **Holographic Bound (Tactic E8):** If $|\pi_0(\mathcal{X}_{\text{sing}})| = \infty$ but $\chi(\partial\mathcal{X}) < \infty$, the singularity is **cohomologically excluded** by the entropy bound.
 :::
-
-:::{prf:definition} The Thermodynamic Horizon (Levin Limit)
-:label: def-thermodynamic-horizon
-
-To preserve physical consistency, the Sieve operates under a strict **Thermodynamic Budget**. We define the **Levin Complexity** ($Kt$) of a verification trace $\tau$ as:
-
-$$Kt(\tau) = |\tau| + \log(\text{steps}(\tau))$$
-
-where $|\tau|$ is the bitsize of the certificate chain and $\text{steps}(\tau)$ is the number of Sieve operations performed.
-
-**The Horizon Axiom:**
-A verification process is forcibly terminated with verdict **HORIZON** if:
-$$Kt(\tau) > \mathcal{S}_{\max}$$
-where $\mathcal{C}_{\max}$ is the **Channel Capacity** of the observer's boundary interface, limited by the **Data Processing Inequality** rather than a hard thermodynamic horizon.
-
-**Physical Interpretation:**
-This formally identifies **Undecidable Problems** (like the Halting Problem or 4-Manifold Classification) as **Thermodynamically Inaccessible States** (Gas Phase), rather than "failures" of the logic.
-
-**Connection to AIT:**
-The Levin Complexity $Kt(x) = K(x) + \log t(x)$ where $t(x)$ is the runtime of the shortest program producing $x$ ({cite}`LiVitanyi19` §7.5). This combines:
-- **Kolmogorov Complexity** $K(x)$: Space (description length)
-- **Computational Depth** $\log t(x)$: Time (runtime)
-
-forming the **resource-bounded** analog of algorithmic information.
-
-**Thermodynamic Budget**:
-The Channel Capacity Bound for a computational system with finite energy $E$ and radius $R$ is determined by the maximum transmission rate of the boundary surface. Consequently, $\mathcal{S}_{\max} < \infty$ imposes fundamental limits on verification.
-
-**Certificate**:
-When $Kt(\tau) > \mathcal{S}_{\max}$, emit:
-$$K_{\text{Horizon}}^{\text{blk}} = (\text{"Levin Limit exceeded"}, Kt(\tau), \mathcal{S}_{\max}, \text{Gas Phase})$$
-
-**Literature:** {cite}`Levin73` (Resource-bounded complexity); {cite}`Shannon48` (Channel Capacity); {cite}`CoverThomas06` (Data Processing Inequality)
-:::
-
----
 
 ## 5. The Sieve as Constructor
 
@@ -681,7 +560,7 @@ Theorems whose mathematical rigor is offloaded to external, peer-reviewed litera
 | {prf:ref}`mt-up-scattering` | Morawetz 1968, Tao 2006 {cite}`Tao06` | Strichartz & Interaction Morawetz |
 | {prf:ref}`mt-lock-tannakian` | Deligne 1990 {cite}`Deligne90` | Tannakian Duality |
 | {prf:ref}`mt-lock-hodge` | Serre 1956, Griffiths 1968 {cite}`Griffiths68` | GAGA & Hodge Theory |
-| {prf:ref}`mt-lock-entropy` | Shannon 1948 {cite}`Shannon48` | Holographic Capacity Lock |
+| {prf:ref}`mt-lock-entropy` | Bekenstein 1981 {cite}`Bekenstein81` | Holographic Entropy Bound |
 
 **Rigor Class F (Framework-Original Categorical Proofs):**
 Theorems providing original structural glue, requiring first-principles categorical verification using $(\infty,1)$-topos theory. These establish framework-specific constructions not reducible to existing literature.
@@ -1072,93 +951,6 @@ Capacity density bounds prevent concentration on thin sets:
 $$\text{codim}(S) \geq 2 \implies \text{Cap}_H(S) = 0$$
 
 **Enforced by:** {prf:ref}`def-node-geom` — Certificate $K_{\text{Cap}_H}^+$
-:::
-
-:::{prf:axiom} Axiom Geom (Geometric Structure License — Tits Alternative)
-:label: ax-geom-tits
-
-The Thin Kernel's simplicial complex $K$ must satisfy the **Discrete Tits Alternative**: it admits either polynomial growth (Euclidean/Nilpotent), hyperbolic structure (Logic/Free Groups), or is a CAT(0) space (Higher-Rank Lattices).
-
-**Predicate**:
-$$P_{\text{Geom}}(K) := (\text{Growth}(K) \leq \text{Poly}(d)) \lor (\delta_{\text{hyp}}(K) < \infty) \lor (\text{Cone}(K) \in \text{Buildings})$$
-
-**Operational Check** (Node 7c):
-1. **Polynomial Growth Test**: If ball growth satisfies $|B_r(x)| \sim r^d$ for some $d < \infty$, emit $K_{\text{Geom}}^{+}(\text{Poly})$. *(Euclidean/Nilpotent structures)*
-2. **Hyperbolic Test**: Compute Gromov $\delta$-hyperbolicity constant. If $\delta < \epsilon \cdot \text{diam}(K)$ for small $\epsilon$, emit $K_{\text{Geom}}^{+}(\text{Hyp})$. *(Logic trees/Free groups)*
-3. **CAT(0) Test**: Check triangle comparison inequality $d^2(m,x) \leq \frac{1}{2}d^2(y,x) + \frac{1}{2}d^2(z,x) - \frac{1}{4}d^2(y,z)$ for all triangles. If satisfied, emit $K_{\text{Geom}}^{+}(\text{CAT0})$. *(Higher-rank lattices/Yang-Mills)*
-
-**Rejection Mode**:
-If all three tests fail (exponential growth AND fat triangles AND no building structure), the object is an **Expander Graph** (thermalized, no coherent structure). Emit $K_{\text{Geom}}^{-}$ and route to **Mode D.D (Dispersion)** unless rescued by Spectral Resonance ({prf:ref}`ax-spectral-resonance`).
-
-**Physical Interpretation**:
-The Tits Alternative is the **universal dichotomy** for discrete geometric structures:
-- **Polynomial/CAT(0)**: Structured (Crystal phase) → Admits finite description
-- **Hyperbolic**: Critical (Liquid phase) → Admits logical encoding (infinite but compressible)
-- **Expander**: Thermal (Gas phase) → No compressible structure (unless arithmetically constrained)
-
-**Certificate**:
-$$K_{\text{Geom}}^{+} = (\text{GrowthType} \in \{\text{Poly}, \text{Hyp}, \text{CAT0}\}, \text{evidence}, \text{parameters})$$
-
-**Literature:** {cite}`Tits72` (Tits Alternative); {cite}`Gromov87` (Hyperbolic groups); {cite}`BridsonHaefliger99` (CAT(0) geometry); {cite}`Lubotzky94` (Expander graphs)
-
-**Enforced by:** Node 7c (Geometric Structure Check) — Certificate $K_{\text{Geom}}^{\pm}$
-:::
-
-:::{prf:axiom} Axiom Spec (Spectral Resonance — Arithmetic Rescue)
-:label: ax-spectral-resonance
-
-An object **rejected** by {prf:ref}`ax-geom-tits` as an Expander (thermal chaos) is **re-admitted** if it exhibits **Spectral Rigidity** — non-decaying Bragg peaks indicating hidden arithmetic structure.
-
-**Predicate**:
-Let $\rho(\lambda)$ be the spectral density of states for the combinatorial Laplacian $\Delta_K$. Define the **Structure Factor**:
-$$S(t) := \left|\int e^{i\lambda t} \rho(\lambda)\, d\lambda\right|^2$$
-
-The object passes the **Spectral Resonance Test** if:
-$$\exists \{p_i\}_{i=1}^N : \lim_{T \to \infty} \frac{1}{T} \int_0^T S(t)\, dt > \eta_{\text{noise}}$$
-
-where $\{p_i\}$ are **quasi-periods** (resonances) and $\eta_{\text{noise}}$ is the random matrix theory baseline.
-
-**Operational Check** (Node 7d):
-1. **Eigenvalue Computation**: Compute spectrum $\text{spec}(\Delta_K) = \{\lambda_i\}$
-2. **Level Spacing Statistics**: Compute nearest-neighbor spacing distribution $P(s)$
-   - **Poisson** $P(s) \sim e^{-s}$: Random (Gas phase) → Fail
-   - **GUE/GOE** $P(s) \sim s^\beta e^{-cs^2}$: Quantum chaos (Critical) → Pass if Trace Formula detected
-3. **Trace Formula Detection**: Check for periodic orbit formula:
-   $$\rho(\lambda) = \rho_{\text{Weyl}}(\lambda) + \sum_{\gamma \text{ periodic}} A_\gamma \cos(\lambda \ell_\gamma)$$
-   If present, emit $K_{\text{Spec}}^{+}(\text{ArithmeticChaos})$
-
-**Physical Interpretation**:
-This distinguishes:
-- **Arithmetic Chaos** (e.g., Riemann zeros, Quantum graphs, Maass forms): Expander-like growth BUT spectral correlations follow number-theoretic laws → **Admits arithmetic encoding**
-- **Thermal Chaos** (Random matrices, generic expanders): No long-range spectral correlations → **Truly random (Gas phase)**
-
-**Connection to Number Theory**:
-The **Selberg Trace Formula** and **Explicit Formula** for the Riemann zeta function are instances of spectral resonance:
-$$\psi(x) = x - \sum_\rho \frac{x^\rho}{\rho} - \log(2\pi)$$
-where $\rho$ are the non-trivial zeros. The zeros exhibit GUE statistics (quantum chaos) but are **arithmetically structured**.
-
-**Certificate**:
-$$K_{\text{Spec}}^{+} = (\text{LevelStatistics} = \text{GUE/GOE}, \text{TraceFormula}, \{p_i\}, \eta_{\text{signal}}/\eta_{\text{noise}})$$
-
-**Literature:** {cite}`Selberg56` (Trace formula); {cite}`MontgomeryOdlyzko73` (Pair correlation conjecture); {cite}`Sarnak95` (Quantum chaos); {cite}`KatzSarnak99` (Random matrix theory)
-
-**Enforced by:** Node 7d (Spectral Resonance Check) — Certificate $K_{\text{Spec}}^{\pm}$
-:::
-
-:::{prf:remark} Universal Coverage via Tits + Spectral
-:label: rem-universal-coverage
-
-The combination of {prf:ref}`ax-geom-tits` and {prf:ref}`ax-spectral-resonance` achieves **universal coverage** of discrete structures:
-
-| Structure Class | Tits Test | Spectral Test | Verdict | Example |
-|----------------|-----------|---------------|---------|---------|
-| Euclidean/Nilpotent | ✓ Poly | N/A | **REGULAR** (Crystal) | $\mathbb{Z}^d$, Heisenberg group |
-| Hyperbolic/Free | ✓ Hyp | N/A | **PARTIAL** (Liquid) | Free groups, Logic trees |
-| Higher-Rank/CAT(0) | ✓ CAT0 | N/A | **REGULAR** (Structured) | $SL(n,\mathbb{Z})$ ($n \geq 3$), Buildings |
-| Arithmetic Chaos | ✗ Expander | ✓ Resonance | **PARTIAL** (Arithmetic) | Riemann zeros, Quantum graphs |
-| Thermal Chaos | ✗ Expander | ✗ Random | **HORIZON** (Gas) | Random matrices, Generic expanders |
-
-This resolves the **completeness gap**: every discrete structure routes to exactly one verdict.
 :::
 
 ## 10. Boundary Constraints
@@ -2481,173 +2273,6 @@ $$\text{Ent}(f^2 | \mathfrak{m}) \leq \frac{2}{K_{\text{LSI}}}\int_X |\nabla f|^
 
 ---
 
-### Gromov δ-Hyperbolicity: Distinguishing Structure from Chaos
-
-:::{prf:definition} Gromov Hyperbolicity Constant
-:label: def-gromov-hyperbolicity
-
-**Purpose:** Quantify how "tree-like" a metric space is, distinguishing **structured exponential expansion** (reasoning hierarchies, hyperbolic geometry) from **chaotic exponential explosion** (expander graphs, thermal noise).
-
-**Setting:** Let $(X, d)$ be a metric space (the 1-skeleton of a Thin Simplicial Complex, or the graph structure of a Thin State Object).
-
-**The 4-Point Condition (Gromov's Thin Triangle):**
-
-For any four points $w, x, y, z \in X$, define the **Gromov product** with respect to base point $w$:
-$$(x \mid y)_w := \frac{1}{2}\left(d(x, w) + d(y, w) - d(x, y)\right)$$
-
-**Physical Interpretation:** $(x \mid y)_w$ measures "how long $x$ and $y$ travel together from $w$ before separating."
-
-The space is **δ-hyperbolic** if there exists a constant $\delta \geq 0$ such that for all quadruples $(w, x, y, z)$:
-$$(x \mid z)_w \geq \min\{(x \mid y)_w, (y \mid z)_w\} - \delta$$
-
-**Equivalently (4-Point Supremum):** Define
-$$\delta_{\text{Gromov}}(X) := \sup_{w,x,y,z \in X} \left[\min\{(x \mid y)_w, (y \mid z)_w\} - (x \mid z)_w\right]$$
-Then $X$ is $\delta$-hyperbolic if $\delta_{\text{Gromov}}(X) < \infty$.
-
-**Geometric Classification:**
-
-| $\delta_{\text{Gromov}}$ | Space Type | Examples | Physical Meaning |
-|---|---|---|---|
-| $\delta = 0$ | **Tree (0-hyperbolic)** | Phylogenetic trees, parse trees, causal DAGs | Pure reasoning/logic; no loops |
-| $0 < \delta < \infty$ | **Hyperbolic space** | $\mathbb{H}^n$, WordNet embeddings, attention graphs | Structured hierarchies; negative curvature |
-| $\delta \sim \log(N)$ | **Low-dimensional Euclidean** | $\mathbb{R}^d$ lattices, image grids | Flat geometry; polynomial volume growth |
-| $\delta \to \infty$ | **Expander graph / High-temp gas** | Random regular graphs, cryptographic expanders | Chaotic; no geometric structure |
-
-**Computational Complexity:**
-- **Exact:** $O(N^4)$ (check all 4-tuples)
-- **Monte Carlo Estimate:** $O(k)$ for $k$ random samples (sufficient for certification)
-
-**Literature:** Gromov's hyperbolic groups {cite}`Gromov87`; δ-hyperbolicity in graphs {cite}`GhysHarpe90`; Hyperbolic embeddings for NLP {cite}`Nickel17`.
-
-:::
-
-:::{prf:definition} Asymptotic Cone and Tits Alternative
-:label: def-asymptotic-cone
-
-**Purpose:** Classify exponential growth geometries into **structured** (algebraic/hyperbolic) vs **chaotic** (expanders) via large-scale geometry.
-
-**The Limitation of CAT(0):**
-
-CAT(0) (non-positive curvature) admits hyperbolic and higher-rank lattices but **rejects Sol geometry** (solvable Lie group with mixed positive/negative curvature). Sol appears in 3-manifold decompositions (Thurston geometries) and is essential for geometrization theorems.
-
-**Asymptotic Cone Classification:**
-
-For a metric space $(X, d)$ with basepoint $o$, the **asymptotic cone** $\text{Cone}_\omega(X)$ is the ultralimit:
-$$\text{Cone}_\omega(X) = \lim_{\omega} (X, \frac{1}{n}d, o)$$
-
-where $\omega$ is a non-principal ultrafilter. Intuitively: "The view from infinity after rescaling."
-
-**Theorem (Tits Alternative for Groups):**
-
-Let $\Gamma$ be a finitely generated group. Then exactly one holds:
-1. $\Gamma$ contains a free subgroup $F_2$ (hyperbolic behavior)
-2. $\Gamma$ is virtually solvable (polynomial or Sol-like)
-
-**Geometric Tits Alternative (Structure vs Chaos):**
-
-For a graph $G$ with exponential growth, classify via asymptotic cone dimension:
-
-| Asymptotic Cone | Dimension | Group Type | Growth | Admit? |
-|----------------|-----------|------------|---------|---------|
-| **Tree** | 1 | Hyperbolic | $e^{\alpha r}$ | ✓ |
-| **$\mathbb{R}^n$** | $n < \infty$ | Nilpotent/Solvable | Polynomial/$e^{\sqrt{r}}$ | ✓ |
-| **Tits Building** | $n < \infty$ | Higher-rank lattice | $e^{\alpha r}$ | ✓ |
-| **Sol (Mixed)** | 3 | Solvable (non-nilpotent) | $e^{\alpha r}$ | ✓ |
-| **$\infty$-dimensional** | $\infty$ | Expander | $e^{\alpha r}$ | ✗ |
-
-**Decidable Proxy (Coarse Geometric Invariants):**
-
-Compute asymptotic cone dimension via:
-1. **Polynomial growth:** $\dim(\text{Cone}) = \lim_{r \to \infty} \frac{\log |B_r|}{\log r}$
-2. **Exponential growth with flat subgroups:** Test for embedded $\mathbb{Z}^k$ (commuting elements)
-3. **Expander detection:** Check if all $\mathbb{Z}^k$ embeddings have $k \leq \log(\text{expansion})$ (expanders have no large Euclidean subgraphs)
-
-**Admission Criterion:**
-
-ADMIT if $\dim(\text{Cone}_\omega(G)) < \infty$ (finite-dimensional asymptotic geometry)
-REJECT if $\dim(\text{Cone}_\omega(G)) = \infty$ (expander; no coarse geometric structure)
-
-**Literature:** Tits alternative {cite}`Tits72`; Asymptotic cones {cite}`Gromov93`; Sol geometry {cite}`Thurston97`; Geometric group theory {cite}`BridsonHaefliger99`.
-
-:::
-
-:::{prf:definition} Sol Geometry and Thurston's 8 Geometries
-:label: def-sol-geometry
-
-**Purpose:** Classify 3-manifolds via geometric structures.
-
-**Thurston's Classification:** Every closed 3-manifold decomposes into pieces, each admitting one of 8 geometric structures:
-
-| Geometry | Curvature | Growth | $\dim(\text{Cone})$ | Admitted by Tits? |
-|----------|-----------|--------|---------------------|-------------------|
-| $S^3$ | Positive (spherical) | Polynomial | 3 | ✓ (Step 2a) |
-| $\mathbb{E}^3$ | Zero (Euclidean) | Polynomial | 3 | ✓ (Step 2a) |
-| $\mathbb{H}^3$ | Negative (hyperbolic) | Exponential | 1 | ✓ (Step 2b, $\delta < \infty$) |
-| $S^2 \times \mathbb{R}$ | Mixed (pos + flat) | Polynomial | 3 | ✓ (Step 2a) |
-| $\mathbb{H}^2 \times \mathbb{R}$ | Mixed (neg + flat) | Exponential | 2 | ✓ (Step 2b, embedded $\mathbb{Z}$) |
-| $\widetilde{\text{SL}_2(\mathbb{R})}$ | Negative | Exponential | 1 | ✓ (Step 2b, $\delta < \infty$) |
-| **Nil** | Zero (nilpotent) | Polynomial | 3 | ✓ (Step 2a, nilpotent → poly) |
-| **Sol** | **Mixed (pos + neg)** | **Exponential** | **3** | ✓ (Step 2b, solvable → $\dim < \infty$) |
-
-**Sol Geometry (Solvable Lie Group):**
-
-Matrix representation:
-$$\text{Sol} = \left\{\begin{pmatrix} e^t & 0 & x \\ 0 & e^{-t} & y \\ 0 & 0 & 1 \end{pmatrix} : t, x, y \in \mathbb{R}\right\}$$
-
-**Key properties:**
-- **Exponential growth:** $|B_r| \sim e^{\alpha r}$ (expanding in $t$ direction)
-- **Mixed curvature:** Positive in some directions, negative in others (NOT CAT(0))
-- **Solvable group:** $[\text{Sol}, [\text{Sol}, \text{Sol}]] = \{e\}$ (commutator series terminates)
-- **Asymptotic cone:** $\text{Cone}_\omega(\text{Sol}) \cong \mathbb{R}^3$ (finite-dimensional)
-
-**Why Sol is NOT an expander:**
-- Embedded $\mathbb{Z}^2$ subgroup (flat planes in $x$, $y$ directions)
-- Finite-dimensional asymptotic cone (structured large-scale geometry)
-- Spectral gap from solvability (algebraic constraint)
-
-**Critical for geometrization:** Sol fibers appear in Ricci Flow singularities during 3-manifold surgery. Rejecting Sol would invalidate completeness of the classification.
-
-**Literature:** Thurston geometries {cite}`Thurston97`; Sol geometry {cite}`Scott83`; Geometrization {cite}`PerelmanI02`.
-
-:::
-
-:::{prf:theorem} LSI for Finite-Dimensional Asymptotic Cones
-:label: thm-lsi-finite-cone
-
-**Claim:** Exponential volume growth with finite-dimensional asymptotic cone does NOT violate LSI, provided spectral gap holds.
-
-**Proof Sketch:**
-
-For metric space $(X,d)$ with $|B_r| \sim e^{\alpha r}$ and $\dim(\text{Cone}_\omega(X)) = n < \infty$:
-
-**Intrinsic volume growth** matches asymptotic dimension:
-$$\text{Vol}_{\text{intrinsic}}(B_r) \sim e^{\beta r} \quad \text{where } \beta = \alpha \text{ (geometric constraint)}$$
-
-**Density ratio:**
-$$\rho(r) = \frac{|B_r|}{\text{Vol}_{\text{intrinsic}}(B_r)} = \frac{e^{\alpha r}}{e^{\beta r}} \approx \text{const.}$$
-
-**LSI constant** (Bakry-Émery):
-- **Hyperbolic:** $K_{\text{LSI}} = |K|/(n-1)$
-- **Nilpotent/Solvable:** Polynomial or stretched exponential; LSI from spectral gap
-- **Higher-rank lattice:** $K_{\text{LSI}}$ from measured $\lambda_2$
-
-**Admitted Geometries:**
-
-| Type | Asymptotic Cone | Growth | Example |
-|------|----------------|---------|---------|
-| Hyperbolic | Tree | $e^{\alpha r}$ | Reasoning, DAGs |
-| Euclidean | $\mathbb{R}^n$ | $r^n$ | Image grids |
-| Sol | $\mathbb{R}^3$ (mixed) | $e^{\alpha r}$ | 3-manifolds |
-| Higher-rank | Tits Building | $e^{\alpha r}$ | $\text{SL}(3,\mathbb{Z})$ |
-
-**Key:** $\dim(\text{Cone}) < \infty$ ensures geometric constraint. Expanders have $\dim(\text{Cone}) = \infty$ (no LSI).
-
-**Literature:** Asymptotic cones {cite}`Gromov93`; LSI on metric spaces {cite}`Ledoux01`; Thurston geometries {cite}`Thurston97`.
-
-:::
-
----
-
 ### Node 7: LSI Permit via Thin Interfaces (Discrete-to-Continuum Lifting)
 
 :::{prf:theorem} LSI Permit via Expansion Adjunction
@@ -2732,110 +2357,38 @@ The system is admitted if the discrete Thin Kernel satisfies **BOTH**:
    $$\lambda_2(L) > \epsilon$$
    for some $\epsilon > 0$ independent of discretization level, where $L$ is the graph Laplacian.
 
-2. **Volume Growth & Geometry (The Gromov Gate - 3-Way Check):**
-
-   The system performs a **cascading check** to distinguish **Structured Expansion** (hyperbolic reasoning) from **Unstructured Explosion** (expander noise):
-
-   **Step 2a: Test Polynomial Growth (Euclidean/Flat Spaces)**
+2. **Volume Growth (Dimension Bound - Bishop-Gromov):**
    $$\text{Vol}(B_r(x)) \leq C r^D$$
-   for all balls of radius $r$ centered at $x \in V$, where $D < \infty$ is the effective dimension.
+   for all balls of radius $r$ centered at $x \in V$, where $D < \infty$ is the effective dimension and $C$ is a constant.
 
-   **Discrete Formulation:** $|B_r(x)| \leq C r^D$ (vertex count).
+   **Equivalently (Discrete Formulation):** The ball counting function satisfies
+   $$|B_r(x)| \leq C r^D$$
+   where $|B_r(x)|$ is the number of vertices within graph distance $r$ from $x$.
 
-   - **If polynomial growth holds:** PASS immediately (Euclidean-like; finite dimension guaranteed).
+**Why Both Conditions Are Necessary:**
 
-   **Step 2b: Test Finite-Dimensional Asymptotic Cone (Tits Alternative)**
+- **Spectral Gap Alone Is Insufficient:** Expander graphs have arbitrarily large spectral gaps ($\lambda_2 \sim \Omega(1)$) but exhibit **exponential volume growth** $\text{Vol}(B_r) \sim k^r$, converging to infinite-dimensional hyperbolic-like objects, not finite-dimensional Riemannian manifolds. Such "monsters" violate the dimension axioms in metalearning.md.
 
-   If Step 2a fails (exponential growth detected: $|B_r| \sim k^r$ for some $k > 1$), test whether $\dim(\text{Cone}_\omega(G)) < \infty$ via:
-
-   **Decidable Proxy Tests:**
-   1. **δ-Hyperbolicity:** If $\delta_{\text{Gromov}} < \epsilon \cdot \text{diam}$, then Cone is a tree ($\dim = 1$)
-   2. **Flat Subgroup Test:** Search for commuting subgroups $\mathbb{Z}^k \hookrightarrow G$. If max $k < \infty$, then $\dim(\text{Cone}) \leq k$
-   3. **Expander Rejection:** If no $\mathbb{Z}^k$ with $k > \log(\lambda_1/\lambda_2)$, then $\dim(\text{Cone}) = \infty$ (expander)
-
-   **Admitted Structures (Definition {prf:ref}`def-asymptotic-cone`):**
-   - **Hyperbolic:** $\delta < \infty$ → Cone is tree
-   - **Sol/Solvable:** Embedded $\mathbb{Z}^2$ → Cone is $\mathbb{R}^3$ (mixed curvature)
-   - **Higher-rank:** Embedded $\mathbb{Z}^k$ → Cone is Tits Building ($\dim = k$)
-
-   - **If $\dim(\text{Cone}) < \infty$:** PASS (structured; LSI via Theorem {prf:ref}`thm-lsi-finite-cone`)
-   - **Physical Interpretation:** Finite asymptotic cone ensures geometric constraint. Covers Thurston geometries (including Sol) and algebraic groups
-
-   **Step 2c: Black Box Encapsulation (Cryptography Exception)**
-
-   If both polynomial growth and finite asymptotic cone fail (expander detected: $\dim(\text{Cone}) = \infty$), check for small boundary:
-
-   $$\frac{|\partial R|}{\text{Vol}(R)} \leq \epsilon_{\text{boundary}}$$
-
-   where $\partial R$ is the boundary (interface vertices) and $\text{Vol}(R)$ is the internal volume.
-
-   - **If small boundary:** PASS (relative finite-cone; Definition {prf:ref}`def-relative-hyperbolicity`)
-     - **Examples:** Cryptographic functions (AES, SHA-256), compiled libraries, SAT solvers
-     - **Operational:** Collapse expander to single black box node; quotient graph has finite asymptotic cone
-     - **Physical Interpretation:** Agent cannot simulate internals (expander unlearnable) but can use as tool (symbolic abstraction)
-
-   - **If large boundary (hairball):** Proceed to Step 2d
-
-   **Step 2d: Spectral Resonance (Arithmetic Chaos vs Thermal Noise)**
-
-   If Step 2c fails (positive curvature + large boundary), test for **spectral rigidity** via structure factor (Permit $K_{\mathrm{Spec}}$, Definition {prf:ref}`permit-spectral-resonance`):
-
-   $$S(k) = \left|\sum_{n=1}^{N} e^{2\pi i k x_n}\right|^2$$
-
-   where $\{x_n\}$ are rescaled point positions (Riemann zeros, eigenvalues, etc.).
-
-   **Admission criterion:**
-   $$\max_k S(k) > \eta \cdot \overline{S} \qquad (\eta > 10)$$
-
-   Equivalently via **number variance**: $\Sigma^2(L) \sim \log L$ (GUE) vs $\Sigma^2(L) \sim L$ (Poisson).
-
-   - **If $K_{\mathrm{Spec}}^+$:** PASS (arithmetic chaos; eigenvalue repulsion from trace formula)
-   - **If $K_{\mathrm{Spec}}^-$:** REJECT as Mode D.D (thermal noise; no hidden order)
-
-**Why This Cascading 4-Way Check Is Necessary:**
-
-- **Step 2a:** Polynomial growth → RCD(K,D)
-- **Step 2b:** Finite asymptotic cone (Tits Alternative) → Hyperbolic/Sol/Higher-rank
-- **Step 2c:** Black box encapsulation → Crypto modules (small boundary)
-- **Step 2d:** Spectral rigidity → Arithmetic chaos (GUE)
-- **Reject:** Expander ($\dim(\text{Cone}) = \infty$ + large boundary + no spectral order)
+- **Volume Growth Ensures Finite Dimension:** The Bishop-Gromov condition guarantees that the Gromov-Hausdorff limit is a metric-measure space with **Hausdorff dimension** $\leq D$. Combined with the spectral gap, this ensures convergence to an $\mathrm{RCD}(K, D)$ space (Riemannian Curvature-Dimension space with finite dimension $D$).
 
 **Certificate Components:**
-- $\lambda_2 > 0$: Spectral gap
-- $D < \infty$ (if polynomial): Effective dimension
-- $\dim(\text{Cone}_\omega(G))$ or $\delta_{\text{Gromov}}$ (if exponential)
-- $|\partial R|/\text{Vol}(R)$ (if black box)
-- $\max_k S(k) / \overline{S}$ (if spectral)
-- $G = (V, E, W)$ or $(V, E, F)$: Graph or simplicial
+- $\lambda_2 > 0$: Second eigenvalue of graph Laplacian
+- $D < \infty$: Effective dimension (volume growth exponent)
+- $G = (V, E, W)$: Thin Graph structure
+- $\epsilon$: Uniform spectral gap bound
+- $C$: Volume growth constant
+- (Optional) $C_{\text{entropy}}$: Measured entropy decay rate from runtime telemetry
 
 **Routing:**
-- **If Permit Granted ($K_{\mathrm{Tits}}^+$):**
-  - **Case 1:** Polynomial → RCD(K,D)
-  - **Case 2:** $\dim(\text{Cone}) < \infty$ → Hyperbolic/Sol/Higher-rank
-  - **Case 3:** Black box → Relative Tits
-  - **Case 4:** Spectral ($K_{\mathrm{Spec}}^+$) → Arithmetic
-  - **All:** Issue $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$, proceed to Node 8
-
-- **If Spectral Gap Fails:** Route to BarrierGap
-
-- **If Tits Fails ($K_{\mathrm{Tits}}^-$ and $K_{\mathrm{Spec}}^-$):**
-  - $\dim(\text{Cone}) = \infty$ + large boundary + no spectral order
-  - **Reject:** Mode D.D (expander/thermal)
+- **If Permit Granted ($K_{\mathrm{LSI}}^+$):** Both conditions satisfied; issue enhanced stiffness certificate $K_{\mathrm{LS}_\sigma}^{\text{LSI}}$ and proceed to TopoCheck (Node 8)
+- **If Spectral Gap Fails ($K_{\mathrm{LSI}}^{\text{gap-}}$):** Route to BarrierGap or Restoration Subtree
+- **If Volume Growth Fails ($K_{\mathrm{LSI}}^{\text{vol-}}$):** Expander graph detected; route to Barrier or Surgery (system is infinite-dimensional)
 
 **Decidability:** $\Sigma_1^0$ (recursively enumerable). Both $\lambda_2$ and volume growth exponent can be computed via finite linear algebra and graph traversal.
 
 **Usage Mode:** This permit is checked **in parallel** with the standard Łojasiewicz-Simon inequality at Node 7. For discrete systems (Markov chains, graph neural networks, finite element methods), this is the **primary verification route** because it bypasses PDE analysis entirely while maintaining rigorous convergence guarantees.
 
-**Domain Coverage:**
-- **Computational complexity:** $\dim(\text{Cone}) = 1$ (hyperbolic proof trees)
-- **3-manifold topology:** $\dim(\text{Cone}) < \infty$ (Thurston geometries: $S^3$, $\mathbb{E}^3$, $\mathbb{H}^3$, Sol)
-- **Algebraic geometry:** Polynomial (locally Euclidean)
-- **Parabolic PDEs:** Polynomial (local evolution)
-- **Abelian varieties:** Polynomial (group structure)
-- **Gauge theory:** $\dim(\text{Cone}) < \infty$ ($\text{SL}(3,\mathbb{Z})$, Lie groups)
-- **Analytic number theory:** $K_{\mathrm{Spec}}^+$ (GUE, trace formulas)
-
-**Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; Tits alternative {cite}`Tits72`; Asymptotic cones {cite}`Gromov93`; Sol geometry and Thurston geometries {cite}`Thurston97`; Higher-rank rigidity {cite}`Margulis91`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`; Geometric group theory {cite}`BridsonHaefliger99`.
+**Literature:** RCD theory {cite}`Sturm06a`, {cite}`LottVillani09`; Bishop-Gromov volume comparison {cite}`Gromov81`; Discrete LSI {cite}`Diaconis96`; Graph spectra {cite}`Chung97`.
 
 :::
 
@@ -2859,409 +2412,6 @@ When you discretize a PDE on a mesh, you replace:
 3. Invoke RCD stability → Continuous LSI holds on the limit manifold
 
 **The "Physicist Certificate":** If your entropy dissipation telemetry shows exponential decay, you don't need to prove anything—the system is self-certifying its LSI via runtime measurement.
-
-:::
-
----
-
-:::{prf:definition} Permit $K_{\mathrm{Hyp}}$ (Gromov-Hyperbolicity License)
-:label: permit-gromov-hyperbolicity
-
-**Permit ID:** $K_{\mathrm{Hyp}}$
-
-**Purpose:** Authorize **exponential volume growth** in systems with **geometric structure** (hyperbolic reasoning trees, hierarchical embeddings) while rejecting **chaotic thermal expansion** (expander graphs, random noise).
-
-**Admission Condition:**
-
-A Thin Kernel object $\mathcal{T}$ with exponential volume growth $|B_r| \sim k^r$ (where $k > 1$) is admitted if its underlying metric space $(X, d)$ satisfies the **δ-thin triangle condition**:
-$$\delta_{\text{Gromov}}(X) < \epsilon \cdot \text{diam}(X)$$
-
-where:
-- $\delta_{\text{Gromov}}$ is defined by the 4-point supremum (Definition {prf:ref}`def-gromov-hyperbolicity`)
-- $\text{diam}(X) = \sup_{x,y \in X} d(x, y)$ is the diameter
-- $\epsilon$ is the structure tolerance (typically $\epsilon \sim 0.1$ to $0.2$)
-
-**Justification:**
-
-This ensures that any exponential growth in state volume corresponds to a **tree-like logical expansion** (valid reasoning) rather than **expander-graph dispersion** (thermal noise). This preserves the **Concentration of Measure** phenomenon required for the Expansion Adjunction $\mathcal{F} \dashv U$.
-
-**Physical Guarantee:** In a $\delta$-hyperbolic space, the intrinsic geometric volume $\text{Vol}_{\mathbb{H}}(B_r)$ grows exponentially at the same rate as the state count. Thus, the density $\rho = \frac{\text{states}}{\text{Vol}_{\mathbb{H}}}$ remains bounded, and **energy conservation** is preserved (Theorem {prf:ref}`thm-lsi-hyperbolic-density`).
-
-**Certificate Components:**
-- $\delta_{\text{Gromov}} < \infty$: Gromov hyperbolicity constant
-- $\text{diam}(X)$: Diameter of the metric space
-- $k$: Volume growth rate ($|B_r| \sim k^r$)
-- $\epsilon$: Structure tolerance threshold
-
-**Routing:**
-- **If Permit Granted ($K_{\mathrm{Hyp}}^+$):** System exhibits structured hyperbolic expansion; proceed with LSI verification
-- **If Permit Denied ($K_{\mathrm{Hyp}}^-$):** Expander graph detected ($\delta \to \infty$); route to Mode D.D (Dispersion/Unstructured Explosion)
-
-**Decidability:** $\Sigma_1^0$ (recursively enumerable). $\delta_{\text{Gromov}}$ can be estimated via Monte Carlo sampling in $O(k)$ time for $k$ samples.
-
-**Usage Context:** This permit is checked **within Step 2b of the LSI Permit** (when exponential growth is detected). It acts as a **geometric sieve** distinguishing:
-- **Accept:** Language models, reasoning systems, causal attention graphs (hyperbolic)
-- **Reject:** Cryptographic expanders, high-temperature gases, random graphs (chaotic)
-
-**Literature:** Gromov's hyperbolic groups {cite}`Gromov87`; Hyperbolic geometry of networks {cite}`KleinbergLiben-Nowell02`; Concentration in hyperbolic spaces {cite}`LedouxTalagrand91`.
-
-:::
-
----
-
-:::{prf:definition} Arithmetic Chaos and Spectral Rigidity
-:label: def-arithmetic-chaos
-
-**Purpose:** Distinguish **number-theoretic structures** (Riemann zeros, prime gaps) that exhibit local chaos but global spectral order from **true thermal noise** (random expanders).
-
-**Gaussian Unitary Ensemble (GUE):**
-
-For random $N \times N$ Hermitian matrices $H$ with probability measure $d\mu(H) \propto e^{-\frac{N}{2}\text{Tr}(H^2)} dH$, eigenvalues $\{\lambda_i\}$ exhibit **level repulsion**:
-
-$$P(\lambda_1, \ldots, \lambda_N) = \frac{1}{Z_N} \prod_{i<j} |\lambda_i - \lambda_j|^2 \cdot e^{-\frac{N}{2}\sum_i \lambda_i^2}$$
-
-**Key statistics:**
-- **Nearest-neighbor spacing:** $p(s) \sim s \cdot e^{-\frac{\pi}{4}s^2}$ (Wigner surmise; linear repulsion near $s=0$)
-- **Number variance:** $\Sigma^2(L) = \frac{2}{\pi^2} \log L + O(1)$ (logarithmic rigidity)
-
-**Montgomery-Dyson Conjecture:**
-
-Let $\rho = \frac{1}{2} + i\gamma$ denote nontrivial zeros of $\zeta(s)$, rescaled to unit mean spacing. Define the **pair correlation function**:
-
-$$R_2(r) = 1 - \left(\frac{\sin(\pi r)}{\pi r}\right)^2 + \delta(r)$$
-
-This matches GUE eigenvalue statistics. Equivalently, normalized zero spacings $\{t_n = \gamma_n \cdot \frac{\log \gamma_n}{2\pi}\}$ satisfy:
-
-$$\lim_{T \to \infty} \frac{1}{N(T)} \sum_{\gamma_n < T} f(t_{n+1} - t_n) = \int_0^\infty f(s) \cdot p_{\text{GUE}}(s) \, ds$$
-
-**Selberg Trace Formula:**
-
-For automorphic L-functions, the explicit formula relates primes $p^m$ to spectral data:
-
-$$\sum_{n} h(\gamma_n) = \frac{1}{2\pi} \int_{-\infty}^\infty h(r) \Phi(r) dr - \sum_{p^m} \frac{\log p}{p^{m/2}} g(m \log p) + \text{(boundary terms)}$$
-
-where $\gamma_n$ are imaginary parts of zeros, $h$ is a test function, and $\Phi$ is the scattering phase. This is the **trace formula**: arithmetic spectrum (primes) ↔ spectral data (zeros).
-
-**The Distinguishing Feature: Spectral Rigidity**
-
-**Definition (Structure Factor):** For a point process $\{x_n\}$ (e.g., Riemann zeros, prime gaps), the **structure factor** is the Fourier transform of the pair correlation function:
-$$S(k) = \left|\sum_{n} e^{2\pi i k x_n}\right|^2$$
-
-**Classification:**
-
-| System | Local Behavior | Structure Factor S(k) | Physical Meaning |
-|--------|----------------|----------------------|------------------|
-| **Thermal noise** | Uncorrelated | Flat (white noise) | No hidden order |
-| **Crypto/expander** | Pseudorandom | Nearly flat | Designed confusion |
-| **Arithmetic chaos** | GUE-like | **Sharp peaks** (Bragg resonances) | Hidden periodicity |
-| **Riemann zeros** | GUE local statistics | Peaks at reciprocal lengths | Selberg trace formula |
-
-**Key Observation:** Arithmetic chaos "sings in a specific key" - the structure factor has **delta-function peaks** corresponding to the spectrum of the underlying operator (Laplacian on fundamental domain, Hecke operators).
-
-**The Selberg Trace Formula Connection:**
-
-For the Riemann zeta function, the **explicit formula** relates prime powers to Riemann zeros:
-$$\psi(x) = x - \sum_\rho \frac{x^\rho}{\rho} - \log(2\pi) - \frac{1}{2}\log(1 - x^{-2})$$
-
-This is a **trace formula**: it expresses a sum over primes (arithmetic object) as a sum over zeros (spectral object). The structure factor of the zeros encodes this duality.
-
-**Physical Analogy:** Arithmetic chaos is like a **quasicrystal** - locally disordered (GUE) but with long-range correlations (Bragg peaks). Thermal noise is like a **liquid** - truly disordered at all scales.
-
-**Literature:** Montgomery-Dyson conjecture {cite}`Montgomery73`; Random Matrix Theory of zeta {cite}`KeatingSnaith00`; Selberg trace formula {cite}`Selberg56`; Spectral rigidity {cite}`Berry85`.
-
-:::
-
----
-
-:::{prf:definition} Relative Hyperbolicity (Hyperbolic Modulo Black Boxes)
-:label: def-relative-hyperbolicity
-
-**Purpose:** Extend hyperbolicity to systems containing **opaque encapsulated modules** (cryptographic functions, compiled binaries, symbolic oracles) that internally violate geometric structure but have small interfaces.
-
-**Motivation (The Cryptography Problem):**
-
-Cryptographic functions (AES, SHA-256, RSA) are **intentionally designed as expander graphs**:
-- **Goal:** Maximize confusion and diffusion (structured input → indistinguishable from random noise)
-- **Geometry:** Optimal expander with massive spectral gap + exponential volume growth
-- **Sieve Reaction:** Node 7c detects exponential growth + $\delta \to \infty$ → REJECT as Mode D.D (Dispersion)
-
-**But this is correct!** Cryptography **should not be learnable via continuous intuition**. The Sieve is telling the agent: *"You cannot use geometric reasoning here. You must use symbolic abstraction."*
-
-**The Fix:** A space $X$ is **hyperbolic relative to a collection of subspaces** $\{R_1, \ldots, R_k\}$ if:
-
-1. Each subspace $R_i \subset X$ may violate $\delta$-hyperbolicity (internal expander structure)
-2. The **quotient space** $X / \{R_1, \ldots, R_k\}$ (collapsing each $R_i$ to a single point) is $\delta$-hyperbolic
-3. Each $R_i$ has **small boundary** relative to its volume:
-   $$\frac{|\partial R_i|}{\text{Vol}(R_i)} \leq \epsilon_{\text{boundary}}$$
-
-**Geometric Interpretation:**
-
-- **$X$:** The full reasoning graph (including crypto operations)
-- **$R_i$:** A cryptographic subroutine (e.g., AES block, hash function)
-- **Condition:** If you treat each $R_i$ as an **atomic black box node**, the resulting abstracted graph is tree-like (hyperbolic)
-
-**Example:**
-
-- **Agent tries to simulate AES bit-by-bit:** The internal state graph is a 128-dimensional expander. $\delta \to \infty$. **REJECT.**
-- **Agent uses AES as a function:** The reasoning graph is `input → AES(key, plaintext) → output`, with AES as a single node. The logic using AES forms a DAG (tree-like). **ACCEPT** (encapsulate AES as $R_1$).
-
-**Literature:** Relatively hyperbolic groups {cite}`Farb98`; Bowditch's boundary theory {cite}`Bowditch12`; Hyperbolic dehn filling {cite}`Thurston86`.
-
-:::
-
----
-
-:::{prf:definition} Permit $K_{\mathrm{Box}}$ (Opaque Encapsulation)
-:label: permit-opaque-encapsulation
-
-**Permit ID:** $K_{\mathrm{Box}}$
-
-**Purpose:** Admit **expander-like subregions** (cryptography, compiled code, oracles) as **black box atomic modules**, provided they have small interfaces relative to internal complexity.
-
-**Admission Condition:**
-
-Let $R \subset X$ be a subregion of the state space that violates $\delta$-hyperbolicity ($\delta_{\text{Gromov}}(R) > \epsilon \cdot \text{diam}(R)$, i.e., it's an expander). The region $R$ is admitted as a **black box** if:
-
-$$\frac{|\partial R|}{\text{Vol}(R)} \leq \epsilon_{\text{boundary}}$$
-
-where:
-- $\partial R$ is the **boundary** (interface vertices: nodes with edges connecting $R$ to $X \setminus R$)
-- $\text{Vol}(R) = |R|$ is the volume (number of vertices in $R$)
-- $\epsilon_{\text{boundary}}$ is the encapsulation tolerance (typically $\epsilon_{\text{boundary}} \sim 0.01$ to $0.05$)
-
-**Physical Interpretation:**
-
-The **boundary-to-volume ratio** measures how "atomic" the module is:
-- **Small ratio ($\ll 1$):** The module has a **small interface** (few input/output ports) relative to **high internal complexity**. This is characteristic of:
-  - Cryptographic primitives (AES: 2 inputs, 1 output; internal state: $2^{128}$)
-  - Compiled libraries (API: few functions; internal code: millions of instructions)
-  - Symbolic oracles (SAT solver: formula in/out; internal search: exponential)
-
-- **Large ratio ($\sim 1$):** The module is not encapsulated—it's a highly connected "hairball" (rejected as thermal noise).
-
-**Operational Meaning:**
-
-If $R$ is admitted as a black box:
-1. The agent **collapses $R$ to a single atomic node** $\boxed{R}$ in the abstracted reasoning graph
-2. The agent **does not attempt to simulate the internals** of $R$ (this would fail—expander graphs are unlearnable via geometric intuition)
-3. The agent **treats $R$ as a symbolic tool** with a known interface (input/output signature)
-
-**Routing:**
-- **If Permit Granted ($K_{\mathrm{Box}}^+$):** Encapsulate $R$ as black box; re-run Gromov check on quotient space $X / \{R\}$
-- **If Permit Denied ($K_{\mathrm{Box}}^-$):** Not atomic (large boundary/volume ratio); route to Mode D.D (Dispersion)
-
-**Certificate Components:**
-- $|\partial R|$: Boundary size (number of interface vertices)
-- $\text{Vol}(R)$: Internal volume (number of internal vertices)
-- $\epsilon_{\text{boundary}}$: Encapsulation threshold
-
-**Decidability:** $\Sigma_1^0$ (recursively enumerable). Boundary computation is graph traversal.
-
-**Usage Context:** This permit is checked **within Step 2c of the Gromov Gate** (when $\delta \to \infty$ is detected). It provides a **final escape hatch** before rejection, allowing cryptographic and symbolic modules to be safely encapsulated.
-
-**Literature:** Information hiding in software engineering {cite}`Parnas72`; Module systems in programming languages {cite}`MacQueen84`; Abstraction barriers {cite}`AbelsonSussman96`.
-
-:::
-
----
-
-:::{prf:definition} Permit $K_{\mathrm{Spec}}$ (Spectral Resonance - The Arithmetic Exception)
-:label: permit-spectral-resonance
-
-**Permit ID:** $K_{\mathrm{Spec}}$
-
-**Purpose:** Admit **arithmetic chaos** (Riemann zeros, prime gaps, L-functions) that exhibits expander-like local statistics but **hidden global spectral order**, distinguishing "the music of the primes" from true thermal noise.
-
-**Admission Condition:**
-
-A kernel with expander-like geometry (positive curvature, $\delta \to \infty$) that fails both CAT(0) and black box encapsulation is admitted as **arithmetic chaos** if its **structure factor** exhibits spectral rigidity:
-
-$$\exists \text{ sharp peaks: } \max_k S(k) > \eta \cdot \text{mean}(S(k))$$
-
-where:
-- $S(k) = |\sum_n e^{2\pi i k x_n}|^2$ is the structure factor (Fourier transform of pair correlation)
-- $\{x_n\}$ is the point process (e.g., Riemann zeros, prime gaps)
-- $\eta > 10$ is the peak prominence threshold (Bragg resonance detection)
-
-**Physical Interpretation:**
-
-The structure factor measures **long-range correlations**:
-- **Flat S(k) ~ const:** White noise (uncorrelated) → Thermal chaos → REJECT
-- **Nearly flat with dips:** Crypto/expander (anti-correlated by design) → REJECT
-- **Sharp peaks (Bragg):** Quasicrystalline order (hidden periodicity) → ACCEPT as arithmetic
-
-**Equivalently (Variance Test):** For GUE-like systems, check the **number variance**:
-$$\Sigma^2(L) = \langle (\text{\# zeros in interval of length } L)^2 \rangle - \langle \text{\# zeros} \rangle^2$$
-
-- **Thermal/Poisson:** $\Sigma^2(L) \sim L$ (uncorrelated)
-- **Arithmetic/GUE:** $\Sigma^2(L) \sim \log L$ (spectral rigidity, level repulsion)
-
-**Certificate Components:**
-- $S(k)$: Structure factor (Fourier spectrum)
-- Peak locations $\{k_i\}$: Correspond to reciprocal lengths of fundamental domains
-- Peak prominence $\eta$: Ratio of max peak to mean
-- $\Sigma^2(L)$ behavior: Logarithmic vs. linear growth
-
-**Routing:**
-- **If Permit Granted ($K_{\mathrm{Spec}}^+$):** Arithmetic chaos detected; proceed with number-theoretic analysis (Riemann, L-functions)
-- **If Permit Denied ($K_{\mathrm{Spec}}^-$):** True thermal noise; final REJECT as Mode D.D (Dispersion)
-
-**Decidability:** $\Sigma_2^0$ (requires computing infinite Fourier transform, but can be approximated via finite window with confidence bounds).
-
-**Usage Context:** This permit is checked **as Step 2d** (final check before rejection) when:
-1. Polynomial growth fails (exponential detected)
-2. CAT(0) fails (positive curvature)
-3. Black box encapsulation fails (large boundary)
-4. **Before final rejection:** Check structure factor for hidden order
-
-**Examples:**
-- **Riemann zeros on critical line:** GUE local + Bragg peaks → ACCEPT
-- **Prime gaps:** Locally irregular + spectral rigidity → ACCEPT
-- **L-function zeros:** Arithmetic chaos → ACCEPT
-- **Cryptographic PRNG output:** Flat structure factor → REJECT
-- **Thermal noise (Brownian):** Flat structure factor → REJECT
-
-**Operational Meaning:**
-
-If arithmetic chaos is detected:
-1. The agent **cannot use continuous geometric intuition** (expander topology)
-2. The agent **must use spectral/harmonic methods** (Fourier analysis, trace formulas)
-3. The "reasoning" shifts from **geometry** (CAT(0) geodesics) to **spectral theory** (eigenvalues, resonances)
-
-**Literature:** Montgomery-Dyson conjecture {cite}`Montgomery73`; GUE statistics of Riemann zeros {cite}`Odlyzko87`; Spectral rigidity and number variance {cite}`Berry85`; Selberg trace formula {cite}`Selberg56`; Random Matrix Theory {cite}`MehtaRMT04`.
-
-:::
-
----
-
-:::{admonition} Implementation: Monte Carlo δ-Hyperbolicity Estimation
-:class: dropdown
-
-**Algorithm:** Efficiently estimate $\delta_{\text{Gromov}}$ without $O(N^4)$ brute force.
-
-**Method:** Monte Carlo sampling of 4-point quadruples.
-
-**Python/PyTorch Pseudocode:**
-
-```python
-def compute_gromov_delta(distance_matrix, num_samples=100):
-    """
-    Estimates Gromov δ hyperbolicity of the latent geometry.
-
-    Args:
-        distance_matrix: (N, N) tensor of pairwise distances
-        num_samples: Number of random 4-point samples
-
-    Returns:
-        delta_est: Estimated hyperbolicity constant
-    """
-    N = distance_matrix.shape[0]
-    if N < 4:
-        return 0.0
-
-    # Monte Carlo sampling of 4 random points
-    indices = torch.randint(0, N, (num_samples, 4))
-    w, x, y, z = indices[:, 0], indices[:, 1], indices[:, 2], indices[:, 3]
-
-    # Helper: Gromov product (x|y)_w
-    def gromov_product(i, j, ref):
-        d_iref = distance_matrix[i, ref]
-        d_jref = distance_matrix[j, ref]
-        d_ij = distance_matrix[i, j]
-        return 0.5 * (d_iref + d_jref - d_ij)
-
-    # Compute the three Gromov products for each sample
-    xz_w = gromov_product(x, z, w)
-    yz_w = gromov_product(y, z, w)
-    xy_w = gromov_product(x, y, w)
-
-    # 4-point condition: (x|z)_w >= min{(x|y)_w, (y|z)_w} - δ
-    # Rearranging: δ >= min{(x|y)_w, (y|z)_w} - (x|z)_w
-    min_side = torch.min(xz_w, yz_w)
-    delta_violation = min_side - xy_w
-
-    # The hyperbolicity constant is the worst-case violation
-    delta_est = torch.max(torch.clamp(delta_violation, min=0.0)).item()
-
-    return delta_est
-```
-
-**Integration into Sieve (with Relative Hyperbolicity):**
-
-```python
-def is_atomic_module(subgraph, boundary_threshold=0.05):
-    """
-    Check if an expander subgraph can be encapsulated as a black box.
-
-    Args:
-        subgraph: NetworkX graph or adjacency matrix of the candidate module
-        boundary_threshold: Maximum allowed boundary/volume ratio
-
-    Returns:
-        (is_atomic, boundary_ratio): Tuple of bool and float
-    """
-    # Count internal vertices
-    volume = len(subgraph.nodes())
-
-    # Count boundary vertices (nodes with external edges)
-    boundary = sum(1 for node in subgraph.nodes()
-                   if any(neighbor not in subgraph.nodes()
-                         for neighbor in subgraph.neighbors(node)))
-
-    boundary_ratio = boundary / volume if volume > 0 else float('inf')
-
-    return (boundary_ratio <= boundary_threshold, boundary_ratio)
-
-# Within Node 7 (StiffnessCheck) after volume growth estimation
-volume_growth_rate = estimate_volume_growth(graph)
-
-if volume_growth_rate <= polynomial_threshold:
-    # Step 2a: Polynomial growth → PASS (Euclidean)
-    return Certificate(LSI_PLUS, geometry="euclidean", dimension=D)
-
-elif volume_growth_rate > polynomial_threshold:
-    # Step 2b: Exponential growth → Check δ-hyperbolicity
-    delta_est = compute_gromov_delta(distance_matrix, num_samples=100)
-    diameter = distance_matrix.max().item()
-
-    if delta_est < epsilon_structure * diameter:
-        # Hyperbolic structure detected → PASS
-        return Certificate(LSI_PLUS, geometry="hyperbolic", delta=delta_est)
-    else:
-        # Step 2c: Expander detected → Check for atomic encapsulation
-        is_atomic, boundary_ratio = is_atomic_module(graph, boundary_threshold=0.05)
-
-        if is_atomic:
-            # Black box encapsulation → Collapse to single node and re-check
-            # (In practice: replace subgraph with atomic token in reasoning graph)
-            quotient_graph = collapse_to_blackbox(graph)
-            delta_quotient = compute_gromov_delta(
-                quotient_graph.distance_matrix, num_samples=100
-            )
-
-            if delta_quotient < epsilon_structure * quotient_graph.diameter():
-                # Relatively hyperbolic → PASS
-                return Certificate(
-                    LSI_PLUS,
-                    geometry="relative_hyperbolic",
-                    blackboxes=[graph],
-                    boundary_ratio=boundary_ratio
-                )
-            else:
-                # Quotient still non-hyperbolic → REJECT
-                return Certificate(LSI_GEOM_MINUS, failure_mode="nested_expanders")
-        else:
-            # Not atomic (large boundary) → True thermal noise/chaos
-            return Certificate(
-                LSI_GEOM_MINUS,
-                failure_mode="expander_hairball",
-                boundary_ratio=boundary_ratio
-            )
-```
-
-**Complexity:** $O(k)$ for $k$ samples, typically $k = 100$ suffices for $10^{-2}$ accuracy.
-
-**Convergence:** By the law of large numbers, $\delta_{\text{est}} \to \delta_{\text{Gromov}}$ as $k \to \infty$ with rate $O(k^{-1/2})$.
 
 :::
 
@@ -3989,7 +3139,7 @@ This is the **canonical promotion** from gap certificate to stiffness certificat
 
 **Interface Dependencies:**
 - **Primary:** $\mathrm{Rep}_K$ (provides Kolmogorov complexity $K(x)$ of state description)
-- **Secondary:** $\mathrm{Cap}_H$ (provides DPI information bound $I_{\max}$)
+- **Secondary:** $\mathrm{Cap}_H$ (provides Bekenstein-Hawking entropy bound $S_{\text{BH}}$)
 
 **Sieve Signature:**
 - **Weakest Precondition:** $\{K_{\mathrm{TB}_\rho}^{\pm}\}$
@@ -8831,7 +7981,7 @@ $$K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge (\Delta S_{\mathrm{bad}} < 0
 
 :::
 
-:::{prf:definition} E8: Data Processing Interaction (DPI)
+:::{prf:definition} E8: Holographic obstruction (Capacity)
 :label: def-e8
 
 **Sieve Signature:**
@@ -8839,20 +7989,20 @@ $$K_{D_E}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge (\Delta S_{\mathrm{bad}} < 0
 - **Weakest Precondition:** $\{K_{\mathrm{Cap}_H}^+, K_{\mathrm{TB}_\pi}^+\}$ (capacity bound and topology available)
 - **Produces:** $K_{\mathrm{E8}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** All failure modes (Global Regularity); specifically Mode C.D (geometric collapse)
-- **Breached By:** Information density exceeding channel capacity
+- **Breached By:** Information density within capacity or boundary not defined
 
-**Method**: Data Processing Inequality / Channel Capacity Analysis
+**Method**: Information-theoretic capacity bounds / Holographic principle
 
-**Mechanism**: The boundary $\partial \mathcal{X}$ acts as a communication channel $Y$ between the bulk system $X$ and the external observer $Z$. By the **Data Processing Inequality (DPI)**, processing cannot increase information: $I(X; Z) \leq I(X; Y)$. If the bulk requires transmitting more information than the boundary channel capacity $C(Y)$ allows ($I_{\text{bulk}} > C_{\text{boundary}}$), the interaction is impossible. The singularity is "hidden" because it cannot be faithfully observed.
+**Mechanism**: If morphisms must respect the Bekenstein bound $S \leq \frac{2\pi E R}{\hbar c}$ (information bounded by boundary area) but $\mathbb{H}_{\mathrm{bad}}$ requires $S_{\text{bulk}} > S_{\text{boundary}}$, Hom is empty. The holographic principle constrains information density: bulk entropy cannot exceed boundary area divided by $4G_N$.
 
 **Certificate Logic:**
-$$K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (I_{\mathrm{bad}} > C_{\max}(\partial \mathcal{H})) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
+$$K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (I_{\mathrm{bad}} > I_{\max}(\partial \mathcal{H})) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$$
 
-**Certificate Payload**: $(I_{\mathrm{bad}}, C_{\max}, \text{DPI violation proof})$
+**Certificate Payload**: $(I_{\mathrm{bad}}, I_{\max}, \text{Bekenstein violation proof})$
 
-**Automation**: Via mutual information estimation / channel capacity computation
+**Automation**: Via information-theoretic bounds / entropy estimation / channel capacity computation
 
-**Literature**: Data Processing Inequality {cite}`CoverThomas06`; Channel Capacity {cite}`Shannon48`.
+**Literature:** Bekenstein bound {cite}`Bekenstein73`; holographic principle {cite}`tHooft93`; {cite}`Susskind95`; channel capacity {cite}`Shannon48`.
 
 :::
 
@@ -9118,7 +8268,7 @@ Any compression must have complexity at least $m_{\min}$.
 | E5 | Functional Eq. | $\mathrm{Rep}_K$, $\mathrm{GC}_\nabla$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E5}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | All (unsolvable) |
 | E6 | Causal | $\mathrm{TB}_\pi$, $D_E$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E6}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | All (CTC) |
 | E7 | Thermodynamic | $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E7}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | C.E (2nd Law) |
-| E8 | DPI | $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E8}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | C.D (Capacity) |
+| E8 | Holographic | $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E8}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | C.D (Bekenstein) |
 | E9 | Ergodic | $\mathrm{TB}_\rho$, $C_\mu$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E9}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | T.D (mixing) |
 | E10 | Definability | $\mathrm{TB}_O$, $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E10}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | T.C (tameness) |
 | E11 | Galois-Monodromy | $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E11}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | S.E (solvability) |
@@ -11192,7 +10342,7 @@ $$K_{D_E}^+ \wedge (N_{\text{req}} = \infty) \Rightarrow K_{\mathrm{Rec}_N}^{\ma
 
 **Certificate Produced:** $K_{\mathrm{Rec}_N}^{\text{blk}}$ with payload $(E_{\max}, N_{\max}, T_{\text{horizon}})$ where $N_{\max} = \frac{4 E_{\max} T_{\text{horizon}}}{\pi\hbar}$
 
-**Literature:** {cite}`MargolisLevitin98`; {cite}`Lloyd00`; {cite}`CoverThomas06`
+**Literature:** {cite}`MargolisLevitin98`; {cite}`Lloyd00`; {cite}`BekensteinBound81`
 :::
 
 :::{prf:proof}
@@ -12215,51 +11365,51 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
 
 ### 51.7 Holographic Entropy Lock
 
-:::{prf:theorem} [LOCK-Capacity] Holographic Capacity Lock
+:::{prf:theorem} [LOCK-Entropy] Holographic Entropy Lock
 :label: mt-lock-entropy
 :class: metatheorem rigor-class-l
 
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
 
 **Bridge Verification:**
-1. *Hypothesis Translation:* Certificates $K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+$ imply: bounded boundary channel capacity $C(\partial\mathcal{X})$
-2. *Domain Embedding:* $\iota: \mathbf{Hypo}_T \to \mathbf{InfoGeom}$ mapping to information-theoretic channel model $X \to Y \to Z$
-3. *Conclusion Import:* Shannon's Channel Coding Theorem {cite}`Shannon48` + Data Processing Inequality {cite}`CoverThomas06` $\Rightarrow K_{\text{Holo}}^+$ (bulk information retrieval bounded by boundary capacity)
+1. *Hypothesis Translation:* Certificates $K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_\pi}^+$ imply: bounded boundary area $A(\partial\mathcal{X})$ and finite information content $I(\mathcal{X})$
+2. *Domain Embedding:* $\iota: \mathbf{Hypo}_T \to \mathbf{InfoGeom}$ mapping to information-geometric setting with metric $g_{ij} = \partial_i \partial_j S$
+3. *Conclusion Import:* Bekenstein bound {cite}`Bekenstein81` + Holographic principle {cite}`tHooft93` $\Rightarrow K_{\text{Holo}}^+$ (bulk entropy bounded by boundary capacity: $S_{\text{bulk}} \leq A/4G_N$)
 
 **Sieve Signature**
 - **Requires:** $K_{\mathrm{Cap}_H}^+$ (capacity certificate), $K_{\mathrm{TB}_\pi}^+$ (topological bound)
-- **Produces:** $K_{\text{Holo}}^+$ (holographic capacity certificate, information-theoretic lock)
+- **Produces:** $K_{\text{Holo}}^+$ (holographic entropy certificate, information-theoretic lock)
 
 **Statement:** Let $(\mathcal{X}, \Phi, \mathfrak{D})$ be a hypostructure with boundary $\partial\mathcal{X}$. If the sieve has issued:
-- $K_{\mathrm{Cap}_H}^+$: Capacity bound $\text{Cap}_H(\partial\mathcal{X}) \leq \mathcal{C}_{\max}$
+- $K_{\mathrm{Cap}_H}^+$: Capacity bound $\text{Cap}_H(\partial\mathcal{X}) \leq C_{\max}$
 - $K_{\mathrm{TB}_\pi}^+$: Topological bound on fundamental group $|\pi_1(\partial\mathcal{X})| < \infty$
 
-Then the **Data Processing Inequality** provides an information-theoretic lock:
+Then the **Bekenstein-Hawking bound** provides an information-theoretic lock:
 
-1. **Information Bound:** The retrieveable information satisfies:
-   $$I(X; Z) \leq I(X; Y) \leq C(Y)$$
-   where $Y$ is the boundary channel and $C(Y)$ is its capacity.
+1. **Entropy Bound:** The bulk entropy satisfies:
+   $$S(\mathcal{X}) \leq \frac{A(\partial\mathcal{X})}{4G_N} = \frac{k_B c^3 A}{4 G \hbar}$$
+   where $A(\partial\mathcal{X})$ is the boundary area.
 
 2. **Complexity Bound:** Kolmogorov complexity is bounded:
-   $$K(\mathcal{X}) \leq \mathcal{C}_{\max} + O(1)$$
+   $$K(\mathcal{X}) \leq C \cdot \text{Cap}_H(\partial\mathcal{X})$$
 
-3. **Lock Mechanism:** If $\mathbb{H}_{\mathrm{bad}}$ requires transmitting $I_{\mathrm{bad}} > \mathcal{C}_{\max}$:
+3. **Lock Mechanism:** If $\mathbb{H}_{\mathrm{bad}}$ requires $S_{\mathrm{bad}} > S_{\max}$:
    $$\text{Hom}_{\mathbf{Hypo}_T}(\mathbb{H}_{\mathrm{bad}}, \mathcal{X}) = \emptyset$$
-   The singularity is excluded by channel capacity.
+   The singularity is excluded by information-theoretic capacity.
 
-**Certificate Produced:** $K_{\text{Holo}}^+$ with payload $(\mathcal{C}_{\max}, K_{\max}, \text{DPI verification})$
+**Certificate Produced:** $K_{\text{Holo}}^+$ with payload $(S_{\max}, K_{\max}, A(\partial\mathcal{X}), \text{Bekenstein verification})$
 
-**Literature:** {cite}`Shannon48`; {cite}`CoverThomas06`; {cite}`Levin73`
+**Literature:** {cite}`Bekenstein81`; {cite}`Bekenstein73`; {cite}`tHooft93`; {cite}`Susskind95`; {cite}`Bousso02`
 :::
 
 :::{prf:proof} Proof Sketch
 :label: sketch-mt-lock-entropy
 
-*Step 1 (Data Processing Inequality).* Consider the Markov chain $X \to Y \to Z$, where $X$ is the bulk state, $Y$ is the boundary state, and $Z$ is the observer's measurement. The Data Processing Inequality states that $I(X; Z) \leq I(X; Y)$.
+*Step 1 (Bekenstein Bound).* For a system of energy $E$ confined to region of radius $R$, the maximum entropy is $S \leq 2\pi E R / \hbar c$ {cite}`Bekenstein81`. This follows from the generalized second law: throwing matter into a black hole cannot decrease total entropy (horizon + exterior).
 
-*Step 2 (Channel Capacity).* The mutual information $I(X; Y)$ is upper bounded by the capacity of the boundary channel: $I(X; Y) \leq C(Y) = \max_{p(x)} I(X; Y)$. If the boundary has finite measure/area/dimension, $C(Y)$ is finite.
+*Step 2 (Holographic Principle).* The holographic principle ({cite}`tHooft93`; {cite}`Susskind95`) strengthens this: information content of a region is bounded by its boundary area in Planck units, not volume. For the framework: $K(\mathcal{X}) \lesssim A(\partial\mathcal{X}) / \ell_P^2$.
 
-*Step 3 (Lock Application).* If $\mathbb{H}_{\mathrm{bad}}$ requires establishing an isomorphism or embedding that preserves $I_{\mathrm{bad}}$ bits of information, but $I_{\mathrm{bad}} > C(Y)$, such a morphism cannot exist. The attempt to observe the "bad" structure fails because the boundary cannot transmit the necessary bits to distinguish it.
+*Step 3 (Lock Application).* If $\mathbb{H}_{\mathrm{bad}}$ requires encoding $I_{\mathrm{bad}} > I_{\max}$ bits of information, it cannot embed into $\mathcal{X}$ with finite boundary. The morphism set is empty by information-theoretic obstruction.
 :::
 
 ---
