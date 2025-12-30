@@ -60,6 +60,8 @@ This document presents a **machine-checkable proof object** for the **Fragile Ga
 ::::{prf:theorem} Fragile Gas Step Operator (Softmax Pairing, Momentum-Conserving Cloning)
 :label: thm-fragile-gas-main
 
+**Status:** Certified (this file is a closed sieve proof object; see Part IV).
+
 **Given:**
 - State space: $\mathcal{X} = (B\times \overline{B_{V_{\mathrm{alg}}}})^N$ with state $s=(x,v)$.
 - Bounds: a compact box $B=\prod_{k=1}^d[\ell_k,u_k]\subset\mathbb{R}^d$ used to define the alive mask (no PBC).
@@ -306,6 +308,8 @@ which is the Doeblin/minorization constant used in mean-field and mixing argumen
 :::{prf:lemma} Softmax pairing admits an explicit Doeblin constant
 :label: lem-fragile-gas-softmax-doeblin
 
+**Status:** Certified (finite-swarm inequality; proof below).
+
 Assume $n_{\mathrm{alive}}\ge 2$ and that on the alive slice
 $d_{\mathrm{alg}}(i,j)^2 \le D_{\mathrm{alg}}^2$ for all $i,j\in\mathcal{A}(x)$ (so each softmax weight lies in $[m_\epsilon,1]$ with $m_\epsilon=\exp(-D_{\mathrm{alg}}^2/(2\epsilon^2))$).
 Then for each alive walker $i$, the softmax companion distribution $P_i(\cdot)$ on $\mathcal{A}(x)\setminus\{i\}$ satisfies the uniform minorization
@@ -350,6 +354,8 @@ $$
 
 :::{prf:lemma} Velocity squashing is bounded and 1-Lipschitz
 :label: lem-fragile-gas-velocity-squashing
+
+**Status:** Certified (calculus; proof below).
 
 Let $V_{\mathrm{alg}}>0$ and define the velocity squashing map (as in `src/fragile/core/kinetic_operator.py:psi_v`)
 $$
@@ -408,6 +414,8 @@ In the implementation, this is estimated directly from the step trace:
 :::{prf:lemma} Cloning selection is fitness-aligned (mean fitness increases at the selection stage)
 :label: lem-fragile-gas-selection-alignment
 
+**Status:** Certified (conditional expectation identity; proof below).
+
 Fix a step of the algorithm and condition on the realized companion indices $c=(c_i)$ and the realized fitness values $V=(V_i)$ that are fed into cloning (`compute_fitness` output, with dead walkers having $V_i=0$).
 Define the (alive-walker) cloning score and probability
 $$
@@ -458,6 +466,8 @@ $$
 
 :::{prf:lemma} Viscous coupling is dissipative (degree-weighted energy)
 :label: lem-fragile-gas-viscous-dissipation
+
+**Status:** Certified (exact dissipation identity from symmetry).
 
 Fix positions $x$ and define the symmetric kernel
 $$
@@ -554,6 +564,7 @@ These are the admissibility assumptions used throughout the sieve.
 ### 1. The Arena ($\mathcal{X}^{\text{thin}}$)
 * **State Space ($\mathcal{X}$):** $(x,v)\in(B\times\overline{B_{V_{\mathrm{alg}}}})^N$ on the alive slice.
 * **Metric ($d$):** $d((x,v),(x',v'))^2 = \sum_i \|x_i - x_i'\|^2 + \lambda_{\text{alg}} \|v_i - v_i'\|^2$.
+* **Reference measure ($\mathfrak{m}$):** product Lebesgue measure on $(B\times \overline{B_{V_{\mathrm{alg}}}})^N$ (used for KL/LSI proxy statements).
 
 ### 2. The Potential ($\Phi^{\text{thin}}$)
 * **Height Functional ($F$):** $\Phi(x,v) := V_{\max}-\frac{1}{N}\sum_i V_{\mathrm{fit},i}$.

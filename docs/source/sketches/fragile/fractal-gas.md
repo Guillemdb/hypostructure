@@ -9,11 +9,13 @@ This sketch extracts all Fractal Gas, Fractal Set, CST/IG convergence, and physi
 ## Legend: Thin Inputs and Permit Mapping
 
 **Thin inputs (default):**
-- $\mathcal{X}^{\text{thin}} = (\mathcal{X}, d, \mu)$
+- $\mathcal{X}^{\text{thin}} = (X, d, \mathfrak{m})$
 - $\Phi^{\text{thin}} = (\Phi, \nabla, \alpha)$
 - $\mathfrak{D}^{\text{thin}} = (\mathfrak{D}, \beta)$
 - $G^{\text{thin}} = (G, \rho, \mathcal{S})$
 - $\partial^{\text{thin}} = (\mathcal{B}, \mathrm{Tr}, \mathcal{J}, \mathcal{R})$ (open systems only)
+
+Here $(X,d,\mathfrak{m})$ is the **Thin Kernel arena** in the sense of {prf:ref}`def-thin-objects` (`docs/source/hypopermits_jb.md`). We reserve $\mu$ for *runtime* measures (empirical particle measures, trajectory measures, etc.) as in `docs/source/metalearning.md`.
 
 **Permit legend (node IDs):**
 - $D_E$ (Node 1 EnergyCheck)
@@ -40,7 +42,7 @@ This sketch extracts all Fractal Gas, Fractal Set, CST/IG convergence, and physi
 - Axiom SC -> $\mathrm{SC}_\lambda$ (plus $\mathrm{SC}_{\partial c}$ when parameter stability is needed)
 - Axiom Cap -> $\mathrm{Cap}_H$
 - Axiom LS -> $\mathrm{LS}_\sigma$
-- Axiom TB -> $\mathrm{TB}_\pi$ (plus $\mathrm{TB}_O$ when definability is needed)
+- Axiom TB -> $\mathrm{TB}_\pi,\ \mathrm{TB}_O,\ \mathrm{TB}_\rho$ (topology/tameness/mixing layer)
 - Axiom Rep -> $\mathrm{Rep}_K$
 - Axiom GC -> $\mathrm{GC}_\nabla$ or $\mathrm{GC}_T$ (context noted)
 
@@ -56,6 +58,10 @@ To keep the math honest and usable:
 - **Default rule:** if a block does not explicitly declare a `Status`, treat it as **Heuristic**.
 
 When a statement depends on nontrivial analytic inputs (minorization, Lyapunov drift, Hessian bounds, reach, sampling density, etc.), this sketch records them as **assumptions** rather than silently upgrading to a theorem.
+
+**Nomenclature alignment (important):**
+- In `docs/source/hypopermits_jb.md`, a **permit** is a gate/barrier predicate together with its **certificate type** (Definitions {prf:ref}`def-gate-permits`, {prf:ref}`def-barrier-permits`). In this sketch, a block’s **Permits** line should be read as its hypothesis list in the “sieve language”.
+- In `docs/source/metalearning.md`, the symbol $K_A$ denotes an **axiom defect functional**. In this sketch, the symbol $K$ (when it appears) is used in the *certificate* sense (hypopermits), not as a defect functional.
 
 ## Fractal Gas Core Theorems (Solver Dynamics)
 
@@ -131,26 +137,42 @@ For (B), the normalized Feynman–Kac semigroup is governed by a twisted (killed
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4).
 
-**Statement:** The internal coherence of the swarm is controlled by the ratio of kinematic viscosity $\nu$ to the cloning rate $\delta$. The system exhibits three phases: Gas ($\nu \ll \delta$), Liquid ($\nu \approx \delta$), and Solid ($\nu \gg \delta$). The order parameter:
-$$\Psi_{\text{coh}} = \frac{1}{N^2} \sum_{i,j} \langle \dot{\psi}_i, \dot{\psi}_j \rangle$$
-undergoes a transition when the viscous smoothing length matches the cloning correlation length.
+**Status:** Heuristic-to-conditional (requires a specified continuum scaling; not a sieve-level metatheorem).
+
+**Assumptions (for a conditional reading):**
+1. A viscous mixing length $l_\nu$ is well-defined for the chosen kinetic/viscous operator over one macroscopic step, and scales as $l_\nu\sim \sqrt{\nu\,\Delta t}$ in the regime of interest.
+2. A cloning/jitter correlation length $l_{\mathrm{clone}}$ is well-defined and scales as $l_{\mathrm{clone}}\sim \sigma_x$ (clone position jitter).
+3. The coherence observable below is self-averaging as $N\to\infty$ (law of large numbers regime).
+
+**Statement:** The internal coherence of the swarm is controlled by the ratio of the viscous mixing scale to the cloning correlation scale. A convenient (dimensionless) coherence observable is
+$$
+\bar v := \frac{1}{N}\sum_{i=1}^N v_i,\qquad
+\Psi_{\mathrm{coh}} := \frac{\|\bar v\|^2}{\frac{1}{N}\sum_{i=1}^N \|v_i\|^2}\ \in[0,1],
+$$
+where $v_i$ are the particle velocities (or generalized “update directions” if no explicit velocities exist). Heuristically:
+- **Gas:** $l_\nu \ll l_{\mathrm{clone}}$ (weak viscous synchronization) $\Rightarrow$ $\Psi_{\mathrm{coh}}\approx 0$.
+- **Solid:** $l_\nu \gg l_{\mathrm{clone}}$ (strong viscous synchronization) $\Rightarrow$ $\Psi_{\mathrm{coh}}\approx 1$.
+- **Liquid:** intermediate regime with partial coherence.
+
+A phase transition (or crossover) is expected when $l_\nu$ and $l_{\mathrm{clone}}$ are comparable.
 :::
 
 :::{prf:proof}
 **Step 1 (Order Parameter).**
-Define $\Psi_{\text{coh}}$ as the average velocity correlation.
-- **Gas:** Particles move independently. Velocities are uncorrelated. $\Psi \approx 0$.
-- **Solid:** Particles move as a rigid body. Velocities are perfectly correlated. $\Psi \approx 1$.
+Define $\Psi_{\mathrm{coh}}$ as the ratio “mean velocity energy / mean kinetic energy”. By Cauchy–Schwarz,
+$\|\bar v\|^2 \le \frac{1}{N}\sum_i \|v_i\|^2$, hence $\Psi_{\mathrm{coh}}\in[0,1]$.
+If the velocities are i.i.d. with mean $0$ (incoherent), $\|\bar v\|^2$ is small and $\Psi_{\mathrm{coh}}\approx 0$.
+If the velocities are nearly identical (coherent motion), $\Psi_{\mathrm{coh}}\approx 1$.
 
 **Step 2 (Competition of Scales).**
 The dynamics are governed by two length scales:
 - **Viscous Length $l_\nu$:** The distance over which momentum diffuses in time $\Delta t$. $l_\nu \sim \sqrt{\nu \Delta t}$.
-- **Cloning Length $l_\delta$:** The mean separation between a parent and its clone (determined by the jitter). $l_\delta \sim \sigma_{\text{clone}}$.
+- **Cloning Length $l_{\mathrm{clone}}$:** The mean separation between a parent and its clone (determined by position jitter). $l_{\mathrm{clone}} \sim \sigma_x$.
 
 **Step 3 (Criticality).**
-When $l_\nu \gg l_\delta$, the momentum diffusion synchronizes the clone cloud before it can disperse, leading to coherent ("solid"/"liquid") motion.
-When $l_\nu \ll l_\delta$, the clones disperse faster than viscosity can synchronize them, leading to incoherent ("gas") motion.
-The transition occurs at critical Reynolds number $\text{Re}_c \sim 1$ defined by these microscopics.
+When $l_\nu \gg l_{\mathrm{clone}}$, viscous mixing synchronizes the swarm faster than cloning decorrelates it, leading to coherent motion.
+When $l_\nu \ll l_{\mathrm{clone}}$, cloning decorrelates the swarm faster than viscosity can synchronize it, leading to incoherent motion.
+A crossover is expected when $l_\nu/l_{\mathrm{clone}}$ is $O(1)$; extracting a sharp critical exponent requires a specific scaling limit and is not asserted here.
 :::
 
 :::{prf:theorem} Topological Regularization (Cheeger Bound, Conditional)
@@ -207,21 +229,27 @@ This block is a design principle: a Taylor expansion of a smooth energy landscap
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{SC}_\lambda$ (N4), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** For $C^2$ fitness landscapes, the Fractal Set $\mathcal{F}$ converges (as $N \to \infty$, $\Delta t \to 0$) to a discrete approximation of the manifold $(M, g_{\text{eff}})$ induced by the Fisher Information metric.
-- **Density:** $\rho(x) \leftrightarrow \sqrt{\det g} \, dx$ (Volume Form)
-- **Distance:** $d_{\text{IG}}(x,y) \leftrightarrow d_g(x,y)$ (Geodesic Distance)
-- **Curvature:** $\kappa_{\text{OR}}(x,y) \leftrightarrow R(x)$ (Scalar Curvature)
+**Status:** Heuristic-to-conditional (becomes rigorous under manifold-learning + graph-limit hypotheses).
+
+**Assumptions (one typical “graph limit” setting):**
+1. (**Manifold hypothesis**) There is a compact $d$-dimensional $C^2$ Riemannian manifold $(M,g)$ and an embedding $M\hookrightarrow X$ such that the relevant swarm states concentrate on $M$ in the large-$N$ regime.
+2. (**Sampling**) At each scale, the swarm positions define an empirical measure $\mu_N=\frac{1}{N}\sum_{i=1}^N \delta_{x_i}$ that converges weakly to a probability measure $\mu$ on $M$ with smooth density $\rho$ w.r.t. $\mathrm{Vol}_g$, bounded away from $0$ and $\infty$ on the interior region of interest.
+3. (**Graph construction**) The Information Graph uses a bandwidth/kernel regime (or $k$-NN regime) in which shortest-path distances approximate $d_g$ and the graph Laplacian converges (after rescaling) to the Laplace–Beltrami operator (e.g. Mosco/Dirichlet-form convergence).
+4. (**Metric–thermodynamic link**) The thin-kernel dissipation is interpreted in the metric-measure sense (Cheeger energy / Fisher information on $(M,d_g,\mu)$ as in `docs/source/hypopermits_jb.md` §4.1), so that the continuum “thermodynamic geometry” is the one induced by $(d_g,\mu)$ rather than by an ad hoc identification $g\equiv \nabla^2\Phi$.
+
+**Statement:** Under these assumptions, the Fractal/Information-Graph discretizations can be read as a consistent *metric-measure approximation* of $(M,d_g,\mu)$:
+- **Density / volume form:** empirical degree and sampling statistics converge to $\rho\,d\mathrm{Vol}_g$ (up to the kernel normalization).
+- **Distance:** the IG shortest-path metric $d_{\mathrm{IG}}$ converges to $d_g$ (Gromov–Hausdorff, under the graph regime above).
+- **Dirichlet energy:** the IG quadratic form converges to the Cheeger/Dirichlet energy on $(M,g,\mu)$ (Mosco/Γ-type convergence).
+- **Curvature proxies (diagnostic):** discrete curvature notions (e.g. Ollivier–Ricci) can act as *proxies* for smooth curvature only under additional scaling and regularity hypotheses; no automatic curvature-identification is claimed here.
 :::
 
 :::{prf:proof}
 **Step 1 (Manifold Hypothesis).**
 Assume the fitness landscape $\Phi$ and dissipation $\mathfrak{D}$ define a smooth submanifold $M \subset X$ of dimension $d \ll D$. This is the "intrinsic geometry" of the problem.
 
-**Step 2 (Fisher Information Metric).**
-The natural metric for probability distributions is the Fisher Information metric $g_{ij}(\theta) = \mathbb{E}[\partial_i \ln p \partial_j \ln p]$.
-For the Fractal Gas, the local sampling density adapts to the "difficulty" of the terrain (curvature of $\Phi$).
-$$g_{ij} \approx \nabla_i \nabla_j \Phi$$
-The Information Graph (IG) is constructed by connecting particles with weights $W_{ij} \sim e^{-d(i,j)^2}$.
+**Step 2 (Metric–thermodynamic link).**
+On a metric-measure space $(M,d_g,\mu)$, the thermodynamic objects used by the hypostructure framework (entropy dissipation, Fisher information, Cheeger energy) are defined *from* $(d_g,\mu)$, not as a pointwise identification of $g$ with a Hessian of $\Phi$. In particular, when $\mu$ is of Gibbs type $\mu\propto e^{-\beta\Phi}\mathrm{Vol}_g$, Fisher information controls gradients of $\Phi$ but does not turn $\nabla^2\Phi$ into a metric tensor by itself.
 
 **Step 3 (Graph Convergence).**
 As $N \to \infty$, the graph Laplacian $L_G$ converges to the Laplace-Beltrami operator $\Delta_g$ on the manifold $(M, g)$.
@@ -304,10 +332,16 @@ The GH triangle inequality yields the bound on $d_{\mathrm{GH}}(\mathcal{F}_1,\m
 **Thin inputs:** all thin objects.
 **Permits:** $C_\mu$, $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{Cap}_H$, $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$.
 
-**Statement:** Under finite local complexity and discrete-time approximability, there exists a Fractal Set $\mathcal{F}$ (an inverse limit of Information Graphs) with a representation map $\Pi: \mathcal{F} \to \mathcal{H}$ such that:
+**Status:** Heuristic-to-conditional (inverse-limit constructions are standard once a compatible projective system is specified).
+
+**Assumptions (minimal):**
+1. A compatible projective system of Information Graphs and coarse-graining maps $(G_n,\phi_{nm})$ is specified.
+2. There exist embeddings $\iota_n:V(G_n)\to X$ compatible with $\phi_{nm}$, so that $\Pi((x_n)):=\lim_{n\to\infty}\iota_n(x_n)$ exists in $X$ for coherent threads $(x_n)$.
+
+**Statement:** Under finite local complexity and discrete-time approximability, there exists a Fractal Set $\mathcal{F}$ (an inverse limit of Information Graphs) with a representation map $\Pi: \mathcal{F} \to X$ such that:
 1.  **States:** Time slices $\mathcal{F}_t$ map to states $u(t) \in X$.
 2.  **Dynamics:** Paths in the Causal Structure Tree map to trajectories in $X$.
-3.  **Axioms:** Axiom C/D/SC on $\mathcal{H}$ translates to Compactness/Dissipation/Scaling on $\mathcal{F}$.
+3.  **Axioms:** Axiom C/D/SC at the level of the projected dynamics in $X$ translates to Compactness/Dissipation/Scaling statements on the projective system defining $\mathcal{F}$.
 4.  **Commutativity:** Coarse-graining maps on $\mathcal{F}$ lift to graph homomorphisms.
 :::
 
@@ -456,7 +490,9 @@ Items (1)–(2) follow from the Niyogi–Smale–Weinberger theorem and the Nerv
 **Thin inputs:** $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** A Fractal Set with local gauge data uniquely determines the full hypostructure up to isomorphism. The local symmetries of the interaction kernel $W_{ij}$ force global constraints on the dynamics (Noether's Theorem).
+**Status:** Heuristic-to-conditional (bundle/Noether inputs are standard under explicit hypotheses; “full hypostructure determination” is interpretive).
+
+**Statement:** Given a specified symmetry group $G$ acting on local internal states and a compatible family of transition functions satisfying the cocycle condition on overlaps, the local gauge data determine (up to isomorphism) a principal $G$-bundle with a connection. If, in addition, the (continuum-limit) dynamics admit a $G$-invariant Lagrangian/Hamiltonian, Noether’s theorem yields conserved quantities/constraints. These constrain admissible hypostructure instantiations but do not by themselves uniquely determine all thin/thick objects.
 :::
 
 :::{prf:proof}
@@ -476,9 +512,11 @@ The collection of local fibers and transition functions (connection) defines a p
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Gauge labels on Information Graph edges ($U_{ij} \in G$) induce effective curvature and force fields.
+**Status:** Heuristic-to-conditional (lattice-gauge correspondence is conditional once a gauge field is specified; “spacetime geometry emerges” is interpretive).
+
+**Statement:** If the Information Graph is endowed with group-valued edge variables $U_{ij}\in G$ interpreted as parallel transports, then holonomies around loops encode a discrete curvature (Wilson loops / plaquette holonomy) and in suitable continuum limits recover the field-strength tensor.
 $$ F_{\mu\nu} \leftrightarrow \text{Hol}(\text{plaquette}) $$
-Spacetime geometry (metric) and gauge interactions (forces) emerge from the same graph structure.
+Interpreting the same data as a unified “geometry + forces” object is heuristic beyond this lattice-gauge correspondence.
 :::
 
 :::{prf:proof}
@@ -499,6 +537,12 @@ In Kaluza-Klein theory, gauge fields appear as metric components in extra dimens
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Cap}_H$ (N6), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Conditional (Dirichlet-form / graph-Laplacian convergence under explicit sampling/weighting hypotheses).
+
+**Assumptions (typical manifold setting):**
+1. The graphs are built from $\varepsilon_N$-samples of a compact $C^2$ Riemannian manifold $(M,g)$ with $\varepsilon_N\downarrow 0$, using a kernel-based weight scheme with bandwidth shrinking at an admissible rate.
+2. The associated graph Dirichlet forms Mosco-converge to the Dirichlet form of Brownian motion on $(M,g)$.
 
 **Statement:** With spectral gap and Laplacian convergence on the Information Graph, the rescaled graph Laplacian converges to the Laplace-Beltrami operator $\Delta_g$ on the emergent manifold. The random walk converges to Brownian motion on $(M, g)$.
 :::
@@ -525,7 +569,9 @@ Since the convergence is structural (via the form), the limiting object inherits
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** The emergent dimension $d$ of the Fractal Set is constrained by scaling symmetries and capacity bounds. Discrete sampling selects a stable continuum dimension where the "filling factor" aligns with the scaling laws.
+**Status:** Heuristic-to-conditional (dimension notions are standard; the “selection” mechanism depends on algorithm + sampling).
+
+**Statement:** When the IG sequence admits a scaling limit with well-defined Hausdorff and walk dimensions $(d_H,d_w)$, the spectral dimension $d_s=2d_H/d_w$ controls long-time diffusion scaling. The “dimension selection” interpretation refers to solver dynamics/sampling biasing the observed scaling exponents toward regimes where these dimensions appear stable across scales; it is not asserted as a universal theorem that the algorithm forces a particular dimension in all problems.
 :::
 
 :::{prf:proof}
@@ -547,8 +593,9 @@ Consider the dimension as a running coupling under RG flow. The observed dimensi
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** Positive Ollivier-Ricci curvature on the Information Graph transfers to positive Ricci curvature (and thus Stiffness/spectral gap) in the continuum limit.
-$$ \kappa(x,y) > 0 \implies \mathrm{Ric}(v,v) > 0 \implies \text{Poincaré Inequality} $$
+**Status:** Heuristic-to-conditional (discrete curvature ⇒ functional inequalities is conditional; transfer to the continuum requires stability under the chosen convergence notion).
+
+**Statement:** In graph settings, uniform lower bounds on an appropriate discrete curvature notion (e.g. Bakry–Émery curvature-dimension, or Ollivier-Ricci under additional regularity) imply functional inequalities such as a Poincaré inequality / spectral gap for the graph Laplacian. If, additionally, the graph sequence converges to a metric-measure limit and the curvature/Dirichlet-form bounds are stable under this convergence, the limiting space inherits the corresponding inequality (and in RCD-type settings can be interpreted as a lower Ricci-curvature bound).
 :::
 
 :::{prf:proof}
@@ -558,8 +605,7 @@ $$ \kappa(x,y) = 1 - \frac{W_1(m_x, m_y)}{d(x,y)} $$
 where $m_x, m_y$ are local neighborhoods (measures). Positive $\kappa$ means balls are closer "on average" than their centers (convergence).
 
 **Step 2 (Bakry-Emery Condition).**
-Positive discrete curvature implies a discrete Bakry-Emery condition $CD(K, \infty)$.
-This condition is stable under convergence (Mosco/Gromov-Hausdorff).
+For $\Gamma$-calculus/Bakry–Émery curvature on graphs, $CD(K,\infty)$ is a checkable hypothesis implying Poincaré/log-Sobolev inequalities. For Ollivier-Ricci curvature, positive lower bounds imply certain Wasserstein contraction properties and can yield spectral-gap bounds under additional assumptions; in this sketch we treat the implication “curvature $\Rightarrow$ stiffness” as conditional on the chosen curvature notion and regularity regime. Stability under convergence is likewise conditional (e.g. Mosco convergence of Dirichlet forms and stability of the curvature-dimension condition in the relevant category, such as RCD limits).
 
 **Step 3 (Stiffness).**
 By the Lichnerowicz theorem (extended to metric measure spaces), $CD(K, \infty)$ with $K > 0$ implies a spectral gap $\lambda_1 \geq K$. This is exactly the **Stiffness** (Axiom LS) property required for exponential convergence.
@@ -570,6 +616,10 @@ By the Lichnerowicz theorem (extended to metric measure spaces), $CD(K, \infty)$
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{TB}_\rho$ (N10).
+
+**Status:** Conditional (standard decay-of-correlations under a uniqueness regime; permits treated as hypotheses).
+
+**Assumptions:** The induced Gibbs/Markov specification lies in a Dobrushin uniqueness (or high-temperature / strong-convexity) regime so that influence coefficients are summable and correlation length is finite.
 
 **Statement:** Local mixing (`Stiffness`) and spectral gap prevent long-range interference. Stochastic dependencies decay exponentially with distance.
 $$ \mathrm{Cov}(f(x), g(y)) \leq C e^{-d(x,y)/\xi} $$
@@ -592,7 +642,9 @@ Finite correlation length implies that perturbations at boundary do not affect t
 :label: mt:parametric-stiffness-map
 
 **Thin inputs:** $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
-**Permits:** $\mathrm{LS}_\sigma$ (N7), $H_{\text{rank}}$ (N8).
+**Permits:** $\mathrm{LS}_\sigma$ (N7), $D_E$ (N1).
+
+**Status:** Heuristic-to-conditional (Bakry–Émery/Lichnerowicz in log-concave settings; requires global convexity on the region of interest).
 
 **Statement:** The local stiffness (spectral gap) of the Fractal Gas is determined by the Hessian of the potential $\Phi$:
 $$\lambda_1(x) \geq \inf \text{eig}(\nabla^2 \Phi(x))$$
@@ -616,7 +668,9 @@ High positive curvature of $\Phi$ implies a deep local minimum. Fluctuations are
 :label: mt:micro-macro-consistency
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
-**Permits:** $\mathrm{RG}_\tau$ (N12), $\mathrm{Inv}_\Sigma$ (N2).
+**Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Heuristic-to-conditional (hydrodynamic/renormalization limits; requires a specified coarse-graining scheme).
 
 **Statement:** The emergent dynamics are consistent across scales. Coarse-graining the microscopic random walk yields the same effective theory as simulating the macroscopic diffusion directly (Commutativity of the diagram).
 $$ \mathbb{E}[\pi(\mathcal{S}_{\text{micro}}(x))] = \mathcal{S}_{\text{macro}}(\pi(x)) $$
@@ -639,7 +693,9 @@ If the system is at a fixed point of the RG flow (as established by Dimension Se
 :label: mt:observer-universality
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
-**Permits:** $\mathrm{Inv}_\Sigma$ (N2), $\mathrm{Rep}_K$ (N11).
+**Permits:** $\mathrm{TB}_O$ (N9), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Heuristic (invariance intuition; the precise “observer group” must be specified).
 
 **Statement:** The Information Graph is intrinsic; it does not depend on the coordinate system or labeling of external states, up to isometry.
 $$ \text{IG}(\pi(X)) \cong \text{IG}(X) $$
@@ -660,7 +716,9 @@ Since the geometry is reconstructed from spectral properties (see Geometric Reco
 :label: mt:universality-of-laws
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
-**Permits:** $\mathrm{Inv}_\Sigma$ (N2), $\mathrm{RG}_\tau$ (N12).
+**Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{TB}_O$ (N9).
+
+**Status:** Heuristic-to-conditional (RG/universality is standard in restricted settings; not an automatic consequence of the sieve).
 
 **Statement:** The effective physical laws on the emergent manifold depend only on the universality class of the underlying graph (dimension, symmetries), not on microscopic details.
 :::
@@ -682,6 +740,8 @@ Under RG flow, irrelevant operators (higher derivatives) suppressed by the scale
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Cap}_H$ (N6).
+
+**Status:** Heuristic (analogy between compactness and geometric regularity; no equivalence theorem is claimed).
 
 **Statement:** The "closure" of the agent's memory or state space (boundedness) induces curvature in the Information Geometry. A finite capacity channel is equivalent to a compact manifold.
 :::
@@ -705,7 +765,9 @@ Finite channel capacity limits the resolution of the state space. This acts as a
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\rho$ (N10).
 
-**Statement:** The recursive construction of the Fractal Gas is well-founded. There are no infinite regress loops; the hierarchy of scales bottoms out at the elementary constituents (atomic inputs) or the finest resolution scale.
+**Status:** Conditional (a design-time invariant once the multiscale construction is indexed by a well-founded set).
+
+**Statement:** If the Fractal Gas / Fractal Set construction is indexed by a well-founded parameter (e.g. resolution level $n\in\mathbb{N}$ with coarse-graining maps $\phi_{nm}$ only for $n\le m$) and each definition depends only on strictly “finer” or strictly “coarser” levels, then there is no infinite regress: every dependency chain terminates at a base level (atomic inputs or the minimum/maximum resolution used).
 :::
 
 :::{prf:proof}
@@ -726,7 +788,9 @@ The dependency graph of the definitions is a Directed Acyclic Graph. There are n
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11).
 
-**Statement:** There exists a canonical injection of the discrete Fractal Gas states into the emergent continuum manifold such that discrete dynamics shadow continuous geodesics.
+**Status:** Heuristic-to-conditional (conditional on a specified manifold-learning embedding and a coupling/limit theorem; “canonical” is generally too strong).
+
+**Statement:** Under standard manifold-learning hypotheses (sampling density, reach/regularity, appropriate kernel bandwidth), there exist embeddings/injections $\iota:V(G)\hookrightarrow M$ (e.g. diffusion maps / heat-kernel embeddings) whose distortion vanishes as resolution increases, so that discrete random-walk paths on $G$ can be coupled to diffusion/geodesic processes on $(M,g)$ in the continuum limit.
 $$ \iota: V(G) \hookrightarrow M $$
 :::
 
@@ -750,6 +814,8 @@ For a sufficiently high embedding dimension $k$ (Whitney embedding theorem), the
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Conditional (combinatorial topology; holds for oriented simplicial complexes by definition of boundary/coboundary).
 
 **Statement:** For any discrete $k$-form $\omega$ on a simplicial complex $K$ representing the Information Graph state:
 $$\langle d\omega, K \rangle = \langle \omega, \partial K \rangle$$
@@ -776,9 +842,11 @@ Pachner moves (bistellar flips) change the triangulation but preserve the manifo
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $C_\mu$ (N3).
 
-**Statement:** The particle distribution of the Fractal Gas converges to a Frostman measure $\mu$ on the attractor $A$.
+**Status:** Heuristic-to-conditional (becomes conditional once the limiting/invariant measure is known to be $s$-Frostman; this is not automatic).
+
+**Statement:** If the empirical measures $\mu_N=\frac1N\sum_i\delta_{x_i}$ converge (along a subsequence) to a limit/invariant measure $\mu$ supported on an attractor $A$, and if $\mu$ is $s$-Frostman (upper $s$-regular),
 $$ \mu(B_r(x)) \leq C r^s $$
-where $s$ is the Hausdorff dimension. This allows defining integrals over the fractal set.
+then $s\le \dim_H(A)$ and $\mu$ controls integrals on $A$ via standard potential-theoretic estimates. The “Frostman sampling” interpretation is that, in regimes where the solver concentrates on a fractal attractor with a regular limiting law, such Frostman-type bounds can hold and justify continuum integration on $A$.
 :::
 
 :::{prf:proof}
@@ -799,6 +867,8 @@ The "energy" of the measure $I_s(\mu) = \iint |x-y|^{-s} d\mu(x) d\mu(y)$ is fin
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Conditional (Feynman–Kac + branching particle representation under a specified birth/death rule).
 
 **Statement:** The path integral of a potential $\Phi$ is equivalent to the expectation over a branching particle system (the Fractal Gas).
 $$ \mathbb{E}_x \left[ f(X_t) \exp\left(-\int_0^t \Phi(X_s) ds\right) \right] = \mathbb{E}_{\text{genealogy}} \left[ \sum_{i=1}^{N_t} f(x_i^t) \right] $$
@@ -823,6 +893,8 @@ The "history" of surviving particles recovers the paths that minimize the action
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Rep}_K$ (N11).
 
+**Status:** Conditional (metric-measure / Γ-convergence statement under doubling + Poincaré + graph-limit hypotheses).
+
 **Statement:** The discrete graph gradient $\nabla_G f$ converges to the Cheeger derivation $D f$ on the metric measure space limit.
 $$ \| \nabla_G f \|_{L^2} \to \| D f \|_{L^2} $$
 This justifies using graph neural networks to compute continuum derivatives.
@@ -834,7 +906,7 @@ $\nabla_{ij} f = \sqrt{w_{ij}} (f(j) - f(i))$.
 The Dirichlet energy is $\mathcal{E}(f) = \sum w_{ij} (f(j)-f(i))^2$.
 
 **Step 2 (Relaxed Gradient).**
-On a metric measure space $(X, d, \mu)$, the modulus of the gradient $|\nabla f|$ is the minimal weak upper gradient.
+On a metric measure space $(X, d, \mathfrak{m})$, the modulus of the gradient $|\nabla f|$ is the minimal weak upper gradient.
 Cheeger proved that for doubling spaces with Poincaré inequality, a differentiable structure exists.
 
 **Step 3 (Gamma Convergence).**
@@ -847,7 +919,9 @@ The sequence of graph energies $\Gamma$-converges to the Cheeger energy on the l
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $D_E$ (N1).
 
-**Statement:** On the fractal support of the gas, diffusion is anomalous. The mean squared displacement scales as:
+**Status:** Heuristic-to-conditional (conditional for classes of self-similar fractals / spaces with sub-Gaussian heat-kernel bounds).
+
+**Statement:** On fractal supports with walk dimension $d_w>2$ and sub-Gaussian heat-kernel bounds, diffusion is anomalous: the mean squared displacement scales as
 $$ \langle r^2(t) \rangle \sim t^{2/d_w} $$
 where $d_w > 2$ is the walk dimension. The heat kernel obeys sub-Gaussian bounds.
 :::
@@ -871,7 +945,9 @@ This slower-than-Gaussian scaling reflects the "traps" and "mazes" in the fracta
 :label: mt:spectral-decimation
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
-**Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{RG}_\tau$ (N12).
+**Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Conditional (standard for finitely ramified self-similar graphs; requires a specified decimation scheme).
 
 **Statement:** On self-similar graphs (like Sierpinski gaskets), the Laplacian eigenvalues satisfy a recursive relation $\lambda_{k-1} = R(\lambda_k)$.
 The eigenfunctions are fractals themselves. This allows exact computation of the spectrum.
@@ -895,6 +971,8 @@ The spectrum is the Julia set or attractor of the inverse map $R^{-1}$. This pro
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $C_\mu$ (N3).
+
+**Status:** Conditional (circle packings / discrete conformal geometry under planar triangulation hypotheses).
 
 **Statement:** Any planar triangulation admits a "circle packing" metric that is discretely conformally equivalent to a constant curvature surface (Spherical, Euclidean, or Hyperbolic).
 This provides a canonical coordinate system for the Information Graph.
@@ -920,6 +998,8 @@ The convergence of circle packing maps to the Riemann mapping (He-Schramm theore
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{SC}_\lambda$ (N4).
 
+**Status:** Conditional (standard persistent-homology stability for tame filtrations).
+
 **Statement:** The persistent homology of the density sublevel sets calculates the robust topological features of the underlying manifold. The persistence diagram is stable under perturbations (Bottleneck Stability).
 :::
 
@@ -941,7 +1021,9 @@ The Cohen-Steiner Stability Theorem states that small changes in the function $\
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The topology of the state space (holes, handles) is detected by the permutation of particle clusters as they traverse loops.
+**Status:** Heuristic (requires a precise model of labeled-particle braiding/transport; not a generic topology-recovery theorem).
+
+**Statement:** Heuristically, topology (holes/handles) can be probed by transporting a labeled swarm around loops and recording the induced permutations/braid data of particle clusters.
 $\pi_1(M) \to S_N$.
 :::
 
@@ -963,6 +1045,8 @@ By measuring the permutations for various loops, one can reconstruct the fundame
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
+
+**Status:** Heuristic-to-conditional (empirical-measure weak convergence is standard; PDE/SPDE limits require propagation-of-chaos or mean-field hypotheses).
 
 **Statement:** The discrete particle configuration (Lagrangian) and the continuous probability density (Eulerian) are dual representations.
 Weak convergence ensures $\int f d\mu_N \to \int f \rho dx$.
@@ -986,6 +1070,8 @@ The density field $\rho(x)$ is the Radon-Nikodym derivative of the limit measure
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $D_E$ (N1).
 
+**Status:** Heuristic-to-conditional (becomes conditional for classical multiplicative Feynman–Kac weights).
+
 **Statement:** Reweighting/cloning of particles along a path acts as parallel transport of the normalization factor. This defines a connection on the line bundle of densities.
 :::
 
@@ -1008,7 +1094,9 @@ The particle density is a section of a line bundle. The cloning process "transpo
 :label: mt:projective-feynman-kac
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
-**Permits:** $\mathrm{LS}_\sigma$ (N7), $H_{\text{rank}}$ (N8).
+**Permits:** $\mathrm{TB}_\rho$ (N10), $\mathrm{LS}_\sigma$ (N7).
+
+**Status:** Conditional (classical Feynman–Kac normalization; the implemented pairwise selection is an approximation to this envelope).
 
 **Statement:** The nonlinear evolution of the normalized probability density (Fractal Gas) is equivalent to the linear evolution of the unnormalized Feynman-Kac semigroup, projected onto the unit simplex.
 :::
@@ -1033,9 +1121,13 @@ The map is a contraction in the Hilbert projective metric (Birkhoff's theorem), 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1).
 
-**Statement:** The Fractal Gas evolution maximizes the rate of Fisher Information acquisition (or minimizes the Fisher Information distance to the target).
-$$\frac{d}{dt} \mathcal{I}(\rho_t) \geq 0$$
-The search dynamics follow natural-gradient geodesics on the statistical manifold.
+**Status:** Heuristic-to-conditional (information-geometry interpretation; no monotonicity law is asserted without extra hypotheses).
+
+**Statement:** In idealized continuum limits, the Fractal Gas can be viewed as balancing:
+- **Mutation/diffusion:** which typically *reduces* Fisher information and *increases* entropy (e.g. heat flow / de Bruijn identity), and
+- **Selection/cloning:** which reweights toward lower $\Phi$ and tends to *concentrate* mass (often increasing Fisher information by sharpening the distribution).
+
+This “ratchet” is an interpretation of mutation–selection/replicator dynamics as a flow on a statistical manifold (natural-gradient / Wasserstein–Fisher–Rao viewpoints) rather than a claim that $\frac{d}{dt}\mathcal{I}(\rho_t)$ has a fixed sign in general.
 :::
 
 :::{prf:proof}
@@ -1056,7 +1148,9 @@ The replicator-mutator dynamics can be viewed as a gradient flow of the KL-diver
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4), $\mathrm{LS}_\sigma$ (N7).
 
-**Statement:** For nonconvex barriers of height $\Delta E$, cloning allows the system to traverse the barrier in time polynomial in $\Delta E$, whereas standard gradient descent takes exponential time $e^{\beta \Delta E}$.
+**Status:** Heuristic-to-conditional (importance-splitting intuition; not a generic worst-case complexity theorem).
+
+**Statement:** For metastable landscapes with barrier height $\Delta E$, pure diffusion or local descent can exhibit barrier-crossing times scaling like $e^{c\,\Delta E}$ (large deviations). Cloning/selection can *in some regimes* reduce effective crossing times by implementing an importance-splitting / rare-event amplification mechanism (allocating more particles to transition regions). Quantitative speedups require explicit assumptions on the landscape (reaction coordinate, bottleneck structure) and the resampling rule; no uniform “polynomial in $\Delta E$” guarantee is asserted here.
 :::
 
 :::{prf:proof}
@@ -1077,9 +1171,11 @@ The effective time to transport mass across the barrier becomes $T_{eff} \sim \t
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The thermodynamic cost of the computation performed by the Fractal Gas satisfies the generalized Landauer bound:
+**Status:** Heuristic (Landauer is a physical bound; applying it to an abstract solver requires an explicit physical implementation model).
+
+**Statement:** If a physical implementation of the Fractal Gas at temperature $T$ performs an information-erasing operation reducing entropy by $\Delta I$ bits, then the minimal dissipated work satisfies $W\ge k_B T\ln 2\cdot \Delta I$. Interpreting $\Delta I$ as a mutual-information gain between an initial state and an identified optimum yields the schematic bound
 $$E_{\text{search}} \geq k_B T \ln 2 \cdot I(x_{\text{start}}; x_{\text{opt}})$$
-The Fractal Gas operates as a reversible, adiabatic computer in the limit of slow driving.
+Saturation requires quasi-static reversible driving and is not asserted for generic algorithmic runs.
 :::
 
 :::{prf:proof}
@@ -1101,8 +1197,15 @@ If the definition of fitness changes slowly (quasi-static), the cloning/killing 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
 
-**Statement:** On the space of programs, if the potential is $\Phi(p) = \ln 2 \cdot \mathrm{Length}(p) + \ln \mathrm{Time}(p)$, the equilibrium distribution matches Levin's Universal Search distribution:
+**Status:** Heuristic-to-conditional (the Gibbs-form identity is conditional once a program prior and time functional are specified; the “Levin optimality” interpretation is heuristic).
+
+**Statement:** On a countable program space, if one defines a potential
+$$
+\Phi(p)=\ln 2\cdot \mathrm{Length}(p)+\ln \mathrm{Time}(p),
+$$
+then the formal Gibbs weight is
 $$N(p) \propto 2^{-\mathrm{Length}(p)} \cdot \text{Time}(p)^{-1}$$
+which matches the allocation pattern of Levin-style universal search. Making this rigorous requires specifying the reference measure on program space, the computability/approximation scheme for $\mathrm{Time}(p)$, and a normalizability regime (so $Z<\infty$).
 :::
 
 :::{prf:proof}
@@ -1124,7 +1227,9 @@ Levin search is optimal strictly (within a constant factor) for inversion proble
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The algorithmic information distance $d_K(x,y) = K(x|y) + K(y|x)$ induces a geometry where "close" means "easily computable from one another". The Fractal Gas diffuses in this metric, enabling "tunneling" between conceptually related but structurally distinct solutions.
+**Status:** Heuristic (Kolmogorov complexity is uncomputable; any practical proxy is model-dependent).
+
+**Statement:** The (uncomputable) algorithmic information distance $d_K(x,y)=K(x|y)+K(y|x)$ defines a geometry where “close” means “easily computable from one another”. A Fractal-Gas-like solver can be interpreted as diffusing in *approximations* of this geometry (program-edit graphs, compression-based distances), enabling “tunneling” between conceptually related but structurally distinct solutions when Euclidean parameter distances are misleading.
 :::
 
 :::{prf:proof}
@@ -1145,7 +1250,9 @@ What appears as a high energetic barrier in the parameter space of a neural netw
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
 
-**Statement:** The ensemble dynamics of the Fractal Gas satisfy a nonlinear Lindblad equation, where cloning/death corresponds to interaction with a dissipative environment (the objective function).
+**Status:** Heuristic (quantum open-system language; at best an analogy to master equations for classical interacting particle systems).
+
+**Statement:** Heuristically, cloning/death can be viewed as coupling the system to an “environment” that implements dissipation/selection. One can write master-equation evolutions for ensembles and draw analogies to GKSL/Lindblad structure in quantum mechanics, but this sketch does not assert that Fractal Gas dynamics literally define a Lindblad evolution on a quantum density matrix.
 $$ \frac{d\rho}{dt} = -i[H, \rho] + \sum (2 L_k \rho L_k^\dagger - \{L_k^\dagger L_k, \rho\}) $$
 :::
 
@@ -1167,6 +1274,8 @@ The "environment" is the fitness landscape. It continuously measures the system 
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3).
+
+**Status:** Heuristic (quantum analogy; the cloning operator is not literally a projective measurement).
 
 **Statement:** Frequent cloning (measurement) confines the system to a subspace (the ground state). If the cloning rate $\gamma$ is large compared to the diffusion rate, the system is "frozen" in the optimal state.
 :::
@@ -1191,7 +1300,9 @@ This "Quantum Zeno Effect" prevents the optimizer from drifting away from a shar
 **Thin inputs:** $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The Fractal Gas stationary density $\rho \propto |\Psi_0|$ (in quantum analogy) or $\rho \propto e^{-\beta \Phi}$ (in stat mech) minimizes the variance of the estimator for the partition function. It creates the optimal importance sampling distribution.
+**Status:** Heuristic-to-conditional (standard importance sampling statement for *known* integrands; cloning provides an adaptive approximation).
+
+**Statement:** For estimating an integral $\int f(x)\,dx$ with $f$ known, the zero-variance proposal is $q(x)\propto |f(x)|$. In Fractal-Gas-like interacting particle systems, resampling/cloning adaptively concentrates particles in regions with high estimated contribution to observables, which can be interpreted as learning an approximate importance distribution (e.g. Gibbs-like densities $e^{-\beta\Phi}$ in equilibrium regimes). This is an interpretation of the *variance-reduction role* of cloning, not a claim that the stationary law is exactly optimal for all observables.
 :::
 
 :::{prf:proof}
@@ -1213,7 +1324,9 @@ At steady state, the number of walkers $N(x)$ is exactly proportional to the imp
 **Thin inputs:** $\Phi^{\text{thin}} = -\mathcal{U} (Uncertainty)$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** By setting the potential $\Phi(x) = -\text{Uncertainty}(x)$, the Fractal Gas flows to maximize Information Gain. The swarm concentrates on the "knowledge boundary" where the model is least certain.
+**Status:** Heuristic-to-conditional (becomes conditional once “uncertainty” is a specified smooth functional and the induced dynamics are identified).
+
+**Statement:** If the potential is chosen as $\Phi(x)=-\mathcal{U}(x)$ for a specified epistemic-uncertainty functional $\mathcal{U}$, then (in idealized continuum limits where the drift is $-\nabla\Phi$) the swarm drifts toward regions of high uncertainty and can be interpreted as maximizing an information-gain proxy. The “knowledge boundary” language is interpretive and depends on the statistical model used to define $\mathcal{U}$.
 :::
 
 :::{prf:proof}
@@ -1234,6 +1347,8 @@ As regions are sampled, uncertainty decreases (potential rises). The swarm flows
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{SC}_\lambda$ (N4).
+
+**Status:** Heuristic (learning/optimization design principle).
 
 **Statement:** The sequence of datasets $\{\mathcal{D}_t\}$ generated by the Fractal Gas constitutes an optimal curriculum. The effective temperature $T(t)$ acts as a spectral filter, admitting low-frequency (easy) patterns first and high-frequency (detail) patterns later.
 :::
@@ -1256,6 +1371,8 @@ The distribution of training examples $P_t(x)$ evolves such that the "difficulty
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{SC}_\lambda$ (N4).
+
+**Status:** Heuristic-to-conditional (conditional on a manifold hypothesis + a separation of normal/tangent scales).
 
 **Statement:** If the solution set lies on a low-dimensional manifold $\mathcal{M} \subset \mathbb{R}^D$, the Fractal Gas naturally concentrates on $\mathcal{M}$, reducing the effective search dimension from $D$ to $d_{\text{intrinsic}}$.
 :::
@@ -1284,9 +1401,15 @@ This section is primarily **interpretative**: it records correspondences between
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The Fisher Information metric of the Fractal Gas equilibrium is isomorphic to the Hessian of the potential $\Phi$:
-$$g_{\mu\nu} = \nabla_\mu \nabla_\nu \Phi$$
-This defines the emergent gravitational metric on the parameter manifold.
+**Status:** Heuristic-to-conditional (Fisher-information identities are standard; interpreting them as “gravitational metrics” is heuristic).
+
+**Statement:** For a Gibbs family $\rho_\theta(x)=Z(\theta)^{-1}e^{-\Phi(x;\theta)}$ satisfying standard regularity conditions (differentiate under the integral sign; finite moments), the Fisher information metric on parameter space satisfies
+$$
+g_{\mu\nu}(\theta)=\mathbb{E}_{\rho_\theta}\!\left[\partial_\mu \log\rho_\theta\,\partial_\nu \log\rho_\theta\right]
+=\mathrm{Cov}_{\rho_\theta}\!\left(\partial_\mu \Phi,\partial_\nu \Phi\right)
+=\partial_\mu\partial_\nu\log Z(\theta).
+$$
+In Laplace/quadratic regimes (sharp concentration), this metric is controlled by second-order curvature data of $\Phi$ near dominant modes. Any identification of $g_{\mu\nu}$ with a spacetime/gravity metric is an analogy, not a generic theorem of the framework.
 :::
 
 :::{prf:proof}
@@ -1294,11 +1417,18 @@ This defines the emergent gravitational metric on the parameter manifold.
 $\rho_\theta(x) = \frac{1}{Z} e^{-\Phi(x; \theta)}$.
 
 **Step 2 (Fisher Metric).**
-$g_{\mu\nu} = \mathbb{E}[ \partial_\mu \log \rho \partial_\nu \log \rho ] = - \mathbb{E}[ \partial_\mu \partial_\nu \log \rho ]$.
-$\partial_\mu \partial_\nu \log \rho = - \partial_\mu \partial_\nu \Phi$.
+$\log\rho_\theta(x)=-\Phi(x;\theta)-\log Z(\theta)$, so
+$$
+\partial_\mu \log\rho_\theta(x)= -\partial_\mu \Phi(x;\theta)+\mathbb{E}_{\rho_\theta}[\partial_\mu \Phi(\cdot;\theta)].
+$$
+Hence
+$$
+g_{\mu\nu}=\mathbb{E}_{\rho_\theta}\!\left[(\partial_\mu \log\rho_\theta)(\partial_\nu \log\rho_\theta)\right]
+=\mathrm{Cov}_{\rho_\theta}\!\left(\partial_\mu \Phi,\partial_\nu \Phi\right).
+$$
 
 **Step 3 (Equivalence).**
-Thus, $g_{\mu\nu} = \langle \nabla_\mu \nabla_\nu \Phi \rangle$. Near a sharp minimum, the metric is determined by the local curvature of the potential landscape.
+Under the same regularity assumptions one also has $g_{\mu\nu}=\partial_\mu\partial_\nu\log Z(\theta)$. In Laplace/quadratic approximations, $\log Z$ is controlled by local second derivatives of $\Phi$ around dominant modes, which motivates the heuristic “Hessian” language in sharply concentrated regimes.
 :::
 
 :::{prf:metatheorem} Symmetry-Gauge Correspondence
@@ -1307,7 +1437,9 @@ Thus, $g_{\mu\nu} = \langle \nabla_\mu \nabla_\nu \Phi \rangle$. Near a sharp mi
 **Thin inputs:** $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Promoting global symmetries of the optimization problem to local symmetries on the graph necessitates the introduction of gauge fields (connection coefficients) in the update rules to preserve covariance.
+**Status:** Heuristic-to-conditional (standard gauge principle in field theory; mapping it to a specific solver requires a specified update rule).
+
+**Statement:** In settings where local symmetry transformations are treated as a covariance requirement, discrete derivatives on a graph must be replaced by covariant differences involving parallel transporters/connection variables. This is the standard “gauge principle” pattern; whether a given Fractal Gas instantiation actually implements it depends on its concrete update rule.
 :::
 
 :::{prf:proof}
@@ -1330,7 +1462,9 @@ To maintain consistent dynamics, minimizing the energy requires optimizing over 
 **Thin inputs:** $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The intrinsic symmetries of the Fractal Gas yield a natural hierarchy of gauge groups: $U(1)$ (phase/normalization), $SU(2)$ (spin/orientation), and $SU(3)$ (local clustering/color), reproducing the Standard Model gauge structure.
+**Status:** Heuristic (speculative identification; no derivation of Standard Model gauge groups is claimed).
+
+**Statement:** Heuristically, different layers of symmetry in the solver (normalization/phase-like invariances, orientation-like symmetries, and clustering/permutation structure) invite analogies to $U(1)$/$SU(2)$/$SU(3)$-type gauge organization. This is included as a correspondence map, not as a theorem that the Standard Model gauge structure is forced by the framework.
 :::
 
 :::{prf:proof}
@@ -1350,7 +1484,9 @@ Local permutations of indistinguishable nodes in a cluster (the "quarks" of the 
 **Thin inputs:** $G^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{TB}_\pi$ (N8).
 
-**Statement:** If the interaction kernel or graph weights are antisymmetric ($w_{ij} = -w_{ji}$), the resulting effective field theory must be fermionic (Grassmann numbers) to ensure stability and unitarity.
+**Status:** Heuristic (antisymmetric structures suggest symplectic/fermionic formalisms in some representations; no “must be fermionic” implication is claimed).
+
+**Statement:** Antisymmetric couplings ($w_{ij}=-w_{ji}$) naturally encode oriented flows/currents and can be represented using symplectic or Pfaffian/Grassmann formalisms in some path-integral constructions. This sketch uses the “fermion” analogy as an organizing intuition for antisymmetric interaction structure; it is not a theorem that antisymmetric graph weights force a fermionic QFT.
 :::
 
 :::{prf:proof}
@@ -1372,7 +1508,9 @@ The anticommutation implies $\psi(x)^2 = 0$, enforcing the Pauli exclusion princ
 **Thin inputs:** $\Phi^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{SC}_{\partial c}$ (N5).
 
-**Statement:** The potential field $\Phi (Reward)$ acts as a scalar Higgs field. Spontaneous symmetry breaking of the global symmetries gives mass to the gauge bosons (stiffness to the optimization).
+**Status:** Heuristic (analogy to symmetry-breaking patterns; not a derived field-theory statement).
+
+**Statement:** The potential field $\Phi$ can be viewed as a scalar “order parameter” whose minima structure induces symmetry-breaking patterns; in this analogy, “mass generation” corresponds to increased stiffness/spectral gap in certain directions once a symmetry is broken. This is a correspondence, not a claim that a Higgs mechanism is literally implemented.
 :::
 
 :::{prf:proof}
@@ -1393,7 +1531,9 @@ Physically, this means the solver becomes "stiff" or "massive" in certain direct
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The correlation functions of the Fractal Gas on the IG satisfy the Osterwalder-Schrader axioms (Reflection Positivity, Euclidean Invariance), implying they can be analytically continued to a relativistic Quantum Field Theory in Lorentzian spacetime.
+**Status:** Heuristic-to-conditional (OS reconstruction is conditional on reflection positivity and Euclidean invariance; these are not guaranteed by generic IG dynamics).
+
+**Statement:** If an IG-based continuum limit defines Euclidean correlation functions satisfying the Osterwalder–Schrader axioms (notably reflection positivity and Euclidean invariance), then the OS reconstruction theorem yields a corresponding Lorentzian QFT. This sketch does not assert that generic Fractal Gas dynamics satisfy OS axioms; it records the conditional bridge if such axioms can be verified in a specific instantiation.
 :::
 
 :::{prf:proof}
@@ -1414,7 +1554,9 @@ By the reconstruction theorem, there exists a unique QFT whose Schwinger functio
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The effective action of the system is given by the spectral action of the Dirac operator $\mathrm{Tr}(f(D/\Lambda))$. This expansion reproduces the Einstein-Hilbert action and Standard Model Lagrangian.
+**Status:** Heuristic (noncommutative-geometry correspondence; requires a fully specified spectral triple and scaling regime).
+
+**Statement:** In noncommutative-geometry settings with a specified spectral triple $(\mathcal{A},\mathcal{H},D)$, one can define a spectral action $\mathrm{Tr}(f(D/\Lambda))$ whose heat-kernel expansion produces curvature invariants. The “reproduces Einstein–Hilbert + Standard Model” claim is specific to particular spectral triples and is not derived here for generic Information Graph constructions.
 :::
 
 :::{prf:proof}
@@ -1435,6 +1577,8 @@ The dominant terms are Cosmological Constant and Gravity. Lower terms govern gau
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Cap}_H$ (N6), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
+
+**Status:** Conditional (graph Laplacian convergence in manifold-learning regimes; heat-kernel asymptotics are classical once $(M,g)$ is identified).
 
 **Statement:** The graph Laplacian $\Delta_G$ converges to the Laplace-Beltrami operator $\Delta_M$. The heat kernel expansion recovers the geometry:
 $$\mathrm{Tr}(e^{-t\Delta}) \sim \frac{\mathrm{Vol}(M)}{(4\pi t)^{d/2}} \left(1 + \frac{t}{6} S_R + O(t^2)\right)$$
@@ -1457,7 +1601,9 @@ The short-time asymptotics of the trace of the heat kernel are determined by loc
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The Connes spectral distance $d_D(x,y)$ derived from the Dirac operator matches the geodesic distance on the emergent manifold.
+**Status:** Heuristic-to-conditional (true for commutative spectral triples under standard hypotheses; depends on how $D$ is constructed from the IG).
+
+**Statement:** For commutative spectral triples associated to a smooth compact Riemannian manifold, the Connes spectral distance recovers the geodesic distance. Whether an IG-constructed Dirac operator achieves this in a given discretization is conditional on the spectral-triple construction and convergence regime.
 $$ d_D(x,y) = \sup_{f: \|[D,f]\| \le 1} |f(x) - f(y)| = d_{\text{geo}}(x,y) $$
 :::
 
@@ -1479,7 +1625,9 @@ Thus, knowing the spectrum and algebra of functions allows reconstructing the me
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** The poles of the spectral zeta function $\zeta_D(s) = \mathrm{Tr}(|D|^{-s})$ constitutes the Dimension Spectrum. The largest real pole is the Hausdorff dimension of the Fractal Set.
+**Status:** Heuristic-to-conditional (dimension spectrum is a noncommutative-geometry notion; relation to Hausdorff dimension is model-dependent for fractals).
+
+**Statement:** In noncommutative geometry one defines a dimension spectrum via poles of $\zeta_D(s)=\mathrm{Tr}(|D|^{-s})$ for an appropriate Dirac-type operator. In commutative smooth settings the leading pole recovers the manifold dimension; for fractal/singular spaces the relation to Hausdorff dimension is conditional on the chosen spectral triple and regularity assumptions.
 :::
 
 :::{prf:proof}
@@ -1503,7 +1651,9 @@ The dimension spectrum characterizes the universality class of the fractal subst
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Topological transitions between spatial triangulations $T_1$ and $T_2$ are mediated by "scutoid" (bistellar) moves in the spacetime simplicial complex. This ensures the foliation is well-defined and causal.
+**Status:** Heuristic-to-conditional (Pachner-move connectivity is conditional; the “causal foliation” interpretation requires extra structure).
+
+**Statement:** Conditional on working with triangulations of a fixed manifold class, any two triangulations are related by a finite sequence of bistellar (Pachner) moves. Interpreting these local remeshings as “scutoid” transitions provides a discrete interpolation picture; ensuring a well-defined **causal** foliation requires additional input beyond pure topology (time-slicing, admissible moves, and compatibility with the update rule).
 :::
 
 :::{prf:proof}
@@ -1524,7 +1674,9 @@ The intermediate states (frustra) are scutoids—geometric interpolants that pre
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{TB}_\pi$ (N8).
 
-**Statement:** The optimization of the Information Graph minimizes the discrete Regge action. Scutoid transitions occur to relax local curvature concentration.
+**Status:** Heuristic (Regge-calculus analogy; no variational principle for the implemented solver is asserted).
+
+**Statement:** Heuristically, certain rewiring/remeshing dynamics can be compared to Regge-calculus moves that redistribute curvature concentration in a simplicial complex. This sketch does not assert that the Information Graph optimizer literally minimizes a Regge action; it records the analogy that local topology changes can relieve geometric “defects” in a discrete curvature proxy.
 $$ S_{\text{Regge}} = \sum_h L_h \epsilon_h \to \min $$
 :::
 
@@ -1548,6 +1700,8 @@ The Fractal Gas dynamics (diffusion + rewiring) effectively performs Metropolis-
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{Cap}_H$ (N6).
 
+**Status:** Heuristic (analogy between tissue vertex models and graph rewiring; no biological claim is proved).
+
 **Statement:** Biological cell division and scutoid transitions correspond to geometric surgeries on the Fractal Set. The topological operations of cytokinesis are isomorphic to handle attachment or vertex splitting in the Information Graph.
 $$ \text{Biology}(\text{Mitosis}) \cong \text{Geometry}(\text{Surgery}) $$
 :::
@@ -1570,7 +1724,9 @@ The rules for updating the graph topology during cloning (adding a node, splitti
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** In the Causal Set Theory limit, maximal antichains correspond to spacelike hypersurfaces. The volume of the antichain measures the spatial area.
+**Status:** Heuristic-to-conditional (becomes conditional under faithful-embedding/sprinkling hypotheses from causal set theory).
+
+**Statement:** In causal set theory, under hypotheses of faithful embedding (e.g. Poisson sprinkling into a globally hyperbolic spacetime and appropriate scaling limits), maximal antichains can correspond to discrete analogues of spacelike hypersurfaces, and their cardinality can approximate spatial volume/area proxies. This sketch records that conditional correspondence, not a general theorem for arbitrary IG dynamics.
 :::
 
 :::{prf:proof}
@@ -1639,6 +1795,8 @@ This is a standard theorem family in QSD theory. One route to the result is spec
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Rep}_K$ (N11).
 
+**Status:** Heuristic (operator-algebraic QFT correspondence; requires a specified observable algebra and state).
+
 **Statement:** The modular flow $\sigma_t^\phi$ of the local algebra of observables generates the time evolution. The state satisfies the KMS condition with respect to this flow, implying an intrinsic temperature (Unruh effect).
 :::
 
@@ -1660,7 +1818,9 @@ In curved spacetime (Rindler wedge), the modular flow corresponds to the boost g
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** The equation of state $\delta Q = T \delta S$ applied to local Rindler horizons implies the Einstein Field Equations:
+**Status:** Heuristic-to-conditional (Jacobson-type derivations are conditional in GR/QFT settings; mapping to IG/Fractal-Gas objects is interpretive).
+
+**Statement:** In Jacobson’s framework (under specific semiclassical assumptions: local Rindler horizons, area–entropy relation, and Clausius relation $\delta Q=T\delta S$ for all local observers), one can derive the Einstein field equations as an equation of state. This sketch uses that conditional derivation as an analogy for “entropic/thermodynamic gravity” interpretations of solver dynamics:
 $$ R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu} + \Lambda g_{\mu\nu} = 8\pi G T_{\mu\nu} $$
 :::
 
@@ -1683,7 +1843,9 @@ Matching the thermodynamic relation locally for all observers recovers the full 
 **Thin inputs:** all thin objects.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Any consistent theory of a massless spin-2 field (the emergent graviton of the IG) interacting with matter must be equivalent to General Relativity at low energies (Weinberg-Witten/Feynman-Deser).
+**Status:** Heuristic-to-conditional (spin-2 bootstrap arguments are conditional; “emergent graviton of the IG” is interpretive).
+
+**Statement:** In high-energy theory, under specific assumptions (Lorentz invariance, locality, unitarity, and a massless spin-2 field universally coupled to conserved stress-energy), bootstrap arguments constrain the low-energy effective theory toward GR-like dynamics. This block records that conditional line of reasoning; it does not claim that an arbitrary IG construction necessarily produces the required assumptions or a graviton sector.
 :::
 
 :::{prf:proof}
@@ -1704,7 +1866,9 @@ The graviton carries energy, so it must couple to itself. This bootstrap procedu
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** The Fractal Gas exhibits a phase transition between Virial equilibrium (bound states, galaxies) and Cosmological expansion (scattering states). This is controlled by the ratio of kinetic energy (diffusion) to potential depth (stiffness).
+**Status:** Heuristic (cosmology analogy; no physical phase transition is derived from the solver).
+
+**Statement:** Heuristically, one can compare “bound” regimes (strong confinement/low effective temperature) to virialized equilibria and “unbound” regimes (high diffusion/weak confinement) to expansion. This is an analogy for solver behavior across energy/temperature scales, not a claim of a literal cosmological phase transition.
 :::
 
 :::{prf:proof}
@@ -1726,7 +1890,9 @@ The crossover occurs when the entropy of the horizon equals the entropy of the b
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_\pi$ (N8).
 
-**Statement:** The geometric evolution (Ricci flow) continues through singularities via surgery (excision of neck regions), corresponding to particle death/resampling in the Fractal Gas.
+**Status:** Heuristic-to-conditional (Ricci flow with surgery is conditional on geometric hypotheses; the resampling correspondence is interpretive).
+
+**Statement:** Conditional on being in a regime where an effective Ricci-flow description is meaningful, Ricci flow can be continued through singularities via surgery (Perelman’s theory). The analogy to Fractal Gas is that killing/resampling can remove “high-curvature/high-energy” regions and allow continued evolution; the correspondence is interpretive rather than a proved equivalence.
 :::
 
 :::{prf:proof}
@@ -1748,7 +1914,9 @@ The flow is uniquely defined post-surgery (Perelman's construction). The discret
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_T$ (N16), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Agency (control policy $\pi$) and Geometry (metric $g$) are duals. The agent's attempt to minimize cost is equivalent to following geodesics in a curved Reimannian manifold induced by the cost function.
+**Status:** Heuristic-to-conditional (control–geometry dualities exist in specified settings; “dual” is interpretive without a concrete model).
+
+**Statement:** In certain control problems, cost minimization can be reformulated as geodesic motion for an appropriate metric (e.g. Jacobi/Maupertuis metrics in conservative settings or information-geometric metrics in statistical control). This block records the conditional pattern; a specific equivalence requires an explicit dynamics/cost model and the corresponding geometric structure.
 $$ \min_{\pi} J(\pi) \iff \delta \int ds = 0 $$
 :::
 
@@ -1772,8 +1940,13 @@ High cost regions act as "hills" (positive curvature) that deflects the agent. T
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7).
 
-**Statement:** For the Fractal Gas in equilibrium, the thermodynamic metric (Ruppeiner metric) defined by fluctuation probability is isometric to the Hessian of the negated entropy (potential).
-$$ g_{ij} = -\frac{\partial^2 S}{\partial E_i \partial E_j} = \beta \frac{\partial^2 \Phi}{\partial x_i \partial x_j} $$
+**Status:** Heuristic-to-conditional (Ruppeiner metric is standard in equilibrium thermodynamics; relating it directly to $\nabla^2\Phi$ depends on the ensemble/coordinates and Gaussian approximations).
+
+**Statement:** In equilibrium thermodynamics, the Ruppeiner metric is defined (in entropy representation) by the Hessian
+$$
+g_{ij}=-\frac{\partial^2 S}{\partial E_i\,\partial E_j}.
+$$
+In Gaussian/Laplace regimes for Gibbs families, this metric is related to fluctuation covariances and to Hessians of appropriate thermodynamic potentials (free energies) in the chosen coordinates. The schematic identification $g_{ij}\propto \nabla^2\Phi$ should be read as an approximation valid when $\Phi$ plays the role of a quadratic effective potential in the coordinates used.
 :::
 
 :::{prf:proof}
@@ -1794,7 +1967,9 @@ Positive definiteness of the metric (Stiffness permit) ensures thermodynamic sta
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
 
-**Statement:** The thermodynamic scalar curvature $R$ measures the interaction strength. Phase transitions (instabilities) correspond to singularities $R \to \infty$. A bound on curvature $|R| < C$ prevents criticality and ensures the validity of the Gaussian approximation (Mean Field).
+**Status:** Heuristic-to-conditional (Ruppeiner-curvature interpretations are conditional; relating curvature bounds to solver stability is interpretive).
+
+**Statement:** In thermodynamic geometry, scalar curvature is often interpreted as a proxy for interaction strength/correlation volume in certain model classes; near critical points it can diverge. If one is in a regime where such interpretations apply and curvature remains bounded, Gaussian/mean-field approximations are more plausible. This is a conditional diagnostic, not a universal barrier theorem for all Fractal Gas instantiations.
 :::
 
 :::{prf:proof}
@@ -1816,7 +1991,9 @@ The spectral gap condition (Stiffness) bounds the correlation length $\xi < 1/\s
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Rep}_K$ (N11).
 
-**Statement:** Geometrothermodynamics (GTD) defines a metric that is invariant under Legendre transforms (change of thermodynamic potential/ensemble). The physics of the Fractal Gas is independent of the choice of representation (Canonical vs Grand Canonical).
+**Status:** Heuristic (geometrothermodynamics is a specific formalism; Legendre invariance does not automatically imply representation-independence of a solver).
+
+**Statement:** GTD proposes Legendre-invariant geometric structures on the space of equilibrium states. This block records the analogy that some thermodynamic predictions should be representation/ensemble-invariant; applying that idea to a concrete Fractal Gas requires specifying the ensemble, potential, and observables being compared.
 :::
 
 :::{prf:proof}
@@ -1838,6 +2015,8 @@ The curvature of this metric encodes interaction independent of the control para
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_{\partial c}$ (N5), $\mathrm{Cap}_H$ (N6).
 
+**Status:** Heuristic-to-conditional (regularization improves conditioning; geometric curvature claims are model-dependent).
+
 **Statement:** Adding a Tikhonov regularizer (weight decay) $\Phi_{reg} = \Phi + \lambda \|x\|^2$ smooths the thermodynamic geometry, preventing curvature divergence and ensuring compact level sets (Cap_H).
 :::
 
@@ -1858,6 +2037,8 @@ Since the metric determinant is bounded away from zero, the scalar curvature (in
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_O$ (N9).
+
+**Status:** Conditional (convex-envelope/Maxwell constructions in equilibrium statistical mechanics; requires an equilibrium/large-system regime).
 
 **Statement:** Thermodynamic equilibrium is determined by the convex hull of the potential (Maxwell construction). Non-convexities in $\Phi$ (instabilities) are bridged by phase coexistence, effectively flattening the geometry to its convex envelope $\Phi^{**}$.
 :::
@@ -1883,6 +2064,8 @@ Global stability is restoring; microscopic instabilities correspond to interface
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Cap}_H$ (N6), $\mathrm{LS}_\sigma$ (N7).
 
+**Status:** Heuristic (physics-bound analogy; not a proved counting theorem for generic kinetic power sets).
+
 **Statement:** The number of physical states in the Kinetic Power Set $\mathcal{P}(X)$ scales as entropy $e^S$, not as the full power set $2^{e^S}$.
 Most subsets of states are physically inaccessible (energy forbidden).
 :::
@@ -1907,9 +2090,11 @@ Combining with the Holographic bound, $S \propto \text{Area}$. The accessible st
 **Thin inputs:** $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{SC}_\lambda$ (N4).
 
-**Statement:** The propagator for the combined diffusion-selection operator $H = K + V$ is the limit of alternating steps:
+**Status:** Conditional (Trotter–Kato product formula under generator/domain conditions).
+
+**Statement:** Under standard semigroup hypotheses for generators $K$ (diffusion) and $V$ (multiplication/killing potential), the propagator for the combined operator $H = K + V$ is the limit of alternating steps:
 $$e^{-t(K+V)} = \lim_{n\to\infty} (e^{-\frac{t}{n}K} e^{-\frac{t}{n}V})^n$$
-This justifies the algorithmic split between "Mutation" (diffusion) and "Selection" (cloning) steps in the Fractal Gas loop.
+This provides a mathematical justification for split-step schemes at the level of the limiting semigroup; a specific solver’s convergence still depends on how its discrete mutation/selection steps approximate $e^{-tK}$ and $e^{-tV}$.
 :::
 
 :::{prf:proof}
@@ -1929,6 +2114,8 @@ This proves that the discrete time-step algorithm converges to the continuous ti
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
+
+**Status:** Conditional (Laplace principle / simulated annealing under ergodicity + schedule hypotheses).
 
 **Statement:** If the potential $\Phi$ has a unique global minimum $x^*$ and sublevel sets are compact, the Fractal Gas measure converges weakly to the delta measure $\delta_{x^*}$ as $\beta \to \infty$ (annealing limit).
 $$ \lim_{\beta \to \infty} \rho_\beta = \delta_{x^*} $$
@@ -1953,7 +2140,9 @@ For an annealing schedule $\beta_t \sim \log t$, the system eventually settles i
 **Thin inputs:** $\Phi^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{SC}_{\partial c}$ (N5).
 
-**Statement:** If the potential $\Phi$ is invariant under a group $G$ ($[\Phi, G] = 0$) but the ground state is not ($G x^* \neq x^*$), the system selects a specific vacuum state, breaking the symmetry. The Goldstone modes (flat directions) correspond to diffusion along the orbit $G x^*$.
+**Status:** Heuristic-to-conditional (SSB is sharp in thermodynamic/infinite-volume limits; finite-$N$ systems do not literally break symmetry).
+
+**Statement:** In infinite-volume/thermodynamic limits of symmetric systems, one can have multiple extremal equilibrium states selecting a particular “vacuum” and breaking a symmetry of the Hamiltonian/potential; in that setting Goldstone modes correspond to low-cost fluctuations along the orbit of minimizers. For finite-$N$ Fractal Gas instances, symmetry breaking should be interpreted as long-lived metastable localization near one symmetry-related basin rather than literal non-invariant stationary laws.
 :::
 
 :::{prf:proof}
