@@ -5,13 +5,14 @@
 
 **Theorem Reference:** {prf:ref}`mt-fact-min-inst`
 
-**Theorem Statement:** To instantiate a Hypostructure for system $S$ using the thin object formalism, the user provides only:
+**Theorem Statement:** To instantiate a Hypostructure for system $S$ using the thin object formalism, the user provides only the thin objects **plus admissibility data/automation guarantees**:
 1. The Space $\mathcal{X}^{\text{thin}} = (\mathcal{X}, d, \mu)$
 2. The Energy $\Phi^{\text{thin}} = (F, \nabla, \alpha)$
 3. The Dissipation $\mathfrak{D}^{\text{thin}} = (R, \beta)$
 4. The Symmetry Group $G^{\text{thin}} = (\text{Grp}, \rho, \mathcal{S})$
+5. Admissibility data/automation guarantees (e.g., certificate checks for regularity, scaling tolerances, or measurability that the Sieve can verify)
 
-The Framework (Sieve) automatically derives all required components for a valid instantiation of {prf:ref}`mt-fact-valid-inst` via the Thin-to-Full Expansion {prf:ref}`mt-resolve-expansion`, reducing user burden from approximately 30 components to 10 primitive inputs (11 if an explicit scaling subgroup $\mathcal{S}$ must be supplied).
+The Framework (Sieve) automatically derives all required components for a valid instantiation of {prf:ref}`mt-fact-valid-inst` via the Thin-to-Full Expansion {prf:ref}`mt-resolve-expansion`, **using the thin objects together with the admissibility data/automation guarantees**, reducing user burden from approximately 30 components to 10 primitive inputs (11 if an explicit scaling subgroup $\mathcal{S}$ must be supplied).
 
 ---
 
@@ -45,7 +46,7 @@ The user provides four thin objects with the following components:
 **Height Object:** $\Phi^{\text{thin}} = (F, \nabla, \alpha)$ where:
 - $F: \mathcal{X} \to \mathbb{R} \cup \{\infty\}$ is a lower semicontinuous energy/height functional
 - $\nabla: \mathcal{X} \to T^*\mathcal{X}$ is the gradient or slope operator (in the sense of De Giorgi)
-- $\alpha \in \mathbb{Q}_{>0}$ is the scaling dimension satisfying $F(\lambda \cdot x) = \lambda^\alpha F(x)$
+- $\alpha \in \mathbb{Q}_{>0}$ is the scaling dimension, with a **type-specific scaling relation or tolerance** recorded in the admissibility data (e.g., $F(s(\lambda)^{-1}\cdot x) \approx \lambda^\alpha F(x)$ within certified bounds, or a type-specific scaling law for $T$)
 
 **Dissipation Object:** $\mathfrak{D}^{\text{thin}} = (R, \beta)$ where:
 - $R: \mathcal{X} \to [0,\infty]$ is a Borel-measurable (typically lower semicontinuous) dissipation rate satisfying the energy-dissipation inequality along trajectories: $\frac{d}{dt}F(u(t)) \leq -R(u(t))$
@@ -77,7 +78,7 @@ The goal is to construct the full Kernel Objects required by {prf:ref}`mt-fact-v
 
 ## Step 1: Topological Structure Derivation
 
-**Goal:** Construct SectorMap and Dictionary from $\mathcal{X}^{\text{thin}}$.
+**Goal:** Construct SectorMap and Dictionary from $\mathcal{X}^{\text{thin}}$ **together with admissibility data/automation guarantees**.
 
 ### Step 1.1: Connected Components (SectorMap)
 
@@ -116,7 +117,7 @@ This map is used by interfaces $\mathrm{TB}_\pi$ (Topological Barrier) and $C_\m
 
 ### Step 1.2: Dimensional Dictionary
 
-**Lemma 1.2** (Dimension Tag from Volume Growth): Given the metric measure data $(\mathcal{X}, d, \mu)$, define the (upper) local dimension of $\mu$ at $x$ by:
+**Lemma 1.2** (Dimension Tag from Volume Growth): Given the metric measure data $(\mathcal{X}, d, \mu)$, **assume the Sieve has either (i) a doubling/Ahlfors-regularity hypothesis or (ii) a verified certificate for volume-growth regularity**. Define the (upper) local dimension of $\mu$ at $x$ by:
 $$\overline{\dim}_\mu(x) := \limsup_{r \to 0} \frac{\log \mu(B_r(x))}{\log r}.$$
 Then the quantity
 $$\dim_\mu(\mathcal{X}) := \operatorname{ess\,sup}_{x \in \mathcal{X}} \overline{\dim}_\mu(x)$$
@@ -174,14 +175,14 @@ This dictionary is accessible to all interfaces for type checking and dimensiona
 
 ## Step 2: Singularity Detection
 
-**Goal:** Construct the bad set $\mathcal{X}_{\text{bad}}$ and singular locus $\Sigma$ from $\mathfrak{D}^{\text{thin}}$.
+**Goal:** Construct the bad set $\mathcal{X}_{\text{bad}}$ and singular locus $\Sigma$ from $\mathfrak{D}^{\text{thin}}$ **together with admissibility data/automation guarantees**.
 
 ### Step 2.1: Bad Set Construction
 
 Define the dissipation blow-up locus:
 $$\mathcal{X}_{\text{bad}} := \{x \in \mathcal{X} : R(x) = \infty\} \cup \{x : \limsup_{y \to x} R(y) = \infty\}$$
 
-**Lemma 2.1** (Bad Set Measurability): Under the consistency assumptions, $\mathcal{X}_{\text{bad}}$ is a Borel set in $(\mathcal{X}, d)$.
+**Lemma 2.1** (Bad Set Measurability): Under the consistency assumptions **and with measurability/regularity verified by certificate checks (e.g., $K_{\mathrm{meas}}$ for Borel measurability and doubling/Ahlfors controls where needed)**, $\mathcal{X}_{\text{bad}}$ is a Borel set in $(\mathcal{X}, d)$.
 
 *Proof of Lemma 2.1:*
 **Step 2.1.1 (Level sets are Borel):** For each $n \in \mathbb{N}$ define
@@ -270,8 +271,9 @@ has a convergent subsequence to a profile $V \in \mathcal{X}$, defining a class 
 
 *Proof of Lemma 3.2:* We make the scaling normalization step completely explicit.
 
-**Step 3.2.1 (Scaling law):** By definition of the thin inputs, we have a scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ and a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ such that
-$$F\big(s(\lambda)^{-1}\cdot x\big) = \lambda^\alpha F(x)\qquad(\lambda>0).$$
+**Step 3.2.1 (Scaling law):** By definition of the thin inputs, we have a scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ and a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ together with a **type-specific scaling relation or tolerance** recorded in the admissibility data, for example
+$$F\big(s(\lambda)^{-1}\cdot x\big) \approx \lambda^\alpha F(x)\quad\text{within certified bounds for type }T,$$
+or the explicit scaling law required by the type package.
 
 **Step 3.2.2 (Choose a normalization scale):** Assume $F(x_n)\in(0,\infty)$ along the concentrating subsequence (this is the relevant case for blow-up profiling). Define
 $$\lambda_n := F(x_n)^{-1/\alpha}.$$
@@ -299,7 +301,7 @@ This is the standard rescaling-and-recentering procedure in blow-up analysis; se
 **Step 3.3.1 (All hypotheses are functions of thin inputs):** The hypotheses of {prf:ref}`mt-resolve-profile` consist of:
 1. A bounded-energy topology/topological vector space model for $\mathcal{X}$ (supplied by $(\mathcal{X},d,\mu)$ and the type tag in the Dictionary),
 2. A symmetry action $\rho:\mathrm{Grp}\times\mathcal{X}\to\mathcal{X}$ (supplied by $G^{\mathrm{thin}}$),
-3. A scaling law for $F$ (supplied by $\alpha$ and $\mathcal{S}$),
+3. A scaling law or tolerance for $F$ (supplied by $\alpha$, $\mathcal{S}$, and the admissibility data),
 4. The energy functional $F$ needed to impose boundedness and select concentrating sequences.
 All of these are part of the thin data or are derived in Step 1.2 (the type tag).
 
