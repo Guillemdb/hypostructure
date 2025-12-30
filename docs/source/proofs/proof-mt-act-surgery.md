@@ -35,9 +35,10 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, S_t, \Phi, \mathfrak{D
    - **Capacity bound**: $\text{Cap}(\Sigma) \leq \varepsilon_{\text{adm}}(T)$ where
      $$\text{Cap}(\Sigma) = \inf\left\{\int_{\mathcal{X}} |\nabla \phi|^2 \, d\mu : \phi \in H^1(\mathcal{X}), \phi|_\Sigma = 1\right\}$$
    - **Progress certificate**: $K_{\epsilon}^+$ witnessing energy drop $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$
+   - **Admissibility package**: recorded regularity data (doubling/Poincaré or bounded-geometry assumptions for coarea/capacity), cap coercivity/spectral-gap constants, and type-specific constants $(C_{\text{exc}}, C_k(V), E_{\text{cap}}(V))$ for the cap recipe
 
 3. **Surgery Data** $D_S = (\Sigma, V, \epsilon, \mathcal{X}_{\text{cap}})$ specifying:
-   - Excision radius $\epsilon > 0$ determining neighborhood $\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$
+   - Excision radius $\epsilon > 0$ determining neighborhood $\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$, where $\epsilon$ is the type-specific excision constant recorded in the admissibility package
    - Capping object $\mathcal{X}_{\text{cap}}$ from the library, determined by profile $V$
 
 **Canonical Profile Library:**
@@ -55,7 +56,7 @@ Each profile $V \in \mathcal{L}_T$ has an attached **surgery recipe** $\mathcal{
 
 Prove that applying the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$ produces a surgered state space $\mathcal{X}'$ with:
 1. **Flow continuation**: Evolution continues with well-defined state $x' \in \mathcal{X}'$
-2. **Energy control**: $\Phi(x') \leq \Phi(x^-) + \delta_S$ for controlled jump $\delta_S$
+2. **Energy control**: $\Phi(x') \leq \Phi(x^-) + \delta_S$ for controlled jump $\delta_S$ recorded as a type-specific admissibility constant
 3. **Re-entry certificate**: $K^{\mathrm{re}}$ satisfying preconditions for continuing the Sieve
 4. **Progress**: Finite surgery count via energy decrease
 
@@ -63,31 +64,31 @@ Prove that applying the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrighta
 
 ## Lemma 1: Excision Neighborhood Well-Definedness
 
-**Statement:** Given admissible singularity $(\Sigma, V)$ with $\text{Cap}(\Sigma) \leq \varepsilon_{\text{adm}}$, the excision neighborhood
+**Statement:** Given admissible singularity $(\Sigma, V)$ with $\text{Cap}(\Sigma) \leq \varepsilon_{\text{adm}}$, and admissibility data recording either (i) doubling/Poincaré regularity for $(\mathcal{X}, d, \mu)$ or (ii) bounded-geometry hypotheses sufficient for coarea/capacity estimates, the excision neighborhood
 $$\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$$
 is well-defined with finite measure:
 $$\mu(\mathcal{X}_\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \text{Cap}(\Sigma)$$
-where $C_{\text{exc}}$ depends only on the dimension $n = \dim(\mathcal{X})$ and the ambient metric structure.
+where $C_{\text{exc}}$ is the admissibility-recorded constant depending on the type-specific regularity package.
 
 **Proof:**
 
 **Step 1.1 (Metric Structure):** From the thin object $\mathcal{X}^{\text{thin}} = (\mathcal{X}, d, \mu)$, we have:
 - A metric $d: \mathcal{X} \times \mathcal{X} \to [0, \infty)$ satisfying the triangle inequality
-- A Radon measure $\mu$ on $\mathcal{X}$ with $\mu(\mathcal{X}) < \infty$ (finite total mass)
+- A Radon or locally finite measure $\mu$ on $\mathcal{X}$ as recorded in the admissibility data
 
 The distance function $x \mapsto d(x, \Sigma) := \inf_{y \in \Sigma} d(x, y)$ is Lipschitz continuous with Lipschitz constant 1:
 $$|d(x, \Sigma) - d(x', \Sigma)| \leq d(x, x')$$
 
 Hence $\mathcal{X}_\Sigma = \{d(\cdot, \Sigma) < \epsilon\}$ is an open set (as the preimage of the open interval $(-\infty, \epsilon)$ under a continuous function).
 
-**Step 1.2 (Capacity-to-Measure Bound):** By the coarea formula from geometric measure theory {cite}`Federer69`, for any Lipschitz function $u: \mathcal{X} \to \mathbb{R}$:
+**Step 1.2 (Capacity-to-Measure Bound):** By the coarea formula from geometric measure theory {cite}`Federer69`, available under the admissibility hypotheses (doubling/Poincaré or bounded geometry) for any Lipschitz function $u: \mathcal{X} \to \mathbb{R}$:
 $$\int_{\mathcal{X}} |\nabla u| \, d\mu = \int_{-\infty}^{\infty} \mathcal{H}^{n-1}(\{u = t\}) \, dt$$
 where $\mathcal{H}^{n-1}$ is the $(n-1)$-dimensional Hausdorff measure.
 
 Applying this to $u(x) = d(x, \Sigma)$, we have $|\nabla u| = 1$ almost everywhere (by Rademacher's theorem, since $u$ is Lipschitz), so:
 $$\mu(\mathcal{X}_\Sigma) = \mu(\{u < \epsilon\}) \leq \int_0^\epsilon \mathcal{H}^{n-1}(\{d(\cdot, \Sigma) = t\}) \, dt$$
 
-**Step 1.3 (Capacity Estimate):** The capacity of $\Sigma$ controls the surface area of level sets. By the Sobolev inequality in the form of Adams-Hedberg {cite}`AdamsHedberg96` (Theorem 5.1.2):
+**Step 1.3 (Capacity Estimate):** The capacity of $\Sigma$ controls the surface area of level sets. By the Sobolev inequality in the form of Adams-Hedberg {cite}`AdamsHedberg96` (Theorem 5.1.2), invoked under the admissibility regularity package:
 $$\mathcal{H}^{n-1}(\{d(\cdot, \Sigma) = t\}) \leq C \cdot t \cdot \text{Cap}(\Sigma) \quad \text{for } 0 < t \leq \epsilon$$
 
 Integrating over $t \in [0, \epsilon]$ and using the monotonicity of level sets:
@@ -102,7 +103,7 @@ This bound ensures the excision removes only a small, controlled portion of the 
 
 ## Lemma 2: Capping Object Construction
 
-**Statement:** For each profile $V \in \mathcal{L}_T$, there exists a unique **capping object** $\mathcal{X}_{\text{cap}}(V)$ with the following properties:
+**Statement:** For each profile $V \in \mathcal{L}_T$, the canonical library data and admissibility package (including spectral-gap/coercivity assumptions for cap construction) provide a **capping object** $\mathcal{X}_{\text{cap}}(V)$ that is unique up to admissibility tolerance with the following properties:
 
 1. **Boundary Matching**: $\partial \mathcal{X}_{\text{cap}} \cong \partial \mathcal{X}_\Sigma$ (boundaries are diffeomorphic/homeomorphic)
 2. **Asymptotic Profile**: $\lim_{x \to \partial \mathcal{X}_{\text{cap}}} \Phi(x) = V$ (the solution approaches profile $V$ at the boundary)
@@ -118,7 +119,7 @@ This bound ensures the excision removes only a small, controlled portion of the 
 
 Isolation ensures a finite automorphism group $\text{Aut}(V) = \{g \in G : g \cdot V = V\}$, making the profile rigid up to symmetries.
 
-**Step 2.2 (Type-Specific Capping Recipes):** The surgery recipe for profile $V$ is derived from the regularity theory for type $T$:
+**Step 2.2 (Type-Specific Capping Recipes):** The surgery recipe for profile $V$ is stored in the canonical library data $\mathcal{O}_V$ and is derived from the regularity theory for type $T$ together with the admissibility coercivity/spectral-gap package:
 
 **Example 1 (Ricci Flow):** For $V = S^2 \times \mathbb{R}$ (round cylinder singularity in dimension 3), the cap is constructed via Perelman's canonical neighborhood theorem {cite}`Perelman03`:
 - The cap is a standard round $S^3$ glued along the neck
@@ -130,7 +131,7 @@ Isolation ensures a finite automorphism group $\text{Aut}(V) = \{g \in G : g \cd
 - Boundary matching is vacuous since the excision removes the entire sphere
 - Energy bound: $\Phi(\emptyset) = 0$
 
-**Step 2.3 (Pushout Universal Property):** The capping object $\mathcal{X}_{\text{cap}}$ is characterized as the **universal solution** to the gluing problem. Given:
+**Step 2.3 (Pushout Universal Property):** The capping object $\mathcal{X}_{\text{cap}}$ is characterized as the **universal solution** to the gluing problem, unique up to admissibility tolerance. Given:
 - Excision boundary $\partial \mathcal{X}_\Sigma$
 - Asymptotic profile $V$
 
@@ -143,11 +144,11 @@ $$\begin{CD}
 
 This diagram commutes in the sense that the solution on $\mathcal{X}_{\text{cap}}$ limits to profile $V$ at the boundary.
 
-**Step 2.4 (Regularity Inheritance):** By the maximum principle and parabolic regularity theory (e.g., Evans {cite}`Evans10`), the cap inherits bounded geometry from $V$:
+**Step 2.4 (Regularity Inheritance):** By the maximum principle, the admissibility coercivity/spectral-gap hypotheses, and parabolic regularity theory (e.g., Evans {cite}`Evans10`), the cap inherits bounded geometry from $V$:
 - Since $V \in \mathcal{L}_T$ is a canonical profile, it satisfies the type-specific regularity estimates (e.g., curvature bounds for Ricci flow, mean curvature bounds for MCF)
 - The asymptotic matching ensures these bounds propagate to $\mathcal{X}_{\text{cap}}$ with constants $C_k(V)$ depending only on $V$ and the decay rate
 
-**Conclusion:** The capping object exists, is unique up to isomorphism, and satisfies all four properties. □
+**Conclusion:** The capping object exists, is unique up to admissibility tolerance via the canonical recipe, and satisfies all four properties. □
 
 ---
 
