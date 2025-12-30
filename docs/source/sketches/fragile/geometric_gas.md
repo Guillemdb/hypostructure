@@ -56,6 +56,8 @@ This document presents a **machine-checkable proof object** for the **Euclidean 
 ::::{prf:theorem} Euclidean Gas Step Operator (Softmax Pairing, Momentum-Conserving Cloning)
 :label: thm-geometric-gas-main
 
+**Status:** Certified (this file is a closed sieve proof object; see Part II and the proof sketch below).
+
 **Given:**
 - State space: $\mathcal{X} = (\mathbb{R}^d \times \overline{B_{V_{\mathrm{alg}}}})^N$ with state $s=(x,v)$.
 - Bounds: a compact box $B=\prod_{k=1}^d[\ell_k,u_k]$ used to define the alive mask.
@@ -288,6 +290,8 @@ which is the companion-selection Doeblin/minorization constant used in the mean-
 :::{prf:lemma} Softmax pairing admits an explicit Doeblin constant
 :label: lem-geometric-gas-softmax-doeblin
 
+**Status:** Certified (finite-swarm minorization; proof below).
+
 Assume $n_{\mathrm{alive}}\ge 2$ and that on the alive slice
 $d_{\mathrm{alg}}(i,j)^2 \le D_{\mathrm{alg}}^2$ for all $i,j\in\mathcal{A}$ (so each softmax weight lies in $[m_\epsilon,1]$ with $m_\epsilon=\exp(-D_{\mathrm{alg}}^2/(2\epsilon^2))$).
 Then for each alive walker $i$, the softmax companion distribution $P_i(\cdot)$ on $\mathcal{A}\setminus\{i\}$ satisfies the uniform minorization
@@ -394,6 +398,8 @@ $$
 :::{prf:lemma} Cloning selection is fitness-aligned (mean fitness increases at the selection stage)
 :label: lem-geometric-gas-selection-alignment
 
+**Status:** Certified (conditional expectation identity; proof below).
+
 Fix a step of the algorithm and condition on the realized companion indices $c=(c_i)$ and the realized fitness values $V=(V_i)$ that are fed into cloning (`fragile.core.fitness.compute_fitness` output, with dead walkers having $V_i=0$).
 Define the cloning score and probability
 $$
@@ -454,6 +460,8 @@ $$
 
 :::{prf:lemma} Viscous coupling is dissipative (degree-weighted energy)
 :label: lem-geometric-gas-viscous-dissipation
+
+**Status:** Certified (exact dissipation identity from symmetry; proof below).
 
 Fix positions $x$ and define the symmetric kernel
 $$
@@ -532,7 +540,7 @@ Unlike the unclamped formula, this does **not** require $\epsilon_\Sigma>H_{\max
 
 | Thin Object | Definition | Implementation |
 |-------------|------------|----------------|
-| Arena $\mathcal{X}^{\text{thin}}$ | $(x,v)\in(\mathbb{R}^d\times\overline{B_{V_{\mathrm{alg}}}})^N$ together with the alive mask induced by $B$; metric $d_{\mathrm{alg}}^2=\sum_i\|x_i-x_i'\|^2+\lambda_{\mathrm{alg}}\|v_i-v_i'\|^2$ | `SwarmState`, `EuclideanGas.step` |
+| Arena $\mathcal{X}^{\text{thin}}$ | Metric-measure arena $(X,d,\mathfrak{m})$ with $(x,v)\in(\mathbb{R}^d\times\overline{B_{V_{\mathrm{alg}}}})^N$ and alive mask induced by $B$; metric $d_{\mathrm{alg}}^2=\sum_i\|x_i-x_i'\|^2+\lambda_{\mathrm{alg}}\|v_i-v_i'\|^2$; reference measure $\mathfrak{m}$ = product Lebesgue on $(\mathbb{R}^d\times \overline{B_{V_{\mathrm{alg}}}})^N$ (restricted to $(B\times \overline{B_{V_{\mathrm{alg}}}})^N$ for KL/LSI proxy bounds) | `SwarmState`, `EuclideanGas.step` |
 | Potential $\Phi^{\text{thin}}$ | $\Phi := V_{\max}-\frac{1}{N}\sum_i V_{\mathrm{fit},i}$ (bounded “height”, i.e. negative mean fitness up to an additive constant) | `FitnessOperator.__call__` (fitness), Derived constants $V_{\max}$ |
 | Cost $\mathfrak{D}^{\text{thin}}$ | $\mathfrak{D}(x,v)=\frac{\gamma}{N}\sum_i \|v_i\|^2+\frac{\nu}{N}\sum_{i,j}K(\|x_i-x_j\|)\|v_i-v_j\|^2$ | `KineticOperator._compute_viscous_force` |
 | Invariance $G^{\text{thin}}$ | Permutation symmetry $S_N$; optional spatial symmetries of $U$ | Implicit in vectorized operators |
@@ -654,7 +662,7 @@ The Euclidean Gas is treated as an **open system**: bounds induce killing (dead 
 ### 1. The Arena ($\mathcal{X}^{\text{thin}}$)
 * **State Space ($\mathcal{X}$):** $(x,v)\in(\mathbb{R}^d\times\overline{B_{V_{\mathrm{alg}}}})^N$ together with the alive mask induced by $B$.
 * **Metric ($d$):** $d((x,v),(x',v'))^2 = \sum_i \|x_i - x_i'\|^2 + \lambda_{\text{alg}} \|v_i - v_i'\|^2$.
-* **Measure ($\mu$):** product Lebesgue on $\mathbb{R}^d$ times the uniform measure on $\overline{B_{V_{\mathrm{alg}}}}$ (formal); the analysis focuses on the conditioned/alive law on $B\times\overline{B_{V_{\mathrm{alg}}}}$.
+* **Reference measure ($\mathfrak{m}$):** product Lebesgue measure on $(\mathbb{R}^d\times \overline{B_{V_{\mathrm{alg}}}})^N$ (locally finite, full support); for KL/LSI proxy statements we work on the alive slice $\Omega_{\mathrm{alive}}=(B\times \overline{B_{V_{\mathrm{alg}}}})^N$ and use the restricted measure $\mathfrak{m}|_{\Omega_{\mathrm{alive}}}$.
 
 ### 2. The Potential ($\Phi^{\text{thin}}$)
 * **Height Functional ($F$):** $\Phi(x,v) := V_{\max}-\frac{1}{N}\sum_i V_{\mathrm{fit},i}$ (bounded).

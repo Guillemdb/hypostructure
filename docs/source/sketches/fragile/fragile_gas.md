@@ -119,6 +119,9 @@ If $n_{\mathrm{alive}}<2$, the self-exclusion constraint leaves no valid compani
 Define the squared algorithmic distance:
 :::{prf:definition} Algorithmic distance
 :label: def-fragile-gas-distance
+
+**Status:** Certified (definition; matches `fragile.core.companion_selection.compute_algorithmic_distance_matrix`).
+
 $$
 d_{\mathrm{alg}}(i,j)^2 := \|x_i-x_j\|_2^2 + \lambda_{\mathrm{alg}}\|v_i-v_j\|_2^2.
 $$
@@ -129,6 +132,9 @@ $$
 Fix $\epsilon>0$ (softmax range). For every alive walker $i\in\mathcal{A}(x)$, the companion index $c_i$ is drawn from $\mathcal{A}(x)\setminus\{i\}$ with:
 :::{prf:definition} Softmax companion selection
 :label: def-fragile-gas-softmax
+
+**Status:** Certified (definition; matches `fragile.core.companion_selection.select_companions_softmax` on the alive slice).
+
 $$
 \mathbb{P}(c_i=j\mid x,v)\;=\;
 \frac{\exp\!\left(-\frac{d_{\mathrm{alg}}(i,j)^2}{2\epsilon^2}\right)}
