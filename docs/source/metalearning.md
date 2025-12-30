@@ -21,21 +21,30 @@ Let $\Theta$ be a metric space (typically a subset of a finite-dimensional vecto
 :::{prf:definition} Parametric hypostructure components
 :label: def-parametric-hypostructure-components
 
-For each $\theta \in \Theta$, define:
+For each $\theta \in \Theta$, define the following *co-equal* components of the hypostructure (none is auxiliary; boundary data is on the same footing as $\Phi_\theta$ or $\mathfrak{D}_\theta$):
 
 - **Parametric height functional:** $\Phi_\theta : X \to \mathbb{R}$
 - **Parametric dissipation:** $\mathfrak{D}_\theta : X \to [0,\infty]$
 - **Parametric symmetry group:** $G_\theta \subset \mathrm{Aut}(X)$
 - **Parametric local structures:** metrics, norms, or capacities depending on $\theta$
+- **Boundary interface:** a boundary object $\mathcal{B}_\theta$, trace morphism $\mathrm{Tr}_\theta: X \to \mathcal{B}_\theta$, flux morphism $\mathcal{J}_\theta: \mathcal{B}_\theta \to \underline{\mathbb{R}}$, and reinjection kernel $\mathcal{R}_\theta: \mathcal{B}_\theta \to \mathcal{P}(X)$ as in {prf:ref}`def-categorical-hypostructure` and the thin interface definition in hypopermits_jb.md
 
 :::
 
-The tuple $\mathbb{H}_\theta = (X, S_t, \Phi_\theta, \mathfrak{D}_\theta, G_\theta)$ is a **parametric hypostructure**.
+The tuple $\mathbb{H}_\theta = (X, S_t, \Phi_\theta, \mathfrak{D}_\theta, G_\theta, \mathcal{B}_\theta, \mathrm{Tr}_\theta, \mathcal{J}_\theta, \mathcal{R}_\theta)$ is a **parametric hypostructure**, with boundary data treated as first-class structure rather than a peripheral constraint.
+
+:::{prf:remark} Boundary object consistency
+The boundary interface here is the same object used in hypopermits_jb.md: $\mathcal{B}_\theta$ is the boundary data object, $\mathrm{Tr}_\theta$ is the trace/restriction morphism (categorically the counit of $\iota_! \dashv \iota^*$), $\mathcal{J}_\theta$ measures boundary flux, and $\mathcal{R}_\theta$ encodes reinjection/feedback. This is the meta-learning counterpart of the boundary axiom {prf:ref}`ax-boundary` and the open-system check {prf:ref}`def-node-boundary`.
+:::
+
+:::{prf:remark} Boundary parity principle
+All reconstruction, identifiability, and risk statements in this chapter treat boundary structure on equal footing with bulk structure. In particular, two parameter choices that agree on $(\Phi_\theta, \mathfrak{D}_\theta, G_\theta)$ but disagree on $(\mathcal{B}_\theta, \mathrm{Tr}_\theta, \mathcal{J}_\theta, \mathcal{R}_\theta)$ are **distinct hypostructures** and remain distinguishable by $K_{Bound}$.
+:::
 
 :::{prf:definition} Parametric defect functional
 :label: def-parametric-defect-functional
 
-For each $\theta \in \Theta$ and each soft axiom label $A \in \mathcal{A} = \{\text{C}, \text{D}, \text{SC}, \text{Cap}, \text{LS}, \text{TB}\}$, define the defect functional:
+For each $\theta \in \Theta$ and each soft axiom label $A \in \mathcal{A} = \{\text{C}, \text{D}, \text{SC}, \text{Cap}, \text{LS}, \text{TB}, \text{Bound}\}$, define the defect functional:
 $$K_A^{(\theta)} : \mathcal{U} \to [0,\infty]$$
 constructed from the hypostructure $\mathbb{H}_\theta$ and the local definition of axiom $A$.
 :::
@@ -62,6 +71,11 @@ We verify the characterization for each axiom $A \in \mathcal{A}$:
 **(LS) Local Structure:** $K_{LS}^{(\theta)}(u)$ measures deviations from local metric, norm, or regularity assumptions as specified in previous chapters.
 
 **(TB) Thermodynamic Bounds:** $K_{TB}^{(\theta)}(u)$ measures violations of data processing inequalities or entropy bounds.
+
+**(Bound) Boundary interface:** $K_{Bound}^{(\theta)}(u)$ measures violations of boundary compatibility in the sense of the boundary object $\mathcal{B}_\theta$, trace morphism $\mathrm{Tr}_\theta$, flux $\mathcal{J}_\theta$, and reinjection kernel $\mathcal{R}_\theta$. Concretely, $K_{Bound}^{(\theta)}(u) = 0$ when:
+1. The trace $\mathrm{Tr}_\theta(u(t))$ is well-defined for $\mu$-a.e. $t$ and matches the boundary restriction encoded by $\mathcal{B}_\theta$,
+2. The boundary flux balances dissipation (e.g., $\frac{d}{dt}\Phi_\theta(u(t)) + \mathfrak{D}_\theta(u(t)) = -\mathcal{J}_\theta(\mathrm{Tr}_\theta(u(t)))$ in the classical setting), and
+3. Any reinjection is represented by $\mathcal{R}_\theta$ (Dirichlet/Neumann/Feller cases as in hypopermits_jb.md).
 
 In each case, $K_A^{(\theta)}(u) \geq 0$ with equality if and only if the constraint is satisfied exactly.
 :::
@@ -102,20 +116,20 @@ $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta).$
 The quantity $\mathcal{R}_A(\theta)$ measures the global quality of axiom $A_\theta$:
 
 - Small values indicate that, on average with respect to $\mu$, axiom $A_\theta$ is nearly satisfied.
-- Large values indicate frequent or severe violations.
+- Large values indicate frequent or severe violations on a set of nontrivial $\mu$-measure.
 
 :::
 
 :::{prf:proof}
 By {prf:ref}`def-expected-defect`, $\mathcal{R}_A(\theta) = \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u)$. Since $K_A^{(\theta)}(u) \geq 0$ with equality precisely when trajectory $u$ satisfies axiom $A$ under parameter $\theta$ ({prf:ref}`def-parametric-defect-functional`), we have:
 
+1. **Small $\mathcal{R}_A(\theta)$:** For any $\varepsilon > 0$, Markov's inequality gives
+   $$\mu\big(\{u : K_A^{(\theta)}(u) > \varepsilon\}\big) \leq \frac{\mathcal{R}_A(\theta)}{\varepsilon}.$$
+   Thus small $\mathcal{R}_A(\theta)$ forces the set of trajectories with defect above $\varepsilon$ to have small $\mu$-measure, i.e., the axiom is nearly satisfied in average and in measure.
 
-1. **Small $\mathcal{R}_A(\theta)$:** The integral is small if and only if $K_A^{(\theta)}(u)$ is small for $\mu$-almost every $u$, meaning the axiom is satisfied or nearly satisfied across the trajectory distribution.
+2. **Large $\mathcal{R}_A(\theta)$:** If $K_A^{(\theta)}$ is bounded below by a positive constant on a set of positive $\mu$-measure (frequent or severe violations), then the integral is large. More generally, if violations are frequent or large in magnitude, the integral grows.
 
-2. **Large $\mathcal{R}_A(\theta)$:** The integral is large if either (i) $K_A^{(\theta)}(u)$ is large on a set of positive $\mu$-measure (severe violations), or (ii) $K_A^{(\theta)}(u)$ is moderate on a large set (frequent violations). In both cases, axiom $A$ fails systematically under parameter $\theta$.
-
-
-The interpretation follows from the positivity and integrability of the defect functional.
+The interpretation follows from nonnegativity of $K_A^{(\theta)}$ and standard measure bounds; no pointwise guarantees are claimed without stronger assumptions.
 :::
 
 #### The Meta-Objective Functional
@@ -247,7 +261,7 @@ $$\nabla_\theta \mathcal{R}(\theta) = \sum_{A \in \mathcal{A}} w_A \int_{\mathca
 
 Consider the gradient descent iteration:
 $$\theta_{k+1} = \theta_k - \eta_k \nabla_\theta \mathcal{R}(\theta_k)$$
-with step sizes $\eta_k > 0$ satisfying $\sum_k \eta_k = \infty$ and $\sum_k \eta_k^2 < \infty$.
+with step sizes $\eta_k > 0$ satisfying $\sum_k \eta_k = \infty$ and $\sum_k \eta_k^2 < \infty$. Assume in addition that the iterates remain in a compact sublevel set of $\mathcal{R}$ (or, equivalently, that $\mathcal{R}$ has compact sublevel sets and $\mathcal{R}(\theta_k)$ is nonincreasing).
 :::
 
 Under the assumptions of {prf:ref}`lem-leibniz-rule-for-defect-risk`, together with Lipschitz continuity of $\nabla_\theta \mathcal{R}$, the sequence $(\theta_k)$ has accumulation points, and every accumulation point is a stationary point of $\mathcal{R}$.
@@ -264,7 +278,7 @@ $$\mathcal{R}(\theta_{k+1}) \leq \mathcal{R}(\theta_k) - \eta_k \|\nabla \mathca
 $$\sum_{k=0}^\infty \eta_k(1 - L\eta_k/2)\|\nabla \mathcal{R}(\theta_k)\|^2 \leq \mathcal{R}(\theta_0) - \inf \mathcal{R} < \infty.$$
 Since $\sum_k \eta_k = \infty$ and $\eta_k \to 0$, we have $\liminf_{k \to \infty} \|\nabla \mathcal{R}(\theta_k)\| = 0$.
 
-**Step 3 (Accumulation points).** Compactness of $\Theta$ ({prf:ref}`mt-existence-of-defect-minimizers`, assumption 1) ensures $(\theta_k)$ has accumulation points. Continuity of $\nabla \mathcal{R}$ implies any accumulation point $\theta^*$ satisfies $\nabla \mathcal{R}(\theta^*) = 0$ (stationary).
+**Step 3 (Accumulation points).** By the compact sublevel-set assumption, $(\theta_k)$ is precompact and hence has accumulation points. Continuity of $\nabla \mathcal{R}$ implies any accumulation point $\theta^*$ satisfies $\nabla \mathcal{R}(\theta^*) = 0$ (stationary).
 
 **Step 4 (Convex case).** If $\mathcal{R}$ is convex, stationary points satisfy $\nabla \mathcal{R}(\theta^*) = 0$ if and only if $\theta^*$ is a global minimizer.
 :::
@@ -613,16 +627,18 @@ $$\mathcal{R}_\ell(\mathcal{I}) := \{\text{structural features visible at scale 
 
 The preceding sections established that axiom defects can be minimized via gradient descent. This section proves the central metatheorem: under identifiability conditions, defect minimization provably recovers the true hypostructure and its structural predictions.
 
-**Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure $\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*})$ satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint defect risk:
+**Setting.** Fix a dynamical system $S$ with state space $X$, semiflow $S_t$, and trajectory class $\mathcal{U}$. Suppose there exists a "true" hypostructure
+$$\mathcal{H}_{\Theta^*} = (X, S_t, \Phi_{\Theta^*}, \mathfrak{D}_{\Theta^*}, G_{\Theta^*}, \mathcal{B}_{\Theta^*}, \mathrm{Tr}_{\Theta^*}, \mathcal{J}_{\Theta^*}, \mathcal{R}_{\Theta^*})$$
+satisfying the axioms. Consider a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$ containing $\mathcal{H}_{\Theta^*}$, with joint defect risk:
 $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta), \quad \mathcal{R}_A(\theta) := \int_{\mathcal{U}} K_A^{(\theta)}(u) \, d\mu(u).$$
 
 > **[Deps] Structural Dependencies**
 >
 > *   **Prerequisites (Inputs):**
->     *   [ ] **Axiom Validity at $\Theta^*$:** The target hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC)
+>     *   [ ] **Axiom Validity at $\Theta^*$:** The target hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC)
 >     *   [ ] **Well-Behaved Defect Functionals:** Compact $\Theta$, continuous $\theta \mapsto K_A^{(\theta)}(u)$, integrable majorants ({prf:ref}`lem-leibniz-rule-for-defect-risk`)
 >     *   [ ] **Structural Identifiability:** Persistent excitation (C1), nondegenerate parametrization (C2), regular parameter space (C3) ({prf:ref}`mt-sv-09-meta-identifiability`)
->     *   [ ] **Defect Reconstruction:** Reconstruction of $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \text{barriers}, M)$ from defects up to Hypo-isomorphism ({prf:ref}`mt-defect-reconstruction-2`)
+>     *   [ ] **Defect Reconstruction:** Reconstruction of $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \mathcal{B}_\theta, \mathrm{Tr}_\theta, \mathcal{J}_\theta, \mathcal{R}_\theta, \text{barriers}, M)$ from defects up to Hypo-isomorphism ({prf:ref}`mt-defect-reconstruction-2`)
 > *   **Output (Structural Guarantee):**
 >     *   Global minimizer $\Theta^*$ satisfies $\mathcal{R}(\Theta^*) = 0$; any global minimizer $\hat{\theta}$ with $\mathcal{R}(\hat{\theta}) = 0$ yields $\mathcal{H}_{\hat{\theta}} \cong \mathcal{H}_{\Theta^*}$
 >     *   Local quadratic identifiability: $c|\theta - \tilde{\Theta}|^2 \leq \mathcal{R}(\theta) \leq C|\theta - \tilde{\Theta}|^2$
@@ -638,13 +654,13 @@ $$\mathcal{R}(\theta) := \sum_{A \in \mathcal{A}} w_A \, \mathcal{R}_A(\theta), 
 
 Let $S$ be a dynamical system with a hypostructure representation $\mathcal{H}_{\Theta^*}$ inside a parametric family $\{\mathcal{H}_\theta\}_{\theta \in \Theta_{\mathrm{adm}}}$. Assume:
 
-1. **(Axiom validity at $\Theta^*$.)** The hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC). Consequently, $K_A^{(\Theta^*)}(u) = 0$ for $\mu$-a.e. trajectory $u \in \mathcal{U}$ and all $A \in \mathcal{A}$.
+1. **(Axiom validity at $\Theta^*$.)** The hypostructure $\mathcal{H}_{\Theta^*}$ satisfies axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC). Consequently, $K_A^{(\Theta^*)}(u) = 0$ for $\mu$-a.e. trajectory $u \in \mathcal{U}$ and all $A \in \mathcal{A}$.
 
 2. **(Well-behaved defect functionals.)** The assumptions of {prf:ref}`lem-leibniz-rule-for-defect-risk` hold: $\Theta$ compact and metrizable, $\theta \mapsto K_A^{(\theta)}(u)$ continuous and differentiable with integrable majorants.
 
 3. **(Structural identifiability.)** The family satisfies the conditions of {prf:ref}`mt-sv-09-meta-identifiability`: persistent excitation (C1), nondegenerate parametrization (C2), and regular parameter space (C3).
 
-4. **(Defect reconstruction.)** The Defect Reconstruction Theorem ({prf:ref}`mt-defect-reconstruction-2`) holds: from $\{K_A^{(\theta)}\}_{A \in \mathcal{A}}$ on $\mathcal{U}$, one reconstructs $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \text{barriers}, M)$ up to Hypo-isomorphism.
+4. **(Defect reconstruction.)** The Defect Reconstruction Theorem ({prf:ref}`mt-defect-reconstruction-2`) holds: from $\{K_A^{(\theta)}\}_{A \in \mathcal{A}}$ on $\mathcal{U}$, one reconstructs $(\Phi_\theta, \mathfrak{D}_\theta, S_t, \mathcal{B}_\theta, \mathrm{Tr}_\theta, \mathcal{J}_\theta, \mathcal{R}_\theta, \text{barriers}, M)$ up to Hypo-isomorphism.
 
 Consider gradient descent with step sizes $\eta_k > 0$ satisfying $\sum_k \eta_k = \infty$, $\sum_k \eta_k^2 < \infty$:
 $$\theta_{k+1} = \theta_k - \eta_k \nabla_\theta \mathcal{R}(\theta_k).$$
@@ -983,12 +999,12 @@ $$\mathcal{R}_{\mathcal{S}}(\Theta) := \mathbb{E}_{S \sim \mathcal{S}}[\mathcal{
 
 We assume that for each system $S$ in the support of $\mathcal{S}$, there exists a "true" parameter $\Theta^*(S) \in \Theta_{\mathrm{adm}}$ such that:
 
-- $\mathcal{H}_{\Theta^*(S),S}$ satisfies the hypostructure axioms (C, D, SC, Cap, LS, TB, Reg, GC) for that system;
+- $\mathcal{H}_{\Theta^*(S),S}$ satisfies the hypostructure axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC) for that system, including boundary trace/flux/reinjection compatibility;
 
 - all axiom defects vanish for the true parameter:
 $$\mathcal{R}_S(\Theta^*(S)) = 0, \qquad K_{A,S}^{(\Theta^*(S))}(u) = 0 \quad \mu_S\text{-a.e. for all } A \in \mathcal{A};$$
 
-- $\Theta^*(S)$ is uniquely determined up to Hypo-isomorphism by the structural data $(\Phi_{\Theta^*(S),S}, \mathfrak{D}_{\Theta^*(S),S}, \ldots)$ (structural identifiability, as in {prf:ref}`mt-sv-09-meta-identifiability`).
+- $\Theta^*(S)$ is uniquely determined up to Hypo-isomorphism by the structural data $(\Phi_{\Theta^*(S),S}, \mathfrak{D}_{\Theta^*(S),S}, \mathcal{B}_{\Theta^*(S),S}, \mathrm{Tr}_{\Theta^*(S),S}, \mathcal{J}_{\Theta^*(S),S}, \mathcal{R}_{\Theta^*(S),S}, \ldots)$ (structural identifiability, as in {prf:ref}`mt-sv-09-meta-identifiability`).
 
 We further assume that the map $S \mapsto \Theta^*(S)$ takes values in a compact $C^1$ submanifold $\mathcal{M} \subset \Theta_{\mathrm{adm}}$, which we call the **structural manifold**. Intuitively, $\mathcal{M}$ collects all true hypostructure parameters realized by systems in the support of $\mathcal{S}$.
 
@@ -1014,7 +1030,7 @@ Let $\mathcal{S}$ be a distribution over systems $S$, and suppose that:
 
 1. **True hypostructures on a compact structural manifold.** For $\mathcal{S}$-a.e. $S$, there exists $\Theta^*(S) \in \Theta_{\mathrm{adm}}$ such that:
    - $\mathcal{R}_S(\Theta^*(S)) = 0$;
-   - $\mathcal{H}_{\Theta^*(S),S}$ satisfies the hypostructure axioms (C, D, SC, Cap, LS, TB, Reg, GC);
+   - $\mathcal{H}_{\Theta^*(S),S}$ satisfies the hypostructure axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC);
    - $\Theta^*(S)$ is structurally identifiable up to Hypo-isomorphism.
 
    The image $\mathcal{M} := \{\Theta^*(S) : S \in \mathrm{supp}(\mathcal{S})\}$ is contained in a compact $C^1$ submanifold of $\Theta_{\mathrm{adm}}$.
@@ -1025,7 +1041,7 @@ $$c \, \mathrm{dist}(\Theta, \mathcal{M})^2 \leq \mathcal{R}_S(\Theta) \leq C \,
 
 3. **Lipschitz continuity of risk in $\Theta$ and $S$.** There exists $L > 0$ such that for all $S, S'$ and $\Theta, \Theta'$ in a neighborhood of $\mathcal{M}$:
 $$|\mathcal{R}_S(\Theta) - \mathcal{R}_{S'}(\Theta')| \leq L \big( d_{\mathcal{S}}(S, S') + |\Theta - \Theta'| \big),$$
-where $d_{\mathcal{S}}$ is a metric on the space of systems compatible with $\mathcal{S}$.
+where $d_{\mathcal{S}}$ is a metric on the space of systems compatible with $\mathcal{S}$ and controls boundary mismatch (e.g. the induced distance between boundary interfaces in the thin-interface sense).
 
 4. **Approximate empirical minimization on training systems.** Let $S_1, \ldots, S_N$ be i.i.d. samples from $\mathcal{S}$. Define the empirical average risk:
 $$\widehat{\mathcal{R}}_N(\Theta) := \frac{1}{N} \sum_{i=1}^N \mathcal{R}_{S_i}(\Theta).$$
@@ -1117,19 +1133,19 @@ In this section we formalize this as an **expressivity / approximation** propert
 #### Structural metric on hypostructures
 
 Fix a system $S$ with state space $X$ and semiflow $S_t$. Let $\mathfrak{H}(S)$ denote the class of hypostructures on $S$ of the form:
-$$\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G)$$
-satisfying the axioms (C, D, SC, Cap, LS, TB, Reg, GC) and a uniform regularity condition (e.g. Lipschitz bounds on $\Phi, \mathfrak{D}$ and bounded barrier constants).
+$$\mathcal{H} = (X, S_t, \Phi, \mathfrak{D}, G, \mathcal{B}, \mathrm{Tr}, \mathcal{J}, \mathcal{R})$$
+satisfying the axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC) and a uniform regularity condition (e.g. Lipschitz bounds on $\Phi, \mathfrak{D}$, bounded barrier constants, and bounded boundary flux).
 
 We define a **structural metric**:
 $$d_{\mathrm{struct}} : \mathfrak{H}(S) \times \mathfrak{H}(S) \to [0, \infty)$$
 by choosing a reference measure $\nu$ on $X$ (e.g. invariant or finite-energy measure) and setting:
-$$d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}') := \|\Phi - \Phi'\|_{L^\infty(X, \nu)} + \|\mathfrak{D} - \mathfrak{D}'\|_{L^\infty(X, \nu)} + \mathrm{dist}_G(G, G'),$$
-where $\mathrm{dist}_G$ is any metric on the structural data $G$ (capacities, sectors, barrier constants, exponents) compatible with the topology used in Parts VI–X. Two hypostructures that differ only by a Hypo-isomorphism are identified in this metric (i.e. we work modulo gauge).
+$$d_{\mathrm{struct}}(\mathcal{H}, \mathcal{H}') := \|\Phi - \Phi'\|_{L^\infty(X, \nu)} + \|\mathfrak{D} - \mathfrak{D}'\|_{L^\infty(X, \nu)} + \mathrm{dist}_G(G, G') + \mathrm{dist}_{\partial}((\mathcal{B}, \mathrm{Tr}, \mathcal{J}, \mathcal{R}), (\mathcal{B}', \mathrm{Tr}', \mathcal{J}', \mathcal{R}')),$$
+where $\mathrm{dist}_G$ is any metric on the structural data $G$ (capacities, sectors, barrier constants, exponents) compatible with the topology used in Parts VI–X, and $\mathrm{dist}_{\partial}$ is any metric on boundary data that controls trace/flux/reinjection (e.g. $L^\infty$ bounds on $\mathcal{J}$, operator norms for $\mathrm{Tr}$, and a Wasserstein/KL distance on $\mathcal{R}$ where defined). Two hypostructures that differ only by a Hypo-isomorphism are identified in this metric (i.e. we work modulo gauge).
 
 #### Universal structural approximation
 
 Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures on $S$:
-$$\mathcal{H}_\Theta = (X, S_t, \Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta).$$
+$$\mathcal{H}_\Theta = (X, S_t, \Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta, \mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta).$$
 
 We say this family is **universally structurally approximating** on $\mathfrak{H}(S)$ if (this generalizes the Stone-Weierstrass theorem to dynamical functionals, similar to the universality of flow approximation in [@Ornstein74]):
 
@@ -1140,7 +1156,7 @@ Intuitively, $\{\mathcal{H}_\Theta\}$ can approximate any admissible hypostructu
 
 #### Continuity of defects with respect to structure
 
-Recall that for each axiom $A \in \mathcal{A}$ and trajectory $u \in \mathcal{U}_S$, the defect functional $K_A^{(\Theta)}(u)$ is defined in terms of $(\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta)$ and the axioms (C, D, SC, Cap, LS, TB). Denote by $K_A^{(\mathcal{H})}(u)$ the corresponding defect when computed from a general hypostructure $\mathcal{H} \in \mathfrak{H}(S)$.
+Recall that for each axiom $A \in \mathcal{A}$ and trajectory $u \in \mathcal{U}_S$, the defect functional $K_A^{(\Theta)}(u)$ is defined in terms of $(\Phi_\Theta, \mathfrak{D}_\Theta, G_\Theta, \mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta)$ and the axioms (C, D, SC, Cap, LS, TB, Bound). Denote by $K_A^{(\mathcal{H})}(u)$ the corresponding defect when computed from a general hypostructure $\mathcal{H} \in \mathfrak{H}(S)$.
 
 We assume:
 
@@ -1149,7 +1165,11 @@ We assume:
 >
 > Equivalently, the mapping $\mathcal{H} \mapsto K_A^{(\mathcal{H})}(u)$ is Lipschitz with respect to the structural metric, uniformly over $u$ in the support of the trajectory measure $\mu_S$.
 
-This is a natural assumption given the explicit integral definitions of the defects (e.g. $K_D$ is an integral of the positive part of $\partial_t \Phi + \mathfrak{D}$, capacities/barriers enter via continuous inequalities, etc.).
+This is a natural assumption given the explicit integral definitions of the defects (e.g. $K_D$ is an integral of the positive part of $\partial_t \Phi + \mathfrak{D}$, capacities/barriers enter via continuous inequalities, and $K_{Bound}$ is controlled by trace/flux/reinjection deviations measured by $\mathrm{dist}_{\partial}$).
+
+:::{prf:remark} Boundary-sensitive expressivity
+Because $d_{\mathrm{struct}}$ includes $\mathrm{dist}_{\partial}$, universal approximation in this section requires the parametric family to approximate boundary interfaces as well as bulk dynamics. In particular, $K_{Bound}$ can only be driven to zero if $(\mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta)$ converge in the boundary metric.
+:::
 
 > **[Deps] Structural Dependencies**
 >
@@ -1170,7 +1190,7 @@ This is a natural assumption given the explicit integral definitions of the defe
 
 Let $S$ be a fixed system with trajectory distribution $\mu_S$ and trajectory class $\mathcal{U}_S$. Let $\mathfrak{H}(S)$ be the class of admissible hypostructures on $S$ as above. Suppose:
 
-1. **(True admissible hypostructure.)** There exists a "true" hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$ which exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) for $S$. Thus, for $\mu_S$-a.e. trajectory $u$:
+1. **(True admissible hypostructure.)** There exists a "true" hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$ which exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC) for $S$. Thus, for $\mu_S$-a.e. trajectory $u$:
 $$K_A^{(\mathcal{H}^*)}(u) = 0 \quad \forall A \in \mathcal{A}.$$
 
 2. **(Universally structurally approximating family.)** The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ is universally structurally approximating on $\mathfrak{H}(S)$ in the sense above.
@@ -1412,7 +1432,7 @@ This is precisely the local quantitative identifiability from {prf:ref}`mt-train
 
 Let $S$ be a system with true hypostructure $\mathcal{H}^* \in \mathfrak{H}(S)$, and let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of trainable hypostructures with defect-risk $\mathcal{R}_S(\Theta)$. Assume:
 
-1. **(True hypostructure with strict exclusion margin.)** The true hypostructure $\mathcal{H}^*$ exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC) and excludes a set of failure modes $\mathcal{F}_{\mathrm{forbidden}}^* \subseteq \mathcal{F}$ with positive margin:
+1. **(True hypostructure with strict exclusion margin.)** The true hypostructure $\mathcal{H}^*$ exactly satisfies the axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC) and excludes a set of failure modes $\mathcal{F}_{\mathrm{forbidden}}^* \subseteq \mathcal{F}$ with positive margin:
 $$\gamma^* := \inf_{f \in \mathcal{F}_{\mathrm{forbidden}}^*} \mathrm{dist}\big( B_f(\mathcal{H}^*), \partial \mathcal{B}_f^{\mathrm{safe}} \big) > 0.$$
 
 2. **(Barrier continuity.)** Each barrier functional $B_f(\mathcal{H})$ is Lipschitz with constant $L_f$ with respect to $d_{\mathrm{struct}}$, as in Assumption 13.48, and:
@@ -2410,7 +2430,7 @@ Let $\mathcal{S}$ be a $G$-invariant system distribution, and $\{\mathcal{H}_\Th
 Assume:
 
 1. **(Existence of a true equivariant hypostructure.)** There exists a parameter $\Theta^* \in \Theta_{\mathrm{adm}}$ such that:
-   - For $\mathcal{S}$-a.e. system $S$, $\mathcal{H}_{\Theta^*,S}$ satisfies the axioms (C, D, SC, Cap, LS, TB, Reg, GC), and $\mathcal{R}_S(\Theta^*) = 0$.
+   - For $\mathcal{S}$-a.e. system $S$, $\mathcal{H}_{\Theta^*,S}$ satisfies the axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC), and $\mathcal{R}_S(\Theta^*) = 0$.
    - The true hypostructure is $G$-equivariant in Hypo: For all $g \in G$ and all $S$:
    $$g \cdot \mathcal{H}_{\Theta^*,S} \simeq \mathcal{H}_{\Theta^*, g \cdot S}.$$
    Equivalently, the orbit $G \cdot \Theta^*$ consists of gauge-equivalent parameters encoding the same equivariant hypostructure.
@@ -3083,7 +3103,7 @@ This section establishes that the defect functionals introduced in {prf:ref}`ch-
 
 For a parametric hypostructure $\mathcal{H}_\Theta$ and trajectory class $\mathcal{U}$, the **defect signature** is the function:
 $$\mathsf{Sig}(\Theta): \mathcal{U} \to \mathbb{R}^{|\mathcal{A}|}, \quad \mathsf{Sig}(\Theta)(u) := \big(K_A^{(\Theta)}(u)\big)_{A \in \mathcal{A}}$$
-where $\mathcal{A} = \{C, D, SC, Cap, LS, TB\}$ is the set of axiom labels.
+where $\mathcal{A} = \{C, D, SC, Cap, LS, TB, Bound\}$ is the set of axiom labels.
 :::
 
 :::{prf:definition} Rich trajectory class
@@ -3104,7 +3124,7 @@ The hypostructure $\mathcal{H}_\Theta$ satisfies **action reconstruction** if ax
 :::{prf:metatheorem} Defect Reconstruction
 :label: mt-defect-reconstruction-2
 
-Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures satisfying axioms (C, D, SC, Cap, LS, TB, Reg) and (GC) on gradient-flow trajectories. Suppose:
+Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family of hypostructures satisfying axioms (C, D, SC, Cap, LS, TB, Bound, Reg) and (GC) on gradient-flow trajectories. Suppose:
 
 1. **(A1) Rich trajectories.** The trajectory class $\mathcal{U}$ is rich in the sense of {prf:ref}`def-rich-trajectory-class`.
 2. **(A2) Action reconstruction.** {prf:ref}`def-action-reconstruction-applicability` holds for each $\Theta$.
@@ -3116,8 +3136,9 @@ Then for each $\Theta$, the defect signature $\mathsf{Sig}(\Theta)$ determines, 
 3. The height functional $\Phi_\Theta$ (up to an additive constant)
 4. The scaling exponents and barrier constants
 5. The safe manifold $M$
+6. The boundary interface $(\mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta)$
 
-There exists a reconstruction operator $\mathcal{R}: \mathsf{Sig}(\Theta) \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta, S_t, \text{barriers}, M)$ built from the axioms and defect functional definitions alone.
+There exists a reconstruction operator $\mathcal{R}: \mathsf{Sig}(\Theta) \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta, S_t, \mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta, \text{barriers}, M)$ built from the axioms and defect functional definitions alone.
 :::
 
 :::{prf:proof}
@@ -3132,6 +3153,8 @@ Axiom (D) requires $\partial_t \Phi_\Theta + \mathfrak{D}_\Theta \leq 0$ along t
 **Step 4 (Recover $\Phi_\Theta$ from $\mathfrak{D}_\Theta$ and LS + GC).** The Action Reconstruction Theorem states: (D) + (LS) + (GC) $\Rightarrow$ the canonical Lyapunov $\mathcal{L}$ is the geodesic action with respect to $g_{\mathfrak{D}}$. By the Canonical Lyapunov Theorem ({prf:ref}`mt-krnl-lyapunov`), $\mathcal{L}$ equals $\Phi_\Theta$ up to an additive constant. Once $\mathfrak{D}_\Theta$ and $M$ are known, $\Phi_\Theta$ is reconstructed.
 
 **Step 5 (Recover exponents and barriers from remaining defects).** The SC defect compares observed scaling behavior with claimed exponents $(\alpha_\Theta, \beta_\Theta)$. Minimizing over trajectories identifies the unique exponents. Similarly, Cap/TB/LS defects compare actual behavior with capacity/topological/Łojasiewicz bounds; the barrier constants are the unique values at which defects transition from positive to zero.
+
+**Step 6 (Recover boundary interface from $K_{Bound}$).** The boundary defect compares observed traces and fluxes against the boundary data object $\mathcal{B}_\Theta$ and its morphisms. The zero-defect locus of $K_{Bound}$ identifies the admissible traces and flux balance, while the reinjection term determines $\mathcal{R}_\Theta$ up to the equivalence permitted by the boundary axiom (Dirichlet/Neumann/Feller classes in hypopermits_jb.md). This step is not optional: without matching boundary data, the hypostructure is incomplete even if bulk defects vanish.
 :::
 
 **Key Insight:** The reconstruction operator $\mathcal{R}$ is a derived object of the framework—not a new assumption. Every step uses existing axioms and metatheorems (Structural Resolution, Canonical Lyapunov, Action Reconstruction).
@@ -3147,16 +3170,18 @@ A trajectory distribution $\mu$ on $\mathcal{U}$ satisfies **persistent excitati
 :::{prf:definition} Nondegenerate parametrization
 :label: def-nondegenerate-parametrization
 
-The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ has **nondegenerate parametrization** if the map $\Theta \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta)$ is locally Lipschitz and injective: there exists $c > 0$ such that for $\mu$-almost every $x \in X$:
-$$|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| \geq c \, |\Theta - \Theta'|.$$
+The parametric family $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ has **nondegenerate parametrization** if the map
+$$\Theta \mapsto (\Phi_\Theta, \mathfrak{D}_\Theta, \mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta)$$
+is locally Lipschitz and injective: there exists $c > 0$ such that for $\mu$-almost every $x \in X$:
+$$|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| + \mathrm{dist}_{\partial}((\mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta), (\mathcal{B}_{\Theta'}, \mathrm{Tr}_{\Theta'}, \mathcal{J}_{\Theta'}, \mathcal{R}_{\Theta'})) \geq c \, |\Theta - \Theta'|.$$
 :::
 
 > **[Deps] Structural Dependencies**
 >
 > *   **Prerequisites (Inputs):**
->     *   [ ] **Axiom Satisfaction:** $\mathcal{H}_\Theta$ satisfies axioms (C, D, SC, Cap, LS, TB, Reg, GC) for each $\Theta$
+>     *   [ ] **Axiom Satisfaction:** $\mathcal{H}_\Theta$ satisfies axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC) for each $\Theta$
 >     *   [ ] **(C1) Persistent Excitation:** Trajectory distribution $\mu$ explores full-measure subset of accessible phase space
->     *   [ ] **(C2) Nondegenerate Parametrization:** $|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| \geq c|\Theta - \Theta'|$
+>     *   [ ] **(C2) Nondegenerate Parametrization:** $|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_{\Theta'}(x)| + \mathrm{dist}_{\partial}((\mathcal{B}_\Theta, \mathrm{Tr}_\Theta, \mathcal{J}_\Theta, \mathcal{R}_\Theta), (\mathcal{B}_{\Theta'}, \mathrm{Tr}_{\Theta'}, \mathcal{J}_{\Theta'}, \mathcal{R}_{\Theta'})) \geq c|\Theta - \Theta'|$
 >     *   [ ] **(C3) Regular Parameter Space:** $\Theta_{\mathrm{adm}}$ is a metric space
 > *   **Output (Structural Guarantee):**
 >     *   Exact identifiability up to gauge: $\mathsf{Sig}(\Theta) = \mathsf{Sig}(\Theta') \Rightarrow \mathcal{H}_\Theta \cong \mathcal{H}_{\Theta'}$
@@ -3171,7 +3196,7 @@ $$|\Phi_\Theta(x) - \Phi_{\Theta'}(x)| + |\mathfrak{D}_\Theta(x) - \mathfrak{D}_
 
 Let $\{\mathcal{H}_\Theta\}_{\Theta \in \Theta_{\mathrm{adm}}}$ be a parametric family satisfying:
 
-1. Axioms (C, D, SC, Cap, LS, TB, Reg, GC) for each $\Theta$
+1. Axioms (C, D, SC, Cap, LS, TB, Bound, Reg, GC) for each $\Theta$
 2. **(C1) Persistent excitation:** The trajectory distribution satisfies {prf:ref}`def-persistent-excitation`
 3. **(C2) Nondegenerate parametrization:** {prf:ref}`def-nondegenerate-parametrization` holds
 4. **(C3) Regular parameter space:** $\Theta_{\mathrm{adm}}$ is a metric space
@@ -3530,5 +3555,3 @@ By Löb's theorem: $\mathbb{H} \vdash \Box P$, i.e., the Hypostructure proves it
 
 This is not a contradiction because the "proof" is empirical (via $R$) rather than purely syntactic.
 :::
-
-
