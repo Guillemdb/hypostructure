@@ -5,7 +5,7 @@
 
 **Theorem Reference:** {prf:ref}`mt-fact-germ-density`
 
-This proof establishes that the finite Bad Pattern Library $\mathcal{B} = \{B_i\}_{i \in I}$ is categorically dense in the universal bad pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$ in the sense that every germ coprojection factors through some $B_i$. As a consequence, if $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all library elements, then $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$. This is the soundness guarantee needed for the categorical Lock mechanism at Node 17.
+This proof establishes that the finite Bad Pattern Library $\mathcal{B} = \{B_i\}_{i \in I}$ is categorically dense in the universal bad pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$ in the sense that every germ coprojection factors through some $B_i$. As a consequence, if $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all library elements, then $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$. This is the soundness guarantee needed for the categorical Lock mechanism at Node 17, under the admissibility hypotheses recorded for type $T$.
 
 ## Setup and Notation
 
@@ -172,13 +172,13 @@ with $\|\Psi\|_{\dot{H}^1} \leq \Lambda_{T_{\mathrm{para}}}$.
 $$\mathcal{M}_{T_{\mathrm{para}}} := \{\Psi : \Delta \Psi + |\Psi|^{p-1} \Psi = -\frac{1}{p-1}\Psi, \, \|\Psi\|_{\dot{H}^1} \leq \Lambda_{T_{\mathrm{para}}}\} / G$$
 has $\dim(\mathcal{M}_{T_{\mathrm{para}}}) \leq d(p-1) + O(1)$.
 
-**Finite Cover:** Equip $\mathcal{M}_{T_{\mathrm{para}}}$ with the metric induced by $\dot{H}^1$. By compactness and Lemma 2.0, there exists a finite $\varepsilon$-net $\mathcal{B}_{\mathrm{para}} = \{B_1, \ldots, B_N\}$ such that:
+**Finite Cover:** Equip $\mathcal{M}_{T_{\mathrm{para}}}$ with the metric induced by $\dot{H}^1$. By compactness (assumed and recorded in the admissibility data) and Lemma 2.0, there exists a finite $\varepsilon$-net $\mathcal{B}_{\mathrm{para}} = \{B_1, \ldots, B_N\}$ such that:
 $$\forall [P, \pi] \in \mathcal{G}_{T_{\mathrm{para}}}.\, \exists B_i: \, \|\pi - B_i\|_{\dot{H}^1} \leq \varepsilon$$
 
 :::{important}
 **Metric Proximity → Morphism Existence:**
 
-The claim that $\varepsilon$-closeness in $\dot{H}^1$ implies a morphism in $\mathbf{Hypo}_{T_{\mathrm{para}}}$ requires justification:
+The claim that $\varepsilon$-closeness in $\dot{H}^1$ implies a morphism in $\mathbf{Hypo}_{T_{\mathrm{para}}}$ requires justification and uses the admissibility data:
 
 1. **Morphism definition for parabolic type:** A morphism $\alpha: \mathbb{H}_{[P,\pi]} \to \mathbb{H}_{[P',\pi']}$ consists of:
    - A $C^1$ map $\phi: P \to P'$ intertwining the blow-up parametrizations
@@ -189,14 +189,14 @@ The claim that $\varepsilon$-closeness in $\dot{H}^1$ implies a morphism in $\ma
    - Invertibility of the linearized operator (from spectral gap $\lambda > 0$)
    - Lipschitz bounds on the nonlinearity
 
-3. **Threshold value:** The threshold $\varepsilon_0$ depends on the spectral gap and nonlinearity. Explicitly:
+3. **Threshold value:** The threshold $\varepsilon_0$ depends on the spectral gap and nonlinearity and is recorded in the admissibility data. Explicitly:
    $$\varepsilon_0 \sim \frac{\lambda}{C_{\text{Lip}}(f)}$$
    where $C_{\text{Lip}}(f)$ is the Lipschitz constant of the nonlinearity $f(u) = |u|^{p-1}u$.
 :::
 
-Choose $\varepsilon < \varepsilon_0$ so that $\varepsilon$-closeness implies morphism existence.
+Choose $\varepsilon < \varepsilon_0$ so that $\varepsilon$-closeness implies morphism existence, with $\varepsilon$ fixed by the admissibility data.
 
-**Normalization Note:** Because $\mathcal{M}_{T_{\mathrm{para}}}$ is a quotient by the symmetry group $G$, the statement “$\|\pi-B_i\|_{\dot{H}^1}\le\varepsilon$” should be read after choosing representatives in a fixed gauge/normalization. Equivalently, one can say: there exists $g\in G$ such that $\|\pi - g\cdot B_i\|_{\dot{H}^1}\le\varepsilon$. In $\mathbf{Hypo}_{T_{\mathrm{para}}}$, $g$ acts by an isomorphism, and we absorb this symmetry isomorphism into the morphism $\alpha_{[P,\pi]}$.
+**Normalization Note:** Because $\mathcal{M}_{T_{\mathrm{para}}}$ is a quotient by the symmetry group $G$, the statement “$\|\pi-B_i\|_{\dot{H}^1}\le\varepsilon$” should be read after choosing representatives in a fixed gauge/normalization recorded in the admissibility data. Equivalently, one can say: there exists $g\in G$ such that $\|\pi - g\cdot B_i\|_{\dot{H}^1}\le\varepsilon$. In $\mathbf{Hypo}_{T_{\mathrm{para}}}$, $g$ acts by an isomorphism, and we absorb this symmetry isomorphism into the morphism $\alpha_{[P,\pi]}$.
 
 **Factorization Construction:** We interpret each net point $B_i$ as a chosen **germ object** in $\mathbf{Hypo}_{T_{\mathrm{para}}}$ (a representative Type I profile) and keep the same symbol $B_i$ for the corresponding hypostructure $\mathbb{H}_{B_i}$.
 

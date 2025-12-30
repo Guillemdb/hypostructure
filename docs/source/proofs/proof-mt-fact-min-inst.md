@@ -11,7 +11,7 @@
 3. The Dissipation $\mathfrak{D}^{\text{thin}} = (R, \beta)$
 4. The Symmetry Group $G^{\text{thin}} = (\text{Grp}, \rho, \mathcal{S})$
 
-The Framework (Sieve) automatically derives all required components for a valid instantiation of {prf:ref}`mt-fact-valid-inst` via the Thin-to-Full Expansion {prf:ref}`mt-resolve-expansion`, reducing user burden from approximately 30 components to 10 primitive inputs (11 if an explicit scaling subgroup $\mathcal{S}$ must be supplied).
+The Framework (Sieve) derives the required components for a valid instantiation of {prf:ref}`mt-fact-valid-inst` via the Thin-to-Full Expansion {prf:ref}`mt-resolve-expansion`, using the thin objects together with admissibility data and automation guarantees, reducing user burden from approximately 30 components to 10 primitive inputs (11 if an explicit scaling subgroup $\mathcal{S}$ must be supplied).
 
 ---
 
@@ -25,9 +25,9 @@ We write the constructions in an external “classical” model (metric spaces +
 
 For the remainder of the proof, keep the following standing external model in mind (this is the “certificate model” the Sieve is meant to automate):
 - $(\mathcal{X},d)$ is a complete metric space with Borel $\sigma$-algebra $\mathcal{B}(\mathcal{X})$ (in practice one takes $\mathcal{X}$ Polish so Radon measures behave well).
-- $\mu$ is a Radon measure on $\mathcal{B}(\mathcal{X})$.
+- $\mu$ is a Radon measure on $\mathcal{B}(\mathcal{X})$, or a locally finite measure as recorded in the admissibility data.
 - $\mathrm{Grp}$ is a second countable topological group acting continuously on $\mathcal{X}$ via $\rho$; we write $g\cdot x := \rho(g,x)$.
-- The scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ is given (or inferred) together with a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ encoding the scaling action.
+- The scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ is given (or inferred) together with a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ encoding the scaling action, with scaling tolerances recorded in the admissibility data.
 - $F:\mathcal{X}\to \mathbb{R}\cup\{\infty\}$ is lower semicontinuous (hence Borel measurable), and $\nabla$ denotes the chosen notion of gradient/slope appropriate to the type ($T$).
 - $R:\mathcal{X}\to[0,\infty]$ is Borel measurable and $\text{Grp}$-invariant.
 
@@ -45,7 +45,7 @@ The user provides four thin objects with the following components:
 **Height Object:** $\Phi^{\text{thin}} = (F, \nabla, \alpha)$ where:
 - $F: \mathcal{X} \to \mathbb{R} \cup \{\infty\}$ is a lower semicontinuous energy/height functional
 - $\nabla: \mathcal{X} \to T^*\mathcal{X}$ is the gradient or slope operator (in the sense of De Giorgi)
-- $\alpha \in \mathbb{Q}_{>0}$ is the scaling dimension satisfying $F(\lambda \cdot x) = \lambda^\alpha F(x)$
+- $\alpha \in \mathbb{Q}_{>0}$ is the scaling dimension satisfying a type-specific scaling relation recorded in the admissibility data (exact equality in scale-invariant settings, or an admissibility tolerance otherwise)
 
 **Dissipation Object:** $\mathfrak{D}^{\text{thin}} = (R, \beta)$ where:
 - $R: \mathcal{X} \to [0,\infty]$ is a Borel-measurable (typically lower semicontinuous) dissipation rate satisfying the energy-dissipation inequality along trajectories: $\frac{d}{dt}F(u(t)) \leq -R(u(t))$
@@ -54,7 +54,7 @@ The user provides four thin objects with the following components:
 **Symmetry Object:** $G^{\text{thin}} = (\text{Grp}, \rho, \mathcal{S})$ where:
 - $\text{Grp}$ is a group object in $\mathcal{E}$ (typically a Lie group or discrete group)
 - $\rho: \text{Grp} \times \mathcal{X} \to \mathcal{X}$ is a continuous group action
-- $\mathcal{S} \subseteq \text{Grp}$ is the scaling subgroup (typically $\mathbb{R}_{>0}$ or $\{e\}$)
+- $\mathcal{S} \subseteq \text{Grp}$ is the scaling subgroup (typically $\mathbb{R}_{>0}$ or $\{e\}$), with admissibility tolerances for scaling checks
 
 ### Consistency Assumptions
 
@@ -63,7 +63,7 @@ We assume the thin objects satisfy basic consistency conditions:
 2. **(Lower Semicontinuity)** $F$ is lower semicontinuous: $\liminf_{y \to x} F(y) \geq F(x)$
 3. **(Dissipation Regularity)** $R$ is Borel measurable (or l.s.c.) and $R(x) \geq 0$ for all $x \in \mathcal{X}$
 4. **(Action Continuity)** $\rho$ is continuous in both arguments
-5. **(Invariance)** $F$ and $R$ are $\text{Grp}$-invariant: $F(g \cdot x) = F(x)$ and $R(g \cdot x) = R(x)$ for all $g \in \text{Grp}$
+5. **(Invariance)** $F$ and $R$ are $\text{Grp}$-invariant: $F(g \cdot x) = F(x)$ and $R(g \cdot x) = R(x)$ for all $g \in \text{Grp}$, up to admissibility tolerances where applicable
 
 ### Target: Full Kernel Objects
 
@@ -116,7 +116,7 @@ This map is used by interfaces $\mathrm{TB}_\pi$ (Topological Barrier) and $C_\m
 
 ### Step 1.2: Dimensional Dictionary
 
-**Lemma 1.2** (Dimension Tag from Volume Growth): Given the metric measure data $(\mathcal{X}, d, \mu)$, define the (upper) local dimension of $\mu$ at $x$ by:
+**Lemma 1.2** (Dimension Tag from Volume Growth): Given the metric measure data $(\mathcal{X}, d, \mu)$ and the regularity assumptions recorded in the admissibility data (e.g., doubling or Ahlfors regularity), define the (upper) local dimension of $\mu$ at $x$ by:
 $$\overline{\dim}_\mu(x) := \limsup_{r \to 0} \frac{\log \mu(B_r(x))}{\log r}.$$
 Then the quantity
 $$\dim_\mu(\mathcal{X}) := \operatorname{ess\,sup}_{x \in \mathcal{X}} \overline{\dim}_\mu(x)$$
@@ -159,7 +159,7 @@ The dimension $\dim_\mu(\mathcal{X})$ defined by volume growth may differ from H
 - (a) The measure $\mu$ is Ahlfors-regular on $\mathrm{supp}(\mu)$, or
 - (b) The user provides an explicit dimension bound as part of the thin data
 
-This assumption is verified at the soft interface level via the certificate $K_{\mathrm{SC}_\lambda}^+$ (scaling control).
+This assumption is verified at the soft interface level via the certificate $K_{\mathrm{SC}_\lambda}^+$ (scaling control) and the admissibility data.
 ::: □
 
 **Construction of Dictionary:**
@@ -271,7 +271,8 @@ has a convergent subsequence to a profile $V \in \mathcal{X}$, defining a class 
 *Proof of Lemma 3.2:* We make the scaling normalization step completely explicit.
 
 **Step 3.2.1 (Scaling law):** By definition of the thin inputs, we have a scaling subgroup $\mathcal{S}\subseteq \mathrm{Grp}$ and a map $\lambda\mapsto s(\lambda)\in\mathcal{S}$ such that
-$$F\big(s(\lambda)^{-1}\cdot x\big) = \lambda^\alpha F(x)\qquad(\lambda>0).$$
+$$F\big(s(\lambda)^{-1}\cdot x\big) = \lambda^\alpha F(x)\qquad(\lambda>0),$$
+with equality interpreted in the admissibility-certified scaling sense.
 
 **Step 3.2.2 (Choose a normalization scale):** Assume $F(x_n)\in(0,\infty)$ along the concentrating subsequence (this is the relevant case for blow-up profiling). Define
 $$\lambda_n := F(x_n)^{-1/\alpha}.$$

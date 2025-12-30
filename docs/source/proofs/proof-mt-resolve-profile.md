@@ -7,13 +7,13 @@
 
 ## Setup and Notation
 
-We establish the framework within which the Profile Classification Trichotomy operates. The theorem applies at the Profile node of the Sieve, after CompactCheck has returned YES, certifying that concentration occurs.
+We establish the framework within which the Profile Classification Trichotomy operates. The theorem applies at the Profile node of the Sieve, after CompactCheck has returned YES, certifying that concentration occurs, and with admissibility data for type $T$ supplying the library, tolerances, and verification routines.
 
 ### State Space and Functional Framework
 
 **Hypostructure Data:** Let $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G, \mathcal{R})$ be a hypostructure of type $T$ with:
 
-- **State Space:** $\mathcal{X}$ is a Banach space, typically $\mathcal{X} = H^{s_c}(\mathbb{R}^n)$ or $\dot{H}^{s_c}(\mathbb{R}^n)$ (homogeneous Sobolev space) with critical regularity index $s_c \geq 0$
+- **State Space:** $\mathcal{X}$ is a Banach space, typically $\mathcal{X} = H^{s_c}(\mathbb{R}^n)$ or $\dot{H}^{s_c}(\mathbb{R}^n)$ (homogeneous Sobolev space) with critical regularity index $s_c \geq 0$, as recorded in the admissibility data
 - **Energy Functional:** $\Phi: \mathcal{X} \to \mathbb{R}_{\geq 0} \cup \{\infty\}$ is a lower semicontinuous functional satisfying scale-criticality (or subcriticality)
 - **Dissipation Structure:** $\mathfrak{D}: \mathcal{X} \to \mathcal{X}^*$ defines the evolution operator (gradient flow, dispersive PDE, etc.)
 - **Symmetry Group:** $G$ is a Lie group acting on $\mathcal{X}$, typically $G = \mathbb{R}^+ \times \mathbb{R}^n$ (scaling and translations) or a closed subgroup thereof
@@ -49,7 +49,7 @@ for some $R > 0$ and critical Sobolev exponent $p^* = 2n/(n-2s_c)$ (when $s_c < 
 - **Hypothesis (L2):** No vanishing: $\limsup_n Q_R(u_n) \geq \delta_0 > 0$ for the concentration function $Q_R(u) := \sup_y \int_{B_R(y)} |u|^{p^*}$
 - **Hypothesis (L3):** Scale-critical or subcritical energy: $\Phi(\lambda^\alpha u(\lambda \cdot)) \leq C \Phi(u)$ for all $\lambda > 0$
 
-These hypotheses ensure that the sequence $(u_n)$ exhibits concentration at a definite scale, and a profile $V$ can be extracted via Lions' dichotomy.
+These hypotheses ensure that the sequence $(u_n)$ exhibits concentration at a definite scale, and a profile $V$ can be extracted via Lions' dichotomy, with extraction parameters certified by the admissibility data.
 
 ### Moduli Space and Classification Framework
 
@@ -102,21 +102,17 @@ $$\Phi(v_n) = \Phi(g_n^{-1} \cdot u_n) = \Phi(u_n) \leq E$$
 Therefore:
 $$\Phi(V) \leq E < \infty$$
 
-**Localization and Compactness:** By Rellich-Kondrachov compactness, the weak convergence $v_n \rightharpoonup V$ in $\dot{H}^{s_c}(\mathbb{R}^n)$ implies:
+**Localization and Compactness:** By Rellich-Kondrachov compactness under the regularity hypotheses recorded in the admissibility data, the weak convergence $v_n \rightharpoonup V$ in $\dot{H}^{s_c}(\mathbb{R}^n)$ implies:
 - **Strong local convergence:** $v_n \to V$ strongly in $L^p_{\text{loc}}(\mathbb{R}^n)$ for $2 \leq p < p^*$
-- **Profile quantization:** The profile $V$ carries a definite "quantum" of energy: $\Phi(V) \geq \delta_1 > 0$ for some universal constant $\delta_1 = \delta_1(n, s_c, \delta_0)$
+- **Profile quantization:** The profile $V$ carries a definite "quantum" of energy: $\Phi(V) \geq \delta_1 > 0$ for some constant $\delta_1 = \delta_1(n, s_c, \delta_0)$ recorded in the admissibility data
 
 This quantization is the key to finite termination in the Bahouri-Gerard iteration (used implicitly in the library construction).
 
-### Step 1.3: Uniqueness Modulo Symmetry
+### Step 1.3: Profile Choice and Non-Uniqueness
 
-**Claim:** The profile $V$ is unique up to the action of $G$, i.e., the limit is independent of the choice of rescaling parameters (up to symmetry).
+**Claim:** We may select a non-trivial profile $V$ up to the action of $G$; uniqueness is **not** required at this stage.
 
-**Proof:** Suppose two distinct sequences of rescaling parameters $(g_n)$ and $(g_n')$ yield different weak limits $V$ and $V'$. Then by the profile orthogonality property of concentration-compactness, either:
-- $V' = g \cdot V$ for some $g \in G$ (symmetry-related), or
-- The parameters $(g_n)$ and $(g_n')$ are asymptotically orthogonal, implying the original sequence $(u_n)$ contains two distinct concentration profiles
-
-Since we are at the first profile extraction step, the latter case cannot occur (it would be detected by the Bahouri-Gerard decomposition in the next profile iteration). Therefore, $V' = g \cdot V$ modulo symmetry.
+**Justification:** Distinct rescaling sequences can, in general, yield different weak limits. The concentration-compactness framework handles this via profile decomposition: if multiple orthogonal profiles exist, they are extracted iteratively in the Bahouri-Gérard scheme. For the trichotomy, it suffices to select one non-trivial profile (any of the admissible weak limits) and proceed with classification. If later steps require uniqueness, they do so by invoking type-specific rigidity or isolation results for the canonical library.
 
 ---
 
@@ -153,7 +149,7 @@ The **Canonical Library** $\mathcal{L}_T$ consists of profiles that are:
 Define the **library distance functional**:
 $$d_{\mathcal{L}}(V) := \inf_{W \in \mathcal{L}_T} \inf_{g \in G} \|V - g \cdot W\|_{\mathcal{X}}$$
 
-**Case 1 (Finite Library Membership):** If $d_{\mathcal{L}}(V) = 0$, then $V$ belongs to the library modulo symmetry:
+**Case 1 (Finite Library Membership):** If $d_{\mathcal{L}}(V) = 0$ (or below the admissibility tolerance), then $V$ belongs to the library modulo symmetry:
 $$V = g \cdot W \quad \text{for some } W \in \mathcal{L}_T, \, g \in G$$
 
 **Certificate Construction:** Issue the certificate:
@@ -165,12 +161,12 @@ This certificate provides:
 - The symmetry transformation $g \in G$ relating them
 - A constructive verification that $\|V - g \cdot W\|_{\mathcal{X}} < \epsilon$ for prescribed tolerance $\epsilon$
 
-**Algorithmic Implementation:** For finite libraries, this test is decidable:
+**Algorithmic Implementation:** For finite libraries, this test is decidable using the verification routine recorded in the admissibility data:
 1. For each $W \in \mathcal{L}_T$ (finitely many), compute the orbit $G \cdot W$
 2. For each $W$, solve the optimization problem: $\inf_{g \in G} \|V - g \cdot W\|_{\mathcal{X}}$
-3. If the minimum distance over all $W$ is below threshold $\epsilon$, return YES with certificate $K_{\text{lib}}$
+3. If the minimum distance over all $W$ is below threshold $\epsilon$, return YES with certificate $K_{\text{lib}}$, with $\epsilon$ supplied by admissibility data
 
-**Computational Feasibility:** For typical symmetry groups $G = \mathbb{R}^+ \times \mathbb{R}^n$, the optimization is tractable:
+**Computational Feasibility:** For typical symmetry groups $G = \mathbb{R}^+ \times \mathbb{R}^n$, the optimization is tractable within the certified numerical tolerances:
 - **Centering:** Solve for $x_0$ minimizing $\|V(\cdot) - W(\cdot - x_0)\|$ (convex in many cases)
 - **Scaling:** Solve for $\lambda > 0$ minimizing $\|V - \lambda^\alpha W(\lambda \cdot)\|$ (1D optimization)
 

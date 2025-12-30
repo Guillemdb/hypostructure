@@ -5,7 +5,7 @@
 
 **Theorem Reference:** {prf:ref}`mt-resolve-auto-surgery`
 
-This proof establishes that for any Hypostructure satisfying the Automation Guarantee, the Structural Surgery Principle is **automatically executed** by the Sieve using the pushout construction from the canonical profile library $\mathcal{L}_T$. We demonstrate that surgery operators are uniquely determined by categorical universal properties, requiring only the thin objects (energy, dissipation, symmetry group) as user input.
+This proof establishes that for any Hypostructure satisfying the Automation Guarantee and supplying the admissibility data for type $T$, the Structural Surgery Principle is **automatically executed** by the Sieve using the pushout construction from the canonical profile library $\mathcal{L}_T$. We demonstrate that surgery operators are determined by categorical universal properties together with the recorded cap recipes and verification tolerances, requiring no additional user-provided surgery implementation code beyond the thin objects.
 
 ---
 
@@ -46,10 +46,10 @@ At surgery time $t^- < \infty$, we have obtained from prior Sieve stages:
 For type $T$, the canonical library (Definition {prf:ref}`def-canonical-library`) is:
 $$\mathcal{L}_T := \{V \in \mathcal{M}_{\text{prof}}(T) : \text{Aut}(V) \text{ is finite}, V \text{ is isolated in } \mathcal{M}_{\text{prof}}\}$$
 
-**Properties:**
+**Properties (recorded in admissibility data):**
 - $\mathcal{L}_T$ is finite for good types (parabolic, dispersive, hyperbolic)
-- Each $V \in \mathcal{L}_T$ comes equipped with a unique **capping object** $\mathcal{X}_{\text{cap}}(V)$
-- Library membership is decidable via gradient flow to critical points
+- Each $V \in \mathcal{L}_T$ comes equipped with a **capping object** $\mathcal{X}_{\text{cap}}(V)$ specified up to the admissibility tolerance
+- Library membership is certified by the provided verification routine
 
 **Examples:**
 - **Ricci flow** ($T_{\text{Ricci}}$): $\mathcal{L}_T = \{\text{round sphere } S^3, \text{round cylinder } S^2 \times \mathbb{R}, \text{Bryant soliton}\}$
@@ -58,7 +58,7 @@ $$\mathcal{L}_T := \{V \in \mathcal{M}_{\text{prof}}(T) : \text{Aut}(V) \text{ i
 
 **Goal:**
 
-Prove that the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$ is **automatically constructed** from thin objects alone via categorical pushout, requiring no user-provided surgery implementation code.
+Prove that the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$ is **automatically constructed** from thin objects together with admissibility data via categorical pushout, requiring no user-provided surgery implementation code.
 
 ---
 
@@ -66,7 +66,7 @@ Prove that the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mat
 
 ### Step 1.1: Asymptotic Expansion of Profiles
 
-**Lemma 1.1.1 (Profile Asymptotic Structure):** For any profile $V \in \mathcal{L}_T$, there exists an asymptotic expansion near infinity (in spatial variables):
+**Lemma 1.1.1 (Profile Asymptotic Structure):** For any profile $V \in \mathcal{L}_T$ with asymptotic data recorded in the admissibility package, there exists an asymptotic expansion near infinity (in spatial variables):
 
 $$V(x) = V_\infty + \sum_{k=1}^K a_k(V) \cdot \psi_k(x/|x|) \cdot |x|^{-\lambda_k} + o(|x|^{-\lambda_K})$$
 
@@ -93,7 +93,7 @@ where $(r, \omega) \in \mathbb{R}_+ \times S^{n-1}$ are polar coordinates.
 Substituting into the profile equation yields the **indicial equation** for exponents $\lambda_k$:
 $$\lambda_k(\lambda_k + n - 2) = \text{eigenvalue}(\mathcal{L}_T|_{S^{n-1}})$$
 
-*Step 1.1.1c (Spectral Gap):* For $V \in \mathcal{L}_T$ (canonical library), the condition $\text{Aut}(V)$ finite ensures a spectral gap:
+*Step 1.1.1c (Spectral Gap):* For $V \in \mathcal{L}_T$ (canonical library), the framework records a spectral gap certificate for the linearized operator around $V$:
 $$\lambda_1 > \lambda_2 > \cdots > \lambda_K > 0$$
 
 The leading decay rate $\lambda_1$ is strictly positive by the isolation property of $V$ in $\mathcal{M}_{\text{prof}}$.
@@ -121,7 +121,7 @@ This completes the proof of Lemma 1.1.1. □
 
 4. **Energy finiteness**: $\Phi(\mathcal{X}_{\text{cap}}) < \infty$
 
-**Lemma 1.2.2 (Cap Existence for Canonical Profiles):** For any $V \in \mathcal{L}_T$, there exists a unique (up to isometry) capping object $\mathcal{X}_{\text{cap}}(V)$ satisfying the matching conditions of Definition 1.2.1.
+**Lemma 1.2.2 (Cap Existence for Canonical Profiles):** For any $V \in \mathcal{L}_T$, the admissibility data specifies a capping object $\mathcal{X}_{\text{cap}}(V)$ satisfying the matching conditions of Definition 1.2.1, uniquely up to the admissibility tolerance.
 
 **Proof of Lemma 1.2.2:**
 
@@ -149,7 +149,7 @@ The existence and uniqueness of these caps is established in Hamilton's surgery 
 - Existence follows from the classification of self-similar solutions {cite}`HuiskenSinestrari09`
 - Uniqueness is by rigidity: rotationally symmetric ancient solutions are unique in their asymptotic class
 
-*Step 1.2.2d (Existence via Elliptic Theory):* For general type $T$, the cap equation is an elliptic boundary value problem. By the Fredholm alternative and spectral gap (Lemma 1.1.1), the operator:
+*Step 1.2.2d (Existence via Elliptic Theory):* For general type $T$, the cap equation is treated as an elliptic boundary value problem. Under the spectral-gap and coercivity assumptions encoded in the canonical library data, the operator:
 $$\mathcal{L}_T + \alpha(x \cdot \nabla + \text{Id}): H^2(B_R) \to L^2(B_R)$$
 is invertible with bounded inverse (index zero).
 
@@ -160,7 +160,7 @@ The solution exists and is unique in the Sobolev class $H^2(B_R)$ by standard el
 *Step 1.2.2f (Uniqueness Argument):* Suppose $\mathcal{X}_{\text{cap}}^{(1)}$ and $\mathcal{X}_{\text{cap}}^{(2)}$ are two caps matching $V$. Let $w = \mathcal{X}_{\text{cap}}^{(1)} - \mathcal{X}_{\text{cap}}^{(2)}$. Then $w$ satisfies:
 $$\mathcal{L}_T w + \alpha(x \cdot \nabla w + w) = 0, \quad w|_{\partial B_R} = 0$$
 
-By the maximum principle (for parabolic types) or energy methods (for dispersive types), $w \equiv 0$. Hence uniqueness holds.
+By the maximum principle (for parabolic types) or energy methods (for dispersive types), $w \equiv 0$. For general types, uniqueness is part of the cap data in $\mathcal{L}_T$ (the recipe specifies a unique cap up to isometry and tolerance).
 
 This completes the proof of Lemma 1.2.2. □
 
@@ -173,6 +173,7 @@ This completes the proof of Lemma 1.2.2. □
 **Input:**
 - Profile $V \in \mathcal{L}_T$ from profile classification (MT {prf:ref}`mt-resolve-profile`)
 - Thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, G^{\text{thin}})$
+- Admissibility data for $T$ (library, tolerances, cap recipes, verification routines)
 
 **Output:**
 - Capping object $\mathcal{X}_{\text{cap}}(V)$ with gluing boundary $\partial \mathcal{X}_{\text{cap}}$
@@ -183,15 +184,15 @@ This completes the proof of Lemma 1.2.2. □
    - If $V \in \mathcal{L}_T$ directly: retrieve associated cap recipe
    - If $V \sim_{\text{equiv}} V_{\text{can}} \in \mathcal{L}_T$: apply equivalence transformation to reduce to canonical representative
 
-2. **Asymptotic coefficient extraction:** Compute the leading coefficients $\{a_k(V)\}_{k=1}^K$ via:
+2. **Asymptotic coefficient extraction:** Compute the leading coefficients $\{a_k(V)\}_{k=1}^K$ via the certified asymptotic routine:
    $$a_k(V) = \lim_{r \to \infty} r^{\lambda_k} \int_{S^{n-1}} V(r\omega) \psi_k(\omega) \, d\omega$$
    using the scaling action from $G^{\text{thin}}$ to compute the limit
 
 3. **Neck radius determination:** Choose neck radius $R_{\text{neck}}$ such that:
    $$\left|V(x) - V_\infty - \sum_{k=1}^K a_k(V) \psi_k(x/|x|) |x|^{-\lambda_k}\right| < \epsilon_{\text{match}}$$
-   for all $|x| \geq R_{\text{neck}}$, where $\epsilon_{\text{match}} = 10^{-6}$ (numerical tolerance)
+   for all $|x| \geq R_{\text{neck}}$, where $\epsilon_{\text{match}}$ is the numerical tolerance recorded in the admissibility data
 
-4. **Cap construction:** Solve the cap equation (from Lemma 1.2.2) numerically on $B_{R_{\text{neck}}}$ with boundary data from $V$
+4. **Cap construction:** Solve the cap equation (from Lemma 1.2.2) numerically on $B_{R_{\text{neck}}}$ with boundary data from $V$ using the certified solver specified by the admissibility data
    - Use finite element method or spectral method
    - Verify smoothness at origin: $\|\nabla^k u(0)\| < \infty$ for $k \leq k_{\max}$
 

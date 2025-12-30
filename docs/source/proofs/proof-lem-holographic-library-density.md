@@ -54,42 +54,17 @@ witnessing:
 
 ## Step 1: Complexity-Bounded Germs Form a Compact Subspace
 
-### Lemma 1.1: Complexity Bounds Imply Finite Approximability
+### Lemma 1.1: Complexity Bounds Imply Uniform Finite Approximability
 
-**Statement:** If $\sup_\varepsilon K_\varepsilon([P, \pi]) \leq S_{\text{BH}}$, then $[P, \pi]$ is approximable by a finite description of length at most $S_{\text{BH}}$.
+**Statement:** If $\sup_\varepsilon K_\varepsilon([P, \pi]) \leq S_{\text{BH}}$, then for every $\varepsilon>0$ there exists a description of length at most $S_{\text{BH}}$ whose output is within $\varepsilon$ of $[P,\pi]$.  
 
 **Proof:**
 
 **Step 1.1.1 (Complexity as Description Length):** By definition of Kolmogorov complexity, $K_\varepsilon([P, \pi])$ measures the length of the shortest program that outputs an $\varepsilon$-approximation to $[P, \pi]$. The condition $\sup_\varepsilon K_\varepsilon \leq S_{\text{BH}}$ means that even as $\varepsilon \to 0$, the description length remains bounded.
 
-**Step 1.1.2 (Finite Alphabet):** There are at most $2^{S_{\text{BH}}}$ distinct programs of length $\leq S_{\text{BH}}$ over a binary alphabet.
+**Step 1.1.2 (Finite Program Pool):** There are at most $2^{S_{\text{BH}}}$ distinct programs of length $\leq S_{\text{BH}}$ over a binary alphabet. For a fixed $\varepsilon$, their outputs provide a finite collection of $\varepsilon$-approximations.  
 
-:::{important}
-**Cardinality Clarification:**
-
-The bound $2^{S_{\text{BH}}}$ applies to **programs**, not directly to **germs**. The relationship is:
-
-1. **Programs → ε-approximations:** Each program $p$ of length $\leq S_{\text{BH}}$ outputs (at most) one $\varepsilon$-approximation to some germ
-
-2. **Germs as limits:** A germ $[P, \pi]$ with $\sup_\varepsilon K_\varepsilon \leq S_{\text{BH}}$ is the **limit** of a sequence of approximations $\{\mathcal{U}(p_\varepsilon)\}_{\varepsilon \to 0}$ where each $|p_\varepsilon| \leq S_{\text{BH}}$
-
-3. **Countable, not finite:** The set $\mathcal{G}_T^{\text{bnd}}$ is **countable** (at most $\aleph_0$), not finite. This is because:
-   - For each $\varepsilon = 1/n$, there are $\leq 2^{S_{\text{BH}}}$ possible approximations
-   - A germ is determined by its approximation sequence
-   - The space of all such sequences is countable: $\prod_{n=1}^\infty 2^{S_{\text{BH}}} \sim \aleph_0$
-
-4. **Effective density:** The key point is not finiteness but **effective approximability**: every germ in $\mathcal{G}_T^{\text{bnd}}$ can be approximated to arbitrary precision by running finitely many short programs.
-:::
-
-**Step 1.1.3 (Cardinality Bound):** Therefore:
-$$|\mathcal{G}_T^{\text{bnd}}| \leq \aleph_0$$
-
-The set is **countable** (not finite), but this suffices for library coverage because:
-- Countable compact metric spaces are separable
-- Any separable space admits a countable dense subset
-- The library $\mathcal{B}$ can be chosen to be a finite $\varepsilon$-net for any fixed $\varepsilon > 0$
-
-The physical interpretation: while there may be countably many complexity-bounded germs, any finite-precision detection (which is all that's physically realizable) only needs to distinguish finitely many. □
+**Step 1.1.3 (Uniform Approximability, Not Cardinality):** The conclusion is purely **metric**: every complexity-bounded germ admits an $\varepsilon$-approximation produced by some program of length $\leq S_{\text{BH}}$. We do **not** need (and do not claim) any finiteness or countability of $\mathcal{G}_T^{\text{bnd}}$ itself. □
 
 ### Lemma 1.2: Precompactness of the Bounded Germ Space
 
@@ -97,17 +72,9 @@ The physical interpretation: while there may be countably many complexity-bounde
 
 **Proof:**
 
-**Step 1.2.1 (Total Boundedness):** For any $\varepsilon > 0$, consider all programs $p$ of length $\leq S_{\text{BH}}$. Running these produces at most $2^{S_{\text{BH}}}$ distinct $\varepsilon$-approximations. These form a finite $\varepsilon$-net for $\mathcal{G}_T^{\text{bnd}}$.
+**Step 1.2.1 (Total Boundedness):** For any $\varepsilon > 0$, consider all programs $p$ of length $\leq S_{\text{BH}}$. Running these produces at most $2^{S_{\text{BH}}}$ distinct $\varepsilon$-approximations. These form a finite $\varepsilon$-net for $\mathcal{G}_T^{\text{bnd}}$.  
 
-**Step 1.2.2 (Precompact ≠ Compact for Countable Sets):** Note that $\mathcal{G}_T^{\text{bnd}}$ is countable (Lemma 1.1) and precompact, but may not be closed in the ambient germ space $\mathcal{G}_T$. Thus we have:
-- **Precompact:** Every sequence has a Cauchy subsequence
-- **Compact (if closed):** If $\mathcal{G}_T^{\text{bnd}}$ is closed (i.e., limits of bounded-complexity sequences have bounded complexity), then precompact implies compact
-
-**Step 1.2.3 (Closure Under Limits):** The condition $\sup_\varepsilon K_\varepsilon \leq S_{\text{BH}}$ is preserved under $\dot{H}^{s_c}$ limits: if $[P_n, \pi_n] \to [P, \pi]$ and each $[P_n, \pi_n]$ has complexity $\leq S_{\text{BH}}$, then any $\varepsilon$-approximation to $[P, \pi]$ can be obtained by:
-1. Finding $n$ such that $d([P_n, \pi_n], [P, \pi]) < \varepsilon/2$
-2. Using a program of length $\leq S_{\text{BH}}$ to approximate $[P_n, \pi_n]$ to within $\varepsilon/2$
-
-Thus $\mathcal{G}_T^{\text{bnd}}$ is closed, hence compact. □
+**Step 1.2.2 (Precompactness Only):** The existence of finite $\varepsilon$-nets for all $\varepsilon$ is exactly total boundedness, i.e., precompactness in the $\dot{H}^{s_c}$ metric. No closure claim is required for the density argument. □
 
 ---
 
@@ -177,8 +144,8 @@ $$K_{\text{Rep}_K}^{\text{br}} = ([P, \pi], \text{witness: } K_\varepsilon > S_{
 
 **Proof Summary:**
 
-1. **Boundedness (Lemma 1.1):** $|\mathcal{G}_T^{\text{bnd}}| \leq 2^{S_{\text{BH}}} < \infty$
-2. **Compactness (Lemma 1.2):** $\mathcal{G}_T^{\text{bnd}}$ is compact
+1. **Uniform Approximability (Lemma 1.1):** Every bounded germ admits $\varepsilon$-approximations produced by programs of length $\leq S_{\text{BH}}$
+2. **Precompactness (Lemma 1.2):** $\mathcal{G}_T^{\text{bnd}}$ is totally bounded
 3. **ε-Net (Lemma 2.1):** Finite cover by $\varepsilon$-balls
 4. **Library Coverage (Lemma 2.2):** $\mathcal{B}$ covers the $\varepsilon$-net
 5. **Exclusion (Lemma 3.1):** Super-Bekenstein germs route to Horizon

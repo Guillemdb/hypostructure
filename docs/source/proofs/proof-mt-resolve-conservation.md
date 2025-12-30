@@ -5,9 +5,9 @@
 
 **Theorem Reference:** {prf:ref}`mt-resolve-conservation`
 
-This proof establishes that admissible surgery preserves the fundamental conservation properties of the flow: discrete energy decrease, regularization of derivatives, and countable surgery bound. The proof synthesizes Perelman's surgery energy estimates {cite}`Perelman03`, Hamilton's derivative bounds {cite}`Hamilton97`, geometric measure theory for capacity control {cite}`Federer69` {cite}`AdamsHedberg96`, and the categorical pushout construction following Kleiner-Lott {cite}`KleinerLott08`.
+This proof establishes that admissible surgery preserves the fundamental conservation properties of the flow: discrete energy decrease, regularization of derivatives, and countable surgery bound. The proof synthesizes Perelman's surgery energy estimates {cite}`Perelman03`, Hamilton's derivative bounds {cite}`Hamilton97`, geometric measure theory for capacity control {cite}`Federer69` {cite}`AdamsHedberg96`, and the categorical pushout construction following Kleiner-Lott {cite}`KleinerLott08`, as instantiated by the admissibility data for type $T$.
 
-The key insight is that admissibility conditions (capacity bound, volume lower bound, profile canonicity) directly imply quantitative conservation laws with explicit constants.
+The key insight is that admissibility conditions (capacity bound, volume lower bound, profile canonicity) together with the recorded type-specific constants imply quantitative conservation laws with explicit constants.
 
 ---
 
@@ -19,7 +19,7 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, S_t, \Phi, \mathfrak{D
 
 - **State Stack:** $\mathcal{X}$ is the configuration space equipped with:
   - Metric $d: \mathcal{X} \times \mathcal{X} \to [0, \infty)$ (distance function)
-  - Radon measure $\mu$ with finite total mass $\mu(\mathcal{X}) < \infty$
+  - Radon measure $\mu$ with finite total mass $\mu(\mathcal{X}) < \infty$ or a locally finite measure as recorded in the admissibility data
   - Riemannian structure (for smooth categories) enabling gradient computations
 
 - **Evolution:** $S_t: \mathcal{X} \to \mathcal{X}$ is the semiflow satisfying:
@@ -33,7 +33,7 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, S_t, \Phi, \mathfrak{D
 
 - **Dissipation:** $\mathfrak{D}: \mathcal{X} \to \mathbb{R}_{\geq 0}$ is the dissipation rate with:
   - Energy identity: $\frac{d}{dt}\Phi(S_t x) = -\mathfrak{D}(S_t x)$
-  - Non-degeneracy on singularities: $\mathfrak{D}(x) \geq \delta > 0$ for $x$ near singular sets
+  - Non-degeneracy on singularities: $\mathfrak{D}(x) \geq \delta > 0$ for $x$ near singular sets, with $\delta$ recorded in the admissibility data
 
 - **Symmetry Group:** $G$ is a compact Lie group acting on $\mathcal{X}$ continuously, encoding:
   - Spatial translations (for PDE flows)
@@ -57,7 +57,7 @@ An **admissible surgery** is specified by:
    - **Codimension $\geq 2$:** $\dim_H(\Sigma) \leq n - 2$ where $n = \dim(\mathcal{X})$ and $\dim_H$ is Hausdorff dimension
    - **Capacity bound:** $\text{Cap}(\Sigma) \leq \varepsilon_{\text{adm}}(T)$ where
      $$\text{Cap}(\Sigma) := \inf\left\{\int_{\mathcal{X}} |\nabla \phi|^2 \, d\mu : \phi \in W^{1,2}(\mathcal{X}), \phi|_\Sigma \geq 1\right\}$$
-   - **Volume lower bound:** $\text{Vol}(\Sigma) \geq v_{\min}(T) > 0$ (excludes infinitesimal singularities)
+   - **Volume lower bound:** $\text{Vol}(\Sigma) \geq v_{\min}(T) > 0$ (excludes infinitesimal singularities; recorded in admissibility data)
 
 3. **Singular Profile:** $V \in \mathcal{L}_T$ is the blow-up profile belonging to the canonical library:
    $$\mathcal{L}_T = \{V \in \mathcal{M}_{\text{prof}}(T) : |\text{Aut}(V)| < \infty, V \text{ is isolated}\}$$
@@ -68,12 +68,12 @@ An **admissible surgery** is specified by:
 
 4. **Excision Neighborhood:**
    $$\mathcal{X}_\Sigma := \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$$
-   where $\epsilon = \epsilon(V)$ is the surgery scale determined by the profile
+   where $\epsilon = \epsilon(V)$ is the surgery scale determined by the profile data and admissibility tolerances
 
 5. **Capping Object:** $\mathcal{X}_{\text{cap}} \in \text{Obj}(\mathcal{E})$ is the canonical cap from the library, satisfying:
    - Asymptotic matching: $\mathcal{X}_{\text{cap}}|_{\partial} \cong \partial \mathcal{X}_\Sigma$ (boundary compatible)
-   - Bounded geometry: $|\nabla^k \Phi_{\text{cap}}| \leq C_k(V)$ for all $k \leq k_{\max}(V)$
-   - Energy bound: $\Phi(\mathcal{X}_{\text{cap}}) \leq E_{\text{cap}}(V)$ (finite cap energy)
+   - Bounded geometry: $|\nabla^k \Phi_{\text{cap}}| \leq C_k(V)$ for all $k \leq k_{\max}(V)$, with constants recorded in the admissibility data
+   - Energy bound: $\Phi(\mathcal{X}_{\text{cap}}) \leq E_{\text{cap}}(V)$ (finite cap energy recorded for $V$)
 
 6. **Surgery Operator:** $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$ is the pushout morphism:
    $$\begin{CD}
@@ -93,7 +93,8 @@ For type $T$, we define:
 - **Admissibility threshold:** $\varepsilon_{\text{adm}}(T) > 0$ (maximal admissible capacity)
 - **Minimum volume:** $v_{\min}(T) > 0$ (minimal surgery volume)
 - **Discrete progress constant:**
-  $$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(f_T(v_{\min}) - E_{\text{cap}}(V)\right) > 0$$
+  $$\epsilon_T := \min_{V \in \mathcal{L}_T} \left(f_T(v_{\min}) - E_{\text{cap}}(V)\right) > 0,$$
+  with positivity certified in the admissibility data
   where $f_T$ is the type-specific energy lower bound function (see Part I, Lemma 1.1)
 - **Initial energy:** $\Phi(x_0)$ for initial state $x_0 \in \mathcal{X}$
 - **Infimal energy:** $\Phi_{\min} := \inf_{x \in \mathcal{X}} \Phi(x) \geq 0$ (ground state energy)
@@ -112,7 +113,7 @@ We prove three conservation properties:
 
 **Statement:** For any admissible surgery $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$, the post-surgery energy satisfies:
 $$\Phi(x') \leq \Phi(x^-) - \Delta\Phi_{\text{surg}}$$
-where $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$ is independent of the particular surgery instance.
+where $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$ is independent of the particular surgery instance, with $\epsilon_T$ supplied by admissibility data.
 
 This establishes **discrete progress**: each surgery decreases energy by a uniform positive amount, preventing Zeno-type accumulation of infinitely many surgeries.
 
@@ -126,9 +127,9 @@ This establishes **discrete progress**: each surgery decreases energy by a unifo
 The specific form of the energy lower bound depends on the type $T$. We state the abstract requirement and provide type-specific instantiations.
 :::
 
-**Abstract Statement:** The energy removed by excision satisfies:
-$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \geq f_T(\text{size}(\Sigma))$$
-where $f_T: \mathbb{R}_{>0} \to \mathbb{R}_{>0}$ is a type-dependent function.
+**Abstract Statement:** The energy removed by excision admits a **type-dependent lower bound**:
+$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \;\geq\; f_T(\text{size}(\Sigma)),$$
+where $f_T: \mathbb{R}_{>0} \to \mathbb{R}_{>0}$ is supplied by the type-$T$ monotonicity/compactness theory. This bound is recorded explicitly in the admissibility certificate.
 
 **Type-Specific Instantiations:**
 
@@ -141,7 +142,7 @@ where $f_T: \mathbb{R}_{>0} \to \mathbb{R}_{>0}$ is a type-dependent function.
 
 **Classical Formulation (Geometric Flows):** For geometric flows with scaling dimension $(n-2)/n$:
 $$\Phi_{\text{exc}} \geq c_1(n, T) \cdot \text{Vol}(\Sigma)^{(n-2)/n} \cdot \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$$
-where $c_1(n, T) > 0$ depends only on dimension and type.
+where $c_1(n, T) > 0$ depends only on dimension and type and is recorded in the admissibility data.
 
 **Proof of Lemma 1.1:**
 
@@ -151,33 +152,34 @@ where $\alpha$ is the scaling dimension of $\Phi$ (typically $\alpha = 2$ for pa
 
 **Step 1.1.2 (Profile Energy Bound):** The profile $V$ is non-trivial (otherwise $\Sigma$ would not be singular). Since $V \in \mathcal{L}_T$ is a canonical profile, it satisfies:
 $$\int_{\text{supp}(V)} |\nabla^2 \Phi_V|^2 \, dy \geq E_{\min}(V) > 0$$
-where $E_{\min}(V)$ is the minimal profile energy (characteristic of the profile type).
+where $E_{\min}(V)$ is the minimal profile energy (characteristic of the profile type and recorded in the admissibility data).
 
 **Examples:**
 - **Ricci flow, round sphere:** $E_{\min}(S^3) = \text{Vol}(S^3) \cdot R_0^2$ where $R_0$ is scalar curvature
 - **MCF, round cylinder:** $E_{\min}(S^k \times \mathbb{R}^{n-k}) = \mathcal{H}^{k}(S^k) \cdot \kappa^2$ where $\kappa$ is mean curvature
 - **NLS, ground state soliton:** $E_{\min}(Q) = \|Q\|_{H^1}^2$
 
-**Step 1.1.3 (Scaling Back):** Rescaling to the original coordinates:
-$$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|^2 \, d\mu \approx \epsilon^n \cdot \int_{\{\|y\| < 1\}} |\nabla^2 \Phi_{V}|^2 \, dy \geq \epsilon^n \cdot E_{\min}(V)$$
+**Step 1.1.3 (Scaling Back):** Rescaling to the original coordinates gives a **scale-consistent estimate**:
+$$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|^2 \, d\mu \;\gtrsim\; \epsilon^n \cdot \int_{\{\|y\| < 1\}} |\nabla^2 \Phi_{V}|^2 \, dy,$$
+with the implicit constant fixed by the profile normalization and admissibility data used in {prf:ref}`mt-resolve-profile`.
 
 By Cauchy-Schwarz inequality (with $f = |\nabla^2 \Phi|$ and $g = 1$):
 $$\left(\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu\right)^2 \leq \mu(\mathcal{X}_\Sigma) \cdot \int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|^2 \, d\mu$$
 
-However, for energy concentration arguments, we use the fact that $|\nabla^2 \Phi|$ is approximately constant on $\mathcal{X}_\Sigma$ (at scale $\sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$). Hence:
-$$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu \approx \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \cdot \mu(\mathcal{X}_\Sigma)$$
+However, for energy concentration arguments, we use the admissibility hypothesis that $|\nabla^2 \Phi|$ does not oscillate wildly on $\mathcal{X}_\Sigma$ at the surgery scale. Under that bounded-geometry assumption:
+$$\int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu \;\gtrsim\; \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \cdot \mu(\mathcal{X}_\Sigma).$$
 
-**Step 1.1.4 (Volume-Measure Relationship):** For the tubular neighborhood $\mathcal{X}_\Sigma = \{x : d(x, \Sigma) < \epsilon\}$, the volume and boundary area are related by the standard geometric estimate:
+**Step 1.1.4 (Volume-Measure Relationship):** For the tubular neighborhood $\mathcal{X}_\Sigma = \{x : d(x, \Sigma) < \epsilon\}$, the volume and boundary area are related by a **tubular neighborhood estimate**:
 
 Since $\mathcal{X}_\Sigma$ is a tubular neighborhood of radius $\epsilon$ around $\Sigma$ with $\dim(\Sigma) = n - k$ where $k \geq 2$, we have:
 $$\mu(\mathcal{X}_\Sigma) \approx \epsilon \cdot \mathcal{H}^{n-1}(\partial \mathcal{X}_\Sigma)$$
 
-where $\mathcal{H}^{n-1}$ is the $(n-1)$-dimensional Hausdorff measure. This follows from the layer cake representation: the tubular neighborhood can be decomposed as a union of level sets of the distance function $d_\Sigma(x) := d(x, \Sigma)$, each with measure approximately $\mathcal{H}^{n-1}(\partial \mathcal{X}_\Sigma)$.
+where $\mathcal{H}^{n-1}$ is the $(n-1)$-dimensional Hausdorff measure. This follows from the layer cake representation together with bounded-geometry control of the level sets of $d_\Sigma$ at scale $\epsilon$, which is part of the admissibility data.
 
 **Step 1.1.5 (Capacity-Volume Relation):** By the capacity-to-measure inequality (Lemma 1 in {prf:ref}`proof-mt-act-surgery`):
 $$\mu(\mathcal{X}_\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \text{Cap}(\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \varepsilon_{\text{adm}}$$
 
-**Step 1.1.6 (Volume Lower Bound Application):** By admissibility, $\text{Vol}(\Sigma) \geq v_{\min}(T)$. For a tubular neighborhood of radius $\epsilon$ around a singular set $\Sigma$ of codimension $k \geq 2$, the relationship between $\text{Vol}(\Sigma)$ and $\mu(\mathcal{X}_\Sigma)$ is:
+**Step 1.1.6 (Volume Lower Bound Application):** By admissibility, $\text{Vol}(\Sigma) \geq v_{\min}(T)$. For a tubular neighborhood of radius $\epsilon$ around a singular set $\Sigma$ of codimension $k \geq 2$, the relationship between $\text{Vol}(\Sigma)$ and $\mu(\mathcal{X}_\Sigma)$ is (up to type-dependent constants):
 $$\mu(\mathcal{X}_\Sigma) \approx \epsilon^k \cdot \text{Vol}(\Sigma)$$
 
 Since the singularity is codimension $k \geq 2$, we have $\dim(\Sigma) = n - k \leq n - 2$.
@@ -185,14 +187,15 @@ Since the singularity is codimension $k \geq 2$, we have $\dim(\Sigma) = n - k \
 **Step 1.1.7 (Energy Combination):** Combining the above steps:
 
 From Step 1.1.3, the excision energy satisfies:
-$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \approx \int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu$$
+$$\Phi_{\text{exc}} := \int_{\mathcal{X}_\Sigma} \Phi \, d\mu \approx \int_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \, d\mu,$$
+with the approximation constant controlled by admissibility data.
 
 Using the concentration estimate from Step 1.1.3:
 $$\Phi_{\text{exc}} \approx \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi| \cdot \mu(\mathcal{X}_\Sigma)$$
 
 From Step 1.1.6, $\mu(\mathcal{X}_\Sigma) \approx \epsilon^k \cdot \text{Vol}(\Sigma)$ where $k \geq 2$.
 
-For the energy scaling, by dimensional analysis, $|\nabla^2 \Phi| \sim \Phi \cdot \epsilon^{-2}$ near the singularity.
+For the energy scaling, dimensional analysis gives $|\nabla^2 \Phi| \sim \Phi \cdot \epsilon^{-2}$ near the singularity **in the scaling regime captured by the profile**; this scaling relation is part of the profile data used in admissibility.
 
 Therefore, combining with the isoperimetric scaling $\epsilon \sim \text{Vol}(\Sigma)^{1/(n-k)}$ (for codimension $k$), we obtain:
 $$\Phi_{\text{exc}} \geq c_1(n, T) \cdot \text{Vol}(\Sigma)^{(n-2)/n} \cdot \sup_{\mathcal{X}_\Sigma} |\nabla^2 \Phi|$$
