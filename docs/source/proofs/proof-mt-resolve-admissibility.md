@@ -5,7 +5,7 @@
 
 **Theorem Reference:** {prf:ref}`mt-resolve-admissibility`
 
-**Theorem Statement:** Before invoking any surgery $S$ with mode $M$ and data $D_S$, the framework produces exactly one of three certificates:
+**Theorem Statement:** Before invoking any surgery $S$ with mode $M$ and data $D_S$, the framework produces exactly one of three certificates, assuming the admissibility data for the type $T$ includes the profile library, decision tolerances, and verification oracles referenced below:
 
 1. **Case 1 (Admissible):** $K_{\text{adm}} = (M, D_S, \text{admissibility proof}, K_{\epsilon}^+)$ satisfying Canonicity, Codimension $\geq 2$, Capacity $\leq \varepsilon_{\text{adm}}$, and Progress Density $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$
 
@@ -40,6 +40,12 @@ We are given:
 
 - Surgery mode $M \in \{\text{C.E}, \text{S.E}, \text{C.D}, \text{T.E}, \text{S.D}\}$ indicating the failure type being addressed
 
+- **Admissibility data** for the type $T$:
+  - Canonical library $\mathcal{L}_T$ and definable family $\mathcal{F}_T$ with membership predicates
+  - Tolerance $\delta_{\text{tol}}(T)$ and a certified metric $d_{\mathcal{M}}$ on $\mathcal{M}_{\text{prof}}(T)$
+  - Thresholds $\varepsilon_{\text{adm}}(T)$ and $\epsilon_T$
+  - Verification oracles for codimension and transport estimates
+
 ### Profile Moduli Spaces
 
 **Definition (Moduli Space of Profiles):** For a type $T$, the moduli space of profiles is:
@@ -67,18 +73,18 @@ For a general metric space $(\mathcal{X}, d, \mu)$, we use the variational capac
 $$\text{Cap}(K) := \inf\left\{\int_{\mathcal{X}} |\nabla u|^2 \, d\mu : u \in W^{1,2}(\mathcal{X}), u|_K \geq 1\right\}$$
 
 **Key Properties (from {cite}`Federer69`, Section 2.10):**
-1. **Codimension Bound:** If $\text{Cap}_p(K) < \infty$, then $\dim_H(K) \leq n - p$
-2. **Removability:** Sets with small capacity are removable for Sobolev functions
-3. **Monotonicity:** $A \subseteq B \implies \text{Cap}(A) \leq \text{Cap}(B)$
+1. **Codimension Bound (Euclidean case):** For $K \subset \mathbb{R}^n$ and $1 < p < \infty$, finiteness of $\text{Cap}_p(K)$ yields the standard Hausdorff-dimension estimate $\dim_H(K) \leq n - p$.
+2. **Removability:** Sets with sufficiently small capacity are removable for Sobolev functions in the relevant class.
+3. **Monotonicity:** $A \subseteq B \implies \text{Cap}(A) \leq \text{Cap}(B)$.
 
 ### Admissibility Threshold
 
-For each type $T$, there exists a critical capacity threshold $\varepsilon_{\text{adm}}(T) > 0$ such that surgery at sets with capacity $\leq \varepsilon_{\text{adm}}(T)$ can be performed without violating global energy bounds.
+For each type $T$, we assume a critical capacity threshold $\varepsilon_{\text{adm}}(T) > 0$ is part of the admissibility data, such that surgery at sets with capacity $\leq \varepsilon_{\text{adm}}(T)$ can be performed without violating global energy bounds.
 
-**Type-Dependent Thresholds:**
-- **Parabolic types** ($T_{\text{Ricci}}, T_{\text{MCF}}$): $\varepsilon_{\text{adm}}(T) = r^{n-2}$ where $r$ is the surgery scale
-- **Dispersive types** ($T_{\text{NLS}}, T_{\text{wave}}$): $\varepsilon_{\text{adm}}(T) = E_{\text{soliton}}/2$ (half the minimal soliton energy)
-- **Algorithmic types**: $\varepsilon_{\text{adm}}(T) = \min\{\mathcal{C}(x) - \mathcal{C}(x') : x' \text{ reachable from } x\}$ (minimal complexity drop)
+**Type-Dependent Thresholds (examples recorded in admissibility data):**
+- **Parabolic types** ($T_{\text{Ricci}}, T_{\text{MCF}}$): $\varepsilon_{\text{adm}}(T)$ scales like $r^{n-2}$ at surgery scale $r$
+- **Dispersive types** ($T_{\text{NLS}}, T_{\text{wave}}$): $\varepsilon_{\text{adm}}(T)$ is bounded above by a fixed fraction of the minimal soliton energy
+- **Algorithmic types**: $\varepsilon_{\text{adm}}(T)$ is tied to the minimal certified complexity drop among admissible moves
 
 ### Discrete Progress Constant
 
@@ -118,16 +124,14 @@ By the Profile Classification Trichotomy ({prf:ref}`mt-resolve-profile`), given 
    $$d_{\mathcal{M}}(V, V_i) := \inf_{g \in G} \|V - g \cdot V_i\|_{\mathcal{X}}$$
 3. **Tolerance:** Check if $d_{\mathcal{M}}(V, V_i) \leq \delta_{\text{tol}}$ for the type-specific tolerance $\delta_{\text{tol}}(T)$
 
-**Lemma 1.1** (Library Membership Decidability): For good types $T$, the predicate $V \in \mathcal{L}_T$ is decidable in finite time.
+**Lemma 1.1** (Library Membership Decidability): For good types $T$ equipped with admissibility data, the predicate $V \in \mathcal{L}_T$ is decidable by the provided membership test.
 
 *Proof of Lemma 1.1:*
 The canonical library $\mathcal{L}_T$ consists of isolated critical points of the profile energy functional on $\mathcal{M}_{\text{prof}}(T)$. By definition {prf:ref}`def-canonical-library`, each $V \in \mathcal{L}_T$ has:
 1. Finite automorphism group: $|\text{Aut}(V)| < \infty$
 2. Isolation: $\inf\{d_{\mathcal{M}}(V, W) : W \in \mathcal{M}_{\text{prof}} \setminus \{V\}\} > 0$
 
-The distance computation $d_{\mathcal{M}}(V, V_i)$ involves minimizing over a compact group $G$ (assumed to be a compact Lie group). By compactness, the infimum is attained and computable numerically via gradient descent on $G$.
-
-For dispersive equations, the profiles are ground states or solitons characterized by variational problems. The computation reduces to checking whether $V$ satisfies the Euler-Lagrange equation for each known profile type, which is decidable by spectral analysis {cite}`KenigMerle06`. □
+The admissibility data supplies a certified procedure to evaluate $d_{\mathcal{M}}(V, V_i)$ and to compare it to the tolerance $\delta_{\text{tol}}(T)$. For dispersive equations, the library elements are characterized by variational or spectral conditions, and the admissibility data records the verification method used (e.g., a spectral gap certificate as in {cite}`KenigMerle06`). □
 
 **Outcome:**
 - **If YES:** $V = V_i$ for some $V_i \in \mathcal{L}_T$ (up to $G$-equivalence). Proceed to Step 2 (Codimension Check). Tag: $K_{\text{can}}^+ = (V, V_i, d_{\mathcal{M}}(V, V_i))$
@@ -149,14 +153,14 @@ For profiles in the definable family $\mathcal{F}_T$ but outside the canonical l
 - **Neck stretching** in geometric flows (asymptotic to canonical cylinder)
 - **Modulation** to nearest ground state in NLS
 
-**Lemma 1.2** (Tame Stratification): For $V \in \mathcal{F}_T$, the set of admissible equivalence moves $\{\Psi : \Psi(V) \in \mathcal{L}_T\}$ is finite.
+**Lemma 1.2** (Tame Stratification): For $V \in \mathcal{F}_T$, the admissibility data specifies a finite list of equivalence moves $\{\Psi : \Psi(V) \in \mathcal{L}_T\}$ to be checked.
 
 *Proof of Lemma 1.2:*
 By definition {prf:ref}`def-moduli-profiles`, the moduli space $\mathcal{M}_{\text{prof}}(T)$ for good types admits a finite stratification into algebraic varieties (for algebraic/tame types) or o-minimal cells (for o-minimal types).
 
 The canonical library $\mathcal{L}_T$ consists of isolated points in this stratification. Each non-canonical profile $V \in \mathcal{F}_T \setminus \mathcal{L}_T$ lies in a positive-dimensional stratum. The equivalence moves correspond to geodesics (or gradient flows) from $V$ to the nearest canonical profile.
 
-By o-minimality {cite}`vandenDries98`, the set of such geodesics is definable and finite. Each geodesic terminates at a unique canonical profile (by gradient flow convergence), giving a finite set of candidate equivalence moves. □
+By o-minimality {cite}`vandenDries98`, the set of candidate moves can be taken to be finite and definable, and the admissibility data records a finite selection sufficient to test membership in $\mathcal{L}_T$. □
 
 **Outcome:**
 - **If YES:** There exists $\Psi$ such that $\tilde{V} = \Psi(V) \in \mathcal{L}_T$. Construct Certificate:
@@ -178,7 +182,7 @@ If the profile $V$ does not belong to the definable family $\mathcal{F}_T$, we h
 2. **Undecidability:** Profile satisfies a computationally undecidable predicate (e.g., algorithmic types reaching halting problem)
 3. **Exotic symmetries:** Profile has non-compact or infinite-dimensional automorphism group
 
-**Lemma 1.3** (Horizon Detection): For good types $T$, if $V \notin \mathcal{F}_T$, then there exists a computable witness of wildness.
+**Lemma 1.3** (Horizon Detection): For good types $T$, if $V \notin \mathcal{F}_T$, the admissibility data supplies a witness of wildness used by the framework to declare the horizon case.
 
 *Proof of Lemma 1.3:*
 For good types, the definable family $\mathcal{F}_T$ is characterized by o-minimal or tame geometric structure {cite}`vandenDries98`. Profiles outside $\mathcal{F}_T$ violate at least one of:
@@ -186,7 +190,7 @@ For good types, the definable family $\mathcal{F}_T$ is characterized by o-minim
 2. **Definability:** $V$ is not the zero set of a polynomial/analytic function
 3. **Spectral discreteness:** The spectrum of the linearized operator at $V$ is not discrete
 
-Each violation provides a computable witness. For instance, if $\int |\nabla V| = \infty$, we can compute partial integrals $\int_{B_R} |\nabla V|$ and observe divergence as $R \to \infty$. □
+Each violation provides a witness recorded in the admissibility data. For instance, if $\int |\nabla V| = \infty$, divergence of the partial integrals $\int_{B_R} |\nabla V|$ as $R \to \infty$ can be used as the certificate. □
 
 **Outcome:**
 - Construct wildness witness $W$ (e.g., divergence sequence, positive Lyapunov exponent, halting certificate)

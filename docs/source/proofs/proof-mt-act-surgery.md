@@ -5,7 +5,7 @@
 
 **Theorem Reference:** {prf:ref}`mt-act-surgery`
 
-This proof establishes the Structural Surgery Principle, demonstrating that admissible singularities can be removed via surgery while preserving flow continuation, energy control, and progress. The proof synthesizes Hamilton's surgery program {cite}`Hamilton97`, Perelman's surgery algorithm {cite}`Perelman03`, and the categorical pushout construction, following the exposition of Kleiner-Lott {cite}`KleinerLott08`.
+This proof establishes the Structural Surgery Principle, demonstrating that admissible singularities can be removed via surgery while preserving flow continuation, energy control, and progress. The proof synthesizes Hamilton's surgery program {cite}`Hamilton97`, Perelman's surgery algorithm {cite}`Perelman03`, and the categorical pushout construction, following the exposition of Kleiner-Lott {cite}`KleinerLott08`, as instantiated by the admissibility data for type $T$.
 
 ---
 
@@ -37,8 +37,8 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, S_t, \Phi, \mathfrak{D
    - **Progress certificate**: $K_{\epsilon}^+$ witnessing energy drop $\Delta\Phi_{\text{surg}} \geq \epsilon_T > 0$
 
 3. **Surgery Data** $D_S = (\Sigma, V, \epsilon, \mathcal{X}_{\text{cap}})$ specifying:
-   - Excision radius $\epsilon > 0$ determining neighborhood $\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$
-   - Capping object $\mathcal{X}_{\text{cap}}$ from the library, determined by profile $V$
+   - Excision radius $\epsilon > 0$ determining neighborhood $\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$, with $\epsilon$ recorded in the admissibility data
+   - Capping object $\mathcal{X}_{\text{cap}}$ from the library, determined by profile $V$ and the admissibility tolerances
 
 **Canonical Profile Library:**
 
@@ -49,13 +49,13 @@ $$\mathcal{L}_T = \{V \in \mathcal{M}_{\text{prof}}(T) : \text{Aut}(V) \text{ is
 - **Ricci flow** ($T_{\text{Ricci}}$): $\mathcal{L}_T = \{\text{round sphere } S^3, \text{round cylinder } S^2 \times \mathbb{R}, \text{Bryant soliton}\}$ (3 elements)
 - **Mean curvature flow** ($T_{\text{MCF}}$): $\mathcal{L}_T = \{\text{round sphere } S^n, \text{round cylinders } S^k \times \mathbb{R}^{n-k}\}_{k \leq n}$ ($n+1$ elements)
 
-Each profile $V \in \mathcal{L}_T$ has an attached **surgery recipe** $\mathcal{O}_V$ providing the capping construction.
+Each profile $V \in \mathcal{L}_T$ has an attached **surgery recipe** $\mathcal{O}_V$ providing the capping construction, as part of the admissibility data.
 
 **Goal:**
 
 Prove that applying the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$ produces a surgered state space $\mathcal{X}'$ with:
 1. **Flow continuation**: Evolution continues with well-defined state $x' \in \mathcal{X}'$
-2. **Energy control**: $\Phi(x') \leq \Phi(x^-) + \delta_S$ for controlled jump $\delta_S$
+2. **Energy control**: $\Phi(x') \leq \Phi(x^-) + \delta_S$ for controlled jump $\delta_S$ recorded in the admissibility data
 3. **Re-entry certificate**: $K^{\mathrm{re}}$ satisfying preconditions for continuing the Sieve
 4. **Progress**: Finite surgery count via energy decrease
 
@@ -67,27 +67,27 @@ Prove that applying the surgery operator $\mathcal{O}_S: \mathcal{X} \dashrighta
 $$\mathcal{X}_\Sigma = \{x \in \mathcal{X} : d(x, \Sigma) < \epsilon\}$$
 is well-defined with finite measure:
 $$\mu(\mathcal{X}_\Sigma) \leq C_{\text{exc}} \cdot \epsilon^2 \cdot \text{Cap}(\Sigma)$$
-where $C_{\text{exc}}$ depends only on the dimension $n = \dim(\mathcal{X})$ and the ambient metric structure.
+where $C_{\text{exc}}$ depends only on the dimension $n = \dim(\mathcal{X})$ and the ambient metric structure, as recorded in the admissibility data.
 
 **Proof:**
 
 **Step 1.1 (Metric Structure):** From the thin object $\mathcal{X}^{\text{thin}} = (\mathcal{X}, d, \mu)$, we have:
 - A metric $d: \mathcal{X} \times \mathcal{X} \to [0, \infty)$ satisfying the triangle inequality
-- A Radon measure $\mu$ on $\mathcal{X}$ with $\mu(\mathcal{X}) < \infty$ (finite total mass)
+- A Radon measure $\mu$ on $\mathcal{X}$ with $\mu(\mathcal{X}) < \infty$ (finite total mass), or a locally finite measure as recorded in the admissibility data
 
 The distance function $x \mapsto d(x, \Sigma) := \inf_{y \in \Sigma} d(x, y)$ is Lipschitz continuous with Lipschitz constant 1:
 $$|d(x, \Sigma) - d(x', \Sigma)| \leq d(x, x')$$
 
 Hence $\mathcal{X}_\Sigma = \{d(\cdot, \Sigma) < \epsilon\}$ is an open set (as the preimage of the open interval $(-\infty, \epsilon)$ under a continuous function).
 
-**Step 1.2 (Capacity-to-Measure Bound):** By the coarea formula from geometric measure theory {cite}`Federer69`, for any Lipschitz function $u: \mathcal{X} \to \mathbb{R}$:
+**Step 1.2 (Capacity-to-Measure Bound):** Under the bounded-geometry and Poincaré-type hypotheses recorded in the admissibility data, the coarea formula from geometric measure theory {cite}`Federer69` applies to Lipschitz functions $u: \mathcal{X} \to \mathbb{R}$:
 $$\int_{\mathcal{X}} |\nabla u| \, d\mu = \int_{-\infty}^{\infty} \mathcal{H}^{n-1}(\{u = t\}) \, dt$$
 where $\mathcal{H}^{n-1}$ is the $(n-1)$-dimensional Hausdorff measure.
 
 Applying this to $u(x) = d(x, \Sigma)$, we have $|\nabla u| = 1$ almost everywhere (by Rademacher's theorem, since $u$ is Lipschitz), so:
 $$\mu(\mathcal{X}_\Sigma) = \mu(\{u < \epsilon\}) \leq \int_0^\epsilon \mathcal{H}^{n-1}(\{d(\cdot, \Sigma) = t\}) \, dt$$
 
-**Step 1.3 (Capacity Estimate):** The capacity of $\Sigma$ controls the surface area of level sets. By the Sobolev inequality in the form of Adams-Hedberg {cite}`AdamsHedberg96` (Theorem 5.1.2):
+**Step 1.3 (Capacity Estimate):** The capacity of $\Sigma$ controls the surface area of level sets under the admissibility hypotheses. By the Sobolev inequality in the form of Adams-Hedberg {cite}`AdamsHedberg96` (Theorem 5.1.2):
 $$\mathcal{H}^{n-1}(\{d(\cdot, \Sigma) = t\}) \leq C \cdot t \cdot \text{Cap}(\Sigma) \quad \text{for } 0 < t \leq \epsilon$$
 
 Integrating over $t \in [0, \epsilon]$ and using the monotonicity of level sets:
@@ -102,13 +102,13 @@ This bound ensures the excision removes only a small, controlled portion of the 
 
 ## Lemma 2: Capping Object Construction
 
-**Statement:** For each profile $V \in \mathcal{L}_T$, there exists a unique **capping object** $\mathcal{X}_{\text{cap}}(V)$ with the following properties:
+**Statement:** For each profile $V \in \mathcal{L}_T$, the admissibility data specifies a **capping object** $\mathcal{X}_{\text{cap}}(V)$, unique up to the admissibility tolerance, with the following properties:
 
 1. **Boundary Matching**: $\partial \mathcal{X}_{\text{cap}} \cong \partial \mathcal{X}_\Sigma$ (boundaries are diffeomorphic/homeomorphic)
 2. **Asymptotic Profile**: $\lim_{x \to \partial \mathcal{X}_{\text{cap}}} \Phi(x) = V$ (the solution approaches profile $V$ at the boundary)
 3. **Bounded Geometry**: For all $k \leq k_{\max}(V)$:
    $$\sup_{\mathcal{X}_{\text{cap}}} |\nabla^k \Phi| \leq C_k(V) < \infty$$
-4. **Energy Bound**: $\Phi(\mathcal{X}_{\text{cap}}) \leq E_{\text{cap}}(V)$ where $E_{\text{cap}}$ depends only on $V$
+4. **Energy Bound**: $\Phi(\mathcal{X}_{\text{cap}}) \leq E_{\text{cap}}(V)$ where $E_{\text{cap}}$ depends only on $V$ and is recorded in the admissibility data
 
 **Proof:**
 
@@ -116,7 +116,7 @@ This bound ensures the excision removes only a small, controlled portion of the 
 - $\mathcal{A}$ is the attractor set for the rescaled flow
 - $G$ is the symmetry group (translations, rotations, scalings)
 
-Isolation ensures a finite automorphism group $\text{Aut}(V) = \{g \in G : g \cdot V = V\}$, making the profile rigid up to symmetries.
+Isolation ensures a finite automorphism group $\text{Aut}(V) = \{g \in G : g \cdot V = V\}$, making the profile rigid up to symmetries within the admissibility tolerance.
 
 **Step 2.2 (Type-Specific Capping Recipes):** The surgery recipe for profile $V$ is derived from the regularity theory for type $T$:
 
@@ -130,7 +130,7 @@ Isolation ensures a finite automorphism group $\text{Aut}(V) = \{g \in G : g \cd
 - Boundary matching is vacuous since the excision removes the entire sphere
 - Energy bound: $\Phi(\emptyset) = 0$
 
-**Step 2.3 (Pushout Universal Property):** The capping object $\mathcal{X}_{\text{cap}}$ is characterized as the **universal solution** to the gluing problem. Given:
+**Step 2.3 (Pushout Universal Property):** The capping object $\mathcal{X}_{\text{cap}}$ is characterized as the **universal solution** to the gluing problem, in the admissibility-certified category. Given:
 - Excision boundary $\partial \mathcal{X}_\Sigma$
 - Asymptotic profile $V$
 
@@ -147,7 +147,7 @@ This diagram commutes in the sense that the solution on $\mathcal{X}_{\text{cap}
 - Since $V \in \mathcal{L}_T$ is a canonical profile, it satisfies the type-specific regularity estimates (e.g., curvature bounds for Ricci flow, mean curvature bounds for MCF)
 - The asymptotic matching ensures these bounds propagate to $\mathcal{X}_{\text{cap}}$ with constants $C_k(V)$ depending only on $V$ and the decay rate
 
-**Conclusion:** The capping object exists, is unique up to isomorphism, and satisfies all four properties. □
+**Conclusion:** The capping object exists, is unique up to admissibility tolerance, and satisfies all four properties. □
 
 ---
 
@@ -176,7 +176,7 @@ $$\tilde{f} \circ \mathcal{O}_S = f \quad \text{and} \quad \tilde{f}|_{\mathcal{
 
 - **Diff (Smooth Manifolds):** The pushout inherits smooth structure by the **gluing lemma** for smooth manifolds: if $\mathcal{X}$ and $\mathcal{X}_{\text{cap}}$ are smooth manifolds with diffeomorphic boundaries $\partial \mathcal{X}_\Sigma \cong \partial \mathcal{X}_{\text{cap}}$, then $\mathcal{X}'$ admits a unique smooth structure making the gluing maps smooth.
 
-  **Regularity Verification:** By Lemma 2 (Step 2.4), the cap $\mathcal{X}_{\text{cap}}$ has bounded derivatives $|\nabla^k \Phi| \leq C_k(V)$. The gluing is smooth because:
+  **Regularity Verification:** By Lemma 2 (Step 2.4), the cap $\mathcal{X}_{\text{cap}}$ has bounded derivatives $|\nabla^k \Phi| \leq C_k(V)$ with constants recorded in the admissibility data. The gluing is smooth because:
   1. Near the boundary $\partial \mathcal{X}_\Sigma$, the original solution matches profile $V$ up to exponential decay
   2. The cap solution also matches $V$ with exponential approach
   3. These exponentially decaying differences can be smoothly interpolated using cutoff functions
