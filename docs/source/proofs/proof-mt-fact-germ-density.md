@@ -139,6 +139,8 @@ where $B(m,\varepsilon):=\{x\in M:d(x,m)<\varepsilon\}$. Equivalently, $\{m_1,\d
 
 **Proof:** The family of open balls $\{B(x,\varepsilon)\}_{x\in M}$ is an open cover of $M$. By compactness, there is a finite subcover $M\subseteq \bigcup_{j=1}^N B(m_j,\varepsilon)$ for some points $m_1,\dots,m_N\in M$. □
 
+**Admissibility Note (Compactness Input):** In applications below, $M$ is a moduli space (or a compactification of a moduli space) equipped with the admissible metric. The compactness of $(M,d)$ is part of the admissibility data for type $T$ (e.g., Uhlenbeck compactness or a compactified quotient after gauge fixing), and is explicitly assumed or certified before invoking Lemma 2.0.
+
 ### Lemma 2.1: Factorization Through Library
 
 **Statement:** For every germ $[P, \pi] \in \mathcal{G}_T$, there exists $B_i \in \mathcal{B}$ and morphisms:
@@ -154,6 +156,8 @@ $$\beta_i := \iota_{[P_i,\pi_i]}: B_i=\mathbb{H}_{[P_i,\pi_i]} \to \mathbb{H}_{\
 then **any** morphism $\alpha_{[P,\pi]}:\mathbb{H}_{[P,\pi]} \to B_i$ automatically yields the desired factorization:
 $$\beta_i \circ \alpha_{[P,\pi]} = \iota_{[P,\pi]}.$$
 So the content of Lemma 2.1 is: build a finite family of “representative” germ objects $B_i$ and, for each germ, construct a morphism into one of them.
+
+**Admissibility Note (Certified Linearization Data):** The existence of $\alpha_{[P,\pi]}$ from metric proximity uses the type-$T$ verification contract: a certified linearization/invertibility datum for the germ model and an explicit admissibility threshold $\varepsilon_0$ for the implicit-function step. These data are recorded as part of admissibility for $T$ and are invoked whenever we pass from $\varepsilon$-closeness to morphism existence.
 
 We now verify this explicitly for three canonical families of problem types.
 
@@ -176,7 +180,7 @@ has $\dim(\mathcal{M}_{T_{\mathrm{para}}}) \leq d(p-1) + O(1)$.
 $$\forall [P, \pi] \in \mathcal{G}_{T_{\mathrm{para}}}.\, \exists B_i: \, \|\pi - B_i\|_{\dot{H}^1} \leq \varepsilon$$
 
 :::{important}
-**Metric Proximity → Morphism Existence:**
+**Metric Proximity → Morphism Existence (with Certified Data):**
 
 The claim that $\varepsilon$-closeness in $\dot{H}^1$ implies a morphism in $\mathbf{Hypo}_{T_{\mathrm{para}}}$ requires justification:
 
@@ -185,18 +189,18 @@ The claim that $\varepsilon$-closeness in $\dot{H}^1$ implies a morphism in $\ma
    - Energy monotonicity: $\|\pi' \circ \phi\|_{\dot{H}^1} \leq \|\pi\|_{\dot{H}^1}$
    - Compatibility with the semilinear structure
 
-2. **Implicit function theorem:** For $\|\pi - \pi'\|_{\dot{H}^1} < \varepsilon$ with $\varepsilon$ small, the map $\phi = \text{id} + \psi$ where $\psi$ solves a linearized equation provides the required morphism. This uses:
-   - Invertibility of the linearized operator (from spectral gap $\lambda > 0$)
+2. **Implicit function theorem:** For $\|\pi - \pi'\|_{\dot{H}^1} < \varepsilon$ with $\varepsilon$ small, the map $\phi = \text{id} + \psi$ where $\psi$ solves a linearized equation provides the required morphism. This uses certified linearization/invertibility data:
+   - A documented right inverse for the linearized operator (from spectral gap $\lambda > 0$ or a coercive estimate)
    - Lipschitz bounds on the nonlinearity
 
-3. **Threshold value:** The threshold $\varepsilon_0$ depends on the spectral gap and nonlinearity. Explicitly:
+3. **Threshold value:** The admissibility threshold $\varepsilon_0$ is part of the verification contract for type $T_{\mathrm{para}}$, and depends on the spectral gap and nonlinearity. Explicitly:
    $$\varepsilon_0 \sim \frac{\lambda}{C_{\text{Lip}}(f)}$$
    where $C_{\text{Lip}}(f)$ is the Lipschitz constant of the nonlinearity $f(u) = |u|^{p-1}u$.
 :::
 
 Choose $\varepsilon < \varepsilon_0$ so that $\varepsilon$-closeness implies morphism existence.
 
-**Normalization Note:** Because $\mathcal{M}_{T_{\mathrm{para}}}$ is a quotient by the symmetry group $G$, the statement “$\|\pi-B_i\|_{\dot{H}^1}\le\varepsilon$” should be read after choosing representatives in a fixed gauge/normalization. Equivalently, one can say: there exists $g\in G$ such that $\|\pi - g\cdot B_i\|_{\dot{H}^1}\le\varepsilon$. In $\mathbf{Hypo}_{T_{\mathrm{para}}}$, $g$ acts by an isomorphism, and we absorb this symmetry isomorphism into the morphism $\alpha_{[P,\pi]}$.
+**Normalization Note:** Because $\mathcal{M}_{T_{\mathrm{para}}}$ is a quotient by the symmetry group $G$, the statement “$\|\pi-B_i\|_{\dot{H}^1}\le\varepsilon$” should be read after choosing representatives in a fixed gauge/normalization. Equivalently, one can say: there exists $g\in G$ such that $\|\pi - g\cdot B_i\|_{\dot{H}^1}\le\varepsilon$. The choice of representatives (gauge fixing) and the $\varepsilon$-metric are part of the admissibility data/verification contract for type $T$, and the symmetry isomorphism is absorbed into the morphism $\alpha_{[P,\pi]}$.
 
 **Factorization Construction:** We interpret each net point $B_i$ as a chosen **germ object** in $\mathbf{Hypo}_{T_{\mathrm{para}}}$ (a representative Type I profile) and keep the same symbol $B_i$ for the corresponding hypostructure $\mathbb{H}_{B_i}$.
 
