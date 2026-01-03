@@ -8,7 +8,7 @@ title: "UP-LockBack - AI/RL/ML Translation"
 
 The backward locking theorem establishes conditions under which later layers constrain earlier layer updates. Backward locking prevents early layers from adapting freely, creating training difficulties when later layers impose rigid constraints.
 
-**Original Theorem Reference:** {prf:ref}`mt-up-lock-back`
+**Original Theorem Reference:** {prf:ref}`mt-up-lockback`
 
 ---
 

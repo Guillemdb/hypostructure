@@ -8,7 +8,7 @@ title: "LOCK-TacticCapacity - AI/RL/ML Translation"
 
 The capacity lower bound lock establishes fundamental limits on what neural networks can learn given their architectural constraints. Networks below a certain capacity cannot solve tasks requiring more expressivity—they are locked out of the solution space.
 
-**Original Theorem Reference:** {prf:ref}`lock-tactic-capacity`
+**Original Theorem Reference:** {prf:ref}`mt-lock-tactic-capacity`
 
 ---
 

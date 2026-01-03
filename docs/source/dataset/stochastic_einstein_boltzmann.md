@@ -39,7 +39,7 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarant
 | Node | Name | Outcome |
 |------|------|---------|
 | 1 | EnergyCheck | $K_{D_E}^+$ (H-theorem + area theorem) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (via holographic block) |
+| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (via DPI block) |
 | 3 | CompactCheck | $K_{C_\mu}^+$ (concentration-compactness + Kerr profiles) |
 | 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (critical: $\alpha = \beta = 2$) |
 | 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (ADM mass fixed) |
@@ -52,13 +52,13 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarant
 | 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (not gradient, has transport) |
 | 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^+$ (free boundaries) |
 | -- | Surgery | SurgCD (horizon excision) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E8 holographic) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E8 DPI) |
 
 ### 3. Lock Mechanism
 | Tactic | Status | Description |
 |--------|--------|-------------|
 | E7 | Applied | Thermodynamic — generalized second law |
-| E8 | **Primary** | Holographic — Bekenstein bound excludes naked singularities |
+| E8 | **Primary** | DPI — Bekenstein bound excludes naked singularities |
 
 ### 4. Final Verdict
 | Field | Value |
@@ -66,7 +66,7 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarant
 | **Status** | **UNCONDITIONAL** |
 | **Obligation Ledger** | EMPTY |
 | **Singularity Set** | $\Sigma \subset \text{horizons}$ (behind event horizons only) |
-| **Primary Blocking Tactic** | E8 (Holographic — Bekenstein bound violation) |
+| **Primary Blocking Tactic** | E8 (DPI — Bekenstein bound violation) |
 
 ---
 
@@ -74,9 +74,9 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarant
 
 This document presents a **machine-checkable proof object** for **global regularity** of the stochastic Einstein-Boltzmann system with free boundaries.
 
-**Approach:** We instantiate the quantum-gravitational hypostructure with Lorentzian metrics coupled to kinetic distribution functions. The system is critical ($\alpha = \beta = 2$), so MT 7.2 (Type II Exclusion) does not apply directly. Instead, resolution routes through the **holographic block** (Tactic E8): the Bekenstein bound limits information content at boundaries, excluding naked singularities that would require infinite local entropy. Horizons are handled via **SurgCD surgery** (automatic excision).
+**Approach:** We instantiate the quantum-gravitational hypostructure with Lorentzian metrics coupled to kinetic distribution functions. The system is critical ($\alpha = \beta = 2$), so MT 7.2 (Type II Exclusion) does not apply directly. Instead, resolution routes through the **DPI block** (Tactic E8): the Bekenstein bound limits information content at boundaries, excluding naked singularities that would require infinite local entropy. Horizons are handled via **SurgCD surgery** (automatic excision).
 
-**Result:** The Lock is blocked via Tactic E8 (Holographic) and E7 (Thermodynamic). All singularities are contained within event horizons (weak cosmic censorship). Global weak solutions exist for asymptotically flat data with finite ADM mass.
+**Result:** The Lock is blocked via Tactic E8 (DPI) and E7 (Thermodynamic). All singularities are contained within event horizons (weak cosmic censorship). Global weak solutions exist for asymptotically flat data with finite ADM mass.
 
 ---
 
@@ -95,7 +95,7 @@ This document presents a **machine-checkable proof object** for **global regular
 **Claim:**
 1. **Global weak solutions exist** for generic initial data with finite ADM mass
 2. **Weak cosmic censorship holds:** All curvature singularities are contained within event horizons
-3. **Singularity exclusion:** Naked singularities (visible from $\mathscr{I}^+$) are excluded by holographic bound
+3. **Singularity exclusion:** Naked singularities (visible from $\mathscr{I}^+$) are excluded by DPI bound
 
 **Notation:**
 | Symbol | Definition |
@@ -124,7 +124,7 @@ This document presents a **machine-checkable proof object** for **global regular
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Naked singularities visible from $\mathscr{I}^+$
 - [x] **Recovery Map $\mathcal{R}$:** SurgCD surgery (horizon excision + Hawking cap)
-- [x] **Event Counter $\#$:** Finite by holographic block
+- [x] **Event Counter $\#$:** Finite by DPI block
 - [x] **Finiteness:** Via E8 — Bekenstein bound excludes naked singularities
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -179,7 +179,7 @@ This document presents a **machine-checkable proof object** for **global regular
 - [x] **Language $\mathcal{L}$:** Multipole moments at infinity
 - [x] **Dictionary $D$:** Mass, angular momentum, higher moments
 - [x] **Complexity Measure $K$:** Bekenstein bound $S \leq A/4G_N$
-- [x] **Faithfulness:** Holographic: boundary data determines bulk
+- [x] **Faithfulness:** DPI: boundary data determines bulk
 
 #### Template: $\mathrm{GC}_\nabla$ (Gradient Interface)
 - [x] **Metric Tensor $g$:** DeWitt supermetric on $\text{Lor}(M)$
@@ -216,7 +216,7 @@ This document presents a **machine-checkable proof object** for **global regular
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Naked singularity visible from $\mathscr{I}^+$
 - [x] **Exclusion Tactics:**
   - [x] E7 (Thermodynamic): Generalized second law — total entropy non-decreasing
-  - [x] E8 (Holographic): Bekenstein bound violation — naked singularity requires $I = \infty$ but $I_{\max} = A/4G_N < \infty$
+  - [x] E8 (DPI): Bekenstein bound violation — naked singularity requires $I = \infty$ but $I_{\max} = A/4G_N < \infty$
 
 ---
 
@@ -271,11 +271,11 @@ This document presents a **machine-checkable proof object** for **global regular
 **Step-by-step execution:**
 1. [x] Bad set: Naked singularities visible from $\mathscr{I}^+$
 2. [x] Recovery map: SurgCD surgery — excise singular interior inside horizons
-3. [x] Count: Holographic block (E8) excludes naked singularities
+3. [x] Count: DPI block (E8) excludes naked singularities
 4. [x] Verdict: Only horizon-shielded singularities permitted (finitely many by energy bound)
 
 **Certificate:**
-* [x] $K_{\mathrm{Rec}_N}^+ = (\text{horizons}, \text{SurgCD}, N_{\max})$ via holographic block → **Go to Node 3**
+* [x] $K_{\mathrm{Rec}_N}^+ = (\text{horizons}, \text{SurgCD}, N_{\max})$ via DPI block → **Go to Node 3**
 
 ---
 
@@ -313,7 +313,7 @@ $$\mathcal{L}_{EB} := \{(M, J) : J^2 \leq M^2, M > 0\} \cup \{(\eta, 0)\}$$
 4. [x] Criticality: $\alpha - \beta = 0$ → **CRITICAL**
 
 **Note:** System is critical. MT 7.2 does not exclude singularities. Resolution routes via:
-- E8 (Holographic): Bekenstein bound excludes naked singularities
+- E8 (DPI): Bekenstein bound excludes naked singularities
 - SurgCD: Horizon formation handled via automatic excision
 
 **Certificate:**
@@ -428,7 +428,7 @@ $$\mathcal{L}_{EB} := \{(M, J) : J^2 \leq M^2, M > 0\} \cup \{(\eta, 0)\}$$
 1. [x] Language: Multipole moments at spatial infinity
 2. [x] Dictionary: ADM mass, angular momentum, higher multipoles
 3. [x] Complexity: Bekenstein bound $S \leq A/4G_N$
-4. [x] Holographic principle: Bulk information bounded by boundary area
+4. [x] DPI principle: Bulk information bounded by boundary area
 
 **Certificate:**
 * [x] $K_{\mathrm{Rep}_K}^+ = (\text{multipoles}, S \leq A/4G_N)$ → **Go to Node 12**
@@ -529,12 +529,12 @@ $$\mathcal{L}_{EB} := \{(M, J) : J^2 \leq M^2, M > 0\} \cup \{(\eta, 0)\}$$
 * [ ] E5 (Functional): Not applicable
 * [ ] E6 (Causal): Partially (causal structure excludes some patterns)
 * [x] **E7 (Thermodynamic):** Generalized second law — total entropy non-decreasing
-* [x] **E8 (Holographic):** Bekenstein bound — $I(\mathcal{H}_{\text{bad}}) > I_{\max}$ **PRIMARY**
+* [x] **E8 (DPI):** Bekenstein bound — $I(\mathcal{H}_{\text{bad}}) > I_{\max}$ **PRIMARY**
 * [ ] E9 (Ergodic): Not applicable
 * [ ] E10 (Definability): Not applicable
 
 **Lock Verdict:**
-* [x] **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$) via Tactic E8 (Holographic) → **GLOBAL REGULARITY ESTABLISHED**
+* [x] **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$) via Tactic E8 (DPI) → **GLOBAL REGULARITY ESTABLISHED**
 
 ---
 
@@ -678,7 +678,7 @@ No obligations introduced. All nodes produced $K^+$ or $K^{\mathrm{blk}}$.
 
 ```
 Node 1:  K_{D_E}^+ (H-theorem + area theorem)
-Node 2:  K_{Rec_N}^+ (holographic block)
+Node 2:  K_{Rec_N}^+ (DPI block)
 Node 3:  K_{C_μ}^+ (concentration-compactness)
 Node 4:  K_{SC_λ}^- (critical) → resolved via E8/SurgCD
 Node 5:  K_{SC_∂c}^+ (ADM conserved)
@@ -696,7 +696,7 @@ Node 16: K_{GC_T}^+ (aligned)
 ---
 Surgery: K_{Surg}^+(SurgCD) (horizon excision)
 ---
-Node 17: K_{Cat_Hom}^{blk} (E8 holographic block)
+Node 17: K_{Cat_Hom}^{blk} (E8 DPI block)
 ```
 
 ### 4.3 Final Certificate Set
@@ -713,7 +713,7 @@ $$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\
 2. **Structure:** Established by $K_{C_\mu}^+$ (concentration-compactness + Kerr profiles)
 3. **Stiffness:** Established by $K_{\mathrm{LS}_\sigma}^+$ (positive mass + mode stability)
 4. **Lyapunov:** Constructed via Part III-A ($K_{\mathcal{L}}^{\text{verified}}$)
-5. **Exclusion:** Established by $K_{\text{Lock}}^{\mathrm{blk}}$ via Tactic E8 (Holographic — Bekenstein bound)"
+5. **Exclusion:** Established by $K_{\text{Lock}}^{\mathrm{blk}}$ via Tactic E8 (DPI — Bekenstein bound)"
 
 **Full Certificate Chain:**
 $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
@@ -730,7 +730,7 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 2 (Conservation):** Nodes 1-3 established:
 - Energy control via H-theorem and Hawking area theorem ($K_{D_E}^+$)
-- Finite bad events via holographic block ($K_{\mathrm{Rec}_N}^+$)
+- Finite bad events via DPI block ($K_{\mathrm{Rec}_N}^+$)
 - Compactness via concentration-compactness with Kerr profile library ($K_{C_\mu}^+$)
 
 **Phase 3 (Scaling):** Nodes 4-5 verified:
@@ -750,7 +750,7 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 6 (Boundary):** Nodes 13-16 verified open system with bounded stochastic forcing.
 
-**Phase 7 (Lock):** Node 17 blocked the universal bad pattern (naked singularity) via Tactic E8 (Holographic):
+**Phase 7 (Lock):** Node 17 blocked the universal bad pattern (naked singularity) via Tactic E8 (DPI):
 - Naked singularity requires infinite information: $I(\mathcal{H}_{\text{bad}}) = \infty$
 - Bekenstein bound limits available information: $I_{\max} = A/4G_N < \infty$
 - Mismatch excludes morphism: $K_{\text{Lock}}^{\mathrm{blk}}$

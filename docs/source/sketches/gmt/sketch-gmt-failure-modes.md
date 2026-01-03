@@ -303,7 +303,7 @@ K^+_{T.E} = {
     excision: "remove tubular neighborhood of Σ",
     capping: "glue in standard caps (hemispheres, etc.)",
     post_surgery_manifold: M_after,
-    topology_change: χ(M_after) ≠ χ(M_before),
+    topology_change: chi(M_after) != chi(M_before),
     energy_decrease: "E(M_after) < E(M_before)",
     continuation: "flow continues smoothly on M_after"
   },
@@ -426,7 +426,7 @@ K^-_{C.C} = {
     event_times: {t₁, t₂, t₃, ...} with tₙ → T* < ∞,
     accumulation_time: T*,
     infinite_surgeries: "#{surgeries in [0, T*]} = ∞",
-    topology_changes: "χ(M(tₙ)) changes infinitely often",
+    topology_changes: "chi(M(tₙ)) changes infinitely often",
     measure_decay: "μ(M(t)) → 0 as t → T*"
   },
   interpretation: "Infinitely many topology changes in finite time",
@@ -514,7 +514,7 @@ K^-_{T.C} = {
   evidence: {
     genus: g >> 1,
     betti_numbers: [b₀, b₁, ..., bₙ] with Σbᵢ large,
-    topological_complexity: "high Euler characteristic |χ|",
+    topological_complexity: "high Euler characteristic |chi|",
     knot_complexity: "large crossing number or bridge number",
     simplification_obstruction: "cannot reduce topology"
   },

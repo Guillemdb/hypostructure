@@ -8,7 +8,7 @@ title: "UP-ShadowRetro - AI/RL/ML Translation"
 
 The retrospective shadowing theorem establishes how current training states influence the interpretation and modification of past learning. Retrospective effects occur in replay, fine-tuning, and continual learning when later knowledge reshapes earlier representations.
 
-**Original Theorem Reference:** {prf:ref}`mt-up-shadow-retro`
+**Original Theorem Reference:** {prf:ref}`mt-up-shadow-retroactive`
 
 ---
 

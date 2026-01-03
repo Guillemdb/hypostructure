@@ -8,7 +8,7 @@ title: "LOCK-Virtual - AI/RL/ML Translation"
 
 The virtual sample complexity lock establishes that effective sample complexity can differ from actual sample count due to data redundancy, augmentation, or implicit regularization. Virtual sample counts provide corrected estimates that account for information-theoretic structure.
 
-**Original Theorem Reference:** {prf:ref}`lock-virtual`
+**Original Theorem Reference:** {prf:ref}`mt-lock-virtual`
 
 ---
 

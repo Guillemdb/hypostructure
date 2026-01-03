@@ -273,7 +273,7 @@ This document provides comprehensive translations of surgery operations, field e
 | **Completed L-Function** | Λ(s) = Γ-factors · L(s) | Functional equation |
 | **Functional Equation** | Λ(s) = w·Λ(k-s) | Symmetry |
 | **Mellin Transform** | Connect L-function to theta function | Analytic continuation |
-| **Twisting** | L(s, X ⊗ χ) for character χ | Twist by character |
+| **Twisting** | $L(s, X \otimes \chi)$ for character $\chi$ | Twist by character |
 | **Rankin-Selberg Convolution** | L(s, f ⊗ g) | Product of L-functions |
 
 ### 23. Analytic Continuation and Zeros

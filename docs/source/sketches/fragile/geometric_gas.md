@@ -485,16 +485,8 @@ In particular, viscous coupling contracts velocity disagreement in the kernel me
 
 :::{prf:proof}
 Differentiate $E$ along the ODE:
-$$
-\frac{d}{dt}E(v(t))
-=
-\sum_i d_i\, v_i\cdot \dot v_i
-=
-\nu\sum_{i,j} d_i\, v_i\cdot w_{ij}(v_j-v_i)
-=
-\nu\sum_{i,j} K_{ij}\, v_i\cdot (v_j-v_i),
-$$
-using $d_i w_{ij}=K_{ij}$ (which remains true even when $d_i$ is clamped).
+$$\frac{d}{dt}E(v(t)) = \sum_i d_i\, v_i\cdot \dot v_i = \nu\sum_{i,j} d_i\, v_i\cdot w_{ij}(v_j-v_i) = \nu\sum_{i,j} K_{ij}\, v_i\cdot (v_j-v_i).$$
+using `d_i w_{ij}=K_{ij}` (which remains true even when `d_i` is clamped).
 Since $K_{ij}=K_{ji}$, symmetrization gives
 $$
 \sum_{i,j} K_{ij}\, v_i\cdot (v_j-v_i)

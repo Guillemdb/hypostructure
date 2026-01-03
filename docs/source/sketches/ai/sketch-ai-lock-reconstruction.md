@@ -8,7 +8,7 @@ title: "LOCK-Reconstruction - AI/RL/ML Translation"
 
 The information recovery lock shows that under appropriate structural constraints (bounded complexity, locality, regularity), learned representations can be uniquely decoded or reconstructed from partial observations. This underlies autoencoders, variational inference, and compressed sensing in deep learning.
 
-**Original Theorem Reference:** {prf:ref}`lock-reconstruction`
+**Original Theorem Reference:** {prf:ref}`mt-lock-reconstruction`
 
 ---
 

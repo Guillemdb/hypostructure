@@ -736,12 +736,12 @@ Node 4:  K_{SC_λ}^+ (subcritical: α - β ≤ 1)
          ├─ Reduction rate: β = 1
          └─ Termination: guaranteed finite
 
-Node 5:  K_{SC_∂c}^+ (parameters stable: g=0, χ monotone)
+Node 5:  K_{SC_∂c}^+ (parameters stable: g=0, chi monotone)
          ├─ Planarity: preserved by reductions
          └─ Chromatic number: non-increasing
 
 Node 6:  K_{Cap_H}^{inc} (singular set: Σ = ∅ pending)
-         ├─ 5-Color Theorem: χ ≤ 5 (Heawood)
+         ├─ 5-Color Theorem: chi ≤ 5 (Heawood)
          ├─ Obligation: prove 4-colorability
          └─ Missing: K_D^+, K_R^+ → deferred to Nodes 11, 17
 

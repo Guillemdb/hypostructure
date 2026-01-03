@@ -405,7 +405,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
   - [x] E5 (Functional): FAILS - equations solvable semi-classically
   - [x] E6 (Causal): FAILS - no well-foundedness violation
   - [x] E7 (Thermodynamic): FAILS - BH behave thermally
-  - [x] E8 (Holographic): FAILS - precisely the problem
+  - [x] E8 (DPI): FAILS - precisely the problem
   - [x] E9 (Ergodic): FAILS - mixing rates compatible
   - [x] E10 (Definability): FAILS - definability already lost
 
@@ -923,7 +923,7 @@ K_{GC_T}^{inc} = {
 - [x] **E5 (Functional):** Required equations unsolvable? **FAILS** - semi-classical equations solvable
 - [x] **E6 (Causal):** Well-foundedness violated? **FAILS** - causal structure preserved
 - [x] **E7 (Thermodynamic):** Entropy violation? **FAILS** - BH behave thermally (GSL holds locally)
-- [x] **E8 (Holographic):** Bekenstein bound mismatch? **FAILS** - this IS the mismatch
+- [x] **E8 (DPI):** Bekenstein bound mismatch? **FAILS** - this IS the mismatch
 - [x] **E9 (Ergodic):** Mixing rates incompatible? **FAILS** - scrambling rates compatible
 - [x] **E10 (Definability):** O-minimal tameness violated? **FAILS** - already lost at Node 9
 
@@ -1334,7 +1334,7 @@ This proof object is replayed by providing:
 | **E5** | Functional | FAIL | Semi-classical equations solvable |
 | **E6** | Causal | FAIL | Causal structure preserved |
 | **E7** | Thermodynamic | FAIL | BH behave thermally |
-| **E8** | Holographic | FAIL | This IS the problem |
+| **E8** | DPI | FAIL | This IS the problem |
 | **E9** | Ergodic | FAIL | Scrambling compatible |
 | **E10** | Definability | FAIL | Tameness already lost |
 

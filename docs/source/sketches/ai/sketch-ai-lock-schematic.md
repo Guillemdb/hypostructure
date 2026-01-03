@@ -8,7 +8,7 @@ title: "LOCK-Schematic - AI/RL/ML Translation"
 
 The convex relaxation certificate lock shows that polynomial/semidefinite programming (SDP) relaxations provide verifiable certificates for excluding bad configurations from training. When safe training regions (defined by constraints) are disjoint from failure modes, SDP certificates prove this separation algebraically.
 
-**Original Theorem Reference:** {prf:ref}`lock-schematic`
+**Original Theorem Reference:** {prf:ref}`mt-lock-schematic`
 
 ---
 

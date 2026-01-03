@@ -8,7 +8,7 @@ title: "LOCK-SpectralQuant - AI/RL/ML Translation"
 
 The quantization spectral lock shows that the spectral properties of weight matrices impose fundamental limits on how aggressively a network can be quantized. Networks with concentrated spectra can be quantized more aggressively; networks with dispersed spectra require higher precision.
 
-**Original Theorem Reference:** {prf:ref}`lock-spectral-quant`
+**Original Theorem Reference:** {prf:ref}`mt-lock-spectral-quant`
 
 ---
 

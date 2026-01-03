@@ -8,7 +8,7 @@ title: "LOCK-Kodaira - AI/RL/ML Translation"
 
 The deformation rigidity lock shows that when the "cohomology" of the learned representation vanishes, the model becomes rigid—no local deformations are possible without increasing loss. This explains training plateaus and representation stability.
 
-**Original Theorem Reference:** {prf:ref}`lock-kodaira`
+**Original Theorem Reference:** {prf:ref}`mt-lock-kodaira`
 
 ---
 

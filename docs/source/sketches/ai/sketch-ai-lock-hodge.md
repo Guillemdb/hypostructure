@@ -8,7 +8,7 @@ title: "LOCK-Hodge - AI/RL/ML Translation"
 
 The representation structure lock shows that the internal structure of learned representations (analogous to Hodge structure) creates rigidity, preventing certain deformations of the feature space that would violate learned invariants.
 
-**Original Theorem Reference:** {prf:ref}`lock-hodge`
+**Original Theorem Reference:** {prf:ref}`mt-lock-hodge`
 
 ---
 

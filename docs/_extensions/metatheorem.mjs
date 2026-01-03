@@ -48,9 +48,48 @@ const metatheorem = {
   },
 };
 
+const principle = {
+  name: 'prf:principle',
+  doc: 'A principle directive for mathematical principles/axioms',
+  arg: { type: String, doc: 'The title of the principle' },
+  options: {
+    label: { type: String, doc: 'Label for cross-referencing' },
+    class: { type: String, doc: 'Additional CSS classes' },
+  },
+  body: { type: 'parsed', doc: 'The content of the principle (parsed as MyST)' },
+  run(data) {
+    const title = data.arg || 'Principle';
+    const label = data.options?.label;
+    const customClass = data.options?.class || '';
+
+    const children = [];
+    children.push({
+      type: 'admonitionTitle',
+      children: [{ type: 'text', value: `Principle: ${title}` }],
+    });
+    if (data.body && Array.isArray(data.body)) {
+      children.push(...data.body);
+    }
+
+    const node = {
+      type: 'admonition',
+      kind: 'principle',
+      class: `principle ${customClass}`.trim(),
+      children,
+    };
+
+    if (label) {
+      node.identifier = label;
+      node.label = label;
+    }
+
+    return [node];
+  },
+};
+
 const plugin = {
   name: 'Metatheorem Directive Plugin',
-  directives: [metatheorem],
+  directives: [metatheorem, principle],
 };
 
 export default plugin;

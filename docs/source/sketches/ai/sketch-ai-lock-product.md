@@ -8,7 +8,7 @@ title: "LOCK-Product - AI/RL/ML Translation"
 
 The training complexity composition lock shows that when individual learning tasks have established complexity bounds (sample complexity, training time), their product or joint learning preserves these bounds under appropriate conditions. This underlies multi-task learning, transfer learning, and the analysis of combined optimization problems.
 
-**Original Theorem Reference:** {prf:ref}`lock-product`
+**Original Theorem Reference:** {prf:ref}`mt-lock-product`
 
 ---
 

@@ -48,7 +48,7 @@ Projective extensions complete partial structures.
 **Setup:** Number field $K$ with places $v$.
 
 **Adelic completion:**
-$$\mathbb{A}_K = \sideset{}{'}\prod_v K_v$$
+$$\mathbb{A}_K = \prod_v' K_v$$
 
 **Projective extension:**
 $$K \hookrightarrow \mathbb{A}_K$$

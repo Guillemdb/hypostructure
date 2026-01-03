@@ -257,7 +257,7 @@ This document provides comprehensive translations of barrier theorems, impossibi
 | Barrier Type | Arithmetic Translation | Description |
 |--------------|------------------------|-------------|
 | **Rationality** | Z(X/𝔽_q, t) ∈ ℚ(t) | Zeta function rational |
-| **Functional Equation** | Z(1/qt) = ±q^{χ/2}t^χ Z(t) | Self-duality |
+| **Functional Equation** | $Z(1/(qt)) = \pm q^{\chi/2} t^{\chi} Z(t)$ | Self-duality |
 | **Riemann Hypothesis** | \|α_i\| = q^{i/2} | Zero locations |
 | **Betti Numbers** | deg P_i = b_i (ℓ-adic cohomology) | Topological interpretation |
 | **Deligne's Theorem** | Proof of Riemann hypothesis part | Major result |
@@ -293,7 +293,7 @@ This document provides comprehensive translations of barrier theorems, impossibi
 
 | Barrier Type | Arithmetic Translation | Description |
 |--------------|------------------------|-------------|
-| **Generalized Riemann Hypothesis** | L(s,χ) zeros on Re(s) = 1/2 | Prime distribution |
+| **Generalized Riemann Hypothesis** | $L(s,\chi)$ zeros on Re(s) = 1/2 | Prime distribution |
 | **Twin Prime Conjecture** | Infinitely many p with p+2 prime | Prime gaps |
 | **Goldbach Conjecture** | Every even n > 2 is sum of two primes | Additive number theory |
 | **Collatz Conjecture** | 3n+1 problem | Dynamics of integers |

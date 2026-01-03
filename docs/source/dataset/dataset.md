@@ -237,7 +237,7 @@ Format: `(Family, Node)` where Family indicates the certificate type and Node in
 
 - **Quantum Gravity**: Reconciliation of general relativity with quantum mechanics. HORIZON: Information paradox and holographic bound violations detected; requires meta-learning for resolution. *Matches Literature: N/A (no consensus)*
 
-- **Stochastic Einstein-Boltzmann**: Global regularity for the coupled Einstein-Boltzmann system with stochastic forcing and free boundaries. Lock BLOCKED via E8 (Holographic): Bekenstein bound excludes naked singularities; SurgCD surgery resolves horizons via interior capping. *Matches Literature: Open*
+- **Stochastic Einstein-Boltzmann**: Global regularity for the coupled Einstein-Boltzmann system with stochastic forcing and free boundaries. Lock BLOCKED via E8 (DPI): Bekenstein bound excludes naked singularities; SurgCD surgery resolves horizons via interior capping. *Matches Literature: Open*
 
 ## Usage
 

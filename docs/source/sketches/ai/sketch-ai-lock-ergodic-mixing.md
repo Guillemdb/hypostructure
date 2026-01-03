@@ -8,7 +8,7 @@ title: "LOCK-ErgodicMixing - AI/RL/ML Translation"
 
 The mixing dynamics barrier shows that stochastic training dynamics (SGD noise) prevents concentration on measure-zero bad sets, keeping optimization away from degenerate solutions through ergodic exploration.
 
-**Original Theorem Reference:** {prf:ref}`lock-ergodic-mixing`
+**Original Theorem Reference:** {prf:ref}`mt-lock-ergodic-mixing`
 
 ---
 

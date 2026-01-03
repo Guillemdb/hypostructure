@@ -8,7 +8,7 @@ title: "LOCK-Antichain - AI/RL/ML Translation"
 
 The incomparable states lock shows that certain training configurations form antichains (mutually unreachable via gradient flow), creating barriers between different solution basins. This underlies the lottery ticket hypothesis and mode connectivity analysis.
 
-**Original Theorem Reference:** {prf:ref}`lock-antichain`
+**Original Theorem Reference:** {prf:ref}`mt-lock-antichain`
 
 ---
 

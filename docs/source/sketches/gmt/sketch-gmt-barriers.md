@@ -163,7 +163,7 @@ This document provides comprehensive translations of barrier theorems, compariso
 | **Positive Sectional Curvature** | K_σ > 0 ⟹ no minimal submanifolds | Curvature prevents minimizers |
 | **Ricci Curvature Barrier** | Ric ≥ (n-1)κ ⟹ diameter bound | Myers theorem |
 | **Scalar Curvature Barrier** | R > 0 ⟹ no stable minimal hypersurfaces | Positive scalar curvature obstruction |
-| **Gauss Curvature Integral** | ∫_Σ K dA = 2πχ(Σ) | Gauss-Bonnet constraint |
+| **Gauss Curvature Integral** | $\int_{\Sigma} K\, dA = 2\pi\chi(\Sigma)$ | Gauss-Bonnet constraint |
 | **Alexandrov-Bakelman-Pucci** | max u ≤ max_{∂Ω} u + C(diam Ω)²‖f‖_{L^n} | Maximum principle with measure of f |
 | **Krylov-Safonov** | Harnack inequality for non-divergence form | Harnack for general elliptic |
 
@@ -212,7 +212,7 @@ This document provides comprehensive translations of barrier theorems, compariso
 
 | Barrier Type | GMT Translation | Description |
 |--------------|-----------------|-------------|
-| **Topological Surgery Obstruction** | χ(M) prevents certain surgeries | Euler characteristic invariant |
+| **Topological Surgery Obstruction** | $\chi(M)$ prevents certain surgeries | Euler characteristic invariant |
 | **Minimum Width** | Neck width ≥ r₀ > 0 | Cannot pinch arbitrarily thin |
 | **Surgery Time Barrier** | t_surgery > t_min | Minimum time before surgery possible |
 | **Standard Solution Barrier** | Post-surgery flow matches standard solution | Canonical model after surgery |

@@ -8,7 +8,7 @@ title: "LOCK-Tannakian - AI/RL/ML Translation"
 
 The symmetry recovery lock shows that neural networks that respect certain symmetries (equivariance) are uniquely determined by their behavior on representative inputs. The symmetry group acts as a constraint that "locks" the network architecture and reduces the parameter space.
 
-**Original Theorem Reference:** {prf:ref}`lock-tannakian`
+**Original Theorem Reference:** {prf:ref}`mt-lock-tannakian`
 
 ---
 

@@ -65,10 +65,10 @@ Then:
 ### Setup: Decidable Type Systems
 
 **Definition (Decidable Type System).**
-A type system $\mathcal{T} = (\Gamma, \tau, \vdash)$ is decidable if there exists an algorithm $\textsc{TypeCheck}$ such that:
-$$\textsc{TypeCheck}(\Gamma, e, \tau) = \begin{cases} \text{ACCEPT} & \text{if } \Gamma \vdash e : \tau \\ \text{REJECT} & \text{otherwise} \end{cases}$$
+A type system $\mathcal{T} = (\Gamma, \tau, \vdash)$ is decidable if there exists an algorithm $\mathrm{TypeCheck}$ such that:
+$$\mathrm{TypeCheck}(\Gamma, e, \tau) = \begin{cases} \text{ACCEPT} & \text{if } \Gamma \vdash e : \tau \\ \text{REJECT} & \text{otherwise} \end{cases}$$
 
-and $\textsc{TypeCheck}$ terminates on all inputs.
+and $\mathrm{TypeCheck}$ terminates on all inputs.
 
 **Definition (Constraint Set).**
 For a typing problem $(\Gamma, e, \tau)$, the constraint set is:

@@ -279,7 +279,7 @@ This section records derived constants computed deterministically from parameter
 | Softmax floor | $m_\epsilon=\exp(-D_{\mathrm{alg}}^2/(2\epsilon^2))$ | companion minorization |
 | Fitness bounds | $V_{\min}=\eta^{\alpha+\beta}$, $V_{\max}=(A+\eta)^{\alpha+\beta}$ | alive walkers |
 | Score bound | $S_{\max}=(V_{\max}-V_{\min})/(V_{\min}+\epsilon_{\mathrm{clone}})$ | alive walkers |
-| Effective selection | $\lambda_{\mathrm{alg}}^{\mathrm{eff}}=\mathbb{E}\!\left[\frac{1}{N}\sum_i \mathbf{1}\{\text{$i$ clones}\}\right]$ | estimated from `will_clone` |
+| Effective selection | $\lambda_{\mathrm{alg}}^{\mathrm{eff}}=\mathbb{E}\!\left[\frac{1}{N}\sum_i \mathbf{1}\{ i \text{ clones}\}\right]$ | estimated from `will_clone` |
 | Cloning noise | $\delta_x^2=\sigma_x^2$ | position jitter variance |
 | Viscous force max | $\|F_i\|\le 2\nu V_{\mathrm{alg}}$ | per walker |
 | Ellipticity window | $c_{\min}=1/(H_{\max}+\epsilon_\Sigma)$, $c_{\max}=1/\epsilon_\Sigma$ | clamped |

@@ -644,7 +644,7 @@ This proof object is replayed by providing:
 | **E5** | Functional | N/A | — |
 | **E6** | Causal | N/A | — |
 | **E7** | Thermodynamic | N/A | — |
-| **E8** | Holographic | N/A | — |
+| **E8** | DPI | N/A | — |
 | **E9** | Ergodic | N/A | — |
 | **E10** | Definability | N/A | — |
 

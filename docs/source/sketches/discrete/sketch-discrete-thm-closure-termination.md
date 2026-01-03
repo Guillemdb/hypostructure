@@ -70,7 +70,7 @@ The certificate lattice is the structure $(\mathcal{L}, \sqsubseteq, \sqcap, \sq
 - $\bot := \emptyset$ (bottom is empty set)
 - $\top := \mathcal{K}(T)$ (top is all certificates)
 
-**Lemma (Completeness).** The lattice $(\mathcal{L}, \sqsubseteq)$ is complete: every subset $S \subseteq \mathcal{L}$ has a supremum $\bigsqcup S = \bigcup S$ and infimum $\bigsqcap S = \bigcap S$.
+**Lemma (Completeness).** The lattice $(\mathcal{L}, \sqsubseteq)$ is complete: every subset $S \subseteq \mathcal{L}$ has a supremum $\bigcup S$ and infimum $\bigcap S$.
 
 **Proof.** Direct from the properties of set union and intersection. $\square$
 

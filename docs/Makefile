@@ -2,15 +2,15 @@
 
 # Build the Jupyter Book
 docs:
-	. .venv/bin/activate && jupyter-book build
+	. .venv/bin/activate && MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs build
 
 # Serve the built site on localhost:8000
 serve:
-	. .venv/bin/activate && jupyter-book start --port 8000
+	. .venv/bin/activate && MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs start --port 8000
 
 # Build PDF output
 pdf:
-	. .venv/bin/activate && jupyter-book build --pdf
+	. .venv/bin/activate && MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs build --pdf
 
 # Clean build artifacts
 clean:

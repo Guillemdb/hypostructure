@@ -8,7 +8,7 @@ title: "LOCK-SpectralGen - AI/RL/ML Translation"
 
 The generalization spectral lock shows that the spectral properties of neural networks directly control their generalization capability. Networks whose weight matrix spectra exceed certain bounds cannot generalize well—they are "locked" into overfitting regimes.
 
-**Original Theorem Reference:** {prf:ref}`lock-spectral-gen`
+**Original Theorem Reference:** {prf:ref}`mt-lock-spectral-gen`
 
 ---
 

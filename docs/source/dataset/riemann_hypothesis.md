@@ -237,6 +237,12 @@ The **Explicit Formula** is the algebraic data: it links the zero-set $\Sigma$ t
 **Certificate:**
 * [x] $K_{\mathrm{SC}_\lambda}^+ = (\text{1D semiclassical}, H = xp)$ → **Go to Node 5**
 
+**Clarification:** The certificate $K_{\mathrm{SC}_\lambda}^+$ indicates that the spectral scaling is consistent with a 1D quantum Hamiltonian (subcritical regime). This is a categorical YES/NO verdict, not a numerical exponent. The "1D semiclassical" classification means the system satisfies:
+- Density: $N(T) \sim T \log T$ matches Berry-Keating $H = xp$
+- Scaling predicate: $\alpha > \beta$ (energy scales faster than dissipation)
+
+*Note: This is distinct from the motivic weight-scaling correspondence ($\alpha_j = j/2$) used in LOCK-Hodge, which applies to family degenerations. The Riemann proof uses E4 (Integrality) for Lock, not LOCK-Hodge.*
+
 ---
 
 #### Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)
@@ -411,6 +417,8 @@ The **Explicit Formula** is the algebraic data: it links the zero-set $\Sigma$ t
 
 **Question:** Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$?
 
+**Lock Tactic Selection:** For spectral/quantum systems where the observable is integer-quantized (primes $p^k \in \mathbb{Z}$), the primary blocking mechanism is **E4 (Integrality)** combined with **LOCK-Reconstruction**. Alternative mechanisms (E11, LOCK-Hodge) are available but not required here.
+
 **Step-by-step execution:**
 
 **Step 1: Define Bad Pattern**
@@ -502,6 +510,9 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
   - $K_{\text{Bridge}}^+$: Explicit formula = trace formula
   - $K_{\text{Bridge}}^+ \wedge K_{\text{Quant}}^{\text{real}} \wedge K_{\text{Rigid}}^+ \xrightarrow{\text{LOCK-Reconstruction}} K_{\text{Rec}}^+$
 - **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Rec}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+
+**Note on LOCK-Hodge:** The Riemann Hypothesis proof uses E4 + LOCK-Reconstruction, not LOCK-Hodge. While LOCK-Hodge provides weight-scaling correspondence ($\alpha_j = j/2$ for $v \in \text{Gr}^W_j$), it applies to **family degenerations** with semistable reduction. The zeta function proof instead uses the direct spectral quantization chain:
+$$\text{Primes} \in \mathbb{Z} \xrightarrow{\text{E4}} K_{\text{Quant}}^{\text{real}} \xrightarrow{\text{LOCK-Rec}} \text{Self-adjoint } H \xrightarrow{} \text{Re}(\rho) = 1/2$$
 
 ---
 

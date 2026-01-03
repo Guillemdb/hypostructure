@@ -8,7 +8,7 @@ title: "LOCK-TacticScale - AI/RL/ML Translation"
 
 The scale separation lock establishes that learning tasks at different scales (spatial, temporal, semantic) require corresponding multi-scale architectures. Single-scale networks cannot efficiently capture multi-scale phenomena—they are locked into limited scale ranges.
 
-**Original Theorem Reference:** {prf:ref}`lock-tactic-scale`
+**Original Theorem Reference:** {prf:ref}`mt-lock-tactic-scale`
 
 ---
 

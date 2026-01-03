@@ -8,7 +8,7 @@ title: "LOCK-SpectralDist - AI/RL/ML Translation"
 
 The representation distance lock shows that spectral distances between learned representations create barriers between different model behaviors. Models with different spectral signatures cannot be continuously transformed into each other without crossing critical transition points.
 
-**Original Theorem Reference:** {prf:ref}`lock-spectral-dist`
+**Original Theorem Reference:** {prf:ref}`mt-lock-spectral-dist`
 
 ---
 

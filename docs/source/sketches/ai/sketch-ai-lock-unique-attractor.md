@@ -8,7 +8,7 @@ title: "LOCK-UniqueAttractor - AI/RL/ML Translation"
 
 The unique attractor lock establishes that under appropriate conditions, training dynamics converge to a unique global optimum. When uniqueness holds, all training runs find the same solution—the search problem collapses to verification.
 
-**Original Theorem Reference:** {prf:ref}`lock-unique-attractor`
+**Original Theorem Reference:** {prf:ref}`mt-lock-unique-attractor`
 
 ---
 

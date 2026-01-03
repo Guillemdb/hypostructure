@@ -166,7 +166,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
   - [ ] E5 (Functional): N/A
   - [ ] E6 (Causal): N/A
   - [ ] E7 (Thermodynamic): N/A
-  - [ ] E8 (Holographic): N/A
+  - [ ] E8 (DPI): N/A
   - [ ] E9 (Ergodic): N/A
   - [x] E10 (Definability): **PRIMARY** — Kuranishi space is analytic, hence o-minimal definable
   - [x] E11 (Galois-Monodromy): **SECONDARY** — Schlesinger's theorem constrains monodromy
@@ -816,7 +816,7 @@ This proof object is replayed by providing:
 | **E5** | Functional | N/A | — |
 | **E6** | Causal | N/A | — |
 | **E7** | Thermodynamic | N/A | — |
-| **E8** | Holographic | N/A | — |
+| **E8** | DPI | N/A | — |
 | **E9** | Ergodic | N/A | — |
 | **E10** | Definability | **PASS** | **Kuranishi space is analytic ⟹ o-minimal definable** |
 | **E11** | Galois-Monodromy | PASS | Schlesinger: monodromy is algebraic |

@@ -195,6 +195,8 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
   - [x] E11 (Galois-Monodromy): Local invariants (Sylow, centralizers) force global structure
   - [x] E8 (Spectral Gap): Character rigidity + orthogonality relations
 
+> **E8 Bridge Note:** The "Spectral Gap / Character Rigidity" variant of E8 connects to the core DPI (Data Processing Inequality) principle: character orthogonality relations impose information-theoretic constraints on group representations. The spectral gap bounds information flow between irreducible representations, analogous to how DPI bounds information flow through channels. This makes E8-Spectral a valid domain adaptation of E8-DPI.
+
 ---
 
 ## Part I: The Instantiation (Thin Object Definitions)

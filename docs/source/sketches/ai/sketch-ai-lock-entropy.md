@@ -8,7 +8,7 @@ title: "LOCK-Entropy - AI/RL/ML Translation"
 
 The information-theoretic lock shows that entropy and information bounds create barriers preventing configurations from violating fundamental limits. This includes generalization bounds, compression limits, and the information bottleneck principle.
 
-**Original Theorem Reference:** {prf:ref}`lock-entropy`
+**Original Theorem Reference:** {prf:ref}`mt-lock-entropy`
 
 ---
 

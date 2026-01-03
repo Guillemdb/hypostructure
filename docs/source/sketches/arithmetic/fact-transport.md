@@ -92,7 +92,7 @@ TRANSPORT_FACTORY(φ: X → Y):
       d = twist_parameter
       RETURN {
         points: λP ↦ twist_map(P, d),
-        L_function: λL ↦ L(s, χ_d),
+        L_function: λL ↦ L(s, chi_d),
         conductor: λN ↦ N * d² / gcd(N, d)²
       }
 ```

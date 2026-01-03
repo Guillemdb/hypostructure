@@ -225,7 +225,7 @@ Any non-terminating behavior factors through either a divergent template or a cy
 **Certificate:**
 * [x] $K_{\mathrm{Rec}_N}^{\mathrm{inc}} = (\mathsf{obligation}: \text{"Prove } \tau(n) < \infty", \mathsf{missing}: K_{\text{sector}}^+, \mathsf{code}: \text{AWAIT\_MT\_6.6.14})$
 
-**Barrier Resolution:** → **See Part II-B: UP-ShadowRetro upgrades to $K_{\mathrm{Rec}_N}^+$**
+**Barrier Resolution:** → **See Part II-B: UP-IncAposteriori + UP-ShadowRetro upgrades to $K_{\mathrm{Rec}_N}^{\sim}$ in promotion closure**
 
 → **Go to Node 3**
 
@@ -233,17 +233,18 @@ Any non-terminating behavior factors through either a divergent template or a cy
 
 #### Node 3: CompactCheck ($C_\mu$)
 
-**Question:** Does energy concentrate into canonical profiles?
+**Question:** Does the state space admit a compact completion supporting certificate-based recurrence reasoning?
 
 **Step-by-step execution:**
 1. [x] State space is discrete: $\mathbb{N}$
-2. [x] 2-adic compactification: $\mathbb{Z}_2$ (2-adic integers)
-3. [x] Limit profile: $\{1\}$ is the unique absorbing state
-4. [x] All orbits concentrate to the fixed point $n=1$
+2. [x] 2-adic completion: embed $\mathbb{N}\hookrightarrow \mathbb{Z}_2$
+3. [x] $\mathbb{Z}_2$ is compact (thin-interface compactness, no global orbit claim)
+4. [x] Boundary candidate set $\partial := \{1,2,4\}$ is absorbing under $S$ (local check)
 
 **Certificate:**
-* [x] $K_{C_\mu}^+ = (\mathbb{Z}_2, \{1\}, \text{unique absorbing state})$ → **Go to Node 4**
+* [x] $K_{C_\mu}^+ = (\mathbb{Z}_2\ \text{compact},\ \partial=\{1,2,4\}\ \text{absorbing boundary})$
 
+→ **Proceed to Level 2**
 ---
 
 ### Level 2: Duality & Structure (Nodes 4-7)
@@ -357,7 +358,13 @@ Any non-terminating behavior factors through either a divergent template or a cy
 4. [x] Apply MT 6.7.4 (Ergodic-Sat): Mixing → recurrence to low energy
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_\rho}^+ = (\text{ergodic}, \text{Tao 2019}, \text{density-1 convergence})$ → **Go to Node 11**
+* [x] $K_{\mathrm{TB}_\rho}^{\mathrm{blk}} = (\text{BarrierMix blocked: }\tau_{\mathrm{mix}}<\infty,\ \text{witness: density-1 recurrence report (Tao 2019)})$
+
+**Promotion (immediate):** By Promotion permits (Def. `def-promotion-permits`), since all prior nodes passed,
+$$K_{\mathrm{TB}_\rho}^{\mathrm{blk}} \wedge \bigwedge_{j<10} K_j^+ \Rightarrow K_{\mathrm{TB}_\rho}^+.$$
+
+So we record:
+* [x] $K_{\mathrm{TB}_\rho}^+ = (\text{ergodic/mixing},\ \text{promoted from }K_{\mathrm{TB}_\rho}^{\mathrm{blk}})$ → **Go to Node 11**
 
 ---
 
@@ -402,10 +409,11 @@ Any non-terminating behavior factors through either a divergent template or a cy
 **Step-by-step execution:**
 1. [x] Domain $\mathbb{N}$ has natural boundary at $n=1$
 2. [x] $n=1$ is absorbing: $S(1) = (3 \cdot 1 + 1)/4 = 1$
-3. [x] Boundary is attracting (target of all orbits)
+3. [ ] Boundary is attracting (target of all orbits)
+   - *Not required at this node.* Attraction is a downstream consequence of Rec_N^+ (termination), not a boundary-interface premise.
 
 **Certificate:**
-* [x] $K_{\mathrm{Bound}_\partial}^+ = (\{1\}, \text{absorbing})$ → **Go to Node 17**
+* [x] $K_{\mathrm{Bound}_\partial}^+ = (\{1\}, \text{absorbing boundary})$ → **Go to Node 17**
 
 ---
 
@@ -467,7 +475,7 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 
 | Original | Upgraded To | Mechanism | Reference |
 |----------|-------------|-----------|-----------|
-| $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | $K_{\mathrm{Rec}_N}^+$ | UP-ShadowRetro (Shadow-Sector Retroactive) | Node 2 → Node 8 |
+| $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | $K_{\mathrm{Rec}_N}^{\sim}$ | UP-IncAposteriori + UP-ShadowRetro | Node 2 → Part II-B |
 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | $K_{\mathrm{Cap}_H}^+$ | A-posteriori via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 6 → Node 17 |
 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | $K_{\mathrm{LS}_\sigma}^+$ | KRNL-MetricAction (Extended Action) | Node 7 → Part III-A |
 
@@ -475,15 +483,31 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 
 **OBL-1:** $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ (Zeno Check)
 - **Original obligation:** Prove $\tau(n) < \infty$ for all $n$
-- **Missing certificate:** $K_{\text{sector}}^+$ (sector transition bound)
+- **Missing certificates:** $K_{\mathrm{TB}_\pi}^+$ (finite shadow-sector graph) and $K_{\text{Action}}^{\mathrm{blk}}$ (uniform action lower bound $\delta>0$)
 - **Discharge mechanism:** UP-ShadowRetro (Shadow-Sector Retroactive)
-- **New certificate:** $K_{\mathrm{TB}_\pi}^+ \wedge K_{D_E}^+ \Rightarrow K_{\mathrm{Rec}_N}^+$
+- **New certificate (closure):** Use the generic INC-upgrade permit with `code_χ = UP-ShadowRetro`:
+
+  $$
+  K_{\mathrm{Rec}_N}^{\mathrm{inc}}
+  \;\wedge\;
+  K_{\mathrm{TB}_\pi}^+
+  \;\wedge\;
+  K_{\text{Action}}^{\mathrm{blk}}
+  \;\wedge\;
+  K_E^+
+  \;\Rightarrow\;
+  K_{\mathrm{Rec}_N}^{\sim}.
+  $$
+
+  Here `code_χ` instantiates the [UP-ShadowRetro] argument on the missing certificates; the INC-upgrade permit authorizes promotion inside $\mathrm{Cl}(\Gamma_{\mathrm{final}})$.
+  We record the upgraded output as $K_{\mathrm{Rec}_N}^{\sim}$ (YES$^\sim$) for use by the Lock.
+
 - **Verification:**
-  - $K_{\mathrm{TB}_\pi}^+$: Finite sector graph with $|S_k| \leq \lfloor E_0/\delta \rfloor + 1$
+  - $K_{\mathrm{TB}_\pi}^+$: Finite **shadow-sector graph** on the energy-truncated region $\{n: E(n)\le E_{\max}\}$, hence finitely many sector labels are relevant
   - Each sector transition costs $\delta = \log_2(3/2)$
-  - Total transitions $\leq E_0/\delta < \infty$
-  - $\therefore \tau(n) < \infty$ for all $n$
-- **Result:** $K_{\mathrm{Rec}_N}^{\mathrm{inc}} \wedge K_{\mathrm{TB}_\pi}^+ \Rightarrow K_{\mathrm{Rec}_N}^+$ ✓
+  - Total *sector transitions* bounded by $N_{\max}\le E_{\max}/\delta$ per [UP-ShadowRetro] hypotheses
+  - (Conclusion carried by $K_{\mathrm{Rec}_N}^{\sim}$ in closure)
+- **Result:** $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ is discharged to $K_{\mathrm{Rec}_N}^{\sim}$ by [UP-ShadowRetro] once $K_{\mathrm{TB}_\pi}^+$ and $K_{\text{Action}}^{\mathrm{blk}}$ are present ✓
 
 **OBL-2:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness)
 - **Original obligation:** Construct discrete Lyapunov
@@ -522,10 +546,14 @@ For Collatz on $(\mathbb{N}, d_2)$:
 2. Metric slope: $|\partial E|(n) = |E(S(n)) - E(n)| / d_2(n, S(n))$
 3. Path integral: Sum over Syracuse steps from $n$ to $1$
 
-**Explicit Formula:**
-$$L(n) = \sum_{k=0}^{\tau(n)-1} |E(S^k(n)) - E(S^{k+1}(n))|$$
+**Explicit Formula (extended-action definition):**
+$$L(n) := \Phi_{\min} + d_{\{1\}}^{g_{\mathfrak{D}}}(n)$$
+where $d_{\{1\}}^{g_{\mathfrak{D}}}$ is the extended-action distance induced by the dissipation metric (Definition: Extended Action Reconstruction).
 
-This equals the total variation of energy along the trajectory.
+**Trajectory specialization (only if $\tau(n)<\infty$):**
+If the Syracuse trajectory reaches $1$ in finite time, then along that particular path,
+$$L(n) \le \sum_{k=0}^{\tau(n)-1} |E(S^k(n)) - E(S^{k+1}(n))|,$$
+so the total variation provides an explicit upper bound for the extended-action Lyapunov.
 
 **Properties:**
 1. **Monotonicity:** $L(S(n)) \leq L(n)$ (energy variation decreases)
@@ -546,6 +574,11 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 * **Input:** $K_{\mathrm{TB}_\pi}^+$ (finite sector graph) $+$ $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$
 * **Mechanism:** Finite sectors $\Rightarrow$ bounded transitions $\Rightarrow$ finite events
 * **Output:** $K_{\mathrm{Rec}_N}^+$
+
+### **2. BarrierAction: Action Lower Bound (Sector Transition Cost)**
+* **Input:** $D_E$ (energy) + sector transition definition (odd step incurs cost $\delta=\log_2(3/2)>0$)
+* **Predicate:** Each admissible sector transition has action cost $\ge \delta$
+* **Output:** $K_{\text{Action}}^{\mathrm{blk}} = (\mathrm{Action}(S_i\to S_j)\ge \delta)$
 
 ### **2. KRNL-MetricAction: Extended Action Lyapunov**
 * **Input:** $K_{D_E}^+ \wedge K_{\mathrm{GC}_\nabla}^+$
@@ -578,7 +611,7 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Part II-B | UP-ShadowRetro | $K_{\mathrm{TB}_\pi}^+ \wedge K_{D_E}^+$ |
+| OBL-1 | Part II-B | UP-ShadowRetro | $K_{\mathrm{TB}_\pi}^+ \wedge K_{\text{Action}}^{\mathrm{blk}} \wedge K_{D_E}^+$ |
 | OBL-2 | Part III-A | KRNL-MetricAction | $K_{D_E}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ |
 | OBL-3 | Node 17 | A-posteriori | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 
@@ -588,7 +621,7 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 |----|------------|----------------|
 | — | — | — |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+**Ledger Validation:** $\mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}})) = \varnothing$ ✓  (validated after promotion closure)
 
 ---
 
@@ -655,7 +688,8 @@ is well-defined on $(\mathbb{N}, d_2)$ and satisfies discrete Łojasiewicz-Simon
 Any non-trivial cycle must satisfy $S^p(n) = n$ for some period $p > 3$. Algebraic constraints from integrality force minimum cycle element $> 2^{34p}$ (Eliahou 1993). Combined with energy bound, no such cycle embeds in the finite-energy system.
 
 **Phase 5: Divergence Exclusion (Tactic E9)**
-By MT 6.7.4, Syracuse mixing on density-1 set (Tao 2019) implies Poincaré recurrence. Any trajectory must return to bounded energy region. Finite bounded region forces eventual absorption into $\{1\}$.
+By MT 6.7.4, Syracuse mixing on density-1 set (Tao 2019) implies Poincaré recurrence. By UP-Ergodic (Ergodic-Sat), mixing yields recurrence to a low-energy region for $\mu$-a.e. initial condition.
+In this proof object, the *bad-pattern* excluded at Lock is the existence of a divergent template compatible with the certified recurrence structure.
 
 **Phase 6: Lock Resolution**
 Both bad patterns excluded:

@@ -400,7 +400,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
   - [ ] E5 (Functional): Unsolvable equations? N/A
   - [ ] E6 (Causal): Well-foundedness violation? N/A
   - [ ] E7 (Thermodynamic): Entropy violation? N/A
-  - [ ] E8 (Holographic): Bekenstein bound violation? N/A
+  - [ ] E8 (DPI): Bekenstein bound violation? N/A
   - [ ] E9 (Ergodic): Mixing incompatibility? N/A
   - [ ] E10 (Definability): Tameness violation? N/A
 
@@ -826,7 +826,7 @@ For each node:
 * [ ] **E5 (Functional):** N/A.
 * [ ] **E6 (Causal):** N/A.
 * [ ] **E7 (Thermodynamic):** N/A.
-* [ ] **E8 (Holographic):** N/A.
+* [ ] **E8 (DPI):** N/A.
 * [ ] **E9 (Ergodic):** N/A.
 * [ ] **E10 (Definability):** N/A.
 
@@ -1178,7 +1178,7 @@ This proof object is replayed by providing:
 | **E5** | Functional | N/A | — |
 | **E6** | Causal | N/A | — |
 | **E7** | Thermodynamic | N/A | — |
-| **E8** | Holographic | N/A | — |
+| **E8** | DPI | N/A | — |
 | **E9** | Ergodic | N/A | — |
 | **E10** | Definability | N/A | — |
 

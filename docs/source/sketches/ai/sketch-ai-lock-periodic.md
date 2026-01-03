@@ -8,7 +8,7 @@ title: "LOCK-Periodic - AI/RL/ML Translation"
 
 The algorithm selection lock shows that every learning problem has a unique position in a classification matrix (analogous to the periodic table), and this position determines the appropriate training strategy. The (problem type, learning phase) pair uniquely identifies the optimal algorithmic approach.
 
-**Original Theorem Reference:** {prf:ref}`lock-periodic`
+**Original Theorem Reference:** {prf:ref}`mt-lock-periodic`
 
 ---
 

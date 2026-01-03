@@ -8,7 +8,7 @@ title: "LOCK-Motivic - AI/RL/ML Translation"
 
 The architectural invariant lock shows that fundamental structural properties of neural networks (analogous to motivic invariants) create barriers between model classes. Networks with different architectural invariants cannot be connected by continuous training—they occupy distinct regions of function space.
 
-**Original Theorem Reference:** {prf:ref}`lock-motivic`
+**Original Theorem Reference:** {prf:ref}`mt-lock-motivic`
 
 ---
 

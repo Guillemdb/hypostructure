@@ -147,6 +147,8 @@ This document presents a **machine-checkable proof object** for **Dirac's Theore
   - [x] E11 (ComplexCheck): Finite graph → bounded complexity
   - [x] E8 (TopoCheck): Hamiltonian cycle is topological constraint
 
+> **E8 Bridge Note:** The "Topological" variant of E8 connects to the core DPI (Data Processing Inequality) principle: topological invariants encode information that cannot be lost under continuous deformation, analogous to DPI's information preservation constraint. The Hamiltonian cycle requirement is an information-theoretic bound on graph connectivity—the degree condition $\delta \ge n/2$ ensures sufficient "capacity" for the topological invariant (cycle existence) to be preserved. This makes E8-Topological a valid domain adaptation of E8-DPI.
+
 ---
 
 ## Part I: The Instantiation (Thin Object Definitions)

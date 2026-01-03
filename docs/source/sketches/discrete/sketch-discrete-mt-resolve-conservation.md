@@ -207,7 +207,7 @@ $$N \leq |x_0|$$
 
 ### Approximate Counting and Conservation
 
-**Theorem (Stockmeyer 1983).** Given a #P oracle, one can approximately count in BPP$^{\text{#P}}$.
+**Theorem (Stockmeyer 1983).** Given a #P oracle, one can approximately count in BPP$^{\text{\#P}}$.
 
 **Conservation under Approximation:**
 - Exact parsimonious: $|\text{Sol}(\mathcal{R}(x))| = |\text{Sol}(x)|$
@@ -393,7 +393,7 @@ $\square$
 - **Progress measure:** Matrix size decreases with each elimination
 
 **Reduction Chain:**
-$$\text{#SAT} \xrightarrow{\text{pars.}} \text{#3-SAT} \xrightarrow{\text{pars.}} \text{#3-MATCHING} \xrightarrow{\text{pars.}} \text{#PERMANENT}$$
+$$\text{\#SAT} \xrightarrow{\text{pars.}} \text{\#3-SAT} \xrightarrow{\text{pars.}} \text{\#3-MATCHING} \xrightarrow{\text{pars.}} \text{\#PERMANENT}$$
 
 Each arrow preserves solution count (energy conservation).
 
