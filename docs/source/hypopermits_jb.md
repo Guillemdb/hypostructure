@@ -354,12 +354,38 @@ Then:
 :::{prf:theorem} Halting/AIT Sieve Thermodynamics (Phase Transition Witness)
 :label: thm-halting-ait-sieve-thermo
 
-In the algorithmic-thermodynamic translation, let $K = \{e : \varphi_e(e)\downarrow\}$ be the halting set and let complexity act as energy. Then there is a sharp boundary between:
+In the algorithmic-thermodynamic translation, let $\mathcal{K} = \{e : \varphi_e(e)\downarrow\}$ be the halting set and let Kolmogorov complexity ({prf:ref}`def-kolmogorov-complexity`) act as energy. Then there is a sharp boundary between:
 
-- **Crystal-like regimes:** decidable families with compressible descriptions $K(L_n)=O(\log n)$, where the sieve can certify regularity; and
-- **Gas-like regimes:** incompressible/random families with $K(L_n)\approx n$, where the sieve necessarily routes to HORIZON/INC certificates.
+- **Crystal Phase (Decidable):** Families with $K(L \cap [0,n]) = O(\log n)$, where the Sieve certifies **REGULAR** via Axiom R
+- **Liquid Phase (C.E.):** Families with $K(L \cap [0,n]) = O(\log n)$ but Axiom R fails (e.g., Halting Set) → **HORIZON**
+- **Gas Phase (Random):** Families with $K(L \cap [0,n]) \geq n - O(1)$, where the Sieve routes to **HORIZON**
 
-This theorem is used as the canonical “phase transition witness” inside {prf:ref}`mt-krnl-horizon-limit`.
+This theorem formalizes the phase transition detected by {prf:ref}`mt-krnl-horizon-limit`.
+:::
+
+:::{prf:proof}
+We establish the sharp phase boundary in four steps.
+
+**Step 1 (Crystal Regime).** Let $L \subseteq \mathbb{N}$ be decidable. Then there exists a Turing machine $M$ with finite description computing $\chi_L$. For the initial segment $L_n := L \cap [0,n]$:
+$$K(L_n) \leq |M| + O(\log n) = O(\log n)$$
+The $O(\log n)$ term encodes $n$. Since $L$ is decidable, Axiom R holds (the decider serves as recovery operator). Sieve verdict: **REGULAR** with $K_{\text{Crystal}}^+$.
+
+**Step 2 (Gas Regime).** Let $L \subseteq \mathbb{N}$ be Martin-Löf random. By the Levin-Schnorr Theorem {cite}`Levin73b,Schnorr73`:
+$$K(L_n) \geq n - O(1)$$
+No computable predictor can anticipate the membership of $L$. Axiom R fails absolutely—no recovery operator exists. Sieve verdict: **HORIZON** with $K_{\text{Gas}}^{\text{blk}}$.
+
+**Step 3 (Phase Transition).** The Halting Set $\mathcal{K}$ exhibits **liquid** behavior:
+- *Description complexity:* $K(\mathcal{K}_n) = O(\log n)$ since $\mathcal{K}$ is c.e. (the enumeration program has finite length).
+- *Axiom R failure:* Despite low complexity, $\mathcal{K}$ is undecidable—no total computable recovery operator exists (Turing 1936 {cite}`Turing36`).
+- *Certificate:* $K_{\text{Liquid}}^{\text{blk}} = (\text{c.e. index}, \text{diagonal construction})$
+
+This is the critical phase transition: low complexity does not imply decidability when Axiom R fails.
+
+**Step 4 (Sharp Boundary).** The boundary is sharp in the following sense: for any $\epsilon > 0$, there exist sets $L^+, L^-$ with:
+$$K(L^+_n) = (1-\epsilon)n, \quad K(L^-_n) = O(\log n)$$
+such that $L^+$ is undecidable (gas) and $L^-$ is decidable (crystal). The Halting Set $\mathcal{K}$ lies exactly at the boundary, demonstrating that the phase transition occurs at the computability threshold, not the complexity threshold.
+
+**Thermodynamic Interpretation:** Under the correspondence of {prf:ref}`thm-sieve-thermo-correspondence`, this is a first-order phase transition in the decidability order parameter $\rho_R$ (Axiom R satisfaction).
 :::
 
 :::{prf:theorem} [KRNL-HorizonLimit] The Horizon Limit (Framework Boundaries)
@@ -395,16 +421,22 @@ where $K(\mathcal{I}) := \min\{|p| : U(p) = \text{characteristic function of } \
 When $K(\mathcal{I}) > M_{\text{sieve}}$, emit:
 $$K_{\text{Horizon}}^{\text{blk}} = (\text{"Thermodynamically irreducible"}, K(\mathcal{I}) > M_{\text{sieve}}, \text{Axiom R failure proof})$$
 
-**Interpretation (Thermodynamic Analogy)**:
-Just as a thermometer with finite precision cannot measure temperature to infinite accuracy, a sieve with finite memory cannot classify arbitrarily complex problems. The **HORIZON** verdict is the framework's honest acknowledgment of fundamental computational limits.
+**Connection to Algorithmic Information Theory**:
+The Horizon Limit instantiates the Sieve-Thermodynamic Correspondence ({prf:ref}`thm-sieve-thermo-correspondence`):
 
-**Connection to Algorithmic Thermodynamics**:
-For the Halting Set $K = \{e : \varphi_e(e)\downarrow\}$:
-- **Energy**: $E(x) = K(x)$ (Kolmogorov complexity)
-- **Phase Transition**: Decidable (Crystal, $K(L_n) = O(\log n)$) vs. Random (Gas, $K(L_n) \approx n$)
-- **Critical Boundary**: C.e. sets like $K$ exhibit $K(K_n) = O(\log n)$ but Axiom R fails → **HORIZON**
+| AIT Component | Formal Reference | Sieve Role |
+|---------------|------------------|------------|
+| Energy $E(x) = K(x)$ | {prf:ref}`def-kolmogorov-complexity` | Memory bound |
+| Partition Function $Z = \Omega$ | {prf:ref}`def-chaitin-omega` | Normalization |
+| Computational Depth $d_s(x)$ | {prf:ref}`def-computational-depth` | Thermodynamic cost |
+| Phase Classification | {prf:ref}`def-algorithmic-phases` | Verdict assignment |
 
-See {prf:ref}`thm-halting-ait-sieve-thermo` and `/docs/source/dataset/halting_problem.md` for complete AIT formalization.
+For the Halting Set $\mathcal{K} = \{e : \varphi_e(e)\downarrow\}$:
+- **Crystal:** Decidable $L$ with $K(L_n) = O(\log n)$ → **REGULAR**
+- **Liquid:** C.e. sets like $\mathcal{K}$ with $K(\mathcal{K}_n) = O(\log n)$ but Axiom R fails → **HORIZON**
+- **Gas:** Random $L$ with $K(L_n) \geq n - O(1)$ → **HORIZON**
+
+See {prf:ref}`thm-halting-ait-sieve-thermo` for the phase transition witness theorem.
 
 **Certificate Produced:** $K_{\text{Horizon}}^{\text{blk}}$ with payload documenting complexity bound
 
@@ -438,13 +470,21 @@ $\square$
 
 This theorem makes the framework's limitations **explicit and mathematically rigorous**:
 
-1. **Computational Realism**: The sieve has finite memory $M_{\text{sieve}}$ and finite time, like any physical computer.
+1. **Computational Realism**: The Sieve has finite memory $M_{\text{sieve}}$ and finite time, instantiating the resource constraints of any computable procedure.
 
-2. **No Oracle Claims**: The sieve does not claim to solve undecidable problems. The HORIZON verdict is honest: "This exceeds my capacity."
+2. **No Oracle Claims**: The Sieve does not claim to solve undecidable problems. The HORIZON verdict is honest acknowledgment: "This exceeds my computable resources."
 
-3. **Thermodynamic Interpretation**: Problems with $K(\mathcal{I}) > M_{\text{sieve}}$ are "thermodynamically irreducible" relative to the sieve's resources—analogous to measuring a temperature hotter than the thermometer's maximum rating.
+3. **AIT Interpretation**: Problems with $K(\mathcal{I}) > M_{\text{sieve}}$ are **algorithmically irreducible** relative to the Sieve's capacity. By the Invariance Theorem ({prf:ref}`def-kolmogorov-complexity`), this characterization is machine-independent up to $O(1)$ constant.
 
-**Physical Analogy**: A balance scale with finite precision cannot distinguish masses differing by less than its resolution. Similarly, the sieve with finite memory cannot classify problems whose Kolmogorov complexity exceeds its capacity. Both are fundamental limits, not bugs.
+**Phase Classification** ({prf:ref}`def-algorithmic-phases`):
+
+| Input Type | Complexity | Axiom R | Sieve Verdict |
+|------------|------------|---------|---------------|
+| Crystal (Decidable) | $K = O(\log n)$ | Holds | REGULAR |
+| Liquid (C.E.) | $K = O(\log n)$, R fails | Fails | HORIZON |
+| Gas (Random) | $K \geq n - O(1)$ | Fails | HORIZON |
+
+The Sieve's HORIZON verdict encompasses both **information-theoretic limits** (Gas phase: incompressible problems) and **logical limits** (Liquid phase: c.e. problems where Axiom R fails despite low complexity). This classification is grounded in rigorous AIT, not physical analogy.
 :::
 
 ---
@@ -580,38 +620,43 @@ The Boundary Operator is not merely a geometric edge—it is a **Functor** betwe
 4. **DPI Capacity Bound (Tactic E8):** If $|\pi_0(\mathcal{X}_{\text{sing}})| = \infty$ but $\chi(\partial\mathcal{X}) < \infty$, the singularity is **statistically excluded** by the channel capacity bound.
 :::
 
-:::{prf:definition} The Thermodynamic Horizon (Levin Limit)
+:::{prf:definition} The Algorithmic Resource Horizon (Levin Limit)
 :label: def-thermodynamic-horizon
 
-To preserve physical consistency, the Sieve operates under a strict **Thermodynamic Budget**. We define the **Levin Complexity** ($Kt$) of a verification trace $\tau$ as:
+The Sieve operates under a strict **Algorithmic Resource Budget** grounded in Algorithmic Information Theory. Define the **Levin Complexity** of a verification trace $\tau$ as:
 
-$$Kt(\tau) = |\tau| + \log(\text{steps}(\tau))$$
+$$Kt(\tau) := K(\tau) + \log(\text{steps}(\tau))$$
 
-where $|\tau|$ is the bitsize of the certificate chain and $\text{steps}(\tau)$ is the number of Sieve operations performed.
+where $K(\tau)$ is the Kolmogorov complexity ({prf:ref}`def-kolmogorov-complexity`) of the certificate chain and $\text{steps}(\tau)$ is the number of Sieve operations performed.
 
 **The Horizon Axiom:**
 A verification process is forcibly terminated with verdict **HORIZON** if:
-$$Kt(\tau) > \mathcal{S}_{\max}$$
-where $\mathcal{C}_{\max}$ is the **Channel Capacity** of the observer's boundary interface, limited by the **Data Processing Inequality** rather than a hard thermodynamic horizon.
+$$Kt(\tau) > M_{\text{sieve}}$$
+where $M_{\text{sieve}}$ is the Sieve's finite memory capacity (in bits).
 
-**Physical Interpretation:**
-This formally identifies **Undecidable Problems** (like the Halting Problem or 4-Manifold Classification) as **Thermodynamically Inaccessible States** (Gas Phase), rather than "failures" of the logic.
+**AIT Interpretation:**
+The Levin Complexity $Kt(x) = K(x) + \log t(x)$ combines:
+- **Kolmogorov Complexity** $K(x)$ ({prf:ref}`def-kolmogorov-complexity`): Description length (space)
+- **Runtime** $t(x)$: Time for some near-optimal program to produce $x$ (cf. {prf:ref}`def-computational-depth`)
 
-**Connection to AIT:**
-The Levin Complexity $Kt(x) = K(x) + \log t(x)$ where $t(x)$ is the runtime of the shortest program producing $x$ ({cite}`LiVitanyi19` §7.5). This combines:
-- **Kolmogorov Complexity** $K(x)$: Space (description length)
-- **Computational Depth** $\log t(x)$: Time (runtime)
+This is the canonical **resource-bounded** complexity measure {cite}`LiVitanyi19`.
 
-forming the **resource-bounded** analog of algorithmic information.
+**Phase Classification Connection:**
+Per {prf:ref}`def-algorithmic-phases`, the Horizon verdict classifies problems into:
 
-**Thermodynamic Budget**:
-The Channel Capacity Bound for a computational system with finite energy $E$ and radius $R$ is determined by the maximum transmission rate of the boundary surface. Consequently, $\mathcal{S}_{\max} < \infty$ imposes fundamental limits on verification.
+| Phase | $Kt$ Bound | Axiom R | Sieve Verdict |
+|-------|------------|---------|---------------|
+| Crystal | $Kt = O(\log n)$ | Holds | REGULAR |
+| Liquid | $Kt = O(\log n)$, R fails | Fails | HORIZON (logical) |
+| Gas | $Kt \geq n - O(1)$ | Fails | HORIZON (information) |
+
+The **Data Processing Inequality** provides the operational bound: information cannot be created through computation, only preserved or lost. Consequently, $M_{\text{sieve}} < \infty$ imposes fundamental limits on verification capacity.
 
 **Certificate**:
-When $Kt(\tau) > \mathcal{S}_{\max}$, emit:
-$$K_{\text{Horizon}}^{\text{blk}} = (\text{"Levin Limit exceeded"}, Kt(\tau), \mathcal{S}_{\max}, \text{Gas Phase})$$
+When $Kt(\tau) > M_{\text{sieve}}$, emit:
+$$K_{\text{Horizon}}^{\text{blk}} = (\text{"Levin Limit exceeded"}, Kt(\tau), M_{\text{sieve}}, \text{Phase Classification})$$
 
-**Literature:** {cite}`Levin73` (Resource-bounded complexity); {cite}`Shannon48` (Channel Capacity); {cite}`CoverThomas06` (Data Processing Inequality)
+**Literature:** {cite}`Levin73` (Levin complexity); {cite}`LiVitanyi19` (AIT); {cite}`CoverThomas06` (DPI)
 :::
 
 ---
@@ -13634,6 +13679,171 @@ This transforms problem analysis into a systematic discipline where the certific
 
 ---
 
+## 54. Algorithmic Information Theory Foundations
+
+This section establishes the formal AIT (Algorithmic Information Theory) framework underlying the thermodynamic formalism for decidability analysis. The correspondence between Kolmogorov complexity and thermodynamic quantities provides rigorous foundations for the phase classification of computational problems.
+
+### 54.1 Kolmogorov Complexity as Algorithmic Energy
+
+:::{prf:definition} Kolmogorov Complexity (Algorithmic Energy)
+:label: def-kolmogorov-complexity
+
+For a string $x \in \{0,1\}^*$, define the **Kolmogorov complexity** (algorithmic energy) as:
+$$K(x) := \min\{|p| : U(p) = x\}$$
+where $U$ is a fixed universal prefix-free Turing machine and $|p|$ denotes the length of program $p$ in bits.
+
+**Key Properties:**
+1. **Invariance Theorem:** For any two universal prefix-free machines $U_1, U_2$, there exists a constant $c$ such that $|K_{U_1}(x) - K_{U_2}(x)| \leq c$ for all $x$ {cite}`Kolmogorov65,LiVitanyi19`.
+
+2. **Incompressibility:** For each $n$, at least $2^n - 2^{n-c} + 1$ strings of length $n$ satisfy $K(x) \geq n - c$.
+
+3. **Subadditivity:** $K(x,y) \leq K(x) + K(y|x^*) + O(1)$ where $x^*$ is the shortest program for $x$. For concatenation: $K(xy) \leq K(x) + K(y) + 2\log|x| + O(1)$.
+
+4. **Uncomputability:** $K$ is not computable, but is upper semi-computable (limit from above).
+
+**Sieve Correspondence:** $K(x)$ is the quantity computed at Node 11 ($\mathrm{Rep}_K$) in the complexity representation check.
+:::
+
+:::{prf:definition} Chaitin's Halting Probability (Partition Function)
+:label: def-chaitin-omega
+
+The **Chaitin halting probability** (algorithmic partition function) is:
+$$\Omega_U := \sum_{p : U(p)\downarrow} 2^{-|p|}$$
+where the sum is over all programs $p$ that halt on the universal machine $U$.
+
+**Key Properties:**
+1. **Convergence:** By Kraft's inequality for prefix-free codes, $\Omega_U \leq 1$ converges absolutely.
+
+2. **Martin-Löf Randomness:** $\Omega$ is algorithmically random: $K(\Omega_n) \geq n - O(1)$ where $\Omega_n$ denotes the first $n$ bits {cite}`Chaitin75`.
+
+3. **Oracle Power:** $\Omega$ is $\emptyset'$-computable (equivalently, $\Delta^0_2$). Knowing the first $n$ bits $\Omega_n$ suffices to decide halting for all programs of length $\leq n$ {cite}`LiVitanyi19`.
+
+4. **Thermodynamic Form:** By the Coding Theorem, the algorithmic probability $m(x) := \sum_{p:U(p)=x} 2^{-|p|}$ satisfies $m(x) = \Theta(2^{-K(x)})$. Thus:
+   $$\Omega = \sum_{x} m(x) \asymp \sum_{x} 2^{-K(x)}$$
+   exhibits Boltzmann partition function structure with $\beta = \ln 2$.
+:::
+
+:::{prf:definition} Computational Depth
+:label: def-computational-depth
+
+Define **computational depth** $d_s(x)$ at significance level $s$ as the running time of the fastest program within $s$ bits of optimal:
+$$d_s(x) := \min\{t : \exists p,\, |p| \leq K(x) + s,\, U^t(p) = x\}$$
+
+For fixed $s$, this measures the intrinsic computational "work" required to produce $x$.
+
+**Phase Regimes (by Depth):**
+| Regime | Depth | Complexity | Structure | Decidability |
+|--------|-------|------------|-----------|--------------|
+| Shallow | $d_s = O(\text{poly}(n))$ | $K = O(\log n)$ | Simple, compressible | Typically decidable |
+| Intermediate | $d_s = \text{superpolynomial}$ | $K = \Theta(n^\alpha)$ | Complex but structured | May be c.e. |
+| Deep | $d_s = \Omega(2^{K})$ | $K \geq n - O(1)$ | Random, incompressible | Undecidable |
+
+**Thermodynamic Analogy:** Depth plays the role of "thermodynamic depth" (entropy production). Shallow strings are "thermodynamically cheap" to produce; deep strings require extensive irreversible computation {cite}`Bennett88,LloydPagels88`.
+
+**Note:** Unlike physical temperature, there is no canonical "algorithmic temperature" in AIT. The depth serves as the thermodynamic analog.
+:::
+
+### 54.2 The Sieve-Thermodynamic Correspondence
+
+:::{prf:theorem} Sieve-Thermodynamic Correspondence
+:label: thm-sieve-thermo-correspondence
+
+The Structural Sieve implements a formal correspondence between AIT quantities and thermodynamic observables:
+
+| AIT Quantity | Symbol | Thermodynamic Analog | Sieve Interface |
+|--------------|--------|---------------------|-----------------|
+| Kolmogorov Complexity | $K(x)$ | Energy $E$ | Node 11 ($\mathrm{Rep}_K$) |
+| Chaitin's Halting Probability | $\Omega$ | Partition Function $Z$ | Normalization constant |
+| Computational Depth | $d_s(x)$ | Thermodynamic Depth | Computation time |
+| Algorithmic Probability | $m(x) \asymp 2^{-K(x)}$ | Boltzmann Weight $e^{-\beta E}$ | Prior distribution |
+
+**Formal Statement:** Under the identification $E(x) = K(x)$, $Z = \Omega$, $\beta = \ln 2$, the Structural Sieve's verdict system is determined by Axiom R status, not complexity alone:
+
+$$\text{Verdict}(\mathcal{I}) = \begin{cases}
+\texttt{REGULAR} & \text{Axiom R holds (decidable)} & \text{(Crystal)} \\
+\texttt{HORIZON} & \text{Axiom R fails (c.e. or random)} & \text{(Liquid/Gas)}
+\end{cases}$$
+
+**Complexity vs. Decidability:** Low complexity ($K = O(\log n)$) is necessary but not sufficient for decidability. The Halting Set has low complexity but Axiom R fails, placing it in the **Liquid** (HORIZON) phase.
+:::
+
+:::{prf:proof}
+We establish the correspondence in four steps.
+
+**Step 1 (Coding Theorem):** By the Levin-Schnorr Theorem {cite}`Levin73b,Schnorr73`, the algorithmic probability $m(x) := \sum_{p: U(p)=x} 2^{-|p|}$ satisfies:
+$$-\log m(x) = K(x) + O(1)$$
+This identifies $m(x) \approx 2^{-K(x)}$ as the Boltzmann weight with $\beta = \ln 2$.
+
+**Step 2 (Partition Function):** The normalization condition:
+$$\sum_x m(x) = \sum_{p: U(p)\downarrow} 2^{-|p|} = \Omega_U$$
+identifies Chaitin's $\Omega$ as the partition function $Z$.
+
+**Step 3 (Depth Identification):** Bennett's logical depth $d_s(x)$ ({prf:ref}`def-computational-depth`) measures the computational "irreversibility"—the time required for near-optimal programs:
+- Shallow depth (simple strings) → Low thermodynamic cost → Crystal-like
+- Deep (random strings) → High thermodynamic cost → Gas-like
+
+**Step 4 (Phase Classification):** The Sieve verdict is determined by Axiom R, not complexity alone:
+- **Crystal:** Decidable $L$ satisfies $K(L \cap [0,n]) = O(\log n)$ AND Axiom R holds. Verdict: REGULAR.
+- **Liquid:** C.e. sets like the Halting Set $\mathcal{K}$ satisfy $K(\mathcal{K} \cap [0,n]) = O(\log n)$ BUT Axiom R fails (no total decider exists). Verdict: HORIZON.
+- **Gas:** Random $L$ satisfies $K(L \cap [0,n]) \geq n - O(1)$ (Martin-Löf random), hence Axiom R fails absolutely. Verdict: HORIZON.
+
+**Key insight:** Low complexity is *necessary* but not *sufficient* for decidability—Axiom R (existence of a total recovery operator) is the determining factor.
+:::
+
+### 54.3 Algorithmic Phase Classification
+
+:::{prf:definition} Algorithmic Phase Classification
+:label: def-algorithmic-phases
+
+The **algorithmic phase** of a computational problem $\mathcal{I} \subseteq \mathbb{N}$ is determined by the growth rate of its Kolmogorov complexity:
+
+| Phase | Complexity Growth | Axiom R | Decidability | Sieve Verdict |
+|-------|------------------|---------|--------------|---------------|
+| **Crystal** | $K(\mathcal{I} \cap [0,n]) = O(\log n)$ | Holds | Decidable | REGULAR |
+| **Liquid (C.E.)** | $K(\mathcal{I} \cap [0,n]) = O(\log n)$ but Axiom R fails | Fails | C.E. not decidable | HORIZON |
+| **Gas** | $K(\mathcal{I} \cap [0,n]) \geq n - O(1)$ | Fails | Undecidable (random) | HORIZON |
+
+**Critical Observation:** The Halting Set $\mathcal{K} = \{e : \varphi_e(e)\downarrow\}$ is **Liquid**—it has low description complexity ($O(\log n)$ via its c.e. index) but is undecidable because Axiom R fails. This is the **phase transition** between decidable and undecidable.
+:::
+
+:::{prf:remark} RG Flow Heuristic
+:label: thm-algorithmic-rg
+
+The phase classification admits an informal **renormalization group** interpretation. Define a coarse-graining operator $\mathcal{R}_\ell$ at scale $\ell$ using Hamming distance $\rho$:
+$$\mathcal{R}_\ell(L) := \{x : \exists y \in L,\, \rho(x,y) \leq \ell\}$$
+
+**Heuristic Fixed Points:**
+1. **Crystal:** Sets with $K(L \cap [0,n]) = O(\log n)$ are "attracted" to finite representations under coarse-graining.
+
+2. **Gas:** Random sets with $K(L \cap [0,n]) \geq n - O(1)$ are "attracted" to maximum entropy ($2^{\mathbb{N}}$).
+
+3. **Critical:** C.e. sets exhibit intermediate behavior—small perturbations can shift the apparent phase.
+
+**Caveat:** This RG interpretation is *heuristic*. A rigorous fixed-point theorem would require: (i) a proper topology on $2^{\mathbb{N}}$, (ii) continuity of $\mathcal{R}_\ell$, and (iii) proof of convergence. The Sieve's phase classification is grounded in Axiom R, not RG flow.
+:::
+
+:::{prf:remark} Honest Epistemics of AIT
+:label: rem-ait-epistemics
+
+The AIT formalization makes explicit what is **provable** versus **analogical**:
+
+**Rigorous (theorem status):**
+- Kolmogorov complexity $K(x)$ is well-defined up to $O(1)$ constant (Invariance Theorem)
+- Chaitin's $\Omega$ converges and is Martin-Löf random
+- Decidable sets have $K(L \cap [0,n]) = O(\log n)$
+- Random sets have $K(L \cap [0,n]) \geq n - O(1)$
+- The Halting Set is c.e. but not decidable
+
+**Analogical (organizing principle):**
+- "Thermodynamic depth" is heuristic (no canonical physical temperature)
+- "Phase transition" is a metaphor (not literal statistical mechanics)
+- "RG flow" is an organizing heuristic (see caveats in {prf:ref}`thm-algorithmic-rg`)
+
+The thermodynamic language provides a **unified vocabulary** for describing decidability phenomena, grounded in rigorous AIT. The Sieve verdicts are not metaphors—they are formal classifications based on Kolmogorov complexity.
+:::
+
+---
+
 # Part XIX: Algorithmic Completeness
 
 ## 55. The Taxonomy of Computational Methods
@@ -13665,6 +13875,32 @@ Every polynomial-time algorithm $\mathcal{A} \in P$ exploits a structural resour
 | IV | Dividers | $\ast$ (Scaling) | Self-similarity, recursion | Divide & Conquer, Mergesort, Multigrid | Node 4 ($\mathrm{SC}_\lambda$) |
 | V | Interference Engines | $\partial$ (Boundary/Cobordism) | Holographic cancellation | FKT/Matchgates, Quantum Algorithms | Tactic E8 (DPI), Node 6 ($\mathrm{Cap}_H$) |
 
+:::
+
+:::{prf:remark} AIT Characterization of Algorithm Classes
+:label: rem-ait-algorithm-classes
+
+Each algorithm class achieves polynomial-time performance by exploiting structural resources that enable **Kolmogorov complexity reduction** ({prf:ref}`def-kolmogorov-complexity`). The modality correspondence has a precise AIT interpretation:
+
+| Class | Modality | RG Mechanism | Complexity Reduction |
+|-------|----------|--------------|---------------------|
+| I (Climbers) | $\sharp$ | Gradient descent | $K_{t+1} \leq K_t - \Omega(1)$ per step |
+| II (Propagators) | $\int$ | Causal elimination | $K(x \mid \text{subproblems}) \ll K(x)$ |
+| III (Alchemists) | $\flat$ | Symmetry quotient | $K([x]_G) \leq K(x) - \log\|G\| + O(1)$ |
+| IV (Dividers) | $\ast$ | Scale factorization | $K(x) \leq \alpha \cdot K(x_{n/2}) + O(\log n)$ |
+| V (Interference) | $\partial$ | Holographic cancellation | $K(\text{bulk}) \leq K(\partial) + O(1)$ |
+
+**Thermodynamic Correspondence** ({prf:ref}`thm-sieve-thermo-correspondence`):
+- **Climbers** exploit energy gradient: $\nabla K < 0$ along solution trajectory
+- **Propagators** exploit conditional independence: subadditivity of $K$
+- **Alchemists** exploit symmetry: $K$ decreases under quotient by group action
+- **Dividers** exploit self-similarity: Master Theorem recurrence for $K$
+- **Interference** exploits holography: boundary-to-bulk $K$ reduction
+
+**Hardness Criterion (AIT Form):** A problem is hard for all five classes iff no modality achieves sub-exponential complexity reduction:
+$$\forall \lozenge \in \{\sharp, \int, \flat, \ast, \partial\}: \quad K_\lozenge(\text{solution}) \geq K(\text{instance}) - o(n)$$
+
+This is the AIT content of {prf:ref}`mt-alg-complete`.
 :::
 
 ### 55.2 The Algorithmic Representation Theorem
@@ -13714,14 +13950,14 @@ $((\sharp\text{-status}, \int\text{-status}, \flat\text{-status}, \ast\text{-sta
 
 **Proof (Following Categorical Proof Template — Topos Internal Logic):**
 
-*Step 1 (Ambient Setup: The Thermodynamics of Computation).*
+*Step 1 (AIT Setup: Complexity Reduction Requirement).*
 
-For an algorithm to converge in polynomial time, it must exhibit **drift** towards the solution $\mathcal{S}$. Let $\rho_t$ be the probability distribution of the algorithm's state at step $t$. Convergence requires the Kullback-Leibler divergence $D_{KL}(\rho_t \| \delta_{\mathcal{S}})$ to decrease monotonically.
+By the Sieve-Thermodynamic Correspondence ({prf:ref}`thm-sieve-thermo-correspondence`), polynomial-time convergence requires **Kolmogorov complexity reduction**: the algorithm must decrease $K(x_t)$ ({prf:ref}`def-kolmogorov-complexity`) from the initial instance complexity $K(\mathcal{X}) \sim N$ to $O(\log N)$ (solution encoding) in $\text{poly}(N)$ steps.
 
-By the **Fluctuation-Dissipation Theorem** (information-theoretic form), directed drift requires a generalized force $F$:
-$$\frac{d}{dt} \mathbb{E}[\Phi(x_t)] = -\langle F, \dot{x} \rangle$$
+By the **Levin-Schnorr Theorem** {cite}`Levin73b,Schnorr73`, uniform random search on an amorphous (structureless) space achieves expected complexity reduction:
+$$\mathbb{E}[\Delta K] = O(1/|\mathcal{X}|) = O(2^{-N})$$
 
-If $F = 0$ (no structural gradient), the dynamics are diffusive with hitting time scaling as $\text{Vol}(\mathcal{X}) \approx 2^N$ (exponential). Therefore, any $\mathcal{A} \in P$ must exploit a non-zero generalized force.
+Therefore, absent structural exploitation, hitting time scales as $\Omega(2^N)$. This establishes the drift requirement: any $\mathcal{A} \in P$ must achieve $K_{t+1} \leq K_t - \Omega(1)$ per step via a modal contraction.
 
 *Step 2 (Classification of Generalized Forces in $\mathbf{H}$).*
 
@@ -13920,9 +14156,17 @@ This framing avoids the Razborov-Rudich barrier by not claiming constructive acc
 
 ## 56. The ZFC Translation Layer
 
-This chapter establishes the rigorous correspondence between the **Hypostructure Formalism**—which operates in the internal logic of a cohesive $(\infty, 1)$-topos $\mathcal{E}$—and the standard model of mathematics given by **Zermelo-Fraenkel Set Theory with the Axiom of Choice (ZFC)**.
+This chapter establishes a translation discipline between the **Hypostructure Formalism**—which operates in the internal logic of a cohesive $(\infty, 1)$-topos $\mathcal{E}$—and classical reasoning in **Zermelo-Fraenkel Set Theory with the Axiom of Choice (ZFC)**.
 
-While the categorical framework is strictly more expressive than ZFC (as established in Chapter 1, {prf:ref}`def-ambient-topos`), many applications require verification accessible to researchers working within classical foundations. We define a canonical **translation pipeline** that allows any categorical victory in $\mathcal{E}$ to be interpreted as a well-founded construction in $\mathbf{Set}$.
+While the categorical framework is strictly more expressive than ZFC (as established in Chapter 1, {prf:ref}`def-ambient-topos`), many applications require verification accessible to researchers working within classical foundations. We therefore adopt a **universe-anchored** presentation: fix a Grothendieck universe $\mathcal{U}$ so that $(V_\mathcal{U}, \in)$ is a transitive model of (Tarski–Grothendieck) set theory, and interpret "ZFC" statements *inside* $V_\mathcal{U}$. This cleanly separates:
+- **size bookkeeping** (handled by $\mathcal{U}$), from
+- **logical/choice bookkeeping** (handled by the Sieve’s AC-dependency trace).
+
+The bridge is intentionally **semantic** rather than a term-by-term proof compiler: it turns categorical *certificates* and their dependencies into a first-order set-theoretic statement together with an explicit axiom/choice manifest. Concretely:
+1. **Anchor sizes** in $\mathcal{U}$ (Section 56.1).
+2. **Collapse higher structure** to sets via $\tau_0$ and restrict classical reasoning to the discrete fragment (Sections 56.2–56.3).
+3. **Map node outputs to axioms** (Section 56.4) and track Choice usage (Sections 56.5 and 56.10).
+4. **Emit a Bridge Certificate** $\mathcal{B}_{\text{ZFC}}$ (Section 56.6).
 
 ### 56.1 Grothendieck Universes and Size Consistency
 
@@ -13966,14 +14210,18 @@ The primary bridge between the higher groupoids of the Hypostructure and the set
 :::{prf:definition} 0-Truncation Functor (Set-Reflection)
 :label: def-truncation-functor-tau0
 
-Let $\mathcal{X}$ be an object in the ambient topos $\mathcal{E}$. The **0-truncation functor** is the left adjoint to the discrete embedding:
+Let $\mathrm{Disc}: \mathbf{Set} \hookrightarrow \infty\text{-}\mathrm{Grpd}$ denote the inclusion of sets as discrete $\infty$-groupoids. In the cohesion adjunction $\Pi \dashv \flat$ (Definition {prf:ref}`def-ambient-topos`), define the discrete embedding:
+$$\Delta := \flat \circ \mathrm{Disc}: \mathbf{Set} \hookrightarrow \mathcal{E}$$
 
-$$\tau_0 \dashv \Delta: \mathbf{Set} \hookrightarrow \mathcal{E}$$
+Define the **0-truncated shape** (connected components) functor:
+$$\tau_0 := \pi_0 \circ \Pi: \mathcal{E} \to \mathbf{Set}$$
+where $\pi_0: \infty\text{-}\mathrm{Grpd} \to \mathbf{Set}$ sends an $\infty$-groupoid to its set of connected components. Then:
+$$\tau_0 \dashv \Delta$$
 
 For any $X \in \mathcal{E}$, the **set-theoretic reflection** is:
-$$\tau_0(X) := \pi_0(X) \in \mathbf{Set}$$
-
-which maps each $\infty$-sheaf to its underlying set of connected components (isomorphism classes of points).
+$$\tau_0(X) := \pi_0(\Pi(X)) \in \mathbf{Set}$$
+which may be read as the set of connected components of the “shape” of $X$. In particular, for any set $S$:
+$$\tau_0(\Delta(S)) \cong S$$
 
 **Distinction from Axiom Truncations:** The 0-truncation $\tau_0$ is distinct from the truncation structure $\tau = (\tau_C, \tau_D, \tau_{SC}, \tau_{LS})$ defined in {prf:ref}`def-categorical-hypostructure`. The axiom truncations $\tau_\bullet$ are functorial constraints enforcing physical bounds, while $\tau_0$ is the homotopy-theoretic extraction of $\pi_0$.
 
@@ -13990,12 +14238,12 @@ The 0-truncation functor preserves the essential structure of certificates:
 1. **Morphism Preservation:** If $f: X \to Y$ is a morphism in $\mathcal{E}$, then $\tau_0(f): \tau_0(X) \to \tau_0(Y)$ is a well-defined function of sets.
 
 2. **Certificate Preservation:** For certificates $K^+$, $K^-$, $K^{\mathrm{blk}}$, $K^{\mathrm{br}}$:
-   $$\tau_0(K^+) = \text{YES} \in \{\text{YES}, \text{NO}\}, \quad \tau_0(K^-) = \text{NO}$$
-   The certificate polarity is preserved under truncation.
+   the **polarity field** (an element of a fixed 2-element set) is preserved under truncation:
+   $$\tau_0(K^+) = \text{YES}, \qquad \tau_0(K^-) = \text{NO}$$
 
-3. **Limit and Colimit Preservation:** $\tau_0$ preserves all colimits (as a left adjoint) and finite limits (as a left exact functor). In particular, $\tau_0$ preserves products, terminal objects, coproducts, and coequalizers.
+3. **Structural Preservation (what the bridge uses):** $\tau_0$ preserves all colimits (as a left adjoint) and finite products (because $\Pi$ and $\pi_0$ preserve finite products). In particular, it preserves the finite sums/products used to assemble certificate tuples, witness packages, and the 17-node certificate chain.
 
-**Proof Sketch:** (1) follows from functoriality of $\pi_0$. (2) follows because certificates are already 0-truncated data structures (finite disjoint unions of contractible types). (3) The functor $\tau_0$ is *left exact* (preserves finite limits) because it is the inverse image part of a geometric morphism $(\tau_0, \Delta): \mathcal{E} \to \mathbf{Set}$. As a left adjoint, $\tau_0$ preserves all colimits; left exactness follows from the definition of geometric morphism.
+**Proof Sketch:** (1) is functoriality. (2) holds because the certificate polarity/witness payload is discrete by construction. (3) follows from $\tau_0 \dashv \Delta$ (colimits) together with the cohesion axiom that $\Pi$ preserves finite products (Definition {prf:ref}`def-higher-coherences`) and the fact that $\pi_0$ preserves finite products of $\infty$-groupoids.
 :::
 
 ### 56.3 The Discrete Reflection Adjunction
@@ -14005,29 +14253,18 @@ The cohesion structure $\Pi \dashv \flat \dashv \sharp$ provides the rigorous **
 :::{prf:theorem} ZFC Grounding
 :label: thm-zfc-grounding
 
-Let $\mathcal{E}$ be a universe-anchored cohesive $(\infty,1)$-topos with universe $\mathcal{U}$. For any 0-truncated object $X \in \mathcal{E}$ (i.e., $X \simeq \tau_0(X)$):
+Let $\mathcal{E}$ be a universe-anchored cohesive $(\infty,1)$-topos with universe $\mathcal{U}$ (Definition {prf:ref}`def-universe-anchored-topos`). Let $\Delta$ be the discrete embedding from Definition {prf:ref}`def-truncation-functor-tau0`, and let $\Gamma: \mathcal{E}_\mathcal{U} \to \mathbf{Set}_\mathcal{U}$ denote global sections.
 
-$$\flat(X) \simeq \Gamma(X) \in \mathbf{Set}_\mathcal{U} \subseteq V_\mathcal{U}$$
+Then:
 
-where $\Gamma: \mathcal{E} \to \mathbf{Set}$ is the global sections functor. Moreover:
+1. **Full faithfulness:** $\Delta: \mathbf{Set}_\mathcal{U} \hookrightarrow \mathcal{E}_\mathcal{U}$ is full and faithful. Hence $\Delta(\mathbf{Set}_\mathcal{U}) \subseteq \mathcal{E}_\mathcal{U}$ is (equivalent to) an ordinary category of sets.
 
-1. The logic of $\mathcal{E}$ restricted to the image of $\flat$ is **Boolean and classical**, coinciding exactly with the first-order logic of ZFC.
+2. **Set recovery:** For every $S \in \mathbf{Set}_\mathcal{U}$,
+   $$\tau_0(\Delta(S)) \cong S \cong \Gamma(\Delta(S)) \in V_\mathcal{U}.$$
 
-2. The Law of Excluded Middle holds for all objects in the subcategory $\flat(\mathbf{Set}_\mathcal{U})$.
+3. **Classical fragment:** Reasoning about objects in $\Delta(\mathbf{Set}_\mathcal{U})$ is just ordinary classical reasoning about sets in $V_\mathcal{U}$. In particular, any ZFC predicate $P$ on $S$ corresponds to an internal predicate on $\Delta(S)$.
 
-3. Any predicate $P$ defined on a set $S$ in ZFC has a corresponding representative in $\mathcal{E}$ via $\flat(S)$.
-
-**Proof (Following Categorical Proof Template {prf:ref}`def-categorical-proof-template`):**
-
-*Step 1 (Ambient Setup).* The cohesion adjunction $\Pi \dashv \flat \dashv \sharp$ is verified for $\mathcal{E}$ per Definition {prf:ref}`def-ambient-topos`. The flat modality $\flat$ embeds discrete $\infty$-groupoids as constant objects.
-
-*Step 2 (Construction).* For a 0-truncated $X$, we have $X \simeq \Delta(S)$ for some set $S$. The flat modality satisfies $\flat(\Delta(S)) = \Delta(S)$ since discrete objects are fixed points of $\flat$.
-
-*Step 3 (Well-definedness).* The global sections functor $\Gamma$ is right adjoint to the constant functor $\Delta$: $\Delta \dashv \Gamma$. For discrete objects, $\Gamma(\Delta(S)) \cong S$, establishing the isomorphism.
-
-*Step 4 (Universal Property).* The Boolean logic claim follows from {cite}`Johnstone02` D4.5: the subcategory of decidable objects in a topos forms a Boolean algebra. Objects in the image of $\flat$ are decidable.
-
-*Step 5 (Conclusion).* Combining universe-anchoring (Lemma {prf:ref}`lem-universe-closure`) with the discrete embedding, we obtain $\flat(X) \in V_\mathcal{U}$.
+**Proof Sketch:** Full faithfulness of $\flat$ is part of the cohesion axioms (Definition {prf:ref}`def-higher-coherences`); restricting along $\mathrm{Disc}$ yields full faithfulness of $\Delta$. The adjunctions $\tau_0 \dashv \Delta$ (Definition {prf:ref}`def-truncation-functor-tau0`) and $\Delta \dashv \Gamma$ (global sections) give the identifications in (2). Since $\Delta(\mathbf{Set}_\mathcal{U})$ is equivalent to $\mathbf{Set}_\mathcal{U}$, its internal logic is Boolean and coincides with classical first-order reasoning about sets.
 
 **Literature:** {cite}`MacLaneMoerdijk92` Ch. I.3 (set-theoretic models); {cite}`Johnstone02` D4.5 (internal logic).
 :::
@@ -14061,14 +14298,14 @@ The following table establishes the correspondence between Sieve node interfaces
 |:-----|:----------|:-------------|:--------------------------|
 | **1** | $D_E$ (Energy) | Separation, Replacement | $\{x \in X : \Phi(x) < M\}$ exists as a set |
 | **2** | $\mathrm{Rec}_N$ (Recovery) | Separation | Recovery neighborhood $\{x : d(x, A) < \epsilon\}$ exists |
-| **3** | $C_\mu$ (Compactness) | Power Set, Infinity | Profile space $\mathcal{P} \in V_{\omega+n}$ for finite $n$ |
+| **3** | $C_\mu$ (Compactness) | Power Set, Infinity (+ DC/Choice as needed) | Profile space exists; selections from infinite profile families may require Choice |
 | **4** | $\mathrm{SC}_\lambda$ (Scaling) | Foundation | Well-founded scaling hierarchy; no infinite descent |
 | **5** | $\mathrm{Geom}_\chi$ (Geometry) | Separation, Union | Geometric decomposition as union of subsets |
 | **6** | $\mathrm{Cap}_H$ (Capacity) | **Choice** | Selection of optimal covering from family |
 | **7** | $\mathrm{LS}_\sigma$ (Stiffness) | Replacement | Image of gradient map $\{F(x) : x \in X\}$ exists |
 | **8** | $\mathrm{TB}_\pi$ (Topology) | Separation, Union | Sector decomposition $\pi_0(\mathcal{X}) = \bigsqcup_i S_i$ |
 | **9** | $\mathrm{Tame}_\omega$ (Tame) | Infinity | Finite cell decomposition within $V_\omega$ |
-| **10** | $\mathrm{TB}_\rho$ (Mixing) | Infinity | Ergodic limit as $\omega$-indexed sequence |
+| **10** | $\mathrm{TB}_\rho$ (Mixing) | Infinity (+ CC/Choice as needed) | $\omega$-indexed limits exist; representative selection may require Choice |
 | **11** | $\mathrm{Rep}_K$ (Complexity) | Extensionality | Unique representation (sets equal iff same elements) |
 | **12** | $\mathrm{GC}_\nabla$ (Gradient) | Separation | Level sets $\{x : \nabla\Phi(x) = c\}$ exist |
 | **13-16** | Boundary interfaces | Pairing, Union | Boundary data as ordered pairs and unions |
@@ -14076,7 +14313,7 @@ The following table establishes the correspondence between Sieve node interfaces
 
 **Key Observations:**
 
-1. **Node 6 requires Choice:** The Capacity interface $\mathrm{Cap}_H$ invokes the Axiom of Choice for selecting optimal coverings from infinite families. In ZF (without AC), Node 6 certificates may degrade to $K^{\mathrm{inc}}$ (inconclusive).
+1. **Choice-sensitive nodes exist:** The Capacity interface $\mathrm{Cap}_H$ is inherently selection-based, and compactness/mixing interfaces often also require a choice principle for picking representatives. In ZF (without AC), affected nodes may degrade to $K^{\mathrm{inc}}$ (inconclusive).
 
 2. **Foundation is implicit:** The Axiom of Foundation (Regularity) underlies the well-foundedness of all recursive constructions, particularly the scaling hierarchy (Node 4) and the Lock (Node 17).
 
@@ -14269,8 +14506,9 @@ The mapping $\mathcal{M}: \text{ZFC} \to \mathcal{E}$ is defined by the followin
    Subset construction in ZFC, $\{x \in A \mid \phi(x)\}$, corresponds to the pullback of the **subobject classifier** $\Omega$ in $\mathcal{E}$:
    $$\mathcal{X}_{\text{reg}} \hookrightarrow \mathcal{X} \text{ is the pullback of } \top: 1 \to \Omega \text{ along the Sieve predicate } P_{\text{Sieve}}$$
 
-4. **Axiom of Pairing $\longleftrightarrow$ Finite Coproducts:**
-   For any two objects $\mathcal{X}, \mathcal{Y}$, the existence of the pair $\{\mathcal{X}, \mathcal{Y}\}$ is guaranteed by the categorical coproduct $\mathcal{X} \sqcup \mathcal{Y}$. This powers the certificate tuple construction.
+4. **Axiom of Pairing $\longleftrightarrow$ Finite Products (Tuples):**
+   Set-theoretic pairing supports the formation of finite tuples and structured records. Categorically, this is realized by **finite products** (and dependent sums) in $\mathcal{E}$, used throughout to package certificate payloads as tuples:
+   $$K \;\simeq\; K^{(1)} \times \cdots \times K^{(m)}$$
 
 5. **Axiom of Union $\longleftrightarrow$ Colimits:**
    The set-theoretic union $\bigcup \mathcal{F}$ corresponds to the colimit of a diagram in $\mathcal{E}$. This underlies the **Surgery Operator** ({prf:ref}`mt-act-surgery`), which "glues" the regular bulk with the recovery cap via pushout.
@@ -14463,22 +14701,20 @@ A fundamental error in mathematical reasoning is treating a stack (groupoid) as 
 :::{prf:theorem} Diaconescu Application
 :label: thm-diaconescu-application
 
-In a topos $\mathcal{E}$ with Natural Number Object, the following are equivalent:
-1. The Law of Excluded Middle holds internally: $\forall P \in \Omega, \, P \vee \neg P = \top$
-2. The Internal Axiom of Choice holds
+In an elementary topos $\mathcal{E}$, the **Internal Axiom of Choice** (every epimorphism splits) implies that $\mathcal{E}$ is **Boolean** (the Law of Excluded Middle holds internally).
 
-**Consequence (Diaconescu {cite}`Diaconescu75`):** If a proof in $\mathcal{E}$ uses LEM on a non-flat stratum (where IAC fails), the proof implicitly assumes structure that does not exist.
+**Consequence (Diaconescu {cite}`Diaconescu75`):** Unrestricted classical case splits $P \vee \neg P$ are a strong assumption: they are automatic on the discrete/flat fragment, but generally invalid on strata with non-trivial residual. (The converse direction fails in general: a Boolean topos need not satisfy internal choice.)
 
 **Detection Mechanism:** For a construction $C$ in $\mathcal{E}$:
 1. Check if $C$ uses case analysis ($P \vee \neg P$) on a proposition $P$
 2. Verify $P$ lies in the decidable subalgebra $\mathcal{B}$ (Definition {prf:ref}`def-heyting-boolean-distinction`)
-3. If $P \notin \mathcal{B}$, the construction is **non-constructive** and requires explicit justification
+3. If $P \notin \mathcal{B}$, treat the step as **choice/LEM-sensitive** and require an explicit audit entry in the Bridge Certificate $\mathcal{B}_{\text{ZFC}}$
 :::
 
 :::{prf:definition} Stack-Set Error
 :label: def-stack-set-error
 
-A **Stack-Set Error** occurs when a proof treats an object $\mathcal{X} \in \mathcal{E}$ as if it were discrete ($\mathcal{X} \simeq \flat(\tau_0(\mathcal{X}))$) when in fact $\mathcal{R}(\mathcal{X}) \neq 0$.
+A **Stack-Set Error** occurs when a proof treats an object $\mathcal{X} \in \mathcal{E}$ as if it were discrete ($\mathcal{X} \simeq \Delta(\tau_0(\mathcal{X}))$) when in fact $\mathcal{R}(\mathcal{X}) \neq 0$.
 
 **Common Manifestations:**
 1. **Pointwise reasoning:** Treating $x \in \mathcal{X}$ as an element rather than a generalized point from a test object
@@ -14489,7 +14725,7 @@ A **Stack-Set Error** occurs when a proof treats an object $\mathcal{X} \in \mat
 - The categorical certificate (using homotopical structure)
 - The set-theoretic projection (expecting discrete data)
 
-The translation layer detects this via: $\tau_0(\text{proof}) \neq \text{expected ZFC proof}$
+The translation layer detects this when the set-level projection silently assumes that “isomorphism = equality” (i.e., that residual data can be ignored) without recording the required quotients/choices in the bridge audit trail.
 :::
 
 ### 56.14 Descent Logic and Size Constraints
@@ -14532,24 +14768,22 @@ The ZFC Translation Layer satisfies a fundamental consistency property: valid ca
 :::{prf:theorem} Consistency Invariant
 :label: thm-consistency-invariant
 
-Let $\mathcal{E}$ be a universe-anchored cohesive $(\infty,1)$-topos. For any proof $\mathcal{P}$ valid in the internal logic of $\mathcal{E}$:
+Let $\mathcal{E}$ be a universe-anchored cohesive $(\infty,1)$-topos with universe $\mathcal{U}$. Let $\phi$ be an internal proposition whose free variables range over discrete objects $\Delta(S_i)$ with $S_i \in \mathbf{Set}_\mathcal{U}$, and let $\phi^{\mathrm{set}}$ denote the corresponding first-order statement about the sets $S_i$ obtained by identifying $\Delta(\mathbf{Set}_\mathcal{U}) \simeq \mathbf{Set}_\mathcal{U}$ (Theorem {prf:ref}`thm-zfc-grounding`).
 
-$$\mathcal{P} \vdash_\mathcal{E} \phi \implies \tau_0(\mathcal{P}) \vdash_{\text{ZFC}} \tau_0(\phi)$$
+If $\mathcal{E} \models \phi$, then:
+$$V_\mathcal{U} \vDash \phi^{\mathrm{set}}$$
 
-where $\tau_0$ extends to proofs by structural induction on proof terms.
-
-**More precisely:** If $\mathcal{P}$ derives a certificate $K$ in $\mathcal{E}$, then $\tau_0(K)$ is consistent with ZFC (does not derive $\bot$).
+In particular, if the Sieve derives a certificate $K$ whose payload lives in the discrete fragment (as in Corollary {prf:ref}`cor-certificate-zfc-rep`), then its extracted set-level payload $\tau_0(K)$ is true in $V_\mathcal{U}$ and hence consistent with ZFC reasoning in that universe.
 
 **Hypotheses:**
 1. $\mathcal{E}$ is universe-anchored (Definition {prf:ref}`def-universe-anchored-topos`)
-2. $\mathcal{P}$ uses only the internal logic of $\mathcal{E}$ (no external set-theoretic assumptions beyond the universe)
-3. External AC is available if $\mathcal{P}$ traverses EAC-sensitive nodes
+2. $\phi$ only ranges over the discrete fragment $\Delta(\mathbf{Set}_\mathcal{U})$ (no residual-sensitive case splits)
+3. External AC is available in the metatheory for any EAC-sensitive node semantics used to *construct* the underlying discrete data
 
 **Proof Sketch:**
-1. The internal logic of $\mathcal{E}$ is sound: if $\mathcal{P} \vdash_\mathcal{E} \phi$, then $\phi$ holds in all models of $\mathcal{E}$.
-2. The functor $\tau_0$ preserves logical structure (it is part of a geometric morphism).
-3. The Boolean sub-topos $\flat(\mathbf{Set}_\mathcal{U})$ models ZFC (by construction of Grothendieck universes).
-4. Therefore, $\tau_0(\phi)$ holds in $\mathbf{Set}_\mathcal{U}$, which is a model of ZFC.
+1. By Theorem {prf:ref}`thm-zfc-grounding`, the discrete fragment $\Delta(\mathbf{Set}_\mathcal{U})$ is equivalent to $\mathbf{Set}_\mathcal{U}$.
+2. Soundness of the internal language of $\mathcal{E}$ implies that $\mathcal{E} \models \phi$ forces $\phi$ to hold under every set-based interpretation of the discrete variables.
+3. Interpreting the discrete variables as the actual sets $S_i \in V_\mathcal{U}$ yields $V_\mathcal{U} \vDash \phi^{\mathrm{set}}$.
 
 **Literature:** {cite}`MacLaneMoerdijk92` Ch. VI (geometric morphisms); {cite}`Johnstone02` B3 (logical functors).
 :::
@@ -14557,25 +14791,25 @@ where $\tau_0$ extends to proofs by structural induction on proof terms.
 :::{prf:lemma} Foundation Preservation
 :label: lem-foundation-preservation
 
-The 0-truncation functor $\tau_0$ preserves well-foundedness:
+The 0-truncation functor $\tau_0$ reflects well-foundedness for **discrete** termination data.
 
-If $\mathcal{X}$ admits no infinite descending chains (i.e., $\Phi$ is well-founded on $\mathcal{X}$), then $\tau_0(\mathcal{X})$ admits no infinite descending membership chains.
+If a well-founded relation $(A,\prec)$ in $\mathcal{E}$ is carried by a discrete object $A \simeq \Delta(S)$, then the induced relation on the underlying set $S \cong \tau_0(A)$ is well-founded in $V_\mathcal{U}$ (no infinite $\prec$-descending chains).
 
-**Proof:** Well-foundedness in $\mathcal{E}$ is expressed via the accessibility of the energy functional $\Phi$. The truncation $\tau_0$ preserves the ordering structure on connected components. An infinite descending chain in $\tau_0(\mathcal{X})$ would lift to an infinite descending sequence of orbits in $\mathcal{X}$, contradicting well-foundedness.
+**Proof Sketch:** An infinite $\prec$-descending sequence in $S$ would define an infinite descending sequence of generalized points of $A$ in the discrete fragment, contradicting well-foundedness in $\mathcal{E}$.
 
-**Consequence:** The Axiom of Foundation is automatically satisfied by $\tau_0(\mathcal{X})$ for any hypostructure satisfying the energy bounds at Node 1.
+**Consequence:** Progress measures and termination arguments expressed on discrete certificate payloads remain well-founded after ZFC translation.
 :::
 
 ### 56.16 The Fundamental Theorem of Set-Theoretic Reflection
 
-This section establishes the central semantic interpretation theorem that anchors the internal logic of the cohesive topos to classical set theory. The theorem formalizes how Lock certificates in $\mathcal{E}$ translate to provable statements in ZFC, completing the Diaconescu-style bridge from intuitionistic categorical logic to classical foundations.
+This section establishes the central semantic interpretation theorem that anchors the internal logic of the cohesive topos to classical set theory. The theorem formalizes how Lock certificates in $\mathcal{E}$ translate to set-theoretic truths in $V_\mathcal{U}$ (and hence to ZFC-auditable statements), completing the Diaconescu-style bridge from intuitionistic categorical logic to classical foundations.
 
 :::{prf:theorem} Fundamental Theorem of Set-Theoretic Reflection
 :label: thm-bridge-zfc-fundamental
 
 Let $\mathcal{E}$ be a universe-anchored cohesive $(\infty,1)$-topos (Definition {prf:ref}`def-universe-anchored-topos`) with global sections functor $\Gamma: \mathcal{E} \to \mathbf{Set}_\mathcal{U}$. If the Sieve produces a blocked certificate $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ at Node 17, then:
 
-$$\mathcal{E} \models \left( \mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset \right) \implies \text{ZFC} \vdash \forall u \in \pi_0(\Gamma(\mathcal{X})),\, \Psi(u)$$
+$$\mathcal{E} \models \left( \mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset \right) \implies V_\mathcal{U} \vDash \forall u \in \tau_0(\mathcal{X}),\, \Psi(u)$$
 
 where $\Psi(u)$ is the set-theoretic translation of "no morphism from the bad pattern $\mathbb{H}_{\mathrm{bad}}$ lands on the orbit represented by $u$."
 
@@ -14612,17 +14846,15 @@ Each node's certificate translates to a valid ZFC statement by invoking the appr
 
 | Node | Topos Operation | ZFC Axiom Invoked | Translation |
 |------|-----------------|-------------------|-------------|
-| 1 | Height filtration $\Phi \leq E$ | Regularity | $\tau_0(\Phi)$ is well-founded |
-| 2 | NNO counting $\mathbb{N} \to \mathcal{X}$ | Infinity | Inductive set $\omega$ exists |
-| 3 | Subobject pullback | Specification | $\{x \in S : P(x)\}$ exists |
-| 4 | Monoid action $\mathcal{S}_\lambda$ | Replacement | Image $\{F(a) : a \in A\}$ exists |
-| 6 | Measure functor $\mu$ | Choice (EAC) | Measurable selections exist |
-| 11 | Internal hom $[A, B]$ | Power Set | $\mathcal{P}(A \times B)$ exists |
-| 17 | Hom-set computation | Foundation + Replacement | $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H})$ exists as a set |
+| 1 | Energy-bounded subobject | Separation (+Replacement) | $\{x \in X : \Phi(x) < M\}$ exists |
+| 2 | Recursion on $\mathbb{N}_\mathcal{E}$ | Infinity | $\omega$ supports inductive constructions |
+| 3 | Power objects / profile space | Power Set (+ DC/Choice as needed) | profile families exist; selections may require Choice |
+| 6 | Covering/selection principles | Choice (EAC) | selection of optimal covers/witnesses |
+| 17 | Hom-set truncation | Replacement (+Foundation) | $\tau_0(\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}))$ is a set; emptiness is classical |
 
-For each node $n$ with certificate $K_n^{\mathrm{blk}}$, the truncation $\tau_0(K_n^{\mathrm{blk}})$ produces a ZFC-provable statement $\psi_n$ using the indicated axiom(s). The conjunction:
+For each node $n$ with certificate $K_n^{\mathrm{blk}}$, the truncation $\tau_0(K_n^{\mathrm{blk}})$ produces a set-theoretic statement $\psi_n$ that holds in $V_\mathcal{U}$. The conjunction:
 $$\bigwedge_{n \in \text{Sieve}} \psi_n$$
-is therefore ZFC-provable.
+therefore holds in $V_\mathcal{U}$.
 
 **Step 4: Resolution of Translation Residual.**
 
@@ -14630,10 +14862,10 @@ The translation residual $\mathcal{R}(\mathcal{X}) = \bigoplus_{n \geq 1} \pi_n(
 
 *Claim:* If $\mathcal{R}(\mathcal{X})$ were to introduce a counterexample to $\Psi$, then $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ would be invalidated.
 
-*Proof of claim:* Suppose $\exists u \in \pi_0(\Gamma(\mathcal{X}))$ such that $\neg\Psi(u)$, i.e., there exists a bad morphism landing on the orbit $[u]$. This morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathbb{H}$ exists in $\mathcal{E}$ and survives truncation (morphisms to 0-truncated targets factor through $\tau_0$). But this contradicts $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset$.
+*Proof of claim:* Suppose $\exists u \in \tau_0(\mathcal{X})$ such that $\neg\Psi(u)$, i.e., there exists a bad morphism landing on the orbit represented by $u$. This morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathbb{H}$ exists in $\mathcal{E}$ and survives 0-truncation (a morphism witnessing $\neg\Psi(u)$ is visible on connected components). This contradicts $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset$.
 
 Therefore, no counterexample exists, and:
-$$\text{ZFC} \vdash \forall u \in \pi_0(\Gamma(\mathcal{X})),\, \Psi(u)$$
+$$V_\mathcal{U} \vDash \forall u \in \tau_0(\mathcal{X}),\, \Psi(u)$$
 
 **Rigor Class:** B (Bridge metatheorem translating between foundations). $\blacksquare$
 :::
@@ -14643,9 +14875,9 @@ $$\text{ZFC} \vdash \forall u \in \pi_0(\Gamma(\mathcal{X})),\, \Psi(u)$$
 
 Under the hypotheses of Theorem {prf:ref}`thm-bridge-zfc-fundamental`, if $x_* \in \mathcal{X}$ is a point satisfying the bad pattern $\mathbb{H}_{\mathrm{bad}}$, then:
 
-$$\text{ZFC} \vdash \neg\bigl(\exists x_* \in \tau_0(\mathcal{X}) : x_* \models \mathbb{H}_{\mathrm{bad}}\bigr)$$
+$$V_\mathcal{U} \vDash \neg\bigl(\exists x_* \in \tau_0(\mathcal{X}) : x_* \models \mathbb{H}_{\mathrm{bad}}\bigr)$$
 
-**Proof.** Suppose $x_* \in \mathcal{X}$ satisfies the bad pattern, i.e., the germ of $\mathbb{H}$ at $x_*$ admits a structure morphism from $\mathbb{H}_{\mathrm{bad}}$. Then there exists a non-trivial morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathbb{H}$ in $\mathbf{Hypo}_T$, contradicting $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset$. By the Fundamental Theorem, the non-existence of such morphisms is ZFC-provable.
+**Proof.** Suppose $x_* \in \mathcal{X}$ satisfies the bad pattern, i.e., the germ of $\mathbb{H}$ at $x_*$ admits a structure morphism from $\mathbb{H}_{\mathrm{bad}}$. Then there exists a non-trivial morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathbb{H}$ in $\mathbf{Hypo}_T$, contradicting $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset$. By Theorem {prf:ref}`thm-bridge-zfc-fundamental`, the corresponding set-level non-existence holds in $V_\mathcal{U}$.
 :::
 
 :::{prf:remark} Semantic Ground Truth
@@ -14657,7 +14889,7 @@ The translation table in Step 3 provides explicit **semantic grounding** for eac
 
 - **Node 2 (Recovery):** Inductive arguments use the natural number object $\mathbb{N}$ in $\mathcal{E}$. The Axiom of Infinity provides $\omega$ in ZFC, validating recursive constructions.
 
-- **Node 3 (Compactness):** Profile subsets are carved out via Specification. The subobject classifier in $\mathcal{E}$ corresponds to characteristic functions in ZFC.
+- **Node 3 (Compactness):** Profile families exist by Power Set and definable profile subsets exist by Separation; selecting representatives from infinite families is the point at which Choice (or a weaker choice principle) can enter.
 
 - **Node 4 (Scaling):** The rescaling monoid action preserves cardinality bounds. Replacement ensures the image of any definable function exists as a set.
 
@@ -14793,8 +15025,8 @@ The following notation is used consistently throughout this document. Symbols ar
 
 | Label | Name | Statement Summary | Section |
 |-------|------|-------------------|---------|
-| `thm-bridge-zfc-fundamental` | Fundamental Theorem of Set-Theoretic Reflection | $\mathcal{E} \models (\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset) \implies \text{ZFC} \vdash \forall u, \Psi(u)$ | 56.16 |
-| `cor-singular-contradiction` | Singular Point Contradiction | ZFC-provable non-existence of singular points satisfying $\mathbb{H}_{\mathrm{bad}}$ | 56.16 |
+| `thm-bridge-zfc-fundamental` | Fundamental Theorem of Set-Theoretic Reflection | $\mathcal{E} \models (\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}, \mathbb{H}) \simeq \emptyset) \implies V_\mathcal{U} \vDash \forall u \in \tau_0(\mathcal{X}), \Psi(u)$ | 56.16 |
+| `cor-singular-contradiction` | Singular Point Contradiction | Set-theoretic non-existence of singular points satisfying $\mathbb{H}_{\mathrm{bad}}$ in $V_\mathcal{U}$ | 56.16 |
 
 ## ZFC Axiom Abbreviations
 
@@ -14807,6 +15039,26 @@ The following notation is used consistently throughout this document. Symbols ar
 | ZFC-AC | Axiom of Choice | Nodes 3, 6, 10 (AC-dependent) |
 | ZFC-Found | Axiom of Foundation | Nodes 4, 17 |
 | ZFC-Ext | Axiom of Extensionality | Node 11 |
+
+## Algorithmic Information Theory (Section 54)
+
+| Symbol | Name | Definition | Reference |
+|--------|------|------------|-----------|
+| $K(x)$ | Kolmogorov Complexity | $\min\{|p| : U(p) = x\}$; shortest program length | {prf:ref}`def-kolmogorov-complexity` |
+| $\Omega_U$ | Chaitin's Halting Probability | $\sum_{p : U(p)\downarrow} 2^{-|p|}$; partition function | {prf:ref}`def-chaitin-omega` |
+| $d_s(x)$ | Computational Depth | Time of fastest program within $s$ bits of optimal | {prf:ref}`def-computational-depth` |
+| $Kt(x)$ | Levin Complexity | $K(x) + \log t(x)$; resource-bounded measure | {prf:ref}`def-thermodynamic-horizon` |
+| $m(x)$ | Algorithmic Probability | $\asymp 2^{-K(x)}$; Boltzmann weight analog | {prf:ref}`thm-sieve-thermo-correspondence` |
+
+## AIT Phase Classification
+
+| Phase | Complexity | Axiom R | Decidability | Sieve Verdict |
+|-------|------------|---------|--------------|---------------|
+| Crystal | $K = O(\log n)$ | Holds | Decidable | REGULAR |
+| Liquid | $K = O(\log n)$ | Fails | C.E. not decidable | HORIZON |
+| Gas | $K \geq n - O(1)$ | Fails | Random/Undecidable | HORIZON |
+
+See {prf:ref}`def-algorithmic-phases` for formal definitions and {prf:ref}`thm-sieve-thermo-correspondence` for the Sieve-Thermodynamic Correspondence.
 
 ---
 

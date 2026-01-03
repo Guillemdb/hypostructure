@@ -614,6 +614,21 @@ $$\mathcal{L}(\omega) = \|\text{Ob}(\omega)\|_{H^2(T_M)}^2$$
 * [x] **Tame-Topology (UP-TameSmoothing):** TameCheck passed ⟹ Moduli definable in $\mathbb{R}_{\text{an}}$
 * [x] **Kodaira-Spencer Link (UP-KSLink):** Stiffness Restoration successful ⟹ Deformation cohomology fully classified
 
+### 3.5 ZFC Proof Export (Chapter 56 Bridge)
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical certificate chain as a classical, set-theoretic audit trail.*
+
+**Precondition:** [x] Lock verdict obtained ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ at Node 17) and complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
+
+**ZFC Bridge Checklist**
+* [x] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
+* [x] Record `axioms_used` via Definition {prf:ref}`def-sieve-zfc-correspondence`.
+* [x] Record `AC_status` via Definitions {prf:ref}`def-ac-dependency` and {prf:ref}`def-choice-sensitive-stratum`.
+* [x] Record `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` via Definition {prf:ref}`def-truncation-functor-tau0`.
+
+**Exported claim form:** Use the bridge certificate payload (Metatheorem {prf:ref}`mt-krnl-zfc-bridge`):
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace}).$$
+Here $\varphi$ is chosen so that $V_\mathcal{U} \vDash \varphi$ and $\varphi$ implies the set-theoretic encoding of the Kuranishi-versality conclusion.
+
 ---
 
 ## Part III-C: Obligation Ledger

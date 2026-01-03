@@ -564,6 +564,15 @@ For each region $R_i$ ($i = 1, \ldots, 5000$):
 **Certificate:**
 $$K_{\text{Flyspeck}}^+ = (\text{HOL Light}, \text{5000 inequalities}, \text{2017})$$
 
+### ZFC Proof Export (Chapter 56 Bridge)
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the verification run as a set-theoretic audit trail (including the certified computation payload).*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+In this instance, the formal Flyspeck component is already a ZFC-auditable proof object; the Chapter 56 bridge records how the Sieve certificates reduce the geometric problem to the finite family of inequalities and their machine-checked verification.
+
 ---
 
 ## Part III-C: Obligation Ledger

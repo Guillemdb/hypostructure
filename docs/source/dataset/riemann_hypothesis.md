@@ -27,13 +27,13 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarante
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **Riemann Hypothesis**.
+This document presents a **machine-checkable audit trace** for the **Riemann Hypothesis**.
 
 **Approach:** We perform **Dimensional Analysis** on the spectral-arithmetic duality. Construction is forbidden; we audit permits.
 
 The **Explicit Formula** is the algebraic data: it links the zero-set $\Sigma$ to the prime-set $\mathbb{P}$. Since primes are **Quantized/Integer Invariants**, we check the **Integrality Permit (Tactic E4)**. An off-critical zero ($\text{Re}(s) \neq 1/2$) would violate the **Rigidity Permit** of the dual spectral measure. The permit is **Denied** because the "Bad Pattern" (Ghost Zero off the critical line) is **non-rigid**—it would induce a fractional contribution to integer prime counts.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality/Quantization): off-critical zeros cannot exist because their spectral signature is incompatible with the integer-quantized prime distribution. OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via rigidity; the proof is unconditional.
+**Result:** The audit records standard analytic inputs (explicit formula, symmetry, statistics) but does not certify a blocked Lock in ZFC. The Hilbert–Pólya/self-adjointness step is not established; the obligation ledger remains non-empty. Verdict: **HORIZON**.
 
 ---
 
@@ -47,7 +47,7 @@ The **Explicit Formula** is the algebraic data: it links the zero-set $\Sigma$ t
 - The completed zeta function $\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$
 - The functional equation $\xi(s) = \xi(1-s)$
 
-**Claim:** All nontrivial zeros of $\zeta(s)$ satisfy $\text{Re}(\rho) = 1/2$.
+**Claim (open):** All nontrivial zeros of $\zeta(s)$ satisfy $\text{Re}(\rho) = 1/2$.
 
 **Permit-Based Formulation:** The spectral dual of the prime-counting function $\pi(x)$ is the zero-counting function $N(T)$. The Explicit Formula links them via Fourier duality. Since $\pi(x) \in \mathbb{Z}$ (integer-quantized), the dual spectral measure inherits a **Rigidity Permit**: zeros must lie on a line of constant real part to preserve integrality under the trace formula. The critical line $\text{Re}(s) = 1/2$ is the unique such line compatible with the functional equation symmetry.
 
@@ -546,21 +546,21 @@ $$\text{Primes} \in \mathbb{Z} \xrightarrow{\text{E4}} K_{\text{Quant}}^{\text{r
 
 | ID | Node | Certificate | Obligation | Missing | Status |
 |----|------|-------------|------------|---------|--------|
-| OBL-1 | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Unitarity forcing $\delta = 0$ | $K_{\text{FuncEq}}^+$, $K_{\text{Integrality}}^+$, $K_{\text{Bridge}}^+$ | **DISCHARGED** |
+| OBL-1 | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Certify a self-adjoint spectral model (Hilbert–Pólya step) | ZFC construction/verification of $H$ | **HORIZON** |
 
 ### Table 2: Discharge Events
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Spectral chain (E4 + LOCK-Reconstruction) | $K_{\text{Rec}}^+$ (and its embedded verdict) |
+| — | — | — | — |
 
 ### Table 3: Remaining Obligations
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
-| — | — | — |
+| OBL-1 | Self-adjoint spectral model whose spectrum is $\{\gamma\}$ | Hilbert–Pólya remains conjectural |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+**Ledger Validation:** $\mathsf{Obl}(\Gamma) = \{\mathrm{OBL}\text{-}1\}$ (HORIZON)
 
 ---
 
@@ -569,13 +569,13 @@ $$\text{Primes} \in \mathbb{Z} \xrightarrow{\text{E4}} K_{\text{Quant}}^{\text{r
 ### Validity Checklist
 
 1. [x] All required nodes executed with explicit certificates (closed-system path: boundary subgraph not triggered)
-2. [x] All inc certificates discharged via spectral chain
-3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
+2. [ ] All inc certificates discharged via spectral chain
+3. [ ] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+4. [ ] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Spectral quantization validated (E4)
-6. [x] Structural reconstruction validated (LOCK-Reconstruction)
-7. [x] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
-8. [x] Result extraction completed
+6. [ ] Structural reconstruction validated (LOCK-Reconstruction)
+7. [ ] Reconstruction certificate $K_{\text{Rec}}^+$ obtained
+8. [ ] Result extraction completed (RH not extracted)
 
 ### Certificate Accumulation Trace
 
@@ -586,31 +586,31 @@ Node 3:  K_{C_μ}^+ (GUE statistics)
 Node 4:  K_{SC_λ}^+ (1D semiclassical)
 Node 5:  K_{SC_∂c}^+ (primes discrete)
 Node 6:  K_{Cap_H}^+ (countable zeros)
-Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
+Node 7:  K_{LS_σ}^{inc} (Hilbert–Pólya step unresolved)
 Node 8:  K_{TB_π}^+ (open strip)
 Node 9:  K_{TB_O}^+ (definable)
 Node 10: K_{TB_ρ}^+ (GUE repulsion)
 Node 11: K_{Rep_K}^+ (explicit formula)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
+Node 17: K_{Cat_Hom}^{morph} (bad-pattern not excluded)
 ```
 
-### Final Certificate Set
+### Audit Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ### Conclusion
 
-**RIEMANN HYPOTHESIS CONFIRMED**
+**HORIZON DETECTED**
 
-All nontrivial zeros of the Riemann zeta function lie on the critical line $\text{Re}(s) = 1/2$.
+The Riemann Hypothesis remains open. This proof object records the certificate trace and the unmet Hilbert–Pólya/self-adjointness obligation preventing a ZFC export.
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-riemann-hypothesis`
+::::{prf:proof} Audit trace for {prf:ref}`thm-riemann-hypothesis` (HORIZON; not a completed proof)
 
 **Phase 1: Analytic Setup**
 The completed zeta function $\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ is entire of order 1. The functional equation $\xi(s) = \xi(1-s)$ reflects zeros symmetrically about the critical line.
@@ -622,15 +622,13 @@ $$\sum_\rho h\left(\frac{\rho - 1/2}{i}\right) = \sum_{p,k} \frac{\log p}{p^{k/2
 Since prime powers are **integers** (quantized), Tactic E4 (Integrality) implies the dual spectrum must be rigid. Combined with the functional equation, this yields $K_{\text{Quant}}^{\text{real}}$.
 
 **Phase 3: Structural Reconstruction**
-The explicit formula matches the Gutzwiller trace formula for the classical Hamiltonian $H_{cl} = xp$. By LOCK-Reconstruction (Structural Reconstruction), there exists a quantum Hamiltonian
-$$H = \frac{1}{2}(xp + px)$$
-whose spectrum coincides with the imaginary parts $\{\gamma\}$ of the zeros.
+The Hilbert–Pólya program seeks a self-adjoint operator whose spectrum encodes the imaginary parts $\{\gamma\}$ of the zeros. This step is not currently certified in ZFC and is recorded as OBL-1.
 
 **Phase 4: Self-Adjointness**
-The operator $H = \frac{1}{2}(xp + px)$ is essentially self-adjoint on $L^2(\mathbb{R}_+, dx)$. Eigenvalues of self-adjoint operators are **real**.
+Self-adjointness of a suitable operator $H$ would imply real eigenvalues, but the existence/construction of the required $H$ remains part of OBL-1.
 
 **Phase 5: Conclusion**
-If $\rho = 1/2 + i\gamma$ is a nontrivial zero, then $\gamma$ is an eigenvalue of $H$. Since $H$ is self-adjoint, $\gamma \in \mathbb{R}$. Therefore $\text{Re}(\rho) = 1/2$. $\square$
+The argument does not close without a certified Hilbert–Pólya operator. Verdict: **HORIZON**. $\square$
 
 ::::
 
@@ -652,10 +650,10 @@ If $\rho = 1/2 + i\gamma$ is a nontrivial zero, then $\gamma$ is an eigenvalue o
 | Spectral Repulsion | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Explicit Formula | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Structured Oscillation | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
+| Reconstruction | Inconclusive | $K_{\text{Rec}}^{\mathrm{inc}}$ (Hilbert–Pólya step) |
+| Lock | **MORPHISM** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ |
+| Obligation Ledger | NON-EMPTY | OBL-1 |
+| **Final Status** | **HORIZON** | — |
 
 ---
 
@@ -678,8 +676,8 @@ If $\rho = 1/2 + i\gamma$ is a nontrivial zero, then $\gamma$ is an eigenvalue o
 | Problem Class | Millennium Problem (Clay) |
 | System Type | $T_{\text{quant}}$ |
 | Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
+| Inc Certificates | 1 introduced; HORIZON (OBL-1) |
+| Final Status | **HORIZON** |
 | Generated | 2025-12-18 |
 
 ---

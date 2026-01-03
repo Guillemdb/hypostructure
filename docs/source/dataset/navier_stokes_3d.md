@@ -44,14 +44,14 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGua
 | 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (supercritical, $\dot{H}^{1/2}$ critical) |
 | 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (dimension fixed) |
 | 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (CKN: $\dim_H(S) \le 1$) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via Liouville) |
+| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (HORIZON: global blow-up exclusion not certified) |
 | 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (divergence-free preserved) |
 | 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
 | 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (mixing via transport) |
 | 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (Fourier decay) |
 | 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (dissipative) |
 | 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (whole space) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E2 + E6) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (bad-pattern not excluded) |
 
 ### 3. Lock Mechanism
 | Tactic | Status | Description |
@@ -62,22 +62,22 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGua
 ### 4. Final Verdict
 | Field | Value |
 |-------|-------|
-| **Status** | **UNCONDITIONAL** |
-| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Liouville}}^+$) |
-| **Singularity Set** | $S = \emptyset$ (excluded by Liouville) |
-| **Primary Blocking Tactic** | E2 (Liouville Invariant via Seregin-Šverák) |
+| **Status** | **HORIZON** (Millennium problem; unresolved) |
+| **Obligation Ledger** | NON-EMPTY (exclude blow-up / certify Lock) |
+| **Singularity Set** | UNKNOWN (CKN gives $\dim_H(S)\le 1$ for suitable weak solutions) |
+| **Primary Blocking Tactic** | Partial regularity (CKN) + conditional criteria (insufficient for Lock) |
 
 ---
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for **global regularity** of the 3D incompressible Navier-Stokes equations.
+This document presents a **machine-checkable audit trace** for the **3D Navier-Stokes global regularity problem**.
 
 **Approach:** We instantiate the parabolic hypostructure with the Navier-Stokes flow. The key insight is **permit-based dimensional analysis**: the CKN Theorem is a **Fixed Structural Fact** (not an estimate) that bounds singular set dimension to $\le 1$. This is a **Capacity Permit** ($K_{\mathrm{Cap}_H}^+$). Combined with tameness ($K_{\mathrm{TB}_O}^+$), any singularity must be a curve or point.
 
 Assume a singularity forms at $T_*$. This forces a **Canonical Profile** (Ancient Solution). We audit this profile against the **Liouville Permit**: Seregin-Šverák (2009) is a **Fixed Structural Fact** that *denies* the permit for non-trivial bounded ancient solutions. The singularity is **Excluded by Algebraic Rigidity**, not closed by estimates.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Dimensional Reduction (2D NS regularity) and Tactic E2 (Liouville invariant mismatch). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged; the proof is unconditional.
+**Result:** The sieve certifies standard partial results (energy inequality, Leray solutions, CKN partial regularity), but it does not certify a blocked Lock in ZFC. Verdict: **HORIZON**.
 
 ---
 
@@ -91,7 +91,7 @@ Assume a singularity forms at $T_*$. This forces a **Canonical Profile** (Ancien
 - Dynamics: $\partial_t u + (u \cdot \nabla)u = \nu\Delta u - \nabla p$, $\nabla \cdot u = 0$
 - Initial data: $u_0 \in H^s(\mathbb{R}^3)$ for $s \ge 3$, $\nabla \cdot u_0 = 0$
 
-**Claim:** There exists a unique smooth solution $u \in C^\infty(\mathbb{R}^3 \times [0,\infty))$ satisfying:
+**Claim (open):** There exists a unique smooth solution $u \in C^\infty(\mathbb{R}^3 \times [0,\infty))$ satisfying:
 1. $\|u(t)\|_{L^2} \le \|u_0\|_{L^2}$ (energy inequality)
 2. $u(x,t) \to u_0(x)$ as $t \to 0^+$
 3. No finite-time singularities
@@ -526,27 +526,20 @@ $K_{\text{Liouville}}^+ \Rightarrow \mathsf{obligation}(K_{\mathrm{LS}_\sigma}^{
 
 | Original | Upgraded To | Mechanism | Reference |
 |----------|-------------|-----------|-----------|
-| $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | $K_{\mathrm{LS}_\sigma}^+$ | A-posteriori via $K_{\text{Liouville}}^+$ | Node 17, Step 4 |
+| — | — | — | — |
 
 **Upgrade Chain:**
 
 **OBL-1:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness Gap)
 - **Original obligation:** Singularity exclusion to certify dissipation
-- **Missing certificate:** $K_{\text{Liouville}}^+$ (Liouville rigidity)
-- **Discharge mechanism:** A-posteriori upgrade (MT {prf:ref}`mt-up-inc-aposteriori`)
-- **New certificate constructed:** $K_{\text{Liouville}}^+ = (\text{Seregin-Šverák}, u \equiv 0)$
-- **Verification:**
-  - $K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_O}^+ \Rightarrow S = \text{curves} \cup \text{points}$
-  - Curves → 2D reduction → regular (Ladyzhenskaya)
-  - Points → ancient solutions → trivial (Seregin-Šverák)
-  - $\therefore S = \varnothing$
-- **Result:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_{\text{Liouville}}^+ \Rightarrow K_{\mathrm{LS}_\sigma}^+$ ✓
+- **Missing certificate:** ZFC-certified blow-up exclusion / Lock blocking
+- **Status:** Remains **HORIZON** (no known ZFC discharge for 3D global regularity)
 
 ---
 
 ## Part II-C: Breach/Surgery Protocol
 
-*No breaches occurred. The singular set is excluded via CKN Theorem (dimension constraint) and Liouville rigidity (ancient solution classification).*
+*No repair surgery is available: the remaining issue is global blow-up exclusion (Millennium problem), not a local breach that can be patched by the framework.*
 
 **Breach Log:** EMPTY
 
@@ -559,22 +552,10 @@ $K_{\text{Liouville}}^+ \Rightarrow \mathsf{obligation}(K_{\mathrm{LS}_\sigma}^{
 *   **Theorem (Caffarelli-Kohn-Nirenberg, 1982):** $\dim_H(S) \le 1$
 *   **Certificate:** $K_{\mathrm{Cap}_H}^+$
 
-### **2. Stratification (UP-Stratification)**
-*   **Input:** $K_{\mathrm{Cap}_H}^+ \wedge K_{\mathrm{TB}_O}^+$
-*   **Output:** $S$ consists of smooth curves and isolated points
-*   **Certificate:** $K_{\text{Stratified}}^+$
-
-### **3. Dimensional Reduction (UP-DimReduction)**
-*   **Input:** Curve component of $S$
-*   **Mechanism:** Tangent approximation → 2D NS
-*   **Fact:** 2D NS is globally regular
-*   **Certificate:** $K_{\text{2D-reg}}^+$
-
-### **4. Liouville Rigidity**
-*   **Input:** Point component of $S$
-*   **Mechanism:** Blow-up → ancient solution → Seregin-Šverák
-*   **Theorem:** Bounded ancient solutions with critical decay are trivial
-*   **Certificate:** $K_{\text{Liouville}}^+$
+### **2. Conditional Blow-up Exclusion (HORIZON)**
+*   **Input:** CKN partial regularity + conditional regularity criteria (e.g., Prodi–Serrin / BKM-type conditions)
+*   **Output:** A set of sufficient conditions under which $S=\varnothing$
+*   **Certificate:** $K_{\text{Liouville}}^{\mathrm{inc}}$ (insufficient for unconditional Lock blocking)
 
 ---
 
@@ -584,21 +565,21 @@ $K_{\text{Liouville}}^+ \Rightarrow \mathsf{obligation}(K_{\mathrm{LS}_\sigma}^{
 
 | ID | Node | Certificate | Obligation | Missing | Status |
 |----|------|-------------|------------|---------|--------|
-| OBL-1 | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Singularity exclusion for gap | $K_{\text{Liouville}}^+$ | **DISCHARGED** |
+| OBL-1 | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Exclude finite-time blow-up | ZFC-certified Lock blocking | **HORIZON** |
 
 ### Table 2: Discharge Events
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 4 | A-posteriori upgrade | $K_{\text{Liouville}}^+$ (via CKN + 2D + Seregin-Šverák) |
+| — | — | — | — |
 
 ### Table 3: Remaining Obligations
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
-| — | — | — |
+| OBL-1 | Exclude finite-time blow-up in 3D | Millennium problem; current certificates are partial/conditional |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+**Ledger Validation:** $\mathsf{Obl}(\Gamma) = \{\mathrm{OBL}\text{-}1\}$ (HORIZON)
 
 ---
 
@@ -607,48 +588,48 @@ $K_{\text{Liouville}}^+ \Rightarrow \mathsf{obligation}(K_{\mathrm{LS}_\sigma}^{
 ### Validity Checklist
 
 1. [x] All required nodes executed with explicit certificates (closed-system path: boundary subgraph not triggered)
-2. [x] All breached barriers resolved via Lock exclusion
-3. [x] All inc certificates discharged (OBL-1 discharged at Node 17)
-4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-5. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
-6. [x] Dimensional reduction validated (UP-DimReduction)
-7. [x] Liouville rigidity applied (Seregin-Šverák)
-8. [x] Result extraction completed
+2. [ ] All breached barriers resolved via Lock exclusion
+3. [ ] All inc certificates discharged
+4. [ ] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+5. [ ] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
+6. [x] Partial regularity recorded (CKN)
+7. [ ] Global blow-up exclusion certified
+8. [ ] Result extraction completed (global regularity not extracted)
 
 ### Certificate Accumulation Trace
 
 ```
 Node 1:  K_{D_E}^+ (energy bounded)
-Node 2:  K_{Rec_N}^- → resolved via Lock
-Node 3:  K_{C_μ}^+ (profiles = ancient solutions)
-Node 4:  K_{SC_λ}^{br} → resolved via Lock
+Node 2:  K_{Rec_N}^+ (Leray weak solutions)
+Node 3:  K_{C_μ}^+ (profile extraction)
+Node 4:  K_{SC_λ}^+ (supercritical scaling)
 Node 5:  K_{SC_∂c}^+ (ν stable)
 Node 6:  K_{Cap_H}^+ (CKN: dim ≤ 1)
-Node 7:  K_{LS_σ}^{inc} → K_{Liouville}^+ → K_{LS_σ}^+
+Node 7:  K_{LS_σ}^{inc} (blow-up exclusion not certified)
 Node 8:  K_{TB_π}^+ (solenoidal preserved)
 Node 9:  K_{TB_O}^+ (S stratified)
 Node 10: K_{TB_ρ}^+ (dissipative)
 Node 11: K_{Rep_K}^+ (finite modes)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{blk} (E2: 2D reduction + Liouville)
+Node 17: K_{Cat_Hom}^{morph} (bad-pattern not excluded)
 ```
 
-### Final Certificate Set
+### Audit Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{C_\mu}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Liouville}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ### Conclusion
 
-**GLOBAL REGULARITY CONFIRMED**
+**HORIZON DETECTED**
 
-The 3D incompressible Navier-Stokes equations have globally regular solutions for smooth initial data. The singular set is empty: $S = \varnothing$.
+3D Navier-Stokes global regularity remains open. This proof object records standard verified certificates (energy inequality, Leray solutions, CKN partial regularity) and the remaining blow-up exclusion obligation.
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-ns-regularity`
+::::{prf:proof} Audit trace for {prf:ref}`thm-ns-regularity` (HORIZON; not a completed proof)
 
 **Phase 1: Energy Bound**
 The kinetic energy satisfies $\frac{d}{dt}E = -\nu\|\nabla u\|^2 \le 0$, hence $E(t) \le E(0)$ for all $t \ge 0$.
@@ -662,23 +643,13 @@ $$S = S_1 \cup S_0$$
 where $S_1$ consists of smooth curves and $S_0$ consists of isolated points.
 
 **Phase 4: Exclude Curve Singularities**
-Suppose $\gamma \subset S_1$ is a smooth curve in spacetime. By tangent approximation, the blow-up profile along $\gamma$ is translationally invariant in the tangent direction. This reduces the local dynamics to **2D Navier-Stokes** (plus passive scalar).
-
-Via the Ladyzhenskaya Permit ($K_{\mathrm{Ladyz}}^+$, 1959), 2D NS is globally regular. Therefore, curve singularities are structurally unstable. We conclude $S_1 = \varnothing$.
+CKN bounds do not by themselves exclude curve-type singularities; dimensional reduction arguments are not certified as an unconditional exclusion mechanism in 3D. Record as part of OBL-1.
 
 **Phase 5: Exclude Point Singularities**
-Suppose $(x_0, T) \in S_0$ is an isolated singular point. Rescale:
-$$u_\lambda(x,t) = \lambda u(x_0 + \lambda x, T + \lambda^2 t)$$
-As $\lambda \to \infty$, we obtain an ancient solution $u_\infty$ on $\mathbb{R}^3 \times (-\infty, 0]$.
-
-We apply the Seregin-Šverák Liouville Permit ($K_{\text{Liouville}}^+$, 2009): any bounded ancient solution with critical decay $|u(x,t)| \le C|x|^{-1}$ must satisfy $u \equiv 0$.
-
-The proof uses backward uniqueness and Carleman estimates. Since the blow-up limit must be nontrivial (it comes from a singularity), we have a contradiction. Therefore $S_0 = \varnothing$.
+Liouville/ancient-solution rigidity results provide conditional regularity criteria, but they do not currently yield a general ZFC exclusion of point singularities for all smooth data. Record as part of OBL-1.
 
 **Phase 6: Conclusion**
-We have shown $S = S_1 \cup S_0 = \varnothing \cup \varnothing = \varnothing$.
-
-The solution is smooth on all of $\mathbb{R}^3 \times [0,\infty)$. $\square$
+We do not obtain $S=\varnothing$ unconditionally; the audit ends with OBL-1. Verdict: **HORIZON**. $\square$
 
 ::::
 
@@ -693,16 +664,16 @@ The solution is smooth on all of $\mathbb{R}^3 \times [0,\infty)$. $\square$
 | Scaling Analysis | Breached | Resolved via Lock |
 | Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
 | Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ (CKN) |
-| Stiffness Gap | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via Liouville) |
+| Stiffness Gap | Inconclusive | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ |
 | Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
 | Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
 | Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ |
 | Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Gradient Structure | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Liouville Rigidity | Positive | $K_{\text{Liouville}}^+$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | OBL-1 discharged | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
+| Liouville Rigidity | Inconclusive | $K_{\text{Liouville}}^{\mathrm{inc}}$ |
+| Lock | **MORPHISM** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ |
+| Obligation Ledger | NON-EMPTY | OBL-1 |
+| **Final Status** | **HORIZON** | — |
 
 ---
 
@@ -724,6 +695,6 @@ The solution is smooth on all of $\mathbb{R}^3 \times [0,\infty)$. $\square$
 | Problem Class | Millennium Problem (Clay) |
 | System Type | $T_{\text{parabolic}}$ |
 | Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
+| Inc Certificates | 1 introduced; HORIZON (OBL-1) |
+| Final Status | **HORIZON** |
 | Generated | 2025-12-18 |

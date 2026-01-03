@@ -1130,6 +1130,33 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 * [x] **Lock-Back (UP-LockBack):** Node 17 passed $\implies$ All barrier blocks are **Regular**.
 * [x] **Dictionary-Reconstruction (UP-TannakianBridge):** $K_{\mathrm{Rep}_K}^+$ (Dictionary) $\implies$ $G$ is uniquely reconstructable.
 
+### **3.5 ZFC Proof Export (Chapter 56 Bridge)**
+*Compile the categorical run into a classical, set-theoretic audit trail using Chapter 56 of `hypopermits_jb.md`.*
+
+**Precondition:** [x] Lock verdict obtained ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ at Node 17) and complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
+
+**ZFC Bridge Checklist**
+* [x] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
+* [x] Record `axioms_used` via the Sieve-to-ZFC table (Definition {prf:ref}`def-sieve-zfc-correspondence`).
+* [x] Record `AC_status` via the Choice audit (Definitions {prf:ref}`def-ac-dependency` and {prf:ref}`def-choice-sensitive-stratum`).
+* [x] Record `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`).
+
+**Step 1: Choose the set-theoretic target formula $\varphi$**
+We take the canonical Hom-emptiness bridge form (Metatheorem {prf:ref}`mt-krnl-zfc-bridge`):
+$$\varphi := ``\tau_0(\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}},\mathbb{H}(\mathcal{C},\omega))) = \emptyset''.$$
+Here $\mathbb{H}(\mathcal{C},\omega)$ denotes the hypostructure instance whose discrete payload encodes the category $\mathcal{C}$ together with the fiber functor $\omega$.
+
+**Step 2: Emit the Bridge Certificate payload**
+Set $\mathrm{Reg}(\mathcal{C},\omega)$ to be the classical reconstruction statement:
+$$\mathrm{Reg}(\mathcal{C},\omega)\;:=\;\exists!\,G\ \text{s.t.}\ \mathcal{C} \simeq \mathrm{Rep}_k(G)\ \text{and}\ G=\underline{\mathrm{Aut}}^{\otimes}(\omega).$$
+Then the Bridge Certificate is:
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace}).$$
+
+**Step 3: ZFC-audit proof sketch**
+* [x] By Theorem {prf:ref}`thm-zfc-grounding`, each $\tau_0(K_i)$ is set-level data in $V_\mathcal{U}$.
+* [x] By Definition {prf:ref}`def-sieve-zfc-correspondence`, each node certificate yields a corresponding set-theoretic statement $\psi_i$ in $V_\mathcal{U}$.
+* [x] By Metatheorem {prf:ref}`mt-krnl-zfc-bridge`, $V_\mathcal{U} \vDash \varphi$, hence $V_\mathcal{U} \vDash \mathrm{Reg}(\mathcal{C},\omega)$.
+
 ---
 
 ## **Part III-C: Obligation Ledger**

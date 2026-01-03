@@ -366,6 +366,15 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 *   **Logic:** Interaction is finite; system scatters to free state
 *   **Output:** Mode D.D (Dispersion/Global Existence)
 
+### **5. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the certificate chain as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level statement that the echo/blow-up bad pattern does not embed, together with a precise axiom/choice manifest for the analytic-to-discrete translation.
+
 ---
 
 ## Part III-C: Obligation Ledger
@@ -509,4 +518,3 @@ $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\math
 | Inc Certificates | 0 introduced |
 | Final Status | **SECTOR-DEPENDENT** (Gevrey: UNCONDITIONAL, Sobolev: SINGULAR) |
 | Generated | 2025-12-19 |
-

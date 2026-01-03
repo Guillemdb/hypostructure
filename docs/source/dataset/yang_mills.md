@@ -27,11 +27,11 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarante
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **Yang-Mills Mass Gap problem** using the Hypostructure framework.
+This document presents a **machine-checkable audit trace** for the **Yang-Mills Mass Gap problem** using the Hypostructure framework.
 
 **Approach:** We instantiate the quantum hypostructure with gauge connections on $\mathbb{R}^4$. The naive path integral fails (Node 1 breached—gauge orbit divergence), triggering **BRST Ghost Extension (Surgery S7, ACT-Ghost)**. Classical scale invariance is broken by **Dimensional Transmutation**, generating the mass scale $\Lambda_{\text{QCD}}$. The Lock is blocked via Tactic E2 (Trace Anomaly—Invariant Mismatch), Elitzur's Theorem, and Tactic E3 (Positivity), excluding massless excitations.
 
-**Result:** The Lock is blocked; existence and mass gap are certified. All inc certificates are discharged; the proof is unconditional.
+**Result:** The audit records standard structural ingredients (BRST formalism, renormalization, scale generation), but a ZFC-certified construction satisfying Osterwalder–Schrader axioms together with a non-perturbative mass gap remains open. The obligation ledger is non-empty; verdict: **HORIZON**.
 
 ---
 
@@ -48,6 +48,8 @@ This document presents a **machine-checkable proof object** for the **Yang-Mills
 **Claim:**
 1. **Existence:** A quantum Yang-Mills theory exists satisfying Osterwalder-Schrader axioms
 2. **Mass Gap:** The Hamiltonian $H$ has spectrum $\sigma(H) = \{0\} \cup [\Delta, \infty)$ with $\Delta > 0$
+
+**Audit note:** This claim is a Millennium Problem and remains unproven in ZFC; this proof object ends with a HORIZON verdict.
 
 **Notation:**
 | Symbol | Definition |
@@ -602,16 +604,16 @@ OUTPUT: Regularized $Z = \int e^{-S_{eff}}\mathcal{D}A\mathcal{D}c\mathcal{D}\ba
 
 ## Part III-A: Result Extraction
 
-### Existence
+### Existence (HORIZON)
 
-The BRST ghost extension (Surgery S7) renders the path integral well-defined:
+The BRST ghost extension (Surgery S7) provides a formal gauge-fixed framework:
 - Gauge orbit volume cancelled by ghost determinant
 - Physical Hilbert space: $\mathcal{H}_{phys} = H^0(Q_{BRST})$
-- Osterwalder-Schrader axioms satisfied
+- Osterwalder-Schrader axioms: not certified by this audit (OBL-YM-OS)
 
-### Mass Gap
+### Mass Gap (HORIZON)
 
-The mass gap emerges from confinement:
+Mass gap from confinement is the target conclusion, but it is not certified in ZFC here (OBL-YM-GAP).
 
 1. **Dimensional Transmutation:** $\Lambda_{\text{QCD}}$ sets the scale
 2. **Trace Anomaly:** $T^\mu_\mu \neq 0$ excludes conformal modes
@@ -634,23 +636,25 @@ The mass gap emerges from confinement:
 
 | ID | Node | Certificate | Obligation | Missing | Status |
 |----|------|-------------|------------|---------|--------|
-| OBL-1 | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Spectral gap | $K_{\text{Gap}}^+$ | **DISCHARGED** |
-| OBL-2 | 10 | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ | Exponential clustering | $K_{\text{Gap}}^+$ | **DISCHARGED** |
+| OBL-YM-OS | 1 | $K_{D_E}^{\mathrm{re}}$ | OS-axiom construction | Non-perturbative control | **HORIZON** |
+| OBL-YM-GAP | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Mass gap $\Delta>0$ | ZFC-certified spectral gap | **HORIZON** |
+| OBL-YM-CLUST | 10 | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ | Exponential clustering | Requires mass gap | **HORIZON** |
 
 ### Table 2: Discharge Events
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Node 17, Step 5 | Confinement chain | $K_{\text{Transmutation}}^+$, $K_{\text{Anomaly}}^+$, $K_{\text{Elitzur}}^+$ |
-| OBL-2 | Node 17, Step 6 | Mass gap → Clustering | $K_{\text{Gap}}^+$ (spectral theory) |
+| — | — | — | — |
 
 ### Table 3: Remaining Obligations
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
-| — | — | — |
+| OBL-YM-OS | OS-axiom construction | Millennium problem; non-perturbative control missing |
+| OBL-YM-GAP | Mass gap | Millennium problem; non-perturbative spectral gap missing |
+| OBL-YM-CLUST | Exponential clustering | Depends on mass gap |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+**Ledger Validation:** $\mathsf{Obl}(\Gamma) = \{\mathrm{OBL}\text{-}\mathrm{YM}\text{-}\mathrm{OS},\mathrm{OBL}\text{-}\mathrm{YM}\text{-}\mathrm{GAP},\mathrm{OBL}\text{-}\mathrm{YM}\text{-}\mathrm{CLUST}\}$ (HORIZON)
 
 ---
 
@@ -660,12 +664,12 @@ The mass gap emerges from confinement:
 
 1. [x] All required nodes executed with explicit certificates (closed-system path: boundary subgraph not triggered)
 2. [x] All breached barriers have re-entry certificates ($K^{\mathrm{re}}$)
-3. [x] All inc certificates discharged (Ledger EMPTY)
-4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-5. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
+3. [ ] All inc certificates discharged
+4. [ ] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+5. [ ] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 6. [x] BRST surgery completed (ACT-Ghost)
 7. [x] Dimensional transmutation established
-8. [x] Result extraction completed
+8. [ ] Result extraction completed (YM mass gap not extracted)
 
 ### Certificate Accumulation Trace
 
@@ -676,34 +680,34 @@ Node 3:  K_{C_μ}^+ (Uhlenbeck, instantons)
 Node 4:  K_{SC_λ}^{br} → K_{SC_λ}^{re}(Λ)
 Node 5:  K_{SC_∂c}^+ (transmutation)
 Node 6:  K_{Cap_H}^{blk} (Gribov)
-Node 7:  K_{LS_σ}^{inc} → K_{Gap}^+ → K_{LS_σ}^+
+Node 7:  K_{LS_σ}^{inc} (mass gap not certified)
 Node 7a: K_{LS_∂²V}^+ (IR instability)
 Node 7b: K_{Sym}^+ (gauge degeneracy)
 Node 7c: K_{Transmutation}^+
 Node 8:  K_{TB_π}^+ (θ-vacua)
 Node 9:  K_{TB_O}^+ (tame)
-Node 10: K_{TB_ρ}^{inc} → K_{Gap}^+ → K_{TB_ρ}^+ (clustering after mass gap)
+Node 10: K_{TB_ρ}^{inc} (clustering depends on mass gap)
 Node 11: K_{Rep_K}^+ (glueballs)
 Node 12: K_{GC_∇}^- (YM flow, monotonic)
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{blk} (E2+Elitzur+E3)
+Node 17: K_{Cat_Hom}^{morph} (bad-pattern not excluded)
 ```
 
-### Final Certificate Set
+### Audit Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{\mathrm{re}}, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^{\mathrm{re}}, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^{\mathrm{blk}}, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\text{BRST}}^+, K_{\text{Gap}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^{\mathrm{re}}, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^{\mathrm{re}}, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^{\mathrm{blk}}, K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^{\mathrm{inc}}, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ### Conclusion
 
-**GLOBAL REGULARITY CONFIRMED (Existence & Mass Gap)**
+**HORIZON DETECTED (Existence & Mass Gap)**
 
-Yang-Mills theory exists and has a mass gap $\Delta > 0$.
+The Yang–Mills existence + mass gap problem remains open in ZFC. This audit records the certificate trace and the remaining obligations (OBL-YM-OS, OBL-YM-GAP, OBL-YM-CLUST).
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-yang-mills`
+::::{prf:proof} Audit trace for {prf:ref}`thm-yang-mills` (HORIZON; not a completed proof)
 
 **Phase 1: Instantiation**
 Instantiate the quantum hypostructure with:
@@ -729,12 +733,10 @@ Apply Tactics E2+E3 and Elitzur:
 - **E2 (Trace Anomaly—Invariant Mismatch):** $T^\mu_\mu \neq 0$ excludes conformal massless modes
 - **Elitzur:** Local gauge SSB forbidden, no Goldstones
 - **E3 (Positivity—OS Axioms):** Cluster decomposition requires $\Delta > 0$
-- $\Rightarrow K_{\text{Gap}}^+$
+- $\Rightarrow$ Desired conclusion is a spectral gap, recorded as OBL-YM-GAP (not certified)
 
 **Phase 5: Conclusion**
-All obligations discharged. Yang-Mills exists with mass gap:
-- Existence: BRST construction
-- Mass Gap: $\sigma(H) = \{0\} \cup [\Delta, \infty)$ with $\Delta \sim \Lambda_{\text{QCD}}$ $\square$
+The audit does not discharge the Millennium obligations (OS axioms + mass gap). Verdict: **HORIZON**. $\square$
 
 ::::
 
@@ -750,16 +752,16 @@ All obligations discharged. Yang-Mills exists with mass gap:
 | Scale Invariance | Re-entered | $K_{\mathrm{SC}_\lambda}^{\mathrm{re}}$ (transmutation) |
 | Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ ($\Lambda$) |
 | Gribov Horizon | Blocked | $K_{\mathrm{Cap}_H}^{\mathrm{blk}}$ |
-| Spectral Gap | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Gap}}^+$) |
+| Spectral Gap | Inconclusive | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ |
 | Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ ($\theta$-vacua) |
 | Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Clustering | Positive | $K_{\mathrm{TB}_\rho}^+$ |
+| Clustering | Inconclusive | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ |
 | Spectrum | Positive | $K_{\mathrm{Rep}_K}^+$ (glueballs) |
 | Gradient Flow | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
 | Boundary | Closed | $K_{\mathrm{Bound}_\partial}^-$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
+| Lock | **MORPHISM** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ |
+| Obligation Ledger | NON-EMPTY | OBL-YM-OS, OBL-YM-GAP, OBL-YM-CLUST |
+| **Final Status** | **HORIZON** | — |
 
 ---
 
@@ -785,6 +787,6 @@ All obligations discharged. Yang-Mills exists with mass gap:
 | Problem Class | Millennium Problem (Clay) |
 | System Type | $T_{\text{quant}}$ |
 | Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
+| Inc Certificates | 3 introduced; HORIZON |
+| Final Status | **HORIZON** |
 | Generated | 2025-12-18 |

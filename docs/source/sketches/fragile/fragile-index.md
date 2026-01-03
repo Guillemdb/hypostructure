@@ -34,6 +34,26 @@ This tuple directly instantiates the core objects of the Hypostructure $\mathbb{
 | **Critic** | **Energy Functional ($\Phi$)** | **The Potential Field (Height):** Assigns a "height" (potential energy) to every point in $Z$, representing risk. | Defines the **Risk Gradient** $\nabla V$. |
 | **Policy** | **Dissipation ($\mathfrak{D}$)** | **The Actuator (Force):** Moves the agent particle through $Z$ against the potential gradient. | Applies **Force** to minimize Action. |
 
+### 2.2a The Trinity of Manifolds (Dimensional Alignment)
+
+To prevent category errors, we formally distinguish three manifolds with distinct geometric structures:
+
+| Manifold | Symbol | Coordinates | Metric Tensor | Role |
+|----------|--------|-------------|---------------|------|
+| **Physical/Data** | $\mathcal{X}$ | $x \in \mathbb{R}^D$ | $I$ (Euclidean) | Raw observations—the "hardware" |
+| **Latent/Problem** | $\mathcal{Z}$ | $z \in \mathbb{R}^d$ | $G(z)$ (Ruppeiner-Fisher) | Thermodynamic manifold—the "software" |
+| **Parameter/Model** | $\Theta$ | $\theta \in \mathbb{R}^P$ | $\mathcal{F}(\theta)$ (Fisher-Rao) | Configuration space—the "weights" |
+
+**Dimensional Verification:**
+
+- The encoder $E: \mathcal{X} \to \mathcal{Z}$ is a **contraction** (reduces dimension: $d \ll D$)
+- The policy $\pi_\theta: \mathcal{Z} \to \mathcal{A}$ lives in **parameter space** $\Theta$
+- The metric $G(z)$ is defined on **latent space** $\mathcal{Z}$, not on $\Theta$
+
+**Anti-Mixing Principle:** Never conflate $\mathcal{F}(\theta)$ (parameter-space Fisher) with $G(z)$ (state-space metric). They live on different manifolds and measure different quantities:
+- $\mathcal{F}(\theta)$: How the policy changes with weights (used by TRPO/PPO)
+- $G(z)$: How the policy changes with states (used by the Fragile Agent)
+
 ### 2.3 The Bridge: RL as Dissipation (Neural Lyapunov Geometry)
 
 Standard Reinforcement Learning maximizes the sum of rewards. Control Theory stabilizes a system by dissipating energy. We bridge these by defining the **Value Function $V(s)$** as a **Control Lyapunov Function (CLF)** (Chang et al., 2019).
@@ -118,6 +138,253 @@ Where:
 
 This fuses the Cybernetic and Thermodynamic perspectives: the agent's "temperature" determines its responsiveness to risk gradients.
 
+**The Grand Unified Metric on $\mathcal{Z}$:**
+
+We define the complete thermodynamic metric as the sum of two contributions:
+
+$$G_{ij}(z) = \underbrace{\frac{\partial^2 V(z)}{\partial z_i \partial z_j}}_{\text{Ruppeiner (Risk Curvature)}} + \lambda \underbrace{\mathbb{E}_{a \sim \pi} \left[ \frac{\partial \log \pi(a|z)}{\partial z_i} \frac{\partial \log \pi(a|z)}{\partial z_j} \right]}_{\text{Fisher (Control Authority)}}$$
+
+**Dimensional Verification:**
+
+- $V$ is a scalar potential (0-form) on $\mathcal{Z}$
+- $\nabla_z V$ is a 1-form (covector): $dV = (\partial_i V) dz^i$
+- $\text{Hess}_z(V) = \partial_i \partial_j V$ is a $(0,2)$-tensor
+- The Fisher term is the covariance of the score function $\nabla_z \log \pi$, also a $(0,2)$-tensor
+- Result: $G$ is a positive-definite $(0,2)$-tensor that defines the Riemannian structure on $\mathcal{Z}$
+
+**Physical Interpretation:**
+
+- **High $G_{ii}$** (large Hessian or Fisher): The agent is near a "cliff" (high curvature) or has high control authority in direction $i$
+- **Low $G_{ii}$**: The landscape is flat or the policy is insensitive to dimension $i$ (potential blind spot)
+
+### 2.6 The Metric Hierarchy: Fixing the Category Error
+
+A common mistake in geometric RL is conflating three distinct geometries:
+
+| Geometry | Manifold | Metric | Lives On | Used By |
+|----------|----------|--------|----------|---------|
+| **Euclidean** | Parameter Space $\Theta$ | $\|\cdot\|_2$ (flat) | Neural network weights | Adam, SGD |
+| **Fisher-Rao** | Policy Space $\mathcal{P}$ | $F_{\theta\theta} = \mathbb{E}[(\nabla_\theta \log \pi)^2]$ | Policy parameters | TRPO, PPO |
+| **Ruppeiner** | State Space $Z$ | $G_{zz} = \mathbb{E}[(\nabla_z \log \pi)^2] + \text{Hess}_z(V)$ | Latent states | **Fragile Agent** |
+
+**The Category Error:** Using Adam's $v_t$ (which approximates $F_{\theta\theta}$ in Parameter Space) as if it were $G_{zz}$ (State Space) mixes two different manifolds. This breaks coordinate invariance.
+
+**The State-Space Fisher Information:**
+
+$$G_{ij}(z) = \mathbb{E}_{a \sim \pi} \left[ \frac{\partial \log \pi(a|z)}{\partial z_i} \frac{\partial \log \pi(a|z)}{\partial z_j} \right]$$
+
+This measures the **Information Bottleneck** between the Shutter (VAE) and the Actuator (Policy):
+- High $G_{ii}$: The policy is sensitive to state dimension $i$ → high control authority
+- Low $G_{ii}$: The policy ignores dimension $i$ → potential blind spot
+
+**Why This Matters:**
+- **Coordinate Invariance:** The agent's behavior is invariant to how you encode $z$
+- **Geodesic Motion:** The agent moves along paths of least action in curved information space
+- **Causal Enclosure:** The metric prevents "infinite-energy" jumps in regions where the World Model is topologically thin
+
+The Covariant Regulator uses the **State-Space Fisher Information** to scale the Lie Derivative. While standard RL uses Fisher in **Parameter Space** (TRPO/PPO), the Fragile Agent uses Fisher in **State Space** to stabilize **Causal Induction**.
+
+### 2.7 The HJB Correspondence (Rewards as Energy Flux)
+
+We replace the heuristic Bellman equation with the rigorous **Hamilton-Jacobi-Bellman (HJB) Equation**:
+
+$$\underbrace{\mathcal{L}_f V}_{\text{Lie Derivative}} + \underbrace{\mathfrak{D}(z, a)}_{\text{Control Effort}} = \underbrace{-\mathcal{R}(z, a)}_{\text{Environmental Flux}}$$
+
+**Critical Distinction:** The Lie derivative is **metric-independent**:
+
+$$\mathcal{L}_f V = dV(f) = \partial_i V \cdot f^i = \nabla V \cdot f$$
+
+This is the natural pairing between the 1-form $dV$ and the vector field $f$—NO metric $G$ appears.
+
+**Dimensional Verification:**
+
+$$[\nabla V \cdot f] = \frac{[V]}{[z]} \cdot \frac{[z]}{[t]} = \frac{\text{Energy}}{\text{Time}} = \text{Power} \checkmark$$
+
+All terms in the HJB equation have units of **Power**. Rewards are not "points"—they are **energy flux**.
+
+**Where the Metric $G$ Appears (and Where It Does NOT):**
+
+| Operation | Formula | Uses Metric? |
+|-----------|---------|--------------|
+| **Lie Derivative** | $\mathcal{L}_f V = dV(f) = \nabla V \cdot f$ | NO |
+| **Natural Gradient** | $\delta z = G^{-1} \nabla_z \mathcal{L}$ | YES (index raising) |
+| **Geodesic Distance** | $d_G(z_1, z_2)^2 = (z_1-z_2)^T G (z_1-z_2)$ | YES |
+| **Trust Region** | $\|\delta \pi\|_G^2 \leq \epsilon$ | YES |
+| **Gradient Norm** | $\|\nabla V\|_G^2 = G^{ij} (\partial_i V)(\partial_j V)$ | YES |
+
+**Anti-Mixing Rule #2:** The Lie derivative $\mathcal{L}_f V = dV(f)$ is a pairing, not an inner product $\langle \cdot, \cdot \rangle_G$.
+
+**Physical Interpretation:**
+
+- The agent minimizes a **thermodynamic potential** $V$ (not maximizes reward)
+- Rewards are **negative potential flux**: high reward regions have low $V$
+- The control effort $\mathfrak{D}(z,a)$ represents dissipation (action cost)
+- At optimality: $\mathcal{L}_f V = \mathcal{R}(z,a) - \mathfrak{D}(z,a)$ (energy balance)
+
+### 2.8 Causal Enclosure (The RG Projection)
+
+The transition from micro to macro is a **projection operator** $\Pi: \mathcal{Z} \to \mathcal{Z}_{\text{macro}}$.
+
+**Closure Defect:**
+
+$$\delta = \left\| \Pi \circ S_t(z) - \bar{S}_t(\Pi(z)) \right\|_G^2$$
+
+Where:
+- $S_t$ is the micro-physics (World Model)
+- $\bar{S}_t$ is the learned macro-physics (Effective Theory)
+- The error is measured using the metric $G$, so dangerous regions are penalized more heavily
+
+**Computational Meaning:** The macro-dynamics should be a homomorphism of the micro-dynamics. If $\delta > 0$, the agent's "effective theory" is leaking information.
+
+### 2.9 Regularity Conditions
+
+The formalism requires explicit assumptions:
+
+1. **Smoothness:** $V \in C^2(\mathcal{Z})$ — the Hessian exists and is continuous
+2. **Positive Definiteness:** $G(z) \succ 0$ for all $z \in \mathcal{Z}$ — the metric is non-degenerate
+3. **Lipschitz Dynamics:** $\|f(z_1, a) - f(z_2, a)\| \leq L\|z_1 - z_2\|$ — no discontinuities
+4. **Bounded State Space:** $\mathcal{Z}$ is compact, or $V$ has appropriate growth at infinity
+
+**Diagonal Metric Approximation (Computational):**
+
+> We approximate $G \approx \text{diag}(G_{11}, G_{22}, \ldots, G_{nn})$. This is valid when:
+> - State dimensions are statistically independent under the policy
+> - Cross-correlations $\text{Cov}(\partial \log \pi / \partial z_i, \partial \log \pi / \partial z_j)$ are small for $i \neq j$
+>
+> The approximation error is bounded by the spectral norm of the off-diagonal part of $G$.
+
+### 2.10 Anti-Mixing Rules (Formal Prohibitions)
+
+To maintain mathematical rigor, we strictly forbid the following operations:
+
+| Rule | Prohibition | Reason |
+|------|-------------|--------|
+| **#1** | NO Parameter Fisher in State Space | $\mathcal{F}(\theta) \neq G(z)$; they live on different manifolds |
+| **#2** | NO Metric in Lie Derivative | $\mathcal{L}_f V = dV(f)$ is metric-independent |
+| **#3** | NO Euclidean Time | Time measured in action units: $\int dt \sqrt{\dot{z}^T G \dot{z}}$ |
+| **#4** | NO Unnormalized Optimization | Gradients pre-multiplied by $G^{-1}$ for natural gradient descent |
+
+**Consequence of Violation:** Mixing manifolds breaks coordinate invariance. The agent's behavior will depend on the arbitrary choice of coordinates for $z$, leading to inconsistent generalization.
+
+### 2.11 Thermodynamic Coupling and Information Conservation
+
+To establish a rigorous mapping between the Information Topology and the Variational Potential, we define the relationship between the Energy Functional $\Phi$ and the Shannon Entropy $S$ via a coordinate-dependent coupling constant.
+
+#### 2.11.1 The Epistemic Temperature and β-Coupling
+
+**Definition 2.11.1 (Information Temperature).** Let $(\mathcal{Z}, G)$ be the Riemannian Latent Manifold. The **Epistemic Temperature** $\Theta: \mathcal{Z} \to \mathbb{R}^+$ is defined as the local trace of the inverse Metric Tensor:
+
+$$\Theta(z) := \frac{1}{d} \operatorname{Tr}\left( G^{-1}(z) \right)$$
+
+where $d = \dim(\mathcal{Z})$. The **Inverse Temperature** (Coupling Constant) is $\beta(z) = [\Theta(z)]^{-1}$.
+
+**Lemma 2.11.2 (Fluctuation-Dissipation Correspondence).** The variance of the Actuator $\pi(a|z)$ is dually coupled to the curvature of the Potential $V(z)$. In the limit of optimal regulation, the local stochasticity $\Sigma_\pi$ of the policy must satisfy the Einstein relation on the manifold:
+
+$$\Sigma_\pi(z) \propto \beta(z)^{-1} \cdot G^{-1}(z)$$
+
+*Proof.* This follows from the requirement that the agent's equilibrium distribution $p(z)$ must satisfy the Boltzmann-Gibbs form $p(z) \propto \exp(-\beta V(z))$ under the Ruppeiner metric. Any deviation from this identity induces a non-zero **Thermodynamic Defect** $\mathcal{D}_{\beta} = \|\nabla \log p + \beta \nabla V\|_G^2$, signaling a breach of the Causal Enclosure.
+
+**Theorem 2.11.3 (The β-Identity).** The total Free Energy $\mathcal{F}$ of the agent is the integral of the action along the manifold, where $\beta$ acts as the Lagrange multiplier enforcing the **Information-Work Constraint**:
+
+$$\mathcal{F} = \int_{\mathcal{Z}} \left( \beta(z) V(z) - S(\pi_z) \right) \sqrt{|G|} \, dz$$
+
+This identity ensures that "Work" (Reward pursuit) and "Entropy" (Policy variance) are dimensionally aligned in units of **Nats**.
+
+#### 2.11.2 The Continuity Equation and Belief Conservation
+
+To prevent the generation of **Unphysical Information** (hallucination), the evolution of the agent's belief state must obey a local conservation law on the manifold.
+
+**Definition 2.11.4 (Information Density).** Let $\rho(z, t)$ be a $\sigma$-finite Borel measure on $\mathcal{Z}$, representing the **Information Density** (the probability mass of the agent's current belief).
+
+**Definition 2.11.5 (Covariant Drift).** The **Drift Vector Field** $v \in \Gamma(T\mathcal{Z})$ is defined as the covariant policy update:
+
+$$v^i(z) := G^{ij}(z) \frac{\partial V}{\partial z^j}$$
+
+**Theorem 2.11.6 (The Law of Information Continuity).** In a closed Causal Enclosure, the evolution of the Information Density $\rho$ is governed by the **Continuity Equation**:
+
+$$\frac{\partial \rho}{\partial t} + \nabla_i \left( \rho v^i \right) = 0$$
+
+where $\nabla_i$ denotes the Levi-Civita covariant derivative associated with $G$.
+
+**Corollary 2.11.7 (Hallucination as a Source Anomaly).** Let $\sigma(z, t)$ be the **Hallucination Density**. The modified continuity equation is:
+
+$$\frac{\partial \rho}{\partial t} + \operatorname{div}_G(\rho v) = \sigma$$
+
+1. If $\sigma > 0$, the agent is creating "ghost" information (hallucinating) without a corresponding observation flux.
+2. If $\sigma < 0$, the agent is undergoing **Pathological Dissipation** (catastrophic forgetting).
+3. **The Sieve Requirement:** For a model to pass **Node 1 (Energy)**, the integral of the source term $\sigma$ over any closed cycle in $\mathcal{Z}$ must vanish: $\oint_{\gamma} \sigma = 0$.
+
+**Theorem 2.11.8 (Invariance of the Causal Enclosure).** Under the flow of the vector field $v$, the **Total Epistemic Volume** $\mathcal{V} = \int_{\mathcal{Z}} \rho \sqrt{|G|} \, dz$ is an invariant of the system.
+
+*Proof.* Applying the Divergence Theorem on the Riemannian manifold:
+
+$$\frac{d\mathcal{V}}{dt} = \int_{\mathcal{Z}} \frac{\partial \rho}{\partial t} d\mu_G = -\int_{\mathcal{Z}} \operatorname{div}_G(\rho v) d\mu_G = -\int_{\partial \mathcal{Z}} \langle \rho v, n \rangle dA = 0$$
+
+assuming the boundary flux is zero (Axiom Bound for closed systems). This proves that a rigorous agent cannot "invent" new logic states internally; it can only redistribute belief mass along the geodesics of the manifold.
+
+#### 2.11.3 Geometric Summary of Internal Consistency
+
+The dimensional and conceptual alignment is now fixed:
+
+| Symbol | Object | Role |
+|--------|--------|------|
+| $V$ (Potential) | Scalar Field | The Landscape of Risk |
+| $G$ (Metric) | $(0,2)$-Tensor Field | The Epistemic Resistance |
+| $\beta$ (Coupling) | Scalar | The Information-Energy Conversion Rate |
+| $\rho$ (Density) | Measure | The Conserved Mass of Belief |
+
+Any violation of the **Continuity Equation (2.11.6)** or the **β-Identity (2.11.3)** constitutes a first-principles rejection of the agent's reasoning trace.
+
+#### 2.11.4 The Open Boundary and Sensory Flux
+
+In the general case, the manifold $(\mathcal{Z}, G)$ is a compact Riemannian manifold with boundary $\partial \mathcal{Z}$. The Boundary Interface represents the **Sensorium**—the site of interaction between the Causal Enclosure and the External Environment $\mathcal{X}$.
+
+**Definition 2.11.9 (Observation Flux).** Let $j \in \Omega^{d-1}(\partial \mathcal{Z})$ be the **Observation Flux Form**. This form represents the rate of information ingestion from the environment.
+
+**Theorem 2.11.10 (Generalized Conservation of Belief).** The evolution of the Information Density $\rho$ satisfies the **Global Balance Equation**:
+
+$$\int_{\mathcal{Z}} \frac{\partial \rho}{\partial t} d\mu_G + \int_{\partial \mathcal{Z}} \iota^*(\rho v \cdot n) dA = \int_{\mathcal{Z}} \sigma d\mu_G$$
+
+where $\iota^*: \mathcal{Z} \to \partial \mathcal{Z}$ is the trace operator (restriction to the boundary).
+
+**The Architectural Sieve Condition (Node 13: BoundaryCheck):** For an agent to be considered **Non-Hallucinatory**, the internal source term $\sigma$ must vanish identically on $\operatorname{int}(\mathcal{Z})$. Consequently, the total change in internal belief volume $\mathcal{V}$ must equal the net flux across the sensorium:
+
+$$\frac{d\mathcal{V}}{dt} = -\oint_{\partial \mathcal{Z}} \Phi_{\text{sensory}} \cdot d\mathbf{A}$$
+
+where $\Phi_{\text{sensory}}$ is the information-theoretic current directed into the manifold.
+
+**Distinction: Learning vs. Hallucination**
+
+1.  **Valid Learning (External Source):** The belief mass increases ($\dot{\mathcal{V}} > 0$) because the surface integral over $\partial \mathcal{Z}$ is non-zero. The environment has provided a "Packet of Work" (Observation) that justifies the creation of new logic states.
+2.  **Hallucination (Internal Source):** The belief mass increases ($\dot{\mathcal{V}} > 0$) while the boundary flux is zero (or insufficient). This implies $\sigma > 0$ at some internal point $z \in \operatorname{int}(\mathcal{Z})$, violating the **Principle of Causal Enclosure**.
+
+**Corollary 2.11.11 (The Sieve's Boundary Filter).** Sieve Nodes 13-16 (Boundary/Overload/Starve/Align) evaluate the **Trace Morphism** $\operatorname{Tr}: H^1(\mathcal{Z}) \to H^{1/2}(\partial \mathcal{Z})$:
+
+*   **Mode B.E (Injection):** Occurs when the boundary flux $\Phi_{\text{sensory}}$ exceeds the **Levin Capacity** of the manifold, forcing a singularity at the boundary.
+*   **Mode B.D (Starvation):** Occurs when the boundary becomes an **Absorbing Barrier**, causing the total internal information volume to dissipate into the environment (catastrophic forgetting).
+
+#### 2.11.5 The HJB-Boundary Coupling
+
+To maintain the stability of the regulator, the potential $V$ must satisfy specific **Neumann-type boundary conditions** dictated by the environment:
+
+$$\langle \nabla_G V, n \rangle \big|_{\partial \mathcal{Z}} = \gamma(x_t)$$
+
+where $\gamma$ is the **Instantaneous Risk** of the external state $x_t$.
+
+**Interpretation:** This ensures that the agent's internal potential landscape is "clamped" to external reality at the boundary. If the internal potential $V$ at the boundary does not match the external reward/risk flux, the agent enters **Mode B.C (Control Deficit)**—it has an internal model that is perfectly consistent but entirely decoupled from the world it inhabits.
+
+#### 2.11.6 Summary: The Open System Trinity
+
+The Trinity of Manifolds is extended to the **Boundary Operator**:
+
+| Aspect | Governs | Formalism |
+|--------|---------|-----------|
+| **Internal Geometry** | How the agent "reasons" | Geodesics on $(\mathcal{Z}, G)$ |
+| **Internal Temperature ($\beta$)** | The precision of those reasons | Fluctuation-Dissipation via $\Theta(z)$ |
+| **Boundary Flux ($\Phi_{\partial}$)** | The validity of the reasons | Causality via $\partial \mathcal{Z}$ |
+
+**The Final Audit Metric:** An agent is "Sound" if and only if its reasoning trace $\tau$ is a **closed form** under the differential operator $d + \operatorname{div}_G$. Any "leaked" information that cannot be traced back to the boundary $\partial \mathcal{Z}$ is mathematically discarded as **Ungrounded**.
+
 ---
 
 ## 3. Physiology: Interfaces (The Vital Signs)
@@ -153,6 +420,17 @@ The "Health" of the Agent is monitored via 21 distinct interfaces (Gate Nodes). 
 **Compute Legend:** ✓ Easy (<10% overhead) | ⚡ Medium (10-50% overhead) | ✗ Hard (>50% overhead or infeasible)
 **Variables:** $B$ = batch, $Z$ = latent dim, $A$ = actions, $P$ = params, $H$ = horizon, $D$ = observation dim
 
+**Geometric Properties of Key Nodes:**
+
+| Node | Space | Formal Property | Verification Criterion |
+|------|-------|-----------------|------------------------|
+| **1 (Energy)** | $V \in \mathcal{F}(\mathcal{Z})$ | Sublevel Set Compactness | Is $\{z \mid V(z) \leq c\}$ compact? |
+| **7 (Stiffness)** | $G \in T^*_2(\mathcal{Z})$ | Spectral Gap | Is $\lambda_{\min}(G) > \epsilon$? (No flat directions) |
+| **9 (Tameness)** | $f: \mathcal{Z} \to T\mathcal{Z}$ | Lipschitz Continuity | Is $\|\nabla_z f\|_G < K$? (No chaos) |
+| **17 (Lock)** | $H_n(\mathcal{Z})$ | Homological Obstruction | Does the "bad pattern" induce a non-trivial cycle? |
+
+Each node corresponds to a verifiable geometric property. The Sieve acts as a **topological filter**: problems that fail these checks are rejected before gradient updates can corrupt the agent.
+
 ### 3.1 Theory: Thin Interfaces
 
 In the Hypostructure framework, **Thin Interfaces** are defined as minimal couplings between components. Instead of monolithic end-to-end training, we enforce structural "contracts" (the Gate Nodes) via **Defect Functionals** ($\mathcal{L}_{\text{check}}$).
@@ -162,9 +440,13 @@ In the Hypostructure framework, **Thin Interfaces** are defined as minimal coupl
 
 ### 3.2 Scaling Exponents: Characterizing the Demon
 
-We characterize the behavior of the Minimum Viable Agent (MVA) using four **Scaling Exponents** (Temperatures). These are *diagnostic* summaries of training dynamics. In earlier drafts this was tied to Adam's second-moment ($\hat{v}_t$), but in `hypo_ppo.py` the **geometry is state-space** and uses **policy Fisher / observation variance / gradient RMS** instead of Adam statistics.
+We characterize the behavior of the Minimum Viable Agent (MVA) using four **Scaling Exponents** (Temperatures). These are *diagnostic* summaries of training dynamics computed from **State-Space quantities**, not optimizer statistics.
 
-If you want a state-space-aligned proxy, replace $\hat{v}_t$ with a diagonal state metric (e.g., Fisher on states or observation variance).
+The geometric metric $G$ is the **State-Space Fisher Information** (see Section 2.6), ensuring coordinate invariance. Available metrics in `hypostructure_regulator.py`:
+- `policy_fisher`: $G_{ii} = \mathbb{E}[(\partial \log \pi / \partial z_i)^2]$
+- `state_fisher`: $G_{ii} = \mathbb{E}[(\partial \log \pi / \partial z_i)^2] + \text{Hess}_z(V)_{ii}$ (full Ruppeiner)
+- `grad_rms`: $G_{ii} = \mathbb{E}[(\partial V / \partial z_i)^2]^{1/2}$
+- `obs_var`: $G_{ii} = \text{Var}(z_i)$
 
 | Component | Exponent | Symbol | Physical Meaning | Diagnostics |
 | :--- | :--- | :--- | :--- | :--- |
@@ -583,12 +865,15 @@ $$
 \mathcal{L}_{\text{MVA}}^{\text{std}} = \mathcal{L}_{\text{MVA}}^{\text{min}} + \lambda_{\text{scale}} \max(0, \beta - \alpha) + \lambda_{\text{sync}} \Vert z_{\text{enc}} - \text{sg}(S(z,a)) \Vert^2 + \lambda_{\text{osc}} \Vert z_t - z_{t-2} \Vert
 $$
 
-**Additional Implementation:**
+**Additional Implementation (Diagnostics Only):**
 ```python
 class ScalingExponentTracker:
     """
-    Track α (height) and β (dissipation) scaling exponents.
-    Uses Adam's exp_avg_sq for efficient β estimation (from hypoppo_v4).
+    Track α (height) and β (dissipation) scaling exponents for DIAGNOSTICS.
+
+    NOTE: This tracks PARAMETER-SPACE statistics for monitoring training health.
+    It is NOT used as a geometric metric—the actual Riemannian metric G is
+    computed via compute_state_space_fisher() in STATE SPACE. See Section 2.6.
     """
     def __init__(self, ema_decay: float = 0.99):
         self.alpha_ema = 2.0  # Default quadratic
@@ -597,21 +882,13 @@ class ScalingExponentTracker:
         self.log_losses = []
         self.log_param_norms = []
 
-    def update(self, loss: float, optimizer: torch.optim.Adam, model: nn.Module):
+    def update(self, loss: float, model: nn.Module, grad_norm: float = None):
         # α estimation: log-linear regression of loss vs param norm
         param_norm = sum(p.pow(2).sum() for p in model.parameters()).sqrt().item()
 
         if loss > 0 and param_norm > 0:
             self.log_losses.append(np.log(loss))
             self.log_param_norms.append(np.log(param_norm))
-
-        # β estimation: use Adam's v (exp_avg_sq) for smoothed ||∇||²
-        v_total = sum(
-            state.get('exp_avg_sq', torch.zeros(1)).sum().item()
-            for group in optimizer.param_groups
-            for p in group['params']
-            if (state := optimizer.state.get(p))
-        )
 
         if len(self.log_losses) >= 20:
             # Fit α via least squares
@@ -620,8 +897,8 @@ class ScalingExponentTracker:
             alpha_raw = np.polyfit(x - x.mean(), y - y.mean(), 1)[0]
             self.alpha_ema = self.ema_decay * self.alpha_ema + (1 - self.ema_decay) * alpha_raw
 
-            # β from gradient scaling
-            if v_total > 0:
+            # β from gradient scaling (if provided)
+            if grad_norm is not None and grad_norm > 0:
                 beta_raw = 2.0  # Approximate, could refine
                 self.beta_ema = self.ema_decay * self.beta_ema + (1 - self.ema_decay) * beta_raw
 
@@ -666,18 +943,17 @@ See Section 8 for efficient implementations of the expensive terms.
 
 This tier implements the full **Riemannian / Thermodynamic** framework, replacing Euclidean losses with their covariant equivalents. This approach is inspired by the Natural Gradient methods (Amari, 1998; Martens, 2020 - K-FAC) and Safe RL literature (Chow et al., 2018; Kolter et al., 2019).
 
-**Key Insight (Adam-Ruppeiner Equivalence):** The Adam optimizer's second moment ($v_t$) is mathematically an approximation of the diagonal of the Hessian (Fisher Information Matrix). We can reinterpret this as a **Metric Tensor** rather than just a learning rate scaler (Kingma & Ba, 2015).
+**Key Insight (State-Space Fisher):** The Covariant Regulator uses the **State-Space Fisher Information** to scale the Lie Derivative. This measures how sensitively the policy responds to changes in the latent state $z$—NOT how the parameters $\theta$ affect the policy (which is what TRPO/PPO use). See Section 2.6 for the critical distinction between these geometries.
 
 **A. compute_natural_gradient_loss(): Covariant Dissipation**
 
 ```python
 def compute_natural_gradient_loss(
-    policy_action: torch.Tensor,    # a_t from Policy(s_t)
-    world_model: nn.Module,         # Dynamics function f(s, a)
-    critic: nn.Module,              # Value function V(s)
-    state: torch.Tensor,            # s_t
-    optimizer_stats: dict,          # Adam 'exp_avg_sq' from Critic optimizer
-    epsilon: float = 1e-8
+    regulator: HypostructureRegulator,  # Agent with policy and critic
+    state: torch.Tensor,                # z_t (latent state)
+    policy_action: torch.Tensor,        # a_t from Policy(z_t)
+    next_state: torch.Tensor,           # z_{t+1}
+    epsilon: float = 1e-6
 ) -> torch.Tensor:
     """
     Computes the Covariant Dissipation Loss connecting Policy and Value.
@@ -691,33 +967,25 @@ def compute_natural_gradient_loss(
     The key difference: Riemannian loss scales the gradient by the inverse
     curvature. Near cliffs (high G), steps shrink. In valleys (low G), steps grow.
 
-    Related Work:
-    - Amari (1998): Natural Gradient
-    - Martens (2020): K-FAC for deep learning
-    - Schulman et al. (2015): TRPO (trust region as implicit curvature)
+    CRITICAL: The metric G is the STATE-SPACE Fisher (∂log π/∂z), NOT the
+    parameter-space Fisher (∂log π/∂θ). See Section 2.6 for the distinction.
     """
+    # 1. Compute State-Space Fisher Metric G (Diagonal Approximation)
+    # G_ii = E[(∂log π/∂z_i)²] — measures control authority at each state dim
+    fisher_diag = compute_state_space_fisher(regulator, state, include_value_hessian=False)
+    metric_inv = 1.0 / (fisher_diag + epsilon)  # G^{-1}
 
-    # 1. Get the Ruppeiner Metric G (Diagonal Approximation)
-    # We use the Critic's parameter variance to estimate the "temperature"
-    # If the Critic is uncertain/volatile about a dimension, G is high
-    with torch.no_grad():
-        v_t = optimizer_stats.get('exp_avg_sq', torch.ones_like(state))
-        metric_inv = 1.0 / (torch.sqrt(v_t) + epsilon)  # G^{-1}
-
-    # 2. Compute the Value Gradient (nabla_s V)
-    state.requires_grad_(True)
-    value_est = critic(state)
+    # 2. Compute the Value Gradient (nabla_z V)
+    state_grad = state.detach().clone().requires_grad_(True)
+    value_est = regulator.critic(state_grad)
     grad_v = torch.autograd.grad(
         outputs=value_est.sum(),
-        inputs=state,
+        inputs=state_grad,
         create_graph=True,
-        retain_graph=True
     )[0]  # [Batch, Latent_Dim]
 
-    # 3. Compute Dynamics (s_dot)
-    # RIEMANNIAN: We need the actual dynamics, not just the action probability
-    next_state_pred = world_model(state, policy_action)
-    state_velocity = next_state_pred - state  # [Batch, Latent_Dim]
+    # 3. Compute State Velocity (z_dot)
+    state_velocity = next_state - state  # [Batch, Latent_Dim]
 
     # 4. Compute the Natural Inner Product (Covariant Derivative)
     # EUCLIDEAN would be: (grad_v * state_velocity).sum()
@@ -732,13 +1000,12 @@ def compute_natural_gradient_loss(
 
 ```python
 def compute_control_theory_loss(
-    policy_action: torch.Tensor,    # a_t
-    world_model_pred: torch.Tensor, # s_{t+1} - s_t (dynamics)
-    critic_values: torch.Tensor,    # V(s)
-    states: torch.Tensor,           # s_t
-    optimizer_stats: dict,          # Adam 'exp_avg_sq' (v_t)
+    regulator: HypostructureRegulator,  # Agent with policy and critic
+    states: torch.Tensor,               # z_t (latent state)
+    next_states: torch.Tensor,          # z_{t+1}
     lambda_lyapunov: float = 1.0,
-    target_decay: float = 0.1,      # alpha in Lyapunov constraint
+    target_decay: float = 0.1,          # alpha in Lyapunov constraint
+    metric_mode: str = "state_fisher",  # Full Ruppeiner metric
 ) -> torch.Tensor:
     """
     Implements Neural Lyapunov Control with Ruppeiner Geometry.
@@ -747,34 +1014,35 @@ def compute_control_theory_loss(
     1. COVARIANT DISSIPATION: Policy loss scaled by geometry
     2. LYAPUNOV STABILITY: Critic must enforce V_dot <= -alpha * V
 
-    Related Work:
-    - Chang et al. (2019): Neural Lyapunov Control
-    - Chow et al. (2018): Lyapunov-based Safe RL
-    - Kolter et al. (2019): Differentiable Lyapunov verification
+    CRITICAL: The metric G is computed in STATE SPACE (∂log π/∂z), not
+    parameter space. This ensures coordinate invariance. See Section 2.6.
     """
-
-    # 1. Estimate Ruppeiner Metric G from Adam stats (Physicist Approximation)
-    with torch.no_grad():
-        v_t = optimizer_stats.get('critic_params', torch.ones_like(states))
-        g_metric = torch.sqrt(v_t).mean(dim=0) + 1e-6  # Shape [Latent_Dim]
+    # 1. Compute State-Space Metric G (full Ruppeiner with value Hessian)
+    if metric_mode == "state_fisher":
+        g_metric = compute_state_space_fisher(regulator, states, include_value_hessian=True)
+    else:
+        g_metric = compute_state_space_fisher(regulator, states, include_value_hessian=False)
+    metric_inv = 1.0 / (g_metric + 1e-6)
 
     # 2. Compute Time-Derivative of Value (V_dot)
+    states_grad = states.detach().clone().requires_grad_(True)
+    critic_values = regulator.critic(states_grad)
     grad_v = torch.autograd.grad(
-        critic_values.sum(), states, create_graph=True
+        critic_values.sum(), states_grad, create_graph=True
     )[0]
 
     # 3. Covariant Dissipation (Policy Loss)
     # EUCLIDEAN: dissipation = (grad_v * dynamics).sum()
     # RIEMANNIAN: scale by inverse metric
-    dynamics = world_model_pred
-    dissipation = (grad_v * dynamics) / g_metric.unsqueeze(0)
-    loss_policy = -dissipation.sum(dim=-1).mean()
+    dynamics = next_states - states
+    dissipation = (grad_v * dynamics * metric_inv).sum(dim=-1)
+    loss_policy = -dissipation.mean()
 
     # 4. Lyapunov Constraint (Critic Loss)
     # Ensure V_dot <= -alpha * V (Exponential Stability)
     # Penalize violations: ReLU(V_dot + alpha * V)^2
     v_dot = (grad_v * dynamics).sum(dim=-1)
-    violation = torch.relu(v_dot + target_decay * critic_values)
+    violation = torch.relu(v_dot + target_decay * critic_values.squeeze())
     loss_critic_lyapunov = violation.pow(2).mean()
 
     return loss_policy + lambda_lyapunov * loss_critic_lyapunov
@@ -789,14 +1057,15 @@ class PhysicistLearner:
 
     Three-phase update:
     1. GEOLOGIST (Critic): Map the Risk Landscape
-    2. MEASURER (Metric): Extract Ruppeiner Geometry from Adam stats
+    2. MEASURER (Metric): Compute State-Space Fisher Information
     3. NAVIGATOR (Actor): Move along Geodesics of Maximum Dissipation
 
     Difference from Standard RL:
     - Standard: Maximize Q(s,a) (scalar value)
     - Riemannian: Maximize Dissipation <grad_V, velocity>_G (vector dot product)
 
-    This forces the agent to understand cause and effect (dynamics), not just correlation.
+    CRITICAL: The metric G is computed in STATE SPACE (∂log π/∂z), not
+    parameter space. See Section 2.6 for the distinction.
     """
 
     def __init__(self, actor, critic, world_model, config):
@@ -804,7 +1073,6 @@ class PhysicistLearner:
         self.critic = critic
         self.world_model = world_model
 
-        # Adam is crucial for the Ruppeiner trick
         self.actor_opt = torch.optim.Adam(actor.parameters(), lr=config.lr_actor)
         self.critic_opt = torch.optim.Adam(critic.parameters(), lr=config.lr_critic)
 
@@ -837,9 +1105,9 @@ class PhysicistLearner:
         self.critic_opt.step()
 
         # --- PHASE 2: THE MEASURER (Metric Extraction) ---
-        # RIEMANNIAN: Extract curvature from Critic's uncertainty
+        # RIEMANNIAN: Compute State-Space Fisher Information
         # EUCLIDEAN: Would skip this entirely (assume flat space)
-        metric_g = self._extract_ruppeiner_metric(s)
+        metric_g = self._compute_state_fisher(s)
 
         # --- PHASE 3: THE NAVIGATOR (Actor Update) ---
         # Goal: Move Policy along the Geodesic of Maximum Dissipation
@@ -869,22 +1137,26 @@ class PhysicistLearner:
 
         return {"critic_loss": critic_loss.item(), "actor_loss": actor_loss.item()}
 
-    def _extract_ruppeiner_metric(self, state):
+    def _compute_state_fisher(self, state):
         """
-        Extracts the Ruppeiner Metric G from the Critic's Optimizer stats.
+        Computes the State-Space Fisher Information G.
 
-        Physics: G_ii ≈ sqrt(E[g²]) (Adam v_t)
+        G_ii = E[(∂log π/∂z_i)²]
 
-        This is the "Physicist's trick": the Adam optimizer was already computing
-        an approximation of the curvature. We just reinterpret it geometrically.
+        CRITICAL: This is the STATE-SPACE Fisher (how policy changes with state),
+        NOT the parameter-space Fisher (how policy changes with weights).
+        See Section 2.6 for the distinction.
         """
-        first_layer = list(self.critic.modules())[1]
-        if first_layer in self.critic_opt.state:
-            v_t = self.critic_opt.state[first_layer]['exp_avg_sq']
-            metric_diag = v_t.mean(dim=0)
-            return torch.sqrt(metric_diag).unsqueeze(0)
-        else:
-            return torch.ones_like(state)
+        state_grad = state.detach().clone().requires_grad_(True)
+        action_mean = self.actor(state_grad)
+        # Assuming Gaussian policy with fixed std
+        action_std = torch.ones_like(action_mean) * 0.5
+        dist = torch.distributions.Normal(action_mean, action_std)
+        action = dist.rsample()
+        log_prob = dist.log_prob(action).sum(dim=-1)
+        grad_z = torch.autograd.grad(log_prob.sum(), state_grad, create_graph=False)[0]
+        fisher_diag = grad_z.pow(2).mean(dim=0)
+        return fisher_diag + 1e-6
 ```
 
 **D. RiemannianFragileAgent (Algorithm 3): The Complete Specification**
@@ -906,9 +1178,12 @@ class RiemannianFragileAgent(nn.Module):
 
     Key differences from standard RL:
     1. No Heuristics: Every loss term from physical principle
-    2. No Magic Numbers: Step sizes from Ruppeiner Metric
+    2. No Magic Numbers: Step sizes from State-Space Metric
     3. No Hallucinations: Sieve filters undecidable problems
     4. No Euclidean Bias: Latent space is curved manifold
+
+    CRITICAL: The metric G is the STATE-SPACE Fisher (∂log π/∂z), not
+    the parameter-space Fisher. See Section 2.6 for the distinction.
     """
 
     def train_step(self, batch, trackers):
@@ -925,11 +1200,11 @@ class RiemannianFragileAgent(nn.Module):
             return "REJECT"  # Pure noise, no structure
 
         # === PHASE II: METRIC EXTRACTION ===
-        # Extract Ruppeiner Metric G from Critic's Adam stats
+        # Compute State-Space Fisher Information (NOT Adam stats!)
         # G_inv acts as the "Speed of Light" limit for the update
         with torch.no_grad():
-            v_t = self.critic_opt.state['exp_avg_sq']
-            G_inv = 1.0 / (torch.sqrt(v_t) + 1e-8)
+            fisher_diag = compute_state_space_fisher(self, batch.obs)
+            G_inv = 1.0 / (fisher_diag + 1e-8)
 
         # === PHASE III: RENORMALIZATION UPDATE (VAE) ===
         # Enforce Causal Enclosure: Macro predicts Macro, Micro is Noise

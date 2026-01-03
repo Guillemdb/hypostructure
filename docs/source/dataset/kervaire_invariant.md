@@ -688,6 +688,15 @@ where $C_n$ consists of elements detected by Morava K-theory $K(n)$.
 *   **HHR result:** $\theta_j = 0$ for $j \geq 7$ (non-realizable).
 *   **Output:** $K_{\text{Surg}}^{\mathrm{blk}} = (L\text{-theory obstruction}, \text{non-existence})$.
 
+### **6. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical obstruction (for the resolved cases) as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+For $j \geq 7$, choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level non-existence statement in $V_\mathcal{U}$. The remaining $j=6$ case stays on the obligation ledger (HORIZON) and is exported as an explicit unmet audit item.
+
 ---
 
 ## Part III-C: Obligation Ledger

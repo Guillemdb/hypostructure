@@ -631,6 +631,15 @@ The Iwasawa Tower Hypostructure (Part I-B) and Obstruction Collapse (Part I-C) p
 | $\mathrm{SC}_\lambda^{\mathrm{tower}}$ | $K_{\mathrm{SC}_\lambda^{\mathrm{tower}}}^+$ | Iwasawa Main Conjecture |
 | $\mathrm{Rep}_K^{\mathrm{tower}}$ | $K_{\mathrm{Rep}_K^{\mathrm{tower}}}^+$ | Local Selmer conditions |
 
+### ZFC Proof Export (Chapter 56 Bridge)
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the Tower Globalization run as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level statement that no BSD “bad pattern” embedding survives the Lock, together with an explicit axiom/choice manifest for the tower/descent steps.
+
 ---
 
 ## Part III-C: Obligation Ledger

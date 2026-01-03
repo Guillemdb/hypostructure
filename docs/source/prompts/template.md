@@ -1279,6 +1279,33 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 * [ ] **Symmetry-Gap (UP-SymmetryBridge):** Did SymCheck pass? $\implies$ Stiffness Stagnation is **Mass Gap**.
 * [ ] **Tame-Topology (UP-TameSmoothing):** Did TameCheck pass? $\implies$ Zero Capacity sets are **Removable**.
 
+### **3.5 ZFC Proof Export (Chapter 56 Bridge)**
+*Use the ZFC Translation Layer (Chapter 56 of `hypopermits_jb.md`) to compile the categorical run into a classical, set-theoretic audit trail.*
+
+**Precondition:** You have a Lock verdict (typically $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) and a complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
+
+**ZFC Bridge Checklist**
+* [ ] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
+* [ ] Record `axioms_used` via the Sieve-to-ZFC table (Definition {prf:ref}`def-sieve-zfc-correspondence`).
+* [ ] Record `AC_status` via the Choice audit (Definition {prf:ref}`def-ac-dependency` and {prf:ref}`def-choice-sensitive-stratum`).
+* [ ] Record `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`).
+
+**Step 1: Choose the set-theoretic target formula $\varphi$**
+Fill in a first-order statement $\varphi \in \mathcal{L}_{\mathrm{ZFC}}$ (or an equivalent encoding) such that:
+$$V_\mathcal{U} \vDash \varphi \quad\text{and}\quad (\varphi \Rightarrow \mathrm{Reg}(Z)).$$
+
+Canonical options from Chapter 56:
+- Hom-emptiness form (Metatheorem {prf:ref}`mt-krnl-zfc-bridge`): $\varphi := ``\tau_0(\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}},\mathbb{H}(Z))) = \emptyset''$.
+- Orbit exclusion form (Theorem {prf:ref}`thm-bridge-zfc-fundamental`): $\varphi := \forall u \in \tau_0(\mathcal{X}),\,\Psi(u)$.
+
+**Step 2: Emit the Bridge Certificate payload**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace}).$$
+
+**Step 3: Write the ZFC-audit proof sketch**
+* [ ] Use Theorem {prf:ref}`thm-zfc-grounding` to justify that each $\tau_0(K_i)$ is set-level data in $V_\mathcal{U}$.
+* [ ] For each node, cite the corresponding axiom(s) from Definition {prf:ref}`def-sieve-zfc-correspondence` and state the translated lemma $\psi_i$.
+* [ ] Conclude $V_\mathcal{U} \vDash \varphi$ (and hence the classical regularity claim) via Metatheorem {prf:ref}`mt-krnl-zfc-bridge`.
+
 ---
 
 ## **Part III-C: Obligation Ledger**

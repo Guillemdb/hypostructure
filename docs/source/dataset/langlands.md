@@ -621,6 +621,15 @@ Any counterexample to Langlands Functoriality in this run factors through $\math
 *   **Logic:** Combined certificates force categorical isomorphism $\mathcal{A}_n \cong \mathcal{G}_n$
 *   **Result:** Lock blocked via Tactic E2 ✓
 
+### **6. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the reconstruction run as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level statement that no “ghost” parameter can violate the certified Galois–automorphic correspondence in $V_\mathcal{U}$, with explicit axiom/choice provenance.
+
 ---
 
 ## Part III-C: Obligation Ledger

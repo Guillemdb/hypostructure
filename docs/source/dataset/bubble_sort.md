@@ -462,6 +462,15 @@ This document presents a **machine-checkable proof object** for the **terminatio
 * **Tactic E2 (Invariant Mismatch):** Bounded discrete potential with strict decrease contradicts non-termination
 * **Result:** **BLOCKED** ($K_{\mathrm{Lock}}^{\mathrm{blk}}$)
 
+### **4. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the termination certificate as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+In this finite-state instance, the bridge is entirely constructive: $\varphi$ can be taken as the set-level well-foundedness/termination statement extracted from $\tau_0(\mathbf{K})$, and it is provable in ZF (no Choice needed).
+
 ---
 
 ## Part III-C: Obligation Ledger

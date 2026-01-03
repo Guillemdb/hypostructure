@@ -6,7 +6,7 @@
 |-------|-------|
 | **Problem** | Every Hodge class on a projective algebraic variety is a rational combination of algebraic cycle classes |
 | **System Type** | $T_{\text{alg}}$ (Complex Algebraic Geometry / Hodge Theory) |
-| **Target Claim** | Global Regularity (Conjecture True) |
+| **Target Claim** | HORIZON (open conjecture) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
 | **Status** | Final |
@@ -27,11 +27,11 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{alg}}\ \text{good},\ \text{AutomationGuarantee 
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **Hodge Conjecture** using the Hypostructure framework.
+This document presents a **machine-checkable audit trace** for the **Hodge Conjecture** using the Hypostructure framework.
 
-**Approach:** We instantiate the algebraic hypostructure with the cohomology groups $H^{2p}(X, \mathbb{Q})$ of a non-singular complex projective variety $X$. The Hodge structure provides finite energy (Hodge Theorem), stiffness (polarization via Hodge-Riemann bilinear relations), and tameness (o-minimal definability of period maps via Bakker-Klingler-Tsimerman). The Lock is blocked via Tactic E10 (Definability) using Lemma 42.4 (Analytic-Algebraic Rigidity), with LOCK-Tannakian (Tannakian Recognition) as optional reinforcement.
+**Approach:** We instantiate the algebraic hypostructure with the cohomology groups $H^{2p}(X, \mathbb{Q})$ of a non-singular complex projective variety $X$. The Hodge structure provides finite energy (Hodge Theorem), stiffness (polarization via Hodge-Riemann bilinear relations), and tameness (definability/algebraicity results for Hodge loci in the literature, e.g., Cattani–Deligne–Kaplan; Bakker–Klingler–Tsimerman).
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$); all certificates are positive or blocked. The proof is unconditional with empty obligation ledger.
+**Result:** These inputs support partial certificates (e.g., algebraicity of Hodge loci) but do not certify the full “Hodge classes are algebraic” implication in ZFC. The Lock is recorded as **MORPHISM** (bad pattern not excluded); verdict: **HORIZON**.
 
 ---
 
@@ -502,9 +502,9 @@ The category of polarized pure Hodge structures is a neutral Tannakian category 
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
-| — | — | — |
+| OBL-HC-1 | Algebraicity of all Hodge classes | Millennium problem; known results cover loci/cases, not the full implication |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+**Ledger Validation:** $\mathsf{Obl}(\Gamma) = \{\mathrm{OBL}\text{-}\mathrm{HC}\text{-}1\}$ (HORIZON)
 
 ---
 
@@ -514,12 +514,12 @@ The category of polarized pure Hodge structures is a neutral Tannakian category 
 
 1. [x] All required nodes executed with explicit certificates (closed-system path: boundary subgraph not triggered)
 2. [x] All breached barriers have re-entry certificates (none breached)
-3. [x] All inc certificates discharged (none issued)
-4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-5. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
+3. [ ] All inc certificates discharged
+4. [ ] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+5. [ ] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 6. [x] Analytic-Algebraic Rigidity Lemma 42.4 applied
-7. [x] LOCK-Tannakian (Tannakian Recognition) validated (optional route)
-8. [x] Result extraction completed
+7. [x] LOCK-Tannakian (Tannakian Recognition) recorded (insufficient for full conjecture)
+8. [ ] Result extraction completed (full conjecture not extracted)
 
 ### Certificate Accumulation Trace
 
@@ -537,24 +537,24 @@ Node 10: K_{TB_ρ}^+ (MT group, semisimple)
 Node 11: K_{Rep_K}^+ (bounded complexity, Torelli)
 Node 12: K_{GC_∇}^+ (Gauss-Manin, polarization)
 Node 13: K_{Bound_∂}^- (closed system)
-Node 17: Lemma 42.4 → K_{Alg}^+; (optional) LOCK-Tannakian → K_{Tann}^+; then K_{Cat_Hom}^{blk} (E10 route).
+Node 17: Lemma 42.4 / LOCK-Tannakian provide partial structure, but the full algebraicity step remains open → K_{Cat_Hom}^{morph} (OBL-HC-1).
 ```
 
-### Final Certificate Set
+### Audit Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^+, K_{\mathrm{Alg}}^+, K_{\text{Tann}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ### Conclusion
 
-**GLOBAL REGULARITY CONFIRMED (Conjecture True)**
+**HORIZON DETECTED**
 
-Every Hodge class on a non-singular complex projective algebraic variety is a rational linear combination of algebraic cycle classes.
+The Hodge conjecture remains open in general. This proof object records supporting certificates (e.g., finiteness, definability/algebraicity of Hodge loci) and the remaining algebraicity obligation (OBL-HC-1).
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-hodge`
+::::{prf:proof} Audit trace for {prf:ref}`thm-hodge` (HORIZON; not a completed proof)
 
 **Phase 1: Instantiation**
 Instantiate the algebraic hypostructure with:
@@ -605,7 +605,7 @@ Alternative proof via LOCK-Tannakian:
 - Automorphism group: Mumford-Tate group $MT(X)$
 - Hodge classes = $MT(X)$-invariants in cohomology
 - Since structure is fully stiff ($K_{\mathrm{LS}_\sigma}^+$) and tame ($K_{\mathrm{TB}_O}^+$), Tannakian reconstruction ensures $MT(X)$-invariants are generated by algebraic cycles
-- Therefore: Hodge classes are algebraic $\square$
+- The step “$MT(X)$-invariants are generated by algebraic cycles” is precisely the open content of the Hodge conjecture in general; record as an unmet obligation (HORIZON). $\square$
 
 ::::
 
@@ -627,9 +627,9 @@ Alternative proof via LOCK-Tannakian:
 | Symmetry | Positive | $K_{\mathrm{TB}_\rho}^+$ (MT group) |
 | Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ (Torelli) |
 | Gradient Structure | Positive | $K_{\mathrm{GC}_\nabla}^+$ (Gauss-Manin) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E10 + LOCK-Tannakian) |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
+| Lock | **MORPHISM** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (open step remains) |
+| Obligation Ledger | NON-EMPTY | OBL-HC-1 |
+| **Final Status** | **HORIZON** | — |
 
 ---
 
@@ -674,7 +674,7 @@ Alternative proof via LOCK-Tannakian:
 | **12** | OscillateCheck | YES | $K_{\mathrm{GC}_\nabla}^+$: Gauss-Manin, Griffiths | `[]` |
 | **13** | BoundaryCheck | NO | $K_{\mathrm{Bound}_\partial}^-$: Projective variety (closed) | `[]` |
 | **14-16** | Boundary Subgraph | SKIP | Not triggered | `[]` |
-| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E10 + LOCK-Tannakian | `[]` |
+| **17** | LockCheck | MORPH | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$: open step remains | `[OBL-HC-1]` |
 
 ### 3. Lock Mechanism (The Exclusion)
 
@@ -686,10 +686,10 @@ Alternative proof via LOCK-Tannakian:
 
 ### 4. Final Verdict
 
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY
-* **Singularity Set:** $\Sigma = \emptyset$ (no non-algebraic Hodge classes)
-* **Primary Blocking Tactic:** E10 (Definability via Lemma 42.4 Analytic-Algebraic Rigidity)
+* **Status:** HORIZON (Millennium problem; unresolved)
+* **Obligation Ledger:** NON-EMPTY (OBL-HC-1)
+* **Singularity Set:** UNKNOWN (general algebraicity of Hodge classes is open)
+* **Primary Blocking Tactic:** None (definability/algebraicity-of-loci results do not imply global algebraicity of all Hodge classes)
 
 ---
 
@@ -702,7 +702,7 @@ Alternative proof via LOCK-Tannakian:
 | Problem Class | Millennium Problem (Clay) |
 | System Type | $T_{\text{alg}}$ (Hodge Theory) |
 | Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
+| Inc Certificates | 1 introduced; HORIZON (OBL-HC-1) |
+| Final Status | **HORIZON** |
 | Generated | 2025-12-18 |
 

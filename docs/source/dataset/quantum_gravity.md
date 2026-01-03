@@ -1060,6 +1060,30 @@ No canonical Lyapunov functional exists for quantum gravity in its current formu
 - [ ] **Symmetry-Gap (UP-SymmetryBridge):** NOT APPLICABLE (no gap)
 - [ ] **Tame-Topology (UP-TameSmoothing):** NOT APPLICABLE (tameness lost)
 
+### **3.5 ZFC Proof Export (Chapter 56 Bridge)**
+*Use the ZFC Translation Layer (Chapter 56 of `hypopermits_jb.md`) to export the run as a classical, set-theoretic audit trail.*  
+*For this HORIZON instance, the export records an obstruction witness and an obligation manifest (not a completed ZFC regularity proof).*
+
+**Precondition:** [x] Lock verdict obtained ($K_{\text{Lock}}^{\mathrm{morph}}$), but [ ] no blocked Lock certificate; $\mathrm{Reg}(Z)$ is not established.
+
+**ZFC Bridge Checklist**
+- [x] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
+- [x] Record `axioms_used` via Definition {prf:ref}`def-sieve-zfc-correspondence`.
+- [x] Record `AC_status` via Definitions {prf:ref}`def-ac-dependency` and {prf:ref}`def-choice-sensitive-stratum`.
+- [x] Record `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` via Definition {prf:ref}`def-truncation-functor-tau0`.
+
+**Step 1: Choose the exported set-theoretic formula $\varphi$**
+Since the Lock is breached, we export the **non-emptiness** form:
+$$\varphi := ``\tau_0(\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}},\mathbb{H}(Z))) \neq \emptyset''.$$
+This is a set-theoretic obstruction statement (a bad-pattern embedding exists); it does **not** imply $\mathrm{Reg}(Z)$.
+
+**Step 2: Emit the Bridge Certificate payload**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace}).$$
+
+**Step 3: ZFC-audit proof sketch**
+- By Theorem {prf:ref}`thm-zfc-grounding`, each $\tau_0(K_i)$ is interpretable in $V_\mathcal{U}$.
+- The breach/INC obligations in Part III-C become the *explicit* ZFC-audit manifest of what remains unproven in the discrete fragment.
+
 ---
 
 ## **Part III-C: Obligation Ledger**

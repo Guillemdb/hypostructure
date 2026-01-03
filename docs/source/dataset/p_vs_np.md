@@ -6,12 +6,12 @@
 |-------|-------|
 | **Problem** | Does P = NP? (Separation of complexity classes) |
 | **System Type** | $T_{\text{algorithmic}}$ (Computational Complexity / Iterative Search Systems) |
-| **Target Claim** | Singularity Confirmed (P ≠ NP) |
+| **Target Claim** | HORIZON (separation unresolved) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
-| **Status** | Final (Closure Verified) |
-| **Proof Mode** | Singularity proof object with INC→closure upgrade |
-| **Completion Criterion** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ + $K_{\mathrm{Scope}}^+ \in \mathrm{Cl}(\Gamma_{\mathrm{final}})$ + $K_{\mathrm{Bridge}}^{\mathrm{Comp}}$ |
+| **Status** | Final (HORIZON) |
+| **Proof Mode** | Horizon audit: obstruction evidence + unmet export obligations |
+| **Completion Criterion** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ recorded + bridge instantiated; ZFC separation obligation remains open |
 
 ---
 
@@ -29,17 +29,17 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{algorithmic}}\ \text{good},\ \text{AutomationGu
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **P ≠ NP conjecture** using the Hypostructure framework.
+This document presents a **machine-checkable audit trace** for the **P vs NP problem** using the Hypostructure framework.
 
 **Approach:** We instantiate the algorithmic hypostructure with NP-complete problems (k-SAT). The analysis reveals that the solution landscape undergoes **Replica Symmetry Breaking** near the satisfiability threshold, creating exponentially many disconnected clusters. Node 10 establishes a **non-mixing certificate** ($K_{\mathrm{TB}_\rho}^-$); UP-Spectral is cited only as the *mixing-side barrier* reference point (not as a lower-bound theorem).
 
-**Result:** The Lock admits the bad pattern ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$)—exponential hardness structurally embeds into NP-complete problems. The proof is a **singularity proof**: we prove the obstruction exists, confirming P ≠ NP unconditionally.
+**Result:** The Lock records a **MORPHISM** certificate ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$): a hardness bad-pattern is not excluded by the instantiated certificates. This constitutes evidence of structural barriers, but it does **not** export a ZFC proof of worst-case separation. Verdict: **HORIZON**.
 
 ---
 
 ## Theorem Statement
 
-::::{prf:theorem} P ≠ NP
+::::{prf:theorem} P vs NP (Conjecture; Horizon Audit)
 :label: thm-p-np
 
 **Given:**
@@ -47,7 +47,9 @@ This document presents a **machine-checkable proof object** for the **P ≠ NP c
 - Dynamics: Algorithmic process $x_{t+1} = \mathcal{A}(x_t)$ (local search)
 - Problem class: NP-complete problems (k-SAT for $k \ge 3$)
 
-**Claim:** P ≠ NP. No deterministic Turing machine can solve every instance of k-SAT (for $k \ge 3$) in time polynomial in the input size.
+**Claim (open conjecture):** P ≠ NP. No deterministic Turing machine can solve every instance of k-SAT (for $k \ge 3$) in time polynomial in the input size.
+
+**Audit note:** This proof object does not certify the claim in ZFC; it records a HORIZON verdict due to an unmet export obligation at the Lock/Bridge boundary.
 
 **Notation:**
 | Symbol | Definition |
@@ -157,7 +159,7 @@ Every obstruction relevant to this proof mode factors through some $B_i \in \mat
   - [ ] E1-E8: Do not apply (hardness is structural)
   - [ ] E9 (Ergodic): NOT APPLICABLE (requires $K_{\mathrm{TB}_\rho}^+$, we have $K_{\mathrm{TB}_\rho}^-$)
   - [ ] E10 (Definability): Does not apply
-- [x] **Lock Outcome:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ — bad pattern EMBEDS (hardness is real)
+- [x] **Lock Outcome:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ — bad pattern is **not excluded** (HORIZON)
 
 ---
 
@@ -619,7 +621,7 @@ where:
 - `modality-trace` records the five modal failure witnesses.
 - Scope validated by $K_{\mathrm{Scope}}^+ \in \mathrm{Cl}(\Gamma_{\mathrm{final}})$ (via MT-SelChiCap + MT-OGPChi)
 
-**Lock Status:** **BLOCKED via E13** (Singularity Confirmed, Universal Scope, Information-Theoretic Hardness)
+**Lock Status:** **MORPHISM** (bad pattern not excluded; separation not exported)
 
 ---
 
@@ -647,7 +649,7 @@ All other certificates (positive or negative) are final as emitted.
 | $K_{\mathrm{Rep}_K}^-$ | N/A | **FINAL** | Exponential complexity confirmed |
 | $K_{\mathrm{GC}_\nabla}^{\mathrm{br}}$ | N/A | **FINAL** | Non-gradient dynamics confirmed (via BarrierFreq) |
 
-**Interpretation:** For a singularity proof, $K^-$ certificates are evidence FOR the theorem (P ≠ NP), not failures. The accumulation of negative certificates builds the case that the obstruction is real and unavoidable.
+**Interpretation:** The negative certificates are evidence of hardness barriers for the instantiated dynamics/model class. They do not, by themselves, constitute a ZFC proof of worst-case separation (P vs NP remains open).
 
 ---
 
@@ -662,7 +664,7 @@ All other certificates (positive or negative) are final as emitted.
 **Barrier:** BarrierSat (Drift Control)
 **Breach Certificate:** $K_{D_E}^{\mathrm{br}}$ = {barrier: BarrierSat, reason: drift vanishes at phase transition}
 
-**Interpretation:** The breach confirms that polynomial algorithms cannot maintain progress toward solutions in hard instances. This is **evidence for P ≠ NP**, not a problem to fix.
+**Interpretation:** The breach records a barrier for the instantiated dynamics; it is evidence of hardness in this modeling lens, not a proof of P ≠ NP.
 
 ### Breach B2: Causality Barrier (Node 2)
 
@@ -685,7 +687,7 @@ All other certificates (positive or negative) are final as emitted.
 
 **Interpretation:** The Glassy Freeze (Mode T.D) is the physical realization of NP-hardness. Energy barriers scale with input size.
 
-**Conclusion:** All breaches **reinforce** the singularity proof. No surgery is performed; the breaches ARE the evidence.
+**Conclusion:** The breaches document hardness barriers in this modeling lens. The overall verdict remains HORIZON because the ZFC separation export is not certified.
 
 ---
 
@@ -896,7 +898,7 @@ $$\mathrm{Cl}(\Gamma_{\mathrm{final}}) = \Gamma_{\mathrm{final}} \cup \{K_{\math
 
 ### Conclusion
 
-**SINGULARITY CONFIRMED (P ≠ NP)**
+**HORIZON (P vs NP unresolved)**
 
 **Basis:**
 1. **Ergodic Obstruction:** Node 10 ($K_{\mathrm{TB}_\rho}^-$) establishes exponential mixing time via Replica Symmetry Breaking
@@ -905,13 +907,13 @@ $$\mathrm{Cl}(\Gamma_{\mathrm{final}}) = \Gamma_{\mathrm{final}} \cup \{K_{\math
 4. **Algorithmic Completeness:** Node 10.6 ($K_{\mathrm{AlgComplete}}^+$) via MT-AlgComplete (all 5 cohesive modalities blocked)
 5. **E13 Lock:** Tactic E13 ($K_{\mathrm{E13}}^+$) confirms no polynomial-time bypass exists
 6. **Universal Scope:** $K_{\mathrm{Scope}}^+$ extends obstruction to ALL poly-time algorithms
-7. **Bridge Import:** $K_{\mathrm{Bridge}}^{\mathrm{Comp}}$ connects to standard TM semantics: $\mathrm{SAT} \notin \mathrm{P}$
+7. **Bridge Import:** $K_{\mathrm{Bridge}}^{\mathrm{Comp}}$ instantiates standard TM semantics, but does not discharge the separation obligation
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-p-np`
+::::{prf:proof} Audit trace for {prf:ref}`thm-p-np` (HORIZON; not a completed proof)
 
 **Phase 1: Instantiation**
 Instantiate the algorithmic hypostructure with:
@@ -950,8 +952,8 @@ At Node 17, test: Does $\mathcal{H}_{\text{bad}}$ (exponential hardness) embed i
 **Phase 6: Singularity Extraction**
 The system admits the bad pattern:
 - Mode T.D (Glassy Freeze) is the physical realization of hardness
-- No polynomial-time algorithm can solve worst-case k-SAT ($k \ge 3$)
-- $\therefore$ P ≠ NP $\square$
+- A worst-case P vs NP separation is not certified by this evidence
+- $\therefore$ Verdict: **HORIZON** (Lock MORPHISM; export obligation unmet) $\square$
 
 ::::
 
@@ -978,8 +980,8 @@ The system admits the bad pattern:
 | Gradient Structure | Breach | $K_{\mathrm{GC}_\nabla}^{br}$ |
 | Bridge Import | Complete | $K_{\mathrm{Bridge}}^{\mathrm{Comp}}$ |
 | Lock | **MORPHISM** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ |
-| Obligation Ledger (closure) | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL (after closure)** | — |
+| Obligation Ledger (closure) | NON-EMPTY | ZFC worst-case separation export |
+| **Final Status** | **HORIZON** | — |
 
 ---
 
@@ -1305,7 +1307,7 @@ This is proven by the five negative certificates in Appendix B.
 │    P ⊆ Class I ∪ Class II ∪ Class III ∪ Class IV ∪ Class V │
 │    (Proven via MT-AlgComplete within framework)             │
 │                                                             │
-│  UNCONDITIONAL:                                             │
+│  CERTIFIED BARRIERS (model-level evidence):                 │
 │    3-SAT ∉ Class I  (Node 7, 12: glassy landscape)         │
 │    3-SAT ∉ Class II (Tactic E6: frustrated loops)          │
 │    3-SAT ∉ Class III (Tactic E11: trivial G_Φ)             │
@@ -1313,7 +1315,8 @@ This is proven by the five negative certificates in Appendix B.
 │    3-SAT ∉ Class V (Tactic E8: no Pfaffian)                │
 │                                                             │
 │  CONCLUSION:                                                │
-│    Structure Thesis ⟹ 3-SAT ∉ P ⟹ P ≠ NP                  │
+│    Structural barriers detected; ZFC separation not         │
+│    discharged by this audit  ⟹  Verdict: HORIZON           │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -1324,7 +1327,7 @@ This is proven by the five negative certificates in Appendix B.
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object (Singularity) |
+| Document Type | Proof Object (Horizon Audit) |
 | Framework | Hypostructure v1.0 |
 | Problem Class | Millennium Problem (Clay) |
 | System Type | $T_{\text{algorithmic}}$ |
@@ -1332,5 +1335,5 @@ This is proven by the five negative certificates in Appendix B.
 | Inc Certificates | 2 introduced (Node 10.5), 2 upgraded in $\mathrm{Cl}(\Gamma_{\mathrm{final}})$ |
 | Scope Extension | $K_{\mathrm{Scope}}^+$ via MT-SelChiCap + MT-OGPChi |
 | Bridge Verification | $K_{\mathrm{Bridge}}^{\mathrm{Comp}}$ via MT-BRIDGE-Alg |
-| Final Status | **UNCONDITIONAL (after closure)** |
+| Final Status | **HORIZON** |
 | Generated | 2025-12-18 |

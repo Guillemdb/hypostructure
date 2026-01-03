@@ -27,17 +27,17 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{discrete}}\ \text{good},\ \text{AutomationGuar
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **Collatz Conjecture** using the Hypostructure framework.
+This document presents a **machine-checkable audit trace** for the **Collatz Conjecture** using the Hypostructure framework.
 
 **Approach:** We instantiate the discrete hypostructure with the Syracuse formulation of the Collatz map. The key insight is **sector-based dimensional analysis**: the 2-adic valuation $\nu_2(n)$ provides a natural sector structure $S_k = \{n : \nu_2(n) = k\}$. Each sector transition has bounded energy cost $\delta = \log_2(3/2) \approx 0.585$.
 
-**Node 2 Resolution:** The ZenoCheck fails initially ($K_{\mathrm{Rec}_N}^{\mathrm{inc}}$), but UP-ShadowRetro (Shadow-Sector Retroactive) upgrades this via finite sector graph: with energy $E_{\max} = \log_2(n_0)$, at most $\lfloor E_{\max}/\delta \rfloor$ sector transitions occur.
+**Node 2 Status:** The ZenoCheck remains **INCONCLUSIVE** ($K_{\mathrm{Rec}_N}^{\mathrm{inc}}$): no ZFC-certified argument is known that upgrades average drift / sector heuristics into a uniform bound $\tau(n)<\infty$ for all $n$.
 
-**Node 7 Resolution:** KRNL-MetricAction (Extended Action Lyapunov) constructs the Syracuse Lyapunov functional on the discrete metric space $(\mathbb{N}, d_2)$.
+**Node 7 Status:** KRNL-MetricAction (Extended Action Lyapunov) constructs a candidate Lyapunov functional on $(\mathbb{N}, d_2)$, but it does not by itself certify global termination.
 
-**Lock Resolution:** Tactic E4 (Integrality) blocks non-trivial cycles via algebraic constraints. Tactic E9 (Ergodic) applies MT 6.7.4: Syracuse mixing on density-1 set forces recurrence.
+**Lock Status:** Tactic E4 (Integrality) and Tactic E9 (Ergodic / density-one control) provide partial obstructions (e.g., lower bounds on cycle sizes; density-one boundedness results in the literature), but they do **not** certify $\mathrm{Hom}(\mathcal{H}_{\text{bad}},\mathrm{Collatz})=\varnothing$ in ZFC.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactics E4 + E9. All INC certificates are discharged via metatheorems; the proof is unconditional.
+**Result:** The obligation ledger remains **NON-EMPTY** at Node 17 (Lock); verdict: **HORIZON** (open conjecture; audit trace only).
 
 ---
 
@@ -53,7 +53,7 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 
 **Claim:** For all $n_0 \in \mathbb{N}$, there exists $k < \infty$ such that $S^k(n_0) = 1$.
 
-**Permit-Based Formulation:** The Syracuse map preserves the sector structure $\{S_k\}_{k \geq 0}$ where $S_k = \{n : \nu_2(n) = k\}$. Each orbit has finite total sector-transition cost bounded by initial energy. The **Sector Permit** ($K_{\mathrm{TB}_\pi}^+$) combined with **Energy Permit** ($K_{D_E}^+$) forces termination via UP-ShadowRetro.
+**Permit-Based Formulation:** The Syracuse map preserves the sector structure $\{S_k\}_{k \geq 0}$ where $S_k = \{n : \nu_2(n) = k\}$. Energy/sector heuristics motivate a termination mechanism, but the upgrade to a uniform ZFC proof is recorded as an explicit obligation (Part III-C).
 
 **Notation:**
 | Symbol | Definition |
@@ -83,7 +83,7 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 - [x] **Bad Set $\mathcal{B}$:** Non-terminating orbits (to be excluded)
 - [x] **Recovery Map $\mathcal{R}$:** Syracuse iteration
 - [x] **Event Counter $\#$:** $N(n) = \tau(n)$ (stopping time)
-- [x] **Finiteness:** Via UP-ShadowRetro (Shadow-Sector Retroactive)
+- [ ] **Finiteness:** **INCONCLUSIVE** — global stopping-time bound is not certified in ZFC (OBL-1)
 
 #### Template: $C_\mu$ (Compactness Interface)
 - [x] **Symmetry Group $G$:** $\mathbb{Z}/2^k\mathbb{Z}$ residue classes
@@ -105,9 +105,9 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 
 #### Template: $\mathrm{Cap}_H$ (Capacity Interface)
 - [x] **Capacity Functional:** 2-adic Hausdorff measure
-- [x] **Singular Set $\Sigma$:** Empty (proven via Lock)
-- [x] **Codimension:** $\dim_2(\Sigma) = -\infty$ (empty set)
-- [x] **Capacity Bound:** $\mathrm{Cap}_2(\Sigma) = 0$
+- [ ] **Singular Set $\Sigma$:** **UNKNOWN** — depends on exclusion of non-terminating behavior (OBL-3)
+- [ ] **Codimension:** **UNKNOWN** (requires $\Sigma=\varnothing$)
+- [ ] **Capacity Bound:** **UNKNOWN** (requires $\Sigma=\varnothing$)
 
 #### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
 - [x] **Gradient Operator $\nabla$:** Discrete metric slope $|\partial E|$
@@ -130,8 +130,8 @@ This document presents a **machine-checkable proof object** for the **Collatz Co
 #### Template: $\mathrm{TB}_\rho$ (Mixing Interface)
 - [x] **Measure $\mathcal{M}$:** Natural density on $\mathbb{N}$
 - [x] **Invariant Measure $\mu$:** Dirac measure at $\{1\}$
-- [x] **Mixing Time $\tau_{\text{mix}}$:** Polynomial in $\log_2(n_0)$ (Tao 2019)
-- [x] **Mixing Property:** Almost-sure convergence to $\{1\}$
+- [ ] **Mixing Time $\tau_{\text{mix}}$:** **PARTIAL** — density-one boundedness/recurrence evidence (Tao 2019), not a global termination bound
+- [ ] **Mixing Property:** **NOT CERTIFIED** — almost-sure convergence to $\{1\}$ is stronger than current results
 
 #### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Binary representation
@@ -436,47 +436,38 @@ So we record:
 4. [x] Steiner (1977): Only cycles for $n \leq 10^{15}$ are $\{1,2,4\}$
 5. [x] Eliahou (1993): Cycles with period $> 1$ require $n > 2^{40}$ per period element
 6. [x] **Integrality forces:** Non-trivial cycles have minimum element $> 2^{34 \cdot p}$
-7. [x] Combined with energy bound: No cycle embeds in finite-energy system
+7. [ ] Full cycle exclusion remains **UNCERTIFIED** (known bounds do not imply $\mathrm{Hom}(\text{Bad}_{\text{cycle}},\mathrm{Collatz})=\varnothing$)
 
 **E4 Integrality Mismatch:**
 - $I_{\text{bad}}^{\text{cycle}} = \text{True}$ (cycle template exists abstractly)
 - $I_{\mathcal{H}} = \text{False}$ (integrality constraints block embedding)
 
-Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset$.
+This provides a strong constraint on possible cycles, but it does not certify $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset$ in ZFC.
 
 **Step 3: Tactic E9 (Ergodic)**
-1. [x] Apply MT 6.7.4 (Ergodic-Sat): $K_{\mathrm{TB}_\rho}^+ \Rightarrow K_{\text{sat}}^{\mathrm{blk}}$
-2. [x] Syracuse map is mixing on density-1 set (Tao 2019)
-3. [x] Mixing + finite energy → Poincaré recurrence to low-energy region
-4. [x] Low-energy region: $\{n : E(n) < C\}$ is finite
-5. [x] Finite region + mixing → must hit absorbing state $\{1\}$
+1. [ ] Apply MT 6.7.4 (Ergodic-Sat): requires a certified mixing hypothesis (not available here)
+2. [x] Tao (2019) establishes density-one boundedness / “almost bounded values” (partial evidence)
+3. [ ] Density-one control does not upgrade to global termination in ZFC
 
-**E9 Ergodic Exclusion:**
-- Divergent orbits require escaping mixing region
-- But mixing forces recurrence with probability 1
-- Therefore $\mathrm{Hom}(\text{Bad}_{\text{div}}, \mathrm{Collatz}) = \emptyset$
-
-**Step 4: Combine Tactics**
-* [x] E4 blocks $\text{Bad}_{\text{cycle}}$
-* [x] E9 blocks $\text{Bad}_{\text{div}}$
-* [x] Bad library is complete: $\mathcal{B} = \{\text{Bad}_{\text{div}}, \text{Bad}_{\text{cycle}}\}$
-* [x] Both patterns excluded: $\text{Hom}(\mathcal{B}, \mathcal{H}) = \emptyset$
+**Step 4: Lock Verdict**
+* [x] Bad library recorded: $\mathcal{B} = \{\text{Bad}_{\text{div}}, \text{Bad}_{\text{cycle}}\}$
+* [x] E4/E9 provide partial constraints but do not certify Hom-emptiness
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\mathcal{B} = \{\text{Bad}_{\text{div}}, \text{Bad}_{\text{cycle}}\}, \text{E4+E9 exclusion}, \text{integrality + ergodic})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}} = (\mathcal{B}\ \text{recorded},\ \text{Hom-emptiness not certified})$
 
-**Lock Status:** **BLOCKED** ✓
+**Lock Status:** **MORPHISM** ✓
 
 ---
 
 ## Part II-B: Upgrade Pass
 
-### Inc-to-Positive Upgrades
+### Inc-to-Positive Upgrades (Partial)
 
 | Original | Upgraded To | Mechanism | Reference |
 |----------|-------------|-----------|-----------|
-| $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | $K_{\mathrm{Rec}_N}^{\sim}$ | UP-IncAposteriori + UP-ShadowRetro | Node 2 → Part II-B |
-| $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | $K_{\mathrm{Cap}_H}^+$ | A-posteriori via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 6 → Node 17 |
+| $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | — | HORIZON (no certified global upgrade) | Node 2 |
+| $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | — | Depends on Lock (HORIZON) | Node 6 |
 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | $K_{\mathrm{LS}_\sigma}^+$ | KRNL-MetricAction (Extended Action) | Node 7 → Part III-A |
 
 **Upgrade Chain:**
@@ -484,8 +475,8 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 **OBL-1:** $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ (Zeno Check)
 - **Original obligation:** Prove $\tau(n) < \infty$ for all $n$
 - **Missing certificates:** $K_{\mathrm{TB}_\pi}^+$ (finite shadow-sector graph) and $K_{\text{Action}}^{\mathrm{blk}}$ (uniform action lower bound $\delta>0$)
-- **Discharge mechanism:** UP-ShadowRetro (Shadow-Sector Retroactive)
-- **New certificate (closure):** Use the generic INC-upgrade permit with `code_χ = UP-ShadowRetro`:
+- **Proposed discharge mechanism:** UP-ShadowRetro (Shadow-Sector Retroactive)
+- **Proposed closure rule:** Use the generic INC-upgrade permit with `code_χ = UP-ShadowRetro`:
 
   $$
   K_{\mathrm{Rec}_N}^{\mathrm{inc}}
@@ -499,15 +490,14 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
   K_{\mathrm{Rec}_N}^{\sim}.
   $$
 
-  Here `code_χ` instantiates the [UP-ShadowRetro] argument on the missing certificates; the INC-upgrade permit authorizes promotion inside $\mathrm{Cl}(\Gamma_{\mathrm{final}})$.
-  We record the upgraded output as $K_{\mathrm{Rec}_N}^{\sim}$ (YES$^\sim$) for use by the Lock.
+  Here `code_χ` instantiates the [UP-ShadowRetro] argument on the missing certificates. In this audit, the missing global hypotheses are not certified, so the upgrade is not applied.
 
 - **Verification:**
   - $K_{\mathrm{TB}_\pi}^+$: Finite **shadow-sector graph** on the energy-truncated region $\{n: E(n)\le E_{\max}\}$, hence finitely many sector labels are relevant
   - Each sector transition costs $\delta = \log_2(3/2)$
   - Total *sector transitions* bounded by $N_{\max}\le E_{\max}/\delta$ per [UP-ShadowRetro] hypotheses
   - (Conclusion carried by $K_{\mathrm{Rec}_N}^{\sim}$ in closure)
-- **Result:** $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ is discharged to $K_{\mathrm{Rec}_N}^{\sim}$ by [UP-ShadowRetro] once $K_{\mathrm{TB}_\pi}^+$ and $K_{\text{Action}}^{\mathrm{blk}}$ are present ✓
+- **Result:** Remains **HORIZON** (OBL-1)
 
 **OBL-2:** $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ (Stiffness)
 - **Original obligation:** Construct discrete Lyapunov
@@ -518,16 +508,15 @@ Therefore $\mathrm{Hom}(\text{Bad}_{\text{cycle}}, \mathrm{Collatz}) = \emptyset
 
 **OBL-3:** $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ (Capacity)
 - **Original obligation:** Prove $\Sigma = \varnothing$
-- **Missing certificate:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-- **Discharge mechanism:** A-posteriori from Lock
-- **New certificate:** Lock blocked $\Rightarrow$ no bad patterns embed $\Rightarrow \Sigma = \varnothing$
-- **Result:** $K_{\mathrm{Cap}_H}^{\mathrm{inc}} \wedge K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Cap}_H}^+$ ✓
+- **Missing certificate:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (not obtained)
+- **Proposed discharge mechanism:** A-posteriori from a blocked Lock
+- **Result:** Remains **HORIZON** (OBL-3)
 
 ---
 
 ## Part II-C: Breach/Surgery Protocol
 
-*No barriers breached. All INC certificates upgraded via metatheorems. Surgery not required.*
+*No barriers breached. Some INC certificates remain HORIZON (OBL-1, OBL-3). Surgery not required.*
 
 ---
 
@@ -573,7 +562,7 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 ### **1. UP-ShadowRetro: Shadow-Sector Retroactive Promotion**
 * **Input:** $K_{\mathrm{TB}_\pi}^+$ (finite sector graph) $+$ $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$
 * **Mechanism:** Finite sectors $\Rightarrow$ bounded transitions $\Rightarrow$ finite events
-* **Output:** $K_{\mathrm{Rec}_N}^+$
+* **Output:** Proposed upgrade to $K_{\mathrm{Rec}_N}^+$ (not certified here; stays $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$)
 
 ### **2. BarrierAction: Action Lower Bound (Sector Transition Cost)**
 * **Input:** $D_E$ (energy) + sector transition definition (odd step incurs cost $\delta=\log_2(3/2)>0$)
@@ -586,14 +575,23 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 * **Output:** $K_L^{\mathrm{metric}} \Rightarrow K_{\mathrm{LS}_\sigma}^+$
 
 ### **3. MT 6.7.4: Ergodic-Sat Theorem**
-* **Input:** $K_{\mathrm{TB}_\rho}^+$ (mixing on density-1 set)
+* **Input:** $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ (density-one control evidence)
 * **Mechanism:** Mixing $\Rightarrow$ Poincaré recurrence $\Rightarrow$ saturation blocked
-* **Output:** $K_{\text{sat}}^{\mathrm{blk}}$ (used in E9 at Lock)
+* **Output:** Partial $K_{\text{sat}}^{\mathrm{inc}}$ (insufficient for a blocked Lock)
 
 ### **4. MT 6.7.6: Algorithm-Depth Theorem**
 * **Input:** $K_{\mathrm{Rep}_K}^+$ (polynomial complexity)
 * **Mechanism:** Low complexity excludes wild (fractal) singular sets
-* **Output:** Supports $K_{\mathrm{Cap}_H}^+$
+* **Output:** Supports $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ conditional on Lock resolution
+
+### **5. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical certificate chain as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+Since the Lock is not certified here, choose $\varphi$ in the obligation-manifest form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` to export a ZFC audit: the translated certificates plus an explicit list of unmet obligations (in particular, global termination and Lock blocking).
 
 ---
 
@@ -603,25 +601,24 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 
 | ID | Node | Certificate | Obligation | Missing | Status |
 |----|------|-------------|------------|---------|--------|
-| OBL-1 | 2 | $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | Prove $\tau(n) < \infty$ | $K_{\mathrm{TB}_\pi}^+$ | **DISCHARGED** |
+| OBL-1 | 2 | $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ | Prove $\tau(n) < \infty$ for all $n$ | ZFC-certified global argument | **HORIZON** |
 | OBL-2 | 7 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Construct Lyapunov | $K_L^{\mathrm{metric}}$ | **DISCHARGED** |
-| OBL-3 | 6 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | Prove $\Sigma = \varnothing$ | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | **DISCHARGED** |
+| OBL-3 | 6 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | Prove $\Sigma = \varnothing$ (exclude non-terminating behavior) | Lock certificate | **HORIZON** |
 
 ### Table 2: Discharge Events
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Part II-B | UP-ShadowRetro | $K_{\mathrm{TB}_\pi}^+ \wedge K_{\text{Action}}^{\mathrm{blk}} \wedge K_{D_E}^+$ |
 | OBL-2 | Part III-A | KRNL-MetricAction | $K_{D_E}^+ \wedge K_{\mathrm{GC}_\nabla}^+$ |
-| OBL-3 | Node 17 | A-posteriori | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
 
 ### Table 3: Remaining Obligations
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
-| — | — | — |
+| OBL-1 | Global termination $\tau(n)<\infty$ | No known ZFC proof; drift/ergodic heuristics are not a uniform bound |
+| OBL-3 | Lock blocking / $\Sigma=\varnothing$ | Cycle/divergence bad-pattern exclusion not certified in ZFC |
 
-**Ledger Validation:** $\mathsf{Obl}(\mathrm{Cl}(\Gamma_{\mathrm{final}})) = \varnothing$ ✓  (validated after promotion closure)
+**Ledger Validation:** $\mathsf{Obl}(\Gamma) = \{\mathrm{OBL}\text{-}1,\mathrm{OBL}\text{-}3\}$ (HORIZON)
 
 ---
 
@@ -630,54 +627,54 @@ $$K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \wedge K_L^{\mathrm{metric}} \Rightarrow
 ### Validity Checklist
 
 1. [x] All required nodes executed with explicit certificates
-2. [x] All INC certificates discharged via metatheorems
-3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-4. [x] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
+2. [ ] All INC certificates discharged via metatheorems
+3. [ ] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+4. [ ] No unresolved obligations in $\Downarrow(K_{\mathrm{Cat}_{\mathrm{Hom}}})$
 5. [x] Lyapunov reconstruction completed (KRNL-MetricAction)
-6. [x] Sector structure validated (UP-ShadowRetro)
-7. [x] Ergodic control applied (MT 6.7.4)
-8. [x] Result extraction completed
+6. [ ] Sector structure validated (UP-ShadowRetro)
+7. [x] Ergodic control applied (MT 6.7.4) as partial evidence
+8. [ ] Result extraction completed (global termination not extracted)
 
 ### Certificate Accumulation Trace
 
 ```
 Node 1:  K_{D_E}^+ (energy bounded on average)
-Node 2:  K_{Rec_N}^{inc} → UP-ShadowRetro → K_{Rec_N}^+
+Node 2:  K_{Rec_N}^{inc} (global stopping time unproven)
 Node 3:  K_{C_μ}^+ (2-adic compactification)
 Node 4:  K_{SC_λ}^+ (2-adic subcritical)
 Node 5:  K_{SC_∂c}^+ (fixed parameters)
-Node 6:  K_{Cap_H}^{inc} → K_{Cat_Hom}^{blk} → K_{Cap_H}^+
+Node 6:  K_{Cap_H}^{inc} (depends on Lock)
 Node 7:  K_{LS_σ}^{inc} → KRNL-MetricAction → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (finite sector graph)
 Node 9:  K_{TB_O}^+ (Presburger definable)
-Node 10: K_{TB_ρ}^+ (ergodic mixing)
+Node 10: K_{TB_ρ}^{inc} (partial density-one control only)
 Node 11: K_{Rep_K}^+ (polynomial complexity)
 Node 12: K_{GC_∇}^+ (controlled oscillation)
 Node 13: K_{Bound_∂}^+ (absorbing boundary)
-Node 17: K_{Cat_Hom}^{blk} (E4 + E9 exclusion)
+Node 17: K_{Cat_Hom}^{morph} (bad-pattern exclusion not certified)
 ```
 
-### Final Certificate Set
+### Audit Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^+, K_{\mathrm{Bound}_\partial}^+, K_L^{\mathrm{metric}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^{\mathrm{inc}}, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^{\mathrm{inc}}, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^{\mathrm{inc}}, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^+, K_{\mathrm{Bound}_\partial}^+, K_L^{\mathrm{metric}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ### Conclusion
 
-**GLOBAL REGULARITY CONFIRMED (BLOCKED)**
+**HORIZON DETECTED**
 
-The Collatz conjecture is true. Every positive integer eventually reaches 1 under the Syracuse map. The singular set is empty: $\Sigma = \varnothing$.
+The Collatz conjecture remains open. This proof object records a structured certificate trace and the remaining obligations preventing a ZFC export of global termination.
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-collatz`
+::::{prf:proof} Audit trace for {prf:ref}`thm-collatz` (HORIZON; not a completed proof)
 
 **Phase 1: Sector Structure**
 Define sectors $S_k = \{n \in \mathbb{N} : \nu_2(n) = k\}$ based on 2-adic valuation. The Syracuse map induces transitions between sectors with cost $\delta = \log_2(3/2) \approx 0.585$ per odd step.
 
 **Phase 2: Energy Bound**
-Initial energy $E_0 = \log_2(n_0)$ bounds total sector transitions: at most $\lfloor E_0/\delta \rfloor < \infty$ transitions possible. By UP-ShadowRetro, finite sector transitions implies finite stopping time.
+Average drift / sector heuristics suggest bounded sector transition complexity, but this does not currently upgrade to a uniform bound $\tau(n)<\infty$ in ZFC. Record as OBL-1.
 
 **Phase 3: Lyapunov Construction**
 By KRNL-MetricAction (Extended Action), the total variation Lyapunov functional
@@ -685,21 +682,16 @@ $$L(n) = \sum_{k=0}^{\tau(n)-1} |E(S^k(n)) - E(S^{k+1}(n))|$$
 is well-defined on $(\mathbb{N}, d_2)$ and satisfies discrete Łojasiewicz-Simon.
 
 **Phase 4: Cycle Exclusion (Tactic E4)**
-Any non-trivial cycle must satisfy $S^p(n) = n$ for some period $p > 3$. Algebraic constraints from integrality force minimum cycle element $> 2^{34p}$ (Eliahou 1993). Combined with energy bound, no such cycle embeds in the finite-energy system.
+Non-trivial cycles must satisfy $S^p(n) = n$ for some period $p > 3$. Known integrality constraints and lower bounds (e.g., Eliahou 1993) restrict possible cycles but do not exclude them in full generality.
 
 **Phase 5: Divergence Exclusion (Tactic E9)**
-By MT 6.7.4, Syracuse mixing on density-1 set (Tao 2019) implies Poincaré recurrence. By UP-Ergodic (Ergodic-Sat), mixing yields recurrence to a low-energy region for $\mu$-a.e. initial condition.
-In this proof object, the *bad-pattern* excluded at Lock is the existence of a divergent template compatible with the certified recurrence structure.
+Density-one results (e.g., Tao 2019) provide partial recurrence/boundedness evidence, but they do not certify global termination or exclude all divergent templates.
 
 **Phase 6: Lock Resolution**
-Both bad patterns excluded:
-- $\text{Hom}(\text{Bad}_{\text{cycle}}, \text{Collatz}) = \varnothing$ (E4)
-- $\text{Hom}(\text{Bad}_{\text{div}}, \text{Collatz}) = \varnothing$ (E9)
-
-Lock is **BLOCKED**. Singular set $\Sigma = \varnothing$.
+Bad patterns are not excluded in ZFC at present; record the Lock as **MORPHISM** (unexcluded bad-pattern embedding).
 
 **Phase 7: Conclusion**
-All orbits terminate: $\tau(n) < \infty$ for all $n \in \mathbb{N}$. $\square$
+The conjecture remains open; the audit ends with outstanding obligations at the Lock. $\square$
 
 ::::
 
@@ -710,22 +702,22 @@ All orbits terminate: $\tau(n) < \infty$ for all $n \in \mathbb{N}$. $\square$
 | Component | Status | Certificate |
 |-----------|--------|-------------|
 | Energy Bound | Positive | $K_{D_E}^+$ |
-| Surgery Finiteness | Upgraded | $K_{\mathrm{Rec}_N}^+$ (via UP-ShadowRetro) |
+| Surgery Finiteness | Inconclusive | $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ |
 | Compactness | Positive | $K_{C_\mu}^+$ |
 | Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
 | Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Upgraded | $K_{\mathrm{Cap}_H}^+$ (via Lock) |
+| Singular Codimension | Inconclusive | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ |
 | Stiffness Gap | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via KRNL-MetricAction) |
 | Sector Structure | Positive | $K_{\mathrm{TB}_\pi}^+$ |
 | Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Ergodic | Positive | $K_{\mathrm{TB}_\rho}^+$ |
+| Mixing/Ergodic | Inconclusive | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ |
 | Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
 | Gradient Structure | Positive | $K_{\mathrm{GC}_\nabla}^+$ |
 | Boundary | Positive | $K_{\mathrm{Bound}_\partial}^+$ |
 | Lyapunov | Positive | $K_L^{\mathrm{metric}}$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | ALL DISCHARGED | — |
-| **Final Status** | **UNCONDITIONAL** | — |
+| Lock | **MORPHISM** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ |
+| Obligation Ledger | NON-EMPTY | OBL-1, OBL-3 |
+| **Final Status** | **HORIZON** | — |
 
 ---
 
@@ -749,6 +741,6 @@ All orbits terminate: $\tau(n) < \infty$ for all $n \in \mathbb{N}$. $\square$
 | Problem Class | Open Conjecture (Number Theory / Discrete Dynamics) |
 | System Type | $T_{\text{discrete}}$ |
 | Verification Level | Machine-checkable |
-| Inc Certificates | 3 introduced, 3 discharged |
-| Final Status | **UNCONDITIONAL (BLOCKED)** |
+| Inc Certificates | 3 introduced, 1 discharged; 2 HORIZON |
+| Final Status | **HORIZON** |
 | Generated | 2025-12-23 |

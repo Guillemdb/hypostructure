@@ -72,6 +72,9 @@ class HypoPPOConfig:
     riemannian_metric_clip: float = 1e3
     riemannian_value_floor: float = 1.0
     riemannian_use_model: bool = False
+    # HJB Correspondence (disabled by default)
+    lambda_hjb: float = 0.0  # Weight for HJB defect loss
+    hjb_effort_weight: float = 0.01  # Weight for action cost in HJB
 
     # Wrappers (CleanRL defaults)
     normalize_obs: bool = True
@@ -258,6 +261,30 @@ def _compute_riemannian_losses(
     use_model: bool = False,
     policy_action: Optional[torch.Tensor] = None,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    Compute Riemannian losses: Covariant Dissipation and Lyapunov Decay.
+
+    CRITICAL DISTINCTION (Anti-Mixing Rule #2):
+    This function computes the METRIC-WEIGHTED inner product:
+
+        ⟨dV, f⟩_G = G^{ij} (∂_i V) f_j
+
+    This is NOT the Lie derivative L_f V = ∂_i V · f^i (which is metric-independent).
+
+    Physical interpretation:
+    - Lie derivative (see compute_hjb_loss): Rate of value change along trajectory (for HJB)
+    - Covariant inner product (this function): Penalizes movement in high-curvature
+      (high-G) regions, even if value is decreasing. Acts as a "trust region" in
+      information geometry.
+
+    The covariant gate ensures the agent takes small steps where the metric is large
+    (high uncertainty / high curvature), providing geometric safety beyond what the
+    scalar Lie derivative can capture.
+
+    Returns:
+        covariant_loss: max(0, ⟨∇V, δs⟩_G)^2 - penalizes positive metric-weighted flow
+        lyap_loss: Lyapunov decay violation with relative scaling
+    """
     obs = obs.detach().clone().requires_grad_(True)
     value = agent.get_value(obs).view(-1)
     grad_v = torch.autograd.grad(value.sum(), obs, create_graph=True)[0]
@@ -290,6 +317,75 @@ def _compute_riemannian_losses(
     lyap_loss = _masked_mean(violation.pow(2), mask)
 
     return covariant_loss, lyap_loss
+
+
+def compute_hjb_loss(
+    agent: HypoPPOAgent,
+    obs: torch.Tensor,
+    actions: torch.Tensor,
+    rewards: torch.Tensor,
+    next_obs: torch.Tensor,
+    dones: torch.Tensor,
+    effort_weight: float = 0.01,
+) -> torch.Tensor:
+    """
+    Compute HJB-Defect loss for value function learning.
+
+    The Hamilton-Jacobi-Bellman equation (metric-INDEPENDENT Lie derivative):
+
+        L_f V + D(z,a) = -R(z,a)
+
+    Where:
+        L_f V = dV(f) = ∂_i V · f^i = ∇V · f  (NO metric G)
+        D(z,a) = control effort (action cost)
+        R(z,a) = reward (negative potential flux)
+
+    CRITICAL: The Lie derivative is metric-independent. This is the natural
+    pairing dV(f) between the 1-form dV and the vector field f. The metric G
+    appears in the COVARIANT gate (trust region), NOT here.
+
+    Anti-Mixing Rule #2: "NO Metric in Lie Derivative"
+
+    Dimensional check: [∇V · f] = (Energy/Length)(Length/Time) = Power ✓
+
+    All terms have units of Power. Rewards are energy flux, not points.
+
+    Args:
+        agent: The PPO agent with critic
+        obs: Current observations z_t, shape (batch, obs_dim)
+        actions: Actions a_t, shape (batch, act_dim)
+        rewards: Environmental rewards R(z,a), shape (batch,)
+        next_obs: Next observations z_{t+1}, shape (batch, obs_dim)
+        dones: Terminal flags, shape (batch,)
+        effort_weight: Weight for action cost term
+
+    Returns:
+        Scalar HJB defect loss
+    """
+    # Compute Lie derivative: L_f V = ∇V · (z_{t+1} - z_t)
+    # Note: NO metric G appears here - this is the key distinction
+    obs_grad = obs.detach().clone().requires_grad_(True)
+    v_now = agent.get_value(obs_grad).squeeze(-1)
+    grad_v = torch.autograd.grad(v_now.sum(), obs_grad, create_graph=True)[0]
+
+    # Dynamics vector field: f ≈ (z_{t+1} - z_t) / dt
+    # We use discrete difference; dt=1 implicitly
+    delta_z = next_obs - obs
+    lie_derivative = (grad_v * delta_z).sum(dim=-1)  # NO metric here!
+
+    # Mask terminal states (dynamics undefined at boundaries)
+    non_terminal = (1 - dones.float())
+    lie_derivative = lie_derivative * non_terminal
+
+    # Control effort D(z,a) — quadratic action cost
+    effort = effort_weight * actions.pow(2).sum(dim=-1)
+
+    # HJB Defect: L_f V + D - R = 0
+    # At optimality, the Lie derivative balances effort and reward:
+    #   L_f V = R - D  (value increases toward high reward, minus effort)
+    hjb_defect = lie_derivative + effort - rewards
+
+    return hjb_defect.pow(2).mean()
 
 
 def train(config: HypoPPOConfig) -> None:
@@ -421,6 +517,7 @@ def train(config: HypoPPOConfig) -> None:
         b_advantages = advantages.reshape(-1)
         b_returns = returns.reshape(-1)
         b_values = values.reshape(-1)
+        b_rewards = rewards.reshape(-1)
         b_next_obs = next_obs_storage.reshape((-1,) + envs.single_observation_space.shape)
         b_next_done = next_dones_storage.reshape(-1)
         b_prev_mask = prev_mask_storage.reshape(-1)
@@ -439,6 +536,7 @@ def train(config: HypoPPOConfig) -> None:
         covariant_loss = torch.tensor(0.0, device=device)
         rlyap_loss = torch.tensor(0.0, device=device)
         dyn_loss = torch.tensor(0.0, device=device)
+        hjb_loss = torch.tensor(0.0, device=device)
         approx_kl = torch.tensor(0.0, device=device)
         old_approx_kl = torch.tensor(0.0, device=device)
 
@@ -524,6 +622,19 @@ def train(config: HypoPPOConfig) -> None:
                     if config.lambda_riemannian_lyapunov > 0:
                         loss = loss + config.lambda_riemannian_lyapunov * rlyap_loss
 
+                # HJB Correspondence: Lie derivative (metric-independent)
+                if config.lambda_hjb > 0:
+                    hjb_loss = compute_hjb_loss(
+                        agent,
+                        b_obs[mb_inds],
+                        b_actions[mb_inds],
+                        b_rewards[mb_inds],
+                        b_next_obs[mb_inds],
+                        b_next_done[mb_inds],
+                        effort_weight=config.hjb_effort_weight,
+                    )
+                    loss = loss + config.lambda_hjb * hjb_loss
+
                 optimizer.zero_grad()
                 loss.backward()
                 nn.utils.clip_grad_norm_(agent.parameters(), config.max_grad_norm)
@@ -553,6 +664,8 @@ def train(config: HypoPPOConfig) -> None:
                 print(
                     f"  Riemannian: cov={covariant_loss.item():.4f} lyap={rlyap_loss.item():.4f}"
                 )
+            if config.lambda_hjb > 0:
+                print(f"  HJB: {hjb_loss.item():.4f}")
 
     envs.close()
 
@@ -632,6 +745,8 @@ def build_parser() -> argparse.ArgumentParser:
         default=False,
         help="Use dynamics head to estimate delta for Riemannian losses",
     )
+    parser.add_argument("--lambda_hjb", type=float, default=0.0)
+    parser.add_argument("--hjb_effort_weight", type=float, default=0.01)
     parser.add_argument(
         "--normalize_obs",
         action=argparse.BooleanOptionalAction,
@@ -693,6 +808,8 @@ def config_from_args(args: argparse.Namespace) -> HypoPPOConfig:
         riemannian_metric_clip=args.riemannian_metric_clip,
         riemannian_value_floor=args.riemannian_value_floor,
         riemannian_use_model=args.riemannian_use_model,
+        lambda_hjb=args.lambda_hjb,
+        hjb_effort_weight=args.hjb_effort_weight,
         stiffness_epsilon=args.stiffness_epsilon,
         eikonal_target=args.eikonal_target,
         normalize_obs=args.normalize_obs,

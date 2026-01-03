@@ -38,7 +38,7 @@ This document presents a **rigorous thermodynamic formalization** of the Halting
 
 **Approach:** We define Energy $E(x) = K(x)$ (Kolmogorov complexity), Partition Function $Z = \Omega$ (Chaitin's halting probability), and Temperature $T = 1/d(x)$ (inverse computational depth). The Structural Sieve acts as a **Renormalization Group operator** with two stable fixed points.
 
-**Result:** The Sieve-Thermodynamic Correspondence Theorem ({prf:ref}`thm-halting-ait-sieve-thermo`) establishes that:
+**Result:** The Sieve-Thermodynamic Correspondence Theorem ({prf:ref}`thm-halting-ait-sieve-thermo-proofobj`) establishes that:
 - **Crystal Phase (Decidable)**: $K(L \cap [0,n]) = O(\log n)$ → Axiom R holds → Verdict: **REGULAR**
 - **Gas Phase (Undecidable)**: $K(L \cap [0,n]) \approx n$ → Axiom R fails → Verdict: **HORIZON**
 - **Critical Boundary**: Computably enumerable sets like $K$ exhibit phase transition behavior
@@ -50,7 +50,7 @@ This document presents a **rigorous thermodynamic formalization** of the Halting
 ## Theorem Statement
 
 ::::{prf:theorem} The Sieve-Thermodynamic Correspondence
-:label: thm-halting-ait-sieve-thermo
+:label: thm-halting-ait-sieve-thermo-proofobj
 
 **Given:**
 - State space: $\mathcal{X} = \{0,1\}^*$ (finite binary strings)
@@ -177,8 +177,8 @@ where $d(x) = \min\{t : \exists p, |p| = K(x), U^t(p) = x\}$ (runtime of shortes
 
 ## Part III: The Sieve-Thermodynamic Correspondence Theorem
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-halting-ait-sieve-thermo`
-:label: proof-thm-halting-ait-sieve-thermo
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-halting-ait-sieve-thermo-proofobj`
+:label: proof-thm-halting-ait-sieve-thermo-proofobj
 
 **Step 1 (Fixed Point Identification via Levin-Schnorr)**:
 

@@ -626,6 +626,21 @@ The relative entropy $H(\mu||\pi)$ serves as the canonical Lyapunov function:
 *   **Classification:** Global Lyapunov function for stochastic dynamics
 *   **Certificate:** $K_{\text{Lyapunov}}^+ = \{V = D(\cdot||\pi),\ \text{global},\ \text{strict}\}$
 
+### **5. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the run as a classical, set-theoretic audit trail.*
+
+**Precondition:** [x] Lock verdict obtained ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ at Node 17) and complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+with:
+- $\mathcal{U}$ a Grothendieck universe (Section 56.1),
+- `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`),
+- `axioms_used` audited via Definition {prf:ref}`def-sieve-zfc-correspondence`,
+- `AC_status` audited via Definitions {prf:ref}`def-ac-dependency` and {prf:ref}`def-choice-sensitive-stratum`.
+
+Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` yields a classical statement in $V_\mathcal{U}$ excluding reducible/periodic bad-pattern embeddings.
+
 ---
 
 ## Part III-C: Obligation Ledger

@@ -524,6 +524,15 @@ No Lyapunov reconstruction or ghost extension is needed—the physical enstrophy
 * **Tactic E2 (Biot–Savart):** Velocity gradient controlled by enstrophy
 * **Result:** **BLOCKED** ($K_{\mathrm{Lock}}^{\mathrm{blk}}$)
 
+### **4. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical exclusion as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+Here $\varphi$ can be taken as the set-level statement encoding “no bad-pattern morphism exists” (Hom-emptiness), yielding a ZFC-auditable global regularity claim for 2D Navier–Stokes.
+
 ---
 
 ## Part III-C: Obligation Ledger

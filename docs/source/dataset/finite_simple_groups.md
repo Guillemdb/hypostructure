@@ -762,6 +762,15 @@ $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{CFSG complete}, \text{
     - No gaps remain
 *   **Certificate:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (BLOCKED)
 
+### **8. ZFC Proof Export (Chapter 56 Bridge)**
+*Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical exclusion as a classical, set-theoretic audit trail.*
+
+**Bridge payload (Chapter 56):**
+$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
+where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
+
+Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the statement that no “new” finite simple group (i.e., no bad-pattern embedding $G^*$) exists in the set-level model $V_\mathcal{U}$ beyond the classified families.
+
 ---
 
 ## Part III-C: Obligation Ledger
