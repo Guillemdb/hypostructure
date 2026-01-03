@@ -23,13 +23,13 @@ The agent constantly trades off the **effort** of control (dissipation) against 
 
 ### Anatomy: The Minimum Viable Agent (The Demon)
 The **Minimum Viable Agent (MVA)**—the Maxwell's Demon itself—is defined as the tuple $\mathbb{A}$:
-$$ \mathbb{A} = (\text{VAE}, \text{World Model}, \text{Critic}, \text{Policy}) $$
+$$ \mathbb{A} = (\text{Split VQ-VAE Shutter}, \text{World Model}, \text{Critic}, \text{Policy}) $$
 
 This tuple directly instantiates the core objects of the Hypostructure $\mathbb{H} = (\mathcal{X}, \nabla, \Phi)$:
 
 | Component | Hypostructure Map | Role (Mechanism) | Cybernetic Function |
 | :--- | :--- | :--- | :--- |
-| **Autoencoder (VAE)** | **State Space Construction ($\mathcal{X}$)** | **The Shutter (Entropy Filter):** Compresses raw environmental entropy into the latent space $Z$. | Defines the **Geometry** of the world $Z$. |
+| **Autoencoder (Split VQ-VAE)** | **State Space Construction ($\mathcal{X}$)** | **The Shutter (Entropy Filter):** maps $x \mapsto (K, z_{\mu})$ where $K$ is a *discrete macro-symbol* and $z_{\mu}$ is a *continuous micro-residual*. | Defines the **Geometry** (continuous fibres) and **Logic** (symbolic macrostates) of the world. |
 | **World Model** | **Flat Connection / Flow ($\nabla, S_t$)** | **The Oracle (Future Constraint):** Simulates dynamics internally, allowing safety checks on *hallucinated* trajectories. | Defines the **Physics/Flow** within $Z$. |
 | **Critic** | **Energy Functional ($\Phi$)** | **The Potential Field (Height):** Assigns a "height" (potential energy) to every point in $Z$, representing risk. | Defines the **Risk Gradient** $\nabla V$. |
 | **Policy** | **Dissipation ($\mathfrak{D}$)** | **The Actuator (Force):** Moves the agent particle through $Z$ against the potential gradient. | Applies **Force** to minimize Action. |
@@ -41,18 +41,67 @@ To prevent category errors, we formally distinguish three manifolds with distinc
 | Manifold | Symbol | Coordinates | Metric Tensor | Role |
 |----------|--------|-------------|---------------|------|
 | **Physical/Data** | $\mathcal{X}$ | $x \in \mathbb{R}^D$ | $I$ (Euclidean) | Raw observations—the "hardware" |
-| **Latent/Problem** | $\mathcal{Z}$ | $z \in \mathbb{R}^d$ | $G(z)$ (Ruppeiner-Fisher) | Thermodynamic manifold—the "software" |
+| **Latent/Problem** | $\mathcal{Z}=\mathcal{K}\times \mathcal{Z}_{\mu}$ | $(K, z_{\mu})$ with $K \in \mathcal{K}$, $z_{\mu}\in\mathbb{R}^{d_\mu}$ | $d_{\mathcal{K}} \oplus G_{\mu}(z_{\mu};K)$ | Symbolic macro-register + thermodynamic micro-manifold—the "software" |
 | **Parameter/Model** | $\Theta$ | $\theta \in \mathbb{R}^P$ | $\mathcal{F}(\theta)$ (Fisher-Rao) | Configuration space—the "weights" |
 
 **Dimensional Verification:**
 
-- The encoder $E: \mathcal{X} \to \mathcal{Z}$ is a **contraction** (reduces dimension: $d \ll D$)
-- The policy $\pi_\theta: \mathcal{Z} \to \mathcal{A}$ lives in **parameter space** $\Theta$
-- The metric $G(z)$ is defined on **latent space** $\mathcal{Z}$, not on $\Theta$
+- The shutter $E: \mathcal{X} \to \mathcal{K}\times \mathcal{Z}_\mu$ is a **contraction** in continuous degrees of freedom ($d_\mu \ll D$) plus a **finite-rate quantization** in the macro channel ($\log|\mathcal{K}|$ bits).
+- The policy $\pi_\theta$ is a map on macrostates (or their code embeddings) $\pi_\theta:\mathcal{K}\to\mathcal{A}$; dependence on $z_\mu$ is a *causal leak* (violates enclosure).
+- The metric $G_{\mu}$ is defined on the **continuous fibres** $\mathcal{Z}_\mu$ (and/or the induced geometry of the codebook embedding), not on $\Theta$.
 
 **Anti-Mixing Principle:** Never conflate $\mathcal{F}(\theta)$ (parameter-space Fisher) with $G(z)$ (state-space metric). They live on different manifolds and measure different quantities:
 - $\mathcal{F}(\theta)$: How the policy changes with weights (used by TRPO/PPO)
-- $G(z)$: How the policy changes with states (used by the Fragile Agent)
+- $G_\mu(z_\mu;K)$: How the policy changes with continuous state coordinates (used by the Fragile Agent)
+
+### 2.2b The Shutter as a VQ-VAE (Discrete Macro, Continuous Micro)
+
+The Physicist/Fragile interpretation requires an explicit **logical register**: a countable set of macrostates on which we can apply Shannon/algorithmic metatheorems. This is provided by a **VQ-VAE macro-encoder**.
+
+We factor the latent as:
+$$
+Z_t := (K_t, Z_{\mu,t}), \qquad K_t \in \mathcal{K}\ \text{(discrete)}, \quad Z_{\mu,t}\in\mathcal{Z}_\mu\subset \mathbb{R}^{d_\mu}\ \text{(continuous)}.
+$$
+
+**Macro codebook (symbols).** Let $\mathcal{K}=\{1,\dots,|\mathcal{K}|\}$ and let $\{e_k\}_{k\in\mathcal{K}}\subset\mathbb{R}^{d_m}$ be a learned codebook. Given an observation $x$ the macro encoder produces a pre-quantized vector $z_e(x)\in\mathbb{R}^{d_m}$ and the VQ projection chooses the nearest code:
+$$
+K(x) := \arg\min_{k\in\mathcal{K}} \|z_e(x)-e_k\|_2^2,
+\qquad
+z_{\text{macro}}(x):=e_{K(x)}.
+$$
+We equip $\mathcal{K}$ with the induced finite metric $d_{\mathcal{K}}(k,k'):=\|e_k-e_{k'}\|_2$ (or its $G_\mu$-weighted variant), so $\mathcal{Z}$ is a bundle of continuous fibres over a discrete base.
+
+**Micro residual (continuous heat bath).** The micro channel remains continuous, e.g. with a Gaussian posterior
+$$
+q_\phi(z_\mu\mid x)=\mathcal{N}(\mu_\phi(x),\operatorname{diag}(\sigma_\phi^2(x))),
+$$
+and a simple prior $p(z_\mu)=\mathcal{N}(0,I)$ so that matching $q_\phi(\cdot\mid x)$ to $p$ operationalizes the statement “micro is entropy, not law”.
+
+**VQ-VAE objective (with continuous micro).** With a decoder $p_\theta(x\mid z_{\text{macro}},z_\mu)$ and stop-gradient operator $\operatorname{sg}[\cdot]$, the canonical loss is
+$$
+\mathcal{L}_{\text{shutter}}
+=
+\mathbb{E}\Big[-\log p_\theta(X\mid e_{K(X)}, Z_\mu)\Big]
++\underbrace{\| \operatorname{sg}[z_e]-e_{K}\|_2^2}_{\text{codebook}}
++\underbrace{\beta\|z_e-\operatorname{sg}[e_K]\|_2^2}_{\text{commit}}
++\underbrace{\beta_\mu D_{KL}(q_\phi(Z_\mu\mid X)\Vert p(Z_\mu))}_{\text{micro-as-noise}}.
+$$
+
+**Information-theoretic capacity becomes explicit.** Because $K$ is discrete,
+$$
+I(X;K)\le H(K)\le \log|\mathcal{K}|.
+$$
+For deterministic nearest-neighbor quantization, $H(K\mid X)=0$ and hence $I(X;K)=H(K)$: the macro channel is literally a bounded-rate symbolic memory.
+
+**Rate–distortion / MDL viewpoint (optional but canonical).** Because $K$ is a discrete string, an explicit entropy model $p_\psi(K)$ defines a literal expected codelength $\mathbb{E}[-\log p_\psi(K)]$ (in nats). Adding this term yields the Lagrangian form of lossy source coding:
+$$
+\min_{E,D}\ \mathbb{E}\big[d(X,\hat{X})\big] + \lambda\,\mathbb{E}\big[-\log p_\psi(K)\big],
+$$
+with rate controlled by the symbolic model and distortion controlled by the decoder. This is the rigorous information-theoretic envelope in which VQ-VAE-style macrostates live.
+
+**Metatheorems unlocked by discretization.**
+- A discrete macro-register makes thermodynamic bounds on memory updates applicable (see {prf:ref}`mt:landauer-optimality`).
+- Macro-trajectories become literal strings $K_{0:T}$, so Levin/Kolmogorov-style horizon arguments become well-typed (see {prf:ref}`mt:levin-search`).
 
 ### 2.3 The Bridge: RL as Dissipation (Neural Lyapunov Geometry)
 
@@ -134,7 +183,7 @@ Where:
 * $\alpha$ (Critic Temp): Curvature of the risk landscape.
 * $\beta$ (Policy Temp): Plasticity of the actor.
 * $\gamma$ (World Model Temp): Volatility of physics.
-* $\delta$ (VAE Temp): Stability of geometry.
+* $\delta$ (VQ-VAE Temp): Stability of geometry *and* the macro-symbol inventory (codebook drift).
 
 This fuses the Cybernetic and Thermodynamic perspectives: the agent's "temperature" determines its responsiveness to risk gradients.
 
@@ -223,18 +272,37 @@ All terms in the HJB equation have units of **Power**. Rewards are not "points"�
 
 ### 2.8 Causal Enclosure (The RG Projection)
 
-The transition from micro to macro is a **projection operator** $\Pi: \mathcal{Z} \to \mathcal{Z}_{\text{macro}}$.
+The transition from micro to macro is a **projection operator** $\Pi:\mathcal{Z}\to\mathcal{K}$. In the discrete macro instantiation, $\Pi$ is precisely the **VQ quantizer** $z_e\mapsto K$ from Section 2.2b.
 
-**Closure Defect:**
+**Causal Enclosure Condition (Markov sufficiency).** Let $(Z_t,A_t)$ be the microstate/action process and define the macrostate $K_t:=\Pi(Z_t)$. The effective theory requirement is the conditional independence
+$$
+K_{t+1}\ \perp\!\!\!\perp\ Z_t\ \big|\ (K_t,A_t),
+$$
+equivalently the vanishing of a conditional mutual information:
+$$
+I(K_{t+1};Z_t\mid K_t,A_t)=0.
+$$
+This is the information-theoretic statement that the macro-symbols are a sufficient statistic for predicting their own future (the “law”), while micro is pure residual (“heat”).
 
-$$\delta = \left\| \Pi \circ S_t(z) - \bar{S}_t(\Pi(z)) \right\|_G^2$$
+**Closure Defect (kernel-level).** Write the micro-dynamics as a Markov kernel $P(dz'\mid z,a)$ and let $P_\Pi(\cdot\mid z,a)$ be the pushforward kernel on $\mathcal{K}$ induced by $\Pi$. A learned macro-physics kernel $\bar{P}(\cdot\mid k,a)$ is enclosure-correct iff
+$$
+P_\Pi(\cdot\mid z,a)=\bar{P}(\cdot\mid \Pi(z),a)
+\quad\text{for }P\text{-a.e. }z.
+$$
+A canonical defect functional is the expected divergence
+$$
+\delta_{\text{CE}}
+:=
+\mathbb{E}_{z,a}\Big[D_{KL}\big(P_\Pi(\cdot\mid z,a)\ \Vert\ \bar{P}(\cdot\mid \Pi(z),a)\big)\Big].
+$$
+This is the discrete, measure-theoretic refinement of the “commuting diagram” in the Micro–Macro Consistency metatheorem (see {prf:ref}`mt:micro-macro-consistency`).
 
 Where:
-- $S_t$ is the micro-physics (World Model)
-- $\bar{S}_t$ is the learned macro-physics (Effective Theory)
-- The error is measured using the metric $G$, so dangerous regions are penalized more heavily
+- $P$ is the micro-physics (World Model) as a kernel on $\mathcal{Z}$
+- $\bar{P}$ is the learned macro-physics (Effective Theory) as a kernel on $\mathcal{K}$
+- the divergence is over the discrete macro alphabet, so it is a true Shannon quantity (no differential-entropy ambiguity)
 
-**Computational Meaning:** The macro-dynamics should be a homomorphism of the micro-dynamics. If $\delta > 0$, the agent's "effective theory" is leaking information.
+**Computational Meaning:** The macro-dynamics should be a homomorphism of the micro-dynamics. If $\delta_{\text{CE}} > 0$ (or equivalently $I(K_{t+1};Z_t\mid K_t,A_t)>0$), the agent's "effective theory" is leaking micro-information into the law channel.
 
 ### 2.9 Regularity Conditions
 
@@ -397,7 +465,7 @@ The "Health" of the Agent is monitored via 21 distinct interfaces (Gate Nodes). 
 |------|-----------|-----------|-----------------------------------|---------|------------------------------------------------------|---------|
 | **1** | **EnergyCheck ($D_E$)** | **Critic** | **Risk Budget Check** | Is current risk ($V(s)$) within budget? | $\max(0, V(s) - V_{\text{max}})^2$ (Risk Bound) | $O(B)$ ✓ |
 | **2** | **ZenoCheck ($\mathrm{Rec}_N$)** | **Policy** | **Action Frequency Limit** | Switching policies too fast? | $D_{KL}(\pi_t \Vert \pi_{t-1})$ (Smoothness) | $O(BA)$ ✓ |
-| **3** | **CompactCheck ($C_\mu$)** | **VAE** | **Belief Concentration** | Belief converges? | $H(q(z \mid x))$ (Entropy Min) | $O(BZ)$ ✓ |
+| **3** | **CompactCheck ($C_\mu$)** | **VQ-VAE** | **Belief Concentration** | Macro assignment sharp? | $H(q(K \mid x))$ (Symbol Entropy) | $O(BZ)$ ✓ |
 | **4** | **ScaleCheck ($\mathrm{SC}_\lambda$)** | **All** | **Adaptation Scaling** | Adaptation speed > Disturbance speed? | $\Vert \nabla \theta \Vert / \Vert \Delta S \Vert$ (Relative Rate) | $O(P)$ ⚡ |
 | **5** | **ParamCheck ($\mathrm{SC}_{\partial c}$)** | **World Model** | **Stationarity Check** | Physics stable? | $\Vert \nabla_t S_t \Vert^2$ (Time Derivative Penalty) | $O(P_{WM})$ ⚡ |
 | **6** | **GeomCheck ($\mathrm{Cap}_H$)** | **VAE / WM** | **Blind Spot Check** | Unobservable states negligible? | $\mathcal{L}_{\text{contrastive}}$ (InfoNCE) | $O(B^2Z)$ ⚡ |
@@ -409,9 +477,9 @@ The "Health" of the Agent is monitored via 21 distinct interfaces (Gate Nodes). 
 | **8** | **TopoCheck ($\mathrm{TB}_\pi$)** | **Policy** | **Sector Reachability** | Goal reachable? | $T_{\text{reach}}(s_{\text{goal}})$ (Reachability Map) | $O(HBZ)$ ✗ |
 | **9** | **TameCheck ($\mathrm{TB}_O$)** | **World Model** | **Interpretability Check** | World "tame"? | $\Vert \nabla^2 S_t \Vert$ (Hessian Norm / Smoothness) | $O(Z^2 P_{WM})$ ✗ |
 | **10** | **ErgoCheck ($\mathrm{TB}_\rho$)** | **Policy** | **Exploration/Mixing** | Sufficient exploration? | $-H(\pi)$ (Max Entropy) | $O(BA)$ ✓ |
-| **11** | **ComplexCheck ($\mathrm{Rep}_K$)** | **VAE** | **Model Capacity Check** | Complexity < Capacity? | $D_{KL}(q \Vert p)$ (Capacity Usage) | $O(BZ)$ ✓ |
+| **11** | **ComplexCheck ($\mathrm{Rep}_K$)** | **VQ-VAE** | **Model Capacity Check** | Symbolic rate within budget? | $\mathrm{Rep}_K := H(K)/\log|\mathcal{K}|$ (Rate Utilization) | $O(B)$ ✓ |
 | **12** | **OscillateCheck ($\mathrm{GC}_\nabla$)** | **WM / Policy** | **Oscillation / Chattering** | Limit cycles? | $\Vert z_t - z_{t-2} \Vert$ (Period-2 Penalty) | $O(BZ)$ ✓ |
-| **13** | **BoundaryCheck ($\mathrm{Bound}_\partial$)** | **VAE** | **Open System Check** | External signal present? | $I(X; Z)$ (Mutual Information > 0) | $O(B^2)$ ⚡ |
+| **13** | **BoundaryCheck ($\mathrm{Bound}_\partial$)** | **VQ-VAE** | **Open System Check** | External signal present? | $I(X;K)$ (Symbolic MI $>0$) | $O(B)$ ✓ |
 | **14** | **OverloadCheck ($\mathrm{Bound}_B$)** | **VAE** | **Input Saturation** | Inputs clipping? | $\mathbb{I}(\lvert x \rvert > x_{\text{max}})$ (Saturation Flag) | $O(BD)$ ✓ |
 | **15** | **StarveCheck ($\mathrm{Bound}_{\Sigma}$)** | **VAE** | **Signal-to-Noise** | Signal strength sufficient? | $\text{SNR} < \epsilon$ (Noise Floor Check) | $O(BD)$ ✓ |
 | **16** | **AlignCheck ($\mathrm{GC}_T$)** | **Critic** | **Objective Alignment** | Proxy matches objective? | $\lvert V_{\text{proxy}} - V_{\text{true}} \rvert$ (Alignment Error) | $O(B)$ ✗ |
@@ -435,7 +503,7 @@ Each node corresponds to a verifiable geometric property. The Sieve acts as a **
 
 In the Hypostructure framework, **Thin Interfaces** are defined as minimal couplings between components. Instead of monolithic end-to-end training, we enforce structural "contracts" (the Gate Nodes) via **Defect Functionals** ($\mathcal{L}_{\text{check}}$).
 
-*   **Principle:** Components (VAE, WM, Critic, Policy) should be **autonomous** but **aligned**.
+*   **Principle:** Components (VQ-VAE, WM, Critic, Policy) should be **autonomous** but **aligned**.
 *   **Mechanism:** Each component minimizes its own objective *subject to* the cybernetic constraints imposed by the others.
 
 ### 3.2 Scaling Exponents: Characterizing the Demon
@@ -453,7 +521,7 @@ The geometric metric $G$ is the **State-Space Fisher Information** (see Section 
 | **Critic** | **Potential Temp** | $\alpha$ | **Steepness/Height:** The magnitude of the risk gradients. | High $\alpha$: Safe, strong supervision.<br>Low $\alpha$: Flat landscape (BarrierGap). |
 | **Policy** | **Kinetic Temp** | $\beta$ | **Effort/Mobility:** The magnitude of policy updates. | High $\beta$: High plasticity/noise.<br>Low $\beta$: Frozen/Deterministic. |
 | **World Model** | **Flow Temp** | $\gamma$ | **Dynamics volatility:** Speed of evolution of physics. | High $\gamma$: Chaotic/Dream-like.<br>Low $\gamma$: Static world. |
-| **VAE** | **Geometry Temp** | $\delta$ | **Embedding volatility:** Stability of the state space $Z$. | High $\delta$: Shifting ground (Representation drfit).<br>Low $\delta$: Stable ontology. |
+| **VQ-VAE** | **Geometry Temp** | $\delta$ | **Ontology volatility:** stability of the codebook and continuous fibres. | High $\delta$: codebook drift / symbol churn (representation drift).<br>Low $\delta$: stable ontology. |
 
 **The Stability Inequality (BarrierTypeII Extended):**
 For a stable control loop, the hierarchy of scales must be preserved:
@@ -466,10 +534,17 @@ $$ \delta \le \gamma \le \alpha \le \beta $$
 
 We regulate the MVA by augmenting the loss function with specific terms for each component. These terms are non-negotiable cybernetic contracts.
 
-#### A. VAE Regulation (The Shutter)
-*   **Information Bottleneck (Node 3 / 11):**
-    $$ \mathcal{L}_{\text{VAE}} = \mathcal{L}_{\text{recon}} + \beta_{KL} D_{KL}(q(z \mid x) \Vert p(z)) $$
-    *   *Effect:* High $\beta$ forces the VAE to discard high-frequency noise ("shattering"). The VAE must define a *finite* geometry.
+#### A. VQ-VAE Regulation (The Shutter)
+*   **Symbolic Bottleneck (Node 3 / 11):** the shutter is a *split* latent $(K,z_\mu)$ with $K\in\mathcal{K}$ discrete (Section 2.2b). A canonical objective is:
+    $$
+    \mathcal{L}_{\text{shutter}}
+    =
+    \mathcal{L}_{\text{recon}}
+    + \underbrace{\| \operatorname{sg}[z_e]-e_{K}\|_2^2 + \beta\|z_e-\operatorname{sg}[e_K]\|_2^2}_{\text{VQ codebook + commitment}}
+    + \underbrace{\beta_\mu D_{KL}(q(z_\mu \mid x) \Vert p(z_\mu))}_{\text{micro-as-noise}}
+    + \underbrace{\lambda_{\text{use}} D_{KL}(\hat{p}(K)\ \Vert\ \mathrm{Unif}(\mathcal{K}))}_{\text{anti-collapse (optional)}}.
+    $$
+    *   *Effect:* The macro channel is a bounded-rate symbolic register; the micro channel is forced into a high-entropy prior (“heat”). The optional usage term prevents codebook collapse while leaving the rate bounded by $\log|\mathcal{K}|$.
 *   **Contrastive Anchoring (Node 6):**
     $$ \mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(z_t, z_{t+k}))}{\sum \exp(\text{sim}(z_t, z_{neg}))} $$
     *   *Effect:* Ensures the latent space captures long-term structural dependencies (slow features), not just pixel reconstruction.
@@ -1206,13 +1281,15 @@ class RiemannianFragileAgent(nn.Module):
             fisher_diag = compute_state_space_fisher(self, batch.obs)
             G_inv = 1.0 / (fisher_diag + 1e-8)
 
-        # === PHASE III: RENORMALIZATION UPDATE (VAE) ===
-        # Enforce Causal Enclosure: Macro predicts Macro, Micro is Noise
-        z_macro, z_micro = self.vae(batch.obs)
+        # === PHASE III: RENORMALIZATION UPDATE (VQ-VAE SHUTTER) ===
+        # Enforce Causal Enclosure: discrete macro K carries the "law",
+        # while z_micro is a continuous entropy reservoir.
+        K_t, z_macro, z_micro = self.shutter(batch.obs)  # z_macro := e_{K_t}
 
-        # RIEMANNIAN: Closure loss forces macro to be self-predicting
-        closure_loss = self._compute_closure_loss(z_macro, z_micro)
-        self.vae_opt.step(self.elbo_loss + closure_loss)
+        # SYMBOLIC: Closure is cross-entropy / conditional entropy on the macro symbols.
+        # (See Section 2.8: I(K_{t+1}; Z_t | K_t, A_t)=0 and H(K_{t+1}|K_t,A_t) small.)
+        closure_loss = self._compute_closure_loss(K_t, z_micro)
+        self.shutter_opt.step(self.shutter_loss + closure_loss)
 
         # === PHASE IV: LYAPUNOV UPDATE (Critic) ===
         # Enforce Exponential Stability constraint on V
@@ -1248,27 +1325,31 @@ class RiemannianFragileAgent(nn.Module):
             # Agent "freezes" to let perception catch up (Wait state)
             pass
 
-    def _compute_closure_loss(self, z_macro, z_micro):
+    def _compute_closure_loss(self, K_t, z_micro):
         """
-        Causal Enclosure: macro variables must predict themselves.
+        Causal Enclosure (symbolic form).
 
-        L_closure = ||z_macro_next - f(z_macro, a)||² + ||∇_micro z_macro_next||²
+        With a discrete macro register K∈𝒦, enclosure is the pair of conditions:
+        1) Predictability: H(K_{t+1} | K_t, a_t) is small (law-like macro dynamics).
+        2) No leak: I(K_{t+1}; Z_{μ,t} | K_t, a_t)=0 (micro does not inform the law).
 
-        The second term penalizes any dependence of macro on micro.
+        Implementation sketch:
+        - (1) is a cross-entropy loss over code indices (a Shannon quantity).
+        - (2) is a conditional-independence penalty (HSIC/adversary/MINE), treated as
+          a proxy for conditional mutual information.
         """
-        z_macro_pred = self.world_model(z_macro, self.action)
-        z_macro_actual = self.vae.encode_macro(self.next_obs)
+        logits_next = self.world_model.predict_code_logits(K_t, self.action)  # [B, |𝒦|]
+        K_next = self.shutter.encode_code(self.next_obs)                      # [B]
 
-        # Macro must be self-predicting
-        prediction_error = (z_macro_pred - z_macro_actual.detach()).pow(2).mean()
+        predict_loss = nn.CrossEntropyLoss()(logits_next, K_next)
 
-        # Micro should NOT predict macro (independence)
-        micro_gradient = torch.autograd.grad(
-            z_macro_actual.sum(), z_micro, create_graph=True
-        )[0]
-        independence_loss = micro_gradient.pow(2).mean()
+        # Choose one MI proxy for the independence term:
+        #   - HSIC(z_micro, one_hot(K_next))
+        #   - adversary with gradient reversal predicting K_next from z_micro
+        #   - variational estimator of I(K_next; z_micro | K_t, a_t)
+        independence_loss = estimate_conditional_mi(K_next, z_micro, K_t, self.action)
 
-        return prediction_error + 0.1 * independence_loss
+        return predict_loss + self.lambda_ind * independence_loss
 
     def _geodesic_dist(self, policy_new, policy_old, G_inv):
         """
@@ -2168,31 +2249,31 @@ In the language of the Hypostructure, this upgrade addresses **BarrierEpi** (inf
 
 **Standard Agent:** Encodes the state into a single vector $z$.
 
-**Physicist Agent:** Encodes the state into two distinct vectors:
+**Physicist Agent:** Encodes the state into a **discrete macro-symbol** plus a **continuous micro-residual** (Section 2.2b):
 
-1. **$z_{\text{macro}}$ (The Signal):** Low-frequency, causal, predictable. Represents the "Laws of Physics" (e.g., position of a ball, velocity of a car).
+1. **$K_t \in \mathcal{K}$ (The Macro Symbol / Law Register):** Low-frequency, causal, predictable. This is the *quantized* macrostate (a code index). For downstream continuous networks we also use its embedding $z_{\text{macro}}:=e_{K_t}\in\mathbb{R}^{d_m}$, but the *information-carrying* object is the discrete symbol $K_t$.
 
-2. **$z_{\text{micro}}$ (The Entropy):** High-frequency, chaotic, unpredictable. Represents "Heat" or "Texture" (e.g., static on a TV, rustling leaves).
+2. **$z_{\mu,t}$ (The Micro Residual / Heat Bath):** High-frequency, chaotic, unpredictable. A continuous latent used for reconstruction/texture and treated as an entropy reservoir rather than a law variable.
 
 **The Golden Rule of Causal Enclosure:**
 
 $$
-z_{\text{macro}, t+1} = f_{\text{physics}}(z_{\text{macro}, t}, a_t) + \epsilon
+P(K_{t+1}\mid K_t,a_t)\ \text{is sharply concentrated (ideally deterministic), and}\ I(K_{t+1};Z_{\mu,t}\mid K_t,a_t)=0.
 $$
 
-The macro state must be predictable **solely from its own history**. If the World Model needs to look at $z_{\text{micro}}$ to predict the next $z_{\text{macro}}$, you have failed to derive an effective theory.
+The macro symbol must be predictable **solely from its own history** (plus action). If the World Model needs micro-residuals to predict the next macro symbol, you have failed to derive an effective theory (Section 2.8).
 
 **Connection to RG Flow:**
 
 | Physics Concept | ML Implementation |
 |-----------------|-------------------|
-| Relevant operators | $z_{\text{macro}}$ dimensions |
-| Irrelevant operators | $z_{\text{micro}}$ dimensions |
+| Relevant operators | macro symbols $K_t$ (rate $\le \log|\mathcal{K}|$) |
+| Irrelevant operators | $z_{\mu}$ dimensions |
 | Fixed point | Converged physics engine |
-| Coarse-graining | Information dropout |
+| Coarse-graining | VQ quantization $\Pi:\mathcal{Z}\to\mathcal{K}$ (+ optional micro dropout) |
 | Universality class | Shared macro dynamics across environments |
 
-### 9.2 Architecture: The Disentangled VAE-RNN
+### 9.2 Architecture: The Disentangled VQ-VAE-RNN
 
 ```python
 import torch
@@ -2207,7 +2288,8 @@ class PhysicistConfig:
     """Configuration for Physicist Agent."""
     obs_dim: int = 64 * 64 * 3      # Observation dimension
     hidden_dim: int = 256            # Encoder hidden dimension
-    macro_dim: int = 32              # Macro (physics) latent dimension
+    macro_embed_dim: int = 32        # Macro embedding dim (code vectors e_k)
+    codebook_size: int = 512         # Number of discrete macrostates |𝒦|
     micro_dim: int = 128             # Micro (entropy) latent dimension
     action_dim: int = 4              # Action dimension
     rnn_hidden_dim: int = 256        # Physics engine RNN hidden
@@ -2216,6 +2298,7 @@ class PhysicistConfig:
     lambda_closure: float = 1.0      # Causal enclosure weight
     lambda_slowness: float = 0.1     # Temporal smoothness weight
     lambda_dispersion: float = 0.01  # Micro KL weight
+    lambda_vq: float = 1.0           # VQ codebook + commitment weight
     lambda_recon: float = 1.0        # Reconstruction weight
 
     # Training
@@ -2253,6 +2336,43 @@ class Encoder(nn.Module):
         return F.relu(self.fc(self.conv(x)))
 
 
+class VectorQuantizer(nn.Module):
+    """
+    VQ layer: maps a continuous encoder output z_e to a discrete code K and
+    its corresponding embedding e_K using a straight-through estimator.
+    """
+
+    def __init__(self, codebook_size: int, embed_dim: int, beta: float = 0.25):
+        super().__init__()
+        self.codebook = nn.Embedding(codebook_size, embed_dim)
+        self.beta = beta
+        nn.init.uniform_(self.codebook.weight, -1.0 / codebook_size, 1.0 / codebook_size)
+
+    def forward(self, z_e: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        # z_e: [B, D]
+        # Compute squared L2 distances to codebook vectors
+        codebook = self.codebook.weight  # [|𝒦|, D]
+        distances = (
+            z_e.pow(2).sum(dim=-1, keepdim=True)
+            - 2 * z_e @ codebook.t()
+            + codebook.pow(2).sum(dim=-1, keepdim=True).t()
+        )
+        K = torch.argmin(distances, dim=-1)          # [B]
+        z_q = self.codebook(K)                       # [B, D]
+
+        # VQ-VAE losses
+        codebook_loss = (z_q - z_e.detach()).pow(2).mean()
+        commit_loss = self.beta * (z_e - z_q.detach()).pow(2).mean()
+        vq_loss = codebook_loss + commit_loss
+
+        # Straight-through estimator: pass gradients to encoder as if identity
+        z_q_st = z_e + (z_q - z_e).detach()
+        return z_q_st, K, vq_loss
+
+    def embed(self, K: torch.Tensor) -> torch.Tensor:
+        return self.codebook(K)
+
+
 class Decoder(nn.Module):
     """Decoder using both macro and micro latents."""
 
@@ -2286,36 +2406,37 @@ class PhysicsEngine(nn.Module):
     information into the macro channel.
     """
 
-    def __init__(self, macro_dim: int, action_dim: int, hidden_dim: int):
+    def __init__(self, macro_embed_dim: int, action_dim: int, hidden_dim: int, codebook_size: int):
         super().__init__()
-        self.macro_dim = macro_dim
+        self.macro_embed_dim = macro_embed_dim
+        self.codebook_size = codebook_size
 
         # GRU for temporal dynamics
-        self.gru = nn.GRUCell(macro_dim + action_dim, hidden_dim)
+        self.gru = nn.GRUCell(macro_embed_dim + action_dim, hidden_dim)
 
-        # Project hidden state to next macro prediction
+        # Project hidden state to a distribution over next macro symbol K_{t+1}
         self.predictor = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, macro_dim),
+            nn.Linear(hidden_dim, codebook_size),  # logits over 𝒦
         )
 
         # Uncertainty estimation (optional but recommended)
-        self.uncertainty = nn.Linear(hidden_dim, macro_dim)
+        self.uncertainty = nn.Linear(hidden_dim, 1)
 
     def forward(
         self,
-        z_macro: torch.Tensor,      # [B, macro_dim]
+        z_macro: torch.Tensor,       # [B, macro_embed_dim] (= code embedding e_K)
         action: torch.Tensor,        # [B, action_dim]
         h_prev: torch.Tensor,        # [B, hidden_dim]
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """
-        Predict next macro state from current macro state only.
+        Predict the next macro symbol distribution from the current macro embedding only.
 
         Returns:
-            z_macro_pred: Predicted next macro state
+            logits_next: Logits for K_{t+1} over 𝒦
             h_next: Updated hidden state
-            uncertainty: Prediction uncertainty (log variance)
+            uncertainty: Scalar uncertainty proxy
         """
         # Concatenate macro state and action (NO micro!)
         x = torch.cat([z_macro, action], dim=-1)
@@ -2323,20 +2444,20 @@ class PhysicsEngine(nn.Module):
         # Update hidden state
         h_next = self.gru(x, h_prev)
 
-        # Predict next macro
-        z_macro_pred = self.predictor(h_next)
+        # Predict next macro symbol (logits over 𝒦)
+        logits_next = self.predictor(h_next)
         uncertainty = self.uncertainty(h_next)
 
-        return z_macro_pred, h_next, uncertainty
+        return logits_next, h_next, uncertainty
 
 
 class PhysicistAgent(nn.Module):
     """
-    The Physicist Agent: Split-Brain VAE-RNN.
+    The Physicist Agent: Split-Brain VQ-VAE-RNN.
 
     Implements Renormalization Group flow by separating:
-    - z_macro: Slow, causal, predictable (the "Effective Theory")
-    - z_micro: Fast, chaotic, unpredictable (the "Heat")
+    - K_t (macro): a discrete symbol in 𝒦 (the "Effective Theory")
+    - z_mu (micro): a continuous residual (the "Heat")
     """
 
     def __init__(self, config: PhysicistConfig):
@@ -2346,10 +2467,9 @@ class PhysicistAgent(nn.Module):
         # Shared encoder
         self.encoder = Encoder(config.obs_dim, config.hidden_dim)
 
-        # Split heads for Macro (Physics) and Micro (Noise)
-        # Macro: deterministic (or low-variance Gaussian)
-        self.head_macro_mean = nn.Linear(config.hidden_dim, config.macro_dim)
-        self.head_macro_logvar = nn.Linear(config.hidden_dim, config.macro_dim)
+        # Macro: continuous pre-quantization → discrete code K via VQ
+        self.head_macro = nn.Linear(config.hidden_dim, config.macro_embed_dim)
+        self.vq = VectorQuantizer(config.codebook_size, config.macro_embed_dim)
 
         # Micro: high-variance Gaussian (entropy reservoir)
         self.head_micro_mean = nn.Linear(config.hidden_dim, config.micro_dim)
@@ -2357,34 +2477,34 @@ class PhysicistAgent(nn.Module):
 
         # Physics Engine (blind to micro)
         self.physics_engine = PhysicsEngine(
-            config.macro_dim,
+            config.macro_embed_dim,
             config.action_dim,
             config.rnn_hidden_dim,
+            config.codebook_size,
         )
 
         # Decoder (uses both)
-        self.decoder = Decoder(config.macro_dim, config.micro_dim)
+        self.decoder = Decoder(config.macro_embed_dim, config.micro_dim)
 
     def encode(
         self,
         x: torch.Tensor,
-    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, Tuple[torch.Tensor, torch.Tensor], torch.Tensor]:
         """
-        Encode observation into macro and micro latents.
+        Encode observation into a discrete macro symbol and a continuous micro residual.
 
         Returns:
-            z_macro: Macro latent (physics)
+            K: Macro code index in 𝒦
+            z_macro: Quantized macro embedding e_K (straight-through)
             z_micro: Micro latent (noise)
-            macro_dist: (mean, logvar) for macro
             micro_dist: (mean, logvar) for micro
+            vq_loss: codebook + commitment loss
         """
         features = self.encoder(x)
 
-        # Macro: Low variance (deterministic-ish)
-        macro_mean = self.head_macro_mean(features)
-        macro_logvar = self.head_macro_logvar(features)
-        # Clamp logvar to keep macro relatively deterministic
-        macro_logvar = torch.clamp(macro_logvar, min=-10, max=-2)
+        # Macro: quantize into a discrete symbol K and embedding z_macro := e_K
+        z_e = self.head_macro(features)
+        z_macro, K, vq_loss = self.vq(z_e)
 
         # Micro: High variance (entropic)
         micro_mean = self.head_micro_mean(features)
@@ -2393,10 +2513,9 @@ class PhysicistAgent(nn.Module):
         micro_logvar = torch.clamp(micro_logvar, min=-5, max=2)
 
         # Reparameterization trick
-        z_macro = self._reparameterize(macro_mean, macro_logvar)
         z_micro = self._reparameterize(micro_mean, micro_logvar)
 
-        return z_macro, z_micro, (macro_mean, macro_logvar), (micro_mean, micro_logvar)
+        return K, z_macro, z_micro, (micro_mean, micro_logvar), vq_loss
 
     def _reparameterize(self, mean: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
         std = torch.exp(0.5 * logvar)
@@ -2415,13 +2534,13 @@ class PhysicistAgent(nn.Module):
 
         Returns dict with all intermediate values for loss computation.
         """
-        B = x_t.shape[0]
-
         # 1. Encode current observation
-        z_macro, z_micro, macro_dist, micro_dist = self.encode(x_t)
+        K_t, z_macro, z_micro, micro_dist, vq_loss = self.encode(x_t)
 
         # 2. Physics step (blind to micro)
-        z_macro_pred, h_next, uncertainty = self.physics_engine(z_macro, action, h_prev)
+        logits_next, h_next, uncertainty = self.physics_engine(z_macro, action, h_prev)
+        K_pred = torch.argmax(logits_next, dim=-1)
+        z_macro_pred = self.vq.embed(K_pred)
 
         # 3. Information Dropout for reconstruction
         if training and torch.rand(1).item() < self.config.info_dropout_prob:
@@ -2434,11 +2553,14 @@ class PhysicistAgent(nn.Module):
         x_recon = self.decoder(z_macro, z_micro_for_decode)
 
         return {
+            'K_t': K_t,
             'z_macro': z_macro,
             'z_micro': z_micro,
+            'z_macro_logits': logits_next,
+            'K_pred': K_pred,
             'z_macro_pred': z_macro_pred,
-            'macro_dist': macro_dist,
             'micro_dist': micro_dist,
+            'vq_loss': vq_loss,
             'h_next': h_next,
             'uncertainty': uncertainty,
             'x_recon': x_recon,
@@ -2449,23 +2571,34 @@ class PhysicistAgent(nn.Module):
         return torch.zeros(batch_size, self.config.rnn_hidden_dim, device=device)
 
 
+```
+
 ### 9.3 The Loss Function: Enforcing Physics
 
 The Physicist Agent cannot be trained with standard ELBO alone. It requires a compound loss that enforces the **Learnability Threshold**:
 
 $$
-\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{recon}} + \lambda_1 \mathcal{L}_{\text{closure}} + \lambda_2 \mathcal{L}_{\text{slowness}} + \lambda_3 \mathcal{L}_{\text{dispersion}}
+\mathcal{L}_{\text{total}}
+=
+\lambda_{\text{recon}}\mathcal{L}_{\text{recon}}
+\;+\;\lambda_{\text{vq}}\mathcal{L}_{\text{vq}}
+\;+\;\lambda_{\text{closure}}\mathcal{L}_{\text{closure}}
+\;+\;\lambda_{\text{slowness}}\mathcal{L}_{\text{slowness}}
+\;+\;\lambda_{\text{dispersion}}\mathcal{L}_{\text{dispersion}}
 $$
+where $\mathcal{L}_{\text{closure}}$ is a cross-entropy on the discrete macro symbols (an estimator of $H(K_{t+1}\mid K_t,a_t)$) and $\mathcal{L}_{\text{vq}}$ is the codebook+commitment term from the VQ layer.
 
+```python
 class PhysicistLoss(nn.Module):
     """
     Compound loss for training the Physicist Agent.
 
-    Implements the four key constraints:
+    Implements the five key constraints:
     1. Closure: Macro must predict itself (causal enclosure)
     2. Slowness: Macro should change slowly (inertial manifold)
     3. Dispersion: Micro should be unpredictable (entropy dump)
-    4. Reconstruction: Both channels needed for full reconstruction
+    4. VQ: Macro must remain quantized (symbolic)
+    5. Reconstruction: Both channels needed for full reconstruction
     """
 
     def __init__(self, config: PhysicistConfig):
@@ -2474,11 +2607,11 @@ class PhysicistLoss(nn.Module):
 
     def forward(
         self,
-        outputs: dict,           # From PhysicistAgent.forward()
-        x_target: torch.Tensor,  # Target observation (x_{t+1} for closure)
-        z_macro_next: torch.Tensor,  # Actual z_macro at t+1
-        z_macro_prev: Optional[torch.Tensor] = None,  # z_macro at t-1
-        step: int = 0,           # Training step for warmup
+        outputs: dict,              # From PhysicistAgent.forward()
+        x_target: torch.Tensor,     # Target observation (x_{t+1} for recon)
+        K_next: torch.Tensor,       # Target macro code at t+1 (LongTensor)
+        z_macro_prev: Optional[torch.Tensor] = None,  # e_{K_{t-1}} (for slowness)
+        step: int = 0,              # Training step for warmup
     ) -> Tuple[torch.Tensor, dict]:
         """
         Compute all loss components.
@@ -2493,20 +2626,15 @@ class PhysicistLoss(nn.Module):
         # Standard pixel-wise reconstruction
         losses['recon'] = F.mse_loss(outputs['x_recon'], x_target)
 
-        # === B. CAUSAL ENCLOSURE LOSS ===
-        # The physics engine predicts z_macro_{t+1} from z_macro_t
-        # It should match the actual encoded z_macro_{t+1}
-        # CRITICAL: z_macro_next is detached — we don't backprop through it
-        losses['closure'] = F.mse_loss(
-            outputs['z_macro_pred'],
-            z_macro_next.detach()
-        )
+        # === B. CAUSAL ENCLOSURE LOSS (SYMBOLIC) ===
+        # Predict the next macro symbol K_{t+1} from the current macro only.
+        losses['closure'] = F.cross_entropy(outputs['z_macro_logits'], K_next)
 
         # Warmup: gradually increase closure weight
         closure_weight = min(1.0, step / self.config.warmup_steps)
 
         # === C. SLOWNESS LOSS (Inertial Manifold) ===
-        # Penalize rapid changes in macro variables
+        # Penalize rapid changes in the macro embedding e_K (proxy for symbol churn)
         if z_macro_prev is not None:
             losses['slowness'] = (outputs['z_macro'] - z_macro_prev).pow(2).mean()
         else:
@@ -2518,17 +2646,16 @@ class PhysicistLoss(nn.Module):
         micro_mean, micro_logvar = outputs['micro_dist']
         losses['dispersion'] = self._kl_divergence(micro_mean, micro_logvar)
 
-        # Optionally: also regularize macro to be somewhat Gaussian
-        macro_mean, macro_logvar = outputs['macro_dist']
-        losses['macro_kl'] = self._kl_divergence(macro_mean, macro_logvar)
+        # === E. VQ LOSS (CODEBOOK + COMMITMENT) ===
+        losses['vq'] = outputs['vq_loss']
 
         # === TOTAL LOSS ===
         total = (
             self.config.lambda_recon * losses['recon']
+            + self.config.lambda_vq * losses['vq']
             + self.config.lambda_closure * closure_weight * losses['closure']
             + self.config.lambda_slowness * losses['slowness']
             + self.config.lambda_dispersion * losses['dispersion']
-            + 0.001 * losses['macro_kl']  # Small regularization on macro
         )
 
         losses['total'] = total
@@ -2598,11 +2725,11 @@ class PhysicistTrainer:
         h = self.agent.init_hidden(B, self.device)
 
         total_loss = 0.0
-        all_losses = {k: 0.0 for k in ['recon', 'closure', 'slowness', 'dispersion']}
+        all_losses = {k: 0.0 for k in ['recon', 'vq', 'closure', 'slowness', 'dispersion']}
 
         z_macro_prev = None
-        z_macros = []  # Store for closure ratio computation
-        z_macro_preds = []
+        K_nexts = []          # Targets K_{t+1}
+        logits_nexts = []     # Predicted logits for K_{t+1}
 
         for t in range(T - 1):
             x_t = observations[:, t]
@@ -2614,13 +2741,13 @@ class PhysicistTrainer:
             h = outputs_t['h_next']
 
             # Encode t+1 for closure target
-            z_macro_t1, _, _, _ = self.agent.encode(x_t1)
+            K_t1, _, _, _, _ = self.agent.encode(x_t1)
 
             # Compute loss
             loss, losses = self.loss_fn(
                 outputs_t,
                 x_t1,
-                z_macro_t1,
+                K_t1,
                 z_macro_prev,
                 self.step,
             )
@@ -2631,8 +2758,8 @@ class PhysicistTrainer:
                     all_losses[k] = all_losses[k] + losses[k].item()
 
             z_macro_prev = outputs_t['z_macro'].detach()
-            z_macros.append(outputs_t['z_macro'].detach())
-            z_macro_preds.append(outputs_t['z_macro_pred'].detach())
+            K_nexts.append(K_t1.detach())
+            logits_nexts.append(outputs_t['z_macro_logits'].detach())
 
         # Backprop
         total_loss = total_loss / (T - 1)
@@ -2648,8 +2775,8 @@ class PhysicistTrainer:
         avg_losses = {k: v / (T - 1) for k, v in all_losses.items()}
         avg_losses['total'] = total_loss.item()
 
-        # Closure ratio (see 9.5)
-        closure_ratio = self._compute_closure_ratio(z_macros, z_macro_preds)
+        # Closure ratio (see 9.5): symbolic cross-entropy gain vs baseline
+        closure_ratio = self._compute_closure_ratio(K_nexts, logits_nexts)
         avg_losses['closure_ratio'] = closure_ratio
 
         self.closure_history.append(closure_ratio)
@@ -2658,38 +2785,32 @@ class PhysicistTrainer:
 
     def _compute_closure_ratio(
         self,
-        z_macros: List[torch.Tensor],
-        z_macro_preds: List[torch.Tensor],
+        K_nexts: List[torch.Tensor],
+        logits_nexts: List[torch.Tensor],
     ) -> float:
         """
-        Compute the closure ratio diagnostic.
+        Closure ratio diagnostic (discrete macro).
 
-        Low ratio = macro is predictable = success
-        High ratio = macro needs micro info = failure
+        Ratio < 1  : predictive macro physics beats a baseline (law-like)
+        Ratio ≈ 1  : macro is no more predictable than baseline (no learned law)
+        Ratio > 1  : predictor is worse than baseline (bug/degenerate training)
         """
-        if len(z_macros) < 2:
+        if not K_nexts:
             return float('nan')
 
-        # Prediction error for macro
-        macro_errors = []
-        for i in range(len(z_macro_preds) - 1):
-            pred = z_macro_preds[i]
-            actual = z_macros[i + 1]
-            error = (pred - actual).pow(2).mean().item()
-            macro_errors.append(error)
+        logits = torch.cat(logits_nexts, dim=0)  # [(T-1)B, |𝒦|]
+        K_next = torch.cat(K_nexts, dim=0)       # [(T-1)B]
 
-        avg_macro_error = sum(macro_errors) / len(macro_errors)
+        # Model conditional cross entropy ≈ H(K_{t+1}|K_t,a_t)
+        ce_model = F.cross_entropy(logits, K_next, reduction='mean')
 
-        # Baseline: just predicting no change
-        baseline_errors = []
-        for i in range(len(z_macros) - 1):
-            error = (z_macros[i] - z_macros[i + 1]).pow(2).mean().item()
-            baseline_errors.append(error)
+        # Baseline: marginal code model (no conditioning)
+        K_size = self.agent.config.codebook_size
+        hist = torch.bincount(K_next, minlength=K_size).float()
+        p = (hist + 1.0) / (hist.sum() + K_size)  # Laplace smoothing
+        ce_baseline = (-torch.log(p[K_next])).mean()
 
-        avg_baseline = sum(baseline_errors) / len(baseline_errors) + 1e-8
-
-        # Ratio: if < 1, physics engine is doing better than baseline
-        return avg_macro_error / avg_baseline
+        return (ce_model / (ce_baseline + 1e-8)).item()
 ```
 
 ### 9.5 Runtime Diagnostics: The Closure Ratio
@@ -2697,14 +2818,17 @@ class PhysicistTrainer:
 The key diagnostic for the Physicist Upgrade is the **Closure Ratio**:
 
 $$
-\text{Closure Ratio} = \frac{\Vert \text{Predict}(z_{\text{macro}, t}) - z_{\text{macro}, t+1} \Vert^2}{\Vert \text{Predict}(z_{\text{micro}, t}) - z_{\text{micro}, t+1} \Vert^2}
+\text{Closure Ratio}
+=
+\frac{\mathbb{E}\big[-\log p_\psi(K_{t+1}\mid K_t,a_t)\big]}{\mathbb{E}\big[-\log p_{\text{base}}(K_{t+1})\big]}.
 $$
+With $p_{\text{base}}$ chosen as the marginal symbol model, the numerator estimates $H(K_{t+1}\mid K_t,a_t)$ and the denominator estimates $H(K_{t+1})$, so the *gap* is a direct estimate of predictive information $I(K_{t+1};K_t,a_t)$.
 
 | Closure Ratio | Interpretation | Action |
 |---------------|----------------|--------|
-| $\approx 1$ | **Entangled** — physics and noise mixed | Increase $\lambda_{\text{closure}}$, check architecture |
-| $\ll 1$ | **Success** — macro is predictable, micro is not | Physics learned! |
-| $\gg 1$ | **Inverted** — noise is more predictable than physics | Bug in architecture (check gradients) |
+| $\approx 1$ | **No predictive law** — macro dynamics no better than marginal | Increase model capacity or improve macro encoder; check that actions are provided |
+| $\ll 1$ | **Success** — conditional entropy collapses vs marginal | Effective theory learned |
+| $> 1$ | **Worse than baseline** | Bug/degeneracy (labels, codebook collapse, optimizer instability) |
 
 ```python
 class ClosureMonitor:
@@ -2722,30 +2846,31 @@ class ClosureMonitor:
 
     def update(
         self,
-        z_macro_pred: torch.Tensor,
-        z_macro_actual: torch.Tensor,
-        z_micro_pred: Optional[torch.Tensor],
-        z_micro_actual: torch.Tensor,
-        micro_logvar: torch.Tensor,
+        logits_next: torch.Tensor,   # [B, |𝒦|]
+        K_next: torch.Tensor,        # [B]
+        micro_logvar: torch.Tensor,  # [B, d_μ]
     ):
         """Update diagnostics with new batch."""
-        # Macro prediction error
-        macro_error = (z_macro_pred - z_macro_actual).pow(2).mean().item()
+        # Macro predictability: cross entropy (nats)
+        ce_model = F.cross_entropy(logits_next, K_next, reduction='mean').item()
 
-        # Micro unpredictability (if we tried to predict it)
-        if z_micro_pred is not None:
-            micro_error = (z_micro_pred - z_micro_actual).pow(2).mean().item()
-        else:
-            # Use entropy as proxy
-            micro_error = micro_logvar.exp().mean().item()
+        # Baseline: marginal code model (per-batch)
+        K_size = logits_next.shape[-1]
+        hist = torch.bincount(K_next, minlength=K_size).float()
+        p = (hist + 1.0) / (hist.sum() + K_size)  # Laplace smoothing
+        ce_base = (-torch.log(p[K_next])).mean().item()
 
         # Closure ratio
-        ratio = macro_error / (micro_error + 1e-8)
+        ratio = ce_model / (ce_base + 1e-8)
         self.closure_ratios.append(ratio)
 
+        # Micro entropy proxy (Gaussian differential entropy)
+        import math
+        micro_ent = (0.5 * (micro_logvar + math.log(2 * math.pi * math.e))).sum(dim=-1).mean().item()
+
         # Individual metrics
-        self.macro_predictability.append(macro_error)
-        self.micro_entropy.append(micro_logvar.mean().item())
+        self.macro_predictability.append(ce_model)
+        self.micro_entropy.append(micro_ent)
 
         # Keep window
         if len(self.closure_ratios) > self.window_size:
@@ -2813,10 +2938,12 @@ class ClosureMonitor:
 For complex environments, a single macro/micro split may be insufficient. The **RG Tower** extends this to multiple scales:
 
 $$
-z = (z_{\text{macro}}^{(1)}, z_{\text{macro}}^{(2)}, \ldots, z_{\text{macro}}^{(L)}, z_{\text{micro}})
+Z_t = (K_t^{(1)}, K_t^{(2)}, \ldots, K_t^{(L)}, Z_{\mu,t}),
+\qquad
+z_{\text{macro}}^{(i)} := e^{(i)}_{K_t^{(i)}}\in\mathbb{R}^{d_i}.
 $$
 
-Where $z_{\text{macro}}^{(1)}$ is the slowest (most abstract) and $z_{\text{macro}}^{(L)}$ is the fastest (most detailed) physics.
+Where $K^{(1)}$ is the slowest (most abstract) and $K^{(L)}$ is the fastest (most detailed) macro symbol; $z_{\text{macro}}^{(i)}$ denotes its code embedding.
 
 ```python
 class HierarchicalPhysicist(nn.Module):
@@ -2838,24 +2965,35 @@ class HierarchicalPhysicist(nn.Module):
         config: PhysicistConfig,
         n_levels: int = 3,
         level_dims: List[int] = [8, 16, 32],
+        level_codebook_sizes: List[int] = [64, 128, 256],
         level_update_freqs: List[int] = [8, 4, 1],  # Update every N steps
     ):
         super().__init__()
         self.n_levels = n_levels
         self.level_dims = level_dims
+        self.level_codebook_sizes = level_codebook_sizes
         self.update_freqs = level_update_freqs
 
         self.encoder = Encoder(config.obs_dim, config.hidden_dim)
 
-        # Separate heads for each macro level
+        # Separate heads for each macro level (pre-quantization)
         self.macro_heads = nn.ModuleList([
             nn.Linear(config.hidden_dim, dim) for dim in level_dims
         ])
 
-        # Physics engines at each level
+        # VQ quantizers and symbolic physics engines at each level
+        self.vq_levels = nn.ModuleList([
+            VectorQuantizer(level_codebook_sizes[i], level_dims[i])
+            for i in range(n_levels)
+        ])
         self.physics_engines = nn.ModuleList([
-            PhysicsEngine(dim, config.action_dim, config.rnn_hidden_dim // n_levels)
-            for dim in level_dims
+            PhysicsEngine(
+                level_dims[i],
+                config.action_dim,
+                config.rnn_hidden_dim // n_levels,
+                level_codebook_sizes[i],
+            )
+            for i in range(n_levels)
         ])
 
         # Cross-level connections (top-down modulation)
@@ -2892,18 +3030,23 @@ class HierarchicalPhysicist(nn.Module):
         top_down_context = None
 
         for i in range(self.n_levels):
-            # Encode this level
-            z_macro_i = self.macro_heads[i](features)
+            # Encode this level (pre-quantization)
+            z_e_i = self.macro_heads[i](features)
 
             # Add top-down modulation from slower levels
             if top_down_context is not None:
-                z_macro_i = z_macro_i + self.cross_level[i - 1](top_down_context)
+                z_e_i = z_e_i + self.cross_level[i - 1](top_down_context)
+
+            # Quantize into a discrete macro symbol K^{(i)} and embedding z_macro^{(i)} := e_{K^{(i)}}
+            z_macro_i, K_i, _ = self.vq_levels[i](z_e_i)
 
             # Update physics engine only at appropriate frequency
             if self.step_counter % self.update_freqs[i] == 0:
-                z_pred_i, h_next_i, _ = self.physics_engines[i](
+                logits_i, h_next_i, _ = self.physics_engines[i](
                     z_macro_i, action, h_prevs[i]
                 )
+                K_pred_i = torch.argmax(logits_i, dim=-1)
+                z_pred_i = self.vq_levels[i].embed(K_pred_i)
             else:
                 # Hold state
                 z_pred_i = z_macro_i
@@ -2942,7 +3085,7 @@ class HierarchicalPhysicist(nn.Module):
 | Your Concept | Literature Equivalent | Key Researcher / Lab |
 |--------------|----------------------|---------------------|
 | **Causal Enclosure Loss** | **Effective Information (EI)** / **Causal Closure** | **Erik Hoel** (Tufts), **Fernando Rosas** (Sussex/Imperial) |
-| **Split Latent Space** ($z_{\text{macro}} / z_{\text{micro}}$) | **Hierarchical / Clockwork VAE** | **Danijar Hafner** (DeepMind), **Saxena et al.** (Clockwork VAE) |
+| **Split Latent Space** ($K / z_{\mu}$) | **VQ-VAE + Hierarchical / Clockwork VAE** | **van den Oord** (DeepMind), **Danijar Hafner** (DeepMind), **Saxena et al.** |
 | **Blind Physics Engine** | **JEPA Predictor / Abstract World Model** | **Yann LeCun** (Meta FAIR) |
 | **Renormalization / Scale Selection** | **Inverse RG Flow / AI Physicist** | **Max Tegmark** (MIT), **Pankaj Mehta** (BU) |
 | **Predictive Information Bottleneck** | **Information Bottleneck (IB)** | **Naftali Tishby** (Hebrew U), **William Bialek** (Princeton) |
@@ -2959,10 +3102,11 @@ class HierarchicalPhysicist(nn.Module):
 | Loss Component | Formula | Time Complexity | Overhead |
 |----------------|---------|-----------------|----------|
 | $\mathcal{L}_{\text{recon}}$ | $\Vert x - \hat{x} \Vert^2$ | $O(BD)$ | Baseline |
-| $\mathcal{L}_{\text{closure}}$ | $\Vert z_{\text{macro}}^{\text{pred}} - z_{\text{macro}}^{t+1} \Vert^2$ | $O(BZ_m)$ | +5% |
-| $\mathcal{L}_{\text{slowness}}$ | $\Vert z_{\text{macro}}^t - z_{\text{macro}}^{t-1} \Vert^2$ | $O(BZ_m)$ | +2% |
+| $\mathcal{L}_{\text{vq}}$ | $\| \operatorname{sg}[z_e]-e_{K}\|^2 + \beta\|z_e-\operatorname{sg}[e_K]\|^2$ | $O(B|\mathcal{K}|)$ | +3-8% |
+| $\mathcal{L}_{\text{closure}}$ | $-\log p_\psi(K_{t+1}\mid K_t,a_t)$ | $O(B|\mathcal{K}|)$ | +5% |
+| $\mathcal{L}_{\text{slowness}}$ | $\Vert e_{K_t} - e_{K_{t-1}} \Vert^2$ | $O(Bd_m)$ | +2% |
 | $\mathcal{L}_{\text{dispersion}}$ | $D_{KL}(q_{\text{micro}} \Vert \mathcal{N}(0,I))$ | $O(BZ_\mu)$ | +3% |
-| **Total Overhead** | | | **~10-15%** |
+| **Total Overhead** | | | **~12-18%** |
 
 **When to Use Physicist vs Standard:**
 
@@ -2972,7 +3116,7 @@ class HierarchicalPhysicist(nn.Module):
 | Low-noise simulation (MuJoCo) | Standard may suffice — already mostly "physics" |
 | Real-world robotics | **Use Physicist** — sensor noise is significant |
 | Long-horizon planning | **Use Hierarchical Physicist** — multiple timescales |
-| Compute-constrained | Standard — Physicist adds ~10-15% overhead |
+| Compute-constrained | Standard — Physicist adds ~12-18% overhead |
 
 ### 9.9 Control Theory Translation: Dictionary
 

@@ -3096,7 +3096,7 @@ Backpropagating a global loss through a non-differentiable RL environment is the
 
 ### Structural Identifiability
 
-This section establishes that the defect functionals introduced in {prf:ref}`ch-meta-learning` determine the hypostructure components from axioms alone, and that parametric families of hypostructures are learnable under minimal extrinsic conditions. The philosophical foundation is the **univalence axiom** of Homotopy Type Theory [@HoTT13]: identity is equivalent to equivalence. Two hypostructures are identified if and only if they are structurally equivalent.
+This section establishes that the defect functionals introduced in {ref}`ch-meta-learning` determine the hypostructure components from axioms alone, and that parametric families of hypostructures are learnable under minimal extrinsic conditions. The philosophical foundation is the **univalence axiom** of Homotopy Type Theory [@HoTT13]: identity is equivalent to equivalence. Two hypostructures are identified if and only if they are structurally equivalent.
 
 :::{prf:definition} Defect signature
 :label: def-defect-signature

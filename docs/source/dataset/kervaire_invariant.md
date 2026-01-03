@@ -892,7 +892,7 @@ The case $n_6 = 126$ remains open. The slice spectral sequence computation for t
 | Chromatic Structure | Positive | $K_{\text{Chrom}}^+$ |
 | Surgery Obstruction | Positive | $K_{\text{Surg}}^+$ |
 | Obligation Ledger | HORIZON ($j=6$) | OBL-126 |
-| **Final Status** | **UNCONDITIONAL** ($j \geq 7$) | — |
+| **Final Status** | **SECTOR-DEPENDENT** | UNCONDITIONAL ($j \geq 7$); HORIZON ($j=6$) |
 
 ---
 
@@ -954,6 +954,6 @@ This proof object is replayed by providing:
 | Verification Level | Machine-checkable |
 | Inc Certificates | 0 |
 | Horizon Certificates | 1 (OBL-126 for $j=6$, dimension 126) |
-| Final Status | **UNCONDITIONAL** (for $j \geq 7$); **OPEN** (for $j=6$) |
+| Final Status | **SECTOR-DEPENDENT** (UNCONDITIONAL for $j \geq 7$; HORIZON for $j=6$) |
 | Generated | 2025-12-23 |
 | Line Count | ~650 lines |

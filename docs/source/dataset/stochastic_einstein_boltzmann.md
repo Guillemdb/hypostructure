@@ -52,7 +52,7 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarant
 | 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (not gradient, has transport) |
 | 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^+$ (free boundaries) |
 | -- | Surgery | SurgCD (horizon excision) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E8 DPI) |
+| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (HORIZON: DPI/censorship not certified) |
 
 ### 3. Lock Mechanism
 | Tactic | Status | Description |
@@ -63,26 +63,26 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarant
 ### 4. Final Verdict
 | Field | Value |
 |-------|-------|
-| **Status** | **UNCONDITIONAL** |
-| **Obligation Ledger** | EMPTY |
-| **Singularity Set** | $\Sigma \subset \text{horizons}$ (behind event horizons only) |
-| **Primary Blocking Tactic** | E8 (DPI — Bekenstein bound violation) |
+| **Status** | **HORIZON** (frontier/open problem) |
+| **Obligation Ledger** | NON-EMPTY (OBL-SEB-1) |
+| **Singularity Set** | UNKNOWN (weak cosmic censorship not certified) |
+| **Primary Blocking Tactic** | DPI/Bekenstein heuristics recorded, but insufficient for ZFC export |
 
 ---
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for **global regularity** of the stochastic Einstein-Boltzmann system with free boundaries.
+This document presents a **machine-checkable audit trace** for the stochastic Einstein–Boltzmann system with free boundaries.
 
 **Approach:** We instantiate the quantum-gravitational hypostructure with Lorentzian metrics coupled to kinetic distribution functions. The system is critical ($\alpha = \beta = 2$), so MT 7.2 (Type II Exclusion) does not apply directly. Instead, resolution routes through the **DPI block** (Tactic E8): the Bekenstein bound limits information content at boundaries, excluding naked singularities that would require infinite local entropy. Horizons are handled via **SurgCD surgery** (automatic excision).
 
-**Result:** The Lock is blocked via Tactic E8 (DPI) and E7 (Thermodynamic). All singularities are contained within event horizons (weak cosmic censorship). Global weak solutions exist for asymptotically flat data with finite ADM mass.
+**Result:** The DPI/thermodynamic arguments are recorded as heuristic barriers, but they do not certify weak cosmic censorship or global regularity in ZFC. The Lock remains MORPHISM and the proof object outputs a **HORIZON** verdict (OBL-SEB-1).
 
 ---
 
 ## Theorem Statement
 
-::::{prf:theorem} Stochastic Einstein-Boltzmann Global Regularity
+::::{prf:theorem} Stochastic Einstein-Boltzmann Global Regularity (HORIZON)
 :label: thm-seb-regularity
 
 **Given:**
@@ -92,10 +92,12 @@ This document presents a **machine-checkable proof object** for **global regular
   - Boltzmann: $\partial_t f + p^\mu \nabla_\mu f = Q[f,f] + \xi$ (collision + stochastic forcing)
 - Initial data: Asymptotically flat with $M_{\text{ADM}} < \Lambda$, $\int f \log f < \Lambda$
 
-**Claim:**
+**Claim (open):**
 1. **Global weak solutions exist** for generic initial data with finite ADM mass
 2. **Weak cosmic censorship holds:** All curvature singularities are contained within event horizons
 3. **Singularity exclusion:** Naked singularities (visible from $\mathscr{I}^+$) are excluded by DPI bound
+
+**Audit note:** This claim is not certified in ZFC by this proof object; verdict is HORIZON.
 
 **Notation:**
 | Symbol | Definition |
@@ -534,7 +536,7 @@ $$\mathcal{L}_{EB} := \{(M, J) : J^2 \leq M^2, M > 0\} \cup \{(\eta, 0)\}$$
 * [ ] E10 (Definability): Not applicable
 
 **Lock Verdict:**
-* [x] **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$) via Tactic E8 (DPI) → **GLOBAL REGULARITY ESTABLISHED**
+* [x] **MORPHISM** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$) — DPI/thermodynamic heuristics recorded, but not a certified ZFC exclusion; verdict **HORIZON**
 
 ---
 
@@ -546,13 +548,13 @@ $$\mathcal{L}_{EB} := \{(M, J) : J^2 \leq M^2, M > 0\} \cup \{(\eta, 0)\}$$
 
 | ID | Node | Obligation | Missing |
 |----|------|------------|---------|
-| — | — | None | — |
+| OBL-SEB-1 | 17 | Global regularity + censorship | ZFC-certified Lock blocking |
 
-All certificates are $K^+$ or $K^{\mathrm{blk}}$. No inc certificates to upgrade.
+HORIZON obligation recorded; no inc-to-positive upgrades applied.
 
-**Step 2: No upgrades needed**
+**Step 2: No upgrades available**
 
-The sieve completed with all obligations resolved.
+The sieve ends in HORIZON with unresolved obligation OBL-SEB-1.
 
 ---
 
@@ -634,13 +636,13 @@ where:
 
 ### 3.4 Retroactive Upgrades
 
-* [x] **Lock-Back (UP-LockBack):** Node 17 passed → all barrier blocks are regular
+* [ ] **Lock-Back (UP-LockBack):** Not applicable (Node 17 not blocked; HORIZON)
 * [x] **Tame-Topology (UP-TameSmoothing):** TameCheck passed → zero capacity sets are removable
 
 ### 3.5 ZFC Proof Export (Chapter 56 Bridge)
 *Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical certificate chain as a classical, set-theoretic audit trail.*
 
-**Precondition:** [x] Lock verdict obtained ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ at Node 17) and complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
+**Precondition:** [ ] Lock verdict obtained ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$). This instance is HORIZON; export proceeds as an obligation manifest.
 
 **ZFC Bridge Checklist**
 * [x] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
@@ -650,7 +652,7 @@ where:
 
 **Exported claim form:** Use the bridge certificate format (Metatheorem {prf:ref}`mt-krnl-zfc-bridge`):
 $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
-with $\varphi$ chosen so that $V_\mathcal{U} \vDash \varphi$ and $\varphi \Rightarrow \mathrm{Reg}(Z)$ (here: weak censorship + controlled singularities via horizon surgery).
+with $\varphi$ chosen in the obligation-manifest form so that $V_\mathcal{U} \vDash \varphi$ records the translated certificates and the unmet regularity/censorship obligation (not a completed ZFC regularity proof).
 
 ---
 
@@ -660,17 +662,17 @@ with $\varphi$ chosen so that $V_\mathcal{U} \vDash \varphi$ and $\varphi \Right
 
 | ID | Node | Certificate | Obligation | Status |
 |----|------|-------------|------------|--------|
-| — | — | — | — | — |
+| OBL-SEB-1 | 17 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ | Global regularity + censorship for stochastic Einstein–Boltzmann | **HORIZON** |
 
-No obligations introduced. All nodes produced $K^+$ or $K^{\mathrm{blk}}$.
+Unmet obligation recorded: frontier/open problem (HORIZON).
 
 ### Ledger Validation
 
 * [x] All inc certificates either upgraded or documented
 * [x] All breach obligations discharged (SurgCD)
-* [x] Remaining obligations count = 0
+* [x] Remaining obligations count > 0 (HORIZON)
 
-**Ledger Status:** [x] EMPTY (valid unconditional proof)
+**Ledger Status:** [x] NON-EMPTY (HORIZON)
 
 ---
 
@@ -681,13 +683,13 @@ No obligations introduced. All nodes produced $K^+$ or $K^{\mathrm{blk}}$.
 - [x] **All 12 core nodes executed** (Nodes 1-12)
 - [x] **Boundary nodes executed** (Nodes 13-16)
 - [x] **Lock executed** (Node 17)
-- [x] **Lock verdict obtained:** $K_{\text{Lock}}^{\mathrm{blk}}$ via E8
-- [x] **Upgrade pass completed** (no inc certificates)
+- [ ] **Lock verdict obtained:** $K_{\text{Lock}}^{\mathrm{blk}}$ (this instance is MORPHISM/HORIZON)
+- [ ] **Upgrade pass completed** (HORIZON obligations recorded)
 - [x] **Surgery/Re-entry completed** (SurgCD)
-- [x] **Obligation ledger is EMPTY**
-- [x] **No unresolved $K^{\mathrm{inc}}$**
+- [ ] **Obligation ledger is EMPTY**
+- [ ] **No unresolved $K^{\mathrm{inc}}$**
 
-**Validity Status:** [x] UNCONDITIONAL PROOF
+**Validity Status:** [x] HORIZON
 
 ### 4.2 Certificate Accumulation Trace
 
@@ -711,33 +713,33 @@ Node 16: K_{GC_T}^+ (aligned)
 ---
 Surgery: K_{Surg}^+(SurgCD) (horizon excision)
 ---
-Node 17: K_{Cat_Hom}^{blk} (E8 DPI block)
+Node 17: K_{Cat_Hom}^{morph} (HORIZON)
 ```
 
 ### 4.3 Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^-, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Surg}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^-, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Surg}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ### 4.4 Conclusion
 
-**Conclusion:** Global regularity is **ESTABLISHED**.
+**Conclusion:** Verdict is **HORIZON** (OBL-SEB-1).
 
-**Proof Summary ($\Gamma$):**
-"The system is **Regular** (weak cosmic censorship holds) because:
+**Audit Summary ($\Gamma_{\mathrm{audit}}$):**
+"The system is **HORIZON** because:
 1. **Conservation:** Established by $K_{D_E}^+$ (H-theorem + Hawking area theorem)
 2. **Structure:** Established by $K_{C_\mu}^+$ (concentration-compactness + Kerr profiles)
 3. **Stiffness:** Established by $K_{\mathrm{LS}_\sigma}^+$ (positive mass + mode stability)
 4. **Lyapunov:** Constructed via Part III-A ($K_{\mathcal{L}}^{\text{verified}}$)
-5. **Exclusion:** Established by $K_{\text{Lock}}^{\mathrm{blk}}$ via Tactic E8 (DPI — Bekenstein bound)"
+5. **Exclusion:** Not certified in ZFC (Lock is MORPHISM; OBL-SEB-1 remains)"
 
 **Full Certificate Chain:**
-$$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
 ---
 
 ## Formal Proof
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-seb-regularity`
+::::{prf:proof} Audit trace for {prf:ref}`thm-seb-regularity` (HORIZON; not a completed proof)
 
 The proof proceeds by structural sieve analysis in seven phases:
 
@@ -765,17 +767,11 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 6 (Boundary):** Nodes 13-16 verified open system with bounded stochastic forcing.
 
-**Phase 7 (Lock):** Node 17 blocked the universal bad pattern (naked singularity) via Tactic E8 (DPI):
-- Naked singularity requires infinite information: $I(\mathcal{H}_{\text{bad}}) = \infty$
-- Bekenstein bound limits available information: $I_{\max} = A/4G_N < \infty$
-- Mismatch excludes morphism: $K_{\text{Lock}}^{\mathrm{blk}}$
+**Phase 7 (Lock):** Node 17 does not yield a blocked Lock in ZFC. DPI/Bekenstein arguments are recorded as heuristic barriers, but the bad-pattern exclusion is not certified; Lock remains MORPHISM (OBL-SEB-1).
 
-**Conclusion:** By the Lock Metatheorem (KRNL-Consistency), the blocked Lock certificate implies:
-1. Global weak solutions exist for asymptotically flat data
-2. Naked singularities are excluded (weak cosmic censorship)
-3. All curvature singularities are contained within event horizons
+**Conclusion:** Without a blocked Lock certificate, the global regularity/censorship implications are not exported. The audit ends with OBL-SEB-1.
 
-$$\therefore \text{Global regularity and weak cosmic censorship hold.} \quad \square$$
+$$\therefore \text{Verdict: HORIZON (OBL-SEB-1).} \quad \square$$
 
 ::::
 
@@ -787,12 +783,12 @@ $$\therefore \text{Global regularity and weak cosmic censorship hold.} \quad \sq
 |-----------|--------|-------------|
 | Nodes 1-12 (Core) | PASS | All $K^+$ or $K^-$ resolved |
 | Nodes 13-16 (Boundary) | PASS | Open system with bounded forcing |
-| Node 17 (Lock) | BLOCKED | $K_{\text{Lock}}^{\mathrm{blk}}$ via E8 |
-| Obligation Ledger | EMPTY | — |
-| Upgrade Pass | COMPLETE | No inc certificates |
+| Node 17 (Lock) | MORPHISM | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (HORIZON) |
+| Obligation Ledger | NON-EMPTY | OBL-SEB-1 |
+| Upgrade Pass | INCOMPLETE | HORIZON obligations remain |
 | Surgery | COMPLETE | SurgCD for horizon formation |
 
-**Final Verdict:** [x] UNCONDITIONAL PROOF
+**Final Verdict:** [x] HORIZON
 
 ---
 
@@ -841,8 +837,8 @@ This proof object is replayed by providing:
 | **Problem Class** | Frontier/Open Problem (Relativistic Kinetic Theory) |
 | **System Type** | $T_{\text{quant}}$ |
 | **Verification Level** | Machine-checkable |
-| **Inc Certificates** | 0 introduced, 0 discharged |
-| **Final Status** | [x] Final |
+| **Inc Certificates** | 1 introduced; HORIZON (OBL-SEB-1) |
+| **Final Status** | **HORIZON** |
 | **Generated** | 2025-12-24 |
 
 ---

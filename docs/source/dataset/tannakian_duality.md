@@ -1398,7 +1398,7 @@ This proof object is replayed by providing:
 | **Family** | III: The Gauged ($K^{\sim}$) |
 | **Verification Level** | Machine-checkable |
 | **Inc Certificates** | 0 introduced, 0 discharged |
-| **Final Status** | **Final** |
+| **Final Status** | **UNCONDITIONAL** |
 | **Generated** | 2025-12-23 |
 
 ---

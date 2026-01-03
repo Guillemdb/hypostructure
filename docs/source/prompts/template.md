@@ -54,7 +54,7 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 ## Theorem Statement
 
 ::::{prf:theorem} [Problem Name]
-:label: thm-[problem-slug]-main
+:label: thm-problem-slug-main
 
 **Given:**
 - State space: $\mathcal{X} = $ [Define]
@@ -1410,7 +1410,7 @@ $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambd
 
 ## **Formal Proof**
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-[problem-slug]-main`
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-problem-slug-main`
 
 The proof proceeds by structural sieve analysis in seven phases:
 

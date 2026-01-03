@@ -346,7 +346,7 @@ Just as a thermometer with finite precision cannot measure temperature to infini
 | **Problem Class** | Algorithmic / Computability Theory |
 | **System Type** | $T_{\text{algorithmic}}$ |
 | **Verification Level** | Mathematical rigor + honest epistemics |
-| **Final Status** | ✓ Complete |
+| **Final Status** | **HORIZON** (halting set $K$ is undecidable; Axiom R fails) |
 | **Generated** | 2025-12-28 |
 
 ---

@@ -856,7 +856,7 @@ This proof object is replayed by providing:
 | **System Type** | $T_{\text{alg}}$ |
 | **Verification Level** | Machine-checkable |
 | **Inc Certificates** | 0 introduced, 0 discharged |
-| **Final Status** | Final |
+| **Final Status** | **UNCONDITIONAL** |
 | **Generated** | 2025-12-23 |
 
 ---

@@ -9,7 +9,7 @@
 | **Target Claim** | Rank-Analytic Correspondence + Leading Coefficient Formula |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | **REGULAR** (via Tower Globalization) |
+| **Status** | **SECTOR-DEPENDENT** (rank 0/1: UNCONDITIONAL; general rank: HORIZON) |
 
 ---
 
@@ -27,15 +27,11 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{algebraic}}\ \text{good},\ \text{AutomationGua
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for the **Birch and Swinnerton-Dyer Conjecture** using the Hypostructure framework.
+This document presents a **machine-checkable audit trace** for the **Birch and Swinnerton-Dyer Conjecture** using the Hypostructure framework.
 
 **Approach:** We instantiate the algebraic hypostructure with the moduli space of elliptic curves over $\mathbb{Q}$. The state space is the Mordell-Weil group $E(\mathbb{Q})$ of rational points. The potential is the canonical height $\hat{h}: E(\mathbb{Q}) \to \mathbb{R}_{\geq 0}$. The cost functional is the analytic rank $r_{\text{an}} = \text{ord}_{s=1} L(E,s)$ derived from the L-function. The BSD conjecture asserts: (1) algebraic rank equals analytic rank, and (2) the leading coefficient at $s=1$ encodes arithmetic invariants (Tate-Shafarevich group, regulator, periods, Tamagawa numbers).
 
-**Result:** The Lock analysis reveals **BLOCKED** certificates via:
-1. **Tactic E11** (Kolyvagin-Gross-Zagier): Rank 0,1 cases unconditional
-2. **Tactic E18** (Tower Globalization via {prf:ref}`mt-resolve-tower`): General rank via Iwasawa tower
-
-The **Iwasawa Tower Hypostructure** instantiation provides the key breakthrough: the cyclotomic $\mathbb{Z}_p$-extension $\mathbb{Q}_\infty/\mathbb{Q}$ induces a tower structure on Selmer groups. The four tower permits ($C_\mu^{\mathrm{tower}}$, $D_E^{\mathrm{tower}}$, $\mathrm{SC}_\lambda^{\mathrm{tower}}$, $\mathrm{Rep}_K^{\mathrm{tower}}$) are all certified via Kato's Euler system, Skinner-Urban Main Conjecture, and the $\mu = 0$ theorem. MT-Tower-Globalization then produces $K_{\mathrm{Global}}^+$, which combined with MT-Obstruction-Collapse yields $|\text{Sha}(E)| < \infty$ and $r = r_{\text{an}}$ unconditionally.
+**Result:** **SECTOR-DEPENDENT.** Rank 0/1 cases are established via Gross–Zagier/Kolyvagin (Tactic E11). The general-rank case remains open; the “Tower Globalization” path is recorded as a proposed route (HORIZON), not a ZFC-certified discharge.
 
 ---
 
@@ -163,7 +159,7 @@ $$\phi: X_0(N) \to E$$
 
 ## Part I-B: Iwasawa Tower Hypostructure (Key to General Rank)
 
-The BSD conjecture for **arbitrary rank** is resolved via the **Tower Globalization Metatheorem** ({prf:ref}`mt-resolve-tower`). We instantiate a tower hypostructure over the cyclotomic $\mathbb{Z}_p$-extension.
+A proposed route for **arbitrary rank** runs through the **Tower Globalization Metatheorem** ({prf:ref}`mt-resolve-tower`). In this proof object, the tower route is recorded as a HORIZON branch beyond rank 1; it is not treated as a ZFC-certified discharge.
 
 ### Tower Construction
 
@@ -204,8 +200,8 @@ $$K_{C_\mu^{\mathrm{tower}}}^+ = (\text{Sel}_{p^\infty}(E/\mathbb{Q}_n)\ \text{c
 
 **Question:** Is $\sum_n p^{-\alpha n} \mathfrak{D}_{\mathrm{Iw}}(n) < \infty$?
 
-**Verification (The $\mu = 0$ Theorem):** By Kato's Euler system and Rubin's work:
-$$\mu_E = 0 \quad \text{for all } E/\mathbb{Q}$$
+**Verification (Cyclotomic $\mu=0$ control; tower-route hypothesis):** In many ordinary settings, Iwasawa-theoretic results imply $\mu_E = 0$ (or provide strong $\mu$-bounds), but a uniform “$\mu_E=0$ for all $E/\mathbb{Q}$” input is not available in general. Here $\mu_E=0$ is treated as part of the Tower Globalization HORIZON route.
+$$\mu_E = 0 \quad \text{(tower-route hypothesis)}$$
 
 This means:
 $$|\text{Sel}_{p^\infty}(E/\mathbb{Q}_n)_{\text{tors}}| \sim p^{\lambda_E n + O(1)}$$
@@ -223,7 +219,7 @@ $$K_{D_E^{\mathrm{tower}}}^+ = (\mu_E = 0,\ \sum_n p^{-n}\mathfrak{D}(n) < \inft
 
 **Question:** Is $\Phi_{\mathrm{Iw}}(n_2) - \Phi_{\mathrm{Iw}}(n_1) = \sum_{u=n_1}^{n_2-1} L(u) + O(1)$?
 
-**Verification (Iwasawa Main Conjecture):** By the Skinner-Urban proof of the Main Conjecture:
+**Verification (Iwasawa main-conjecture machinery; conditional):** In ordinary settings, results of Kato/Skinner–Urban relate the Selmer characteristic ideal to the $p$-adic $L$-function. This infrastructure is recorded as part of the tower route; it does not certify general-rank BSD in ZFC.
 $$\text{char}_\Lambda(\text{Sel}_{p^\infty}(E/\mathbb{Q}_\infty)^\vee) = (\mathcal{L}_p(E))$$
 
 where $\mathcal{L}_p(E)$ is the $p$-adic L-function. This gives:
@@ -290,7 +286,7 @@ $$\mathcal{O} = \text{Sha}(E/\mathbb{Q}) = \ker\left(H^1(\mathbb{Q}, E) \to \pro
 **$\mathrm{TB}_\pi^{\mathcal{O}} + \mathrm{LS}_\sigma^{\mathcal{O}}$ (Cassels-Tate Duality):**
 The Cassels-Tate pairing:
 $$\langle \cdot, \cdot \rangle_{\text{CT}}: \text{Sha}(E) \times \text{Sha}(E) \to \mathbb{Q}/\mathbb{Z}$$
-is alternating and non-degenerate (conjectured, but follows from tower analysis).
+is alternating; non-degeneracy follows when $\text{Sha}(E)$ is finite (discharged in the analytic rank 0/1 sector via Gross–Zagier/Kolyvagin; otherwise recorded as OBL-SHA-1).
 
 **Certificate:** $K_{\mathrm{TB}+\mathrm{LS}}^{\mathcal{O}+} = (\text{Cassels-Tate non-degenerate})$
 
@@ -320,11 +316,11 @@ By {prf:ref}`mt-resolve-obstruction`:
 
 $$K_{\mathrm{TB}+\mathrm{LS}}^{\mathcal{O}+} \wedge K_{C+\mathrm{Cap}}^{\mathcal{O}+} \wedge K_{\mathrm{SC}_\lambda}^{\mathcal{O}+} \wedge K_{D_E}^{\mathcal{O}+} \Rightarrow K_{\mathrm{Obs}}^{\mathrm{finite}}$$
 
-**Conclusion:**
-$$|\text{Sha}(E/\mathbb{Q})| < \infty \quad \text{UNCONDITIONALLY}$$
+**Conclusion (analytic rank 0/1 sector):**
+$$|\text{Sha}(E/\mathbb{Q})| < \infty \quad (r_{\text{an}} \le 1)$$
 
-**Certificate:**
-$$K_{\mathrm{Sha}}^+ = (\text{MT-Obs-1},\ |\text{Sha}(E)| < \infty)$$
+**Certificate (analytic rank 0/1 sector):**
+$$K_{\mathrm{Sha}}^+ = (r_{\text{an}} \le 1,\ \text{Gross–Zagier/Kolyvagin},\ |\text{Sha}(E)| < \infty)$$
 
 ---
 
@@ -533,52 +529,51 @@ For **arbitrary rank**, we apply the Iwasawa Tower Hypostructure from Part I-B:
 
    The last equality follows from the interpolation property of $\mathcal{L}_p$.
 
-**Certificate:**
-$$K_{\mathrm{E18}}^{\mathrm{blk}} = (\text{MT-Tower-1} + \text{MT-Obs-1},\ r = r_{\text{an}},\ |\text{Sha}| < \infty\ \text{for ALL ranks})$$
+**Certificate (HORIZON payload):**
+$$K_{\mathrm{E18}}^{\mathrm{inc}} = (\text{MT-Tower-1} + \text{MT-Obs-1},\ r = r_{\text{an}},\ |\text{Sha}| < \infty\ \text{(proposed for all ranks; not certified in ZFC)})$$
 
 **Lock Resolution:**
 
-For **ALL ranks $r \geq 0$**: Lock is **BLOCKED**
+**Lock Resolution (sector split):**
 
 $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = \begin{cases}
 K_{\mathrm{E11}}^{\mathrm{blk}} & \text{(rank 0,1 via Kolyvagin-Gross-Zagier)} \\
-K_{\mathrm{E18}}^{\mathrm{blk}} & \text{(all ranks via Tower Globalization)}
+K_{\mathrm{E18}}^{\mathrm{inc}} & \text{(general rank: HORIZON / Tower Globalization not certified)}
 \end{cases}$$
 
-**The Lock is BLOCKED unconditionally.** No element of $\mathbb{H}_{\text{bad}}$ exists:
-- $r = r_{\text{an}}$ for all $E/\mathbb{Q}$ ✓
-- $|\text{Sha}(E)| < \infty$ for all $E/\mathbb{Q}$ ✓
-- BSD formula follows from Main Conjecture ✓
+Rank 0/1 is BLOCKED (proved). General rank remains HORIZON (no blocked Lock certificate in ZFC).
 
 ---
 
 ## Part II-B: Upgrade Pass
 
-### OBL-BSD-1 (GeomCheck) — **DISCHARGED**
+### OBL-BSD-1 (GeomCheck) — **SECTOR-DEPENDENT**
 - **Original Status:** Inconclusive
 - **Requirement:** Prove $\Sigma = \varnothing$ (full BSD rank formula)
-- **Resolution:** Tower Globalization (Tactic E18)
-- **Discharge Certificate:** $K_{\mathrm{Cap}_H}^+ = (\Sigma = \varnothing\ \text{via MT-Tower-1})$
+- **Resolution:** Rank 0/1: E11; General rank: HORIZON
+- **Discharge Certificate:** DISCHARGED (rank 0/1); HORIZON (general rank)
 
-### OBL-SHA-1 (TopoCheck) — **DISCHARGED**
+### OBL-SHA-1 (TopoCheck) — **SECTOR-DEPENDENT**
 - **Original Status:** Partially discharged (rank ≤ 1)
-- **Requirement:** $|\text{Sha}(E)| < \infty$ for all ranks
-- **Resolution:** Obstruction Collapse ({prf:ref}`mt-resolve-obstruction`)
-- **Discharge Certificate:** $K_{\mathrm{TB}_\pi}^+ = (|\text{Sha}| < \infty\ \text{via MT-Obs-1})$
+- **Requirement:** $|\text{Sha}(E)| < \infty$
+- **Resolution:** Rank 0/1: known; General rank: HORIZON
+- **Discharge Certificate:** DISCHARGED (rank 0/1); HORIZON (general rank)
 
-### OBL-BSD-2 (Lock) — **DISCHARGED**
+### OBL-BSD-2 (Lock) — **HORIZON**
 - **Original Status:** Open (Heegner generalization needed)
 - **Requirement:** Extend methods to general rank
-- **Resolution:** Tower Globalization replaces Heegner approach for rank ≥ 2
-- **Discharge Certificate:** $K_{\mathrm{E18}}^{\mathrm{blk}}$
+- **Resolution:** Tower Globalization is a proposed route (not certified)
+- **Discharge Certificate:** $K_{\mathrm{E18}}^{\mathrm{inc}}$ (HORIZON payload)
 
-**All obligations DISCHARGED.** The Upgrade Pass is complete.
+**Upgrade status:** Rank 0/1 discharged; general rank remains HORIZON (OBL-BSD-GEN).
 
 ---
 
 ## Part II-C: Breach Protocol — **NOT TRIGGERED**
 
-The Breach Protocol is **NOT TRIGGERED** because the Lock is BLOCKED.
+The Breach Protocol is not used to resolve the general-rank case; the proof object remains HORIZON beyond rank 1.
+
+**Audit note:** Rank 0/1 is blocked (E11). General rank remains HORIZON (Lock not certified).
 
 **Original Concern:** For rank ≥ 2, classic methods (Heegner points, Euler systems) seemed insufficient.
 
@@ -599,7 +594,7 @@ The tower limits to the correct answer without constructing individual rational 
 
 **Surgery Status:** NOT TRIGGERED
 
-The Lock is BLOCKED via Tactic E18 (Tower Globalization). No topological surgery required.
+Rank 0/1 sector: Lock BLOCKED via Tactic E11 (Gross–Zagier/Kolyvagin). General rank: HORIZON (Tower Globalization not certified in ZFC).
 
 The Iwasawa Tower Hypostructure (Part I-B) and Obstruction Collapse (Part I-C) provide complete resolution without requiring structural modification.
 
@@ -614,14 +609,14 @@ The Iwasawa Tower Hypostructure (Part I-B) and Obstruction Collapse (Part I-C) p
 | Node 3 (CompactCheck) | $K_{C_\mu}^+$ | Mordell-Weil finitely generated |
 | Node 4 (ScaleCheck) | $K_{\mathrm{SC}_\lambda}^+$ | Subcritical ($\alpha = 2 > 1 = \beta$) |
 | Node 5 (ParamCheck) | $K_{\mathrm{SC}_{\partial c}}^+$ | Modularity ensures stability |
-| Node 6 (GeomCheck) | $K_{\mathrm{Cap}_H}^+$ | $\Sigma = \varnothing$ via Tower Globalization |
+| Node 6 (GeomCheck) | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | HORIZON for general rank (Sha/height control not discharged) |
 | Node 7 (StiffnessCheck) | $K_{\mathrm{LS}_\sigma}^+$ | Néron-Tate positive definite |
-| Node 8 (TopoCheck) | $K_{\mathrm{TB}_\pi}^+$ | $\|\text{Sha}\| < \infty$ via Obstruction Collapse |
+| Node 8 (TopoCheck) | $K_{\mathrm{TB}_\pi}^{\mathrm{inc}}$ | HORIZON for general rank (Sha finiteness open) |
 | Node 9 (TameCheck) | $K_{\mathrm{TB}_O}^+$ | O-minimal (algebraic variety) |
 | Node 10 (ErgoCheck) | $K_{\mathrm{TB}_\rho}^+$ | Heegner equidistribution |
 | Node 11 (ComplexCheck) | $K_{\mathrm{Rep}_K}^+$ | L-function and heights computable |
 | Node 12 (OscillateCheck) | $K_{\mathrm{GC}_\nabla}^-$ | Gradient structure (no oscillation) |
-| Node 17 (Lock) | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | BLOCKED via E11 + E18 |
+| Node 17 (Lock) | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ | SECTOR-DEPENDENT: BLOCKED (rank 0/1 via E11); MORPHISM (general rank) |
 
 **Tower Certificates:**
 | Permit | Certificate | Verification |
@@ -638,7 +633,7 @@ The Iwasawa Tower Hypostructure (Part I-B) and Obstruction Collapse (Part I-C) p
 $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
 where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
 
-Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level statement that no BSD “bad pattern” embedding survives the Lock, together with an explicit axiom/choice manifest for the tower/descent steps.
+For rank 0/1, choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the established ZFC theorems. For general rank, export proceeds as an obligation manifest (HORIZON), not as a completed ZFC proof.
 
 ---
 
@@ -646,11 +641,11 @@ Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zf
 
 | Obligation | Original Status | Resolution | Discharge Certificate |
 |------------|-----------------|------------|----------------------|
-| OBL-BSD-1 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | Tower Globalization | $K_{\mathrm{Cap}_H}^+$ |
-| OBL-SHA-1 | $K_{\mathrm{TB}_\pi}^{\mathrm{inc}}$ | Obstruction Collapse | $K_{\mathrm{TB}_\pi}^+$ |
-| OBL-BSD-2 | Lock partial | Tower Globalization | $K_{\mathrm{E18}}^{\mathrm{blk}}$ |
+| OBL-BSD-1 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | Rank 0/1: E11 (Gross–Zagier/Kolyvagin) | DISCHARGED (rank 0/1); HORIZON (general rank) |
+| OBL-SHA-1 | $K_{\mathrm{TB}_\pi}^{\mathrm{inc}}$ | Rank 0/1: E11 (Sha finiteness) | DISCHARGED (rank 0/1); HORIZON (general rank) |
+| OBL-BSD-GEN | General rank BSD | Tower Globalization path | **HORIZON** |
 
-**Status: ALL OBLIGATIONS DISCHARGED**
+**Status: SECTOR-DEPENDENT (rank 0/1 discharged; general rank HORIZON)**
 
 ---
 
@@ -675,7 +670,7 @@ Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zf
 
 **System Type:** $T_{\text{algebraic}}$ (Arithmetic geometry)
 
-**Regime:** **REGULAR** (all ranks)
+**Regime:** **SECTOR-DEPENDENT** (rank 0/1 UNCONDITIONAL; general rank HORIZON)
 
 **Resolution Method:**
 1. **Rank 0,1:** Kolyvagin-Gross-Zagier (Tactic E11)
@@ -684,14 +679,14 @@ Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zf
    - MT-Tower-Globalization ({prf:ref}`mt-resolve-tower`)
    - MT-Obstruction-Collapse ({prf:ref}`mt-resolve-obstruction`)
 
-**Classification:** **REGULAR — GLOBALLY RESOLVED**
+**Classification:** **SECTOR-DEPENDENT — RANK 0/1 RESOLVED; GENERAL RANK HORIZON**
 
 ### Final Verdict
 
-::::{prf:theorem} BSD Conjecture Resolution
+::::{prf:theorem} BSD (Rank 0/1 Cases; General Rank HORIZON)
 :label: thm-bsd-resolution
 
-For every elliptic curve $E/\mathbb{Q}$:
+For elliptic curves $E/\mathbb{Q}$ of analytic rank $r_{\mathrm{an}} \in \{0,1\}$:
 
 **(1) Rank Formula:**
 $$r = \text{rank}_\mathbb{Z} E(\mathbb{Q}) = r_{\text{an}} = \text{ord}_{s=1} L(E,s)$$
@@ -699,13 +694,13 @@ $$r = \text{rank}_\mathbb{Z} E(\mathbb{Q}) = r_{\text{an}} = \text{ord}_{s=1} L(
 **(2) BSD Formula:**
 $$L^*(E,1) = \frac{\Omega_E \cdot \text{Reg}_E \cdot |\text{Sha}(E)| \cdot \prod_p c_p(E)}{|E(\mathbb{Q})_{\text{tors}}|^2}$$
 
-**(3) Sha Finiteness:**
+**(3) Sha Finiteness (rank 0/1):**
 $$|\text{Sha}(E/\mathbb{Q})| < \infty$$
 
-**Proof Basis:** Lock BLOCKED via Tactic E18 (Tower Globalization)
+**General rank:** The full BSD conjecture (including Sha finiteness and the leading coefficient formula in all ranks) remains open.
 ::::
 
-**VERDICT: GLOBAL REGULARITY CONFIRMED**
+**VERDICT: SECTOR-DEPENDENT (Rank 0/1 proven; general rank HORIZON)**
 
 ---
 
@@ -766,9 +761,9 @@ $$r = r_{\text{an}}$$
 **Output:**
 $$L^*(E,1) = \frac{\Omega_E \cdot \text{Reg}_E \cdot |\text{Sha}(E)| \cdot \prod_p c_p}{|E(\mathbb{Q})_{\text{tors}}|^2}$$
 
-**Status:** ✓ PROVED (all ranks via Tower Globalization)
+**Status:** **SECTOR-DEPENDENT** (rank 0/1: discharged; general rank: HORIZON)
 
-**Certificate:** $K_{\text{MT42.1}}^+ = (\text{BSD formula},\ \text{all ranks})$
+**Certificate:** $K_{\text{MT42.1}}^{\mathrm{inc}} = (\text{BSD formula route},\ \text{rank 0/1 discharged; general rank open},\ \text{code: OBL-BSD-GEN})$
 
 ---
 
@@ -776,7 +771,7 @@ $$L^*(E,1) = \frac{\Omega_E \cdot \text{Reg}_E \cdot |\text{Sha}(E)| \cdot \prod
 
 **Application:** Globalize local Iwasawa data to asymptotic structure.
 
-**Input Permits (ALL CERTIFIED):**
+**Input Permits (tower route; not ZFC-certified for general rank):**
 1. $K_{C_\mu^{\mathrm{tower}}}^+$: Selmer groups cofinitely generated at each level
 2. $K_{D_E^{\mathrm{tower}}}^+$: $\mu = 0$ (subcritical dissipation)
 3. $K_{\mathrm{SC}_\lambda^{\mathrm{tower}}}^+$: Iwasawa Main Conjecture (scale coherence)
@@ -785,7 +780,7 @@ $$L^*(E,1) = \frac{\Omega_E \cdot \text{Reg}_E \cdot |\text{Sha}(E)| \cdot \prod
 **Output:**
 $$K_{\mathrm{Global}}^+ = (X_\infty = \text{Sel}_{p^\infty}(E/\mathbb{Q}_\infty),\ \text{char}_\Lambda = (\mathcal{L}_p),\ r = r_{\text{an}})$$
 
-**THIS IS THE KEY METATHEOREM** that resolves BSD for arbitrary rank.
+**Audit note:** This is the proposed tower mechanism for arbitrary rank; it is not a ZFC-certified discharge in this proof object (general rank remains HORIZON).
 
 ---
 
@@ -793,14 +788,14 @@ $$K_{\mathrm{Global}}^+ = (X_\infty = \text{Sel}_{p^\infty}(E/\mathbb{Q}_\infty)
 
 **Application:** Prove $|\text{Sha}(E)| < \infty$.
 
-**Input Permits (ALL CERTIFIED):**
+**Input Permits (rank 0/1 discharged; general rank not certified):**
 1. $K_{\mathrm{TB}+\mathrm{LS}}^{\mathcal{O}+}$: Cassels-Tate duality
 2. $K_{C+\mathrm{Cap}}^{\mathcal{O}+}$: Obstruction height on Sha
 3. $K_{\mathrm{SC}_\lambda}^{\mathcal{O}+}$: Subcritical Sha accumulation
 4. $K_{D_E}^{\mathcal{O}+}$: $\mu = 0$ implies subcritical obstruction dissipation
 
 **Output:**
-$$K_{\mathrm{Sha}}^+ = (|\text{Sha}(E/\mathbb{Q})| < \infty\ \text{UNCONDITIONALLY})$$
+$$K_{\mathrm{Sha}}^+ = (r_{\text{an}} \le 1,\ |\text{Sha}(E/\mathbb{Q})| < \infty)$$
 
 ---
 
@@ -903,25 +898,25 @@ $$K_{\mathrm{Sha}}^+ = (|\text{Sha}(E/\mathbb{Q})| < \infty\ \text{UNCONDITIONAL
 
 | Field | Value |
 |-------|-------|
-| Document Type | **Complete Proof Object** |
+| Document Type | Proof Object (Audit) |
 | Framework | Hypostructure v1.0 |
 | Problem Class | Millennium Prize Problem (Clay Mathematics Institute) |
 | System Type | $T_{\text{algebraic}}$ |
 | Verification Level | Machine-checkable |
-| **Status** | **REGULAR — ALL RANKS RESOLVED** |
-| Resolution Method | Tower Globalization ({prf:ref}`mt-resolve-tower`) |
-| Key Certificates | $K_{\mathrm{E18}}^{\mathrm{blk}}$, $K_{\mathrm{Global}}^+$, $K_{\mathrm{Sha}}^+$ |
-| Key Results | Kato ($\mu=0$), Skinner-Urban (Main Conjecture), MT-Tower-1, MT-Obs-1 |
+| **Status** | **SECTOR-DEPENDENT** (rank 0/1 UNCONDITIONAL; general rank HORIZON) |
+| Resolution Method | Rank 0/1: Gross–Zagier/Kolyvagin (E11); General rank: open (HORIZON) |
+| Key Certificates | $K_{\mathrm{E11}}^{\mathrm{blk}}$ (rank 0/1); OBL-BSD-GEN (general rank) |
+| Key Results | Rank 0/1 BSD theorems; general-rank BSD conjecture remains open |
 | Generated | 2025-12-23 |
 
 ---
 
 ## Final Certificate Chain
 
-$$\Gamma_{\text{BSD}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{C_\mu^{\mathrm{tower}}}^+, K_{D_E^{\mathrm{tower}}}^+, K_{\mathrm{SC}_\lambda^{\mathrm{tower}}}^+, K_{\mathrm{Rep}_K^{\mathrm{tower}}}^+, K_{\mathrm{Global}}^+, K_{\mathrm{Sha}}^+, K_{\mathrm{E11}}^{\mathrm{blk}}, K_{\mathrm{E18}}^{\mathrm{blk}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\text{BSD,audit}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{E11}}^{\mathrm{blk}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}\}$$
 
-**Lock Status:** BLOCKED (unconditionally)
+**Lock Status:** SECTOR-DEPENDENT — BLOCKED (rank 0/1); MORPHISM (general rank)
 
-**Verdict:** **GLOBAL REGULARITY CONFIRMED**
+**Verdict:** **SECTOR-DEPENDENT (rank 0/1 proven; general rank HORIZON)**
 
-$$\boxed{\text{BSD CONJECTURE: REGULAR}}$$
+$$\boxed{\text{BSD: SECTOR-DEPENDENT (rank 0/1 proven; general rank HORIZON)}}$$

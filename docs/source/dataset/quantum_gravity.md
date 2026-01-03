@@ -1383,7 +1383,7 @@ This proof object is replayed by providing:
 | **Verification Level** | Machine-checkable |
 | **Inc Certificates** | 3 introduced, 0 discharged |
 | **Breach Certificates** | 4 introduced, 0 discharged |
-| **Final Status** | [x] Final (Horizon Detected) |
+| **Final Status** | **HORIZON DETECTED (Period VI)** |
 | **Generated** | 2025-12-22 |
 
 ---
