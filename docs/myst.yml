@@ -1050,6 +1050,7 @@ project:
   # Bibliography
   bibliography:
     - source/references.bib
+    - source/sketches/fragile/references.bib
 
   # PDF export configuration
   exports:
