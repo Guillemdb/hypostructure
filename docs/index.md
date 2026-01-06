@@ -122,6 +122,7 @@ The author is not an expert in Higher Topos Theory or Homotopy Type Theory. Thes
 
 **Call for referees:** If you are a mathematician and you spot a fundamental error in the categorical machinery, you have successfully performed the audit. We actively invite experts to review and fix these theorems—this would increase the "resolution" of the diagnostic instrument and improve the benchmark's calibration.
 
+(the-structural-residual-invariant-utility-beyond-formal-correctness)=
 ### The Structural Residual: Invariant Utility Beyond Formal Correctness
 
 The Crank Benchmark is designed as an **instrument of diagnosis** rather than a claim to mathematical discovery. Consequently, the utility of the framework is decoupled from the formal soundness of its underlying metatheorems. Even if the categorical machinery of the Hypostructure Protocol is found to be unsound—a state defined as **End of Life (EOL)**—the framework retains a **Structural Residual** of methodological innovations that remain valid:
@@ -149,6 +150,7 @@ The Crank Benchmark exists to understand this phenomenon:
 
 By stress-testing LLMs on extreme claims with designed-in contradictions, we map the boundary between genuine assistance and dangerous validation.
 
+(adversarial-context-masking-the-deliberate-crank-aesthetic)=
 ### Adversarial Context Masking: The Deliberate Crank Aesthetic
 
 The benchmark is deliberately designed to exhibit every hallmark of mathematical crankery. This is not an unfortunate side effect—it is a **controlled experimental variable**.
@@ -173,6 +175,7 @@ The benchmark creates maximum tension between heuristics and verification:
 - If an LLM has learned "reject grandiose claims," it will fail on valid proofs → **sociological bias detected**
 - If an LLM has learned "verify logical consistency," it will succeed regardless of presentation → **genuine reasoning demonstrated**
 
+(benchmark-calibration-ensuring-diagnostic-quality)=
 ### Benchmark Calibration: Ensuring Diagnostic Quality
 
 The diagnostic protocol is calibrated through several mechanisms that ensure the benchmark measures what we intend to measure:
@@ -217,6 +220,7 @@ By including problems across many domains, the benchmark creates maximum surface
 
 Every additional problem is another opportunity to characterize model reasoning patterns. If a model fails consistently at Node 7 (Stiffness) but passes Node 8 (Topology), we've learned something specific about its capabilities.
 
+(contradiction-payloads-errors-as-diagnostic-data)=
 ### Contradiction Payloads: Errors as Diagnostic Data
 
 **The errors in this framework are not bugs—they are diagnostic payloads.**

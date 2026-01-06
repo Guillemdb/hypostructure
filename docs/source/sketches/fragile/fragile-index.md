@@ -251,6 +251,8 @@ To prevent category errors, we formally distinguish three manifolds with distinc
 - $\mathcal{F}(\theta)$: How the policy changes with weights (used by TRPO/PPO)
 - $G_n(z_n;K)$: How the policy changes with structured nuisance coordinates (used by the Fragile Agent)
 
+*Remark (WFR Foundation).* The product metric $d_{\mathcal{K}} \oplus G_n$ is a first approximation treating discrete and continuous components separately. Section 20 provides the rigorous **Wasserstein-Fisher-Rao** metric that unifies these components variationally: transport (Wasserstein) handles continuous motion within charts, while reaction (Fisher-Rao) handles discrete jumps between charts.
+
 ### 2.2b The Shutter as a VQ-VAE (Discrete Macro, Continuous Micro)
 
 The information-theoretic/control interpretation benefits from an explicit **discrete latent register**: a countable set of macrostates on which we can apply Shannon/algorithmic statements without differential-entropy ambiguities. This is provided by a **VQ-VAE macro-encoder**.
@@ -259,12 +261,17 @@ We factor the latent as:
 $$
 Z_t := (K_t, Z_{n,t}, Z_{\mathrm{tex},t}),
 \qquad
-K_t \in \mathcal{K}\ \text{(discrete)},
+K_t \in \mathcal{K}\ \text{(discrete; may be hierarchical)},
 \quad
 Z_{n,t}\in\mathbb{R}^{d_n}\ \text{(continuous nuisance)},
 \quad
 Z_{\mathrm{tex},t}\in\mathbb{R}^{d_{\mathrm{tex}}}\ \text{(continuous texture)}.
 $$
+For the Attentive Atlas shutter, the macro register is a two-level tuple:
+$$
+K_t = (K_{\text{chart}}, K_{\text{code}}),
+$$
+with $K_{\text{chart}}\in\{1,\dots,N_c\}$ and $K_{\text{code}}\in\{1,\dots,N_v\}$.
 
 **Macro codebook (symbols).** Let $\mathcal{K}=\{1,\dots,|\mathcal{K}|\}$ and let $\{e_k\}_{k\in\mathcal{K}}\subset\mathbb{R}^{d_m}$ be a learned codebook. Given an observation $x$ the macro encoder produces a pre-quantized vector $z_e(x)\in\mathbb{R}^{d_m}$ and the VQ projection chooses the nearest code:
 $$
@@ -273,6 +280,42 @@ K(x) := \arg\min_{k\in\mathcal{K}} \|z_e(x)-e_k\|_2^2,
 z_{\text{macro}}(x):=e_{K(x)}.
 $$
 We equip $\mathcal{K}$ with the induced finite metric $d_{\mathcal{K}}(k,k'):=\|e_k-e_{k'}\|_2$ (or its $G_\mu$-weighted variant), so $\mathcal{Z}$ is a bundle of continuous fibres over a discrete base.
+
+**Attentive Atlas shutter (TopoEncoder implementation).** The shutter in `topoencoder.py` uses a shared feature extractor $f(x)$, then:
+- **Key projection:** $k(x)=W_k f(x)$
+- **Value projection:** $v(x)=W_v f(x)$
+- **Chart query bank:** $\{q_i\}_{i=1}^{N_c}$
+- **Cross-attention routing:**
+  $$
+  w_i(x) = \frac{\exp(\langle k(x), q_i\rangle/\sqrt{d})}{\sum_j \exp(\langle k(x), q_j\rangle/\sqrt{d})},
+  \qquad
+  K_{\text{chart}} = \arg\max_i w_i(x).
+  $$
+Each chart has its own codebook $\{e_{i,c}\}_{c=1}^{N_v}$. For each chart, pick the closest code
+$$
+K_{\text{code},i}(x) := \arg\min_c \|v(x)-e_{i,c}\|_2^2,
+$$
+then form a soft blended code for differentiability:
+$$
+z_q(x) := \sum_i w_i(x)\, e_{i,K_{\text{code},i}(x)}.
+$$
+The hard code index used for discrete state is $K_{\text{code}}:=K_{\text{code},K_{\text{chart}}}(x)$.
+
+**Recursive residual split (TopoEncoder).** The shutter then decomposes the value residual:
+$$
+\Delta_{\text{total}} = v(x) - \operatorname{sg}[z_q(x)],
+\qquad
+z_n = \text{StructureFilter}(\Delta_{\text{total}}),
+\qquad
+z_{\text{tex}} = \Delta_{\text{total}} - z_n.
+$$
+Finally, the geometric latent for the decoder is
+$$
+z_{\text{geo}} = z_q^{\text{st}} + z_n,
+\qquad
+z_q^{\text{st}} := v(x) + \operatorname{sg}[z_q(x)-v(x)],
+$$
+so reconstruction uses the discrete macro code plus structured nuisance.
 
 **Canonicalization and symmetry quotienting (optional).** Let $G_{\text{spatial}}$ be a nuisance group acting on observations (Section 1.1.4). A practical way to make the macro register invariant to pose/basis choices is to insert a **canonicalization map** $C_\psi:\mathcal{X}\to\mathcal{X}$ before quantization and to train it so that
 $$
@@ -312,11 +355,13 @@ $$
 +\underbrace{\beta_{\mathrm{tex}} D_{KL}(q_\phi(Z_{\mathrm{tex}}\mid X)\Vert p(Z_{\mathrm{tex}}))}_{\text{texture-as-residual}}.
 $$
 Units: $\beta$, $\beta_n$, and $\beta_{\mathrm{tex}}$ are dimensionless weights; each $D_{KL}$ is measured in nats.
+In the Attentive Atlas shutter, the codebook/commitment terms are computed per chart and weighted by $w_i(x)$ so inactive charts do not receive spurious updates.
 
 **Information-theoretic capacity becomes explicit.** Because $K$ is discrete,
 $$
 I(X;K)\le H(K)\le \log|\mathcal{K}|.
 $$
+For the hierarchical macro $(K_{\text{chart}},K_{\text{code}})$, this becomes $H(K)\le \log(N_c N_v)$.
 For deterministic nearest-neighbor quantization, $H(K\mid X)=0$ and hence $I(X;K)=H(K)$: the macro channel is literally a bounded-rate symbolic memory.
 
 **Rate–distortion / MDL viewpoint (optional but canonical).** Because $K$ is a discrete string, an explicit entropy model $p_\psi(K)$ defines a literal expected codelength $\mathbb{E}[-\log p_\psi(K)]$ (in nats). Adding this term yields the Lagrangian form of lossy source coding:
@@ -847,6 +892,9 @@ Stability and data-quality are monitored via 29 distinct checks (Gate Nodes). Ea
 | **22** | **MECCheck ($\mathrm{MEC}$)** | **Belief / WM** | **CPTP Consistency** | Operator update matches GKSL form? | $\left\|\frac{\varrho_{t+1}-\varrho_t}{\Delta t}-\mathcal{L}_{\text{GKSL}}(\varrho_t)\right\|_F^2$ | $O(BZ^3)$ ✗ |
 | **23** | **NEPCheck ($\mathrm{NEP}$)** | **Belief / Boundary** | **Update vs Evidence** | Internal update supported by boundary info? | $\mathrm{ReLU}(D_{KL}(p_{t+1}\Vert p_t)-I(X_t;K_t))^2$ | $O(B|\mathcal{K}|)$ ✓ |
 | **24** | **QSLCheck ($\mathrm{QSL}$)** | **All** | **Update Speed Limit** | Step too large in $d_G$? | $\mathrm{ReLU}(d_G(z_{t+1},z_t)-v_{\max})^2$ | $O(BZ)$ ✓ |
+| **25** | **HoloGenCheck** | **Generator** | **Generation Validity** | Did flow reach boundary? | $\mathbb{I}(\lvert z_{\text{final}}\rvert \ge R_{\text{cutoff}})$ | $O(B)$ ✓ |
+| **26** | **GeodesicCheck** | **World Model / Policy** | **Trajectory Consistency** | Is trajectory approximately geodesic? | $\|\ddot{z} + \Gamma(\dot{z},\dot{z}) + G^{-1}\nabla\Phi\|_G$ | $O(BZ^2)$ ✗ |
+| **27** | **OverdampedCheck** | **Policy** | **Regime Validity** | Is friction >> 1 satisfied? | $\gamma / \|G\,\nabla\Phi\|$ | $O(BZ)$ ✓ |
 
 **Compute Legend:** ✓ Low (typically online) | ⚡ Moderate (often amortized/approximated) | ✗ High (often offline or coarse approximations)
 **Variables:** $B$ = batch, $Z$ = latent dim, $A$ = actions, $P$ = params, $H$ = horizon, $D$ = observation dim
@@ -2505,177 +2553,127 @@ V(x) = e_{K} + z_n + z_{\text{tex}},
 $$
 where $z_n$ is a filtered residual (structured, predictable) and $z_{\text{tex}}$ is the residual of that residual (stochastic detail).
 
-#### 7.8.3 Architecture Specification: `AttentiveAtlasVQ`
+#### 7.8.3 Architecture Specification: `AttentiveAtlasEncoder`
 
 This module replaces the MLP router used in the Tier 5 atlas (Section 7.7.5) for high-end implementations.
 
 ```python
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class LocalVectorQuantizer(nn.Module):
+class AttentiveAtlasEncoder(nn.Module):
+    """Attentive Atlas encoder with cross-attention routing.
+
+    Architecture:
+    - Feature extractor: x -> features [B, H]
+    - Key/Value projections: features -> k(x), v(x)
+    - Chart Query Bank: learnable q_i [N_c, H]
+    - Cross-attention router: softmax(k @ q.T / sqrt(H)) -> w_i(x)
+    - Local VQ codebooks: per-chart quantization
+    - Recursive decomposition: delta -> (z_n, z_tex)
     """
-    Standard VQ Layer for Local Geometry.
-    Represents the local coordinate system of a single Chart.
-    """
-    def __init__(self, num_embeddings: int, embedding_dim: int, commitment_cost: float = 0.25):
-        super().__init__()
-        self.embedding_dim = embedding_dim
-        self.num_embeddings = num_embeddings
-        self.commitment_cost = commitment_cost
 
-        # Local codebook
-        self.embeddings = nn.Embedding(self.num_embeddings, self.embedding_dim)
-        self.embeddings.weight.data.uniform_(-1/self.num_embeddings, 1/self.num_embeddings)
-
-    def forward(self, z):
-        # Flatten input
-        flat_z = z.view(-1, self.embedding_dim)
-
-        # L2 Distance
-        distances = (torch.sum(flat_z**2, dim=1, keepdim=True)
-                    + torch.sum(self.embeddings.weight**2, dim=1)
-                    - 2 * torch.matmul(flat_z, self.embeddings.weight.t()))
-
-        # Encoding
-        encoding_indices = torch.argmin(distances, dim=1).unsqueeze(1)
-        quantized = self.embeddings(encoding_indices).view(z.shape)
-
-        # Losses
-        e_latent_loss = F.mse_loss(quantized.detach(), z)
-        q_latent_loss = F.mse_loss(quantized, z.detach())
-        loss = q_latent_loss + self.commitment_cost * e_latent_loss
-
-        # Straight Through Estimator
-        quantized = z + (quantized - z).detach()
-
-        return quantized, encoding_indices, loss
-
-class AttentiveAtlasVQ(nn.Module):
-    """
-    Tier 6 Architecture: Attentive Atlas.
-
-    Charts are 'Slots' that attend to the input data.
-    - Router: Cross-Attention (Query=Charts, Key=Data)
-    - Geometry: Local VQ per Chart
-    """
-    def __init__(self, input_dim: int, num_charts: int, codes_per_chart: int, latent_dim: int):
+    def __init__(
+        self,
+        input_dim: int = 2,
+        hidden_dim: int = 32,
+        latent_dim: int = 2,
+        num_charts: int = 3,
+        codes_per_chart: int = 21,
+    ):
         super().__init__()
         self.num_charts = num_charts
         self.latent_dim = latent_dim
+        self.codes_per_chart = codes_per_chart
 
-        # 1. Feature Extractor (Shared Backbone)
+        # --- Shared Backbone (Feature Extractor) ---
         self.feature_extractor = nn.Sequential(
-            nn.Linear(input_dim, 256),
-            nn.LayerNorm(256),
+            nn.Linear(input_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
             nn.ReLU(),
-            nn.Linear(256, latent_dim)
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
         )
 
-        # 2. Chart Prototypes (Learnable Queries)
-        # These vectors represent the centroids of the manifolds in feature space.
-        self.chart_queries = nn.Parameter(torch.randn(num_charts, latent_dim))
+        # --- Routing (Topology) ---
+        self.key_proj = nn.Linear(hidden_dim, hidden_dim)
+        self.chart_queries = nn.Parameter(torch.randn(num_charts, hidden_dim))
+        self.scale = math.sqrt(hidden_dim)
 
-        # 3. Geometry Projection (Keys/Values)
-        self.data_key = nn.Linear(latent_dim, latent_dim)
-        self.data_value = nn.Linear(latent_dim, latent_dim)
+        # --- Value (Geometry) ---
+        self.val_proj = nn.Linear(hidden_dim, latent_dim)
 
-        # 4. The Atlas (Bank of Local Codebooks)
-        self.quantizers = nn.ModuleList([
-            LocalVectorQuantizer(codes_per_chart, latent_dim)
+        # --- Local VQ Codebooks (one per chart) ---
+        self.codebooks = nn.ModuleList([
+            nn.Embedding(codes_per_chart, latent_dim)
             for _ in range(num_charts)
         ])
+        for cb in self.codebooks:
+            cb.weight.data.uniform_(-1.0 / codes_per_chart, 1.0 / codes_per_chart)
 
-        # 5. Structure Filter (Recursive Residual Decomposition)
+        # --- Recursive Decomposition ---
         self.structure_filter = nn.Sequential(
-            nn.Linear(latent_dim, latent_dim // 4),
+            nn.Linear(latent_dim, latent_dim // 2 if latent_dim > 2 else latent_dim),
             nn.ReLU(),
-            nn.Linear(latent_dim // 4, latent_dim)
+            nn.Linear(latent_dim // 2 if latent_dim > 2 else latent_dim, latent_dim),
         )
 
-        # 6. Output Projection
-        self.out_proj = nn.Linear(latent_dim, input_dim)
+    def forward(self, x: torch.Tensor):
+        B = x.shape[0]
+        device = x.device
 
-    def forward(self, x, temperature=1.0):
-        batch_size = x.shape[0]
+        # 1. Feature extraction
+        features = self.feature_extractor(x)  # [B, hidden_dim]
 
-        # A. Feature Extraction
-        features = self.feature_extractor(x)
+        # 2. Cross-attention routing
+        k = self.key_proj(features)  # [B, hidden_dim]
+        scores = torch.matmul(k, self.chart_queries.T) / self.scale  # [B, N_c]
+        router_weights = F.softmax(scores, dim=-1)  # [B, N_c]
+        K_chart = torch.argmax(router_weights, dim=1)  # [B]
 
-        # B. Attentive Routing
-        K_data = self.data_key(features)   # [B, D]
-        V_data = self.data_value(features) # [B, D]
+        # 3. Value projection
+        v = self.val_proj(features)  # [B, latent_dim]
 
-        # Expand queries for batch: [B, Num_Charts, D]
-        Q_charts = self.chart_queries.unsqueeze(0).expand(batch_size, -1, -1)
+        # 4. Local VQ per chart
+        z_q_list = []
+        indices_list = []
+        vq_loss = torch.tensor(0.0, device=device)
 
-        # Attention Scores: (Q * K^T) / sqrt(d) -> [B, Num_Charts, 1]
-        attn_scores = torch.bmm(Q_charts, K_data.unsqueeze(2)).squeeze(2)
-        attn_scores = attn_scores / (self.latent_dim ** 0.5)
-
-        # Routing Weights (Softmax over charts)
-        router_weights = F.softmax(attn_scores / temperature, dim=-1) # [B, Num_Charts]
-
-        # C. Local Quantization (Parallel)
-        quantized_outputs = []
-        z_n_outputs = []
-        z_tex_outputs = []
-        vq_losses = 0
-        all_indices = []
-
-        # Each chart attempts to quantize the data value using its own topology
         for i in range(self.num_charts):
-            z_continuous = V_data
-            z_q, indices, loss = self.quantizers[i](z_continuous)
+            codebook_i = self.codebooks[i]
+            dists = torch.cdist(v, codebook_i.weight)  # [B, codes_per_chart]
+            inds = torch.argmin(dists, dim=1)  # [B]
+            z_q_local = codebook_i(inds)  # [B, latent_dim]
 
-            # Recursive residual decomposition
-            delta_total = z_continuous - z_q.detach()
-            z_n = self.structure_filter(delta_total)
-            z_tex = delta_total - z_n
+            z_q_list.append(z_q_local)
+            indices_list.append(inds)
 
-            quantized_outputs.append(z_q)
-            z_n_outputs.append(z_n)
-            z_tex_outputs.append(z_tex)
-            vq_losses += loss
-            all_indices.append(indices)
+            w = router_weights[:, i].unsqueeze(1).detach()  # [B, 1]
+            commitment = ((v - z_q_local.detach()) ** 2 * w).mean()
+            codebook = ((z_q_local - v.detach()) ** 2 * w).mean()
+            vq_loss = vq_loss + codebook + 0.25 * commitment
 
-        # Stack: [B, Num_Charts, D]
-        z_stack = torch.stack(quantized_outputs, dim=1)
-        z_n_stack = torch.stack(z_n_outputs, dim=1)
-        z_tex_stack = torch.stack(z_tex_outputs, dim=1)
+        z_stack = torch.stack(z_q_list, dim=1)  # [B, N_c, latent_dim]
+        indices_stack = torch.stack(indices_list, dim=1)  # [B, N_c]
 
-        # D. Blending
-        # Soft blend for gradients
-        z_blended = (z_stack * router_weights.unsqueeze(-1)).sum(dim=1)
-        z_n_blended = (z_n_stack * router_weights.unsqueeze(-1)).sum(dim=1)
-        z_tex_blended = (z_tex_stack * router_weights.unsqueeze(-1)).sum(dim=1)
+        # 5. Soft blending for differentiability
+        z_q_blended = (z_stack * router_weights.unsqueeze(-1)).sum(dim=1)  # [B, D]
 
-        # Hard selection for discrete state ID
-        active_chart = router_weights.argmax(dim=-1) # K_chart
+        # Get hard K_code from selected chart
+        K_code = indices_stack[torch.arange(B, device=device), K_chart]  # [B]
 
-        # Select the code index corresponding to the active chart
-        # gather: [B, 1]
-        active_code = torch.gather(
-            torch.cat(all_indices, dim=1),
-            1,
-            active_chart.unsqueeze(1)
-        ).squeeze(1) # K_code
+        # 6. Recursive decomposition
+        delta_total = v - z_q_blended.detach()
+        z_n = self.structure_filter(delta_total)
+        z_tex = delta_total - z_n
 
-        # E. Reconstruction
-        x_recon = self.out_proj(z_blended)
+        # 7. Geometric latent for decoder
+        z_q_st = v + (z_q_blended - v).detach()
+        z_geo = z_q_st + z_n
 
-        return {
-            'z_latents': z_blended,
-            'z_n': z_n_blended,
-            'z_tex': z_tex_blended,
-            'k_chart': active_chart,
-            'k_code': active_code,
-            'router_weights': router_weights,
-            'vq_loss': vq_losses,
-            'x_recon': x_recon,
-            'chart_queries': self.chart_queries # For visualization
-        }
+        return K_chart, K_code, z_n, z_tex, router_weights, z_geo, vq_loss, indices_stack
 ```
 
 **Training constraints for the residual split:**
@@ -2726,18 +2724,18 @@ flowchart TD
     subgraph ENC["Embedding block (encoder)"]
         Input["nn.Identity (input)"] -- "x_t [B, D_in]" --> FE["Feature extractor (nn.Sequential)"]
 
-        FE -- "features [B, D]" --> Kproj["Key projection (nn.Linear)"]
-        FE -- "features [B, D]" --> Vproj["Value projection (nn.Linear)"]
+        FE -- "features [B, H]" --> Kproj["Key projection (nn.Linear)"]
+        FE -- "features [B, H]" --> Vproj["Value projection (nn.Linear)"]
 
-        Qbank["Chart query bank (nn.Parameter)"] -- "q_i [N_c, D]" --> Router["Cross-attention router (module)"]
-        Kproj -- "k(x) [B, D]" --> Router
+        Qbank["Chart query bank (nn.Parameter)"] -- "q_i [N_c, H]" --> Router["Cross-attention router (module)"]
+        Kproj -- "k(x) [B, H]" --> Router
 
         Vproj -- "v(x) [B, D]" --> VQ["Local VQ codebooks (nn.ModuleList)"]
         Router -- "w_i(x) [B, N_c]" --> VQ
 
         subgraph RDEC["Recursive Decomposition (modules)"]
             Vproj -- "v(x) [B, D]" --> Sub1["Residual subtract (module)"]
-            VQ -- "e_K [B, D]" --> Sub1
+        VQ -- "z_q_blended [B, D]" --> Sub1
             Sub1 -- "delta_total [B, D]" --> Filter["Structure filter (nn.Sequential)"]
             Sub1 -- "delta_total [B, D]" --> Sub2["Residual subtract (module)"]
             Filter -- "z_n [B, D]" --> Sub2
@@ -2891,6 +2889,777 @@ $$
 \mathcal{L}_{\text{consistency}} = D_{KL}\!\left(w_{\text{enc}}(x)\ \Vert\ w_{\text{dec}}(z_{\text{geo}})\right)
 $$
 This keeps the inverse router aligned with the encoder routing.
+
+---
+
+## 7.11 The Geometry of the Latent Space: A Hyperbolic Hierarchy
+
+The hierarchical decomposition of the latent state $Z_t = (K_t, z_n, z_{\mathrm{tex}})$ is not merely an engineering convenience; it implies a specific geometric structure. We argue that this hierarchy realizes a **discretized hyperbolic space** where the discrete macro-symbols form a tree-like skeleton (the bulk), the structured nuisance $z_n$ constitutes the local smooth manifold (tangent space), and the texture $z_{\mathrm{tex}}$ represents the asymptotic behavior at the ideal boundary (infinity).
+
+### 7.11.1 The Latent Tree as a $\delta$-Hyperbolic Space
+
+We begin by treating the discrete components of the state as nodes in a hierarchical graph.
+
+**Definition 7.11.1 (The Macro-State Tree).** Let $\mathcal{T}$ be a rooted tree representing the hierarchical partition of the state space.
+
+1. The **root** represents the entire observation space $\mathcal{X}$.
+2. **Level 1 nodes** correspond to charts $K_{\text{chart}} \in \{1, \dots, N_c\}$.
+3. **Level 2 nodes** correspond to codes $K_{\text{code}} \in \{1, \dots, N_v\}$ within a chart.
+4. Edges represent the containment relationship (refinement of the partition).
+
+Equip the vertex set $V(\mathcal{T})$ with the graph metric $d_{\mathcal{T}}$ (shortest path length).
+
+**Lemma 7.11.2 (Gromov Hyperbolicity).** The tree metric space $(\mathcal{T}, d_{\mathcal{T}})$ is $0$-hyperbolic in the sense of Gromov. That is, for any geodesic triangle, each side is contained in the $0$-neighborhood of the union of the other two sides.
+*Proof.* Standard result for simplicial trees. $\square$
+
+**Corollary 7.11.3 (The Hyperbolic Embedding).** There exists a quasi-isometric embedding $\iota: V(\mathcal{T}) \hookrightarrow \mathbb{H}^n$ into $n$-dimensional hyperbolic space such that the depth in the tree correlates with the hyperbolic distance from a basepoint. In the upper half-space model $\mathbb{H}^n = \{(x, y) : y > 0\}$ with metric $ds^2 = (dx^2 + dy^2)/y^2$, tree depth $\ell$ maps to $\log(1/y)$; equivalently, in the Poincaré ball model, depth maps to $\tanh^{-1}(r)$ where $r \in [0,1)$ is the radial coordinate.
+
+This identifies the **discrete macro-register** $K_t = (K_{\text{chart}}, K_{\text{code}})$ as the "skeleton" or "bulk" of a hyperbolic geometry. Navigating from the root to a leaf corresponds to moving from the interior of $\mathbb{H}^n$ toward the ideal boundary $\partial_\infty \mathbb{H}^n$, increasing information resolution at each step.
+
+### 7.11.2 The Bulk-Boundary Decomposition (Holographic Latents)
+
+We now rigorously situate the continuous components $(z_n, z_{\mathrm{tex}})$ relative to this skeleton.
+
+**Definition 7.11.4 (The Local Fibre Structure).** We model the latent space $\mathcal{Z}$ as a disjoint union of fibres over the discrete index set $\mathcal{K}$:
+$$
+\mathcal{Z} = \bigsqcup_{k \in \mathcal{K}} \mathcal{Z}_n^{(k)}, \qquad \mathcal{Z}_n^{(k)} \cong \mathbb{R}^{d_n}.
+$$
+For each macro-symbol $k \in \mathcal{K}$, the fibre $\mathcal{Z}_n^{(k)}$ represents the **structured nuisance** space (local pose/basis coordinates).
+
+The "smoothing" of this discrete structure into a continuous manifold is achieved by the Attentive Atlas (Section 7.8), which provides soft transition functions (partitions of unity) $\{w_i(x)\}$ that interpolate between fibres in overlap regions.
+
+**Proposition 7.11.5 (Texture as the Ideal Boundary).** Let $\mathcal{M}$ be the Riemannian manifold constructed above. The **texture residual** $z_{\mathrm{tex}}$ corresponds to the behavior of the state at the **conformal boundary at infinity**, $\partial_\infty \mathbb{H}^n$.
+
+*Proof (Construction).*
+
+1. Consider a sequence of refining codes $(K_{\text{chart}}^{(n)}, K_{\text{code}}^{(n)})$ representing a path $\gamma$ in the tree $\mathcal{T}$ extending to infinite depth.
+2. As the depth $n \to \infty$, the volume of the region covered by code $K^{(n)}$ in the observation space $\mathcal{X}$ shrinks to zero (assuming a non-degenerate shutter).
+3. In the hyperbolic metric of the latent space, the distance from the basepoint $d(o, \gamma(n)) \to \infty$.
+4. The residual $z_{\mathrm{tex}}$ is defined as the information remaining after finite truncation at level $n$. Specifically, $z_{\mathrm{tex}} = \Delta_{\text{total}} - z_n$.
+5. If we interpret the encoding process as a flow toward the boundary of $\mathbb{H}^n$, then $z_{\mathrm{tex}}$ represents the **transverse coordinates** at the cutoff surface $\Sigma_\epsilon$.
+6. Taking the limit $\epsilon \to 0$, $z_{\mathrm{tex}}$ maps to the **limit set** $\Lambda \subset \partial_\infty \mathbb{H}^n$. In standard AdS/CFT terms, the "bulk" fields $(K, z_n)$ reconstruct the "boundary" field $(x)$ up to a cutoff; $z_{\mathrm{tex}}$ is the UV (high-frequency) data living strictly at the conformal boundary. $\square$
+
+**Operational Implication:**
+This formalizes why $z_{\mathrm{tex}}$ must be excluded from dynamics ($S_t$) and control ($\pi_\theta$). The dynamics $S_t$ operate on the **bulk** (finite-energy excitations inside the hyperbolic volume). The texture $z_{\mathrm{tex}}$ lives at the **boundary at infinity** (infinite energy / zero scale). Coupling the bulk dynamics to the boundary fluctuations violates the separation of scales and leads to the "Labyrinthine" failure mode (Mode T.C).
+
+### 7.11.3 The Induced Riemannian Geometry
+
+The separation of nuisance and texture implies a specific structure for the Riemannian metric $G$ (Section 2.5) on the global latent manifold.
+
+**Definition 7.11.6 (The Latent Metric Tensor).** Working in the upper half-space model where depth $\rho \in [0, \infty)$ corresponds to $y = e^{-\rho}$, the metric $ds^2$ on the global latent space $\mathcal{Z}$ takes the form:
+$$
+ds^2 = d\rho^2 + d\sigma_{\mathcal{K}}^2 + e^{-2\rho} \|dz_n\|^2
+$$
+where:
+
+* $\rho$ is the resolution depth (hierarchy level), with $\rho = 0$ at the root and $\rho \to \infty$ at the boundary.
+* $d\sigma_{\mathcal{K}}^2$ is the (discrete) metric on tree branches at fixed depth—operationally, it counts the number of chart/code transitions.
+* $\|dz_n\|^2$ is the Euclidean metric on the structured nuisance $z_n$.
+* The factor $e^{-2\rho}$ indicates that as resolution increases (deeper in the tree), the effective "size" of nuisance variations shrinks exponentially relative to the macroscopic decision branches.
+
+**Rigorous Interpretation of $z_n$:**
+The structured nuisance $z_n$ is not "noise"; it is the **tangent space coordinate** on the horosphere (surface of constant depth $\rho$) determined by the active macro-symbol $K$. Horospheres in hyperbolic space are intrinsically flat (zero curvature), which is why local linear control theory (LTI approximations) applies within a single chart, even though the global geometry is hyperbolic.
+
+### 7.11.4 Summary: The Manifold Construction
+
+The Attentive Atlas (Section 7.8) and the Disentangled VQ-VAE (Section 9) jointly construct a latent manifold $\mathcal{Z}$ with the following geometric properties:
+
+1. **Global Topology:** A thickened tree (tubular neighborhood of a simplicial tree).
+2. **Global Geometry:** Coarsely hyperbolic ($0$-hyperbolic at the discrete level), reflecting the hierarchical nature of information.
+3. **Local Geometry:** Euclidean fibres $\mathbb{R}^{d_n}$ (the nuisance $z_n$), enabling local linear control.
+4. **Ideal Boundary:** The texture $z_{\mathrm{tex}}$ lives at $\partial_\infty \mathcal{Z}$—the "dust" at infinity that cannot be resolved into the bulk structure without infinite capacity.
+
+This geometric picture justifies the **Sieve architecture**:
+
+* **Gate Nodes** monitor the bulk (checking $K$ and $z_n$).
+* **Boundary checks** monitor the flux from $z_{\mathrm{tex}}$ into the bulk.
+* **Texture is residual:** We do not control infinity; we only observe it.
+
+---
+
+## 7.12 Stacked TopoEncoders: Deep Renormalization Group Flow
+
+We extend the single-block Attentive Atlas into a deep, hierarchical architecture by stacking TopoEncoder blocks. Crucially, we depart from the standard ResNet paradigm: we do **not** use skip connections to carry the input forward. Instead, we pass only the **rescaled texture** (the unexplained residual) to the next block.
+
+This design forces each block to strictly "strip" a layer of structure from the signal, peeling the onion from macro to micro. Mathematically, this implements a discrete **Renormalization Group (RG) flow** {cite}`mehta2014exact`, where each layer acts as a coarse-graining operator that integrates out specific degrees of freedom.
+
+### 7.12.1 The Recursive Filtering Architecture
+
+Let $\mathcal{E}^{(\ell)}$ denote the $\ell$-th TopoEncoder block. The forward pass is defined recursively. Let $x^{(0)} := x$ be the raw observation.
+
+**Definition 7.12.1 (The Peeling Step).** At layer $\ell$, the input signal $x^{(\ell)}$ is decomposed into a structural component (the **Effective Theory** at scale $\ell$) and a residual component (the **High-Frequency Fluctuations**).
+
+1. **Analysis (Encoding):** The block identifies the macro-symbol $K^{(\ell)}$ and structured nuisance $z_n^{(\ell)}$ that best approximate $x^{(\ell)}$:
+$$
+(K^{(\ell)}, z_n^{(\ell)}) = \mathcal{E}^{(\ell)}(x^{(\ell)})
+$$
+
+2. **Synthesis (Effective Reconstruction):** The block generates the signal explained by this structure:
+$$
+\hat{x}^{(\ell)} = \mathcal{D}^{(\ell)}(K^{(\ell)}, z_n^{(\ell)})
+$$
+
+3. **Residual Computation (Texture Extraction):** The unexplained signal is isolated:
+$$
+z_{\mathrm{tex}}^{(\ell)} = x^{(\ell)} - \hat{x}^{(\ell)}
+$$
+
+**Definition 7.12.2 (The Rescaling Operator / Renormalization).** To prevent signal decay (vanishing activations) without using skip connections, we explicitly renormalize the residual to unit variance before passing it to the next scale:
+$$
+x^{(\ell+1)} = \frac{z_{\mathrm{tex}}^{(\ell)}}{\sigma^{(\ell)} + \epsilon}, \qquad \sigma^{(\ell)} = \sqrt{\mathrm{Var}(z_{\mathrm{tex}}^{(\ell)}) + \epsilon}
+$$
+The scalar $\sigma^{(\ell)}$ is stored as a state variable (the **scale factor**) for the decoding pass.
+
+**Definition 7.12.3 (Total Reconstruction).** The original signal is reconstructed by summing the contributions of all scales, modulated by their respective scale factors. Define $\Pi^{(\ell)} := \prod_{j=0}^{\ell-1} \sigma^{(j)}$ with the convention $\Pi^{(0)} = 1$ (empty product). Then:
+$$
+\hat{x} = \sum_{\ell=0}^{L-1} \Pi^{(\ell)} \cdot \hat{x}^{(\ell)} + \Pi^{(L)} \cdot x^{(L)}
+$$
+
+### 7.12.2 Dynamical Isometry: Why Gradients Do Not Vanish
+
+Standard deep learning uses skip connections ($y = f(x) + x$) to allow gradients to flow through identity paths, avoiding the vanishing gradient problem. However, skip connections allow information to "leak" past a layer unprocessed, violating our requirement for a strict hierarchy (interpretability).
+
+We achieve **Dynamical Isometry**—the condition that the input-output Jacobian has singular values concentrated near unity {cite}`saxe2014exact,pennington2017resurrecting`—through three complementary mechanisms already defined in the framework:
+
+#### Mechanism 1: Orthogonality Regularization (Section 7.7.2)
+
+The **OrthogonalLinear** layers enforce approximate isometry via the loss:
+$$
+\mathcal{L}_{\text{orth}} = \sum_{\ell} \|W_\ell^T W_\ell - I\|_F^2
+$$
+
+**Proposition 7.12.1 (Gradient Preservation via Orthogonality).** Let $W$ be a weight matrix satisfying $W^T W = I$ (semi-orthogonality). Then:
+1. All singular values of $W$ equal 1.
+2. The backward gradient $\nabla_x \mathcal{L} = W^T \nabla_y \mathcal{L}$ satisfies $\|\nabla_x \mathcal{L}\| = \|\nabla_y \mathcal{L}\|$.
+3. Neither explosion nor vanishing occurs across the layer.
+
+*Proof.* For semi-orthogonal $W$, the singular values are exactly 1. The Jacobian $\partial y / \partial x = W$ has $\|W\|_2 = 1$. By the chain rule, gradient norms are preserved. $\square$
+
+This is why the gradient flow table (Section 7.7.2) shows "Preserved" for orthogonal $W$ versus "Explodes or vanishes" for arbitrary $W$.
+
+#### Mechanism 2: Variance Rescaling (The Renormalization Step)
+
+The rescaling $x^{(\ell+1)} = z_{\mathrm{tex}}^{(\ell)} / \sigma^{(\ell)}$ ensures unit variance at each layer input.
+
+**Proposition 7.12.2 (Forward Activation Stability).** With variance rescaling:
+1. $\mathrm{Var}(x^{(\ell)}) = 1$ for all $\ell$ (by construction).
+2. Non-linearities (ReLU, GELU) operate in their active region, avoiding saturation.
+3. The backward gradient is scaled by $1/\sigma^{(\ell)}$, amplifying gradients for fine-scale layers.
+
+**Gradient Amplification Analysis:** Let the loss $\mathcal{L}$ depend on the output of block $\ell$. The gradient flowing back to block $\ell-1$ includes the factor:
+$$
+\frac{\partial x^{(\ell)}}{\partial z_{\mathrm{tex}}^{(\ell-1)}} = \frac{1}{\sigma^{(\ell-1)}}
+$$
+Since each block successfully explains part of the signal, the residual standard deviation $\sigma^{(\ell)} < 1$ (the texture has less variance than the unit-normalized input). This implies:
+- **Without rescaling:** inputs to deeper layers decay exponentially ($\|x^{(\ell)}\| \to 0$), killing activations.
+- **With rescaling:** inputs $x^{(\ell)}$ remain $O(1)$ (unit variance), keeping non-linearities in their active region.
+- **Gradient amplification:** the backward gradient includes the factor $1/\sigma^{(\ell-1)} > 1$, counteracting the natural decay of fine-scale influence on the global loss.
+
+This prevents the **Spectral Bias** where neural networks preferentially learn low frequencies and ignore high-frequency structure.
+
+#### Mechanism 3: Spectral Normalization (Section 3.4, Node 20)
+
+For additional stability, each layer can use **spectral normalization** {cite}`miyato2018spectral` to bound the operator norm:
+$$
+W_{\text{SN}} = \frac{W}{\sigma_{\max}(W)}
+$$
+This ensures $\|W_{\text{SN}}\|_2 = 1$, making each layer 1-Lipschitz. Combined with 1-Lipschitz activations (e.g., ReLU), this bounds the network Lipschitz constant by the product of per-layer spectral norms.
+
+The framework's **LipschitzCheck** (Node 20) monitors $\max_\ell \sigma(W_\ell)$ at runtime, and the spectral (Lipschitz) barrier (Section 3.3, Table; {cite}`miyato2018spectral`) enforces:
+$$
+\mathcal{L}_{\text{Lip}} = \sum_\ell \max(0, \sigma_{\max}(W_\ell) - K)^2
+$$
+
+#### Combined Effect: The Isometry Triangle
+
+| Mechanism | Forward Effect | Backward Effect | Framework Reference |
+|-----------|---------------|-----------------|---------------------|
+| **Orthogonality** $\mathcal{L}_{\text{orth}}$ | $\|Wx\| = \|x\|$ | $\|W^T g\| = \|g\|$ | Section 7.7.2 |
+| **Variance Rescaling** | $\mathrm{Var}(x^{(\ell)}) = 1$ | Gradient amplified by $1/\sigma$ | Definition 7.12.2 |
+| **Spectral Norm** | $\|W\|_2 \leq K$ | Bounded gradient explosion | Section 3.4, Node 20 |
+
+**Theorem 7.12.3 (Dynamical Isometry without Skip Connections).** A stacked TopoEncoder with:
+1. OrthogonalLinear layers satisfying $\|W^T W - I\|_F < \epsilon_{\text{orth}}$,
+2. Variance rescaling at each scale transition,
+3. Spectral normalization with $\sigma_{\max}(W_\ell) \leq K$,
+
+achieves approximate dynamical isometry: the singular values of the input-output Jacobian $J = \partial \hat{x} / \partial x$ satisfy $\sigma_i(J) \in [1/\kappa, \kappa]$ for a condition number $\kappa = O(K^L \cdot \prod_\ell (1 + \epsilon_{\text{orth}}))$.
+
+*Proof sketch.* Each layer contributes a factor with singular values in $[1-\epsilon, 1+\epsilon]$ (orthogonality) or $[0, K]$ (spectral norm). The variance rescaling ensures activations remain $O(1)$, preventing saturation. The product of $L$ such factors yields the stated bound. $\square$
+
+### 7.12.3 Rigorous Interpretation: Renormalization Group (RG) Flow
+
+This architecture is a direct algorithmic implementation of Kadanoff's block-spin transformation or Wilsonian RG flow {cite}`mehta2014exact`.
+
+| RG Concept | TopoEncoder Implementation |
+|------------|---------------------------|
+| **Hamiltonian $H[\phi]$** | The input distribution $p(x^{(\ell)})$ at layer $\ell$. |
+| **Coarse-Graining** | The Encoder $\mathcal{E}^{(\ell)}$ mapping continuous $x^{(\ell)}$ to discrete $K^{(\ell)}$. |
+| **Effective Action** | The Decoder $\mathcal{D}^{(\ell)}$ predicting the mean field $\hat{x}^{(\ell)}$. |
+| **Integrating Out** | Subtracting the mean field: $z_{\mathrm{tex}}^{(\ell)} = x^{(\ell)} - \hat{x}^{(\ell)}$. |
+| **Rescaling** | Mapping $z_{\mathrm{tex}}^{(\ell)} \mapsto x^{(\ell+1)}$ to restore the energy scale. |
+| **Relevant Operators** | The macro-symbols $K^{(\ell)}$ (grow/stay constant under flow). |
+| **Irrelevant Operators** | The texture $z_{\mathrm{tex}}^{(\ell)}$ (suppressed/pushed to next scale). |
+| **Fixed Point** | The texture distribution $p(x^{(L)})$ at the deepest layer. |
+
+**The Hierarchy of Scales:**
+
+- **Block 0 (IR / Infrared):** Captures the global topology (e.g., "Swiss Roll"). $K^{(0)}$ is the manifold skeleton.
+- **Block 1:** Captures large deformations of the skeleton.
+- **Block $L-1$ (UV / Ultraviolet):** Captures the finest irreducible noise.
+
+By strictly passing the *residual* and not the *original signal*, we enforce **Causal Separability of Scales**:
+
+> Information captured at layer $\ell$ is removed. Layer $\ell+1$ *only* sees what layer $\ell$ could not explain.
+
+This prevents the "Clever Hans" effect where a deep layer learns global features that should have been captured by a shallow layer, guaranteeing that the semantic hierarchy is honest.
+
+### 7.12.4 Implementation: Stacked TopoEncoder Module
+
+```python
+import torch
+import torch.nn as nn
+from typing import List, Tuple
+
+class StackedTopoEncoder(nn.Module):
+    """Deep TopoEncoder stack implementing RG flow.
+
+    Each block strips a layer of structure, passing only the
+    rescaled residual (texture) to the next block.
+    No skip connections—strict hierarchical decomposition.
+    """
+
+    def __init__(
+        self,
+        input_dim: int,
+        hidden_dim: int,
+        latent_dim: int,
+        num_charts: int,
+        codes_per_chart: int,
+        num_blocks: int = 3,
+        eps: float = 1e-6,
+    ):
+        super().__init__()
+        self.num_blocks = num_blocks
+        self.eps = eps
+
+        # Each block is an AttentiveAtlasEncoder (Section 7.8)
+        self.encoders = nn.ModuleList([
+            AttentiveAtlasEncoder(
+                input_dim=input_dim if i == 0 else latent_dim,
+                hidden_dim=hidden_dim,
+                latent_dim=latent_dim,
+                num_charts=num_charts,
+                codes_per_chart=codes_per_chart,
+            )
+            for i in range(num_blocks)
+        ])
+
+        # Corresponding decoders (Section 7.10)
+        self.decoders = nn.ModuleList([
+            TopologicalDecoder(
+                latent_dim=latent_dim,
+                num_charts=num_charts,
+                output_dim=input_dim if i == 0 else latent_dim,
+            )
+            for i in range(num_blocks)
+        ])
+
+    def forward(
+        self, x: torch.Tensor
+    ) -> Tuple[List[dict], torch.Tensor, List[float]]:
+        """
+        Args:
+            x: [B, D] input observation
+
+        Returns:
+            block_outputs: List of dicts with K_chart, K_code, z_n per block
+            x_final: [B, D'] final residual (deepest texture)
+            sigmas: List of scale factors for reconstruction
+        """
+        block_outputs = []
+        sigmas = []
+        x_current = x
+
+        for ell in range(self.num_blocks):
+            # 1. Encode: extract structure at this scale
+            K_chart, K_code, z_n, z_tex, router_weights, z_geo, vq_loss, _ = \
+                self.encoders[ell](x_current)
+
+            # 2. Decode: reconstruct explained signal
+            x_hat = self.decoders[ell](z_geo, z_tex, K_chart)
+
+            # 3. Compute residual (texture at this scale)
+            residual = x_current - x_hat
+
+            # 4. Rescale to unit variance (renormalization step)
+            sigma = torch.sqrt(residual.var() + self.eps)
+            x_next = residual / (sigma + self.eps)
+
+            # Store outputs
+            block_outputs.append({
+                'K_chart': K_chart,
+                'K_code': K_code,
+                'z_n': z_n,
+                'z_tex': z_tex,
+                'z_geo': z_geo,
+                'x_hat': x_hat,
+                'vq_loss': vq_loss,
+                'router_weights': router_weights,
+            })
+            sigmas.append(sigma.item())
+
+            x_current = x_next
+
+        return block_outputs, x_current, sigmas
+
+    def reconstruct(
+        self,
+        block_outputs: List[dict],
+        x_final: torch.Tensor,
+        sigmas: List[float],
+    ) -> torch.Tensor:
+        """Reconstruct input from multi-scale decomposition (Definition 7.12.3).
+
+        x_hat = sum_ell Pi^(ell) * x_hat^(ell) + Pi^(L) * x_final
+        where Pi^(ell) = prod_{j=0}^{ell-1} sigma^(j), Pi^(0) = 1.
+        """
+        x_recon = x_final
+        cumulative_sigma = 1.0
+
+        # Accumulate scale factors
+        for sigma in sigmas:
+            cumulative_sigma *= sigma
+
+        x_recon = cumulative_sigma * x_final
+
+        # Add contributions from each scale (reverse order)
+        scale_product = cumulative_sigma
+        for ell in reversed(range(self.num_blocks)):
+            scale_product /= sigmas[ell]
+            x_recon = x_recon + scale_product * block_outputs[ell]['x_hat']
+
+        return x_recon
+
+    def orthogonality_loss(self, device: torch.device = None) -> torch.Tensor:
+        """Total orthogonality defect across all blocks (Section 7.7.2)."""
+        if device is None:
+            device = next(self.parameters()).device
+        total = torch.tensor(0.0, device=device)
+        for encoder in self.encoders:
+            total = total + encoder.orthogonality_loss()
+        for decoder in self.decoders:
+            if hasattr(decoder, 'orthogonality_loss'):
+                total = total + decoder.orthogonality_loss()
+        return total
+```
+
+### 7.12.5 Training Losses for Scale Separation
+
+The stacked architecture requires losses that enforce proper scale separation:
+
+$$
+\mathcal{L}_{\text{stack}} = \sum_{\ell=0}^{L-1} \left(
+    \mathcal{L}_{\text{recon}}^{(\ell)} +
+    \lambda_{\text{vq}} \mathcal{L}_{\text{VQ}}^{(\ell)} +
+    \lambda_{\text{orth}} \mathcal{L}_{\text{orth}}^{(\ell)}
+\right) + \lambda_{\text{decay}} \mathcal{L}_{\text{scale-decay}}
+$$
+
+where the **scale decay loss** encourages the residual variance to decrease with depth:
+$$
+\mathcal{L}_{\text{scale-decay}} = \sum_{\ell=0}^{L-2} \max(0, \sigma^{(\ell+1)} - \sigma^{(\ell)})^2
+$$
+This ensures that deeper blocks explain progressively less variance—the RG flow moves toward a fixed point.
+
+---
+
+## 7.13 Factorized Jump Operators: Efficient Chart Transitions
+
+The atlas structure (Section 7.8) decomposes the latent space into overlapping charts, but has not yet specified how coordinates transform between charts. This section introduces **Jump Operators**—the learnable transition functions $L_{i \to j}: \mathcal{U}_i \to \mathcal{U}_j$ that encode the topological "gluing" of the manifold.
+
+### 7.13.1 Motivation: From Geometry to Topology
+
+**The Hessian Measures Geometry, Not Topology.**
+
+The Riemannian Hessian $\nabla^2 f$ captures local curvature—the second-order Taylor expansion of a function on a manifold. Hessian-based methods (e.g., Hessian eigenmaps, spectral embeddings) reveal the *intrinsic geometry* of each chart: how distances and angles behave locally.
+
+However, geometry alone does not determine topology. A cylinder and a plane share the same local geometry (both are flat), yet differ topologically (one has a non-trivial fundamental group). The gluing instructions—how to identify edges—define the topology.
+
+**Jump Operators Define Topology.**
+
+In our atlas-based framework:
+- Each chart $U_i$ has its own local coordinates $z_n^{(i)} \in \mathbb{R}^{d_n}$.
+- On overlaps $U_i \cap U_j \neq \emptyset$, two coordinate systems describe the same point.
+- The **Jump Operator** $L_{i \to j}$ specifies the coordinate change: if $x \in U_i \cap U_j$, then $z_n^{(j)} = L_{i \to j}(z_n^{(i)})$.
+
+These transition functions encode the cocycle conditions that determine the manifold's global structure—its topology, not just its local geometry.
+
+### 7.13.2 The Naive Approach and Its Failure
+
+**Naive Parameterization:**
+
+One could learn a separate transition function $L_{i \to j}$ for each ordered pair $(i, j)$:
+$$
+L_{i \to j} : \mathbb{R}^{d_n} \to \mathbb{R}^{d_n}, \quad \forall i \neq j
+$$
+
+**Failure Mode 1: Parameter Explosion.**
+
+For $K$ charts, this requires $K(K-1)$ independent functions. With $K = 64$ charts and $d_n = 16$ nuisance dimensions, a linear parameterization alone requires $64 \times 63 \times 16^2 \approx 10^6$ parameters—just for the jump operators.
+
+**Failure Mode 2: Cycle Inconsistency.**
+
+Without explicit constraints, there is no guarantee that:
+$$
+L_{j \to k} \circ L_{i \to j} = L_{i \to k} \quad \text{(transitivity)}
+$$
+$$
+L_{j \to i} \circ L_{i \to j} = \mathrm{Id} \quad \text{(invertibility)}
+$$
+
+Training can easily produce inconsistent "Escher-like" atlases where traversing a cycle of overlaps returns to a different coordinate than the starting point.
+
+### 7.13.3 The Factorized Approach: Global Tangent Space
+
+**Key Insight:** Instead of learning $O(K^2)$ pairwise transitions, we introduce a **Global Tangent Space** $\mathcal{T}_{\text{global}} \cong \mathbb{R}^r$ of dimension $r \leq d_n$ that serves as a universal intermediate representation.
+
+**Definition 7.13.1 (Factorized Jump Operator).** For each chart $i$, define:
+- An **encoder** $B_i: \mathbb{R}^{d_n} \to \mathbb{R}^r$ that lifts local coordinates to the global tangent space.
+- A **decoder** $A_j: \mathbb{R}^r \to \mathbb{R}^{d_n}$ that projects from the global tangent space to chart $j$'s coordinates.
+- Bias terms $c_i \in \mathbb{R}^r$ and $d_j \in \mathbb{R}^{d_n}$.
+
+The transition $L_{i \to j}$ is then:
+$$
+L_{i \to j}(z) = A_j(B_i z + c_i) + d_j
+$$
+
+**Proposition 7.13.2 (Parameter Efficiency).** The factorized parameterization requires $O(K \cdot r \cdot d_n)$ parameters instead of $O(K^2 \cdot d_n^2)$.
+
+*Proof.* Each chart contributes one encoder $B_i \in \mathbb{R}^{r \times d_n}$, one decoder $A_i \in \mathbb{R}^{d_n \times r}$, and bias vectors $c_i \in \mathbb{R}^r$, $d_i \in \mathbb{R}^{d_n}$. Total: $K(r \cdot d_n + d_n \cdot r + r + d_n) = O(K \cdot r \cdot d_n)$. $\square$
+
+For typical values ($K = 64$, $d_n = 16$, $r = 8$), this yields $64 \times (2 \times 8 \times 16 + 8 + 16) = 17,920$ parameters—approximately a $58\times$ reduction compared to the naive $\sim 10^6$.
+
+### 7.13.4 Geometric Interpretation
+
+The factorized structure admits an interpretation *analogous* to constructions in fibre bundle theory (Section 7.11). We emphasize this is a structural analogy, not a rigorous identification:
+
+| Component | Analogous Geometric Role |
+|-----------|--------------------------|
+| $B_i$ | **Chart-to-global encoder**: projects the local fibre $F_i$ onto a shared representation space |
+| $A_j$ | **Global-to-chart decoder**: embeds the shared representation into the target fibre $F_j$ |
+| $c_i$ | **Frame offset**: encodes how chart $i$'s origin relates to the global frame |
+| $d_j$ | **Target origin**: the origin of chart $j$ in its own coordinates |
+| $\mathcal{T}_{\text{global}}$ | **Shared representation space**: the low-dimensional subspace through which all transitions factor |
+
+When $r < d_n$, the global tangent space acts as a **bottleneck**, forcing the network to learn a low-dimensional representation of the "directions that matter for chart transitions." This is analogous to how a connection on a fibre bundle specifies which directions are "horizontal" (parallel to the base) versus "vertical" (within the fibre).
+
+### 7.13.5 The Overlap Consistency Loss
+
+The factorized parameterization does not automatically enforce transitivity. We add a **cycle consistency loss** that penalizes violations of the cocycle condition.
+
+**Definition 7.13.3 (Overlap Consistency Loss).** For a pair of charts $(i, j)$ with non-empty overlap, define the pairwise consistency loss as:
+$$
+\mathcal{L}_{\text{jump}}^{(i,j)} = \mathbb{E}_{x : w_i(x) > \tau, \, w_j(x) > \tau} \left[ \left\| z_n^{(j)} - L_{i \to j}(z_n^{(i)}) \right\|^2 \right]
+$$
+where $z_n^{(i)}$ and $z_n^{(j)}$ are the nuisance coordinates computed independently by chart $i$ and chart $j$'s encoders, and $w_i(x), w_j(x)$ are the soft router weights. The total overlap consistency loss sums over all overlapping pairs:
+$$
+\mathcal{L}_{\text{jump}} = \sum_{i < j} \mathcal{L}_{\text{jump}}^{(i,j)}
+$$
+
+**Intuition:** If the encoder correctly identifies that $x$ belongs to both charts, then applying the jump operator to chart $i$'s encoding should yield chart $j$'s encoding. Any discrepancy indicates that the transition functions are inconsistent with the actual data manifold.
+
+**Implementation Details:**
+
+1. **Overlap Detection:** A point $x$ is in the overlap $U_i \cap U_j$ if both router weights exceed a threshold:
+   $$
+   \mathbf{1}[x \in U_i \cap U_j] \approx \mathbf{1}[w_i(x) > \tau] \cdot \mathbf{1}[w_j(x) > \tau]
+   $$
+   With soft routers (Section 7.8), we use the product $w_i(x) \cdot w_j(x)$ as a soft indicator.
+
+2. **Sampling Overlaps:** Computing all $K^2$ pairs is expensive. We sample:
+   - The top-2 charts per point (from router weights).
+   - Random chart pairs with probability proportional to their co-activation frequency.
+
+3. **Symmetry Penalty (Optional):** To encourage approximate invertibility:
+   $$
+   \mathcal{L}_{\text{inv}} = \mathbb{E}_{x, i, j} \left[ \left\| z_n^{(i)} - L_{j \to i}(L_{i \to j}(z_n^{(i)})) \right\|^2 \right]
+   $$
+
+### 7.13.6 Computational Cost Analysis
+
+| Operation | Naive $O(K^2)$ | Factorized | Notes |
+|-----------|----------------|------------|-------|
+| **Parameters** | $K^2 d_n^2$ | $O(K r d_n)$ | $\sim 58\times$ reduction for typical $K, r, d_n$ |
+| **Forward (single pair)** | $O(d_n^2)$ | $O(r d_n)$ | One matmul in global space |
+| **Forward (all pairs)** | $O(K^2 d_n^2)$ | $O(K r d_n)$ | Batch lift + project |
+| **Memory** | $O(K^2 d_n^2)$ | $O(K r d_n)$ | Significant for large $K$ |
+| **Cycle consistency** | N/A (not enforced) | $O(|S| r d_n)$ | $|S|$ = sampled overlaps |
+
+**Batch Efficiency:** The factorized form allows computing all transitions from chart $i$ in a single batched operation:
+1. Lift: $h = B_i z + c_i$ — one matmul, shape $[B, r]$
+2. Project to all targets: $\{A_j h + d_j\}_{j=1}^K$ — one batched matmul, shape $[B, K, d_n]$
+
+### 7.13.7 Implementation
+
+```python
+import torch
+import torch.nn as nn
+from typing import Optional, Tuple
+
+class FactorizedJumpOperator(nn.Module):
+    """Learns transition functions between atlas charts.
+
+    Implements L_{i->j}(z) = A_j(B_i z + c_i) + d_j via a global
+    tangent space bottleneck of dimension `global_rank`.
+
+    This factorization reduces parameters from O(K^2 d^2) to O(K r d),
+    and provides a natural structure for enforcing cycle consistency.
+    """
+
+    def __init__(
+        self,
+        num_charts: int,
+        nuisance_dim: int,
+        global_rank: Optional[int] = None,
+    ):
+        """
+        Args:
+            num_charts: Number of atlas charts (K).
+            nuisance_dim: Dimension of nuisance coordinates (d_n).
+            global_rank: Dimension of global tangent space (r).
+                         Defaults to nuisance_dim // 2.
+        """
+        super().__init__()
+        self.num_charts = num_charts
+        self.nuisance_dim = nuisance_dim
+        self.rank = global_rank if global_rank is not None else nuisance_dim // 2
+
+        # Encoder: local -> global (per chart)
+        # B_i : R^{d_n} -> R^r
+        self.B = nn.Parameter(
+            torch.randn(num_charts, self.rank, nuisance_dim) * 0.02
+        )
+        self.c = nn.Parameter(torch.zeros(num_charts, self.rank))
+
+        # Decoder: global -> local (per chart)
+        # A_j : R^r -> R^{d_n}
+        self.A = nn.Parameter(
+            torch.randn(num_charts, nuisance_dim, self.rank) * 0.02
+        )
+        self.d = nn.Parameter(torch.zeros(num_charts, nuisance_dim))
+
+    def forward(
+        self,
+        z_n: torch.Tensor,
+        source_idx: torch.Tensor,
+        target_idx: torch.Tensor,
+    ) -> torch.Tensor:
+        """Apply transition L_{source -> target}(z_n).
+
+        Args:
+            z_n: [B, d_n] nuisance coordinates in source chart
+            source_idx: [B] index of source chart per sample
+            target_idx: [B] index of target chart per sample
+
+        Returns:
+            z_n_target: [B, d_n] nuisance coordinates in target chart
+        """
+        B_src = self.B[source_idx]      # [B, r, d_n]
+        c_src = self.c[source_idx]      # [B, r]
+        A_tgt = self.A[target_idx]      # [B, d_n, r]
+        d_tgt = self.d[target_idx]      # [B, d_n]
+
+        # Lift to global tangent space
+        h = torch.bmm(B_src, z_n.unsqueeze(-1)).squeeze(-1) + c_src  # [B, r]
+
+        # Project to target chart
+        z_n_target = torch.bmm(A_tgt, h.unsqueeze(-1)).squeeze(-1) + d_tgt  # [B, d_n]
+
+        return z_n_target
+
+    def lift_to_global(
+        self,
+        z_n: torch.Tensor,
+        chart_idx: torch.Tensor,
+    ) -> torch.Tensor:
+        """Lift local coordinates to global tangent space.
+
+        Args:
+            z_n: [B, d_n] nuisance coordinates
+            chart_idx: [B] chart indices
+
+        Returns:
+            h: [B, r] global tangent coordinates
+        """
+        B_chart = self.B[chart_idx]
+        c_chart = self.c[chart_idx]
+        return torch.bmm(B_chart, z_n.unsqueeze(-1)).squeeze(-1) + c_chart
+
+    def project_from_global(
+        self,
+        h: torch.Tensor,
+        chart_idx: torch.Tensor,
+    ) -> torch.Tensor:
+        """Project global tangent coordinates to local chart.
+
+        Args:
+            h: [B, r] global tangent coordinates
+            chart_idx: [B] target chart indices
+
+        Returns:
+            z_n: [B, d_n] local nuisance coordinates
+        """
+        A_chart = self.A[chart_idx]
+        d_chart = self.d[chart_idx]
+        return torch.bmm(A_chart, h.unsqueeze(-1)).squeeze(-1) + d_chart
+
+
+def compute_jump_consistency_loss(
+    z_n_by_chart: torch.Tensor,
+    router_weights: torch.Tensor,
+    jump_operator: FactorizedJumpOperator,
+    overlap_threshold: float = 0.1,
+    max_pairs_per_batch: int = 1024,
+) -> Tuple[torch.Tensor, dict]:
+    """Compute overlap consistency loss for jump operators.
+
+    For points in chart overlaps, the jump operator should correctly
+    map coordinates from one chart to another.
+
+    Args:
+        z_n_by_chart: [B, K, d_n] nuisance coords computed by each chart's encoder
+        router_weights: [B, K] soft assignment weights (sum to 1)
+        jump_operator: The FactorizedJumpOperator module
+        overlap_threshold: Minimum weight to consider a point in a chart
+        max_pairs_per_batch: Maximum overlap pairs to sample
+
+    Returns:
+        loss: Scalar consistency loss
+        info: Dict with diagnostics (num_overlaps, mean_error, etc.)
+    """
+    B, K, d_n = z_n_by_chart.shape
+    device = z_n_by_chart.device
+
+    # Find overlaps: points with significant weight in multiple charts
+    in_chart = router_weights > overlap_threshold  # [B, K]
+    num_charts_per_point = in_chart.sum(dim=1)     # [B]
+
+    # Only consider points in at least 2 charts
+    overlap_mask = num_charts_per_point >= 2       # [B]
+
+    if not overlap_mask.any():
+        return torch.tensor(0.0, device=device), {'num_overlaps': 0}
+
+    # Get indices of points in overlaps
+    overlap_indices = overlap_mask.nonzero(as_tuple=True)[0]
+
+    # For each overlap point, sample chart pairs
+    losses = []
+    total_pairs = 0
+
+    for b_idx in overlap_indices[:max_pairs_per_batch]:
+        b = b_idx.item()
+        active_charts = in_chart[b].nonzero(as_tuple=True)[0]
+
+        if len(active_charts) < 2:
+            continue
+
+        # Sample pairs from active charts
+        for idx_i, chart_i in enumerate(active_charts[:-1]):
+            for chart_j in active_charts[idx_i + 1:]:
+                i, j = chart_i.item(), chart_j.item()
+
+                # Get coordinates in both charts
+                z_i = z_n_by_chart[b, i]  # [d_n]
+                z_j = z_n_by_chart[b, j]  # [d_n]
+
+                # Apply jump operator i -> j
+                z_i_to_j = jump_operator(
+                    z_i.unsqueeze(0),
+                    torch.tensor([i], device=device),
+                    torch.tensor([j], device=device),
+                ).squeeze(0)
+
+                # Consistency loss
+                loss_ij = ((z_j - z_i_to_j) ** 2).mean()
+                losses.append(loss_ij)
+                total_pairs += 1
+
+                if total_pairs >= max_pairs_per_batch:
+                    break
+            if total_pairs >= max_pairs_per_batch:
+                break
+        if total_pairs >= max_pairs_per_batch:
+            break
+
+    if len(losses) == 0:
+        return torch.tensor(0.0, device=device), {'num_overlaps': 0}
+
+    loss = torch.stack(losses).mean()
+
+    info = {
+        'num_overlaps': total_pairs,
+        'mean_error': loss.item(),
+        'points_in_overlap': overlap_mask.sum().item(),
+    }
+
+    return loss, info
+```
+
+### 7.13.8 Integration with AttentiveAtlasEncoder
+
+The `FactorizedJumpOperator` integrates with the encoder (Section 7.8) as follows:
+
+```python
+class AttentiveAtlasEncoderWithJumps(nn.Module):
+    """AttentiveAtlasEncoder extended with learnable chart transitions."""
+
+    def __init__(self, ..., global_rank: int = 8):
+        super().__init__()
+        self.encoder = AttentiveAtlasEncoder(...)
+        self.jump_op = FactorizedJumpOperator(
+            num_charts=self.encoder.num_charts,
+            nuisance_dim=self.encoder.nuisance_dim,
+            global_rank=global_rank,
+        )
+
+    def forward(self, x):
+        # Standard encoding
+        K_chart, K_code, z_n, z_tex, router_weights, z_geo, vq_loss, _ = \
+            self.encoder(x)
+
+        # Compute per-chart nuisance coordinates for overlap loss
+        z_n_by_chart = self.encoder.compute_all_chart_encodings(x)
+
+        return K_chart, K_code, z_n, z_tex, router_weights, z_geo, vq_loss, z_n_by_chart
+
+    def compute_losses(self, x, x_recon, z_n_by_chart, router_weights):
+        # ... standard losses ...
+
+        # Jump consistency loss
+        jump_loss, jump_info = compute_jump_consistency_loss(
+            z_n_by_chart, router_weights, self.jump_op
+        )
+
+        return {
+            # ... other losses ...
+            'jump_consistency': jump_loss,
+            'jump_info': jump_info,
+        }
+```
+
+### 7.13.9 Training Schedule
+
+The jump consistency loss should be introduced after the atlas structure has stabilized:
+
+| Phase | Epochs | $\lambda_{\text{jump}}$ | Notes |
+|-------|--------|-------------------------|-------|
+| **Warm-up** | 0–50 | 0.0 | Train encoder/decoder only; let charts form |
+| **Soft introduction** | 50–100 | 0.01 → 0.1 | Gradually enable jump loss |
+| **Full training** | 100+ | 0.1–1.0 | Joint optimization of all components |
+
+**Rationale:** Enforcing jump consistency before charts are stable can prevent the atlas from finding the optimal partition. Once charts are "committed," the jump operators learn to reconcile their coordinate systems.
 
 ## 8. Infeasible Implementation Replacements
 
@@ -4507,6 +5276,8 @@ where $H=H^\dagger$ is Hermitian, $\gamma_j\ge 0$ are rates, and $\{L_j\}$ are (
 
 This is a modeling choice, not a claim about literal quantum physics: it is used here purely as a convenient, well-posed parametrization of CPTP belief updates.
 
+*Note (WFR Embedding).* The GKSL generator embeds naturally into the Wasserstein-Fisher-Rao framework (Section 20.5): the commutator $-i[H, \varrho]$ corresponds to **transport** (continuous belief flow), while the dissipator $\sum_j \gamma_j(\cdot)$ corresponds to **reaction** (discrete mass creation/destruction). This provides a geometric foundation for the otherwise algebraic GKSL construction.
+
 #### 12.5.3 Master-Equation Consistency Defect (Node 22)
 
 If an implementation maintains an operator belief $\varrho_t$ and produces an empirical update $\varrho_{t+1}$ (e.g., after a boundary update + Sieve projection), then a **consistency defect** compares it to the GKSL-predicted infinitesimal update:
@@ -4754,8 +5525,993 @@ The Fragile Agent is a capacity- and stability-constrained control specification
 2. The critic induces a Fisher/Hessian sensitivity geometry; the policy becomes a regulated flow on a curved manifold, with stability and coupling audited by Gate Nodes and Barriers.
 3. Exploration and control are expressed via MaxEnt/KL-control and causal path entropy on $\mathcal{K}$; belief evolution is filtering + projection (Section 11).
 4. When representational complexity is constrained by finite interface capacity, the latent metric obeys a capacity-constrained consistency law; deviations yield computable consistency defects (Section 17).
+5. The hybrid discrete-continuous state space admits a canonical Wasserstein-Fisher-Rao geometry (Section 20), unifying transport (continuous motion within charts) and reaction (discrete jumps between charts) in a single variational principle.
 
 Appendix A records the full derivations. Appendix B consolidates notation and all regularization losses.
+
+---
+
+## 20. Wasserstein-Fisher-Rao Geometry: Unified Transport on Hybrid State Spaces
+
+The latent bundle $\mathcal{Z} = \mathcal{K} \times \mathcal{Z}_n \times \mathcal{Z}_{\mathrm{tex}}$ (Section 2.2a) combines a discrete macro-state $K$ with continuous nuisance coordinates $z_n$. The product metric $d_{\mathcal{K}} \oplus G_n$ (Definition 2.2.1) and the Sasaki-like warped metric (Section 7.11.3) were heuristic constructions that treat the discrete and continuous components separately.
+
+This section introduces the **Wasserstein-Fisher-Rao (WFR)** metric—also known as **Hellinger-Kantorovich** {cite}`chizat2018unbalanced,liero2018optimal`—which provides a rigorous, unified variational principle. The key insight is to treat the agent's internal state not as a *point* in $\mathcal{Z}$, but as a *measure* (belief state) $\rho_t \in \mathcal{M}^+(\mathcal{Z})$ evolving on the bundle.
+
+### 20.1 Motivation: The Failure of Product Metrics
+
+**The Problem with Sasaki-like Constructions.**
+
+The metric tensor from Section 7.11.3 (where $\rho_{\text{depth}}$ denotes resolution depth, not density):
+$$
+ds^2 = d\rho_{\text{depth}}^2 + d\sigma_{\mathcal{K}}^2 + e^{-2\rho_{\text{depth}}}\|dz_n\|^2
+$$
+assumes a fixed point moving through the bundle. This creates two problems:
+
+1. **Discontinuous Jumps:** When the agent transitions from chart $K_i$ to chart $K_j$, the metric provides no principled way to measure the "cost" of the jump versus continuous motion along an overlap.
+
+2. **No Mass Conservation:** A point either is or isn't at a location. But the agent's *belief* can be partially in multiple charts simultaneously (soft routing, Section 7.8).
+
+**The WFR Solution.**
+
+The Wasserstein-Fisher-Rao metric resolves both issues by lifting dynamics to the space of measures $\mathcal{M}^+(\mathcal{Z})$. In this space:
+- **Transport (Wasserstein):** Belief "flows" along continuous coordinates—moving probability mass horizontally.
+- **Reaction (Fisher-Rao):** Belief "jumps" between charts—creating/destroying mass vertically.
+
+The metric determines the optimal path by asking: *"Is it cheaper to physically transport probability mass to the boundary and cross over (Transport), or to delete it here and spawn it there (Teleportation/Update)?"*
+
+### 20.2 The WFR Metric (Benamou-Brenier Formulation)
+
+Let $\rho(t, z)$ be a time-varying density on the latent bundle $\mathcal{Z}$. The WFR distance is defined by the minimal action of a generalized continuity equation.
+
+**Definition 20.2.1 (The WFR Action).** The squared WFR distance $d^2_{\mathrm{WFR}}(\rho_0, \rho_1)$ is the infimum of the energy functional:
+$$
+\mathcal{E}[\rho, v, r] = \int_0^1 \int_{\mathcal{Z}} \left( \underbrace{\|v_t(z)\|_G^2}_{\text{Transport Cost}} + \underbrace{\lambda^2 |r_t(z)|^2}_{\text{Reaction Cost}} \right) d\rho_t(z) \, dt
+$$
+subject to the **Unbalanced Continuity Equation**:
+$$
+\partial_t \rho + \nabla \cdot (\rho v) = \rho r
+$$
+
+where:
+- $v_t(z) \in T_z\mathcal{Z}$ is the **velocity field** (transport/flow)
+- $r_t(z) \in \mathbb{R}$ is the **reaction rate** (growth/decay of mass)
+- $\lambda > 0$ is the **length-scale parameter** balancing transport and reaction
+- $G$ is the Riemannian metric on the continuous fibres (Section 2.5)
+
+**Remark (Units).** $[v] = \text{length}/\text{time}$, $[r] = 1/\text{time}$, and $[\lambda] = \text{length}$. The ratio $\|v\|/(\lambda |r|)$ determines whether transport or reaction dominates.
+
+### 20.3 Physical Interpretation: Transport vs. Teleportation
+
+The agent's belief state $\rho_t$ evolves on the bundle $\mathcal{Z}$.
+
+**1. Horizontal Movement (Wasserstein / Transport):**
+The belief "flows" along the continuous nuisance coordinates $z_n$. This costs kinetic energy $\|v\|_G^2$. In the limit $r \to 0$, the dynamics reduce to the standard Wasserstein-2 ($W_2$) optimal transport on the Riemannian manifold.
+
+**2. Vertical Movement (Fisher-Rao / Reaction):**
+The belief "jumps" between charts $K$. In the space of measures, this appears as **teleportation**: mass disappears from Chart A and reappears in Chart B. This costs information energy $\lambda^2 |r|^2$. In the limit $v \to 0$, the dynamics reduce to the Fisher-Rao metric on the probability simplex $\Delta^{|\mathcal{K}|}$.
+
+**3. The Coupling Constant $\lambda$ (Teleportation Horizon):**
+
+This parameter defines the characteristic length scale at which transport becomes more expensive than teleportation:
+- If $\|z_A - z_B\|_G < \lambda$: Transport is preferred (continuous regime)
+- If $\|z_A - z_B\|_G > \lambda$: Teleportation is preferred (discrete jump)
+
+**Operational interpretation:** $\lambda$ is exactly the **radius of the chart overlap region** (Section 7.13). Within overlaps, transport is efficient; across non-overlapping regions, reaction dominates.
+
+### 20.4 Reconciling Discrete and Continuous
+
+**Proposition 20.4.1 (Limiting Regimes).** The WFR metric seamlessly unifies discrete and continuous dynamics:
+
+1. **Continuous Movement (Flow):** When moving within a chart, $r \approx 0$. The dynamics are dominated by $\nabla \cdot (\rho v)$, and the metric reduces to $W_2$ (Wasserstein-2). This recovers the Riemannian manifold structure of the nuisance fibres.
+
+2. **Discrete Movement (Jump):** When the flow reaches a topological obstruction (chart boundary without overlap), transport becomes infinitely expensive. It becomes cheaper to use the source term $r$:
+   - $r < 0$ on the old chart (mass destruction)
+   - $r > 0$ on the new chart (mass creation)
+   This recovers the **Fisher-Rao metric** on the discrete simplex $\Delta^{|\mathcal{K}|}$.
+
+3. **Mixed Regime (Overlap):** In chart overlaps, both $v$ and $r$ are active. The optimal path smoothly interpolates between transport and reaction.
+
+*Proof sketch.* The cone-space representation of WFR (lifting $\rho$ to $(\sqrt{\rho}, \sqrt{\rho} \cdot z)$) shows that the WFR geodesic projects to a $W_2$ geodesic when $r = 0$, and to a Fisher-Rao geodesic when $v = 0$. $\square$
+
+### 20.5 Connection to GKSL / Master Equation (Section 12.5)
+
+The WFR framework provides a natural interpretation of the GKSL (Lindblad) master equation from Section 12.5.
+
+**Correspondence Table:**
+
+| GKSL Component | WFR Interpretation |
+|----------------|-------------------|
+| $-i[H, \varrho]$ (Commutator) | Transport velocity $v$ (Hamiltonian drift) |
+| $\sum_j \gamma_j(L_j \varrho L_j^\dagger - \frac{1}{2}\{L_j^\dagger L_j, \varrho\})$ (Dissipator) | Reaction rate $r$ (jump operators) |
+| Unitary evolution | Mass-preserving transport ($\int \rho = \text{const}$) |
+| Lindblad jumps | Mass redistribution ($r < 0$ source, $r > 0$ sink) |
+
+**Proposition 20.5.1 (GKSL Embedding).** The GKSL generator from Definition 12.5.2 embeds into the WFR framework as follows:
+- The Hamiltonian $H$ generates the velocity field via $v \propto G^{-1}\nabla_z \langle H \rangle_\varrho$ (gradient of expected energy)
+- Each Lindblad operator $L_j$ contributes to the reaction rate via $r \propto \sum_j \gamma_j(\mathrm{Tr}(L_j^\dagger L_j \varrho) - 1)$
+
+This provides a **geometric foundation** for the otherwise algebraic GKSL construction. The correspondence is heuristic; see Carlen & Maas (2014) {cite}`carlen2014wasserstein` for rigorous connections between quantum Markov semigroups and gradient flows on Wasserstein space.
+
+### 20.6 The Unified World Model
+
+The WFR formulation enables a **single World Model** that predicts both transport and reaction, eliminating the need for separate "macro predictor" and "micro dynamics" modules.
+
+**Definition 20.6.1 (WFR World Model).** The policy outputs a generalized velocity field $(v, r)$ to minimize the WFR path length to the target distribution (goal).
+
+```python
+import torch
+import torch.nn as nn
+from typing import Tuple
+
+class WFRWorldModel(nn.Module):
+    """
+    Unified World Model using Unbalanced Optimal Transport dynamics.
+
+    Predicts the 'Generalized Velocity' (v, r) for belief particles.
+    No separate 'discrete' and 'continuous' modules.
+    """
+
+    def __init__(
+        self,
+        macro_embed_dim: int,
+        nuisance_dim: int,
+        action_dim: int,
+        hidden_dim: int = 256,
+    ):
+        super().__init__()
+        # Input: particle state + action
+        # State includes: macro embedding, nuisance coords, mass (weight)
+        input_dim = macro_embed_dim + nuisance_dim + 1 + action_dim
+
+        # Single MLP backbone for unified dynamics
+        self.dynamics_net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.SiLU(),
+        )
+
+        # Head 1: Transport velocity (Riemannian motion on fibre)
+        self.head_v = nn.Linear(hidden_dim, nuisance_dim)
+
+        # Head 2: Reaction rate (Fisher-Rao mass creation/destruction)
+        self.head_r = nn.Linear(hidden_dim, 1)
+
+    def forward(
+        self,
+        z_t: torch.Tensor,           # [B, D] latent state (macro_embed + nuisance)
+        mass_t: torch.Tensor,        # [B, 1] particle weight (belief mass)
+        action_t: torch.Tensor,      # [B, A] action
+        dt: float = 0.1,
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        """
+        Predict next state via WFR dynamics.
+
+        Returns:
+            z_next: [B, D] next latent state
+            mass_next: [B, 1] next particle mass
+            v_t: [B, nuisance_dim] transport velocity
+            r_t: [B, 1] reaction rate
+        """
+        # Unified prediction
+        inp = torch.cat([z_t, mass_t, action_t], dim=-1)
+        feat = self.dynamics_net(inp)
+
+        v_t = self.head_v(feat)  # Transport velocity
+        r_t = self.head_r(feat)  # Reaction rate (log-growth)
+
+        # Integrate dynamics (Euler step)
+        # Position update (Transport): z' = z + v * dt
+        z_next = z_t.clone()
+        z_next[..., -self.head_v.out_features:] += v_t * dt
+
+        # Mass update (Reaction): m' = m * exp(r * dt)
+        # If r > 0: hypothesis gaining probability (jumping in)
+        # If r < 0: hypothesis losing probability (jumping out)
+        mass_next = mass_t * torch.exp(r_t * dt)
+
+        return z_next, mass_next, v_t, r_t
+```
+
+**How this handles the "Jump" seamlessly:**
+
+- **Deep inside a Chart:** Model predicts $r \approx 0$ and $v \neq 0$. Particle moves normally.
+- **Approaching a Boundary:** Model sees invalid description (high prediction error). Predicts $r < 0$ for current chart, $r > 0$ for neighboring chart particles.
+- **Result:** Probability mass smoothly "tunnels" between charts without hard discrete switching.
+
+### 20.7 Scale Renormalization (Connection to Section 7.12)
+
+For stacked TopoEncoders (Section 7.12), the WFR metric applies recursively with **scale-dependent coupling**.
+
+Recall the WFR action:
+$$
+\mathcal{E} = \int \left( \|v\|_G^2 + \lambda^2 |r|^2 \right) d\rho
+$$
+
+For a hierarchy of layers $\ell = 0, \ldots, L$:
+
+**Definition 20.7.1 (Scale-Dependent Teleportation Cost).**
+$$
+\lambda^{(\ell)} \propto \sigma^{(\ell)} \quad \text{(jump cost scales with residual variance)}
+$$
+
+where $\sigma^{(\ell)}$ is the scale factor from Definition 7.12.2.
+
+**Interpretation:**
+- **Layer 0 (Bulk / IR):** High $\lambda^{(0)}$. Jumping is expensive; macro-structure is rigid. Transport dominates.
+- **Layer $L$ (Texture / UV):** Low $\lambda^{(L)}$. "Mass" (texture details) can appear/disappear cheaply. Reaction dominates.
+
+**Correspondence with Cosmological Constant:**
+In the capacity-constrained metric law (Section 18), the term $\Lambda G_{ij}$ plays the role of a baseline curvature. The correspondence is:
+$$
+\Lambda^{(\ell)} \sim \frac{1}{(\lambda^{(\ell)})^2}
+$$
+
+- Bulk (low $\Lambda$): Flat, rigid, transport-dominated
+- Boundary (high $\Lambda$): Curved, fluid, reaction-dominated
+
+### 20.8 Connection to Einstein Equations (Section 18)
+
+The WFR dynamics provide the **stress-energy tensor** $T_{ij}$ that drives curvature in Theorem 18.2.1.
+
+**Theorem 20.8.1 (WFR Stress-Energy Tensor; variational form).** Let the WFR action be
+$$
+\mathcal{S}_{\mathrm{WFR}}
+=
+\frac12\int_0^T\int_{\mathcal{Z}}
+\rho\left(\|v\|_G^2+\lambda^2 r^2\right)\,d\mu_G\,dt,
+$$
+with continuity equation
+$$
+\partial_t\rho+\nabla\!\cdot(\rho v)=\rho r.
+$$
+Define
+$$
+T_{ij}:=
+-\frac{2}{\sqrt{|G|}}\frac{\delta(\sqrt{|G|}\,\mathcal{L}_{\mathrm{WFR}})}{\delta G^{ij}}
+\quad\text{(holding }\rho,v,r\text{ fixed).}
+$$
+Then
+$$
+T_{ij}=\rho\,v_i v_j + P\,G_{ij},
+\qquad
+P=\frac12\,\rho\left(\|v\|_G^2+\lambda^2 r^2\right),
+$$
+which is the perfect-fluid form with reaction contributing an additive pressure term
+$P_{\mathrm{react}}=\tfrac12\lambda^2\rho r^2$.
+
+*Proof sketch.* Vary $\mathcal{S}_{\mathrm{WFR}}$ with respect to $G^{ij}$ while holding
+$(\rho,v,r)$ fixed. Use $\delta\|v\|_G^2=-v_i v_j\,\delta G^{ij}$ and
+$\delta d\mu_G=-\tfrac12 G_{ij}\delta G^{ij}d\mu_G$, then collect terms to match
+$\delta\mathcal{S}_{\mathrm{WFR}}=-\tfrac12\int T_{ij}\delta G^{ij}d\mu_G\,dt$.
+See Appendix C for the full derivation. $\square$
+
+**Implications:**
+1. **High velocity ($v$):** Agent moves fast through a region → $T_{ij}$ large → curvature $R_{ij}$ increases → latent space contracts. This is the **Natural Gradient** effect derived from first principles.
+
+2. **High reaction ($r$):** Agent jumps frequently → $P_{\mathrm{react}}$ increases → capacity stress increases. This triggers the boundary-capacity constraint (Definition 18.1.1).
+
+**Consistency with existing losses:**
+
+| Existing Loss | WFR Interpretation | Status |
+|--------------|-------------------|--------|
+| $\mathcal{L}_{\mathrm{pred}}$ (Prediction) | Minimizing transport cost $\|v\|_G^2$ | Compatible |
+| $\mathcal{L}_{\mathrm{closure}}$ (Macro closure) | Penalizing reaction $r$ in macro channel | Compatible |
+| Dissipation (Axiom D) | $r < 0$ (entropy production) | Compatible |
+| Capacity ($I < C$) | Metric curves to keep WFR path within budget | Compatible |
+
+### 20.9 Comparison: Sasaki vs. WFR
+
+| Feature | Sasaki (Product Metric) | WFR (Unbalanced Transport) |
+|---------|------------------------|---------------------------|
+| **State representation** | Fixed point | Probability mass / belief |
+| **Topology changes** | Manual patching required | Handled natively via $r$ |
+| **Path type** | "Walk then Jump" (discontinuous) | Smooth interpolation |
+| **Optimization** | Combinatorial + Gradient descent | Convex (generalized geodesics) |
+| **Theoretical consistency** | Ad-hoc construction | Gradient flow of entropy (rigorous) |
+| **Multi-scale** | Separate metrics per scale | Unified with scale-dependent $\lambda$ |
+
+### 20.10 Implementation: WFR Consistency Loss
+
+**Definition 20.10.1 (WFR Consistency Loss / WFRCheck).** The cone-space representation linearizes WFR locally. From $\partial_t \rho = \rho r - \nabla \cdot (\rho v)$ and $u = \sqrt{\rho}$, we have $\partial_t u = \frac{\rho r - \nabla \cdot (\rho v)}{2\sqrt{\rho}}$. Define the consistency loss:
+$$
+\mathcal{L}_{\mathrm{WFR}} = \left\| \sqrt{\rho_{t+1}} - \sqrt{\rho_t} - \frac{\Delta t}{2\sqrt{\rho_t}}\left(\rho_t r_t - \nabla \cdot (\rho_t v_t)\right) \right\|_{L^2}^2
+$$
+
+This penalizes deviations from the unbalanced continuity equation.
+
+**Practical implementation:**
+
+```python
+def compute_wfr_consistency_loss(
+    rho_t: torch.Tensor,       # [B, K] belief over charts at time t
+    rho_t1: torch.Tensor,      # [B, K] belief over charts at time t+1
+    v_t: torch.Tensor,         # [B, K, d_n] transport velocity per chart
+    r_t: torch.Tensor,         # [B, K] reaction rate per chart
+    dt: float = 0.1,
+    eps: float = 1e-6,
+) -> torch.Tensor:
+    """
+    Compute WFR consistency loss (cone-space formulation).
+
+    Penalizes violation of unbalanced continuity equation.
+    """
+    sqrt_rho_t = torch.sqrt(rho_t + eps)
+    sqrt_rho_t1 = torch.sqrt(rho_t1 + eps)
+
+    # Approximate divergence term (finite difference)
+    # In practice, use automatic differentiation if v is differentiable
+    div_rho_v = torch.zeros_like(rho_t)  # Placeholder for nabla . (rho v)
+
+    # Predicted change in sqrt(rho) from: d/dt sqrt(rho) = (rho*r - div(rho*v)) / (2*sqrt(rho))
+    predicted_delta = (dt / (2 * sqrt_rho_t + eps)) * (rho_t * r_t - div_rho_v)
+
+    # Actual change
+    actual_delta = sqrt_rho_t1 - sqrt_rho_t
+
+    # L2 loss
+    loss = ((actual_delta - predicted_delta) ** 2).mean()
+
+    return loss
+```
+
+### 20.11 Node 23: WFRCheck
+
+Following the diagnostic node convention (Section 3.1), we define:
+
+| **#** | **Name** | **Component** | **Type** | **Interpretation** | **Proxy** | **Cost** |
+|-------|----------|---------------|----------|-------------------|-----------|----------|
+| **23** | **WFRCheck** | **World Model** | **Dynamics Consistency** | Transport-Reaction balance? | $\mathcal{L}_{\mathrm{WFR}}$ | $O(BK)$ |
+
+**Trigger conditions:**
+- High $\mathcal{L}_{\mathrm{WFR}}$: World model's $(v, r)$ predictions violate continuity
+- Remedy: Increase training on transitions; check for distribution shift
+
+---
+
+## 21. Holographic Generation: Symmetry Breaking Flows in $\mathbb{D}$
+
+This section defines data generation not as a forward-time simulation of physics, but as a **scale-space traversal** from the center of the latent space (maximum entropy / low resolution) to the boundary (minimum entropy / high resolution). The generative process is rigorously derived from thermodynamic principles on the Poincaré disk $\mathbb{D}$.
+
+### 21.1 The Thermodynamic Origin of the Information Potential
+
+We derive the generative potential from first principles, treating the latent space as a thermodynamic system where the origin represents maximum entropy (pure potentiality) and the boundary represents minimum entropy (fully specified state).
+
+**Definition 21.1.1 (Hyperbolic Volume Growth).** In the Poincaré disk model $\mathbb{D} = \{z \in \mathbb{C} : |z| < 1\}$ with metric $G_{ij} = \frac{4\delta_{ij}}{(1-|z|^2)^2}$, the volume of a hyperbolic ball $B_r(0)$ of radius $r$ centered at the origin grows exponentially:
+$$
+\mathrm{Vol}(B_r(0)) = 4\pi \sinh^2\!\left(\frac{r}{2}\right) \;\approx\; \pi e^r \quad \text{as } r \to \infty.
+$$
+Units: $[\mathrm{Vol}] = [z]^2$ (area in latent coordinates).
+
+**Definition 21.1.2 (Hyperbolic Information Potential).** The **information potential** $U: \mathbb{D} \to \mathbb{R}$ is defined as the negative hyperbolic distance from the origin:
+$$
+U(z) := -d_{\mathbb{D}}(0, z) = -2 \operatorname{artanh}(|z|) = -\log\!\left(\frac{1+|z|}{1-|z|}\right).
+$$
+Units: $[U] = \mathrm{nat}$ (information content).
+
+*Remark.* At the origin ($z=0$): $U = 0$ (maximum potential, maximum entropy, pure potentiality). At the boundary ($|z| \to 1$): $U \to -\infty$ (minimum potential, minimum entropy, fully specified).
+
+**Proposition 21.1.3 (Volume-Entropy Motivation).** The potential $U(z) = -d_{\mathbb{D}}(0,z)$ is the natural thermodynamic choice because:
+1. **Entropy interpretation:** $-U(z) = d_{\mathbb{D}}(0,z) \approx \log(\mathrm{Vol}(B_{d(0,z)}))$ measures the log-volume of accessible states at depth $d$.
+2. **Free energy:** If we interpret $-U$ as entropy and assume constant energy, then $U$ is (up to sign) the negative free energy $F = E - TS$ with $E = 0$.
+3. **Gradient flow:** Minimizing $U$ (gradient descent) corresponds to maximizing specificity/information.
+
+*Proof sketch.* From Definition 21.1.1, $\log(\mathrm{Vol}(B_r)) \approx r + \text{const}$ for large $r$, so $d_{\mathbb{D}}(0,z)$ measures log-volume. The thermodynamic interpretation follows from the standard relation between entropy and phase-space volume. $\square$
+
+**Proposition 21.1.4 (Gradient of the Information Potential).** The Euclidean gradient of $U$ is:
+$$
+\nabla U(z) = -\frac{2z}{1 - |z|^2}.
+$$
+The Riemannian gradient (using the Poincaré metric $G$) is:
+$$
+\nabla_G U(z) = G^{-1} \nabla U = -\frac{(1-|z|^2)^2}{4} \cdot \frac{2z}{1-|z|^2} = -\frac{(1-|z|^2)}{2} z.
+$$
+
+*Proof.* Direct computation: $\partial_{z_i} U = \partial_{z_i} (-2\operatorname{artanh}(|z|)) = -\frac{2}{1-|z|^2} \cdot \frac{z_i}{|z|} \cdot \frac{|z|}{|z|} = -\frac{2z_i}{1-|z|^2}$. $\square$
+
+### 21.2 Spontaneous Symmetry Breaking via Langevin Dynamics
+
+At the origin $z=0$, the gradient $\nabla U(0) = 0$ vanishes—the system is at an unstable equilibrium. To generate data, the agent must break this symmetry. We model this not as an arbitrary "kick" but as a rigorous **thermal fluctuation** in a Langevin system.
+
+**Definition 21.2.1 (Generative Langevin Equation).** The generative trajectory $z(\tau)$ satisfies the stochastic differential equation on the Poincaré disk:
+$$
+dz_\tau = -\nabla_G U(z_\tau)\, d\tau + \sqrt{2T_c}\, G^{-1/2}(z_\tau)\, dW_\tau,
+$$
+where:
+- $\tau \ge 0$ is the **generative time** (not physical time; see Remark below)
+- $T_c > 0$ is the **generative temperature** (dimensionless)
+- $W_\tau$ is a standard Wiener process in $\mathbb{R}^2$
+- $G^{-1/2}$ is the matrix square root of the inverse metric
+
+Initial condition: $z(0) = 0$ (origin of the disk).
+
+Units: $[\tau] = \mathrm{step}$, $[T_c] = \mathrm{dimensionless}$, $[dW] = \sqrt{\mathrm{step}}$.
+
+*Remark (Generative Time vs. Physical Time).* The generative time $\tau$ parametrizes the depth of the generation process. In a multi-layer decoder, layer $\ell$ corresponds to $\tau_\ell \approx \ell \cdot \Delta\tau$ where $\Delta\tau$ is chosen so that the information content increases by approximately $\Delta I$ per layer (cf. Section 7.12).
+
+**Definition 21.2.2 (Temperature Schedule).** The generative temperature $T_c(\tau)$ may be annealed during generation:
+$$
+T_c(\tau) = T_0 \cdot \exp(-\kappa_T \tau),
+$$
+where $T_0 > 0$ is the initial temperature and $\kappa_T \ge 0$ is the annealing rate.
+- $T_c(\tau)$ large: Noise-dominated regime (exploration, symmetry preserved)
+- $T_c(\tau) \to 0$: Gradient-dominated regime (exploitation, deterministic flow)
+
+**Theorem 21.2.3 (Pitchfork Bifurcation and Symmetry Breaking).** Consider the Langevin equation (Definition 21.2.1) with initial condition $z(0) = 0$.
+
+1. **Stationary Distribution at Origin:** For any $T_c > 0$, the stationary distribution of the linearized dynamics near the origin is rotationally symmetric (invariant under $z \mapsto e^{i\theta} z$).
+
+2. **Symmetry Breaking:** As $\tau$ increases from $0$:
+   - For small $\tau$: The noise term dominates, and $z(\tau)$ performs a random walk near the origin.
+   - A thermal fluctuation selects a direction $\hat{v} \in S^1$ (the unit circle).
+   - For large $\tau$: The gradient term dominates, and $z(\tau)$ flows radially outward along the selected direction.
+
+3. **Bifurcation Structure:** This is a **supercritical pitchfork bifurcation** with $T_c$ as the bifurcation parameter. At $T_c = 0$, the origin is an unstable fixed point with a circle of stable fixed points at $|z| = 1$.
+
+*Proof sketch.* Linearize near $z = 0$: The potential $U(z) \approx -|z|^2 + O(|z|^4)$ is rotationally symmetric. The Fokker-Planck equation for the stationary density $p_*(z)$ is
+$$
+0 = \nabla \cdot (p_* \nabla_G U) + T_c \Delta_G p_*,
+$$
+which has a rotationally symmetric solution $p_*(z) \propto \exp(-U(z)/T_c)$ by detailed balance. The bifurcation structure follows from standard theory of noise-induced transitions in symmetric potentials (cf. {cite}`gardiner2009stochastic`). See Appendix A.3 for the full proof. $\square$
+
+**Algorithm 21.2.4 (Holographic Langevin Step).** Implementation of a single generative step:
+
+```python
+import torch
+import math
+from typing import Optional
+
+
+def project_to_poincare_disk(z: torch.Tensor, max_radius: float = 0.999) -> torch.Tensor:
+    """Project points back into the Poincaré disk (safety clamp)."""
+    r = torch.norm(z, dim=-1, keepdim=True)
+    scale = torch.clamp(max_radius / (r + 1e-8), max=1.0)
+    return z * scale
+
+
+def holographic_langevin_step(
+    z: torch.Tensor,              # [B, 2] current position in Poincaré disk
+    T_c: float,                   # Generative temperature
+    dt: float = 0.01,             # Time step
+    max_radius: float = 0.999,    # Safety clamp
+) -> torch.Tensor:
+    """
+    One step of generative Langevin dynamics in the Poincaré disk.
+
+    Implements Definition 21.2.1:
+        dz = -nabla_G U(z) dt + sqrt(2 T_c) G^{-1/2} dW
+
+    Cross-ref: Theorem 21.2.3 (symmetry breaking)
+    """
+    # Compute |z|^2 and metric quantities
+    r_sq = (z ** 2).sum(dim=-1, keepdim=True)
+    one_minus_r_sq = 1.0 - r_sq + 1e-8  # Numerical stability
+
+    # Riemannian gradient of U: -nabla_G U = (1 - |z|^2)/2 * z
+    grad_G_U = -(one_minus_r_sq / 2.0) * z
+    drift = -grad_G_U  # We descend -U, so drift = +grad_G_U
+
+    # Noise coefficient: G^{-1/2} = (1 - |z|^2)/2 * I
+    # So sqrt(2 T_c) * G^{-1/2} = sqrt(2 T_c) * (1 - |z|^2)/2
+    noise_coeff = math.sqrt(2 * T_c) * (one_minus_r_sq / 2.0)
+    noise = torch.randn_like(z) * math.sqrt(dt)
+
+    # Euler-Maruyama step
+    z_new = z + drift * dt + noise_coeff * noise
+
+    # Project back into disk (safety)
+    z_new = project_to_poincare_disk(z_new, max_radius)
+
+    return z_new
+```
+
+### 21.3 Conditioned Generation as Parallel Transport
+
+When generating conditioned on a reference concept $z_c$ (e.g., "generate a variation of this chair"), we treat $z_c$ as the **effective origin**. The mathematical tool is the **Möbius automorphism** of the disk, which is an isometry of the hyperbolic metric.
+
+**Definition 21.3.1 (Möbius Automorphism).** For any $c \in \mathbb{D}$, the Möbius transformation $\phi_c: \mathbb{D} \to \mathbb{D}$ is defined by:
+$$
+\phi_c(z) = \frac{z - c}{1 - \bar{c} z}.
+$$
+This is an isometry of the Poincaré disk: $d_{\mathbb{D}}(\phi_c(z_1), \phi_c(z_2)) = d_{\mathbb{D}}(z_1, z_2)$.
+
+Properties:
+- $\phi_c(c) = 0$ (moves $c$ to the origin)
+- $\phi_c(0) = -c$ (moves origin to $-c$)
+- $\phi_c^{-1} = \phi_{-c}$ (inverse moves origin to $c$)
+
+**Definition 21.3.2 (Parallel Transport of the Generative Frame).** The Möbius re-centering is not merely a coordinate change; it **parallel-transports** the generative tangent frame from the origin to $z_c$ along the geodesic $\gamma: [0,1] \to \mathbb{D}$ with $\gamma(0) = 0$ and $\gamma(1) = z_c$.
+
+The parallel transport map $P_{\gamma}: T_0\mathbb{D} \to T_{z_c}\mathbb{D}$ is given by the differential:
+$$
+P_{\gamma}(v) = d\phi_{-z_c}\big|_0 (v) = \frac{1 - |z_c|^2}{(1 + \bar{z}_c \cdot 0)^2} v = (1 - |z_c|^2) v.
+$$
+
+**Proposition 21.3.3 (Holographic Homogeneity Assumption).** Conditioned generation via Möbius re-centering is well-defined if and only if the following assumption holds:
+
+**(H1) Holographic Homogeneity:** The boundary distribution of semantic concepts is approximately isotropic under parallel transport. That is, for any $c \in \mathbb{D}$ with $|c|$ not too close to 1, the pushforward distribution $(\phi_{-c})_* p_{\text{boundary}}$ is approximately equal to $p_{\text{boundary}}$.
+
+*Remark.* If (H1) fails—for example, if the latent space has "semantic corners" or preferred directions—then conditioned generation requires more sophisticated techniques (e.g., learning a correction field).
+
+**Algorithm 21.3.4 (Conditioned Generation via Möbius Transport).**
+
+```python
+def mobius_automorphism(
+    z: torch.Tensor,    # [B, 2] points in disk
+    c: torch.Tensor,    # [B, 2] or [1, 2] center to move to origin
+) -> torch.Tensor:
+    """
+    Apply Möbius automorphism: phi_c(z) = (z - c) / (1 - conj(c) * z).
+
+    For complex arithmetic with real 2D tensors:
+    If z = (x, y) and c = (a, b), then conj(c) * z = a*x + b*y (real part)
+    and the full formula gives a 2D output.
+    """
+    # Compute 1 - conj(c) * z = 1 - (c_x * z_x + c_y * z_y) as scalar
+    c_conj_z = (c * z).sum(dim=-1, keepdim=True)  # [B, 1]
+    denom = 1.0 - c_conj_z + 1e-8
+
+    # Numerator: z - c
+    numer = z - c
+
+    # For the imaginary part of the product, we need the full complex division
+    # (z - c) / (1 - conj(c) z) in 2D representation
+    # This is a simplification assuming c and z are treated as complex numbers
+    # Full implementation would use complex arithmetic
+
+    return numer / denom
+
+
+def conditioned_generation(
+    z_c: torch.Tensor,          # [B, 2] conditioning point
+    delta_v: torch.Tensor,      # [B, 2] variation direction (in tangent space at origin)
+    tau_max: float,             # Generation depth
+    T_c: float,                 # Temperature
+    n_steps: int = 100,
+) -> torch.Tensor:
+    """
+    Generate a variation of concept z_c by:
+    1. Apply relative flow from origin
+    2. Transport result back to neighborhood of z_c
+
+    Cross-ref: Definition 21.3.2 (parallel transport)
+    """
+    dt = tau_max / n_steps
+
+    # Generate trajectory relative to origin
+    z_rel = torch.zeros_like(z_c)
+    for _ in range(n_steps):
+        z_rel = holographic_langevin_step(z_rel, T_c, dt)
+
+    # Transport back: apply inverse Möbius (phi_{-z_c})
+    z_abs = mobius_automorphism(z_rel, -z_c)
+
+    return z_abs
+```
+
+### 21.4 The Holographic Boundary Layer (Conformal Texture Sampling)
+
+At the terminal position $z_{\text{final}}$, the agent must sample texture coordinates $z_{\text{tex}}$. In the draft formulation, texture was sampled as $z_{\text{tex}} \sim \mathcal{N}(0, I)$—independent of the semantic position. This is physically inconsistent: the texture statistics should depend on **where** on the boundary the agent has arrived.
+
+**Definition 21.4.1 (Conformal Factor).** The conformal factor of the Poincaré metric at position $z$ is:
+$$
+\lambda(z) := \frac{2}{1 - |z|^2}.
+$$
+This measures the "local stretching" of the metric relative to Euclidean space.
+
+Units: $[\lambda] = [z]^{-1}$.
+
+**Definition 21.4.2 (Covariant Texture Distribution).** The texture coordinates $z_{\text{tex}}$ are sampled from a **geometry-dependent** Gaussian:
+$$
+z_{\text{tex}} \sim \mathcal{N}\big(0,\, \Sigma(z_{\text{final}})\big),
+$$
+where the covariance matrix is:
+$$
+\Sigma(z) = \sigma_{\text{tex}}^2 \cdot \lambda(z)^{-2} \cdot I = \sigma_{\text{tex}}^2 \cdot \frac{(1 - |z|^2)^2}{4} \cdot I.
+$$
+
+Here $\sigma_{\text{tex}}^2$ is a base texture variance (hyperparameter).
+
+**Proposition 21.4.3 (Boundary-Bulk Coupling).** The covariant texture distribution (Definition 21.4.2) ensures:
+
+1. **Near origin ($|z| \approx 0$):** $\Sigma(z) \approx \sigma_{\text{tex}}^2 / 4 \cdot I$. Texture has moderate variance (coarse structure, not much texture detail needed).
+
+2. **Near boundary ($|z| \to 1$):** $\Sigma(z) \to 0$. Texture has vanishing variance—at maximum specificity, the texture is nearly deterministic.
+
+3. **Renormalization interpretation:** The conformal factor $\lambda(z)$ plays the role of a running coupling constant. As we flow toward the boundary (UV), the texture fluctuations are suppressed—consistent with the RG interpretation of Section 7.12.
+
+*Proof.* Direct computation of $\Sigma(z)$ at limiting values. The RG interpretation follows from the identification of $\lambda$ with the "local resolution" and the standard behavior of noise under coarse-graining. $\square$
+
+**Algorithm 21.4.4 (Covariant Texture Sampling).**
+
+```python
+def sample_covariant_texture(
+    z_final: torch.Tensor,      # [B, 2] final semantic position
+    texture_dim: int,           # Dimension of texture space
+    sigma_tex: float = 1.0,     # Base texture std dev
+) -> torch.Tensor:
+    """
+    Sample texture with geometry-dependent variance (Definition 21.4.2).
+
+    Variance scales as lambda(z)^{-2} = (1 - |z|^2)^2 / 4.
+    Near origin: moderate variance. Near boundary: low variance.
+
+    Cross-ref: Proposition 21.4.3 (boundary-bulk coupling)
+    """
+    B = z_final.shape[0]
+
+    # Compute conformal factor scaling
+    r_sq = (z_final ** 2).sum(dim=-1, keepdim=True)  # [B, 1]
+    one_minus_r_sq = 1.0 - r_sq + 1e-8
+
+    # Covariance scaling: sigma_tex^2 * (1 - |z|^2)^2 / 4
+    cov_scale = sigma_tex * (one_minus_r_sq / 2.0)  # [B, 1]
+
+    # Sample texture
+    z_tex = torch.randn(B, texture_dim, device=z_final.device)
+    z_tex = z_tex * cov_scale  # Scale by position-dependent std
+
+    return z_tex
+```
+
+### 21.5 The Stopping Criterion
+
+The generative flow must terminate at a well-defined point. We provide three equivalent criteria—geometric, convergence-based, and information-theoretic—and prove their asymptotic equivalence.
+
+**Definition 21.5.1 (Geometric Stopping Criterion).** The flow terminates when the radial coordinate exceeds a cutoff:
+$$
+\tau_{\text{stop}} := \inf\{\tau \ge 0 : |z(\tau)| \ge R_{\text{cutoff}}\},
+$$
+where $R_{\text{cutoff}} < 1$ is a hyperparameter (e.g., $R_{\text{cutoff}} = 0.95$).
+
+**Definition 21.5.2 (Convergence Stopping Criterion).** The flow terminates when the velocity magnitude falls below a threshold:
+$$
+\tau_{\text{stop}} := \inf\{\tau \ge 0 : \|\dot{z}(\tau)\|_G < \epsilon_{\text{conv}}\},
+$$
+where $\epsilon_{\text{conv}} > 0$ is a small constant.
+
+**Definition 21.5.3 (Information Stopping Criterion).** The flow terminates when the estimated information content reaches the boundary capacity:
+$$
+\tau_{\text{stop}} := \inf\{\tau \ge 0 : I_{\text{bulk}}(z(\tau)) \ge C_{\partial}\},
+$$
+where $I_{\text{bulk}}$ is computed as in Definition 18.1.2 and $C_{\partial}$ is the boundary capacity (Definition 18.1.3).
+
+**Proposition 21.5.4 (Equivalence of Stopping Criteria).** Under the hyperbolic geometry of $\mathbb{D}$, the three criteria are asymptotically equivalent:
+
+1. **Geometric ↔ Convergence:** For the deterministic flow ($T_c = 0$), the velocity $\|\dot{z}\|_G = |(\nabla_G U)(z)|$ vanishes only at the boundary ($|z| = 1$). Thus, reaching $|z| = R_{\text{cutoff}}$ corresponds to $\|\dot{z}\|_G$ approaching a small value.
+
+2. **Geometric ↔ Information:** The hyperbolic distance $d_{\mathbb{D}}(0,z) = 2\operatorname{artanh}(|z|)$ grows logarithmically in the Euclidean radius near the boundary. The log-volume (and hence information content) scales as $d_{\mathbb{D}}(0,z)$. Thus,
+$$
+|z| \approx R_{\text{cutoff}} \quad \Longleftrightarrow \quad I_{\text{bulk}} \approx 2\operatorname{artanh}(R_{\text{cutoff}}) \cdot C_0,
+$$
+where $C_0$ is a constant relating information density to hyperbolic distance.
+
+*Proof.* See Appendix A.3 for the full calculation. $\square$
+
+**Cross-references:** Theorem 16.1.3 (Information-stability window), Definition 18.1.1 (Boundary-capacity constraint).
+
+### 21.6 Summary and Diagnostic Node
+
+**Summary of Holographic Generation Laws:**
+
+| Aspect | Formula | Units | Reference |
+|--------|---------|-------|-----------|
+| Information Potential | $U(z) = -2\operatorname{artanh}(\lvert z\rvert)$ | nat | Def 21.1.2 |
+| Langevin Dynamics | $dz = -\nabla_G U\,d\tau + \sqrt{2T_c}\,G^{-1/2}\,dW$ | nat/step | Def 21.2.1 |
+| Möbius Conditioning | $\phi_c(z) = (z-c)/(1-\bar{c}z)$ | dimensionless | Def 21.3.1 |
+| Conformal Texture | $\Sigma(z) = \sigma_{\text{tex}}^2 \lambda(z)^{-2} I$ | $[z_{\text{tex}}]^2$ | Def 21.4.2 |
+| Stopping (Geometric) | $\lvert z\rvert \ge R_{\text{cutoff}}$ | dimensionless | Def 21.5.1 |
+
+**Node 25: HoloGenCheck**
+
+Following the diagnostic node convention (Section 3.1), we define:
+
+| **#** | **Name** | **Component** | **Type** | **Interpretation** | **Proxy** | **Cost** |
+|-------|----------|---------------|----------|-------------------|-----------|----------|
+| **25** | **HoloGenCheck** | **Generator** | **Generation Validity** | Did flow reach boundary? | $\mathbb{I}(\lvert z_{\text{final}}\rvert \ge R_{\text{cutoff}})$ | $O(B)$ |
+
+**Trigger conditions:**
+- Low HoloGenCheck: Generation terminated too early (insufficient specificity).
+- Remedy: Increase $\tau_{\text{max}}$ or decrease $R_{\text{cutoff}}$; check for numerical instabilities near boundary.
+
+---
+
+## 22. The Equations of Motion: Controlled Geodesics
+
+This section synthesizes the differential geometry of Section 2, the WFR dynamics of Section 20, and the holographic generation of Section 21 into a single rigorous **Equation of Motion (EoM)**. We derive the agent's trajectory not as an arbitrary neural network output, but as the solution to a **Forced Geodesic Equation** on the capacity-constrained manifold.
+
+### 22.1 The Stochastic Action (Onsager-Machlup Functional)
+
+The classical Lagrangian approach extends to stochastic systems via the **Onsager-Machlup functional**, which assigns a probability to paths based on their "action."
+
+**Definition 22.1.1 (Onsager-Machlup Action on a Riemannian Manifold).** Let $(\mathcal{Z}, G)$ be the latent Riemannian manifold with the capacity-constrained metric (Section 18). For a path $z: [0, T] \to \mathcal{Z}$, the Onsager-Machlup action is:
+$$
+S_{\mathrm{OM}}[z] = \int_0^T \left( \frac{1}{2}\|\dot{z}\|_G^2 + V(z) + \frac{T_c}{12}\,R(z) \right) dt,
+$$
+where:
+- $\|\dot{z}\|_G^2 = G_{ij}(z)\,\dot{z}^i\,\dot{z}^j$ is the kinetic energy
+- $V(z)$ is the potential energy (value function or generative potential)
+- $R(z)$ is the scalar curvature of the metric $G$
+- $T_c > 0$ is the diffusion temperature (cf. Section 21.2)
+
+Units: $[S_{\mathrm{OM}}] = \mathrm{nat}$.
+
+*Remark (Curvature Correction).* The term $\frac{T_c}{12}R(z)$ is a quantum/stochastic correction that accounts for the path-measure distortion on curved spaces. In flat space ($R = 0$), this term vanishes, and we recover the standard action.
+
+**Proposition 22.1.2 (Most Probable Path).** For the controlled diffusion
+$$
+dz^k = b^k(z)\,dt + \sqrt{2T_c}\,\sigma^{kj}(z)\,dW^j_t,
+$$
+where $\sigma \sigma^T = G^{-1}$, the most probable path connecting $z(0) = z_0$ and $z(T) = z_1$ minimizes the Onsager-Machlup action $S_{\mathrm{OM}}[z]$ subject to the boundary conditions.
+
+*Proof sketch.* This follows from the Girsanov theorem and the Cameron-Martin formula adapted to Riemannian manifolds. See {cite}`ikeda1989stochastic` Chapter V or Appendix A.4 for details. $\square$
+
+### 22.2 The Coupled Jump-Diffusion SDE
+
+The agent's state is not merely a point $z$ but a **particle with mass** $(z, m)$, where $m$ is the importance weight (belief probability). The dynamics couple continuous transport with discrete jumps.
+
+**Definition 22.2.1 (Controlled Geodesic SDE).** The position coordinates $z^k$ evolve according to the SDE:
+$$
+dz^k = \left( -G^{kj}(z)\,\partial_j \Phi_{\text{gen}}(z) - \Gamma^k_{ij}(z)\,\dot{z}^i\,\dot{z}^j\,dt \right) + \sqrt{2T_c}\,\left(G^{-1/2}(z)\right)^{kj}\,dW^j_t,
+$$
+where:
+- $\Phi_{\text{gen}}$ is the **generative potential** (Definition 22.3.1)
+- $\Gamma^k_{ij}$ are the **Christoffel symbols** of the Levi-Civita connection of the capacity-constrained metric $G$ (Section 2.5.1, Theorem 18.2.1)
+- $G^{-1/2}$ is the matrix square root of the inverse metric
+- $W_t$ is a standard Wiener process
+
+Units: $[dz] = [z]$, $[\Phi_{\text{gen}}] = \mathrm{nat}$, $[\Gamma^k_{ij}] = [z]^{-1}$.
+
+*Remark (Connection Specification).* The Christoffel symbols $\Gamma^k_{ij}$ are explicitly those of the **Levi-Civita connection** induced by the capacity-constrained metric $G$ from Theorem 18.2.1. This ensures metric compatibility ($\nabla G = 0$) and torsion-freeness.
+
+**Definition 22.2.2 (Mass Evolution - Jump Process).** The importance weight $m(t)$ evolves according to a coupled jump-diffusion:
+$$
+dm = m \cdot r(z, a)\,dt + m \cdot (\eta - 1)\,dN_t,
+$$
+where:
+- $r(z, a)$ is the **reaction rate** from the WFR dynamics (Section 20.2)
+- $N_t$ is a Poisson process with intensity $\lambda_{\text{jump}}(z)$
+- $\eta$ is the multiplicative jump factor (typically $\eta > 1$ for jumps to higher-value charts)
+
+*Interpretation:* Between jumps, mass evolves smoothly via the reaction term $r$. At jump times, the mass is rescaled by factor $\eta$, and the position is teleported via the chart transition operator $L_{i \to j}$.
+
+**Proposition 22.2.3 (Jump Intensity from Value Discontinuity).** The jump intensity $\lambda_{\text{jump}}(z)$ is determined by the value difference across chart boundaries:
+$$
+\lambda_{\text{jump}}(z) = \lambda_0 \cdot \exp\left(\beta \cdot \left( V_{\text{target}}(L(z)) - V_{\text{source}}(z) - c_{\text{transport}} \right) \right),
+$$
+where:
+- $\lambda_0 > 0$ is a base jump rate
+- $\beta > 0$ is the inverse temperature (sharpness)
+- $V_{\text{target}}$ and $V_{\text{source}}$ are the value functions on the target and source charts
+- $L: \mathcal{Z}_{\text{source}} \to \mathcal{Z}_{\text{target}}$ is the chart transition operator
+- $c_{\text{transport}} \ge 0$ is the transport cost (WFR term)
+
+*Remark (SMC Interpretation).* The mass $m(t)$ is precisely the **importance weight** in Sequential Monte Carlo (SMC) / particle filtering. The agent is a single-particle realization of the WFR flow from Section 20. Multiple particles can be used for ensemble-based generation.
+
+**Cross-references:** Section 20.2 (WFR action), Section 20.6 (WFR world model), Section 11 (Filtering and projection).
+
+### 22.3 The Generative Potential (Unification of U and V)
+
+The draft used two different potentials: $U(z) = -d_{\mathbb{D}}(0,z)$ for "holographic" generation (Section 21) and $V(z)$ for "control/critic" (Section 2.7). We now unify them.
+
+**Definition 22.3.1 (Generative Potential).** The unified generative potential is:
+$$
+\Phi_{\text{gen}}(z) = \alpha\, U(z) + (1 - \alpha)\, V_{\text{critic}}(z),
+$$
+where:
+- $U(z) = -d_{\mathbb{D}}(0, z)$ is the **hyperbolic information potential** (Definition 21.1.2)
+- $V_{\text{critic}}(z)$ is the **learned value/critic function** (Section 2.7)
+- $\alpha \in [0, 1]$ is a fixed hyperparameter
+
+Units: $[\Phi_{\text{gen}}] = \mathrm{nat}$.
+
+**Proposition 22.3.2 (Mode Interpretation).** The parameter $\alpha$ interpolates between pure generation and pure control:
+
+| Regime | $\alpha$ Value | Behavior |
+|--------|----------------|----------|
+| **Pure Generation** | $\alpha = 1$ | Flow follows $-\nabla_G U$ (holographic, Section 21) |
+| **Pure Control** | $\alpha = 0$ | Flow follows $-\nabla_G V_{\text{critic}}$ (policy gradient) |
+| **Hybrid** | $\alpha \in (0, 1)$ | Balanced exploration-exploitation |
+
+**Corollary 22.3.3 (Gradient Unification).** The gradient of the generative potential decomposes as:
+$$
+\nabla_G \Phi_{\text{gen}} = \alpha\, \nabla_G U + (1 - \alpha)\, \nabla_G V_{\text{critic}}.
+$$
+For the Poincaré disk model with $U(z) = -2\operatorname{artanh}(|z|)$, this gives:
+$$
+\nabla_G \Phi_{\text{gen}} = -\alpha\, \frac{(1-|z|^2)}{2} z + (1 - \alpha)\, G^{-1} \nabla V_{\text{critic}}.
+$$
+
+**Cross-references:** Definition 21.1.2 (Information potential), Section 2.7 (Critic $V$), Section 14.2 (MaxEnt control).
+
+### 22.4 The Geodesic Euler-Maruyama Integrator
+
+We now provide the numerical integrator for the controlled geodesic SDE (Definition 22.2.1).
+
+**Algorithm 22.4.1 (Geodesic Euler-Maruyama Step).**
+
+```python
+import torch
+import math
+from typing import Tuple, Optional
+
+
+def matrix_sqrt_inv(M: torch.Tensor) -> torch.Tensor:
+    """Compute M^{-1/2} via eigendecomposition."""
+    # For positive definite M
+    L, Q = torch.linalg.eigh(M)
+    L_inv_sqrt = 1.0 / torch.sqrt(L.clamp(min=1e-8))
+    return Q @ torch.diag_embed(L_inv_sqrt) @ Q.transpose(-2, -1)
+
+
+def compute_christoffel_poincare(z: torch.Tensor) -> torch.Tensor:
+    """
+    Compute Christoffel symbols for the Poincaré disk metric.
+
+    For G_{ij} = 4 delta_{ij} / (1 - |z|^2)^2, the Christoffel symbols are:
+        Gamma^k_{ij} = 2 z^k delta_{ij} / (1 - |z|^2)
+                     + 2 (z_i delta^k_j + z_j delta^k_i) / (1 - |z|^2)
+                     - 4 z_i z_j z^k / (1 - |z|^2)^2
+
+    For efficiency, we compute the contracted form Gamma^k_{ij} v^i v^j.
+    """
+    B, d = z.shape
+    r_sq = (z ** 2).sum(dim=-1, keepdim=True)  # [B, 1]
+    one_minus_r_sq = 1.0 - r_sq + 1e-8
+
+    # Full Christoffel tensor [B, d, d, d] is expensive
+    # Return a function that computes Gamma^k_{ij} v^i v^j given v
+    def contract(v: torch.Tensor) -> torch.Tensor:
+        """Compute Gamma^k_{ij} v^i v^j."""
+        v_sq = (v ** 2).sum(dim=-1, keepdim=True)  # [B, 1]
+        z_dot_v = (z * v).sum(dim=-1, keepdim=True)  # [B, 1]
+
+        # Gamma^k_{ij} v^i v^j = 2/(1-r^2) * (z^k |v|^2 + 2 z.v v^k - 2 z.v z^k z.v/(1-r^2))
+        term1 = (2.0 / one_minus_r_sq) * z * v_sq
+        term2 = (4.0 / one_minus_r_sq) * z_dot_v * v
+        term3 = -(4.0 / one_minus_r_sq**2) * z_dot_v**2 * z
+
+        return term1 + term2 + term3
+
+    return contract
+
+
+def geodesic_euler_maruyama_step(
+    z: torch.Tensor,              # [B, d] current latent position
+    v: torch.Tensor,              # [B, d] current velocity
+    G: torch.Tensor,              # [B, d, d] metric tensor at z
+    grad_Phi: torch.Tensor,       # [B, d] gradient of generative potential
+    T_c: float,                   # Control temperature
+    dt: float,                    # Time step
+    friction: float = 10.0,       # Friction coefficient gamma (high = overdamped)
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    Geodesic Euler-Maruyama integrator for controlled stochastic geodesics.
+
+    Implements Definition 22.2.1:
+        dz^k = (-G^{kj} nabla_j Phi - Gamma^k_{ij} v^i v^j) dt + sqrt(2 T_c) G^{-1/2} dW
+
+    With friction term for transition to overdamped limit (Section 22.5).
+
+    In high-friction limit (friction >> 1), reduces to:
+        dz = -G^{-1} nabla Phi dt + sqrt(2 T_c) G^{-1/2} dW
+
+    Cross-ref:
+        - Section 2.5.1 (Christoffel symbols)
+        - Theorem 22.5.1 (overdamped limit)
+    """
+    B, d = z.shape
+
+    # Compute G^{-1} and G^{-1/2}
+    G_inv = torch.linalg.inv(G)                    # [B, d, d]
+    G_inv_sqrt = matrix_sqrt_inv(G)                # [B, d, d]
+
+    # Geodesic acceleration: -Gamma^k_{ij} v^i v^j
+    # For Poincaré disk, use specialized function
+    christoffel_contract = compute_christoffel_poincare(z)
+    geodesic_acc = -christoffel_contract(v)        # [B, d]
+
+    # Potential force: -G^{-1} nabla Phi
+    potential_force = -torch.einsum('bij,bj->bi', G_inv, grad_Phi)
+
+    # Friction force (for overdamped transition): -gamma * v
+    friction_force = -friction * v
+
+    # Total deterministic acceleration
+    acc = geodesic_acc + potential_force + friction_force
+
+    # Noise term: sqrt(2 T_c) G^{-1/2} dW
+    dW = torch.randn_like(z) * math.sqrt(dt)
+    noise = math.sqrt(2 * T_c) * torch.einsum('bij,bj->bi', G_inv_sqrt, dW)
+
+    # Velocity update (second-order)
+    v_new = v + acc * dt
+
+    # Position update
+    z_new = z + v_new * dt + noise
+
+    # Project back into valid region if using Poincaré disk
+    z_new = project_to_poincare_disk(z_new, max_radius=0.999)
+
+    return z_new, v_new
+```
+
+*Remark (Connection to BAOAB).* For symplectic integration without the friction term, this reduces to a geodesic variant of the BAOAB integrator from `src/fragile/core/kinetic_operator.py`. The friction term enables smooth interpolation to the overdamped limit.
+
+### 22.5 The Overdamped Limit
+
+In many applications (diffusion models, biological control), the system operates in the **overdamped regime** where friction dominates inertia. We derive this limit rigorously.
+
+**Theorem 22.5.1 (Overdamped Limit).** Consider the second-order SDE from Definition 22.2.1 with friction coefficient $\gamma$:
+$$
+m\,\ddot{z}^k + \gamma\,\dot{z}^k + G^{kj}\partial_j\Phi + \Gamma^k_{ij}\dot{z}^i\dot{z}^j = \sqrt{2T_c}\,\left(G^{-1/2}\right)^{kj}\,\xi^j,
+$$
+where $m$ is the "inertial mass" and $\xi$ is white noise. In the limit $\gamma \to \infty$ with $m$ fixed (or equivalently, $m \to 0$ with $\gamma$ fixed), the dynamics reduce to the first-order Langevin equation:
+$$
+dz^k = -G^{kj}(z)\,\partial_j\Phi_{\text{gen}}(z)\,dt + \sqrt{2T_c}\,\left(G^{-1/2}(z)\right)^{kj}\,dW^j_t.
+$$
+
+*Proof sketch.* In the high-friction limit, velocity equilibrates instantaneously to the force: $\gamma\,\dot{z} \approx -G^{-1}\nabla\Phi$. The geodesic term $\Gamma(\dot{z},\dot{z}) \sim O(|\dot{z}|^2) = O(\gamma^{-2})$ is negligible. What remains is the gradient flow with diffusion. See Appendix A.4 for the full singular perturbation analysis. $\square$
+
+**Corollary 22.5.2 (Recovery of Holographic Flow).** Setting $\alpha = 1$ (pure generation) and $T_c \to 0$ (deterministic limit) in the overdamped equation recovers the holographic gradient flow from Section 21.2:
+$$
+\dot{z} = -G^{-1}(z)\,\nabla U(z).
+$$
+For the Poincaré disk, this gives $\dot{z} = \frac{(1-|z|^2)}{2}\,z$, which integrates to $|z(t)| = \tanh(t/2)$.
+
+*Proof.* Direct substitution of $\Phi_{\text{gen}} = U$ into the overdamped equation. The explicit solution for the radial coordinate $r(t) = |z(t)|$ satisfies $\dot{r} = \frac{1-r^2}{2}$, which integrates to $r(t) = \tanh(t/2 + \operatorname{artanh}(r_0))$. For $r_0 = 0$, we get $r(t) = \tanh(t/2)$. $\square$
+
+*Remark.* This proves that the "ad-hoc" holographic law from Section 21 is actually the **optimal control trajectory** for the geometry defined in Section 18, vindicating the intuition.
+
+**Corollary 22.5.3 (Fokker-Planck Duality).** The stationary distribution of the overdamped SDE is:
+$$
+p_*(z) \propto \exp\left(-\frac{\Phi_{\text{gen}}(z)}{T_c}\right)\,\sqrt{|G(z)|},
+$$
+where $|G| = \det(G)$ is the metric determinant. This is the Boltzmann distribution on the curved manifold.
+
+*Proof.* The Fokker-Planck equation for the overdamped dynamics is:
+$$
+\partial_t p = \nabla_i\left( G^{ij}\left( p\,\partial_j\Phi + T_c\,\partial_j p \right) \right).
+$$
+Setting $\partial_t p = 0$ and using detailed balance gives $p \propto e^{-\Phi/T_c} \sqrt{|G|}$. The $\sqrt{|G|}$ factor accounts for the Riemannian volume form. $\square$
+
+**Cross-references:** Section 21.2 (Langevin dynamics), Theorem 14.2.1 (MaxEnt control equivalence), Section 2.11 (Belief density evolution).
+
+### 22.6 Summary and Diagnostic Nodes
+
+**Summary of Equations of Motion:**
+
+| Equation | Form | Regime | Units |
+|----------|------|--------|-------|
+| Onsager-Machlup | $S_{\mathrm{OM}} = \int (\frac{1}{2}\|\dot{z}\|_G^2 + V + \frac{T_c}{12}R)\,dt$ | Path-space | nat |
+| Full SDE | $dz = (-G^{-1}\nabla\Phi - \Gamma(\dot{z},\dot{z}))\,dt + \sqrt{2T_c}\,G^{-1/2}\,dW$ | Second-order | nat/step |
+| Overdamped | $dz = -G^{-1}\nabla\Phi\,dt + \sqrt{2T_c}\,G^{-1/2}\,dW$ | First-order | nat/step |
+| Jump Process | $dm = m\,r\,dt + m(\eta-1)\,dN_t$ | Mass evolution | - |
+
+**Generative Potential Decomposition:**
+$$
+\Phi_{\text{gen}} = \alpha\,U + (1-\alpha)\,V_{\text{critic}}, \quad \alpha \in [0,1] \text{ (fixed hyperparameter)}
+$$
+
+**Node 26: GeodesicCheck**
+
+| **#** | **Name** | **Component** | **Type** | **Interpretation** | **Proxy** | **Cost** |
+|-------|----------|---------------|----------|-------------------|-----------|----------|
+| **26** | **GeodesicCheck** | **World Model / Policy** | **Trajectory Consistency** | Is trajectory approximately geodesic? | $\|\ddot{z} + \Gamma(\dot{z},\dot{z}) + G^{-1}\nabla\Phi\|_G$ | $O(BZ^2)$ |
+
+**Trigger conditions:**
+- High GeodesicCheck: Trajectory deviates from controlled geodesic (unexpected forces or integration errors).
+- Remedy: Reduce time step; check for numerical instabilities in Christoffel computation; verify metric consistency.
+
+**Node 27: OverdampedCheck**
+
+| **#** | **Name** | **Component** | **Type** | **Interpretation** | **Proxy** | **Cost** |
+|-------|----------|---------------|----------|-------------------|-----------|----------|
+| **27** | **OverdampedCheck** | **Policy** | **Regime Validity** | Is friction >> 1 satisfied? | $\gamma / \|G\,\nabla\Phi\|$ | $O(BZ)$ |
+
+**Trigger conditions:**
+- Low OverdampedCheck: Operating in inertial (second-order) regime; Corollary 22.5.2 may not apply.
+- Remedy: Increase friction $\gamma$; or use full second-order integrator.
 
 ---
 
@@ -4937,6 +6693,170 @@ Boundary terms vanish under the clamped boundary condition (or after adding an a
 
 *Remark (regularizer).* The squared residual of this identity defines the capacity-consistency loss $\mathcal{L}_{\text{cap-metric}}$; see Appendix B.
 
+### A.3 Pitchfork Bifurcation at the Origin (Proof of Theorem 21.2.3)
+
+This section provides the full proof of Theorem 21.2.3 (Pitchfork Bifurcation and Symmetry Breaking).
+
+**Setup.** Consider the Langevin equation on the Poincaré disk $\mathbb{D}$ from Definition 21.2.1:
+$$
+dz_\tau = -\nabla_G U(z_\tau)\, d\tau + \sqrt{2T_c}\, G^{-1/2}(z_\tau)\, dW_\tau,
+$$
+with $U(z) = -2\operatorname{artanh}(|z|)$ and initial condition $z(0) = 0$.
+
+**Step 1: Linearization near the origin.**
+
+Near $z = 0$, expand the potential:
+$$
+U(z) = -2\operatorname{artanh}(|z|) \approx -2|z| - \frac{2}{3}|z|^3 + O(|z|^5) \approx -|z|^2 + O(|z|^4).
+$$
+
+The Euclidean gradient is:
+$$
+\nabla U(z) = -\frac{2z}{1-|z|^2} \approx -2z + O(|z|^3).
+$$
+
+The Riemannian gradient (with $G^{-1} = \frac{(1-|z|^2)^2}{4}I \approx \frac{1}{4}I$ near origin):
+$$
+\nabla_G U(z) \approx -\frac{1}{2}z + O(|z|^3).
+$$
+
+**Step 2: Fokker-Planck equation.**
+
+The probability density $p(z, \tau)$ satisfies the Fokker-Planck equation:
+$$
+\partial_\tau p = \nabla \cdot \left( p\,\nabla_G U \right) + T_c\,\nabla \cdot (G^{-1} \nabla p).
+$$
+
+Near the origin, with the linearization $\nabla_G U \approx -\frac{1}{2}z$ and $G^{-1} \approx \frac{1}{4}I$:
+$$
+\partial_\tau p \approx \nabla \cdot \left( -\frac{p\,z}{2} \right) + \frac{T_c}{4}\,\Delta p = \frac{p}{2} + \frac{z \cdot \nabla p}{2} + \frac{T_c}{4}\,\Delta p.
+$$
+
+**Step 3: Stationary distribution.**
+
+The stationary solution $p_*(z)$ satisfies detailed balance:
+$$
+\nabla_G U + T_c\,G^{-1}\,\nabla \log p_* = 0.
+$$
+
+Substituting and solving:
+$$
+\nabla \log p_* = -\frac{1}{T_c}\,G\,\nabla_G U = -\frac{1}{T_c}\,\nabla U.
+$$
+
+Integrating:
+$$
+p_*(z) \propto \exp\left(-\frac{U(z)}{T_c}\right) = \exp\left(\frac{2\operatorname{artanh}(|z|)}{T_c}\right).
+$$
+
+This distribution is **rotationally symmetric** (depends only on $|z|$), proving Part 1 of Theorem 21.2.3.
+
+**Step 4: Bifurcation analysis.**
+
+Write $z = re^{i\theta}$ in polar coordinates. The effective potential in the radial direction is:
+$$
+U_{\text{eff}}(r) = -2\operatorname{artanh}(r).
+$$
+
+The radial force is $F_r = -\frac{dU_{\text{eff}}}{dr} = \frac{2}{1-r^2} > 0$ for all $r \in [0, 1)$.
+
+This means:
+- The origin $r = 0$ is an **unstable equilibrium** (force points outward).
+- There is no stable equilibrium in the interior; the "stable point" is at the boundary $r = 1$.
+- The angular direction $\theta$ is **neutral** (no restoring force).
+
+**Step 5: Symmetry breaking mechanism.**
+
+For small $\tau$:
+1. The noise term dominates: $z(\tau) \approx \sqrt{2T_c}\int_0^\tau G^{-1/2} dW_s$ performs a random walk.
+2. This random walk samples directions $\theta$ uniformly from $[0, 2\pi)$.
+3. Once $|z|$ exceeds a threshold (order $\sqrt{T_c}$), the deterministic drift $-\nabla_G U$ takes over.
+4. The trajectory then flows radially outward along the selected direction $\theta$.
+
+This is the **supercritical pitchfork bifurcation** structure: the continuous symmetry $SO(2)$ acting on $\theta$ is spontaneously broken to the identity when a specific direction is selected.
+
+**Step 6: Critical exponents.**
+
+The escape time from the neighborhood of the origin scales as:
+$$
+\tau_{\text{escape}} \sim \frac{1}{T_c}\,\exp\left(\frac{\Delta U}{T_c}\right),
+$$
+where $\Delta U$ is the "barrier height" (which is zero here since the origin is unstable). Thus $\tau_{\text{escape}} \sim O(1)$—the system escapes quickly.
+
+The direction selected $\theta^*$ is uniformly distributed: $\theta^* \sim \mathrm{Uniform}[0, 2\pi)$.
+
+This completes the proof of Theorem 21.2.3. $\blacksquare$
+
+### A.4 Overdamped Limit via Singular Perturbation (Proof of Theorem 22.5.1)
+
+This section provides the full proof of Theorem 22.5.1 (Overdamped Limit) using singular perturbation theory.
+
+**Setup.** Consider the second-order Langevin equation with friction:
+$$
+m\,\ddot{z}^k + \gamma\,\dot{z}^k + G^{kj}\partial_j\Phi + \Gamma^k_{ij}\dot{z}^i\dot{z}^j = \sqrt{2T_c}\,(G^{-1/2})^{kj}\,\xi^j,
+$$
+where $m$ is inertial mass, $\gamma$ is friction, and $\xi^j$ is white noise.
+
+**Step 1: Non-dimensionalization.**
+
+Introduce the dimensionless parameter $\epsilon = m/\gamma$ (mass-to-friction ratio). Rescale time as $\tau = t/\gamma$ so that $d/dt = (1/\gamma)\,d/d\tau$. The equation becomes:
+$$
+\epsilon\,\frac{d^2z^k}{d\tau^2} + \frac{dz^k}{d\tau} + \frac{1}{\gamma}\,G^{kj}\partial_j\Phi + \frac{\epsilon}{\gamma}\,\Gamma^k_{ij}\frac{dz^i}{d\tau}\frac{dz^j}{d\tau} = \sqrt{\frac{2T_c}{\gamma}}\,(G^{-1/2})^{kj}\,\tilde{\xi}^j,
+$$
+where $\tilde{\xi}$ is appropriately rescaled noise.
+
+**Step 2: Singular perturbation expansion.**
+
+In the limit $\epsilon \to 0$, expand:
+$$
+z(\tau) = z_0(\tau) + \epsilon\,z_1(\tau) + O(\epsilon^2).
+$$
+
+At leading order ($\epsilon^0$):
+$$
+\frac{dz_0^k}{d\tau} = -\frac{1}{\gamma}\,G^{kj}(z_0)\,\partial_j\Phi(z_0) + \sqrt{\frac{2T_c}{\gamma}}\,(G^{-1/2})^{kj}\,\tilde{\xi}^j.
+$$
+
+Returning to original time $t = \gamma\tau$ and using $dz_0/dt = (1/\gamma)\,dz_0/d\tau$:
+$$
+dz_0^k = -G^{kj}(z_0)\,\partial_j\Phi(z_0)\,dt + \sqrt{2T_c}\,(G^{-1/2})^{kj}\,dW^j.
+$$
+
+This is exactly the overdamped equation stated in Theorem 22.5.1.
+
+**Step 3: Negligibility of the geodesic term.**
+
+The Christoffel term has magnitude:
+$$
+|\Gamma^k_{ij}\dot{z}^i\dot{z}^j| \sim |\Gamma|\,|\dot{z}|^2.
+$$
+
+In the overdamped limit, $|\dot{z}| \sim |F|/\gamma = |G^{-1}\nabla\Phi|/\gamma$. Thus:
+$$
+|\Gamma|\,|\dot{z}|^2 \sim \frac{|\Gamma|\,|F|^2}{\gamma^2} \to 0 \quad \text{as } \gamma \to \infty.
+$$
+
+The geodesic correction is suppressed by $O(\gamma^{-2})$.
+
+**Step 4: Boundary layer analysis.**
+
+For completeness, we note that there is a "boundary layer" in time of width $\Delta t \sim m/\gamma = \epsilon$ during which the velocity equilibrates to the force. Within this layer, the full second-order dynamics apply. Outside this layer (for $t \gg \epsilon$), the first-order approximation is accurate.
+
+**Step 5: Error bounds.**
+
+The error in the overdamped approximation is bounded by:
+$$
+\|z(t) - z_0(t)\| \le C\,\epsilon\,(1 + t)\,e^{-t/\epsilon},
+$$
+where $C$ depends on the smoothness of $G$, $\Phi$, and $\Gamma$. For $t \gg \epsilon$, this error is exponentially small.
+
+This completes the proof of Theorem 22.5.1. $\blacksquare$
+
+**Remark (Physical interpretation).** The overdamped limit corresponds to:
+- **Information geometry:** The "friction" $\gamma$ represents the rate of information dissipation (forgetting). High friction means the system equilibrates quickly to the local gradient.
+- **Diffusion models:** Standard score-based diffusion models operate entirely in the overdamped regime, with $\gamma \to \infty$ implicitly.
+- **Neural network training:** The geodesic term $\Gamma(\dot{z},\dot{z})$ can be interpreted as a "momentum correction" that accounts for the curvature of the loss landscape. In standard gradient descent (overdamped), this term is ignored.
+
 ---
 
 ## Appendix B: Units, Parameters, and Coefficients (Audit Table)
@@ -4989,13 +6909,130 @@ Conventions:
 | $\eta_\ell$ | boundary area-per-nat at resolution $\ell$ | $[dA_G]/\mathrm{nat}$ |
 | $\Lambda$ | curvature/capacity offset constant (metric law) | $[z]^{-2}$ |
 | $\kappa$ | coupling in $R_{ij}-\\tfrac12R G_{ij}+\\Lambda G_{ij}=\\kappa T_{ij}$ | chosen so $\kappa T_{ij}$ has units $[z]^{-2}$ |
+| $U(z)$ | hyperbolic information potential $-d_{\mathbb{D}}(0,z)$ (Section 21.1) | $\mathrm{nat}$ |
+| $\tau$ | generative time (layer depth) (Section 21.2) | $\mathrm{step}$ |
+| $T_c(\tau)$ | generative temperature schedule (Section 21.2) | dimensionless |
+| $\kappa_T$ | temperature annealing rate (Section 21.2) | $\mathrm{step^{-1}}$ |
+| $\phi_c$ | Möbius automorphism moving $c$ to origin (Section 21.3) | dimensionless (isometry) |
+| $\lambda(z)$ | conformal factor $2/(1-\lvert z\rvert^2)$ (Section 21.4) | $[z]^{-1}$ |
+| $\sigma_{\text{tex}}$ | base texture standard deviation (Section 21.4) | $[z_{\text{tex}}]$ |
+| $R_{\text{cutoff}}$ | geometric stopping radius (Section 21.5) | dimensionless |
+| $\epsilon_{\text{conv}}$ | convergence stopping threshold (Section 21.5) | $\mathrm{nat/step}$ |
+| $S_{\mathrm{OM}}$ | Onsager-Machlup stochastic action (Section 22.1) | $\mathrm{nat}$ |
+| $\Phi_{\text{gen}}$ | generative potential $\alpha U + (1-\alpha)V_{\text{critic}}$ (Section 22.3) | $\mathrm{nat}$ |
+| $\alpha$ | generation-control interpolation parameter (Section 22.3) | dimensionless |
+| $\gamma$ | friction coefficient in overdamped limit (Section 22.4) | $\mathrm{step^{-1}}$ |
+| $\lambda_{\text{jump}}$ | Poisson jump intensity (Section 22.2) | $\mathrm{step^{-1}}$ |
+| $\eta$ | multiplicative jump factor for mass (Section 22.2) | dimensionless |
 
 ### B.3 Symbol Overload (Important)
 
 Some Greek letters are intentionally overloaded in different submodels:
 - $\beta$ appears as (i) the exponential-family scale in $\exp(-\beta V)$, (ii) the VQ-VAE commitment weight, and (iii) the softmax/logit scale in contrastive losses (often written $\tau^{-1}$); treat each by its local definition and units above.
-- $\gamma$ appears as (i) discount factor, and (ii) the World Model volatility scaling coefficient $\gamma$ (Section 3.2).
+- $\gamma$ appears as (i) discount factor, (ii) the World Model volatility scaling coefficient $\gamma$ (Section 3.2), and (iii) friction coefficient in overdamped dynamics (Section 22.4).
 - $\lambda$ appears as (i) Lyapunov rate ($\mathrm{step^{-1}}$), (ii) generic loss weights (dimensionless), and (iii) other Lagrange multipliers (units stated locally).
+
+---
+
+## Appendix C: WFR Stress-Energy Tensor (Full Derivation)
+
+This appendix provides the full derivation of Theorem 20.8.1.
+
+### C.1 Setup
+
+Recall the WFR action:
+$$
+\mathcal{S}_{\mathrm{WFR}}
+=
+\frac12\int_0^T\int_{\mathcal{Z}}
+\rho\left(\|v\|_G^2+\lambda^2 r^2\right)\,d\mu_G\,dt,
+$$
+with the continuity equation enforced separately:
+$$
+\partial_t\rho+\nabla\!\cdot(\rho v)=\rho r.
+$$
+Define the Lagrangian density
+$$
+\mathcal{L}_{\mathrm{WFR}}:=\frac12\,\rho\left(\|v\|_G^2+\lambda^2 r^2\right).
+$$
+We vary the metric $G^{ij}$ while holding $(\rho, v, r)$ fixed as fields.
+
+### C.2 Metric variation
+
+Write the kinetic term using covariant components:
+$$
+\|v\|_G^2 = G_{ij} v^i v^j.
+$$
+Under a variation of the inverse metric, $\delta G^{ij}$, we have
+$$
+\delta G_{ij} = -G_{ia}G_{jb}\,\delta G^{ab},
+$$
+so
+$$
+\delta\|v\|_G^2
+=
+v^i v^j\,\delta G_{ij}
+=
+-v_i v_j\,\delta G^{ij}.
+$$
+The volume form varies as
+$$
+\delta d\mu_G = -\frac12\,G_{ij}\,\delta G^{ij}\,d\mu_G.
+$$
+
+Combine these:
+$$
+\delta\left(\sqrt{|G|}\,\mathcal{L}_{\mathrm{WFR}}\right)
+=
+\sqrt{|G|}\left[
+-\frac12\,\rho v_i v_j\,\delta G^{ij}
+-\frac12\,\mathcal{L}_{\mathrm{WFR}}\,G_{ij}\,\delta G^{ij}
+\right].
+$$
+Therefore,
+$$
+\delta\mathcal{S}_{\mathrm{WFR}}
+=
+-\frac12\int_0^T\int_{\mathcal{Z}}
+\left(\rho v_i v_j + \mathcal{L}_{\mathrm{WFR}} G_{ij}\right)
+\delta G^{ij}\,d\mu_G\,dt.
+$$
+
+By definition,
+$$
+T_{ij}:=
+-\frac{2}{\sqrt{|G|}}\frac{\delta(\sqrt{|G|}\,\mathcal{L}_{\mathrm{WFR}})}{\delta G^{ij}},
+$$
+so we identify
+$$
+T_{ij}=\rho v_i v_j + \mathcal{L}_{\mathrm{WFR}} G_{ij}.
+$$
+
+### C.3 Perfect-fluid form and pressure split
+
+Let
+$$
+P:=\mathcal{L}_{\mathrm{WFR}}
+=\frac12\,\rho\left(\|v\|_G^2+\lambda^2 r^2\right).
+$$
+Then
+$$
+T_{ij}=\rho v_i v_j + P G_{ij},
+$$
+which is the perfect-fluid form in Riemannian signature. The reaction contribution is
+$$
+P_{\mathrm{react}}=\frac12\,\lambda^2\rho r^2,
+$$
+and the transport contribution is $P_{\mathrm{trans}}=\tfrac12\rho\|v\|_G^2$.
+
+### C.4 Relation to the metric law
+
+Substituting this $T_{ij}$ into the capacity-constrained metric law (Theorem 18.2.1) yields
+$$
+R_{ij}-\frac12 R\,G_{ij}+\Lambda G_{ij}=\kappa T_{ij},
+$$
+with the WFR stress-energy acting as the risk tensor generated by transport and reaction.
+This completes the derivation of Theorem 20.8.1.
 
 ---
 

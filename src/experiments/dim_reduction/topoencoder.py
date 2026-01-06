@@ -40,6 +40,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_mutual_info_score
+from tqdm import tqdm
 
 from datasets import (
     compute_chart_colors,
@@ -87,7 +88,8 @@ class TopoEncoderConfig:
 
     # Tier 3 losses (geometry/codebook health)
     orthogonality_weight: float = 0.01  # Metric isometry (W^T W ≈ I)
-    code_entropy_weight: float = 0.1  # Prevent local index collapse
+    code_entropy_weight: float = 0.0  # Global code entropy (disabled by default)
+    per_chart_code_entropy_weight: float = 0.1  # Per-chart code diversity (enabled)
 
     # Tier 4 losses (invariance - expensive when enabled, disabled by default)
     kl_prior_weight: float = 0.01  # Residual KL prior on z_n, z_tex
@@ -95,6 +97,12 @@ class TopoEncoderConfig:
     vicreg_inv_weight: float = 0.0  # Latent invariance (shares augmentation pass)
     augment_noise_std: float = 0.1  # Augmentation noise level
     augment_rotation_max: float = 0.3  # Max rotation in radians
+
+    # Tier 5: Jump Operator (chart gluing - learns transition functions between charts)
+    jump_weight: float = 0.1  # Final jump consistency weight after warmup
+    jump_warmup: int = 50  # Epochs before jump loss starts (let atlas form first)
+    jump_ramp_end: int = 100  # Epoch when jump weight reaches final value
+    jump_global_rank: int = 0  # Rank of global tangent space (0 = use latent_dim)
 
     # Learning rate scheduling
     use_scheduler: bool = True  # Use cosine annealing LR scheduler
@@ -358,18 +366,20 @@ class AttentiveAtlasEncoder(nn.Module):
         torch.Tensor,  # z_geo [B, D] (for decoder)
         torch.Tensor,  # vq_loss
         torch.Tensor,  # indices_stack [B, N_c] (for code entropy loss)
+        torch.Tensor,  # z_n_all_charts [B, N_c, D] (for jump operator)
     ]:
         """Forward pass through the Attentive Atlas.
 
         Returns:
             K_chart: Hard chart assignment (argmax of router)
             K_code: VQ code index within selected chart
-            z_n: Structured nuisance (from structure filter)
+            z_n: Structured nuisance (blended from all charts)
             z_tex: Texture residual (reconstruction-only)
             router_weights: Soft routing weights [B, N_c]
             z_geo: Geometric latent (e_K + z_n) for decoder
             vq_loss: Combined VQ loss
             indices_stack: Code indices per chart [B, N_c] (for entropy loss)
+            z_n_all_charts: Nuisance per chart [B, N_c, D] (for jump operator)
         """
         B = x.shape[0]
         device = x.device
@@ -422,22 +432,138 @@ class AttentiveAtlasEncoder(nn.Module):
         # Get hard K_code from selected chart
         K_code = indices_stack[torch.arange(B, device=device), K_chart]  # [B]
 
-        # 6. Recursive Decomposition
-        # Residual: delta_total = v - z_q
-        delta_total = v - z_q_blended.detach()  # Stop gradient for clean decomposition
+        # 6. Recursive Decomposition - compute z_n per chart for jump operator
+        # This allows learning chart transitions on the nuisance coordinates
+        z_n_list = []
+        for i in range(self.num_charts):
+            # Residual from each chart's quantized code
+            delta_i = v - z_q_list[i].detach()  # Stop gradient for clean decomposition
+            # Structure filter extracts z_n for this chart
+            z_n_i = self.structure_filter(delta_i)  # [B, latent_dim]
+            z_n_list.append(z_n_i)
 
-        # Structure filter extracts z_n
-        z_n = self.structure_filter(delta_total)  # [B, latent_dim]
+        z_n_all_charts = torch.stack(z_n_list, dim=1)  # [B, N_c, latent_dim]
 
-        # Texture residual: z_tex = delta_total - z_n
-        z_tex = delta_total - z_n  # [B, latent_dim]
+        # Blend z_n weighted by router (for backward compatibility)
+        z_n = (z_n_all_charts * router_weights.unsqueeze(-1)).sum(dim=1)  # [B, latent_dim]
+
+        # Texture residual: z_tex = delta_blended - z_n
+        delta_blended = v - z_q_blended.detach()
+        z_tex = delta_blended - z_n  # [B, latent_dim]
 
         # 7. Geometric latent for decoder: z_geo = e_K + z_n
         # Use straight-through for z_q
         z_q_st = v + (z_q_blended - v).detach()
         z_geo = z_q_st + z_n  # [B, latent_dim]
 
-        return K_chart, K_code, z_n, z_tex, router_weights, z_geo, vq_loss, indices_stack
+        return K_chart, K_code, z_n, z_tex, router_weights, z_geo, vq_loss, indices_stack, z_n_all_charts
+
+
+# ==========================================
+# 4b. FACTORIZED JUMP OPERATOR (Chart Gluing)
+# ==========================================
+class FactorizedJumpOperator(nn.Module):
+    """Learns transition functions between atlas charts.
+
+    Implements L_{i->j}(z) = A_j(B_i z + c_i) + d_j
+    via low-rank bottleneck (global tangent space).
+
+    This enforces transitive consistency by construction:
+    τ_ik = τ_jk ∘ τ_ij
+
+    The factorization uses the Whitney Embedding hypothesis:
+    - E_i: Maps Chart i local coords → Global Canonical coords
+    - D_j: Maps Global Canonical coords → Chart j local coords
+
+    Reference: Section 7.11 (Topological Gluing)
+    """
+
+    def __init__(self, num_charts: int, latent_dim: int, global_rank: int = 0):
+        """Initialize the Jump Operator.
+
+        Args:
+            num_charts: Number of atlas charts
+            latent_dim: Dimension of local coordinates (z_n)
+            global_rank: Rank of global tangent space (0 = use latent_dim)
+        """
+        super().__init__()
+        self.num_charts = num_charts
+        self.latent_dim = latent_dim
+        self.rank = global_rank if global_rank > 0 else latent_dim
+
+        # Encoder: Chart_i -> Global
+        # B_i [N_c, rank, latent_dim]
+        self.B = nn.Parameter(torch.randn(num_charts, self.rank, latent_dim))
+        # c_i [N_c, rank]
+        self.c = nn.Parameter(torch.zeros(num_charts, self.rank))
+
+        # Decoder: Global -> Chart_j
+        # A_j [N_c, latent_dim, rank]
+        self.A = nn.Parameter(torch.randn(num_charts, latent_dim, self.rank))
+        # d_j [N_c, latent_dim]
+        self.d = nn.Parameter(torch.zeros(num_charts, latent_dim))
+
+        self._init_weights()
+
+    def _init_weights(self):
+        """Initialize weights near identity for stability."""
+        with torch.no_grad():
+            # Init B matrices to approximate identity
+            for i in range(self.num_charts):
+                if self.rank <= self.latent_dim:
+                    self.B.data[i] = torch.eye(self.rank, self.latent_dim)
+                else:
+                    self.B.data[i, :self.latent_dim, :] = torch.eye(self.latent_dim)
+
+            # Init A matrices to approximate identity
+            for i in range(self.num_charts):
+                if self.latent_dim <= self.rank:
+                    self.A.data[i] = torch.eye(self.latent_dim, self.rank)
+                else:
+                    self.A.data[i, :, :self.latent_dim] = torch.eye(self.latent_dim)
+
+            # Add small noise for symmetry breaking
+            self.B.data += torch.randn_like(self.B) * 0.01
+            self.A.data += torch.randn_like(self.A) * 0.01
+
+    def forward(
+        self,
+        z_n: torch.Tensor,
+        source_idx: torch.Tensor,
+        target_idx: torch.Tensor,
+    ) -> torch.Tensor:
+        """Apply Jump Operator: z_target = L_{source->target}(z_source).
+
+        Args:
+            z_n: [B, D] nuisance coordinates in source chart
+            source_idx: [B] index of source chart
+            target_idx: [B] index of target chart
+
+        Returns:
+            z_out: [B, D] nuisance coordinates in target chart
+        """
+        # 1. Lift Source -> Global: z_global = B_src @ z + c_src
+        B_src = self.B[source_idx]  # [B, rank, D]
+        c_src = self.c[source_idx]  # [B, rank]
+        z_global = torch.bmm(B_src, z_n.unsqueeze(-1)).squeeze(-1) + c_src  # [B, rank]
+
+        # 2. Project Global -> Target: z_out = A_tgt @ z_global + d_tgt
+        A_tgt = self.A[target_idx]  # [B, D, rank]
+        d_tgt = self.d[target_idx]  # [B, D]
+        z_out = torch.bmm(A_tgt, z_global.unsqueeze(-1)).squeeze(-1) + d_tgt  # [B, D]
+
+        return z_out
+
+    def get_transition_matrix(self, source: int, target: int) -> tuple[torch.Tensor, torch.Tensor]:
+        """Get the full affine transition matrix from source to target.
+
+        Returns (M, b) where z_target = M @ z_source + b
+        """
+        # M = A_target @ B_source
+        M = self.A[target] @ self.B[source]  # [D, D]
+        # b = A_target @ c_source + d_target
+        b = self.A[target] @ self.c[source] + self.d[target]  # [D]
+        return M, b
 
 
 # ==========================================
@@ -613,7 +739,7 @@ class TopoEncoder(nn.Module):
             dec_router_weights: Decoder routing weights (for consistency loss)
             K_chart: Hard chart assignments from encoder
         """
-        K_chart, _K_code, _z_n, z_tex, enc_router_weights, z_geo, vq_loss, _indices = (
+        K_chart, _K_code, _z_n, z_tex, enc_router_weights, z_geo, vq_loss, _indices, _ = (
             self.encoder(x)
         )
 
@@ -880,8 +1006,157 @@ def compute_code_entropy_loss(
     return torch.tensor(max_entropy, device=device) - entropy
 
 
+def compute_per_chart_code_entropy_loss(
+    indices_stack: torch.Tensor,
+    K_chart: torch.Tensor,
+    num_charts: int,
+    num_codes: int,
+) -> torch.Tensor:
+    """Maximize code entropy WITHIN each chart separately.
+
+    Unlike global code entropy, this ensures each chart uses
+    all its codes uniformly, not just globally balanced.
+
+    The global code entropy can be satisfied even if each chart
+    only uses a subset of codes. Per-chart entropy forces every
+    chart to utilize all its codes.
+
+    Args:
+        indices_stack: [B, num_charts] - code indices per chart
+        K_chart: [B] - hard chart assignment for each sample
+        num_charts: Number of charts
+        num_codes: Codes per chart
+
+    Returns:
+        loss: Mean (max_entropy - H_c) across charts
+    """
+    device = indices_stack.device
+    max_entropy = math.log(num_codes)
+    total_loss = 0.0
+    active_charts = 0
+
+    for c in range(num_charts):
+        mask = K_chart == c
+        if mask.sum() < 2:  # Need samples to compute entropy
+            continue
+
+        # Get codes used by points assigned to this chart
+        codes_in_chart = indices_stack[mask, c]
+
+        # Compute entropy for this chart's code usage
+        counts = torch.bincount(codes_in_chart, minlength=num_codes).float()
+        probs = counts / (counts.sum() + 1e-6)
+        probs_nonzero = probs[probs > 0]
+        entropy = -torch.sum(probs_nonzero * torch.log(probs_nonzero + 1e-6))
+
+        total_loss += (max_entropy - entropy)
+        active_charts += 1
+
+    if active_charts == 0:
+        return torch.tensor(0.0, device=device)
+
+    return total_loss / active_charts
+
+
 # ==========================================
-# 8b. TIER 4 LOSSES (Invariance - Expensive)
+# 8b. JUMP CONSISTENCY LOSS (Chart Gluing)
+# ==========================================
+
+
+def compute_jump_consistency_loss(
+    jump_op: FactorizedJumpOperator,
+    z_n_all_charts: torch.Tensor,
+    router_weights: torch.Tensor,
+) -> torch.Tensor:
+    """Train Jump Operator on chart overlaps.
+
+    For pairs (i, j), if a point exists in both charts (w_i > 0 and w_j > 0),
+    then Jump(i->j) applied to z_n_i should match z_n_j.
+
+    The loss is weighted by the product of chart responsibilities,
+    so we only learn transitions where evidence exists (overlap regions).
+
+    Args:
+        jump_op: The FactorizedJumpOperator module
+        z_n_all_charts: [B, N_c, D] nuisance coords per chart (using each chart's best code)
+        router_weights: [B, N_c] soft routing weights
+
+    Returns:
+        loss: Mean weighted MSE across all chart pairs
+    """
+    B, N_c, D = z_n_all_charts.shape
+    device = z_n_all_charts.device
+    total_loss = torch.tensor(0.0, device=device)
+    num_pairs = 0
+
+    for i in range(N_c):
+        for j in range(N_c):
+            if i == j:
+                continue
+
+            # Weight: how much is each point in BOTH chart i and j?
+            # High weight = point is in overlap region
+            weights = router_weights[:, i] * router_weights[:, j]  # [B]
+
+            # Skip if no meaningful overlap in this batch
+            if weights.sum() < 1e-4:
+                continue
+
+            # Get local coords
+            z_i = z_n_all_charts[:, i, :]  # [B, D] source
+            z_j_target = z_n_all_charts[:, j, :]  # [B, D] ground truth target
+
+            # Predict transformation using jump operator
+            idx_i = torch.full((B,), i, dtype=torch.long, device=device)
+            idx_j = torch.full((B,), j, dtype=torch.long, device=device)
+            z_j_pred = jump_op(z_i, idx_i, idx_j)  # [B, D]
+
+            # Consistency error: weighted MSE
+            error = (z_j_pred - z_j_target).pow(2).sum(dim=-1)  # [B]
+            pair_loss = (error * weights).sum() / (weights.sum() + 1e-6)
+
+            total_loss = total_loss + pair_loss
+            num_pairs += 1
+
+    if num_pairs == 0:
+        return torch.tensor(0.0, device=device)
+
+    return total_loss / num_pairs
+
+
+def get_jump_weight_schedule(
+    epoch: int,
+    warmup_end: int = 50,
+    ramp_end: int = 100,
+    final_weight: float = 0.1,
+) -> float:
+    """Compute scheduled jump loss weight.
+
+    Training schedule:
+    - Warmup (0 to warmup_end): weight = 0 (let charts form)
+    - Ramp (warmup_end to ramp_end): linear 0.01 -> final_weight
+    - Full (ramp_end+): weight = final_weight
+
+    Args:
+        epoch: Current epoch
+        warmup_end: Epoch when warmup ends
+        ramp_end: Epoch when ramp ends
+        final_weight: Final jump weight
+
+    Returns:
+        Current jump weight
+    """
+    if epoch < warmup_end:
+        return 0.0
+    elif epoch < ramp_end:
+        progress = (epoch - warmup_end) / (ramp_end - warmup_end)
+        return 0.01 + progress * (final_weight - 0.01)
+    else:
+        return final_weight
+
+
+# ==========================================
+# 8c. TIER 4 LOSSES (Invariance - Expensive)
 # ==========================================
 
 
@@ -1079,10 +1354,21 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
     X = X.to(device)
     print(f"  Device: {device}")
 
-    # Optimizers
+    # Initialize Jump Operator for chart gluing
+    jump_op = FactorizedJumpOperator(
+        num_charts=config.num_charts,
+        latent_dim=config.latent_dim,
+        global_rank=config.jump_global_rank,
+    ).to(device)
+    print(f"  Jump Operator: {count_parameters(jump_op):,} params")
+
+    # Optimizers (joint training of atlas model and jump operator)
     if model_std is not None:
         opt_std = optim.Adam(model_std.parameters(), lr=config.lr)
-    opt_atlas = optim.Adam(model_atlas.parameters(), lr=config.lr)
+    opt_atlas = optim.Adam(
+        list(model_atlas.parameters()) + list(jump_op.parameters()),
+        lr=config.lr,
+    )
     if model_ae is not None:
         opt_ae = optim.Adam(model_ae.parameters(), lr=config.lr)
 
@@ -1120,10 +1406,13 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
         # Tier 3 losses
         "orthogonality": [],
         "code_entropy": [],
+        "per_chart_code_entropy": [],
         # Tier 4 losses (conditional)
         "kl_prior": [],
         "orbit": [],
         "vicreg_inv": [],
+        # Tier 5: Jump Operator
+        "jump": [],
     }
     info_metrics: dict[str, list[float]] = {
         "I_XK": [],
@@ -1137,7 +1426,7 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
     print(f"  λ: entropy={config.entropy_weight}, consistency={config.consistency_weight}")
     print("=" * 60)
 
-    for epoch in range(config.epochs + 1):
+    for epoch in tqdm(range(config.epochs + 1), desc="Training", unit="epoch"):
         # Accumulate batch losses for epoch average
         epoch_std_loss = 0.0
         epoch_atlas_loss = 0.0
@@ -1168,8 +1457,8 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
                 opt_ae.step()
 
             # --- Atlas Step (dreaming mode: decoder infers routing from z_geo) ---
-            # Get encoder outputs (need z_geo for regularization losses)
-            _, _, z_n, z_tex, enc_w, z_geo, vq_loss_a, indices_stack = model_atlas.encoder(batch_X)
+            # Get encoder outputs (need z_geo for regularization losses, z_n_all_charts for jump)
+            K_chart, _, z_n, z_tex, enc_w, z_geo, vq_loss_a, indices_stack, z_n_all_charts = model_atlas.encoder(batch_X)
 
             # Decoder forward (dreaming mode - infers routing from z_geo)
             recon_a, dec_w = model_atlas.decoder(z_geo, z_tex, chart_index=None)
@@ -1195,6 +1484,9 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
             # Tier 3 losses (geometry/codebook health)
             orth_loss = compute_orthogonality_loss(model_atlas)
             code_ent_loss = compute_code_entropy_loss(indices_stack, config.codes_per_chart)
+            per_chart_code_ent_loss = compute_per_chart_code_entropy_loss(
+                indices_stack, K_chart, config.num_charts, config.codes_per_chart
+            )
 
             # Tier 4 losses (invariance - expensive, conditional computation)
             # KL prior (cheap, compute if enabled)
@@ -1212,12 +1504,21 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
                 x_aug = augment_nightmare(
                     batch_X, config.augment_noise_std, config.augment_rotation_max
                 )
-                _, _, _, _, enc_w_aug, z_geo_aug, _, _ = model_atlas.encoder(x_aug)
+                _, _, _, _, enc_w_aug, z_geo_aug, _, _, _ = model_atlas.encoder(x_aug)
 
                 if config.orbit_weight > 0:
                     orbit_loss = compute_orbit_loss(enc_w, enc_w_aug)
                 if config.vicreg_inv_weight > 0:
                     vicreg_loss = compute_vicreg_invariance_loss(z_geo, z_geo_aug)
+
+            # Tier 5: Jump Operator (scheduled warmup - let atlas form before learning transitions)
+            current_jump_weight = get_jump_weight_schedule(
+                epoch, config.jump_warmup, config.jump_ramp_end, config.jump_weight
+            )
+            if current_jump_weight > 0:
+                jump_loss = compute_jump_consistency_loss(jump_op, z_n_all_charts, enc_w)
+            else:
+                jump_loss = torch.tensor(0.0, device=device)
 
             # Total loss
             loss_a = (
@@ -1235,17 +1536,21 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
                 # Tier 3
                 + config.orthogonality_weight * orth_loss
                 + config.code_entropy_weight * code_ent_loss
+                + config.per_chart_code_entropy_weight * per_chart_code_ent_loss
                 # Tier 4 (conditional - 0 if disabled)
                 + config.kl_prior_weight * kl_loss
                 + config.orbit_weight * orbit_loss
                 + config.vicreg_inv_weight * vicreg_loss
+                # Tier 5: Jump Operator (scheduled)
+                + current_jump_weight * jump_loss
             )
 
             opt_atlas.zero_grad()
             loss_a.backward()
             # Gradient clipping (prevents instability from competing losses)
             if config.grad_clip > 0:
-                torch.nn.utils.clip_grad_norm_(model_atlas.parameters(), config.grad_clip)
+                all_params = list(model_atlas.parameters()) + list(jump_op.parameters())
+                torch.nn.utils.clip_grad_norm_(all_params, config.grad_clip)
             opt_atlas.step()
 
             # Accumulate batch losses
@@ -1263,9 +1568,11 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
             epoch_losses["disentangle"] += dis_loss.item()
             epoch_losses["orthogonality"] += orth_loss.item()
             epoch_losses["code_entropy"] += code_ent_loss.item()
+            epoch_losses["per_chart_code_entropy"] += per_chart_code_ent_loss.item()
             epoch_losses["kl_prior"] += kl_loss.item()
             epoch_losses["orbit"] += orbit_loss.item()
             epoch_losses["vicreg_inv"] += vicreg_loss.item()
+            epoch_losses["jump"] += jump_loss.item()
             epoch_info["I_XK"] += window_info["I_XK"]
             epoch_info["H_K"] += window_info["H_K"]
 
@@ -1288,7 +1595,7 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
         ):
             # Compute metrics on full dataset
             with torch.no_grad():
-                K_chart_full, _, _, _, enc_w_full, _, _, _ = model_atlas.encoder(X)
+                K_chart_full, _, _, _, enc_w_full, _, _, _, _ = model_atlas.encoder(X)
                 usage = enc_w_full.mean(dim=0).cpu().numpy()
                 chart_assignments = K_chart_full.cpu().numpy()
                 ami = compute_ami(labels, chart_assignments)
@@ -1307,11 +1614,18 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
             avg_disent = loss_components["disentangle"][-1]
             avg_orth = loss_components["orthogonality"][-1]
             avg_code_ent = loss_components["code_entropy"][-1]
+            avg_pc_code_ent = loss_components["per_chart_code_entropy"][-1]
             avg_kl = loss_components["kl_prior"][-1]
             avg_orbit = loss_components["orbit"][-1]
             avg_vicreg = loss_components["vicreg_inv"][-1]
+            avg_jump = loss_components["jump"][-1]
             avg_ixk = info_metrics["I_XK"][-1]
             avg_hk = info_metrics["H_K"][-1]
+
+            # Get current jump weight for logging
+            log_jump_weight = get_jump_weight_schedule(
+                epoch, config.jump_warmup, config.jump_ramp_end, config.jump_weight
+            )
 
             # Print in embed_fragile.py style
             current_lr = scheduler.get_last_lr()[0] if scheduler else config.lr
@@ -1334,12 +1648,17 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
             )
             print(
                 f"  Tier3: orth={avg_orth:.3f} "
-                f"code_ent={avg_code_ent:.3f}"
+                f"code_ent={avg_code_ent:.3f} "
+                f"pc_code_ent={avg_pc_code_ent:.3f}"
             )
             print(
                 f"  Tier4: kl={avg_kl:.3f} "
                 f"orbit={avg_orbit:.3f} "
                 f"vicreg={avg_vicreg:.3f}"
+            )
+            print(
+                f"  Tier5: jump={avg_jump:.3f} "
+                f"(λ={log_jump_weight:.3f})"
             )
             print(
                 f"  Info: I(X;K)={avg_ixk:.3f} "
@@ -1350,7 +1669,7 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
 
             # Save visualization
             save_path = f"{config.output_dir}/topo_epoch_{epoch:05d}.png"
-            visualize_latent(model_atlas, X, colors, labels, save_path, epoch)
+            visualize_latent(model_atlas, X, colors, labels, save_path, epoch, jump_op=jump_op)
 
     # Final evaluation
     print("\n" + "=" * 50)
@@ -1419,7 +1738,7 @@ def train_benchmark(config: TopoEncoderConfig) -> dict:
     # Save final visualization
     if config.save_every > 0:
         final_path = f"{config.output_dir}/topo_final.png"
-        visualize_latent(model_atlas, X, colors, labels, final_path, epoch=None)
+        visualize_latent(model_atlas, X, colors, labels, final_path, epoch=None, jump_op=jump_op)
         print(f"\nFinal visualization saved to: {final_path}")
 
     # Results dict uses already-computed reconstructions from final evaluation
@@ -1466,86 +1785,448 @@ def visualize_latent(
     labels: np.ndarray,
     save_path: str,
     epoch: int | None = None,
+    indices_stack: torch.Tensor | None = None,
+    jump_op: "FactorizedJumpOperator | None" = None,
 ) -> None:
-    """Visualize latent space with 4-panel layout (matching embed_fragile.py style).
+    """Visualize latent space with 6-panel layout.
 
-    Panels:
-    1. 3D Input space colored by structure (rainbow)
-    2. Latent space colored by structure (rainbow)
-    3. Latent space colored by chart assignment
-    4. Portal view with soft blending + boundary lines
+    Layout (2x3):
+    Row 1: Input 3D | Latent Space | Reconstruction 3D
+    Row 2: Chart Assignments (with jumps) | Code Usage per Chart | Hyperbolic Tree
+
+    The Hyperbolic Tree visualizes the macro-state hierarchy:
+    - Z=0: Root node (entire observation space)
+    - Z=1: Chart nodes (one per chart)
+    - Z=2: Code nodes (codes within each chart)
+    - Z=3: Data points at their 2D latent coordinates
 
     Args:
         model: TopoEncoder model
-        X: Input data [N, 3] (3D nightmare dataset)
+        X: Input data [N, D] (typically 3D nightmare dataset)
         colors: Continuous colors for rainbow [N]
         labels: Ground truth manifold labels [N]
         save_path: Path to save visualization
         epoch: Current epoch (for title), None for final
+        indices_stack: [N, num_charts] code indices per chart (for code usage plot)
+        jump_op: FactorizedJumpOperator for visualizing chart transitions
     """
     model.eval()
+    device = X.device
+    input_dim = X.shape[1]
+
     with torch.no_grad():
         # Get encoder outputs
-        K_chart, _, _, _z_tex, enc_w, z_geo, _, _ = model.encoder(X)
+        K_chart, K_code, _, _z_tex, enc_w, z_geo, _, indices_out, z_n_all_charts = model.encoder(X)
+
+        # Use provided indices_stack or the one from encoder
+        if indices_stack is None:
+            indices_stack = indices_out
 
         z = z_geo.cpu().numpy()
         X_np = X.cpu().numpy()
         enc_w_np = enc_w.cpu().numpy()
         hard_assign = K_chart.cpu().numpy()
+        code_assign = K_code.cpu().numpy()  # Code assignment for each point
+        indices_np = indices_stack.cpu().numpy()
 
-    fig = plt.figure(figsize=(20, 5))
+        # Get reconstruction
+        recon, _, _, _, _ = model(X, use_hard_routing=False)
+        recon_np = recon.cpu().numpy()
+
+    fig = plt.figure(figsize=(20, 13))
     title_suffix = f" (Epoch {epoch})" if epoch is not None else " (Final)"
 
+    # --- Row 1 ---
+
     # Panel 1: 3D Input space colored by structure (rainbow)
-    ax1 = fig.add_subplot(1, 4, 1, projection="3d")
-    ax1.scatter(
-        X_np[:, 0], X_np[:, 1], X_np[:, 2],
-        c=colors, cmap="rainbow", s=2, alpha=0.7
-    )
-    ax1.set_title(f"Input: The Nightmare{title_suffix}\n(Roll, Sphere, Moons)")
-    ax1.set_xlabel("X")
-    ax1.set_ylabel("Y")
-    ax1.set_zlabel("Z")
+    if input_dim >= 3:
+        ax1 = fig.add_subplot(2, 3, 1, projection="3d")
+        ax1.scatter(
+            X_np[:, 0], X_np[:, 1], X_np[:, 2],
+            c=colors, cmap="rainbow", s=2, alpha=0.7
+        )
+        ax1.set_title(f"Input: The Nightmare{title_suffix}\n(Roll, Sphere, Moons)")
+        ax1.set_xlabel("X")
+        ax1.set_ylabel("Y")
+        ax1.set_zlabel("Z")
+    else:
+        ax1 = fig.add_subplot(2, 3, 1)
+        ax1.scatter(X_np[:, 0], X_np[:, 1], c=colors, cmap="rainbow", s=2, alpha=0.7)
+        ax1.set_title(f"Input Space{title_suffix}")
+        ax1.set_xlabel("X")
+        ax1.set_ylabel("Y")
 
     # Panel 2: Latent by structure (rainbow colormap)
-    ax2 = fig.add_subplot(1, 4, 2)
+    ax2 = fig.add_subplot(2, 3, 2)
     ax2.scatter(z[:, 0], z[:, 1], c=colors, cmap="rainbow", s=3, alpha=0.7)
     ax2.set_title("Latent Space\n(Colored by Structure)")
     ax2.set_xlabel("z₁")
     ax2.set_ylabel("z₂")
 
-    # Panel 3: Latent by chart assignment
-    ax3 = fig.add_subplot(1, 4, 3)
-    scatter3 = ax3.scatter(
+    # Panel 3: Reconstruction (3D)
+    mse = np.mean((X_np - recon_np) ** 2)
+    if input_dim >= 3:
+        ax3 = fig.add_subplot(2, 3, 3, projection="3d")
+        ax3.scatter(
+            recon_np[:, 0], recon_np[:, 1], recon_np[:, 2],
+            c=colors, cmap="rainbow", s=2, alpha=0.7
+        )
+        ax3.set_title(f"Reconstruction\nMSE: {mse:.5f}")
+        ax3.set_xlabel("X")
+        ax3.set_ylabel("Y")
+        ax3.set_zlabel("Z")
+    else:
+        ax3 = fig.add_subplot(2, 3, 3)
+        ax3.scatter(recon_np[:, 0], recon_np[:, 1], c=colors, cmap="rainbow", s=2, alpha=0.7)
+        ax3.set_title(f"Reconstruction\nMSE: {mse:.5f}")
+        ax3.set_xlabel("X")
+        ax3.set_ylabel("Y")
+
+    # --- Row 2 ---
+
+    # Panel 4: Latent by chart assignment with jump transitions
+    ax4 = fig.add_subplot(2, 3, 4)
+    scatter4 = ax4.scatter(
         z[:, 0], z[:, 1], c=hard_assign, cmap="tab10", s=3, alpha=0.7
     )
-    ax3.set_title("Chart Assignment\n(Topological Surgery)")
-    ax3.set_xlabel("z₁")
-    ax3.set_ylabel("z₂")
-    plt.colorbar(scatter3, ax=ax3, ticks=range(model.num_charts), label="Chart")
 
-    # Panel 4: Portal view with soft blending + boundary lines
-    ax4 = fig.add_subplot(1, 4, 4)
-    blended_colors = compute_chart_colors(enc_w_np, model.num_charts)
-    ax4.scatter(z[:, 0], z[:, 1], c=blended_colors, s=3, alpha=0.7)
+    # Visualize jump operator transitions if available
+    num_jumps = 0
+    if jump_op is not None:
+        num_jumps = _plot_jump_transitions(
+            ax4, z_geo, z_n_all_charts, enc_w, hard_assign, jump_op, device
+        )
 
-    # Add boundary lines
-    boundary_pairs = find_boundary_pairs(z, hard_assign, X_np, k=3)
-    if len(boundary_pairs) > 500:
-        indices = np.random.choice(len(boundary_pairs), 500, replace=False)
-        boundary_pairs = [boundary_pairs[i] for i in indices]
-    if boundary_pairs:
-        segments = [(z[i], z[j]) for i, j in boundary_pairs]
-        lc = LineCollection(segments, colors="gray", alpha=0.2, linewidths=0.5)
-        ax4.add_collection(lc)
-
-    ax4.set_title("Portal View\n(Soft Blending + Boundaries)")
+    title_jump = f"\n({num_jumps} jump arrows)" if jump_op is not None else ""
+    ax4.set_title(f"Chart Assignment{title_jump}\n(Topological Surgery)")
     ax4.set_xlabel("z₁")
     ax4.set_ylabel("z₂")
+    plt.colorbar(scatter4, ax=ax4, ticks=range(model.num_charts), label="Chart")
 
-    plt.tight_layout()
+    # Panel 5: Latent by code/symbol assignment (different palette per chart)
+    ax5 = fig.add_subplot(2, 3, 5)
+    num_charts = model.num_charts
+    codes_per_chart = model.encoder.codes_per_chart
+    chart_cmap = plt.get_cmap("tab10")
+
+    # Create colors using different palettes per chart
+    # Each chart gets a sequential colormap (Blues, Oranges, Greens, etc.)
+    chart_palettes = ["Blues", "Oranges", "Greens", "Purples", "Reds", "YlOrBr", "BuGn", "PuRd"]
+    symbol_colors = _compute_chart_code_colors(
+        hard_assign, code_assign, num_charts, codes_per_chart, chart_palettes
+    )
+
+    num_unique_codes = len(np.unique(code_assign))
+    ax5.scatter(z[:, 0], z[:, 1], c=symbol_colors, s=3, alpha=0.7)
+    ax5.set_title(f"Code Assignment\n({num_unique_codes} codes used)")
+    ax5.set_xlabel("z₁")
+    ax5.set_ylabel("z₂")
+
+    # Panel 6: Hyperbolic Tree (3D with 2D latent as base)
+    ax6 = fig.add_subplot(2, 3, 6, projection="3d")
+    _plot_hyperbolic_tree(
+        ax6, z, hard_assign, code_assign, indices_np, num_charts, codes_per_chart,
+        chart_cmap, chart_palettes
+    )
+
+    plt.subplots_adjust(left=0.05, right=0.95, top=0.93, bottom=0.05, wspace=0.3, hspace=0.25)
     plt.savefig(save_path, dpi=150, bbox_inches="tight")
     plt.close()
+
+
+def _plot_jump_transitions(
+    ax: plt.Axes,
+    z_geo: torch.Tensor,
+    z_n_all_charts: torch.Tensor,
+    enc_w: torch.Tensor,
+    hard_assign: np.ndarray,
+    jump_op: "FactorizedJumpOperator",
+    device: torch.device,
+    max_arrows: int = 100,
+    overlap_threshold: float = 0.01,
+) -> int:
+    """Plot jump operator transitions between charts.
+
+    For boundary points (where router gives weight to multiple charts),
+    draw arrows showing how the jump operator maps z_n from one chart to another.
+
+    Args:
+        ax: Matplotlib axes to plot on
+        z_geo: [N, D] geometric latent coordinates
+        z_n_all_charts: [N, num_charts, D] z_n per chart
+        enc_w: [N, num_charts] router weights
+        hard_assign: [N] hard chart assignments
+        jump_op: FactorizedJumpOperator for computing transitions
+        device: Torch device
+        max_arrows: Maximum number of arrows to draw
+        overlap_threshold: Minimum weight product to consider as overlap
+
+    Returns:
+        Number of arrows drawn
+    """
+    N = z_geo.shape[0]
+    num_charts = enc_w.shape[1]
+    z_np = z_geo.cpu().numpy()
+    enc_w_np = enc_w.cpu().numpy()
+
+    # Find boundary points: points with significant weight in multiple charts
+    # Compute overlap score: sum of w_i * w_j for all i < j
+    boundary_scores = np.zeros(N)
+    for i in range(num_charts):
+        for j in range(i + 1, num_charts):
+            boundary_scores += enc_w_np[:, i] * enc_w_np[:, j]
+
+    # Select top boundary points
+    boundary_mask = boundary_scores > overlap_threshold
+    boundary_indices = np.where(boundary_mask)[0]
+
+    if len(boundary_indices) == 0:
+        return 0
+
+    # Sample if too many
+    if len(boundary_indices) > max_arrows:
+        np.random.seed(42)  # Reproducible sampling
+        boundary_indices = np.random.choice(boundary_indices, max_arrows, replace=False)
+
+    # For each boundary point, draw arrows showing jump transitions
+    chart_cmap = plt.get_cmap("tab10")
+    arrows_drawn = 0
+
+    with torch.no_grad():
+        for idx in boundary_indices:
+            src_chart = hard_assign[idx]
+            src_pos = z_np[idx]
+
+            # Get z_n for source chart
+            z_n_src = z_n_all_charts[idx, src_chart].unsqueeze(0)  # [1, D]
+
+            # Find target charts with significant weight
+            for tgt_chart in range(num_charts):
+                if tgt_chart == src_chart:
+                    continue
+                if enc_w_np[idx, tgt_chart] < 0.01:  # Skip negligible targets
+                    continue
+
+                # Apply jump operator: L_{src->tgt}(z_n_src)
+                src_idx = torch.tensor([src_chart], device=device)
+                tgt_idx = torch.tensor([tgt_chart], device=device)
+                z_n_jumped = jump_op(z_n_src, src_idx, tgt_idx)  # [1, D]
+
+                # The jumped z_n represents where this point would be in target chart
+                # We visualize by showing arrow from src_pos toward the jumped residual direction
+                jump_delta = z_n_jumped.cpu().numpy()[0] - z_n_src.cpu().numpy()[0]
+
+                # Scale arrow for visibility - use fixed min length + scaled component
+                delta_norm = np.linalg.norm(jump_delta)
+                if delta_norm > 1e-6:
+                    # Normalize and scale to reasonable visual length
+                    arrow_length = 0.15 + 0.2 * min(delta_norm, 1.0)
+                    direction = jump_delta / delta_norm
+                    dx, dy = direction[0] * arrow_length, direction[1] * arrow_length
+                else:
+                    dx, dy = 0.1, 0.0  # Default arrow if delta is tiny
+
+                # Draw arrow with color based on target chart
+                color = chart_cmap(tgt_chart / max(num_charts - 1, 1))
+                ax.annotate(
+                    "",
+                    xy=(src_pos[0] + dx, src_pos[1] + dy),
+                    xytext=(src_pos[0], src_pos[1]),
+                    arrowprops=dict(
+                        arrowstyle="-|>",
+                        color=color,
+                        alpha=0.7,
+                        linewidth=1.5,
+                        mutation_scale=8,
+                        shrinkA=0,
+                        shrinkB=0,
+                    ),
+                )
+                arrows_drawn += 1
+
+    return arrows_drawn
+
+
+def _compute_chart_code_colors(
+    K_chart: np.ndarray,
+    K_code: np.ndarray,
+    num_charts: int,
+    codes_per_chart: int,
+    chart_palettes: list[str],
+) -> np.ndarray:
+    """Compute RGB colors for each point based on chart and code assignment.
+
+    Each chart uses a different sequential colormap, so adjacent charts
+    with the same code index will have visually distinct colors.
+
+    Args:
+        K_chart: [N] chart assignment per point
+        K_code: [N] code assignment per point
+        num_charts: Number of charts
+        codes_per_chart: Codes per chart
+        chart_palettes: List of colormap names per chart
+
+    Returns:
+        colors: [N, 3] RGB colors in [0, 1]
+    """
+    N = len(K_chart)
+    colors = np.zeros((N, 3))
+
+    for c in range(num_charts):
+        mask = K_chart == c
+        if mask.sum() == 0:
+            continue
+
+        # Get colormap for this chart
+        cmap_name = chart_palettes[c % len(chart_palettes)]
+        cmap = plt.get_cmap(cmap_name)
+
+        # Map code indices to [0.3, 0.9] range (avoid too light/dark)
+        codes_in_chart = K_code[mask]
+        unique_codes = np.unique(codes_in_chart)
+        num_used = len(unique_codes)
+
+        # Create mapping from code index to color intensity
+        if num_used > 1:
+            code_to_intensity = {code: 0.3 + 0.6 * i / (num_used - 1)
+                                 for i, code in enumerate(sorted(unique_codes))}
+        else:
+            code_to_intensity = {unique_codes[0]: 0.6}
+
+        # Assign colors
+        for i, idx in enumerate(np.where(mask)[0]):
+            intensity = code_to_intensity[K_code[idx]]
+            colors[idx] = cmap(intensity)[:3]
+
+    return colors
+
+
+def _plot_hyperbolic_tree(
+    ax,
+    z_geo: np.ndarray,
+    K_chart: np.ndarray,
+    K_code: np.ndarray,
+    indices_stack: np.ndarray,
+    num_charts: int,
+    codes_per_chart: int,
+    chart_cmap,
+    chart_palettes: list[str],
+) -> None:
+    """Plot the hierarchical tree with 2D latent as base.
+
+    Z-levels (inverted so data is at bottom):
+    - Z=3: Root node (center, top)
+    - Z=2: Chart nodes (spread around center)
+    - Z=1: Code nodes (spread under each chart)
+    - Z=0: Data points (at their z_geo coordinates, bottom)
+
+    Data points are colored by chart-specific palettes to show
+    the hierarchical clustering structure. Each chart uses a different
+    color palette so adjacent charts can be distinguished.
+
+    This visualizes Section 7.11's concept: the discrete macro-register
+    forms the "skeleton" of a hyperbolic space, with data points at the boundary.
+    """
+    N = len(z_geo)
+
+    # Compute colors using chart-specific palettes
+    symbol_colors = _compute_chart_code_colors(
+        K_chart, K_code, num_charts, codes_per_chart, chart_palettes
+    )
+
+    # Level 0: Data points on the X-Y plane at Z=0, colored by chart+code
+    ax.scatter(
+        z_geo[:, 0], z_geo[:, 1], np.zeros(N),
+        c=symbol_colors, s=2, alpha=0.5
+    )
+
+    # Compute chart centers (mean of points assigned to each chart)
+    chart_centers = []
+    for c in range(num_charts):
+        mask = K_chart == c
+        if mask.sum() > 0:
+            center = z_geo[mask].mean(axis=0)
+        else:
+            center = np.array([0.0, 0.0])
+        chart_centers.append(center)
+    chart_centers = np.array(chart_centers)
+
+    # Level 2: Chart nodes at Z=2
+    ax.scatter(
+        chart_centers[:, 0], chart_centers[:, 1],
+        np.full(num_charts, 2.0),
+        c=[chart_cmap(i / max(num_charts - 1, 1)) for i in range(num_charts)],
+        s=100, marker="s", edgecolors="black", linewidths=0.5
+    )
+
+    # Level 3: Root node at Z=3 (center of all charts)
+    root = chart_centers.mean(axis=0)
+    ax.scatter([root[0]], [root[1]], [3.0], c="black", s=200, marker="^")
+
+    # Draw edges: Root → Charts
+    for c in range(num_charts):
+        ax.plot(
+            [root[0], chart_centers[c, 0]],
+            [root[1], chart_centers[c, 1]],
+            [3.0, 2.0],
+            color=chart_cmap(c / max(num_charts - 1, 1)),
+            alpha=0.7, linewidth=1.5
+        )
+
+    # Level 1: Code nodes at Z=1 (cluster centers per chart)
+    for c in range(num_charts):
+        mask = K_chart == c
+        if mask.sum() == 0:
+            continue
+
+        # Get chart-specific colormap
+        cmap_name = chart_palettes[c % len(chart_palettes)]
+        code_cmap = plt.get_cmap(cmap_name)
+
+        chart_points = z_geo[mask]
+        chart_codes = indices_stack[mask, c]
+
+        # Get unique codes used in this chart
+        unique_codes = np.unique(chart_codes)
+        num_used = len(unique_codes)
+
+        for i, code in enumerate(sorted(unique_codes)):
+            code_mask = chart_codes == code
+            if code_mask.sum() > 0:
+                code_center = chart_points[code_mask].mean(axis=0)
+
+                # Map code to intensity within chart's palette
+                intensity = 0.3 + 0.6 * i / max(num_used - 1, 1) if num_used > 1 else 0.6
+                code_color = code_cmap(intensity)
+
+                # Draw small marker at Z=1 with chart-specific color
+                ax.scatter(
+                    [code_center[0]], [code_center[1]], [1.0],
+                    c=[code_color],
+                    s=25, marker="o", alpha=0.8
+                )
+
+                # Edge from chart (Z=2) to code (Z=1)
+                ax.plot(
+                    [chart_centers[c, 0], code_center[0]],
+                    [chart_centers[c, 1], code_center[1]],
+                    [2.0, 1.0],
+                    color=code_color, alpha=0.4, linewidth=0.5
+                )
+
+    # Labels and title
+    ax.set_xlabel("z₁")
+    ax.set_ylabel("z₂")
+    ax.set_zlabel("Hierarchy Level")
+    ax.set_title("Hyperbolic Tree\n(Root → Charts → Codes → Data)")
+
+    # Set Z-axis ticks
+    ax.set_zticks([0, 1, 2, 3])
+    ax.set_zticklabels(["Data", "Codes", "Charts", "Root"])
+
+    # Rotate view: elevation 25°, azimuth -60° (counterclockwise rotation)
+    # This makes the 2D latent plane appear more horizontal
+    ax.view_init(elev=25, azim=-60)
 
 
 def visualize_results(results: dict, save_path: str = "benchmark_result.png") -> None:
@@ -1558,8 +2239,8 @@ def visualize_results(results: dict, save_path: str = "benchmark_result.png") ->
     X = results["X"].cpu().numpy()
     colors = results["colors"]
     chart_assignments = results["chart_assignments"]
-    recon_ae = results["recon_ae"].cpu().numpy()
-    recon_std = results["recon_std"].cpu().numpy()
+    recon_ae = results["recon_ae"].cpu().numpy() if results["recon_ae"] is not None else None
+    recon_std = results["recon_std"].cpu().numpy() if results["recon_std"] is not None else None
     recon_atlas = results["recon_atlas"].cpu().numpy()
 
     fig = plt.figure(figsize=(24, 10))
@@ -1591,9 +2272,11 @@ def visualize_results(results: dict, save_path: str = "benchmark_result.png") ->
 
     # Panel 3: Loss Curves (3-way)
     ax3 = fig.add_subplot(2, 4, 3)
-    epochs = range(len(results["std_losses"]))
-    ax3.plot(epochs, results["ae_losses"], label="VanillaAE", alpha=0.8, linewidth=1.5, color="C2")
-    ax3.plot(epochs, results["std_losses"], label="Standard VQ", alpha=0.8, linewidth=1.5, color="C0")
+    epochs = range(len(results["atlas_losses"]))
+    if recon_ae is not None:
+        ax3.plot(epochs, results["ae_losses"], label="VanillaAE", alpha=0.8, linewidth=1.5, color="C2")
+    if recon_std is not None:
+        ax3.plot(epochs, results["std_losses"], label="Standard VQ", alpha=0.8, linewidth=1.5, color="C0")
     ax3.plot(epochs, results["atlas_losses"], label="TopoEncoder", alpha=0.8, linewidth=1.5, color="C1")
     ax3.set_xlabel("Epoch")
     ax3.set_ylabel("Loss")
@@ -1604,9 +2287,20 @@ def visualize_results(results: dict, save_path: str = "benchmark_result.png") ->
 
     # Panel 4: AMI Comparison (Bar Chart)
     ax4 = fig.add_subplot(2, 4, 4)
-    models = ["VanillaAE", "Standard VQ", "TopoEncoder"]
-    ami_scores = [results["ami_ae"], results["ami_std"], results["ami_atlas"]]
-    bar_colors = ["C2", "C0", "C1"]
+    models = []
+    ami_scores = []
+    bar_colors = []
+    if recon_ae is not None:
+        models.append("VanillaAE")
+        ami_scores.append(results["ami_ae"])
+        bar_colors.append("C2")
+    if recon_std is not None:
+        models.append("Standard VQ")
+        ami_scores.append(results["ami_std"])
+        bar_colors.append("C0")
+    models.append("TopoEncoder")
+    ami_scores.append(results["ami_atlas"])
+    bar_colors.append("C1")
     bars = ax4.bar(models, ami_scores, color=bar_colors, alpha=0.8)
     ax4.set_ylabel("AMI Score")
     ax4.set_title("Topology Discovery\n(Adjusted Mutual Information)", fontsize=12)
@@ -1624,24 +2318,30 @@ def visualize_results(results: dict, save_path: str = "benchmark_result.png") ->
 
     # Panel 5: VanillaAE Reconstruction (3D)
     ax5 = fig.add_subplot(2, 4, 5, projection="3d")
-    ax5.scatter(
-        recon_ae[:, 0], recon_ae[:, 1], recon_ae[:, 2],
-        c=colors, cmap="rainbow", s=2, alpha=0.7
-    )
-    mse_ae = results["mse_ae"]
-    ax5.set_title(f"VanillaAE Reconstruction\nMSE: {mse_ae:.5f}", fontsize=12)
+    if recon_ae is not None:
+        ax5.scatter(
+            recon_ae[:, 0], recon_ae[:, 1], recon_ae[:, 2],
+            c=colors, cmap="rainbow", s=2, alpha=0.7
+        )
+        mse_ae = results["mse_ae"]
+        ax5.set_title(f"VanillaAE Reconstruction\nMSE: {mse_ae:.5f}", fontsize=12)
+    else:
+        ax5.set_title("VanillaAE\n(DISABLED)", fontsize=12)
     ax5.set_xlabel("X")
     ax5.set_ylabel("Y")
     ax5.set_zlabel("Z")
 
     # Panel 6: Standard VQ Reconstruction (3D)
     ax6 = fig.add_subplot(2, 4, 6, projection="3d")
-    ax6.scatter(
-        recon_std[:, 0], recon_std[:, 1], recon_std[:, 2],
-        c=colors, cmap="rainbow", s=2, alpha=0.7
-    )
-    mse_std = results["mse_std"]
-    ax6.set_title(f"Standard VQ Reconstruction\nMSE: {mse_std:.5f}", fontsize=12)
+    if recon_std is not None:
+        ax6.scatter(
+            recon_std[:, 0], recon_std[:, 1], recon_std[:, 2],
+            c=colors, cmap="rainbow", s=2, alpha=0.7
+        )
+        mse_std = results["mse_std"]
+        ax6.set_title(f"Standard VQ Reconstruction\nMSE: {mse_std:.5f}", fontsize=12)
+    else:
+        ax6.set_title("Standard VQ\n(DISABLED)", fontsize=12)
     ax6.set_xlabel("X")
     ax6.set_ylabel("Y")
     ax6.set_zlabel("Z")
@@ -1658,14 +2358,15 @@ def visualize_results(results: dict, save_path: str = "benchmark_result.png") ->
     ax7.set_ylabel("Y")
     ax7.set_zlabel("Z")
 
-    # Panel 8: Reconstruction Error Histogram (3-way)
+    # Panel 8: Reconstruction Error Histogram
     ax8 = fig.add_subplot(2, 4, 8)
-    error_ae = np.linalg.norm(X - recon_ae, axis=1)
-    error_std = np.linalg.norm(X - recon_std, axis=1)
     error_atlas = np.linalg.norm(X - recon_atlas, axis=1)
-
-    ax8.hist(error_ae, bins=50, alpha=0.5, label=f"AE (μ={error_ae.mean():.3f})", color="C2")
-    ax8.hist(error_std, bins=50, alpha=0.5, label=f"VQ (μ={error_std.mean():.3f})", color="C0")
+    if recon_ae is not None:
+        error_ae = np.linalg.norm(X - recon_ae, axis=1)
+        ax8.hist(error_ae, bins=50, alpha=0.5, label=f"AE (μ={error_ae.mean():.3f})", color="C2")
+    if recon_std is not None:
+        error_std = np.linalg.norm(X - recon_std, axis=1)
+        ax8.hist(error_std, bins=50, alpha=0.5, label=f"VQ (μ={error_std.mean():.3f})", color="C0")
     ax8.hist(error_atlas, bins=50, alpha=0.5, label=f"Topo (μ={error_atlas.mean():.3f})", color="C1")
     ax8.set_xlabel("Reconstruction Error (L2)")
     ax8.set_ylabel("Count")
@@ -1701,6 +2402,9 @@ def main():
     )
     parser.add_argument(
         "--epochs", type=int, default=1000, help="Number of training epochs"
+    )
+    parser.add_argument(
+        "--lr", type=float, default=1e-3, help="Learning rate (default: 1e-3)"
     )
     parser.add_argument(
         "--batch_size",
@@ -1750,6 +2454,20 @@ def main():
         type=str,
         default="cuda" if torch.cuda.is_available() else "cpu",
         help="Device to use (cuda/cpu)",
+    )
+
+    # Tier 3 losses (codebook health)
+    parser.add_argument(
+        "--per_chart_code_entropy_weight",
+        type=float,
+        default=0.1,
+        help="Per-chart code entropy weight (forces each chart to use all codes, default: 0.1)",
+    )
+    parser.add_argument(
+        "--code_entropy_weight",
+        type=float,
+        default=0.0,
+        help="Global code entropy weight (all codes used uniformly, default: 0.0)",
     )
 
     # Tier 4 losses (invariance)
@@ -1804,6 +2522,32 @@ def main():
         help="Gradient clipping max norm (0 to disable, default: 1.0)",
     )
 
+    # Tier 5: Jump Operator (chart gluing)
+    parser.add_argument(
+        "--jump_weight",
+        type=float,
+        default=0.1,
+        help="Final jump consistency weight after warmup (default: 0.1)",
+    )
+    parser.add_argument(
+        "--jump_warmup",
+        type=int,
+        default=50,
+        help="Epochs before jump loss starts (default: 50)",
+    )
+    parser.add_argument(
+        "--jump_ramp_end",
+        type=int,
+        default=100,
+        help="Epoch when jump weight reaches final value (default: 100)",
+    )
+    parser.add_argument(
+        "--jump_global_rank",
+        type=int,
+        default=0,
+        help="Rank of global tangent space (0 = use latent_dim, default: 0)",
+    )
+
     # Benchmark control
     parser.add_argument(
         "--disable_ae",
@@ -1825,6 +2569,7 @@ def main():
     # Create config
     config = TopoEncoderConfig(
         epochs=args.epochs,
+        lr=args.lr,
         batch_size=args.batch_size,
         n_samples=args.n_samples,
         num_charts=args.num_charts,
@@ -1833,6 +2578,9 @@ def main():
         save_every=args.save_every,
         output_dir=args.output_dir,
         device=args.device,
+        # Tier 3 losses
+        per_chart_code_entropy_weight=args.per_chart_code_entropy_weight,
+        code_entropy_weight=args.code_entropy_weight,
         # Tier 4 losses
         kl_prior_weight=args.kl_prior_weight,
         orbit_weight=args.orbit_weight,
@@ -1843,6 +2591,11 @@ def main():
         use_scheduler=args.use_scheduler,
         min_lr=args.min_lr,
         grad_clip=args.grad_clip,
+        # Tier 5: Jump Operator
+        jump_weight=args.jump_weight,
+        jump_warmup=args.jump_warmup,
+        jump_ramp_end=args.jump_ramp_end,
+        jump_global_rank=args.jump_global_rank,
         # Benchmark control
         disable_ae=args.disable_ae,
         disable_vq=args.disable_vq,
