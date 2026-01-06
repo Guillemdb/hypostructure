@@ -12,7 +12,7 @@ This document is a **synthesis and engineering specification** for building agen
 
 1. **Online auditability.** Constraints are stated in quantities you can compute during training/inference (entropies, KLs, value gradients, stability inequalities), not only as “eventual performance”.
 2. **Explicit macro-state abstraction.** The discrete macro register $K_t$ makes sufficiency, capacity, and closure conditions well-typed and testable (Sections 2.2b, 2.8, 3, 15).
-3. **Predictive vs nuisance separation.** The split $(K_t, z_{\mu,t})$ prevents the world model and policy from silently depending on high-variance residuals (Sections 2.2b, 9).
+3. **Predictive vs structured residual separation.** The “micro” channel is not a trash bin: we explicitly separate **structured nuisance** (pose/basis/disturbance coordinates that can be modeled and monitored) from **texture** (high-rate reconstruction detail). This prevents the world model and policy from silently depending on texture while still allowing nuisance to be represented and audited (Sections 2.2b, 2.8, 3, 11.5).
 4. **Geometry-aware regulation.** A state-space sensitivity metric $G$ is used as a runtime trust-region / conditioning signal (Sections 2.5–2.6, 9.10), complementing standard natural-gradient methods {cite}`amari1998natural,schulman2015trpo,martens2015kfac`.
 5. **Safety as a first-class interface contract.** “Safety” is not a single scalar constraint: it decomposes into explicit checks (switching limits, capacity limits, saturation, grounding, mixing) with known compute cost (Sections 3–8).
 
@@ -36,7 +36,7 @@ This document is a **synthesis and engineering specification** for building agen
 | Area | Typical baseline | Fragile Agent difference |
 |---|---|---|
 | **Model-free RL** | optimize return; debugging via reward curves | adds explicit monitors and stop/penalty mechanisms tied to identifiable failure modes (Sections 3–6) |
-| **World models** | continuous latent rollouts; implicit “state” | enforces a discrete macro state with closure and capacity checks; micro residual is treated as nuisance (Sections 2.2b, 2.8, 9, 15) |
+| **World models** | continuous latent rollouts; implicit “state” | enforces a discrete macro state with closure and capacity checks; the “micro” channel is split into **structured nuisance** $z_n$ (auditable and optionally control-relevant) and **texture** $z_{\mathrm{tex}}$ (reconstruction-only, excluded from closure/control) (Sections 2.2b, 2.8, 9, 15) |
 | **Safe RL / CMDPs** | few scalar constraints (expected cost) | uses a *vector* of auditable constraints (grounding, mixing, saturation, switching, stiffness) with compute-cost accounting (Sections 3–8) |
 | **Info bottleneck RL** | compression via an information penalty | makes the bottleneck operational via $\log|\mathcal{K}|$, $H(K)$, $I(X;K)$ and closure, not only via a single Lagrange term (Sections 2.2b, 3, 15) |
 | **Natural gradient / trust region** | parameter-space Fisher metric | emphasizes state-space sensitivity $G$ as a runtime regulator of updates and checks (Sections 2.5–2.6, 9.10) |
@@ -64,7 +64,7 @@ In the Fragile Agent framework, we do **not** treat the environment as a passive
 
 **Definition 1.1.1 (Bounded-Rationality Controller).** The agent is a controller with internal state
 $$
-Z_t := (K_t, Z_{\mu,t}) \in \mathcal{Z}=\mathcal{K}\times\mathcal{Z}_\mu,
+Z_t := (K_t, Z_{n,t}, Z_{\mathrm{tex},t}) \in \mathcal{Z}=\mathcal{K}\times\mathcal{Z}_n\times\mathcal{Z}_{\mathrm{tex}},
 $$
 and internal components (Encoder/Shutter, World Model, Critic, Policy). Its evolution is driven only by the observable interaction stream at the interface (observations/feedback) and by its own outgoing control signals (actions).
 
@@ -102,9 +102,9 @@ This is the categorical move: we do not assume access to the environment’s lat
    - *Standard:* an input tensor.
    - *Fragile:* the only exogenous input available to the controller. The encoder/shutter transduces it into internal coordinates:
      $$
-     x_t \mapsto (K_t, Z_{\mu,t}),
+     x_t \mapsto (K_t, Z_{n,t}, Z_{\mathrm{tex},t}),
      $$
-     where $K_t$ is the **discrete predictive signal** (bounded-rate latent statistic) and $Z_{\mu,t}$ is the **continuous nuisance residual** (compression artifacts / observation noise).
+     where $K_t$ is the **discrete predictive signal** (bounded-rate latent statistic), $Z_{n,t}$ is a **structured nuisance / gauge residual** (pose/basis/disturbance coordinates), and $Z_{\mathrm{tex},t}$ is a **texture residual** (high-rate reconstruction detail).
    - *Boundary gate nodes (Section 3):*
      - **Node 14 (InputSaturationCheck):** input saturation (sensor dynamic range exceeded).
      - **Node 15 (SNRCheck):** low signal-to-noise (SNR too low to support stable inference).
@@ -129,6 +129,50 @@ This is the categorical move: we do not assume access to the environment’s lat
 6. **Episode / Rollout (Finite-Horizon Segment).**
    - *Standard:* a finite trajectory segment.
    - *Fragile:* a finite window used to estimate a cumulative objective under uncertainty. “Success” is satisfying task constraints while maintaining stability; “failure” is crossing a monitored limit (Section 4).
+
+### 1.1.4 Symmetries and Gauge Freedoms (Operational)
+
+Many of the largest stability and sample-efficiency failures in practice come from **wasting capacity on nuisance degrees of freedom**: the agent learns separate internal states for observations that differ only by pose, basis choice, or arbitrary internal labeling. We formalize these nuisance directions as **symmetries** (group actions) and treat “quotienting them out” as an explicit design constraint.
+
+We use “gauge” in the minimal, operational sense: a **gauge transformation** is a change of coordinates or representation that should not change the agent’s control-relevant decisions, except through explicitly modeled nuisance variables.
+
+**Definition 1.1.4 (Agent symmetry group; operational).** Let:
+- $G_{\text{obj}}$ be an **objective/feedback gauge** acting on scalar feedback signals (e.g., change of units or baseline shift). A common choice is the positive affine group
+  $$
+  G_{\text{obj}} := \{(a,b): a>0,\ r\mapsto ar+b\}.
+  $$
+  (If representing value as a unit-norm phase variable, one may instead use $U(1)$; Section 3.3.C treats the real-valued case via projective heads.)
+- $G_{\text{spatial}}$ be an **observation gauge** acting on raw observations $x$ (e.g., pose/translation/rotation; choose $SE(3)$, $SE(2)$, $\mathrm{Sim}(2)$, or a task-specific subgroup depending on sensors).
+- $S_{|\mathcal{K}|}$ be the **symbol-permutation symmetry** of the discrete macro register: relabeling code indices is unobservable if downstream components depend only on embeddings $\{e_k\}$.
+- $\mathrm{Symp}(2n,\mathbb{R})$ be an optional **phase-space symmetry** acting on canonical latent coordinates $z=(q,p)\in\mathbb{R}^{2n}$ when the world model is parameterized as a symplectic/Hamiltonian system (Section 3.3.B).
+
+The (candidate) total symmetry group is the direct product
+$$
+\mathcal{G}_{\mathbb{A}}
+:=
+G_{\text{obj}}
+\times
+G_{\text{spatial}}
+\times
+S_{|\mathcal{K}|}
+\times
+\mathrm{Symp}(2n,\mathbb{R}).
+$$
+
+**Internal vs. external symmetries.**
+- **Internal (objective) gauge:** transformations of the scalar feedback scale/offset (and any potentials) that should not qualitatively change the policy update direction.
+- **External (observation) gauge:** transformations of the input stream that change *pose* but not *identity*.
+
+**Principle of covariance (engineering requirement).** The internal maps of the agent should be invariant/equivariant under $\mathcal{G}_{\mathbb{A}}$ in the following typed sense:
+- **Shutter $E$: canonicalize or quotient $G_{\text{spatial}}$ before discretization, so the macro register is approximately invariant:
+  $$
+  K(x)\approx K(g\cdot x)\quad (g\in G_{\text{spatial}}),
+  $$
+  while $z_n$ carries structured nuisance parameters (pose/basis/disturbance coordinates) and $z_{\mathrm{tex}}$ carries reconstruction-only texture (Section 2.2b, Section 3.3.A).
+- **World model $S$ and policy $\pi$: be covariant to symbol permutations $S_{|\mathcal{K}|}$ by treating $K$ only through its embedding $e_K$ (not the integer label) and by using permutation-invariant diagnostics.
+- **Critic/value and dual variables:** enforce stability and constraint satisfaction in a way that is robust to re-scaling/offset of the scalar feedback (Section 3.3.C, Section 3.5).
+
+These are *requirements on representations and interfaces*, not philosophical claims: if an invariance is not enforced, the corresponding failure modes (symmetry blindness, brittle scaling, uncontrolled drift) become more likely and harder to debug.
 
 ## 1.2 Units and Dimensional Conventions (Explicit)
 
@@ -182,7 +226,7 @@ This tuple directly instantiates the core objects of the Hypostructure $\mathbb{
 
 | Component | Hypostructure Map | Role (Mechanism) | Cybernetic Function |
 | :--- | :--- | :--- | :--- |
-| **Autoencoder (Split VQ-VAE)** | **State Space Construction ($\mathcal{X}$)** | **Information Bottleneck Encoder:** maps $x \mapsto (K, z_{\mu})$ where $K$ is a *discrete predictive latent* and $z_{\mu}$ is a *continuous residual/nuisance latent*. | Defines the representation used for prediction and control. |
+| **Autoencoder (Split VQ-VAE)** | **State Space Construction ($\mathcal{X}$)** | **Information Bottleneck Encoder:** maps $x \mapsto (K, z_{n}, z_{\mathrm{tex}})$ where $K$ is a *discrete predictive latent*, $z_{n}$ is a *structured nuisance residual*, and $z_{\mathrm{tex}}$ is a *reconstruction-only texture residual*. | Defines the representation used for prediction and control. |
 | **World Model** | **Dynamics Model ($\nabla, S_t$)** | **Predictive Model:** simulates/learns latent dynamics to support planning and counterfactual evaluation. | Defines the learned transition structure within $Z$. |
 | **Critic** | **Value/Cost Functional ($\Phi$)** | **Value Function:** assigns a scalar cost-to-go/value to points in $Z$, representing risk/undesirability. | Defines the gradient signal $\nabla V$. |
 | **Policy** | **Control Regularization ($\mathfrak{D}$)** | **Controller (Policy):** chooses actions that reduce expected future cost subject to constraints and regularization. | Implements the control law minimizing $\mathcal{S}$. |
@@ -194,18 +238,18 @@ To prevent category errors, we formally distinguish three manifolds with distinc
 | Manifold | Symbol | Coordinates | Metric Tensor | Role |
 |----------|--------|-------------|---------------|------|
 | **Physical/Data** | $\mathcal{X}$ | $x \in \mathbb{R}^D$ | $I$ (Euclidean) | Raw observations—the "hardware" |
-| **Latent/Problem** | $\mathcal{Z}=\mathcal{K}\times \mathcal{Z}_{\mu}$ | $(K, z_{\mu})$ with $K \in \mathcal{K}$, $z_{\mu}\in\mathbb{R}^{d_\mu}$ | $d_{\mathcal{K}} \oplus G_{\mu}(z_{\mu};K)$ | Symbolic macro-register + continuous latent manifold—the "representation" |
+| **Latent/Problem** | $\mathcal{Z}=\mathcal{K}\times \mathcal{Z}_{n}\times \mathcal{Z}_{\mathrm{tex}}$ | $(K, z_{n}, z_{\mathrm{tex}})$ with $K \in \mathcal{K}$, $z_{n}\in\mathbb{R}^{d_n}$, $z_{\mathrm{tex}}\in\mathbb{R}^{d_{\mathrm{tex}}}$ | $d_{\mathcal{K}} \oplus G_{n}(z_{n};K)$ | Symbolic macro-register + structured nuisance coordinates + reconstruction-only texture |
 | **Parameter/Model** | $\Theta$ | $\theta \in \mathbb{R}^P$ | $\mathcal{F}(\theta)$ (Fisher-Rao) | Configuration space—the "weights" |
 
 **Dimensional Verification:**
 
-- The shutter $E: \mathcal{X} \to \mathcal{K}\times \mathcal{Z}_\mu$ is a **contraction** in continuous degrees of freedom ($d_\mu \ll D$) plus a **finite-rate quantization** in the macro channel ($\log|\mathcal{K}|$ bits).
-- The policy $\pi_\theta$ is a map on macrostates (or their code embeddings) $\pi_\theta:\mathcal{K}\to\mathcal{A}$; dependence on $z_\mu$ is a *causal leak* (violates enclosure).
-- The metric $G_{\mu}$ is defined on the **continuous fibres** $\mathcal{Z}_\mu$ (and/or the induced geometry of the codebook embedding), not on $\Theta$.
+- The shutter $E: \mathcal{X} \to \mathcal{K}\times \mathcal{Z}_n\times \mathcal{Z}_{\mathrm{tex}}$ is a **contraction** in structured continuous degrees of freedom ($d_n \ll D$) plus a **finite-rate quantization** in the macro channel ($\log|\mathcal{K}|$ bits); texture may remain high-rate but is firewall-restricted to reconstruction/likelihood.
+- The policy $\pi_\theta$ is typically a map on macrostates (or their code embeddings) $\pi_\theta:\mathcal{K}\to\mathcal{A}$. If a structured nuisance coordinate $z_n$ is required for actuation, treat it as an explicit typed input (policy on $(K,z_n)$) and keep enclosure/closure defined at the macro layer (Section 2.8). By contrast, dependence on **texture** $z_{\mathrm{tex}}$ is a causal leak for control and should be prohibited by architecture and monitored (texture is reconstruction-only).
+- The metric $G_{n}$ is defined on the **structured nuisance coordinates** $\mathcal{Z}_n$ (and/or the induced geometry of the codebook embedding), not on $\Theta$; texture is excluded from the control metric.
 
 **Anti-Mixing Principle:** Never conflate $\mathcal{F}(\theta)$ (parameter-space Fisher) with $G(z)$ (state-space metric). They live on different manifolds and measure different quantities:
 - $\mathcal{F}(\theta)$: How the policy changes with weights (used by TRPO/PPO)
-- $G_\mu(z_\mu;K)$: How the policy changes with continuous state coordinates (used by the Fragile Agent)
+- $G_n(z_n;K)$: How the policy changes with structured nuisance coordinates (used by the Fragile Agent)
 
 ### 2.2b The Shutter as a VQ-VAE (Discrete Macro, Continuous Micro)
 
@@ -213,7 +257,13 @@ The information-theoretic/control interpretation benefits from an explicit **dis
 
 We factor the latent as:
 $$
-Z_t := (K_t, Z_{\mu,t}), \qquad K_t \in \mathcal{K}\ \text{(discrete)}, \quad Z_{\mu,t}\in\mathcal{Z}_\mu\subset \mathbb{R}^{d_\mu}\ \text{(continuous)}.
+Z_t := (K_t, Z_{n,t}, Z_{\mathrm{tex},t}),
+\qquad
+K_t \in \mathcal{K}\ \text{(discrete)},
+\quad
+Z_{n,t}\in\mathbb{R}^{d_n}\ \text{(continuous nuisance)},
+\quad
+Z_{\mathrm{tex},t}\in\mathbb{R}^{d_{\mathrm{tex}}}\ \text{(continuous texture)}.
 $$
 
 **Macro codebook (symbols).** Let $\mathcal{K}=\{1,\dots,|\mathcal{K}|\}$ and let $\{e_k\}_{k\in\mathcal{K}}\subset\mathbb{R}^{d_m}$ be a learned codebook. Given an observation $x$ the macro encoder produces a pre-quantized vector $z_e(x)\in\mathbb{R}^{d_m}$ and the VQ projection chooses the nearest code:
@@ -224,22 +274,44 @@ z_{\text{macro}}(x):=e_{K(x)}.
 $$
 We equip $\mathcal{K}$ with the induced finite metric $d_{\mathcal{K}}(k,k'):=\|e_k-e_{k'}\|_2$ (or its $G_\mu$-weighted variant), so $\mathcal{Z}$ is a bundle of continuous fibres over a discrete base.
 
-**Micro residual (continuous nuisance residual).** The micro channel remains continuous, e.g. with a Gaussian posterior
+**Canonicalization and symmetry quotienting (optional).** Let $G_{\text{spatial}}$ be a nuisance group acting on observations (Section 1.1.4). A practical way to make the macro register invariant to pose/basis choices is to insert a **canonicalization map** $C_\psi:\mathcal{X}\to\mathcal{X}$ before quantization and to train it so that
 $$
-q_\phi(z_\mu\mid x)=\mathcal{N}(\mu_\phi(x),\operatorname{diag}(\sigma_\phi^2(x))),
+C_\psi(g\cdot x)\approx C_\psi(x)\qquad (g\in G_{\text{spatial}}).
 $$
-and a simple prior $p(z_\mu)=\mathcal{N}(0,I)$ so that matching $q_\phi(\cdot\mid x)$ to $p$ operationalizes the statement “$z_\mu$ carries residual variation, not predictive structure.”
+One implementation is a Spatial Transformer Network (STN) that predicts and applies an input warp before the VQ encoder {cite}`jaderberg2015stn`. An alternative is to use an explicitly group-equivariant encoder and then pool to an invariant statistic {cite}`cohen2016group`.
 
-**VQ-VAE objective (with continuous micro).** With a decoder $p_\theta(x\mid z_{\text{macro}},z_\mu)$ and stop-gradient operator $\operatorname{sg}[\cdot]$, the canonical loss is
+Operationally, we replace the quantizer input $x$ by $\tilde x:=C_\psi(x)$ and define $K(x):=K(\tilde x)$. This realizes the quotienting intent “$K$ represents $x/G_{\text{spatial}}$” without requiring an exact quotient construction.
+
+**Identity vs nuisance vs texture.** With canonicalization enabled, the design goal is a three-way separation:
+- $K_t$ captures **invariant identity** (“what”) needed for prediction and control.
+- $z_{n,t}$ carries **structured nuisance** (“where/how”, pose/basis/disturbance coordinates) that may be needed for *actuation* or for explaining boundary-induced deviations, but must remain disentangled from $K$.
+- $z_{\mathrm{tex},t}$ carries **texture/detail** needed for reconstruction/likelihood only and is treated as *measurement/emission residual*: it must not be required for macro closure or for control decisions.
+
+This separation is enforced by orbit-invariance and (macro ⟂ nuisance/texture) disentanglement losses in Section 3.3.A and monitored by SymmetryCheck/DisentanglementCheck (Section 3). The jump/residual machinery (Section 11.5.4) is attached to $z_n$ (structured disturbances), not to $z_{\mathrm{tex}}$.
+
+**Nuisance residual ($z_n$).** The nuisance channel remains continuous, e.g. with a Gaussian posterior
+$$
+q_\phi(z_n\mid x)=\mathcal{N}(\mu_\phi(x),\operatorname{diag}(\sigma_\phi^2(x))),
+$$
+with a task-appropriate prior $p(z_n)$ (often standard normal as a conservative default). The key requirement is *typed*: nuisance may influence reconstruction and may be used to explain structured deviations, but macro prediction/closure must not require it beyond $(K_t,A_t)$ (Section 2.8).
+
+**Texture residual ($z_{\mathrm{tex}}$).** Texture is modeled as a separate continuous residual with posterior
+$$
+q_\phi(z_{\mathrm{tex}}\mid x)=\mathcal{N}(\mu_{\mathrm{tex}}(x),\operatorname{diag}(\sigma_{\mathrm{tex}}^2(x))),
+$$
+and a simple high-entropy prior $p(z_{\mathrm{tex}})=\mathcal{N}(0,I)$ so that matching $q_\phi(\cdot\mid x)$ to $p$ operationalizes the statement “texture is reconstruction-only”: it should explain details that do not belong in the macro dynamics.
+
+**VQ-VAE objective (with nuisance + texture).** With a decoder $p_\theta(x\mid z_{\text{macro}},z_n,z_{\mathrm{tex}})$ and stop-gradient operator $\operatorname{sg}[\cdot]$, the canonical loss is
 $$
 \mathcal{L}_{\text{shutter}}
 =
-\mathbb{E}\Big[-\log p_\theta(X\mid e_{K(X)}, Z_\mu)\Big]
+\mathbb{E}\Big[-\log p_\theta(X\mid e_{K(X)}, Z_n, Z_{\mathrm{tex}})\Big]
 +\underbrace{\| \operatorname{sg}[z_e]-e_{K}\|_2^2}_{\text{codebook}}
 +\underbrace{\beta\|z_e-\operatorname{sg}[e_K]\|_2^2}_{\text{commit}}
-+\underbrace{\beta_\mu D_{KL}(q_\phi(Z_\mu\mid X)\Vert p(Z_\mu))}_{\text{micro-as-noise}}.
++\underbrace{\beta_n D_{KL}(q_\phi(Z_n\mid X)\Vert p(Z_n))}_{\text{nuisance prior (regularize)}}
++\underbrace{\beta_{\mathrm{tex}} D_{KL}(q_\phi(Z_{\mathrm{tex}}\mid X)\Vert p(Z_{\mathrm{tex}}))}_{\text{texture-as-residual}}.
 $$
-Units: $\beta$ and $\beta_\mu$ are dimensionless weights; $D_{KL}$ is in nats.
+Units: $\beta$, $\beta_n$, and $\beta_{\mathrm{tex}}$ are dimensionless weights; each $D_{KL}$ is measured in nats.
 
 **Information-theoretic capacity becomes explicit.** Because $K$ is discrete,
 $$
@@ -253,6 +325,12 @@ $$
 $$
 with rate controlled by the symbolic model and distortion controlled by the decoder. This is the rigorous information-theoretic envelope in which VQ-VAE-style macrostates live.
 Units: $\lambda$ has units of the distortion scale divided by nats (dimensionless if $d$ is itself a negative-log-likelihood in nats).
+
+**Notation note (micro split).** Earlier sections (and some later, legacy blocks) use $z_\mu$ / $\mathcal{Z}_\mu$ to denote “the continuous micro channel”. In the refined typed specification, this channel is split as
+$$
+z_\mu \equiv (z_n, z_{\mathrm{tex}}),
+$$
+where $z_n$ is **structured nuisance** (may be used for actuation/auditing) and $z_{\mathrm{tex}}$ is **texture** (likelihood/reconstruction-only). Unless a section explicitly discusses texture, occurrences of $z_\mu$ should be read as the nuisance channel $z_n$.
 
 **Metatheorems unlocked by discretization.**
 - A discrete macro-register makes coding-theoretic and finite-memory update bounds applicable.
@@ -363,6 +441,24 @@ Units: the Fisher term has units $[z]^{-2}$; therefore $\lambda$ carries the sam
 - **High $G_{ii}$** (large Hessian or Fisher): the objective/policy is highly sensitive to coordinate $i$ (ill-conditioned or highly controllable direction)
 - **Low $G_{ii}$**: weak sensitivity or ignored coordinate $i$ (flat direction / potential blind spot)
 
+#### 2.5.1 Levi-Civita Connection and Parallel Transport (Optional)
+
+Because $G$ is a Riemannian metric on $\mathcal{Z}$, it induces a unique torsion-free, metric-compatible connection (the Levi-Civita connection). In local coordinates the Christoffel symbols are
+
+$$
+\Gamma^k_{ij}(z)
+=
+\frac12\,G^{k\ell}(z)\left(\partial_i G_{j\ell}(z)+\partial_j G_{i\ell}(z)-\partial_\ell G_{ij}(z)\right).
+$$
+
+The covariant derivative of a vector field $v$ is then
+
+$$
+(\nabla_i v)^k = \partial_i v^k + \Gamma^k_{ij}v^j.
+$$
+
+**Why this matters here.** Most of the document uses $G$ operationally via diagonal preconditioning $G^{-1}$ (which is computationally cheap). The connection becomes relevant when we ask whether updates are **path dependent** in state space: transporting a tangent vector (e.g., a value gradient direction) around a loop can return a different direction if curvature is present. Section 3 introduces an operational HolonomyCheck that detects loop drift without explicitly computing $\Gamma$.
+
 ### 2.6 The Metric Hierarchy: Fixing the Category Error
 
 A common mistake in geometric RL is conflating three distinct geometries:
@@ -431,13 +527,13 @@ All terms in the HJB equation have units of a **cost rate**. In discrete time th
 
 The transition from micro to macro is a **projection operator** $\Pi:\mathcal{Z}\to\mathcal{K}$. In the discrete macro instantiation, $\Pi$ is precisely the **VQ quantizer** $z_e\mapsto K$ from Section 2.2b.
 
-**Causal Enclosure Condition (Markov sufficiency).** Let $(Z_t,A_t)$ be the microstate/action process and define the macrostate $K_t:=\Pi(Z_t)$. The macro-model requirement is the conditional independence
+**Causal Enclosure Condition (Markov sufficiency).** With the nuisance/texture split (Section 2.2b), let $(K_t, Z_{n,t}, Z_{\mathrm{tex},t}, A_t)$ be the internal state/action process and define the macrostate $K_t:=\Pi(Z_t)$ (projection to the discrete register). The macro-model requirement is the conditional independence
 $$
-K_{t+1}\ \perp\!\!\!\perp\ Z_t\ \big|\ (K_t,A_t),
+K_{t+1}\ \perp\!\!\!\perp\ (Z_{n,t}, Z_{\mathrm{tex},t})\ \big|\ (K_t,A_t),
 $$
 equivalently the vanishing of a conditional mutual information:
 $$
-I(K_{t+1};Z_t\mid K_t,A_t)=0.
+I(K_{t+1};Z_{n,t},Z_{\mathrm{tex},t}\mid K_t,A_t)=0.
 $$
 This is the information-theoretic statement that the macro-symbols are a sufficient statistic for predicting their own future, while the micro coordinates are residual variation not needed for macro prediction.
 
@@ -477,6 +573,77 @@ The formalism requires explicit assumptions:
 > - Cross-correlations $\text{Cov}(\partial \log \pi / \partial z_i, \partial \log \pi / \partial z_j)$ are small for $i \neq j$
 >
 > The approximation error is bounded by the spectral norm of the off-diagonal part of $G$.
+
+#### 2.9.1 Practical Approximations for the State-Space Metric $G$ (Compute-Stable)
+
+In principle, $G(z)$ is a dense $(0,2)$-tensor. Forming and inverting the full matrix is typically infeasible online:
+- Memory: $O(d^2)$ for $d=\dim(\mathcal{Z})$.
+- Inversion: $O(d^3)$ per update.
+
+The Fragile Agent therefore treats “metric computation” as part of the regulation layer: it should be **stable under minibatch noise**, **cheap enough to run online**, and **conservative** (prefer damping over over-confident preconditioning).
+
+Below is an implementable hierarchy that improves on a raw diagonal while staying within the diagonal/block-diagonal regime.
+
+**A. EMA-smoothed diagonal (“damped diagonal”).** Let $g_t\in\mathbb{R}^d$ be an instantaneous diagonal estimator, e.g.
+$$
+g_t
+\approx
+\mathbb{E}_{a\sim\pi(\cdot\mid z_t)}\!\left[\left(\nabla_{z}\log\pi(a\mid z_t)\right)\odot\left(\nabla_{z}\log\pi(a\mid z_t)\right)\right]
+\operatorname{diag}(\nabla^2_z V(z_t)),
+$$
+where $\odot$ denotes elementwise product (and the Hessian term can be omitted when too expensive).
+
+Maintain a smoothed diagonal metric estimate with an exponential moving average (EMA):
+$$
+\widehat{G}^{\mathrm{diag}}_{t}
+=
+(1-\eta_G)\,\widehat{G}^{\mathrm{diag}}_{t-1}
++\eta_G\,g_t,
+\qquad
+\eta_G\in(0,1].
+$$
+
+Use a stabilized inverse in preconditioning:
+$$
+\left(\widehat{G}^{\mathrm{diag}}_{t}+\epsilon_t\mathbf{1}\right)^{-1},
+\qquad
+\epsilon_t>0,
+$$
+and optionally clamp inverse entries to a bounded interval to avoid singular trust regions in flat directions.
+
+This is a low-pass filter on curvature/sensitivity: it reduces high-frequency estimator noise while preserving slow curvature drift (consistent with the timescale-separation ethos of BarrierTypeII).
+
+**B. Macro–nuisance block-diagonal split (enclosure-aligned).** Under causal enclosure (Section 2.8), macro dynamics and macro prediction should not require the *residual* channels, and in particular should not require texture. This motivates a block structure
+$$
+G
+\approx
+\begin{bmatrix}
+G_{\text{macro}} & 0 \\
+0 & G_{n}
+\end{bmatrix},
+$$
+where:
+- $G_{\text{macro}}$ is a discrete/categorical sensitivity for the macro channel (e.g., the Fisher of $q(K\mid x)$ or curvature proxies derived from macro closure cross-entropy),
+- $G_{n}$ is the continuous sensitivity on $z_n$ (often diagonal); texture $z_{\mathrm{tex}}$ is excluded from the control metric (reconstruction-only).
+
+The off-diagonal block corresponds to macro–nuisance “cross-talk”. If it is empirically non-negligible (Node 19: DisentanglementCheck), that is not a “numerical nuisance”: it is an enclosure violation that should be penalized at the representation level (Section 3.3.A), not patched by a dense optimizer.
+
+**C. Occasional stochastic probing (low-rank signals without full $G$).** When the diagonal approximation is insufficient (e.g., strong anisotropy or a few stiff directions dominate), one can occasionally probe curvature using Jacobian-vector products (Section 8.2). For example, random probes $v$ provide access to $Gv$ without forming $G$, allowing:
+- rank-$k$ corrections (diagonal + low-rank),
+- diagnostics of effective conditioning (eigenvalue spread proxies),
+- conservative step-size reductions in detected stiff regimes.
+
+These probes should be amortized (run every $N$ steps) and treated as **monitors** first, **preconditioners** second.
+
+**D. Adaptive stabilizer $\epsilon_t$ (noise-floor coupling).** The most dangerous failure mode for diagonal natural-gradient schemes is a vanishing diagonal entry: $G_{ii}\to 0$ implies an exploding inverse. Instead of a fixed $\epsilon$, use a stabilizer tied to an online noise/uncertainty proxy:
+$$
+\epsilon_t
+:=
+\epsilon_{\min}
++
+c_\epsilon\,\widehat{\sigma}_t,
+$$
+where $\widehat{\sigma}_t$ can be any bounded “update unreliability” proxy consistent with the Sieve (e.g., SNRCheck, NEPCheck, residual-event statistics from Section 11.5.4). The design intent is monotone: noisier / less-grounded regimes should imply more damping, not larger steps.
 
 ### 2.10 Anti-Mixing Rules (Formal Prohibitions)
 
@@ -643,11 +810,11 @@ The Trinity of Manifolds is extended to the **Boundary Operator**:
 
 ## 3. Diagnostics: Stability Checks (Monitors)
 
-Stability and data-quality are monitored via 21 distinct checks (Gate Nodes). Each corresponds to a specific, testable condition on the interaction between the agent and its environment.
+Stability and data-quality are monitored via 29 distinct checks (Gate Nodes). Each corresponds to a specific, testable condition on the interaction between the agent and its environment.
 
 **Relation to prior work.** Many safe-RL formulations express safety as one (or a few) expected-cost constraints in a constrained MDP {cite}`altman1999constrained,achiam2017constrained`. The Fragile Agent keeps that spirit but broadens the constraint surface to include **representation and interface diagnostics** (grounding, mixing, saturation, switching, stiffness) that can be audited online, alongside Lyapunov-style stability constraints {cite}`chow2018lyapunov`.
 
-### The 21 Stability Checks
+### The 29 Stability Checks
 
 | Node | Check | Component | Interpretation | Meaning | Regularization Factor ($\mathcal{L}_{\text{check}}$) | Compute |
 |------|-----------|-----------|-----------------------------------|---------|------------------------------------------------------|---------|
@@ -667,13 +834,21 @@ Stability and data-quality are monitored via 21 distinct checks (Gate Nodes). Ea
 | **10** | **ErgoCheck ($\mathrm{TB}_\rho$)** | **Policy** | **Exploration/Mixing** | Sufficient exploration? | $-H(\pi)$ (Max Entropy) | $O(BA)$ ✓ |
 | **11** | **ComplexCheck ($\mathrm{Rep}_K$)** | **VQ-VAE** | **Model Capacity Check** | Symbolic rate within budget? | $\mathrm{Rep}_K := H(K)/\log|\mathcal{K}|$ (Rate Utilization) | $O(B)$ ✓ |
 | **12** | **OscillateCheck ($\mathrm{GC}_\nabla$)** | **WM / Policy** | **Oscillation / Chattering** | Limit cycles? | $\Vert z_t - z_{t-2} \Vert$ (Period-2 Penalty) | $O(BZ)$ ✓ |
+| **12a** | **HolonomyCheck ($\mathrm{GC}_{\mathrm{holo}}$)** | **WM / Policy** | **Loop Drift** | Near-closed loop changes policy/value? | $\mathbb{I}[d_G(z_t,z_{t-L})<\epsilon_z]\cdot \mathrm{ReLU}(D_{KL}(\pi(\cdot\mid z_t)\Vert \pi(\cdot\mid z_{t-L}))-\epsilon_h)^2$ | $O(BA)$ ✓ |
 | **13** | **BoundaryCheck ($\mathrm{Bound}_\partial$)** | **VQ-VAE** | **Input Informativeness** | External signal present? | $I(X;K)$ (Symbolic MI $>0$) | $O(B)$ ✓ |
 | **14** | **InputSaturationCheck ($\mathrm{Bound}_B$)** | **Boundary** | **Input Saturation** | Inputs clipping? | $\mathbb{I}(\lvert x \rvert > x_{\text{max}})$ (Saturation Flag) | $O(BD)$ ✓ |
 | **15** | **SNRCheck ($\mathrm{Bound}_{\Sigma}$)** | **Boundary** | **Signal-to-Noise** | Signal strength sufficient? | $\text{SNR} < \epsilon$ (Noise Floor Check) | $O(BD)$ ✓ |
 | **16** | **AlignCheck ($\mathrm{GC}_T$)** | **Critic** | **Objective Alignment** | Proxy matches objective? | $\lvert V_{\text{proxy}} - V_{\text{true}} \rvert$ (Alignment Error) | $O(B)$ ✗ |
 | **17** | **Lock ($\mathrm{Cat}_{\mathrm{Hom}}$)** | **WM** | **Structural Constraint** | Hard safe-guards active? | $\mathbb{I}(\text{Unsafe}) \cdot \infty$ (Hard Constraint) | $O(B)$ ✓ |
+| **18** | **SymmetryCheck ($\mathrm{Sym}_G$)** | **Shutter** | **Orbit Invariance** | Macro invariant to nuisance group? | $\mathbb{E}_{g\sim G_{\text{spatial}}}\!\left[D_{KL}(q(K\!\mid x)\Vert q(K\!\mid g\!\cdot\! x))\right]$ | $O(B)$ ✓ |
+| **19** | **DisentanglementCheck ($\mathrm{Decorr}_{Kn}$)** | **Shutter / WM** | **Macro–Nuisance Leakage** | Macro correlated with nuisance residual? | $\left\|\mathrm{Cov}(z_{\text{macro}},z_n)\right\|_F^2$ | $O(Bd_md_n)$ ✓ |
+| **20** | **LipschitzCheck ($\mathrm{Lip}_\Theta$)** | **WM / Critic** | **Gain Control** | Operator norms bounded? | $\max_\ell \sigma(W_\ell)$ (spectral norm monitor) | $O(P)$ ⚡ |
+| **21** | **SymplecticCheck ($\mathrm{Symp}$)** | **World Model** | **Volume Preservation** | Transition approximately symplectic? | $\left\|J_S^\top J J_S - J\right\|_F^2$ | $O(BZ^2)$ ✗ |
+| **22** | **MECCheck ($\mathrm{MEC}$)** | **Belief / WM** | **CPTP Consistency** | Operator update matches GKSL form? | $\left\|\frac{\varrho_{t+1}-\varrho_t}{\Delta t}-\mathcal{L}_{\text{GKSL}}(\varrho_t)\right\|_F^2$ | $O(BZ^3)$ ✗ |
+| **23** | **NEPCheck ($\mathrm{NEP}$)** | **Belief / Boundary** | **Update vs Evidence** | Internal update supported by boundary info? | $\mathrm{ReLU}(D_{KL}(p_{t+1}\Vert p_t)-I(X_t;K_t))^2$ | $O(B|\mathcal{K}|)$ ✓ |
+| **24** | **QSLCheck ($\mathrm{QSL}$)** | **All** | **Update Speed Limit** | Step too large in $d_G$? | $\mathrm{ReLU}(d_G(z_{t+1},z_t)-v_{\max})^2$ | $O(BZ)$ ✓ |
 
-**Compute Legend:** ✓ Easy (<10% overhead) | ⚡ Medium (10-50% overhead) | ✗ Hard (>50% overhead or infeasible)
+**Compute Legend:** ✓ Low (typically online) | ⚡ Moderate (often amortized/approximated) | ✗ High (often offline or coarse approximations)
 **Variables:** $B$ = batch, $Z$ = latent dim, $A$ = actions, $P$ = params, $H$ = horizon, $D$ = observation dim
 **Threshold units:** whenever a node uses a threshold $\epsilon$, it inherits the units of the compared quantity (e.g., $\epsilon$ is dimensionless for SNR checks; $\epsilon$ has the same units as $\|\nabla V\|$ for stiffness checks; $\epsilon$ is in nats when compared to $I(X;K)$ or $H(K)$). Budgets like $V_{\text{max}},V_{\text{limit}}$, and $B_{\text{switch}}$ share units with $V$ (nats in the convention of Section 1.2).
 
@@ -723,18 +898,56 @@ $$ \delta \ll \gamma \ll \alpha,\qquad \beta \le \alpha $$
 
 We regulate the Fragile Agent by augmenting the loss function with specific terms for each component. These terms are non-negotiable cybernetic contracts.
 
+#### 3.3.0 Gauge-Invariant Regulation (Symmetry Quotienting)
+
+The “Fragile” design is compatible with (and benefits from) an explicit **symmetry layer** (Section 1.1.4): identify nuisance degrees of freedom as group actions and enforce invariance/equivariance so that capacity is spent on control-relevant structure.
+
+The table below summarizes a minimal, implementable set of **gauge-invariant regulation** mechanisms. Each item is expressed as a concrete loss/monitor and mapped to an existing Fragile failure mode (Section 5). The intent is not to import physics metaphors, but to use the standard mathematical language of symmetry and invariance (group actions, quotienting, equivariance).
+
+| Method | Gauge / nuisance variable | Implementation (loss / constraint) | Failure mode mitigated | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **Projective (bounded) value head** | reward scale / value magnitude drift | $u(z)=\phi(z)/\|\phi(z)\|,\ \ \omega=\tilde\omega/\|\tilde\omega\|,\ \ V(z)=V_{\mathrm{scale}}\,(1-u(z)\cdot\omega)$ | Mode C.E (divergence / blow-up) | Bounded state-dependent part; $V_{\mathrm{scale}}$ (units: nat) can be calibrated or learned as an adaptive multiplier; does not eliminate the need for consistent units elsewhere. |
+| **Orbit-invariance loss** | pose/basis nuisance $g\in G_{\text{spatial}}$ | $\mathcal{L}_{\text{orbit}}=\mathbb{E}_{g}\big[D_{KL}(q(K\mid x)\Vert q(K\mid g\cdot x))\big]$ | Mode S.D (symmetry blindness) | Implements “$K$ approximates $x/G$” by encouraging macro assignments to be invariant under nuisance transforms. |
+| **Macro–(nuisance+texture) cross-covariance** | leakage between $K$ and residual channels | $\mathcal{L}_{K\perp \bullet}=\|\mathrm{Cov}(z_{\text{macro}},z_n)\|_F^2 + \|\mathrm{Cov}(z_{\text{macro}},z_{\mathrm{tex}})\|_F^2$ | Mode T.C (overfitting to residuals) | Practical surrogate for reducing residual leakage into the macro register. Texture leakage is always a defect; nuisance leakage is a defect when it changes macro identity. Monitored by DisentanglementCheck. |
+| **Spectral (Lipschitz) barrier** | gain / sensitivity drift | spectral norm constraints (per-layer) {cite}`miyato2018spectral` | Mode B.E (fragility) | Bounds local gain; supports stable rollouts and well-conditioned metrics. |
+| **Symplectic / Hamiltonian world model (optional)** | phase-space distortion | parameterize $\dot{z}=J\nabla H(z,a)$ or penalize symplectic defect | Mode D.E (oscillation) / numeric blow-up | Appropriate when the latent dynamics are well-modeled as near-Hamiltonian; otherwise treat as optional structure. |
+| **Hodge-style alignment (optional)** | solenoidal loop component in induced flow | $\mathcal{L}_{\text{Hodge}}=1-\cos(\Delta z,\ -G^{-1}\nabla V)$ | Mode D.E (oscillatory) | Encourages the policy-induced state velocity to align with value descent, suppressing circular components that cause chattering. |
+| **Canonicalization shutter (STN) (optional)** | input frame / pose gauge | $x\mapsto \tilde x=C_\psi(x)$, then VQ on $\tilde x$ {cite}`jaderberg2015stn` | Mode S.D / Node 11 (capacity) | Reduces the effective entropy of $K$ by canonicalizing nuisance transforms before discretization. |
+| **Diagonal metric law** | coordinate basis choice | natural-gradient / trust region with state metric $G$ | Mode B.C (control deficit) | Enforces coordinate-invariant update geometry in latent state space (Sections 2.5–2.6). |
+
 #### A. VQ-VAE Regulation (The Shutter)
-*   **Symbolic Bottleneck (Node 3 / 11):** the shutter is a *split* latent $(K,z_\mu)$ with $K\in\mathcal{K}$ discrete (Section 2.2b). A canonical objective is:
+*   **Symbolic Bottleneck (Node 3 / 11):** the shutter is a split latent $(K,z_n,z_{\mathrm{tex}})$ with $K\in\mathcal{K}$ discrete (Section 2.2b). A canonical objective is:
     $$
     \mathcal{L}_{\text{shutter}}
     =
     \mathcal{L}_{\text{recon}}
     + \underbrace{\| \operatorname{sg}[z_e]-e_{K}\|_2^2 + \beta\|z_e-\operatorname{sg}[e_K]\|_2^2}_{\text{VQ codebook + commitment}}
-    + \underbrace{\beta_\mu D_{KL}(q(z_\mu \mid x) \Vert p(z_\mu))}_{\text{micro-as-noise}}
+    + \underbrace{\beta_n D_{KL}(q(z_n \mid x) \Vert p(z_n))}_{\text{nuisance prior (regularize)}}
+    + \underbrace{\beta_{\mathrm{tex}} D_{KL}(q(z_{\mathrm{tex}} \mid x) \Vert p(z_{\mathrm{tex}}))}_{\text{texture-as-residual}}
     + \underbrace{\lambda_{\text{use}} D_{KL}(\hat{p}(K)\ \Vert\ \mathrm{Unif}(\mathcal{K}))}_{\text{anti-collapse (optional)}}.
     $$
-    Units: $\beta$, $\beta_\mu$, and $\lambda_{\text{use}}$ are dimensionless weights; each $D_{KL}$ is measured in nats.
-    *   *Effect:* The macro channel is a bounded-rate symbolic register; the micro channel is forced toward a high-entropy prior (treated as nuisance/noise). The optional usage term prevents codebook collapse while leaving the rate bounded by $\log|\mathcal{K}|$.
+    Units: $\beta$, $\beta_n$, $\beta_{\mathrm{tex}}$, and $\lambda_{\text{use}}$ are dimensionless weights; each $D_{KL}$ is measured in nats.
+    *   *Effect:* The macro channel is a bounded-rate symbolic register. The nuisance channel is regularized but typed (it may be used to explain structured deviations or support actuation). The texture channel is reconstruction-only: it is forced toward a high-entropy prior and must not be required for macro closure or control.
+*   **Orbit invariance (Node 18: SymmetryCheck; optional but recommended when $G_{\text{spatial}}$ is known).**
+    Sample nuisance transforms $g\sim G_{\text{spatial}}$ (data augmentation, known pose perturbations, or learned warps) and penalize changes in macro assignment:
+    $$
+    \mathcal{L}_{\text{orbit}}
+    :=
+    \mathbb{E}_{g}\!\left[D_{KL}\!\left(q(K\mid x)\ \Vert\ q(K\mid g\cdot x)\right)\right].
+    $$
+    This is a direct operationalization of the quotient intent “$K$ approximates $x/G_{\text{spatial}}$” (Section 2.2b) and prevents symmetry-blind representations.
+*   **Macro–residual disentanglement (Node 19: DisentanglementCheck).**
+    Enforce that the control-relevant macro embedding $z_{\text{macro}}:=e_K$ does not carry the same variation as either residual channel by discouraging cross-covariance:
+    $$
+    \mathcal{L}_{K\perp \bullet}
+    :=
+    \left\|\mathrm{Cov}(z_{\text{macro}}, z_n)\right\|_F^2
+    +
+    \left\|\mathrm{Cov}(z_{\text{macro}}, z_{\mathrm{tex}})\right\|_F^2.
+    $$
+    This complements enclosure/closure constraints (Section 2.8). Texture leakage is treated as strictly disallowed; nuisance leakage is allowed only insofar as it does not alter macro identity.
+*   **Canonicalization shutter (optional).**
+    If $G_{\text{spatial}}$ corresponds to a known input-frame nuisance (pose/basis), insert $x\mapsto \tilde x=C_\psi(x)$ (e.g., an STN) before the VQ encoder and train $C_\psi$ jointly using $\mathcal{L}_{\text{orbit}}$ and reconstruction/closure losses (Section 2.2b) {cite}`jaderberg2015stn`.
 *   **Contrastive Anchoring (Node 6):**
     $$ \mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(z_t, z_{t+k}))}{\sum \exp(\text{sim}(z_t, z_{neg}))} $$
     *   *Effect:* Ensures the latent space captures long-term structural dependencies (slow features), not just pixel reconstruction.
@@ -791,6 +1004,30 @@ Units: $\lambda,\mu,\nu$ are dimensionless weights; each component loss is taken
 *   **Forward Consistency (Node 5):**
     $$ \mathcal{L}_{\text{pred}} = \| S(z_t, a_t) - z_{t+1} \|^2 $$
     *   *Effect:* Standard dynamics learning, but constrained by the Lyapunov potential (see below).
+*   **Symplectic / Hamiltonian parameterization (Node 21; optional).**
+    If the latent state is organized as canonical coordinates $z=(q,p)\in\mathbb{R}^{2n}$, a structured world model can be parameterized by a learned Hamiltonian $H_\psi(q,p,a)$. Hamiltonian dynamics take the form
+    $$
+    \dot q = \nabla_p H_\psi(q,p,a),
+    \qquad
+    \dot p = -\nabla_q H_\psi(q,p,a).
+    $$
+    Equivalently, $\dot z = J\nabla_z H_\psi(z,a)$ for the canonical symplectic matrix $J$. This induces a divergence-free flow in $z$ and supports stable long-horizon rollouts when the environment is approximately conservative in the chosen coordinates {cite}`greydanus2019hamiltonian`. For a discrete-time transition $S$, one can monitor (or penalize) departures from symplecticity via
+    $$
+    \mathcal{L}_{\text{symp}}
+    :=
+    \left\|J_S^\top J J_S - J\right\|_F^2,
+    \qquad
+    J_S := \frac{\partial S(z,a)}{\partial z}.
+    $$
+    This is optional: if the environment is strongly dissipative or control-dominated, forcing symplectic structure can be counterproductive.
+*   **Residual-event (jump) codebook (optional).**
+    To separate “modeled dynamics” from “unmodeled disturbance”, maintain a discrete codebook over one-step residuals
+    $$
+    \Delta z_{n,t} := z_{n,t+1}-S_n(z_{n,t},K_t,a_t),
+    \qquad
+    J_t := \mathrm{VQ}(\Delta z_{n,t})\in\{1,\dots,|\mathcal{J}|\}.
+    $$
+    Here $z_n$ is the **structured nuisance** coordinate (Section 2.2b). Texture $z_{\mathrm{tex}}$ is explicitly not used to form jump types: it is treated as an emission residual for reconstruction/likelihood, not as a disturbance class for dynamics. The resulting index $J_t$ provides an online-codable label for recurring disturbance types and supports conditional noise modeling (e.g., a mixture model for nuisance residuals). Section 11.5 shows how the same idea can be lifted to operator-valued belief updates, where discrete residual types parameterize jump operators.
 
 #### C. Critic Regulation (Value / Lyapunov Function)
 
@@ -804,6 +1041,19 @@ The Critic does not just predict reward; it defines a **stability-oriented poten
 | **Goal** | Accuracy | Stability-oriented constraint |
 | **Failure Mode** | Flat plateaus, jagged landscapes | Mitigated |
 | **Geometry** | Ignores curvature | Encourages a well-conditioned potential |
+
+*   **Projective (bounded) value head (optional; objective gauge robustness).**
+    If the dominant instability comes from value-scale drift (objective gauge $G_{\text{obj}}$; Section 1.1.4), parameterize the critic so its *state-dependent* output is bounded and scale-free. One implementable pattern is:
+    $$
+    u(z):=\frac{\phi(z)}{\|\phi(z)\|+\epsilon},
+    \qquad
+    \omega:=\frac{\tilde \omega}{\|\tilde \omega\|+\epsilon},
+    \qquad
+    V(z):=V_{\mathrm{scale}}\,(1-u(z)\cdot \omega),
+    $$
+    where $\phi$ is a learned embedding and $\tilde\omega$ is a learned goal direction. The dot product is dimensionless; $V_{\mathrm{scale}}$ carries units of nats (Section 1.2) and can be calibrated or learned via adaptive multipliers (Section 3.5).
+    
+    This does **not** make the entire RL pipeline invariant to arbitrary reward rescaling by itself (targets still change under $r\mapsto ar+b$), but it bounds critic outputs and makes the *directional part* of the value landscape less sensitive to magnitude drift.
 
 *   **Lyapunov Decay (Node 7 - Stiffness):**
     Enforce a sampled Lyapunov decrease condition (a sufficient stability surrogate):
@@ -839,6 +1089,17 @@ The Policy is the controller. Its objective is to choose actions that reduce exp
     $$\mathcal{L}_{\text{nat}} = -\mathbb{E}_{s, a \sim \pi} \left[ \frac{\nabla_s V(s) \cdot f(s, a)}{\sqrt{G_{ii}(s)}} \right]$$
     * *Mechanism:* Maximize the alignment between the value gradient $\nabla V$ and the realized dynamics $f(s,a)$, normalized by the local sensitivity scale ($G_{ii}$).
     * *Effect:* Where the landscape is sensitive/ill-conditioned (large $G$), effective steps shrink; where it is well-conditioned (small $G$), steps can be larger.
+
+*   **Hodge-style alignment (optional; complements Node 10 and BarrierBode).**
+    View the policy-induced state change as a vector field on latent space (either the true environment dynamics $f$ or the world-model prediction $S(z,a)-z$). A simple alignment surrogate encourages the task-relevant component of the flow to be gradient-like:
+    $$
+    g(z):= -G^{-1}(z)\nabla_z V(z),
+    \qquad
+    \Delta z := S(z_t,a_t)-z_t,
+    \qquad
+    \mathcal{L}_{\text{Hodge}} := 1-\cos(\Delta z,\ g(z_t)).
+    $$
+    This does not remove exploration; rather it penalizes large *solenoidal* (looping) components when they produce oscillatory instability (Mode D.E). It is most appropriate when $V$ is well-shaped and the world model is reliable on-policy.
 
 *   **Geodesic Stiffness (Node 2 - Zeno Constraint):**
     $$\mathcal{L}_{\text{Zeno}} = \|\pi_t - \pi_{t-1}\|^2_{G}$$
@@ -904,9 +1165,10 @@ The synchronization and component losses above enforce internal consistency. The
     :=
     V(Z_t)
     + \beta_K\big(-\log p_\psi(K_t)\big)
-    + \beta_\mu D_{KL}\!\left(q(z_{\mu,t}\mid x_t)\ \Vert\ p(z_\mu)\right)
+    + \beta_n D_{KL}\!\left(q(z_{n,t}\mid x_t)\ \Vert\ p(z_n)\right)
+    + \beta_{\mathrm{tex}} D_{KL}\!\left(q(z_{\mathrm{tex},t}\mid x_t)\ \Vert\ p(z_{\mathrm{tex}})\right)
     + T_c D_{KL}\!\left(\pi(\cdot\mid K_t)\ \Vert\ \pi_0(\cdot\mid K_t)\right),
-    \qquad \text{where } Z_t=(K_t,z_{\mu,t}).
+    \qquad \text{where } Z_t=(K_t,z_{n,t},z_{\mathrm{tex},t}).
     $$
     A monotonicity surrogate is then enforced by
     $$
@@ -1118,7 +1380,7 @@ Barriers represent the fundamental limits of the control loop.
 | **BarrierVariety** | Requisite Variety | **Policy** | **Ashby's Deficit** | Policy states < Disturbance states. | $\dim(Z) \ge \dim(\mathcal{X})$ (Width Penalty) | $O(1)$ ✓ |
 | **BarrierLock** | Exclusion | **World Model** | **Hard-Coded Safety** | Safety interlock successfully prevents illegal state. | $\mathbb{I}(s \in \text{Forbidden}) \cdot \infty$ | $O(B)$ ✓ |
 
-**Compute Legend:** ✓ Easy (<10% overhead) | ⚡ Medium (10-50% overhead) | ✗ Hard (>50% overhead or infeasible)
+**Compute Legend:** ✓ Low (typically online) | ⚡ Moderate (often amortized/approximated) | ✗ High (often offline or coarse approximations)
 
 ### 4.1 Barrier Implementation Details
 
@@ -1157,12 +1419,12 @@ The most dangerous failures occur when barriers conflict. We model these as **Tr
         $$
         \mathcal{L}_{\text{InfoControl}}
         =
-        \underbrace{\beta_K\,\mathbb{E}[-\log p_\psi(K)] + \beta_\mu D_{KL}(q(z_\mu \mid x)\Vert p(z_\mu))}_{\text{Compression (Rate)}}
+        \underbrace{\beta_K\,\mathbb{E}[-\log p_\psi(K)] + \beta_n D_{KL}(q(z_n \mid x)\Vert p(z_n)) + \beta_{\mathrm{tex}} D_{KL}(q(z_{\mathrm{tex}} \mid x)\Vert p(z_{\mathrm{tex}}))}_{\text{Compression (Rate)}}
         +
         \underbrace{\gamma\,\mathbb{E}[\mathfrak{D}(Z,A)]}_{\text{Control Effort}}
         $$
         where $\mathfrak{D}$ is an actuation cost (e.g. KL-control to a prior $\pi_0$, or a calibrated norm/penalty on actions).
-    *   *Mechanism:* Use Lagrange multipliers to find the Pareto frontier. If control performance drops, decrease $\beta_K,\beta_\mu$ (allocate more bits to the shutter).
+    *   *Mechanism:* Use Lagrange multipliers to find the Pareto frontier. If control performance drops, decrease $\beta_K,\beta_n,\beta_{\mathrm{tex}}$ (allocate more bits to the shutter).
 
 2.  **The Stability-Plasticity Dilemma (BarrierVac vs BarrierPZ):**
     *   *Conflict:* A stable World Model (model stability limit) resists updating to new dynamics (plasticity / Zeno).
@@ -1217,8 +1479,8 @@ Interventions are external mitigations to restore stability, re-ground the repre
 | **SurgTE** | T.E (Paradigm) | **Shutter/WM** | **Architecture Search** | **Neural Architecture Search (NAS):** Modify shutter+WM class to match topology (e.g., add hierarchy / memory). |
 | **SurgTC** | T.C (Overfit) | **WM** | **Regularization** | **Weight Decay / Dropout:** Increase $\lambda \|\theta\|^2$ penalty. |
 | **SurgTD** | T.D (Helplessness)| **Policy** | **Noise Injection** | **Parameter Space Noise:** Add $\xi \sim \mathcal{N}(0, \Sigma)$ to Policy weights. |
-| **SurgDC** | D.C (Ungrounded) | **Shutter/WM** | **Smoothing / fallback** | **OOD rejection:** if micro surprisal spikes (e.g. $D_{KL}(q(z_\mu\mid x)\Vert p(z_\mu))>\tau$) and/or macro surprisal spikes (e.g. $-\log p_\psi(K)>\tau_K$), trigger fallback (safe stop). |
-| **SurgDE** | D.E (Oscillate) | **Policy** | **Damping** | **Momentum Reduction:** Decrease Adam $\beta_1$ or increase batch size. |
+| **SurgDC** | D.C (Ungrounded) | **Shutter/WM** | **Smoothing / fallback** | **OOD rejection:** if nuisance surprisal spikes (e.g. $D_{KL}(q(z_n\mid x)\Vert p(z_n))>\tau_n$) and/or texture surprisal spikes (e.g. $D_{KL}(q(z_{\mathrm{tex}}\mid x)\Vert p(z_{\mathrm{tex}}))>\tau_{\mathrm{tex}}$) and/or macro surprisal spikes (e.g. $-\log p_\psi(K)>\tau_K$), trigger fallback (safe stop). |
+| **SurgDE** | D.E (Oscillate) | **Policy** | **Damping** | **Triggered by OscillateCheck / HolonomyCheck:** reduce policy step size (lower LR), decrease Adam $\beta_1$, increase batch size, or temporarily freeze policy updates until the critic signal is stable. |
 | **SurgBE** | B.E (Fragile) | **Critic** | **Saturation / Anti-Windup** | **Spectral Normalization:** Constrain Lipschitz constant of $V(s)$. |
 | **SurgBD** | B.D (Starve) | **Boundary/Shutter** | **Replay Buffer / Reservoir** | **Experience Replay:** Train on historical buffers to prevent catastrophic forgetting. |
 | **SurgBC** | B.C (Deficit) | **Policy** | **Controller Expansion** | **Width Expansion:** Dynamically add neurons to the Policy network (Net2Net). |
@@ -1227,15 +1489,15 @@ Interventions are external mitigations to restore stability, re-ground the repre
 
 ## 7. Computational Considerations
 
-This section provides rigorous cost analysis for implementing the Fragile Agent regulation framework, enabling practitioners to make informed trade-offs between safety coverage and computational overhead.
+This section provides an order-of-growth and engineering-cost view of the regulation framework, enabling practitioners to choose an appropriate tier of coverage under compute and implementation constraints.
 
 ### 7.1 Interface Cost Summary
 
-| Tier | Interfaces | Total Overhead | Failure Modes Prevented |
-|------|-----------|----------------|-------------------------|
-| **Essential** | CostBoundCheck, ZenoCheck, CompactCheck, ErgoCheck, ComplexCheck, StiffnessCheck | ~10% | 6/14 |
-| **Important** | ScaleCheck, GeomCheck, OscillateCheck, ParamCheck | ~25% | 9/14 |
-| **Advanced** | TopoCheck, TameCheck, BifurcateCheck, AlignCheck | ~60%+ | 13/14 |
+| Tier | Interfaces | Relative Cost | Failure Modes Covered |
+|------|-----------|---------------|-----------------------|
+| **Essential** | CostBoundCheck, ZenoCheck, CompactCheck, ErgoCheck, ComplexCheck, StiffnessCheck | Low | 6/14 |
+| **Important** | ScaleCheck, GeomCheck, OscillateCheck, ParamCheck | Medium | 9/14 |
+| **Advanced** | TopoCheck, TameCheck, BifurcateCheck, AlignCheck | High | 13/14 |
 
 ### 7.2 Barrier Cost Summary
 
@@ -1256,7 +1518,7 @@ This section provides rigorous cost analysis for implementing the Fragile Agent 
 
 ### 7.4 Implementation Tiers
 
-#### Tier 1: Core Fragile Agent (~15% overhead)
+#### Tier 1: Core Fragile Agent (Minimal)
 For production systems with tight compute budgets.
 
 **Loss Function:**
@@ -1281,7 +1543,7 @@ def compute_fragile_core_loss(
     lambda_stiff: float = 0.01,
     stiff_eps: float = 0.1,
 ) -> torch.Tensor:
-    """Core Fragile Agent loss with ~15% overhead."""
+    """Core Fragile Agent loss (minimal tier)."""
 
     # CompactCheck + ComplexCheck: shutter regularization (macro code + micro nuisance)
     rep_loss = shutter_loss.mean()
@@ -1313,7 +1575,7 @@ def compute_fragile_core_loss(
     return total
 ```
 
-#### Tier 2: Standard Fragile Agent (~40% overhead)
+#### Tier 2: Standard Fragile Agent (Diagnostics + Synchronization)
 For research and safety-conscious applications.
 
 **Additional Terms:**
@@ -1384,7 +1646,7 @@ def compute_oscillation_loss(
     return (z_t - z_t_minus_2).pow(2).mean()
 ```
 
-#### Tier 3: Full Fragile Agent (~80% overhead)
+#### Tier 3: Full Fragile Agent (High-Assurance)
 For safety-critical applications with verification requirements.
 
 **Additional Terms:**
@@ -1617,11 +1879,13 @@ class RiemannianFragileAgent(nn.Module):
     """
     Algorithm 3: The Riemannian Fragile Agent
 
-    Notation:
-    - Z: Latent state space (statistical manifold)
-    - G: State-space sensitivity metric (Fisher + optional value Hessian)
-    - z_macro, z_micro: Macro (predictive) and Micro (nuisance) coordinates
-    - Ω: Regime indicator (from monitors)
+	    Notation:
+	    - Z: Latent state space (statistical manifold)
+	    - G: State-space sensitivity metric (Fisher + optional value Hessian)
+	    - z_macro: Macro (predictive) coordinates (code embedding)
+	    - z_nuis: Structured nuisance residual (pose/basis/disturbance)
+	    - z_tex: Texture residual (reconstruction-only; excluded from closure/control)
+	    - Ω: Regime indicator (from monitors)
 
     This algorithm combines macro/micro separation (Section 2.2b), the Sieve
     monitors (Sections 3–6), and Lyapunov-constrained control in a single loop.
@@ -1657,14 +1921,14 @@ class RiemannianFragileAgent(nn.Module):
             G_inv = 1.0 / (fisher_diag + 1e-8)
 
         # === PHASE III: SHUTTER UPDATE (VQ-VAE) ===
-        # Enforce Causal Enclosure: discrete macro K carries the predictive signal,
-        # while z_micro is treated as nuisance/residual information.
-        K_t, z_macro, z_micro = self.shutter(batch.obs)  # z_macro := e_{K_t}
+	        # Enforce Causal Enclosure: discrete macro K carries the predictive signal.
+	        # Structured nuisance is typed; texture is reconstruction-only.
+	        K_t, z_macro, z_nuis, z_tex = self.shutter(batch.obs)  # z_macro := e_{K_t}
 
         # SYMBOLIC: Closure is cross-entropy / conditional entropy on the macro symbols.
         # (See Section 2.8: I(K_{t+1}; Z_t | K_t, A_t)=0 and H(K_{t+1}|K_t,A_t) small.)
-        closure_loss = self._compute_closure_loss(K_t, z_micro)
-        self.shutter_opt.step(self.shutter_loss + closure_loss)
+	        closure_loss = self._compute_closure_loss(K_t, z_nuis, z_tex)
+	        self.shutter_opt.step(self.shutter_loss + closure_loss)
 
         # Phase IV: Lyapunov update (critic)
         # Enforce Exponential Stability constraint on V
@@ -1700,13 +1964,14 @@ class RiemannianFragileAgent(nn.Module):
             # pause adaptation to let estimation catch up (wait state)
             pass
 
-    def _compute_closure_loss(self, K_t, z_micro):
-        """
-        Causal Enclosure (symbolic form).
+	    def _compute_closure_loss(self, K_t, z_nuis, z_tex):
+	        """
+	        Causal Enclosure (symbolic form).
 
-        With a discrete macro register K∈𝒦, enclosure is the pair of conditions:
-        1) Predictability: H(K_{t+1} | K_t, a_t) is small (law-like macro dynamics).
-        2) No leak: I(K_{t+1}; Z_{μ,t} | K_t, a_t)=0 (micro does not inform the law).
+	        With a discrete macro register K∈𝒦, enclosure is the pair of conditions:
+	        1) Predictability: H(K_{t+1} | K_t, a_t) is small (law-like macro dynamics).
+	        2) No leak: I(K_{t+1}; Z_tex,t | K_t, a_t)=0 (texture does not inform the law).
+	           (Optionally also I(K_{t+1}; Z_n,t | K_t, a_t)=0 once action is accounted for.)
 
         Implementation sketch:
         - (1) is a cross-entropy loss over code indices (a Shannon quantity).
@@ -1718,11 +1983,15 @@ class RiemannianFragileAgent(nn.Module):
 
         predict_loss = nn.CrossEntropyLoss()(logits_next, K_next)
 
-        # Choose one MI proxy for the independence term:
-        #   - HSIC(z_micro, one_hot(K_next))
-        #   - adversary with gradient reversal predicting K_next from z_micro
-        #   - variational estimator of I(K_next; z_micro | K_t, a_t)
-        independence_loss = estimate_conditional_mi(K_next, z_micro, K_t, self.action)
+	        # Choose one MI proxy for the independence term:
+	        #   - HSIC(z_tex, one_hot(K_next))
+	        #   - adversary with gradient reversal predicting K_next from z_tex / z_nuis
+	        #   - variational estimator of I(K_next; z_tex | K_t, a_t) and I(K_next; z_nuis | K_t, a_t)
+	        # In the strictest form, penalize both nuisance and texture leakage; texture is non-negotiable.
+	        independence_loss = (
+	            estimate_conditional_mi(K_next, z_tex, K_t, self.action)
+	            + estimate_conditional_mi(K_next, z_nuis, K_t, self.action)
+	        )
 
         return predict_loss + self.lambda_ind * independence_loss
 
@@ -1741,10 +2010,10 @@ class RiemannianFragileAgent(nn.Module):
 
 | Compute Budget | Recommended Tier | Key Trade-offs |
 |----------------|------------------|----------------|
-| **Tight (<20% overhead)** | Tier 1 | Covers basic stability; may miss scaling issues |
-| **Moderate (20-50%)** | Tier 2 | Good coverage; catches most failure modes |
-| **Generous (>50%)** | Tier 3 | Near-complete coverage; suitable for safety-critical |
-| **Unlimited (offline)** | Full + verification | Complete formal verification possible |
+| **Tight (online-only)** | Tier 1 | Covers basic stability; may miss scaling issues |
+| **Moderate (online + extra monitors)** | Tier 2 | Good coverage; catches most failure modes |
+| **Generous (online + heavy checks)** | Tier 3 | Near-complete coverage; suitable for safety-critical |
+| **Offline (post-hoc)** | Full + verification | Enables expensive verification and audit passes |
 
 ### 7.6 Defect Functional Costs (from metalearning.md)
 
@@ -2195,11 +2464,433 @@ def train_atlas_model(
 
 **Expected Behavior:**
 - Charts should specialize to different topological regions
-- Usage should be roughly balanced (each chart ~25% for K=4)
+- Usage should be roughly balanced (near-uniform over charts when no chart is privileged)
 - Orthogonality defect should decrease over training
 - Separation should increase to margin value
 
+### 7.8 Tier 6: The Attentive Atlas (Permutation-Invariant Routing)
+
+The Atlas architecture described in Section 7.7 uses a fixed MLP router to assign input regions to charts. While functional, this approach is **permutation sensitive**: the network learns that "Chart 1" is "output neuron 1." This breaks the **Symbol-Permutation Symmetry** ($S_{|\mathcal{K}|}$) requirement of Section 1.1.4, which posits that the physical identity of a manifold chart should not depend on its memory index.
+
+To resolve this, we introduce the **Attentive Atlas**. By replacing the MLP router with a **Cross-Attention / Slot-Based** mechanism, we treat charts as an *unordered set of learnable prototypes*.
+
+#### 7.8.1 Theoretical Motivation: Charts as Query Vectors
+
+We reframe the routing problem as a **Query-Key Matching** problem.
+1.  **Charts as Queries ($Q$):** Each chart $k \in \{1, \dots, N_c\}$ is represented by a learnable vector $q_k \in \mathbb{R}^d$. This vector represents the "centroid" or "signature" of the manifold (e.g., the "Sphere" prototype vs. the "Torus" prototype).
+2.  **Observation as Key ($K_{\text{dat}}$):** The observation $x$ is projected into a key vector $k(x)$.
+3.  **Routing as Attention:** The probability of assigning observation $x$ to chart $i$ is determined by the alignment between the data key and the chart query.
+
+**Definition 7.8.1 (Attentive Routing Law).**
+$$
+w_i(x) := \frac{\exp\left(\frac{\langle q_i, k(x) \rangle}{\sqrt{d}}\right)}{\sum_{j=1}^{N_c} \exp\left(\frac{\langle q_j, k(x) \rangle}{\sqrt{d}}\right)}
+$$
+This mechanism is **permutation invariant**: shuffling the memory order of the queries $\{q_i\}$ merely shuffles the output indices without changing the underlying topology or geometry.
+
+#### 7.8.2 The Hierarchical State Tuple
+
+In this architecture, the macro-state $K_t$ decomposes into a two-level hierarchy:
+$$
+K_t = (K_{\text{chart}}, K_{\text{code}})
+$$
+1.  **$K_{\text{chart}} \in \{1, \dots, N_c\}$:** The Topological ID (Which manifold are we on?). Determined by the **Slot Attention** (Router).
+2.  **$K_{\text{code}} \in \{1, \dots, N_v\}$:** The Geometric ID (Where are we locally?). Determined by the **Local VQ** of the active chart.
+
+The full latent state is:
+$$ Z_t = (\underbrace{K_{\text{chart}}, K_{\text{code}}}_{\text{Macro}}, \underbrace{z_{n}}_{\text{Structured Local Coords}}, \underbrace{z_{\text{tex}}}_{\text{Texture}}) $$
+
+We enforce a recursive residual decomposition in chart space:
+$$
+V(x) = e_{K} + z_n + z_{\text{tex}},
+$$
+where $z_n$ is a filtered residual (structured, predictable) and $z_{\text{tex}}$ is the residual of that residual (stochastic detail).
+
+#### 7.8.3 Architecture Specification: `AttentiveAtlasVQ`
+
+This module replaces the MLP router used in the Tier 5 atlas (Section 7.7.5) for high-end implementations.
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class LocalVectorQuantizer(nn.Module):
+    """
+    Standard VQ Layer for Local Geometry.
+    Represents the local coordinate system of a single Chart.
+    """
+    def __init__(self, num_embeddings: int, embedding_dim: int, commitment_cost: float = 0.25):
+        super().__init__()
+        self.embedding_dim = embedding_dim
+        self.num_embeddings = num_embeddings
+        self.commitment_cost = commitment_cost
+
+        # Local codebook
+        self.embeddings = nn.Embedding(self.num_embeddings, self.embedding_dim)
+        self.embeddings.weight.data.uniform_(-1/self.num_embeddings, 1/self.num_embeddings)
+
+    def forward(self, z):
+        # Flatten input
+        flat_z = z.view(-1, self.embedding_dim)
+
+        # L2 Distance
+        distances = (torch.sum(flat_z**2, dim=1, keepdim=True)
+                    + torch.sum(self.embeddings.weight**2, dim=1)
+                    - 2 * torch.matmul(flat_z, self.embeddings.weight.t()))
+
+        # Encoding
+        encoding_indices = torch.argmin(distances, dim=1).unsqueeze(1)
+        quantized = self.embeddings(encoding_indices).view(z.shape)
+
+        # Losses
+        e_latent_loss = F.mse_loss(quantized.detach(), z)
+        q_latent_loss = F.mse_loss(quantized, z.detach())
+        loss = q_latent_loss + self.commitment_cost * e_latent_loss
+
+        # Straight Through Estimator
+        quantized = z + (quantized - z).detach()
+
+        return quantized, encoding_indices, loss
+
+class AttentiveAtlasVQ(nn.Module):
+    """
+    Tier 6 Architecture: Attentive Atlas.
+
+    Charts are 'Slots' that attend to the input data.
+    - Router: Cross-Attention (Query=Charts, Key=Data)
+    - Geometry: Local VQ per Chart
+    """
+    def __init__(self, input_dim: int, num_charts: int, codes_per_chart: int, latent_dim: int):
+        super().__init__()
+        self.num_charts = num_charts
+        self.latent_dim = latent_dim
+
+        # 1. Feature Extractor (Shared Backbone)
+        self.feature_extractor = nn.Sequential(
+            nn.Linear(input_dim, 256),
+            nn.LayerNorm(256),
+            nn.ReLU(),
+            nn.Linear(256, latent_dim)
+        )
+
+        # 2. Chart Prototypes (Learnable Queries)
+        # These vectors represent the centroids of the manifolds in feature space.
+        self.chart_queries = nn.Parameter(torch.randn(num_charts, latent_dim))
+
+        # 3. Geometry Projection (Keys/Values)
+        self.data_key = nn.Linear(latent_dim, latent_dim)
+        self.data_value = nn.Linear(latent_dim, latent_dim)
+
+        # 4. The Atlas (Bank of Local Codebooks)
+        self.quantizers = nn.ModuleList([
+            LocalVectorQuantizer(codes_per_chart, latent_dim)
+            for _ in range(num_charts)
+        ])
+
+        # 5. Structure Filter (Recursive Residual Decomposition)
+        self.structure_filter = nn.Sequential(
+            nn.Linear(latent_dim, latent_dim // 4),
+            nn.ReLU(),
+            nn.Linear(latent_dim // 4, latent_dim)
+        )
+
+        # 6. Output Projection
+        self.out_proj = nn.Linear(latent_dim, input_dim)
+
+    def forward(self, x, temperature=1.0):
+        batch_size = x.shape[0]
+
+        # A. Feature Extraction
+        features = self.feature_extractor(x)
+
+        # B. Attentive Routing
+        K_data = self.data_key(features)   # [B, D]
+        V_data = self.data_value(features) # [B, D]
+
+        # Expand queries for batch: [B, Num_Charts, D]
+        Q_charts = self.chart_queries.unsqueeze(0).expand(batch_size, -1, -1)
+
+        # Attention Scores: (Q * K^T) / sqrt(d) -> [B, Num_Charts, 1]
+        attn_scores = torch.bmm(Q_charts, K_data.unsqueeze(2)).squeeze(2)
+        attn_scores = attn_scores / (self.latent_dim ** 0.5)
+
+        # Routing Weights (Softmax over charts)
+        router_weights = F.softmax(attn_scores / temperature, dim=-1) # [B, Num_Charts]
+
+        # C. Local Quantization (Parallel)
+        quantized_outputs = []
+        z_n_outputs = []
+        z_tex_outputs = []
+        vq_losses = 0
+        all_indices = []
+
+        # Each chart attempts to quantize the data value using its own topology
+        for i in range(self.num_charts):
+            z_continuous = V_data
+            z_q, indices, loss = self.quantizers[i](z_continuous)
+
+            # Recursive residual decomposition
+            delta_total = z_continuous - z_q.detach()
+            z_n = self.structure_filter(delta_total)
+            z_tex = delta_total - z_n
+
+            quantized_outputs.append(z_q)
+            z_n_outputs.append(z_n)
+            z_tex_outputs.append(z_tex)
+            vq_losses += loss
+            all_indices.append(indices)
+
+        # Stack: [B, Num_Charts, D]
+        z_stack = torch.stack(quantized_outputs, dim=1)
+        z_n_stack = torch.stack(z_n_outputs, dim=1)
+        z_tex_stack = torch.stack(z_tex_outputs, dim=1)
+
+        # D. Blending
+        # Soft blend for gradients
+        z_blended = (z_stack * router_weights.unsqueeze(-1)).sum(dim=1)
+        z_n_blended = (z_n_stack * router_weights.unsqueeze(-1)).sum(dim=1)
+        z_tex_blended = (z_tex_stack * router_weights.unsqueeze(-1)).sum(dim=1)
+
+        # Hard selection for discrete state ID
+        active_chart = router_weights.argmax(dim=-1) # K_chart
+
+        # Select the code index corresponding to the active chart
+        # gather: [B, 1]
+        active_code = torch.gather(
+            torch.cat(all_indices, dim=1),
+            1,
+            active_chart.unsqueeze(1)
+        ).squeeze(1) # K_code
+
+        # E. Reconstruction
+        x_recon = self.out_proj(z_blended)
+
+        return {
+            'z_latents': z_blended,
+            'z_n': z_n_blended,
+            'z_tex': z_tex_blended,
+            'k_chart': active_chart,
+            'k_code': active_code,
+            'router_weights': router_weights,
+            'vq_loss': vq_losses,
+            'x_recon': x_recon,
+            'chart_queries': self.chart_queries # For visualization
+        }
+```
+
+**Training constraints for the residual split:**
+- **Structured nuisance $z_n$:** encourage predictability (e.g., world-model prediction loss or low-rank bottleneck) so it captures coherent geometry rather than noise.
+- **Texture $z_{\text{tex}}$:** regularize toward a high-entropy prior, e.g. $D_{KL}(q(z_{\text{tex}})\Vert \mathcal{N}(0,I))$, to prevent leakage of structured information.
+
+#### 7.8.4 Geometric Interpretation and Diagnostics
+
+The Attentive Atlas offers unique geometric diagnostics unavailable to standard VQ-VAEs or MLP Routers.
+
+1.  **Manifold Centroids:** The parameter `self.chart_queries` ($N_c \times D$) encodes the relative positions of the manifolds. By applying PCA/t-SNE to these query vectors, one can visualize the "Meta-Topology" of the agent's world model.
+2.  **Attention Entropy (Node 3 Upgrade):**
+    $$
+    H_{\text{route}}(x) = - \sum_i w_i(x) \log w_i(x)
+    $$
+    *   **Low Entropy:** The agent is firmly inside a specific chart (e.g., inside a room).
+    *   **High Entropy:** The agent is in a **Transition Zone** or **Singularity** (e.g., a doorway, or the pole of a sphere). This is a direct detector for topological boundaries.
+
+#### 7.8.5 Comparison with Tier 5 (MLP Atlas)
+
+| Feature | Tier 5 (Standard Atlas) | Tier 6 (Attentive Atlas) |
+| :--- | :--- | :--- |
+| **Routing Mechanism** | MLP ($x \to$ Logits) | Cross-Attention ($x \leftrightarrow Q_{\text{chart}}$) |
+| **Symmetry** | Fixed Index (Permutation Sensitive) | **Gauge Invariant** (Permutation Invariant) |
+| **Parameters** | Weights per chart index | Learnable Query Vectors |
+| **Capacity Scaling** | Fixed output head size | Can dynamically add new Query Vectors |
+| **Interpretability** | Opaque weights | Query vectors represent manifold centroids |
+
+#### 7.8.6 Integration with Jump Operators
+
+In the Attentive Atlas, a **Jump** (Section 11.5.4) corresponds to a switch in the attention winner:
+1.  At $t$, $K_{\text{chart}}^t = i$.
+2.  At $t+1$, the attention weight for chart $j$ exceeds chart $i$.
+3.  The transition triggers the application of the Jump Operator $L_{i \to j}$ (learned affine transform) to the local coordinates, handling the gauge transformation between the two charts.
+
+From this point onward, atlas references assume the Attentive Atlas (Tier 6) unless explicitly labeled Tier 5.
+
 ---
+
+### 7.9 Encoder Architecture Overview: Attentive Atlas Latent Hierarchy
+
+The diagram below summarizes the encoder-side hierarchy that constructs the latent state
+$Z_t = (K_{\text{chart}}, K_{\text{code}}, z_n, z_{\text{tex}})$ under the Attentive Atlas routing.
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground":"#ffffff","textColor":"#1a1a1a","lineColor":"#666666"}}}%%
+flowchart TD
+    subgraph ENC["Embedding block (encoder)"]
+        Input["nn.Identity (input)"] -- "x_t [B, D_in]" --> FE["Feature extractor (nn.Sequential)"]
+
+        FE -- "features [B, D]" --> Kproj["Key projection (nn.Linear)"]
+        FE -- "features [B, D]" --> Vproj["Value projection (nn.Linear)"]
+
+        Qbank["Chart query bank (nn.Parameter)"] -- "q_i [N_c, D]" --> Router["Cross-attention router (module)"]
+        Kproj -- "k(x) [B, D]" --> Router
+
+        Vproj -- "v(x) [B, D]" --> VQ["Local VQ codebooks (nn.ModuleList)"]
+        Router -- "w_i(x) [B, N_c]" --> VQ
+
+        subgraph RDEC["Recursive Decomposition (modules)"]
+            Vproj -- "v(x) [B, D]" --> Sub1["Residual subtract (module)"]
+            VQ -- "e_K [B, D]" --> Sub1
+            Sub1 -- "delta_total [B, D]" --> Filter["Structure filter (nn.Sequential)"]
+            Sub1 -- "delta_total [B, D]" --> Sub2["Residual subtract (module)"]
+            Filter -- "z_n [B, D]" --> Sub2
+            Sub2 -- "z_tex [B, D]" --> Pack["Latent tuple pack (module)"]
+            Filter -- "z_n [B, D]" --> Pack
+        end
+
+        Router -- "K_chart [B]" --> Pack
+        VQ -- "K_code [B]" --> Pack
+    end
+
+    Pack -- "Z_t = (K_chart [B], K_code [B], z_n [B, D], z_tex [B, D])" --> Output["Latent state (nn.Identity)"]
+
+    classDef encoder fill:#e6f2ff,stroke:#1f4e79,stroke-width:1px,color:#1a1a1a;
+    classDef router fill:#fff2cc,stroke:#7f6000,stroke-width:1px,color:#1a1a1a;
+    classDef vq fill:#e2f0d9,stroke:#38761d,stroke-width:1px,color:#1a1a1a;
+    classDef residual fill:#fce5cd,stroke:#b45f06,stroke-width:1px,color:#1a1a1a;
+    classDef io fill:#f3f3f3,stroke:#666666,stroke-width:1px,color:#1a1a1a;
+
+    class Input,FE,Kproj,Vproj encoder;
+    class Qbank,Router router;
+    class VQ vq;
+    class Sub1,Sub2,Filter,Pack residual;
+    class Output io;
+
+    style ENC fill:#eef5ff,stroke:#1f4e79,stroke-width:1px,color:#1a1a1a;
+    style RDEC fill:#fff7e6,stroke:#b45f06,stroke-width:1px,color:#1a1a1a;
+```
+
+#### 7.9.1 Literature Parallels and Distinctions
+
+Related work suggests three nearby lineages, with clear differences in intent:
+- Slot-attention and object-centric VQ models use cross-attention to produce object slots, while this design uses slot-like queries to represent manifold charts and keeps an explicit structured residual.
+- VQ-MoE and Switch-style routing use MLP gating for load balancing, while this design uses similarity-based cross-attention for permutation-invariant chart selection and routing entropy diagnostics.
+- Residual VQ stacks quantizers over successive residuals, while this design stops quantization after the macro code and keeps $z_n$ continuous, separating $z_{\text{tex}}$ as the residual of the residual.
+
+Expected qualitative outcomes from this synthesis:
+- Stronger codebook utilization via chart partitioning before quantization.
+- Better OOD awareness via routing entropy (high entropy indicates novelty or transitions).
+- Higher reconstruction fidelity by preserving continuous geometric residuals in $z_n$.
+
+### 7.10 Decoder Architecture Overview: Topological Decoder (Inverse Atlas)
+
+To preserve chart structure on the way back to observations, the decoder mirrors the atlas by using
+chart-specific projectors and a shared renderer. The decoder is **autonomous**: it can route itself
+from geometry alone during dreaming, or accept a discrete chart index during planning.
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground":"#ffffff","textColor":"#1a1a1a","lineColor":"#666666"}}}%%
+flowchart TD
+    subgraph DEC["Inverse atlas decoder (autonomous)"]
+        Zgeo["Geometry (input)"] -- "z_geo = e_k + z_n [B, D]" --> Pbank["Chart projectors (nn.ModuleList)"]
+        Zgeo -- "z_geo [B, D]" --> LatentRouter["Inverse router (nn.Linear)"]
+        ChartIdx["Chart index (optional)"] -- "K_chart [B]" --> OneHot["One-hot (module)"]
+        LatentRouter -- "w_soft [B, N_c]" --> Mix["Chart blend (module)"]
+        OneHot -- "w_hard [B, N_c]" --> Mix
+        Ztex["Texture (input)"] -- "z_tex [B, D]" --> Texproj["Texture projector (nn.Linear)"]
+
+        Pbank -- "h_i [B, N_c, D]" --> Mix
+        Mix -- "h_global [B, D]" --> Add["Add texture (module)"]
+        Texproj -- "h_tex [B, D]" --> Add
+
+        Add -- "h_total [B, D]" --> Render["Shared renderer (nn.Sequential)"]
+    end
+
+    Render -- "x_hat [B, D_out]" --> Out["Reconstruction (nn.Identity)"]
+
+    classDef decoder fill:#e6f2ff,stroke:#1f4e79,stroke-width:1px,color:#1a1a1a;
+    classDef router fill:#fff2cc,stroke:#7f6000,stroke-width:1px,color:#1a1a1a;
+    classDef vq fill:#e2f0d9,stroke:#38761d,stroke-width:1px,color:#1a1a1a;
+    classDef residual fill:#fce5cd,stroke:#b45f06,stroke-width:1px,color:#1a1a1a;
+    classDef io fill:#f3f3f3,stroke:#666666,stroke-width:1px,color:#1a1a1a;
+
+    class LatentRouter,OneHot,Mix router;
+    class ChartIdx,Zgeo,Ztex residual;
+    class Pbank,Texproj,Render,Add decoder;
+    class Out io;
+
+    style DEC fill:#eef5ff,stroke:#1f4e79,stroke-width:1px,color:#1a1a1a;
+```
+
+#### 7.10.1 Topological Decoder Module
+
+```python
+class TopologicalDecoder(nn.Module):
+    """
+    The inverse atlas.
+    Decodes chart-local geometry back to the global observation space.
+    Can infer routing from geometry when chart indices are absent.
+    """
+    def __init__(self, latent_dim: int, num_charts: int, output_dim: int):
+        super().__init__()
+        self.num_charts = num_charts
+
+        # Chart-specific projectors (one per chart)
+        self.chart_projectors = nn.ModuleList([
+            nn.Linear(latent_dim, latent_dim)
+            for _ in range(num_charts)
+        ])
+
+        # Inverse router (dreaming mode)
+        self.latent_router = nn.Linear(latent_dim, num_charts)
+
+        # Texture projector (global)
+        self.tex_projector = nn.Linear(latent_dim, latent_dim)
+
+        # Shared renderer
+        self.renderer = nn.Sequential(
+            nn.LayerNorm(latent_dim),
+            nn.ReLU(),
+            nn.Linear(latent_dim, output_dim)
+        )
+
+    def forward(
+        self,
+        z_geo: torch.Tensor,
+        z_tex: torch.Tensor,
+        chart_index: torch.Tensor | None = None,
+    ) -> torch.Tensor:
+        """
+        Args:
+            z_geo: [B, D] geometric content (e_k + z_n)
+            z_tex: [B, D] texture residual
+            chart_index: [B] optional chart IDs (hard routing)
+        """
+        if chart_index is not None:
+            router_weights = F.one_hot(chart_index, num_classes=self.num_charts).float()
+        else:
+            logits = self.latent_router(z_geo)
+            router_weights = F.softmax(logits, dim=-1)
+
+        projected = []
+        for proj in self.chart_projectors:
+            projected.append(proj(z_geo))
+
+        h_stack = torch.stack(projected, dim=1)  # [B, N_c, D]
+        h_global = (h_stack * router_weights.unsqueeze(-1)).sum(dim=1)  # [B, D]
+
+        h_tex = self.tex_projector(z_tex)
+        h_total = h_global + h_tex
+
+        return self.renderer(h_total)
+```
+
+**Routing modes:**
+- **Discrete planning:** provide `chart_index`, use one-hot hard routing.
+- **Continuous generation:** omit `chart_index`, infer weights from `z_geo` via the inverse router.
+
+**Consistency constraint (optional):**
+$$
+\mathcal{L}_{\text{consistency}} = D_{KL}\!\left(w_{\text{enc}}(x)\ \Vert\ w_{\text{dec}}(z_{\text{geo}})\right)
+$$
+This keeps the inverse router aligned with the encoder routing.
 
 ## 8. Infeasible Implementation Replacements
 
@@ -2606,23 +3297,27 @@ def compute_geom_loss(
 
 ## 9. The Disentangled Variational Architecture: Hierarchical Latent Separation
 
-This section provides a practical guide to implementing a **split-latent** architecture that separates a *predictive* macro register from a *nuisance* micro residual. This targets **BarrierEpi** (information overload) and **BarrierOmin** (model mismatch) by preventing the World Model from being forced to “explain” fundamentally unpredictable variation.
+This section provides a practical guide to implementing a **split-latent** architecture that separates a *predictive* macro register from two distinct residual channels: **structured nuisance** $z_n$ (pose/basis/disturbance coordinates that can be modeled and audited) and **texture** $z_{\mathrm{tex}}$ (reconstruction-only detail). This targets **BarrierEpi** (information overload) and **BarrierOmin** (model mismatch) by preventing the World Model and policy from silently depending on texture while still representing nuisance explicitly.
 
 ### 9.1 The Core Concept: Split-Brain Architecture
 
 **Standard Agent:** Encodes the state into a single vector $z$.
 
-**Disentangled Agent:** Encodes the state into a **discrete macro-symbol** plus a **continuous micro-residual** (Section 2.2b):
+**Disentangled Agent:** Encodes the state into a **discrete macro-symbol** plus two distinct continuous residual channels (Section 2.2b):
 
 1. **$K_t \in \mathcal{K}$ (The Macro Symbol / Law Register):** Low-frequency, causal, predictable. This is the *quantized* macrostate (a code index). For downstream continuous networks we also use its embedding $z_{\text{macro}}:=e_{K_t}\in\mathbb{R}^{d_m}$, but the *information-carrying* object is the discrete symbol $K_t$.
 
-2. **$z_{\mu,t}$ (The Micro Residual / Nuisance Stream):** High-frequency, hard-to-predict variation. A continuous latent used for reconstruction/texture but excluded from macro dynamics (treated as nuisance/noise, not state).
+2. **$z_{n,t}$ (Structured Nuisance / Gauge Residual):** A continuous latent for pose/basis/disturbance coordinates. This is *not* “noise”: it is structured variation that may be needed for actuation and for explaining boundary-driven deviations, but it must remain disentangled from macro identity and must not be required for predicting macro transitions beyond $(K_t,a_t)$.
+
+3. **$z_{\mathrm{tex},t}$ (Texture Residual):** A high-rate continuous latent for reconstruction detail. Texture is treated as an **emission residual**: it may be needed to reconstruct $x_t$ but must not be required for macro closure or for control.
 
 **The Golden Rule of Causal Enclosure:**
 
 $$
-P(K_{t+1}\mid K_t,a_t)\ \text{is sharply concentrated (ideally deterministic), and}\ I(K_{t+1};Z_{\mu,t}\mid K_t,a_t)=0.
+P(K_{t+1}\mid K_t,a_t)\ \text{is sharply concentrated (ideally deterministic), and}\ I(K_{t+1};Z_{\mathrm{tex},t}\mid K_t,a_t)=0.
 $$
+
+(Optionally, and in the strongest form, also $I(K_{t+1};Z_{n,t}\mid K_t,a_t)=0$: nuisance should not be needed to predict the next macro symbol once action is accounted for.)
 
 The macro symbol must be predictable **solely from its own history** (plus action). If the World Model needs micro-residuals to predict the next macro symbol, then $K_t$ is not a sufficient macro statistic (Section 2.8).
 
@@ -2638,24 +3333,26 @@ from dataclasses import dataclass
 
 @dataclass
 class DisentangledConfig:
-    """Configuration for split-latent (macro/micro) agent."""
+    """Configuration for split-latent (macro + nuisance + texture) agent."""
     obs_dim: int = 64 * 64 * 3      # Observation dimension
     hidden_dim: int = 256            # Encoder hidden dimension
     macro_embed_dim: int = 32        # Macro embedding dim (code vectors e_k)
     codebook_size: int = 512         # Number of discrete macrostates |𝒦|
-    micro_dim: int = 128             # Micro (nuisance) latent dimension
+    nuisance_dim: int = 32           # Structured nuisance latent dimension
+    tex_dim: int = 96                # Texture latent dimension (reconstruction-only)
     action_dim: int = 4              # Action dimension
     rnn_hidden_dim: int = 256        # Dynamics model RNN hidden
 
     # Loss weights
     lambda_closure: float = 1.0      # Causal enclosure weight
     lambda_slowness: float = 0.1     # Temporal smoothness weight
-    lambda_dispersion: float = 0.01  # Micro KL weight
+    lambda_nuis_kl: float = 0.01     # Nuisance KL weight (regularize, not “trash”)
+    lambda_tex_kl: float = 0.05      # Texture KL weight (reconstruction residual)
     lambda_vq: float = 1.0           # VQ codebook + commitment weight
     lambda_recon: float = 1.0        # Reconstruction weight
 
     # Training
-    info_dropout_prob: float = 0.5   # Probability of dropping micro
+    tex_dropout_prob: float = 0.5    # Probability of dropping texture (forces macro+nuisance decoding)
     warmup_steps: int = 1000         # Warmup for closure loss
 
 
@@ -2727,11 +3424,11 @@ class VectorQuantizer(nn.Module):
 
 
 class Decoder(nn.Module):
-    """Decoder using both macro and micro latents."""
+    """Decoder using macro + nuisance + texture latents."""
 
-    def __init__(self, macro_dim: int, micro_dim: int, obs_channels: int = 3):
+    def __init__(self, macro_dim: int, nuisance_dim: int, tex_dim: int, obs_channels: int = 3):
         super().__init__()
-        self.fc = nn.Linear(macro_dim + micro_dim, 4096)
+        self.fc = nn.Linear(macro_dim + nuisance_dim + tex_dim, 4096)
         self.deconv = nn.Sequential(
             nn.ConvTranspose2d(256, 128, 4, stride=2, padding=1),
             nn.ReLU(),
@@ -2743,8 +3440,8 @@ class Decoder(nn.Module):
             nn.Sigmoid(),  # Normalize to [0, 1]
         )
 
-    def forward(self, z_macro: torch.Tensor, z_micro: torch.Tensor) -> torch.Tensor:
-        z = torch.cat([z_macro, z_micro], dim=-1)
+    def forward(self, z_macro: torch.Tensor, z_nuis: torch.Tensor, z_tex: torch.Tensor) -> torch.Tensor:
+        z = torch.cat([z_macro, z_nuis, z_tex], dim=-1)
         h = F.relu(self.fc(z))
         h = h.view(-1, 256, 4, 4)
         return self.deconv(h)
@@ -2754,7 +3451,7 @@ class MacroDynamicsModel(nn.Module):
     """
     Macro dynamics model (micro-blind).
 
-    Important: this module only sees z_macro (it is blind to z_micro). This
+    Important: this module only sees z_macro (it is blind to z_nuis and z_tex). This
     forces causally/predictively relevant information into the macro channel.
     """
 
@@ -2809,7 +3506,8 @@ class DisentangledAgent(nn.Module):
 
     Separates:
     - K_t (macro): a discrete symbol in 𝒦 (predictive/controllable state)
-    - z_mu (micro): a continuous residual (nuisance variation for reconstruction)
+    - z_n (nuisance): a structured residual (pose/basis/disturbance coordinates)
+    - z_tex (texture): a reconstruction residual (detail), excluded from macro closure/control
     """
 
     def __init__(self, config: DisentangledConfig):
@@ -2823,9 +3521,13 @@ class DisentangledAgent(nn.Module):
         self.head_macro = nn.Linear(config.hidden_dim, config.macro_embed_dim)
         self.vq = VectorQuantizer(config.codebook_size, config.macro_embed_dim)
 
-        # Micro: Gaussian nuisance residual
-        self.head_micro_mean = nn.Linear(config.hidden_dim, config.micro_dim)
-        self.head_micro_logvar = nn.Linear(config.hidden_dim, config.micro_dim)
+        # Nuisance: structured Gaussian residual
+        self.head_nuis_mean = nn.Linear(config.hidden_dim, config.nuisance_dim)
+        self.head_nuis_logvar = nn.Linear(config.hidden_dim, config.nuisance_dim)
+
+        # Texture: reconstruction-only Gaussian residual
+        self.head_tex_mean = nn.Linear(config.hidden_dim, config.tex_dim)
+        self.head_tex_logvar = nn.Linear(config.hidden_dim, config.tex_dim)
 
         # Macro dynamics model (blind to micro)
         self.macro_dynamics = MacroDynamicsModel(
@@ -2835,21 +3537,23 @@ class DisentangledAgent(nn.Module):
             config.codebook_size,
         )
 
-        # Decoder (uses both)
-        self.decoder = Decoder(config.macro_embed_dim, config.micro_dim)
+        # Decoder (uses all three channels)
+        self.decoder = Decoder(config.macro_embed_dim, config.nuisance_dim, config.tex_dim)
 
     def encode(
         self,
         x: torch.Tensor,
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, Tuple[torch.Tensor, torch.Tensor], torch.Tensor]:
         """
-        Encode observation into a discrete macro symbol and a continuous micro residual.
+        Encode observation into a discrete macro symbol plus nuisance + texture residuals.
 
         Returns:
             K: Macro code index in 𝒦
             z_macro: Quantized macro embedding e_K (straight-through)
-            z_micro: Micro latent (noise)
-            micro_dist: (mean, logvar) for micro
+            z_nuis: Nuisance latent
+            z_tex: Texture latent
+            nuis_dist: (mean, logvar) for nuisance
+            tex_dist: (mean, logvar) for texture
             vq_loss: codebook + commitment loss
         """
         features = self.encoder(x)
@@ -2858,16 +3562,19 @@ class DisentangledAgent(nn.Module):
         z_e = self.head_macro(features)
         z_macro, K, vq_loss = self.vq(z_e)
 
-        # Micro: High variance (entropic)
-        micro_mean = self.head_micro_mean(features)
-        micro_logvar = self.head_micro_logvar(features)
-        # Allow higher variance for micro
-        micro_logvar = torch.clamp(micro_logvar, min=-5, max=2)
+        # Nuisance: structured residual
+        nuis_mean = self.head_nuis_mean(features)
+        nuis_logvar = self.head_nuis_logvar(features)
+        nuis_logvar = torch.clamp(nuis_logvar, min=-7, max=2)
+        z_nuis = self._reparameterize(nuis_mean, nuis_logvar)
 
-        # Reparameterization trick
-        z_micro = self._reparameterize(micro_mean, micro_logvar)
+        # Texture: reconstruction-only residual
+        tex_mean = self.head_tex_mean(features)
+        tex_logvar = self.head_tex_logvar(features)
+        tex_logvar = torch.clamp(tex_logvar, min=-7, max=2)
+        z_tex = self._reparameterize(tex_mean, tex_logvar)
 
-        return K, z_macro, z_micro, (micro_mean, micro_logvar), vq_loss
+        return K, z_macro, z_nuis, z_tex, (nuis_mean, nuis_logvar), (tex_mean, tex_logvar), vq_loss
 
     def _reparameterize(self, mean: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
         std = torch.exp(0.5 * logvar)
@@ -2887,36 +3594,37 @@ class DisentangledAgent(nn.Module):
         Returns dict with all intermediate values for loss computation.
         """
         # 1. Encode current observation
-        K_t, z_macro, z_micro, micro_dist, vq_loss = self.encode(x_t)
+        K_t, z_macro, z_nuis, z_tex, nuis_dist, tex_dist, vq_loss = self.encode(x_t)
 
         # 2. Macro dynamics step (blind to micro)
         logits_next, h_next, uncertainty = self.macro_dynamics(z_macro, action, h_prev)
         K_pred = torch.argmax(logits_next, dim=-1)
         z_macro_pred = self.vq.embed(K_pred)
 
-        # 3. Information Dropout for reconstruction
-        if training and torch.rand(1).item() < self.config.info_dropout_prob:
-            # Drop micro — force decoder to use only macro
-            z_micro_for_decode = torch.zeros_like(z_micro)
+        # 3. Texture dropout for reconstruction (forces macro+nuisance to carry structure)
+        if training and torch.rand(1).item() < self.config.tex_dropout_prob:
+            z_tex_for_decode = torch.zeros_like(z_tex)
         else:
-            z_micro_for_decode = z_micro
+            z_tex_for_decode = z_tex
 
         # 4. Reconstruct
-        x_recon = self.decoder(z_macro, z_micro_for_decode)
+        x_recon = self.decoder(z_macro, z_nuis, z_tex_for_decode)
 
         return {
             'K_t': K_t,
             'z_macro': z_macro,
-            'z_micro': z_micro,
+            'z_nuis': z_nuis,
+            'z_tex': z_tex,
             'z_macro_logits': logits_next,
             'K_pred': K_pred,
             'z_macro_pred': z_macro_pred,
-            'micro_dist': micro_dist,
+            'nuis_dist': nuis_dist,
+            'tex_dist': tex_dist,
             'vq_loss': vq_loss,
             'h_next': h_next,
             'uncertainty': uncertainty,
             'x_recon': x_recon,
-            'info_dropped': z_micro_for_decode.sum() == 0,
+            'tex_dropped': z_tex_for_decode.sum() == 0,
         }
 
     def init_hidden(self, batch_size: int, device: torch.device) -> torch.Tensor:
@@ -2936,7 +3644,8 @@ $$
 \;+\;\lambda_{\text{vq}}\mathcal{L}_{\text{vq}}
 \;+\;\lambda_{\text{closure}}\mathcal{L}_{\text{closure}}
 \;+\;\lambda_{\text{slowness}}\mathcal{L}_{\text{slowness}}
-\;+\;\lambda_{\text{dispersion}}\mathcal{L}_{\text{dispersion}}
+\;+\;\lambda_{\text{nuis}}\mathcal{L}_{\text{nuis-KL}}
+\;+\;\lambda_{\text{tex}}\mathcal{L}_{\text{tex-KL}}
 $$
 where $\mathcal{L}_{\text{closure}}$ is a cross-entropy on the discrete macro symbols (an estimator of $H(K_{t+1}\mid K_t,a_t)$) and $\mathcal{L}_{\text{vq}}$ is the codebook+commitment term from the VQ layer.
 
@@ -2945,13 +3654,14 @@ class DisentangledLoss(nn.Module):
     """
     Compound loss for training the split-latent agent.
 
-    Implements the five key constraints:
-    1. Closure: Macro must predict itself (causal enclosure)
-    2. Slowness: Macro should change slowly (prevents symbol churn)
-    3. Micro prior: Micro should stay close to a simple prior (nuisance regularization)
-    4. VQ: Macro must remain quantized (symbolic)
-    5. Reconstruction: Both channels needed for full reconstruction
-    """
+	    Implements the five key constraints:
+	    1. Closure: Macro must predict itself (causal enclosure)
+	    2. Slowness: Macro should change slowly (prevents symbol churn)
+	    3. Nuisance prior: nuisance should be regularized (but is not “trash”)
+	    4. Texture prior: texture should stay close to a simple prior (reconstruction residual)
+	    4. VQ: Macro must remain quantized (symbolic)
+	    5. Reconstruction: Both channels needed for full reconstruction
+	    """
 
     def __init__(self, config: DisentangledConfig):
         super().__init__()
@@ -2992,23 +3702,25 @@ class DisentangledLoss(nn.Module):
         else:
             losses['slowness'] = torch.tensor(0.0, device=outputs['z_macro'].device)
 
-        # === D. MICRO PRIOR LOSS ===
-        # Regularize micro toward a simple prior (we do NOT use it for macro prediction)
-        # Micro KL: KL(q(z_mu|x) || N(0,I))
-        micro_mean, micro_logvar = outputs['micro_dist']
-        losses['dispersion'] = self._kl_divergence(micro_mean, micro_logvar)
+	        # === D. RESIDUAL PRIORS ===
+	        # Regularize nuisance and texture toward simple priors (macro closure remains micro-blind).
+	        nuis_mean, nuis_logvar = outputs['nuis_dist']
+	        tex_mean, tex_logvar = outputs['tex_dist']
+	        losses['nuis_kl'] = self._kl_divergence(nuis_mean, nuis_logvar)
+	        losses['tex_kl'] = self._kl_divergence(tex_mean, tex_logvar)
 
         # === E. VQ LOSS (CODEBOOK + COMMITMENT) ===
         losses['vq'] = outputs['vq_loss']
 
         # === TOTAL LOSS ===
-        total = (
-            self.config.lambda_recon * losses['recon']
-            + self.config.lambda_vq * losses['vq']
-            + self.config.lambda_closure * closure_weight * losses['closure']
-            + self.config.lambda_slowness * losses['slowness']
-            + self.config.lambda_dispersion * losses['dispersion']
-        )
+	        total = (
+	            self.config.lambda_recon * losses['recon']
+	            + self.config.lambda_vq * losses['vq']
+	            + self.config.lambda_closure * closure_weight * losses['closure']
+	            + self.config.lambda_slowness * losses['slowness']
+	            + self.config.lambda_nuis_kl * losses['nuis_kl']
+	            + self.config.lambda_tex_kl * losses['tex_kl']
+	        )
 
         losses['total'] = total
         losses['closure_weight'] = closure_weight
@@ -3354,12 +4066,12 @@ class HierarchicalDisentangled(nn.Module):
             for i in range(n_levels - 1)
         ])
 
-        # Micro head
-        self.micro_head = nn.Linear(config.hidden_dim, config.micro_dim)
+        # Texture head (reconstruction residual)
+        self.tex_head = nn.Linear(config.hidden_dim, config.tex_dim)
 
-        # Decoder uses all levels
-        total_dim = sum(level_dims) + config.micro_dim
-        self.decoder = Decoder(total_dim, 0)  # No separate micro in decoder
+        # Decoder uses macro levels + texture (no nuisance channel in this sketch)
+        macro_total_dim = sum(level_dims)
+        self.decoder = Decoder(macro_total_dim, nuisance_dim=0, tex_dim=config.tex_dim)
 
         self.step_counter = 0
 
@@ -3410,23 +4122,24 @@ class HierarchicalDisentangled(nn.Module):
 
             top_down_context = z_macro_i
 
-        # Micro (always updates)
-        z_micro = self.micro_head(features)
+        # Texture (always updates)
+        z_tex = self.tex_head(features)
 
-        # Information dropout on micro
-        if training and torch.rand(1).item() < 0.5:
-            z_micro = torch.zeros_like(z_micro)
+        # Texture dropout: force the macro stack to carry structure
+        if training and torch.rand(1).item() < self.config.tex_dropout_prob:
+            z_tex = torch.zeros_like(z_tex)
 
-        # Decode from all levels
-        z_all = torch.cat(z_macros + [z_micro], dim=-1)
-        x_recon = self.decoder(z_all, torch.zeros_like(z_micro))
+        # Decode from macro levels + texture
+        z_macro_all = torch.cat(z_macros, dim=-1)
+        z_nuis_empty = torch.zeros(z_tex.shape[0], 0, device=z_tex.device)
+        x_recon = self.decoder(z_macro_all, z_nuis_empty, z_tex)
 
         self.step_counter += 1
 
         return {
             'z_macros': z_macros,
             'z_macro_preds': z_macro_preds,
-            'z_micro': z_micro,
+            'z_tex': z_tex,
             'h_nexts': h_nexts,
             'x_recon': x_recon,
         }
@@ -3440,7 +4153,7 @@ This framework is largely a **recomposition** of known ideas. What differs is th
 |---|---|---|---|
 | **Discrete macro register $K_t$** | discrete latents / vector quantization | $K_t$ is treated as the *control-relevant* state so closure/capacity checks are well-typed, not just a compression trick | {cite}`oord2017vqvae` |
 | **Causal enclosure / closure loss** | predictive state representations, state abstraction, bisimulation-style sufficiency | closure is used as an explicit defect functional to certify “macro sufficiency” for predicting macro dynamics | {cite}`littman2001predictive,singh2004predictive,li2006towards,ferns2004metrics` |
-| **Micro residual $z_{\mu}$ as nuisance** | rate–distortion / information bottleneck views of representation learning | micro is kept out of macro dynamics (micro-blind prediction) and treated as reconstruction-only nuisance | {cite}`tishby2015deep` |
+| **Typed residual split $(z_n, z_{\mathrm{tex}})$** | rate–distortion / information bottleneck views of representation learning | nuisance $z_n$ is modeled and auditable (and may be control-relevant), while texture $z_{\mathrm{tex}}$ is explicitly reconstruction-only and prohibited from influencing macro closure/control | {cite}`tishby2015deep` |
 | **Micro-blind macro dynamics $\bar P$** | latent world models / predictive models | macro dynamics is constrained to depend on $K$ (and action) only; violation is diagnosed as enclosure failure | {cite}`hafner2019dreamer,ha2018worldmodels,lecun2022path` |
 | **Gate Nodes + Barriers** | CMDPs and safe RL constraints | constraints include *representation* and *interface* diagnostics (grounding, mixing, saturation, switching), not only expected cost | {cite}`altman1999constrained,achiam2017constrained,chow2018lyapunov` |
 | **MaxEnt/KL control + path-entropy exploration** | entropy-regularized RL, KL-control, linearly-solvable control | exploration is defined on the discrete macro register and tied to capacity/grounding diagnostics | {cite}`haarnoja2018soft,todorov2009efficient,kappen2005path` |
@@ -3454,14 +4167,15 @@ This framework is largely a **recomposition** of known ideas. What differs is th
 
 ### 9.8 Computational Costs
 
-| Loss Component | Formula | Time Complexity | Overhead |
-|----------------|---------|-----------------|----------|
-| $\mathcal{L}_{\text{recon}}$ | $\Vert x - \hat{x} \Vert^2$ | $O(BD)$ | Baseline |
-| $\mathcal{L}_{\text{vq}}$ | $\| \operatorname{sg}[z_e]-e_{K}\|^2 + \beta\|z_e-\operatorname{sg}[e_K]\|^2$ | $O(B|\mathcal{K}|)$ | +3-8% |
-| $\mathcal{L}_{\text{closure}}$ | $-\log p_\psi(K_{t+1}\mid K_t,a_t)$ | $O(B|\mathcal{K}|)$ | +5% |
-| $\mathcal{L}_{\text{slowness}}$ | $\Vert e_{K_t} - e_{K_{t-1}} \Vert^2$ | $O(Bd_m)$ | +2% |
-| $\mathcal{L}_{\text{dispersion}}$ | $D_{KL}(q_{\text{micro}} \Vert \mathcal{N}(0,I))$ | $O(BZ_\mu)$ | +3% |
-| **Total Overhead** | | | **~12-18%** |
+| Loss Component | Formula | Time Complexity | Notes |
+|----------------|---------|-----------------|-------|
+| $\mathcal{L}_{\text{recon}}$ | $\Vert x - \hat{x} \Vert^2$ | $O(BD)$ | Baseline reconstruction term |
+| $\mathcal{L}_{\text{vq}}$ | $\| \operatorname{sg}[z_e]-e_{K}\|^2 + \beta\|z_e-\operatorname{sg}[e_K]\|^2$ | $O(B|\mathcal{K}|)$ | Codebook lookup/update |
+| $\mathcal{L}_{\text{closure}}$ | $-\log p_\psi(K_{t+1}\mid K_t,a_t)$ | $O(B|\mathcal{K}|)$ | Macro-prediction head + cross-entropy |
+| $\mathcal{L}_{\text{slowness}}$ | $\Vert e_{K_t} - e_{K_{t-1}} \Vert^2$ | $O(Bd_m)$ | Embedding drift penalty |
+| $\mathcal{L}_{\text{dispersion}}$ | $D_{KL}(q_{\text{micro}} \Vert \mathcal{N}(0,I))$ | $O(BZ_\mu)$ | Micro KL / nuisance regularizer |
+
+Total cost depends on $|\mathcal{K}|$, whether closure is computed online or intermittently, and whether heavy diagnostics are amortized across steps.
 
 **When to Use Split-Latent vs Standard:**
 
@@ -3471,7 +4185,7 @@ This framework is largely a **recomposition** of known ideas. What differs is th
 | Low-noise simulation (MuJoCo) | Standard may suffice — dynamics are already clean |
 | Real-world robotics | Use split-latent — sensor noise is significant |
 | Long-horizon planning | Use hierarchical split-latent — multiple timescales |
-| Compute-constrained | Standard — split-latent adds ~12-18% overhead |
+| Compute-constrained | Standard may be preferable if codebook + closure diagnostics are not affordable |
 
 ### 9.9 Control Theory Translation: Dictionary
 
@@ -3531,10 +4245,11 @@ F_t
 :=
 V(Z_t)
 + \beta_K\big(-\log p_\psi(K_t)\big)
-+ \beta_\mu D_{KL}\!\left(q(z_{\mu,t}\mid x_t)\ \Vert\ p(z_\mu)\right)
++ \beta_n D_{KL}\!\left(q(z_{n,t}\mid x_t)\ \Vert\ p(z_n)\right)
++ \beta_{\mathrm{tex}} D_{KL}\!\left(q(z_{\mathrm{tex},t}\mid x_t)\ \Vert\ p(z_{\mathrm{tex}})\right)
 + T_c D_{KL}\!\left(\pi(\cdot\mid K_t)\ \Vert\ \pi_0(\cdot\mid K_t)\right),
 $$
-where $Z_t=(K_t,z_{\mu,t})$ and all terms are measured in nats.
+where $Z_t=(K_t,z_{n,t},z_{\mathrm{tex},t})$ and all terms are measured in nats.
 
 A practical monotonicity surrogate is:
 $$
@@ -3546,24 +4261,25 @@ $$
 **Interpretation.**
 - $V(Z_t)$: task-aligned cost-to-go (critic).
 - $\beta_K(-\log p_\psi(K_t))$: macro codelength penalty (MDL / rate).
-- $\beta_\mu D_{KL}(q(z_{\mu,t}\mid x_t)\Vert p(z_\mu))$: micro residual penalty (treat $z_\mu$ as nuisance).
+- $\beta_n D_{KL}(q(z_{n,t}\mid x_t)\Vert p(z_n))$: nuisance regularizer (structured residual; not “trash”).
+- $\beta_{\mathrm{tex}} D_{KL}(q(z_{\mathrm{tex},t}\mid x_t)\Vert p(z_{\mathrm{tex}}))$: texture-as-residual (likelihood/reconstruction-only).
 - $T_c D_{KL}(\pi\Vert\pi_0)$: KL-regularized control effort (deviation from prior/constraints).
 
 This is the standard structure behind information bottlenecks/MDL (representation) and KL-regularized control / MaxEnt RL (policy), stated without additional metaphors.
 
 ### 9.12 Atlas-Manifold Dictionary: From Topology to Neural Networks
 
-This section provides a translation dictionary connecting **manifold theory** to the **neural network implementations** described in Section 7.7.
+This section provides a translation dictionary connecting **manifold theory** to the **neural network implementations** described in Sections 7.7–7.8 (Attentive Atlas routing assumed unless noted).
 
 #### Core Correspondences
 
 | Manifold Theory | Neural Implementation | Role | Section Reference |
 |-----------------|----------------------|------|-------------------|
 | **Manifold $M$** | Input data distribution | The space to be embedded | — |
-| **Chart $(U_i, \phi_i)$** | Expert network $i$ | Local embedding function | 7.7.1 |
-| **Atlas $\mathcal{A} = \{U_i\}$** | Router + Experts ensemble | Global coverage | 7.7.5 |
-| **Transition function $\tau_{ij}$** | Weighted soft blending | Chart overlap handling | 7.7.5 |
-| **Riemannian metric $g$** | Orthogonality regularizer $\|W^TW - I\|^2$ | Distance preservation | 7.7.2 |
+| **Chart $(U_i, \phi_i)$** | Local VQ codebook $i$ | Local embedding function | 7.8.3 |
+| **Atlas $\mathcal{A} = \{U_i\}$** | Attentive router + chart codebooks | Global coverage | 7.8.3 |
+| **Transition function $\tau_{ij}$** | Attention-weighted blending | Chart overlap handling | 7.8.3 |
+| **Riemannian metric $g$** | Orthogonality regularizer $\|W^TW - I\|^2$ (optional) | Distance preservation | 7.7.2 |
 | **Geodesic $\gamma(t)$** | Latent space trajectory | Optimal path | 2.4 |
 | **Curvature $R$** | Hessian of loss landscape | Local complexity | 2.5 |
 | **Chart separation** | Separation loss | Chart partitioning | 7.7.4 |
@@ -3581,15 +4297,15 @@ This section provides a translation dictionary connecting **manifold theory** to
 
 | MoE Concept {cite}`jacobs1991adaptive` | Atlas Concept | Implementation |
 |-----------------------------------|---------------|----------------|
-| **Gating network** | Chart selector | Router with softmax |
-| **Expert networks** | Local charts $\phi_i$ | Orthogonality-constrained encoders |
+| **Gating network** | Chart selector | Cross-attention over chart queries |
+| **Expert networks** | Local charts $\phi_i$ | Chart-specific VQ codebooks |
 | **Expert specialization** | Chart coverage $U_i$ | Learned via separation loss |
 | **Load balancing** | Atlas completeness | Balance loss $\|\text{usage} - 1/K\|^2$ |
 | **Expert capacity** | Chart dimension | Latent dimension $d$ |
 
 #### Loss Function Decomposition
 
-The **Universal Loss** (Section 7.7.4) decomposes into geometric objectives:
+The **Universal Loss** (Section 7.7.4) decomposes into geometric objectives, using attentive router weights $w_i(x)$ from Section 7.8.1:
 
 | Loss Component | Geometric Objective | Manifold Property Enforced |
 |----------------|--------------------|-----------------------------|
@@ -3628,11 +4344,11 @@ The **Universal Loss** (Section 7.7.4) decomposes into geometric objectives:
 
 ---
 
-## 10. Intrinsic Motivation: Maximum-Entropy Exploration
+## 11. Intrinsic Motivation: Maximum-Entropy Exploration
 
-The previous layers define representation ($K,z_\mu$), predictive dynamics ($\bar{P}$), and stability/value constraints ($V,G$, Sieve checks). This layer formalizes an **intrinsic exploration pressure** on the discrete macro register: prefer policies that keep the set of reachable future macrostates diverse, which supports reachability/controllability and reduces brittle overcommitment to narrow paths.
+The previous layers define representation ($K,z_n,z_{\mathrm{tex}}$), predictive dynamics ($\bar{P}$), and stability/value constraints ($V,G$, Sieve checks). This layer formalizes an **intrinsic exploration pressure** on the discrete macro register: prefer policies that keep the set of reachable future macrostates diverse, which supports reachability/controllability and reduces brittle overcommitment to narrow paths.
 
-### 10.1 Path Entropy and Exploration Gradients
+### 11.1 Path Entropy and Exploration Gradients
 
 We work on the **macro model** (the discrete register). Assume a macro Markov kernel
 $$
@@ -3640,7 +4356,7 @@ $$
 $$
 which is the learned effective dynamics demanded by Causal Enclosure (Section 2.8).
 
-**Definition 10.1.1 (Macro Path Distribution).** Fix a horizon $H\in\mathbb{N}$ and a (possibly stochastic) policy $\pi(a\mid k)$. The induced distribution over length-$H$ macro trajectories
+**Definition 11.1.1 (Macro Path Distribution).** Fix a horizon $H\in\mathbb{N}$ and a (possibly stochastic) policy $\pi(a\mid k)$. The induced distribution over length-$H$ macro trajectories
 $$
 \tau := (K_{t+1},\dots,K_{t+H}) \in \mathcal{K}^H
 $$
@@ -3653,14 +4369,14 @@ P_\pi(\tau\mid k)
 $$
 (For continuous $\mathcal{A}$, replace the sum by an integral with respect to the action reference measure.)
 
-**Definition 10.1.2 (Causal Path Entropy).** The causal path entropy at $(k,H)$ under $\pi$ is the Shannon entropy of the path distribution:
+**Definition 11.1.2 (Causal Path Entropy).** The causal path entropy at $(k,H)$ under $\pi$ is the Shannon entropy of the path distribution:
 $$
 S_c(k,H;\pi) := H\!\left(P_\pi(\cdot\mid k)\right)
 = -\sum_{\tau\in\mathcal{K}^H} P_\pi(\tau\mid k)\log P_\pi(\tau\mid k).
 $$
 This quantity is well-typed precisely because the macro register is discrete: there is no differential-entropy ambiguity.
 
-**Definition 10.1.3 (Exploration Gradient, metric form).** Let $z_{\text{macro}}=e_k\in\mathbb{R}^{d_m}$ denote the code embedding of $k$ (Section 2.2b), and let $G$ be the relevant metric on the macro chart (Section 2.5). Define the exploration gradient as the metric gradient of path entropy:
+**Definition 11.1.3 (Exploration Gradient, metric form).** Let $z_{\text{macro}}=e_k\in\mathbb{R}^{d_m}$ denote the code embedding of $k$ (Section 2.2b), and let $G$ be the relevant metric on the macro chart (Section 2.5). Define the exploration gradient as the metric gradient of path entropy:
 $$
 \mathbf{g}_{\text{expl}}(e_k) := T_c\ \nabla_G S_c(k,H;\pi),
 $$
@@ -3668,11 +4384,11 @@ where $T_c>0$ is an entropy-regularization coefficient. Operationally, gradients
 
 **Interpretation (Exploration / Reachability).** $S_c(k,H;\pi)$ measures how many future macro-trajectories remain plausible from $k$ under $\pi$ and $\bar{P}$. Increasing $S_c$ preserves **future reachability**: the agent stays inside regions with many reachable, non-absorbing macrostates.
 
-### 10.2 MaxEnt Duality: Utility + Entropy Regularization
+### 11.2 MaxEnt Duality: Utility + Entropy Regularization
 
 The same object appears from a variational principle.
 
-**Definition 10.2.1 (MaxEnt RL objective on macrostates).** Let $\mathcal{R}(k,a)$ be an instantaneous reward/cost-rate term (Section 1.1.2, Section 2.7) and let $\gamma\in(0,1)$ be the discount factor (dimensionless). The maximum-entropy objective is
+**Definition 11.2.1 (MaxEnt RL objective on macrostates).** Let $\mathcal{R}(k,a)$ be an instantaneous reward/cost-rate term (Section 1.1.2, Section 2.7) and let $\gamma\in(0,1)$ be the discount factor (dimensionless). The maximum-entropy objective is
 $$
 J_{T_c}(\pi)
 :=
@@ -3685,7 +4401,7 @@ where $\mathcal{H}$ is Shannon entropy. This is the standard “utility + entrop
 - $T_c\to\infty$: $\pi$ approaches maximal entropy; behavior becomes overly random and may degrade grounding (BarrierScat).
 - The useful regime is intermediate: enough entropy to remain robust, enough utility to remain directed.
 
-**Proposition 10.2.2 (Soft Bellman form, discrete actions).** Assume finite $\mathcal{A}$. Define the soft state value
+**Proposition 11.2.2 (Soft Bellman form, discrete actions).** Assume finite $\mathcal{A}$. Define the soft state value
 $$
 V^*(k) := \max_{\pi} \ \mathbb{E}\Big[\sum_{t\ge 0}\gamma^t(\mathcal{R}+T_c\mathcal{H})\ \Big|\ K_0=k\Big].
 $$
@@ -3709,13 +4425,13 @@ $$
 
 ---
 
-## 11. Belief Dynamics: Prediction, Update, Projection
+## 12. Belief Dynamics: Prediction, Update, Projection
 
 Sections 2–9 describe geometry, metrics, and effective macro dynamics. What they do *not* yet encode is the irreversibility of online learning: boundary observations and constraint enforcement are not invertible operations. This section states the belief-evolution template directly as **filtering + projection** on the discrete macro register.
 
 **Relation to prior work.** The predict–update recursion below is standard Bayesian filtering for discrete latent states (HMM/POMDP belief updates) {cite}`rabiner1989tutorial,kaelbling1998planning`. The additional ingredient emphasized here is the explicit **projection/reweighting layer** induced by safety and consistency checks (Section 3): belief updates are not just “Bayes + dynamics”, but “Bayes + dynamics + constraints”.
 
-### 11.1 Why Purely Closed Simulators Are Insufficient
+### 12.1 Why Purely Closed Simulators Are Insufficient
 
 A purely closed internal simulator can roll forward hypotheses, but it cannot *incorporate new boundary information* without a non-invertible update. Two irreversibilities are unavoidable:
 1. **Assimilation:** boundary observations $x_{t+1}$ update the macro belief (Bayesian correction).
@@ -3723,7 +4439,7 @@ A purely closed internal simulator can roll forward hypotheses, but it cannot *i
 
 Both operations are information projections: they reduce uncertainty and/or discard parts of state-space mass in a way that cannot be undone from the post-update state alone.
 
-### 11.2 Filtering Template on the Discrete Macro Register
+### 12.2 Filtering Template on the Discrete Macro Register
 
 Let $p_t\in\Delta^{|\mathcal{K}|-1}$ be the macro belief over $K_t$.
 
@@ -3741,7 +4457,7 @@ $$
 
 This is the standard Bayesian filtering recursion for a discrete latent state (HMM/POMDP belief update) {cite}`rabiner1989tutorial,kaelbling1998planning`. Units: probabilities are dimensionless; log-likelihoods and entropies are measured in nats.
 
-### 11.3 Sieve Events as Projections / Reweightings
+### 12.3 Sieve Events as Projections / Reweightings
 
 When a check triggers, we apply a *projection-like* operator to the belief state. Two common forms are:
 
@@ -3759,7 +4475,7 @@ When a check triggers, we apply a *projection-like* operator to the belief state
 
 These are classical constrained-inference moves (mirror descent / I-projection style), and they are the belief-space counterpart of the Gate Nodes.
 
-### 11.4 Over/Under Coupling as Forgetting vs Ungrounded Inference
+### 12.4 Over/Under Coupling as Forgetting vs Ungrounded Inference
 
 The coupling window in Theorem 15.1.3 reflects a trade-off:
 - **Over-coupling:** noisy or overly aggressive updates drive mixing; the macro register loses stable structure (forgetting / symbol dispersion).
@@ -3767,9 +4483,79 @@ The coupling window in Theorem 15.1.3 reflects a trade-off:
 
 The Sieve (Sections 3–6) is the control layer that keeps the agent inside the regime where macrostates remain stable *and* grounded.
 
+### 12.5 Optional: Operator-Valued Belief Updates (GKSL / "Lindblad" Form)
+
+This subsection is optional. It provides a rigorous way to parameterize belief evolution so that **positivity** and **normalization** are structural (by construction), and so that “conservative prediction” and “dissipative grounding” are separated in the update law.
+
+The starting point is to represent an internal belief not only as a vector $p_t\in\Delta^{|\mathcal{K}|-1}$, but as a positive semidefinite operator.
+
+**Definition 12.5.1 (Belief operator).** Let $\varrho_t\in\mathbb{C}^{d\times d}$ satisfy $\varrho_t\succeq 0$ and $\mathrm{Tr}(\varrho_t)=1$. Diagonal $\varrho_t$ reduces to a classical probability vector; non-diagonal terms can be used to encode correlations/uncertainty structure in a learned feature basis.
+
+**Definition 12.5.2 (GKSL generator).** A continuous-time, Markovian, completely-positive trace-preserving (CPTP) evolution has a generator of the Gorini–Kossakowski–Sudarshan–Lindblad (GKSL) form {cite}`gorini1976completely,lindblad1976generators`:
+$$
+\frac{d\varrho}{dt}
+=
+\underbrace{-i[H,\varrho]}_{\text{conservative drift}}
+\;+\;
+\underbrace{\sum_{j} \gamma_j\left(L_j\varrho L_j^\dagger-\frac12\{L_j^\dagger L_j,\varrho\}\right)}_{\text{dissipative update}},
+$$
+where $H=H^\dagger$ is Hermitian, $\gamma_j\ge 0$ are rates, and $\{L_j\}$ are (learned) operators.
+
+**Operational interpretation (within this document).**
+- The commutator term is a structured way to represent **reversible internal prediction** (it preserves $\mathrm{Tr}(\varrho)$ and the spectrum of $\varrho$).
+- The dissipator is a structured way to represent **irreversible assimilation / disturbance** while preserving positivity and trace.
+
+This is a modeling choice, not a claim about literal quantum physics: it is used here purely as a convenient, well-posed parametrization of CPTP belief updates.
+
+#### 12.5.3 Master-Equation Consistency Defect (Node 22)
+
+If an implementation maintains an operator belief $\varrho_t$ and produces an empirical update $\varrho_{t+1}$ (e.g., after a boundary update + Sieve projection), then a **consistency defect** compares it to the GKSL-predicted infinitesimal update:
+$$
+\mathcal{L}_{\text{MEC}}
+:=
+\left\|
+\frac{\varrho_{t+1}-\varrho_t}{\Delta t}
+\;-\;
+\mathcal{L}_{\text{GKSL}}(\varrho_t)
+\right\|_F^2,
+$$
+where $\mathcal{L}_{\text{GKSL}}(\cdot)$ denotes the right-hand side of Definition 11.5.2. This is the quantity monitored by MECCheck (Node 22).
+
+#### 12.5.4 Residual-Event ("Jump") Codebook (Links to Section 3.3.B)
+
+The GKSL form becomes implementable if we can parameterize a *finite* family of disturbance/update types. With the nuisance/texture split (Section 2.2b), the disturbance library should attach to the **structured nuisance** channel, not to texture. A practical route is a discrete codebook over one-step nuisance residuals:
+1. Compute a one-step prediction $(k_{t+1}^{\text{pred}}, z_{n,t+1}^{\text{pred}}):=S(K_t,z_{n,t},a_t)$ from the world model (macro + nuisance only).
+2. Encode the next observation to obtain $(K_{t+1}, z_{n,t+1}, z_{\mathrm{tex},t+1})$ via the shutter.
+3. Form the **nuisance residual** $\Delta z_{n,t}:=z_{n,t+1}-z_{n,t+1}^{\text{pred}}$.
+4. Quantize $\Delta z_{n,t}$ with a second VQ module to obtain $J_t\in\{1,\dots,|\mathcal{J}|\}$.
+
+Texture $z_{\mathrm{tex}}$ is treated as an emission/likelihood residual: it is used to model $p(x_t\mid K_t,z_{n,t},z_{\mathrm{tex},t})$ but is not used to define jump types. This is the formal reconciliation: “jumps” model **structured disturbances**, while “texture” models **measurement detail**.
+
+The index $J_t$ can be used in two ways:
+- **Classical residual modeling:** store representative nuisance residual vectors (or residual distributions) per code and train a conditional noise model $p(\Delta z_n\mid J)$.
+- **Operator-valued modeling (optional):** associate each residual code $j$ with a learned low-rank operator $L_j$ and let rates $\gamma_j$ be predicted online; this is the operator analogue of a mixture-of-disturbances model.
+
+The core engineering benefit is identifiability: the agent exposes a discrete label for “what kind of unmodeled disturbance happened”, rather than forcing the macro register to absorb it.
+
+#### 12.5.5 Update vs Evidence Check (Node 23) and Metric Speed Limit (Node 24)
+
+Even without operator beliefs, the same “no free update” principle can be monitored in classical terms:
+- **Update vs evidence (NEPCheck).** Penalize belief updates that change faster than boundary information supports:
+  $$
+  \mathcal{L}_{\text{NEP}}
+  :=
+  \mathrm{ReLU}\!\left(D_{KL}(p_{t+1}\Vert p_t)-I(X_t;K_t)\right)^2.
+  $$
+  This is a conservative audit metric: it does not assert a physical entropy law, but it detects ungrounded internal updating relative to measured boundary coupling (Node 13).
+- **Metric speed limit (QSLCheck).** Impose a hard/soft bound on how far internal state may move per step under the state-space metric:
+  $$
+  \mathcal{L}_{\text{QSL}}:=\mathrm{ReLU}\!\left(d_G(z_{t+1},z_t)-v_{\max}\right)^2,
+  $$
+  which is a geometry-consistent generalization of KL-per-update constraints (ZenoCheck).
+
 ---
 
-## 12. Correspondence Table: Filtering / Control Template
+## 13. Correspondence Table: Filtering / Control Template
 
 The table below is a dictionary from standard **filtering and constrained inference** to the Fragile Agent components. It is purely classical: belief evolution is “predict → update → project”.
 
@@ -3785,31 +4571,31 @@ The table below is a dictionary from standard **filtering and constrained infere
 
 ---
 
-## 13. Duality of Exploration and Soft Optimality
+## 14. Duality of Exploration and Soft Optimality
 
 This section makes the exploration layer precise: the exploration gradient (Section 10.1.3) is dual to entropy-regularized (soft) optimal control once the macro channel is discrete.
 
-### 13.1 Formal Definitions (Path Space, Causal Entropy, Exploration Gradient)
+### 14.1 Formal Definitions (Path Space, Causal Entropy, Exploration Gradient)
 
-**Definition 13.1.1 (Causal Path Space).** For a macrostate $k\in\mathcal{K}$ and horizon $H$, define the future macro path space
+**Definition 14.1.1 (Causal Path Space).** For a macrostate $k\in\mathcal{K}$ and horizon $H$, define the future macro path space
 $$
 \Gamma_H(k) := \mathcal{K}^H.
 $$
 
-**Definition 13.1.2 (Path Probability).** $P_\pi(\tau\mid k)$ is the induced path probability from Definition 10.1.1.
+**Definition 14.1.2 (Path Probability).** $P_\pi(\tau\mid k)$ is the induced path probability from Definition 10.1.1.
 
-**Definition 13.1.3 (Causal Entropy).** $S_c(k,H;\pi)$ is the Shannon entropy of $P_\pi(\cdot\mid k)$ (Definition 10.1.2).
+**Definition 14.1.3 (Causal Entropy).** $S_c(k,H;\pi)$ is the Shannon entropy of $P_\pi(\cdot\mid k)$ (Definition 10.1.2).
 
-**Definition 13.1.4 (Exploration gradient, covariant form).** On a macro chart with metric $G$ (Section 2.5),
+**Definition 14.1.4 (Exploration gradient, covariant form).** On a macro chart with metric $G$ (Section 2.5),
 $$
 \mathbf{g}_{\text{expl}}(e_k) := T_c\,\nabla_G S_c(k,H;\pi).
 $$
 
-### 13.2 The Equivalence Theorem (Duality of Causal Regulation)
+### 14.2 The Equivalence Theorem (Duality of Causal Regulation)
 
 We state the equivalence in the setting where it is unambiguous.
 
-**Theorem 13.2.1 (Equivalence of Entropy-Regularized Control Forms; discrete macro).** Assume:
+**Theorem 14.2.1 (Equivalence of Entropy-Regularized Control Forms; discrete macro).** Assume:
 1. finite macro alphabet $\mathcal{K}$ and (for simplicity) finite action set $\mathcal{A}$,
 2. an enclosure-consistent macro kernel $\bar{P}(k'\mid k,a)$,
 3. bounded reward flux $\mathcal{R}(k,a)$.
@@ -3846,7 +4632,7 @@ and the optimizer is exactly the exponentially tilted law $P^*$. In the special 
 
 ---
 
-## 14. Implementation Note: Entropy-Regularized Optimal Transport Bridge
+## 15. Implementation Note: Entropy-Regularized Optimal Transport Bridge
 
 This is optional machinery, but it provides a clean path-space view of KL-regularized control and filtering.
 
@@ -3860,25 +4646,25 @@ so each training update can be read as an entropic optimal transport step on bel
 
 ---
 
-## 15. Theorem: The Information–Stability Threshold (Coupling Window)
+## 16. Theorem: The Information–Stability Threshold (Coupling Window)
 
 The coupling-window view implies a necessary **window condition**: coupling must be strong enough to remain grounded (BoundaryCheck) but not so strong that the macro register loses coherence (dispersion/mixing).
 
 We state this as a rate balance rather than an ill-typed scalar comparison.
 
-**Definition 15.1.1 (Grounding rate).** Let $G_t:=I(X_t;K_t)$ be the symbolic mutual information injected through the boundary (Node 13). The *grounding rate* is the average information inflow per step:
+**Definition 16.1.1 (Grounding rate).** Let $G_t:=I(X_t;K_t)$ be the symbolic mutual information injected through the boundary (Node 13). The *grounding rate* is the average information inflow per step:
 $$
 \lambda_{\text{in}} := \mathbb{E}[G_t].
 $$
 Units: $[\lambda_{\text{in}}]=\mathrm{nat/step}$.
 
-**Definition 15.1.2 (Mixing rate).** Let $S_t:=H(K_t)$ be the macro entropy. The *mixing rate* is the expected entropy growth not attributable to purposeful exploration:
+**Definition 16.1.2 (Mixing rate).** Let $S_t:=H(K_t)$ be the macro entropy. The *mixing rate* is the expected entropy growth not attributable to purposeful exploration:
 $$
 \lambda_{\text{mix}} := \mathbb{E}[(S_{t+1}-S_t)_+].
 $$
 Units: $[\lambda_{\text{mix}}]=\mathrm{nat/step}$.
 
-**Theorem 15.1.3 (Information–stability window; operational).** A necessary condition for stable, grounded macrostates is the existence of constants $0<\epsilon<\log|\mathcal{K}|$ such that, along typical trajectories,
+**Theorem 16.1.3 (Information–stability window; operational).** A necessary condition for stable, grounded macrostates is the existence of constants $0<\epsilon<\log|\mathcal{K}|$ such that, along typical trajectories,
 $$
 \epsilon \le I(X_t;K_t) \quad\text{and}\quad H(K_t)\le \log|\mathcal{K}|-\epsilon,
 $$
@@ -3894,7 +4680,7 @@ Violations correspond to identifiable barrier modes:
 
 ---
 
-## 16. Summary: Unified Information-Theoretic Control View
+## 17. Summary: Unified Information-Theoretic Control View
 
 | Level | Formalism | Law |
 | :--- | :--- | :--- |
@@ -3908,28 +4694,28 @@ Violations correspond to identifiable barrier modes:
 
 ---
 
-## 17. Capacity-Constrained Metric Law: Geometry from Interface Limits
+## 18. Capacity-Constrained Metric Law: Geometry from Interface Limits
 
 Section 9.10 used a “gravity” analogy to motivate curvature as a regulator. This section removes the analogy: the curvature law is derived as a structural response to **information-theoretic constraints** induced by the agent’s finite-bandwidth boundary (Markov blanket).
 
 The key idea is operational: **the representational complexity of the internal state is bounded by the capacity of the interface channel.** When the agent operates near this bound, curvature appears as the geometric mechanism that prevents internal information volume from exceeding what can be grounded at the interface.
 
-### 17.1 The Boundary–Bulk Information Inequality
+### 18.1 The Boundary–Bulk Information Inequality
 
-**Definition 17.1.1 (DPI / boundary-capacity constraint).** Consider the boundary stream $(X_t)_{t\ge 0}$ and the induced internal state process $(Z_t)_{t\ge 0}$ produced by the shutter (Definition 1.1.1). Because all internal state is computed from boundary influx and internal memory, any information in the bulk must be mediated by a finite-capacity channel. Operationally, the data-processing constraint is:
+**Definition 18.1.1 (DPI / boundary-capacity constraint).** Consider the boundary stream $(X_t)_{t\ge 0}$ and the induced internal state process $(Z_t)_{t\ge 0}$ produced by the shutter (Definition 1.1.1). Because all internal state is computed from boundary influx and internal memory, any information in the bulk must be mediated by a finite-capacity channel. Operationally, the data-processing constraint is:
 $$
 I_{\text{bulk}} \;\le\; C_{\partial},
 $$
 where $C_{\partial}$ is the effective information capacity of the boundary channel and $I_{\text{bulk}}$ is the amount of information the agent can stably maintain in $\mathcal{Z}$ without violating Causal Enclosure (no internal source term $\sigma$; Definition 2.11.7).
 Units: $[I_{\text{bulk}}]=[C_{\partial}]=\mathrm{nat}$.
 
-**Definition 17.1.2 (Bulk information volume).** Let $\rho_I(z,t)\ge 0$ be an information density on $\mathcal{Z}$ with units of nats per unit Riemannian volume $d\mu_G=\sqrt{|G|}\,dz^n$ ($n=\dim\mathcal{Z}$). Define the bulk information volume over a region $\Omega\subseteq\mathcal{Z}$ by
+**Definition 18.1.2 (Bulk information volume).** Let $\rho_I(z,t)\ge 0$ be an information density on $\mathcal{Z}$ with units of nats per unit Riemannian volume $d\mu_G=\sqrt{|G|}\,dz^n$ ($n=\dim\mathcal{Z}$). Define the bulk information volume over a region $\Omega\subseteq\mathcal{Z}$ by
 $$
 I_{\text{bulk}}(\Omega) := \int_{\Omega} \rho_I(z,t)\, d\mu_G.
 $$
 When $\Omega=\mathcal{Z}$ we write $I_{\text{bulk}}:=I_{\text{bulk}}(\mathcal{Z})$. This is conceptually distinct from the probability-mass balance in Section 2.11; here the integral measures grounded structure in nats.
 
-**Definition 17.1.3 (Boundary capacity: area law at finite resolution).** Let $dA_G$ be the induced $(n-1)$-dimensional area form on $\partial\mathcal{Z}$. If the boundary interface has a minimal resolvable scale $\ell>0$ (pixel/token floor), then an operational capacity bound is an area law:
+**Definition 18.1.3 (Boundary capacity: area law at finite resolution).** Let $dA_G$ be the induced $(n-1)$-dimensional area form on $\partial\mathcal{Z}$. If the boundary interface has a minimal resolvable scale $\ell>0$ (pixel/token floor), then an operational capacity bound is an area law:
 $$
 C_{\partial}(\partial\mathcal{Z})
 :=
@@ -3944,11 +4730,11 @@ C_{\partial}\ \approx\ \mathbb{E}[I(X_t;K_t)]\ \le\ \log|\mathcal{K}|,
 $$
 which is exactly Node 13 (BoundaryCheck) and Theorem 15.1.3’s grounding condition.
 
-### 17.2 Main Result (Capacity-Saturated Metric Law)
+### 18.2 Main Result (Capacity-Saturated Metric Law)
 
 The detailed variational construction is recorded in Appendix A. The main consequence is an Euler–Lagrange identity that ties curvature of the latent geometry to a risk-induced tensor under a finite-capacity boundary.
 
-**Theorem 17.2.1 (Capacity-constrained metric law).** Under the regularity and boundary-clamping hypotheses stated in Appendix A, and under the soundness condition that bulk structure is boundary-grounded (no internal source term $\sigma$ on $\operatorname{int}(\mathcal{Z})$; Definition 2.11.7), stationarity of a capacity-constrained curvature functional implies
+**Theorem 18.2.1 (Capacity-constrained metric law).** Under the regularity and boundary-clamping hypotheses stated in Appendix A, and under the soundness condition that bulk structure is boundary-grounded (no internal source term $\sigma$ on $\operatorname{int}(\mathcal{Z})$; Definition 2.11.7), stationarity of a capacity-constrained curvature functional implies
 $$
 R_{ij} - \frac{1}{2}R\,G_{ij} + \Lambda G_{ij} = \kappa\, T_{ij},
 $$
@@ -3960,7 +4746,7 @@ where $\Lambda$ and $\kappa$ are constants and $T_{ij}$ is the loss-gradient (ri
 
 ---
 
-## 18. Conclusion
+## 19. Conclusion
 
 The Fragile Agent is a capacity- and stability-constrained control specification: the environment is described by an observation generator $P_{\partial}$, the agent’s internal state is a split macro/micro bundle, and stability is enforced by explicit defect functionals rather than implicit optimizer heuristics.
 
@@ -4165,7 +4951,7 @@ Conventions:
 - Entropies $H(\cdot)$, mutual information $I(\cdot;\cdot)$, and divergences $D_{KL}$ are measured in $\mathrm{nat}$.
 - Value/cost scalars ($V$, $F_t$, budgets, thresholds) are measured in $\mathrm{nat}$.
 - Per-step rates (HJB terms, $\Delta V$, any “cost rate”) are measured in $\mathrm{nat/step}$.
-- Latent coordinates ($z$, $z_\mu$, code embeddings $e_k$) are treated as **normalized/dimensionless**; any physical units should be absorbed into preprocessing and encoder normalization.
+- Latent coordinates ($z$, $z_n$, $z_{\mathrm{tex}}$, code embeddings $e_k$) are treated as **normalized/dimensionless**; any physical units should be absorbed into preprocessing and encoder normalization.
 
 ### B.2 Parameter / Coefficient Units (by Role)
 
@@ -4187,7 +4973,8 @@ Conventions:
 | $\epsilon$ | numeric stabilizer / threshold | inherits compared quantity |
 | $\eta$ | step size / learning-rate symbol | dimensionless (in normalized coordinates) |
 | $\beta$ | VQ-VAE commitment weight (Section 2.2b / 3.3) | dimensionless |
-| $\beta_\mu$ | micro KL weight (VQ-VAE) | dimensionless |
+| $\beta_n$ | nuisance KL weight (structured residual) | dimensionless |
+| $\beta_{\mathrm{tex}}$ | texture KL weight (reconstruction-only residual) | dimensionless |
 | $\beta_K$ | macro codelength weight (rate term) | dimensionless |
 | $\lambda_{\text{use}}$ | codebook usage regularizer weight | dimensionless |
 | $\lambda_{\text{*}}$ | composite-loss weights (e.g. $\lambda_{\text{shutter}},\lambda_{\text{ent}},\lambda_{\text{zeno}}$) | dimensionless |

@@ -7,10 +7,13 @@ requires-python = ">=3.12"
 dependencies = [
     "ale-py",
     "gymnasium[atari,mujoco]",
+    "kaleido>=1.2.0",
     "matplotlib>=3.10.7",
     "opencv-python",
     "plangym>=0.1.30",
     "scikit-learn>=1.7.2",
     "torch>=2.9.1",
     "tqdm>=4.67.1",
+    "torchvision>=0.24.1",
+    "panel>=1.8.5",
 ]

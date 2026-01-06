@@ -1,0 +1,103 @@
+{
+  "config": {
+    "s0": 100.0,
+    "r": 0.02,
+    "mu": 0.02,
+    "t": 1.0,
+    "steps_per_year": 252,
+    "n_paths": 20000,
+    "dynamics": "heston",
+    "sigma_low": 0.2,
+    "sigma_high": 0.2,
+    "p_switch": 0.0,
+    "p_high_init": 0.0,
+    "infer_steps": 20,
+    "risk_aversion": 0.0,
+    "info_weight": 0.0,
+    "option_type": "call",
+    "payoff_kind": "asian-arithmetic",
+    "strikes": [
+      100.0
+    ],
+    "barrier": null,
+    "barrier_type": "up-and-out",
+    "heston_v0": 0.04,
+    "heston_kappa": 1.5,
+    "heston_theta": 0.04,
+    "heston_xi": 0.6,
+    "heston_rho": -0.7,
+    "heston_benchmark_paths": 120000,
+    "ess_resample": 0.3,
+    "ess_fail": 0.07,
+    "weight_max": 0.12,
+    "kill_rate_max": 0.15,
+    "over_resample_limit": 8,
+    "stale_frac_max": 0.02,
+    "gamma_multiplier": 2.5,
+    "seed": 7,
+    "output_dir": "outputs/pricing",
+    "save_json": true,
+    "plot": true,
+    "example": "heston-asian-benchmark"
+  },
+  "summary": {
+    "smc_mae": null,
+    "smc_rmse": null,
+    "fragile_mae": null,
+    "fragile_rmse": null,
+    "rr_mae": null,
+    "rr_rmse": null,
+    "heston_mae": 0.057320060032891806,
+    "heston_rmse": 0.057320060032891806,
+    "sigma_eff": 0.2,
+    "q_high_mean": 0.0,
+    "barrier_gap_max": 0.0,
+    "barrier_failure": false,
+    "rr_applicable": false,
+    "heston_benchmark": true
+  },
+  "diagnostics": {
+    "ess_min": 1.0,
+    "ess_mean": 1.0,
+    "ess_fail_steps": 0,
+    "max_weight_fraction": 5.0000000000000016e-05,
+    "max_kill_step": 0.0,
+    "max_kill_fraction": 0.0,
+    "resample_steps": 0,
+    "max_resample_streak": 0,
+    "stale_frac": 0.0,
+    "gamma_ratio": 0.0,
+    "thresholds": {
+      "ess_resample": 0.3,
+      "ess_fail": 0.07,
+      "weight_max": 0.12,
+      "kill_rate_max": 0.15,
+      "over_resample_limit": 8,
+      "stale_frac_max": 0.02,
+      "gamma_multiplier": 2.5
+    },
+    "flags": {
+      "ess_fail": false,
+      "weight_collapse": false,
+      "kill_rate": false,
+      "over_resample": false,
+      "stale_data": false,
+      "stiffness": false
+    }
+  },
+  "results": [
+    {
+      "strike": 100.0,
+      "smc_price": 2.071834255035924,
+      "fragile_price": 2.071834255035924,
+      "black_scholes": null,
+      "smc_diff": null,
+      "fragile_diff": null,
+      "barrier_rr": null,
+      "rr_diff": null,
+      "heston_benchmark": 2.1291543150688157,
+      "heston_diff": -0.057320060032891806
+    }
+  ],
+  "example": "heston-asian-benchmark"
+}

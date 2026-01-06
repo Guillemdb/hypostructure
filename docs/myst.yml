@@ -1051,6 +1051,7 @@ project:
   bibliography:
     - source/references.bib
     - source/sketches/fragile/references.bib
+    - source/sketches/fragile/pricing_references.bib
 
   # PDF export configuration
   exports:
