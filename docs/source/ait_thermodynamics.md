@@ -1,4 +1,4 @@
-# Algorithmic Information Theory Formalization of the Halting Problem
+claude --dangerously-skip-permissions# Algorithmic Information Theory Formalization of the Halting Problem
 
 ## Executive Summary
 

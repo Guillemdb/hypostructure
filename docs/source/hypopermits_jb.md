@@ -8536,7 +8536,7 @@ The Sieve automatically:
 
 :::{prf:remark} Naming convention
 
-This part defines **equivalence moves** (Eq1--Eq5) and **transport lemmas** (T1--T6). These are distinct from the **Lock tactics** (E1--E10) defined in Part XI, Section 22. The `Eq` prefix distinguishes equivalence moves from Lock tactics.
+This part defines **equivalence moves** ({prf:ref}`def-equiv-symmetry`--{prf:ref}`def-equiv-bridge`) and **transport lemmas** ({prf:ref}`def-transport-t1`--{prf:ref}`def-transport-t6`). These are distinct from the **Lock tactics** ({prf:ref}`def-e1`--{prf:ref}`def-e10`) defined in Part XI, Section 33. The `Eq` prefix distinguishes equivalence moves from Lock tactics.
 
 :::
 
@@ -8615,8 +8615,8 @@ with inverse bounds.
 A **YES$^\sim$ certificate** for predicate $P_i$ is a triple:
 $$K_i^{\sim} = (K_{\text{equiv}}, K_{\text{transport}}, K_i^+[\tilde{x}])$$
 where:
-- $K_{\text{equiv}}$: Certifies $x \sim_{\mathrm{Eq}} \tilde{x}$ for some equivalence move Eq1--Eq5
-- $K_{\text{transport}}$: Transport lemma certificate (from T1--T6)
+- $K_{\text{equiv}}$: Certifies $x \sim_{\mathrm{Eq}} \tilde{x}$ for some equivalence move {prf:ref}`def-equiv-symmetry`--{prf:ref}`def-equiv-bridge`
+- $K_{\text{transport}}$: Transport lemma certificate (from {prf:ref}`def-transport-t1`--{prf:ref}`def-transport-t6`)
 - $K_i^+[\tilde{x}]$: YES certificate for $P_i$ on the equivalent object $\tilde{x}$
 
 :::
@@ -9534,7 +9534,7 @@ For any type $T$, there exists a library of admissible equivalence moves and tra
 **Input**: Type $T$ structural assumptions
 
 **Output**:
-- Equivalence moves $\mathrm{Eq}_1^T, \ldots, \mathrm{Eq}_k^T$ with comparability bounds (instantiations of Eq1--Eq5)
+- Equivalence moves $\mathrm{Eq}_1^T, \ldots, \mathrm{Eq}_k^T$ with comparability bounds (instantiations of {prf:ref}`def-equiv-symmetry`--{prf:ref}`def-equiv-bridge`)
 - Transport lemmas $T_1^T, \ldots, T_6^T$ instantiated for $T$
 - YES$^\sim$ production rules
 - Promotion rules (immediate and a-posteriori)
@@ -9547,10 +9547,10 @@ For any type $T$, there exists a library of admissible equivalence moves and tra
 :label: proof-mt-fact-transport
 
 *Step 1 (Equivalence Instantiation).* For each abstract equivalence $\mathrm{Eq}_i$, instantiate using the type's structural assumptions:
-- Eq1 (Scaling): $u \sim_\lambda \lambda^{\alpha} u(\lambda^\beta \cdot)$ with exponents from $T$'s critical scaling
-- Eq2 (Symmetry): $u \sim_g g \cdot u$ for $g \in G$ the type's symmetry group
-- Eq3 (Gauge): $u \sim_\phi e^{i\phi} u$ for gauge-invariant types
-- Eq4 (Modulation): $u \sim_{c,x} u(\cdot - c t) e^{i(c\cdot + x)}$ for dispersive types
+- {prf:ref}`def-equiv-symmetry` (Scaling): $u \sim_\lambda \lambda^{\alpha} u(\lambda^\beta \cdot)$ with exponents from $T$'s critical scaling
+- {prf:ref}`def-equiv-metric` (Symmetry): $u \sim_g g \cdot u$ for $g \in G$ the type's symmetry group
+- {prf:ref}`def-equiv-conjugacy` (Gauge): $u \sim_\phi e^{i\phi} u$ for gauge-invariant types
+- {prf:ref}`def-equiv-surgery-id` (Modulation): $u \sim_{c,x} u(\cdot - c t) e^{i(c\cdot + x)}$ for dispersive types
 
 The comparability bounds follow from the type's energy functional: $|\Phi(u) - \Phi(u')| \leq C \cdot d_{\mathrm{Eq}}(u, u')$.
 
