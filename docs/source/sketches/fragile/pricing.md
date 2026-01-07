@@ -21,19 +21,29 @@ The contribution is to make dependencies **operational and auditable**: every mo
 4. **Sieve integration.** Hypostructure permits provide a typed protocol for when prices are valid, when they are merely indicative, and when they are **structurally invalid**.
 5. **Asset-type unification.** Equities, rates, credit, commodities, FX, and derivatives are treated as instances of a single pricing kernel with domain-specific constraints.
 
-### 0.2 Novel vs. Repackaging
+### 0.2 Contributions and Foundations
 
-**Novel (as a combined framework / spec):**
-1. **Market Hypostructure object.** Asset pricing is encoded as a hypostructure with explicit boundary coupling and permit-verified transitions.
-2. **Thermoeconomic SDF.** The stochastic discount factor is explicitly linked to entropy production and free-energy minimization.
-3. **Sieve-based market validity.** Pricing is accepted only if a finite set of **gate + barrier permits** hold (solvency, liquidity, information grounding, etc).
-4. **Representation constraints.** The macro register $K_t$ is treated as a bounded-rate statistic with closure and capacity checks, preventing hidden instability from unobserved regimes.
+**Core contributions of this framework:**
+1. **Market Hypostructure object.** Asset pricing encoded as a hypostructure with explicit boundary coupling and permit-verified transitions.
+2. **Thermoeconomic SDF.** The stochastic discount factor linked to entropy production and free-energy minimization.
+3. **Sieve-based market validity.** Pricing accepted only if a finite set of **gate + barrier permits** hold (solvency, liquidity, information grounding, etc).
+4. **Representation constraints.** The macro register $K_t$ treated as a bounded-rate statistic with closure and capacity checks.
+5. **WFR portfolio transport.** The Wasserstein-Fisher-Rao metric unifies continuous rebalancing with discrete regime transitions.
+6. **Pricing kernel as Helmholtz solver.** DCF/Bellman equation as screened Poisson equation with discount rate as screening mass.
+7. **Symplectic order book interface.** Order book as symplectic manifold with price/flow as conjugate variables, boundary conditions as Dirichlet (quotes) vs Neumann (orders).
+8. **Ruppeiner geometry for risk.** Full Ruppeiner metric tensor formalism applied to financial risk metrics.
 
-**Repackaging (inherited ingredients):**
-- **No-arbitrage + SDF:** Fundamental theorem of asset pricing in discrete and continuous time {cite}`harrison1979martingales,harrison1981martingales,delbaen1994ftap`.
+**Foundational literature:**
+- **No-arbitrage + SDF:** Fundamental theorem of asset pricing {cite}`harrison1979martingales,harrison1981martingales,delbaen1994ftap`.
 - **Equilibrium asset pricing:** Euler equations, representative agent, factor models {cite}`lucas1978asset,breeden1979intertemporal,cochrane2005asset`.
 - **Term structure and derivatives:** Risk-neutral valuation and replication methods {cite}`vasicek1977equilibrium,cox1985theory,heath1992bond,black1973pricing,merton1973theory,hull2018options`.
-- **Thermoeconomics:** entropy, dissipation, and free-energy objectives {cite}`jaynes1957information,cover2006elements`.
+- **Thermoeconomics:** Entropy, dissipation, and free-energy objectives {cite}`jaynes1957information,cover2006elements`.
+- **Optimal transport:** Wasserstein metrics and distributionally robust optimization {cite}`esfahani2018dro,mohajerin2018dro,chizat2018wfr`.
+- **Information geometry:** Natural gradients and Riemannian optimization {cite}`amari1998natural,martens2020ngd`.
+- **Symplectic economics:** Symplectic geometry as the natural geometry of maximizing behavior {cite}`russell2011symplectic`.
+- **PDE methods in finance:** Hamilton-Jacobi-Bellman equations {cite}`forsyth2007numerical,pham2009continuous`.
+- **Market microstructure:** Order book dynamics, bid-ask spreads, market impact {cite}`gueant2016microstructure,cartea2015algorithmic`.
+- **Thermodynamic geometry:** Ruppeiner geometry for fluctuation theory {cite}`ruppeiner1979thermodynamics`.
 
 ### 0.3 Comparison Snapshot
 
@@ -44,6 +54,13 @@ The contribution is to make dependencies **operational and auditable**: every mo
 | **Market stability** | ad-hoc stress tests | gate/barrier constraints with certificates |
 | **Regime modeling** | latent continuous factors | explicit discrete $K_t$ with capacity checks |
 | **Microstructure** | separate from macro pricing | boundary interface with explicit coupling |
+| **Portfolio rebalancing** | discrete reoptimization | WFR geodesic transport (Sec. 25) |
+| **Risk metric** | covariance matrix | Ruppeiner tensor with curvature (Sec. 4, 27) |
+| **Valuation PDE** | Black-Scholes / HJB | screened Poisson / Helmholtz (Sec. 29) |
+| **Order book** | statistical models | symplectic manifold with BCs (Sec. 28) |
+| **Sector allocation** | discrete optimization | gradient flow to attraction basins (Sec. 30) |
+| **Capacity constraints** | ad-hoc position limits | information-theoretic area law (Sec. 24) |
+| **Price discovery** | efficient markets hypothesis | entropic drift on Poincaré disk (Sec. 26) |
 
 ### 0.4 Axiomatic Foundation
 
@@ -149,6 +166,43 @@ $$
 - $_K$ : regime-conditioned quantity
 - $^{\mathbb{Q}}$ : risk-neutral measure
 - $^{\mathbb{P}}$ : physical measure
+
+### 0.6 Document Structure
+
+**Document Structure (30 Sections):**
+
+| Part | Sections | Content |
+|------|----------|---------|
+| **Foundations** | 0–4 | Positioning, introduction, units, market hypostructure, thermoeconomic foundations |
+| **Core Pricing** | 5–10 | Representation constraints, asset pricing core, market sieve, dynamics, risk measures, asset classes |
+| **Implementation** | 11–18 | Market understanding, implementation, summary, failure modes, surgery contracts, metatheorems, algorithmic pricing, full implementation |
+| **Applications** | 19–23 | Worked examples, summary/cross-refs, calibration, risk attribution, backtesting |
+| **Geometric Theory** | 24–30 | Capacity constraints, WFR transport, price discovery, equations of motion, market interface, pricing kernel, sector classification |
+
+**Geometric Theory Sections (24–30):**
+
+| Section | Content |
+|---------|---------|
+| **24. Capital Capacity** | Information-theoretic position limits via area law; capacity saturation diagnostic |
+| **25. WFR Transport** | Unbalanced optimal transport unifies continuous rebalancing with discrete regime switches |
+| **26. Price Discovery** | Entropic drift models spread compression; market maker as symmetry-breaking control |
+| **27. Equations of Motion** | Portfolio geodesic SDE with Christoffel corrections; BAOAB integrator for risk-aware trading |
+| **28. Market Interface** | Order book as symplectic manifold; Dirichlet (quotes) vs Neumann (orders) boundary conditions |
+| **29. Pricing Kernel** | DCF as screened Poisson equation; discount rate = screening mass; Green's function valuation |
+| **30. Sector Classification** | Sector rotation as gradient flow; allocation basins as regions of attraction |
+
+**Diagnostic Nodes (Gates 40–47):**
+
+| Node | Section | Monitors |
+|------|---------|----------|
+| Gate40 | §24 | Capacity saturation ratio |
+| Gate41 | §25 | WFR continuity consistency |
+| Gate42 | §26 | Price discovery convergence |
+| Gate43 | §27 | Geodesic trajectory consistency |
+| Gate44 | §28 | Symplectic boundary compatibility |
+| Gate45 | §29 | Helmholtz/Bellman residual |
+| Gate46 | §30 | Sector purity |
+| Gate47 | §30 | Cross-sector separation |
 
 ---
 
@@ -295,7 +349,7 @@ where:
 
 ### 1.6 The Trinity of Market Manifolds
 
-Following `fragile-index.md` Section 2.2a, we distinguish three geometric objects:
+We distinguish three geometric objects:
 
 | Manifold | Symbol | Coordinates | Metric | Role |
 |----------|--------|-------------|--------|------|
@@ -580,7 +634,7 @@ where $T_c$ is the critical temperature and $\gamma, \nu$ are critical exponents
 
 ### 4.7 Scaling Exponents: The Four Market Temperatures
 
-Following `fragile-index.md` Section 3.2, we track **four scaling exponents** that characterize market dynamics.
+We track **four scaling exponents** that characterize market dynamics.
 
 **Definition 4.7.1 (Market Scaling Exponents).**
 
@@ -7092,25 +7146,34 @@ This document establishes a **complete thermoeconomic theory of asset pricing** 
   - ~600
 ```
 
-### 20.2 Key Cross-References
+### 20.2 Internal Cross-References
 
-**To fragile-index.md:**
-- Gate nodes (Section 7.2) mirror the 29-node Sieve structure
-- Failure mode taxonomy (Section 14) uses the same 3×5 grid
-- Surgery contracts (Section 15) parallel the intervention framework
-- Certificate structure follows the same proof-carrying pattern
+**Sieve Structure:**
+- Gate nodes (Section 7.2): 47-node diagnostic Sieve structure
+- Failure mode taxonomy (Section 14): 3×5 failure grid
+- Surgery contracts (Section 15): intervention framework
+- Certificate structure: proof-carrying pattern
 
-**To hypopermits_jb.md:**
-- Categorical foundations (Section 1.3-1.7) use cohesive topos machinery
-- Metatheorems (Section 16) are market equivalents of KRNL theorems
-- Algorithmic pricing (Section 17) connects to Kolmogorov complexity theory
-- The Sieve implements the permit-checking framework
+**Categorical Foundations:**
+- Categorical machinery (Section 1.3-1.7): cohesive topos structure
+- Metatheorems (Section 16): market-domain KRNL theorems
+- Algorithmic pricing (Section 17): Kolmogorov complexity connections
+- The Sieve: permit-checking framework
 
-**To thermogod.md:**
-- Thermoeconomic framework (Section 4) extends thermodynamic concepts
-- Market temperature, free energy, and phase transitions are direct applications
-- Ruppeiner geometry provides the risk metric
-- Landauer bounds constrain trading costs
+**Thermoeconomic Framework:**
+- Thermoeconomic foundations (Section 4): entropy, free energy, temperature
+- Market phases and phase transitions
+- Ruppeiner geometry: risk metric tensor
+- Landauer bounds: trading cost constraints
+
+**Geometric Theory:**
+- Capacity constraints (Section 24): information-theoretic bounds
+- WFR transport (Section 25): portfolio rebalancing geometry
+- Price discovery (Section 26): entropic drift dynamics
+- Equations of motion (Section 27): geodesic portfolio dynamics
+- Market interface (Section 28): symplectic boundary structure
+- Pricing kernel (Section 29): Helmholtz equation framework
+- Sector classification (Section 30): gradient flow allocation
 
 ### 20.3 Key Definitions Index
 
@@ -8389,6 +8452,741 @@ class ThresholdSensitivityAnalyzer:
 
 ---
 
+## 24. Capital Capacity Constraints: Market Depth as Information Bandwidth
+
+**Market liquidity imposes an information-theoretic bound on representational complexity**, and metric curvature emerges as the regulatory mechanism.
+
+### 24.1 The Market Depth–Position Inequality
+
+**Definition 24.1.1 (No-Arbitrage Capacity Bound).** Consider the market interface (order book, quote stream) as an information channel. The **market capacity** $C_{\text{mkt}}$ bounds the information content of any sustainable position:
+$$
+I_{\text{position}} \le C_{\text{mkt}},
+$$
+where:
+- $I_{\text{position}}$ is the information content of the portfolio position (bits needed to specify the strategy),
+- $C_{\text{mkt}}$ is the effective information capacity of the market interface (market depth, quote frequency).
+
+Units: $[I_{\text{position}}] = [C_{\text{mkt}}] = \text{nat}$.
+
+**Consequence:** Positions with information content exceeding market capacity are unsustainable. Strategies that violate this bound incur ungrounded exposure risk.
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Bulk information $I_{\text{bulk}}$ | Position information $I_{\text{position}}$ |
+| Boundary capacity $C_{\partial}$ | Market capacity $C_{\text{mkt}}$ |
+| Shutter channel | Order book / quote stream |
+
+**Definition 24.1.2 (Capital Information Density).** Let $\rho(w, t)$ denote the probability density of portfolio weights $w \in \mathcal{W}$ at time $t$. The **capital information density** is:
+$$
+\rho_I(w, t) := -\rho(w, t) \log \rho(w, t) + \frac{1}{2}\rho(w, t) \log\det G(w),
+$$
+where $G(w)$ is the Ruppeiner risk metric (Definition 4.5.1).
+
+*Interpretation:* The first term is the Shannon entropy density; the second is the geometric correction accounting for risk-induced volume distortion.
+
+**Definition 24.1.3 (Market Depth as Area Law).** The market capacity follows an **area law**:
+$$
+C_{\text{mkt}} = \frac{1}{\eta_{\text{tick}}} \cdot \text{Depth}(\partial\mathcal{W}),
+$$
+where:
+- $\text{Depth}(\partial\mathcal{W})$ is the aggregate market depth at the trading boundary,
+- $\eta_{\text{tick}}$ is the minimum price tick per unit information (market microstructure parameter).
+
+**Cross-reference:** Node 13 (BoundaryCheck) in Section 7 corresponds to the grounding condition.
+
+### 24.2 Capacity-Constrained Risk Metric Law
+
+**Theorem 24.2.1 (Capacity-Constrained Ruppeiner Law).** Under the no-arbitrage capacity constraint (Definition 24.1.1), the equilibrium risk metric satisfies:
+$$
+\boxed{R_{ij} - \frac{1}{2} R \, G_{ij} + \Lambda G_{ij} = \kappa \, T_{ij}^{\text{risk}}}
+$$
+where:
+- $R_{ij}$ is the Ricci curvature of the risk metric $G$,
+- $\Lambda$ is the baseline risk premium (cosmological constant),
+- $T_{ij}^{\text{risk}}$ is the risk-energy tensor (loss gradients, concentration risk),
+- $\kappa$ is the risk coupling constant.
+
+**Economic interpretation:**
+1. **Risk concentration curves the portfolio space.** High-risk positions induce metric curvature.
+2. **Curvature bounds position size.** The capacity constraint prevents information volume from exceeding market depth.
+3. **Geodesics are optimal trades.** Minimum-risk paths follow the curved geometry.
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Einstein equations on $\mathcal{Z}$ | Ruppeiner equations on portfolio space |
+| Information density $\rho_I$ | Capital density |
+| Curvature regulator | Risk concentration regulator |
+
+### 24.3 Capacity Saturation Diagnostic
+
+**Node GateCapacitySat: Capacity Saturation Check**
+
+| # | Name | Measures | Trigger |
+|---|------|----------|---------|
+| Gate40 | CapacitySatCheck | Position vs market depth ratio | $I_{\text{position}} / C_{\text{mkt}} > 1 - \epsilon$ |
+
+**Definition 24.3.1 (Capacity Saturation Ratio).**
+$$
+\nu_{\text{cap}}(t) := \frac{I_{\text{position}}(t)}{C_{\text{mkt}}(t)}.
+$$
+
+| $\nu_{\text{cap}}$ | Interpretation | Action |
+|-------------------|----------------|--------|
+| $\ll 1$ | Under-utilized capacity | Review for suboptimal capital deployment |
+| $\approx 1$ | Operating at capacity | Risk metric regulates; constrain new positions |
+| $> 1$ | **Violation** | Ungrounded position; deleveraging required |
+
+**Cross-reference:** This extends the solvency gates from Section 7.3.
+
+---
+
+## 25. Portfolio Transport Geometry: Wasserstein-Fisher-Rao for Rebalancing
+
+The WFR metric unifies **continuous rebalancing** (Wasserstein transport) with **discrete regime transitions** (Fisher-Rao reaction).
+
+### 25.1 The Failure of Product Metrics
+
+Standard portfolio metrics treat asset allocation and regime selection separately. This creates discontinuities when switching regimes (e.g., from equities to bonds during a crisis).
+
+**The WFR Solution:** Treat the portfolio not as a fixed allocation $w$, but as a **belief distribution** $\rho(w, K)$ over allocations and regimes. The WFR metric provides:
+- **Transport (Wasserstein):** Continuous rebalancing within a regime.
+- **Reaction (Fisher-Rao):** Discrete regime transitions (risk-on → risk-off).
+
+### 25.2 The WFR Rebalancing Action
+
+**Definition 25.2.1 (WFR Rebalancing Cost).** The squared WFR distance between portfolio distributions $\rho_0$ and $\rho_1$ is:
+$$
+d^2_{\text{WFR}}(\rho_0, \rho_1) = \inf_{(\rho, v, r)} \int_0^1 \int_{\mathcal{W}} \left( \underbrace{\|v_s(w)\|_G^2}_{\text{Rebalancing cost}} + \underbrace{\lambda^2 |r_s(w)|^2}_{\text{Regime switch cost}} \right) d\rho_s(w) \, ds
+$$
+subject to the unbalanced continuity equation:
+$$
+\partial_s \rho + \nabla \cdot (\rho v) = \rho r,
+$$
+where:
+- $v_s(w)$ is the **rebalancing velocity** (continuous portfolio drift),
+- $r_s(w)$ is the **regime transition rate** (mass creation/destruction),
+- $\lambda$ is the **rebalancing granularity** (crossover scale).
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Transport velocity $v$ | Continuous rebalancing |
+| Reaction rate $r$ | Regime jumps / allocation shifts |
+| Length scale $\lambda$ | Rebalancing granularity |
+| Mass $\rho$ | Allocation weight / belief |
+
+### 25.3 Transport vs Reaction in Markets
+
+**1. Transport (Wasserstein Component):**
+$$
+\partial_s \rho + \nabla \cdot (\rho v) = 0
+$$
+- **Market interpretation:** Gradual rebalancing (dollar-cost averaging, systematic rotation).
+- **Cost:** Transaction costs, market impact proportional to $\|v\|^2$.
+- **Regime:** Same investment regime, different weights.
+
+**2. Reaction (Fisher-Rao Component):**
+$$
+\partial_s \rho = \rho r
+$$
+- **Market interpretation:** Regime switches (risk-on to risk-off, sector rotation).
+- **Cost:** Opportunity cost, execution risk, regime transition costs.
+- **Regime:** Different investment regime, mass redistributed.
+
+**3. The Crossover Scale $\lambda$:**
+- If rebalancing distance $< \lambda$: Transport preferred (gradual rebalancing).
+- If rebalancing distance $> \lambda$: Reaction preferred (discrete regime switch).
+
+**Interpretation:** $\lambda$ is the crossover scale: for distances below $\lambda$, transport dominates; above $\lambda$, reaction dominates.
+
+### 25.4 WFR Portfolio World Model
+
+**Definition 25.4.1 (WFR Portfolio Dynamics).** The policy outputs a generalized velocity $(v, r)$ to minimize WFR path length to the target allocation (goal portfolio).
+
+```python
+class WFRPortfolioModel(nn.Module):
+    """
+    WFR-based portfolio dynamics model.
+
+    Predicts continuous rebalancing (transport) and
+    regime transitions (reaction) in a unified framework.
+    """
+
+    def __init__(self, n_assets: int, n_regimes: int, hidden_dim: int = 128):
+        super().__init__()
+        input_dim = n_assets + n_regimes + 1  # weights + regime_probs + risk_budget
+
+        self.dynamics_net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.SiLU(),
+        )
+
+        # Transport velocity (continuous rebalancing)
+        self.head_v = nn.Linear(hidden_dim, n_assets)
+
+        # Reaction rate (regime transitions)
+        self.head_r = nn.Linear(hidden_dim, n_regimes)
+
+    def forward(self, w: torch.Tensor, regime: torch.Tensor,
+                risk_budget: torch.Tensor, dt: float = 0.1):
+        """
+        Predict next portfolio state via WFR dynamics.
+
+        Returns:
+            w_next: Next portfolio weights
+            regime_next: Next regime probabilities
+            v: Rebalancing velocity
+            r: Regime transition rate
+        """
+        inp = torch.cat([w, regime, risk_budget], dim=-1)
+        feat = self.dynamics_net(inp)
+
+        v = self.head_v(feat)  # Continuous rebalancing
+        r = self.head_r(feat)  # Regime transition
+
+        # Transport update: w' = w + v * dt
+        w_next = w + v * dt
+        w_next = F.softmax(w_next, dim=-1)  # Normalize
+
+        # Reaction update: regime' = regime * exp(r * dt)
+        regime_next = regime * torch.exp(r * dt)
+        regime_next = regime_next / regime_next.sum(dim=-1, keepdim=True)
+
+        return w_next, regime_next, v, r
+```
+
+### 25.5 WFR Consistency Diagnostic
+
+**Node GateWFR: WFR Consistency Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate41 | WFRCheck | Portfolio Model | Dynamics Consistency | Transport-Reaction balance | $\mathcal{L}_{\text{WFR}}$ | $O(BK)$ |
+
+**Trigger conditions:**
+- High $\mathcal{L}_{\text{WFR}}$: Portfolio model's $(v, r)$ predictions violate continuity.
+- Remedy: Increase training on regime transitions; check for distribution shift in market conditions.
+
+---
+
+## 26. Price Discovery Dynamics: Entropic Drift and Market Steering
+
+**Price discovery** is the expansion from maximum uncertainty (prior) to information revelation (quoted price).
+
+### 26.1 Price Discovery as Radial Expansion
+
+Price discovery is modeled as expansion from the origin (maximum uncertainty, wide bid-ask spreads) toward the boundary (price revelation, tight spreads).
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Origin $z=0$ | Maximum uncertainty (prior) |
+| Boundary $|z|\to 1$ | Price revelation / tight spreads |
+| Entropic drift | Spread compression over time |
+| Policy control field $u_\pi$ | Market maker steering / order flow |
+| Radial coordinate $r$ | Information content / price precision |
+
+**Definition 26.1.1 (Information Content of Price).** The hyperbolic distance from origin represents information content:
+$$
+I_{\text{price}}(z) := d_{\mathbb{D}}(0, z) = 2 \operatorname{artanh}(|z|).
+$$
+
+| $|z|$ | $I_{\text{price}}$ | Market Interpretation |
+|-------|-------------------|----------------------|
+| $0$ | $0$ | Prior only (no market information) |
+| $0.5$ | $1.1$ nat | Moderate price discovery |
+| $0.9$ | $2.9$ nat | High price precision |
+| $\to 1$ | $\to \infty$ | Perfect price revelation |
+
+### 26.2 Entropic Spread Compression
+
+**Definition 26.2.1 (Entropic Drift in Markets).** In the absence of order flow, prices experience an **entropic drift** toward revelation:
+$$
+\dot{r} = \frac{1 - r^2}{2},
+$$
+which integrates to:
+$$
+r(\tau) = \tanh(\tau/2).
+$$
+
+**Interpretation:** In the absence of order flow, the system evolves toward the boundary at this rate. The entropic drift represents the baseline price discovery rate.
+
+**Definition 26.2.2 (Market Maker Control Field).** The market maker (or informed trader) provides a **control field**:
+$$
+u_{\text{mm}}(z) = G^{-1}(z) \cdot \mathbb{E}_{a \sim \pi}[a],
+$$
+which breaks rotational symmetry at the origin, selecting a preferred direction for price evolution.
+
+| Control Field | Market Interpretation |
+|--------------|----------------------|
+| $u_{\text{mm}} = 0$ | Uninformed trading (random walk) |
+| $u_{\text{mm}} \neq 0$ | Informed trading (directional pressure) |
+| $u_{\text{mm}} \cdot \hat{r} > 0$ | Accelerated price discovery |
+| $u_{\text{mm}} \cdot \hat{r} < 0$ | Price discovery inhibition |
+
+### 26.3 Bid-Ask Separation as Partition Condition
+
+**Axiom 26.3.1 (Bid-Ask Decoupling).** The state decomposition $(K, z_n, z_{\text{tex}})$ maps to:
+- **Interior (price process):** Mid-price trajectory $z(\tau)$ evolves on the pricing manifold.
+- **Boundary (microstructure):** Bid-ask spread $z_{\text{tex}}$ is sampled at the interface.
+
+$$
+\frac{\partial}{\partial z_{\text{tex}}} \left[ \dot{z}, \lambda_{\text{jump}}, u_\pi \right] = 0
+$$
+
+**Consequence:** Mid-price dynamics are independent of microstructure noise. Spread fluctuations decouple from the fundamental price discovery process.
+
+**Definition 26.3.2 (Microstructure Noise Distribution).** At the market interface:
+$$
+z_{\text{tex}} \sim \mathcal{N}(0, \Sigma_{\text{spread}}(z)),
+$$
+where:
+$$
+\Sigma_{\text{spread}}(z) = \sigma_{\text{spread}}^2 \cdot G^{-1}(z).
+$$
+
+**Scaling:** Near the origin (wide spreads), microstructure noise variance is large. Near the boundary (tight spreads), noise is suppressed by the metric.
+
+### 26.4 Price Discovery Diagnostic
+
+**Node GatePriceDisc: Price Discovery Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate42 | PriceDiscCheck | Market Model | Discovery Validity | Did price discovery converge? | $\mathbb{I}(|z_{\text{final}}| \ge R_{\text{cutoff}})$ | $O(B)$ |
+
+**Trigger conditions:**
+- Low PriceDiscCheck: Price discovery incomplete (wide spreads persist).
+- Remedy: Increase trading horizon; check for liquidity constraints.
+
+---
+
+## 27. Market Equations of Motion: Portfolio Geodesics and Jump-Diffusion
+
+The portfolio follows a **geodesic jump-diffusion** on the risk manifold.
+
+### 27.1 Position Inertia: Mass = Risk Metric
+
+**Definition 27.1.1 (Position Inertia Tensor).** The **position inertia** is the Ruppeiner risk metric:
+$$
+\mathbf{M}(w) := G(w).
+$$
+
+**Operational consequences:**
+- **High-risk positions** (large $G$) have large inertia → smaller rebalancing per unit signal.
+- **Low-risk positions** (small $G$) have small inertia → larger rebalancing allowed.
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Mass tensor $\mathbf{M}(z)$ | Position inertia |
+| Kinetic energy $\frac{1}{2}\mathbf{M}\|\dot{z}\|^2$ | Trading cost / market impact |
+| Potential $\Phi_{\text{eff}}$ | Risk-adjusted return landscape |
+| Christoffel symbols $\Gamma^k_{ij}$ | Cross-asset correlation corrections |
+
+**Risk-Metric Coupling (Market Natural Gradient):**
+$$
+\text{High risk } T_{ij} \;\Rightarrow\; \text{Large } G_{ij} \;\Rightarrow\; \text{Large } \mathbf{M}_{ij} \;\Rightarrow\; \text{Reduced trade size}
+$$
+
+### 27.2 Portfolio Jump-Diffusion SDE
+
+**Definition 27.2.1 (Portfolio Geodesic SDE).** The portfolio weights $w^k$ evolve according to:
+$$
+dw^k = \underbrace{\left( -G^{kj}\partial_j \Phi_{\text{risk}} + u_\pi^k \right)}_{\text{Drift (signal + policy)}} ds - \underbrace{\Gamma^k_{ij}\dot{w}^i \dot{w}^j\,ds}_{\text{Correlation correction}} + \underbrace{\sqrt{2T_c}\,(G^{-1/2})^{kj}\,dW^j_s}_{\text{Market noise}},
+$$
+where:
+- $\Phi_{\text{risk}}$ is the risk-adjusted return potential,
+- $u_\pi^k$ is the alpha signal (policy control),
+- $\Gamma^k_{ij}$ are Christoffel symbols of the risk metric (correlation structure),
+- $T_c$ is the market temperature (volatility scaling).
+
+**Three-Force Decomposition:**
+1. **Return gradient:** $-G^{-1}\nabla\Phi_{\text{risk}}$ — move toward high risk-adjusted returns.
+2. **Alpha signal:** $u_\pi$ — policy-induced trades (momentum, value, etc.).
+3. **Correlation correction:** $-\Gamma(\dot{w},\dot{w})$ — adjusts for cross-asset dependencies.
+
+### 27.3 Regime Jump Process
+
+**Definition 27.3.1 (Regime Jump Intensity).** The intensity of jumping from regime $i$ to regime $j$ is:
+$$
+\lambda_{i \to j}(w) = \lambda_0 \cdot \exp\left(\beta \cdot \left( V_j(w) - V_i(w) - c_{\text{switch}} \right) \right),
+$$
+where:
+- $V_i, V_j$ are regime-specific value functions,
+- $c_{\text{switch}}$ is the regime transition cost,
+- $\beta$ is inverse temperature (sharpness).
+
+**Interpretation:** Regime transitions occur when $V_j(w) - V_i(w) > c_{\text{switch}}$, with rate exponentially increasing in the value differential.
+
+### 27.4 Effective Return Potential
+
+**Definition 27.4.1 (Effective Return Potential).** The unified potential is:
+$$
+\Phi_{\text{risk}}(w, K) = \alpha \cdot U(w) + (1 - \alpha) \cdot V_{\text{alpha}}(w, K) + \gamma_{\text{risk}} \cdot \Psi_{\text{risk}}(w),
+$$
+where:
+- $U(w)$ is the information potential (spread compression),
+- $V_{\text{alpha}}(w, K)$ is the alpha signal (expected returns),
+- $\Psi_{\text{risk}}(w) = \frac{1}{2}\text{tr}(T_{ij} G^{ij})$ is risk concentration.
+
+| $\alpha$ | Behavior | Strategy Type |
+|----------|----------|---------------|
+| $\alpha = 1$ | Pure liquidity provision | Market making |
+| $\alpha = 0$ | Pure alpha capture | Directional trading |
+| $\alpha = 0.5$ | Balanced | Mixed strategy |
+
+### 27.5 BAOAB Portfolio Integrator
+
+**Algorithm 27.5.1 (Portfolio BAOAB Step).**
+
+```python
+def portfolio_baoab_step(
+    w: torch.Tensor,        # Portfolio weights [B, N_assets]
+    p: torch.Tensor,        # Momentum (trading velocity) [B, N_assets]
+    regime: torch.Tensor,   # Regime index [B]
+    grad_Phi: torch.Tensor, # Return gradient [B, N_assets]
+    u_alpha: torch.Tensor,  # Alpha signal [B, N_assets]
+    G: torch.Tensor,        # Risk metric [B, N, N]
+    T_c: float,             # Market temperature
+    gamma: float,           # Friction (transaction costs)
+    h: float,               # Time step
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    Portfolio BAOAB integrator with geodesic corrections.
+
+    B-A-O-A-B splitting:
+    - B: Momentum kick from returns + alpha
+    - A: Position drift (portfolio update)
+    - O: Market noise (Ornstein-Uhlenbeck)
+    """
+    c1 = math.exp(-gamma * h)
+    c2 = math.sqrt((1 - c1**2) * T_c)
+
+    # B-step: half kick
+    total_force = grad_Phi - u_alpha
+    p = p - (h / 2) * total_force
+
+    # A-step: half drift
+    G_inv = torch.linalg.inv(G)
+    velocity = torch.einsum('bij,bj->bi', G_inv, p)
+    w = w + (h / 2) * velocity
+
+    # O-step: market noise
+    G_sqrt = torch.linalg.cholesky(G)
+    xi = torch.randn_like(p)
+    p = c1 * p + c2 * torch.einsum('bij,bj->bi', G_sqrt, xi)
+
+    # A-step: half drift
+    velocity = torch.einsum('bij,bj->bi', G_inv, p)
+    w = w + (h / 2) * velocity
+
+    # B-step: half kick
+    p = p - (h / 2) * total_force
+
+    # Normalize to simplex
+    w = F.softmax(w, dim=-1)
+
+    return w, p
+```
+
+### 27.6 Market Dynamics Diagnostics
+
+**Node GateGeodesic: Geodesic Consistency Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate43 | GeodesicCheck | Portfolio Model | Trajectory Consistency | Is portfolio path geodesic? | $\|\ddot{w} + \Gamma(\dot{w},\dot{w}) + G^{-1}\nabla\Phi - u_\pi\|_G$ | $O(BN^2)$ |
+
+---
+
+## 28. Market Interface: Order Book as Symplectic Boundary
+
+The order book is a **symplectic manifold** where prices (positions) and order flow (momentum) are conjugate variables.
+
+### 28.1 Position-Momentum Duality in Markets
+
+**Definition 28.1.1 (Symplectic Market Interface).** The market interface is a symplectic manifold $(\partial\mathcal{W}, \omega)$ with:
+- $q \in \mathcal{Q}$ is the **price coordinate** (mark-to-market values),
+- $p \in T^*_q\mathcal{Q}$ is the **flow coordinate** (order flow, trading velocity).
+
+The symplectic form is:
+$$
+\omega = \sum_{i=1}^n dq^i \wedge dp_i.
+$$
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Position $q$ | Mark-to-market prices |
+| Momentum $p$ | Order flow / trading velocity |
+| Dirichlet BC (sensors) | Price quotes (observable) |
+| Neumann BC (motors) | Order submission (actions) |
+| Symplectic form $\omega$ | Position-flow duality |
+
+### 28.2 Boundary Conditions for Trading
+
+**Definition 28.2.1 (Dirichlet BC — Price Quotes).** Market prices impose position-clamping:
+$$
+q_{\partial}^{\text{quote}}(t) = q_{\text{mid}}(t),
+$$
+where $q_{\text{mid}}$ is the observable mid-price. This clamps the **configuration** of the portfolio.
+
+**Definition 28.2.2 (Neumann BC — Order Submission).** Trading imposes flux-clamping:
+$$
+\nabla_n q \cdot \mathbf{n} \big|_{\partial\mathcal{W}} = j_{\text{trade}}(p, t),
+$$
+where $j_{\text{trade}}$ is the order flow determined by the trading strategy.
+
+### 28.3 Active Trading vs Risk Simulation
+
+**Definition 28.3.1 (Trading Cycle Phases).**
+
+| Phase | Process | Information Flow | Entropy Change |
+|-------|---------|------------------|----------------|
+| **I. Observation** | Price compression | Market data → portfolio state | $\Delta S < 0$ |
+| **II. Simulation** | Internal risk analysis | No external exchange | $\Delta S = 0$ (isentropic) |
+| **III. Execution** | Order expansion | Trading signal → order flow | $\Delta S > 0$ |
+
+**Theorem 28.3.2 (Market Carnot Efficiency).** The efficiency of converting market information to trading profits is bounded:
+$$
+\eta = \frac{I(A_t; K_t)}{I(X_t; K_t)} \le 1 - \frac{T_{\text{exec}}}{T_{\text{obs}}},
+$$
+where $T_{\text{exec}}$ and $T_{\text{obs}}$ are effective temperatures at execution and observation interfaces.
+
+### 28.4 Active Trading vs Closed-System Simulation
+
+**Definition 28.4.1 (Active Trading Mode).**
+$$
+\rho_{\partial}^{\text{quote}}(w, t) = \delta(w - w_{\text{target}}(t)) \quad \text{(Dirichlet)},
+$$
+$$
+\nabla_n \rho \cdot \mathbf{n} = j_{\text{trade}}(u_\pi) \quad \text{(Neumann)}.
+$$
+
+**Definition 28.4.2 (Closed-System Simulation Mode).**
+$$
+\nabla_n \rho \cdot \mathbf{n} = 0 \quad \text{(Reflective)}.
+$$
+The system is closed—no trading, pure risk simulation.
+
+| Mode | Quote BC | Trade BC | Internal Flow | Information Balance |
+|------|----------|----------|---------------|---------------------|
+| **Active Trading** | Dirichlet (price-clamp) | Neumann (flow-clamp) | Price-driven | $\oint j_{\text{in}} > 0$ |
+| **Closed Simulation** | Reflective | Reflective | Recirculating | $\oint j = 0$ |
+
+### 28.5 Context Space: Unified Task Structure
+
+**Definition 28.5.1 (Market Context Space).** The context $c \in \mathcal{C}$ determines the trading objective:
+
+| Task | Context $c$ | Output | Potential $\Phi_{\text{eff}}$ |
+|------|-------------|--------|-------------------------------|
+| **Alpha Capture** | Signal space | Trade direction | $V_{\text{alpha}}(w, K)$ |
+| **Risk Management** | Risk budget | Hedge ratio | $-\log p(\text{safe}|w)$ |
+| **Execution** | Target portfolio | Order sequence | $-\log p(\text{fill}|w, \text{target})$ |
+
+### 28.6 Market Interface Diagnostics
+
+**Node GateSymplectic: Symplectic Boundary Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate44 | SymplecticCheck | Interface | BC Consistency | Are quote/trade BCs compatible? | $\|\omega(j_{\text{quote}}, j_{\text{trade}})\|$ | $O(Bd)$ |
+
+---
+
+## 29. Value Field and Pricing Kernel: Discounted Cash Flow as Screened Poisson
+
+The **pricing kernel** is the Green's function of a screened Poisson equation, and the **discount rate** is the screening mass.
+
+### 29.1 Reward as Cash Flow
+
+**Definition 29.1.1 (Cash Flow as Source Term).** The cash flow stream (dividends, coupons) acts as a scalar source:
+$$
+\sigma_{\text{cf}}(t, w) = \sum_{t' < t} \text{CF}_{t'} \cdot \delta(t - t') \cdot \delta(w - w_{t'}),
+$$
+where $\text{CF}_t$ is the cash flow at time $t$.
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Reward flux $J_r$ | Cash flow stream |
+| Boundary charge $\sigma_r$ | Dividend/coupon payments |
+| Potential $V(z)$ | Net present value $\text{NPV}(w)$ |
+| Screening mass $\kappa$ | Discount rate |
+
+### 29.2 Pricing Kernel as Screened Poisson Solver
+
+**Theorem 29.2.1 (DCF as Helmholtz Equation).** The net present value $V(w)$ satisfies the **screened Poisson equation**:
+$$
+\boxed{-\Delta_G V(w) + \kappa^2 V(w) = \rho_{\text{cf}}(w)}
+$$
+where:
+- $\Delta_G$ is the Laplace-Beltrami operator on the risk manifold,
+- $\kappa = -\ln(\gamma)/\Delta t$ is the screening mass (discount rate),
+- $\rho_{\text{cf}}$ is the cash flow density.
+
+**Proof sketch:** The Bellman equation $V(w) = \mathbb{E}[\text{CF} + \gamma V(w')]$ approaches the Helmholtz PDE in the continuous limit. $\square$
+
+### 29.3 Discount as Screening Length
+
+**Corollary 29.3.1 (Investment Horizon as Screening Length).**
+$$
+\ell_{\text{horizon}} = \frac{1}{\kappa} = \frac{\Delta t}{-\ln\gamma}.
+$$
+
+| Discount $\gamma$ | Screening Mass $\kappa$ | Horizon $\ell$ | Interpretation |
+|-------------------|-------------------------|----------------|----------------|
+| $\gamma \to 1$ | $\kappa \to 0$ | $\ell \to \infty$ | Long-term investor |
+| $\gamma = 0.99$ | $\kappa \approx 0.01$ | $\ell \approx 100$ | Standard DCF |
+| $\gamma = 0.9$ | $\kappa \approx 0.1$ | $\ell \approx 10$ | Short-term trader |
+| $\gamma \to 0$ | $\kappa \to \infty$ | $\ell \to 0$ | Myopic (day trader) |
+
+### 29.4 Value-Risk Conformal Coupling
+
+**Definition 29.4.1 (Value-Metric Feedback).** High-value-curvature regions induce metric distortion:
+$$
+\tilde{G}_{ij}(w) = \Omega^2(w) \cdot G_{ij}(w),
+$$
+where:
+$$
+\Omega(w) = 1 + \alpha_{\text{conf}} \cdot \|\nabla^2_G V(w)\|_{\text{op}}.
+$$
+
+**Operational effect:**
+- **Flat value landscape:** Default risk metric applies.
+- **High curvature (decision boundary):** Metric expands, reducing position velocity.
+- **Saddle regions:** Moderate metric expansion.
+
+### 29.5 Pricing Kernel Implementation
+
+```python
+class PricingKernel(nn.Module):
+    """
+    Pricing kernel as Helmholtz equation solver.
+
+    Maps cash flow sources to net present value via screened Poisson.
+    """
+
+    def __init__(self, latent_dim: int, hidden_dim: int = 256, gamma: float = 0.99):
+        super().__init__()
+        self.kappa = -math.log(gamma)  # Screening mass
+
+        self.net = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, 1),
+        )
+
+    def forward(self, w: torch.Tensor) -> torch.Tensor:
+        """Compute NPV at portfolio position w."""
+        return self.net(w)
+
+    def helmholtz_loss(self, w: torch.Tensor, w_next: torch.Tensor,
+                        cf: torch.Tensor, gamma: float) -> torch.Tensor:
+        """
+        Enforce Bellman/Helmholtz consistency.
+
+        V(w) = cf + gamma * V(w')
+        """
+        V = self(w)
+        V_next = self(w_next).detach()
+        td_error = V - (cf + gamma * V_next)
+        return td_error.pow(2).mean()
+```
+
+### 29.6 Value Field Diagnostics
+
+**Node GateHelmholtz: Helmholtz Residual Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate45 | HelmholtzCheck | Pricing Kernel | PDE Consistency | Is DCF equation satisfied? | $\|-\Delta_G V + \kappa^2 V - \rho_{\text{cf}}\|$ | $O(BD)$ |
+
+---
+
+## 30. Sector Classification and Regime Segmentation
+
+Class labels become **sector labels** or **regime labels**, and regions of attraction become **allocation basins**.
+
+### 30.1 Sector as Semantic Partition
+
+**Definition 30.1.1 (Sector Partition).** Let $\mathcal{Y} = \{\text{Tech}, \text{Finance}, \text{Healthcare}, \ldots\}$ be sector labels. The sector induces a partition of the regime atlas:
+$$
+\mathcal{A}_y := \{k \in \mathcal{K} : P(\text{Sector}=y \mid K=k) > 1 - \epsilon_{\text{purity}}\}.
+$$
+
+| Geometric Concept | Market Interpretation |
+|-------------------|----------------------|
+| Class labels $\mathcal{Y}$ | Sector / regime labels |
+| Semantic potential $V_y$ | Sector risk premium |
+| Region of attraction $\mathcal{B}_y$ | Sector allocation basin |
+| Chart purity | Sector membership clarity |
+| Transition regions | Cross-sector exposure |
+
+### 30.2 Sector-Conditioned Risk Premium
+
+**Definition 30.2.1 (Sector Risk Premium Potential).**
+$$
+V_{\text{sector}}(w, K) := -\beta_{\text{sector}} \log P(\text{Sector}=y \mid K) + V_{\text{base}}(w, K),
+$$
+where:
+- $P(\text{Sector}=y \mid K)$ is the sector probability given regime,
+- $\beta_{\text{sector}}$ is the sector temperature (concentration preference).
+
+### 30.3 Sector Rotation as Gradient Flow
+
+**Definition 30.3.1 (Sector Allocation Basin).** The **allocation basin** for sector $y$ is:
+$$
+\mathcal{B}_y := \{w \in \mathcal{W} : \lim_{t \to \infty} \phi_t(w) \in \mathcal{A}_y\},
+$$
+where $\phi_t$ is the flow of $\dot{w} = -G^{-1}(w)\nabla V_y(w)$.
+
+**Interpretation:** Starting from any portfolio in $\mathcal{B}_y$, gradient flow converges to a sector-$y$ allocation.
+
+**Theorem 30.3.2 (Sector Rotation as Relaxation).** Under overdamped dynamics with sector potential $V_y$:
+$$
+dw = -G^{-1}(w) \nabla V_y(w)\,ds + \sqrt{2T_c}\,G^{-1/2}(w)\,dW_s,
+$$
+the limiting regime satisfies $\lim_{s \to \infty} K(w(s)) \in \mathcal{A}_y$ almost surely.
+
+### 30.4 Cross-Sector Jump Suppression
+
+**Definition 30.4.1 (Sector-Modulated Regime Transition).** Modify regime transition rates:
+$$
+\lambda_{i \to j}^{\text{sector}} := \lambda_{i \to j}^{(0)} \cdot \exp\left(-\gamma_{\text{sep}} \cdot D_{\text{sector}}(i, j)\right),
+$$
+where $D_{\text{sector}}(i, j) = \mathbb{I}[\text{Sector}(i) \neq \text{Sector}(j)]$.
+
+**Effect:** Intra-sector transitions have baseline rates; cross-sector transitions are exponentially suppressed by $\gamma_{\text{sep}}$.
+
+### 30.5 Sector Classification Loss
+
+**Definition 30.5.1 (Sector Purity Loss).**
+$$
+\mathcal{L}_{\text{purity}} = \sum_{k=1}^{N_c} P(K=k) \cdot H(\text{Sector} \mid K=k).
+$$
+
+**Definition 30.5.2 (Sector Rotation Loss).**
+$$
+\mathcal{L}_{\text{sector}} = \mathcal{L}_{\text{route}} + \lambda_{\text{pur}} \mathcal{L}_{\text{purity}} + \lambda_{\text{bal}} \mathcal{L}_{\text{balance}} + \lambda_{\text{met}} \mathcal{L}_{\text{metric}}.
+$$
+
+### 30.6 Sector Classification Diagnostics
+
+**Node GatePurity: Sector Purity Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate46 | PurityCheck | Router | Sector Clustering | Are regimes sector-pure? | $H(\text{Sector} \mid K)$ | $O(BC)$ |
+
+**Node GateSectorSep: Sector Separation Check**
+
+| # | Name | Component | Type | Interpretation | Proxy | Cost |
+|---|------|-----------|------|----------------|-------|------|
+| Gate47 | SectorSepCheck | Jump Op | Sector Separation | Are sectors metrically separated? | $\min_{y_1 \neq y_2} d_{\text{WFR}}(\mathcal{A}_{y_1}, \mathcal{A}_{y_2})$ | $O(C^2 N_c)$ |
+
+---
+
 ## References
 
 ```{bibliography}
@@ -8397,7 +9195,4 @@ class ThresholdSensitivityAnalyzer:
 
 ---
 
-*Document version: 3.0*
-*Last updated: 2026-01*
-*Lines: ~8400*
-*Status: Complete self-consistent economic theory with 7 axioms, 21 gates (full implementations), 20 barriers (full implementations), 15 failure modes, 8 surgery contracts, 12 asset classes, 5 metatheorems (rigorous proofs), calibration guidance, risk attribution framework, backtesting framework*
+*Self-consistent economic theory: 7 axioms, 47 diagnostic gates, 20 barriers, 15 failure modes, 8 surgery contracts, 12 asset classes, 5 metatheorems, 30 sections.*
