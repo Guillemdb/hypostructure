@@ -1,356 +1,573 @@
----
-title: "Statistical Mechanics of the Halting Problem: An AIT Formalization"
----
-
-# Structural Sieve Proof: Halting Problem via Algorithmic Thermodynamics
+# Halting Problem
 
 ## Metadata
 
 | Field | Value |
 |-------|-------|
-| **Problem** | Classify the Halting Set $K = \{e : \varphi_e(e)\downarrow\}$ via Algorithmic Information Theory |
-| **System Type** | $T_{\text{algorithmic}}$ (Computability Theory with AIT formalism) |
-| **Target Claim** | The Sieve acts as a Phase Transition Detector distinguishing Decidable (Crystal) from Undecidable (Gas) |
-| **Framework Version** | Hypostructure v1.0 + AIT Extension |
-| **Date** | 2025-12-28 |
-
-### Label Naming Conventions
-
-Problem slug: `halting-ait`
+| **Problem** | Classify the halting set $\mathcal K=\{e : \varphi_e(e)\downarrow\}$ in the algorithmic phase semantics of the Structural Sieve |
+| **System Type** | $T_{\text{algorithmic}}$ (Computability / AIT) |
+| **Target Claim** | Liquid-phase horizon classification of the halting set |
+| **Framework Version** | Hypostructure v1.0 |
+| **Date** | 2026-04-14 |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
-We certify that this instance is eligible for the Universal Singularity Modules with modifications for algorithmic systems.
+We certify that this instance is eligible for the algorithmic factory layer of the Hypostructure framework.
 
-- **Type witness:** $T_{\text{algorithmic}}$ is a **specialized type** (discrete state space + Kolmogorov complexity bounds).
-- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** ({prf:ref}`def-automation-guarantee`) with modifications: profile extraction → complexity classification, admissibility → decidability testing.
+- **Type witness:** $T_{\text{algorithmic}}$ is treated as a good type for finite encodings, prefix-trace extraction, and algorithmic phase classification.
+- **Automation witness:** the Automation Guarantee supplies the thin parsing and certificate bookkeeping needed for the halting-set instance.
+- **Scope note:** this automation witness discharges the factory layer only. The computably enumerable witness, the Axiom R failure witness, the liquid-phase certificate, and the horizon goal certificate are certified explicitly below.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{algorithmic}}\ \text{specialized},\ \text{AIT-modified factories enabled})$$
+$$
+K_{\mathrm{Auto}}^+
+=
+\bigl(
+T_{\text{algorithmic}}\ \text{good},
+\ \mathrm{AutomationGuarantee},
+\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, AIT-Phase}
+\bigr).
+$$
 
 ---
 
 ## Abstract
 
-This document presents a **rigorous thermodynamic formalization** of the Halting Problem using **Algorithmic Information Theory (AIT)**. We transform the informal "Gas Phase" analogy into a formal mathematical theorem suitable for publication in the Annals of Mathematics.
+This document presents a machine-checkable Hypostructure proof object for the halting set
+$$
+\mathcal K=\{e : \varphi_e(e)\downarrow\}.
+$$
 
-**Approach:** We define Energy $E(x) = K(x)$ (Kolmogorov complexity), Partition Function $Z = \Omega$ (Chaitin's halting probability), and Temperature $T = 1/d(x)$ (inverse computational depth). The Structural Sieve acts as a **Renormalization Group operator** with two stable fixed points.
+The thin object is the family of finite prefix traces
+$$
+\tau_n=\chi_{\mathcal K}\!\upharpoonright [0,n-1]\in \{0,1\}^n.
+$$
+The route-relevant thin certificates record finite description, finite prefix event count, parameter stability, and sector bookkeeping. The decisive backend data are:
+$$
+K_{\mathrm{CE}}^+,
+\qquad
+K_{\mathrm{AxiomR}}^{\mathrm{wit}}.
+$$
+Here $K_{\mathrm{CE}}^+$ is the computably enumerable witness for $\mathcal K$, and $K_{\mathrm{AxiomR}}^{\mathrm{wit}}$ is the diagonal witness that no total recovery operator decides $\mathcal K$.
 
-**Result:** The Sieve-Thermodynamic Correspondence Theorem ({prf:ref}`thm-halting-ait-sieve-thermo-proofobj`) establishes that:
-- **Crystal Phase (Decidable)**: $K(L \cap [0,n]) = O(\log n)$ → Axiom R holds → Verdict: **REGULAR**
-- **Gas Phase (Undecidable)**: $K(L \cap [0,n]) \approx n$ → Axiom R fails → Verdict: **HORIZON**
-- **Critical Boundary**: Computably enumerable sets like $K$ exhibit phase transition behavior
-
-**Key Innovation:** The **Horizon Limit Theorem** ({prf:ref}`thm-halting-ait-horizon-limit`) formalizes the framework's boundaries: for problems with $K(\mathcal{I}) > M_{\text{sieve}}$, the verdict is provably **HORIZON** (thermodynamically irreducible).
+By the framework theorem {prf:ref}`thm-sieve-thermo-correspondence` together with {prf:ref}`def-algorithmic-phases`, these certificates force the phase certificate
+$$
+K_{\mathrm{Liquid}}^+
+$$
+and the designated goal certificate
+$$
+K^{\mathrm{hor}}.
+$$
 
 ---
 
 ## Theorem Statement
 
-::::{prf:theorem} The Sieve-Thermodynamic Correspondence
-:label: thm-halting-ait-sieve-thermo-proofobj
+::::{prf:theorem} Halting Problem
+:label: thm-halting-problem
 
-**Given:**
-- State space: $\mathcal{X} = \{0,1\}^*$ (finite binary strings)
-- Energy: $E(x) := K(x)$ (Kolmogorov complexity)
-- Partition Function: $Z := \Omega_U = \sum_{p: U(p)\downarrow} 2^{-|p|}$ (Chaitin's halting probability)
-- Temperature: $T(x) := 1/(d(x) + 1)$ where $d(x)$ is computational depth
+Let $U$ be a fixed universal prefix-free Turing machine, let
+$$
+\mathcal K=\{e : \varphi_e(e)\downarrow\},
+$$
+and for each $n\ge 1$ let
+$$
+\tau_n:=\chi_{\mathcal K}\!\upharpoonright [0,n-1]\in\{0,1\}^n
+$$
+be the length-$n$ prefix of the characteristic sequence of $\mathcal K$.
 
-**Claim:** The Structural Sieve $\mathcal{S}$ acts as a Phase Transition Detector with exactly two stable fixed points:
+Assume the certified package recorded in Parts 0 and I is present:
 
-1. **Fixed Point A (Crystal/Decidable)**:
-   $$\mathcal{F}_{\text{Crystal}} = \{L \subseteq \mathbb{N} : K(L \cap [0,n]) = O(\log n)\}$$
-   - RG Flow: Converges to finite representation
-   - Axiom R: Holds (decidable ↔ recovery exists)
-   - Verdict: **REGULAR**
+1. route-relevant thin certificates
+   $$
+   K_{D_E}^+,\ 
+   K_{\mathrm{Rec}_N}^+,\ 
+   K_{\mathrm{SC}_\lambda}^+,\ 
+   K_{\mathrm{SC}_{\partial c}}^+,\ 
+   K_{\mathrm{TB}_\pi}^+,\ 
+   K_{\mathrm{RepDesc}_K}^+,\ 
+   K_{\mathrm{Bound}_\partial}^-;
+   $$
+2. the computably enumerable witness
+   $$
+   K_{\mathrm{CE}}^+;
+   $$
+3. the diagonal witness
+   $$
+   K_{\mathrm{AxiomR}}^{\mathrm{wit}},
+   $$
+   certifying that Axiom R fails for $\mathcal K$.
 
-2. **Fixed Point B (Gas/Random)**:
-   $$\mathcal{F}_{\text{Gas}} = \{L : K(L \cap [0,n]) \geq n - O(1)\}$$
-   - RG Flow: Diverges to maximum entropy
-   - Axiom R: Fails absolutely (no recovery operator)
-   - Verdict: **HORIZON**
+Then the framework derives
+$$
+K_{\mathrm{Liquid}}^+
+\qquad\text{and}\qquad
+K^{\mathrm{hor}}.
+$$
 
-3. **Critical Boundary (Computation)**:
-   $$\mathcal{B}_{\text{Critical}} = \{L : O(\log n) < K(L \cap [0,n]) < n\}$$
-   - Examples: C.e. sets, NP-complete problems
-   - RG Behavior: Scale-invariant critical phenomena
-   - The Hyperbolic/Tits Alternative permit keeps systems at this boundary
+Equivalently, the halting set is classified as a Liquid-phase algorithmic problem, and the Structural Sieve returns the horizon verdict.
 
 **Notation:**
+
 | Symbol | Definition |
 |--------|------------|
-| $K(x)$ | Kolmogorov complexity (shortest program length) |
-| $\Omega$ | Chaitin's halting probability |
-| $d(x)$ | Computational depth (runtime of shortest program) |
-| $K$ | Halting set $\{e : \varphi_e(e)\downarrow\}$ |
-| $T$ | Temperature (inverse depth) |
+| $U$ | Fixed universal prefix-free Turing machine |
+| $\mathcal K$ | Halting set $\{e : \varphi_e(e)\downarrow\}$ |
+| $\tau_n$ | Length-$n$ prefix of the characteristic sequence of $\mathcal K$ |
+| $\Phi(\tau_n)$ | Finite-description energy proxy for the prefix trace |
+| $\mathfrak D(\tau_n)$ | Prefix computation-depth proxy |
+| $K_{\mathrm{CE}}^+$ | Computably enumerable witness for $\mathcal K$ |
+| $K_{\mathrm{AxiomR}}^{\mathrm{wit}}$ | Witness that Axiom R fails for $\mathcal K$ |
+| $K_{\mathrm{Liquid}}^+$ | Liquid-phase classification certificate |
+| $K^{\mathrm{hor}}$ | Designated horizon goal certificate |
 
 ::::
 
 ---
 
-## Part I: The Instantiation (AIT Thin Objects)
+## Part 0: Interface Permit Implementation
 
-### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
+### 0.1 Core Interface Permits (Nodes 1-12)
 
-* **State Space ($\mathcal{X}$):** $\{0,1\}^*$ (finite binary strings) or $2^{\mathbb{N}}$ (infinite binary sequences) with Cantor topology
-* **Metric ($d$):** Ultrametric $d(x,y) = 2^{-n}$ where $n = \min\{k : x_k \neq y_k\}$
-* **Measure ($\mu$):** Product measure $\mu = \bigotimes_{i=1}^{\infty} \text{Ber}(1/2)_i$ (fair coin flips)
-    * **Capacity Functional:** $\text{Cap}(L) := K(L \cap [0,n] \mid n)$ (conditional Kolmogorov complexity)
+#### Permit $D_E$ (Energy Interface)
 
-### **2. The Potential ($\Phi^{\text{thin}}$)**
+- [x] **Height Functional:** $\Phi(\tau_n):=K_\epsilon(\tau_n)$, the finite-description proxy for the thin trace.
+- [x] **Energy Witness:** every finite prefix $\tau_n$ has a finite program description.
+- [x] **Gate Output:** the run emits
+  $$
+  K_{D_E}^+=(\Phi,\text{finite-description witness}).
+  $$
 
-* **Height Functional ($\Phi$):** Kolmogorov complexity $\Phi(x) = K(x)$
-* **Gradient/Slope ($\nabla$):** Not directly defined (discrete space); descent = compression
-* **Scaling Exponent ($\alpha$):** $\alpha = 1$ (linear scaling for incompressible strings)
-    * For decidable sets: $\Phi(L_n) = O(\log n)$ → effectively $\alpha \to 0$
-    * For random sets: $\Phi(L_n) = n$ → $\alpha = 1$
+#### Permit $\mathrm{Rec}_N$ (Recovery / Event Interface)
 
-### **3. The Cost ($\mathfrak{D}^{\text{thin}}$)**
+- [x] **Bad Set:** unresolved diagonal queries inside a fixed prefix trace.
+- [x] **Recovery Map:** stage-by-stage dovetailing on diagonal inputs.
+- [x] **Event Counter:** for the prefix trace $\tau_n$, the event count is
+  $$
+  N(n)=n.
+  $$
+- [x] **Gate Output:** the run emits
+  $$
+  K_{\mathrm{Rec}_N}^+=(\mathcal B,\mathcal R,N(n)<\infty).
+  $$
 
-* **Dissipation Rate ($\mathfrak{D}$):** Computational depth $\mathfrak{D}(x) = d(x)$ (time to compute)
-* **Scaling Exponent ($\beta$):** Varies by problem class
-    * Decidable: $\beta = O(\log n)$ (polynomial time)
-    * Undecidable: $\beta \to \infty$ (unbounded)
+#### Permit $C_\mu$ (Compactness Interface)
 
-### **4. The Invariance ($G^{\text{thin}}$)**
+- [x] **Route Policy:** no compactness/profile backend is used in the designated goal route.
+- [x] **Gate Output:** the run records
+  $$
+  K_{C_\mu}^{\mathrm{inc}}
+  $$
+  outside the dependency cone of the designated goal.
 
-* **Symmetry Group ($G$):** $G = \text{Perm}(\mathbb{N})$ (index permutations via s-m-n theorem)
-* **Action ($\rho$):** $\rho(\pi)(e) = $ program index after applying permutation $\pi$
-* **Scaling Subgroup ($\mathcal{S}$):** Padding/encoding equivalences
+#### Permit $\mathrm{SC}_\lambda$ (Scaling Interface)
+
+- [x] **Scaling Variable:** prefix length $n$.
+- [x] **Trace Bookkeeping:** raw prefix size grows linearly with $n$.
+- [x] **Gate Output:** the run emits
+  $$
+  K_{\mathrm{SC}_\lambda}^+=(\alpha=1,\beta=0,\lambda_c=0,\beta-\alpha<0).
+  $$
+
+#### Permit $\mathrm{SC}_{\partial c}$ (Parameter Interface)
+
+- [x] **Parameter Tuple:** $(U,n)$.
+- [x] **Reference Point:** the chosen universal machine $U$ is fixed throughout the run.
+- [x] **Gate Output:** the run emits
+  $$
+  K_{\mathrm{SC}_{\partial c}}^+=(U,n,\text{parameter stability}).
+  $$
+
+#### Permit $\mathrm{Cap}_H$ (Capacity Interface)
+
+- [x] **Route Policy:** no capacity backend is used in the designated goal route.
+- [x] **Gate Output:** the run records
+  $$
+  K_{\mathrm{Cap}_H}^{\mathrm{inc}}
+  $$
+  outside the dependency cone of the designated goal.
+
+#### Permit $\mathrm{LS}_\sigma$ (Stiffness Interface)
+
+- [x] **Route Policy:** no stiffness backend is used in the designated goal route.
+- [x] **Gate Output:** the run records
+  $$
+  K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}
+  $$
+  outside the dependency cone of the designated goal.
+
+#### Permit $\mathrm{TB}_\pi$ (Topology / Sector Interface)
+
+- [x] **Sector Map:** decidable / computably enumerable but undecidable / random.
+- [x] **Instance Placement:** the halting set is assigned to the computably enumerable sector before the final phase certificate is emitted.
+- [x] **Gate Output:** the run emits
+  $$
+  K_{\mathrm{TB}_\pi}^+=(\tau,\text{algorithmic sector bookkeeping}).
+  $$
+
+#### Permit $\mathrm{TB}_O$ (Tameness Interface)
+
+- [x] **Route Policy:** no tame/o-minimal backend is used in the designated goal route.
+- [x] **Gate Output:** the run records
+  $$
+  K_{\mathrm{TB}_O}^{\mathrm{inc}}
+  $$
+  outside the dependency cone of the designated goal.
+
+#### Permit $\mathrm{TB}_\rho$ (Mixing Interface)
+
+- [x] **Route Policy:** no mixing backend is used in the designated goal route.
+- [x] **Gate Output:** the run records
+  $$
+  K_{\mathrm{TB}_\rho}^{\mathrm{inc}}
+  $$
+  outside the dependency cone of the designated goal.
+
+#### Permit $\mathrm{RepDesc}_K$ (Finite-Description Interface)
+
+- [x] **Language:** universal-machine code, diagonal input, and dovetailing trace representation.
+- [x] **Dictionary:** finite encoding of $U$ and the prefix extractor $\tau_n$.
+- [x] **Gate Output:** the run emits
+  $$
+  K_{\mathrm{RepDesc}_K}^+=(\mathcal L,D,K_\epsilon,\text{finite algorithmic description}).
+  $$
+
+#### Permit $\mathrm{GC}_\nabla$ (Gradient / Oscillation Interface)
+
+- [x] **Route Policy:** no gradient backend is used in the designated goal route.
+- [x] **Gate Output:** the run records
+  $$
+  K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}
+  $$
+  outside the dependency cone of the designated goal.
+
+### 0.2 Boundary Interface Permit
+
+The halting-set instance is treated as a closed symbolic system with boundary tuple
+$$
+\partial^{\mathrm{thin}}_{\mathcal K}=(1,\mathrm{Tr},0,0),
+$$
+so the run emits
+$$
+K_{\mathrm{Bound}_\partial}^-.
+$$
+
+### 0.3 Declared Backend Certificate Bundle
+
+| Certificate | Role in This File |
+|-------------|-------------------|
+| $K_{\mathrm{CE}}^+$ | computably enumerable witness for $\mathcal K$ |
+| $K_{\mathrm{AxiomR}}^{\mathrm{wit}}$ | diagonal witness that Axiom R fails for $\mathcal K$ |
+| $K_{\mathrm{Liquid}}^+$ | liquid-phase certificate from {prf:ref}`thm-sieve-thermo-correspondence` and {prf:ref}`def-algorithmic-phases` |
+| $K^{\mathrm{hor}}$ | designated horizon goal certificate |
+
+### 0.4 Route Selection
+
+The designated goal route does not use the Lock. The halting-set proof closes at the algorithmic phase layer:
+$$
+K_{\mathrm{CE}}^+
+\wedge
+K_{\mathrm{AxiomR}}^{\mathrm{wit}}
+\Longrightarrow
+K_{\mathrm{Liquid}}^+
+\Longrightarrow
+K^{\mathrm{hor}}.
+$$
 
 ---
 
-## Part II: Algorithmic Information Theory Foundations
+## Part I: The Instantiation
 
-### **2.1 Energy as Kolmogorov Complexity**
+### 1. Thin Algorithmic Object
 
-:::{prf:definition} Algorithmic Energy
-:label: def-halting-ait-energy
+For each $n\ge 1$, define the prefix trace
+$$
+\tau_n=\chi_{\mathcal K}\!\upharpoonright [0,n-1]\in\{0,1\}^n.
+$$
 
-For a state $x \in \{0,1\}^*$, define the **algorithmic energy** as:
-$$E(x) := K(x) = \min\{|p| : U(p) = x\}$$
-where $U$ is a universal prefix-free Turing machine.
+Set
+$$
+\mathcal X_{\mathcal K}^{\mathrm{thin}}:=\{\tau_n : n\ge 1\},
+$$
+with the normalized Hamming metric on equal-length traces and the counting measure on each finite level.
 
-**Physical Interpretation**: Energy = information content = shortest description length.
+Define the thin potentials by
+$$
+\Phi_{\mathcal K}^{\mathrm{thin}}(\tau_n):=K_\epsilon(\tau_n),
+\qquad
+\mathfrak D_{\mathcal K}^{\mathrm{thin}}(\tau_n):=d_s(\tau_n),
+$$
+where $d_s$ is the computational-depth proxy used by the algorithmic phase backend.
 
-**Mathematical Rigor**:
-- $K$ is well-defined up to $O(1)$ additive constant (Invariance Theorem, {cite}`LiVitanyi19`)
-- Prefix-free variant ensures $\sum_{x} 2^{-K(x)} \leq 1$ (Kraft's Inequality)
-:::
+Take the invariance data to be the standard computable reindexing and padding symmetries of the chosen universal-machine presentation. The resulting thin kernel object is
+$$
+\mathcal T_{\mathcal K}^{\mathrm{thin}}
+=
+\bigl(
+\mathcal X_{\mathcal K}^{\mathrm{thin}},
+\Phi_{\mathcal K}^{\mathrm{thin}},
+\mathfrak D_{\mathcal K}^{\mathrm{thin}},
+G_{\mathcal K}^{\mathrm{thin}},
+\partial_{\mathcal K}^{\mathrm{thin}}
+\bigr),
+$$
+and the associated hypostructure is
+$$
+\mathbb H_{\mathcal K}:=\mathcal F(\mathcal T_{\mathcal K}^{\mathrm{thin}}).
+$$
 
-### **2.2 Partition Function as Chaitin's Ω**
+### 2. Computably Enumerable Witness
 
-:::{prf:definition} Algorithmic Partition Function
-:label: def-halting-ait-partition
+Run the standard dovetailing enumerator over all diagonal computations $\varphi_e(e)$. Whenever the computation halts, enumerate $e$ into $\mathcal K$.
 
-The **algorithmic partition function** is Chaitin's halting probability:
-$$Z := \Omega_U = \sum_{p : U(p)\downarrow} 2^{-|p|}$$
+This backend construction emits
+$$
+K_{\mathrm{CE}}^+
+=
+\bigl(
+\text{dovetailing enumerator for }\mathcal K,
+\ \mathcal K\in\mathrm{c.e.}
+\bigr).
+$$
 
-**Thermodynamic Correspondence**:
-$$Z = \sum_{x} e^{-\beta E(x)} \quad \text{with } \beta = \ln 2$$
+### 3. Axiom R Failure Witness
 
-**Properties** ({cite}`Chaitin75`, {cite}`Calude02`):
-1. **Convergence:** $\Omega \leq 1$ by Kraft's Inequality
-2. **Randomness:** $K(\Omega_n) \geq n - O(1)$ (Martin-Löf random)
-3. **Completeness:** $\Omega$ is $\Delta^0_2$-complete
-:::
+The halting set is undecidable by the standard diagonal theorem of computability theory. In the algorithmic phase semantics used by {prf:ref}`thm-sieve-thermo-correspondence`, decidability is exactly the positive side of Axiom R.
 
-### **2.3 Temperature as Inverse Computational Depth**
-
-:::{prf:definition} Algorithmic Temperature
-:label: def-halting-ait-temperature
-
-Define inverse temperature via **computational depth**:
-$$\beta(x) := \frac{1}{T(x)} := \frac{1}{d(x) + 1}$$
-where $d(x) = \min\{t : \exists p, |p| = K(x), U^t(p) = x\}$ (runtime of shortest program).
-
-**Phase Regimes**:
-- **$T \to 0$ (Crystal)**: Low depth $d(x) \ll |x|$ → simple, periodic (e.g., $0^n$)
-- **$T \to \infty$ (Gas)**: High depth $d(x) \approx 2^{K(x)}$ → random, incompressible
-- **Critical $T_c$**: Intermediate depth → "interesting" computation (NP-complete)
-:::
+Therefore the diagonal argument emits the witness certificate
+$$
+K_{\mathrm{AxiomR}}^{\mathrm{wit}}
+=
+\bigl(
+\text{Turing diagonal witness},
+\ \text{Axiom R fails for }\mathcal K
+\bigr).
+$$
 
 ---
 
-## Part III: The Sieve-Thermodynamic Correspondence Theorem
+## Part II: Sieve Execution
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-halting-ait-sieve-thermo-proofobj`
-:label: proof-thm-halting-ait-sieve-thermo-proofobj
+### 2.1 Core Certificates
 
-**Step 1 (Fixed Point Identification via Levin-Schnorr)**:
+From the instantiated thin object, the run emits the route-relevant thin certificates
+$$
+K_{D_E}^+,\ 
+K_{\mathrm{Rec}_N}^+,\ 
+K_{\mathrm{SC}_\lambda}^+,\ 
+K_{\mathrm{SC}_{\partial c}}^+,\ 
+K_{\mathrm{TB}_\pi}^+,\ 
+K_{\mathrm{RepDesc}_K}^+,\ 
+K_{\mathrm{Bound}_\partial}^-.
+$$
 
-The **Levin-Schnorr Theorem** {cite}`Levin73` {cite}`Schnorr71` establishes that algorithmic randomness (Kolmogorov complexity) is equivalent to statistical randomness (unpredictability).
+The run also records the auxiliary off-route diagnostics
+$$
+K_{C_\mu}^{\mathrm{inc}},\ 
+K_{\mathrm{Cap}_H}^{\mathrm{inc}},\ 
+K_{\mathrm{LS}_\sigma}^{\mathrm{inc}},\ 
+K_{\mathrm{TB}_O}^{\mathrm{inc}},\ 
+K_{\mathrm{TB}_\rho}^{\mathrm{inc}},\ 
+K_{\mathrm{GC}_\nabla}^{\mathrm{inc}},
+$$
+which are not used in the designated goal route.
 
-For a set $L \subseteq \mathbb{N}$:
-- If $K(L \cap [0,n]) = O(\log n)$: $L$ has finite description → decidable (Crystal phase)
-- If $K(L \cap [0,n]) \geq n - O(1)$: $L$ is Martin-Löf random → no computable information (Gas phase)
+### 2.2 Backend-Derived Certificates
 
-**Step 2 (Axiom R as Order Parameter)**:
+The algorithmic backend emits
+$$
+K_{\mathrm{CE}}^+
+\qquad\text{and}\qquad
+K_{\mathrm{AxiomR}}^{\mathrm{wit}}.
+$$
 
-The **order parameter** distinguishing phases is Axiom R (Recovery):
-$$\rho_R(L) := \begin{cases} 1 & \text{if Axiom R holds for } L \\ 0 & \text{if Axiom R fails for } L \end{cases}$$
+No Lock certificate is required for the designated goal. The phase route closes before any categorical Hom-exclusion stage is invoked.
 
-**Theorem (Axiom R ↔ Decidability)**: For any $L \subseteq \mathbb{N}$:
-$$\text{Axiom R holds for } L \iff L \in \text{DECIDABLE}$$
+---
 
-**Proof**:
-- ($\Rightarrow$) Axiom R provides recovery $R(x,t)$ converging to correct answer. Define decider: $M(x) = \lim_{t\to\infty} R(x,t)$.
-- ($\Leftarrow$) A decider $M$ with time bound $f(x)$ yields recovery: $R(x,t) = M(x)$ for $t \geq f(x)$. $\square$
+## Part II-B: Derivation of the Goal Certificate
 
-**Step 3 (RG Flow Dynamics)**:
+### 1. Liquid-Phase Certificate
 
-Define renormalization operator $\mathcal{R}_\ell$ as coarse-graining by length scale $\ell$:
-$$\mathcal{R}_\ell(L) := \{x : \exists y \in L, d(x,y) \leq \ell\}$$
+By {prf:ref}`thm-sieve-thermo-correspondence`, the Structural Sieve verdict for an algorithmic instance is determined by Axiom R status rather than by complexity alone. By {prf:ref}`def-algorithmic-phases`, a computably enumerable but undecidable set lies in the Liquid phase.
 
-- **Crystal Phase**: $\mathcal{R}_\ell(L) \to L_{\text{simple}}$ (converges to simple representation)
-  - Example: $L = \{2^n : n \in \mathbb{N}\}$ has $K(L_n) = O(\log \log n)$
+The certificates
+$$
+K_{\mathrm{CE}}^+
+\wedge
+K_{\mathrm{AxiomR}}^{\mathrm{wit}}
+$$
+therefore emit
+$$
+K_{\mathrm{Liquid}}^+
+=
+\bigl(
+\mathcal K\in\mathrm{c.e.},
+\ \text{Axiom R fails},
+\ \text{phase}=\text{Liquid}
+\bigr).
+$$
 
-- **Gas Phase**: $\mathcal{R}_\ell(L) \to 2^{\mathbb{N}}$ (diverges to full measure space)
-  - Example: Martin-Löf random set $R$ has $K(R_n) \geq n - O(1)$
+### 2. Horizon Goal Certificate
 
-**Step 4 (Phase Transition at Critical $T_c$)**:
+The same phase theorem assigns the Sieve verdict `HORIZON` to every Liquid-phase problem. Hence
+$$
+K_{\mathrm{Liquid}}^+
+\Longrightarrow
+K^{\mathrm{hor}}.
+$$
 
-The halting set $K$ lies at the **critical boundary**:
-- $K$ is c.e.: $K(K \cap [0,n]) = O(\log n)$ (low capacity)
-- But Axiom R fails: No recovery operator exists (diagonal argument)
-- At $T_c$: Correlation length $\xi \to \infty$, power-law scaling, no characteristic scale
+This is the designated goal certificate for the present proof object.
 
-**Certificate Production**:
-- **Crystal**: $K_{\text{Crystal}}^+ = (M, f, \text{proof of termination})$ where $M$ is decider with time bound $f$
-- **Gas**: $K_{\text{Horizon}}^{\text{blk}} = (\text{diagonal construction}, \text{Axiom R failure}, K(\mathcal{I}) > M_{\text{sieve}})$
-- **Critical**: $K_{\text{Partial}}^{\pm} = (\text{c.e. index}, \text{enumeration procedure})$
+---
 
-$\square$
+## Part III: Proof Completion
+
+Take the designated goal certificate to be
+$$
+K_{\mathrm{Goal}}:=K^{\mathrm{hor}}.
+$$
+
+The route-relevant context is
+$$
+\Gamma_{\mathrm{req}}
+=
+\{
+K_{D_E}^+,
+K_{\mathrm{Rec}_N}^+,
+K_{\mathrm{SC}_\lambda}^+,
+K_{\mathrm{SC}_{\partial c}}^+,
+K_{\mathrm{TB}_\pi}^+,
+K_{\mathrm{RepDesc}_K}^+,
+K_{\mathrm{Bound}_\partial}^-,
+K_{\mathrm{CE}}^+,
+K_{\mathrm{AxiomR}}^{\mathrm{wit}},
+K_{\mathrm{Liquid}}^+,
+K^{\mathrm{hor}}
+\}.
+$$
+
+The only inconclusive certificates produced by the run are
+$$
+K_{C_\mu}^{\mathrm{inc}},\ 
+K_{\mathrm{Cap}_H}^{\mathrm{inc}},\ 
+K_{\mathrm{LS}_\sigma}^{\mathrm{inc}},\ 
+K_{\mathrm{TB}_O}^{\mathrm{inc}},\ 
+K_{\mathrm{TB}_\rho}^{\mathrm{inc}},\ 
+K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}.
+$$
+None of them appears in the route
+$$
+K_{\mathrm{CE}}^+
+\wedge
+K_{\mathrm{AxiomR}}^{\mathrm{wit}}
+\Longrightarrow
+K_{\mathrm{Liquid}}^+
+\Longrightarrow
+K^{\mathrm{hor}}.
+$$
+
+Therefore
+$$
+\mathsf{Obl}\!\bigl(\mathrm{Cl}(\Gamma_{\mathrm{req}})\bigr)\cap \Downarrow(K_{\mathrm{Goal}})=\varnothing.
+$$
+
+The proof object is complete for the designated goal.
+
+---
+
+## Formal Proof
+
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-halting-problem`
+
+Instantiate the thin algorithmic object $\mathcal T_{\mathcal K}^{\mathrm{thin}}$ from the prefix traces $\tau_n=\chi_{\mathcal K}\!\upharpoonright [0,n-1]$. The direct interface checks in Part 0 emit the route-relevant thin certificates
+$$
+K_{D_E}^+,\ 
+K_{\mathrm{Rec}_N}^+,\ 
+K_{\mathrm{SC}_\lambda}^+,\ 
+K_{\mathrm{SC}_{\partial c}}^+,\ 
+K_{\mathrm{TB}_\pi}^+,\ 
+K_{\mathrm{RepDesc}_K}^+,\ 
+K_{\mathrm{Bound}_\partial}^-,
+$$
+together with auxiliary off-route diagnostics.
+
+The dovetailing enumerator of Part I emits
+$$
+K_{\mathrm{CE}}^+.
+$$
+The standard diagonal undecidability argument emits
+$$
+K_{\mathrm{AxiomR}}^{\mathrm{wit}},
+$$
+certifying that Axiom R fails for $\mathcal K$.
+
+Apply {prf:ref}`thm-sieve-thermo-correspondence` and {prf:ref}`def-algorithmic-phases`. Since $\mathcal K$ is computably enumerable and Axiom R fails, the halting set lies in the Liquid phase. Hence the framework emits
+$$
+K_{\mathrm{Liquid}}^+.
+$$
+The same theorem assigns the horizon verdict to every Liquid-phase instance, so the designated goal certificate
+$$
+K^{\mathrm{hor}}
+$$
+is emitted.
+
+Finally, Part III verifies that every inconclusive certificate produced by the run lies outside the dependency cone of $K^{\mathrm{hor}}$. Therefore the goal-cone obligation ledger is empty, and the theorem follows. ∎
 
 ::::
 
 ---
 
-## Part IV: The Horizon Limit (No-Go Theorem)
+## Part IV: Final Certificate Chain
 
-::::{prf:theorem} The Horizon Limit (Gödel-Turing Bound)
-:label: thm-halting-ait-horizon-limit
+### 4.1 Validity Checklist
 
-**Statement**: For any computational problem $\mathcal{I}$ whose Kolmogorov complexity exceeds the Sieve's memory buffer, the verdict is provably **HORIZON**.
+| Item | Status | Witness |
+|---|---|---|
+| All route-relevant nodes executed with explicit certificates | Yes | Parts II and IV.2 |
+| Computably enumerable witness present | Yes | $K_{\mathrm{CE}}^+$ |
+| Axiom R failure witness present | Yes | $K_{\mathrm{AxiomR}}^{\mathrm{wit}}$ |
+| Liquid-phase certificate present | Yes | $K_{\mathrm{Liquid}}^+$ |
+| Designated goal certificate reached | Yes | $K^{\mathrm{hor}}$ |
+| Goal-relevant obligations discharged | Yes | Part III and IV.4 |
+| Validity status | Unconditional proof for the designated goal | GOAL-CONE EMPTY |
 
-**Formal Statement**:
-Let $\mathcal{S}$ be the Structural Sieve with finite memory $M_{\text{sieve}}$ (in bits). For any problem $\mathcal{I}$:
+### 4.2 Core Node Trace
 
-$$K(\mathcal{I}) > M_{\text{sieve}} \Rightarrow \text{Verdict}(\mathcal{S}, \mathcal{I}) = \texttt{HORIZON}$$
+| Node | Interface | Certificate | Status | Role in the designated goal route |
+|---|---|---|---|---|
+| 1 | $D_E$ | $K_{D_E}^+$ | Yes | Required |
+| 2 | $\mathrm{Rec}_N$ | $K_{\mathrm{Rec}_N}^+$ | Yes | Required |
+| 3 | $C_\mu$ | $K_{C_\mu}^{\mathrm{inc}}$ | Inconclusive | Auxiliary only; outside main derivation |
+| 4 | $\mathrm{SC}_\lambda$ | $K_{\mathrm{SC}_\lambda}^+$ | Yes | Required |
+| 5 | $\mathrm{SC}_{\partial c}$ | $K_{\mathrm{SC}_{\partial c}}^+$ | Yes | Required |
+| 6 | $\mathrm{Cap}_H$ | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | Inconclusive | Auxiliary only; outside main derivation |
+| 7 | $\mathrm{LS}_\sigma$ | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | Inconclusive | Auxiliary only; outside main derivation |
+| 8 | $\mathrm{TB}_\pi$ | $K_{\mathrm{TB}_\pi}^+$ | Yes | Required |
+| 9 | $\mathrm{TB}_O$ | $K_{\mathrm{TB}_O}^{\mathrm{inc}}$ | Inconclusive | Auxiliary only; outside main derivation |
+| 10 | $\mathrm{TB}_\rho$ | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ | Inconclusive | Auxiliary only; outside main derivation |
+| 11 | $\mathrm{RepDesc}_K$ | $K_{\mathrm{RepDesc}_K}^+$ | Yes | Required |
+| 12 | $\mathrm{GC}_\nabla$ | $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$ | Inconclusive | Auxiliary only; outside main derivation |
+| 13 | $\mathrm{Bound}_\partial$ | $K_{\mathrm{Bound}_\partial}^-$ | Closed | Routes directly to the algorithmic phase backend |
 
-**Proof**:
+### 4.3 Backend and Goal Trace
 
-**Step 1 (Information-Theoretic Lower Bound)**:
-To decide membership in $\mathcal{I}$, the sieve must store a representation requiring at least $K(\mathcal{I})$ bits (by definition of Kolmogorov complexity).
+| Stage | Certificate | Status | Source |
+|---|---|---|---|
+| Enumeration backend | $K_{\mathrm{CE}}^+$ | Yes | Part I.2 |
+| Diagonal backend | $K_{\mathrm{AxiomR}}^{\mathrm{wit}}$ | Yes | Part I.3 |
+| Phase classification | $K_{\mathrm{Liquid}}^+$ | Yes | Part II-B.1 |
+| Goal | $K^{\mathrm{hor}}$ | Yes | Part II-B.2 |
 
-**Step 2 (Memory Constraint)**:
-If $K(\mathcal{I}) > M_{\text{sieve}}$, no representation of $\mathcal{I}$ fits in the sieve's memory.
+### 4.4 Obligation Ledger Summary
 
-**Step 3 (Horizon Verdict)**:
-Unable to store $\mathcal{I}$, the sieve outputs **HORIZON** with certificate:
-$$K_{\text{Horizon}}^{\text{blk}} = (\text{"Complexity exceeds memory"}, K(\mathcal{I}) > M_{\text{sieve}})$$
-
-**Corollary (Halting Problem)**:
-For programs $e$ with $K(e) > M_{\text{sieve}}$, the verdict is **HORIZON**.
-
-**Interpretation**:
-This theorem makes explicit what the Sieve **cannot** do:
-- It does not claim to solve undecidable problems
-- It does not have infinite memory or infinite time
-- It honestly reports "thermodynamically irreducible" when complexity exceeds capacity
-
-**Physical Analogy**:
-Just as a thermometer with finite precision cannot measure temperature to infinite accuracy, a sieve with finite memory cannot classify arbitrarily complex problems.
-
-::::
-
----
-
-## Part V: Executive Summary
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | $2^{\mathbb{N}}$ (Cantor space) | State Space |
-| **Potential ($\Phi$)** | $K(x)$ (Kolmogorov complexity) | Energy Functional |
-| **Cost ($\mathfrak{D}$)** | $d(x)$ (computational depth) | Inverse Temperature |
-| **Invariance ($G$)** | Index permutations + padding | Symmetry Group |
-
-### 2. Verdict Classification
-
-| Problem Class | $K(L_n)$ | Axiom R | Verdict | Example |
-| :--- | :--- | :---: | :--- | :--- |
-| **Decidable (Crystal)** | $O(\log n)$ | ✓ | **REGULAR** | Primality testing |
-| **C.e. (Critical)** | $O(\log n)$ | ✗ | **PARTIAL** | Halting set $K$ |
-| **Random (Gas)** | $\approx n$ | ✗ | **HORIZON** | Chaitin's $\Omega$ |
-
-### 3. Framework Limits (Honest Epistemics)
-
-**What the Sieve CAN do**:
-- ✓ Classify decidable problems as REGULAR
-- ✓ Detect phase transitions between decidable/undecidable
-- ✓ Provide certificates for Axiom R failure (diagonal construction)
-
-**What the Sieve CANNOT do** (Horizon Limit Theorem):
-- ✗ Solve the Halting Problem
-- ✗ Store problems with $K(\mathcal{I}) > M_{\text{sieve}}$
-- ✗ Provide infinite computational resources
-
-**Honest Verdict for $K$**: **HORIZON** (thermodynamically irreducible, Axiom R fails absolutely)
-
-### 4. Mathematical Rigor Summary
-
-| Component | Status | Literature Support |
-| :--- | :---: | :--- |
-| **Energy $E = K$** | ✓ Rigorous | {cite}`LiVitanyi19` |
-| **Partition $Z = \Omega$** | ✓ Rigorous | {cite}`Chaitin75`, {cite}`Calude02` |
-| **Temperature $T = 1/d$** | ✓ Well-defined | {cite}`Bennett88` |
-| **Levin-Schnorr** | ✓ Theorem | {cite}`Levin73`, {cite}`Schnorr71` |
-| **Horizon Limit** | ✓ Information-theoretic | Direct proof (this document) |
-| **Thermodynamic language** | ⚠️ Analogical | Must frame as "organizing principle" |
-
-**Verdict for Annals of Mathematics**: ✅ **Rigorous** when properly framed as "thermodynamic formalism grounded in AIT"
-
----
-
-## References
-
-### Algorithmic Information Theory
-- {cite}`Chaitin75` G.J. Chaitin, "A Theory of Program Size Formally Identical to Information Theory," *J. ACM* 22(3), 1975.
-- {cite}`LiVitanyi19` M. Li, P. Vitányi, *An Introduction to Kolmogorov Complexity and Its Applications*, 4th ed., Springer, 2019.
-- {cite}`Calude02` C. Calude, *Information and Randomness: An Algorithmic Perspective*, 2nd ed., Springer, 2002.
-
-### Computability Theory
-- {cite}`Turing36` A.M. Turing, "On Computable Numbers," *Proc. London Math. Soc.* 42, 1936.
-- {cite}`Kleene43` S.C. Kleene, "Recursive Predicates and Quantifiers," *Trans. AMS* 53(1), 1943.
-- {cite}`Rice53` H.G. Rice, "Classes of Recursively Enumerable Sets," *Trans. AMS* 74(2), 1953.
-
-### Thermodynamic Connections
-- {cite}`Zurek89` W.H. Zurek, "Thermodynamic Cost of Computation," *Nature* 341, 1989.
-- {cite}`Bennett88` C.H. Bennett, "Logical Depth and Physical Complexity," *The Universal Turing Machine*, 1988.
-- {cite}`Levin73` L.A. Levin, "On the Notion of a Random Sequence," *Soviet Math. Dokl.* 14, 1973.
-- {cite}`Schnorr71` C.P. Schnorr, "A Unified Approach to Random Sequences," *Math. Systems Theory* 5, 1971.
-
----
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object (Algorithmic Thermodynamics) |
-| **Framework** | Hypostructure v1.0 + AIT Extension |
-| **Problem Class** | Algorithmic / Computability Theory |
-| **System Type** | $T_{\text{algorithmic}}$ |
-| **Verification Level** | Mathematical rigor + honest epistemics |
-| **Final Status** | **HORIZON** (halting set $K$ is undecidable; Axiom R fails) |
-| **Generated** | 2025-12-28 |
-
----
-
-*This document formalizes the thermodynamic interpretation of the Halting Problem using rigorous Algorithmic Information Theory. The Horizon Limit Theorem establishes the framework's boundaries, ensuring honest epistemics for publication-quality mathematics.*
-
-**QED**
+| ID | Certificate | Obligation | In Goal Cone? | Status | Discharge / Reason |
+|---|---|---|---|---|---|
+| O1 | $K_{C_\mu}^{\mathrm{inc}}$ | supply a compactness/profile backend | No | Residual diagnostic | not used by the phase route |
+| O2 | $K_{\mathrm{Cap}_H}^{\mathrm{inc}}$ | supply a capacity backend | No | Residual diagnostic | not used by the phase route |
+| O3 | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$ | supply a stiffness backend | No | Residual diagnostic | not used by the phase route |
+| O4 | $K_{\mathrm{TB}_O}^{\mathrm{inc}}$ | supply a tameness backend | No | Residual diagnostic | not used by the phase route |
+| O5 | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ | supply a mixing backend | No | Residual diagnostic | not used by the phase route |
+| O6 | $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$ | supply a gradient backend | No | Residual diagnostic | not used by the phase route |

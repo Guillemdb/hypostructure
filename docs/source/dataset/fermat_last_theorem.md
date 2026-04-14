@@ -9,11 +9,10 @@
 | **Target Claim** | Modularity Obstruction via Level-Conductor Mismatch |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -86,7 +85,7 @@ has no solutions in positive integers $x, y, z$.
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Curves with extra automorphisms $\{j(E) \in \{0, 1728, \infty\}\}$
 - [x] **Recovery Map $\mathcal{R}$:** Tate uniformization at bad primes
-- [x] **Event Counter $\#$:** $N(E) = \#\{p : E \text{ has bad reduction}\} = \Omega(\mathfrak{N}(E))$
+- [x] **Event Counter:** $N(E) = \left|\{p : E \text{ has bad reduction}\}\right| = \Omega(\mathfrak{N}(E))$
 - [x] **Finiteness:** Shafarevich: finitely many curves of bounded height
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -232,7 +231,7 @@ has no solutions in positive integers $x, y, z$.
 
 **Step-by-step execution:**
 1. [x] Recovery events: Isogeny descents to smaller conductor
-2. [x] Bad primes: $N(E) = \#\{p : E \text{ bad reduction}\} = \Omega(\mathfrak{N}(E))$
+2. [x] Bad primes: $N(E) = \left|\{p : E \text{ bad reduction}\}\right| = \Omega(\mathfrak{N}(E))$
 3. [x] For Frey curve: Bad primes divide $2abc$ (finite)
 4. [x] Mazur: Finitely many isogenies of bounded degree
 
@@ -431,7 +430,7 @@ has no solutions in positive integers $x, y, z$.
 
 **Step-by-step execution:**
 1. [x] Input: Bad primes divide $2abc$
-2. [x] Count: $\#\{\text{bad primes}\} = \Omega(2abc) < \infty$
+2. [x] Count: $\left|\{\text{bad primes}\}\right| = \Omega(2abc) < \infty$
 3. [x] Check: For fixed height, finitely many bad primes (Shafarevich)
 4. [x] Result: Bounded
 
@@ -807,18 +806,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Millennium-Class Problem (Solved 1995) |
-| System Type | $T_{\text{arithmetic}}$ |
-| Verification Level | Machine-checkable (modulo Wiles-Taylor-Wiles) |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Obstruction Certificates | 1 (TopoCheck) |
-| Final Status | **UNCONDITIONAL** (via Lock Block) |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{arithmetic}}$ (Arithmetic Geometry / Galois Representations) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

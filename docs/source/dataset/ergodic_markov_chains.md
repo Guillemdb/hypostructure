@@ -9,11 +9,10 @@
 | **Target Claim** | Global Convergence via Spectral Gap |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -86,7 +85,7 @@ The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have 
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Empty (no discrete events/surgeries in discrete-time Markov chains)
 - [x] **Recovery Map $\mathcal{R}$:** Identity (no recovery needed)
-- [x] **Event Counter $\#$:** $N(T) = 0$ for all $T$
+- [x] **Event Counter:** $N(T) = 0$ for all $T$
 - [x] **Finiteness:** Trivially $N(T) = 0 < \infty$
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -889,15 +888,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Ergodic Theory / Markov Processes |
-| System Type | $T_{\text{stochastic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{stochastic}}$ (Probability / Markov Processes) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
+

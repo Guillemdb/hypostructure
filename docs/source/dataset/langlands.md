@@ -9,11 +9,10 @@
 | **Target Claim** | Global Regularity (Correspondence Established) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,56 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{hybrid}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Dual spaces: $\mathcal{G}_n$ (Galois representations) $\leftrightarrow$ $\mathcal{A}_n$ (cuspidal automorphic representations) |
-| **Potential** | L-functions $L(s, \pi) = L(s, \rho_\pi)$ |
-| **Cost** | Conductor $\mathfrak{f}(\pi) = \mathfrak{f}(\rho)$ (ramification) |
-| **Invariance** | Langlands dual group ${}^L G = GL_n(\mathbb{C}) \rtimes \mathrm{Gal}(\bar{F}/F)$ |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (Godement-Jacquet, L-functions well-defined) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (Gelfand-Piatetski-Shapiro, discrete spectrum) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (Satake parameters, Frobenius eigenvalues) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (LRS bounds, subcritical) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (dimension, conductor, central character) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (Chebotarev, measure zero failures) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (Strong Multiplicity One, rigidity) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (dimension, central character preservation) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (algebraic parameters, o-minimal) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (discrete spectrum, no recurrence) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite conductor, bounded complexity) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (static correspondence) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
-| 14-16 | Boundary Nodes | Not triggered (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (HORIZON: correspondence not certified) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E2 | **Primary** | Invariant Mismatch — Ghost L-functions violate functional equation (Converse Theorem) |
-| LOCK-Reconstruction | Applied | Structural Reconstruction via Trace Formula + Fundamental Lemma |
-
-**Bridge Certificates:**
-- $K_{\text{Bridge}}^+$ (Arthur-Selberg Trace Formula)
-- $K_{\text{Rigid}}^+$ (Fundamental Lemma — Ngô)
-- $K_{\text{Rec}}^+$ (Converse Theorems — Cogdell-Piatetski-Shapiro)
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **HORIZON** (open over number fields) |
-| **Obligation Ledger** | NON-EMPTY (OBL-LANG-1) |
-| **Singularity Set** | UNKNOWN in general |
-| **Primary Blocking Tactic** | Partial: converse theorems + trace formula infrastructure (insufficient for global correspondence) |
 
 ---
 
@@ -154,7 +103,7 @@ This document presents a **machine-checkable audit trace** for the **Global Lang
 #### Template: $\mathrm{Rec}_N^{(\mathcal{A})}$ (Automorphic Recovery Interface)
 - [x] **Spectral Space:** $L^2(GL_n(F)\backslash GL_n(\mathbb{A}_F))_{\text{cusp}}$
 - [x] **Recovery Map $\mathcal{R}$:** Discrete spectrum decomposition
-- [x] **Event Counter $\#$:** Gelfand-Piatetski-Shapiro: cuspidal spectrum is discrete with finite multiplicity
+- [x] **Event Counter:** Gelfand-Piatetski-Shapiro: cuspidal spectrum is discrete with finite multiplicity
 - [x] **Finiteness:** $N(T) < \infty$ (finite multiplicity)
 
 #### Template: $C_\mu^{(\mathcal{A})}$ (Automorphic Compactness Interface)
@@ -820,15 +769,17 @@ For global field $F$ and $n \ge 1$:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Langlands Program |
-| System Type | $T_{\text{hybrid}}$ (Algebraic-Spectral) |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced; HORIZON (OBL-LANG-1) |
-| Final Status | **HORIZON** |
-| Generated | 2025-12-18 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{hybrid}}$ ($T_{\text{alg}}$ Arithmetic Geometry + $T_{\text{quant}}$ Spectral Theory) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | HORIZON |
+| **Generated** | 2026-04-14 |
+

@@ -158,7 +158,7 @@ Valid progress measures for surgery termination:
 
 **Type A (Bounded count)**:
 
-$$\#\{S\text{-surgeries on } [0, T)\} \leq N(T, \Phi(x_0))$$
+$$\left|\{S\text{-surgeries on } [0, T)\}\right| \leq N(T, \Phi(x_0))$$
 
 for explicit bound $N$ depending on time and initial energy.
 

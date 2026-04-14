@@ -9,11 +9,10 @@
 | **Target Claim** | Orbits equidistribute with respect to Lebesgue measure |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,52 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{ergodic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Circle $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ with Lebesgue measure |
-| **Potential** | Discrepancy $D_N = \sup_I \|\frac{\#\{n < N : n\alpha \in I\}}{N} - \|I\|\|$ |
-| **Cost** | Cesàro averaging $\frac{1}{N} \sum_{n=0}^{N-1} \delta_{R_\alpha^n(x)} \to \mu_{\text{Leb}}$ |
-| **Invariance** | Circle rotations $\mathbb{T}$ (abelian group) |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (Weyl discrepancy bound) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (Cesàro averaging) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (Lebesgue unique invariant) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (critical scaling) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (irrationality stable) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (dense orbit) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (minimal system) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (definable) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (uniquely ergodic) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (Weyl criterion) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (conservative) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed circle) |
-| 14-16 | Boundary Nodes | Not triggered (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E4 + LOCK-Reconstruction) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E1 | Applied | Structural Reconstruction via Three-Distance Theorem |
-| E4 | **Primary** | Integrality — Irrationality forces dispersion via continued fractions |
-| LOCK-Reconstruction | Applied | Continued fraction chain produces $K_{\text{Rec}}^+$ |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** |
-| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
-| **Singularity Set** | $\emptyset$ (orbit is dense) |
-| **Primary Blocking Tactic** | E4 (Integrality via Continued Fractions) |
 
 ---
 
@@ -126,7 +79,7 @@ Equivalently:
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Non-equidistribution events
 - [x] **Recovery Map $\mathcal{R}$:** Cesàro averaging restores uniformity
-- [x] **Event Counter $\#$:** No persistent deviations
+- [x] **Event Counter:** No persistent deviations
 - [x] **Finiteness:** Finite-time fluctuations are bounded
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -798,17 +751,17 @@ since $e^{2\pi i k\alpha} \neq 1$ for $k \neq 0$ (irrationality).
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Canonical Example (Ergodic Theory) |
-| System Type | $T_{\text{ergodic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{ergodic}}$ (Dynamical Systems / Unique Ergodicity) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

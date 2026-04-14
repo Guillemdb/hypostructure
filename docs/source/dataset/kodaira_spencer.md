@@ -9,11 +9,10 @@
 | **Target Claim** | Existence of a local moduli space (Kuranishi space) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -80,7 +79,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** $\mathcal{B} = \{\omega \in \mathcal{J}(M) : \text{Ob}(\omega) \neq 0\}$ (obstructed complex structures)
 - [x] **Recovery Map $\mathcal{R}$:** Kuranishi obstruction theory: small perturbation to unobstructed locus
-- [x] **Event Counter $\#$:** $N = \dim_{\mathbb{C}} H^2(M, T_M)$ (dimension of obstruction space)
+- [x] **Event Counter:** $N = \dim_{\mathbb{C}} H^2(M, T_M)$ (dimension of obstruction space)
 - [x] **Finiteness:** Hodge theory ensures finite-dimensional cohomology for compact $M$
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -160,14 +159,14 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
     * Conclusion: Analytic structure of $\mathcal{K}$ excludes wild deformations.
 - [x] **Exclusion Tactics Available:**
   - [x] E1 (Dimension): Moduli dimension $= h^1(T_M)$ is finite (mismatch with infinite-dimensional bad pattern)
-  - [ ] E2 (Invariant): N/A
-  - [ ] E3 (Positivity): N/A
-  - [ ] E4 (Integrality): N/A
-  - [ ] E5 (Functional): N/A
-  - [ ] E6 (Causal): N/A
-  - [ ] E7 (Thermodynamic): N/A
-  - [ ] E8 (DPI): N/A
-  - [ ] E9 (Ergodic): N/A
+  - [ ] E2 (Invariant): NOT APPLICABLE
+  - [ ] E3 (Positivity): NOT APPLICABLE
+  - [ ] E4 (Integrality): NOT APPLICABLE
+  - [ ] E5 (Functional): NOT APPLICABLE
+  - [ ] E6 (Causal): NOT APPLICABLE
+  - [ ] E7 (Thermodynamic): NOT APPLICABLE
+  - [ ] E8 (DPI): NOT APPLICABLE
+  - [ ] E9 (Ergodic): NOT APPLICABLE
   - [x] E10 (Definability): **PRIMARY** — Kuranishi space is analytic, hence o-minimal definable
   - [x] E11 (Galois-Monodromy): **SECONDARY** — Schlesinger's theorem constrains monodromy
 
@@ -426,7 +425,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 **Step-by-step execution:**
 1. [x] Identify invariant measure: Weil-Petersson measure (for Kahler case) or natural $L^2$ measure
 2. [x] Analyze dynamics: Static moduli problem (no flow dynamics)
-3. [x] Mixing property: N/A for static structure
+3. [x] Mixing property: NOT APPLICABLE for static structure
 4. [x] Result: No dynamical mixing required; structure is algebraic
 
 **Certificate:**
@@ -651,8 +650,8 @@ Here $\varphi$ is chosen so that $V_\mathcal{U} \vDash \varphi$ and $\varphi$ im
 
 ### Ledger Validation
 
-* [x] **All inc certificates either upgraded or documented as conditional:** N/A (none issued)
-* [x] **All breach obligations either discharged or documented:** N/A (none issued)
+* [x] **All inc certificates either upgraded or documented as conditional:** NOT APPLICABLE (none issued)
+* [x] **All breach obligations either discharged or documented:** NOT APPLICABLE (none issued)
 * [x] **Remaining obligations count = 0:** **YES**
 
 **Ledger Status:** **EMPTY** (valid unconditional proof)
@@ -664,11 +663,11 @@ Here $\varphi$ is chosen so that $V_\mathcal{U} \vDash \varphi$ and $\varphi$ im
 ### 4.1 Validity Checklist
 
 - [x] **All 12 core nodes executed** (Nodes 1-12)
-- [x] **Boundary nodes executed** (Node 13: CLOSED, Nodes 14-16: N/A)
+- [x] **Boundary nodes executed** (Node 13: CLOSED, Nodes 14-16: NOT APPLICABLE)
 - [x] **Lock executed** (Node 17)
 - [x] **Lock verdict obtained:** $K_{\text{Lock}}^{\mathrm{blk}}$ (Blocked via E10)
 - [x] **Upgrade pass completed** (Part II-B)
-- [x] **Surgery/Re-entry completed** (Part II-C: N/A)
+- [x] **Surgery/Re-entry completed** (Part II-C: NOT APPLICABLE)
 - [x] **Obligation ledger is EMPTY** (Part III-C)
 - [x] **No unresolved $K^{\mathrm{inc}}$** in final $\Gamma$
 
@@ -750,7 +749,7 @@ $$\therefore \text{Kuranishi Versal Deformation Theorem holds.} \quad \square$$
 | Component | Status | Certificate |
 |-----------|--------|-------------|
 | Nodes 1-12 (Core) | PASS | $K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\text{Vac}}^{\mathrm{blk}}, K_{\mathrm{Cap}_H}^+, K_{\text{Restore}}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-$ |
-| Nodes 13-16 (Boundary) | N/A (Closed) | $K_{\mathrm{Bound}_\partial}^-$ |
+| Nodes 13-16 (Boundary) | NOT APPLICABLE (Closed) | $K_{\mathrm{Bound}_\partial}^-$ |
 | Node 17 (Lock) | BLOCKED | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E10) |
 | Obligation Ledger | EMPTY | — |
 | Upgrade Pass | COMPLETE | (no upgrades required) |
@@ -783,6 +782,7 @@ This proof object is replayed by providing:
 **Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
 
 ---
+
 
 ## Executive Summary: The Proof Dashboard
 
@@ -825,14 +825,14 @@ This proof object is replayed by providing:
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
 | **E1** | Dimension | PASS | $\dim \mathcal{K} = h^1(T_M) < \infty$ |
-| **E2** | Invariant | N/A | — |
-| **E3** | Positivity | N/A | — |
-| **E4** | Integrality | N/A | — |
-| **E5** | Functional | N/A | — |
-| **E6** | Causal | N/A | — |
-| **E7** | Thermodynamic | N/A | — |
-| **E8** | DPI | N/A | — |
-| **E9** | Ergodic | N/A | — |
+| **E2** | Invariant | NOT APPLICABLE | — |
+| **E3** | Positivity | NOT APPLICABLE | — |
+| **E4** | Integrality | NOT APPLICABLE | — |
+| **E5** | Functional | NOT APPLICABLE | — |
+| **E6** | Causal | NOT APPLICABLE | — |
+| **E7** | Thermodynamic | NOT APPLICABLE | — |
+| **E8** | DPI | NOT APPLICABLE | — |
+| **E9** | Ergodic | NOT APPLICABLE | — |
 | **E10** | Definability | **PASS** | **Kuranishi space is analytic ⟹ o-minimal definable** |
 | **E11** | Galois-Monodromy | PASS | Schlesinger: monodromy is algebraic |
 
@@ -846,22 +846,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
 | **Document Type** | Proof Object |
 | **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Classical Deformation Theory |
-| **System Type** | $T_{\text{alg}}$ |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{alg}}$ (Algebraic/Complex Analytic) |
 | **Verification Level** | Machine-checkable |
-| **Inc Certificates** | 0 introduced, 0 discharged |
-| **Final Status** | **UNCONDITIONAL** |
-| **Generated** | 2025-12-23 |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | Final |
+| **Generated** | 2026-04-14 |
 
----
-
-*This document constitutes a machine-checkable proof object under the Hypostructure framework.*
-*Each certificate can be independently verified against the definitions in `hypopermits_jb.md`.*
-
-**QED**

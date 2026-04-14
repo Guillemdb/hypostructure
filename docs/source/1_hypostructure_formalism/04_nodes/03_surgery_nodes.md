@@ -182,12 +182,12 @@ The Lyapunov Cap surgery (SurgCE) is beautiful in its simplicity. When energy wa
 **Admissibility Signature:**
 - **Input Certificate:** $K_{\mathrm{Rec}_N}^{\mathrm{br}}$ (Zeno accumulation detected)
 - **Admissibility Predicate:**
-  $\exists N_{\max} : \#\{\text{events in } [t, t+\epsilon]\} \leq N_{\max} \text{ for small } \epsilon$
+  $\exists N_{\max} : \left|\{\text{events in } [t, t+\epsilon]\}\right| \leq N_{\max} \text{ for small } \epsilon$
   *(Events must be locally finite, not truly Zeno.)*
 
 **Transformation Law ($\mathcal{O}_S$):**
 - **State Space:** $X' = X$ (no topological change)
-- **Time Reparametrization:** $t' = \int_0^t \frac{ds}{1 + \#\text{events}(s)}$
+- **Time Reparametrization:** $t' = \int_0^t \frac{ds}{1 + N_{\mathrm{evt}}(s)}$
 - **Event Coarsening:** Merge events within $\epsilon$-windows
 
 **Postcondition:**

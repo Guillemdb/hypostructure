@@ -308,7 +308,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 | #  | Permit ID                  | Node           | Question                 | Required Implementation                                                   | Certificate                          |
 |----|----------------------------|----------------|--------------------------|---------------------------------------------------------------------------|--------------------------------------|
 | 1  | $D_E$                      | EnergyCheck    | Is Energy Finite?        | Height $\Phi$, Dissipation $\mathfrak{D}$, Bound $B$                      | $K_{D_E}^{\pm}$                      |
-| 2  | $\mathrm{Rec}_N$           | ZenoCheck      | Are Events Finite?       | Bad set $\mathcal{B}$, Recovery map $\mathcal{R}$, Counter $\#$           | $K_{\mathrm{Rec}_N}^{\pm}$           |
+| 2  | $\mathrm{Rec}_N$           | ZenoCheck      | Are Events Finite?       | Bad set $\mathcal{B}$, Recovery map $\mathcal{R}$, event count $N$        | $K_{\mathrm{Rec}_N}^{\pm}$           |
 | 3  | $C_\mu$                    | CompactCheck   | Does Energy Concentrate? | Symmetry $G$, Quotient $\mathcal{X}//G$, Limit $\lim$                     | $K_{C_\mu}^{\pm}$                    |
 | 4  | $\mathrm{SC}_\lambda$      | ScaleCheck     | Is Profile Subcritical?  | Scaling action $\mathbb{G}_m$, Exponents $\alpha,\beta$                   | $K_{\mathrm{SC}_\lambda}^{\pm}$      |
 | 5  | $\mathrm{SC}_{\partial c}$ | ParamCheck     | Are Constants Stable?    | Parameters $\Theta$, Reference $\theta_0$, Distance $d$                   | $K_{\mathrm{SC}_{\partial c}}^{\pm}$ |
@@ -378,8 +378,8 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 #### **Template: $\mathrm{Rec}_N$ (Recovery Interface)**
 - [ ] **Bad Set $\mathcal{B}$:** [Define $\mathcal{B} \hookrightarrow \mathcal{X}$]
 - [ ] **Recovery Map $\mathcal{R}$:** [Define $\mathcal{R}: \mathcal{B} \to \mathcal{X} \setminus \mathcal{B}$]
-- [ ] **Event Counter $\#$:** [Define counting measure]
-- [ ] **Finiteness:** $\#\{t : S_t(x) \in \mathcal{B}\} < \infty$?
+- [ ] **Event Counter:** [Define counting function $N$ or counting measure]
+- [ ] **Finiteness:** $\left|\{t : S_t(x) \in \mathcal{B}\}\right| < \infty$?
 
 #### **Template: $C_\mu$ (Compactness Interface)**
 - [ ] **Symmetry Group $G$:** [Define group structure]
@@ -717,7 +717,7 @@ For each node:
 **Step-by-step execution:**
 1. [ ] Define the bad set: $\mathcal{B} = \{x \in \mathcal{X} : \text{[singular condition]}\}$
 2. [ ] Define the recovery map: $\mathcal{R}: \mathcal{B} \to \mathcal{X} \setminus \mathcal{B}$
-3. [ ] Count bad events: $N(T) = \#\{t \in [0,T] : S_t x \in \mathcal{B}\}$
+3. [ ] Count bad events: $N(T) = \left|\{t \in [0,T] : S_t x \in \mathcal{B}\}\right|$
 4. [ ] Check: Is $\sup_T N(T) < \infty$?
 
 **Certificate:**

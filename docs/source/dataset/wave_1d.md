@@ -9,11 +9,10 @@
 | **Target Claim** | Smooth initial data $(u_0, u_1) \in H^s \times H^{s-1}$ yields global smooth solution for all time |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -75,7 +74,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Empty (no singularities for smooth data)
 - [x] **Recovery Map $\mathcal{R}$:** Identity (no recovery needed)
-- [x] **Event Counter $\#$:** $N(T) = 0$ (no discrete events)
+- [x] **Event Counter:** $N(T) = 0$ (no discrete events)
 - [x] **Finiteness:** Trivial (no events to count)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -99,7 +98,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 #### Template: $\mathrm{Cap}_H$ (Capacity Interface)
 - [x] **Capacity Functional:** Hausdorff measure
 - [x] **Singular Set $\Sigma$:** Empty for smooth data
-- [x] **Codimension:** N/A (no singular set)
+- [x] **Codimension:** NOT APPLICABLE (no singular set)
 - [x] **Capacity Bound:** $\mathrm{Cap}(\Sigma) = 0$
 
 #### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
@@ -707,18 +706,17 @@ Energy conservation follows from time-translation invariance (Noether's theorem)
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Hyperbolic PDE (Textbook) |
-| System Type | $T_{\text{hyperbolic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Verdict | **Mode D.D (Dispersion) + Lock Blocked** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{hyperbolic}}$ (Hyperbolic PDE) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

@@ -9,11 +9,10 @@
 | **Target Claim** | $\text{Re}(\rho) = 1/2$ for all nontrivial zeros $\rho$ |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -76,7 +75,7 @@ The **Explicit Formula** is the algebraic data: it links the zero-set $\Sigma$ t
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Zeros of $\xi(s)$
 - [x] **Recovery Map $\mathcal{R}$:** Analytic continuation
-- [x] **Event Counter $\#$:** $N(T) \sim \frac{T}{2\pi}\log\frac{T}{2\pi e}$
+- [x] **Event Counter:** $N(T) \sim \frac{T}{2\pi}\log\frac{T}{2\pi e}$
 - [x] **Finiteness:** Zeros are isolated (entire function)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -667,17 +666,17 @@ The argument does not close without a certified Hilbert–Pólya operator. Verdi
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Millennium Problem (Clay) |
-| System Type | $T_{\text{quant}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced; HORIZON (OBL-1) |
-| Final Status | **HORIZON** |
-| Generated | 2025-12-18 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{quant}}$ (Spectral Geometry / Quantum Chaos) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | HORIZON |
+| **Generated** | 2026-04-14 |
 
----

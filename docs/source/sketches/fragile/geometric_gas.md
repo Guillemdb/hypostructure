@@ -580,7 +580,7 @@ All permits are instantiated with the Euclidean Gas data below and certified in 
 ### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - **Bad Set $\mathcal{B}$:** NaN/Inf states or out-of-bounds positions (bounds enforced).
 - **Recovery Map $\mathcal{R}$:** Cloning step revives dead walkers by copying alive companions.
-- **Event Counter $\#$:** Count of out-of-bounds events or invalid states.
+- **Event Counter:** Count of out-of-bounds events or invalid states.
 - **Finiteness:** Guaranteed in discrete time with bounded domain; certified in Part II.
 
 ### Template: $C_\mu$ (Compactness Interface)

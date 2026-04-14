@@ -9,11 +9,10 @@
 | **Target Claim** | Viscosity solutions exist globally; caustics have codimension-2 structure |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -79,7 +78,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Caustic formation times (characteristics crossing)
 - [x] **Recovery Map $\mathcal{R}$:** Viscosity regularization at caustics
-- [x] **Event Counter $\#$:** Finite number of caustic births
+- [x] **Event Counter:** Finite number of caustic births
 - [x] **Finiteness:** Caustics are isolated singularities (codimension-2)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -661,18 +660,17 @@ Global viscosity solutions exist and are unique. Caustics form a codimension-2 s
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Hyperbolic PDE (Geometric Optics) |
-| System Type | $T_{\text{hyperbolic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Extension Certificates | 2 issued (Nodes 1, 11) |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{hyperbolic}}$ (Geometric Optics / Hamilton-Jacobi) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

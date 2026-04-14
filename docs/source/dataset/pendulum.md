@@ -9,11 +9,10 @@
 | **Target Claim** | All solutions remain smooth and bounded for all time |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -76,7 +75,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Empty (no collisions/singularities)
 - [x] **Recovery Map $\mathcal{R}$:** Not applicable (no discrete events)
-- [x] **Event Counter $\#$:** 0 (no singular events)
+- [x] **Event Counter:** 0 (no singular events)
 - [x] **Finiteness:** Trivially finite (0 events)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -100,7 +99,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 #### Template: $\mathrm{Cap}_H$ (Capacity Interface)
 - [x] **Capacity Functional:** Hausdorff dimension
 - [x] **Singular Set $\Sigma$:** Empty
-- [x] **Codimension:** N/A (no singularities)
+- [x] **Codimension:** NOT APPLICABLE (no singularities)
 - [x] **Capacity Bound:** $\mathrm{Cap}(\Sigma) = 0$
 
 #### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
@@ -685,17 +684,17 @@ For any initial condition $(\theta_0, p_0) \in S^1 \times \mathbb{R}$, the solut
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Classical Mechanics |
-| System Type | $T_{\text{hamiltonian}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{hamiltonian}}$ (Conservative Mechanics) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

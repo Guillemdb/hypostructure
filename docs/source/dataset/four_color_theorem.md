@@ -9,11 +9,10 @@
 | **Target Claim** | Global Regularity via Finite Configuration Dictionary |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -90,7 +89,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Reducible configurations $\{C_1, \ldots, C_{633}\}$ (Robertson et al.)
 - [x] **Recovery Map $\mathcal{R}$:** Configuration removal/reduction operation
-- [x] **Event Counter $\#$:** $N(G) \le |V(G)|$ (bounded by vertex count)
+- [x] **Event Counter:** $N(G) \le |V(G)|$ (bounded by vertex count)
 - [x] **Finiteness:** Reduction terminates (graph size strictly decreases)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -652,7 +651,7 @@ The dictionary construction provides the certificates $K_{\mathcal{D}}^+$ and $K
 
 ---
 
-## PART III-B: METATHEOREM EXTRACTION
+## Part III-B: Metatheorem Extraction
 
 ### **1. Dictionary Admissibility (RESOLVE-AutoAdmit)**
 *   **Input:** Finite unavoidable set $\mathcal{D}$.
@@ -948,15 +947,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Graph Theory / Combinatorics |
-| System Type | $T_{\text{combinatorial}}$ |
-| Verification Level | Machine-checkable (computer-assisted) |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{combinatorial}}$ (Discrete / Graph Theoretic) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
+

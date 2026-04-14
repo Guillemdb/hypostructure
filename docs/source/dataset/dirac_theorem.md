@@ -9,11 +9,10 @@
 | **Target Claim** | Global Regularity via Degree Capacity Constraint |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -73,7 +72,7 @@ This document presents a **machine-checkable proof object** for **Dirac's Theore
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Maximal paths that cannot be extended
 - [x] **Recovery Map $\mathcal{R}$:** Cycle closure and rotation operation
-- [x] **Event Counter $\#$:** $N(G) \le n$ (bounded by vertex count)
+- [x] **Event Counter:** $N(G) \le n$ (bounded by vertex count)
 - [x] **Finiteness:** Path extension terminates (bounded by graph size)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -686,6 +685,7 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Executive Summary: The Proof Dashboard
 
 ### 1. System Instantiation (The Physics)
@@ -721,16 +721,16 @@ This proof object is replayed by providing:
 
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
-| **E1** | Dimension | N/A | — |
-| **E2** | Invariant | N/A | — |
-| **E3** | Positivity | N/A | — |
-| **E4** | Integrality | N/A | — |
-| **E5** | Functional | N/A | — |
+| **E1** | Dimension | NOT APPLICABLE | — |
+| **E2** | Invariant | NOT APPLICABLE | — |
+| **E3** | Positivity | NOT APPLICABLE | — |
+| **E4** | Integrality | NOT APPLICABLE | — |
+| **E5** | Functional | NOT APPLICABLE | — |
 | **E6** | Causal/Capacity | **PASS** | Degree bound $\delta \ge n/2$ excludes non-Hamiltonian |
-| **E7** | Thermodynamic | N/A | — |
+| **E7** | Thermodynamic | NOT APPLICABLE | — |
 | **E8** | Topological | **PASS** | Hamiltonian cycle is topological property |
-| **E9** | Ergodic | N/A | — |
-| **E10** | Definability | N/A | — |
+| **E9** | Ergodic | NOT APPLICABLE | — |
+| **E10** | Definability | NOT APPLICABLE | — |
 | **E11** | Complexity | **PASS** | Finite graph → bounded complexity |
 
 ### 4. Final Verdict
@@ -742,15 +742,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Classical Graph Theory |
-| System Type | $T_{\text{combinatorial}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{combinatorial}}$ (Graph Theory / Discrete) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
+

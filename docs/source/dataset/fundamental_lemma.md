@@ -9,11 +9,10 @@
 | **Target Claim** | $O_\gamma(f) = O^H_{\gamma'}(f^H)$ for matching orbital integrals |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -82,7 +81,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Singular affine Springer fibers $\{\mathfrak{X}_\gamma : \text{non-smooth}\}$
 - [x] **Recovery Map $\mathcal{R}$:** Springer resolution $\text{Spr}_\gamma: \widetilde{\mathfrak{X}}_\gamma \to \mathfrak{X}_\gamma$
-- [x] **Event Counter $\#$:** $N = \#\{\text{irreducible components of singular fibers}\}$
+- [x] **Event Counter:** $N = \left|\{\text{irreducible components of singular fibers}\}\right|$
 - [x] **Finiteness:** Constructible stratification, finite type
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -142,7 +141,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 #### Template: $\mathrm{GC}_\nabla$ (Gradient Interface)
 - [x] **Metric Tensor $g$:** Killing form on Lie algebra $\mathfrak{g}$
 - [x] **Vector Field $v$:** None (static algebraic structure)
-- [x] **Gradient Compatibility:** N/A (no flow dynamics)
+- [x] **Gradient Compatibility:** NOT APPLICABLE (no flow dynamics)
 - [x] **Resolution:** Algebraic correspondence (cohomological)
 
 ### 0.2 Boundary Interface Permits (Nodes 13-16)
@@ -208,7 +207,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 2. [x] Springer resolution: $\text{Spr}_\gamma: \widetilde{\mathfrak{X}}_\gamma \to \mathfrak{X}_\gamma$ (proper birational)
 3. [x] Constructible stratification: Affine Grassmannian has finite Schubert cells
 4. [x] Count components: Each singular fiber has finitely many irreducibles
-5. [x] Result: $N = \#\{\text{components}\} < \infty$
+5. [x] Result: $N = \left|\{\text{components}\}\right| < \infty$
 
 **Certificate:**
 * [x] $K_{\mathrm{Rec}_N}^+ = (\text{Springer resolution}, N < \infty)$ → **Go to Node 3**
@@ -725,6 +724,7 @@ The orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ holds for all m
 
 ---
 
+
 ## Executive Summary: The Proof Dashboard
 
 ### 1. System Instantiation (The Physics)
@@ -761,8 +761,8 @@ The orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ holds for all m
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
 | **E1** | Structural Reconstruction | **PASS** | Hitchin fibration → geometric transfer |
-| **E2-E9** | Various | N/A | — |
-| **E10** | Definability | N/A | — |
+| **E2-E9** | Various | NOT APPLICABLE | — |
+| **E10** | Definability | NOT APPLICABLE | — |
 | **E17** | Cohomological | **PASS** | Perverse sheaf matching via motivic integration |
 
 ### 4. Final Verdict
@@ -774,19 +774,17 @@ The orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ holds for all m
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Langlands Program (Fundamental Lemma) |
-| System Type | $T_{\text{arithmetic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Key Innovation | Cohomological correspondence via Hitchin fibration |
-| Fields Medal | Ngo Bao Chau (2010) |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{arithmetic}}$ (Representation Theory / Automorphic Forms) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

@@ -9,11 +9,10 @@
 | **Target Claim** | Quadratic convergence to $A^{-1}$ under contraction condition |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,49 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{numerical}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Matrix space $\mathbb{R}^{n \times n}$ |
-| **Potential** | Residual $\Phi(X) = \|I - AX\|$ |
-| **Cost** | Iteration step $\mathfrak{D}_k = \|X_{k+1} - X_k\|$ |
-| **Invariance** | Similarity transformations $X \mapsto PXP^{-1}$ |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (residual bounded when $\|R_0\| < 1$) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (finite iterations) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (convergence to $A^{-1}$) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (quadratic: $\alpha < \beta$) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (initial guess stable) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (contraction basin) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (fixed point at $A^{-1}$) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (invertibility preserved) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^-$ (deterministic descent) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (matrix entries finite) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (monotone descent) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E2) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E2 | **Primary** | Invariant Mismatch — Divergence patterns violate contraction $\|R_{k+1}\| = \|R_k\|^2$ |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** (within contraction basin) |
-| **Obligation Ledger** | EMPTY |
-| **Singularity Set** | $\emptyset$ (quadratic convergence) |
-| **Primary Blocking Tactic** | E2 (Invariant Mismatch via Quadratic Contraction) |
 
 ---
 
@@ -124,7 +80,7 @@ $$\|I - AX_k\| \le \|I - AX_0\|^{2^k} \to 0$$
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** $\{\|R_k\| \ge 1\}$ (non-contraction regime)
 - [x] **Recovery Map $\mathcal{R}$:** Reinitialization with better $X_0$
-- [x] **Event Counter $\#$:** $N = 1$ (one initialization event)
+- [x] **Event Counter:** $N = 1$ (one initialization event)
 - [x] **Finiteness:** Finite initial guess adjustment
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -743,17 +699,17 @@ $$\|R_k'\| = \|PR_kP^{-1}\| = \|R_k\|$$
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Numerical Algorithm (Iterative) |
-| System Type | $T_{\text{numerical}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 |
-| Final Status | **REGULAR** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{numerical}}$ (Numerical Iterative Algorithm) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | REGULAR |
+| **Generated** | 2026-04-14 |
 
----

@@ -9,11 +9,10 @@
 | **Target Claim** | Period-doubling cascade converges to chaos with universal Feigenbaum constant $\delta = 4.669...$ |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,52 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{discrete}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Unit interval $[0,1]$ with Lebesgue/SRB measure |
-| **Potential** | Entropy functional $\Phi(x) = -x\ln x - (1-x)\ln(1-x)$ |
-| **Cost** | Lyapunov exponent $\lambda(r) = \lim_{n\to\infty} \frac{1}{n}\sum \ln\|f_r'(x_k)\|$ |
-| **Invariance** | Reflection symmetry $x \leftrightarrow 1-x$ (conjugacy) |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (entropy bounded $\le \ln 2$) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (periods discrete) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (SRB measure, attractor concentration) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (RG fixed point $g^*$, $\delta \approx 4.669$) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (periods $2^n$, $\delta$ universal) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (Cantor attractor, $\dim < 1$) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (kneading invariant, binary tree) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (Bernoulli, exponential mixing) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (kneading sequence, entropy finite) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
-| 14-16 | Boundary Nodes | Not triggered (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E4 + LOCK-Reconstruction) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E1 | Applied | Structural Reconstruction via Kneading Theory |
-| E4 | **Primary** | Integrality — Period multiplicities are powers of 2 → renormalization rigidity |
-| LOCK-Reconstruction | Applied | Renormalization chain produces $K_{\text{Rec}}^+$ |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** |
-| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
-| **Singularity Set** | Accumulation points of unstable periodic orbits |
-| **Primary Blocking Tactic** | E4 (Integrality via Renormalization Quantization) |
 
 ---
 
@@ -124,7 +77,7 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Periodic points and their accumulation sets
 - [x] **Recovery Map $\mathcal{R}$:** Renormalization operator on unimodal maps
-- [x] **Event Counter $\#$:** Number of periodic points of period $2^n$
+- [x] **Event Counter:** Number of periodic points of period $2^n$
 - [x] **Finiteness:** Each period class is finite
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -718,17 +671,17 @@ Since the renormalization fixed point $g^*$ is hyperbolic and universal (indepen
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Discrete Dynamical Systems |
-| System Type | $T_{\text{discrete}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{discrete}}$ (Discrete Dynamical Systems / Chaos Theory) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

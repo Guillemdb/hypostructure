@@ -9,13 +9,12 @@
 | **Target Claim** | HORIZON (separation unresolved) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
-| **Status** | Final (HORIZON) |
 | **Proof Mode** | Horizon audit: obstruction evidence + unmet export obligations |
 | **Completion Criterion** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ recorded + bridge instantiated; ZFC separation obligation remains open |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -77,7 +76,7 @@ This document presents a **machine-checkable audit trace** for the **P vs NP pro
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Local minima with $\Phi(x) > 0$ (unsatisfied states)
 - [x] **Recovery Map $\mathcal{R}$:** Local search operator (flip bits to reduce $\Phi$)
-- [x] **Event Counter $\#$:** Number of bit flips / algorithmic steps
+- [x] **Event Counter:** Number of bit flips / algorithmic steps
 - [x] **Finiteness:** Not satisfied—exponentially many steps required for hard instances
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -639,15 +638,15 @@ All other certificates (positive or negative) are final as emitted.
 
 | Original | Target | Status | Reason |
 |----------|--------|--------|--------|
-| $K_{D_E}^-$ | N/A | **FINAL** | Negative certificate confirms hardness |
-| $K_{\mathrm{Rec}_N}^-$ | N/A | **FINAL** | Exponential step count confirmed |
-| $K_{\mathrm{SC}_\lambda}^-$ | N/A | **FINAL** | Supercritical scaling confirmed |
-| $K_{\mathrm{LS}_\sigma}^-$ | N/A | **FINAL** | No spectral gap (hardness) |
-| $K_{\mathrm{TB}_\pi}^-$ | N/A | **FINAL** | Exponential sector count confirmed |
-| $K_{\mathrm{TB}_O}^-$ | N/A | **FINAL** | Non-tame structure confirmed |
-| $K_{\mathrm{TB}_\rho}^-$ | N/A | **FINAL** | Exponential mixing time confirmed |
-| $K_{\mathrm{Rep}_K}^-$ | N/A | **FINAL** | Exponential complexity confirmed |
-| $K_{\mathrm{GC}_\nabla}^{\mathrm{br}}$ | N/A | **FINAL** | Non-gradient dynamics confirmed (via BarrierFreq) |
+| $K_{D_E}^-$ | NOT APPLICABLE | **FINAL** | Negative certificate confirms hardness |
+| $K_{\mathrm{Rec}_N}^-$ | NOT APPLICABLE | **FINAL** | Exponential step count confirmed |
+| $K_{\mathrm{SC}_\lambda}^-$ | NOT APPLICABLE | **FINAL** | Supercritical scaling confirmed |
+| $K_{\mathrm{LS}_\sigma}^-$ | NOT APPLICABLE | **FINAL** | No spectral gap (hardness) |
+| $K_{\mathrm{TB}_\pi}^-$ | NOT APPLICABLE | **FINAL** | Exponential sector count confirmed |
+| $K_{\mathrm{TB}_O}^-$ | NOT APPLICABLE | **FINAL** | Non-tame structure confirmed |
+| $K_{\mathrm{TB}_\rho}^-$ | NOT APPLICABLE | **FINAL** | Exponential mixing time confirmed |
+| $K_{\mathrm{Rep}_K}^-$ | NOT APPLICABLE | **FINAL** | Exponential complexity confirmed |
+| $K_{\mathrm{GC}_\nabla}^{\mathrm{br}}$ | NOT APPLICABLE | **FINAL** | Non-gradient dynamics confirmed (via BarrierFreq) |
 
 **Interpretation:** The negative certificates are evidence of hardness barriers for the instantiated dynamics/model class. They do not, by themselves, constitute a ZFC proof of worst-case separation (P vs NP remains open).
 
@@ -1323,17 +1322,17 @@ This is proven by the five negative certificates in Appendix B.
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object (Horizon Audit) |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Millennium Problem (Clay) |
-| System Type | $T_{\text{algorithmic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 2 introduced (Node 10.5), 2 upgraded in $\mathrm{Cl}(\Gamma_{\mathrm{final}})$ |
-| Scope Extension | $K_{\mathrm{Scope}}^+$ via MT-SelChiCap + MT-OGPChi |
-| Bridge Verification | $K_{\mathrm{Bridge}}^{\mathrm{Comp}}$ via MT-BRIDGE-Alg |
-| Final Status | **HORIZON** |
-| Generated | 2025-12-18 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{algorithmic}}$ (Computational Complexity / Iterative Search Systems) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | HORIZON |
+| **Generated** | 2026-04-14 |
+

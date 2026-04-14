@@ -9,11 +9,10 @@
 | **Target Claim** | Global weak solutions exist; naked singularities excluded (weak cosmic censorship) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-24 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,51 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $$K_{\mathrm{Auto}}^+ = (T_{\text{quant}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Lorentzian metrics $\times$ kinetic distributions: $\text{Lor}(M) \times \mathcal{P}(T^*M)$ |
-| **Potential** | ADM mass + Boltzmann entropy: $\Phi = M_{\text{ADM}} + \int f \log f$ |
-| **Cost** | Curvature dissipation + entropy production: $\mathfrak{D} = \int|Ric|^2 + \sigma_{\text{coll}}$ |
-| **Invariance** | Diffeomorphisms $\text{Diff}(M)$ with scaling subgroup |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (H-theorem + area theorem) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (via DPI block) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (concentration-compactness + Kerr profiles) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (critical: $\alpha = \beta = 2$) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (ADM mass fixed) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (codim $\geq 2$) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (positive mass + mode stability) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (topological censorship) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (stochastic mixing) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (Bekenstein bound) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (not gradient, has transport) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^+$ (free boundaries) |
-| -- | Surgery | SurgCD (horizon excision) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ (HORIZON: DPI/censorship not certified) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E7 | Applied | Thermodynamic — generalized second law |
-| E8 | **Primary** | DPI — Bekenstein bound excludes naked singularities |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **HORIZON** (frontier/open problem) |
-| **Obligation Ledger** | NON-EMPTY (OBL-SEB-1) |
-| **Singularity Set** | UNKNOWN (weak cosmic censorship not certified) |
-| **Primary Blocking Tactic** | DPI/Bekenstein heuristics recorded, but insufficient for ZFC export |
 
 ---
 
@@ -126,7 +80,7 @@ This document presents a **machine-checkable audit trace** for the stochastic Ei
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Naked singularities visible from $\mathscr{I}^+$
 - [x] **Recovery Map $\mathcal{R}$:** SurgCD surgery (horizon excision + Hawking cap)
-- [x] **Event Counter $\#$:** Finite by DPI block
+- [x] **Event Counter:** Finite by DPI block
 - [x] **Finiteness:** Via E8 — Bekenstein bound excludes naked singularities
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -828,22 +782,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
 | **Document Type** | Proof Object |
 | **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Frontier/Open Problem (Relativistic Kinetic Theory) |
-| **System Type** | $T_{\text{quant}}$ |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{quant}}$ (Relativistic kinetic + gravitational) |
 | **Verification Level** | Machine-checkable |
-| **Inc Certificates** | 1 introduced; HORIZON (OBL-SEB-1) |
-| **Final Status** | **HORIZON** |
-| **Generated** | 2025-12-24 |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | HORIZON |
+| **Generated** | 2026-04-14 |
 
----
-
-*This document constitutes a machine-checkable proof object under the Hypostructure framework.*
-*Each certificate can be independently verified against the definitions in `hypopermits_jb.md`.*
-
-**QED**

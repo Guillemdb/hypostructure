@@ -9,11 +9,10 @@
 | **Target Claim** | Global Regularity via Structural Surgery |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -83,7 +82,7 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** $\{(x,t) : |Rm|(x,t) \to \infty\}$ (curvature blow-up points)
 - [x] **Recovery Map $\mathcal{R}$:** Surgery: excise $\varepsilon$-horn, cap with standard cap
-- [x] **Event Counter $\#$:** $N(T) = \#\{\text{surgeries in } [0,T]\}$
+- [x] **Event Counter:** $N(T) = \left|\{\text{surgeries in } [0,T]\}\right|$
 - [x] **Finiteness:** $N(T) < C(\mathcal{W}_0) \cdot T$ (finite surgery count via entropy drop)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -568,7 +567,7 @@ The $\mathcal{W}$-entropy construction provides the certificate $K_{\mathcal{W}}
 
 ---
 
-## PART III-B: METATHEOREM EXTRACTION
+## Part III-B: Metatheorem Extraction
 
 ### **1. Surgery Admissibility (RESOLVE-AutoAdmit)**
 *   **Input:** $\mathcal{W}$-functional monotonicity.
@@ -801,15 +800,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Millennium Problem (Clay) |
-| System Type | $T_{\text{parabolic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-18 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{parabolic}}$ (Geometric Evolution Equation / Ricci Flow) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
+

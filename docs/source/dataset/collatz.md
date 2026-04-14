@@ -9,11 +9,10 @@
 | **Target Claim** | Global Regularity via Sector-Ergodic Control |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -82,7 +81,7 @@ This document presents a **machine-checkable audit trace** for the **Collatz Con
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Non-terminating orbits (to be excluded)
 - [x] **Recovery Map $\mathcal{R}$:** Syracuse iteration
-- [x] **Event Counter $\#$:** $N(n) = \tau(n)$ (stopping time)
+- [x] **Event Counter:** $N(n) = \tau(n)$ (stopping time)
 - [ ] **Finiteness:** **INCONCLUSIVE** — global stopping-time bound is not certified in ZFC (OBL-1)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -732,15 +731,17 @@ The conjecture remains open; the audit ends with outstanding obligations at the 
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Open Conjecture (Number Theory / Discrete Dynamics) |
-| System Type | $T_{\text{discrete}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 3 introduced, 1 discharged; 2 HORIZON |
-| Final Status | **HORIZON** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{discrete}}$ (Discrete Dynamical System) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | HORIZON |
+| **Generated** | 2026-04-14 |
+

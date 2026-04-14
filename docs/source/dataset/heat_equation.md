@@ -9,11 +9,10 @@
 | **Target Claim** | Singularity formation is algebraically forbidden by subcritical scaling |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | REGULAR (Unconditional) |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -600,6 +599,7 @@ $\therefore$ Heat equation is globally regular. $\square$
 
 ---
 
+
 ## Executive Summary: The Proof Dashboard
 
 ### 1. System Instantiation (The Physics)
@@ -635,13 +635,13 @@ $\therefore$ Heat equation is globally regular. $\square$
 
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
-| **E1** | Dimension | N/A | — |
-| **E2** | Invariant | N/A | — |
+| **E1** | Dimension | NOT APPLICABLE | — |
+| **E2** | Invariant | NOT APPLICABLE | — |
 | **E3** | ScalingMismatch | **PASS** | $\alpha - \beta = 2 > 0$ excludes blow-up |
-| **E4** | Integrality | N/A | — |
-| **E5** | Functional | N/A | — |
+| **E4** | Integrality | NOT APPLICABLE | — |
+| **E5** | Functional | NOT APPLICABLE | — |
 | **E6** | Capacity | **PASS** | $\text{Cap}_{H^1}(\{p\}) = 0$ excludes point singularity |
-| **E7-E10** | Various | N/A | — |
+| **E7-E10** | Various | NOT APPLICABLE | — |
 
 ### 4. Final Verdict
 
@@ -652,16 +652,17 @@ $\therefore$ Heat equation is globally regular. $\square$
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object (Structural Exclusion) |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Family I (Stable) |
-| System Type | $T_{\text{parabolic}}$ |
-| Key Mechanism | Scaling Arithmetic + Capacity |
-| Lock Tactic | E3 (ScalingMismatch) |
-| Final Status | **REGULAR** |
-| Generated | 2025-12-23 |
-| Lines | ~450 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{parabolic}}$ (Diffusion PDEs) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | REGULAR |
+| **Generated** | 2026-04-14 |
+

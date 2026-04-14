@@ -113,8 +113,7 @@ $$
 **Predicate** $P_2$: Discrete events (topology changes, surgery invocations, mode transitions) are finite on any bounded interval:
 
 $$
-P_2 \equiv \#\{\text{events in } [0, T)\} < \infty \quad \forall T < T_*
-
+P_2 \equiv \left|\{\text{events in } [0, T)\}\right| < \infty \quad \forall T < T_*
 $$
 
 **YES certificate** $K_{\mathrm{Rec}_N}^+ = (N_{\max}, \text{event bound proof})$.

@@ -9,11 +9,10 @@
 | **Target Claim** | Categorical Exclusion via Surgery Obstruction |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,51 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $$K_{\mathrm{Auto}}^+ = (T_{\text{topological}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Framed cobordism group $\Omega_{4k+2}^{\mathrm{fr}} \cong \pi_*^s$ |
-| **Potential** | Surgery obstruction height $\Phi(M) = \mathrm{rk}(H_{2k+1}(M; \mathbb{Z}))$ |
-| **Cost** | Arf invariant $\kappa(M) = \mathrm{Arf}(q) \in \mathbb{Z}/2$ |
-| **Invariance** | $C_8 \times \mathrm{Diff}^{\mathrm{fr}}$ (equivariant detection + diffeomorphisms) |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (surgery height bounded) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (finite obstruction $N=1$) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ ($C_8$-equivariant concentration) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (suspension scaling, $v_2$-periodic) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (stable framing parameters) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (discrete cobordism classes) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (surgery exact sequence gap) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ ($C_2$ sector, chromatic height 2) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (Wall groups computable) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (discrete, static) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite complexity, chromatic $h=2$) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (monotone filtration) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed cobordism) |
-| 14-16 | Boundary Nodes | Not triggered (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E2 + E7, HHR slice differentials) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E2 | **Primary** | Homotopy-theoretic obstruction — Slice spectral sequence kills $\theta_j$ for $j \geq 7$ |
-| E7 | Applied | Surgery obstruction — $L$-theoretic obstruction to realizing Kervaire manifolds |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** (for $j \geq 7$); **OPEN** (for $j = 6$, dimension 126) |
-| **Obligation Ledger** | OBL-126 (HORIZON for $j=6$) |
-| **Singularity Set** | $\{\theta_j : j \geq 7\} = \emptyset$ (non-existent) |
-| **Primary Blocking Tactic** | E2 (Homotopy-theoretic Obstruction via HHR) |
 
 ---
 
@@ -126,7 +80,7 @@ Equivalently: The elements $\theta_j \in \pi_{n_j}^s$ represented by Kervaire ma
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** $\{\theta_j : j \geq 7\}$ (non-existent Kervaire elements)
 - [x] **Recovery Map $\mathcal{R}$:** Surgery on middle-dimensional homology
-- [x] **Event Counter $\#$:** Number of surgery obstructions $N = 1$ (Arf invariant)
+- [x] **Event Counter:** Number of surgery obstructions $N = 1$ (Arf invariant)
 - [x] **Finiteness:** Single invariant $\kappa \in \mathbb{Z}/2$ (finite)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -883,7 +837,7 @@ The case $n_6 = 126$ remains open. The slice spectral sequence computation for t
 | Surgery Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (slice SS) |
 | Cobordism Sectors | Positive | $K_{\mathrm{TB}_\pi}^+$ ($C_2$ chromatic) |
 | Algebraic Tameness | Positive | $K_{\mathrm{TB}_O}^+$ (Wall groups) |
-| Mixing (N/A) | Positive | $K_{\mathrm{TB}_\rho}^+$ (static) |
+| Mixing (NOT APPLICABLE) | Positive | $K_{\mathrm{TB}_\rho}^+$ (static) |
 | Surgery Complexity | Positive | $K_{\mathrm{Rep}_K}^+$ (finite $h=2$) |
 | Monotonicity | Negative | $K_{\mathrm{GC}_\nabla}^-$ (filtration) |
 | Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ (closed) |
@@ -943,17 +897,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Differential Topology / Surgery Theory / Stable Homotopy |
-| System Type | $T_{\text{topological}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 |
-| Horizon Certificates | 1 (OBL-126 for $j=6$, dimension 126) |
-| Final Status | **SECTOR-DEPENDENT** (UNCONDITIONAL for $j \geq 7$; HORIZON for $j=6$) |
-| Generated | 2025-12-23 |
-| Line Count | ~650 lines |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{topological}}$ (Framed Manifolds / Surgery Theory) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | SECTOR-DEPENDENT |
+| **Generated** | 2026-04-14 |
+

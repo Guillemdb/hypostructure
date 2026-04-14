@@ -9,11 +9,10 @@
 | **Target Claim** | Global Regularity (Existence & Mass Gap) |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-18 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -77,7 +76,7 @@ This document presents a **machine-checkable audit trace** for the **Yang-Mills 
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** UV divergences in path integral
 - [x] **Recovery Map $\mathcal{R}$:** Renormalization (counterterms)
-- [x] **Event Counter $\#$:** Loop order in perturbation theory
+- [x] **Event Counter:** Loop order in perturbation theory
 - [x] **Finiteness:** YES—YM is perturbatively renormalizable
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -778,15 +777,17 @@ The audit does not discharge the Millennium obligations (OS axioms + mass gap). 
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Millennium Problem (Clay) |
-| System Type | $T_{\text{quant}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 3 introduced; HORIZON |
-| Final Status | **HORIZON** |
-| Generated | 2025-12-18 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{quant}}$ (Quantum Field Theory / Gauge Theory) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | HORIZON |
+| **Generated** | 2026-04-14 |
+

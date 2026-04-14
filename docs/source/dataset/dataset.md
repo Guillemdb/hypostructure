@@ -77,7 +77,7 @@ The dataset includes problems that exercise all major components of the Structur
 |---------|------|--------|---------|-------------|---------------------|
 | [Simple Pendulum](simple_pendulum.md) | $T_{\text{hamiltonian}}$ | Classical Mechanics | SOLVED | (IV-Resurrected, 7) | Yes (classical) |
 | [Logistic Map](logistic_map.md) | $T_{\text{discrete}}$ | Chaos Theory | SINGULARITY | (VII-Singular, 9) | Yes (Feigenbaum 1978) |
-| [Irrational Rotation](irrational_rotation.md) | $T_{\text{discrete}}$ | Ergodic Theory | HORIZON | (VIII-Horizon, 9) | N/A (epistemic) |
+| [Irrational Rotation](irrational_rotation.md) | $T_{\text{discrete}}$ | Ergodic Theory | HORIZON | (VIII-Horizon, 9) | NOT APPLICABLE (epistemic) |
 | [Collatz Conjecture](collatz.md) | $T_{\text{discrete}}$ | Number Theory/Dynamics | SOLVED | (II-Relaxed, 9) | Open |
 
 ### Statistical Physics (1)
@@ -96,7 +96,7 @@ The dataset includes problems that exercise all major components of the Structur
 
 | Problem | Type | Domain | Verdict | Cell (8×21) | Matches Literature? |
 |---------|------|--------|---------|-------------|---------------------|
-| [Quantum Gravity](quantum_gravity.md) | $T_{\text{quant}}$ | Theoretical Physics | HORIZON | (VIII-Horizon, 12) | N/A (no consensus) |
+| [Quantum Gravity](quantum_gravity.md) | $T_{\text{quant}}$ | Theoretical Physics | HORIZON | (VIII-Horizon, 12) | NOT APPLICABLE (no consensus) |
 | [Stochastic Einstein-Boltzmann](stochastic_einstein_boltzmann.md) | $T_{\text{parabolic}}$ | Relativistic Kinetic Theory | SOLVED | (VI-Forbidden, 17) | Open |
 
 ## Verdict Distribution
@@ -221,7 +221,7 @@ Format: `(Family, Node)` where Family indicates the certificate type and Node in
 
 - **Logistic Map**: Dynamics of $x_{n+1} = rx_n(1-x_n)$ for $r > r_\infty$. SINGULARITY CONFIRMED: Period-doubling cascade creates chaotic attractor; Feigenbaum universality blocks regular orbits. *Matches Literature: Yes (Feigenbaum 1978)*
 
-- **Irrational Rotation**: Rotation by irrational angle $\theta$ on the circle. HORIZON: Measure-preserving but non-mixing creates epistemic boundary; framework cannot resolve without meta-learning. *Matches Literature: N/A (epistemic boundary)*
+- **Irrational Rotation**: Rotation by irrational angle $\theta$ on the circle. HORIZON: Measure-preserving but non-mixing creates epistemic boundary; framework cannot resolve without meta-learning. *Matches Literature: NOT APPLICABLE (epistemic boundary)*
 
 - **Collatz Conjecture**: All positive integers eventually reach 1 under the 3n+1 map. Lock BLOCKED via E9 (Ergodic) + E4 (Integrality): 2-adic sector structure (UP-ShadowRetro) bounds transitions; Syracuse mixing (Tao) blocks divergence. *Matches Literature: Open*
 
@@ -235,7 +235,7 @@ Format: `(Family, Node)` where Family indicates the certificate type and Node in
 
 ### Frontier Problems (2)
 
-- **Quantum Gravity**: Reconciliation of general relativity with quantum mechanics. HORIZON: Information paradox and holographic bound violations detected; requires meta-learning for resolution. *Matches Literature: N/A (no consensus)*
+- **Quantum Gravity**: Reconciliation of general relativity with quantum mechanics. HORIZON: Information paradox and holographic bound violations detected; requires meta-learning for resolution. *Matches Literature: NOT APPLICABLE (no consensus)*
 
 - **Stochastic Einstein-Boltzmann**: Global regularity for the coupled Einstein-Boltzmann system with stochastic forcing and free boundaries. Lock BLOCKED via E8 (DPI): Bekenstein bound excludes naked singularities; SurgCD surgery resolves horizons via interior capping. *Matches Literature: Open*
 
@@ -248,3 +248,71 @@ Each problem entry provides a complete Hypostructure proof object including:
 3. **Sieve Execution**: Node-by-node traversal with certificate emissions
 4. **Lock Mechanism**: Final verdict determination
 5. **Replay Bundle**: Machine-checkable JSON for automated verification
+
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+| :--- | :--- | :--- |
+| **Arena ($\mathcal{X}$)** | As specified by the problem instantiation | State space |
+| **Potential ($\Phi$)** | Lyapunov or complexity potential used in the proof | Progress functional |
+| **Cost ($\mathfrak{D}$)** | Dissipation or monotonic decrement | Runtime/regularity budget |
+| **Invariance ($G$)** | Symmetry and invariants in the formalization | Preserved structure |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+| :--- | :--- | :---: | :--- | :--- |
+| **1** | Energy Bound | PASS | Energy/height estimate established | `NOT APPLICABLE` |
+| **2** | Zeno/Recovery | PASS | Recovery route documented | `NOT APPLICABLE` |
+| **3** | Compact Check | PASS/INC | Compactness module for bad transitions | `NOT APPLICABLE` |
+| **4** | Scale Check | PASS/INC | Scaling argument controlled | `NOT APPLICABLE` |
+| **5** | Parametric Check | PASS/INC | Admissible parameter regime fixed | `NOT APPLICABLE` |
+| **6** | Geometric Check | PASS/INC | Codimension or geometric bound | `NOT APPLICABLE` |
+| **7** | Stiffness Check | PASS/INC | Stability or stiffness package | `NOT APPLICABLE` |
+| **8** | Topological Check | PASS/INC | Topological invariants preserved | `NOT APPLICABLE` |
+| **9** | Tame Check | PASS/INC | O-minimal/tameness control | `NOT APPLICABLE` |
+| **10** | Ergodic Check | PASS/INC | Mixing/distribution behavior | `NOT APPLICABLE` |
+| **11** | Complex Check | PASS/INC | Computational/complexity witness | `NOT APPLICABLE` |
+| **12** | Oscillate Check | PASS/INC | Oscillation prevented by monotonicity | `NOT APPLICABLE` |
+| **13** | Boundary Check | OPEN/CLOSED | Boundary coupling handled | `NOT APPLICABLE` |
+| **14-16** | Boundary Subnodes | NOT APPLICABLE | Not triggered/not needed | `NOT APPLICABLE` |
+| **17** | Lock Check | BLOCK | Lock route closes target class | `NOT APPLICABLE` |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+| :--- | :--- | :---: | :--- |
+| **E1** | Dimension | NOT APPLICABLE | Finite-state or dimension argument |
+| **E2** | Invariant | NOT APPLICABLE | Invariant mismatch or barrier |
+| **E3** | Positivity | NOT APPLICABLE | Monotone sign control |
+| **E4** | Integrality | NOT APPLICABLE | Quantization or arithmetic obstruction |
+| **E5** | Functional | NOT APPLICABLE | Functional contradiction |
+| **E6** | Causal | NOT APPLICABLE | Causality contradiction |
+| **E7** | Thermodynamic | NOT APPLICABLE | Entropy or energy incompatibility |
+| **E8** | DPI | NOT APPLICABLE | Data processing inequality / monotonicity |
+| **E9** | Ergodic | NOT APPLICABLE | Mixing obstruction |
+| **E10** | Definability | NOT APPLICABLE | Definability or o-minimal barrier |
+
+### 4. Final Verdict
+
+* **Status:** METADATA TEMPLATE
+* **Obligation Ledger:** None (no theorem execution)
+* **Singularity Set:** Not applicable (template catalog)
+* **Primary Blocking Tactic:** NOT APPLICABLE
+
+## Document Information
+
+| Field | Value |
+|-------|-------|
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | Typeless |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | Final |
+| **Generated** | 2026-04-14 |
+

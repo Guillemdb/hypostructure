@@ -9,11 +9,10 @@
 | **Target Claim** | $\mathbb{R}^2 \setminus \gamma = \Omega_{\text{in}} \sqcup \Omega_{\text{out}}$ with bounded/unbounded distinction |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,50 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{topological}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Simple closed curves $\gamma: S^1 \to \mathbb{R}^2$ |
-| **Potential** | Arc length $L(\gamma) = \int \|\gamma'(t)\| dt$ |
-| **Cost** | Curvature energy $\int \kappa^2 ds$ |
-| **Invariance** | Ambient isotopy group $\text{Diff}(\mathbb{R}^2)$ |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (finite arc length) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (simple curve) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (compact domain $S^1$) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (scale-invariant after normalization) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (uniform continuity) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (simple implies finite critical points) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (embedding class) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^-$ (static) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite description) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (static) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E4 + LOCK-Reconstruction) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E4 | **Primary** | Integrality — Winding number $W(p,\gamma) \in \mathbb{Z}$ forces exactly two components |
-| LOCK-Reconstruction | Applied | Structural Reconstruction via Alexander duality |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** |
-| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
-| **Singularity Set** | $\emptyset$ (simple curves have no self-intersections) |
-| **Primary Blocking Tactic** | E4 (Integrality via Winding Number Quantization) |
 
 ---
 
@@ -120,7 +75,7 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Self-intersection points (empty for simple curves)
 - [x] **Recovery Map $\mathcal{R}$:** Homotopy to smooth curve
-- [x] **Event Counter $\#$:** Number of critical points of distance function
+- [x] **Event Counter:** Number of critical points of distance function
 - [x] **Finiteness:** Finite critical points (compact domain)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -745,17 +700,17 @@ where $\Omega_{\text{in}}$ is bounded with $W = \pm 1$, and $\Omega_{\text{out}}
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Classical Topology |
-| System Type | $T_{\text{topological}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{topological}}$ (Geometric Measure Theory / Winding Number) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

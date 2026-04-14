@@ -9,11 +9,10 @@
 | **Target Claim** | For sufficiently small $\varepsilon$, most Diophantine tori persist |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -76,7 +75,7 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Resonant frequencies $\{\omega : \exists k \neq 0, \langle k, \omega \rangle = 0\}$
 - [x] **Recovery Map $\mathcal{R}$:** KAM iteration scheme (Newton-type correction)
-- [x] **Event Counter $\#$:** Resonance order $|k|$
+- [x] **Event Counter:** Resonance order $|k|$
 - [x] **Finiteness:** Diophantine condition excludes accumulation of resonances
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -755,17 +754,17 @@ This ensures the torus is **normally hyperbolic**, hence persistent under pertur
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Classical KAM Theory |
-| System Type | $T_{\text{hamiltonian}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{hamiltonian}}$ (Symplectic Dynamics) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

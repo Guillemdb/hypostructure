@@ -1,8 +1,3 @@
----
-title: "Nonlinear Landau Damping"
-date: "2025-12-19"
----
-
 # Nonlinear Landau Damping
 
 ## Metadata
@@ -17,7 +12,7 @@ date: "2025-12-19"
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -26,52 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $$K_{\mathrm{Auto}}^+ = (T_{\text{kinetic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit})$$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Analytic measures on $\mathbb{T}^d \times \mathbb{R}^d$ (phase space) |
-| **Potential** | Hamiltonian $H[f] = \frac{1}{2}\int v^2 f + \frac{1}{2}\int \|E\|^2$ |
-| **Cost** | Virtual dissipation via phase mixing $\mathfrak{D}_{\text{mix}}$ |
-| **Invariance** | Spatial translations $\mathbb{T}^d$ |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (Hamiltonian conserved) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (no collisions in Vlasov limit) |
-| 3 | CompactCheck | $K_{C_\mu}^-$ (Dispersion) → BarrierScat BENIGN |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (subcritical perturbative regime) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (parameters stable) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ ($\Sigma = \emptyset$, analytic solutions) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^+$ (Penrose Criterion → Spectral Gap) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (mass/momentum conserved) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (phase space is tame manifold) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (Phase Mixing: $x \to x+vt$) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (Analytic data, $K(f_0) < \infty$) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^+$ → BarrierFreq BLOCKED (Dephasing) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
-| 14-16 | Boundary Nodes | Not triggered (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E9 Ergodic + E1 Regularity) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E1 | **Applied** | Dimension/Regularity — Analytic data suppresses echo amplitudes exponentially |
-| E9 | **Primary** | Ergodic — Phase mixing destroys macroscopic coherence |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **SECTOR-DEPENDENT** (UNCONDITIONAL in Gevrey; SINGULAR in Sobolev) |
-| **Mode** | D.D (Dispersion/Global Existence) |
-| **Obligation Ledger** | EMPTY |
-| **Singularity Set** | $\emptyset$ (Gevrey) / Non-empty (Sobolev) |
-| **Primary Blocking Tactic** | E9 (Ergodic) + E1 (Dimension) — mixing rate exceeds echo feedback |
 
 ---
 
@@ -418,7 +367,7 @@ Before declaring the proof object complete, verify:
 - [x] **Lock executed** (Node 17)
 - [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via Tactics E9 + E1
 - [x] **Upgrade pass completed** (No inc certificates to upgrade)
-- [x] **Surgery/Re-entry completed** (N/A - no breaches)
+- [x] **Surgery/Re-entry completed** (NOT APPLICABLE - no breaches)
 - [x] **Obligation ledger is EMPTY** (Part III-C verified)
 - [x] **No unresolved $K^{\mathrm{inc}}$** in final Γ
 
@@ -505,16 +454,17 @@ $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\math
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Kinetic Theory / Plasma Physics |
-| System Type | $T_{\text{kinetic}}$ |
-| Mode | D.D (Dispersion/Global Existence) |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced |
-| Final Status | **SECTOR-DEPENDENT** (Gevrey: UNCONDITIONAL, Sobolev: SINGULAR) |
-| Generated | 2025-12-19 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{kinetic}}$ (Hamiltonian system with phase mixing) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | SECTOR-DEPENDENT |
+| **Generated** | 2026-04-14 |
+

@@ -9,11 +9,10 @@
 | **Target Claim** | Phase transition at critical temperature $T_c = 2J/k_B \ln(1+\sqrt{2})$ with continuous magnetization |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,50 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{statistical}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Configuration space $\{-1,+1\}^\Lambda$ on square lattice |
-| **Potential** | Free energy $F = -k_B T \ln Z$ |
-| **Cost** | Hamiltonian $H(\sigma) = -J\sum_{\langle i,j \rangle} \sigma_i \sigma_j$ |
-| **Invariance** | $\mathbb{Z}_2$ spin-flip $\times$ lattice translations |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (bounded Hamiltonian) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (finite configuration space) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (Gibbs measure concentration) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (critical scaling at $T_c$) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (temperature stable) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (finite lattice) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (phase boundary) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (discrete) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (Glauber dynamics mixing) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (finite states) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (equilibrium) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed system) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E3 + LOCK-Reconstruction) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E3 | **Primary** | Symmetry Breaking — $\mathbb{Z}_2$ spontaneously breaks below $T_c$ |
-| LOCK-Reconstruction | Applied | Structural Reconstruction via Onsager solution |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** |
-| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
-| **Singularity Set** | Critical point $T_c = 2J/k_B \ln(1+\sqrt{2})$ |
-| **Primary Blocking Tactic** | E3 (Symmetry Breaking via Peierls + Onsager) |
 
 ---
 
@@ -128,7 +83,7 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Metastable states (local minima of $H$)
 - [x] **Recovery Map $\mathcal{R}$:** Thermal fluctuations via spin flips
-- [x] **Event Counter $\#$:** Number of spin-flip events (finite on finite lattice)
+- [x] **Event Counter:** Number of spin-flip events (finite on finite lattice)
 - [x] **Finiteness:** Finite configuration space ensures finite events
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -794,17 +749,17 @@ $\square$
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Exactly Solvable Model (Statistical Mechanics) |
-| System Type | $T_{\text{statistical}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{statistical}}$ (Statistical Mechanics / Equilibrium Thermodynamics) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

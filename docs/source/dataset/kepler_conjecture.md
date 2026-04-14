@@ -9,11 +9,10 @@
 | **Target Claim** | $\delta_{\max} = \pi/\sqrt{18} \approx 0.7405$ |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -76,7 +75,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Empty (static problem; no singularities)
 - [x] **Recovery Map $\mathcal{R}$:** Not applicable
-- [x] **Event Counter $\#$:** $N = 0$ (no discrete events)
+- [x] **Event Counter:** $N = 0$ (no discrete events)
 - [x] **Finiteness:** Trivially finite
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -346,7 +345,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 4. [x] Result: Node not applicable for static problems
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_\rho}^{\sim} = (\text{static problem}, \text{N/A})$ → **Go to Node 11**
+* [x] $K_{\mathrm{TB}_\rho}^{\sim} = (\text{static problem}, \text{NOT APPLICABLE})$ → **Go to Node 11**
 
 ---
 
@@ -460,8 +459,8 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 | Original | Upgraded To | Mechanism | Reference |
 |----------|-------------|-----------|-----------|
 | $K_{\mathrm{LS}_\sigma}^{\sim}$ | $K_{\mathrm{LS}_\sigma}^+$ | Finite verification (stiffness not required) | Node 7 |
-| $K_{\mathrm{TB}_\rho}^{\sim}$ | $K_{\mathrm{TB}_\rho}^+$ | Static problem (N/A) | Node 10 |
-| $K_{\mathrm{GC}_\nabla}^{\sim}$ | $K_{\mathrm{GC}_\nabla}^+$ | Static problem (N/A) | Node 12 |
+| $K_{\mathrm{TB}_\rho}^{\sim}$ | $K_{\mathrm{TB}_\rho}^+$ | Static problem (NOT APPLICABLE) | Node 10 |
+| $K_{\mathrm{GC}_\nabla}^{\sim}$ | $K_{\mathrm{GC}_\nabla}^+$ | Static problem (NOT APPLICABLE) | Node 12 |
 
 **Upgrade Chain:**
 
@@ -743,9 +742,9 @@ achieved uniquely by FCC and HCP. $\square$
 | Stiffness/Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (finite ver.) |
 | Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ |
 | Tameness | Positive | $K_{\mathrm{TB}_O}^+$ ($\mathbb{R}_{\exp}$) |
-| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ (N/A) |
+| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ (NOT APPLICABLE) |
 | Complexity | Positive | $K_{\mathrm{Rep}_K}^+$ (5000 configs) |
-| Gradient Structure | Positive | $K_{\mathrm{GC}_\nabla}^+$ (N/A) |
+| Gradient Structure | Positive | $K_{\mathrm{GC}_\nabla}^+$ (NOT APPLICABLE) |
 | O-minimal Definability | Positive | $K_{\text{o-min}}^+$ (E9) |
 | Finite Verification | Positive | $K_{\text{finite-ver}}^+$ (E11) |
 | Flyspeck Formal Proof | Positive | $K_{\text{Flyspeck}}^+$ |
@@ -766,17 +765,17 @@ achieved uniquely by FCC and HCP. $\square$
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Hilbert's 18th Problem (sphere packing) |
-| System Type | $T_{\text{geometric}}$ |
-| Verification Level | Machine-checkable (Flyspeck) |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{geometric}}$ (Geometric Optimization / O-minimal Structure) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

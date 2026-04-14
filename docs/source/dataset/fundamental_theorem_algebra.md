@@ -9,11 +9,10 @@
 | **Target Claim** | $\exists z_0 \in \mathbb{C}: p(z_0) = 0$ for all $\deg(p) \geq 1$ |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -73,7 +72,7 @@ Equivalently: The field $\mathbb{C}$ is algebraically closed.
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Roots $\{z : p(z) = 0\}$
 - [x] **Recovery Map $\mathcal{R}$:** $p'(z)/p(z)$ (logarithmic derivative)
-- [x] **Event Counter $\#$:** Number of roots (at most $n = \deg(p)$)
+- [x] **Event Counter:** Number of roots (at most $n = \deg(p)$)
 - [x] **Finiteness:** Zeros are isolated (analytic function)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -724,6 +723,7 @@ Both arguments (minimum principle and winding number) force $p$ to have a zero. 
 
 ---
 
+
 ## Executive Summary: The Proof Dashboard
 
 ### 1. System Instantiation (The Physics)
@@ -761,10 +761,10 @@ Both arguments (minimum principle and winding number) force $p$ to have a zero. 
 
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
-| **E1** | Dimension | N/A | — |
-| **E2** | Invariant | N/A | — |
+| **E1** | Dimension | NOT APPLICABLE | — |
+| **E2** | Invariant | NOT APPLICABLE | — |
 | **E3** | Monotonicity | **PASS** | Minimum principle + degree theory |
-| **E4-E10** | Various | N/A | — |
+| **E4-E10** | Various | NOT APPLICABLE | — |
 
 ### 4. Final Verdict
 
@@ -775,17 +775,17 @@ Both arguments (minimum principle and winding number) force $p$ to have a zero. 
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Classical Theorem (Textbook) |
-| System Type | $T_{\text{algebraic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{algebraic}}$ (Complex Analysis / Topology) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

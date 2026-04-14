@@ -9,11 +9,10 @@
 | **Target Claim** | Completeness of CFSG Classification |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -98,7 +97,7 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Groups with exceptional automorphisms (outer automorphisms)
 - [x] **Recovery Map $\mathcal{R}$:** Quotient by center / automorphism factorization
-- [x] **Event Counter $\#$:** Number of prime divisors $\omega(|G|)$
+- [x] **Event Counter:** Number of prime divisors $\omega(|G|)$
 - [x] **Finiteness:** For each order $n$, finitely many groups (Jordan-Hölder finiteness)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -1021,20 +1020,17 @@ $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}:\quad \mathrm{Hom}(G^*, \mathbf
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Major Classification Theorem (Group Theory) |
-| System Type | $T_{\text{algebraic}}$ |
-| Verification Level | Machine-checkable (modulo CFSG literature) |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Obstruction Certificates | 0 |
-| Final Status | **UNCONDITIONAL** (via Lock Block) |
-| Generated | 2025-12-23 |
-| Literature Span | 1950s-2004 (Feit-Thompson to Aschbacher-Smith) |
-| Total Pages (Literature) | >10,000 pages (GLS + supplements) |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{algebraic}}$ (Group Theory / Representation Theory) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

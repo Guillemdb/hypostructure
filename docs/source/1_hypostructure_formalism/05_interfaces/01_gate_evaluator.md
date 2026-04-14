@@ -206,12 +206,12 @@ $$\Phi(S_t x) \leq \Phi(x) + \int \mathfrak{D}$$
 **Required Structure ($\mathcal{D}$):**
 - **Bad Subobject:** $\mathcal{B} \hookrightarrow \mathcal{X}$ (The singular locus or error states).
 - **Recovery Map:** $\mathcal{R}: \mathcal{B} \to \mathcal{X} \setminus \mathcal{B}$ (The reset/surgery operator).
-- **Counting Measure:** $\#: \text{Path}(\mathcal{X}) \to \mathbb{N}$ (Counting entrances to $\mathcal{B}$).
+- **Counting Function:** $N_{\mathrm{evt}}: \text{Path}(\mathcal{X}) \to \mathbb{N}$ (Counts entrances to $\mathcal{B}$).
 
 **Evaluator ($\mathcal{P}_2$ - ZenoCheck):**
 Is the count of recovery events finite on finite intervals?
 
-$$\#\{t \mid S_t(x) \in \mathcal{B}\} < \infty$$
+$$\left|\{t \mid S_t(x) \in \mathcal{B}\}\right| < \infty$$
 
 **Certificates ($\mathcal{K}_{\mathrm{Rec}_N}$):**
 - $K_{\mathrm{Rec}_N}^+$: An integer $N$.

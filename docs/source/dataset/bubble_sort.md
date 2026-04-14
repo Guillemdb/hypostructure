@@ -9,11 +9,10 @@
 | **Target Claim** | Regular Termination Confirmed |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -73,7 +72,7 @@ This document presents a **machine-checkable proof object** for the **terminatio
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Empty (no singularities in finite discrete system)
 - [x] **Recovery Map $\mathcal{R}$:** Not needed
-- [x] **Event Counter $\#$:** $N(T) \le \binom{n}{2}$ (bounded by initial inversions)
+- [x] **Event Counter:** $N(T) \le \binom{n}{2}$ (bounded by initial inversions)
 - [x] **Finiteness:** Trivially satisfied (strict monotonic descent on $\mathbb{N}$)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -627,6 +626,7 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Executive Summary: The Proof Dashboard
 
 ### 1. System Instantiation (The Physics)
@@ -655,8 +655,8 @@ This proof object is replayed by providing:
 | **11** | Complex Check | YES | $O(n^2)$ polynomial-time | $\Gamma_{10} \cup \{K_{\mathrm{Rep}}^+\}$ |
 | **12** | Oscillate Check | NO | Strict Lyapunov (monotonic) | $\Gamma_{11} \cup \{K_{\mathrm{GC}}^-\}$ |
 | **13** | Boundary Check | CLOSED | No external coupling | $\Gamma_{12} \cup \{K_{\mathrm{Bound}}^-\}$ |
-| **--** | **SURGERY** | **N/A** | — | $\Gamma_{13}$ |
-| **--** | **RE-ENTRY** | **N/A** | — | $\Gamma_{13}$ |
+| **--** | **SURGERY** | **NOT APPLICABLE** | — | $\Gamma_{13}$ |
+| **--** | **RE-ENTRY** | **NOT APPLICABLE** | — | $\Gamma_{13}$ |
 | **17** | **LOCK** | **BLOCK** | E1+E2 | $\Gamma_{13} \cup \{K_{\mathrm{Lock}}^{\mathrm{blk}}\} = \Gamma_{\mathrm{final}}$ |
 
 ### 3. Lock Mechanism (The Exclusion)
@@ -665,14 +665,14 @@ This proof object is replayed by providing:
 | :--- | :--- | :---: | :--- |
 | **E1** | Dimension | PASS | Finite state space $|S_n| = n!$ + bounded potential |
 | **E2** | Invariant | PASS | Strict decrease $\Delta\Phi = -1$ contradicts infinite loop |
-| **E3** | Positivity | N/A | — |
-| **E4** | Integrality | N/A | — |
-| **E5** | Functional | N/A | — |
-| **E6** | Causal | N/A | — |
-| **E7** | Thermodynamic | N/A | — |
-| **E8** | DPI | N/A | — |
-| **E9** | Ergodic | N/A | — |
-| **E10** | Definability | N/A | — |
+| **E3** | Positivity | NOT APPLICABLE | — |
+| **E4** | Integrality | NOT APPLICABLE | — |
+| **E5** | Functional | NOT APPLICABLE | — |
+| **E6** | Causal | NOT APPLICABLE | — |
+| **E7** | Thermodynamic | NOT APPLICABLE | — |
+| **E8** | DPI | NOT APPLICABLE | — |
+| **E9** | Ergodic | NOT APPLICABLE | — |
+| **E10** | Definability | NOT APPLICABLE | — |
 
 ### 4. Final Verdict
 
@@ -683,17 +683,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Algorithmic (Discrete Combinatorics) |
-| System Type | $T_{\text{algorithmic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{algorithmic}}$ (Discrete Combinatorial Dynamics) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

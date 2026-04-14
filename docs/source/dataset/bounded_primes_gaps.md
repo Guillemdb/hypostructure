@@ -9,11 +9,10 @@
 | **Target Claim** | $\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$ for some explicit constant $H$ |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -80,7 +79,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Regions where primes are absent (large gaps)
 - [x] **Recovery Map $\mathcal{R}$:** Shift to next admissible tuple
-- [x] **Event Counter $\#$:** Number of sieved configurations
+- [x] **Event Counter:** Number of sieved configurations
 - [x] **Finiteness:** Bounded by $x/(\log x)^k$ (main term)
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -439,7 +438,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 
 ---
 
-## PART III-B: METATHEOREM EXTRACTION
+## Part III-B: Metatheorem Extraction
 
 ### **1. Admissibility (RESOLVE-AutoAdmit)**
 *   **Input:** Admissible tuple $\mathcal{H}$ (congruence constraints).
@@ -654,15 +653,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Analytic Number Theory |
-| System Type | $T_{\text{analytic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 0 introduced, 0 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{analytic}}$ (Analytic Number Theory / Sieve Theory) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
+

@@ -9,11 +9,10 @@
 | **Target Claim** | $J_c$ is the boundary of the filled Julia set $K_c$; structural properties of $J_c$ |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | 2025-12-23 |
-| **Status** | Final |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -22,50 +21,6 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 **Certificate:**
 $K_{\mathrm{Auto}}^+ = (T_{\text{holomorphic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
-
----
-
-## Executive Summary / Dashboard
-
-### 1. System Instantiation
-| Component | Value |
-|-----------|-------|
-| **Arena** | Riemann sphere $\hat{\mathbb{C}}$ with iteration $f_c(z) = z^2 + c$ |
-| **Potential** | Green's function $G_c(z) = \lim_{n\to\infty} \frac{1}{2^n}\log\|f_c^n(z)\|$ |
-| **Cost** | Lyapunov exponent $\chi(z)$ |
-| **Invariance** | Möbius/conformal group |
-
-### 2. Execution Trace
-| Node | Name | Outcome |
-|------|------|---------|
-| 1 | EnergyCheck | $K_{D_E}^+$ (Green's function bounded) |
-| 2 | ZenoCheck | $K_{\mathrm{Rec}_N}^+$ (single critical point $z=0$) |
-| 3 | CompactCheck | $K_{C_\mu}^+$ (harmonic measure on $J_c$) |
-| 4 | ScaleCheck | $K_{\mathrm{SC}_\lambda}^+$ (degree 2 scaling) |
-| 5 | ParamCheck | $K_{\mathrm{SC}_{\partial c}}^+$ (Mandelbrot boundary) |
-| 6 | GeomCheck | $K_{\mathrm{Cap}_H}^+$ (zero capacity of Julia set) |
-| 7 | StiffnessCheck | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}} \to K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| 8 | TopoCheck | $K_{\mathrm{TB}_\pi}^+$ (connected vs Cantor dichotomy) |
-| 9 | TameCheck | $K_{\mathrm{TB}_O}^+$ (semi-algebraic) |
-| 10 | ErgoCheck | $K_{\mathrm{TB}_\rho}^+$ (hyperbolic mixing) |
-| 11 | ComplexCheck | $K_{\mathrm{Rep}_K}^+$ (external rays) |
-| 12 | OscillateCheck | $K_{\mathrm{GC}_\nabla}^-$ (iteration dynamics) |
-| 13 | BoundaryCheck | $K_{\mathrm{Bound}_\partial}^-$ (closed Riemann sphere) |
-| 17 | LockCheck | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E1 + LOCK-Reconstruction) |
-
-### 3. Lock Mechanism
-| Tactic | Status | Description |
-|--------|--------|-------------|
-| E1 | **Primary** | Dimension/Structure — Conformal invariance forces Fatou-Julia dichotomy |
-| LOCK-Reconstruction | Applied | Structural Reconstruction via Sullivan's no wandering domains |
-
-### 4. Final Verdict
-| Field | Value |
-|-------|-------|
-| **Status** | **UNCONDITIONAL** (for hyperbolic parameters) |
-| **Obligation Ledger** | EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$) |
-| **Singularity Set** | Julia set $J_c = \partial K_c$ |
-| **Primary Blocking Tactic** | E1 (Conformal Structure via Böttcher Coordinates) |
 
 ---
 
@@ -123,7 +78,7 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Julia set $J_c = \partial K_c$ (zero set of $G_c$)
 - [x] **Recovery Map $\mathcal{R}$:** Iteration $z \mapsto f_c(z)$
-- [x] **Event Counter $\#$:** Finite number of critical points (only $z=0$)
+- [x] **Event Counter:** Finite number of critical points (only $z=0$)
 - [x] **Finiteness:** Periodic points dense in $J_c$ but countable
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -729,17 +684,17 @@ The Julia set $J_c$ is completely characterized by the critical orbit. The Lock 
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Holomorphic Dynamics |
-| System Type | $T_{\text{holomorphic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced, 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-23 |
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{holomorphic}}$ (Complex Dynamics / Fractal Geometry) |
+| **Verification Level** | Machine-checkable |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-14 |
 
----

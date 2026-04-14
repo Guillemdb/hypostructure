@@ -142,6 +142,8 @@ A hypostructure is an object carrying *surgery-resolution data*—the informatio
 - *Want meta-learning?* → [Meta-Learning](10_information_processing/01_metalearning.md)
 - *Want ZFC translation?* → [ZFC Translation](11_appendices/01_zfc.md)
 - *Want frequently asked questions?* → [FAQ](11_appendices/03_faq.md)
+- *Want unresolved-framework obligations?* → [Backlog Registry](11_appendices/04_unresolved_backlog.md)
+- *Want external proof obligations?* → [Unresolved External Extensions](09_mathematical/08_unresolved_external_extensions.md)
 :::
 
 (sec-hypo-how-to-read)=
@@ -237,6 +239,7 @@ A recommended approach for understanding this framework:
 - [Algebraic Structure](09_mathematical/02_algebraic.md)
 - [Cross-References](09_mathematical/03_cross_reference.md)
 - [Taxonomy](09_mathematical/04_taxonomy.md)
+- [Unresolved External Extensions](09_mathematical/08_unresolved_external_extensions.md)
 
 **Part XIX: Algorithmic Completeness**
 - [Algorithmic Completeness Theory](09_mathematical/05_algorithmic.md)

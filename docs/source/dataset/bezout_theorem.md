@@ -1,7 +1,3 @@
----
-title: "Hypostructure Proof Object: Bézout's Theorem"
----
-
 # Structural Sieve Proof: Bézout's Theorem (Projective Curves)
 
 ## Metadata
@@ -16,7 +12,7 @@ title: "Hypostructure Proof Object: Bézout's Theorem"
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
@@ -265,7 +261,6 @@ If any of these fail, the run produces a **conditional proof object** that docum
 3. Document proof summary.
 
 **Phase 0: Dashboard Generation (Post-Run)**
-*Once Phase 8 is complete, return to the top and fill the Executive Summary.*
 1. Fill the **System Instantiation** table with the Arena, Potential, Cost, and Invariance definitions.
 2. Fill the **Execution Trace** table using data from your completed run.
    - **Crucial:** The table must match the `trace.json` logic exactly.
@@ -277,7 +272,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 
 ---
 
-## **Part 0: Interface Permit Implementation Checklist**
+## Part 0: Interface Permit Implementation Checklist
 *Complete this section before running the Sieve. Each permit requires specific mathematical structures to be defined.*
 
 ### **0.1 Core Interface Permits (Nodes 1-12)**
@@ -293,7 +288,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 | 7  | $\mathrm{LS}_\sigma$       | StiffnessCheck | Is Gap Certified?        | $\theta = 1$ (integer-valued degree)                            | $K_{\mathrm{LS}_\sigma}^{+}$       |
 | 8  | $\mathrm{TB}_\pi$          | TopoCheck      | Is Sector Preserved?     | Topological degree class preserved under deformation                        | $K_{\mathrm{TB}_\pi}^{+}$          |
 | 9  | $\mathrm{TB}_O$            | TameCheck      | Is Topology Tame?        | Algebraic sets are semialgebraic, hence o-minimal              | $K_{\mathrm{TB}_O}^{+}$            |
-| 10 | $\mathrm{TB}_\rho$         | ErgoCheck      | Does Flow Mix?           | N/A (static intersection problem)                              | $K_{\mathrm{TB}_\rho}^{+}$         |
+| 10 | $\mathrm{TB}_\rho$         | ErgoCheck      | Does Flow Mix?           | NOT APPLICABLE (static intersection problem)                              | $K_{\mathrm{TB}_\rho}^{+}$         |
 | 11 | $\mathrm{Rep}_K$           | ComplexCheck   | Is Description Finite?   | Finite polynomial coefficients                    | $K_{\mathrm{Rep}_K}^{+}$           |
 | 12 | $\mathrm{GC}_\nabla$       | OscillateCheck | Is Flow Gradient?        | Deformation in coefficient space is gradient-like            | $K_{\mathrm{GC}_\nabla}^{-}$       |
 
@@ -321,7 +316,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 #### **Template: $\mathrm{Rec}_N$ (Recovery Interface)**
 - [x] **Bad Set $\mathcal{B}$:** Points where curves share a common component.
 - [x] **Recovery Map $\mathcal{R}$:** Perturb coefficients to restore transversality.
-- [x] **Event Counter $\#$:** Number of intersection points is finite by Nullstellensatz.
+- [x] **Event Counter:** Number of intersection points is finite by Nullstellensatz.
 - [x] **Finiteness:** $|\Sigma| \leq d_1 d_2 < \infty$.
 
 #### **Template: $C_\mu$ (Compactness Interface)**
@@ -393,16 +388,16 @@ If any of these fail, the run produces a **conditional proof object** that docum
     * $I(\mathcal{H}_{\text{bad}}) \neq d_1 d_2$ (degree mismatch).
     * Conclusion: Degree is a complete intersection invariant; mismatch $\implies$ $\mathrm{Hom} = \emptyset$.
 - [x] **Exclusion Tactics Available:**
-  - [ ] E1 (Dimension): $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$? N/A
+  - [ ] E1 (Dimension): $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$? NOT APPLICABLE
   - [x] E2 (Invariant): $I(\mathcal{H}_{\text{bad}}) \neq I(\mathcal{H})$? Partial
-  - [ ] E3 (Positivity): Cone violation? N/A
+  - [ ] E3 (Positivity): Cone violation? NOT APPLICABLE
   - [x] E4 (Integrality): Arithmetic obstruction? **PRIMARY**
-  - [ ] E5 (Functional): Unsolvable equations? N/A
-  - [ ] E6 (Causal): Well-foundedness violation? N/A
-  - [ ] E7 (Thermodynamic): Entropy violation? N/A
-  - [ ] E8 (DPI): Bekenstein bound violation? N/A
-  - [ ] E9 (Ergodic): Mixing incompatibility? N/A
-  - [ ] E10 (Definability): Tameness violation? N/A
+  - [ ] E5 (Functional): Unsolvable equations? NOT APPLICABLE
+  - [ ] E6 (Causal): Well-foundedness violation? NOT APPLICABLE
+  - [ ] E7 (Thermodynamic): Entropy violation? NOT APPLICABLE
+  - [ ] E8 (DPI): Bekenstein bound violation? NOT APPLICABLE
+  - [ ] E9 (Ergodic): Mixing incompatibility? NOT APPLICABLE
+  - [ ] E10 (Definability): Tameness violation? NOT APPLICABLE
 
 ---
 
@@ -544,7 +539,7 @@ where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 
 ---
 
-## **Part I: The Instantiation (Thin Object Definitions)**
+## Part I: The Instantiation (Thin Object Definitions)
 *User Input: Define the four "Thin Objects". The Factory Metatheorems automatically expand these into the full Kernel Objects.*
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
@@ -580,7 +575,7 @@ where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 
 ---
 
-## **Part II: Sieve Execution (Verification Run)**
+## Part II: Sieve Execution (Verification Run)
 *Execute the Canonical Sieve Algorithm node-by-node. At each node, perform the specified check and record the certificate.*
 
 ### **EXECUTION PROTOCOL**
@@ -815,27 +810,27 @@ For each node:
 2. [x] Try each exclusion tactic:
 
 **Tactic Checklist:**
-* [ ] **E1 (Dimension):** N/A (both are 0-cycles).
+* [ ] **E1 (Dimension):** NOT APPLICABLE (both are 0-cycles).
 * [x] **E2 (Invariant):** $I(\mathcal{H}_{\text{bad}}) = \deg(Z) \neq d_1 d_2 = I(\mathcal{H})$. **Applies partially.**
-* [ ] **E3 (Positivity):** N/A.
+* [ ] **E3 (Positivity):** NOT APPLICABLE.
 * [x] **E4 (Integrality):** **PRIMARY TACTIC.** The degree of a complete intersection of type $(d_1, d_2)$ is exactly $d_1 d_2$. This is a theorem in intersection theory:
   - By the Bézout formula: $\deg(V(f) \cap V(g)) = d_1 \cdot d_2$ when $f, g$ share no common component.
   - Any morphism $\phi: \mathcal{H}_{\text{bad}} \to \mathcal{H}$ would map a cycle of degree $\neq d_1 d_2$ to one arising from a $(d_1, d_2)$-complete intersection.
   - This violates the degree identity $\deg(\phi(Z)) = d_1 d_2 \neq \deg(Z)$.
   - **Blocked:** Degree is a functorial invariant; morphisms preserve degree.
-* [ ] **E5 (Functional):** N/A.
-* [ ] **E6 (Causal):** N/A.
-* [ ] **E7 (Thermodynamic):** N/A.
-* [ ] **E8 (DPI):** N/A.
-* [ ] **E9 (Ergodic):** N/A.
-* [ ] **E10 (Definability):** N/A.
+* [ ] **E5 (Functional):** NOT APPLICABLE.
+* [ ] **E6 (Causal):** NOT APPLICABLE.
+* [ ] **E7 (Thermodynamic):** NOT APPLICABLE.
+* [ ] **E8 (DPI):** NOT APPLICABLE.
+* [ ] **E9 (Ergodic):** NOT APPLICABLE.
+* [ ] **E10 (Definability):** NOT APPLICABLE.
 
 **Lock Verdict:**
 * [x] **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$) via **Tactic E4 (Integrality)** → **GLOBAL REGULARITY ESTABLISHED**
 
 ---
 
-## **Part II-B: Upgrade Pass**
+## Part II-B: Upgrade Pass
 *After completing the sieve, apply upgrade rules to discharge inc certificates.*
 
 ### **Upgrade Pass Protocol**
@@ -854,7 +849,7 @@ For each node:
 
 ---
 
-## **Part II-C: Breach/Surgery/Re-entry Protocol**
+## Part II-C: Breach/Surgery/Re-entry Protocol
 *If any barrier was breached, execute this protocol.*
 
 ### **Breach Detection**
@@ -867,19 +862,19 @@ For each node:
 
 ### **Surgery Selection**
 
-N/A. No surgery required.
+NOT APPLICABLE. No surgery required.
 
 ### **Surgery Execution**
 
-N/A. No surgery executed.
+NOT APPLICABLE. No surgery executed.
 
 ### **Re-entry Protocol**
 
-N/A. No re-entry needed.
+NOT APPLICABLE. No re-entry needed.
 
 ---
 
-## **Part III-A: Lyapunov Reconstruction**
+## Part III-A: Lyapunov Reconstruction
 *If Nodes 1, 3, 7 passed, construct the canonical Lyapunov functional.*
 
 ### **Lyapunov Existence Check**
@@ -926,7 +921,7 @@ Not applicable. Static problem.
 ### **Step 4: Verify Lyapunov Properties**
 
 * [x] **Monotonicity:** $\mathcal{L}(Z) = d_1 d_2$ is constant. Trivially non-increasing.
-* [x] **Strict decay:** N/A (static).
+* [x] **Strict decay:** NOT APPLICABLE (static).
 * [x] **Minimum on $M$:** $\mathcal{L}(Z) = d_1 d_2$ iff $Z \in M$. ✓
 * [x] **Coercivity:** Degree bounded below by 0 and above by $d_1 d_2$ for curves with no common component.
 
@@ -934,7 +929,7 @@ Not applicable. Static problem.
 
 ---
 
-## **Part III-B: Result Extraction (Mining the Run)**
+## Part III-B: Result Extraction (Mining the Run)
 
 ### **3.1 Global Theorems**
 * [x] **Global Regularity Theorem:** (From Node 17 Blocked + KRNL-Consistency).
@@ -993,7 +988,7 @@ $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{
 
 ---
 
-## **Part III-C: Obligation Ledger**
+## Part III-C: Obligation Ledger
 
 ### **Introduced Obligations**
 
@@ -1015,15 +1010,15 @@ $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{
 
 ### **Ledger Validation**
 
-* [x] **All inc certificates either upgraded or documented as conditional:** N/A (none).
-* [x] **All breach obligations either discharged or documented:** N/A (none).
+* [x] **All inc certificates either upgraded or documented as conditional:** NOT APPLICABLE (none).
+* [x] **All breach obligations either discharged or documented:** NOT APPLICABLE (none).
 * [x] **Remaining obligations count = 0:** ✓
 
 **Ledger Status:** [x] EMPTY (valid unconditional proof)
 
 ---
 
-## **Part IV: Final Certificate Chain**
+## Part IV: Final Certificate Chain
 
 ### **4.1 Validity Checklist**
 
@@ -1034,7 +1029,7 @@ Before declaring the proof object complete, verify:
 - [x] **Lock executed** (Node 17)
 - [x] **Lock verdict obtained:** $K_{\text{Lock}}^{\mathrm{blk}}$ via E4
 - [x] **Upgrade pass completed** (Part II-B)
-- [x] **Surgery/Re-entry completed** (N/A, no breaches)
+- [x] **Surgery/Re-entry completed** (NOT APPLICABLE, no breaches)
 - [x] **Obligation ledger is EMPTY** (Part III-C)
 - [x] **No unresolved $K^{\mathrm{inc}}$** in final Γ
 
@@ -1057,8 +1052,8 @@ Node 11: K_{Rep_K}^+ (finite coefficients)
 Node 12: K_{GC_∇}^- (no oscillation, static)
 Node 13: K_{Bound_∂}^- (closed system)
 ---
-[Surgery: N/A]
-[Re-Entry: N/A]
+[Surgery: NOT APPLICABLE]
+[Re-Entry: NOT APPLICABLE]
 ---
 Node 17: K_{Cat_Hom}^{blk} (Lock BLOCKED via E4)
 ```
@@ -1084,7 +1079,7 @@ $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambd
 
 ---
 
-## **Formal Proof**
+## Formal Proof
 
 ::::{prf:proof} Proof of Theorem {prf:ref}`thm-bezout-main`
 
@@ -1127,7 +1122,7 @@ $$\therefore \deg(V(f) \cap V(g)) = d_1 \cdot d_2 \quad \square$$
 
 ---
 
-## **Verification Summary**
+## Verification Summary
 
 | Component | Status | Certificate |
 |-----------|--------|-------------|
@@ -1141,7 +1136,7 @@ $$\therefore \deg(V(f) \cap V(g)) = d_1 \cdot d_2 \quad \square$$
 
 ---
 
-## **References**
+## References
 
 1. Hypostructure Framework v1.0 (`hypopermits_jb.md`)
 2. Fulton, W. *Intersection Theory*. Springer, 1984.
@@ -1161,6 +1156,7 @@ This proof object is replayed by providing:
 **Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
 
 ---
+
 
 ## Executive Summary: The Proof Dashboard
 
@@ -1190,27 +1186,27 @@ This proof object is replayed by providing:
 | **11** | Complex Check | YES | Finite coefficients | `[]` |
 | **12** | Oscillate Check | NO | Static (no oscillation) | `[]` |
 | **13** | Boundary Check | CLOSED | $\partial\Omega = \emptyset$ | `[]` |
-| **14** | Overload Check | N/A | — | `[]` |
-| **15** | Starve Check | N/A | — | `[]` |
-| **16** | Align Check | N/A | — | `[]` |
-| **--** | **SURGERY** | **N/A** | — | `[]` |
-| **--** | **RE-ENTRY** | **N/A** | — | `[]` |
+| **14** | Overload Check | NOT APPLICABLE | — | `[]` |
+| **15** | Starve Check | NOT APPLICABLE | — | `[]` |
+| **16** | Align Check | NOT APPLICABLE | — | `[]` |
+| **--** | **SURGERY** | **NOT APPLICABLE** | — | `[]` |
+| **--** | **RE-ENTRY** | **NOT APPLICABLE** | — | `[]` |
 | **17** | **LOCK** | **BLOCK** | E4 (Integrality) | `[]` |
 
 ### 3. Lock Mechanism (The Exclusion)
 
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
-| **E1** | Dimension | N/A | Both are 0-cycles |
+| **E1** | Dimension | NOT APPLICABLE | Both are 0-cycles |
 | **E2** | Invariant | Partial | Degree is conserved |
-| **E3** | Positivity | N/A | — |
+| **E3** | Positivity | NOT APPLICABLE | — |
 | **E4** | Integrality | **PASS** | $\deg = d_1 d_2$ is complete intersection invariant |
-| **E5** | Functional | N/A | — |
-| **E6** | Causal | N/A | — |
-| **E7** | Thermodynamic | N/A | — |
-| **E8** | DPI | N/A | — |
-| **E9** | Ergodic | N/A | — |
-| **E10** | Definability | N/A | — |
+| **E5** | Functional | NOT APPLICABLE | — |
+| **E6** | Causal | NOT APPLICABLE | — |
+| **E7** | Thermodynamic | NOT APPLICABLE | — |
+| **E8** | DPI | NOT APPLICABLE | — |
+| **E9** | Ergodic | NOT APPLICABLE | — |
+| **E10** | Definability | NOT APPLICABLE | — |
 
 ### 4. Final Verdict
 
@@ -1221,22 +1217,17 @@ This proof object is replayed by providing:
 
 ---
 
+
 ## Document Information
 
 | Field | Value |
 |-------|-------|
 | **Document Type** | Proof Object |
 | **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Classical Algebraic Geometry |
-| **System Type** | $T_{\text{alg}}$ |
+| **Problem Class** | Open Problem |
+| **System Type** | $T_{\text{alg}}$ (Algebraic) |
 | **Verification Level** | Machine-checkable |
-| **Inc Certificates** | 0 introduced, 0 discharged |
-| **Final Status** | **UNCONDITIONAL** |
-| **Generated** | 2025-12-23 |
+| **Inc Certificates** | Not explicitly listed |
+| **Final Status** | Final |
+| **Generated** | 2026-04-14 |
 
----
-
-*This document constitutes a machine-checkable proof object under the Hypostructure framework.*
-*Each certificate can be independently verified against the definitions in `hypopermits_jb.md`.*
-
-**QED**
