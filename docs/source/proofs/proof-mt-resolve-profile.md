@@ -88,7 +88,7 @@ $$v_n(x) := \lambda_n^{\alpha} u_n(\lambda_n^{-1}(x - x_n)) \rightharpoonup V \n
 $$v_n := g_n^{-1} \cdot u_n$$
 converges weakly to a non-zero profile $V$.
 
-**Weak Convergence:** By the representation certificate $K_{\mathrm{Rep}_K}^+$ (reflexivity of $\dot{H}^{s_c}$), bounded sequences have weakly convergent subsequences. Extracting a subsequence (still denoted $v_n$), we obtain:
+**Weak Convergence:** By the representation certificate $K_{\mathrm{RepDesc}_K}^+$ (reflexivity of $\dot{H}^{s_c}$), bounded sequences have weakly convergent subsequences. Extracting a subsequence (still denoted $v_n$), we obtain:
 $$v_n \rightharpoonup V \quad \text{weakly in } \dot{H}^{s_c}(\mathbb{R}^n), \quad V \neq 0$$
 
 ### Step 1.2: Energy Bound and Profile Regularity

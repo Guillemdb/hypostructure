@@ -18,10 +18,65 @@ project:
   toc:
     - file: index.md
       title: Home
-    - file: source/hypopermits_jb.md
-      title: The Structural Sieve Framework
-    - file: source/metalearning.md
-      title: Meta-Learning Theory
+    - file: source/1_hypostructure_formalism/intro_hypostructure.md
+      title: Hypostructure Formalism
+      children:
+        - file: source/1_hypostructure_formalism/00_reference_aliases.md
+          title: Reference Compatibility
+        - file: source/1_hypostructure_formalism/04_nodes/01_gate_nodes.md
+          title: Gate Nodes
+        - file: source/1_hypostructure_formalism/04_nodes/02_barrier_nodes.md
+          title: Barrier Nodes
+        - file: source/1_hypostructure_formalism/04_nodes/03_surgery_nodes.md
+          title: Surgery Nodes
+        - file: source/1_hypostructure_formalism/05_interfaces/01_gate_evaluator.md
+          title: Gate Evaluator
+        - file: source/1_hypostructure_formalism/05_interfaces/02_permits.md
+          title: Permits
+        - file: source/1_hypostructure_formalism/05_interfaces/03_contracts.md
+          title: Contracts
+        - file: source/1_hypostructure_formalism/06_modules/01_singularity.md
+          title: Singularity Module
+        - file: source/1_hypostructure_formalism/06_modules/02_equivalence.md
+          title: Equivalence Module
+        - file: source/1_hypostructure_formalism/06_modules/03_lock.md
+          title: Lock Module
+        - file: source/1_hypostructure_formalism/07_factories/01_metatheorems.md
+          title: Factory Metatheorems
+        - file: source/1_hypostructure_formalism/07_factories/02_instantiation.md
+          title: Instantiation
+        - file: source/1_hypostructure_formalism/08_upgrades/01_instantaneous.md
+          title: Instantaneous Upgrades
+        - file: source/1_hypostructure_formalism/08_upgrades/02_retroactive.md
+          title: Retroactive Upgrades
+        - file: source/1_hypostructure_formalism/08_upgrades/03_stability.md
+          title: Stability
+        - file: source/1_hypostructure_formalism/09_mathematical/01_theorems.md
+          title: Theorems
+        - file: source/1_hypostructure_formalism/09_mathematical/02_algebraic.md
+          title: Algebraic Structures
+        - file: source/1_hypostructure_formalism/09_mathematical/03_cross_reference.md
+          title: Cross References
+        - file: source/1_hypostructure_formalism/09_mathematical/04_taxonomy.md
+          title: Taxonomy
+        - file: source/1_hypostructure_formalism/09_mathematical/05_algorithmic.md
+          title: Algorithmic Layer
+        - file: source/1_hypostructure_formalism/09_mathematical/05b_algorithmic_extensions.md
+          title: Algorithmic Extensions
+        - file: source/1_hypostructure_formalism/09_mathematical/06_complexity_bridge.md
+          title: Complexity Bridge
+        - file: source/1_hypostructure_formalism/09_mathematical/07_contact_nambu.md
+          title: Contact-Nambu Layer
+        - file: source/1_hypostructure_formalism/10_information_processing/01_metalearning.md
+          title: Meta-Learning Theory
+        - file: source/1_hypostructure_formalism/10_information_processing/02_fractal_gas.md
+          title: Fractal Gas
+        - file: source/1_hypostructure_formalism/11_appendices/01_zfc.md
+          title: ZFC Translation Layer
+        - file: source/1_hypostructure_formalism/11_appendices/02_notation.md
+          title: Notation
+        - file: source/1_hypostructure_formalism/11_appendices/03_faq.md
+          title: FAQ
     - file: source/proofs/proofs.md
       title: Extended Proofs
       children:
@@ -1035,21 +1090,10 @@ project:
           title: UP-Type-Ii
         - file: source/sketches/arithmetic/up-variety-control.md
           title: UP-Variety-Control
-    - file: source/sketches/fragile/fragile-index.md
-      title: Fragile Agent Sketches
-      children:
-        - file: source/sketches/fragile/fractal-gas.md
-          title: Fractal Gas Theorems
-        - file: source/sketches/fragile/fragile_gas.md
-          title: Fragile Gas Proof Object
-        - file: source/sketches/fragile/geometric_gas.md
-          title: Geometric Gas Proof Object
-        - file: source/sketches/fragile/fractal-reference.md
-          title: Fractal Gas Reference
-
   # Bibliography
   bibliography:
-    - source/references.bib
+    - source/1_hypostructure_formalism/references.bib
+    - source/references_compat.bib
     - source/sketches/fragile/references.bib
     - source/sketches/fragile/pricing_references.bib
 

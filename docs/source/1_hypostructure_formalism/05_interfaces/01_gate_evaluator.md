@@ -8,7 +8,8 @@ title: "Universal Gate Evaluator Interface"
 (sec-gate-evaluator-interface)=
 ## The Universal Gate Evaluator Interface
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now here is where we get to the heart of the matter. We want to build a machine that can look at any dynamical system - a fluid, a neural network, a proof search algorithm, whatever - and decide whether it is going to behave nicely or blow up in our faces.
 
@@ -30,7 +31,8 @@ To support everything from **Navier-Stokes** to **Graph Theory** to **Homotopy T
 
 ### Ambient Structure
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Before we can ask questions about a system, we need to say what kind of mathematical universe it lives in. This is like asking "what is the stage on which our drama plays out?"
 
@@ -73,7 +75,8 @@ A **Height Object** $\mathcal{H}$ in $\mathcal{E}$ is an object equipped with:
 | Tropical | $\mathbb{T}_\infty = ([0,\infty], \min, +)$ | Min-plus algebra |
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now here is the key abstraction. An "interface" is just a contract between the system and the verifier. It says: "If you can tell me these things about your system (the required structure), then I can compute a definite answer to this question (the evaluator), and I will give you a proof of my answer (the certificate)."
 
@@ -117,7 +120,8 @@ This enables:
 ### $\mathcal{H}_0$ (Substrate Interface)
 *The Substrate Definition.*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 This is Gate Zero - the most basic question we can ask: does the system even exist in a well-defined sense? Can you tell me what states it can be in, and how it evolves from one state to another?
 
@@ -154,7 +158,8 @@ $$\vdash S_t \in \text{Hom}_{\mathcal{E}}(\mathcal{X}, \mathcal{X})$$
 ### $D_E$ (Energy Interface)
 *The Cost Interface. Enables Node 1: EnergyCheck*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 If the substrate interface asks "does this thing exist?", the energy interface asks "is it going somewhere sensible?"
 
@@ -474,10 +479,10 @@ $$\tau_{\text{mix}}(x) < \infty$$
 
 
 
-### $\mathrm{Rep}_K$ (Dictionary Interface)
+### $\mathrm{RepDesc}_K$ (Dictionary Interface)
 *The Equivalence Interface. Enables Node 11: ComplexCheck*
 
-:::{prf:definition} Interface $\mathrm{Rep}_K$
+:::{prf:definition} Interface $\mathrm{RepDesc}_K$
 :label: def-interface-repk
 
 **Purpose:** Defines the mapping between the "Territory" (System) and the "Map" (Representation).
@@ -495,15 +500,38 @@ $$K(D(x)) < \infty$$
 
 **Stochastic Extension:** For stochastic systems (e.g., post-S12), complexity refers to the Kolmogorov complexity of the probability law $K(\mu)$, defined as the shortest program that samples from the distribution. Formally: $K(\mu) := \min\{|p| : U(p, r) \sim \mu \text{ for random } r\}$. This ensures that SDEs with finite-description coefficients $(b, \sigma)$ satisfy the complexity check even though individual sample paths are algorithmically random.
 
-**Computability Warning:** $K(\mu)$ is uncomputable in general (Rice's Theorem for distributions). Consequently, $\mathrm{Rep}_K$ for stochastic systems typically returns $K^{\mathrm{inc}}$ unless an explicit program witness $p$ with $U(p, r) \sim \mu$ is provided by the user. The framework remains sound—$K^{\mathrm{inc}}$ routes Lock to geometry-only tactics (E1--E3).
+**Computability Warning:** $K(\mu)$ is uncomputable in general (Rice's Theorem for distributions). Consequently, $\mathrm{RepDesc}_K$ for stochastic systems typically returns $K^{\mathrm{inc}}$ unless an explicit program witness $p$ with $U(p, r) \sim \mu$ is provided by the user. The framework remains sound—$K^{\mathrm{inc}}$ routes Lock to tactics that do not depend on finite description data.
 
-**Certificates ($\mathcal{K}_{\mathrm{Rep}_K}$):**
-- $K_{\mathrm{Rep}_K}^+$: The code/description $p$.
-- $K_{\mathrm{Rep}_K}^-$: A proof of uncomputability or undecidability.
+**Certificates ($\mathcal{K}_{\mathrm{RepDesc}_K}$):**
+- $K_{\mathrm{RepDesc}_K}^+$: The code/description $p$.
+- $K_{\mathrm{RepDesc}_K}^-$: A proof of uncomputability or undecidability.
 
 **Does Not Promise:** Computability.
 
-**Epistemic Role:** $\mathrm{Rep}_K$ is the boundary between "analysis engine" and "conjecture prover engine." When $\mathrm{Rep}_K$ produces a NO-inconclusive certificate ($K_{\mathrm{Rep}_K}^{\mathrm{inc}}$), the Lock uses only geometric tactics (E1--E3).
+**Epistemic Role:** $\mathrm{RepDesc}_K$ is the boundary between "analysis engine" and "conjecture prover engine." It certifies only finite description / dictionary access. It is **not** the final regularity goal permit. When $\mathrm{RepDesc}_K$ produces a NO-inconclusive certificate ($K_{\mathrm{RepDesc}_K}^{\mathrm{inc}}$), the Lock uses only tactics whose hypotheses do not require finite-description data.
+:::
+
+:::{prf:definition} Goal permits $\mathrm{StructReg}_T$ and $\mathrm{Reg}_T$
+:label: def-interface-goalpermits
+
+For each problem type $T$, the framework distinguishes two final goal permits:
+
+- **Structural exclusion permit** $\mathrm{StructReg}_T$: certifies that no bad pattern in the certified completeness package embeds into the system.
+- **Analytic regularity permit** $\mathrm{Reg}_T$: certifies actual global continuation / global regularity in the type-appropriate analytic sense.
+
+These are related but distinct:
+
+$$
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \wedge K_{\mathrm{Germ}}^+ \wedge K_{\mathrm{init}}^+ \wedge K_{\mathrm{CatLib}}^+ \Rightarrow K_{\mathrm{StructReg}_T}^+
+$$
+
+and, when a continuation theorem is available,
+
+$$
+K_{\mathrm{StructReg}_T}^+ \wedge K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_T}^+.
+$$
+
+The second implication may be replaced by any type-appropriate local-well-posedness plus continuation permit in non-PDE backends.
 :::
 
 
@@ -636,7 +664,8 @@ $$\Delta(T(u), d) \leq \varepsilon_{\text{align}}$$
 ### $\mathrm{Cat}_{\mathrm{Hom}}$ (Categorical Interface)
 *Enables Node 17: The Lock (BarrierExclusion)*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 And here we arrive at the Lock - the final gate, the moment of truth.
 
@@ -1190,7 +1219,8 @@ When CompactCheck (Node 3) returns NO with a concentration profile, the system e
 (sec-kernel-objects)=
 ### 19.A. The Kernel Objects: Interface Implementations
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 So far we have listed all the gates - all the questions the Sieve can ask. But where does the data come from to answer these questions?
 
@@ -1364,7 +1394,8 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 (sec-thin-kernel-objects)=
 ### 19.C Thin Kernel Objects
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now here is the punchline of this whole section.
 
@@ -1567,7 +1598,8 @@ Given thin objects $(\mathcal{X}^{\text{thin}}, \Phi^{\text{thin}}, \mathfrak{D}
 (sec-soft-backend-compilation)=
 ### 19.19. Soft-to-Backend Compilation
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Here is the final piece of the automation puzzle.
 
@@ -1590,7 +1622,7 @@ This section defines the **compilation layer** that automatically derives backen
 ```
 USER PROVIDES (Soft Layer)
 ────────────────────────────────────────
-D_E, C_μ, SC_λ, LS_σ, Mon_φ, Rep_K, TB_π, TB_O
+D_E, C_μ, SC_λ, LS_σ, Mon_φ, RepDesc_K, TB_π, TB_O
 ────────────────────────────────────────
          ↓ Compilation Metatheorems
 ────────────────────────────────────────
@@ -1602,7 +1634,7 @@ WP_{s_c}, ProfDec, KM, Rigidity, MorseDecomp, Attr
 ────────────────────────────────────────
 FINAL RESULTS
 ────────────────────────────────────────
-Lock^blk, K_prof^+, Global Regularity
+K_{\mathrm{StructReg}_T}^+, K_prof^+, K_{\mathrm{Reg}_T}^+ \text{ (when continuation data is compiled)}
 ```
 
 For **good types** (satisfying the Automation Guarantee), soft interface verification **automatically discharges** backend permits via compilation metatheorems.
@@ -1616,7 +1648,7 @@ For **good types** (satisfying the Automation Guarantee), soft interface verific
 
 **Soft Hypotheses:**
 
-$$K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$$
+$$K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{RepDesc}_K}^+$$
 
 **Produces:**
 
@@ -1647,7 +1679,7 @@ $K_{\mathrm{WP}_{s_c}}^+ = (\mathsf{template\_ID}, \mathsf{theorem\_citation}, s
 
 **Statement:** For good types $T$ satisfying the Automation Guarantee, all backend permits are derived from soft interfaces.
 
-$$\underbrace{K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{Mon}_\phi}^+}_{\text{Soft Layer (User Provides)}}$$
+$$\underbrace{K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{RepDesc}_K}^+ \wedge K_{\mathrm{Mon}_\phi}^+}_{\text{Soft Layer (User Provides)}}$$
 
 $$\Downarrow \text{Compilation}$$
 

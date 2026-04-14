@@ -4,7 +4,8 @@
 (sec-surgery-node-specs)=
 ## Surgery Node Specifications (Purple Nodes)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to what I think is the most interesting part of the Sieve architecture. The gate nodes ask questions, the barrier nodes stand guard, but the surgery nodes---they actually *fix things*. When something goes wrong, when a barrier is breached and singularity threatens, these purple nodes perform the delicate operations that put the system back on track.
 
 Think of it this way. A pilot flying through a storm hits turbulence that exceeds the autopilot's design limits. The autopilot (gate nodes) detects the problem. The warning system (barrier nodes) confirms this is serious. But then what? The surgery nodes are the emergency procedures---the controlled maneuvers that bring the aircraft back into a regime where normal flight can resume.
@@ -34,7 +35,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Why is non-circularity so important? Here is the thing to keep in your mind: imagine you are trying to prove that a bridge will not collapse. You cannot assume in your proof that the bridge does not collapse---that would be circular. Similarly, if a surgery is triggered because some property $P_i$ failed, that surgery cannot rely on $P_i$ being true. It must work *despite* the failure, using only properties that are still known to hold.
 
 This is not just logical hygiene. It is what guarantees termination. Without non-circularity, a surgery could trigger another surgery that triggers the first one again, creating an infinite loop of "repairs" that never actually fix anything. The ranking induced by the proof DAG ensures this cannot happen.
@@ -64,7 +66,8 @@ This is not just logical hygiene. It is what guarantees termination. Without non
 | SurgBD       | B.D (Starvation)            | Reservoir                 | AlignCheck       |
 | SurgBC       | B.C (Misalignment)          | Controller Augmentation   | BarrierExclusion |
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Look at this table carefully. Each row tells you a complete story: something went wrong (the Input Mode), here is what we do about it (the Action), and here is where we rejoin the normal flow (the Target). Notice that the targets are always *later* nodes in the Sieve---never earlier ones. This is the progress guarantee in action.
 
 The actions themselves read like a catalog of mathematical repair techniques, each one carefully matched to its failure mode. Energy blowing up? Compactify the space. Events accumulating infinitely fast? Saturate the discrete structure. Topology getting too complicated? Use o-minimal regularization. Each is a proven technique from analysis, geometry, or control theory, repurposed here as a systematic repair mechanism.
@@ -74,7 +77,8 @@ The actions themselves read like a catalog of mathematical repair techniques, ea
 
 ### Surgery Contract Template
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Before we dive into the individual surgeries, let me show you the template they all follow. This is important because it reveals the *structure* that makes the whole system work. Every surgery has the same skeleton: what it takes in, what conditions must hold for it to be safe, what transformation it performs, and what it guarantees afterward.
 
 The key innovation here is the *Admissibility Predicate*---what I like to call "the Diamond" because it represents the narrow conditions under which surgery is possible. If you are outside the diamond, the surgery cannot help you. But if you are inside, the surgery is guaranteed to work. This is not just a safety check; it is a *design constraint* that ensures each surgery is used only where it is mathematically valid.
@@ -116,7 +120,8 @@ Every surgery must produce a progress certificate witnessing either:
 The non-circularity checker must verify that the progress measure is compatible with the surgery's re-entry target, ensuring termination of the repair loop.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The progress certificate is crucial. Notice that there are two types: Type A says "we can only do this a bounded number of times" (like counting surgeries), while Type B says "some measure strictly decreases each time" (like energy or complexity). Either way, the surgeries cannot go on forever. This is not an afterthought---it is baked into the very definition of what a valid surgery is.
 :::
 
@@ -124,7 +129,8 @@ The progress certificate is crucial. Notice that there are two types: Type A say
 
 ### Surgery Specifications
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now let us walk through the individual surgeries. I will not bore you with every detail, but I want you to see the pattern: each surgery is designed for a *specific* mathematical pathology, uses a *specific* classical technique, and produces a *specific* certificate that lets normal operation resume. This is the payoff of all that abstract machinery---concrete, verifiable repair procedures.
 :::
 
@@ -158,7 +164,8 @@ Now let us walk through the individual surgeries. I will not bore you with every
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Lyapunov Cap surgery (SurgCE) is beautiful in its simplicity. When energy wants to blow up to infinity, what do you do? You change the rules of the game. Instead of working in an unbounded space, you compactify it---you add a "point at infinity" and rescale everything so that what was infinite becomes finite. The $\tanh$ function is perfect for this: it squashes the entire interval $[0, \infty)$ into $[0, 1)$. Now blow-up is geometrically impossible. The system might try to run to infinity, but infinity is no longer infinitely far away.
 :::
 
@@ -192,7 +199,8 @@ The Lyapunov Cap surgery (SurgCE) is beautiful in its simplicity. When energy wa
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Discrete Saturation surgery (SurgCC) handles Zeno-like behavior---when events accumulate infinitely fast. The trick here is time reparametrization. You slow down the clock as events pile up, so that in the new time, the events are spread out. It is like switching from "real time" to "event time." The integral formula shows exactly how: the more events per unit time, the slower the new clock ticks. And by merging events within small windows, you prevent artificial inflation of the event count.
 :::
 
@@ -226,7 +234,8 @@ The Discrete Saturation surgery (SurgCC) handles Zeno-like behavior---when event
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Concentration-Compactness (SurgCD_Alt) is one of the most elegant ideas in modern analysis. When a soliton or traveling wave tries to escape to infinity, you do not chase it---you *factor it out*. You recognize the escaping profile (it must be from a known library of soliton shapes), subtract its energy from the total, and track what remains. Each time you do this, energy strictly decreases. Eventually there is nothing left to extract, and you are done. This is Pierre-Louis Lions' deep insight, adapted here for systematic recovery.
 :::
 
@@ -260,7 +269,8 @@ Concentration-Compactness (SurgCD_Alt) is one of the most elegant ideas in moder
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Regularity Lift surgery (SurgSE) is the mathematical equivalent of "if you are almost there, you can get all the way there." When a system is near-critical on the supercritical side (the exponents $\alpha$ and $\beta$ are close, with $\beta$ only slightly larger), you can bootstrap to better regularity. You promote from $H^s$ to $H^{s+\delta}$---a small step in smoothness, but enough to escape the critical regime. This is the engine behind many regularity theorems in PDE.
 :::
 
@@ -294,7 +304,8 @@ The Regularity Lift surgery (SurgSE) is the mathematical equivalent of "if you a
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Convex Integration (SurgSC) handles the subtle problem of drifting parameters. If your system's constants are slowly changing, you cannot pretend they are fixed. But you can *absorb* the drift by extending the parameter space and adding corrector fields. Think of it like a thermostat: instead of demanding constant temperature, you add a heating/cooling system that compensates for fluctuations. The parameter variance strictly decreases each time, so you converge to stability.
 :::
 
@@ -328,7 +339,8 @@ Convex Integration (SurgSC) handles the subtle problem of drifting parameters. I
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Auxiliary/Structural surgery (SurgCD) is directly inspired by Perelman's work on Ricci flow. When geometry collapses at a singular set, you do not try to resolve the singularity in place---you cut it out and cap the wound. The excision removes a small neighborhood of the bad set, and you glue in an auxiliary space that matches smoothly at the boundary. The height drops by an amount proportional to the volume of what you removed, guaranteeing progress.
 :::
 
@@ -362,7 +374,8 @@ The Auxiliary/Structural surgery (SurgCD) is directly inspired by Perelman's wor
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Ghost Extension (SurgSD) is a clever trick for handling degenerate critical points---places where the Hessian has zero eigenvalues. The problem is that zero eigenvalues mean no restoring force, so the system can drift forever without converging. The solution? Add "ghost" variables that artificially break the degeneracy. You extend the state space with extra dimensions and add a quadratic term that provides the missing stiffness. Now the extended system has a spectral gap, even though the original one did not.
 :::
 
@@ -396,7 +409,8 @@ Ghost Extension (SurgSD) is a clever trick for handling degenerate critical poin
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Vacuum Auxiliary (SurgSC_Rest) handles the exotic case of vacuum decay---when the ground state of a system is not truly stable but can tunnel to a lower energy state. This is physics straight from Coleman's instanton calculus. If the mass gap is larger than the thermal energy and tunneling is slow enough, you can shift to the new stable vacuum and recenter the energy. Each shift strictly decreases vacuum energy, so the process terminates.
 :::
 
@@ -430,7 +444,8 @@ Vacuum Auxiliary (SurgSC_Rest) handles the exotic case of vacuum decay---when th
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Structural Metastasis (SurgTE_Rest) deals with domain walls---those thin regions where the system transitions between topological sectors. If the domain wall has finite instanton action, you can excise it and reconnect the sectors directly. Think of it like surgery on a soap bubble: you cut through the membrane separating two regions and let them merge. The Betti sum (a measure of topological complexity) strictly decreases each time.
 :::
 
@@ -464,7 +479,8 @@ Structural Metastasis (SurgTE_Rest) deals with domain walls---those thin regions
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Topological Tunneling (SurgTE) is the classic neck-pinch surgery from differential topology. When a manifold forms a neck (think of an hourglass about to pinch in the middle), you do not wait for it to pinch---you cut through the neck and cap both ends with disks. The manifold might split into two pieces, or its topology might change (Euler characteristic going up or down), but either way the complexity strictly decreases. This is exactly what Perelman did for Ricci flow, and it works here too.
 :::
 
@@ -498,7 +514,8 @@ Topological Tunneling (SurgTE) is the classic neck-pinch surgery from differenti
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 O-Minimal Regularization (SurgTC) tames wild topology. Some sets are so pathological (fractals, cantor sets, worse) that no analysis is possible. But there is a clever escape: extend to a richer o-minimal structure (add exponentials, Pfaffian functions) where the wild set becomes definable. Once it is definable, it has a nice stratification into smooth pieces. The definability complexity strictly decreases because you have replaced something intractable with something structured.
 :::
 
@@ -534,7 +551,8 @@ O-Minimal Regularization (SurgTC) tames wild topology. Some sets are so patholog
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Mixing Enhancement (SurgTD) is the physical solution to glassy dynamics. When a system gets trapped and cannot escape (infinite mixing time), you add noise. The added stochastic term shakes the system out of local minima and speeds up exploration. The mixing time becomes finite because now the system can hop over barriers instead of waiting forever. The crucial point in the "Complexity Type" clarification is subtle but important: after this surgery, we track the probability distribution over trajectories, not individual trajectories. The noise is random, but the distribution evolves deterministically.
 :::
 
@@ -568,7 +586,8 @@ Mixing Enhancement (SurgTD) is the physical solution to glassy dynamics. When a 
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Viscosity Solution (SurgDC) handles complexity explosions---when the description length of the thin trace exceeds what is physically meaningful. The fix is convolution smoothing: blur everything at scale $\epsilon$. This is like looking at a photograph from farther away; fine details vanish, but the important structure remains. Approximable complexity strictly decreases because the smoothed trace has fewer degrees of freedom. This is precisely what viscosity solutions do in PDE theory: they select the "physical" solution by adding a small amount of regularization.
 :::
 
@@ -608,7 +627,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 De Giorgi-Nash-Moser (SurgDE) is one of the crown jewels of 20th century analysis. When oscillations blow up (infinite energy in high frequencies), this machinery tames them. The admissibility condition is precisely calibrated: if you can cut off the spectrum at some finite frequency and still have finite energy, then the De Giorgi iteration kicks in and produces Holder continuity. The oscillation in smaller and smaller balls decays like a power of the radius. This is *the* technique for handling elliptic and parabolic regularity.
 :::
 
@@ -642,7 +662,8 @@ De Giorgi-Nash-Moser (SurgDE) is one of the crown jewels of 20th century analysi
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Saturation (SurgBE) comes from control theory's deep understanding of the "waterbed effect." You cannot make a controller infinitely responsive everywhere---if you push sensitivity down in one frequency range, it pops up somewhere else (Bode's integral constraint). The surgery adds a saturation element that clips the control signal, preventing it from going to infinity. The key insight is that you can *redistribute* sensitivity to safe frequencies where it will not cause trouble.
 :::
 
@@ -676,7 +697,8 @@ Saturation (SurgBE) comes from control theory's deep understanding of the "water
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Reservoir (SurgBD) handles the practical problem of resource starvation. When input supply runs dry, you need a buffer. The surgery extends the state space with a reservoir variable that tracks resource levels, and the dynamics ensure you never drop below a minimum threshold. Think of it like a battery backup: when the power flickers, the battery kicks in. The resource dynamics are explicitly modeled so you can reason about sustainability.
 :::
 
@@ -713,7 +735,8 @@ Reservoir (SurgBD) handles the practical problem of resource starvation. When in
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Controller Augmentation (SurgBC) addresses Ashby's Law of Requisite Variety---one of the deepest insights in cybernetics. If your controller does not have enough "variety" (entropy, degrees of freedom) to match the disturbances it faces, it *cannot possibly* maintain control. The solution is not to try harder with what you have; it is to *add degrees of freedom*. You augment the control space until $H(u) \geq H(d)$, then use the adjoint criterion to select the best control from this larger space. The entropy gap strictly decreases to zero, ensuring you eventually have enough variety.
 :::
 
@@ -721,7 +744,8 @@ Controller Augmentation (SurgBC) addresses Ashby's Law of Requisite Variety---on
 
 ### Action Nodes (Dynamic Restoration)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Action Nodes are the final piece of the surgery machinery. Unlike the other surgeries that modify state space or dynamics, these nodes represent *dynamic* transitions---symmetry breaking, tunneling between sectors. They are triggered by the stiffness restoration subtree when the system is stuck at a degenerate critical point and needs to *do something* rather than just *modify something*.
 :::
 
@@ -740,7 +764,8 @@ The Action Nodes are the final piece of the surgery machinery. Unlike the other 
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 ActionSSB (Symmetry Breaking) is the dynamical counterpart of what the Higgs mechanism does for particle physics. When a symmetry group $G$ acts on a degenerate vacuum, the system can "fall" into a particular vacuum state, breaking the symmetry. This generates a mass gap (the Higgs field giving mass to gauge bosons is the famous example). The mass gap certificate then guarantees stiffness---you have escaped the flat direction by picking a direction and rolling down.
 :::
 
@@ -759,6 +784,7 @@ ActionSSB (Symmetry Breaking) is the dynamical counterpart of what the Higgs mec
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 ActionTunnel (Instanton Decay) is the other escape route from a degenerate vacuum---instead of breaking symmetry, you tunnel to a different topological sector entirely. This is quantum tunneling made mathematically precise: the instanton path is a classical solution in imaginary time that connects two sectors. Once you have transitioned, you are in a new sector where (hopefully) things are better behaved. This completes the stiffness restoration subtree: either break symmetry and generate mass, or tunnel to somewhere new.
 :::

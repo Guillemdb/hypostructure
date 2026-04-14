@@ -6,19 +6,19 @@
 |-------|-------|
 | **Problem** | Global smoothness and uniqueness for 2D incompressible Navier–Stokes on the torus |
 | **System Type** | $T_{\text{parabolic}}$ (Vector Parabolic PDE) |
-| **Target Claim** | Global Regularity via Breach–Surgery–Re-Entry |
+| **Target Claim** | Global regularity for 2D incompressible Navier–Stokes |
 | **Framework Version** | Hypostructure v1.0 |
-| **Date** | 2025-12-19 |
-| **Status** | Final |
+| **Date** | 2026-04-14 |
 
 ---
 
-## Automation Witness (Framework Offloading Justification)
+## Automation Witness
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
 - **Type witness:** $T_{\text{parabolic}}$ is a **good type** (finite stratification + constructible caps).
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+- **Scope note:** This automation witness discharges the factory layer only. The recovery certificates, Lock certificate, and final regularity claim are certified explicitly in the proof object below.
 
 **Certificate:**
 $$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
@@ -397,8 +397,6 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 **Certificate:**
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E1+E2}, \text{enstrophy bounded})$
 
-**Lock Status:** **BLOCKED** ✓
-
 ---
 
 ## Part II-B: Upgrade Pass
@@ -413,7 +411,7 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 
 ---
 
-## Part II-C: Breach/Surgery Protocol (Pedagogical Demonstration)
+## Part II-C: Breach/Surgery Protocol
 
 This section demonstrates how the Hypostructure framework handles an **inconclusive** certificate via breach, surgery, and re-entry. We simulate the scenario where the velocity-side $H^1$ estimate is attempted first.
 
@@ -563,228 +561,108 @@ Here $\varphi$ can be taken as the set-level statement encoding “no bad-patter
 
 ## Part IV: Final Certificate Chain
 
-### Validity Checklist
-
-1. [x] All required nodes executed with explicit certificates
-2. [x] All breached barriers have re-entry certificates
-3. [x] All inc certificates discharged (Ledger EMPTY)
-4. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-5. [x] No unresolved obligations
-6. [x] Lyapunov (enstrophy) naturally available
-7. [x] Surgery = change of variables (vorticity)
-8. [x] Result extraction completed
-
-### Certificate Accumulation Trace
-
-```
-Node 1:  K_{D_E}^+ (energy-dissipation)
-Node 2:  K_{Rec_N}^+ (no surgeries)
-Node 3:  K_{C_μ}^+ (Ladyzhenskaya, no concentration)
-Node 4:  K_{SC_λ}^+ (enstrophy subcritical)
-Node 5:  K_{SC_∂c}^+ (ν, n=2)
-Node 6:  K_{Cap_H}^+ (Σ = ∅)
-Node 7:  K_{LS_σ}^+ (enstrophy spectral gap)
-Node 8:  K_{TB_π}^+ (circulation conserved)
-Node 9:  K_{TB_O}^+ (o-minimal)
-Node 10: K_{TB_ρ}^+ (dissipative)
-Node 11: K_{Rep_K}^+ (enstrophy bounded)
-Node 12: K_{GC_∇}^- (Lyapunov)
-Node 13: K_{Bound_∂}^- (closed)
----
-Surgery: K_{Surg}^+ (Curl2D)
-Re-Entry: K_{Ens}^+, K^{re}_{GradBound}
----
-Node 17: K_{Cat_Hom}^{blk} (E1+E2)
-```
-
-### Final Certificate Set
-
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Surg}}^+, K_{\mathrm{Ens}}^+, K^{\mathrm{re}}_{\mathrm{GradBound}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
-
-### Conclusion
-
-**GLOBAL REGULARITY CONFIRMED**
-
-The 2D incompressible Navier–Stokes equations on the torus have global smooth solutions for all $H^1$ initial data.
-
----
-
-## Formal Proof
+### 4.1 Main Proof
 
 ::::{prf:proof} Proof of Theorem {prf:ref}`thm-ns-2d`
 
-**Phase 1: Instantiation**
-Instantiate the parabolic hypostructure with:
-- State space: Divergence-free $H^1(\mathbb{T}^2; \mathbb{R}^2)$
-- Dynamics: Navier–Stokes $u_t + (u \cdot \nabla)u + \nabla p = \nu\Delta u$, $\nabla \cdot u = 0$
-- Initial data: $u_0 \in H^1$ with $\nabla \cdot u_0 = 0$
+Instantiate the parabolic hypostructure with divergence-free $H^1(\mathbb{T}^2;\mathbb{R}^2)$ data and the Navier-Stokes evolution
+\[
+u_t + (u \cdot \nabla)u + \nabla p = \nu\Delta u,
+\qquad
+\nabla \cdot u = 0.
+\]
+The direct sieve execution yields the core certificates
+\[
+K_{D_E}^+,\;
+K_{\mathrm{Rec}_N}^+,\;
+K_{C_\mu}^+,\;
+K_{\mathrm{SC}_\lambda}^+,\;
+K_{\mathrm{SC}_{\partial c}}^+,\;
+K_{\mathrm{Cap}_H}^+,\;
+K_{\mathrm{LS}_\sigma}^+,\;
+K_{\mathrm{TB}_\pi}^+,\;
+K_{\mathrm{TB}_O}^+,\;
+K_{\mathrm{TB}_\rho}^+,\;
+K_{\mathrm{RepDesc}_K}^+,\;
+K_{\mathrm{GC}_\nabla}^-,\;
+K_{\mathrm{Bound}_\partial}^-.
+\]
 
-**Phase 2: Energy Bounds**
-The energy satisfies $\frac{d}{dt}E = -\nu\|\nabla u\|_{L^2}^2 \le 0$, hence:
-$$E(t) \le E(0), \quad \int_0^\infty \|\nabla u\|_{L^2}^2 \, dt \le \frac{E(0)}{\nu}$$
+The recovery route records the vorticity surgery certificate $K_{\mathrm{Surg}}^+$, the enstrophy certificate $K_{\mathrm{Ens}}^+$, and the re-entry certificate
+\[
+K^{\mathrm{re}}_{\mathrm{GradBound}},
+\]
+which upgrades the auxiliary velocity-side obligation introduced in Part II-C.
 
-**Phase 3: Vorticity Formulation (Surgery)**
-Taking the curl: $\omega_t + (u \cdot \nabla)\omega = \nu\Delta\omega$
+Taking the curl gives the scalar transport-diffusion equation
+\[
+\omega_t + (u \cdot \nabla)\omega = \nu\Delta\omega,
+\]
+and in two dimensions the vortex stretching term vanishes. Therefore enstrophy satisfies
+\[
+\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2 \le 0,
+\]
+so
+\[
+\|\omega(t)\|_{L^2} \le \|\omega_0\|_{L^2}
+\qquad
+\text{for all } t \ge 0.
+\]
+Via Biot-Savart,
+\[
+\|\nabla u(t)\|_{L^2} \le c_{BS}\|\omega(t)\|_{L^2} \le c_{BS}\|\omega_0\|_{L^2},
+\]
+which supplies the missing global gradient control.
 
-In 2D, there is no vortex stretching term (vorticity is scalar, $\omega \cdot \nabla u = 0$).
-
-**Phase 4: Enstrophy Bounds**
-The enstrophy satisfies:
-$$\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2 \le 0$$
-Therefore $\|\omega(t)\|_{L^2} \le \|\omega_0\|_{L^2}$ for all $t \ge 0$.
-
-**Phase 5: Velocity Gradient Control (Re-Entry)**
-Via Biot–Savart certificate ($K_{\text{BS}}^+$):
-$$\|\nabla u(t)\|_{L^2} \le c_{BS}\|\omega(t)\|_{L^2} \le c_{BS}\|\omega_0\|_{L^2}$$
-
-The velocity gradient is bounded globally.
-
-**Phase 6: Lock Exclusion**
-By Tactics E1 (enstrophy bound) and E2 (Biot–Savart):
-$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}: \quad \mathrm{Hom}(\mathcal{H}_{\mathrm{bad}}, \mathcal{H}) = \emptyset$$
-
-**Phase 7: Conclusion**
-Global regularity follows. Smoothness for $t > 0$ by parabolic bootstrapping. $\square$
+The Lock then blocks by the enstrophy/gradient exclusion route:
+\[
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}.
+\]
+Hence the designated global regularity claim holds, and smoothness for $t>0$ follows by parabolic regularization. $\square$
 
 ::::
 
----
+### 4.2 Validity Checklist
 
-## Verification Summary
+| Item | Status | Witness |
+|---|---|---|
+| All required nodes executed with explicit certificates | Yes | Parts II and IV.1 |
+| Recovery certificates present for the recorded breach/re-entry route | Yes | $K_{\mathrm{Surg}}^+, K_{\mathrm{Ens}}^+, K^{\mathrm{re}}_{\mathrm{GradBound}}$ |
+| All goal-relevant obligations discharged | Yes | Part III-C |
+| Lock certificate obtained | Yes | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
+| Designated goal reached | Yes | Global regularity theorem {prf:ref}`thm-ns-2d` |
+| Validity status | Unconditional proof for the designated goal | GOAL-CONE EMPTY |
 
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Surgery Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Compactness | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ |
-| Surgery (Vorticity) | Positive | $K_{\mathrm{Surg}}^+$ |
-| Enstrophy | Positive | $K_{\mathrm{Ens}}^+$ |
-| Gradient Re-Entry | Positive | $K^{\mathrm{re}}_{\mathrm{GradBound}}$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
+### 4.3 Core Node Trace
 
----
+| Node | Interface | Certificate | Status | Role in the designated goal route |
+|---|---|---|---|---|
+| 1 | $D_E$ | $K_{D_E}^+$ | Yes | Required |
+| 2 | $\mathrm{Rec}_N$ | $K_{\mathrm{Rec}_N}^+$ | Yes | Required |
+| 3 | $C_\mu$ | $K_{C_\mu}^+$ | Yes | Required |
+| 4 | $\mathrm{SC}_\lambda$ | $K_{\mathrm{SC}_\lambda}^+$ | Yes | Required |
+| 5 | $\mathrm{SC}_{\partial c}$ | $K_{\mathrm{SC}_{\partial c}}^+$ | Yes | Required |
+| 6 | $\mathrm{Cap}_H$ | $K_{\mathrm{Cap}_H}^+$ | Yes | Required |
+| 7 | $\mathrm{LS}_\sigma$ | $K_{\mathrm{LS}_\sigma}^+$ | Yes | Required |
+| 8 | $\mathrm{TB}_\pi$ | $K_{\mathrm{TB}_\pi}^+$ | Yes | Required |
+| 9 | $\mathrm{TB}_O$ | $K_{\mathrm{TB}_O}^+$ | Yes | Required |
+| 10 | $\mathrm{TB}_\rho$ | $K_{\mathrm{TB}_\rho}^+$ | Yes | Required |
+| 11 | $\mathrm{RepDesc}_K$ | $K_{\mathrm{RepDesc}_K}^+$ | Yes | Required |
+| 12 | $\mathrm{GC}_\nabla$ | $K_{\mathrm{GC}_\nabla}^-$ | Typed negative | Benign endpoint |
+| 13 | $\mathrm{Bound}_\partial$ | $K_{\mathrm{Bound}_\partial}^-$ | Closed | Routes directly to the Lock |
+| 17 | $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Blocked | Lock exclusion |
 
-## References
+### 4.4 Recovery and Lock Trace
 
-- J. Leray, *Sur le mouvement d'un liquide visqueux emplissant l'espace*, Acta Math. 63 (1934)
-- O. Ladyzhenskaya, *The Mathematical Theory of Viscous Incompressible Flow*, Gordon and Breach (1969)
-- C. Foias, R. Temam, *Some analytic and geometric properties of the solutions of the Navier-Stokes equations*, J. Math. Pures Appl. 58 (1979)
-- P. Constantin, C. Foias, *Navier-Stokes Equations*, University of Chicago Press (1988)
+| Stage | Certificate | Status | Source |
+|---|---|---|---|
+| Surgery | $K_{\mathrm{Surg}}^+$ | Yes | Curl-to-vorticity map |
+| Recovery | $K_{\mathrm{Ens}}^+$ | Yes | Enstrophy monotonicity |
+| Re-entry | $K^{\mathrm{re}}_{\mathrm{GradBound}}$ | Yes | Biot-Savart recovery |
+| Lock | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Yes | E1 + E2 route |
 
----
+### 4.5 Obligation Ledger Summary
 
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + surgery events
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects and initial-state hash
-4. `closure.cfg`: promotion/closure settings
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
----
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | Div-free $H^1(\mathbb{T}^2; \mathbb{R}^2)$ | State Space |
-| **Potential ($\Phi$)** | $E(u) = \frac{1}{2}\|u\|_{L^2}^2$, $\Omega = \frac{1}{2}\|\omega\|_{L^2}^2$ | Energy + Enstrophy |
-| **Cost ($\mathfrak{D}$)** | $D = \nu\|\nabla u\|_{L^2}^2 = \nu\|\omega\|_{L^2}^2$ | Dissipation |
-| **Invariance ($G$)** | $\mathbb{T}^2 \rtimes SO(2)$ | Translations + Rotations |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Γ (Certificate Accumulation) |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | YES | $\frac{d}{dt}E + D = 0$, $E(t) \le E_0$ | $\{K_{D_E}^+\}$ |
-| **2** | Zeno Check | YES | No surgeries needed | $\Gamma_1 \cup \{K_{\mathrm{Rec}}^+\}$ |
-| **3** | Compact Check | YES | Ladyzhenskaya, no concentration | $\Gamma_2 \cup \{K_{C_\mu}^+\}$ |
-| **4** | Scale Check | YES | Enstrophy subcritical | $\Gamma_3 \cup \{K_{\mathrm{SC}_\lambda}^+\}$ |
-| **5** | Param Check | YES | $\nu$, $n=2$ fixed | $\Gamma_4 \cup \{K_{\mathrm{SC}_{\partial c}}^+\}$ |
-| **6** | Geom Check | YES | $\Sigma = \emptyset$ | $\Gamma_5 \cup \{K_{\mathrm{Cap}}^+\}$ |
-| **7** | Stiffness Check | YES | Enstrophy spectral gap | $\Gamma_6 \cup \{K_{\mathrm{LS}}^+\}$ |
-| **7*** | Velocity $H^1$ | INC | Missing vorticity link | $\Gamma_7 \cup \{K_{H^1}^{\mathrm{inc}}\}$; **OBL-1 introduced** |
-| **8** | Topo Check | YES | Circulation conserved | $\Gamma_{7^*} \cup \{K_{\mathrm{TB}_\pi}^+\}$; `[OBL-1]` |
-| **9** | Tame Check | YES | $\mathbb{R}_{\text{an}}$, $\Sigma = \emptyset$ | $\Gamma_8 \cup \{K_{\mathrm{TB}_O}^+\}$; `[OBL-1]` |
-| **10** | Ergo Check | YES | Dissipative | $\Gamma_9 \cup \{K_{\mathrm{TB}_\rho}^+\}$; `[OBL-1]` |
-| **11** | Complex Check | YES | Enstrophy bounded | $\Gamma_{10} \cup \{K_{\mathrm{Rep}}^+\}$; `[OBL-1]` |
-| **12** | Oscillate Check | NO | $E$, $\Omega$ Lyapunov | $\Gamma_{11} \cup \{K_{\mathrm{GC}}^-\}$; `[OBL-1]` |
-| **13** | Boundary Check | CLOSED | $\partial\mathbb{T}^2 = \emptyset$ | $\Gamma_{12} \cup \{K_{\mathrm{Bound}}^-\}$; `[OBL-1]` |
-| **--** | **SURGERY** | **EXEC** | Curl2D: $u \mapsto \omega$ | $\Gamma_{13} \cup \{K_{\mathrm{Surg}}^+\}$; `[OBL-1]` |
-| **--** | **RE-ENTRY** | **OK** | $K_{\mathrm{Ens}}^+$, $K^{\mathrm{re}}_{\mathrm{GradBound}}$ | $\Gamma_S \cup \{K_{\mathrm{Ens}}^+, K_{\mathrm{re}}^+\}$; **OBL-1 discharged** ✓ |
-| **17** | **LOCK** | **BLOCK** | E1+E2 | $\Gamma_R \cup \{K_{\mathrm{Lock}}^{\mathrm{blk}}\} = \Gamma_{\mathrm{final}}$ |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | PASS | 2D: Enstrophy $\frac{d}{dt}\Omega \le 0$ (no vortex stretching) |
-| **E2** | Invariant | PASS | Biot–Savart: $\|\nabla u\|_{L^2} \le c_{BS}\|\omega\|_{L^2}$ |
-| **E3** | Positivity | N/A | — |
-| **E4** | Integrality | N/A | — |
-| **E5** | Functional | N/A | — |
-| **E6** | Causal | N/A | — |
-| **E7** | Thermodynamic | N/A | — |
-| **E8** | DPI | N/A | — |
-| **E9** | Ergodic | N/A | — |
-| **E10** | Definability | N/A | — |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY (OBL-1 discharged via a-posteriori upgrade U2)
-* **Singularity Set:** $\Sigma = \emptyset$
-* **Primary Blocking Tactic:** E1+E2 (Enstrophy bound + Biot–Savart recovery)
-
----
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| Document Type | Proof Object |
-| Framework | Hypostructure v1.0 |
-| Problem Class | Classical PDE (Textbook) |
-| System Type | $T_{\text{parabolic}}$ |
-| Verification Level | Machine-checkable |
-| Inc Certificates | 1 introduced (pedagogical), 1 discharged |
-| Final Status | **UNCONDITIONAL** |
-| Generated | 2025-12-19 |
-
----
-
-## Why These Case Studies Validate the Framework
-
-### 1D Viscous Burgers
-- **Clean pass:** All nodes return positive certificates immediately
-- **No surgery:** Demonstrates the "happy path" of the Sieve
-- **1D embedding:** Shows how dimension-specific tools (Sobolev embedding) provide subcritical control
-- **Validates:** Basic Sieve execution, certificate accumulation, Lock blocking
-
-### 2D Navier–Stokes
-- **Breach-Surgery-Re-Entry:** Demonstrates the full recovery mechanism
-- **Vorticity surgery:** Shows how change of variables counts as "surgery" in the framework
-- **A-posteriori upgrade:** Demonstrates inc → + certificate promotion
-- **Validates:** Recovery mechanisms, obligation ledger, upgrade pass
-
-Together, these examples confirm that the Hypostructure framework correctly handles:
-1. Direct passage (Burgers)
-2. Recovery via surgery (NS 2D)
-
-without invoking controversial theorems—the results are classical and well-established.
+| ID | Certificate | Obligation | In Goal Cone? | Status | Discharge / Reason |
+|---|---|---|---|---|---|
+| OBL-1 | $K_{H^1}^{\mathrm{inc}}$ | Close the velocity-side $H^1$ estimate | Yes | Discharged | Upgraded by $K_{\mathrm{Ens}}^+ \wedge K^{\mathrm{re}}_{\mathrm{GradBound}}$ |

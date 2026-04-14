@@ -42,7 +42,7 @@ mixed-modal obstruction theorem; it does not require sound-and-complete calculi 
 ### Obstruction Calculus Definitions
 
 :::{prf:definition} Obstruction calculus and finitary certificate schema
-:label: def-obstruction-calculus-schema
+:label: def-obstruction-calculus-schema-ext
 
 For each
 
@@ -102,7 +102,7 @@ certificate.”
 :::
 
 :::{prf:definition} Full E13 obstruction package (reconstructed form)
-:label: def-e13-reconstructed
+:label: def-e13-reconstructed-ext
 
 Let $\Pi$ be a problem family.
 
@@ -111,13 +111,13 @@ A **full E13 obstruction package** for $\Pi$ is a 5-tuple
 $$
 \mathbf B_{\mathrm{E13}}(\Pi)
 =
-(B_\sharp,B_\int,B_\flat,B_\ast,B_\partial)
+(B_\sharp,B_{\mathrm{int}},B_\flat,B_\ast,B_\partial)
 $$
 such that
 
 $$
 B_\sharp\in K_\sharp^-(\Pi),\qquad
-B_\int\in K_\int^-(\Pi),\qquad
+B_{\mathrm{int}}\in K_{\mathrm{int}}^-(\Pi),\qquad
 B_\flat\in K_\flat^-(\Pi),\qquad
 B_\ast\in K_\ast^-(\Pi),\qquad
 B_\partial\in K_\partial^-(\Pi).
@@ -134,7 +134,7 @@ is blocked for the problem family $\Pi$.
 ### Sound-and-Complete Obstruction Theorems
 
 :::{prf:theorem} $\sharp$-Obstruction Soundness and Completeness
-:label: thm-sharp-obstruction-sound-complete
+:label: thm-sharp-obstruction-sound-complete-ext
 
 There exists a $\sharp$-obstruction calculus
 
@@ -166,7 +166,7 @@ fixed-point solved-state witnesses, and reconstruction-consistent descent certif
 particular spectral-gap heuristics.
 :::
 
-:::{prf:remark} What Theorem \ref{thm-sharp-obstruction-sound-complete} must actually prove
+:::{prf:remark} What Theorem \ref{thm-sharp-obstruction-sound-complete-ext} must actually prove
 :label: rem-what-thm24-must-prove
 
 The current manuscript’s “glassy landscape / no spectral gap / Łojasiewicz failure” language is only a family of
@@ -175,39 +175,39 @@ from {prf:ref}`def-pure-sharp-witness-rigorous`, not just familiar convex-optimi
 :::
 
 :::{prf:theorem} $\int$-Obstruction Soundness and Completeness
-:label: thm-int-obstruction-sound-complete
+:label: thm-int-obstruction-sound-complete-ext
 
 There exists an $\int$-obstruction calculus
 
 $$
-\mathsf{Obs}_\int
+\mathsf{Obs}_{\mathrm{int}}
 $$
 whose certificate schema
 
 $$
-K_\int^-(\Pi)
+K_{\mathrm{int}}^-(\Pi)
 $$
 is sound and complete for the semantic obstruction proposition
 
 $$
-\mathbb K_\int^-(\Pi).
+\mathbb K_{\mathrm{int}}^-(\Pi).
 $$
 
 Equivalently, for every problem family $\Pi$:
 
 $$
-\exists B\in K_\int^-(\Pi)
+\exists B\in K_{\mathrm{int}}^-(\Pi)
 \iff
-\mathbb K_\int^-(\Pi).
+\mathbb K_{\mathrm{int}}^-(\Pi).
 $$
 
-Moreover, the modality-specific rules of $\mathsf{Obs}_\int$ must be complete against the full universal property of
+Moreover, the modality-specific rules of $\mathsf{Obs}_{\mathrm{int}}$ must be complete against the full universal property of
 {prf:ref}`thm-int-universality`: they must rule out **all** polynomial-height well-founded dependency-elimination
 witnesses, including every admissible propagation, dynamic-programming, and inductive-elimination presentation, not
 merely explicit DAG failures visible at the surface syntax.
 :::
 
-:::{prf:remark} What Theorem \ref{thm-int-obstruction-sound-complete} must actually prove
+:::{prf:remark} What Theorem \ref{thm-int-obstruction-sound-complete-ext} must actually prove
 :label: rem-what-thm25-must-prove
 
 The current “frustrated loops / $\pi_1\neq 0$ / no DAG structure” language is only one frontend realization of failure
@@ -216,7 +216,7 @@ witness, not only the most obvious graph-theoretic one.
 :::
 
 :::{prf:theorem} $\flat$-Obstruction Soundness and Completeness (Strengthened)
-:label: thm-flat-obstruction-sound-complete
+:label: thm-flat-obstruction-sound-complete-ext
 
 There exists a $\flat$-obstruction calculus
 
@@ -261,7 +261,7 @@ In particular, it is **not sufficient** for $\mathsf{Obs}_\flat$ to test only vi
 integrality, or only the vacuity of solvable monodromy for Boolean fibers.
 :::
 
-:::{prf:remark} Why Theorem \ref{thm-flat-obstruction-sound-complete} is the hardest algebraic repair
+:::{prf:remark} Why Theorem \ref{thm-flat-obstruction-sound-complete-ext} is the hardest algebraic repair
 :label: rem-why-thm26-is-hardest
 
 This theorem is the single biggest algebraic repair to the current obstruction layer. A calculus that blocks only
@@ -270,7 +270,7 @@ cancellation mechanisms that do not arise from obvious automorphism quotients.
 :::
 
 :::{prf:theorem} $\ast$-Obstruction Soundness and Completeness
-:label: thm-star-obstruction-sound-complete
+:label: thm-star-obstruction-sound-complete-ext
 
 There exists an $\ast$-obstruction calculus
 
@@ -302,7 +302,7 @@ including every admissible split/merge presentation with strict size decrease an
 not merely obvious supercritical Master-theorem failures.
 :::
 
-:::{prf:remark} What Theorem \ref{thm-star-obstruction-sound-complete} must actually prove
+:::{prf:remark} What Theorem \ref{thm-star-obstruction-sound-complete-ext} must actually prove
 :label: rem-what-thm27-must-prove
 
 The current “boundary dominates any balanced cut” language is a good frontend obstruction for many instances, but the
@@ -311,7 +311,7 @@ recursive geometries that may not fit a single textbook recurrence template.
 :::
 
 :::{prf:theorem} $\partial$-Obstruction Soundness and Completeness (Strengthened)
-:label: thm-boundary-obstruction-sound-complete
+:label: thm-boundary-obstruction-sound-complete-ext
 
 There exists a $\partial$-obstruction calculus
 
@@ -355,7 +355,7 @@ In particular, it is **not sufficient** for $\mathsf{Obs}_\partial$ to test only
 Pfaffian orientation, or only unbounded treewidth.
 :::
 
-:::{prf:remark} Why Theorem \ref{thm-boundary-obstruction-sound-complete} is the second major repair
+:::{prf:remark} Why Theorem \ref{thm-boundary-obstruction-sound-complete-ext} is the second major repair
 :label: rem-why-thm28-is-second-major-repair
 
 This theorem is the boundary-side analogue of the $\flat$ strengthening. A calculus that blocks only the currently
@@ -380,7 +380,7 @@ $$
 \iff
 \neg\Bigl(
 \mathbb K_\sharp^-(\Pi)\wedge
-\mathbb K_\int^-(\Pi)\wedge
+\mathbb K_{\mathrm{int}}^-(\Pi)\wedge
 \mathbb K_\flat^-(\Pi)\wedge
 \mathbb K_\ast^-(\Pi)\wedge
 \mathbb K_\partial^-(\Pi)
@@ -399,7 +399,7 @@ in a minimal-rank factorization tree for $\mathcal A$. Therefore at least one se
 :::
 
 :::{prf:proposition} Compatibility with the current tactic-level certificates
-:label: prop-compatibility-with-current-tactics
+:label: prop-compatibility-with-current-tactics-ext
 
 The current manuscript's tactic-level negative certificates are admissible **frontend realizations** of the
 reconstructed obstruction theory provided they are proved to derive the corresponding semantic modal obstructions.
@@ -411,7 +411,7 @@ K_{\mathrm{LS}_\sigma}^- \Rightarrow K_\sharp^-,
 $$
 
 $$
-K_{\mathrm{E6}}^- \Rightarrow K_\int^-,
+K_{\mathrm{E6}}^- \Rightarrow K_{\mathrm{int}}^-,
 $$
 
 $$
@@ -435,7 +435,7 @@ $$
 should be treated as a tactic-level sufficient condition for the reconstructed five-certificate E13 package.
 
 If the frontend tactics are later shown complete relative to the semantic calculi
-$\mathsf{Obs}_\sharp,\mathsf{Obs}_\int,\mathsf{Obs}_\flat,\mathsf{Obs}_\ast,\mathsf{Obs}_\partial$, then the current
+$\mathsf{Obs}_\sharp,\mathsf{Obs}_{\mathrm{int}},\mathsf{Obs}_\flat,\mathsf{Obs}_\ast,\mathsf{Obs}_\partial$, then the current
 antecedent package becomes not merely sufficient but extensionally equivalent to the reconstructed E13 obstruction
 package.
 :::
@@ -449,14 +449,14 @@ Without this compatibility statement, the new obstruction theory and the old tac
 :::
 
 :::{prf:remark} Proper falsifiability statement for the obstruction layer
-:label: rem-proper-falsifiability-obstruction-layer
+:label: rem-proper-falsifiability-obstruction-layer-ext
 
 Part V yields the following precise falsifiability statement.
 
 If a problem family $\Pi$ is later shown to admit a polynomial-time correct solver despite a full E13 obstruction
 package, then at least one of the following must have failed:
 1. the soundness of one of the calculi
-   $\mathsf{Obs}_\sharp,\mathsf{Obs}_\int,\mathsf{Obs}_\flat,\mathsf{Obs}_\ast,\mathsf{Obs}_\partial$;
+   $\mathsf{Obs}_\sharp,\mathsf{Obs}_{\mathrm{int}},\mathsf{Obs}_\flat,\mathsf{Obs}_\ast,\mathsf{Obs}_\partial$;
 2. the irreducible witness classification theorem
    {prf:ref}`thm-irreducible-witness-classification`;
 3. the witness decomposition theorem
@@ -489,7 +489,7 @@ package is computable” by explicit proof-completion criteria.
 :::
 
 :::{prf:definition} Proof obligation
-:label: def-proof-obligation
+:label: def-proof-obligation-ext
 
 A **proof obligation** is a tuple
 
@@ -529,7 +529,7 @@ An artifact is **admissible** only if:
 :::
 
 :::{prf:definition} Proof obligation ledger
-:label: def-proof-obligation-ledger
+:label: def-proof-obligation-ext-ledger
 
 The **proof obligation ledger** is the finite family
 
@@ -630,7 +630,7 @@ Examples include proofs of implications of the form
 $$
 K_{\mathrm{LS}_\sigma}^- \Rightarrow K_\sharp^-,
 \qquad
-K_{\mathrm{E6}}^- \Rightarrow K_\int^-,
+K_{\mathrm{E6}}^- \Rightarrow K_{\mathrm{int}}^-,
 \qquad
 K_{\mathrm{E4}}^- \wedge K_{\mathrm{E11}}^- \Rightarrow K_\flat^-,
 $$
@@ -757,13 +757,13 @@ $$
 where:
 
 - **V.1** soundness and completeness of $\mathsf{Obs}_\sharp$;
-- **V.2** soundness and completeness of $\mathsf{Obs}_\int$;
+- **V.2** soundness and completeness of $\mathsf{Obs}_{\mathrm{int}}$;
 - **V.3** soundness and completeness of strengthened $\mathsf{Obs}_\flat$;
 - **V.4** soundness and completeness of $\mathsf{Obs}_\ast$;
 - **V.5** soundness and completeness of strengthened $\mathsf{Obs}_\partial$;
 - **V.6** mixed-modal obstruction theorem;
 - **V.7** frontend-to-backend bridge dossiers for the legacy tactic certificates. *(For the $\flat$-channel, all 11
-  items of the flat dossier {prf:ref}`def-completion-criteria-flat-dossier-3sat` are now discharged in Part VI, Section
+  items of the flat dossier {prf:ref}`def-completion-criteria-flat-dossier-3sat-ext` are now discharged in Part VI, Section
   VI.C.3.)*
 
 #### Cluster VI: canonical $3$-SAT instantiation
@@ -1131,7 +1131,7 @@ Cluster VII packages the reusable thin-interface architecture for algorithm anal
 :::
 
 :::{prf:definition} Direct separation certificate
-:label: def-direct-separation-certificate
+:label: def-direct-separation-certificate-ext
 
 A **direct separation certificate** for the present manuscript is the tuple
 
@@ -1240,14 +1240,14 @@ $$
 :::{prf:remark} Direct Route Versus Stronger Audit Completion
 :label: rem-direct-route-versus-stronger-audit-completion
 
-The direct separation certificate of {prf:ref}`def-direct-separation-certificate` is the theorem package needed for the
+The direct separation certificate of {prf:ref}`def-direct-separation-certificate-ext` is the theorem package needed for the
 main separation route used in the manuscript.
 
 The direct route (Part VI) is now **fully self-contained**: all six blockage lemmas are expanded into discharged
 theorem packages using the frontend obstruction lemmas with detailed structural arguments (with the Part IX barrier
 metatheorems providing supporting quantitative infrastructure), the strengthened algebraic blockage theorem
 {prf:ref}`thm-random-3sat-algebraic-blockage-strengthened` is unconditional with all 11 items of
-{prf:ref}`def-completion-criteria-flat-dossier-3sat` discharged on-page in Section VI.C.3, and every proof satisfies
+{prf:ref}`def-completion-criteria-flat-dossier-3sat-ext` discharged on-page in Section VI.C.3, and every proof satisfies
 the 7-item acceptance criteria of {prf:ref}`prop-acceptance-criteria-implementation-package`.
 
 The minimal completion certificate introduced below is **strictly stronger**. It adds the full proof-obligation ledger,
@@ -1257,7 +1257,7 @@ additional logical prerequisite for the direct Part VI theorem chain.
 :::
 
 :::{prf:definition} Minimal completion certificate for the full program
-:label: def-minimal-completion-certificate
+:label: def-minimal-completion-certificate-ext
 
 A **minimal completion certificate** for the stronger audit refinement of the separation program is the tuple
 
@@ -1360,8 +1360,8 @@ and the proof-completion criterion. What a hostile referee will ask next is not 
 
 1. Lemma {prf:ref}`lem-primitive-step-classification`,
 2. Theorem {prf:ref}`thm-witness-decomposition`,
-3. Theorems {prf:ref}`thm-sharp-obstruction-sound-complete` through
-   {prf:ref}`thm-boundary-obstruction-sound-complete`,
+3. Theorems {prf:ref}`thm-sharp-obstruction-sound-complete-ext` through
+   {prf:ref}`thm-boundary-obstruction-sound-complete-ext`,
 4. and the five canonical $3$-SAT blockage theorems of Part VI.
 
 To keep the exposition mathematically honest, this section separates:
@@ -1596,7 +1596,7 @@ Concretely:
 :::
 
 :::{prf:definition} Canonical 3-SAT thin-contract package
-:label: def-canonical-3sat-thin-contract-package
+:label: def-canonical-3sat-thin-contract-package-ext
 
 The **canonical $3$-SAT thin-contract package** is the five-tuple
 
@@ -1605,7 +1605,7 @@ $$
 =
 \bigl(
 \mathcal C_\sharp^{\mathrm{thin}}(\Pi_{3\text{-SAT}}),
-\mathcal C_\int^{\mathrm{thin}}(\Pi_{3\text{-SAT}}),
+\mathcal C_{\mathrm{int}}^{\mathrm{thin}}(\Pi_{3\text{-SAT}}),
 \mathcal C_\flat^{\mathrm{thin}}(\Pi_{3\text{-SAT}}),
 \mathcal C_\ast^{\mathrm{thin}}(\Pi_{3\text{-SAT}}),
 \mathcal C_\partial^{\mathrm{thin}}(\Pi_{3\text{-SAT}})
@@ -1642,7 +1642,7 @@ certificates
 
 $$
 B_\sharp\in K_\sharp^-(\Pi_{3\text{-SAT}}),\quad
-B_\int\in K_\int^-(\Pi_{3\text{-SAT}}),\quad
+B_{\mathrm{int}}\in K_{\mathrm{int}}^-(\Pi_{3\text{-SAT}}),\quad
 B_\flat\in K_\flat^-(\Pi_{3\text{-SAT}}),\quad
 B_\ast\in K_\ast^-(\Pi_{3\text{-SAT}}),\quad
 B_\partial\in K_\partial^-(\Pi_{3\text{-SAT}}).
@@ -1665,7 +1665,7 @@ Consequently:
 
 :::{prf:proof}
 Unpack the five complete thin contracts inside
-{prf:ref}`def-canonical-3sat-thin-contract-package`.
+{prf:ref}`def-canonical-3sat-thin-contract-package-ext`.
 
 - The $\sharp$- and $\int$-contracts compile by the sharp and causal barrier certificate corollaries of Part IX.
 - The $\flat$-, $\ast$-, and $\partial$-contracts compile by the corresponding Part IX barrier certificate
@@ -1739,7 +1739,7 @@ $$
 =
 \bigl(
 \mathcal D_\sharp(\Pi_{3\text{-SAT}}),
-\mathcal D_\int(\Pi_{3\text{-SAT}}),
+\mathcal D_{\mathrm{int}}(\Pi_{3\text{-SAT}}),
 \mathcal D_\flat(\Pi_{3\text{-SAT}}),
 \mathcal D_\ast(\Pi_{3\text{-SAT}}),
 \mathcal D_\partial(\Pi_{3\text{-SAT}})
@@ -1826,7 +1826,7 @@ $$
 :::{prf:proof}
 Immediate from the certificate extraction item of
 {prf:ref}`def-completion-criteria-sharp-dossier-3sat` together with the soundness theorem
-{prf:ref}`thm-sharp-obstruction-sound-complete`.
+{prf:ref}`thm-sharp-obstruction-sound-complete-ext`.
 :::
 
 ### VIII.B.2. The $\int$-dossier for canonical 3-SAT
@@ -1837,7 +1837,7 @@ Immediate from the certificate extraction item of
 A backend dossier
 
 $$
-\mathcal D_\int(\Pi_{3\text{-SAT}})
+\mathcal D_{\mathrm{int}}(\Pi_{3\text{-SAT}})
 $$
 is complete only if it contains proofs of the following statements, or strictly stronger substitutes.
 
@@ -1872,10 +1872,10 @@ is complete only if it contains proofs of the following statements, or strictly 
    Therefore no pure $\int$-witness exists for canonical $3$-SAT.
 
 6. **Certificate extraction.**  
-   An explicit derivation in $\mathsf{Obs}_\int$ yielding
+   An explicit derivation in $\mathsf{Obs}_{\mathrm{int}}$ yielding
 
    $$
-   B_\int \in K_\int^-(\Pi_{3\text{-SAT}}).
+   B_{\mathrm{int}} \in K_{\mathrm{int}}^-(\Pi_{3\text{-SAT}}).
    $$
 
 Mere citation of “cycles,” “loops,” or “no DAG” without the translator-stability and height arguments is insufficient.
@@ -1887,21 +1887,21 @@ Mere citation of “cycles,” “loops,” or “no DAG” without the translat
 If the dossier
 
 $$
-\mathcal D_\int(\Pi_{3\text{-SAT}})
+\mathcal D_{\mathrm{int}}(\Pi_{3\text{-SAT}})
 $$
 is complete, then the strengthened semantic $\int$-obstruction holds:
 
 $$
-B_\int\in K_\int^-(\Pi_{3\text{-SAT}})
+B_{\mathrm{int}}\in K_{\mathrm{int}}^-(\Pi_{3\text{-SAT}})
 \qquad\text{and hence}\qquad
-\mathbb K_\int^-(\Pi_{3\text{-SAT}}).
+\mathbb K_{\mathrm{int}}^-(\Pi_{3\text{-SAT}}).
 $$
 :::
 
 :::{prf:proof}
 Immediate from the certificate extraction item of
 {prf:ref}`def-completion-criteria-int-dossier-3sat` together with the soundness theorem
-{prf:ref}`thm-int-obstruction-sound-complete`.
+{prf:ref}`thm-int-obstruction-sound-complete-ext`.
 :::
 
 ### VIII.B.3. The strengthened $\flat$-dossier for canonical 3-SAT
@@ -1943,7 +1943,7 @@ $$
 :::
 
 :::{prf:definition} Completion criteria for the strengthened $\flat$-backend dossier
-:label: def-completion-criteria-flat-dossier-3sat
+:label: def-completion-criteria-flat-dossier-3sat-ext
 
 A backend dossier
 
@@ -2024,8 +2024,8 @@ $$
 
 :::{prf:proof}
 Immediate from the certificate extraction item of
-{prf:ref}`def-completion-criteria-flat-dossier-3sat` together with the soundness theorem
-{prf:ref}`thm-flat-obstruction-sound-complete`.
+{prf:ref}`def-completion-criteria-flat-dossier-3sat-ext` together with the soundness theorem
+{prf:ref}`thm-flat-obstruction-sound-complete-ext`.
 :::
 
 ### VIII.B.4. The $\ast$-dossier for canonical 3-SAT
@@ -2097,7 +2097,7 @@ $$
 :::{prf:proof}
 Immediate from the certificate extraction item of
 {prf:ref}`def-completion-criteria-star-dossier-3sat` together with the soundness theorem
-{prf:ref}`thm-star-obstruction-sound-complete`.
+{prf:ref}`thm-star-obstruction-sound-complete-ext`.
 :::
 
 ### VIII.B.5. The strengthened $\partial$-dossier for canonical 3-SAT
@@ -2133,7 +2133,7 @@ $$
 :::
 
 :::{prf:definition} Completion criteria for the strengthened $\partial$-backend dossier
-:label: def-completion-criteria-partial-dossier-3sat
+:label: def-completion-criteria-partial-dossier-3sat-ext
 
 A backend dossier
 
@@ -2206,8 +2206,8 @@ $$
 
 :::{prf:proof}
 Immediate from the certificate extraction item of
-{prf:ref}`def-completion-criteria-partial-dossier-3sat` together with the soundness theorem
-{prf:ref}`thm-boundary-obstruction-sound-complete`.
+{prf:ref}`def-completion-criteria-partial-dossier-3sat-ext` together with the soundness theorem
+{prf:ref}`thm-boundary-obstruction-sound-complete-ext`.
 :::
 
 ## VIII.D. Sufficiency Theorems for the Audit Artifacts
@@ -2249,7 +2249,7 @@ $$
 =
 \bigl(
 \mathcal D_\sharp(\Pi_{3\text{-SAT}}),
-\mathcal D_\int(\Pi_{3\text{-SAT}}),
+\mathcal D_{\mathrm{int}}(\Pi_{3\text{-SAT}}),
 \mathcal D_\flat(\Pi_{3\text{-SAT}}),
 \mathcal D_\ast(\Pi_{3\text{-SAT}}),
 \mathcal D_\partial(\Pi_{3\text{-SAT}})
@@ -2263,7 +2263,7 @@ blockage theorems of Part VI are formally discharged:
 
 $$
 B_\sharp\in K_\sharp^-(\Pi_{3\text{-SAT}}),\quad
-B_\int\in K_\int^-(\Pi_{3\text{-SAT}}),\quad
+B_{\mathrm{int}}\in K_{\mathrm{int}}^-(\Pi_{3\text{-SAT}}),\quad
 B_\flat\in K_\flat^-(\Pi_{3\text{-SAT}}),\quad
 B_\ast\in K_\ast^-(\Pi_{3\text{-SAT}}),\quad
 B_\partial\in K_\partial^-(\Pi_{3\text{-SAT}}).
@@ -2291,7 +2291,7 @@ and {prf:ref}`prop-partial-dossier-implies-boundary-blockage`.
 
 By the additional stronger-realization hypothesis, each completed backend dossier realizes the corresponding thin
 contract. Hence the canonical thin-contract package of
-{prf:ref}`def-canonical-3sat-thin-contract-package` is complete. Apply
+{prf:ref}`def-canonical-3sat-thin-contract-package-ext` is complete. Apply
 {prf:ref}`thm-sufficiency-canonical-3sat-thin-contract-package` to obtain the compiled semantic package and the stated
 consequences.
 :::
@@ -2392,40 +2392,40 @@ This contract is called **complete** if the displayed inequalities and growth st
 Let $\Pi$ be a problem family. A **thin $\int$ contract** for $\Pi$ is a tuple
 
 $$
-\mathcal C_\int^{\mathrm{thin}}(\Pi)=
-(\mathfrak B_\int,d_\int,g_\int)
+\mathcal C_{\mathrm{int}}^{\mathrm{thin}}(\Pi)=
+(\mathfrak B_{\mathrm{int}},d_{\mathrm{int}},g_{\mathrm{int}})
 $$
 consisting of:
 
 1. a translator-stable barrier datum
 
    $$
-   \mathfrak B_\int
+   \mathfrak B_{\mathrm{int}}
    $$
    for $\Pi$;
 2. an $\int$ local drift bound
 
    $$
-   d_\int
+   d_{\mathrm{int}}
    $$
    in the sense of {prf:ref}`def-int-local-energy-drift-bound`;
 3. a lower-bound witness
 
    $$
-   g_\int:\mathbb N\to\mathbb N
+   g_{\mathrm{int}}:\mathbb N\to\mathbb N
    $$
    such that:
 
    $$
-   g_\int(n)\le
+   g_{\mathrm{int}}(n)\le
    \left\lceil
-   \frac{\Delta_{\mathfrak B_\int}(n)}{d_\int(n)}
+   \frac{\Delta_{\mathfrak B_{\mathrm{int}}}(n)}{d_{\mathrm{int}}(n)}
    \right\rceil
    $$
    for all sufficiently large $n$, and
 
    $$
-   g_\int
+   g_{\mathrm{int}}
    $$
    eventually dominates every polynomial.
 
@@ -2546,7 +2546,7 @@ This contract is called **complete** if the displayed inequality and growth stat
 ## X.B. Public Algorithmic Thin Interface
 
 :::{prf:definition} Algorithmic thin interface of type $T_{\text{algorithmic}}$
-:label: def-algorithmic-thin-interface
+:label: def-algorithmic-thin-interface-ext
 
 An **algorithmic thin interface** for a problem family
 
@@ -2561,7 +2561,7 @@ $$
 \bigl(
 K_{T_{\text{algorithmic}}}^+,\ 
 \mathcal C_\sharp^{\mathrm{thin}}(\Pi),\
-\mathcal C_\int^{\mathrm{thin}}(\Pi),\
+\mathcal C_{\mathrm{int}}^{\mathrm{thin}}(\Pi),\
 \mathcal C_\flat^{\mathrm{thin}}(\Pi),\
 \mathcal C_\ast^{\mathrm{thin}}(\Pi),\
 \mathcal C_\partial^{\mathrm{thin}}(\Pi)
@@ -2610,10 +2610,10 @@ Let $\Pi$ be a problem family.
    $$
    B_\sharp\in K_\sharp^-(\Pi).
    $$
-2. If $\mathcal C_\int^{\mathrm{thin}}(\Pi)$ is complete, then
+2. If $\mathcal C_{\mathrm{int}}^{\mathrm{thin}}(\Pi)$ is complete, then
 
    $$
-   B_\int\in K_\int^-(\Pi).
+   B_{\mathrm{int}}\in K_{\mathrm{int}}^-(\Pi).
    $$
 3. If $\mathcal C_\flat^{\mathrm{thin}}(\Pi)$ is complete, then
 
@@ -2646,7 +2646,7 @@ Clause (5) is {prf:ref}`cor-partial-barrier-certificate` applied to the data con
 :::
 
 :::{prf:theorem} [FACT-Algorithmic] Thin Interface Compilation
-:label: mt-fact-algorithmic-thin-interface
+:label: mt-fact-algorithmic-thin-interface-ext
 
 Let
 
@@ -2661,7 +2661,7 @@ Then the framework compiles that thin interface into:
 
    $$
    B_\sharp\in K_\sharp^-(\Pi),\quad
-   B_\int\in K_\int^-(\Pi),\quad
+   B_{\mathrm{int}}\in K_{\mathrm{int}}^-(\Pi),\quad
    B_\flat\in K_\flat^-(\Pi),\quad
    B_\ast\in K_\ast^-(\Pi),\quad
    B_\partial\in K_\partial^-(\Pi);
@@ -2679,8 +2679,8 @@ legacy frontend certificate language.
 
 :::{prf:proof}
 Apply {prf:ref}`thm-thin-contract-compilation-by-modality` to the five modal thin contracts inside
-{prf:ref}`def-algorithmic-thin-interface`. This yields the five semantic modal obstruction certificates. By
-{prf:ref}`def-e13-reconstructed`, those certificates form the full reconstructed E13 obstruction package. Then
+{prf:ref}`def-algorithmic-thin-interface-ext`. This yields the five semantic modal obstruction certificates. By
+{prf:ref}`def-e13-reconstructed-ext`, those certificates form the full reconstructed E13 obstruction package. Then
 {prf:ref}`cor-e13-contrapositive-hardness-reconstructed` yields
 
 $$
@@ -2702,7 +2702,7 @@ $$
 \mathcal I_{\text{alg}}^{\mathrm{thin}}(\Pi_{3\text{-SAT}})
 $$
 exists and the factory theorem
-{prf:ref}`mt-fact-algorithmic-thin-interface`
+{prf:ref}`mt-fact-algorithmic-thin-interface-ext`
 implies
 
 $$
@@ -2711,9 +2711,9 @@ $$
 :::
 
 :::{prf:proof}
-Combine {prf:ref}`def-canonical-3sat-thin-contract-package` with
-{prf:ref}`def-algorithmic-thin-interface` and apply
-{prf:ref}`mt-fact-algorithmic-thin-interface`.
+Combine {prf:ref}`def-canonical-3sat-thin-contract-package-ext` with
+{prf:ref}`def-algorithmic-thin-interface-ext` and apply
+{prf:ref}`mt-fact-algorithmic-thin-interface-ext`.
 :::
 
 :::{prf:remark} Compatibility with the direct frontend route
@@ -2735,7 +2735,7 @@ The factory route of Part X does not replace the current direct Part VI route. I
   $$
   \text{thin contracts}
   \Longrightarrow
-  (K_\sharp^-,K_\int^-,K_\flat^-,K_\ast^-,K_\partial^-)
+  (K_\sharp^-,K_{\mathrm{int}}^-,K_\flat^-,K_\ast^-,K_\partial^-)
   \Longrightarrow
   \mathbf B_{\mathrm{E13}}^{\mathrm{recon}}
   \Longrightarrow
@@ -2824,7 +2824,7 @@ audit table in the sense of {prf:ref}`def-complete-primitive-audit-table`.
 |--------------|-----------------|---------------------------|------------------------|----------------|------------------|-----------------------|
 | $\mathsf{PT}$ | $\mathfrak U \Rightarrow_{\tau} \mathfrak V$ | Administrative | $\varnothing$ | {prf:ref}`def-presentation-translator` | Included in translator certificate | Yes |
 | $\mathsf{SH}$ | $\mathfrak Z^\sharp \Rightarrow \mathfrak Z^\sharp$ | Progress | $\{\sharp\}$ | {prf:ref}`def-pure-sharp-witness-rigorous` | Polynomial ranking bound $q_\sharp$ and family cost bound | Yes |
-| $\mathsf{IN}$ | $\mathfrak Z^\int \Rightarrow \mathfrak Z^\int$ | Progress | $\{\int\}$ | {prf:ref}`def-pure-int-witness-rigorous` | Polynomial size/height bound $q_\int$ and family cost bound | Yes |
+| $\mathsf{IN}$ | $\mathfrak Z^{\mathrm{int}} \Rightarrow \mathfrak Z^{\mathrm{int}}$ | Progress | $\{\int\}$ | {prf:ref}`def-pure-int-witness-rigorous` | Polynomial size/height bound $q_{\mathrm{int}}$ and family cost bound | Yes |
 | $\mathsf{FLAT}$ | $\mathfrak A^\flat \Rightarrow \mathfrak B^\flat$ | Progress | $\{\flat\}$ | {prf:ref}`def-pure-flat-witness-rigorous` | Polynomial presentation bound $q_\flat$ and family cost bound | Yes |
 | $\mathsf{STAR}$ | $\mathfrak Z^\ast \Rightarrow \mathfrak Z^\ast$ (node-local recursion step) | Progress | $\{\ast\}$ | {prf:ref}`def-pure-star-witness-rigorous` | Polynomial total-tree bound $q_\ast$ and family cost bound | Yes |
 | $\mathsf{PARTIAL}$ | $\mathfrak Z^\partial \Rightarrow \mathfrak B^\partial$ | Progress | $\{\partial\}$ | {prf:ref}`def-pure-boundary-witness-rigorous` | Polynomial interface bound $q_\partial$ and family cost bound | Yes |
@@ -2855,7 +2855,7 @@ We verify the six rows one by one.
 3. **Causal row $\mathsf{IN}$.**
    Again by {prf:ref}`def-required-semantic-primitive-families`, every member of $\mathsf{IN}$ is a predecessor-only
    elimination step over a polynomial-height dependency object. Hence it carries a pure $\int$-witness in the sense of
-   {prf:ref}`def-pure-int-witness-rigorous`, with polynomial size and height bound $q_\int$.
+   {prf:ref}`def-pure-int-witness-rigorous`, with polynomial size and height bound $q_{\mathrm{int}}$.
 
 4. **Algebraic row $\mathsf{FLAT}$.**
    Every member of $\mathsf{FLAT}$ is, by definition, a polynomial-size algebraic elimination/cancellation step over

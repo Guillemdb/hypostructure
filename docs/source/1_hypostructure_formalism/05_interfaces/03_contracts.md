@@ -3,7 +3,8 @@
 (sec-barrier-atlas)=
 ## Certificate-Driven Barrier Atlas
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now we come to the part where the rubber meets the road. We have been talking about barriers and surgeries as if they were abstract mathematical objects, but here is the practical question: how do you actually *write down* what a barrier or surgery does?
 
@@ -30,7 +31,8 @@ Each barrier entry in the atlas specifies:
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Let me make sure you understand what each of these pieces does.
 
@@ -75,7 +77,8 @@ $\square$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 This non-circularity condition is not just a technicality - it is essential for the whole architecture. If a barrier could assume the thing that just failed, you would have an infinite regress: "I need X to handle the failure of X, but X failed, so I need X to..."
 
@@ -94,7 +97,8 @@ The literature references point to work on stratified logic programs and well-fo
 (sec-surgery-contracts)=
 ## Surgery Contracts
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now let us talk about surgeries. A surgery is a drastic operation - you are going to modify the state space itself, not just evolve within it. Think of it like this: if normal dynamics is driving on a road, surgery is rebuilding the road.
 
@@ -130,7 +134,8 @@ Each surgery entry follows the **Surgery Specification Schema** ({prf:ref}`def-s
 See {prf:ref}`def-surgery-schema` for the complete Surgery Specification Schema.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Let me walk you through each piece of this contract, because every single one matters.
 
@@ -175,7 +180,8 @@ $$N \leq \frac{\Phi(x_0)}{\epsilon_T}$$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Here is the central problem with termination: how do you know you will not perform infinitely many surgeries?
 

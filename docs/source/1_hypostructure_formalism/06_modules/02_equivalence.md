@@ -1,7 +1,8 @@
 (sec-equivalence-transport)=
 # Equivalence and Transport
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now we come to something that is, frankly, one of the most useful tricks in all of mathematics and physics. Here is the situation: you have a problem that is difficult to analyze directly, but if you could just look at it from a different angle---in a different coordinate system, or after quotienting out some symmetry, or using a different metric---then suddenly everything becomes clear. The question is: how do you transfer your hard-won results back to the original problem?
 
@@ -21,7 +22,8 @@ This part defines **equivalence moves** ({prf:ref}`def-equiv-symmetry`--{prf:ref
 (sec-equivalence-library)=
 ## Equivalence Library
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Let me tell you what we mean by an "admissible" equivalence move, because this word is doing real work. Not every transformation qualifies. You might transform your problem into something that looks simpler but loses essential information, or transforms it into something that is not actually equivalent in the ways that matter.
 
@@ -54,7 +56,8 @@ An **admissible equivalence move** for type $T$ is a transformation $(x, \Phi, \
 
 ### Standard Equivalence Moves
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now let me show you the standard repertoire of equivalence moves. These are the moves you will use over and over again. Each one corresponds to a different kind of simplification, and understanding when to apply each one is part of the art.
 
@@ -145,7 +148,8 @@ with inverse bounds.
 (sec-yes-tilde-permits)=
 ## YES$^\sim$ Permits
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Here is where the machinery pays off. Suppose you have a predicate $P_i$ that you need to certify, but you cannot prove it directly on your original object $x$. However, you can:
 
@@ -197,7 +201,8 @@ That is, YES$^\sim$ certificates may substitute for YES certificates in the meta
 (sec-transport-toolkit)=
 ## Transport Toolkit
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now we need to be precise about how results actually transport between equivalent objects. This is where the comparability bounds earn their keep.
 
@@ -292,7 +297,8 @@ $$
 (sec-promotion-system)=
 ## Promotion System
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now let me tell you about something subtle but important. Sometimes you cannot prove a predicate directly, and you cannot find a nice equivalence move either. But you can prove something weaker: a "blocked" certificate that says the predicate holds conditionally, or under certain assumptions.
 

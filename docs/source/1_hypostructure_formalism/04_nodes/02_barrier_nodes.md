@@ -4,7 +4,8 @@
 (sec-barrier-node-specs)=
 ## Barrier Node Specifications (Orange Nodes)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the heart of what makes the Sieve actually *work*. You see, the gates we discussed earlier—they're like bouncers at a nightclub, checking if you've got the right credentials. But barriers? Barriers are different. They're more like... well, imagine you're trying to push a ball up a hill. The barrier is the hill itself. Either you don't have enough energy to get over it (blocked), or you do and something interesting happens (breached).
 
 Here's the key insight: every barrier is a *physical* principle dressed up in mathematical clothing. The saturation barrier asks "is your energy drift bounded?" The causal barrier asks "would reaching this singularity require infinite computational depth?" These aren't arbitrary checks—they're fundamental laws of nature manifesting as routing decisions.
@@ -61,7 +62,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you what this barrier is *really* about. Imagine you're watching a pot of water on the stove. The energy keeps going in—heat from the burner—but does the temperature blow up to infinity? Of course not! There's a *saturation ceiling*: the water boils, and all that extra energy goes into phase change rather than temperature increase.
 
 The BarrierSat does exactly this check for dynamical systems. It asks: "Even if energy is flowing in, is there some mechanism that prevents blow-up?" The answer could be physical dissipation (friction eating up energy), a saturation nonlinearity (like our boiling water), or a Foster-Lyapunov drift condition (a mathematical guarantee that things don't escape to infinity).
@@ -80,7 +82,7 @@ The beautiful thing is that this is the *first* barrier you hit—the entry poin
 **Barrier ID:** `BarrierCausal`
 
 **Interface Dependencies:**
-- **Primary:** $\mathrm{Rec}_N$ (provides computational depth $D(T_*)$ of event tree)
+- **Primary:** $\mathrm{Rec}_{N,\mathrm{obs}}$ (provides observer-relative computational depth $D(T_*)$ of the event tree)
 - **Secondary:** $\mathrm{TB}_\pi$ (provides time scale $\lambda(t)$ and horizon $T_*$; this $\lambda(t)$ is a causal depth scale, not the SC$_\lambda$ scaling parameter)
 
 **Sieve Signature:**
@@ -93,12 +95,12 @@ D(T_*) = \int_0^{T_*} \frac{c}{\lambda(t)} \,dt = \infty
 $$
 
 **Natural Language Logic:**
-"Does the singularity require infinite computational depth?"
-*(If the integral diverges, the singularity would require unbounded computational resources to describe, making it causally inaccessible—a censorship mechanism.)*
+"Does the singularity require infinite observer-relative computational depth in a relativistic backend?"
+*(If the integral diverges, the singularity would require unbounded computational resources to describe, making it causally inaccessible to physical observers. This is an observer-relative repair, not a generic Zeno cure.)*
 
 **Outcomes:**
-- **Blocked** ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$): Depth diverges; singularity causally censored. Implies Pre(CompactCheck).
-- **Breached** ($K_{\mathrm{Rec}_N}^{\mathrm{br}}$): Finite depth; singularity computationally accessible. Activates **Mode C.C** (Event Accumulation).
+- **Blocked** ($K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\mathrm{blk}}$): Depth diverges; singularity causally censored for observers. Implies Pre(CompactCheck) only in the relativistic backend.
+- **Breached** ($K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\mathrm{br}}$): Finite observer-relative depth; singularity computationally accessible. Activates **Mode C.C** (Event Accumulation).
 
 **Routing:**
 - **On Block:** Proceed to `CompactCheck`.
@@ -108,12 +110,13 @@ $$
 
 :::
 
-:::{div} feynman-prose
-Here's something that should make you sit up. This barrier is essentially asking: "Would it take *infinite* computation to describe this singularity?"
+:::{div}
+:class: feynman-prose
+Here's something that should make you sit up. This barrier is essentially asking: "Would it take *infinite* observer-relative computation to describe this singularity in a relativistic spacetime?"
 
 Think about what that means. Penrose's cosmic censorship conjecture says that naked singularities—singularities visible to distant observers—shouldn't form in nature. But why? One answer: because describing them would require infinite information. The integral $\int_0^{T_*} c/\lambda(t)\,dt$ measures computational depth—how many "layers" of calculation you'd need to specify what happens at time $T_*$.
 
-If this integral diverges, the singularity is *causally censored*. Not by some arbitrary rule, but by the fundamental limits of computation. You literally cannot describe what happens there with any finite program. That's not a bug—that's the universe protecting itself from inconsistency.
+If this integral diverges, the singularity is *causally censored for physical observers*. Not by some arbitrary rule, but by the fundamental limits of observer access in the relativistic backend. This does not prove that the actual event count is finite in a generic non-relativistic system.
 
 When the integral is finite, though, watch out. The singularity is computationally accessible, which means events are accumulating faster than you can process them. Time for surgery.
 :::
@@ -142,31 +145,32 @@ $$
 $$
 
 **Natural Language Logic:**
-"Is the interaction functional finite (implying dispersion)?"
-*(Finite Morawetz interaction implies scattering to free solutions; the energy disperses rather than concentrating.)*
+"Is the interaction functional finite, so that the declared dispersive backend may upgrade no certified concentration to scattering?"
+*(Finite Morawetz interaction is one ingredient in the scattering upgrade. It does not by itself prove global existence.)*
 
 **Outcome Alphabet:** $\{\texttt{Benign}, \texttt{Pathological}\}$ (special)
 
 **Outcomes:**
-- **Benign** ($K_{C_\mu}^{\mathrm{ben}}$): Interaction finite; dispersion confirmed. **Success exit** via **Mode D.D** (Global Existence).
+- **Benign** ($K_{C_\mu}^{\mathrm{ben}}$): Interaction finite; the Morawetz side of the dispersive upgrade is available.
 - **Pathological** ($K_{C_\mu}^{\mathrm{path}}$): Infinite interaction; soliton-like escape. Activates **Mode C.D** (Concentration-Escape).
 
 **Routing:**
-- **On Benign:** Exit to **Mode D.D** (Success: dispersion implies global existence).
+- **On Benign:** Route to the scattering upgrade theorem; global existence follows only if the declared dispersive backend hypotheses are present.
 - **On Pathological:** Trigger **Mode C.D** → Enable Surgery `SurgCD_Alt` → Re-enter at `Profile`.
 
 **Literature:** Morawetz estimates and scattering {cite}`Morawetz68`; concentration-compactness rigidity {cite}`KenigMerle06`; {cite}`KillipVisan10`.
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now this is where things get physically interesting. The scattering barrier has a *special alphabet*—not just Blocked/Breached, but Benign/Pathological. Why?
 
-Here's the picture: imagine dropping a pebble in a pond. The ripples spread out, getting weaker and weaker as they disperse. That's scattering—the energy disperses to infinity rather than concentrating at a point. The Morawetz interaction functional $\mathcal{M}[\Phi]$ measures exactly this: if it's finite, your solution scatters like those pond ripples.
+Here's the picture: imagine dropping a pebble in a pond. The ripples spread out, getting weaker and weaker as they disperse. That's scattering—the energy disperses to infinity rather than concentrating at a point. The Morawetz interaction functional $\mathcal{M}[\Phi]$ measures one key ingredient in that story, but by itself it is not yet the full scattering theorem.
 
 But what if the energy *doesn't* disperse? What if it concentrates, forming something like a soliton—a self-reinforcing wave packet that holds its shape? That's the pathological case. Not necessarily catastrophic (solitons can be perfectly well-behaved), but definitely requiring special attention.
 
-This barrier is one of the *success exits* from the Sieve. If you get Benign, congratulations—you've proven global existence via dispersion. Your system won't blow up because the energy spreads out to infinity. That's a real theorem, not just a diagnostic.
+This barrier is one of the *upgrade triggers* in the Sieve. If you get Benign, you have the Morawetz-side certificate needed for the dispersive backend. Global existence follows only after the full scattering upgrade theorem supplies Strichartz, rigidity, and continuation.
 :::
 
 
@@ -210,7 +214,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Type II blow-up is one of the most subtle phenomena in nonlinear dynamics, and understanding why this barrier exists requires a bit of history.
 
 When a solution blows up—goes to infinity in finite time—there are basically two ways it can happen. Type I blow-up is "self-similar": the solution looks the same at every scale, just faster and smaller. Think of a whirlpool tightening uniformly. Type II blow-up is stranger—the blow-up rate doesn't match the scaling symmetry of the equation. It's like a whirlpool that speeds up faster than geometry alone would predict.
@@ -259,7 +264,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And here's where particle physics shows up in our dynamical systems framework!
 
 The vacuum barrier is asking the same question that keeps particle physicists up at night: "Is our vacuum stable?" In quantum field theory, the vacuum isn't nothing—it's the lowest energy state of all the fields. But what if there's an even lower state somewhere else in configuration space, separated by an energy barrier?
@@ -308,7 +314,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This barrier is pure geometric measure theory, and it's one of my favorites because the intuition is so clean.
 
 Ask yourself: how "big" is the set where things go wrong? If singularities form, how much space do they occupy? The Hausdorff capacity $\mathrm{Cap}_H(S)$ gives a precise answer, and zero capacity means the singular set is negligible—it's so small that it can't carry any "weight" in the dynamics.
@@ -359,7 +366,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The spectral gap barrier is asking one of the most fundamental questions in dynamics: "Is there a definite 'downhill' direction from this critical point?"
 
 Think of a ball on a landscape. At a local minimum, every direction curves upward—there's positive curvature in all directions. The smallest eigenvalue of the Hessian (the matrix of second derivatives) tells you the curvature of the gentlest direction. If this smallest eigenvalue is positive, you're at a genuine minimum. If it's zero or negative, you're at a saddle point or worse.
@@ -383,7 +391,8 @@ where $\lambda_1$ is the spectral gap. This is the **canonical promotion** from 
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This lemma is the mathematical bridge between linear and nonlinear analysis. The Lojasiewicz-Simon inequality says that near a critical point, the gradient of the energy functional is controlled by a power of the energy itself. With a spectral gap, you get the optimal power $\theta = 1/2$, and the constant is explicitly $\sqrt{\lambda_1}$.
 
 Why does this matter? Because the LS inequality is what lets you prove *finite-time convergence* and *uniqueness of limits* for gradient flows. Without it, solutions could spiral around forever, never quite reaching equilibrium. With it, they must converge—and the rate is completely determined by that spectral gap.
@@ -428,7 +437,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to topology—the mathematics of what can and cannot be continuously deformed into something else.
 
 The action barrier asks: "Does this system have enough energy to change its topological type?" Think of a rubber band: stretching and squeezing it is easy, but tearing it or fusing two loops together costs real energy. In field theory, this shows up as *action gaps*—minimum energies required to create kinks, monopoles, instantons, or other topological defects.
@@ -477,7 +487,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 O-minimal structures are one of the great gifts that model theory has given to analysis, and this barrier is where that gift pays off.
 
 Here's the problem: not all sets are "tame." Some are genuinely pathological—fractals, Cantor sets, space-filling curves. These sets can have arbitrarily complicated boundary behavior, infinitely many connected components, and all sorts of nastiness that makes analysis impossible.
@@ -515,10 +526,10 @@ $$
 *(Finite mixing time implies ergodicity: the system explores all accessible states and cannot be permanently trapped—the ergodic mixing principle.)*
 
 This barrier is intentionally weaker than the gate: Gate 10 requires a spectral gap $\rho>0$, while
-BarrierMix accepts finite $\tau_{\text{mix}}$ as a fallback certificate estimated from thin traces.
+BarrierMix accepts finite $\tau_{\text{mix}}$ as a fallback certificate estimated from thin traces. It therefore produces only a fallback/mixed-strength certificate unless an explicit spectral promotion theorem is supplied.
 
 **Outcomes:**
-- **Blocked** ($K_{\mathrm{TB}_\rho}^{\mathrm{blk}}$): Mixing time finite; trap escapable. Implies Pre(ComplexCheck).
+- **Blocked** ($K_{\mathrm{TB}_\rho}^{\mathrm{blk}}$): Mixing time finite; trap escapable at fallback strength. Implies Pre(ComplexCheck), but not the full gate certificate $K_{\mathrm{TB}_\rho}^+$.
 - **Breached** ($K_{\mathrm{TB}_\rho}^{\mathrm{br}}$): Infinite mixing time; permanent trapping possible. Activates **Mode T.D** (Trapping).
 
 **Routing:**
@@ -529,7 +540,8 @@ BarrierMix accepts finite $\tau_{\text{mix}}$ as a fallback certificate estimate
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Ergodic theory asks one of the most important questions in statistical physics: "If I wait long enough, will my system explore all the states it's allowed to visit?"
 
 The mixing time $\tau_{\text{mix}}$ quantifies this. It's the time it takes for your system to "forget" where it started and settle into its equilibrium distribution. Finite mixing time means the system is *ergodic*—time averages equal ensemble averages, and you can trust statistical mechanics.
@@ -587,7 +599,8 @@ Throughout this barrier, $x$ in the prose refers to the thin trace $T_{\mathrm{t
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And now we arrive at something genuinely mind-bending: the epistemic horizon, where information theory meets the physics of spacetime.
 
 Here's the question: how much information can you encode in a given region of space? The holographic bound says the answer is *finite*—proportional to the surface area, not the volume. This is the Bekenstein-Hawking entropy, and it puts a hard limit on how complex any physical state (and its thin trace) can be.
@@ -636,7 +649,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The frequency barrier is about a very specific kind of pathology: oscillation blow-up.
 
 Think about a guitar string. The fundamental frequency carries most of the energy, but there are harmonics—higher frequencies that add richness to the sound. The integral $\int \omega^2 S(\omega)\,d\omega$ is the total oscillation energy, weighted by frequency squared. If this diverges, energy is cascading to higher and higher frequencies without bound.
@@ -651,7 +665,8 @@ The De Giorgi-Nash-Moser theory tells us that elliptic and parabolic PDEs have b
 (sec-barrier-boundary)=
 ### Boundary Barriers (BarrierBode, BarrierInput, BarrierVariety)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 We now turn to the boundary barriers—checks that handle systems with inputs and outputs, where information and resources flow across the system boundary. These are the barriers that matter for control theory, cybernetics, and any system that isn't closed.
 
 The three barriers here form a logical sequence: first check sensitivity (Bode), then resources (Input), then control capacity (Variety). Each one captures a different way an open system can fail.
@@ -691,7 +706,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Bode barrier encodes one of the deepest truths of feedback control: you cannot win everywhere.
 
 Here's the waterbed effect: imagine a waterbed. If you push down in one place, water has to go somewhere—it bulges up elsewhere. The Bode integral constraint says the same thing about sensitivity: the integral of log-sensitivity over all frequencies is *conserved*. If you reduce sensitivity at one frequency, you must increase it somewhere else.
@@ -735,7 +751,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The input barrier is about resources—the fuel that keeps an open system running.
 
 Every living system, every robot, every economy needs inputs: energy, materials, information. The reserve $r_{\text{reserve}}$ is the buffer—how much can you withstand a temporary shortage before things start to fail?
@@ -779,7 +796,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And here is Ashby's Law—one of the most profound insights of cybernetics, and a fitting end to our tour of barriers.
 
 The Law of Requisite Variety says: "Only variety can destroy variety." A thermostat can only regulate temperature because it has (at least) two states: heat on, heat off. A chess player can only counter their opponent's moves because they have at least as many strategic options available.

@@ -9,7 +9,8 @@ title: "Algebraic-Geometric Unification"
 
 *These metatheorems establish the bridge between the sieve framework and algebraic geometry. They enable sieve execution for problems involving algebraic cycles, cohomology, period domains, and moduli spaces.*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now we come to what I think is the most beautiful part of this whole framework. We have been building up this machinery of certificates and permits and sieves, and you might be wondering: does any of this connect to the classical problems that mathematicians have worried about for a century?
 
@@ -30,7 +31,8 @@ Why does this matter for us? Because the sieve is fundamentally an analytic obje
 
 ### Motivic Flow Principle
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Let me tell you what a motive is, in plain terms. When you have an algebraic variety, you can extract all sorts of invariants from it: its cohomology groups, its Hodge numbers, its cycle classes. Now, these invariants seem like they are different things, computed in different ways. But Grothendieck had a remarkable insight: there should be a single underlying object, the motive, that contains all this information at once. The cohomology groups and Hodge structures are just different ways of looking at the same motive.
 
@@ -134,7 +136,8 @@ containing the motive, Künneth projectors, weight filtration, scaling exponents
 
 ### Schematic Sieve
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Here is a beautiful idea. We have been saying that the sieve excludes bad patterns, but how do we actually prove that exclusion? The Schematic Sieve gives us an algebraic certificate.
 
@@ -227,7 +230,8 @@ $$
 
 ### Kodaira-Spencer Stiffness Link
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now we connect stiffness to deformation theory. This is one of the most satisfying links in the whole framework.
 
@@ -331,7 +335,8 @@ where classification $\in \{\text{rigid}, \text{obstructed}, \text{unobstructed-
 
 ### Virtual Cycle Correspondence
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Here is one of the deepest ideas in modern geometry: the virtual fundamental class.
 
@@ -450,7 +455,8 @@ with virtual class, dimension, obstruction theory, and computed invariants.
 
 ### Monodromy-Weight Lock
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 What happens when a family of nice varieties degenerates to a singular one? This is one of the central questions in algebraic geometry, and the answer involves some of the most beautiful mathematics of the twentieth century.
 
@@ -561,7 +567,8 @@ containing the limiting Hodge filtration, weight filtration, monodromy data, cyc
 
 ### Tannakian Recognition Principle
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Now here is something remarkable. Suppose you have a category of objects that behave like representations of a group, but you do not know what group they represent. The Tannakian formalism says: you can recover the group from the category itself.
 
@@ -677,7 +684,8 @@ The lock is verified iff no $G$-equivariant morphisms exist. This is computed vi
 
 ### Holographic Entropy Lock
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 Here is an information-theoretic lock that works purely from channel capacity.
 
@@ -746,7 +754,8 @@ Then the **Data Processing Inequality** provides an information-theoretic lock:
 
 *This section introduces a universal metatheorem that resolves epistemic deadlock at Node 17 (Lock) for any hypostructure type. The Structural Reconstruction Principle generalizes Tannakian reconstruction to encompass algebraic, parabolic, and quantum systems, providing a canonical bridge between analytic observables and structural objects.*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 And now we come to the main event.
 
@@ -1154,7 +1163,8 @@ The following table summarizes how the Structural Reconstruction Principle insta
 
 ### Corollaries
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 These corollaries spell out what the Structural Reconstruction Principle buys you in practice.
 
@@ -1217,7 +1227,8 @@ Each arrow represents a certificate dependency. The output $K_{\mathrm{Cat}_{\ma
 
 *This lemma provides the rigorous "engine" that powers the algebraic case ($T_{\text{alg}}$) of the Structural Reconstruction Principle ({prf:ref}`mt-lock-reconstruction`). It formalizes the a posteriori inference: analytic stiffness plus tameness forces algebraicity.*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 
 This lemma is the technical heart of the Hodge conjecture approach. Let me tell you what it says in simple terms.
 

@@ -66,7 +66,7 @@ When a statement depends on nontrivial analytic inputs (minorization, Lyapunov d
 ## Fractal Gas Core Theorems (Solver Dynamics)
 
 :::{prf:theorem} Geometric Adaptation (Metric Distortion Under Representation)
-:label: thm:geometric-adaptation
+:label: sketch-thm:geometric-adaptation
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $G^{\text{thin}}$, embedding $\pi: X \to Y$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{SC}_\lambda$ (N4).
@@ -100,7 +100,7 @@ Substituting $\|\Delta\|_2=d_{\mathrm{alg}}^{(1)}(x,y)$ and $\|T\Delta\|_2=d_{\m
 :::
 
 :::{prf:metatheorem} The Darwinian Ratchet (Reversible Case + Feynman–Kac Extension)
-:label: mt:darwinian-ratchet
+:label: sketch-mt:darwinian-ratchet
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4).
@@ -132,7 +132,7 @@ For (B), the normalized Feynman–Kac semigroup is governed by a twisted (killed
 :::
 
 :::{prf:principle} Coherence Phase Transition
-:label: prin:coherence-transition
+:label: sketch-prin:coherence-transition
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4).
@@ -176,7 +176,7 @@ A crossover is expected when $l_\nu/l_{\mathrm{clone}}$ is $O(1)$; extracting a 
 :::
 
 :::{prf:theorem} Topological Regularization (Cheeger Bound, Conditional)
-:label: thm:cheeger-bound
+:label: sketch-thm:cheeger-bound
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_\pi$ (N8).
@@ -201,7 +201,7 @@ For reversible chains, the (reverse) Cheeger inequality gives $h\ge \lambda_1/2$
 :::
 
 :::{prf:principle} Induced Local Geometry (Quadratic Form from Landscape + Graph Energy)
-:label: thm:induced-riemannian-structure
+:label: sketch-thm:induced-riemannian-structure
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
@@ -224,7 +224,7 @@ This block is a design principle: a Taylor expansion of a smooth energy landscap
 ## Fractal Set, CST/IG Reconstruction, and Convergence
 
 :::{prf:principle} Geometric Reconstruction
-:label: prin:geometric-reconstruction
+:label: sketch-prin:geometric-reconstruction
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{SC}_\lambda$ (N4), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11).
@@ -261,7 +261,7 @@ Discrete curvature notions (e.g. Ollivier–Ricci curvature) can serve as **prox
 :::
 
 :::{prf:theorem} Causal Horizon Lock (Cut-Capacity / “Area Law”, Conditional)
-:label: thm:causal-horizon-lock
+:label: sketch-thm:causal-horizon-lock
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4), $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_\pi$ (N8).
@@ -286,7 +286,7 @@ This is a standard cut-capacity argument (max-flow/min-cut intuition): in one up
 :::
 
 :::{prf:principle} Scutoid Selection Principle (Heuristic Geometry)
-:label: thm:scutoid-selection
+:label: sketch-thm:scutoid-selection
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1), $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
@@ -301,7 +301,7 @@ This block is intentionally non-rigorous: it records a geometric interpretation 
 :::
 
 :::{prf:theorem} Archive Invariance (Gromov–Hausdorff Stability, Conditional)
-:label: thm:archive-invariance
+:label: sketch-thm:archive-invariance
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
@@ -327,7 +327,7 @@ The GH triangle inequality yields the bound on $d_{\mathrm{GH}}(\mathcal{F}_1,\m
 ### Fractal Set Foundations (Discrete-to-Continuum)
 
 :::{prf:metatheorem} Fractal Representation
-:label: mt:fractal-representation
+:label: sketch-mt:fractal-representation
 
 **Thin inputs:** all thin objects.
 **Permits:** $C_\mu$, $D_E$, $\mathrm{SC}_\lambda$, $\mathrm{Cap}_H$, $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$.
@@ -364,7 +364,7 @@ The shift operator on the sequence space corresponds to the time-evolution opera
 :::
 
 :::{prf:theorem} Fitness Convergence via Gamma-Convergence
-:label: thm:fitness-convergence
+:label: sketch-thm:fitness-convergence
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
@@ -388,7 +388,7 @@ The nontrivial content in applications is to verify (i) the approximation map $\
 :::
 
 :::{prf:theorem} Gromov-Hausdorff Convergence
-:label: thm:gromov-hausdorff-convergence
+:label: sketch-thm:gromov-hausdorff-convergence
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Rep}_K$ (N11).
@@ -411,7 +411,7 @@ Given an $\varepsilon$-net, the natural correspondence is $(v,x)$ with $x=v\in M
 :::
 
 :::{prf:metatheorem} Convergence of Minimizing Movements
-:label: mt:convergence-minimizing-movements
+:label: sketch-mt:convergence-minimizing-movements
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7).
@@ -437,7 +437,7 @@ This is a classical result of Ambrosio–Gigli–Savaré: under the stated hypot
 :::
 
 :::{prf:metatheorem} Symplectic Shadowing
-:label: mt:symplectic-shadowing
+:label: sketch-mt:symplectic-shadowing
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
@@ -464,7 +464,7 @@ Backward error analysis controls the difference between the numerical map and th
 :::
 
 :::{prf:metatheorem} Homological Reconstruction
-:label: mt:homological-reconstruction
+:label: sketch-mt:homological-reconstruction
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
@@ -485,7 +485,7 @@ Items (1)–(2) follow from the Niyogi–Smale–Weinberger theorem and the Nerv
 :::
 
 :::{prf:metatheorem} Symmetry Completion
-:label: mt:symmetry-completion
+:label: sketch-mt:symmetry-completion
 
 **Thin inputs:** $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
@@ -507,7 +507,7 @@ The collection of local fibers and transition functions (connection) defines a p
 :::
 
 :::{prf:metatheorem} Gauge-Geometry Correspondence
-:label: mt:gauge-geometry-correspondence
+:label: sketch-mt:gauge-geometry-correspondence
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
@@ -533,7 +533,7 @@ In Kaluza-Klein theory, gauge fields appear as metric components in extra dimens
 :::
 
 :::{prf:metatheorem} Emergent Continuum
-:label: mt:emergent-continuum
+:label: sketch-mt:emergent-continuum
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Cap}_H$ (N6), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
@@ -564,7 +564,7 @@ Since the convergence is structural (via the form), the limiting object inherits
 :::
 
 :::{prf:metatheorem} Dimension Selection
-:label: mt:dimension-selection
+:label: sketch-mt:dimension-selection
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Cap}_H$ (N6).
@@ -588,7 +588,7 @@ Consider the dimension as a running coupling under RG flow. The observed dimensi
 :::
 
 :::{prf:metatheorem} Discrete Curvature-Stiffness Transfer
-:label: mt:curvature-stiffness-transfer
+:label: sketch-mt:curvature-stiffness-transfer
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
@@ -612,7 +612,7 @@ By the Lichnerowicz theorem (extended to metric measure spaces), $CD(K, \infty)$
 :::
 
 :::{prf:metatheorem} Dobrushin-Shlosman Interference Barrier
-:label: mt:dobrushin-shlosman
+:label: sketch-mt:dobrushin-shlosman
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{TB}_\rho$ (N10).
@@ -639,7 +639,7 @@ Finite correlation length implies that perturbations at boundary do not affect t
 :::
 
 :::{prf:metatheorem} Parametric Stiffness Map
-:label: mt:parametric-stiffness-map
+:label: sketch-mt:parametric-stiffness-map
 
 **Thin inputs:** $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $D_E$ (N1).
@@ -665,7 +665,7 @@ High positive curvature of $\Phi$ implies a deep local minimum. Fluctuations are
 :::
 
 :::{prf:metatheorem} Micro-Macro Consistency
-:label: mt:micro-macro-consistency
+:label: sketch-mt:micro-macro-consistency
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
@@ -690,7 +690,7 @@ If the system is at a fixed point of the RG flow (as established by Dimension Se
 :::
 
 :::{prf:metatheorem} Observer Universality
-:label: mt:observer-universality
+:label: sketch-mt:observer-universality
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_O$ (N9), $\mathrm{Rep}_K$ (N11).
@@ -713,7 +713,7 @@ Since the geometry is reconstructed from spectral properties (see Geometric Reco
 :::
 
 :::{prf:metatheorem} Law Universality
-:label: mt:universality-of-laws
+:label: sketch-mt:universality-of-laws
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{TB}_O$ (N9).
@@ -736,7 +736,7 @@ Under RG flow, irrelevant operators (higher derivatives) suppressed by the scale
 :::
 
 :::{prf:metatheorem} Closure-Curvature Duality
-:label: mt:closure-curvature-duality
+:label: sketch-mt:closure-curvature-duality
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Cap}_H$ (N6).
@@ -760,7 +760,7 @@ Finite channel capacity limits the resolution of the state space. This acts as a
 :::
 
 :::{prf:metatheorem} Well-Foundedness Barrier
-:label: mt:well-foundedness-barrier
+:label: sketch-mt:well-foundedness-barrier
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\rho$ (N10).
@@ -783,7 +783,7 @@ The dependency graph of the definitions is a Directed Acyclic Graph. There are n
 :::
 
 :::{prf:metatheorem} Continuum Injection
-:label: mt:continuum-injection
+:label: sketch-mt:continuum-injection
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11).
@@ -810,7 +810,7 @@ For a sufficiently high embedding dimension $k$ (Whitney embedding theorem), the
 ## Algorithmic Calculus on Fractal Sets
 
 :::{prf:metatheorem} Discrete Stokes' Theorem
-:label: mt:discrete-stokes
+:label: sketch-mt:discrete-stokes
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
@@ -837,7 +837,7 @@ Pachner moves (bistellar flips) change the triangulation but preserve the manifo
 :::
 
 :::{prf:metatheorem} Frostman Sampling Principle
-:label: mt:frostman-sampling
+:label: sketch-mt:frostman-sampling
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $C_\mu$ (N3).
@@ -863,7 +863,7 @@ The "energy" of the measure $I_s(\mu) = \iint |x-y|^{-s} d\mu(x) d\mu(y)$ is fin
 :::
 
 :::{prf:metatheorem} Genealogical Feynman-Kac
-:label: mt:genealogical-feynman-kac
+:label: sketch-mt:genealogical-feynman-kac
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Rep}_K$ (N11).
@@ -888,7 +888,7 @@ The "history" of surviving particles recovers the paths that minimize the action
 :::
 
 :::{prf:metatheorem} Cheeger Gradient Isomorphism
-:label: mt:cheeger-gradient
+:label: sketch-mt:cheeger-gradient
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Rep}_K$ (N11).
@@ -914,7 +914,7 @@ The sequence of graph energies $\Gamma$-converges to the Cheeger energy on the l
 :::
 
 :::{prf:metatheorem} Anomalous Diffusion Principle
-:label: mt:anomalous-diffusion
+:label: sketch-mt:anomalous-diffusion
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $D_E$ (N1).
@@ -942,7 +942,7 @@ This slower-than-Gaussian scaling reflects the "traps" and "mazes" in the fracta
 :::
 
 :::{prf:metatheorem} Spectral Decimation Principle
-:label: mt:spectral-decimation
+:label: sketch-mt:spectral-decimation
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
@@ -967,7 +967,7 @@ The spectrum is the Julia set or attractor of the inverse map $R^{-1}$. This pro
 :::
 
 :::{prf:metatheorem} Discrete Uniformization Principle
-:label: mt:discrete-uniformization
+:label: sketch-mt:discrete-uniformization
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $C_\mu$ (N3).
@@ -993,7 +993,7 @@ The convergence of circle packing maps to the Riemann mapping (He-Schramm theore
 :::
 
 :::{prf:metatheorem} Persistence Isomorphism
-:label: mt:persistence-isomorphism
+:label: sketch-mt:persistence-isomorphism
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{SC}_\lambda$ (N4).
@@ -1016,7 +1016,7 @@ The Cohen-Steiner Stability Theorem states that small changes in the function $\
 :::
 
 :::{prf:metatheorem} Swarm Monodromy Principle
-:label: mt:swarm-monodromy
+:label: sketch-mt:swarm-monodromy
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
@@ -1041,7 +1041,7 @@ By measuring the permutations for various loops, one can reconstruct the fundame
 :::
 
 :::{prf:metatheorem} Particle-Field Duality
-:label: mt:particle-field-duality
+:label: sketch-mt:particle-field-duality
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
@@ -1065,7 +1065,7 @@ The density field $\rho(x)$ is the Radon-Nikodym derivative of the limit measure
 :::
 
 :::{prf:metatheorem} Cloning Transport Principle
-:label: mt:cloning-transport
+:label: sketch-mt:cloning-transport
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $D_E$ (N1).
@@ -1091,7 +1091,7 @@ The particle density is a section of a line bundle. The cloning process "transpo
 ## Fractal Gas as Computation, Quantum, and Information Engine
 
 :::{prf:metatheorem} Projective Feynman-Kac Isomorphism
-:label: mt:projective-feynman-kac
+:label: sketch-mt:projective-feynman-kac
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\rho$ (N10), $\mathrm{LS}_\sigma$ (N7).
@@ -1116,7 +1116,7 @@ The map is a contraction in the Hilbert projective metric (Birkhoff's theorem), 
 :::
 
 :::{prf:principle} Fisher Information Ratchet
-:label: prin:fisher-information-ratchet
+:label: sketch-prin:fisher-information-ratchet
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1).
@@ -1143,7 +1143,7 @@ The replicator-mutator dynamics can be viewed as a gradient flow of the KL-diver
 :::
 
 :::{prf:principle} Complexity Tunneling
-:label: prin:complexity-tunneling
+:label: sketch-prin:complexity-tunneling
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{SC}_\lambda$ (N4), $\mathrm{LS}_\sigma$ (N7).
@@ -1166,7 +1166,7 @@ The effective time to transport mass across the barrier becomes $T_{eff} \sim \t
 :::
 
 :::{prf:metatheorem} Landauer Optimality
-:label: mt:landauer-optimality
+:label: sketch-mt:landauer-optimality
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11).
@@ -1192,7 +1192,7 @@ If the definition of fitness changes slowly (quasi-static), the cloning/killing 
 :::
 
 :::{prf:metatheorem} Levin Search Isomorphism
-:label: mt:levin-search
+:label: sketch-mt:levin-search
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
@@ -1222,7 +1222,7 @@ Levin search is optimal strictly (within a constant factor) for inversion proble
 :::
 
 :::{prf:principle} Algorithmic Tunneling
-:label: prin:algorithmic-tunneling
+:label: sketch-prin:algorithmic-tunneling
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
@@ -1245,7 +1245,7 @@ What appears as a high energetic barrier in the parameter space of a neural netw
 :::
 
 :::{prf:metatheorem} Cloning-Lindblad Equivalence
-:label: mt:cloning-lindblad
+:label: sketch-mt:cloning-lindblad
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
@@ -1270,7 +1270,7 @@ The "environment" is the fitness landscape. It continuously measures the system 
 :::
 
 :::{prf:principle} Zeno Effect
-:label: prin:zeno-effect
+:label: sketch-prin:zeno-effect
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3).
@@ -1295,7 +1295,7 @@ This "Quantum Zeno Effect" prevents the optimizer from drifting away from a shar
 :::
 
 :::{prf:principle} Importance Sampling Isomorphism
-:label: prin:importance-sampling
+:label: sketch-prin:importance-sampling
 
 **Thin inputs:** $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
@@ -1319,7 +1319,7 @@ At steady state, the number of walkers $N(x)$ is exactly proportional to the imp
 :::
 
 :::{prf:metatheorem} Epistemic Flow
-:label: mt:epistemic-flow
+:label: sketch-mt:epistemic-flow
 
 **Thin inputs:** $\Phi^{\text{thin}} = -\mathcal{U} (Uncertainty)$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6).
@@ -1343,7 +1343,7 @@ As regions are sampled, uncertainty decreases (potential rises). The swarm flows
 :::
 
 :::{prf:principle} Curriculum Generation
-:label: prin:curriculum-generation
+:label: sketch-prin:curriculum-generation
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{SC}_\lambda$ (N4).
@@ -1367,7 +1367,7 @@ The distribution of training examples $P_t(x)$ evolves such that the "difficulty
 :::
 
 :::{prf:metatheorem} Manifold Sampling Isomorphism
-:label: mt:manifold-sampling
+:label: sketch-mt:manifold-sampling
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{SC}_\lambda$ (N4).
@@ -1396,7 +1396,7 @@ This section is primarily **interpretative**: it records correspondences between
 ### Quantum Foundations
 
 :::{prf:metatheorem} Hessian-Metric Isomorphism
-:label: mt:hessian-metric
+:label: sketch-mt:hessian-metric
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
@@ -1432,7 +1432,7 @@ Under the same regularity assumptions one also has $g_{\mu\nu}=\partial_\mu\part
 :::
 
 :::{prf:metatheorem} Symmetry-Gauge Correspondence
-:label: mt:symmetry-gauge
+:label: sketch-mt:symmetry-gauge
 
 **Thin inputs:** $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
@@ -1457,7 +1457,7 @@ To maintain consistent dynamics, minimizing the energy requires optimizing over 
 :::
 
 :::{prf:metatheorem} Three-Tier Gauge Hierarchy
-:label: mt:three-tier-gauge
+:label: sketch-mt:three-tier-gauge
 
 **Thin inputs:** $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_\nabla$ (N12), $\mathrm{Rep}_K$ (N11).
@@ -1479,7 +1479,7 @@ Local permutations of indistinguishable nodes in a cluster (the "quarks" of the 
 :::
 
 :::{prf:metatheorem} Antisymmetry-Fermion Theorem
-:label: mt:antisymmetry-fermion
+:label: sketch-mt:antisymmetry-fermion
 
 **Thin inputs:** $G^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{TB}_\pi$ (N8).
@@ -1503,7 +1503,7 @@ The anticommutation implies $\psi(x)^2 = 0$, enforcing the Pauli exclusion princ
 :::
 
 :::{prf:metatheorem} Scalar-Reward Duality (Higgs Mechanism)
-:label: mt:scalar-reward-duality
+:label: sketch-mt:scalar-reward-duality
 
 **Thin inputs:** $\Phi^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{SC}_{\partial c}$ (N5).
@@ -1526,7 +1526,7 @@ Physically, this means the solver becomes "stiff" or "massive" in certain direct
 :::
 
 :::{prf:metatheorem} IG-Quantum Isomorphism
-:label: mt:ig-quantum-isomorphism
+:label: sketch-mt:ig-quantum-isomorphism
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
@@ -1549,7 +1549,7 @@ By the reconstruction theorem, there exists a unique QFT whose Schwinger functio
 :::
 
 :::{prf:metatheorem} Spectral Action Principle
-:label: mt:spectral-action-principle
+:label: sketch-mt:spectral-action-principle
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Rep}_K$ (N11).
@@ -1573,7 +1573,7 @@ The dominant terms are Cosmological Constant and Gravity. Lower terms govern gau
 :::
 
 :::{prf:metatheorem} Geometric Diffusion Isomorphism
-:label: mt:geometric-diffusion-isomorphism
+:label: sketch-mt:geometric-diffusion-isomorphism
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $\mathrm{Cap}_H$ (N6), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
@@ -1596,7 +1596,7 @@ The short-time asymptotics of the trace of the heat kernel are determined by loc
 :::
 
 :::{prf:metatheorem} Spectral Distance Isomorphism
-:label: mt:spectral-distance-isomorphism
+:label: sketch-mt:spectral-distance-isomorphism
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11).
@@ -1620,7 +1620,7 @@ Thus, knowing the spectrum and algebra of functions allows reconstructing the me
 :::
 
 :::{prf:metatheorem} Dimension Spectrum
-:label: mt:dimension-spectrum
+:label: sketch-mt:dimension-spectrum
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_\lambda$ (N4), $\mathrm{Cap}_H$ (N6).
@@ -1646,7 +1646,7 @@ The dimension spectrum characterizes the universality class of the fractal subst
 ### Spacetime and Gravity
 
 :::{prf:metatheorem} Scutoidal Interpolation
-:label: mt:scutoidal-interpolation
+:label: sketch-mt:scutoidal-interpolation
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Rep}_K$ (N11).
@@ -1669,7 +1669,7 @@ The intermediate states (frustra) are scutoids—geometric interpolants that pre
 :::
 
 :::{prf:metatheorem} Regge-Scutoid Dynamics
-:label: mt:regge-scutoid
+:label: sketch-mt:regge-scutoid
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{TB}_\pi$ (N8).
@@ -1695,7 +1695,7 @@ The Fractal Gas dynamics (diffusion + rewiring) effectively performs Metropolis-
 :::
 
 :::{prf:metatheorem} Bio-Geometric Isomorphism
-:label: mt:bio-geometric-isomorphism
+:label: sketch-mt:bio-geometric-isomorphism
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{Cap}_H$ (N6).
@@ -1719,7 +1719,7 @@ The rules for updating the graph topology during cloning (adding a node, splitti
 :::
 
 :::{prf:metatheorem} Antichain-Surface Correspondence
-:label: mt:antichain-surface
+:label: sketch-mt:antichain-surface
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{TB}_\pi$ (N8), $\mathrm{Cap}_H$ (N6).
@@ -1742,7 +1742,7 @@ A sequence of maximal antichains provides a discrete foliation of the spacetime,
 :::
 
 :::{prf:principle} Holographic Bound (Area-Law Heuristic)
-:label: mt:holographic-bound
+:label: sketch-mt:holographic-bound
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11), $C_\mu$ (N3).
@@ -1757,7 +1757,7 @@ This is an interpretation of cut-capacity bounds for local update rules. It beco
 :::
 
 :::{prf:metatheorem} Quasi-Stationary Distribution Sampling (Killed Kernels and Fleming–Viot)
-:label: mt:quasi-stationary-distribution-sampling
+:label: sketch-mt:quasi-stationary-distribution-sampling
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
@@ -1790,7 +1790,7 @@ This is a standard theorem family in QSD theory. One route to the result is spec
 :::
 
 :::{prf:metatheorem} Modular-Thermal Isomorphism
-:label: mt:modular-thermal
+:label: sketch-mt:modular-thermal
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Rep}_K$ (N11).
@@ -1813,7 +1813,7 @@ In curved spacetime (Rindler wedge), the modular flow corresponds to the boost g
 :::
 
 :::{prf:metatheorem} Thermodynamic Gravity Principle
-:label: mt:thermodynamic-gravity
+:label: sketch-mt:thermodynamic-gravity
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6), $\mathrm{Rep}_K$ (N11).
@@ -1838,7 +1838,7 @@ Matching the thermodynamic relation locally for all observers recovers the full 
 :::
 
 :::{prf:metatheorem} Inevitability of General Relativity
-:label: mt:inevitability-gr
+:label: sketch-mt:inevitability-gr
 
 **Thin inputs:** all thin objects.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Rep}_K$ (N11).
@@ -1861,7 +1861,7 @@ The graviton carries energy, so it must couple to itself. This bootstrap procedu
 :::
 
 :::{prf:metatheorem} Virial-Cosmological Transition
-:label: mt:virial-cosmological
+:label: sketch-mt:virial-cosmological
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
@@ -1885,7 +1885,7 @@ The crossover occurs when the entropy of the horizon equals the entropy of the b
 :::
 
 :::{prf:metatheorem} Flow with Surgery
-:label: mt:flow-with-surgery
+:label: sketch-mt:flow-with-surgery
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_\pi$ (N8).
@@ -1909,7 +1909,7 @@ The flow is uniquely defined post-surgery (Perelman's construction). The discret
 :::
 
 :::{prf:metatheorem} Agency-Geometry Unification
-:label: mt:agency-geometry
+:label: sketch-mt:agency-geometry
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{GC}_T$ (N16), $\mathrm{Rep}_K$ (N11).
@@ -1935,7 +1935,7 @@ High cost regions act as "hills" (positive curvature) that deflects the agent. T
 ### Thermodynamics and Statistical Mechanics
 
 :::{prf:metatheorem} Fisher-Hessian Isomorphism (Thermodynamics)
-:label: mt:fisher-hessian-thermo
+:label: sketch-mt:fisher-hessian-thermo
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{LS}_\sigma$ (N7).
@@ -1962,7 +1962,7 @@ Positive definiteness of the metric (Stiffness permit) ensures thermodynamic sta
 :::
 
 :::{prf:metatheorem} Scalar Curvature Barrier
-:label: mt:scalar-curvature-barrier
+:label: sketch-mt:scalar-curvature-barrier
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{Cap}_H$ (N6).
@@ -1986,7 +1986,7 @@ The spectral gap condition (Stiffness) bounds the correlation length $\xi < 1/\s
 :::
 
 :::{prf:metatheorem} GTD Equivalence Principle
-:label: mt:gtd-equivalence
+:label: sketch-mt:gtd-equivalence
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $D_E$ (N1), $\mathrm{Rep}_K$ (N11).
@@ -2010,7 +2010,7 @@ The curvature of this metric encodes interaction independent of the control para
 :::
 
 :::{prf:metatheorem} Tikhonov Regularization
-:label: mt:tikhonov-regularization
+:label: sketch-mt:tikhonov-regularization
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{SC}_{\partial c}$ (N5), $\mathrm{Cap}_H$ (N6).
@@ -2033,7 +2033,7 @@ Since the metric determinant is bounded away from zero, the scalar curvature (in
 :::
 
 :::{prf:metatheorem} Convex Hull Resolution
-:label: mt:convex-hull-resolution
+:label: sketch-mt:convex-hull-resolution
 
 **Thin inputs:** $\Phi^{\text{thin}}$.
 **Permits:** $\mathrm{Cap}_H$ (N6), $\mathrm{TB}_O$ (N9).
@@ -2059,7 +2059,7 @@ Global stability is restoring; microscopic instabilities correspond to interface
 ### Additional Physics Bounds
 
 :::{prf:metatheorem} Holographic Power Bound
-:label: mt:holographic-power-bound
+:label: sketch-mt:holographic-power-bound
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$.
 **Permits:** $\mathrm{Cap}_H$ (N6), $\mathrm{LS}_\sigma$ (N7).
@@ -2085,7 +2085,7 @@ Combining with the Holographic bound, $S \propto \text{Area}$. The accessible st
 :::
 
 :::{prf:theorem} Trotter-Suzuki Product Formula
-:label: thm:trotter-suzuki
+:label: sketch-thm:trotter-suzuki
 
 **Thin inputs:** $\Phi^{\text{thin}}$, $\mathfrak{D}^{\text{thin}}$.
 **Permits:** $\mathrm{Rep}_K$ (N11), $\mathrm{SC}_\lambda$ (N4).
@@ -2110,7 +2110,7 @@ This proves that the discrete time-step algorithm converges to the continuous ti
 :::
 
 :::{prf:theorem} Global Convergence (Darwinian Ratchet)
-:label: thm:global-convergence
+:label: sketch-thm:global-convergence
 
 **Thin inputs:** $\mathcal{X}^{\text{thin}}$, $\Phi^{\text{thin}}$.
 **Permits:** $C_\mu$ (N3), $D_E$ (N1).
@@ -2135,7 +2135,7 @@ For an annealing schedule $\beta_t \sim \log t$, the system eventually settles i
 :::
 
 :::{prf:theorem} Spontaneous Symmetry Breaking
-:label: thm:ssb
+:label: sketch-thm:ssb
 
 **Thin inputs:** $\Phi^{\text{thin}}$, $G^{\text{thin}}$.
 **Permits:** $\mathrm{LS}_\sigma$ (N7), $\mathrm{SC}_{\partial c}$ (N5).

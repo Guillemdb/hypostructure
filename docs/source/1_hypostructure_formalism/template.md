@@ -35,6 +35,7 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 - **Type witness:** $T_{\text{[type]}}$ is a **good type** (finite stratification + constructible caps).
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+- **Scope note:** This automation witness discharges the factory layer only. Any claimed Lock completeness package, continuation theorem, or backend-specific analytic package must still be certified explicitly in the proof object.
 
 **Certificate:**
 $$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
@@ -45,9 +46,9 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuaran
 
 This document presents a **machine-checkable proof object** for **[PROBLEM NAME]** using the Hypostructure framework.
 
-**Approach:** [Brief description of the approach, e.g., "We instantiate the parabolic hypostructure with energy $\Phi$, dissipation $\mathfrak{D}$, and verify all 17 sieve nodes to establish global regularity."]
+**Approach:** [Brief description of the approach, e.g., "We instantiate the parabolic hypostructure with energy $\Phi$, dissipation $\mathfrak{D}$, execute the full sieve, and extract the designated goal certificate through a named chain of gate, barrier, upgrade, surgery, and Lock steps."]
 
-**Result:** [Brief statement of the result, e.g., "The Lock is blocked via Tactic E7 (thermodynamic), establishing global smoothness for all $H^1$ initial data."]
+**Result:** [Brief statement of the result, e.g., "Node 17 is blocked via Tactic E7 together with the certified completeness package, establishing structural exclusion; analytic regularity follows only after the declared continuation/backend upgrade fires."]
 
 
 
@@ -91,7 +92,7 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 1. **Implement interfaces mechanically.** Each interface permit has a checklist. Fill in the blanks with the problem's data.
 2. **Run the sieve node-by-node.** At each node, check a single predicate. Record the certificate.
 3. **Follow the flowchart.** If YES → next node. If NO → check barrier. If INC → record obligation, continue.
-4. **Trust the framework.** The mathematical heavy lifting is already encoded in the metatheorems.
+4. **Trust the framework's proof algebra, not unstated backend miracles.** Use only named metatheorems, named backend certificates, and named promotion rules. If a backend package is missing, emit `K^{inc}` or leave the weaker blocked certificate in place.
 
 **Think of yourself as a compiler, not a mathematician.** You parse the problem into the interface format, then execute the sieve algorithm. The theorems fall out automatically from the certificate chain.
 
@@ -144,6 +145,7 @@ K_X^{inc} = {
 ```
 
 **Standard failure codes:**
+
 | Code | Meaning | Typical Resolution |
 |------|---------|-------------------|
 | `MISSING_EMBEDDING` | Need Sobolev/interpolation inequality | Add embedding certificate |
@@ -217,23 +219,26 @@ When $K^{\mathrm{wit}}$ is emitted at a barrier node:
 
 | Event | Action |
 |-------|--------|
-| $K^{\mathrm{inc}}$ emitted | Add obligation to ledger with ID |
+| $K^{\mathrm{inc}}$ emitted | Add obligation to ledger with ID and mark whether it lies in the designated goal dependency cone |
 | Upgrade succeeds | Mark obligation as DISCHARGED |
 | $K^{\mathrm{br}}$ emitted | Add breach obligations to ledger |
 | Re-entry succeeds | Mark breach obligations as DISCHARGED |
 
-**The ledger must be EMPTY for a valid proof object.**
+**Goal-relative rule:** The ledger need not be globally empty. A proof object for designated goal $K_{\mathrm{Goal}}$ is valid when every obligation in $\Downarrow(K_{\mathrm{Goal}})$ is discharged or shown irrelevant by an explicit dependency analysis. Obligations outside the goal dependency cone may remain as residual diagnostics, but they must be documented.
 
 
 
 ### **A.7 Completion Criteria**
 
-A proof object is **VALID** if and only if:
+A proof object is **VALID for the designated goal certificate** if and only if:
 
-- [ ] **All nodes executed** (no skips)
-- [ ] **Lock passed:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-- [ ] **Obligation ledger is EMPTY**
-- [ ] **No unresolved** $K^{\mathrm{inc}}$ in final Γ (all upgraded or discharged)
+- [ ] **All required nodes on the chosen route executed** (no silent skips)
+- [ ] **The designated goal certificate is reached** by a named chain of gate, barrier, surgery, and promotion rules
+- [ ] **All obligations in the goal dependency cone are discharged**
+- [ ] **Every promotion or upgrade used is non-circular**
+- [ ] **If the route uses the Lock for structural exclusion:** the certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ is present
+- [ ] **If the route uses analytic continuation/regularity:** the declared continuation or backend analytic permit is present
+- [ ] **If Lock tactics E1, E9, or E10 are used:** the corresponding preservation lemmas are present
 
 If any of these fail, the run produces a **conditional proof object** that documents exactly what remains to be established.
 
@@ -258,13 +263,15 @@ If any of these fail, the run produces a **conditional proof object** that docum
 
 **Phase 4: Lock (Node 17)**
 1. Construct universal bad pattern $\mathcal{H}_{\text{bad}}$.
-2. Apply exclusion tactics E1-E13 until one succeeds.
-3. Emit Lock verdict.
+2. Supply the certified completeness package if a structural exclusion claim will be made.
+3. Apply exclusion tactics E1-E13 until one succeeds.
+4. If using E1, E9, or E10, verify the corresponding morphism-preservation lemma before treating the tactic as sound.
+5. Emit Lock verdict.
 
 **Phase 5: Upgrade Pass (Part II-B)**
-1. Scan Γ for all $K^{\mathrm{inc}}$.
+1. Scan Γ for all $K^{\mathrm{inc}}$ and all blocked certificates that admit named promotions.
 2. Apply all applicable upgrade rules.
-3. Update obligation ledger.
+3. Update the obligation ledger and mark which obligations lie in the designated goal dependency cone.
 
 **Phase 6: Surgery (if needed, Part II-C)**
 1. If any barriers breached, execute surgery protocol.
@@ -310,7 +317,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 | 8  | $\mathrm{TB}_\pi$          | TopoCheck      | Is Sector Preserved?     | Components $\pi_0(\mathcal{X})$, Sector map $\tau$                        | $K_{\mathrm{TB}_\pi}^{\pm}$          |
 | 9  | $\mathrm{TB}_O$            | TameCheck      | Is Topology Tame?        | O-minimal structure $\mathcal{O}$, Definability $\text{Def}$              | $K_{\mathrm{TB}_O}^{\pm}$            |
 | 10 | $\mathrm{TB}_\rho$         | ErgoCheck      | Does Flow Mix?           | Measure $\mathcal{M}$, Mixing time $\tau_{\text{mix}}$                    | $K_{\mathrm{TB}_\rho}^{\pm}$         |
-| 11 | $\mathrm{Rep}_K$           | ComplexCheck   | Is Description Finite?   | Language $\mathcal{L}$, Dictionary $D$, Complexity $K$                    | $K_{\mathrm{Rep}_K}^{\pm}$           |
+| 11 | $\mathrm{RepDesc}_K$       | ComplexCheck   | Is Description Finite?   | Language $\mathcal{L}$, Dictionary $D$, Complexity $K$                    | $K_{\mathrm{RepDesc}_K}^{\pm}$       |
 | 12 | $\mathrm{GC}_\nabla$       | OscillateCheck | Is Flow Gradient?        | Metric $g$, Compatibility $v \sim -\nabla\Phi$                            | $K_{\mathrm{GC}_\nabla}^{\pm}$       |
 
 ### **0.2 Boundary Interface Permits (Nodes 13-16)**
@@ -338,7 +345,21 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 
 | Permit ID | Node | Question | Required Implementation | Certificate |
 |-----------|------|----------|------------------------|-------------|
-| $\mathrm{Cat}_{\mathrm{Hom}}$ | Lock | Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$? | Category $\mathbf{Hypo}_T$, Universal bad $\mathcal{H}_{\text{bad}}$, Tactics E1-E13 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk/morph}}$ |
+| $\mathrm{Cat}_{\mathrm{Hom}}$ | Lock | Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$? | Category $\mathbf{Hypo}_T$, Universal bad $\mathcal{H}_{\text{bad}}$, certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ for structural claims, Tactics E1-E13, preservation lemmas for E1/E9/E10 if used | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk/morph/inc}}$ |
+
+### **0.3b Goal and Backend Certificates**
+*These are goal-level or backend-level certificates that the run may require even after the thin interfaces have been instantiated.*
+
+| Certificate | Role | Required When |
+|---|---|---|
+| $K_{\mathrm{Germ}}^+$ | Certifies germ smallness / classifiable singularity package | Any Lock-based structural exclusion theorem |
+| $K_{\mathrm{init}}^+$ | Certifies the universal bad object / initiality package | Any Lock-based structural exclusion theorem |
+| $K_{\mathrm{CatLib}}^+$ | Certifies completeness of the finite bad-pattern library | Any Lock-based structural exclusion theorem |
+| $K_{\mathrm{WP}_{s_c}}^+$ or type-appropriate continuation permit | Upgrades structural exclusion to analytic regularity | Any analytic regularity claim derived from structural exclusion |
+| Backend analytic package (e.g. scattering, attractor, semigroup) | Supplies theorems not present in the thin layer | Any backend-specific analytic upgrade |
+| $K_{\mathrm{MorphPresDim}}^+$ | Certifies admissible morphisms preserve the dimension notion used by E1 | E1 used at the Lock |
+| $K_{\mathrm{MorphPresMix}}^+$ | Certifies admissible morphisms preserve the mixing/spectral invariant used by E9 | E9 used at the Lock |
+| $K_{\mathrm{MorphPresTame}}^+$ | Certifies admissible morphisms preserve the tame/o-minimal invariant used by E10 | E10 used at the Lock |
 
 ### **0.4 Implementation Templates**
 
@@ -408,7 +429,7 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 - [ ] **Mixing Time $\tau_{\text{mix}}$:** [Define $\tau_{\text{mix}}: \mathcal{X} \to \mathcal{H}$]
 - [ ] **Mixing Property:** $\tau_{\text{mix}}(x) < \infty$?
 
-#### **Template: $\mathrm{Rep}_K$ (Dictionary Interface)**
+#### **Template: $\mathrm{RepDesc}_K$ (Dictionary / Description Interface)**
 - [ ] **Language $\mathcal{L}$:** [Formal language for descriptions]
 - [ ] **Dictionary $D$:** [Define $D: \mathcal{X} \to \mathcal{L}$]
 - [ ] **Complexity Measure $K$:** [Define $K: \mathcal{L} \to \mathbb{N}_\infty$]
@@ -423,13 +444,18 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 #### **Template: $\mathrm{Cat}_{\mathrm{Hom}}$ (Lock Interface)**
 - [ ] **Category $\mathbf{Hypo}_T$:** [Define morphisms in hypostructure category]
 - [ ] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** [Construct worst-case singularity]
+- [ ] **Certified Completeness Package:** Record whether $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ has been supplied. Without it, the Lock does not justify a structural exclusion theorem.
 - [ ] **Primary Tactic Selected:** [e.g., E2, E7, etc.]
 - [ ] **Tactic Logic:**
     * $I(\mathcal{H}) = $ [Value for the actual hypostructure]
     * $I(\mathcal{H}_{\text{bad}}) = $ [Value for the bad pattern]
     * Conclusion: Mismatch $\implies$ $\mathrm{Hom} = \emptyset$.
+- [ ] **Preservation Lemmas (if needed):**
+  - [ ] $K_{\mathrm{MorphPresDim}}^+$ present if E1 is used
+  - [ ] $K_{\mathrm{MorphPresMix}}^+$ present if E9 is used
+  - [ ] $K_{\mathrm{MorphPresTame}}^+$ present if E10 is used
 - [ ] **Exclusion Tactics Available:**
-  - [ ] E1 (Dimension): $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$?
+  - [ ] E1 (Dimension): $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$? Requires $K_{\mathrm{MorphPresDim}}^+$.
   - [ ] E2 (Invariant): $I(\mathcal{H}_{\text{bad}}) \neq I(\mathcal{H})$?
   - [ ] E3 (Positivity): Cone violation?
   - [ ] E4 (Integrality): Arithmetic obstruction?
@@ -437,8 +463,8 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
   - [ ] E6 (Causal): Well-foundedness violation?
   - [ ] E7 (Thermodynamic): Entropy violation?
   - [ ] E8 (Holographic): Bekenstein bound violation?
-  - [ ] E9 (Ergodic): Mixing incompatibility?
-  - [ ] E10 (Definability): Tameness violation?
+  - [ ] E9 (Ergodic): Mixing incompatibility? Requires $K_{\mathrm{MorphPresMix}}^+$.
+  - [ ] E10 (Definability): Tameness violation? Requires $K_{\mathrm{MorphPresTame}}^+$.
   - [ ] E11 (Galois-Monodromy): Solvability/monodromy obstruction?
   - [ ] E12 (Algebraic Compressibility): Degree/Bezout obstruction?
   - [ ] E13 (Algorithmic Completeness): Modality exhaustion?
@@ -447,7 +473,7 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 
 :::{dropdown} **Part 0.5: Certificate Schemas and Upgrade Protocol** (Reference - Click to expand)
 
-*Reference: For formal definitions, see `hypopermits_jb.md` Definitions `def-typed-no-certificates`, `def-inc-upgrades`, `def-promotion-permits`, `def-closure`.*
+*Reference: For formal definitions, see the current interface and upgrade chapters, especially {prf:ref}`def-interface-goalpermits`, {prf:ref}`def-lock-contract`, {prf:ref}`mt-up-lock`, and the upgrade/promotion definitions cited throughout this template.*
 
 ### **0.5.1 Certificate Schemas**
 
@@ -543,7 +569,7 @@ The upgrade is **invalid** if any premise certificate depends on the target $K_X
 
 ### **0.5.2b Promotion Permits (Blocked → YES$^\sim$)**
 
-Blocked certificates can be **promoted** when the barrier result plus supporting certificates logically implies the original predicate (Definition {prf:ref}`def-promotion-permits`). Use the YES$^\sim$ form when the promotion is valid only up to an admissible equivalence (Definition {prf:ref}`def-yes-tilde`). Keep the original $K^{\mathrm{blk}}$ as an audit trail and record the promotion witness alongside it.
+Blocked certificates can be **promoted** only when a named theorem explicitly allows it and the supporting certificates logically imply the promoted predicate (Definition {prf:ref}`def-promotion-permits`). Use the YES$^\sim$ form when the promotion is valid only up to an admissible equivalence (Definition {prf:ref}`def-yes-tilde`). Keep the original $K^{\mathrm{blk}}$ as an audit trail and record the promotion witness alongside it. Do **not** treat a blocked barrier as plain YES unless a named promotion theorem says so.
 
 ### **0.5.3 Surgery Certificate Schema**
 
@@ -606,6 +632,8 @@ The **promotion closure** $\mathrm{Cl}(\Gamma)$ applies all upgrade rules until 
 $$\mathrm{Cl}(\Gamma) = \bigcup_{k=0}^{\infty} \Gamma_k$$
 where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 
+For proof completion, use the **goal-relative** criterion: only obligations in the dependency cone of the designated goal certificate must be discharged.
+
 :::
 
 
@@ -614,7 +642,7 @@ where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 *User Input: Define the four "Thin Objects" (Section 8.C). The Factory Metatheorems (TM-1 to TM-4) automatically expand these into the full Kernel Objects.*
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-*Implements: $\mathcal{H}_0$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{TB}_O$, $\mathrm{Rep}_K$ — see Section 0.4 for templates*
+*Implements: $\mathcal{H}_0$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{TB}_O$, $\mathrm{RepDesc}_K$ — see Section 0.4 for templates*
 * **State Space ($\mathcal{X}$):** [The set of all possible states, e.g., $H^1$ functions, Graphs, Inputs]
 * **Metric ($d$):** [Distance function, e.g., $L^2$ norm, Edit distance]
 * **Measure ($\mu$):** [Reference measure, e.g., Lebesgue, Counting]
@@ -684,7 +712,7 @@ For each node:
 
 #### **Node 2: ZenoCheck ($\mathrm{Rec}_N$)**
 
-**Question:** Does the trajectory visit the bad set $\mathcal{B}$ only finitely many times?
+**Question:** Does the trajectory visit the bad set $\mathcal{B}$ only finitely many times on bounded intervals?
 
 **Step-by-step execution:**
 1. [ ] Define the bad set: $\mathcal{B} = \{x \in \mathcal{X} : \text{[singular condition]}\}$
@@ -695,8 +723,8 @@ For each node:
 **Certificate:**
 * [ ] $K_{\mathrm{Rec}_N}^+ = (\mathcal{B}, \mathcal{R}, N_{\max})$ → **Go to Node 3**
 * [ ] $K_{\mathrm{Rec}_N}^-$ → Check BarrierCausal
-  * [ ] $K^{\mathrm{blk}}$: Depth censored → **Go to Node 3**
-  * [ ] Breached: Enable Surgery `SurgCC`
+  * [ ] **Relativistic backend only:** BarrierCausal may yield $K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\mathrm{blk}}$; if the named censorship promotion fires, record $K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\sim}$ as the observer-relative repair → **Go to Node 3**
+  * [ ] **Generic backend:** BarrierCausal does not repair actual Zeno accumulation; record breach/conditional status and, if applicable, enable Surgery `SurgCC`
 * [ ] $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$ → **Record obligation, Go to Node 3**
   ```
   { obligation: "Prove finite bad-event count",
@@ -709,24 +737,24 @@ For each node:
 
 #### **Node 3: CompactCheck ($C_\mu$)**
 
-**Question:** Do sublevel sets of $\Phi$ have compact closure modulo symmetry?
+**Question:** Has a concentration profile been certified?
 
 **Step-by-step execution:**
-1. [ ] Define sublevel set: $\{\Phi \leq E\} = \{x \in \mathcal{X} : \Phi(x) \leq E\}$
-2. [ ] Identify symmetry group $G$ acting on $\mathcal{X}$
-3. [ ] Form quotient: $\{\Phi \leq E\} / G$
-4. [ ] Check: Is quotient precompact? (Bounded sequences have convergent subsequences)
-5. [ ] If YES: Profile decomposition exists (energy concentrates)
-6. [ ] If NO: Check if scattering (energy disperses to infinity)
+1. [ ] Define the energy/concentration regime you are testing.
+2. [ ] Identify symmetry group $G$ acting on $\mathcal{X}$.
+3. [ ] Form the quotient/moduli description relevant for concentration.
+4. [ ] Check: Can you certify a concentration profile modulo symmetry?
+5. [ ] If YES: Record the profile data and proceed to profile extraction.
+6. [ ] If NO: Record only that no concentration profile has been certified at this stage. Do **not** infer scattering or global existence from this alone.
 
 **Certificate:**
 * [ ] $K_{C_\mu}^+ = (G, \mathcal{X}//G, \lim)$ → **Profile Emerges. Go to Node 4**
 * [ ] $K_{C_\mu}^-$ → Check BarrierScat
-  * [ ] Benign scattering: **VICTORY (Mode D.D) - Global Existence**
-  * [ ] Pathological: Enable Surgery `SurgCD_Alt`
+  * [ ] $K_{C_\mu}^{\mathrm{ben}}$: Benign interaction certificate only. Apply the named scattering/analytic upgrade theorem **only if** the declared backend package is present.
+  * [ ] $K_{C_\mu}^{\mathrm{path}}$: Pathological interaction → Enable Surgery `SurgCD_Alt`
 * [ ] $K_{C_\mu}^{\mathrm{inc}}$ → **Record obligation, Go to Node 4**
   ```
-  { obligation: "Establish compactness modulo symmetry",
+  { obligation: "Establish concentration profile / compactness modulo symmetry",
     missing: ["symmetry_group", "profile_decomposition"],
     failure_code: "MISSING_COMPACTNESS",
     trace: "Step 3-4 of CompactCheck" }
@@ -928,7 +956,7 @@ For each node:
 
 ### **Level 6: Complexity**
 
-#### **Node 11: ComplexCheck ($\mathrm{Rep}_K$)**
+#### **Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)**
 
 **Question:** Does the system admit a finite description (bounded Kolmogorov complexity)?
 
@@ -940,11 +968,11 @@ For each node:
 5. [ ] If infinite: Singularity contains unbounded information (semantic horizon)
 
 **Certificate:**
-* [ ] $K_{\mathrm{Rep}_K}^+ = (\mathcal{L}, D, K(x) < C)$ → **Go to Node 12**
-* [ ] $K_{\mathrm{Rep}_K}^-$ → Check BarrierEpi
+* [ ] $K_{\mathrm{RepDesc}_K}^+ = (\mathcal{L}, D, K(x) < C)$ → **Go to Node 12**
+* [ ] $K_{\mathrm{RepDesc}_K}^-$ → Check BarrierEpi
   * [ ] $K^{\mathrm{blk}}$: Description within holographic bound → **Go to Node 12**
   * [ ] Breached: Enable Surgery `SurgDC` (Viscosity Solution)
-* [ ] $K_{\mathrm{Rep}_K}^{\mathrm{inc}}$ → **Record obligation, Go to Node 12**
+* [ ] $K_{\mathrm{RepDesc}_K}^{\mathrm{inc}}$ → **Record obligation, Go to Node 12**
   ```
   { obligation: "Establish finite description complexity",
     missing: ["description_language", "complexity_bound"],
@@ -1093,10 +1121,11 @@ For each node:
 
 **Step-by-step execution:**
 1. [ ] Construct Universal Bad Pattern $\mathcal{H}_{\text{bad}}$ (worst-case singularity for type $T$)
-2. [ ] Try each exclusion tactic E1-E13 until one succeeds:
+2. [ ] Record whether the certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ is present.
+3. [ ] Try each exclusion tactic E1-E13 until one succeeds:
 
 **Tactic Checklist:**
-* [ ] **E1 (Dimension):** $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$?
+* [ ] **E1 (Dimension):** $\dim(\mathcal{H}_{\text{bad}}) \neq \dim(\mathcal{H})$? Requires $K_{\mathrm{MorphPresDim}}^+$.
 * [ ] **E2 (Invariant):** $I(\mathcal{H}_{\text{bad}}) \neq I(\mathcal{H})$ for some conserved quantity $I$?
 * [ ] **E3 (Positivity):** Does $\mathcal{H}_{\text{bad}}$ violate a cone condition?
 * [ ] **E4 (Integrality):** Arithmetic obstruction (e.g., index mismatch)?
@@ -1104,14 +1133,14 @@ For each node:
 * [ ] **E6 (Causal):** Well-foundedness violated?
 * [ ] **E7 (Thermodynamic):** Second law / entropy production violated?
 * [ ] **E8 (Holographic):** Bekenstein bound / capacity mismatch?
-* [ ] **E9 (Ergodic):** Mixing rates incompatible?
-* [ ] **E10 (Definability):** O-minimal tameness violated?
+* [ ] **E9 (Ergodic):** Mixing rates incompatible? Requires $K_{\mathrm{MorphPresMix}}^+$.
+* [ ] **E10 (Definability):** O-minimal tameness violated? Requires $K_{\mathrm{MorphPresTame}}^+$.
 * [ ] **E11 (Galois-Monodromy):** Solvability/monodromy obstruction?
 * [ ] **E12 (Algebraic Compressibility):** Degree/Bezout obstruction?
 * [ ] **E13 (Algorithmic Completeness):** Modality exhaustion?
 
 **Lock Verdict:**
-* [ ] **BLOCKED** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E__ → **GLOBAL REGULARITY ESTABLISHED**
+* [ ] **BLOCKED** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E__ → structural exclusion is available **only** after the certified completeness package is supplied
 * [ ] **MORPHISM EXISTS** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$) → **SINGULARITY CONFIRMED**
 * [ ] **NO-INCONCLUSIVE** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$) → **Record obligation**
   ```
@@ -1131,9 +1160,9 @@ For each node:
 
 **Step 1: Collect all inc certificates**
 List all $K_X^{\mathrm{inc}}$ in Γ:
-| ID | Node | Obligation | Missing |
-|----|------|------------|---------|
-| | | | |
+| ID | Node | Obligation | Missing | In Goal Cone? |
+|----|------|------------|---------|---------------|
+| | | | | |
 
 **Step 2: For each inc certificate, check upgrade applicability**
 
@@ -1141,11 +1170,12 @@ For each $K_X^{\mathrm{inc}}$:
 1. [ ] List certificates in `missing`
 2. [ ] Check if all missing certificates are now in Γ
 3. [ ] Verify non-circularity: target $K_X^+$ not used to derive premises
-4. [ ] If applicable: Apply upgrade, emit $K_X^+$, discharge obligation
+4. [ ] Check whether the obligation lies in the designated goal dependency cone
+5. [ ] If applicable: Apply upgrade, emit $K_X^+$, discharge obligation
 
 **Step 3: Iterate until no more upgrades apply**
 
-The upgrade pass terminates when no $K^{\mathrm{inc}}$ can be upgraded.
+The upgrade pass terminates when no further goal-relevant $K^{\mathrm{inc}}$ can be upgraded. Residual non-goal obligations may remain as diagnostics.
 
 
 
@@ -1281,8 +1311,14 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 *Use the Extraction Metatheorems to pull rigorous math objects from the certificates.*
 
 ### **3.1 Global Theorems**
-* [ ] **Global Regularity Theorem:** (From Node 17 Blocked + KRNL-Consistency).
-    * *Statement:* "The system defined by $(\mathcal{X}, \Phi, \mathfrak{D})$ admits global regular solutions."
+* [ ] **Structural Exclusion Theorem:** (From Node 17 Blocked + certified completeness package).
+    * *Statement:* "No bad pattern in the certified classifiable library embeds into the system."
+* [ ] **Analytic Global Regularity Theorem:** (From Structural Exclusion + continuation permit, e.g. $K_{\mathrm{WP}_{s_c}}^+$).
+    * *Statement:* "The system defined by $(\mathcal{X}, \Phi, \mathfrak{D})$ admits global regular solutions in the declared analytic backend."
+* [ ] **Scattering / Backend Analytic Upgrade:** (From Node 3 NO + BarrierScat Benign + declared backend package).
+    * *Statement:* "No certified concentration profile together with the named dispersive/backend hypotheses upgrades to analytic regularity or scattering in the declared backend."
+* [ ] **Observer-Relative Censorship Theorem:** (From Node 2 NO + BarrierCausal in a relativistic backend).
+    * *Statement:* "Event accumulation is causally inaccessible to observers; this is an observer-relative repair, not a generic actual-event finiteness theorem."
 * [ ] **Singularity Classification:** (From Node 3 + RESOLVE-AutoProfile).
     * *Statement:* "All singularities are isomorphic to the set: [List Profiles]."
 
@@ -1308,14 +1344,14 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 
 ### **3.4 Retroactive Upgrades**
 *Check if late-stage proofs upgrade earlier weak permits.*
-* [ ] **Lock-Back (UP-LockBack):** Did Node 17 pass? $\implies$ All Barrier Blocks are **Regular**.
+* [ ] **Lock-Back (UP-LockBack):** Did Node 17 establish $K_{\mathrm{StructReg}_T}^+$? $\implies$ Only goal-dependent blocked certificates with explicit transport rules are upgraded.
 * [ ] **Symmetry-Gap (UP-SymmetryBridge):** Did SymCheck pass? $\implies$ Stiffness Stagnation is **Mass Gap**.
 * [ ] **Tame-Topology (UP-TameSmoothing):** Did TameCheck pass? $\implies$ Zero Capacity sets are **Removable**.
 
-### **3.5 ZFC Proof Export (Chapter 56 Bridge)**
-*Use the ZFC Translation Layer (Chapter 56 of `hypopermits_jb.md`) to compile the categorical run into a classical, set-theoretic audit trail.*
+### **3.5 ZFC Proof Export (Appendix Bridge)**
+*Use the ZFC Translation Layer in the current appendices to compile the categorical run into a classical, set-theoretic audit trail.*
 
-**Precondition:** You have a Lock verdict (typically $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) and a complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
+**Precondition:** You are exporting a Lock-based exclusion claim, so you have a Lock verdict (typically $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$), the certified completeness package, and a complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
 
 **ZFC Bridge Checklist**
 * [ ] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
@@ -1346,10 +1382,10 @@ $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{
 
 ### **Introduced Obligations**
 
-| ID | Node | Certificate | Obligation | Missing | Status |
-|----|------|-------------|------------|---------|--------|
-| O1 | [#] | $K_X^{\mathrm{inc}}$ | [Description] | [List] | [ ] Pending / [ ] Discharged |
-| O2 | [#] | $K_Y^{\mathrm{br}}$ | [Description] | [List] | [ ] Pending / [ ] Discharged |
+| ID | Node | Certificate | Obligation | Missing | In Goal Cone? | Status |
+|----|------|-------------|------------|---------|---------------|--------|
+| O1 | [#] | $K_X^{\mathrm{inc}}$ | [Description] | [List] | [ ] Yes / [ ] No | [ ] Pending / [ ] Discharged |
+| O2 | [#] | $K_Y^{\mathrm{br}}$ | [Description] | [List] | [ ] Yes / [ ] No | [ ] Pending / [ ] Discharged |
 | ... | | | | | |
 
 ### **Discharge Events**
@@ -1370,11 +1406,11 @@ $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{
 
 ### **Ledger Validation**
 
-* [ ] **All inc certificates either upgraded or documented as conditional**
-* [ ] **All breach obligations either discharged or documented**
-* [ ] **Remaining obligations count = 0** (for unconditional proof)
+* [ ] **All goal-relevant inc certificates upgraded or documented as conditional**
+* [ ] **All goal-relevant breach obligations discharged or documented**
+* [ ] **No unresolved obligations remain in the designated goal dependency cone** (for unconditional proof)
 
-**Ledger Status:** [ ] EMPTY (valid unconditional proof) / [ ] NON-EMPTY (conditional proof)
+**Ledger Status:** [ ] GOAL-CONE EMPTY (valid unconditional proof for the designated goal) / [ ] GOAL-CONE NON-EMPTY (conditional proof)
 
 
 
@@ -1388,10 +1424,14 @@ Before declaring the proof object complete, verify:
 - [ ] **Boundary nodes executed** (Nodes 13-16, if system is open)
 - [ ] **Lock executed** (Node 17)
 - [ ] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ or $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ or $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$
+- [ ] **Designated goal certificate reached:** [Insert actual goal, e.g. $K_{\mathrm{StructReg}_T}^+$, $K_{\mathrm{Reg}_T}^+$, $K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\sim}$]
+- [ ] **If claiming structural exclusion:** certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ is present
+- [ ] **If claiming analytic regularity through structural exclusion:** continuation permit (e.g. $K_{\mathrm{WP}_{s_c}}^+$) is present
+- [ ] **If claiming analytic regularity through a backend-specific upgrade (e.g. scattering):** the declared backend package is present
+- [ ] **If using E1/E9/E10 at the Lock:** $K_{\mathrm{MorphPresDim}}^+$ / $K_{\mathrm{MorphPresMix}}^+$ / $K_{\mathrm{MorphPresTame}}^+$ is present as required
 - [ ] **Upgrade pass completed** (Part II-B)
 - [ ] **Surgery/Re-entry completed** (Part II-C, if any breaches)
-- [ ] **Obligation ledger is EMPTY** (Part III-C)
-- [ ] **No unresolved $K^{\mathrm{inc}}$** in final Γ
+- [ ] **No unresolved obligations remain in the designated goal dependency cone** (Part III-C)
 
 **Validity Status:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF
 
@@ -1399,8 +1439,8 @@ Before declaring the proof object complete, verify:
 
 ```
 Node 1:  K_{D_E}^? (energy-dissipation)
-Node 2:  K_{Rec_N}^? (recovery/surgeries)
-Node 3:  K_{C_μ}^? (compactness)
+Node 2:  K_{Rec_N}^? (event finiteness / observer-relative repair if any)
+Node 3:  K_{C_μ}^? (concentration check)
 Node 4:  K_{SC_λ}^? (scaling)
 Node 5:  K_{SC_∂c}^? (parameters)
 Node 6:  K_{Cap_H}^? (capacity/geometry)
@@ -1408,36 +1448,44 @@ Node 7:  K_{LS_σ}^? (stiffness)
 Node 8:  K_{TB_π}^? (topology)
 Node 9:  K_{TB_O}^? (tameness)
 Node 10: K_{TB_ρ}^? (mixing)
-Node 11: K_{Rep_K}^? (complexity)
+Node 11: K_{RepDesc_K}^? (complexity)
 Node 12: K_{GC_∇}^? (gradient)
 Node 13: K_{Bound_∂}^? (boundary)
+Node 14: K_{Bound_B}^? (overload)
+Node 15: K_{Bound_Σ}^? (starvation)
+Node 16: K_{GC_T}^? (alignment)
 
 [Surgery: K_{Surg}^? if applicable]
 [Re-Entry: K^{re}_{...} if applicable]
+[Optional upgrade: K_{Rec_{N,obs}}^{blk/\sim}, K_{C_μ}^{ben/path}, backend analytic package]
 
 Node 17: K_{Cat_Hom}^? (Lock)
+[Goal]: [Insert the designated goal certificate actually proved]
 ```
 
 *Replace ? with actual certificate type (+, -, blk, inc, br, etc.)*
 
 ### **4.3 Final Certificate Set**
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{?}, K_{\mathrm{Rec}_N}^{?}, K_{C_\mu}^{?}, K_{\mathrm{SC}_\lambda}^{?}, K_{\mathrm{SC}_{\partial c}}^{?}, K_{\mathrm{Cap}_H}^{?}, K_{\mathrm{LS}_\sigma}^{?}, K_{\mathrm{TB}_\pi}^{?}, K_{\mathrm{TB}_O}^{?}, K_{\mathrm{TB}_\rho}^{?}, K_{\mathrm{Rep}_K}^{?}, K_{\mathrm{GC}_\nabla}^{?}, K_{\mathrm{Bound}_\partial}^{?}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{?}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{?}, K_{\mathrm{Rec}_N}^{?}, K_{C_\mu}^{?}, K_{\mathrm{SC}_\lambda}^{?}, K_{\mathrm{SC}_{\partial c}}^{?}, K_{\mathrm{Cap}_H}^{?}, K_{\mathrm{LS}_\sigma}^{?}, K_{\mathrm{TB}_\pi}^{?}, K_{\mathrm{TB}_O}^{?}, K_{\mathrm{TB}_\rho}^{?}, K_{\mathrm{RepDesc}_K}^{?}, K_{\mathrm{GC}_\nabla}^{?}, K_{\mathrm{Bound}_\partial}^{?}, K_{\mathrm{Bound}_B}^{?}, K_{\mathrm{Bound}_{\Sigma}}^{?}, K_{\mathrm{GC}_T}^{?}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{?}, K_{\mathrm{Goal}}^{?}\}$$
+
+where $K_{\mathrm{Goal}}$ is the designated goal certificate actually established (for example $K_{\mathrm{StructReg}_T}$, $K_{\mathrm{Reg}_T}$, or a backend-specific promoted certificate).
 
 ### **4.4 Conclusion**
 
-**Conclusion:** The Conjecture is [TRUE / FALSE / UNDECIDABLE / CONDITIONAL].
+**Conclusion:** The designated target claim is [ESTABLISHED / REFUTED BY EXPLICIT MORPHISM / CONDITIONAL / NOT REACHED].
 
 **Proof Summary ($\Gamma$):**
-"The system is [Regular/Singular] because:
+"The designated target claim is justified because:
 1.  **Conservation:** Established by [Certificate ID] (e.g., $K_{D_E}^+$, $K_{\text{sat}}^{\mathrm{blk}}$).
-2.  **Structure:** Established by [Certificate ID] (e.g., $K_{C_\mu}^+$, $K_{\mathrm{Cap}_H}^+$).
+2.  **Structure:** Established by [Certificate ID] (e.g., $K_{C_\mu}^+$, $K_{C_\mu}^{\mathrm{ben}}$, $K_{\mathrm{Cap}_H}^+$).
 3.  **Stiffness:** Established by [Certificate ID] (e.g., $K_{\mathrm{LS}_\sigma}^+$, $K_{\text{gap}}^{\mathrm{blk}}$).
 4.  **Lyapunov:** Constructed via Part III-A (e.g., $K_{\mathcal{L}}^{\text{verified}}$, $K_{\text{Jacobi}}^+$, $K_{\text{HJ}}^+$).
-5.  **Exclusion:** Established by [Certificate ID] (e.g., $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via Tactic E__)."
+5.  **Exclusion or Backend Upgrade:** Established by [Certificate ID] (e.g., $K_{\mathrm{StructReg}_T}^+$ from $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via Tactic E__ plus completeness package, or a backend-specific analytic/scattering promotion).
+6.  **Continuation / Final Promotion:** Established by [Certificate ID] (e.g., $K_{\mathrm{WP}_{s_c}}^+$ or a named backend package) if analytic regularity is claimed."
 
 **Full Certificate Chain:**
-$$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma = \{[\text{insert the actual supporting certificates in derivation order}],\ K_{\mathrm{Goal}}^+\}$$
 
 
 
@@ -1449,19 +1497,19 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 1 (Instantiation):** We defined the hypostructure $({\mathcal{X}, \Phi, \mathfrak{D}, G})$ in Part I, implementing the required interface permits.
 
-**Phase 2 (Conservation):** Nodes 1-3 established energy control ($K_{D_E}$), finite bad events ($K_{\mathrm{Rec}_N}$), and compactness modulo symmetry ($K_{C_\mu}$).
+**Phase 2 (Conservation):** Nodes 1-3 produced the recorded certificates for energy control, event accumulation, and concentration/compactness, together with any barrier outputs or backend upgrade triggers actually used in the proof.
 
-**Phase 3 (Scaling):** Nodes 4-5 verified subcriticality ($K_{\mathrm{SC}_\lambda}$) and parameter stability ($K_{\mathrm{SC}_{\partial c}}$).
+**Phase 3 (Scaling):** Nodes 4-5 produced the actual scaling and parameter certificates used on the chosen proof route, together with any blocked or promoted variants recorded in the run.
 
-**Phase 4 (Geometry):** Nodes 6-7 established small singular set ($K_{\mathrm{Cap}_H}$) and stiffness ($K_{\mathrm{LS}_\sigma}$).
+**Phase 4 (Geometry):** Nodes 6-7 produced the actual geometry/capacity and stiffness certificates used later in the derivation, including any named barrier promotions when applicable.
 
-**Phase 5 (Topology):** Nodes 8-12 verified sector preservation ($K_{\mathrm{TB}_\pi}$), tameness ($K_{\mathrm{TB}_O}$), mixing ($K_{\mathrm{TB}_\rho}$), finite complexity ($K_{\mathrm{Rep}_K}$), and gradient structure ($K_{\mathrm{GC}_\nabla}$).
+**Phase 5 (Topology):** Nodes 8-12 recorded the actual topology, tameness, mixing, finite-description, and gradient certificates used later in the dependency cone of the designated goal.
 
-**Phase 6 (Boundary):** [If applicable] Nodes 13-16 verified boundary conditions.
+**Phase 6 (Boundary):** [If applicable] Nodes 13-16 produced the boundary-side certificates recorded in the execution trace; if the system is closed, this phase is skipped by design.
 
-**Phase 7 (Lock):** Node 17 blocked the universal bad pattern $\mathcal{H}_{\text{bad}}$ via Tactic E[X], establishing $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$.
+**Phase 7 (Lock / Final Upgrade):** If the proof route uses the Lock, Node 17 established the recorded Lock verdict and, together with the certified completeness package, may have produced $K_{\mathrm{StructReg}_T}^+$. If the proof route uses a backend-specific analytic promotion, cite that named upgrade theorem and its supporting certificates here.
 
-**Conclusion:** By the Lock Metatheorem (KRNL-Consistency), the blocked Lock certificate implies the target claim.
+**Conclusion:** The target claim follows only from the designated goal permit actually established. Structural exclusion follows from $K_{\mathrm{StructReg}_T}^+$, analytic regularity from the corresponding continuation/backend upgrade, and observer-relative repairs remain observer-relative unless a further theorem upgrades them.
 
 $$\therefore \text{[CLAIM]} \quad \square$$
 
@@ -1476,16 +1524,17 @@ $$\therefore \text{[CLAIM]} \quad \square$$
 | Nodes 1-12 (Core) | [PASS/FAIL/INC] | [List] |
 | Nodes 13-16 (Boundary) | [N/A/PASS/FAIL] | [List] |
 | Node 17 (Lock) | [BLOCKED/MORPHISM/INC] | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{?}$ |
-| Obligation Ledger | [EMPTY/NON-EMPTY] | — |
+| Goal Certificate | [REACHED/NOT REACHED] | $K_{\mathrm{Goal}}^{?}$ |
+| Obligation Ledger | [GOAL-CONE EMPTY / GOAL-CONE NON-EMPTY] | — |
 | Upgrade Pass | [COMPLETE] | [List upgrades] |
 
-**Final Verdict:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF / [ ] SINGULARITY CONFIRMED
+**Final Verdict:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF / [ ] SINGULARITY CONFIRMED / [ ] GOAL NOT REACHED
 
 
 
 ## **References**
 
-1. Hypostructure Framework v1.0 (`hypopermits_jb.md`)
+1. Hypostructure Framework v1.0 (current Jupyter Book formalism)
 2. [Add relevant mathematical references]
 3. [Add relevant prior work]
 
@@ -1522,8 +1571,8 @@ This proof object is replayed by providing:
 | Node | Check | Outcome | Certificate Payload | Ledger State |
 | :--- | :--- | :---: | :--- | :--- |
 | **1** | Energy Bound | [YES/NO/INC] | [e.g., $E(t) \le E_0$] | `[]` |
-| **2** | Zeno Check | [YES/NO/INC] | [Payload] | `[]` |
-| **3** | Compact Check | [YES/NO/INC] | [Payload] | `[]` |
+| **2** | Zeno Check | [YES/NO/INC/YES$^\sim$] | [Payload] | `[]` |
+| **3** | Compact Check | [YES/NO/INC/BEN/PATH] | [Payload] | `[]` |
 | **4** | Scale Check | [YES/NO/INC] | [Payload] | `[]` |
 | **5** | Param Check | [YES/NO/INC] | [Payload] | `[]` |
 | **6** | Geom Check | [YES/NO/INC] | [Payload] | `[]` |
@@ -1539,14 +1588,14 @@ This proof object is replayed by providing:
 | **16** | Align Check | [YES/NO/INC/N/A] | [Payload] | `[]` |
 | **--** | **SURGERY** | **[EXEC/N/A]** | [Surgery Name] | `[OBL-?]` |
 | **--** | **RE-ENTRY** | **[OK/N/A]** | [Recovery proof] | `[]` |
-| **17** | **LOCK** | **[BLOCK/MORPH/INC]** | [Tactic ID] | `[]` |
+| **17** | **LOCK** | **[BLOCK/MORPH/INC]** | [Tactic ID and completeness status] | `[]` |
 
 ### 3. Lock Mechanism (The Exclusion)
 *How the singularity is structurally forbidden at Node 17.*
 
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
-| **E1** | Dimension | [PASS/FAIL/N/A] | [e.g., $d < d_c$] |
+| **E1** | Dimension | [PASS/FAIL/N/A] | [e.g., $d < d_c$; record $K_{\mathrm{MorphPresDim}}^+$ if used] |
 | **E2** | Invariant | [PASS/FAIL/N/A] | [e.g., Conservation vs Blowup] |
 | **E3** | Positivity | [PASS/FAIL/N/A] | [e.g., Cone condition] |
 | **E4** | Integrality | [PASS/FAIL/N/A] | [e.g., Index mismatch] |
@@ -1554,8 +1603,8 @@ This proof object is replayed by providing:
 | **E6** | Causal | [PASS/FAIL/N/A] | [e.g., Well-foundedness] |
 | **E7** | Thermodynamic | [PASS/FAIL/N/A] | [e.g., Entropy production] |
 | **E8** | Holographic | [PASS/FAIL/N/A] | [e.g., Bekenstein bound] |
-| **E9** | Ergodic | [PASS/FAIL/N/A] | [e.g., Mixing rates] |
-| **E10** | Definability | [PASS/FAIL/N/A] | [e.g., O-minimal structure] |
+| **E9** | Ergodic | [PASS/FAIL/N/A] | [e.g., Mixing rates; record $K_{\mathrm{MorphPresMix}}^+$ if used] |
+| **E10** | Definability | [PASS/FAIL/N/A] | [e.g., O-minimal structure; record $K_{\mathrm{MorphPresTame}}^+$ if used] |
 | **E11** | Galois-Monodromy | [PASS/FAIL/N/A] | [e.g., solvability obstruction] |
 | **E12** | Algebraic Compressibility | [PASS/FAIL/N/A] | [e.g., degree/Bezout bound] |
 | **E13** | Algorithmic Completeness | [PASS/FAIL/N/A] | [e.g., modality exhaustion] |
@@ -1569,10 +1618,12 @@ This proof object is replayed by providing:
 
 ### 4. Final Verdict
 
-* **Status:** [UNCONDITIONAL / CONDITIONAL]
-* **Obligation Ledger:** [EMPTY / NON-EMPTY (list remaining)]
+* **Designated Goal Certificate:** [e.g., $K_{\mathrm{StructReg}_T}^+$ / $K_{\mathrm{Reg}_T}^+$ / backend-specific goal]
+* **Status:** [UNCONDITIONAL / CONDITIONAL / MORPHISM FOUND / GOAL NOT REACHED]
+* **Goal-Cone Ledger:** [EMPTY / NON-EMPTY (list remaining goal-relevant obligations)]
+* **Residual Non-Goal Obligations:** [NONE / list remaining diagnostics]
 * **Singularity Set:** $\Sigma = \emptyset$ (or description of allowable set)
-* **Primary Blocking Tactic:** [E? - Description]
+* **Primary Final Route:** [Lock / Scattering Upgrade / Censorship / Other named theorem]
 
 
 
@@ -1592,6 +1643,6 @@ This proof object is replayed by providing:
 
 
 *This document constitutes a machine-checkable proof object under the Hypostructure framework.*
-*Each certificate can be independently verified against the definitions in `hypopermits_jb.md`.*
+*Each certificate can be independently verified against the definitions in the current formalism chapters of this Jupyter Book.*
 
 **QED**

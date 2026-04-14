@@ -35,9 +35,9 @@ $$N(\gamma, T) := \sup\{n \in \mathbb{N} : \text{there exist } n \text{ disjoint
 where a **computational event** is a spacetime region where a physical measurement or verification step occurs.
 
 We will prove that:
-$$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Rec}_N}^{\sim}$$
+$$K_{\mathrm{Rec}_{N,\mathrm{obs}}}^- \wedge K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\sim}$$
 
-That is, if the naive event count is infinite ($K_{\mathrm{Rec}_N}^-$: ZenoCheck fails) but causal censorship holds ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$: BarrierCausal blocks), then the effective event count is finite ($K_{\mathrm{Rec}_N}^{\sim}$) for all physical observers.
+That is, if the naive observer-relative event count is infinite but causal censorship holds, then the effective observer-relative event count is finite for all physical observers. This theorem is explicitly restricted to the relativistic backend and does not certify generic non-relativistic Zeno repair.
 
 ---
 

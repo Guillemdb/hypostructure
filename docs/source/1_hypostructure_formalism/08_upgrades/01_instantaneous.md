@@ -14,7 +14,8 @@ The **Instantaneous Upgrade Metatheorems** formalize the logical principle that 
 
 The key insight is that certain "obstructions" are themselves *certificates of regularity* when viewed from the correct perspective.
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now here is something that might seem paradoxical at first, but once you see it, you will never forget it. The Sieve runs through its diagnostic nodes, and sometimes a node says "NO"---energy is infinite, events are piling up, something looks bad. You might think, well, that is the end of the story. The system fails the check.
 
 But wait. The barrier that stopped you---the very thing that said "you cannot pass this way"---sometimes contains exactly the information you need to prove everything is fine after all.
@@ -31,7 +32,8 @@ The beautiful thing is that these upgrades happen instantly, within a single pas
 (sec-saturation-promotion)=
 ### Saturation Promotion
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you what saturation really means. You have a system---say, a noisy oscillator---and you measure its energy. It looks infinite! The energy functional blows up. First instinct: panic. The system is unstable, unbounded, a disaster.
 
 But look at what the saturation barrier is telling you: yes, the energy is formally infinite, but there is a drift pushing the system back. The generator $\mathcal{L}$ applied to the height $\Phi$ is negative (up to a bounded correction). This is the Foster-Lyapunov condition, and it is a remarkable thing. It says: no matter how far out you go, the dynamics are always pulling you back toward the center.
@@ -86,20 +88,21 @@ The drift condition implies geometric ergodicity by the Foster-Lyapunov criterio
 :::{prf:theorem} [UP-Censorship] Causal Censor Promotion (BarrierCausal $\to$ YES$^\sim$)
 :label: mt-up-censorship
 
-**Context:** Node 2 (ZenoCheck) fails ($N \to \infty$), but BarrierCausal is Blocked ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$).
+**Context:** Node 2 (ZenoCheck) fails in the observer-relative sense, and BarrierCausal is Blocked ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$).
 
 **Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
-1. An event counting functional $N: \mathcal{X} \times [0,T] \to \mathbb{N} \cup \{\infty\}$
-2. A singularity requiring infinite computational depth to resolve: the Cauchy development $D^+(S)$ is globally hyperbolic but $N(x, T) \to \infty$ as $x \to \Sigma$
-3. A cosmic censorship condition: the singular set $\Sigma$ is contained in the future boundary $\mathcal{I}^+ \cup i^+$ of conformally compactified spacetime.
+1. An observer-relative event counting functional $N_{\mathrm{obs}}: \mathcal{X} \times [0,T] \to \mathbb{N} \cup \{\infty\}$
+2. A relativistic backend with globally hyperbolic Cauchy development $D^+(S)$
+3. A singularity requiring infinite computational depth to resolve in the ambient coordinates
+4. A cosmic censorship condition: the singular set $\Sigma$ is contained in the future boundary $\mathcal{I}^+ \cup i^+$ of conformally compactified spacetime.
 
-**Statement:** If the singularity is hidden behind an event horizon or lies at future null/timelike infinity, it is causally inaccessible to any physical observer. The event count is finite relative to any observer worldline $\gamma$ with finite proper time.
+**Statement:** If the singularity is hidden behind an event horizon or lies at future null/timelike infinity, it is causally inaccessible to any physical observer. The event count is finite relative to any observer worldline $\gamma$ with finite proper time. This does **not** certify finiteness of the actual event count in a generic non-relativistic backend.
 
 **Certificate Logic:**
 
-$$K_{\mathrm{Rec}_N}^- \wedge K_{\mathrm{Rec}_N}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Rec}_N}^{\sim}$$
+$$K_{\mathrm{Rec}_{N,\mathrm{obs}}}^- \wedge K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\sim}$$
 
-**Interface Permit Validated:** Finite Event Count (physically observable).
+**Interface Permit Validated:** Finite observer-relative event count.
 
 **Literature:** {cite}`Penrose69`; {cite}`ChristodoulouKlainerman93`; {cite}`HawkingPenrose70`
 :::
@@ -114,19 +117,20 @@ By the weak cosmic censorship conjecture (Penrose, 1969), generic gravitational 
 (sec-scattering-promotion)=
 ### Scattering Promotion
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Scattering is one of the most beautiful ideas in the analysis of nonlinear waves. Here is the picture to keep in your mind.
 
 You have a wave---maybe it is a solution to a nonlinear Schrodinger equation---and it is doing complicated things. Peaks form, interact, maybe they look like they are about to focus into a singularity. The CompactCheck says "no concentration"---the wave is spreading out rather than piling up at a point.
 
-Now, you might think this is bad news. No concentration means no nice compact profile to characterize. But here is the judo move: if the wave is not concentrating, it must be dispersing. And if it is dispersing with finite Morawetz quantity (a spacetime integral that measures interaction), then asymptotically it becomes a free wave. All the nonlinear complications wash away, and what remains is just the linear Schrodinger evolution plus a fixed scattering state.
+Now, you might think this is bad news. No certified concentration means no nice compact profile to characterize. But that is only the beginning of the argument, not the conclusion. To upgrade it to scattering you still need the dispersive PDE package: well-posedness, Strichartz control, Morawetz, and rigidity.
 
 This is the VICTORY condition---the strongest possible outcome. Not merely "no singularity" but "the solution exists globally and approaches something simple as $t \to \pm\infty$." The Kenig-Merle methodology makes this rigorous: either the solution concentrates (and we analyze the profile), or it scatters (and we are done). The Morawetz estimate rules out the pathological in-between.
 
-What I want you to appreciate is how the "failure" of concentration---the NO from CompactCheck---directly implies scattering. The barrier said "no profile here," and that is precisely why the wave must disperse to infinity.
+What I want you to appreciate is that the "failure" of concentration---the NO from CompactCheck---only becomes scattering after the Benign barrier certificate is paired with the full dispersive backend hypotheses. The barrier does not by itself prove global existence.
 :::
 
-:::{prf:theorem} [UP-Scattering] Scattering Promotion (BarrierScat $\to$ VICTORY)
+:::{prf:theorem} [UP-Scattering] Scattering Promotion (BarrierScat $\to$ Analytic Regularity)
 :label: mt-up-scattering
 
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
@@ -134,22 +138,24 @@ What I want you to appreciate is how the "failure" of concentration---the NO fro
 **Bridge Verification:**
 1. *Hypothesis Translation:* Certificate $K_{C_\mu}^{\mathrm{ben}}$ implies: (a) finite Morawetz quantity $\int_0^\infty \int |x|^{-1}|u|^{p+1} < \infty$, (b) no concentration sequence
 2. *Domain Embedding:* $\iota: \mathbf{Hypo}_T \to H^1(\mathbb{R}^n)$ for dispersive NLS/NLW with critical Sobolev exponent
-3. *Conclusion Import:* Morawetz {cite}`Morawetz68` + Strichartz + Kenig-Merle rigidity {cite}`KenigMerle06` $\Rightarrow$ Global Regularity (scattering to linear solution)
+3. *Conclusion Import:* Morawetz {cite}`Morawetz68` + Strichartz + Kenig-Merle rigidity {cite}`KenigMerle06` + critical continuation permit $\Rightarrow K_{\mathrm{Reg}_T}^+$ (scattering to linear solution)
 
 **Context:** Node 3 (CompactCheck) fails (No concentration), but BarrierScat indicates Benign ($K_{C_\mu}^{\mathrm{ben}}$).
 
 **Hypotheses.** Let $\mathcal{H}$ be a Hypostructure of type $T_{\text{dispersive}}$ with:
 1. A dispersive evolution $u(t)$ satisfying a nonlinear wave or Schrödinger equation
-2. The concentration-compactness dichotomy: either $\mu(V) > 0$ for some profile $V$, or dispersion dominates
-3. A finite Morawetz quantity: $\int_0^\infty \int_{\mathbb{R}^n} |x|^{-1} |u|^{p+1} \, dx \, dt < \infty$
+2. A critical continuation permit $K_{\mathrm{WP}_{s_c}}^+$ (or type-appropriate local well-posedness plus continuation)
+3. Strichartz/control norm bounds sufficient to run the perturbative argument
+4. A finite Morawetz quantity: $\int_0^\infty \int_{\mathbb{R}^n} |x|^{-1} |u|^{p+1} \, dx \, dt < \infty$
+5. A rigidity theorem excluding non-scattering critical elements in the declared backend
 
-**Statement:** If energy disperses (no concentration) and the interaction functional is finite (Morawetz bound), the solution scatters to a free linear state: there exists $u_\pm \in H^1$ such that $\|u(t) - e^{it\Delta}u_\pm\|_{H^1} \to 0$ as $t \to \pm\infty$. This is a "Victory" condition equivalent to global existence and regularity.
+**Statement:** If no concentration profile is certified, the interaction functional is finite, and the declared dispersive backend hypotheses hold, then the solution scatters to a free linear state: there exists $u_\pm \in H^1$ such that $\|u(t) - e^{it\Delta}u_\pm\|_{H^1} \to 0$ as $t \to \pm\infty$. This yields the analytic regularity permit for the declared dispersive backend.
 
 **Certificate Logic:**
 
-$$K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}} \Rightarrow \text{Global Regularity}$$
+$$K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}} \wedge K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_T}^+$$
 
-**Interface Permit Validated:** Global Existence (via dispersion).
+**Interface Permit Validated:** Analytic regularity for the declared dispersive backend.
 
 **Literature:** {cite}`Morawetz68` (interaction estimate); {cite}`Strichartz77`; {cite}`KeelTao98` Thm.1.2 (Strichartz); {cite}`KenigMerle06` Thm.1.1 (rigidity); {cite}`KillipVisan10` (NLS scattering)
 :::
@@ -273,7 +279,8 @@ The Łojasiewicz-Simon inequality states $|\Phi(x) - \Phi(x^*)|^{1-\theta} \leq 
 (sec-o-minimal-promotion)=
 ### O-Minimal Promotion
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 O-minimality is one of those concepts that sounds technical but captures something deeply intuitive: tame sets cannot be pathologically complicated.
 
 What do I mean by "tame"? Consider the real numbers with the usual operations of addition and multiplication. Any set you can define using polynomial equations and inequalities is "semialgebraic." These sets are nice---they have finitely many connected components, no fractal boundaries, no wild oscillations. Tarski proved that the theory of real closed fields is decidable precisely because semialgebraic sets are so well-behaved.
@@ -328,7 +335,8 @@ This guarantees gradient descent converges in finite arc-length, preventing infi
 (sec-surgery-promotion)=
 ### Surgery Promotion
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Surgery is the nuclear option. Everything else has failed---the node said NO, the barrier could not block the singularity, and the flow is about to develop a genuine blowup. What do you do?
 
 You cut out the bad part and sew in something clean.
@@ -382,19 +390,20 @@ The surgery construction follows Hamilton (1997) for Ricci flow and Perelman (20
 (sec-lock-promotion)=
 ### Lock Promotion
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Lock is the final guardian. After all the nodes have run, after all the barriers have been tested, after all the local analyses are complete, the Lock asks one global question: can the universal bad pattern embed into this system at all?
 
 Let me explain what this means. Throughout mathematics, we have developed a library of what singularities look like---concentration profiles, blowup rates, scaling behaviors. The "universal bad pattern" $\mathcal{B}_{\text{univ}}$ is the categorical abstraction of all these possibilities. If a singularity of any type were to form, it would manifest as a morphism from this pattern into your system.
 
-Now, the Lock computes the Hom-set $\mathrm{Hom}(\mathcal{B}_{\text{univ}}, \mathcal{H})$. If this set is empty---if there is no way to map the bad pattern into your hypostructure---then no singularity can exist. Period. The proof is trivial once you set it up correctly: existence of a singularity would imply a morphism, but the Hom-set is empty, contradiction.
+Now, the Lock computes the Hom-set $\mathrm{Hom}(\mathcal{B}_{\text{univ}}, \mathcal{H})$. If this set is empty---if there is no way to map the certified bad-pattern package into your hypostructure---then no singularity in that certified class can exist. The proof is still the same contrapositive argument, but its scope is exactly the scope of the completeness package.
 
 This is what Grothendieck called the "yoga of morphisms": instead of proving something does not exist by checking all possible forms it might take, you prove no map can exist. It is a global obstruction that settles everything at once.
 
-When the Lock returns BLOCKED, it validates not just one permit but all permits retroactively. Every earlier ambiguity is resolved in the favorable direction. This is why the Lock is so powerful---it upgrades the entire certificate context in one move.
+When the Lock returns BLOCKED, it validates the designated structural goal certificate. Earlier ambiguities are promoted only when a named transport or promotion theorem applies. This is why the Lock is powerful without being magical: it closes the goal dependency cone, not the entire certificate ledger.
 :::
 
-:::{prf:theorem} [UP-Lock] Lock Promotion (BarrierExclusion $\to$ GLOBAL YES)
+:::{prf:theorem} [UP-Lock] Lock Promotion (BarrierExclusion $\to$ Structural Exclusion)
 :label: mt-up-lock
 
 **Context:** Node 17 (The Lock) is Blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$).
@@ -403,21 +412,22 @@ When the Lock returns BLOCKED, it validates not just one permit but all permits 
 1. The universal bad pattern $\mathcal{B}_{\text{univ}}$ defined via the Interface Registry
 2. The morphism obstruction: $\mathrm{Hom}_{\mathcal{C}}(\mathcal{B}_{\text{univ}}, \mathcal{H}) = \emptyset$ in the appropriate category $\mathcal{C}$
 3. Categorical coherence: all nodes converge to Node 17 with compatible certificates
+4. A certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ for the classifiable singularities of type $T$
 
-**Statement:** If the universal bad pattern cannot map into the system (Hom-set empty), no singularities of any type can exist. The Lock validates global regularity and retroactively confirms all earlier ambiguous certificates.
+**Statement:** If the universal bad pattern cannot map into the system (Hom-set empty), then no singularity in the certified classifiable library can exist. The Lock validates the structural exclusion permit $K_{\mathrm{StructReg}_T}^+$; analytic global regularity requires an additional continuation theorem.
 
 **Certificate Logic:**
 
-$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \Rightarrow \text{Global Regularity}$$
+$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \wedge K_{\mathrm{Germ}}^+ \wedge K_{\mathrm{init}}^+ \wedge K_{\mathrm{CatLib}}^+ \Rightarrow K_{\mathrm{StructReg}_T}^+$$
 
-**Interface Permit Validated:** All Permits (Retroactively).
+**Interface Permit Validated:** Structural exclusion for the certified bad-pattern package.
 
 **Literature:** {cite}`SGA4`; {cite}`Lurie09`; {cite}`MacLane71`
 :::
 
 :::{prf:proof}
 
-The proof uses the contrapositive: if a singularity existed, it would generate a non-trivial morphism $\phi: \mathcal{B}_{\text{univ}} \to \mathcal{H}$ by the universal property. The emptiness of the Hom-set is established via cohomological/spectral obstructions (E1-E13 tactics). This is the "Grothendieck yoga" of reducing existence questions to non-existence of maps. See SGA 4 for the categorical framework.
+The proof uses the contrapositive on the certified classifiable singularity package: if a classifiable singularity existed, it would generate a non-trivial morphism $\phi: \mathcal{B}_{\text{univ}} \to \mathcal{H}$ by the universal property supplied by $K_{\mathrm{init}}^+$ and the completeness package $K_{\mathrm{CatLib}}^+$. The emptiness of the Hom-set is established via the certified obstruction tactics (E1-E13 together with their preservation lemmas where required). This yields structural exclusion. A separate continuation theorem is needed to conclude $K_{\mathrm{Reg}_T}^+$.
 :::
 
 
@@ -496,7 +506,8 @@ The Łojasiewicz exponent at a degenerate critical point is $\theta = 1/k$ for t
 (sec-inconclusive-discharge-upgrades)=
 ### Inconclusive Discharge Upgrades
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 There is an important distinction between "no" and "I do not know yet."
 
 A blocked certificate says: "I checked, and this barrier is stopping the singularity." That is definite information. But an inconclusive certificate says something different: "I cannot decide because I am missing some prerequisite information."

@@ -1,10 +1,11 @@
 (sec-lock)=
 # The Lock (Conjecture Prover Backend)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the final gate. All the diagnostics we have seen so far ask specific questions: Is the energy bounded? Does the system mix properly? Are there dangerous symmetry-breaking cascades? Each of these is a necessary condition for regularity. But here is the real question: can a pathological structure actually *embed* into our system?
 
-Think of it this way. The bad pattern, whatever it is, needs to find a way to live inside your system. It needs a morphism from the universal bad object into your hypostructure. If no such morphism exists, the bad thing cannot happen. Period.
+Think of it this way. The bad pattern, whatever it is, needs to find a way to live inside your system. It needs a morphism from the universal bad object into your hypostructure. If no such morphism exists, the certified bad pattern cannot happen. Analytic global regularity is a further upgrade, not an automatic synonym for Hom-emptiness.
 
 This is what the Lock does. It is not checking individual symptoms; it is asking the fundamental categorical question: is the Hom-set empty? And it has thirteen different ways to prove emptiness, each attacking the problem from a different angle.
 :::
@@ -12,10 +13,11 @@ This is what the Lock does. It is not checking individual symptoms; it is asking
 (sec-lock-contract)=
 ## Lock Contract
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me explain what makes this node special. Every other node in the Sieve answers a local question. The Lock answers a global one: can the universal bad pattern find any foothold at all?
 
-The notation looks intimidating, but the idea is simple. We have a category of hypostructures, and we have identified the "worst case" pattern that would represent failure. We are asking: is there any structure-preserving map from that bad pattern into our system? If not, we win.
+The notation looks intimidating, but the idea is simple. We have a category of hypostructures, and we have identified the certified bad-pattern package that represents classifiable failure. We are asking: is there any structure-preserving map from that package into our system? If not, we win structurally.
 :::
 
 :::{prf:definition} Lock contract
@@ -27,18 +29,21 @@ The **Categorical Lock** is the final barrier with special structure:
 
 **Pre-certificates**: Full context $\Gamma$ from prior nodes
 
-**Question**: Is $\mathrm{Hom}_{\mathbf{Hypo}}(\mathbb{H}_{\mathrm{bad}}, \mathcal{H}) = \varnothing$?
+**Question**: Is $\mathrm{Hom}_{\mathbf{Hypo}}(\mathbb{H}_{\mathrm{bad}}, \mathcal{H}) = \varnothing$ for the certified classifiable bad-pattern package?
 
 Where:
 - $\mathbf{Hypo}$ is the category of hypostructures
 - $\mathbb{H}_{\mathrm{bad}}$ is the universal bad pattern (initial object of R-breaking subcategory)
 - $\mathcal{H}$ is the system under analysis
+- $K_{\mathrm{Germ}}^+$, $K_{\mathrm{init}}^+$, and $K_{\mathrm{CatLib}}^+$ certify that the germ class is small, the universal bad object is defined for that class, and the finite bad-pattern library is complete for classifiable singularities
 
 **Outcomes**:
-- **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; implies GLOBAL REGULARITY
+- **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; implies structural exclusion once the certified completeness package is present
 - **MorphismExists** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$): Explicit morphism $\phi: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$; implies FATAL ERROR
 
-**Goal Certificate:** For the Lock, the designated goal certificate for the proof completion criterion ({prf:ref}`def-proof-complete`) is $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$. This certificate suffices for proof completion; the blocked outcome at the Lock establishes morphism exclusion directly.
+**Goal Certificate:** For the Lock, the designated goal certificate for the proof completion criterion ({prf:ref}`def-proof-complete`) is $K_{\mathrm{StructReg}_T}^+$. The blocked outcome at the Lock establishes this goal only after the certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ has been supplied.
+
+**Analytic Upgrade:** A separate continuation theorem upgrades $K_{\mathrm{StructReg}_T}^+$ to $K_{\mathrm{Reg}_T}^+$ when the type-appropriate well-posedness plus continuation permit is available (for PDE backends, typically $K_{\mathrm{WP}_{s_c}}^+$).
 
 :::
 
@@ -47,8 +52,9 @@ Where:
 (sec-lock-exclusion-tactics)=
 ## E1--E13 Exclusion Tactics
 
-:::{div} feynman-prose
-Here is the beautiful part. There are many different reasons why a morphism might fail to exist, and each one gives us a proof. If dimensions do not match, there is no morphism. If invariants do not match, there is no morphism. If one structure has positive energy and the other requires negative, there is no morphism.
+:::{div}
+:class: feynman-prose
+Here is the beautiful part. There are many different reasons why a morphism might fail to exist, and each one gives us a proof. But each tactic is only sound relative to the certified morphism class for the backend. If a tactic uses dimension, mixing, or tameness, the corresponding preservation lemma must be part of the hypotheses.
 
 The thirteen tactics below are like different keys for the same lock. We try each one. If any key turns, we have proven Hom-emptiness. The system is safe.
 
@@ -57,24 +63,36 @@ What makes this powerful is that these tactics are *independent*. If the dimensi
 
 The Lock attempts thirteen proof-producing tactics to establish Hom-emptiness:
 
+:::{prf:definition} Morphism preservation lemmas
+:label: def-lock-morphism-pres
+
+Backend-specific Lock tactics may assume one or more certified morphism-preservation lemmas:
+
+- $K_{\mathrm{MorphPresDim}}^+$: admissible morphisms preserve the declared dimension notion used by E1.
+- $K_{\mathrm{MorphPresMix}}^+$: admissible morphisms preserve the declared mixing/spectral invariant used by E9.
+- $K_{\mathrm{MorphPresTame}}^+$: admissible morphisms preserve the declared tame/o-minimal structure used by E10.
+
+These lemmas are not generic consequences of $\mathrm{Cat}_{\mathrm{Hom}}$ alone. They must be supplied or proved for the relevant backend before the corresponding tactic is sound.
+:::
+
 :::{prf:definition} E1: Dimension obstruction
 :label: def-e1
 
 **Sieve Signature (E1):**
-- **Required Permits:** $\mathrm{Rep}_K$ (representability), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+\}$ (finite representability confirmed)
+- **Required Permits:** $\mathrm{RepDesc}_K$ (finite-description data), $\mathrm{Cat}_{\mathrm{Hom}}$, $\mathrm{MorphPresDim}$
+- **Weakest Precondition:** $\{K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{MorphPresDim}}^+\}$ (finite representability confirmed and morphisms certified to preserve the relevant dimension datum)
 - **Produces:** $K_{\mathrm{E1}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (Hom-emptiness via dimension)
-- **Blocks:** All failure modes (Global Regularity)
+- **Blocks:** Structural exclusion for any classifiable failure mode covered by the certified library
 - **Breached By:** Dimensions compatible or dimension not computable
 
 **Method**: Linear algebra / dimension counting
 
-**Mechanism**: If $\dim(\mathbb{H}_{\mathrm{bad}}) \neq \dim(\mathcal{H})$ in a way incompatible with morphisms, Hom is empty.
+**Mechanism**: If morphisms in the certified subcategory preserve the chosen dimension notion and $\dim(\mathbb{H}_{\mathrm{bad}}) \neq \dim(\mathcal{H})$ in a way incompatible with those morphisms, Hom is empty.
 
 **Certificate Logic:**
 
 $$
-K_{\mathrm{Rep}_K}^+ \wedge (d_{\mathrm{bad}} \neq d_{\mathcal{H}}) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{RepDesc}_K}^+ \wedge K_{\mathrm{MorphPresDim}}^+ \wedge (d_{\mathrm{bad}} \neq d_{\mathcal{H}}) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -86,16 +104,17 @@ $$
 
 :::
 
-:::{div} feynman-prose
-E1 is the simplest obstruction: dimension counting. You cannot fit a three-dimensional thing into a two-dimensional space. Linear algebra tells you immediately. This is the first thing to check because it is cheap and often works.
+:::{div}
+:class: feynman-prose
+E1 is the simplest obstruction: dimension counting. But it is only sound when the certified morphisms preserve the relevant dimension notion. Without that preservation lemma, E1 is a heuristic, not a theorem.
 :::
 
 :::{prf:definition} E2: Invariant mismatch
 :label: def-e2
 
 **Sieve Signature (E2):**
-- **Required Permits:** $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$ (topological background), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+, K_{\mathrm{TB}_\pi}^+\}$
+- **Required Permits:** $\mathrm{RepDesc}_K$, $\mathrm{TB}_\pi$ (topological background), $\mathrm{Cat}_{\mathrm{Hom}}$
+- **Weakest Precondition:** $\{K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{TB}_\pi}^+\}$
 - **Produces:** $K_{\mathrm{E2}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** All failure modes (Global Regularity)
 - **Breached By:** Invariants match or invariant not extractable
@@ -126,7 +145,8 @@ I_{\text{bad}} \neq I_{\mathcal{H}} \text{ proof})$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E2 uses topological invariants. Even if two spaces have the same dimension, they might have different numbers of holes, different Euler characteristics, different homology groups. A torus is not a sphere, even though both are two-dimensional surfaces. Morphisms preserve these invariants, so a mismatch blocks the Hom-set.
 :::
 
@@ -159,7 +179,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E3 is about positivity constraints. Physical systems often require energy to be positive, or certain operators to live in a cone. If the bad pattern violates positivity and your system enforces it, there can be no morphism. This is the physics speaking: you cannot continuously deform a positive-energy configuration into a negative-energy one.
 :::
 
@@ -167,8 +188,8 @@ E3 is about positivity constraints. Physical systems often require energy to be 
 :label: def-e4
 
 **Sieve Signature (E4):**
-- **Required Permits:** $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+\}$ (arithmetic structure available)
+- **Required Permits:** $\mathrm{RepDesc}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$
+- **Weakest Precondition:** $\{K_{\mathrm{RepDesc}_K}^+\}$ (arithmetic structure available)
 - **Produces:** $K_{\mathrm{E4}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** All failure modes (Global Regularity)
 - **Breached By:** Arithmetic structures compatible or not decidable
@@ -180,7 +201,7 @@ E3 is about positivity constraints. Physical systems often require energy to be 
 **Certificate Logic:**
 
 $$
-K_{\mathrm{Rep}_K}^+ \wedge (\Lambda_{\mathrm{bad}} \not\hookrightarrow \Lambda_{\mathcal{H}}) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{RepDesc}_K}^+ \wedge (\Lambda_{\mathrm{bad}} \not\hookrightarrow \Lambda_{\mathcal{H}}) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -196,8 +217,8 @@ $$
 :label: def-e5
 
 **Sieve Signature (E5):**
-- **Required Permits:** $\mathrm{Rep}_K$, $\mathrm{GC}_\nabla$ (gauge covariance), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+\}$
+- **Required Permits:** $\mathrm{RepDesc}_K$, $\mathrm{GC}_\nabla$ (gauge covariance), $\mathrm{Cat}_{\mathrm{Hom}}$
+- **Weakest Precondition:** $\{K_{\mathrm{RepDesc}_K}^+\}$
 - **Produces:** $K_{\mathrm{E5}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** All failure modes (Global Regularity)
 - **Breached By:** Functional equations solvable or undecidable
@@ -209,7 +230,7 @@ $$
 **Certificate Logic:**
 
 $$
-K_{\mathrm{Rep}_K}^+ \wedge (\text{FuncEq}(\phi) = \bot) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{RepDesc}_K}^+ \wedge (\text{FuncEq}(\phi) = \bot) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -221,7 +242,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E4 and E5 deal with discrete arithmetic and functional constraints. Sometimes the structure requires integer or rational values that simply do not fit together. Sometimes there are functional equations that have no solution. These are more subtle than dimension counting but equally fatal when they apply.
 :::
 
@@ -254,7 +276,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E6 is deep. It says: if the bad pattern contains closed timelike curves, infinite causal descent, it cannot embed into a well-founded causal structure. This is the axiom of foundation in set theory meeting physics. You cannot have an infinite regress of causes; the energy required would be unbounded.
 :::
 
@@ -287,7 +310,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E7 is the Second Law as a morphism obstruction. If the bad pattern requires entropy to decrease but your system enforces thermodynamic consistency, there can be no embedding. This is not a technicality; it is fundamental. The arrow of time is an obstruction to certain morphisms.
 :::
 
@@ -320,7 +344,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E8 uses information theory. The boundary of your system acts like a communication channel with finite capacity. If the bad pattern requires transmitting more information through the boundary than the channel can handle, the interaction is impossible. The singularity is "hidden" in the same sense that information cannot exceed channel capacity.
 :::
 
@@ -328,20 +353,20 @@ E8 uses information theory. The boundary of your system acts like a communicatio
 :label: def-e9
 
 **Sieve Signature (E9):**
-- **Required Permits:** $\mathrm{TB}_\rho$ (mixing/ergodic structure), $C_\mu$ (compactness), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{TB}_\rho}^+, K_{C_\mu}^+\}$ (mixing rate and concentration available)
+- **Required Permits:** $\mathrm{TB}_\rho$ (mixing/ergodic structure), $C_\mu$ (compactness), $\mathrm{Cat}_{\mathrm{Hom}}$, $\mathrm{MorphPresMix}$
+- **Weakest Precondition:** $\{K_{\mathrm{TB}_\rho}^+, K_{C_\mu}^+, K_{\mathrm{MorphPresMix}}^+\}$ (mixing rate, concentration, and morphism preservation of the relevant mixing invariant available)
 - **Produces:** $K_{\mathrm{E9}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-- **Blocks:** All failure modes (Global Regularity); specifically Mode T.D (glassy freeze)
+- **Blocks:** Structural exclusion for classifiable glassy/mixing failures
 - **Breached By:** Mixing properties compatible or spectral gap not computable
 
 **Method**: Spectral gap analysis / Mixing time bounds
 
-**Mechanism**: If morphisms must preserve mixing properties but $\mathbb{H}_{\mathrm{bad}}$ has incompatible spectral gap, Hom is empty. Mixing systems satisfy $\mu(A \cap S_t^{-1}B) \to \mu(A)\mu(B)$, with spectral gap $\gamma > 0$ implying exponential correlation decay $|C(t)| \leq e^{-\gamma t}$. Glassy dynamics (localization) cannot map into rapidly mixing systems.
+**Mechanism**: If the certified morphism class preserves the declared mixing invariant and $\mathbb{H}_{\mathrm{bad}}$ has incompatible spectral gap or mixing-time behavior, Hom is empty. Mixing systems satisfy $\mu(A \cap S_t^{-1}B) \to \mu(A)\mu(B)$, with spectral gap $\gamma > 0$ implying exponential correlation decay $|C(t)| \leq e^{-\gamma t}$. Glassy dynamics (localization) cannot map into rapidly mixing systems when that preservation lemma is available.
 
 **Certificate Logic:**
 
 $$
-K_{\mathrm{TB}_\rho}^+ \wedge K_{C_\mu}^+ \wedge (\gamma_{\mathrm{bad}} = 0 \wedge \gamma_{\mathcal{H}} > 0) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{TB}_\rho}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{MorphPresMix}}^+ \wedge (\gamma_{\mathrm{bad}} = 0 \wedge \gamma_{\mathcal{H}} > 0) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -353,28 +378,29 @@ $$
 
 :::
 
-:::{div} feynman-prose
-E9 is about dynamics. A rapidly mixing system forgets its initial conditions exponentially fast. A glassy system gets stuck. These are fundamentally different behaviors, and you cannot map one into the other while preserving the dynamical structure.
+:::{div}
+:class: feynman-prose
+E9 is about dynamics. A rapidly mixing system forgets its initial conditions exponentially fast. A glassy system gets stuck. These are fundamentally different behaviors, but the tactic is only sound once the morphism class is certified to preserve the declared mixing invariant.
 :::
 
 :::{prf:definition} E10: Definability obstruction (Tameness)
 :label: def-e10
 
 **Sieve Signature (E10):**
-- **Required Permits:** $\mathrm{TB}_O$ (o-minimal/tame structure), $\mathrm{Rep}_K$ (representability), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{TB}_O}^+, K_{\mathrm{Rep}_K}^+\}$ (tameness and finite representation available)
+- **Required Permits:** $\mathrm{TB}_O$ (o-minimal/tame structure), $\mathrm{RepDesc}_K$ (representability), $\mathrm{Cat}_{\mathrm{Hom}}$, $\mathrm{MorphPresTame}$
+- **Weakest Precondition:** $\{K_{\mathrm{TB}_O}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{MorphPresTame}}^+\}$ (tameness, finite representation, and morphism preservation of tameness available)
 - **Produces:** $K_{\mathrm{E10}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-- **Blocks:** All failure modes (Global Regularity); specifically Mode T.C (labyrinthine/wild)
+- **Blocks:** Structural exclusion for classifiable wild/tameness failures
 - **Breached By:** Both structures tame or definability undecidable
 
 **Method**: Model theory / O-minimal structure analysis
 
-**Mechanism**: If morphisms must preserve o-minimal (tame) structure but $\mathbb{H}_{\mathrm{bad}}$ involves wild topology, Hom is empty. O-minimality ensures definable subsets of $\mathbb{R}$ are finite unions of points and intervals. The cell decomposition theorem gives finite stratification with bounded Betti numbers $\sum_k b_k(A) \leq C$. Wild embeddings (Alexander horned sphere, Cantor boundaries) cannot exist in tame structures.
+**Mechanism**: If the certified morphism class preserves o-minimal (tame) structure and $\mathbb{H}_{\mathrm{bad}}$ involves wild topology, Hom is empty. O-minimality ensures definable subsets of $\mathbb{R}$ are finite unions of points and intervals. The cell decomposition theorem gives finite stratification with bounded Betti numbers $\sum_k b_k(A) \leq C$. Wild embeddings (Alexander horned sphere, Cantor boundaries) cannot exist in tame structures when tameness preservation is part of the morphism contract.
 
 **Certificate Logic:**
 
 $$
-K_{\mathrm{TB}_O}^+ \wedge K_{\mathrm{Rep}_K}^+ \wedge (\mathbb{H}_{\mathrm{bad}} \notin \mathcal{O}\text{-min}) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{TB}_O}^+ \wedge K_{\mathrm{RepDesc}_K}^+ \wedge K_{\mathrm{MorphPresTame}}^+ \wedge (\mathbb{H}_{\mathrm{bad}} \notin \mathcal{O}\text{-min}) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -386,8 +412,9 @@ $$
 
 :::
 
-:::{div} feynman-prose
-E10 asks: is the bad pattern "tame" or "wild"? Tame topology, in the sense of o-minimal structures, has finite complexity. Wild topology, like an Alexander horned sphere, has infinite complexity. Tame structures cannot contain wild ones. This is not just a technicality; it is a fundamental barrier from model theory.
+:::{div}
+:class: feynman-prose
+E10 asks: is the bad pattern "tame" or "wild"? Tame topology, in the sense of o-minimal structures, has finite complexity. Wild topology, like an Alexander horned sphere, has infinite complexity. But the obstruction is only sound once the certified morphism class is known to preserve tameness.
 :::
 
 :::{prf:definition} Galois Group
@@ -406,8 +433,8 @@ For a differential equation with singularities, the **monodromy group** $\mathrm
 :label: def-e11
 
 **Sieve Signature (E11):**
-- **Required Permits:** $\mathrm{Rep}_K$ (representation/algebraic structure), $\mathrm{TB}_\pi$ (topology/monodromy), $\mathrm{Cat}_{\mathrm{Hom}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+, K_{\mathrm{TB}_\pi}^+\}$ (Galois group and monodromy available)
+- **Required Permits:** $\mathrm{RepDesc}_K$ (representation/algebraic structure), $\mathrm{TB}_\pi$ (topology/monodromy), $\mathrm{Cat}_{\mathrm{Hom}}$
+- **Weakest Precondition:** $\{K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{TB}_\pi}^+\}$ (Galois group and monodromy available)
 - **Produces:** $K_{\mathrm{E11}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** S.E (Supercritical Cascade); S.C (Computational Overflow)
 - **Breached By:** Galois group solvable or monodromy finite
@@ -432,7 +459,7 @@ For a differential equation with singularities, the **monodromy group** $\mathrm
 **Certificate Logic:**
 
 $$
-K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (\mathrm{Gal}(f) \text{ non-solvable} \vee |\mathrm{Mon}(f)| = \infty) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{RepDesc}_K}^+ \wedge K_{\mathrm{TB}_\pi}^+ \wedge (\mathrm{Gal}(f) \text{ non-solvable} \vee |\mathrm{Mon}(f)| = \infty) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -458,7 +485,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E11 reaches deep into algebra. Remember Abel's proof that the general quintic has no solution in radicals? The Galois group is not solvable. This is not a matter of cleverness; it is a structural impossibility. If the bad pattern requires solving an unsolvable equation, there can be no morphism that produces it.
 
 The monodromy obstruction is the same idea for differential equations. When you analytically continue solutions around singularities, they transform. If the transformations form an infinite group, the solutions have infinitely many branches. This infinite complexity cannot embed into finite structures.
@@ -494,10 +522,10 @@ counted with multiplicity. Equivalently, $\deg(V) = \int_V c_1(\mathcal{O}(1))^d
 
 **Sieve Signature (E12):**
 - **Required Permits (Alternative Backends):**
-  - **Backend A:** $K_{\mathrm{Rep}_K}^+$ (hypersurface) + $K_{\mathrm{SC}_\lambda}^{\text{deg}}$ → $K_{\mathrm{E12}}^{\text{hypersurf}}$
-  - **Backend B:** $K_{\mathrm{Rep}_K}^+$ (complete intersection) + $K_{\mathrm{SC}_\lambda}^{\text{Bez}}$ → $K_{\mathrm{E12}}^{\text{c.i.}}$
-  - **Backend C:** $K_{\mathrm{Rep}_K}^+$ (morphism) + $K_{\mathrm{DegImage}_m}^+$ + $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{deg}}$ → $K_{\mathrm{E12}}^{\text{morph}}$
-- **Weakest Precondition:** $\{K_{\mathrm{Rep}_K}^+\}$ (algebraic variety structure available)
+  - **Backend A:** $K_{\mathrm{RepDesc}_K}^+$ (hypersurface) + $K_{\mathrm{SC}_\lambda}^{\text{deg}}$ → $K_{\mathrm{E12}}^{\text{hypersurf}}$
+  - **Backend B:** $K_{\mathrm{RepDesc}_K}^+$ (complete intersection) + $K_{\mathrm{SC}_\lambda}^{\text{Bez}}$ → $K_{\mathrm{E12}}^{\text{c.i.}}$
+  - **Backend C:** $K_{\mathrm{RepDesc}_K}^+$ (morphism) + $K_{\mathrm{DegImage}_m}^+$ + $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\text{deg}}$ → $K_{\mathrm{E12}}^{\text{morph}}$
+- **Weakest Precondition:** $\{K_{\mathrm{RepDesc}_K}^+\}$ (algebraic variety structure available)
 - **Produces:** $K_{\mathrm{E12}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 - **Blocks:** S.E (Supercritical Cascade); S.C (Computational Overflow)
 - **Breached By:** Degree compatibility, linear structure, or compatible morphism exists
@@ -509,7 +537,7 @@ counted with multiplicity. Equivalently, $\deg(V) = \int_V c_1(\mathcal{O}(1))^d
 **Certificate Logic:**
 
 $$
-K_{\mathrm{Rep}_K}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge \left(K_{\mathrm{E12}}^{\text{hypersurf}} \vee K_{\mathrm{E12}}^{\text{c.i.}} \vee K_{\mathrm{E12}}^{\text{morph}}\right) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+K_{\mathrm{RepDesc}_K}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge \left(K_{\mathrm{E12}}^{\text{hypersurf}} \vee K_{\mathrm{E12}}^{\text{c.i.}} \vee K_{\mathrm{E12}}^{\text{morph}}\right) \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 
 $$
 
@@ -666,7 +694,8 @@ Any compression must have complexity at least $m_{\min}$.
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 E12 uses algebraic degree as an obstruction. A high-degree algebraic variety cannot be faithfully represented by low-degree polynomials. This is not about approximation; it is about exact representation. Bezout's theorem says the product of degrees is an invariant. You cannot cheat it.
 
 The three backends (A, B, C) handle different cases: hypersurfaces where a single polynomial defines everything, complete intersections where multiple equations cut out the variety, and morphisms where you try to compress via a map from a simpler space. Each backend has its own version of the degree obstruction.
@@ -706,7 +735,8 @@ This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And that is the Lock. Thirteen tactics, each based on a different mathematical obstruction, each producing a proof when it succeeds. If any one of them succeeds, the Hom-set is empty and the bad pattern cannot exist in your system. If all of them fail but none constructs an explicit embedding, we are in uncertain territory and need to try reconstruction.
 
 The beauty of this design is that it leverages decades of mathematics: topology, algebra, analysis, information theory, thermodynamics, model theory. Each field contributes its characteristic obstruction. Together, they form a powerful filter.

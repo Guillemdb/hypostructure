@@ -2,7 +2,8 @@
 
 *The Agent, The Loss, and The Solver.*
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to what I think is one of the most beautiful parts of this whole story. Up until now, we have been treating the axioms of hypostructure as fixed things---given to us by the structure of the problem. But here is the question that any honest person must eventually ask: how do we *find* these axioms in the first place?
 
 Think about what happens when you encounter a new physical system. You observe trajectories, you measure energy flows, you see patterns. Somewhere in all that data, there is structure waiting to be discovered. The question is: can we build a machine that discovers it automatically?
@@ -2751,7 +2752,8 @@ This is a structural analogue of standard results for equivariant neural network
 
 ## The General Loss Functional
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is the practical question that faces anyone who wants to build a system that *discovers* physics rather than having it programmed in: what should the loss function be?
 
 The answer has four pieces, and each one corresponds to a different aspect of what it means to "understand" a physical system. First, you need to get the *structure* right---the energy functional, the dissipation, the symmetries. Second, the axioms should actually hold---dissipation should be non-negative, energy should decrease along trajectories, barriers should block forbidden transitions. Third, when the axioms define variational problems (like "find the minimum energy path"), you want to solve those problems well. Fourth, and this is the clever part, you want the system to *adapt quickly* to new physics---to have learned generalizable patterns rather than memorizing specifics.
@@ -2995,7 +2997,8 @@ The combination of these four loss components produces a system that instantiate
 
 ### The Learnability Threshold
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is something that should make you sit up. There is a fundamental limit to what any learning agent can learn, and it has nothing to do with the architecture of your neural network or the cleverness of your optimization algorithm. It is a *thermodynamic* limit.
 
 The key insight is this: every dynamical system generates information at some rate---this is the Kolmogorov-Sinai entropy, which measures how many new bits of unpredictable behavior appear per unit time. And every learning agent can *absorb* information at some rate---this is the channel capacity of the learning process itself.
@@ -3509,7 +3512,8 @@ The Meta-Identifiability Theorem provides the theoretical foundation for the gen
 
 ## The AGI Limit (The Omega-Layer)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the question that has been lurking in the background all along: what is the *status* of this framework itself?
 
 Look, we have spent all these pages developing a theory of how to learn physics from data. But the framework itself is a theory. And the learner that uses the framework is a physical system. So there is a loop here. The framework describes systems that learn frameworks. Can it describe itself?

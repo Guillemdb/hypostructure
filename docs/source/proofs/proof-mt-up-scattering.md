@@ -290,14 +290,14 @@ This certificate validates the Interface Permit for Global Existence via dispers
 ### Corollary 5.2: Certificate Logic Validation
 
 **Statement:** The certificate logic:
-$$K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}} \Rightarrow \text{Global Regularity (VICTORY)}$$
+$$K_{C_\mu}^- \wedge K_{C_\mu}^{\mathrm{ben}} \wedge K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_T}^+$$
 is validated by the proof above.
 
 **Proof:**
-- $K_{C_\mu}^-$ (no concentration) rules out alternative (b) of Kenig-Merle dichotomy
+- $K_{C_\mu}^-$ (no certified concentration profile) rules out alternative (b) of Kenig-Merle dichotomy in the declared backend
 - $K_{C_\mu}^{\mathrm{ben}}$ (finite Morawetz) enables Cook's method via Strichartz integrability
-- Together, they force alternative (a): scattering to free state
-- Scattering implies global existence and regularity (VICTORY condition)
+- $K_{\mathrm{WP}_{s_c}}^+$ supplies the continuation theorem needed to turn scattering control into analytic global regularity
+- Together, they force alternative (a): scattering to free state and hence the analytic regularity permit
 
 ### Remark 5.3: Extensions and Generalizations
 
@@ -317,7 +317,7 @@ is validated by the proof above.
 
 ## Conclusion
 
-We have established that the combination of negative concentration ($K_{C_\mu}^-$) and benign Morawetz barrier ($K_{C_\mu}^{\mathrm{ben}}$) certificates promotes to global regularity (scattering) for energy-critical dispersive equations. The proof synthesizes three fundamental tools:
+We have established that the combination of negative concentration ($K_{C_\mu}^-$), benign Morawetz barrier ($K_{C_\mu}^{\mathrm{ben}}$), and critical continuation data ($K_{\mathrm{WP}_{s_c}}^+$) promotes to analytic regularity (scattering) for energy-critical dispersive equations. The proof synthesizes three fundamental tools:
 
 1. **Morawetz estimates** (Step 1): Provide spacetime integrability ruling out persistent concentration at spatial singularities
 2. **Strichartz estimates** (Step 2): Enable perturbative control and integrability of the nonlinearity in dual norms
@@ -325,7 +325,7 @@ We have established that the combination of negative concentration ($K_{C_\mu}^-
 
 The scattering states $u_\pm$ are constructed via Cook's method (Step 4), exploiting the Morawetz-driven integrability to establish Cauchy convergence of the wave operators.
 
-This completes the proof of {prf:ref}`mt-up-scattering`, validating the Interface Permit for Global Existence and demonstrating the power of the Hypostructure framework in systematically organizing complex PDE arguments.
+This completes the proof of {prf:ref}`mt-up-scattering`, validating the analytic regularity permit for the declared dispersive backend and demonstrating the power of the Hypostructure framework in systematically organizing complex PDE arguments.
 
 :::
 

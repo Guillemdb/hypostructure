@@ -33,7 +33,7 @@ We assume the following **soft permits** have been certified:
   for $j \neq k$ (orthogonality condition), the energy decouples asymptotically:
   $$\Phi\left(\sum_{j=1}^J g_n^{(j)} \cdot V^{(j)}\right) = \sum_{j=1}^J \Phi(V^{(j)}) + o(1) \quad \text{as } n \to \infty$$
 
-**$K_{\mathrm{Rep}_K}^+$ (Representation Certificate):** Certifies that $\mathcal{X}$ admits a separable predual or is reflexive, ensuring that bounded sequences have weakly convergent subsequences.
+**$K_{\mathrm{RepDesc}_K}^+$ (Representation Certificate):** Certifies that $\mathcal{X}$ admits a separable predual or is reflexive, ensuring that bounded sequences have weakly convergent subsequences.
 
 ---
 
@@ -209,7 +209,7 @@ as $n \to \infty$.
 
 ### Step 3.3: Weak Convergence to Zero
 
-By the representation certificate $K_{\mathrm{Rep}_K}^+$ (reflexivity), any bounded sequence has a weakly convergent subsequence. Since $w_n^{(J)}$ is bounded in $\mathcal{X}$ (by energy bounds) and vanishes in Lions' sense, the only possible weak limit is zero:
+By the representation certificate $K_{\mathrm{RepDesc}_K}^+$ (reflexivity), any bounded sequence has a weakly convergent subsequence. Since $w_n^{(J)}$ is bounded in $\mathcal{X}$ (by energy bounds) and vanishes in Lions' sense, the only possible weak limit is zero:
 $$w_n^{(J)} \rightharpoonup 0 \quad \text{weakly in } \mathcal{X}.$$
 
 **Proof:** Suppose $w_n^{(J)} \rightharpoonup w^* \neq 0$ weakly. By Lions' dichotomy, either $w^* = 0$ (vanishing) or we can extract a concentration profile from $w_n^{(J)}$, contradicting the termination of the algorithm. Therefore $w^* = 0$.
@@ -324,7 +324,7 @@ The Bahouri-Gérard theorem ({cite}`BahouriGerard99`, Theorem 1.1) applies under
 
 **Hypothesis (BG1): State Space Structure.** The state space $\mathcal{X}$ is a Hilbert or Banach space with a well-defined Sobolev embedding and compactness properties.
 
-**Verification:** By $K_{\mathrm{Rep}_K}^+$, the space $\mathcal{X}$ satisfies these properties (typically $\mathcal{X} = H^{s_c}(\mathbb{R}^d)$ for some critical regularity $s_c$).
+**Verification:** By $K_{\mathrm{RepDesc}_K}^+$, the space $\mathcal{X}$ satisfies these properties (typically $\mathcal{X} = H^{s_c}(\mathbb{R}^d)$ for some critical regularity $s_c$).
 
 **Hypothesis (BG2): Symmetry Group Action.** The symmetry group $G = \mathbb{R}^+ \times \mathbb{R}^d$ acts on $\mathcal{X}$ isometrically (or with controlled distortion).
 
@@ -338,7 +338,7 @@ The Bahouri-Gérard theorem ({cite}`BahouriGerard99`, Theorem 1.1) applies under
 
 **Verification:** This is checked at each iteration step (Step 2.2). If vanishing occurs, the algorithm terminates.
 
-**Conclusion:** All hypotheses of the Bahouri-Gérard theorem are satisfied by the soft permits $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, and $K_{\mathrm{Rep}_K}^+$. Therefore, the profile decomposition exists and satisfies the claimed properties.
+**Conclusion:** All hypotheses of the Bahouri-Gérard theorem are satisfied by the soft permits $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, and $K_{\mathrm{RepDesc}_K}^+$. Therefore, the profile decomposition exists and satisfies the claimed properties.
 
 ### Step 6.2: Uniqueness and Canonical Choice
 
@@ -402,7 +402,7 @@ If either check fails, the evaluator emits $K_{\mathrm{ProfDec}}^{\mathrm{inc}}$
 
 ## Conclusion
 
-We have established the existence of the profile decomposition under the soft hypotheses $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, and $K_{\mathrm{Rep}_K}^+$. The key steps are:
+We have established the existence of the profile decomposition under the soft hypotheses $K_{C_\mu}^+$, $K_{\mathrm{SC}_\lambda}^+$, and $K_{\mathrm{RepDesc}_K}^+$. The key steps are:
 
 1. **Lions' Dichotomy** (Step 1) provides the concentration vs. vanishing alternative
 2. **Bahouri-Gérard Iteration** (Step 2) extracts orthogonal profiles with diverging symmetry parameters

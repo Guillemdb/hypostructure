@@ -7,7 +7,8 @@ title: "Taxonomy of Dynamical Complexity"
 (sec-taxonomy-dynamical-complexity)=
 ## The Taxonomy of Dynamical Complexity
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now, here is where I want you to step back and think about what we have been doing. We built this elaborate machine, the Structural Sieve, that takes in any dynamical system and runs it through a gauntlet of tests. At each checkpoint, the system either passes, fails, or requires some kind of intervention. The Sieve emits a certificate at each stage, like a passport collecting stamps as you travel through countries.
 
 But wait—if every system that enters the Sieve emerges with a complete sequence of stamps, then we have something very powerful in our hands. We have a *fingerprint*. Just as the periodic table organizes chemical elements by their electron configurations, we can organize all of mathematical and physical inquiry by their certificate signatures.
@@ -40,7 +41,8 @@ where $\mathcal{N} = \{1, 2, 3, 4, 5, 6, 7, 7a, 7b, 7c, 7d, 8, 9, 10, 11, 12, 13
 The subsidiary nodes 7a-7d constitute the **Stiffness Restoration Subtree**—the detailed decomposition that distinguishes between systems that fail primary stiffness but admit resolution via fundamentally different mechanisms.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me help you see what this DNA really means. Think of it this way: when you encounter a new dynamical system, you might spend years trying various approaches—energy estimates, concentration arguments, topological tricks. Each approach either works or it does not. The DNA is simply the record of all those outcomes, coded systematically.
 
 The key insight is the *subsidiary nodes* 7a through 7d. These are not just extra checkpoints; they represent the rescue squad that shows up when the main stiffness test fails. You see, failing at Node 7 is not the end of the story. Maybe you can restore stiffness through bifurcation analysis (7a), or by finding a hidden symmetry (7b), or through renormalization (7c), or via quantum tunneling arguments (7d). The expanded DNA captures *how* you recovered, not just that you did.
@@ -249,7 +251,8 @@ Without the 7a-7d expansion, every problem in Families III-VIII that fails at No
 
 ### The Eight Families of Inquiry
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the families—the rows of our periodic table. These are not arbitrary groupings. Each family corresponds to a *qualitatively different kind of answer* that a problem can have.
 
 Family I problems are the easy ones: everything works, every test passes. Family II problems sit at the boundary—they do not concentrate, they scatter, they are saved by dispersive behavior. Family III problems are interesting: they cannot be solved directly, but they are *equivalent* to solved problems. Think gauge theory—you fix a gauge and suddenly the problem becomes tractable.
@@ -411,7 +414,8 @@ The subtree yields: 7a (singular Hessian), 7b (anomaly), 7c (vacuum landscape), 
 
 ### The Structural Anatomy of Strata
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 If the families tell us *what kind of answer* a problem has, the strata tell us *where the problem gets stuck*. Think of it as diagnostic: at which checkpoint does the warning light go on?
 
 The strata are ordered from most fundamental to most refined. Conservation (Nodes 1-2) asks: does energy exist? Do events count properly? If you fail here, you are in deep trouble. Duality (Nodes 3-5) asks: does the energy scatter or concentrate? At what scale? Geometry (Nodes 6-7) probes the singular set—is it too thin to matter?
@@ -527,7 +531,8 @@ represent increasingly sophisticated restoration mechanisms. A system that clear
 
 ### The Isomorphism Principle
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now here is the payoff—the reason we went through all this classification machinery. If two problems have the same DNA, then *they are the same problem in disguise*. And I mean this in the strongest possible sense: a proof for one transfers directly to a proof for the other.
 
 You see, the traditional way to recognize that two problems are related is through insight—someone has to notice the connection. But the Sieve does this systematically. It produces a fingerprint. If the fingerprints match, the problems are isomorphic at the level of proof structure.
@@ -611,7 +616,8 @@ The transitions are **irreversible within a proof attempt**: once a system enter
 
 ### The Periodic Law of Hypostructures
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is the grand unification. Just as Mendeleev saw that chemical properties recur periodically with atomic number, we see that proof strategies recur periodically with certificate type.
 
 The Periodic Law says this: tell me your row (which family) and your column (which stratum), and I will tell you exactly how to prove your theorem. Not a hint, not a suggestion—the actual proof strategy. Family IV at Node 6? That is Neck Surgery, Perelman style. Family V at Node 7c? That is Faddeev-Popov ghosts, BRST cohomology.
@@ -704,7 +710,8 @@ This transforms problem analysis into a systematic discipline where the certific
 (sec-algorithmic-information-theory)=
 ## Algorithmic Information Theory Foundations
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 We now shift gears. Up to this point, we have been classifying problems by the *type* of obstruction they encounter. But there is another dimension to consider: how *hard* is it to describe the obstruction itself?
 
 This is where algorithmic information theory enters. The central quantity is Kolmogorov complexity—the length of the shortest program that can produce a given string. It is the ultimate measure of compressibility, of pattern, of structure.
@@ -747,7 +754,8 @@ where $U$ is a fixed universal prefix-free Turing machine and $|p|$ denotes the 
 **Sieve Correspondence:** Node 11 ($\mathrm{Rep}_K$) evaluates a bounded program witness for the thin trace $T_{\mathrm{thin}}$; operationally the check is framed in terms of $K_\epsilon(T_{\mathrm{thin}})$.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you what these properties really mean. The Invariance Theorem says that Kolmogorov complexity does not depend on which programming language you use—up to an additive constant. This is crucial: complexity is a property of the string, not of our description scheme.
 
 The incompressibility property is beautiful. Most strings of length $n$ have complexity close to $n$—they cannot be compressed. A random string is, in a precise sense, maximally complex. But here is the thing that should make you sit up: we cannot *prove* that any particular string is random, because the complexity function itself is uncomputable.
@@ -784,7 +792,8 @@ where the sum is over all programs $p$ that halt on the universal machine $U$.
    exhibits Boltzmann partition function structure with $\beta = \ln 2$.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Chaitin's $\Omega$ is one of the strangest numbers in mathematics. It is the probability that a randomly generated program halts. You might think: well, just run lots of random programs and estimate it. But here is the catch—you do not know which programs will halt! Some might run forever, and you cannot tell which ones without solving the Halting Problem.
 
 What makes $\Omega$ extraordinary is its oracle power. If you knew just the first $n$ bits of $\Omega$, you could decide the halting problem for all programs of length up to $n$. Those $n$ bits contain an enormous amount of information—they encode the answers to exponentially many halting questions.

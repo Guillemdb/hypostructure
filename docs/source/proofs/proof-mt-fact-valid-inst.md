@@ -198,7 +198,7 @@ The longest path from Start to any terminal node has length $\leq |V|$.
 
 **Explicit Bound:** The Sieve diagram (cf. diagram in lines 1023-1324 of `hypopermits_jb.md`) has:
 - 1 Start node
-- 17 Main decision gates (D_E, Rec_N, C_μ, SC_λ, SC_∂c, Cap_H, LS_σ, TB_π, TB_O, TB_ρ, Rep_K, GC_∇, Bound_∂, Bound_B, Bound_∫, GC_T, Cat_Hom)
+- 17 Main decision gates (D_E, Rec_N, C_μ, SC_λ, SC_∂c, Cap_H, LS_σ, TB_π, TB_O, TB_ρ, RepDesc_K, GC_∇, Bound_∂, Bound_B, Bound_∫, GC_T, Cat_Hom)
 - 15 Barrier nodes (B1-B12, B14-B16; note B13 does not exist as Bound_∂ skips directly to Lock on failure)
 - 17 Surgery operators (S1-S17)
 - 17 Admissibility checks (A1-A17)

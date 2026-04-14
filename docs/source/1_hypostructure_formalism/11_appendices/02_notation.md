@@ -5,7 +5,8 @@ title: "Notation Index"
 (sec-notation-index)=
 # Appendix B: Notation Index
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you how to use this notation index, because notation is one of those things that can either help you think or get in your way.
 
 The Hypostructure formalism uses a lot of symbols, and at first glance it might look like alphabet soup. But there is a logic to it. We have organized the notation by *role*: what job does this symbol do in the theory? Core objects come first, the fundamental building blocks like state spaces and energy functionals. Then energy and scaling, boundary operations, certificates, categorical machinery, and so on.
@@ -20,7 +21,8 @@ The following notation is used consistently throughout this document. Symbols ar
 (sec-notation-core-objects)=
 ## Core Objects
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 These are the fundamental ingredients of any hypostructure. Think of them as the atoms from which everything else is built.
 
 The state space $\mathcal{X}$ is where your system lives. The boundary space $\mathcal{B}$ is how your system talks to the outside world. The height functional $\Phi$ measures how "bad" a state is (higher means worse). Dissipation $\mathfrak{D}$ measures how much energy is being lost. The symmetry group $G$ captures what transformations leave the physics unchanged.
@@ -41,7 +43,8 @@ And the hypostructure $\mathbb{H}$ itself? That is the whole package: all five p
 (sec-notation-energy-scaling)=
 ## Energy and Scaling
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is where we track how energy behaves as you zoom in and out. The exponents $\alpha$ and $\beta$ tell you how energy and dissipation scale when you rescale the system. This is crucial for understanding singularities: if energy can concentrate at small scales without bound, you have a potential blowup.
 
 The scaling operator $\mathcal{S}_\lambda$ is like a magnifying glass. Apply it with $\lambda < 1$ and you are zooming in; apply it with $\lambda > 1$ and you are zooming out. How physical quantities transform under this zooming is the heart of scaling theory.
@@ -58,7 +61,8 @@ The scaling operator $\mathcal{S}_\lambda$ is like a magnifying glass. Apply it 
 (sec-notation-boundary-reinjection)=
 ## Boundary and Reinjection
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 When a system hits its boundary, something has to happen. These symbols describe the machinery for handling that transition.
 
 The trace morphism $\operatorname{Tr}$ extracts the boundary data from a state: "What does this state look like at the edge?" The flux morphism $\mathcal{J}$ measures energy flow across the boundary: "How much is going in or out?" And the reinjection kernel $\mathcal{R}$ is the stochastic rule for putting the system back into play after it exits: "Given boundary data, what distribution of interior states do we restart from?"
@@ -76,7 +80,8 @@ This is the mathematical machinery for handling what physicists call "boundary c
 (sec-notation-certificates)=
 ## Certificate Notation
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Certificates are the Sieve's way of keeping receipts. When a node makes a judgment, it does not just say "yes" or "no" and move on. It produces a *certificate* explaining its answer.
 
 The basic dichotomy is $K^+$ (yes, the property holds) versus $K^-$ (no, it does not). But the "no" case has structure: did we find an actual counterexample ($K^{\mathrm{wit}}$, a witness to failure), or did our method simply fail to verify ($K^{\mathrm{inc}}$, inconclusive)? This distinction matters enormously. A counterexample is definitive; inconclusiveness might just mean we need a better method.
@@ -109,7 +114,8 @@ For barrier nodes, we have blocked ($K^{\text{blk}}$) versus breached ($K^{\text
 (sec-notation-categorical)=
 ## Categorical Notation
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we enter the realm of category theory. Do not be intimidated. Categories are just a language for talking about mathematical structures and the relationships between them.
 
 The ambient topos $\mathcal{E}$ is the mathematical universe where everything lives. Think of it as "the space of all spaces." The categories $\mathbf{Hypo}_T$ and $\mathbf{Thin}_T$ are subcollections: all hypostructures of a given type $T$, and all thin kernels of that type.
@@ -129,7 +135,8 @@ The "bad pattern" $\mathbb{H}_{\text{bad}}$ is central to the whole theory. It r
 (sec-notation-interface-identifiers)=
 ## Interface Identifiers
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Each Sieve node has an interface, a contract specifying what it checks and what it promises. These identifiers name those interfaces.
 
 The subscripts often hint at the physical quantity involved: $D_E$ for energy, $C_\mu$ for compactness with respect to a measure $\mu$, $\mathrm{SC}_\lambda$ for scaling by parameter $\lambda$. When you see these in the text, they are referring to specific diagnostic checkpoints in the Sieve pipeline.
@@ -152,7 +159,8 @@ The subscripts often hint at the physical quantity involved: $D_E$ for energy, $
 (sec-notation-rigor-classification)=
 ## Rigor Classification
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Not all proofs are created equal. We classify them by where the rigor comes from.
 
 **Class L (Literature-Anchored):** We are standing on the shoulders of giants. The proof works because we can cite a theorem from the established literature. Our job is to verify that the hypotheses of that theorem are satisfied in our context.
@@ -176,7 +184,8 @@ Not all proofs are created equal. We classify them by where the rigor comes from
 (sec-notation-progress-measures)=
 ## Progress Measures (Type A/B)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 How do you know a procedure terminates? You need a progress measure, something that gets better at each step and cannot get better forever.
 
 **Type A** is like a budget: you start with a fixed amount, each operation costs something, and you cannot spend more than you have. Eventually you run out of budget and must stop.
@@ -196,7 +205,8 @@ Both types guarantee termination, but they suit different situations. Type A is 
 (sec-notation-zfc-translation)=
 ## ZFC Translation
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here we connect the categorical machinery to classical set theory. Why bother? Because many mathematicians work in ZFC (Zermelo-Fraenkel set theory with the Axiom of Choice), and they want to know: "Can I trust these categorical proofs? Can I understand the conclusions without learning topos theory?"
 
 The answer is yes, via translation. The key tool is the truncation functor $\tau_0$, which extracts the "set-theoretic shadow" of a higher categorical object. You lose some information (the higher homotopy), but you preserve what matters for most applications.
@@ -225,7 +235,8 @@ The Grothendieck universe $\mathcal{U}$ handles size issues. The bridge certific
 (sec-notation-key-bridge-theorems)=
 ## Key Bridge Theorems
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 These are the headlines, the theorems that make the whole translation machinery worth building.
 
 The Fundamental Theorem says: if the categorical machinery proves that no bad pattern can embed into your hypostructure, then in plain set-theoretic language, no singular point exists. That is the payoff. All the topos theory, all the higher categories, all the modalities, they funnel down to a statement you can verify in classical foundations.
@@ -241,7 +252,8 @@ The Singular Point Contradiction corollary makes this even sharper: the existenc
 (sec-notation-zfc-axiom-abbreviations)=
 ## ZFC Axiom Abbreviations
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Every ZFC axiom has a job to do in the translation. This table tracks which axioms are used by which Sieve nodes.
 
 Why care? Because if you are working in a weaker foundation (say, ZF without Choice), you want to know which parts of the machinery still apply. The axiom audit trail lets you see exactly where Choice enters and which conclusions remain valid without it.
@@ -260,7 +272,8 @@ Why care? Because if you are working in a weaker foundation (say, ZF without Cho
 (sec-notation-ait)=
 ## Algorithmic Information Theory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Algorithmic Information Theory (AIT) provides a rigorous way to talk about complexity and randomness. The central quantity is Kolmogorov complexity $K(x)$: the length of the shortest program that outputs $x$. Simple strings have small $K$; random strings have $K$ close to their length.
 
 Chaitin's $\Omega$ is one of the most remarkable numbers in mathematics: it encodes the probability that a random program halts. This number is well-defined, but uncomputable. It lies at the boundary between what algorithms can and cannot do.
@@ -279,7 +292,8 @@ Computational depth $d_s(x)$ measures how much computation is "locked up" in a s
 (sec-notation-ait-phase-classification)=
 ## AIT Phase Classification
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Matter has phases: solid, liquid, gas. It turns out that computational problems have phases too, distinguished by their algorithmic complexity.
 
 **Crystal:** The simple phase. Problems here have logarithmic complexity, meaning they can be described much more compactly than their size suggests. They are decidable and yield REGULAR verdicts from the Sieve.

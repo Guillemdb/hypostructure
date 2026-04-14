@@ -5,7 +5,7 @@
 
 **Theorem Reference:** {prf:ref}`mt-fact-soft-wp`
 
-This proof establishes that for good types $T$ satisfying the Automation Guarantee, critical well-posedness can be derived automatically from soft interface certificates through template matching and theorem instantiation. The proof proceeds by showing that the soft certificates $K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{Rep}_K}^+$ contain sufficient information to match against classical well-posedness templates and instantiate the corresponding existence theorems.
+This proof establishes that for good types $T$ satisfying the Automation Guarantee, critical well-posedness can be derived automatically from soft interface certificates through template matching and theorem instantiation. The proof proceeds by showing that the soft certificates $K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{RepDesc}_K}^+$ contain sufficient information to match against classical well-posedness templates and instantiate the corresponding existence theorems.
 
 ## Setup and Notation
 
@@ -32,7 +32,7 @@ We are given a Hypostructure $\mathcal{H} = (\mathcal{X}, \Phi, \mathfrak{D}, G)
    - $\beta$ is the dissipation scaling exponent: $\mathfrak{D}(\lambda \cdot x) = \lambda^\beta \mathfrak{D}(x)$
    - Subcriticality condition: $\alpha > \beta$ ({prf:ref}`def-interface-sclambda`)
 
-5. **Representation Certificate** $K_{\mathrm{Rep}_K}^+$: A finite description $p$ of the system satisfying:
+5. **Representation Certificate** $K_{\mathrm{RepDesc}_K}^+$: A finite description $p$ of the system satisfying:
    - Dictionary morphism $D: \mathcal{X} \to \mathcal{L}$ to a formal language $\mathcal{L}$
    - Complexity bound: $K(D(x)) < \infty$ for all $x \in \mathcal{X}$ ({prf:ref}`def-interface-repk`)
 
@@ -72,7 +72,7 @@ certifying that the system admits local well-posedness at critical regularity $s
 
 ### Lemma 1.1: Signature Extractor
 
-**Statement:** Given soft certificates $(K_{\mathcal{H}_0}^+, K_{D_E}^+, K_{\mathrm{Bound}}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{Rep}_K}^+)$, the evaluator `Eval_WP(T)` can extract a unique algebraic signature that identifies the equation class.
+**Statement:** Given soft certificates $(K_{\mathcal{H}_0}^+, K_{D_E}^+, K_{\mathrm{Bound}}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{RepDesc}_K}^+)$, the evaluator `Eval_WP(T)` can extract a unique algebraic signature that identifies the equation class.
 
 **Proof:** Define the signature extraction function:
 $$\Sigma: \mathcal{K}_{\text{soft}} \to \text{Sig}(\mathcal{T})$$
@@ -87,7 +87,7 @@ The signature consists of:
      - If $\Phi(S_t x) = \Phi(x)$ for all $t$ (conservation) → conservative signature (wave, Schrödinger, Hamiltonian)
      - If $\Phi(S_t x) \leq \Phi(x) + Ct$ (controlled growth) → weak dissipation
 
-2. **Spatial Differential Structure** (from $K_{\mathrm{Rep}_K}^+$):
+2. **Spatial Differential Structure** (from $K_{\mathrm{RepDesc}_K}^+$):
    - Parse the finite description $p$ to identify differential operators
    - Extract principal symbol $\sigma(\xi) = \sum_{|\alpha| = m} a_\alpha \xi^\alpha$ where $m$ is the order
    - Classify by principal part:
@@ -154,7 +154,7 @@ Having matched template $T_*$, we now instantiate the corresponding well-posedne
 
 **Canonical Form:** Consider the semilinear heat equation:
 $$u_t = \Delta u + f(u), \quad u|_{t=0} = u_0 \in H^s(\Omega), \quad u|_{\partial\Omega} = 0$$
-where $f: \mathbb{R} \to \mathbb{R}$ is the nonlinearity extracted from $K_{\mathrm{Rep}_K}^+$.
+where $f: \mathbb{R} \to \mathbb{R}$ is the nonlinearity extracted from $K_{\mathrm{RepDesc}_K}^+$.
 
 **Theorem Instantiation:** Apply the energy method from {cite}`CazenaveSemilinear03` Chapter 3:
 
@@ -170,7 +170,7 @@ $$u \in C([0, T_{\text{loc}}); L^2(\Omega)) \cap L^2((0, T_{\text{loc}}); H^1_0(
 
 1. **Domain Regularity:** From $K_{\mathrm{Bound}}^+$, extract $\Omega$ and verify smoothness. If $\Omega$ is not smooth, standard regularity theory applies with appropriate corner/edge estimates.
 
-2. **Nonlinearity Growth:** From $K_{\mathrm{Rep}_K}^+$, parse the nonlinearity $f$. Verify:
+2. **Nonlinearity Growth:** From $K_{\mathrm{RepDesc}_K}^+$, parse the nonlinearity $f$. Verify:
    - $f$ is locally Lipschitz: Use the finite description to check $f \in C^1$
    - Growth rate satisfies: $|f(u)| \leq C(1 + |u|^p)$ with $p$ subcritical
    - **Automated Check:** Compute $p$ from the representation and compare with critical exponent $p_c = \frac{d+2}{d-2}$
@@ -354,7 +354,7 @@ $$K_{\mathrm{WP}_{s_c}}^+ = (T_{\text{NLS}}, \text{Cazenave03:Thm4.6.1}, s_c = \
 
 ### Case 2.4: Symmetric Hyperbolic Systems ($T_{\text{hyp}}$)
 
-**Template Signature:** $K_{\mathrm{Rep}_K}^+$ (finite matrix description)
+**Template Signature:** $K_{\mathrm{RepDesc}_K}^+$ (finite matrix description)
 
 **Canonical Form:**
 $$A^0(x) u_t + \sum_{j=1}^d A^j(x) u_{x_j} = B(x)u + F(x, t)$$
@@ -373,7 +373,7 @@ $$u \in C([0, T_{\text{loc}}); H^s(\mathbb{R}^d; \mathbb{R}^n))$$
 
 **Verification of Preconditions:**
 
-1. **Symmetry:** From $K_{\mathrm{Rep}_K}^+$, parse the matrix coefficients $A^\mu$ and verify:
+1. **Symmetry:** From $K_{\mathrm{RepDesc}_K}^+$, parse the matrix coefficients $A^\mu$ and verify:
    $$A^\mu = (A^\mu)^T \quad \text{for all } \mu$$
    This is a finite algebraic check on the representation.
 
@@ -607,7 +607,7 @@ $$\mathsf{cont} = \{\text{dissipative}, \Phi(u_0), c\}$$
 
 We have established the SOFT→WP compilation mechanism through a rigorous five-step process:
 
-1. **Template Matching (Step 1):** Given soft certificates $(K_{\mathcal{H}_0}^+, K_{D_E}^+, K_{\mathrm{Bound}}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{Rep}_K}^+)$, the evaluator extracts an algebraic signature $\Sigma$ and matches it against the template database $\{T_{\text{para}}, T_{\text{wave}}, T_{\text{NLS}}, T_{\text{hyp}}\}$.
+1. **Template Matching (Step 1):** Given soft certificates $(K_{\mathcal{H}_0}^+, K_{D_E}^+, K_{\mathrm{Bound}}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{RepDesc}_K}^+)$, the evaluator extracts an algebraic signature $\Sigma$ and matches it against the template database $\{T_{\text{para}}, T_{\text{wave}}, T_{\text{NLS}}, T_{\text{hyp}}\}$.
 
 2. **Theorem Instantiation (Step 2):** For each matched template, we instantiate the corresponding classical well-posedness theorem:
    - Parabolic: Energy method + Gronwall ({cite}`CazenaveSemilinear03` Theorem 3.3.1)
@@ -631,7 +631,7 @@ We have established the SOFT→WP compilation mechanism through a rigorous five-
 - Certificate construction packages proven results
 
 **Automation:** The entire process is algorithmic:
-- Signature extraction: Parse $K_{\mathrm{Rep}_K}^+$ to extract differential operators
+- Signature extraction: Parse $K_{\mathrm{RepDesc}_K}^+$ to extract differential operators
 - Template matching: Finite case analysis over template database
 - Certificate assembly: Construct finite data structure
 

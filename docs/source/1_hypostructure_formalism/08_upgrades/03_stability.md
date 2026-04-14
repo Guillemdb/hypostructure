@@ -14,7 +14,8 @@ The **Stability and Composition Metatheorems** govern how Sieve verdicts extend 
 
 These metatheorems are **universal**: they apply to any valid Hypostructure because they operate on the Certificate algebra, not the underlying physics.
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is something that worries every honest physicist: *What if my model is wrong?*
 
 Not catastrophically wrong---we would notice that. I mean subtly wrong. Your viscosity coefficient is off by 2%. Your boundary conditions are idealized. Your numerical simulation has round-off error. Does your entire proof collapse?
@@ -29,7 +30,8 @@ The key insight is this: the Sieve operates on certificates, not on the underlyi
 (sec-openness-of-regularity)=
 ### Openness of Regularity
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you what "openness" really means here. Imagine you have certified a system as globally regular. You have your certificate $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ in hand. Now someone comes along and says, "But your parameter $\theta_0$ is only known to 6 decimal places. What about $\theta_0 + 0.000001$?"
 
 The openness theorem says: *Relax.* If your barriers are strict---if Gap is not merely positive but *bounded away from zero*---then there exists a whole neighborhood of parameters where the proof still works. You do not need to redo anything. The certificate algebra is continuous.
@@ -71,7 +73,8 @@ Strict inequalities define open sets. The Morse-Smale stability theorem (Palis a
 (sec-shadowing-metatheorem)=
 ### Shadowing Metatheorem
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now here is something that should give you great comfort if you ever run numerical simulations.
 
 Every computer makes errors. Your floating-point arithmetic rounds off. Your time-stepper introduces small drift. After a million steps, your computed trajectory $\{y_n\}$ has accumulated countless tiny mistakes. It is not the *true* orbit---it is what we call a "pseudo-orbit." At each step, you are almost solving the equation, but not quite.
@@ -117,7 +120,8 @@ The Anosov shadowing lemma (1967) states that uniformly hyperbolic systems have 
 (sec-weak-strong-uniqueness)=
 ### Weak-Strong Uniqueness
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is something that causes genuine anxiety in PDE theory: *non-uniqueness of weak solutions.*
 
 When you solve a differential equation by the "weak" method---using compactness arguments, extracting subsequences, passing to limits---you get a solution, but you have no guarantee it is the *only* solution. Maybe there are infinitely many weak solutions, and you just happened to grab one. Maybe the physics you are trying to model has fundamentally ambiguous predictions.
@@ -165,7 +169,8 @@ The weak-strong uniqueness principle uses energy estimates. If $v = u_w - u_s$, 
 (sec-product-regularity-metatheorem)=
 ### Product-Regularity Metatheorem
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And now we come to what I think is the most practically important result in this section: *Can you build a safe system out of safe parts?*
 
 This matters enormously for engineering. Suppose you have verified that your neural network is well-behaved. And you have verified that your physics engine is stable. Now you couple them together---the neural net controls the physics simulation. Is the combined system safe?
@@ -397,7 +402,8 @@ Bounded uniformly in time.
 (sec-subsystem-inheritance)=
 ### Subsystem Inheritance
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is the flip side of composition: *inheritance.*
 
 Product-Regularity asks whether combining systems preserves regularity. Subsystem Inheritance asks the reverse: if the big system is safe, are smaller pieces automatically safe?

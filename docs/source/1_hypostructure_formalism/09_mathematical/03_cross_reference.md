@@ -7,7 +7,8 @@ title: "Foundation-Sieve Cross-Reference"
 (sec-foundation-sieve-cross-reference)=
 ## Foundation - Sieve Cross-Reference
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now let me tell you what this chapter is really about. We have built an elaborate safety system---the Sieve---with its sixty diagnostic nodes, its barriers, its surgeries. But you might reasonably ask: "Where does all this machinery come from? Is it just clever engineering, or is there something deeper going on?"
 
 The answer is that every single piece of the Sieve has a mathematical pedigree. Each node, each barrier, each surgery operation is not just a good idea someone had---it is a theorem in disguise. The tables that follow are the Rosetta Stone of our framework: they map each operational component to the foundational mathematics that justifies it.
@@ -22,7 +23,8 @@ The following table provides the complete mapping from Sieve components to their
 (sec-kernel-logic-cross-reference)=
 ### Kernel Logic Cross-Reference
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The kernel logic is where the Sieve makes its fundamental decisions. These are not arbitrary design choices---they emerge from deep categorical and functional-analytic structures. When we lock out a pathological trajectory, we are applying Grothendieck's exclusion principles. When we classify singularities into trichotomous types, we draw on Lions' concentration-compactness. The kernel is category theory wearing work clothes.
 :::
 
@@ -36,7 +38,8 @@ The kernel logic is where the Sieve makes its fundamental decisions. These are n
 (sec-gate-evaluator-cross-reference)=
 ### Gate Evaluator Cross-Reference
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is where the rubber meets the road. The blue nodes are the gates---the yes/no decision points that determine whether a trajectory proceeds safely or gets flagged. Each gate implements a mathematical predicate, and each predicate distills a theorem into a single inequality.
 
 Look at the ScaleCheck gate: "$\beta - \alpha < \lambda_c$"---that is all it asks. But behind that simple question stands the entire edifice of blow-up analysis. If the exponents satisfy $\beta - \alpha < \lambda_c$ (with $\lambda_c = 0$ in the homogeneous case), supercritical self-similar blow-up is excluded. You do not need to understand Merle and Zaag's intricate estimates; the Sieve has done that work for you and reduced it to a single comparison.
@@ -55,7 +58,8 @@ This is the beauty of the design: profound mathematics becomes operational throu
 (sec-barrier-defense-cross-reference)=
 ### Barrier Defense Cross-Reference
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The orange barriers are where the Sieve says "no further"---these are the walls that prevent pathological outcomes. Each barrier implements a blocking mechanism derived from a conservation law or an impossibility theorem.
 
 Consider the Bode barrier. It encodes the waterbed effect from control theory: you cannot suppress sensitivity everywhere. If you push it down at one frequency, it pops up somewhere else. The integral $\int \log|S| d\omega$ is conserved. This is not negotiable; it is a theorem.
@@ -77,7 +81,8 @@ These are not soft constraints. They are mathematical walls.
 (sec-surgery-construction-cross-reference)=
 ### Surgery Construction Cross-Reference
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 When the gates flag a problem and the barriers cannot contain it, the Sieve does not simply give up. It performs surgery. The purple nodes are constructive---they actively modify the problem to restore tractability.
 
 Each surgery operation is a mathematical construction technique lifted from a different field. Hairer's regularity structures let us make sense of ill-posed SPDEs. Perelman's Ricci flow surgery cuts out singularities and caps off the wounds. The BRST construction introduces ghost fields to cancel infinite gauge volumes.

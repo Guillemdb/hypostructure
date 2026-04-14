@@ -97,7 +97,7 @@ those inputs are recorded as explicit assumptions rather than being silently imp
 **Thin inputs:** all thin objects (plus $\partial^{\text{thin}}$ when treated as an open system).
 **Permits:** $\mathrm{Cat}_{\mathrm{Hom}}$ (N17) together with the accumulated context $\Gamma$ from prior nodes.
 
-**Status:** Framework (categorical exclusion closes “unknown unknowns”).
+**Status:** Framework (categorical exclusion closes "unknown unknowns").
 
 **Statement:** Let $\mathcal{H}$ be the candidate promoted hypostructure produced from thin Fractal Gas data (e.g. via the
 Expansion Adjunction {prf:ref}`thm-expansion-adjunction`). If the Lock predicate holds (Definition {prf:ref}`def-node-lock`):
@@ -106,7 +106,7 @@ $$
 \mathrm{Hom}_{\mathbf{Hypo}}(\mathbb{H}_{\mathrm{bad}}, \mathcal{H})=\varnothing,
 
 $$
-then no singularity-forming “bad pattern” can embed in $\mathcal{H}$ and the framework emits a global regularity
+then no singularity-forming "bad pattern" can embed in $\mathcal{H}$ and the framework emits a global regularity
 certificate.
 
 Moreover, the constructive Lock check may be implemented against a finite Bad Pattern Library $\mathcal{B}$: it is
@@ -367,7 +367,7 @@ $$
 z_i' = z_{c_i} + \sigma_x\zeta_i,\qquad \zeta_i\sim\mathcal{N}(0,I),
 
 $$
-and update the auxiliary “velocity-like” coordinates via a momentum-preserving inelastic collision map. For each
+and update the auxiliary "velocity-like" coordinates via a momentum-preserving inelastic collision map. For each
 collision group $G$ (a companion together with all cloners to it), let
 
 $$
@@ -768,7 +768,7 @@ recovering the familiar $1/4$ coefficient (Theorem {prf:ref}`thm-a-complete-deri
 
 $$
 I_{\max}\;=\;\nu_D\cdot\frac{\mathrm{Area}(\partial M)}{\ell_L^{D-1}}
-\qquad\text{(and for $D=2$: }I_{\max}=\mathrm{Area}(\partial M)/(4\ell_L^2)\text{).}
+\qquad\text{(and for }D=2\text{: }I_{\max}=\mathrm{Area}(\partial M)/(4\ell_L^2)\text{).}
 
 $$
 
@@ -1168,7 +1168,7 @@ hypostructure** $C^\infty$ regularity certificate.
 
 :::{prf:proof}
 Family I regularity bootstrap is stated in the classification taxonomy
-({doc}`/source/2_hypostructure/09_mathematical/04_taxonomy`, Family I). The Regularity Lift surgery
+([Taxonomy](../09_mathematical/04_taxonomy.md), Family I). The Regularity Lift surgery
 is specified in {prf:ref}`def-surgery-se` and upgrades $H^s \to H^{s+\delta}$; iterating
 the upgrade yields $H^s$ for all $s$ on the window, hence $C^\infty$ by Sobolev
 embedding. These arguments are internal to the hypostructure certificate logic and do
@@ -1192,7 +1192,7 @@ $\mathrm{Bound}_\partial$ (N13), $\mathrm{Bound}_B$ (N14), $\mathrm{Bound}_\Sigm
 $D_{\max}$ (bounded algorithmic diameter on the alive core) and $\rho_{\max}$ (uniform
 upper bound on the invariant/QSD density on the alive core). These witnesses match the
 standing hypotheses required by the Gevrey-1 regularity analysis in
-{doc}`/source/3_fractal_gas/convergence_program/14_b_geometric_gas_cinf_regularity_full`.
+`14_b_geometric_gas_cinf_regularity_full`.
 :::
 
 :::{prf:proof}
@@ -1224,7 +1224,7 @@ machinery are met, so that an **independent** proof may be invoked if desired.
 regularization specified above, and (ii) the sieve provides witnesses $D_{\max}$ and
 $\rho_{\max}$ together with the thin-parameter bounds, then the hypotheses of the
 Gevrey-1 regularity analysis in
-{doc}`/source/3_fractal_gas/convergence_program/14_b_geometric_gas_cinf_regularity_full` are satisfied. In
+`14_b_geometric_gas_cinf_regularity_full` are satisfied. In
 that case, the Gevrey-1 regularity proof may be applied as a **separate, independent**
 route to $C^\infty$ (and real-analytic) regularity of the mean-field expected fitness
 potential. This route remains logically independent of the hypostructure bootstrap above.
@@ -2033,7 +2033,7 @@ $$
 \sum_{p:\,|p|\le s} 2^{s-|p|} = 2^s\sum_{p:\,|p|\le s} 2^{-|p|} \le 2^s,
 
 $$
-by Kraft’s inequality for the prefix-free set $\mathcal{P}$.
+by Kraft's inequality for the prefix-free set $\mathcal{P}$.
 
 **Step 3 (Levin envelope).**
 Let $p_\star$ halt with a valid output within $t_\star$ steps. Choose $s_\star:=|p_\star|+\lceil\log_2 t_\star\rceil$.
@@ -2044,8 +2044,8 @@ $$
 \sum_{s=0}^{s_\star} 2^s \le 2^{s_\star+1} = O\!\left(2^{|p_\star|}\,t_\star\right).
 
 $$
-This is the standard universal-search guarantee. The “Fractal Gas” phrasing is the observation that $\Phi(p,t)$ is a
-single scalar “energy” whose cutoff induces Levin’s resource allocation.
+This is the standard universal-search guarantee. The "Fractal Gas" phrasing is the observation that $\Phi(p,t)$ is a
+single scalar "energy" whose cutoff induces Levin's resource allocation.
 :::
 
 :::{prf:remark} Complexity Envelope (Framework Classes)

@@ -1,6 +1,7 @@
 # Universal Singularity Modules
 
-:::{div} feynman-prose feynman-added
+:::{div}
+:class: feynman-prose feynman-added
 
 Now we come to what I think is the most beautiful part of this whole framework. You have been wading through definitions and theorems, building up machinery. Here is where it pays off.
 
@@ -68,7 +69,8 @@ A Hypostructure $\mathcal{H}$ satisfies the **Automation Guarantee** if:
 (sec-profile-classification-trichotomy)=
 ## Profile Classification Trichotomy
 
-:::{div} feynman-prose feynman-added
+:::{div}
+:class: feynman-prose feynman-added
 
 Here is the first key question: when something goes wrong, *what kind* of thing is going wrong?
 
@@ -301,7 +303,7 @@ $$
 **Mechanism-Specific Soft Extensions:**
 | Mechanism | Additional Soft Interfaces |
 |-----------|---------------------------|
-| A: CC+Rigidity | $K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{Rep}_K}^+$ |
+| A: CC+Rigidity | $K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{RepDesc}_K}^+$ |
 | B: Attractor+Morse | $K_{\mathrm{TB}_\pi}^+$ |
 | C: Tame+LS | $K_{\mathrm{TB}_O}^+$ (o-minimal definability) |
 | D: Lock/Hom-Exclusion | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (Lock blocked) |
@@ -360,7 +362,7 @@ else emit NO with K_prof^inc (mechanism_failures: [A,B,C,D])
 **Sufficient Soft Condition:**
 
 $$
-K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{Rep}_K}^+
+K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{LS}_\sigma}^+ \wedge K_{\mathrm{Mon}_\phi}^+ \wedge K_{\mathrm{RepDesc}_K}^+
 
 $$
 
@@ -527,7 +529,7 @@ Alternatively, if Lock blocks specific patterns but allows others, classify the 
 
 | Mechanism | Additional Soft | Best For | Hard Estimates? | Route Tag |
 |-----------|-----------------|----------|-----------------|-----------|
-| **A: CC+Rig** | $K_{\mathrm{Mon}_\phi}^+$, $K_{\mathrm{Rep}_K}^+$ | NLS, NLW, dispersive | No (compiled) | CC-Rig |
+| **A: CC+Rig** | $K_{\mathrm{Mon}_\phi}^+$, $K_{\mathrm{RepDesc}_K}^+$ | NLS, NLW, dispersive | No (compiled) | CC-Rig |
 | **B: Attr+Morse** | $K_{\mathrm{TB}_\pi}^+$ | Reaction-diffusion, MCF | No (gradient-like) | Attr-Morse |
 | **C: Tame+LS** | $K_{\mathrm{TB}_O}^+$ | Algebraic, polynomial | No (definability) | Tame-LS |
 | **D: Lock** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Categorical systems | No (obstruction) | Lock-Excl |
@@ -541,7 +543,8 @@ Alternatively, if Lock blocks specific patterns but allows others, classify the 
 (sec-surgery-admissibility-trichotomy)=
 ## Surgery Admissibility Trichotomy
 
-:::{div} feynman-prose feynman-added
+:::{div}
+:class: feynman-prose feynman-added
 
 Now, here is the second key question: once you know what kind of singularity you have, can you actually *fix* it?
 
@@ -716,7 +719,8 @@ Proof Sketch
 (sec-structural-surgery-principle)=
 ## Structural Surgery Principle
 
-:::{div} feynman-prose feynman-added
+:::{div}
+:class: feynman-prose feynman-added
 
 Now we come to the surgery itself. This is where we actually cut and paste.
 
@@ -781,12 +785,10 @@ Proof Sketch
 A **Surgery Morphism** for singularity $(\Sigma, V)$ is a categorical pushout:
 
 $$
-\begin{CD}
-\mathcal{X}_{\Sigma} @>{\iota}>> \mathcal{X} \\
-@V{\text{excise}}VV @VV{\mathcal{O}_S}V \\
-\mathcal{X}_{\text{cap}} @>{\text{glue}}>> \mathcal{X}'
-\end{CD}
-
+\mathcal{X}_{\Sigma} \xrightarrow{\iota} \mathcal{X},\qquad
+\mathcal{X}_{\Sigma} \xrightarrow{\mathrm{excise}} \mathcal{X}_{\mathrm{cap}},\qquad
+\mathcal{X} \xrightarrow{\mathcal{O}_S} \mathcal{X}',\qquad
+\mathcal{X}_{\mathrm{cap}} \xrightarrow{\mathrm{glue}} \mathcal{X}'.
 $$
 
 where:
@@ -806,7 +808,8 @@ where:
 The transfer of structures ($\Phi', \mathfrak{D}'$) to $\mathcal{X}'$ uses the universal property: any structure on $\mathcal{X}$ that is constant on $\Sigma$ induces a unique structure on $\mathcal{X}'$.
 :::
 
-:::{div} feynman-prose feynman-added
+:::{div}
+:class: feynman-prose feynman-added
 
 Here is the theorem that makes the whole program work. You might worry: what if surgery goes on forever? What if we keep finding singularities, keep cutting and pasting, in an infinite regress?
 
@@ -981,7 +984,8 @@ The Sieve automatically:
 **Consequence:** The "singularity problem" becomes a **typing problem**: specify the correct thin objects, and the Framework handles singularity resolution.
 :::
 
-:::{div} feynman-prose feynman-added
+:::{div}
+:class: feynman-prose feynman-added
 
 And there it is.
 

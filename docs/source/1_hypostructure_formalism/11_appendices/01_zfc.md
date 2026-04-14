@@ -5,7 +5,8 @@ title: "Set-Theoretic Foundation"
 (sec-zfc-translation)=
 # Appendix A: The Set-Theoretic Foundation
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now, here is a question you might reasonably ask: why bother with all this fancy topos theory if we are just going to translate everything back to ordinary set theory anyway?
 
 The answer is that the higher categorical framework is where the *thinking* happens---it is where the proofs are natural, where the structure is manifest, where you do not have to fight the formalism at every step. But when you are done thinking, you want to be able to hand your conclusions to a classical mathematician and say: "Here. Check this. You do not need to learn about $(\infty,1)$-topoi; you can verify everything in ZFC."
@@ -30,7 +31,8 @@ The bridge is intentionally **semantic** rather than a term-by-term proof compil
 (sec-zfc-universe-anchoring)=
 ## Grothendieck Universes and Size Consistency
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Before we get into the technical details, let me tell you what problem we are solving. In set theory, there is a fundamental issue with "size." You cannot have a set of all sets---that leads to Russell's paradox. But in category theory, we constantly want to talk about "the category of all groups" or "the category of all topological spaces." These are proper classes, not sets.
 
 The solution is Grothendieck's trick: pick a big enough "universe" $\mathcal{U}$---a set so large that it is closed under all the operations you care about---and pretend that sets in $\mathcal{U}$ are the "small" sets, while the universe itself gives you room to talk about collections of small sets without paradox.
@@ -83,7 +85,8 @@ By the accessibility of $\mathcal{E}$, all small colimits exist and are computed
 (sec-zfc-truncation)=
 ## The Truncation Functor: $\tau_0$
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is the central operation of the whole translation layer. We have these beautiful, complicated $\infty$-groupoids with paths, paths between paths, symmetries, and coherence data stacked infinitely high. And we need to extract a plain old set that a classical mathematician can work with.
 
 The 0-truncation functor $\tau_0$ does exactly this: it forgets all the higher structure and keeps only the "connected components." If you have a space $X$, then $\tau_0(X)$ is the set of path-connected pieces of $X$. Two points go to the same element of $\tau_0(X)$ if and only if there is a path between them.
@@ -166,7 +169,8 @@ The 0-truncation functor preserves the essential structure of certificates:
 (sec-zfc-discrete-reflection)=
 ## The Discrete Reflection Adjunction
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me make sure you understand what the flat modality $\flat$ is doing. It is embedding ordinary sets---the kind you learn about in a first course on set theory---into our fancy topos, as "discrete" objects with no interesting topology or homotopy.
 
 The beautiful thing is that this embedding is *full and faithful*. That means: if you take two sets $S$ and $T$, embed them as $\flat(S)$ and $\flat(T)$ in the topos, and then look at the morphisms between them, you get back exactly the functions from $S$ to $T$. No extra structure, no missing functions. The sets live happily inside the topos, completely intact.
@@ -226,7 +230,8 @@ Certificates are 0-truncated by construction (they encode Boolean decisions, fin
 (sec-zfc-sieve-axiom-mapping)=
 ## Sieve-to-Set Axiom Mapping
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the dictionary. Each of the 17 nodes in the Sieve does something specific---it checks an energy bound, or verifies a compactness property, or confirms a scaling law. And each of these operations, when you strip away the categorical language, corresponds to using certain ZFC axioms.
 
 This is not an accident. The axioms of ZFC are precisely the operations you need to do "safe" set construction: forming subsets, taking images, building power sets. The Sieve nodes are doing exactly these operations, just dressed up in categorical clothing.
@@ -289,7 +294,8 @@ Each node's interface permit specifies finite-complexity predicates on the input
 (sec-zfc-ac-dependency)=
 ## Axiom of Choice Dependency Analysis
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Axiom of Choice is special. It is the one ZFC axiom that lets you make infinitely many arbitrary selections at once, without any rule or algorithm to guide the choices. And this matters---if your proof uses Choice, then you cannot extract a computer program from it. The witness exists, but you cannot compute it.
 
 For the Sieve, this distinction is critical. We want to know: can we actually *find* the certificate, or are we just proving it exists? If the certificate derivation is Choice-free, then it is constructive---there is an algorithm that produces the witness. If it uses Choice, we get logical certainty but lose computational content.
@@ -342,7 +348,8 @@ Sieve nodes are classified by their dependence on the Axiom of Choice:
 (sec-zfc-cross-foundation-audit)=
 ## Metatheorem: The Cross-Foundation Audit
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This is the main theorem of the chapter. It says: if the Sieve produces a blocked certificate at the Lock (Node 17), then there exists a first-order ZFC formula that is true in our universe and that implies regularity.
 
 Why does this matter? Because it means a classical mathematician can verify the claim without learning topos theory. You hand them the formula $\varphi$, they check that it follows from ZFC, and they check that it implies regularity. Done. The categorical machinery was used to *find* the proof, but the *statement* is classical.
@@ -489,7 +496,8 @@ Working in $\mathcal{E}$ provides natural handling of homotopical structure, gau
 (sec-zfc-axiomatic-dictionary)=
 ## Axiomatic Dictionary: ZFC to Hypostructure Mapping
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is where we lay out the complete dictionary between ZFC and topos theory. Every axiom of ZFC has a categorical counterpart, and understanding these correspondences is essential for trusting the translation.
 
 Let me highlight the most important ones:
@@ -588,7 +596,8 @@ The mapping $\mathcal{M}: \text{ZFC} \to \mathcal{E}$ is defined by the followin
 (sec-zfc-classicality)=
 ## The Classicality Operator: Heyting vs Boolean Logic
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is a subtlety that trips up many people. The internal logic of a topos is *intuitionistic*: you cannot assume that every proposition is either true or false. The Law of Excluded Middle ($P \vee \neg P$) is not a theorem.
 
 But wait---ZFC is classical! How can the translation work if the logics are different?
@@ -662,7 +671,8 @@ For the Sieve, a certificate $K$ is **classically valid** if $\delta(\tau_0(K)) 
 (sec-zfc-internal-external-choice)=
 ## Internal vs External Choice
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 There are two versions of the Axiom of Choice, and confusing them is a common error.
 
 **Internal Choice** says: "Every epimorphism in the topos splits." This is a statement *inside* the topos, about its internal logic. And it fails! In most interesting topoi, not every surjection has a section.
@@ -778,7 +788,8 @@ Each Sieve node performs operations (pullback, pushout, hom-evaluation) that are
 (sec-zfc-translation-residual)=
 ## The Translation Residual
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 When we apply $\tau_0$, we throw away the higher homotopy groups: $\pi_1$ (gauge symmetries), $\pi_2$ (coherence conditions), and everything beyond. This is the "residual"---the information that does not survive the translation.
 
 Is this a problem? It depends on what you are asking.
@@ -834,7 +845,8 @@ While certificates have zero residual, **intermediate constructions** in proofs 
 (sec-zfc-stack-set-divergence)=
 ## Stack-Set Divergence
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is a trap that catches even experienced mathematicians. A stack (or groupoid, or higher groupoid) is *not* a set with extra structure. It is a fundamentally different kind of object, and reasoning about it as if it were a set leads to errors.
 
 The key difference: in a set, two elements are either equal or not. In a groupoid, two objects can be *isomorphic* without being *identical*. And there can be multiple *different* isomorphisms between them.
@@ -972,7 +984,8 @@ An infinite $\prec$-descending sequence in $S$ would define an infinite descendi
 (sec-zfc-fundamental-theorem)=
 ## The Fundamental Theorem of Set-Theoretic Reflection
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This is the culmination of everything. We have built all the machinery---the truncation functor, the discrete reflection, the axiom dictionary, the classicality analysis. Now we put it together into one theorem that says: the internal truth of "$\operatorname{Hom}(\mathbb{H}_{\text{bad}}, \mathbb{H}) \simeq \emptyset$" in the topos implies the external truth of "every point in $\tau_0(\mathcal{X})$ is regular" in ZFC.
 
 Let me say that again, because it is important. Inside the topos, we prove that no morphism exists from the bad pattern to the hypostructure. This is a statement about higher groupoids, using all the fancy machinery of $(\infty,1)$-categories. But when we apply the translation---when we take connected components, when we land in the discrete fragment, when we read off the ZFC content---we get a plain statement about sets: there is no bad point.

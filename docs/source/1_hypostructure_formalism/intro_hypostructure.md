@@ -16,11 +16,11 @@ by *Guillem Duran-Ballester and Sergio Hernández Cerezo*
 **What is this?** A categorical framework for proving global regularity of dynamical systems through systematic singularity detection and resolution. The Hypostructure Formalism provides the mathematical foundations for the Sieve diagnostic system, translating runtime safety checks into proof-carrying certificates.
 
 **Core Architecture (The Sieve):**
-- **Categorical Foundation:** Work in a cohesive $(\infty,1)$-topos $\mathcal{E}$ with shape/flat/sharp modalities. See {ref}`Categorical Foundations <sec-ambient-substrate>`.
-- **Hypostructure Object:** A tuple $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet, \tau, \partial_\bullet)$ encoding state stack, dynamics, energy, truncation, and boundary interface. See {prf:ref}`def-categorical-hypostructure`.
-- **The Sieve:** A 17-node diagnostic flowchart with gate/barrier/surgery trichotomy. Each node produces typed certificates (YES/NO/INC). See {ref}`Gate Nodes <sec-gate-node-specs>`.
-- **Five Axioms:** Conservation (D, Rec), Duality (C, SC), Symmetry (LS, GC), Topology (TB, Cap), Boundary—the complete set of constraints for global regularity. See {ref}`Axiom System <sec-conservation-constraints>`.
-- **Factory Metatheorems:** TM-1 to TM-5 generate correct-by-construction verifiers from type specifications. See {prf:ref}`mt-fact-gate`.
+- **Categorical Foundation:** Work in a cohesive $(\infty,1)$-topos $\mathcal{E}$ with shape/flat/sharp modalities. See Categorical Foundations.
+- **Hypostructure Object:** A tuple $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet, \tau, \partial_\bullet)$ encoding state stack, dynamics, energy, truncation, and boundary interface. See `def-categorical-hypostructure`.
+- **The Sieve:** A 17-node diagnostic flowchart with gate/barrier/surgery trichotomy. Each node produces typed certificates (YES/NO/INC). See Gate Nodes.
+- **Five Axioms:** Conservation (D, Rec), Duality (C, SC), Symmetry (LS, GC), Topology (TB, Cap), Boundary—the complete set of constraints for global regularity. See Axiom System.
+- **Factory Metatheorems:** TM-1 to TM-5 generate correct-by-construction verifiers from type specifications. See `mt-fact-gate`.
 
 **The Sieve Trichotomy:**
 A diagnostic flowchart organized by node type:
@@ -34,7 +34,7 @@ Every predicate evaluation produces a typed certificate:
 - **$K^-$ (NO):** Witness of violation or inconclusiveness
 - **$K^{\text{inc}}$:** Inconclusive—routes to fallback with honest bookkeeping
 - **Derived witnesses:** Auxiliary bound certificates (e.g., $K_{D_{\max}}^+$, $K_{\rho_{\max}}^+$) used to
-  certify analytic bridge admissibility; see {doc}`/2_hypostructure/05_interfaces/02_permits`.
+  certify analytic bridge admissibility; see [Permits](05_interfaces/02_permits.md).
 
 **The Five Axioms:**
 1. **Conservation (D, Rec):** Energy dissipation + finite discrete events
@@ -70,8 +70,8 @@ The framework establishes that polynomial-time algorithms must factor through fi
 
 The strengthened **algorithmic completeness ladder** culminates in witness decomposition, irreducible-witness
 classification, and computational modal exhaustiveness
-({prf:ref}`thm-witness-decomposition`, {prf:ref}`thm-irreducible-witness-classification`,
-{prf:ref}`cor-computational-modal-exhaustiveness`; compatibility label {prf:ref}`mt-alg-complete`). Together these say
+(`thm-witness-decomposition`, `thm-irreducible-witness-classification`,
+`cor-computational-modal-exhaustiveness`; compatibility label `mt-alg-complete`). Together these say
 that any polynomial-time algorithm must factor through the five modal classes up to the allowed closure operations.
 Part V then upgrades this into a semantic obstruction calculus, and Tactic E13 supplies the current frontend package for
 that stronger obstruction layer. Part VI instantiates the framework on canonical $3$-SAT by proving admissibility and
@@ -264,17 +264,17 @@ This formalism is a **categorical foundation for runtime safety verification**. 
 (sec-hypo-main-advantages)=
 ### Main Advantages (Why This Framing Is Useful)
 
-1. **Categorical unification.** The Hypostructure object packages state space, dynamics, energy, constraints, and boundary into a single categorical entity. This enables the machinery of $(\infty,1)$-topoi to analyze singularity structure ({prf:ref}`def-categorical-hypostructure`).
+1. **Categorical unification.** The Hypostructure object packages state space, dynamics, energy, constraints, and boundary into a single categorical entity. This enables the machinery of $(\infty,1)$-topoi to analyze singularity structure (`def-categorical-hypostructure`).
 
-2. **Proof-carrying execution.** Every sieve traversal produces an auditable certificate trail. The system never silently fails—every predicate evaluation returns a typed certificate ({prf:ref}`def-certificate`, {prf:ref}`def-context`).
+2. **Proof-carrying execution.** Every sieve traversal produces an auditable certificate trail. The system never silently fails—every predicate evaluation returns a typed certificate (`def-certificate`, `def-context`).
 
-3. **Factory-generated verifiers.** The Factory Metatheorems (TM-1 to TM-5) produce correct-by-construction verifiers from type specifications. Users specify *what* to check; the framework handles *how* ({prf:ref}`mt-fact-gate`).
+3. **Factory-generated verifiers.** The Factory Metatheorems (TM-1 to TM-5) produce correct-by-construction verifiers from type specifications. Users specify *what* to check; the framework handles *how* (`mt-fact-gate`).
 
-4. **Trichotomy structure.** The Thin Kernel Metatheorems establish that every state belongs to exactly one of three categories: VICTORY (globally regular), Mode (classified failure), or Surgery (repairable). There is no fourth option ({prf:ref}`mt-krnl-trichotomy`).
+4. **Trichotomy structure.** The Thin Kernel Metatheorems establish that every state belongs to exactly one of three categories: VICTORY (globally regular), Mode (classified failure), or Surgery (repairable). There is no fourth option (`mt-krnl-trichotomy`).
 
-5. **Obstruction-theoretic exclusion.** The Lock mechanism (Gate 17) uses cohomological obstruction theory to prove non-existence of bad morphisms, not just failure to find them ({prf:ref}`def-node-lock`).
+5. **Obstruction-theoretic exclusion.** The Lock mechanism (Gate 17) uses cohomological obstruction theory to prove non-existence of bad morphisms, not just failure to find them (`def-node-lock`).
 
-6. **Classical recovery.** When the ambient topos is $\mathbf{Set}$, the categorical machinery reduces to classical PDE analysis. The framework organizes classical results rather than replacing them ({prf:ref}`rem-classical-recovery`).
+6. **Classical recovery.** When the ambient topos is $\mathbf{Set}$, the categorical machinery reduces to classical PDE analysis. The framework organizes classical results rather than replacing them (`rem-classical-recovery`).
 
 7. **Instantaneous upgrade metatheorems.** "Blocked" barriers and failed checks can be promoted to full YES permits under structural conditions—infinite energy under drift becomes finite energy under renormalized measure, zero Hessian eigenvalue with spectral gap gives exponential convergence, no concentration with finite Morawetz implies scattering. These upgrades allow recovery of Lyapunov functions and promote Thin interfaces to full objects ([Instantaneous Upgrades](08_upgrades/01_instantaneous.md)).
 
@@ -294,14 +294,14 @@ This formalism is a **categorical foundation for runtime safety verification**. 
 *Categorical Framework:*
 
 1. **Hypostructure as categorical object.** The tuple $\mathbb{H} = (\mathcal{X}, \nabla, \Phi_\bullet, \tau, \partial_\bullet)$ in a cohesive $(\infty,1)$-topos, with the boundary morphism $\partial_\bullet$ encoding the holographic interface.
-2. **Fixed-Point Principle.** The Consistency Metatheorem ({prf:ref}`mt-krnl-consistency`) unifying all axioms as manifestations of self-consistency under evolution.
-3. **Trichotomy Metatheorem.** Complete classification of system states into VICTORY/Mode/Surgery ({prf:ref}`mt-krnl-trichotomy`).
-4. **Mutual Exclusion.** Proof that VICTORY and failure modes are disjoint ({prf:ref}`mt-krnl-exclusion`).
+2. **Fixed-Point Principle.** The Consistency Metatheorem (`mt-krnl-consistency`) unifying all axioms as manifestations of self-consistency under evolution.
+3. **Trichotomy Metatheorem.** Complete classification of system states into VICTORY/Mode/Surgery (`mt-krnl-trichotomy`).
+4. **Mutual Exclusion.** Proof that VICTORY and failure modes are disjoint (`mt-krnl-exclusion`).
 
 *Proof Architecture:*
 
-5. **Certificate-typed execution.** Formal specification of YES/NO/INC certificates with witness types and verification functions ({prf:ref}`def-gate-permits`).
-6. **Factory Metatheorems.** Natural transformation soundness for correct-by-construction code generation ({prf:ref}`mt-fact-gate`, {prf:ref}`mt-fact-barrier`, {prf:ref}`mt-fact-surgery`).
+5. **Certificate-typed execution.** Formal specification of YES/NO/INC certificates with witness types and verification functions (`def-gate-permits`).
+6. **Factory Metatheorems.** Natural transformation soundness for correct-by-construction code generation (`mt-fact-gate`, `mt-fact-barrier`, `mt-fact-surgery`).
 7. **Instantaneous Upgrade Metatheorems.** Systematic promotion of "Blocked" barrier certificates and "Surgery" re-entry certificates to full YES permits—allows recovery of Lyapunov functions under drift conditions, promotes zero eigenvalue + spectral gap to exponential convergence, upgrades no concentration + finite Morawetz to scattering. These validate Thin interfaces and promote them to full objects ([Instantaneous Upgrades](08_upgrades/01_instantaneous.md)).
 
 *Operational Specifications:*
@@ -347,11 +347,11 @@ This formalism is a **categorical foundation for runtime safety verification**. 
 
 | Area                           | Typical baseline                              | Hypostructure difference                                                                                                                                       |
 |--------------------------------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Type systems**               | Ensure well-formedness at compile time        | Certificate-typed execution with runtime audit trail ({prf:ref}`def-certificate`)                                                                            |
+| **Type systems**               | Ensure well-formedness at compile time        | Certificate-typed execution with runtime audit trail (`def-certificate`)                                                                            |
 | **Runtime monitors**           | Assert statements, exception handlers         | Gate/barrier/surgery trichotomy with formal specifications ([Gate Nodes](04_nodes/01_gate_nodes.md))                                             |
-| **Proof obligations**          | Manual verification with proof assistants     | Factory metatheorems generate correct-by-construction verifiers ({prf:ref}`mt-fact-gate`)                                                                     |
-| **Error handling**             | Exception propagation, error codes            | Typed NO certificates with witness/inconclusive distinction ({prf:ref}`def-typed-no-certificates`)                                                           |
-| **Regularity proofs**          | Case-by-case PDE analysis                     | Systematic sieve traversal with certificate accumulation ({prf:ref}`def-sieve-epoch`)                                                                        |
+| **Proof obligations**          | Manual verification with proof assistants     | Factory metatheorems generate correct-by-construction verifiers (`mt-fact-gate`)                                                                     |
+| **Error handling**             | Exception propagation, error codes            | Typed NO certificates with witness/inconclusive distinction (`def-typed-no-certificates`)                                                           |
+| **Regularity proofs**          | Case-by-case PDE analysis                     | Systematic sieve traversal with certificate accumulation (`def-sieve-epoch`)                                                                        |
 | **Undecidable predicates**     | Conservative approximation or timeout         | Tactic library E1-E13 with $K^{\text{inc}}$ fallback ([Lock Mechanism](06_modules/03_lock.md))                                                        |
 | **Surgery/repair**             | Ad hoc modifications                          | Certified surgery nodes with re-entry protocols ([Surgery Nodes](04_nodes/03_surgery_nodes.md))                                                      |
 | **Axiom discovery**            | Human insight, conjecture-and-test            | Meta-learning optimization over defect functionals ([Meta-Learning](10_information_processing/01_metalearning.md))                                             |
@@ -364,31 +364,31 @@ The Hypostructure is valid if and only if it satisfies five families of structur
 
 ### Conservation Axioms
 
-**Axiom D (Dissipation):** Energy cannot be created—the height functional $\Phi$ satisfies a dissipation inequality. Enforced by Gate 1 ({prf:ref}`def-node-energy`).
+**Axiom D (Dissipation):** Energy cannot be created—the height functional $\Phi$ satisfies a dissipation inequality. Enforced by Gate 1 (`def-node-energy`).
 
-**Axiom Rec (Recovery):** Discrete events are finite—no Zeno accumulation of infinitely many events in finite time. Enforced by Gate 2 ({prf:ref}`def-node-zeno`).
+**Axiom Rec (Recovery):** Discrete events are finite—no Zeno accumulation of infinitely many events in finite time. Enforced by Gate 2 (`def-node-zeno`).
 
 ### Duality Axioms
 
-**Axiom C (Compactness):** Bounded energy sequences concentrate modulo symmetry—either energy concentrates on a profile or disperses uniformly. Enforced by Gate 3 ({prf:ref}`def-node-compact`).
+**Axiom C (Compactness):** Bounded energy sequences concentrate modulo symmetry—either energy concentrates on a profile or disperses uniformly. Enforced by Gate 3 (`def-node-compact`).
 
-**Axiom SC (Scaling):** The system is subcritical—dissipation dominates energy at small scales. Enforced by Gate 4 ({prf:ref}`ax-scaling`).
+**Axiom SC (Scaling):** The system is subcritical—dissipation dominates energy at small scales. Enforced by Gate 4 (`ax-scaling`).
 
 ### Symmetry Axioms
 
-**Axiom LS (Stiffness):** An effective stiffness permit holds near equilibria (LS/KL/LSI or spectral gap), preventing arbitrarily soft modes. Enforced by Gate 7 ({prf:ref}`ax-stiffness`).
+**Axiom LS (Stiffness):** An effective stiffness permit holds near equilibria (LS/KL/LSI or spectral gap), preventing arbitrarily soft modes. Enforced by Gate 7 (`ax-stiffness`).
 
-**Axiom GC (Gradient Consistency):** Gauge invariance and metric compatibility—control matches disturbance in a gauge-consistent way. Enforced by Gate 8 ({prf:ref}`ax-gradient-consistency`).
+**Axiom GC (Gradient Consistency):** Gauge invariance and metric compatibility—control matches disturbance in a gauge-consistent way. Enforced by Gate 8 (`ax-gradient-consistency`).
 
 ### Topology Axioms
 
-**Axiom TB (Topological Background):** Topological sectors are separated by an action gap—the system cannot tunnel to dangerous sectors. Enforced by Gate 12 ({prf:ref}`ax-topology`).
+**Axiom TB (Topological Background):** Topological sectors are separated by an action gap—the system cannot tunnel to dangerous sectors. Enforced by Gate 12 (`ax-topology`).
 
-**Axiom Cap (Capacity):** Singularities have codimension at least 2—they are geometrically negligible. Enforced by Gate 13 ({prf:ref}`ax-capacity`).
+**Axiom Cap (Capacity):** Singularities have codimension at least 2—they are geometrically negligible. Enforced by Gate 13 (`ax-capacity`).
 
 ### Boundary Axiom
 
-**Axiom Boundary:** The boundary morphism $\partial_\bullet$ satisfies Stokes' constraint, cobordism interface conditions, and holographic bounds. This links bulk dynamics to boundary observables ({prf:ref}`def-categorical-hypostructure`).
+**Axiom Boundary:** The boundary morphism $\partial_\bullet$ satisfies Stokes' constraint, cobordism interface conditions, and holographic bounds. This links bulk dynamics to boundary observables (`def-categorical-hypostructure`).
 
 (sec-hypo-sieve-overview)=
 ## The Sieve: A Diagnostic Flowchart
@@ -447,15 +447,15 @@ When barriers fail, surgery nodes attempt repair:
 
 The Factory Metatheorems establish that verifier code can be generated correctly from type specifications:
 
-**TM-1: Gate Evaluator Factory** ({prf:ref}`mt-fact-gate`)
+**TM-1: Gate Evaluator Factory** (`mt-fact-gate`)
 
 For any system type $T$ with structural data $(\Phi, \mathfrak{D}, G, \mathcal{R}, \text{Cap}, \tau, D)$, there exist canonical verifiers for all 17 gate nodes satisfying soundness: if the verifier returns YES, the property genuinely holds.
 
-**TM-2: Barrier Factory** ({prf:ref}`mt-fact-barrier`)
+**TM-2: Barrier Factory** (`mt-fact-barrier`)
 
 Barrier nodes are generated from gate failure certificates, providing fallback defenses that are sound by construction.
 
-**TM-3: Surgery Factory** ({prf:ref}`mt-fact-surgery`)
+**TM-3: Surgery Factory** (`mt-fact-surgery`)
 
 Surgery nodes are generated from barrier failure certificates, providing repair mechanisms with certified re-entry conditions.
 
@@ -495,10 +495,10 @@ The Hypostructure Formalism provides the **mathematical semantics** for the Siev
 
 ### Cross-References to Book 1
 
-- {ref}`The Stability Checks <sec-the-stability-checks>`: Operational description of diagnostic nodes
-- {prf:ref}`def-bounded-rationality-controller`: Agent as hypostructure carrier
-- {ref}`Holographic Interface <sec-the-boundary-interface-symplectic-structure>`: Boundary morphism interpretation
-- {ref}`Universal Governor <sec-the-universal-governor>`: Meta-control over sieve execution
+- The Stability Checks: Operational description of diagnostic nodes
+- `def-bounded-rationality-controller`: Agent as hypostructure carrier
+- Holographic Interface: Boundary morphism interpretation
+- Universal Governor: Meta-control over sieve execution
 
 (sec-hypo-for-skeptical-readers)=
 ## For Skeptical Readers
@@ -507,11 +507,11 @@ This framework makes strong claims about categorical structure and proof-carryin
 
 **Key questions addressed in the text:**
 
-1. **Why infinity-topoi?** The cohesive structure handles gauge redundancy and homotopy that set theory loses. See {prf:ref}`def-ambient-topos` and {prf:ref}`rem-classical-recovery`.
+1. **Why infinity-topoi?** The cohesive structure handles gauge redundancy and homotopy that set theory loses. See `def-ambient-topos` and `rem-classical-recovery`.
 
 2. **What about undecidability?** Gate 17 (the Lock) handles undecidable predicates via the tactic library E1-E13. The system is sound regardless—$K^{\text{inc}}$ routes to fallback. See [Lock Mechanism](06_modules/03_lock.md).
 
-3. **Is factory code generation practical?** The Factory Metatheorems specify *interface contracts*, not universal decision procedures. Domain-specific verifiers are provided by users; the framework guarantees soundness. See {prf:ref}`mt-fact-gate`.
+3. **Is factory code generation practical?** The Factory Metatheorems specify *interface contracts*, not universal decision procedures. Domain-specific verifiers are provided by users; the framework guarantees soundness. See `mt-fact-gate`.
 
 4. **How does this relate to proof assistants?** The certificate system is analogous to proof terms in Coq/Lean. The difference is operational focus—we verify dynamical properties, not static types. See [Sieve Kernel](03_sieve/02_kernel.md).
 

@@ -1,9 +1,10 @@
 # Factory Metatheorems
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to what I consider the most elegant part of the whole framework. You have seen all these gates, barriers, and surgery operations. But where do they actually come from? How do you know they are correct?
 
-Here is the beautiful thing: we do not construct them by hand. We have a *factory*---a systematic machine that takes a mathematical specification and produces correct code automatically. This is not some magical oracle. It is more like a well-designed compiler: you tell it what you want (the type specification), and it generates verifiers that are *guaranteed* to satisfy their contracts.
+Here is the beautiful thing: we do not construct them by hand. We have a *factory*---a systematic machine that takes a mathematical specification and produces evaluator contracts and optional reference implementations systematically. This is not some magical oracle. It is more like a well-designed compiler: you tell it what you want (the type specification), and it generates evaluators that are guaranteed to satisfy their contracts when the backend implementation meets the declared obligations.
 
 Think of it this way. Suppose you want to check whether a solution has finite energy. The factory takes your energy functional $\Phi$ and produces a verifier that: (1) returns YES with a certificate proving the bound holds, or (2) returns NO with evidence of violation, or (3) admits it cannot decide and routes to fallback. The factory metatheorems prove this process is *sound*---if the factory says YES, then the property genuinely holds.
 
@@ -13,10 +14,11 @@ Why does this matter? Because it separates the *what* from the *how*. The mathem
 (sec-tm1-gate-evaluator)=
 ## TM-1: Gate Evaluator Factory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me explain what the Gate Evaluator Factory actually does. You have 17 gates in the Sieve, each checking some property of your solution. The question is: given a new type $T$ (say, a new PDE), how do you produce verifiers for all these gates?
 
-The answer is that you do not do it manually. You supply the structural data---the energy functional $\Phi$, the dissipation functional $\mathfrak{D}$, the symmetry group $G$---and the factory produces verifiers that are correct by construction. It is like defining an interface in programming: the factory guarantees that anything it produces satisfies the interface contract.
+The answer is that you do not do it manually. You supply the structural data---the energy functional $\Phi$, the dissipation functional $\mathfrak{D}$, the symmetry group $G$---and the factory produces evaluator contracts plus optional reference implementations. It is like defining an interface in programming: the factory guarantees that anything conforming to the interface contract is composable with the Sieve.
 
 But here is the subtlety that trips people up: this is not claiming we can decide everything. Some predicates are genuinely undecidable. What the factory guarantees is that the verifier *always terminates* and *never lies*. It may say "I cannot decide," but it will never say YES when the answer is NO.
 :::
@@ -26,17 +28,19 @@ But here is the subtlety that trips people up: this is not claiming we can decid
 
 **Rigor Class:** F (Framework-Original) — see {prf:ref}`def-rigor-classification`
 
-This metatheorem establishes that the factory-generated code is **Correct-by-Construction**. The factory is a natural transformation between the "Type Specification" functor and the "Logic Evaluator" functor, ensuring that code generation preserves semantics.
+This metatheorem establishes that the factory-generated evaluator contract is **Correct-by-Construction**. The factory is a natural transformation between the "Type Specification" functor and the "Logic Evaluator" functor, ensuring that contract generation preserves semantics.
 
-For any system of type $T$ with user-defined objects $(\Phi, \mathfrak{D}, G, \mathcal{R}, \mathrm{Cap}, \tau, D)$, there exist canonical verifiers for all gate nodes:
+For any system of type $T$ with user-defined objects $(\Phi, \mathfrak{D}, G, \mathcal{R}, \mathrm{Cap}, \tau, D)$, there exist canonical evaluator contracts for all gate nodes:
 
 **Input**: Type $T$ structural data + user definitions
 
 **Output**: For each gate $i \in \{1, \ldots, 17\}$:
 - Predicate instantiation $P_i^T$
-- Verifier $V_i^T: X \times \Gamma \to \{`YES`, `NO`\} \times \mathcal{K}_i$
+- Total evaluator $V_i^T: X \times \Gamma \to \{`YES`, `NO`, `INC`\} \times \mathcal{K}_i$
 
 **Soundness**: $V_i^T(x, \Gamma) = (`YES`, K_i^+) \Rightarrow P_i^T(x)$
+
+**Fallback Semantics**: $V_i^T$ is required to terminate and may return `INC` with an explicit obligation ledger whenever full decision power is unavailable.
 
 :::{prf:remark} Interface Specification, Not Oracle
 :label: rem-hypo-metatheorems-interface-spec
@@ -187,7 +191,8 @@ $\square$
 (sec-tm2-barrier-implementation)=
 ## TM-2: Barrier Implementation Factory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 When a gate says NO---when your solution fails some check---what happens next? This is where barriers come in. A barrier is a mathematical argument that says: "Even though this check failed, the obstruction cannot persist. Here is why."
 
 The Barrier Factory takes a type $T$ and its literature of theorems, and produces barrier implementations for every gate failure mode. The key property is *non-circularity*: the barrier cannot assume the very thing it is trying to prove. This sounds obvious, but it is precisely the kind of subtle bug that destroys verification systems.
@@ -257,7 +262,8 @@ $\square$
 (sec-tm3-surgery-schema)=
 ## TM-3: Surgery Schema Factory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 When barriers are breached---when the framework cannot prove the obstruction is transient---you need surgery. This is controlled demolition: you excise the bad region, cap it off with something well-behaved, and continue.
 
 The Surgery Factory is perhaps the most delicate part of the whole system. It takes a type $T$ and its profile library, and produces surgery operators that: (1) are well-defined (the gluing actually works), (2) preserve the essential structure, and (3) make progress (you cannot loop forever doing surgeries).
@@ -344,7 +350,8 @@ $\square$
 (sec-tm4-equivalence-transport)=
 ## TM-4: Equivalence + Transport Factory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is something subtle but tremendously powerful. Many solutions that look different are actually *equivalent*---related by scaling, rotation, gauge transformation, or some other symmetry. If you have proved something about solution $u$, you should be able to transport that proof to any equivalent solution $u'$.
 
 The Transport Factory makes this automatic. It takes the type's symmetry structure and produces rules for: (1) recognizing when two solutions are equivalent, (2) transporting certificates from one to the other, and (3) upgrading "equivalent-YES" to "genuine-YES" when the equivalence is small enough.
@@ -423,7 +430,8 @@ $\square$
 (sec-tm5-lock-backend)=
 ## TM-5: Lock Backend Factory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The Lock is the framework's last line of defense. When all else fails---gates, barriers, surgery---the Lock asks: is there any way for a bad pattern to persist? If the Lock can prove the answer is no, you are safe. If not, the framework honestly admits it cannot decide.
 
 The Lock Backend Factory produces *tactics*---systematic methods for proving obstructions cannot exist. These range from simple geometric arguments (the singularity set is too small to matter) to sophisticated cohomological machinery (the pattern would require a non-trivial homomorphism that provably does not exist).

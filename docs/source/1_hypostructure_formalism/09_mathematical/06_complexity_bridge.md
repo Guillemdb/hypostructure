@@ -7,7 +7,8 @@ title: "The P/NP Bridge to Classical Complexity"
 (sec-complexity-bridge)=
 ## Completing the Export to ZFC Complexity Theory
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you what this chapter is about and why it matters. We have spent a lot of effort building a categorical
 framework for complexity theory: the five algorithm classes, the Algorithmic Completeness theorem, and the universal
 obstruction certificates. Parts VI--IX isolate the exact internal route to
@@ -58,7 +59,8 @@ $$
 (sec-bridge-definitions)=
 ## Foundational Definitions
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Before we can bridge two worlds, we need to be crystal clear about what we are bridging. On one side, we have classical Turing machines with time complexity measured in steps. On the other side, we have categorical morphisms in a cohesive topos with "cost" measured by some abstract evaluator.
 
 The key insight is that both are counting the same thing: *how much information processing happens*. A Turing machine step updates a finite configuration. A hypostructure evaluation step applies a morphism to a state. If we can show these steps are mutually simulable with polynomial overhead, we are done.
@@ -243,7 +245,8 @@ This is the standard verifier definition of $NP$, but phrased through admissible
 rather than bare machine syntax.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 These three definitions are only the bridge-facing summary. The fully rigorous machinery lives in the algorithmic
 chapter: admissible families, uniform algorithms, family cost certificates, pure witnesses, modal profiles, and the
 saturated modal closure. The bridge theorems below do not replace that layer; they depend on it.
@@ -268,7 +271,8 @@ in the Part I bridge package. The theorem is restated here for exposition; the p
 cited Part I result with no additional argument required in this chapter.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the heart of the matter: the four theorems that establish equivalence between the Fragile and DTM complexity classes.
 
 Think of them as building a two-lane bridge. The first lane (Theorems I and III) goes from the classical world to the Fragile world: we show that anything a DTM can compute efficiently, our framework can also compute efficiently. The second lane (Theorems II and IV) goes the opposite direction: anything our framework computes efficiently can be compiled back to an efficient DTM.
@@ -293,7 +297,8 @@ extensional family in $P_{\text{FM}}$ with polynomial overhead.
 Immediate from {prf:ref}`thm-dtm-to-fragile-compilation`.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 The key idea here is beautiful: a polynomial-time computation is *inherently* a causal process. You start with an input, you make a bounded number of steps, each step depends only on the previous state, and you halt with an output. This is precisely the structure that our Class II algorithms capture.
 
 The compilation is straightforward but requires care: translate the DTM state-update function into a Fragile morphism under the bit-cost evaluator discipline ({prf:ref}`thm-bit-cost-evaluator-discipline`), ensure the resulting program lies in $\mathsf{Prog}_{\text{FM}}$ with the correct admissible input encoding, construct a valid family cost certificate, and iterate the morphism the right number of steps. The structure is a direct factorization through Class II algorithms, but each step must respect the step-counting discipline that makes the cost certificate checkable.
@@ -350,7 +355,8 @@ manuscript now depends on the proved evaluator discipline and the proved semanti
 tracked ingredient in the theorem ladder.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This is the crucial runtime theorem. It says our framework is not "cheating"—we are not secretly using some
 super-Turing power that lets us solve problems faster than classical DTMs.
 
@@ -424,7 +430,8 @@ $$
 Immediate from {prf:ref}`thm-dtm-to-fragile-compilation` applied to the verifier computation.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This theorem is pleasingly straightforward: an NP verifier is just a polynomial-time algorithm, so Theorem I already
 tells us how to compile it into our framework. The nondeterministic "guess-and-check" structure transfers directly: the
 existential quantifier over witnesses is the same in both models, and the polynomial-time verifier compiles through the
@@ -476,7 +483,8 @@ $$
 
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And there we have it: the four bridge directions are isolated. Under the explicit Part I bridge package, we can go from
 classical to Fragile and back again, for both P and NP, with only polynomial overhead. This is the robustness claim
 the manuscript actually needs.
@@ -531,7 +539,8 @@ Therefore $P_{\text{FM}} = NP_{\text{FM}}$, contradicting the internal separatio
 Thus $P_{\text{DTM}} \neq NP_{\text{DTM}}$. $\square$
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This is the theorem we have been building toward. Let me make sure you understand the logical structure, because it is more subtle than it first appears.
 
 This chapter has a narrower job than Part XIX. The internal separation is not reproved here; it is imported from the
@@ -563,7 +572,8 @@ This is the value of the framework: it converts an amorphous problem ("does ther
 (sec-adequacy-verification)=
 ## Appendix A: Adequacy Hypothesis Verification
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the housekeeping: isolating the evaluator-adequacy ingredient in the bridge package. This is not
 glamorous work, but it is essential. Without it, the extraction theorems would be wishful thinking.
 
@@ -632,7 +642,8 @@ stronger reusable/audited routes to the same Step 2 conclusion.
 With evaluator adequacy and the rest of the Part I bridge package in place, that internal theorem exports.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And that is the adequacy ingredient. It is not flashy, but it is honest work. The real content is not a mystical
 complexity insight; it is finite configuration encoding plus polynomial simulation of one evaluator step.
 
@@ -708,7 +719,8 @@ route within the framework, and the export to DTMs depends on the exact Part I b
 adequacy slogan.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me end with a thought about what we have accomplished here. The P versus NP problem has been open for fifty years. Many people have tried to solve it. Most attempts fail because they either:
 
 1. **Overcount their model's power** (assume some structure that DTMs do not have), or

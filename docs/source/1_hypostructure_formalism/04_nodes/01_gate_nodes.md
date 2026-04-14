@@ -3,7 +3,8 @@
 (sec-gate-node-specs)=
 ## Gate Node Specifications (Blue Nodes)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the heart of the Sieve: the gate nodes. Think of them as a series of questions you ask about a dynamical system, and depending on the answers, you either proceed or get routed elsewhere. Each gate is like a checkpoint in an airport security line, but instead of checking for contraband, we are checking for mathematical pathologies that could lead to singular behavior.
 
 Here is the key idea: we do not try to prove global regularity directly. That is too hard. Instead, we decompose the problem into a sequence of simpler binary checks. Is the energy bounded? Are there infinitely many discrete events piling up? Does the geometry degenerate? Each question has a YES or NO answer, and each answer comes with a *certificate*, a piece of evidence that justifies the verdict.
@@ -135,18 +136,18 @@ $$
 
 **Interface ID:** $C_\mu$
 
-**Predicate** $P_3$: Energy concentrates (does not scatter):
+**Predicate** $P_3$: A certified concentration profile is present:
 
 $$
 P_3 \equiv \exists \text{ concentration profile as } t \to T_*
 
 $$
 
-**Semantics**: This is a *dichotomy check*. YES means concentration occurs (proceed to profile extraction). NO means energy scatters (global existence via dispersion).
+**Semantics**: This is a *certified concentration check*. YES means concentration occurs (proceed to profile extraction). NO means only that no concentration profile has been certified at this stage. It does **not** by itself imply scattering or global existence.
 
 **YES certificate** $K_{C_\mu}^+ = (\text{concentration scale}, \text{concentration point})$.
 
-**NO certificate** $K_{C_\mu}^- = (\text{dispersion certificate})$ --- this is **not a failure**; it routes to Mode D.D (global existence).
+**NO certificate** $K_{C_\mu}^- = (\text{no certified concentration profile}, \text{trace/proof obligation ledger})$.
 
 **NO routing**: BarrierScat (Scattering Barrier)
 
@@ -310,7 +311,8 @@ $$
 
 ### Gromov δ-Hyperbolicity: Distinguishing Structure from Chaos
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is a problem that comes up again and again: you have a system with exponential growth, meaning the number of reachable states grows like $k^r$ as you go out radius $r$ from some starting point. Exponential growth sounds scary. Is the system exploding out of control?
 
 Not necessarily. There are two very different kinds of exponential growth, and telling them apart is crucial.
@@ -522,7 +524,8 @@ $$
 
 ### Node 7: LSI Permit via Thin Interfaces (Discrete-to-Continuum Lifting)
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you about a beautiful trick that saves us from an enormous amount of hard analysis.
 
 The Log-Sobolev Inequality (LSI) is what guarantees that a system converges exponentially fast to equilibrium. If you have LSI, entropy dissipates like $e^{-Ct}$, and you get all sorts of wonderful concentration properties. The problem is: proving LSI for an infinite-dimensional system, like a neural network's parameter space, is notoriously difficult. People write entire Ph.D. theses on these proofs.
@@ -842,7 +845,8 @@ This ensures that any exponential growth in state volume corresponds to a **tree
 
 
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 There is one more case we need to handle, and it is the most subtle of all.
 
 Some systems have exponential growth, fail the hyperbolicity test, and cannot be encapsulated as black boxes. By all our previous criteria, they should be rejected as thermal noise. But wait. What about the Riemann zeta function? What about the distribution of prime numbers?
@@ -938,7 +942,8 @@ This is a **trace formula**: it expresses a sum over primes (arithmetic object) 
 
 
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now let me tell you about cryptography and why it creates a problem for us.
 
 Cryptographic functions like AES or SHA-256 are *designed* to look like expander graphs. That is literally the point. When you feed in structured input, the output should be indistinguishable from random noise. Maximum confusion, maximum diffusion, all correlations destroyed. If our Sieve detects an expander and rejects it, we would reject every system that uses cryptography.
@@ -1262,7 +1267,8 @@ elif volume_growth_rate > polynomial_threshold:
 
 ### Nodes 7a--7d: Stiffness Restoration Subtree
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 What happens when the stiffness check fails? The system might be sitting at an unstable equilibrium, like a ball balanced on top of a hill. Any small perturbation sends it rolling down, but which direction? This is where bifurcation theory comes in.
 
 Nodes 7a through 7d form a subtree that handles the delicate situation when the main stiffness guarantee breaks down. The logic goes like this:
@@ -1465,12 +1471,12 @@ The spectral gap $\rho > 0$ quantifies how fast the Second Law of Thermodynamics
 
 
 
-### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 :::{prf:definition} Node 11: ComplexCheck
 :label: def-node-complex
 
-**Interface ID:** $\mathrm{Rep}_K$
+**Interface ID:** $\mathrm{RepDesc}_K$
 
 **Predicate** $P_{11}$: The thin trace admits a bounded description:
 
@@ -1490,9 +1496,9 @@ machine, $d$ is a trace metric, and $(L, R, \varepsilon)$ are interface paramete
 - **Deterministic systems:** The trace is extracted from $x$ or $x_t$ and the program must reproduce $T_{\mathrm{thin}}$.
 - **Stochastic systems (post-S12):** The trace is extracted from the law $\mu_t = \text{Law}(x_t)$, not from individual paths. The SDE $dx = b\,dt + \sigma\,dW_t$ has finite description length even though sample paths are algorithmically incompressible.
 
-**YES certificate** $K_{\mathrm{Rep}_K}^+ = (p, L, R, \varepsilon, d(U(p), T_{\mathrm{thin}}) \leq \varepsilon)$.
+**YES certificate** $K_{\mathrm{RepDesc}_K}^+ = (p, L, R, \varepsilon, d(U(p), T_{\mathrm{thin}}) \leq \varepsilon)$.
 
-**NO certificate** $K_{\mathrm{Rep}_K}^- = (\text{incompressibility witness or bounded search failure})$.
+**NO certificate** $K_{\mathrm{RepDesc}_K}^- = (\text{incompressibility witness or bounded search failure})$.
 
 **NO routing**: BarrierEpi (Epistemic Barrier)
 
@@ -1536,7 +1542,8 @@ Barrier. NO means no oscillatory component in the window, proceeding to boundary
 
 ### Nodes 13--16: Boundary Checks
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Up to now, we have been treating the system as if it exists in isolation. But real systems interact with their environment. They receive inputs and produce outputs. They have boundaries.
 
 Nodes 13 through 16 handle the boundary conditions. The questions are simple but essential:
@@ -1648,20 +1655,21 @@ where $\mathcal{L}_{\text{proxy}}$ is the optimized/measured objective and $\mat
 
 ### Node 17: BarrierExclusion ($\mathrm{Cat}_{\mathrm{Hom}}$) --- The Lock
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And now we come to the grand finale: the Lock.
 
 After passing through all the previous gates, we have accumulated a context $\Gamma$ full of certificates. Energy is bounded, events are finite, geometry is controlled, topology is tame, mixing happens, complexity is finite, boundaries are well-behaved. All the individual pieces are in place.
 
-But here is the crucial question: do all these certificates *together* exclude the possibility of singular behavior?
+But here is the crucial question: do all these certificates *together* exclude the possibility of singular behavior within the currently certified bad-pattern library?
 
 The Lock answers this using a beautiful categorical idea. We have defined a universal "bad pattern" $\mathbb{H}_{\mathrm{bad}}$, a template that captures what singular behavior looks like structurally. The question is: can this bad pattern morphically embed into our system $\mathcal{H}$?
 
-If the Hom-set is empty, meaning there is no morphism from the bad pattern to our system, then singular behavior is *structurally impossible*. The certificates we have accumulated create an obstruction. This is analogous to the Pauli exclusion principle in physics: certain configurations are simply forbidden by the structure of the system.
+If the Hom-set is empty, meaning there is no morphism from the bad pattern to our system, then singular behavior is *structurally excluded for the certified classifiable bad patterns*. That is a structural obstruction result. Turning it into analytic global regularity requires the additional continuation package for the type at hand.
 
 If a morphism exists, we have a problem. Either we find an explicit embedding of the bad pattern (fatal error), or we cannot decide one way or the other (inconclusive). The inconclusive case triggers a reconstruction procedure, but the key point is that we never silently accept an uncertain verdict.
 
-The Lock is where all the information from the entire Sieve comes together. It is the final judgment, the place where we either confirm global regularity or identify exactly where the obstruction lies. And there it is.
+The Lock is where all the information from the entire Sieve comes together. It is the final structural judgment: either the certified bad patterns are excluded, or the obstruction program has failed to exclude them. Analytic global regularity is a downstream upgrade, not an automatic synonym for Lock-blocked.
 :::
 
 :::{prf:definition} Barrier Specification: Morphism Exclusion (The Lock)
@@ -1683,19 +1691,19 @@ The Lock is where all the information from the entire Sieve comes together. It i
   $$
 
 **Natural Language Logic:**
-"Is there a categorical obstruction to the bad pattern?"
-*(If no morphism exists from the universal bad pattern $\mathbb{H}_{\mathrm{bad}}$ to the system $\mathcal{H}$, then the system structurally cannot exhibit singular behavior—the morphism exclusion principle.)*
+"Is there a categorical obstruction to the certified bad-pattern library?"
+*(If no morphism exists from the universal bad pattern $\mathbb{H}_{\mathrm{bad}}$ to the system $\mathcal{H}$, then the system structurally cannot exhibit any singularity represented in the certified completeness package.)*
 
 **Outcome Alphabet:** $\{\texttt{Blocked}, \texttt{Breached}\}$ (binary verdict with typed certificates)
 
 **Outcomes:**
-- **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; no morphism to bad pattern exists. **VICTORY: Global Regularity Confirmed.**
+- **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; no morphism to bad pattern exists. This validates the structural goal certificate $K_{\mathrm{StructReg}_T}^+$, not analytic regularity by itself.
 - **Breached** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br}}$): NO verdict with typed certificate (sum type $K^{\mathrm{br}} := K^{\mathrm{br\text{-}wit}} \sqcup K^{\mathrm{br\text{-}inc}}$):
   - **Breached-with-witness** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}wit}}$): Explicit morphism $f: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$ found; structural inconsistency. **FATAL ERROR.**
   - **Breached-inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$): Tactics E1–E13 exhausted without deciding Hom-emptiness. Certificate records $(\mathsf{tactics\_exhausted}, \mathsf{partial\_progress}, \mathsf{trace})$. Triggers {prf:ref}`mt-lock-reconstruction` (Structural Reconstruction Principle).
 
 **Routing:**
-- **On Block:** Exit with **GLOBAL REGULARITY** (structural exclusion confirmed).
+- **On Block:** Exit with **STRUCTURAL EXCLUSION**. A later theorem may upgrade this to $K_{\mathrm{Reg}_T}^+$ when the certified completeness package and continuation permit are available.
 - **On Breached-with-witness:** Exit with **FATAL ERROR** (structural inconsistency—requires interface permit revision).
 - **On Breached-inconclusive:** Invoke {prf:ref}`mt-lock-reconstruction` (Structural Reconstruction) → Re-evaluate with reconstruction verdict $K_{\mathrm{Rec}}^{\mathrm{verdict}}$.
 

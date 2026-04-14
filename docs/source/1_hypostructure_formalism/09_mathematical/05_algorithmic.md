@@ -9,7 +9,8 @@ title: "Algorithmic Completeness"
 
 This part establishes that polynomial-time algorithms must exploit specific structural invariants detectable by the Cohesive Topos modalities. It provides the theoretical foundation for **Tactic E13** (Algorithmic Completeness Lock), which closes the "Alien Algorithm" loophole in complexity-theoretic proofs.
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me tell you what this is really about. Whenever you see a fast algorithm, you should ask yourself: "Why is this fast? What structure is it exploiting?" Because here is the thing: if you have no structure, you are reduced to brute force, to trying things one by one until you stumble on the answer. And brute force takes exponential time.
 
 Now, the question that has haunted complexity theory is this: could there be some clever algorithm we have not thought of yet? Some "alien" technique that solves hard problems fast without exploiting any recognizable structure? This chapter says no. We claim that every efficient algorithm must be built from one or more of five fundamental types of structure, which we call the five "modalities." If your problem has none of these structures, no algorithm can help you.
@@ -80,7 +81,8 @@ the homotopy fiber of the sharp unit. This captures boundary/interface structure
 **Computational Completeness:** The five modalities $\{\int, \flat, \sharp, \ast, \partial\}$ exhaust all structural resources that polynomial-time algorithms can exploit. This is not an empirical observation but a **theorem** of cohesive topos theory ({prf:ref}`thm-schreiber-structure`).
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me explain what these modalities really mean. Think of a space $\mathcal{X}$ as having multiple "views" or "shadows" that reveal different aspects of its structure:
 
 The **shape** $\int \mathcal{X}$ forgets everything except connectivity—which points can reach which. It is like looking at a road network and ignoring distances, just tracking which cities connect.
@@ -1291,7 +1293,7 @@ $$
 $$
 
 admits a **pure $\int$-witness** if it admits a pure modal witness with $\lozenge=\int$, and the modality-specific
-certificate $\Pi_{\int}(F^\int)$ consists of:
+certificate $\Pi_{\int}(F^{\mathrm{int}})$ consists of:
 
 1. a finite poset of update sites for each input size,
 
@@ -1299,7 +1301,7 @@ certificate $\Pi_{\int}(F^\int)$ consists of:
    (P_n,\prec_n),
    $$
 
-   with $|P_n|\le q_\int(n)$ and $\mathrm{height}(P_n)\le q_\int(n)$ for some polynomial $q_\int$;
+   with $|P_n|\le q_{\mathrm{int}}(n)$ and $\mathrm{height}(P_n)\le q_{\mathrm{int}}(n)$ for some polynomial $q_{\mathrm{int}}$;
 2. a uniformly polynomial-time decidable order relation on $P_n$;
 3. a decomposition of each lifted state into local coordinates indexed by $P_n$;
 4. for each $i\in P_n$, a local update map
@@ -1320,7 +1322,7 @@ certificate $\Pi_{\int}(F^\int)$ consists of:
    of $\prec_n$ such that
 
    $$
-   F_n^\int
+   F_n^{\mathrm{int}}
    =
    U_{n,\sigma_n(|P_n|)}\circ\cdots\circ U_{n,\sigma_n(1)};
    $$
@@ -1330,7 +1332,7 @@ certificate $\Pi_{\int}(F^\int)$ consists of:
    $$
    \mathcal{A}_n
    =
-   R_n^\int \circ F_{\rho_\int(n)}^\int \circ E_n^\int.
+   R_n^{\mathrm{int}} \circ F_{\rho_{\mathrm{int}}(n)}^{\mathrm{int}} \circ E_n^{\mathrm{int}}.
    $$
 
 7. a **site–variable assignment map**
@@ -1928,7 +1930,7 @@ displayed conditions record the current frontend realization used by the existin
 | Modality | Certificate | Obstruction Condition |
 |----------|-------------|----------------------|
 | $\sharp$ (Metric) | $K_\sharp^-$ | No spectral gap; Łojasiewicz inequality fails; glassy landscape |
-| $\int$ (Causal) | $K_\int^-$ | Frustrated loops; $\pi_1(\text{factor graph}) \neq 0$; no DAG structure |
+| $\int$ (Causal) | $K_{\mathrm{int}}^-$ | Frustrated loops; $\pi_1(\text{factor graph}) \neq 0$; no DAG structure |
 | $\flat$ (Algebraic) | $K_\flat^-$ | Trivial automorphism group; no visible quotient symmetry; failure of current integrality/monodromy frontends |
 | $\ast$ (Scaling) | $K_\ast^-$ | Supercritical scaling; boundary dominates in decomposition |
 | $\partial$ (Holographic) | $K_\partial^-$ | Non-planar; no Pfaffian orientation; unbounded treewidth; failure of current interface-contraction frontends |
@@ -1943,7 +1945,7 @@ Concretely, the intended route is that a frontend certificate package derives th
 feeds the mixed-modal obstruction theorem:
 
 $$
-K_\sharp^- \wedge K_\int^- \wedge K_\flat^- \wedge K_\ast^- \wedge K_\partial^-
+K_\sharp^- \wedge K_{\mathrm{int}}^- \wedge K_\flat^- \wedge K_\ast^- \wedge K_\partial^-
 \implies
 \mathsf{Sol}_{\mathrm{poly}}(\Pi)=\varnothing.
 $$
@@ -1966,7 +1968,8 @@ algorithmic power in the middle modal stage. Mixed algorithms are then represent
 saturated closure rather than by hiding work in the encoding and decoding layers.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me make sure you understand what each of these classes is really doing. Think of each one as a different "trick"
 for compressing your search space.
 
@@ -3368,7 +3371,7 @@ $P_{\mathrm{FM}}$. This separation prevents circularity.
 
 #### I. Semantics and Machine Equivalence
 
-:::{prf:notation} Halting-in-$t$ notation
+:::{prf:remark} Halting-in-$t$ notation
 :label: not-halting-in-t
 
 For a program code $a\in \mathsf{Prog}_{\mathrm{FM}}$, an encoded input $u\in\{0,1\}^*$, and an output
@@ -4579,12 +4582,12 @@ elimination.
 **(2)↔(3).** Condition (3) is the explicit unpacking of the data in
 {prf:ref}`def-pure-int-witness-rigorous`; the equivalence is definitional.
 
-**(2)→(1).** Given a pure $\int$-witness $(P_n, \prec_n, \{u_p\}_{p\in P_n}, \ell_n, E_n^\int, R_n^\int)$,
+**(2)→(1).** Given a pure $\int$-witness $(P_n, \prec_n, \{u_p\}_{p\in P_n}, \ell_n, E_n^{\mathrm{int}}, R_n^{\mathrm{int}})$,
 set the abstract modal factorization data of {prf:ref}`def-abstract-modal-factorization` by
 taking the intermediate space to be the configuration space indexed by $P_n$, the encoding to be
-$E_n^\int$, the reconstruction to be $R_n^\int$, and the core map to be the elimination along the
+$E_n^{\mathrm{int}}$, the reconstruction to be $R_n^{\mathrm{int}}$, and the core map to be the elimination along the
 linear extension $\ell_n$. The well-founded poset $(P_n, \prec_n)$ with its polynomial size and height
-bounds certifies that $F_n^\int$ carries the $\int$-universal property: well-founded causal elimination
+bounds certifies that $F_n^{\mathrm{int}}$ carries the $\int$-universal property: well-founded causal elimination
 in polynomially bounded depth.
 
 **(1)→(2).** This direction — extracting an explicit dependency elimination witness from the abstract
@@ -4898,7 +4901,8 @@ That is the subject of the next theorem block.
 
 ### IV. Classification and Exhaustiveness
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we reach the point where the bridge theorems, the normal-form language, and the five universality theorems have to
 be assembled into actual algorithmic completeness. That burden is too large for a single slogan-level theorem. It has
 to be broken into a ladder: primitive audit, witness decomposition, irreducible classification, and exhaustiveness.
@@ -5288,7 +5292,7 @@ lies in one of the five pure modal subcategories
 
 $$
 \mathsf W_\sharp,\qquad
-\mathsf W_\int,\qquad
+\mathsf W_{\mathrm{int}},\qquad
 \mathsf W_\flat,\qquad
 \mathsf W_\ast,\qquad
 \mathsf W_\partial.
@@ -5689,7 +5693,7 @@ A **full E13 obstruction package** for a problem family $\Pi$ consists of proofs
 propositions hold:
 
 $$
-\mathbb{K}_\sharp^-(\Pi) \wedge \mathbb{K}_\int^-(\Pi) \wedge \mathbb{K}_\flat^-(\Pi) \wedge
+\mathbb{K}_\sharp^-(\Pi) \wedge \mathbb{K}_{\mathrm{int}}^-(\Pi) \wedge \mathbb{K}_\flat^-(\Pi) \wedge
 \mathbb{K}_\ast^-(\Pi) \wedge \mathbb{K}_\partial^-(\Pi).
 $$
 
@@ -5717,7 +5721,7 @@ companion document *Algorithmic Extensions*.
 :label: thm-int-obstruction-sound-complete
 
 For the P$\neq$NP proof, what matters is the semantic obstruction proposition
-$\mathbb{K}_\int^-(\Pi_{3\text{-SAT}})$: no minimal-rank polynomial-time correct solver for canonical 3-SAT
+$\mathbb{K}_{\mathrm{int}}^-(\Pi_{3\text{-SAT}})$: no minimal-rank polynomial-time correct solver for canonical 3-SAT
 contains an irreducible $\int$-witness.
 
 This is established in Part VI by {prf:ref}`lem-random-3sat-causal-blockage`, which proves that the frustrated
@@ -5780,7 +5784,7 @@ companion document *Algorithmic Extensions*.
 
 A translator-stable barrier datum $\mathfrak{B} = (\mathfrak{Z}, i, \mathfrak{H}, S, r, E, a, b)$ admits a **modal barrier decomposition** if there exist five energy component functions
 
-$$E_\sharp, E_\int, E_\flat, E_\ast, E_\partial : \tilde{\mathfrak{Z}} \to \mathbb{R}_{\geq 0}$$
+$$E_\sharp, E_{\mathrm{int}}, E_\flat, E_\ast, E_\partial : \tilde{\mathfrak{Z}} \to \mathbb{R}_{\geq 0}$$
 
 defined on the algorithm's extended configuration space $\tilde{\mathfrak{Z}} = \prod_{\lozenge} Z_n^\lozenge$ (the categorical product of the five modal workspaces), together with corresponding thresholds $a_\lozenge, b_\lozenge : \mathbb{N} \to \mathbb{R}_{\geq 0}$, satisfying:
 
@@ -5804,7 +5808,7 @@ defined on the algorithm's extended configuration space $\tilde{\mathfrak{Z}} = 
 
 The definition above deliberately weakens the original formulation in two respects:
 
-1. **Property 1 (workspace alignment) replaces additive decomposition.** The earlier requirement $E(z) = E_\sharp(z) + E_\int(z) + E_\flat(z) + E_\ast(z) + E_\partial(z)$ asserted that the total barrier energy is the sum of five components on the *shared* state space $\{0,1\}^n$. This is untenable: any single variable flip in a 3-SAT assignment simultaneously affects clause satisfaction (the $\sharp$-landscape), dependency structure (the $\int$-poset), algebraic relations (the $\flat$-ring), recursion-tree load (the $\ast$-partition), and interface complexity (the $\partial$-boundary). True additivity on $\{0,1\}^n$ is impossible precisely because these structural properties are coupled on the shared state space. Orthogonality can only arise from *workspace separation* — each modality operating on its own workspace $Z_n^\lozenge$ within the extended configuration space $\tilde{\mathfrak{Z}} = \prod_\lozenge Z_n^\lozenge$.
+1. **Property 1 (workspace alignment) replaces additive decomposition.** The earlier requirement $E(z) = E_\sharp(z) + E_{\mathrm{int}}(z) + E_\flat(z) + E_\ast(z) + E_\partial(z)$ asserted that the total barrier energy is the sum of five components on the *shared* state space $\{0,1\}^n$. This is untenable: any single variable flip in a 3-SAT assignment simultaneously affects clause satisfaction (the $\sharp$-landscape), dependency structure (the $\int$-poset), algebraic relations (the $\flat$-ring), recursion-tree load (the $\ast$-partition), and interface complexity (the $\partial$-boundary). True additivity on $\{0,1\}^n$ is impossible precisely because these structural properties are coupled on the shared state space. Orthogonality can only arise from *workspace separation* — each modality operating on its own workspace $Z_n^\lozenge$ within the extended configuration space $\tilde{\mathfrak{Z}} = \prod_\lozenge Z_n^\lozenge$.
 
 2. **Property 3 (initial/terminal bounds) replaces threshold sums.** The earlier constraint $\sum_\lozenge a_\lozenge = a$ and $\sum_\lozenge b_\lozenge = b$ imposed an exact decomposition of global thresholds. The weakened property requires only that each component is individually bounded at start and end states — a condition that follows directly from the workspace-projected construction.
 
@@ -5819,7 +5823,7 @@ For any algorithm $\mathcal{A} \in P_{\mathrm{FM}}$ with factorization tree $T$,
 | Component | Workspace progress measure | Initial bound | Solved value | Per-step change | Source |
 |-----------|--------------------------|---------------|-------------|-----------------|--------|
 | $E_\sharp(\tilde{z})$ | Ranking function $V_\sharp(\tilde{z}_\sharp)$ on the $\sharp$-workspace | $\leq q_\sharp(n)$ | $0$ | $\leq 1$ (strict descent) | {prf:ref}`def-pure-sharp-witness-rigorous` item 5 |
-| $E_\int(\tilde{z})$ | Unprocessed poset levels: $h(P_n) - (\text{levels completed in } \tilde{z}_\int)$ | $h(P_n) \leq q_\int(n)$ | $0$ | $\leq 1$ (one level per step) | {prf:ref}`def-pure-int-witness-rigorous` items 3, 8 |
+| $E_{\mathrm{int}}(\tilde{z})$ | Unprocessed poset levels: $h(P_n) - (\text{levels completed in } \tilde{z}_{\mathrm{int}})$ | $h(P_n) \leq q_{\mathrm{int}}(n)$ | $0$ | $\leq 1$ (one level per step) | {prf:ref}`def-pure-int-witness-rigorous` items 3, 8 |
 | $E_\flat(\tilde{z})$ | Uneliminated variables in the $\flat$-workspace | $n$ | $0$ | $\leq 1$ (one elimination per step) | {prf:ref}`def-pure-flat-witness-rigorous` |
 | $E_\ast(\tilde{z})$ | Recursion-tree residual load: total unprocessed nodes in $\tilde{z}_\ast$ | $\leq q_\ast(n)$ | $0$ | $\leq 1$ (one node per step) | {prf:ref}`def-pure-star-witness-rigorous` |
 | $E_\partial(\tilde{z})$ | Interface residual: unresolved interface variables in $\tilde{z}_\partial$ | $\leq q_\partial(n)$ | $0$ | $O(1)$ | {prf:ref}`def-pure-boundary-witness-rigorous` |
@@ -5835,7 +5839,7 @@ The canonical 3-SAT barrier datum $\mathfrak{B}_{3\text{-SAT}}$ of {prf:ref}`def
 | Component | Captures | Sub-barrier height | Blockage reference |
 |-----------|----------|-------------------|-------------------|
 | $E_\sharp$ | Metric descent difficulty (local minima depth) | $\Delta_\sharp(n) = \Omega(n)$ | {prf:ref}`lem-random-3sat-metric-blockage` |
-| $E_\int$ | Causal elimination difficulty (dependency depth) | $\Delta_\int(n) = \Omega(n)$ | {prf:ref}`lem-random-3sat-causal-blockage` |
+| $E_{\mathrm{int}}$ | Causal elimination difficulty (dependency depth) | $\Delta_{\mathrm{int}}(n) = \Omega(n)$ | {prf:ref}`lem-random-3sat-causal-blockage` |
 | $E_\flat$ | Algebraic simplification difficulty | $\Delta_\flat(n) = \Omega(n)$ | {prf:ref}`lem-random-3sat-integrality-blockage` |
 | $E_\ast$ | Recursive decomposition difficulty | $\Delta_\ast(n) = \Omega(n)$ | {prf:ref}`lem-random-3sat-scaling-blockage` |
 | $E_\partial$ | Boundary contraction difficulty (treewidth) | $\Delta_\partial(n) = \Omega(n)$ | {prf:ref}`lem-random-3sat-boundary-blockage` |
@@ -5843,7 +5847,7 @@ The canonical 3-SAT barrier datum $\mathfrak{B}_{3\text{-SAT}}$ of {prf:ref}`def
 *Proof.*
 
 **Step 1. [Workspace-projected energy components]:**
-For any $\mathcal{A} \in P_{\mathrm{FM}}$ with factorization tree $T$, define the five energy components $E_\sharp, E_\int, E_\flat, E_\ast, E_\partial$ as in {prf:ref}`def-explicit-3sat-modal-energies`. Each $E_\lozenge(\tilde{z}) = \hat{E}_\lozenge(\tilde{z}_\lozenge)$ depends only on the $\lozenge$-workspace state $\tilde{z}_\lozenge \in Z_n^\lozenge$, satisfying Property 1 (workspace alignment) of {prf:ref}`def-modal-barrier-decomposition`.
+For any $\mathcal{A} \in P_{\mathrm{FM}}$ with factorization tree $T$, define the five energy components $E_\sharp, E_{\mathrm{int}}, E_\flat, E_\ast, E_\partial$ as in {prf:ref}`def-explicit-3sat-modal-energies`. Each $E_\lozenge(\tilde{z}) = \hat{E}_\lozenge(\tilde{z}_\lozenge)$ depends only on the $\lozenge$-workspace state $\tilde{z}_\lozenge \in Z_n^\lozenge$, satisfying Property 1 (workspace alignment) of {prf:ref}`def-modal-barrier-decomposition`.
 
 **Step 2. [Orthogonality via workspace separation]:**
 Fix modalities $\lozenge \neq \lozenge'$. A transported pure $\lozenge'$-endomorphism $R^{\lozenge'} \circ F^{\lozenge'} \circ E^{\lozenge'}$ modifies the extended configuration $\tilde{z}$ only within the $\lozenge'$-workspace: the encoding $E^{\lozenge'}$ reads $\tilde{z}$ into $Z_n^{\lozenge'}$, the core map $F^{\lozenge'}$ transforms within $Z_n^{\lozenge'}$, and the reconstruction $R^{\lozenge'}$ writes back to $\tilde{z}_{\lozenge'}$. The component $\tilde{z}_\lozenge$ is unchanged because $R^{\lozenge'}$ writes only to the $\lozenge'$-component of $\tilde{\mathfrak{Z}}_n = \prod_\lozenge Z_n^\lozenge$. Therefore $E_\lozenge(\tilde{z}') = \hat{E}_\lozenge(\tilde{z}'_\lozenge) = \hat{E}_\lozenge(\tilde{z}_\lozenge) = E_\lozenge(\tilde{z})$, establishing Property 2.
@@ -5933,7 +5937,7 @@ to situate this infrastructure relative to the main $\mathsf{P} \neq \mathsf{NP}
 
 Let $\Pi$ be a problem family whose barrier datum $\mathfrak{B}$ admits a modal barrier
 decomposition ({prf:ref}`def-modal-barrier-decomposition`) with energy components
-$E_\sharp, E_\int, E_\flat, E_\ast, E_\partial$ and sub-barrier heights
+$E_\sharp, E_{\mathrm{int}}, E_\flat, E_\ast, E_\partial$ and sub-barrier heights
 $\Delta_\lozenge(n) := b_\lozenge(n) - a_\lozenge(n)$.
 
 Let $\mathcal{A} \in P_{\mathrm{FM}}$ be a polynomial-time algorithm with factorization tree $T$
@@ -6103,7 +6107,7 @@ If $\Delta_\lozenge(n) > p(n) \cdot \delta_\lozenge(n)$ for every polynomial $p$
 variation exceeds the available budget and the solver cannot cross the $\lozenge$-sub-barrier.
 
 **Part IV.**
-By Part I, the five energy traces $(E_\sharp(z_j))_j, (E_\int(z_j))_j, \ldots$ are
+By Part I, the five energy traces $(E_\sharp(z_j))_j, (E_{\mathrm{int}}(z_j))_j, \ldots$ are
 decoupled: each evolves according to its matching leaves alone. For Part IV.2: at each
 $\lozenge$-step $j$, the $E_\lozenge$-value $E_\lozenge(z_{j-1})$ is the same as it would be
 without the intervening non-$\lozenge$ steps (because those steps leave $E_\lozenge$ invariant
@@ -6122,7 +6126,7 @@ $Z_n^\lozenge$ and an extended configuration space
 $\tilde{\mathfrak{Z}} = \prod_\lozenge Z_n^\lozenge$. A natural objection is that an actual
 Turing machine has a **single shared tape** — the state space is
 $\{0,1\}^{O(p(n))}$, not a product of five disjoint workspaces. Every step can read and write
-every bit of the tape; a reconstruction map $R^\sharp$ could write bits that $E^\int$ later
+every bit of the tape; a reconstruction map $R^\sharp$ could write bits that $E^{\mathrm{int}}$ later
 reads, creating an apparent cross-modal information pathway. This remark addresses the objection
 in four parts.
 
@@ -6185,42 +6189,42 @@ reconstruction maps — it holds on the single shared tape just as well as on a 
 because it is a statement about the *functions* $E^\lozenge$ and $R^{\lozenge'}$, not about
 memory regions.
 
-**3. Cross-modal information pathways via $R^\sharp \to E^\int$ are handled by the
+**3. Cross-modal information pathways via $R^\sharp \to E^{\mathrm{int}}$ are handled by the
 reconstruction map constraints.**
 The reconstruction map $R^\sharp$ is a presentation translator: its output is a valid encoding
-for the next step. If $R^\sharp$ modifies the shared tape, $E^\int$ reads the new tape state.
+for the next step. If $R^\sharp$ modifies the shared tape, $E^{\mathrm{int}}$ reads the new tape state.
 But the non-amplification claim is **not** that $\sharp$-steps do not change the tape — it is
 that a $\sharp$-step's **net contribution to the $\int$-energy change is zero**. This follows
 because:
 
 - The $\sharp$-step's core map $F^\sharp$ is determined by $\mu^\sharp(z)$ (the
   $\sharp$-modal profile).
-- The $\int$-energy $E_\int$ is determined by the $\int$-encoding
-  $E^\int(z)$, i.e., by the $\int$-workspace projection.
+- The $\int$-energy $E_{\mathrm{int}}$ is determined by the $\int$-encoding
+  $E^{\mathrm{int}}(z)$, i.e., by the $\int$-workspace projection.
 - By the modal restriction ({prf:ref}`def-pure-modal-witness-abstract`),
   $F^\sharp$ does not exploit $\int$-type structure.
-- Therefore the $\sharp$-step's effect on $E_\int$ is mediated entirely by
+- Therefore the $\sharp$-step's effect on $E_{\mathrm{int}}$ is mediated entirely by
   $R^\sharp$, which writes back only to $Z_n^\sharp$.
-- Since $E_\int$ depends only on $\tilde{z}_\int$ and $R^\sharp$ does not modify
-  $\tilde{z}_\int$, we have $E_\int(F^\sharp_*(\tilde{z})) = E_\int(\tilde{z})$.
+- Since $E_{\mathrm{int}}$ depends only on $\tilde{z}_{\mathrm{int}}$ and $R^\sharp$ does not modify
+  $\tilde{z}_{\mathrm{int}}$, we have $E_{\mathrm{int}}(F^\sharp_*(\tilde{z})) = E_{\mathrm{int}}(\tilde{z})$.
 
 The deeper point addresses the **cross-modal encoding preservation** concern directly. Suppose
 a $\sharp$-step writes data $d$ to the shared tape via $R^\sharp$, and a subsequent $\int$-step
-reads $d$ via $E^\int$. One might worry that $d$ carries $\sharp$-channel information that the
+reads $d$ via $E^{\mathrm{int}}$. One might worry that $d$ carries $\sharp$-channel information that the
 $\int$-step can exploit to gain extra $\int$-energy progress, violating the per-step bound
-$\delta_\int(n)$. But this conflates *data availability* with *processing capacity*:
+$\delta_{\mathrm{int}}(n)$. But this conflates *data availability* with *processing capacity*:
 
-- The $\int$-step applies its core map $F^\int$ to $E^\int(z)$, the $\int$-modal encoding of
-  the current tape state. The data $d$ is simply part of the tape that $E^\int$ reads — it
-  becomes part of the $\int$-workspace state $\tilde{z}_\int$.
-- The per-step bound $\delta_\int(n)$ is defined as
-  $\sup_z |E_\int(R^\int \circ F^\int \circ E^\int(z)) - E_\int(z)|$, where the supremum
+- The $\int$-step applies its core map $F^{\mathrm{int}}$ to $E^{\mathrm{int}}(z)$, the $\int$-modal encoding of
+  the current tape state. The data $d$ is simply part of the tape that $E^{\mathrm{int}}$ reads — it
+  becomes part of the $\int$-workspace state $\tilde{z}_{\mathrm{int}}$.
+- The per-step bound $\delta_{\mathrm{int}}(n)$ is defined as
+  $\sup_z |E_{\mathrm{int}}(R^{\mathrm{int}} \circ F^{\mathrm{int}} \circ E^{\mathrm{int}}(z)) - E_{\mathrm{int}}(z)|$, where the supremum
   ranges over **all** states $z$ — including states whose tape contains data written by prior
   $\sharp$-steps. The bound already accounts for the worst case over all possible tape contents.
 - What the $\int$-step can *accomplish* with data $d$ is bounded by the $\int$-channel capacity
-  $\delta_\int(n)$, regardless of the data's provenance. The $\int$-step processes $d$ through
-  $\int$-modal operations ($E^\int$, $F^\int$, $R^\int$), and these operations' contribution
-  to $\int$-energy is bounded by $\delta_\int(n)$ by definition.
+  $\delta_{\mathrm{int}}(n)$, regardless of the data's provenance. The $\int$-step processes $d$ through
+  $\int$-modal operations ($E^{\mathrm{int}}$, $F^{\mathrm{int}}$, $R^{\mathrm{int}}$), and these operations' contribution
+  to $\int$-energy is bounded by $\delta_{\mathrm{int}}(n)$ by definition.
 
 In summary: cross-modal data flow via the shared tape is real, but it does not create
 cross-modal *energy amplification*. The data written by one channel becomes input to another,
@@ -6233,7 +6237,7 @@ The product space is a mathematical construction for tracking the energy contrib
 modality independently. The encoding maps $E^\lozenge : \{0,1\}^{O(p(n))} \to Z_n^\lozenge$
 project the shared tape state onto each modal workspace; the reconstruction maps embed modal
 outputs back. The product $\tilde{\mathfrak{Z}}$ is the codomain of the joint encoding
-$\tilde{E} = (E^\sharp, E^\int, E^\flat, E^\ast, E^\partial)$, which maps the actual tape state
+$\tilde{E} = (E^\sharp, E^{\mathrm{int}}, E^\flat, E^\ast, E^\partial)$, which maps the actual tape state
 to a tuple of modal workspace states. Energy accounting in $\tilde{\mathfrak{Z}}$ is valid
 because each $E_\lozenge$ depends only on its factor, and the factorization requirement
 guarantees that each transported endomorphism modifies only its own factor. The algorithm's
@@ -6308,7 +6312,7 @@ pure $\lozenge$-endomorphism has bounded per-step energy contribution:
 | Channel | Source of per-step bound | Mechanism |
 |---------|------------------------|-----------|
 | $\sharp$ | {prf:ref}`lem-random-3sat-metric-blockage` | Metric profile has bounded range $\Rightarrow$ $\lvert\Delta E_\sharp\rvert$ per step bounded by landscape geometry |
-| $\int$ | {prf:ref}`lem-random-3sat-causal-blockage` | Each causal step processes one poset level $\Rightarrow$ unit $E_\int$-progress per step |
+| $\int$ | {prf:ref}`lem-random-3sat-causal-blockage` | Each causal step processes one poset level $\Rightarrow$ unit $E_{\mathrm{int}}$-progress per step |
 | $\flat$ | {prf:ref}`lem-random-3sat-integrality-blockage` | Each algebraic step reduces one variable $\Rightarrow$ unit $E_\flat$-progress per step |
 | $\ast$ | {prf:ref}`lem-random-3sat-scaling-blockage` | Each recursive step processes one decomposition node $\Rightarrow$ bounded $E_\ast$-progress |
 | $\partial$ | {prf:ref}`lem-random-3sat-boundary-blockage` | Each boundary step operates on the interface $\Rightarrow$ bounded $E_\partial$-progress |
@@ -6373,7 +6377,7 @@ Let $\Pi$ be a problem family. Suppose that all five semantic obstruction propos
 $$
 \mathbb K_\sharp^-(\Pi)
 \wedge
-\mathbb K_\int^-(\Pi)
+\mathbb K_{\mathrm{int}}^-(\Pi)
 \wedge
 \mathbb K_\flat^-(\Pi)
 \wedge
@@ -6414,14 +6418,14 @@ rank. By {prf:ref}`thm-irreducible-witness-classification`, every irreducible ob
 tree lies in one of the five pure modal subcategories
 
 $$
-\mathsf W_\sharp,\ \mathsf W_\int,\ \mathsf W_\flat,\ \mathsf W_\ast,\ \mathsf W_\partial.
+\mathsf W_\sharp,\ \mathsf W_{\mathrm{int}},\ \mathsf W_\flat,\ \mathsf W_\ast,\ \mathsf W_\partial.
 $$
 
 Hence at least one admissible irreducible modal component exists for $\Pi$, belonging to one of those five classes.
 This contradicts the conjunction of the five semantic obstruction propositions
 
 $$
-\mathbb K_\sharp^-(\Pi)\wedge \mathbb K_\int^-(\Pi)\wedge \mathbb K_\flat^-(\Pi)\wedge \mathbb K_\ast^-(\Pi)\wedge
+\mathbb K_\sharp^-(\Pi)\wedge \mathbb K_{\mathrm{int}}^-(\Pi)\wedge \mathbb K_\flat^-(\Pi)\wedge \mathbb K_\ast^-(\Pi)\wedge
 \mathbb K_\partial^-(\Pi).
 $$
 
@@ -6434,7 +6438,7 @@ Therefore no polynomial-time correct solver for $\Pi$ exists.
 Let $\Pi$ be a problem family. If all five semantic obstruction propositions hold:
 
 $$
-\mathbb{K}_\sharp^-(\Pi) \wedge \mathbb{K}_\int^-(\Pi) \wedge \mathbb{K}_\flat^-(\Pi) \wedge
+\mathbb{K}_\sharp^-(\Pi) \wedge \mathbb{K}_{\mathrm{int}}^-(\Pi) \wedge \mathbb{K}_\flat^-(\Pi) \wedge
 \mathbb{K}_\ast^-(\Pi) \wedge \mathbb{K}_\partial^-(\Pi),
 $$
 then
@@ -7207,7 +7211,7 @@ ranking bound**:
 
 - **Causal channel ($\int$):** Frustrated cycles in the clause-variable hypergraph are a structural
   obstruction to DAG-like elimination orderings. Their presence is independent of the poset size
-  $q_\int(n)$.
+  $q_{\mathrm{int}}(n)$.
 
 - **Algebraic channel ($\flat$):** Boolean fiber rigidity trivializes the monodromy of the solution variety,
   making the solvable-monodromy sketch vacuous. This is a structural obstruction independent of the cardinality bound $q_\flat(n)$.
@@ -7379,7 +7383,7 @@ $\sharp$-modality cannot access.
 :::{prf:lemma} Causal Blockage for Canonical 3-SAT
 :label: lem-random-3sat-causal-blockage
 
-For every pure $\int$-witness $(P_n, \prec_n, U_{n,i}, \sigma_n, q_\int)$ in the sense of
+For every pure $\int$-witness $(P_n, \prec_n, U_{n,i}, \sigma_n, q_{\mathrm{int}})$ in the sense of
 {prf:ref}`def-pure-int-witness-rigorous` on $\Pi_{3\text{-SAT}}$, the correctness condition fails. Equivalently,
 the causal obstruction certificate $K_{\mathrm{E6}}^-$ holds.
 :::
@@ -7387,7 +7391,7 @@ the causal obstruction certificate $K_{\mathrm{E6}}^-$ holds.
 :::{prf:proof}
 **Step 1. [Typed witness class]:**
 By {prf:ref}`def-pure-int-witness-rigorous`: a pure $\int$-witness consists of a finite poset $(P_n, \prec_n)$ with
-$|P_n| \leq q_\int(n)$, local updates $U_{n,i}$ depending only on predecessors $j \prec_n i$, a linear extension
+$|P_n| \leq q_{\mathrm{int}}(n)$, local updates $U_{n,i}$ depending only on predecessors $j \prec_n i$, a linear extension
 $\sigma_n$, and the correctness identity. The exclusion target is all such witnesses.
 
 **Step 2. [Frustrated cycles in random 3-SAT]:**
@@ -7420,9 +7424,9 @@ family $\Pi_{3\text{-SAT}}$.
 
 **Step 6. [Supporting barrier bound]:**
 The barrier datum $\mathfrak B_{3\text{-SAT}}$ provides a supporting linear lower bound. Each local elimination update
-changes $E_n$ by at most $d_\int(n) \leq 3 \cdot \lceil\alpha\rceil = O(1)$ (an $\int$ local drift bound in the
+changes $E_n$ by at most $d_{\mathrm{int}}(n) \leq 3 \cdot \lceil\alpha\rceil = O(1)$ (an $\int$ local drift bound in the
 sense of {prf:ref}`def-int-local-energy-drift-bound`). By {prf:ref}`thm-int-barrier-obstruction-metatheorem`:
-$\beta_\int^{\mathfrak B}(n) \geq \Omega(n)$, ruling out sublinear elimination schedules.
+$\beta_{\mathrm{int}}^{\mathfrak B}(n) \geq \Omega(n)$, ruling out sublinear elimination schedules.
 
 **Step 7. [Certificate extraction]:**
 The causal obstruction certificate is
@@ -9529,7 +9533,8 @@ part are earlier:
 Those are the places where the manuscript must be most explicit.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is the contrast that matters. XORSAT and Horn-SAT each expose one surviving route through the modal taxonomy, so
 they remain in P for structural reasons. Canonical $3$-SAT is used differently: not as an external distributional
 example, but as the internal satisfiability object for which the theorem ladder isolates an exact dossier-level burden.
@@ -9888,7 +9893,7 @@ Fix $\Pi$ and a translator-stable barrier datum $\mathfrak B$.
 For each $n$, define
 
 $$
-\beta_\int^{\mathfrak B}(n)
+\beta_{\mathrm{int}}^{\mathfrak B}(n)
 $$
 to be the infimum of all integers $\ell$ such that there exists a barrier-compatible pure $\int$-witness for $\Pi$ on
 $H_n$ admitting a certified elimination schedule of length at most $\ell$.
@@ -9899,10 +9904,10 @@ merely the height of the underlying dependency poset.
 If no such witness exists, set
 
 $$
-\beta_\int^{\mathfrak B}(n):=\infty.
+\beta_{\mathrm{int}}^{\mathfrak B}(n):=\infty.
 $$
 
-Thus $\beta_\int^{\mathfrak B}(n)$ measures the least well-founded elimination budget compatible with solving across the
+Thus $\beta_{\mathrm{int}}^{\mathfrak B}(n)$ measures the least well-founded elimination budget compatible with solving across the
 barrier.
 :::
 
@@ -9987,7 +9992,7 @@ The five functions
 
 $$
 \beta_\sharp^{\mathfrak B},\quad
-\beta_\int^{\mathfrak B},\quad
+\beta_{\mathrm{int}}^{\mathfrak B},\quad
 \beta_\flat^{\mathfrak B},\quad
 \beta_\ast^{\mathfrak B},\quad
 \beta_\partial^{\mathfrak B}
@@ -10127,12 +10132,12 @@ reformulation of the nonexistence of a pure $\sharp$-witness on the hard subfami
 A translator-stable barrier datum $\mathfrak B$ is said to admit an **$\int$ local drift bound**
 
 $$
-d_\int:\mathbb N\to\mathbb N
+d_{\mathrm{int}}:\mathbb N\to\mathbb N
 $$
 if for every barrier-compatible pure $\int$-witness and every local elimination update $U_{n,i}$,
 
 $$
-\bigl|E_n(U_{n,i}(z)) - E_n(z)\bigr| \le d_\int(n)
+\bigl|E_n(U_{n,i}(z)) - E_n(z)\bigr| \le d_{\mathrm{int}}(n)
 $$
 after transporting the barrier to the witness state space.
 :::
@@ -10140,22 +10145,22 @@ after transporting the barrier to the witness state space.
 :::{prf:theorem} Causal Barrier Obstruction Metatheorem
 :label: thm-int-barrier-obstruction-metatheorem
 
-Let $\Pi$ carry a translator-stable barrier datum $\mathfrak B$ and an $\int$ local drift bound $d_\int$.
+Let $\Pi$ carry a translator-stable barrier datum $\mathfrak B$ and an $\int$ local drift bound $d_{\mathrm{int}}$.
 
 Then for every $n$,
 
 $$
-\beta_\int^{\mathfrak B}(n)
+\beta_{\mathrm{int}}^{\mathfrak B}(n)
 \;\ge\;
 \left\lceil
-\frac{\Delta_{\mathfrak B}(n)}{d_\int(n)}
+\frac{\Delta_{\mathfrak B}(n)}{d_{\mathrm{int}}(n)}
 \right\rceil.
 $$
 
 Consequently, if
 
 $$
-\frac{\Delta_{\mathfrak B}(n)}{d_\int(n)}
+\frac{\Delta_{\mathfrak B}(n)}{d_{\mathrm{int}}(n)}
 $$
 eventually dominates every polynomial, then no barrier-compatible pure $\int$-witness exists for $\Pi$ on
 $\mathfrak H$.
@@ -10169,44 +10174,44 @@ state.
 By barrier compatibility, the starting state and terminal solved state both lie in the low-energy region, and by barrier
 separation the elimination trace must cross the barrier region.
 
-Each local elimination update changes energy by at most $d_\int(n)$, so any correct elimination trace crossing from
+Each local elimination update changes energy by at most $d_{\mathrm{int}}(n)$, so any correct elimination trace crossing from
 energy at most $a(n)$ to energy at least $b(n)$ requires at least
 
 $$
 \left\lceil
-\frac{\Delta_{\mathfrak B}(n)}{d_\int(n)}
+\frac{\Delta_{\mathfrak B}(n)}{d_{\mathrm{int}}(n)}
 \right\rceil
 $$
 local update stages.
 
-But $\beta_\int^{\mathfrak B}(n)$ is defined using the least admissible elimination schedule length. Hence
+But $\beta_{\mathrm{int}}^{\mathfrak B}(n)$ is defined using the least admissible elimination schedule length. Hence
 
 $$
 \ell\ge
 \left\lceil
-\frac{\Delta_{\mathfrak B}(n)}{d_\int(n)}
+\frac{\Delta_{\mathfrak B}(n)}{d_{\mathrm{int}}(n)}
 \right\rceil,
 $$
 and taking the infimum over all admissible $\ell$ yields the claimed lower bound on
-$\beta_\int^{\mathfrak B}(n)$.
+$\beta_{\mathrm{int}}^{\mathfrak B}(n)$.
 :::
 
 :::{prf:corollary} Causal Barrier Certificate
 :label: cor-int-barrier-certificate
 
-Suppose $\Pi$ carries a translator-stable barrier datum $\mathfrak B$ and an $\int$ local drift bound $d_\int$ such
+Suppose $\Pi$ carries a translator-stable barrier datum $\mathfrak B$ and an $\int$ local drift bound $d_{\mathrm{int}}$ such
 that
 
 $$
 \left\lceil
-\frac{\Delta_{\mathfrak B}(n)}{d_\int(n)}
+\frac{\Delta_{\mathfrak B}(n)}{d_{\mathrm{int}}(n)}
 \right\rceil
 $$
 eventually dominates every polynomial.
 
 Then:
 1. no pure $\int$-witness solves $\Pi$ on $\mathfrak H$;
-2. the semantic obstruction proposition $\mathbb K_\int^-(\Pi)$ holds.
+2. the semantic obstruction proposition $\mathbb K_{\mathrm{int}}^-(\Pi)$ holds.
 :::
 
 :::{prf:proof}
@@ -10376,7 +10381,7 @@ $$
 \mathbf B_{\mathrm{Bar}}(\Pi,\mathfrak B)
 =
 \bigl(
-B_\sharp,\ B_\int,\ B_\flat,\ B_\ast,\ B_\partial
+B_\sharp,\ B_{\mathrm{int}},\ B_\flat,\ B_\ast,\ B_\partial
 \bigr)
 $$
 where each semantic obstruction proposition $\mathbb{K}_\lozenge^-(\Pi)$ is established by the corresponding
@@ -10476,7 +10481,7 @@ For a new problem family $\Pi$, the barrier workflow is:
 
    $$
    \beta_\sharp^{\mathfrak B},\ 
-   \beta_\int^{\mathfrak B},\ 
+   \beta_{\mathrm{int}}^{\mathfrak B},\ 
    \beta_\flat^{\mathfrak B},\ 
    \beta_\ast^{\mathfrak B},\ 
    \beta_\partial^{\mathfrak B};
@@ -10920,7 +10925,7 @@ referee-complete primitive audit table.
 |---|---|---|---|---|---|---|
 | $\mathsf{PT}$ | $\mathfrak U \Rightarrow_{\tau} \mathfrak V$ | Administrative | $\varnothing$ | {prf:ref}`def-presentation-translator` | Included in translator certificate | Yes |
 | $\mathsf{SH}$ | $\mathfrak Z^\sharp \Rightarrow \mathfrak Z^\sharp$ | Progress | $\{\sharp\}$ | {prf:ref}`def-pure-sharp-witness-rigorous` | Polynomial ranking bound $q_\sharp$ | Yes |
-| $\mathsf{IN}$ | $\mathfrak Z^\int \Rightarrow \mathfrak Z^\int$ | Progress | $\{\int\}$ | {prf:ref}`def-pure-int-witness-rigorous` | Polynomial size/height bound $q_\int$ | Yes |
+| $\mathsf{IN}$ | $\mathfrak Z^{\mathrm{int}} \Rightarrow \mathfrak Z^{\mathrm{int}}$ | Progress | $\{\int\}$ | {prf:ref}`def-pure-int-witness-rigorous` | Polynomial size/height bound $q_{\mathrm{int}}$ | Yes |
 | $\mathsf{FLAT}$ | $\mathfrak A^\flat \Rightarrow \mathfrak B^\flat$ | Progress | $\{\flat\}$ | {prf:ref}`def-pure-flat-witness-rigorous` | Polynomial presentation bound $q_\flat$ | Yes |
 | $\mathsf{STAR}$ | $\mathfrak Z^\ast \Rightarrow \mathfrak Z^\ast$ | Progress | $\{\ast\}$ | {prf:ref}`def-pure-star-witness-rigorous` | Polynomial total-tree bound $q_\ast$ | Yes |
 | $\mathsf{PARTIAL}$ | $\mathfrak Z^\partial \Rightarrow \mathfrak B^\partial$ | Progress | $\{\partial\}$ | {prf:ref}`def-pure-boundary-witness-rigorous` | Polynomial interface bound $q_\partial$ | Yes |
@@ -10945,7 +10950,7 @@ We verify the six rows one by one.
 3. **Causal row $\mathsf{IN}$.**
    Every member of $\mathsf{IN}$ is a predecessor-only elimination step over a polynomial-height dependency object.
    Hence it carries a pure $\int$-witness in the sense of {prf:ref}`def-pure-int-witness-rigorous`, with polynomial
-   size and height bound $q_\int$.
+   size and height bound $q_{\mathrm{int}}$.
 
 4. **Algebraic row $\mathsf{FLAT}$.**
    Every member of $\mathsf{FLAT}$ is an algebraic elimination/cancellation step over finite
@@ -11129,7 +11134,8 @@ P_{\text{FM}} \subseteq \mathsf{Sat}\langle \sharp,\int,\flat,\ast,\partial\rang
 $$
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 This is the clean separation the chapter needs. One thing is a foundational choice: we model computation inside a
 cohesive ambient category. A different thing is a theorem inside that foundation: once you accept the setting, efficient
 algorithms exhaust through modal profiles built from the five modalities because
@@ -11199,7 +11205,7 @@ Concretely:
 1. a true polynomial-time family outside the saturated five-class closure would refute some specific theorem in the Part
    IV classification ladder;
 2. an irreducible witness object outside
-   $\mathsf W_\sharp,\mathsf W_\int,\mathsf W_\flat,\mathsf W_\ast,\mathsf W_\partial$
+   $\mathsf W_\sharp,\mathsf W_{\mathrm{int}},\mathsf W_\flat,\mathsf W_\ast,\mathsf W_\partial$
    would refute {prf:ref}`thm-irreducible-witness-classification`;
 3. a failure of the semantic obstruction propositions would refute one of the five blockage lemmas of Part VI;
 4. a failure of the canonical 3-SAT instantiation would localize either to
@@ -11360,7 +11366,8 @@ The roles are therefore explicit: the foundation is a choice, the bridge equival
 theorems, and classical export is their direct consequence.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me be clear about what we have accomplished and what remains open.
 
 **What is proven abstractly:** Within cohesive $(\infty,1)$-topos theory, the manuscript states a theorem ladder
@@ -11438,7 +11445,8 @@ $P_{\text{DTM}} \neq NP_{\text{DTM}}$
 ({prf:ref}`cor-internal-to-classical-separation`, {prf:ref}`thm-conditional-nature`).
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And there you have it. We have built a mathematical framework that provides a structural analysis of **why** some algorithms are fast and others
 must be slow. The five modalities are not arbitrary categories; they are the fundamental ways that structure manifests
 in a cohesive topos. An algorithm is fast if it can "see" one of these structural patterns. An algorithm is slow if all

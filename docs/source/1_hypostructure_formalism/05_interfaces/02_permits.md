@@ -7,7 +7,8 @@ title: "Permits and Preconditions"
 (sec-weakest-precondition)=
 ## The Weakest Precondition Principle
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is the key idea that makes the whole Sieve machinery work, and I want you to understand it viscerally because it changes how you think about proving regularity.
 
 Traditionally, when mathematicians attack a PDE problem, they assume smoothness up front and then try to prove it doesn't break. This is backwards. It is like asking "will this bridge hold?" while assuming the bridge is infinitely strong. What you really want is a machine where you pour in the minimal ingredients---the local checks, the interface predicates---and the machine tells you whether regularity holds or fails.
@@ -72,7 +73,8 @@ The interface formalism separates:
 A researcher can contribute a new interface implementation without understanding the full Sieve machinery, and the framework can be extended with new metatheorems without modifying existing implementations.
 :::
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me put this differently. Think of a type checker in programming. You write type annotations on your functions. You do not prove that your program is type-safe---the type checker does that for you, automatically. And when it fails, it tells you exactly where the types do not match.
 
 The Sieve works the same way. Domain expertise goes into implementing the local predicates---you know your PDE, you know what scaling exponent to compute, you know what dimension estimate is relevant. Framework logic is the Sieve algorithm itself, which chains these local checks into global conclusions. Certificate verification is automatic: you can replay the proof and check that every step follows.
@@ -85,7 +87,8 @@ This separation is not just elegant. It is practical. A geometer working on Ricc
 (sec-rigidity-recovery)=
 ## Rigidity & Recovery Metatheorems
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to what I think is one of the most satisfying parts of this whole framework. We have seen that the Sieve can tell you whether regularity holds. But what if you want more? What if you want to know not just that things do not blow up, but exactly how they converge? What if you want canonical structures, uniqueness, explicit formulas?
 
 That is where these strengthening metatheorems come in. Think of them as upgrades you can unlock. The base Sieve gives you a verdict. But if your problem has additional structure---if singularities are "tame" enough to classify, if you have enough rigidity for canonical Lyapunov functions, if everything is computable---then you get stronger conclusions automatically.
@@ -188,7 +191,8 @@ With the Rigidity Certificate, with validated interface permits $D_E$, $C_\mu$, 
 
 **Level-up certificate:** `Lyapunov-Existence`.
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now, here is something beautiful. When you have the right certificates in place, not only does a Lyapunov functional exist---it is essentially unique, and we can write it down explicitly.
 
 The construction is wonderfully natural. Ask yourself: how far is my current state from equilibrium? Not in terms of Euclidean distance, but in terms of what it costs to get there. The Lyapunov functional measures exactly this---the minimal accumulated dissipation needed to reach the safe manifold, plus the height once you arrive.
@@ -261,7 +265,8 @@ When gradient consistency ($\mathrm{GC}_\nabla$) is additionally validated, the 
 
 **Level-up certificate:** `Lyapunov-Jacobi`.
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 And here is the geometric punchline. If you have gradient consistency---meaning dissipation equals squared velocity along the flow---then the Lyapunov functional is nothing but geodesic distance in a warped geometry.
 
 Picture your state space with the original metric. Now imagine stretching the geometry: where dissipation is high, distances become longer; where dissipation is low, they stay about the same. This is the Jacobi metric---a conformal rescaling by the dissipation itself.
@@ -496,7 +501,8 @@ This extends {prf:ref}`mt-krnl-jacobi` to non-smooth settings where $|\partial\P
 
 #### Soft Local Tower Globalization
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we tackle something that sounds impossible at first: how do you prove global statements about a system by looking only at local data? The answer is tower structures, and the key insight is that "local in scale" can imply "global in behavior."
 
 Imagine a tower of increasingly fine resolutions---like looking at a fluid first at the scale of meters, then centimeters, then millimeters. At each scale you have local data: how much energy dissipates, how states relate across scales, what invariants characterize the configuration. The question is: if your local data is well-behaved at every scale, does the tower converge to something sensible at infinite resolution?
@@ -651,7 +657,8 @@ for any $\gamma > 0$, contradicting $K_{D_E^{\mathrm{tower}}}^+$.
 
 #### Obstruction Capacity Collapse
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Here is a pattern that shows up everywhere, and once you see it, you cannot unsee it.
 
 In many problems, there is a sector of "obstructions"---things that prevent solutions from existing or being unique. The Tate-Shafarevich group in arithmetic. Cohomological obstructions in topology. Singular sets in PDEs. The question is always: how big can this obstruction sector be?
@@ -756,7 +763,8 @@ for some $\delta > 0$. But accumulating such obstructions requires $\sum_n H_{\m
 
 #### Stiff Pairing / No Null Directions
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now here is a worry you might have: what if there are hidden degrees of freedom where problems can lurk? What if your decomposition into "free sector" and "obstruction sector" misses something?
 
 This metatheorem says: if you have the right structural certificates, there is no place to hide. Every direction in your state space is either free (where the pairing lets you move) or obstruction (where the pairing pins you down). There is no mysterious "null sector" where singularities could accumulate undetected.
@@ -821,7 +829,8 @@ Let $\mathcal{X} = X_{\mathrm{free}} \oplus X_{\mathrm{obs}} \oplus X_{\mathrm{r
 
 ### Effective (Algorithmic) Proof
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now we come to the final upgrade, and it is the one that computer scientists will love most.
 
 Everything we have done so far is mathematically rigorous, but in principle it could involve steps that are not computable. Non-constructive existence proofs. Undecidable membership tests. Infinite searches. If you want to actually run this machinery on a computer, you need more.
@@ -942,7 +951,8 @@ Every strong metatheorem should be written as:
 (sec-type-system)=
 ## The Type System
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Now, here is something practical. We have all this machinery---Sieve, permits, certificates, metatheorems. But how do you actually use it on a specific problem?
 
 The answer is types. A type is a recipe that tells you: for this class of problems, here is the structure you can assume, here are the moves you are allowed to make, here are the tools available, and here is what happens when you hit the edge of what is provable.
@@ -967,7 +977,8 @@ A **type** $T$ is a class of dynamical systems sharing:
 
 ### Type Catalog
 
-:::{div} feynman-prose
+:::{div}
+:class: feynman-prose
 Let me show you the zoo. Each type below is a complete "problem template" that packages everything you need: the structure of the evolution, the form of energy and dissipation, what moves are allowed, what barriers typically arise, and what profiles are known.
 
 You will notice a pattern: each type has evolved its own toolkit because each type has its own characteristic difficulties. Parabolic equations develop singularities where curvature concentrates---so the toolkit includes surgery. Dispersive equations scatter to infinity unless concentration occurs---so the toolkit includes concentration-compactness. Gradient flows on metric spaces may lack smoothness---so the toolkit uses metric slopes instead of gradients.
