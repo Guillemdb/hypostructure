@@ -140,7 +140,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 - [x] **Mixing Time $\tau_{\text{mix}}$:** $\tau_{\text{mix}} \le |V(G)|$ (reduction depth)
 - [x] **Mixing Property:** Deterministic descent (no ergodic behavior needed)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Graph minor language / configuration patterns
 - [x] **Dictionary $D$:** Finite set $\mathcal{D} = \{C_1, \ldots, C_{633}\}$ (unavoidable configurations)
 - [x] **Complexity Measure $K$:** $K(G) = \#\{\text{Kempe chains in } G\}$ (bounded by combinatorial structure)
@@ -160,7 +160,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-4-colorable planar graph template
 - [x] **Exclusion Tactics:**
   - [x] E11 (ComplexCheck / Dictionary Exhaustion): Finite unavoidable set blocks all bad patterns
-  - [x] E9 (TameCheck): Configurations are finite and definable
+  - [x] E9 + $K_{\mathrm{MorphPresMix}}^+$ (TameCheck): Configurations are finite and definable
 
 ---
 
@@ -376,7 +376,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the configuration complexity bounded/computable?
 
@@ -400,7 +400,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
    - $K_{\mathfrak{R}}^+$: Reducibility verified (all configurations admit coloring extension)
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\mathcal{D}, |\mathcal{D}| = 633, K(G) \le 6|V|, \text{poly-time checkable})$
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\mathcal{D}, |\mathcal{D}| = 633, K(G) \le 6|V|, \text{poly-time checkable})$
 * [x] **Dictionary Certificate:** $K_{\mathcal{D}}^+ = (\text{unavoidable}, \text{discharging proof}, 633 \text{ configs})$
 * [x] **Reducibility Certificate:** $K_{\mathfrak{R}}^+ = (\text{all reducible}, \text{Kempe exhaustion}, \text{Coq-certified})$
   → **Go to Node 12**
@@ -456,7 +456,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 - Hypothetical counterexample: $G_{\text{min}}$ with $\chi(G_{\text{min}}) > 4$ and $\chi(G') \le 4$ for all proper subgraphs $G' \subsetneq G_{\text{min}}$
 
 **Step 2: Apply Tactic E11 (ComplexCheck / Dictionary Exhaustion)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (Dictionary of 633 configurations)
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (Dictionary of 633 configurations)
 2. [x] Unavoidability: Every planar graph contains $\ge 1$ configuration $C_i \in \mathcal{D}$
 3. [x] Minimality contradiction setup:
    - Suppose $G_{\text{min}}$ exists (minimal counterexample)
@@ -472,7 +472,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 6. [x] Conclusion: No minimal counterexample can exist
 7. [x] Certificate: $K_{\text{Dict-Exhaust}}^{\text{blk}}$
 
-**Step 3: Apply Tactic E9 (TameCheck / Finite Verification)**
+**Step 3: Apply Tactic E9 + $K_{\mathrm{MorphPresMix}}^+$ (TameCheck / Finite Verification)**
 1. [x] Input: $K_{\mathrm{TB}_O}^+$ (Tameness certificate)
 2. [x] Finite configuration set: $|\mathcal{D}| = 633$ (finite, explicit)
 3. [x] Computer verification:
@@ -496,7 +496,7 @@ This document presents a **machine-checkable proof object** for the **Four Color
 * [x] Result: Dictionary exhaustion → singular set empty → global regularity (4-colorability)
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E11+E9}, \text{dictionary exhaustion}, \{K_{\mathrm{TB}_O}^+, K_{\mathrm{Rep}_K}^+, K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E11+E9}, \text{dictionary exhaustion}, \{K_{\mathrm{TB}_O}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -672,7 +672,7 @@ The dictionary construction provides the certificates $K_{\mathcal{D}}^+$ and $K
 *   **Question:** $\text{Hom}(\text{Bad}, \mathcal{H}) = \emptyset$?
 *   **Bad Pattern:** A minimal non-4-colorable planar graph (hypothetical counterexample).
 *   **Tactic E11 (Dictionary Exhaustion):** Any minimal counterexample $G$ would contain some $C_i \in \mathcal{D}$ (unavoidability), but $C_i$ is reducible, so $G$ cannot be minimal (contradiction).
-*   **Tactic E9 (Tameness):** All configurations are finite and explicit, verified by computer.
+*   **Tactic E9 + $K_{\mathrm{MorphPresMix}}^+$ (Tameness):** All configurations are finite and explicit, verified by computer.
 *   **Result:** **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$).
 
 ---
@@ -758,7 +758,7 @@ Node 9:  K_{TB_O}^+ (tameness: finite dictionary)
 Node 10: K_{TB_ρ}^+ (deterministic: τ_mix = |V|)
          └─ No randomness, finite depth
 
-Node 11: K_{Rep_K}^+ (dictionary verified: 633 configs)
+Node 11: K_{RepDesc_K}^+ (dictionary verified: 633 configs)
          ├─ Complexity: K(G) ≤ 6|V| (Kempe chains)
          ├─ K_D^+: unavoidable (discharging proof)
          ├─ K_R^+: reducible (Kempe exhaustion)
@@ -810,7 +810,7 @@ Kempe Chain Exhaustion (Node 11) → K_R^+
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathcal{D}}^+, K_{\mathfrak{R}}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -884,80 +884,3 @@ By induction, all planar graphs are 4-colorable. $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Reduction Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Unavoidable Set | Positive | $K_{C_\mu}^+ \wedge K_{\mathcal{D}}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Set Empty | Upgraded | $K_{\mathrm{Cap}_H}^+$ (via $K_{\mathcal{D}}^+ \wedge K_{\mathfrak{R}}^+$) |
-| Discrete Descent | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Planarity Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Deterministic Process | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Dictionary Complexity | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Unavoidability | Computer-Verified | $K_{\mathcal{D}}^+$ |
-| Reducibility | Computer-Verified | $K_{\mathfrak{R}}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- K. Appel, W. Haken, *Every planar map is four colorable. Part I: Discharging*, Illinois J. Math. 21 (1977), 429-490
-- K. Appel, W. Haken, J. Koch, *Every planar map is four colorable. Part II: Reducibility*, Illinois J. Math. 21 (1977), 491-567
-- N. Robertson, D. Sanders, P. Seymour, R. Thomas, *The four-colour theorem*, J. Combin. Theory Ser. B 70 (1997), 2-44
-- G. Gonthier, *Formal proof—the four-color theorem*, Notices Amer. Math. Soc. 55 (2008), 1382-1393
-- R. Thomas, *An update on the four-color theorem*, Notices Amer. Math. Soc. 45 (1998), 848-859
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + branch choices
-2. `certs/`: serialized certificates with payload hashes (including computer verification traces)
-3. `inputs.json`: thin objects and initial-state hash
-4. `closure.cfg`: promotion/closure settings used by the replay engine
-5. `dictionary/`: complete dictionary $\mathcal{D}$ with unavoidability proof
-6. `reducibility/`: reducibility certificates for all 633 configurations
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
-**Computer-Assisted Certificates Included:**
-| Certificate | Source | Payload Hash |
-|-------------|--------|--------------|
-| $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathcal{D}}^+$ | Unavoidable set (Robertson et al. 1997) | `[computed]` |
-| $K_{\mathfrak{R}}^+$ | Reducibility verification | `[computed]` |
-| $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
-
-**Verification Method:**
-- Discharging proof for unavoidability: Algorithmic verification of charge redistribution rules
-- Reducibility proof: Exhaustive Kempe chain case analysis (633 configurations × average ~10^4 cases each)
-- Total verification time: ~3 hours on modern hardware (Robertson et al. 1997)
-- Formal verification: Coq proof by Gonthier (2008) confirms correctness
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{combinatorial}}$ (Discrete / Graph Theoretic) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

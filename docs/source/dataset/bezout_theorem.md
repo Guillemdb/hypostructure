@@ -289,7 +289,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 | 8  | $\mathrm{TB}_\pi$          | TopoCheck      | Is Sector Preserved?     | Topological degree class preserved under deformation                        | $K_{\mathrm{TB}_\pi}^{+}$          |
 | 9  | $\mathrm{TB}_O$            | TameCheck      | Is Topology Tame?        | Algebraic sets are semialgebraic, hence o-minimal              | $K_{\mathrm{TB}_O}^{+}$            |
 | 10 | $\mathrm{TB}_\rho$         | ErgoCheck      | Does Flow Mix?           | NOT APPLICABLE (static intersection problem)                              | $K_{\mathrm{TB}_\rho}^{+}$         |
-| 11 | $\mathrm{Rep}_K$           | ComplexCheck   | Is Description Finite?   | Finite polynomial coefficients                    | $K_{\mathrm{Rep}_K}^{+}$           |
+| 11 | $\mathrm{RepDesc}_K$           | ComplexCheck   | Is Description Finite?   | Finite polynomial coefficients                    | $K_{\mathrm{RepDesc}_K}^{+}$           |
 | 12 | $\mathrm{GC}_\nabla$       | OscillateCheck | Is Flow Gradient?        | Deformation in coefficient space is gradient-like            | $K_{\mathrm{GC}_\nabla}^{-}$       |
 
 ### **0.2 Boundary Interface Permits (Nodes 13-16)**
@@ -361,7 +361,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 - [x] **Singular Set Tameness:** $\Sigma$ is an algebraic set, hence definable.
 - [x] **Cell Decomposition:** Algebraic stratification is finite.
 
-#### **Template: $\mathrm{Rep}_K$ (Dictionary Interface)**
+#### **Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)**
 - [x] **Language $\mathcal{L}$:** Polynomial equations with coefficients in $\mathbb{C}$.
 - [x] **Dictionary $D$:** $D(Z) = (f, g)$ (the defining polynomials).
 - [x] **Complexity Measure $K$:** $K(Z) = \binom{d_1+2}{2} + \binom{d_2+2}{2}$ (number of coefficients).
@@ -543,7 +543,7 @@ where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 *User Input: Define the four "Thin Objects". The Factory Metatheorems automatically expand these into the full Kernel Objects.*
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-*Implements: $\mathcal{H}_0$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{TB}_O$, $\mathrm{Rep}_K$*
+*Implements: $\mathcal{H}_0$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{TB}_O$, $\mathrm{RepDesc}_K$*
 
 * **State Space ($\mathcal{X}$):** $\mathbb{P}^2(\mathbb{C})$, the complex projective plane.
 * **Metric ($d$):** Fubini-Study metric $d_{FS}$.
@@ -751,7 +751,7 @@ For each node:
 
 ### **Level 6: Complexity**
 
-#### **Node 11: ComplexCheck ($\mathrm{Rep}_K$)**
+#### **Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)**
 
 **Question:** Does the system admit a finite description?
 
@@ -762,7 +762,7 @@ For each node:
 4. [x] Check finiteness: $K(Z) < \infty$ for all $Z$.
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\mathbb{C}[x,y,z], D = (f,g), K < \infty)$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\mathbb{C}[x,y,z], D = (f,g), K < \infty)$ → **Go to Node 12**
 
 ---
 
@@ -1048,7 +1048,7 @@ Node 7:  K_{LS_σ}^+ (θ = 1, integer gap)
 Node 8:  K_{TB_π}^+ (degree preserved)
 Node 9:  K_{TB_O}^+ (algebraic = semialgebraic)
 Node 10: K_{TB_ρ}^+ (static, trivial)
-Node 11: K_{Rep_K}^+ (finite coefficients)
+Node 11: K_{RepDesc_K}^+ (finite coefficients)
 Node 12: K_{GC_∇}^- (no oscillation, static)
 Node 13: K_{Bound_∂}^- (closed system)
 ---
@@ -1060,7 +1060,7 @@ Node 17: K_{Cat_Hom}^{blk} (Lock BLOCKED via E4)
 
 ### **4.3 Final Certificate Set**
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{+}, K_{\mathrm{Rec}_N}^{+}, K_{C_\mu}^{+}, K_{\mathrm{SC}_\lambda}^{+}, K_{\mathrm{SC}_{\partial c}}^{+}, K_{\mathrm{Cap}_H}^{+}, K_{\mathrm{LS}_\sigma}^{+}, K_{\mathrm{TB}_\pi}^{+}, K_{\mathrm{TB}_O}^{+}, K_{\mathrm{TB}_\rho}^{+}, K_{\mathrm{Rep}_K}^{+}, K_{\mathrm{GC}_\nabla}^{-}, K_{\mathrm{Bound}_\partial}^{-}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{+}, K_{\mathrm{Rec}_N}^{+}, K_{C_\mu}^{+}, K_{\mathrm{SC}_\lambda}^{+}, K_{\mathrm{SC}_{\partial c}}^{+}, K_{\mathrm{Cap}_H}^{+}, K_{\mathrm{LS}_\sigma}^{+}, K_{\mathrm{TB}_\pi}^{+}, K_{\mathrm{TB}_O}^{+}, K_{\mathrm{TB}_\rho}^{+}, K_{\mathrm{RepDesc}_K}^{+}, K_{\mathrm{GC}_\nabla}^{-}, K_{\mathrm{Bound}_\partial}^{-}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
 
 ### **4.4 Conclusion**
 
@@ -1075,7 +1075,7 @@ $$\Gamma_{\mathrm{final}} = \{K_{D_E}^{+}, K_{\mathrm{Rec}_N}^{+}, K_{C_\mu}^{+}
 5.  **Exclusion:** Any configuration with $\deg \neq d_1 d_2$ is structurally excluded by Tactic E4 ($K_{\text{Lock}}^{\mathrm{blk}}$)."
 
 **Full Certificate Chain:**
-$$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
+$$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathcal{L}}^{\text{verified}}, K_{\text{Lock}}^{\mathrm{blk}}\}$$
 
 ---
 
@@ -1104,7 +1104,7 @@ The proof proceeds by structural sieve analysis in seven phases:
 - Sector preservation: Degree is homotopy invariant ($K_{\mathrm{TB}_\pi}^+$).
 - Tameness: Algebraic sets are semialgebraic ($K_{\mathrm{TB}_O}^+$).
 - Static system: No mixing dynamics ($K_{\mathrm{TB}_\rho}^+$).
-- Finite complexity: Polynomial coefficients are finite ($K_{\mathrm{Rep}_K}^+$).
+- Finite complexity: Polynomial coefficients are finite ($K_{\mathrm{RepDesc}_K}^+$).
 - No oscillation: Static intersection ($K_{\mathrm{GC}_\nabla}^-$).
 
 **Phase 6 (Boundary):** Node 13 confirmed the system is closed ($K_{\mathrm{Bound}_\partial}^-$).
@@ -1121,113 +1121,3 @@ $$\therefore \deg(V(f) \cap V(g)) = d_1 \cdot d_2 \quad \square$$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Nodes 1-12 (Core) | **PASS** | All $K^+$ or benign $K^-$ |
-| Nodes 13-16 (Boundary) | **CLOSED** | $K_{\mathrm{Bound}_\partial}^-$ |
-| Node 17 (Lock) | **BLOCKED** | $K_{\text{Lock}}^{\mathrm{blk}}$ via E4 |
-| Obligation Ledger | **EMPTY** | — |
-| Upgrade Pass | **COMPLETE** | No upgrades needed |
-
-**Final Verdict:** [x] **UNCONDITIONAL PROOF**
-
----
-
-## References
-
-1. Hypostructure Framework v1.0 (`hypopermits_jb.md`)
-2. Fulton, W. *Intersection Theory*. Springer, 1984.
-3. Hartshorne, R. *Algebraic Geometry*. Springer, 1977.
-4. Griffiths, P. & Harris, J. *Principles of Algebraic Geometry*. Wiley, 1978.
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects $(d_1, d_2, f, g)$ and initial-state hash
-4. `closure.cfg`: promotion/closure settings
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | $\mathbb{P}^2(\mathbb{C})$ | Complex projective plane |
-| **Potential ($\Phi$)** | $\deg(Z)$ | Intersection degree |
-| **Cost ($\mathfrak{D}$)** | $0$ | Static (no dissipation) |
-| **Invariance ($G$)** | $PGL(3, \mathbb{C})$ | Projective symmetry |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | YES | $\deg(Z) = d_1 d_2$ | `[]` |
-| **2** | Zeno Check | YES | $\|\Sigma\| \leq d_1 d_2$ | `[]` |
-| **3** | Compact Check | YES | Chow variety compact | `[]` |
-| **4** | Scale Check | YES | $\alpha - \beta = 1 > 0$ | `[]` |
-| **5** | Param Check | YES | $(d_1, d_2)$ stable | `[]` |
-| **6** | Geom Check | YES | $\text{codim} = 2$ | `[]` |
-| **7** | Stiffness Check | YES | $\theta = 1$ (integer gap) | `[]` |
-| **8** | Topo Check | YES | Degree preserved | `[]` |
-| **9** | Tame Check | YES | Semialgebraic | `[]` |
-| **10** | Ergo Check | YES | Static system | `[]` |
-| **11** | Complex Check | YES | Finite coefficients | `[]` |
-| **12** | Oscillate Check | NO | Static (no oscillation) | `[]` |
-| **13** | Boundary Check | CLOSED | $\partial\Omega = \emptyset$ | `[]` |
-| **14** | Overload Check | NOT APPLICABLE | — | `[]` |
-| **15** | Starve Check | NOT APPLICABLE | — | `[]` |
-| **16** | Align Check | NOT APPLICABLE | — | `[]` |
-| **--** | **SURGERY** | **NOT APPLICABLE** | — | `[]` |
-| **--** | **RE-ENTRY** | **NOT APPLICABLE** | — | `[]` |
-| **17** | **LOCK** | **BLOCK** | E4 (Integrality) | `[]` |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | NOT APPLICABLE | Both are 0-cycles |
-| **E2** | Invariant | Partial | Degree is conserved |
-| **E3** | Positivity | NOT APPLICABLE | — |
-| **E4** | Integrality | **PASS** | $\deg = d_1 d_2$ is complete intersection invariant |
-| **E5** | Functional | NOT APPLICABLE | — |
-| **E6** | Causal | NOT APPLICABLE | — |
-| **E7** | Thermodynamic | NOT APPLICABLE | — |
-| **E8** | DPI | NOT APPLICABLE | — |
-| **E9** | Ergodic | NOT APPLICABLE | — |
-| **E10** | Definability | NOT APPLICABLE | — |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY
-* **Singularity Set:** $\Sigma = V(f) \cap V(g)$ is a finite 0-cycle of degree $d_1 d_2$
-* **Primary Blocking Tactic:** E4 - Integrality (degree is complete intersection invariant)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{alg}}$ (Algebraic) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | Final |
-| **Generated** | 2026-04-14 |
-

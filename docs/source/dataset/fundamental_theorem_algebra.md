@@ -30,7 +30,7 @@ This document presents a **machine-checkable proof object** for the **Fundamenta
 
 **Approach:** We instantiate the algebraic hypostructure with the modulus function $|p(z)|$ on a large disk. The key insight is the winding number argument: a non-vanishing polynomial would have constant degree around a circle, but the minimum principle forces descent. The contradiction arises from topology (degree theory) and compactness (disk closure). Lock resolution uses LOCK-Reconstruction (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ with the topological degree certificate.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 (Structural Reconstruction) and degree theory. OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction) and degree theory. OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional.
 
 ---
 
@@ -123,7 +123,7 @@ Equivalently: The field $\mathbb{C}$ is algebraically closed.
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Immediate (polynomial structure)
 - [x] **Mixing Property:** Rotation symmetry
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Polynomial algebra $\mathbb{C}[z]$
 - [x] **Dictionary $D$:** Coefficient representation
 - [x] **Complexity Measure $K$:** Degree $n$
@@ -142,7 +142,7 @@ Equivalently: The field $\mathbb{C}$ is algebraically closed.
 - [x] **Category $\mathbf{Hypo}_{T_{\text{algebraic}}}$:** Algebraic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Ghost polynomial with no root
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Structural Reconstruction): Degree theory → root existence
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Degree theory → root existence
   - [x] E3 (Monotonicity): Minimum principle → contradiction
 
 ---
@@ -337,7 +337,7 @@ Equivalently: The field $\mathbb{C}$ is algebraically closed.
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the polynomial determined by finite data?
 
@@ -348,7 +348,7 @@ Equivalently: The field $\mathbb{C}$ is algebraically closed.
 4. [x] Result: Finite description with complexity $O(n)$
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{coefficients } \{a_j\}, \text{degree } n)$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{coefficients } \{a_j\}, \text{degree } n)$ → **Go to Node 12**
 
 ---
 
@@ -633,7 +633,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (winding number)
 Node 9:  K_{TB_O}^+ (semi-algebraic)
 Node 10: K_{TB_ρ}^+ (rotation symmetry)
-Node 11: K_{Rep_K}^+ (coefficient representation)
+Node 11: K_{RepDesc_K}^+ (coefficient representation)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^+ (interior minimum)
 Node 14: K_{Flux_∂}^+ (Cauchy theorem)
@@ -644,7 +644,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^+, K_{\mathrm{Flux}_\partial}^+, K_{\mathrm{Trace}_\partial}^+, K_{\mathrm{Compat}_\partial}^+, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^+, K_{\mathrm{Flux}_\partial}^+, K_{\mathrm{Trace}_\partial}^+, K_{\mathrm{Compat}_\partial}^+, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -685,107 +685,3 @@ Both arguments (minimum principle and winding number) force $p$ to have a zero. 
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Polynomial Continuity | Positive | $K_{D_E}^+$ |
-| Root Isolation | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Disk Compactness | Positive | $K_{C_\mu}^+$ |
-| Degree Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Coefficient Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Root Finiteness | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Topological Stiffness | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Winding Number | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Semi-Algebraic Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Rotation Symmetry | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Coefficient Representation | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Interior Minimum | Positive | $K_{\mathrm{Bound}_\partial}^+$ |
-| Zero Flux | Positive | $K_{\mathrm{Flux}_\partial}^+$ |
-| Degree Preservation | Positive | $K_{\mathrm{Trace}_\partial}^+$ |
-| Interior-Boundary Compatibility | Positive | $K_{\mathrm{Compat}_\partial}^+$ |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- C.F. Gauss, *Demonstratio nova theorematis functionem algebraicam...*, 1799 (first proof attempt)
-- J.-R. Argand, *Essai sur une manière de représenter les quantités imaginaires...*, 1806 (geometric proof)
-- A.-L. Cauchy, *Cours d'Analyse de l'École Royale Polytechnique*, 1821 (complex analysis approach)
-- K. Weierstrass, *Über die analytische Darstellbarkeit...*, 1891 (rigorous complex analysis)
-- E. Artin, *Galois Theory*, 1942 (algebraic approach via field theory)
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | Complex plane $\mathbb{C}$; large disk $\{\|z\| \le R\}$ | State Space |
-| **Potential ($\Phi$)** | $\Phi(z) = \|p(z)\|$ (polynomial modulus) | Height Functional |
-| **Cost ($\mathfrak{D}$)** | Gradient descent on $\|p\|^2$ | Dissipation |
-| **Invariance ($G$)** | Rotation by $n$-th roots of unity | Symmetry Group |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | EnergyCheck | YES | $K_{D_E}^+$: Polynomial continuous | `[]` |
-| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: Roots isolated, $\le n$ | `[]` |
-| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Disk compactness | `[]` |
-| **4** | ScaleCheck | YES | $K_{\mathrm{SC}_\lambda}^+$: Degree $n$ scaling | `[]` |
-| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: Coefficient stability | `[]` |
-| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\#\Sigma \le n$, dim = 0 | `[]` |
-| **7** | StiffnessCheck | INC→+ | $K_{\mathrm{LS}_\sigma}^+$: Upgraded via $K_{\text{Rec}}^+$ | `[OBL-1]→[]` |
-| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Winding number $d(p,R) = n$ | `[]` |
-| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: Semi-algebraic | `[]` |
-| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Rotation symmetry | `[]` |
-| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: Coefficient representation | `[]` |
-| **12** | OscillateCheck | YES→BLK | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$: Via BarrierFreq | `[]` |
-| **13** | BoundaryCheck | YES | $K_{\mathrm{Bound}_\partial}^+$: Interior minimum | `[]` |
-| **14** | FluxCheck | YES | $K_{\mathrm{Flux}_\partial}^+$: Cauchy theorem | `[]` |
-| **15** | TraceCheck | YES | $K_{\mathrm{Trace}_\partial}^+$: Degree preservation | `[]` |
-| **16** | CompatCheck | YES | $K_{\mathrm{Compat}_\partial}^+$: Interior-boundary compatible | `[]` |
-| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E3 + LOCK-Reconstruction | `[]` |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | NOT APPLICABLE | — |
-| **E2** | Invariant | NOT APPLICABLE | — |
-| **E3** | Monotonicity | **PASS** | Minimum principle + degree theory |
-| **E4-E10** | Various | NOT APPLICABLE | — |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$)
-* **Singularity Set:** $\Sigma = \{z : p(z) = 0\}$ (non-empty, proves theorem)
-* **Primary Blocking Tactic:** E3 (Monotonicity via Degree Theory)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{algebraic}}$ (Complex Analysis / Topology) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

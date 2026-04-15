@@ -133,7 +133,7 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Finite (exponential convergence via $\mathcal{W}$)
 - [x] **Mixing Property:** Flow is dissipative (no recurrence)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Geometric invariants $\{R, Ric, Rm, \text{Vol}, \text{diam}, \ldots\}$
 - [x] **Dictionary $D$:** Curvature tensor at each point
 - [x] **Complexity Measure $K$:** $K(g) \le C(n) \cdot \text{Vol}(g)^{-1} \cdot \sup|Rm|^{n/2}$
@@ -152,8 +152,8 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 - [x] **Category $\mathbf{Hypo}_{T_{\text{para}}}$:** Parabolic hypostructures with surgery
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Infinite surgery sequence or non-capped singularity (cigar soliton at finite time)
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Dimension): Cigar has infinite diameter, excluded from Type I/II blow-up
-  - [x] E10 (Definability): Singular set is low-dimensional and tame
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension): Cigar has infinite diameter, excluded from Type I/II blow-up
+  - [x] E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability): Singular set is low-dimensional and tame
 
 ---
 
@@ -358,7 +358,7 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -369,7 +369,7 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
 4. [x] Description length: Bounded by entropy + surgery count
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\mathcal{W}, \text{finite surgery count})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\mathcal{W}, \text{finite surgery count})$ → **Go to Node 12**
 
 ---
 
@@ -421,7 +421,7 @@ In particular, if $\pi_1(M) = 0$, then $M \cong S^3$.
    - Type I/II blow-up limits have $I_{\mathcal{H}} < \infty$ (finite diameter)
    - $I_{\text{bad}} \neq I_{\mathcal{H}}$ → excluded by invariant mismatch
    - Also excluded by $\mathcal{W}$-monotonicity (cigar is steady, not shrinking)
-3. [x] Apply Tactic E10 (Definability):
+3. [x] Apply Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability):
    - Singular set is 0D or 1D in 4D spacetime
    - $K_{\mathrm{TB}_O}^+$ ensures tameness
 4. [x] Verify: No bad pattern can embed into the structure
@@ -586,8 +586,8 @@ The $\mathcal{W}$-entropy construction provides the certificate $K_{\mathcal{W}}
 ### **3. The Lock (Node 17)**
 *   **Question:** $\text{Hom}(\text{Bad}, M) = \emptyset$?
 *   **Bad Pattern:** An infinite sequence of surgeries or a singularity that cannot be capped (e.g., a "cigar" soliton appearing at finite time).
-*   **Tactic E1 (Dimension/Scaling):** In 3D, the cigar soliton has infinite diameter and does not occur in finite-time blow-up (Type I/II exclusion via $\mathcal{W}$).
-*   **Tactic E10 (Definability):** The singular set is low-dimensional (points/lines).
+*   **Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Scaling):** In 3D, the cigar soliton has infinite diameter and does not occur in finite-time blow-up (Type I/II exclusion via $\mathcal{W}$).
+*   **Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability):** The singular set is low-dimensional (points/lines).
 *   **Result:** **BLOCKED** ($K_{\text{Lock}}^{\mathrm{blk}}$).
 
 ---
@@ -642,7 +642,7 @@ Node 7:  K_{LS_σ}^{inc} → K_W^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (prime decomposition)
 Node 9:  K_{TB_O}^+ (o-minimal)
 Node 10: K_{TB_ρ}^+ (dissipative)
-Node 11: K_{Rep_K}^+ (bounded complexity)
+Node 11: K_{RepDesc_K}^+ (bounded complexity)
 Node 12: K_{GC_∇}^- (W-monotonicity, gradient)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (E2+E10)
@@ -650,7 +650,7 @@ Node 17: K_{Cat_Hom}^{blk} (E2+E10)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{\mathrm{re}}, K_{\mathrm{Rec}_N}^{\mathrm{re}}, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{\mathrm{re}}, K_{\mathrm{Rec}_N}^{\mathrm{re}}, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -744,73 +744,3 @@ For simply connected $M$ ($\pi_1 = 0$):
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Re-entered | $K_{D_E}^{\mathrm{re}}(\mathcal{F})$ |
-| Surgery Finiteness | Re-entered | $K_{\mathrm{Rec}_N}^{\mathrm{re}}(\mathcal{W})$ |
-| Profile Classification | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Blocked | $K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness Gap | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\mathcal{W}}^+$) |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
-| Barrier/Breach | Triggered | $K^{\mathrm{br}}$ (mode, singular set) |
-| Surgery Admissibility | Positive | $K_{\mathrm{adm}}$ (canonicity, codim, cap) |
-| Surgery Progress | Positive | $K_{\mathrm{prog}}^{A}$ (bound $N$) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- G. Perelman, *The entropy formula for the Ricci flow and its geometric applications*, arXiv:math/0211159 (2002)
-- G. Perelman, *Ricci flow with surgery on three-manifolds*, arXiv:math/0303109 (2003)
-- G. Perelman, *Finite extinction time for the solutions to the Ricci flow on certain three-manifolds*, arXiv:math/0307245 (2003)
-- R. Hamilton, *Three-manifolds with positive Ricci curvature*, J. Diff. Geom. 17 (1982)
-- J. Morgan, G. Tian, *Ricci Flow and the Poincaré Conjecture*, AMS (2007)
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + branch choices
-2. `certs/`: serialized certificates with payload hashes (including factory verifier traces)
-3. `inputs.json`: thin objects and initial-state hash
-4. `closure.cfg`: promotion/closure settings used by the replay engine
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
-**Factory Certificates Included:**
-| Certificate | Source | Payload Hash |
-|-------------|--------|--------------|
-| $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathrm{adm}}$ | RESOLVE-AutoAdmit (mt-auto-admissibility) | `[computed]` |
-| $K_{\mathrm{prog}}^{A}$ | RESOLVE-AutoSurgery (progress-measure) | `[computed]` |
-| $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{parabolic}}$ (Geometric Evolution Equation / Ricci Flow) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

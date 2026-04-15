@@ -136,7 +136,7 @@ has no solutions in positive integers $x, y, z$.
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Finite (Hecke spectral gap)
 - [x] **Mixing Property:** Equidistribution of Heegner points (Duke, Clozel-Ullmo)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Galois representations $\{\rho_{E,\ell}: \mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q}) \to \mathrm{GL}_2(\mathbb{Z}_\ell)\}_\ell$
 - [x] **Dictionary $D$:** Tate module $T_\ell(E) \cong \mathbb{Z}_\ell^2$ with Galois action
 - [x] **Complexity Measure $K$:** $K(E) = \log(\mathfrak{N}(E))$
@@ -180,7 +180,7 @@ has no solutions in positive integers $x, y, z$.
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-modular semistable elliptic curve over $\mathbb{Q}$
 - [x] **Exclusion Tactics:**
   - [x] E11 (Galois-Monodromy): Level-conductor mismatch
-  - [x] E10 (Definability): Modularity is algebraically closed
+  - [x] E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability): Modularity is algebraically closed
 
 ---
 
@@ -373,7 +373,7 @@ has no solutions in positive integers $x, y, z$.
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is Galois representation complexity bounded?
 
@@ -385,7 +385,7 @@ has no solutions in positive integers $x, y, z$.
 5. [x] Key property: For Frey curve, $n \geq 5$ prime $\Rightarrow$ $\mathrm{Im}(\rho_{E,n}) = \mathrm{GL}_2(\mathbb{F}_n)$ (surjective)
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K(E) = \log \mathfrak{N}, \mathrm{Im}(\rho_{E,n}) = \mathrm{GL}_2(\mathbb{F}_n))$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K(E) = \log \mathfrak{N}, \mathrm{Im}(\rho_{E,n}) = \mathrm{GL}_2(\mathbb{F}_n))$ → **Go to Node 12**
 
 ---
 
@@ -495,7 +495,7 @@ has no solutions in positive integers $x, y, z$.
 - By modularity: $\rho_{E,n}$ MUST arise from modular form
 - Therefore: $E_{a,b,c}$ cannot exist
 
-**Step 4: Apply Tactic E10 (Definability)**
+**Step 4: Apply Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability)**
 - Galois representations algebraically definable
 - Modularity is closed condition (algebraic)
 - Obstruction is structural (not accidental)
@@ -504,7 +504,7 @@ has no solutions in positive integers $x, y, z$.
 $$\mathrm{Hom}_{\mathbf{ModForm}_2}(\rho_{E,n}, S_2(\Gamma_0(N))|_{N|2}) = \emptyset$$
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E11+E10}, \text{level-conductor mismatch}, \{K_{\mathrm{Rep}_K}^+, K_{\mathrm{TB}_\pi}^{\text{obs}}, K_{\mathrm{Bound}_{\Sigma}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E11+E10}, \text{level-conductor mismatch}, \{K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{TB}_\pi}^{\text{obs}}, K_{\mathrm{Bound}_{\Sigma}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -553,7 +553,7 @@ $$\mathrm{Hom}_{\mathbf{ModForm}_2}(\rho_{E,n}, S_2(\Gamma_0(N))|_{N|2}) = \empt
 $$\mathrm{Hom}_{\mathbf{ModForm}_2}(\rho_{E,n}, S_2(\Gamma_0(N))|_{N|2}) = \emptyset$$
 
 **Lock Certificate:**
-$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E11}, \emptyset, \{K_{\mathrm{Rep}_K}^+, K_{\mathrm{Bound}_{\Sigma}}^+, K_{\mathrm{TB}_\pi}^{\text{obs}}\})$$
+$$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E11}, \emptyset, \{K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{Bound}_{\Sigma}}^+, K_{\mathrm{TB}_\pi}^{\text{obs}}\})$$
 
 ---
 
@@ -655,7 +655,7 @@ Node 7:  K_{LS_σ}^+ (Kodaira-Spencer gap)
 Node 8:  K_{TB_π}^{obs} (empty cusp form space)
 Node 9:  K_{TB_O}^+ (algebraic definability)
 Node 10: K_{TB_ρ}^+ (Hecke mixing)
-Node 11: K_{Rep_K}^+ (surjective image, finite complexity)
+Node 11: K_{RepDesc_K}^+ (surjective image, finite complexity)
 Node 12: K_{GC_∇}^- (monotonic height)
 Node 13: K_{Bound_∂}^+ (cusps present)
 Node 14: K_{Bound_B}^+ (bounded bad primes)
@@ -666,7 +666,7 @@ Node 17: K_{Cat_Hom}^{blk} (E11+E10: level-conductor mismatch)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^{\mathrm{blk}}, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^{\text{obs}}, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^+, K_{\mathrm{Bound}_B}^+, K_{\mathrm{Bound}_{\Sigma}}^+, K_{\mathrm{GC}_T}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^{\mathrm{blk}}, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^{\text{obs}}, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^+, K_{\mathrm{Bound}_B}^+, K_{\mathrm{Bound}_{\Sigma}}^+, K_{\mathrm{GC}_T}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -747,76 +747,3 @@ $$\forall n \geq 3, \quad \forall (x,y,z) \in \mathbb{Z}_{>0}^3: \quad x^n + y^n
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Event Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Profile Classification | Positive | $K_{C_\mu}^+$ (semistable) |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ (subcritical) |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Blocked | $K_{\mathrm{Cap}_H}^{\mathrm{blk}}$ (measure zero) |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (Kodaira-Spencer) |
-| Topology Sector | Obstruction | $K_{\mathrm{TB}_\pi}^{\text{obs}}$ (empty form space) |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ (algebraic) |
-| Mixing/Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ (Hecke spectral gap) |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ (finite conductor) |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
-| Boundary | Open | $K_{\mathrm{Bound}_\partial}^+$ (cusps) |
-| Overload | Positive | $K_{\mathrm{Bound}_B}^+$ (bounded) |
-| Starvation | Positive | $K_{\mathrm{Bound}_{\Sigma}}^+$ (modularity) |
-| Alignment | Positive | $K_{\mathrm{GC}_T}^+$ (Hecke match) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E11+E10) |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- A. Wiles, *Modular elliptic curves and Fermat's Last Theorem*, Annals of Mathematics 141 (1995), 443-551
-- R. Taylor, A. Wiles, *Ring-theoretic properties of certain Hecke algebras*, Annals of Mathematics 141 (1995), 553-572
-- K. Ribet, *On modular representations of Gal($\overline{\mathbb{Q}}/\mathbb{Q}$) arising from modular forms*, Inventiones mathematicae 100 (1990), 431-476
-- G. Frey, *Links between stable elliptic curves and certain Diophantine equations*, Annales Universitatis Saraviensis 1 (1986), 1-40
-- B. Mazur, *Rational isogenies of prime degree*, Inventiones mathematicae 44 (1978), 129-162
-- H. Darmon, *A proof of the full Shimura-Taniyama-Weil conjecture is announced*, Notices of the AMS 46 (1999), 1397-1401
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + branch choices (open path with boundary)
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects (moduli space, Faltings height, conductor) and Frey curve hash
-4. `closure.cfg`: promotion/closure settings used by replay engine
-
-**Replay acceptance criterion:** Checker recomputes same $\Gamma_{\mathrm{final}}$ and emits `BLOCKED` at Lock.
-
-**Factory Certificates Included:**
-| Certificate | Source | Payload Hash |
-|-------------|--------|--------------|
-| $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\text{mod}}$ | Wiles-Taylor-Wiles (1995) | `[imported]` |
-| $K_{\text{level}}$ | Ribet (1990) | `[imported]` |
-| $K_{\text{Frey}}$ | Frey construction (1986) | `[computed]` |
-| $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{arithmetic}}$ (Arithmetic Geometry / Galois Representations) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

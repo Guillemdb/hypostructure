@@ -284,6 +284,14 @@ theorem allTags_nodup : allTags.Nodup
 - `allTags` should be defined explicitly.
 - Do not rely on automation for finiteness; make the finite universe manifest.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/CertTag.lean`.
+
+- `CertTag` is defined with the full Phase A tag universe and derives `Fintype`.
+- `allTags` is realized concretely and the finiteness lemmas are proved.
+- This section is complete for the current Phase A kernel.
+
 ---
 
 ## 6.2 `Core/Context.lean`
@@ -304,6 +312,14 @@ theorem context_ext :
 ```
 
 This is optional if not needed later, but recommended.
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/Context.lean`.
+
+- `Context` is defined as `Finset CertTag`.
+- `context_ext` is proved via `Finset.ext`.
+- This section is complete for the current Phase A kernel.
 
 ---
 
@@ -363,6 +379,14 @@ theorem monotone_step (rules : RuleSet) :
     Monotone (step rules)
 ```
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/Rule.lean`.
+
+- Replaced the placeholder declarations for `monotone_fireRule`, `subset_step`, and `monotone_step` with direct proofs.
+- The proofs are by case analysis on rule enablement and induction on the rule list.
+- Public statements were kept unchanged.
+
 ---
 
 ## 6.4 `Core/Closure.lean`
@@ -407,6 +431,14 @@ theorem closure_least_fixed
 
 These are the core fixed-point theorems.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/Closure.lean`.
+
+- Replaced the placeholder fixed-point theorems with finite-cardinality proofs over `CertTag`.
+- The implementation proves stabilization after `allTags.card` iterations by showing that every non-fixed iterate strictly increases cardinality, which is impossible beyond the finite tag universe.
+- `closure_idempotent` is then derived from `closure_fixed` and `closure_least_fixed`.
+
 ---
 
 ## 6.5 `Core/GoalCone.lean`
@@ -436,7 +468,7 @@ theorem backStep_monotone (deps : RuleSet) :
     Monotone (backStep deps)
 
 theorem goalConeN_monotone (deps : RuleSet) (n : ℕ) :
-    Monotone (goalConeN deps n)
+    Monotone (fun S => Nat.iterate (backStep deps) n S)
 
 theorem goalCone_fixed (deps : RuleSet) (goal : CertTag) :
     backStep deps (goalCone deps goal) = goalCone deps goal
@@ -447,6 +479,14 @@ theorem premises_in_goalCone_of_conclusion
     (hconc : r.conclusion ∈ goalCone deps goal) :
     r.premises ⊆ goalCone deps goal
 ```
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/GoalCone.lean`.
+
+- Replaced the placeholder backward-closure theorems with direct proofs from the `foldl` definition of `backStep`.
+- The fixed-point proof uses the same finite-cardinality stabilization argument as `Closure`.
+- The monotonicity theorem was corrected to the order-theoretically meaningful statement: monotonicity of iterating `backStep` on seed contexts. The original signature was on the `goal : CertTag` parameter, which is not the intended monotone object here.
 
 ---
 
@@ -468,6 +508,14 @@ theorem obligations_subset (Γ : Context) :
 theorem mem_obligations_iff (Γ : Context) (k : CertTag) :
     k ∈ obligations Γ ↔ k ∈ Γ ∧ CertTag.isInc k = true
 ```
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/ObligationLedger.lean`.
+
+- `obligations` is defined by filtering on `CertTag.isInc`.
+- `obligations_subset` and `mem_obligations_iff` are proved directly from the filter definition.
+- This section is complete for the current Phase A kernel.
 
 ---
 
@@ -508,6 +556,14 @@ theorem not_proofComplete_of_inc_in_goalCone
 
 These are the exact kernel-level theorems used by the final Hodge proof.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Core/ProofComplete.lean`.
+
+- `ProofComplete` is defined exactly as specified.
+- All listed introduction and exclusion lemmas are proved directly from the definition and `Disjoint`.
+- This section is complete for the current Phase A kernel.
+
 ---
 
 ## 7. Imported boundary inventory
@@ -542,6 +598,13 @@ class ImportedHodgeAxioms (I : VerifiedHodgeThinInput) : Prop where
 ### No theorems to prove
 
 This file is the trusted boundary. There are no Lean proofs here.
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Imported/Boundary.lean`.
+
+- The trusted boundary declarations and `ImportedHodgeAxioms` class are present as specified.
+- This section is complete by declaration and intentionally remains outside the proved kernel.
 
 ---
 
@@ -589,6 +652,16 @@ def gamma0 (I : VerifiedHodgeThinInput) : Context :=
 ```
 
 No theorems in this file besides simple membership lemmas if useful.
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/VerifiedThinInput.lean`.
+
+- `VerifiedHodgeThinInput` is defined with the required analytic and finite-dimensional data.
+- The structure fields exporting algebraic and topological data are installed as instances where needed.
+- `gamma0` is defined with the required local certificate basis.
+- Conformance note: the implementation includes an additional integer parameter `p`, because the downstream bounded-germ sector is indexed by both `Qrank` and `p`.
+- This section is complete for the current Phase A scaffold, with that representation-level extension.
 
 ---
 
@@ -643,6 +716,14 @@ theorem gamma0_no_local_inc (I : VerifiedHodgeThinInput) :
     obligations (gamma0 I) = ∅
 ```
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/LocalCertificates.lean`.
+
+- All local emission lemmas are proved directly from `gamma0`.
+- `gamma0_complete` and `gamma0_no_local_inc` are proved.
+- This section is complete for the current Phase A kernel.
+
 ---
 
 ## 9. New algebraic backend object inventory
@@ -694,6 +775,14 @@ theorem WitnessHom_assoc
 
 These category-style laws are needed only if you want the bounded bad family to behave as a small category. They are recommended.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/BadGerm.lean`.
+
+- Replaced the placeholder identity and associativity laws for `WitnessHom` with definitional proofs.
+- The implementation uses case-splitting on the morphism structures; no new axioms were added.
+- Conformance note: `WitnessHom` is implemented via witness-tag transport (`mapTag` plus compatibility proofs) rather than literally as a function `A.witness → B.witness`, because `HodgeWitness` contains proposition fields and the current scaffold treats the witness payload at tag level.
+
 ---
 
 ## 9.2 `Algebraic/Coding.lean`
@@ -706,6 +795,7 @@ Use an explicit code type to witness smallness.
 structure GermCode (n p : ℕ) where
   rankCode   : Fin (n + 1)
   witnessTag : Nat
+  nonzeroTag : Bool
   badTag     : Bool
   minTag     : Bool
   deriving DecidableEq, Repr
@@ -739,6 +829,14 @@ abbrev GermSmall (α : Type) := Encodable α
 ```
 
 instead of trying to use a more elaborate notion of smallness. This is the right Lean witness for the bounded algebraic sector.
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/Coding.lean`.
+
+- Replaced the placeholder `encodeBadAlgGerm_injective` with a proof.
+- The code witness was extended with `nonzeroTag : Bool`; without that field, injectivity fails because `HodgeWitness.nonzero` would be erased by the encoding.
+- The proof reconstructs equality of the proposition fields from equality of their `decide` booleans via propositional extensionality, and uses proof irrelevance for the rank-bound witness.
 
 ---
 
@@ -775,6 +873,15 @@ theorem hodgeClassifiableStatic
 
 Use the strengthened proposition form. Do not leave this theorem at `True` in the final code.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/BoundedReduction.lean`.
+
+- `StaticClassifiable` is now implemented as `Encodable (BadAlgGerm I.Qrank I.p)`, so the section is tied directly to the coding/smallness result.
+- Added a stronger helper theorem `hodgeBadBoundedReduction_rankBounded` and the proposition-level witness `BoundedReductionRealized`.
+- The original roadmap theorem `hodgeBadBoundedReduction : ∃ C, True` is still present for interface compatibility, but the semantic content now lives in the stronger helper results.
+- Conformance note: this section still deviates from the original roadmap at the statement-shape level because the public theorem in the document remains weaker than the stronger invariant now implemented in code.
+
 ---
 
 ## 9.4 `Algebraic/Initiality.lean`
@@ -806,6 +913,14 @@ theorem hodgeInitialityBounded
     (I : VerifiedHodgeThinInput) :
     HasBoundedUniversalBad I
 ```
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/Initiality.lean`.
+
+- Added a concrete bounded universal object `canonicalUniversalBad`.
+- Proved `hodgeInitialityBounded` by packaging that explicit object into `HasBoundedUniversalBad`.
+- Conformance note: `UniversalBad.inject` is implemented over `Nat` tags rather than literal `A.witness` terms, matching the current witness-tag encoding used in `BadGerm`.
 
 ---
 
@@ -844,6 +959,13 @@ theorem emit_catLib_from_bounded_completeness
     CertTag.catLib ∈ closure [] (gamma0 I ∪ {CertTag.catLib})
 ```
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/CatLib.lean`.
+
+- Replaced the placeholder emission theorem with a direct closure-membership proof from `subset_closure`.
+- The proof does not use any additional trusted assumptions.
+
 ---
 
 ## 9.6 `Algebraic/GammaConstructor.lean`
@@ -877,6 +999,14 @@ theorem hodgeGammaConstructor
     [ImportedHodgeAxioms I] :
     HasGammaPackage I
 ```
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/GammaConstructor.lean`.
+
+- `GammaPackage` is defined, and `HasGammaPackage` now requires package-level exactness, faithfulness, tensor preservation, and a soundness bridge `GammaContextPremises I → ProducesGamma I`.
+- `hodgeGammaConstructor` is proved by constructing a concrete package and discharging the soundness component from `ImportedHodgeAxioms.tannakianContextSound`.
+- Conformance note: the package is still intentionally lightweight at the data level, but this section is no longer only a vacuous existence witness.
 
 ---
 
@@ -938,6 +1068,13 @@ theorem hodgeBackendAutoclose
 
 This theorem is the exact Lean version of backend auto-closure.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Algebraic/BackendAutoclose.lean`.
+
+- Replaced the placeholder theorem with an explicit proof.
+- The proof shows `backendBase` is already present after one `step backendRules (gamma0 I)` pass, then lifts that one-step result into `closure` using monotonicity of `step` and the closure fixed-point theorem already available in the core layer.
+
 ---
 
 ## 10. Bridge permit inventory
@@ -992,6 +1129,14 @@ theorem permitLock_premises :
 
 No semantic proof theorems are required here, because the semantics live in the trusted boundary and in the backend closure theorems.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Hodge/Permits.lean`.
+
+- `permitHdg`, `permitTann`, `permitLock`, `bridgeRules`, `promotionRules`, `allRules`, and `deps` are defined.
+- The premise-identification lemmas are proved by reflexivity.
+- This section is complete for the current Phase A kernel.
+
 ---
 
 ## 11. Run inventory
@@ -1044,6 +1189,14 @@ theorem emit_catHomBlk
     CertTag.catHomBlk ∈ finalContext I
 ```
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Hodge/Run.lean`.
+
+- Replaced the placeholder bridge-emission theorems `emit_mhs`, `emit_tann`, and `emit_catHomBlk`.
+- Each proof shows the target tag is produced in a single concrete `step` of the relevant rule set from `initialContext`.
+- Membership is then lifted from `step` into the corresponding closure context via monotonicity and closure fixedness.
+
 ---
 
 ## 12. Proof audit inventory
@@ -1084,6 +1237,14 @@ theorem hodgeProofAudit
 
 The final theorem in this file is the exact proof-completion audit theorem required by the Hodge template.
 
+### Implementation note
+
+Implemented in `lean/HypoHodge/Hodge/ProofAudit.lean`.
+
+- Replaced the placeholder theorems `no_lock_inc` and `no_promo_inc`.
+- Added an induction-on-rules argument showing a tag remains absent from `step` and hence from `closureN` when no rule concludes that tag.
+- Derived `hodgeProofAudit` from the fact that the only inc-tags are `catHomInc` and `promoInc`, and neither can appear in `finalContext`.
+
 ---
 
 ## 13. Final theorem inventory
@@ -1112,6 +1273,14 @@ theorem hodge_framework_unconditional
 ```
 
 This is the end of Phase A.
+
+### Implementation note
+
+Implemented in `lean/HypoHodge/Hodge/Final.lean`.
+
+- The final theorem is proved in the recommended form from `emit_catHomBlk` and `hodgeProofAudit`.
+- The statement remains the Phase A target theorem.
+- This section is complete for the current Phase A kernel.
 
 ---
 

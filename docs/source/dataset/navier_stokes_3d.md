@@ -406,7 +406,7 @@ $$
 
 Apply
 $$
-K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma,\mathrm{post}}^+,
+K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma,\mathrm{post}}^+
 $$
 through {prf:ref}`mt-krnl-lyapunov` to obtain
 $$
@@ -427,8 +427,8 @@ $$
 +
 \int_{t_0}^{t} \nu \|\nabla u(s)\|_{L^2}^2\,ds
 =
-\mathcal{L}_{NS}(u(t_0)),
-\qquad t \ge t_0 \ge 0.
+\mathcal{L}_{NS}(u(t_0))
+\qquad t \ge t_0 \ge 0
 $$
 Hence $t \mapsto \mathcal{L}_{NS}(u(t))$ is globally nonincreasing, and it is strictly decreasing on every interval where $u \not\equiv 0$.
 
@@ -588,27 +588,35 @@ K_{\mathrm{WP}_{s_c}}^+
 K_{\mathrm{Reg}_{NS}}^+.
 $$
 
-For the Lyapunov supplement, work on the certified smooth global branch given by $K_{\mathrm{Reg}_{NS}}^+$. Set
+For the Lyapunov supplement, work on the certified smooth global branch given by $K_{\mathrm{Reg}_{NS}}^+$.
+Set
 $$
-\Phi(u)=\frac12\|u\|_{L^2}^2,
+\Phi(u)=\frac12\|u\|_{L^2}^2
 \qquad
 M_{NS}=\{0\},
 \qquad
-\Phi_{\min}=0.
+\Phi_{\min}=0
 $$
+
 Then
 $$
 \nabla_{L^2}\Phi(u)=u,
 \qquad
 \|\nabla_{L^2}\Phi(u)\|_{L^2}
 =
-\sqrt{2}\,(\Phi(u)-\Phi_{\min})^{1/2},
+\sqrt{2}\,(\Phi(u)-\Phi_{\min})^{1/2}
 $$
-so $K_{\mathrm{LS}_\sigma,\mathrm{post}}^+$ holds. Applying {prf:ref}`mt-krnl-lyapunov` to
+
+so $K_{\mathrm{LS}_\sigma,\mathrm{post}}^+$ holds.
+
+Applying {prf:ref}`mt-krnl-lyapunov` to
 $$
 K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma,\mathrm{post}}^+
 $$
-produces $K_{\mathcal{L}_{NS}}^+$. With the normalization $\mathcal{L}_{NS}(0)=0$, the recovered canonical Lyapunov is
+
+produces $K_{\mathcal{L}_{NS}}^+$.
+
+With the normalization $\mathcal{L}_{NS}(0)=0$, the recovered canonical Lyapunov is
 $$
 \mathcal{L}_{NS}(u)=\frac12\|u\|_{L^2(\mathbb{R}^3)}^2.
 $$

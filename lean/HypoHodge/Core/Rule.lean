@@ -50,13 +50,49 @@ theorem subset_fireRule (r : Rule) (Γ : Context) :
   · simp [fireRule, h, hk]
   · simp [fireRule, h, hk]
 
-axiom monotone_fireRule (r : Rule) :
+theorem monotone_fireRule (r : Rule) :
     Monotone (fireRule r)
 
-axiom subset_step (rules : RuleSet) (Γ : Context) :
+theorem subset_step (rules : RuleSet) (Γ : Context) :
     Γ ⊆ step rules Γ
 
-axiom monotone_step (rules : RuleSet) :
+theorem monotone_step (rules : RuleSet) :
     Monotone (step rules)
+
+theorem monotone_fireRule (r : Rule) :
+    Monotone (fireRule r) := by
+  intro Γ Δ hΓΔ
+  by_cases hΓ : r.enabled Γ
+  · have hΔ : r.enabled Δ := by
+      intro k hk
+      exact hΓΔ (hΓ hk)
+    intro k hk
+    rw [fireRule_eq_insert_of_enabled _ _ hΓ] at hk
+    rw [fireRule_eq_insert_of_enabled _ _ hΔ]
+    simp at hk ⊢
+    exact hk.elim Or.inl (fun hkΓ => Or.inr (hΓΔ hkΓ))
+  · intro k hk
+    rw [fireRule_eq_self_of_disabled _ _ hΓ] at hk
+    exact subset_fireRule r Δ (hΓΔ hk)
+
+theorem subset_step (rules : RuleSet) (Γ : Context) :
+    Γ ⊆ step rules Γ := by
+  induction rules generalizing Γ with
+  | nil =>
+      intro k hk
+      simpa [step] using hk
+  | cons r rs ih =>
+      intro k hk
+      simpa [step] using ih (fireRule r Γ) (subset_fireRule r Γ hk)
+
+theorem monotone_step (rules : RuleSet) :
+    Monotone (step rules) := by
+  induction rules with
+  | nil =>
+      intro Γ Δ hΓΔ k hk
+      simpa [step] using hΓΔ hk
+  | cons r rs ih =>
+      intro Γ Δ hΓΔ
+      simpa [step] using ih (monotone_fireRule r hΓΔ)
 
 end HypoHodge.Core

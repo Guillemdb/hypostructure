@@ -125,7 +125,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Infinite (dispersive, not mixing)
 - [x] **Mixing Property:** Dispersion (asymptotic scattering)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Fourier modes $\{e^{i(kx - \omega t)}\}$
 - [x] **Dictionary $D$:** Fourier transform
 - [x] **Complexity Measure $K$:** Sobolev index $s$
@@ -144,7 +144,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 - [x] **Category $\mathbf{Hypo}_{T_{\text{hyperbolic}}}$:** Hyperbolic PDE hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time blow-up from smooth data
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Explicit Solution): D'Alembert formula provides constructive global solution
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Explicit Solution): D'Alembert formula provides constructive global solution
   - [x] E2 (Conservation Law): Energy conservation excludes blow-up
 
 ---
@@ -365,7 +365,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the system finitely representable?
 
@@ -377,7 +377,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 5. [x] Kolmogorov complexity: $K(u(t)) \leq K(u_0) + O(\log t)$ (bounded growth)
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{Fourier basis}, K = s)$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Fourier basis}, K = s)$ → **Go to Node 12**
 
 ---
 
@@ -449,7 +449,7 @@ $$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t
 - $\text{Bad}$: Finite-time blow-up from smooth initial data
 - $\mathcal{H}_{\text{bad}}$: Hypostructure admitting $\|u(t^*)\|_{H^s} = \infty$ for finite $t^* < \infty$
 
-**Step 2: Apply Tactic E1 (Explicit Solution)**
+**Step 2: Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Explicit Solution)**
 1. [x] D'Alembert formula provides explicit solution:
    $$u(x,t) = \frac{1}{2}[u_0(x-ct) + u_0(x+ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} u_1(s)\,ds$$
 2. [x] Regularity propagation: If $(u_0, u_1) \in H^s \times H^{s-1}$, then $u(t) \in H^s$ for all $t$
@@ -581,7 +581,7 @@ Node 7:  K_{LS_σ}^+ (Hamiltonian stiffness)
 Node 8:  K_{TB_π}^+ (contractible space)
 Node 9:  K_{TB_O}^+ (tame/polynomial)
 Node 10: K_{TB_ρ}^+ (dispersion)
-Node 11: K_{Rep_K}^+ (Fourier representation)
+Node 11: K_{RepDesc_K}^+ (Fourier representation)
 Node 12: K_{GC_∇}^+ (oscillatory) → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (Lock blocked via E1 + E2)
@@ -589,7 +589,7 @@ Node 17: K_{Cat_Hom}^{blk} (Lock blocked via E1 + E2)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Explicit}}^+, K_{\text{Conserve}}^+, K_{\text{Exclude}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Explicit}}^+, K_{\text{Conserve}}^+, K_{\text{Exclude}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -641,82 +641,3 @@ The solution exists globally in time, is smooth, and conserves energy. The bad p
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Conservation | Positive | $K_{D_E}^+$ |
-| Smoothness Propagation | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Dispersion/Scattering | Benign | $K_{C_\mu}^{\mathrm{ben}}$ |
-| Subcritical Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Set | Positive (empty) | $K_{\mathrm{Cap}_H}^+$ |
-| Hamiltonian Stiffness | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Topology | Positive (trivial) | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Dispersion | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Fourier Representation | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Oscillation Structure | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ |
-| Explicit Solution | Positive | $K_{\text{Explicit}}^+$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | No obligations introduced |
-| **Final Status** | **UNCONDITIONAL** | **Mode D.D + Lock Blocked** |
-
----
-
-## Physical Interpretation
-
-### Energy Distribution
-The energy density $e(x,t) = \frac{1}{2}(u_t^2 + c^2 u_x^2)$ satisfies a local conservation law:
-$$\partial_t e + \partial_x j = 0$$
-where the energy flux is $j(x,t) = c^2 u_x u_t$.
-
-This represents energy transport at finite speed $c$ along characteristics $x \pm ct = \text{const}$.
-
-### Causal Structure
-The solution at $(x,t)$ depends only on initial data in the **domain of dependence**:
-$$\mathcal{D}(x,t) = \{y \in \mathbb{R} : |y - x| \leq ct\}$$
-
-Conversely, initial data at $x_0$ influences the solution only in the **range of influence**:
-$$\mathcal{R}(x_0,t) = \{x \in \mathbb{R} : |x - x_0| \leq ct\}$$
-
-This finite propagation speed is the key hyperbolic property that prevents instantaneous blow-up.
-
-### Lorentz Invariance
-In spacetime coordinates $(t,x)$ with metric $\eta = \text{diag}(-c^2, 1)$, the wave equation is:
-$$\Box u = \eta^{\mu\nu} \partial_\mu \partial_\nu u = 0$$
-
-This is invariant under the Poincaré group $ISO(1,1) = SO(1,1) \ltimes \mathbb{R}^2$:
-- **Time translation:** $t \mapsto t + t_0$
-- **Space translation:** $x \mapsto x + x_0$
-- **Lorentz boost:** $(t,x) \mapsto \gamma(t - vx/c^2, x - vt)$ where $\gamma = (1-v^2/c^2)^{-1/2}$
-
-Energy conservation follows from time-translation invariance (Noether's theorem).
-
----
-
-## References
-
-- J. d'Alembert, *Recherches sur la courbe que forme une corde tendue mise en vibration*, Histoire de l'Académie Royale des Sciences et Belles-Lettres (1747)
-- L.C. Evans, *Partial Differential Equations*, AMS Graduate Studies in Mathematics 19 (1998)
-- F. John, *Partial Differential Equations*, Springer (1982)
-- M.E. Taylor, *Partial Differential Equations I: Basic Theory*, Springer (2011)
-- W.A. Strauss, *Nonlinear Wave Equations*, AMS CBMS Regional Conference Series 73 (1989)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{hyperbolic}}$ (Hyperbolic PDE) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

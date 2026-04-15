@@ -30,7 +30,7 @@ This document presents a **machine-checkable proof object** for the **Classifica
 
 **Approach:** We instantiate the algebraic hypostructure with the space of finite simple groups, stratified by order. The key insight is that simple groups are determined by local-to-global structural invariants: centralizers of involutions, Sylow subgroups, and character tables. The classification proceeds by establishing a categorical Hom-emptiness for any hypothetical "new" simple group not in the known list.
 
-**Result:** The Lock is blocked via Tactic E10 (Definability) and E11 (Galois-Monodromy), establishing that every finite simple group falls into one of:
+**Result:** The Lock is blocked via Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability) and E11 (Galois-Monodromy), establishing that every finite simple group falls into one of:
 1. Cyclic groups $\mathbb{Z}/p\mathbb{Z}$ (primes $p$)
 2. Alternating groups $A_n$ ($n \geq 5$)
 3. Groups of Lie type (16 families: $A_n(q), B_n(q), C_n(q), D_n(q), E_6(q), E_7(q), E_8(q), F_4(q), G_2(q)$, twisted variants)
@@ -148,7 +148,7 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Cayley graph expansion (spectral gap)
 - [x] **Mixing Property:** Random walk converges to uniform (expander graphs)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Irreducible representations $\{\rho: G \to \mathrm{GL}_n(\mathbb{C})\}$
 - [x] **Dictionary $D$:** Character table $\{\chi_i(g_j)\}_{i,j}$
 - [x] **Complexity Measure $K$:** $K(G) = \log|G| + \text{rank}$
@@ -190,7 +190,7 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
 - [x] **Category $\mathbf{Hypo}_{T_{\text{alg}}}$:** Algebraic hypostructures (finite groups)
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Hypothetical finite simple group not in the known list
 - [x] **Exclusion Tactics:**
-  - [x] E10 (Definability): Groups are algebraically definable; classification is closed
+  - [x] E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability): Groups are algebraically definable; classification is closed
   - [x] E11 (Galois-Monodromy): Local invariants (Sylow, centralizers) force global structure
   - [x] E8 (Spectral Gap): Character rigidity + orthogonality relations
 
@@ -387,7 +387,7 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the character table complexity bounded?
 
@@ -399,7 +399,7 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
 5. [x] Character table determines group (up to isoclinism): Faithful encoding
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (k(G) \text{ bounded}, \text{character table faithful})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (k(G) \text{ bounded}, \text{character table faithful})$ → **Go to Node 12**
 
 ---
 
@@ -496,7 +496,7 @@ All inc certificates are discharged; the proof is unconditional (modulo the mass
 **Step 1: Define Bad Pattern**
 - $\mathcal{H}_{\text{bad}}$: A hypothetical finite simple group $G^*$ NOT in the known list (cyclic, alternating, Lie-type, sporadic)
 
-**Step 2: Apply Tactic E10 (Definability)**
+**Step 2: Apply Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability)**
 1. [x] All finite groups are algebraically definable (presentations, matrix representations)
 2. [x] CFSG classification (1950-2004): Exhaustive case analysis
 3. [x] Every finite simple group analyzed and classified
@@ -548,7 +548,7 @@ For any hypothetical "new" simple group $G^* \notin \mathrm{Obj}(\mathbf{FinSimp
 $$\mathrm{Hom}(\mathcal{H}_{\text{bad}}, \mathbf{FinSimp}) = \emptyset$$
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E10+E11+E8}, \text{CFSG exhaustive}, \{K_{\mathrm{GC}_T}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{TB}_O}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E10+E11+E8}, \text{CFSG exhaustive}, \{K_{\mathrm{GC}_T}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{TB}_O}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -822,7 +822,7 @@ Node 7:  K_{LS_σ}^+ (character rigidity)
 Node 8:  K_{TB_π}^+ (4 sectors disjoint)
 Node 9:  K_{TB_O}^+ (algebraic definability)
 Node 10: K_{TB_ρ}^+ (expander graphs)
-Node 11: K_{Rep_K}^+ (character table faithful)
+Node 11: K_{RepDesc_K}^+ (character table faithful)
 Node 12: K_{GC_∇}^- (simple structure)
 Node 13: K_{Bound_∂}^+ (Schur multiplier)
 Node 14: K_{Bound_B}^+ (finite count)
@@ -833,7 +833,7 @@ Node 17: K_{Cat_Hom}^{blk} (E10+E11+E8: CFSG exhaustive)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^+, K_{\mathrm{Bound}_B}^+, K_{\mathrm{Bound}_{\Sigma}}^+, K_{\mathrm{GC}_T}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^+, K_{\mathrm{Bound}_B}^+, K_{\mathrm{Bound}_{\Sigma}}^+, K_{\mathrm{GC}_T}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -959,78 +959,3 @@ $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}:\quad \mathrm{Hom}(G^*, \mathbf
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ (finite order) |
-| Event Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ (simple) |
-| Profile Classification | Positive | $K_{C_\mu}^+$ (4 families) |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ (central extensions) |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ (discrete) |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ (sporadic measure zero) |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (character rigidity) |
-| Topology Sector | Positive | $K_{\mathrm{TB}_\pi}^+$ (4 sectors) |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ (algebraic) |
-| Mixing/Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ (expanders) |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ (character table) |
-| Gradient Structure | Negative (structural) | $K_{\mathrm{GC}_\nabla}^-$ (simple) |
-| Boundary | Open | $K_{\mathrm{Bound}_\partial}^+$ (Schur multiplier) |
-| Overload | Positive | $K_{\mathrm{Bound}_B}^+$ (finite count) |
-| Starvation | Positive | $K_{\mathrm{Bound}_{\Sigma}}^+$ (Cayley) |
-| Alignment | Positive | $K_{\mathrm{GC}_T}^+$ (local-to-global) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E10+E11+E8) |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | (modulo CFSG literature) |
-
----
-
-## References
-
-### Primary Sources
-
-- **Feit, W.; Thompson, J.G.** *Solvability of groups of odd order*, Pacific J. Math. 13 (1963), 775-1029
-- **Gorenstein, D.; Walter, J.H.** *The characterization of finite groups with dihedral Sylow 2-subgroups*, J. Algebra 2 (1965), 85-151, 218-270, 334-393
-- **Aschbacher, M.; Smith, S.D.** *The Classification of Quasithin Groups I, II*, AMS Mathematical Surveys and Monographs 111, 112 (2004)
-- **Gorenstein, D.; Lyons, R.; Solomon, R.** *The Classification of the Finite Simple Groups* (GLS series), AMS Mathematical Surveys and Monographs 40 (1994-2005), 6 volumes
-
-### Sporadic Groups
-
-- **Conway, J.H.; Curtis, R.T.; Norton, S.P.; Parker, R.A.; Wilson, R.A.** *Atlas of Finite Groups*, Oxford University Press (1985)
-- **Griess, R.L.** *The Friendly Giant*, Inventiones mathematicae 69 (1982), 1-102 (Monster construction)
-- **Conway, J.H.** *A group of order 8,315,553,613,086,720,000*, Bull. London Math. Soc. 1 (1969), 79-88 (largest Conway group)
-
-### Lie-Type Groups
-
-- **Chevalley, C.** *Sur certains groupes simples*, Tohoku Math. J. 7 (1955), 14-66
-- **Steinberg, R.** *Variations on a theme of Chevalley*, Pacific J. Math. 9 (1959), 875-891
-- **Tits, J.** *Buildings of spherical type and finite BN-pairs*, Lecture Notes in Mathematics 386 (1974)
-
-### Centralizer Analysis
-
-- **Gorenstein, D.** *Finite Groups*, Harper & Row (1968) (foundational text)
-- **Alperin, J.L.; Brauer, R.; Gorenstein, D.** *Finite groups with quasi-dihedral and wreathed Sylow 2-subgroups*, Trans. AMS 151 (1970), 1-261
-- **Aschbacher, M.** *The classification of the finite simple groups*, Math. Intelligencer 3 (1981), 59-65 (overview)
-
-### Revision and Simplification
-
-- **Solomon, R.** *A brief history of the classification of the finite simple groups*, Bull. AMS 38 (2001), 315-352
-- **Lyons, R.; Solomon, R.** *The classification of finite simple groups: a progress report*, Notices AMS 52 (2005), 1036-1044
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{algebraic}}$ (Group Theory / Representation Theory) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

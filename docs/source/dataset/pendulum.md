@@ -28,9 +28,9 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{hamiltonian}}\ \text{good},\ \text{AutomationGu
 
 This document presents a **machine-checkable proof object** for the **Simple Pendulum**.
 
-**Approach:** We instantiate the Hamiltonian hypostructure with the pendulum phase space (cylinder $S^1 \times \mathbb{R}$). The key insight is the energy conservation structure: the Hamiltonian $H(\theta, p) = \frac{p^2}{2ml^2} - mgl\cos\theta$ is exactly conserved, producing compact level sets for bounded energy. The separatrix at $E = mgl$ divides libration (oscillation) from rotation (full turns). Lock resolution uses Tactic E1 (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ via the Hamiltonian structure.
+**Approach:** We instantiate the Hamiltonian hypostructure with the pendulum phase space (cylinder $S^1 \times \mathbb{R}$). The key insight is the energy conservation structure: the Hamiltonian $H(\theta, p) = \frac{p^2}{2ml^2} - mgl\cos\theta$ is exactly conserved, producing compact level sets for bounded energy. The separatrix at $E = mgl$ divides libration (oscillation) from rotation (full turns). Lock resolution uses Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction) triggered by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$, producing $K_{\text{Rec}}^+$ via the Hamiltonian structure.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 (Structural Reconstruction). All certificates are unconditional; the proof is complete.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction). All certificates are unconditional; the proof is complete.
 
 ---
 
@@ -126,7 +126,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Finite on ergodic components
 - [x] **Mixing Property:** Quasi-periodic (not mixing, but ergodic on level sets)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Action-angle variables $(I, \theta)$
 - [x] **Dictionary $D$:** Canonical transformation to integrable form
 - [x] **Complexity Measure $K$:** Finite (1 degree of freedom)
@@ -145,7 +145,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 - [x] **Category $\mathbf{Hypo}_{T_{\text{hamiltonian}}}$:** Hamiltonian hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time blow-up or loss of regularity
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Structural Reconstruction): Hamiltonian structure → conservation laws → compactness
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Hamiltonian structure → conservation laws → compactness
   - [x] E2 (Tame Topology): Polynomial/trigonometric dynamics → definability
 
 ---
@@ -366,7 +366,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the system representable by finite data?
 
@@ -380,7 +380,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 7. [x] Result: Finite representational complexity
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{integrable}, K < \infty, \text{action-angle})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{integrable}, K < \infty, \text{action-angle})$ → **Go to Node 12**
 
 ---
 
@@ -452,7 +452,7 @@ Equivalently: The flow $\Phi_t: S^1 \times \mathbb{R} \to S^1 \times \mathbb{R}$
 **Step 1: Define Bad Pattern**
 - $\text{Bad}$: Finite-time blow-up or loss of smoothness
 
-**Step 2: Apply Tactic E1 (Structural Reconstruction — Hamiltonian conservation)**
+**Step 2: Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction — Hamiltonian conservation)**
 1. [x] Input: $K_{D_E}^+$ (Energy conservation)
 2. [x] Hamiltonian structure: $\{H, H\} = 0$ ⇒ $H$ constant along flow
 3. [x] Phase space compactness: For fixed $E$, level set $\mathcal{H}_E$ compact (or proper)
@@ -545,7 +545,7 @@ No incomplete certificates were generated. All nodes produced positive certifica
 ### **3. Complete Integrability**
 *   **Input:** 1 degree of freedom
 *   **Output:** Action-angle variables; explicit solution via elliptic integrals
-*   **Certificate:** $K_{\mathrm{Rep}_K}^+$
+*   **Certificate:** $K_{\mathrm{RepDesc}_K}^+$
 
 ### **4. Global Existence (E1)**
 *   **Input:** $K_{\text{Energy}}^+ \wedge K_{\text{Compact}}^+$
@@ -604,7 +604,7 @@ Node 7:  K_{LS_σ}^+ (Hamiltonian stiffness)
 Node 8:  K_{TB_π}^+ (sectors preserved)
 Node 9:  K_{TB_O}^+ (o-minimal definable)
 Node 10: K_{TB_ρ}^+ (ergodic on level sets)
-Node 11: K_{Rep_K}^+ (integrable)
+Node 11: K_{RepDesc_K}^+ (integrable)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (via E1 Hamiltonian conservation)
@@ -612,7 +612,7 @@ Node 17: K_{Cat_Hom}^{blk} (via E1 Hamiltonian conservation)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Global}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Global}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -651,50 +651,3 @@ For any initial condition $(\theta_0, p_0) \in S^1 \times \mathbb{R}$, the solut
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Conservation | Positive | $K_{D_E}^+$ |
-| No Singularities | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Compact Level Sets | Positive | $K_{C_\mu}^+$ |
-| Subcritical Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Geometric Capacity | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Hamiltonian Stiffness | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Sector Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Integrability | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Oscillation Control | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ |
-| Global Existence | Positive | $K_{\text{Global}}^+$ (via E1) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | No inc certificates |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- V.I. Arnold, *Mathematical Methods of Classical Mechanics*, 2nd ed., Springer (1989)
-- R. Abraham & J.E. Marsden, *Foundations of Mechanics*, 2nd ed., Addison-Wesley (1978)
-- L.D. Landau & E.M. Lifshitz, *Mechanics*, 3rd ed., Butterworth-Heinemann (1976)
-- H. Goldstein, C. Poole, J. Safko, *Classical Mechanics*, 3rd ed., Addison-Wesley (2002)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{hamiltonian}}$ (Conservative Mechanics) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

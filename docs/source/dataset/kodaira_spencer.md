@@ -28,7 +28,7 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{alg}}\ \text{good},\ \text{AutomationGuarantee
 
 This document presents a **machine-checkable proof object** for the **Kodaira-Spencer Deformation Theory** using the Hypostructure framework.
 
-**Approach:** We instantiate the algebraic hypostructure with the space of integrable complex structures $\mathcal{J}(M)$ on a compact complex manifold $M$. The deformation cohomology groups $H^i(M, T_M)$ for $i = 0, 1, 2$ control infinitesimal automorphisms, first-order deformations, and obstructions respectively. Node 5 (ParamCheck) fails as complex structure parameters can drift, but BarrierVac blocks via the Bogomolov-Tian-Todorov theorem for Calabi-Yau manifolds or general unobstructedness criteria. Node 7 (StiffnessCheck) fails as $H^1(T_M) \neq 0$ for non-rigid manifolds, triggering the Stiffness Restoration Subtree which successfully passes via Nodes 7a-7b. The Lock is blocked via Tactic E10 (Definability) using the o-minimal definability of analytic spaces.
+**Approach:** We instantiate the algebraic hypostructure with the space of integrable complex structures $\mathcal{J}(M)$ on a compact complex manifold $M$. The deformation cohomology groups $H^i(M, T_M)$ for $i = 0, 1, 2$ control infinitesimal automorphisms, first-order deformations, and obstructions respectively. Node 5 (ParamCheck) fails as complex structure parameters can drift, but BarrierVac blocks via the Bogomolov-Tian-Todorov theorem for Calabi-Yau manifolds or general unobstructedness criteria. Node 7 (StiffnessCheck) fails as $H^1(T_M) \neq 0$ for non-rigid manifolds, triggering the Stiffness Restoration Subtree which successfully passes via Nodes 7a-7b. The Lock is blocked via Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability) using the o-minimal definability of analytic spaces.
 
 **Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E10. All inc certificates are discharged; the obligation ledger is empty. The proof establishes the existence and structure of the Kuranishi versal deformation space.
 
@@ -130,7 +130,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Static structure (no dynamics on moduli space)
 - [x] **Mixing Property:** Semisimplicity of Mumford-Tate group (for variations of Hodge structure)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Period matrices, Hodge data $(H^k, F^\bullet)$
 - [x] **Dictionary $D$:** $D(J) = (\{H^{p,q}(M,J)\}_{p,q}, \text{intersection form})$
 - [x] **Complexity Measure $K$:** $K(J) = \sum_{p,q} h^{p,q}(M, J)$ (total Hodge number)
@@ -152,13 +152,13 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 #### Template: $\mathrm{Cat}_{\mathrm{Hom}}$ (Lock Interface)
 - [x] **Category $\mathbf{Hypo}_{T_{\text{alg}}}$:** Algebraic hypostructures (complex analytic geometry)
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Wild non-analytic deformation of complex structure (non-definable moduli)
-- [x] **Primary Tactic Selected:** E10 (Definability Obstruction)
+- [x] **Primary Tactic Selected:** E1 + $K_{\mathrm{MorphPresDim}}^+$0 (Definability Obstruction)
 - [x] **Tactic Logic:**
     * $I(\mathcal{H}) = $ "Kuranishi space is analytic germ, definable in $\mathbb{R}_{\text{an}}$"
     * $I(\mathcal{H}_{\text{bad}}) = $ "Non-analytic moduli, violates o-minimal definability"
     * Conclusion: Analytic structure of $\mathcal{K}$ excludes wild deformations.
 - [x] **Exclusion Tactics Available:**
-  - [x] E1 (Dimension): Moduli dimension $= h^1(T_M)$ is finite (mismatch with infinite-dimensional bad pattern)
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension): Moduli dimension $= h^1(T_M)$ is finite (mismatch with infinite-dimensional bad pattern)
   - [ ] E2 (Invariant): NOT APPLICABLE
   - [ ] E3 (Positivity): NOT APPLICABLE
   - [ ] E4 (Integrality): NOT APPLICABLE
@@ -167,7 +167,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
   - [ ] E7 (Thermodynamic): NOT APPLICABLE
   - [ ] E8 (DPI): NOT APPLICABLE
   - [ ] E9 (Ergodic): NOT APPLICABLE
-  - [x] E10 (Definability): **PRIMARY** — Kuranishi space is analytic, hence o-minimal definable
+  - [x] E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability): **PRIMARY** — Kuranishi space is analytic, hence o-minimal definable
   - [x] E11 (Galois-Monodromy): **SECONDARY** — Schlesinger's theorem constrains monodromy
 
 ---
@@ -175,7 +175,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 ## Part I: The Instantiation (Thin Object Definitions)
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-*Implements: $\mathcal{H}_0$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{TB}_O$, $\mathrm{Rep}_K$*
+*Implements: $\mathcal{H}_0$, $\mathrm{Cap}_H$, $\mathrm{TB}_\pi$, $\mathrm{TB}_O$, $\mathrm{RepDesc}_K$*
 
 * **State Space ($\mathcal{X}$):** The space $\mathcal{J}(M)$ of integrable almost complex structures on a compact smooth manifold $M$. An almost complex structure $J: TM \to TM$ with $J^2 = -\text{id}$ is integrable if and only if the Nijenhuis tensor $N_J = 0$.
 * **Metric ($d$):** The $L^2$ metric on the space of $(0,1)$-forms with values in the holomorphic tangent bundle:
@@ -435,7 +435,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 
 ### Level 6: Complexity (Nodes 11-12)
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Does the system admit a finite description?
 
@@ -446,7 +446,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 4. [x] Check finiteness: Betti numbers finite for compact manifolds
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{Period data}, K = \sum b_k < \infty)$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Period data}, K = \sum b_k < \infty)$ → **Go to Node 12**
 
 ---
 
@@ -496,12 +496,12 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 
 2. [x] Apply Exclusion Tactics:
 
-**Tactic E1 (Dimension):**
+**Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension):**
 - $\dim(\mathcal{H}) = h^1(T_M) < \infty$ (finite-dimensional moduli)
 - $\dim(\mathcal{H}_{\text{bad}}) = \infty$ (pathological infinite-dimensional behavior)
 - **Status:** APPLICABLE (dimension mismatch)
 
-**Tactic E10 (Definability):** **PRIMARY**
+**Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability):** **PRIMARY**
 - $\mathcal{K}$ is germ of analytic space
 - Analytic germs are definable in $\mathbb{R}_{\text{an}}$
 - By Structural Reconstruction Principle ({prf:ref}`mt-lock-reconstruction`), tame + stiff systems have definable moduli
@@ -519,7 +519,7 @@ This document presents a **machine-checkable proof object** for the **Kodaira-Sp
 **Certificate:**
 * [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E10 Definability}, \mathcal{K} \in \mathbb{R}_{\text{an}}\text{-definable})$
 
-**LOCK VERDICT:** **BLOCKED** via Tactic E10 (Definability)
+**LOCK VERDICT:** **BLOCKED** via Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability)
 
 ---
 
@@ -688,7 +688,7 @@ Node 7:  K_{LS_σ}^- → Restoration Subtree
 Node 8:  K_{TB_π}^+ (topology: smooth type preserved)
 Node 9:  K_{TB_O}^+ (tameness: analytic ⟹ o-minimal)
 Node 10: K_{TB_ρ}^+ (mixing: static algebraic structure)
-Node 11: K_{Rep_K}^+ (complexity: finite Betti numbers)
+Node 11: K_{RepDesc_K}^+ (complexity: finite Betti numbers)
 Node 12: K_{GC_∇}^- (gradient: Gauss-Manin flat)
 Node 13: K_{Bound_∂}^- (boundary: system CLOSED)
 ---
@@ -697,7 +697,7 @@ Node 17: K_{Cat_Hom}^{blk} (Lock: E10 Definability)
 
 ### 4.3 Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\text{Vac}}^{\mathrm{blk}}, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_{\partial^2 V}}^+, K_{G_{\mathrm{act}}}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\text{Vac}}^{\mathrm{blk}}, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_{\partial^2 V}}^+, K_{G_{\mathrm{act}}}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### 4.4 Conclusion
 
@@ -709,7 +709,7 @@ $$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\
 2. **Structure:** Established by $K_{C_\mu}^+$ (Teichmuller space via Diff(M) quotient).
 3. **Stiffness:** Established via Restoration Subtree: $K_{\mathrm{LS}_{\partial^2 V}}^+$ (bifurcation) and $K_{G_{\mathrm{act}}}^+$ (automorphisms).
 4. **Tameness:** Established by $K_{\mathrm{TB}_O}^+$ (analytic ⟹ o-minimal definable).
-5. **Exclusion:** Established by $K_{\text{Lock}}^{\mathrm{blk}}$ via Tactic E10 (Definability)."
+5. **Exclusion:** Established by $K_{\text{Lock}}^{\mathrm{blk}}$ via Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability)."
 
 **Full Certificate Chain:**
 $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\text{Vac}}^{\mathrm{blk}}, K_{\mathrm{Cap}_H}^+, K_{\text{Restore}}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\text{Lock}}^{\mathrm{blk}}\}$$
@@ -732,9 +732,9 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 5 (Stiffness Restoration):** Nodes 7a-7b established bifurcation structure via $H^2(T_M)$ ($K_{\mathrm{LS}_{\partial^2 V}}^+$) and automorphism tracking via $H^0(T_M)$ ($K_{G_{\mathrm{act}}}^+$). The Kodaira-Spencer Stiffness Link ({prf:ref}`mt-lock-kodaira`) completes the deformation cohomology classification.
 
-**Phase 6 (Topology & Complexity):** Nodes 8-12 verified sector preservation ($K_{\mathrm{TB}_\pi}^+$), o-minimal tameness ($K_{\mathrm{TB}_O}^+$), static mixing ($K_{\mathrm{TB}_\rho}^+$), finite complexity ($K_{\mathrm{Rep}_K}^+$), and gradient structure ($K_{\mathrm{GC}_\nabla}^-$).
+**Phase 6 (Topology & Complexity):** Nodes 8-12 verified sector preservation ($K_{\mathrm{TB}_\pi}^+$), o-minimal tameness ($K_{\mathrm{TB}_O}^+$), static mixing ($K_{\mathrm{TB}_\rho}^+$), finite complexity ($K_{\mathrm{RepDesc}_K}^+$), and gradient structure ($K_{\mathrm{GC}_\nabla}^-$).
 
-**Phase 7 (Lock):** Node 17 blocked the universal bad pattern $\mathcal{H}_{\text{bad}}$ via Tactic E10 (Definability): Kuranishi spaces are analytic germs, hence definable in $\mathbb{R}_{\text{an}}$, excluding wild non-analytic deformations.
+**Phase 7 (Lock):** Node 17 blocked the universal bad pattern $\mathcal{H}_{\text{bad}}$ via Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability): Kuranishi spaces are analytic germs, hence definable in $\mathbb{R}_{\text{an}}$, excluding wild non-analytic deformations.
 
 **Conclusion:** By the Lock Metatheorem (KRNL-Consistency), the blocked Lock certificate implies the existence and analyticity of versal deformations. The Kuranishi space $\mathcal{K}$ satisfies $T_0\mathcal{K} = H^1(M, T_M)$ with obstruction space $\text{Ob} \subseteq H^2(M, T_M)$.
 
@@ -743,120 +743,3 @@ $$\therefore \text{Kuranishi Versal Deformation Theorem holds.} \quad \square$$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Nodes 1-12 (Core) | PASS | $K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\text{Vac}}^{\mathrm{blk}}, K_{\mathrm{Cap}_H}^+, K_{\text{Restore}}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-$ |
-| Nodes 13-16 (Boundary) | NOT APPLICABLE (Closed) | $K_{\mathrm{Bound}_\partial}^-$ |
-| Node 17 (Lock) | BLOCKED | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E10) |
-| Obligation Ledger | EMPTY | — |
-| Upgrade Pass | COMPLETE | (no upgrades required) |
-
-**Final Verdict:** **UNCONDITIONAL PROOF**
-
----
-
-## References
-
-1. Kodaira, K., Spencer, D.C. (1958). On deformations of complex analytic structures, I, II. *Annals of Mathematics* 67(2), 328-466.
-2. Kuranishi, M. (1965). New proof for the existence of locally complete families of complex structures. *Proceedings of the Conference on Complex Analysis, Minneapolis*, 142-154.
-3. Griffiths, P.A. (1968). Periods of integrals on algebraic manifolds, I, II. *American Journal of Mathematics* 90, 568-626, 805-865.
-4. Artin, M. (1976). Lectures on deformations of singularities. *Tata Institute of Fundamental Research*.
-5. Sernesi, E. (2006). *Deformations of Algebraic Schemes*. Springer.
-6. Bogomolov, F.A. (1978). Hamiltonian Kahler manifolds. *Doklady Akademii Nauk SSSR* 243, 1101-1104.
-7. Tian, G. (1987). Smoothness of the universal deformation space of compact Calabi-Yau manifolds. *Inventiones Mathematicae* 87, 333-339.
-8. Todorov, A.N. (1989). The Weil-Petersson geometry of the moduli space of $SU(n \geq 3)$ (Calabi-Yau) manifolds I. *Communications in Mathematical Physics* 126, 325-346.
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes (17 nodes + restoration subtree)
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects $(M, T_M, H^i(T_M))$ and initial-state hash
-4. `closure.cfg`: promotion/closure settings (Stiffness Restoration enabled)
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-*Mapping the complex-analytic problem to the Hypostructure categories.*
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | $\mathcal{J}(M)$, space of integrable almost complex structures | State Space |
-| **Potential ($\Phi$)** | Obstruction Map $\text{Ob}: H^1(T_M) \to H^2(T_M)$ | Height Functional |
-| **Cost ($\mathfrak{D}$)** | Kodaira-Spencer class $\rho(\theta) \in H^1(T_M)$ | Dissipation |
-| **Invariance ($G$)** | $\text{Diff}(M)$, Diffeomorphism Group | Symmetry Group |
-
-### 2. Execution Trace (The Logic)
-*The chronological flow of the Sieve.*
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | YES | $K_{D_E}^+$: $\dim H^2(T_M) < \infty$ | `[]` |
-| **2** | Zeno Check | YES | $K_{\mathrm{Rec}_N}^+$: Obstructed locus algebraic | `[]` |
-| **3** | Compact Check | YES | $K_{C_\mu}^+$: Teichmuller space finite-dim | `[]` |
-| **4** | Scale Check | YES | $K_{\mathrm{SC}_\lambda}^+$: $\alpha - \beta = 1 > 0$ | `[]` |
-| **5** | Param Check | **NO** | $K_{\mathrm{SC}_{\partial c}}^-$: Hodge numbers can jump | `[BARRIER]` |
-| **--** | **BARRIER** | **BLOCKED** | $K_{\text{Vac}}^{\mathrm{blk}}$: BTT Theorem | `[]` |
-| **6** | Geom Check | YES | $K_{\mathrm{Cap}_H}^+$: $\text{codim}(\Sigma) \geq 1$ | `[]` |
-| **7** | Stiffness | **NO** | $K_{\mathrm{LS}_\sigma}^-$: $H^1(T_M) \neq 0$ | `[RESTORATION]` |
-| **7a** | Bifurcate | YES | $K_{\mathrm{LS}_{\partial^2 V}}^+$: $H^2(T_M)$ detects obs. | `[]` |
-| **7b** | Sym Check | YES | $K_{G_{\mathrm{act}}}^+$: $H^0(T_M)$ tracks auts. | `[]` |
-| **8** | Topo Check | YES | $K_{\mathrm{TB}_\pi}^+$: Smooth type preserved | `[]` |
-| **9** | Tame Check | YES | $K_{\mathrm{TB}_O}^+$: Analytic ⟹ o-minimal | `[]` |
-| **10** | Ergo Check | YES | $K_{\mathrm{TB}_\rho}^+$: Static algebraic | `[]` |
-| **11** | Complex Check | YES | $K_{\mathrm{Rep}_K}^+$: Finite Betti numbers | `[]` |
-| **12** | Oscillate Check | NO (grad) | $K_{\mathrm{GC}_\nabla}^-$: Gauss-Manin flat | `[]` |
-| **13** | Boundary Check | CLOSED | $K_{\mathrm{Bound}_\partial}^-$: $\partial M = \emptyset$ | `[]` |
-| **17** | **LOCK** | **BLOCK** | **E10 (Definability)** | `[]` |
-
-### 3. Lock Mechanism (The Exclusion)
-*How the wild deformations are structurally forbidden at Node 17.*
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | PASS | $\dim \mathcal{K} = h^1(T_M) < \infty$ |
-| **E2** | Invariant | NOT APPLICABLE | — |
-| **E3** | Positivity | NOT APPLICABLE | — |
-| **E4** | Integrality | NOT APPLICABLE | — |
-| **E5** | Functional | NOT APPLICABLE | — |
-| **E6** | Causal | NOT APPLICABLE | — |
-| **E7** | Thermodynamic | NOT APPLICABLE | — |
-| **E8** | DPI | NOT APPLICABLE | — |
-| **E9** | Ergodic | NOT APPLICABLE | — |
-| **E10** | Definability | **PASS** | **Kuranishi space is analytic ⟹ o-minimal definable** |
-| **E11** | Galois-Monodromy | PASS | Schlesinger: monodromy is algebraic |
-
-### 4. Final Verdict
-
-* **Status:** **UNCONDITIONAL PROOF**
-* **Obligation Ledger:** **EMPTY**
-* **Singularity Set:** $\Sigma = \{x \in \mathcal{K} : \text{Ob}(x) \neq 0\}$ (obstructed locus, proper analytic subvariety)
-* **Primary Blocking Tactic:** **E10 - O-Minimal Tameness of Analytic Spaces**
-* **Mechanism:** The Lojasiewicz-Simon inequality ({prf:ref}`lem-analytic-algebraic-rigidity`) ensures that deformation flows converge to well-defined complex structures within the analytic Kuranishi space.
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{alg}}$ (Algebraic/Complex Analytic) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | Final |
-| **Generated** | 2026-04-14 |
-

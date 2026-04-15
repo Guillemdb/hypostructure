@@ -131,7 +131,7 @@ The proof is unconditional. All 15 types are constructively exhibited; no 16th t
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Not applicable
 - [x] **Mixing Property:** Not applicable (static)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Vertex-angle equations + edge constraints
 - [x] **Dictionary $D$:** Combinatorial type $\to$ algebraic equations
 - [x] **Complexity Measure $K$:** Kolmogorov complexity of type specification
@@ -151,7 +151,7 @@ The proof is unconditional. All 15 types are constructively exhibited; no 16th t
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Hypothetical 16th tiling type
 - [x] **Exclusion Tactics:**
   - [x] E4 (Integrality): Vertex-angle equations admit only 15 solutions
-  - [x] E1 (Structural Reconstruction): LOCK-Reconstruction exhaustive enumeration
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): LOCK-Reconstruction exhaustive enumeration
 
 ---
 
@@ -356,7 +356,7 @@ The proof is unconditional. All 15 types are constructively exhibited; no 16th t
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is each type finitely describable?
 
@@ -371,7 +371,7 @@ The proof is unconditional. All 15 types are constructively exhibited; no 16th t
 5. [x] Result: All 15 types are finitely describable
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{finite descriptions}, K = O(1) \text{ per type})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{finite descriptions}, K = O(1) \text{ per type})$ → **Go to Node 12**
 
 ---
 
@@ -466,7 +466,7 @@ Inputs (per LOCK-Reconstruction signature):
 - $K_{\mathrm{SC}_\lambda}^+$: Scale-invariant constraints
 - $K_{\mathrm{LS}_\sigma}^+$: Rigid vertex equations
 - $K_{\mathrm{TB}_O}^+$: Semialgebraic constraints (tame)
-- $K_{\mathrm{Rep}_K}^+$: Finite descriptions
+- $K_{\mathrm{RepDesc}_K}^+$: Finite descriptions
 
 **Reconstruction Chain:**
 
@@ -662,7 +662,7 @@ Node 7:  K_{LS_σ}^+ (rigid vertex equations)
 Node 8:  K_{TB_π}^+ (wallpaper groups)
 Node 9:  K_{TB_O}^+ (semialgebraic)
 Node 10: K_{TB_ρ}^- (no dynamics)
-Node 11: K_{Rep_K}^+ (finite descriptions)
+Node 11: K_{RepDesc_K}^+ (finite descriptions)
 Node 12: K_{GC_∇}^- (no dynamics)
 Node 13: K_{Bound_∂}^- (unbounded ℝ²)
 Node 17: K_{Cat_Hom}^{blk} (E4 + LOCK-Reconstruction → 15 types complete)
@@ -670,7 +670,7 @@ Node 17: K_{Cat_Hom}^{blk} (E4 + LOCK-Reconstruction → 15 types complete)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^-, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^-, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -735,52 +735,3 @@ The classification is complete and unconditional. Exactly 15 convex pentagon typ
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Defect Functional | Positive | $K_{D_E}^+$ |
-| Discrete Search | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Type Concentration | Positive | $K_{C_\mu}^+$ (15 types) |
-| Scale Invariance | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Constraint Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Geometric Capacity | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Vertex Rigidity | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Symmetry Classification | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Ergodic | Negative | $K_{\mathrm{TB}_\rho}^-$ (static) |
-| Finite Description | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (static) |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ (unbounded) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL CLASSIFICATION** | 15 types |
-
----
-
-## References
-
-- R.B. Kershner, *On paving the plane*, American Mathematical Monthly 75 (1968), 839-844
-- D. Schattschneider, *Tiling the plane with congruent pentagons*, Mathematics Magazine 51 (1978), 29-44
-- C. Mann, J. McLoud, D. Von Derau, *Convex pentagons that admit i-block transitive tilings*, arXiv:1510.01186 (2015)
-- M. Rao, *Exhaustive search of convex pentagons which tile the plane*, arXiv:1708.00274 (2017)
-- Branko Grünbaum and G.C. Shephard, *Tilings and Patterns*, W.H. Freeman (1987)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{geometric}}$ (Discrete Geometry / Tiling Theory) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL CLASSIFICATION |
-| **Generated** | 2026-04-14 |
-

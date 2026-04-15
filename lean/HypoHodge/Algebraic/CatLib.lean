@@ -14,9 +14,10 @@ theorem hodgeCatLibBounded
     BoundedCatLibComplete I := by
   trivial
 
-axiom emit_catLib_from_bounded_completeness
+theorem emit_catLib_from_bounded_completeness
     (I : VerifiedHodgeThinInput)
-    (h : BoundedCatLibComplete I) :
-    CertTag.catLib ∈ closure [] (insert CertTag.catLib (gamma0 I))
+    (_h : BoundedCatLibComplete I) :
+    CertTag.catLib ∈ closure [] (insert CertTag.catLib (gamma0 I)) := by
+  exact subset_closure ([] : RuleSet) (insert CertTag.catLib (gamma0 I)) (by simp)
 
 end HypoHodge.Algebraic

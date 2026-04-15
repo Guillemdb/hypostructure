@@ -65,9 +65,20 @@ theorem hodgeGammaTag
     CertTag.gamma ∈ backendBase I := by
   simp [backendBase]
 
-axiom hodgeBackendAutoclose
+theorem hodgeBackendAutoclose
     (I : VerifiedHodgeThinInput)
     [ImportedHodgeAxioms I] :
-    backendBase I ⊆ closure backendRules (gamma0 I)
+    backendBase I ⊆ closure backendRules (gamma0 I) := by
+  have hstepToClosure :
+      step backendRules (gamma0 I) ⊆ closure backendRules (gamma0 I) := by
+    have hmono :
+        step backendRules (gamma0 I) ⊆
+          step backendRules (closure backendRules (gamma0 I)) :=
+      monotone_step backendRules (subset_closure backendRules (gamma0 I))
+    simpa [closure_fixed backendRules (gamma0 I)] using hmono
+  intro k hk
+  have hkStep : k ∈ step backendRules (gamma0 I) := by
+    simpa [backendBase, backendRules, step, fireRule, Rule.enabled, gamma0] using hk
+  exact hstepToClosure hkStep
 
 end HypoHodge.Algebraic

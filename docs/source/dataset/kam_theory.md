@@ -126,7 +126,7 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Ergodic flow on torus (finite time)
 - [x] **Mixing Property:** Quasi-periodic flow (unique ergodicity)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Fourier modes $\{e^{i\langle k, \theta \rangle}\}$
 - [x] **Dictionary $D$:** Action-angle coordinates
 - [x] **Complexity Measure $K$:** Fourier decay rate
@@ -146,7 +146,7 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Resonant torus with rational frequency
 - [x] **Exclusion Tactics:**
   - [x] E4 (Integrality): Winding number quantization → Diophantine obstruction
-  - [x] E1 (Structural Reconstruction): Nash-Moser iteration → convergence certificate
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Nash-Moser iteration → convergence certificate
 
 ---
 
@@ -339,7 +339,7 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the torus dynamics computable (Fourier representation)?
 
@@ -350,7 +350,7 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 4. [x] Result: Finite/computable description via Fourier modes
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{Fourier series}, \text{exponential decay})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Fourier series}, \text{exponential decay})$ → **Go to Node 12**
 
 ---
 
@@ -419,7 +419,7 @@ possesses a Cantor family of invariant $n$-tori with frequencies $\omega$ satisf
 - Resonances destroy torus persistence (small divisor divergence)
 
 **Step 2: Apply Tactic E4 (Integrality — Diophantine obstruction)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (Fourier representation)
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (Fourier representation)
 2. [x] Fourier modes $k \in \mathbb{Z}^n$ are **integer vectors** (quantized)
 3. [x] Winding numbers are topological invariants (homotopy classes)
 4. [x] Diophantine condition: $|\langle k, \omega \rangle| \geq \gamma |k|^{-\tau}$ excludes rational $\omega$
@@ -536,7 +536,7 @@ d. **Exponential Dichotomy ($K_{\text{Dichotomy}}^+$):**
 *   **Certificate:** $K_{C_\mu}^+$, $K_{\mathrm{Cap}_H}^+$
 
 ### **3. Diophantine Exclusion (E4)**
-*   **Input:** $K_{\text{Diophantine}}^+ \wedge K_{\mathrm{Rep}_K}^+$
+*   **Input:** $K_{\text{Diophantine}}^+ \wedge K_{\mathrm{RepDesc}_K}^+$
 *   **Logic:** Integer Fourier modes → Diophantine frequencies avoid resonances
 *   **Certificate:** $K_{\text{Diophantine}}^{\text{exclude}}$
 
@@ -603,7 +603,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (topology preserved)
 Node 9:  K_{TB_O}^+ (analytic definable)
 Node 10: K_{TB_ρ}^+ (unique ergodicity)
-Node 11: K_{Rep_K}^+ (Fourier series)
+Node 11: K_{RepDesc_K}^+ (Fourier series)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -611,7 +611,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Dichotomy}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Dichotomy}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -665,106 +665,3 @@ Combining the Diophantine exclusion (E4), twist condition, and Nash-Moser conver
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Hamiltonian Conservation | Positive | $K_{D_E}^+$ |
-| Discrete Resonances | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Cantor Foliation | Positive | $K_{C_\mu}^+$ |
-| Subcritical Perturbation | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Twist Condition | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Resonance Geometry | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness/Dichotomy | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Analytic Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Unique Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Fourier Representation | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Hamiltonian Structure | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Nash-Moser Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- A.N. Kolmogorov, *On conservation of conditionally periodic motions for a small change in Hamilton's function*, Dokl. Akad. Nauk SSSR 98 (1954), 527-530
-- V.I. Arnold, *Proof of a theorem of A. N. Kolmogorov on the preservation of conditionally periodic motions under a small perturbation of the Hamiltonian*, Uspehi Mat. Nauk 18:5 (1963), 13-40
-- J. Moser, *On invariant curves of area-preserving mappings of an annulus*, Nachr. Akad. Wiss. Göttingen Math.-Phys. Kl. II (1962), 1-20
-- J. Pöschel, *A lecture on the classical KAM theorem*, Proc. Symposia Pure Math. 69 (2001), 707-732
-- M. Herman, *Sur les courbes invariantes par les difféomorphismes de l'anneau*, Astérisque 103-104 (1983)
-- L.H. Eliasson, *Perturbations of stable invariant tori for Hamiltonian systems*, Ann. Scuola Norm. Sup. Pisa Cl. Sci. 15 (1988), 115-147
-- J. Moser, *Convergent series expansions for quasi-periodic motions*, Math. Ann. 169 (1967), 136-176
-- H. Rüssmann, *On optimal estimates for the solutions of linear partial differential equations of first order with constant coefficients on the torus*, Dynamical Systems, Theory and Applications (1975), 598-624
-- D. Salamon, E. Zehnder, *KAM theory in configuration space*, Comment. Math. Helv. 64 (1989), 84-132
-- R. de la Llave, *A tutorial on KAM theory*, Proc. Symposia Pure Math. 69 (2001), 175-292
-
----
-
-## Technical Appendix: Nash-Moser Details
-
-### A.1 Small Divisor Problem
-
-The fundamental obstruction in KAM theory is the **small divisor problem**: when solving
-$$\omega \cdot \partial_\theta v + \text{(lower order terms)} = f$$
-via Fourier expansion $v = \sum_k v_k e^{i\langle k,\theta\rangle}$, we obtain
-$$v_k = \frac{f_k}{i\langle k, \omega \rangle + O(\varepsilon)}$$
-
-The denominators $\langle k, \omega \rangle$ can become arbitrarily small for resonant frequencies.
-
-### A.2 Diophantine Condition Resolution
-
-The **Diophantine condition**
-$$|\langle k, \omega \rangle| \geq \gamma |k|^{-\tau}, \quad \forall k \in \mathbb{Z}^n \setminus \{0\}$$
-provides **quantitative non-resonance**: denominators are bounded below by a power law. This allows:
-
-1. **Fourier inversion:** $\|v\|_s \leq C(\gamma,\tau) \|f\|_{s+\nu}$ with **loss of derivatives** $\nu = \tau + 1$
-2. **Measure control:** $\mathrm{meas}(\mathcal{DC}_{\gamma,\tau}) \geq 1 - C\gamma$ for $\tau > n-1$
-
-### A.3 Nash-Moser Smoothing Strategy
-
-To overcome derivative loss, the **Nash-Moser iteration** employs:
-
-1. **Smoothing operators:** $S_n$ acts as mollifier at scale $\lambda_n \sim 2^n$
-2. **Decreasing norms:** Work in Sobolev spaces $H^{s_n}$ with $s_n = s_0 - n\delta$ for small $\delta$
-3. **Quadratic iteration:**
-   $$u_{n+1} = u_n - S_n L_{u_n}^{-1} F(u_n)$$
-4. **Convergence estimate:** With $\|F(u_0)\| \sim \varepsilon$ and proper smoothing,
-   $$\|F(u_n)\|_{s_n} \leq C_n \varepsilon^{2^n}$$
-   yielding **super-exponential convergence** to the invariant torus.
-
-### A.4 Iteration Parameters
-
-For $H_1$ analytic in a strip $|\text{Im}(\theta)| < r$, choose:
-- **Smoothing scale:** $\lambda_n = \lambda_0 2^{n}$
-- **Norm decay:** $s_n = s_0 - \alpha n$ with $\alpha = (\tau + 1)/2$
-- **Threshold:** $\varepsilon_0 \sim \gamma^{2+\tau} \lambda_0^{-N}$ for $N$ depending on $n, \tau$
-
-### A.5 Exponential Dichotomy
-
-The linearized Hamiltonian flow on the normal bundle $N(\mathbb{T}^n_\omega)$ exhibits:
-- **Stable subspace:** Exponential decay $e^{-\lambda t}$ for $\lambda > 0$
-- **Unstable subspace:** Exponential growth $e^{\mu t}$ for $\mu > 0$
-- **Separation:** $\lambda + \mu \geq c(\gamma, \tau) > 0$ (Diophantine gap)
-
-This ensures the torus is **normally hyperbolic**, hence persistent under perturbations.
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{hamiltonian}}$ (Symplectic Dynamics) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

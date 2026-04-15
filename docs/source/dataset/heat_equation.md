@@ -317,7 +317,7 @@ System is closed: $\mathbb{R}^n$ has no boundary; bounded $\Omega$ with Dirichle
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is description complexity bounded?
 
@@ -327,7 +327,7 @@ System is closed: $\mathbb{R}^n$ has no boundary; bounded $\Omega$ with Dirichle
 3. [x] Complexity bounded by initial energy
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (E[u_0], \text{finite complexity})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (E[u_0], \text{finite complexity})$ → **Go to Node 12**
 
 ---
 
@@ -489,7 +489,7 @@ Node 7:  K_{LS_σ}^+ (spectral gap λ₁>0)
 Node 8:  K_{TB_π}^+ (topology static)
 Node 9:  K_{TB_O}^+ (Σ=∅ definable)
 Node 10: K_{TB_ρ}^+ (dissipative)
-Node 11: K_{Rep_K}^+ (complexity bounded)
+Node 11: K_{RepDesc_K}^+ (complexity bounded)
 Node 12: K_{GC_∇}^- (gradient flow, no oscillation)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (E3: scaling mismatch)
@@ -497,7 +497,7 @@ Node 17: K_{Cat_Hom}^{blk} (E3: scaling mismatch)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Validity Checklist
 
@@ -568,101 +568,3 @@ $\therefore$ Heat equation is globally regular. $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate | Mechanism |
-|-----------|--------|-------------|-----------|
-| Energy Well-Defined | Positive | $K_{D_E}^+$ | Dirichlet energy |
-| Event Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ | Excluded by scaling |
-| Profile Classification | Positive | $K_{C_\mu}^+$ | Heat kernel |
-| **Scaling Analysis** | **Positive** | $K_{\mathrm{SC}_\lambda}^+$ | **$\alpha - \beta = 2 > 0$** |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ | Fixed parameters |
-| **Capacity** | **Positive** | $K_{\mathrm{Cap}_H}^+$ | **$\text{Cap}_{H^1}(\{p\}) = 0$** |
-| Spectral Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ | Poincaré ($\lambda_1 > 0$) |
-| Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ | Static |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ | $\Sigma = \emptyset$ |
-| Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ | Gradient flow |
-| Complexity | Positive | $K_{\mathrm{Rep}_K}^+$ | Bounded |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ | No oscillation |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ | Closed |
-| **Lock** | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | **E3 (ScalingMismatch)** |
-| **Final Status** | **REGULAR** | — | Unconditional |
-
----
-
-## References
-
-- J. Fourier, *Théorie analytique de la chaleur*, Paris (1822)
-- L.C. Evans, *Partial Differential Equations*, 2nd ed., AMS (2010)
-- A. Friedman, *Partial Differential Equations of Parabolic Type*, Prentice-Hall (1964)
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | $L^2(\mathbb{R}^n)$ or $H^1_0(\Omega)$ | State Space |
-| **Potential ($\Phi$)** | $E[u] = \frac{1}{2}\int \|\nabla u\|^2 dx$ (Dirichlet energy) | Height Functional |
-| **Cost ($\mathfrak{D}$)** | $\mathfrak{D}[u] = \int \|\Delta u\|^2 dx$ | Dissipation |
-| **Invariance ($G$)** | $\text{ISO}(n)$ + parabolic scaling $(x,t) \mapsto (\lambda x, \lambda^2 t)$ | Symmetry Group |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | EnergyCheck | YES | $K_{D_E}^+$: Energy well-defined | `[]` |
-| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: Excluded by scaling | `[]` |
-| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Heat kernel profile | `[]` |
-| **4** | ScaleCheck | YES | $K_{\mathrm{SC}_\lambda}^+$: $\alpha - \beta = 2 > 0$ **SUBCRITICAL** | `[]` |
-| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: Parameters stable | `[]` |
-| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\text{Cap}_{H^1}(\{p\}) = 0$ | `[]` |
-| **7** | StiffnessCheck | YES | $K_{\mathrm{LS}_\sigma}^+$: Spectral gap $\lambda_1 > 0$ | `[]` |
-| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Topology static | `[]` |
-| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: $\Sigma = \emptyset$ definable | `[]` |
-| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Dissipative | `[]` |
-| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: Complexity bounded | `[]` |
-| **12** | OscillateCheck | NO | $K_{\mathrm{GC}_\nabla}^-$: Gradient flow, no oscillation | `[]` |
-| **13** | BoundaryCheck | NO | $K_{\mathrm{Bound}_\partial}^-$: Closed system | `[]` |
-| **14-16** | Boundary Subgraph | SKIP | Not triggered | `[]` |
-| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E3 (ScalingMismatch) | `[]` |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | NOT APPLICABLE | — |
-| **E2** | Invariant | NOT APPLICABLE | — |
-| **E3** | ScalingMismatch | **PASS** | $\alpha - \beta = 2 > 0$ excludes blow-up |
-| **E4** | Integrality | NOT APPLICABLE | — |
-| **E5** | Functional | NOT APPLICABLE | — |
-| **E6** | Capacity | **PASS** | $\text{Cap}_{H^1}(\{p\}) = 0$ excludes point singularity |
-| **E7-E10** | Various | NOT APPLICABLE | — |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL (REGULAR)
-* **Obligation Ledger:** EMPTY
-* **Singularity Set:** $\Sigma = \emptyset$ (algebraically forbidden)
-* **Primary Blocking Tactic:** E3 (ScalingMismatch: subcritical $\alpha - \beta = 2 > 0$)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{parabolic}}$ (Diffusion PDEs) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | REGULAR |
-| **Generated** | 2026-04-14 |
-

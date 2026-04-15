@@ -123,7 +123,7 @@ This document presents a **machine-checkable proof object** for the **terminatio
 - [x] **Mixing Time $\tau_{\text{mix}}$:** $\tau_{\text{mix}} \le \binom{n}{2}$ (finite time to equilibrium)
 - [x] **Mixing Property:** Gradient flow to unique fixed point (no recurrence)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Sequence notation $[\sigma(1), \sigma(2), \ldots, \sigma(n)]$
 - [x] **Dictionary $D$:** Permutation array representation
 - [x] **Complexity Measure $K$:** $K(\sigma) = \Phi(\sigma)$ (inversion count)
@@ -141,13 +141,13 @@ This document presents a **machine-checkable proof object** for the **terminatio
 ### 0.3 The Lock (Node 17)
 - [x] **Category $\mathbf{Hypo}_{T_{\text{algo}}}$:** Algorithmic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-termination (infinite loop)
-- [x] **Primary Tactic Selected:** E1 + E2
+- [x] **Primary Tactic Selected:** E1 + $K_{\mathrm{MorphPresDim}}^+$ + E2
 - [x] **Tactic Logic:**
     * $I(\mathcal{H}) = \Phi(t) \in [0, \binom{n}{2}] \cap \mathbb{N}$ (bounded discrete potential)
     * $I(\mathcal{H}_{\text{bad}}) = $ infinite execution (no termination)
     * Conclusion: Strict monotonic descent on finite $\mathbb{N}$ $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Dimension): Finite state space $|S_n| = n!$ prevents infinite descent
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension): Finite state space $|S_n| = n!$ prevents infinite descent
   - [x] E2 (Invariant Mismatch): Strict decrease $\Delta\Phi = -1$ contradicts non-termination
 
 ---
@@ -341,7 +341,7 @@ This document presents a **machine-checkable proof object** for the **terminatio
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -353,7 +353,7 @@ This document presents a **machine-checkable proof object** for the **terminatio
 5. [x] Description length: Permutation requires $O(n \log n)$ bits
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K = O(n^2), \text{polynomial-time})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K = O(n^2), \text{polynomial-time})$ → **Go to Node 12**
 
 ---
 
@@ -400,7 +400,7 @@ This document presents a **machine-checkable proof object** for the **terminatio
 
 **Step-by-step execution:**
 1. [x] Define $\mathcal{H}_{\text{bad}}$: Non-terminating trajectory (infinite loop)
-2. [x] Apply Tactic E1 (Dimension/Finiteness):
+2. [x] Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Finiteness):
    - State space is finite: $|S_n| = n!$
    - Potential $\Phi \in [0, \binom{n}{2}] \cap \mathbb{N}$ (finite discrete range)
    - Strict decrease: $\Delta\Phi = -1$ per swap
@@ -457,7 +457,7 @@ This document presents a **machine-checkable proof object** for the **terminatio
 ### **3. The Lock (Node 17)**
 * **Question:** $\text{Hom}(\text{Bad}, \mathcal{H}) = \emptyset$?
 * **Bad Pattern:** Non-termination (infinite execution)
-* **Tactic E1 (Dimension/Finiteness):** Finite state space + strict monotonic descent prevents infinite trajectories
+* **Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Finiteness):** Finite state space + strict monotonic descent prevents infinite trajectories
 * **Tactic E2 (Invariant Mismatch):** Bounded discrete potential with strict decrease contradicts non-termination
 * **Result:** **BLOCKED** ($K_{\mathrm{Lock}}^{\mathrm{blk}}$)
 
@@ -526,7 +526,7 @@ Node 7:  K_{LS_σ}^+ (strict gap Δ=-1)
 Node 8:  K_{TB_π}^+ (parity preserved)
 Node 9:  K_{TB_O}^+ (finite definable)
 Node 10: K_{TB_ρ}^+ (dissipative, τ_mix ≤ C(n,2))
-Node 11: K_{Rep_K}^+ (polynomial O(n²))
+Node 11: K_{RepDesc_K}^+ (polynomial O(n²))
 Node 12: K_{GC_∇}^- (strict Lyapunov)
 Node 13: K_{Bound_∂}^- (closed)
 Node 17: K_{Cat_Hom}^{blk} (E1+E2)
@@ -534,7 +534,7 @@ Node 17: K_{Cat_Hom}^{blk} (E1+E2)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -582,118 +582,3 @@ Regular termination follows with polynomial-time complexity $O(n^2)$. $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Surgery Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Compactness | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- D. E. Knuth, *The Art of Computer Programming, Vol. 3: Sorting and Searching*, Addison-Wesley (1973)
-- R. Sedgewick, *Algorithms*, 4th ed., Addison-Wesley (2011)
-- T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein, *Introduction to Algorithms*, MIT Press (2009)
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects and initial-state hash
-4. `closure.cfg`: promotion/closure settings
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | $S_n$ (permutations) | State Space |
-| **Potential ($\Phi$)** | $\text{inv}(\sigma) = |\{(i,j): i<j, \sigma(i)>\sigma(j)\}|$ | Lyapunov Functional |
-| **Cost ($\mathfrak{D}$)** | $\mathfrak{D} = 1$ per swap | Discrete Dissipation |
-| **Invariance ($G$)** | Trivial $\{e\}$ | No Symmetry Reduction |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Γ (Certificate Accumulation) |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | YES | $\Delta\Phi = -1$, $\Phi \in [0,\binom{n}{2}]$ | $\{K_{D_E}^+\}$ |
-| **2** | Zeno Check | YES | $N \le \binom{n}{2}$ swaps | $\Gamma_1 \cup \{K_{\mathrm{Rec}}^+\}$ |
-| **3** | Compact Check | YES | Finite discrete space $|S_n|=n!$ | $\Gamma_2 \cup \{K_{C_\mu}^+\}$ |
-| **4** | Scale Check | YES | No scaling (discrete) | $\Gamma_3 \cup \{K_{\mathrm{SC}_\lambda}^+\}$ |
-| **5** | Param Check | YES | $n$ fixed | $\Gamma_4 \cup \{K_{\mathrm{SC}_{\partial c}}^+\}$ |
-| **6** | Geom Check | YES | $\Sigma = \emptyset$ | $\Gamma_5 \cup \{K_{\mathrm{Cap}}^+\}$ |
-| **7** | Stiffness Check | YES | $\Delta\Phi = -1$ (strict gap) | $\Gamma_6 \cup \{K_{\mathrm{LS}}^+\}$ |
-| **8** | Topo Check | YES | Parity preserved | $\Gamma_7 \cup \{K_{\mathrm{TB}_\pi}^+\}$ |
-| **9** | Tame Check | YES | Finite discrete | $\Gamma_8 \cup \{K_{\mathrm{TB}_O}^+\}$ |
-| **10** | Ergo Check | YES | $\tau_{\text{mix}} \le \binom{n}{2}$ | $\Gamma_9 \cup \{K_{\mathrm{TB}_\rho}^+\}$ |
-| **11** | Complex Check | YES | $O(n^2)$ polynomial-time | $\Gamma_{10} \cup \{K_{\mathrm{Rep}}^+\}$ |
-| **12** | Oscillate Check | NO | Strict Lyapunov (monotonic) | $\Gamma_{11} \cup \{K_{\mathrm{GC}}^-\}$ |
-| **13** | Boundary Check | CLOSED | No external coupling | $\Gamma_{12} \cup \{K_{\mathrm{Bound}}^-\}$ |
-| **--** | **SURGERY** | **NOT APPLICABLE** | — | $\Gamma_{13}$ |
-| **--** | **RE-ENTRY** | **NOT APPLICABLE** | — | $\Gamma_{13}$ |
-| **17** | **LOCK** | **BLOCK** | E1+E2 | $\Gamma_{13} \cup \{K_{\mathrm{Lock}}^{\mathrm{blk}}\} = \Gamma_{\mathrm{final}}$ |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | PASS | Finite state space $|S_n| = n!$ + bounded potential |
-| **E2** | Invariant | PASS | Strict decrease $\Delta\Phi = -1$ contradicts infinite loop |
-| **E3** | Positivity | NOT APPLICABLE | — |
-| **E4** | Integrality | NOT APPLICABLE | — |
-| **E5** | Functional | NOT APPLICABLE | — |
-| **E6** | Causal | NOT APPLICABLE | — |
-| **E7** | Thermodynamic | NOT APPLICABLE | — |
-| **E8** | DPI | NOT APPLICABLE | — |
-| **E9** | Ergodic | NOT APPLICABLE | — |
-| **E10** | Definability | NOT APPLICABLE | — |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY
-* **Singularity Set:** $\Sigma = \emptyset$
-* **Primary Blocking Tactic:** E1+E2 (Finite discrete potential + Strict monotonic descent)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{algorithmic}}$ (Discrete Combinatorial Dynamics) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

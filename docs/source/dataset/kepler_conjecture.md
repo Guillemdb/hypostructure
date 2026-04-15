@@ -30,7 +30,7 @@ This document presents a **machine-checkable proof object** for the **Kepler Con
 
 **Approach:** We instantiate the geometric hypostructure with the space of sphere packings $\mathcal{P} \subset \mathbb{R}^3$. The potential is packing density $\delta(\mathcal{P})$; the cost is Voronoi cell deficit. The key is showing the density functional is definable in $\mathbb{R}_{\exp}$ (o-minimal structure), enabling finite verification via the Flyspeck project (5000 standard configurations verified by interval arithmetic + linear programming).
 
-**Result:** The Lock is blocked via Tactic E9 (O-minimal Definability) and E11 (Finite Verification). FCC and HCP are the unique optimal packings. All obligations are discharged; the proof is unconditional.
+**Result:** The Lock is blocked via Tactic E9 + $K_{\mathrm{MorphPresMix}}^+$ (O-minimal Definability) and E11 (Finite Verification). FCC and HCP are the unique optimal packings. All obligations are discharged; the proof is unconditional.
 
 ---
 
@@ -126,7 +126,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Not applicable
 - [x] **Mixing Property:** Not applicable
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Delaunay simplices, Voronoi volumes, local configs
 - [x] **Dictionary $D$:** Local score function $\sigma(\tau)$ for each standard simplex
 - [x] **Complexity Measure $K$:** $K(\mathcal{P}) \le C \cdot 5000$ (finite standard configs)
@@ -145,7 +145,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 - [x] **Category $\mathbf{Hypo}_{T_{\text{geom}}}$:** Geometric optimization problems
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Infinite verification OR non-definable objective
 - [x] **Exclusion Tactics:**
-  - [x] E9 (O-minimal Definability): $\delta$ definable in $\mathbb{R}_{\exp}$
+  - [x] E9 + $K_{\mathrm{MorphPresMix}}^+$ (O-minimal Definability): $\delta$ definable in $\mathbb{R}_{\exp}$
   - [x] E11 (Finite Verification): Reduction to 5000 cases
 
 ---
@@ -349,7 +349,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -365,7 +365,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 6. [x] Verification strategy: Each region verified via interval arithmetic + linear programming
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K \le 5000, \text{finite standard configs})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K \le 5000, \text{finite standard configs})$ → **Go to Node 12**
 
 ---
 
@@ -413,7 +413,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 **Step 1: Define Bad Pattern**
 - $\mathcal{H}_{\text{bad}}$: Infinite verification burden OR non-definable/non-computable objective
 
-**Step 2: Apply Tactic E9 (O-minimal Definability)**
+**Step 2: Apply Tactic E9 + $K_{\mathrm{MorphPresMix}}^+$ (O-minimal Definability)**
 1. [x] Input: $K_{\mathrm{TB}_O}^+$ (density $\delta$ definable in $\mathbb{R}_{\exp}$)
 2. [x] O-minimal theory: $\mathbb{R}_{\exp}$ admits finite cell decomposition
 3. [x] Consequence: Configuration space stratified into finitely many definable cells
@@ -422,7 +422,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 6. [x] Certificate: $K_{\text{o-min}}^+ = (\mathbb{R}_{\exp}, \text{finite stratification})$
 
 **Step 3: Apply Tactic E11 (Finite Verification)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (5000 standard configurations)
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (5000 standard configurations)
 2. [x] Strategy: For each standard region $R_i$ ($i = 1, \ldots, 5000$):
    - Express local density $\sigma_i$ as function of geometric parameters
    - Formulate linear programming relaxation
@@ -446,7 +446,7 @@ achieved uniquely (up to isometry) by the **face-centered cubic (FCC)** and **he
 **Step 5: Verdict**
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E9: } \mathbb{R}_{\exp}\text{-definable}, \text{E11: finite verification}, \{K_{\mathrm{TB}_O}^+, K_{\mathrm{Rep}_K}^+, K_{\text{Flyspeck}}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E9: } \mathbb{R}_{\exp}\text{-definable}, \text{E11: finite verification}, \{K_{\mathrm{TB}_O}^+, K_{\mathrm{RepDesc}_K}^+, K_{\text{Flyspeck}}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -491,7 +491,7 @@ All nodes passed cleanly.
 *   **Certificate:** $K_{\text{o-min}}^+$
 
 ### **2. Finite Verification (E11)**
-*   **Input:** $K_{\mathrm{Rep}_K}^+$ (5000 standard configurations)
+*   **Input:** $K_{\mathrm{RepDesc}_K}^+$ (5000 standard configurations)
 *   **Action:** Each configuration verified via interval arithmetic + linear programming
 *   **Flyspeck:** Formal proof in HOL Light (2014-2017)
 *   **Certificate:** $K_{\text{finite-ver}}^+$
@@ -624,7 +624,7 @@ Node 7:  K_{LS_σ}^~ → K_{LS_σ}^+ (finite verification)
 Node 8:  K_{TB_π}^+ (lattice symmetries)
 Node 9:  K_{TB_O}^+ (R_exp-definable)
 Node 10: K_{TB_ρ}^~ → K_{TB_ρ}^+ (static)
-Node 11: K_{Rep_K}^+ (5000 configs)
+Node 11: K_{RepDesc_K}^+ (5000 configs)
 Node 12: K_{GC_∇}^~ → K_{GC_∇}^+ (static)
 Node 13: K_{Bound_∂}^- (closed)
 Node 17: K_{Cat_Hom}^{blk} (E9+E11)
@@ -635,7 +635,7 @@ Node 17: K_{Cat_Hom}^{blk} (E9+E11)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^+, K_{\text{o-min}}^+, K_{\text{finite-ver}}^+, K_{\text{Flyspeck}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^+, K_{\text{o-min}}^+, K_{\text{finite-ver}}^+, K_{\text{Flyspeck}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -671,7 +671,7 @@ O-minimality ensures:
 - Finite stratification of configuration space
 - Reduction to finite verification problem
 
-**Phase 4: Finite Classification ($K_{\mathrm{Rep}_K}^+$, Node 11)**
+**Phase 4: Finite Classification ($K_{\mathrm{RepDesc}_K}^+$, Node 11)**
 Hales-Ferguson classification:
 - Partition configuration space into ~5000 standard regions $R_i$
 - Each region: characterized by combinatorial type + metric constraints
@@ -711,11 +711,11 @@ $K_{\text{Flyspeck}}^+$:
 
 Bad pattern: $\mathcal{H}_{\text{bad}} = \{\text{infinite verification OR non-definable objective}\}$
 
-**Tactic E9 (O-minimal Definability):**
+**Tactic E9 + $K_{\mathrm{MorphPresMix}}^+$ (O-minimal Definability):**
 $K_{\mathrm{TB}_O}^+ \Rightarrow$ density is $\mathbb{R}_{\exp}$-definable $\Rightarrow$ finite stratification
 
 **Tactic E11 (Finite Verification):**
-$K_{\mathrm{Rep}_K}^+ \Rightarrow$ 5000 cases $\Rightarrow$ all verified (Flyspeck)
+$K_{\mathrm{RepDesc}_K}^+ \Rightarrow$ 5000 cases $\Rightarrow$ all verified (Flyspeck)
 
 **Lock verdict:**
 $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}: \quad \mathrm{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$$
@@ -728,54 +728,3 @@ achieved uniquely by FCC and HCP. $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Event Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Profile Extraction | Positive | $K_{C_\mu}^+$ (FCC, HCP) |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ (invariant) |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness/Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (finite ver.) |
-| Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ ($\mathbb{R}_{\exp}$) |
-| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ (NOT APPLICABLE) |
-| Complexity | Positive | $K_{\mathrm{Rep}_K}^+$ (5000 configs) |
-| Gradient Structure | Positive | $K_{\mathrm{GC}_\nabla}^+$ (NOT APPLICABLE) |
-| O-minimal Definability | Positive | $K_{\text{o-min}}^+$ (E9) |
-| Finite Verification | Positive | $K_{\text{finite-ver}}^+$ (E11) |
-| Flyspeck Formal Proof | Positive | $K_{\text{Flyspeck}}^+$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- T. C. Hales, *A proof of the Kepler conjecture*, Annals of Mathematics **162** (2005), 1065-1185
-- T. C. Hales and S. P. Ferguson, *A formulation of the Kepler conjecture*, Discrete & Computational Geometry **36** (2006), 21-69
-- T. C. Hales et al., *A formal proof of the Kepler conjecture*, Forum of Mathematics, Pi **5** (2017), e2
-- T. C. Hales, *Dense Sphere Packings: A Blueprint for Formal Proofs*, London Mathematical Society Lecture Note Series 400, Cambridge University Press (2012)
-- J. H. Conway and N. J. A. Sloane, *Sphere Packings, Lattices and Groups*, Springer (1999)
-- C. A. Rogers, *Packing and Covering*, Cambridge Tracts in Mathematics 54, Cambridge University Press (1964)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{geometric}}$ (Geometric Optimization / O-minimal Structure) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

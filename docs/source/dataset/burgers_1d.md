@@ -123,7 +123,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Finite (exponential decay to equilibrium)
 - [x] **Mixing Property:** Flow is dissipative, no recurrence
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Fourier coefficients $\{\hat{u}_k\}_{k \in \mathbb{Z}}$
 - [x] **Dictionary $D$:** $u = \sum_k \hat{u}_k e^{2\pi ikx}$
 - [x] **Complexity Measure $K$:** $K(u) = \|u\|_{H^1}^2$
@@ -141,13 +141,13 @@ This document presents a **machine-checkable proof object** for the **global reg
 ### 0.3 The Lock (Node 17)
 - [x] **Category $\mathbf{Hypo}_{T_{\text{para}}}$:** Parabolic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time $H^1$ blow-up
-- [x] **Primary Tactic Selected:** E1 + E2
+- [x] **Primary Tactic Selected:** E1 + $K_{\mathrm{MorphPresDim}}^+$ + E2
 - [x] **Tactic Logic:**
     * $I(\mathcal{H}) = E(t) \le E_0$ (energy bounded, $\|u\|_{L^\infty}$ controlled by 1D embedding)
     * $I(\mathcal{H}_{\text{bad}}) = E \to \infty$ or $\|u\|_{L^\infty} \to \infty$ (blow-up)
     * Conclusion: 1D embedding + energy decay $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Dimension): 1D Sobolev embedding $H^1 \hookrightarrow L^\infty$ prevents blow-up
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension): 1D Sobolev embedding $H^1 \hookrightarrow L^\infty$ prevents blow-up
   - [x] E2 (Invariant Mismatch): Energy decay contradicts blow-up
 
 ---
@@ -336,7 +336,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -347,7 +347,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 4. [x] Description length: Bounded by $H^1$ norm
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\|u\|_{H^1}, \text{bounded})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\|u\|_{H^1}, \text{bounded})$ → **Go to Node 12**
 
 ---
 
@@ -393,7 +393,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 **Step-by-step execution:**
 1. [x] Define $\mathcal{H}_{\text{bad}}$: Finite-time $H^1$ blow-up profile
-2. [x] Apply Tactic E1 (Dimension/Embedding):
+2. [x] Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Embedding):
    - 1D Sobolev embedding: $\|u\|_{L^\infty} \le C_{\text{emb}}\|u\|_{H^1}$
    - $H^1$ norm controlled by energy + dissipation integral
    - Therefore $\|u\|_{L^\infty}$ bounded for all time
@@ -447,7 +447,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 ### **3. The Lock (Node 17)**
 * **Question:** $\text{Hom}(\text{Bad}, \mathcal{H}) = \emptyset$?
 * **Bad Pattern:** Finite-time $H^1$ blow-up
-* **Tactic E1 (Dimension):** 1D Sobolev embedding $H^1 \hookrightarrow L^\infty$ prevents concentration
+* **Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension):** 1D Sobolev embedding $H^1 \hookrightarrow L^\infty$ prevents concentration
 * **Tactic E2 (Invariant):** Energy decay contradicts blow-up
 * **Result:** **BLOCKED** ($K_{\mathrm{Lock}}^{\mathrm{blk}}$)
 
@@ -516,7 +516,7 @@ Node 7:  K_{LS_σ}^+ (Poincaré gap)
 Node 8:  K_{TB_π}^+ (mean conserved)
 Node 9:  K_{TB_O}^+ (o-minimal)
 Node 10: K_{TB_ρ}^+ (dissipative)
-Node 11: K_{Rep_K}^+ (H¹ bounded)
+Node 11: K_{RepDesc_K}^+ (H¹ bounded)
 Node 12: K_{GC_∇}^- (Lyapunov)
 Node 13: K_{Bound_∂}^- (closed)
 Node 17: K_{Cat_Hom}^{blk} (E1+E2)
@@ -524,7 +524,7 @@ Node 17: K_{Cat_Hom}^{blk} (E1+E2)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -565,118 +565,3 @@ Global regularity follows. Smoothness for $t > 0$ by parabolic regularity. $\squ
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Surgery Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Compactness | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Dissipation | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- J. M. Burgers, *A mathematical model illustrating the theory of turbulence*, Adv. Appl. Mech. 1 (1948)
-- E. Hopf, *The partial differential equation $u_t + uu_x = \mu u_{xx}$*, Comm. Pure Appl. Math. 3 (1950)
-- J. D. Cole, *On a quasi-linear parabolic equation occurring in aerodynamics*, Quart. Appl. Math. 9 (1951)
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects and initial-state hash
-4. `closure.cfg`: promotion/closure settings
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | $H^1(\mathbb{T})$ | State Space |
-| **Potential ($\Phi$)** | $E(u) = \frac{1}{2}\|u\|_{L^2}^2$ | Lyapunov Functional |
-| **Cost ($\mathfrak{D}$)** | $D = \nu\|u_x\|_{L^2}^2$ | Dissipation |
-| **Invariance ($G$)** | $S^1$ (translations on $\mathbb{T}$) | Symmetry Group |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Γ (Certificate Accumulation) |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | YES | $\frac{d}{dt}E + D = 0$, $E(t) \le E_0$ | $\{K_{D_E}^+\}$ |
-| **2** | Zeno Check | YES | No surgeries needed | $\Gamma_1 \cup \{K_{\mathrm{Rec}}^+\}$ |
-| **3** | Compact Check | YES | $H^1 \hookrightarrow C^{0,1/2}$, no concentration | $\Gamma_2 \cup \{K_{C_\mu}^+\}$ |
-| **4** | Scale Check | YES | $\alpha = \beta = 2$, resolved by embedding | $\Gamma_3 \cup \{K_{\mathrm{SC}_\lambda}^+\}$ |
-| **5** | Param Check | YES | $\nu$, $m_0$ conserved | $\Gamma_4 \cup \{K_{\mathrm{SC}_{\partial c}}^+\}$ |
-| **6** | Geom Check | YES | $\Sigma = \emptyset$, codim $= \infty$ | $\Gamma_5 \cup \{K_{\mathrm{Cap}}^+\}$ |
-| **7** | Stiffness Check | YES | $c_P^{-1}\nu$, exponential decay | $\Gamma_6 \cup \{K_{\mathrm{LS}}^+\}$ |
-| **8** | Topo Check | YES | Mean $m$ conserved | $\Gamma_7 \cup \{K_{\mathrm{TB}_\pi}^+\}$ |
-| **9** | Tame Check | YES | $\mathbb{R}_{\text{an}}$, $\Sigma = \emptyset$ | $\Gamma_8 \cup \{K_{\mathrm{TB}_O}^+\}$ |
-| **10** | Ergo Check | YES | Dissipative, exponential decay | $\Gamma_9 \cup \{K_{\mathrm{TB}_\rho}^+\}$ |
-| **11** | Complex Check | YES | $\|u\|_{H^1}$ bounded | $\Gamma_{10} \cup \{K_{\mathrm{Rep}}^+\}$ |
-| **12** | Oscillate Check | NO | $E$ is Lyapunov (gradient-like) | $\Gamma_{11} \cup \{K_{\mathrm{GC}}^-\}$ |
-| **13** | Boundary Check | CLOSED | $\partial\mathbb{T} = \emptyset$ | $\Gamma_{12} \cup \{K_{\mathrm{Bound}}^-\}$ |
-| **--** | **SURGERY** | **NOT APPLICABLE** | — | $\Gamma_{13}$ |
-| **--** | **RE-ENTRY** | **NOT APPLICABLE** | — | $\Gamma_{13}$ |
-| **17** | **LOCK** | **BLOCK** | E1+E2 | $\Gamma_{13} \cup \{K_{\mathrm{Lock}}^{\mathrm{blk}}\} = \Gamma_{\mathrm{final}}$ |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | PASS | 1D Sobolev: $\|u\|_{L^\infty} \le C_{\text{emb}}\|u\|_{H^1}$ |
-| **E2** | Invariant | PASS | Energy decay: $\frac{d}{dt}E \le 0$ contradicts blow-up |
-| **E3** | Positivity | NOT APPLICABLE | — |
-| **E4** | Integrality | NOT APPLICABLE | — |
-| **E5** | Functional | NOT APPLICABLE | — |
-| **E6** | Causal | NOT APPLICABLE | — |
-| **E7** | Thermodynamic | NOT APPLICABLE | — |
-| **E8** | DPI | NOT APPLICABLE | — |
-| **E9** | Ergodic | NOT APPLICABLE | — |
-| **E10** | Definability | NOT APPLICABLE | — |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY
-* **Singularity Set:** $\Sigma = \emptyset$
-* **Primary Blocking Tactic:** E1+E2 (1D Sobolev embedding + Energy decay)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{parabolic}}$ (Scalar Parabolic PDE) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

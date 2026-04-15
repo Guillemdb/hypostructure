@@ -30,7 +30,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 **Approach:** We instantiate the hyperbolic hypostructure with the Eikonal equation $|\nabla u|^2 = n(x)^2$ (where $n$ is the refractive index) on a domain $\Omega \subset \mathbb{R}^n$. The key challenge is **caustic formation**—points where characteristics cross and classical solutions break down. The height functional $\Phi$ measures deviation from the Eikonal constraint; dissipation $D$ is provided by viscosity regularization. The safe manifold $M$ consists of solutions satisfying the Eikonal equation.
 
-**Result:** The Lock is blocked via Tactic E1 (Dimension/Representation Extension). Classical $C^2$ solutions fail at caustics (codimension-2 singularities), but viscosity solutions in $\text{Lip}(\Omega)$ exist globally and are unique. OBL-1 ($K_{\mathrm{Cap}_H}^{\mathrm{inc}}$) is discharged via Whitney stratification showing caustics have measure zero; the proof is unconditional.
+**Result:** The Lock is blocked via Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Representation Extension). Classical $C^2$ solutions fail at caustics (codimension-2 singularities), but viscosity solutions in $\text{Lip}(\Omega)$ exist globally and are unique. OBL-1 ($K_{\mathrm{Cap}_H}^{\mathrm{inc}}$) is discharged via Whitney stratification showing caustics have measure zero; the proof is unconditional.
 
 ---
 
@@ -129,7 +129,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Not applicable (no dissipation)
 - [x] **Mixing Property:** None (conservative dynamics)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** $C^2$ vs Lipschitz functions
 - [x] **Dictionary $D$:** Classical: $u \mapsto \nabla u$; Viscosity: weak gradients
 - [x] **Complexity Measure $K$:** $K_{\text{cl}}(u) = \|\nabla^2 u\|_{L^\infty}$; $K_{\text{visc}}(u) = \text{Lip}(u)$
@@ -148,7 +148,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 - [x] **Category $\mathbf{Hypo}_{T_{\text{hyp}}}$:** Hyperbolic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Caustic formation (characteristic crossing)
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Dimension/Extension): Representation extension $C^2 \to \text{Lip}$
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Extension): Representation extension $C^2 \to \text{Lip}$
   - [x] E6 (Causal): Finite propagation speed
 
 ---
@@ -336,7 +336,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is description complexity bounded?
 
@@ -353,7 +353,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 8. [x] **Result:** Extension resolves caustic blow-up
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^{\mathrm{ext}} = (\mathcal{L}_{\text{cl}} \to \mathcal{L}_{\text{visc}}, \text{viscosity}, K_{\text{visc}} < \infty)$
+* [x] $K_{\mathrm{RepDesc}_K}^{\mathrm{ext}} = (\mathcal{L}_{\text{cl}} \to \mathcal{L}_{\text{visc}}, \text{viscosity}, K_{\text{visc}} < \infty)$
 → **Go to Node 12**
 
 ---
@@ -418,8 +418,8 @@ This document presents a **machine-checkable proof object** for the **global reg
 **Step 1: Define Bad Pattern**
 - $\text{Bad}$: Caustic formation with unbounded curvature (classical sense)
 
-**Step 2: Apply Tactic E1 (Dimension/Representation Extension)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^{\mathrm{ext}}$ (viscosity extension)
+**Step 2: Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension/Representation Extension)**
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^{\mathrm{ext}}$ (viscosity extension)
 2. [x] Classical: $K_{\text{cl}}(u) = \infty$ at caustics (Hessian blow-up)
 3. [x] Viscosity: $K_{\text{visc}}(u) = \text{Lip}(u) < \infty$ (caustics well-defined)
 4. [x] Caustic structure: Codimension-2 (Arnold singularity theory)
@@ -494,7 +494,7 @@ This document presents a **machine-checkable proof object** for the **global reg
 *   **Certificate:** $K_{D_E}^{\text{cl}}$ (classical energy bounded locally)
 
 ### **2. Viscosity Extension**
-*   **Input:** $K_{\mathrm{Rep}_K}^{\mathrm{ext}}$ (representation extension)
+*   **Input:** $K_{\mathrm{RepDesc}_K}^{\mathrm{ext}}$ (representation extension)
 *   **Output:** Global $\text{Lip}(\Omega)$ solutions via viscosity framework
 *   **Certificate:** $K_{\text{Ext}}^{\text{visc}}$
 
@@ -560,7 +560,7 @@ Node 7:  K_{LS_σ}^- (hyperbolic)
 Node 8:  K_{TB_π}^+ (Legendrian)
 Node 9:  K_{TB_O}^+ (semialgebraic)
 Node 10: K_{TB_ρ}^- (conservative)
-Node 11: K_{Rep_K}^{ext} (C²→Lip extension) ★ VISCOSITY EXTENSION
+Node 11: K_{RepDesc_K}^{ext} (C²→Lip extension) ★ VISCOSITY EXTENSION
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (Dirichlet)
 Node 17: K_{Cat_Hom}^{blk} (E1+E6)
@@ -568,7 +568,7 @@ Node 17: K_{Cat_Hom}^{blk} (E1+E6)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{\mathrm{ext}}, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^-, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^-, K_{\mathrm{Rep}_K}^{\mathrm{ext}}, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Whitney}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^{\mathrm{ext}}, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^-, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^-, K_{\mathrm{RepDesc}_K}^{\mathrm{ext}}, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Whitney}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -611,10 +611,10 @@ Classical: $K_{\text{cl}}(u) = \|\nabla^2 u\|_{L^\infty} = \infty$ at caustics.
 Viscosity: $K_{\text{visc}}(u) = \text{Lip}(u) \le \text{Lip}(g) + C\|n\|_{C^1} < \infty$.
 
 Certificate:
-$$K_{\mathrm{Rep}_K}^{\mathrm{ext}}: \quad C^2(\Omega) \hookrightarrow \text{Lip}(\Omega), \quad K_{\text{visc}} < \infty$$
+$$K_{\mathrm{RepDesc}_K}^{\mathrm{ext}}: \quad C^2(\Omega) \hookrightarrow \text{Lip}(\Omega), \quad K_{\text{visc}} < \infty$$
 
 **Phase 6: Lock Exclusion**
-By Tactic E1 (representation extension) and E6 (causality):
+By Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (representation extension) and E6 (causality):
 $$K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}: \quad \text{Hom}_{\mathcal{L}_{\text{cl}}}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$$
 
 Caustics are regular features in viscosity framework (codimension-2 singularities with finite measure).
@@ -625,52 +625,3 @@ Global viscosity solutions exist and are unique. Caustics form a codimension-2 s
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound (Extended) | Positive | $K_{D_E}^{\mathrm{ext}}$ |
-| Caustic Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Caustic Profiles | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Caustic Codimension | Upgraded | $K_{\mathrm{Cap}_H}^+$ (via $K_{\text{Whitney}}^+$) |
-| Stiffness Gap | Negative | $K_{\mathrm{LS}_\sigma}^-$ |
-| Wavefront Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Caustic Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Dissipation | Negative | $K_{\mathrm{TB}_\rho}^-$ |
-| **Complexity Bound** | **EXTENDED** | **$K_{\mathrm{Rep}_K}^{\mathrm{ext}}$** |
-| Gradient Structure | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | OBL-1 discharged via $K_{\text{Whitney}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- V. I. Arnold, *Singularities of Caustics and Wave Fronts*, Kluwer (1990)
-- M. G. Crandall, P.-L. Lions, *Viscosity solutions of Hamilton-Jacobi equations*, Trans. Amer. Math. Soc. 277 (1983), 1–42
-- L. C. Evans, *Partial Differential Equations*, AMS Graduate Studies in Mathematics 19 (1998)
-- R. Thom, *Structural Stability and Morphogenesis*, Benjamin (1975)
-- H. Whitney, *Tangents to an Analytic Variety*, Ann. of Math. 81 (1965), 496–549
-- L. Hörmander, *The Analysis of Linear Partial Differential Operators I*, Springer (1983)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{hyperbolic}}$ (Geometric Optics / Hamilton-Jacobi) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

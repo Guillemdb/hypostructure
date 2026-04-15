@@ -30,7 +30,7 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 
 **Approach:** We instantiate the holomorphic hypostructure with the iteration dynamics of $f_c(z) = z^2 + c$ on the Riemann sphere. The key insight is the Lyapunov exponent (cost) governs escape dynamics; the Green's function (potential) encodes the basin structure. Conformal invariance (Tactic E1) and local connectivity (LOCK-Reconstruction via MLC conjecture for hyperbolic parameters) provide structural control. The Julia set is the critical boundary between attraction and repulsion.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 (Conformal/Structural) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional for hyperbolic parameters.
+**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Conformal/Structural) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional for hyperbolic parameters.
 
 ---
 
@@ -129,7 +129,7 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Exponential mixing for hyperbolic maps
 - [x] **Mixing Property:** Ergodicity of $\mu_c$
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** External rays (dynamic angles $\theta \in \mathbb{R}/\mathbb{Z}$)
 - [x] **Dictionary $D$:** Böttcher coordinate near infinity
 - [x] **Complexity Measure $K$:** Symbolic dynamics (kneading sequence)
@@ -148,7 +148,7 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 - [x] **Category $\mathbf{Hypo}_{T_{\text{holomorphic}}}$:** Holomorphic dynamical systems
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Wandering domain (Sullivan's theorem excludes)
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Structural/Conformal): Conformal invariance → rigidity
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural/Conformal): Conformal invariance → rigidity
   - [x] E2 (Dimension): Hausdorff dimension → capacity control
 
 ---
@@ -344,7 +344,7 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the dynamics determined by finite symbolic data?
 
@@ -355,7 +355,7 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 4. [x] Result: Finite description via external angles
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{Böttcher map}, \text{external rays})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Böttcher map}, \text{external rays})$ → **Go to Node 12**
 
 ---
 
@@ -419,8 +419,8 @@ This document presents a **machine-checkable proof object** for the **Julia Set*
 **Step 1: Define Bad Pattern**
 - $\text{Bad}$: Wandering domain (open set $U$ with $f_c^n(U) \cap f_c^m(U) = \emptyset$ for $n \neq m$)
 
-**Step 2: Apply Tactic E1 (Structural/Conformal — Sullivan's theorem)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (Böttcher coordinate)
+**Step 2: Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural/Conformal — Sullivan's theorem)**
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (Böttcher coordinate)
 2. [x] Sullivan's No Wandering Domains theorem (1985): Rational maps have no wandering domains
 3. [x] Proof technique: Quasiconformal surgery + measure theory
 4. [x] $f_c$ is rational (polynomial) → no wandering domains
@@ -526,7 +526,7 @@ d. **Rigidity ($K_{\text{Rigid}}^+$):**
 ### **1. Conformal Structure**
 *   **Input:** Böttcher coordinate (1904)
 *   **Output:** $\phi_c$ conjugates $f_c$ to $z \mapsto z^2$ outside $K_c$
-*   **Certificate:** $K_{D_E}^+$, $K_{\mathrm{Rep}_K}^+$
+*   **Certificate:** $K_{D_E}^+$, $K_{\mathrm{RepDesc}_K}^+$
 
 ### **2. Julia Set Dichotomy**
 *   **Input:** Fatou-Julia theory (1918-1920)
@@ -595,7 +595,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (connectivity dichotomy)
 Node 9:  K_{TB_O}^+ (analytic zero set)
 Node 10: K_{TB_ρ}^+ (ergodic measure)
-Node 11: K_{Rep_K}^+ (Böttcher map)
+Node 11: K_{RepDesc_K}^+ (Böttcher map)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -603,7 +603,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -644,57 +644,8 @@ If $0 \in K_c$ (i.e., $c \in \mathcal{M}$), the critical point stays bounded, so
 If $0 \notin K_c$ (i.e., $c \notin \mathcal{M}$), the critical point escapes, so $K_c$ is totally disconnected (Cantor set), thus $J_c = K_c$ is totally disconnected.
 
 **Phase 7: Conclusion**
-The Julia set $J_c$ is completely characterized by the critical orbit. The Lock is blocked via Tactic E1 (conformal/Sullivan) and LOCK-Reconstruction (reconstruction). $\square$
+The Julia set $J_c$ is completely characterized by the critical orbit. The Lock is blocked via Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (conformal/Sullivan) and LOCK-Reconstruction (reconstruction). $\square$
 
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Green's Function | Positive | $K_{D_E}^+$ |
-| Critical Points Finite | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Harmonic Measure | Positive | $K_{C_\mu}^+$ |
-| Degree 2 Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Holomorphic Motion | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Capacity Control | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Local Connectivity | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Connectivity Dichotomy | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Analytic Zero Set | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Ergodic Measure | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Böttcher Coordinate | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Conformal Dynamics | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- P. Fatou, *Sur les équations fonctionnelles*, Bull. Soc. Math. France 47-48 (1919-1920)
-- G. Julia, *Mémoire sur l'itération des fonctions rationnelles*, J. Math. Pures Appl. 8 (1918)
-- D. Sullivan, *Quasiconformal homeomorphisms and dynamics I: Solution of the Fatou-Julia problem on wandering domains*, Ann. Math. 122 (1985)
-- A. Douady, J.H. Hubbard, *Étude dynamique des polynômes complexes*, Publ. Math. Orsay (1984-1985)
-- J.-C. Yoccoz, *Sur la connectivité locale de l'ensemble de Mandelbrot et des ensembles de Julia*, unpublished (1990s)
-- M. Lyubich, *Dynamics of quadratic polynomials I-II*, Acta Math. 178 (1997)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{holomorphic}}$ (Complex Dynamics / Fractal Geometry) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

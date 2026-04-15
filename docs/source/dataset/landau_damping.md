@@ -26,22 +26,13 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{kinetic}}\ \text{good},\ \text{AutomationGuara
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for **Nonlinear Landau Damping** using the Hypostructure framework.
+This document presents a **machine-checkable proof object** for **Nonlinear Landau Damping** in the declared Gevrey/analytic perturbative sector.
 
 **Mode Classification:** **D.D (Dispersion/Global Existence)**
 
-**Approach:** We instantiate the kinetic hypostructure with the Vlasov-Poisson Hamiltonian energy. At **Node 3 (CompactCheck)**, energy does NOT concentrate—it disperses via phase mixing to high velocity frequencies. This triggers **BarrierScat → Mode D.D exit**.
+**Approach:** We instantiate the kinetic hypostructure with the Vlasov-Poisson Hamiltonian energy. At **Node 3 (CompactCheck)**, energy does not concentrate; it disperses by phase mixing, and the route continues through `BarrierScat`. The Penrose certificate supplies the linear stability input, while the finite-description certificate records the Gevrey decay needed to exclude nonlinear echo re-concentration.
 
-**Sector-Specific Lock Analysis:** The Lock (Node 17) is invoked to exclude nonlinear echo re-concentration:
-
-| Sector | Regularity Class | Verdict | Mechanism |
-|--------|-----------------|---------|-----------|
-| **A** | Gevrey (σ > 1) | **BLOCKED** | Mixing rate α ~ t exceeds echo feedback β ~ exp(-\|k\|^σ) |
-| **B** | Sobolev (H^s) | **SINGULARITY** | Echoes can persist indefinitely; Permit GRANTED for bad pattern |
-
-**Key Insight:** The "Bad Pattern" (persistent plasma echoes) requires a **Complexity Permit (Node 11)** to re-concentrate dispersed energy. In the Gevrey sector, this Permit is **DENIED**: the algebraic scaling of nonlinear feedback cannot overcome the exponential decay of Fourier modes. In Sobolev spaces, the Permit is **GRANTED** and echoes persist—this is why Landau Damping fails in $H^s$.
-
-**Result:** Mode D.D (Dispersion) with sector-restricted echo exclusion. Matches Mouhot-Villani 2011.
+**Result:** The designated theorem route is the Gevrey backend only. It yields a blocked Lock certificate and the standard asymptotic damping conclusion. Sobolev counterexamples are outside the declared scope of this proof object.
 
 ---
 
@@ -80,7 +71,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 |----|----------------------------|----------------|--------------------------|---------------------------------------------------------------------------|--------------------------------------|
 | 1  | $D_E$                      | EnergyCheck    | Is Energy Finite?        | Hamiltonian $H[f] = \frac{1}{2}\int v^2 f + \frac{1}{2}\int |E|^2$ is conserved. | $K_{D_E}^+$                          |
 | 2  | $\mathrm{Rec}_N$           | ZenoCheck      | Are Events Finite?       | Vlasov-Poisson dynamics are smooth; no collision events.                  | $K_{\mathrm{Rec}_N}^+$               |
-| 3  | $C_\mu$                    | CompactCheck   | Does Energy Concentrate? | **NO.** Spatial density $\rho(x)$ homogenizes (disperses).                | $K_{C_\mu}^-$ (Scattering)           |
+| 3  | $C_\mu$                    | CompactCheck   | Does Energy Concentrate? | **NO.** Spatial density $\rho(x)$ homogenizes (disperses).                | $K_{C_\mu}^-$ (no certified concentration) |
 | 4  | $\mathrm{SC}_\lambda$      | ScaleCheck     | Is Profile Subcritical?  | Perturbative regime (small $\varepsilon$) is subcritical.                 | $K_{\mathrm{SC}_\lambda}^+$          |
 | 5  | $\mathrm{SC}_{\partial c}$ | ParamCheck     | Are Constants Stable?    | Equilibrium $f_{eq}$ is fixed; background charge is constant.             | $K_{\mathrm{SC}_{\partial c}}^+$     |
 | 6  | $\mathrm{Cap}_H$           | GeomCheck      | Is Codim $\geq 2$?       | Singularities in phase space are ruled out by LWP (classical).            | $K_{\mathrm{Cap}_H}^+$               |
@@ -88,7 +79,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 | 8  | $\mathrm{TB}_\pi$          | TopoCheck      | Is Sector Preserved?     | Mass and momentum are conserved invariants.                               | $K_{\mathrm{TB}_\pi}^+$              |
 | 9  | $\mathrm{TB}_O$            | TameCheck      | Is Topology Tame?        | Phase space is $\mathbb{T}^d \times \mathbb{R}^d$ (tame).                 | $K_{\mathrm{TB}_O}^+$                |
 | 10 | $\mathrm{TB}_\rho$         | ErgoCheck      | Does Flow Mix?           | **YES.** Free transport $x+vt$ mixes phase space at rate $O(t)$.          | $K_{\mathrm{TB}_\rho}^+$             |
-| 11 | $\mathrm{Rep}_K$           | ComplexCheck   | Is Description Finite?   | **YES.** Analytic/Gevrey class data has finite complexity description.    | $K_{\mathrm{Rep}_K}^+$               |
+| 11 | $\mathrm{RepDesc}_K$           | ComplexCheck   | Is Description Finite?   | **YES.** Analytic/Gevrey class data has finite complexity description.    | $K_{\mathrm{RepDesc}_K}^+$               |
 | 12 | $\mathrm{GC}_\nabla$       | OscillateCheck | Is Flow Gradient?        | **NO.** Hamiltonian flow is symplectic, not gradient.                     | $K_{\mathrm{GC}_\nabla}^+$ (Oscillatory) |
 
 ### 0.2 Boundary Interface Permits
@@ -104,21 +95,21 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 #### Lock Template Implementation
 - [x] **Category $\mathbf{Hypo}_{T_{\text{kinetic}}}$:** Kinetic hypostructures with symplectic structure
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-decaying electric field $\|E(t)\|_{L^2} \not\to 0$ (persistent plasma echoes)
-- [x] **Primary Tactic Selected:** E9 (Ergodic) + E1 (Dimension/Regularity)
+- [x] **Primary Tactic Selected:** E9 + $K_{\mathrm{MorphPresMix}}^+$ on the declared Gevrey backend
 - [x] **Tactic Logic:**
-    * $I(\mathcal{H}) = $ Phase mixing rate $\tau_{\text{mix}}^{-1} > 0$ (certified by $K_{\mathrm{TB}_\rho}^+$) + Finite complexity $K(f_0) < \infty$ (certified by $K_{\mathrm{Rep}}^+$)
+    * $I(\mathcal{H}) = $ phase mixing rate $\tau_{\text{mix}}^{-1} > 0$ (certified by $K_{\mathrm{TB}_\rho}^+$) together with Gevrey finite-description control (certified by $K_{\mathrm{RepDesc}_K}^+$)
     * $I(\mathcal{H}_{\text{bad}}) = $ Requires sustained correlations to maintain $E$-field against mixing, demanding $K \to \infty$ (infinite information to act as Maxwell's Demon)
     * Conclusion: Mixing + Finite Complexity $\implies$ Echo chain must terminate $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Dimension/Regularity): Analytic data has exponentially decaying Fourier modes; echo amplitudes decay
-  - [x] E9 (Ergodic): Phase mixing destroys invariant tori for macroscopic observables
+  - [x] $K_{\mathrm{RepDesc}_K}^+$: Gevrey decay of Fourier-Hermite coefficients keeps the echo series summable
+  - [x] E9 + $K_{\mathrm{MorphPresMix}}^+$ (Ergodic): phase mixing destroys invariant structures for macroscopic observables in the declared Gevrey backend
 
 ---
 
 ## Part I: The Instantiation (Thin Object Definitions)
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-* **State Space:** Probability measures on $\mathbb{T}^d \times \mathbb{R}^d$ with analytic regularity (specified via $\mathrm{Rep}_K$).
+* **State Space:** Probability measures on $\mathbb{T}^d \times \mathbb{R}^d$ with analytic regularity (specified via $\mathrm{RepDesc}_K$).
 * **Metric:** Wasserstein distance $W_2$ and Analytic Norms $\|\cdot\|_{\mathcal{C}^\omega}$.
 * **Measure:** Lebesgue measure $dx \, dv$.
 
@@ -162,7 +153,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 *   **Logic:** Does the system scatter to a free state (dispersion)?
 *   **Analysis:** In the linearized regime, $f$ behaves like free transport $f(x-vt, v)$. This is scattering behavior.
 *   **Result:** **BENIGN** ($K_{C_\mu}^{\mathrm{ben}}$).
-*   **Promotion:** This typically routes to **Mode D.D (Dispersion/Global Existence)**. However, because we must prove *Nonlinear* stability against echoes, we continue the sieve to verify the "Lock" against nonlinear re-concentration.
+*   **Promotion:** This routes to the declared dispersive backend. We continue the sieve only to certify that the Gevrey echo obstruction is excluded.
 *   **Action:** Proceed to Profile/ScaleCheck to verify structural stability of this scattering.
 
 ---
@@ -217,10 +208,10 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 
 ### Level 4: Complexity & Oscillation
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 *   **Check:** Is description finite?
 *   **Input:** Analytic/Gevrey regularity.
-*   **Result:** $K_{\mathrm{Rep}_K}^+$. The solution admits a finite description (e.g., Fourier-Hermite coefficients decay exponentially). This excludes "rough" echoes that could grow uncontrollably.
+*   **Result:** $K_{\mathrm{RepDesc}_K}^+$. The solution admits a finite description (e.g., Fourier-Hermite coefficients decay exponentially). This excludes "rough" echoes that could grow uncontrollably.
 
 #### Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)
 *   **Check:** Does flow oscillate?
@@ -241,13 +232,13 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 *   **Bad Pattern:** A solution where $\|E(t)\|_{L^2}$ does **not** decay to zero (persistent nonlinear instability / soliton formation).
 *   **Tactic Selection:**
     *   **E9 (Ergodic/Mixing):** The system has certified Mixing ($K_{\mathrm{TB}_\rho}^+$) and Stiffness/Gap ($K_{\mathrm{LS}_\sigma}^+$).
-    *   **E1 (Regularity/Dimension):** The system has Finite Complexity ($K_{\mathrm{Rep}_K}^+$).
+    *   **E1 (Regularity/Dimension):** The system has Finite Complexity ($K_{\mathrm{RepDesc}_K}^+$).
 *   **Execution:**
     *   By `mt-lock-ergodic-mixing`, mixing systems cannot support localized invariant structures (like persistent oscillating clumps) unless they are eigenvalues of the evolution operator.
     *   By StiffnessCheck (Penrose), there are no unstable eigenvalues.
     *   The only remaining threat is **Plasma Echoes** (nonlinear resonances).
-    *   Echoes occur at times $t \sim \frac{k_1}{k_2}$. In the analytic class ($\mathrm{Rep}_K^+$), the amplitude of echoes at time $t$ is suppressed by $e^{-2\pi \lambda |k|}$.
-    *   Since $K_{\mathrm{Rep}_K}^+$ guarantees exponential decay of modes, the series of echoes converges.
+    *   Echoes occur at times $t \sim \frac{k_1}{k_2}$. In the analytic class ($\mathrm{RepDesc}_K^+$), the amplitude of echoes at time $t$ is suppressed by $e^{-2\pi \lambda |k|}$.
+    *   Since $K_{\mathrm{RepDesc}_K}^+$ guarantees exponential decay of modes, the series of echoes converges.
     *   Therefore, no morphism exists from the "Non-decaying E-field" object to the "Analytic Vlasov" object.
 *   **Verdict:** **BLOCKED** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$).
 
@@ -280,14 +271,8 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 ## Part III-A: Result Extraction
 
 ### 3.1 Global Theorems
-*   **Global Regularity & Decay:** From Node 17 Blocked + `mt-lock-promotion`.
-    *   *Result:* The electric field $E(t)$ decays asymptotically to zero.
-*   **Scattering:** From Node 3/BarrierScat + `mt-up-scattering`.
-    *   *Result:* The distribution function $f(t)$ scatters to a profile $f_\infty$ in the weak topology.
-
-### 3.2 Quantitative Bounds
-*   **Decay Rate:** From `mt-spectral-generator` (Node 7).
-    *   *Result:* The decay is exponential $O(e^{-\lambda t})$ (Landau rate), dictated by the imaginary part of the nearest pole (from Penrose check).
+*   **Field Decay:** The declared Gevrey backend yields $\|E(t)\|_{L^2}\to 0$.
+*   **Weak Scattering:** The route through `BarrierScat` yields weak convergence of $f(t)$ to a profile $f_\infty(v)$.
 
 ---
 
@@ -305,7 +290,7 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 *   **Certificate:** $K_{\mathrm{TB}_\rho}^+$ (Mixing certified)
 
 ### **3. Echo Suppression (MT {prf:ref}`mt-fact-lock`)**
-*   **Input:** $K_{\mathrm{Rep}_K}^+$ (Analytic/Gevrey regularity)
+*   **Input:** $K_{\mathrm{RepDesc}_K}^+$ (Analytic/Gevrey regularity)
 *   **Logic:** In Gevrey-$\sigma$ class, echo amplitudes decay as $\exp(-|k|^\sigma)$
 *   **Critical inequality:** Mixing rate $\alpha \sim t$ exceeds echo feedback $\beta \sim \exp(-|k|^\sigma)$
 *   **Certificate:** Lock BLOCKED via E9 + E1
@@ -365,7 +350,7 @@ Before declaring the proof object complete, verify:
 - [x] **All 12 core nodes executed** (Nodes 1-12)
 - [x] **Boundary node executed** (Node 13: CLOSED)
 - [x] **Lock executed** (Node 17)
-- [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via Tactics E9 + E1
+- [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via the declared Gevrey mixing backend
 - [x] **Upgrade pass completed** (No inc certificates to upgrade)
 - [x] **Surgery/Re-entry completed** (NOT APPLICABLE - no breaches)
 - [x] **Obligation ledger is EMPTY** (Part III-C verified)
@@ -386,85 +371,32 @@ Node 7:  K_{LS_σ}^+ (Penrose Criterion → Spectral Gap)
 Node 8:  K_{TB_π}^+ (Mass/momentum conserved)
 Node 9:  K_{TB_O}^+ (Phase space is tame manifold)
 Node 10: K_{TB_ρ}^+ (Phase Mixing: x → x+vt)
-Node 11: K_{Rep_K}^+ (Analytic data ⟹ K(f₀) < ∞)
+Node 11: K_{RepDesc_K}^+ (Analytic data ⟹ K(f₀) < ∞)
 Node 12: K_{GC_∇}^+ (Hamiltonian oscillatory) → BarrierFreq BLOCKED (Dephasing)
 Node 13: K_{Bound_∂}^- (Closed: 𝕋ᵈ periodic)
 ---
-Node 17: K_{Cat_Hom}^{blk} (Lock BLOCKED via E9 Ergodic + E1 Regularity)
+Node 17: K_{Cat_Hom}^{blk} (Lock BLOCKED via the declared Gevrey mixing backend)
 ```
 
 ### 4.3 Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### 4.4 Conclusion
 
-**Conclusion:** Nonlinear Landau Damping is **TRUE** in the Gevrey sector.
+**Conclusion:** The declared Gevrey-sector Landau damping theorem is certified.
 
-**Mode Classification:** **D.D (Dispersion/Global Existence)** with sector-restricted Lock.
+**Mode Classification:** **D.D (Dispersion/Global Existence)** in the declared Gevrey backend.
 
 **Proof Summary ($\Gamma$):**
 The system exits via **Mode D.D (Dispersion)** because:
 1.  **Dispersion (Node 3):** Energy does NOT concentrate—phase mixing transfers it to high velocity frequencies. BarrierScat returns **BENIGN**.
-2.  **Scaling Permit (Node 4):** Critical inequality $\alpha > \beta$ (mixing rate exceeds echo feedback) holds **only in Gevrey classes**.
-3.  **Sector-Specific Lock (Node 17):**
-    - **Gevrey sector:** Complexity Permit **DENIED** for echo re-concentration → Lock **BLOCKED**
-    - **Sobolev sector:** Complexity Permit **GRANTED** → Lock **BREACHED** (echoes persist)
-
-**Auditor's Summary:** The Bad Pattern (persistent plasma echo) lacks the Complexity Permit required to overcome the Mixing Rate in Gevrey regularity. The result is **sector-dependent**: Landau Damping holds in Gevrey, fails in Sobolev.
+2.  **Scaling Permit (Node 4):** the Gevrey echo feedback is subcritical relative to the mixing rate.
+3.  **Lock (Node 17):** the persistent-echo bad pattern is excluded in the declared Gevrey backend.
 
 **Full Certificate Chain:**
-$$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Lock}}^{\mathrm{blk}}\}$$
+$$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 **QED**
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Conservation | Positive | $K_{D_E}^+$ (Hamiltonian conserved) |
-| Zeno Check | Positive | $K_{\mathrm{Rec}_N}^+$ (continuous dynamics) |
-| Compactness | Benign (Dispersion) | $K_{C_\mu}^{\mathrm{ben}}$ (scattering) |
-| Scale Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ (subcritical) |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ (fixed background) |
-| Geometry | Positive | $K_{\mathrm{Cap}_H}^+$ ($\Sigma = \emptyset$) |
-| Spectral Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (Penrose Criterion) |
-| Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ (mass/momentum conserved) |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ (tame manifold) |
-| Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ (phase mixing) |
-| Complexity | Positive | $K_{\mathrm{Rep}_K}^+$ (analytic data) |
-| Oscillation | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (dephasing) |
-| Boundary | Closed | $K_{\mathrm{Bound}_\partial}^-$ (periodic domain) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (E9 + E1) |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **SECTOR-DEPENDENT** | UNCONDITIONAL (Gevrey) / SINGULAR (Sobolev) |
-
----
-
-## References
-
-- C. Mouhot, C. Villani, *On Landau Damping*, Acta Math. **207** (2011), 29–201
-- L. D. Landau, *On the Vibration of the Electronic Plasma*, J. Phys. USSR **10** (1946), 25
-- O. Penrose, *Electrostatic Instabilities of a Uniform Non-Maxwellian Plasma*, Phys. Fluids **3** (1960), 258–265
-- J. Bedrossian, N. Masmoudi, *Asymptotic Stability for the Couette Flow in the 2D Euler Equations*, Appl. Math. Res. Express (2014)
-- J. Bedrossian, N. Masmoudi, C. Mouhot, *Landau Damping: Paraproducts and Gevrey Regularity*, Ann. PDE **2** (2016), Art. 4
-- C. Villani, *Hypocoercivity*, Mem. Amer. Math. Soc. **202** (2009), no. 950
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{kinetic}}$ (Hamiltonian system with phase mixing) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | SECTOR-DEPENDENT |
-| **Generated** | 2026-04-14 |
-

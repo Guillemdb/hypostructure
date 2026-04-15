@@ -131,7 +131,7 @@ $$\|I - AX_k\| \le \|I - AX_0\|^{2^k} \to 0$$
 - [x] **Mixing Time $\tau_{\text{mix}}$:** $\mathcal{O}(\log \log(1/\epsilon))$ iterations
 - [x] **Mixing Property:** Exponential convergence (no mixing, absorption)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Matrix entries $\{X_{ij}\}$
 - [x] **Dictionary $D$:** Vectorization $\text{vec}(X) \in \mathbb{R}^{n^2}$
 - [x] **Complexity Measure $K$:** $K(X) = n^2$ (constant per matrix)
@@ -356,7 +356,7 @@ $$\|I - AX_k\| \le \|I - AX_0\|^{2^k} \to 0$$
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -369,7 +369,7 @@ $$\|I - AX_k\| \le \|I - AX_0\|^{2^k} \to 0$$
 6. [x] Result: Bounded complexity
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K(X) = n^2, \text{constant})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K(X) = n^2, \text{constant})$ → **Go to Node 12**
 
 ---
 
@@ -542,7 +542,7 @@ Node 7:  K_{LS_σ}^+ (Łojasiewicz θ=1/2)
 Node 8:  K_{TB_π}^+ (basin preserved)
 Node 9:  K_{TB_O}^+ (semi-algebraic)
 Node 10: K_{TB_ρ}^+ (absorption to A^{-1})
-Node 11: K_{Rep_K}^+ (K = n²)
+Node 11: K_{RepDesc_K}^+ (K = n²)
 Node 12: K_{GC_∇}^- (monotone)
 Node 13: K_{Bound_∂}^- (closed)
 Node 17: K_{Cat_Hom}^{blk} (E2+E7)
@@ -550,7 +550,7 @@ Node 17: K_{Cat_Hom}^{blk} (E2+E7)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -609,107 +609,3 @@ The Newton-Schulz iteration converges quadratically to $A^{-1}$ when $\|R_0\| < 
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Residual Bound | Positive | $K_{D_E}^+$ |
-| Event Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Compactness | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ (subcritical) |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (via Łojasiewicz) |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Absorption | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotone) |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ (closed) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | All obligations resolved |
-| **Final Status** | **REGULAR** | — |
-
----
-
-## References
-
-- J. M. Ortega and W. C. Rheinboldt, *Iterative Solution of Nonlinear Equations in Several Variables*, Academic Press (1970)
-- G. Schulz, *Iterative Berechnung der reziproken Matrix*, ZAMM 13 (1933), 57-59
-- V. Y. Pan and R. Schreiber, *An Improved Newton Iteration for the Generalized Inverse of a Matrix*, SIAM J. Sci. Comput. 12 (1991), 1109-1130
-- N. J. Higham, *Accuracy and Stability of Numerical Algorithms*, 2nd ed., SIAM (2002)
-
----
-
-## Appendix A: Computational Complexity
-
-### Iteration Cost
-Each Newton-Schulz step requires:
-- 2 matrix multiplications: $\mathcal{O}(n^3)$ operations
-- Matrix subtraction: $\mathcal{O}(n^2)$ operations
-
-Total cost per iteration: $\mathcal{O}(n^3)$.
-
-### Convergence Rate
-Number of iterations to reach tolerance $\epsilon$:
-$$k \ge \log_2 \log_{r_0}(\epsilon) = \frac{\log \log(1/\epsilon)}{\log(1/r_0)}$$
-
-For $r_0 = 0.5$, achieving $\epsilon = 10^{-16}$ requires approximately:
-$$k \approx \log_2 \log_2(10^{16}) \approx \log_2(53) \approx 6 \text{ iterations}$$
-
-**Quadratic convergence is extremely fast.**
-
----
-
-## Appendix B: Basin of Attraction
-
-### Characterization
-The basin of attraction is:
-$$\mathcal{B} = \{X_0 \in \mathbb{R}^{n \times n} : \|I - AX_0\| < 1\}$$
-
-### Geometric Structure
-- $\mathcal{B}$ is an **open set** in $\mathbb{R}^{n^2}$
-- $\mathcal{B}$ is **star-shaped** around $A^{-1}$
-- For any $X_0 \in \mathcal{B}$, the line segment $[A^{-1}, X_0]$ lies in $\mathcal{B}$
-
-### Practical Initialization
-Common initialization strategies:
-1. **Scaled identity:** $X_0 = \alpha I$ with $\alpha \approx 1/\|A\|$
-2. **Transpose heuristic:** $X_0 = A^T / \|A\|_F^2$
-3. **Approximate inverse:** $X_0$ from cheaper method (e.g., diagonal approximation)
-
-All ensure $\|I - AX_0\| < 1$ for well-conditioned $A$.
-
----
-
-## Appendix C: Similarity Invariance
-
-### Gauge Transformation
-Under similarity transformation $A \to PAP^{-1}$:
-$$X_k \to PX_kP^{-1}$$
-
-The residual transforms as:
-$$R_k = I - AX_k \to I - (PAP^{-1})(PX_kP^{-1}) = I - PAX_kP^{-1} = P(I - AX_k)P^{-1} = PR_kP^{-1}$$
-
-Norm invariance (operator norm):
-$$\|R_k'\| = \|PR_kP^{-1}\| = \|R_k\|$$
-
-**Conclusion:** Newton-Schulz convergence is invariant under similarity transformations.
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{numerical}}$ (Numerical Iterative Algorithm) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | REGULAR |
-| **Generated** | 2026-04-14 |
-

@@ -128,7 +128,7 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Exponential decay of correlations (for $\lambda > 0$)
 - [x] **Mixing Property:** Bernoulli/K-system for $r = 4$
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Binary symbolic dynamics $\{L,R\}^{\mathbb{N}}$
 - [x] **Dictionary $D$:** Kneading sequence encoding
 - [x] **Complexity Measure $K$:** Topological entropy $h_{\text{top}} = \lim \frac{1}{n}\ln(\#\text{words}_n)$
@@ -148,7 +148,7 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Ghost attractor with non-universal scaling
 - [x] **Exclusion Tactics:**
   - [x] E4 (Integrality): Period multiplicities are powers of 2 → renormalization rigidity
-  - [x] E1 (Structural Reconstruction): Kneading theory → hyperbolic renormalization fixed point
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Kneading theory → hyperbolic renormalization fixed point
 
 ---
 
@@ -341,7 +341,7 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the dynamics determined by finite symbolic data?
 
@@ -352,7 +352,7 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 4. [x] Result: Finite description via kneading sequence
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{kneading invariant}, \text{entropy finite})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{kneading invariant}, \text{entropy finite})$ → **Go to Node 12**
 
 ---
 
@@ -419,7 +419,7 @@ with unstable eigenvalue $\delta$ and stable eigenvalue $-\alpha$.
 - $\text{Bad}$: Ghost attractor with non-universal scaling (bifurcation ratio $\neq \delta$)
 
 **Step 2: Apply Tactic E4 (Integrality — lattice obstruction)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (Kneading invariant)
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (Kneading invariant)
 2. [x] Period multiplicities are exactly powers of 2: $2, 4, 8, 16, \ldots$
 3. [x] Powers of 2 are **discrete integers** (quantized)
 4. [x] Quantized periods → rigid/universal renormalization (RG quantization heuristic)
@@ -588,7 +588,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (kneading invariant)
 Node 9:  K_{TB_O}^+ (semi-algebraic)
 Node 10: K_{TB_ρ}^+ (Bernoulli mixing)
-Node 11: K_{Rep_K}^+ (kneading sequence)
+Node 11: K_{RepDesc_K}^+ (kneading sequence)
 Node 12: K_{GC_∇}^+ → BarrierFreq → K_{GC_∇}^{blk}
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -596,7 +596,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -636,52 +636,3 @@ Since the renormalization fixed point $g^*$ is hyperbolic and universal (indepen
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Entropy Boundedness | Positive | $K_{D_E}^+$ |
-| Period Discreteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| SRB Measure | Positive | $K_{C_\mu}^+$ |
-| Renormalization Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Period Integrality | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Attractor Geometry | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness/Hyperbolicity | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Kneading Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Symbolic Dynamics | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Oscillation | Blocked | $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}$ (via BarrierFreq) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- M. Feigenbaum, *Quantitative universality for a class of nonlinear transformations*, J. Stat. Phys. 19 (1978), 25-52
-- M. Feigenbaum, *The universal metric properties of nonlinear transformations*, J. Stat. Phys. 21 (1979), 669-706
-- P. Collet, J.-P. Eckmann, *Iterated Maps on the Interval as Dynamical Systems*, Birkhäuser (1980)
-- D. Sullivan, *Bounds, quadratic differentials, and renormalization conjectures*, AMS Centennial Publications (1992)
-- M. Lyubich, *Feigenbaum-Coullet-Tresser universality and Milnor's hairiness conjecture*, Ann. Math. 149 (1999), 319-420
-- W. de Melo, S. van Strien, *One-Dimensional Dynamics*, Springer (1993)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{discrete}}$ (Discrete Dynamical Systems / Chaos Theory) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

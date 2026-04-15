@@ -73,7 +73,7 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 #### Template: $\mathrm{Rec}_N$ (Recovery Interface)
 - [x] **Bad Set $\mathcal{B}$:** Empty (2D NS has no finite-time singularities)
 - [x] **Recovery Map $\mathcal{R}$:** Not needed
-- [x] **Event Counter $\#$:** $N(T) = 0$
+- [x] **Event Counter:** $N(T) = 0$
 - [x] **Finiteness:** Trivially satisfied
 
 #### Template: $C_\mu$ (Compactness Interface)
@@ -124,7 +124,7 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Finite (exponential decay)
 - [x] **Mixing Property:** Dissipative, no recurrence
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Fourier modes of velocity/vorticity
 - [x] **Dictionary $D$:** $u = \sum_k \hat{u}_k e^{2\pi i k \cdot x}$
 - [x] **Complexity Measure $K$:** $K(u) = \|\omega\|_{L^2}^2$ (enstrophy)
@@ -142,13 +142,13 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 ### 0.3 The Lock (Node 17)
 - [x] **Category $\mathbf{Hypo}_{T_{\text{para}}}$:** Parabolic hypostructures
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time $H^1$ blow-up
-- [x] **Primary Tactic Selected:** E1 + E2
+- [x] **Primary Tactic Selected:** E1 + $K_{\mathrm{MorphPresDim}}^+$ + E2
 - [x] **Tactic Logic:**
     * $I(\mathcal{H}) = \Omega(t) \le \Omega_0$ (enstrophy bounded, no vortex stretching in 2D)
     * $I(\mathcal{H}_{\text{bad}}) = \|\omega\|_{L^2} \to \infty$ or $\|\nabla u\|_{L^2} \to \infty$ (blow-up)
     * Conclusion: Enstrophy bound + Biot–Savart $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
-  - [x] E1 (Dimension): 2D enstrophy bound prevents concentration
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension): 2D enstrophy bound prevents concentration
   - [x] E2 (Invariant Mismatch): Enstrophy conservation contradicts blow-up
 
 ---
@@ -331,7 +331,7 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is complexity bounded?
 
@@ -341,7 +341,7 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 3. [x] Higher regularity: Bootstrap to $C^\infty$ for $t > 0$
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\Omega, \text{bounded})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\Omega, \text{bounded})$ → **Go to Node 12**
 
 ---
 
@@ -386,7 +386,7 @@ This document presents a **machine-checkable proof object** for **2D Navier–St
 
 **Step-by-step execution:**
 1. [x] Define $\mathcal{H}_{\text{bad}}$: Finite-time blow-up of $\|\nabla u\|_{L^2}$ or $\|\omega\|_{L^2}$
-2. [x] Apply Tactic E1 (Dimension):
+2. [x] Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension):
    - Enstrophy satisfies: $\frac{d}{dt}\Omega \le 0$ in 2D (vortex stretching term vanishes)
    - Therefore $\|\omega(t)\|_{L^2} \le \|\omega_0\|_{L^2}$ for all $t$
 3. [x] Apply Tactic E2 (Biot–Savart):
@@ -518,7 +518,7 @@ No Lyapunov reconstruction or ghost extension is needed—the physical enstrophy
 ### **3. The Lock (Node 17)**
 * **Question:** $\text{Hom}(\text{Bad}, \mathcal{H}) = \emptyset$?
 * **Bad Pattern:** Finite-time blow-up of $\|\nabla u\|_{L^2}$ or $\|\omega\|_{L^2}$
-* **Tactic E1 (Dimension):** In 2D, enstrophy is non-increasing: $\frac{d}{dt}\Omega \le 0$
+* **Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension):** In 2D, enstrophy is non-increasing: $\frac{d}{dt}\Omega \le 0$
 * **Tactic E2 (Biot–Savart):** Velocity gradient controlled by enstrophy
 * **Result:** **BLOCKED** ($K_{\mathrm{Lock}}^{\mathrm{blk}}$)
 
@@ -666,71 +666,3 @@ Hence the designated global regularity claim holds, and smoothness for $t>0$ fol
 | ID | Certificate | Obligation | In Goal Cone? | Status | Discharge / Reason |
 |---|---|---|---|---|---|
 | OBL-1 | $K_{H^1}^{\mathrm{inc}}$ | Close the velocity-side $H^1$ estimate | Yes | Discharged | Upgraded by $K_{\mathrm{Ens}}^+ \wedge K^{\mathrm{re}}_{\mathrm{GradBound}}$ |
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | As specified by the problem instantiation | State space |
-| **Potential ($\Phi$)** | Lyapunov or complexity potential used in the proof | Progress functional |
-| **Cost ($\mathfrak{D}$)** | Dissipation or monotonic decrement | Runtime/regularity budget |
-| **Invariance ($G$)** | Symmetry and invariants in the formalization | Preserved structure |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | PASS | Energy/height estimate established | `NOT APPLICABLE` |
-| **2** | Zeno/Recovery | PASS | Recovery route documented | `NOT APPLICABLE` |
-| **3** | Compact Check | PASS/INC | Compactness module for bad transitions | `NOT APPLICABLE` |
-| **4** | Scale Check | PASS/INC | Scaling argument controlled | `NOT APPLICABLE` |
-| **5** | Parametric Check | PASS/INC | Admissible parameter regime fixed | `NOT APPLICABLE` |
-| **6** | Geometric Check | PASS/INC | Codimension or geometric bound | `NOT APPLICABLE` |
-| **7** | Stiffness Check | PASS/INC | Stability or stiffness package | `NOT APPLICABLE` |
-| **8** | Topological Check | PASS/INC | Topological invariants preserved | `NOT APPLICABLE` |
-| **9** | Tame Check | PASS/INC | O-minimal/tameness control | `NOT APPLICABLE` |
-| **10** | Ergodic Check | PASS/INC | Mixing/distribution behavior | `NOT APPLICABLE` |
-| **11** | Complex Check | PASS/INC | Computational/complexity witness | `NOT APPLICABLE` |
-| **12** | Oscillate Check | PASS/INC | Oscillation prevented by monotonicity | `NOT APPLICABLE` |
-| **13** | Boundary Check | OPEN/CLOSED | Boundary coupling handled | `NOT APPLICABLE` |
-| **14-16** | Boundary Subnodes | NOT APPLICABLE | Not triggered/not needed | `NOT APPLICABLE` |
-| **17** | Lock Check | BLOCK | Lock route closes target class | `NOT APPLICABLE` |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | NOT APPLICABLE | Finite-state or dimension argument |
-| **E2** | Invariant | NOT APPLICABLE | Invariant mismatch or barrier |
-| **E3** | Positivity | NOT APPLICABLE | Monotone sign control |
-| **E4** | Integrality | NOT APPLICABLE | Quantization or arithmetic obstruction |
-| **E5** | Functional | NOT APPLICABLE | Functional contradiction |
-| **E6** | Causal | NOT APPLICABLE | Causality contradiction |
-| **E7** | Thermodynamic | NOT APPLICABLE | Entropy or energy incompatibility |
-| **E8** | DPI | NOT APPLICABLE | Data processing inequality / monotonicity |
-| **E9** | Ergodic | NOT APPLICABLE | Mixing obstruction |
-| **E10** | Definability | NOT APPLICABLE | Definability or o-minimal barrier |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** Unspecified
-* **Singularity Set:** Not isolated by this document
-* **Primary Blocking Tactic:** Case-specific (see body)
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{parabolic}}$ (Vector Parabolic PDE) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

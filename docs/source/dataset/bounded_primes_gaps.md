@@ -130,7 +130,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Finite (equidistribution)
 - [x] **Mixing Property:** Bombieri-Vinogradov averaging
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Prime positions $\{p_n\}$
 - [x] **Dictionary $D$:** Prime-tuple distribution vs Gaussian field
 - [x] **Complexity Measure $K$:** Sieve dimension $k$
@@ -338,7 +338,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the prime distribution complexity bounded?
 
@@ -349,7 +349,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 4. [x] Faithfulness: Prime gaps encode arithmetic structure
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K \sim x / \log x, \text{integrality})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K \sim x / \log x, \text{integrality})$ → **Go to Node 12**
 
 ---
 
@@ -406,7 +406,7 @@ $$\liminf_{n\to\infty}(p_{n+1} - p_n) \le H$$
 4. [x] Verify: No bad pattern can embed into the structure
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4+E6}, \text{unbounded gaps excluded}, \{K_{\mathrm{Cap}_H}^+, K_{\mathrm{Rep}_K}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E4+E6}, \text{unbounded gaps excluded}, \{K_{\mathrm{Cap}_H}^+, K_{\mathrm{RepDesc}_K}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -504,7 +504,7 @@ Node 7:  K_{LS_σ}^+ (spectral gap)
 Node 8:  K_{TB_π}^+ (admissibility)
 Node 9:  K_{TB_O}^+ (o-minimal)
 Node 10: K_{TB_ρ}^+ (equidistribution)
-Node 11: K_{Rep_K}^+ (bounded complexity)
+Node 11: K_{RepDesc_K}^+ (bounded complexity)
 Node 12: K_{GC_∇}^- (monotone)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (E4+E6)
@@ -512,7 +512,7 @@ Node 17: K_{Cat_Hom}^{blk} (E4+E6)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -562,7 +562,7 @@ Certificate: $K_{\mathrm{LS}_\sigma}^+$
 
 **Phase 7: Integrality & Admissibility (Nodes 8, 11)**
 - Admissibility pattern preserved (congruence constraints) → $K_{\mathrm{TB}_\pi}^+$
-- Primes are integers (quantization) → $K_{\mathrm{Rep}_K}^+$
+- Primes are integers (quantization) → $K_{\mathrm{RepDesc}_K}^+$
 
 **Phase 8: Lock Exclusion (Node 17)**
 
@@ -599,71 +599,3 @@ unconditionally, or $H \le 246$ under Elliott-Halberstam. $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Discrete Events | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Profile Classification | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Capacity Control | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Spectral Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Admissibility | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing/Equidistribution | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- Y. Zhang, *Bounded gaps between primes*, Annals of Mathematics **179** (2014), 1121–1174
-- J. Maynard, *Small gaps between primes*, Annals of Mathematics **181** (2015), 383–413
-- D. H. J. Polymath, *Variants of the Selberg sieve, and bounded intervals containing many primes*, Research in the Mathematical Sciences **1** (2014), Art. 12
-- E. Bombieri, *On the large sieve*, Mathematika **12** (1965), 201–225
-- A. I. Vinogradov, *The density hypothesis for Dirichlet L-series*, Izv. Akad. Nauk SSSR Ser. Mat. **29** (1965), 903–934
-- D. A. Goldston, J. Pintz, C. Y. Yıldırım, *Primes in tuples I*, Annals of Mathematics **170** (2009), 819–862
-- H. Halberstam, H.-E. Richert, *Sieve Methods*, Academic Press (1974)
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + branch choices
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects (admissible tuple, sieve dimension, level of distribution)
-4. `closure.cfg`: promotion/closure settings used by the replay engine
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
-**Factory Certificates Included:**
-| Certificate | Source | Payload Hash |
-|-------------|--------|--------------|
-| $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathrm{adm}}$ | RESOLVE-AutoAdmit (admissibility) | `[computed]` |
-| $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{analytic}}$ (Analytic Number Theory / Sieve Theory) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

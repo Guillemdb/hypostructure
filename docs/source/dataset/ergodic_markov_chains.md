@@ -30,7 +30,7 @@ This document presents a **machine-checkable proof object** for the **Ergodic Th
 
 **Approach:** We instantiate the stochastic hypostructure with an irreducible, aperiodic finite Markov chain. The KL divergence $D(\mu||\pi)$ from the stationary distribution $\pi$ serves as the height functional (Lyapunov function), providing a global energy certificate. The spectral gap $\lambda_{\text{gap}} = 1 - \lambda_2 > 0$ enforces exponential contraction of the entropy: $D(\mu P||\pi) \le (1-\lambda_{\text{gap}}) D(\mu||\pi)$. The Perron-Frobenius theorem guarantees uniqueness of $\pi$ with full support. The safe manifold $M = \{\pi\}$ is the unique global attractor.
 
-The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have $|\text{Stat}(\cdot)| \neq 1$, while our chain has exactly one stationary distribution. Tactic E10 (Definability) provides additional exclusion via the o-minimal structure of finite sets. Node 7 (StiffnessCheck) produces $K_{\mathrm{LS}_\sigma}^+$ directly via the spectral gap, with no incomplete certificates. The Sieve runs in closed-system mode (Node 13: $K_{\mathrm{Bound}_\partial}^-$).
+The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have $|\text{Stat}(\cdot)| \neq 1$, while our chain has exactly one stationary distribution. Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability) provides additional exclusion via the o-minimal structure of finite sets. Node 7 (StiffnessCheck) produces $K_{\mathrm{LS}_\sigma}^+$ directly via the spectral gap, with no incomplete certificates. The Sieve runs in closed-system mode (Node 13: $K_{\mathrm{Bound}_\partial}^-$).
 
 **Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$). All certificates are positive or negative (no inc). Proof is unconditional; GLOBAL REGULARITY established.
 
@@ -136,7 +136,7 @@ The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have 
 - [x] **Mixing Time $\tau_{\text{mix}}$:** $\tau_{\text{mix}}(\varepsilon) \le \frac{\log(n/\varepsilon)}{\lambda_{\text{gap}}} < \infty$
 - [x] **Mixing Property:** Exponential mixing via spectral gap
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Transition probabilities $\{p_{ij}\}$
 - [x] **Dictionary $D$:** Transition matrix $P$
 - [x] **Complexity Measure $K$:** $K(P) = n^2$ (number of entries)
@@ -156,7 +156,7 @@ The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have 
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-ergodic chains (reducible or periodic), multiple invariant measures
 - [x] **Exclusion Tactics:**
   - [x] E2 (Invariant Mismatch): Reducible chains have $|\text{stat.dist.}| > 1$, ours has unique $\pi$
-  - [x] E10 (Definability): Finite state space is o-minimal
+  - [x] E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability): Finite state space is o-minimal
 
 ---
 
@@ -432,7 +432,7 @@ The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have 
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -443,7 +443,7 @@ The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have 
 4. [x] Result: Complexity is finite and computable
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K(P) = O(n^2 \log n), \text{finite})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K(P) = O(n^2 \log n), \text{finite})$ → **Go to Node 12**
 
 ---
 
@@ -510,7 +510,7 @@ The Lock is blocked via Tactic E2 (Invariant Mismatch): non-ergodic chains have 
    - Periodic chains: $I'(\mathcal{H}_{\text{bad}}) = (d > 1, 1)$
    - Mismatch: $I'(\mathcal{H}_{\text{bad}}) \neq I'(\mathcal{H})$
 
-**Step 3: Apply Tactic E10 (Definability/O-minimality)**
+**Step 3: Apply Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability/O-minimality)**
 1. [x] State space $S$ is finite $\Rightarrow$ trivially o-minimal
 2. [x] All subsets of $S$ are definable (in any o-minimal structure extending finite sets)
 3. [x] Transition matrix $P$ has finite description (rational entries)
@@ -611,7 +611,7 @@ The relative entropy $H(\mu||\pi)$ serves as the canonical Lyapunov function:
 *   **Bad Patterns:** Non-ergodic chains (reducible or periodic)
 *   **Exclusion Mechanism:**
     - **Tactic E2 (Invariant Mismatch):** Discrete invariants $I = 1$, $I' = (1,1)$ vs bad patterns
-    - **Tactic E10 (Definability):** Finite state space is o-minimal, cyclic/disconnected structures excluded
+    - **Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability):** Finite state space is o-minimal, cyclic/disconnected structures excluded
 *   **Result:** Lock blocked $\Rightarrow$ GLOBAL REGULARITY
 *   **Certificate:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ (Node 17)
 
@@ -692,7 +692,7 @@ Node 7:  K_{LS_σ}^+ (spectral gap λ_gap > 0)
 Node 8:  K_{TB_π}^+ (single ergodic class)
 Node 9:  K_{TB_O}^+ (finite set, tame)
 Node 10: K_{TB_ρ}^+ (finite mixing time)
-Node 11: K_{Rep_K}^+ (finite complexity O(n²log n))
+Node 11: K_{RepDesc_K}^+ (finite complexity O(n²log n))
 Node 12: K_{GC_∇}^- (monotonic, gradient-like)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (E2+E10)
@@ -700,7 +700,7 @@ Node 17: K_{Cat_Hom}^{blk} (E2+E10)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -811,7 +811,7 @@ Morphisms in $\mathbf{Hypo}_{T_{\text{stochastic}}}$ preserve these invariants, 
 $$I(\mathcal{H}_{\text{bad}}) \neq I(\mathcal{H}) \quad \text{or} \quad I'(\mathcal{H}_{\text{bad}}) \neq I'(\mathcal{H})$$
 implies $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$.
 
-**Tactic E10 (Definability):**
+**Tactic E10 + $K_{\mathrm{MorphPresTame}}^+$ (Definability):**
 
 Finite state space $S$ is trivially o-minimal (discrete structure). The spectral gap $\lambda_{\text{gap}} > 0$ is an algebraic number (eigenvalue difference), hence definable. Non-ergodic structures (disconnected or cyclic) are excluded by o-minimal cell decomposition.
 
@@ -836,69 +836,3 @@ Therefore, the **Ergodic Theorem for Finite Markov Chains** holds. $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+$ |
-| Recovery Events | Positive | $K_{\mathrm{Rec}_N}^+$ (none) |
-| Profile Classification | Positive | $K_{C_\mu}^+$ (unique $\pi$) |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Singular Codimension | Positive | $K_{\mathrm{Cap}_H}^+$ (empty) |
-| Stiffness Gap | Positive | $K_{\mathrm{LS}_\sigma}^+$ (spectral gap) |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ (single class) |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ (finite) |
-| Mixing/Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ ($\tau_{\text{mix}} < \infty$) |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ ($O(n^2 \log n)$) |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ (closed) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- D. A. Levin, Y. Peres, and E. L. Wilmer, *Markov Chains and Mixing Times*, American Mathematical Society (2009)
-- P. Diaconis and L. Saloff-Coste, *Comparison techniques for random walk on finite groups*, Annals of Probability 21 (1993)
-- A. Sinclair and M. Jerrum, *Approximate counting, uniform generation and rapidly mixing Markov chains*, Information and Computation 82 (1989)
-- J. R. Norris, *Markov Chains*, Cambridge University Press (1997)
-- D. Aldous and J. Fill, *Reversible Markov Chains and Random Walks on Graphs*, monograph in preparation (2002)
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + branch choices
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects (transition matrix $P$, state space $S$)
-4. `closure.cfg`: promotion/closure settings used by the replay engine
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
-**Factory Certificates Included:**
-| Certificate | Source | Payload Hash |
-|-------------|--------|--------------|
-| $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{stochastic}}$ (Probability / Markov Processes) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

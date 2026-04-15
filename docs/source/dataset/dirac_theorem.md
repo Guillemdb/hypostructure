@@ -123,7 +123,7 @@ This document presents a **machine-checkable proof object** for **Dirac's Theore
 - [x] **Mixing Time $\tau_{\text{mix}}$:** $\tau_{\text{mix}} \le n$ (path construction depth)
 - [x] **Mixing Property:** Deterministic ascent (greedy path construction)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Path adjacency language
 - [x] **Dictionary $D$:** Degree sequence $d(G) = (d_1, \ldots, d_n)$ with $d_i \ge n/2$
 - [x] **Complexity Measure $K$:** $K(G) = O(n^2)$ (bounded by edge count)
@@ -350,7 +350,7 @@ Let $P = (v_1, \ldots, v_k)$ be a maximal path in $G$ with $\delta(G) \ge n/2$.
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -362,7 +362,7 @@ Let $P = (v_1, \ldots, v_k)$ be a maximal path in $G$ with $\delta(G) \ge n/2$.
 5. [x] Result: Bounded polynomial complexity
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (K(G) = O(n \log n), \text{polynomial bound})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (K(G) = O(n \log n), \text{polynomial bound})$ → **Go to Node 12**
 
 ---
 
@@ -436,7 +436,7 @@ Suppose $\mathcal{H}_{\text{bad}}$ exists: a graph $G$ with $n \ge 3$, $\delta(G
 - **Contradiction:** $\mathcal{H}_{\text{bad}}$ cannot exist
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E6+E8+E11}, \text{capacity } \delta \ge n/2 \text{ excludes}, \{K_{\mathrm{Cap}_H}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{Rep}_K}^+\})$
+* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E6+E8+E11}, \text{capacity } \delta \ge n/2 \text{ excludes}, \{K_{\mathrm{Cap}_H}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{RepDesc}_K}^+\})$
 
 **Lock Status:** **BLOCKED** ✓
 
@@ -616,7 +616,7 @@ Node 7:  K_{LS_σ}^+ (discrete descent, θ = 1)
 Node 8:  K_{TB_π}^+ (graph structure preserved)
 Node 9:  K_{TB_O}^+ (discrete/finite, tame)
 Node 10: K_{TB_ρ}^+ (deterministic convergence)
-Node 11: K_{Rep_K}^+ (complexity O(n log n))
+Node 11: K_{RepDesc_K}^+ (complexity O(n log n))
 Node 12: K_{GC_∇}^- (monotonic gradient flow)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{blk} (E6+E8+E11)
@@ -624,7 +624,7 @@ Node 17: K_{Cat_Hom}^{blk} (E6+E8+E11)
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -633,126 +633,3 @@ $$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\
 Dirac's Theorem is proved: Every graph with $n \ge 3$ vertices and minimum degree $\delta(G) \ge n/2$ is Hamiltonian.
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Bound | Positive | $K_{D_E}^+ (0 \le \Phi \le n)$ |
-| Operation Finiteness | Positive | $K_{\mathrm{Rec}_N}^+ (N \le n)$ |
-| Profile Concentration | Positive | $K_{C_\mu}^+$ (Hamiltonian cycles) |
-| Scaling Analysis | Positive | $K_{\mathrm{SC}_\lambda}^+$ (subcritical) |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Capacity Constraint | Positive | $K_{\mathrm{Cap}_H}^+$ ($\delta \ge n/2$) |
-| Stiffness/Descent | Positive | $K_{\mathrm{LS}_\sigma}^+$ |
-| Topology Preservation | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Convergence | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (monotonic) |
-| Boundary | Negative | $K_{\mathrm{Bound}_\partial}^-$ (closed) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY | — |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- G. A. Dirac, *Some theorems on abstract graphs*, Proceedings of the London Mathematical Society 3.1 (1952): 69-81
-- O. Ore, *Note on Hamilton circuits*, American Mathematical Monthly 67.1 (1960): 55
-- J. A. Bondy and U. S. R. Murty, *Graph Theory*, Springer Graduate Texts in Mathematics 244 (2008)
-- D. B. West, *Introduction to Graph Theory*, Prentice Hall (2001)
-
----
-
-## Appendix: Replay Bundle (Machine-Checkability)
-
-This proof object is replayed by providing:
-1. `trace.json`: ordered node outcomes + branch choices
-2. `certs/`: serialized certificates with payload hashes
-3. `inputs.json`: thin objects and initial-state hash (degree sequence)
-4. `closure.cfg`: promotion/closure settings used by the replay engine
-
-**Replay acceptance criterion:** The checker recomputes the same $\Gamma_{\mathrm{final}}$ and emits `FINAL`.
-
-**Factory Certificates Included:**
-| Certificate | Source | Payload Hash |
-|-------------|--------|--------------|
-| $K_{\mathrm{Auto}}^+$ | def-automation-guarantee | `[computed]` |
-| $K_{\mathrm{Cap}_H}^+$ | Node 6 (GeomCheck) | `[computed]` |
-| $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Node 17 (Lock) | `[computed]` |
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | Simple graphs $G = (V,E)$ with $\|V\| = n \ge 3$, $\delta(G) \ge n/2$, + partial paths | State Space |
-| **Potential ($\Phi$)** | Path length deficit: $\Phi_0(G,P) = n - \|V(P)\|$ | Height Functional |
-| **Cost ($\mathfrak{D}$)** | $\#\{v \in V \setminus V(P) : v \text{ adjacent to endpoints}\}$ | Path Extension Opportunities |
-| **Invariance ($G$)** | $\text{Aut}(G)$ (graph automorphisms) | Symmetry Group |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | EnergyCheck | YES | $K_{D_E}^+$: Energy bounded by $n$ | `[]` |
-| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: $N \le n$ operations | `[]` |
-| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Hamiltonian cycle profile | `[]` |
-| **4** | ScaleCheck | YES | $K_{\mathrm{SC}_\lambda}^+$: $\alpha - \beta = 1$ (subcritical) | `[]` |
-| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: $n, \delta$ stable | `[]` |
-| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\delta \ge n/2$ capacity | `[]` |
-| **7** | StiffnessCheck | YES | $K_{\mathrm{LS}_\sigma}^+$: Discrete descent $\theta = 1$ | `[]` |
-| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Graph structure preserved | `[]` |
-| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: Discrete/finite, tame | `[]` |
-| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Deterministic convergence | `[]` |
-| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: $O(n \log n)$ complexity | `[]` |
-| **12** | OscillateCheck | NO | $K_{\mathrm{GC}_\nabla}^-$: Monotonic gradient flow | `[]` |
-| **13** | BoundaryCheck | NO | $K_{\mathrm{Bound}_\partial}^-$: Closed system | `[]` |
-| **14-16** | Boundary Subgraph | SKIP | Not triggered | `[]` |
-| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E6+E8+E11 | `[]` |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Dimension | NOT APPLICABLE | — |
-| **E2** | Invariant | NOT APPLICABLE | — |
-| **E3** | Positivity | NOT APPLICABLE | — |
-| **E4** | Integrality | NOT APPLICABLE | — |
-| **E5** | Functional | NOT APPLICABLE | — |
-| **E6** | Causal/Capacity | **PASS** | Degree bound $\delta \ge n/2$ excludes non-Hamiltonian |
-| **E7** | Thermodynamic | NOT APPLICABLE | — |
-| **E8** | Topological | **PASS** | Hamiltonian cycle is topological property |
-| **E9** | Ergodic | NOT APPLICABLE | — |
-| **E10** | Definability | NOT APPLICABLE | — |
-| **E11** | Complexity | **PASS** | Finite graph → bounded complexity |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY
-* **Singularity Set:** $\Sigma = \emptyset$
-* **Primary Blocking Tactic:** E6 (Capacity Constraint via Degree Bound)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{combinatorial}}$ (Graph Theory / Discrete) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

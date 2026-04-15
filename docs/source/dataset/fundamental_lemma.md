@@ -132,7 +132,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Discrete spectrum (immediate mixing)
 - [x] **Mixing Property:** Automorphic representations are discrete
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** L-functions $\{L(s, \pi, r)\}$ for representations $r: \hat{G} \to GL_n$
 - [x] **Dictionary $D$:** Satake isomorphism $\mathcal{H}(G) \cong \mathbb{C}[X^*(T)]^W$
 - [x] **Complexity Measure $K$:** Conductor $\text{Cond}(\pi) = \prod_v \mathfrak{p}_v^{f_v}$
@@ -152,7 +152,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-matching orbital integrals
 - [x] **Exclusion Tactics:**
   - [x] E17 (Cohomological Correspondence): Perverse sheaf matching
-  - [x] E1 (Structural Reconstruction): Hitchin fibration → geometric transfer
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Hitchin fibration → geometric transfer
 
 ---
 
@@ -356,7 +356,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the description complexity bounded?
 
@@ -368,7 +368,7 @@ where $\Delta(\gamma, \delta)$ are transfer factors and the sum is over stable c
 5. [x] Complexity: $K(\pi) = \log \text{Cond}(\pi) < \infty$
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{Satake}, \text{converse theorem})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Satake}, \text{converse theorem})$ → **Go to Node 12**
 
 ---
 
@@ -610,7 +610,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (endoscopic transfer functorial)
 Node 9:  K_{TB_O}^+ (Whitney stratification)
 Node 10: K_{TB_ρ}^+ (discrete spectrum)
-Node 11: K_{Rep_K}^+ (Satake, converse theorem)
+Node 11: K_{RepDesc_K}^+ (Satake, converse theorem)
 Node 12: K_{GC_∇}^- (static)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -618,7 +618,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^{\sim}, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Geometric}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^{\sim}, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Geometric}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -686,105 +686,3 @@ The orbital integral identity $O_\gamma(f) = O^H_{\gamma'}(f^H)$ holds for all m
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Orbital Integral Boundedness | Positive | $K_{D_E}^+$ |
-| Springer Resolution | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Perverse Sheaf Classification | Positive | $K_{C_\mu}^+$ |
-| Scaling Analysis | Tilde | $K_{\mathrm{SC}_\lambda}^{\sim}$ (critical) |
-| Endoscopic Parameters | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Geometric Control (Purity) | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Spectral Rigidity | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Topological Transfer | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Definability (Tameness) | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Spectral Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity Bound | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (static) |
-| Geometric Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- B. C. Ngo, *Le lemme fondamental pour les algebres de Lie*, Publications mathématiques de l'IHÉS 111 (2010), 1-169
-- B. C. Ngo, *Fibration de Hitchin et endoscopie*, Inventiones mathematicae 164 (2006), 399-453
-- N. J. Hitchin, *Stable bundles and integrable systems*, Duke Mathematical Journal 54 (1987), 91-114
-- R. E. Kottwitz, *Stable trace formula: cuspidal tempered terms*, Duke Mathematical Journal 51 (1984), 611-650
-- D. Shelstad, *L-indistinguishability for real groups*, Mathematische Annalen 259 (1982), 385-430
-- J. Arthur, *The endoscopic classification of representations*, AMS Colloquium Publications (2013)
-- A. Beilinson, J. Bernstein, P. Deligne, *Faisceaux pervers*, Astérisque 100 (1982)
-- R. P. Langlands, *Les débuts d'une formule des traces stable*, Publications Mathématiques de l'Université Paris VII 13 (1983)
-- T. A. Springer, *A purity result for fixed point varieties in flag manifolds*, Journal of Faculty of Science, University of Tokyo 31 (1984), 271-282
-
----
-
-
-## Executive Summary: The Proof Dashboard
-
-### 1. System Instantiation (The Physics)
-
-| Object | Definition | Role |
-| :--- | :--- | :--- |
-| **Arena ($\mathcal{X}$)** | Weighted orbital integrals $\{O_\gamma(f) : \gamma \in G(F)_{\text{reg}}\}$ | State Space |
-| **Potential ($\Phi$)** | $\Phi(f) = \|\|O_\gamma(f) - O^H_{\gamma'}(f^H)\|\|_{\sup}$ | Height Functional |
-| **Cost ($\mathfrak{D}$)** | $\dim IC(\mathfrak{X}_\gamma)$ (intersection cohomology) | Dissipation |
-| **Invariance ($G$)** | Hecke algebra $\mathcal{H}(G)$ | Symmetry Group |
-
-### 2. Execution Trace (The Logic)
-
-| Node | Check | Outcome | Certificate Payload | Ledger State |
-| :--- | :--- | :---: | :--- | :--- |
-| **1** | EnergyCheck | YES | $K_{D_E}^+$: Bounded orbital integrals | `[]` |
-| **2** | ZenoCheck | YES | $K_{\mathrm{Rec}_N}^+$: Springer resolution finite | `[]` |
-| **3** | CompactCheck | YES | $K_{C_\mu}^+$: Decomposition Theorem | `[]` |
-| **4** | ScaleCheck | ~ | $K_{\mathrm{SC}_\lambda}^{\sim}$: Critical/algebraic | `[]` |
-| **5** | ParamCheck | YES | $K_{\mathrm{SC}_{\partial c}}^+$: Endoscopic data discrete | `[]` |
-| **6** | GeomCheck | YES | $K_{\mathrm{Cap}_H}^+$: $\text{codim} \ge 2$ (Ngô purity) | `[]` |
-| **7** | StiffnessCheck | INC→+ | $K_{\mathrm{LS}_\sigma}^+$: Upgraded via $K_{\text{Rec}}^+$ | `[OBL-1]→[]` |
-| **8** | TopoCheck | YES | $K_{\mathrm{TB}_\pi}^+$: Endoscopic transfer functorial | `[]` |
-| **9** | TameCheck | YES | $K_{\mathrm{TB}_O}^+$: Whitney stratification | `[]` |
-| **10** | ErgoCheck | YES | $K_{\mathrm{TB}_\rho}^+$: Discrete spectrum | `[]` |
-| **11** | ComplexCheck | YES | $K_{\mathrm{Rep}_K}^+$: Satake + converse theorem | `[]` |
-| **12** | OscillateCheck | NO | $K_{\mathrm{GC}_\nabla}^-$: Static system | `[]` |
-| **13** | BoundaryCheck | NO | $K_{\mathrm{Bound}_\partial}^-$: Closed system | `[]` |
-| **14-16** | Boundary Subgraph | SKIP | Not triggered | `[]` |
-| **17** | LockCheck | BLK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E17 + LOCK-Reconstruction | `[]` |
-
-### 3. Lock Mechanism (The Exclusion)
-
-| Tactic | Description | Status | Reason / Mechanism |
-| :--- | :--- | :---: | :--- |
-| **E1** | Structural Reconstruction | **PASS** | Hitchin fibration → geometric transfer |
-| **E2-E9** | Various | NOT APPLICABLE | — |
-| **E10** | Definability | NOT APPLICABLE | — |
-| **E17** | Cohomological | **PASS** | Perverse sheaf matching via motivic integration |
-
-### 4. Final Verdict
-
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** EMPTY (OBL-1 discharged via $K_{\text{Rec}}^+$)
-* **Singularity Set:** $\Sigma = \emptyset$ (codim $\ge 2$ singular locus)
-* **Primary Blocking Tactic:** E17 (Cohomological Correspondence via Ngô's Proof)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{arithmetic}}$ (Representation Theory / Automorphic Forms) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

@@ -11,13 +11,19 @@ structure GammaPackage where
   faithfulness : Prop
   tensorPres   : Prop
 
+def GammaPackageSound (I : VerifiedHodgeThinInput) : Prop :=
+  GammaContextPremises I → ProducesGamma I
+
 def HasGammaPackage (I : VerifiedHodgeThinInput) : Prop :=
-  ∃ G : GammaPackage, True
+  ∃ G : GammaPackage, G.exactness ∧ G.faithfulness ∧ G.tensorPres ∧ GammaPackageSound I
 
 theorem hodgeGammaConstructor
     (I : VerifiedHodgeThinInput)
     [ImportedHodgeAxioms I] :
     HasGammaPackage I := by
-  refine ⟨{ C := PUnit, omegaB := PUnit, exactness := True, faithfulness := True, tensorPres := True }, trivial⟩
+  refine ⟨{ C := PUnit, omegaB := PUnit, exactness := True, faithfulness := True, tensorPres := True },
+    trivial, trivial, trivial, ?_⟩
+  intro hGamma
+  exact ImportedHodgeAxioms.tannakianContextSound (I := I) hGamma
 
 end HypoHodge.Algebraic

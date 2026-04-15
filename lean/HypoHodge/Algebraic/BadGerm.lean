@@ -39,17 +39,25 @@ def comp {A B C : BadAlgGerm n p} (f : WitnessHom A B) (g : WitnessHom B C) :
   preservesBad := fun hA => g.preservesBad (f.preservesBad hA)
   preservesNonzero := fun hA => g.preservesNonzero (f.preservesNonzero hA)
 
-axiom id_comp {A B : BadAlgGerm n p}
+theorem id_comp {A B : BadAlgGerm n p}
     (f : WitnessHom A B) :
-    comp (id A) f = f
+    comp (id A) f = f := by
+  cases f
+  rfl
 
-axiom comp_id {A B : BadAlgGerm n p}
+theorem comp_id {A B : BadAlgGerm n p}
     (f : WitnessHom A B) :
-    comp f (id B) = f
+    comp f (id B) = f := by
+  cases f
+  rfl
 
-axiom assoc {A B C D : BadAlgGerm n p}
+theorem assoc {A B C D : BadAlgGerm n p}
     (f : WitnessHom A B) (g : WitnessHom B C) (h : WitnessHom C D) :
-    comp (comp f g) h = comp f (comp g h)
+    comp (comp f g) h = comp f (comp g h) := by
+  cases f
+  cases g
+  cases h
+  rfl
 
 end WitnessHom
 

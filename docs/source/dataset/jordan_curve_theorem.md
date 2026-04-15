@@ -126,7 +126,7 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Instantaneous (no dynamics)
 - [x] **Mixing Property:** Static topology (trivial dynamics)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Winding numbers $\{W(p,\gamma) : p \in \mathbb{R}^2 \setminus \gamma\}$
 - [x] **Dictionary $D$:** Homology correspondence $H_1(S^1) \cong \mathbb{Z}$
 - [x] **Complexity Measure $K$:** Combinatorial complexity (vertices for piecewise linear)
@@ -146,7 +146,7 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Third component or zero components in $\mathbb{R}^2 \setminus \gamma$
 - [x] **Exclusion Tactics:**
   - [x] E4 (Topological Integrality): Winding number quantization → component classification
-  - [x] E1 (Structural Reconstruction): Homology correspondence → two-component decomposition
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Homology correspondence → two-component decomposition
 
 ---
 
@@ -352,7 +352,7 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the topology computable/finitely described?
 
@@ -365,7 +365,7 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
 6. [x] Dictionary: Winding number values $\{0, \pm 1\}$ classify components
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (H_1 \cong \mathbb{Z}, \text{winding algorithm})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (H_1 \cong \mathbb{Z}, \text{winding algorithm})$ → **Go to Node 12**
 
 ---
 
@@ -422,7 +422,7 @@ Equivalently: The curve $\gamma$ is the common boundary $\partial \Omega_{\text{
   - $n \ge 3$: Three or more components
 
 **Step 2: Apply Tactic E4 (Topological Integrality — winding number quantization)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (Homology structure $H_1(\gamma) \cong \mathbb{Z}$)
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (Homology structure $H_1(\gamma) \cong \mathbb{Z}$)
 2. [x] Winding number: $W(p,\gamma) \in \mathbb{Z}$ is topologically quantized
 3. [x] Far from curve: For $\|p\| \to \infty$, $W(p,\gamma) \to 0$ (asymptotic vanishing)
 4. [x] Unbounded component: There exists at least one unbounded component with $W = 0$
@@ -607,7 +607,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (winding sectors)
 Node 9:  K_{TB_O}^+ (semi-algebraic tameness)
 Node 10: K_{TB_ρ}^+ (static topology)
-Node 11: K_{Rep_K}^+ (homology ≅ ℤ)
+Node 11: K_{RepDesc_K}^+ (homology ≅ ℤ)
 Node 12: K_{GC_∇}^- (no pure gradient)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -615,7 +615,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -663,54 +663,3 @@ where $\Omega_{\text{in}}$ is bounded with $W = \pm 1$, and $\Omega_{\text{out}}
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Arc Length Finiteness | Positive | $K_{D_E}^+$ |
-| Simplicity (No Self-Intersections) | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Canonical Profile | Positive | $K_{C_\mu}^+$ |
-| Subcritical Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Uniform Continuity | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Codimension-1 Geometry | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Topological Stiffness | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Winding Number Structure | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| O-minimal Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Static Topology | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Homology Structure | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative | $K_{\mathrm{GC}_\nabla}^-$ (non-monotone) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- C. Jordan, *Cours d'Analyse de l'École Polytechnique* (1893) — original statement
-- O. Veblen, *Theory on Plane Curves in Non-Metrical Analysis Situs*, Trans. AMS 6 (1905)
-- L.E.J. Brouwer, *Beweis der Invarianz der Dimensionenzahl*, Math. Ann. 70 (1911)
-- J.W. Alexander, *A Proof of the Invariance of Certain Constants in Analysis Situs*, Trans. AMS 16 (1915) — Alexander duality
-- E.H. Spanier, *Algebraic Topology*, Springer (1966) — modern homological proof
-- M. Maehara, *The Jordan Curve Theorem via the Brouwer Fixed Point Theorem*, Amer. Math. Monthly 91 (1984)
-- T. Hales, *The Jordan Curve Theorem, Formally and Informally*, Amer. Math. Monthly 114 (2007)
-- L. Guillou, *À la recherche de la topologie perdue*, Hermann (1986) — historical perspective
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{topological}}$ (Geometric Measure Theory / Winding Number) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

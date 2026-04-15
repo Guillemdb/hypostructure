@@ -28,9 +28,9 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{ergodic}}\ \text{good},\ \text{AutomationGuaran
 
 This document presents a **machine-checkable proof object** for **Irrational Rotation Unique Ergodicity** using the Hypostructure framework.
 
-**Approach:** We instantiate the ergodic hypostructure with irrational rotation $R_\alpha: \mathbb{T} \to \mathbb{T}$ where $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ (circle). The height functional is the deviation from uniform distribution (discrepancy). The key insight is that irrationality forces dispersion: orbit segments equidistribute via continued fraction approximations (Tactic E4 - Integrality). The Lebesgue measure is the unique invariant measure.
+**Approach:** We instantiate the ergodic hypostructure with irrational rotation $R_\alpha: \mathbb{T} \to \mathbb{T}$ where $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ (circle). The height functional is the deviation from uniform distribution (discrepancy), and the continued-fraction / Weyl backend supplies the quantitative orbit-distribution control.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E4 (Integrality) and LOCK-Reconstruction (Structural Reconstruction). OBL-1 ($K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$) is discharged via $K_{\text{Rec}}^+$; the proof is unconditional. This is a paradigm case of **DISPERSION** - orbits spread uniformly across the circle.
+**Result:** The continued-fraction/Weyl backend discharges the only auxiliary stiffness obligation and blocks the non-equidistribution bad pattern. The proof is unconditional.
 
 ---
 
@@ -130,7 +130,7 @@ Equivalently:
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Not mixing (uniquely ergodic but not mixing)
 - [x] **Mixing Property:** Ergodic (not strongly mixing)
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Fourier coefficients
 - [x] **Dictionary $D$:** Characters $e^{2\pi i k x}$
 - [x] **Complexity Measure $K$:** Number of significant Fourier modes
@@ -150,7 +150,7 @@ Equivalently:
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-equidistribution (persistent clustering)
 - [x] **Exclusion Tactics:**
   - [x] E4 (Integrality): Irrationality forces dispersion via continued fractions
-  - [x] E1 (Structural Reconstruction): Three-distance theorem → uniform distribution
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Three-distance theorem → uniform distribution
 
 ---
 
@@ -345,7 +345,7 @@ Equivalently:
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the Fourier complexity finite?
 
@@ -356,7 +356,7 @@ Equivalently:
 4. [x] Result: Finite Fourier complexity
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{Weyl criterion}, \text{Fourier decay}, \text{finite complexity})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Weyl criterion}, \text{Fourier decay}, \text{finite complexity})$ → **Go to Node 12**
 
 ---
 
@@ -406,7 +406,7 @@ Equivalently:
 - $\text{Bad}$: Non-equidistribution (persistent clustering in some region)
 
 **Step 2: Apply Tactic E4 (Integrality - irrationality obstruction)**
-1. [x] Input: $K_{\mathrm{Rep}_K}^+$ (Weyl criterion)
+1. [x] Input: $K_{\mathrm{RepDesc}_K}^+$ (Weyl criterion)
 2. [x] Irrationality: $\alpha \notin \mathbb{Q}$ means no rational period
 3. [x] Obstruction: Rational rotation gives periodic orbits (clustering)
 4. [x] Irrational rotation forces dispersion (no resonances)
@@ -580,7 +580,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (minimal system)
 Node 9:  K_{TB_O}^+ (definable)
 Node 10: K_{TB_ρ}^+ (uniquely ergodic)
-Node 11: K_{Rep_K}^+ (Weyl criterion)
+Node 11: K_{RepDesc_K}^+ (Weyl criterion)
 Node 12: K_{GC_∇}^- (conservative)
 Node 13: K_{Bound_∂}^- (closed circle)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -588,11 +588,9 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Rigid}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
-
-**WEYL EQUIDISTRIBUTION CONFIRMED**
 
 Irrational rotation is uniquely ergodic. All orbits equidistribute with respect to Lebesgue measure.
 
@@ -673,95 +671,3 @@ $\therefore$ Irrational rotation is uniquely ergodic (Weyl equidistribution) $\s
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Discrepancy Bound | Positive | $K_{D_E}^+$ |
-| Cesàro Averaging | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Unique Invariant | Positive | $K_{C_\mu}^+$ |
-| Critical Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Irrationality Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Dense Orbit | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Diophantine Quantification | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Minimal System | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Definability | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Unique Ergodicity | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Weyl Criterion | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Conservative Flow | Negative | $K_{\mathrm{GC}_\nabla}^-$ (isometry) |
-| Closed Circle | Negative | $K_{\mathrm{Bound}_\partial}^-$ (no boundary) |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- H. Weyl, *Über die Gleichverteilung von Zahlen mod. Eins*, Math. Ann. 77 (1916), 313-352
-- V.T. Sós, *On the distribution mod 1 of the sequence nα*, Ann. Univ. Sci. Budapest 1 (1958), 127-134
-- J. Surányi, *Über die Anordnung der Vielfachen einer reellen Zahl mod 1*, Ann. Univ. Sci. Budapest 1 (1958), 107-111
-- P. Erdős, P. Turán, *On a problem in the theory of uniform distribution*, Indag. Math. 10 (1948)
-- I.P. Cornfeld, S.V. Fomin, Y.G. Sinai, *Ergodic Theory*, Springer (1982)
-- P. Walters, *An Introduction to Ergodic Theory*, Springer (1982)
-
----
-
-## Appendix: Three-Distance Theorem
-
-::::{prf:theorem} Three-Distance Theorem (Steinhaus-Sós-Surányi)
-:label: thm-three-distance
-
-Let $\alpha \in (0,1)$ be irrational. For any positive integer $N$, consider the points:
-$$\{0, \{\alpha\}, \{2\alpha\}, \ldots, \{(N-1)\alpha\}\}$$
-where $\{x\}$ denotes the fractional part of $x$.
-
-These $N$ points partition the circle $\mathbb{T} = [0,1)$ into $N$ intervals. The lengths of these intervals take on **at most three distinct values**.
-
-Moreover, if $\alpha = [a_0; a_1, a_2, \ldots]$ and $p_k/q_k$ are the convergents, then for $q_k \le N < q_{k+1}$:
-- There are $q_{k+1} - N$ gaps of length $\ell_-$
-- There are $N - q_k$ gaps of length $\ell_+$
-- There are $2q_k + q_{k-1} - N$ gaps of length $\ell_0$
-
-where $\ell_- < \ell_0 < \ell_+$ and $\ell_+ - \ell_- = |\alpha q_k - p_k|$.
-
-::::
-
-**Implication:** As $N \to \infty$, the gap sizes become increasingly uniform, forcing equidistribution.
-
----
-
-## Appendix: Weyl Criterion
-
-::::{prf:theorem} Weyl Equidistribution Criterion
-:label: thm-weyl-criterion
-
-Let $(x_n)_{n=0}^\infty$ be a sequence in $\mathbb{T} = \mathbb{R}/\mathbb{Z}$. The sequence is **equidistributed** with respect to Lebesgue measure if and only if:
-$$\lim_{N \to \infty} \frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi i k x_n} = 0 \quad \text{for all } k \in \mathbb{Z} \setminus \{0\}$$
-
-::::
-
-**Proof:** Fourier analysis. Any continuous function $f$ can be approximated by trigonometric polynomials. The Weyl criterion ensures that time averages converge to space averages for all Fourier modes.
-
-**Application to Irrational Rotation:** For $x_n = n\alpha$ with $\alpha$ irrational:
-$$\lim_{N \to \infty} \frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi i kn\alpha} = \lim_{N \to \infty} \frac{e^{2\pi i kN\alpha} - 1}{N(e^{2\pi i k\alpha} - 1)} = 0$$
-since $e^{2\pi i k\alpha} \neq 1$ for $k \neq 0$ (irrationality).
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{ergodic}}$ (Dynamical Systems / Unique Ergodicity) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-

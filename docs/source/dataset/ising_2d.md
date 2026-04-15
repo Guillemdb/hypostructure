@@ -134,7 +134,7 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 - [x] **Mixing Time $\tau_{\text{mix}}$:** Glauber dynamics mixing time (exponential in $\xi$ near $T_c$)
 - [x] **Mixing Property:** Exponential decay $C(r) \sim e^{-r/\xi}$ for $T > T_c$
 
-#### Template: $\mathrm{Rep}_K$ (Dictionary Interface)
+#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
 - [x] **Language $\mathcal{L}$:** Cluster expansions, high/low-temperature series
 - [x] **Dictionary $D$:** Kramers-Wannier duality $\sigma \leftrightarrow$ dual-lattice bonds
 - [x] **Complexity Measure $K$:** Series expansion truncation order
@@ -154,7 +154,7 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Phantom phase transition (discontinuity in free energy without thermodynamic mechanism)
 - [x] **Exclusion Tactics:**
   - [x] E3 (Symmetry Breaking): $\mathbb{Z}_2$ symmetry → phase coexistence → legitimate transition
-  - [x] E1 (Structural Reconstruction): Kramers-Wannier duality → self-dual critical point
+  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction): Kramers-Wannier duality → self-dual critical point
 
 ---
 
@@ -378,7 +378,7 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 
 ---
 
-#### Node 11: ComplexCheck ($\mathrm{Rep}_K$)
+#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 
 **Question:** Is the thermodynamic structure computable/finite-complexity?
 
@@ -392,7 +392,7 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 7. [x] Dictionary: cluster expansions, duality maps, exact solution
 
 **Certificate:**
-* [x] $K_{\mathrm{Rep}_K}^+ = (\text{KW duality}, \text{Onsager exact}, \text{computable})$ → **Go to Node 12**
+* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{KW duality}, \text{Onsager exact}, \text{computable})$ → **Go to Node 12**
 
 ---
 
@@ -459,7 +459,7 @@ Equivalently: The free energy $F(T)$ is non-analytic at $T_c$, with critical exp
 8. [x] Magnetization: $m = \lim_{h \to 0^+} \langle \sigma \rangle \neq 0$ for $T < T_c$
 9. [x] Certificate: $K_{\text{SymBreak}}^+$ (thermodynamically stable broken phase)
 
-**Step 3: Apply Tactic E1 (Structural Reconstruction — duality)**
+**Step 3: Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Structural Reconstruction — duality)**
 1. [x] Kramers-Wannier duality: high-$T$ ↔ low-$T$ via dual lattice
 2. [x] Duality map: $\sigma_i \sigma_j$ ↔ dual-bond variable $\tau_{ij}^*$
 3. [x] Partition function: $Z(T) = Z_{\text{dual}}(T^*)$ with $\sinh(2\beta J)\sinh(2\beta^* J) = 1$
@@ -639,7 +639,7 @@ Node 7:  K_{LS_σ}^{inc} → K_{Rec}^+ → K_{LS_σ}^+
 Node 8:  K_{TB_π}^+ (ℤ₂ sectors)
 Node 9:  K_{TB_O}^+ (real-analytic F)
 Node 10: K_{TB_ρ}^+ (detailed balance, mixing)
-Node 11: K_{Rep_K}^+ (KW duality, Onsager exact)
+Node 11: K_{RepDesc_K}^+ (KW duality, Onsager exact)
 Node 12: K_{GC_∇}^- (gradient flow, no oscillation)
 Node 13: K_{Bound_∂}^- (closed system)
 Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_Hom}^{blk}
@@ -647,7 +647,7 @@ Node 17: K_{Cat_Hom}^{br-inc} → LOCK-Reconstruction → K_{Rec}^+ → K_{Cat_H
 
 ### Final Certificate Set
 
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{Rep}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Peierls}}^+, K_{\text{SymBreak}}^+, K_{\text{Bridge}}^+, K_{\text{Onsager}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
+$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^+, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^-, K_{\text{Peierls}}^+, K_{\text{SymBreak}}^+, K_{\text{Bridge}}^+, K_{\text{Onsager}}^+, K_{\text{Rec}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
 
 ### Conclusion
 
@@ -713,53 +713,3 @@ $\square$
 ::::
 
 ---
-
-## Verification Summary
-
-| Component | Status | Certificate |
-|-----------|--------|-------------|
-| Energy Boundedness | Positive | $K_{D_E}^+$ |
-| Event Finiteness | Positive | $K_{\mathrm{Rec}_N}^+$ |
-| Phase Concentration | Positive | $K_{C_\mu}^+$ |
-| Subcritical Scaling | Positive | $K_{\mathrm{SC}_\lambda}^+$ |
-| Parameter Stability | Positive | $K_{\mathrm{SC}_{\partial c}}^+$ |
-| Critical Set Geometry | Positive | $K_{\mathrm{Cap}_H}^+$ |
-| Stiffness/Symmetry Breaking | Upgraded | $K_{\mathrm{LS}_\sigma}^+$ (via $K_{\text{Rec}}^+$) |
-| Sector Topology | Positive | $K_{\mathrm{TB}_\pi}^+$ |
-| Tameness | Positive | $K_{\mathrm{TB}_O}^+$ |
-| Mixing | Positive | $K_{\mathrm{TB}_\rho}^+$ |
-| Complexity/Duality | Positive | $K_{\mathrm{Rep}_K}^+$ |
-| Gradient Structure | Negative (gradient) | $K_{\mathrm{GC}_\nabla}^-$ |
-| Reconstruction | Positive | $K_{\text{Rec}}^+$ (LOCK-Reconstruction) |
-| Lock | **BLOCKED** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Obligation Ledger | EMPTY after closure | OBL-1 discharged via $K_{\text{Rec}}^+$ |
-| **Final Status** | **UNCONDITIONAL** | — |
-
----
-
-## References
-
-- E. Ising, *Beitrag zur Theorie des Ferromagnetismus*, Zeitschrift für Physik 31 (1925)
-- L. Onsager, *Crystal Statistics. I. A Two-Dimensional Model with an Order-Disorder Transition*, Physical Review 65 (1944)
-- H.A. Kramers, G.H. Wannier, *Statistics of the Two-Dimensional Ferromagnet*, Physical Review 60 (1941)
-- R. Peierls, *On Ising's model of ferromagnetism*, Mathematical Proceedings of the Cambridge Philosophical Society 32 (1936)
-- C.N. Yang, T.D. Lee, *Statistical Theory of Equations of State and Phase Transitions. I. Theory of Condensation*, Physical Review 87 (1952)
-- B.M. McCoy, T.T. Wu, *The Two-Dimensional Ising Model*, Harvard University Press (1973)
-- R.J. Baxter, *Exactly Solved Models in Statistical Mechanics*, Academic Press (1982)
-
----
-
-
-## Document Information
-
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | Open Problem |
-| **System Type** | $T_{\text{statistical}}$ (Statistical Mechanics / Equilibrium Thermodynamics) |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | UNCONDITIONAL |
-| **Generated** | 2026-04-14 |
-
