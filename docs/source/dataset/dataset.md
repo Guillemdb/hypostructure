@@ -315,4 +315,3 @@ Each problem entry provides a complete Hypostructure proof object including:
 | **Inc Certificates** | Not explicitly listed |
 | **Final Status** | Final |
 | **Generated** | 2026-04-14 |
-

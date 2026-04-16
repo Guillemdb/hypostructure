@@ -22,10 +22,10 @@ structure WitnessHom {n p : ℕ} (A B : BadAlgGerm n p) where
 namespace WitnessHom
 
 def id (A : BadAlgGerm n p) : WitnessHom A A where
-  mapTag := id
+  mapTag := fun x => x
   mapWitness := rfl
-  preservesBad := id
-  preservesNonzero := id
+  preservesBad := fun h => h
+  preservesNonzero := fun h => h
 
 def comp {A B C : BadAlgGerm n p} (f : WitnessHom A B) (g : WitnessHom B C) :
     WitnessHom A C where
@@ -43,12 +43,16 @@ theorem id_comp {A B : BadAlgGerm n p}
     (f : WitnessHom A B) :
     comp (id A) f = f := by
   cases f
+  simp [comp, id]
+  funext x
   rfl
 
 theorem comp_id {A B : BadAlgGerm n p}
     (f : WitnessHom A B) :
     comp f (id B) = f := by
   cases f
+  simp [comp, id]
+  funext x
   rfl
 
 theorem assoc {A B C D : BadAlgGerm n p}

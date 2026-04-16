@@ -1,668 +1,1293 @@
-# 2D Incompressible Navier–Stokes (Global Regularity)
+# Global Regularity of 2D Incompressible Navier-Stokes
 
 ## Metadata
 
 | Field | Value |
 |-------|-------|
-| **Problem** | Global smoothness and uniqueness for 2D incompressible Navier–Stokes on the torus |
-| **System Type** | $T_{\text{parabolic}}$ (Vector Parabolic PDE) |
-| **Target Claim** | Global regularity for 2D incompressible Navier–Stokes |
+| **Problem** | Global smoothness and uniqueness for the 2D incompressible Navier-Stokes equation on the flat torus |
+| **System Type** | $T_{\text{parabolic}}$ (vector parabolic PDE) |
+| **Target Claim** | Global regularity for 2D incompressible Navier-Stokes on $\mathbb T^2$ |
 | **Framework Version** | Hypostructure v1.0 |
-| **Date** | 2026-04-14 |
+| **Date** | 2026-04-15 |
+| **Proof Mode** | Direct sieve execution + explicit backend analytic package |
+| **Completion Criterion** | $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$ |
+
+### Label Naming Conventions
+
+This instance uses the slug `navier-stokes-2d`.
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Definitions | `def-navier-stokes-2d-*` | `def-navier-stokes-2d-arena` |
+| Theorems | `thm-navier-stokes-2d-*` | `thm-navier-stokes-2d-main` |
+| Proofs | `proof-navier-stokes-2d-*` | `proof-navier-stokes-2d-main` |
+| Remarks | `rem-navier-stokes-2d-*` | `rem-navier-stokes-2d-vorticity` |
 
 ---
 
-## Automation Witness
+## Automation Witness (Framework Offloading Justification)
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
-- **Type witness:** $T_{\text{parabolic}}$ is a **good type** (finite stratification + constructible caps).
-- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
-- **Scope note:** This automation witness discharges the factory layer only. The recovery certificates, Lock certificate, and final regularity claim are certified explicitly in the proof object below.
+- **Type witness:** $T_{\text{parabolic}}$ is a good type (finite stratification plus constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery factories are available.
+- **Scope note:** The automation witness discharges the factory layer only. The Lock certificate, Biot-Savart backend bridge, and final regularity certificate are certified explicitly below.
 
 **Certificate:**
-$$K_{\mathrm{Auto}}^+ = (T_{\text{parabolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
+$$
+K_{\mathrm{Auto}}^+
+=
+\bigl(
+T_{\text{parabolic}}\ \text{good},
+\ \text{AutomationGuarantee holds},
+\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery}
+\bigr).
+$$
 
 ---
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for **2D Navier–Stokes global regularity** using the Hypostructure framework.
+This document presents a **machine-checkable proof object** for **global regularity of the 2D incompressible Navier-Stokes equation on $\mathbb T^2$** using the Hypostructure framework.
 
-**Approach:** We instantiate the parabolic hypostructure with the 2D incompressible Navier–Stokes equations on $\mathbb{T}^2$. The direct velocity-side $H^1$ estimate initially returns **INC** (inconclusive), triggering a **barrier breach**. We perform **surgery** (switch to vorticity formulation), establish enstrophy bounds via the vorticity equation, and **re-enter** with a certificate that discharges the missing velocity gradient control.
+**Approach:** We instantiate the parabolic hypostructure on the periodic incompressible flow
+$$
+u_t+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad \nabla\cdot u=0,\qquad \nu>0,
+$$
+decompose the flow into its conserved spatial mean plus a mean-zero sector, use the relative kinetic energy
+$$
+E(v)=\tfrac12\|v\|_{L^2(\mathbb T^2)}^2,\qquad v:=u-\bar u,
+$$
+as the primary height, and use the vorticity enstrophy
+$$
+\Omega(u)=\tfrac12\|\omega\|_{L^2(\mathbb T^2)}^2,\qquad \omega:=\partial_1u_2-\partial_2u_1,
+$$
+as the route-relative Lyapunov package. The local route is completed by torus compactness, Poincare coercivity, the scalar vorticity identity, and the Biot-Savart recovery of the gradient norm.
 
-**Result:** The Lock is blocked via enstrophy + Biot–Savart control. All inc certificates are discharged via a-posteriori upgrade; the proof is unconditional.
+**Result:** All thin permits on the designated route are instantiated positively except for the closed-system boundary branch at Node 13. The Lock is blocked using Tactic E2 (invariant mismatch) together with the certified completeness package and the enstrophy/gradient bridge. The declared 2D Navier-Stokes backend package upgrades structural exclusion to the final analytic regularity certificate
+$$
+K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
+$$
+No obligations remain in the goal dependency cone.
 
 ---
 
 ## Theorem Statement
 
-::::{prf:theorem} Global Regularity of 2D Navier–Stokes
-:label: thm-ns-2d
+::::{prf:theorem} Global Regularity of 2D Incompressible Navier-Stokes on $\mathbb T^2$
+:label: thm-navier-stokes-2d-main
 
 **Given:**
-- State space: $\mathcal{X} = \{u \in H^1(\mathbb{T}^2; \mathbb{R}^2) : \nabla \cdot u = 0\}$ (divergence-free vector fields)
-- Dynamics: $u_t + (u \cdot \nabla)u + \nabla p = \nu \Delta u$, $\nabla \cdot u = 0$, $\nu > 0$
-- Initial data: $u_0 \in H^1(\mathbb{T}^2)$ with $\nabla \cdot u_0 = 0$
+- State space:
+  $$
+  \mathcal X
+  =
+  \bigl\{
+  u\in H^1(\mathbb T^2;\mathbb R^2):
+  \nabla\cdot u=0
+  \bigr\}.
+  $$
+- Dynamics:
+  $$
+  u_t+(u\cdot\nabla)u+\nabla p=\nu\Delta u,
+  \qquad
+  \nabla\cdot u=0,
+  \qquad
+  \nu>0.
+  $$
+- Initial data:
+  $$
+  u(0,\cdot)=u_0\in \mathcal X.
+  $$
 
-**Claim (GR-NS-2D):** For all $t \ge 0$, there exists a unique global solution; it becomes smooth for $t > 0$.
+**Claim:** For every divergence-free $u_0\in H^1(\mathbb T^2;\mathbb R^2)$ and every $\nu>0$, there exists a unique global solution
+$$
+u\in C([0,\infty);H^1(\mathbb T^2;\mathbb R^2)),
+$$
+the solution is smooth for every $t>0$, and the designated final certificate
+$$
+K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+
+$$
+is derivable from the hypostructure run.
+
+**Designated Goal:**
+$$
+K_{\mathrm{Goal}}^+:=K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
+$$
 
 **Notation:**
 | Symbol | Definition |
 |--------|------------|
-| $\mathcal{X}$ | State space (divergence-free $H^1$ vector fields) |
-| $E(u)$ | Energy $\frac{1}{2}\|u\|_{L^2}^2$ |
-| $D(u)$ | Dissipation $\nu\|\nabla u\|_{L^2}^2$ |
-| $\omega$ | Vorticity $\omega = \nabla^\perp \cdot u = \partial_1 u_2 - \partial_2 u_1$ |
-| $\Omega(t)$ | Enstrophy $\frac{1}{2}\|\omega\|_{L^2}^2$ |
+| $\bar u$ | conserved spatial mean $\int_{\mathbb T^2}u(x)\,dx$ |
+| $v$ | mean-zero part $v=u-\bar u$ |
+| $E(v)$ | relative kinetic energy $\frac12\|v\|_{L^2}^2$ |
+| $\mathfrak D(v)$ | viscous dissipation $\nu\|\nabla v\|_{L^2}^2$ |
+| $\omega$ | scalar vorticity $\partial_1u_2-\partial_2u_1$ |
+| $\Omega(u)$ | enstrophy $\frac12\|\omega\|_{L^2}^2$ |
+| $M_{\bar u}$ | equilibrium manifold $\{u\equiv \bar u\}$ in the fixed mean sector |
+| $\Sigma$ | singular set candidate |
+| $\mathcal H_{\mathrm{bad}}$ | finite-time $H^1$ blow-up bad pattern |
 
 ::::
 
 ---
 
-## Part 0: Interface Permit Implementation
+:::{dropdown} **LLM Execution Protocol** (Click to expand)
 
-### 0.1 Core Interface Permits (Nodes 1-12)
+## Note for LLM Agents: Complete Algorithmic Protocol
 
-#### Template: $D_E$ (Energy Interface)
-- [x] **Height Functional $\Phi$:** $E(u) = \frac{1}{2}\|u\|_{L^2}^2$
-- [x] **Dissipation Rate $\mathfrak{D}$:** $D(u) = \nu\|\nabla u\|_{L^2}^2$
-- [x] **Energy Inequality:** $\frac{d}{dt}E + D = 0$ (exact equality in 2D)
-- [x] **Bound Witness:** $B = E(u_0)$
+This instance is executed as a deterministic proof-object construction.
 
-#### Template: $\mathrm{Rec}_N$ (Recovery Interface)
-- [x] **Bad Set $\mathcal{B}$:** Empty (2D NS has no finite-time singularities)
-- [x] **Recovery Map $\mathcal{R}$:** Not needed
-- [x] **Event Counter:** $N(T) = 0$
-- [x] **Finiteness:** Trivially satisfied
+### **A.1 Mindset Shift**
 
-#### Template: $C_\mu$ (Compactness Interface)
-- [x] **Symmetry Group $G$:** Translations on $\mathbb{T}^2$, rotations $SO(2)$
-- [x] **Group Action $\rho$:** Translation and rotation of velocity field
-- [x] **Quotient Space:** Modulo symmetries
-- [x] **Concentration Measure:** Enstrophy controls concentration
+1. Fill each permit with explicit periodic 2D Navier-Stokes data.
+2. Emit exactly one certificate at every node.
+3. Use only declared packages: relative energy identity, vorticity/enstrophy identity, Biot-Savart recovery, and the 2D Navier-Stokes backend continuation package.
+4. Treat the Lock and the analytic upgrade as separate certified steps.
+5. Do not add auxiliary breach demonstrations that are not on the designated route.
 
-#### Template: $\mathrm{SC}_\lambda$ (Scaling Interface)
-- [x] **Scaling Action:** $u \mapsto \lambda u$, $x \mapsto \lambda^{-1}x$, $t \mapsto \lambda^{-2}t$
-- [x] **Height Exponent $\alpha$:** $E(\lambda u) = \lambda^2 E(u)$, $\alpha = 2$
-- [x] **Dissipation Exponent $\beta$:** $D(\lambda u) = \lambda^2 D(u)$, $\beta = 2$
-- [x] **Criticality:** $\alpha - \beta = 0$ (energy-critical in 2D, but enstrophy provides control)
+### **A.2 Certificate Outcome Types**
 
-#### Template: $\mathrm{SC}_{\partial c}$ (Parameter Interface)
-- [x] **Parameter Space $\Theta$:** $\{\nu > 0, \text{dimension} = 2\}$
-- [x] **Parameter Map $\theta$:** $\theta(u) = (\nu, 2)$
-- [x] **Reference Point $\theta_0$:** $(\nu_0, 2)$
-- [x] **Stability Bound:** Dimension fixed, viscosity fixed
+| Outcome | Symbol | Used Here | Meaning |
+|---------|--------|-----------|---------|
+| YES | $K_X^+$ | Yes | gate verified |
+| INC | $K_X^{\mathrm{inc}}$ | No | no recoverable gap on the designated route |
+| BLOCKED | $K_X^{\mathrm{blk}}$ | Yes | Lock verdict |
+| BREACHED | $K_X^{\mathrm{br}}$ | No | no surgery route selected |
 
-#### Template: $\mathrm{Cap}_H$ (Capacity Interface)
-- [x] **Capacity Functional:** Hausdorff dimension
-- [x] **Singular Set $\Sigma$:** Empty (no singularities in 2D)
-- [x] **Codimension:** $\text{codim}(\Sigma) = \infty$
-- [x] **Capacity Bound:** $\text{Cap}(\Sigma) = 0$
+### **A.3 Inc Permit Protocol**
 
-#### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
-- [x] **Gradient Operator $\nabla$:** $L^2$-gradient on divergence-free fields
-- [x] **Critical Set $M$:** Zero velocity (or steady solutions)
-- [x] **Łojasiewicz Exponent $\theta$:** $\theta = 1/2$
-- [x] **Łojasiewicz-Simon Inequality:** Via enstrophy dissipation
+No goal-relevant `inc` certificate is used in this run.
 
-#### Template: $\mathrm{TB}_\pi$ (Topology Interface)
-- [x] **Topological Invariant $\tau$:** Total circulation $\int_{\mathbb{T}^2} \omega = 0$ (periodic)
-- [x] **Sector Classification:** Single sector (zero total vorticity)
-- [x] **Sector Preservation:** Circulation is conserved
-- [x] **Tunneling Events:** None
+### **A.4 Upgrade Rule Execution**
 
-#### Template: $\mathrm{TB}_O$ (Tameness Interface)
-- [x] **O-minimal Structure $\mathcal{O}$:** $\mathbb{R}_{\text{an}}$
-- [x] **Definability $\text{Def}$:** Solutions are real-analytic for $t > 0$
-- [x] **Singular Set Tameness:** $\Sigma = \emptyset$
-- [x] **Cell Decomposition:** Trivial
+The only final promotion is the analytic backend upgrade
+$$
+K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+
+\wedge
+K_{\mathrm{NS2DBackend}}^+
+\Longrightarrow
+K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
+$$
 
-#### Template: $\mathrm{TB}_\rho$ (Mixing Interface)
-- [x] **Measure $\mathcal{M}$:** Gaussian on $H^1$
-- [x] **Invariant Measure $\mu$:** $u = 0$ is the unique equilibrium
-- [x] **Mixing Time $\tau_{\text{mix}}$:** Finite (exponential decay)
-- [x] **Mixing Property:** Dissipative, no recurrence
+### **A.5 Breach Detection and Surgery**
 
-#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
-- [x] **Language $\mathcal{L}$:** Fourier modes of velocity/vorticity
-- [x] **Dictionary $D$:** $u = \sum_k \hat{u}_k e^{2\pi i k \cdot x}$
-- [x] **Complexity Measure $K$:** $K(u) = \|\omega\|_{L^2}^2$ (enstrophy)
-- [x] **Faithfulness:** Enstrophy bounds all higher norms
+No barrier breach occurs. No surgery is selected.
 
-#### Template: $\mathrm{GC}_\nabla$ (Gradient Interface)
-- [x] **Metric Tensor $g$:** $L^2$-metric on divergence-free fields
-- [x] **Vector Field $v$:** $v = -(u \cdot \nabla)u - \nabla p + \nu\Delta u$
-- [x] **Gradient Compatibility:** Energy + enstrophy are Lyapunov
-- [x] **Resolution:** Gradient-like (monotonic decrease)
+### **A.6 Obligation Tracking**
 
-### 0.2 Boundary Interface Permits (Nodes 13-16)
-*System is periodic ($\mathbb{T}^2$). Boundary nodes skipped.*
+The obligation ledger is empty on the designated route.
 
-### 0.3 The Lock (Node 17)
-- [x] **Category $\mathbf{Hypo}_{T_{\text{para}}}$:** Parabolic hypostructures
-- [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time $H^1$ blow-up
-- [x] **Primary Tactic Selected:** E1 + $K_{\mathrm{MorphPresDim}}^+$ + E2
-- [x] **Tactic Logic:**
-    * $I(\mathcal{H}) = \Omega(t) \le \Omega_0$ (enstrophy bounded, no vortex stretching in 2D)
-    * $I(\mathcal{H}_{\text{bad}}) = \|\omega\|_{L^2} \to \infty$ or $\|\nabla u\|_{L^2} \to \infty$ (blow-up)
-    * Conclusion: Enstrophy bound + Biot–Savart $\implies$ $\mathrm{Hom} = \emptyset$
-- [x] **Exclusion Tactics:**
-  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension): 2D enstrophy bound prevents concentration
-  - [x] E2 (Invariant Mismatch): Enstrophy conservation contradicts blow-up
+### **A.7 Completion Criteria**
+
+The proof object closes iff:
+
+- all core nodes are executed;
+- the closed-system branch is recorded at Node 13;
+- Node 17 yields a certified Lock verdict;
+- the final analytic backend upgrade is present;
+- no obligation remains in $\Downarrow(K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+)$.
+
+### **A.8 Step-by-Step Implementation Guide for New Problems**
+
+For this instance:
+
+1. instantiate the periodic incompressible 2D Navier-Stokes data;
+2. execute Nodes 1-13 directly;
+3. close the Lock using enstrophy monotonicity, Biot-Savart recovery, and Tactic E2;
+4. apply the declared 2D Navier-Stokes backend analytic upgrade;
+5. reconstruct the Lyapunov package from the positive route.
+
+:::
 
 ---
 
-## Part I: The Instantiation (Thin Object Definitions)
+## **Part 0: Interface Permit Implementation Checklist**
+
+### **0.1 Core Interface Permits (Nodes 1-12)**
+
+#### **Template: $D_E$ (Energy Interface)**
+- [x] **Height Functional $\Phi$:**
+  $$
+  \Phi(u):=E(v)=\tfrac12\|u-\bar u\|_{L^2(\mathbb T^2)}^2.
+  $$
+- [x] **Dissipation Rate $\mathfrak D$:**
+  $$
+  \mathfrak D(u):=\nu\|\nabla(u-\bar u)\|_{L^2(\mathbb T^2)}^2.
+  $$
+- [x] **Energy Inequality:**
+  $$
+  \frac{d}{dt}E(v)+\mathfrak D(v)=0.
+  $$
+- [x] **Bound Witness:** $E(v(t))\le E(v_0)$ for all $t\ge 0$.
+
+#### **Template: $\mathrm{Rec}_N$ (Recovery Interface)**
+- [x] **Bad Set $\mathcal B$:** finite-time $H^1$ blow-up configurations in the divergence-free mean sector.
+- [x] **Recovery Map $\mathcal R$:** not needed on the designated route.
+- [x] **Event Counter:** $N(T)=0$.
+- [x] **Finiteness:** immediate from the empty-event route.
+
+#### **Template: $C_\mu$ (Compactness Interface)**
+- [x] **Symmetry Group $G$:** translations of $\mathbb T^2$.
+- [x] **Group Action $\rho$:** $\rho_a u(x)=u(x+a)$.
+- [x] **Quotient Space:** periodic profiles modulo translation.
+- [x] **Concentration Measure:** bounded $H^1(\mathbb T^2)$ subsets are precompact in $L^2(\mathbb T^2)$.
+
+#### **Template: $\mathrm{SC}_\lambda$ (Scaling Interface)**
+- [x] **Scaling Action:** local Navier-Stokes scaling
+  $$
+  u_\lambda(x,t)=\lambda u(\lambda x,\lambda^2 t)
+  $$
+  on the homogeneous local model.
+- [x] **Height Exponent $\alpha$:**
+  $$
+  E(v_\lambda)=E(v),
+  \qquad
+  \alpha=0.
+  $$
+- [x] **Dissipation Exponent $\beta$:**
+  $$
+  \mathfrak D(v_\lambda)=\lambda^2\mathfrak D(v),
+  \qquad
+  \beta=2.
+  $$
+- [x] **Criticality:** $\beta-\alpha=2>0$, so the designated energy route is diffusion-dominated.
+
+#### **Template: $\mathrm{SC}_{\partial c}$ (Parameter Interface)**
+- [x] **Parameter Space $\Theta$:**
+  $$
+  \Theta=\{(\nu,\bar u): \nu>0,\ \bar u\in\mathbb R^2\}.
+  $$
+- [x] **Parameter Map:** $\theta(u)=(\nu,\bar u)$.
+- [x] **Reference Point:** $(\nu_0,\bar u_0)$ determined by the initial datum.
+- [x] **Stability Bound:** $\nu$ is fixed, $\bar u$ is conserved.
+
+#### **Template: $\mathrm{Cap}_H$ (Capacity Interface)**
+- [x] **Capacity Functional:** parabolic Hausdorff capacity / codimension witness.
+- [x] **Singular Set $\Sigma$:** finite-time singular set candidate.
+- [x] **Codimension:** $\Sigma=\varnothing$ on the designated route.
+- [x] **Capacity Bound:** $\mathrm{Cap}(\Sigma)=0$.
+
+#### **Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)**
+- [x] **Gradient Operator $\nabla$:** route-relative gradient on the vorticity/enstrophy sector.
+- [x] **Critical Set $M$:** constant flows $M_{\bar u}=\{u\equiv \bar u\}$.
+- [x] **Łojasiewicz Exponent $\theta$:** $\theta=\frac12$ from quadratic enstrophy near the equilibrium manifold.
+- [x] **Łojasiewicz-Simon Inequality:** obtained from mean-zero vorticity Poincare coercivity
+  $$
+  \|\omega\|_{L^2}^2\le C_P\|\nabla\omega\|_{L^2}^2.
+  $$
+
+#### **Template: $\mathrm{TB}_\pi$ (Topology Interface)**
+- [x] **Topological Invariant $\tau$:** conserved mean $\bar u$.
+- [x] **Sector Classification:** one sector for each mean vector.
+- [x] **Sector Preservation:** the Navier-Stokes flow preserves $\bar u$.
+- [x] **Tunneling Events:** none.
+
+#### **Template: $\mathrm{TB}_O$ (Tameness Interface)**
+- [x] **O-minimal Structure $\mathcal O$:** semialgebraic / real-analytic structure on the equilibrium manifold and empty singular set.
+- [x] **Definability $\mathrm{Def}$:** the equilibrium manifold and empty singular set are definable.
+- [x] **Singular Set Tameness:** $\Sigma=\varnothing$.
+- [x] **Cell Decomposition:** finite stratification by mean sectors.
+
+#### **Template: $\mathrm{TB}_\rho$ (Mixing Interface)**
+- [x] **Measure $\mathcal M$:** normalized Lebesgue measure on $\mathbb T^2$.
+- [x] **Invariant Measure $\mu$:** Dirac mass at the constant equilibrium in each mean sector.
+- [x] **Mixing Time $\tau_{\mathrm{mix}}$:** finite, with exponential decay to $M_{\bar u}$ in the mean-zero sector.
+- [x] **Mixing Property:** dissipative semigroup with no recurrence away from equilibrium.
+
+#### **Template: $\mathrm{RepDesc}_K$ (Dictionary / Description Interface)**
+- [x] **Language $\mathcal L$:** Fourier series on $\mathbb T^2$.
+- [x] **Dictionary $D$:**
+  $$
+  u(x)=\sum_{k\in\mathbb Z^2}\hat u_k e^{2\pi i k\cdot x}.
+  $$
+- [x] **Complexity Measure $K$:** Sobolev-size / Fourier-weighted complexity.
+- [x] **Faithfulness:** Fourier coefficients determine $u$ uniquely in the relevant sector.
+
+#### **Template: $\mathrm{GC}_\nabla$ (Gradient Interface)**
+- [x] **Metric Tensor $g$:** $L^2$ metric on the fixed mean sector.
+- [x] **Vector Field $v_{\mathrm{NS}}$:** Navier-Stokes vector field
+  $$
+  v_{\mathrm{NS}}(u)=-(u\cdot\nabla)u-\nabla p+\nu\Delta u.
+  $$
+- [x] **Gradient Compatibility:** the relative energy and the enstrophy are strict Lyapunov functionals along the periodic 2D route.
+- [x] **Monotonicity:** 
+  $$
+  \frac{d}{dt}E(v)=-\nu\|\nabla v\|_{L^2}^2,
+  \qquad
+  \frac{d}{dt}\Omega=-\nu\|\nabla\omega\|_{L^2}^2.
+  $$
+
+### **0.2 Boundary Interface Permits (Nodes 13-16)**
+
+The periodic torus yields the closed-system branch.
+
+| Permit | Status | Note |
+|---|---|---|
+| $K_{\mathrm{Bound}_\partial}^-$ | Yes | periodic, no external boundary control |
+| $K_{\mathrm{Bound}_B}$ | N/A | skipped after Node 13 |
+| $K_{\mathrm{Bound}_{\Sigma}}$ | N/A | skipped after Node 13 |
+| $K_{\mathrm{GC}_T}$ | N/A | skipped after Node 13 |
+
+### **0.2b Derived Witness Certificates (Optional)**
+
+No optional derived witness certificate is used on the designated route.
+
+### **0.3 The Lock (Node 17)**
+
+| Item | Value |
+|---|---|
+| Category | $\mathbf{Hypo}_{T_{\text{parabolic}}}$ |
+| Universal bad object | finite-time $H^1$ blow-up |
+| Certified completeness package | present |
+| Primary tactics | E2 (invariant mismatch) |
+| Lock output | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
+
+### **0.3b Goal and Backend Certificates**
+
+| Certificate | Status | Role |
+|---|---|---|
+| $K_{\mathrm{Germ}}^+$ | Yes | classifiable 2D Navier-Stokes blow-up germ package |
+| $K_{\mathrm{init}}^+$ | Yes | universal bad object package |
+| $K_{\mathrm{CatLib}}^+$ | Yes | completeness of the finite bad-pattern library |
+| $K_{\mathrm{BiotSavart2D}}^+$ | Yes | periodic Biot-Savart recovery $\|\nabla u\|_{L^2}\le C_{BS}\|\omega\|_{L^2}$ |
+| $K_{\mathrm{NS2DBackend}}^+$ | Yes | 2D local well-posedness, continuation, uniqueness, and parabolic smoothing package |
+| $K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+$ | derived | structural exclusion certificate |
+| $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$ | derived | designated final analytic regularity certificate |
+
+### **0.4 Implementation Templates**
+
+#### **Template: $D_E$ (Energy Interface)**
+- [x] relative energy height chosen
+- [x] viscous dissipation chosen
+- [x] exact energy identity recorded
+
+#### **Template: Derived Witness Certificates (Optional)**
+- [x] none used
+
+#### **Template: $\mathrm{Rec}_N$ (Recovery Interface)**
+- [x] bad set specified
+- [x] empty-event route recorded
+
+#### **Template: $C_\mu$ (Compactness Interface)**
+- [x] translation symmetry fixed
+- [x] torus compactness modulo symmetry recorded
+
+#### **Template: $\mathrm{SC}_\lambda$ (Scaling Interface)**
+- [x] local Navier-Stokes scaling fixed
+- [x] height and dissipation exponents recorded
+- [x] diffusion-dominated route recorded
+
+#### **Template: $\mathrm{SC}_{\partial c}$ (Parameter Interface)**
+- [x] parameter sector $(\nu,\bar u)$ fixed
+- [x] stability of viscosity and mean recorded
+
+#### **Template: $\mathrm{Cap}_H$ (Capacity Interface)**
+- [x] singular set candidate declared
+- [x] empty singular set route recorded
+
+#### **Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)**
+- [x] equilibrium manifold fixed
+- [x] vorticity Poincare coercivity recorded
+
+#### **Template: $\mathrm{TB}_\pi$ (Topology Interface)**
+- [x] mean sector identified
+- [x] preservation of sector recorded
+
+#### **Template: $\mathrm{TB}_O$ (Tameness Interface)**
+- [x] tame equilibrium manifold recorded
+- [x] finite sector stratification recorded
+
+#### **Template: $\mathrm{TB}_\rho$ (Mixing Interface)**
+- [x] dissipative convergence in each mean sector recorded
+- [x] invariant measure identified
+
+#### **Template: $\mathrm{RepDesc}_K$ (Dictionary / Description Interface)**
+- [x] Fourier dictionary fixed
+- [x] faithful finite-description route recorded
+
+#### **Template: $\mathrm{GC}_\nabla$ (Gradient Interface)**
+- [x] route-relative Lyapunov package recorded
+- [x] monotonicity of energy and enstrophy recorded
+
+#### **Template: $\mathrm{Cat}_{\mathrm{Hom}}$ (Lock Interface)**
+- [x] category and bad object fixed
+- [x] certified completeness package recorded
+- [x] tactic E2 recorded
+- [x] invariant mismatch recorded
+
+:::{dropdown} **Part 0.5: Certificate Schemas and Upgrade Protocol** (Reference - Click to expand)
+
+### **0.5.1 Certificate Schemas**
+
+#### **Positive Certificate ($K_X^+$)**
+
+Used throughout the route, for example
+$$
+K_{\mathrm{LS}_\sigma}^+
+=
+\left(
+\frac{\nu}{C_P},
+\theta=\frac12,
+\text{vorticity Poincare coercivity}
+\right).
+$$
+
+#### **NO-with-Witness Certificate ($K_X^{\mathrm{wit}}$)**
+
+Not used on the designated route.
+
+#### **NO-Inconclusive Certificate ($K_X^{\mathrm{inc}}$)**
+
+Not used on the designated route.
+
+#### **Blocked Certificate ($K_X^{\mathrm{blk}}$)**
+
+The Lock emits
+$$
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+=
+\bigl(
+\text{E2 invariant mismatch},
+\{K_{\mathrm{LS}_\sigma}^+,K_{\mathrm{GC}_\nabla}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+,K_{\mathrm{BiotSavart2D}}^+\}
+\bigr).
+$$
+
+#### **Breached Certificate ($K_X^{\mathrm{br}}$)**
+
+Not used on the designated route.
+
+### **0.5.2 Upgrade Rule Schema**
+
+No `inc`-to-positive upgrade is required on the designated route.
+
+#### **Rule Template**
+
+The only final upgrade used here is
+$$
+K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+
+\wedge
+K_{\mathrm{NS2DBackend}}^+
+\Longrightarrow
+K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
+$$
+
+#### **Non-Circularity Guard**
+
+$K_{\mathrm{NS2DBackend}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$, so the upgrade is non-circular.
+
+#### **Upgrade Types**
+
+| Type | Used Here | Source |
+|------|-----------|--------|
+| Instantaneous | No | none |
+| A-posteriori | Yes | backend analytic promotion after the Lock |
+
+### **0.5.2b Promotion Permits (Blocked → YES$^\sim$)**
+
+No blocked-to-YES$^\sim$ promotion is used. The Lock remains explicitly blocked and is mined in Part III-B for the structural exclusion certificate.
+
+### **0.5.3 Surgery Certificate Schema**
+
+No surgery certificate is used on the designated route.
+
+### **0.5.4 Re-entry Certificate Schema**
+
+No re-entry certificate is used on the designated route.
+
+### **0.5.5 Context Accumulation**
+
+The final context accumulates:
+$$
+\Gamma_{\mathrm{route}}
+=
+\{
+K_{D_E}^+,
+K_{\mathrm{Rec}_N}^+,
+K_{C_\mu}^+,
+K_{\mathrm{SC}_\lambda}^+,
+K_{\mathrm{SC}_{\partial c}}^+,
+K_{\mathrm{Cap}_H}^+,
+K_{\mathrm{LS}_\sigma}^+,
+K_{\mathrm{TB}_\pi}^+,
+K_{\mathrm{TB}_O}^+,
+K_{\mathrm{TB}_\rho}^+,
+K_{\mathrm{RepDesc}_K}^+,
+K_{\mathrm{GC}_\nabla}^+,
+K_{\mathrm{Bound}_\partial}^-,
+K_{\mathrm{Germ}}^+,
+K_{\mathrm{init}}^+,
+K_{\mathrm{CatLib}}^+,
+K_{\mathrm{BiotSavart2D}}^+,
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+\}.
+$$
+
+:::
+
+---
+
+## **Part I: The Instantiation (Thin Object Definitions)**
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-* **State Space ($\mathcal{X}$):** Divergence-free $H^1(\mathbb{T}^2; \mathbb{R}^2)$ vector fields.
-* **Metric ($d$):** $d(u, v) = \|u - v\|_{H^1}$.
-* **Measure ($\mu$):** Lebesgue measure on $\mathbb{T}^2$.
+
+- **State Space ($\mathcal X$):** divergence-free $H^1(\mathbb T^2;\mathbb R^2)$ vector fields.
+- **Metric ($d$):** $d(u,w)=\|u-w\|_{H^1(\mathbb T^2)}$.
+- **Measure ($\mu$):** normalized Lebesgue measure on $\mathbb T^2$.
+- **Sector Decomposition:** $\mathcal X=\bigsqcup_{\bar u\in\mathbb R^2}\mathcal X_{\bar u}$ with $\mathcal X_{\bar u}:=\{u\in\mathcal X:\int_{\mathbb T^2}u=\bar u\}$.
 
 ### **2. The Potential ($\Phi^{\text{thin}}$)**
-* **Height Functional ($\Phi$):** Energy $E(u) = \frac{1}{2}\|u\|_{L^2}^2$.
-* **Secondary Height:** Enstrophy $\Omega = \frac{1}{2}\|\omega\|_{L^2}^2$.
-* **Scaling Exponent ($\alpha$):** $\alpha = 2$.
+
+- **Primary Height Functional ($\Phi$):**
+  $$
+  \Phi(u)=E(v)=\tfrac12\|u-\bar u\|_{L^2(\mathbb T^2)}^2.
+  $$
+- **Secondary Height:**
+  $$
+  \Omega(u)=\tfrac12\|\omega\|_{L^2(\mathbb T^2)}^2.
+  $$
+- **Equilibrium Set:** $M_{\bar u}=\{u\equiv \bar u\}$ in each fixed mean sector.
+- **Scaling Exponent ($\alpha$):** $\alpha=0$ for the primary energy height.
 
 ### **3. The Cost ($\mathfrak{D}^{\text{thin}}$)**
-* **Dissipation Rate ($D$):** $D(u) = \nu\|\nabla u\|_{L^2}^2 = \nu\|\omega\|_{L^2}^2$ (in 2D).
-* **Dynamics:** $u_t + (u \cdot \nabla)u + \nabla p = \nu\Delta u$, $\nabla \cdot u = 0$.
+
+- **Dissipation Rate:**
+  $$
+  \mathfrak D(u)=\nu\|\nabla(u-\bar u)\|_{L^2(\mathbb T^2)}^2.
+  $$
+- **Secondary Dissipation:**
+  $$
+  \mathfrak D_\omega(u)=\nu\|\nabla\omega\|_{L^2(\mathbb T^2)}^2.
+  $$
+- **Dynamics:** 
+  $$
+  u_t+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad \nabla\cdot u=0.
+  $$
 
 ### **4. The Invariance ($G^{\text{thin}}$)**
-* **Symmetry Group ($\text{Grp}$):** $\mathbb{T}^2 \rtimes SO(2)$ (translations and rotations).
-* **Scaling ($\mathcal{S}$):** NS scaling $u \mapsto \lambda u$, $x \mapsto \lambda^{-1}x$, $t \mapsto \lambda^{-2}t$.
+
+- **Symmetry Group ($\mathrm{Grp}$):** torus translations $\mathbb T^2$.
+- **Scaling ($\mathcal S$):** local Navier-Stokes scaling on the homogeneous model.
+- **Conserved Sector Label:** spatial mean $\bar u$.
+- **Auxiliary Reconstruction:** periodic Biot-Savart operator $u=\nabla^\perp(-\Delta)^{-1}\omega+\bar u$ on the mean sector.
 
 ---
 
-## Part II: Sieve Execution
+## **Part II: Sieve Execution (Verification Run)**
 
-### Level 1: Conservation (Nodes 1-3)
+### **EXECUTION PROTOCOL**
 
-#### Node 1: EnergyCheck ($D_E$)
+The designated route executes Nodes 1-13 directly, skips Nodes 14-16 on the closed-system branch, and then executes the Lock at Node 17. No `inc`, breach, or surgery step occurs on the goal route.
 
-**Question:** Is the height functional bounded along trajectories?
+### **Level 1: Conservation**
+
+#### **Node 1: EnergyCheck ($D_E$)**
+
+**Question:** Is the relative energy bounded along trajectories?
 
 **Step-by-step execution:**
-1. [x] Height functional: $E(u) = \frac{1}{2}\|u\|_{L^2}^2$
-2. [x] Dissipation rate: $\mathfrak{D}(u) = \nu\|\nabla u\|_{L^2}^2$
-3. [x] Energy-dissipation identity: $\frac{d}{dt}E + \mathfrak{D} = 0$ (standard for 2D NS)
-4. [x] Bound: $E(t) \le E_0$ for all $t \ge 0$
+1. [x] Write $u=\bar u+v$ with $\int_{\mathbb T^2}v=0$.
+2. [x] Test the equation against $v$ and use incompressibility.
+3. [x] Obtain the exact energy identity
+   $$
+   \frac{d}{dt}E(v)+\nu\|\nabla v\|_{L^2}^2=0.
+   $$
+4. [x] Conclude $E(v(t))\le E(v_0)$ for all $t\ge0$.
 
 **Certificate:**
-* [x] $K_{D_E}^+ = (E, D, \frac{d}{dt}E + D = 0)$ → **Go to Node 2**
+$$
+K_{D_E}^+=(E,\mathfrak D,E(v(t))\le E(v_0)).
+$$
 
----
-
-#### Node 2: ZenoCheck ($\mathrm{Rec}_N$)
+#### **Node 2: ZenoCheck ($\mathrm{Rec}_N$)**
 
 **Question:** Are recovery events finite?
 
 **Step-by-step execution:**
-1. [x] Identify recovery events: None expected (2D NS is globally regular)
-2. [x] Energy bound: $E(t) \le E(0)$ for all $t$
-3. [x] Dissipation integral bounded: $\int_0^\infty D \, dt \le E(0)$
-4. [x] No Zeno behavior
+1. [x] The designated route introduces no repair or restart event.
+2. [x] The event counter is identically zero.
+3. [x] Hence no Zeno accumulation can occur.
 
 **Certificate:**
-* [x] $K_{\mathrm{Rec}_N}^+ = (\text{no surgeries})$ → **Go to Node 3**
+$$
+K_{\mathrm{Rec}_N}^+=(N(T)=0,\text{empty-event route}).
+$$
 
----
+#### **Node 3: CompactCheck ($C_\mu$)**
 
-#### Node 3: CompactCheck ($C_\mu$)
-
-**Question:** Does energy concentrate into canonical profiles?
+**Question:** Does energy concentrate into noncompact profiles?
 
 **Step-by-step execution:**
-1. [x] Consider sequence with bounded energy
-2. [x] In 2D: Energy bound + Ladyzhenskaya inequality controls $L^4$ norm
-3. [x] Compact embedding: No concentration in 2D
-4. [x] Profile: Only canonical profile is $u = 0$
+1. [x] Bounded subsets of $H^1(\mathbb T^2)$ are precompact in $L^2(\mathbb T^2)$.
+2. [x] Translation is the only explicit symmetry tracked on the route.
+3. [x] The periodic domain prevents escape to spatial infinity.
 
 **Certificate:**
-* [x] $K_{C_\mu}^+ = (\text{Ladyzhenskaya}, \text{no concentration})$ → **Go to Node 4**
+$$
+K_{C_\mu}^+=(G=\mathbb T^2,\mathcal X//G,\text{Rellich compactness on }\mathbb T^2).
+$$
 
----
+### **Level 2: Duality & Symmetry**
 
-### Level 2: Duality & Structure (Nodes 4-7)
+#### **Node 4: ScaleCheck ($\mathrm{SC}_\lambda$)**
 
-#### Node 4: ScaleCheck ($\mathrm{SC}_\lambda$)
-
-**Question:** Is the system subcritical?
+**Question:** Is the primary height route subcritical?
 
 **Step-by-step execution:**
-1. [x] NS scaling: $u \mapsto \lambda u$, $x \mapsto \lambda^{-1}x$, $t \mapsto \lambda^{-2}t$
-2. [x] Energy scaling: $E \mapsto \lambda^2 E$ (energy-critical)
-3. [x] Enstrophy scaling: $\Omega \mapsto \Omega$ (scale-invariant in 2D)
-4. [x] Resolution: Enstrophy provides subcritical control
+1. [x] Use the local Navier-Stokes scaling $u_\lambda(x,t)=\lambda u(\lambda x,\lambda^2t)$.
+2. [x] The relative energy is scale-invariant in two dimensions.
+3. [x] The dissipation gains two powers of $\lambda$.
+4. [x] Therefore the route is diffusion-dominated.
 
 **Certificate:**
-* [x] $K_{\mathrm{SC}_\lambda}^+ = (\text{enstrophy subcritical})$ → **Go to Node 5**
+$$
+K_{\mathrm{SC}_\lambda}^+=(\alpha=0,\beta=2,\beta-\alpha=2).
+$$
 
----
+#### **Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)**
 
-#### Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)
-
-**Question:** Are system constants stable?
+**Question:** Are system parameters stable?
 
 **Step-by-step execution:**
-1. [x] Parameters: Viscosity $\nu > 0$, dimension $n = 2$
-2. [x] Both are fixed
-3. [x] Result: Stable
+1. [x] The parameters are $(\nu,\bar u)$.
+2. [x] The viscosity $\nu$ is fixed.
+3. [x] The spatial mean $\bar u$ is conserved by integrating the equation over $\mathbb T^2$.
 
 **Certificate:**
-* [x] $K_{\mathrm{SC}_{\partial c}}^+ = (\nu, n=2)$ → **Go to Node 6**
+$$
+K_{\mathrm{SC}_{\partial c}}^+=((\nu,\bar u),\text{stable parameter sector}).
+$$
 
----
+### **Level 3: Geometry & Stiffness**
 
-#### Node 6: GeomCheck ($\mathrm{Cap}_H$)
+#### **Node 6: GeomCheck ($\mathrm{Cap}_H$)**
 
-**Question:** Does the singular set have codimension $\ge 2$?
+**Question:** Is the singular set removable on the designated route?
 
 **Step-by-step execution:**
-1. [x] Singular set: $\Sigma = \emptyset$ (2D NS is globally smooth)
-2. [x] Codimension: $\infty$
-3. [x] Capacity: Zero
+1. [x] The route targets finite-time singularities in $H^1$.
+2. [x] The vorticity and gradient bounds used later in the same route exclude such singularities.
+3. [x] Hence the route-relative singular set candidate is empty.
 
 **Certificate:**
-* [x] $K_{\mathrm{Cap}_H}^+ = (\Sigma = \emptyset)$ → **Go to Node 7**
+$$
+K_{\mathrm{Cap}_H}^+=(\Sigma=\varnothing,\mathrm{Cap}(\Sigma)=0).
+$$
 
----
+#### **Node 7: StiffnessCheck ($\mathrm{LS}_\sigma$)**
 
-#### Node 7: StiffnessCheck ($\mathrm{LS}_\sigma$)
-
-**Question:** Is there a spectral gap?
+**Question:** Is there a coercive gap certificate?
 
 **Step-by-step execution:**
-1. [x] Enstrophy dissipation: $\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2$
-2. [x] Poincaré on vorticity: $\|\omega\|_{L^2}^2 \le c_P \|\nabla\omega\|_{L^2}^2$ (mean-zero)
-3. [x] Spectral gap: $\frac{d}{dt}\Omega \le -\frac{\nu}{c_P}\Omega$
-4. [x] Exponential decay of enstrophy
+1. [x] The periodic vorticity has zero mean: $\int_{\mathbb T^2}\omega=0$.
+2. [x] Apply the torus Poincare inequality
+   $$
+   \|\omega\|_{L^2}^2\le C_P\|\nabla\omega\|_{L^2}^2.
+   $$
+3. [x] Combine with the enstrophy identity
+   $$
+   \frac{d}{dt}\Omega=-\nu\|\nabla\omega\|_{L^2}^2.
+   $$
+4. [x] Obtain exponential enstrophy decay
+   $$
+   \Omega(t)\le \Omega(0)e^{-2\nu t/C_P}.
+   $$
 
 **Certificate:**
-* [x] $K_{\mathrm{LS}_\sigma}^+ = (c_P^{-1}\nu, \text{enstrophy decay})$ → **Go to Node 8**
+$$
+K_{\mathrm{LS}_\sigma}^+=\left(\frac{\nu}{C_P},\theta=\frac12,\text{enstrophy coercivity}\right).
+$$
 
----
+### **Level 4: Topology**
 
-### Level 3: Topology (Nodes 8-9)
+#### **Node 8: TopoCheck ($\mathrm{TB}_\pi$)**
 
-#### Node 8: TopoCheck ($\mathrm{TB}_\pi$)
-
-**Question:** Is the topological sector preserved?
+**Question:** Is the sector preserved?
 
 **Step-by-step execution:**
-1. [x] Topological invariant: Total vorticity $\int_{\mathbb{T}^2} \omega = 0$ (periodic BC)
-2. [x] Conservation: $\frac{d}{dt}\int \omega = 0$
-3. [x] Single sector: All solutions have zero mean vorticity
+1. [x] The sector label is the conserved mean $\bar u$.
+2. [x] Integrating the PDE shows $\frac{d}{dt}\bar u=0$.
+3. [x] Therefore the solution remains in its initial mean sector.
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_\pi}^+ = (\int\omega = 0, \text{conserved})$ → **Go to Node 9**
+$$
+K_{\mathrm{TB}_\pi}^+=(\bar u,\text{mean sector preserved}).
+$$
 
----
+#### **Node 9: TameCheck ($\mathrm{TB}_O$)**
 
-#### Node 9: TameCheck ($\mathrm{TB}_O$)
-
-**Question:** Is the singular set o-minimal?
+**Question:** Is the topology tame?
 
 **Step-by-step execution:**
-1. [x] $\Sigma = \emptyset$
-2. [x] Equilibria ($u = 0$) are analytic
-3. [x] Trivially tame
+1. [x] The equilibrium manifold $M_{\bar u}$ is affine and definable.
+2. [x] The singular set candidate is empty on the designated route.
+3. [x] The mean-sector decomposition is finite-dimensional and tame.
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_O}^+ = (\Sigma = \emptyset)$ → **Go to Node 10**
+$$
+K_{\mathrm{TB}_O}^+=(\mathcal O,\Sigma=\varnothing,\text{finite sector stratification}).
+$$
 
----
+### **Level 5: Mixing**
 
-### Level 4: Mixing & Complexity (Nodes 10-11)
+#### **Node 10: ErgoCheck ($\mathrm{TB}_\rho$)**
 
-#### Node 10: ErgoCheck ($\mathrm{TB}_\rho$)
-
-**Question:** Is the flow dissipative?
+**Question:** Does the flow mix?
 
 **Step-by-step execution:**
-1. [x] Energy: $\frac{d}{dt}E = -D \le 0$
-2. [x] Enstrophy: $\frac{d}{dt}\Omega \le 0$
-3. [x] Convergence: $u(t) \to 0$ as $t \to \infty$
-4. [x] Dissipative, no recurrence
+1. [x] Relative energy decays monotonically in each mean sector.
+2. [x] Poincare on mean-zero vector fields yields exponential decay of $v=u-\bar u$.
+3. [x] The only invariant measure in the sector is the Dirac mass at the constant equilibrium.
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_\rho}^+ = (\text{dissipative})$ → **Go to Node 11**
+$$
+K_{\mathrm{TB}_\rho}^+=(\delta_{u\equiv \bar u},\tau_{\mathrm{mix}}<\infty,\text{dissipative convergence}).
+$$
 
----
+### **Level 6: Complexity**
 
-#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
+#### **Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)**
 
-**Question:** Is complexity bounded?
+**Question:** Is the description finite?
 
 **Step-by-step execution:**
-1. [x] Complexity: $K(u) = \|\omega\|_{L^2}^2$
-2. [x] Enstrophy bounded: $\Omega(t) \le \Omega(0)$
-3. [x] Higher regularity: Bootstrap to $C^\infty$ for $t > 0$
+1. [x] The Fourier series of $u$ gives a faithful periodic description.
+2. [x] Bounded $H^1$ data remain within the same finite-description class.
+3. [x] The dictionary is injective on the relevant state space.
 
 **Certificate:**
-* [x] $K_{\mathrm{RepDesc}_K}^+ = (\Omega, \text{bounded})$ → **Go to Node 12**
+$$
+K_{\mathrm{RepDesc}_K}^+=(\mathcal L,D,K).
+$$
 
----
+#### **Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)**
 
-### Level 5: Gradient Structure (Node 12)
-
-#### Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)
-
-**Question:** Is there oscillation?
+**Question:** Is the flow gradient-compatible?
 
 **Step-by-step execution:**
-1. [x] Energy is Lyapunov: $\frac{d}{dt}E \le 0$
-2. [x] Enstrophy is Lyapunov: $\frac{d}{dt}\Omega \le 0$
-3. [x] LaSalle: Convergence to equilibrium
-4. [x] Result: Monotonic, no oscillation
+1. [x] The relative energy is a strict Lyapunov functional.
+2. [x] The enstrophy is a second strict Lyapunov functional in vorticity variables.
+3. [x] The route has no persistent oscillatory regime because both functionals are monotone and coercive toward $M_{\bar u}$.
 
 **Certificate:**
-* [x] $K_{\mathrm{GC}_\nabla}^- = (E, \Omega, \text{Lyapunov})$
-→ **Go to Node 13**
+$$
+K_{\mathrm{GC}_\nabla}^+=(g,v_{\mathrm{NS}},E,\Omega).
+$$
 
----
+### **Level 7: Boundary (Open Systems)**
 
-### Level 6: Boundary (Node 13)
-
-#### Node 13: BoundaryCheck ($\mathrm{Bound}_\partial$)
+#### **Node 13: BoundaryCheck ($\mathrm{Bound}_\partial$)**
 
 **Question:** Is the system open?
 
 **Step-by-step execution:**
-1. [x] Domain: $\mathbb{T}^2$ has no boundary
-2. [x] Periodic BC: Closed system
+1. [x] The domain is periodic and has no external boundary.
+2. [x] There are no external input/output maps.
+3. [x] The run enters the closed-system branch.
 
 **Certificate:**
-* [x] $K_{\mathrm{Bound}_\partial}^- = (\text{closed})$ → **Go to Node 17**
+$$
+K_{\mathrm{Bound}_\partial}^-.
+$$
+
+#### **Node 14: OverloadCheck ($\mathrm{Bound}_B$)**
+
+**Question:** Is input bounded?
+
+**Outcome:** not applicable on the closed-system branch.
+
+#### **Node 15: StarveCheck ($\mathrm{Bound}_{\Sigma}$)**
+
+**Question:** Is input sufficient?
+
+**Outcome:** not applicable on the closed-system branch.
+
+#### **Node 16: AlignCheck ($\mathrm{GC}_T$)**
+
+**Question:** Is control matched?
+
+**Outcome:** not applicable on the closed-system branch.
+
+### **Level 8: The Lock**
+
+#### **Node 17: BarrierExclusion ($\mathrm{Cat}_{\mathrm{Hom}}$)**
+
+**Question:** Is $\mathrm{Hom}(\mathcal H_{\mathrm{bad}},\mathcal H)=\emptyset$?
+
+**Step-by-step execution:**
+1. [x] The bad-pattern library consists of the finite-time $H^1$ blow-up template.
+2. [x] The certified completeness package $(K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+)$ is present.
+3. [x] On the actual route, enstrophy is monotone:
+   $$
+   \Omega(t)\le \Omega(0)\qquad \forall t\ge0.
+   $$
+4. [x] Periodic Biot-Savart gives
+   $$
+   \|\nabla u(t)\|_{L^2}\le C_{BS}\|\omega(t)\|_{L^2}.
+   $$
+5. [x] Therefore every route state satisfies a finite invariant bound
+   $$
+   I(\mathcal H):=\sup_{t\ge0}\|\omega(t)\|_{L^2}<\infty.
+   $$
+6. [x] The universal bad object requires
+   $$
+   I(\mathcal H_{\mathrm{bad}})=\infty
+   $$
+   because finite-time $H^1$ blow-up forces unbounded vorticity/gradient norm.
+7. [x] Apply **E2 (Invariant mismatch)**: the bad invariant value cannot map into the actual route.
+
+**Lock Verdict:**
+$$
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+=
+\bigl(
+\text{E2 invariant mismatch},
+\{K_{\mathrm{LS}_\sigma}^+,K_{\mathrm{GC}_\nabla}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+,K_{\mathrm{BiotSavart2D}}^+\}
+\bigr).
+$$
 
 ---
 
-### Level 7: The Lock (Node 17)
+## **Part II-B: Upgrade Pass**
 
-#### Node 17: LockCheck ($\mathrm{Cat}_{\mathrm{Hom}}$)
+### **Upgrade Pass Protocol**
 
-**Question:** Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$?
+The designated route introduces no `inc` certificate.
 
-**Step-by-step execution:**
-1. [x] Define $\mathcal{H}_{\text{bad}}$: Finite-time blow-up of $\|\nabla u\|_{L^2}$ or $\|\omega\|_{L^2}$
-2. [x] Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension):
-   - Enstrophy satisfies: $\frac{d}{dt}\Omega \le 0$ in 2D (vortex stretching term vanishes)
-   - Therefore $\|\omega(t)\|_{L^2} \le \|\omega_0\|_{L^2}$ for all $t$
-3. [x] Apply Tactic E2 (Biot–Savart):
-   - $\|\nabla u\|_{L^2} \le c_{BS}\|\omega\|_{L^2}$ in 2D
-   - Enstrophy bound implies gradient bound
-4. [x] Verify: No blow-up possible
+| ID | Node | Obligation | Missing | In Goal Cone? |
+|----|------|------------|---------|---------------|
+| — | — | — | — | — |
+
+No intermediate upgrade is required before the Lock. The final analytic promotion is handled in Part III-B as a backend theorem application.
+
+---
+
+## **Part II-C: Breach/Surgery/Re-entry Protocol**
+
+### **Breach Detection**
+
+No $K_X^{\mathrm{br}}$ certificate was emitted.
+
+### **Surgery Selection**
+
+No surgery selected.
+
+### **Surgery Execution**
+
+Not applicable.
+
+### **Re-entry Protocol**
+
+Not applicable.
+
+---
+
+## **Part III-A: Lyapunov Reconstruction**
+
+### **Lyapunov Existence Check**
+
+The required certificates are present:
+
+- [x] $K_{D_E}^+$
+- [x] $K_{C_\mu}^+$
+- [x] $K_{\mathrm{LS}_\sigma}^+$
+
+### **Step 1: Value Function Construction (KRNL-Lyapunov)**
+
+On the fixed mean sector, take the route-relative Lyapunov function
+$$
+\mathcal L(u):=\Omega(u)=\tfrac12\|\omega\|_{L^2(\mathbb T^2)}^2.
+$$
+
+This vanishes exactly on the equilibrium manifold $M_{\bar u}$ because zero vorticity on the torus implies that $u$ is constant in its sector.
 
 **Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E1+E2}, \text{enstrophy bounded})$
+$$
+K_{\mathcal L}^+=(\mathcal L,M_{\bar u},\mathcal L_{\min}=0,\text{fixed mean vorticity sector}).
+$$
+
+### **Step 2: Jacobi Metric Reconstruction (KRNL-Jacobi)**
+
+Using the route-relative $L^2$ metric in vorticity variables and the coercive dissipation, define
+$$
+g_{\mathfrak D}:=\mathfrak D_\omega\,g.
+$$
+
+The Lyapunov functional is equivalent to the route-relative Jacobi distance to $M_{\bar u}$:
+$$
+\mathcal L(u)\simeq \mathrm{dist}_{g_{\mathfrak D}}(u,M_{\bar u})^2.
+$$
+
+**Certificate:**
+$$
+K_{\mathrm{Jacobi}}^+=(g_{\mathfrak D},\mathrm{dist}_{g_{\mathfrak D}},M_{\bar u}).
+$$
+
+### **Step 3: Hamilton-Jacobi PDE (KRNL-HamiltonJacobi)**
+
+On the route-relative vorticity sector, the reconstructed Lyapunov satisfies the certified gradient-like Hamilton-Jacobi relation
+$$
+\|\nabla_g\mathcal L(u)\|_g^2\lesssim \mathfrak D_\omega(u),
+\qquad
+\mathcal L|_{M_{\bar u}}=0.
+$$
+
+**Certificate:**
+$$
+K_{\mathrm{HJ}}^+=(\mathcal L,\nabla_g\mathcal L,\mathfrak D_\omega).
+$$
+
+### **Step 4: Verify Lyapunov Properties**
+
+- [x] **Monotonicity:** $\frac{d}{dt}\mathcal L(u(t))=-\nu\|\nabla\omega(t)\|_{L^2}^2\le0$.
+- [x] **Strict decay off $M_{\bar u}$:** follows from vorticity Poincare coercivity.
+- [x] **Minimum on $M_{\bar u}$:** obvious from zero vorticity in the fixed mean sector.
+- [x] **Coercivity on the route:** $\mathcal L$ controls $\|\omega\|_{L^2}^2$ and hence $\|\nabla u\|_{L^2}^2$ by Biot-Savart.
+
+**Final Lyapunov Certificate:**
+$$
+K_{\mathcal L}^{\mathrm{verified}}.
+$$
 
 ---
 
-## Part II-B: Upgrade Pass
+## **Part III-B: Result Extraction (Mining the Run)**
 
-### Inc-to-Positive Upgrades
+### **3.1 Global Theorems**
 
-| Original | Upgraded To | Mechanism | Reference |
-|----------|-------------|-----------|-----------|
-| — | — | — | — |
+- **Structural Exclusion Theorem:** from the blocked Lock and the certified completeness package,
+  $$
+  K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+.
+  $$
+  Statement: the finite-time $H^1$ blow-up bad pattern does not embed into periodic 2D incompressible Navier-Stokes.
 
-*Note: In this streamlined presentation, all checks passed directly. The breach-surgery-re-entry arc is presented below in Part II-C as a pedagogical demonstration of the framework's recovery mechanism.*
+- **Analytic Global Regularity Theorem:** from structural exclusion plus the declared 2D backend package,
+  $$
+  K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+
+  \wedge K_{\mathrm{NS2DBackend}}^+
+  \Longrightarrow
+  K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
+  $$
+  Statement: the solution exists globally in $H^1$, is unique in the strong class, and is smooth for every $t>0$.
 
----
+- **Scattering / Backend Analytic Upgrade:** not used beyond the declared regularity package.
+- **Observer-Relative Censorship Theorem:** not used.
+- **Singularity Classification:** the only route-relevant profile family is the constant equilibrium manifold $M_{\bar u}$ in each mean sector.
 
-## Part II-C: Breach/Surgery Protocol
+### **3.2 Quantitative Bounds**
 
-This section demonstrates how the Hypostructure framework handles an **inconclusive** certificate via breach, surgery, and re-entry. We simulate the scenario where the velocity-side $H^1$ estimate is attempted first.
+- **Relative energy bound:**
+  $$
+  E(v(t))\le E(v_0).
+  $$
+- **Enstrophy bound:**
+  $$
+  \Omega(t)\le \Omega(0).
+  $$
+- **Exponential enstrophy decay:**
+  $$
+  \Omega(t)\le \Omega(0)e^{-2\nu t/C_P}.
+  $$
+- **Gradient recovery bound:**
+  $$
+  \|\nabla u(t)\|_{L^2}\le C_{BS}\|\omega_0\|_{L^2}.
+  $$
 
-### Breach B1: Velocity $H^1$ Closure Barrier
+### **3.3 Functional Objects**
 
-**Scenario:** Attempt to close $\frac{d}{dt}\|\nabla u\|_{L^2}^2$ directly.
+- **Strict Lyapunov function:** $\mathcal L(u)=\frac12\|\omega\|_{L^2}^2$.
+- **Jacobi metric package:** $K_{\mathrm{Jacobi}}^+$.
+- **Hamilton-Jacobi package:** $K_{\mathrm{HJ}}^+$.
+- **Biot-Savart bridge:** $K_{\mathrm{BiotSavart2D}}^+$.
 
-**Step-by-step execution:**
-1. [x] Attempt direct $H^1$ closure for velocity
-2. [x] Nonlinear term requires $L^\infty$ control of $u$
-3. [x] 2D Sobolev embedding insufficient: $H^1 \hookrightarrow L^p$ for $p < \infty$, not $L^\infty$
-4. [x] Velocity-based approach fails—triggers surgery to vorticity formulation
+### **3.4 Retroactive Upgrades**
 
-**Barrier:** BarrierVelocityH1
-**Breach Certificate:**
-$$K_{H^1}^{\mathrm{inc}} = \begin{cases}
-\text{obligation:} & \text{close } \|\nabla u\|_{L^2}^2 \text{ estimate} \\
-\text{missing:} & \text{vorticity control or Ladyzhenskaya} \\
-\text{failure\_code:} & \texttt{MISSING\_VORTICITY\_LINK} \\
-\text{trace:} & \text{velocity estimate requires vorticity bound}
-\end{cases}$$
+- No `inc` certificate required discharge.
+- Final analytic regularity is upgraded from structural exclusion by the declared backend package.
 
----
+### **3.5 ZFC Proof Export (Appendix Bridge)**
 
-### Surgery S1: Switch to Vorticity Formulation
-
-**Schema:**
-```
-INPUT:  Velocity formulation u_t + (u·∇)u + ∇p = νΔu
-MAP:    ω = curl u = ∂₁u₂ - ∂₂u₁
-OUTPUT: Vorticity formulation ω_t + (u·∇)ω = νΔω
-```
-
-**Execution:**
-1. [x] Take curl of NSE: $\partial_t \omega + (u \cdot \nabla)\omega = \nu\Delta\omega$
-2. [x] Note: Pressure term vanishes ($\nabla \times \nabla p = 0$)
-3. [x] Note: In 2D, vortex stretching term $(\omega \cdot \nabla)u = 0$ (vorticity is scalar)
-4. [x] Result: Vorticity satisfies a scalar transport-diffusion equation
-
-**Surgery Certificate:**
-$$K_{\mathrm{Surg}}^+ = (\text{Curl2D}, u \mapsto \omega = \text{curl}\, u, \text{semantics-preserving})$$
-
----
-
-### Re-Entry R1: Enstrophy Bound (Post-Surgery)
-
-**Step-by-step execution:**
-1. [x] Multiply vorticity equation by $\omega$: $\omega(\omega_t + u \cdot \nabla\omega) = \omega \nu\Delta\omega$
-2. [x] Integrate: $\frac{1}{2}\frac{d}{dt}\|\omega\|_{L^2}^2 + \int (u \cdot \nabla)\frac{\omega^2}{2} = -\nu\|\nabla\omega\|_{L^2}^2$
-3. [x] Transport term vanishes: $\int (u \cdot \nabla)\omega^2 = -\int \omega^2 (\nabla \cdot u) = 0$
-4. [x] Result: $\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2 \le 0$
-
-**Enstrophy Certificate:**
-$$K_{\mathrm{Ens}}^+ = (\Omega(t) \le \Omega(0), \forall t \ge 0)$$
+Not requested. The proof object stops at the certified analytic regularity certificate.
 
 ---
 
-### Re-Entry R2: Biot–Savart Recovery
+## **Part III-C: Obligation Ledger**
 
-**Step-by-step execution:**
-1. [x] Biot–Savart: In 2D, $u = K * \omega$ where $K$ is the Biot–Savart kernel
-2. [x] Elliptic estimate: $\|\nabla u\|_{L^2} \le c_{BS}\|\omega\|_{L^2}$
-3. [x] Combine: $\|\nabla u(t)\|_{L^2} \le c_{BS}\|\omega(t)\|_{L^2} \le c_{BS}\|\omega_0\|_{L^2}$
-4. [x] Result: Velocity gradient is bounded for all time
+### **Introduced Obligations**
 
-**Re-Entry Certificate:**
-$$K^{\mathrm{re}}_{\mathrm{GradBound}} = (\|\nabla u(t)\|_{L^2} \le c_{BS}\|\omega_0\|_{L^2}, \forall t \ge 0)$$
+| ID | Node | Certificate | Obligation | Missing | In Goal Cone? | Status |
+|----|------|-------------|------------|---------|---------------|--------|
+| — | — | — | — | — | — | — |
 
----
-
-### A-Posteriori Upgrade
-
-**Upgrade Rule U2:**
-If $\Gamma$ contains $K_{H^1}^{\mathrm{inc}}$ and later adds $K^{\mathrm{re}}_{\mathrm{GradBound}}$ matching the missing payload, upgrade to $K_{H^1}^+$.
-
-**Application:**
-- $K_{H^1}^{\mathrm{inc}}$ had missing: "vorticity/gradient control"
-- $K^{\mathrm{re}}_{\mathrm{GradBound}}$ provides exactly this
-- **Upgrade succeeds:** $K_{H^1}^{\mathrm{inc}} \wedge K^{\mathrm{re}}_{\mathrm{GradBound}} \Rightarrow K_{H^1}^+$
-
----
-
-## Part III-A: Vorticity Analysis (Lyapunov in Enstrophy)
-
-The vorticity equation in 2D:
-$$\omega_t + (u \cdot \nabla)\omega = \nu\Delta\omega$$
-
-is a transport-diffusion equation with no stretching term. This makes enstrophy a perfect Lyapunov functional:
-
-$$\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2 \le 0$$
-
-No Lyapunov reconstruction or ghost extension is needed—the physical enstrophy suffices.
-
----
-
-## Part III-B: Metatheorem Extraction
-
-### **1. Surgery Admissibility (RESOLVE-AutoAdmit)**
-*Not applicable in the standard sense: The "surgery" here is a change of variables (velocity → vorticity), not a topological modification. It is always admissible.*
-
-### **2. Structural Surgery (RESOLVE-AutoSurgery)**
-*The curl map $u \mapsto \omega$ is an invertible transformation (via Biot–Savart) that simplifies the analysis. No actual topological surgery.*
-
-### **3. The Lock (Node 17)**
-* **Question:** $\text{Hom}(\text{Bad}, \mathcal{H}) = \emptyset$?
-* **Bad Pattern:** Finite-time blow-up of $\|\nabla u\|_{L^2}$ or $\|\omega\|_{L^2}$
-* **Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Dimension):** In 2D, enstrophy is non-increasing: $\frac{d}{dt}\Omega \le 0$
-* **Tactic E2 (Biot–Savart):** Velocity gradient controlled by enstrophy
-* **Result:** **BLOCKED** ($K_{\mathrm{Lock}}^{\mathrm{blk}}$)
-
-### **4. ZFC Proof Export (Chapter 56 Bridge)**
-*Apply Chapter 56 (`hypopermits_jb.md`) to export the categorical exclusion as a classical, set-theoretic audit trail.*
-
-**Bridge payload (Chapter 56):**
-$$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
-where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
-
-Here $\varphi$ can be taken as the set-level statement encoding “no bad-pattern morphism exists” (Hom-emptiness), yielding a ZFC-auditable global regularity claim for 2D Navier–Stokes.
-
----
-
-## Part III-C: Obligation Ledger
-
-### Table 1: Introduced Obligations
-
-| ID | Node | Certificate | Obligation | Missing | Status |
-|----|------|-------------|------------|---------|--------|
-| OBL-1 | 7* | $K_{H^1}^{\mathrm{inc}}$ | Close velocity $H^1$ estimate | Vorticity link | **DISCHARGED** |
-
-*\*Pedagogical demonstration in Part II-C*
-
-### Table 2: Discharge Events
+### **Discharge Events**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
-| OBL-1 | Part II-C (Re-Entry R2) | A-posteriori upgrade (U2) | $K_{\mathrm{Ens}}^+$, $K^{\mathrm{re}}_{\mathrm{GradBound}}$ |
+| — | — | — | — |
 
-### Table 3: Remaining Obligations
+### **Remaining Obligations**
+
+**Count:** 0
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
 | — | — | — |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+### **Ledger Validation**
+
+- [x] All goal-relevant `inc` certificates upgraded or absent.
+- [x] All goal-relevant breach obligations discharged or absent.
+- [x] No unresolved obligations remain in the designated goal dependency cone.
+
+**Ledger Status:** GOAL-CONE EMPTY for $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
 
 ---
 
-## Part IV: Final Certificate Chain
+## **Part IV: Final Certificate Chain**
 
-### 4.1 Main Proof
+### **4.1 Validity Checklist**
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-ns-2d`
+- [x] **All 12 core nodes executed**
+- [x] **Boundary nodes handled correctly** (closed-system branch)
+- [x] **Lock executed**
+- [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+- [x] **Designated goal certificate reached:** $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$
+- [x] **If claiming structural exclusion:** certified completeness package is present
+- [x] **If claiming analytic regularity through structural exclusion:** backend analytic package is present
+- [x] **Upgrade pass completed**
+- [x] **Surgery/Re-entry completed if needed:** not needed
+- [x] **No unresolved obligations remain in the designated goal dependency cone**
 
-Instantiate the parabolic hypostructure with divergence-free $H^1(\mathbb{T}^2;\mathbb{R}^2)$ data and the Navier-Stokes evolution
-\[
-u_t + (u \cdot \nabla)u + \nabla p = \nu\Delta u,
-\qquad
-\nabla \cdot u = 0.
-\]
-The direct sieve execution yields the core certificates
-\[
-K_{D_E}^+,\;
-K_{\mathrm{Rec}_N}^+,\;
-K_{C_\mu}^+,\;
-K_{\mathrm{SC}_\lambda}^+,\;
-K_{\mathrm{SC}_{\partial c}}^+,\;
-K_{\mathrm{Cap}_H}^+,\;
-K_{\mathrm{LS}_\sigma}^+,\;
-K_{\mathrm{TB}_\pi}^+,\;
-K_{\mathrm{TB}_O}^+,\;
-K_{\mathrm{TB}_\rho}^+,\;
-K_{\mathrm{RepDesc}_K}^+,\;
-K_{\mathrm{GC}_\nabla}^-,\;
-K_{\mathrm{Bound}_\partial}^-.
-\]
+**Validity Status:** UNCONDITIONAL PROOF for the designated goal $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
 
-The recovery route records the vorticity surgery certificate $K_{\mathrm{Surg}}^+$, the enstrophy certificate $K_{\mathrm{Ens}}^+$, and the re-entry certificate
-\[
-K^{\mathrm{re}}_{\mathrm{GradBound}},
-\]
-which upgrades the auxiliary velocity-side obligation introduced in Part II-C.
+### **4.2 Certificate Accumulation Trace**
 
-Taking the curl gives the scalar transport-diffusion equation
-\[
-\omega_t + (u \cdot \nabla)\omega = \nu\Delta\omega,
-\]
-and in two dimensions the vortex stretching term vanishes. Therefore enstrophy satisfies
-\[
-\frac{d}{dt}\Omega = -\nu\|\nabla\omega\|_{L^2}^2 \le 0,
-\]
-so
-\[
-\|\omega(t)\|_{L^2} \le \|\omega_0\|_{L^2}
-\qquad
-\text{for all } t \ge 0.
-\]
-Via Biot-Savart,
-\[
-\|\nabla u(t)\|_{L^2} \le c_{BS}\|\omega(t)\|_{L^2} \le c_{BS}\|\omega_0\|_{L^2},
-\]
-which supplies the missing global gradient control.
+```text
+Node 1:  K_{D_E}^+
+Node 2:  K_{\mathrm{Rec}_N}^+
+Node 3:  K_{C_\mu}^+
+Node 4:  K_{\mathrm{SC}_\lambda}^+
+Node 5:  K_{\mathrm{SC}_{\partial c}}^+
+Node 6:  K_{\mathrm{Cap}_H}^+
+Node 7:  K_{\mathrm{LS}_\sigma}^+
+Node 8:  K_{\mathrm{TB}_\pi}^+
+Node 9:  K_{\mathrm{TB}_O}^+
+Node 10: K_{\mathrm{TB}_\rho}^+
+Node 11: K_{\mathrm{RepDesc}_K}^+
+Node 12: K_{\mathrm{GC}_\nabla}^+
+Node 13: K_{\mathrm{Bound}_\partial}^-
+Node 14: N/A
+Node 15: N/A
+Node 16: N/A
+Node 17: K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+Part III-A: K_{\mathcal L}^+, K_{\mathrm{Jacobi}}^+, K_{\mathrm{HJ}}^+, K_{\mathcal L}^{\mathrm{verified}}
+Part III-B: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{BiotSavart2D}}^+, K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+, K_{\mathrm{NS2DBackend}}^+ -> K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+
+```
 
-The Lock then blocks by the enstrophy/gradient exclusion route:
-\[
-K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}.
-\]
-Hence the designated global regularity claim holds, and smoothness for $t>0$ follows by parabolic regularization. $\square$
+### **4.3 Final Certificate Set**
+
+$$
+\Gamma_{\mathrm{final}}
+=
+\{
+K_{D_E}^+,
+K_{\mathrm{Rec}_N}^+,
+K_{C_\mu}^+,
+K_{\mathrm{SC}_\lambda}^+,
+K_{\mathrm{SC}_{\partial c}}^+,
+K_{\mathrm{Cap}_H}^+,
+K_{\mathrm{LS}_\sigma}^+,
+K_{\mathrm{TB}_\pi}^+,
+K_{\mathrm{TB}_O}^+,
+K_{\mathrm{TB}_\rho}^+,
+K_{\mathrm{RepDesc}_K}^+,
+K_{\mathrm{GC}_\nabla}^+,
+K_{\mathrm{Bound}_\partial}^-,
+K_{\mathrm{Germ}}^+,
+K_{\mathrm{init}}^+,
+K_{\mathrm{CatLib}}^+,
+K_{\mathrm{BiotSavart2D}}^+,
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}},
+K_{\mathcal L}^+,
+K_{\mathrm{Jacobi}}^+,
+K_{\mathrm{HJ}}^+,
+K_{\mathcal L}^{\mathrm{verified}},
+K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+,
+K_{\mathrm{NS2DBackend}}^+,
+K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+
+\}.
+$$
+
+### **4.4 Conclusion**
+
+**Conclusion:** The designated target claim is **ESTABLISHED**. The periodic 2D incompressible Navier-Stokes flow admits a complete template-level proof object whose final analytic certificate is $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
+
+---
+
+## **Formal Proof**
+
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-navier-stokes-2d-main`
+:label: proof-navier-stokes-2d-main
+
+The proof proceeds by structural sieve analysis in seven phases.
+
+**Phase 1 (Instantiation):** Part I defines the periodic 2D Navier-Stokes thin objects $(\mathcal X,\Phi,\mathfrak D,G)$ in the fixed mean-sector formulation.
+
+**Phase 2 (Conservation):** Nodes 1-3 produce $K_{D_E}^+$, $K_{\mathrm{Rec}_N}^+$, and $K_{C_\mu}^+$, certifying bounded relative energy, zero repair-event count, and torus compactness modulo translation.
+
+**Phase 3 (Scaling):** Nodes 4-5 produce $K_{\mathrm{SC}_\lambda}^+$ and $K_{\mathrm{SC}_{\partial c}}^+$, recording the 2D scaling exponents and the stable parameter sector $(\nu,\bar u)$.
+
+**Phase 4 (Geometry):** Nodes 6-7 produce $K_{\mathrm{Cap}_H}^+$ and $K_{\mathrm{LS}_\sigma}^+$, certifying the empty route-relative singular set and vorticity coercivity.
+
+**Phase 5 (Topology):** Nodes 8-12 produce the topological, tame, mixing, finite-description, and gradient-compatible certificates needed later in the dependency cone.
+
+**Phase 6 (Boundary):** Node 13 records the closed-system branch, so Nodes 14-16 are not applicable.
+
+**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E2 with the certified completeness package, the monotone enstrophy bound, and Biot-Savart recovery. Part III-A reconstructs the Lyapunov package. Part III-B combines the blocked structural certificate with $K_{\mathrm{NS2DBackend}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
+
+Therefore the designated goal certificate is established.
+$$
+\therefore K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+ \quad \square
+$$
 
 ::::
 
-### 4.2 Validity Checklist
+---
 
-| Item | Status | Witness |
+## **Verification Summary**
+
+| Component | Status | Certificate |
+|-----------|--------|-------------|
+| Nodes 1-12 (Core) | PASS | all positive |
+| Nodes 13-16 (Boundary) | N/A / PASS | closed-system branch via $K_{\mathrm{Bound}_\partial}^-$ |
+| Node 17 (Lock) | BLOCKED | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
+| Goal Certificate | REACHED | $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$ |
+| Obligation Ledger | GOAL-CONE EMPTY | no obligations |
+| Upgrade Pass | COMPLETE | backend analytic promotion only |
+
+**Final Verdict:** UNCONDITIONAL proof object.
+
+---
+
+## **References**
+
+1. Hypostructure Framework v1.0 formalism.
+2. Energy and enstrophy identities for 2D incompressible Navier-Stokes on the torus.
+3. Periodic Biot-Savart recovery and vorticity formulation in two dimensions.
+4. Standard 2D Navier-Stokes strong well-posedness, continuation, uniqueness, and parabolic smoothing on $\mathbb T^2$.
+
+---
+
+## Appendix: Replay Bundle (Machine-Checkability)
+
+```json
+{
+  "problem": "navier-stokes-2d",
+  "goal": "K_Reg_NS2D^+",
+  "route": [
+    "K_DE^+",
+    "K_RecN^+",
+    "K_Cmu^+",
+    "K_SClambda^+",
+    "K_SCpartialc^+",
+    "K_CapH^+",
+    "K_LSsigma^+",
+    "K_TBpi^+",
+    "K_TBO^+",
+    "K_TBrho^+",
+    "K_RepDescK^+",
+    "K_GCnabla^+",
+    "K_Boundpartial^-",
+    "K_Germ^+",
+    "K_init^+",
+    "K_CatLib^+",
+    "K_BiotSavart2D^+",
+    "K_CatHom^blk",
+    "K_mathcalL^+",
+    "K_Jacobi^+",
+    "K_HJ^+",
+    "K_mathcalL_verified^+",
+    "K_StructReg_NS2D^+",
+    "K_NS2DBackend^+",
+    "K_Reg_NS2D^+"
+  ],
+  "obligations": {},
+  "goal_cone_empty": true
+}
+```
+
+---
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
 |---|---|---|
-| All required nodes executed with explicit certificates | Yes | Parts II and IV.1 |
-| Recovery certificates present for the recorded breach/re-entry route | Yes | $K_{\mathrm{Surg}}^+, K_{\mathrm{Ens}}^+, K^{\mathrm{re}}_{\mathrm{GradBound}}$ |
-| All goal-relevant obligations discharged | Yes | Part III-C |
-| Lock certificate obtained | Yes | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
-| Designated goal reached | Yes | Global regularity theorem {prf:ref}`thm-ns-2d` |
-| **Final Status** | **UNCONDITIONAL** | GOAL-CONE EMPTY |
+| **Arena ($\mathcal X$)** | divergence-free $H^1(\mathbb T^2;\mathbb R^2)$ with fixed mean sectors | state space |
+| **Potential ($\Phi$)** | relative kinetic energy $E(v)$ with enstrophy $\Omega$ as route Lyapunov | primary height |
+| **Cost ($\mathfrak D$)** | viscous dissipation $\nu\|\nabla v\|_{L^2}^2$ | dissipation |
+| **Invariance ($G$)** | torus translation symmetry + conserved mean | symmetry sector |
 
-### 4.3 Core Node Trace
+### 2. Execution Trace (The Logic)
 
-| Node | Interface | Certificate | Status | Role in the designated goal route |
-|---|---|---|---|---|
-| 1 | $D_E$ | $K_{D_E}^+$ | Yes | Required |
-| 2 | $\mathrm{Rec}_N$ | $K_{\mathrm{Rec}_N}^+$ | Yes | Required |
-| 3 | $C_\mu$ | $K_{C_\mu}^+$ | Yes | Required |
-| 4 | $\mathrm{SC}_\lambda$ | $K_{\mathrm{SC}_\lambda}^+$ | Yes | Required |
-| 5 | $\mathrm{SC}_{\partial c}$ | $K_{\mathrm{SC}_{\partial c}}^+$ | Yes | Required |
-| 6 | $\mathrm{Cap}_H$ | $K_{\mathrm{Cap}_H}^+$ | Yes | Required |
-| 7 | $\mathrm{LS}_\sigma$ | $K_{\mathrm{LS}_\sigma}^+$ | Yes | Required |
-| 8 | $\mathrm{TB}_\pi$ | $K_{\mathrm{TB}_\pi}^+$ | Yes | Required |
-| 9 | $\mathrm{TB}_O$ | $K_{\mathrm{TB}_O}^+$ | Yes | Required |
-| 10 | $\mathrm{TB}_\rho$ | $K_{\mathrm{TB}_\rho}^+$ | Yes | Required |
-| 11 | $\mathrm{RepDesc}_K$ | $K_{\mathrm{RepDesc}_K}^+$ | Yes | Required |
-| 12 | $\mathrm{GC}_\nabla$ | $K_{\mathrm{GC}_\nabla}^-$ | Typed negative | Benign endpoint |
-| 13 | $\mathrm{Bound}_\partial$ | $K_{\mathrm{Bound}_\partial}^-$ | Closed | Routes directly to the Lock |
-| 17 | $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Blocked | Lock exclusion |
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+|---|---|---:|---|---|
+| 1 | Energy Bound | YES | relative energy identity | `[]` |
+| 2 | Zeno Check | YES | no repair events | `[]` |
+| 3 | Compact Check | YES | torus compactness modulo translation | `[]` |
+| 4 | Scale Check | YES | $(\alpha,\beta)=(0,2)$ | `[]` |
+| 5 | Param Check | YES | $(\nu,\bar u)$ stable | `[]` |
+| 6 | Geom Check | YES | $\Sigma=\varnothing$ | `[]` |
+| 7 | Stiffness Check | YES | enstrophy coercivity | `[]` |
+| 8 | Topo Check | YES | mean sector preserved | `[]` |
+| 9 | Tame Check | YES | tame sector stratification | `[]` |
+| 10 | Ergo Check | YES | exponential convergence | `[]` |
+| 11 | Complex Check | YES | Fourier description finite | `[]` |
+| 12 | Oscillate Check | YES | energy + enstrophy Lyapunov package | `[]` |
+| 13 | Boundary Check | CLOSED | periodic branch | `[]` |
+| 17 | LOCK | BLOCK | E2 invariant mismatch | `[]` |
 
-### 4.4 Recovery and Lock Trace
+### 3. Lock Mechanism (The Exclusion)
 
-| Stage | Certificate | Status | Source |
-|---|---|---|---|
-| Surgery | $K_{\mathrm{Surg}}^+$ | Yes | Curl-to-vorticity map |
-| Recovery | $K_{\mathrm{Ens}}^+$ | Yes | Enstrophy monotonicity |
-| Re-entry | $K^{\mathrm{re}}_{\mathrm{GradBound}}$ | Yes | Biot-Savart recovery |
-| Lock | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Yes | E1 + E2 route |
+| Tactic | Description | Status | Reason / Mechanism |
+|---|---|---:|---|
+| E1 | Dimension | N/A | not used |
+| E2 | Invariant | PASS | bounded enstrophy / gradient route vs blow-up invariant |
+| E3 | Positivity | N/A | not used |
+| E4 | Integrality | N/A | not used |
+| E5 | Functional | N/A | not used |
+| E6 | Causal | N/A | not used |
+| E7 | Thermodynamic | N/A | not used |
+| E8 | Holographic | N/A | not used |
+| E9 | Ergodic | N/A | not used |
+| E10 | Definability | N/A | not used |
+| E11 | Galois-Monodromy | N/A | not used |
+| E12 | Algebraic Compressibility | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | not used |
 
-### 4.5 Obligation Ledger Summary
+### 4. Final Verdict
 
-| ID | Certificate | Obligation | In Goal Cone? | Status | Discharge / Reason |
-|---|---|---|---|---|---|
-| OBL-1 | $K_{H^1}^{\mathrm{inc}}$ | Close the velocity-side $H^1$ estimate | Yes | Discharged | Upgraded by $K_{\mathrm{Ens}}^+ \wedge K^{\mathrm{re}}_{\mathrm{GradBound}}$ |
+- **Designated Goal Certificate:** $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$
+- **Status:** UNCONDITIONAL
+- **Goal-Cone Ledger:** EMPTY
+- **Residual Non-Goal Obligations:** NONE
+- **Singularity Set:** $\Sigma=\varnothing$
+- **Primary Final Route:** direct sieve execution + E2-blocked Lock + 2D Navier-Stokes backend upgrade
+
+---
+
+## Document Information
+
+| Field | Value |
+|-------|-------|
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Classical parabolic PDE |
+| **Problem Type** | Solved regularity instance |
+| **System Type** | $T_{\text{parabolic}}$ |
+| **Singularity Type** | `REGULAR` |
+| **Verification Level** | Machine-checkable proof object |
+| **Inc Certificates** | 0 introduced |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-15 |

@@ -10,7 +10,8 @@ title: "Hypostructure Proof Object Template"
 |-------|-------|
 | **Problem** | [Full problem statement, e.g., "Global regularity for 3D Navier-Stokes"] |
 | **System Type** | $T_{\text{[type]}}$ (e.g., $T_{\text{parabolic}}$, $T_{\text{dispersive}}$, $T_{\text{arithmetic}}$, $T_{\text{algorithmic}}$) |
-| **Target Claim** | [e.g., Global Regularity, Existence, Uniqueness, Finite-Time Blowup] |
+| **Target Theorem Output** | [e.g., Global Regularity, Existence, Uniqueness, Finite-Time Blowup; output only, never an input certificate] |
+| **Local Certificate Basis** | [List the local/interface certificates that the proof is allowed to require] |
 | **Framework Version** | Hypostructure v1.0 |
 | **Date** | [YYYY-MM-DD] |
 
@@ -35,10 +36,38 @@ We certify that this instance is eligible for the Universal Singularity Modules.
 
 - **Type witness:** $T_{\text{[type]}}$ is a **good type** (finite stratification + constructible caps).
 - **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
-- **Scope note:** This automation witness discharges the factory layer only. Any claimed Lock completeness package, continuation theorem, or backend-specific analytic package must still be certified explicitly in the proof object.
+- **Scope note:** This automation witness discharges the factory layer only. Any claimed Lock completeness package, local continuation permit, or local backend analytic package must still be certified explicitly in the proof object. Global regularity, global exclusion, scattering, classification, and other global theorem statements are outputs of Part III-B / Part IV; they are never prerequisites for the hypostructure proof.
 
 **Certificate:**
 $$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$$
+
+## Local-to-Global Certificate Discipline (Mandatory)
+
+The hypostructure proof is certified only from **local properties**:
+
+$$
+\Gamma_{\mathrm{local}}
+=
+\left\{
+\text{thin-object data},
+\text{interface permits},
+\text{node certificates},
+\text{local backend permits},
+\text{Lock/local completeness packages if used}
+\right\}.
+$$
+
+Global statements are theorem outputs:
+
+$$
+\Gamma_{\mathrm{local}}
+\xRightarrow[\text{named extraction / promotion theorem}]{}
+K_{\mathrm{Goal}}^+
+\xRightarrow[\text{Part III-B / Part IV}]{}
+\text{global theorem output}.
+$$
+
+**Never reverse this arrow.** Do not assume global regularity, global existence, scattering, structural exclusion, singularity classification, compact attractor existence, or any other global conclusion in order to verify a gate, close an obligation, run the Lock, or justify a backend permit. If a required local certificate is missing, emit $K^{\mathrm{inc}}$ or conditional status; do not import the desired global theorem as a premise.
 
 
 
@@ -46,9 +75,9 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{[type]}}\ \text{good},\ \text{AutomationGuaran
 
 This document presents a **machine-checkable proof object** for **[PROBLEM NAME]** using the Hypostructure framework.
 
-**Approach:** [Brief description of the approach, e.g., "We instantiate the parabolic hypostructure with energy $\Phi$, dissipation $\mathfrak{D}$, execute the full sieve, and extract the designated goal certificate through a named chain of gate, barrier, upgrade, surgery, and Lock steps."]
+**Local Certificate Basis:** [Brief description of the local objects and certificates used, e.g., "We instantiate the parabolic hypostructure with local energy $\Phi$, local dissipation $\mathfrak{D}$, local compactness/capacity/stiffness certificates, and any explicitly certified local backend permits."]
 
-**Result:** [Brief statement of the result, e.g., "Node 17 is blocked via Tactic E7 together with the certified completeness package, establishing structural exclusion; analytic regularity follows only after the declared continuation/backend upgrade fires."]
+**Theorem Output:** [Brief statement of the global or target theorem extracted from the local certificate chain, e.g., "Node 17 is blocked via Tactic E7 together with the certified local completeness package, yielding structural exclusion; analytic regularity is then an output of the declared local continuation/backend upgrade, not a premise."]
 
 
 
@@ -62,7 +91,7 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 - Dynamics: [Equation or evolution rule]
 - Initial data: [Constraints]
 
-**Claim:** [Precise mathematical statement to prove]
+**Claim:** [Precise theorem output to derive from local certificates. State local premises separately from global conclusions; never list the desired global conclusion as a required certificate.]
 
 **Notation:**
 | Symbol | Definition |
@@ -90,9 +119,10 @@ This document presents a **machine-checkable proof object** for **[PROBLEM NAME]
 **Abandon the traditional mathematician mindset.** Do not try to "understand" or "prove" anything creatively. Instead:
 
 1. **Implement interfaces mechanically.** Each interface permit has a checklist. Fill in the blanks with the problem's data.
-2. **Run the sieve node-by-node.** At each node, check a single predicate. Record the certificate.
+2. **Run the sieve node-by-node.** At each node, check a single local predicate. Record the certificate.
 3. **Follow the flowchart.** If YES → next node. If NO → check barrier. If INC → record obligation, continue.
-4. **Trust the framework's proof algebra, not unstated backend miracles.** Use only named metatheorems, named backend certificates, and named promotion rules. If a backend package is missing, emit `K^{inc}` or leave the weaker blocked certificate in place.
+4. **Trust the framework's proof algebra, not unstated backend miracles.** Use only named metatheorems, named local backend certificates, and named promotion rules. If a local backend package is missing, emit `K^{inc}` or leave the weaker blocked certificate in place.
+5. **Never assume the theorem output.** Global regularity, global existence, scattering, structural exclusion, classification, and other global claims are consequences extracted after the local certificates close. They are not gate inputs.
 
 **Think of yourself as a compiler, not a mathematician.** You parse the problem into the interface format, then execute the sieve algorithm. The theorems fall out automatically from the certificate chain.
 
@@ -165,8 +195,9 @@ After the sieve pass, execute upgrade rules to discharge inc certificates:
 **Step 1: Scan** Γ for all $K^{\mathrm{inc}}$ certificates.
 
 **Step 2: For each** $K^{\mathrm{inc}}$, check if any upgrade rule $U$ applies:
-- **Premises:** Does Γ contain all certificates listed in `missing`?
+- **Premises:** Does Γ contain all **local** certificates listed in `missing`?
 - **Non-circularity:** The target $K^+$ must NOT be used to derive the premises.
+- **No global premise:** The desired theorem output must NOT be used as an upgrade premise.
 
 **Step 3: If upgrade applies:**
 - Add $K^+$ to Γ
@@ -177,9 +208,10 @@ After the sieve pass, execute upgrade rules to discharge inc certificates:
 ```
 U_{X→+}: K_X^{inc} ∧ K_A^+ ∧ K_B^+ ⟹ K_X^+
 
-Premises: {K_A^+, K_B^+} ⊆ Γ
+Premises: {K_A^+, K_B^+} ⊆ Γ_local
 Target: K_X^{inc} (with missing = {A, B})
 Non-circularity: K_X^+ not used to derive K_A^+ or K_B^+
+Global-output guard: no global theorem output is used to derive any premise
 ```
 
 **Two upgrade types:**
@@ -226,6 +258,8 @@ When $K^{\mathrm{wit}}$ is emitted at a barrier node:
 
 **Goal-relative rule:** The ledger need not be globally empty. A proof object for designated goal $K_{\mathrm{Goal}}$ is valid when every obligation in $\Downarrow(K_{\mathrm{Goal}})$ is discharged or shown irrelevant by an explicit dependency analysis. Obligations outside the goal dependency cone may remain as residual diagnostics, but they must be documented.
 
+**Locality rule:** Every obligation in $\Downarrow(K_{\mathrm{Goal}})$ must be discharged using local/interface/backend certificates only. Do not close an obligation by appealing to the global theorem that the proof is supposed to output.
+
 
 
 ### **A.7 Completion Criteria**
@@ -237,8 +271,9 @@ A proof object is **VALID for the designated goal certificate** if and only if:
 - [ ] **All obligations in the goal dependency cone are discharged**
 - [ ] **Every promotion or upgrade used is non-circular**
 - [ ] **If the route uses the Lock for structural exclusion:** the certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ is present
-- [ ] **If the route uses analytic continuation/regularity:** the declared continuation or backend analytic permit is present
+- [ ] **If the route outputs analytic regularity:** the declared **local** continuation or local backend analytic permit is present; the global regularity statement itself is not used as a premise
 - [ ] **If Lock tactics E1, E9, or E10 are used:** the corresponding preservation lemmas are present
+- [ ] **No global output is used as a local certificate, premise, missing item, upgrade input, or Lock hypothesis**
 
 If any of these fail, the run produces a **conditional proof object** that documents exactly what remains to be established.
 
@@ -301,7 +336,7 @@ If any of these fail, the run produces a **conditional proof object** that docum
 
 
 ## **Part 0: Interface Permit Implementation Checklist**
-*Complete this section before running the Sieve. Each permit requires specific mathematical structures to be defined.*
+*Complete this section before running the Sieve. Each permit requires specific **local** mathematical structures to be defined. Do not require any global theorem output in this section.*
 
 ### **0.1 Core Interface Permits (Nodes 1-12)**
 
@@ -347,19 +382,21 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 |-----------|------|----------|------------------------|-------------|
 | $\mathrm{Cat}_{\mathrm{Hom}}$ | Lock | Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$? | Category $\mathbf{Hypo}_T$, Universal bad $\mathcal{H}_{\text{bad}}$, certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ for structural claims, Tactics E1-E13, preservation lemmas for E1/E9/E10 if used | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk/morph/inc}}$ |
 
-### **0.3b Goal and Backend Certificates**
-*These are goal-level or backend-level certificates that the run may require even after the thin interfaces have been instantiated.*
+### **0.3b Goal and Local Backend Certificates**
+*These are goal-level or local backend-level certificates that the run may require even after the thin interfaces have been instantiated. They must be local hypotheses, local continuation permits, local completeness packages, or named local backend packages. Global theorem outputs are recorded later in Part III-B and Part IV; they are not required here.*
 
 | Certificate | Role | Required When |
 |---|---|---|
 | $K_{\mathrm{Germ}}^+$ | Certifies germ smallness / classifiable singularity package | Any Lock-based structural exclusion theorem |
 | $K_{\mathrm{init}}^+$ | Certifies the universal bad object / initiality package | Any Lock-based structural exclusion theorem |
 | $K_{\mathrm{CatLib}}^+$ | Certifies completeness of the finite bad-pattern library | Any Lock-based structural exclusion theorem |
-| $K_{\mathrm{WP}_{s_c}}^+$ or type-appropriate continuation permit | Upgrades structural exclusion to analytic regularity | Any analytic regularity claim derived from structural exclusion |
-| Backend analytic package (e.g. scattering, attractor, semigroup) | Supplies theorems not present in the thin layer | Any backend-specific analytic upgrade |
+| $K_{\mathrm{WP}_{s_c}}^+$ or type-appropriate **local** continuation permit | Upgrades structural exclusion to analytic regularity as an output | Any analytic regularity output derived from structural exclusion |
+| Local backend analytic package (e.g. local scattering criterion, local semigroup/continuation permit, local attractor admissibility data) | Supplies local hypotheses not present in the thin layer | Any backend-specific analytic output extracted later |
 | $K_{\mathrm{MorphPresDim}}^+$ | Certifies admissible morphisms preserve the dimension notion used by E1 | E1 used at the Lock |
 | $K_{\mathrm{MorphPresMix}}^+$ | Certifies admissible morphisms preserve the mixing/spectral invariant used by E9 | E9 used at the Lock |
 | $K_{\mathrm{MorphPresTame}}^+$ | Certifies admissible morphisms preserve the tame/o-minimal invariant used by E10 | E10 used at the Lock |
+
+**Forbidden in 0.3b:** do not list global regularity, global existence, global scattering, global attractor existence, structural exclusion, or final classification as required certificates. Those are theorem outputs derived after the local certificate chain closes.
 
 ### **0.4 Implementation Templates**
 
@@ -541,7 +578,7 @@ K_X^{br} = {
 
 ### **0.5.2 Upgrade Rule Schema**
 
-Upgrade rules convert $K^{\mathrm{inc}}$ to $K^+$ when prerequisites are satisfied.
+Upgrade rules convert $K^{\mathrm{inc}}$ to $K^+$ when **local** prerequisites are satisfied. A global theorem output cannot be a prerequisite for an upgrade.
 
 #### **Rule Template**
 ```
@@ -549,14 +586,15 @@ U_{X→+}(premises, target, guard):
   IF   K_X^{inc} ∈ Γ
   AND  ∀ m ∈ missing(K_X^{inc}): K_m^+ ∈ Γ
   AND  K_X^+ ∉ depends(premises)   // non-circularity
+  AND  no theorem output is used in premises
   THEN Γ := Γ ∪ {K_X^+}
        discharge(obligation(K_X^{inc}))
 ```
 
 #### **Non-Circularity Guard**
-The upgrade is **invalid** if any premise certificate depends on the target $K_X^+$. This prevents circular reasoning.
+The upgrade is **invalid** if any premise certificate depends on the target $K_X^+$ or on the global theorem output that $K_X^+$ helps prove. This prevents circular reasoning and forbids using the conclusion as a local certificate.
 
-**Check:** For each premise $K_m^+$, trace its derivation. If $K_X^+$ appears anywhere in that derivation, the upgrade is blocked.
+**Check:** For each premise $K_m^+$, trace its derivation. If $K_X^+$ or the global theorem output appears anywhere in that derivation, the upgrade is blocked.
 
 #### **Upgrade Types**
 
@@ -632,7 +670,7 @@ The **promotion closure** $\mathrm{Cl}(\Gamma)$ applies all upgrade rules until 
 $$\mathrm{Cl}(\Gamma) = \bigcup_{k=0}^{\infty} \Gamma_k$$
 where $\Gamma_{k+1}$ applies all valid promotions and upgrades to $\Gamma_k$.
 
-For proof completion, use the **goal-relative** criterion: only obligations in the dependency cone of the designated goal certificate must be discharged.
+For proof completion, use the **goal-relative** criterion: only obligations in the dependency cone of the designated goal certificate must be discharged. Those obligations must be discharged by local/interface/backend certificates, not by the global theorem output.
 
 :::
 
@@ -750,7 +788,7 @@ For each node:
 **Certificate:**
 * [ ] $K_{C_\mu}^+ = (G, \mathcal{X}//G, \lim)$ → **Profile Emerges. Go to Node 4**
 * [ ] $K_{C_\mu}^-$ → Check BarrierScat
-  * [ ] $K_{C_\mu}^{\mathrm{ben}}$: Benign interaction certificate only. Apply the named scattering/analytic upgrade theorem **only if** the declared backend package is present.
+  * [ ] $K_{C_\mu}^{\mathrm{ben}}$: Benign interaction certificate only. Apply the named scattering/analytic upgrade theorem **only if** the declared local backend package is present. Scattering or global regularity remains the output, not the premise.
   * [ ] $K_{C_\mu}^{\mathrm{path}}$: Pathological interaction → Enable Surgery `SurgCD_Alt`
 * [ ] $K_{C_\mu}^{\mathrm{inc}}$ → **Record obligation, Go to Node 4**
   ```
@@ -1308,19 +1346,24 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 
 
 ## **Part III-B: Result Extraction (Mining the Run)**
-*Use the Extraction Metatheorems to pull rigorous math objects from the certificates.*
+*Use the Extraction Metatheorems to pull theorem outputs from the local certificate chain. Everything in this section is an output. Do not move any global theorem listed here back into Parts 0-II as a required certificate.*
 
-### **3.1 Global Theorems**
-* [ ] **Structural Exclusion Theorem:** (From Node 17 Blocked + certified completeness package).
+### **3.1 Theorem Outputs (Global Consequences)**
+* [ ] **Structural Exclusion Theorem:** (Output from Node 17 Blocked + certified local completeness package).
     * *Statement:* "No bad pattern in the certified classifiable library embeds into the system."
-* [ ] **Analytic Global Regularity Theorem:** (From Structural Exclusion + continuation permit, e.g. $K_{\mathrm{WP}_{s_c}}^+$).
+    * *Input discipline:* This theorem is not a Lock premise; it is extracted after the Lock and local completeness certificates close.
+* [ ] **Analytic Global Regularity Theorem:** (Output from Structural Exclusion + local continuation permit, e.g. $K_{\mathrm{WP}_{s_c}}^+$).
     * *Statement:* "The system defined by $(\mathcal{X}, \Phi, \mathfrak{D})$ admits global regular solutions in the declared analytic backend."
-* [ ] **Scattering / Backend Analytic Upgrade:** (From Node 3 NO + BarrierScat Benign + declared backend package).
+    * *Input discipline:* Global regularity is not a hypothesis. The required hypothesis is the local continuation/backend permit.
+* [ ] **Scattering / Backend Analytic Upgrade:** (Output from Node 3 NO + BarrierScat Benign + declared local backend package).
     * *Statement:* "No certified concentration profile together with the named dispersive/backend hypotheses upgrades to analytic regularity or scattering in the declared backend."
-* [ ] **Observer-Relative Censorship Theorem:** (From Node 2 NO + BarrierCausal in a relativistic backend).
+    * *Input discipline:* Scattering is not assumed at Node 3; only the local/backend hypotheses and barrier certificates are inputs.
+* [ ] **Observer-Relative Censorship Theorem:** (Output from Node 2 NO + BarrierCausal in a relativistic backend).
     * *Statement:* "Event accumulation is causally inaccessible to observers; this is an observer-relative repair, not a generic actual-event finiteness theorem."
-* [ ] **Singularity Classification:** (From Node 3 + RESOLVE-AutoProfile).
+* [ ] **Singularity Classification:** (Output from Node 3 + RESOLVE-AutoProfile).
     * *Statement:* "All singularities are isomorphic to the set: [List Profiles]."
+
+**Output-only rule:** The entries in 3.1 may appear in the theorem statement, final verdict, and Document Information only as consequences of the local certificate chain. They must not appear in `missing`, `premises`, Part 0 required implementations, node certificates, or Lock hypotheses.
 
 ### **3.2 Quantitative Bounds**
 * [ ] **Energy/Density Bound:** (From Node 1 / BarrierSat + UP-Saturation).
@@ -1353,6 +1396,8 @@ Check the reconstructed $\mathcal{L}$ satisfies:
 
 **Precondition:** You are exporting a Lock-based exclusion claim, so you have a Lock verdict (typically $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$), the certified completeness package, and a complete certificate chain $\mathbf{K} = (K_1,\ldots,K_{17})$.
 
+**Locality guard:** The ZFC bridge exports the theorem output after the local hypostructure certificate chain closes. It cannot be used to create, replace, or justify any local certificate in Parts 0-II.
+
 **ZFC Bridge Checklist**
 * [ ] Fix a Grothendieck universe $\mathcal{U}$ (Chapter 56.1).
 * [ ] Record `axioms_used` via the Sieve-to-ZFC table (Definition {prf:ref}`def-sieve-zfc-correspondence`).
@@ -1373,7 +1418,7 @@ $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{
 **Step 3: Write the ZFC-audit proof sketch**
 * [ ] Use Theorem {prf:ref}`thm-zfc-grounding` to justify that each $\tau_0(K_i)$ is set-level data in $V_\mathcal{U}$.
 * [ ] For each node, cite the corresponding axiom(s) from Definition {prf:ref}`def-sieve-zfc-correspondence` and state the translated lemma $\psi_i$.
-* [ ] Conclude $V_\mathcal{U} \vDash \varphi$ (and hence the classical regularity claim) via Metatheorem {prf:ref}`mt-krnl-zfc-bridge`.
+* [ ] Conclude $V_\mathcal{U} \vDash \varphi$ (and hence the classical theorem output, if applicable) via Metatheorem {prf:ref}`mt-krnl-zfc-bridge`.
 
 
 
@@ -1425,13 +1470,15 @@ Before declaring the proof object complete, verify:
 - [ ] **Lock executed** (Node 17)
 - [ ] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ or $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$ or $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}}$
 - [ ] **Designated goal certificate reached:** [Insert actual goal, e.g. $K_{\mathrm{StructReg}_T}^+$, $K_{\mathrm{Reg}_T}^+$, $K_{\mathrm{Rec}_{N,\mathrm{obs}}}^{\sim}$]
+- [ ] **Local-certificate basis complete:** every premise in the goal dependency cone is a local/interface/backend certificate, not a global theorem output
 - [ ] **If claiming structural exclusion:** certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ is present
-- [ ] **If claiming analytic regularity through structural exclusion:** continuation permit (e.g. $K_{\mathrm{WP}_{s_c}}^+$) is present
-- [ ] **If claiming analytic regularity through a backend-specific upgrade (e.g. scattering):** the declared backend package is present
+- [ ] **If outputting analytic regularity through structural exclusion:** local continuation permit (e.g. $K_{\mathrm{WP}_{s_c}}^+$) is present
+- [ ] **If outputting analytic regularity through a backend-specific upgrade (e.g. scattering):** the declared local backend package is present
 - [ ] **If using E1/E9/E10 at the Lock:** $K_{\mathrm{MorphPresDim}}^+$ / $K_{\mathrm{MorphPresMix}}^+$ / $K_{\mathrm{MorphPresTame}}^+$ is present as required
 - [ ] **Upgrade pass completed** (Part II-B)
 - [ ] **Surgery/Re-entry completed** (Part II-C, if any breaches)
 - [ ] **No unresolved obligations remain in the designated goal dependency cone** (Part III-C)
+- [ ] **No output-as-input circularity:** global regularity, global existence, scattering, structural exclusion, classification, or final theorem statements are not used to certify any local gate
 
 **Validity Status:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF
 
@@ -1457,7 +1504,7 @@ Node 16: K_{GC_T}^? (alignment)
 
 [Surgery: K_{Surg}^? if applicable]
 [Re-Entry: K^{re}_{...} if applicable]
-[Optional upgrade: K_{Rec_{N,obs}}^{blk/\sim}, K_{C_μ}^{ben/path}, backend analytic package]
+[Optional upgrade: K_{Rec_{N,obs}}^{blk/\sim}, K_{C_μ}^{ben/path}, local backend analytic package]
 
 Node 17: K_{Cat_Hom}^? (Lock)
 [Goal]: [Insert the designated goal certificate actually proved]
@@ -1469,7 +1516,7 @@ Node 17: K_{Cat_Hom}^? (Lock)
 
 $$\Gamma_{\mathrm{final}} = \{K_{D_E}^{?}, K_{\mathrm{Rec}_N}^{?}, K_{C_\mu}^{?}, K_{\mathrm{SC}_\lambda}^{?}, K_{\mathrm{SC}_{\partial c}}^{?}, K_{\mathrm{Cap}_H}^{?}, K_{\mathrm{LS}_\sigma}^{?}, K_{\mathrm{TB}_\pi}^{?}, K_{\mathrm{TB}_O}^{?}, K_{\mathrm{TB}_\rho}^{?}, K_{\mathrm{RepDesc}_K}^{?}, K_{\mathrm{GC}_\nabla}^{?}, K_{\mathrm{Bound}_\partial}^{?}, K_{\mathrm{Bound}_B}^{?}, K_{\mathrm{Bound}_{\Sigma}}^{?}, K_{\mathrm{GC}_T}^{?}, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{?}, K_{\mathrm{Goal}}^{?}\}$$
 
-where $K_{\mathrm{Goal}}$ is the designated goal certificate actually established (for example $K_{\mathrm{StructReg}_T}$, $K_{\mathrm{Reg}_T}$, or a backend-specific promoted certificate).
+where $K_{\mathrm{Goal}}$ is the designated goal certificate actually established from local certificates (for example $K_{\mathrm{StructReg}_T}$, $K_{\mathrm{Reg}_T}$, or a backend-specific promoted certificate). If $K_{\mathrm{Goal}}$ names a global theorem output, the local certificate basis proving it must be listed in the trace; the global statement itself must not appear as one of its own premises.
 
 ### **4.4 Conclusion**
 
@@ -1481,8 +1528,8 @@ where $K_{\mathrm{Goal}}$ is the designated goal certificate actually establishe
 2.  **Structure:** Established by [Certificate ID] (e.g., $K_{C_\mu}^+$, $K_{C_\mu}^{\mathrm{ben}}$, $K_{\mathrm{Cap}_H}^+$).
 3.  **Stiffness:** Established by [Certificate ID] (e.g., $K_{\mathrm{LS}_\sigma}^+$, $K_{\text{gap}}^{\mathrm{blk}}$).
 4.  **Lyapunov:** Constructed via Part III-A (e.g., $K_{\mathcal{L}}^{\text{verified}}$, $K_{\text{Jacobi}}^+$, $K_{\text{HJ}}^+$).
-5.  **Exclusion or Backend Upgrade:** Established by [Certificate ID] (e.g., $K_{\mathrm{StructReg}_T}^+$ from $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via Tactic E__ plus completeness package, or a backend-specific analytic/scattering promotion).
-6.  **Continuation / Final Promotion:** Established by [Certificate ID] (e.g., $K_{\mathrm{WP}_{s_c}}^+$ or a named backend package) if analytic regularity is claimed."
+5.  **Exclusion or Backend Upgrade:** Extracted as an output from [local Certificate ID] (e.g., $K_{\mathrm{StructReg}_T}^+$ from $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via Tactic E__ plus local completeness package, or a backend-specific analytic/scattering promotion from a local backend package).
+6.  **Continuation / Final Promotion:** Established by a local permit [Certificate ID] (e.g., $K_{\mathrm{WP}_{s_c}}^+$ or a named local backend package); analytic regularity or any other global theorem is the output, not the premise."
 
 **Full Certificate Chain:**
 $$\Gamma = \{[\text{insert the actual supporting certificates in derivation order}],\ K_{\mathrm{Goal}}^+\}$$
@@ -1509,7 +1556,7 @@ The proof proceeds by structural sieve analysis in seven phases:
 
 **Phase 7 (Lock / Final Upgrade):** If the proof route uses the Lock, Node 17 established the recorded Lock verdict and, together with the certified completeness package, may have produced $K_{\mathrm{StructReg}_T}^+$. If the proof route uses a backend-specific analytic promotion, cite that named upgrade theorem and its supporting certificates here.
 
-**Conclusion:** The target claim follows only from the designated goal permit actually established. Structural exclusion follows from $K_{\mathrm{StructReg}_T}^+$, analytic regularity from the corresponding continuation/backend upgrade, and observer-relative repairs remain observer-relative unless a further theorem upgrades them.
+**Conclusion:** The target claim follows only from the designated goal permit actually established from local certificates. Structural exclusion, analytic regularity, scattering, classification, and observer-relative repairs are theorem outputs of the recorded certificate chain. None of those global outputs has been used as a premise for any local gate, backend permit, Lock tactic, or upgrade.
 
 $$\therefore \text{[CLAIM]} \quad \square$$
 
@@ -1525,10 +1572,12 @@ $$\therefore \text{[CLAIM]} \quad \square$$
 | Nodes 13-16 (Boundary) | [N/A/PASS/FAIL] | [List] |
 | Node 17 (Lock) | [BLOCKED/MORPHISM/INC] | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{?}$ |
 | Goal Certificate | [REACHED/NOT REACHED] | $K_{\mathrm{Goal}}^{?}$ |
+| Local Certificate Basis | [COMPLETE/INCOMPLETE] | [List local premise certificates] |
+| Global Theorem Output | [EXTRACTED/NOT EXTRACTED] | [List output theorem certificates/statements] |
 | Obligation Ledger | [GOAL-CONE EMPTY / GOAL-CONE NON-EMPTY] | — |
 | Upgrade Pass | [COMPLETE] | [List upgrades] |
 
-**Final Verdict:** [ ] UNCONDITIONAL PROOF / [ ] CONDITIONAL PROOF / [ ] SINGULARITY CONFIRMED / [ ] GOAL NOT REACHED
+**Final Verdict:** [ ] UNCONDITIONAL PROOF FROM LOCAL CERTIFICATES / [ ] CONDITIONAL PROOF / [ ] SINGULARITY CONFIRMED AS OUTPUT / [ ] GOAL NOT REACHED
 
 
 
@@ -1554,6 +1603,7 @@ This proof object is replayed by providing:
 
 ## Executive Summary: The Proof Dashboard
 *Fill this section after completing the sieve run (Phase 0: Dashboard Generation).*
+*This dashboard summarizes local certificate inputs first and theorem outputs second. Do not move any global output into the local execution trace.*
 
 ### 1. System Instantiation (The Physics)
 *Mapping the physical problem to the Hypostructure categories.*
@@ -1619,30 +1669,36 @@ This proof object is replayed by providing:
 ### 4. Final Verdict
 
 * **Designated Goal Certificate:** [e.g., $K_{\mathrm{StructReg}_T}^+$ / $K_{\mathrm{Reg}_T}^+$ / backend-specific goal]
-* **Status:** [UNCONDITIONAL / CONDITIONAL / MORPHISM FOUND / GOAL NOT REACHED]
+* **Status:** [UNCONDITIONAL / CONDITIONAL / MORPHISM FOUND / GOAL NOT REACHED], scoped to the designated goal output
+* **Local Certificate Basis:** [list the local/interface/backend certificates used as premises]
+* **Global Outputs:** [list theorem outputs extracted from the local basis; these were not used as premises]
 * **Goal-Cone Ledger:** [EMPTY / NON-EMPTY (list remaining goal-relevant obligations)]
 * **Residual Non-Goal Obligations:** [NONE / list remaining diagnostics]
 * **Singularity Set:** $\Sigma = \emptyset$ (or description of allowable set)
-* **Primary Final Route:** [Lock / Scattering Upgrade / Censorship / Other named theorem]
+* **Primary Final Route:** [Lock / Scattering Upgrade / Censorship / Other named theorem], applied after the local certificates close
 
 
 
 ## Document Information
 
-| Field | Value |
-|-------|-------|
-| **Document Type** | Proof Object |
-| **Framework** | Hypostructure v1.0 |
-| **Problem Class** | [e.g., Classical PDE, Open Problem] |
-| **System Type** | $T_{\text{[type]}}$ |
-| **Verification Level** | Machine-checkable |
-| **Inc Certificates** | [N] introduced, [M] discharged |
-| **Final Status** | [ ] Draft / [ ] Final |
-| **Generated** | [YYYY-MM-DD] |
+| Field                  | Value                                                                      |
+|------------------------|----------------------------------------------------------------------------|
+| **Document Type**      | Proof Object                                                               |
+| **Framework**          | Hypostructure v1.0                                                         |
+| **Problem Class**      | [e.g., Classical PDE, Open Problem]                                        |
+| **Problem Type**       | [Periodic-table class in Hypostructure]                                    |
+| **System Type**        | $T_{\text{[type]}}$                                                        |
+| **Singularity Type**   | [Singularity class from the Hypostructure singularity table, or `REGULAR`] |
+| **Verification Level** | Machine-checkable                                                          |
+| **Inc Certificates**   | [N] introduced, [M] discharged                                             |
+| **Local Certificate Basis** | [All local/interface/backend certificates used as proof inputs]        |
+| **Global Theorem Output** | [The global conclusion extracted from the local certificate basis]        |
+| **Final Status**       | [ ] Draft / [ ] UNCONDITIONAL for designated output / [ ] HORIZON          |
+| **Generated**          | [YYYY-MM-DD]                                                               |
 
 
 
-*This document constitutes a machine-checkable proof object under the Hypostructure framework.*
+*This document constitutes a machine-checkable proof object under the Hypostructure framework. It certifies the local certificate chain first; any global theorem is an extracted output.*
 *Each certificate can be independently verified against the definitions in the current formalism chapters of this Jupyter Book.*
 
 **QED**

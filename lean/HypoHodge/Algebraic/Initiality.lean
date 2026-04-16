@@ -10,7 +10,7 @@ structure UniversalBad (n p : ℕ) where
       ∃! g : carrier → X, ∀ A a, g (inject A a) = f A a
 
 def HasBoundedUniversalBad (I : VerifiedHodgeThinInput) : Prop :=
-  ∃ U : UniversalBad I.Qrank I.p, True
+  Nonempty (UniversalBad I.Qrank I.p) ∧ I.initialReduction
 
 def canonicalUniversalBad (n p : ℕ) : UniversalBad n p where
   carrier := Σ A : BadAlgGerm n p, Nat
@@ -24,11 +24,11 @@ def canonicalUniversalBad (n p : ℕ) : UniversalBad n p where
       funext x
       cases x with
       | mk A a =>
-          simpa using congrFun (hg A) a
+          simpa using hg A a
 
 theorem hodgeInitialityBounded
     (I : VerifiedHodgeThinInput) :
     HasBoundedUniversalBad I := by
-  exact ⟨canonicalUniversalBad I.Qrank I.p, trivial⟩
+  exact ⟨⟨canonicalUniversalBad I.Qrank I.p⟩, I.initialReduction_holds⟩
 
 end HypoHodge.Algebraic

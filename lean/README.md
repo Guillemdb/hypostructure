@@ -1,6 +1,7 @@
 # HypoHodge Lean skeleton
 
-This package is a concrete Lean project skeleton for the Phase A roadmap.
+This package is a concrete Lean development for the tag-level HypoHodge kernel and its
+semantic Hodge-target interface.
 
 It is intentionally split into three layers:
 
@@ -8,18 +9,17 @@ It is intentionally split into three layers:
 - `Imported/`: the trusted literature boundary
 - `Algebraic/` and `Hodge/`: the new algebraic backend and the Hodge template run
 
-## Important note
+## Current status
 
-This repository is a **stub package**. The easy finite-set/kernel lemmas are filled in where practical, but the genuinely new mathematics is left as named `axiom` placeholders so the public API is explicit from day one.
+The package now has:
 
-The main placeholders you are expected to replace with proofs are:
+- a complete finite certificate kernel in `Core/`,
+- a semantic input layer for a distinguished Hodge problem in `Algebraic/VerifiedThinInput.lean`,
+- a non-empty imported boundary in `Imported/Boundary.lean`,
+- rule-soundness and closure-soundness theorems in `Hodge/Semantics.lean`,
+- a kernel completion theorem and a semantic top theorem in `Hodge/Final.lean`.
 
-- fixed-point theorems in `Core/Closure.lean`
-- backward dependency theorems in `Core/GoalCone.lean`
-- the injective coding theorem in `Algebraic/Coding.lean`
-- the backend auto-closure theorem in `Algebraic/BackendAutoclose.lean`
-- the bridge/run emission theorems in `Hodge/Run.lean`
-- the no-lock-inc / no-promo-inc theorems in `Hodge/ProofAudit.lean`
+The imported Hodge-theoretic layer is still abstract: accepted mathematics is represented by structured interfaces rather than a full first-principles mathlib formalization of algebraic geometry and Hodge theory.
 
 ## Build
 
@@ -28,4 +28,4 @@ The main placeholders you are expected to replace with proofs are:
    - `lake update`
    - `lake build`
 
-Because the current execution environment does not contain `lean` or `lake`, this package was generated but not compiled here.
+In the current workspace, `lake build` succeeds.

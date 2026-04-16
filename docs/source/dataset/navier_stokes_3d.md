@@ -366,74 +366,77 @@ $$
 ## Part III-A: Lyapunov Recovery on the Certified Regular Branch
 
 Execute this supplement after
-$$
+```{math}
 K_{\mathrm{Reg}_{NS}}^+
-$$
+```
 has been obtained.
 
 ### 1. Post-Goal Stiffness Package
 
 Set
-$$
+```{math}
 \Phi(u) := E(u) = \frac12 \|u\|_{L^2(\mathbb{R}^3)}^2.
-$$
+```
 
 On the certified regular branch, the safe manifold is
-$$
+```{math}
 M_{NS} = \{0\}.
-$$
-The equilibrium value is
-$$
-\Phi_{\min} = 0.
-$$
+```
 
-The stiffness witness is
-$$
+The equilibrium value is
+```{math}
+\Phi_{\min} = 0.
+```
+
+The stiffness witness is:
+```{math}
 \nabla_{L^2}\Phi(u) = u,
 \qquad
 \|\nabla_{L^2}\Phi(u)\|_{L^2}
 =
 \sqrt{2}\,(\Phi(u)-\Phi_{\min})^{1/2}.
-$$
-Thus we record
-$$
+```
+
+Thus we record:
+```{math}
 K_{\mathrm{LS}_\sigma,\mathrm{post}}^+
 =
 \bigl(M_{NS}=\{0\},\ \Phi_{\min}=0,\ \theta=\tfrac12,\ c=\sqrt{2}\bigr).
-$$
+```
 
 ### 2. Canonical Lyapunov Recovery via {prf:ref}`mt-krnl-lyapunov`
 
 Apply
-$$
+```{math}
 K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{LS}_\sigma,\mathrm{post}}^+
-$$
+```
 through {prf:ref}`mt-krnl-lyapunov` to obtain
-$$
+```{math}
 K_{\mathcal{L}_{NS}}^+.
-$$
+```
 
 Normalize by $\mathcal{L}_{NS}(0)=0$.
 The recovered canonical Lyapunov is
-$$
+```{math}
 \mathcal{L}_{NS}(u) = E(u) = \frac12 \|u\|_{L^2(\mathbb{R}^3)}^2.
-$$
+```
 
 ### 3. Global Lyapunov Statement
 
 For every certified global regular trajectory $u(t)$,
-$$
+```{math}
 \mathcal{L}_{NS}(u(t))
 +
 \int_{t_0}^{t} \nu \|\nabla u(s)\|_{L^2}^2\,ds
 =
 \mathcal{L}_{NS}(u(t_0))
 \qquad t \ge t_0 \ge 0
-$$
+```
+
 Hence $t \mapsto \mathcal{L}_{NS}(u(t))$ is globally nonincreasing, and it is strictly decreasing on every interval where $u \not\equiv 0$.
 
-We record the explicit certificate
-$$
+We record the explicit certificate:
+```{math}
 K_{\mathcal{L}_{NS}}^+
 =
 \bigl(
@@ -441,28 +444,16 @@ K_{\mathcal{L}_{NS}}^+
 M_{NS}=\{0\},\quad
 \Phi_{\min}=0
 \bigr).
-$$
+```
 
 ## Part III-B: Consequences
 
 ### 3.1 Structural and Analytic Outputs
 
-- **Structural Exclusion Theorem**
-  \(K_{\mathrm{StructReg}_{NS}}^+\): no bad pattern in \(\mathcal{B}_{NS}\) embeds into \(\mathcal{H}_{NS}\).
-
-- **Analytic Global Regularity Theorem**
-  \(K_{\mathrm{Reg}_{NS}}^+\): the declared Navier-Stokes analytic backend continues globally and remains regular.
-
-- **Global Lyapunov Functional**
-  \(K_{\mathcal{L}_{NS}}^+\): the certified regular branch carries the explicit global Lyapunov functional
-  \[
-  \mathcal{L}_{NS}(u) = \frac12 \|u\|_{L^2(\mathbb{R}^3)}^2.
-  \]
-
-- **Profile / Library Output**
-  the profile module records the certified classifiable singularity package via
-  $K_{\mathrm{Prof}_{NS}}^+$ together with
-  $K_{\mathrm{Germ}}^+$ and $K_{\mathrm{CatLib}}^+$.
+- **Structural Exclusion Theorem:** $K_{\mathrm{StructReg}_{NS}}^+$ states that no bad pattern in $\mathcal{B}_{NS}$ embeds into $\mathcal{H}_{NS}$.
+- **Analytic Global Regularity Theorem:** $K_{\mathrm{Reg}_{NS}}^+$ states that the declared Navier-Stokes analytic backend continues globally and remains regular.
+- **Global Lyapunov Functional:** $K_{\mathcal{L}_{NS}}^+$ states that the certified regular branch carries the explicit global Lyapunov functional $\mathcal{L}_{NS}(u) = \frac12 \|u\|_{L^2(\mathbb{R}^3)}^2$.
+- **Profile / Library Output:** the profile module records the certified classifiable singularity package via $K_{\mathrm{Prof}_{NS}}^+$ together with $K_{\mathrm{Germ}}^+$ and $K_{\mathrm{CatLib}}^+$.
 
 ### 3.2 Quantitative Data Recorded by the Run
 
@@ -749,6 +740,8 @@ Therefore $K_{\mathrm{Reg}_{NS}}^+$ is established. $\square$
 | **Framework** | Hypostructure v1.0 |
 | **Problem Class** | Open Problem |
 | **System Type** | $T_{\text{parabolic}}$ (transport-diffusion PDE) |
+| **Problem Type** | II-Relaxed |
+| **Singularity Type** | REGULAR |
 | **Verification Level** | Machine-checkable |
 | **Inc Certificates** | Not explicitly listed |
 | **Final Status** | UNCONDITIONAL |

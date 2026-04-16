@@ -15,58 +15,23 @@ The items below are only included when a dataset proof run has left a residual `
 
 ## 1) Core PDE-Geometry Gaps
 
-### 1.1 Riemann Hypothesis
-
-- **Dataset file:** `docs/source/dataset/riemann_hypothesis.md`
-- **Outstanding obligation:** global spectral model linking zeros of $\zeta(s)$ to a self-adjoint Hamiltonian (`OBL-1`).
-- **Why template cannot close it:** the template can record `K_{D_E}^+`, `K_{\mathrm{Rec}_N}`-style diagnostics, and Lock/upgrade steps, but does not provide the external spectral construction itself.
-- **Where to add:** a dedicated appendix theorem in `09_mathematical/01_theorems.md` (spectral/trace machinery) plus an explicit bridge certificate in `11_appendices/01_zfc.md` for the final import.
-
-### 1.2 Quantum Gravity Boundary Reconstruction
+### 1.1 Quantum Gravity Boundary Reconstruction
 
 - **Dataset file:** `docs/source/dataset/quantum_gravity.md`
-- **Outstanding obligation:** completion of the open boundary/open-system period chain used for the declared regime.
-- **Why template cannot close it:** Node 13--16 routing plus Lock execution are instantiated, but the key boundary/causality reconstruction is currently declared as non-final.
+- **Outstanding obligation:** completion of the proper-horizon boundary/open-system period chain used for the declared regime.
+- **Why template cannot close it:** Node 13--16 routing plus Lock execution are instantiated, but the key boundary/causality reconstruction is currently declared as non-final and remains a genuine horizon obstruction.
 - **Where to add:** `04_nodes/03_surgery_nodes.md` (new boundary-aware reconstruction node) and supporting analytic lemma in `09_mathematical/01_theorems.md`.
-
-### 1.3 Landau damping regularity branch
-
-- **Dataset file:** `docs/source/dataset/landau_damping.md`
-- **Outstanding obligation:** low-regularity (Sobolev) persistence gap beyond Gevrey; sector-dependent closing status remains unresolved.
-- **Why template cannot close it:** the current route certifies the Gevrey branch via viscosity/analytic mechanisms while the Sobolev branch requires additional damping and mixing controls not yet represented in route-level permits.
-- **Where to add:** `09_mathematical/04_taxonomy.md` (sector-tagged family classification), `08_upgrades/01_instantaneous.md` or `08_upgrades/02_retroactive.md` once a route-level promotion is proven.
 
 ## 2) Algebraic/Arithmetic Core Conjecture Gaps
 
-### 2.1 Collatz Problem
-
-- **Dataset file:** `docs/source/dataset/collatz.md`
-- **Outstanding obligations:** `OBL-1` (global finiteness of stopping time), `OBL-3` (global exclusion certificate for bad trajectories).
-- **Why template cannot close it:** the run records `K_{\mathrm{Rec}_N}^{inc}` and goal-cone placement correctly; no existing gate-level certificate gives an unconditional closure for the global recurrence claim.
-- **Where to add:** `09_mathematical/04_taxonomy.md` (dependency-class support for arithmetic dynamics) with a companion theorem package in `09_mathematical/02_algebraic.md` (if a genuine recurrence theorem is available).
-
-### 2.2 Kervaire Invariant
-
-- **Dataset file:** `docs/source/dataset/kervaire_invariant.md`
-- **Outstanding obligation:** exceptional $j=6$ residue class (`OBL-126`).
-- **Why template cannot close it:** this case is already marked as unresolved in the existing route and stays outside the framework's current locked finite-obstruction closure.
-- **Where to add:** `09_mathematical/02_algebraic.md` and `08_upgrades/02_retroactive.md` only if a finite-dimensional obstruction refinement is available.
-
-### 2.3 Birch and Swinnerton-Dyer
-
-- **Dataset file:** `docs/source/dataset/bsd_conjecture.md`
-- **Outstanding obligation:** extension from low-rank cases to full analytic rank statements (`HORIZON`).
-- **Why template cannot close it:** the template supports conditional tracking but does not supply missing number-theoretic descent or $L$-function rank equivalence.
-- **Where to add:** `09_mathematical/02_algebraic.md` with an explicit "Global BSD completion" lemma set and corresponding bridge in `11_appendices/01_zfc.md`.
-
-### 2.4 Langlands Program
+### 2.1 Langlands Program
 
 - **Dataset file:** `docs/source/dataset/langlands.md`
 - **Outstanding obligation:** full number-field correspondence (`OBL-LANG-1`).
 - **Why template cannot close it:** current runs can certify the route-level formalism and record `K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{inc}}`, but the missing bridge is a domain theorem, not a template upgrade.
 - **Where to add:** `09_mathematical/02_algebraic.md` and `09_mathematical/03_cross_reference.md` as a named backend completion package.
 
-### 2.5 Yang–Mills Mass Gap
+### 2.2 Yang–Mills Mass Gap
 
 - **Dataset file:** `docs/source/dataset/yang_mills.md`
 - **Outstanding obligations:** `OBL-YM-OS`, `OBL-YM-GAP`, `OBL-YM-CLUST`.
@@ -85,16 +50,9 @@ The items below are only included when a dataset proof run has left a residual `
 ### 3.2 Halting Problem
 
 - **Dataset file:** `docs/source/dataset/halting_problem.md`
-- **Outstanding obligation:** axiomatically horizon-classified undecidability and its interaction profile in the framework.
-- **Why template cannot close it:** the framework correctly expresses `K_{\mathrm{Cat}_{\mathrm{Hom}}}`-relative diagnostics but does not prove undecidability from internal certificates.
+- **Outstanding obligation:** proper-horizon undecidability and its interaction profile in the framework.
+- **Why template cannot close it:** the framework correctly expresses `K_{\mathrm{Cat}_{\mathrm{Hom}}}`-relative diagnostics but does not collapse a genuine horizon branch into classical decidability.
 - **Where to add:** `09_mathematical/05_algorithmic.md` and `11_appendices/01_zfc.md` under a dedicated "undecidable core" section.
-
-### 3.3 Stochastic Einstein–Boltzmann
-
-- **Dataset file:** `docs/source/dataset/stochastic_einstein_boltzmann.md`
-- **Outstanding obligation:** DPI/thermodynamic and censorship closure (`OBL-SEB-1`).
-- **Why template cannot close it:** template diagnostics isolate the gap cleanly, but the step is currently non-mathematical unless a named entropy or censorship lemma is introduced.
-- **Where to add:** `09_mathematical/01_theorems.md` (entropy-causality bridge) with optional `09_mathematical/04_taxonomy.md` annotation in a Family-IV extension class.
 
 ## 4) Resolution Rule
 
@@ -109,4 +67,4 @@ No file in `docs/source/dataset` should claim classical proof completion while t
 
 ## Last updated
 
-Date: 2026-04-14
+Date: 2026-04-15

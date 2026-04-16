@@ -1,17 +1,17 @@
 import HypoHodge.Core.GoalCone
+import Hypostructure.Core.ObligationLedger
 
 namespace HypoHodge.Core
 
 def obligations (Γ : Context) : Context :=
-  Γ.filter (fun k => CertTag.isInc k = true)
+  Hypostructure.Core.obligations CertTag.isInc Γ
 
 theorem obligations_subset (Γ : Context) :
     obligations Γ ⊆ Γ := by
-  intro k hk
-  exact (Finset.mem_filter.mp hk).1
+  simpa [obligations] using Hypostructure.Core.obligations_subset CertTag.isInc Γ
 
 theorem mem_obligations_iff (Γ : Context) (k : CertTag) :
     k ∈ obligations Γ ↔ k ∈ Γ ∧ CertTag.isInc k = true := by
-  simp [obligations]
+  simpa [obligations] using Hypostructure.Core.mem_obligations_iff CertTag.isInc Γ k
 
 end HypoHodge.Core

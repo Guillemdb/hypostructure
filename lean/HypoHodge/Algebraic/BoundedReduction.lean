@@ -4,18 +4,18 @@ import HypoHodge.Algebraic.VerifiedThinInput
 namespace HypoHodge.Algebraic
 
 def StaticClassifiable (I : VerifiedHodgeThinInput) : Prop :=
-  Encodable (BadAlgGerm I.Qrank I.p)
+  Nonempty (Encodable (BadAlgGerm I.Qrank I.p)) ∧ I.germBounded
 
 def BoundedReductionRealized (I : VerifiedHodgeThinInput) : Prop :=
   ∀ {A B : BadAlgGerm I.Qrank I.p}, WitnessHom A B →
-    ∃ C : BadAlgGerm I.Qrank I.p, C.rankBound ≤ I.Qrank
+    ∃ C : BadAlgGerm I.Qrank I.p, C.rankBound ≤ I.Qrank ∧ I.germBounded
 
 theorem hodgeBadBoundedReduction_rankBounded
     (I : VerifiedHodgeThinInput)
     {A B : BadAlgGerm I.Qrank I.p}
     (_f : WitnessHom A B) :
-    ∃ C : BadAlgGerm I.Qrank I.p, C.rankBound ≤ I.Qrank := by
-  exact ⟨B, B.h_rank⟩
+    ∃ C : BadAlgGerm I.Qrank I.p, C.rankBound ≤ I.Qrank ∧ I.germBounded := by
+  exact ⟨B, B.h_rank, I.germBounded_holds⟩
 
 theorem hodgeBoundedReductionRealized
     (I : VerifiedHodgeThinInput) :
@@ -27,12 +27,12 @@ theorem hodgeBadBoundedReduction
     (I : VerifiedHodgeThinInput)
     {A B : BadAlgGerm I.Qrank I.p}
     (_f : WitnessHom A B) :
-    ∃ C : BadAlgGerm I.Qrank I.p, True := by
-  exact ⟨B, trivial⟩
+    ∃ C : BadAlgGerm I.Qrank I.p, C.rankBound ≤ I.Qrank ∧ I.initialReduction := by
+  exact ⟨B, B.h_rank, I.initialReduction_holds⟩
 
 theorem hodgeClassifiableStatic
     (I : VerifiedHodgeThinInput) :
     StaticClassifiable I := by
-  exact boundedGermSmallness I.Qrank I.p
+  exact ⟨boundedGermSmallness I.Qrank I.p, I.germBounded_holds⟩
 
 end HypoHodge.Algebraic

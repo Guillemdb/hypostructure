@@ -1376,8 +1376,9 @@ This proof object is replayed by providing:
 | **Framework** | Hypostructure v1.0 |
 | **Problem Class** | Open Problem |
 | **System Type** | $T_{\text{quant}}$ (Categorical / Quantum / Geometric) |
+| **Problem Type** | VIII-Horizon |
+| **Singularity Type** | HORIZON |
 | **Verification Level** | Machine-checkable |
 | **Inc Certificates** | Not explicitly listed |
 | **Final Status** | Final |
 | **Generated** | 2026-04-14 |
-

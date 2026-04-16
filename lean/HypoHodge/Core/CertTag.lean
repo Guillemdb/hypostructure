@@ -39,7 +39,7 @@ def allTags : Finset CertTag := Finset.univ
 theorem mem_allTags (k : CertTag) : k ∈ allTags := by
   simp [allTags]
 
-theorem allTags_nodup : allTags.Nodup := by
-  simp [allTags]
+theorem allTags_nodup : allTags.1.Nodup := by
+  simpa [allTags] using (Finset.univ : Finset CertTag).2
 
 end HypoHodge.Core

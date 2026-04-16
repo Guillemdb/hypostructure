@@ -13,6 +13,17 @@ structure GermCode (n p : ℕ) where
   minTag     : Bool
   deriving DecidableEq, Repr
 
+def encodeGermCodeTuple (c : GermCode n p) : Fin (n + 1) × Nat × Bool × Bool × Bool :=
+  (c.rankCode, c.witnessTag, c.nonzeroTag, c.badTag, c.minTag)
+
+theorem encodeGermCodeTuple_injective (n p : ℕ) :
+    Function.Injective (encodeGermCodeTuple : GermCode n p → Fin (n + 1) × Nat × Bool × Bool × Bool) := by
+  intro A B h
+  cases A
+  cases B
+  cases h
+  rfl
+
 noncomputable def encodeBadAlgGerm (A : BadAlgGerm n p) : GermCode n p where
   rankCode := ⟨A.rankBound, Nat.lt_succ_of_le A.h_rank⟩
   witnessTag := A.witness.tag
@@ -61,15 +72,15 @@ theorem encodeBadAlgGerm_injective (n p : ℕ) :
                   subst hProof
                   rfl
 
-instance instEncodableGermCode : Encodable (GermCode n p) := by
-  infer_instance
+noncomputable instance instEncodableGermCode : Encodable (GermCode n p) :=
+  Encodable.ofInj encodeGermCodeTuple (encodeGermCodeTuple_injective n p)
 
 noncomputable instance instEncodableBadAlgGerm : Encodable (BadAlgGerm n p) :=
-  Encodable.ofInjective encodeBadAlgGerm (encodeBadAlgGerm_injective n p)
+  Encodable.ofInj encodeBadAlgGerm (encodeBadAlgGerm_injective n p)
 
 theorem boundedGermSmallness (n p : ℕ) :
-    Encodable (BadAlgGerm n p) := by
-  infer_instance
+    Nonempty (Encodable (BadAlgGerm n p)) := by
+  exact ⟨instEncodableBadAlgGerm (n := n) (p := p)⟩
 
 end
 

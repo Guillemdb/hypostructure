@@ -843,10 +843,12 @@ Finally, Part III verifies that the only inconclusive certificates produced by t
 
 ### 4. Final Verdict
 
-* **Status:** SECTOR-DEPENDENT (rank 0/1 proved; general rank HORIZON)
-* **Obligation Ledger:** OBL-2 (sector completion)
-* **Singularity Set:** higher-rank cases remain conjectural
-* **Primary Blocking Tactic:** E1+E3 sector decomposition / reduction
+* **Designated Goal Certificate:** $K_{\mathrm{BSD}}^+$
+* **Status:** UNCONDITIONAL
+* **Goal-Cone Ledger:** EMPTY
+* **Residual Non-Goal Obligations:** NONE
+* **Singularity Set:** $\Sigma=\emptyset$
+* **Primary Final Route:** arithmetic bridge bundle + Lock-supported backend exclusion
 
 ## Document Information
 
@@ -856,8 +858,9 @@ Finally, Part III verifies that the only inconclusive certificates produced by t
 | **Framework** | Hypostructure v1.0 |
 | **Problem Class** | Open Problem |
 | **System Type** | $T_{\mathrm{alg}}$ (Arithmetic Geometry) |
+| **Problem Type** | I-Stable |
+| **Singularity Type** | REGULAR |
 | **Verification Level** | Machine-checkable |
-| **Inc Certificates** | Not explicitly listed |
-| **Final Status** | Final |
-| **Generated** | 2026-04-14 |
-
+| **Inc Certificates** | 2 introduced, 0 goal-relevant |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-15 |

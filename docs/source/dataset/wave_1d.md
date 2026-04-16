@@ -1,643 +1,1260 @@
-# 1D Wave Equation
+# Global Regularity of the 1D Linear Wave Equation
 
 ## Metadata
 
 | Field | Value |
 |-------|-------|
-| **Problem** | Global regularity and energy conservation for the 1D wave equation |
-| **System Type** | $T_{\text{hyperbolic}}$ (Hyperbolic PDE) |
-| **Target Claim** | Smooth initial data $(u_0, u_1) \in H^s \times H^{s-1}$ yields global smooth solution for all time |
+| **Problem** | Global well-posedness, regularity propagation, and energy conservation for the 1D linear wave equation |
+| **System Type** | $T_{\text{hyperbolic}}$ (linear hyperbolic PDE) |
+| **Target Claim** | Global regularity for the 1D linear wave equation on $\mathbb R$ |
 | **Framework Version** | Hypostructure v1.0 |
-| **Date** | 2025-12-23 |
+| **Date** | 2026-04-15 |
+| **Proof Mode** | Direct sieve execution + explicit D'Alembert backend package |
+| **Completion Criterion** | $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$ |
+
+### Label Naming Conventions
+
+This instance uses the slug `wave-1d`.
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Definitions | `def-wave-1d-*` | `def-wave-1d-arena` |
+| Theorems | `thm-wave-1d-*` | `thm-wave-1d-main` |
+| Proofs | `proof-wave-1d-*` | `proof-wave-1d-main` |
+| Remarks | `rem-wave-1d-*` | `rem-wave-1d-chiral` |
 
 ---
 
-## Automation Witness
+## Automation Witness (Framework Offloading Justification)
 
 We certify that this instance is eligible for the Universal Singularity Modules.
 
-- **Type witness:** $T_{\text{hyperbolic}}$ is a **good type** (finite stratification + constructible caps).
-- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery are computed automatically by the framework factories.
+- **Type witness:** $T_{\text{hyperbolic}}$ is a good type (finite stratification plus constructible caps).
+- **Automation witness:** The Hypostructure satisfies the **Automation Guarantee** (Definition {prf:ref}`def-automation-guarantee`), hence profile extraction, admissibility, and surgery factories are available.
+- **Scope note:** The automation witness discharges the factory layer only. The Lock certificate, D'Alembert bridge, and final regularity certificate are certified explicitly below.
 
 **Certificate:**
-$K_{\mathrm{Auto}}^+ = (T_{\text{hyperbolic}}\ \text{good},\ \text{AutomationGuarantee holds},\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery})$
+$$
+K_{\mathrm{Auto}}^+
+=
+\bigl(
+T_{\text{hyperbolic}}\ \text{good},
+\ \text{AutomationGuarantee holds},
+\ \text{factories enabled: RESOLVE-AutoProfile, RESOLVE-AutoAdmit, RESOLVE-AutoSurgery}
+\bigr).
+$$
 
 ---
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for **global regularity of the 1D wave equation**.
+This document presents a **machine-checkable proof object** for **global regularity of the 1D linear wave equation on $\mathbb R$** using the Hypostructure framework.
 
-**Approach:** We instantiate the hyperbolic hypostructure with the 1D wave equation $u_{tt} = c^2 u_{xx}$. The key insight is explicit solvability via D'Alembert's formula: $u(x,t) = f(x-ct) + g(x+ct)$. Finite propagation speed provides causal structure. Energy $E = \frac{1}{2}\int (u_t^2 + c^2 u_x^2)\,dx$ is conserved. The Lorentz invariance (in 1+1D) provides structural symmetry.
+**Approach:** We instantiate the hyperbolic hypostructure on
+$$
+u_{tt}=c^2u_{xx},
+\qquad c>0,
+$$
+with phase-space state
+$$
+(u,\dot u)\in H^1(\mathbb R)\times L^2(\mathbb R).
+$$
+The primary height is the conserved energy
+$$
+E(u,\dot u)=\tfrac12\int_{\mathbb R}\bigl(\dot u^2+c^2u_x^2\bigr)\,dx.
+$$
+The designated route uses finite energy, finite propagation speed, Fourier-faithful description, and the explicit D'Alembert characteristic decomposition into left- and right-traveling waves. The Lock is closed through the D'Alembert functional bridge rather than through any global Lyapunov or mixing package.
 
-**Result:** The Lock is blocked ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via explicit solution formula and energy conservation. All obligations discharged. The proof is unconditional.
+**Result:** The active route uses positive core certificates, a closed-system boundary branch, and a blocked Lock obtained by Tactic E5 (explicit functional bridge). Two diagnostic `inc` certificates are retained at the mixing and gradient nodes, but they are explicitly outside the dependency cone of the designated goal. The D'Alembert backend package upgrades structural exclusion to the final analytic regularity certificate
+$$
+K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
+$$
 
 ---
 
 ## Theorem Statement
 
-::::{prf:theorem} Global Regularity of 1D Wave Equation
-:label: thm-wave-1d
+::::{prf:theorem} Global Regularity of the 1D Linear Wave Equation
+:label: thm-wave-1d-main
 
 **Given:**
-- The 1D wave equation $u_{tt} = c^2 u_{xx}$ on $\mathbb{R} \times [0,\infty)$
-- Initial data $(u_0, u_1) \in H^s(\mathbb{R}) \times H^{s-1}(\mathbb{R})$ for $s \geq 1$
-- Wave speed $c > 0$ (normalized to $c = 1$ without loss)
+- State space:
+  $$
+  \mathcal X
+  =
+  H^1(\mathbb R)\times L^2(\mathbb R).
+  $$
+- Dynamics:
+  $$
+  u_{tt}=c^2u_{xx},
+  \qquad
+  c>0.
+  $$
+- Initial data:
+  $$
+  u(0,\cdot)=u_0\in H^s(\mathbb R),
+  \qquad
+  u_t(0,\cdot)=u_1\in H^{s-1}(\mathbb R),
+  \qquad
+  s\ge1.
+  $$
 
-**Claim:** The solution exists globally in time and satisfies:
-$$u \in C([0,\infty); H^s(\mathbb{R})) \cap C^1([0,\infty); H^{s-1}(\mathbb{R}))$$
-with energy conservation:
-$$E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx = E(0) \quad \forall t \geq 0$$
+**Claim:** For every $s\ge1$, every $c>0$, and every $(u_0,u_1)\in H^s(\mathbb R)\times H^{s-1}(\mathbb R)$, there exists a unique global solution
+$$
+u\in C([0,\infty);H^s(\mathbb R))
+\cap
+C^1([0,\infty);H^{s-1}(\mathbb R)),
+$$
+the energy is conserved for all $t\ge0$, and the designated final certificate
+$$
+K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+
+$$
+is derivable from the hypostructure run.
+
+**Designated Goal:**
+$$
+K_{\mathrm{Goal}}^+:=K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
+$$
 
 **Notation:**
 | Symbol | Definition |
 |--------|------------|
-| $u(x,t)$ | Wave field (displacement) |
-| $E(t)$ | Total energy (kinetic + potential) |
-| $H^s(\mathbb{R})$ | Sobolev space of order $s$ |
-| $\mathcal{C}(x,t)$ | Causal cone $\{(y,s) : \|y-x\| \leq c\|s-t\|\}$ |
+| $\dot u$ | time derivative $u_t$ |
+| $E(u,\dot u)$ | conserved energy $\frac12\int_{\mathbb R}(\dot u^2+c^2u_x^2)\,dx$ |
+| $w_\pm$ | characteristic variables $w_\pm=\dot u\pm cu_x$ |
+| $T_t^\pm$ | translation semigroups $(T_t^\pm f)(x)=f(x\mp ct)$ |
+| $\Sigma$ | singular set candidate |
+| $\mathcal H_{\mathrm{bad}}$ | finite-time Sobolev blow-up bad pattern |
 
 ::::
 
 ---
 
-## Part 0: Interface Permit Implementation
+:::{dropdown} **LLM Execution Protocol** (Click to expand)
 
-### 0.1 Core Interface Permits (Nodes 1-12)
+## Note for LLM Agents: Complete Algorithmic Protocol
 
-#### Template: $D_E$ (Energy Interface)
-- [x] **Height Functional $\Phi$:** $\Phi(u) = \frac{1}{2}\int (u_t^2 + u_x^2)\,dx$ (energy)
-- [x] **Dissipation Rate $\mathfrak{D}$:** $\mathfrak{D} = 0$ (conservative system)
-- [x] **Energy Inequality:** $E(t) = E(0)$ (exact conservation)
-- [x] **Bound Witness:** D'Alembert formula
+This instance is executed as a deterministic proof-object construction.
 
-#### Template: $\mathrm{Rec}_N$ (Recovery Interface)
-- [x] **Bad Set $\mathcal{B}$:** Empty (no singularities for smooth data)
-- [x] **Recovery Map $\mathcal{R}$:** Identity (no recovery needed)
-- [x] **Event Counter:** $N(T) = 0$ (no discrete events)
-- [x] **Finiteness:** Trivial (no events to count)
+### **A.1 Mindset Shift**
 
-#### Template: $C_\mu$ (Compactness Interface)
-- [x] **Symmetry Group $G$:** Lorentz group $SO(1,1)$; translation $\mathbb{R}^2$
-- [x] **Group Action $\rho$:** Boosts $(x,t) \mapsto (\gamma(x-vt), \gamma(t-vx/c^2))$
-- [x] **Quotient Space:** No concentration (dispersion)
-- [x] **Concentration Measure:** None (waves disperse/scatter)
+1. Fill each permit with explicit 1D linear wave data.
+2. Emit exactly one certificate at every node.
+3. Use only declared packages: energy conservation, characteristic transport, D'Alembert decomposition, and the wave backend regularity package.
+4. Treat the Lock and the analytic upgrade as separate certified steps.
+5. Keep non-goal diagnostics explicit; do not force them into the goal route.
 
-#### Template: $\mathrm{SC}_\lambda$ (Scaling Interface)
-- [x] **Scaling Action:** $u_\lambda(x,t) = u(\lambda x, \lambda t)$
-- [x] **Height Exponent $\alpha$:** $E_\lambda = \lambda^{-1} E$ (scale-invariant in 1D)
-- [x] **Critical Norm:** $\dot{H}^{1/2}$ (scaling-critical)
-- [x] **Criticality:** Subcritical in $H^1$ (energy norm)
+### **A.2 Certificate Outcome Types**
 
-#### Template: $\mathrm{SC}_{\partial c}$ (Parameter Interface)
-- [x] **Parameter Space $\Theta$:** Wave speed $c$
-- [x] **Parameter Map $\theta$:** $\theta = c$ (fixed constant)
-- [x] **Reference Point $\theta_0$:** $c = 1$ (normalized)
-- [x] **Stability Bound:** $c$ is constant (stable)
+| Outcome | Symbol | Used Here | Meaning |
+|---------|--------|-----------|---------|
+| YES | $K_X^+$ | Yes | gate verified |
+| INC | $K_X^{\mathrm{inc}}$ | Yes | recorded diagnostic outside the goal cone |
+| BLOCKED | $K_X^{\mathrm{blk}}$ | Yes | Lock verdict |
+| BREACHED | $K_X^{\mathrm{br}}$ | No | no surgery route selected |
 
-#### Template: $\mathrm{Cap}_H$ (Capacity Interface)
-- [x] **Capacity Functional:** Hausdorff measure
-- [x] **Singular Set $\Sigma$:** Empty for smooth data
-- [x] **Codimension:** NOT APPLICABLE (no singular set)
-- [x] **Capacity Bound:** $\mathrm{Cap}(\Sigma) = 0$
+### **A.3 Inc Permit Protocol**
 
-#### Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)
-- [x] **Gradient Operator $\nabla$:** Energy gradient $\delta E$
-- [x] **Critical Set $M$:** Static solutions $u = \text{const}$
-- [x] **Łojasiewicz Exponent $\theta$:** 1/2 (quadratic)
-- [x] **Łojasiewicz-Simon Inequality:** Via energy conservation
+Two residual diagnostics are recorded:
 
-#### Template: $\mathrm{TB}_\pi$ (Topology Interface)
-- [x] **Topological Invariant $\tau$:** Trivial (contractible space)
-- [x] **Sector Classification:** Single sector (no barriers)
-- [x] **Sector Preservation:** Trivial preservation
-- [x] **Tunneling Events:** None (classical wave propagation)
+- $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ because the free wave flow is transport-dispersive rather than mixing.
+- $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$ because the free wave flow is Hamiltonian rather than gradient.
 
-#### Template: $\mathrm{TB}_O$ (Tameness Interface)
-- [x] **O-minimal Structure $\mathcal{O}$:** $\mathbb{R}_{\text{an}}$ (real analytic)
-- [x] **Definability $\text{Def}$:** PDE operator is polynomial
-- [x] **Singular Set Tameness:** Empty set (tame)
-- [x] **Cell Decomposition:** Trivial (smooth manifold)
+Both lie outside $\Downarrow(K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+)$.
 
-#### Template: $\mathrm{TB}_\rho$ (Mixing Interface)
-- [x] **Measure $\mathcal{M}$:** Energy measure $E\,dx$
-- [x] **Invariant Measure $\mu$:** Preserved by flow
-- [x] **Mixing Time $\tau_{\text{mix}}$:** Infinite (dispersive, not mixing)
-- [x] **Mixing Property:** Dispersion (asymptotic scattering)
+### **A.4 Upgrade Rule Execution**
 
-#### Template: $\mathrm{RepDesc}_K$ (Dictionary Interface)
-- [x] **Language $\mathcal{L}$:** Fourier modes $\{e^{i(kx - \omega t)}\}$
-- [x] **Dictionary $D$:** Fourier transform
-- [x] **Complexity Measure $K$:** Sobolev index $s$
-- [x] **Faithfulness:** Complete (Fourier basis)
+No `inc` certificate is upgraded on the designated route. The only final promotion is
+$$
+K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+
+\wedge
+K_{\mathrm{Wave1DBackend}}^+
+\Longrightarrow
+K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
+$$
 
-#### Template: $\mathrm{GC}_\nabla$ (Gradient Interface)
-- [x] **Metric Tensor $g$:** Flat Minkowski metric $\eta = \text{diag}(-1,1)$
-- [x] **Vector Field $v$:** Wave evolution $\partial_t u$
-- [x] **Gradient Compatibility:** Not gradient flow (Hamiltonian)
-- [x] **Resolution:** Oscillatory (not monotone)
+### **A.5 Breach Detection and Surgery**
 
-### 0.2 Boundary Interface Permits (Nodes 13-16)
-*The spatial domain is $\mathbb{R}$ (no boundary). System is closed with respect to external inputs.*
+No barrier breach occurs. No surgery is selected.
 
-### 0.3 The Lock (Node 17)
-- [x] **Category $\mathbf{Hypo}_{T_{\text{hyperbolic}}}$:** Hyperbolic PDE hypostructures
-- [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Finite-time blow-up from smooth data
-- [x] **Exclusion Tactics:**
-  - [x] E1 + $K_{\mathrm{MorphPresDim}}^+$ (Explicit Solution): D'Alembert formula provides constructive global solution
-  - [x] E2 (Conservation Law): Energy conservation excludes blow-up
+### **A.6 Obligation Tracking**
+
+The goal-cone ledger is empty. Residual diagnostics are retained only for the non-goal mixing and gradient nodes.
+
+### **A.7 Completion Criteria**
+
+The proof object closes iff:
+
+- all core nodes are executed;
+- the closed-system branch is recorded at Node 13;
+- Node 17 yields a certified Lock verdict;
+- the explicit wave backend upgrade is present;
+- no obligation remains in $\Downarrow(K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+)$.
+
+### **A.8 Step-by-Step Implementation Guide for New Problems**
+
+For this instance:
+
+1. instantiate the 1D linear wave phase space and conserved energy;
+2. execute Nodes 1-13 directly;
+3. record the transport/mixing and Hamiltonian/gradient diagnostics as non-goal `inc` certificates;
+4. close the Lock using the D'Alembert functional bridge;
+5. apply the explicit wave backend upgrade.
+
+:::
 
 ---
 
-## Part I: The Instantiation (Thin Object Definitions)
+## **Part 0: Interface Permit Implementation Checklist**
+
+### **0.1 Core Interface Permits (Nodes 1-12)**
+
+#### **Template: $D_E$ (Energy Interface)**
+- [x] **Height Functional $\Phi$:**
+  $$
+  \Phi(u,\dot u):=E(u,\dot u)=\tfrac12\int_{\mathbb R}(\dot u^2+c^2u_x^2)\,dx.
+  $$
+- [x] **Dissipation Rate $\mathfrak D$:**
+  $$
+  \mathfrak D(u,\dot u):=0.
+  $$
+- [x] **Energy Inequality:**
+  $$
+  E(u(t),u_t(t))=E(u_0,u_1).
+  $$
+- [x] **Bound Witness:** exact energy conservation.
+
+#### **Template: $\mathrm{Rec}_N$ (Recovery Interface)**
+- [x] **Bad Set $\mathcal B$:** finite-time Sobolev blow-up configurations.
+- [x] **Recovery Map $\mathcal R$:** not needed on the designated route.
+- [x] **Event Counter:** $N(T)=0$.
+- [x] **Finiteness:** immediate from the empty-event route.
+
+#### **Template: $C_\mu$ (Compactness Interface)**
+- [x] **Symmetry Group $G$:** spatial translations of $\mathbb R$.
+- [x] **Group Action $\rho$:** $(\rho_a u)(x)=u(x+a)$.
+- [x] **Quotient Space:** characteristic profiles modulo translation.
+- [x] **Concentration Measure:** D'Alembert decomposition splits the solution into two translation profiles with no concentration-creating nonlinear interaction.
+
+#### **Template: $\mathrm{SC}_\lambda$ (Scaling Interface)**
+- [x] **Scaling Action:** 
+  $$
+  u_\lambda(x,t)=u(\lambda x,\lambda t).
+  $$
+- [x] **Height Exponent $\alpha$:**
+  $$
+  E(u_\lambda,\partial_tu_\lambda)=\lambda E(u,\partial_tu),
+  \qquad
+  \alpha=1.
+  $$
+- [x] **Dissipation Exponent $\beta$:**
+  $$
+  \mathfrak D(u_\lambda,\partial_tu_\lambda)=0,
+  $$
+  recorded formally as the zero-cost branch and not used on the goal route.
+- [x] **Criticality:** the designated $H^1\times L^2$ route lies above the scaling-critical index $s_c=\frac12$ for the displacement variable.
+
+#### **Template: $\mathrm{SC}_{\partial c}$ (Parameter Interface)**
+- [x] **Parameter Space $\Theta$:**
+  $$
+  \Theta=\{c\in(0,\infty)\}.
+  $$
+- [x] **Parameter Map:** $\theta(u,\dot u)=c$.
+- [x] **Reference Point:** $c_0>0$ fixed by the equation.
+- [x] **Stability Bound:** $c$ is constant in time.
+
+#### **Template: $\mathrm{Cap}_H$ (Capacity Interface)**
+- [x] **Capacity Functional:** Hausdorff capacity / codimension witness.
+- [x] **Singular Set $\Sigma$:** finite-time singular set candidate.
+- [x] **Codimension:** $\Sigma=\varnothing$ on the designated route.
+- [x] **Capacity Bound:** $\mathrm{Cap}(\Sigma)=0$.
+
+#### **Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)**
+- [x] **Gradient Operator $\nabla$:** quadratic energy Hessian on the phase space.
+- [x] **Critical Set $M$:** singleton equilibrium $M=\{(0,0)\}$.
+- [x] **Łojasiewicz Exponent $\theta$:** $\theta=\frac12$ from the quadratic Hamiltonian.
+- [x] **Łojasiewicz-Simon Inequality:** route-relative quadratic coercivity on the energy shell.
+
+#### **Template: $\mathrm{TB}_\pi$ (Topology Interface)**
+- [x] **Topological Invariant $\tau$:** connected phase-space component.
+- [x] **Sector Classification:** single connected sector.
+- [x] **Sector Preservation:** trivial under the linear flow.
+- [x] **Tunneling Events:** none.
+
+#### **Template: $\mathrm{TB}_O$ (Tameness Interface)**
+- [x] **O-minimal Structure $\mathcal O$:** semialgebraic / real-analytic structure on the linear phase space.
+- [x] **Definability $\mathrm{Def}$:** the wave operator and zero singular set are definable in the route-relative formalization.
+- [x] **Singular Set Tameness:** $\Sigma=\varnothing$.
+- [x] **Cell Decomposition:** trivial linear stratification.
+
+#### **Template: $\mathrm{TB}_\rho$ (Mixing Interface)**
+- [x] **Measure $\mathcal M$:** energy measure on phase-space data.
+- [x] **Invariant Measure $\mu$:** conservative transport preserves energy-shell measures.
+- [x] **Mixing Time $\tau_{\mathrm{mix}}$:** not certified on the free transport route.
+- [x] **Mixing Property:** recorded as a non-goal diagnostic `inc`.
+
+#### **Template: $\mathrm{RepDesc}_K$ (Dictionary / Description Interface)**
+- [x] **Language $\mathcal L$:** Fourier and characteristic descriptions.
+- [x] **Dictionary $D$:**
+  $$
+  (u,\dot u)\longleftrightarrow (w_+,w_-)
+  \longleftrightarrow (\widehat u,\widehat{\dot u}).
+  $$
+- [x] **Complexity Measure $K$:** Sobolev order / Fourier-weighted norm.
+- [x] **Faithfulness:** Fourier and characteristic data determine the solution uniquely.
+
+#### **Template: $\mathrm{GC}_\nabla$ (Gradient Interface)**
+- [x] **Metric Tensor $g$:** canonical phase-space metric on $H^1\times L^2$.
+- [x] **Vector Field $v_{\mathrm{Wave}}$:** first-order wave flow
+  $$
+  \partial_t
+  \binom{u}{\dot u}
+  =
+  \binom{\dot u}{c^2u_{xx}}.
+  $$
+- [x] **Gradient Compatibility:** not certified on the designated route.
+- [x] **Monotonicity:** exact Hamiltonian conservation rather than gradient decay.
+
+### **0.2 Boundary Interface Permits (Nodes 13-16)**
+
+The spatial domain $\mathbb R$ yields the closed-system branch.
+
+| Permit | Status | Note |
+|---|---|---|
+| $K_{\mathrm{Bound}_\partial}^-$ | Yes | no external boundary control |
+| $K_{\mathrm{Bound}_B}$ | N/A | skipped after Node 13 |
+| $K_{\mathrm{Bound}_{\Sigma}}$ | N/A | skipped after Node 13 |
+| $K_{\mathrm{GC}_T}$ | N/A | skipped after Node 13 |
+
+### **0.2b Derived Witness Certificates (Optional)**
+
+No optional derived witness certificate is used on the designated route.
+
+### **0.3 The Lock (Node 17)**
+
+| Item | Value |
+|---|---|
+| Category | $\mathbf{Hypo}_{T_{\text{hyperbolic}}}$ |
+| Universal bad object | finite-time Sobolev blow-up |
+| Certified completeness package | present |
+| Primary tactics | E5 (D'Alembert functional bridge) |
+| Lock output | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
+
+### **0.3b Goal and Backend Certificates**
+
+| Certificate | Status | Role |
+|---|---|---|
+| $K_{\mathrm{Germ}}^+$ | Yes | classifiable wave blow-up germ package |
+| $K_{\mathrm{init}}^+$ | Yes | universal bad object package |
+| $K_{\mathrm{CatLib}}^+$ | Yes | completeness of the finite bad-pattern library |
+| $K_{\mathrm{DAlembert}}^+$ | Yes | explicit decomposition into left/right translation semigroups |
+| $K_{\mathrm{Wave1DBackend}}^+$ | Yes | global well-posedness, uniqueness, Sobolev propagation, and finite propagation package |
+| $K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+$ | derived | structural exclusion certificate |
+| $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$ | derived | designated final analytic regularity certificate |
+
+### **0.4 Implementation Templates**
+
+#### **Template: $D_E$ (Energy Interface)**
+- [x] conserved energy height chosen
+- [x] zero-cost conservative branch recorded
+- [x] exact conservation law recorded
+
+#### **Template: Derived Witness Certificates (Optional)**
+- [x] none used
+
+#### **Template: $\mathrm{Rec}_N$ (Recovery Interface)**
+- [x] bad set specified
+- [x] empty-event route recorded
+
+#### **Template: $C_\mu$ (Compactness Interface)**
+- [x] translation symmetry fixed
+- [x] characteristic profile decomposition recorded
+
+#### **Template: $\mathrm{SC}_\lambda$ (Scaling Interface)**
+- [x] wave scaling fixed
+- [x] energy scaling recorded
+- [x] designated Sobolev route recorded
+
+#### **Template: $\mathrm{SC}_{\partial c}$ (Parameter Interface)**
+- [x] wave speed parameter fixed
+- [x] stability of $c$ recorded
+
+#### **Template: $\mathrm{Cap}_H$ (Capacity Interface)**
+- [x] singular set candidate declared
+- [x] empty singular set route recorded
+
+#### **Template: $\mathrm{LS}_\sigma$ (Stiffness Interface)**
+- [x] quadratic Hamiltonian coercivity recorded
+- [x] route-relative stiffness package recorded
+
+#### **Template: $\mathrm{TB}_\pi$ (Topology Interface)**
+- [x] single sector identified
+- [x] preservation of sector recorded
+
+#### **Template: $\mathrm{TB}_O$ (Tameness Interface)**
+- [x] tame linear phase space recorded
+- [x] trivial stratification recorded
+
+#### **Template: $\mathrm{TB}_\rho$ (Mixing Interface)**
+- [x] conservative transport route recorded
+- [x] non-goal diagnostic status recorded
+
+#### **Template: $\mathrm{RepDesc}_K$ (Dictionary / Description Interface)**
+- [x] Fourier/characteristic dictionary fixed
+- [x] faithful finite-description route recorded
+
+#### **Template: $\mathrm{GC}_\nabla$ (Gradient Interface)**
+- [x] Hamiltonian first-order form recorded
+- [x] non-goal diagnostic status recorded
+
+#### **Template: $\mathrm{Cat}_{\mathrm{Hom}}$ (Lock Interface)**
+- [x] category and bad object fixed
+- [x] certified completeness package recorded
+- [x] tactic E5 recorded
+- [x] D'Alembert functional bridge recorded
+
+:::{dropdown} **Part 0.5: Certificate Schemas and Upgrade Protocol** (Reference - Click to expand)
+
+### **0.5.1 Certificate Schemas**
+
+#### **Positive Certificate ($K_X^+$)**
+
+Used throughout the route, for example
+$$
+K_{D_E}^+=(E,\mathfrak D=0,E(t)=E(0)).
+$$
+
+#### **NO-with-Witness Certificate ($K_X^{\mathrm{wit}}$)**
+
+Not used on the designated route.
+
+#### **NO-Inconclusive Certificate ($K_X^{\mathrm{inc}}$)**
+
+The route records two non-goal diagnostics:
+
+$$
+K_{\mathrm{TB}_\rho}^{\mathrm{inc}}
+=
+\left\{
+\text{obligation: finite mixing certificate},
+\text{missing: }[K_{\mathrm{Mix}}^+],
+\text{failure\_code: ROUTE\_DIAGNOSTIC},
+\text{trace: free wave flow is transport, not mixing}
+\right\},
+$$
+
+$$
+K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}
+=
+\left\{
+\text{obligation: gradient-flow representation},
+\text{missing: }[K_{\mathrm{GradWave}}^+],
+\text{failure\_code: ROUTE\_DIAGNOSTIC},
+\text{trace: free wave flow is Hamiltonian, not gradient}
+\right\}.
+$$
+
+#### **Blocked Certificate ($K_X^{\mathrm{blk}}$)**
+
+The Lock emits
+$$
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+=
+\bigl(
+\text{E5 D'Alembert functional bridge},
+\{K_{D_E}^+,K_{\mathrm{RepDesc}_K}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+,K_{\mathrm{DAlembert}}^+\}
+\bigr).
+$$
+
+#### **Breached Certificate ($K_X^{\mathrm{br}}$)**
+
+Not used on the designated route.
+
+### **0.5.2 Upgrade Rule Schema**
+
+No goal-relevant `inc` certificate is upgraded on the designated route.
+
+#### **Rule Template**
+
+The only final upgrade used here is
+$$
+K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+
+\wedge
+K_{\mathrm{Wave1DBackend}}^+
+\Longrightarrow
+K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
+$$
+
+#### **Non-Circularity Guard**
+
+$K_{\mathrm{Wave1DBackend}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$, so the upgrade is non-circular.
+
+#### **Upgrade Types**
+
+| Type | Used Here | Source |
+|------|-----------|--------|
+| Instantaneous | No | none |
+| A-posteriori | Yes | backend analytic promotion after the Lock |
+
+### **0.5.2b Promotion Permits (Blocked → YES$^\sim$)**
+
+No blocked-to-YES$^\sim$ promotion is used. The Lock remains explicitly blocked and is mined in Part III-B for the structural exclusion certificate.
+
+### **0.5.3 Surgery Certificate Schema**
+
+No surgery certificate is used on the designated route.
+
+### **0.5.4 Re-entry Certificate Schema**
+
+No re-entry certificate is used on the designated route.
+
+### **0.5.5 Context Accumulation**
+
+The route context accumulates:
+$$
+\Gamma_{\mathrm{route}}
+=
+\{
+K_{D_E}^+,
+K_{\mathrm{Rec}_N}^+,
+K_{C_\mu}^+,
+K_{\mathrm{SC}_\lambda}^+,
+K_{\mathrm{SC}_{\partial c}}^+,
+K_{\mathrm{Cap}_H}^+,
+K_{\mathrm{LS}_\sigma}^+,
+K_{\mathrm{TB}_\pi}^+,
+K_{\mathrm{TB}_O}^+,
+K_{\mathrm{TB}_\rho}^{\mathrm{inc}},
+K_{\mathrm{RepDesc}_K}^+,
+K_{\mathrm{GC}_\nabla}^{\mathrm{inc}},
+K_{\mathrm{Bound}_\partial}^-,
+K_{\mathrm{Germ}}^+,
+K_{\mathrm{init}}^+,
+K_{\mathrm{CatLib}}^+,
+K_{\mathrm{DAlembert}}^+,
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+\}.
+$$
+
+:::
+
+---
+
+## **Part I: The Instantiation (Thin Object Definitions)**
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-*   **State Space ($\mathcal{X}$):** Sobolev space $H^1(\mathbb{R}) \times L^2(\mathbb{R})$ for $(u, u_t)$
-*   **Metric ($d$):** Energy metric $d((u_1,v_1),(u_2,v_2)) = \sqrt{\int ((u_1-u_2)_x^2 + (v_1-v_2)^2)\,dx}$
-*   **Measure ($\mu$):** Gaussian measure on energy shells (canonical ensemble)
+
+- **State Space ($\mathcal X$):** $H^1(\mathbb R)\times L^2(\mathbb R)$ for $(u,\dot u)$.
+- **Metric ($d$):** energy metric induced by $\|u_x\|_{L^2}^2+\|\dot u\|_{L^2}^2$.
+- **Measure ($\mu$):** Lebesgue measure on physical space together with the induced phase-space energy shell structure.
+- **Characteristic Split:** left/right traveling components encoded by $(w_+,w_-)$.
 
 ### **2. The Potential ($\Phi^{\text{thin}}$)**
-*   **Height Functional ($F$):** $\Phi(u,v) = \frac{1}{2}\int (v^2 + u_x^2)\,dx$ (total energy)
-*   **Observable:** Energy density $e(x,t) = \frac{1}{2}(u_t^2 + u_x^2)$
-*   **Scaling ($\alpha$):** $\alpha = 0$ (scale-invariant in energy scaling)
+
+- **Height Functional ($\Phi$):**
+  $$
+  \Phi(u,\dot u)=E(u,\dot u)=\tfrac12\int_{\mathbb R}(\dot u^2+c^2u_x^2)\,dx.
+  $$
+- **Characteristic Energy:**
+  $$
+  E=\frac14\int_{\mathbb R}(w_+^2+w_-^2)\,dx.
+  $$
+- **Equilibrium Set:** the singleton equilibrium $\{(0,0)\}$.
+- **Scaling Exponent ($\alpha$):** $\alpha=1$.
 
 ### **3. The Cost ($\mathfrak{D}^{\text{thin}}$)**
-*   **Dissipation/Structure ($R$):** $\mathfrak{D} = 0$ (conservative, no dissipation)
-*   **Dynamics:** Hamiltonian flow; symplectic structure
+
+- **Conservative Cost Branch:**
+  $$
+  \mathfrak D(u,\dot u)=0.
+  $$
+- **Dynamics:** first-order Hamiltonian form
+  $$
+  \partial_t
+  \binom{u}{\dot u}
+  =
+  \binom{\dot u}{c^2u_{xx}}.
+  $$
+- **Characteristic Transport:** $w_\pm$ satisfy
+  $$
+  \partial_t w_\pm \mp c\,\partial_x w_\pm = 0.
+  $$
 
 ### **4. The Invariance ($G^{\text{thin}}$)**
-*   **Symmetry Group:** $G = ISO(1,1) = SO(1,1) \ltimes \mathbb{R}^2$ (Poincaré group in 1+1D)
-*   **Action:** Lorentz boosts, spacetime translations, reflections
-*   **Energy Invariance:** $E(t) = E(0)$ under time translation
+
+- **Symmetry Group ($\mathrm{Grp}$):** spatial translations, time translations, and reflections.
+- **Scaling ($\mathcal S$):** wave scaling on the homogeneous model.
+- **Conserved Quantity:** total energy $E$.
+- **Auxiliary Reconstruction:** D'Alembert formula from characteristic data.
 
 ---
 
-## Part II: Sieve Execution
+## **Part II: Sieve Execution (Verification Run)**
 
-### Level 1: Conservation (Nodes 1-3)
+### **EXECUTION PROTOCOL**
 
-#### Node 1: EnergyCheck ($D_E$)
+The designated route executes Nodes 1-13 directly, skips Nodes 14-16 on the closed-system branch, and then executes the Lock at Node 17. Two diagnostic `inc` certificates are recorded at Nodes 10 and 12, but they are excluded from the designated goal dependency cone.
 
-**Question:** Is the height functional bounded/well-defined?
+### **Level 1: Conservation**
+
+#### **Node 1: EnergyCheck ($D_E$)**
+
+**Question:** Is the energy well-defined and bounded along trajectories?
 
 **Step-by-step execution:**
-1. [x] Height functional: $E(t) = \frac{1}{2}\int_{\mathbb{R}} (u_t^2 + u_x^2)\,dx$
-2. [x] Energy conservation: $\frac{d}{dt}E = 0$ (standard for wave equation)
-3. [x] Initial energy: $(u_0, u_1) \in H^1 \times L^2 \Rightarrow E(0) < \infty$
-4. [x] Bound: $E(t) = E(0) < \infty$ for all $t$
+1. [x] For $(u_0,u_1)\in H^1\times L^2$, the energy is finite at $t=0$.
+2. [x] Differentiate the energy and integrate by parts.
+3. [x] Use the wave equation $u_{tt}=c^2u_{xx}$ to obtain
+   $$
+   \frac{d}{dt}E(u(t),u_t(t))=0.
+   $$
+4. [x] Therefore $E(t)=E(0)$ for all $t\ge0$.
 
 **Certificate:**
-* [x] $K_{D_E}^+ = (E(t) = E(0), \text{conservation identity})$ → **Go to Node 2**
+$$
+K_{D_E}^+=(E,\mathfrak D=0,E(t)=E(0)).
+$$
 
----
+#### **Node 2: ZenoCheck ($\mathrm{Rec}_N$)**
 
-#### Node 2: ZenoCheck ($\mathrm{Rec}_N$)
-
-**Question:** Are discrete events finite (no accumulation)?
+**Question:** Are recovery events finite?
 
 **Step-by-step execution:**
-1. [x] Identify discrete events: None (smooth evolution, no shocks)
-2. [x] Wave equation is strictly hyperbolic: Characteristics are real and distinct
-3. [x] D'Alembert formula: $u(x,t) = \frac{1}{2}[u_0(x-t) + u_0(x+t)] + \frac{1}{2}\int_{x-t}^{x+t} u_1(s)\,ds$
-4. [x] Smoothness propagation: $u \in C^\infty$ if $(u_0, u_1) \in C^\infty$
-5. [x] Event count: $N(T) = 0$ (no discrete events)
+1. [x] The linear wave flow introduces no repair or restart event.
+2. [x] The event counter is identically zero.
+3. [x] D'Alembert evolution is continuous in time on the phase space.
 
 **Certificate:**
-* [x] $K_{\mathrm{Rec}_N}^+ = (N(T) = 0, \text{smooth evolution})$ → **Go to Node 3**
+$$
+K_{\mathrm{Rec}_N}^+=(N(T)=0,\text{empty-event route}).
+$$
 
----
+#### **Node 3: CompactCheck ($C_\mu$)**
 
-#### Node 3: CompactCheck ($C_\mu$)
-
-**Question:** Does the energy measure concentrate into canonical profiles?
+**Question:** Does the route exhibit compactness modulo the tracked symmetry?
 
 **Step-by-step execution:**
-1. [x] Analyze long-time behavior: Waves propagate at speed $c$
-2. [x] No concentration: Energy density $e(x,t)$ disperses (waves travel to $\pm\infty$)
-3. [x] Scattering behavior: For localized data, $\lim_{t\to\infty} \int_{|x|<R} e(x,t)\,dx = 0$ for fixed $R$
-4. [x] No profile formation: Energy does not concentrate into solitons/breathers
-5. [x] Mode: **Dispersion** (Mode D.D candidate)
+1. [x] Rewrite the flow in characteristic variables $w_\pm=\dot u\pm cu_x$.
+2. [x] Each characteristic component evolves by pure translation.
+3. [x] No nonlinear interaction creates concentrating profile cascades.
+4. [x] The route is represented by two transported profiles modulo translation.
 
 **Certificate:**
-* [x] $K_{C_\mu}^- = (\text{no concentration}, \text{dispersion witness})$ → **Go to BarrierScat**
+$$
+K_{C_\mu}^+=(G=\mathbb R,\text{characteristic transport decomposition}).
+$$
 
----
+### **Level 2: Duality & Symmetry**
 
-### BarrierScat (Scattering Barrier)
+#### **Node 4: ScaleCheck ($\mathrm{SC}_\lambda$)**
 
-**Question:** Is interaction/scattering energy finite?
+**Question:** Is the designated Sobolev route scaling-subcritical?
 
 **Step-by-step execution:**
-1. [x] Linear equation: No nonlinear interaction
-2. [x] Superposition principle: Solutions add linearly
-3. [x] Scattering operator: Trivial (identity, since linear)
-4. [x] Møller operators: $\Omega_\pm = \lim_{t\to\pm\infty} e^{it\mathcal{L}}e^{-it\mathcal{L}_0} = \mathrm{Id}$
-5. [x] Scattering is free: $M[\Phi] = 0$ (no interaction energy)
+1. [x] Use $u_\lambda(x,t)=u(\lambda x,\lambda t)$.
+2. [x] The energy scales by one power of $\lambda$.
+3. [x] The displacement-critical index is $s_c=\frac12$ in one space dimension.
+4. [x] The designated route uses $s\ge1>s_c$.
 
 **Certificate:**
-* [x] $K_{C_\mu}^{\mathrm{ben}} = (M[\Phi] = 0, \text{free scattering})$
+$$
+K_{\mathrm{SC}_\lambda}^+=(\alpha=1,s\ge1>s_c=\tfrac12).
+$$
 
-**Note:** Scattering barrier benign triggers Mode D.D. However, per instruction, we continue through all nodes 1-17 for completeness.
+#### **Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)**
 
----
-
-### Level 2: Duality & Structure (Nodes 4-7)
-
-#### Node 4: ScaleCheck ($\mathrm{SC}_\lambda$)
-
-**Question:** Is the scaling subcritical?
+**Question:** Are system parameters stable?
 
 **Step-by-step execution:**
-1. [x] Scaling transformation: $u_\lambda(x,t) = u(\lambda x, \lambda t)$
-2. [x] Energy scaling: $E_\lambda = \int \frac{1}{2}[(\lambda u_t)^2 + (\lambda u_x)^2]\,d(\lambda x) = \lambda^{-1} E$
-3. [x] Critical Sobolev index: $s_c = \frac{d}{2} - 1 = \frac{1}{2} - 1 = -\frac{1}{2}$ (in 1D)
-4. [x] Energy norm $H^1$ corresponds to $s = 1 > s_c = -1/2$: **Subcritical**
-5. [x] No self-similar blow-up: Scaling is benign
+1. [x] The only parameter is the wave speed $c>0$.
+2. [x] The equation is autonomous.
+3. [x] The parameter is constant in time.
 
 **Certificate:**
-* [x] $K_{\mathrm{SC}_\lambda}^+ = (s = 1 > s_c, \text{subcritical})$ → **Go to Node 5**
+$$
+K_{\mathrm{SC}_{\partial c}}^+=(c=\text{const},\text{autonomous parameter sector}).
+$$
 
----
+### **Level 3: Geometry & Stiffness**
 
-#### Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)
+#### **Node 6: GeomCheck ($\mathrm{Cap}_H$)**
 
-**Question:** Are constants stable?
+**Question:** Is the route-relative singular set empty?
 
 **Step-by-step execution:**
-1. [x] Wave speed $c$ is a constant parameter
-2. [x] Equation is autonomous (no explicit time dependence)
-3. [x] No parameter drift: $\frac{dc}{dt} = 0$
-4. [x] Stability: $\|\partial c\| = 0 < \varepsilon$ for any $\varepsilon > 0$
+1. [x] The designated route targets finite-time Sobolev blow-up.
+2. [x] The explicit characteristic transport formula preserves the Sobolev class.
+3. [x] Hence the route-relative singular set candidate is empty.
 
 **Certificate:**
-* [x] $K_{\mathrm{SC}_{\partial c}}^+ = (c = \text{const}, \text{autonomous})$ → **Go to Node 6**
+$$
+K_{\mathrm{Cap}_H}^+=(\Sigma=\varnothing,\mathrm{Cap}(\Sigma)=0).
+$$
 
----
+#### **Node 7: StiffnessCheck ($\mathrm{LS}_\sigma$)**
 
-#### Node 6: GeomCheck ($\mathrm{Cap}_H$)
-
-**Question:** Is the singular set geometrically "small"?
+**Question:** Is there a route-relative stiffness certificate?
 
 **Step-by-step execution:**
-1. [x] Identify singular set: $\Sigma = \emptyset$ (no singularities for smooth data)
-2. [x] Smoothness: $u \in C^\infty$ for $C^\infty$ data (by D'Alembert)
-3. [x] Hausdorff dimension: $\dim_H(\Sigma) = \dim_H(\emptyset) = -\infty$
-4. [x] Codimension: Infinite (trivial)
-5. [x] Capacity: $\mathrm{Cap}_H(\Sigma) = 0$
+1. [x] The wave Hamiltonian is quadratic on $H^1\times L^2$.
+2. [x] The zero-energy equilibrium is isolated on the energy shell.
+3. [x] The Hessian of the energy is coercive on the phase-space norm.
+4. [x] This supplies the route-relative quadratic stiffness witness.
 
 **Certificate:**
-* [x] $K_{\mathrm{Cap}_H}^+ = (\Sigma = \emptyset, \text{smooth})$ → **Go to Node 7**
+$$
+K_{\mathrm{LS}_\sigma}^+=(\theta=\tfrac12,\text{quadratic Hamiltonian coercivity}).
+$$
 
----
+### **Level 4: Topology**
 
-#### Node 7: StiffnessCheck ($\mathrm{LS}_\sigma$)
+#### **Node 8: TopoCheck ($\mathrm{TB}_\pi$)**
 
-**Question:** Is there a spectral gap?
+**Question:** Is the sector preserved?
 
 **Step-by-step execution:**
-1. [x] Linearize around static solution $u = u_*$ (constant)
-2. [x] Linearized operator: $L = -\partial_t^2 + \partial_x^2$ (wave operator)
-3. [x] Spectral analysis: Fourier transform $\hat{u}(k,\omega)$
-4. [x] Dispersion relation: $\omega^2 = k^2$ (linear dispersion)
-5. [x] Continuous spectrum: $\sigma(L) = \mathbb{R}$ (no gap in classical sense)
-6. [x] However, energy conservation provides **Hamiltonian stiffness**:
-   - Energy functional is quadratic: $E = \langle u, Lu \rangle$ (up to constants)
-   - Second variation is positive-definite on perturbations
-7. [x] Łojasiewicz-Simon inequality: Satisfied via energy conservation (no dissipation needed)
+1. [x] The phase space $H^1(\mathbb R)\times L^2(\mathbb R)$ is connected.
+2. [x] The linear flow preserves this connected sector.
+3. [x] No topological tunneling event occurs.
 
 **Certificate:**
-* [x] $K_{\mathrm{LS}_\sigma}^+ = (\text{Hamiltonian stiffness}, E = \text{const})$ → **Go to Node 8**
+$$
+K_{\mathrm{TB}_\pi}^+=(\text{single connected sector}).
+$$
 
----
+#### **Node 9: TameCheck ($\mathrm{TB}_O$)**
 
-### Level 3: Topology (Nodes 8-9)
-
-#### Node 8: TopoCheck ($\mathrm{TB}_\pi$)
-
-**Question:** Is the configuration space topologically tame?
+**Question:** Is the topology tame?
 
 **Step-by-step execution:**
-1. [x] Configuration space: $H^1(\mathbb{R})$ is a Hilbert space (contractible)
-2. [x] Phase space: $H^1 \times L^2$ is also contractible
-3. [x] No topological sectors: $\pi_0(\mathcal{X}) = \{*\}$ (simply connected)
-4. [x] All sectors are accessible: Trivial topology
-5. [x] No topological obstructions to global existence
+1. [x] The phase space is linear.
+2. [x] The singular set candidate is empty on the designated route.
+3. [x] The route admits trivial linear stratification.
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_\pi}^+ = (\mathcal{X} \text{ contractible}, \pi_0 = \{*\})$ → **Go to Node 9**
+$$
+K_{\mathrm{TB}_O}^+=(\mathcal O,\Sigma=\varnothing,\text{linear tame route}).
+$$
 
----
+### **Level 5: Mixing**
 
-#### Node 9: TameCheck ($\mathrm{TB}_O$)
-
-**Question:** Is the topology tame (o-minimal)?
-
-**Step-by-step execution:**
-1. [x] Wave equation is polynomial: $u_{tt} - u_{xx} = 0$
-2. [x] Coefficients are constant: Definable in $\mathbb{R}_{\text{an}}$
-3. [x] Solution operator is linear and continuous: Tame
-4. [x] D'Alembert formula is piecewise linear in initial data: Definable
-5. [x] Singular set is empty: Trivially tame
-
-**Certificate:**
-* [x] $K_{\mathrm{TB}_O}^+ = (\mathbb{R}_{\text{an}}, \text{polynomial PDE})$ → **Go to Node 10**
-
----
-
-### Level 4: Mixing & Complexity (Nodes 10-11)
-
-#### Node 10: ErgoCheck ($\mathrm{TB}_\rho$)
+#### **Node 10: ErgoCheck ($\mathrm{TB}_\rho$)**
 
 **Question:** Does the flow mix?
 
 **Step-by-step execution:**
-1. [x] Wave equation is linear: Preserves Fourier modes
-2. [x] Each mode evolves independently: $\hat{u}(k,t) = \hat{u}(k,0)e^{i\omega(k)t}$
-3. [x] No mixing between modes: No energy cascade
-4. [x] System is **integrable** (infinitely many conserved quantities via Fourier modes)
-5. [x] Mixing time: $\tau_{\text{mix}} = \infty$ (no mixing, but dispersion instead)
-6. [x] However, **weak mixing** occurs via dispersion to infinity
+1. [x] The free wave flow transports characteristic data without dissipation.
+2. [x] No finite mixing-time certificate is produced on this route.
+3. [x] This diagnostic is not used in the designated goal chain.
 
 **Certificate:**
-* [x] $K_{\mathrm{TB}_\rho}^+ = (\text{dispersion to infinity}, \text{integrable})$ → **Go to Node 11**
+$$
+K_{\mathrm{TB}_\rho}^{\mathrm{inc}}
+=
+\left\{
+\text{obligation: finite mixing certificate},
+\text{missing: }[K_{\mathrm{Mix}}^+],
+\text{failure\_code: ROUTE\_DIAGNOSTIC},
+\text{trace: conservative transport, not mixing}
+\right\}.
+$$
 
-*Note: We assign positive certificate because dispersion provides effective "mixing to infinity" (scattering), which is sufficient for global existence.*
+### **Level 6: Complexity**
 
----
+#### **Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)**
 
-#### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
-
-**Question:** Is the system finitely representable?
+**Question:** Is the description finite and faithful?
 
 **Step-by-step execution:**
-1. [x] Fourier representation: $u(x,t) = \int \hat{u}(k,0) e^{i(kx - \omega(k)t)}\,dk$
-2. [x] Dispersion relation: $\omega(k) = |k|$ (closed-form)
-3. [x] Complexity: Determined by Sobolev index $s$ (finite description)
-4. [x] D'Alembert formula: Explicit, finitely describable
-5. [x] Kolmogorov complexity: $K(u(t)) \leq K(u_0) + O(\log t)$ (bounded growth)
+1. [x] Fourier data determine the linear wave solution uniquely.
+2. [x] Characteristic variables $(w_+,w_-)$ also determine the solution uniquely.
+3. [x] The two representations are equivalent on the route.
 
 **Certificate:**
-* [x] $K_{\mathrm{RepDesc}_K}^+ = (\text{Fourier basis}, K = s)$ → **Go to Node 12**
+$$
+K_{\mathrm{RepDesc}_K}^+=(\mathcal L,D,K,\text{faithful}).
+$$
 
----
+#### **Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)**
 
-### Level 5: Gradient Structure (Node 12)
-
-#### Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)
-
-**Question:** Is the flow oscillatory (not gradient)?
+**Question:** Is the flow gradient-compatible?
 
 **Step-by-step execution:**
-1. [x] Wave equation is Hamiltonian: $\partial_t (u, u_t) = J \nabla H$ where $J = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$
-2. [x] Energy is conserved: $E(t) = E(0)$ (not decreasing)
-3. [x] Flow is **not** gradient descent: No dissipation
-4. [x] Oscillation: Waves oscillate with frequency $\omega(k) = |k|$
-5. [x] Symplectic structure: Preserves phase-space volume
+1. [x] The wave flow is Hamiltonian in first-order form.
+2. [x] The route provides exact energy conservation, not gradient decay.
+3. [x] No gradient-flow representation is needed for the designated goal.
 
 **Certificate:**
-* [x] $K_{\mathrm{GC}_\nabla}^+ = (\text{Hamiltonian}, \text{oscillatory})$ → **Go to BarrierFreq**
+$$
+K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}
+=
+\left\{
+\text{obligation: gradient-flow representation},
+\text{missing: }[K_{\mathrm{GradWave}}^+],
+\text{failure\_code: ROUTE\_DIAGNOSTIC},
+\text{trace: Hamiltonian transport replaces gradient descent}
+\right\}.
+$$
 
----
+### **Level 7: Boundary (Open Systems)**
 
-### BarrierFreq (Frequency Barrier)
+#### **Node 13: BoundaryCheck ($\mathrm{Bound}_\partial$)**
 
-**Question:** Is oscillation energy finite? $\int \omega^2 S(\omega)\,d\omega < \infty$
+**Question:** Is the system open?
 
 **Step-by-step execution:**
-1. [x] Dispersion relation: $\omega(k) = |k|$
-2. [x] Energy spectrum: $S(k) = |\hat{u}(k)|^2$
-3. [x] Moment condition: $\int k^2 |\hat{u}(k)|^2\,dk = \int u_x^2\,dx = \|u_x\|_{L^2}^2$
-4. [x] Initial data in $H^1$: $\|u_0\|_{H^1}^2 = \|u_0\|_{L^2}^2 + \|u_{0,x}\|_{L^2}^2 < \infty$
-5. [x] Conservation: $\|u_x(t)\|_{L^2}^2 = \|u_{0,x}\|_{L^2}^2 < \infty$ for all $t$
-6. [x] Second moment: $\int \omega^2 S(\omega)\,d\omega = \|u_x\|_{L^2}^2 < \infty$
+1. [x] The spatial domain is $\mathbb R$ with no external control input.
+2. [x] There are no boundary maps $\iota,\pi$ in the route.
+3. [x] The run enters the closed-system branch.
 
 **Certificate:**
-* [x] $K_{\mathrm{GC}_\nabla}^{\mathrm{blk}} = (\int \omega^2 S\,d\omega < \infty, \text{witness: } H^1)$
+$$
+K_{\mathrm{Bound}_\partial}^-.
+$$
 
-→ Proceed to Node 13 (BoundaryCheck)
+#### **Node 14: OverloadCheck ($\mathrm{Bound}_B$)**
 
----
+**Question:** Is input bounded?
 
-### Level 6: Boundary (Node 13 only — closed system)
+**Outcome:** not applicable on the closed-system branch.
 
-#### Node 13: BoundaryCheck ($\mathrm{Bound}_\partial$)
+#### **Node 15: StarveCheck ($\mathrm{Bound}_{\Sigma}$)**
 
-**Question:** Is the system open (external input/output coupling)?
+**Question:** Is input sufficient?
+
+**Outcome:** not applicable on the closed-system branch.
+
+#### **Node 16: AlignCheck ($\mathrm{GC}_T$)**
+
+**Question:** Is control matched?
+
+**Outcome:** not applicable on the closed-system branch.
+
+### **Level 8: The Lock**
+
+#### **Node 17: BarrierExclusion ($\mathrm{Cat}_{\mathrm{Hom}}$)**
+
+**Question:** Is $\mathrm{Hom}(\mathcal H_{\mathrm{bad}},\mathcal H)=\emptyset$?
 
 **Step-by-step execution:**
-1. [x] Spatial domain: $\mathbb{R}$ (no boundary)
-2. [x] No external forcing: Equation is homogeneous
-3. [x] Closed system: $\partial X = \emptyset$
-4. [x] No boundary coupling
+1. [x] The bad-pattern library consists of the finite-time Sobolev blow-up template.
+2. [x] The certified completeness package $(K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+)$ is present.
+3. [x] Apply the D'Alembert map to characteristic variables:
+   $$
+   w_\pm(x,t)=w_\pm(x\mp ct,0).
+   $$
+4. [x] Characteristic transport is pure translation and preserves all Sobolev norms.
+5. [x] Therefore a bad morphism from finite-time blow-up into the actual route would induce impossible norm blow-up under a translation semigroup.
+6. [x] This is excluded by the explicit functional bridge.
 
-**Certificate:**
-* [x] $K_{\mathrm{Bound}_\partial}^- = (\text{closed system}, \partial\mathbb{R} = \emptyset)$ → **Go to Node 17**
-
-*(Nodes 14-16 not triggered because Node 13 was NO.)*
-
----
-
-### Level 7: The Lock (Node 17)
-
-#### Node 17: LockCheck ($\mathrm{Cat}_{\mathrm{Hom}}$)
-
-**Question:** Is $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}) = \emptyset$?
-
-**Step-by-step execution:**
-
-**Step 1: Define Bad Pattern**
-- $\text{Bad}$: Finite-time blow-up from smooth initial data
-- $\mathcal{H}_{\text{bad}}$: Hypostructure admitting $\|u(t^*)\|_{H^s} = \infty$ for finite $t^* < \infty$
-
-**Step 2: Apply Tactic E1 + $K_{\mathrm{MorphPresDim}}^+$ (Explicit Solution)**
-1. [x] D'Alembert formula provides explicit solution:
-   $$u(x,t) = \frac{1}{2}[u_0(x-ct) + u_0(x+ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} u_1(s)\,ds$$
-2. [x] Regularity propagation: If $(u_0, u_1) \in H^s \times H^{s-1}$, then $u(t) \in H^s$ for all $t$
-3. [x] Explicit bound:
-   $$\|u(t)\|_{H^s} \leq C(\|u_0\|_{H^s} + \|u_1\|_{H^{s-1}})$$
-   where $C$ is independent of $t$
-4. [x] No blow-up: $\sup_{t \geq 0} \|u(t)\|_{H^s} < \infty$
-5. [x] Certificate: $K_{\text{Explicit}}^+ = (u = f + g, \text{D'Alembert})$
-
-**Step 3: Apply Tactic E2 (Conservation Law)**
-1. [x] Energy conservation: $E(t) = E(0)$ (proven in Node 1)
-2. [x] Energy controls $H^1$ norm:
-   $$\|u(t)\|_{H^1}^2 = \|u\|_{L^2}^2 + \|u_x\|_{L^2}^2 \leq C_1 E(0) + C_2 \|u\|_{L^2}^2$$
-3. [x] Momentum conservation: $P = \int u_t u_x\,dx$ (additional conserved quantity)
-4. [x] Higher Sobolev norms: For $s > 1$, commutator argument shows
-   $$\frac{d}{dt}\|u(t)\|_{H^s}^2 = 0$$
-5. [x] Certificate: $K_{\text{Conserve}}^+ = (E = \text{const}, \text{all } s)$
-
-**Step 4: Direct Hom-Emptiness Verification**
-1. [x] Assume morphism $\phi: \mathcal{H}_{\text{bad}} \to \mathcal{H}_{\text{wave-1D}}$ exists
-2. [x] $\mathcal{H}_{\text{bad}}$ admits blow-up: $\exists (u_0^*, u_1^*)$ with $\|u(t^*)\| = \infty$
-3. [x] $\phi$ must preserve thin objects: $(u_0^*, u_1^*) \mapsto$ initial data in wave system
-4. [x] Contradiction:
-   - D'Alembert formula gives $\|u(t)\|_{H^s} \leq C(\|u_0^*\|_{H^s} + \|u_1^*\|_{H^{s-1}}) < \infty$ for all $t$
-   - Energy conservation gives $\|u(t)\|_{H^1} \leq C E(0)^{1/2} < \infty$ for all $t$
-   - Cannot have $\|u(t^*)\| = \infty$ for finite $t^*$
-5. [x] Therefore: No morphism exists; $\text{Hom}(\mathcal{H}_{\text{bad}}, \mathcal{H}_{\text{wave-1D}}) = \emptyset$
-
-**Step 5: Certificate Composition**
-* [x] $K_{\text{Explicit}}^+ \wedge K_{\text{Conserve}}^+ \Rightarrow K_{\text{Exclude}}^+$
-* [x] $K_{\text{Exclude}}^+$ contains verdict: No morphism from bad pattern to 1D wave
-
-**Certificate:**
-* [x] $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} = (\text{E1 + E2}, \{K_{\text{Explicit}}^+, K_{\text{Conserve}}^+, K_{\text{Exclude}}^+\})$
-
-**Lock Status:** **BLOCKED** ✓
+**Lock Verdict:**
+$$
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+=
+\bigl(
+\text{E5 D'Alembert functional bridge},
+\{K_{D_E}^+,K_{\mathrm{RepDesc}_K}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+,K_{\mathrm{DAlembert}}^+\}
+\bigr).
+$$
 
 ---
 
-## Part II-B: Upgrade Pass
+## **Part II-B: Upgrade Pass**
 
-### Inc-to-Positive Upgrades
+### **Upgrade Pass Protocol**
 
-| Original | Upgraded To | Mechanism | Reference |
-|----------|-------------|-----------|-----------|
-| — | — | — | — |
+No goal-relevant `inc` certificate is introduced.
 
-**No incomplete certificates introduced.** All nodes produced positive or negative certificates directly.
+| ID | Node | Obligation | Missing | In Goal Cone? |
+|----|------|------------|---------|---------------|
+| OBL-1 | 10 | finite mixing certificate | $K_{\mathrm{Mix}}^+$ | No |
+| OBL-2 | 12 | gradient-flow representation | $K_{\mathrm{GradWave}}^+$ | No |
 
-**Upgrade Chain:** None required (unconditional proof).
-
----
-
-## Part III-A: Result Extraction
-
-### **1. Explicit Solvability**
-*   **Input:** D'Alembert formula (1747)
-*   **Output:** $u(x,t) = f(x-ct) + g(x+ct)$ with $f,g$ determined by initial data
-*   **Certificate:** $K_{\text{Explicit}}^+$
-
-### **2. Energy Conservation**
-*   **Input:** Hamiltonian structure of wave equation
-*   **Output:** $E(t) = E(0)$ for all $t \geq 0$
-*   **Certificate:** $K_{D_E}^+$, $K_{\text{Conserve}}^+$
-
-### **3. Regularity Propagation**
-*   **Input:** Smoothness of D'Alembert formula
-*   **Output:** $u \in C([0,\infty); H^s)$ for initial data in $H^s$
-*   **Certificate:** $K_{\text{Explicit}}^+$
-
-### **4. Dispersion/Scattering**
-*   **Input:** Finite propagation speed $c$
-*   **Output:** Localized energy disperses to infinity (free scattering)
-*   **Certificate:** $K_{C_\mu}^{\mathrm{ben}}$
+No upgrade is required before the Lock. The final analytic promotion is handled in Part III-B as a backend theorem application.
 
 ---
 
-## Part III-C: Obligation Ledger
+## **Part II-C: Breach/Surgery/Re-entry Protocol**
 
-### Table 1: Introduced Obligations
+### **Breach Detection**
 
-| ID | Node | Certificate | Obligation | Missing | Status |
-|----|------|-------------|------------|---------|--------|
-| — | — | — | — | — | — |
+No $K_X^{\mathrm{br}}$ certificate was emitted.
 
-**No obligations introduced.**
+### **Surgery Selection**
 
-### Table 2: Discharge Events
+No surgery selected.
+
+### **Surgery Execution**
+
+Not applicable.
+
+### **Re-entry Protocol**
+
+Not applicable.
+
+---
+
+## **Part III-A: Lyapunov Reconstruction**
+
+### **Lyapunov Existence Check**
+
+The designated route does not invoke KRNL-Lyapunov reconstruction. The goal closes through the explicit D'Alembert bridge and the backend regularity package rather than through a dissipative Lyapunov chain.
+
+### **Step 1: Value Function Construction (KRNL-Lyapunov)**
+
+Not invoked on the designated route.
+
+### **Step 2: Jacobi Metric Reconstruction (KRNL-Jacobi)**
+
+Not invoked on the designated route.
+
+### **Step 3: Hamilton-Jacobi PDE (KRNL-HamiltonJacobi)**
+
+Not invoked on the designated route.
+
+### **Step 4: Verify Lyapunov Properties**
+
+Not invoked on the designated route.
+
+---
+
+## **Part III-B: Result Extraction (Mining the Run)**
+
+### **3.1 Global Theorems**
+
+- **Structural Exclusion Theorem:** from the blocked Lock and the certified completeness package,
+  $$
+  K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+.
+  $$
+  Statement: the finite-time Sobolev blow-up bad pattern does not embed into the 1D linear wave flow.
+
+- **Analytic Global Regularity Theorem:** from structural exclusion plus the explicit wave backend package,
+  $$
+  K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+
+  \wedge K_{\mathrm{Wave1DBackend}}^+
+  \Longrightarrow
+  K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
+  $$
+  Statement: global existence, uniqueness, Sobolev regularity propagation, and finite propagation speed hold for all time.
+
+- **Scattering / Backend Analytic Upgrade:** implicit in the D'Alembert transport package.
+- **Observer-Relative Censorship Theorem:** not used.
+- **Singularity Classification:** the only route-relevant profile family consists of left- and right-traveling free waves.
+
+### **3.2 Quantitative Bounds**
+
+- **Energy conservation:**
+  $$
+  E(t)=E(0).
+  $$
+- **Sobolev propagation:**
+  $$
+  \|(u(t),u_t(t))\|_{H^s\times H^{s-1}}
+  \lesssim_c
+  \|(u_0,u_1)\|_{H^s\times H^{s-1}}.
+  $$
+- **Finite propagation speed:** support propagates inside the light cone of speed $c$.
+
+### **3.3 Functional Objects**
+
+- **D'Alembert bridge:** $K_{\mathrm{DAlembert}}^+$.
+- **Characteristic transport package:** $w_\pm(x,t)=w_\pm(x\mp ct,0)$.
+- **Backend regularity package:** $K_{\mathrm{Wave1DBackend}}^+$.
+
+### **3.4 Retroactive Upgrades**
+
+- No goal-relevant `inc` certificate required discharge.
+- The two residual diagnostics remain outside the goal cone.
+- Final analytic regularity is upgraded from structural exclusion by the declared backend package.
+
+### **3.5 ZFC Proof Export (Appendix Bridge)**
+
+Not requested. The proof object stops at the certified analytic regularity certificate.
+
+---
+
+## **Part III-C: Obligation Ledger**
+
+### **Introduced Obligations**
+
+| ID | Node | Certificate | Obligation | Missing | In Goal Cone? | Status |
+|----|------|-------------|------------|---------|---------------|--------|
+| OBL-1 | 10 | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ | finite mixing certificate | $K_{\mathrm{Mix}}^+$ | No | Residual diagnostic |
+| OBL-2 | 12 | $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$ | gradient-flow representation | $K_{\mathrm{GradWave}}^+$ | No | Residual diagnostic |
+
+### **Discharge Events**
 
 | Obligation ID | Discharged At | Mechanism | Using Certificates |
 |---------------|---------------|-----------|-------------------|
 | — | — | — | — |
 
-**No obligations to discharge.**
+### **Remaining Obligations**
 
-### Table 3: Remaining Obligations
+**Count:** 2
 
 | ID | Obligation | Why Unresolved |
 |----|------------|----------------|
-| — | — | — |
+| OBL-1 | finite mixing certificate | conservative transport route does not require mixing |
+| OBL-2 | gradient-flow representation | Hamiltonian route does not require gradient structure |
 
-**Ledger Validation:** $\mathsf{Obl}(\Gamma_{\mathrm{final}}) = \varnothing$ ✓
+### **Ledger Validation**
 
----
+- [x] All goal-relevant `inc` certificates upgraded or absent.
+- [x] All goal-relevant breach obligations discharged or absent.
+- [x] The remaining obligations are explicitly outside the designated goal dependency cone.
 
-## Part IV: Final Certificate Chain
-
-### Validity Checklist
-
-1. [x] All required nodes executed with explicit certificates (closed-system path)
-2. [x] No inc certificates introduced
-3. [x] Lock certificate obtained: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
-4. [x] No unresolved obligations
-5. [x] Explicit solution validated (D'Alembert)
-6. [x] Energy conservation validated
-7. [x] Dispersion validated (scattering barrier benign)
-8. [x] Result extraction completed
-
-### Certificate Accumulation Trace
-
-```
-Node 1:  K_{D_E}^+ (energy conservation)
-Node 2:  K_{Rec_N}^+ (no discrete events)
-Node 3:  K_{C_μ}^- (dispersion) → BarrierScat → K_{C_μ}^{ben} (free scattering)
-Node 4:  K_{SC_λ}^+ (subcritical)
-Node 5:  K_{SC_∂c}^+ (constant parameters)
-Node 6:  K_{Cap_H}^+ (empty singular set)
-Node 7:  K_{LS_σ}^+ (Hamiltonian stiffness)
-Node 8:  K_{TB_π}^+ (contractible space)
-Node 9:  K_{TB_O}^+ (tame/polynomial)
-Node 10: K_{TB_ρ}^+ (dispersion)
-Node 11: K_{RepDesc_K}^+ (Fourier representation)
-Node 12: K_{GC_∇}^+ (oscillatory) → BarrierFreq → K_{GC_∇}^{blk}
-Node 13: K_{Bound_∂}^- (closed system)
-Node 17: K_{Cat_Hom}^{blk} (Lock blocked via E1 + E2)
-```
-
-### Final Certificate Set
-
-$$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\text{Explicit}}^+, K_{\text{Conserve}}^+, K_{\text{Exclude}}^+, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$
-
-### Conclusion
-
-**1D WAVE EQUATION: GLOBAL REGULARITY CONFIRMED**
-
-Smooth initial data yields global smooth solutions with energy conservation.
+**Ledger Status:** GOAL-CONE EMPTY for $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$ with two residual non-goal diagnostics.
 
 ---
 
-## Formal Proof
+## **Part IV: Final Certificate Chain**
 
-::::{prf:proof} Proof of Theorem {prf:ref}`thm-wave-1d`
+### **4.1 Validity Checklist**
 
-**Phase 1: Explicit Solution Construction**
-Consider the 1D wave equation $u_{tt} = c^2 u_{xx}$ with initial data $(u_0, u_1) \in H^s \times H^{s-1}$.
+- [x] **All 12 core nodes executed**
+- [x] **Boundary nodes handled correctly** (closed-system branch)
+- [x] **Lock executed**
+- [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+- [x] **Designated goal certificate reached:** $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$
+- [x] **If claiming structural exclusion:** certified completeness package is present
+- [x] **If claiming analytic regularity through structural exclusion:** backend analytic package is present
+- [x] **Upgrade pass completed**
+- [x] **Surgery/Re-entry completed if needed:** not needed
+- [x] **No unresolved obligations remain in the designated goal dependency cone**
 
-We apply the D'Alembert Permit ($K_{\text{D'Alembert}}^+$, 1747):
-$$u(x,t) = \frac{1}{2}[u_0(x-ct) + u_0(x+ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} u_1(s)\,ds$$
+**Validity Status:** UNCONDITIONAL PROOF for the designated goal $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$.
 
-This formula is well-defined for all $(x,t) \in \mathbb{R} \times [0,\infty)$.
+### **4.2 Certificate Accumulation Trace**
 
-**Phase 2: Regularity Propagation**
-Differentiating the D'Alembert formula:
-- $\partial_x u = \frac{1}{2}[u_0'(x-ct) + u_0'(x+ct)] + \frac{1}{2c}[u_1(x+ct) - u_1(x-ct)]$
-- $\partial_t u = \frac{c}{2}[-u_0'(x-ct) + u_0'(x+ct)] + \frac{1}{2}[u_1(x+ct) + u_1(x-ct)]$
+```text
+Node 1:  K_{D_E}^+
+Node 2:  K_{\mathrm{Rec}_N}^+
+Node 3:  K_{C_\mu}^+
+Node 4:  K_{\mathrm{SC}_\lambda}^+
+Node 5:  K_{\mathrm{SC}_{\partial c}}^+
+Node 6:  K_{\mathrm{Cap}_H}^+
+Node 7:  K_{\mathrm{LS}_\sigma}^+
+Node 8:  K_{\mathrm{TB}_\pi}^+
+Node 9:  K_{\mathrm{TB}_O}^+
+Node 10: K_{\mathrm{TB}_\rho}^{\mathrm{inc}}
+Node 11: K_{\mathrm{RepDesc}_K}^+
+Node 12: K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}
+Node 13: K_{\mathrm{Bound}_\partial}^-
+Node 14: N/A
+Node 15: N/A
+Node 16: N/A
+Node 17: K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
+Part III-A: not invoked on designated route
+Part III-B: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{DAlembert}}^+, K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+, K_{\mathrm{Wave1DBackend}}^+ -> K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+
+```
 
-For $u_0 \in H^s$, $u_1 \in H^{s-1}$, we have $u(\cdot,t) \in H^s$ for all $t$, with:
-$$\|u(t)\|_{H^s} \leq C(\|u_0\|_{H^s} + \|u_1\|_{H^{s-1}})$$
-where $C$ is independent of $t$.
+### **4.3 Final Certificate Set**
 
-**Phase 3: Energy Conservation**
-The wave equation energy is conserved (standard result):
-$$E(t) = \frac{1}{2}\int (u_t^2 + c^2 u_x^2)\,dx = E(0) \quad \text{for all } t \geq 0$$
+$$
+\Gamma_{\mathrm{final}}
+=
+\{
+K_{D_E}^+,
+K_{\mathrm{Rec}_N}^+,
+K_{C_\mu}^+,
+K_{\mathrm{SC}_\lambda}^+,
+K_{\mathrm{SC}_{\partial c}}^+,
+K_{\mathrm{Cap}_H}^+,
+K_{\mathrm{LS}_\sigma}^+,
+K_{\mathrm{TB}_\pi}^+,
+K_{\mathrm{TB}_O}^+,
+K_{\mathrm{TB}_\rho}^{\mathrm{inc}},
+K_{\mathrm{RepDesc}_K}^+,
+K_{\mathrm{GC}_\nabla}^{\mathrm{inc}},
+K_{\mathrm{Bound}_\partial}^-,
+K_{\mathrm{Germ}}^+,
+K_{\mathrm{init}}^+,
+K_{\mathrm{CatLib}}^+,
+K_{\mathrm{DAlembert}}^+,
+K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}},
+K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+,
+K_{\mathrm{Wave1DBackend}}^+,
+K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+
+\}.
+$$
 
-**Phase 4: Exclusion of Blow-Up**
-Suppose blow-up occurs at time $t^* < \infty$: $\lim_{t \to t^*} \|u(t)\|_{H^s} = \infty$.
+### **4.4 Conclusion**
 
-By energy conservation:
-$$\|u_x(t)\|_{L^2}^2 = \|u_x(0)\|_{L^2}^2 < \infty \quad \forall t$$
+**Conclusion:** The designated target claim is **ESTABLISHED**. The 1D linear wave equation admits a complete template-level proof object whose final analytic certificate is $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$.
 
-Via the D'Alembert Permit ($K_{\text{D'Alembert}}^+$):
-$$\|u(t)\|_{H^s} \leq C(\|u_0\|_{H^s} + \|u_1\|_{H^{s-1}}) < \infty \quad \forall t$$
+---
 
-Contradiction. Therefore, no blow-up occurs.
+## **Formal Proof**
 
-**Phase 5: Conclusion**
-The solution exists globally in time, is smooth, and conserves energy. The bad pattern (finite-time blow-up) is excluded. $\square$
+::::{prf:proof} Proof of Theorem {prf:ref}`thm-wave-1d-main`
+:label: proof-wave-1d-main
+
+The proof proceeds by structural sieve analysis in seven phases.
+
+**Phase 1 (Instantiation):** Part I defines the 1D wave thin objects $(\mathcal X,\Phi,\mathfrak D,G)$ on the phase space $H^1(\mathbb R)\times L^2(\mathbb R)$.
+
+**Phase 2 (Conservation):** Nodes 1-3 produce $K_{D_E}^+$, $K_{\mathrm{Rec}_N}^+$, and $K_{C_\mu}^+$, certifying finite conserved energy, zero repair-event count, and the characteristic transport decomposition.
+
+**Phase 3 (Scaling):** Nodes 4-5 produce $K_{\mathrm{SC}_\lambda}^+$ and $K_{\mathrm{SC}_{\partial c}}^+$, recording the wave scaling and the constant parameter sector $c>0$.
+
+**Phase 4 (Geometry):** Nodes 6-9 produce the geometric, stiffness, topological, and tame certificates required on the designated route.
+
+**Phase 5 (Diagnostics):** Nodes 10 and 12 emit $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ and $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$, but Part III-C records that both obligations are outside the dependency cone of the designated goal. Node 11 supplies the faithful Fourier/characteristic description certificate.
+
+**Phase 6 (Boundary):** Node 13 records the closed-system branch, so Nodes 14-16 are not applicable.
+
+**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E5 with the certified completeness package and the explicit D'Alembert bridge. Part III-B combines the blocked structural certificate with $K_{\mathrm{Wave1DBackend}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$.
+
+Therefore the designated goal certificate is established and the residual diagnostics do not obstruct it because they lie outside $\Downarrow(K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+)$.
+$$
+\therefore K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+ \quad \square
+$$
 
 ::::
 
 ---
+
+## **Verification Summary**
+
+| Component | Status | Certificate |
+|-----------|--------|-------------|
+| Nodes 1-12 (Core) | PASS / DIAGNOSTIC | positive route with two non-goal `inc` diagnostics |
+| Nodes 13-16 (Boundary) | N/A / PASS | closed-system branch via $K_{\mathrm{Bound}_\partial}^-$ |
+| Node 17 (Lock) | BLOCKED | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ |
+| Goal Certificate | REACHED | $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$ |
+| Obligation Ledger | GOAL-CONE EMPTY | residual diagnostics only |
+| Upgrade Pass | COMPLETE | backend analytic promotion only |
+
+**Final Verdict:** UNCONDITIONAL proof object for the designated goal.
+
+---
+
+## **References**
+
+1. Hypostructure Framework v1.0 formalism.
+2. D'Alembert formula and characteristic decomposition for the 1D wave equation.
+3. Standard Sobolev well-posedness and regularity propagation for the linear wave equation on $\mathbb R$.
+4. Finite propagation speed and energy conservation for hyperbolic equations.
+
+---
+
+## Appendix: Replay Bundle (Machine-Checkability)
+
+```json
+{
+  "problem": "wave-1d",
+  "goal": "K_Reg_Wave1D^+",
+  "route": [
+    "K_DE^+",
+    "K_RecN^+",
+    "K_Cmu^+",
+    "K_SClambda^+",
+    "K_SCpartialc^+",
+    "K_CapH^+",
+    "K_LSsigma^+",
+    "K_TBpi^+",
+    "K_TBO^+",
+    "K_TBrho^inc",
+    "K_RepDescK^+",
+    "K_GCnabla^inc",
+    "K_Boundpartial^-",
+    "K_Germ^+",
+    "K_init^+",
+    "K_CatLib^+",
+    "K_DAlembert^+",
+    "K_CatHom^blk",
+    "K_StructReg_Wave1D^+",
+    "K_Wave1DBackend^+",
+    "K_Reg_Wave1D^+"
+  ],
+  "obligations": {
+    "OBL-1": {
+      "certificate": "K_TBrho^inc",
+      "in_goal_cone": false,
+      "status": "residual_diagnostic"
+    },
+    "OBL-2": {
+      "certificate": "K_GCnabla^inc",
+      "in_goal_cone": false,
+      "status": "residual_diagnostic"
+    }
+  },
+  "goal_cone_empty": true
+}
+```
+
+---
+
+## Executive Summary: The Proof Dashboard
+
+### 1. System Instantiation (The Physics)
+
+| Object | Definition | Role |
+|---|---|---|
+| **Arena ($\mathcal X$)** | $H^1(\mathbb R)\times L^2(\mathbb R)$ | phase space |
+| **Potential ($\Phi$)** | conserved wave energy $E(u,\dot u)$ | primary height |
+| **Cost ($\mathfrak D$)** | zero-cost conservative branch | conservative structure |
+| **Invariance ($G$)** | translations, reflections, and wave scaling | symmetry sector |
+
+### 2. Execution Trace (The Logic)
+
+| Node | Check | Outcome | Certificate Payload | Ledger State |
+|---|---|---:|---|---|
+| 1 | Energy Bound | YES | exact energy conservation | `[]` |
+| 2 | Zeno Check | YES | no repair events | `[]` |
+| 3 | Compact Check | YES | characteristic transport decomposition | `[]` |
+| 4 | Scale Check | YES | $s\ge1>s_c$ | `[]` |
+| 5 | Param Check | YES | $c$ constant | `[]` |
+| 6 | Geom Check | YES | $\Sigma=\varnothing$ | `[]` |
+| 7 | Stiffness Check | YES | quadratic Hamiltonian coercivity | `[]` |
+| 8 | Topo Check | YES | single connected sector | `[]` |
+| 9 | Tame Check | YES | linear tame route | `[]` |
+| 10 | Ergo Check | INC | transport, not mixing | `[OBL-1]` |
+| 11 | Complex Check | YES | Fourier/characteristic faithful | `[OBL-1]` |
+| 12 | Oscillate Check | INC | Hamiltonian, not gradient | `[OBL-1, OBL-2]` |
+| 13 | Boundary Check | CLOSED | no external boundary | `[OBL-1, OBL-2]` |
+| 17 | LOCK | BLOCK | E5 D'Alembert bridge | `[OBL-1, OBL-2]` |
+
+### 3. Lock Mechanism (The Exclusion)
+
+| Tactic | Description | Status | Reason / Mechanism |
+|---|---|---:|---|
+| E1 | Dimension | N/A | not used |
+| E2 | Invariant | N/A | not used |
+| E3 | Positivity | N/A | not used |
+| E4 | Integrality | N/A | not used |
+| E5 | Functional | PASS | D'Alembert map reduces the flow to norm-preserving translations |
+| E6 | Causal | N/A | not used |
+| E7 | Thermodynamic | N/A | not used |
+| E8 | Holographic | N/A | not used |
+| E9 | Ergodic | N/A | not used |
+| E10 | Definability | N/A | not used |
+| E11 | Galois-Monodromy | N/A | not used |
+| E12 | Algebraic Compressibility | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | not used |
+
+### 4. Final Verdict
+
+- **Designated Goal Certificate:** $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$
+- **Status:** UNCONDITIONAL
+- **Goal-Cone Ledger:** EMPTY
+- **Residual Non-Goal Obligations:** `OBL-1`, `OBL-2`
+- **Singularity Set:** $\Sigma=\varnothing$
+- **Primary Final Route:** direct sieve execution + E5-blocked Lock + explicit wave backend upgrade
+
+---
+
+## Document Information
+
+| Field | Value |
+|-------|-------|
+| **Document Type** | Proof Object |
+| **Framework** | Hypostructure v1.0 |
+| **Problem Class** | Classical hyperbolic PDE |
+| **Problem Type** | Solved regularity instance |
+| **System Type** | $T_{\text{hyperbolic}}$ |
+| **Singularity Type** | `REGULAR` |
+| **Verification Level** | Machine-checkable proof object |
+| **Inc Certificates** | 2 introduced, both outside the goal cone |
+| **Final Status** | UNCONDITIONAL |
+| **Generated** | 2026-04-15 |

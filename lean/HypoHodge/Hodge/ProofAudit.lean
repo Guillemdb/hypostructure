@@ -7,46 +7,6 @@ open HypoHodge.Core
 open HypoHodge.Algebraic
 open HypoHodge.Imported
 
-private theorem not_mem_fireRule_of_not_mem_of_ne_conclusion
-    (r : Rule) (Γ : Context) {k : CertTag}
-    (hΓ : k ∉ Γ)
-    (hconc : r.conclusion ≠ k) :
-    k ∉ fireRule r Γ := by
-  by_cases h : r.enabled Γ
-  · rw [fireRule_eq_insert_of_enabled _ _ h]
-    simp [hΓ, hconc]
-  · rw [fireRule_eq_self_of_disabled _ _ h]
-    exact hΓ
-
-private theorem not_mem_step_of_not_mem_of_no_conclusion
-    (rules : RuleSet) (Γ : Context) {k : CertTag}
-    (hΓ : k ∉ Γ)
-    (hrules : ∀ r ∈ rules, r.conclusion ≠ k) :
-    k ∉ step rules Γ := by
-  induction rules generalizing Γ with
-  | nil =>
-      simpa [step] using hΓ
-  | cons r rs ih =>
-      have hfire : k ∉ fireRule r Γ :=
-        not_mem_fireRule_of_not_mem_of_ne_conclusion r Γ hΓ (hrules r (by simp))
-      have hrs : ∀ r' ∈ rs, r'.conclusion ≠ k := by
-        intro r' hr'
-        exact hrules r' (by simp [hr'])
-      simpa [step] using ih (fireRule r Γ) hfire hrs
-
-private theorem not_mem_closureN_of_not_mem_of_no_conclusion
-    (rules : RuleSet) (n : ℕ) (Γ : Context) {k : CertTag}
-    (hΓ : k ∉ Γ)
-    (hrules : ∀ r ∈ rules, r.conclusion ≠ k) :
-    k ∉ closureN rules n Γ := by
-  induction n generalizing Γ with
-  | zero =>
-      simpa [closureN] using hΓ
-  | succ n ih =>
-      have hstep : k ∉ step rules Γ :=
-        not_mem_step_of_not_mem_of_no_conclusion rules Γ hΓ hrules
-      simpa [closureN, Nat.iterate_succ] using ih (step rules Γ) hstep hrules
-
 theorem no_local_inc
     (I : VerifiedHodgeThinInput) :
     Disjoint (obligations (gamma0 I)) (goalCone deps CertTag.catHomBlk) := by
@@ -64,27 +24,15 @@ theorem no_lock_inc
     (I : VerifiedHodgeThinInput)
     [ImportedHodgeAxioms I] :
     CertTag.catHomInc ∉ finalContext I := by
-  have hinit : CertTag.catHomInc ∉ initialContext I := by
-    simp [initialContext, gamma0]
-  have hrules : ∀ r ∈ allRules, r.conclusion ≠ CertTag.catHomInc := by
-    intro r hr
-    simp [allRules, bridgeRules, promotionRules, HypoHodge.Algebraic.backendRules,
-      permitHdg, permitTann, permitLock] at hr ⊢
-  simpa [finalContext, initialContext, closure] using
-    not_mem_closureN_of_not_mem_of_no_conclusion allRules allTags.card (initialContext I) hinit hrules
+  rw [finalContext, tannStepContext, mhsStepContext, backendStepContext, initialContext]
+  simp [gamma0]
 
 theorem no_promo_inc
     (I : VerifiedHodgeThinInput)
     [ImportedHodgeAxioms I] :
     CertTag.promoInc ∉ finalContext I := by
-  have hinit : CertTag.promoInc ∉ initialContext I := by
-    simp [initialContext, gamma0]
-  have hrules : ∀ r ∈ allRules, r.conclusion ≠ CertTag.promoInc := by
-    intro r hr
-    simp [allRules, bridgeRules, promotionRules, HypoHodge.Algebraic.backendRules,
-      permitHdg, permitTann, permitLock] at hr ⊢
-  simpa [finalContext, initialContext, closure] using
-    not_mem_closureN_of_not_mem_of_no_conclusion allRules allTags.card (initialContext I) hinit hrules
+  rw [finalContext, tannStepContext, mhsStepContext, backendStepContext, initialContext]
+  simp [gamma0]
 
 theorem hodgeProofAudit
     (I : VerifiedHodgeThinInput)
@@ -100,5 +48,25 @@ theorem hodgeProofAudit
     · exact no_lock_inc (I := I) hkCtx
     · exact no_promo_inc (I := I) hkCtx
   simp [hEmpty]
+
+theorem no_semantic_lock_gap
+    (I : VerifiedHodgeThinInput)
+    [ImportedHodgeAxioms I] :
+    ¬ UnresolvedLockObstruction I := by
+  intro hGap
+  exact hGap.noCycleLift (emit_catHomBlk_semantics I)
+
+theorem no_semantic_promotion_gap
+    (I : VerifiedHodgeThinInput)
+    [ImportedHodgeAxioms I] :
+    ¬ PromotionGap I := by
+  intro hGap
+  exact hGap.blockedByPromotion (hodgeGammaCertificate I).tensorPres
+
+theorem hodgeSemanticAudit
+    (I : VerifiedHodgeThinInput)
+    [ImportedHodgeAxioms I] :
+    ¬ UnresolvedLockObstruction I ∧ ¬ PromotionGap I := by
+  exact ⟨no_semantic_lock_gap I, no_semantic_promotion_gap I⟩
 
 end HypoHodge.Hodge

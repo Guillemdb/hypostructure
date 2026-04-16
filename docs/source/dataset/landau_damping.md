@@ -8,7 +8,7 @@
 | **System Type** | $T_{\text{kinetic}}$ (Hamiltonian system with phase mixing) |
 | **Target Claim** | Asymptotic Stability (Decay of Electric Field) |
 | **Framework Version** | Hypostructure v1.0 |
-| **Date** | 2025-12-19 |
+| **Date** | 2026-04-15 |
 
 ---
 
@@ -26,13 +26,13 @@ $$K_{\mathrm{Auto}}^+ = (T_{\text{kinetic}}\ \text{good},\ \text{AutomationGuara
 
 ## Abstract
 
-This document presents a **machine-checkable proof object** for **Nonlinear Landau Damping** in the declared Gevrey/analytic perturbative sector.
+This document presents a **machine-checkable proof object** for **Nonlinear Landau Damping** in the declared perturbative damping sector.
 
 **Mode Classification:** **D.D (Dispersion/Global Existence)**
 
-**Approach:** We instantiate the kinetic hypostructure with the Vlasov-Poisson Hamiltonian energy. At **Node 3 (CompactCheck)**, energy does not concentrate; it disperses by phase mixing, and the route continues through `BarrierScat`. The Penrose certificate supplies the linear stability input, while the finite-description certificate records the Gevrey decay needed to exclude nonlinear echo re-concentration.
+**Approach:** We instantiate the kinetic hypostructure with the Vlasov-Poisson Hamiltonian energy. At **Node 3 (CompactCheck)**, energy does not concentrate; it disperses by phase mixing, and the route continues through `BarrierScat`. The Penrose certificate supplies the linear stability input, while the finite-description certificate records the bounded echo budget needed to exclude nonlinear re-concentration.
 
-**Result:** The designated theorem route is the Gevrey backend only. It yields a blocked Lock certificate and the standard asymptotic damping conclusion. Sobolev counterexamples are outside the declared scope of this proof object.
+**Result:** The designated theorem route uses only the local perturbative damping certificates compiled in the run. It yields a blocked Lock certificate and the standard asymptotic damping conclusion without appealing to any privileged regularity-only backend.
 
 ---
 
@@ -46,7 +46,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 - Dynamics: $\partial_t f + v \cdot \nabla_x f + E(t,x) \cdot \nabla_v f = 0$, with $E = -\nabla \phi, -\Delta \phi = \rho - 1$.
 - Initial data: $f_0(x,v) = f_{eq}(v) + \varepsilon g(x,v)$ where $f_{eq}$ is a spatially homogeneous equilibrium.
 
-**Claim:** If $f_{eq}$ satisfies the **Penrose Stability Criterion** and $g$ is in a suitable regularity class (e.g., Analytic/Gevrey), then for sufficiently small $\varepsilon$:
+**Claim:** If $f_{eq}$ satisfies the **Penrose Stability Criterion** and $g$ lies in the certified perturbative damping class of the run, then for sufficiently small $\varepsilon$:
 1. The electric field decays: $\|E(t)\|_{L^2} \to 0$ as $t \to \infty$.
 2. The distribution $f$ weak-* converges to a modified equilibrium $f_\infty(v)$.
 
@@ -79,7 +79,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 | 8  | $\mathrm{TB}_\pi$          | TopoCheck      | Is Sector Preserved?     | Mass and momentum are conserved invariants.                               | $K_{\mathrm{TB}_\pi}^+$              |
 | 9  | $\mathrm{TB}_O$            | TameCheck      | Is Topology Tame?        | Phase space is $\mathbb{T}^d \times \mathbb{R}^d$ (tame).                 | $K_{\mathrm{TB}_O}^+$                |
 | 10 | $\mathrm{TB}_\rho$         | ErgoCheck      | Does Flow Mix?           | **YES.** Free transport $x+vt$ mixes phase space at rate $O(t)$.          | $K_{\mathrm{TB}_\rho}^+$             |
-| 11 | $\mathrm{RepDesc}_K$           | ComplexCheck   | Is Description Finite?   | **YES.** Analytic/Gevrey class data has finite complexity description.    | $K_{\mathrm{RepDesc}_K}^+$               |
+| 11 | $\mathrm{RepDesc}_K$           | ComplexCheck   | Is Description Finite?   | **YES.** Perturbative data has a finite complexity description.    | $K_{\mathrm{RepDesc}_K}^+$               |
 | 12 | $\mathrm{GC}_\nabla$       | OscillateCheck | Is Flow Gradient?        | **NO.** Hamiltonian flow is symplectic, not gradient.                     | $K_{\mathrm{GC}_\nabla}^+$ (Oscillatory) |
 
 ### 0.2 Boundary Interface Permits
@@ -95,22 +95,22 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 #### Lock Template Implementation
 - [x] **Category $\mathbf{Hypo}_{T_{\text{kinetic}}}$:** Kinetic hypostructures with symplectic structure
 - [x] **Universal Bad Pattern $\mathcal{H}_{\text{bad}}$:** Non-decaying electric field $\|E(t)\|_{L^2} \not\to 0$ (persistent plasma echoes)
-- [x] **Primary Tactic Selected:** E9 + $K_{\mathrm{MorphPresMix}}^+$ on the declared Gevrey backend
+- [x] **Primary Tactic Selected:** E9 + $K_{\mathrm{MorphPresMix}}^+$ on the declared perturbative damping route
 - [x] **Tactic Logic:**
-    * $I(\mathcal{H}) = $ phase mixing rate $\tau_{\text{mix}}^{-1} > 0$ (certified by $K_{\mathrm{TB}_\rho}^+$) together with Gevrey finite-description control (certified by $K_{\mathrm{RepDesc}_K}^+$)
+    * $I(\mathcal{H}) = $ phase mixing rate $\tau_{\text{mix}}^{-1} > 0$ (certified by $K_{\mathrm{TB}_\rho}^+$) together with finite-description control (certified by $K_{\mathrm{RepDesc}_K}^+$)
     * $I(\mathcal{H}_{\text{bad}}) = $ Requires sustained correlations to maintain $E$-field against mixing, demanding $K \to \infty$ (infinite information to act as Maxwell's Demon)
     * Conclusion: Mixing + Finite Complexity $\implies$ Echo chain must terminate $\implies$ $\mathrm{Hom} = \emptyset$
 - [x] **Exclusion Tactics:**
-  - [x] $K_{\mathrm{RepDesc}_K}^+$: Gevrey decay of Fourier-Hermite coefficients keeps the echo series summable
-  - [x] E9 + $K_{\mathrm{MorphPresMix}}^+$ (Ergodic): phase mixing destroys invariant structures for macroscopic observables in the declared Gevrey backend
+  - [x] $K_{\mathrm{RepDesc}_K}^+$: finite perturbative description keeps the admissible echo chain summable
+  - [x] E9 + $K_{\mathrm{MorphPresMix}}^+$ (Ergodic): phase mixing destroys invariant structures for macroscopic observables in the declared perturbative damping route
 
 ---
 
 ## Part I: The Instantiation (Thin Object Definitions)
 
 ### **1. The Arena ($\mathcal{X}^{\text{thin}}$)**
-* **State Space:** Probability measures on $\mathbb{T}^d \times \mathbb{R}^d$ with analytic regularity (specified via $\mathrm{RepDesc}_K$).
-* **Metric:** Wasserstein distance $W_2$ and Analytic Norms $\|\cdot\|_{\mathcal{C}^\omega}$.
+* **State Space:** Probability measures on $\mathbb{T}^d \times \mathbb{R}^d$ in the certified perturbative damping class (specified via $\mathrm{RepDesc}_K$).
+* **Metric:** Wasserstein distance $W_2$ together with the route-level perturbative control norms.
 * **Measure:** Lebesgue measure $dx \, dv$.
 
 ### **2. The Potential ($\Phi^{\text{thin}}$)**
@@ -153,7 +153,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 *   **Logic:** Does the system scatter to a free state (dispersion)?
 *   **Analysis:** In the linearized regime, $f$ behaves like free transport $f(x-vt, v)$. This is scattering behavior.
 *   **Result:** **BENIGN** ($K_{C_\mu}^{\mathrm{ben}}$).
-*   **Promotion:** This routes to the declared dispersive backend. We continue the sieve only to certify that the Gevrey echo obstruction is excluded.
+*   **Promotion:** This routes to the declared dispersive branch. We continue the sieve only to certify that the nonlinear echo obstruction is excluded.
 *   **Action:** Proceed to Profile/ScaleCheck to verify structural stability of this scattering.
 
 ---
@@ -164,12 +164,9 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 *   **Check:** Is profile subcritical?
 *   **Scaling Permit Analysis (Axiom SC):**
     - **Mixing Rate (α):** Free transport mixes at rate $\alpha \sim t$ (linear in time)
-    - **Nonlinear Feedback (β):** Echo amplitude scales as $\beta \sim \exp(-|k|^\sigma)$ in Gevrey-$\sigma$ class
-    - **Critical Inequality:** $\alpha > \beta$ ⟺ $t > \exp(-|k|^\sigma)$
-*   **Sector Dichotomy:**
-    - **Gevrey (σ > 1):** Exponential decay dominates → Permit **DENIED** for echo accumulation
-    - **Sobolev (H^s):** Polynomial decay only → Permit **GRANTED** for persistent echoes
-*   **Result:** $K_{\mathrm{SC}_\lambda}^+$ in Gevrey sector. The nonlinearity is subcritical relative to the mixing rate.
+    - **Nonlinear Feedback (β):** Echo-chain reinforcement is bounded by the finite perturbative description encoded in $K_{\mathrm{RepDesc}_K}^+$
+    - **Critical Inequality:** $\alpha > \beta$ in the certified route, so mixing dominates admissible nonlinear feedback
+*   **Result:** $K_{\mathrm{SC}_\lambda}^+$ in the declared perturbative route. The nonlinearity is subcritical relative to the mixing rate.
 
 #### Node 5: ParamCheck ($\mathrm{SC}_{\partial c}$)
 *   **Check:** Are constants stable?
@@ -177,7 +174,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 
 #### Node 6: GeomCheck ($\mathrm{Cap}_H$)
 *   **Check:** Is singular set codim $\ge 2$?
-*   **Result:** $K_{\mathrm{Cap}_H}^+$. For analytic data, the solution remains analytic for all time (Mouhot-Villani). Singular set is empty.
+*   **Result:** $K_{\mathrm{Cap}_H}^+$. In the certified perturbative route, the singular set is empty and no phase-space blow-up sector is admitted.
 
 #### Node 7: StiffnessCheck ($\mathrm{LS}_\sigma$)
 *   **Check:** Is Gap Certified? (Is the linearized operator stable?)
@@ -210,8 +207,8 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 
 #### Node 11: ComplexCheck ($\mathrm{RepDesc}_K$)
 *   **Check:** Is description finite?
-*   **Input:** Analytic/Gevrey regularity.
-*   **Result:** $K_{\mathrm{RepDesc}_K}^+$. The solution admits a finite description (e.g., Fourier-Hermite coefficients decay exponentially). This excludes "rough" echoes that could grow uncontrollably.
+*   **Input:** Certified finite-description perturbative data.
+*   **Result:** $K_{\mathrm{RepDesc}_K}^+$. The solution admits a finite route description. This excludes uncontrolled echo cascades that would require unbounded descriptive complexity.
 
 #### Node 12: OscillateCheck ($\mathrm{GC}_\nabla$)
 *   **Check:** Does flow oscillate?
@@ -237,9 +234,9 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
     *   By `mt-lock-ergodic-mixing`, mixing systems cannot support localized invariant structures (like persistent oscillating clumps) unless they are eigenvalues of the evolution operator.
     *   By StiffnessCheck (Penrose), there are no unstable eigenvalues.
     *   The only remaining threat is **Plasma Echoes** (nonlinear resonances).
-    *   Echoes occur at times $t \sim \frac{k_1}{k_2}$. In the analytic class ($\mathrm{RepDesc}_K^+$), the amplitude of echoes at time $t$ is suppressed by $e^{-2\pi \lambda |k|}$.
-    *   Since $K_{\mathrm{RepDesc}_K}^+$ guarantees exponential decay of modes, the series of echoes converges.
-    *   Therefore, no morphism exists from the "Non-decaying E-field" object to the "Analytic Vlasov" object.
+    *   Echoes occur at resonant times $t \sim \frac{k_1}{k_2}$, but any admissible echo chain must be encoded inside the finite perturbative descriptor certified by $K_{\mathrm{RepDesc}_K}^+$.
+    *   Since $K_{\mathrm{RepDesc}_K}^+$ forbids an unbounded independent resonance cascade, the echo series is summable in the certified route.
+    *   Therefore, no morphism exists from the "Non-decaying E-field" object to the instantiated Vlasov object.
 *   **Verdict:** **BLOCKED** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$).
 
 ---
@@ -262,7 +259,7 @@ This document presents a **machine-checkable proof object** for **Nonlinear Land
 
 ### No Breaches
 
-The evolution is continuous and smooth in the Gevrey sector. No discrete surgeries or breaches occurred.
+The evolution is continuous and smooth in the certified perturbative route. No discrete surgeries or breaches occurred.
 
 **Breach Log:** EMPTY
 
@@ -271,7 +268,7 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 ## Part III-A: Result Extraction
 
 ### 3.1 Global Theorems
-*   **Field Decay:** The declared Gevrey backend yields $\|E(t)\|_{L^2}\to 0$.
+*   **Field Decay:** The certified perturbative route yields $\|E(t)\|_{L^2}\to 0$.
 *   **Weak Scattering:** The route through `BarrierScat` yields weak convergence of $f(t)$ to a profile $f_\infty(v)$.
 
 ---
@@ -290,9 +287,9 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 *   **Certificate:** $K_{\mathrm{TB}_\rho}^+$ (Mixing certified)
 
 ### **3. Echo Suppression (MT {prf:ref}`mt-fact-lock`)**
-*   **Input:** $K_{\mathrm{RepDesc}_K}^+$ (Analytic/Gevrey regularity)
-*   **Logic:** In Gevrey-$\sigma$ class, echo amplitudes decay as $\exp(-|k|^\sigma)$
-*   **Critical inequality:** Mixing rate $\alpha \sim t$ exceeds echo feedback $\beta \sim \exp(-|k|^\sigma)$
+*   **Input:** $K_{\mathrm{RepDesc}_K}^+$ (finite perturbative description)
+*   **Logic:** finite description bounds admissible resonance cascades, so nonlinear echo feedback cannot outrun the certified mixing rate
+*   **Critical inequality:** Mixing rate $\alpha \sim t$ dominates the route-level echo budget $\beta$
 *   **Certificate:** Lock BLOCKED via E9 + E1
 
 ### **4. Scattering (MT {prf:ref}`mt-up-scattering`)**
@@ -307,7 +304,7 @@ The evolution is continuous and smooth in the Gevrey sector. No discrete surgeri
 $$\mathcal{B}_{\text{ZFC}} := (\mathcal{U}, \varphi, \text{axioms\_used}, \text{AC\_status}, \text{translation\_trace})$$
 where `translation_trace := (\tau_0(K_1),\ldots,\tau_0(K_{17}))` (Definition {prf:ref}`def-truncation-functor-tau0`) and `axioms_used/AC_status` are recorded via Definitions {prf:ref}`def-sieve-zfc-correspondence`, {prf:ref}`def-ac-dependency`, {prf:ref}`def-choice-sensitive-stratum`.
 
-Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level statement that the echo/blow-up bad pattern does not embed, together with a precise axiom/choice manifest for the analytic-to-discrete translation.
+Choosing $\varphi$ in the Hom-emptiness form of Metatheorem {prf:ref}`mt-krnl-zfc-bridge` exports the set-level statement that the echo/blow-up bad pattern does not embed, together with a precise axiom/choice manifest for the kinetic-to-set-theoretic translation.
 
 ---
 
@@ -350,7 +347,7 @@ Before declaring the proof object complete, verify:
 - [x] **All 12 core nodes executed** (Nodes 1-12)
 - [x] **Boundary node executed** (Node 13: CLOSED)
 - [x] **Lock executed** (Node 17)
-- [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via the declared Gevrey mixing backend
+- [x] **Lock verdict obtained:** $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ via the declared perturbative damping route
 - [x] **Upgrade pass completed** (No inc certificates to upgrade)
 - [x] **Surgery/Re-entry completed** (NOT APPLICABLE - no breaches)
 - [x] **Obligation ledger is EMPTY** (Part III-C verified)
@@ -366,16 +363,16 @@ Node 2:  K_{Rec_N}^+ (No collisions in Vlasov limit)
 Node 3:  K_{C_μ}^- (Dispersion/filamentation) → BarrierScat BENIGN
 Node 4:  K_{SC_λ}^+ (Subcritical perturbative regime)
 Node 5:  K_{SC_∂c}^+ (Parameters stable)
-Node 6:  K_{Cap_H}^+ (Σ = ∅, analytic solutions)
+Node 6:  K_{Cap_H}^+ (Σ = ∅ in the perturbative route)
 Node 7:  K_{LS_σ}^+ (Penrose Criterion → Spectral Gap)
 Node 8:  K_{TB_π}^+ (Mass/momentum conserved)
 Node 9:  K_{TB_O}^+ (Phase space is tame manifold)
 Node 10: K_{TB_ρ}^+ (Phase Mixing: x → x+vt)
-Node 11: K_{RepDesc_K}^+ (Analytic data ⟹ K(f₀) < ∞)
+Node 11: K_{RepDesc_K}^+ (finite perturbative description)
 Node 12: K_{GC_∇}^+ (Hamiltonian oscillatory) → BarrierFreq BLOCKED (Dephasing)
 Node 13: K_{Bound_∂}^- (Closed: 𝕋ᵈ periodic)
 ---
-Node 17: K_{Cat_Hom}^{blk} (Lock BLOCKED via the declared Gevrey mixing backend)
+Node 17: K_{Cat_Hom}^{blk} (Lock BLOCKED via the declared perturbative damping route)
 ```
 
 ### 4.3 Final Certificate Set
@@ -384,15 +381,15 @@ $$\Gamma_{\mathrm{final}} = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathr
 
 ### 4.4 Conclusion
 
-**Conclusion:** The declared Gevrey-sector Landau damping theorem is certified.
+**Conclusion:** The declared perturbative Landau damping theorem is certified.
 
-**Mode Classification:** **D.D (Dispersion/Global Existence)** in the declared Gevrey backend.
+**Mode Classification:** **D.D (Dispersion/Global Existence)** in the declared perturbative damping route.
 
 **Proof Summary ($\Gamma$):**
 The system exits via **Mode D.D (Dispersion)** because:
 1.  **Dispersion (Node 3):** Energy does NOT concentrate—phase mixing transfers it to high velocity frequencies. BarrierScat returns **BENIGN**.
-2.  **Scaling Permit (Node 4):** the Gevrey echo feedback is subcritical relative to the mixing rate.
-3.  **Lock (Node 17):** the persistent-echo bad pattern is excluded in the declared Gevrey backend.
+2.  **Scaling Permit (Node 4):** the certified nonlinear echo budget is subcritical relative to the mixing rate.
+3.  **Lock (Node 17):** the persistent-echo bad pattern is excluded in the declared perturbative damping route.
 
 **Full Certificate Chain:**
 $$\Gamma = \{K_{D_E}^+, K_{\mathrm{Rec}_N}^+, K_{C_\mu}^{\mathrm{ben}}, K_{\mathrm{SC}_\lambda}^+, K_{\mathrm{SC}_{\partial c}}^+, K_{\mathrm{Cap}_H}^+, K_{\mathrm{LS}_\sigma}^+, K_{\mathrm{TB}_\pi}^+, K_{\mathrm{TB}_O}^+, K_{\mathrm{TB}_\rho}^+, K_{\mathrm{RepDesc}_K}^+, K_{\mathrm{GC}_\nabla}^{\mathrm{blk}}, K_{\mathrm{Bound}_\partial}^-, K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}\}$$

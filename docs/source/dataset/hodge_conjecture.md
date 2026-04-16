@@ -1555,8 +1555,9 @@ Hence $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ is reached from thin veri
 | **Framework** | Hypostructure v1.0 |
 | **Problem Class** | Open Problem |
 | **System Type** | $T_{\mathrm{alg}}$ |
+| **Problem Type** | I-Stable |
+| **Singularity Type** | REGULAR |
 | **Verification Level** | Machine-checkable |
 | **Inc Certificates** | Not explicitly listed |
 | **Final Status** | UNCONDITIONAL |
 | **Generated** | 2026-04-14 |
-

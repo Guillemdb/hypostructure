@@ -20,6 +20,7 @@ import HypoHodge.Algebraic.BackendAutoclose
 
 import HypoHodge.Hodge.Permits
 import HypoHodge.Hodge.Run
+import HypoHodge.Hodge.Semantics
 import HypoHodge.Hodge.ProofAudit
 import HypoHodge.Hodge.Final
 import HypoHodge.Examples.Toy

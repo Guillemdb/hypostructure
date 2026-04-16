@@ -186,13 +186,19 @@ project:
           title: Julia Sets (MLC)
         - file: source/dataset/bounded_primes_gaps.md
           title: Bounded Prime Gaps
+        - file: source/dataset/twin_primes.md
+          title: Twin Primes
         - file: source/dataset/kervaire_invariant.md
           title: Kervaire Invariant One
         # Classical PDE Problems (5)
         - file: source/dataset/burgers_1d.md
           title: 1D Viscous Burgers
+        - file: source/dataset/burgers_1d_ground_truth_roadmap.md
+          title: Burgers 1D Ground-Truth Roadmap
         - file: source/dataset/navier_stokes_2d.md
           title: 2D Navier-Stokes
+        - file: source/dataset/euler_3d.md
+          title: 3D Euler
         - file: source/dataset/landau_damping.md
           title: Landau Damping
         - file: source/dataset/wave_1d.md
