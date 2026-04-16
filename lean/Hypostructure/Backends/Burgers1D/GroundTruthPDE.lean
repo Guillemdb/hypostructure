@@ -32,11 +32,17 @@ structure SmoothCompactTimePeriodicSpaceTest where
   value : ℝ → ContinuousMap BurgersTorus ℝ
   timeDeriv : ℝ → ContinuousMap BurgersTorus ℝ
   spaceDeriv : ℝ → ContinuousMap BurgersTorus ℝ
+  constant_heat_cancellation : ∀ m : ℝ,
+    timeSpaceIntegralOn window
+      (fun t x => -m * timeDeriv t x) = 0
+  constant_burgers_cancellation : ∀ m : ℝ,
+    timeSpaceIntegralOn window
+      (fun t x => -m * timeDeriv t x -
+        ((m ^ (2 : ℕ)) / 2) * spaceDeriv t x) = 0
 
 /-- A Burgers solution curve on the ground-truth periodic `H¹` carrier. -/
 structure BurgersSolutionCurve (nu : BurgersParameters) where
   eval : ℝ → PeriodicH1State
-  timeRegularity : Prop
 
 def InitialCondition
     {nu : BurgersParameters}
@@ -121,42 +127,6 @@ def BurgersGroundTruthGlobalRegularityStatement
           GlobalH1Solution u ∧
           UniqueWeakBurgersSolution nu u0 u ∧
           ∀ t : ℝ, 0 < t → SmoothAtPositiveTime u t
-
-/-- A concrete replacement for the old permissive PDE package. The fields now
-force any backend to provide a flow, solution curves, and proofs of the actual
-PDE-facing predicates above. -/
-class BurgersGroundTruthEvolutionPackage
-    (nu : BurgersParameters) where
-  flow : ℝ → PeriodicH1State → PeriodicH1State
-  solutionCurve : PeriodicH1State → BurgersSolutionCurve nu
-  solutionCurve_eval :
-    ∀ u0 t, (solutionCurve u0).eval t = flow t u0
-  solves :
-    ∀ u0, PeriodicH1State.IsPeriodicH1 u0 →
-      SolvesViscousBurgersWeak nu u0 (solutionCurve u0)
-  globalH1 :
-    ∀ u0 t, PeriodicH1State.IsPeriodicH1 u0 →
-      PeriodicH1State.IsPeriodicH1 (flow t u0)
-  unique :
-    ∀ u0, PeriodicH1State.IsPeriodicH1 u0 →
-      UniqueWeakBurgersSolution nu u0 (solutionCurve u0)
-  smoothPositiveTime :
-    ∀ u0 t, PeriodicH1State.IsPeriodicH1 u0 → 0 < t →
-      SmoothAtPositiveTime (solutionCurve u0) t
-
-theorem burgers_groundTruth_globalRegularity_from_package
-    (nu : BurgersParameters)
-    [BurgersGroundTruthEvolutionPackage nu] :
-    BurgersGroundTruthGlobalRegularityStatement nu := by
-  intro u0 hu0
-  refine ⟨BurgersGroundTruthEvolutionPackage.solutionCurve (nu := nu) u0, ?_, ?_, ?_, ?_⟩
-  · exact BurgersGroundTruthEvolutionPackage.solves (nu := nu) u0 hu0
-  · intro t
-    rw [BurgersGroundTruthEvolutionPackage.solutionCurve_eval (nu := nu) u0 t]
-    exact BurgersGroundTruthEvolutionPackage.globalH1 (nu := nu) u0 t hu0
-  · exact BurgersGroundTruthEvolutionPackage.unique (nu := nu) u0 hu0
-  · intro t ht
-    exact BurgersGroundTruthEvolutionPackage.smoothPositiveTime (nu := nu) u0 t hu0 ht
 
 end
 

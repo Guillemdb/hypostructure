@@ -193,8 +193,6 @@ project:
         # Classical PDE Problems (5)
         - file: source/dataset/burgers_1d.md
           title: 1D Viscous Burgers
-        - file: source/dataset/burgers_1d_ground_truth_roadmap.md
-          title: Burgers 1D Ground-Truth Roadmap
         - file: source/dataset/navier_stokes_2d.md
           title: 2D Navier-Stokes
         - file: source/dataset/euler_3d.md
@@ -875,227 +873,10 @@ project:
           title: THM-Soundness
         - file: source/sketches/discrete/sketch-discrete-translation-guide.md
           title: Translation-Guide
-    - file: source/sketches/arithmetic/sketch-arithmetic-index.md
-      title: Number Theory Sketches
-      children:
-        - file: source/sketches/arithmetic/sketch-arithmetic-interfaces.md
-          title: Core Interface Translations
-        - file: source/sketches/arithmetic/sketch-arithmetic-barriers.md
-          title: Fundamental Barriers and Constraints
-        - file: source/sketches/arithmetic/sketch-arithmetic-surgeries.md
-          title: Field Extensions and Reduction Modifications
-        - file: source/sketches/arithmetic/sketch-arithmetic-failure-modes.md
-          title: Failure Mode Translations
-        - file: source/sketches/arithmetic/act-align.md
-          title: ACT-Align
-        - file: source/sketches/arithmetic/act-compactify.md
-          title: ACT-Compactify
-        - file: source/sketches/arithmetic/act-ghost.md
-          title: ACT-Ghost
-        - file: source/sketches/arithmetic/act-horizon.md
-          title: ACT-Horizon
-        - file: source/sketches/arithmetic/act-lift.md
-          title: ACT-Lift
-        - file: source/sketches/arithmetic/act-projective.md
-          title: ACT-Projective
-        - file: source/sketches/arithmetic/act-surgery-2.md
-          title: ACT-Surgery-2
-        - file: source/sketches/arithmetic/act-surgery.md
-          title: ACT-Surgery
-        - file: source/sketches/arithmetic/cor-minimal-user-burden.md
-          title: COR-Minimal-User-Burden
-        - file: source/sketches/arithmetic/cor-separation-concerns.md
-          title: COR-Separation-Concerns
-        - file: source/sketches/arithmetic/fact-barrier.md
-          title: FACT-Barrier
-        - file: source/sketches/arithmetic/fact-gate.md
-          title: FACT-Gate
-        - file: source/sketches/arithmetic/fact-germ-density.md
-          title: FACT-Germ-Density
-        - file: source/sketches/arithmetic/fact-instantiation.md
-          title: FACT-Instantiation
-        - file: source/sketches/arithmetic/fact-lock.md
-          title: FACT-LOCK
-        - file: source/sketches/arithmetic/fact-min-inst.md
-          title: FACT-Minimal-Instantiation
-        - file: source/sketches/arithmetic/fact-soft-attr.md
-          title: FACT-Soft-Attractor
-        - file: source/sketches/arithmetic/fact-soft-km.md
-          title: FACT-Soft-KM
-        - file: source/sketches/arithmetic/fact-soft-morse.md
-          title: FACT-Soft-Morse
-        - file: source/sketches/arithmetic/fact-soft-profdec.md
-          title: FACT-Soft-ProfileDecomposition
-        - file: source/sketches/arithmetic/fact-soft-rigidity.md
-          title: FACT-Soft-Rigidity
-        - file: source/sketches/arithmetic/fact-soft-wp.md
-          title: FACT-Soft-WP
-        - file: source/sketches/arithmetic/fact-surgery.md
-          title: FACT-Surgery
-        - file: source/sketches/arithmetic/fact-transport.md
-          title: FACT-Transport
-        - file: source/sketches/arithmetic/fact-valid-inst.md
-          title: FACT-Valid-Instantiation
-        - file: source/sketches/arithmetic/krnl-consistency.md
-          title: KRNL-Consistency
-        - file: source/sketches/arithmetic/krnl-equivariance.md
-          title: KRNL-Equivariance
-        - file: source/sketches/arithmetic/krnl-exclusion.md
-          title: KRNL-Exclusion
-        - file: source/sketches/arithmetic/krnl-hamilton-jacobi.md
-          title: KRNL-Hamilton-Jacobi
-        - file: source/sketches/arithmetic/krnl-jacobi.md
-          title: KRNL-Jacobi
-        - file: source/sketches/arithmetic/krnl-lyapunov.md
-          title: KRNL-Lyapunov
-        - file: source/sketches/arithmetic/krnl-metric-action.md
-          title: KRNL-Metric-Action
-        - file: source/sketches/arithmetic/krnl-openness.md
-          title: KRNL-Openness
-        - file: source/sketches/arithmetic/krnl-shadowing.md
-          title: KRNL-Shadowing
-        - file: source/sketches/arithmetic/krnl-stiff-pairing.md
-          title: KRNL-Stiff-Pairing
-        - file: source/sketches/arithmetic/krnl-subsystem.md
-          title: KRNL-Subsystem
-        - file: source/sketches/arithmetic/krnl-trichotomy.md
-          title: KRNL-Trichotomy
-        - file: source/sketches/arithmetic/krnl-weak-strong.md
-          title: KRNL-Weak-Strong
-        - file: source/sketches/arithmetic/lem-bridge.md
-          title: LEM-Bridge
-        - file: source/sketches/arithmetic/lem-gap-lojasiewicz.md
-          title: LEM-Gap-Lojasiewicz
-        - file: source/sketches/arithmetic/lock-antichain.md
-          title: LOCK-Antichain
-        - file: source/sketches/arithmetic/lock-entropy.md
-          title: LOCK-Entropy
-        - file: source/sketches/arithmetic/lock-ergodic-mixing.md
-          title: LOCK-Ergodic-Mixing
-        - file: source/sketches/arithmetic/lock-hodge.md
-          title: LOCK-Hodge
-        - file: source/sketches/arithmetic/lock-kodaira.md
-          title: LOCK-Kodaira
-        - file: source/sketches/arithmetic/lock-motivic.md
-          title: LOCK-Motivic
-        - file: source/sketches/arithmetic/lock-periodic.md
-          title: LOCK-Periodic
-        - file: source/sketches/arithmetic/lock-product.md
-          title: LOCK-Product
-        - file: source/sketches/arithmetic/lock-reconstruction.md
-          title: LOCK-Reconstruction
-        - file: source/sketches/arithmetic/lock-schematic.md
-          title: LOCK-Schematic
-        - file: source/sketches/arithmetic/lock-spectral-dist.md
-          title: LOCK-Spectral-Dist
-        - file: source/sketches/arithmetic/lock-spectral-gen.md
-          title: LOCK-Spectral-Gen
-        - file: source/sketches/arithmetic/lock-spectral-quant.md
-          title: LOCK-Spectral-Quant
-        - file: source/sketches/arithmetic/lock-tactic-capacity.md
-          title: LOCK-Tactic-Capacity
-        - file: source/sketches/arithmetic/lock-tactic-scale.md
-          title: LOCK-Tactic-Scale
-        - file: source/sketches/arithmetic/lock-tannakian.md
-          title: LOCK-Tannakian
-        - file: source/sketches/arithmetic/lock-unique-attractor.md
-          title: LOCK-Unique-Attractor
-        - file: source/sketches/arithmetic/lock-virtual.md
-          title: LOCK-Virtual
-        - file: source/sketches/arithmetic/resolve-admissibility.md
-          title: RESOLVE-Admissibility
-        - file: source/sketches/arithmetic/resolve-auto-admit.md
-          title: RESOLVE-Auto-Admit
-        - file: source/sketches/arithmetic/resolve-auto-profile.md
-          title: RESOLVE-Auto-Profile
-        - file: source/sketches/arithmetic/resolve-auto-surgery.md
-          title: RESOLVE-Auto-Surgery
-        - file: source/sketches/arithmetic/resolve-conservation.md
-          title: RESOLVE-Conservation
-        - file: source/sketches/arithmetic/resolve-expansion.md
-          title: RESOLVE-Expansion
-        - file: source/sketches/arithmetic/resolve-obstruction.md
-          title: RESOLVE-Obstruction
-        - file: source/sketches/arithmetic/resolve-profile.md
-          title: RESOLVE-Profile
-        - file: source/sketches/arithmetic/resolve-tower.md
-          title: RESOLVE-Tower
-        - file: source/sketches/arithmetic/resolve-weakest-pre.md
-          title: RESOLVE-Weakest-Pre
-        - file: source/sketches/arithmetic/thm-168-slots.md
-          title: THM-168-Slots
-        - file: source/sketches/arithmetic/thm-bode.md
-          title: THM-Bode
-        - file: source/sketches/arithmetic/thm-categorical-completeness.md
-          title: THM-Categorical-Completeness
-        - file: source/sketches/arithmetic/thm-closure-termination.md
-          title: THM-Closure-Termination
-        - file: source/sketches/arithmetic/thm-compactness-resolution.md
-          title: THM-Compactness-Resolution
-        - file: source/sketches/arithmetic/thm-dag-structure.md
-          title: THM-Dag-Structure
-        - file: source/sketches/arithmetic/thm-epoch-termination.md
-          title: THM-Epoch-Termination
-        - file: source/sketches/arithmetic/thm-expansion-adjunction.md
-          title: THM-Expansion-Adjunction
-        - file: source/sketches/arithmetic/thm-finite-runs.md
-          title: THM-Finite-Runs
-        - file: source/sketches/arithmetic/thm-meta-identifiability.md
-          title: THM-Meta-Identifiability
-        - file: source/sketches/arithmetic/thm-non-circularity.md
-          title: THM-Non-Circularity
-        - file: source/sketches/arithmetic/thm-soft-backend-complete.md
-          title: THM-Soft-Backend-Complete
-        - file: source/sketches/arithmetic/thm-soundness.md
-          title: THM-Soundness
-        - file: source/sketches/arithmetic/up-absorbing.md
-          title: UP-Absorbing
-        - file: source/sketches/arithmetic/up-algorithm-depth.md
-          title: UP-Algorithm-Depth
-        - file: source/sketches/arithmetic/up-capacity.md
-          title: UP-Capacity
-        - file: source/sketches/arithmetic/up-catastrophe.md
-          title: UP-Catastrophe
-        - file: source/sketches/arithmetic/up-causal-barrier.md
-          title: UP-Causal-Barrier
-        - file: source/sketches/arithmetic/up-censorship.md
-          title: UP-Censorship
-        - file: source/sketches/arithmetic/up-ergodic.md
-          title: UP-Ergodic
-        - file: source/sketches/arithmetic/up-holographic.md
-          title: UP-Holographic
-        - file: source/sketches/arithmetic/up-inc-aposteriori.md
-          title: UP-Inc-APosteriori
-        - file: source/sketches/arithmetic/up-inc-complete.md
-          title: UP-Inc-Complete
-        - file: source/sketches/arithmetic/up-lock.md
-          title: UP-LOCK
-        - file: source/sketches/arithmetic/up-lockback.md
-          title: UP-LockBack
-        - file: source/sketches/arithmetic/up-o-minimal.md
-          title: UP-O-Minimal
-        - file: source/sketches/arithmetic/up-saturation-principle.md
-          title: UP-Saturation-Principle
-        - file: source/sketches/arithmetic/up-saturation.md
-          title: UP-Saturation
-        - file: source/sketches/arithmetic/up-scattering.md
-          title: UP-Scattering
-        - file: source/sketches/arithmetic/up-shadow-retro.md
-          title: UP-Shadow-Retro
-        - file: source/sketches/arithmetic/up-shadow.md
-          title: UP-Shadow
-        - file: source/sketches/arithmetic/up-spectral.md
-          title: UP-Spectral
-        - file: source/sketches/arithmetic/up-surgery.md
-          title: UP-Surgery
-        - file: source/sketches/arithmetic/up-symmetry-bridge.md
-          title: UP-Symmetry-Bridge
-        - file: source/sketches/arithmetic/up-tame-smoothing.md
-          title: UP-Tame-Smoothing
-        - file: source/sketches/arithmetic/up-type-ii.md
-          title: UP-Type-Ii
-        - file: source/sketches/arithmetic/up-variety-control.md
-          title: UP-Variety-Control
+  # Exclude retired arithmetic translation sketches from full builds.
+  exclude:
+    - source/sketches/arithmetic/**
+
   # Bibliography
   bibliography:
     - source/1_hypostructure_formalism/references.bib
@@ -1118,6 +899,10 @@ site:
     hide_toc: false
     static_files:
       - _static/custom.css
+      - _static/hypostructure-formalism-bundle.js
+      - _static/hypostructure-download-widget.css
+      - _static/hypostructure-download-widget.js
+      - _static/hypostructure-prompt-builder.html
   nav:
     - title: Home
       url: /index
@@ -1301,7 +1086,5 @@ site:
           url: /sketch-gmt-index
         - title: Complexity Theory
           url: /sketch-discrete-index
-        - title: Number Theory
-          url: /sketch-arithmetic-index
         - title: Fragile Agent
           url: /fragile-index

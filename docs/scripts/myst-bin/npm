@@ -1,0 +1,14 @@
+#!/bin/sh
+
+REAL_NPM="${NPM_REAL:-/usr/bin/npm}"
+NPM_PACKAGE_JSON="${NPM_PACKAGE_JSON:-/usr/share/nodejs/npm/package.json}"
+
+if [ "$#" -eq 1 ] && [ "$1" = "--version" ]; then
+  if [ -f "$NPM_PACKAGE_JSON" ]; then
+    awk -F'"' '/"version":/ { print $4; exit }' "$NPM_PACKAGE_JSON" && exit 0
+  fi
+  printf '%s\n' '9.2.0'
+  exit 0
+fi
+
+exec "$REAL_NPM" "$@"

@@ -24,6 +24,29 @@ $K_{\mathrm{Auto}}^+ = (T_{\text{hamiltonian}}\ \text{good},\ \text{AutomationGu
 
 ---
 
+
+## Local-to-Global Certificate Discipline
+
+The hypostructure proof is certified from local inputs only:
+
+$$
+\Gamma_{\mathrm{local}}
+=
+\{\text{thin-object data},\text{interface permits},\text{node certificates},\text{local backend permits},\text{Lock/local completeness packages if used}\}.
+$$
+
+This closes locally to the goal certificate and then extracts the global theorem output:
+
+$$
+\Gamma_{\mathrm{local}}
+\xRightarrow{\text{named promotion / extraction}}
+K_{\mathrm{Goal}}^+
+\xRightarrow{\text{Part III-B / Part IV}}
+\text{global theorem output}.
+$$
+
+**Never reverse this arrow.** Global regularity, global exclusion, convergence, or classification statements must never be used as local premises, upgrade inputs, or Lock hypotheses.
+
 ## Abstract
 
 This document presents a **machine-checkable proof object** for **KAM (Kolmogorov-Arnold-Moser) Theory**.

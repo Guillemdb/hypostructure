@@ -1,16 +1,32 @@
-.PHONY: docs serve pdf clean install
+.PHONY: docs docs-fast serve pdf clean install
+
+NPM_REAL := $(shell command -v npm)
+MYST_NODE_OPTIONS := --require=$(CURDIR)/scripts/myst-node-shims.cjs
+MYST_ENV := PATH=$(CURDIR)/scripts/myst-bin:$$PATH NPM_REAL=$(NPM_REAL) NODE_OPTIONS=$(MYST_NODE_OPTIONS)
 
 # Build the Jupyter Book
 docs:
-	. .venv/bin/activate && MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs build
+	npm run build:formalism-bundle
+	python3 -c "import shutil; [shutil.rmtree(p, ignore_errors=True) for p in ('_build/html', '_build/site')]"
+	. .venv/bin/activate && $(MYST_ENV) MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs build
+
+# Build the reduced development docs
+docs-fast:
+	npm run build:formalism-bundle
+	npm run build:serve-config
+	python3 -c "import shutil; [shutil.rmtree(p, ignore_errors=True) for p in ('_build/html', '_build/site')]"
+	. .venv/bin/activate && $(MYST_ENV) MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs --config myst-serve.yml build
 
 # Serve the built site on localhost:8000
 serve:
-	. .venv/bin/activate && MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs start --port 8000
+	npm run build:formalism-bundle
+	npm run build:serve-config
+	. .venv/bin/activate && $(MYST_ENV) MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs --config myst-serve.yml start --port 8000
 
 # Build PDF output
 pdf:
-	. .venv/bin/activate && MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs build --pdf
+	npm run build:formalism-bundle
+	. .venv/bin/activate && $(MYST_ENV) MYST_LANG=PYTHON node node_modules/mystmd/dist/myst.cjs build --pdf
 
 # Clean build artifacts
 clean:

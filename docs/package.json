@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "build:formalism-bundle": "node scripts/build_formalism_download_bundle.mjs",
+    "build:serve-config": "node scripts/build_serve_config.mjs"
+  },
   "dependencies": {
     "mystmd": "^1.7.1"
   }

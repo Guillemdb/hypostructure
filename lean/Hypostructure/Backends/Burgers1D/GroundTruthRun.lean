@@ -1,5 +1,5 @@
 import Hypostructure.Backends.Burgers1D.GroundTruthCertificates
-import Hypostructure.Framework.Execution
+import Hypostructure.Framework.Route
 
 namespace Hypostructure.Backends.Burgers1D
 
@@ -14,13 +14,18 @@ local dissipative windows, and local bad-germ capacity. -/
 structure BurgersGroundTruthCoreCertificateBundle
     (nu : BurgersParameters) where
   u0 : PeriodicH1State
+  window : BurgersWindow
+  window_contains_zero : window.Contains 0
   solution : BurgersSolutionCurve nu
-  solutionCertified : SolvesViscousBurgersWeak nu u0 solution
+  solutionCertifiedOnWindow : SolvesViscousBurgersWeakOnWindow nu u0 solution window
   energy : LocalEnergyCertificateData nu solution
+  compactness : LocalCompactnessCertificateData
   poincare : LocalPoincareCertificateData
   meanSector : LocalMeanSectorCertificateData nu u0 solution
   dissipativeWindow : LocalDissipativeWindowCertificateData nu solution
+  representation : LocalRepresentationCertificateData
   badGermCapacity : LocalBadGermCapacityCertificateData
+  badPatternLibrary : BurgersBadPatternLibraryCertificateData
 
 def BurgersGroundTruthCoreCertificateBundle.energyCertificate
     {nu : BurgersParameters}
@@ -34,6 +39,12 @@ def BurgersGroundTruthCoreCertificateBundle.poincareCertificate
     StiffnessCertificate :=
   localPoincareFrameworkCertificate B.poincare
 
+def BurgersGroundTruthCoreCertificateBundle.compactnessCertificate
+    {nu : BurgersParameters}
+    (B : BurgersGroundTruthCoreCertificateBundle nu) :
+    CompactnessCertificate :=
+  localCompactnessFrameworkCertificate B.compactness
+
 def BurgersGroundTruthCoreCertificateBundle.meanSectorCertificate
     {nu : BurgersParameters}
     (B : BurgersGroundTruthCoreCertificateBundle nu) :
@@ -46,26 +57,65 @@ def BurgersGroundTruthCoreCertificateBundle.dissipativeWindowCertificate
     MixingCertificate :=
   localDissipativeWindowFrameworkCertificate nu B.solution B.dissipativeWindow
 
+def BurgersGroundTruthCoreCertificateBundle.representationCertificate
+    {nu : BurgersParameters}
+    (B : BurgersGroundTruthCoreCertificateBundle nu) :
+    RepresentationCertificate :=
+  localRepresentationFrameworkCertificate B.representation
+
 def BurgersGroundTruthCoreCertificateBundle.badGermCapacityCertificate
     {nu : BurgersParameters}
     (B : BurgersGroundTruthCoreCertificateBundle nu) :
     CapacityCertificate :=
   localBadGermCapacityFrameworkCertificate B.badGermCapacity
 
+def BurgersGroundTruthCoreCertificateBundle.germCertificate
+    {nu : BurgersParameters}
+    (B : BurgersGroundTruthCoreCertificateBundle nu) :
+    GermCertificate :=
+  burgersGermFrameworkCertificate B.badPatternLibrary
+
+def BurgersGroundTruthCoreCertificateBundle.initialityCertificate
+    {nu : BurgersParameters}
+    (B : BurgersGroundTruthCoreCertificateBundle nu) :
+    InitialityCertificate :=
+  burgersInitialityFrameworkCertificate B.badPatternLibrary
+
+def BurgersGroundTruthCoreCertificateBundle.catLibCertificate
+    {nu : BurgersParameters}
+    (B : BurgersGroundTruthCoreCertificateBundle nu) :
+    CatLibCertificate :=
+  burgersCatLibFrameworkCertificate B.badPatternLibrary
+
+def BurgersGroundTruthCoreCertificateBundle.allCertificatesSound
+    {nu : BurgersParameters}
+    (B : BurgersGroundTruthCoreCertificateBundle nu) : Prop :=
+  B.energyCertificate.meaning ∧
+    B.compactnessCertificate.meaning ∧
+    B.poincareCertificate.meaning ∧
+    B.meanSectorCertificate.meaning ∧
+    B.dissipativeWindowCertificate.meaning ∧
+    B.representationCertificate.meaning ∧
+    B.badGermCapacityCertificate.meaning ∧
+    B.germCertificate.meaning ∧
+    B.initialityCertificate.meaning ∧
+    B.catLibCertificate.meaning
+
 theorem BurgersGroundTruthCoreCertificateBundle.localCertificatesSound
     {nu : BurgersParameters}
     (B : BurgersGroundTruthCoreCertificateBundle nu) :
-    B.energyCertificate.meaning ∧
-      B.poincareCertificate.meaning ∧
-      B.meanSectorCertificate.meaning ∧
-      B.dissipativeWindowCertificate.meaning ∧
-      B.badGermCapacityCertificate.meaning := by
+    B.allCertificatesSound := by
   exact ⟨
     localEnergyFrameworkCertificate_sound nu B.solution B.energy,
+    localCompactnessFrameworkCertificate_sound B.compactness,
     localPoincareFrameworkCertificate_sound B.poincare,
     localMeanSectorFrameworkCertificate_sound nu B.u0 B.solution B.meanSector,
     localDissipativeWindowFrameworkCertificate_sound nu B.solution B.dissipativeWindow,
-    localBadGermCapacityFrameworkCertificate_sound B.badGermCapacity
+    localRepresentationFrameworkCertificate_sound B.representation,
+    localBadGermCapacityFrameworkCertificate_sound B.badGermCapacity,
+    burgersGermFrameworkCertificate_sound B.badPatternLibrary,
+    burgersInitialityFrameworkCertificate_sound B.badPatternLibrary,
+    burgersCatLibFrameworkCertificate_sound B.badPatternLibrary
   ⟩
 
 /-- The documented Lock package for the ground-truth route. -/
@@ -86,7 +136,7 @@ def burgersGroundTruthScalingPromotion : UpgradeRule where
   name := "Burgers1D blocked TypeII scaling continuation"
   premises := [ "K_SC_lambda^-", "K_SC_lambda^blk" ]
   conclusion := "K_SC_lambda^~"
-  nonCircular := True
+  nonCircular := "K_SC_lambda^~" ∉ [ "K_SC_lambda^-", "K_SC_lambda^blk" ]
 
 /-- The final analytic promotion in the document. This is just the route rule;
 the theorem that discharges it lives in `GroundTruthFinal`. -/
@@ -98,7 +148,9 @@ def burgersGroundTruthAnalyticUpgradeRule : UpgradeRule where
     , "K_HeatSmooth^+"
     ]
   conclusion := "K_Reg_Burgers1D^+"
-  nonCircular := True
+  nonCircular :=
+    "K_Reg_Burgers1D^+" ∉
+      [ "K_StructReg_Burgers1D^+", "K_ColeHopf^+", "K_HeatSmooth^+" ]
 
 /-- Route trace matching `docs/source/dataset/burgers_1d.md`: Node 4 is a
 negative scaling certificate, then BarrierTypeII blocks that branch, producing
@@ -148,6 +200,45 @@ def burgersGroundTruthExecutionTrace : ExecutionTrace :=
       outcome := .derived, summary := "global regularity certificate, conditional on the ground-truth analytic upgrade theorem" }
   ]
 
+def burgersGroundTruthRequiredTraceCertificateNames : List String :=
+  [ "K_D_E^+"
+  , "K_Rec_N^+"
+  , "K_C_mu^+"
+  , "K_SC_lambda^-"
+  , "K_SC_lambda^blk"
+  , "K_SC_lambda^~"
+  , "K_SC_dc^+"
+  , "K_Cap_H^+"
+  , "K_LS_sigma^+"
+  , "K_TB_pi^+"
+  , "K_TB_O^+"
+  , "K_TB_rho^+"
+  , "K_RepDesc_K^+"
+  , "K_GC_nabla^+"
+  , "K_Bound_partial^-"
+  , "N/A"
+  , "K_Cat_Hom^blk"
+  , "K_StructReg_Burgers1D^+"
+  , "K_Reg_Burgers1D^+"
+  ]
+
+def burgersGroundTruthAnalyticCertificateNames : List String :=
+  [ "K_ColeHopf^+"
+  , "K_HeatSmooth^+"
+  , "K_StructReg_Burgers1D^+"
+  ]
+
+def burgersGroundTruthPreservationCertificateNames : List String :=
+  [ "K_TB_pi^+"
+  , "K_TB_O^+"
+  , "K_TB_rho^+"
+  ]
+
+def burgersGroundTruthUpgradeRules : List UpgradeRule :=
+  [ burgersGroundTruthScalingPromotion
+  , burgersGroundTruthAnalyticUpgradeRule
+  ]
+
 def burgersGroundTruthObligationLedger : ObligationLedger := []
 
 theorem burgersGroundTruth_goalConeEmpty :
@@ -183,25 +274,20 @@ def burgersGroundTruthFinalCertificateChain : FinalCertificateChain where
   designatedGoal := "K_Reg_Burgers1D^+"
   containsGoal := by simp
 
-def burgersGroundTruthRunValidity : RunValidity where
-  allCoreNodesExecuted := True
-  boundaryHandled := True
-  lockExecuted := True
-  upgradeCompleted :=
-    burgersGroundTruthScalingPromotion.nonCircular ∧
-      burgersGroundTruthAnalyticUpgradeRule.nonCircular
-  goalConeEmpty := ObligationLedger.goalConeEmpty burgersGroundTruthObligationLedger
-  designatedGoalReached :=
-    burgersGroundTruthFinalCertificateChain.designatedGoal ∈
-      burgersGroundTruthFinalCertificateChain.certificates
-  lockCompletenessPresent :=
-    ∀ cert ∈ burgersGroundTruthLockPackage.requiredCertificates,
-      cert ∈ burgersGroundTruthFinalCertificateChain.certificates
-  analyticPermitPresent :=
-    "K_ColeHopf^+" ∈ burgersGroundTruthFinalCertificateChain.certificates ∧
-      "K_HeatSmooth^+" ∈ burgersGroundTruthFinalCertificateChain.certificates ∧
-      "K_StructReg_Burgers1D^+" ∈ burgersGroundTruthFinalCertificateChain.certificates
-  preservationLemmasPresent := True
+def burgersGroundTruthRoute : TraceBackedRoute where
+  trace := burgersGroundTruthExecutionTrace
+  requiredTraceCertificates := burgersGroundTruthRequiredTraceCertificateNames
+  boundaryCertificate := "K_Bound_partial^-"
+  lockCertificate := "K_Cat_Hom^blk"
+  preservationCertificates := burgersGroundTruthPreservationCertificateNames
+  analyticCertificates := burgersGroundTruthAnalyticCertificateNames
+  upgrades := burgersGroundTruthUpgradeRules
+  obligationLedger := burgersGroundTruthObligationLedger
+  lockPackage := burgersGroundTruthLockPackage
+  finalChain := burgersGroundTruthFinalCertificateChain
+
+def burgersGroundTruthRunValidity : RunValidity :=
+  burgersGroundTruthRoute.runValidity
 
 theorem burgersGroundTruthTrace_contains_scalingNegative :
     burgersGroundTruthExecutionTrace.contains "K_SC_lambda^-" := by
@@ -220,25 +306,52 @@ theorem burgersGroundTruthFinalChain_contains_goal :
       burgersGroundTruthFinalCertificateChain.certificates :=
   burgersGroundTruthFinalCertificateChain.containsGoal
 
-theorem burgersGroundTruthRunValidity_holds :
-    burgersGroundTruthRunValidity.meetsTemplateCompletionCriteria := by
-  refine RunValidity.templateCriteria_intro ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_
-  · trivial
-  · trivial
-  · trivial
-  · exact ⟨trivial, trivial⟩
-  · exact burgersGroundTruth_goalConeEmpty
-  · exact burgersGroundTruthFinalChain_contains_goal
-  · intro cert hcert
-    simp [burgersGroundTruthLockPackage, burgersGroundTruthFinalCertificateChain] at hcert ⊢
+def burgersGroundTruthRouteProof : TraceBackedRouteProof burgersGroundTruthRoute where
+  requiredTraceNodesExecuted := by
+    intro cert hcert
+    simp [burgersGroundTruthRoute, TraceBackedRoute.requiredTraceNodesExecuted,
+      burgersGroundTruthRequiredTraceCertificateNames, ExecutionTrace.contains,
+      ExecutionTrace.names, burgersGroundTruthExecutionTrace] at hcert ⊢
+    exact hcert
+  boundaryHandled := by
+    simp [burgersGroundTruthRoute, TraceBackedRoute.boundaryHandled,
+      ExecutionTrace.contains, ExecutionTrace.names, burgersGroundTruthExecutionTrace]
+  lockExecuted := by
+    simp [burgersGroundTruthRoute, TraceBackedRoute.lockExecuted,
+      ExecutionTrace.contains, ExecutionTrace.names, burgersGroundTruthExecutionTrace]
+  upgradesCompleted := by
+    intro rule hrule
+    simp [burgersGroundTruthRoute, TraceBackedRoute.upgradesCompleted,
+      burgersGroundTruthUpgradeRules, burgersGroundTruthScalingPromotion,
+      burgersGroundTruthAnalyticUpgradeRule] at hrule ⊢
+    rcases hrule with rfl | rfl <;> trivial
+  goalConeEmpty := burgersGroundTruth_goalConeEmpty
+  designatedGoalReached := burgersGroundTruthFinalChain_contains_goal
+  lockCompletenessPresent := by
+    intro cert hcert
+    simp [burgersGroundTruthRoute, TraceBackedRoute.lockCompletenessPresent,
+      burgersGroundTruthLockPackage, burgersGroundTruthFinalCertificateChain] at hcert ⊢
     rcases hcert with rfl | rfl | rfl | rfl | rfl
     all_goals simp [burgersGroundTruthFinalCertificateChain]
-  · change
-      "K_ColeHopf^+" ∈ burgersGroundTruthFinalCertificateChain.certificates ∧
-        "K_HeatSmooth^+" ∈ burgersGroundTruthFinalCertificateChain.certificates ∧
-        "K_StructReg_Burgers1D^+" ∈ burgersGroundTruthFinalCertificateChain.certificates
-    simp [burgersGroundTruthFinalCertificateChain]
-  · trivial
+  analyticPermitPresent := by
+    intro cert hcert
+    simp [burgersGroundTruthRoute, TraceBackedRoute.analyticPermitPresent,
+      burgersGroundTruthAnalyticCertificateNames,
+      burgersGroundTruthFinalCertificateChain] at hcert ⊢
+    rcases hcert with rfl | rfl | rfl
+    all_goals simp [burgersGroundTruthFinalCertificateChain]
+  preservationLemmasPresent := by
+    intro cert hcert
+    simp [burgersGroundTruthRoute, TraceBackedRoute.preservationLemmasPresent,
+      burgersGroundTruthPreservationCertificateNames, ExecutionTrace.contains,
+      ExecutionTrace.names, burgersGroundTruthExecutionTrace] at hcert ⊢
+    rcases hcert with rfl | rfl | rfl
+    all_goals simp [burgersGroundTruthExecutionTrace, ExecutionTrace.contains,
+      ExecutionTrace.names]
+
+theorem burgersGroundTruthRunValidity_holds :
+    burgersGroundTruthRunValidity.meetsTemplateCompletionCriteria := by
+  exact burgersGroundTruthRouteProof.runValidity_holds
 
 end
 

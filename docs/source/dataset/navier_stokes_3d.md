@@ -694,43 +694,52 @@ Therefore $K_{\mathrm{Reg}_{NS}}^+$ is established. $\square$
 
 | Node | Check | Outcome | Certificate Payload | Ledger State |
 | :--- | :--- | :---: | :--- | :--- |
-| **1** | Energy Bound | PASS | Energy/height estimate established | `NOT APPLICABLE` |
-| **2** | Zeno/Recovery | PASS | Recovery route documented | `NOT APPLICABLE` |
-| **3** | Compact Check | PASS/INC | Compactness module for bad transitions | `NOT APPLICABLE` |
-| **4** | Scale Check | PASS/INC | Scaling argument controlled | `NOT APPLICABLE` |
-| **5** | Parametric Check | PASS/INC | Admissible parameter regime fixed | `NOT APPLICABLE` |
-| **6** | Geometric Check | PASS/INC | Codimension or geometric bound | `NOT APPLICABLE` |
-| **7** | Stiffness Check | PASS/INC | Stability or stiffness package | `NOT APPLICABLE` |
-| **8** | Topological Check | PASS/INC | Topological invariants preserved | `NOT APPLICABLE` |
-| **9** | Tame Check | PASS/INC | O-minimal/tameness control | `NOT APPLICABLE` |
-| **10** | Ergodic Check | PASS/INC | Mixing/distribution behavior | `NOT APPLICABLE` |
-| **11** | Complex Check | PASS/INC | Computational/complexity witness | `NOT APPLICABLE` |
-| **12** | Oscillate Check | PASS/INC | Oscillation prevented by monotonicity | `NOT APPLICABLE` |
-| **13** | Boundary Check | OPEN/CLOSED | Boundary coupling handled | `NOT APPLICABLE` |
-| **14-16** | Boundary Subnodes | NOT APPLICABLE | Not triggered/not needed | `NOT APPLICABLE` |
-| **17** | Lock Check | BLOCK | Lock route closes target class | `NOT APPLICABLE` |
+| **1** | Energy Bound | PASS | $K_{D_E}^+$: energy inequality and dissipation bound | `[]` |
+| **2** | Zeno/Recovery | INC | $K_{\mathrm{Rec}_N}^{\mathrm{inc}}$: finite singular-transition recovery is diagnostic only and is not used by the designated route | `[O1]` |
+| **3** | Compact Check | PASS | $K_{C_\mu}^+$: concentration profile/germ enters the singularity module | `[O1]` |
+| **4** | Scale Check | NEG | $K_{\mathrm{SC}_\lambda}^-$: supercritical energy scaling is recorded as a negative scaling certificate | `[O1]` |
+| **5** | Parametric Check | PASS | $K_{\mathrm{SC}_{\partial c}}^+$: fixed admissible parameter sector $(3,\nu)$ | `[O1]` |
+| **6** | Geometric Check | PASS | $K_{\mathrm{Cap}_H}^+$: capacity/codimension data feed the classifiable singularity package | `[O1]` |
+| **7** | Stiffness Check | INC | $K_{\mathrm{LS}_\sigma}^{\mathrm{inc}}$: main-route stiffness certificate is deferred to the post-goal supplement | `[O1, O2]` |
+| **8** | Topological Check | PASS | $K_{\mathrm{TB}_\pi}^+$: divergence-free sector and topological constraints are preserved | `[O1, O2]` |
+| **9** | Tame Check | PASS | $K_{\mathrm{TB}_O}^+$: tame-profile backend is available for the profile/library branch | `[O1, O2]` |
+| **10** | Ergodic Check | INC | $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$: no mixing backend is used by the designated route | `[O1, O2, O3]` |
+| **11** | Complex Check | PASS | $K_{\mathrm{RepDesc}_K}^+$: finite-description data for the TM-5 computation interface | `[O1, O2, O3]` |
+| **12** | Oscillate Check | INC | $K_{\mathrm{GC}_\nabla}^{\mathrm{inc}}$: gradient/Lyapunov compatibility is not used in the main Lock route | `[O1, O2, O3, O4]` |
+| **13** | Boundary Check | CLOSED | $K_{\mathrm{Bound}_\partial}^-$: closed-system routing proceeds directly to the Lock | `[O1, O2, O3, O4]` |
+| **14-16** | Boundary Subnodes | NOT APPLICABLE | Closed-system branch skips overload, starve, and control-alignment subnodes | `[O1, O2, O3, O4]` |
+| **Profile** | Singularity Backend | PASS | $K_{\mathrm{Prof}_{NS}}^+ \in \{K_{\text{lib}}^+,K_{\text{strat}}^+\}$: extracted profiles enter the certified library/stratification branch | `[O1, O2, O3, O4]` |
+| **Lib** | Completeness Package | PASS | $K_{\mathrm{Germ}}^+$, $K_{\mathrm{init}}^+$, and $K_{\mathrm{CatLib}}^+$: the finite bad-pattern library $\mathcal{B}_{NS}$ is complete for the declared classifiable package | `[O1, O2, O3, O4]` |
+| **17** | Lock Check | BLOCK | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: no morphism from $\mathbb{H}_{\mathrm{bad}}^{NS}$ to $\mathcal{H}_{NS}$ exists relative to the certified library | `[O1, O2, O3, O4]` |
+| **UP-Lock** | Structural Promotion | PASS | $K_{\mathrm{StructReg}_{NS}}^+$ follows from $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \wedge K_{\mathrm{Germ}}^+ \wedge K_{\mathrm{init}}^+ \wedge K_{\mathrm{CatLib}}^+$ | `[O1, O2, O3, O4]` |
+| **Cont.** | Continuation Bridge | PASS | $K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_{NS}}^+$ at $s_c=\frac12$ | `[O1, O2, O3, O4]` |
+| **III-A** | Lyapunov Supplement | PASS | $K_{\mathrm{LS}_\sigma,\mathrm{post}}^+$ and $K_{\mathcal{L}_{NS}}^+$ reconstruct the post-goal stiffness/Lyapunov package | `[O1, O3, O4]`; `O2` discharged |
 
 ### 3. Lock Mechanism (The Exclusion)
 
 | Tactic | Description | Status | Reason / Mechanism |
 | :--- | :--- | :---: | :--- |
-| **E1** | Dimension | NOT APPLICABLE | Finite-state or dimension argument |
-| **E2** | Invariant | NOT APPLICABLE | Invariant mismatch or barrier |
-| **E3** | Positivity | NOT APPLICABLE | Monotone sign control |
-| **E4** | Integrality | NOT APPLICABLE | Quantization or arithmetic obstruction |
-| **E5** | Functional | NOT APPLICABLE | Functional contradiction |
-| **E6** | Causal | NOT APPLICABLE | Causality contradiction |
-| **E7** | Thermodynamic | NOT APPLICABLE | Entropy or energy incompatibility |
-| **E8** | DPI | NOT APPLICABLE | Data processing inequality / monotonicity |
-| **E9** | Ergodic | NOT APPLICABLE | Mixing obstruction |
-| **E10** | Definability | NOT APPLICABLE | Definability or o-minimal barrier |
+| **E1** | Dimension | NOT USED | No dimension-mismatch certificate is part of the final trace; $K_{\mathrm{MorphPresDim}}^+$ is therefore not required. |
+| **E2** | Invariant | NOT USED | The Lock does not rely on a conserved-invariant mismatch; invariant preservation is carried upstream by $K_{\mathrm{TB}_\pi}^+$. |
+| **E3** | Positivity | NOT USED | No cone-violation or sign-obstruction certificate is invoked by the Lock. |
+| **E4** | Integrality | NOT USED | No quantization, index, or arithmetic obstruction is invoked by the Lock. |
+| **E5** | Functional | NOT USED | No separate unsolvable-functional-equation contradiction is invoked by the Lock. |
+| **E6** | Causal | NOT USED | No well-foundedness or causal-order contradiction is invoked by the Lock. |
+| **E7** | Thermodynamic | NOT USED | Energy dissipation is certified at Node 1, but the Lock does not use an entropy/thermodynamic contradiction tactic. |
+| **E8** | Holographic | NOT USED | Capacity data is certified at Node 6, but the Lock does not use a Bekenstein/capacity-mismatch tactic. |
+| **E9** | Ergodic | NOT USED | Node 10 is $K_{\mathrm{TB}_\rho}^{\mathrm{inc}}$ and remains an unused diagnostic; no $K_{\mathrm{MorphPresMix}}^+$ is required. |
+| **E10** | Definability | NOT USED | Tameness is available through $K_{\mathrm{TB}_O}^+$ for the profile backend, but no E10 Lock tactic or $K_{\mathrm{MorphPresTame}}^+$ is used. |
+| **E11** | Galois-Monodromy | NOT USED | No solvability or monodromy obstruction is invoked by the Lock. |
+| **E12** | Algebraic Compressibility | NOT USED | No degree, Bezout, or algebraic-compressibility obstruction is invoked by the Lock. |
+| **E13** | Algorithmic Completeness | PASS | Primary Lock tactic: $K_{\mathrm{Germ}}^+$ places bad germs in the declared classifiable package, $K_{\mathrm{init}}^+$ supplies $\mathbb{H}_{\mathrm{bad}}^{NS}$, $K_{\mathrm{CatLib}}^+$ exhausts the finite bad-pattern library $\mathcal{B}_{NS}$, and $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ blocks every library morphism into $\mathcal{H}_{NS}$. |
+| **UP-Lock** | Lock promotion | PASS | The selected E13 Lock produces $K_{\mathrm{StructReg}_{NS}}^+$ by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \wedge K_{\mathrm{Germ}}^+ \wedge K_{\mathrm{init}}^+ \wedge K_{\mathrm{CatLib}}^+ \Rightarrow K_{\mathrm{StructReg}_{NS}}^+$. |
 
 ### 4. Final Verdict
 
 * **Status:** UNCONDITIONAL
-* **Obligation Ledger:** Unspecified
-* **Singularity Set:** Not isolated by this document
-* **Primary Blocking Tactic:** Case-specific (see body)
+* **Obligation Ledger:** `O2` discharged by Part III-A; `O1`, `O3`, and `O4` remain recorded unused diagnostics outside the designated route
+* **Singularity Set:** Represented by the certified classifiable bad-pattern library $\mathcal{B}_{NS}$
+* **Primary Blocking Tactic:** E13 (Algorithmic Completeness) via $K_{\mathrm{CatLib}}^+$ and $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 
 ## Document Information
 

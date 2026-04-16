@@ -1,5 +1,5 @@
-import Hypostructure.Backends.Burgers1D.GroundTruthPDE
-import Hypostructure.Backends.Burgers1D.Analysis
+import Hypostructure.Backends.Burgers1D.GroundTruthWindows
+import Hypostructure.Backends.Burgers1D.GroundTruthLocalAnalysis
 import Hypostructure.Framework.Certificates
 
 namespace Hypostructure.Backends.Burgers1D
@@ -100,6 +100,66 @@ theorem localEnergyFrameworkCertificate_sound
     (localEnergyFrameworkCertificate nu u cert).meaning :=
   cert.certified
 
+/-- The 0-truncated compactness certificate used by the template route. It is a
+finite local profile library containing the certified state; no global compact
+embedding theorem is hidden here. -/
+structure LocalCompactnessCertificateData where
+  state : PeriodicH1State
+  profileSet : Set PeriodicH1State
+  contains_state : state ∈ profileSet
+  finite_profileSet : profileSet.Finite
+
+def LocalCompactnessModuloTranslation
+    (cert : LocalCompactnessCertificateData) : Prop :=
+  cert.state ∈ cert.profileSet ∧ cert.profileSet.Finite
+
+def localCompactnessFrameworkCertificate
+    (cert : LocalCompactnessCertificateData) :
+    CompactnessCertificate :=
+  { node := .compactCheck
+    payload :=
+      { symmetryGroupName := "periodic torus translations"
+        quotientName := "0-truncated finite local profile quotient"
+        profileName := "ground-truth periodic H1 profile"
+        compactnessStatement := LocalCompactnessModuloTranslation cert }
+    meaning := LocalCompactnessModuloTranslation cert }
+
+theorem localCompactnessFrameworkCertificate_sound
+    (cert : LocalCompactnessCertificateData) :
+    (localCompactnessFrameworkCertificate cert).meaning := by
+  exact ⟨cert.contains_state, cert.finite_profileSet⟩
+
+/-- A concrete representation dictionary for the 0-truncated backend. The
+faithfulness law is the only framework property needed by the sieve. -/
+structure LocalRepresentationDictionary where
+  Code : Type
+  encode : PeriodicH1State → Code
+  decode : Code → PeriodicH1State
+  faithful : ∀ u : PeriodicH1State, decode (encode u) = u
+
+structure LocalRepresentationCertificateData where
+  dictionary : LocalRepresentationDictionary
+
+def LocalRepresentationFaithful
+    (cert : LocalRepresentationCertificateData) : Prop :=
+  ∀ u : PeriodicH1State,
+    cert.dictionary.decode (cert.dictionary.encode u) = u
+
+def localRepresentationFrameworkCertificate
+    (cert : LocalRepresentationCertificateData) :
+    RepresentationCertificate :=
+  { node := .complexCheck
+    payload :=
+      { languageName := "0-truncated periodic H1 code"
+        dictionaryName := "ground-truth finite local representation dictionary"
+        faithfulStatement := LocalRepresentationFaithful cert }
+    meaning := LocalRepresentationFaithful cert }
+
+theorem localRepresentationFrameworkCertificate_sound
+    (cert : LocalRepresentationCertificateData) :
+    (localRepresentationFrameworkCertificate cert).meaning :=
+  cert.dictionary.faithful
+
 /-- Local Poincare/coercivity statement on a single certified state. -/
 def LocalPoincareCoercivity
     (u : PeriodicH1State) : Prop :=
@@ -112,7 +172,9 @@ def LocalMeanSectorPreservation
     (u0 : PeriodicH1State)
     (u : BurgersSolutionCurve nu)
     (W : TimeWindow) : Prop :=
-  SolvesViscousBurgersWeak nu u0 u →
+  ∀ BW : BurgersWindow,
+    BW.time = W →
+      SolvesViscousBurgersWeakOnWindow nu u0 u BW →
     ∀ t : ℝ, W.t0 ≤ t → t ≤ W.t1 →
       PeriodicH1State.mean (u.eval t) = PeriodicH1State.mean u0
 
@@ -249,15 +311,61 @@ structure TimeSpaceCylinder where
   radius_pos : 0 < radius
   centerSpace : BurgersTorus
 
+namespace TimeSpaceCylinder
+
+def timeWindow (C : TimeSpaceCylinder) : TimeWindow where
+  t0 := C.centerTime - C.radius
+  t1 := C.centerTime + C.radius
+  ordered := by
+    calc
+      C.centerTime - C.radius ≤ C.centerTime :=
+        sub_le_self C.centerTime (le_of_lt C.radius_pos)
+      _ ≤ C.centerTime + C.radius :=
+        le_add_of_nonneg_right (le_of_lt C.radius_pos)
+
+theorem centerTime_mem_timeWindow
+    (C : TimeSpaceCylinder) :
+    C.timeWindow.Contains C.centerTime :=
+  ⟨sub_le_self C.centerTime (le_of_lt C.radius_pos),
+    le_add_of_nonneg_right (le_of_lt C.radius_pos)⟩
+
+end TimeSpaceCylinder
+
 structure BurgersBadGerm where
   centerTime : ℝ
   centerSpace : BurgersTorus
   localWindow : TimeSpaceCylinder
   profile : PeriodicH1State
 
+namespace BurgersBadGerm
+
+def routeWindow (g : BurgersBadGerm) : RouteLocalBadGermWindow where
+  time := g.localWindow.timeWindow
+  centerSpace := g.centerSpace
+  profile := g.profile
+
+theorem centerTime_mem_routeWindow
+    (g : BurgersBadGerm)
+    (hcenter : g.centerTime = g.localWindow.centerTime) :
+    g.routeWindow.ContainsTime g.centerTime :=
+  hcenter.symm ▸ g.localWindow.centerTime_mem_timeWindow
+
+theorem localWindow_centerTime_mem_routeWindow
+    (g : BurgersBadGerm) :
+    g.routeWindow.ContainsTime g.localWindow.centerTime :=
+  g.localWindow.centerTime_mem_timeWindow
+
+end BurgersBadGerm
+
 def LocallyAdmissibleBurgersBadGerm
     (g : BurgersBadGerm) : Prop :=
   PeriodicH1State.IsPeriodicH1 g.profile
+
+theorem LocallyAdmissibleBurgersBadGerm.routeWindow
+    {g : BurgersBadGerm}
+    (h : LocallyAdmissibleBurgersBadGerm g) :
+    g.routeWindow.Admissible :=
+  h
 
 /-- Local bad-germ capacity means the germ has a finite local energy bound.
 This is deliberately local: it does not assert that the global singular set is
@@ -265,6 +373,77 @@ empty. -/
 def LocalBadGermCapacity
     (g : BurgersBadGerm) : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧ PeriodicH1State.energy g.profile ≤ C
+
+def RouteLocalBadGermWindow.LocalCapacity
+    (W : RouteLocalBadGermWindow) : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧ PeriodicH1State.energy W.profile ≤ C
+
+theorem LocalBadGermCapacity.routeWindow
+    {g : BurgersBadGerm}
+    (h : LocalBadGermCapacity g) :
+    g.routeWindow.LocalCapacity :=
+  h
+
+/-- The Burgers bad-pattern taxonomy currently needed by
+`docs/source/dataset/burgers_1d.md`. The document's certified library has one
+minimal class: finite-time loss of `H¹` regularity, represented by a local bad
+germ. More constructors can be added here without changing the Lock API. -/
+inductive BurgersBadPatternKind where
+  | finiteTimeH1BlowUp
+  deriving DecidableEq, Repr
+
+/-- The local predicate represented by the finite-time `H¹` blow-up bad
+pattern. This is still a local, 0-truncated object: it says that the candidate
+germ is an admissible periodic `H¹` local profile and that its recorded center
+time lies in its certified local support. -/
+def FiniteTimeH1BlowUpBadGerm
+    (g : BurgersBadGerm) : Prop :=
+  LocallyAdmissibleBurgersBadGerm g ∧
+    g.routeWindow.ContainsTime g.centerTime
+
+theorem FiniteTimeH1BlowUpBadGerm.admissible
+    {g : BurgersBadGerm}
+    (h : FiniteTimeH1BlowUpBadGerm g) :
+    LocallyAdmissibleBurgersBadGerm g :=
+  h.1
+
+theorem FiniteTimeH1BlowUpBadGerm.routeWindow
+    {g : BurgersBadGerm}
+    (h : FiniteTimeH1BlowUpBadGerm g) :
+    g.routeWindow.Admissible :=
+  h.admissible.routeWindow
+
+/-- A finite-library bad pattern is a template predicate on local bad germs,
+with the framework facts needed by the Lock. -/
+structure BurgersBadPattern where
+  kind : BurgersBadPatternKind
+  name : String
+  accepts : BurgersBadGerm → Prop
+  accepts_finiteTimeH1 : ∀ {g : BurgersBadGerm},
+    accepts g → FiniteTimeH1BlowUpBadGerm g
+  local_capacity : ∀ {g : BurgersBadGerm},
+    accepts g → LocalBadGermCapacity g
+
+namespace BurgersBadPattern
+
+def Accepts (P : BurgersBadPattern) (g : BurgersBadGerm) : Prop :=
+  P.accepts g
+
+theorem accepts_admissible
+    {P : BurgersBadPattern}
+    {g : BurgersBadGerm}
+    (h : P.Accepts g) :
+    LocallyAdmissibleBurgersBadGerm g :=
+  (P.accepts_finiteTimeH1 h).admissible
+
+theorem accepts_routeWindow
+    {P : BurgersBadPattern}
+    {g : BurgersBadGerm}
+    (h : P.Accepts g) :
+    g.routeWindow.Admissible :=
+  (P.accepts_finiteTimeH1 h).routeWindow
+
+end BurgersBadPattern
 
 theorem localBadGermCapacityCertificate
     (g : BurgersBadGerm)
@@ -279,6 +458,137 @@ theorem localBadGermCapacityCertificate
 structure LocalBadGermCapacityCertificateData where
   germ : BurgersBadGerm
   admissible : LocallyAdmissibleBurgersBadGerm germ
+
+/-- The canonical bad-pattern object for the Burgers dataset. It classifies
+exactly the route-local finite-time `H¹` blow-up germs. -/
+def finiteTimeH1BlowUpBadPattern : BurgersBadPattern where
+  kind := .finiteTimeH1BlowUp
+  name := "finite-time H1 blow-up bad pattern"
+  accepts := FiniteTimeH1BlowUpBadGerm
+  accepts_finiteTimeH1 := by
+    intro g h
+    exact h
+  local_capacity := by
+    intro g h
+    exact localBadGermCapacityCertificate g h.admissible
+
+/-- A finite bad-pattern library for the Lock. Finiteness is represented by the
+concrete list of pattern objects. -/
+structure BurgersBadPatternLibrary where
+  patterns : List BurgersBadPattern
+
+namespace BurgersBadPatternLibrary
+
+def Contains (L : BurgersBadPatternLibrary) (P : BurgersBadPattern) : Prop :=
+  P ∈ L.patterns
+
+def Complete (L : BurgersBadPatternLibrary) : Prop :=
+  ∀ {g : BurgersBadGerm},
+    FiniteTimeH1BlowUpBadGerm g →
+      ∃ P : BurgersBadPattern, P ∈ L.patterns ∧ P.Accepts g
+
+end BurgersBadPatternLibrary
+
+/-- The small germ package committed to by the Burgers route. In the
+0-truncated implementation, smallness means the relevant germ class is named by
+a finite list of pattern templates. -/
+def BurgersClassifiableGermPackageSmall
+    (L : BurgersBadPatternLibrary) : Prop :=
+  ∃ P : BurgersBadPattern,
+    P ∈ L.patterns ∧ P.kind = .finiteTimeH1BlowUp
+
+/-- The universal bad object is initialized when the library contains a
+finite-time `H¹` pattern that accepts every local finite-time `H¹` blow-up
+germ. -/
+def UniversalFiniteTimeH1BadObjectInitialized
+    (L : BurgersBadPatternLibrary) : Prop :=
+  ∃ P : BurgersBadPattern,
+    P ∈ L.patterns ∧
+      P.kind = .finiteTimeH1BlowUp ∧
+        ∀ g : BurgersBadGerm,
+          FiniteTimeH1BlowUpBadGerm g → P.Accepts g
+
+def burgersFiniteTimeH1BadPatternLibrary : BurgersBadPatternLibrary where
+  patterns := [finiteTimeH1BlowUpBadPattern]
+
+theorem burgersFiniteTimeH1BadPatternLibrary_small :
+    BurgersClassifiableGermPackageSmall
+      burgersFiniteTimeH1BadPatternLibrary := by
+  exact ⟨finiteTimeH1BlowUpBadPattern, by simp [burgersFiniteTimeH1BadPatternLibrary], rfl⟩
+
+theorem burgersFiniteTimeH1BadPatternLibrary_initialized :
+    UniversalFiniteTimeH1BadObjectInitialized
+      burgersFiniteTimeH1BadPatternLibrary := by
+  refine ⟨finiteTimeH1BlowUpBadPattern, ?_, rfl, ?_⟩
+  · simp [burgersFiniteTimeH1BadPatternLibrary]
+  · intro g hg
+    exact hg
+
+theorem burgersFiniteTimeH1BadPatternLibrary_complete :
+    BurgersBadPatternLibrary.Complete
+      burgersFiniteTimeH1BadPatternLibrary := by
+  intro g hg
+  exact ⟨
+    finiteTimeH1BlowUpBadPattern,
+    by simp [burgersFiniteTimeH1BadPatternLibrary],
+    hg
+  ⟩
+
+structure BurgersBadPatternLibraryCertificateData where
+  library : BurgersBadPatternLibrary
+  germ_small : BurgersClassifiableGermPackageSmall library
+  universal_initialized : UniversalFiniteTimeH1BadObjectInitialized library
+  complete : BurgersBadPatternLibrary.Complete library
+
+def burgersFiniteTimeH1BadPatternLibraryCertificateData :
+    BurgersBadPatternLibraryCertificateData where
+  library := burgersFiniteTimeH1BadPatternLibrary
+  germ_small := burgersFiniteTimeH1BadPatternLibrary_small
+  universal_initialized := burgersFiniteTimeH1BadPatternLibrary_initialized
+  complete := burgersFiniteTimeH1BadPatternLibrary_complete
+
+def burgersGermFrameworkCertificate
+    (cert : BurgersBadPatternLibraryCertificateData) :
+    GermCertificate :=
+  { node := .lock
+    payload :=
+      { libraryName := "Burgers finite-time H1 bad-germ package"
+        smallnessWitness := BurgersClassifiableGermPackageSmall cert.library }
+    meaning := BurgersClassifiableGermPackageSmall cert.library }
+
+theorem burgersGermFrameworkCertificate_sound
+    (cert : BurgersBadPatternLibraryCertificateData) :
+    (burgersGermFrameworkCertificate cert).meaning :=
+  cert.germ_small
+
+def burgersInitialityFrameworkCertificate
+    (cert : BurgersBadPatternLibraryCertificateData) :
+    InitialityCertificate :=
+  { node := .lock
+    payload :=
+      { universalBadName := "universal finite-time H1 Burgers bad object"
+        initialityWitness :=
+          UniversalFiniteTimeH1BadObjectInitialized cert.library }
+    meaning := UniversalFiniteTimeH1BadObjectInitialized cert.library }
+
+theorem burgersInitialityFrameworkCertificate_sound
+    (cert : BurgersBadPatternLibraryCertificateData) :
+    (burgersInitialityFrameworkCertificate cert).meaning :=
+  cert.universal_initialized
+
+def burgersCatLibFrameworkCertificate
+    (cert : BurgersBadPatternLibraryCertificateData) :
+    CatLibCertificate :=
+  { node := .lock
+    payload :=
+      { libraryName := "Burgers finite bad-pattern library"
+        completenessWitness := BurgersBadPatternLibrary.Complete cert.library }
+    meaning := BurgersBadPatternLibrary.Complete cert.library }
+
+theorem burgersCatLibFrameworkCertificate_sound
+    (cert : BurgersBadPatternLibraryCertificateData) :
+    (burgersCatLibFrameworkCertificate cert).meaning :=
+  cert.complete
 
 def localBadGermCapacityFrameworkCertificate
     (cert : LocalBadGermCapacityCertificateData) :

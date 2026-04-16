@@ -1,4 +1,5 @@
-import Hypostructure.Backends.Burgers1D.Basic
+import Hypostructure.Backends.Burgers1D.Parameters
+import Hypostructure.Backends.Burgers1D.Torus
 
 import Mathlib.Analysis.Normed.Group.Bounded
 import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
