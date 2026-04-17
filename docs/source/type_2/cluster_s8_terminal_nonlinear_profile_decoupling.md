@@ -23,7 +23,7 @@ Here
 \[
 K_{\mathrm{ProfComplete},NS3D,\mathrm{term}}^+
 \]
-denotes the terminal windowed nonlinear form of profile completeness: the
+denotes the terminal windowed nonlinear form of local compactness: the
 profile extractor is valid on compact terminal-camera windows, all omitted
 non-scattering profiles are emitted, and the scattering remainder is small in
 the critical stability topology on those windows. If the backend's
@@ -41,7 +41,7 @@ same-point bubble.
 
 Let \(u\) be a declared NS3D Type II candidate satisfying
 \[
-\sup_{t<T^*}\|u(t)\|_{L^3(\mathbb R^3)}\le M<\infty .
+\sup_{t<T^*}\|u(t)\|_{X_{\mathrm{crit}}}\le M<\infty .
 \]
 Let \(t_n\uparrow T^*\) be a concentrating sequence past the scattering
 branch. The terminal nonlinear profile-completeness payload
@@ -178,7 +178,7 @@ Q_R:=B_R\times I.
 
 ---
 
-## S8.3 (Profile completeness excludes hidden terminal-window mass)
+## S8.3 (Local compactness excludes hidden terminal-window mass)
 
 For a sequence \(f_n\) and a camera \((x_n,\lambda_n)\), define the local
 critical mass observed in \(B_R\) by
@@ -225,7 +225,7 @@ u(\cdot,t_n+\lambda_n^2\tau_n)
 emits the omitted profile. The nonlinear stability part of the scattering
 ledger controls subthreshold profiles uniformly on compact windows. Therefore
 this step uses either the terminal windowed profile-completeness certificate
-directly, or the conjunction of time-slice profile completeness with nonlinear
+directly, or the conjunction of time-slice local compactness with nonlinear
 profile stability of the scattering remainder.
 
 ### Lemma S8.2 (terminal local velocity decoupling)
@@ -260,7 +260,7 @@ at the time
 \[
 t_n+(\lambda_\mathcal C^n)^2\tau_n.
 \]
-By terminal profile completeness, this nonvanishing mass emits a profile whose
+By local terminal compactness, this nonvanishing mass emits a profile whose
 physical center is the same point \(x_\alpha^*\) and whose scale is comparable
 to \(\lambda_\mathcal C^n\).
 
@@ -432,7 +432,7 @@ Lemma S8.3 gives
 F_n\to0
 \quad\text{in }L^1_\tau L^2_y(B_A)
 \]
-for every fixed \(A\). The global critical bound gives
+for every fixed \(A\). The retained local compact-cylinder bound gives
 \[
 \sup_n\|F_n\|_{L^\infty_\tau L^{3/2}_y(\mathbb R^3)}<\infty.
 \]
@@ -597,14 +597,14 @@ The terminal cluster is active, so its retained branch has positive critical
 mass. More precisely, after the small scattering remainder and discarded
 profiles have been removed,
 \[
-\inf_{\tau\in I}\|U_n(\tau)\|_{L^3(\mathbb R^3)}
+\inf_{\tau\in I}\|U_n(\tau)\|_{L^3(B_R)}
 \ge
 c_{\mathrm{act}}>0
 \]
 on the S3 windows, after passing to the same subsequences used in the profile
-ledger. The upper bound follows from the global critical mass bound:
+ledger. The upper bound follows from the retained local compact-cylinder bound:
 \[
-\sup_{\tau\in I}\|U_n(\tau)\|_{L^3(\mathbb R^3)}
+\sup_{\tau\in I}\|U_n(\tau)\|_{L^3(B_R)}
 \le C(M).
 \]
 The terminal-complete profile ledger also supplies the tightness needed by
@@ -635,7 +635,7 @@ S3-admissible.
 
 Assume:
 \[
-\sup_{t<T^*}\|u(t)\|_{L^3(\mathbb R^3)}\le M<\infty,
+\sup_{t<T^*}\|u(t)\|_{X_{\mathrm{crit}}}\le M<\infty,
 \]
 \[
 K_{\mathrm{ProfComplete},NS3D,\mathrm{term}}^+,

@@ -154,14 +154,66 @@ def HeatWindowResidual
       timeSpaceIntegralOn C.window.time
         (heatWeakResidualIntegrand nu C.curve φ) = 0
 
-/-- Windowed uniqueness: another heat solution agrees with the certified one on
-the certified window only. -/
+/-- Classical/integrated heat data sufficient to derive the weak residual on a
+certified window.
+
+This is deliberately stronger than just a pointwise PDE statement and weaker
+than the final weak residual: it records the time derivative of the certified
+curve and the spatial integration-by-parts/heat-equation balance that rewrites
+the heat weak integrand as minus the time derivative of `theta * phi`. The
+generic theorem below then closes the weak residual using the test function's
+finite-window time integration-by-parts rule. -/
+structure IntegratedClassicalHeatWindowCertificate
+    (nu : BurgersParameters)
+    (C : CertifiedHeatWindow nu) where
+  timeDeriv : ℝ → ContinuousMap BurgersTorus ℝ
+  time_hasDerivAt_positive : ∀ t : ℝ, 0 < t → ∀ x : BurgersTorus,
+    HasDerivAt (fun s : ℝ => (C.curve.eval s).value x) (timeDeriv t x) t
+  integrated_heat_balance : ∀ φ : SmoothCompactTimePeriodicSpaceTest,
+    φ.window = C.window.time →
+      timeSpaceIntegralOn C.window.time
+          (heatWeakResidualIntegrand nu C.curve φ) =
+        -timeSpaceIntegralOn C.window.time
+          (fun t x =>
+            timeDeriv t x * φ.value t x +
+              (C.curve.eval t).value x * φ.timeDeriv t x)
+
+theorem HeatWindowResidual.of_integratedClassical
+    {nu : BurgersParameters}
+    {C : CertifiedHeatWindow nu}
+    (H : IntegratedClassicalHeatWindowCertificate nu C) :
+    HeatWindowResidual nu C := by
+  intro φ hφ
+  have htime :
+      timeSpaceIntegralOn C.window.time
+          (fun t x =>
+            H.timeDeriv t x * φ.value t x +
+              (C.curve.eval t).value x * φ.timeDeriv t x) = 0 := by
+    simpa [hφ] using
+      φ.timeSpace_product_integration_by_parts_positive
+        (fun t : ℝ => (C.curve.eval t).value)
+        H.timeDeriv H.time_hasDerivAt_positive
+  calc
+    timeSpaceIntegralOn C.window.time
+        (heatWeakResidualIntegrand nu C.curve φ)
+        = -timeSpaceIntegralOn C.window.time
+            (fun t x =>
+              H.timeDeriv t x * φ.value t x +
+                (C.curve.eval t).value x * φ.timeDeriv t x) :=
+            H.integrated_heat_balance φ hφ
+    _ = 0 := by rw [htime, neg_zero]
+
+/-- Forward-time windowed uniqueness: another heat solution agrees with the
+certified one on the certified window at nonnegative times.
+
+This matches the weak test interface used by the heat backend: tests vanish for
+`t ≤ 0`, so the residual does not determine arbitrary negative-time values. -/
 def HeatWindowUniqueness
     (nu : BurgersParameters)
     (C : CertifiedHeatWindow nu) : Prop :=
   ∀ w : PeriodicHeatCurve nu,
     SolvesPeriodicHeatWeak nu C.initial w →
-      ∀ t : ℝ, C.window.Contains t → w.eval t = C.curve.eval t
+      ∀ t : ℝ, C.window.Contains t → 0 ≤ t → w.eval t = C.curve.eval t
 
 def HeatWindowSmoothing
     {nu : BurgersParameters}
@@ -366,7 +418,7 @@ def PeriodicHeatSemigroupBackend.windowCertificate
     intro φ hφ
     exact (H.solves u0 hu0).2.2.on_heatWindow W φ hφ
   unique := by
-    intro w hw t _ht
+    intro w hw t _ht _ht_nonneg
     exact H.unique u0 hu0 w hw t
   smooth := by
     intro t _ht htpos

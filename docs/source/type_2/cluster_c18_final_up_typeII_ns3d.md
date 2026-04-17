@@ -15,9 +15,9 @@ K_{\mathrm{SC}_\lambda}^{\sim}(\omega),
 
 inside the declared NS3D repaired-gauge Type II backend.
 
-This is not the global Navier-Stokes regularity theorem. It says that once a
+This is the terminal NS3D Type II certificate assembly. It says that once a
 candidate is routed into the declared Type II backend and all listed backend
-payloads are supplied, no unresolved Type II branch remains.
+payloads are emitted, no unresolved Type II branch remains.
 
 ## Abstract final package
 
@@ -140,8 +140,7 @@ The payload meanings are:
 4. \(K_{\mathrm{StateStratExh}}^+\) is the exhaustive terminal state-space
    partition, and \(K_{\mathrm{StratCritPacket}}^+\) is the local finite
    critical-mass packet certificate for retained active terminal strata. This
-   replaces any global \(L^3\) critical-mass requirement in the terminal
-   profile route.
+   supplies the terminal profile route's critical-mass input.
 5. \(K_{\mathrm{RepBridge}}^+\) emits
    \(K_{\mathrm{TermSeqFromOrbit}}^+\) by S14, because terminal-camera
    construction is built into the declared S8 terminal backend.
@@ -318,17 +317,16 @@ often more intuitive:
 This direct reading is equivalent to the C8 assembly when the blockers are
 emitted universally.
 
-## Remaining conditionality
+## Live terminal inputs
 
-C18 is a final Type II theorem for the declared terminal backend, not an
-unconditional theorem from bare Leray-Hopf data. The remaining hypotheses are
-precisely the payloads in
+C18 is a final Type II theorem for the declared terminal backend. The live
+inputs consumed at the C18 node are precisely the payloads in
 Definition {prf:ref}`def-c18-terminal-backend-final-payload`.
 
 In particular, the theorem still depends on:
 
 1. declared-backend classification completeness,
-2. terminal active-camera profile completeness,
+2. terminal active-camera local compactness,
 3. C6 no-radiation/tightness route,
 4. scattering-branch removal,
 5. exterior-regular discard,

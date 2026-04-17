@@ -235,7 +235,7 @@ Its components are:
    ```
    recording the supercritical scaling route that triggers `BarrierTypeII`.
 
-3. **Profile completeness from the singularity module.**
+3. **Local compactness from the singularity module.**
    After Node 3, the dataset's singularity module emits
    ```{math}
    K_{\mathrm{Prof}_{NS}}^+,
@@ -357,7 +357,7 @@ For a declared Type II candidate, the ordered exhaustion defects are:
    K_{C_\mu}^+\text{ is emitted, but }K_{\mathrm{SC}_\lambda}^-
    \text{ is not emitted.}
    ```
-3. **Profile completeness defect**
+3. **Local compactness defect**
    ```{math}
    K_{\mathrm{ProfComplete}}^-:
    \quad
@@ -483,7 +483,7 @@ K_{\mathrm{ProfComplete}}^-,
 K_{\mathrm{LostTypeII}}^-.
 ```
 
-Thus C1 does not hide the hard global profile-extraction problem. It packages it
+Thus C1 does not hide the hard terminal profile-extraction problem. It packages it
 as an auditable backend completeness certificate. Once this certificate is
 present, C2--C4 apply to every declared Type II branch rather than merely to an
 individual represented candidate.

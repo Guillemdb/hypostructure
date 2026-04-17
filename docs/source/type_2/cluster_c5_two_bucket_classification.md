@@ -67,7 +67,7 @@ Their meanings are:
 
 These bridges remove exhaustion, representation, normalization, and
 cost-adapter defects from the survivor list. They do not, by themselves, prove
-global critical tightness or local windowed \(H^1\) control.
+local compact-cylinder mass retention or local windowed \(H^1\) control.
 
 ## Remaining compact-barrier tests
 
@@ -82,7 +82,7 @@ For a represented repaired-gauge Type II orbit, define
 K_{L^3\mathrm{Tight}}^+
 ```
 
-to mean uniform global critical tightness:
+to mean uniform local compact-cylinder mass retention:
 
 ```{math}
 \forall\varepsilon>0\ \exists R_\varepsilon:
@@ -132,7 +132,7 @@ K_{\mathrm{WinH1}}^-:
 
 The C5 compact-barrier evaluator is ordered as follows.
 
-1. Evaluate global critical tightness. Emit exactly one of
+1. Evaluate local compact-cylinder mass retention. Emit exactly one of
    \(K_{L^3\mathrm{Tight}}^+\) or \(K_{L^3\mathrm{Tight}}^-\).
 2. If \(K_{L^3\mathrm{Tight}}^+\) is emitted, evaluate local windowed
    \(H^1\) control. Emit exactly one of

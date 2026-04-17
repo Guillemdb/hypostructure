@@ -68,6 +68,134 @@ private noncomputable def periodicH1_derivativeComplexMap
   toFun x := (u.weakDeriv x : ℂ)
   continuous_toFun := Complex.continuous_ofReal.comp u.weakDeriv.continuous
 
+/-- Continuous complex functions on the unit torus are determined by their
+mathlib Fourier coefficients.
+
+This is the exact extensionality bridge needed by backend uniqueness proofs:
+PDE uniqueness may be reduced to coefficient evolution, while the framework
+still exports equality of the concrete continuous carrier. -/
+theorem complexContinuousMap_ext_fourierCoeff
+    (f g : C(BurgersTorus, ℂ))
+    (hcoeff : ∀ n : ℤ,
+      fourierCoeff (fun x : BurgersTorus => f x) n =
+        fourierCoeff (fun x : BurgersTorus => g x) n) :
+    f = g := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  let fLp : Lp ℂ 2 AddCircle.haarAddCircle :=
+    (ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ) f
+  let gLp : Lp ℂ 2 AddCircle.haarAddCircle :=
+    (ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ) g
+  have hrepr :
+      (fourierBasis (T := (1 : ℝ))).repr fLp =
+        (fourierBasis (T := (1 : ℝ))).repr gLp := by
+    ext n
+    rw [fourierBasis_repr, fourierBasis_repr]
+    rw [fourierCoeff_toLp, fourierCoeff_toLp]
+    exact hcoeff n
+  have hlp : fLp = gLp := by
+    exact (fourierBasis (T := (1 : ℝ))).repr.injective hrepr
+  have hae :
+      (fun x : BurgersTorus => f x) =ᵐ[AddCircle.haarAddCircle]
+        (fun x => g x) := by
+    have hf :
+        (fLp : BurgersTorus → ℂ) =ᵐ[AddCircle.haarAddCircle]
+          (fun x => f x) := by
+      simpa [fLp] using
+        ContinuousMap.coeFn_toLp
+          (p := (2 : ℝ≥0∞)) (μ := AddCircle.haarAddCircle)
+          (𝕜 := ℂ) f
+    have hg :
+        (gLp : BurgersTorus → ℂ) =ᵐ[AddCircle.haarAddCircle]
+          (fun x => g x) := by
+      simpa [gLp] using
+        ContinuousMap.coeFn_toLp
+          (p := (2 : ℝ≥0∞)) (μ := AddCircle.haarAddCircle)
+          (𝕜 := ℂ) g
+    rw [hlp] at hf
+    exact hf.symm.trans hg
+  have heqfun : (fun x : BurgersTorus => f x) = (fun x => g x) := by
+    exact
+      (Continuous.ae_eq_iff_eq
+        (μ := AddCircle.haarAddCircle) f.continuous g.continuous).mp hae
+  exact ContinuousMap.ext (fun x => congrFun heqfun x)
+
+/-- Real continuous torus maps are determined by their complex Fourier
+coefficients. -/
+theorem realContinuousMap_ext_fourierCoeff
+    (f g : C(BurgersTorus, ℝ))
+    (hcoeff : ∀ n : ℤ,
+      fourierCoeff (fun x : BurgersTorus => (f x : ℂ)) n =
+        fourierCoeff (fun x : BurgersTorus => (g x : ℂ)) n) :
+    f = g := by
+  let fC : C(BurgersTorus, ℂ) :=
+    { toFun := fun x => (f x : ℂ)
+      continuous_toFun := Complex.continuous_ofReal.comp f.continuous }
+  let gC : C(BurgersTorus, ℂ) :=
+    { toFun := fun x => (g x : ℂ)
+      continuous_toFun := Complex.continuous_ofReal.comp g.continuous }
+  have hC : fC = gC :=
+    complexContinuousMap_ext_fourierCoeff fC gC hcoeff
+  ext x
+  have hx := congrArg (fun h : C(BurgersTorus, ℂ) => h x) hC
+  exact Complex.ofReal_injective hx
+
+/-- Concrete periodic `H¹` states are determined by the Fourier coefficients
+of their value and weak-derivative fields. -/
+theorem periodicH1State_ext_fourierCoeff
+    {u v : PeriodicH1State}
+    (hvalue : ∀ n : ℤ,
+      periodicH1_valueFourierCoeff u n =
+        periodicH1_valueFourierCoeff v n)
+    (hderiv : ∀ n : ℤ,
+      periodicH1_derivativeFourierCoeff u n =
+        periodicH1_derivativeFourierCoeff v n) :
+    u = v := by
+  apply PeriodicH1State.ext
+  · exact realContinuousMap_ext_fourierCoeff u.value v.value (by
+      intro n
+      simpa [periodicH1_valueFourierCoeff] using hvalue n)
+  · exact realContinuousMap_ext_fourierCoeff u.weakDeriv v.weakDeriv (by
+      intro n
+      simpa [periodicH1_derivativeFourierCoeff] using hderiv n)
+
+/-- Fourier coefficients of a real-valued continuous torus function have the
+usual conjugate symmetry. This is reusable for any real periodic backend whose
+complex Fourier coefficients are defined by mathlib's `fourierCoeff`. -/
+theorem realContinuousMap_fourierCoeff_neg_eq_star
+    (f : C(BurgersTorus, ℝ))
+    (n : ℤ) :
+    fourierCoeff (fun x : BurgersTorus => (f x : ℂ)) (-n) =
+      star (fourierCoeff (fun x : BurgersTorus => (f x : ℂ)) n) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  unfold fourierCoeff
+  calc
+    ∫ t : BurgersTorus, fourier (- -n) t • (f t : ℂ)
+        ∂AddCircle.haarAddCircle
+        = ∫ t : BurgersTorus, star (fourier (-n) t • (f t : ℂ))
+            ∂AddCircle.haarAddCircle := by
+            refine integral_congr_ae ?_
+            filter_upwards with x
+            simp [fourier_neg, mul_comm, mul_left_comm, mul_assoc]
+    _ = star (∫ t : BurgersTorus, fourier (-n) t • (f t : ℂ)
+          ∂AddCircle.haarAddCircle) := by
+          exact integral_conj
+
+theorem periodicH1_valueFourierCoeff_neg_eq_star
+    (u : PeriodicH1State)
+    (n : ℤ) :
+    periodicH1_valueFourierCoeff u (-n) =
+      star (periodicH1_valueFourierCoeff u n) := by
+  simpa [periodicH1_valueFourierCoeff] using
+    realContinuousMap_fourierCoeff_neg_eq_star u.value n
+
+theorem periodicH1_derivativeFourierCoeff_neg_eq_star
+    (u : PeriodicH1State)
+    (n : ℤ) :
+    periodicH1_derivativeFourierCoeff u (-n) =
+      star (periodicH1_derivativeFourierCoeff u n) := by
+  simpa [periodicH1_derivativeFourierCoeff] using
+    realContinuousMap_fourierCoeff_neg_eq_star u.weakDeriv n
+
 private theorem periodicH1_value_allModes_summable
     (u : PeriodicH1State) :
     Summable (fun n : ℤ => ‖periodicH1_valueFourierCoeff u n‖ ^ (2 : ℕ)) := by
@@ -675,6 +803,25 @@ theorem periodicH1_weakDerivative_fourierCoeff_literature
       (2 * Real.pi * Complex.I * (n.1 : ℂ)) *
         periodicH1_valueFourierCoeff u n.1 :=
   periodicH1_fourierTheory_literature.weakDerivative_fourierCoeff u hu n
+
+/-- All-mode Fourier coefficient identity for the weak derivative.
+
+The Poincare package exposes the nonzero-mode projection because that is the
+only part needed for coercivity. Heat reconstruction also needs the zero mode:
+the same integration-by-parts proof gives the identity there, with multiplier
+`0`, so the weak-derivative zero Fourier coefficient vanishes. -/
+theorem periodicH1_weakDerivative_fourierCoeff_allModes_literature
+    (u : PeriodicH1State)
+    (hu : PeriodicH1State.IsPeriodicH1 u)
+    (n : ℤ) :
+    periodicH1_derivativeFourierCoeff u n =
+      (2 * Real.pi * Complex.I * (n : ℂ)) *
+        periodicH1_valueFourierCoeff u n := by
+  apply Complex.ext
+  · rw [periodicH1_derivativeCoeff_re, periodicH1_multiplierValueCoeff_re]
+    exact periodicH1_weakDerivative_fourierCoeff_realPart u hu n
+  · rw [periodicH1_derivativeCoeff_im, periodicH1_multiplierValueCoeff_im]
+    exact periodicH1_weakDerivative_fourierCoeff_imagPart u hu n
 
 theorem periodicH1_firstFrequencyGap
     (n : PeriodicH1NonzeroMode) :

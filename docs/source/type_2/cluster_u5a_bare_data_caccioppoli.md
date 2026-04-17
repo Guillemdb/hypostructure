@@ -23,7 +23,7 @@ In U5a, \(K_{\mathrm{CaccioppoliReg}}^+\) means the **local** renormalized
 Caccioppoli estimate on each compact repaired-gauge cylinder.  The estimate's
 constant may depend on that cylinder, the cutoff, and the local upper/lower
 bounds for the AC chart.  It is not the uniform windowed \(H^1\) certificate
-\(K_{\mathrm{WinH1}}^+\), and it carries no global \(L^3\), tightness,
+\(K_{\mathrm{WinH1}}^+\), and it carries no local CKN, tightness,
 bounded-modulation, finite-energy-at-infinity, or global compactness content.
 Those are separate C6/C7 inputs.
 
@@ -268,7 +268,8 @@ uniform windowed \(H^1\) certificate.  \(\square\)
 U5a is discharged at the certificate level.  It proves the bare-data
 Caccioppoli theorem for represented suitable branches using only compact-cylinder
 physical suitability and the local AC represented chart supplied by C2.R.  It
-does not assume or prove bounded modulation, global critical \(L^3\), global
-\(L^3\)-tightness, finite energy at infinity, or any global compactness input.
+does not assume or prove bounded modulation, whole-space critical control,
+whole-space tightness, finite energy at infinity, or any whole-space compactness
+input.
 Those remain separate inputs in the C6/C7 routes that upgrade local
 Caccioppoli regularity to \(K_{\mathrm{WinH1}}^+\).

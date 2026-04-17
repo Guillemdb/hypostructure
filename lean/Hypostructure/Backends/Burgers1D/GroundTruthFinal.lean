@@ -11,6 +11,8 @@ open Hypostructure.Framework
 
 noncomputable section
 
+set_option maxHeartbeats 4000000
+
 /-- Explicit remaining backend permits for the ground-truth route. These are
 not proved yet by the current backend. Supplying this structure is exactly the
 remaining work needed to turn the migrated route into the full theorem in
@@ -283,10 +285,7 @@ def burgers_groundTruth_dataset_theorem_from_axioms
 
 def burgersGroundTruthAxiomBoundary : List String :=
   [ "periodicBurgers1D_localWindowTheory_literature"
-  , "periodicHeat1D_fourierH1ContinuousCurve_literature"
-  , "periodicHeat1D_fourierH1WindowResidual_literature"
-  , "periodicHeat1D_fourierH1WindowUniqueness_literature"
-  , "periodicHeat1D_fourierH1WindowSmoothing_literature"
+  , "periodicHeat1D_weakSolutionValueFourierEvolution_literature"
   , "periodicBurgers1D_coleHopfTheory_literature"
   , "periodicBurgers1D_continuationTheory_literature"
   ]
@@ -310,6 +309,51 @@ def burgersGroundTruthRigorBoundary : List RigorBoundaryItem :=
   , { name := "periodicHeat1D_fourierH1ReconstructionTheory_literature"
       layer := .framework
       description := "Mathlib-backed Fourier-Sobolev H1 reconstruction package; Lean proves the reconstructed L2 value/derivative pair satisfies the Fourier weak-derivative relation, Parseval identities, and finite-time value/derivative contractions on the Fourier-H1 carrier." }
+  , { name := "periodicHeat1D_positiveTimeCoefficientSmoothingTheory_literature"
+      layer := .framework
+      description := "Mathlib-backed positive-time coefficient smoothing package; Lean proves integer Gaussian summability, polynomially weighted heat-multiplier summability, and polynomially weighted evolved value/derivative mode-energy summability for every positive time." }
+  , { name := "periodicHeat1D_positiveTimeSmoothFourierRepresentativeTheory_literature"
+      layer := .framework
+      description := "Mathlib-backed positive-time Fourier representative package; Lean assembles the reconstructed Fourier-H1 state, evolved coefficient identities, Parseval/contraction identities, arbitrary polynomial weighted value/derivative summability, weighted l1 coefficient summability, continuous complex Fourier-series slices, and the full complex spatial-derivative Fourier tower with termwise classical differentiability for every positive time." }
+  , { name := "periodicHeat1D_positiveTimeSmoothPeriodicH1RepresentativeTheory_literature"
+      layer := .framework
+      description := "Mathlib-backed positive-time real PeriodicH1State representative package; Lean takes real parts of the complex Fourier derivative tower, proves the recursive weak-derivative chain by integration by parts from classical lifted derivatives, and packages positive-time smoothness without adding a heat PDE axiom." }
+  , { name := "periodicH1_weakDerivative_fourierCoeff_allModes_literature"
+      layer := .framework
+      description := "Lean theorem extending the periodic H1 weak-derivative Fourier coefficient identity to every integer mode, including the zero mode needed by the heat representative." }
+  , { name := "periodicHeat1D_l2FourierSeries_fourierCoeff"
+      layer := .framework
+      description := "Mathlib Hilbert-basis theorem recovering each Fourier coefficient from an L2 Fourier series represented by HasSum over the periodic Fourier basis." }
+  , { name := "periodicHeat1D_continuousSpatialDerivativeFourierSeries_fourierCoeff"
+      layer := .framework
+      description := "Lean theorem recovering the Fourier coefficients of every positive-time continuous complex spatial-derivative Fourier series slice from its absolutely summable coefficient series." }
+  , { name := "periodicHeat1D_realSpatialDerivativeFourierSeries_fourierCoeff"
+      layer := .framework
+      description := "Lean theorem proving that taking the real part of the positive-time complex heat Fourier series preserves the intended real-valued Fourier coefficients." }
+  , { name := "realContinuousMap_fourierCoeff_neg_eq_star"
+      layer := .framework
+      description := "Lean theorem proving conjugate symmetry of mathlib Fourier coefficients for real-valued continuous periodic functions." }
+  , { name := "complexContinuousMap_ext_fourierCoeff"
+      layer := .framework
+      description := "Mathlib-backed extensionality theorem: continuous complex functions on the unit torus are equal when all Fourier coefficients agree." }
+  , { name := "realContinuousMap_ext_fourierCoeff"
+      layer := .framework
+      description := "Lean theorem deriving real continuous torus-map extensionality from complex Fourier coefficient extensionality." }
+  , { name := "periodicH1State_ext_fourierCoeff"
+      layer := .framework
+      description := "Lean theorem deriving equality of concrete PeriodicH1State values from equality of value and weak-derivative Fourier coefficients." }
+  , { name := "periodicHeat1D_evolvedValueFourierCoeff_neg_eq_star"
+      layer := .framework
+      description := "Lean theorem proving the heat multiplier preserves real-valued conjugate symmetry for evolved value Fourier coefficients." }
+  , { name := "periodicHeat1D_evolvedDerivativeFourierCoeff_neg_eq_star"
+      layer := .framework
+      description := "Lean theorem proving the heat multiplier preserves real-valued conjugate symmetry for evolved weak-derivative Fourier coefficients." }
+  , { name := "periodicHeat1D_modeMultiplier_hasDerivAt"
+      layer := .framework
+      description := "Lean theorem computing the time derivative of the scalar heat Fourier multiplier." }
+  , { name := "periodicHeat1D_evolvedTimeDerivativeFourierCoeff_eq_viscosity_secondSpatial"
+      layer := .framework
+      description := "Lean coefficient-level heat equation: the formal time-derivative Fourier coefficient equals viscosity times the second spatial Fourier coefficient." }
   , { name := "periodicH1_value_parseval_literature"
       layer := .framework
       description := "Full all-mode Parseval identity for the periodic H1 value field, exposed for the heat coefficient contraction theorem." }
@@ -328,21 +372,63 @@ def burgersGroundTruthRigorBoundary : List RigorBoundaryItem :=
   , { name := "periodicHeat1D_localWindowCertificate_literature"
       layer := .framework
       description := "Lean assembler from decomposed periodic heat local-window facts into the exact heat certificate consumed by the route." }
+  , { name := "periodicHeat1D_fourierH1CandidateHeatCurve"
+      layer := .framework
+      description := "Lean definition of the explicit heat curve candidate: it is the initial datum at nonpositive times and the proved smooth real Fourier PeriodicH1State representative at positive times." }
+  , { name := "periodicHeat1D_candidateValueCoeff_fromPositiveTimeIdentification"
+      layer := .framework
+      description := "Lean theorem extending positive-time candidate coefficient identification to all nonnegative times by deriving the zero-time case from the candidate definition and the heat multiplier zero-time law." }
+  , { name := "periodicHeat1D_candidateDerivativeCoeff_fromPositiveTimeIdentification"
+      layer := .framework
+      description := "Lean theorem extending positive-time weak-derivative candidate coefficient identification to all nonnegative times by deriving the zero-time case from the candidate definition and the heat multiplier zero-time law." }
+  , { name := "PeriodicHeat1DWeakSolutionFourierEvolutionFor"
+      layer := .framework
+      description := "Reusable local heat interface: a weak heat solution has the expected forward-time value and weak-derivative Fourier coefficient evolution on the requested finite window." }
+  , { name := "PeriodicHeat1DWeakSolutionValueFourierEvolutionFor"
+      layer := .framework
+      description := "Reusable local heat interface isolating the remaining PDE boundary to value Fourier coefficient evolution only; derivative coefficient evolution is derived from the H1 weak-derivative identity." }
+  , { name := "periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution"
+      layer := .framework
+      description := "Lean theorem proving the explicit canonical heat candidate satisfies the coefficient-evolution interface on every local window." }
+  , { name := "periodicHeat1D_fourierH1CandidateIdentification_literature"
+      layer := .framework
+      description := "Lean theorem proving that at positive times the explicit candidate curve has the heat-evolved value/derivative Fourier coefficients, using the continuous Fourier representative and Hilbert-basis coefficient recovery." }
   , { name := "periodicHeat1D_fourierH1ContinuousCurve_literature"
-      layer := .literature
-      description := "Remaining periodic heat representative theorem: construct a concrete continuous PeriodicH1State-valued heat curve representing the proved Fourier-Sobolev H1 reconstruction on the requested local window, including coefficient and energy identification." }
+      layer := .framework
+      description := "Lean assembler turning the explicit candidate curve plus candidate-identification theorem into the continuous-curve interface consumed by the local heat window upgrade." }
+  , { name := "IntegratedClassicalHeatWindowCertificate"
+      layer := .framework
+      description := "Reusable heat interface separating classical/integrated heat equation data from the final weak residual exported to certificates." }
+  , { name := "HeatWindowResidual.of_integratedClassical"
+      layer := .framework
+      description := "Reusable theorem deriving a certified windowed weak heat residual from integrated classical heat data plus the test function time integration-by-parts rule." }
+  , { name := "periodicHeat1D_fourierH1IntegratedClassicalHeat_literature"
+      layer := .framework
+      description := "Lean definition/proof of the integrated heat certificate for the concrete Fourier heat candidate: positive-time time differentiation is proved termwise, positive-time spatial heat balance is proved from the weak-derivative chain, nonpositive times are discharged by test support, and the finite-window integrated balance follows by interval-integral congruence." }
   , { name := "periodicHeat1D_fourierH1WindowResidual_literature"
+      layer := .framework
+      description := "Lean theorem deriving the windowed weak heat residual from periodicHeat1D_fourierH1IntegratedClassicalHeat_literature via HeatWindowResidual.of_integratedClassical." }
+  , { name := "periodicHeat1D_weakSolutionValueFourierEvolution_literature"
       layer := .literature
-      description := "Remaining periodic heat PDE theorem: the Fourier-H1 continuous representative satisfies the windowed weak heat residual." }
+      description := "Remaining periodic heat PDE theorem: every weak periodic heat solution has the standard forward-time value Fourier coefficient evolution on each finite local window." }
+  , { name := "periodicHeat1D_weakSolutionFourierEvolution_fromValueEvolution"
+      layer := .framework
+      description := "Lean theorem deriving full value-plus-weak-derivative coefficient evolution from value coefficient evolution and the PeriodicH1State weak-derivative Fourier identity." }
+  , { name := "periodicHeat1D_weakSolutionFourierEvolution_literature"
+      layer := .framework
+      description := "Lean theorem packaging full weak-solution coefficient evolution from the narrower value-coefficient literature boundary." }
+  , { name := "periodicHeat1D_fourierH1WindowUniqueness_fromWeakSolutionFourierEvolution"
+      layer := .framework
+      description := "Lean theorem deriving forward-time windowed heat uniqueness from weak-solution Fourier coefficient evolution plus PeriodicH1State Fourier extensionality." }
   , { name := "periodicHeat1D_fourierH1WindowUniqueness_literature"
-      layer := .literature
-      description := "Remaining periodic heat PDE theorem: windowed uniqueness for the Fourier-H1 continuous representative among weak heat solutions." }
-  , { name := "periodicHeat1D_fourierH1WindowSmoothing_literature"
-      layer := .literature
-      description := "Remaining periodic heat regularity theorem: positive-time smoothing for the Fourier-H1 continuous representative on the certified local window." }
+      layer := .framework
+      description := "Lean theorem packaging canonical forward-time windowed heat uniqueness from the narrower weak-solution coefficient-evolution boundary." }
+  , { name := "periodicHeat1D_fourierH1WindowSmoothing_fromContinuousCurve"
+      layer := .framework
+      description := "Lean theorem deriving certified-window positive-time heat smoothing from the continuous-curve positive-time identification with the proved smooth real Fourier PeriodicH1State representative." }
   , { name := "periodicHeat1D_fourierH1WindowUpgrade_literature"
       layer := .framework
-      description := "Lean assembler from the continuous representative theorem plus the residual, uniqueness, and smoothing theorems into the former monolithic Fourier-H1 certified-window upgrade interface." }
+      description := "Lean assembler from the strengthened continuous representative theorem plus residual and uniqueness into the former monolithic Fourier-H1 certified-window upgrade interface; smoothing is derived in Lean from the representative identification." }
   , { name := "periodicHeat1D_fourierReconstruction_literature"
       layer := .framework
       description := "Lean compatibility shim deriving the older evolved-coefficient reconstruction interface from the narrower Fourier-H1 window upgrade plus the proved Fourier-Sobolev reconstruction theory." }
@@ -507,10 +593,7 @@ def burgersGroundTruthRigorBoundary : List RigorBoundaryItem :=
 def burgersGroundTruthLiteratureBoundary : List String :=
   [ "periodicBurgers1D_coleHopfTheory_literature"
   , "periodicBurgers1D_localWindowTheory_literature"
-  , "periodicHeat1D_fourierH1ContinuousCurve_literature"
-  , "periodicHeat1D_fourierH1WindowResidual_literature"
-  , "periodicHeat1D_fourierH1WindowUniqueness_literature"
-  , "periodicHeat1D_fourierH1WindowSmoothing_literature"
+  , "periodicHeat1D_weakSolutionValueFourierEvolution_literature"
   , "periodicBurgers1D_continuationTheory_literature"
   ]
 
@@ -522,7 +605,7 @@ old scaffold evolution package. It needs the concrete backend permits above. -/
 def burgersGroundTruthRemainingBackendWork : List String :=
   [ "Discharge periodicBurgers1D_localWindowTheory_literature by constructing the requested finite-window periodic Burgers local theory for each admissible u0. Its projections supply local existence, weak residual, energy, mean preservation, and dissipative estimates. The periodic H1 Fourier package is now discharged in Lean from mathlib Fourier analysis plus the carrier's weak-derivative interface."
   , "Discharge the split periodic Cole-Hopf literature facts: transform, chart validity, window maps, inverse window maps, two residual-transfer directions, uniqueness transfer, and the H1-domain theorem."
-  , "Discharge the four split periodic heat upgrade facts: periodicHeat1D_fourierH1ContinuousCurve_literature for the continuous PeriodicH1State representative matching the proved Fourier-Sobolev H1 reconstruction; periodicHeat1D_fourierH1WindowResidual_literature for the windowed weak heat residual; periodicHeat1D_fourierH1WindowUniqueness_literature for windowed heat uniqueness; and periodicHeat1D_fourierH1WindowSmoothing_literature for positive-time smoothing. The former monolithic periodicHeat1D_fourierH1WindowUpgrade_literature is now a Lean assembler. The scalar Fourier heat multiplier layer, coefficient-level l2 contraction/summability layer, L2 Hilbert reconstruction layer, Fourier-H1 derivative/Parseval/contraction layer, local contraction derivation, and local certificate packaging are now proved in Lean. Heat bad-germ exclusion is already derived from smoothing by periodicHeat1D_badGermExclusion_fromSmoothing."
+  , "Discharge the remaining periodic heat PDE-semantics fact: periodicHeat1D_weakSolutionValueFourierEvolution_literature, stating that every weak periodic heat solution has the standard forward-time value Fourier coefficient evolution on each finite local window. Full weak-derivative coefficient evolution is no longer an axiom: periodicHeat1D_weakSolutionFourierEvolution_literature is a Lean theorem from value evolution plus the PeriodicH1State weak-derivative Fourier identity. Canonical windowed heat uniqueness is also no longer an axiom: periodicHeat1D_fourierH1WindowUniqueness_literature is a Lean theorem from coefficient evolution plus periodicH1State_ext_fourierCoeff. The heat curve itself is no longer constructed by axiom: periodicHeat1D_fourierH1CandidateHeatCurve is a Lean definition using u0 at nonpositive times and the proved smooth real Fourier representative at positive times. Lean proves the positive-time candidate coefficient identities, derives the zero-time coefficient identities, derives the energy/Parseval match with the Fourier-H1 reconstruction from coefficient matching plus Parseval, proves the positive-time time derivative by termwise Fourier differentiation, proves the local spatial heat balance from the weak-derivative tower, discharges nonpositive times by test support, and assembles periodicHeat1D_fourierH1IntegratedClassicalHeat_literature without custom axioms. Positive-time smoothing on the certified curve is no longer a separate axiom: periodicHeat1D_fourierH1WindowSmoothing_fromContinuousCurve derives it in Lean from the continuous-curve positive-time identification. The former monolithic periodicHeat1D_fourierH1WindowUpgrade_literature is now a Lean assembler. The scalar Fourier heat multiplier layer, coefficient-level l2 contraction/summability layer, L2 Hilbert reconstruction layer, Fourier-H1 derivative/Parseval/contraction layer, positive-time coefficient smoothing layer, weighted l1 coefficient layer, continuous complex Fourier-series derivative tower, real-valued positive-time PeriodicH1State smoothing package, local contraction derivation, integrated heat residual derivation, derivative-evolution derivation, canonical uniqueness derivation, and local certificate packaging are now proved in Lean. Heat bad-germ exclusion is already derived from smoothing by periodicHeat1D_badGermExclusion_fromSmoothing."
   , "Extend the finite-time H1 bad-pattern library only if the dataset is expanded beyond the current documented finite-time H1 blow-up template."
   , "Discharge periodicBurgers1D_continuationTheory_literature by formalizing the reusable periodic Burgers continuation/localization package: local uniqueness on certified windows, missing-regularity-to-raw-failure-window localization, and raw-failure-window nonextendability for the canonical finite-H1-obstruction criterion. The Cole-Hopf PDE-domain condition for finite H1 obstructions follows from the literature Cole-Hopf H1-domain theorem, and the Burgers-window-to-heat-window inclusion and center image matching facts are carried by the finite obstruction data and projected by framework theorems."
   ]

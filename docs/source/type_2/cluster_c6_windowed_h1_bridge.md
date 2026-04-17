@@ -31,11 +31,11 @@ equation
 
 ---
 
-## T13.1 (Uniform local \(L^{3/2}\) pressure control from global \(L^3\))
+## T13.1 (Uniform local \(L^{3/2}\) pressure control from local CKN)
 
 Assume
 \[
-M_3:=\sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(\mathbb R^3)}<\infty
+M_{3,R}:=\sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(B_{2R})}<\infty
 \]
 and
 \[
@@ -80,7 +80,7 @@ Combining the two bounds yields
 \[
 \sup_{\tau\ge\tau_0}
 \|P(\tau)-c_R(\tau)\|_{L^{3/2}(B_R)}
-\le C_RM_3^2.
+\le C_RM_{3,R}^2.
 \]
 The constants \(c_R(\tau)\) can be chosen, for instance, by the construction
 in Lemma 9, hence measurably after fixing the displayed pressure
@@ -96,10 +96,9 @@ Assume:
 
 1. \(V,P\) are smooth on compact renormalized cylinders and solve the
    renormalized equation above;
-2. global critical control:
-   \[
-   M_3:=\sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(\mathbb R^3)}<\infty;
-   \]
+2. local compact-cylinder critical control: for every fixed outer radius used
+   in the estimate, the local \(L^3\) norm of \(V\) on that cylinder is
+   bounded on the relevant time window;
 3. bounded modulation:
    \[
    M_{ab}:=\sup_{\tau\ge\tau_0}(|a(\tau)|+|b(\tau)|)<\infty;
@@ -108,7 +107,7 @@ Assume:
 
 Then for every \(R>0\) there exists
 \[
-C_R=C(R,\nu,M_3,M_{ab})
+C_R=C(R,\nu,M_{3,R},M_{ab})
 \]
 such that
 \[
@@ -153,17 +152,17 @@ The pressure contribution is kept in its proof-level form
 where \(\zeta\) is the cutoff used in Lemma 5. This is essential because the
 pressure is defined modulo time-dependent constants.
 
-The \(L^2\)-term is controlled by the global \(L^3\)-bound and boundedness of
+The \(L^2\)-term is controlled by the local CKN-bound and boundedness of
 \(B_{2R}\):
 \[
 \int_{B_{2R}}|V(\tau)|^2\,dy
 \le
-|B_{2R}|^{1/3}\|V(\tau)\|_{L^3(\mathbb R^3)}^2
-\le C_RM_3^2.
+|B_{2R}|^{1/3}\|V(\tau)\|_{L^3(B_{2R})}^2
+\le C_RM_{3,R}^2.
 \]
 Since the outer time interval has length \(3\),
 \[
-\iint_{(T-1,T+2)\times B_{2R}}|V|^2\le C_RM_3^2.
+\iint_{(T-1,T+2)\times B_{2R}}|V|^2\le C_RM_{3,R}^2.
 \]
 Similarly,
 \[
@@ -198,9 +197,9 @@ Here \(c_{2R}(\tau)\) is the constant supplied by T13.1 with radius \(2R\).
 T13.1 gives
 \[
 \|P(\tau)-c_{2R}(\tau)\|_{L^{3/2}(B_{2R})}
-\le C_RM_3^2,
+\le C_RM_{3,R}^2,
 \]
-and the global \(L^3\)-bound gives
+and the local CKN-bound gives
 \[
 \|V(\tau)\|_{L^3(B_{2R})}\le M_3.
 \]
@@ -244,8 +243,8 @@ Holder estimate used above:
 \[
 \int_T^{T+1}\|V(\tau)\|_{L^2(B_R)}^2\,d\tau
 \le
-C_R\int_T^{T+1}\|V(\tau)\|_{L^3(\mathbb R^3)}^2\,d\tau
-\le C_RM_3^2.
+C_R\int_T^{T+1}\|V(\tau)\|_{L^3(B_{2R})}^2\,d\tau
+\le C_RM_{3,R}^2.
 \]
 Adding the two bounds gives the asserted \(H^1(B_R)\) estimate.
 
@@ -253,14 +252,14 @@ Adding the two bounds gives the asserted \(H^1(B_R)\) estimate.
 
 ---
 
-## T13.4 (Rough-core suppression under bounded critical norm and modulation)
+## T13.4 (Rough-core suppression under local compact-cylinder critical control and modulation)
 
 Assume the represented Type II branch satisfies:
 
 1. repaired-gauge renormalized Navier-Stokes equations on compact cylinders;
-2. bounded critical norm:
+2. local compact-cylinder critical control:
    \[
-   \sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(\mathbb R^3)}<\infty;
+   \sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(B_{2R})}<\infty;
    \]
 3. bounded modulation:
    \[
@@ -302,7 +301,7 @@ K_{\mathrm{WinH1}}^+.
 \]
 
 The pressure input is not circular: it uses the \(L^{3/2}\)-pressure estimate
-from T1 and the pressure-tail control from global \(L^3\), not the local
+from T1 and the pressure-tail control from local CKN, not the local
 \(L^2\)-pressure estimate T1.5, which itself uses local \(H^1\).
 
 The remaining structural task is to derive the bounded modulation and

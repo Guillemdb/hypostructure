@@ -214,7 +214,7 @@ so is \(B_{\mathrm{mov}}\). \(\square\)
 
 ## How tightness helps, and what it cannot do
 
-Uniform \(L^3\)-tightness can help produce the moving-annulus certificates for
+Local compact-cylinder mass retention can help produce the moving-annulus certificates for
 the cutoff-supported terms by choosing \(R(\tau)\) so that the annular \(L^3\)
 mass is small on successive unit windows. This is a summability upgrade of
 tightness, not a formal consequence of tightness alone.

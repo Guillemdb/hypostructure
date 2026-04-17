@@ -125,6 +125,95 @@ def IsWeakDerivativeOnTorus
     ∫ x : BurgersTorus, u x * φ.deriv x =
       -∫ x : BurgersTorus, du x * φ.value x
 
+/-- If a continuous torus map has a real-line lift whose classical derivative
+is the lift of another continuous torus map, then the latter is its weak
+derivative on the torus.
+
+This is the reusable bridge used by Fourier-series constructions: after
+termwise differentiability is proved for a periodic lift, the concrete
+`PeriodicH1State` weak-derivative field follows by integration by parts against
+the backend's periodic test functions. -/
+theorem isWeakDerivativeOnTorus_of_lift_hasDerivAt
+    (u du : ContinuousMap BurgersTorus ℝ)
+    (U DU : ℝ → ℝ)
+    (hu_lift : ∀ x : ℝ, u (x : UnitAddCircle) = U x)
+    (hdu_lift : ∀ x : ℝ, du (x : UnitAddCircle) = DU x)
+    (hU_deriv : ∀ x : ℝ, HasDerivAt U (DU x) x) :
+    IsWeakDerivativeOnTorus u du := by
+  intro φ
+  have hU_cont : Continuous U := by
+    rw [continuous_iff_continuousAt]
+    intro x
+    exact (hU_deriv x).continuousAt
+  have hDU_cont : Continuous DU := by
+    have hcont : Continuous (fun x : ℝ => du (x : UnitAddCircle)) :=
+      du.continuous.comp continuous_quotient_mk'
+    exact hcont.congr hdu_lift
+  have hU_per : Function.Periodic U 1 := by
+    intro x
+    rw [← hu_lift (x + 1), ← hu_lift x]
+    congr 1
+    simp
+  have hDUint :
+      IntervalIntegrable (fun x : ℝ => DU x * φ.lift x) volume 0 1 :=
+    (hDU_cont.mul φ.lift_cont).intervalIntegrable _ _
+  have hUint :
+      IntervalIntegrable (fun x : ℝ => U x * φ.liftDeriv x) volume 0 1 :=
+    (hU_cont.mul φ.liftDeriv_cont).intervalIntegrable _ _
+  have h_prod_ftc :
+      ∫ x in (0 : ℝ)..1, (DU x * φ.lift x + U x * φ.liftDeriv x) = 0 := by
+    have hftc :
+        ∫ x in (0 : ℝ)..1, (DU x * φ.lift x + U x * φ.liftDeriv x) =
+          U 1 * φ.lift 1 - U 0 * φ.lift 0 := by
+      refine intervalIntegral.integral_eq_sub_of_hasDerivAt
+        (f := fun y : ℝ => U y * φ.lift y)
+        (f' := fun y : ℝ => DU y * φ.lift y + U y * φ.liftDeriv y) ?_ ?_
+      · intro x _hx
+        exact (hU_deriv x).mul (φ.hasDerivAt_lift x)
+      · exact ((hDU_cont.mul φ.lift_cont).add
+          (hU_cont.mul φ.liftDeriv_cont)).intervalIntegrable _ _
+    have hU10 : U 1 = U 0 := by
+      have h := hU_per 0
+      simpa using h
+    have hφ10 : φ.lift 1 = φ.lift 0 := by
+      have h := φ.lift_periodic 0
+      simpa using h
+    rw [hftc, hU10, hφ10, sub_self]
+  have hsplit :
+      ∫ x in (0 : ℝ)..1, (DU x * φ.lift x + U x * φ.liftDeriv x) =
+        (∫ x in (0 : ℝ)..1, DU x * φ.lift x) +
+          (∫ x in (0 : ℝ)..1, U x * φ.liftDeriv x) := by
+    exact intervalIntegral.integral_add hDUint hUint
+  have hinterval :
+      ∫ x in (0 : ℝ)..1, U x * φ.liftDeriv x =
+        -∫ x in (0 : ℝ)..1, DU x * φ.lift x := by
+    linarith
+  calc
+    ∫ x : BurgersTorus, u x * φ.deriv x
+        = ∫ x in (0 : ℝ)..1,
+            u (x : UnitAddCircle) * φ.deriv (x : UnitAddCircle) := by
+            simpa using
+              (UnitAddCircle.intervalIntegral_preimage (0 : ℝ)
+                (fun x : UnitAddCircle => u x * φ.deriv x)).symm
+    _ = ∫ x in (0 : ℝ)..1, U x * φ.liftDeriv x := by
+          refine intervalIntegral.integral_congr_ae ?_
+          exact Filter.Eventually.of_forall fun x _hx => by
+            rw [hu_lift, φ.deriv_lift]
+    _ = -∫ x in (0 : ℝ)..1, DU x * φ.lift x := hinterval
+    _ = -∫ x : BurgersTorus, du x * φ.value x := by
+          congr 1
+          calc
+            ∫ x in (0 : ℝ)..1, DU x * φ.lift x
+                = ∫ x in (0 : ℝ)..1,
+                    du (x : UnitAddCircle) * φ.value (x : UnitAddCircle) := by
+                    refine intervalIntegral.integral_congr_ae ?_
+                    exact Filter.Eventually.of_forall fun x _hx => by
+                      rw [hdu_lift, φ.value_lift]
+            _ = ∫ x : BurgersTorus, du x * φ.value x := by
+                  simpa using
+                    (UnitAddCircle.intervalIntegral_preimage (0 : ℝ)
+                      (fun x : UnitAddCircle => du x * φ.value x))
+
 /-- The ground-truth periodic `H¹` carrier for the Burgers backend. It is a
 periodic value, a periodic weak derivative, L² witnesses for both, and the
 weak-derivative identity tying the two fields together. -/

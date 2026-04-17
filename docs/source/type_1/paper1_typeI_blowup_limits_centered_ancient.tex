@@ -1,0 +1,1073 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\divergence}{\operatorname{div}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\esssup}{\operatorname*{ess\,sup}}
+\newcommand{\avg}[1]{\left(#1\right)}
+\newcommand{\B}{B}
+\newcommand{\Q}{Q}
+\newcommand{\calN}{\mathcal N}
+\newcommand{\calE}{\mathcal E}
+\newcommand{\calI}{\mathcal I}
+
+\title[Type I blow-up limits for Navier--Stokes]{Type I Blow-up Limits for the Three-dimensional Navier--Stokes Equations and the Centered Ancient Equation}
+
+\author{}
+\date{}
+
+\subjclass[2020]{35Q30, 35B44, 76D05}
+\keywords{Navier--Stokes equations, Type I singularities, ancient solutions, suitable weak solutions, self-similar variables}
+
+\begin{document}
+
+\begin{abstract}
+We give a detailed reduction from a Type I singular point of a suitable
+Leray--Hopf solution of the three-dimensional incompressible Navier--Stokes
+equations to a bounded ancient suitable weak solution in centered self-similar
+variables.  The construction records the precise scaling, pressure gauges,
+local compactness, local energy stability, and non-triviality normalization
+needed in later Liouville arguments.  The resulting renormalized ancient field
+solves
+\[
+   \partial_\tau V+(V\cdot\nabla)V+\nabla \Pi
+   =\Delta V-\frac12(V+y\cdot\nabla V),\qquad \divergence V=0,
+\]
+on \(\R^3\times\R\), and is uniformly bounded in \(L^\infty_{y,\tau}\).  We
+also observe that this centered equation has no non-trivial positive scaling
+symmetry and is not invariant under constant spatial translations.  Parabolic
+rescalings of the unrenormalized ancient solution appear only as translations
+in the logarithmic time variable.  Thus centered Type I ancient limits are not
+organized by the same-point scale-cascade structure that appears in Type II
+analyses.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let \(u:\R^3\times[0,T)\to\R^3\) solve the incompressible Navier--Stokes
+equations
+\begin{equation}\label{eq:NS}
+   \partial_t u+(u\cdot\nabla)u+\nabla p=\Delta u,\qquad
+   \divergence u=0.
+\end{equation}
+The local regularity theory of Caffarelli--Kohn--Nirenberg
+\cite{CKN1982} shows that singular points are detected by scale-invariant
+concentration of velocity and pressure.  A finite-time singular point
+\(z_*=(x_*,T)\) is said to be of Type I if the scale-invariant \(L^\infty\)
+quantity remains bounded,
+\begin{equation}\label{eq:type-I-bound-intro}
+   \limsup_{t\uparrow T}\sqrt{T-t}\,
+   \|u(t)\|_{L^\infty(\R^3)}<\infty.
+\end{equation}
+For the endpoint compactness argument one also needs the scale-invariant
+energy and pressure quantities at cylinders ending at \(z_*\) to remain
+finite.  We record this as the hypothesis
+\(\calI_*(u,p;z_*)<\infty\).  This is the local compactness formulation of
+Type I used in the partial regularity literature; it is automatic under the
+usual critical Morrey or weak Serrin Type I assumptions, and it is exactly the
+condition needed to pass to a suitable limit up to the terminal slice.
+The purpose of this paper is to isolate the canonical ancient object associated
+with such a singular point.
+
+The parabolic scaling around \(z_*\) is
+\begin{equation}\label{eq:basic-rescaling-intro}
+   u^{(\lambda)}(x,t)
+   =
+   \lambda u(x_*+\lambda x,T+\lambda^2t),\qquad
+   p^{(\lambda)}(x,t)
+   =
+   \lambda^2 p(x_*+\lambda x,T+\lambda^2t).
+\end{equation}
+As \(\lambda\downarrow0\), the time intervals
+\(( -T/\lambda^2,0)\) exhaust \((-\infty,0)\).  The Type I bound becomes
+\[
+   \|u^{(\lambda)}(t)\|_{L^\infty(\R^3)}
+   \lesssim (-t)^{-1/2},
+   \qquad t<0,
+\]
+uniformly on compact subintervals of \((-\infty,0)\).  This gives local
+compactness away from \(t=0\).  After selecting scales carefully, one obtains a
+non-zero ancient suitable weak limit \(U\).
+
+The centered self-similar variables associated with the terminal time are
+\begin{equation}\label{eq:self-sim-vars-intro}
+   y=\frac{x}{\sqrt{-t}},\qquad
+   \tau=-\log(-t),\qquad
+   V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t).
+\end{equation}
+Then \(V\) solves the autonomous equation
+\begin{equation}\label{eq:centered-intro}
+   \partial_\tau V+(V\cdot\nabla)V+\nabla\Pi
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
+   \qquad \divergence V=0.
+\end{equation}
+The drift term in \eqref{eq:centered-intro} is the signature of the Type I
+scaling.  It fixes a scale and center.  Consequently, unlike the original
+Navier--Stokes equations, \eqref{eq:centered-intro} has no non-trivial
+amplitude-space scaling symmetry and no constant translation symmetry in the
+\(y\)-variable.  The remaining symmetry is translation in \(\tau\), which is
+the image of parabolic rescaling before the centered change of variables.  This
+simple point is important: Type I ancient dynamics should not be treated as a
+same-point cascade of rescaled bubbles.
+
+\subsection{Main result}
+
+The following theorem is the main result of the paper.  The non-triviality
+assertion is stated using a scale-selection normalization.  This formulation is
+the one needed for subsequent compactness and Liouville arguments.
+
+\begin{theorem}[Type I blow-up limit and centered ancient equation]
+\label{thm:main}
+Let \((u,p)\) be a suitable Leray--Hopf solution of \eqref{eq:NS} on
+\(\R^3\times(0,T)\).  Assume \(z_*=(x_*,T)\) is a singular point and that
+\eqref{eq:type-I-bound-intro} holds.  Assume in addition that the centered
+endpoint Type I compactness quantity is finite:
+\begin{equation}\label{eq:centered-endpoint-I-main}
+   \calI_*(u,p;z_*)<\infty .
+\end{equation}
+Here \(\calI_*\) is defined in \eqref{eq:centered-I-def}.
+Then there are scales
+\(\lambda_k\downarrow0\), functions of time \(a_k(t)\), and an ancient
+suitable weak solution \((U,P)\) on \(\R^3\times(-\infty,0)\) such that, with
+\[
+   u_k(x,t)=\lambda_k u(x_*+\lambda_k x,T+\lambda_k^2t),
+   \qquad
+   \widetilde p_k(x,t)=\lambda_k^2p(x_*+\lambda_k x,T+\lambda_k^2t),
+   \qquad
+   \pi_k=\widetilde p_k-a_k(t),
+\]
+one has, after passing to a subsequence,
+\[
+   u_k\to U \quad\hbox{strongly in } L^q_{\loc}(\R^3\times(-\infty,0))
+   \quad\hbox{for every }1\le q<\infty,
+\]
+and
+\[
+   \pi_k\rightharpoonup P
+   \quad\hbox{weakly in }L^{3/2}_{\loc}(\R^3\times(-\infty,0)).
+\]
+The limit satisfies
+\begin{equation}\label{eq:ancient-type-I-bound}
+   \|U(t)\|_{L^\infty(\R^3)}
+   \le \frac{M}{\sqrt{-t}},
+   \qquad t<0,
+\end{equation}
+for a finite constant \(M\) depending only on the Type I bound.  Moreover the
+scales may be chosen so that \(U\not\equiv0\).  Equivalently, the
+renormalized field \(V\) defined by \eqref{eq:self-sim-vars-intro} satisfies
+\[
+   \|V\|_{L^\infty(\R^3\times\R)}\le M
+\]
+and
+\begin{equation}\label{eq:main-nonzero-renorm}
+   \sup_{\tau\in\R}\int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge \eta_0
+\end{equation}
+for some \(R_0,\eta_0>0\).  Finally \(V\) is a smooth solution of
+\eqref{eq:centered-intro} on \(\R^3\times\R\).
+\end{theorem}
+
+\begin{proposition}[No Type II cascade symmetry]\label{prop:no-cascade}
+The centered equation \eqref{eq:centered-intro} is autonomous in \(\tau\), but
+it is not invariant under the positive amplitude-space scaling
+\[
+   V(y,\tau)\mapsto \alpha V(\alpha y,\alpha^2\tau)
+\]
+unless \(\alpha=1\).  It is also not invariant under translations
+\[
+   V(y,\tau)\mapsto V(y-a,\tau)
+\]
+unless \(a=0\).  Hence a centered Type I ancient limit does not carry an
+intrinsic same-point scale-cascade structure.
+\end{proposition}
+
+\subsection{Organization}
+
+Section \ref{sec:prelim} fixes notation and recalls suitable weak solutions,
+scale-invariant quantities, and epsilon regularity.  Section
+\ref{sec:bounds} proves uniform bounds for the rescaled sequence.  Section
+\ref{sec:compactness} passes to an ancient suitable weak limit.  Section
+\ref{sec:nontrivial} proves the non-triviality normalization.  Section
+\ref{sec:renorm} derives the centered equation.  Section \ref{sec:symmetry}
+proves \cref{prop:no-cascade}.
+
+\section{Preliminaries}\label{sec:prelim}
+
+We write
+\[
+   Q_r(z_0)=B_r(x_0)\times(t_0-r^2,t_0),
+   \qquad z_0=(x_0,t_0).
+\]
+When \(z_0=(0,0)\) we write \(Q_r=Q_r(0,0)\).  The spatial average of a
+function \(f\) over \(B_r(x_0)\) is denoted by
+\[
+   (f)_{B_r(x_0)}(t)=\frac1{|B_r|}\int_{B_r(x_0)}f(x,t)\,dx.
+\]
+
+\begin{definition}[Terminal singular point]\label{def:terminal-singular}
+Let \((u,p)\) be a suitable weak solution on \(\R^3\times(0,T)\).  A terminal
+point \(z_*=(x_*,T)\) is called regular if there are \(r>0\) and
+\(K<\infty\) such that
+\[
+   \esssup_{Q_r(z_*)}|u|\le K.
+\]
+It is called singular otherwise.
+\end{definition}
+
+\begin{definition}[Suitable Leray--Hopf solution]\label{def:suitable}
+Let \(\Omega\subset \R^3\times\R\) be open.  A pair \((u,p)\) is a suitable
+weak solution of \eqref{eq:NS} in \(\Omega\) if
+\[
+   u\in L^\infty_tL^2_x(\Omega')\cap L^2_t\dot H^1_x(\Omega'),
+   \qquad
+   p\in L^{3/2}(\Omega')
+\]
+for every compact cylinder \(\Omega'\Subset\Omega\), if \((u,p)\) solves
+\eqref{eq:NS} distributionally, \(\divergence u=0\), and if the local energy
+inequality
+\begin{align}\label{eq:lei}
+   &\int_{\R^3}|u(x,t_2)|^2\phi(x,t_2)\,dx
+   +2\int_{t_1}^{t_2}\int_{\R^3}|\nabla u|^2\phi\,dx\,dt  \notag\\
+   &\le
+   \int_{\R^3}|u(x,t_1)|^2\phi(x,t_1)\,dx
+   +\int_{t_1}^{t_2}\int_{\R^3}|u|^2(\partial_t\phi+\Delta\phi)\,dx\,dt
+   \notag\\
+   &\quad
+   +\int_{t_1}^{t_2}\int_{\R^3}(|u|^2+2p)u\cdot\nabla\phi\,dx\,dt
+\end{align}
+holds for every non-negative \(\phi\in C_c^\infty(\Omega)\) and almost every
+\(t_1<t_2\) for which the displayed terms are defined.
+\end{definition}
+
+We use the standard scale-invariant quantities
+\begin{equation}\label{eq:C-D-def}
+   A(u;z_0,r)=r^{-1}\esssup_{t_0-r^2<t<t_0}
+   \int_{B_r(x_0)}|u(x,t)|^2\,dx,
+\end{equation}
+\begin{equation}\label{eq:C-D-def-2}
+   C(u;z_0,r)=r^{-2}\iint_{Q_r(z_0)}|u|^3\,dx\,dt,
+   \qquad
+   D(p;z_0,r)=r^{-2}\iint_{Q_r(z_0)}
+   |p-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt.
+\end{equation}
+\begin{equation}\label{eq:E-I-def}
+   E(u;z_0,r)=r^{-1}\iint_{Q_r(z_0)}|\nabla u|^2\,dx\,dt,
+\end{equation}
+\begin{equation}\label{eq:I-def}
+   \calI(u,p;z_0,r)=
+   A(u;z_0,r)+C(u;z_0,r)+D(p;z_0,r)+E(u;z_0,r).
+\end{equation}
+For a terminal point \(z_*=(x_*,T)\), we write
+\begin{equation}\label{eq:centered-I-def}
+   \calI_*(u,p;z_*)=
+   \sup_{0<r<r_*}\calI(u,p;z_*,r),
+\end{equation}
+where \(r_*>0\) is fixed sufficiently small that the corresponding cylinders
+lie in the spacetime domain under consideration.  Finiteness of
+\(\calI_*(u,p;z_*)\) is independent of decreasing \(r_*\).
+
+\begin{theorem}[Epsilon regularity]\label{thm:eps-reg}
+There exists \(\eps_*>0\) with the following property.  If \((u,p)\) is a
+suitable weak solution in \(Q_r(z_0)\) and
+\[
+   C(u;z_0,r)+D(p;z_0,r)\le \eps_*,
+\]
+then \(u\) is bounded, and hence smooth, in \(Q_{r/2}(z_0)\).
+\end{theorem}
+
+This is the Caffarelli--Kohn--Nirenberg regularity criterion
+\cite{CKN1982}.  We shall use only its contrapositive.
+
+\begin{lemma}[Scaling]\label{lem:scaling}
+Let \((u,p)\) be a suitable weak solution in a neighborhood of
+\((x_*,T)\).  For \(\lambda>0\) set
+\[
+   u^\lambda(x,t)=\lambda u(x_*+\lambda x,T+\lambda^2t),
+   \qquad
+   p^\lambda(x,t)=\lambda^2 p(x_*+\lambda x,T+\lambda^2t).
+\]
+Then \((u^\lambda,p^\lambda)\) is a suitable weak solution on the rescaled
+domain.  Moreover \(A,C,D,E\) in
+\eqref{eq:C-D-def}--\eqref{eq:E-I-def} are invariant under
+this scaling.
+\end{lemma}
+
+\begin{proof}
+The distributional equation and divergence condition are invariant by the
+standard parabolic scaling.  The local energy inequality follows by testing
+\eqref{eq:lei} with the pullback of a non-negative test function under
+\((x,t)\mapsto (x_*+\lambda x,T+\lambda^2t)\).  The powers in
+\eqref{eq:C-D-def}--\eqref{eq:E-I-def}
+are exactly the scale-invariant powers:
+\[
+   |u^\lambda|^3\,dx\,dt
+   =
+   \lambda^3|u|^3\,\lambda^{-3}\lambda^{-2}\,dX\,dS
+   =
+   \lambda^{-2}|u|^3\,dX\,dS,
+\]
+and the prefactor \(r^{-2}\) transforms to \((\lambda r)^{-2}\).  The pressure
+term is identical, since \(|p^\lambda|^{3/2}\,dx\,dt\) scales as
+\(\lambda^{-2}|p|^{3/2}\,dX\,dS\).
+The \(A\)-quantity is invariant because
+\[
+   \int_{B_r}|u^\lambda(x,t)|^2\,dx
+   =
+   \lambda^{-1}\int_{B_{\lambda r}(x_*)}|u(X,S)|^2\,dX,
+\]
+and the factor \(r^{-1}\) becomes \((\lambda r)^{-1}\).  The \(E\)-quantity is
+invariant since \(|\nabla u^\lambda|^2\,dx\,dt\) scales as
+\(\lambda^{-1}|\nabla u|^2\,dX\,dS\).
+\end{proof}
+
+\section{Uniform estimates for the rescaled sequence}\label{sec:bounds}
+
+Let \(M<\infty\) be chosen so that, after decreasing \(T_0<T\) if necessary,
+\begin{equation}\label{eq:type-I-bound}
+   \|u(t)\|_{L^\infty(\R^3)}
+   \le \frac{M}{\sqrt{T-t}},
+   \qquad T_0<t<T.
+\end{equation}
+For a sequence \(\lambda_k\downarrow0\), define
+\begin{equation}\label{eq:rescaled-sequence}
+   u_k(x,t)=\lambda_k u(x_*+\lambda_k x,T+\lambda_k^2t),
+   \qquad
+   p_k(x,t)=\lambda_k^2p(x_*+\lambda_k x,T+\lambda_k^2t).
+\end{equation}
+Then \(u_k\) is defined on
+\[
+   \R^3\times(-T/\lambda_k^2,0),
+\]
+and these domains exhaust \(\R^3\times(-\infty,0)\).
+
+\begin{lemma}[Inherited Type I bound]\label{lem:inherited-bound}
+For every compact interval \(I\Subset(-\infty,0)\),
+\[
+   \sup_k\|u_k\|_{L^\infty(\R^3\times I)}<\infty.
+\]
+More precisely, for every fixed \(t<0\) and all sufficiently large \(k\),
+\[
+   \|u_k(t)\|_{L^\infty(\R^3)}
+   \le \frac{M}{\sqrt{-t}}.
+\]
+\end{lemma}
+
+\begin{proof}
+For \(t<0\),
+\[
+   T-(T+\lambda_k^2t)=\lambda_k^2(-t).
+\]
+Thus \eqref{eq:type-I-bound} gives, for all large \(k\),
+\[
+   \|u_k(t)\|_\infty
+   =
+   \lambda_k \|u(T+\lambda_k^2t)\|_\infty
+   \le
+   \lambda_k\frac{M}{\sqrt{\lambda_k^2(-t)}}
+   =
+   \frac{M}{\sqrt{-t}}.
+\]
+The interval statement follows by taking the supremum over \(t\in I\).
+\end{proof}
+
+\begin{lemma}[Local energy and dissipation]\label{lem:energy-diss}
+Let
+\[
+   Q=B_R\times[-S,-\sigma]\Subset \R^3\times(-\infty,0),
+   \qquad 0<\sigma<S<\infty.
+\]
+Then
+\[
+   \sup_k\|u_k\|_{L^\infty_tL^2_x(Q)}
+   +\sup_k\|\nabla u_k\|_{L^2(Q)}
+   <\infty .
+\]
+\end{lemma}
+
+\begin{proof}
+The \(L^\infty_tL^2_x\) estimate follows immediately from
+\cref{lem:inherited-bound}:
+\[
+   \|u_k(t)\|_{L^2(B_R)}
+   \le |B_R|^{1/2}\frac{M}{\sqrt{\sigma}},
+   \qquad t\in[-S,-\sigma].
+\]
+To estimate \(\nabla u_k\), choose
+\(\phi\in C_c^\infty(B_{2R}\times[-2S,-\sigma/2])\), \(0\le\phi\le1\),
+with \(\phi\equiv1\) on \(Q\).  Apply the local energy inequality to
+\((u_k,p_k-a_k(t))\) with this cutoff.  Subtracting a function of time from
+the pressure does not change the local energy inequality, because
+\[
+   \int_{\R^3} a_k(t)u_k(\cdot,t)\cdot\nabla\phi(\cdot,t)\,dx=0
+\]
+for divergence-free \(u_k\).  The terms containing
+\(\partial_t\phi+\Delta\phi\) and \(\nabla\phi\) are bounded by
+\cref{lem:inherited-bound}, the finite volume of the support, and the pressure
+estimate of \cref{lem:pressure}.  Absorbing no term is necessary, since the
+dissipation appears with a favorable sign.  This yields
+\[
+   \iint_Q|\nabla u_k|^2\,dx\,dt\le C(R,S,\sigma,M).
+\]
+\end{proof}
+
+\begin{lemma}[Pressure gauges and local pressure bounds]\label{lem:pressure}
+For every \(Q=B_R\times[-S,-\sigma]\Subset\R^3\times(-\infty,0)\) there are
+functions \(a_k(t)\) such that
+\[
+   \sup_k\|p_k-a_k(t)\|_{L^{3/2}(Q)}<\infty.
+\]
+\end{lemma}
+
+\begin{proof}
+We use the standard whole-space pressure representative
+\[
+   p=\mathcal R_i\mathcal R_j(u_i u_j),
+\]
+modulo functions of time.  This is admissible for Leray--Hopf solutions in
+\(\R^3\), since \(u(t)\in L^2(\R^3)\cap L^\infty(\R^3)\) for the times under
+consideration.  The rescaled pressure has the same representation with
+\(u_k\).
+
+Fix \(t\in[-S,-\sigma]\).  Decompose in \(B_{2R}\)
+\[
+   p_k=q_k+h_k,
+   \qquad
+   q_k=\mathcal R_i\mathcal R_j\bigl((u_{k,i}u_{k,j})\chi_{B_{4R}}\bigr).
+\]
+Then \(h_k\) is harmonic in \(B_{4R}\).  Calderon--Zygmund boundedness gives
+\[
+   \|q_k(t)\|_{L^{3/2}(B_{2R})}
+   \le C\|u_k(t)\|_{L^3(B_{4R})}^2
+   \le C(R,\sigma,M).
+\]
+It remains to control the harmonic far field modulo a constant.  Let
+\[
+   a_k(t)=h_k(0,t).
+\]
+Let \(K_{ij}\) denote the Calderon--Zygmund kernel of
+\(\mathcal R_i\mathcal R_j\).  For \(x\in B_R\), the kernel estimate
+\[
+   |K_{ij}(x-z)-K_{ij}(-z)|\le C R |z|^{-4},
+   \qquad |z|>4R,
+\]
+implies
+\[
+   |h_k(x,t)-a_k(t)|
+   \le
+   C R\sum_{m=2}^\infty (2^mR)^{-4}
+   \int_{2^mR<|z|<2^{m+1}R}|u_k(z,t)|^2\,dz .
+\]
+By \cref{lem:inherited-bound},
+\[
+   \int_{2^mR<|z|<2^{m+1}R}|u_k(z,t)|^2\,dz
+   \le C M^2\sigma^{-1}(2^mR)^3 .
+\]
+Consequently
+\[
+   \|h_k(t)-a_k(t)\|_{L^\infty(B_R)}
+   \le C(M,\sigma).
+\]
+Combining the near-field and far-field estimates and integrating over the
+finite interval \([-S,-\sigma]\) gives the asserted \(L^{3/2}\) bound.
+\end{proof}
+
+\begin{lemma}[Time derivative bound]\label{lem:time-derivative}
+For every compact cylinder \(Q\Subset\R^3\times(-\infty,0)\), the sequence
+\(\partial_tu_k\) is bounded in
+\[
+   L^{3/2}_tW^{-1,3/2}_x(Q).
+\]
+\end{lemma}
+
+\begin{proof}
+From the equation,
+\[
+   \partial_tu_k
+   =
+   \Delta u_k-\divergence(u_k\otimes u_k)-\nabla p_k.
+\]
+The term \(\Delta u_k\) is bounded in \(L^2_tH^{-1}_x(Q)\) by
+\cref{lem:energy-diss}.  The nonlinear term is bounded in
+\(L^{3/2}_tW^{-1,3/2}_x(Q)\) because \(u_k\) is locally bounded in
+\(L^\infty\) and locally bounded in \(L^2\).  The pressure term is bounded in
+\(L^{3/2}_tW^{-1,3/2}_x(Q)\) by \cref{lem:pressure}.  Since \(Q\) has finite
+measure, these bounds imply the stated one.
+\end{proof}
+
+\begin{proposition}[Compactness]\label{prop:compactness}
+After passing to a subsequence,
+\[
+   u_k\to U
+\]
+strongly in \(L^q_{\loc}(\R^3\times(-\infty,0))\) for every finite \(q\), and
+\[
+   p_k-a_k(t)\rightharpoonup P
+   \quad\hbox{weakly in }L^{3/2}_{\loc}(\R^3\times(-\infty,0)).
+\]
+\end{proposition}
+
+\begin{proof}
+On each compact cylinder \(Q\Subset\R^3\times(-\infty,0)\), the sequence is
+bounded in \(L^2_tH^1_x(Q)\) by \cref{lem:energy-diss}, and its time derivative
+is bounded in \(L^{3/2}_tW^{-1,3/2}_x(Q)\) by \cref{lem:time-derivative}.
+Aubin--Lions--Simon compactness \cite{Simon1987} gives strong compactness in
+\(L^2(Q)\).  The uniform \(L^\infty(Q)\) bound from \cref{lem:inherited-bound}
+upgrades this to strong \(L^q(Q)\) convergence for every finite \(q\).  A
+diagonal argument over compact cylinders gives the local statement.  The
+pressure convergence follows from \cref{lem:pressure}.
+\end{proof}
+
+\section{The ancient suitable weak limit}\label{sec:compactness}
+
+\begin{lemma}[Limit equation]\label{lem:limit-equation}
+The limit \((U,P)\) obtained in \cref{prop:compactness} solves
+\[
+   \partial_tU+(U\cdot\nabla)U+\nabla P=\Delta U,\qquad
+   \divergence U=0
+\]
+in distributions on \(\R^3\times(-\infty,0)\).
+\end{lemma}
+
+\begin{proof}
+Pass to the limit in the weak formulation for \((u_k,p_k-a_k(t))\).  The
+linear terms converge by weak convergence.  The nonlinear term converges
+because \(u_k\to U\) strongly in \(L^2_{\loc}\), hence
+\(u_k\otimes u_k\to U\otimes U\) strongly in \(L^1_{\loc}\).
+\end{proof}
+
+\begin{lemma}[Stability of suitability]\label{lem:suitability}
+The pair \((U,P)\) satisfies the local energy inequality.  Hence it is a
+suitable weak solution on \(\R^3\times(-\infty,0)\).
+\end{lemma}
+
+\begin{proof}
+Let \(\phi\ge0\) be a smooth compactly supported test function in
+\(\R^3\times(-\infty,0)\).  Use the local energy inequality for
+\((u_k,p_k-a_k(t))\).  The terms involving \(|u_k|^2\) and
+\((|u_k|^2+2p_k)u_k\) pass to the limit by the strong local convergence of
+\(u_k\) and the weak \(L^{3/2}\) convergence of the pressure.  The dissipation
+term is lower semicontinuous under weak \(L^2\) convergence of \(\nabla u_k\).
+This gives the local energy inequality for \(U\).
+\end{proof}
+
+\begin{lemma}[Inherited ancient Type I bound]\label{lem:limit-bound}
+For every \(t<0\),
+\[
+   \|U(t)\|_{L^\infty(\R^3)}
+   \le \frac{M}{\sqrt{-t}}
+\]
+in the essential supremum sense.
+\end{lemma}
+
+\begin{proof}
+Fix \(t<0\) which is a Lebesgue time for \(U\).  By
+\cref{lem:inherited-bound}, \(u_k(t)\) is bounded in \(L^\infty\) by
+\(M(-t)^{-1/2}\).  Passing to the weak-star limit in \(L^\infty_{\loc}\) gives
+the same bound locally.  Since the ball is arbitrary, the bound holds on
+\(\R^3\).  The remaining times follow by redefining on a null set or by local
+smoothness away from \(0\).
+\end{proof}
+
+\begin{proposition}[Ancient suitable Type I limit]\label{prop:ancient-limit}
+The pair \((U,P)\) is an ancient suitable weak solution on
+\(\R^3\times(-\infty,0)\) satisfying \eqref{eq:ancient-type-I-bound}.
+\end{proposition}
+
+\begin{proof}
+Combine \cref{lem:limit-equation,lem:suitability,lem:limit-bound}.
+\end{proof}
+
+\section{Non-triviality}\label{sec:nontrivial}
+
+We now choose the scales so that the ancient limit is not zero.  This is the
+only selection step in the proof.  It is useful to separate the standard
+regularity input from the scale selection.
+
+\begin{lemma}[Concentration at a singular point]\label{lem:singular-concentration}
+If \(z_*=(x_*,T)\) is singular, then for every sufficiently small \(r>0\),
+\[
+   C(u;z_*,r)+D(p;z_*,r)\ge \eps_*,
+\]
+where \(\eps_*\) is the constant in \cref{thm:eps-reg}.
+\end{lemma}
+
+\begin{proof}
+If the inequality failed for some sequence \(r_j\downarrow0\), then
+\cref{thm:eps-reg} would imply regularity in \(Q_{r_j/2}(z_*)\) for some
+\(j\), contradicting the singularity of \(z_*\).
+\end{proof}
+
+\begin{lemma}[Endpoint compactness at a centered Type I point]
+\label{lem:endpoint-compactness}
+Assume \(\calI_*(u,p;z_*)<\infty\).  Let \(\lambda_k\downarrow0\), and let
+\((u_k,p_k)\) be the centered rescalings \eqref{eq:rescaled-sequence}.  For
+every \(R<\infty\) there are functions of time \(b_{k,R}(t)\) such that,
+after passing to a subsequence,
+\[
+   u_k\to U
+   \quad\hbox{strongly in }L^3(Q_{R'})
+   \quad\hbox{for every }0<R'<R,
+ \]
+and
+\[
+   p_k-b_{k,R}(t)\rightharpoonup P
+   \quad\hbox{weakly in }L^{3/2}(Q_R).
+ \]
+The limit is suitable in \(Q_R\).  A diagonal subsequence gives this conclusion
+for every finite \(R\).
+\end{lemma}
+
+\begin{proof}
+By the scale invariance in \cref{lem:scaling}, the hypothesis
+\(\calI_*(u,p;z_*)<\infty\) gives, for each fixed \(R\),
+\[
+   \sup_k\left[
+   A(u_k;0,R)+C(u_k;0,R)+D(p_k;0,R)+E(u_k;0,R)
+   \right]<\infty
+\]
+once \(k\) is sufficiently large.  The pressure term is understood after
+subtracting the spatial average on \(B_R\), which is the function \(b_{k,R}\).
+The local energy inequality is invariant under this pressure gauge, since the
+subtracted term is a function of time and \(u_k\) is divergence free.
+
+The standard compactness theorem for suitable weak solutions now applies on
+each \(Q_R\): the \(A\)- and \(E\)-bounds give weak compactness in
+\(L^\infty_tL^2_x\cap L^2_tH^1_x\), the equation gives a time-derivative bound
+in a negative Sobolev space, and Aubin--Lions gives strong convergence in
+\(L^3_{\loc}(Q_R)\).  Covering \(Q_{R'}\), \(R'<R\), by finitely many compactly
+contained cylinders gives strong convergence in \(L^3(Q_{R'})\).  The pressure
+convergence follows from the \(D\)-bound, and suitability passes to the limit
+by lower semicontinuity of the dissipation and strong convergence of the
+velocity in the nonlinear terms.
+\end{proof}
+
+\begin{proposition}[Persistence of terminal singularities]
+\label{prop:persistence}
+Let \((v_k,q_k)\) be suitable weak solutions in \(Q_1\) such that
+\[
+   v_k\to v \quad\hbox{strongly in }L^3(Q_1),
+   \qquad
+   q_k\rightharpoonup q \quad\hbox{weakly in }L^{3/2}(Q_1).
+\]
+Assume also that
+\[
+   \sup_k\left(\|v_k\|_{L^3(Q_1)}+\|q_k\|_{L^{3/2}(Q_1)}\right)<\infty.
+\]
+If
+\[
+   \limsup_{k\to\infty}\|v_k\|_{L^\infty(Q_\rho)}=\infty
+   \qquad\hbox{for every }0<\rho<1,
+\]
+then \(v\) is singular at the terminal point \((0,0)\).
+\end{proposition}
+
+\begin{proof}
+We prove the contrapositive.  Suppose that \(v\) is bounded in \(Q_R\) for
+some \(0<R<1\).  After rescaling and decreasing \(R\), it is enough to work in
+\(Q_1\) and to prove a uniform bound for \(v_k\) in a smaller cylinder.
+
+Let \(\eps>0\).  Since \(v\in L^\infty(Q_1)\), there is \(0<r_0<1/4\) such
+that
+\[
+   r^{-2}\iint_{Q_r}|v|^3\,dx\,dt\le \eps
+   \qquad\hbox{for every }0<r\le r_0.
+\]
+For each fixed \(r\le r_0\), strong \(L^3\)-convergence gives
+\[
+   r^{-2}\iint_{Q_r}|v_k|^3\,dx\,dt\le 2\eps
+\]
+for all sufficiently large \(k\).
+
+It remains to control the pressure oscillation at the same scale.  Choose
+\(\varphi\in C_c^\infty(B_1)\) with \(\varphi\equiv1\) on \(B_{3/4}\), and
+write
+\[
+   q_k=\widetilde q_k+h_k,\qquad
+   \widetilde q_k=(-\Delta)^{-1}\partial_i\partial_j
+   \bigl(\varphi v_{k,i}v_{k,j}\bigr)
+\]
+in \(B_{3/4}\).  Then \(h_k(\cdot,t)\) is harmonic in \(B_{3/4}\).  The
+Calderon--Zygmund estimate gives
+\[
+   r^{-2}\iint_{Q_r}|\widetilde q_k|^{3/2}\,dx\,dt
+   \le
+   C r^{-2}\iint_{Q_r}|v_k|^3\,dx\,dt
+   \le C\eps .
+\]
+The global \(L^{3/2}(Q_1)\)-bounds on \(q_k\) and \(\widetilde q_k\) imply a
+uniform \(L^{3/2}\)-bound on \(h_k\) in \(B_{3/4}\times(-1,0)\).  Interior
+estimates for harmonic functions therefore yield, for \(r\le r_0\),
+\[
+   r^{-2}\iint_{Q_r}
+   |h_k-(h_k)_{B_r}(t)|^{3/2}\,dx\,dt
+   \le C M_0 r,
+\]
+where \(M_0\) is independent of \(k\).  Hence
+\[
+   C(v_k;0,r)+D(q_k;0,r)
+   \le C\eps+C M_0 r
+\]
+for all large \(k\).  Choose first \(\eps\), then \(r\), so that the right-hand
+side is smaller than the CKN threshold \(\eps_*\).  By
+\cref{thm:eps-reg}, the sequence \(v_k\) is uniformly bounded in
+\(Q_{r/2}\).  This contradicts the assumed blow-up of
+\(\|v_k\|_{L^\infty(Q_\rho)}\) for every \(\rho>0\).
+\end{proof}
+
+\begin{lemma}[Scale selection]\label{lem:scale-selection}
+There are scales \(\lambda_k\downarrow0\), radii \(R_0<\infty\), times
+\(-S_0<-\sigma_0<0\), and a number \(c_0>0\) such that the rescaled sequence
+\eqref{eq:rescaled-sequence}, after pressure gauges are fixed as above,
+satisfies
+\begin{equation}\label{eq:selected-lower-bound}
+   \iint_{B_{R_0}\times[-S_0,-\sigma_0]}|u_k|^3\,dx\,dt\ge c_0
+\end{equation}
+for all \(k\).
+\end{lemma}
+
+\begin{proof}
+Since \(z_*\) is singular, \(u\) is not essentially bounded in
+\(Q_\rho(z_*)\) for any \(\rho>0\).  Let \(\{\rho_j\}_{j=1}^\infty\) be a
+dense subset of \((0,1)\).  We choose \(\lambda_k\downarrow0\) inductively so
+that, for \(1\le j\le k\),
+\[
+   \lambda_k \|u\|_{L^\infty(Q_{\rho_j\lambda_k}(z_*))}\ge k.
+\]
+Indeed, at the \(k\)-th step we choose \(\lambda_k\) smaller than the previous
+scale; every cylinder \(Q_{\rho_j\lambda_k}(z_*)\), \(1\le j\le k\), is still
+centered at the singular terminal point and hence has infinite essential
+supremum.  For the centered rescalings
+\eqref{eq:rescaled-sequence}, the preceding condition gives
+\[
+   \|u_k\|_{L^\infty(Q_{\rho_j})}\ge k,
+   \qquad 1\le j\le k.
+\]
+By density and monotonicity of cylinders,
+\[
+   \limsup_{k\to\infty}\|u_k\|_{L^\infty(Q_\rho)}=\infty
+   \qquad\hbox{for every }0<\rho<1.
+\]
+
+By \cref{lem:endpoint-compactness}, after passing to a diagonal subsequence,
+\((u_k,p_k-b_{k,R})\) converges on each \(Q_R\) to a suitable limit \((U,P)\).
+Using the convergence on \(Q_1\) obtained from the endpoint compactness on
+\(Q_2\), \cref{prop:persistence} shows that \(U\) has a terminal singularity
+at \((0,0)\).  In particular \(U\not\equiv0\) on
+\(\R^3\times(-\infty,0)\).  Therefore there is a compact cylinder
+\[
+   B_{R_0}\times[-S_0,-\sigma_0]\Subset\R^3\times(-\infty,0)
+\]
+such that
+\[
+   \iint_{B_{R_0}\times[-S_0,-\sigma_0]}|U|^3\,dx\,dt=2c_0>0.
+\]
+Strong \(L^3\)-convergence on this cylinder gives
+\eqref{eq:selected-lower-bound} for all sufficiently large \(k\).  Discarding
+finitely many indices and relabeling the sequence completes the selection.
+\end{proof}
+
+\begin{remark}\label{rem:selection}
+The scale-selection lemma is the only point at which singularity, rather than
+mere bounded Type I behavior, is used.  It is also the only point where one
+must prevent concentration from disappearing into the terminal slice \(t=0\).
+The lower bound \eqref{eq:selected-lower-bound} is deliberately placed on a
+cylinder compactly contained in \(\{t<0\}\).
+\end{remark}
+
+\begin{proposition}[Nonzero ancient limit]\label{prop:nonzero}
+For the scales chosen in \cref{lem:scale-selection}, the limit \(U\) in
+\cref{prop:ancient-limit} is nonzero.  More precisely,
+\[
+   \iint_{B_{R_0}\times[-S_0,-\sigma_0]}|U|^3\,dx\,dt\ge c_0.
+\]
+\end{proposition}
+
+\begin{proof}
+By \cref{prop:compactness}, \(u_k\to U\) strongly in \(L^3\) on
+\(B_{R_0}\times[-S_0,-\sigma_0]\).  Passing to the limit in
+\eqref{eq:selected-lower-bound} gives the result.
+\end{proof}
+
+\section{Centered self-similar variables}\label{sec:renorm}
+
+The Type I bound makes the following change of variables natural:
+\[
+   y=\frac{x}{\sqrt{-t}},\qquad
+   \tau=-\log(-t),\qquad
+   V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t).
+\]
+Set also
+\[
+   \Pi(y,\tau)=(-t)P(y\sqrt{-t},t),
+\]
+up to addition of a function of \(\tau\).
+
+\begin{lemma}[Renormalized equation]\label{lem:renormalized-equation}
+The pair \((V,\Pi)\) solves
+\[
+   \partial_\tau V+(V\cdot\nabla)V+\nabla\Pi
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
+   \qquad
+   \divergence V=0.
+\]
+\end{lemma}
+
+\begin{proof}
+Write \(s=-t=e^{-\tau}\), \(x=s^{1/2}y\), and
+\[
+   U(x,t)=s^{-1/2}V(y,\tau).
+\]
+Since \(s_t=-1\), \(\tau_t=s^{-1}\), and \(y_t=(2s)^{-1}y\), one computes
+\[
+   \partial_tU
+   =
+   s^{-3/2}\left(\partial_\tau V+\frac12V+\frac12y\cdot\nabla V\right),
+\]
+\[
+   (U\cdot\nabla_x)U=s^{-3/2}(V\cdot\nabla)V,\qquad
+   \Delta_xU=s^{-3/2}\Delta V,\qquad
+   \nabla_xP=s^{-3/2}\nabla\Pi.
+\]
+Substitution in the Navier--Stokes equation for \(U\) gives the displayed
+equation.  The divergence condition is preserved by the spatial scaling.
+\end{proof}
+
+\begin{lemma}[Renormalized boundedness and non-triviality]
+\label{lem:renorm-bounds}
+The field \(V\) satisfies
+\[
+   \|V\|_{L^\infty(\R^3\times\R)}\le M.
+\]
+Moreover there are \(R_1,\eta_1>0\) such that
+\[
+   \sup_{\tau\in\R}\int_{B_{R_1}}|V(y,\tau)|^3\,dy\ge \eta_1.
+\]
+\end{lemma}
+
+\begin{proof}
+The \(L^\infty\) bound follows immediately from \eqref{eq:ancient-type-I-bound}:
+\[
+   |V(y,\tau)|
+   =
+   \sqrt{-t}\,|U(y\sqrt{-t},t)|
+   \le M.
+\]
+For non-triviality, \cref{prop:nonzero} gives positive \(L^3\) mass on a
+compact spacetime cylinder in \((x,t)\).  Under the change of variables
+\((x,t)\mapsto(y,\tau)\), this compact cylinder maps into a bounded
+\(y\)-region and a compact \(\tau\)-interval, with a smooth Jacobian bounded
+above and below.  Hence \(V\) has positive \(L^3\) mass on some
+\(B_{R_1}\times[\tau_1,\tau_2]\).  Consequently at some time
+\(\tau\in[\tau_1,\tau_2]\),
+\[
+   \int_{B_{R_1}}|V(y,\tau)|^3\,dy\ge \eta_1
+\]
+for a positive \(\eta_1\).
+\end{proof}
+
+\begin{lemma}[Smoothness]\label{lem:smoothness}
+The ancient solution \(U\) is smooth on
+\(\R^3\times(-\infty,0)\), and \(V\) is smooth on \(\R^3\times\R\).
+\end{lemma}
+
+\begin{proof}
+On each compact cylinder \(Q\Subset\R^3\times(-\infty,0)\), the bound
+\eqref{eq:ancient-type-I-bound} gives \(U\in L^\infty(Q)\).  Standard Serrin
+regularity and parabolic bootstrapping for the Navier--Stokes equations imply
+smoothness of \(U\) and of the pressure modulo functions of time.  The
+self-similar change of variables is smooth for \(t<0\), so \(V\) is smooth.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:main}]
+The compact ancient limit and the Type I bound are
+\cref{prop:ancient-limit}.  Non-triviality is \cref{prop:nonzero}.  The
+renormalized equation is \cref{lem:renormalized-equation}, and the boundedness
+and renormalized non-triviality are \cref{lem:renorm-bounds}.  Smoothness is
+\cref{lem:smoothness}.
+\end{proof}
+
+\section{Absence of Type II cascade symmetries}\label{sec:symmetry}
+
+\begin{lemma}[Residual logarithmic-time translation]\label{lem:tau-translation}
+If \(V\) solves \eqref{eq:centered-intro}, then for every \(\tau_0\in\R\)
+the function
+\[
+   V_{\tau_0}(y,\tau)=V(y,\tau+\tau_0)
+\]
+also solves \eqref{eq:centered-intro}.  Moreover, if
+\[
+   U^\lambda(x,t)=\lambda U(\lambda x,\lambda^2t)
+\]
+is a parabolic rescaling of the unrenormalized ancient solution, then the
+renormalized field associated with \(U^\lambda\) is
+\[
+   V^\lambda(y,\tau)=V(y,\tau-2\log\lambda).
+\]
+\end{lemma}
+
+\begin{proof}
+The first statement follows because \eqref{eq:centered-intro} is autonomous in
+\(\tau\).  For the second, write \(s=-t=e^{-\tau}\).  Then
+\[
+   \sqrt{s}\,U^\lambda(y\sqrt{s},-s)
+   =
+   \lambda\sqrt{s}\,U(\lambda y\sqrt{s},-\lambda^2s)
+   =
+   V(y,-\log(\lambda^2s))
+   =
+   V(y,\tau-2\log\lambda).
+\]
+\end{proof}
+
+\begin{lemma}[Failure of scaling invariance]\label{lem:no-scaling}
+Let \(V\) solve \eqref{eq:centered-intro}.  For \(\alpha>0\), define
+\[
+   \widetilde V(y,\tau)=\alpha V(\alpha y,\alpha^2\tau).
+\]
+Then \(\widetilde V\) solves the same centered equation only if
+\(\alpha=1\), unless \(V\) is degenerate in the sense that
+\[
+   V+y\cdot\nabla V\equiv0
+\]
+on the support under consideration.
+\end{lemma}
+
+\begin{proof}
+The terms
+\[
+   \partial_\tau V,\qquad (V\cdot\nabla)V,\qquad \nabla\Pi,\qquad \Delta V
+\]
+scale with the common factor \(\alpha^3\), after the pressure is scaled as
+\(\widetilde\Pi=\alpha^2\Pi(\alpha y,\alpha^2\tau)\).  The drift term scales
+as
+\[
+   -\frac12(\widetilde V+y\cdot\nabla\widetilde V)
+   =
+   -\frac{\alpha}{2}
+   \bigl(V+(\alpha y)\cdot\nabla V\bigr)(\alpha y,\alpha^2\tau).
+\]
+Thus the diffusion and transport side scales like \(\alpha^3\), while the
+linear drift scales like \(\alpha\).  Equality for arbitrary nondegenerate
+solutions requires \(\alpha^3=\alpha\).  Since \(\alpha>0\), this gives
+\(\alpha=1\).
+\end{proof}
+
+\begin{lemma}[Failure of translation invariance]\label{lem:no-translation}
+Let \(a\in\R^3\), and define \(\widetilde V(y,\tau)=V(y-a,\tau)\).  If
+\(\widetilde V\) solves the same centered equation whenever \(V\) does, then
+\(a=0\), unless \(a\cdot\nabla V\equiv0\).
+\end{lemma}
+
+\begin{proof}
+All translation-invariant terms in the equation transform in the usual way.
+The drift does not:
+\[
+   y\cdot\nabla\widetilde V(y,\tau)
+   =
+   y\cdot\nabla V(y-a,\tau)
+   =
+   (y-a)\cdot\nabla V(y-a,\tau)
+   +a\cdot\nabla V(y-a,\tau).
+\]
+The extra term \(a\cdot\nabla V(y-a,\tau)\) is absent from the original
+equation.  Hence translation invariance fails unless \(a=0\) or the solution
+is degenerate in the indicated direction.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:no-cascade}]
+\Cref{lem:tau-translation} identifies the residual action of the original
+parabolic scaling: it is translation in logarithmic time.  \Cref{lem:no-scaling}
+rules out an additional non-trivial amplitude-space scaling symmetry, and
+\cref{lem:no-translation} records that constant spatial recentering is not a
+symmetry of the fixed centered equation.  Therefore multi-scale features of a
+bounded ancient profile, if present, are features of one profile evolving in
+\(\tau\), rather than an orbit generated by successive Type II recentering and
+rescaling at smaller physical scales.
+\end{proof}
+
+\begin{thebibliography}{99}
+
+\bibitem{Aubin1963}
+J.-P. Aubin,
+\emph{Un theoreme de compacite},
+C. R. Acad. Sci. Paris \textbf{256} (1963), 5042--5044.
+
+\bibitem{CKN1982}
+L. Caffarelli, R. Kohn, and L. Nirenberg,
+\emph{Partial regularity of suitable weak solutions of the Navier--Stokes equations},
+Comm. Pure Appl. Math. \textbf{35} (1982), no. 6, 771--831.
+
+\bibitem{ESS2003}
+L. Escauriaza, G. Seregin, and V. \v{S}verak,
+\emph{\(L_{3,\infty}\)-solutions of Navier--Stokes equations and backward uniqueness},
+Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250.
+
+\bibitem{Leray1934}
+J. Leray,
+\emph{Sur le mouvement d'un liquide visqueux emplissant l'espace},
+Acta Math. \textbf{63} (1934), 193--248.
+
+\bibitem{LionsMagenes}
+J.-L. Lions and E. Magenes,
+\emph{Non-homogeneous boundary value problems and applications. Vol. I},
+Springer-Verlag, 1972.
+
+\bibitem{Seregin2012}
+G. Seregin,
+\emph{A certain necessary condition of potential blow up for Navier--Stokes equations},
+Comm. Math. Phys. \textbf{312} (2012), no. 3, 833--845.
+
+\bibitem{Simon1987}
+J. Simon,
+\emph{Compact sets in the space \(L^p(0,T;B)\)},
+Ann. Mat. Pura Appl. (4) \textbf{146} (1987), 65--96.
+
+\bibitem{Sohr2001}
+H. Sohr,
+\emph{The Navier--Stokes equations. An elementary functional analytic approach},
+Birkhauser, 2001.
+
+\bibitem{Stein1970}
+E. M. Stein,
+\emph{Singular integrals and differentiability properties of functions},
+Princeton University Press, 1970.
+
+\end{thebibliography}
+
+\end{document}

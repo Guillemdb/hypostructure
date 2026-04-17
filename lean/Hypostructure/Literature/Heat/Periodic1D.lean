@@ -1,5 +1,7 @@
 import Hypostructure.Backends.Burgers1D.GroundTruthHeat
 import Hypostructure.Literature.Analysis.PeriodicPoincare1D
+import Mathlib.Analysis.Calculus.SmoothSeries
+import Mathlib.NumberTheory.ModularForms.JacobiTheta.TwoVariable
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Tactic
 
@@ -8,7 +10,9 @@ namespace Hypostructure.Literature.Heat.Periodic1D
 open Hypostructure.Backends.Burgers1D
 open Hypostructure.Literature.Analysis.PeriodicPoincare1D
 open MeasureTheory
+open Filter
 open scoped ENNReal
+open scoped Topology
 
 noncomputable section
 
@@ -144,6 +148,76 @@ theorem periodicHeat1D_modeMultiplier_add_time
   unfold periodicHeat1D_modeMultiplier
   rw [periodicHeat1D_modeExponent_add_time, Real.exp_add]
 
+theorem periodicHeat1D_modeMultiplier_mul_neg_time
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_modeMultiplier nu t n *
+      periodicHeat1D_modeMultiplier nu (-t) n = 1 := by
+  have h := periodicHeat1D_modeMultiplier_add_time nu t (-t) n
+  have hzero : t + -t = 0 := by ring
+  rw [hzero, periodicHeat1D_modeMultiplier_zero_time] at h
+  exact h.symm
+
+theorem periodicHeat1D_modeMultiplier_complex_mul_neg_time
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (n : ℤ) :
+    (periodicHeat1D_modeMultiplier nu t n : ℂ) *
+      (periodicHeat1D_modeMultiplier nu (-t) n : ℂ) = 1 := by
+  have hreal := periodicHeat1D_modeMultiplier_mul_neg_time nu t n
+  exact_mod_cast hreal
+
+theorem periodicHeat1D_modeFrequency_neg
+    (n : ℤ) :
+    periodicHeat1D_modeFrequency (-n) = periodicHeat1D_modeFrequency n := by
+  simp [periodicHeat1D_modeFrequency]
+
+theorem periodicHeat1D_modeMultiplier_neg
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_modeMultiplier nu t (-n) =
+      periodicHeat1D_modeMultiplier nu t n := by
+  simp [periodicHeat1D_modeMultiplier, periodicHeat1D_modeExponent,
+    periodicHeat1D_modeFrequency]
+
+theorem periodicHeat1D_modeExponent_hasDerivAt
+    (nu : BurgersParameters)
+    (n : ℤ)
+    (t : ℝ) :
+    HasDerivAt (fun s : ℝ => periodicHeat1D_modeExponent nu s n)
+      (-(nu.viscosity * periodicHeat1D_modeFrequency n)) t := by
+  unfold periodicHeat1D_modeExponent
+  simpa using
+    (hasDerivAt_const
+      (x := t) (c := -(nu.viscosity * periodicHeat1D_modeFrequency n))).mul
+      (hasDerivAt_id t)
+
+theorem periodicHeat1D_modeMultiplier_hasDerivAt
+    (nu : BurgersParameters)
+    (n : ℤ)
+    (t : ℝ) :
+    HasDerivAt (fun s : ℝ => periodicHeat1D_modeMultiplier nu s n)
+      (-(nu.viscosity * periodicHeat1D_modeFrequency n) *
+        periodicHeat1D_modeMultiplier nu t n) t := by
+  have hExp := periodicHeat1D_modeExponent_hasDerivAt nu n t
+  simpa [periodicHeat1D_modeMultiplier, mul_comm] using hExp.exp
+
+theorem periodicHeat1D_modeMultiplier_anti_mono_time
+    (nu : BurgersParameters)
+    (n : ℤ)
+    {s t : ℝ}
+    (hst : s ≤ t) :
+    periodicHeat1D_modeMultiplier nu t n ≤
+      periodicHeat1D_modeMultiplier nu s n := by
+  unfold periodicHeat1D_modeMultiplier periodicHeat1D_modeExponent
+  apply Real.exp_le_exp.mpr
+  have hnonneg : 0 ≤ nu.viscosity * periodicHeat1D_modeFrequency n := by
+    exact mul_nonneg (le_of_lt nu.viscosity_pos)
+      (periodicHeat1D_modeFrequency_nonneg n)
+  nlinarith
+
 /-- Mathlib-dischargeable Fourier multiplier layer for the periodic heat
 equation. This is not yet the full heat semigroup construction on `H¹`; it is
 the reusable mode-level theory needed for the contraction and semigroup parts
@@ -255,6 +329,40 @@ theorem periodicHeat1D_evolvedDerivativeFourierCoeff_zero_time
   simp [periodicHeat1D_evolvedDerivativeFourierCoeff,
     periodicHeat1D_modeMultiplier_zero_time]
 
+theorem periodicHeat1D_evolvedValueFourierCoeff_neg_eq_star
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedValueFourierCoeff nu u0 t (-n) =
+      star (periodicHeat1D_evolvedValueFourierCoeff nu u0 t n) := by
+  calc
+    periodicHeat1D_evolvedValueFourierCoeff nu u0 t (-n)
+        = (periodicHeat1D_modeMultiplier nu t n : ℂ) *
+            star (periodicH1_valueFourierCoeff u0 n) := by
+          simp [periodicHeat1D_evolvedValueFourierCoeff,
+            periodicHeat1D_modeMultiplier_neg,
+            periodicH1_valueFourierCoeff_neg_eq_star]
+    _ = star (periodicHeat1D_evolvedValueFourierCoeff nu u0 t n) := by
+          simp [periodicHeat1D_evolvedValueFourierCoeff]
+
+theorem periodicHeat1D_evolvedDerivativeFourierCoeff_neg_eq_star
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t (-n) =
+      star (periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n) := by
+  calc
+    periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t (-n)
+        = (periodicHeat1D_modeMultiplier nu t n : ℂ) *
+            star (periodicH1_derivativeFourierCoeff u0 n) := by
+          simp [periodicHeat1D_evolvedDerivativeFourierCoeff,
+            periodicHeat1D_modeMultiplier_neg,
+            periodicH1_derivativeFourierCoeff_neg_eq_star]
+    _ = star (periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n) := by
+          simp [periodicHeat1D_evolvedDerivativeFourierCoeff]
+
 theorem periodicHeat1D_evolvedValueFourierCoeff_add_time
     (nu : BurgersParameters)
     (u0 : PeriodicH1State)
@@ -289,6 +397,20 @@ theorem periodicHeat1D_evolvedDerivativeFourierCoeff_compatible
   dsimp [periodicHeat1D_evolvedDerivativeFourierCoeff,
     periodicHeat1D_evolvedValueFourierCoeff]
   rw [periodicH1_weakDerivative_fourierCoeff_literature u0 hu0 n]
+  ring
+
+theorem periodicHeat1D_evolvedDerivativeFourierCoeff_compatible_allModes
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n =
+      (2 * Real.pi * Complex.I * (n : ℂ)) *
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n := by
+  dsimp [periodicHeat1D_evolvedDerivativeFourierCoeff,
+    periodicHeat1D_evolvedValueFourierCoeff]
+  rw [periodicH1_weakDerivative_fourierCoeff_allModes_literature u0 hu0 n]
   ring
 
 theorem periodicHeat1D_evolvedValueModeEnergy_nonneg
@@ -491,6 +613,64 @@ abbrev PeriodicHeat1DFourierCoeffL2 := lp (fun _ : ℤ => ℂ) (2 : ℝ≥0∞)
 
 /-- The `L²` heat state reconstructed directly from Fourier coefficients. -/
 abbrev PeriodicHeat1DL2State := Lp ℂ 2 (AddCircle.haarAddCircle (T := (1 : ℝ)))
+
+/-- Coefficient recovery for an `L²` Fourier series over mathlib's periodic
+Hilbert basis.
+
+This is the reusable Hilbert-space fact behind the later continuous-series
+coefficient recovery: if an `L²` state is the Hilbert-basis sum with
+coefficients `a`, then its `m`th Fourier coefficient is exactly `a m`. -/
+theorem periodicHeat1D_l2FourierSeries_fourierCoeff
+    (a : ℤ → ℂ)
+    (f : PeriodicHeat1DL2State)
+    (h : HasSum
+      (fun n : ℤ => a n • (fourierLp (T := (1 : ℝ)) 2 n)) f)
+    (m : ℤ) :
+    fourierCoeff f m = a m := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  have hinner : HasSum
+      (fun n : ℤ =>
+        inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m)
+          (a n • (fourierLp (T := (1 : ℝ)) 2 n)))
+      (inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m) f) := by
+    exact (innerSL ℂ (fourierLp (T := (1 : ℝ)) 2 m)).hasSum h
+  have hterm :
+      (fun n : ℤ =>
+        inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m)
+          (a n • (fourierLp (T := (1 : ℝ)) 2 n))) =
+        fun n : ℤ => if n = m then a m else 0 := by
+    funext n
+    calc
+      inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m)
+          (a n • (fourierLp (T := (1 : ℝ)) 2 n))
+          = a n * inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m)
+              (fourierLp (T := (1 : ℝ)) 2 n) := by
+            rw [inner_smul_right]
+      _ = a n * (if m = n then 1 else 0) := by
+            have horth := orthonormal_fourier (T := (1 : ℝ))
+            rw [orthonormal_iff_ite.mp horth m n]
+      _ = (if n = m then a m else 0) := by
+            by_cases hnm : n = m
+            · subst hnm
+              simp
+            · have hmn : m ≠ n := fun h => hnm h.symm
+              simp [hnm, hmn]
+  have hsingle : HasSum (fun n : ℤ => if n = m then a m else 0) (a m) := by
+    simpa [eq_comm] using hasSum_ite_eq m (a m)
+  have hcoord : inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m) f = a m := by
+    exact (hinner.congr_fun (by intro n; exact (congrFun hterm n).symm)).unique
+      hsingle
+  have hB : (fourierBasis (T := (1 : ℝ)) m : PeriodicHeat1DL2State) =
+      fourierLp (T := (1 : ℝ)) 2 m := by
+    rw [← coe_fourierBasis (T := (1 : ℝ))]
+  calc
+    fourierCoeff f m = fourierBasis.repr f m := by
+      exact (fourierBasis_repr f m).symm
+    _ = inner (𝕜 := ℂ) (fourierBasis (T := (1 : ℝ)) m) f := by
+      rw [HilbertBasis.repr_apply_apply]
+    _ = inner (𝕜 := ℂ) (fourierLp (T := (1 : ℝ)) 2 m) f := by
+      rw [hB]
+    _ = a m := hcoord
 
 /-- Fourier/Sobolev `H¹` carrier for the periodic heat backend.
 
@@ -907,6 +1087,1530 @@ def periodicHeat1D_fourierH1ReconstructionTheory_literature :
   value_contraction := periodicHeat1D_reconstructedFourierH1_energy_le_initial
   derivative_contraction := periodicHeat1D_reconstructedFourierH1_derivativeEnergy_le_initial
 
+/-- General integer Gaussian summability used by the positive-time heat
+smoothing layer. This is a direct mathlib theorem via the Jacobi theta
+summability bound, specialized to the one-dimensional integer lattice. -/
+theorem periodicHeat1D_intPolynomialGaussian_summable
+    (k : ℕ)
+    {r : ℝ}
+    (hr : 0 < r) :
+    Summable
+      (fun n : ℤ =>
+        ((n.natAbs : ℝ) ^ k) * Real.exp (-r * ((n : ℝ) ^ (2 : ℕ)))) := by
+  have hT : 0 < r / Real.pi := div_pos hr Real.pi_pos
+  have h := summable_pow_mul_jacobiTheta₂_term_bound 0 hT k
+  convert h using 1
+  · ext n
+    simp only [Nat.cast_natAbs]
+    congr 1
+    ring_nf
+    field_simp [Real.pi_ne_zero]
+
+theorem periodicHeat1D_modeMultiplier_polynomial_summable
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable
+      (fun n : ℤ =>
+        ((n.natAbs : ℝ) ^ k) * periodicHeat1D_modeMultiplier nu t n) := by
+  let r : ℝ := nu.viscosity * t * (2 * Real.pi) ^ (2 : ℕ)
+  have hr : 0 < r := by
+    dsimp [r]
+    exact mul_pos (mul_pos nu.viscosity_pos ht)
+      (sq_pos_of_ne_zero (mul_ne_zero (by norm_num) Real.pi_ne_zero))
+  have hgauss := periodicHeat1D_intPolynomialGaussian_summable k hr
+  convert hgauss using 1
+  · ext n
+    congr 1
+    simp [periodicHeat1D_modeMultiplier, periodicHeat1D_modeExponent,
+      periodicHeat1D_modeFrequency, r]
+    ring
+
+def periodicHeat1D_weightedHeatMultiplierEnergy
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) : ℝ :=
+  ((n.natAbs : ℝ) ^ k) *
+    (periodicHeat1D_modeMultiplier nu t n) ^ (2 : ℕ)
+
+theorem periodicHeat1D_weightedHeatMultiplierEnergy_nonneg
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    0 ≤ periodicHeat1D_weightedHeatMultiplierEnergy nu t k n := by
+  exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _)
+    (sq_nonneg _)
+
+theorem periodicHeat1D_weightedHeatMultiplierEnergy_summable
+    (nu : BurgersParameters)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable (periodicHeat1D_weightedHeatMultiplierEnergy nu t k) := by
+  have h2t : 0 < t + t := add_pos ht ht
+  have h :=
+    periodicHeat1D_modeMultiplier_polynomial_summable nu (t + t) h2t k
+  convert h using 1
+  · ext n
+    simp [periodicHeat1D_weightedHeatMultiplierEnergy,
+      periodicHeat1D_modeMultiplier_add_time, pow_two]
+
+theorem periodicHeat1D_summable_mul_of_summable_nonneg
+    {ι : Type*}
+    {f g : ι → ℝ}
+    (hf : Summable f)
+    (hf_nonneg : ∀ i, 0 ≤ f i)
+    (hg : Summable g)
+    (hg_nonneg : ∀ i, 0 ≤ g i) :
+    Summable (fun i => f i * g i) := by
+  refine Summable.of_nonneg_of_le ?_ ?_ (hf.mul_right (∑' i, g i))
+  · intro i
+    exact mul_nonneg (hf_nonneg i) (hg_nonneg i)
+  · intro i
+    have hg_bound : g i ≤ ∑' i, g i :=
+      le_tsum hg i (by intro j _hj; exact hg_nonneg j)
+    exact mul_le_mul_of_nonneg_left hg_bound (hf_nonneg i)
+
+def periodicHeat1D_weightedEvolvedValueModeEnergy
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) : ℝ :=
+  ((n.natAbs : ℝ) ^ k) *
+    periodicHeat1D_evolvedValueModeEnergy nu u0 t n
+
+def periodicHeat1D_weightedEvolvedDerivativeModeEnergy
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) : ℝ :=
+  ((n.natAbs : ℝ) ^ k) *
+    periodicHeat1D_evolvedDerivativeModeEnergy nu u0 t n
+
+theorem periodicHeat1D_weightedEvolvedValueModeEnergy_nonneg
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    0 ≤ periodicHeat1D_weightedEvolvedValueModeEnergy nu u0 t k n := by
+  exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _)
+    (periodicHeat1D_evolvedValueModeEnergy_nonneg nu u0 t n)
+
+theorem periodicHeat1D_weightedEvolvedDerivativeModeEnergy_nonneg
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    0 ≤ periodicHeat1D_weightedEvolvedDerivativeModeEnergy nu u0 t k n := by
+  exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _)
+    (periodicHeat1D_evolvedDerivativeModeEnergy_nonneg nu u0 t n)
+
+theorem periodicH1_valueModeEnergy_nonneg
+    (u : PeriodicH1State)
+    (n : ℤ) :
+    0 ≤ periodicH1_valueModeEnergy u n := by
+  exact sq_nonneg _
+
+theorem periodicH1_derivativeModeEnergy_nonneg
+    (u : PeriodicH1State)
+    (n : ℤ) :
+    0 ≤ periodicH1_derivativeModeEnergy u n := by
+  exact sq_nonneg _
+
+theorem periodicHeat1D_weightedEvolvedValueModeEnergy_eq_multiplier_mul_initial
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    periodicHeat1D_weightedEvolvedValueModeEnergy nu u0 t k n =
+      periodicHeat1D_weightedHeatMultiplierEnergy nu t k n *
+        periodicH1_valueModeEnergy u0 n := by
+  simp [periodicHeat1D_weightedEvolvedValueModeEnergy,
+    periodicHeat1D_weightedHeatMultiplierEnergy,
+    periodicHeat1D_evolvedValueModeEnergy,
+    periodicHeat1D_evolvedValueFourierCoeff,
+    periodicH1_valueModeEnergy,
+    periodicHeat1D_realScalar_complex_norm_sq]
+  rw [abs_of_nonneg (periodicHeat1D_modeMultiplier_nonneg nu t n)]
+  ring
+
+theorem periodicHeat1D_weightedEvolvedDerivativeModeEnergy_eq_multiplier_mul_initial
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    periodicHeat1D_weightedEvolvedDerivativeModeEnergy nu u0 t k n =
+      periodicHeat1D_weightedHeatMultiplierEnergy nu t k n *
+        periodicH1_derivativeModeEnergy u0 n := by
+  simp [periodicHeat1D_weightedEvolvedDerivativeModeEnergy,
+    periodicHeat1D_weightedHeatMultiplierEnergy,
+    periodicHeat1D_evolvedDerivativeModeEnergy,
+    periodicHeat1D_evolvedDerivativeFourierCoeff,
+    periodicH1_derivativeModeEnergy,
+    periodicHeat1D_realScalar_complex_norm_sq]
+  rw [abs_of_nonneg (periodicHeat1D_modeMultiplier_nonneg nu t n)]
+  ring
+
+theorem periodicHeat1D_weightedEvolvedValueModeEnergy_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable (periodicHeat1D_weightedEvolvedValueModeEnergy nu u0 t k) := by
+  have hprod :
+      Summable
+        (fun n : ℤ =>
+          periodicHeat1D_weightedHeatMultiplierEnergy nu t k n *
+            periodicH1_valueModeEnergy u0 n) :=
+    periodicHeat1D_summable_mul_of_summable_nonneg
+      (periodicHeat1D_weightedHeatMultiplierEnergy_summable nu t ht k)
+      (periodicHeat1D_weightedHeatMultiplierEnergy_nonneg nu t k)
+      (periodicH1_valueModeEnergy_summable_literature u0 hu0)
+      (periodicH1_valueModeEnergy_nonneg u0)
+  convert hprod using 1
+  · ext n
+    exact periodicHeat1D_weightedEvolvedValueModeEnergy_eq_multiplier_mul_initial
+      nu u0 t k n
+
+theorem periodicHeat1D_weightedEvolvedDerivativeModeEnergy_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable (periodicHeat1D_weightedEvolvedDerivativeModeEnergy nu u0 t k) := by
+  have hprod :
+      Summable
+        (fun n : ℤ =>
+          periodicHeat1D_weightedHeatMultiplierEnergy nu t k n *
+            periodicH1_derivativeModeEnergy u0 n) :=
+    periodicHeat1D_summable_mul_of_summable_nonneg
+      (periodicHeat1D_weightedHeatMultiplierEnergy_summable nu t ht k)
+      (periodicHeat1D_weightedHeatMultiplierEnergy_nonneg nu t k)
+      (periodicH1_derivativeModeEnergy_summable_literature u0 hu0)
+      (periodicH1_derivativeModeEnergy_nonneg u0)
+  convert hprod using 1
+  · ext n
+    exact periodicHeat1D_weightedEvolvedDerivativeModeEnergy_eq_multiplier_mul_initial
+      nu u0 t k n
+
+def periodicHeat1D_weightedEvolvedValueFourierCoeffNorm
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) : ℝ :=
+  ((n.natAbs : ℝ) ^ k) *
+    ‖periodicHeat1D_evolvedValueFourierCoeff nu u0 t n‖
+
+def periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) : ℝ :=
+  ((n.natAbs : ℝ) ^ k) *
+    ‖periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n‖
+
+theorem periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_nonneg
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    0 ≤ periodicHeat1D_weightedEvolvedValueFourierCoeffNorm nu u0 t k n := by
+  exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _) (norm_nonneg _)
+
+theorem periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_nonneg
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    0 ≤ periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm nu u0 t k n := by
+  exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _) (norm_nonneg _)
+
+theorem periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_le_quadratic
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    periodicHeat1D_weightedEvolvedValueFourierCoeffNorm nu u0 t k n ≤
+      (periodicHeat1D_weightedHeatMultiplierEnergy nu t (2 * k) n +
+        periodicH1_valueModeEnergy u0 n) / 2 := by
+  unfold periodicHeat1D_weightedEvolvedValueFourierCoeffNorm
+    periodicHeat1D_weightedHeatMultiplierEnergy periodicH1_valueModeEnergy
+  dsimp [periodicHeat1D_evolvedValueFourierCoeff]
+  rw [Complex.abs.map_mul, Complex.abs_ofReal,
+    abs_of_nonneg (periodicHeat1D_modeMultiplier_nonneg nu t n)]
+  rw [show (n.natAbs : ℝ) ^ (2 * k) =
+      ((n.natAbs : ℝ) ^ k) ^ (2 : ℕ) by
+    rw [← pow_mul]
+    congr 1
+    exact Nat.mul_comm 2 k]
+  set w : ℝ := (n.natAbs : ℝ) ^ k
+  set m : ℝ := periodicHeat1D_modeMultiplier nu t n
+  set a : ℝ := ‖periodicH1_valueFourierCoeff u0 n‖
+  change w * (m * a) ≤ (w ^ (2 : ℕ) * m ^ (2 : ℕ) + a ^ (2 : ℕ)) / 2
+  have hineq : 2 * (w * m) * a ≤ (w * m) ^ (2 : ℕ) + a ^ (2 : ℕ) := by
+    nlinarith [sq_nonneg (w * m - a)]
+  nlinarith [hineq]
+
+theorem periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_le_quadratic
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm nu u0 t k n ≤
+      (periodicHeat1D_weightedHeatMultiplierEnergy nu t (2 * k) n +
+        periodicH1_derivativeModeEnergy u0 n) / 2 := by
+  unfold periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm
+    periodicHeat1D_weightedHeatMultiplierEnergy periodicH1_derivativeModeEnergy
+  dsimp [periodicHeat1D_evolvedDerivativeFourierCoeff]
+  rw [Complex.abs.map_mul, Complex.abs_ofReal,
+    abs_of_nonneg (periodicHeat1D_modeMultiplier_nonneg nu t n)]
+  rw [show (n.natAbs : ℝ) ^ (2 * k) =
+      ((n.natAbs : ℝ) ^ k) ^ (2 : ℕ) by
+    rw [← pow_mul]
+    congr 1
+    exact Nat.mul_comm 2 k]
+  set w : ℝ := (n.natAbs : ℝ) ^ k
+  set m : ℝ := periodicHeat1D_modeMultiplier nu t n
+  set a : ℝ := ‖periodicH1_derivativeFourierCoeff u0 n‖
+  change w * (m * a) ≤ (w ^ (2 : ℕ) * m ^ (2 : ℕ) + a ^ (2 : ℕ)) / 2
+  have hineq : 2 * (w * m) * a ≤ (w * m) ^ (2 : ℕ) + a ^ (2 : ℕ) := by
+    nlinarith [sq_nonneg (w * m - a)]
+  nlinarith [hineq]
+
+theorem periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable (periodicHeat1D_weightedEvolvedValueFourierCoeffNorm nu u0 t k) := by
+  have hmajor :
+      Summable
+        (fun n : ℤ =>
+          (periodicHeat1D_weightedHeatMultiplierEnergy nu t (2 * k) n +
+            periodicH1_valueModeEnergy u0 n) / 2) := by
+    simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using
+      ((periodicHeat1D_weightedHeatMultiplierEnergy_summable nu t ht (2 * k)).add
+        (periodicH1_valueModeEnergy_summable_literature u0 hu0)).mul_right (2 : ℝ)⁻¹
+  exact Summable.of_nonneg_of_le
+    (periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_nonneg nu u0 t k)
+    (periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_le_quadratic nu u0 t k)
+    hmajor
+
+theorem periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable (periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm nu u0 t k) := by
+  have hmajor :
+      Summable
+        (fun n : ℤ =>
+          (periodicHeat1D_weightedHeatMultiplierEnergy nu t (2 * k) n +
+            periodicH1_derivativeModeEnergy u0 n) / 2) := by
+    simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using
+      ((periodicHeat1D_weightedHeatMultiplierEnergy_summable nu t ht (2 * k)).add
+        (periodicH1_derivativeModeEnergy_summable_literature u0 hu0)).mul_right (2 : ℝ)⁻¹
+  exact Summable.of_nonneg_of_le
+    (periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_nonneg nu u0 t k)
+    (periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_le_quadratic nu u0 t k)
+    hmajor
+
+theorem periodicHeat1D_evolvedValueFourierCoeff_norm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    Summable (fun n : ℤ => ‖periodicHeat1D_evolvedValueFourierCoeff nu u0 t n‖) := by
+  convert periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_summable
+      nu u0 hu0 t ht 0 using 1
+  ext n
+  simp [periodicHeat1D_weightedEvolvedValueFourierCoeffNorm]
+
+theorem periodicHeat1D_evolvedDerivativeFourierCoeff_norm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    Summable (fun n : ℤ => ‖periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n‖) := by
+  convert periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_summable
+      nu u0 hu0 t ht 0 using 1
+  ext n
+  simp [periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm]
+
+theorem periodicHeat1D_evolvedValueFourierCoeff_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    Summable (periodicHeat1D_evolvedValueFourierCoeff nu u0 t) :=
+  (periodicHeat1D_evolvedValueFourierCoeff_norm_summable
+    nu u0 hu0 t ht).of_norm
+
+theorem periodicHeat1D_evolvedDerivativeFourierCoeff_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    Summable (periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t) :=
+  (periodicHeat1D_evolvedDerivativeFourierCoeff_norm_summable
+    nu u0 hu0 t ht).of_norm
+
+theorem periodicHeat1D_valueFourierContinuousTerm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    Summable
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n •
+          (fourier n : C(BurgersTorus, ℂ))) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  refine Summable.of_norm_bounded
+    (fun n : ℤ => ‖periodicHeat1D_evolvedValueFourierCoeff nu u0 t n‖)
+    (periodicHeat1D_evolvedValueFourierCoeff_norm_summable nu u0 hu0 t ht)
+    ?_
+  intro n
+  rw [norm_smul, fourier_norm]
+  simp
+
+theorem periodicHeat1D_derivativeFourierContinuousTerm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    Summable
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n •
+          (fourier n : C(BurgersTorus, ℂ))) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  refine Summable.of_norm_bounded
+    (fun n : ℤ => ‖periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n‖)
+    (periodicHeat1D_evolvedDerivativeFourierCoeff_norm_summable nu u0 hu0 t ht)
+    ?_
+  intro n
+  rw [norm_smul, fourier_norm]
+  simp
+
+def periodicHeat1D_continuousValueFourierSeries
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ) : C(BurgersTorus, ℂ) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  exact ∑' n : ℤ,
+    periodicHeat1D_evolvedValueFourierCoeff nu u0 t n •
+      (fourier n : C(BurgersTorus, ℂ))
+
+def periodicHeat1D_continuousDerivativeFourierSeries
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ) : C(BurgersTorus, ℂ) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  exact ∑' n : ℤ,
+    periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n •
+      (fourier n : C(BurgersTorus, ℂ))
+
+theorem periodicHeat1D_continuousValueFourierSeries_hasSum
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n •
+          (fourier n : C(BurgersTorus, ℂ)))
+      (periodicHeat1D_continuousValueFourierSeries nu u0 t) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  simpa [periodicHeat1D_continuousValueFourierSeries] using
+    (periodicHeat1D_valueFourierContinuousTerm_summable
+      nu u0 hu0 t ht).hasSum
+
+theorem periodicHeat1D_continuousDerivativeFourierSeries_hasSum
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n •
+          (fourier n : C(BurgersTorus, ℂ)))
+      (periodicHeat1D_continuousDerivativeFourierSeries nu u0 t) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  simpa [periodicHeat1D_continuousDerivativeFourierSeries] using
+    (periodicHeat1D_derivativeFourierContinuousTerm_summable
+      nu u0 hu0 t ht).hasSum
+
+theorem periodicHeat1D_continuousValueFourierSeries_pointwise_hasSum
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (x : BurgersTorus) :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n * fourier n x)
+      (periodicHeat1D_continuousValueFourierSeries nu u0 t x) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  simpa [smul_eq_mul] using
+    (ContinuousMap.evalCLM ℂ x).hasSum
+      (periodicHeat1D_continuousValueFourierSeries_hasSum nu u0 hu0 t ht)
+
+theorem periodicHeat1D_continuousDerivativeFourierSeries_pointwise_hasSum
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (x : BurgersTorus) :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n * fourier n x)
+      (periodicHeat1D_continuousDerivativeFourierSeries nu u0 t x) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  simpa [smul_eq_mul] using
+    (ContinuousMap.evalCLM ℂ x).hasSum
+      (periodicHeat1D_continuousDerivativeFourierSeries_hasSum nu u0 hu0 t ht)
+
+def periodicHeat1D_spatialDerivativeFourierMultiplier
+    (k : ℕ)
+    (n : ℤ) : ℂ :=
+  (2 * Real.pi * Complex.I * (n : ℂ)) ^ k
+
+def periodicHeat1D_evolvedSpatialDerivativeFourierCoeff
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) : ℂ :=
+  periodicHeat1D_spatialDerivativeFourierMultiplier k n *
+    periodicHeat1D_evolvedValueFourierCoeff nu u0 t n
+
+theorem periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_neg_eq_star
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k (-n) =
+      star (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n) := by
+  simp [periodicHeat1D_evolvedSpatialDerivativeFourierCoeff,
+    periodicHeat1D_spatialDerivativeFourierMultiplier,
+    periodicHeat1D_evolvedValueFourierCoeff_neg_eq_star]
+
+theorem periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_one
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t 1 n =
+      periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n := by
+  rw [periodicHeat1D_evolvedDerivativeFourierCoeff_compatible_allModes
+    nu u0 hu0 t n]
+  simp [periodicHeat1D_evolvedSpatialDerivativeFourierCoeff,
+    periodicHeat1D_spatialDerivativeFourierMultiplier]
+
+theorem periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_zero
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t 0 n =
+      periodicHeat1D_evolvedValueFourierCoeff nu u0 t n := by
+  simp [periodicHeat1D_evolvedSpatialDerivativeFourierCoeff,
+    periodicHeat1D_spatialDerivativeFourierMultiplier]
+
+def periodicHeat1D_evolvedTimeDerivativeFourierCoeff
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (n : ℤ) : ℂ :=
+  (((-(nu.viscosity * periodicHeat1D_modeFrequency n) : ℝ) : ℂ) *
+    periodicHeat1D_evolvedValueFourierCoeff nu u0 t n)
+
+theorem periodicHeat1D_evolvedValueFourierCoeff_hasDerivAt_time
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (n : ℤ)
+    (t : ℝ) :
+    HasDerivAt (fun s : ℝ => periodicHeat1D_evolvedValueFourierCoeff nu u0 s n)
+      (periodicHeat1D_evolvedTimeDerivativeFourierCoeff nu u0 t n) t := by
+  have hm := periodicHeat1D_modeMultiplier_hasDerivAt nu n t
+  have hc :
+      HasDerivAt
+        (fun s : ℝ => ((periodicHeat1D_modeMultiplier nu s n : ℝ) : ℂ))
+        (((-(nu.viscosity * periodicHeat1D_modeFrequency n) *
+          periodicHeat1D_modeMultiplier nu t n : ℝ) : ℂ)) t := by
+    exact hm.ofReal_comp
+  simpa [periodicHeat1D_evolvedValueFourierCoeff,
+    periodicHeat1D_evolvedTimeDerivativeFourierCoeff,
+    mul_assoc, mul_left_comm, mul_comm] using
+    hc.mul_const (periodicH1_valueFourierCoeff u0 n)
+
+theorem periodicHeat1D_spatialDerivativeFourierMultiplier_two
+    (n : ℤ) :
+    periodicHeat1D_spatialDerivativeFourierMultiplier 2 n =
+      ((-(periodicHeat1D_modeFrequency n) : ℝ) : ℂ) := by
+  unfold periodicHeat1D_spatialDerivativeFourierMultiplier
+    periodicHeat1D_modeFrequency
+  calc
+    (2 * ↑Real.pi * Complex.I * ↑n) ^ 2
+        = (2 * ↑Real.pi * ↑n : ℂ) ^ 2 * Complex.I ^ 2 := by ring
+    _ = -((2 * ↑Real.pi * ↑n : ℂ) ^ 2) := by
+      rw [Complex.I_sq]
+      ring
+    _ = ((-((2 * Real.pi * (n : ℝ)) ^ 2) : ℝ) : ℂ) := by
+      norm_num
+
+theorem periodicHeat1D_evolvedTimeDerivativeFourierCoeff_eq_viscosity_secondSpatial
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (n : ℤ) :
+    periodicHeat1D_evolvedTimeDerivativeFourierCoeff nu u0 t n =
+      (nu.viscosity : ℂ) *
+        periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t 2 n := by
+  have hmult := periodicHeat1D_spatialDerivativeFourierMultiplier_two n
+  simp [periodicHeat1D_evolvedTimeDerivativeFourierCoeff,
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff, hmult]
+  ring
+
+theorem periodicHeat1D_evolvedTimeDerivativeFourierCoeff_norm_le_spatialAt
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    {eps t : ℝ}
+    (n : ℤ)
+    (heps_t : eps ≤ t) :
+    ‖periodicHeat1D_evolvedTimeDerivativeFourierCoeff nu u0 t n‖ ≤
+      nu.viscosity *
+        ‖periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 eps 2 n‖ := by
+  have hmul := periodicHeat1D_modeMultiplier_anti_mono_time
+    nu n heps_t
+  have hmul_nonneg_t := periodicHeat1D_modeMultiplier_nonneg nu t n
+  have hmul_nonneg_eps := periodicHeat1D_modeMultiplier_nonneg nu eps n
+  simp [periodicHeat1D_evolvedTimeDerivativeFourierCoeff,
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff,
+    periodicHeat1D_spatialDerivativeFourierMultiplier_two,
+    periodicHeat1D_evolvedValueFourierCoeff, norm_mul,
+    Complex.normSq_eq_norm_sq, Complex.normSq_ofReal]
+  rw [abs_of_nonneg (le_of_lt nu.viscosity_pos),
+    abs_of_nonneg (periodicHeat1D_modeFrequency_nonneg n),
+    abs_of_nonneg hmul_nonneg_t, abs_of_nonneg hmul_nonneg_eps]
+  ring_nf
+  have hcabs : 0 ≤ Complex.abs (periodicH1_valueFourierCoeff u0 n) :=
+    Complex.abs.nonneg _
+  have hfactor_nonneg :
+      0 ≤ nu.viscosity * periodicHeat1D_modeFrequency n := by
+    exact mul_nonneg (le_of_lt nu.viscosity_pos)
+      (periodicHeat1D_modeFrequency_nonneg n)
+  have hmul_c :
+      periodicHeat1D_modeMultiplier nu t n *
+          Complex.abs (periodicH1_valueFourierCoeff u0 n) ≤
+        periodicHeat1D_modeMultiplier nu eps n *
+          Complex.abs (periodicH1_valueFourierCoeff u0 n) := by
+    exact mul_le_mul_of_nonneg_right hmul hcabs
+  have hfinal := mul_le_mul_of_nonneg_left hmul_c hfactor_nonneg
+  nlinarith
+
+theorem periodicHeat1D_spatialDerivativeFourierMultiplier_norm
+    (k : ℕ)
+    (n : ℤ) :
+    ‖periodicHeat1D_spatialDerivativeFourierMultiplier k n‖ =
+      (2 * Real.pi) ^ k * (n.natAbs : ℝ) ^ k := by
+  unfold periodicHeat1D_spatialDerivativeFourierMultiplier
+  rw [norm_pow]
+  have hbase : ‖(2 * Real.pi * Complex.I * (n : ℂ))‖ =
+      (2 * Real.pi) * (n.natAbs : ℝ) := by
+    rw [norm_mul, norm_mul, norm_mul]
+    have h2 : ‖(2 : ℂ)‖ = 2 := by norm_num
+    have hpi : ‖(Real.pi : ℂ)‖ = Real.pi := by
+      simp [Complex.normSq_eq_norm_sq, Complex.normSq_ofReal,
+        abs_of_nonneg Real.pi_pos.le]
+    have hI : ‖Complex.I‖ = 1 := by simp
+    have hn : ‖(n : ℂ)‖ = (n.natAbs : ℝ) := by
+      rw [show ‖(n : ℂ)‖ = |(n : ℝ)| by
+        simp [Complex.normSq_eq_norm_sq, Complex.normSq_ofReal]]
+      simpa using (Int.cast_natAbs (R := ℝ) (n := n)).symm
+    rw [h2, hpi, hI, hn]
+    ring
+  rw [hbase, mul_pow]
+
+theorem periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable
+      (fun n : ℤ =>
+        ‖periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n‖) := by
+  have hbase :=
+    periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_summable
+      nu u0 hu0 t ht k
+  have hmul :
+      Summable
+        (fun n : ℤ =>
+          (2 * Real.pi) ^ k *
+            periodicHeat1D_weightedEvolvedValueFourierCoeffNorm nu u0 t k n) :=
+    hbase.mul_left ((2 * Real.pi) ^ k)
+  convert hmul using 1
+  ext n
+  unfold periodicHeat1D_evolvedSpatialDerivativeFourierCoeff
+    periodicHeat1D_weightedEvolvedValueFourierCoeffNorm
+  rw [norm_mul, periodicHeat1D_spatialDerivativeFourierMultiplier_norm]
+  ring
+
+theorem periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k) :=
+  (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+    nu u0 hu0 t ht k).of_norm
+
+theorem periodicHeat1D_spatialDerivativeFourierContinuousTerm_summable
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    Summable
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n •
+          (fourier n : C(BurgersTorus, ℂ))) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  refine Summable.of_norm_bounded
+    (fun n : ℤ =>
+      ‖periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n‖)
+    (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+      nu u0 hu0 t ht k)
+    ?_
+  intro n
+  rw [norm_smul, fourier_norm]
+  simp
+
+def periodicHeat1D_continuousSpatialDerivativeFourierSeries
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ) : C(BurgersTorus, ℂ) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  exact ∑' n : ℤ,
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n •
+      (fourier n : C(BurgersTorus, ℂ))
+
+theorem periodicHeat1D_continuousSpatialDerivativeFourierSeries_hasSum
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n •
+          (fourier n : C(BurgersTorus, ℂ)))
+      (periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  simpa [periodicHeat1D_continuousSpatialDerivativeFourierSeries] using
+    (periodicHeat1D_spatialDerivativeFourierContinuousTerm_summable
+      nu u0 hu0 t ht k).hasSum
+
+theorem periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ)
+    (x : BurgersTorus) :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n *
+          fourier n x)
+      (periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k x) := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  simpa [smul_eq_mul] using
+    (ContinuousMap.evalCLM ℂ x).hasSum
+      (periodicHeat1D_continuousSpatialDerivativeFourierSeries_hasSum
+        nu u0 hu0 t ht k)
+
+theorem periodicHeat1D_continuousSpatialDerivativeFourierSeries_fourierCoeff
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ)
+    (n : ℤ) :
+    fourierCoeff
+        (periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k) n =
+      periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  let F := periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k
+  let a := periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k
+  have hC : HasSum (fun m : ℤ => a m • (fourier m : C(BurgersTorus, ℂ))) F := by
+    simpa [F, a] using
+      periodicHeat1D_continuousSpatialDerivativeFourierSeries_hasSum
+        nu u0 hu0 t ht k
+  have hLpRaw : HasSum
+      (fun m : ℤ =>
+        (ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ)
+          (a m • (fourier m : C(BurgersTorus, ℂ))))
+      ((ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ) F) := by
+    exact (ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ).hasSum hC
+  have hLp : HasSum
+      (fun m : ℤ => a m • (fourierLp (T := (1 : ℝ)) 2 m))
+      ((ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ) F) := by
+    refine hLpRaw.congr_fun ?_
+    intro m
+    simp [fourierLp]
+  calc
+    fourierCoeff F n =
+        fourierCoeff
+          ((ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ) F) n := by
+          exact (fourierCoeff_toLp F n).symm
+    _ = a n :=
+          periodicHeat1D_l2FourierSeries_fourierCoeff a
+            ((ContinuousMap.toLp (E := ℂ) 2 AddCircle.haarAddCircle ℂ) F)
+            hLp n
+
+theorem periodicHeat1D_continuousSpatialDerivativeFourierSeries_ofReal_re
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ)
+    (x : BurgersTorus) :
+    ((periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k x).re : ℂ) =
+      periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k x := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  let F := periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k
+  let a := periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k
+  let term : ℤ → ℂ := fun n => a n * fourier n x
+  have hcoeff_sym : ∀ n : ℤ, a (-n) = star (a n) := by
+    intro n
+    exact periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_neg_eq_star
+      nu u0 t k n
+  have hsum : HasSum term (F x) := by
+    simpa [term, F, a] using
+      periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+        nu u0 hu0 t ht k x
+  have hneg : HasSum (fun n : ℤ => term (-n)) (F x) := by
+    have hinj : Function.Injective (fun n : ℤ => -n) := by
+      intro m n h
+      exact neg_injective h
+    have hzero : ∀ y : ℤ, y ∉ Set.range (fun n : ℤ => -n) → term y = 0 := by
+      intro y hy
+      exfalso
+      exact hy ⟨-y, by simp⟩
+    exact (hinj.hasSum_iff (f := term) (g := fun n : ℤ => -n) (a := F x)
+      hzero).2 hsum
+  have hterm_star : (fun n : ℤ => term (-n)) = fun n : ℤ => star (term n) := by
+    funext n
+    simp [term, hcoeff_sym n, fourier_neg]
+  have hstar : HasSum (fun n : ℤ => term (-n)) (star (F x)) := by
+    exact hsum.star.congr_fun (by intro n; exact congrFun hterm_star n)
+  have hfixed : star (F x) = F x := hstar.unique hneg
+  apply Complex.ext
+  · simp [F]
+  · have him : -(F x).im = (F x).im := by
+      have h := congrArg Complex.im hfixed
+      simpa using h
+    norm_num at him ⊢
+    linarith
+
+theorem periodicHeat1D_continuousSpatialDerivativeFourierSeries_lift_hasDerivAt
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ)
+    (x : ℝ) :
+    HasDerivAt
+      (fun y : ℝ =>
+        periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k
+          (y : UnitAddCircle))
+      (periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t (k + 1)
+        (x : UnitAddCircle))
+      x := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  let coeff := periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t
+  have hu : Summable (fun n : ℤ => ‖coeff (k + 1) n‖) :=
+    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+      nu u0 hu0 t ht (k + 1)
+  have hg0 : Summable
+      (fun n : ℤ => coeff k n * fourier n ((0 : ℝ) : UnitAddCircle)) := by
+    refine Summable.of_norm_bounded (fun n : ℤ => ‖coeff k n‖)
+      (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+        nu u0 hu0 t ht k) ?_
+    intro n
+    rw [norm_mul]
+    have hfourier_norm : ‖fourier n ((0 : ℝ) : UnitAddCircle)‖ = 1 := by
+      rw [fourier_coe_apply, Complex.norm_eq_abs, Complex.abs_exp]
+      simp
+    rw [hfourier_norm]
+    simp
+  have hterm : ∀ n : ℤ, ∀ y : ℝ,
+      HasDerivAt (fun z : ℝ => coeff k n * fourier n (z : UnitAddCircle))
+        (coeff (k + 1) n * fourier n (y : UnitAddCircle)) y := by
+    intro n y
+    have hfourier := hasDerivAt_fourier (T := (1 : ℝ)) n y
+    have hmul := hfourier.const_mul (coeff k n)
+    convert hmul using 1
+    dsimp [coeff, periodicHeat1D_evolvedSpatialDerivativeFourierCoeff,
+      periodicHeat1D_spatialDerivativeFourierMultiplier]
+    ring
+  have hbound : ∀ n : ℤ, ∀ y : ℝ,
+      ‖coeff (k + 1) n * fourier n (y : UnitAddCircle)‖ ≤
+        ‖coeff (k + 1) n‖ := by
+    intro n y
+    rw [norm_mul]
+    have hfourier_norm : ‖fourier n (y : UnitAddCircle)‖ = 1 := by
+      rw [fourier_coe_apply, Complex.norm_eq_abs, Complex.abs_exp]
+      simp
+    rw [hfourier_norm]
+    simp
+  have hraw :
+      HasDerivAt
+        (fun y : ℝ => ∑' n : ℤ, coeff k n * fourier n (y : UnitAddCircle))
+        (∑' n : ℤ, coeff (k + 1) n * fourier n (x : UnitAddCircle)) x := by
+    exact hasDerivAt_tsum hu hterm hbound hg0 x
+  convert hraw using 1
+  · ext y
+    exact ((periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+      nu u0 hu0 t ht k (y : UnitAddCircle)).tsum_eq).symm
+  · exact ((periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+      nu u0 hu0 t ht (k + 1) (x : UnitAddCircle)).tsum_eq).symm
+
+theorem periodicHeat1D_continuousValueFourierSeries_time_hasDerivAt
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (x : BurgersTorus) :
+    HasDerivAt
+      (fun s : ℝ =>
+        periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 s 0 x)
+      ((nu.viscosity : ℂ) *
+        periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t 2 x)
+      t := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  let eps : ℝ := t / 2
+  have heps_pos : 0 < eps := by
+    dsimp [eps]
+    linarith
+  have ht_mem : t ∈ Set.Ioi eps := by
+    dsimp [eps]
+    exact half_lt_self ht
+  let u : ℤ → ℝ := fun n : ℤ =>
+    nu.viscosity *
+      ‖periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 eps 2 n‖
+  have hu : Summable u := by
+    dsimp [u]
+    exact (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+      nu u0 hu0 eps heps_pos 2).mul_left nu.viscosity
+  let g : ℤ → ℝ → ℂ := fun n s =>
+    periodicHeat1D_evolvedValueFourierCoeff nu u0 s n * fourier n x
+  let g' : ℤ → ℝ → ℂ := fun n s =>
+    periodicHeat1D_evolvedTimeDerivativeFourierCoeff nu u0 s n * fourier n x
+  have hg : ∀ n : ℤ, ∀ y : ℝ, y ∈ Set.Ioi eps →
+      HasDerivAt (g n) (g' n y) y := by
+    intro n y _hy
+    dsimp [g, g']
+    exact (periodicHeat1D_evolvedValueFourierCoeff_hasDerivAt_time
+      nu u0 n y).mul_const (fourier n x)
+  have hg' : ∀ n : ℤ, ∀ y : ℝ, y ∈ Set.Ioi eps → ‖g' n y‖ ≤ u n := by
+    intro n y hy
+    dsimp [g', u]
+    change ‖periodicHeat1D_evolvedTimeDerivativeFourierCoeff nu u0 y n *
+        fourier n x‖ ≤
+      nu.viscosity *
+        ‖periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 eps 2 n‖
+    rw [norm_mul]
+    have hfourier_norm : ‖fourier n x‖ = 1 := by
+      simp [fourier, Complex.norm_eq_abs, Complex.abs_exp]
+    rw [hfourier_norm, mul_one]
+    exact periodicHeat1D_evolvedTimeDerivativeFourierCoeff_norm_le_spatialAt
+      nu u0 n (le_of_lt hy)
+  have hg0 : Summable (fun n : ℤ => g n t) := by
+    dsimp [g]
+    exact (periodicHeat1D_continuousValueFourierSeries_pointwise_hasSum
+      nu u0 hu0 t ht x).summable
+  have hraw :
+      HasDerivAt (fun z : ℝ => ∑' n : ℤ, g n z)
+        (∑' n : ℤ, g' n t) t := by
+    exact hasDerivAt_tsum_of_isPreconnected
+      (u := u)
+      (t := Set.Ioi eps)
+      (y₀ := t)
+      (y := t)
+      hu isOpen_Ioi (convex_Ioi eps).isPreconnected hg hg' ht_mem hg0 ht_mem
+  have hsource :
+      (fun z : ℝ =>
+        periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 z 0 x) =ᶠ[𝓝 t]
+      (fun z : ℝ => ∑' n : ℤ, g n z) := by
+    have hnhds : Set.Ioi eps ∈ 𝓝 t := isOpen_Ioi.mem_nhds ht_mem
+    filter_upwards [hnhds] with z hz
+    have hzpos : 0 < z := lt_trans heps_pos hz
+    calc
+      periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 z 0 x
+          = ∑' n : ℤ,
+              periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 z 0 n *
+                fourier n x := by
+              exact ((periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+                nu u0 hu0 z hzpos 0 x).tsum_eq).symm
+      _ = ∑' n : ℤ, g n z := by
+              apply tsum_congr
+              intro n
+              dsimp [g]
+              rw [periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_zero]
+  have htarget :
+      (∑' n : ℤ, g' n t) =
+        (nu.viscosity : ℂ) *
+          periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t 2 x := by
+    have hsp :=
+      periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+        nu u0 hu0 t ht 2 x
+    have htime : HasSum (fun n : ℤ => g' n t)
+        ((nu.viscosity : ℂ) *
+          periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t 2 x) := by
+      refine (hsp.const_smul (nu.viscosity : ℂ)).congr_fun ?_
+      intro n
+      dsimp [g']
+      rw [periodicHeat1D_evolvedTimeDerivativeFourierCoeff_eq_viscosity_secondSpatial]
+      ring
+    exact htime.tsum_eq
+  exact (hraw.congr_of_eventuallyEq hsource).congr_deriv htarget
+
+def periodicHeat1D_realSpatialDerivativeFourierSeries
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (k : ℕ) : C(BurgersTorus, ℝ) where
+  toFun x :=
+    (periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k x).re
+  continuous_toFun := Complex.continuous_re.comp
+    (periodicHeat1D_continuousSpatialDerivativeFourierSeries
+      nu u0 t k).continuous
+
+/-- Real-valued positive-time heat derivative represented by the Fourier heat
+equation `u_t = ν u_xx`. -/
+def periodicHeat1D_realTimeDerivativeFourierSeries
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ) : C(BurgersTorus, ℝ) :=
+  nu.viscosity • periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 2
+
+theorem periodicHeat1D_realTimeDerivativeFourierSeries_apply
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (t : ℝ)
+    (x : BurgersTorus) :
+    periodicHeat1D_realTimeDerivativeFourierSeries nu u0 t x =
+      nu.viscosity *
+        periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 2 x := by
+  rfl
+
+theorem periodicHeat1D_realSpatialDerivativeFourierSeries_fourierCoeff
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ)
+    (n : ℤ) :
+    fourierCoeff
+        (fun x : BurgersTorus =>
+          (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k x : ℂ)) n =
+      periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n := by
+  letI : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
+  calc
+    fourierCoeff
+        (fun x : BurgersTorus =>
+          (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k x : ℂ)) n
+        = fourierCoeff
+            (periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t k) n := by
+          unfold fourierCoeff
+          refine integral_congr_ae ?_
+          filter_upwards with x
+          change (fourier (-n)) x •
+              (((periodicHeat1D_continuousSpatialDerivativeFourierSeries
+                nu u0 t k) x).re : ℂ) =
+            (fourier (-n)) x •
+              (periodicHeat1D_continuousSpatialDerivativeFourierSeries
+                nu u0 t k) x
+          rw [periodicHeat1D_continuousSpatialDerivativeFourierSeries_ofReal_re
+            nu u0 hu0 t ht k x]
+    _ = periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n :=
+          periodicHeat1D_continuousSpatialDerivativeFourierSeries_fourierCoeff
+            nu u0 hu0 t ht k n
+
+theorem periodicHeat1D_realSpatialDerivativeFourierSeries_lift_hasDerivAt
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ)
+    (x : ℝ) :
+    HasDerivAt
+      (fun y : ℝ =>
+        periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k
+          (y : UnitAddCircle))
+      (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t (k + 1)
+        (x : UnitAddCircle))
+      x := by
+  have hc :=
+    periodicHeat1D_continuousSpatialDerivativeFourierSeries_lift_hasDerivAt
+      nu u0 hu0 t ht k x
+  have hcomp :=
+    (Complex.reCLM : ℂ →L[ℝ] ℝ).hasFDerivAt.comp_hasDerivAt x hc
+  simpa [Function.comp_def, periodicHeat1D_realSpatialDerivativeFourierSeries,
+    RCLike.reCLM_apply] using hcomp
+
+theorem periodicHeat1D_realValueFourierSeries_time_hasDerivAt
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (x : BurgersTorus) :
+    HasDerivAt
+      (fun s : ℝ => periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 s 0 x)
+      (periodicHeat1D_realTimeDerivativeFourierSeries nu u0 t x)
+      t := by
+  have hc :=
+    periodicHeat1D_continuousValueFourierSeries_time_hasDerivAt
+      nu u0 hu0 t ht x
+  have hr :=
+    (Complex.reCLM : ℂ →L[ℝ] ℝ).hasFDerivAt.comp_hasDerivAt t hc
+  simpa [Function.comp_def, periodicHeat1D_realSpatialDerivativeFourierSeries,
+    periodicHeat1D_realTimeDerivativeFourierSeries, RCLike.reCLM_apply,
+    ContinuousMap.smul_apply, smul_eq_mul] using hr
+
+theorem periodicHeat1D_realSpatialDerivative_isWeakDerivativeOnTorus
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k : ℕ) :
+    IsWeakDerivativeOnTorus
+      (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k)
+      (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t (k + 1)) := by
+  refine isWeakDerivativeOnTorus_of_lift_hasDerivAt
+    (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k)
+    (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t (k + 1))
+    (fun y : ℝ =>
+      periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k
+        (y : UnitAddCircle))
+    (fun y : ℝ =>
+      periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t (k + 1)
+        (y : UnitAddCircle)) ?_ ?_ ?_
+  · intro x
+    rfl
+  · intro x
+    rfl
+  · intro x
+    exact periodicHeat1D_realSpatialDerivativeFourierSeries_lift_hasDerivAt
+      nu u0 hu0 t ht k x
+
+theorem periodicHeat1D_realSpatialDerivative_hasWeakDerivativeOrder
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (k order : ℕ) :
+    HasWeakDerivativeOrder order
+      (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k) := by
+  induction order generalizing k with
+  | zero =>
+      exact continuousMap_memℒp_two
+        (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k)
+  | succ order ih =>
+      exact ⟨periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t (k + 1),
+        periodicHeat1D_realSpatialDerivative_isWeakDerivativeOnTorus
+          nu u0 hu0 t ht k,
+        ih (k + 1)⟩
+
+def periodicHeat1D_positiveTimeSmoothPeriodicH1State
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) : PeriodicH1State where
+  value := periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 0
+  weakDeriv := periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 1
+  value_memL2 := continuousMap_memℒp_two
+    (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 0)
+  deriv_memL2 := continuousMap_memℒp_two
+    (periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 1)
+  weakDeriv_spec := by
+    simpa using
+      periodicHeat1D_realSpatialDerivative_isWeakDerivativeOnTorus
+        nu u0 hu0 t ht 0
+
+theorem periodicHeat1D_positiveTimeSmoothPeriodicH1State_smooth
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    SmoothPeriodicState
+      (periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht) := by
+  intro order
+  simpa [periodicHeat1D_positiveTimeSmoothPeriodicH1State] using
+    periodicHeat1D_realSpatialDerivative_hasWeakDerivativeOrder
+      nu u0 hu0 t ht 0 order
+
+/-- Positive-time concrete real `PeriodicH1State` representative obtained by
+taking real parts of the proved complex Fourier derivative tower. This package
+does not yet identify the representative with the local heat curve at time
+zero or prove the windowed heat residual/uniqueness facts; it supplies the
+real-valued smooth state needed for the remaining heat-window upgrade. -/
+structure PeriodicHeat1DPositiveTimeSmoothPeriodicH1RepresentativeFor
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) where
+  state : PeriodicH1State
+  real_spatial_derivative : ℕ → C(BurgersTorus, ℝ)
+  real_spatial_derivative_eq :
+    ∀ k : ℕ,
+      real_spatial_derivative k =
+        periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t k
+  value_eq : state.value = real_spatial_derivative 0
+  weakDeriv_eq : state.weakDeriv = real_spatial_derivative 1
+  weak_derivative_chain :
+    ∀ k : ℕ,
+      IsWeakDerivativeOnTorus
+        (real_spatial_derivative k)
+        (real_spatial_derivative (k + 1))
+  smooth : SmoothPeriodicState state
+
+def periodicHeat1D_positiveTimeSmoothPeriodicH1Representative
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    PeriodicHeat1DPositiveTimeSmoothPeriodicH1RepresentativeFor
+      nu u0 hu0 t ht where
+  state := periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht
+  real_spatial_derivative := periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t
+  real_spatial_derivative_eq := by
+    intro k
+    rfl
+  value_eq := rfl
+  weakDeriv_eq := rfl
+  weak_derivative_chain := by
+    intro k
+    exact periodicHeat1D_realSpatialDerivative_isWeakDerivativeOnTorus
+      nu u0 hu0 t ht k
+  smooth := periodicHeat1D_positiveTimeSmoothPeriodicH1State_smooth
+    nu u0 hu0 t ht
+
+structure PeriodicHeat1DPositiveTimeSmoothPeriodicH1RepresentativeTheory where
+  representative :
+    ∀ (nu : BurgersParameters)
+      (u0 : PeriodicH1State)
+      (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+      (t : ℝ)
+      (ht : 0 < t),
+      PeriodicHeat1DPositiveTimeSmoothPeriodicH1RepresentativeFor
+        nu u0 hu0 t ht
+
+def periodicHeat1D_positiveTimeSmoothPeriodicH1RepresentativeTheory_literature :
+    PeriodicHeat1DPositiveTimeSmoothPeriodicH1RepresentativeTheory where
+  representative := periodicHeat1D_positiveTimeSmoothPeriodicH1Representative
+
+/-- Fully proved positive-time coefficient smoothing for periodic heat. It is
+still below the continuous-window PDE boundary, but it proves the key Fourier
+fact used by smoothing: after any positive time, the evolved value and
+weak-derivative mode energies remain summable after multiplication by any fixed
+polynomial frequency weight. -/
+structure PeriodicHeat1DPositiveTimeCoefficientSmoothingTheory where
+  gaussian_kernel :
+    ∀ (k : ℕ) {r : ℝ}, 0 < r →
+      Summable
+        (fun n : ℤ =>
+          ((n.natAbs : ℝ) ^ k) *
+            Real.exp (-r * ((n : ℝ) ^ (2 : ℕ))))
+  multiplier_kernel :
+    ∀ (nu : BurgersParameters) (t : ℝ), 0 < t → ∀ k : ℕ,
+      Summable
+        (fun n : ℤ =>
+          ((n.natAbs : ℝ) ^ k) *
+            periodicHeat1D_modeMultiplier nu t n)
+  multiplier_energy :
+    ∀ (nu : BurgersParameters) (t : ℝ), 0 < t → ∀ k : ℕ,
+      Summable (periodicHeat1D_weightedHeatMultiplierEnergy nu t k)
+  value_energy :
+    ∀ (nu : BurgersParameters)
+      (u0 : PeriodicH1State)
+      (_hu0 : PeriodicH1State.IsPeriodicH1 u0)
+      (t : ℝ),
+      0 < t → ∀ k : ℕ,
+        Summable (periodicHeat1D_weightedEvolvedValueModeEnergy nu u0 t k)
+  derivative_energy :
+    ∀ (nu : BurgersParameters)
+      (u0 : PeriodicH1State)
+      (_hu0 : PeriodicH1State.IsPeriodicH1 u0)
+      (t : ℝ),
+      0 < t → ∀ k : ℕ,
+        Summable
+          (periodicHeat1D_weightedEvolvedDerivativeModeEnergy nu u0 t k)
+
+def periodicHeat1D_positiveTimeCoefficientSmoothingTheory_literature :
+    PeriodicHeat1DPositiveTimeCoefficientSmoothingTheory where
+  gaussian_kernel := periodicHeat1D_intPolynomialGaussian_summable
+  multiplier_kernel := periodicHeat1D_modeMultiplier_polynomial_summable
+  multiplier_energy := periodicHeat1D_weightedHeatMultiplierEnergy_summable
+  value_energy := periodicHeat1D_weightedEvolvedValueModeEnergy_summable
+  derivative_energy :=
+    periodicHeat1D_weightedEvolvedDerivativeModeEnergy_summable
+
+/-- Positive-time Fourier-side heat representative.
+
+This is the strongest currently proved object below the continuous
+`PeriodicH1State` heat curve. It is a reconstructed Fourier/Sobolev `H¹` state
+whose coefficients are exactly the heat-evolved coefficients and whose evolved
+value/derivative mode energies have arbitrary polynomial frequency weights.
+The remaining analytic step is to turn this Fourier-side representative into a
+concrete continuous/smooth `PeriodicH1State` representative on a local window. -/
+structure PeriodicHeat1DPositiveTimeSmoothFourierRepresentativeFor
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) where
+  state : PeriodicFourierH1State
+  value_coeff :
+    ∀ n : ℤ,
+      fourierCoeff state.valueL2 n =
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n
+  derivative_coeff :
+    ∀ n : ℤ,
+      fourierCoeff state.derivativeL2 n =
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n
+  weak_derivative_coeff :
+    ∀ n : PeriodicH1NonzeroMode,
+      fourierCoeff state.derivativeL2 n.1 =
+        (2 * Real.pi * Complex.I * (n.1 : ℂ)) *
+          fourierCoeff state.valueL2 n.1
+  value_parseval :
+    PeriodicFourierH1State.energy state =
+      ∑' n : ℤ, periodicHeat1D_evolvedValueModeEnergy nu u0 t n
+  derivative_parseval :
+    PeriodicFourierH1State.derivativeEnergy state =
+      ∑' n : ℤ, periodicHeat1D_evolvedDerivativeModeEnergy nu u0 t n
+  value_contraction :
+    PeriodicFourierH1State.energy state ≤ PeriodicH1State.energy u0
+  derivative_contraction :
+    PeriodicFourierH1State.derivativeEnergy state ≤
+      PeriodicH1State.derivativeEnergy u0
+  value_weighted_energy_summable :
+    ∀ k : ℕ,
+      Summable (periodicHeat1D_weightedEvolvedValueModeEnergy nu u0 t k)
+  derivative_weighted_energy_summable :
+    ∀ k : ℕ,
+      Summable
+        (periodicHeat1D_weightedEvolvedDerivativeModeEnergy nu u0 t k)
+  value_coeff_norm_summable :
+    ∀ k : ℕ,
+      Summable
+        (periodicHeat1D_weightedEvolvedValueFourierCoeffNorm nu u0 t k)
+  derivative_coeff_norm_summable :
+    ∀ k : ℕ,
+      Summable
+        (periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm nu u0 t k)
+  continuous_value : C(BurgersTorus, ℂ)
+  continuous_derivative : C(BurgersTorus, ℂ)
+  continuous_value_hasSum :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n •
+          (fourier n : C(BurgersTorus, ℂ)))
+      continuous_value
+  continuous_derivative_hasSum :
+    HasSum
+      (fun n : ℤ =>
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n •
+          (fourier n : C(BurgersTorus, ℂ)))
+      continuous_derivative
+  continuous_value_pointwise_hasSum :
+    ∀ x : BurgersTorus,
+      HasSum
+        (fun n : ℤ =>
+          periodicHeat1D_evolvedValueFourierCoeff nu u0 t n * fourier n x)
+        (continuous_value x)
+  continuous_derivative_pointwise_hasSum :
+    ∀ x : BurgersTorus,
+      HasSum
+        (fun n : ℤ =>
+          periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n * fourier n x)
+        (continuous_derivative x)
+  complex_spatial_derivative : ℕ → C(BurgersTorus, ℂ)
+  complex_spatial_derivative_coeff_norm_summable :
+    ∀ k : ℕ,
+      Summable
+        (fun n : ℤ =>
+          ‖periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n‖)
+  complex_spatial_derivative_hasSum :
+    ∀ k : ℕ,
+      HasSum
+        (fun n : ℤ =>
+          periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n •
+            (fourier n : C(BurgersTorus, ℂ)))
+        (complex_spatial_derivative k)
+  complex_spatial_derivative_pointwise_hasSum :
+    ∀ k : ℕ, ∀ x : BurgersTorus,
+      HasSum
+        (fun n : ℤ =>
+          periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t k n *
+            fourier n x)
+        (complex_spatial_derivative k x)
+
+def periodicHeat1D_positiveTimeSmoothFourierRepresentative
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    PeriodicHeat1DPositiveTimeSmoothFourierRepresentativeFor
+      nu u0 hu0 t ht where
+  state := periodicHeat1D_reconstructedFourierH1 nu u0 hu0 t (le_of_lt ht)
+  value_coeff := by
+    intro n
+    simpa [periodicHeat1D_reconstructedFourierH1] using
+      periodicHeat1D_reconstructedValueL2_fourierCoeff
+        nu u0 hu0 t (le_of_lt ht) n
+  derivative_coeff := by
+    intro n
+    simpa [periodicHeat1D_reconstructedFourierH1] using
+      periodicHeat1D_reconstructedDerivativeL2_fourierCoeff
+        nu u0 hu0 t (le_of_lt ht) n
+  weak_derivative_coeff := by
+    intro n
+    exact periodicHeat1D_reconstructedFourierH1_derivative_coeff
+      nu u0 hu0 t (le_of_lt ht) n
+  value_parseval :=
+    periodicHeat1D_reconstructedFourierH1_value_parseval
+      nu u0 hu0 t (le_of_lt ht)
+  derivative_parseval :=
+    periodicHeat1D_reconstructedFourierH1_derivative_parseval
+      nu u0 hu0 t (le_of_lt ht)
+  value_contraction :=
+    periodicHeat1D_reconstructedFourierH1_energy_le_initial
+      nu u0 hu0 t (le_of_lt ht)
+  derivative_contraction :=
+    periodicHeat1D_reconstructedFourierH1_derivativeEnergy_le_initial
+      nu u0 hu0 t (le_of_lt ht)
+  value_weighted_energy_summable := by
+    intro k
+    exact periodicHeat1D_weightedEvolvedValueModeEnergy_summable
+      nu u0 hu0 t ht k
+  derivative_weighted_energy_summable := by
+    intro k
+    exact periodicHeat1D_weightedEvolvedDerivativeModeEnergy_summable
+      nu u0 hu0 t ht k
+  value_coeff_norm_summable := by
+    intro k
+    exact periodicHeat1D_weightedEvolvedValueFourierCoeffNorm_summable
+      nu u0 hu0 t ht k
+  derivative_coeff_norm_summable := by
+    intro k
+    exact periodicHeat1D_weightedEvolvedDerivativeFourierCoeffNorm_summable
+      nu u0 hu0 t ht k
+  continuous_value := periodicHeat1D_continuousValueFourierSeries nu u0 t
+  continuous_derivative := periodicHeat1D_continuousDerivativeFourierSeries nu u0 t
+  continuous_value_hasSum :=
+    periodicHeat1D_continuousValueFourierSeries_hasSum nu u0 hu0 t ht
+  continuous_derivative_hasSum :=
+    periodicHeat1D_continuousDerivativeFourierSeries_hasSum nu u0 hu0 t ht
+  continuous_value_pointwise_hasSum := by
+    intro x
+    exact periodicHeat1D_continuousValueFourierSeries_pointwise_hasSum
+      nu u0 hu0 t ht x
+  continuous_derivative_pointwise_hasSum := by
+    intro x
+    exact periodicHeat1D_continuousDerivativeFourierSeries_pointwise_hasSum
+      nu u0 hu0 t ht x
+  complex_spatial_derivative :=
+    periodicHeat1D_continuousSpatialDerivativeFourierSeries nu u0 t
+  complex_spatial_derivative_coeff_norm_summable := by
+    intro k
+    exact periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_norm_summable
+      nu u0 hu0 t ht k
+  complex_spatial_derivative_hasSum := by
+    intro k
+    exact periodicHeat1D_continuousSpatialDerivativeFourierSeries_hasSum
+      nu u0 hu0 t ht k
+  complex_spatial_derivative_pointwise_hasSum := by
+    intro k x
+    exact periodicHeat1D_continuousSpatialDerivativeFourierSeries_pointwise_hasSum
+      nu u0 hu0 t ht k x
+
+/-- Fully proved positive-time Fourier representative package. This is the
+precise interface to feed into the next mathlib smooth-series reconstruction
+step; it does not assume any continuous heat curve, weak PDE residual, or
+windowed uniqueness theorem. -/
+structure PeriodicHeat1DPositiveTimeSmoothFourierRepresentativeTheory where
+  representative :
+    ∀ (nu : BurgersParameters)
+      (u0 : PeriodicH1State)
+      (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+      (t : ℝ)
+      (ht : 0 < t),
+      PeriodicHeat1DPositiveTimeSmoothFourierRepresentativeFor
+        nu u0 hu0 t ht
+
+def periodicHeat1D_positiveTimeSmoothFourierRepresentativeTheory_literature :
+    PeriodicHeat1DPositiveTimeSmoothFourierRepresentativeTheory where
+  representative := periodicHeat1D_positiveTimeSmoothFourierRepresentative
+
 /-- Literature-supplied local heat solution on one datum and one finite window,
 before residual, uniqueness, smoothing, and contraction estimates are attached.
 The final Burgers route consumes only the assembled local certificate below; any
@@ -1007,6 +2711,10 @@ structure PeriodicHeat1DFourierH1ContinuousCurveFor
       PeriodicH1State.derivativeEnergy (curve.eval t) =
         PeriodicFourierH1State.derivativeEnergy
           (periodicHeat1D_reconstructedFourierH1 nu u0 hu0 t ht)
+  positive_time_eval :
+    ∀ t : ℝ, W.Contains t → (ht : 0 < t) →
+      curve.eval t =
+        periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht
 
 namespace PeriodicHeat1DFourierH1ContinuousCurveFor
 
@@ -1227,49 +2935,835 @@ def periodicHeat1D_localTheory_fromSemigroupBackend
       { energy := C.energy_contraction
         dissipation := C.dissipation_contraction } }
 
-/-- Remaining heat representative boundary: produce a concrete continuous
-`PeriodicH1State` curve representing the proved Fourier/Sobolev `H¹` heat
-reconstruction on the requested local window. -/
-axiom periodicHeat1D_fourierH1ContinuousCurve_literature :
+/-- Explicit local heat-curve candidate used by the Fourier heat package.
+
+At positive times it is the proved smooth real Fourier representative. At
+nonpositive times it is the initial datum. The `PeriodicHeatCurve` carrier has
+no continuity field, so the remaining identification work is only coefficient,
+energy, residual, and uniqueness semantics for this explicit curve. -/
+def periodicHeat1D_fourierH1CandidateHeatCurve
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) : PeriodicHeatCurve nu where
+  eval := fun t =>
+    if ht : 0 < t then
+      periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht
+    else
+      u0
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_initial
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) :
+    HeatInitialCondition u0
+      (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) := by
+  simp [HeatInitialCondition, periodicHeat1D_fourierH1CandidateHeatCurve]
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_boundary
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) :
+    HeatPeriodicBoundary
+      (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) := by
+  intro t
+  by_cases ht : 0 < t
+  · simp [periodicHeat1D_fourierH1CandidateHeatCurve, ht]
+    exact PeriodicH1State.isPeriodicH1
+      (periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht)
+  · simp [periodicHeat1D_fourierH1CandidateHeatCurve, ht, hu0]
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_positive_time_eval
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t) :
+    (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t =
+      periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht := by
+  simp [periodicHeat1D_fourierH1CandidateHeatCurve, ht]
+
+/-- Canonical positive-time derivative of the explicit Fourier heat candidate.
+It is zero at nonpositive times because the weak test interface used below only
+requires positive-time differentiability. -/
+def periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (_hu0 : PeriodicH1State.IsPeriodicH1 u0) :
+    ℝ → C(BurgersTorus, ℝ) :=
+  fun t =>
+    if 0 < t then
+      periodicHeat1D_realTimeDerivativeFourierSeries nu u0 t
+    else
+      0
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv_positive_eval
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (x : BurgersTorus) :
+    periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x =
+      periodicHeat1D_realTimeDerivativeFourierSeries nu u0 t x := by
+  simp [periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv, ht]
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_time_hasDerivAt_positive
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (t : ℝ)
+    (ht : 0 < t)
+    (x : BurgersTorus) :
+    HasDerivAt
+      (fun s : ℝ =>
+        ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval s).value x)
+      (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x)
+      t := by
+  have hlocal :
+      (fun s : ℝ =>
+        ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval s).value x)
+        =ᶠ[𝓝 t]
+      (fun s : ℝ =>
+        periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 s 0 x) := by
+    have hnhds : Set.Ioi (0 : ℝ) ∈ 𝓝 t := isOpen_Ioi.mem_nhds ht
+    filter_upwards [hnhds] with s hs
+    have hpos : 0 < s := hs
+    simp [periodicHeat1D_fourierH1CandidateHeatCurve, hpos,
+      periodicHeat1D_positiveTimeSmoothPeriodicH1State]
+  have hderiv :=
+    periodicHeat1D_realValueFourierSeries_time_hasDerivAt
+      nu u0 hu0 t ht x
+  have htarget :
+      periodicHeat1D_realTimeDerivativeFourierSeries nu u0 t x =
+        periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x := by
+    simp [periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv, ht]
+  exact (hderiv.congr_of_eventuallyEq hlocal).congr_deriv htarget
+
+/-- At a positive time, the explicit Fourier heat candidate satisfies the
+spatial part of the weak heat identity. This is a local-in-time statement: it
+uses only the positive-time Fourier representative and its weak derivative
+chain, not any global heat semigroup theorem. -/
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_heat_balance_inner_positive
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (φ : SmoothCompactTimePeriodicSpaceTest)
+    (t : ℝ)
+    (ht : 0 < t) :
+    (∫ x : BurgersTorus,
+        heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x) =
+      -∫ x : BurgersTorus,
+        (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x) := by
+  let f0 : C(BurgersTorus, ℝ) :=
+    periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 0
+  let f1 : C(BurgersTorus, ℝ) :=
+    periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 1
+  let f2 : C(BurgersTorus, ℝ) :=
+    periodicHeat1D_realSpatialDerivativeFourierSeries nu u0 t 2
+  let A : ℝ := ∫ x : BurgersTorus, f0 x * φ.timeDeriv t x
+  let B : ℝ := ∫ x : BurgersTorus, f1 x * φ.spaceDeriv t x
+  let C : ℝ := ∫ x : BurgersTorus, f2 x * φ.value t x
+  have hweak : B = -C := by
+    have h := periodicHeat1D_realSpatialDerivative_isWeakDerivativeOnTorus
+      nu u0 hu0 t ht 1 (φ.spaceTest t)
+    simpa [B, C, f1, f2, φ.spaceDeriv_eq_spaceTest t,
+      φ.value_eq_spaceTest t] using h
+  have hleft :
+      (∫ x : BurgersTorus,
+          heatWeakResidualIntegrand nu
+            (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x) =
+        -A + nu.viscosity * B := by
+    have hcongr :
+        (fun x : BurgersTorus =>
+          heatWeakResidualIntegrand nu
+            (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x)
+          =ᵐ[volume]
+        (fun x : BurgersTorus =>
+          (-1 : ℝ) * (f0 x * φ.timeDeriv t x) +
+            nu.viscosity * (f1 x * φ.spaceDeriv t x)) := by
+      exact Filter.Eventually.of_forall fun x => by
+        simp [heatWeakResidualIntegrand,
+          periodicHeat1D_fourierH1CandidateHeatCurve_positive_time_eval
+            nu u0 hu0 t ht,
+          periodicHeat1D_positiveTimeSmoothPeriodicH1State, f0, f1,
+          mul_assoc]
+    calc
+      (∫ x : BurgersTorus,
+          heatWeakResidualIntegrand nu
+            (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x)
+          = ∫ x : BurgersTorus,
+              ((-1 : ℝ) * (f0 x * φ.timeDeriv t x) +
+                nu.viscosity * (f1 x * φ.spaceDeriv t x)) :=
+            MeasureTheory.integral_congr_ae hcongr
+      _ = (∫ x : BurgersTorus, (-1 : ℝ) * (f0 x * φ.timeDeriv t x)) +
+            ∫ x : BurgersTorus,
+              nu.viscosity * (f1 x * φ.spaceDeriv t x) := by
+            refine MeasureTheory.integral_add ?_ ?_
+            · exact (continuousMap_mul_integrable f0 (φ.timeDeriv t)).const_mul
+                (-1 : ℝ)
+            · exact (continuousMap_mul_integrable f1 (φ.spaceDeriv t)).const_mul
+                nu.viscosity
+      _ = -A + nu.viscosity * B := by
+            simp [A, B,
+              MeasureTheory.integral_mul_left, MeasureTheory.integral_neg]
+  have hright :
+      -∫ x : BurgersTorus,
+        (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x) =
+        -(nu.viscosity * C + A) := by
+    have hcongr :
+        (fun x : BurgersTorus =>
+          periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+              φ.value t x +
+            ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+              φ.timeDeriv t x)
+          =ᵐ[volume]
+        (fun x : BurgersTorus =>
+          nu.viscosity * (f2 x * φ.value t x) +
+            f0 x * φ.timeDeriv t x) := by
+      exact Filter.Eventually.of_forall fun x => by
+        simp [periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv,
+          periodicHeat1D_realTimeDerivativeFourierSeries,
+          periodicHeat1D_fourierH1CandidateHeatCurve_positive_time_eval
+            nu u0 hu0 t ht,
+          periodicHeat1D_positiveTimeSmoothPeriodicH1State, ht, f0, f2,
+          mul_assoc]
+    calc
+      -∫ x : BurgersTorus,
+        (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x)
+          = -∫ x : BurgersTorus,
+              (nu.viscosity * (f2 x * φ.value t x) +
+                f0 x * φ.timeDeriv t x) := by
+            rw [MeasureTheory.integral_congr_ae hcongr]
+      _ = -((∫ x : BurgersTorus,
+              nu.viscosity * (f2 x * φ.value t x)) +
+            ∫ x : BurgersTorus, f0 x * φ.timeDeriv t x) := by
+            rw [MeasureTheory.integral_add]
+            · exact (continuousMap_mul_integrable f2 (φ.value t)).const_mul
+                nu.viscosity
+            · exact continuousMap_mul_integrable f0 (φ.timeDeriv t)
+      _ = -(nu.viscosity * C + A) := by
+            simp [A, C, MeasureTheory.integral_mul_left]
+  rw [hleft, hright, hweak]
+  ring
+
+/-- The same inner heat balance at nonpositive time. Here no heat regularity is
+used: the test interface states that value, time derivative, and spatial
+derivative vanish for `t ≤ 0`. -/
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_heat_balance_inner_nonpositive
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (φ : SmoothCompactTimePeriodicSpaceTest)
+    (t : ℝ)
+    (ht : t ≤ 0) :
+    (∫ x : BurgersTorus,
+        heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x) =
+      -∫ x : BurgersTorus,
+        (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x) := by
+  have htime := φ.nonpositive_timeDeriv_zero t ht
+  have hspace := φ.nonpositive_spaceDeriv_zero t ht
+  have hvalue := φ.nonpositive_value_zero t ht
+  have hleft_congr :
+      (fun x : BurgersTorus =>
+        heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x)
+        =ᵐ[volume]
+      (fun _x : BurgersTorus => (0 : ℝ)) := by
+    exact Filter.Eventually.of_forall fun x => by
+      have htime_x : φ.timeDeriv t x = 0 := by rw [htime]; rfl
+      have hspace_x : φ.spaceDeriv t x = 0 := by rw [hspace]; rfl
+      simp [heatWeakResidualIntegrand, htime_x, hspace_x]
+  have hright_congr :
+      (fun x : BurgersTorus =>
+        periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x)
+        =ᵐ[volume]
+      (fun _x : BurgersTorus => (0 : ℝ)) := by
+    exact Filter.Eventually.of_forall fun x => by
+      have htime_x : φ.timeDeriv t x = 0 := by rw [htime]; rfl
+      have hvalue_x : φ.value t x = 0 := by rw [hvalue]; rfl
+      simp [htime_x, hvalue_x]
+  calc
+    (∫ x : BurgersTorus,
+        heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x)
+        = ∫ _x : BurgersTorus, (0 : ℝ) :=
+          MeasureTheory.integral_congr_ae hleft_congr
+    _ = 0 := by simp
+    _ = -∫ _x : BurgersTorus, (0 : ℝ) := by simp
+    _ = -∫ x : BurgersTorus,
+        (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x) := by
+          rw [MeasureTheory.integral_congr_ae hright_congr]
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_heat_balance_inner
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (φ : SmoothCompactTimePeriodicSpaceTest)
+    (t : ℝ) :
+    (∫ x : BurgersTorus,
+        heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x) =
+      -∫ x : BurgersTorus,
+        (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+            φ.value t x +
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+            φ.timeDeriv t x) := by
+  by_cases ht : 0 < t
+  · exact periodicHeat1D_fourierH1CandidateHeatCurve_heat_balance_inner_positive
+      nu u0 hu0 φ t ht
+  · exact periodicHeat1D_fourierH1CandidateHeatCurve_heat_balance_inner_nonpositive
+      nu u0 hu0 φ t (le_of_not_gt ht)
+
+theorem periodicHeat1D_fourierH1CandidateHeatCurve_integrated_heat_balance
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (φ : SmoothCompactTimePeriodicSpaceTest) :
+    timeSpaceIntegralOn W.time
+        (heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ) =
+      -timeSpaceIntegralOn W.time
+        (fun t x =>
+          periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+              φ.value t x +
+            ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+              φ.timeDeriv t x) := by
+  unfold timeSpaceIntegralOn
+  calc
+    (∫ t in W.time.t0..W.time.t1,
+        ∫ x : BurgersTorus,
+          heatWeakResidualIntegrand nu
+            (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ t x)
+        = ∫ t in W.time.t0..W.time.t1,
+            -(∫ x : BurgersTorus,
+              (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+                  φ.value t x +
+                ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+                  φ.timeDeriv t x)) := by
+          refine intervalIntegral.integral_congr_ae ?_
+          exact Filter.Eventually.of_forall fun t _ht =>
+            periodicHeat1D_fourierH1CandidateHeatCurve_heat_balance_inner
+              nu u0 hu0 φ t
+    _ = -∫ t in W.time.t0..W.time.t1,
+            ∫ x : BurgersTorus,
+              (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+                  φ.value t x +
+                ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+                  φ.timeDeriv t x) := by
+          rw [intervalIntegral.integral_neg]
+
+/-- Remaining representative identification boundary for the explicit heat
+curve candidate. It no longer constructs a curve or asserts smoothing; it only
+identifies the candidate's positive-time Fourier coefficients with the formal
+heat-evolved coefficients on the requested local window. The zero-time
+coefficient identities and all energy matching with the proved
+Fourier/Sobolev `H¹` reconstruction are derived below, so they are not part of
+the boundary. -/
+structure PeriodicHeat1DFourierH1CandidateIdentificationFor
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) where
+  value_coeff :
+    ∀ t : ℝ, W.Contains t → 0 < t → ∀ n : ℤ,
+      periodicH1_valueFourierCoeff
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n =
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n
+  derivative_coeff :
+    ∀ t : ℝ, W.Contains t → 0 < t → ∀ n : ℤ,
+      periodicH1_derivativeFourierCoeff
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n =
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n
+
+/-- Integrating-factor conservation for the value Fourier modes of a weak
+periodic heat solution on a local window.
+
+This is the local scalar-mode shape of the remaining heat PDE boundary. It is
+independent of the named initial datum: the right-hand side is the coefficient
+at time zero of the same weak solution. The initial-condition field of
+`SolvesPeriodicHeatWeak` is used below to convert this into heat-semigroup
+evolution from `u0`. -/
+structure PeriodicHeat1DWeakSolutionValueModeConservationFor
+    (nu : BurgersParameters)
+    (W : HeatWindow)
+    (v : PeriodicHeatCurve nu) where
+  conserved :
+    ∀ t : ℝ, W.Contains t → 0 ≤ t → ∀ n : ℤ,
+      (periodicHeat1D_modeMultiplier nu (-t) n : ℂ) *
+          periodicH1_valueFourierCoeff (v.eval t) n =
+        periodicH1_valueFourierCoeff (v.eval 0) n
+
+/-- Value Fourier-coefficient evolution interface for arbitrary weak periodic
+heat solutions on a local window.
+
+This is the narrow heat PDE uniqueness boundary used by the backend. It does
+not assert equality to the canonical curve directly, and it does not assume
+weak-derivative coefficient evolution. The derivative-side evolution is derived
+below from this value statement plus the `PeriodicH1State` weak-derivative
+Fourier identity. This interface is now derived from integrating-factor
+conservation rather than assumed directly. -/
+structure PeriodicHeat1DWeakSolutionValueFourierEvolutionFor
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (v : PeriodicHeatCurve nu) where
+  value_coeff :
+    ∀ t : ℝ, W.Contains t → 0 ≤ t → ∀ n : ℤ,
+      periodicH1_valueFourierCoeff (v.eval t) n =
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n
+
+/-- Full value-and-weak-derivative Fourier-coefficient evolution interface.
+
+This is no longer the axiom boundary. It is kept as the convenient downstream
+interface used by uniqueness and reconstruction bookkeeping. -/
+structure PeriodicHeat1DWeakSolutionFourierEvolutionFor
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (v : PeriodicHeatCurve nu) where
+  value_coeff :
+    ∀ t : ℝ, W.Contains t → 0 ≤ t → ∀ n : ℤ,
+      periodicH1_valueFourierCoeff (v.eval t) n =
+        periodicHeat1D_evolvedValueFourierCoeff nu u0 t n
+  derivative_coeff :
+    ∀ t : ℝ, W.Contains t → 0 ≤ t → ∀ n : ℤ,
+      periodicH1_derivativeFourierCoeff (v.eval t) n =
+        periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n
+
+theorem periodicHeat1D_candidateValueCoeff_fromPositiveTimeIdentification
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (I : PeriodicHeat1DFourierH1CandidateIdentificationFor nu u0 W hu0)
+    (t : ℝ)
+    (htW : W.Contains t)
+    (ht : 0 ≤ t)
+    (n : ℤ) :
+    periodicH1_valueFourierCoeff
+        ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n =
+      periodicHeat1D_evolvedValueFourierCoeff nu u0 t n := by
+  by_cases hpos : 0 < t
+  · exact I.value_coeff t htW hpos n
+  · have ht0 : t = 0 := le_antisymm (not_lt.mp hpos) ht
+    subst t
+    simp [periodicHeat1D_fourierH1CandidateHeatCurve,
+      periodicHeat1D_evolvedValueFourierCoeff_zero_time]
+
+theorem periodicHeat1D_candidateDerivativeCoeff_fromPositiveTimeIdentification
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (I : PeriodicHeat1DFourierH1CandidateIdentificationFor nu u0 W hu0)
+    (t : ℝ)
+    (htW : W.Contains t)
+    (ht : 0 ≤ t)
+    (n : ℤ) :
+    periodicH1_derivativeFourierCoeff
+        ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n =
+      periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n := by
+  by_cases hpos : 0 < t
+  · exact I.derivative_coeff t htW hpos n
+  · have ht0 : t = 0 := le_antisymm (not_lt.mp hpos) ht
+    subst t
+    simp [periodicHeat1D_fourierH1CandidateHeatCurve,
+      periodicHeat1D_evolvedDerivativeFourierCoeff_zero_time]
+
+def periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution_fromIdentification
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (I : PeriodicHeat1DFourierH1CandidateIdentificationFor nu u0 W hu0) :
+    PeriodicHeat1DWeakSolutionFourierEvolutionFor
+      nu u0 W (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) where
+  value_coeff := by
+    intro t htW ht n
+    exact periodicHeat1D_candidateValueCoeff_fromPositiveTimeIdentification
+      nu u0 W hu0 I t htW ht n
+  derivative_coeff := by
+    intro t htW ht n
+    exact periodicHeat1D_candidateDerivativeCoeff_fromPositiveTimeIdentification
+      nu u0 W hu0 I t htW ht n
+
+def periodicHeat1D_fourierH1ContinuousCurve_fromCandidateIdentification
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (I : PeriodicHeat1DFourierH1CandidateIdentificationFor nu u0 W hu0) :
+    PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0 where
+  curve := periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0
+  initial_eq := periodicHeat1D_fourierH1CandidateHeatCurve_initial nu u0 hu0
+  value_fourierH1_coeff := by
+    intro t htW ht n
+    calc
+      periodicH1_valueFourierCoeff
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n
+          = periodicHeat1D_evolvedValueFourierCoeff nu u0 t n :=
+            periodicHeat1D_candidateValueCoeff_fromPositiveTimeIdentification
+              nu u0 W hu0 I t htW ht n
+      _ = fourierCoeff
+            (periodicHeat1D_reconstructedFourierH1 nu u0 hu0 t ht).valueL2 n := by
+            exact (periodicHeat1D_reconstructedValueL2_fourierCoeff
+              nu u0 hu0 t ht n).symm
+  derivative_fourierH1_coeff := by
+    intro t htW ht n
+    calc
+      periodicH1_derivativeFourierCoeff
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n
+          = periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n :=
+            periodicHeat1D_candidateDerivativeCoeff_fromPositiveTimeIdentification
+              nu u0 W hu0 I t htW ht n
+      _ = fourierCoeff
+            (periodicHeat1D_reconstructedFourierH1 nu u0 hu0 t ht).derivativeL2 n := by
+            exact (periodicHeat1D_reconstructedDerivativeL2_fourierCoeff
+              nu u0 hu0 t ht n).symm
+  value_fourierH1_parseval := by
+    intro t htW ht
+    let C := (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t
+    have hC : PeriodicH1State.IsPeriodicH1 C := by
+      dsimp [C]
+      exact periodicHeat1D_fourierH1CandidateHeatCurve_boundary nu u0 hu0 t
+    calc
+      PeriodicH1State.energy
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t)
+          = ∑' n : ℤ, periodicH1_valueModeEnergy C n := by
+            simpa [C] using (periodicH1_value_parseval_literature C hC).symm
+      _ = ∑' n : ℤ, periodicHeat1D_evolvedValueModeEnergy nu u0 t n := by
+            apply tsum_congr
+            intro n
+            have hcoeff :=
+              periodicHeat1D_candidateValueCoeff_fromPositiveTimeIdentification
+                nu u0 W hu0 I t htW ht n
+            simpa [C, periodicH1_valueModeEnergy,
+              periodicHeat1D_evolvedValueModeEnergy] using
+              congrArg (fun z : ℂ => ‖z‖ ^ (2 : ℕ)) hcoeff
+      _ = PeriodicFourierH1State.energy
+            (periodicHeat1D_reconstructedFourierH1 nu u0 hu0 t ht) := by
+            exact (periodicHeat1D_reconstructedFourierH1_value_parseval
+              nu u0 hu0 t ht).symm
+  derivative_fourierH1_parseval := by
+    intro t htW ht
+    let C := (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t
+    have hC : PeriodicH1State.IsPeriodicH1 C := by
+      dsimp [C]
+      exact periodicHeat1D_fourierH1CandidateHeatCurve_boundary nu u0 hu0 t
+    calc
+      PeriodicH1State.derivativeEnergy
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t)
+          = ∑' n : ℤ, periodicH1_derivativeModeEnergy C n := by
+            simpa [C] using (periodicH1_derivative_parseval_literature C hC).symm
+      _ = ∑' n : ℤ, periodicHeat1D_evolvedDerivativeModeEnergy nu u0 t n := by
+            apply tsum_congr
+            intro n
+            have hcoeff :=
+              periodicHeat1D_candidateDerivativeCoeff_fromPositiveTimeIdentification
+                nu u0 W hu0 I t htW ht n
+            simpa [C, periodicH1_derivativeModeEnergy,
+              periodicHeat1D_evolvedDerivativeModeEnergy] using
+              congrArg (fun z : ℂ => ‖z‖ ^ (2 : ℕ)) hcoeff
+      _ = PeriodicFourierH1State.derivativeEnergy
+            (periodicHeat1D_reconstructedFourierH1 nu u0 hu0 t ht) := by
+            exact (periodicHeat1D_reconstructedFourierH1_derivative_parseval
+              nu u0 hu0 t ht).symm
+  positive_time_eval := by
+    intro t _htW ht
+    exact periodicHeat1D_fourierH1CandidateHeatCurve_positive_time_eval
+      nu u0 hu0 t ht
+
+/-- Positive-time coefficient identification for the explicit heat candidate.
+
+This is no longer a literature boundary: the candidate is the real part of the
+proved continuous Fourier series at positive time, and its `L²` Fourier
+coefficients are recovered from the Hilbert-basis series. -/
+def periodicHeat1D_fourierH1CandidateIdentification_literature :
   ∀ (nu : BurgersParameters)
     (u0 : PeriodicH1State)
     (W : HeatWindow)
     (hu0 : PeriodicH1State.IsPeriodicH1 u0),
-      PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0
+      PeriodicHeat1DFourierH1CandidateIdentificationFor nu u0 W hu0 := by
+  intro nu u0 W hu0
+  refine
+    { value_coeff := ?_
+      derivative_coeff := ?_ }
+  · intro t _htW ht n
+    calc
+      periodicH1_valueFourierCoeff
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n
+          = periodicH1_valueFourierCoeff
+              (periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht) n := by
+              rw [periodicHeat1D_fourierH1CandidateHeatCurve_positive_time_eval
+                nu u0 hu0 t ht]
+      _ = periodicHeat1D_evolvedValueFourierCoeff nu u0 t n := by
+              have h0 :
+                  periodicH1_valueFourierCoeff
+                      (periodicHeat1D_positiveTimeSmoothPeriodicH1State
+                        nu u0 hu0 t ht) n =
+                    periodicHeat1D_evolvedSpatialDerivativeFourierCoeff
+                      nu u0 t 0 n := by
+                simpa [periodicH1_valueFourierCoeff,
+                  periodicHeat1D_positiveTimeSmoothPeriodicH1State] using
+                  periodicHeat1D_realSpatialDerivativeFourierSeries_fourierCoeff
+                    nu u0 hu0 t ht 0 n
+              exact h0.trans
+                (periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_zero
+                  nu u0 t n)
+  · intro t _htW ht n
+    calc
+      periodicH1_derivativeFourierCoeff
+          ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n
+          = periodicH1_derivativeFourierCoeff
+              (periodicHeat1D_positiveTimeSmoothPeriodicH1State nu u0 hu0 t ht) n := by
+              rw [periodicHeat1D_fourierH1CandidateHeatCurve_positive_time_eval
+                nu u0 hu0 t ht]
+      _ = periodicHeat1D_evolvedSpatialDerivativeFourierCoeff nu u0 t 1 n := by
+              simpa [periodicH1_derivativeFourierCoeff,
+                periodicHeat1D_positiveTimeSmoothPeriodicH1State] using
+                periodicHeat1D_realSpatialDerivativeFourierSeries_fourierCoeff
+                  nu u0 hu0 t ht 1 n
+      _ = periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n :=
+              periodicHeat1D_evolvedSpatialDerivativeFourierCoeff_one
+                nu u0 hu0 t n
 
-/-- Remaining heat PDE boundary: the Fourier-`H¹` continuous representative
-satisfies the weak heat residual on the certified local window. -/
-axiom periodicHeat1D_fourierH1WindowResidual_literature :
+def periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) :
+    PeriodicHeat1DWeakSolutionFourierEvolutionFor
+      nu u0 W (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) :=
+  periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution_fromIdentification
+    nu u0 W hu0
+    (periodicHeat1D_fourierH1CandidateIdentification_literature nu u0 W hu0)
+
+def periodicHeat1D_fourierH1ContinuousCurve_literature
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) :
+    PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0 :=
+  periodicHeat1D_fourierH1ContinuousCurve_fromCandidateIdentification
+    nu u0 W hu0
+    (periodicHeat1D_fourierH1CandidateIdentification_literature nu u0 W hu0)
+
+/-- Integrated classical heat certificate for the concrete Fourier candidate.
+This is no longer a literature axiom: the positive-time derivative is proved by
+termwise Fourier differentiation, and the integrated weak heat balance is
+assembled from the local spatial weak-derivative identity plus finite-window
+time integration. -/
+def periodicHeat1D_fourierH1IntegratedClassicalHeat_literature
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0) :
+    IntegratedClassicalHeatWindowCertificate nu
+      (periodicHeat1D_fourierH1ContinuousCurve_literature nu u0 W hu0).certified := by
+  refine
+    { timeDeriv := periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0
+      time_hasDerivAt_positive := ?_
+      integrated_heat_balance := ?_ }
+  · intro t ht x
+    change HasDerivAt
+      (fun s : ℝ =>
+        ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval s).value x)
+      (periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x) t
+    exact periodicHeat1D_fourierH1CandidateHeatCurve_time_hasDerivAt_positive
+      nu u0 hu0 t ht x
+  · intro φ _hφ
+    change timeSpaceIntegralOn W.time
+        (heatWeakResidualIntegrand nu
+          (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0) φ) =
+      -timeSpaceIntegralOn W.time
+        (fun t x =>
+          periodicHeat1D_fourierH1CandidateHeatCurveTimeDeriv nu u0 hu0 t x *
+              φ.value t x +
+            ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t).value x *
+              φ.timeDeriv t x)
+    exact periodicHeat1D_fourierH1CandidateHeatCurve_integrated_heat_balance
+      nu u0 W hu0 φ
+
+theorem periodicHeat1D_fourierH1WindowResidual_literature :
   ∀ (nu : BurgersParameters)
     (u0 : PeriodicH1State)
     (W : HeatWindow)
-    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
-    (R : PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0),
-      HeatWindowResidual nu R.certified
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0),
+      HeatWindowResidual nu
+        (periodicHeat1D_fourierH1ContinuousCurve_literature nu u0 W hu0).certified := by
+  intro nu u0 W hu0
+  exact HeatWindowResidual.of_integratedClassical
+    (periodicHeat1D_fourierH1IntegratedClassicalHeat_literature
+      nu u0 W hu0)
 
-/-- Remaining heat PDE boundary: windowed uniqueness for the Fourier-`H¹`
-continuous representative. -/
-axiom periodicHeat1D_fourierH1WindowUniqueness_literature :
+/-- Remaining heat PDE boundary: arbitrary weak heat solutions have the
+expected value Fourier-coefficient evolution on every finite forward-time
+window.
+
+This is strictly narrower than windowed uniqueness for the certified curve and
+also narrower than full `H¹` coefficient evolution: weak-derivative coefficient
+evolution is proved below from this value statement and the carrier's weak
+derivative Fourier identity. -/
+axiom periodicHeat1D_weakSolutionValueFourierEvolution_literature :
   ∀ (nu : BurgersParameters)
     (u0 : PeriodicH1State)
     (W : HeatWindow)
-    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
-    (R : PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0),
-      HeatWindowUniqueness nu R.certified
+    (w : PeriodicHeatCurve nu),
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionValueFourierEvolutionFor nu u0 W w
 
-/-- Remaining heat PDE boundary: positive-time smoothing for the Fourier-`H¹`
-continuous representative on the certified local window. -/
-axiom periodicHeat1D_fourierH1WindowSmoothing_literature :
+def periodicHeat1D_weakSolutionFourierEvolution_fromValueEvolution
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (Hvalue : ∀ w : PeriodicHeatCurve nu,
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionValueFourierEvolutionFor nu u0 W w) :
+    ∀ w : PeriodicHeatCurve nu,
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionFourierEvolutionFor nu u0 W w
+  | w, hsol =>
+      let Hv := Hvalue w hsol
+      { value_coeff := by
+          intro t htW ht n
+          exact Hv.value_coeff t htW ht n
+        derivative_coeff := by
+          intro t htW ht n
+          calc
+            periodicH1_derivativeFourierCoeff (w.eval t) n
+                = (2 * Real.pi * Complex.I * (n : ℂ)) *
+                    periodicH1_valueFourierCoeff (w.eval t) n :=
+                  periodicH1_weakDerivative_fourierCoeff_allModes_literature
+                    (w.eval t) (hsol.2.1 t) n
+            _ = (2 * Real.pi * Complex.I * (n : ℂ)) *
+                  periodicHeat1D_evolvedValueFourierCoeff nu u0 t n := by
+                  rw [Hv.value_coeff t htW ht n]
+            _ = periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n := by
+                  exact
+                    (periodicHeat1D_evolvedDerivativeFourierCoeff_compatible_allModes
+                      nu u0 (PeriodicH1State.isPeriodicH1 u0) t n).symm }
+
+/-- Full coefficient evolution is a Lean consequence of the value-coefficient
+literature boundary plus the concrete `PeriodicH1State` weak-derivative
+identity. -/
+def periodicHeat1D_weakSolutionFourierEvolution_literature :
   ∀ (nu : BurgersParameters)
     (u0 : PeriodicH1State)
     (W : HeatWindow)
+    (w : PeriodicHeatCurve nu),
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionFourierEvolutionFor nu u0 W w := by
+  intro nu u0 W
+  exact periodicHeat1D_weakSolutionFourierEvolution_fromValueEvolution
+    nu u0 W
+    (fun w hw =>
+      periodicHeat1D_weakSolutionValueFourierEvolution_literature
+        nu u0 W w hw)
+
+theorem periodicHeat1D_fourierH1WindowUniqueness_fromWeakSolutionFourierEvolution
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
     (hu0 : PeriodicH1State.IsPeriodicH1 u0)
-    (R : PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0),
-      HeatWindowSmoothing R.certified
+    (Hweak : ∀ w : PeriodicHeatCurve nu,
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionFourierEvolutionFor nu u0 W w) :
+    HeatWindowUniqueness nu
+      (periodicHeat1D_fourierH1ContinuousCurve_literature nu u0 W hu0).certified := by
+  intro w hw t htW ht_nonneg
+  have hw_u0 : SolvesPeriodicHeatWeak nu u0 w := by
+    simpa [periodicHeat1D_fourierH1ContinuousCurve_literature,
+      periodicHeat1D_fourierH1ContinuousCurve_fromCandidateIdentification,
+      PeriodicHeat1DFourierH1ContinuousCurveFor.certified] using hw
+  have htW' : W.Contains t := by
+    simpa [periodicHeat1D_fourierH1ContinuousCurve_literature,
+      periodicHeat1D_fourierH1ContinuousCurve_fromCandidateIdentification,
+      PeriodicHeat1DFourierH1ContinuousCurveFor.certified] using htW
+  change w.eval t = (periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t
+  have Hw := Hweak w hw_u0
+  have Hc := periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution
+    nu u0 W hu0
+  exact periodicH1State_ext_fourierCoeff
+    (by
+      intro n
+      calc
+        periodicH1_valueFourierCoeff (w.eval t) n
+            = periodicHeat1D_evolvedValueFourierCoeff nu u0 t n :=
+              Hw.value_coeff t htW' ht_nonneg n
+        _ = periodicH1_valueFourierCoeff
+              ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n :=
+              (Hc.value_coeff t htW' ht_nonneg n).symm)
+    (by
+      intro n
+      calc
+        periodicH1_derivativeFourierCoeff (w.eval t) n
+            = periodicHeat1D_evolvedDerivativeFourierCoeff nu u0 t n :=
+              Hw.derivative_coeff t htW' ht_nonneg n
+        _ = periodicH1_derivativeFourierCoeff
+              ((periodicHeat1D_fourierH1CandidateHeatCurve nu u0 hu0).eval t) n :=
+              (Hc.derivative_coeff t htW' ht_nonneg n).symm)
+
+/-- Forward-time windowed uniqueness for the canonical Fourier-`H¹`
+continuous representative. This is now a theorem from the narrower
+coefficient-evolution boundary. -/
+theorem periodicHeat1D_fourierH1WindowUniqueness_literature :
+  ∀ (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0),
+      HeatWindowUniqueness nu
+        (periodicHeat1D_fourierH1ContinuousCurve_literature nu u0 W hu0).certified := by
+  intro nu u0 W hu0
+  exact periodicHeat1D_fourierH1WindowUniqueness_fromWeakSolutionFourierEvolution
+    nu u0 W hu0
+    (fun w hw =>
+      periodicHeat1D_weakSolutionFourierEvolution_literature
+        nu u0 W w hw)
+
+/-- Positive-time smoothing is now derived from the continuous-curve
+identification with the proved real Fourier `PeriodicH1State` representative,
+not assumed as a separate heat PDE axiom. -/
+theorem periodicHeat1D_fourierH1WindowSmoothing_fromContinuousCurve
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (hu0 : PeriodicH1State.IsPeriodicH1 u0)
+    (R : PeriodicHeat1DFourierH1ContinuousCurveFor nu u0 W hu0) :
+    HeatWindowSmoothing R.certified := by
+  intro t htW htpos
+  have htW' : W.Contains t := by
+    simpa [PeriodicHeat1DFourierH1ContinuousCurveFor.certified] using htW
+  dsimp [HeatSmoothAtPositiveTime]
+  change SmoothPeriodicState (R.curve.eval t)
+  rw [R.positive_time_eval t htW' htpos]
+  exact periodicHeat1D_positiveTimeSmoothPeriodicH1State_smooth
+    nu u0 hu0 t htpos
 
 /-- The formerly monolithic heat upgrade is now a Lean assembler from the
-continuous representative theorem plus the three windowed PDE semantics
-theorems. -/
+continuous representative theorem plus the residual and uniqueness PDE
+semantics. Smoothing is derived from positive-time representative
+identification, not assumed here. -/
 def periodicHeat1D_fourierH1WindowUpgrade_literature
     (nu : BurgersParameters)
     (u0 : PeriodicH1State)
@@ -1279,9 +3773,9 @@ def periodicHeat1D_fourierH1WindowUpgrade_literature
   let R := periodicHeat1D_fourierH1ContinuousCurve_literature nu u0 W hu0
   periodicHeat1D_fourierH1WindowUpgrade_fromContinuousCurve
     nu u0 W hu0 R
-    (periodicHeat1D_fourierH1WindowResidual_literature nu u0 W hu0 R)
-    (periodicHeat1D_fourierH1WindowUniqueness_literature nu u0 W hu0 R)
-    (periodicHeat1D_fourierH1WindowSmoothing_literature nu u0 W hu0 R)
+    (periodicHeat1D_fourierH1WindowResidual_literature nu u0 W hu0)
+    (periodicHeat1D_fourierH1WindowUniqueness_literature nu u0 W hu0)
+    (periodicHeat1D_fourierH1WindowSmoothing_fromContinuousCurve nu u0 W hu0 R)
 
 /-- Compatibility shim for the older reconstruction interface. It is no longer
 an axiom: Lean derives coefficient/Parseval identities against the evolved heat

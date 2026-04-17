@@ -1,0 +1,93 @@
+
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\title[Local Caccioppoli and Rough Cores]{Local Caccioppoli Estimates and Rough-Core Exclusion}
+\author{}
+\date{}
+\begin{document}
+\begin{abstract}
+We prove the local Caccioppoli estimate needed in the local CKN Type II analysis.
+The assumptions are physical suitability, a local repaired chart, local pressure
+decomposition, compact-cylinder CKN bounds, and bounded local modulation
+coefficients.  The estimate controls the local suitable package on smaller cylinders
+and gives windowed \(H^1\) control on bounded cores.  Consequently a rough core
+is not an independent Type II assumption: it either satisfies the local
+Caccioppoli bounds or enters the cascade/multibubble decomposition.
+\end{abstract}
+\maketitle
+
+\section{Renormalized local energy inequality}
+
+Let \((V,P,a,b)\) solve the locally repaired renormalized equation on compact
+cylinders.  The local energy inequality is the physical local energy inequality
+pulled back by the absolutely continuous local chart.  It contains the usual
+Navier--Stokes terms and lower-order terms involving \(a\) and \(b\).
+
+\section{Caccioppoli estimate}
+
+\begin{theorem}[Compact-cylinder Caccioppoli estimate]\label{thm:caccioppoli}
+Let \(Q_{2R,I}=B_{2R}\times I\) be compactly contained in the local chart, and
+let \(I'\Subset I\).  Suppose \((V,P)\) satisfies the renormalized local energy
+inequality on \(Q_{2R,I}\),
+\[
+\int_I\int_{B_{2R}}
+\left(|V|^3+|P-(P)_{B_{2R}}(\tau)|^{3/2}\right)<\infty,
+\]
+and \(a,b\) are bounded on \(I\).  Then
+\[
+\int_{I'}\int_{B_R}|\nabla V|^2
+\le C\left(1+
+\int_I\int_{B_{2R}}|V|^3+
+\int_I\int_{B_{2R}}|P-(P)_{B_{2R}}|^{3/2}\right),
+\]
+where \(C\) depends on \(R\), \(I'\Subset I\), the viscosity, the cutoff
+choice, and \(\|a\|_{L^\infty(I)}+\|b\|_{L^\infty(I)}\).
+\end{theorem}
+
+\begin{proof}
+Insert a cutoff \(\phi(y,\tau)=\eta(\tau)\zeta(y)^2\) in the local energy
+inequality, with \(\zeta=1\) on \(B_R\) and \(\operatorname{supp}\zeta\subset
+B_{2R}\).  The convection and cutoff terms are bounded by the displayed local
+\(L^3\) integral and cutoff constants.  The pressure term is estimated after
+subtracting the spatial mean on \(B_{2R}\).  The lower-order modulation terms are bounded by
+\(\|a\|_{L^\infty(I)}+\|b\|_{L^\infty(I)}\), the cutoff constants, and the
+local \(L^2\) mass.  The local \(L^2\) mass is controlled on compact balls by
+the local \(L^3\) bound.
+The interior gradient term is absorbed into the left-hand side after the usual
+Caccioppoli rearrangement.
+\end{proof}
+
+\begin{corollary}[Rough-core alternative]\label{cor:rough-alternative}
+On unit windows where the local modulation coefficients are uniformly bounded,
+\cref{thm:caccioppoli} gives uniform local windowed \(H^1\) control on every
+bounded core.  If the compact-cylinder suitable package fails instead, then the
+local Caccioppoli estimate implies failure of the local \(C+D\) bound on a
+comparable cylinder.  Thus rough-core behavior belongs to the local single-core
+criterion or to the local multibubble/cascade analysis.
+\end{corollary}
+
+\begin{proof}
+The first statement is \cref{thm:caccioppoli} applied on consecutive windows.
+For the second, argue by contrapositive: if the local \(C+D\) quantities and the
+modulation coefficients are bounded on a slightly larger cylinder, then
+\cref{thm:caccioppoli} bounds \(E\) on a smaller cylinder; the compact-ball
+\(L^3\) bound also controls the local \(L^2\) mass, hence \(A\).  Therefore
+failure of the suitable package must come from local CKN concentration on a
+comparable cylinder.
+\end{proof}
+
+\end{document}

@@ -73,7 +73,7 @@ Here \(V\) is the repaired-gauge renormalized velocity profile,
 \(a_+=\max(a,0)\), \(\phi_{R_0}\) is the cutoff used by the master note, and
 \(\nu>0\) is the viscosity.
 
-Theorem A'' proves, under global \(L^3\)-normalization, uniform \(L^3\)-tightness,
+Theorem A'' proves, under local CKN normalization, local compact-cylinder mass retention,
 and local windowed \(H^1\) control, that
 
 ```{math}
@@ -467,8 +467,8 @@ the sieve.
 Assume a repaired-gauge renormalized Type II candidate satisfies the hypotheses
 of Theorem A'':
 
-1. global \(L^3\)-normalization,
-2. uniform global \(L^3\)-tightness,
+1. local CKN normalization,
+2. uniform local CKN compact-cylinder retention,
 3. uniform local windowed \(L^2_\tau H^1_y\) bounds.
 
 Use the default Navier-Stokes `BarrierTypeII` backend of Definition

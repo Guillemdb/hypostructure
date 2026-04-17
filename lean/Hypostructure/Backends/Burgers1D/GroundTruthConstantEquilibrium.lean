@@ -256,7 +256,7 @@ theorem constantHeatWindow_uniqueness
     (nu : BurgersParameters)
     (m : ℝ) :
     HeatWindowUniqueness nu (constantCertifiedHeatWindow nu m) := by
-  intro w hw t ht
+  intro w hw t ht _ht_nonneg
   have ht0 : t = 0 := le_antisymm ht.2 ht.1
   subst t
   simpa [constantCertifiedHeatWindow, constantHeatCurve]

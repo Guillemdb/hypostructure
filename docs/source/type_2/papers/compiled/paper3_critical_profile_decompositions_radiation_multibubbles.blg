@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2025/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: compiled/paper3_critical_profile_decompositions_radiation_multibubbles.aux
+The style file: alpha.bst
+Database file #1: paper3_critical_profile_decompositions_radiation_multibubbles.bib
+You've used 4 entries,
+            2543 wiz_defined-function locations,
+            590 strings with 5424 characters,
+and the built_in function-call counts, 1603 in all, are:
+= -- 167
+> -- 60
+< -- 2
++ -- 20
+- -- 19
+* -- 125
+:= -- 268
+add.period$ -- 12
+call.type$ -- 4
+change.case$ -- 23
+chr.to.int$ -- 4
+cite$ -- 4
+duplicate$ -- 58
+empty$ -- 120
+format.name$ -- 25
+if$ -- 317
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 4
+newline$ -- 23
+num.names$ -- 12
+pop$ -- 13
+preamble$ -- 1
+purify$ -- 27
+quote$ -- 0
+skip$ -- 48
+stack$ -- 0
+substring$ -- 129
+swap$ -- 4
+text.length$ -- 2
+text.prefix$ -- 2
+top$ -- 0
+type$ -- 32
+warning$ -- 0
+while$ -- 18
+width$ -- 5
+write$ -- 54

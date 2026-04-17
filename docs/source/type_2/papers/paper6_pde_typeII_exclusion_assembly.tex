@@ -1,0 +1,386 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\pdfstringdefDisableCommands{%
+  \def\({}%
+  \def\){}%
+  \def\tilde#1{#1}%
+  \def\mathrm#1{#1}%
+  \def\mathbb#1{#1}%
+  \def\tau{tau}%
+  \def\lambda{lambda}%
+  \def\infty{infty}%
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title[Assembly of the Local Type II Exclusion]{Assembly of the Local Type II Exclusion Theorem for Navier--Stokes Blowup}
+\author{Guillem Cordero}
+\date{}
+
+\begin{document}
+
+\begin{abstract}
+We assemble the local Type II exclusion argument for the three-dimensional
+incompressible Navier--Stokes equations in standard PDE language.  The input is
+a suitable weak solution near a putative singular point, the local
+Caffarelli--Kohn--Nirenberg concentration theorem, a local Type I tangent
+criterion, the local single-core Type II criterion, the localized scale-translation representation,
+the local multibubble and cascade exclusion, the compact-cylinder Caccioppoli
+regularity theorem, and the scale-collapse dichotomy.  Under the hypotheses
+stated in those results, every positive local Type II concentration is exhausted
+by the single-core, multibubble/cascade, rough-core, or scale-collapse
+alternatives, and each alternative is excluded by the corresponding theorem.
+Consequently no Type II singularity occurs at the point under these analytic
+hypotheses.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let \((u,p)\) be a suitable weak solution of the three-dimensional
+incompressible Navier--Stokes equations
+\[
+  \partial_tu+(u\cdot\nabla)u+\nabla p=\nu\Delta u,
+  \qquad \nabla\cdot u=0,
+\]
+in a neighborhood of a possible singular point \(z_0=(x_0,T)\).  This paper assembles the local Type II part of the analysis from the local entry theorem and the local Type II components stated below.
+
+The entry point is local.  For \(r>0\), set
+\[
+  Q_r(z_0)=B_r(x_0)\times(T-r^2,T),
+\]
+and define the pressure-normalized Caffarelli--Kohn--Nirenberg quantities
+\[
+  C(z_0,r)=r^{-2}\int_{Q_r(z_0)}|u|^3\,dx\,dt,
+\]
+\[
+  D(z_0,r)=r^{-2}\int_{T-r^2}^T\int_{B_r(x_0)}
+  |p(x,t)-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt.
+\]
+The pressure is always understood modulo functions of time, as in the local
+energy inequality and the CKN theory \cite{CaffarelliKohnNirenberg1982}.
+
+The local concentration theorem says that a singular point has positive local
+CKN concentration.  After the local Type I tangent criterion removes nonzero
+bounded parabolic tangent limits, the remaining positive concentration is the
+local Type II regime.  The local Type II analysis divides that regime into the
+following PDE alternatives.
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item A single selected core with bounded compact-cylinder suitable package and
+nondegenerate localized scale-translation gauges.
+\item A multibubble, cascade, or gauge-degenerate configuration.
+\item Failure of local windowed \(H^1\) control in a bounded renormalized core.
+\item Collapse of the renormalized scale.
+\end{enumerate}
+
+The single-core alternative is excluded by the local compact criterion.  The
+multibubble and cascade alternatives are excluded by the local decoupling and
+scale-rigidity theorems.  The rough-core alternative is excluded by the
+compact-cylinder Caccioppoli theorem.  The scale-collapse alternative is
+excluded either by a finite-cost condition controlled by the scale-drift cost or
+by reduction to a stationary or generalized self-similar profile in a parameter
+regime covered by the relevant Liouville theorem.
+
+\begin{theorem}[Local Type II exclusion, assembled form]\label{thm:intro-main}
+Let \((u,p)\) be a suitable weak solution near \((x_0,T)\).  Assume the local
+Type I tangent criterion.  Assume also the analytic hypotheses of the five
+local PDE components: local single-core exclusion, localized
+scale-translation representation, local multibubble/cascade exclusion,
+compact-cylinder Caccioppoli regularity, and scale-collapse exclusion by cost or
+by stationary-profile rigidity.  Then \((x_0,T)\) is not a Type II singular
+point.
+\end{theorem}
+
+The theorem is deliberately conditional on the analytic hypotheses named above.
+It does not assert global regularity for arbitrary initial data.  Its conclusion
+is that, once the local Type I criterion and the five local Type II components
+are available in their stated forms, the Type II alternatives are exhausted and
+excluded.
+
+\section{Local entry and Type I separation}
+
+\begin{theorem}[Positive local concentration at singular points]\label{thm:positive-concentration}
+If \((x_0,T)\) is singular, then
+\[
+  \limsup_{r\downarrow0}\bigl(C((x_0,T),r)+D((x_0,T),r)\bigr)>0.
+\]
+Equivalently, there are \(\eta>0\) and \(r_n\downarrow0\) such that
+\[
+  C((x_0,T),r_n)+D((x_0,T),r_n)\ge \eta
+  \qquad\text{for all }n.
+\]
+\end{theorem}
+
+\begin{proof}
+This is the contrapositive of CKN epsilon regularity.  If the displayed limsup
+were zero, then for sufficiently small \(r\) the CKN quantity would be below the
+universal regularity threshold, and \((x_0,T)\) would be regular.
+\end{proof}
+
+Given such a sequence, define the parabolic rescalings
+\[
+  u_n(y,s)=r_n u(x_0+r_ny,T+r_n^2s),
+  \qquad
+  p_n(y,s)=r_n^2p(x_0+r_ny,T+r_n^2s).
+\]
+Then \((u_n,p_n)\) is suitable on every fixed backward cylinder once \(n\) is
+large enough, and the unit cylinder retains positive normalized CKN mass.
+
+\begin{assumption}[Local Type I tangent criterion]\label{ass:typeI}
+Any blowup sequence whose selected-window rescalings have a nonzero bounded
+parabolic tangent on a compact cylinder is excluded by the Type I theory.
+\end{assumption}
+
+A positive local concentration sequence not excluded by this criterion is called
+a local Type II sequence in this paper.
+
+\section{Compact-cylinder dichotomy}
+
+For a suitable pair \((v,q)\) on a backward cylinder, write
+\[
+  A_v(R)=R^{-1}\operatorname*{ess\,sup}_{-R^2<s<0}
+  \int_{B_R}|v(y,s)|^2\,dy,
+\]
+\[
+  E_v(R)=R^{-1}\int_{-R^2}^0\int_{B_R}|\nabla v|^2\,dy\,ds,
+\]
+and let \(C_{v,q}(R)\), \(D_{v,q}(R)\) denote the corresponding scaled local
+\(L^3\) and pressure quantities.
+
+\begin{theorem}[Local compactness dichotomy]\label{thm:compactness-dichotomy}
+After passing to a subsequence of the local rescalings \((u_n,p_n)\), exactly
+one of the following alternatives holds.
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item For every fixed \(R<\infty\),
+\[
+  \sup_n\left(A_{u_n}(R)+E_{u_n}(R)+C_{u_n,p_n}(R)+D_{u_n,p_n}(R)\right)<\infty.
+\]
+In this case a subsequence converges locally in the suitable weak class on
+compact backward cylinders.
+\item For some fixed \(R<\infty\), the preceding supremum is infinite.  Then a
+bounded rescaled cylinder carries an additional local concentration, giving a
+multibubble or cascade alternative.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The first alternative is precisely the compact-cylinder suitable package.  If it
+holds, the standard compactness theorem for suitable weak solutions gives a
+subsequence with local weak suitable convergence, strong convergence in
+subcritical local spaces, and pressure convergence modulo spatial means.  If it
+fails, then at least one component of the local suitable package is unbounded on
+a fixed cylinder.  The local Caccioppoli inequality shows that boundedness of
+\(C+D\) on a comparable larger cylinder controls \(A+E\) on a smaller one.
+Thus failure of the compact-cylinder package forces additional bounded-cylinder
+concentration, which is the local multibubble or cascade alternative.
+\end{proof}
+
+\section{Imported PDE components}
+
+This section states the local PDE components used in the assembly.
+
+\begin{theorem}[Local single-core criterion]\label{thm:single-core}
+Assume the local Type I tangent criterion.  A local Type II sequence with one
+selected core, bounded compact-cylinder suitable package, nondegenerate
+localized scale-translation gauges, compact-ball pressure decomposition, local
+Caccioppoli bounds, and finite localized Type II cost cannot occur.
+\end{theorem}
+
+\begin{proof}
+Finite localized cost gives windows on which the localized dissipation tends to
+zero.  Compact-cylinder bounds give convergence on the same windows.  The
+low-dissipation limit is spatially constant on the selected core.  If the
+constant is zero, the selected CKN mass vanishes, contradicting positive local
+concentration.  If the constant is nonzero, the sequence has a nonzero bounded
+parabolic tangent and is excluded by the local Type I tangent criterion.
+\end{proof}
+
+\begin{theorem}[Localized scale-translation representation]\label{thm:representation}
+On a genuine single-core local Type II sequence, the localized scale and
+centering conditions can be imposed on compact cylinders whenever the localized
+Jacobian is nondegenerate.  In the resulting variables \((V,P)\),
+\[
+  \partial_\tau V+(V\cdot\nabla)V+\nabla P
+  =\nu\Delta V+a(\tau)(V+y\cdot\nabla V)+b(\tau)\cdot\nabla V,
+  \qquad \nabla\cdot V=0,
+\]
+and the pressure is determined modulo functions of time by the compact-ball
+pressure decomposition.  Failure of the localized nondegeneracy condition is a
+multibubble or gauge-degenerate alternative.
+\end{theorem}
+
+\begin{proof}
+The localized scale and centering functionals have an invertible derivative on
+the selected core.  The quantitative inverse function theorem gives the local
+scale-translation choice on each compact selected window.  Differentiating the
+rescaled variables gives the displayed equation, and the pressure transforms
+with the usual freedom to add functions of time.  If the derivative is not
+invertible, a unique core has not been selected, which is precisely the local
+gauge-degenerate alternative.
+\end{proof}
+
+\begin{theorem}[Local multibubble and cascade exclusion]\label{thm:multibubble}
+Assume the local Type I tangent criterion and the local multibubble/cascade
+decoupling and scale-rigidity theorems.  Then no local multibubble, cascade, or
+gauge-degenerate Type II configuration occurs.
+\end{theorem}
+
+\begin{proof}
+If compact-cylinder bounds fail, or if active CKN mass splits, another active
+bounded-cylinder concentration core is selected.  Comparable cores are combined
+or remain in the multibubble case.  Strict same-point cascades are reduced to
+scale-rigidity or nonlinear no-splitting.  Separated physical cores decouple in
+active local frames.  The local decoupling and scale-rigidity theorems then
+reduce every such configuration either to the single-core criterion or to the
+Type I tangent criterion, both of which exclude it.
+\end{proof}
+
+\begin{theorem}[Compact-cylinder Caccioppoli regularity]\label{thm:rough-core}
+Let \((V,P,a,b)\) solve the renormalized Navier--Stokes equation on compact
+cylinders, with local pressure reconstruction modulo functions of time, bounded
+critical local norm on the cylinders under consideration, and bounded or
+window-integrable modulation coefficients.  Then the local Caccioppoli estimate
+gives uniform local windowed \(H^1\) control.  Consequently the rough-core
+alternative, meaning failure of this local windowed \(H^1\) bound in a bounded
+renormalized core, cannot occur under these hypotheses.
+\end{theorem}
+
+\begin{proof}
+The local energy inequality is pulled back through the absolutely continuous
+scale-translation chart.  A compactly supported cutoff gives the local
+Caccioppoli estimate.  The pressure term is estimated modulo constants by the
+compact-ball pressure decomposition and Calderon--Zygmund/harmonic bounds.
+The local \(L^2\) and \(L^3\) terms are controlled on bounded cylinders, and
+the modulation terms are controlled by the stated coefficient hypotheses.  This
+yields the windowed \(H^1\) bound.
+\end{proof}
+
+\begin{theorem}[Scale-collapse exclusion alternatives]\label{thm:scale-collapse}
+Let \((V,P,a,b,\lambda)\) be a renormalized Type II rescaling satisfying
+\[
+  \partial_\tau\log\lambda=a,
+  \qquad \lambda(\tau)\to0,
+\]
+and suppose a localized \(L^2\) core has a positive floor.  Then
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau=\infty.
+\]
+If the finite-cost class is controlled by this scale-drift cost, the
+finite-cost scale-collapse rescaling is excluded.  Alternatively, on thick
+scale-collapse windows with compactness, modulation convergence, and a
+stationary omega-limit, the rescaling produces a nonzero stationary or
+generalized self-similar profile.  In parameter ranges where the corresponding
+Liouville theorem excludes such profiles, the scale-collapse rescaling is
+excluded.
+\end{theorem}
+
+\begin{proof}
+The identity \(\partial_\tau\log\lambda=a\) implies
+\[
+  \int_{\tau_1}^{\tau_2}a(\tau)\,d\tau
+  =\log\lambda(\tau_2)-\log\lambda(\tau_1).
+\]
+If \(\lambda(\tau)\to0\), the right-hand side tends to \(-\infty\).  Hence
+\(\int a_- =\infty\), and the positive localized \(L^2\) floor gives divergence
+of \(\int a_-M_R\).  The cost conclusion follows from the finite-cost control
+hypothesis.  The structural alternative follows by translating thick windows,
+using compactness and modulation convergence to pass to an autonomous reduced
+limit, and then applying the stationary omega-limit and Liouville hypotheses.
+\end{proof}
+
+\section{Assembly theorem}
+
+\begin{theorem}[Local Type II exclusion theorem]\label{thm:assembly}
+Let \((u,p)\) be a suitable weak Navier--Stokes solution near \((x_0,T)\).
+Assume the local Type I tangent criterion, the local multibubble/cascade
+decoupling and scale-rigidity theorems, the compact-cylinder Caccioppoli
+hypotheses, and the scale-collapse cost or Liouville hypotheses stated in
+\cref{thm:scale-collapse}.  Then \((x_0,T)\) is not a Type II singular point.
+\end{theorem}
+
+\begin{proof}
+Suppose, for contradiction, that \((x_0,T)\) is a Type II singular point.  By
+\cref{thm:positive-concentration}, there is a sequence of parabolic rescalings
+with positive local CKN concentration.  Since the Type I tangent case is removed
+by \cref{ass:typeI}, the sequence belongs to the local Type II regime.
+
+Apply the compact-cylinder dichotomy, \cref{thm:compactness-dichotomy}.  If the
+compact-cylinder suitable package fails, then the sequence enters the local
+multibubble or cascade alternative, which is excluded by \cref{thm:multibubble}.
+Thus we may assume compact-cylinder suitable bounds.
+
+If the localized scale-translation conditions are degenerate, the sequence is
+again in the multibubble or gauge-degenerate alternative and is excluded by
+\cref{thm:multibubble}.  Otherwise \cref{thm:representation} gives the
+renormalized scale-translation variables and the local pressure representation
+on the selected single core.
+
+For this renormalized single-core sequence, consider the possible failures of the
+selected-window compact argument.  If the localized Type II cost is finite, then
+\cref{thm:single-core} excludes the sequence.  If local windowed \(H^1\) control
+fails in a bounded renormalized core, \cref{thm:rough-core} excludes that
+alternative under the compact-cylinder Caccioppoli hypotheses.  If the
+renormalized scale collapses while a localized core remains nonzero,
+\cref{thm:scale-collapse} excludes the scale-collapse alternative under the
+stated finite-cost or Liouville hypotheses.
+
+These alternatives exhaust the positive local Type II concentration cases:
+compact single-core finite cost, multibubble/cascade or gauge degeneracy,
+rough-core loss of local windowed \(H^1\), and scale collapse.  Each case has
+been excluded, contradicting the assumed Type II singularity.
+\end{proof}
+
+\begin{corollary}[Conditional exclusion after Type I]
+Assume the local Type I tangent criterion and all analytic hypotheses listed in
+\cref{thm:assembly}.  Then no singular point of a suitable weak solution can
+belong to the local Type II regime.
+\end{corollary}
+
+\begin{proof}
+This is \cref{thm:assembly} applied at each putative singular point after the
+positive local concentration reduction.
+\end{proof}
+
+\section{Remaining analytic inputs}
+
+The assembled theorem leaves no hidden alternatives.  Any failure of the
+conclusion must occur through failure of one of the stated PDE inputs:
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the local Type I tangent criterion;
+\item compact-cylinder suitable compactness or the corresponding local
+multibubble/cascade exclusion;
+\item localized scale-translation nondegeneracy on a selected core;
+\item compact-cylinder Caccioppoli control and the pressure decomposition used
+in the rough-core theorem;
+\item finite-cost control by the localized scale-drift cost, or the
+parameter-specific Liouville theorem for the stationary or generalized
+self-similar scale-collapse profile.
+\end{enumerate}
+
+Thus the assembly theorem is a conditional Type II exclusion theorem in purely
+PDE terms: every local Type II concentration is either one of the listed
+alternatives or is excluded by the corresponding theorem.
+
+\bibliographystyle{alpha}
+\bibliography{paper6_pde_typeII_exclusion_assembly}
+
+\end{document}

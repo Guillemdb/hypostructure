@@ -1,0 +1,105 @@
+
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title[Local Multibubble Exclusion]{Local Multibubble and Cascade Exclusion for Type II Navier--Stokes Blowup}
+\author{}
+\date{}
+
+\begin{document}
+\begin{abstract}
+We formulate the multibubble and cascade part of the local CKN Type II
+exclusion argument.  The starting point is a positive local CKN concentration
+sequence at a singular point, not a nonlocal critical data sequence.  Failure of
+compact-cylinder suitable compactness, splitting of retained CKN mass, strict
+same-point scale cascades, separated active points, and localized gauge
+degeneracy are handled by local decoupling and scale-rigidity theorems.
+Together with the local Type I tangent criterion and the local single-core
+criterion, these theorems exclude multibubble and cascade Type II cases.
+\end{abstract}
+\maketitle
+
+\section{Local scenarios}
+
+Let \((u_n,p_n)\) be parabolic blow-ups around a singular point with positive
+local CKN density.  On \(Q_R=B_R\times(-R^2,0)\), use the local suitable
+quantities \(A(R),E(R),C(R),D(R)\).  If \(A+E+C+D\) is bounded on every compact
+cylinder and a single nondegenerate localized core is selected, the case is
+single-core.  The complementary local cases are compactness failure, mass
+splitting, strict same-point scale cascades, separated active physical points,
+and localized gauge degeneracy.
+
+\begin{lemma}[Compactness failure]\label{lem:compactness-failure}
+If the compact-cylinder suitable package is unbounded on a fixed rescaled
+cylinder, then after passing to a subsequence the local \(C+D\) quantity is
+unbounded on a comparable cylinder.  Hence the case contains a new local CKN
+concentration core.
+\end{lemma}
+
+\begin{proof}
+The local Caccioppoli estimate for suitable weak solutions gives the standard
+smaller-cylinder control of \(A+E\) in terms of \(C+D\) on a slightly larger
+cylinder.  Therefore, if \(C+D\) were bounded on all comparable larger
+cylinders, then \(A+E+C+D\) would be bounded on the smaller cylinder.  The
+contrapositive proves that failure of the suitable package forces failure of
+the local \(C+D\) bound at a comparable scale, which is precisely another
+local CKN concentration core.
+\end{proof}
+
+\section{Decoupling theorems}
+
+\begin{assumption}[Local decoupling and scale rigidity]\label{ass:local-dec}
+The following local decoupling theorems hold for active local Type II rescaled frames:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item comparable same-point cores combine into one compound core or make the
+      localized gauge matrix degenerate;
+\item strict same-point cascades reduce in the innermost active rescaled frame to a
+      single-core or scale-rigidity case;
+\item separated active physical points are locally invisible in each other's
+      active rescaled frames after velocity, pressure, and modulation decoupling;
+\item every scale-rigidity case produced by this reduction is excluded by the
+      local Type I tangent criterion or by the local scale-rigidity theorem.
+\end{enumerate}
+\end{assumption}
+
+\begin{theorem}[Local multibubble and cascade exclusion]\label{thm:multi}
+Assume the local Type I tangent criterion, the local single-core Type II criterion,
+and \cref{ass:local-dec}.  Then no local multibubble or cascade Type II case
+can occur.
+\end{theorem}
+
+\begin{proof}
+By \cref{lem:compactness-failure}, compactness failure produces another local
+concentration core.  Passing to subsequences, active cores are comparable
+at the same point, strictly
+scale-separated at the same point, or separated in physical space.
+
+Comparable cores form a compound core.  If this core is nondegenerate, the
+single-core compactness criterion applies; otherwise the case is gauge-degenerate and is
+covered by \cref{ass:local-dec}.  Strict same-point cascades and separated
+active points are also reduced by \cref{ass:local-dec} to either the
+single-core compactness criterion or a scale-rigidity case.  Both are excluded by the stated
+hypotheses.  Therefore no multibubble or cascade case remains.
+\end{proof}
+
+\section{Consequence}
+
+Together with the local CKN concentration result and the local
+single-core compactness criterion, \cref{thm:multi} removes the entire Type II case after
+the local Type I tangent criterion has been proved.
+
+\end{document}

@@ -1,7 +1,7 @@
-# S12: terminal critical profile completeness
+# S12: terminal critical local compactness
 
 This note discharges the S8 profile-completeness payload from the standard
-critical Navier-Stokes profile-decomposition theorem. It replaces the global
+local suitable compactness theorem. It replaces the global
 `CatLib` placeholder by the concrete analytic input actually needed by the
 Type II terminal-camera argument.
 
@@ -182,7 +182,7 @@ in Axiom {prf:ref}`ax-s12-critical-ns3d-profile-decomposition`.
 
 ## Completeness theorem
 
-::::{prf:theorem} S12 terminal critical profile completeness
+::::{prf:theorem} S12 terminal critical local compactness
 :label: thm-s12-terminal-critical-profile-completeness
 
 Assume
@@ -258,7 +258,7 @@ resulting \(K_{\mathrm{ProfComplete},NS3D,\mathrm{term}}^+\) in C18. \(\square\)
 ## Remaining non-CatLib boundary
 
 S12 removes the handwavy global `CatLib` dependency for the terminal Type II
-profile-completeness slot, but it does not prove profile completeness for
+profile-completeness slot, but it does not prove local compactness for
 arbitrary unbounded critical-norm sequences. Its unconditional content is
 relative to bounded critical terminal profile sequences and the accepted
 critical Navier-Stokes profile-decomposition/stability theorem.
@@ -276,7 +276,7 @@ K_{\mathrm{RepBridge}}^+
 K_{\mathrm{BoundedCritTermSeq}}^+.
 ```
 
-If a declared Type II branch has no bounded critical terminal sequence in the
+If a declared Type II branch has no local compact-cylinder terminal sequence in the
 profile space covered by the external theorem, then it is outside the S12
 terminal-profile-completeness route and must be classified by the corresponding
 critical-norm blowup defect \(K_{L^3\mathrm{Inf}}^-\) or by the route defect

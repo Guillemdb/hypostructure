@@ -4,7 +4,7 @@
 
 This note states and proves two reusable abstract results that isolate the two main functional-analytic steps in the compact Type II renormalization program:
 
-1. **Compactness implies tightness** in a global critical norm after edge-tracking gauge fixing.
+1. **Optional whole-space compactness implies tail smallness** after edge-tracking gauge fixing.
 2. **Renormalized PDE plus local control implies time regularity**, hence Aubin–Lions compactness.
 
 It then gives a concrete **3D incompressible Navier–Stokes** instantiation of both results.
@@ -340,7 +340,7 @@ Apply Theorem T0 with \(X=L^3(\mathbb R^3)\). Properties (X1) and (X2) are stand
 
 ### Scope
 
-The theorem is valid when the shell-gauge-fixed orbit is compact in the global critical norm \(L^3\). With only local compactness, the conclusion is unavailable.
+The theorem is valid when the shell-gauge-fixed orbit is compact in the optional whole-space critical topology. With only local compactness, the conclusion is unavailable.
 
 ---
 
@@ -478,7 +478,7 @@ This is exactly the local pressure estimate proved in the master note by decompo
 
 Assume the renormalized Navier–Stokes orbit \(V(\tau)\) satisfies:
 
-1. **global critical compactness**
+1. **local compact-cylinder compactness**
    \[
    K=\{V(\tau):\tau\ge \tau_0\}
    \]
@@ -494,7 +494,7 @@ Assume the renormalized Navier–Stokes orbit \(V(\tau)\) satisfies:
    \partial_\tau V\in L^2_{\mathrm{loc}}\big((\tau_0,\infty);H^{-1}_{\mathrm{loc}}(\mathbb R^3)\big);
    \]
 
-4. **global \(L^3\)-normalization**
+4. **local CKN normalization**
    \[
    \|V(\tau)\|_{L^3(\mathbb R^3)}=1 \quad \forall \tau\ge \tau_0;
    \]
@@ -517,7 +517,7 @@ Then
 
 ### Proof
 
-By Theorem A-NS, global precompactness in \(L^3\) implies uniform \(L^3\)-tightness of the orbit.
+By Theorem A-NS, global precompactness in \(L^3\) implies local compact-cylinder mass retention of the orbit.
 
 Assume for contradiction that
 \[
@@ -542,7 +542,7 @@ Because the orbit is uniformly bounded and precompact in \(L^3(\mathbb R^3)\), t
 
 Then the compact low-dissipation contradiction theorem applies:
 - strong local compactness,
-- uniform \(L^3\)-tightness,
+- local compact-cylinder mass retention,
 - normalization,
 - vanishing localized dissipation.
 
@@ -571,7 +571,7 @@ These are not specific to Navier–Stokes, though the NS verification is.
 ## For NS3D
 
 The remaining PDE-specific tasks are to justify the hypotheses of Theorem Final-NS:
-- that the compact branch is compact in a global critical norm such as \(L^3\),
+- that any optional global-data branch supplies its own whole-space compactness,
 - that the renormalized orbit has the needed local \(H^1\) and pressure bounds,
 - and that the gauge/modulation parameters are controlled (including \(a,b\) under moment transversality \(DG_{\mathrm{sc}}(V)=p\Theta_0\)).
 

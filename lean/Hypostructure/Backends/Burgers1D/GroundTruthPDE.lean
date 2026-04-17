@@ -32,6 +32,41 @@ structure SmoothCompactTimePeriodicSpaceTest where
   value : ℝ → ContinuousMap BurgersTorus ℝ
   timeDeriv : ℝ → ContinuousMap BurgersTorus ℝ
   spaceDeriv : ℝ → ContinuousMap BurgersTorus ℝ
+  /-- For each time, the spatial slice is a genuine smooth periodic test
+  function. This ties `spaceDeriv` to `value` instead of allowing an arbitrary
+  independently chosen spatial derivative. -/
+  spaceTest : ℝ → SmoothPeriodicTestFunction
+  value_eq_spaceTest : ∀ t : ℝ, value t = (spaceTest t).value
+  spaceDeriv_eq_spaceTest : ∀ t : ℝ, spaceDeriv t = (spaceTest t).deriv
+  /-- The time derivative field is a genuine pointwise time derivative of the
+  test value. -/
+  time_hasDerivAt : ∀ t : ℝ, ∀ x : BurgersTorus,
+    HasDerivAt (fun s : ℝ => value s x) (timeDeriv t x) t
+  /-- The test is supported away from nonpositive time. This is the weak-form
+  convention used by the heat certificate at the initial endpoint: all
+  integrations are over finite windows, but test data contributes only where
+  the positive-time heat representative is differentiable. -/
+  nonpositive_value_zero : ∀ t : ℝ, t ≤ 0 → value t = 0
+  nonpositive_timeDeriv_zero : ∀ t : ℝ, t ≤ 0 → timeDeriv t = 0
+  nonpositive_spaceDeriv_zero : ∀ t : ℝ, t ≤ 0 → spaceDeriv t = 0
+  /-- The finite-window time integration-by-parts rule for compactly supported
+  tests. Concrete test constructors must prove the endpoint/support condition
+  needed for this identity; residual proofs may then use it generically. -/
+  timeSpace_product_integration_by_parts :
+    ∀ (a da : ℝ → ContinuousMap BurgersTorus ℝ),
+      (∀ t : ℝ, ∀ x : BurgersTorus,
+        HasDerivAt (fun s : ℝ => a s x) (da t x) t) →
+        timeSpaceIntegralOn window
+          (fun t x => da t x * value t x + a t x * timeDeriv t x) = 0
+  /-- Positive-time version of the product integration-by-parts rule. This is
+  the one used for heat curves with rough initial data, where the curve need not
+  be classically differentiable at `t = 0` but tests vanish for `t ≤ 0`. -/
+  timeSpace_product_integration_by_parts_positive :
+    ∀ (a da : ℝ → ContinuousMap BurgersTorus ℝ),
+      (∀ t : ℝ, 0 < t → ∀ x : BurgersTorus,
+        HasDerivAt (fun s : ℝ => a s x) (da t x) t) →
+        timeSpaceIntegralOn window
+          (fun t x => da t x * value t x + a t x * timeDeriv t x) = 0
   constant_heat_cancellation : ∀ m : ℝ,
     timeSpaceIntegralOn window
       (fun t x => -m * timeDeriv t x) = 0

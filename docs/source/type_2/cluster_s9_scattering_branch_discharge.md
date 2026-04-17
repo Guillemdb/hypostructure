@@ -256,7 +256,7 @@ profile.
 
 #### Proof
 
-Theorem S9.2 gives the global critical mild solution \(u^\phi\) with
+Theorem S9.2 gives the whole-space mild solution \(u^\phi\) with
 \[
 \|u^\phi\|_{X([0,\infty))}
 \le

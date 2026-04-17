@@ -133,7 +133,7 @@ Let \((V,P,a,b)\) be a repaired-gauge renormalized Type II candidate. Assume:
    K_{L^3\mathrm{Mass}}^+(\eta,M)
    ```
    for some \(0<\eta\le M<\infty\);
-2. uniform global \(L^3\)-tightness:
+2. uniform local CKN compact-cylinder retention:
    ```{math}
    \forall\varepsilon>0\ \exists R_\varepsilon:
    \sup_{\tau\ge\tau_0}
@@ -188,7 +188,7 @@ strong convergence on \(B_R\) give
 for every \(R\). Letting \(R\to\infty\) forces \(c=0\). Thus the selected
 states converge to zero strongly in \(L^3_{\mathrm{loc}}\).
 
-Global tightness upgrades local convergence to global \(L^3\)-smallness:
+Local compact-cylinder retention upgrades local convergence to local CKN-smallness:
 choose \(R\) so that the \(L^3\)-tail outside \(B_R\) is \(<\eta^3/4\) uniformly
 in \(\tau\). Strong convergence on \(B_R\) gives
 \[

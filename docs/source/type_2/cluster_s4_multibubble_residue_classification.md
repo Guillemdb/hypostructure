@@ -161,7 +161,7 @@ profile-evolution theorem
 \[
 K_{\mathrm{NLProfDec},NS3D}^+.
 \]
-S8 proves this theorem for terminal active cameras from profile completeness,
+S8 proves this theorem for terminal active cameras from local compactness,
 scattering removal, exterior-regular discard, repaired-gauge representation,
 and Caccioppoli regularity.
 At the S4/S6 reduction level, before importing S7 and S8, the multibubble
@@ -200,7 +200,7 @@ pressure-tail control, repaired-gauge nondegeneracy, or the vorticity subtype
 argument alone. They require the same-point or separated-point
 no-splitting/profile compatibility payload, both of which are discharged by S7
 from \(K_{\mathrm{NLProfDec},NS3D}^+\). S8 proves that payload in terminal
-active cameras using profile completeness, exterior-regular discard,
+active cameras using local compactness, exterior-regular discard,
 repaired-gauge representation, and Caccioppoli regularity.
 
 ---
@@ -243,7 +243,7 @@ localized Type II cost, and \(K_{\mathrm{CostBridge}}^+\) emits
 K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}.
 \]
 
-If global \(L^3\)-tightness fails, the radiative branch is present. Far
+If local CKN compact-cylinder retention fails, the radiative branch is present. Far
 radiation is discharged by
 \[
 K_{\mathrm{SinglePointBlowup}}^+

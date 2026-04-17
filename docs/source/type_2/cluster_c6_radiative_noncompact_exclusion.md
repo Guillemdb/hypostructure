@@ -39,7 +39,7 @@ For a represented repaired-gauge Type II orbit \(V(\tau)\), define
 K_{\mathrm{RadBlk}}^+
 ```
 
-to mean uniform global critical \(L^3\)-tightness:
+to mean the optional whole-space tail-smallness condition used by the legacy global-data route:
 
 ```{math}
 \forall\varepsilon>0\ \exists R_\varepsilon:
@@ -61,12 +61,12 @@ K_{L^3\mathrm{Tight}}^-.
 
 ::::
 
-## Route 1: global compactness
+## Route 1: optional whole-space compactness
 
-The cleanest no-radiation certificate is global precompactness in the critical
-topology.
+This optional route applies only to global-data subtheorems.  It is not an
+entry assumption for the local Type II singularity theorem.
 
-::::{prf:definition} Global \(L^3\)-compactness certificate
+::::{prf:definition} Local suitable compactness certificate
 :label: def-global-l3-compactness-certificate
 
 The certificate
@@ -85,7 +85,7 @@ is contained in a compact subset of \(L^3(\mathbb R^3)\).
 
 ::::
 
-::::{prf:lemma} Global \(L^3\)-compactness blocks radiation
+::::{prf:lemma} Local suitable compactness blocks radiation
 :label: lem-global-l3-compactness-blocks-radiation
 
 If \(K_{\mathrm{GlobComp}_{L^3}}^+\) holds, then
@@ -614,7 +614,7 @@ K_{L^3\mathrm{Tight}}^+.
 
 It gives three sufficient routes:
 
-1. global \(L^3\)-compactness of the renormalized orbit;
+1. local suitable compactness of the renormalized orbit;
 2. compact core plus vanishing \(L^3\) remainder;
 3. no-splitting/no-radiation profile decomposition.
 4. finite certified profile library plus \(L^3\)-approximation;

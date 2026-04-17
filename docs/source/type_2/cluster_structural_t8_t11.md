@@ -2,11 +2,11 @@
 
 This document implements the conditional structural form of T8. The input is
 global \(L^3(\mathbb R^3)\)-precompactness of a single gauge-fixed
-renormalized branch. The output is the exact global \(L^3\)-tightness and
+renormalized branch. The output is the exact local CKN compact-cylinder retention and
 sampled compactness input used by the compact Type II barrier.
 
 The statements are purely functional-analytic. They do not prove that
-membership in an abstract Type II branch implies global \(L^3\)-precompactness.
+membership in an abstract Type II branch implies local CKN-precompactness.
 That bridge belongs to the structural no-radiation/no-splitting program. The
 result proved here is that, once the branch is globally compact in the critical
 \(L^3\) topology after gauge fixing, the noncompact/radiative escape route is
@@ -295,7 +295,7 @@ By T9.1 below, this condition is equivalent to
 \int_{|y|>R}|V(y,\tau)|^3\,dy=0.
 \]
 
-## T9.1 (No-radiation is equivalent to tail-uniform \(L^3\)-tightness)
+## T9.1 (No-radiation is equivalent to tail-local compact-cylinder mass retention)
 
 The no-radiation condition in Definition T9.0 is equivalent to uniform
 \(L^3\)-tightness on sufficiently late renormalized tails:
@@ -333,7 +333,7 @@ Taking \(R=n\) and \(T=n\), set \(\tau_n:=\tau_{n,n}\). Then \(R_n=n\to\infty\),
 \int_{|y|>R_n}|V(y,\tau_n)|^3\,dy\ge\frac{\varepsilon_0}{2}.
 \]
 This is a nontrivial radiative critical tail. Hence absence of such tails is
-equivalent to tail-uniform \(L^3\)-tightness.
+equivalent to tail-local compact-cylinder mass retention.
 
 \(\square\)
 
@@ -517,7 +517,7 @@ Then finite total localized renormalization cost is impossible:
 ### Proof
 
 After increasing \(\tau_0\) to the tail time \(T_*\), assumptions 1 and 3 give
-the normalization and uniform \(L^3\)-tightness hypotheses of Theorem A''.
+the normalization and local compact-cylinder mass retention hypotheses of Theorem A''.
 Assumption 2 gives the required local windowed \(H^1\)-control. Therefore all
 hypotheses of Theorem A'' hold on the tail. Theorem A'' gives
 \[
@@ -540,7 +540,7 @@ T9 proves the no-radiation reduction in every setting where either:
   which gives tail no-radiation and asymptotic sequential \(L^3\)-compactness;
 - asymptotic \(L^3\)-decoupling shows that the core carries all critical mass,
   which gives asymptotic sequential \(L^3\)-compactness;
-- fixed-tail uniform \(L^3\)-tightness is supplied directly as a certificate,
+- fixed-tail local compact-cylinder mass retention is supplied directly as a certificate,
   which gives the tightness input needed by Theorem A''.
 
 What remains structural is to prove one of these no-radiation inputs from the
@@ -772,7 +772,7 @@ Assume:
    \sup_{\tau\in[A,B]}\int_{|y|>R}|V(y,\tau)|^3\,dy=0.
    \]
 
-Then fixed-tail uniform \(L^3\)-tightness holds on every tail. More precisely,
+Then fixed-tail local compact-cylinder mass retention holds on every tail. More precisely,
 for every \(T_*\ge\tau_0\),
 \[
 \lim_{R\to\infty}
@@ -869,7 +869,7 @@ Then
 
 By T10.4 and assumption 3, every sequence \(\tau_n\to\infty\) has a strongly
 \(L^3(\mathbb R^3)\)-convergent subsequence. By T10.5 and assumption 4,
-fixed-tail uniform \(L^3\)-tightness holds on every tail. Choose \(T_*\) so
+fixed-tail local compact-cylinder mass retention holds on every tail. Choose \(T_*\) so
 large that
 \[
 \|V(\tau)\|_{L^3(\mathbb R^3)}=1

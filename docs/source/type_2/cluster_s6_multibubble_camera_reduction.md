@@ -551,6 +551,6 @@ K_{\mathrm{MultiPointCamDec}}^+.
 \]
 After S7 and S8, these payloads are supplied by terminal nonlinear profile
 decoupling. Any remaining multibubble failure is therefore an upstream failure
-of terminal profile completeness, scattering removal, exterior-regular
+of local terminal compactness, scattering removal, exterior-regular
 discard, repaired-gauge representation, Caccioppoli regularity, or the S3
 rigidity payload.

@@ -1,6 +1,6 @@
-# S13: bounded critical terminal sequences
+# S13: local compact-cylinder terminal sequences
 
-S12 reduces terminal profile completeness to the standard critical
+S12 reduces local terminal compactness to the standard critical
 Navier-Stokes profile-decomposition theorem. The only internal boundedness
 input left there is
 

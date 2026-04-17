@@ -1,4 +1,4 @@
-# Required theorems for the repaired weighted-moment scale gauge
+# Required theorems for the repaired localized scale gauge
 
 This file fixes the scale-gauge layer used in the compact Type II notes with fully explicit assumptions and proof steps.
 

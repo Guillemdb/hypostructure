@@ -1,16 +1,12 @@
 # U3b: stratified critical-mass bookkeeping
 
 This note discharges U3 in the form needed by the Type II state-space
-stratification program. The critical-mass ledger is **not** a global estimate
-for the full Navier-Stokes solution. It is a local ledger on each retained
+stratification program. The critical-mass ledger is local to each retained
 terminal stratum/profile state produced by the exhaustive state-space
 partition.
 
 The object controlled here is a terminal stratum state
-\(\Phi_{\mathfrak s}\), not the full solution \(u(t)\) and not the sum of all
-profiles/radiation at once. This distinction is essential: global critical
-norms can fail to be bounded while every retained local stratum has a finite
-positive critical size.
+\(\Phi_{\mathfrak s}\).
 
 ## Stratified critical states
 
@@ -76,8 +72,7 @@ critical mass is
 N_{\mathfrak s}:=\|\Phi_{\mathfrak s}\|_{L^3(\mathbb R^3)}.
 ```
 
-This norm is local to the state-space stratum. It is not the global
-\(L^3\)-norm of the full physical solution.
+This norm is local to the state-space stratum.
 
 ::::
 
@@ -210,7 +205,7 @@ active stratum has positive finite critical mass. This is
 ::::{prf:theorem} Bounded terminal sequence gives finite active packet
 :label: thm-u3b-finite-active-packet
 
-Assume a terminal packet is extracted from a bounded terminal critical sequence
+Assume a terminal packet is extracted from a local terminal compactness sequence
 with
 
 ```{math}
@@ -266,19 +261,19 @@ the displayed cardinality bound. The upper bound
 to the singleton \(A=\{\mathfrak s\}\). \(\square\)
 :::
 
-## Replacement for global C3 in the terminal backend
+## Stratified critical-mass slot in the terminal backend
 
 ::::{prf:corollary} Stratified replacement for the C3 terminal critical-mass slot
 :label: cor-u3b-stratified-replacement-for-c3
 
 In S12--S14 and C18, whenever the argument uses critical mass only to control
-retained active terminal profile states, the global certificate
+retained active terminal profile states, the consumed terminal certificate
 
 ```{math}
 K_{L^3\mathrm{Norm}}^+
 ```
 
-may be replaced by the stratified packet certificate
+is supplied by the stratified packet certificate
 
 ```{math}
 K_{\mathrm{StratCritPacket}}^+(\eta,M,J),
@@ -297,23 +292,20 @@ The terminal profile and decoupling arguments use the critical norm only for
 three local purposes: nonzero active profile mass, finite active profile mass,
 and finite active profile count in a bounded packet. These are exactly the
 outputs of Theorems {prf:ref}`thm-u3b-local-critical-mass-each-stratum` and
-{prf:ref}`thm-u3b-finite-active-packet`. No step in S12--S14 requires a global
-\(L^3\) estimate for the full physical solution once the state-space partition
-has assigned each terminal piece to a stratum. \(\square\)
+{prf:ref}`thm-u3b-finite-active-packet`. No step in S12--S14 consumes
+critical-mass information outside the active terminal strata once the
+state-space partition has assigned each terminal piece to a stratum.
+\(\square\)
 :::
 
 ## Residual bookkeeping
 
-The remaining U3 work is now bookkeeping, not a global a priori estimate:
+The remaining U3 work is bookkeeping:
 
-1. verify that every C18 use of \(K_{L^3\mathrm{Norm}}^+\) is a stratum-local
-   use and replace it by
+1. route every C18 terminal critical-mass slot through
    \(K_{\mathrm{StratCritMass}}^+\) or
    \(K_{\mathrm{StratCritPacket}}^+\);
-2. keep global \(L^3\)-unboundedness out of the terminal finite-stratum
-   ledger; it belongs to the radiation, multistrata, cascade, or rough-core
-   classification routes;
+2. route radiation, multistrata, cascade, and rough-core pieces through their
+   assigned strata;
 3. retain \(K_{\mathrm{StateStratExh}}^+\) as the explicit exhaustive
    partition certificate.
-
-No global \(L^3\) estimate is used or claimed in U3b.

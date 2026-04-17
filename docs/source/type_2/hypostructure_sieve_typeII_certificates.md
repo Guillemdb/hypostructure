@@ -76,7 +76,7 @@ The compact Type II PDE inputs are:
 - [cluster_c16_scale_negative_drift_dichotomy.md](cluster_c16_scale_negative_drift_dichotomy.md), for the finite-or-infinite routing of the moving-cutoff scale-negative drift term.
 - [cluster_c17_scale_collapse_barrier.md](cluster_c17_scale_collapse_barrier.md), for the scale-collapse drift barrier fallback when the C16 obstruction is infinite.
 - [cluster_c18_final_up_typeII_ns3d.md](cluster_c18_final_up_typeII_ns3d.md), for the final declared-terminal-backend `UP-TypeII` assembly theorem for NS3D.
-- [cluster_s12_terminal_profile_completeness.md](cluster_s12_terminal_profile_completeness.md), for the Type-II-local terminal profile-completeness discharge from critical NS profile decomposition, replacing the global `CatLib` placeholder in the C18 terminal package.
+- [cluster_s12_terminal_profile_completeness.md](cluster_s12_terminal_profile_completeness.md), for the Type-II-local terminal profile-completeness discharge from local suitable compactness and multibubble decomposition, replacing the global `CatLib` placeholder in the C18 terminal package.
 - [cluster_s13_bounded_critical_terminal_sequences.md](cluster_s13_bounded_critical_terminal_sequences.md), for the bounded terminal critical-sequence input in S12, discharged from \(K_{L^3\mathrm{Norm}}^+\) and terminal sequence routing.
 - [cluster_s14_terminal_sequence_routing.md](cluster_s14_terminal_sequence_routing.md), for discharging terminal sequence routing from repaired-gauge representation and terminal-camera construction.
 - [cluster_s3_scale_collapse_attractor_stratification.md](cluster_s3_scale_collapse_attractor_stratification.md), for the scale-collapse generalized self-similar reduction alternative to the C17 cost bridge.
@@ -216,7 +216,7 @@ K_{\mathrm{ClassComplete}}^+
 K_{\mathrm{SC}_\lambda}^{\sim}(\omega),
 \]
 and expands the terminal backend payload using S14, S13, and S12 for terminal
-profile completeness, the C6 no-radiation/tightness route, S3 and S4--S8 for
+local compactness, the C6 no-radiation/tightness route, S3 and S4--S8 for
 scale-collapse and multibubble/radiative closure, C7 for rough-core closure,
 and C10 for NS-valid promotion.
 
@@ -416,7 +416,7 @@ by Theorem A''. The conditional PDE bridge is implemented in
 reconstruction, and the renormalized Caccioppoli estimate imply
 \(K_{\mathrm{WinH1}}^+\). U5a
 [cluster_u5a_bare_data_caccioppoli.md](cluster_u5a_bare_data_caccioppoli.md)
-proves the compact-cylinder certificate \(K_{\mathrm{CaccioppoliReg}}^+\) for represented suitable branches, with pressure and AC gauge/modulation supplied by C2.R. This U5a input is local and does not assume global \(L^3\), tightness, bounded modulation, or uniform windowed \(H^1\). The upstream certificate composition is implemented
+proves the compact-cylinder certificate \(K_{\mathrm{CaccioppoliReg}}^+\) for represented suitable branches, with pressure and AC gauge/modulation supplied by C2.R. This U5a input is local and does not assume local CKN, tightness, bounded modulation, or uniform windowed \(H^1\). The upstream certificate composition is implemented
 in
 [cluster_c7_win_h1_certificate_composition.md](cluster_c7_win_h1_certificate_composition.md):
 \[
@@ -842,8 +842,8 @@ Then the Type II proof ledger becomes:
 |---|---|---|
 | repaired-gauge renormalized orbit | \(K_{\mathrm{RepBridge}}^+\) from \(K_{C_\mu}^+\wedge K_{\mathrm{Prof}_{NS}}^+\) plus the C2 payloads | implemented in `cluster_c2_representation_bridge.md`; backend payload defects are classified |
 | critical \(L^3\) normalization | \(K_{L^3\mathrm{Norm}}^+\), implemented as positive finite critical-mass annulus control | implemented in `cluster_c3_l3_normalization_bridge.md`; normalization defects are classified |
-| global critical tightness | \(K_{L^3\mathrm{Tight}}^+\) from compact/profile/tame/finite-description data | T8--T10 target |
-| local windowed \(H^1\) control / rough-core blocker | \(K_{\mathrm{WinH1}}^+\equiv K_{\mathrm{RoughCoreBlk}}^+\) from global \(L^3\), Caccioppoli, pressure reconstruction, and bounded repaired-gauge modulation | PDE bridge implemented in `cluster_c6_windowed_h1_bridge.md`; full C7 blocker implemented in `cluster_c7_win_h1_certificate_composition.md`; bounded critical norm discharged from C3 in `cluster_c7_l3bd_defect_discharge.md`; modulation inverse discharged in `cluster_c7_modmatrix_inverse_discharge.md` |
+| local compact-cylinder mass retention | \(K_{L^3\mathrm{Tight}}^+\) from compact/profile/tame/finite-description data | T8--T10 target |
+| local windowed \(H^1\) control / rough-core blocker | \(K_{\mathrm{WinH1}}^+\equiv K_{\mathrm{RoughCoreBlk}}^+\) from local CKN, Caccioppoli, pressure reconstruction, and bounded repaired-gauge modulation | PDE bridge implemented in `cluster_c6_windowed_h1_bridge.md`; full C7 blocker implemented in `cluster_c7_win_h1_certificate_composition.md`; bounded critical norm discharged from C3 in `cluster_c7_l3bd_defect_discharge.md`; modulation inverse discharged in `cluster_c7_modmatrix_inverse_discharge.md` |
 | finite-cost compact branch exclusion | Theorem A'' | implemented |
 | finite-cost contrapositive | Corollary 16 | implemented |
 | compile PDE infinite cost into `BarrierTypeII` | \(K_{\mathrm{CostBridge}}^+\) | implemented in `cluster_c4_cost_bridge.md` for the default identity-cost backend; non-default costs require \(K_{\mathrm{CostCompare}}^+\) |

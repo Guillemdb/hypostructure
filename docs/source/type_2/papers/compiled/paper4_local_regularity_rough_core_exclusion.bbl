@@ -1,0 +1,21 @@
+\begin{thebibliography}{CKN82}
+
+\bibitem[CKN82]{CaffarelliKohnNirenberg1982}
+Luis Caffarelli, Robert Kohn, and Louis Nirenberg.
+\newblock Partial regularity of suitable weak solutions of the navier--stokes
+  equations.
+\newblock {\em Communications on Pure and Applied Mathematics}, 35(6):771--831,
+  1982.
+
+\bibitem[CZ52]{CalderonZygmund1952}
+Alberto~P. Calderon and Antoni Zygmund.
+\newblock On the existence of certain singular integrals.
+\newblock {\em Acta Mathematica}, 88:85--139, 1952.
+
+\bibitem[Ste70]{Stein1970}
+Elias~M. Stein.
+\newblock {\em Singular Integrals and Differentiability Properties of
+  Functions}.
+\newblock Princeton University Press, 1970.
+
+\end{thebibliography}

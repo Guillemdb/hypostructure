@@ -24,12 +24,8 @@ to mean that the repaired-gauge orbit \((V,P,a,b)\) satisfies:
    \[
    K_{\mathrm{RepBridge}}^+;
    \]
-2. bounded critical norm:
-   \[
-   K_{L^3\mathrm{Bd}}^+:
-   \qquad
-   \sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(\mathbb R^3)}<\infty;
-   \]
+2. local compact-cylinder critical control: for each fixed core radius,
+   \(V\) has the local \(L^3\) bound needed by Caccioppoli;
 3. pressure reconstruction:
    \[
    K_{\mathrm{PressureRep}}^+:
@@ -54,19 +50,13 @@ to mean that the repaired-gauge orbit \((V,P,a,b)\) satisfies:
 
 ---
 
-## C7.1a (C3 discharges bounded critical norm)
+## C7.1a (local compact-cylinder integrability)
 
-The bounded critical norm input in C7.1 is supplied by C3. Specifically,
-[cluster_c7_l3bd_defect_discharge.md](cluster_c7_l3bd_defect_discharge.md)
-proves
-\[
-K_{L^3\mathrm{Norm}}^+
-\Longrightarrow
-K_{L^3\mathrm{Bd}}^+.
-\]
-Thus, on the C-series route where C3 has emitted
-\(K_{L^3\mathrm{Norm}}^+\), the defect \(K_{L^3\mathrm{Bd}}^-\) is discharged
-and is not an independent rough-core survivor.
+The integrability input in C7.1 is local.  On every selected core cylinder, it
+is supplied by the first-node positive CKN concentration package together with
+the U5a local Caccioppoli theorem.  The older C3/C7 bounded-critical-norm route
+is therefore only an optional global-data subtheorem and is not an entry
+assumption for the local Type II singularity theorem.
 
 ---
 
@@ -292,10 +282,10 @@ emits one of the following ordered defects:
 
 1. \(K_{\mathrm{RepBridge}}^-\): the repaired-gauge renormalized orbit is not
    available;
-2. \(K_{L^3\mathrm{Bd}}^-\): the global critical \(L^3\) bound is not
-   available. This defect is discharged on the C-series route by
-   \(K_{L^3\mathrm{Norm}}^+\Rightarrow K_{L^3\mathrm{Bd}}^+\) in
-   [cluster_c7_l3bd_defect_discharge.md](cluster_c7_l3bd_defect_discharge.md);
+2. a local compact-cylinder integrability defect: the local \(L^3\) bound
+   needed on the selected core cylinder is not available.  On represented
+   suitable branches this is supplied by the local CKN entry and the U5a
+   Caccioppoli package, not by a whole-space critical-norm hypothesis;
 3. \(K_{\mathrm{ModMatrixInv}}^-\): the repaired-gauge modulation matrix is not
    uniformly invertible. This defect is discharged by
    [cluster_c7_modmatrix_inverse_discharge.md](cluster_c7_modmatrix_inverse_discharge.md)

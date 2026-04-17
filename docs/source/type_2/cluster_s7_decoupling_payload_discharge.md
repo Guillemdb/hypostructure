@@ -19,7 +19,7 @@ nonlinear profile-decoupling theorem \(K_{\mathrm{NLProfDec},NS3D}^+\).
 The theorem is conditional on \(K_{\mathrm{NLProfDec},NS3D}^+\). That payload
 is the precise terminal-camera no-splitting/profile-compatibility theorem for
 NS3D critical profiles. S8 proves this payload from terminal windowed
-profile completeness, scattering removal, exterior-regular discard,
+local compactness, scattering removal, exterior-regular discard,
 repaired-gauge representation, and Caccioppoli regularity. S7 proves that no
 further multibubble mechanism remains after that payload is supplied.
 
@@ -474,7 +474,7 @@ K_{\mathrm{NLProfDec},NS3D}^+.
 
 The remaining problem is therefore not a new multibubble mechanism. S8 proves
 \(K_{\mathrm{NLProfDec},NS3D}^+\) in the terminal-camera sense from terminal
-windowed profile completeness, scattering removal, exterior-regular discard,
+windowed local compactness, scattering removal, exterior-regular discard,
 repaired-gauge representation, and Caccioppoli regularity. Hence any failure
 of the S7 payload is an upstream profile-completeness, exterior-discard,
 representation, Caccioppoli, or S3-rigidity defect.

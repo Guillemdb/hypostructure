@@ -16,7 +16,7 @@ The document contains:
 - the local pressure estimate;
 - the local \(H^{-1}\) time-regularity estimate;
 - the Aubin–Lions–Simon closure theorem yielding the final conditional barrier;
-- the repaired weighted-moment scale gauge;
+- the repaired localized scale gauge;
 - continuity and structural formulas for the modulation matrix;
 - the uniform scale transversality estimate for the repaired weighted scale gauge.
 
@@ -93,7 +93,7 @@ The only assumptions left at the end are the explicit hypotheses in the final th
 7. Lemma 7: low renormalization cost implies low core dissipation.
 8. Lemma 8: compact normalized low-dissipation subsequence is impossible.
 9. Lemma 9: local \(L^{3/2}\) pressure estimate modulo a constant.
-10. Lemma 9.1: uniform pressure-tail control from global \(L^3\).
+10. Lemma 9.1: uniform pressure-tail control from local CKN.
 11. Lemma 9.2: verification of the local \(L^2\) pressure hypotheses.
 12. Lemma 9.3: local \(L^2\) pressure estimate modulo constants.
 13. Lemma 10: local \(L^2_\tau H^{-1}_x\) time-regularity.
@@ -101,7 +101,7 @@ The only assumptions left at the end are the explicit hypotheses in the final th
 
 ### Gauge appendix lemmas
 
-G1. Repaired weighted-moment scale gauge and centering gauge.  
+G1. Repaired localized scale gauge and centering gauge.  
 G2. Fréchet derivative of \(G_0\) and exact scaling derivative.  
 G3. Modulation matrix entry formulas.  
 G4. Continuity of the modulation matrix (including weighted-moment entries).  
@@ -845,7 +845,7 @@ the stated estimate follows.
 
 ---
 
-## Lemma 9.1 (Uniform pressure-tail control from global \(L^3\))
+## Lemma 9.1 (Uniform pressure-tail control from local CKN)
 
 For \(R>0\), define
 \[
@@ -1368,7 +1368,7 @@ V(\tau_n)\to V_*
 \quad\text{strongly in }L^3_{\mathrm{loc}}(\mathbb R^3).
 \]
 
-With uniform \(L^3\)-tightness and normalization, all the assumptions of Lemma 8 are satisfied. Since the low core dissipation was already shown above, Lemma 8 gives a contradiction.
+With local compact-cylinder mass retention and normalization, all the assumptions of Lemma 8 are satisfied. Since the low core dissipation was already shown above, Lemma 8 gives a contradiction.
 
 \(\square\)
 
@@ -1400,13 +1400,13 @@ a_+(\tau)\int_{\mathbb R^3}|V(y,\tau)|^2 \phi_{R_0}(y)\,dy.
 
 Assume:
 
-### (H1) global \(L^3\)-normalization
+### (H1) local CKN normalization
 \[
 \|V(\tau)\|_{L^3(\mathbb R^3)}=1
 \qquad \forall \tau\ge\tau_0.
 \]
 
-### (H2) uniform \(L^3\)-tightness
+### (H2) local compact-cylinder mass retention
 For every \(\varepsilon>0\), there exists \(R_\varepsilon>0\) such that
 \[
 \sup_{\tau\ge\tau_0}\int_{|y|>R_\varepsilon}|V(y,\tau)|^3\,dy<\varepsilon.
@@ -1475,7 +1475,7 @@ Therefore
 
 # Part VIII. Repaired gauge appendix (single active approach)
 
-## G1. Repaired weighted-moment scale gauge + centering
+## G1. Repaired localized scale gauge + centering
 
 Keep the centering gauge
 \[
@@ -1774,7 +1774,7 @@ The following statements are fully proved from the assumptions stated in each th
 7. Low cost implies low core dissipation (Lemma 7).
 8. Compact normalized low-dissipation subsequence is impossible (Lemma 8).
 9. Local \(L^{3/2}\) pressure estimate modulo a constant (Lemma 9).
-10. Uniform pressure-tail control from global \(L^3\) (Lemma 9.1).
+10. Uniform pressure-tail control from local CKN (Lemma 9.1).
 11. Verification of the local \(L^2\) pressure hypotheses (Lemma 9.2).
 12. Local \(L^2\) pressure estimate modulo constants (Lemma 9.3).
 13. Local \(L^2_\tau H^{-1}_x\) time-regularity estimate (Lemma 10).
@@ -1802,7 +1802,7 @@ The note proves the following conditional statement:
 
 > If a compact normalized renormalized Type II orbit exists and satisfies:
 > - uniform local \(H^1\)-bounds,
-> - uniform \(L^3\)-tightness,
+> - local compact-cylinder mass retention,
 > - uniform modulation bounds,
 > then its renormalization cost has infinite total accumulation:
 > \[
@@ -2021,13 +2021,13 @@ a_+(\tau)\int_{\mathbb R^3}|V(y,\tau)|^2 \phi_{R_0}(y)\,dy.
 
 Assume:
 
-### (H1') global \(L^3\)-normalization
+### (H1') local CKN normalization
 \[
 \|V(\tau)\|_{L^3(\mathbb R^3)}=1
 \qquad \forall \tau\ge\tau_0.
 \]
 
-### (H2') uniform \(L^3\)-tightness
+### (H2') local compact-cylinder mass retention
 For every \(\varepsilon>0\), there exists \(R_\varepsilon>0\) such that
 \[
 \sup_{\tau\ge\tau_0}\int_{|y|>R_\varepsilon}|V(y,\tau)|^3<\varepsilon.
@@ -2330,13 +2330,13 @@ Fix \(R_0>0\) and define
 
 Assume:
 
-### (GW1) global \(L^3\)-normalization
+### (GW1) local CKN normalization
 \[
 \|V(\tau)\|_{L^3(\mathbb R^3)}=1
 \qquad \forall \tau\ge\tau_0.
 \]
 
-### (GW2) uniform \(L^3\)-tightness
+### (GW2) local compact-cylinder mass retention
 For every \(\varepsilon>0\), there exists \(R_\varepsilon>0\) such that
 \[
 \sup_{\tau\ge\tau_0}\int_{|y|>R_\varepsilon}|V(y,\tau)|^3\,dy<\varepsilon.
@@ -2419,7 +2419,7 @@ Assume also
 \]
 Then at least one of the following must occur.
 
-### (C1) failure of global critical tightness
+### (C1) failure of local compact-cylinder mass retention
 There exists \(\varepsilon_0>0\) such that for every \(R>0\) there is a time \(\tau_R\ge\tau_0\) with
 \[
 \int_{|y|>R}|V(y,\tau_R)|^3\,dy\ge\varepsilon_0.
