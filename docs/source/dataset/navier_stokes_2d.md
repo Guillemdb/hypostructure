@@ -165,10 +165,13 @@ The only final promotion is the analytic backend upgrade
 $$
 K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+
 \wedge
-K_{\mathrm{NS2DBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
 $$
+
+This is the canonical continuation bridge notation used across PDE datasets: $K_{\mathrm{WP}_{s_c}}^+$ is the unified continuation certificate from the gate-evaluator schema (local well-posedness + uniqueness + continuation criterion + critical blow-up condition).
+
 
 ### **A.5 Breach Detection and Surgery**
 
@@ -287,7 +290,7 @@ For this instance:
 - [x] **O-minimal Structure $\mathcal O$:** semialgebraic / real-analytic structure on the equilibrium manifold and empty singular set.
 - [x] **Definability $\mathrm{Def}$:** the equilibrium manifold and empty singular set are definable.
 - [x] **Singular Set Tameness:** $\Sigma=\varnothing$.
-- [x] **Cell Decomposition:** finite stratification by mean sectors.
+- [x] **Cell Decomposition:** after fixing the conserved mean, the route-relevant definable pieces are $M_{\bar u}$ and the empty singular candidate; the family is parametrized by $\bar u\in\mathbb R^2$.
 
 #### **Template: $\mathrm{TB}_\rho$ (Mixing Interface)**
 - [x] **Measure $\mathcal M$:** normalized Lebesgue measure on $\mathbb T^2$.
@@ -351,7 +354,7 @@ No optional derived witness certificate is used on the designated route.
 | $K_{\mathrm{init}}^+$ | Yes | universal bad object package |
 | $K_{\mathrm{CatLib}}^+$ | Yes | completeness of the finite bad-pattern library |
 | $K_{\mathrm{BiotSavart2D}}^+$ | Yes | periodic Biot-Savart recovery $\|\nabla u\|_{L^2}\le C_{BS}\|\omega\|_{L^2}$ |
-| $K_{\mathrm{NS2DBackend}}^+$ | Yes | 2D local well-posedness, continuation, uniqueness, and parabolic smoothing package |
+| $K_{\mathrm{WP}_{s_c}}^+$ | Yes | 2D local well-posedness, continuation, uniqueness, and parabolic smoothing package |
 | $K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+$ | derived | structural exclusion certificate |
 | $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$ | derived | designated final analytic regularity certificate |
 
@@ -396,7 +399,7 @@ No optional derived witness certificate is used on the designated route.
 
 #### **Template: $\mathrm{TB}_O$ (Tameness Interface)**
 - [x] tame equilibrium manifold recorded
-- [x] finite sector stratification recorded
+- [x] fixed-mean definable pieces and mean-parameter family recorded
 
 #### **Template: $\mathrm{TB}_\rho$ (Mixing Interface)**
 - [x] dissipative convergence in each mean sector recorded
@@ -467,14 +470,14 @@ The only final upgrade used here is
 $$
 K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+
 \wedge
-K_{\mathrm{NS2DBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
 $$
 
 #### **Non-Circularity Guard**
 
-$K_{\mathrm{NS2DBackend}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$, so the upgrade is non-circular.
+$K_{\mathrm{WP}_{s_c}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$, so the upgrade is non-circular.
 
 #### **Upgrade Types**
 
@@ -666,8 +669,8 @@ $$
 
 **Step-by-step execution:**
 1. [x] The route targets finite-time singularities in $H^1$.
-2. [x] The vorticity and gradient bounds used later in the same route exclude such singularities.
-3. [x] Hence the route-relative singular set candidate is empty.
+2. [x] Nodes 7 and 12 provide the enstrophy/Lyapunov control, and the Lock package supplies the Biot-Savart bridge that converts bounded vorticity into bounded $H^1$ gradient norm.
+3. [x] The enstrophy/Biot-Savart package used by the designated route excludes finite-time $H^1$ blow-up; hence the route-relative singular candidate is empty.
 
 **Certificate:**
 $$
@@ -721,11 +724,11 @@ $$
 **Step-by-step execution:**
 1. [x] The equilibrium manifold $M_{\bar u}$ is affine and definable.
 2. [x] The singular set candidate is empty on the designated route.
-3. [x] The mean-sector decomposition is finite-dimensional and tame.
+3. [x] After the conserved mean $\bar u$ is fixed, the route-relevant definable pieces are the equilibrium point $M_{\bar u}$ and the empty singular candidate; the sector family is parametrized tamely by $\bar u\in\mathbb R^2$.
 
 **Certificate:**
 $$
-K_{\mathrm{TB}_O}^+=(\mathcal O,\Sigma=\varnothing,\text{finite sector stratification}).
+K_{\mathrm{TB}_O}^+=(\mathcal O,\Sigma=\varnothing,\text{fixed-mean tame sector}).
 $$
 
 ### **Level 5: Mixing**
@@ -964,7 +967,7 @@ $$
 - **Analytic Global Regularity Theorem:** from structural exclusion plus the declared 2D backend package,
   $$
   K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+
-  \wedge K_{\mathrm{NS2DBackend}}^+
+  \wedge K_{\mathrm{WP}_{s_c}}^+
   \Longrightarrow
   K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+.
   $$
@@ -1081,7 +1084,7 @@ Node 15: N/A
 Node 16: N/A
 Node 17: K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 Part III-A: K_{\mathcal L}^+, K_{\mathrm{Jacobi}}^+, K_{\mathrm{HJ}}^+, K_{\mathcal L}^{\mathrm{verified}}
-Part III-B: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{BiotSavart2D}}^+, K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+, K_{\mathrm{NS2DBackend}}^+ -> K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+
+Part III-B: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{BiotSavart2D}}^+, K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+, K_{\mathrm{WP}_{s_c}}^+ -> K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+
 ```
 
 ### **4.3 Final Certificate Set**
@@ -1113,7 +1116,7 @@ K_{\mathrm{Jacobi}}^+,
 K_{\mathrm{HJ}}^+,
 K_{\mathcal L}^{\mathrm{verified}},
 K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+,
-K_{\mathrm{NS2DBackend}}^+,
+K_{\mathrm{WP}_{s_c}}^+,
 K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+
 \}.
 $$
@@ -1137,13 +1140,13 @@ The proof proceeds by structural sieve analysis in seven phases.
 
 **Phase 3 (Scaling):** Nodes 4-5 produce $K_{\mathrm{SC}_\lambda}^+$ and $K_{\mathrm{SC}_{\partial c}}^+$, recording the 2D scaling exponents and the stable parameter sector $(\nu,\bar u)$.
 
-**Phase 4 (Geometry):** Nodes 6-7 produce $K_{\mathrm{Cap}_H}^+$ and $K_{\mathrm{LS}_\sigma}^+$, certifying the empty route-relative singular set and vorticity coercivity.
+**Phase 4 (Geometry):** Nodes 6-7 produce $K_{\mathrm{Cap}_H}^+$ and $K_{\mathrm{LS}_\sigma}^+$, recording the route-relative empty singular candidate certified by the enstrophy/Biot-Savart package and the vorticity coercivity estimate.
 
 **Phase 5 (Topology):** Nodes 8-12 produce the topological, tame, mixing, finite-description, and gradient-compatible certificates needed later in the dependency cone.
 
 **Phase 6 (Boundary):** Node 13 records the closed-system branch, so Nodes 14-16 are not applicable.
 
-**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E2 with the certified completeness package, the monotone enstrophy bound, and Biot-Savart recovery. Part III-A reconstructs the Lyapunov package. Part III-B combines the blocked structural certificate with $K_{\mathrm{NS2DBackend}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
+**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E2 with the certified completeness package, the monotone enstrophy bound, and Biot-Savart recovery. Part III-A reconstructs the Lyapunov package. Part III-B combines the blocked structural certificate with $K_{\mathrm{WP}_{s_c}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
 
 Therefore the designated goal certificate is established.
 $$
@@ -1208,7 +1211,7 @@ $$
     "K_HJ^+",
     "K_mathcalL_verified^+",
     "K_StructReg_NS2D^+",
-    "K_NS2DBackend^+",
+    "K_{WP_{s_c}}^+",
     "K_Reg_NS2D^+"
   ],
   "obligations": {},
@@ -1226,45 +1229,50 @@ $$
 |---|---|---|
 | **Arena ($\mathcal X$)** | divergence-free $H^1(\mathbb T^2;\mathbb R^2)$ with fixed mean sectors | state space |
 | **Potential ($\Phi$)** | relative kinetic energy $E(v)$ with enstrophy $\Omega$ as route Lyapunov | primary height |
-| **Cost ($\mathfrak D$)** | viscous dissipation $\nu\|\nabla v\|_{L^2}^2$ | dissipation |
+| **Cost ($\mathfrak D$)** | viscous dissipation $\nu\lVert\nabla v\rVert_{L^2}^2$ | dissipation |
 | **Invariance ($G$)** | torus translation symmetry + conserved mean | symmetry sector |
 
 ### 2. Execution Trace (The Logic)
 
 | Node | Check | Outcome | Certificate Payload | Ledger State |
 |---|---|---:|---|---|
-| 1 | Energy Bound | YES | relative energy identity | `[]` |
-| 2 | Zeno Check | YES | no repair events | `[]` |
-| 3 | Compact Check | YES | torus compactness modulo translation | `[]` |
-| 4 | Scale Check | YES | $(\alpha,\beta)=(0,2)$ | `[]` |
-| 5 | Param Check | YES | $(\nu,\bar u)$ stable | `[]` |
-| 6 | Geom Check | YES | $\Sigma=\varnothing$ | `[]` |
-| 7 | Stiffness Check | YES | enstrophy coercivity | `[]` |
-| 8 | Topo Check | YES | mean sector preserved | `[]` |
-| 9 | Tame Check | YES | tame sector stratification | `[]` |
-| 10 | Ergo Check | YES | exponential convergence | `[]` |
-| 11 | Complex Check | YES | Fourier description finite | `[]` |
-| 12 | Oscillate Check | YES | energy + enstrophy Lyapunov package | `[]` |
-| 13 | Boundary Check | CLOSED | periodic branch | `[]` |
-| 17 | LOCK | BLOCK | E2 invariant mismatch | `[]` |
+| **1** | Energy Bound | YES | $K_{D_E}^+$: exact relative energy identity and $E(v(t))\le E(v_0)$ | `[]` |
+| **2** | Zeno Check | YES | $K_{\mathrm{Rec}_N}^+$: empty repair-event route, $N(T)=0$ | `[]` |
+| **3** | Compact Check | YES | $K_{C_\mu}^+$: Rellich compactness on $\mathbb T^2$ modulo translations | `[]` |
+| **4** | Scale Check | YES | $K_{\mathrm{SC}_\lambda}^+$: local scaling exponents $(\alpha,\beta)=(0,2)$ | `[]` |
+| **5** | Param Check | YES | $K_{\mathrm{SC}_{\partial c}}^+$: fixed $\nu>0$ and conserved mean $\bar u$ | `[]` |
+| **6** | Geom Check | YES | $K_{\mathrm{Cap}_H}^+$: route-relative singular candidate $\Sigma=\varnothing$ and $\mathrm{Cap}(\Sigma)=0$ | `[]` |
+| **7** | Stiffness Check | YES | $K_{\mathrm{LS}_\sigma}^+$: vorticity Poincare coercivity and exponent $\theta=\frac12$ | `[]` |
+| **8** | Topo Check | YES | $K_{\mathrm{TB}_\pi}^+$: fixed mean sector is preserved | `[]` |
+| **9** | Tame Check | YES | $K_{\mathrm{TB}_O}^+$: fixed-mean tame sector, $M_{\bar u}$ definable, $\Sigma=\varnothing$ | `[]` |
+| **10** | Ergo Check | YES | $K_{\mathrm{TB}_\rho}^+$: dissipative convergence to $\delta_{u\equiv\bar u}$ in the mean sector | `[]` |
+| **11** | Complex Check | YES | $K_{\mathrm{RepDesc}_K}^+$: faithful periodic Fourier dictionary | `[]` |
+| **12** | Oscillate Check | YES | $K_{\mathrm{GC}_\nabla}^+$: energy and enstrophy Lyapunov monotonicity | `[]` |
+| **13** | Boundary Check | CLOSED | $K_{\mathrm{Bound}_\partial}^-$: periodic closed-system branch | `[]` |
+| **14** | Overload Check | N/A | $K_{\mathrm{Bound}_B}$ skipped because Node 13 is closed | `[]` |
+| **15** | Starve Check | N/A | $K_{\mathrm{Bound}_\Sigma}$ skipped because Node 13 is closed | `[]` |
+| **16** | Align Check | N/A | $K_{\mathrm{GC}_T}$ skipped because Node 13 is closed | `[]` |
+| **--** | **SURGERY** | **N/A** | no breach certificate emitted | `[]` |
+| **--** | **RE-ENTRY** | **N/A** | no surgery route selected | `[]` |
+| **17** | **LOCK** | **BLOCK** | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$: E2 invariant mismatch with completeness package and $K_{\mathrm{BiotSavart2D}}^+$ | `[]` |
 
 ### 3. Lock Mechanism (The Exclusion)
 
 | Tactic | Description | Status | Reason / Mechanism |
 |---|---|---:|---|
-| E1 | Dimension | N/A | not used |
-| E2 | Invariant | PASS | bounded enstrophy / gradient route vs blow-up invariant |
-| E3 | Positivity | N/A | not used |
-| E4 | Integrality | N/A | not used |
-| E5 | Functional | N/A | not used |
-| E6 | Causal | N/A | not used |
-| E7 | Thermodynamic | N/A | not used |
-| E8 | Holographic | N/A | not used |
-| E9 | Ergodic | N/A | not used |
-| E10 | Definability | N/A | not used |
-| E11 | Galois-Monodromy | N/A | not used |
-| E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| **E1** | Dimension | N/A | Not used; no dimension mismatch is invoked, so $K_{\mathrm{MorphPresDim}}^+$ is not required. |
+| **E2** | Invariant | PASS | Primary tactic: $\Omega(t)\le\Omega(0)$ and $K_{\mathrm{BiotSavart2D}}^+$ give a finite route invariant $\sup_t\lVert\omega(t)\rVert_{L^2}<\infty$, while the finite-time $H^1$ bad object requires unbounded vorticity/gradient norm. |
+| **E3** | Positivity | N/A | Not used; no cone-violation argument is part of the Lock. |
+| **E4** | Integrality | N/A | Not used; no arithmetic or index obstruction is part of the Lock. |
+| **E5** | Functional | N/A | Not used; no separate unsolvable-equation contradiction is part of the Lock. |
+| **E6** | Causal | N/A | Not used; no well-foundedness contradiction is part of the Lock. |
+| **E7** | Thermodynamic | N/A | Not used; energy/enstrophy monotonicity supports E2 rather than an entropy obstruction. |
+| **E8** | Holographic | N/A | Not used; no Bekenstein or capacity-mismatch tactic is part of the Lock. |
+| **E9** | Ergodic | N/A | Not used at the Lock; $K_{\mathrm{TB}_\rho}^+$ is upstream route data, so $K_{\mathrm{MorphPresMix}}^+$ is not required. |
+| **E10** | Definability | N/A | Not used at the Lock; $K_{\mathrm{TB}_O}^+$ is upstream tameness data, so $K_{\mathrm{MorphPresTame}}^+$ is not required. |
+| **E11** | Galois-Monodromy | N/A | Not used; no monodromy obstruction is part of the Lock. |
+| **E12** | Algebraic Compressibility | N/A | Not used; no degree or Bezout obstruction is part of the Lock. |
+| **E13** | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
 
@@ -1272,8 +1280,16 @@ $$
 - **Status:** UNCONDITIONAL
 - **Goal-Cone Ledger:** EMPTY
 - **Residual Non-Goal Obligations:** NONE
-- **Singularity Set:** $\Sigma=\varnothing$
+- **Singularity Set:** route-relative $\Sigma=\varnothing$
 - **Primary Final Route:** direct sieve execution + E2-blocked Lock + 2D Navier-Stokes backend upgrade
+
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** 2D Navier-Stokes enstrophy monotonicity, periodic Biot-Savart representation, local well-posedness, continuation criterion, uniqueness, and parabolic smoothing.
+- **Hypotheses required:** divergence-free $H^1(\mathbb T^2)$ data, viscosity $\nu>0$, periodic boundary conditions, and standard approximation/continuation machinery for justifying the energy and enstrophy identities in the strong class.
+- **Non-circularity note:** final regularity $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$ is derived after the Lock and continuation upgrade; it is not an input to any node, Lock tactic, or backend permit.
+- **Goal-certificate location in local-to-global chain:** Part III-B proves $K_{\mathrm{StructReg}_{\mathrm{NS2D}}}^+$ from Lock/completeness and applies $K_{\mathrm{WP}_{s_c}}^+$ to derive $K_{\mathrm{Reg}_{\mathrm{NS2D}}}^+$.
 
 ---
 

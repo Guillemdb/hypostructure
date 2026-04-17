@@ -1203,7 +1203,7 @@ $$
 | E10 | Definability | N/A | not attempted |
 | E11 | Galois-Monodromy | N/A | not attempted |
 | E12 | Algebraic Compressibility | N/A | not attempted |
-| E13 | Algorithmic Completeness | N/A | not attempted |
+| E13 | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
 
@@ -1213,6 +1213,14 @@ $$
 - **Residual Non-Goal Obligations:** `OBL-2`
 - **Singularity Set:** local singular locus $\Sigma_x$ has codimension $\ge 2$ and zero capacity on the admissible core
 - **Primary Final Route:** local gate execution + upgrade pass + Lyapunov reconstruction
+
+### Assumption Provenance
+
+- **Imported from literature?** No external theorem is explicitly tagged as a direct premise in this template route.
+- **Theorem name(s):** None explicitly named; the route relies on the local gate and Lyapunov reconstruction chain defined in this document.
+- **Hypotheses required:** local gate admissibility, residual local obstructions outside the goal cone, and the declared Lyapunov reconstruction package.
+- **Non-circularity note:** the local goal certificate is derived from execution data and does not appear as a premise in the same route.
+- **Goal-certificate location in local-to-global chain:** Part II-B produces $K_{\mathrm{LS}_{\sigma}}^+$, Part III-A reconstructs $K_{\mathcal L}^+$, $K_{\mathrm{Jacobi}}^+$, $K_{\mathrm{HJ}}^+$, and $K_{\mathcal L}^{\mathrm{verified}}$, and Part III-B assembles them to derive $K_{\mathrm{TwinTemplate}}^+$.
 
 ---
 

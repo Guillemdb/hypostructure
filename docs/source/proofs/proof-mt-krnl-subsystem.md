@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-krnl-subsystem
 
+**Formal statement in framework:** [08_upgrades/03_stability.md](../1_hypostructure_formalism/08_upgrades/03_stability.md)
+
 **Theorem Reference:** {prf:ref}`mt-krnl-subsystem`
 
 This proof establishes that regularity properties are hereditary: if a Hypostructure admits no singularities, then no invariant subsystem can develop a singularity. The argument combines categorical obstruction theory with classical invariant manifold theory, following Fenichel {cite}`Fenichel71`, Hirsch-Pugh-Shub {cite}`HirschPughShub77`, and Wiggins {cite}`Wiggins94`.

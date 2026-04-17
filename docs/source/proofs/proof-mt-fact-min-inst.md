@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-fact-min-inst
 
+**Formal statement in framework:** [05_interfaces/01_gate_evaluator.md](../1_hypostructure_formalism/05_interfaces/01_gate_evaluator.md)
+
 **Theorem Reference:** {prf:ref}`mt-fact-min-inst`
 
 **Theorem Statement:** To instantiate a Hypostructure for system $S$ using the thin object formalism, the user provides only:
@@ -160,7 +162,7 @@ The dimension $\dim_\mu(\mathcal{X})$ defined by volume growth may differ from H
 - (b) The user provides an explicit dimension bound as part of the thin data
 
 This assumption is verified at the soft interface level via the certificate $K_{\mathrm{SC}_\lambda}^+$ (scaling control) and the admissibility data.
-::: □
+:::
 
 **Construction of Dictionary:**
 The Dictionary is a type signature containing:

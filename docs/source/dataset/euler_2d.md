@@ -199,10 +199,13 @@ No goal-relevant `inc` certificate is upgraded on the designated route. The only
 $$
 K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+
 \wedge
-K_{\mathrm{Euler2DBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+.
 $$
+
+This is the canonical continuation bridge notation used across PDE datasets: $K_{\mathrm{WP}_{s_c}}^+$ is the unified continuation certificate from the gate-evaluator schema (local well-posedness + uniqueness + continuation criterion + critical blow-up condition).
+
 
 ### **A.5 Breach Detection and Surgery**
 
@@ -381,7 +384,7 @@ No optional derived witness certificate is used on the designated route.
 | $K_{\mathrm{CatLib}}^+$ | Yes | completeness of the finite bad-pattern library |
 | $K_{\mathrm{VortTransport}}^+$ | Yes | transport and conservation of scalar vorticity norms |
 | $K_{\mathrm{BiotSavart2D}}^+$ | Yes | periodic Biot-Savart recovery and velocity regularity from vorticity |
-| $K_{\mathrm{Euler2DBackend}}^+$ | Yes | local well-posedness, continuation criterion, uniqueness, and regularity propagation |
+| $K_{\mathrm{WP}_{s_c}}^+$ | Yes | local well-posedness, continuation criterion, uniqueness, and regularity propagation |
 | $K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+$ | derived | structural exclusion certificate |
 | $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$ | derived | designated final analytic regularity certificate |
 
@@ -501,7 +504,7 @@ K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 =
 \bigl(
 \text{E2 vorticity invariant mismatch},
-\{K_{\mathrm{VortTransport}}^+,K_{\mathrm{BiotSavart2D}}^+,K_{\mathrm{Euler2DBackend}}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+\}
+\{K_{\mathrm{VortTransport}}^+,K_{\mathrm{BiotSavart2D}}^+,K_{\mathrm{WP}_{s_c}}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+\}
 \bigr).
 $$
 
@@ -519,14 +522,14 @@ The only final upgrade used here is
 $$
 K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+
 \wedge
-K_{\mathrm{Euler2DBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+.
 $$
 
 #### **Non-Circularity Guard**
 
-$K_{\mathrm{Euler2DBackend}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$, so the upgrade is non-circular.
+$K_{\mathrm{WP}_{s_c}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$, so the upgrade is non-circular.
 
 #### **Upgrade Types**
 
@@ -572,7 +575,7 @@ K_{\mathrm{init}}^+,
 K_{\mathrm{CatLib}}^+,
 K_{\mathrm{VortTransport}}^+,
 K_{\mathrm{BiotSavart2D}}^+,
-K_{\mathrm{Euler2DBackend}}^+,
+K_{\mathrm{WP}_{s_c}}^+,
 K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 \}.
 $$
@@ -901,7 +904,7 @@ K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 =
 \bigl(
 \text{E2 vorticity invariant mismatch},
-\{K_{\mathrm{VortTransport}}^+,K_{\mathrm{BiotSavart2D}}^+,K_{\mathrm{Euler2DBackend}}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+\}
+\{K_{\mathrm{VortTransport}}^+,K_{\mathrm{BiotSavart2D}}^+,K_{\mathrm{WP}_{s_c}}^+,K_{\mathrm{Germ}}^+,K_{\mathrm{init}}^+,K_{\mathrm{CatLib}}^+\}
 \bigr).
 $$
 
@@ -979,7 +982,7 @@ Not invoked on the designated route.
 - **Analytic Global Regularity Theorem:** from structural exclusion plus the explicit 2D Euler backend package,
   $$
   K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+
-  \wedge K_{\mathrm{Euler2DBackend}}^+
+  \wedge K_{\mathrm{WP}_{s_c}}^+
   \Longrightarrow
   K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+.
   $$
@@ -1014,7 +1017,7 @@ Not invoked on the designated route.
 
 - **Vorticity transport bridge:** $K_{\mathrm{VortTransport}}^+$.
 - **Periodic Biot-Savart bridge:** $K_{\mathrm{BiotSavart2D}}^+$.
-- **Backend regularity package:** $K_{\mathrm{Euler2DBackend}}^+$.
+- **Backend regularity package:** $K_{\mathrm{WP}_{s_c}}^+$.
 
 ### **3.4 Retroactive Upgrades**
 
@@ -1098,10 +1101,10 @@ Node 13: K_{\mathrm{Bound}_\partial}^-
 Node 14: N/A
 Node 15: N/A
 Node 16: N/A
-Support: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{VortTransport}}^+, K_{\mathrm{BiotSavart2D}}^+, K_{\mathrm{Euler2DBackend}}^+
+Support: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{VortTransport}}^+, K_{\mathrm{BiotSavart2D}}^+, K_{\mathrm{WP}_{s_c}}^+
 Node 17: K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 Part III-A: not invoked on designated route
-Part III-B: K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+ \wedge K_{\mathrm{Euler2DBackend}}^+ -> K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+
+Part III-B: K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+ \wedge K_{\mathrm{WP}_{s_c}}^+ -> K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+
 ```
 
 ### **4.3 Final Certificate Set**
@@ -1128,7 +1131,7 @@ K_{\mathrm{init}}^+,
 K_{\mathrm{CatLib}}^+,
 K_{\mathrm{VortTransport}}^+,
 K_{\mathrm{BiotSavart2D}}^+,
-K_{\mathrm{Euler2DBackend}}^+,
+K_{\mathrm{WP}_{s_c}}^+,
 K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}},
 K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+,
 K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+
@@ -1160,7 +1163,7 @@ The proof proceeds by structural sieve analysis in seven phases.
 
 **Phase 6 (Boundary):** Node 13 records the closed-system branch, so Nodes 14-16 are not applicable.
 
-**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E2 with the certified completeness package, transported bounded vorticity, Biot-Savart recovery, and the declared continuation package. Part III-B first extracts the structural certificate from that blocked route, then combines it with $K_{\mathrm{Euler2DBackend}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$.
+**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E2 with the certified completeness package, transported bounded vorticity, Biot-Savart recovery, and the declared continuation package. Part III-B first extracts the structural certificate from that blocked route, then combines it with $K_{\mathrm{WP}_{s_c}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$.
 
 Therefore the designated goal certificate is established and the residual diagnostics do not obstruct it because they lie outside $\Downarrow(K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+)$.
 $$
@@ -1220,7 +1223,7 @@ $$
     "K_CatLib^+",
     "K_VortTransport^+",
     "K_BiotSavart2D^+",
-    "K_Euler2DBackend^+",
+    "K_{WP_{s_c}}^+",
     "K_CatHom^blk",
     "K_StructReg_Euler2D^+",
     "K_Reg_Euler2D^+"
@@ -1289,9 +1292,17 @@ $$
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$; incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
+
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** vorticity transport identity, Yudovich global wellposedness (bounded vorticity), and Beale-Kato-Majda-type criterion used as a backend theorem
+- **Hypotheses required:** smooth 2D initial vorticity and velocity, incompressibility, no-vacuum finite energy regime
+- **Non-circularity note:** $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$ is concluded from Lock plus the backend theorem; the final regularity goal is never assumed to prove the Lock certificate.
+- **Goal-certificate location in local-to-global chain:** Part III-B proves $K_{\mathrm{StructReg}_{\mathrm{Euler2D}}}^+ \wedge K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$.
 
 - **Designated Goal Certificate:** $K_{\mathrm{Reg}_{\mathrm{Euler2D}}}^+$
 - **Status:** UNCONDITIONAL

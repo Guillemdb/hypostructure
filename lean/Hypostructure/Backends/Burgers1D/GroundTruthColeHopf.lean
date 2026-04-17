@@ -13,6 +13,7 @@ structure ColeHopfTransform where
   toHeat : PeriodicH1State → PeriodicH1State
   fromHeat : PeriodicH1State → PeriodicH1State
   burgersSector : PeriodicH1State → Prop
+  burgersPDEDomain : PeriodicH1State → Prop
   heatSector : PeriodicH1State → Prop
   toHeat_preservesH1 : ∀ u : PeriodicH1State,
     PeriodicH1State.IsPeriodicH1 u →
@@ -20,6 +21,8 @@ structure ColeHopfTransform where
   fromHeat_preservesH1 : ∀ theta : PeriodicH1State,
     PeriodicH1State.IsPeriodicH1 theta →
       PeriodicH1State.IsPeriodicH1 (fromHeat theta)
+  burgersPDEDomain_in_sector : ∀ u : PeriodicH1State,
+    burgersPDEDomain u → burgersSector u
   toHeat_sector : ∀ u : PeriodicH1State,
     burgersSector u → heatSector (toHeat u)
   fromHeat_sector : ∀ theta : PeriodicH1State,
@@ -28,6 +31,10 @@ structure ColeHopfTransform where
     burgersSector u → fromHeat (toHeat u) = u
   right_inverse : ∀ theta : PeriodicH1State,
     heatSector theta → toHeat (fromHeat theta) = theta
+  smoothness_reflects_from_heat_image : ∀ u theta : PeriodicH1State,
+    burgersPDEDomain u →
+      theta = toHeat u →
+        SmoothPeriodicState theta → SmoothPeriodicState u
 
 def ColeHopfBurgersToHeatResidualTransfer
     (nu : BurgersParameters)
@@ -37,7 +44,7 @@ def ColeHopfBurgersToHeatResidualTransfer
     C.window.time = H.certified.window.time →
       T.burgersSector C.initial →
         H.certified.initial = T.toHeat C.initial →
-          SolvesPeriodicHeatWeak nu (T.toHeat C.initial) H.certified.curve
+          HeatWindowResidual nu H.certified
 
 def ColeHopfHeatToBurgersResidualTransfer
     (nu : BurgersParameters)
@@ -210,6 +217,18 @@ structure PeriodicColeHopfBackend
     ColeHopfHeatToBurgersResidualTransfer nu H transform
   uniqueness_transfer_on_window : ∀ H : LocalHeatWindowCertificate nu,
     ColeHopfUniquenessTransfer nu H transform
+
+/-- Stronger reusable Cole-Hopf backend for the arbitrary-data Burgers route.
+The constant-equilibrium sanity backend may use a smaller chart, so this is a
+separate wrapper around the all-window backend: the final theorem imports this
+extra domain theorem from the literature layer only when proving arbitrary
+periodic `H¹` data. -/
+structure PeriodicColeHopfH1DomainBackend
+    (nu : BurgersParameters) where
+  backend : PeriodicColeHopfBackend nu
+  h1_in_burgersPDEDomain : ∀ u : PeriodicH1State,
+    PeriodicH1State.IsPeriodicH1 u →
+      backend.transform.burgersPDEDomain u
 
 def PeriodicColeHopfBackend.windowBridge
     {nu : BurgersParameters}

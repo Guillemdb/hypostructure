@@ -168,10 +168,13 @@ No `inc` certificate is upgraded on the designated route. The only final promoti
 $$
 K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+
 \wedge
-K_{\mathrm{Wave1DBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
 $$
+
+This is the canonical continuation bridge notation used across PDE datasets: $K_{\mathrm{WP}_{s_c}}^+$ is the unified continuation certificate from the gate-evaluator schema (local well-posedness + uniqueness + continuation criterion + critical blow-up condition).
+
 
 ### **A.5 Breach Detection and Surgery**
 
@@ -348,7 +351,7 @@ No optional derived witness certificate is used on the designated route.
 | $K_{\mathrm{init}}^+$ | Yes | universal bad object package |
 | $K_{\mathrm{CatLib}}^+$ | Yes | completeness of the finite bad-pattern library |
 | $K_{\mathrm{DAlembert}}^+$ | Yes | explicit decomposition into left/right translation semigroups |
-| $K_{\mathrm{Wave1DBackend}}^+$ | Yes | global well-posedness, uniqueness, Sobolev propagation, and finite propagation package |
+| $K_{\mathrm{WP}_{s_c}}^+$ | Yes | global well-posedness, uniqueness, Sobolev propagation, and finite propagation package |
 | $K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+$ | derived | structural exclusion certificate |
 | $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$ | derived | designated final analytic regularity certificate |
 
@@ -480,14 +483,14 @@ The only final upgrade used here is
 $$
 K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+
 \wedge
-K_{\mathrm{Wave1DBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
 $$
 
 #### **Non-Circularity Guard**
 
-$K_{\mathrm{Wave1DBackend}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$, so the upgrade is non-circular.
+$K_{\mathrm{WP}_{s_c}}^+$ is an external backend package and is not derived from $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$, so the upgrade is non-circular.
 
 #### **Upgrade Types**
 
@@ -931,7 +934,7 @@ Not invoked on the designated route.
 - **Analytic Global Regularity Theorem:** from structural exclusion plus the explicit wave backend package,
   $$
   K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+
-  \wedge K_{\mathrm{Wave1DBackend}}^+
+  \wedge K_{\mathrm{WP}_{s_c}}^+
   \Longrightarrow
   K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+.
   $$
@@ -959,7 +962,7 @@ Not invoked on the designated route.
 
 - **D'Alembert bridge:** $K_{\mathrm{DAlembert}}^+$.
 - **Characteristic transport package:** $w_\pm(x,t)=w_\pm(x\mp ct,0)$.
-- **Backend regularity package:** $K_{\mathrm{Wave1DBackend}}^+$.
+- **Backend regularity package:** $K_{\mathrm{WP}_{s_c}}^+$.
 
 ### **3.4 Retroactive Upgrades**
 
@@ -1045,7 +1048,7 @@ Node 15: N/A
 Node 16: N/A
 Node 17: K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 Part III-A: not invoked on designated route
-Part III-B: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{DAlembert}}^+, K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+, K_{\mathrm{Wave1DBackend}}^+ -> K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+
+Part III-B: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{DAlembert}}^+, K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+, K_{\mathrm{WP}_{s_c}}^+ -> K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+
 ```
 
 ### **4.3 Final Certificate Set**
@@ -1073,7 +1076,7 @@ K_{\mathrm{CatLib}}^+,
 K_{\mathrm{DAlembert}}^+,
 K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}},
 K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+,
-K_{\mathrm{Wave1DBackend}}^+,
+K_{\mathrm{WP}_{s_c}}^+,
 K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+
 \}.
 $$
@@ -1103,7 +1106,7 @@ The proof proceeds by structural sieve analysis in seven phases.
 
 **Phase 6 (Boundary):** Node 13 records the closed-system branch, so Nodes 14-16 are not applicable.
 
-**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E5 with the certified completeness package and the explicit D'Alembert bridge. Part III-B combines the blocked structural certificate with $K_{\mathrm{Wave1DBackend}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$.
+**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E5 with the certified completeness package and the explicit D'Alembert bridge. Part III-B combines the blocked structural certificate with $K_{\mathrm{WP}_{s_c}}^+$ to derive the final analytic regularity certificate $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$.
 
 Therefore the designated goal certificate is established and the residual diagnostics do not obstruct it because they lie outside $\Downarrow(K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+)$.
 $$
@@ -1164,7 +1167,7 @@ $$
     "K_DAlembert^+",
     "K_CatHom^blk",
     "K_StructReg_Wave1D^+",
-    "K_Wave1DBackend^+",
+    "K_{WP_{s_c}}^+",
     "K_Reg_Wave1D^+"
   ],
   "obligations": {
@@ -1231,9 +1234,17 @@ $$
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$; incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
+
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** 1D linear wave explicit solution representation and finite speed of propagation with energy conservation
+- **Hypotheses required:** smooth initial data in the declared energy class and compatible boundary/domain structure
+- **Non-circularity note:** $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$ is deduced from Lock and energy certificates; it is not used as an assumed premise.
+- **Goal-certificate location in local-to-global chain:** Part III-B proves $K_{\mathrm{StructReg}_{\mathrm{Wave1D}}}^+ \wedge K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$.
 
 - **Designated Goal Certificate:** $K_{\mathrm{Reg}_{\mathrm{Wave1D}}}^+$
 - **Status:** UNCONDITIONAL

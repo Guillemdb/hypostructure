@@ -1276,7 +1276,7 @@ This proof object is replayed by providing:
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
 
@@ -1286,6 +1286,14 @@ This proof object is replayed by providing:
 - **Residual Non-Goal Obligations:** `OBL-1`, `OBL-2`
 - **Singularity Set:** thin obstruction family $\Sigma$
 - **Primary Final Route:** direct sieve execution + E4-blocked Lock + Dirac closure backend upgrade
+
+### Assumption Provenance
+
+- **Imported from literature?** No (the route is discharged through internal certificates in this document).
+- **Theorem name(s):** None explicitly named; the final certificate uses the declared Dirac closure backend upgrade with a blocked Lock branch.
+- **Hypotheses required:** a blocked Lock run via E4, a closed core route, and the declared Dirac backend certificates as listed in the execution tables.
+- **Non-circularity note:** $K_{\mathrm{DiracHamiltonian}}^+$ is the target certificate and is not an input premise.
+- **Goal-certificate location in local-to-global chain:** Part III-B combines $K_{\mathrm{StructDirac}}^+$ from the blocked Lock route with $K_{\mathrm{DiracClosureBackend}}^+$ to derive $K_{\mathrm{DiracHamiltonian}}^+$.
 
 ---
 

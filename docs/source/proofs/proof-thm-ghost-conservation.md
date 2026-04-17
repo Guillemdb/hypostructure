@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-thm-ghost-conservation
 
+**Formal statement in framework:** [09_mathematical/01_theorems.md](../1_hypostructure_formalism/09_mathematical/01_theorems.md)
+
 **Theorem (Ghost Conservation):** Surgery S7 (Ghost Extension) preserves the adjunction naturality $\mathcal{F} \dashv U$ between the expansion functor and the forgetful functor.
 
 This proof establishes that Surgery S7 (Ghost Extension, {prf:ref}`def-surgery-sd`) preserves the adjunction naturality $\mathcal{F} \dashv U$ between the expansion functor and the forgetful functor. The key mechanism is the BRST cohomological construction ({prf:ref}`mt-act-ghost`): the extended system $\hat{X} = X \times \mathbb{R}^k$ is **isomorphic to the original system in the derived category**, ensuring that the physical content (the "Thin Kernel") is exactly conserved.

@@ -206,6 +206,9 @@ for every admissible initial datum $u_0 \in H^s_\sigma(\mathbb{R}^3)$, the corre
 | $K_{\mathrm{CatLib}}^+$ | certifies completeness of the finite bad-pattern library $\mathcal{B}_{NS}$ |
 | $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | Lock certificate excluding the certified bad-pattern package |
 | $K_{\mathrm{WP}_{s_c}}^+$ | continuation upgrade from structural exclusion to analytic regularity |
+
+This is the canonical continuation bridge notation used across PDE datasets: $K_{\mathrm{WP}_{s_c}}^+$ is the unified continuation certificate from the gate-evaluator schema (local well-posedness + uniqueness + continuation criterion + critical blow-up condition).
+
 | tactic-specific preservation lemmas | only those required by the actual Lock trace; e.g. $K_{\mathrm{MorphPresDim}}^+$ for E1 or $K_{\mathrm{MorphPresTame}}^+$ for E10 |
 
 **Backend dependence:** the final theorem depends on the certified completeness package, the Lock certificate, and the continuation bridge.
@@ -488,7 +491,7 @@ CatLib:         K_{CatLib}^+
 
 Node 17: K_{Cat_Hom}^{blk}
 UP-Lock: K_{StructReg_NS}^+
-Continuation: K_{WP_{s_c}}^+ -> K_{Reg_NS}^+
+Continuation: $K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{Reg}_{NS}}^+$
 Post-goal stiffness: K_{LS_σ,\mathrm{post}}^+
 KRNL-Lyapunov: K_{\mathcal{L}_{NS}}^+
 ```
@@ -731,15 +734,23 @@ Therefore $K_{\mathrm{Reg}_{NS}}^+$ is established. $\square$
 | **E10** | Definability | NOT USED | Tameness is available through $K_{\mathrm{TB}_O}^+$ for the profile backend, but no E10 Lock tactic or $K_{\mathrm{MorphPresTame}}^+$ is used. |
 | **E11** | Galois-Monodromy | NOT USED | No solvability or monodromy obstruction is invoked by the Lock. |
 | **E12** | Algebraic Compressibility | NOT USED | No degree, Bezout, or algebraic-compressibility obstruction is invoked by the Lock. |
-| **E13** | Algorithmic Completeness | PASS | Primary Lock tactic: $K_{\mathrm{Germ}}^+$ places bad germs in the declared classifiable package, $K_{\mathrm{init}}^+$ supplies $\mathbb{H}_{\mathrm{bad}}^{NS}$, $K_{\mathrm{CatLib}}^+$ exhausts the finite bad-pattern library $\mathcal{B}_{NS}$, and $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ blocks every library morphism into $\mathcal{H}_{NS}$. |
+| **E13** | Algorithmic Completeness (blocked) | PASS | complete finite-library closure; here this is \(K_{\mathrm{E13}}^{\mathrm{blk}} = K_{\mathrm{Germ}}^+ \wedge K_{\mathrm{init}}^+ \wedge K_{\mathrm{CatLib}}^+\), while partial closure would give \(K_{\mathrm{E13}}^{\mathrm{br-inc}}\) and route to reconstruction. This closes $\mathcal{B}_{NS}$ and yields $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$. |
 | **UP-Lock** | Lock promotion | PASS | The selected E13 Lock produces $K_{\mathrm{StructReg}_{NS}}^+$ by $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}} \wedge K_{\mathrm{Germ}}^+ \wedge K_{\mathrm{init}}^+ \wedge K_{\mathrm{CatLib}}^+ \Rightarrow K_{\mathrm{StructReg}_{NS}}^+$. |
 
 ### 4. Final Verdict
 
-* **Status:** UNCONDITIONAL
-* **Obligation Ledger:** `O2` discharged by Part III-A; `O1`, `O3`, and `O4` remain recorded unused diagnostics outside the designated route
-* **Singularity Set:** Represented by the certified classifiable bad-pattern library $\mathcal{B}_{NS}$
-* **Primary Blocking Tactic:** E13 (Algorithmic Completeness) via $K_{\mathrm{CatLib}}^+$ and $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** Kato-Fujita-style local continuation in critical regularity, recorded as $K_{\mathrm{WP}_{s_c}}^+$ with $s_c=\frac12$, plus standard local energy/regularity estimates for Navier-Stokes
+- **Hypotheses required:** smooth divergence-free initial data, finite energy/viscosity sector, finite bad-pattern library, and the declared local regularity and continuity hypotheses
+- **Non-circularity note:** $K_{\mathrm{Reg}_{NS}}^+$ is output, not an assumption; the Lock and continuation bridge are applied after structural exclusion, and this target certificate is not used as a premise.
+- **Goal-certificate location in local-to-global chain:** Part II-B.2 applies $K_{\mathrm{WP}_{s_c}}^+$ to the structural output in Part II-B.1, yielding $K_{\mathrm{Reg}_{NS}}^+$.
+
+- **Status:** UNCONDITIONAL
+- **Obligation Ledger:** `O2` discharged by Part III-A; `O1`, `O3`, and `O4` remain recorded unused diagnostics outside the designated route
+- **Singularity Set:** Represented by the certified classifiable bad-pattern library $\mathcal{B}_{NS}$
+- **Primary Blocking Tactic:** E13 (Algorithmic Completeness) via $K_{\mathrm{CatLib}}^+$ and $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$
 
 ## Document Information
 

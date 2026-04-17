@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-krnl-trichotomy
 
+**Formal statement in framework:** [00_reference_aliases.md](../1_hypostructure_formalism/00_reference_aliases.md)
+
 **Theorem Reference:** {prf:ref}`mt-krnl-trichotomy`
 
 This proof establishes the structural trichotomy for trajectories with finite breakdown time. We proceed through a rigorous concentration-compactness argument, following the framework of Lions {cite}`Lions84` with refinements from Bahouri-Gérard {cite}`BahouriGerard99`, Kenig-Merle {cite}`KenigMerle06`, and Struwe {cite}`Struwe90`.

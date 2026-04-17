@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-resolve-profile
 
+**Formal statement in framework:** [06_modules/01_singularity.md](../1_hypostructure_formalism/06_modules/01_singularity.md)
+
 **Theorem Reference:** {prf:ref}`mt-resolve-profile`
 
 ## Setup and Notation

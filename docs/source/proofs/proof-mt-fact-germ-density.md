@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-fact-germ-density
 
+**Formal statement in framework:** [05_interfaces/01_gate_evaluator.md](../1_hypostructure_formalism/05_interfaces/01_gate_evaluator.md)
+
 **Theorem Reference:** {prf:ref}`mt-fact-germ-density`
 
 This proof establishes that the finite Bad Pattern Library $\mathcal{B} = \{B_i\}_{i \in I}$ is categorically dense in the universal bad pattern $\mathbb{H}_{\mathrm{bad}}^{(T)}$ in the sense that every germ coprojection factors through some $B_i$. As a consequence, if $\mathrm{Hom}(B_i, \mathbb{H}(Z)) = \emptyset$ for all library elements, then $\mathrm{Hom}(\mathbb{H}_{\mathrm{bad}}^{(T)}, \mathbb{H}(Z)) = \emptyset$. This is the soundness guarantee needed for the categorical Lock mechanism at Node 17, under the admissibility hypotheses recorded for type $T$.

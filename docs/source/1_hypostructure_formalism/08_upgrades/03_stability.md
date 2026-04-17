@@ -89,6 +89,8 @@ This is how numerical analysis gets upgraded to rigorous existence proofs. You c
 :::{prf:theorem} [KRNL-Shadowing] Shadowing Metatheorem
 :label: mt-krnl-shadowing
 
+**Implemented proof:** [proof-mt-krnl-shadowing.md](../../proofs/proof-mt-krnl-shadowing.md)
+
 **Source:** Hyperbolic Dynamics (Anosov Shadowing Lemma).
 
 **Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
@@ -417,6 +419,8 @@ This is useful in practice. Sometimes the full system is easier to analyze than 
 
 :::{prf:theorem} [KRNL-Subsystem] Subsystem Inheritance
 :label: mt-krnl-subsystem
+
+**Implemented proof:** [proof-mt-krnl-subsystem.md](../../proofs/proof-mt-krnl-subsystem.md)
 
 **Source:** Invariant Manifold Theory.
 

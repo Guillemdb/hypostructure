@@ -1290,7 +1290,7 @@ This proof object is replayed by providing:
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
 
@@ -1300,6 +1300,14 @@ This proof object is replayed by providing:
 - **Residual Non-Goal Obligations:** `OBL-1`, `OBL-2`
 - **Singularity Set:** thin exceptional-modulus family $\Sigma$
 - **Primary Final Route:** direct sieve execution + E4-blocked Lock + Maynard-Tao backend upgrade
+
+### Assumption Provenance
+
+- **Imported from literature?** Yes (the Maynard--Tao arithmetic backend is imported as a declared certificate).
+- **Theorem name(s):** Maynard--Tao bounded-gap framework and occupancy/twin-type arithmetic input family (as declared in the route tables).
+- **Hypotheses required:** admissible modulus control, bounded exceptional set separation, and the closed-system E4 route hypotheses used in this proof object.
+- **Non-circularity note:** $K_{\mathrm{BoundedPrimeGaps}}^+$ is the output certificate and is not used to justify route premises.
+- **Goal-certificate location in local-to-global chain:** Part III-B combines $K_{\mathrm{StructBoundedGaps}}^+$ with $K_{\mathrm{MaynardTaoBackend}}^+$ to derive $K_{\mathrm{BoundedPrimeGaps}}^+$.
 
 ---
 

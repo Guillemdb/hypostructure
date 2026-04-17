@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-resolve-admissibility
 
+**Formal statement in framework:** [06_modules/01_singularity.md](../1_hypostructure_formalism/06_modules/01_singularity.md)
+
 **Theorem Reference:** {prf:ref}`mt-resolve-admissibility`
 
 **Theorem Statement:** Before invoking any surgery $S$ with mode $M$ and data $D_S$, the framework produces exactly one of three certificates, assuming the admissibility data for the type $T$ includes the profile library, decision tolerances, and verification oracles referenced below:

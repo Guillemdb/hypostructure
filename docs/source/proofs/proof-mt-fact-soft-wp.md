@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-fact-soft-wp
 
+**Formal statement in framework:** [05_interfaces/01_gate_evaluator.md](../1_hypostructure_formalism/05_interfaces/01_gate_evaluator.md)
+
 **Theorem Reference:** {prf:ref}`mt-fact-soft-wp`
 
 This proof establishes that for good types $T$ satisfying the Automation Guarantee, critical well-posedness can be derived automatically from soft interface certificates through template matching and theorem instantiation. The proof proceeds by showing that the soft certificates $K_{\mathcal{H}_0}^+ \wedge K_{D_E}^+ \wedge K_{\mathrm{Bound}}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wedge K_{\mathrm{RepDesc}_K}^+$ contain sufficient information to match against classical well-posedness templates and instantiate the corresponding existence theorems.

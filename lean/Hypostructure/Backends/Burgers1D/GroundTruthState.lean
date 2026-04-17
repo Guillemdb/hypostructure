@@ -1,8 +1,10 @@
 import Hypostructure.Backends.Burgers1D.Parameters
 import Hypostructure.Backends.Burgers1D.Torus
 
+import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Analysis.Normed.Group.Bounded
 import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.FundThmCalculus
 
 namespace Hypostructure.Backends.Burgers1D
 
@@ -12,13 +14,23 @@ open scoped ENNReal
 
 noncomputable section
 
-/-- Smooth periodic test functions, represented at the level needed for the weak
-derivative identity on the one-dimensional torus. The field
-`integral_deriv_zero` is the periodic boundary cancellation used by constants. -/
+/-- Smooth periodic test functions for the weak derivative identity on the
+one-dimensional torus.
+
+The `value` and `deriv` fields are tied by a real-line lift and a pointwise
+`HasDerivAt` certificate. This prevents invalid tests where the derivative is
+chosen independently of the value. Continuity and periodicity of the lifted
+functions are derived below from the torus maps and quotient compatibility, so
+the test-function interface stores only the mathematical ties that are not
+definitionally recoverable from the continuous maps. -/
 structure SmoothPeriodicTestFunction where
   value : ContinuousMap BurgersTorus ℝ
   deriv : ContinuousMap BurgersTorus ℝ
-  integral_deriv_zero : ∫ x : BurgersTorus, deriv x = 0
+  lift : ℝ → ℝ
+  liftDeriv : ℝ → ℝ
+  value_lift : ∀ x : ℝ, value (x : UnitAddCircle) = lift x
+  deriv_lift : ∀ x : ℝ, deriv (x : UnitAddCircle) = liftDeriv x
+  hasDerivAt_lift : ∀ x : ℝ, HasDerivAt lift (liftDeriv x) x
 
 namespace SmoothPeriodicTestFunction
 
@@ -31,6 +43,54 @@ theorem integrable_deriv (φ : SmoothPeriodicTestFunction) :
     Integrable (fun x : BurgersTorus => φ.deriv x) := by
   rw [← integrableOn_univ]
   exact φ.deriv.continuous.continuousOn.integrableOn_compact isCompact_univ
+
+theorem lift_cont (φ : SmoothPeriodicTestFunction) : Continuous φ.lift := by
+  have hcont : Continuous (fun x : ℝ => φ.value (x : UnitAddCircle)) :=
+    φ.value.continuous.comp continuous_quotient_mk'
+  exact hcont.congr φ.value_lift
+
+theorem liftDeriv_cont (φ : SmoothPeriodicTestFunction) : Continuous φ.liftDeriv := by
+  have hcont : Continuous (fun x : ℝ => φ.deriv (x : UnitAddCircle)) :=
+    φ.deriv.continuous.comp continuous_quotient_mk'
+  exact hcont.congr φ.deriv_lift
+
+theorem lift_periodic (φ : SmoothPeriodicTestFunction) : Function.Periodic φ.lift 1 := by
+  intro x
+  rw [← φ.value_lift (x + 1), ← φ.value_lift x]
+  congr 1
+  simp
+
+theorem deriv_periodic (φ : SmoothPeriodicTestFunction) : Function.Periodic φ.liftDeriv 1 := by
+  intro x
+  rw [← φ.deriv_lift (x + 1), ← φ.deriv_lift x]
+  congr 1
+  simp
+
+theorem liftDeriv_intervalIntegral_zero_one (φ : SmoothPeriodicTestFunction) :
+    ∫ x in (0 : ℝ)..1, φ.liftDeriv x = 0 := by
+  have hftc :
+      ∫ x in (0 : ℝ)..1, φ.liftDeriv x = φ.lift 1 - φ.lift 0 := by
+    refine intervalIntegral.integral_eq_sub_of_hasDerivAt ?_ ?_
+    · intro x _hx
+      exact φ.hasDerivAt_lift x
+    · exact φ.liftDeriv_cont.intervalIntegrable _ _
+  have hper : φ.lift (0 + 1) = φ.lift 0 := φ.lift_periodic 0
+  have h10 : φ.lift 1 = φ.lift 0 := by
+    simpa using hper
+  rw [hftc, h10, sub_self]
+
+theorem integral_deriv_zero (φ : SmoothPeriodicTestFunction) :
+    ∫ x : BurgersTorus, φ.deriv x = 0 := by
+  calc
+    ∫ x : BurgersTorus, φ.deriv x
+        = ∫ x in (0 : ℝ)..1, φ.deriv (x : UnitAddCircle) := by
+            simpa using
+              (UnitAddCircle.intervalIntegral_preimage (0 : ℝ)
+                (fun x : UnitAddCircle => φ.deriv x)).symm
+    _ = ∫ x in (0 : ℝ)..1, φ.liftDeriv x := by
+          refine intervalIntegral.integral_congr_ae ?_
+          exact Filter.Eventually.of_forall fun x _hx => φ.deriv_lift x
+    _ = 0 := φ.liftDeriv_intervalIntegral_zero_one
 
 end SmoothPeriodicTestFunction
 

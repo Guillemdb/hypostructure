@@ -1,6 +1,6 @@
 # Burgers 1D Ground-Truth Lean Roadmap
 
-Date: 2026-04-16
+Date: 2026-04-17
 
 ## Purpose
 
@@ -53,8 +53,12 @@ Hypostructure/Backends/Burgers1D/GroundTruthColeHopf.lean
 Hypostructure/Backends/Burgers1D/GroundTruthLock.lean
 Hypostructure/Backends/Burgers1D/GroundTruthUpgrade.lean
 Hypostructure/Backends/Burgers1D/GroundTruthFinal.lean
+Hypostructure/Backends/Burgers1D/GroundTruthAudit.lean
 Hypostructure/Backends/Burgers1D/GroundTruthZeroEquilibrium.lean
 Hypostructure/Backends/Burgers1D/GroundTruthConstantEquilibrium.lean
+Hypostructure/Literature/Burgers/Periodic1D.lean
+Hypostructure/Literature/ColeHopf/PeriodicBurgers1D.lean
+Hypostructure/Literature/Heat/Periodic1D.lean
 Hypostructure/Framework/Route.lean
 Hypostructure/Framework/Upgrade.lean
 hypostructure_reusable_framework.md
@@ -131,10 +135,16 @@ Implemented:
   `APosterioriLocalization.target` metatheorem. The Burgers route instantiates
   E5 as its Lock tactic, routes the final theorem through the combined generic
   upgrade dossier, and instantiates the reusable a-posteriori theorem for its
-  missing-regularity-witness localization axiom.
+  decomposed missing-regularity-to-raw-failure-window and raw-failure-window
+  nonextendability literature facts.
 - Rigor boundary extraction: Hypostructure.Framework.Rigor records the three
   proof-boundary layers used by the Burgers route: framework-proved logic
   (`F`), reusable literature facts (`L`), and problem-specific math (`P`).
+  It now also provides `AxiomBoundaryAudit`, a reusable checked object for
+  theorem checkpoints whose named custom boundary should be exactly the
+  reusable literature boundary and contain no problem-specific assumptions.
+  `GroundTruthAudit.lean` instantiates this for
+  `burgers_groundTruth_dataset_theorem_from_axioms`.
   `GroundTruthFinal.lean` now exposes `burgersGroundTruthRigorBoundary`, plus
   separate literature and problem-specific boundary lists.
 - Core bundle factory: `GroundTruthCoreFactory.lean` now provides
@@ -151,18 +161,75 @@ Implemented:
   from the exported local certificate. `LocalHeatWindowCertificate`
   exposes only windowed heat residual, local uniqueness, positive-time
   smoothing on the window, finite-window energy/dissipation contraction, and
-  heat bad-germ exclusion, with a derived contradiction theorem for
-  capacity-failing supported heat bad germs. The old global-shaped
+  heat bad-germ exclusion. The heat-side forbidden predicate is now concrete:
+  `HeatForbiddenBadGerm` means a route-local heat germ contains a positive time
+  at which the certified heat curve is not smooth. The certificate excludes it
+  by applying its windowed smoothing theorem to supported germs. The underlying
+  `CertifiedHeatWindow` now carries only the local window, initial profile,
+  heat curve, local initial condition on the window, and local `H¹` boundary on
+  the window; it no longer bundles a global `SolvesPeriodicHeatWeak`. The old global-shaped
   `LocalHeatSmoothingAndUniqueness` interface has been replaced by the reduced
   `PeriodicHeatSemigroupBackend`, which is only a construction source for local
   window certificates and no longer exposes unused semigroup/global fields to
   the proof route.
-- Literature heat extraction: the remaining standard periodic heat backend is
-  no longer a Burgers-specific axiom. It lives in
+- Literature heat extraction: the remaining standard periodic heat boundary is
+  no longer a global semigroup axiom or a full local-certificate axiom. The
+  `L²` Fourier reconstruction from the evolved coefficients is now proved in
   `Hypostructure.Literature.Heat.Periodic1D` as
-  `periodicHeat1D_semigroupBackend_literature`, together with the derived local
-  window certificate constructor. Burgers imports this literature fact and
-  restricts it to the route window.
+  `periodicHeat1D_l2ReconstructionTheory_literature`: Lean constructs the
+  reconstructed value and weak-derivative `L²` objects and proves coefficient
+  recovery, Fourier-series convergence in `L²`, and Parseval identities for
+  those `L²` reconstructions. Lean also proves the Fourier/Sobolev `H¹`
+  reconstruction package `periodicHeat1D_fourierH1ReconstructionTheory_literature`:
+  the reconstructed value/derivative pair satisfies the Fourier weak-derivative
+  relation, Parseval identities, and finite-time contractions. The former
+  monolithic heat upgrade is now split into four named reusable literature
+  facts: `periodicHeat1D_fourierH1ContinuousCurve_literature` constructs the
+  certified continuous `H¹` representative and identifies it with the
+  Fourier-`H¹` reconstruction; `periodicHeat1D_fourierH1WindowResidual_literature`
+  proves the windowed weak residual; `periodicHeat1D_fourierH1WindowUniqueness_literature`
+  proves windowed uniqueness; and
+  `periodicHeat1D_fourierH1WindowSmoothing_literature` proves positive-time
+  smoothing. Lean proves the assembler
+  `periodicHeat1D_localWindowCertificate_literature`, which directly supplies a
+  `LocalHeatWindowCertificate` for the exact datum and route window. Heat
+  bad-germ exclusion is already discharged by
+  `periodicHeat1D_badGermExclusion_fromSmoothing`, so it is not a separate
+  axiom. A full heat semigroup may still be proved later as a construction
+  source, but the final theorem no longer depends on a semigroup-shaped
+  literature assumption.
+- Heat Fourier multiplier layer: `Hypostructure.Literature.Heat.Periodic1D`
+  now defines the concrete mode frequency `(2πn)^2`, heat exponent
+  `-ν(2πn)^2t`, and multiplier `exp(-ν(2πn)^2t)`. Lean proves nonnegative
+  frequency, strict positivity for nonzero modes, zero-time identity,
+  multiplier positivity, positive-time contraction `≤ 1`, strict nonzero-mode
+  damping for positive time, absolute-value and square contraction, and
+  time-addition composition. The bundled
+  `periodicHeat1D_fourierModeTheory_literature` is a definition, not an axiom.
+  Lean also proves the coefficient-level package
+  `periodicHeat1D_fourierCoefficientTheory_literature`: evolved Fourier
+  coefficient initial values, coefficient semigroup law, derivative
+  compatibility, all-mode value/derivative summability preservation, and all-
+  mode `ℓ²` contraction for the value and weak-derivative coefficient families.
+  To support this, the analysis module now exposes full all-mode value and
+  derivative Parseval/summability theorems in addition to the mean-zero Poincare
+  projections. Lean also proves the Hilbert-space reconstruction package
+  `periodicHeat1D_l2ReconstructionTheory_literature`: the evolved value and
+  derivative coefficients define `ℓ²` vectors, mathlib's Fourier Hilbert basis
+  reconstructs `L²` objects from them, and Lean verifies coefficient recovery,
+  `L²` Fourier-series convergence, and Parseval for those reconstructed
+  objects. Lean also proves
+  `periodicHeat1D_fourierH1ReconstructionTheory_literature`, which packages the
+  Fourier weak-derivative relation, value/derivative Parseval identities, and
+  finite-time value/derivative contractions on the reconstructed Fourier-`H¹`
+  carrier. Lean also proves
+  `periodicHeat1D_localContraction_fromFourierReconstruction`, deriving the
+  local heat contraction fields from reconstruction Parseval identities plus
+  coefficient-level contraction, and
+  `periodicHeat1D_localTheory_fromFourierReconstruction`, assembling the local
+  heat theory from the narrowed reconstruction package. The older
+  `periodicHeat1D_localTheory_literature` name is now a Lean definition, not an
+  axiom.
 - Phase 7: `GroundTruthColeHopf.lean` defines the concrete Cole-Hopf transform
   interface, inverse laws, certified-window chart validity, window mapping,
   inverse transfer, residual-transfer statements, uniqueness transfer,
@@ -173,9 +240,27 @@ Implemented:
   field.
 - Literature Cole-Hopf extraction: the reusable periodic Burgers/KPZ-style
   Cole-Hopf backend now lives in
-  `Hypostructure.Literature.ColeHopf.PeriodicBurgers1D` as
-  `periodicBurgers1D_coleHopfBackend_literature`, with a derived local bridge
-  theorem. Burgers-specific code consumes only the resulting local bridge.
+  `Hypostructure.Literature.ColeHopf.PeriodicBurgers1D` as the bundled reusable
+  theory package `PeriodicBurgers1DColeHopfTheory`. Its single literature axiom
+  `periodicBurgers1D_coleHopfTheory_literature` exports transform data, chart
+  validity, window mapping, inverse window mapping, residual transfer in both
+  directions, uniqueness transfer, and the theorem that arbitrary periodic `H¹`
+  Burgers profiles lie in the transform PDE domain. Lean proves the old split
+  names as projections and assembles `periodicBurgers1D_coleHopfBackend_literature`
+  from the package, so Burgers-specific code consumes only the resulting local
+  bridge and reusable literature-domain theorem.
+- Literature Burgers continuation extraction: reusable one-dimensional periodic
+  viscous Burgers continuation/localization now lives in
+  `Hypostructure.Literature.Burgers.Periodic1D` as the bundled theory package
+  `PeriodicBurgers1DContinuationTheory`, exposed by the single literature axiom
+  `periodicBurgers1D_continuationTheory_literature`. It exports local
+  uniqueness on certified windows, missing-regularity-to-raw-failure-window
+  localization, and raw-failure-window nonextendability for the canonical
+  finite-`H¹` obstruction criterion. The old split names are Lean projections.
+  The final Burgers route proves `burgers_localUniquenessOnOverlapsFromLiterature`,
+  adapting the windowed theorem to the overlap-uniqueness record consumed by the
+  local continuation chain; `GroundTruthUpgrade.lean` no longer imports Burgers
+  literature facts.
 - Phase 8: `GroundTruthCertificates.lean` now implements the documented
   finite bad-pattern library: the singleton finite-time `H¹` blow-up template,
   `K_Germ^+`, `K_init^+`, and `K_CatLib^+` certificate objects, and a
@@ -183,7 +268,10 @@ Implemented:
   through that library. `GroundTruthLock.lean` consumes this completeness
   theorem before applying the local Cole-Hopf/heat E5 contradiction.
 - Phase 9: `GroundTruthUpgrade.lean` names the final local-to-global analytic
-  theorem object and its framework analytic-regularity certificate.
+  theorem object, the generic local continuation/localization chain interface,
+  and its framework analytic-regularity certificate. Literature-backed default
+  adapters live in `GroundTruthFinal.lean`, so the reusable upgrade layer has no
+  Burgers literature import cycle.
 - Phase 10 migration boundary: `GroundTruthFinal.lean` exposes the migrated
   dataset claim over `BurgersGroundTruthBackendPermits`. This deliberately
   prevents the final ground-truth path from using any old packaged
@@ -239,9 +327,9 @@ Cole-Hopf certificate languages, finite-library Lock theorem, named
 analytic-upgrade boundary, zero-equilibrium template theorem, and all-constant
 equilibrium template theorem are implemented. They do not yet prove classical
 global Burgers regularity for arbitrary initial data. The remaining hard
-analytic work is to instantiate the nontrivial heat semigroup, Cole-Hopf
-transform, PDE-local core analytic inputs, and a-posteriori failure-localization
-theorem with mathlib-backed constructions.
+analytic work is to instantiate the nontrivial heat local-window certificate,
+Cole-Hopf transform, decomposed PDE-local core analytic inputs, and a-posteriori
+failure-localization theorem with mathlib-backed constructions.
 
 Current locality status:
 
@@ -455,10 +543,22 @@ morphism by `hlocalize`, and contradicts `input.lock` by applying the reusable
 framework theorem `APosterioriLocalization.target`. This is the intended
 hypostructure upgrade shape. Lean now derives this localization theorem from a
 decomposed local continuation/localization chain: certified local evolution,
-local uniqueness, local continuation, maximal nonextendable window, finite `H¹`
-bad-germ extraction, finite-library classification, and local Cole-Hopf/heat
-obstruction transfer. The old monolithic
-`burgers_axiom_failureLocalizesToWitness` boundary has been removed.
+literature-backed local uniqueness, the canonical obstruction criterion, a
+maximal nonextendable window, and explicit bridge-transfer facts. The old monolithic
+`burgers_axiom_failureLocalizesToWitness` boundary has been removed. The
+canonical continuation criterion is fully defined in Lean: a window is
+extendable exactly when it has no Burgers-side finite `H¹` obstruction data.
+That obstruction data now contains the local germ, finite-time `H¹` evidence,
+support in the Burgers window, positive obstruction time, explicit
+nonregularity of the germ profile, inclusion of the Burgers obstruction window
+in the certified heat window, and equality between the certified heat value and
+the Cole-Hopf image at the obstruction time. The previous
+chart/support/smoothness bridge axioms have been narrowed further: the
+Cole-Hopf PDE-domain condition is now derived from the finite `H¹` obstruction
+certificate plus the reusable literature theorem that periodic `H¹` Burgers
+profiles lie in the transform PDE domain. Chart membership, heat-image support,
+smoothness reflection, and heat-side forbiddenness are derived in Lean from
+those narrower inputs plus the Cole-Hopf/heat interfaces.
 
 The desired fully discharged theorem still has this local-certificate shape:
 
@@ -559,6 +659,17 @@ def IsWeakDerivativeOnTorus (u du : T -> Real) : Prop :=
     integral (fun x => u x * phi.deriv x)
       = - integral (fun x => du x * phi x)
 ```
+
+Current Lean status: `SmoothPeriodicTestFunction` is no longer an untied pair
+of continuous maps. It now carries a real-line lift, lifted derivative, periodic
+compatibility laws with the torus maps, and a `HasDerivAt` certificate tying
+`deriv` to `value`. Continuity and periodicity of both lifted functions are now
+derived from the continuous torus maps plus quotient compatibility, rather than
+stored as fields. The periodic boundary cancellation theorem
+`SmoothPeriodicTestFunction.integral_deriv_zero` is derived from these facts,
+mathlib's interval-integral representation of `UnitAddCircle`, and the
+fundamental theorem of calculus. It is no longer an input field of the test
+function interface.
 
 ### Required operations
 
@@ -721,6 +832,16 @@ theorem localMeanSectorPreservation
 - No node proves or assumes `Sigma = empty`.
 - No node proves or assumes global convergence.
 
+Current Lean status: the invalid proof of Poincare from an independently chosen
+test derivative has been removed. `periodicH1_poincare_meanZero_literature` is
+now a framework wrapper around the proved Lean theorem
+`periodicH1_poincare_spectralGap_literature`. That theorem is assembled from
+the bundled reusable `PeriodicH1FourierTheory` boundary, which packages value
+Parseval with the zero mode removed, value-mode summability, derivative-mode
+summability, derivative Parseval lower bound, and the weak-derivative Fourier
+coefficient identity. Lean already proves the first-frequency gap and per-mode
+energy control from the coefficient identity.
+
 ## Phase 5: Local Bad-Germ Capacity Certificate
 
 ### Goal
@@ -767,13 +888,14 @@ Build the heat side used by the Cole-Hopf route.
 
 ### Required construction
 
-Construct a heat semigroup on the periodic carrier or on a compatible heat
-carrier. Possible implementation paths:
+Construct the requested finite-window heat certificate on the periodic carrier.
+Possible implementation paths:
 
 - Fourier series on `UnitAddCircle`;
 - heat kernel on the torus;
-- abstract semigroup only if all properties are proven from mathlib
-  constructions, not assumed as package fields.
+- a proved abstract semigroup as an internal construction source, restricted to
+  `periodicHeat1D_localWindowCertificate_literature` before entering the final
+  Burgers route.
 
 ### Required certificates
 
@@ -815,6 +937,11 @@ structure PeriodicHeatSemigroupBackend (nu : BurgersParameters) where
   ...
 ```
 
+`CertifiedHeatWindow` itself is local: it no longer contains a global weak heat
+solution package. Global heat theory may still be used to construct one, but the
+certificate boundary stores only the certified window, curve, initial datum, and
+window-local boundary/initial facts.
+
 A full periodic heat semigroup may still be proved as a backend theorem, but
 `K_HeatSmooth^+` should expose only the local/windowed facts consumed by the
 sieve and Lock. If a global semigroup theorem is used internally to prove those
@@ -824,15 +951,46 @@ regularity and not as a premise equivalent to the Burgers target.
 ### Required theorem
 
 ```lean
-theorem localHeatWindowCertificate
-    (nu : BurgersParameters) :
-    LocalHeatWindowCertificate nu
+def periodicHeat1D_l2ReconstructionTheory_literature : ...
+def periodicHeat1D_fourierH1ReconstructionTheory_literature : ...
+
+axiom periodicHeat1D_fourierH1ContinuousCurve_literature : ...
+axiom periodicHeat1D_fourierH1WindowResidual_literature : ...
+axiom periodicHeat1D_fourierH1WindowUniqueness_literature : ...
+axiom periodicHeat1D_fourierH1WindowSmoothing_literature : ...
+def periodicHeat1D_fourierH1WindowUpgrade_literature : ...
+def periodicHeat1D_fourierReconstruction_literature : ...
+
+def periodicHeat1D_localTheory_literature : ...
+
+def periodicHeat1D_localExistenceWindow_literature : ...
+def periodicHeat1D_localResidual_literature : ...
+def periodicHeat1D_localUniqueness_literature : ...
+def periodicHeat1D_localSmoothing_literature : ...
+def periodicHeat1D_localContraction_literature : ...
+theorem periodicHeat1D_badGermExclusion_fromSmoothing : ...
+def periodicHeat1D_localWindowCertificate_literature : ...
 ```
 
-Current Lean status: the interface and restriction theorem
-`PeriodicHeatSemigroupBackend.windowCertificate` are implemented. The remaining
-math is to instantiate `PeriodicHeatSemigroupBackend` from mathlib-backed
-periodic heat analysis for arbitrary `PeriodicH1State` data.
+Current Lean status: the interface and the windowed literature boundary are
+implemented. `PeriodicHeatSemigroupBackend.windowCertificate` remains available
+as a construction-source restriction theorem, but the final Burgers route now
+imports only the assembled `periodicHeat1D_localWindowCertificate_literature`.
+The scalar Fourier heat multiplier layer and coefficient-level `ℓ²`
+contraction/summability layer are now proved in Lean, and so is the `L²`
+Fourier reconstruction layer. Lean constructs the value and weak-derivative
+`L²` reconstructions, proves their Fourier coefficients are exactly the evolved
+coefficients, proves their Fourier series converge in `L²`, and proves Parseval
+for those reconstructed `L²` objects. Lean also constructs the Fourier/Sobolev
+`H¹` state from those objects and proves the Fourier weak-derivative relation,
+value/derivative Parseval identities, and finite-time contractions on that
+carrier. The remaining math is now the upgrade from that Fourier-`H¹`
+reconstruction to the arbitrary-data continuous `H¹` heat curve on each
+certified local window, split into four explicit facts: continuous representative
+and Fourier-`H¹` identification, weak residual, uniqueness, and positive-time
+smoothing. The older `periodicHeat1D_fourierH1WindowUpgrade_literature` and
+`periodicHeat1D_fourierReconstruction_literature` names are now Lean
+compatibility definitions, not axioms.
 
 ### Acceptance criteria
 
@@ -848,9 +1006,9 @@ Current partial proof: `GroundTruthZeroEquilibrium.lean` proves its restricted
 heat facts directly. `GroundTruthConstantEquilibrium.lean` now packages the
 constant heat facts as `constantLocalHeatWindowCertificate`, so the constant
 route exercises the same local heat certificate boundary used by the general
-framework. The arbitrary-data heat semigroup remains unimplemented, but when it
-is proved it will now enter the framework only through
-`PeriodicHeatSemigroupBackend.windowCertificate` and
+framework. The arbitrary-data finite-window heat theorem remains unimplemented;
+if it is proved via an all-time semigroup, that semigroup must enter the final
+route only through `periodicHeat1D_localWindowCertificate_literature` and
 `LocalHeatWindowCertificate`.
 
 ## Phase 7: Cole-Hopf Bridge Certificate
@@ -1139,25 +1297,52 @@ Recommended sequence from the current migrated state:
    inverse transfer, residual transfer on certified windows, uniqueness
    transfer, and bad-germ transport fields. Add
    `PeriodicColeHopfBackend.windowBridge` as the backend construction source.
-4. In progress: instantiate the periodic heat backend on `PeriodicH1State` and prove its
-   local window certificate from mathlib-backed Fourier/semigroup analysis.
-   The local certificate interface is implemented, and the constant-sector
-   window certificate is proved; the arbitrary-data heat semigroup is still the
-   missing analytic construction.
+4. In progress: instantiate the periodic heat backend on `PeriodicH1State` and prove the
+   requested local window certificate from mathlib-backed Fourier/semigroup
+   analysis. The mode-level heat multiplier theory, coefficient-level `ℓ²`
+   contraction/summability theory, `L²` Fourier reconstruction theory, and
+   Fourier/Sobolev `H¹` reconstruction theory are proved in Lean; the next
+   missing heat work is split into the continuous representative theorem,
+   windowed weak residual theorem, windowed uniqueness theorem, and
+   positive-time smoothing theorem for the reconstructed Fourier-`H¹` object. The
+   final route now exposes only
+   those four heat facts as heat axioms; local
+   existence, residual, uniqueness, smoothing, contraction, and certificate
+   exports are Lean projections/assemblers. An
+   arbitrary-data heat semigroup is useful as a construction theorem but is no
+   longer in the theorem axiom boundary. Heat bad-germ exclusion is already
+   proved from smoothing by
+   `periodicHeat1D_badGermExclusion_fromSmoothing`.
 5. In progress: instantiate the concrete periodic Cole-Hopf transform and inverse on the
    ground-truth carrier, including the mean-sector/moving-frame correction and
    positivity chart needed for the local bridge.
-   The backend-source interface and constant-sector bridge are proved; the
-   nonconstant periodic Cole-Hopf chart and residual transfer remain missing.
-6. Partially completed with a narrower axiom boundary:
+   The backend-source interface and constant-sector bridge are proved. The
+   arbitrary-data Cole-Hopf boundary is now one reusable theory package,
+   `periodicBurgers1D_coleHopfTheory_literature`; its transform, chart, window,
+   residual-transfer, uniqueness-transfer, and H¹-domain exports are Lean
+   projections from that package. The nonconstant periodic Cole-Hopf construction
+   remains to be formalized inside that package.
+6. Completed framework-side and decomposed into literature boundaries:
    `GroundTruthCoreFactory.lean` provides an axiom-free canonical zero core
    bundle, a reusable `toBundle` constructor, and the pointwise windowed
-   `BurgersCorePDELocalWindowInputsFor` boundary. The remaining explicit axiom
-   `burgers_axiom_corePDELocalWindowInputsFor` covers only the certified local
-   Burgers window, local residual, local energy, Poincare, mean-sector, and
-   dissipative-window facts for the exact admissible initial datum `u0` being
-   proved. The old global-shaped adapter has been removed: the current core
-   bundle consumes a certified Burgers window and `SolvesViscousBurgersWeakOnWindow`.
+   `BurgersCorePDELocalWindowInputsFor` interface. The arbitrary-data local
+   well-posedness/local-estimate boundary now lives in
+   `Hypostructure.Literature.Burgers.Periodic1D` as one reusable local theory
+   source, `periodicBurgers1D_localWindowTheory_literature`. Lean proves the
+   Poincare/coercivity wrapper `periodicH1_poincare_meanZero_literature` from
+   the Lean-assembled spectral-gap theorem
+   `periodicH1_poincare_spectralGap_literature`, which now depends only on the
+   reusable `PeriodicH1FourierTheory` package discharged from mathlib Fourier
+   analysis and the carrier's weak-derivative interface. The former Fourier
+   literature boundary `periodicH1_fourierTheory_literature` is now a Lean
+   definition, not an axiom. Lean proves the local existence, residual,
+   energy, mean-preservation, and dissipative projections from the single
+   Burgers local theory source, and then proves the assemblers
+   `periodicBurgers1D_meanPoincare_literature` and
+   `periodicBurgers1D_localWindowInputs_literature`, which produce the exact
+   core package consumed by the route. The old global-shaped adapter has been
+   removed: the current core bundle consumes a certified Burgers window and
+   `SolvesViscousBurgersWeakOnWindow`.
 7. Completed for the current dataset: `LockBlocksBurgersBadGerms` now uses the
    full documented finite-time `H¹` bad-pattern library and the `K_Germ^+`,
    `K_init^+`, `K_CatLib^+` certificates. Extend this only if the dataset adds
@@ -1228,23 +1413,31 @@ Current axiom audit:
   Lean foundations: propext, Classical.choice, Quot.sound
 
 #print axioms burgers_groundTruth_dataset_theorem_from_axioms
-  custom axioms: exactly the named boundary below, plus the two literature facts
+  custom axioms: exactly the named boundary below
   Lean foundations: propext, Classical.choice, Quot.sound
 ```
+
+The kernel-level equality between the declared boundary and the theorem's
+actual custom axioms is now checked by the Lake script target:
+
+```bash
+lake run auditBurgersAxioms
+```
+
+The script runs Lean, prints the theorem axioms, extracts the custom
+`Hypostructure.*` constants, drops only the known Lean foundations, and fails if
+the result differs from `burgersGroundTruthAxiomBoundary`.
 
 The current named axiom boundary is:
 
 ```text
-burgers_axiom_corePDELocalWindowInputsFor
-periodicHeat1D_semigroupBackend_literature
-periodicBurgers1D_coleHopfBackend_literature
-burgers_axiom_localUniquenessOnOverlaps
-burgers_axiom_localContinuationCriterion
-burgers_axiom_missingRegularityProducesMaximalNonextendableWindow
-burgers_axiom_nonextendableWindowProducesFiniteH1Obstruction
-burgers_axiom_classifiedObstructionInColeHopfChart
-burgers_axiom_classifiedObstructionHeatImageSupported
-burgers_axiom_classifiedObstructionHeatImageCapacityFails
+periodicBurgers1D_localWindowTheory_literature
+periodicHeat1D_fourierH1ContinuousCurve_literature
+periodicHeat1D_fourierH1WindowResidual_literature
+periodicHeat1D_fourierH1WindowUniqueness_literature
+periodicHeat1D_fourierH1WindowSmoothing_literature
+periodicBurgers1D_coleHopfTheory_literature
+periodicBurgers1D_continuationTheory_literature
 ```
 
 The current rigor split is:
@@ -1252,21 +1445,114 @@ The current rigor split is:
 ```text
 F: APosterioriLocalization.point
 F: burgers_globalRegularity_from_pointwise_local_estimates
-L: periodicHeat1D_semigroupBackend_literature
-L: periodicBurgers1D_coleHopfBackend_literature
-P: burgers_axiom_corePDELocalWindowInputsFor
-P: burgers_axiom_localUniquenessOnOverlaps
-P: burgers_axiom_localContinuationCriterion
-P: burgers_axiom_missingRegularityProducesMaximalNonextendableWindow
-P: burgers_axiom_nonextendableWindowProducesFiniteH1Obstruction
-P: burgers_axiom_classifiedObstructionInColeHopfChart
-P: burgers_axiom_classifiedObstructionHeatImageSupported
-P: burgers_axiom_classifiedObstructionHeatImageCapacityFails
+F: periodicHeat1D_fourierModeTheory_literature
+F: periodicHeat1D_fourierCoefficientTheory_literature
+F: periodicHeat1D_l2ReconstructionTheory_literature
+F: periodicHeat1D_fourierH1ReconstructionTheory_literature
+F: periodicHeat1D_modeMultiplier_add_time
+F: periodicHeat1D_modeMultiplier_le_one
+F: periodicH1_value_parseval_literature
+F: periodicH1_derivative_parseval_literature
+F: periodicHeat1D_localTheory_fromSemigroupBackend
+F: periodicHeat1D_localContraction_fromFourierReconstruction
+F: periodicHeat1D_localTheory_fromFourierReconstruction
+F: periodicHeat1D_localWindowCertificate_literature
+F: periodicHeat1D_badGermExclusion_fromSmoothing
+L: periodicHeat1D_fourierH1ContinuousCurve_literature
+L: periodicHeat1D_fourierH1WindowResidual_literature
+L: periodicHeat1D_fourierH1WindowUniqueness_literature
+L: periodicHeat1D_fourierH1WindowSmoothing_literature
+F: periodicHeat1D_fourierH1WindowUpgrade_literature
+F: periodicHeat1D_fourierReconstruction_literature
+F: periodicHeat1D_localTheory_literature
+F: periodicHeat1D_localExistenceWindow_literature
+F: periodicHeat1D_localResidual_literature
+F: periodicHeat1D_localUniqueness_literature
+F: periodicHeat1D_localSmoothing_literature
+F: periodicHeat1D_localContraction_literature
+F: periodicBurgers1D_coleHopfBackend_literature
+L: periodicBurgers1D_coleHopfTheory_literature
+F: periodicBurgers1D_coleHopfTransform_literature
+F: periodicBurgers1D_coleHopfChartValid_literature
+F: periodicBurgers1D_coleHopfMapsWindow_literature
+F: periodicBurgers1D_coleHopfInverseMapsWindow_literature
+F: periodicBurgers1D_coleHopfBurgersToHeatResidual_literature
+F: periodicBurgers1D_coleHopfHeatToBurgersResidual_literature
+F: periodicBurgers1D_coleHopfUniquenessTransfer_literature
+F: periodicBurgers1D_h1InBurgersPDEDomain_literature
+F: periodicBurgers1D_localWindowInputs_literature
+L: periodicBurgers1D_localWindowTheory_literature
+F: periodicBurgers1D_localExistenceWindow_literature
+F: periodicBurgers1D_localResidual_literature
+F: periodicBurgers1D_localEnergy_literature
+F: periodicBurgers1D_meanPoincare_literature
+F: periodicBurgers1D_poincare_literature
+F: periodicH1_poincare_meanZero_literature
+F: periodicH1_poincare_spectralGap_literature
+F: periodicH1_firstFrequencyGap
+F: periodicH1_valueModeEnergy_le_derivativeModeEnergy
+F: periodicH1_fourierTheory_literature
+F: periodicH1_value_parseval_meanZero_literature
+F: periodicH1_value_nonzeroModeEnergy_summable_literature
+F: periodicH1_derivative_nonzeroModeEnergy_summable_literature
+F: periodicH1_derivative_parseval_lowerBound_literature
+F: periodicH1_weakDerivative_fourierCoeff_literature
+F: periodicBurgers1D_meanPreservation_literature
+F: periodicBurgers1D_localDissipative_literature
+L: periodicBurgers1D_continuationTheory_literature
+F: periodicBurgers1D_localUniquenessOnWindow_literature
+F: periodicBurgers1D_missingRegularityProducesRawFailureWindow_literature
+F: periodicBurgers1D_rawFailureWindow_nonextendable_literature
+F: burgers_localUniquenessOnOverlapsFromLiterature
+F: BurgersRawFailureWindow.finiteH1Obstruction_of_not_extendable
+F: periodicBurgers1D_missingRegularityProducesObstructionWindow_fromContinuationLiterature
+F: BurgersFiniteH1BadGermObstruction.coleHopfDomainWitness_from_finiteH1
+F: BurgersFiniteH1BadGermObstruction.obstructionWindowSupportedInHeatWindow
+F: BurgersFiniteH1BadGermObstruction.heatImageMatchesAtCenter
 ```
 
 The next phase is to discharge the reusable literature facts with mathlib-backed
-analysis modules, or replace the heat semigroup literature boundary by an
-equivalent local-window heat theorem. Separately, discharge the Burgers-specific
-windowed local PDE certificate factory and discharge the decomposed local
-continuation/localization chain showing that any missing regularity witness
-produces a route-local bad morphism classified by the finite-time `H¹` library.
+analysis modules. The heat boundary has already been narrowed past scalar
+Fourier estimates, coefficient `ℓ²` estimates, `L²` Hilbert-basis
+reconstruction, and Fourier/Sobolev `H¹` reconstruction. The remaining heat
+package is now split into the certified continuous representative theorem and
+three PDE-semantics theorems: residual, uniqueness, and smoothing. The local
+heat theory, contraction facts, decomposed local-window projections, and
+`periodicHeat1D_localWindowCertificate_literature` are assembled in Lean from
+those facts plus the proved coefficient-level, `L²`, and Fourier-`H¹`
+reconstruction facts.
+The Cole-Hopf boundary has
+also been narrowed to the single reusable package
+`periodicBurgers1D_coleHopfTheory_literature`, with its old component exports
+proved as projections. The Burgers continuation/localization boundary has also
+been narrowed to the single reusable package
+`periodicBurgers1D_continuationTheory_literature`, with local uniqueness,
+missing-regularity localization, and raw-window nonextendability exported as
+projections. The problem-specific boundary is now empty: all remaining custom
+assumptions are reusable periodic Burgers local theory, periodic Burgers
+continuation theory, periodic `H¹` Fourier, heat, or Cole-Hopf literature facts.
+The largest Burgers-side literature fact left is the single arbitrary-data local
+Burgers window theory. Lean then extracts the
+structured finite `H¹` obstruction and assembles the localized obstruction
+window. Local uniqueness follows from the reusable periodic Burgers literature
+theorem. The Cole-Hopf PDE-domain condition for finite `H¹` obstructions follows
+from the literature Cole-Hopf `H¹`-domain theorem, while the localized Burgers
+obstruction data carries the Burgers-window-to-heat-window inclusion and center
+image matching facts as bookkeeping invariants. The framework projects those
+facts by theorem rather than assuming separate bridge axioms. The framework
+already derives nonextendable-window construction, chart membership, heat-image
+support, smoothness reflection, and heat-forbiddenness from those narrower
+facts.
+
+`GroundTruthAudit.lean` records the current trust-boundary checkpoint as
+`burgersGroundTruthAxiomAudit`. Lean proves
+`burgersGroundTruthAudit_no_problem_specific`, showing that the current
+problem-specific assumption boundary is empty, and
+`burgersGroundTruthAudit_named_axiom_is_literature`, showing that every named
+custom assumption in `burgersGroundTruthAxiomBoundary` is classified as reusable
+literature. The complementary theorem
+`burgersGroundTruthAudit_literature_is_named_axiom` shows the audit does not
+omit any declared literature boundary item. Kernel-level verification is now
+automated by `lake run auditBurgersAxioms`, which compares the actual
+`#print axioms burgers_groundTruth_dataset_theorem_from_axioms` output against
+`burgersGroundTruthAxiomBoundary`.

@@ -236,6 +236,8 @@ Compatibility alias for the spectral-resonance axiom.
 :::{prf:theorem} Kernel trichotomy
 :label: mt-krnl-trichotomy
 
+**Implemented proof:** [proof-mt-krnl-trichotomy.md](../proofs/proof-mt-krnl-trichotomy.md)
+
 Compatibility alias for {prf:ref}`proof-mt-krnl-trichotomy`.
 :::
 
@@ -248,11 +250,15 @@ Compatibility alias restoring the kernel-exclusion reference used across overvie
 :::{prf:theorem} Kernel consistency
 :label: mt-krnl-consistency
 
+**Implemented proof:** [proof-mt-krnl-consistency.md](../proofs/proof-mt-krnl-consistency.md)
+
 Compatibility alias for the kernel-consistency metatheorem.
 :::
 
 :::{prf:theorem} Kernel equivariance
 :label: mt-krnl-equivariance
+
+**Implemented proof:** [proof-mt-krnl-equivariance.md](../proofs/proof-mt-krnl-equivariance.md)
 
 Compatibility alias for the kernel-equivariance metatheorem.
 :::
@@ -368,11 +374,15 @@ Compatibility alias for the coverage remark in the FAQ.
 :::{prf:metatheorem} Factory soft profile decomposition
 :label: mt-fact-soft-profdec
 
+**Implemented proof:** [proof-mt-fact-soft-profdec.md](../proofs/proof-mt-fact-soft-profdec.md)
+
 Compatibility alias for the soft profile decomposition factory metatheorem.
 :::
 
 :::{prf:metatheorem} Factory soft Kenig-Merle
 :label: mt-fact-soft-km
+
+**Implemented proof:** [proof-mt-fact-soft-km.md](../proofs/proof-mt-fact-soft-km.md)
 
 Compatibility alias for the soft Kenig-Merle factory metatheorem.
 :::
@@ -386,11 +396,15 @@ Compatibility alias for the soft rigidity statement used by the Kenig-Merle laye
 :::{prf:metatheorem} Factory soft attractor
 :label: mt-fact-soft-attr
 
+**Implemented proof:** [proof-mt-fact-soft-attr.md](../proofs/proof-mt-fact-soft-attr.md)
+
 Compatibility alias for the soft attractor metatheorem.
 :::
 
 :::{prf:metatheorem} Factory soft Morse
 :label: mt-fact-soft-morse
+
+**Implemented proof:** [proof-mt-fact-soft-morse.md](../proofs/proof-mt-fact-soft-morse.md)
 
 Compatibility alias for the soft Morse metatheorem.
 :::

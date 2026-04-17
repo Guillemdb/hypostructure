@@ -40,6 +40,7 @@ Where:
 **Outcomes**:
 - **Blocked** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$): Hom-set empty; implies structural exclusion once the certified completeness package is present
 - **MorphismExists** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{morph}}$): Explicit morphism $\phi: \mathbb{H}_{\mathrm{bad}} \to \mathcal{H}$; implies FATAL ERROR
+- **Breached-Inconclusive** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$): all thirteen tactics have been exhausted without full finite-library closure; route to reconstruction
 
 **Goal Certificate:** For the Lock, the designated goal certificate for the proof completion criterion ({prf:ref}`def-proof-complete`) is $K_{\mathrm{StructReg}_T}^+$. The blocked outcome at the Lock establishes this goal only after the certified completeness package $(K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+)$ has been supplied.
 
@@ -719,25 +720,37 @@ This brings us to E13, which is not a specific tactic but the exhaustive check: 
 | E10 | Definability | $\mathrm{TB}_O$, $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E10}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | T.C (tameness) |
 | E11 | Galois-Monodromy | $\mathrm{Rep}_K$, $\mathrm{TB}_\pi$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E11}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | S.E (solvability) |
 | E12 | Algebraic Compressibility | $\mathrm{Rep}_K$, $\mathrm{SC}_\lambda$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E12}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | S.E (degree) |
-| E13 | Algorithmic Completeness | $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E13}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | All (modality exhaust) |
+| E13 | Algorithmic Completeness (blocked) | $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E13}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ | All (modality exhaust, complete finite-library closure) |
+| E13 | Algorithmic Completeness (reconstruction routed) | $\mathrm{Rep}_K$, $\mathrm{Cat}_{\mathrm{Hom}}$ | $K_{\mathrm{E13}}^{\mathrm{br-inc}} \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$ | All (modality exhaust, incomplete finite-library closure) |
 
 :::{prf:definition} Breached-Inconclusive Certificate (Lock Tactic Exhaustion)
 :label: def-lock-breached-inc
 
-If all thirteen tactics fail to prove Hom-emptiness but also fail to construct an explicit morphism:
+If all thirteen tactics are exhausted with a complete finite-library closure:
 
 $$
-K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}} = (\mathsf{tactics\_exhausted}: \{E1,\ldots,E13\}, \mathsf{partial\_progress}, \mathsf{trace})
-
+K_{\mathrm{E13}}^{\mathrm{blk}} = (\mathsf{tactics\_exhausted}: \{E1,\ldots,E13\}, K_{\mathrm{Rep}_K}^+, K_{\mathrm{CatLib}}^+, \mathsf{full\_closure}, \mathsf{trace})
 $$
 
-This is a NO verdict (Breached) with inconclusive subtype—routing to {prf:ref}`mt-lock-reconstruction` (Structural Reconstruction) rather than fatal error. The certificate records which tactics were attempted and any partial progress (e.g., dimension bounds that narrowed but did not close, spectral gaps that are positive but not sufficient).
+Then $K_{\mathrm{E13}}^{\mathrm{blk}} \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ and the Lock is blocked.
+
+If all thirteen tactics fail to prove Hom-emptiness, and only partial progress is obtained without full closure:
+
+$$
+K_{\mathrm{E13}}^{\mathrm{br-inc}} = (\mathsf{tactics\_exhausted}: \{E1,\ldots,E13\}, \mathsf{partial\_progress}, \mathsf{trace})
+$$
+
+Then $K_{\mathrm{E13}}^{\mathrm{br-inc}} \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$ and the route is directed to reconstruction.
+
+In either case the trace records which tactics were attempted and any partial progress (for example, partial finite-library closure and reduced obstruction families).
+
+This is a NO verdict (Breached) with inconclusive subtype when routed through the reconstruction branch: $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br-inc}}$.
 
 :::
 
 :::{div}
 :class: feynman-prose
-And that is the Lock. Thirteen tactics, each based on a different mathematical obstruction, each producing a proof when it succeeds. If any one of them succeeds, the Hom-set is empty and the bad pattern cannot exist in your system. If all of them fail but none constructs an explicit embedding, we are in uncertain territory and need to try reconstruction.
+And that is the Lock. Thirteen tactics, each based on a different mathematical obstruction, each producing a proof when it succeeds. If any one of them succeeds, the Hom-set is empty and the bad pattern cannot exist in your system. If they all exhaust and close the declared finite library, then you get $K_{\mathrm{E13}}^{\mathrm{blk}}$ and the Lock is blocked. If they all exhaust without complete closure, you obtain $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and must route to reconstruction.
 
 The beauty of this design is that it leverages decades of mathematics: topology, algebra, analysis, information theory, thermodynamics, model theory. Each field contributes its characteristic obstruction. Together, they form a powerful filter.
 

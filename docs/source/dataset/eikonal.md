@@ -175,10 +175,13 @@ No goal-relevant `inc` certificate is upgraded on the designated route. The only
 $$
 K_{\mathrm{StructEikonal}}^+
 \wedge
-K_{\mathrm{ViscosityEikonalBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{EikonalVisc}}^+.
 $$
+
+This is the canonical continuation bridge notation used across PDE datasets: $K_{\mathrm{WP}_{s_c}}^+$ is the unified continuation certificate from the gate-evaluator schema (local well-posedness + uniqueness + continuation criterion + critical blow-up condition).
+
 
 ### **A.5 Breach Detection and Surgery**
 
@@ -366,7 +369,7 @@ justify analytic bridge admissibility, cite them explicitly in the Lock Mechanis
 | $K_{\mathrm{VanishingVisc}}^+$ | vanishing-viscosity existence package | the Lock obstruction route and backend upgrade |
 | $K_{\mathrm{Semiconcavity}}^+$ | semiconcavity / regularity package for the viscosity solution | route support for caustic control |
 | $K_{\mathrm{CausticWhitney}}^+$ | generic caustic stratification package with codimension-at-least-two singular branch | final backend upgrade |
-| $K_{\mathrm{ViscosityEikonalBackend}}^+$ | unified backend package combining existence, uniqueness, and stratified caustic control | final closure |
+| $K_{\mathrm{WP}_{s_c}}^+$ | unified backend package combining existence, uniqueness, and stratified caustic control | final closure |
 | $K_{\mathrm{StructEikonal}}^+$ | structural exclusion certificate mined from the blocked Lock | after Node 17, before final promotion |
 | $K_{\mathrm{EikonalVisc}}^+$ | designated goal certificate | final closure of the proof object |
 
@@ -551,14 +554,14 @@ The only final upgrade used here is
 $$
 K_{\mathrm{StructEikonal}}^+
 \wedge
-K_{\mathrm{ViscosityEikonalBackend}}^+
+K_{\mathrm{WP}_{s_c}}^+
 \Longrightarrow
 K_{\mathrm{EikonalVisc}}^+.
 $$
 
 #### **Non-Circularity Guard**
 
-$K_{\mathrm{ViscosityEikonalBackend}}^+$ is an explicit backend package and is not derived from $K_{\mathrm{EikonalVisc}}^+$, so the upgrade is non-circular.
+$K_{\mathrm{WP}_{s_c}}^+$ is an explicit backend package and is not derived from $K_{\mathrm{EikonalVisc}}^+$, so the upgrade is non-circular.
 
 #### **Upgrade Types**
 
@@ -605,7 +608,7 @@ K_{\mathrm{HJComparison}}^+,
 K_{\mathrm{VanishingVisc}}^+,
 K_{\mathrm{Semiconcavity}}^+,
 K_{\mathrm{CausticWhitney}}^+,
-K_{\mathrm{ViscosityEikonalBackend}}^+,
+K_{\mathrm{WP}_{s_c}}^+,
 K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 \}.
 $$
@@ -986,7 +989,7 @@ Not invoked on the designated route.
 - **Hyperbolic Backend Theorem:** from structural exclusion plus the explicit viscosity / caustic backend package,
   $$
   K_{\mathrm{StructEikonal}}^+
-  \wedge K_{\mathrm{ViscosityEikonalBackend}}^+
+  \wedge K_{\mathrm{WP}_{s_c}}^+
   \Longrightarrow
   K_{\mathrm{EikonalVisc}}^+.
   $$
@@ -1011,7 +1014,7 @@ Not invoked on the designated route.
 - **Comparison package:** $K_{\mathrm{HJComparison}}^+$.
 - **Vanishing-viscosity package:** $K_{\mathrm{VanishingVisc}}^+$.
 - **Caustic stratification package:** $K_{\mathrm{CausticWhitney}}^+$.
-- **Unified backend package:** $K_{\mathrm{ViscosityEikonalBackend}}^+$.
+- **Unified backend package:** $K_{\mathrm{WP}_{s_c}}^+$.
 
 ### **3.4 Retroactive Upgrades**
 
@@ -1095,10 +1098,10 @@ Node 13: K_{\mathrm{Bound}_\partial}^-
 Node 14: N/A
 Node 15: N/A
 Node 16: N/A
-Support: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{HJComparison}}^+, K_{\mathrm{VanishingVisc}}^+, K_{\mathrm{Semiconcavity}}^+, K_{\mathrm{CausticWhitney}}^+, K_{\mathrm{ViscosityEikonalBackend}}^+
+Support: K_{\mathrm{Germ}}^+, K_{\mathrm{init}}^+, K_{\mathrm{CatLib}}^+, K_{\mathrm{HJComparison}}^+, K_{\mathrm{VanishingVisc}}^+, K_{\mathrm{Semiconcavity}}^+, K_{\mathrm{CausticWhitney}}^+, K_{\mathrm{WP}_{s_c}}^+
 Node 17: K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}
 Part III-A: not invoked on designated route
-Part III-B: K_{\mathrm{StructEikonal}}^+ \wedge K_{\mathrm{ViscosityEikonalBackend}}^+ -> K_{\mathrm{EikonalVisc}}^+
+Part III-B: K_{\mathrm{StructEikonal}}^+ \wedge K_{\mathrm{WP}_{s_c}}^+ -> K_{\mathrm{EikonalVisc}}^+
 ```
 
 ### **4.3 Final Certificate Set**
@@ -1127,7 +1130,7 @@ K_{\mathrm{HJComparison}}^+,
 K_{\mathrm{VanishingVisc}}^+,
 K_{\mathrm{Semiconcavity}}^+,
 K_{\mathrm{CausticWhitney}}^+,
-K_{\mathrm{ViscosityEikonalBackend}}^+,
+K_{\mathrm{WP}_{s_c}}^+,
 K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}},
 K_{\mathrm{StructEikonal}}^+,
 K_{\mathrm{EikonalVisc}}^+
@@ -1159,7 +1162,7 @@ The proof proceeds by structural sieve analysis in seven phases.
 
 **Phase 6 (Boundary):** Node 13 records the closed-system branch, so Nodes 14-16 are not applicable.
 
-**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E5 with the certified completeness package and the comparison / vanishing-viscosity obstruction. Part III-B first extracts the structural certificate from that blocked route, then combines it with $K_{\mathrm{ViscosityEikonalBackend}}^+$ to derive the final viscosity-solution certificate $K_{\mathrm{EikonalVisc}}^+$.
+**Phase 7 (Lock / Backend Upgrade):** Node 17 blocks the bad pattern via $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ using E5 with the certified completeness package and the comparison / vanishing-viscosity obstruction. Part III-B first extracts the structural certificate from that blocked route, then combines it with $K_{\mathrm{WP}_{s_c}}^+$ to derive the final viscosity-solution certificate $K_{\mathrm{EikonalVisc}}^+$.
 
 Therefore the designated goal certificate is established and the residual diagnostics do not obstruct it because they lie outside $\Downarrow(K_{\mathrm{EikonalVisc}}^+)$.
 $$
@@ -1226,7 +1229,7 @@ This proof object is replayed by providing:
     "K_VanishingVisc^+",
     "K_Semiconcavity^+",
     "K_CausticWhitney^+",
-    "K_ViscosityEikonalBackend^+",
+    "K_{WP_{s_c}}^+",
     "K_CatHom^blk",
     "K_StructEikonal^+",
     "K_EikonalVisc^+"
@@ -1299,9 +1302,17 @@ This proof object is replayed by providing:
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$; incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
+
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** viscosity solution comparison principle and vanishing-viscosity consistency
+- **Hypotheses required:** Lipschitz initial data, coercive Hamiltonian structure, and route-appropriate regularity bounds
+- **Non-circularity note:** Lock and final regularity certificate are derived from the declared backend theorems; $K_{\mathrm{EikonalVisc}}^+$ is not assumed in their premises.
+- **Goal-certificate location in local-to-global chain:** Part III-B proves $K_{\mathrm{StructEikonal}}^+ \wedge K_{\mathrm{WP}_{s_c}}^+ \Rightarrow K_{\mathrm{EikonalVisc}}^+$.
 
 - **Designated Goal Certificate:** $K_{\mathrm{EikonalVisc}}^+$
 - **Status:** UNCONDITIONAL

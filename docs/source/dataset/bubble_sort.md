@@ -1294,7 +1294,7 @@ This proof object is replayed by providing:
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
 
@@ -1304,6 +1304,14 @@ This proof object is replayed by providing:
 - **Residual Non-Goal Obligations:** `OBL-1`, `OBL-2`
 - **Singularity Set:** $\Sigma=\varnothing$
 - **Primary Final Route:** direct sieve execution + E2-blocked Lock + finite-descent backend upgrade
+
+### Assumption Provenance
+
+- **Imported from literature?** No external theorem is explicitly tagged as a direct premise in this route.
+- **Theorem name(s):** none explicitly named; the finite-descent backend upgrade is the terminal local certificate.
+- **Hypotheses required:** E2-blocked Lock on the finite-descent family and the declared inversion-count descent backend certificates.
+- **Non-circularity note:** $K_{\mathrm{BubbleSortTerm}}^+$ is derived at route end and is not used as a premise in this file.
+- **Goal-certificate location in local-to-global chain:** Part III-B combines $K_{\mathrm{StructBubbleSort}}^+$ from the blocked Lock route with $K_{\mathrm{FiniteDescentBackend}}^+$ to derive $K_{\mathrm{BubbleSortTerm}}^+$.
 
 ---
 

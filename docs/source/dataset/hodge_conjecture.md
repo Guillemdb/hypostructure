@@ -1570,6 +1570,14 @@ Hence $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$ is reached from thin veri
 * **Singularity Set:** Not isolated by this document
 * **Primary Blocking Tactic:** Case-specific (see body)
 
+### Assumption Provenance
+
+- **Imported from literature?** No external theorem is explicitly tagged as a direct premise in this file.
+- **Theorem name(s):** Internal certificates such as $K_{\mathrm{CatLib}}^+$, $K_{\Gamma}^+$, $K_{\mathrm{MHS}}^+$, and $K_{\mathrm{Tann}}^+$.
+- **Hypotheses required:** category-theoretic backend packages and the blocked-Lock route recorded in the execution tables.
+- **Non-circularity note:** the final status is extracted from these certificates and does not feed back as a premise to the same proof chain.
+- **Goal-certificate location in local-to-global chain:** Part I algebraic-metatheorem closure (via Part III infrastructure and correction lemmas) feeds into Part IX, where the route concludes $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$.
+
 ## Document Information
 
 | Field | Value |

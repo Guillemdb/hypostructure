@@ -92,6 +92,8 @@ Cases 1 and 2 are where we can make progress. Case 3 is where we honestly say "t
 :::{prf:theorem} [RESOLVE-Profile] Profile Classification Trichotomy
 :label: mt-resolve-profile
 
+**Implemented proof:** [proof-mt-resolve-profile.md](../../proofs/proof-mt-resolve-profile.md)
+
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
 
 **Bridge Verification:**
@@ -565,6 +567,8 @@ When all three conditions are met, we get an "admissible" certificate and can pr
 :::{prf:theorem} [RESOLVE-Admissibility] Surgery Admissibility Trichotomy
 :label: mt-resolve-admissibility
 
+**Implemented proof:** [proof-mt-resolve-admissibility.md](../../proofs/proof-mt-resolve-admissibility.md)
+
 Before invoking any surgery $S$ with mode $M$ and data $D_S$, the framework produces exactly one of three certificates:
 
 **Case 1: Admissible**
@@ -690,6 +694,8 @@ The Framework implements `SurgeryAdmissibility` as follows:
 :::{prf:theorem} [RESOLVE-AutoAdmit] Automatic Admissibility
 :label: mt-resolve-auto-admit
 
+**Implemented proof:** [proof-mt-resolve-auto-admit.md](../../proofs/proof-mt-resolve-auto-admit.md)
+
 For any Hypostructure satisfying the Automation Guarantee, the Surgery Admissibility Trichotomy is **automatically computed** from thin objects without user-provided admissibility code.
 
 **Key Computation:** The capacity bound is computed as:
@@ -740,6 +746,8 @@ The beautiful thing is that none of this requires user input. The Framework comp
 
 :::{prf:theorem} [ACT-Surgery] Structural Surgery Principle (Certificate Form)
 :label: mt-act-surgery
+
+**Implemented proof:** [proof-mt-act-surgery.md](../../proofs/proof-mt-act-surgery.md)
 
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
 
@@ -827,6 +835,8 @@ This is what distinguishes the framework from handwaving. We do not just say "th
 
 :::{prf:theorem} [RESOLVE-Conservation] Conservation of Flow
 :label: mt-resolve-conservation
+
+**Implemented proof:** [proof-mt-resolve-conservation.md](../../proofs/proof-mt-resolve-conservation.md)
 
 For any admissible surgery $\mathcal{O}_S: \mathcal{X} \dashrightarrow \mathcal{X}'$, the following are conserved:
 
@@ -918,6 +928,8 @@ The Framework implements `SurgeryOperator` as follows:
 
 :::{prf:theorem} [RESOLVE-AutoSurgery] Automatic Surgery
 :label: mt-resolve-auto-surgery
+
+**Implemented proof:** [proof-mt-resolve-auto-surgery.md](../../proofs/proof-mt-resolve-auto-surgery.md)
 
 For any Hypostructure satisfying the Automation Guarantee, the Structural Surgery Principle is **automatically executed** by the Sieve using the pushout construction from $\mathcal{L}_T$.
 

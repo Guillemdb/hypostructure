@@ -46,6 +46,8 @@ This is the first example of the upgrade pattern: what looks like a failure is a
 :::{prf:theorem} [UP-Saturation] Saturation Promotion (BarrierSat $\to$ YES$^\sim$)
 :label: mt-up-saturation
 
+**Implemented proof:** [proof-mt-up-saturation.md](../../proofs/proof-mt-up-saturation.md)
+
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
 
 **Bridge Verification:**
@@ -87,6 +89,8 @@ The drift condition implies geometric ergodicity by the Foster-Lyapunov criterio
 
 :::{prf:theorem} [UP-Censorship] Causal Censor Promotion (BarrierCausal $\to$ YES$^\sim$)
 :label: mt-up-censorship
+
+**Implemented proof:** [proof-mt-up-censorship.md](../../proofs/proof-mt-up-censorship.md)
 
 **Context:** Node 2 (ZenoCheck) fails in the observer-relative sense, and BarrierCausal is Blocked ($K_{\mathrm{Rec}_N}^{\mathrm{blk}}$).
 
@@ -132,6 +136,8 @@ What I want you to appreciate is that the "failure" of concentration---the NO fr
 
 :::{prf:theorem} [UP-Scattering] Scattering Promotion (BarrierScat $\to$ Analytic Regularity)
 :label: mt-up-scattering
+
+**Implemented proof:** [proof-mt-up-scattering.md](../../proofs/proof-mt-up-scattering.md)
 
 **Rigor Class:** L (Literature-Anchored) — see {prf:ref}`def-rigor-classification`
 
@@ -189,6 +195,8 @@ for admissible pairs $(q, r)$ satisfying $\frac{2}{q} + \frac{n}{r} = \frac{n}{2
 :::{prf:theorem} [UP-TypeII] Type II Suppression (BarrierTypeII $\to$ YES$^\sim$)
 :label: mt-up-type-ii
 
+**Implemented proof:** [proof-mt-up-type-ii.md](../../proofs/proof-mt-up-type-ii.md)
+
 **Context:** Node 4 (ScaleCheck) fails (Supercritical), but BarrierTypeII is Blocked ($K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}$).
 
 **Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
@@ -220,6 +228,8 @@ The monotonicity formula (Merle and Zaag, 1998) bounds the blow-up rate from bel
 :::{prf:theorem} [UP-Capacity] Capacity Promotion (BarrierCap $\to$ YES$^\sim$)
 :label: mt-up-capacity
 
+**Implemented proof:** [proof-mt-up-capacity.md](../../proofs/proof-mt-up-capacity.md)
+
 **Context:** Node 6 (GeomCheck) fails (Codim too small), but BarrierCap is Blocked ($K_{\mathrm{Cap}_H}^{\mathrm{blk}}$).
 
 **Hypotheses.** Let $\mathcal{H}$ be a Hypostructure with:
@@ -250,6 +260,8 @@ By Federer's theorem on removable singularities (1969, Section 4.7), sets of zer
 
 :::{prf:theorem} [UP-Spectral] Spectral Gap Promotion (BarrierGap $\to$ YES)
 :label: mt-up-spectral
+
+**Implemented proof:** [proof-mt-up-spectral.md](../../proofs/proof-mt-up-spectral.md)
 
 **Context:** Node 7 (StiffnessCheck) fails (Flat), but BarrierGap is Blocked ($K_{\text{gap}}^{\mathrm{blk}}$).
 
@@ -294,6 +306,8 @@ So when the TameCheck says "WILD" but we know the set is o-minimal, we have an i
 
 :::{prf:theorem} [UP-OMinimal] O-Minimal Promotion (BarrierOmin $\to$ YES$^\sim$)
 :label: mt-up-o-minimal
+
+**Implemented proof:** [proof-mt-up-o-minimal.md](../../proofs/proof-mt-up-o-minimal.md)
 
 **Context:** Node 9 (TameCheck) fails (Wild), but BarrierOmin is Blocked ($K_{\mathrm{TB}_O}^{\mathrm{blk}}$).
 
@@ -352,6 +366,8 @@ What I find philosophically interesting is that surgery is an admission that smo
 
 :::{prf:theorem} [UP-Surgery] Surgery Promotion (Surgery $\to$ YES$^\sim$)
 :label: mt-up-surgery
+
+**Implemented proof:** [proof-mt-up-surgery.md](../../proofs/proof-mt-up-surgery.md)
 
 **Context:** Any Node fails, Barrier breached, but Surgery $S$ executes and issues re-entry certificate ($K^{\mathrm{re}}$).
 
@@ -550,6 +566,8 @@ The NO-inconclusive certificate records an epistemic gap, not a semantic refutat
 
 :::{prf:theorem} [UP-IncAposteriori] A-Posteriori Inconclusive Discharge
 :label: mt-up-inc-aposteriori
+
+**Implemented proof:** [proof-mt-up-inc-aposteriori.md](../../proofs/proof-mt-up-inc-aposteriori.md)
 
 **Context:** $K_P^{\mathrm{inc}}$ is produced at node $i$, and later nodes add certificates that satisfy its $\mathsf{missing}$ set.
 

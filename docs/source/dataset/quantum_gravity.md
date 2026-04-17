@@ -1365,6 +1365,14 @@ This proof object is replayed by providing:
 - **Primary Blocking Tactic:** NONE - all E1-E10 failed
 - **Path Forward:** Meta-Learning required (holography, LQG, or string theory)
 
+### Assumption Provenance
+
+- **Imported from literature?** No external theorem is discharged as a premise in this document.
+- **Theorem name(s):** None; this is an unresolved route status with remaining obligations.
+- **Hypotheses required:** all E1--E10 failed and all listed horizon obligations remain open.
+- **Non-circularity note:** this file records an unresolved horizon; no target certificate is claimed as a completed theorem.
+- **Goal-certificate location in local-to-global chain:** none; this route is explicitly tagged as a Horizon and does not close a local-to-global promotion to a terminal goal certificate.
+
 ---
 
 

@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-up-type-ii
 
+**Formal statement in framework:** [08_upgrades/01_instantaneous.md](../1_hypostructure_formalism/08_upgrades/01_instantaneous.md)
+
 **Theorem Reference:** {prf:ref}`mt-up-type-ii`
 
 This proof establishes that for supercritical parabolic equations, the divergence of the renormalization cost integral creates an effective energy barrier that prevents Type II finite-time blow-up despite the supercritical scaling. The result demonstrates how negative scaling certificates ($K_{\mathrm{SC}_\lambda}^-$) combined with blocked barrier certificates ($K_{\mathrm{SC}_\lambda}^{\mathrm{blk}}$) promote to effective subcritical behavior through monotonicity formulas, renormalization theory, and blow-up profile rigidity.
@@ -480,4 +482,3 @@ for some $\alpha \in (0,1)$ and $C = C(n, p, R)$.
 
 **Application:** Parabolic regularity bootstraps $L^\infty$ bounds to Hölder regularity, enabling the modulation theory in Step 5. The uniformly bounded renormalized solution $v(\tau, y)$ gains higher regularity away from the blow-up time.
 
-:::

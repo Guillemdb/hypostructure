@@ -100,24 +100,16 @@ structure CertifiedHeatWindow
   window : HeatWindow
   initial : PeriodicH1State
   curve : PeriodicHeatCurve nu
-  solves : SolvesPeriodicHeatWeak nu initial curve
+  initial_on_window : window.Contains 0 → HeatInitialCondition initial curve
+  boundary_on_window : curve.RestrictsToWindow window
 
 namespace CertifiedHeatWindow
 
-theorem boundary_on_window
+theorem restricts_to_window
     {nu : BurgersParameters}
     (C : CertifiedHeatWindow nu) :
     C.curve.RestrictsToWindow C.window :=
-  C.solves.restrictsToWindow C.window
-
-theorem residual_on_window
-    {nu : BurgersParameters}
-    (C : CertifiedHeatWindow nu)
-    (φ : SmoothCompactTimePeriodicSpaceTest)
-    (hφ : φ.window = C.window.time) :
-    timeSpaceIntegralOn C.window.time
-      (heatWeakResidualIntegrand nu C.curve φ) = 0 :=
-  C.solves.2.2.on_heatWindow C.window φ hφ
+  C.boundary_on_window
 
 end CertifiedHeatWindow
 
@@ -197,9 +189,29 @@ def RouteLocalBadGermWindow.SupportedInHeatWindow
   ∀ t : ℝ, G.ContainsTime t → W.Contains t
 
 def HeatBadGermWindowExclusion
-    (W : HeatWindow) : Prop :=
+    (W : HeatWindow)
+    (Forbidden : RouteLocalBadGermWindow → Prop) : Prop :=
   ∀ G : RouteLocalBadGermWindow,
-    G.SupportedInHeatWindow W → G.Admissible → G.LocalCapacity
+    G.SupportedInHeatWindow W → G.Admissible → Forbidden G → False
+
+/-- Local heat-side bad germ ruled out by a heat window certificate: the germ
+contains a positive time at which the certified heat curve is not smooth. The
+support hypothesis in `HeatBadGermWindowExclusion` then places that time inside
+the certified heat window, where `HeatWindowSmoothing` applies. -/
+def HeatForbiddenBadGerm
+    {nu : BurgersParameters}
+    (C : CertifiedHeatWindow nu)
+    (G : RouteLocalBadGermWindow) : Prop :=
+  ∃ t : ℝ, G.ContainsTime t ∧ 0 < t ∧ ¬ HeatSmoothAtPositiveTime C.curve t
+
+theorem HeatForbiddenBadGerm.excluded
+    {nu : BurgersParameters}
+    {C : CertifiedHeatWindow nu}
+    (hsmooth : HeatWindowSmoothing C) :
+    HeatBadGermWindowExclusion C.window (HeatForbiddenBadGerm C) := by
+  intro G hsupport _hadm hforbidden
+  rcases hforbidden with ⟨t, htG, htpos, hnot_smooth⟩
+  exact hnot_smooth (hsmooth t (hsupport t htG) htpos)
 
 theorem routeLocalBadGermWindow_localCapacity
     (G : RouteLocalBadGermWindow)
@@ -220,7 +232,14 @@ structure LocalHeatWindowCertificate
   smooth : HeatWindowSmoothing certified
   energy_contraction : HeatWindowEnergyContraction certified
   dissipation_contraction : HeatWindowDissipationContraction certified
-  excludes_heat_bad_germs : HeatBadGermWindowExclusion certified.window
+  excludes_heat_bad_germs :
+    HeatBadGermWindowExclusion certified.window (HeatForbiddenBadGerm certified)
+
+def LocalHeatWindowCertificate.forbidden_bad_germ
+    {nu : BurgersParameters}
+    (H : LocalHeatWindowCertificate nu) :
+    RouteLocalBadGermWindow → Prop :=
+  HeatForbiddenBadGerm H.certified
 
 def LocalHeatWindowCertificate.residualStatement
     {nu : BurgersParameters}
@@ -246,7 +265,7 @@ def LocalHeatWindowCertificate.contractionStatement
 def LocalHeatWindowCertificate.badGermExclusionStatement
     {nu : BurgersParameters}
     (H : LocalHeatWindowCertificate nu) : Prop :=
-  HeatBadGermWindowExclusion H.certified.window
+  HeatBadGermWindowExclusion H.certified.window H.forbidden_bad_germ
 
 def LocalHeatWindowCertificate.certificateStatement
     {nu : BurgersParameters}
@@ -298,15 +317,15 @@ theorem localHeat_window_smoothing
     HeatWindowSmoothing H.certified :=
   H.smooth
 
-theorem LocalHeatWindowCertificate.no_capacity_failing_heat_bad_germ
+theorem LocalHeatWindowCertificate.no_forbidden_heat_bad_germ
     {nu : BurgersParameters}
     (H : LocalHeatWindowCertificate nu)
     (G : RouteLocalBadGermWindow)
     (hsupport : G.SupportedInHeatWindow H.certified.window)
     (hadm : G.Admissible)
-    (hfail : ¬ G.LocalCapacity) :
+    (hforbidden : H.forbidden_bad_germ G) :
     False :=
-  hfail (H.excludes_heat_bad_germs G hsupport hadm)
+  H.excludes_heat_bad_germs G hsupport hadm hforbidden
 
 /-- All-time heat semigroup backend data. This is a construction source for
 local certificates, not the exported `K_HeatSmooth^+` payload. -/
@@ -338,7 +357,11 @@ def PeriodicHeatSemigroupBackend.windowCertificate
     { window := W
       initial := u0
       curve := H.curve u0
-      solves := H.solves u0 hu0 }
+      initial_on_window := by
+        intro _h0
+        exact (H.solves u0 hu0).1
+      boundary_on_window := by
+        exact (H.solves u0 hu0).2.1.restrictsToWindow W }
   residual := by
     intro φ hφ
     exact (H.solves u0 hu0).2.2.on_heatWindow W φ hφ
@@ -355,8 +378,9 @@ def PeriodicHeatSemigroupBackend.windowCertificate
     intro t _ht ht_nonneg
     simpa [H.curve_eval] using H.dissipation_contraction u0 t ht_nonneg
   excludes_heat_bad_germs := by
-    intro G _hsupport hG
-    exact routeLocalBadGermWindow_localCapacity G hG
+    exact HeatForbiddenBadGerm.excluded (by
+      intro t _ht htpos
+      exact H.smooth_positive_time u0 t hu0 htpos)
 
 theorem localHeat_solves
     {nu : BurgersParameters}

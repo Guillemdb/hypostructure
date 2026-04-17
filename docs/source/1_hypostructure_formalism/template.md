@@ -69,6 +69,25 @@ $$
 
 **Never reverse this arrow.** Do not assume global regularity, global existence, scattering, structural exclusion, singularity classification, compact attractor existence, or any other global conclusion in order to verify a gate, close an obligation, run the Lock, or justify a backend permit. If a required local certificate is missing, emit $K^{\mathrm{inc}}$ or conditional status; do not import the desired global theorem as a premise.
 
+## Final-Route Assumption Manifest (Mandatory)
+
+Every final route must include this compact block before final status is claimed:
+
+### Assumption Provenance
+
+- **Imported from literature?** yes/no
+- **Theorem name(s):** canonical theorem name(s) or bridge names used as declared local backend inputs
+- **Hypotheses required:** the exact hypotheses those theorems need
+- **Non-circularity note (target not a premise):** `K_{\mathrm{Goal}}^+` is not used among the premises that derive it
+- **Goal-certificate location in local-to-global chain:** where `K_{\mathrm{Goal}}^+` is produced (for example, "Part II-B.1 yields `K_{\mathrm{StructReg}_T}^+`, Part II-B.2 uses `K_{\mathrm{WP}_{s_c}}^+`")
+
+### Optional status metadata
+
+- **Designated Goal Certificate:** explicit `K_{\mathrm{Goal}}^+` identifier used in the route
+- **Status:** UNCONDITIONAL / CONDITIONAL / CONDITIONAL_ON_* / MORPHISM_FOUND / GOAL_NOT_REACHED
+- **Goal-Cone Ledger:** EMPTY / NON-EMPTY
+
+
 
 
 ## Abstract
@@ -1175,7 +1194,7 @@ For each node:
 * [ ] **E10 (Definability):** O-minimal tameness violated? Requires $K_{\mathrm{MorphPresTame}}^+$.
 * [ ] **E11 (Galois-Monodromy):** Solvability/monodromy obstruction?
 * [ ] **E12 (Algebraic Compressibility):** Degree/Bezout obstruction?
-* [ ] **E13 (Algorithmic Completeness):** Modality exhaustion?
+* [ ] **E13 (Algorithmic Completeness):** Declare either $K_{\mathrm{E13}}^{\mathrm{blk}}$ (full finite-library closure) or $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ (partial closure → reconstruction)
 
 **Lock Verdict:**
 * [ ] **BLOCKED** ($K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) via Tactic E__ → structural exclusion is available **only** after the certified completeness package is supplied
@@ -1657,7 +1676,7 @@ This proof object is replayed by providing:
 | **E10** | Definability | [PASS/FAIL/N/A] | [e.g., O-minimal structure; record $K_{\mathrm{MorphPresTame}}^+$ if used] |
 | **E11** | Galois-Monodromy | [PASS/FAIL/N/A] | [e.g., solvability obstruction] |
 | **E12** | Algebraic Compressibility | [PASS/FAIL/N/A] | [e.g., degree/Bezout bound] |
-| **E13** | Algorithmic Completeness | [PASS/FAIL/N/A] | [e.g., modality exhaustion] |
+| **E13** | Algorithmic Completeness | [PASS/FAIL/N/A] | [if all modalities are checked: $K_{\mathrm{E13}}^{\mathrm{blk}}$ = full finite-library closure, else $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ from partial closure] |
 
 **Auxiliary Witnesses (if analytic bridge admissibility is invoked):**
 

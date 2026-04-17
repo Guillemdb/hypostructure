@@ -1,6 +1,8 @@
+import Hypostructure.Backends.Burgers1D.GroundTruthAudit
 import Hypostructure.Backends.Burgers1D.GroundTruthConstantEquilibrium
 import Hypostructure.Backends.Burgers1D.GroundTruthZeroEquilibrium
 import Hypostructure.Framework.Rigor
 import Hypostructure.Framework.Upgrade
+import Hypostructure.Literature.Burgers.Periodic1D
 import Hypostructure.Literature.ColeHopf.PeriodicBurgers1D
 import Hypostructure.Literature.Heat.Periodic1D

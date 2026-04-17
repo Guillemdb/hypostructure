@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-up-surgery
 
+**Formal statement in framework:** [08_upgrades/01_instantaneous.md](../1_hypostructure_formalism/08_upgrades/01_instantaneous.md)
+
 **Theorem Reference:** {prf:ref}`mt-up-surgery`
 
 This proof establishes the Surgery Promotion metatheorem, demonstrating that when a valid surgery operator is applied to resolve a singularity, the flow continues on the modified Hypostructure as a generalized (surgery/weak) solution. The construction follows Hamilton's foundational surgery program for Ricci flow {cite}`Hamilton97`, Perelman's rigorous completion with canonical neighborhoods and non-collapsing estimates {cite}`Perelman03`, and the detailed verification by Kleiner-Lott {cite}`KleinerLott08`.

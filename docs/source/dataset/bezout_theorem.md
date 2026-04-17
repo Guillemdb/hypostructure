@@ -1329,7 +1329,7 @@ This proof object is replayed by providing:
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | PASS | wrong cycle degree cannot be realized as a $(d_1,d_2)$ proper complete intersection |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
 
@@ -1339,6 +1339,14 @@ This proof object is replayed by providing:
 - **Residual Non-Goal Obligations:** `OBL-1`, `OBL-2`
 - **Singularity Set:** finite 0-cycle support $\Sigma$
 - **Primary Final Route:** direct sieve execution + E12-blocked Lock + projective intersection backend upgrade
+
+### Assumption Provenance
+
+- **Imported from literature?** No external theorem is explicitly tagged as a direct premise in this file.
+- **Theorem name(s):** None explicitly named; the projective intersection backend certificate is the declared terminal upgrade.
+- **Hypotheses required:** closed-system E12 route, projective intersection backend certificates, and Lock obstruction-exclusion data from the execution tables.
+- **Non-circularity note:** $K_{\mathrm{BezoutExact}}^+$ is the output of the route, not an assumption in that route.
+- **Goal-certificate location in local-to-global chain:** Part III-B extracts $K_{\mathrm{StructBezout}}^+$ from the blocked Lock route and combines it with $K_{\mathrm{ProjectiveIntersectionBackend}}^+$ to derive $K_{\mathrm{BezoutExact}}^+$.
 
 ---
 

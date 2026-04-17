@@ -1303,9 +1303,17 @@ $$
 | E10 | Definability | N/A | not used |
 | E11 | Galois-Monodromy | N/A | not used |
 | E12 | Algebraic Compressibility | N/A | not used |
-| E13 | Algorithmic Completeness | N/A | not used |
+| E13 | Algorithmic Completeness | N/A | split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$; incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
+
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** Cole-Hopf transform and parabolic heat regularization maximum principle
+- **Hypotheses required:** smooth initial data with finite energy/entropy and positivity/viscosity regime used by the declared backend
+- **Non-circularity note:** the final Cole-Hopf/heat backend certificate is external input to the conclusion; it is not used to prove the Lock output.
+- **Goal-certificate location in local-to-global chain:** Part III-B applies $K_{\mathrm{ColeHopf}}^+$ and $K_{\mathrm{HeatSmooth}}^+$ to $K_{\mathrm{StructReg}_{\mathrm{Burgers1D}}}^+$ to derive $K_{\mathrm{Reg}_{\mathrm{Burgers1D}}}^+$.
 
 - **Designated Goal Certificate:** $K_{\mathrm{Reg}_{\mathrm{Burgers1D}}}^+$
 - **Status:** UNCONDITIONAL FROM DECLARED LOCAL CERTIFICATES

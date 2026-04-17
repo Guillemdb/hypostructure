@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-fact-soft-morse
 
+**Formal statement in framework:** [00_reference_aliases.md](../1_hypostructure_formalism/00_reference_aliases.md)
+
 **Theorem Reference:** {prf:ref}`mt-fact-soft-morse`
 
 ## Setup and Notation

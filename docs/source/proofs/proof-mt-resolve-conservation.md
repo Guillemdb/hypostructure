@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-resolve-conservation
 
+**Formal statement in framework:** [06_modules/01_singularity.md](../1_hypostructure_formalism/06_modules/01_singularity.md)
+
 **Theorem Reference:** {prf:ref}`mt-resolve-conservation`
 
 This proof establishes that admissible surgery preserves the fundamental conservation properties of the flow: discrete energy decrease, regularization of derivatives, and countable surgery bound. The proof synthesizes Perelman's surgery energy estimates {cite}`Perelman03`, Hamilton's derivative bounds {cite}`Hamilton97`, geometric measure theory for capacity control {cite}`Federer69` {cite}`AdamsHedberg96`, and the categorical pushout construction following Kleiner-Lott {cite}`KleinerLott08`, as instantiated by the admissibility data for type $T$.

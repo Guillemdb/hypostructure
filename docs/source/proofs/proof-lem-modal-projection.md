@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-lem-modal-projection
 
+**Formal statement in framework:** [09_mathematical/05_algorithmic.md](../1_hypostructure_formalism/09_mathematical/05_algorithmic.md)
+
 **Lemma (Modal Projection):** Singular behavior in higher homotopy groups necessarily projects to non-zero dissipation at the 0-morphism level.
 
 This proof establishes that singular behavior in higher homotopy groups (n-morphisms for $n \geq 1$) necessarily projects to non-zero defect at the 0-morphism level via the dissipation functional $\mathfrak{D}: \mathcal{X} \to \mathbb{R}$. The key mechanism is the **sharp modality** $\sharp$ of the cohesive $(\infty,1)$-topos, which contracts higher homotopy while preserving physically relevant information. This ensures that energy cannot "leak" into unmonitored higher coherences—the Sieve's base-level sensors are never "Modal-Blind."

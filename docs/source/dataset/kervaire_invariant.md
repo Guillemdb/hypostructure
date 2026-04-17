@@ -587,3 +587,11 @@ No inc certificates or breach obligations remain after the run, so the goal cone
 | Goal-cone ledger | empty |
 | Remaining obligation count | 0 |
 | Remaining obligation | none |
+
+### Assumption Provenance
+
+- **Imported from literature?** No explicit theorem is tagged as a direct premise in this document.
+- **Theorem name(s):** No named external theorem is explicitly listed.
+- **Hypotheses required:** the finite-stratification route with E2/E7 obstruction checks and the closed-system branch at Node 13.
+- **Non-circularity note:** the designated goal is the terminal certificate reached by this route and is not an input hypothesis to that route.
+- **Goal-certificate location in local-to-global chain:** Part III-B identifies the blocked homological obstruction route (yielding $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$) as the required local-to-global certificate and propagates it to $K_{\mathrm{StructReg}_{T_{\text{topological}}}}^+$.

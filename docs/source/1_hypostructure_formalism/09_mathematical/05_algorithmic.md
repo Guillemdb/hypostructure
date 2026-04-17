@@ -101,6 +101,8 @@ The deep theorem we are using says: these five views are **complete**. Every str
 :::{prf:theorem} Schreiber Structure Theorem (Computational Form)
 :label: thm-schreiber-structure
 
+**Implemented proof:** [proof-lem-modal-projection.md](../../proofs/proof-lem-modal-projection.md)
+
 Let $\mathbf{H}$ be a cohesive $(\infty,1)$-topos. Every type $\mathcal{X} \in \mathbf{H}$ decomposes via **fracture squares** into its modal components. Specifically:
 
 1. **Shape--flat fracture square.** The canonical diagram

@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-act-surgery
 
+**Formal statement in framework:** [06_modules/01_singularity.md](../1_hypostructure_formalism/06_modules/01_singularity.md)
+
 **Theorem Reference:** {prf:ref}`mt-act-surgery`
 
 This proof establishes the Structural Surgery Principle, demonstrating that admissible singularities can be removed via surgery while preserving flow continuation, energy control, and progress. The proof synthesizes Hamilton's surgery program {cite}`Hamilton97`, Perelman's surgery algorithm {cite}`Perelman03`, and the categorical pushout construction, following the exposition of Kleiner-Lott {cite}`KleinerLott08`, as instantiated by the admissibility data for type $T$.

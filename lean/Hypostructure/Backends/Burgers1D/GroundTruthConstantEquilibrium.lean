@@ -238,7 +238,11 @@ def constantCertifiedHeatWindow
   window := constantHeatWindow
   initial := constantEquilibriumState m
   curve := constantHeatCurve nu m
-  solves := constantHeatCurve_solves nu m
+  initial_on_window := by
+    intro _h0
+    exact (constantHeatCurve_solves nu m).1
+  boundary_on_window := by
+    exact (constantHeatCurve_solves nu m).restrictsToWindow constantHeatWindow
 
 theorem constantHeatWindow_residual
     (nu : BurgersParameters)
@@ -284,9 +288,10 @@ theorem constantHeatWindow_dissipation_contraction
 theorem constantHeatWindow_excludes_bad_germs
     (nu : BurgersParameters)
     (m : ℝ) :
-    HeatBadGermWindowExclusion (constantCertifiedHeatWindow nu m).window := by
-  intro G _hsupport hG
-  exact routeLocalBadGermWindow_localCapacity G hG
+    HeatBadGermWindowExclusion
+      (constantCertifiedHeatWindow nu m).window
+      (HeatForbiddenBadGerm (constantCertifiedHeatWindow nu m)) :=
+  HeatForbiddenBadGerm.excluded (constantHeatWindow_smoothing nu m)
 
 def constantLocalHeatWindowCertificate
     (nu : BurgersParameters)
@@ -403,6 +408,7 @@ def constantSectorColeHopfTransform : ColeHopfTransform where
   toHeat := id
   fromHeat := id
   burgersSector := IsConstantPeriodicH1State
+  burgersPDEDomain := IsConstantPeriodicH1State
   heatSector := IsConstantPeriodicH1State
   toHeat_preservesH1 := by
     intro u hu
@@ -410,6 +416,9 @@ def constantSectorColeHopfTransform : ColeHopfTransform where
   fromHeat_preservesH1 := by
     intro theta htheta
     exact htheta
+  burgersPDEDomain_in_sector := by
+    intro u hdomain
+    exact hdomain
   toHeat_sector := by
     intro u hu
     exact hu
@@ -422,6 +431,10 @@ def constantSectorColeHopfTransform : ColeHopfTransform where
   right_inverse := by
     intro _theta _htheta
     rfl
+  smoothness_reflects_from_heat_image := by
+    intro u theta _hdomain htheta hsmooth
+    simpa [htheta]
+      using hsmooth
 
 def constantSectorColeHopfBackend
     (nu : BurgersParameters) : PeriodicColeHopfBackend nu where
@@ -452,7 +465,7 @@ def constantSectorColeHopfBackend
   burgers_to_heat_residual_on_window := by
     intro H
     intro C _hwindow _hsector hinit
-    simpa [hinit] using H.certified.solves
+    simpa [hinit] using H.residual
   heat_to_burgers_residual_on_window := by
     intro H
     intro C _hwindow hsector

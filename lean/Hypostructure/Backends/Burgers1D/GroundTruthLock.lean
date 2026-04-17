@@ -23,8 +23,9 @@ structure BurgersBadMorphismCandidate
   heat_image_supported :
     (ColeHopfHeatBadGermImage B.transform germ.routeWindow).SupportedInHeatWindow
       H.certified.window
-  heat_image_capacity_fails :
-    ¬ (ColeHopfHeatBadGermImage B.transform germ.routeWindow).LocalCapacity
+  heat_image_forbidden :
+    H.forbidden_bad_germ
+      (ColeHopfHeatBadGermImage B.transform germ.routeWindow)
 
 def BurgersBadMorphismExists
     (nu : BurgersParameters)
@@ -58,11 +59,11 @@ theorem lockBlocksBadGermsFromLocalCertificates
       candidate.heat_image_supported
       hroute_admissible
       candidate.burgers_chart
-  exact H.no_capacity_failing_heat_bad_germ
+  exact H.no_forbidden_heat_bad_germ
     (ColeHopfHeatBadGermImage B.transform candidate.germ.routeWindow)
     htransport.1
     htransport.2
-    candidate.heat_image_capacity_fails
+    candidate.heat_image_forbidden
 
 end
 

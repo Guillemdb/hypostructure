@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-up-scattering
 
+**Formal statement in framework:** [08_upgrades/01_instantaneous.md](../1_hypostructure_formalism/08_upgrades/01_instantaneous.md)
+
 **Theorem Reference:** {prf:ref}`mt-up-scattering`
 
 This proof establishes that for energy-critical dispersive equations, the absence of concentration combined with a finite Morawetz interaction functional implies asymptotic scattering to a free linear state. The result demonstrates how negative concentration certificates ($K_{C_\mu}^-$) combined with benign barrier certificates ($K_{C_\mu}^{\mathrm{ben}}$) promote to global regularity (VICTORY) through the interplay of Morawetz estimates, Strichartz theory, and concentration-compactness rigidity.

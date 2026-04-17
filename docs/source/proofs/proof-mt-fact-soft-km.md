@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-fact-soft-km
 
+**Formal statement in framework:** [00_reference_aliases.md](../1_hypostructure_formalism/00_reference_aliases.md)
+
 **Theorem Reference:** {prf:ref}`mt-fact-soft-km`
 
 This proof establishes that the concentration-compactness + stability machine (Kenig-Merle framework) can be systematically derived from well-posedness, profile decomposition, and soft interface permits, without requiring explicit PDE-specific analysis. The result is a certificate witnessing the existence of a minimal critical element that is almost periodic modulo symmetries, enabling rigidity analysis.

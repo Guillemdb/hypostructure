@@ -303,6 +303,14 @@ Each problem entry provides a complete Hypostructure proof object including:
 * **Singularity Set:** Not applicable (template catalog)
 * **Primary Blocking Tactic:** NOT APPLICABLE
 
+### Assumption Provenance
+
+- **Imported from literature?** N/A (template-only catalog page).
+- **Theorem name(s):** None; this file is metadata scaffolding.
+- **Hypotheses required:** No theorem hypotheses are instantiated in this file.
+- **Non-circularity note:** No target certificate is proved in this file.
+- **Goal-certificate location in local-to-global chain:** not applicable; this is metadata scaffolding, not a proof route with a local-to-global closure.
+
 ## Document Information
 
 | Field | Value |

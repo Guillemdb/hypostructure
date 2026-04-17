@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-up-spectral
 
+**Formal statement in framework:** [08_upgrades/01_instantaneous.md](../1_hypostructure_formalism/08_upgrades/01_instantaneous.md)
+
 **Theorem Reference:** {prf:ref}`mt-up-spectral`
 
 ## Setup and Notation

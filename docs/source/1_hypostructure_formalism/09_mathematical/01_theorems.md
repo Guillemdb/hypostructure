@@ -874,6 +874,9 @@ The BRST symmetry packages all of this elegantly. There is a nilpotent operator 
 :::{prf:theorem} [ACT-Ghost] Derived Extension / BRST
 :label: mt-act-ghost
 
+
+**Implemented proof:** [proof-thm-ghost-conservation.md](../../proofs/proof-thm-ghost-conservation.md)
+
 **Sieve Target:** SurgSD (Symmetry Deformation) — ghost fields cancel divergent determinants
 
 **Repair Class:** Symmetry (Graded Extension)

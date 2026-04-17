@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-krnl-shadowing
 
+**Formal statement in framework:** [08_upgrades/03_stability.md](../1_hypostructure_formalism/08_upgrades/03_stability.md)
+
 **Theorem Reference:** {prf:ref}`mt-krnl-shadowing`
 
 ## Setup and Notation

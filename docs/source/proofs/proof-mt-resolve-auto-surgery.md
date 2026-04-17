@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-resolve-auto-surgery
 
+**Formal statement in framework:** [06_modules/01_singularity.md](../1_hypostructure_formalism/06_modules/01_singularity.md)
+
 **Theorem Reference:** {prf:ref}`mt-resolve-auto-surgery`
 
 This proof establishes that for any Hypostructure satisfying the Automation Guarantee and supplying the admissibility data for type $T$, the Structural Surgery Principle is **automatically executed** by the Sieve using the pushout construction from the canonical profile library $\mathcal{L}_T$. We demonstrate that surgery operators are determined by categorical universal properties together with the recorded cap recipes and verification tolerances, requiring no additional user-provided surgery implementation code beyond the thin objects.

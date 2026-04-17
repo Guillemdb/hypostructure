@@ -559,6 +559,8 @@ Here's the physical picture: imagine a ball rolling in a landscape with deep wel
 :::{prf:definition} Barrier Specification: Epistemic Horizon
 :label: def-barrier-epi
 
+**Implemented proof:** [proof-lem-holographic-library-density.md](../../proofs/proof-lem-holographic-library-density.md)
+
 **Barrier ID:** `BarrierEpi`
 
 **Interface Dependencies:**

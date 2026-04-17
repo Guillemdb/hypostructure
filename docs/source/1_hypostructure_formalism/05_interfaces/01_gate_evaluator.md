@@ -769,9 +769,11 @@ depending on $s_c$ is conditional on the scaling-data certificate.
 
 **Question:** Does the evolution problem $T$ admit local well-posedness in the critical phase space $X_c$ (typically $X_c = \dot{H}^{s_c}$), with a continuation criterion?
 
-**YES certificate**
+**YES certificate (canonical payload)**
 
-$$K_{\mathrm{WP}_{s_c}}^+ := \big(\mathsf{LWP},\ \mathsf{uniq},\ \mathsf{cont},\ \mathsf{crit\_blowup}\big)$$
+$$K_{\mathrm{WP}_{s_c}}^+ := (\mathsf{template_ID}, \mathsf{theorem_citation}, s_c, \mathsf{X_c}, \mathsf{assumptions}, \mathsf{LWP}, \mathsf{uniq}, \mathsf{cont}, \mathsf{crit_blowup})$$
+
+The tuple records the selected template identity, theorem citation, critical regularity data, and the local control payload components: existence, uniqueness, continuity, and continuation criterion.
 
 where the payload asserts all of:
 1. (**Local existence**) For every $u_0 \in X_c$ there exists $T(u_0) > 0$ and a solution $u \in C([0,T]; X_c)$.
@@ -868,7 +870,7 @@ where $\mathsf{step\_failed} \in \{\texttt{NO\_MIN\_EXTRACT}, \texttt{NO\_ALMOST
 
 $$K_{\mathrm{KM}}^{\mathrm{inc}} := (\mathsf{obligation}, \mathsf{missing}, \mathsf{failure\_code}, \mathsf{trace})$$
 
-Typical $\mathsf{missing}$: "composition requires $K_{\mathrm{WP}}^+$ which was not derived", "profile decomposition not available", "stability lemma not computable for this equation class".
+Typical $\mathsf{missing}$: "composition requires $K_{\mathrm{WP}_{s_c}}^+$ which was not derived", "profile decomposition not available", "stability lemma not computable for this equation class".
 
 **Used by:** `mt-auto-profile` Mechanism A (CC+Rig).
 
@@ -1314,6 +1316,8 @@ This serves as a "header file" for instantiation - users can read the table and 
 :::{prf:theorem} [FACT-ValidInst] Valid Instantiation
 :label: mt-fact-valid-inst
 
+**Implemented proof:** [proof-mt-fact-valid-inst.md](../../proofs/proof-mt-fact-valid-inst.md)
+
 **Statement:** To instantiate a Hypostructure for a system $S$ of type $T$ is to provide:
 1. An ambient $(\infty,1)$-topos $\mathcal{E}$ (or a 1-topos/category with sufficient structure)
 2. Concrete implementations $(\mathcal{X}, \Phi, \mathfrak{D}, G)$ satisfying the specifications of {ref}`sec-kernel-objects`
@@ -1340,6 +1344,8 @@ where $\text{Result} \in \{\text{GlobalRegularity}, \text{Mode}_{1..15}, \text{F
 
 :::{prf:theorem} [FACT-MinInst] Minimal Instantiation
 :label: mt-fact-min-inst
+
+**Implemented proof:** [proof-mt-fact-min-inst.md](../../proofs/proof-mt-fact-min-inst.md)
 
 **Statement:** To instantiate a Hypostructure for system $S$ using the **thin object** formalism ({ref}`sec-thin-kernel-objects`), the user provides only:
 
@@ -1628,7 +1634,7 @@ D_E, C_μ, SC_λ, LS_σ, Mon_φ, RepDesc_K, TB_π, TB_O
 ────────────────────────────────────────
 FRAMEWORK DERIVES (Backend Layer)
 ────────────────────────────────────────
-WP_{s_c}, ProfDec, KM, Rigidity, MorseDecomp, Attr
+\mathrm{WP}_{s_c}, ProfDec, KM, Rigidity, MorseDecomp, Attr
 ────────────────────────────────────────
          ↓ Existing Metatheorems
 ────────────────────────────────────────
@@ -1643,6 +1649,8 @@ For **good types** (satisfying the Automation Guarantee), soft interface verific
 
 :::{prf:theorem} [FACT-SoftWP] Soft-to-WP Compilation
 :label: mt-fact-soft-wp
+
+**Implemented proof:** [proof-mt-fact-soft-wp.md](../../proofs/proof-mt-fact-soft-wp.md)
 
 **Statement:** For good types $T$ satisfying the Automation Guarantee, critical well-posedness is derived from soft interfaces.
 
@@ -1665,9 +1673,9 @@ The evaluator `Eval_WP(T)` checks whether $T$ matches a known well-posedness tem
 | Symmetric hyperbolic | $\mathrm{Rep}_K^+$ (finite description) | Friedrichs method |
 
 **Certificate Emitted:**
-$K_{\mathrm{WP}_{s_c}}^+ = (\mathsf{template\_ID}, \mathsf{theorem\_citation}, s_c, \mathsf{continuation\_criterion})$
+$K_{\mathrm{WP}_{s_c}}^+ = (\mathsf{template_ID}, \mathsf{theorem_citation}, s_c, \mathsf{X_c}, \mathsf{assumptions}, \mathsf{continuation_criterion}, \mathsf{critical_blowup_condition})$
 
-**NO-Inconclusive Case:** If $T$ matches no template, emit $K_{\mathrm{WP}}^{\mathrm{inc}}$ with $\mathsf{failure\_code} = \texttt{TEMPLATE\_MISS}$. The user may supply a WP proof manually or extend the template database.
+**NO-Inconclusive Case:** If $T$ matches no template, emit $K_{\mathrm{WP}_{s_c}}^{\mathrm{inc}}$ with $\mathsf{failure\_code} = \texttt{TEMPLATE\_MISS}$. The user may supply a WP proof manually or extend the template database.
 
 **Literature:** {cite}`CazenaveSemilinear03`; {cite}`Tao06`.
 :::
@@ -1683,7 +1691,7 @@ $$\underbrace{K_{D_E}^+ \wedge K_{C_\mu}^+ \wedge K_{\mathrm{SC}_\lambda}^+ \wed
 
 $$\Downarrow \text{Compilation}$$
 
-$$\underbrace{K_{\mathrm{WP}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{Rigidity}}^+}_{\text{Backend Layer (Framework Derives)}}$$
+$$\underbrace{K_{\mathrm{WP}_{s_c}}^+ \wedge K_{\mathrm{ProfDec}}^+ \wedge K_{\mathrm{KM}}^+ \wedge K_{\mathrm{Rigidity}}^+}_{\text{Backend Layer (Framework Derives)}}$$
 
 **Consequence:** The public signature of `mt-auto-profile` requires only soft interfaces. Backend permits appear only in the **internal compilation proof**, not in the user-facing hypotheses.
 :::
@@ -1696,9 +1704,9 @@ The Sieve implements proof-producing evaluators for each derived permit. Every e
 
 | Evaluator | Input | YES Output | NO Output | Template Database |
 |-----------|-------|------------|-----------|-------------------|
-| `Eval_WP(T)` | Type $T$, soft certs | $K_{\mathrm{WP}}^+$ | $K_{\mathrm{WP}}^{\mathrm{wit}}$ or $K_{\mathrm{WP}}^{\mathrm{inc}}$ | Semilinear parabolic, wave, Schrödinger, hyperbolic |
+| `Eval_WP(T)` | Type $T$, soft certs | $K_{\mathrm{WP}_{s_c}}^+$ | $K_{\mathrm{WP}_{s_c}}^{\mathrm{wit}}$ or $K_{\mathrm{WP}_{s_c}}^{\mathrm{inc}}$ | Semilinear parabolic, wave, Schrödinger, hyperbolic |
 | `Eval_ProfDec(T)` | Type $T$, $C_\mu^+$, $\mathrm{SC}_\lambda^+$ | $K_{\mathrm{ProfDec}}^+$ | $K_{\mathrm{ProfDec}}^{\mathrm{wit}}$ or $K_{\mathrm{ProfDec}}^{\mathrm{inc}}$ | Hilbert space + standard symmetry |
-| `Eval_KM(T)` | $\mathrm{WP}^+$, $\mathrm{ProfDec}^+$, $D_E^+$ | $K_{\mathrm{KM}}^+$ | $K_{\mathrm{KM}}^{\mathrm{wit}}$ or $K_{\mathrm{KM}}^{\mathrm{inc}}$ | Composition (no template needed) |
+| `Eval_KM(T)` | $K_{\mathrm{WP}_{s_c}}^+$, $\mathrm{ProfDec}^+$, $D_E^+$ | $K_{\mathrm{KM}}^+$ | $K_{\mathrm{KM}}^{\mathrm{wit}}$ or $K_{\mathrm{KM}}^{\mathrm{inc}}$ | Composition (no template needed) |
 | `Eval_Rigidity(T)` | $\mathrm{Mon}^+$, $\mathrm{KM}^+$, $\mathrm{LS}^+$, Lock | $K_{\mathrm{Rigidity}}^+$ | $K_{\mathrm{Rigidity}}^{\mathrm{wit}}$ or $K_{\mathrm{Rigidity}}^{\mathrm{inc}}$ | Hybrid mechanism |
 | `Eval_Attr(T)` | $D_E^+$, $C_\mu^+$, $\mathrm{TB}_\pi^+$ | $K_{\mathrm{Attr}}^+$ | $K_{\mathrm{Attr}}^{\mathrm{wit}}$ or $K_{\mathrm{Attr}}^{\mathrm{inc}}$ | Temam-Raugel theorem |
 | `Eval_MorseDecomp(T)` | $\mathrm{Attr}^+$, $D_E^+$, $\mathrm{LS}^+$ | $K_{\mathrm{MorseDecomp}}^+$ | $K_{\mathrm{MorseDecomp}}^{\mathrm{wit}}$ or $K_{\mathrm{MorseDecomp}}^{\mathrm{inc}}$ | Gradient-like / Morse-Smale |
@@ -1716,6 +1724,8 @@ The Sieve implements proof-producing evaluators for each derived permit. Every e
 
 :::{prf:theorem} [FACT-GermDensity] Germ Set Density
 :label: mt-fact-germ-density
+
+**Implemented proof:** [proof-mt-fact-germ-density.md](../../proofs/proof-mt-fact-germ-density.md)
 
 **Rigor Class:** F (Framework-Original)
 

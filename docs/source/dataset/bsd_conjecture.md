@@ -872,6 +872,14 @@ Finally, Part III verifies that the only inconclusive certificates produced by t
 * **Singularity Set:** $\Sigma=\emptyset$
 * **Primary Final Route:** arithmetic bridge bundle + Lock-supported backend exclusion
 
+### Assumption Provenance
+
+- **Imported from literature?** No specific external theorem is explicitly tagged in this file.
+- **Theorem name(s):** Arithmetic bridge certificates and Lock-supported exclusion certificates listed in the route tables.
+- **Hypotheses required:** the declared arithmetic bridge route and its corresponding completeness certificates.
+- **Non-circularity note:** $K_{\mathrm{BSD}}^+$ is the designated target and is not used as a premise in the same proof route.
+- **Goal-certificate location in local-to-global chain:** Part II-B combines $K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}$, $K_{\mathrm{Sha}}^+$, $K_{\mathrm{BSDRank}}^+$, and $K_{\mathrm{BSDCoeff}}^+$ to conclude $K_{\mathrm{BSD}}^+$.
+
 ## Document Information
 
 | Field | Value |

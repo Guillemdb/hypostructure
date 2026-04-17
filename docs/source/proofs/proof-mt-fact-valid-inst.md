@@ -3,6 +3,8 @@
 :::{prf:proof}
 :label: proof-mt-fact-valid-inst
 
+**Formal statement in framework:** [05_interfaces/01_gate_evaluator.md](../1_hypostructure_formalism/05_interfaces/01_gate_evaluator.md)
+
 **Theorem Reference:** {prf:ref}`mt-fact-valid-inst`
 
 This proof establishes that providing the specified instantiation data makes the Sieve Algorithm a well-defined computable function with rigorous termination, soundness, and classification guarantees.

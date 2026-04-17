@@ -1120,6 +1120,9 @@ $$
 
 Part III-B.1 records the declared local continuation, vorticity, Biot-Savart, continuation, and stretching statements for the designated route.
 
+This follows the canonical PDE continuation notation as well:
+$K_{\mathrm{WP}_{s_c}}^+$ with $s_c=\tfrac52$ abbreviates the local continuation bridge (local well-posedness + uniqueness + continuation criterion + blow-up condition) for the Euler route.
+
 Node 17 records
 $$
 K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{br\text{-}inc}},
@@ -1245,9 +1248,17 @@ is established. $\square$
 | E10 | Definability | N/A | not attempted |
 | E11 | Galois-Monodromy | N/A | not attempted |
 | E12 | Algebraic Compressibility | N/A | not attempted |
-| E13 | Algorithmic Completeness | N/A | not attempted |
+| E13 | Algorithmic Completeness | N/A | E13 is not the selected exclusion tactic; split semantics are explicit in Lock: complete finite-library closure gives $K_{\mathrm{E13}}^{\mathrm{blk}}$, while incomplete closure gives $K_{\mathrm{E13}}^{\mathrm{br-inc}}$ and routes to reconstruction. |
 
 ### 4. Final Verdict
+
+### Assumption Provenance
+
+- **Imported from literature?** yes
+- **Theorem name(s):** Beale-Kato-Majda local continuation criterion and local Lagrangian flow estimates
+- **Hypotheses required:** smooth divergence-free data, short-time smooth solution from local wellposedness, and the declared continuation hypothesis required by the backend
+- **Non-circularity note:** the route is conditional on the declared continuation bridge and does not use the target regularity as a premise.
+- **Goal-certificate location in local-to-global chain:** Part III-B.1 and Part III-B.6 route the declared continuation bridge to the local route certificate $K_{\mathrm{Goal}}^+$.
 
 - **Designated Goal Certificate:** $K_{\mathrm{Goal}}^+$
 - **Status:** UNCONDITIONAL for the local continuation/stretching route
