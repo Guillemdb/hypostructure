@@ -2,11 +2,11 @@
 
 This folder organizes the local Caffarelli-Kohn-Nirenberg Type II exclusion
 program for the three-dimensional incompressible Navier-Stokes equations.  The
-entry point is [local_ckn_typeII_bridge.md](local_ckn_typeII_bridge.md), which
-connects the local concentration-entry theorem in
+starting point is [local_ckn_typeII_bridge.md](local_ckn_typeII_bridge.md), which
+connects the local concentration theorem in
 [../first_nodes](../first_nodes/README.md) to the Type II analysis.
 
-The current entry theorem is local.  A putative singular point is first tested
+The current initial reduction theorem is local.  A putative singular point is first tested
 by the CKN scale-invariant density
 \[
 C(z_0,r)+D(z_0,r),
@@ -42,7 +42,7 @@ parabolic cylinders unless a document explicitly says otherwise.
 
 ## Main Bridge
 
-The bridge theorem proves the following local implication:
+The local implication theorem proves the following local implication:
 \[
 \text{finite-time singularity}
 \Longrightarrow
@@ -58,15 +58,15 @@ positive local concentration has two Type II outcomes.
    a unique local core cannot be selected.  This branch is sent to the
    multibubble and scale-rigidity analysis.
 
-Thus the bridge removes the former entry assumptions.  Full Type II exclusion
-is implemented in [local_typeII_exclusion_assembly.md](local_typeII_exclusion_assembly.md).
+Thus the bridge removes the former starting assumptions.  Full Type II exclusion
+is established in [local_typeII_exclusion_assembly.md](local_typeII_exclusion_assembly.md).
 After the Type I criterion, the adapted single-core and multibubble/cascade
 criteria exclude the Type II branch.
 
 ## Document Map
 
 - [local_ckn_typeII_bridge.md](local_ckn_typeII_bridge.md): bridge from the
-  local concentration-entry theorem to local Type II concentration and Type II
+  local concentration theorem to local Type II concentration and Type II
   exclusion after the Type I criterion.
 - [local_typeII_exclusion_assembly.md](local_typeII_exclusion_assembly.md):
   adaptation of the good-window single-core criterion and multibubble/cascade
@@ -83,7 +83,7 @@ criteria exclude the Type II branch.
 
 ## Paper Series
 
-The papers in `docs/source/type_2/papers` follow the same local entry
+The papers in `docs/source/type_2/papers` follow the same local reduction
 convention.
 
 1. Paper I: local compact Type II criterion.

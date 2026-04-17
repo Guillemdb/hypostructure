@@ -1,4 +1,3 @@
-
 \documentclass[11pt]{amsart}
 \usepackage[margin=1.1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
@@ -11,9 +10,10 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -23,13 +23,7 @@
 
 \begin{document}
 \begin{abstract}
-We formulate the compact Type II criterion using only local
-Caffarelli--Kohn--Nirenberg quantities.  The input is a positive local CKN core,
-compact-cylinder suitable compactness, localized pressure decomposition,
-localized repaired gauges, and compact-cylinder Caccioppoli estimates.  Assuming
-the Type I criterion in local tangent form, a single-core local Type II orbit
-cannot have finite localized renormalization cost.  No nonlocal critical-norm
-control or spatial tightness at infinity is an standing assumption.
+We formulate the compact Type II criterion using only local Caffarelli--Kohn--Nirenberg quantities.  The argument starts from a positive local CKN core.  The localized scale-translation representation, compact-ball pressure reconstruction, and compact-cylinder Caccioppoli bounds are supplied by the local representation and local regularity papers.  A finite-cost single-core local Type II branch then has a low-dissipation compact limit.  The limit is either zero, contradicting positive local CKN concentration, or is a nonzero bounded parabolic tangent, contradicting the definition of the local Type II regime.  Hence no finite-cost compact single-core Type II branch occurs.
 \end{abstract}
 \maketitle
 
@@ -47,8 +41,8 @@ C(z_0,r)=r^{-2}\int_{Q_r(z_0)}|u|^3\,dx\,dt,
 D(z_0,r)=r^{-2}\int_{T-r^2}^{T}\int_{B_r(x_0)}
  |p-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt .
 \]
-The CKN epsilon-regularity theorem implies that every singular point has
-positive local CKN concentration along a sequence of scales.
+The Caffarelli--Kohn--Nirenberg epsilon-regularity theorem implies that every
+singular point has positive local CKN concentration along a sequence of scales.
 
 For a rescaled suitable solution \((v,q)\) on \(Q_R=B_R\times(-R^2,0)\), write
 \[
@@ -57,79 +51,53 @@ A_v(R)=R^{-1}\operatorname*{ess\,sup}_{-R^2<s<0}\int_{B_R}|v(y,s)|^2\,dy,
 \[
 E_v(R)=R^{-1}\int_{Q_R}|\nabla v|^2\,dy\,ds.
 \]
-A locally compact single-core case is one for which \(A+E+C+D\) is bounded on
-compact cylinders and one retained core carries a fixed positive CKN density.
+A compact single-core branch is one for which \(A+E+C+D\) is bounded on compact cylinders and one selected core carries a fixed positive CKN density.
 
-\begin{assumption}[Local Type I tangent criterion]\label{ass:typeI}
-No blow-up case has a nonzero bounded parabolic tangent on a compact cylinder.
-Equivalently, every such local Type I tangent case is ruled out in the preceding Type I analysis.
-\end{assumption}
+\begin{definition}[Local Type II sequence]\label{def:typeII}
+A positive local concentration sequence is called a local Type II sequence if no selected-window rescaling has a nonzero bounded parabolic tangent on a compact cylinder.
+\end{definition}
 
-\section{Single-core local orbit}
+\section{Local single-core package}
 
-A locally represented single-core orbit \((V,P,a,b)\) solves, on compact
-renormalized cylinders,
+The local representation paper supplies the localized scale-translation variables for a nondegenerate single core.  In those variables \((V,P,a,b)\) solves, on compact renormalized cylinders,
 \[
 \partial_\tau V+(V\cdot\nabla)V+\nabla P
  =\nu\Delta V+a(\tau)(V+y\cdot\nabla V)+b(\tau)\cdot\nabla V,
 \qquad \nabla\cdot V=0.
 \]
-The pressure is normalized locally.  On \(B_R\), write
+The pressure is reconstructed locally.  On \(B_R\),
 \[
 P=P_{\rm loc}+H,
 \qquad
 -\Delta P_{\rm loc}=\partial_i\partial_j(\zeta V_iV_j),
 \]
-where \(\zeta\in C_c^\infty(B_{2R})\) equals one on \(B_R\), and \(H\) is
-harmonic in \(B_R\).
+where \(\zeta\in C_c^\infty(B_{2R})\) equals one on \(B_R\), and \(H\) is harmonic in \(B_R\).
 
-\begin{assumption}[Good-window compactness package]\label{ass:gw}
-There are compact cylinders \(Q_{r_1}\Subset Q_{r_0}\) in the retained core and
-a sequence of good windows such that:
+The local regularity paper supplies the compact-cylinder Caccioppoli estimate for these represented branches.  Consequently, on the selected compact windows of a compact single-core branch, the following package is available:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item the local CKN density on \(Q_{r_1}\) is bounded below by a fixed positive
-      number;
-\item the local suitable package is uniformly bounded on \(Q_{r_0}\);
-\item the local Caccioppoli estimate gives uniform windowed \(H^1\) control on
-      \(Q_{r_0}\);
-\item the localized Type II cost is finite, hence the localized dissipation on
-      selected good windows tends to zero;
-\item the localized scale and centering gauges are nondegenerate on the core.
+\item a positive lower bound for the local CKN density on a smaller core cylinder;
+\item uniform bounds for the local suitable package on a larger compact cylinder;
+\item uniform local windowed \(H^1\) control from the Caccioppoli estimate;
+\item localized scale and centering gauges for the selected nondegenerate core;
+\item finite localized Type II cost on the finite-cost branch, giving windows on which the localized dissipation tends to zero.
 \end{enumerate}
-\end{assumption}
 
 \section{Exclusion theorem}
 
 \begin{theorem}[Local single-core Type II criterion]\label{thm:single-core-criterion}
-Under \cref{ass:typeI,ass:gw}, a local single-core Type II case cannot occur.
+A finite-cost compact single-core local Type II branch cannot occur.
 \end{theorem}
 
 \begin{proof}
-The uniform local suitable bounds and the windowed \(H^1\) estimate give, after
-passing to a subsequence of good windows, convergence in the standard compactness
-class for suitable weak solutions.  In particular, the velocities converge
-strongly in local \(L^2\) and in subcritical local spaces on \(Q_{r_1}\), and
-the pressures converge weakly in local \(L^{3/2}\) modulo spatial means.
+The local representation and local regularity results cited above give the compact-window package on the selected core.  The uniform local suitable bounds and the windowed \(H^1\) estimate give, after passing to a subsequence of selected windows, convergence in the standard compactness class for suitable weak solutions.  In particular, the velocities converge strongly in local \(L^2\) and in subcritical local spaces on a smaller core cylinder, and the pressures converge weakly in local \(L^{3/2}\) modulo spatial means.
 
-The good-window dissipation tends to zero.  Hence the spatial gradient of the
-limit velocity vanishes on \(Q_{r_1}\), so the limit velocity is spatially
-constant there.  If the constant is zero, the velocity contribution to the CKN
-density on a smaller cylinder vanishes by strong local convergence.  The local
-equation then gives \(\nabla P=0\) on that cylinder in the limit; after
-subtracting spatial means, the pressure contribution also vanishes.  This
-contradicts the retained positive CKN density.
+Finite localized Type II cost gives selected windows on which the localized dissipation tends to zero.  Hence the spatial gradient of the limit velocity vanishes on the smaller core cylinder, so the limit velocity is spatially constant there.  If the constant is zero, the velocity contribution to the CKN density on a still smaller cylinder vanishes by strong local convergence.  The local equation then gives \(\nabla P=0\) on that cylinder in the limit; after subtracting spatial means, the pressure contribution also vanishes.  This contradicts the positive local CKN density.
 
-If the constant is nonzero, the good-window rescalings have a nonzero bounded
-parabolic tangent on a compact cylinder.  This is excluded by
-\cref{ass:typeI}.  Both cases are impossible.
+If the constant is nonzero, the selected-window rescalings have a nonzero bounded parabolic tangent on a compact cylinder.  This contradicts the definition of a local Type II sequence in \cref{def:typeII}.  Both cases are impossible.
 \end{proof}
 
 \section{Role in the Type II argument}
 
-The local concentration theorem gives positive local CKN concentration at any singular
-point.  After the local Type I tangent case is removed, the nondegenerate
-single-core Type II case is excluded by \cref{thm:single-core-criterion}.  Failure
-of compact-cylinder suitable compactness or localized gauge nondegeneracy is a
-multibubble or cascade case, handled by the local multibubble/cascade analysis.
+The local concentration theorem gives positive local CKN concentration at any singular point.  After the Type I tangent alternative is separated off by the definition of the local Type II regime, the nondegenerate finite-cost single-core case is excluded by \cref{thm:single-core-criterion}.  Failure of compact-cylinder suitable compactness or localized gauge nondegeneracy is a multibubble or cascade case, handled by the local multibubble/cascade paper.
 
 \end{document}

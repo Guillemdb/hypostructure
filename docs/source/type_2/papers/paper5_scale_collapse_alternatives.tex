@@ -25,11 +25,10 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title[Scale Collapse for Type II Rescalings]{Scale-Collapse Dichotomy for Type II Navier--Stokes Rescalings}
+\title[Scale Collapse for Type II Rescalings]{Scale-Collapse Cost Exclusion for Type II Navier--Stokes Rescalings}
 \author{Guillem Cordero}
 \date{}
 
@@ -38,21 +37,20 @@
 \begin{abstract}
 We analyze Type II Navier--Stokes rescalings for which the renormalized scale
 collapses along the tail.  In a scale-translation gauge, the logarithmic scale
-satisfies \(\partial_\tau\log\lambda=a\).  If the collapsing rescaling retains a
+satisfies \(\partial_\tau\log\lambda=a\).  If the collapsing rescaling has a
 nonzero localized \(L^2\) core, then the negative part of the scale drift has
-infinite localized accumulation.  This gives a scale-drift dichotomy.
-If instead one seeks a structural PDE description of the same class,
-then additional compactness, convergence of modulation parameters, and limiting profile hypotheses reduce
-the rescaling to a nonzero stationary solution of a generalized self-similar
-Navier--Stokes profile equation.  In parameter ranges covered by an appropriate
-Liouville or rigidity theorem, the scale-collapse rescaling is excluded; outside
-those ranges the remaining question is the corresponding stationary or
-generalized self-similar Liouville problem.
+infinite localized accumulation.  This infinite accumulation is itself the
+scale-collapse Type II cost.  Consequently finite-cost Type II branches cannot
+realize genuine scale collapse with a nonvanishing localized core.  An absolute
+scale-drift cost gives the same conclusion by pointwise domination.  We also
+record the autonomous stationary-profile reduction as a secondary rigidity
+route; it is not needed for the finite-cost scale-collapse exclusion.
+This paper uses the standard Navier--Stokes theory for suitable weak solutions (Leray \cite{Leray1934}, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer \cite{Scheffer1976}, and Lin \cite{Lin1998}).
 \end{abstract}
 
 \maketitle
 
-\section{Introduction}
+\section{Renormalized scale collapse}
 
 Let \((u,p)\) be a suitable weak solution of the three-dimensional incompressible
 Navier--Stokes equations
@@ -60,7 +58,7 @@ Navier--Stokes equations
   \partial_tu+(u\cdot\nabla)u+\nabla p=\nu\Delta u,
   \qquad \nabla\cdot u=0,
 \]
-near a putative Type II singular time.  We study a terminal rescaling written
+near a putative Type II singular time.  We consider a terminal rescaling written
 in a scale-translation gauge:
 \[
   u(x,t)=\lambda(\tau)^{-1}V\left(\frac{x-X(\tau)}{\lambda(\tau)},\tau\right),
@@ -73,115 +71,57 @@ where \(\lambda(\tau)>0\).  The corresponding renormalized equation is
   =\nu\Delta V+a(\tau)(V+y\cdot\nabla V)+b(\tau)\cdot\nabla V,
   \qquad \nabla\cdot V=0.
 \end{equation}
-The convention used throughout is
+The scale convention is
 \begin{equation}\label{eq:log-scale-convention}
   \frac{d}{d\tau}\log\lambda(\tau)=a(\tau).
 \end{equation}
 Thus physical scale collapse \(\lambda(\tau)\to0\) is associated with negative
 logarithmic scale drift.
 
-The preceding reductions isolate compact, radiative, multibubble, and
-rough-core mechanisms.  This paper treats the remaining scale-collapse mechanism
-in two complementary ways.  First, it records the exact finite-or-infinite
-alternative for the localized negative scale drift.  Second, it gives the
-conditional autonomous-limit compactness-based reduction on thick scale-collapse windows.
-
-The basic localized mass is
-\[
-  M_R(\tau)=\int_{\mathbb R^3}|V(y,\tau)|^2\Phi(\tau,y)\,dy,
-\]
-where \(0\le\Phi\le1\) is a smooth moving cutoff adapted to the scale-collapse
-core.  The scale-drift density is
-\[
-  \mathcal C_{\rm sc}(\tau)=a_-(\tau)M_R(\tau),
-  \qquad a_-(\tau)=\max\{-a(\tau),0\}.
-\]
-If \(\lambda(\tau)\to0\) and the localized core has a positive \(L^2\) floor,
-then
-\[
-  \int_{\tau_0}^\infty \mathcal C_{\rm sc}(\tau)\,d\tau=\infty.
-\]
-This gives the localized scale-drift dichotomy.
-
-The same scale-collapse class can also be analyzed through compactness.  On selected
-windows \([\tau_n,\tau_n+T]\), if the translated solutions are locally compact
-and if
-\[
-  a(\tau_n+\cdot)\to a_\infty,
-  \qquad b(\tau_n+\cdot)\to b_\infty
-\]
-in a topology strong enough to pass the coefficient terms in distributions,
-then a subsequence converges to a nonzero solution of the autonomous equation
-\begin{equation}\label{eq:autonomous-limit}
-  \partial_s U+(U\cdot\nabla)U+\nabla\Pi
-  =\nu\Delta U+a_\infty(U+y\cdot\nabla U)+b_\infty\cdot\nabla U,
-  \qquad \nabla\cdot U=0.
-\end{equation}
-With an additional stationary limiting profile hypothesis, this yields a nonzero
-stationary profile \((W,Q)\) satisfying
-\begin{equation}\label{eq:stationary-profile}
-  (W\cdot\nabla)W+\nabla Q
-  =\nu\Delta W+a_\infty(W+y\cdot\nabla W)+b_\infty\cdot\nabla W,
-  \qquad \nabla\cdot W=0.
-\end{equation}
-The exclusion is then supplied by the relevant Liouville or rigidity theorem
-for \eqref{eq:stationary-profile}.  In the classical backward self-similar
-normalization this is the role of the theorem of
-Necas--Ruzicka--Sverak \cite{NecasRuzickaSverak1996}.  Other parameter ranges
-must be stated as separate Liouville hypotheses; forward self-similar
-Navier--Stokes profiles, for example, are not excluded by a blanket
-nonexistence statement.
-
-\begin{theorem}[Main scale-collapse alternative]\label{thm:intro-main}
-Let \((V,P,a,b,\lambda)\) satisfy \eqref{eq:renorm-ns} and
-\eqref{eq:log-scale-convention} on \([\tau_0,\infty)\).  Assume
-\(\lambda(\tau)\to0\) and assume that the localized core has a positive
-\(L^2\) floor.  Then the localized negative scale-drift cost has infinite total
-accumulation:
-\[
-  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau=\infty.
-\]
-If, in addition, there are thick scale-collapse windows with local compactness and
-convergent modulation coefficients, and a stationary limiting profile, then the
-rescaling produces a nonzero stationary solution of \eqref{eq:stationary-profile}.
-Consequently the scale-collapse rescaling is excluded in every parameter regime
-where the corresponding stationary or generalized self-similar Liouville theorem
-rules out such nonzero profiles in the admissible class.
-\end{theorem}
-
-\section{Scale drift and localized mass}
-
-\begin{definition}[Localized core mass]
 Let \(\Phi(\tau,\cdot)\in C_c^\infty(\mathbb R^3)\) be a nonnegative moving
-cutoff.  The associated localized core mass is
+cutoff adapted to the local scale-collapse core, and define
 \[
   M_R(\tau)=\int_{\mathbb R^3}|V(y,\tau)|^2\Phi(\tau,y)\,dy.
 \]
-We say that the rescaling has a nonvanishing localized core if there are
-\(m_0>0\) and \(\tau_1\ge\tau_0\) such that
+A nonvanishing localized core means that there are \(m_0>0\) and
+\(\tau_1\ge\tau_0\) such that
 \[
   M_R(\tau)\ge m_0
   \qquad\text{for a.e. }\tau\ge\tau_1.
 \]
-We say that the localized core is bounded above on a family of windows if
-\(M_R(\tau)\le M_1\) a.e. on those windows for some \(M_1<\infty\).
+
+\begin{definition}[Scale-collapse and absolute scale costs]
+The scale-collapse cost density is
+\[
+  \mathfrak C_{\rm sc}(\tau)=a_-(\tau)M_R(\tau),
+  \qquad a_-(\tau)=\max\{-a(\tau),0\}.
+\]
+The absolute scale-drift cost density is
+\[
+  \mathfrak C_{\rm abs}(\tau)
+  =\nu\int_{\mathbb R^3}|\nabla V(y,\tau)|^2\Phi(\tau,y)\,dy
+  +|a(\tau)|M_R(\tau).
+\]
+The corresponding cumulative costs on \([\tau_0,\infty)\) are the integrals of
+these nonnegative densities.
 \end{definition}
 
-\begin{definition}[Localized scale-drift cost]
-The localized scale-drift density and its cumulative cost are
+\begin{definition}[Finite-cost scale-collapse branch]\label{def:finite-cost-branch}
+A scale-collapse branch is finite-cost in the scale-collapse sense if
 \[
-  \mathcal C_{\rm sc}(\tau)=a_-(\tau)M_R(\tau),
-  \qquad
-  \mathcal C_{\rm sc}[\tau_0,\infty)
-  =\int_{\tau_0}^\infty \mathcal C_{\rm sc}(\tau)\,d\tau.
+  \int_{\tau_0}^\infty \mathfrak C_{\rm sc}(\tau)\,d\tau<\infty.
 \]
-The density is nonnegative and measures the inward logarithmic scale drift
-carried by the localized \(L^2\) core.
+It is finite-cost in the absolute scale-drift sense if
+\[
+  \int_{\tau_0}^\infty \mathfrak C_{\rm abs}(\tau)\,d\tau<\infty.
+\]
 \end{definition}
+
+\section{Scale-drift divergence}
 
 \begin{lemma}[Finite-or-infinite alternative]\label{lem:finite-infinite}
-For every measurable renormalized solution for which \(a_-M_R\) is measurable and
-nonnegative, exactly one of the following alternatives holds:
+For every measurable renormalized solution for which \(a_-M_R\) is measurable
+and nonnegative, exactly one of the following alternatives holds:
 \[
   \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau<\infty,
   \qquad\text{or}\qquad
@@ -192,25 +132,6 @@ nonnegative, exactly one of the following alternatives holds:
 \begin{proof}
 The integral is an extended nonnegative number.  Hence it is either finite or
 infinite, and the two cases are mutually exclusive.
-\end{proof}
-
-\begin{lemma}[Finite negative drift with bounded core mass]\label{lem:finite-negative-drift}
-Assume \(M_R(\tau)\le M_*\) for a.e. \(\tau\ge\tau_0\) and
-\[
-  \int_{\tau_0}^\infty a_-(\tau)\,d\tau<\infty.
-\]
-Then
-\[
-  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau<\infty.
-\]
-\end{lemma}
-
-\begin{proof}
-Since \(a_-\ge0\),
-\[
-  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau
-  \le M_*\int_{\tau_0}^\infty a_-(\tau)\,d\tau<\infty.
-\]
 \end{proof}
 
 \begin{lemma}[Logarithmic scale identity]\label{lem:log-scale}
@@ -227,14 +148,16 @@ This is the fundamental theorem of calculus applied to
 \(\partial_\tau\log\lambda=a\).
 \end{proof}
 
-\begin{theorem}[Collapse with a nonvanishing core forces infinite scale-drift cost]\label{thm:collapse-core-floor}
-Assume
+\begin{theorem}[Collapse with a nonvanishing core forces infinite scale-collapse cost]\label{thm:collapse-core-floor}
+If
 \[
   \lambda(\tau)\to0\qquad\text{as }\tau\to\infty,
 \]
-and assume that the rescaling has a nonvanishing localized core.  Then
+and the rescaling has a nonvanishing localized core, then
 \[
-  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau=\infty.
+  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau=
+  \int_{\tau_0}^\infty \mathfrak C_{\rm sc}(\tau)\,d\tau=
+  \infty.
 \]
 \end{theorem}
 
@@ -258,115 +181,91 @@ contradicting the divergence to \(-\infty\).  Thus
 The core floor gives \(M_R(\tau)\ge m_0\) for a.e. \(\tau\ge\tau_1\).  Hence
 \[
   \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau
-  \ge m_0\int_{\tau_1}^\infty a_-(\tau)\,d\tau=\infty.
+  \ge m_0\int_{\tau_1}^\infty a_-(\tau)\,d\tau=
+  \infty.
 \]
 \end{proof}
 
-\section{Finite-cost classes and scale-collapse costs}
+\section{Finite-cost exclusion}
 
-The previous theorem gives an infinite nonnegative quantity.  To use this
-quantity as an exclusion mechanism, the finite-cost class under consideration
-must be controlled by that quantity.  We state this as an analytic hypothesis on
-the class of scale-collapse rescalings.
-
-\begin{assumption}[Finite-cost class controlled by scale drift]\label{ass:scale-cost}
-For the scale-collapse class under consideration, membership in the finite-cost
-class implies finiteness of the nonnegative measurable functional
-\[
-  \mathcal C_{\rm sc}[\tau_0,\infty)
-  =\int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau
-\]
-on the rescaling.  Equivalently, a rescaling for which
-\(\mathcal C_{\rm sc}[\tau_0,\infty)=\infty\) does not belong to the
-finite-cost class.
-\end{assumption}
-
-\begin{theorem}[Cost exclusion for scale collapse]\label{thm:cost-exclusion}
-Assume that the finite-cost class is controlled by scale drift.  If
-\[
-  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau=\infty,
-\]
-then the finite-cost scale-collapse rescaling is excluded.
+\begin{theorem}[Scale-collapse cost exclusion]\label{thm:cost-exclusion}
+No finite-cost scale-collapse branch in the sense of
+\cref{def:finite-cost-branch} can satisfy both
+\(\lambda(\tau)\to0\) and the nonvanishing localized-core condition.
 \end{theorem}
 
 \begin{proof}
-The divergent localized scale-drift cost is incompatible with membership in the
-finite-cost class by \cref{ass:scale-cost}.
+By \cref{thm:collapse-core-floor}, genuine scale collapse with a nonvanishing
+localized core gives
+\[
+  \int_{\tau_0}^\infty \mathfrak C_{\rm sc}(\tau)\,d\tau=\infty.
+\]
+This contradicts finite cost in the scale-collapse sense.
 \end{proof}
 
-\begin{definition}[Absolute scale cost]
-Let
+\begin{lemma}[Absolute cost domination]\label{lem:absolute-cost}
+For every \(\tau\),
 \[
-  \mathcal C_{\rm abs}(\tau)
-  =\nu\int_{\mathbb R^3}|\nabla V(y,\tau)|^2\Phi(\tau,y)\,dy
-  +|a(\tau)|M_R(\tau).
+  \mathfrak C_{\rm abs}(\tau)\ge \mathfrak C_{\rm sc}(\tau).
 \]
-\end{definition}
-
-\begin{lemma}[Scale-drift divergence implies absolute cost divergence]\label{lem:absolute-cost}
-If
+Consequently,
 \[
-  \int_{\tau_0}^\infty a_-(\tau)M_R(\tau)\,d\tau=\infty,
-\]
-then
-\[
-  \int_{\tau_0}^\infty \mathcal C_{\rm abs}(\tau)\,d\tau=\infty.
+  \int_{\tau_0}^\infty \mathfrak C_{\rm sc}(\tau)\,d\tau=\infty
+  \quad\Longrightarrow\quad
+  \int_{\tau_0}^\infty \mathfrak C_{\rm abs}(\tau)\,d\tau=\infty.
 \]
 \end{lemma}
 
 \begin{proof}
 Pointwise,
 \[
-  \mathcal C_{\rm abs}(\tau)
+  \mathfrak C_{\rm abs}(\tau)
+  =\nu\int |\nabla V|^2\Phi+|a(\tau)|M_R(\tau)
   \ge |a(\tau)|M_R(\tau)
-  \ge a_-(\tau)M_R(\tau).
+  \ge a_-(\tau)M_R(\tau)=\mathfrak C_{\rm sc}(\tau).
 \]
-Integrating gives the claim.
+Integrating gives the implication.
 \end{proof}
 
-\begin{corollary}[Absolute cost exclusion]\label{cor:absolute-cost-exclusion}
-If the finite-cost class is controlled by \(\int\mathcal C_{\rm abs}\), then
-every rescaling satisfying the conclusion of \cref{thm:collapse-core-floor} is
-excluded from the finite-cost class.
+\begin{corollary}[Absolute scale-cost exclusion]\label{cor:absolute-cost-exclusion}
+No finite-cost scale-collapse branch in the absolute scale-drift sense can
+satisfy both \(\lambda(\tau)\to0\) and the nonvanishing localized-core condition.
 \end{corollary}
 
 \begin{proof}
-Apply \cref{lem:absolute-cost} and then the assumed absolute cost criterion.
+Combine \cref{thm:collapse-core-floor,lem:absolute-cost}.  The resulting
+infinite absolute scale-drift cost contradicts finite cost in the absolute
+scale-drift sense.
 \end{proof}
 
-\section{Thick drift and autonomous reduction}
+\section{Autonomous rigidity route}
 
-The infinite weighted drift in \cref{thm:collapse-core-floor} does not by itself
-produce a fixed-length window with a uniform negative average.  A bounded
-nonnegative function may have infinite integral while its unit-window averages
-tend to zero.  The autonomous profile reduction therefore requires a
-separate thickness hypothesis.
+The cost route above is the scale-collapse exclusion used in the finite-cost
+Type II analysis.  There is also a secondary PDE rigidity route.  It is useful
+when one wants to identify the scale-collapse obstruction with a stationary or
+generalized self-similar profile.  This route is not needed for
+\cref{thm:cost-exclusion,cor:absolute-cost-exclusion}.
 
-\begin{definition}[Thick negative-drift windows]
-The rescaling has thick negative-drift windows if there are \(T>0\), \(c>0\), and
-\(\tau_n\to\infty\) such that
+\begin{definition}[Thick autonomous scale-collapse windows]
+A scale-collapse rescaling has thick autonomous windows if there are
+\(T>0\), \(c>0\), \(\tau_n\to\infty\), constants
+\(a_\infty\in\mathbb R\), \(b_\infty\in\mathbb R^3\), and a constant
+\(M_1<\infty\) such that
 \[
-  \frac1T\int_{\tau_n}^{\tau_n+T}a_-(\tau)M_R(\tau)\,d\tau\ge c
-  \qquad\text{for every }n.
+  \frac1T\int_{\tau_n}^{\tau_n+T}a_-(\tau)M_R(\tau)\,d\tau\ge c,
+  \qquad M_R(\tau)\le M_1
 \]
-\end{definition}
-
-\begin{definition}[Autonomous parameter limit]
-On the same windows \([\tau_n,\tau_n+T]\), assume there are constants
-\(a_\infty\in\mathbb R\) and \(b_\infty\in\mathbb R^3\) such that
+for a.e. \(\tau\in[\tau_n,\tau_n+T]\), and
 \[
   a(\tau_n+\cdot)\to a_\infty,
-  \qquad
-  b(\tau_n+\cdot)\to b_\infty
+  \qquad b(\tau_n+\cdot)\to b_\infty
 \]
-in a coefficient topology sufficient to pass the products
-\(a(V+y\cdot\nabla V)\) and \(b\cdot\nabla V\) to the limit in distributions.
-Strong convergence in \(L^1(0,T)\) is sufficient.
+in a coefficient topology sufficient to pass the coefficient terms in
+distributions.  Strong convergence in \(L^1(0,T)\) is sufficient.
 \end{definition}
 
 \begin{lemma}[Thick drift gives a negative autonomous scale parameter]\label{lem:negative-parameter}
-Assume thick negative-drift windows, assume \(M_R\le M_1\) on these windows, and
-assume \(a(\tau_n+\cdot)\to a_\infty\) in \(L^1(0,T)\).  Then
+On thick autonomous scale-collapse windows,
 \[
   a_\infty\le -c/M_1<0.
 \]
@@ -377,150 +276,70 @@ The upper mass bound and thick weighted drift give
 \[
   \frac1T\int_{\tau_n}^{\tau_n+T}a_-(\tau)\,d\tau\ge c/M_1.
 \]
-After translation and \(L^1(0,T)\) convergence of \(a\) to the constant
-\(a_\infty\), the left-hand side converges to \((-a_\infty)_+\).  Therefore
+After translation and \(L^1(0,T)\) convergence of \(a\) to \(a_\infty\), the
+left-hand side converges to \((-a_\infty)_+\).  Therefore
 \((-a_\infty)_+\ge c/M_1\), which gives the claim.
 \end{proof}
 
-\section{Autonomous limit reduction}
-
-\begin{assumption}[Compactness on selected windows]\label{ass:compactness}
-For the selected windows \([\tau_n,\tau_n+T]\), define
+\begin{theorem}[Autonomous reduced-limit route]\label{thm:autonomous-limit}
+Consider translated windows
 \[
   V_n(y,s)=V(y,\tau_n+s),
   \qquad P_n(y,s)=P(y,\tau_n+s),
   \qquad 0<s<T.
 \]
-For every bounded ball \(B_R\), the sequence \((V_n)\) is precompact strongly in
-\(L^2(0,T;L^q(B_R))\) for every \(q<6\), weakly compact in
-\(L^2(0,T;H^1(B_R))\), and weak-* compact in
-\(L^\infty(0,T;L^3(B_R))\).  The pressures are normalized modulo
-functions of time and converge locally in a topology sufficient to pass
-\[
-  -\Delta P=\partial_i\partial_j(V_iV_j)
-\]
-to the limit.
-\end{assumption}
-
-\begin{theorem}[Autonomous reduced limit]\label{thm:autonomous-limit}
-Assume compactness on selected windows, assume uniform local CKN bounds on each
-compact cylinder, assume the autonomous parameter limit, and assume that a
-localized \(L^2\) floor passes to the limit on a fixed compact interior region.  Then,
-after passing to a subsequence, \((V_n,P_n)\) converges to a nonzero weak
-solution \((U,\Pi)\) of \eqref{eq:autonomous-limit} on
-\(\mathbb R^3\times(0,T)\).  Moreover
-\[
-  U\in L^\infty(0,T;L^3_{\rm loc}(\mathbb R^3)),
-\]
-and the pressure satisfies
-\[
-  -\Delta\Pi=\partial_i\partial_j(U_iU_j)
-\]
-modulo functions of \(s\).
+If, on thick autonomous scale-collapse windows, the sequence \((V_n,P_n)\) is
+locally compact strongly enough to pass the nonlinear and pressure terms and the
+localized core floor passes to a compact subcutoff in the limit, then after
+passing to a subsequence \((V_n,P_n)\) converges to a nonzero weak solution
+\((U,\Pi)\) of
+\begin{equation}\label{eq:autonomous-limit}
+  \partial_s U+(U\cdot\nabla)U+\nabla\Pi
+  =\nu\Delta U+a_\infty(U+y\cdot\nabla U)+b_\infty\cdot\nabla U,
+  \qquad \nabla\cdot U=0.
+\end{equation}
 \end{theorem}
 
 \begin{proof}
-The local weak-* \(L^\infty L^3\) bounds follow from the uniform local CKN bounds on compact cylinders.
-The local \(L^2H^1\) bound and time compactness are included in
-\cref{ass:compactness}, so Aubin--Lions compactness gives strong local
-convergence in \(L^2(0,T;L^q(B_R))\) for every \(q<6\).  This strong local
-convergence, together with weak \(L^2H^1\) convergence, passes the nonlinear
-term to \((U\cdot\nabla)U\) in distributions.  The pressure convergence passes
-the Poisson reconstruction to \(\Pi\).
-
-The autonomous parameter limit passes the coefficient terms to
-\(a_\infty(U+y\cdot\nabla U)\) and \(b_\infty\cdot\nabla U\).  Hence the limit
-solves \eqref{eq:autonomous-limit}.  The localized \(L^2\) floor passes
-to the limit by the assumed convergence on the compact interior region, so
+The local \(L^2H^1\) bound and time compactness give, by Aubin--Lions, strong
+local convergence in \(L^2(0,T;L^q(B_R))\) for every \(q<6\).  This strong
+local convergence, together with weak \(L^2H^1\) convergence, passes the
+nonlinear term to \((U\cdot\nabla)U\) in distributions.  The pressure
+convergence passes the Poisson reconstruction to \(\Pi\).  The modulation-limit
+convergence passes the coefficient terms to
+\(a_\infty(U+y\cdot\nabla U)\) and \(b_\infty\cdot\nabla U\).  The localized
+\(L^2\) floor passes to the limit on a compact subcutoff, so
 \(U\not\equiv0\).
 \end{proof}
 
-\section{Stationary profiles and rigidity}
+\begin{theorem}[Stationary-profile rigidity route]\label{thm:stationary-route}
+If the autonomous limit in \cref{thm:autonomous-limit} has a nonzero stationary
+omega-limit \((W,Q)\) in a class where the corresponding stationary or
+generalized self-similar Liouville theorem applies, then the scale-collapse
+branch is excluded by that rigidity theorem.
+\end{theorem}
 
-The autonomous limit theorem gives a solution on translated finite windows.  It
-does not by itself produce a stationary profile.  That step requires an
-additional asymptotic compactness or Lyapunov input.
-
-\begin{assumption}[Stationary limiting profile]\label{ass:stationary-omega}
-The autonomous limit \((U,\Pi)\) produced by \cref{thm:autonomous-limit} has a
-nonzero stationary limiting profile \((W,Q)\) satisfying
-\[
-  W\in L^3_{\rm loc}(\mathbb R^3),
-\]
-and
+\begin{proof}
+The stationary omega-limit satisfies
 \[
   (W\cdot\nabla)W+\nabla Q
   =\nu\Delta W+a_\infty(W+y\cdot\nabla W)+b_\infty\cdot\nabla W,
   \qquad \nabla\cdot W=0.
 \]
-The solution belongs to the admissibility class required by the rigidity theorem
-used for the parameter pair \((a_\infty,b_\infty)\); if that theorem requires
-spatial decay or integrability, those requirements are part of the rigidity
-hypothesis, not of the Type II reduction.
-\end{assumption}
-
-\begin{assumption}[Stationary rigidity for the limiting parameters]\label{ass:rigidity}
-For the parameter pair \((a_\infty,b_\infty)\), every admissible stationary
-solution \((W,Q)\) of \eqref{eq:stationary-profile} in the class specified by
-the relevant Liouville or rigidity theorem is either zero or cannot arise as a
-terminal Type II scale-collapse profile in the class under consideration.
-\end{assumption}
-
-\begin{theorem}[Conditional self-similar exclusion]\label{thm:selfsimilar-exclusion}
-Assume the hypotheses of \cref{thm:autonomous-limit}, the stationary limiting profile
-assumption, and the stationary rigidity assumption for \((a_\infty,b_\infty)\).
-Then the scale-collapse rescaling is excluded in that parameter regime.
-\end{theorem}
-
-\begin{proof}
-By \cref{thm:autonomous-limit}, the rescaling produces a nonzero autonomous limit.
-By the stationary limiting profile assumption, this yields a nonzero stationary
-profile \((W,Q)\) in the admissible class for \((a_\infty,b_\infty)\).  The
-stationary rigidity assumption says that no such nonzero profile can arise from
-a terminal Type II scale-collapse profile in the class under consideration.  This
-contradicts the assumption that the rescaling belongs to that class.
+It is nonzero by construction.  The applicable Liouville or rigidity theorem
+rules out such a nonzero admissible stationary profile, giving a contradiction.
 \end{proof}
 
-\begin{remark}[Classical and nonclassical parameter regimes]
-When \(a_\infty<0\) and the parameters can be reduced to the classical backward
-self-similar normalization, the needed rigidity is modeled on the
-Necas--Ruzicka--Sverak theorem excluding nontrivial Leray self-similar profiles
-in the classical admissible class \cite{NecasRuzickaSverak1996}.  For other
-negative values, for drifted equations with \(b_\infty\ne0\), or for the
-stationary case \(a_\infty=0\), the paper records the corresponding Liouville
-question as an explicit assumption unless an appropriate theorem is supplied.
-Forward self-similar solution classes require special care because nontrivial
-forward self-similar Navier--Stokes solutions may exist in large-data settings.
+\begin{remark}[Role of the autonomous route]
+The autonomous route is a structural description of a special scale-collapse
+subcase.  Infinite scale-drift cost alone does not force thick windows,
+coefficient convergence, a stationary omega-limit, or a parameter-specific
+Liouville theorem.  Those conditions are not needed for the finite-cost
+scale-collapse exclusion, which follows directly from
+\cref{thm:cost-exclusion,cor:absolute-cost-exclusion}.
 \end{remark}
 
-\section{Summary of cases}
-
-The scale-collapse class is therefore divided as follows.
-
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item If the localized negative scale-drift cost is finite, then the moving
-localized energy procedure may absorb the negative scale term together with the
-remaining finite error terms.
-\item If the localized negative scale-drift cost is infinite and the finite-cost
-class is controlled by that cost, then the finite-cost scale-collapse rescaling is
-excluded.
-\item If one does not use the cost criterion but has thick windows, compactness,
-modulation convergence, a stationary limiting profile, and parameter-specific
-rigidity, then the rescaling is excluded through the generalized self-similar
-profile equation.
-\item If the infinite drift is thin or oscillatory, or if compactness,
-modulation convergence, the stationary limiting profile, or the relevant Liouville
-theorem is unavailable, the remaining obstruction is the corresponding PDE
-hypothesis listed above.
-\end{enumerate}
-
-\begin{thebibliography}{NRS96}
-
-\bibitem[NRS96]{NecasRuzickaSverak1996}
-J. Necas, M. Ruzicka, and V. Sverak,
-On Leray's self-similar solutions of the Navier--Stokes equations,
-\emph{Acta Math.} \textbf{176} (1996), 283--294.
-
-\end{thebibliography}
+\bibliographystyle{alpha}
+\bibliography{paper5_scale_collapse_alternatives}
 
 \end{document}

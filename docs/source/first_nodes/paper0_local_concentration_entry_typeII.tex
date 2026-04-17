@@ -57,9 +57,9 @@
 \begin{document}
 
 \begin{abstract}
-We prove the local analytic reduction that precedes any classification of a
-three-dimensional Navier--Stokes singularity by blowup rate.  For a suitable
-weak solution, a singular point at time \(T\) must carry a positive amount of
+We prove a local analytic reduction for possible finite-time singularities of
+the three-dimensional Navier--Stokes equations.  For a suitable weak solution,
+a singular point at time \(T\) must carry a positive amount of
 the pressure-normalized Caffarelli--Kohn--Nirenberg critical density on
 arbitrarily small backward parabolic cylinders.  If that density vanishes at
 each point of the singular set, the solution is regular at time \(T\) by the
@@ -78,11 +78,19 @@ incompressible Navier--Stokes equations
   \partial_t u+u\cdot\nabla u+\nabla p=\Delta u,
   \qquad \nabla\cdot u=0.
 \]
-We use the standard normalization in which the viscosity is one.  We work with
-suitable weak solutions in the sense of Caffarelli, Kohn, and Nirenberg
-\cite{CKN1982}, in the setting of Leray's weak solution theory
-\cite{Leray1934}.  This paper proves the local reduction from a possible
+We use the standard normalization in which the viscosity is one.  The weak
+solution theory goes back to Leray \cite{Leray1934}.  Suitable weak solutions
+and their partial regularity theory were introduced and developed by Scheffer
+\cite{Scheffer1976} and by Caffarelli, Kohn, and Nirenberg \cite{CKN1982}; see
+also Lin \cite{Lin1998}.  This paper proves the local reduction from a possible
 singularity at time \(T\) to the Type I/Type II blowup-rate dichotomy.
+
+Scale-invariant regularity and blow-up criteria form the standard background for
+this formulation; see Serrin \cite{Serrin1962}, Giga \cite{Giga1986},
+Escauriaza--Seregin--{\v S}verak \cite{ESS2003}, and Seregin
+\cite{Seregin2012}.  The proof below uses this literature only for context; its
+external analytic input is the Caffarelli--Kohn--Nirenberg epsilon-regularity
+theorem.
 
 The argument has four parts.  First, the pressure-normalized critical
 quantities \(C\) and \(D\) are finite for suitable weak solutions and invariant
@@ -94,8 +102,9 @@ bounded below by a positive constant.  Finally, once such a sequence is fixed,
 it either satisfies a Type I scale-invariant bound or falls in the local
 Type II alternative.
 
-The reduction is purely local.  It does not use profile decompositions, global
-compactness theorems, decay statements, or Liouville theorems.
+The proof is local in spacetime.  Apart from the standard
+Caffarelli--Kohn--Nirenberg epsilon-regularity theorem, all quantities and
+alternatives used in the argument are defined below.
 
 \section{Suitable Weak Solutions and Singular Points}
 
@@ -251,10 +260,10 @@ then \(u\) is locally bounded in a smaller cylinder, for instance in
 
 \begin{proof}
 This is the local epsilon-regularity theorem of
-Caffarelli--Kohn--Nirenberg \cite{CKN1982}, stated with the pressure
-normalization used in \(D\).  Equivalent representatives of the pressure differ
-by functions of time, and the spatial mean subtraction on \(B_r(x_0)\) removes
-this ambiguity.
+Caffarelli--Kohn--Nirenberg \cite{CKN1982}; see also Lin \cite{Lin1998}.  It is
+stated here with the pressure normalization used in \(D\).  Equivalent
+representatives of the pressure differ by functions of time, and the spatial
+mean subtraction on \(B_r(x_0)\) removes this ambiguity.
 \end{proof}
 
 \begin{definition}[Vanishing local critical density at time \(T\)]
@@ -492,7 +501,7 @@ local Type II alternative if no local Type I scale-invariant bound holds at
 \]
 \end{definition}
 
-\begin{theorem}[Local blowup-rate dichotomy]\label{thm:entry}
+\begin{theorem}[Local blowup-rate dichotomy]\label{thm:blowup-rate-dichotomy}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and suppose \(\Sigma(T)\ne\emptyset\).
 Then there exist \(x_0\in\Sigma(T)\),
@@ -520,10 +529,10 @@ bound.  The rescaled sequence has positive local critical density by
 \end{proof}
 
 \begin{remark}
-The preceding theorem is local.  It does not assert global regularity, scattering,
-profile classification, Type I rigidity, or exclusion of Type II concentration.
-It proves only the local CKN concentration step and the ensuing blowup-rate
-dichotomy.
+The preceding theorem is a local statement.  Its conclusion is the existence of
+a positive pressure-normalized CKN concentration sequence and the dichotomy
+between a local Type I bound and failure of every such bound at the concentration
+point.
 \end{remark}
 
 \begin{thebibliography}{9}
@@ -532,13 +541,54 @@ dichotomy.
 L.~Caffarelli, R.~Kohn, and L.~Nirenberg,
 \emph{Partial regularity of suitable weak solutions of the Navier--Stokes
  equations},
-Comm. Pure Appl. Math. \textbf{35} (1982), no. 6, 771--831.
+Comm. Pure Appl. Math. \textbf{35} (1982), no. 6, 771--831,
+doi:\ \nolinkurl{10.1002/cpa.3160350604}.
+
+\bibitem{ESS2003}
+L.~Escauriaza, G.~A.~Seregin, and V.~{\v S}verak,
+\emph{\(L_{3,\infty}\)-solutions of the Navier--Stokes equations and
+ backward uniqueness},
+Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250,
+doi:\ \nolinkurl{10.1070/RM2003v058n02ABEH000609}.
+
+\bibitem{Giga1986}
+Y.~Giga,
+\emph{Solutions for semilinear parabolic equations in \(L^p\) and regularity
+ of weak solutions of the Navier--Stokes system},
+J. Differential Equations \textbf{62} (1986), no. 2, 186--212,
+doi:\ \nolinkurl{10.1016/0022-0396(86)90096-3}.
 
 \bibitem{Leray1934}
 J.~Leray,
 \emph{Sur le mouvement d'un liquide visqueux emplissant l'espace},
-Acta Math. \textbf{63} (1934), no. 1, 193--248.
+Acta Math. \textbf{63} (1934), no. 1, 193--248,
+doi:\ \nolinkurl{10.1007/BF02547354}.
 
+\bibitem{Lin1998}
+F.-H.~Lin,
+\emph{A new proof of the Caffarelli--Kohn--Nirenberg theorem},
+Comm. Pure Appl. Math. \textbf{51} (1998), no. 3, 241--257,
+doi:\ \nolinkurl{10.1002/(SICI)1097-0312(199803)51:3<241::AID-CPA2>3.0.CO;2-A}.
+
+\bibitem{Scheffer1976}
+V.~Scheffer,
+\emph{Partial regularity of solutions to the Navier--Stokes equations},
+Pacific J. Math. \textbf{66} (1976), no. 2, 535--552,
+doi:\ \nolinkurl{10.2140/pjm.1976.66.535}.
+
+\bibitem{Seregin2012}
+G.~Seregin,
+\emph{A certain necessary condition of potential blow up for Navier--Stokes
+ equations},
+Comm. Math. Phys. \textbf{312} (2012), no. 3, 833--845,
+doi:\ \nolinkurl{10.1007/s00220-011-1391-x}.
+
+\bibitem{Serrin1962}
+J.~Serrin,
+\emph{On the interior regularity of weak solutions of the Navier--Stokes
+ equations},
+Arch. Rational Mech. Anal. \textbf{9} (1962), 187--195,
+doi:\ \nolinkurl{10.1007/BF00253344}.
 
 \end{thebibliography}
 

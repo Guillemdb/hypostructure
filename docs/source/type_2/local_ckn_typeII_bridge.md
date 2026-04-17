@@ -1,11 +1,11 @@
 # Local CKN bridge into the Type II exclusion theorem
 
-This note replaces the former whole-space critical-norm entry point by a local
-Caffarelli-Kohn-Nirenberg entry point.  It proves the entry reduction from a
+This note replaces the former whole-space critical-norm starting point by a local
+Caffarelli-Kohn-Nirenberg starting point.  It proves the initial reduction from a
 suitable weak singularity to positive local concentration and records exactly
 which local Type II statements must be used downstream.  No whole-space
 critical-norm bound, whole-space tightness statement, or terminal profile
-decomposition is assumed in this bridge.
+decomposition is assumed from this reduction.
 
 Throughout, \((u,p)\) is a suitable weak solution of the three-dimensional
 Navier-Stokes equations on \(\mathbb R^3\times(T-\delta,T)\).  For
@@ -43,7 +43,7 @@ C((x_0,T),r_n)+D((x_0,T),r_n)\ge \eta
 
 :::{prf:proof}
 This is the contrapositive of CKN epsilon regularity, in the pressure-normalized
-form stated in the local concentration-entry notes.  If the displayed limsup were zero, then
+form stated in the local concentration theorem notes.  If the displayed limsup were zero, then
 for some sufficiently small \(r\) the quantity \(C((x_0,T),r)+D((x_0,T),r)\)
 would be below the universal epsilon-regularity threshold.  The point
 \((x_0,T)\) would then be regular, contrary to hypothesis.  \(\square\)
@@ -204,7 +204,7 @@ unique core has not been selected at that scale; this is the gauge-degenerate
 part of the multibubble alternative.
 
 Thus repaired-gauge solvability is a local implicit-function theorem on the
-single-core branch.  It is not a whole-space entry assumption.
+single-core branch.  It is not a whole-space starting assumption.
 
 ## 6. Local consequences used downstream
 
@@ -228,7 +228,7 @@ condition.
 
 ## 7. Local Type II criteria
 
-The local criteria used after this bridge are implemented in
+The local criteria used after this bridge are established in
 [local_typeII_exclusion_assembly.md](local_typeII_exclusion_assembly.md).  They
 adapt the earlier good-window compact argument and the multibubble/cascade
 decoupling theorems to the local CKN entry.
@@ -278,7 +278,7 @@ These alternatives exhaust all positive local Type II concentration branches.
 Therefore no Type II singularity occurs.  \(\square\)
 :::
 
-The theorem shows that the former whole-space entry hypotheses have been
+The theorem shows that the former whole-space starting assumptions have been
 removed from the Type II exclusion route.  After the local Type I tangent criterion, the local
 CKN bridge plus the adapted single-core and multibubble/cascade criteria exclude
 all Type II branches.

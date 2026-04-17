@@ -56,4 +56,4 @@ cylinder \(Q_{R_1}\),
 ::::
 
 This compactness input is not part of the epsilon-regularity argument.  It is
-only the entry point for subsequent Type I or Type II blow-up analysis.
+only the starting point for subsequent Type I or Type II blow-up analysis.

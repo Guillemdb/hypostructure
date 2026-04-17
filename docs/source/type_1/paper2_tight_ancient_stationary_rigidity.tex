@@ -192,12 +192,39 @@ satisfies
 \]
 \end{proposition}
 
-\begin{remark}
-Under the same global \(L^\infty_tL^3_x\) assumption, Type I blow-up is
-already excluded by the theorem of Escauriaza--Seregin--Sverak
-\cite{ESS2003}.  The proposition is included only to record the scaling of
-the critical norm.
-\end{remark}
+\begin{theorem}[Escauriaza--Seregin--Sverak critical \(L^3\) criterion]
+\label{thm:ESS-L3}
+Let \((u,p)\) be a finite-energy suitable weak solution of the
+Navier--Stokes equations on \(\mathbb R^3\times(0,T)\).  If
+\[
+   \sup_{0<t<T}\|u(t)\|_{L^3(\mathbb R^3)}<\infty ,
+\]
+then no point of \(\mathbb R^3\times\{T\}\) is singular.
+\end{theorem}
+
+\begin{proof}
+This is the endpoint regularity theorem of Escauriaza--Seregin--Sverak
+\cite{ESS2003}.  The statement is used here only in its standard
+contrapositive form: a finite-time singularity at time \(T\) forces
+\(\|u(t)\|_{L^3(\mathbb R^3)}\) to become unbounded as \(t\uparrow T\).
+\end{proof}
+
+\begin{corollary}[Source-level critical \(L^3\) branch is closed]
+\label{cor:source-L3-branch}
+A finite-energy Type I singularity cannot occur for a suitable weak solution
+satisfying
+\[
+   u\in L^\infty(0,T;L^3(\mathbb R^3)).
+\]
+Consequently the Seregin blow-up analysis of Type I singularities is needed
+only outside the global critical \(L^\infty_tL^3_x\) regime.
+\end{corollary}
+
+\begin{proof}
+The asserted \(L^\infty_tL^3_x\) bound is exactly the hypothesis of
+\Cref{thm:ESS-L3}.  Hence there is no singular point at time \(T\), and in
+particular no Type I singular point.
+\end{proof}
 
 \begin{theorem}[Small bounded ancient solutions vanish]\label{thm:small}
 There exists an absolute constant \(\varepsilon_0>0\) with the following property.  If
@@ -252,6 +279,47 @@ Every nonzero bounded mild ancient solution of \eqref{eq:centered} satisfies
 \]
 where \(\varepsilon_0\) is the constant in \cref{thm:small}.
 \end{corollary}
+
+\begin{corollary}[Unconditional small-amplitude exclusion]\label{cor:small-branch}
+Let \(V\) be a bounded mild ancient solution of \eqref{eq:centered}.  If
+\[
+   \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le\varepsilon_0,
+\]
+where \(\varepsilon_0\) is the constant in \cref{thm:small}, then
+\[
+   V\equiv0.
+\]
+Consequently no nonzero Type I ancient limit in centered variables can belong
+to this small-amplitude class.
+\end{corollary}
+
+\begin{proof}
+The first assertion is exactly \cref{thm:small}.  A nonzero Type I ancient
+limit has a nonvanishing normalization inherited from the blow-up construction,
+so it cannot be identically zero.
+\end{proof}
+
+\begin{corollary}[Unconditional stationary \(L^3\) exclusion]\label{cor:stationary-L3-branch}
+Let \(V\) be a bounded mild ancient solution of \eqref{eq:centered}.  Suppose
+that \(V\) is stationary, \(V(y,\tau)=W(y)\), and
+\[
+   W\in L^3(\mathbb R^3).
+\]
+Then
+\[
+   V\equiv0.
+\]
+Consequently no nonzero Type I ancient limit in centered variables can be both
+stationary and globally \(L^3\).
+\end{corollary}
+
+\begin{proof}
+Substituting \(V(y,\tau)=W(y)\) into \eqref{eq:centered} gives the stationary
+self-similar equation \eqref{eq:stationary-profile}.  Since
+\(W\in L^3(\mathbb R^3)\), \cref{thm:NRS} gives \(W\equiv0\).  The final
+claim again follows from the nonvanishing normalization of a nonzero Type I
+ancient limit.
+\end{proof}
 
 \section{Pressure estimates and compactness}
 

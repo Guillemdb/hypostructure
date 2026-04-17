@@ -1,12 +1,12 @@
 # Local CKN Type II exclusion roadmap
 
 This roadmap tracks the Type II program after replacing whole-space
-critical-norm entry assumptions by the local CKN concentration-entry theorem.  The bridge
+critical-norm starting assumptions by the local CKN concentration theorem.  The local analysis
 is [local_ckn_typeII_bridge.md](local_ckn_typeII_bridge.md).
 
-## Entry Theorem
+## Local concentration reduction
 
-For a suitable weak solution, the local concentration-entry theorem proves
+For a suitable weak solution, the local concentration theorem proves
 \[
 (x_0,T)\text{ singular}
 \Longrightarrow
@@ -41,7 +41,7 @@ every remaining singularity enters the local Type II regime.
 | Item | Status |
 |---|---|
 | Local no-concentration regularity theorem | Proved in `../first_nodes`. |
-| Bridge to positive local Type II concentration | Implemented in `local_ckn_typeII_bridge.md`. |
+| Reduction to positive local Type II concentration | Implemented in `local_ckn_typeII_bridge.md`. |
 | Local pressure replacement | Implemented as compact-ball pressure decomposition. |
 | Local repaired gauge | Local implicit-function step; degeneracy enters multibubble. |
 | Local compact Type II criterion | Adapted in `local_typeII_exclusion_assembly.md`. |
@@ -50,9 +50,9 @@ every remaining singularity enters the local Type II regime.
 | Multibubble/gauge-degenerate branch | Excluded by the local multibubble/cascade assembly. |
 | Scale-collapse branch | Handled by the local scale-rigidity theorem inside the assembly. |
 
-## Deprecated Entry Hypotheses
+## Removed starting hypotheses
 
-The following are no longer entry hypotheses for Type II exclusion from a
+The following are no longer starting assumptions for Type II exclusion from a
 suitable weak singularity:
 
 - whole-space critical-norm normalization;

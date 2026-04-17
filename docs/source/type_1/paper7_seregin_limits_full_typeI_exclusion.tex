@@ -1,0 +1,599 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\title[Seregin limits and Type I exclusion]{A Residual-class Criterion for Excluding Type I Navier--Stokes Singularities}
+\author{Guillem Duran Ballester}
+\date{}
+
+\subjclass[2020]{35Q30, 35B44, 35B40, 76D05}
+\keywords{Navier--Stokes equations, Type I singularities, ancient solutions, Seregin limits, Liouville theorems}
+
+\begin{document}
+
+\begin{abstract}
+We give a conditional reduction for Type I singularities of finite-energy
+suitable weak solutions of the three-dimensional Navier--Stokes equations.
+Starting from the positive pressure-normalized Caffarelli--Kohn--Nirenberg
+concentration carried by every singular point, we extract ancient limits by
+the Seregin blow-up procedure and separate the possible centered limits into
+small-amplitude, stationary \(L^3\), uniformly \(L^3\)-tight, fast-decaying,
+structured, and residual alternatives.  The small-amplitude and stationary
+\(L^3\) alternatives are excluded unconditionally by standard Liouville
+theorems.  Assuming Liouville criteria for the remaining tight and structured
+alternatives, full finite-energy Type I exclusion is reduced to one explicit
+analytic assertion: the residual non-tight/non-decaying class is empty, or
+else satisfies a replacement Liouville theorem.  The positive concentration
+and the Type I/Type II local dichotomy are used as proved local facts; the
+only additional inputs are the stated nonclassical Liouville criteria.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let \((u,p)\) be a finite-energy suitable weak solution of the
+three-dimensional incompressible Navier--Stokes equations on
+\(\mathbb R^3\times(0,T)\),
+\begin{equation}\label{eq:ns}
+   \partial_tu+u\cdot\nabla u+\nabla p=\Delta u,\qquad
+   \nabla\cdot u=0 .
+\end{equation}
+A finite-time singular point \(z_*=(x_*,T)\) is called Type I, in the sense
+used here, if the scale-invariant \(L^\infty\) quantity remains bounded near
+\(T\):
+\begin{equation}\label{eq:type-i}
+   \limsup_{t\uparrow T}\sqrt{T-t}\,
+   \|u(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
+\end{equation}
+The local Caffarelli--Kohn--Nirenberg concentration theorem gives a sequence
+of shrinking backward parabolic cylinders centered at every singular point on
+which the pressure-normalized critical density is bounded from below.  In the
+Type I case, the Seregin blow-up procedure applied to such a concentration
+sequence produces a nonzero bounded ancient solution in backward
+self-similar variables,
+\begin{equation}\label{eq:centered}
+   \partial_\tau V+(V\cdot\nabla)V+\nabla P
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
+   \qquad \nabla\cdot V=0,
+\end{equation}
+defined on \(\mathbb R^3\times\mathbb R\).  One first extracts an
+unrenormalized ancient suitable weak limit and then passes to centered
+variables,
+\[
+   V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t),\qquad \tau=-\log(-t).
+\]
+The inherited positive local critical density prevents the centered limit from
+vanishing identically.
+
+\begin{remark}[Source-level critical \(L^3\) regime is already closed]
+\label{rem:source-L3-closed}
+If the original finite-energy suitable weak solution satisfies
+\[
+   \sup_{0<t<T}\|u(t)\|_{L^3(\mathbb R^3)}<\infty ,
+\]
+then the endpoint theorem of Escauriaza--Seregin--Sverak \cite{ESS2003}
+implies that no point of \(\mathbb R^3\times\{T\}\) is singular.  Thus a
+Type I singularity can occur only outside the global critical
+\(L^\infty_tL^3_x\) source regime.  This is a condition on the original
+solution, not on an individual ancient limit, and it is therefore not included
+among the residual classes below.
+\end{remark}
+
+No unconditional Liouville theorem is known for all bounded ancient solutions
+of \eqref{eq:centered}.  The reduction below is therefore organized around
+classes for which Liouville mechanisms are available or can be assumed
+precisely.  Very small bounded ancient solutions vanish by the mild
+formulation and decay of the centered Stokes semigroup.  Stationary
+self-similar profiles in \(L^3(\mathbb R^3)\) vanish by the theorem of
+Necas--Ruzicka--Sverak.  Uniform \(L^3\)-tightness is the natural compactness
+condition for minimal-element and compact-hull arguments.  Fast decay and
+geometric structure give additional routes to rigidity.  What remains is the
+residual non-tight/non-decaying class.  The main theorem proves that excluding
+this residual class, together with the stated Liouville inputs for the
+nonclassical classes, excludes finite-energy Type I singularities.
+
+\section{Local concentration and Seregin ancient limits}
+
+\begin{definition}[Finite-energy Type I source]\label{def:source}
+A pair \((u,p)\) is a finite-energy Type I source at \(z_*=(x_*,T)\) if
+\((u,p)\) is a suitable weak solution of \eqref{eq:ns} on
+\(\mathbb R^3\times(0,T)\) in the Caffarelli--Kohn--Nirenberg sense,
+\[
+   u\in L^\infty(0,T;L^2(\mathbb R^3))
+      \cap L^2(0,T;\dot H^1(\mathbb R^3)),
+   \qquad
+   p\in L^{3/2}_{\mathrm{loc}}(\mathbb R^3\times(0,T)),
+\]
+the local energy inequality holds, \(z_*\) is a singular point, and the Type I
+bound \eqref{eq:type-i} holds.
+\end{definition}
+
+For \(z_0=(x_0,t_0)\) and \(r>0\), write
+\[
+   Q_r(z_0)=B_r(x_0)\times(t_0-r^2,t_0).
+\]
+Define the pressure-normalized CKN quantities
+\[
+   C(z_0,r)=r^{-2}\int_{Q_r(z_0)}|u|^3\,dx\,dt
+\]
+and
+\[
+   D(z_0,r)=r^{-2}\int_{t_0-r^2}^{t_0}
+      \int_{B_r(x_0)}
+      |p(x,t)-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt.
+\]
+
+\begin{theorem}[Local concentration at singular points]\label{thm:local-concentration}
+Let \((u,p)\) be a suitable weak solution near time \(T\).  If
+\(x_*\) is singular at time \(T\), then there are \(\eta>0\) and
+\(r_k\downarrow0\) such that
+\begin{equation}\label{eq:positive-ckn}
+   C((x_*,T),r_k)+D((x_*,T),r_k)\ge\eta
+   \qquad\hbox{for all }k.
+\end{equation}
+Moreover, along every such positive local concentration sequence, either a
+local Type I scale-invariant \(L^\infty\) bound holds near \((x_*,T)\), or the
+sequence lies in the local Type II alternative.
+\end{theorem}
+
+\begin{proof}
+This is the local CKN concentration theorem and the associated local
+Type I/Type II blow-up-rate dichotomy.  It follows from the
+Caffarelli--Kohn--Nirenberg epsilon-regularity criterion: if the
+pressure-normalized critical density vanished at every singular point, then
+all such points would be regular.
+\end{proof}
+
+\begin{definition}[Seregin ancient limit]\label{def:seregin-limit}
+A smooth bounded ancient solution \(V\) of \eqref{eq:centered}, with pressure
+understood modulo functions of \(\tau\), is called a Seregin ancient limit if
+there exist a finite-energy Type I source \((u,p,z_*)\), scales
+\(\lambda_k\downarrow0\) forming a positive local concentration sequence in
+the sense of \eqref{eq:positive-ckn}, and the corresponding rescalings
+\[
+   u^{(k)}(x,t)=\lambda_k u(x_*+\lambda_k x,T+\lambda_k^2t),
+   \qquad
+   p^{(k)}(x,t)=\lambda_k^2 p(x_*+\lambda_k x,T+\lambda_k^2t),
+\]
+which converge locally, after passing to a subsequence and choosing pressure
+gauges, to an ancient suitable weak solution \((U,\Pi)\) on
+\(\mathbb R^3\times(-\infty,0)\).  The compactness is taken along a
+concentration subsequence for which the positive pressure-normalized CKN
+density persists in the limit.  The limit \(U\) satisfies
+\[
+   \sup_{t<0}\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty ,
+\]
+and \(V\) is the self-similar representative of \(U\):
+\[
+   V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t),\qquad \tau=-\log(-t).
+\]
+In particular, after passing to centered variables, there are a compact
+cylinder \(K\Subset\mathbb R^3\times\mathbb R\), a pressure gauge \(a(\tau)\),
+and \(\eta_0>0\) such that
+\begin{equation}\label{eq:nonvanishing}
+   \int_K\left(|V(y,\tau)|^3+|P(y,\tau)-a(\tau)|^{3/2}\right)\,dy\,d\tau
+   \ge\eta_0 .
+\end{equation}
+\end{definition}
+
+\begin{remark}\label{rem:normalization}
+The nonvanishing condition \eqref{eq:nonvanishing} is not an additional
+assumption.  It is the persistence, under the compactness used in the Seregin
+blow-up procedure, of the positive CKN concentration supplied by
+\Cref{thm:local-concentration}.  The compact cylinder \(K\), the gauge
+\(a(\tau)\), and the constant \(\eta_0\) may depend on the singular point and
+on the chosen concentration sequence.
+\end{remark}
+
+\begin{lemma}[Basic properties]\label{lem:basic-properties}
+Every Seregin ancient limit \(V\) satisfies
+\[
+   \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}<\infty
+\]
+and is smooth on \(\mathbb R^3\times\mathbb R\).  After fixing the whole-space
+Leray pressure gauge, \(V\) is a bounded mild ancient solution of
+\eqref{eq:centered}.  Its time translates
+\[
+   V^s(y,\tau)=V(y,\tau+s),\qquad s\in\mathbb R,
+\]
+are again bounded mild ancient solutions of \eqref{eq:centered} with the same
+\(L^\infty\) norm.
+\end{lemma}
+
+\begin{proof}
+The \(L^\infty\) bound is the Type I ancient bound written in centered
+variables.  Since \(U\) is locally bounded on each compact subcylinder of
+\(\mathbb R^3\times(-\infty,0)\), the local regularity criterion for suitable
+weak solutions gives smoothness away from \(t=0\); in centered variables this
+is smoothness on every compact cylinder in
+\(\mathbb R^3\times\mathbb R\).  With the Leray pressure gauge, the smooth
+whole-space solution satisfies the Duhamel formula for the projected equation,
+hence is mild.  Since \eqref{eq:centered} is autonomous in \(\tau\), time
+translation preserves the equation and the mild formulation.  The
+\(L^\infty\) norm is unchanged.
+\end{proof}
+
+\begin{lemma}[Local energy bounds in centered variables]\label{lem:finite-energy-local}
+Let \(V\) be a Seregin ancient limit.  For every \(R<\infty\) and every compact
+interval \(I\subset\mathbb R\), one has
+\[
+   \int_I\int_{B_R}|V(y,\tau)|^2\,dy\,d\tau
+   +
+   \int_I\int_{B_R}|\nabla V(y,\tau)|^2\,dy\,d\tau
+   <\infty .
+\]
+If \(P\) is a pressure associated with \(V\), then after subtracting a function
+of \(\tau\) one also has
+\[
+   P\in L^{3/2}(B_R\times I).
+\]
+These local bounds are stable under locally smooth limits of time translates.
+\end{lemma}
+
+\begin{proof}
+The unrenormalized ancient limit \((U,\Pi)\) is suitable and inherits the local
+energy inequality on compact negative-time cylinders.  The change of variables
+\(t=-e^{-\tau}\), \(x=e^{-\tau/2}y\), maps compact \((y,\tau)\)-cylinders to
+compact negative-time cylinders away from \(t=0\), with smooth positive
+Jacobian factors.  Hence the displayed local bounds follow.  The pressure
+statement follows from local pressure compactness for suitable weak solutions
+after subtracting the usual time-dependent gauge.  Stability under locally
+smooth velocity limits and weak local pressure limits is immediate on compact
+cylinders.
+\end{proof}
+
+\begin{remark}\label{rem:no-global-tightness}
+\Cref{lem:finite-energy-local} is deliberately local.  It does not give
+uniform \(L^3\)-tightness in \(y\), nor does it give a global
+\(L^\infty_\tau L^3_y\) bound.  The absence of precisely this information is
+the source of the residual class below.
+\end{remark}
+
+\section{Admissible classes and the residual class}
+
+Let \(\mathcal S\) denote a collection of Seregin ancient limits associated
+with a fixed Type I source and a fixed inherited nonvanishing condition of the
+form \eqref{eq:nonvanishing}.  Throughout this section an admissible parameter
+set means a specified nonempty subset of \((0,\infty)\).
+
+\begin{definition}[Small-amplitude class]\label{def:small-branch}
+Let \(\varepsilon_0>0\) be the absolute constant in the small bounded ancient
+Liouville theorem for \eqref{eq:centered}.  An element \(V\in\mathcal S\)
+belongs to \(\mathcal X_{\mathrm{small}}\) if
+\[
+   \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le\varepsilon_0 .
+\]
+\end{definition}
+
+\begin{definition}[Stationary \(L^3\) class]\label{def:stationary-branch}
+An element \(V\in\mathcal S\) belongs to
+\(\mathcal X_{\mathrm{stat}\text{-}L^3}\) if it is stationary in centered
+variables,
+\[
+   V(y,\tau)=W(y),
+\]
+and
+\[
+   W\in L^3(\mathbb R^3).
+\]
+\end{definition}
+
+\begin{definition}[Uniformly tight class]\label{def:tight-branch}
+An element \(V\in\mathcal S\) belongs to
+\(\mathcal X_{L^3\mathrm{-tight}}\) if
+\begin{equation}\label{eq:L3-bound}
+   \sup_{\tau\in\mathbb R}\|V(\tau)\|_{L^3(\mathbb R^3)}<\infty
+\end{equation}
+and
+\begin{equation}\label{eq:L3-tightness}
+   \lim_{R\to\infty}
+   \sup_{\tau\in\mathbb R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
+\end{equation}
+\end{definition}
+
+\begin{definition}[Fast-decay class]\label{def:fast-branch}
+Fix an admissible set \(J\subset(0,\infty)\).  An element \(V\in\mathcal S\)
+belongs to \(\mathcal X_{\mathrm{fast}}(J)\) if, for some \(m\in J\),
+\begin{equation}\label{eq:weighted-decay}
+   \sup_{\tau\in\mathbb R}
+   \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy<\infty .
+\end{equation}
+\end{definition}
+
+\begin{definition}[Structured class]\label{def:structured-branch}
+Fix admissible parameter sets \(I,J\subset(0,\infty)\).  An element
+\(V\in\mathcal S\) belongs to \(\mathcal X_{\mathrm{str}}(I,J)\) if its
+physical ancient representative \(U\) satisfies at least one of the following:
+\begin{enumerate}
+\item \(U\) is axisymmetric without swirl;
+\item \(U\) is axisymmetric and, for some \(\gamma\in I\),
+\[
+   \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
+   \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty;
+\]
+\item \(V\) satisfies the weighted decay condition \eqref{eq:weighted-decay}
+for some \(m\in J\).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Residual Seregin class]\label{def:residual}
+The residual class associated with \(\mathcal S\), \(I\), and \(J\) is
+\[
+   \mathcal R(\mathcal S;I,J)
+   =
+   \mathcal S
+   \setminus
+   \left(
+      \mathcal X_{\mathrm{small}}
+      \cup
+      \mathcal X_{\mathrm{stat}\text{-}L^3}
+      \cup
+      \mathcal X_{L^3\mathrm{-tight}}
+      \cup
+      \mathcal X_{\mathrm{fast}}(J)
+      \cup
+      \mathcal X_{\mathrm{str}}(I,J)
+   \right).
+\]
+Equivalently, \(V\in\mathcal R(\mathcal S;I,J)\) is a Seregin ancient limit
+which is neither small in \(L^\infty\), nor stationary and globally \(L^3\),
+nor uniformly \(L^3\)-tight, nor fast decaying in an admissible weighted
+class, nor contained in the stated structured class.
+\end{definition}
+
+\begin{remark}\label{rem:overlap}
+The classes are not intended to be disjoint.  For example, a weighted decay
+condition may imply an \(L^3\)-tightness statement under additional boundedness
+and interpolation.  The residual class is defined as the complement of the
+union, so overlaps among the non-residual classes cause no ambiguity.
+\end{remark}
+
+\begin{proposition}[Exhaustion by admissible classes]\label{prop:exhaustion}
+Let \(\mathcal S\) be any collection of Seregin ancient limits with fixed
+inherited nonvanishing condition, and fix admissible sets
+\(I,J\subset(0,\infty)\).  Every \(V\in\mathcal S\) satisfies at least one of
+the following alternatives:
+\[
+\begin{gathered}
+   V\in\mathcal X_{\mathrm{small}},\qquad
+   V\in\mathcal X_{\mathrm{stat}\text{-}L^3},\qquad
+   V\in\mathcal X_{L^3\mathrm{-tight}},\\
+   V\in\mathcal X_{\mathrm{fast}}(J),\qquad
+   V\in\mathcal X_{\mathrm{str}}(I,J),\qquad
+   V\in\mathcal R(\mathcal S;I,J).
+\end{gathered}
+\]
+\end{proposition}
+
+\begin{proof}
+This is the exhaustion induced by \Cref{def:residual}.  If \(V\) is in one of
+the five listed non-residual classes, there is nothing to prove.  Otherwise it
+belongs to the complement of their union inside \(\mathcal S\), which is
+exactly \(\mathcal R(\mathcal S;I,J)\).
+\end{proof}
+
+\section{Liouville inputs for the non-residual classes}
+
+We now state the Liouville inputs used in the reduction.  The first two are
+unconditional classical consequences: small bounded ancient solutions vanish,
+and stationary \(L^3\) self-similar profiles vanish.  The remaining inputs are
+hypotheses of the present theorem, formulated so that each can be replaced by
+any independently proved Liouville theorem in the corresponding class.
+
+\begin{theorem}[Unconditional small and stationary branch exclusion]
+\label{thm:classical-closed-branches}
+Let \(V\in\mathcal S\) be a nonzero Seregin ancient limit.  Then
+\[
+   V\notin\mathcal X_{\mathrm{small}}
+   \qquad\hbox{and}\qquad
+   V\notin\mathcal X_{\mathrm{stat}\text{-}L^3}.
+\]
+\end{theorem}
+
+\begin{proof}
+If \(V\in\mathcal X_{\mathrm{small}}\), then the small bounded ancient
+Liouville theorem for \eqref{eq:centered} gives \(V\equiv0\), contradicting
+the inherited nonvanishing condition \eqref{eq:nonvanishing}.
+
+If \(V\in\mathcal X_{\mathrm{stat}\text{-}L^3}\), write
+\(V(y,\tau)=W(y)\) with \(W\in L^3(\mathbb R^3)\).  Then \(W\) solves the
+stationary self-similar Navier--Stokes equation.  The theorem of
+Necas--Ruzicka--Sverak gives \(W\equiv0\), again contradicting
+\eqref{eq:nonvanishing}.
+\end{proof}
+
+\begin{hypothesis}[Tight-class Liouville input]\label{hyp:tight-liouville}
+For every normalized Seregin collection \(\mathcal S\), no nonzero element of
+\(\mathcal S\cap\mathcal X_{L^3\mathrm{-tight}}\) exists.
+\end{hypothesis}
+
+\begin{hypothesis}[Structured Liouville input]\label{hyp:structured-liouville}
+For the parameter sets \(I,J\), no nonzero Seregin ancient limit may belong to
+\(\mathcal X_{\mathrm{str}}(I,J)\).
+\end{hypothesis}
+
+\begin{remark}\label{rem:hypotheses}
+\Cref{hyp:tight-liouville} is the form obtained, for instance, from a
+minimal-element reduction plus compact-hull equilibrium rigidity in the
+uniformly \(L^3\)-tight class.  \Cref{hyp:structured-liouville} contains the
+axisymmetric no-swirl Liouville theorem and any additional admissible
+controlled-swirl or weighted-decay Liouville criteria assumed for the sets
+\(I\) and \(J\).
+\end{remark}
+
+\begin{proposition}[Non-residual class exclusion]\label{prop:closed-branch-exclusion}
+Assume \Cref{hyp:tight-liouville,hyp:structured-liouville}.  Let
+\(V\in\mathcal S\) be a nonzero Seregin ancient limit.  Then \(V\) cannot
+belong to
+\[
+   \mathcal X_{\mathrm{small}}
+   \cup
+   \mathcal X_{\mathrm{stat}\text{-}L^3}
+   \cup
+   \mathcal X_{L^3\mathrm{-tight}}
+   \cup
+   \mathcal X_{\mathrm{fast}}(J)
+   \cup
+   \mathcal X_{\mathrm{str}}(I,J).
+\]
+\end{proposition}
+
+\begin{proof}
+The small-amplitude and stationary \(L^3\) classes are excluded by
+\Cref{thm:classical-closed-branches}.
+Membership in \(\mathcal X_{L^3\mathrm{-tight}}\) is excluded by
+\Cref{hyp:tight-liouville}.  Membership in
+\(\mathcal X_{\mathrm{str}}(I,J)\) is excluded by
+\Cref{hyp:structured-liouville}.  Finally,
+\(\mathcal X_{\mathrm{fast}}(J)\) is contained in the structured class by the
+third alternative in \Cref{def:structured-branch}, so it is excluded by the
+same hypothesis.
+\end{proof}
+
+\section{The residual class}
+
+The residual class is the only alternative not covered by the stated
+Liouville inputs.  We state the needed assertion in two equivalent forms.
+
+\begin{hypothesis}[No residual Seregin class]\label{hyp:no-residual}
+For every finite-energy Type I source and every associated normalized
+collection \(\mathcal S\) of Seregin ancient limits, one has
+\[
+   \mathcal R(\mathcal S;I,J)=\varnothing .
+\]
+\end{hypothesis}
+
+\begin{hypothesis}[Residual rigidity]\label{hyp:residual-rigidity}
+For every finite-energy Type I source and every associated normalized
+collection \(\mathcal S\), every element of
+\(\mathcal R(\mathcal S;I,J)\) is identically zero.
+\end{hypothesis}
+
+\begin{proposition}[Equivalence for Seregin limits]\label{prop:residual-equivalence}
+On collections of Seregin ancient limits satisfying the inherited
+nonvanishing condition \eqref{eq:nonvanishing}, \Cref{hyp:no-residual} and
+\Cref{hyp:residual-rigidity} are equivalent.
+\end{proposition}
+
+\begin{proof}
+If \Cref{hyp:no-residual} holds, then the residual class is empty and the
+rigidity assertion is vacuous.  Conversely, assume
+\Cref{hyp:residual-rigidity}.  If \(V\in\mathcal R(\mathcal S;I,J)\), then
+\(V\equiv0\).  In the Leray pressure gauge the associated pressure is then
+spatially constant, so the left-hand side of \eqref{eq:nonvanishing} is zero.
+This contradicts \eqref{eq:nonvanishing}.  Hence no such \(V\) exists.
+\end{proof}
+
+\begin{remark}\label{rem:meaning-residual}
+Analytically, \Cref{hyp:no-residual} may be proved in more than one way.  One
+route is to show that finite energy and suitability force every Seregin limit
+to be uniformly \(L^3\)-tight or fast decaying in self-similar variables.
+Another is to prove a Liouville theorem which applies directly to bounded
+ancient limits without tightness.  Both routes are represented by the same
+formal statement above because either one eliminates
+\(\mathcal R(\mathcal S;I,J)\).
+\end{remark}
+
+\section{Conditional Type I exclusion}
+
+\begin{theorem}[Residual-class criterion for Type I exclusion]\label{thm:full-type-i}
+Assume the tight-class Liouville input \Cref{hyp:tight-liouville}, the
+structured Liouville input \Cref{hyp:structured-liouville}, and the
+no-residual assertion \Cref{hyp:no-residual}.  Then no finite-energy suitable
+weak solution of the three-dimensional Navier--Stokes equations develops a
+Type I singularity in the sense of \Cref{def:source}.
+\end{theorem}
+
+\begin{proof}
+Suppose, toward a contradiction, that \((u,p)\) has a finite-energy Type I
+singular point \(z_*=(x_*,T)\).  By the Seregin blow-up construction, there
+exists a nonzero Seregin ancient limit \(V\) associated with \(z_*\),
+satisfying the inherited nonvanishing condition \eqref{eq:nonvanishing}.  Let
+\(\mathcal S\) be the collection of all such limits obtained from the same
+source and the same concentration sequence.
+
+By \Cref{prop:exhaustion}, \(V\) lies in one of the five non-residual classes
+or in \(\mathcal R(\mathcal S;I,J)\).  The five non-residual classes are
+impossible by \Cref{prop:closed-branch-exclusion}.  The residual class is
+empty by \Cref{hyp:no-residual}.  Thus no alternative remains, a
+contradiction.  Hence the assumed Type I singular point cannot exist.
+\end{proof}
+
+\begin{corollary}[Replacement-rigidity version]\label{cor:replacement}
+The conclusion of \Cref{thm:full-type-i} remains valid if
+\Cref{hyp:no-residual} is replaced by \Cref{hyp:residual-rigidity}.
+\end{corollary}
+
+\begin{proof}
+This follows from \Cref{prop:residual-equivalence}.
+\end{proof}
+
+\section{Conclusion}
+
+The criterion isolates the obstruction to finite-energy Type I exclusion as a
+single residual statement.  The blow-up construction produces a nonzero
+Seregin ancient limit.  The exhaustion result places this limit either in a
+class eliminated by the unconditional and assumed Liouville inputs or in the
+residual class.
+Thus the remaining analytic problem is to prove that finite-energy Seregin
+limits cannot persist in the residual non-tight/non-decaying regime, or to
+prove a Liouville theorem which applies to that regime directly.
+
+\begin{thebibliography}{99}
+
+\bibitem{CKN1982}
+L. Caffarelli, R. Kohn, and L. Nirenberg,
+\emph{Partial regularity of suitable weak solutions of the Navier--Stokes equations},
+Comm. Pure Appl. Math. \textbf{35} (1982), no. 6, 771--831.
+
+\bibitem{ESS2003}
+L. Escauriaza, G. Seregin, and V. \v{S}verak,
+\emph{\(L_{3,\infty}\)-solutions of Navier--Stokes equations and backward uniqueness},
+Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250.
+
+\bibitem{KNSS2009}
+G. Koch, N. Nadirashvili, G. Seregin, and V. Sverak,
+\emph{Liouville theorems for the Navier-Stokes equations and applications},
+Acta Math. \textbf{203} (2009), no. 1, 83--105.
+
+\bibitem{NRS1996}
+J.~Necas, M.~Ruzicka, and V.~Sverak,
+\emph{On Leray's self-similar solutions of the Navier--Stokes equations},
+Acta Math. \textbf{176} (1996), 283--294.
+
+\bibitem{Seregin2012}
+G. Seregin,
+\emph{A certain necessary condition of potential blow up for Navier--Stokes equations},
+Comm. Math. Phys. \textbf{312} (2012), no. 3, 833--845.
+
+\end{thebibliography}
+
+\end{document}

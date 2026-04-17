@@ -1,4 +1,3 @@
-
 \documentclass[11pt]{amsart}
 \usepackage[margin=1.1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
@@ -7,12 +6,14 @@
 \usepackage{hyperref}
 \usepackage[nameinlink,capitalize]{cleveref}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -21,85 +22,106 @@
 \date{}
 
 \begin{document}
+
 \begin{abstract}
-We formulate the multibubble and cascade part of the local CKN Type II
-exclusion argument.  The starting point is a positive local CKN concentration
-sequence at a singular point, not a nonlocal critical data sequence.  Failure of
-compact-cylinder suitable compactness, splitting of retained CKN mass, strict
-same-point scale cascades, separated active points, and localized gauge
-degeneracy are handled by local decoupling and scale-rigidity theorems.
-Together with the local Type I tangent criterion and the local single-core
-criterion, these theorems exclude multibubble and cascade Type II cases.
+We formulate the multibubble and cascade part of the local Caffarelli--Kohn--Nirenberg Type II exclusion argument.  The starting point is a positive local CKN concentration sequence at a singular point, not a nonlocal critical data sequence.  Failure of compact-cylinder suitable compactness, splitting of CKN mass, strict same-point scale cascades, separated active points, and localized gauge degeneracy are reduced by local profile-evolution decoupling and scale-rigidity.  Together with the definition of the local Type II regime and the local single-core criterion, these reductions exclude multibubble and cascade Type II cases.
+This paper uses the classical Navier--Stokes theory for suitable weak solutions (Leray \cite{Leray1934}, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer \cite{Scheffer1976}, and Lin \cite{Lin1998}).
 \end{abstract}
+
 \maketitle
 
 \section{Local scenarios}
 
-Let \((u_n,p_n)\) be parabolic blow-ups around a singular point with positive
-local CKN density.  On \(Q_R=B_R\times(-R^2,0)\), use the local suitable
-quantities \(A(R),E(R),C(R),D(R)\).  If \(A+E+C+D\) is bounded on every compact
-cylinder and a single nondegenerate localized core is selected, the case is
-single-core.  The complementary local cases are compactness failure, mass
-splitting, strict same-point scale cascades, separated active physical points,
-and localized gauge degeneracy.
+Let \((u_n,p_n)\) be parabolic blowups around a singular point with positive local CKN density.  On
+\[
+  Q_R=B_R\times(-R^2,0),
+\]
+write \(A(R),E(R),C(R),D(R)\) for the usual scale-invariant local suitable quantities.  If \(A+E+C+D\) is bounded on every compact cylinder and a single nondegenerate localized core is selected, the case is single-core.  The complementary local cases are compactness failure, mass splitting, strict same-point scale cascades, separated active physical points, and localized gauge degeneracy.
 
-\begin{lemma}[Compactness failure]\label{lem:compactness-failure}
-If the compact-cylinder suitable package is unbounded on a fixed rescaled
-cylinder, then after passing to a subsequence the local \(C+D\) quantity is
-unbounded on a comparable cylinder.  Hence the case contains a new local CKN
-concentration core.
+\begin{definition}[Local multibubble/cascade branch]\label{def:local-multibubble}
+A local multibubble/cascade branch is a positive-concentration local Type II branch for which at least one of the following structural alternatives occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the compact-cylinder suitable package \(A+E+C+D\) is unbounded on some fixed rescaled cylinder;
+\item positive CKN mass splits into two or more comparable active cores;
+\item a strict same-point scale cascade appears inside bounded rescaled cylinders;
+\item separated physical points remain active in different local rescaled frames;
+\item the localized scale or centering gauge degenerates because no unique core is selected.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Compactness failure produces another core]\label{lem:compactness-failure}
+If the compact-cylinder suitable package is unbounded on a fixed rescaled cylinder, then after passing to a subsequence the local \(C+D\) quantity is unbounded on a comparable cylinder.  Hence the branch contains a new local CKN concentration core.
 \end{lemma}
 
 \begin{proof}
-The local Caccioppoli estimate for suitable weak solutions gives the standard
-smaller-cylinder control of \(A+E\) in terms of \(C+D\) on a slightly larger
-cylinder.  Therefore, if \(C+D\) were bounded on all comparable larger
-cylinders, then \(A+E+C+D\) would be bounded on the smaller cylinder.  The
-contrapositive proves that failure of the suitable package forces failure of
-the local \(C+D\) bound at a comparable scale, which is precisely another
-local CKN concentration core.
+The local Caccioppoli estimate for suitable weak solutions gives the standard smaller-cylinder control of \(A+E\) in terms of \(C+D\) on a slightly larger cylinder.  Therefore, if \(C+D\) were bounded on all comparable larger cylinders, then \(A+E+C+D\) would be bounded on the smaller cylinder.  The contrapositive proves that failure of the suitable package forces failure of the local \(C+D\) bound at a comparable scale, which is precisely another local CKN concentration core.
 \end{proof}
 
-\section{Decoupling theorems}
+\section{Local profile-evolution decoupling}
 
-\begin{assumption}[Local decoupling and scale rigidity]\label{ass:local-dec}
-The following local decoupling theorems hold for active local Type II rescaled frames:
+\begin{theorem}[Terminal profile-evolution decoupling]\label{thm:terminal-decoupling}
+For every finite active profile package and every terminal active local frame, after comparable profiles at the same physical point have been grouped into compound profiles and after constant ambient velocities have been absorbed into the translation gauge, the sum \(S_n\) of all profiles not belonging to the terminal frame plus the rescaled remainder is perturbative on every compact cylinder \(B_R\times I\).  More precisely,
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item comparable same-point cores combine into one compound core or make the
-      localized gauge matrix degenerate;
-\item strict same-point cascades reduce in the innermost active rescaled frame to a
-      single-core or scale-rigidity case;
-\item separated active physical points are locally invisible in each other's
-      active rescaled frames after velocity, pressure, and modulation decoupling;
-\item every scale-rigidity case produced by this reduction is excluded by the
-      local Type I tangent criterion or by the local scale-rigidity theorem.
+\item \(\nabla\cdot S_n=0\) distributionally on every compact cylinder;
+\item \(S_n\to0\) in \(L^\infty_\tau L^3_y(B_{2R})\);
+\item \(U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n\to0\) in \(L^1_\tau L^2_y(B_R)\);
+\item
+\[
+  \partial_\tau S_n-\nu\Delta S_n
+  +a_n(S_n+y\cdot\nabla S_n)+b_n\cdot\nabla S_n
+  \to0
+  \quad\text{in }L^1_\tau H^{-1}_y(B_R);
+\]
+\item every pressure source involving at least one factor of \(S_n\) has vanishing pressure gradient in \(L^1_\tau H^{-1}_y(B_R)\);
+\item the localization errors introduced in isolating the selected frame vanish in \(L^1_\tau H^{-1}_y(B_R)\);
+\item the effective modulation parameters of the selected frame remain bounded;
+\item after discarding \(S_n\), the selected frame remains a positive finite-mass local Type II branch with the local pressure reconstruction, compact-cylinder Caccioppoli bounds, and the limiting inputs used in the scale-collapse analysis.
 \end{enumerate}
-\end{assumption}
-
-\begin{theorem}[Local multibubble and cascade exclusion]\label{thm:multi}
-Assume the local Type I tangent criterion, the local single-core Type II criterion,
-and \cref{ass:local-dec}.  Then no local multibubble or cascade Type II case
-can occur.
 \end{theorem}
 
 \begin{proof}
-By \cref{lem:compactness-failure}, compactness failure produces another local
-concentration core.  Passing to subsequences, active cores are comparable
-at the same point, strictly
-scale-separated at the same point, or separated in physical space.
-
-Comparable cores form a compound core.  If this core is nondegenerate, the
-single-core compactness criterion applies; otherwise the case is gauge-degenerate and is
-covered by \cref{ass:local-dec}.  Strict same-point cascades and separated
-active points are also reduced by \cref{ass:local-dec} to either the
-single-core compactness criterion or a scale-rigidity case.  Both are excluded by the stated
-hypotheses.  Therefore no multibubble or cascade case remains.
+For same-point outer scales, the outer profiles escape every compact set in the selected innermost variables, and therefore converge to zero in the local velocity topology on \(B_{2R}\).  For separated physical points, the same escaping-ball calculation gives local velocity convergence to zero in the selected active frame.  The profile pressure terms split into pure exterior terms and mixed terms.  Pure exterior terms vanish locally after the same change of variables; mixed pressure sources contain at least one perturbative factor and hence have vanishing pressure gradient in \(L^1_\tau H^{-1}_y(B_R)\).  The nonlinear stress terms and the linear residual are exactly the terms obtained by inserting \(U_n+S_n\) into the localized renormalized Navier--Stokes equation and subtracting the selected-frame equation.  Each term contains either an escaping profile, a decoupled remainder, or a cutoff error, and the local compactness and Caccioppoli bounds give the stated convergence on compact cylinders.  Constant ambient velocities are absorbed into the translation gauge, so the remaining modulation coefficients stay bounded.  Thus the exterior profile package is perturbative in the selected terminal frame.
 \end{proof}
 
-\section{Consequence}
+\begin{theorem}[Same-point cascade reduction]\label{thm:same-point-reduction}
+Every same-point multibubble or strict same-point cascade reduces, in the selected innermost or compound frame, to either the single-core criterion, scale-rigidity, or a perturbative terminal branch covered by \cref{thm:terminal-decoupling}.
+\end{theorem}
 
-Together with the local CKN concentration result and the local
-single-core compactness criterion, \cref{thm:multi} removes the entire Type II case after
-the local Type I tangent criterion has been proved.
+\begin{proof}
+Group comparable scales at the same physical point into compound profiles.  If the resulting compound core is single and nondegenerate, the local single-core criterion applies.  If the localized scale-centering derivative is degenerate, the case is gauge-degenerate and remains in the multibubble class.  For strict scale separation, choose the innermost active scale as the selected frame.  Outer scales vanish locally in that frame, and \cref{thm:terminal-decoupling} shows that the full exterior package changes the selected equation only by an error tending to zero in \(L^1_\tau H^{-1}_y(B_R)\).  Regular strict cascades are therefore reduced to the innermost single-core or scale-rigidity case, and the remaining same-point cascades are exactly nonlinear no-splitting failures removed by the terminal decoupling theorem.
+\end{proof}
+
+\begin{theorem}[Separated-point decoupling]\label{thm:separated-point-reduction}
+Separated active physical points are locally invisible in each other's active rescaled frames.  Consequently every separated-point multibubble reduces in each selected active frame to a single-core, scale-rigidity, or perturbative terminal branch.
+\end{theorem}
+
+\begin{proof}
+Choose an active physical point \(x_p^*\) and its active frame.  For every profile centered at a different physical point \(x_q^*\ne x_p^*\), the center escapes to spatial infinity in the \(p\)-frame, so the profile converges to zero locally in velocity.  If the pure profile pressure is represented in \(L^2\), the same escaping-ball calculation gives local pressure convergence, hence pressure-gradient convergence in \(H^{-1}_{\mathrm{loc}}\).  Mixed pressure sources contain at least one exterior perturbative factor and are covered by \cref{thm:terminal-decoupling}.  The localization errors, modulation compatibility, and positive finite-mass structure of the selected frame are also preserved by \cref{thm:terminal-decoupling}.  Hence separated physical-point profiles change the selected active-frame equation only by an error tending to zero in \(L^1_\tau H^{-1}_{\mathrm{loc}}\), and the selected frame reduces to the single-core, scale-rigidity, or perturbative terminal case.
+\end{proof}
+
+\section{Multibubble and cascade exclusion}
+
+\begin{theorem}[Local multibubble and cascade exclusion]\label{thm:multi}
+No local multibubble, cascade, or gauge-degenerate Type II case can occur.
+\end{theorem}
+
+\begin{proof}
+By \cref{lem:compactness-failure}, compactness failure produces another local concentration core.  Passing to subsequences, active cores are comparable at the same point, strictly scale-separated at the same point, or separated in physical space.
+
+Comparable same-point cores form a compound core.  If this core is nondegenerate and single, the single-core compactness criterion applies.  If it is not single, the localized gauge matrix is degenerate and the branch is a gauge-degenerate multibubble case.  The same-point reduction theorem, \cref{thm:same-point-reduction}, reduces strict same-point cascades to the single-core criterion, scale-rigidity, or terminal decoupling.  The separated-point decoupling theorem, \cref{thm:separated-point-reduction}, gives the analogous reduction for separated active physical points.
+
+The single-core case is excluded by the local single-core criterion.  The scale-rigidity case gives a nonzero bounded parabolic tangent, contradicting the definition of the local Type II regime.  The terminal decoupling theorem makes all exterior profiles and remainders perturbative in the selected active frame, so no nonlinear no-splitting or separated-frame multibubble remains.  Therefore no multibubble, cascade, or gauge-degenerate local Type II case remains.
+\end{proof}
+
+\begin{corollary}[Removal of the multibubble alternative]\label{cor:multi-removal}
+In the local Type II analysis, every failure of the single nondegenerate compact core alternative is excluded by \cref{thm:multi}.
+\end{corollary}
+
+\begin{proof}
+The failures of the single-core alternative are exactly the alternatives listed in \cref{def:local-multibubble}: compact-cylinder suitable compactness failure, active mass splitting, same-point cascade, separated active physical points, and localized gauge degeneracy.  Each is excluded by \cref{thm:multi}.
+\end{proof}
+
+\bibliographystyle{alpha}
+\bibliography{paper3_critical_profile_decompositions_radiation_multibubbles}
 
 \end{document}

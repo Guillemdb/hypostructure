@@ -3314,6 +3314,28 @@ structure PeriodicHeat1DWeakSolutionValueModeConservationFor
           periodicH1_valueFourierCoeff (v.eval t) n =
         periodicH1_valueFourierCoeff (v.eval 0) n
 
+/-- Integrating factor for one value Fourier mode of a heat curve. -/
+def periodicHeat1D_valueModeIntegratingFactor
+    (nu : BurgersParameters)
+    (v : PeriodicHeatCurve nu)
+    (n : ℤ)
+    (t : ℝ) : ℂ :=
+  (periodicHeat1D_modeMultiplier nu (-t) n : ℂ) *
+    periodicH1_valueFourierCoeff (v.eval t) n
+
+/-- Scalar-mode ODE certificate for weak heat solutions.
+
+This is the proof-oriented version of the remaining heat boundary: each
+integrating factor has zero derivative as a complex-valued function of time.
+The conservation law on a requested finite window is derived from this by the
+mean-value theorem. -/
+structure PeriodicHeat1DWeakSolutionValueModeODEFor
+    (nu : BurgersParameters)
+    (v : PeriodicHeatCurve nu) where
+  hasDerivAt_zero :
+    ∀ n : ℤ, ∀ t : ℝ,
+      HasDerivAt (periodicHeat1D_valueModeIntegratingFactor nu v n) 0 t
+
 /-- Value Fourier-coefficient evolution interface for arbitrary weak periodic
 heat solutions on a local window.
 
@@ -3617,21 +3639,96 @@ theorem periodicHeat1D_fourierH1WindowResidual_literature :
     (periodicHeat1D_fourierH1IntegratedClassicalHeat_literature
       nu u0 W hu0)
 
-/-- Remaining heat PDE boundary: arbitrary weak heat solutions have the
-expected value Fourier-coefficient evolution on every finite forward-time
-window.
+/-- Remaining heat PDE boundary: arbitrary weak heat solutions satisfy the
+scalar integrating-factor ODE for each value Fourier mode.
 
-This is strictly narrower than windowed uniqueness for the certified curve and
-also narrower than full `H¹` coefficient evolution: weak-derivative coefficient
-evolution is proved below from this value statement and the carrier's weak
-derivative Fourier identity. -/
-axiom periodicHeat1D_weakSolutionValueFourierEvolution_literature :
+This is the scalar-mode statement one extracts from testing the weak heat
+equation against a Fourier mode. The framework code below turns it into
+finite-window conservation by the mean-value theorem, and then into the usual
+heat-semigroup coefficient evolution using the scalar multiplier inverse law
+and the weak solution's initial condition. -/
+axiom periodicHeat1D_weakSolutionValueModeODE_literature :
+  ∀ (nu : BurgersParameters)
+    (w : PeriodicHeatCurve nu)
+    (u0 : PeriodicH1State),
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionValueModeODEFor nu w
+
+def periodicHeat1D_weakSolutionValueModeConservation_fromODE
+    (nu : BurgersParameters)
+    (W : HeatWindow)
+    (w : PeriodicHeatCurve nu)
+    (Hode : PeriodicHeat1DWeakSolutionValueModeODEFor nu w) :
+    PeriodicHeat1DWeakSolutionValueModeConservationFor nu W w where
+  conserved := by
+    intro t _htW _ht n
+    let F : ℝ → ℂ := periodicHeat1D_valueModeIntegratingFactor nu w n
+    have hdiff : Differentiable ℝ F := by
+      intro s
+      exact (Hode.hasDerivAt_zero n s).differentiableAt
+    have hderiv : ∀ s : ℝ, deriv F s = 0 := by
+      intro s
+      exact (Hode.hasDerivAt_zero n s).deriv
+    have hconst : F t = F 0 :=
+      is_const_of_deriv_eq_zero hdiff hderiv t 0
+    simpa [F, periodicHeat1D_valueModeIntegratingFactor,
+      periodicHeat1D_modeMultiplier_zero_time] using hconst
+
+def periodicHeat1D_weakSolutionValueModeConservation_literature :
+  ∀ (nu : BurgersParameters)
+    (W : HeatWindow)
+    (w : PeriodicHeatCurve nu)
+    (u0 : PeriodicH1State),
+      SolvesPeriodicHeatWeak nu u0 w →
+        PeriodicHeat1DWeakSolutionValueModeConservationFor nu W w := by
+  intro nu W w u0 hsol
+  exact periodicHeat1D_weakSolutionValueModeConservation_fromODE
+    nu W w
+    (periodicHeat1D_weakSolutionValueModeODE_literature nu w u0 hsol)
+
+def periodicHeat1D_weakSolutionValueFourierEvolution_fromModeConservation
+    (nu : BurgersParameters)
+    (u0 : PeriodicH1State)
+    (W : HeatWindow)
+    (w : PeriodicHeatCurve nu)
+    (hsol : SolvesPeriodicHeatWeak nu u0 w)
+    (Hmode : PeriodicHeat1DWeakSolutionValueModeConservationFor nu W w) :
+    PeriodicHeat1DWeakSolutionValueFourierEvolutionFor nu u0 W w where
+  value_coeff := by
+    intro t htW ht n
+    calc
+      periodicH1_valueFourierCoeff (w.eval t) n
+          = (1 : ℂ) * periodicH1_valueFourierCoeff (w.eval t) n := by
+              simp
+      _ = ((periodicHeat1D_modeMultiplier nu t n : ℂ) *
+            (periodicHeat1D_modeMultiplier nu (-t) n : ℂ)) *
+            periodicH1_valueFourierCoeff (w.eval t) n := by
+              rw [periodicHeat1D_modeMultiplier_complex_mul_neg_time]
+      _ = (periodicHeat1D_modeMultiplier nu t n : ℂ) *
+            ((periodicHeat1D_modeMultiplier nu (-t) n : ℂ) *
+              periodicH1_valueFourierCoeff (w.eval t) n) := by
+              ring
+      _ = (periodicHeat1D_modeMultiplier nu t n : ℂ) *
+            periodicH1_valueFourierCoeff (w.eval 0) n := by
+              rw [Hmode.conserved t htW ht n]
+      _ = (periodicHeat1D_modeMultiplier nu t n : ℂ) *
+            periodicH1_valueFourierCoeff u0 n := by
+              rw [hsol.1]
+      _ = periodicHeat1D_evolvedValueFourierCoeff nu u0 t n := by
+              rfl
+
+def periodicHeat1D_weakSolutionValueFourierEvolution_literature :
   ∀ (nu : BurgersParameters)
     (u0 : PeriodicH1State)
     (W : HeatWindow)
     (w : PeriodicHeatCurve nu),
       SolvesPeriodicHeatWeak nu u0 w →
-        PeriodicHeat1DWeakSolutionValueFourierEvolutionFor nu u0 W w
+        PeriodicHeat1DWeakSolutionValueFourierEvolutionFor nu u0 W w := by
+  intro nu u0 W w hsol
+  exact periodicHeat1D_weakSolutionValueFourierEvolution_fromModeConservation
+    nu u0 W w hsol
+    (periodicHeat1D_weakSolutionValueModeConservation_literature
+      nu W w u0 hsol)
 
 def periodicHeat1D_weakSolutionFourierEvolution_fromValueEvolution
     (nu : BurgersParameters)

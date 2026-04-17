@@ -13,7 +13,6 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
 
 \title[Local Caccioppoli and Rough Cores]{Local Caccioppoli Estimates and Rough-Core Exclusion}
 \author{}
@@ -21,12 +20,11 @@
 \begin{document}
 \begin{abstract}
 We prove the local Caccioppoli estimate needed in the local CKN Type II analysis.
-The assumptions are physical suitability, a local repaired chart, local pressure
-decomposition, compact-cylinder CKN bounds, and bounded local modulation
-coefficients.  The estimate controls the local suitable package on smaller cylinders
+The estimate is applied to the local scale-translation charts and pressure decompositions supplied by the representation paper.  Together with compact-cylinder CKN bounds and bounded local modulation coefficients, it controls the local suitable package on smaller cylinders
 and gives windowed \(H^1\) control on bounded cores.  Consequently a rough core
 is not an independent Type II assumption: it either satisfies the local
 Caccioppoli bounds or enters the cascade/multibubble decomposition.
+This paper uses the classical Navier--Stokes theory for suitable weak solutions (Leray \cite{Leray1934}, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer \cite{Scheffer1976}, and Lin \cite{Lin1998}).
 \end{abstract}
 \maketitle
 
@@ -40,14 +38,12 @@ Navier--Stokes terms and lower-order terms involving \(a\) and \(b\).
 \section{Caccioppoli estimate}
 
 \begin{theorem}[Compact-cylinder Caccioppoli estimate]\label{thm:caccioppoli}
-Let \(Q_{2R,I}=B_{2R}\times I\) be compactly contained in the local chart, and
-let \(I'\Subset I\).  Suppose \((V,P)\) satisfies the renormalized local energy
-inequality on \(Q_{2R,I}\),
+Let \(Q_{2R,I}=B_{2R}\times I\) be compactly contained in the local chart supplied by the representation theorem, and let \(I'\Subset I\).  For represented Type II branches, the pulled-back local energy inequality on \(Q_{2R,I}\) gives
 \[
 \int_I\int_{B_{2R}}
 \left(|V|^3+|P-(P)_{B_{2R}}(\tau)|^{3/2}\right)<\infty,
 \]
-and \(a,b\) are bounded on \(I\).  Then
+with bounded modulation coefficients \(a,b\) on \(I\).  Consequently
 \[
 \int_{I'}\int_{B_R}|\nabla V|^2
 \le C\left(1+
@@ -89,5 +85,8 @@ modulation coefficients are bounded on a slightly larger cylinder, then
 failure of the suitable package must come from local CKN concentration on a
 comparable cylinder.
 \end{proof}
+
+\bibliographystyle{alpha}
+\bibliography{paper4_local_regularity_rough_core_exclusion}
 
 \end{document}

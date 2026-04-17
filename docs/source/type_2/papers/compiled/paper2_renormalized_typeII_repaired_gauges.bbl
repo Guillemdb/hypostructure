@@ -1,3 +1,26 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{CKN82}
+
+\bibitem[CKN82]{CaffarelliKohnNirenberg1982}
+Luis Caffarelli, Robert Kohn, and Louis Nirenberg.
+\newblock Partial regularity of suitable weak solutions of the navier--stokes
+  equations.
+\newblock {\em Communications on Pure and Applied Mathematics}, 35(6):771--831,
+  1982.
+
+\bibitem[Ler34]{Leray1934}
+Jean Leray.
+\newblock Sur le mouvement d'un liquide visqueux emplissant l'espace.
+\newblock {\em Acta Mathematica}, 63:193--248, 1934.
+
+\bibitem[Lin98]{Lin1998}
+Fanghua Lin.
+\newblock A new proof of the caffarelli-kohn-nirenberg theorem.
+\newblock {\em Communications on Pure and Applied Mathematics}, 51(3):241--257,
+  1998.
+
+\bibitem[Sch76]{Scheffer1976}
+Vladimir Scheffer.
+\newblock Partial regularity of solutions to the navier-stokes equations.
+\newblock {\em Pacific Journal of Mathematics}, 66(2):535--552, 1976.
 
 \end{thebibliography}

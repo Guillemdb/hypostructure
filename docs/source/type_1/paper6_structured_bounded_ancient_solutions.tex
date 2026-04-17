@@ -14,31 +14,29 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{assumption}[theorem]{Assumption}
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
 \numberwithin{equation}{section}
 
-\title[Structured ancient Navier--Stokes solutions]{Structured bounded ancient solutions of the three-dimensional Navier--Stokes equations}
+\title[Ancient Navier--Stokes solutions under symmetry and decay]{Ancient Navier--Stokes solutions under axisymmetry and decay}
 \author{Guillem Duran Ballester}
 \date{}
 
 \begin{document}
 
 \begin{abstract}
-We isolate three structured classes of ancient solutions of the three-dimensional
-Navier--Stokes equations which are natural in the analysis of Type I singularities:
-axisymmetric solutions without swirl, axisymmetric solutions with quantitative
-swirl control, and solutions with uniform decay in self-similar variables.  The
-axisymmetric no-swirl case is reduced to the Liouville theorem of
-Koch--Nadirashvili--Seregin--Sverak by a time-shift argument which is compatible
-with the Type I bound.  The other two classes are formulated as precise
-Liouville hypotheses with stated admissible parameter ranges.  Assuming those
-hypotheses, the corresponding nonzero Type I ancient limits cannot occur.  Thus
-the paper separates an unconditional classical case from two cases whose
-resolution requires genuinely new Liouville theorems.
+We consider ancient solutions of the three-dimensional Navier--Stokes equations
+arising in the Type I blow-up analysis under three additional structures:
+axisymmetry without swirl, axisymmetry with a quantitative bound on the angular
+velocity, and weighted spatial decay in self-similar variables.  In the no-swirl
+case the Liouville theorem of Koch--Nadirashvili--Seregin--Sverak, applied after
+a time shift, implies that every smooth Type I ancient solution is identically
+zero.  For the two remaining cases we state fixed-exponent Liouville assumptions
+and prove the corresponding Type I exclusions.  No exponent range is asserted
+unless it is part of the stated Liouville assumption.
 \end{abstract}
 
 \maketitle
@@ -52,42 +50,42 @@ Let \(U:\mathbb R^{3}\times(-\infty,0)\to\mathbb R^{3}\) and
 \nabla\cdot U=0.
 \end{equation}
 The Type I analysis of a finite-time singularity leads, after rescaling about a
-singular point, to nonzero ancient solutions satisfying
+singular point, to nonzero mild ancient solutions satisfying
 \begin{equation}\label{eq:type-i}
 \sup_{t<0}\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
 \end{equation}
-Here and below, a nonzero ancient limit is understood in the usual blow-up sense:
-the rescalings have been normalized so that the limiting solution is not
-identically zero, for instance through a positive local scale-invariant norm.
-The preceding papers in this series reduce the exclusion of Type I singularities
-to the exclusion of nonzero ancient limits satisfying increasingly restrictive
-compactness and rigidity hypotheses.  The present paper treats additional
-geometric and spatial structures that are not consequences of compactness alone.
+Here and below, a nonzero ancient limit is understood in the usual blow-up
+sense: the rescalings have been normalized so that the limiting solution is not
+identically zero, for instance through a positive pressure-normalized local
+critical density.  The present paper records three additional structures under
+which such limits can be excluded.
 
-The first structure is axisymmetry without swirl.  In this case the argument is
-closed by an existing Liouville theorem: bounded ancient axisymmetric no-swirl
+The first case is axisymmetry without swirl.  In this case the argument is
+settled by an existing Liouville theorem: bounded ancient axisymmetric no-swirl
 solutions are constant.  Since a solution satisfying \eqref{eq:type-i} is bounded
 on every time interval \((-\infty,T]\), \(T<0\), this theorem applies after a
 time shift.  The Type I decay as \(t\to-\infty\) then eliminates the constant.
 
-The second structure is axisymmetry with swirl satisfying a quantitative bound.
+The second case is axisymmetry with swirl satisfying a quantitative bound.
 The available estimates for the angular component are substantially weaker than
-in the no-swirl case, and a full Liouville theorem in this setting should be
-recorded as a separate hypothesis.  We formulate the hypothesis with an explicit
-set of admissible exponents; no exponent range is concealed in the notation.
+in the no-swirl case.  We therefore state the required Liouville theorem as a
+fixed-exponent assumption, with \(\gamma>0\) fixed throughout the statement.
 
-The third structure is uniform spatial decay in self-similar variables.  This
+The third case is uniform spatial decay in self-similar variables.  This
 condition rules out spatial escape in weighted \(L^2\), but it does not by
 itself furnish a complete time-dependent Liouville theorem.  We therefore state
-the exact weighted Liouville hypothesis needed for the Type I exclusion and
-prove the reduction from that hypothesis.
+the weighted Liouville assumption used below and prove the reduction from that
+assumption.
 
 \section{Ancient Type I solutions and self-similar variables}
 
 \begin{definition}\label{def:type-i-ancient}
-A smooth solution \(U\) of \eqref{eq:ns} on
+A smooth mild solution \(U\) of \eqref{eq:ns} on
 \(\mathbb R^3\times(-\infty,0)\) is called a Type I ancient solution if
-\eqref{eq:type-i} holds.  Its self-similar representative is
+\eqref{eq:type-i} holds.  Here mild is understood in the standard velocity
+formulation, equivalently by the Duhamel formula on each interval
+\([a,b]\subset(-\infty,0)\).  The velocity and pressure in backward
+self-similar variables are
 \begin{equation}\label{eq:self-similar}
 V(y,\tau)=\sqrt{-t}\,U(x,t),\qquad
 Q(y,\tau)=(-t)P(x,t),\qquad
@@ -167,7 +165,7 @@ of variables \eqref{eq:self-similar}.  The bounds
 \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
 \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty
 \end{equation}
-are invariant under self-similar time translation.
+are invariant under translations of \(\tau\).
 Moreover, if \(U\) satisfies \eqref{eq:type-i}, then for every \(T<0\) the
 restriction of \(U\) to \(\mathbb R^3\times(-\infty,T]\) is bounded.
 \end{lemma}
@@ -195,7 +193,7 @@ We use the following classical Liouville theorem in the precise form needed
 below.
 
 \begin{theorem}[Koch--Nadirashvili--Seregin--Sverak]\label{thm:knss}
-Let \(W\) be a bounded smooth ancient solution of the three-dimensional
+Let \(W\) be a bounded smooth mild ancient solution of the three-dimensional
 Navier--Stokes equations on \(\mathbb R^3\times(-\infty,0)\).  If \(W\) is
 axisymmetric without swirl, then \(W\) is constant in space and time.
 \end{theorem}
@@ -219,7 +217,7 @@ Fix \(T<0\), and define
 \[
 W_T(x,s)=U(x,T+s),\qquad s<0.
 \]
-Then \(W_T\) is a smooth ancient solution, axisymmetric without swirl, and
+Then \(W_T\) is a smooth mild ancient solution, axisymmetric without swirl, and
 \[
 \|W_T(\cdot,s)\|_{L^\infty(\mathbb R^3)}
 \le \frac{M}{\sqrt{-(T+s)}}\le \frac{M}{\sqrt{-T}},
@@ -236,9 +234,10 @@ intervals overlap, there is a vector \(c\in\mathbb R^3\) such that
 Letting \(t\to-\infty\) yields \(c=0\).
 \end{proof}
 
-\begin{corollary}\label{cor:no-swirl-exclusion}
-No nonzero Type I ancient limit arising from a finite-time Type I singularity can
-be axisymmetric without swirl.
+\begin{corollary}[Unconditional no-swirl Type I exclusion]
+\label{cor:no-swirl-exclusion}
+No nonzero Type I ancient limit obtained by the Seregin blow-up procedure from
+a finite-time Type I singularity can be axisymmetric without swirl.
 \end{corollary}
 
 \begin{proof}
@@ -249,42 +248,37 @@ nonzero normalization of the blow-up limit.
 
 \section{Axisymmetric solutions with controlled swirl}
 
-The angular component satisfies a drift-diffusion equation with singular
-coefficients on the axis.  This prevents the preceding no-swirl argument from
-closing once \(U_\theta\) is nonzero.  The following formulation records exactly
-the Liouville statement needed for the Type I reduction.
+The angular component satisfies an equation with singular coefficients on the
+axis.  This prevents the preceding no-swirl argument from closing once
+\(U_\theta\) is nonzero.  The following fixed-exponent Liouville theorem is the
+assumption used below.
 
-\begin{hypothesis}[Controlled-swirl Liouville criterion]\label{hyp:swirl}
-Let \(I\) be a specified subset of \((0,\infty)\).  For every
-\(\gamma\in I\), the following assertion holds.
-
-If \(U\) is a smooth Type I ancient solution of \eqref{eq:ns}, \(U\) is
-axisymmetric, and its self-similar representative \(V\) satisfies
+\begin{assumption}[Liouville theorem with controlled swirl]\label{ass:swirl}
+Fix \(\gamma>0\).  Let \(U\) be a smooth Type I ancient solution of
+\eqref{eq:ns}.  Assume that \(U\) is axisymmetric and that its velocity \(V\) in
+self-similar variables satisfies
 \begin{equation}\label{eq:controlled-swirl-assumption}
 \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
-\rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty,
+\rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty.
 \end{equation}
-then \(U\equiv0\).
-\end{hypothesis}
+Then \(U\equiv0\).
+\end{assumption}
 
-\begin{remark}\label{rem:admissible-exponents}
-The admissible exponent range is the set \(I\).  Thus a result proving
-\Cref{hyp:swirl} with \(I=[\gamma_0,\infty)\), \(I=(0,\gamma_1]\), or any other
-explicit subset immediately gives the corresponding Type I exclusion.  The
-present paper does not assert an exponent range beyond the one supplied by the
-hypothesis.
+\begin{remark}\label{rem:swirl-exponent}
+The exponent \(\gamma\) is part of \Cref{ass:swirl}.  The result is conditional
+at this value of \(\gamma\) and makes no assertion at other exponents.
 \end{remark}
 
 \begin{proposition}\label{prop:swirl-exclusion}
-Assume \Cref{hyp:swirl} for a specified set \(I\subset(0,\infty)\).  Let \(U\) be
-a nonzero Type I ancient limit arising from a finite-time Type I singularity.  If
-\(U\) is axisymmetric and its self-similar representative satisfies
-\eqref{eq:controlled-swirl-assumption} for some \(\gamma\in I\), then this
-configuration is impossible.
+Fix \(\gamma>0\), and assume the Liouville theorem in \Cref{ass:swirl} for this
+value of \(\gamma\).  Let \(U\) be a nonzero Type I ancient limit arising from a
+finite-time Type I singularity.  If \(U\) is axisymmetric and its velocity in
+self-similar variables satisfies \eqref{eq:controlled-swirl-assumption}, then
+no such \(U\) exists.
 \end{proposition}
 
 \begin{proof}
-The hypotheses place \(U\) in the class covered by \Cref{hyp:swirl}.  Hence
+The hypotheses place \(U\) in the class covered by \Cref{ass:swirl}.  Hence
 \(U\equiv0\), contrary to the nonzero normalization of the ancient limit.
 \end{proof}
 
@@ -295,86 +289,75 @@ In physical variables, \eqref{eq:controlled-swirl-assumption} is equivalent to
 (-t)^{(1-\gamma)/2}r^\gamma |U_\theta(r,z,t)|<\infty .
 \]
 This is the scale-invariant form of the condition.  It is written in
-self-similar variables in \Cref{hyp:swirl} to avoid mixing the geometric
+self-similar variables in \Cref{ass:swirl} to avoid mixing the geometric
 cylindrical variables with the Type I time weight.
 \end{remark}
 
 \section{Fast decay in self-similar variables}
 
-We next formulate the spatial decay case.  Let \(V\) be the self-similar
-representative of a Type I ancient solution.  For \(m>0\) consider the weighted
-condition
+We next formulate the spatial decay case.  Let \(V\) be the velocity in
+self-similar variables associated with a Type I ancient solution.  For \(m>0\)
+consider the weighted condition
 \begin{equation}\label{eq:weighted-decay}
 \sup_{\tau\in\mathbb R}
 \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy<\infty .
 \end{equation}
 This condition is stronger than local \(L^2\) boundedness; it rules out spatial
 escape of \(L^2\) mass in self-similar variables.  Any integration by parts or
-backward-uniqueness argument using this condition is part of the Liouville
-criterion stated below.
+backward-uniqueness argument required to exploit this decay is contained in the
+fixed-weight Liouville theorem stated below.
 
-\begin{hypothesis}[Weighted Liouville criterion]\label{hyp:weighted}
-Let \(J\) be a specified subset of \((0,\infty)\).  For every \(m\in J\), the
-following assertion holds.
+\begin{assumption}[Weighted Liouville theorem]\label{ass:weighted}
+Fix \(m>0\).  Let \(U\) be a smooth Type I ancient solution of \eqref{eq:ns}.
+Assume that its velocity \(V\) in self-similar variables satisfies
+\eqref{eq:weighted-decay}.  Then \(U\equiv0\).
+\end{assumption}
 
-If \(U\) is a smooth Type I ancient solution of \eqref{eq:ns} and its
-self-similar representative \(V\) satisfies \eqref{eq:type-i-v} and
-\eqref{eq:weighted-decay}, then \(U\equiv0\).
-\end{hypothesis}
-
-\begin{remark}\label{rem:weighted-range}
-The admissible decay range is the set \(J\).  A proof of
-\Cref{hyp:weighted} for a concrete interval of weights gives exactly that
-interval in the Type I exclusion below.  The statement is intentionally phrased
-so that the weight threshold cannot be hidden behind qualitative terminology.
+\begin{remark}\label{rem:weighted-exponent}
+The weight \(m\) is part of \Cref{ass:weighted}.  The result is conditional at
+this value of \(m\) and makes no assertion at other weights.
 \end{remark}
 
 \begin{proposition}\label{prop:weighted-exclusion}
-Assume \Cref{hyp:weighted} for a specified set \(J\subset(0,\infty)\).  Let \(U\)
-be a nonzero Type I ancient limit arising from a finite-time Type I singularity.
-If its self-similar representative satisfies \eqref{eq:weighted-decay} for some
-\(m\in J\), then this configuration is impossible.
+Fix \(m>0\), and assume the Liouville theorem in \Cref{ass:weighted} for this
+value of \(m\).  Let \(U\) be a nonzero Type I ancient limit arising from a
+finite-time Type I singularity.  If its velocity in self-similar variables
+satisfies \eqref{eq:weighted-decay}, then no such \(U\) exists.
 \end{proposition}
 
 \begin{proof}
-The hypotheses put \(U\) in the class covered by \Cref{hyp:weighted}.  Hence
+The hypotheses put \(U\) in the class covered by \Cref{ass:weighted}.  Hence
 \(U\equiv0\), contradicting the nonzero normalization of the ancient limit.
 \end{proof}
 
-\section{The structured Type I exclusion}
+\section{The Type I exclusion under symmetry and decay}
 
-The preceding sections assemble into a single exclusion statement for structured
-ancient limits.  The statement is deliberately modular: the no-swirl alternative
-is unconditional, while the swirl and decay alternatives are derived from the
-corresponding Liouville hypotheses with their explicit admissible parameter sets.
+The preceding sections assemble into a single exclusion statement.  The no-swirl
+alternative is unconditional.  The swirl and decay alternatives are conditional
+on the corresponding fixed-exponent Liouville theorems.
 
-\begin{theorem}\label{thm:structured-exclusion}
+\begin{theorem}\label{thm:symmetry-decay-exclusion}
 Let \(U\) be a nonzero Type I ancient limit arising from a finite-time Type I
 singularity of the three-dimensional Navier--Stokes equations, and let \(V\) be
-its self-similar representative.  Then none of the following alternatives can
-hold:
-\begin{enumerate}
-\item \(U\) is axisymmetric without swirl;
-\item \Cref{hyp:swirl} holds for a specified set \(I\subset(0,\infty)\), \(U\) is
-axisymmetric, and \(V\) satisfies \eqref{eq:controlled-swirl-assumption} for
-some \(\gamma\in I\);
-\item \Cref{hyp:weighted} holds for a specified set \(J\subset(0,\infty)\), and
- \(V\) satisfies \eqref{eq:weighted-decay} for some \(m\in J\).
-\end{enumerate}
+its velocity in self-similar variables.  Then \(U\) is not axisymmetric without
+swirl.  Moreover, fix \(\gamma>0\) and assume the Liouville theorem in
+\Cref{ass:swirl}.  Then \(U\) cannot be axisymmetric and satisfy
+\eqref{eq:controlled-swirl-assumption}.  Likewise, fix \(m>0\) and assume the
+Liouville theorem in \Cref{ass:weighted}.  Then \(V\) cannot satisfy
+\eqref{eq:weighted-decay}.
 \end{theorem}
 
 \begin{proof}
-The first alternative is excluded by \Cref{cor:no-swirl-exclusion}.  The second
-is excluded by \Cref{prop:swirl-exclusion}.  The third is excluded by
+The no-swirl assertion is \Cref{cor:no-swirl-exclusion}.  The assertion under
+controlled swirl is \Cref{prop:swirl-exclusion}.  The assertion under weighted
+decay is
 \Cref{prop:weighted-exclusion}.
 \end{proof}
 
 \begin{remark}\label{rem:relation-to-previous}
-This theorem does not replace the compact ancient dynamics criteria proved in
-the previous papers.  It supplies separate structured routes to the same
-contradiction.  In the no-swirl case the route is complete.  In the swirl and
-weighted cases, the remaining work is exactly the proof of the corresponding
-Liouville hypothesis with an explicit admissible range.
+The no-swirl case is an unconditional closed branch of the Type I blow-up
+analysis.  In the swirl and weighted cases, the remaining work is exactly the
+proof of the corresponding fixed-exponent Liouville theorem.
 \end{remark}
 
 \begin{thebibliography}{9}

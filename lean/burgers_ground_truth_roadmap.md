@@ -207,11 +207,15 @@ Implemented:
   with the Fourier-`H¹` reconstruction from coefficient identities plus
   Parseval. The former monolithic heat upgrade now has one remaining reusable
   heat PDE-semantics fact:
-  `periodicHeat1D_weakSolutionValueFourierEvolution_literature`, stating that
-  every weak periodic heat solution has the standard forward-time value Fourier
-  coefficient evolution on each finite local window. Lean then proves
-  weak-derivative coefficient evolution from the value statement using the
-  carrier's weak-derivative Fourier identity, and proves canonical
+  `periodicHeat1D_weakSolutionValueModeODE_literature`, stating that every
+  weak periodic heat solution satisfies the scalar integrating-factor
+  zero-derivative ODE for each value Fourier mode. Lean then proves
+  finite-window scalar-mode conservation from that ODE by mathlib's
+  constant-from-zero-derivative theorem; proves the standard forward-time value
+  coefficient evolution from mode conservation, the heat-multiplier inverse
+  law, and the weak solution initial condition;
+  proves weak-derivative coefficient evolution from the value statement using
+  the carrier's weak-derivative Fourier identity; and proves canonical
   forward-time windowed uniqueness using `periodicH1State_ext_fourierCoeff`.
   Lean now constructs
   `periodicHeat1D_fourierH1IntegratedClassicalHeat_literature` without custom
@@ -1007,10 +1011,15 @@ def periodicHeat1D_fourierH1CandidateIdentification_literature : ...
 def periodicHeat1D_fourierH1ContinuousCurve_literature : ...
 def periodicHeat1D_fourierH1IntegratedClassicalHeat_literature : ...
 theorem periodicHeat1D_fourierH1WindowResidual_literature : ...
+structure PeriodicHeat1DWeakSolutionValueModeConservationFor : ...
+def periodicHeat1D_valueModeIntegratingFactor : ...
+structure PeriodicHeat1DWeakSolutionValueModeODEFor : ...
 structure PeriodicHeat1DWeakSolutionValueFourierEvolutionFor : ...
 structure PeriodicHeat1DWeakSolutionFourierEvolutionFor : ...
 def periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution : ...
-axiom periodicHeat1D_weakSolutionValueFourierEvolution_literature : ... -- arbitrary weak solution value-coefficient evolution
+axiom periodicHeat1D_weakSolutionValueModeODE_literature : ... -- scalar integrating-factor ODE
+theorem periodicHeat1D_weakSolutionValueModeConservation_literature : ... -- derived scalar conservation
+theorem periodicHeat1D_weakSolutionValueFourierEvolution_literature : ... -- derived value coefficient evolution
 theorem periodicHeat1D_weakSolutionFourierEvolution_literature : ... -- derived full coefficient evolution
 theorem periodicHeat1D_fourierH1WindowUniqueness_fromWeakSolutionFourierEvolution : ...
 theorem periodicHeat1D_fourierH1WindowUniqueness_literature : ... -- derived forward-time uniqueness
@@ -1518,7 +1527,7 @@ The current named axiom boundary is:
 
 ```text
 periodicBurgers1D_localWindowTheory_literature
-periodicHeat1D_weakSolutionValueFourierEvolution_literature
+periodicHeat1D_weakSolutionValueModeODE_literature
 periodicBurgers1D_coleHopfTheory_literature
 periodicBurgers1D_continuationTheory_literature
 ```
@@ -1546,6 +1555,8 @@ F: periodicH1State_ext_fourierCoeff
 F: periodicHeat1D_evolvedValueFourierCoeff_neg_eq_star
 F: periodicHeat1D_evolvedDerivativeFourierCoeff_neg_eq_star
 F: periodicHeat1D_modeMultiplier_hasDerivAt
+F: periodicHeat1D_modeMultiplier_mul_neg_time
+F: periodicHeat1D_modeMultiplier_complex_mul_neg_time
 F: periodicHeat1D_evolvedTimeDerivativeFourierCoeff_eq_viscosity_secondSpatial
 F: periodicHeat1D_modeMultiplier_add_time
 F: periodicHeat1D_modeMultiplier_le_one
@@ -1561,6 +1572,9 @@ F: periodicHeat1D_candidateValueCoeff_fromPositiveTimeIdentification
 F: periodicHeat1D_candidateDerivativeCoeff_fromPositiveTimeIdentification
 F: PeriodicHeat1DWeakSolutionFourierEvolutionFor
 F: PeriodicHeat1DWeakSolutionValueFourierEvolutionFor
+F: PeriodicHeat1DWeakSolutionValueModeConservationFor
+F: periodicHeat1D_valueModeIntegratingFactor
+F: PeriodicHeat1DWeakSolutionValueModeODEFor
 F: periodicHeat1D_fourierH1CandidateHeatCurve_fourierEvolution
 F: periodicHeat1D_fourierH1CandidateIdentification_literature
 F: periodicHeat1D_fourierH1ContinuousCurve_literature
@@ -1568,7 +1582,11 @@ F: IntegratedClassicalHeatWindowCertificate
 F: HeatWindowResidual.of_integratedClassical
 F: periodicHeat1D_fourierH1IntegratedClassicalHeat_literature
 F: periodicHeat1D_fourierH1WindowResidual_literature
-L: periodicHeat1D_weakSolutionValueFourierEvolution_literature
+L: periodicHeat1D_weakSolutionValueModeODE_literature
+F: periodicHeat1D_weakSolutionValueModeConservation_fromODE
+F: periodicHeat1D_weakSolutionValueModeConservation_literature
+F: periodicHeat1D_weakSolutionValueFourierEvolution_fromModeConservation
+F: periodicHeat1D_weakSolutionValueFourierEvolution_literature
 F: periodicHeat1D_weakSolutionFourierEvolution_fromValueEvolution
 F: periodicHeat1D_weakSolutionFourierEvolution_literature
 F: periodicHeat1D_fourierH1WindowUniqueness_fromWeakSolutionFourierEvolution
@@ -1641,9 +1659,12 @@ coefficient identities. The explicit candidate heat curve is now a Lean
 definition, and its positive-time candidate coefficient identification theorem
 is proved in Lean. The weak residual is now a Lean theorem from a reusable
 integrated-classical heat interface. The remaining heat package is the single
-value-coefficient-evolution literature fact
-`periodicHeat1D_weakSolutionValueFourierEvolution_literature`; full
-weak-derivative coefficient evolution is derived from that fact plus the
+scalar-mode integrating-factor ODE literature fact
+`periodicHeat1D_weakSolutionValueModeODE_literature`; scalar-mode conservation
+is derived from that ODE by mathlib's constant-from-zero-derivative theorem.
+Value coefficient evolution is derived from conservation plus the
+heat-multiplier inverse law and the weak solution initial condition. Full
+weak-derivative coefficient evolution is derived from value evolution plus the
 `PeriodicH1State` weak-derivative Fourier identity, and canonical windowed
 uniqueness is derived from full coefficient evolution plus Fourier
 extensionality for the concrete `PeriodicH1State` carrier. Concrete-window

@@ -59,8 +59,9 @@ We give a detailed reduction from a Type I singular point of a suitable
 Leray--Hopf solution of the three-dimensional incompressible Navier--Stokes
 equations to a bounded ancient suitable weak solution in centered self-similar
 variables.  The construction records the precise scaling, pressure gauges,
-local compactness, local energy stability, and non-triviality normalization
-needed in later Liouville arguments.  The resulting renormalized ancient field
+local compactness, local energy stability, and the pressure-normalized
+Caffarelli--Kohn--Nirenberg concentration which prevents the limit from
+vanishing.  The resulting renormalized ancient field
 solves
 \[
    \partial_\tau V+(V\cdot\nabla)V+\nabla \Pi
@@ -149,8 +150,8 @@ same-point cascade of rescaled bubbles.
 \subsection{Main result}
 
 The following theorem is the main result of the paper.  The non-triviality
-assertion is stated using a scale-selection normalization.  This formulation is
-the one needed for subsequent compactness and Liouville arguments.
+assertion is stated in the pressure-normalized CKN form supplied by the local
+concentration theorem at singular points.
 
 \begin{theorem}[Type I blow-up limit and centered ancient equation]
 \label{thm:main}
@@ -189,17 +190,20 @@ The limit satisfies
    \qquad t<0,
 \end{equation}
 for a finite constant \(M\) depending only on the Type I bound.  Moreover the
-scales may be chosen so that \(U\not\equiv0\).  Equivalently, the
-renormalized field \(V\) defined by \eqref{eq:self-sim-vars-intro} satisfies
+scales may be chosen so that \(U\not\equiv0\).  The renormalized field \(V\)
+defined by \eqref{eq:self-sim-vars-intro} satisfies
 \[
    \|V\|_{L^\infty(\R^3\times\R)}\le M
 \]
-and
+and is a smooth solution of \eqref{eq:centered-intro} on \(\R^3\times\R\).
+The non-triviality is quantified as follows: there are a compact cylinder
+\[
+   K\Subset \R^3\times\R,
+\]
+a function \(b(\tau)\), and \(\eta_0>0\) such that
 \begin{equation}\label{eq:main-nonzero-renorm}
-   \sup_{\tau\in\R}\int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge \eta_0
+   \iint_K\left(|V|^3+|\Pi-b(\tau)|^{3/2}\right)\,dy\,d\tau\ge\eta_0 .
 \end{equation}
-for some \(R_0,\eta_0>0\).  Finally \(V\) is a smooth solution of
-\eqref{eq:centered-intro} on \(\R^3\times\R\).
 \end{theorem}
 
 \begin{proposition}[No Type II cascade symmetry]\label{prop:no-cascade}
@@ -618,18 +622,25 @@ We now choose the scales so that the ancient limit is not zero.  This is the
 only selection step in the proof.  It is useful to separate the standard
 regularity input from the scale selection.
 
-\begin{lemma}[Concentration at a singular point]\label{lem:singular-concentration}
-If \(z_*=(x_*,T)\) is singular, then for every sufficiently small \(r>0\),
-\[
-   C(u;z_*,r)+D(p;z_*,r)\ge \eps_*,
-\]
-where \(\eps_*\) is the constant in \cref{thm:eps-reg}.
+\begin{lemma}[Pressure-normalized concentration at a singular point]
+\label{lem:singular-concentration}
+If \(z_*=(x_*,T)\) is singular, then there are \(\eta>0\) and
+radii \(r_j\downarrow0\) such that
+\begin{equation}\label{eq:positive-concentration-sequence}
+   C(u;z_*,r_j)+D(p;z_*,r_j)\ge \eta
+   \qquad\hbox{for every }j .
+\end{equation}
 \end{lemma}
 
 \begin{proof}
-If the inequality failed for some sequence \(r_j\downarrow0\), then
-\cref{thm:eps-reg} would imply regularity in \(Q_{r_j/2}(z_*)\) for some
-\(j\), contradicting the singularity of \(z_*\).
+This is the local CKN concentration theorem at singular points.  Equivalently,
+if no such \(\eta\) and sequence existed, then
+\[
+   \limsup_{r\downarrow0}\bigl(C(u;z_*,r)+D(p;z_*,r)\bigr)=0.
+\]
+For some sufficiently small scale the left-hand side would then be below the
+epsilon-regularity threshold in \cref{thm:eps-reg}, giving regularity at
+\(z_*\), a contradiction.
 \end{proof}
 
 \begin{lemma}[Endpoint compactness at a centered Type I point]
@@ -749,56 +760,43 @@ side is smaller than the CKN threshold \(\eps_*\).  By
 \(\|v_k\|_{L^\infty(Q_\rho)}\) for every \(\rho>0\).
 \end{proof}
 
-\begin{lemma}[Scale selection]\label{lem:scale-selection}
-There are scales \(\lambda_k\downarrow0\), radii \(R_0<\infty\), times
-\(-S_0<-\sigma_0<0\), and a number \(c_0>0\) such that the rescaled sequence
-\eqref{eq:rescaled-sequence}, after pressure gauges are fixed as above,
-satisfies
+\begin{lemma}[Scale selection from local concentration]\label{lem:scale-selection}
+The scales in \cref{thm:main} may be chosen from a positive local
+concentration sequence.  More precisely, there are
+\(\lambda_k\downarrow0\), a compact cylinder
+\[
+   K_0\Subset \R^3\times(-\infty,0),
+\]
+functions \(a_k(t)\), and a number \(c_0>0\) such that the centered
+rescalings \eqref{eq:rescaled-sequence} satisfy
 \begin{equation}\label{eq:selected-lower-bound}
-   \iint_{B_{R_0}\times[-S_0,-\sigma_0]}|u_k|^3\,dx\,dt\ge c_0
+   \iint_{K_0}
+   \left(|u_k|^3+|p_k-a_k(t)|^{3/2}\right)\,dx\,dt\ge c_0
 \end{equation}
 for all \(k\).
 \end{lemma}
 
 \begin{proof}
-Since \(z_*\) is singular, \(u\) is not essentially bounded in
-\(Q_\rho(z_*)\) for any \(\rho>0\).  Let \(\{\rho_j\}_{j=1}^\infty\) be a
-dense subset of \((0,1)\).  We choose \(\lambda_k\downarrow0\) inductively so
-that, for \(1\le j\le k\),
-\[
-   \lambda_k \|u\|_{L^\infty(Q_{\rho_j\lambda_k}(z_*))}\ge k.
-\]
-Indeed, at the \(k\)-th step we choose \(\lambda_k\) smaller than the previous
-scale; every cylinder \(Q_{\rho_j\lambda_k}(z_*)\), \(1\le j\le k\), is still
-centered at the singular terminal point and hence has infinite essential
-supremum.  For the centered rescalings
-\eqref{eq:rescaled-sequence}, the preceding condition gives
-\[
-   \|u_k\|_{L^\infty(Q_{\rho_j})}\ge k,
-   \qquad 1\le j\le k.
-\]
-By density and monotonicity of cylinders,
-\[
-   \limsup_{k\to\infty}\|u_k\|_{L^\infty(Q_\rho)}=\infty
-   \qquad\hbox{for every }0<\rho<1.
-\]
+By \cref{lem:singular-concentration}, choose a positive local concentration
+sequence \(r_k\downarrow0\) satisfying
+\eqref{eq:positive-concentration-sequence}; set \(\lambda_k=r_k\).  The
+scaling identity in \cref{lem:scaling} gives a fixed pressure-normalized lower
+bound for the rescaled pair on \(Q_1=B_1\times(-1,0)\), after subtracting the
+spatial pressure mean on \(B_1\).
 
-By \cref{lem:endpoint-compactness}, after passing to a diagonal subsequence,
-\((u_k,p_k-b_{k,R})\) converges on each \(Q_R\) to a suitable limit \((U,P)\).
-Using the convergence on \(Q_1\) obtained from the endpoint compactness on
-\(Q_2\), \cref{prop:persistence} shows that \(U\) has a terminal singularity
-at \((0,0)\).  In particular \(U\not\equiv0\) on
-\(\R^3\times(-\infty,0)\).  Therefore there is a compact cylinder
-\[
-   B_{R_0}\times[-S_0,-\sigma_0]\Subset\R^3\times(-\infty,0)
-\]
-such that
-\[
-   \iint_{B_{R_0}\times[-S_0,-\sigma_0]}|U|^3\,dx\,dt=2c_0>0.
-\]
-Strong \(L^3\)-convergence on this cylinder gives
-\eqref{eq:selected-lower-bound} for all sufficiently large \(k\).  Discarding
-finitely many indices and relabeling the sequence completes the selection.
+The local blow-up-rate dichotomy gives the Type I/Type II alternative along
+this sequence.  Since \eqref{eq:type-I-bound-intro} holds, we are in the Type
+I alternative.  By endpoint compactness, after passing to a
+subsequence the rescaled pairs converge to a suitable limit on \(Q_1\), with
+strong \(L^3\)-convergence of the velocities on compact subcylinders and weak
+\(L^{3/2}\)-compactness of the normalized pressures.  The velocity term
+therefore passes to the limit strongly, while the pressure term is lower
+semicontinuous under weak \(L^{3/2}\)-convergence.  Hence a positive amount of
+the pressure-normalized critical density persists on \(Q_1\).  By inner
+regularity of the integral, some compact cylinder
+\(K_0\Subset Q_1\cap\{t<0\}\) still carries a positive amount of this density.
+After decreasing the constant and discarding finitely many indices,
+\eqref{eq:selected-lower-bound} holds.
 \end{proof}
 
 \begin{remark}\label{rem:selection}
@@ -811,16 +809,21 @@ cylinder compactly contained in \(\{t<0\}\).
 
 \begin{proposition}[Nonzero ancient limit]\label{prop:nonzero}
 For the scales chosen in \cref{lem:scale-selection}, the limit \(U\) in
-\cref{prop:ancient-limit} is nonzero.  More precisely,
+\cref{prop:ancient-limit} is nonzero.  More precisely, for the compact
+cylinder \(K_0\) in \cref{lem:scale-selection},
 \[
-   \iint_{B_{R_0}\times[-S_0,-\sigma_0]}|U|^3\,dx\,dt\ge c_0.
+   \iint_{K_0}\left(|U|^3+|P-a(t)|^{3/2}\right)\,dx\,dt\ge c_0
 \]
+after a suitable pressure gauge \(a(t)\).
 \end{proposition}
 
 \begin{proof}
-By \cref{prop:compactness}, \(u_k\to U\) strongly in \(L^3\) on
-\(B_{R_0}\times[-S_0,-\sigma_0]\).  Passing to the limit in
-\eqref{eq:selected-lower-bound} gives the result.
+The velocity part follows from strong local \(L^3\)-convergence on \(K_0\).
+For the pressure, pass to the weak \(L^{3/2}(K_0)\) limit of the normalized
+pressures \(p_k-a_k(t)\); this limit is a representative of the pressure,
+which we write as \(P-a(t)\).  Convexity gives lower semicontinuity of the
+\(L^{3/2}\)-norm.  Passing to the limit in \eqref{eq:selected-lower-bound},
+after decreasing \(c_0\) if necessary, gives the displayed inequality.
 \end{proof}
 
 \section{Centered self-similar variables}\label{sec:renorm}
@@ -874,10 +877,8 @@ The field \(V\) satisfies
 \[
    \|V\|_{L^\infty(\R^3\times\R)}\le M.
 \]
-Moreover there are \(R_1,\eta_1>0\) such that
-\[
-   \sup_{\tau\in\R}\int_{B_{R_1}}|V(y,\tau)|^3\,dy\ge \eta_1.
-\]
+Moreover \eqref{eq:main-nonzero-renorm} holds for some compact cylinder
+\(K\Subset\R^3\times\R\), function \(b(\tau)\), and \(\eta_0>0\).
 \end{lemma}
 
 \begin{proof}
@@ -888,17 +889,15 @@ The \(L^\infty\) bound follows immediately from \eqref{eq:ancient-type-I-bound}:
    \sqrt{-t}\,|U(y\sqrt{-t},t)|
    \le M.
 \]
-For non-triviality, \cref{prop:nonzero} gives positive \(L^3\) mass on a
-compact spacetime cylinder in \((x,t)\).  Under the change of variables
-\((x,t)\mapsto(y,\tau)\), this compact cylinder maps into a bounded
-\(y\)-region and a compact \(\tau\)-interval, with a smooth Jacobian bounded
-above and below.  Hence \(V\) has positive \(L^3\) mass on some
-\(B_{R_1}\times[\tau_1,\tau_2]\).  Consequently at some time
-\(\tau\in[\tau_1,\tau_2]\),
-\[
-   \int_{B_{R_1}}|V(y,\tau)|^3\,dy\ge \eta_1
-\]
-for a positive \(\eta_1\).
+For non-triviality, \cref{prop:nonzero} gives positive pressure-normalized CKN
+density on a compact spacetime cylinder in \((x,t)\).  Under the change of
+variables \((x,t)\mapsto(y,\tau)\), this compact cylinder maps into a compact
+cylinder \(K\Subset\R^3\times\R\), with a smooth Jacobian bounded above and
+below.  The velocity and pressure transform by the Navier--Stokes scaling, and
+subtraction of a function of \(t\) becomes subtraction of a function of
+\(\tau\).  Hence the pressure-normalized lower bound becomes
+\eqref{eq:main-nonzero-renorm}, with a possibly different positive constant
+\(\eta_0\).
 \end{proof}
 
 \begin{lemma}[Smoothness]\label{lem:smoothness}

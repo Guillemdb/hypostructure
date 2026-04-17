@@ -1,4 +1,4 @@
-# Entry Into Blow-Up-Rate Analysis
+# Initial Step for Blow-Up-Rate Analysis
 
 The local argument has only two outcomes.  Either the pressure-normalized CKN
 density vanishes at every singular point, in which case the solution

@@ -1,14 +1,14 @@
 # Local Type II exclusion assembly
 
-This note adapts the previously implemented good-window criterion and
+This note adapts the previously established good-window criterion and
 multibubble/cascade theorems to the local CKN entry used in
 [local_ckn_typeII_bridge.md](local_ckn_typeII_bridge.md).  The conclusion is a
 Type II exclusion theorem relative only to the upstream Type I criterion.  It does
 not use whole-space critical-norm normalization, whole-space tightness, or a
-terminal profile decomposition as entry hypotheses.
+terminal profile decomposition as starting assumptions.
 
 Throughout, the starting point is a suitable weak solution and a singular point
-with positive local CKN concentration supplied by the local concentration-entry theorem.  The
+with positive local CKN concentration supplied by the local concentration theorem.  The
 Type I criterion is assumed already available.
 
 For this note, the Type I criterion is used in its local tangent form: it excludes
@@ -199,7 +199,7 @@ singular point at time \(T\) can be a Type II singularity.
 ::::
 
 :::{prf:proof}
-Let \((x_0,T)\) be a singular point.  The local concentration-entry theorem gives
+Let \((x_0,T)\) be a singular point.  The local concentration theorem gives
 positive local CKN concentration at \((x_0,T)\).  If the local Type I tangent
 branch holds, it is excluded by the Type I criterion.  Otherwise the point
 enters the Type II branch.
@@ -237,4 +237,4 @@ subproof used in Section 2:
 - the local multibubble/cascade decoupling and scale-rigidity theorems.
 
 The former whole-space critical-norm normalization, whole-space tightness, and
-terminal profile-decomposition entry assumptions are not used.
+terminal profile-decomposition starting assumptions are not used.

@@ -13,7 +13,6 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -30,11 +29,12 @@ Type II Navier--Stokes concentration into the associated compactness criterion. 
 bounds and a unique nondegenerate scale and center, we construct a local
 renormalized chart, compactly supported repaired gauges, local pressure
 representation, and modulation coefficients.  The resulting repaired orbit
-satisfies the hypotheses of the local single-core compactness criterion.
+satisfies the local single-core compactness criterion.
 The pressure reconstruction and the modulation coefficients are consequences
 of the local chart and repaired gauge; they are not additional assumptions.
 Failure of the localized gauge Jacobian or of compact-cylinder uniqueness
 places the sequence in the multibubble or cascade configurations.
+This paper uses the classical Navier--Stokes theory for suitable weak solutions (Leray \cite{Leray1934}, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer \cite{Scheffer1976}, and Lin \cite{Lin1998}).
 \end{abstract}
 \maketitle
 
@@ -56,11 +56,11 @@ scale-invariant local energy, dissipation, velocity, and pressure quantities on
 backward cylinders.  The single-core case is the case in which:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \(A+E+C+D\) is bounded on every compact rescaled cylinder;
-\item one retained core carries a fixed positive CKN density;
+\item one selected core carries a fixed positive CKN density;
 \item outside a larger compact cylinder, no comparable active core remains in
       the local rescaled frame;
 \item the localized scale and center selected by that core are unique in the
-      sense of \cref{ass:gauge-nondeg} below.
+      sense that the localized scale-center Jacobian is invertible.
 \end{enumerate}
 If any of these conditions fails, the case is not single-core and belongs to
 the multibubble/cascade analysis.
@@ -135,19 +135,8 @@ homogeneity of \(|Y|^{-p}\) gives the first term, and differentiating the cutoff
 gives the annular error.
 \end{proof}
 
-\begin{assumption}[Localized gauge nondegeneracy]\label{ass:gauge-nondeg}
-The four by four Jacobian obtained by differentiating
-\((G_{0,R},G_{1,R},G_{2,R},G_{3,R})\) with respect to local scale and center
-parameters is invertible, with inverse bounded on the compact time window under
-consideration.
-\end{assumption}
-
 \begin{theorem}[Local repaired-gauge solve]\label{thm:gauge-solve}
-Under \cref{ass:gauge-nondeg}, there are absolutely continuous local scale and
-center corrections imposing the four constraints on the compact time window.  If
-\cref{ass:gauge-nondeg} fails, the case is not a nondegenerate single-core
-case and belongs to the multibubble, cascade, or gauge-degenerate
-alternative.
+On every compact time window where the localized scale-center Jacobian is invertible with bounded inverse, there are absolutely continuous local scale and center corrections imposing the four constraints.  If this localized Jacobian is not invertible, the branch is not a nondegenerate single-core branch and belongs to the multibubble, cascade, or gauge-degenerate alternative.
 \end{theorem}
 
 \begin{proof}
@@ -156,7 +145,7 @@ number of local scale and center parameters on the compact support of \(\chi_R\)
 The quantitative inverse function theorem gives a unique correction while the
 Jacobian remains invertible.  Absolute continuity follows from the absolute
 continuity of the unrepaired chart and the local integrability of the time
-derivatives of the constraints.  Failure of the Jacobian means that the retained
+derivatives of the constraints.  Failure of the Jacobian means that the selected
 mass does not determine one local scale and center, which is precisely the
 non-single-core alternative.
 \end{proof}
@@ -175,7 +164,7 @@ where \(\zeta\in C_c^\infty(B_{2R})\) equals one on the smaller ball.  Then
 bounds used in local CKN and Caccioppoli estimates.
 
 \begin{proposition}[Modulation coefficients]\label{prop:modulation}
-On every compact good window on which the localized gauge Jacobian remains
+On every compact selected window on which the localized gauge Jacobian remains
 invertible and the local Caccioppoli bounds hold, the repaired chart has
 measurable modulation coefficients \(a,b\) that are locally bounded in terms of
 the inverse Jacobian, the local pressure bounds, and the compact-cylinder
@@ -195,16 +184,14 @@ pressure decomposition.  Inverting the Jacobian gives the asserted local bounds.
 
 \begin{theorem}[Single-core repaired-gauge representation]\label{thm:representation}
 Let a local Type II concentration sequence be single-core in the sense of
-Section 1.  Assume that the retained core determines an absolutely continuous
-local rescaled frame on each compact good window and that
-\cref{ass:gauge-nondeg} holds there.  Then, after passing to a subsequence, it
+Section 1.  On every compact window on which the selected core determines an absolutely continuous local rescaled frame and the localized scale-center Jacobian is invertible, after passing to a subsequence the branch
 admits a localized repaired-gauge orbit \((V,P,a,b)\) satisfying:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item the renormalized Navier--Stokes equation on compact cylinders;
-\item positive retained local CKN mass on the selected core;
+\item positive selected local CKN mass on the selected core;
 \item local pressure reconstruction modulo spatial means;
-\item locally bounded modulation coefficients on the good windows;
-\item the compact-cylinder suitable and Caccioppoli hypotheses used by the
+\item locally bounded modulation coefficients on the selected windows;
+\item the compact-cylinder suitable and Caccioppoli bounds used by the
       local single-core compactness criterion.
 \end{enumerate}
 The pressure reconstruction and the coefficients \(a,b\) in items
@@ -224,11 +211,11 @@ pressure equation under the same change of variables, modulo functions of time,
 and the compact-ball decomposition gives the local pressure bounds.  The
 coefficients \(a,b\) are forced by the absolutely continuous scale and
 translation parameters in the transformed equation; \cref{prop:modulation}
-gives their local bounds on good windows.  The retained CKN mass and
-compact-cylinder suitable bounds are part of the single-core input.  Thus the
-resulting orbit satisfies the hypotheses required by the local single-core
-compactness criterion.  Failure of the localized scale/center uniqueness is the
+gives their local bounds on selected windows.  The selected CKN mass and compact-cylinder suitable bounds define the nondegenerate compact single-core branch.  Thus the resulting orbit satisfies the local bounds used by the local single-core compactness criterion.  Failure of the localized scale/center uniqueness is the
 non-single-core alternative.
 \end{proof}
+
+\bibliographystyle{alpha}
+\bibliography{paper2_renormalized_typeII_repaired_gauges}
 
 \end{document}

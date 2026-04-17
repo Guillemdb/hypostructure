@@ -139,4 +139,4 @@ epsilon regularity.
 | [Vanishing implies regularity](vanishing_implies_regularity.md) | Proof that local vanishing empties the singular set. |
 | [Noncompact escape](noncompact_escape.md) | Escape outside compact rescaled cylinders is irrelevant when the CKN density vanishes. |
 | [No-concentration regularity statement](no_concentration_regularity.md) | The local regularity theorem for the no-concentration case. |
-| [Entry into blow-up-rate analysis](blowup_analysis_entry.md) | How positive local concentration enters Type I or Type II analysis. |
+| [Initial step to blow-up-rate analysis](blowup_analysis_entry.md) | How positive local concentration enters Type I or Type II analysis. |
