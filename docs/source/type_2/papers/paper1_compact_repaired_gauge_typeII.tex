@@ -22,82 +22,693 @@
 \date{}
 
 \begin{document}
+
 \begin{abstract}
-We formulate the compact Type II criterion using only local Caffarelli--Kohn--Nirenberg quantities.  The argument starts from a positive local CKN core.  The localized scale-translation representation, compact-ball pressure reconstruction, and compact-cylinder Caccioppoli bounds are supplied by the local representation and local regularity papers.  A finite-cost single-core local Type II branch then has a low-dissipation compact limit.  The limit is either zero, contradicting positive local CKN concentration, or is a nonzero bounded parabolic tangent, contradicting the definition of the local Type II regime.  Hence no finite-cost compact single-core Type II branch occurs.
+We prove a local compact single-core exclusion criterion for Type II
+Navier--Stokes concentration.  The theorem is formulated on fixed compact
+parabolic cylinders with explicit Caffarelli--Kohn--Nirenberg bounds, positive
+core concentration, localized scale-translation representation, local pressure
+reconstruction, and vanishing localized dissipation on selected windows.
+Compactness and pressure stability then force
+the selected limit to be spatially constant.  A zero constant contradicts the
+positive CKN core; a nonzero constant gives a bounded selected-window limit, which
+is excluded by the definition of the local Type II regime.
 \end{abstract}
+
 \maketitle
 
-\section{Local quantities and compactness}
+\section{Introduction}
 
-Let \((u,p)\) be a suitable weak solution near a possible singular time \(T\).
-For \(z_0=(x_0,T)\), set
-\[
-Q_r(z_0)=B_r(x_0)\times(T-r^2,T),
-\]
-\[
-C(z_0,r)=r^{-2}\int_{Q_r(z_0)}|u|^3\,dx\,dt,
-\]
-\[
-D(z_0,r)=r^{-2}\int_{T-r^2}^{T}\int_{B_r(x_0)}
- |p-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt .
-\]
-The Caffarelli--Kohn--Nirenberg epsilon-regularity theorem implies that every
-singular point has positive local CKN concentration along a sequence of scales.
+This paper isolates a local compactness mechanism for Type II concentration in
+the three-dimensional Navier--Stokes equations.  The setting is a sequence of
+renormalized solutions on fixed parabolic cylinders, centered at a selected
+concentration core and written in scale-translation variables.  The result
+excludes the case in which one compact core carries a fixed positive
+Caffarelli--Kohn--Nirenberg density while the localized dissipation along
+selected windows vanishes.  The theorem is conditional on the local
+representation and pressure decomposition/stability inputs stated below; the
+compact-cylinder \(A,E,C,D\) bounds are part of the branch hypothesis.
 
-For a rescaled suitable solution \((v,q)\) on \(Q_R=B_R\times(-R^2,0)\), write
-\[
-A_v(R)=R^{-1}\operatorname*{ess\,sup}_{-R^2<s<0}\int_{B_R}|v(y,s)|^2\,dy,
-\]
-\[
-E_v(R)=R^{-1}\int_{Q_R}|\nabla v|^2\,dy\,ds.
-\]
-A compact single-core branch is one for which \(A+E+C+D\) is bounded on compact cylinders and one selected core carries a fixed positive CKN density.
+The argument is local.  Uniform Caffarelli--Kohn--Nirenberg bounds and bounded
+modulation coefficients give compactness on smaller cylinders.  Vanishing
+localized dissipation forces the compactness limit to be spatially constant.
+If the constant is zero, strong velocity convergence and pressure stability
+contradict the positive core density.  If the constant is nonzero, the sequence
+has a nonzero bounded selected-window limit, which is incompatible with the local
+Type II condition used here.
 
-\begin{definition}[Local Type II sequence]\label{def:typeII}
-A positive local concentration sequence is called a local Type II sequence if no selected-window rescaling has a nonzero bounded parabolic tangent on a compact cylinder.
+\section{Setup and definitions}
+
+For \(R>0\), write
+\[
+  Q_R=B_R\times(-R^2,0).
+\]
+For a suitable pair \((v,q)\) on \(Q_R\), define
+\[
+  A_v(R)=R^{-1}\operatorname*{ess\,sup}_{-R^2<s<0}
+  \int_{B_R}|v(y,s)|^2\,dy,
+\]
+\[
+  E_v(R)=R^{-1}\int_{Q_R}|\nabla v|^2\,dy\,ds,
+\]
+\[
+  C_v(R)=R^{-2}\int_{Q_R}|v|^3\,dy\,ds,
+\]
+\[
+  D_q(R)=R^{-2}\int_{-R^2}^0\int_{B_R}
+  |q(y,s)-(q)_{B_R}(s)|^{3/2}\,dy\,ds.
+\]
+All pressure quantities are understood modulo functions of time.
+
+\begin{definition}[Bounded selected-window limit]\label{def:bounded-window-limit}
+Let \((V_n,P_n)\) be a sequence of represented local rescalings on a compact
+cylinder \(Q_r\).  A selected-window subsequence has a bounded selected-window limit
+on \(Q_r\) if, after passing to a subsequence,
+\[
+  V_n\to V_*
+  \qquad\text{strongly in }L^3(Q_r),
+\]
+where \(V_*\in L^\infty(Q_r)\).  The limit is nonzero if
+\(V_*\not\equiv0\) on \(Q_r\).
 \end{definition}
 
-\section{Local single-core package}
+\begin{definition}[Local Type II sequence]\label{def:typeII}
+A represented sequence is called a local Type II sequence if it has positive
+local Caffarelli--Kohn--Nirenberg concentration on some fixed compact cylinder
+and no selected-window subsequence has a nonzero bounded selected-window limit on
+any compact cylinder in the sense of \cref{def:bounded-window-limit}.
+\end{definition}
 
-The local representation paper supplies the localized scale-translation variables for a nondegenerate single core.  In those variables \((V,P,a,b)\) solves, on compact renormalized cylinders,
-\[
-\partial_\tau V+(V\cdot\nabla)V+\nabla P
- =\nu\Delta V+a(\tau)(V+y\cdot\nabla V)+b(\tau)\cdot\nabla V,
-\qquad \nabla\cdot V=0.
-\]
-The pressure is reconstructed locally.  On \(B_R\),
-\[
-P=P_{\rm loc}+H,
-\qquad
--\Delta P_{\rm loc}=\partial_i\partial_j(\zeta V_iV_j),
-\]
-where \(\zeta\in C_c^\infty(B_{2R})\) equals one on \(B_R\), and \(H\) is harmonic in \(B_R\).
-
-The local regularity paper supplies the compact-cylinder Caccioppoli estimate for these represented branches.  Consequently, on the selected compact windows of a compact single-core branch, the following package is available:
+\begin{definition}[Compact single-core vanishing-dissipation branch]\label{def:single-core-branch}
+Fix radii \(0<r_*<R_*\), constants \(M<\infty\), \(\eta_0>0\), and a sequence
+of represented local rescalings \((V_n,P_n,a_n,b_n)\) on \(Q_{R_*}\).  The
+sequence is a compact single-core vanishing-dissipation branch if:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item a positive lower bound for the local CKN density on a smaller core cylinder;
-\item uniform bounds for the local suitable package on a larger compact cylinder;
-\item uniform local windowed \(H^1\) control from the Caccioppoli estimate;
-\item localized scale and centering gauges for the selected nondegenerate core;
-\item finite localized Type II cost on the finite-cost branch, giving windows on which the localized dissipation tends to zero.
+\item each \((V_n,P_n)\) is suitable on \(Q_{R_*}\) and solves the represented
+      Navier--Stokes equation
+      \begin{equation}\label{eq:represented-ns}
+      \partial_s V_n+(V_n\cdot\nabla)V_n+\nabla P_n
+      =\nu\Delta V_n+a_n(s)(V_n+y\cdot\nabla V_n)+b_n(s)\cdot\nabla V_n,
+      \qquad \nabla\cdot V_n=0;
+      \end{equation}
+\item the compact-cylinder suitable package is uniformly bounded:
+      \[
+      A_{V_n}(R_*)+E_{V_n}(R_*)+C_{V_n}(R_*)+D_{P_n}(R_*)\le M;
+      \]
+\item the selected core has positive CKN concentration on \(Q_{r_*}\):
+      \[
+      C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0
+      \qquad\text{for all }n;
+      \]
+\item the localized scale and center are nondegenerate for the selected core,
+      so the representation theorem gives the variables in
+      \eqref{eq:represented-ns};
+\item the modulation coefficients are uniformly bounded on the selected cylinder:
+      \[
+      \|a_n\|_{L^\infty(-R_*^2,0)}+\|b_n\|_{L^\infty(-R_*^2,0)}\le M;
+      \]
+\item the branch has vanishing localized dissipation in the sense of
+      \cref{def:localized-dissipation} below.
 \end{enumerate}
+\end{definition}
 
-\section{Exclusion theorem}
+\begin{definition}[Vanishing localized dissipation]\label{def:localized-dissipation}
+Let \(r_*<\rho<R_*\).  Selected windows are first translated and rescaled to the
+fixed cylinders \(Q_{r_*}\Subset Q_\rho\Subset Q_{R_*}\).  The localized
+dissipation on \(Q_\rho\) is
+\[
+  \mathcal D_n(\rho)=\int_{Q_\rho}|\nabla V_n|^2\,dy\,ds.
+\]
+The branch has vanishing localized dissipation if, after passing to a
+selected-window subsequence, there is \(\rho\in(r_*,R_*)\) such that
+\[
+  \mathcal D_n(\rho)\to0.
+\]
+\end{definition}
 
-\begin{theorem}[Local single-core Type II criterion]\label{thm:single-core-criterion}
-A finite-cost compact single-core local Type II branch cannot occur.
+\section{Local analytic inputs}
+
+The proof uses the following imported local analytic statements.  They are
+stated here in the form needed for the compact single-core argument.
+
+\begin{theorem}[Imported local concentration dichotomy from Paper 0]
+\label{thm:paper0-dichotomy}
+Let \((u,p)\) be a suitable weak solution on
+\(\mathbb R^3\times(T-\delta,T)\), and suppose \(\Sigma(T)\ne\emptyset\).
+Then, using the pressure-normalized quantities \(C,D\) of Paper 0, there exist
+\(x_0\in\Sigma(T)\), \(\eta>0\), and \(r_n\downarrow0\) such that
+\[
+  C((x_0,T),r_n)+D((x_0,T),r_n)\ge\eta
+  \qquad\text{for all }n.
+\]
+Moreover, at the concentration point either a local Type I scale-invariant
+bound holds, or the point lies in the local Type II alternative, meaning that
+no such local Type I bound holds.
 \end{theorem}
 
 \begin{proof}
-The local representation and local regularity results cited above give the compact-window package on the selected core.  The uniform local suitable bounds and the windowed \(H^1\) estimate give, after passing to a subsequence of selected windows, convergence in the standard compactness class for suitable weak solutions.  In particular, the velocities converge strongly in local \(L^2\) and in subcritical local spaces on a smaller core cylinder, and the pressures converge weakly in local \(L^{3/2}\) modulo spatial means.
-
-Finite localized Type II cost gives selected windows on which the localized dissipation tends to zero.  Hence the spatial gradient of the limit velocity vanishes on the smaller core cylinder, so the limit velocity is spatially constant there.  If the constant is zero, the velocity contribution to the CKN density on a still smaller cylinder vanishes by strong local convergence.  The local equation then gives \(\nabla P=0\) on that cylinder in the limit; after subtracting spatial means, the pressure contribution also vanishes.  This contradicts the positive local CKN density.
-
-If the constant is nonzero, the selected-window rescalings have a nonzero bounded parabolic tangent on a compact cylinder.  This contradicts the definition of a local Type II sequence in \cref{def:typeII}.  Both cases are impossible.
+This is the local blowup-rate dichotomy proved in Paper 0.
 \end{proof}
 
-\section{Role in the Type II argument}
+\begin{proposition}[Imported bridge from Paper 0 to local Type II sequences]
+\label{prop:paper0-typeII-bridge}
+Let \((x_0,T)\) be a concentration point in the local Type II alternative of
+\cref{thm:paper0-dichotomy}.  After choosing the positive concentration scales
+given there and applying the local scale-translation selection used in the
+present paper to a nondegenerate compact single core, the represented selected
+windows form a sequence with positive local CKN concentration on a fixed compact
+cylinder.  In the selected-window Type II branch, no subsequence has a nonzero
+bounded selected-window limit on any compact cylinder.  Hence the represented
+selected windows are a local Type II sequence in the sense of \cref{def:typeII}.
+\end{proposition}
 
-The local concentration theorem gives positive local CKN concentration at any singular point.  After the Type I tangent alternative is separated off by the definition of the local Type II regime, the nondegenerate finite-cost single-core case is excluded by \cref{thm:single-core-criterion}.  Failure of compact-cylinder suitable compactness or localized gauge nondegeneracy is a multibubble or cascade case, handled by the local multibubble/cascade paper.
+\begin{proof}
+Paper 0 supplies the positive CKN concentration sequence and the exclusion of
+the local Type I alternative at the chosen concentration point.  The
+scale-translation selection rewrites those shrinking cylinders as fixed
+selected windows.  The last condition is precisely the selected-window
+formulation of the Type II branch used in this paper: any branch with a nonzero
+bounded selected-window limit is assigned to the bounded-window alternative,
+not to \cref{def:typeII}.
+\end{proof}
+
+\begin{proposition}[Imported local representation input]\label{prop:representation-input}
+For a nondegenerate selected single core, the local scale-translation
+construction gives represented variables \((V_n,P_n,a_n,b_n)\) satisfying
+\eqref{eq:represented-ns} on compact cylinders.  Failure of the localized
+nondegeneracy condition is a multibubble, cascade, or gauge-degenerate
+alternative, not a compact single-core branch.
+\end{proposition}
+
+\begin{proposition}[Imported local pressure decomposition and stability]
+\label{prop:pressure-reconstruction}
+For every \(B_r\Subset B_R\), the represented pressure decomposes as
+\[
+  P_n=P_{{\rm loc},n}+H_n,
+  \qquad
+  -\Delta P_{{\rm loc},n}=\partial_i\partial_j(\zeta V_{n,i}V_{n,j}),
+\]
+where \(\zeta\in C_c^\infty(B_R)\) equals one on \(B_r\), and \(H_n\) is
+harmonic in \(B_r\).  The local part satisfies the Calderon--Zygmund bound
+\[
+  \|P_{{\rm loc},n}\|_{L^{3/2}(B_R)}
+  \le C\|V_n\|_{L^3(B_R)}^2
+\]
+for a.e. time, and the harmonic part is controlled modulo spatial means by the
+local pressure norm.
+
+Moreover, if \(V_n\to0\) strongly in \(L^3(Q_R)\), then for every \(r<R\),
+\[
+  P_n-(P_n)_{B_r}\to0
+  \quad\text{strongly in }L^{3/2}(Q_r).
+\]
+\end{proposition}
+
+\begin{lemma}[Localization of pressure oscillation bounds]\label{lem:D-localization}
+Let \(0<r<R\), and let \(q\in L^{3/2}(Q_R)\).  Then
+\[
+  D_q(r)\le C\left(\frac{R}{r}\right)^2D_q(R),
+\]
+where \(C\) is universal.
+\end{lemma}
+
+\begin{proof}
+For a.e. \(s\in(-r^2,0)\), Jensen's inequality gives
+\[
+  |(q)_{B_r}(s)-(q)_{B_R}(s)|^{3/2}
+  \le \frac1{|B_r|}\int_{B_r}|q(y,s)-(q)_{B_R}(s)|^{3/2}\,dy .
+\]
+Hence
+\[
+  \int_{B_r}|q-(q)_{B_r}(s)|^{3/2}\,dy
+  \le
+  C\int_{B_r}|q-(q)_{B_R}(s)|^{3/2}\,dy .
+\]
+Integrating over \((-r^2,0)\) and using \(Q_r\subset Q_R\),
+\[
+\begin{aligned}
+  D_q(r)
+  &\le
+  Cr^{-2}\int_{-r^2}^0\int_{B_r}
+  |q-(q)_{B_R}(s)|^{3/2}\,dy\,ds \\
+  &\le
+  Cr^{-2}\int_{-R^2}^0\int_{B_R}
+  |q-(q)_{B_R}(s)|^{3/2}\,dy\,ds
+  =
+  C\left(\frac{R}{r}\right)^2D_q(R).
+\end{aligned}
+\]
+\end{proof}
+
+\section{Compactness and pressure stability}
+
+\begin{proposition}[Compactness on selected windows]\label{prop:compactness}
+Let \((V_n,P_n)\) be suitable on \(Q_{R_*}\), solve \eqref{eq:represented-ns}, and satisfy
+\[
+  A_{V_n}(R_*)+E_{V_n}(R_*)+C_{V_n}(R_*)+D_{P_n}(R_*)\le M,
+\]
+with
+\[
+  \|a_n\|_{L^\infty(-R_*^2,0)}+\|b_n\|_{L^\infty(-R_*^2,0)}\le M.
+\]
+Then for every \(r<R_*\), after passing to a subsequence there are \((V,P)\)
+such that
+\[
+  V_n\stackrel{*}{\rightharpoonup}V
+  \quad\text{in }L^\infty(-r^2,0;L^2(B_r)),
+\]
+\[
+  V_n\rightharpoonup V
+  \quad\text{in }L^2(-r^2,0;H^1(B_r)),
+\]
+\[
+  V_n\to V
+  \quad\text{strongly in }L^3(Q_r),
+\]
+and
+\[
+  P_n-(P_n)_{B_r}\rightharpoonup P
+  \quad\text{in }L^{3/2}(Q_r).
+\]
+After passing to a further subsequence, \(a_n\) and \(b_n\) converge weak-* in
+\(L^\infty\) to bounded coefficients, and the limit satisfies the corresponding
+represented equation distributionally on smaller cylinders.
+\end{proposition}
+
+\begin{proof}
+The bounds on \(A\) and \(E\) give weak-* compactness in \(L^\infty L^2\) and
+weak compactness in \(L^2H^1\) on smaller cylinders.  Fix
+\(r<r_1<R_*\), and choose \(m\) so large that
+\[
+  H^m_0(B_{r_1})\hookrightarrow W^{1,\infty}_0(B_{r_1}).
+\]
+We claim that \(\partial_sV_n\) is uniformly bounded in
+\[
+  L^1(-r_1^2,0;H^{-m}(B_{r_1})).
+\]
+Let \(\varphi\in H^m_0(B_{r_1})\).  Pairing \eqref{eq:represented-ns} with
+\(\varphi\), integrating by parts in space where needed, and using the
+embedding above gives
+\[
+  |\langle (V_n\cdot\nabla)V_n,\varphi\rangle|
+  =
+  \left|\int_{B_{r_1}}V_{n,i}V_{n,j}\partial_j\varphi_i\,dy\right|
+  \le
+  C\|V_n\|_{L^3(B_{r_1})}^2\|\varphi\|_{H^m},
+\]
+\[
+  |\langle \nu\Delta V_n,\varphi\rangle|
+  \le
+  C\|\nabla V_n\|_{L^2(B_{r_1})}\|\varphi\|_{H^m},
+\]
+\[
+  |\langle \nabla P_n,\varphi\rangle|
+  =
+  \left|\int_{B_{r_1}}(P_n-(P_n)_{B_{r_1}})\nabla\cdot\varphi\,dy\right|
+  \le
+  C\|P_n-(P_n)_{B_{r_1}}\|_{L^{3/2}(B_{r_1})}\|\varphi\|_{H^m}.
+\]
+The modulation terms obey
+\[
+  |\langle a_nV_n,\varphi\rangle|
+  \le
+  C\|V_n\|_{L^2(B_{r_1})}\|\varphi\|_{H^m},
+\]
+\[
+  |\langle a_n\,y\cdot\nabla V_n,\varphi\rangle|
+  =
+  \left|\int_{B_{r_1}}a_n V_{n,i}\partial_j(y_j\varphi_i)\,dy\right|
+  \le
+  C\|V_n\|_{L^2(B_{r_1})}\|\varphi\|_{H^m},
+\]
+and
+\[
+  |\langle b_n\cdot\nabla V_n,\varphi\rangle|
+  =
+  \left|\int_{B_{r_1}}V_{n,i}b_{n,j}\partial_j\varphi_i\,dy\right|
+  \le
+  C\|V_n\|_{L^2(B_{r_1})}\|\varphi\|_{H^m},
+\]
+where the constant uses \(r_1\) and the uniform \(L^\infty\) bounds for
+\(a_n,b_n\).  Integrating these estimates in time gives a uniform bound because
+\[
+  \int_{-r_1^2}^0\|V_n(s)\|_{L^3(B_{r_1})}^2\,ds
+  \le
+  r_1^{2/3}\|V_n\|_{L^3(Q_{r_1})}^2,
+\]
+\[
+  \int_{-r_1^2}^0\|\nabla V_n(s)\|_{L^2(B_{r_1})}\,ds
+  \le
+  r_1\|\nabla V_n\|_{L^2(Q_{r_1})},
+\]
+\[
+  \int_{-r_1^2}^0
+  \|P_n(s)-(P_n)_{B_{r_1}}(s)\|_{L^{3/2}(B_{r_1})}\,ds
+  \le
+  r_1^{2/3}
+  \|P_n-(P_n)_{B_{r_1}}\|_{L^{3/2}(Q_{r_1})},
+\]
+and
+\[
+  \int_{-r_1^2}^0\|V_n(s)\|_{L^2(B_{r_1})}\,ds
+  \le
+  r_1^2
+  \|V_n\|_{L^\infty(-r_1^2,0;L^2(B_{r_1}))}.
+\]
+The uniform \(C\), \(E\), \(D\), and \(A\) bounds therefore prove the claimed
+time-derivative bound; the \(D\)-bound on \(Q_{r_1}\) follows from the bound on
+\(Q_{R_*}\) by \cref{lem:D-localization}.
+
+The compact embedding \(H^1(B_{r_1})\Subset L^2(B_r)\), together with
+Aubin--Lions, gives
+\[
+  V_n\to V\qquad\text{strongly in }L^2(Q_r)
+\]
+after passing to a subsequence.  The same \(L^\infty L^2\cap L^2H^1\) bounds
+give the parabolic interpolation estimate
+\[
+  \|V_n\|_{L^{10/3}(Q_r)}\le C(r,M).
+\]
+Indeed, for a.e. \(s\), the Sobolev and Gagliardo--Nirenberg inequalities give
+\[
+  \|V_n(s)\|_{L^{10/3}(B_r)}
+  \le
+  C\|V_n(s)\|_{L^2(B_r)}^{2/5}
+  \|\nabla V_n(s)\|_{L^2(B_r)}^{3/5}.
+\]
+Raising to the power \(10/3\), integrating in time, and using the \(A\) and
+\(E\) bounds yields
+\[
+  \int_{-r^2}^0\|V_n(s)\|_{L^{10/3}(B_r)}^{10/3}\,ds
+  \le
+  C
+  \left(\operatorname*{ess\,sup}_{-r^2<s<0}
+  \|V_n(s)\|_{L^2(B_r)}^2\right)^{2/3}
+  \int_{Q_r}|\nabla V_n|^2\,dy\,ds
+  \le C(r,M).
+\]
+The same estimate applies to \(V\) by weak lower semicontinuity, and therefore
+to \(V_n-V\) by the triangle inequality.  Interpolating between \(L^2\) and
+\(L^{10/3}\), one obtains
+\[
+  \|V_n-V\|_{L^3(Q_r)}
+  \le
+  \|V_n-V\|_{L^2(Q_r)}^{1/6}
+  \|V_n-V\|_{L^{10/3}(Q_r)}^{5/6}.
+\]
+The second factor is uniformly bounded and the first tends to zero, so
+\[
+  V_n\to V\qquad\text{strongly in }L^3(Q_r).
+\]
+
+The pressure compactness is the weak compactness from the uniform \(D\)-bound:
+after subtracting spatial means,
+\[
+  P_n-(P_n)_{B_r}
+  \rightharpoonup P
+  \qquad\text{in }L^{3/2}(Q_r).
+\]
+We pass to the limit distributionally using the preceding convergences.  The
+only point requiring comment is the modulation.  For every compactly supported
+test field \(\varphi\),
+\[
+  \int a_n(s)\, y\cdot\nabla V_n\cdot\varphi
+  =
+  -\int a_n(s)\,V_{n,i}\,\partial_j(y_j\varphi_i),
+\]
+where summation over repeated spatial indices is understood.  Equivalently,
+\[
+  \partial_j(y_j\varphi_i)=3\varphi_i+y_j\partial_j\varphi_i .
+\]
+Hence this term passes to the limit by strong local \(L^2\) convergence of
+\(V_n\) and weak-* convergence of \(a_n\): if \(F_n\to F\) in \(L^1\) and
+\(a_n\rightharpoonup^* a\) in \(L^\infty\), then
+\[
+  \int a_nF_n-\int aF
+  =
+  \int a_n(F_n-F)+\int (a_n-a)F\to0.
+\]
+The term \(a_nV_n\) is immediate from the same argument, while
+\[
+  \int b_n(s)\cdot\nabla V_n\cdot\varphi
+  =
+  -\int V_{n,i}\,b_{n,j}(s)\,\partial_j\varphi_i
+\]
+passes to the limit by strong local \(L^2\) convergence of \(V_n\) and weak-*
+convergence of \(b_n\).  These passages give the limiting represented equation
+in the sense of distributions.
+\end{proof}
+
+\begin{remark}[Use of bounded modulation]\label{rem:bounded-modulation}
+The uniform \(L^\infty\) bounds on \(a_n\) and \(b_n\) enter the compactness
+argument in exactly two places.  First, they give the negative Sobolev
+time-derivative bound for the three lower-order modulation terms in
+\eqref{eq:represented-ns}.  Second, after subsequential weak-* convergence of
+\(a_n,b_n\), they allow the modulation terms to pass to the distributional
+limit once \(V_n\to V\) strongly in \(L^2_{\rm loc}\).
+\end{remark}
+
+\begin{lemma}[Stability of local pressure decomposition]\label{lem:pressure-stability}
+Let \(V_n\to V\) strongly in \(L^3(Q_R)\), and use the pressure decomposition
+of \cref{prop:pressure-reconstruction}.  Then for every \(r<R\),
+\[
+  P_{{\rm loc},n}\to P_{\rm loc}
+  \quad\text{strongly in }L^{3/2}(Q_r),
+\]
+where \(-\Delta P_{\rm loc}=\partial_i\partial_j(\zeta V_iV_j)\).  If
+\(V\equiv0\) on \(Q_R\), then
+\[
+  P_n-(P_n)_{B_r}\to0
+  \quad\text{strongly in }L^{3/2}(Q_r).
+\]
+More locally in time, if \(V_n\to0\) strongly in
+\[
+  L^3(B_R\times(-r^2,0)),
+\]
+then
+\[
+  P_n-(P_n)_{B_r}\to0
+  \quad\text{strongly in }L^{3/2}(Q_r).
+\]
+\end{lemma}
+
+\begin{proof}
+Strong convergence in \(L^3\) gives
+\[
+  V_{n,i}V_{n,j}\to V_iV_j
+  \quad\text{strongly in }L^{3/2}(Q_R).
+\]
+Indeed,
+\[
+  \|V_{n,i}V_{n,j}-V_iV_j\|_{L^{3/2}(Q_R)}
+  \le
+  \bigl(\|V_n\|_{L^3(Q_R)}+\|V\|_{L^3(Q_R)}\bigr)
+  \|V_n-V\|_{L^3(Q_R)}.
+\]
+Calderon--Zygmund estimates for the compactly supported localized source yield
+strong convergence of the localized pressures in \(L^{3/2}\) on smaller balls:
+\[
+  \|P_{{\rm loc},n}-P_{\rm loc}\|_{L^{3/2}(Q_r)}
+  \le
+  C_{r,R}
+  \|V_{n,i}V_{n,j}-V_iV_j\|_{L^{3/2}(Q_R)}.
+\]
+
+Assume now that \(V\equiv0\) on \(Q_R\).  Then \(P_{\rm loc}=0\).  By the
+zero-limit stability part of \cref{prop:pressure-reconstruction},
+\[
+  P_n-(P_n)_{B_r}\to0
+  \quad\text{strongly in }L^{3/2}(Q_r).
+\]
+The same proof is local in time.  If \(V_n\to0\) strongly in
+\(L^3(B_R\times(-r^2,0))\), the Calderon--Zygmund estimate and harmonic
+pressure control are applied only for times \(s\in(-r^2,0)\), giving the
+strong convergence on \(Q_r\).
+\end{proof}
+
+\begin{lemma}[Zero-dissipation limit]\label{lem:zero-dissipation}
+If
+\[
+  V_n\rightharpoonup V\quad\text{in }L^2(I;H^1(B_\rho))
+\]
+and
+\[
+  \int_I\int_{B_\rho}|\nabla V_n|^2\,dy\,ds\to0,
+\]
+then \(\nabla V=0\) a.e. on \(B_\rho\times I\).  Hence for a.e. time,
+\(V(\cdot,s)\) is spatially constant on \(B_\rho\).
+\end{lemma}
+
+\begin{proof}
+Weak lower semicontinuity gives
+\[
+  \int_I\int_{B_\rho}|\nabla V|^2\,dy\,ds
+  \le \liminf_{n\to\infty}\int_I\int_{B_\rho}|\nabla V_n|^2\,dy\,ds=0.
+\]
+Thus \(\nabla V=0\) a.e. on \(B_\rho\times I\).  By Fubini, for a.e.
+\(s\in I\) one has \(\nabla V(\cdot,s)=0\) in \(L^2(B_\rho)\).  Since
+\(B_\rho\) is connected, every \(H^1(B_\rho)\) function with zero weak
+gradient is a.e. equal to a constant.  Hence \(V(\cdot,s)\) is spatially
+constant for a.e. \(s\).
+\end{proof}
+
+\begin{lemma}[Spatially constant limits]\label{lem:constant-limit}
+Let \(V\) be a limit on \(Q_\rho\) and suppose \(\nabla V=0\) a.e. there.
+Then \(V(y,s)=c(s)\) on \(Q_\rho\), with
+\(c\in L^\infty(-\rho^2,0)\).  If \(c\not\equiv0\) on \(Q_\rho\), then
+the approximating selected-window subsequence has a nonzero bounded
+selected-window limit.
+\end{lemma}
+
+\begin{proof}
+The spatial constancy follows from \cref{lem:zero-dissipation}.  Since
+\(V(\cdot,s)=c(s)\) on \(B_\rho\), the local \(L^\infty_sL^2_y\) bound gives
+\[
+  |c(s)|^2|B_\rho|\le \operatorname*{ess\,sup}_{-\rho^2<s<0}
+  \int_{B_\rho}|V(y,s)|^2\,dy,
+\]
+so \(c\in L^\infty(-\rho^2,0)\).  If \(c\not\equiv0\) on \(Q_\rho\), then the
+strong \(L^3\) convergence of \cref{prop:compactness} gives a subsequential
+limit to a nonzero bounded function on \(Q_\rho\), which is precisely a nonzero
+bounded selected-window limit in the sense of \cref{def:bounded-window-limit}.
+\end{proof}
+
+\section{Contradiction lemmas}
+
+\begin{lemma}[Persistence of positive core concentration]\label{lem:persistence}
+For a compact single-core branch in the sense of \cref{def:single-core-branch},
+there are fixed \(r_*>0\) and \(\eta_0>0\) such that along the selected-window
+subsequence,
+\[
+  C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0
+  \qquad\text{for all }n.
+\]
+\end{lemma}
+
+\begin{proof}
+This is part of the definition of the selected compact core and is preserved by
+passing to subsequences of the selected windows.
+\end{proof}
+
+\begin{lemma}[Zero constant contradicts positive CKN concentration]\label{lem:zero-contradiction}
+Let \(r_*<\rho\).  Suppose the compactness limit in \cref{prop:compactness} is
+spatially constant on \(Q_\rho\) and is identically zero on \(Q_{r_*}\).  Then
+\[
+  C_{V_n}(r_*)+D_{P_n}(r_*)\to0.
+\]
+Consequently this case contradicts \cref{lem:persistence}.
+\end{lemma}
+
+\begin{proof}
+Strong \(L^3(Q_{r_*})\) convergence to zero gives
+\[
+  C_{V_n}(r_*)
+  =
+  r_*^{-2}\int_{Q_{r_*}}|V_n|^3\,dy\,ds
+  =
+  r_*^{-2}\|V_n\|_{L^3(Q_{r_*})}^3
+  \to0.
+\]
+It remains to control the pressure term.  Since \(V\) is spatially constant on
+\(Q_\rho\), the identity \(V=0\) on \(Q_{r_*}\) implies
+\[
+  V=0
+  \qquad\text{on }B_\rho\times(-r_*^2,0).
+\]
+Indeed, for a.e. \(s\in(-r_*^2,0)\), the spatially constant value on
+\(B_\rho\) vanishes on the nonempty subball \(B_{r_*}\), hence vanishes on all
+of \(B_\rho\).  The strong \(L^3_{\rm loc}\) convergence therefore gives
+\[
+  V_n\to0
+  \qquad\text{strongly in }L^3(B_\rho\times(-r_*^2,0)).
+\]
+Applying \cref{lem:pressure-stability} with \(R=\rho\) and \(r=r_*\), in its
+local-in-time form, gives
+\[
+  P_n-(P_n)_{B_{r_*}}\to0
+  \qquad\text{strongly in }L^{3/2}(Q_{r_*}).
+\]
+Therefore
+\[
+  D_{P_n}(r_*)
+  =
+  r_*^{-2}
+  \|P_n-(P_n)_{B_{r_*}}\|_{L^{3/2}(Q_{r_*})}^{3/2}
+  \to0.
+\]
+Thus
+\[
+  C_{V_n}(r_*)+D_{P_n}(r_*)\to0,
+\]
+contradicting the uniform lower bound
+\[
+  C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0.
+\]
+\end{proof}
+
+\begin{lemma}[Nonzero constant contradicts the Type II regime]\label{lem:nonzero-contradiction}
+If the compactness limit is spatially constant and nonzero on a compact
+subcylinder, then the original sequence is not a local Type II sequence.
+\end{lemma}
+
+\begin{proof}
+By \cref{lem:constant-limit}, the selected-window subsequence has a nonzero
+bounded selected-window limit.  This contradicts \cref{def:typeII}.
+\end{proof}
+
+\section{Main theorem}
+
+\begin{theorem}[Local single-core Type II criterion]\label{thm:single-core-criterion}
+Under the imported inputs
+\cref{prop:paper0-typeII-bridge,prop:representation-input,prop:pressure-reconstruction},
+a compact single-core vanishing-dissipation branch in the sense of
+\cref{def:single-core-branch} cannot be a local Type II sequence.
+\end{theorem}
+
+\begin{proof}
+By the definition of vanishing localized dissipation, after passing to a
+selected-window subsequence there is a fixed radius \(\rho\in(r_*,R_*)\) such
+that
+\[
+  \int_{Q_\rho}|\nabla V_n|^2\,dy\,ds\to0
+\]
+and the positive core bound on \(Q_{r_*}\) remains valid along this subsequence.
+Apply compactness on the fixed compact
+cylinder \(Q_\rho\) and pass to a subsequence.  The compactness proposition
+gives
+\[
+  V_n\rightharpoonup V\quad\text{in }L^2(-\rho^2,0;H^1(B_\rho))
+\]
+and strong convergence in \(L^3\) on every smaller cylinder.  Since the
+localized dissipation tends to zero, the zero-dissipation lemma gives
+\[
+  \nabla V=0\quad\text{a.e. on }Q_\rho.
+\]
+Thus \(V(y,s)=c(s)\) on \(Q_\rho\), and in particular on the selected core
+cylinder \(Q_{r_*}\).
+
+If this spatially constant limit is zero on the core cylinder, the zero-limit
+contradiction lemma gives
+\[
+  C_{V_n}(r_*)+D_{P_n}(r_*)\to0,
+\]
+contradicting persistence of positive core concentration.
+
+If the spatially constant limit is not identically zero on \(Q_{r_*}\), the
+nonzero-limit lemma produces a nonzero bounded selected-window limit, contradicting
+the definition of a local Type II sequence.  The two cases exhaust all
+spatially constant limits, so the branch cannot occur.
+\end{proof}
+
+\begin{remark}[Minimal local inputs]
+The proof uses two local analytic inputs from the Type II analysis: the
+localized representation for a nondegenerate selected core, the compact-ball
+pressure reconstruction with stability on smaller balls.  The
+compact-cylinder \(A,E,C,D\) bounds and vanishing localized dissipation are
+part of the branch hypothesis, not separate analytic inputs.  Multibubble,
+cascade, gauge-degenerate, and compactness-failure alternatives are not treated
+inside this single-core theorem; they are treated by the local multibubble and
+cascade exclusion theorem.
+\end{remark}
 
 \end{document}

@@ -34,9 +34,13 @@ axisymmetry without swirl, axisymmetry with a quantitative bound on the angular
 velocity, and weighted spatial decay in self-similar variables.  In the no-swirl
 case the Liouville theorem of Koch--Nadirashvili--Seregin--Sverak, applied after
 a time shift, implies that every smooth Type I ancient solution is identically
-zero.  For the two remaining cases we state fixed-exponent Liouville assumptions
-and prove the corresponding Type I exclusions.  No exponent range is asserted
-unless it is part of the stated Liouville assumption.
+zero.  We also import two established swirl-bearing axisymmetric Liouville
+theorems: the Lei--Zhang--Zhao theorem for
+\(\Gamma=rU_\theta\in L_t^\infty L_x^p\), \(1\le p<\infty\), and the
+Lei--Ren--Zhang theorem for \(z\)-periodic ancient solutions with bounded
+\(\Gamma\).  For the remaining pointwise controlled-swirl and weighted cases
+we state fixed-exponent Liouville assumptions and prove the corresponding
+Type I exclusions.
 \end{abstract}
 
 \maketitle
@@ -68,14 +72,27 @@ time shift.  The Type I decay as \(t\to-\infty\) then eliminates the constant.
 
 The second case is axisymmetry with swirl satisfying a quantitative bound.
 The available estimates for the angular component are substantially weaker than
-in the no-swirl case.  We therefore state the required Liouville theorem as a
-fixed-exponent assumption, with \(\gamma>0\) fixed throughout the statement.
+in the no-swirl case.  Two subbranches, however, are already covered by
+published Liouville theorems: finite \(L^p\) control of the swirl variable
+\(\Gamma=rU_\theta\), and axial periodicity with bounded \(\Gamma\).  After
+recording these imports, we state the remaining pointwise controlled-swirl
+criterion as a fixed-exponent assumption, with \(\gamma>0\) fixed throughout
+the statement.
 
 The third case is uniform spatial decay in self-similar variables.  This
 condition rules out spatial escape in weighted \(L^2\), but it does not by
 itself furnish a complete time-dependent Liouville theorem.  We therefore state
 the weighted Liouville assumption used below and prove the reduction from that
 assumption.
+
+\subsection{Normalization convention}
+
+Every exclusion below is applied to an ancient limit produced by a singularity.
+Such a limit is not merely a bounded ancient solution: it carries a fixed
+positive pressure-normalized local critical density inherited from the
+blow-up sequence.  Therefore any Liouville theorem which concludes
+\(U\equiv0\) contradicts the construction of the limit.  This is the only
+place where the singular origin of the ancient solution is used in this paper.
 
 \section{Ancient Type I solutions and self-similar variables}
 
@@ -157,6 +174,14 @@ used for \(V\), with cylindrical coordinates
 \[
 y=(\rho\cos\theta,\rho\sin\theta,Z).
 \]
+We write
+\[
+   \Gamma_U(r,z,t)=rU_\theta(r,z,t),\qquad
+   \Gamma_V(\rho,Z,\tau)=\rho V_\theta(\rho,Z,\tau).
+\]
+Under the self-similar change of variables these quantities agree:
+\(\Gamma_V(\rho,Z,\tau)=\Gamma_U(r,z,t)\), where
+\((r,z)=\sqrt{-t}\,(\rho,Z)\).
 
 \begin{lemma}\label{lem:structure-preserved}
 Axisymmetry and the no-swirl condition are preserved by the self-similar change
@@ -225,8 +250,9 @@ Then \(W_T\) is a smooth mild ancient solution, axisymmetric without swirl, and
 \]
 By \Cref{thm:knss}, \(W_T\) is constant on
 \(\mathbb R^3\times(-\infty,0)\).  Hence \(U\) is constant on
-\(\mathbb R^3\times(-\infty,T)\).  Since \(T<0\) was arbitrary and these
-intervals overlap, there is a vector \(c\in\mathbb R^3\) such that
+\(\mathbb R^3\times(-\infty,T)\).  If \(T_1<T_2<0\), the constants obtained
+on \((-\infty,T_1)\) and \((-\infty,T_2)\) agree on the overlap.  Since
+\(T<0\) was arbitrary, there is a single vector \(c\in\mathbb R^3\) such that
 \(U(x,t)=c\) for all \(x\in\mathbb R^3\) and \(t<0\).  The Type I bound gives
 \[
 |c|\le \frac{M}{\sqrt{-t}}\qquad\text{for every }t<0.
@@ -250,8 +276,78 @@ nonzero normalization of the blow-up limit.
 
 The angular component satisfies an equation with singular coefficients on the
 axis.  This prevents the preceding no-swirl argument from closing once
-\(U_\theta\) is nonzero.  The following fixed-exponent Liouville theorem is the
-assumption used below.
+\(U_\theta\) is nonzero.  We first record two unconditional literature imports
+which close useful swirl-bearing subbranches.
+
+\begin{theorem}[Lei--Zhang--Zhao]\label{thm:lzz}
+Let \(W\) be a bounded smooth mild ancient solution of \eqref{eq:ns} on
+\(\mathbb R^3\times(-\infty,0)\).  Assume that \(W\) is axisymmetric and that,
+for some \(1\le p<\infty\),
+\[
+   rW_\theta\in L_t^\infty L_x^p
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+Then \(W\) is constant in space and time.
+\end{theorem}
+
+\begin{proof}
+This is the swirl-bearing ancient Liouville theorem of Lei--Zhang--Zhao
+\cite{LZZ2017}, specialized to bounded smooth mild ancient solutions.
+\end{proof}
+
+\begin{proposition}[Type I exclusion under \(L^p\)-controlled swirl]
+\label{prop:lp-swirl-exclusion}
+Let \(U\) be a smooth Type I ancient solution of \eqref{eq:ns}.  If \(U\) is
+axisymmetric and, for some \(1\le p<\infty\),
+\[
+   \Gamma_U=rU_\theta\in L_t^\infty L_x^p
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr),
+\]
+then \(U\equiv0\).
+\end{proposition}
+
+\begin{proof}
+\Cref{thm:lzz} gives that \(U\) is a constant vector.  The Type I bound
+\eqref{eq:type-i} eliminates this constant exactly as in
+\Cref{prop:no-swirl-type-i}.
+\end{proof}
+
+\begin{theorem}[Lei--Ren--Zhang]\label{thm:lrz}
+Let \(W\) be a bounded smooth mild ancient solution of \eqref{eq:ns} on
+\(\mathbb R^3\times(-\infty,0)\).  Assume that \(W\) is axisymmetric,
+periodic in the axial variable \(z\), and
+\[
+   rW_\theta\in L^\infty\bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+Then \(W\) is constant in space and time.
+\end{theorem}
+
+\begin{proof}
+This is the periodic axisymmetric Liouville theorem of Lei--Ren--Zhang
+\cite{LRZ2022}.  Their theorem is stated on
+\(\mathbb R^2\times\mathbb T^1\); a solution on \(\mathbb R^3\) which is
+periodic in \(z\) descends to that quotient, after the harmless Navier--Stokes
+scaling needed to normalize the period.
+\end{proof}
+
+\begin{proposition}[Type I exclusion under periodic bounded swirl]
+\label{prop:periodic-swirl-exclusion}
+Let \(U\) be a smooth Type I ancient solution of \eqref{eq:ns}.  If \(U\) is
+axisymmetric, periodic in \(z\), and
+\[
+   \Gamma_U=rU_\theta\in L^\infty\bigl(\mathbb R^3\times(-\infty,0)\bigr),
+\]
+then \(U\equiv0\).
+\end{proposition}
+
+\begin{proof}
+\Cref{thm:lrz} gives that \(U\) is constant.  The Type I bound
+\eqref{eq:type-i} then forces that constant to vanish.
+\end{proof}
+
+The remaining controlled-swirl branch below is not covered by these imports.
+The following fixed-exponent Liouville theorem is the assumption used for that
+branch.
 
 \begin{assumption}[Liouville theorem with controlled swirl]\label{ass:swirl}
 Fix \(\gamma>0\).  Let \(U\) be a smooth Type I ancient solution of
@@ -333,14 +429,27 @@ The hypotheses put \(U\) in the class covered by \Cref{ass:weighted}.  Hence
 \section{The Type I exclusion under symmetry and decay}
 
 The preceding sections assemble into a single exclusion statement.  The no-swirl
-alternative is unconditional.  The swirl and decay alternatives are conditional
-on the corresponding fixed-exponent Liouville theorems.
+alternative, the \(L^p\)-controlled swirl alternative, and the periodic
+bounded-\(\Gamma\) alternative are unconditional literature consequences.  The
+pointwise controlled-swirl and decay alternatives are conditional on the
+corresponding fixed-exponent Liouville theorems.
 
 \begin{theorem}\label{thm:symmetry-decay-exclusion}
 Let \(U\) be a nonzero Type I ancient limit arising from a finite-time Type I
 singularity of the three-dimensional Navier--Stokes equations, and let \(V\) be
 its velocity in self-similar variables.  Then \(U\) is not axisymmetric without
-swirl.  Moreover, fix \(\gamma>0\) and assume the Liouville theorem in
+swirl.  Moreover, if \(U\) is axisymmetric, then neither of the following
+additional alternatives can occur:
+\[
+   rU_\theta\in L_t^\infty L_x^p
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr)
+      \quad\hbox{for some }1\le p<\infty,
+\]
+or \(U\) is periodic in \(z\) and
+\[
+   rU_\theta\in L^\infty\bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+Finally, fix \(\gamma>0\) and assume the Liouville theorem in
 \Cref{ass:swirl}.  Then \(U\) cannot be axisymmetric and satisfy
 \eqref{eq:controlled-swirl-assumption}.  Likewise, fix \(m>0\) and assume the
 Liouville theorem in \Cref{ass:weighted}.  Then \(V\) cannot satisfy
@@ -349,15 +458,20 @@ Liouville theorem in \Cref{ass:weighted}.  Then \(V\) cannot satisfy
 
 \begin{proof}
 The no-swirl assertion is \Cref{cor:no-swirl-exclusion}.  The assertion under
-controlled swirl is \Cref{prop:swirl-exclusion}.  The assertion under weighted
-decay is
+\(L^p\)-controlled swirl is \Cref{prop:lp-swirl-exclusion}, and the assertion
+under periodic bounded swirl is \Cref{prop:periodic-swirl-exclusion}.  The
+conditional pointwise controlled-swirl assertion is
+\Cref{prop:swirl-exclusion}.  The assertion under weighted decay is
 \Cref{prop:weighted-exclusion}.
 \end{proof}
 
 \begin{remark}\label{rem:relation-to-previous}
 The no-swirl case is an unconditional closed branch of the Type I blow-up
-analysis.  In the swirl and weighted cases, the remaining work is exactly the
-proof of the corresponding fixed-exponent Liouville theorem.
+analysis.  The \(L_t^\infty L_x^p\)-controlled swirl branch and the
+\(z\)-periodic bounded-\(\Gamma\) branch are also closed by existing
+Liouville theorems.  In the remaining pointwise controlled-swirl and weighted
+cases, the remaining work is exactly the proof of the corresponding
+fixed-exponent Liouville theorem.
 \end{remark}
 
 \begin{thebibliography}{9}
@@ -366,6 +480,18 @@ proof of the corresponding fixed-exponent Liouville theorem.
 G. Koch, N. Nadirashvili, G. Seregin, and V. Sverak,
 \emph{Liouville theorems for the Navier-Stokes equations and applications},
 Acta Math. \textbf{203} (2009), no. 1, 83--105.
+
+\bibitem{LRZ2022}
+Z. Lei, X. Ren, and Q. S. Zhang,
+\emph{A Liouville theorem for axi-symmetric Navier--Stokes equations on
+\(\mathbb R^2\times\mathbb T^1\)},
+Math. Ann. \textbf{383} (2022), no. 1--2, 415--431.
+
+\bibitem{LZZ2017}
+Z. Lei, Q. Zhang, and N. Zhao,
+\emph{Improved Liouville theorems for axially symmetric Navier--Stokes
+equations},
+Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198.
 
 \end{thebibliography}
 

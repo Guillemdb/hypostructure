@@ -89,6 +89,17 @@ ordinary PDE conclusion which a subsequent rigidity argument must rule out.
 In this form the statement uses only the standard compactness theory for
 bounded ancient Navier--Stokes solutions.
 
+\subsection{What must be checked}
+
+The minimization argument uses four facts and no hidden compactness
+assumption.  The class must be uniformly bounded in \(L^\infty\), otherwise
+there is no compactness.  It must contain a fixed local nonvanishing
+normalization, otherwise the minimizing sequence could converge to zero.  It
+must be invariant under time translation, because the nonvanishing time of a
+given solution need not be \(\tau=0\).  Finally, it must be closed under
+locally smooth limits which retain the normalization.  These are exactly the
+four clauses in \cref{hyp:closed-normalized}.
+
 \section{Bounded ancient solutions}
 
 After applying the Leray projection \(\mathbb P\), equation \eqref{eq:centered}
@@ -346,13 +357,15 @@ Choose \(V_n\in A\) such that
 \[
    \|V_n\|_{L^\infty(\mathbb R^3\times\mathbb R)}\downarrow m .
 \]
-By \cref{lem:time-centering}, after replacing \(V_n\) by a time translate,
-which does not change its \(L^\infty\) norm, we may assume that
+For each \(n\), apply \cref{lem:time-centering} with \(\delta=1/n\).  Replacing
+\(V_n\) by the corresponding time translate keeps \(V_n\) inside \(A\) and
+does not change its \(L^\infty\) norm.  Thus we may assume that
 \[
    \int_{B_{R_0}}|V_n(y,0)|^3\,dy\ge\eta_0-\frac1n .
 \]
-\Cref{prop:local-compactness} gives a subsequence, not relabeled, and a
-bounded mild ancient solution \(V_*\) such that \(V_n\to V_*\) locally smoothly.
+\Cref{prop:local-compactness} applies because all \(V_n\) obey the common
+\(L^\infty\) bound \(M\).  Hence a subsequence, not relabeled, converges
+locally smoothly to a bounded mild ancient solution \(V_*\).
 By \cref{lem:nonzero-stability},
 \[
    \int_{B_{R_0}}|V_*(y,0)|^3\,dy\ge\eta_0 .
@@ -364,8 +377,9 @@ Finally, by \cref{lem:lsc},
    \|V_*\|_{L^\infty(\mathbb R^3\times\mathbb R)}
    \le m .
 \]
-Since \(m\) is the infimum over \(A\) and \(V_*\in A\), the reverse inequality
-is automatic.  Hence the norm of \(V_*\) is exactly \(m\).
+Since \(m\) is the infimum over all elements of \(A\) and \(V_*\in A\), one
+also has \(m\le\|V_*\|_{L^\infty}\).  The two inequalities give equality.
+The lower bound \(m>0\) shows that the minimizer cannot be the zero solution.
 \end{proof}
 
 \begin{corollary}[Reduction to minimal solutions]\label{cor:minimal-reduction}

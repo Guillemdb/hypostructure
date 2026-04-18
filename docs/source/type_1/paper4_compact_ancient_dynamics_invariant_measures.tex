@@ -92,6 +92,15 @@ that covariance is a genuine additional rigidity statement, and it is the
 precise bridge from invariant statistical dynamics to a single stationary
 self-similar solution.
 
+\subsection{Topological conventions}
+
+All compactness statements are made in the Frechet topology of local smooth
+convergence.  On compact trajectory hulls this topology is metrizable, so
+sequential compactness and compactness are equivalent.  The time-translation
+maps are homeomorphisms on each invariant hull.  These elementary points are
+used repeatedly below to pass from orbit averages to invariant measures and
+from invariant measures to statements about their supports.
+
 \section{Ancient solutions and trajectory hulls}
 
 After applying the Leray projection \(\mathbb P\), equation \eqref{eq:centered}
@@ -236,11 +245,12 @@ and
 \end{theorem}
 
 \begin{proof}
-Every sequence of translates \(V^{s_n}\) satisfies the uniform
-\(L^\infty\) bound of \(V\).  By \cref{prop:bounded-compactness}, a subsequence
-converges locally smoothly to a bounded mild ancient solution.  Thus every
-element of \(K\) is a bounded mild ancient solution with the displayed
-\(L^\infty\) bound.
+Every sequence of translates \(V^{s_n}\) satisfies the same
+\(L^\infty\) bound as \(V\).  By \cref{prop:bounded-compactness}, a subsequence
+converges locally smoothly to a bounded mild ancient solution.  Therefore the
+orbit is relatively compact, and every limit point of the orbit is again a
+bounded mild ancient solution.  The displayed \(L^\infty\) bound passes to the
+limit pointwise.
 
 Now let \(W_n\in K\).  The preceding paragraph gives a common \(L^\infty\)
 bound for the sequence.  By \cref{prop:bounded-compactness}, a subsequence
@@ -249,10 +259,12 @@ converges locally smoothly to a bounded mild ancient solution
 Thus \(K\) is sequentially compact.  The locally smooth topology is
 metrizable, so \(K\) is compact.
 
-The \(L^\infty\) bound passes to the limit pointwise.  The identity
-\(\Theta_t\Theta_s=\Theta_{t+s}\) is immediate from the definition of time
-translation, and continuity follows directly from locally smooth convergence
-on compact time intervals.
+The identity \(\Theta_t\Theta_s=\Theta_{t+s}\) is immediate from the definition
+of time translation.  If \(W_n\to W\) locally smoothly, then on each compact
+set \(B_R\times[-T,T]\) the translated functions \(\Theta_tW_n\) converge to
+\(\Theta_tW\), because this is convergence of \(W_n\) on
+\(B_R\times[-T+t,T+t]\).  Hence \(\Theta_t\) is continuous.  The same argument
+with \(-t\) shows that \(\Theta_t\) is a homeomorphism of \(K\).
 
 It remains to check the uniform \(L^3\) assertions.  Let \(W_n=V^{s_n}\to W\)
 locally smoothly.  For fixed \(\tau\) and \(R<\infty\),
@@ -441,6 +453,30 @@ Using \eqref{eq:centered}, integrating by parts, and using
    W_i(y,0)W_j(y,0)\partial_j\phi_i(y)\,dy .
    \end{aligned}
 \]
+The pressure term vanishes because
+\[
+   \int_{\mathbb R^3}\nabla P\cdot\phi\,dy
+   =
+   -\int_{\mathbb R^3}P\,\operatorname{div}\phi\,dy=0 .
+\]
+The nonlinear term is written in conservative form:
+\[
+   -\int_{\mathbb R^3}(W\cdot\nabla)W\cdot\phi\,dy
+   =
+   \int_{\mathbb R^3}W_iW_j\partial_j\phi_i\,dy .
+\]
+The drift term gives
+\[
+   -\int_{\mathbb R^3}\frac12(W+y\cdot\nabla W)\cdot\phi\,dy
+   =
+   \int_{\mathbb R^3}
+   W\cdot\left(\phi+\frac12 y\cdot\nabla\phi\right)\,dy,
+\]
+after integrating \(y\cdot\nabla W\) by parts and using
+\(\operatorname{div}y=3\).  The diffusion term gives
+\(\int W\cdot\Delta\phi\).  These identities are justified directly because
+\(\phi\) is compactly supported and the trajectories are smooth on compact
+sets.
 Substitution gives \eqref{eq:statistical-identity}.
 \end{proof}
 

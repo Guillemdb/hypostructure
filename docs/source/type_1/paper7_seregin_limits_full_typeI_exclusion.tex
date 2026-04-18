@@ -46,12 +46,15 @@ the Seregin blow-up procedure and separate the possible centered limits into
 small-amplitude, stationary \(L^3\), uniformly \(L^3\)-tight, fast-decaying,
 structured, and residual alternatives.  The small-amplitude and stationary
 \(L^3\) alternatives are excluded unconditionally by standard Liouville
-theorems.  Assuming Liouville criteria for the remaining tight and structured
-alternatives, full finite-energy Type I exclusion is reduced to one explicit
-analytic assertion: the residual non-tight/non-decaying class is empty, or
-else satisfies a replacement Liouville theorem.  The positive concentration
-and the Type I/Type II local dichotomy are used as proved local facts; the
-only additional inputs are the stated nonclassical Liouville criteria.
+theorems.  The structured taxonomy also includes the established
+Lei--Zhang--Zhao \(L_t^\infty L_x^p\)-swirl branch and the
+Lei--Ren--Zhang periodic bounded-swirl branch.  Assuming Liouville criteria
+for the remaining tight and structured alternatives, full finite-energy Type I
+exclusion is reduced to one explicit analytic assertion: the residual
+non-tight/non-decaying class is empty, or else satisfies a replacement
+Liouville theorem.  The positive concentration and the Type I/Type II local
+dichotomy are used as proved local facts; the only additional inputs are the
+stated nonclassical Liouville criteria.
 \end{abstract}
 
 \maketitle
@@ -119,6 +122,20 @@ geometric structure give additional routes to rigidity.  What remains is the
 residual non-tight/non-decaying class.  The main theorem proves that excluding
 this residual class, together with the stated Liouville inputs for the
 nonclassical classes, excludes finite-energy Type I singularities.
+
+\subsection{Logical ledger of the reduction}
+
+The argument below is a finite exhaustion argument.  It uses the following
+inputs and no others.  First, local CKN concentration at a singular point
+supplies a positive pressure-normalized density.  Second, the Type I bound and
+Seregin compactness turn a concentration sequence into a nonzero bounded
+ancient solution of \eqref{eq:centered}.  Third, the source-level
+\(L^\infty_tL^3_x\) regime has already been removed by
+Escauriaza--Seregin--Sverak.  Fourth, small ancient limits and stationary
+\(L^3\) ancient limits are unconditionally zero.  Fifth, the tight,
+structured, and residual classes are eliminated only under the hypotheses
+explicitly stated below.  Thus the final theorem is conditional exactly in
+those places where a nonclassical Liouville theorem is still required.
 
 \section{Local concentration and Seregin ancient limits}
 
@@ -339,6 +356,15 @@ physical ancient representative \(U\) satisfies at least one of the following:
    \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
    \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty;
 \]
+\item \(U\) is axisymmetric and, for some \(1\le p<\infty\),
+\[
+   rU_\theta\in L_t^\infty L_x^p
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr);
+\]
+\item \(U\) is axisymmetric, periodic in the axial variable \(z\), and
+\[
+   rU_\theta\in L^\infty\bigl(\mathbb R^3\times(-\infty,0)\bigr);
+\]
 \item \(V\) satisfies the weighted decay condition \eqref{eq:weighted-decay}
 for some \(m\in J\).
 \end{enumerate}
@@ -419,15 +445,30 @@ Let \(V\in\mathcal S\) be a nonzero Seregin ancient limit.  Then
 \end{theorem}
 
 \begin{proof}
-If \(V\in\mathcal X_{\mathrm{small}}\), then the small bounded ancient
-Liouville theorem for \eqref{eq:centered} gives \(V\equiv0\), contradicting
-the inherited nonvanishing condition \eqref{eq:nonvanishing}.
+Assume first that \(V\in\mathcal X_{\mathrm{small}}\).  By definition,
+\[
+   \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le\varepsilon_0 ,
+\]
+where \(\varepsilon_0\) is the small-data constant for bounded mild ancient
+solutions of the centered equation.  The small ancient Liouville theorem
+therefore gives \(V\equiv0\).  In that case the Leray pressure is spatially
+constant, modulo the allowed gauge \(a(\tau)\), and the integral in
+\eqref{eq:nonvanishing} is zero.  This contradicts the inherited positive
+normalization.
 
-If \(V\in\mathcal X_{\mathrm{stat}\text{-}L^3}\), write
-\(V(y,\tau)=W(y)\) with \(W\in L^3(\mathbb R^3)\).  Then \(W\) solves the
-stationary self-similar Navier--Stokes equation.  The theorem of
-Necas--Ruzicka--Sverak gives \(W\equiv0\), again contradicting
-\eqref{eq:nonvanishing}.
+Assume next that \(V\in\mathcal X_{\mathrm{stat}\text{-}L^3}\).  Then
+\(V(y,\tau)=W(y)\) for some \(W\in L^3(\mathbb R^3)\).  Substituting
+\(\partial_\tau V=0\) into \eqref{eq:centered} gives the stationary
+self-similar Navier--Stokes equation for \(W\):
+\[
+   (W\cdot\nabla)W+\nabla P
+   =
+   \Delta W-\frac12(W+y\cdot\nabla W),
+   \qquad \nabla\cdot W=0 .
+\]
+The theorem of Necas--Ruzicka--Sverak applies exactly to this
+\(L^3\)-stationary profile and gives \(W\equiv0\).  Again the nonvanishing
+condition \eqref{eq:nonvanishing} is contradicted.
 \end{proof}
 
 \begin{hypothesis}[Tight-class Liouville input]\label{hyp:tight-liouville}
@@ -444,7 +485,10 @@ For the parameter sets \(I,J\), no nonzero Seregin ancient limit may belong to
 \Cref{hyp:tight-liouville} is the form obtained, for instance, from a
 minimal-element reduction plus compact-hull equilibrium rigidity in the
 uniformly \(L^3\)-tight class.  \Cref{hyp:structured-liouville} contains the
-axisymmetric no-swirl Liouville theorem and any additional admissible
+axisymmetric no-swirl Liouville theorem of Koch--Nadirashvili--Seregin--Sverak
+\cite{KNSS2009}, the \(L_t^\infty L_x^p\)-swirl theorem of
+Lei--Zhang--Zhao \cite{LZZ2017}, the periodic bounded-\(\Gamma\) theorem of
+Lei--Ren--Zhang \cite{LRZ2022}, and any additional admissible
 controlled-swirl or weighted-decay Liouville criteria assumed for the sets
 \(I\) and \(J\).
 \end{remark}
@@ -540,11 +584,20 @@ satisfying the inherited nonvanishing condition \eqref{eq:nonvanishing}.  Let
 \(\mathcal S\) be the collection of all such limits obtained from the same
 source and the same concentration sequence.
 
-By \Cref{prop:exhaustion}, \(V\) lies in one of the five non-residual classes
-or in \(\mathcal R(\mathcal S;I,J)\).  The five non-residual classes are
-impossible by \Cref{prop:closed-branch-exclusion}.  The residual class is
-empty by \Cref{hyp:no-residual}.  Thus no alternative remains, a
-contradiction.  Hence the assumed Type I singular point cannot exist.
+By \Cref{prop:exhaustion}, exactly the following exhaustive assertion holds:
+either \(V\) belongs to at least one of the five non-residual classes, or
+\[
+   V\in\mathcal R(\mathcal S;I,J).
+\]
+If \(V\) belongs to a non-residual class, then
+\Cref{prop:closed-branch-exclusion} rules it out.  This proposition uses the
+unconditional small and stationary exclusions for the first two classes,
+\Cref{hyp:tight-liouville} for the uniformly \(L^3\)-tight class, and
+\Cref{hyp:structured-liouville} for the structured and fast-decay classes.
+If \(V\) belongs to the residual class, then
+\Cref{hyp:no-residual} says that no such element exists.  Both alternatives
+are impossible.  This contradiction proves that the assumed Type I singular
+point cannot exist.
 \end{proof}
 
 \begin{corollary}[Replacement-rigidity version]\label{cor:replacement}
@@ -583,6 +636,18 @@ Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250.
 G. Koch, N. Nadirashvili, G. Seregin, and V. Sverak,
 \emph{Liouville theorems for the Navier-Stokes equations and applications},
 Acta Math. \textbf{203} (2009), no. 1, 83--105.
+
+\bibitem{LRZ2022}
+Z. Lei, X. Ren, and Q. S. Zhang,
+\emph{A Liouville theorem for axi-symmetric Navier--Stokes equations on
+\(\mathbb R^2\times\mathbb T^1\)},
+Math. Ann. \textbf{383} (2022), no. 1--2, 415--431.
+
+\bibitem{LZZ2017}
+Z. Lei, Q. Zhang, and N. Zhao,
+\emph{Improved Liouville theorems for axially symmetric Navier--Stokes
+equations},
+Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198.
 
 \bibitem{NRS1996}
 J.~Necas, M.~Ruzicka, and V.~Sverak,

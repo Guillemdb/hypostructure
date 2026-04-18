@@ -92,6 +92,15 @@ Thus the paper should be read as an exact conditional assembly theorem, not as
 an unconditional proof of equilibrium rigidity for all compact ancient
 Navier--Stokes dynamics.
 
+\subsection{Role of the hypothesis}
+
+The strict Lyapunov hypothesis is the only nonclassical input in this paper.
+Compactness gives invariant measures, and stationary \(L^3\) rigidity gives
+zero stationary profiles.  What is not automatic is the implication that an
+invariant measure on a compact nonlinear Navier--Stokes hull must be supported
+on stationary trajectories.  The functional \(E\) and dissipation \(D\) in
+\cref{hyp:lyapunov} encode exactly that missing implication.
+
 \section{Compact ancient dynamics}
 
 After applying the Leray projection \(\mathbb P\), equation \eqref{eq:centered}
@@ -240,6 +249,29 @@ By Fubini's theorem and invariance again,
 Since \(D\ge0\), the claim follows.
 \end{proof}
 
+\begin{lemma}[Zero dissipation gives stationary support]\label{lem:support-zero-d}
+Let \(D:K\to[0,\infty)\) be continuous and let \(\mu\) be a Borel probability
+measure on \(K\).  If
+\[
+   \int_KD(W)\,d\mu(W)=0,
+\]
+then \(\mu\) is supported on the closed set \(\{D=0\}\).
+\end{lemma}
+
+\begin{proof}
+For each \(\varepsilon>0\), the set
+\[
+   K_\varepsilon=\{W\in K:\ D(W)\ge\varepsilon\}
+\]
+is closed, hence Borel.  Since \(D\ge\varepsilon\) on \(K_\varepsilon\),
+\[
+   0=\int_KD\,d\mu\ge\varepsilon\,\mu(K_\varepsilon).
+\]
+Thus \(\mu(K_\varepsilon)=0\) for every \(\varepsilon>0\).  The complement of
+\(\{D=0\}\) is the countable union of the sets \(K_{1/n}\).  Hence it has
+\(\mu\)-measure zero.
+\end{proof}
+
 \begin{theorem}[Equilibrium support]\label{thm:equilibrium-support}
 Let \(K\) be a compact invariant hull satisfying \cref{hyp:lyapunov}.  Then
 every invariant Borel probability measure on \(K\) is supported on stationary
@@ -251,9 +283,10 @@ By \cref{lem:zero-diss},
 \[
    \int_KD(W)\,d\mu(W)=0 .
 \]
-Since \(D\) is continuous and nonnegative, \(D(W)=0\) for \(\mu\)-almost every
-\(W\).  The zero set of \(D\) is exactly the set of stationary trajectories by
-\eqref{eq:zero-dissipation}.
+By \cref{lem:support-zero-d}, \(\mu\) is supported on \(\{D=0\}\).  The zero
+set of \(D\) is exactly the set of stationary trajectories by
+\eqref{eq:zero-dissipation}.  Hence every invariant measure is supported on
+stationary trajectories.
 \end{proof}
 
 \begin{corollary}[Minimal compact hulls are stationary]\label{cor:minimal-stationary}

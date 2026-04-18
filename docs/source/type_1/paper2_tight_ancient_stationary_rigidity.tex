@@ -85,6 +85,17 @@ to vanish.  Second, a bounded mild ancient solution with sufficiently small
 formulation of \eqref{eq:centered} and the decay of the linear
 Ornstein--Uhlenbeck Stokes semigroup.
 
+\subsection{Logical scope}
+
+The results below are intentionally separated by hypothesis.  The global
+source-level condition \(u\in L^\infty_tL^3_x\) is eliminated by the
+Escauriaza--Seregin--Sverak theorem before any ancient-profile classification
+is needed.  The small-amplitude ancient branch is eliminated by the mild
+formula and the damping of the centered Stokes semigroup.  The stationary
+\(L^3\) branch is eliminated by the stationary self-similar theorem.  The
+uniformly \(L^3\)-tight time-dependent branch is not eliminated here unless an
+additional argument produces a stationary limit.
+
 \subsection{Mild formulation}
 
 After applying the Leray projection \(\mathbb P\), equation
@@ -659,8 +670,17 @@ Let
 \[
    M=\|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}.
 \]
-Apply the mild formula \eqref{eq:mild} on \([\tau-T,\tau]\).  By
-\cref{lem:stokes-estimates},
+Apply the mild formula \eqref{eq:mild} on \([\tau-T,\tau]\):
+\[
+   V(\tau)
+   =
+   S(T)V(\tau-T)
+   -
+   \int_0^T
+   S(a)\mathbb P\operatorname{div}(V\otimes V)(\tau-a)\,da .
+\]
+The first term is bounded by \(e^{-T/2}M\).  For the Duhamel term,
+\cref{lem:stokes-estimates} gives
 \[
    \|V(\tau)\|_{L^\infty}
    \le
@@ -673,12 +693,12 @@ Taking the supremum in \(\tau\) gives
 \[
    M\le e^{-T/2}M+C_*M^2.
 \]
-Let \(T\to\infty\).  Then
+The solution is ancient, so \(T\) is arbitrary.  Letting \(T\to\infty\) gives
 \[
    M\le C_*M^2.
 \]
-Choose \(\varepsilon_0=(2C_*)^{-1}\).  If \(M\le\varepsilon_0\), the last inequality forces
-\(M=0\).  Hence \(V\equiv0\).
+Choose \(\varepsilon_0=(2C_*)^{-1}\).  If \(0<M\le\varepsilon_0\), then
+\(1\le C_*M\le1/2\), a contradiction.  Hence \(M=0\), and \(V\equiv0\).
 \end{proof}
 
 \section{Gaussian identity under rapid decay}
@@ -788,9 +808,20 @@ invariant under translations in \(\tau\).  The sequence
 and uniform tightness bounds as \(V\).  By \cref{lem:tight-closure}, the local
 smooth limit \(W\) satisfies the same global \(L^3\) bound.  Since \(W\) is
 independent of \(\tau\), write \(W(y,\tau)=W_0(y)\).  Then
-\(W_0\in L^3(\mathbb R^3)\), and substituting into \eqref{eq:centered} gives the
-stationary profile equation \eqref{eq:stationary-profile}.  \Cref{thm:NRS}
-yields \(W_0\equiv0\).
+\[
+   W_0\in L^3(\mathbb R^3).
+\]
+Substituting \(\partial_\tau W=0\) into \eqref{eq:centered} gives, in
+distributions,
+\[
+   (W_0\cdot\nabla)W_0+\nabla P_0
+   =
+   \Delta W_0-\frac12(W_0+y\cdot\nabla W_0),
+   \qquad \operatorname{div}W_0=0 .
+\]
+Thus \(W_0\) is precisely a stationary self-similar profile in the class
+covered by \cref{thm:NRS}.  Consequently \(W_0\equiv0\), and hence
+\(W\equiv0\).
 \end{proof}
 
 \begin{proof}[Proof of \cref{cor:stationary-tight}]

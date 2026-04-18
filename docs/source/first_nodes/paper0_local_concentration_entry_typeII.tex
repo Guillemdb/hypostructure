@@ -178,11 +178,50 @@ functions of the rescaled time.
 
 \begin{proof}
 The distributional equations and the divergence condition follow from the
-change of variables \(x=x_0+ry\), \(t=T+r^2s\).  The local energy inequality is
-obtained by testing the original inequality with the corresponding rescaled
-nonnegative test function.  The pressure transformation is the one dictated by
-Navier--Stokes scaling, and addition of a function of \(t\) becomes addition
-of a function of \(s\).
+change of variables \(x=x_0+ry\), \(t=T+r^2s\).  We spell out the local
+energy inequality because this is the only point at which the suitability
+condition is not purely formal.
+
+Let \(\psi\in C_c^\infty\) be nonnegative and compactly supported in the
+rescaled domain.  Define
+\[
+  \phi(x,t)=
+  \psi\left(\frac{x-x_0}{r},\frac{t-T}{r^2}\right).
+\]
+If \(y=(x-x_0)/r\) and \(s=(t-T)/r^2\), then
+\[
+  \partial_t\phi=r^{-2}(\partial_s\psi)(y,s),\qquad
+  \nabla_x\phi=r^{-1}(\nabla_y\psi)(y,s),\qquad
+  \Delta_x\phi=r^{-2}(\Delta_y\psi)(y,s).
+\]
+For almost every \(s_1<s_2\), the corresponding times
+\(T+r^2s_1<T+r^2s_2\) are admissible in the original local energy inequality.
+Apply that inequality for \((u,p)\) to \(\phi\) on
+\([T+r^2s_1,T+r^2s_2]\).  After the change of variables
+\(x=x_0+ry\), \(t=T+r^2s\), using
+\[
+  u(x_0+ry,T+r^2s)=r^{-1}u^{(r)}(y,s),\qquad
+  p(x_0+ry,T+r^2s)=r^{-2}p^{(r)}(y,s),
+\]
+all terms contain the same common factor \(r\).  Dividing by this factor gives
+exactly
+\[
+\begin{aligned}
+&\int_{\mathbb R^3}\frac{|u^{(r)}(y,s_2)|^2}{2}\psi(y,s_2)\,dy
+ +\int_{s_1}^{s_2}\int_{\mathbb R^3}|\nabla_y u^{(r)}|^2\psi\,dy\,ds \\
+&\le
+ \int_{\mathbb R^3}\frac{|u^{(r)}(y,s_1)|^2}{2}\psi(y,s_1)\,dy
+ +\int_{s_1}^{s_2}\int_{\mathbb R^3}
+   \frac{|u^{(r)}|^2}{2}(\partial_s\psi+\Delta_y\psi)\,dy\,ds \\
+&\quad
+ +\int_{s_1}^{s_2}\int_{\mathbb R^3}
+   \left(\frac{|u^{(r)}|^2}{2}+p^{(r)}\right)
+   u^{(r)}\cdot\nabla_y\psi\,dy\,ds .
+\end{aligned}
+\]
+Thus \((u^{(r)},p^{(r)})\) is suitable on the rescaled domain.  The pressure
+transformation is the one dictated by Navier--Stokes scaling, and addition of
+a function of \(t\) becomes addition of a function of \(s\).
 \end{proof}
 
 \begin{definition}[Pressure-normalized critical quantities]
@@ -227,9 +266,30 @@ Local finiteness of the velocity term follows from
   \cap L^2_tH^1_{x,\mathrm{loc}}
   \subset L^3_{\mathrm{loc}}
 \]
-on finite cylinders, using the local Sobolev interpolation.  The pressure term
-is finite because \(p\in L^{3/2}_{\mathrm{loc}}\), and subtracting a spatial
-mean over the same ball preserves local \(L^{3/2}\) integrability.
+on finite cylinders.  Indeed, if \(B\Subset\mathbb R^3\) and
+\((a,b)\Subset I\), Sobolev and interpolation give
+\[
+  \int_a^b \|u(t)\|_{L^3(B)}^3\,dt
+  \le
+  C
+  \left(\operatorname*{ess\,sup}_{a<t<b}\|u(t)\|_{L^2(B)}\right)^{3/2}
+  \left(\int_a^b \|u(t)\|_{H^1(B)}^2\,dt\right)^{3/4}
+  (b-a)^{1/4}.
+\]
+Thus \(u\in L^3_{\mathrm{loc}}\).  The pressure term is finite because
+\(p\in L^{3/2}_{\mathrm{loc}}\), and subtracting a spatial mean over the same
+ball preserves local \(L^{3/2}\) integrability.  More explicitly, for a ball
+\(B\),
+\[
+  |p-(p)_B(t)|^{3/2}\le C\left(|p|^{3/2}+|(p)_B(t)|^{3/2}\right),
+\]
+while Jensen's inequality gives
+\[
+  |(p)_B(t)|^{3/2}
+  \le \frac1{|B|}\int_B |p(x,t)|^{3/2}\,dx.
+\]
+After integration over \(B\) and over time, the normalized pressure term is
+controlled by the local \(L^{3/2}\) norm of \(p\).
 
 For the scaling identity, use \(x=x_0+ry\), \(t=T+r^2s\).  The velocity term
 transforms as
@@ -241,7 +301,23 @@ The pressure means transform according to
 \[
   (p^{(r)})_{B_R}(s)=r^2(p)_{B_{rR}(x_0)}(T+r^2s),
 \]
-and the pressure term gives the corresponding identity for \(D\).
+because
+\[
+  \frac1{|B_R|}\int_{B_R} r^2p(x_0+ry,T+r^2s)\,dy
+  =
+  \frac{r^2}{|B_{rR}|}\int_{B_{rR}(x_0)}p(x,T+r^2s)\,dx .
+\]
+Therefore
+\[
+\begin{aligned}
+&\int_{-R^2}^{0}\int_{B_R}
+|p^{(r)}-(p^{(r)})_{B_R}(s)|^{3/2}\,dy\,ds \\
+&\qquad =
+r^{-2}\int_{T-(rR)^2}^{T}\int_{B_{rR}(x_0)}
+|p-(p)_{B_{rR}(x_0)}(t)|^{3/2}\,dx\,dt .
+\end{aligned}
+\]
+Adding the velocity and pressure identities gives the displayed formula.
 \end{proof}
 
 \section{Epsilon Regularity and the Vanishing Case}
@@ -255,7 +331,8 @@ If
   C(z_0,r)+D(z_0,r)<\varepsilon_{\mathrm{CKN}},
 \]
 then \(u\) is locally bounded in a smaller cylinder, for instance in
-\(Q_{r/2}(z_0)\).  Consequently \(z_0\) is a regular point.
+\(Q_{r/2}(z_0)\).  In particular, if \(z_0=(x_0,T)\), then
+\(x_0\notin\Sigma(T)\).
 \end{theorem}
 
 \begin{proof}
@@ -273,6 +350,7 @@ We say that the local critical density vanishes at time \(T\) if, for every
   \limsup_{r\downarrow0}
   \bigl(C((x_0,T),r)+D((x_0,T),r)\bigr)=0.
 \]
+This condition is vacuous when \(\Sigma(T)=\emptyset\).
 \end{definition}
 
 \begin{proposition}[Equivalent rescaled formulation]
@@ -312,26 +390,28 @@ hypothesis, choose \(r>0\) such that
 \[
   C((x_0,T),r)+D((x_0,T),r)<\varepsilon_{\mathrm{CKN}}.
 \]
-\Cref{thm:ckn} implies that \((x_0,T)\) is regular.  This contradicts the
-definition of \(\Sigma(T)\).  Hence \(\Sigma(T)=\emptyset\).
+\Cref{thm:ckn} implies that \(u\) is bounded in \(Q_{r/2}(x_0,T)\), hence
+\(x_0\notin\Sigma(T)\).  This contradicts the choice of \(x_0\).  Hence
+\(\Sigma(T)=\emptyset\).
 \end{proof}
 
-\begin{corollary}[Vanishing rescaled density implies regularity]
+\begin{corollary}[Vanishing rescaled density excludes terminal singularity]
 \label{cor:escape}
 Let \((u,p)\) be suitable near \((x_0,T)\).  If
 \[
   \limsup_{r\downarrow0}
   \bigl(C((x_0,T),r)+D((x_0,T),r)\bigr)=0,
 \]
-then \((x_0,T)\) is regular.  Equivalently, a singularity at \((x_0,T)\)
-requires nonzero pressure-normalized CKN density on a sequence of shrinking
-backward parabolic cylinders.
+then \(u\) is bounded in some backward cylinder \(Q_\rho(x_0,T)\), and hence
+\(x_0\notin\Sigma(T)\).  Equivalently, membership in \(\Sigma(T)\) requires
+nonzero pressure-normalized CKN density on a sequence of shrinking backward
+parabolic cylinders.
 \end{corollary}
 
 \begin{proof}
 The hypothesis gives a scale at which \(C+D\) is below the universal threshold
-in \cref{thm:ckn}.  The epsilon-regularity theorem gives local boundedness
-near \((x_0,T)\).
+in \cref{thm:ckn}.  The epsilon-regularity theorem gives local boundedness in
+a backward cylinder ending at \(T\), so \(x_0\notin\Sigma(T)\).
 \end{proof}
 
 \section{Positive Local Concentration}
@@ -416,6 +496,13 @@ normalized pressure integrals.  Passing to the limit in the lower bound yields
 the asserted inequality.
 \end{proof}
 
+\begin{remark}
+\Cref{prop:compactness-persistence} is not used in the proof of the main
+dichotomy below.  It is included only as an auxiliary statement for later
+compactness arguments, where strong convergence of a rescaled sequence has
+already been obtained by other means.
+\end{remark}
+
 \begin{proposition}[Local alternative]\label{prop:local-alternative}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\) for some \(\delta>0\).  Exactly one of the
@@ -436,11 +523,12 @@ that
 \end{proposition}
 
 \begin{proof}
-The first alternative is a universal assertion over the singular set.  If it
-fails, then for some \(x_0\in\Sigma(T)\) the corresponding limsup is positive;
-choosing a positive number below this limsup and a realizing sequence gives
-the second alternative.  Conversely, the second alternative contradicts the
-first.
+The first alternative is a universal assertion over the singular set, and the
+second is precisely its failure written with a realizing sequence.  If the
+first alternative fails, then for some \(x_0\in\Sigma(T)\) the corresponding
+limsup is positive; choosing a positive number below this limsup and a
+realizing sequence gives the second alternative.  Conversely, the second
+alternative contradicts the first.  Hence exactly one alternative holds.
 \end{proof}
 
 \begin{theorem}[Singular points carry positive local CKN concentration]
@@ -478,8 +566,9 @@ pressure-normalized critical density on a fixed bounded cylinder.
 \label{def:typeI-concentration}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and let \(r_n\downarrow0\) be a positive
-local concentration sequence at \((x_0,T)\).  The sequence \(r_n\) is called
-Type I if it satisfies a local Type I scale-invariant bound at \((x_0,T)\):
+local concentration sequence at \((x_0,T)\).  The sequence is called Type I
+when the concentration point \((x_0,T)\) satisfies a local Type I
+scale-invariant bound:
 there are \(\rho>0\) and \(M<\infty\), with \(\rho^2<\delta\), such that
 \[
   \operatorname*{ess\,sup}_{T-\rho^2<t<T}
@@ -492,9 +581,10 @@ The corresponding case is the Type I alternative.
 \label{def:typeII-alternative}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and let \(r_n\downarrow0\) be a positive
-local concentration sequence at \((x_0,T)\).  The sequence \(r_n\) is in the
-local Type II alternative if no local Type I scale-invariant bound holds at
-\((x_0,T)\).  Equivalently, for every \(\rho>0\) with \(\rho^2<\delta\),
+local concentration sequence at \((x_0,T)\).  The sequence is in the local
+Type II alternative when the concentration point \((x_0,T)\) satisfies no
+local Type I scale-invariant bound.  Equivalently, for every \(\rho>0\) with
+\(\rho^2<\delta\),
 \[
   \operatorname*{ess\,sup}_{T-\rho^2<t<T}
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_0))}=\infty.

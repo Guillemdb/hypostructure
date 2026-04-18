@@ -230,6 +230,20 @@ scale-invariant quantities, and epsilon regularity.  Section
 \ref{sec:renorm} derives the centered equation.  Section \ref{sec:symmetry}
 proves \cref{prop:no-cascade}.
 
+\subsection{Proof bookkeeping}
+
+The proof has three logically separate layers.  First, the Type I bound gives
+local \(L^\infty\) compactness on every cylinder separated from the terminal
+time.  Second, the finite endpoint compactness quantity
+\(\calI_*(u,p;z_*)\) gives compactness up to rescaled cylinders ending at
+\((0,0)\), after subtracting time-dependent pressure gauges.  Third, the
+positive pressure-normalized CKN concentration at the singular point chooses
+the scales so that the limiting ancient solution is not zero.  None of these
+three layers implies the others.  In particular, the Type I bound alone gives
+boundedness of possible limits but not non-triviality, while local
+concentration alone gives non-triviality but not the global-in-time
+\(L^\infty\) ancient bound.
+
 \section{Preliminaries}\label{sec:prelim}
 
 We write
@@ -359,6 +373,31 @@ invariant since \(|\nabla u^\lambda|^2\,dx\,dt\) scales as
 \(\lambda^{-1}|\nabla u|^2\,dX\,dS\).
 \end{proof}
 
+\begin{lemma}[Pressure gauges do not change the equations]\label{lem:gauges-harmless}
+Let \((v,q)\) be a suitable weak solution in a cylinder \(Q\), and let
+\(\alpha(t)\in L^{3/2}_{\mathrm{loc}}\) depend only on time.  Then
+\((v,q-\alpha(t))\) satisfies the same distributional Navier--Stokes equation,
+the same divergence condition, and the same local energy inequality.
+\end{lemma}
+
+\begin{proof}
+In the distributional equation, replacing \(q\) by \(q-\alpha(t)\) adds
+\(-\nabla\alpha(t)\), which is zero because \(\alpha\) has no spatial
+dependence.  The divergence equation is independent of the pressure.  In the
+local energy inequality the only new term is
+\[
+   -2\int \alpha(t)v(x,t)\cdot\nabla\phi(x,t)\,dx\,dt .
+\]
+For almost every \(t\), since \(\operatorname{div}v(\cdot,t)=0\) in
+distributions and \(\phi(\cdot,t)\) is compactly supported,
+\[
+   \int v(x,t)\cdot\nabla\phi(x,t)\,dx=0 .
+\]
+Thus the additional term vanishes.  Therefore all compactness arguments may
+choose pressure representatives modulo functions of time without altering
+suitability.
+\end{proof}
+
 \section{Uniform estimates for the rescaled sequence}\label{sec:bounds}
 
 Let \(M<\infty\) be chosen so that, after decreasing \(T_0<T\) if necessary,
@@ -435,11 +474,8 @@ To estimate \(\nabla u_k\), choose
 \(\phi\in C_c^\infty(B_{2R}\times[-2S,-\sigma/2])\), \(0\le\phi\le1\),
 with \(\phi\equiv1\) on \(Q\).  Apply the local energy inequality to
 \((u_k,p_k-a_k(t))\) with this cutoff.  Subtracting a function of time from
-the pressure does not change the local energy inequality, because
-\[
-   \int_{\R^3} a_k(t)u_k(\cdot,t)\cdot\nabla\phi(\cdot,t)\,dx=0
-\]
-for divergence-free \(u_k\).  The terms containing
+the pressure does not change the local energy inequality by
+\cref{lem:gauges-harmless}.  The terms containing
 \(\partial_t\phi+\Delta\phi\) and \(\nabla\phi\) are bounded by
 \cref{lem:inherited-bound}, the finite volume of the support, and the pressure
 estimate of \cref{lem:pressure}.  Absorbing no term is necessary, since the
@@ -546,14 +582,24 @@ strongly in \(L^q_{\loc}(\R^3\times(-\infty,0))\) for every finite \(q\), and
 \end{proposition}
 
 \begin{proof}
-On each compact cylinder \(Q\Subset\R^3\times(-\infty,0)\), the sequence is
-bounded in \(L^2_tH^1_x(Q)\) by \cref{lem:energy-diss}, and its time derivative
-is bounded in \(L^{3/2}_tW^{-1,3/2}_x(Q)\) by \cref{lem:time-derivative}.
-Aubin--Lions--Simon compactness \cite{Simon1987} gives strong compactness in
-\(L^2(Q)\).  The uniform \(L^\infty(Q)\) bound from \cref{lem:inherited-bound}
-upgrades this to strong \(L^q(Q)\) convergence for every finite \(q\).  A
-diagonal argument over compact cylinders gives the local statement.  The
-pressure convergence follows from \cref{lem:pressure}.
+Fix \(Q\Subset\R^3\times(-\infty,0)\).  By \cref{lem:energy-diss}, the
+velocities are bounded in \(L^2_tH^1_x(Q)\).  By
+\cref{lem:time-derivative}, the time derivatives are bounded in
+\(L^{3/2}_tW^{-1,3/2}_x(Q)\).  On bounded spatial balls,
+\[
+   H^1\Subset L^2\hookrightarrow W^{-1,3/2}.
+\]
+The Aubin--Lions--Simon theorem \cite{Simon1987} therefore gives relative
+compactness in \(L^2(Q)\).  After passing to a subsequence,
+\(u_k\to U\) strongly in \(L^2(Q)\) and almost everywhere on \(Q\).
+
+The inherited Type I bound gives a uniform \(L^\infty(Q)\) bound.  Interpolating
+between strong \(L^2(Q)\) convergence and the common \(L^\infty(Q)\) bound
+gives strong convergence in \(L^q(Q)\) for every finite \(q\).  Applying this
+argument to a countable exhaustion by compact cylinders and diagonalizing gives
+the asserted local strong convergence.  Finally, \cref{lem:pressure} gives
+uniform local \(L^{3/2}\) bounds for gauged pressures, so Banach--Alaoglu gives
+a weak \(L^{3/2}_{\mathrm{loc}}\) pressure limit.
 \end{proof}
 
 \section{The ancient suitable weak limit}\label{sec:compactness}
@@ -782,21 +828,24 @@ sequence \(r_k\downarrow0\) satisfying
 \eqref{eq:positive-concentration-sequence}; set \(\lambda_k=r_k\).  The
 scaling identity in \cref{lem:scaling} gives a fixed pressure-normalized lower
 bound for the rescaled pair on \(Q_1=B_1\times(-1,0)\), after subtracting the
-spatial pressure mean on \(B_1\).
+spatial pressure mean on \(B_1\).  This subtraction is a time-dependent gauge,
+so it is legitimate by \cref{lem:gauges-harmless}.
 
 The local blow-up-rate dichotomy gives the Type I/Type II alternative along
 this sequence.  Since \eqref{eq:type-I-bound-intro} holds, we are in the Type
-I alternative.  By endpoint compactness, after passing to a
-subsequence the rescaled pairs converge to a suitable limit on \(Q_1\), with
-strong \(L^3\)-convergence of the velocities on compact subcylinders and weak
-\(L^{3/2}\)-compactness of the normalized pressures.  The velocity term
-therefore passes to the limit strongly, while the pressure term is lower
-semicontinuous under weak \(L^{3/2}\)-convergence.  Hence a positive amount of
-the pressure-normalized critical density persists on \(Q_1\).  By inner
-regularity of the integral, some compact cylinder
-\(K_0\Subset Q_1\cap\{t<0\}\) still carries a positive amount of this density.
-After decreasing the constant and discarding finitely many indices,
-\eqref{eq:selected-lower-bound} holds.
+I alternative.  By endpoint compactness, after passing to a subsequence the
+rescaled pairs converge to a suitable limit on \(Q_1\), with strong
+\(L^3\)-convergence of the velocities on compact subcylinders and weak
+\(L^{3/2}\)-compactness of the normalized pressures.
+
+The lower bound cannot disappear under this convergence.  On each compact
+subcylinder \(K\Subset Q_1\cap\{t<0\}\), the velocity contribution converges
+strongly in \(L^3(K)\), and the pressure contribution is lower semicontinuous
+under weak \(L^{3/2}(K)\) convergence.  Since the limiting density is a finite
+Radon measure on \(Q_1\cap\{t<0\}\), inner regularity gives a compact cylinder
+\(K_0\Subset Q_1\cap\{t<0\}\) carrying a positive amount of the limiting
+pressure-normalized density.  Decreasing the positive constant and discarding
+finitely many indices gives \eqref{eq:selected-lower-bound}.
 \end{proof}
 
 \begin{remark}\label{rem:selection}

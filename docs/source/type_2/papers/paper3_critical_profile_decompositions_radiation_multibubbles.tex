@@ -14,6 +14,7 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -24,101 +25,1093 @@
 \begin{document}
 
 \begin{abstract}
-We formulate the multibubble and cascade part of the local Caffarelli--Kohn--Nirenberg Type II exclusion argument.  The starting point is a positive local CKN concentration sequence at a singular point, not a nonlocal critical data sequence.  Failure of compact-cylinder suitable compactness, splitting of CKN mass, strict same-point scale cascades, separated active points, and localized gauge degeneracy are reduced by local profile-evolution decoupling and scale-rigidity.  Together with the definition of the local Type II regime and the local single-core criterion, these reductions exclude multibubble and cascade Type II cases.
-This paper uses the classical Navier--Stokes theory for suitable weak solutions (Leray \cite{Leray1934}, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer \cite{Scheffer1976}, and Lin \cite{Lin1998}).
+We prove a local multibubble and cascade reduction for the conditional
+Type II Navier--Stokes exclusion problem.  The setting is a positive local
+Caffarelli--Kohn--Nirenberg concentration sequence at a possible singular
+point.  All arguments are local in parabolic cylinders.  Compact-cylinder
+failure, splitting of active CKN mass, strict same-point scale cascades,
+separated active physical points, and localized gauge degeneracy are reduced by
+explicit active-frame decoupling.  Under the single-core, scale-rigidity, and
+terminal active-frame admissibility inputs stated below, exterior profiles and
+remainders are perturbative in every selected active frame, and the remaining
+branch is single-core, scale-rigid, or no longer an independent multibubble
+mechanism.  Thus no local multibubble, cascade, or gauge-degenerate Type II
+configuration remains under these inputs.
+This paper uses the classical theory of suitable weak solutions of the
+Navier--Stokes equations, including Leray \cite{Leray1934},
+Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer
+\cite{Scheffer1976}, and Lin \cite{Lin1998}.
 \end{abstract}
 
 \maketitle
 
-\section{Local scenarios}
+\section*{Imported inputs}
 
-Let \((u_n,p_n)\) be parabolic blowups around a singular point with positive local CKN density.  On
-\[
-  Q_R=B_R\times(-R^2,0),
-\]
-write \(A(R),E(R),C(R),D(R)\) for the usual scale-invariant local suitable quantities.  If \(A+E+C+D\) is bounded on every compact cylinder and a single nondegenerate localized core is selected, the case is single-core.  The complementary local cases are compactness failure, mass splitting, strict same-point scale cascades, separated active physical points, and localized gauge degeneracy.
-
-\begin{definition}[Local multibubble/cascade branch]\label{def:local-multibubble}
-A local multibubble/cascade branch is a positive-concentration local Type II branch for which at least one of the following structural alternatives occurs:
+This paper is a local reduction theorem.  It uses the following analytic inputs
+from the preceding parts of the argument, and proves only the multibubble,
+cascade, and terminal-frame decoupling steps.
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item the compact-cylinder suitable package \(A+E+C+D\) is unbounded on some fixed rescaled cylinder;
-\item positive CKN mass splits into two or more comparable active cores;
-\item a strict same-point scale cascade appears inside bounded rescaled cylinders;
-\item separated physical points remain active in different local rescaled frames;
-\item the localized scale or centering gauge degenerates because no unique core is selected.
+\item From Paper 1, the theorem \emph{Local single-core Type II criterion}: a
+compact single-core finite-cost Type II branch with positive local CKN
+concentration, nondegenerate scale-center selection, pressure reconstruction,
+bounded compact-cylinder suitable package, bounded modulation, and vanishing
+localized dissipation is excluded.
+\item From Paper 2, the theorems \emph{Renormalized Navier--Stokes equation},
+\emph{Localized pressure decomposition}, \emph{Modulation system}, and
+\emph{Chart and repaired-gauge representation}: the renormalized equation,
+pressure decomposition modulo functions of time, bounded modulation
+coefficients, renormalized suitable structure, and stability of these structures
+under subsequences.
+\item From Paper 4, the theorem \emph{Compact-cylinder Caccioppoli estimate}
+and the corollary \emph{Rough-core exclusion on compact windows}.
+\item From Paper 5, the theorems \emph{Collapse with nonvanishing localized
+core forces infinite scale-collapsing cost}, \emph{Scale-collapse cost
+exclusion}, and \emph{Conditional autonomous reduced-limit theorem} wherever a
+scale-rigid or scale-collapsing branch is produced.
+\end{enumerate}
+
+\section{Local setting and active frames}
+
+\paragraph{Normalised local Navier--Stokes setting.}
+All quantities are written in rescaled local variables \((x,t)\in Q_R=B_R\times(-R^2,0)\)
+with viscosity \(\nu=1\) (critical scaling has absorbed \(\nu\)).  A local pair
+\((u_n,p_n)\) on such a cylinder satisfies
+\[
+  \partial_tu_n-\Delta u_n+(u_n\cdot\nabla)u_n+\nabla p_n=0,\qquad \nabla\cdot u_n=0,
+\]
+and pressure is normalised through spatial averaging
+\[
+  (p_n)_{B_\rho}(t):=|B_\rho|^{-1}\int_{B_\rho}p_n(x,t)\,dx
+\]
+to factor out time-dependent constants.
+
+For $r>0$, $x_0\in\mathbb R^3$, and $t_0\in\mathbb R$, let
+\[
+  Q_r(x_0,t_0):=B_r(x_0)\times(t_0-r^2,t_0),
+  \qquad
+  Q_r:=Q_r(0,0)=B_r\times(-r^2,0).
+\]
+
+Let $(u_n,p_n)$ be parabolic rescalings around a potential singular point with
+positive local Caffarelli--Kohn--Nirenberg concentration on compact cylinders.
+Concretely, for a base triple \((x_n,t_n,\lambda_n)\),
+\[
+  u_n(y,s)=\lambda_n u(x_n+\lambda_n y,\ t_n+\lambda_n^2 s),\qquad
+  p_n(y,s)=\lambda_n^2 p(x_n+\lambda_n y,\ t_n+\lambda_n^2 s).
+\]
+For each $n$ and $R>0$, define the scaling-invariant local quantities
+\[
+  A_n(R):=R^{-1}\operatorname*{ess\,sup}_{-R^2<t<0}\int_{B_R}|u_n(x,t)|^2\,dx,
+\]
+\[
+  E_n(R):=R^{-1}\int_{Q_R}|\nabla u_n(x,t)|^2\,dx\,dt,
+\]
+\[
+  C_n(R):=R^{-2}\int_{Q_R}|u_n(x,t)|^3\,dx\,dt,
+  \qquad
+  D_n(R):=R^{-2}\int_{-R^2}^0\int_{B_R}|p_n-(p_n)_{B_R}(t)|^{3/2}\,dx\,dt,
+\]
+where
+\[
+  (p_n)_{B_R}(t):=|B_R|^{-1}\int_{B_R}p_n(x,t)\,dx.
+\]
+
+For an active frame \((x_n,\lambda_n)\), \(\lambda_n>0\), define the critical rescaling
+\[
+  \mathcal T_{x_n,\lambda_n}f(y):=\lambda_n f(x_n+\lambda_n y).
+\]
+If \(\phi\in L^3_\sigma(\mathbb R^3)\) is observed in this frame, its contribution is
+\[
+  \phi_n(y)=\mathcal T_{x_n,\lambda_n}\phi(y)=\lambda_n\phi(x_n+\lambda_n y).
+\]
+The critical Jacobian identity is exact:
+\[
+  \|\mathcal T_{x_n,\lambda_n}f\|_{L^3(E)}^3
+  =\int_{x_n+\lambda_nE}|f(x)|^3\,dx
+\]
+for every measurable \(E\subset\mathbb R^3\).  In particular
+\[
+  \|\mathcal T_{x_n,\lambda_n}f\|_{L^3(\mathbb R^3)}^3
+  =\|f\|_{L^3(\mathbb R^3)}^3,
+\]
+so \(\mathcal T_{x_n,\lambda_n}\) is an isometry on \(L^3(\mathbb R^3)\).
+
+\begin{definition}[Bounded selected-window limit]
+A selected-window subsequence has a bounded selected-window limit on a compact
+cylinder $Q_R$ if there exists $u_\infty\in L^\infty(Q_R)$ such that, after
+extracting a subsequence,
+\[
+  \forall\varepsilon>0\ \exists N:\ \forall n\ge N,\ \|u_n-u_\infty\|_{L^3(Q_R)}<\varepsilon.
+\]
+The limit is nonzero if $u_\infty\not\equiv0$ on $Q_R$.
+\end{definition}
+
+\begin{definition}[Local Type II sequence]
+A positive local concentration sequence is called a local Type II sequence if every
+selected-window rescaling has zero bounded selected-window limit on every compact
+cylinder \(Q_R\):
+\[
+  \forall R>0,\qquad \lim_{n\to\infty}\|u_n\|_{L^3(Q_R)}=0.
+\]
+\end{definition}
+
+\begin{definition}[Active frame]\label{def:active-frame}
+Fix a concentrating time sequence \(t_n\uparrow T\) and a compact time interval
+\(I\Subset(-\infty,0]\).  An active frame is a tuple
+\[
+  \mathfrak F^j=\bigl(x^j_n,\lambda^j_n,I,U^j_n,P^j_n\bigr),
+  \qquad \lambda^j_n\downarrow0,
+\]
+where \(x^j_n\in\mathbb R^3\) and
+\[
+  U^j_n(y,s):=\lambda^j_n u(x^j_n+\lambda^j_n y,t_n+(\lambda^j_n)^2s),
+  \qquad
+  P^j_n(y,s):=(\lambda^j_n)^2p(x^j_n+\lambda^j_n y,t_n+(\lambda^j_n)^2s)
+\]
+on \(B_{2R}\times I\) for every fixed compact cylinder under consideration.
+The frame is active at threshold \(\eta_*>0\) if for some fixed \(R_0<\infty\)
+\[
+  \liminf_{n\to\infty}\int_{Q_{R_0}}|U^j_n|^3\,dy\,ds\ge \eta_*^3.
+\]
+\end{definition}
+
+\begin{definition}[Relations between active frames]\label{def:frame-relations}
+Let \(\mathfrak F^i\) and \(\mathfrak F^j\) be two active frames.  After passing
+to a subsequence exactly one of the following parameter regimes holds.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item They are \emph{same-point comparable-scale} if
+\[
+  0<c\le\frac{\lambda^i_n}{\lambda^j_n}\le C<\infty,\qquad
+  \frac{|x^i_n-x^j_n|}{\max(\lambda^i_n,\lambda^j_n)}\le C
+\]
+for all large \(n\).
+\item They form a \emph{same-point cascade} if, after relabeling,
+\[
+  \frac{\lambda^i_n}{\lambda^j_n}\to0,\qquad
+  \frac{|x^i_n-x^j_n|}{\lambda^j_n}=O(1).
+\]
+The frame \(i\) is then the inner frame and \(j\) is an outer frame.
+\item They are \emph{separated-point} if
+\[
+  \frac{|x^i_n-x^j_n|}{\lambda^i_n}\to\infty
+  \quad\text{and}\quad
+  \frac{|x^i_n-x^j_n|}{\lambda^j_n}\to\infty .
+\]
 \end{enumerate}
 \end{definition}
 
-\begin{lemma}[Compactness failure produces another core]\label{lem:compactness-failure}
-If the compact-cylinder suitable package is unbounded on a fixed rescaled cylinder, then after passing to a subsequence the local \(C+D\) quantity is unbounded on a comparable cylinder.  Hence the branch contains a new local CKN concentration core.
+\begin{definition}[Terminal frame and perturbative remainder]\label{def:terminal-frame}
+Given a finite active family, a terminal frame is chosen by selecting an active
+scale with minimal order:
+\[
+  \lambda^{j_*}_n\le C_j\lambda^j_n
+  \qquad\text{for every active }j
+\]
+after passing to a subsequence.  Comparable frames at the same physical point
+are grouped before this choice; if several grouped frames remain tied, one is
+chosen by a fixed lexicographic ordering of their labels.  A remainder \(r_n\)
+in a terminal frame is perturbative on \(B_{2R}\times I\) if
+\[
+  \|r_n\|_{L^\infty_I L^3(B_{2R})}\to0
+\]
+and its equation residual and pressure satisfy
+\[
+  \|f_n\|_{L^1_IH^{-1}(B_R)}+\|\nabla\pi^r_n\|_{L^1_IH^{-1}(B_R)}\to0
+\]
+for every compact \(B_R\times I\).
+\end{definition}
+
+\begin{definition}[Local multibubble/cascade branch]\label{def:local-multibubble}
+A local multibubble/cascade branch is a positive-concentration local Type II
+branch for which at least one of the following alternatives occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the compact-cylinder suitable package $A_n+E_n+C_n+D_n$ is unbounded on some
+  fixed rescaled cylinder;
+\item positive CKN mass splits into two or more comparable active cores;
+\item a strict same-point scale cascade appears inside bounded rescaled cylinders;
+\item separated physical points remain active in different local rescaled frames;
+\item the localized scale or centering selection degenerates (no unique core
+  selected).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Active profile package]\label{def:active-package}
+An active profile package is a family
+\[
+  \{(\phi^j,x_n^j,\lambda_n^j)\}_{j\in J},
+  \qquad \phi^j\in L^3_\sigma(\mathbb R^3),
+\]
+with finite or countable index set $J$, extracted along a positive local
+concentration sequence.  In physical variables write
+\[
+  \Lambda_{\lambda,x_0}\phi(x):=\lambda^{-1}\phi\left(\frac{x-x_0}{\lambda}\right).
+\]
+For every finite \(J_0\subset J\) the package gives an expansion
+\[
+  u(\cdot,t_n)=\sum_{j\in J_0}\Lambda_{\lambda^j_n,x^j_n}\phi^j+r^{J_0}_n
+\]
+on the compact terminal windows under consideration.  After the finite active
+subfamily has been selected, the corresponding remainder satisfies the
+perturbative bounds of \cref{def:terminal-frame}.  The parameters are
+considered only after grouping same-point comparable-scale profiles into
+compound profiles as in \cref{def:compound-profile}.  A profile is active if
+\[
+  \|\phi^j\|_{L^3(\mathbb R^3)}\ge\eta_*>0.
+\]
+The package has finite critical mass when
+\[
+  \sum_{j\in J}\|\phi^j\|_{L^3(\mathbb R^3)}^3\le M_*<\infty .
+\]
+It captures positive local concentration if every compact terminal-window
+sequence with
+\[
+  \liminf_{n\to\infty}\int_{Q_R}|u_n|^3>0
+\]
+either contains an active profile observed in that window or is absorbed into
+the selected terminal frame; equivalently, no positive terminal-window
+concentration remains in the perturbative remainder.
+\end{definition}
+
+\begin{definition}[Compound profile]\label{def:compound-profile}
+Let \(J_k\subset J\) be a same-point comparable-scale class.  Choose one
+representative \((x_n^{j_k},\lambda_n^{j_k})\).  After passing to a subsequence,
+\[
+  \rho_j:=\lim_{n\to\infty}\frac{\lambda^j_n}{\lambda^{j_k}_n}\in(0,\infty),
+  \qquad
+  z_j:=\lim_{n\to\infty}\frac{x^j_n-x^{j_k}_n}{\lambda^{j_k}_n}\in\mathbb R^3 .
+\]
+The compound profile in the representative frame is the \(L^3_\sigma\)-sum
+\[
+  \Phi^k(y):=\sum_{j\in J_k}\rho_j^{-1}
+  \phi^j\left(\frac{y-z_j}{\rho_j}\right),
+\]
+whenever \(J_k\) is finite; finiteness follows for active classes from
+\cref{lem:finite-active-count}.  If \(\|\Phi^k\|_{L^3}<\varepsilon_\star\), where
+\(\varepsilon_\star\) is the critical small-data threshold, the class is
+perturbative.  Otherwise \(\Phi^k\) is treated as one active object in its
+representative frame.
+\end{definition}
+
+\begin{lemma}[Finite active profile count]\label{lem:finite-active-count}
+Every active profile package with finite critical mass contains only finitely many
+active profiles.  More precisely,
+\[
+  \#J\le M_*\eta_*^{-3}.
+\]
 \end{lemma}
 
 \begin{proof}
-The local Caccioppoli estimate for suitable weak solutions gives the standard smaller-cylinder control of \(A+E\) in terms of \(C+D\) on a slightly larger cylinder.  Therefore, if \(C+D\) were bounded on all comparable larger cylinders, then \(A+E+C+D\) would be bounded on the smaller cylinder.  The contrapositive proves that failure of the suitable package forces failure of the local \(C+D\) bound at a comparable scale, which is precisely another local CKN concentration core.
+For each active profile $j\in J$,
+\[
+  \|\phi^j\|_{L^3(\mathbb R^3)}^3\ge\eta_*^3.
+\]
+Let $J_0\subset J$ be finite. Summing over $J_0$ gives
+\[
+  \#J_0\,\eta_*^3
+  \le
+  \sum_{j\in J_0}\|\phi^j\|_{L^3(\mathbb R^3)}^3
+  \le
+  \sum_{j\in J}\|\phi^j\|_{L^3(\mathbb R^3)}^3
+  \le M_*.
+\]
+Hence $\#J_0\le M_*\eta_*^{-3}$.  Taking the supremum over all finite
+subsets $J_0$ yields the same bound for the cardinality of $J$, so $J$ is finite
+and
+\[
+  \#J\le M_*\eta_*^{-3}.
+\]
 \end{proof}
 
-\section{Local profile-evolution decoupling}
+\begin{lemma}[Exhaustive parameter partition]\label{lem:parameter-partition}
+Let \(\mathfrak F^i,\mathfrak F^j\) be two active frames.  After passing to a
+subsequence, either the pair is same-point comparable-scale, same-point cascade,
+or separated-point in the sense of \cref{def:frame-relations}; if none of these
+relations holds in a selected compact frame, then one of the two contributions
+is locally invisible there in \(L^3\).
+\end{lemma}
+
+\begin{proof}
+Pass to a subsequence so that
+\[
+  \frac{\lambda^i_n}{\lambda^j_n}\to \ell\in[0,\infty]
+\]
+in the extended half-line.  If \(0<\ell<\infty\), then either
+\[
+  \frac{|x^i_n-x^j_n|}{\max(\lambda^i_n,\lambda^j_n)}
+\]
+is bounded along a further subsequence, giving the same-point comparable-scale
+case, or it tends to infinity, giving separated points because the two scales
+are comparable.
+\par
+If \(\ell=0\), then either
+\[
+  \frac{|x^i_n-x^j_n|}{\lambda^j_n}
+\]
+is bounded, giving a same-point cascade with \(i\) inner and \(j\) outer, or it
+tends to infinity.  In the latter case the \(j\)-profile is locally invisible in
+the \(i\)-frame by \cref{lem:separated-vanish}.  The case \(\ell=\infty\) is the
+same after interchanging \(i\) and \(j\).  These alternatives exhaust all
+subsequential limits of the scale ratio and normalized center distance.
+\end{proof}
+
+\begin{theorem}[Minimal bad-configuration extraction]\label{thm:minimal-bad-extraction}
+Let a positive local Type II branch admit an active profile package with finite
+critical mass, perturbative remainder in the sense of
+\cref{def:terminal-frame}, and concentration capture in the sense of
+\cref{def:active-package}.  If the branch is not already a single active
+terminal frame satisfying the single-core hypotheses, then after passing to a
+subsequence one of the following occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item compact-cylinder suitable control fails, and
+\cref{lem:compactness-failure} produces a bounded-cylinder concentration core;
+\item there are at least two active frames in a same-point comparable-scale
+class, hence a compound profile in the sense of \cref{def:compound-profile};
+\item there is a same-point cascade;
+\item there are separated active physical points;
+\item the scale-center selection of the selected compound or terminal frame is
+degenerate.
+\end{enumerate}
+In every case the positive local concentration is carried by an active frame or
+compound profile, not by the perturbative remainder.
+\end{theorem}
+
+\begin{proof}
+If compact-cylinder suitable control fails, item \((i)\) follows from
+\cref{lem:compactness-failure}.  Assume therefore that the compact-cylinder
+package is bounded on the windows under consideration.
+\par
+By concentration capture, positive local concentration cannot remain solely in
+the perturbative remainder.  Hence either one selected active frame carries the
+terminal-window concentration, or another active frame remains non-negligible.
+If there is only one nondegenerate selected active frame and no competing active
+object, the branch is precisely the single-core regime.  Since this case is
+excluded by hypothesis, either the selected scale-center map is degenerate,
+giving item \((v)\), or at least two active frames remain.
+\par
+For two active frames, apply \cref{lem:parameter-partition}.  Same-point
+comparable-scale frames give item \((ii)\), same-point scale separation gives
+item \((iii)\), and separated points give item \((iv)\).  The only remaining
+alternative in \cref{lem:parameter-partition} is local invisibility of one
+contribution in the selected compact frame; such a contribution is absorbed
+into the perturbative remainder and cannot carry the retained positive local
+concentration by the capture property.  This proves the extraction statement.
+\end{proof}
+
+\section{Elementary local decoupling estimates}
+
+\begin{lemma}[Critical rescalings that escape are locally invisible]\label{lem:escaping-l3}
+Let \(\phi\in L^3(\mathbb R^3)\), let \(R<\infty\), and define
+\[
+  W_n(y)=\rho_n\phi(z_n+\rho_n y),
+\]
+where \(\rho_n>0\).  Assume that the sets
+\[
+  z_n+\rho_nB_R
+\]
+either have measure tending to zero, or escape to spatial infinity in the sense
+that for every compact set \(K\subset\mathbb R^3\),
+\[
+  (z_n+\rho_nB_R)\cap K=\varnothing
+\]
+for all sufficiently large \(n\).  Then
+\[
+  \|W_n\|_{L^3(B_R)}\to0.
+\]
+\end{lemma}
+
+\begin{proof}
+By the critical change of variables,
+\[
+  \|W_n\|_{L^3(B_R)}^3
+  =\int_{B_R}\rho_n^3|\phi(z_n+\rho_n y)|^3\,dy
+  =\int_{z_n+\rho_n B_R}|\phi(x)|^3\,dx.
+\]
+Set
+\[
+  m_n:=\int_{z_n+\rho_n B_R}|\phi(x)|^3\,dx.
+\]
+Since \(\|W_n\|_{L^3(B_R)}^3=m_n\), it is enough to show \(m_n\to0\).
+\par
+Fix \(\varepsilon>0\).  We split into the two structural alternatives.
+
+\smallskip
+\noindent\textit{Case 1: shrinking measure.}
+If \(|z_n+\rho_nB_R|\to0\), then by absolute continuity of the integral
+\(|\phi|^3\in L^1(\mathbb R^3)\) there exists \(\delta>0\) such that
+\[
+  |E|<\delta\Longrightarrow \int_E|\phi|^3\,dx<\varepsilon.
+\]
+Choose \(N\) with \(|z_n+\rho_nB_R|<\delta\) for all \(n\ge N\).  Then
+\[
+  m_n=\int_{z_n+\rho_nB_R}|\phi|^3\,dx<\varepsilon,\qquad n\ge N.
+\]
+
+\smallskip
+\noindent\textit{Case 2: escape to infinity.}
+Assume now that for every compact set \(K\subset\mathbb R^3\),
+\((z_n+\rho_nB_R)\cap K=\varnothing\) for all sufficiently large \(n\).  By
+absolute continuity at infinity, choose compact \(K\subset\mathbb R^3\) such that
+\[
+  \int_{\mathbb R^3\setminus K}|\phi|^3<\varepsilon.
+\]
+For every such compact \(K\), there is \(N(K)\) with
+\((z_n+\rho_nB_R)\cap K=\varnothing\) for all \(n\ge N(K)\).  For these
+indices,
+\[
+  z_n+\rho_nB_R \subset \mathbb R^3\setminus K,
+\]
+and therefore, for \(n\ge N(K)\),
+\[
+  m_n=\int_{z_n+\rho_nB_R}|\phi|^3\,dx
+  \le
+  \int_{\mathbb R^3\setminus K}|\phi|^3
+  <\varepsilon.
+\]
+In either case, for every \(\varepsilon>0\), \(m_n<\varepsilon\) for \(n\) sufficiently
+large.  Hence \(m_n\to0\), and therefore
+\[
+  \|W_n\|_{L^3(B_R)}\to0.
+\]
+\end{proof}
+
+\begin{lemma}[Separated active profiles vanish in the selected frame]\label{lem:separated-vanish}
+Let \((x^p_n,\lambda^p_n)\) and \((x^q_n,\lambda^q_n)\) be two active frames
+with separated physical centers in the sense that
+\[
+  \frac{|x^q_n-x^p_n|}{\lambda^p_n}\to\infty.
+\]
+If \(\phi^q\in L^3(\mathbb R^3)\), then the \(q\)-profile observed in the
+\(p\)-frame converges to zero locally in \(L^3\): for every \(R<\infty\),
+\[
+  \left\|
+  \frac{\lambda^p_n}{\lambda^q_n}
+  \phi^q\left(\frac{x^p_n-x^q_n}{\lambda^q_n}
+       +\frac{\lambda^p_n}{\lambda^q_n}y\right)
+  \right\|_{L^3(B_R)}\to0.
+\]
+\end{lemma}
+
+\begin{proof}
+The displayed function has the form in \cref{lem:escaping-l3} with
+\[
+  z_n=\frac{x^p_n-x^q_n}{\lambda^q_n},
+  \qquad
+  \rho_n=\frac{\lambda^p_n}{\lambda^q_n}.
+\]
+The corresponding physical set in the \(q\)-profile variables is
+\[
+  z_n+\rho_nB_R
+  =\frac{x^p_n-x^q_n}{\lambda^q_n}
+   +\frac{\lambda^p_n}{\lambda^q_n}B_R.
+\]
+For every \(y\in B_R\),
+\[
+  |z_n+\rho_n y|
+  \ge |z_n|-\rho_nR.
+\]
+Set \(E_n:=z_n+\rho_nB_R\).  Then
+\[
+  \operatorname{dist}(E_n,0)
+  =|z_n|-\rho_nR
+  =\frac{\lambda^p_n}{\lambda^q_n}\left(\frac{|x^q_n-x^p_n|}{\lambda^p_n}-R\right).
+\]
+Since \(\frac{|x^q_n-x^p_n|}{\lambda^p_n}\to\infty\), there exists \(N_0(R)\) such that
+\[
+  \frac{|x^q_n-x^p_n|}{\lambda^p_n}-R\ge1,\quad n\ge N_0(R),
+\]
+and hence for such \(n\), \(\operatorname{dist}(E_n,0)\ge\rho_n\).
+\par
+There are two cases.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If \(\rho_n\to0\), then
+ \[
+   |z_n+\rho_nB_R|=\rho_n^3|B_R|\to0.
+ \]
+ Then the first alternative in \cref{lem:escaping-l3} applies.
+\item Otherwise, after passing to a subsequence, \(\rho_n\ge\rho_\ast>0\).  Then
+ \[
+   \operatorname{dist}(z_n+\rho_nB_R,0)\ge \rho_\ast\left(\frac{|x^q_n-x^p_n|}{\lambda^p_n}-R\right)\to\infty,
+ \]
+ so the sets escape every fixed compact subset of \(\mathbb R^3\).  The
+ second alternative in \cref{lem:escaping-l3} applies.
+\end{enumerate}
+In both subcases the \(L^3(B_R)\)-norm of the displayed expression converges to
+zero.
+\end{proof}
+
+\begin{lemma}[Strict outer scales vanish in the innermost frame]\label{lem:outer-vanish}
+Let several active profiles have the same physical center and scales
+\(\lambda^1_n,\ldots,\lambda^J_n\).  Suppose \(\lambda^1_n\) is an innermost
+scale and
+\[
+  \frac{\lambda^1_n}{\lambda^j_n}\to0
+  \qquad (j\ne1).
+\]
+Then every outer profile \(\phi^j\in L^3(\mathbb R^3)\), viewed in the
+\(\lambda^1_n\)-frame, converges to zero in \(L^3(B_R)\) for each fixed
+\(R<\infty\).  Any constant ambient velocity arising from the regular part of
+the outer flow is absorbed into the translation modulation.
+\end{lemma}
+
+\begin{proof}
+In the innermost variables, the \(j\)-th outer contribution has the form
+\[
+  W^j_n(y)=\frac{\lambda^1_n}{\lambda^j_n}
+  \phi^j\left(\frac{x^1_n-x^j_n}{\lambda^j_n}
+  +\frac{\lambda^1_n}{\lambda^j_n}y\right).
+\]
+Set
+\[
+  \rho_n:=\frac{\lambda^1_n}{\lambda^j_n}\to0,
+  \qquad
+  z_n^j:=\frac{x^1_n-x^j_n}{\lambda^j_n}.
+\]
+Then
+\[
+  W^j_n(y)=\rho_n\phi^j\left(z_n^j+\rho_n y\right),
+\]
+and by the critical change of variables,
+\[
+  \|W^j_n\|_{L^3(B_R)}^3
+  =\int_{z_n^j+\rho_nB_R}|\phi^j(x)|^3\,dx.
+\]
+Since \(\rho_n\to0\), the translated domains have
+\[
+  |z_n^j+\rho_nB_R|=\rho_n^3|B_R|\to0.
+\]
+By absolute continuity of the integral for \(\phi^j\in L^3(\mathbb R^3)\),
+\[
+  \|W^j_n\|_{L^3(B_R)}\to0.
+\]
+To treat a general \(\phi^j\), let \(\phi^j_\varepsilon\in C_c^\infty(\mathbb R^3)\) with
+\(\|\phi^j-\phi^j_\varepsilon\|_{L^3}<\varepsilon\).  By critical isometry,
+\[
+  \|W^j_n-(W^j_n)_\varepsilon\|_{L^3(B_R)}
+  \le
+  \|\phi^j-\phi^j_\varepsilon\|_{L^3} < \varepsilon,
+\]
+where \((W^j_n)_\varepsilon\) is the same scaling of \(\phi^j_\varepsilon\).
+The compactly supported term has vanishing local norm by the shrinking-domain
+argument above, and then letting first \(n\to\infty\), then \(\varepsilon\downarrow0\)
+implies the claimed convergence.
+A constant vector field from the regular part of an outer flow contributes only
+a Galilean drift in the selected frame; it is therefore incorporated into the
+translation modulation and does not remain as an exterior perturbation.
+\end{proof}
+
+\begin{lemma}[Compactness failure produces another core]\label{lem:compactness-failure}
+If the compact-cylinder suitable package is unbounded on a fixed rescaled
+cylinder, then after passing to a subsequence the local \(C_n+D_n\) quantity is
+unbounded on a comparable cylinder.  Consequently the branch contains an
+additional local CKN concentration core.
+\end{lemma}
+
+\begin{proof}
+Fix \(r>0\).  Apply the local Caccioppoli inequality with outer radius \(2r\).
+For each index \(n\), suitable weak solutions satisfy, with \(C_r\) independent
+of \(n\),
+\[
+  A_n(r)+E_n(r)
+  \le C_r\bigl(1+C_n(2r)+C_n(2r)^{2/3}+D_n(2r)\bigr),
+\]
+where the pressure is normalized by subtracting spatial means
+\((p_n)_{B_{2r}}(t)\).
+\par
+Suppose that \(A_n(r)+E_n(r)+C_n(r)+D_n(r)\) is unbounded along a subsequence.
+If \(C_n(2r)+D_n(2r)\) were bounded on this subsequence, the preceding estimate
+would give uniform boundedness of \(A_n(r)+E_n(r)\).  Monotonicity of the local
+integrals also gives \(C_n(r)+D_n(r)\le C_n(2r)+D_n(2r)\), contradicting
+unboundedness of the full package on \(Q_r\).  Therefore, after extracting a
+subsequence,
+\[
+  C_n(2r)+D_n(2r)\to\infty .
+\]
+\par
+Define the localized CKN concentration at variable center and radius
+\[
+  G_n(x,t,\rho):=\rho^{-2}\int_{Q_\rho(x,t)}|u_n|^3\,dx\,ds
+  +\rho^{-2}\int_{Q_\rho(x,t)}|p_n-(p_n)_{B_\rho}(s)|^{3/2}\,dx\,ds.
+\]
+Set
+\[
+  \mathbf M_n:=\sup\{G_n(x,t,\rho):0<\rho\le 2r,\ Q_\rho(x,t)\subset Q_{4r}\}.
+\]
+The choice \((x,t,\rho)=(0,0,2r)\) is admissible because \(Q_{2r}(0,0)\subset Q_{4r}\), so
+\[
+  \mathbf M_n\ge C_n(2r)+D_n(2r)\to\infty.
+\]
+After extracting a further subsequence, we may assume \(\mathbf M_n\ge1\) for all \(n\).
+Choose \((x_n,t_n,\rho_n)\) with \(0<\rho_n\le2r\), \(Q_{\rho_n}(x_n,t_n)\subset Q_{4r}\),
+such that
+\[
+  G_n(x_n,t_n,\rho_n)\ge\tfrac12\,\mathbf M_n\ge\tfrac12.
+\]
+Rescale around \((x_n,t_n,\rho_n)\):
+\[
+  v_n(y,s):=\rho_nu_n(x_n+\rho_n y,t_n+\rho_n^2 s),\qquad
+  q_n(y,s):=\rho_n^2p_n(x_n+\rho_n y,t_n+\rho_n^2 s).
+\]
+Using the critical Jacobian identity,
+\[
+  \int_{Q_1}|v_n|^3\,dy\,ds
+  +\int_{Q_1}|q_n-(q_n)_{B_1}(s)|^{3/2}\,dy\,ds
+  =G_n(x_n,t_n,\rho_n)\ge\tfrac12.
+\]
+Hence this new frame carries positive local critical mass, i.e. a new local CKN
+concentration core.  This proves the asserted additional core extraction.
+\end{proof}
+
+\section{Terminal active-frame decoupling}
+
+\begin{definition}[Admissible terminal active package]\label{def:admissible-terminal}
+Fix a compact cylinder \(B_{2R}\times I\) and a selected active frame.  A
+terminal active package is admissible on this cylinder if the following hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The active profiles satisfy the finite-mass and active-mass conditions of
+\cref{def:active-package}.
+\item Every nonselected active profile is either separated from the selected
+physical point in the sense of \cref{lem:separated-vanish}, or has the same
+physical point and a strictly outer scale in the sense of
+\cref{lem:outer-vanish}, after comparable same-point scales have been grouped.
+\item The rescaled remainder \(r_n\) satisfies
+\[
+  \|r_n\|_{L^\infty_I L^3(B_{2R})}\to0,
+\]
+and there exist fields \((\pi_n^r,f_n)\) such that on \(B_{2R}\times I\),
+\[
+  \partial_t r_n-\Delta r_n+a_n\bigl(r_n+y\cdot\nabla r_n\bigr)+b_n\cdot\nabla r_n
+  +\nabla\pi_n^r=f_n,\qquad
+  \nabla\cdot r_n=0,
+\]
+with
+\[
+  \|f_n\|_{L^1_IH^{-1}(B_R)}\to0,
+\]
+\[
+  \|\nabla\pi_n^r\|_{L^1_IH^{-1}(B_R)}\to0.
+\]
+\item The selected velocity satisfies
+\[
+  \sup_n\|U_n\|_{L^\infty_I L^3(B_{2R})}<\infty .
+\]
+\item The selected modulation coefficients satisfy
+\[
+  \sup_n\bigl(\|a_n\|_{L^\infty(I)}+\|b_n\|_{L^\infty(I)}\bigr)<\infty .
+\]
+\item Local pressure decomposition is stable under the splitting: if tensor
+coefficients tend to zero in \(L^1_IL^{3/2}(B_R)\), then the corresponding
+pressure gradients tend to zero in \(L^1_IH^{-1}(B_R)\), after subtracting
+spatial means.
+\item Cutoff commutators generated by localizing to \(B_R\) are controlled by
+the \(L^\infty_I L^3\), \(L^1_I L^{3/2}\), and pressure-gradient norms appearing
+above.  In particular, for any compact \(\chi_R\in C_c^\infty(B_{2R})\) with
+\(\chi_R\equiv1\) on \(B_R\), the commutators satisfy
+\[
+  \|[\Delta,\chi_R]u\|_{H^{-1}(B_R)}
+  +\|[\nabla\chi_R,\,\nabla\cdot](u\otimes u)\|_{H^{-1}(B_R)}
+  \le C_R\|u\|_{L^3(B_{2R})}^2.
+\]
+uniformly for \(u\in L^3(B_{2R})\) and the same type of estimate for
+\(S_n\)-quadratic commutator terms.
+\end{enumerate}
+\end{definition}
 
 \begin{theorem}[Terminal profile-evolution decoupling]\label{thm:terminal-decoupling}
-For every finite active profile package and every terminal active local frame, after comparable profiles at the same physical point have been grouped into compound profiles and after constant ambient velocities have been absorbed into the translation gauge, the sum \(S_n\) of all profiles not belonging to the terminal frame plus the rescaled remainder is perturbative on every compact cylinder \(B_R\times I\).  More precisely,
+Consider an admissible terminal active package on \(B_{2R}\times I\).  Let
+\(U_n\) be the selected-frame velocity and let \(S_n\) be the sum, in that
+frame, of all nonselected active profiles together with the rescaled remainder.
+Then on \(B_R\times I\):
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item \(\nabla\cdot S_n=0\) distributionally on every compact cylinder;
-\item \(S_n\to0\) in \(L^\infty_\tau L^3_y(B_{2R})\);
-\item \(U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n\to0\) in \(L^1_\tau L^2_y(B_R)\);
+\item \(\nabla\cdot S_n=0\) distributionally;
+\item \(S_n\to0\) in \(L^\infty_I L^3(B_{2R})\);
+\item \(U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n\to0\) in
+\(L^1_I L^{3/2}(B_R)\);
 \item
 \[
-  \partial_\tau S_n-\nu\Delta S_n
-  +a_n(S_n+y\cdot\nabla S_n)+b_n\cdot\nabla S_n
-  \to0
-  \quad\text{in }L^1_\tau H^{-1}_y(B_R);
+  \begin{aligned}
+  &\exists\,\pi_n,\ F_n:\quad
+  \partial_t S_n-\Delta S_n
+  +a_n\bigl(y\cdot\nabla S_n + S_n\bigr)
+  +b_n\cdot\nabla S_n+\nabla\pi_n =F_n,\\
+  &\|F_n\|_{L^1_IH^{-1}(B_R)}\to0,\qquad
+  \nabla\cdot S_n=0\quad\text{in }\mathcal D'(B_R\times I).
+  \end{aligned}
 \]
-\item every pressure source involving at least one factor of \(S_n\) has vanishing pressure gradient in \(L^1_\tau H^{-1}_y(B_R)\);
-\item the localization errors introduced in isolating the selected frame vanish in \(L^1_\tau H^{-1}_y(B_R)\);
+\[
+  \|\nabla\pi_n\|_{L^1_IH^{-1}(B_R)}\to0.
+\]
+\item every pressure source containing at least one factor of \(S_n\) has
+vanishing pressure gradient in \(L^1_IH^{-1}(B_R)\);
+\item localization errors introduced by compact cutoffs vanish in
+\(L^1_IH^{-1}(B_R)\);
 \item the effective modulation parameters of the selected frame remain bounded;
-\item after discarding \(S_n\), the selected frame remains a positive finite-mass local Type II branch with the local pressure reconstruction, compact-cylinder Caccioppoli bounds, and the limiting inputs used in the scale-collapse analysis.
+\item after discarding \(S_n\), the selected frame remains a positive finite-mass
+local Type II branch with pressure reconstruction and the compact-cylinder
+bounds required by the single-core analysis.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-For same-point outer scales, the outer profiles escape every compact set in the selected innermost variables, and therefore converge to zero in the local velocity topology on \(B_{2R}\).  For separated physical points, the same escaping-ball calculation gives local velocity convergence to zero in the selected active frame.  The profile pressure terms split into pure exterior terms and mixed terms.  Pure exterior terms vanish locally after the same change of variables; mixed pressure sources contain at least one perturbative factor and hence have vanishing pressure gradient in \(L^1_\tau H^{-1}_y(B_R)\).  The nonlinear stress terms and the linear residual are exactly the terms obtained by inserting \(U_n+S_n\) into the localized renormalized Navier--Stokes equation and subtracting the selected-frame equation.  Each term contains either an escaping profile, a decoupled remainder, or a cutoff error, and the local compactness and Caccioppoli bounds give the stated convergence on compact cylinders.  Constant ambient velocities are absorbed into the translation gauge, so the remaining modulation coefficients stay bounded.  Thus the exterior profile package is perturbative in the selected terminal frame.
+Each profile in the package is divergence-free, and the rescaled remainder is
+divergence-free.  Since divergence commutes with the Navier--Stokes critical
+rescalings, finite sums remain divergence-free in distributions.  This proves
+\((i)\).
+
+We prove \((ii)\).  By admissibility, every nonselected active profile is either
+separated from the selected physical point or is a same-point strictly outer
+scale.  The separated profiles vanish locally by \cref{lem:separated-vanish},
+and the same-point outer profiles vanish locally by \cref{lem:outer-vanish}.
+The remainder tends to zero in \(L^\infty_I L^3(B_{2R})\) by
+\cref{def:admissible-terminal}.  The number of active profiles is finite by
+\cref{lem:finite-active-count}.  Since every summand in \(S_n\)
+tends to zero in \(L^\infty_I L^3(B_{2R})\), the triangle inequality gives
+\[
+  \|S_n\|_{L^\infty_I L^3(B_{2R})}
+  \le
+  \sum_{j\ne j_*}\|S^j_n\|_{L^\infty_I L^3(B_{2R})}
+  +\|r_n\|_{L^\infty_I L^3(B_{2R})}\to0.
+\]
+This proves \((ii)\).
+
+For \((iii)\), admissibility gives
+\[
+  \sup_n\|U_n\|_{L^\infty_I L^3(B_{2R})}<\infty.
+\]
+Hence, by H\"older's inequality,
+\[
+  \|U_n\otimes S_n\|_{L^1_IL^{3/2}(B_R)}
+  \le |I|\|U_n\|_{L^\infty_IL^3(B_R)}
+       \|S_n\|_{L^\infty_IL^3(B_R)}\to0,
+\]
+and the same estimate applies to \(S_n\otimes U_n\).  Finally,
+\[
+  \|S_n\otimes S_n\|_{L^1_IL^{3/2}(B_R)}
+  \le |I|\|S_n\|_{L^\infty_IL^3(B_R)}^2\to0.
+\]
+
+For \((iv)\), write the represented Navier--Stokes equation for the full
+profile sum \(U_n+S_n\) and subtract the represented equation for the selected
+component \(U_n\).  The remaining equation for \(S_n\) has the displayed linear
+left-hand side
+\[
+  \partial_t S_n-\Delta S_n
+  +a_n\bigl(y\cdot\nabla S_n+S_n\bigr)+b_n\cdot\nabla S_n.
+\]
+Collect all right-hand terms into
+\[
+  F_n:= -\nabla\cdot(U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n)
+       +f_n+E_n^{\mathrm{cut}}+E_n^{\mathrm{mod}},
+\]
+where \(f_n\) is the remainder forcing from item \((iii)\) of admissibility, and
+\(E_n^{\mathrm{cut}},E_n^{\mathrm{mod}}\) are localization and modulation errors.
+The nonlinear stresses tend to zero in \(L^1_IL^{3/2}(B_R)\), hence in
+\(L^1_IH^{-1}(B_R)\), because \(L^{3/2}(B_R)\hookrightarrow H^{-1}(B_R)\) on a
+bounded three-dimensional ball.  The residual term vanishes by
+\cref{def:admissible-terminal}.  The cutoff terms vanish by the localization
+part of admissibility, recorded explicitly in \((vi)\).  This proves the
+displayed convergence in \(L^1_IH^{-1}(B_R)\).
+
+For \((v)\), decompose the pressure source of \(U_n+S_n\) into the pure selected
+source, the pure exterior source, and the two mixed sources.  The mixed sources
+are
+\[
+  \partial_i\partial_j(U_{n,i}S_{n,j}+S_{n,i}U_{n,j})
+  \quad\text{and}\quad
+  \partial_i\partial_j(S_{n,i}S_{n,j}).
+\]
+By \((iii)\), their tensor coefficients tend to zero in
+\(L^1_IL^{3/2}(B_R)\).  The pressure-stability part of admissibility,
+equivalently local Calderon--Zygmund estimates plus harmonic pressure control
+modulo spatial means, gives convergence of the corresponding pressure gradients
+to zero in \(L^1_IH^{-1}(B_R)\).  Pure exterior sources are generated by
+profiles that are locally invisible in the selected frame; applying the same
+pressure stability after \cref{lem:separated-vanish,lem:outer-vanish} gives
+their vanishing pressure gradients.
+
+For \((vi)\), let \(\chi_R\) be a cutoff equal to one on \(B_R\) and supported
+in \(B_{2R}\).  The commutators are finite sums of terms of the following
+types:
+\[
+  (\nabla\chi_R)\cdot\nabla S_n,
+  \qquad
+  (\Delta\chi_R)S_n,
+  \qquad
+  (\nabla\chi_R)\cdot (U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n),
+\]
+plus analogous pressure cutoff terms.  Their supports lie in the fixed annulus
+\(B_{2R}\setminus B_R\).  By the localization part of admissibility, these
+commutators are controlled by the norms already shown to vanish in \((ii)\),
+\((iii)\), and \((v)\).  Hence all localization errors vanish in
+\(L^1_IH^{-1}(B_R)\).
+
+For \((vii)\), the only exterior contribution that can remain nonzero at first
+order in a compact selected frame is a constant ambient velocity.  This has
+already been absorbed into the translation modulation.  The remaining exterior
+profiles vanish locally, so their contribution to the modulation equations is
+small in the same local \(L^3\) topology used above.  The selected modulation
+coefficients are bounded by admissibility; hence the effective parameters remain
+bounded.
+
+For \((viii)\), the positive CKN mass of the selected profile is unchanged by
+subtracting a term that tends to zero in local \(L^3\) and whose
+mixed pressure sources vanish by \((v)\).  The pressure reconstruction is stable
+under the same decomposition by the pressure-stability condition in
+\cref{def:admissible-terminal}.  The compact-cylinder bounds pass to the
+selected component because the full package is bounded and the discarded terms
+vanish on compact cylinders.  Thus the selected frame remains a positive
+finite-mass local Type II branch with the analytic inputs needed for the
+single-core analysis.
 \end{proof}
+
+\section{Same-point and separated-point reductions}
 
 \begin{theorem}[Same-point cascade reduction]\label{thm:same-point-reduction}
-Every same-point multibubble or strict same-point cascade reduces, in the selected innermost or compound frame, to either the single-core criterion, scale-rigidity, or a perturbative terminal branch covered by \cref{thm:terminal-decoupling}.
+Every same-point multibubble or strict same-point cascade reduces, in the
+selected innermost or compound frame, to one of the following: the single-core
+criterion, scale-rigidity, or a perturbative terminal branch covered by
+\cref{thm:terminal-decoupling}, provided the terminal package generated in the
+selected innermost frame is admissible in the sense of
+\cref{def:admissible-terminal}.
 \end{theorem}
 
 \begin{proof}
-Group comparable scales at the same physical point into compound profiles.  If the resulting compound core is single and nondegenerate, the local single-core criterion applies.  If the localized scale-centering derivative is degenerate, the case is gauge-degenerate and remains in the multibubble class.  For strict scale separation, choose the innermost active scale as the selected frame.  Outer scales vanish locally in that frame, and \cref{thm:terminal-decoupling} shows that the full exterior package changes the selected equation only by an error tending to zero in \(L^1_\tau H^{-1}_y(B_R)\).  Regular strict cascades are therefore reduced to the innermost single-core or scale-rigidity case, and the remaining same-point cascades are exactly nonlinear no-splitting failures removed by the terminal decoupling theorem.
+\noindent\textit{Step 1: scale-comparability classes.}
+Split active same-point profiles into equivalence classes by
+\[
+  i\sim j \iff \exists c,C\in(0,\infty):
+  c\le \frac{\lambda^i_n}{\lambda^j_n}\le C \quad \text{for all }n
+\]
+after passing to a subsequence.
+Thus within each class there are constants \(c_{ij},C_{ij}\) with
+\(c_{ij}\le\lambda^i_n/\lambda^j_n\le C_{ij}\) for all \(n\), so one may define
+a single common rescaling sequence (choose \(\lambda_n^{(k)}=\lambda_n^{j_k}\)) and write
+all class-\(k\) profiles in the same coordinates.
+Within each class, finite sums of divergence-free profiles remain divergence-free.
+
+\smallskip
+\noindent\textit{Step 2: compound profile reduction inside each class.}
+For each class set
+\[
+  \Phi^k_n:=\sum_{j\in J_k}\lambda^j_n\phi^j(x_n^j+\lambda^j_n y).
+\]
+If the \(L^3\)-size of this rescaled sum satisfies
+\[
+  \left\|\sum_{j\in J_k}\phi^j\right\|_{L^3(\mathbb R^3)}<\varepsilon_\star,
+\]
+with \(\varepsilon_\star\) the perturbative small-data threshold, then standard local
+small-data theory for Navier--Stokes in the critical space removes this whole class
+from the active list.
+
+If the class is above threshold, it is retained as a single compound active core;
+no longer than one active core is needed from that class for local selection.
+
+\smallskip
+\noindent\textit{Step 3: local alternatives.}
+If the retained compound core is unique and its scale-centering Jacobian is
+nondegenerate, we obtain the single selected core alternative.
+If this Jacobian is degenerate, the localized choice of active center or scale is
+not unique, which is the gauge-degenerate alternative in
+\cref{def:local-multibubble}.
+
+\smallskip
+\noindent\textit{Step 4: strict same-point scale separation.}
+Assume now the branch is not reduced to comparable scales and choose the innermost
+active scale \(\lambda^1_n\) in that physical point.  By
+\cref{lem:outer-vanish}, every profile with larger scale vanishes in the
+\(\lambda^1_n\)-frame in local \(L^3\), up to constant drift terms.
+These constant drifts are absorbed into translation modulation by admissibility.
+Let \(S_n\) be the sum of all such outer profiles plus the rescaled remainder
+\(r_n\).  Then, by Step 2 and \cref{lem:outer-vanish},
+\[
+  S_n\to0\quad\text{in }L^\infty_I L^3(B_{2R}).
+\]
+
+Subtracting the equation for the innermost selected profile from the full-frame
+equation gives a perturbation equation for the selected profile whose forcing
+belongs to \(L^1_I H^{-1}(B_R)\) and vanishes.  This is the setting of
+\cref{thm:terminal-decoupling}.  Therefore one of three outcomes holds:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \textbf{Single-core branch:}
+  after discarding \(S_n\), the branch is governed by one active component, so it
+  lands in the compact single-core branch of \cref{ass:single-core};
+\item \textbf{Scale-rigid branch:}
+  the relative Jacobian between comparable scales becomes rigid in the sense of
+  \cref{ass:scale-rigidity}, so \cref{ass:scale-rigidity} excludes it;
+\item \textbf{Purely perturbative branch:}
+  \(S_n\to0\) and the selected profile satisfies a vanishing forcing perturbation
+  in \(L^1_IH^{-1}(B_R)\).  This branch carries no independent same-point
+  cascade mechanism; after discarding \(S_n\), the selected component is passed
+  to the single-core or scale-rigidity analysis.
+\end{enumerate}
+
+These are the strict same-point scale-separation alternatives, so the
+same-point reduction is exhausted.
 \end{proof}
 
+
 \begin{theorem}[Separated-point decoupling]\label{thm:separated-point-reduction}
-Separated active physical points are locally invisible in each other's active rescaled frames.  Consequently every separated-point multibubble reduces in each selected active frame to a single-core, scale-rigidity, or perturbative terminal branch.
+Separated active physical points are locally invisible in each other's active
+rescaled frames.  Consequently every separated-point multibubble reduces in each
+selected active frame to a single-core, scale-rigid, or perturbative terminal
+branch, provided the terminal package in that selected active frame is
+admissible in the sense of \cref{def:admissible-terminal}.
 \end{theorem}
 
 \begin{proof}
-Choose an active physical point \(x_p^*\) and its active frame.  For every profile centered at a different physical point \(x_q^*\ne x_p^*\), the center escapes to spatial infinity in the \(p\)-frame, so the profile converges to zero locally in velocity.  If the pure profile pressure is represented in \(L^2\), the same escaping-ball calculation gives local pressure convergence, hence pressure-gradient convergence in \(H^{-1}_{\mathrm{loc}}\).  Mixed pressure sources contain at least one exterior perturbative factor and are covered by \cref{thm:terminal-decoupling}.  The localization errors, modulation compatibility, and positive finite-mass structure of the selected frame are also preserved by \cref{thm:terminal-decoupling}.  Hence separated physical-point profiles change the selected active-frame equation only by an error tending to zero in \(L^1_\tau H^{-1}_{\mathrm{loc}}\), and the selected frame reduces to the single-core, scale-rigidity, or perturbative terminal case.
+Fix an active point \(p\) with frame \((x^p_n,\lambda^p_n)\).  Let \(q\ne p\)
+be another active point.  By separation,
+\[
+  \frac{|x^q_n-x^p_n|}{\lambda^p_n}\to\infty.
+\]
+Thus \cref{lem:separated-vanish} gives local \(L^3\) convergence to zero of the
+\(q\)-profile in the \(p\)-frame on every compact ball.  The same conclusion
+holds for each profile centered at any physical point different from \(p\).
+Since only finitely many active profiles remain after the critical mass
+threshold is imposed, the sum of all profiles outside the \(p\)-frame tends to
+zero locally in \(L^3\).
+
+The pure pressure generated by a separated profile is locally invisible by the
+same change of variables whenever its profile pressure belongs to
+\(L^{3/2}_{\mathrm{loc}}\) with the standard Calderon--Zygmund control.  Mixed
+pressure terms contain at least one exterior velocity factor, hence vanish in
+\(L^1H^{-1}_{\mathrm{loc}}\) by the pressure part of
+\cref{thm:terminal-decoupling}.  Localization and modulation commutators are
+localized to \(B_{2R}\setminus B_R\), so their \(H^{-1}\)-norm is controlled by
+the \(L^3\)-smallness already proved in \cref{lem:separated-vanish,lem:outer-vanish}
+and by admissibility item \((\text{vii})\).
+
+Therefore, in the selected \(p\)-frame, all other physical points contribute
+only a perturbative forcing tending to zero in \(L^1H^{-1}\) on compact
+cylinders.  The selected frame remains a positive finite-mass branch with the
+same compact-cylinder and pressure reconstruction properties.  Hence the branch
+reduces to the single-core case, the scale-rigid case, or the perturbative
+terminal branch.  Since \(p\) was arbitrary, the same reduction holds in every
+active frame.
 \end{proof}
 
 \section{Multibubble and cascade exclusion}
 
+The assumptions in this section isolate the analytic inputs needed for the
+multibubble reduction: the single-core exclusion, the scale-rigidity reduction,
+and terminal active-frame admissibility.  They are stated explicitly so that the
+theorem below uses no unstated compactness, pressure, or profile-completeness
+conclusion.
+
+\begin{assumption}[Local single-core exclusion]\label{ass:single-core}
+Every compact single-core branch with positive local CKN concentration,
+nondegenerate scale-center selection, pressure reconstruction, bounded
+compact-cylinder suitable package, bounded modulation, and vanishing localized
+dissipation is excluded from the local Type II regime.
+\end{assumption}
+
+\begin{assumption}[Local scale-rigidity exclusion]\label{ass:scale-rigidity}
+Every scale-rigid local branch produced by the same-point or separated-point
+reductions, including a branch with degenerate relative scale-center Jacobian,
+either has a nonzero bounded selected-window limit or reduces to the single-core
+branch in \cref{ass:single-core}.  Consequently no such branch is compatible
+with the local Type II condition.
+\end{assumption}
+
+\begin{assumption}[Terminal admissibility in active frames]\label{ass:terminal-admissibility}
+Every terminal package produced by the same-point and separated-point reductions
+is admissible on each compact selected cylinder in the sense of
+\cref{def:admissible-terminal}.
+\end{assumption}
+
 \begin{theorem}[Local multibubble and cascade exclusion]\label{thm:multi}
-No local multibubble, cascade, or gauge-degenerate Type II case can occur.
+Assume the local single-core and scale-rigidity exclusions
+\cref{ass:single-core,ass:scale-rigidity}, and assume terminal admissibility in
+active frames, \cref{ass:terminal-admissibility}.  Let a positive local Type II
+branch admit an active package satisfying the hypotheses of
+\cref{thm:minimal-bad-extraction}.  Then no local multibubble, cascade, or
+gauge-degenerate Type II case can occur in this class.
 \end{theorem}
 
 \begin{proof}
-By \cref{lem:compactness-failure}, compactness failure produces another local concentration core.  Passing to subsequences, active cores are comparable at the same point, strictly scale-separated at the same point, or separated in physical space.
+Let a local Type II branch be in the multibubble/cascade class of
+\cref{def:local-multibubble}.  Apply \cref{thm:minimal-bad-extraction}.  The
+positive local concentration is carried by an active frame or compound profile,
+and one of the alternatives listed there occurs.
+\par
+\textit{Case 1: compactness-failure reduction.}
+Compactness failure yields, after changing radius by a fixed factor and
+rescaling as in \cref{lem:compactness-failure}, a bounded-cylinder concentration
+branch.  Relabel this branch as an active core.  After passing to a subsequence,
+the new core and every previously retained active core have one of three
+relations: comparable scale at the same physical point, strictly separated scale
+at the same physical point, or separated physical center.  Comparable same-point
+cores are grouped into compound profiles.  A perturbative compound profile is
+removed by small-data stability; an active compound profile is treated as one
+selected core in its active frame.  If the scale-center selection inside such a
+compound core is degenerate, the branch is gauge-degenerate, giving the
+non-uniqueness alternative in \cref{def:local-multibubble} rather than a new
+independent core dynamics.
+\par
+\textit{Case 1a: gauge degeneracy.}
+If the scale-center selection of the selected compound or terminal frame is
+degenerate, then the branch is in the gauge-degenerate alternative of
+\cref{def:local-multibubble}.  By the imported repaired-gauge representation
+from Paper 2, nondegeneracy is exactly the hypothesis needed to enter the
+single-core branch.  Persistent degeneracy is therefore routed to the
+scale-rigidity alternative in \cref{ass:scale-rigidity}; if the degeneracy
+disappears after passing to a subsequence, the branch enters the single-core or
+terminal-frame alternatives below.
+\par
+\textit{Case 1b: same-point comparable scales.}
+Same-point comparable-scale active frames are grouped into the compound profile
+of \cref{def:compound-profile}.  If the compound profile is below the critical
+small-data threshold, it is part of the perturbative remainder.  If it is above
+threshold and its scale-center selection is nondegenerate, it is one selected
+active core and enters the single-core branch.  If the corresponding
+scale-center selection is degenerate, it is covered by Case 1a.  Thus
+comparable same-point profiles do not produce an additional multibubble
+mechanism.
+\par
+\textit{Case 2: same-point cascading.}
+Strict same-point scale cascades are handled by
+\cref{thm:same-point-reduction}.  In the innermost frame, all outer scales are
+locally invisible after constant drifts are absorbed.  The branch therefore
+reduces to one of the three terminal alternatives
+\[
+  \text{(A) single-core},\quad \text{(B) scale-rigid},\quad \text{(C) terminal perturbative}.
+\]
+\par
+\textit{Case 3: separated-point interactions.}
+For separated physical points, \cref{thm:separated-point-reduction} gives the same
+three terminal alternatives as in Case 2:
+\[
+  \text{(A) single-core},\quad \text{(B) scale-rigid},\quad \text{(C) terminal perturbative}.
+\]
 
-Comparable same-point cores form a compound core.  If this core is nondegenerate and single, the single-core compactness criterion applies.  If it is not single, the localized gauge matrix is degenerate and the branch is a gauge-degenerate multibubble case.  The same-point reduction theorem, \cref{thm:same-point-reduction}, reduces strict same-point cascades to the single-core criterion, scale-rigidity, or terminal decoupling.  The separated-point decoupling theorem, \cref{thm:separated-point-reduction}, gives the analogous reduction for separated active physical points.
-
-The single-core case is excluded by the local single-core criterion.  The scale-rigidity case gives a nonzero bounded parabolic tangent, contradicting the definition of the local Type II regime.  The terminal decoupling theorem makes all exterior profiles and remainders perturbative in the selected active frame, so no nonlinear no-splitting or separated-frame multibubble remains.  Therefore no multibubble, cascade, or gauge-degenerate local Type II case remains.
+The single-core alternative is excluded by \cref{ass:single-core}.  The
+scale-rigid alternative is excluded by \cref{ass:scale-rigidity}, which packages
+the Paper 5 scale-collapse and autonomous-limit exclusions in this setting.  The
+terminal perturbative alternative cannot sustain an independent multibubble
+obstruction because
+\cref{thm:terminal-decoupling} removes all exterior profiles and remainders from
+the selected active equation in \(L^1H^{-1}_{\mathrm{loc}}\), preserves the positive
+finite-mass selected branch, and leaves only the single-core or scale-rigid
+possibilities already excluded.  Consequently every alternative in
+\cref{def:local-multibubble} is impossible in the local Type II regime.
 \end{proof}
 
 \begin{corollary}[Removal of the multibubble alternative]\label{cor:multi-removal}
-In the local Type II analysis, every failure of the single nondegenerate compact core alternative is excluded by \cref{thm:multi}.
+In the local Type II analysis, every failure of the single nondegenerate compact
+core alternative is excluded by \cref{thm:multi} under the hypotheses stated
+there.
 \end{corollary}
 
 \begin{proof}
-The failures of the single-core alternative are exactly the alternatives listed in \cref{def:local-multibubble}: compact-cylinder suitable compactness failure, active mass splitting, same-point cascade, separated active physical points, and localized gauge degeneracy.  Each is excluded by \cref{thm:multi}.
+By \cref{def:local-multibubble}, failure of the single nondegenerate compact
+core alternative means that at least one of the following occurs: the
+compact-cylinder suitable package is unbounded; positive local CKN mass splits
+between active cores; a strict same-point scale cascade occurs; separated
+physical points remain active in distinct local frames; or the localized scale
+or center selection is degenerate.  The compactness-failure case produces an
+additional core by \cref{lem:compactness-failure}.  Same-point and separated
+cases are reduced by \cref{thm:same-point-reduction,thm:separated-point-reduction}.
+The final exclusion is \cref{thm:multi}.  Hence no failure of the single
+nondegenerate compact core alternative remains.
 \end{proof}
 
 \bibliographystyle{alpha}
