@@ -349,7 +349,23 @@ this scaling.
 The distributional equation and divergence condition are invariant by the
 standard parabolic scaling.  The local energy inequality follows by testing
 \eqref{eq:lei} with the pullback of a non-negative test function under
-\((x,t)\mapsto (x_*+\lambda x,T+\lambda^2t)\).  The powers in
+\((x,t)\mapsto (x_*+\lambda x,T+\lambda^2t)\): if
+\(\phi\in C_c^\infty\) is a test function for the rescaled variables, the
+corresponding original test function is
+\[
+   \Phi(X,S)=\phi\left(\frac{X-x_*}{\lambda},
+   \frac{S-T}{\lambda^2}\right).
+\]
+The identities
+\(\partial_S\Phi=\lambda^{-2}\partial_t\phi\),
+\(\nabla_X\Phi=\lambda^{-1}\nabla_x\phi\), and
+\(\Delta_X\Phi=\lambda^{-2}\Delta_x\phi\), together with
+\(dX\,dS=\lambda^5\,dx\,dt\), give exactly the rescaled local energy
+inequality after multiplying by the common factor \(\lambda^{-1}\).  No
+boundary term appears because the test functions are compactly supported
+inside the corresponding cylinders.
+
+The powers in
 \eqref{eq:C-D-def}--\eqref{eq:E-I-def}
 are exactly the scale-invariant powers:
 \[
@@ -361,7 +377,13 @@ are exactly the scale-invariant powers:
 \]
 and the prefactor \(r^{-2}\) transforms to \((\lambda r)^{-2}\).  The pressure
 term is identical, since \(|p^\lambda|^{3/2}\,dx\,dt\) scales as
-\(\lambda^{-2}|p|^{3/2}\,dX\,dS\).
+\(\lambda^{-2}|p|^{3/2}\,dX\,dS\).  The normalization by spatial means is
+also preserved:
+\[
+   (p^\lambda)_{B_r}(t)
+   =
+   \lambda^2(p)_{B_{\lambda r}(x_*)}(T+\lambda^2t).
+\]
 The \(A\)-quantity is invariant because
 \[
    \int_{B_r}|u^\lambda(x,t)|^2\,dx
@@ -473,13 +495,32 @@ The \(L^\infty_tL^2_x\) estimate follows immediately from
 To estimate \(\nabla u_k\), choose
 \(\phi\in C_c^\infty(B_{2R}\times[-2S,-\sigma/2])\), \(0\le\phi\le1\),
 with \(\phi\equiv1\) on \(Q\).  Apply the local energy inequality to
-\((u_k,p_k-a_k(t))\) with this cutoff.  Subtracting a function of time from
-the pressure does not change the local energy inequality by
-\cref{lem:gauges-harmless}.  The terms containing
-\(\partial_t\phi+\Delta\phi\) and \(\nabla\phi\) are bounded by
-\cref{lem:inherited-bound}, the finite volume of the support, and the pressure
-estimate of \cref{lem:pressure}.  Absorbing no term is necessary, since the
-dissipation appears with a favorable sign.  This yields
+\((u_k,p_k-a_k(t))\), where \(a_k\) is any gauge supplied on the larger
+cylinder by \cref{lem:pressure}.  Subtracting a function of time from the
+pressure does not change the local energy inequality by
+\cref{lem:gauges-harmless}.  For a.e. admissible pair of times
+\(-2S<t_1<t_2<-\sigma/2\), and then by the usual limiting argument at the
+endpoints of the support of \(\phi\), the inequality gives
+\[
+   2\iint |\nabla u_k|^2\phi
+   \le
+   \iint |u_k|^2|\partial_t\phi+\Delta\phi|
+   +\iint (|u_k|^2+2|p_k-a_k(t)|)|u_k||\nabla\phi|.
+\]
+The first term is bounded by the inherited \(L^\infty\) bound and the finite
+measure of \(B_{2R}\times[-2S,-\sigma/2]\).  For the cubic velocity term we
+use the same \(L^\infty\) bound.  For the pressure term, Hölder's inequality
+with exponents \(3/2\) and \(3\) gives
+\[
+   \iint |p_k-a_k(t)|\,|u_k|\,|\nabla\phi|
+   \le
+   \|p_k-a_k(t)\|_{L^{3/2}}
+   \|u_k\nabla\phi\|_{L^3},
+\]
+and both factors are uniformly bounded by \cref{lem:pressure} and
+\cref{lem:inherited-bound}.  Absorbing no term is necessary, since the
+dissipation appears with a favorable sign.  Because \(\phi\equiv1\) on \(Q\),
+this yields
 \[
    \iint_Q|\nabla u_k|^2\,dx\,dt\le C(R,S,\sigma,M).
 \]
@@ -500,8 +541,14 @@ We use the standard whole-space pressure representative
 \]
 modulo functions of time.  This is admissible for Leray--Hopf solutions in
 \(\R^3\), since \(u(t)\in L^2(\R^3)\cap L^\infty(\R^3)\) for the times under
-consideration.  The rescaled pressure has the same representation with
-\(u_k\).
+consideration and therefore \(u_i(t)u_j(t)\in L^{3/2}(\R^3)\cap L^1(\R^3)\)
+locally in time.  In distributional form this means
+\[
+   -\Delta p=\partial_i\partial_j(u_i u_j)
+\]
+on each time slice, and the Riesz-transform formula determines \(p\) up to a
+function of time.  The rescaled pressure has the same representation with
+\(u_k\), again modulo a time-dependent function.
 
 Fix \(t\in[-S,-\sigma]\).  Decompose in \(B_{2R}\)
 \[
@@ -509,7 +556,11 @@ Fix \(t\in[-S,-\sigma]\).  Decompose in \(B_{2R}\)
    \qquad
    q_k=\mathcal R_i\mathcal R_j\bigl((u_{k,i}u_{k,j})\chi_{B_{4R}}\bigr).
 \]
-Then \(h_k\) is harmonic in \(B_{4R}\).  Calderon--Zygmund boundedness gives
+More precisely, after changing \(p_k\) by an irrelevant function of \(t\), the
+difference \(h_k=p_k-q_k\) satisfies
+\(-\Delta h_k=0\) in \(B_{4R}\) for a.e. \(t\), because the localized source
+coincides with \(u_{k,i}u_{k,j}\) on \(B_{4R}\).  Calderon--Zygmund boundedness
+on \(L^{3/2}\) gives
 \[
    \|q_k(t)\|_{L^{3/2}(B_{2R})}
    \le C\|u_k(t)\|_{L^3(B_{4R})}^2
@@ -519,6 +570,9 @@ It remains to control the harmonic far field modulo a constant.  Let
 \[
    a_k(t)=h_k(0,t).
 \]
+The value at the origin is defined by the smooth harmonic representative of
+\(h_k(\cdot,t)\) in \(B_{4R}\); measurability in \(t\) follows by testing the
+harmonic representative against a fixed mollifier supported in a small ball.
 Let \(K_{ij}\) denote the Calderon--Zygmund kernel of
 \(\mathcal R_i\mathcal R_j\).  For \(x\in B_R\), the kernel estimate
 \[
@@ -540,6 +594,9 @@ By \cref{lem:inherited-bound},
 Consequently
 \[
    \|h_k(t)-a_k(t)\|_{L^\infty(B_R)}
+   \le
+   C M^2\sigma^{-1}
+   R\sum_{m=2}^\infty (2^mR)^{-1}
    \le C(M,\sigma).
 \]
 Combining the near-field and far-field estimates and integrating over the

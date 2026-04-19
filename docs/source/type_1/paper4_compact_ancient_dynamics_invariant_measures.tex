@@ -145,6 +145,33 @@ topology on \(C^\infty_{\mathrm{loc}}(\mathbb R^3\times\mathbb R)\), and in
 particular it is metrizable.
 \end{definition}
 
+Explicitly, one may choose a countable exhaustion by compact cylinders
+\[
+   Q_N=\overline{B_N}\times[-N,N],\qquad N\ge1,
+\]
+and use the seminorms
+\[
+   p_{N,m}(W)
+   =
+   \sum_{|\alpha|+j\le m}
+   \sup_{(y,\tau)\in Q_N}
+   |\partial_y^\alpha\partial_\tau^j W(y,\tau)|.
+\]
+The metric
+\[
+   d(W,Z)=
+   \sum_{N,m\ge1}2^{-N-m}
+   \frac{p_{N,m}(W-Z)}{1+p_{N,m}(W-Z)}
+\]
+generates the same topology.  Therefore, on any compact set \(K\) in this
+topology, every seminorm \(p_{N,m}\) is uniformly bounded on \(K\), and the
+evaluation maps
+\[
+   W\mapsto \partial_y^\alpha\partial_\tau^jW(y,\tau)
+\]
+are continuous for fixed \((y,\tau)\).  These elementary facts are the only
+topological input used below.
+
 \begin{lemma}[Local smoothing]\label{lem:smoothing}
 Let \(V\) be a bounded mild solution of \eqref{eq:centered} on
 \(\mathbb R^3\times(\tau_0,\tau_1)\).  For every compact cylinder
@@ -163,17 +190,36 @@ The same estimate is uniform for families with a common \(L^\infty\) bound.
 
 \begin{proof}
 Fix a compact interval \(J\Subset(\tau_0,\tau_1)\) containing the time
-projection of \(Q\), and set \(t=-e^{-\tau}\).  On the corresponding compact
-negative time interval define
+projection of \(Q\).  Choose a slightly larger interval
+\(J'\Subset(\tau_0,\tau_1)\) with positive distance from \(J\) to
+\(\partial J'\).  Set \(t=-e^{-\tau}\).  On the corresponding compact negative
+time interval define
 \[
    U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)).
 \]
-Then \(U\) is a bounded mild solution of the usual Navier--Stokes equations on
-that interval, with a bound depending only on \(J\) and the displayed
-\(L^\infty\) norm of \(V\).  Interior smoothing for bounded mild
-Navier--Stokes solutions, as in Kato \cite{Kato1984} and Giga--Miyakawa
-\cite{GigaMiyakawa1985}, gives bounds for all derivatives of \(U\) on compact
-subcylinders.  Returning to \((y,\tau)\) gives the asserted estimate.
+The change of variables is the standard backward self-similar transformation:
+if \(y=x/\sqrt{-t}\) and \(\tau=-\log(-t)\), then
+\[
+   \partial_t U+(U\cdot\nabla_x)U+\nabla_x p=\Delta_xU,\qquad
+   \operatorname{div}_xU=0
+\]
+in the mild sense on the negative time interval corresponding to \(J'\).
+On that interval \((-t)^{-1/2}\) is bounded above by a constant depending only
+on \(J'\).  Hence
+\[
+   \|U\|_{L^\infty}
+   \le C(J')\|V\|_{L^\infty(\mathbb R^3\times(\tau_0,\tau_1))}.
+\]
+The image of \(Q\) is a compact subcylinder whose parabolic distance from the
+ends of the \(t\)-interval is positive, again with constants depending only on
+\(Q\), \(J'\), and \((\tau_0,\tau_1)\).  Interior smoothing estimates for
+bounded mild Navier--Stokes solutions, as in Kato \cite{Kato1984} and
+Giga--Miyakawa \cite{GigaMiyakawa1985}, give bounds for all spatial and time
+derivatives of \(U\) on this compact subcylinder.  The derivatives of the map
+\((y,\tau)\mapsto (x,t)=(e^{-\tau/2}y,-e^{-\tau})\) are bounded on \(Q\), so
+the chain rule transfers those bounds to \(V\).  The constants depend only on
+the displayed data, and the argument is uniform for any family with the same
+\(L^\infty\) bound.
 \end{proof}
 
 \begin{proposition}[Compactness of bounded families]\label{prop:bounded-compactness}
@@ -186,20 +232,55 @@ solution of \eqref{eq:centered}.
 \end{proposition}
 
 \begin{proof}
-\Cref{lem:smoothing} gives uniform \(C^m\) bounds on every compact cylinder.
-Arzela--Ascoli and a diagonal argument give local smooth convergence along a
-subsequence.  Passing to the limit in the mild formulation is standard:
-testing \eqref{eq:mild} against \(C_c^\infty\) functions, the adjoint Stokes
-kernel has the integrable bound
+\Cref{lem:smoothing} gives uniform \(C^m\) bounds on every compact cylinder
+\(Q_N\).  For fixed \(N\) and \(m\), Arzela--Ascoli gives a subsequence which
+converges in \(C^{m-1}(Q_N)\).  Applying this successively to
+\((N,m)=(1,1),(1,2),(2,1),(1,3),\ldots\) and diagonalizing gives a single
+subsequence, still denoted \(V_n\), converging in \(C^m(Q_N)\) for every
+\(N\) and \(m\).  Denote its locally smooth limit by \(V\).  The pointwise
+bound
+\[
+   |V(y,\tau)|\le
+   \sup_n\|V_n\|_{L^\infty(\mathbb R^3\times\mathbb R)}
+\]
+follows by passing to the pointwise limit, so \(V\in L^\infty\).  Since
+\(\operatorname{div}V_n=0\) and convergence is local in \(C^1\),
+\(\operatorname{div}V=0\).
+
+It remains only to verify that the limiting smooth field satisfies the same
+mild identity.  Fix \(\sigma<\tau\) and
+\(\psi\in C_c^\infty(\mathbb R^3;\mathbb R^3)\).  Pair
+\eqref{eq:mild} for \(V_n\) with \(\psi\).  The linear term is
+\[
+   \langle S(\tau-\sigma)V_n(\sigma),\psi\rangle
+   =
+   \langle V_n(\sigma),S(\tau-\sigma)^*\psi\rangle .
+\]
+The adjoint Ornstein--Uhlenbeck kernel \(S(a)^*\psi\) is a smooth \(L^1\)
+function.  Local uniform convergence handles its restriction to a large ball,
+while the common \(L^\infty\) bound controls the \(L^1\)-tail.  Hence this
+term converges to
+\(\langle S(\tau-\sigma)V(\sigma),\psi\rangle\).
+
+For the Duhamel term, after moving \(\mathbb P\operatorname{div}\) onto the
+adjoint test function one obtains integrals of \(V_n\otimes V_n\) against
+\(\nabla S(\tau-s)^*\mathbb P\psi\).  The standard kernel estimate gives
 \[
    C e^{-(\tau-s)/2}(1-e^{-(\tau-s)})^{-1/2}
 \]
-near \(s=\tau\).  Local uniform convergence and the common \(L^\infty\) bound
-then give dominated convergence in the Duhamel term.  For the noncompact
-spatial tails of the adjoint kernel, one first approximates the \(L^1\) kernel
-by compactly supported functions; the common \(L^\infty\) bound controls the
-tail uniformly.  Density of \(C_c^\infty(\mathbb R^3)\) in
-\(L^1(\mathbb R^3)\) yields the weak-* identity \eqref{eq:mild} for the limit.
+for the \(L^1\)-norm of this gradient as \(s\uparrow\tau\), and this bound is
+integrable in \(s\in(\sigma,\tau)\).  On compact spatial sets,
+\(V_n\otimes V_n\to V\otimes V\) uniformly.  Outside a large ball the common
+\(L^\infty\) bound gives a uniform estimate by the \(L^1\)-tail of the adjoint
+kernel, which can be made arbitrarily small.  Dominated convergence in \(s\)
+therefore gives convergence of the Duhamel term.  Thus the pairing of
+\eqref{eq:mild} passes to the limit for every compactly supported
+\(\psi\).
+
+Finally, the same \(L^1\)-tail approximation shows that the identity holds
+against every \(L^1\) test function.  This is exactly the weak-* formulation
+of \eqref{eq:mild} in \(L^\infty(\mathbb R^3)\).  Hence the limit is a bounded
+mild ancient solution.
 \end{proof}
 
 \begin{theorem}[Compact trajectory hull]\label{thm:compact-hull}
