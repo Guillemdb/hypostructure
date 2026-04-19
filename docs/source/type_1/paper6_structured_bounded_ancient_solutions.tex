@@ -14,14 +14,14 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
 \numberwithin{equation}{section}
 
-\title[Ancient Navier--Stokes solutions under symmetry and decay]{Ancient Navier--Stokes solutions under axisymmetry and decay}
+\title[Ancient Navier--Stokes solutions under axisymmetry and decay]{Ancient Navier--Stokes solutions under axisymmetry and decay}
 \author{Guillem Duran Ballester}
 \date{}
 
@@ -32,15 +32,14 @@ We consider ancient solutions of the three-dimensional Navier--Stokes equations
 arising in the Type I blow-up analysis under three additional structures:
 axisymmetry without swirl, axisymmetry with a quantitative bound on the angular
 velocity, and weighted spatial decay in self-similar variables.  In the no-swirl
-case the Liouville theorem of Koch--Nadirashvili--Seregin--Sverak, applied after
-a time shift, implies that every smooth Type I ancient solution is identically
-zero.  We also import two established swirl-bearing axisymmetric Liouville
+case, the Liouville theorem of Koch--Nadirashvili--Seregin--Sverak, applied
+after a time shift, implies that every smooth Type I ancient solution is
+identically zero.  We also use two swirl-bearing axisymmetric Liouville
 theorems: the Lei--Zhang--Zhao theorem for
 \(\Gamma=rU_\theta\in L_t^\infty L_x^p\), \(1\le p<\infty\), and the
 Lei--Ren--Zhang theorem for \(z\)-periodic ancient solutions with bounded
-\(\Gamma\).  For the remaining pointwise controlled-swirl and weighted cases
-we state fixed-exponent Liouville assumptions and prove the corresponding
-Type I exclusions.
+\(\Gamma\).  The pointwise controlled-swirl and weighted alternatives are
+reduced to explicitly stated fixed-exponent Liouville hypotheses.
 \end{abstract}
 
 \maketitle
@@ -54,45 +53,135 @@ Let \(U:\mathbb R^{3}\times(-\infty,0)\to\mathbb R^{3}\) and
 \nabla\cdot U=0.
 \end{equation}
 The Type I analysis of a finite-time singularity leads, after rescaling about a
-singular point, to nonzero mild ancient solutions satisfying
+singular point, to nonzero mild ancient solutions satisfying the Type I bound
+\cite{Paper0LocalConcentration,Paper1TypeI,Seregin2012,SereginSverak2009}
 \begin{equation}\label{eq:type-i}
 \sup_{t<0}\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
 \end{equation}
-Here and below, a nonzero ancient limit is understood in the usual blow-up
-sense: the rescalings have been normalized so that the limiting solution is not
-identically zero, for instance through a positive pressure-normalized local
-critical density.  The present paper records three additional structures under
-which such limits can be excluded.
+Throughout the paper, a nonzero ancient limit means an ancient solution
+obtained from the blow-up procedure with the normalization fixed in the
+companion papers: the limiting solution carries a positive
+pressure-normalized local critical density, as in Seregin's compactness
+argument
+\cite{Paper0LocalConcentration,Paper1TypeI,Seregin2012}.  The present paper
+records three additional structures under which such limits can be excluded.
 
 The first case is axisymmetry without swirl.  In this case the argument is
-settled by an existing Liouville theorem: bounded ancient axisymmetric no-swirl
-solutions are constant.  Since a solution satisfying \eqref{eq:type-i} is bounded
-on every time interval \((-\infty,T]\), \(T<0\), this theorem applies after a
-time shift.  The Type I decay as \(t\to-\infty\) then eliminates the constant.
+settled by the Liouville theorem asserting that bounded ancient axisymmetric
+no-swirl solutions are constant.  Since a solution satisfying \eqref{eq:type-i}
+is bounded on every time interval \((-\infty,T]\), \(T<0\), this theorem
+applies after a time shift.  The Type I decay as \(t\to-\infty\) then
+eliminates the constant.
 
 The second case is axisymmetry with swirl satisfying a quantitative bound.
 The available estimates for the angular component are substantially weaker than
-in the no-swirl case.  Two subbranches, however, are already covered by
-published Liouville theorems: finite \(L^p\) control of the swirl variable
+in the no-swirl case.  Two cases, however, are covered by published Liouville
+theorems: finite \(L^p\) control of the swirl variable
 \(\Gamma=rU_\theta\), and axial periodicity with bounded \(\Gamma\).  After
-recording these imports, we state the remaining pointwise controlled-swirl
-criterion as a fixed-exponent assumption, with \(\gamma>0\) fixed throughout
-the statement.
+recording these inputs, we formulate the remaining pointwise controlled-swirl
+criterion as a fixed-exponent Liouville hypothesis, with \(\gamma>0\) fixed
+throughout the statement.
 
 The third case is uniform spatial decay in self-similar variables.  This
-condition rules out spatial escape in weighted \(L^2\), but it does not by
-itself furnish a complete time-dependent Liouville theorem.  We therefore state
-the weighted Liouville assumption used below and prove the reduction from that
-assumption.
+condition rules out spatial escape in weighted \(L^2\), but it does not, by
+itself, furnish a time-dependent Liouville theorem.  We therefore isolate the
+weighted Liouville hypothesis and prove the reduction from that hypothesis.
 
 \subsection{Normalization convention}
 
 Every exclusion below is applied to an ancient limit produced by a singularity.
-Such a limit is not merely a bounded ancient solution: it carries a fixed
-positive pressure-normalized local critical density inherited from the
-blow-up sequence.  Therefore any Liouville theorem which concludes
-\(U\equiv0\) contradicts the construction of the limit.  This is the only
-place where the singular origin of the ancient solution is used in this paper.
+Such a limit is a bounded ancient solution together with the nontriviality
+normalization inherited from the blow-up sequence: it carries a fixed positive
+pressure-normalized local critical density.  This is the nonzero ancient-limit
+normalization obtained from the positive local concentration and compactness
+persistence statements in
+\cite[Theorem \texttt{thm:singular-positive} and Proposition
+\texttt{prop:compactness-persistence}]{Paper0LocalConcentration} and from the
+selected-scale nontriviality theorem
+\cite[Proposition \texttt{prop:nonzero}]{Paper1TypeI}.  Therefore any
+Liouville theorem which concludes \(U\equiv0\) contradicts the construction of
+the limit.  Apart from this nontriviality normalization, the arguments below
+use only the stated PDE properties of the ancient solution.
+
+\begin{lemma}[Nonzero normalization of blow-up limits]
+\label{lem:nonzero-normalization}
+Let \(U\) be a Type I ancient limit obtained from the blow-up procedure used in
+the companion papers.  Then \(U\not\equiv0\) on
+\(\mathbb R^3\times(-\infty,0)\).
+\end{lemma}
+
+\begin{proof}
+The blow-up construction fixes a positive pressure-normalized local critical
+density for the limiting solution.  The persistence of this positive density
+under the local compactness passage is
+\cite[Proposition \texttt{prop:compactness-persistence}]
+{Paper0LocalConcentration}, and the selected Type I ancient limit is proved
+nonzero in \cite[Proposition \texttt{prop:nonzero}]{Paper1TypeI}.  The
+identically zero velocity has vanishing local critical velocity density and,
+under the pressure gauge convention used throughout this paper, vanishing
+pressure-normalized density.  Hence the normalized ancient limit cannot be the
+zero solution.
+\end{proof}
+
+\subsection{Notation and PDE conventions}
+
+For a time interval \(I\subset\mathbb R\) and a measurable function \(f\), we
+write
+\[
+   \|f\|_{L_t^\infty L_x^p(\mathbb R^3\times I)}
+   =
+   \operatorname*{ess\,sup}_{t\in I}
+   \|f(\cdot,t)\|_{L^p(\mathbb R^3)},\qquad 1\le p<\infty ,
+\]
+and
+\[
+   \|f\|_{L^\infty(\mathbb R^3\times I)}
+   =
+   \operatorname*{ess\,sup}_{(x,t)\in\mathbb R^3\times I}|f(x,t)|.
+\]
+All solutions considered in the proofs are smooth, so these essential suprema
+agree with the corresponding pointwise suprema after redefining on null sets.
+The subscript on the time norm records only the time variable being used; for
+example \(L_s^\infty L_x^p(\mathbb R^3\times(-\infty,0))\) and
+\(L_t^\infty L_x^p(\mathbb R^3\times(-\infty,0))\) denote the same mixed
+norm after renaming the time coordinate.
+The heat semigroup \(e^{t\Delta}\) and the Leray projector \(\mathbb P\) are
+the whole-space operators on \(\mathbb R^3\); see, for example, Sohr's
+functional-analytic treatment of the Navier--Stokes equations \cite{Sohr2001}.
+The pressure is always understood modulo functions of time, since only
+\(\nabla P\) appears in \eqref{eq:ns}; invariance of the equation and the
+local energy inequality under such pressure gauges is recorded in
+\cite[Lemma \texttt{lem:gauges-harmless}]{Paper1TypeI}.  The scale-invariant
+pressure-normalized quantities used in the blow-up construction are those of
+\cite[Proposition \texttt{prop:critical-scaling}]
+{Paper0LocalConcentration}.
+When an axisymmetric scalar such as
+\(\Gamma_U(r,z,t)=rU_\theta(r,z,t)\) is placed in an \(L^p_x(\mathbb R^3)\)
+space, it is regarded as the corresponding function of
+\(x=(r\cos\theta,r\sin\theta,z)\), independent of \(\theta\).  Thus, for
+example,
+\[
+   \|\Gamma_U(\cdot,t)\|_{L^p(\mathbb R^3)}^p
+   =
+   2\pi\int_{\mathbb R}\int_0^\infty
+      |\Gamma_U(r,z,t)|^p\,r\,dr\,dz,
+   \qquad 1\le p<\infty .
+\]
+The axis \(\{r=0\}\) has three-dimensional Lebesgue measure zero, so the value
+assigned to a cylindrical scalar on the axis does not affect its \(L^p\)-class;
+when a pointwise on-axis value is needed, it is supplied by smooth extension of
+the underlying Cartesian field.
+An axisymmetric solution is called \(z\)-periodic if there exists a number
+\(L>0\) such that its Cartesian velocity field satisfies
+\[
+   U(x_1,x_2,z+L,t)=U(x_1,x_2,z,t)
+\]
+for every \((x_1,x_2,z,t)\in\mathbb R^3\times(-\infty,0)\).  Equivalently,
+all cylindrical components are \(L\)-periodic in the axial variable \(z\) for
+\(r>0\); the Cartesian formulation is the definition used at the axis.  No
+periodicity of the pressure itself is assumed; only \(\nabla P\) enters the
+Navier--Stokes equation, and the pressure is always understood up to a
+time-dependent gauge.
 
 \section{Ancient Type I solutions and self-similar variables}
 
@@ -101,8 +190,30 @@ A smooth mild solution \(U\) of \eqref{eq:ns} on
 \(\mathbb R^3\times(-\infty,0)\) is called a Type I ancient solution if
 \eqref{eq:type-i} holds.  Here mild is understood in the standard velocity
 formulation, equivalently by the Duhamel formula on each interval
-\([a,b]\subset(-\infty,0)\).  The velocity and pressure in backward
-self-similar variables are
+\([a,b]\subset(-\infty,0)\) \cite{Kato1984,Sohr2001}:
+\begin{equation}\label{eq:mild-formula}
+   U(\cdot,t)=e^{(t-s)\Delta}U(\cdot,s)
+   -\int_s^t e^{(t-\sigma)\Delta}\mathbb P\nabla\cdot
+      (U(\cdot,\sigma)\otimes U(\cdot,\sigma))\,d\sigma,
+      \qquad -\infty<s<t<0,
+\end{equation}
+in the sense of distributions, where \(\mathbb P\) denotes the Leray
+projection.  Since all solutions considered below are smooth and bounded on
+compact subintervals of \((-\infty,0)\), the tensor
+\(U(\cdot,\sigma)\otimes U(\cdot,\sigma)\) is locally bounded in space-time;
+the Duhamel integral is therefore a well-defined distributional integral on
+each finite time interval.  Taking the divergence of \eqref{eq:ns} gives the
+standard pressure identity
+\[
+   -\Delta P=\partial_i\partial_j(U_iU_j).
+\]
+This pressure reconstruction and the associated time-dependent gauge ambiguity
+are already established for the series in
+\cite[Lemmas \texttt{lem:gauges-harmless} and \texttt{lem:pressure}]
+{Paper1TypeI} and
+\cite[Theorem \texttt{thm:gauges} and Lemma \texttt{lem:mild-to-projected}]
+{Paper2TightAncient}; we use that convention here without reproving it.
+The velocity and pressure in backward self-similar variables are
 \begin{equation}\label{eq:self-similar}
 V(y,\tau)=\sqrt{-t}\,U(x,t),\qquad
 Q(y,\tau)=(-t)P(x,t),\qquad
@@ -124,53 +235,56 @@ smooth solution of \eqref{eq:ns} by the inverse change of variables.
 \end{lemma}
 
 \begin{proof}
-Write
+The asserted equation is the backward self-similar formulation used throughout
+the Type I part of the series.  The chain-rule computation, including the
+pressure scaling and the divergence equation, is given in
+\cite[Lemma \texttt{lem:renormalized-equation}]{Paper1TypeI}.  That lemma
+writes the equation as
 \[
-\lambda(t)=(-t)^{-1/2},\qquad y=\lambda(t)x,\qquad
-\tau=-\log(-t),
+   \partial_\tau V+(V\cdot\nabla)V+\nabla Q
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
 \]
-so that \(U(x,t)=\lambda(t)V(y,\tau)\) and
-\(P(x,t)=\lambda(t)^2Q(y,\tau)\).  Since
-\[
-\lambda'(t)=\frac12\lambda(t)^3,\qquad
-\tau'(t)=\lambda(t)^2,\qquad
-\partial_t y=\frac12\lambda(t)^2y,
-\]
-one has
-\[
-\partial_t U
-=\lambda^3\left(\partial_\tau V+\frac12 y\cdot\nabla V+\frac12 V\right),
-\qquad
-\Delta_x U=\lambda^3\Delta_y V,
-\]
-and
-\[
-U\cdot\nabla_x U=\lambda^3V\cdot\nabla_y V,\qquad
-\nabla_x P=\lambda^3\nabla_y Q.
-\]
-Dividing the Navier--Stokes equation by \(\lambda^3\) gives
-\eqref{eq:leray}.  The divergence condition transforms as
-\(\nabla_x\cdot U=\lambda^2\nabla_y\cdot V\).  The inverse computation is the
-same calculation read backwards.
+which is algebraically the same as \eqref{eq:leray} after moving all terms to
+the left-hand side.  The inverse statement follows from the same
+diffeomorphic change of variables, also recorded there.
 \end{proof}
 
-The Type I bound is exactly the uniform \(L^\infty\) bound for \(V\):
+The Type I bound is equivalent to the uniform \(L^\infty\) bound for \(V\):
 \begin{equation}\label{eq:type-i-v}
 \sup_{\tau\in\mathbb R}\|V(\cdot,\tau)\|_{L^\infty(\mathbb R^3)}<\infty .
 \end{equation}
 Indeed, if \(t=-e^{-\tau}\), then
 \[
+   (y,\tau)\longmapsto (x,t)=\bigl(e^{-\tau/2}y,-e^{-\tau}\bigr)
+\]
+is a smooth bijection from
+\(\mathbb R^3\times\mathbb R\) onto
+\(\mathbb R^3\times(-\infty,0)\), with inverse
+\[
+   y=\frac{x}{\sqrt{-t}},\qquad \tau=-\log(-t).
+\]
+For each fixed \(\tau\), the spatial map \(y\mapsto x=e^{-\tau/2}y\) is a
+bijection of \(\mathbb R^3\).  Therefore
+\[
 \|V(\cdot,\tau)\|_{L^\infty(\mathbb R^3)}
 =\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}.
 \]
+Taking the supremum over \(\tau\in\mathbb R\) is therefore the same as taking
+the supremum over \(t<0\), proving the equivalence of
+\eqref{eq:type-i} and \eqref{eq:type-i-v}.
 
 For axisymmetric flows we write
 \[
 x=(r\cos\theta,r\sin\theta,z),\qquad
 U=U_r e_r+U_\theta e_\theta+U_z e_z.
 \]
-The flow is said to have no swirl if \(U_\theta\equiv0\).  The same convention is
-used for \(V\), with cylindrical coordinates
+These component functions are defined on the open set \(r>0\).  Since the
+velocity is smooth on \(\mathbb R^3\), every identity involving cylindrical
+components is first interpreted for \(r>0\) and then extended to the axis by
+smoothness when an on-axis value is needed.  The flow is said to have no swirl
+if \(U_\theta\equiv0\) for \(r>0\).  The same convention is used for \(V\),
+with cylindrical coordinates
 \[
 y=(\rho\cos\theta,\rho\sin\theta,Z).
 \]
@@ -183,14 +297,20 @@ Under the self-similar change of variables these quantities agree:
 \(\Gamma_V(\rho,Z,\tau)=\Gamma_U(r,z,t)\), where
 \((r,z)=\sqrt{-t}\,(\rho,Z)\).
 
-\begin{lemma}\label{lem:structure-preserved}
+\begin{lemma}[Preservation of the structured hypotheses]
+\label{lem:structure-preserved}
 Axisymmetry and the no-swirl condition are preserved by the self-similar change
-of variables \eqref{eq:self-similar}.  The bounds
+of variables \eqref{eq:self-similar}.  For any fixed \(\gamma>0\), the bounds
 \begin{equation}\label{eq:swirl-control}
 \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
 \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty
 \end{equation}
-are invariant under translations of \(\tau\).
+are invariant under translations of \(\tau\).  If \(U\) is axisymmetric, then
+the self-similar swirl variables satisfy
+\[
+   \Gamma_V(\rho,Z,\tau)=\Gamma_U(r,z,t),
+   \qquad (r,z)=\sqrt{-t}\,(\rho,Z).
+\]
 Moreover, if \(U\) satisfies \eqref{eq:type-i}, then for every \(T<0\) the
 restriction of \(U\) to \(\mathbb R^3\times(-\infty,T]\) is bounded.
 \end{lemma}
@@ -198,11 +318,38 @@ restriction of \(U\) to \(\mathbb R^3\times(-\infty,T]\) is bounded.
 \begin{proof}
 The self-similar change of variables is a scalar dilation in space together with
 a scalar multiplication of the velocity.  It therefore commutes with rotations
-around the \(z\)-axis and preserves the cylindrical decomposition of the vector
-field.  This proves the assertions on axisymmetry and no swirl.  The expression
-\(\rho^\gamma |V_\theta|\) is written directly in self-similar coordinates, so
-\eqref{eq:swirl-control} is unchanged when \(V(y,\tau)\) is replaced by
-\(V(y,\tau+a)\), \(a\in\mathbb R\).  Finally, if \(t\le T<0\), then
+around the \(z\)-axis.  More explicitly, for every rotation \(R_\alpha\) around
+the symmetry axis,
+\[
+   U(R_\alpha x,t)=R_\alpha U(x,t)
+\]
+implies
+\[
+   V(R_\alpha y,\tau)
+   =\sqrt{-t}\,U(R_\alpha x,t)
+   =R_\alpha\sqrt{-t}\,U(x,t)
+   =R_\alpha V(y,\tau).
+\]
+Thus axisymmetry is preserved.  Since the cylindrical basis
+\((e_r,e_\theta,e_z)\) is unchanged by a radial dilation, the component
+relation is
+\[
+   V_\theta(\rho,Z,\tau)=\sqrt{-t}\,
+      U_\theta(r,z,t),
+   \qquad r=\sqrt{-t}\rho,\quad z=\sqrt{-t}Z .
+\]
+Consequently \(U_\theta\equiv0\) if and only if \(V_\theta\equiv0\), and
+\[
+   \Gamma_V(\rho,Z,\tau)
+   =\rho V_\theta(\rho,Z,\tau)
+   =\rho\sqrt{-t}\,U_\theta(r,z,t)
+   =rU_\theta(r,z,t)
+   =\Gamma_U(r,z,t).
+\]
+The expression \(\rho^\gamma |V_\theta|\) is written directly in
+self-similar coordinates, so \eqref{eq:swirl-control} is unchanged when
+\(V(y,\tau)\) is replaced by \(V(y,\tau+a)\), \(a\in\mathbb R\); the supremum is
+over all \(\tau\in\mathbb R\).  Finally, if \(t\le T<0\), then
 \eqref{eq:type-i} gives
 \[
 \|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}
@@ -210,6 +357,175 @@ field.  This proves the assertions on axisymmetry and no swirl.  The expression
 \frac{1}{\sqrt{-T}}
 \sup_{s<0}\sqrt{-s}\,\|U(\cdot,s)\|_{L^\infty(\mathbb R^3)} .
 \]
+\end{proof}
+
+\begin{lemma}[Time shifts away from the singular time]\label{lem:time-shift}
+Let \(U\) be a smooth Type I ancient solution of \eqref{eq:ns}.  Fix
+\(T<0\), and set
+\[
+   W_T(x,s)=U(x,T+s),\qquad \Pi_T(x,s)=P(x,T+s),\qquad s<0.
+\]
+Then \((W_T,\Pi_T)\) is a smooth bounded mild ancient solution of
+\eqref{eq:ns} on \(\mathbb R^3\times(-\infty,0)\).  If \(U\) is axisymmetric,
+has no swirl, is periodic in \(z\), or satisfies an \(L_t^\infty L_x^p\) or
+\(L^\infty\) bound on \(\Gamma_U=rU_\theta\), then \(W_T\) has the same
+corresponding property on \(\mathbb R^3\times(-\infty,0)\).
+\end{lemma}
+
+\begin{proof}
+Smoothness and the differential equations are invariant under translations in
+time, since \(\partial_s W_T(x,s)=\partial_tU(x,T+s)\), all spatial
+derivatives are unchanged, and
+\[
+   \nabla\Pi_T(x,s)=\nabla P(x,T+s).
+\]
+Consequently
+\[
+   \partial_s W_T-\Delta W_T+W_T\cdot\nabla W_T+\nabla\Pi_T
+   =
+   \bigl(\partial_t U-\Delta U+U\cdot\nabla U+\nabla P\bigr)(x,T+s)
+   =0,
+\]
+and \(\nabla\cdot W_T=(\nabla\cdot U)(x,T+s)=0\).  The mild identity follows
+by applying \eqref{eq:mild-formula} to \(U\) at the times \(T+s<T+t<0\).
+Namely, for
+\(-\infty<s<t<0\),
+\[
+   U(\cdot,T+t)
+   =
+   e^{(t-s)\Delta}U(\cdot,T+s)
+   -\int_{T+s}^{T+t}
+      e^{(T+t-\eta)\Delta}\mathbb P\nabla\cdot
+      (U(\cdot,\eta)\otimes U(\cdot,\eta))\,d\eta .
+\]
+Set \(\eta=T+\sigma\).  Then \(d\eta=d\sigma\), the interval
+\([T+s,T+t]\) becomes \([s,t]\), and \(T+t-\eta=t-\sigma\).  Since
+\(U(\cdot,T+\sigma)=W_T(\cdot,\sigma)\), the preceding identity becomes
+\[
+   W_T(\cdot,t)=e^{(t-s)\Delta}W_T(\cdot,s)
+   -\int_s^t e^{(t-\sigma)\Delta}\mathbb P\nabla\cdot
+      (W_T(\cdot,\sigma)\otimes W_T(\cdot,\sigma))\,d\sigma,
+\]
+which is the mild formulation for \(W_T\).
+Boundedness follows from \Cref{lem:structure-preserved}:
+\[
+   \|W_T(\cdot,s)\|_{L^\infty(\mathbb R^3)}
+   =
+   \|U(\cdot,T+s)\|_{L^\infty(\mathbb R^3)}
+   \le
+   \frac{1}{\sqrt{-T}}
+   \sup_{\eta<0}\sqrt{-\eta}\,
+      \|U(\cdot,\eta)\|_{L^\infty(\mathbb R^3)} .
+\]
+Axisymmetry is unchanged because for every rotation \(R_\alpha\) around the
+\(z\)-axis,
+\[
+   W_T(R_\alpha x,s)=U(R_\alpha x,T+s)
+   =R_\alpha U(x,T+s)=R_\alpha W_T(x,s).
+\]
+Absence of swirl is unchanged because
+\[
+   (W_T)_\theta(r,z,s)=U_\theta(r,z,T+s),
+\]
+so \(U_\theta\equiv0\) for \(r>0\) implies \((W_T)_\theta\equiv0\) for
+\(r>0\).  If \(U\) is \(L\)-periodic in \(z\), then
+\[
+   W_T(x_1,x_2,z+L,s)
+   =U(x_1,x_2,z+L,T+s)
+   =U(x_1,x_2,z,T+s)
+   =W_T(x_1,x_2,z,s),
+\]
+so the same period works for \(W_T\).  Finally
+\[
+   \Gamma_{W_T}(r,z,s)=r(W_T)_\theta(r,z,s)
+   =rU_\theta(r,z,T+s)=\Gamma_U(r,z,T+s).
+\]
+Therefore an \(L_t^\infty L_x^p\) bound for \(\Gamma_U\) on
+\((-\infty,0)\) restricts to the shifted solution, since
+\[
+   \|\Gamma_{W_T}\|_{L_s^\infty L_x^p(\mathbb R^3\times(-\infty,0))}
+   =
+   \operatorname*{ess\,sup}_{s<0}
+      \|\Gamma_U(\cdot,T+s)\|_{L^p(\mathbb R^3)}
+   \le
+   \|\Gamma_U\|_{L_t^\infty L_x^p(\mathbb R^3\times(-\infty,0))}.
+\]
+Similarly,
+\[
+   \|\Gamma_{W_T}\|_{L^\infty(\mathbb R^3\times(-\infty,0))}
+   \le
+   \|\Gamma_U\|_{L^\infty(\mathbb R^3\times(-\infty,0))}.
+\]
+\end{proof}
+
+\begin{lemma}[Spatially constant mild solutions]\label{lem:spatial-constant-mild}
+Let \(W\) be a smooth mild solution of \eqref{eq:ns} on
+\(\mathbb R^3\times(-\infty,0)\).  If there is a function
+\(b:(-\infty,0)\to\mathbb R^3\) such that \(W(x,t)=b(t)\) for all
+\((x,t)\), then \(b\) is constant in time.
+\end{lemma}
+
+\begin{proof}
+Fix \(-\infty<s<t<0\).  Applying the mild formula \eqref{eq:mild-formula} to
+\(W\) gives
+\[
+   b(t)=e^{(t-s)\Delta}b(s)
+   -\int_s^t e^{(t-\sigma)\Delta}\mathbb P\nabla\cdot
+      \bigl(b(\sigma)\otimes b(\sigma)\bigr)\,d\sigma .
+\]
+The heat semigroup leaves spatially constant vector fields fixed.  Moreover
+\(b(\sigma)\otimes b(\sigma)\) is a spatially constant matrix, hence its
+distributional divergence is zero.  The Duhamel integral therefore vanishes,
+and \(b(t)=b(s)\).  Since \(s<t\) were arbitrary, \(b\) is constant on
+\((-\infty,0)\).
+\end{proof}
+
+\begin{lemma}[Patching constants on backward time intervals]
+\label{lem:patch-constants}
+Let \(U:\mathbb R^3\times(-\infty,0)\to\mathbb R^3\) be any function.  Assume
+that for every \(T<0\) there exists a vector \(c_T\in\mathbb R^3\) such that
+\[
+   U(x,t)=c_T
+   \qquad\text{for all }x\in\mathbb R^3,\quad t<T .
+\]
+Then there is a single vector \(c\in\mathbb R^3\) such that
+\[
+   U(x,t)=c
+   \qquad\text{for all }x\in\mathbb R^3,\quad t<0 .
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(T_1<T_2<0\).  The two representations hold simultaneously on the
+nonempty time interval \((-\infty,T_1)\).  Hence, for any fixed
+\(x_0\in\mathbb R^3\) and any \(t_0<T_1\),
+\[
+   c_{T_1}=U(x_0,t_0)=c_{T_2}.
+\]
+Thus all constants \(c_T\) are equal; denote their common value by \(c\).  If
+\(t<0\), choose \(T\) with \(t<T<0\).  The hypothesis for this \(T\) gives
+\(U(x,t)=c_T=c\) for every \(x\in\mathbb R^3\).
+\end{proof}
+
+\begin{lemma}[Type I constants vanish]\label{lem:type-i-constant}
+Let \(U\) be a smooth Type I ancient solution of \eqref{eq:ns}.  If there is a
+vector \(c\in\mathbb R^3\) such that \(U(x,t)=c\) on
+\(\mathbb R^3\times(-\infty,0)\), then \(c=0\).
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+   M=\sup_{t<0}\sqrt{-t}\,
+      \|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
+\]
+For a constant solution, \(\|U(\cdot,t)\|_{L^\infty}=|c|\) for every
+\(t<0\).  Hence
+\[
+   \sqrt{-t}\,|c|\le M\qquad\text{for every }t<0.
+\]
+If \(c\ne0\), the left-hand side tends to \(+\infty\) as \(t\to-\infty\),
+contradicting the finiteness of \(M\).  Thus \(c=0\).
 \end{proof}
 
 \section{The axisymmetric no-swirl case}
@@ -224,8 +540,14 @@ axisymmetric without swirl, then \(W\) is constant in space and time.
 \end{theorem}
 
 \begin{proof}
-This is the axisymmetric no-swirl Liouville theorem proved in
-\cite{KNSS2009}, specialized to smooth solutions.
+This is precisely the axisymmetric no-swirl Liouville theorem proved in
+Section 5 of \cite{KNSS2009}.  Their hypothesis is stated for bounded ancient
+weak solutions.  A smooth bounded mild solution satisfies the
+Navier--Stokes equations distributionally and therefore is admissible for that
+theorem; no additional compactness or decay assumption is used here.  If the
+conclusion is expressed as a spatially constant axial drift, the mild
+formulation makes the drift independent of time by
+\Cref{lem:spatial-constant-mild}.
 \end{proof}
 
 \begin{proposition}\label{prop:no-swirl-type-i}
@@ -234,30 +556,21 @@ axisymmetric without swirl, then \(U\equiv0\).
 \end{proposition}
 
 \begin{proof}
-Let
-\[
-M=\sup_{t<0}\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}.
-\]
 Fix \(T<0\), and define
 \[
 W_T(x,s)=U(x,T+s),\qquad s<0.
 \]
-Then \(W_T\) is a smooth mild ancient solution, axisymmetric without swirl, and
-\[
-\|W_T(\cdot,s)\|_{L^\infty(\mathbb R^3)}
-\le \frac{M}{\sqrt{-(T+s)}}\le \frac{M}{\sqrt{-T}},
-\qquad s<0.
-\]
+By \Cref{lem:time-shift}, \(W_T\) is a bounded smooth mild ancient solution on
+\(\mathbb R^3\times(-\infty,0)\), and it is axisymmetric without swirl.
 By \Cref{thm:knss}, \(W_T\) is constant on
-\(\mathbb R^3\times(-\infty,0)\).  Hence \(U\) is constant on
-\(\mathbb R^3\times(-\infty,T)\).  If \(T_1<T_2<0\), the constants obtained
-on \((-\infty,T_1)\) and \((-\infty,T_2)\) agree on the overlap.  Since
-\(T<0\) was arbitrary, there is a single vector \(c\in\mathbb R^3\) such that
-\(U(x,t)=c\) for all \(x\in\mathbb R^3\) and \(t<0\).  The Type I bound gives
+\(\mathbb R^3\times(-\infty,0)\); write this constant as \(c_T\).
+Equivalently,
 \[
-|c|\le \frac{M}{\sqrt{-t}}\qquad\text{for every }t<0.
+   U(x,t)=c_T\qquad\text{for }x\in\mathbb R^3,\quad t<T.
 \]
-Letting \(t\to-\infty\) yields \(c=0\).
+Since \(T<0\) was arbitrary, \Cref{lem:patch-constants} gives a single vector
+\(c\in\mathbb R^3\) such that \(U(x,t)=c\) for every \(x\in\mathbb R^3\) and
+every \(t<0\).  By \Cref{lem:type-i-constant}, \(c=0\).
 \end{proof}
 
 \begin{corollary}[Unconditional no-swirl Type I exclusion]
@@ -267,17 +580,26 @@ a finite-time Type I singularity can be axisymmetric without swirl.
 \end{corollary}
 
 \begin{proof}
-Such a limit satisfies \eqref{eq:type-i}.  If it were axisymmetric without
-swirl, \Cref{prop:no-swirl-type-i} would give \(U\equiv0\), contradicting the
-nonzero normalization of the blow-up limit.
+By the definition used in the blow-up construction, the ancient limit is a
+smooth Type I ancient solution and is not identically zero: the normalization
+fixes a positive pressure-normalized local critical density, as recalled in the
+normalization convention above and proved in
+\cite[Theorem \texttt{thm:singular-positive} and Proposition
+\texttt{prop:compactness-persistence}]{Paper0LocalConcentration} and
+\cite[Proposition \texttt{prop:nonzero}, Lemma \texttt{lem:smoothness}, and
+Corollary \texttt{cor:classical-type-I-bound}]{Paper1TypeI}.  If this limit
+were axisymmetric without swirl,
+\Cref{prop:no-swirl-type-i} would imply \(U\equiv0\).  This contradicts the
+nonzero normalization in \Cref{lem:nonzero-normalization}, and hence the
+no-swirl alternative cannot occur.
 \end{proof}
 
 \section{Axisymmetric solutions with controlled swirl}
 
 The angular component satisfies an equation with singular coefficients on the
-axis.  This prevents the preceding no-swirl argument from closing once
-\(U_\theta\) is nonzero.  We first record two unconditional literature imports
-which close useful swirl-bearing subbranches.
+axis.  Thus the no-swirl Liouville argument does not by itself treat solutions
+with \(U_\theta\not\equiv0\).  We first record two unconditional Liouville
+inputs from the literature.
 
 \begin{theorem}[Lei--Zhang--Zhao]\label{thm:lzz}
 Let \(W\) be a bounded smooth mild ancient solution of \eqref{eq:ns} on
@@ -291,8 +613,13 @@ Then \(W\) is constant in space and time.
 \end{theorem}
 
 \begin{proof}
-This is the swirl-bearing ancient Liouville theorem of Lei--Zhang--Zhao
-\cite{LZZ2017}, specialized to bounded smooth mild ancient solutions.
+The stated result is the axisymmetric ancient Liouville theorem with swirl of
+Lei--Zhang--Zhao \cite{LZZ2017}.  In the form used here, the theorem assumes
+that \(W\) is a bounded smooth ancient mild solution and that
+\(\Gamma=rW_\theta\in L_t^\infty L_x^p\) for some \(1\le p<\infty\); its
+conclusion is that \(W\) is spatially constant.  The mild formulation then
+upgrades spatial constancy to constancy in time by
+\Cref{lem:spatial-constant-mild}.
 \end{proof}
 
 \begin{proposition}[Type I exclusion under \(L^p\)-controlled swirl]
@@ -307,9 +634,19 @@ then \(U\equiv0\).
 \end{proposition}
 
 \begin{proof}
-\Cref{thm:lzz} gives that \(U\) is a constant vector.  The Type I bound
-\eqref{eq:type-i} eliminates this constant exactly as in
-\Cref{prop:no-swirl-type-i}.
+Fix \(T<0\) and set \(W_T(x,s)=U(x,T+s)\), \(s<0\).  By
+\Cref{lem:time-shift}, \(W_T\) is a bounded smooth mild ancient solution on
+\(\mathbb R^3\times(-\infty,0)\), it is axisymmetric, and
+\[
+   r(W_T)_\theta\in L_s^\infty L_x^p
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+The hypotheses of \Cref{thm:lzz} are therefore satisfied by \(W_T\), and
+\(W_T\) is a constant vector field.  Thus \(U(x,t)=c_T\) on
+\(\mathbb R^3\times(-\infty,T)\).  Since \(T<0\) was arbitrary,
+\Cref{lem:patch-constants} gives a single vector \(c\) with \(U(x,t)=c\) for
+all \(x\in\mathbb R^3\) and all \(t<0\).  \Cref{lem:type-i-constant} then
+gives \(c=0\).
 \end{proof}
 
 \begin{theorem}[Lei--Ren--Zhang]\label{thm:lrz}
@@ -323,11 +660,93 @@ Then \(W\) is constant in space and time.
 \end{theorem}
 
 \begin{proof}
-This is the periodic axisymmetric Liouville theorem of Lei--Ren--Zhang
+We use the periodic axisymmetric Liouville theorem of Lei--Ren--Zhang
 \cite{LRZ2022}.  Their theorem is stated on
 \(\mathbb R^2\times\mathbb T^1\); a solution on \(\mathbb R^3\) which is
-periodic in \(z\) descends to that quotient, after the harmless Navier--Stokes
-scaling needed to normalize the period.
+periodic in \(z\) descends to the corresponding quotient as follows.  If
+\(L>0\) is an axial period of the velocity, then
+\[
+   W(x_1,x_2,z+L,t)=W(x_1,x_2,z,t)
+\]
+for every \((x_1,x_2,z,t)\).  Hence the formula
+\[
+   \widetilde W(x_1,x_2,[z],t)=W(x_1,x_2,z,t),
+   \qquad [z]\in\mathbb R/L\mathbb Z,
+\]
+is independent of the representative \(z\) and defines a smooth vector field on
+\(\mathbb R^2\times(\mathbb R/L\mathbb Z)\).  Smoothness on the quotient is
+local in the axial coordinate and follows from the smoothness and periodicity
+of the Cartesian field \(W\); no separate cylindrical-coordinate argument at
+the axis is required.  The pressure gradient also descends to the quotient.
+Indeed, from the smooth equation
+\[
+   \nabla\Pi=-\partial_t W+\Delta W-W\cdot\nabla W
+\]
+the right-hand side is \(L\)-periodic in \(z\): spatial derivatives preserve
+periodicity, and differentiating the identity
+\(W(x_1,x_2,z+L,t)=W(x_1,x_2,z,t)\) in \(t\) gives periodicity of
+\(\partial_tW\).  Hence \(\nabla\Pi\) is a well-defined one-form on the
+quotient.  Since the Navier--Stokes system is a local differential system in
+the axial variable, the descended velocity together with this descended
+pressure gradient solves the same system on the quotient.  This use of the
+pressure is consistent with the pressure-gauge convention above: the theorem
+is applied through the velocity equation involving \(\nabla\Pi\).  To match the
+period of the torus used in \cite{LRZ2022}, namely \(2\pi\), use the
+Navier--Stokes scaling
+\[
+   W_\lambda(x,t)=\lambda W(\lambda x,\lambda^2t),\qquad
+   \Pi_\lambda(x,t)=\lambda^2\Pi(\lambda x,\lambda^2t),
+\]
+with \(\lambda=L/(2\pi)\).  Then
+\[
+   W_\lambda(x_1,x_2,z+2\pi,t)
+   =
+   \lambda W(\lambda x_1,\lambda x_2,\lambda z+L,\lambda^2t)
+   =
+   W_\lambda(x_1,x_2,z,t),
+\]
+so the scaled solution is defined on
+\(\mathbb R^2\times(\mathbb R/2\pi\mathbb Z)=\mathbb R^2\times\mathbb T^1\).
+The fact that this parabolic scaling preserves the Navier--Stokes equation,
+the divergence condition, and pressure gauges is the scaling statement
+proved earlier in \cite[Lemmas \texttt{lem:scaling} and
+\texttt{lem:gauges-harmless}]{Paper1TypeI}, together with the
+scale-invariance of the pressure-normalized local quantities in
+\cite[Proposition \texttt{prop:critical-scaling}]
+{Paper0LocalConcentration}; we use it here only to normalize the axial period.
+Axisymmetry is preserved because scalar dilations commute with rotations around
+the \(z\)-axis.  Boundedness is preserved because
+\[
+   \|W_\lambda\|_{L^\infty(\mathbb R^3\times(-\infty,0))}
+   =
+   \lambda
+   \|W\|_{L^\infty(\mathbb R^3\times(-\infty,0))}<\infty .
+\]
+Ancientness is preserved because \(t<0\) if and only if
+\(\lambda^2t<0\).  The mild formulation is preserved by applying the same
+change of variables to the Duhamel formula.  Equivalently, the scaled pair is a
+smooth solution of the differential Navier--Stokes system on every finite time
+interval and therefore has the standard mild representation on that interval
+\cite{Kato1984,Sohr2001}.  Finally, the scaling preserves
+boundedness of the swirl variable because
+\[
+   r(W_\lambda)_\theta(r,z,t)
+   =
+   r\lambda W_\theta(\lambda r,\lambda z,\lambda^2t)
+   =
+   (\lambda r)W_\theta(\lambda r,\lambda z,\lambda^2t).
+\]
+All hypotheses of the Lei--Ren--Zhang theorem are therefore satisfied on
+\(\mathbb R^2\times\mathbb T^1\).  Their conclusion gives an axial constant
+field, or equivalently a spatially constant drift.  By
+\Cref{lem:spatial-constant-mild} this drift is independent of time.  Thus, if
+\(W_\lambda\equiv c_\lambda\), then for every \(x\) and \(t\),
+\[
+   W(x,t)=\lambda^{-1}W_\lambda(\lambda^{-1}x,\lambda^{-2}t)
+   =\lambda^{-1}c_\lambda .
+\]
+Thus the original lifted solution \(W\) is also constant on
+\(\mathbb R^3\times(-\infty,0)\).
 \end{proof}
 
 \begin{proposition}[Type I exclusion under periodic bounded swirl]
@@ -341,15 +760,29 @@ then \(U\equiv0\).
 \end{proposition}
 
 \begin{proof}
-\Cref{thm:lrz} gives that \(U\) is constant.  The Type I bound
-\eqref{eq:type-i} then forces that constant to vanish.
+Fix \(T<0\) and set \(W_T(x,s)=U(x,T+s)\), \(s<0\).  By
+\Cref{lem:time-shift}, \(W_T\) is a bounded smooth mild ancient solution,
+axisymmetric, periodic in \(z\), and with
+\[
+   r(W_T)_\theta\in L^\infty
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+Applying \Cref{thm:lrz} gives that \(W_T\) is constant on
+\(\mathbb R^3\times(-\infty,0)\); write the corresponding constant as
+\(c_T\).  Therefore
+\[
+   U(x,t)=c_T\qquad\text{for }x\in\mathbb R^3,\quad t<T .
+\]
+Since \(T<0\) was arbitrary,
+\Cref{lem:patch-constants} yields a global constant vector \(c\) on
+\(\mathbb R^3\times(-\infty,0)\).  By \Cref{lem:type-i-constant}, \(c=0\).
 \end{proof}
 
-The remaining controlled-swirl branch below is not covered by these imports.
-The following fixed-exponent Liouville theorem is the assumption used for that
-branch.
+The remaining controlled-swirl case is not covered by the preceding imported
+Liouville theorems.  We isolate the exact fixed-exponent Liouville input needed
+for this case.
 
-\begin{assumption}[Liouville theorem with controlled swirl]\label{ass:swirl}
+\begin{hypothesis}[Liouville theorem with controlled swirl]\label{hyp:swirl}
 Fix \(\gamma>0\).  Let \(U\) be a smooth Type I ancient solution of
 \eqref{eq:ns}.  Assume that \(U\) is axisymmetric and that its velocity \(V\) in
 self-similar variables satisfies
@@ -358,24 +791,36 @@ self-similar variables satisfies
 \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty.
 \end{equation}
 Then \(U\equiv0\).
-\end{assumption}
+\end{hypothesis}
 
 \begin{remark}\label{rem:swirl-exponent}
-The exponent \(\gamma\) is part of \Cref{ass:swirl}.  The result is conditional
+The exponent \(\gamma\) is part of \Cref{hyp:swirl}.  The result is conditional
 at this value of \(\gamma\) and makes no assertion at other exponents.
 \end{remark}
 
 \begin{proposition}\label{prop:swirl-exclusion}
-Fix \(\gamma>0\), and assume the Liouville theorem in \Cref{ass:swirl} for this
-value of \(\gamma\).  Let \(U\) be a nonzero Type I ancient limit arising from a
-finite-time Type I singularity.  If \(U\) is axisymmetric and its velocity in
-self-similar variables satisfies \eqref{eq:controlled-swirl-assumption}, then
-no such \(U\) exists.
+Fix \(\gamma>0\), and suppose that the Liouville hypothesis
+\Cref{hyp:swirl} holds for this value of \(\gamma\).  Let \(U\) be a nonzero
+Type I ancient limit arising from a finite-time Type I singularity.  Then \(U\)
+cannot be axisymmetric with self-similar velocity satisfying
+\eqref{eq:controlled-swirl-assumption}.
 \end{proposition}
 
 \begin{proof}
-The hypotheses place \(U\) in the class covered by \Cref{ass:swirl}.  Hence
-\(U\equiv0\), contrary to the nonzero normalization of the ancient limit.
+The parameter in the proposition is the same \(\gamma\) as in
+\Cref{hyp:swirl}.  By the blow-up construction cited in the normalization
+convention, specifically
+\cite[Proposition \texttt{prop:nonzero}, Lemma \texttt{lem:smoothness}, and
+Corollary \texttt{cor:classical-type-I-bound}]{Paper1TypeI}, \(U\) is a smooth
+Type I ancient solution and is not identically zero.  The additional
+hypotheses in the proposition are precisely axisymmetry and
+\eqref{eq:controlled-swirl-assumption}.  Thus all hypotheses of
+\Cref{hyp:swirl} are satisfied with the same exponent \(\gamma\), and no
+decay, periodicity, or integrability condition beyond those stated in
+\Cref{hyp:swirl} is used.  Hence
+\Cref{hyp:swirl} gives \(U\equiv0\).  This contradicts the nonzero
+normalization of the Type I ancient limit in
+\Cref{lem:nonzero-normalization}.
 \end{proof}
 
 \begin{remark}\label{rem:swirl-scale}
@@ -384,9 +829,23 @@ In physical variables, \eqref{eq:controlled-swirl-assumption} is equivalent to
 \sup_{t<0}\sup_{r>0,\ z\in\mathbb R}
 (-t)^{(1-\gamma)/2}r^\gamma |U_\theta(r,z,t)|<\infty .
 \]
-This is the scale-invariant form of the condition.  It is written in
-self-similar variables in \Cref{ass:swirl} to avoid mixing the geometric
-cylindrical variables with the Type I time weight.
+Indeed, \(r=\sqrt{-t}\rho\) and
+\(V_\theta(\rho,Z,\tau)=\sqrt{-t}\,U_\theta(r,z,t)\).  Therefore
+\[
+   \rho^\gamma |V_\theta(\rho,Z,\tau)|
+   =
+   \left(\frac{r}{\sqrt{-t}}\right)^\gamma
+   \sqrt{-t}\,|U_\theta(r,z,t)|
+   =
+   (-t)^{(1-\gamma)/2}r^\gamma |U_\theta(r,z,t)|.
+\]
+The change of variables \((r,z,t)\leftrightarrow(\rho,Z,\tau)\) is bijective
+between \(\{r>0,z\in\mathbb R,t<0\}\) and
+\(\{\rho>0,Z\in\mathbb R,\tau\in\mathbb R\}\), so the two suprema are equal.
+Thus \eqref{eq:controlled-swirl-assumption} is equivalent to the displayed
+scale-invariant physical-variable bound.  We state \Cref{hyp:swirl} in
+self-similar variables so that the geometric cylindrical weight and the Type I
+time weight are separated.
 \end{remark}
 
 \section{Fast decay in self-similar variables}
@@ -398,41 +857,82 @@ consider the weighted condition
 \sup_{\tau\in\mathbb R}
 \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy<\infty .
 \end{equation}
-This condition is stronger than local \(L^2\) boundedness; it rules out spatial
-escape of \(L^2\) mass in self-similar variables.  Any integration by parts or
-backward-uniqueness argument required to exploit this decay is contained in the
-fixed-weight Liouville theorem stated below.
+Let
+\[
+   A_m=\sup_{\tau\in\mathbb R}
+   \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy .
+\]
+Then \eqref{eq:weighted-decay} implies uniform local \(L^2\) control.  Indeed,
+since \(m>0\), the weight satisfies
+\((1+|y|^2)^m\ge1\) for every \(y\).  Hence, for every \(R<\infty\) and every
+\(\tau\),
+\[
+   \int_{B_R}|V(y,\tau)|^2\,dy
+   \le
+   \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy .
+\]
+Taking the supremum over \(\tau\) gives
+\[
+   \sup_{\tau\in\mathbb R}\int_{B_R}|V(y,\tau)|^2\,dy
+   \le A_m .
+\]
+It also rules out spatial escape of \(L^2\) mass in self-similar variables:
+for every \(R>0\), the implication \(|y|>R\) gives
+\((1+|y|^2)^m\ge(1+R^2)^m\).  Therefore, for every \(\tau\),
+\[
+   \int_{|y|>R}|V(y,\tau)|^2\,dy
+   \le
+   (1+R^2)^{-m}
+   \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy .
+\]
+Taking the supremum over \(\tau\) gives
+\[
+   \sup_{\tau\in\mathbb R}\int_{|y|>R}|V(y,\tau)|^2\,dy
+   \le (1+R^2)^{-m}A_m .
+\]
+Thus the right-hand side tends to zero as \(R\to\infty\).  The present paper
+does not use any integration by parts or backward-uniqueness argument beyond
+the fixed-weight Liouville input stated next.
 
-\begin{assumption}[Weighted Liouville theorem]\label{ass:weighted}
+\begin{hypothesis}[Weighted Liouville theorem]\label{hyp:weighted}
 Fix \(m>0\).  Let \(U\) be a smooth Type I ancient solution of \eqref{eq:ns}.
 Assume that its velocity \(V\) in self-similar variables satisfies
 \eqref{eq:weighted-decay}.  Then \(U\equiv0\).
-\end{assumption}
+\end{hypothesis}
 
 \begin{remark}\label{rem:weighted-exponent}
-The weight \(m\) is part of \Cref{ass:weighted}.  The result is conditional at
+The weight \(m\) is part of \Cref{hyp:weighted}.  The result is conditional at
 this value of \(m\) and makes no assertion at other weights.
 \end{remark}
 
 \begin{proposition}\label{prop:weighted-exclusion}
-Fix \(m>0\), and assume the Liouville theorem in \Cref{ass:weighted} for this
-value of \(m\).  Let \(U\) be a nonzero Type I ancient limit arising from a
-finite-time Type I singularity.  If its velocity in self-similar variables
-satisfies \eqref{eq:weighted-decay}, then no such \(U\) exists.
+Fix \(m>0\), and suppose that the Liouville hypothesis \Cref{hyp:weighted}
+holds for this value of \(m\).  Let \(U\) be a nonzero Type I ancient limit
+arising from a finite-time Type I singularity.  Then its velocity in
+self-similar variables cannot satisfy \eqref{eq:weighted-decay}.
 \end{proposition}
 
 \begin{proof}
-The hypotheses put \(U\) in the class covered by \Cref{ass:weighted}.  Hence
-\(U\equiv0\), contradicting the nonzero normalization of the ancient limit.
+The parameter in the proposition is the same \(m\) as in \Cref{hyp:weighted}.
+By the blow-up construction cited in the normalization convention, specifically
+\cite[Proposition \texttt{prop:nonzero}, Lemma \texttt{lem:smoothness}, and
+Corollary \texttt{cor:classical-type-I-bound}]{Paper1TypeI}, \(U\) is a smooth
+Type I ancient solution and is not identically zero.  If its
+self-similar velocity \(V\) satisfied \eqref{eq:weighted-decay}, then all
+hypotheses of \Cref{hyp:weighted} would be satisfied with the same weight
+\(m\).  Therefore \(U\equiv0\), contradicting the nonzero normalization
+inherited from the singular blow-up sequence, as stated in
+\Cref{lem:nonzero-normalization}.
 \end{proof}
 
 \section{The Type I exclusion under symmetry and decay}
 
-The preceding sections assemble into a single exclusion statement.  The no-swirl
+The preceding sections give the following exclusion statement.  The no-swirl
 alternative, the \(L^p\)-controlled swirl alternative, and the periodic
-bounded-\(\Gamma\) alternative are unconditional literature consequences.  The
-pointwise controlled-swirl and decay alternatives are conditional on the
-corresponding fixed-exponent Liouville theorems.
+bounded-\(\Gamma\) alternative are consequences of published Liouville
+theorems.  The pointwise controlled-swirl and decay alternatives are
+conditional on the corresponding fixed-exponent Liouville hypotheses stated
+above.
 
 \begin{theorem}\label{thm:symmetry-decay-exclusion}
 Let \(U\) be a nonzero Type I ancient limit arising from a finite-time Type I
@@ -449,49 +949,137 @@ or \(U\) is periodic in \(z\) and
 \[
    rU_\theta\in L^\infty\bigl(\mathbb R^3\times(-\infty,0)\bigr).
 \]
-Finally, fix \(\gamma>0\) and assume the Liouville theorem in
-\Cref{ass:swirl}.  Then \(U\) cannot be axisymmetric and satisfy
-\eqref{eq:controlled-swirl-assumption}.  Likewise, fix \(m>0\) and assume the
-Liouville theorem in \Cref{ass:weighted}.  Then \(V\) cannot satisfy
+Finally, fix \(\gamma>0\) and suppose that the Liouville hypothesis in
+\Cref{hyp:swirl} holds.  Then \(U\) cannot be axisymmetric and satisfy
+\eqref{eq:controlled-swirl-assumption}.  Likewise, fix \(m>0\) and suppose that
+the Liouville hypothesis in \Cref{hyp:weighted} holds.  Then \(V\) cannot satisfy
 \eqref{eq:weighted-decay}.
 \end{theorem}
 
 \begin{proof}
-The no-swirl assertion is \Cref{cor:no-swirl-exclusion}.  The assertion under
-\(L^p\)-controlled swirl is \Cref{prop:lp-swirl-exclusion}, and the assertion
-under periodic bounded swirl is \Cref{prop:periodic-swirl-exclusion}.  The
-conditional pointwise controlled-swirl assertion is
-\Cref{prop:swirl-exclusion}.  The assertion under weighted decay is
-\Cref{prop:weighted-exclusion}.
+Suppose first that \(U\) were axisymmetric without swirl.  Since \(U\) is a
+nonzero Type I ancient limit obtained from the blow-up procedure, it is in the
+class covered by \Cref{cor:no-swirl-exclusion}.  That corollary excludes
+precisely such limits under the no-swirl hypothesis.  This gives a
+contradiction, and hence the no-swirl alternative cannot occur.
+
+Assume next that \(U\) is axisymmetric and that
+\(\Gamma_U=rU_\theta\in L_t^\infty L_x^p\) for some \(1\le p<\infty\).
+The preceding paragraph and the companion-paper normalization give the PDE
+properties needed to use \Cref{prop:lp-swirl-exclusion}: \(U\) is a smooth
+Type I ancient solution, it is axisymmetric, and the displayed
+\(L_t^\infty L_x^p\)-bound is exactly the integrability hypothesis in that
+proposition.  Hence \Cref{prop:lp-swirl-exclusion} gives \(U\equiv0\).  This
+contradicts the nonzero normalization in \Cref{lem:nonzero-normalization}.
+
+If \(U\) is periodic in \(z\) and \(\Gamma_U\in L^\infty\), then the
+hypotheses of \Cref{prop:periodic-swirl-exclusion} are likewise exactly the
+smooth Type I ancient property, axisymmetry, axial periodicity, and boundedness
+of \(rU_\theta\).  Therefore \Cref{prop:periodic-swirl-exclusion} gives
+\(U\equiv0\), again contradicting \Cref{lem:nonzero-normalization}.
+
+Now fix \(\gamma>0\) and assume \Cref{hyp:swirl}.  If the displayed
+pointwise self-similar swirl bound held, then \(U\) would be a nonzero Type I
+ancient limit which is axisymmetric and satisfies
+\eqref{eq:controlled-swirl-assumption} with the same exponent \(\gamma\).
+These are precisely the hypotheses of \Cref{prop:swirl-exclusion}, including
+the fixed value of \(\gamma\).  That proposition says that no such limit
+exists, a contradiction.
+
+Finally, fix \(m>0\) and assume \Cref{hyp:weighted}.  If
+\eqref{eq:weighted-decay} held, then \(U\) would be a nonzero Type I ancient
+limit whose self-similar velocity satisfies the weighted condition with the
+same exponent \(m\).  These are precisely the hypotheses of
+\Cref{prop:weighted-exclusion}.  That proposition excludes such a limit, again
+giving a contradiction.  These contradictions prove all alternatives stated in
+the theorem.
 \end{proof}
 
 \begin{remark}\label{rem:relation-to-previous}
-The no-swirl case is an unconditional closed branch of the Type I blow-up
-analysis.  The \(L_t^\infty L_x^p\)-controlled swirl branch and the
-\(z\)-periodic bounded-\(\Gamma\) branch are also closed by existing
-Liouville theorems.  In the remaining pointwise controlled-swirl and weighted
-cases, the remaining work is exactly the proof of the corresponding
-fixed-exponent Liouville theorem.
+The no-swirl case is an unconditional exclusion in the Type I blow-up
+analysis.  The \(L_t^\infty L_x^p\)-controlled swirl case and the
+\(z\)-periodic bounded-\(\Gamma\) case are also excluded by existing Liouville
+theorems.  In the pointwise controlled-swirl and weighted cases, the only
+additional input is the corresponding fixed-exponent Liouville theorem.
 \end{remark}
 
 \begin{thebibliography}{9}
 
+\bibitem{Kato1984}
+T. Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in
+\(\mathbb R^m\), with applications to weak solutions},
+Math. Z. \textbf{187} (1984), no. 4, 471--480,
+doi: \href{https://doi.org/10.1007/BF01174182}
+{10.1007/BF01174182}.
+
 \bibitem{KNSS2009}
 G. Koch, N. Nadirashvili, G. Seregin, and V. Sverak,
-\emph{Liouville theorems for the Navier-Stokes equations and applications},
-Acta Math. \textbf{203} (2009), no. 1, 83--105.
+\emph{Liouville theorems for the Navier--Stokes equations and applications},
+Acta Math. \textbf{203} (2009), no. 1, 83--105,
+doi: \href{https://doi.org/10.1007/s11511-009-0039-6}
+{10.1007/s11511-009-0039-6}.
+
+\bibitem{Paper0LocalConcentration}
+G. Cordero,
+\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
+Navier--Stokes},
+companion manuscript in this series,
+\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
+
+\bibitem{Paper1TypeI}
+G. Duran Ballester,
+\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes Equations
+and the Centered Ancient Equation},
+companion manuscript in this series,
+\texttt{docs/source/type\_1/paper1\_typeI\_blowup\_limits\_centered\_ancient.tex}.
+
+\bibitem{Paper2TightAncient}
+G. Duran Ballester,
+\emph{Uniformly Tight Ancient Solutions of the Navier--Stokes Equations in
+Self-similar Variables},
+companion manuscript in this series,
+\texttt{docs/source/type\_1/paper2\_tight\_ancient\_stationary\_rigidity.tex}.
 
 \bibitem{LRZ2022}
 Z. Lei, X. Ren, and Q. S. Zhang,
 \emph{A Liouville theorem for axi-symmetric Navier--Stokes equations on
 \(\mathbb R^2\times\mathbb T^1\)},
-Math. Ann. \textbf{383} (2022), no. 1--2, 415--431.
+Math. Ann. \textbf{383} (2022), no. 1--2, 415--431,
+arXiv: \href{https://arxiv.org/abs/1911.01571}{1911.01571}.
 
 \bibitem{LZZ2017}
 Z. Lei, Q. Zhang, and N. Zhao,
 \emph{Improved Liouville theorems for axially symmetric Navier--Stokes
 equations},
-Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198.
+Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198,
+doi: \href{https://doi.org/10.1360/N012016-00149}
+{10.1360/N012016-00149},
+arXiv: \href{https://arxiv.org/abs/1701.00868}{1701.00868}.
+
+\bibitem{Seregin2012}
+G. Seregin,
+\emph{A certain necessary condition of potential blow up for Navier--Stokes
+equations},
+Comm. Math. Phys. \textbf{312} (2012), no. 3, 833--845,
+doi: \href{https://doi.org/10.1007/s00220-011-1391-x}
+{10.1007/s00220-011-1391-x}.
+
+\bibitem{SereginSverak2009}
+G. Seregin and V. Sverak,
+\emph{On Type I singularities of the local axi-symmetric solutions of the
+Navier--Stokes equations},
+Comm. Partial Differential Equations \textbf{34} (2009), no. 2, 171--201,
+doi: \href{https://doi.org/10.1080/03605300802683687}
+{10.1080/03605300802683687}.
+
+\bibitem{Sohr2001}
+H. Sohr,
+\emph{The Navier--Stokes Equations: An Elementary Functional Analytic
+Approach},
+Birkh\"auser, Basel, 2001,
+doi: \href{https://doi.org/10.1007/978-3-0348-0551-3}
+{10.1007/978-3-0348-0551-3}.
 
 \end{thebibliography}
 

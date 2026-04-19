@@ -41,15 +41,15 @@
 \begin{abstract}
 We prove a conditional equilibrium criterion for compact ancient solutions of
 the three-dimensional Navier--Stokes equations in backward self-similar
-variables.  The hypothesis is explicit: on a compact time-translation
-invariant hull there is a continuous Lyapunov functional whose dissipation is
-nonnegative and vanishes exactly on stationary trajectories.  Under this
-hypothesis, every invariant probability measure is supported on stationary
+variables.  The assumption is formulated on a compact time-translation
+invariant hull: there is a continuous Lyapunov functional whose dissipation is
+nonnegative and vanishes precisely on stationary trajectories.  Under this
+assumption, every invariant probability measure is supported on stationary
 solutions.  If the compact hull is minimal and uniformly bounded in
 \(L^3(\mathbb R^3)\), the stationary self-similar theorem of
-Necas--Ruzicka--Sverak forces the hull to be the zero trajectory.  We then
-record the resulting conditional assembly: a normalized collection has no
-nonzero ancient solutions provided its minimal elements generate compact
+Necas--Ruzicka--Sverak forces the hull to consist only of the zero trajectory.
+We then record the resulting conditional assembly: a normalized collection has
+no nonzero ancient solutions provided its minimal elements generate compact
 nonzero hulls satisfying the Lyapunov hypothesis.  The construction of such a
 Lyapunov functional is not asserted here; it is isolated as the remaining
 analytic input.
@@ -74,37 +74,81 @@ on \(\mathbb R^3\times\mathbb R\).  The equation is autonomous in
 \]
 is again a solution.
 
-The compactness and invariant-measure construction for time translates gives
-a stationary statistical identity.  That construction alone does not force
-the dynamics to be stationary: the barycenter of an invariant measure carries
-a quadratic covariance term.  The missing step is an equilibrium principle
-which rules out recurrent nonstationary compact motion.  This paper records a
-precise conditional form of that principle.
+The compactness and invariant-measure construction for time translates was
+proved in the preceding compact-dynamics paper
+\cite{DuranCompactAncient}.  That construction yields a stationary
+statistical identity, but it does not imply that the underlying trajectories
+are stationary: the barycenter of an invariant measure carries a quadratic
+covariance term.  The additional input considered here is an equilibrium
+principle excluding recurrent nonstationary compact motion.  This paper
+records a precise conditional form of that principle.
 
-The hypothesis used below is deliberately explicit.  We assume the existence
-of a continuous Lyapunov functional on the compact invariant hull, with an
-exact dissipation identity and with zero dissipation precisely at stationary
-trajectories.  Once this is available, invariant measures are automatically
-supported on equilibria.  The rest of the argument is then standard: uniform
-\(L^3\) control brings stationary elements under the theorem of
-Necas--Ruzicka--Sverak \cite{NRS1996}, which forces them to vanish.
-Thus the paper should be read as an exact conditional assembly theorem, not as
-an unconditional proof of equilibrium rigidity for all compact ancient
-Navier--Stokes dynamics.
+The hypothesis used below is explicit.  We assume the existence of a
+continuous Lyapunov functional on the compact invariant hull, with an exact
+dissipation identity and with zero dissipation precisely at stationary
+trajectories.  This hypothesis implies that invariant measures are supported
+on equilibria.  Uniform \(L^3\) control then places stationary elements within
+the scope of the theorem of Necas--Ruzicka--Sverak \cite{NRS1996}.  Thus the
+paper is a conditional assembly theorem, not an unconditional proof of
+equilibrium rigidity for all compact ancient Navier--Stokes dynamics.
 
 \subsection{Role of the hypothesis}
 
-The strict Lyapunov hypothesis is the only nonclassical input in this paper.
-Compactness gives invariant measures, and stationary \(L^3\) rigidity gives
-zero stationary profiles.  What is not automatic is the implication that an
-invariant measure on a compact nonlinear Navier--Stokes hull must be supported
-on stationary trajectories.  The functional \(E\) and dissipation \(D\) in
-\cref{hyp:lyapunov} encode exactly that missing implication.
+The strict Lyapunov hypothesis is the only input in this paper not already
+provided by the preceding compactness, minimality, and stationary-rigidity
+arguments.  Compactness gives invariant measures, and stationary \(L^3\)
+rigidity gives zero stationary profiles.  The remaining point is the
+equilibrium-support assertion: an invariant measure on a compact nonlinear
+Navier--Stokes hull must be supported on stationary trajectories.  The
+functional \(E\) and dissipation \(D\) in \cref{hyp:lyapunov} encode precisely
+that assertion.
 
 \section{Compact ancient dynamics}
 
-After applying the Leray projection \(\mathbb P\), equation \eqref{eq:centered}
-becomes
+We use the same solution class, topology, and compact-hull conventions as in
+the compact-dynamics paper \cite[Sections~2--5]{DuranCompactAncient}.  They
+are recalled here only to fix notation for the present argument.  The locally
+smooth topology is the standard Fr\'echet topology of uniform convergence of
+all space-time derivatives on compact subsets.  It is induced by the
+countable family of seminorms
+\[
+   \|U\|_{m,N}
+   =
+   \max_{|\alpha|+j\le m}
+   \sup_{\substack{|y|\le N\\ |\tau|\le N}}
+   |\partial_y^\alpha\partial_\tau^jU(y,\tau)|,
+   \qquad m,N\in\mathbb N .
+\]
+The metric
+\[
+   d(U,V)=
+   \sum_{m,N=1}^\infty
+   2^{-(m+N)}
+   \frac{\|U-V\|_{m,N}}{1+\|U-V\|_{m,N}}
+\]
+induces this topology.  Consequently each compact hull considered here is a
+compact metric space.
+
+All probability measures below are Borel probability measures on the relevant
+compact metric hull \(K\), and \(C(K)\) denotes the real-valued continuous
+functions on \(K\).  Weak convergence of probability measures is understood
+against test functions in \(C(K)\).  Since \(K\) is compact and metric, every
+Borel probability measure on \(K\) is Radon; in particular its closed support
+has full measure.  A probability measure \(\mu\) is invariant if
+\[
+   \int_K F(\Theta_tW)\,d\mu(W)
+   =
+   \int_K F(W)\,d\mu(W)
+   \qquad\hbox{for every }F\in C(K)\hbox{ and every }t\in\mathbb R .
+\]
+If \(B\subset K\) is Borel, the phrase ``\(\mu\) is supported on \(B\)''
+means \(\mu(K\setminus B)=0\).  The closed support
+\(\operatorname{supp}\mu\) is the smallest closed subset of \(K\) with full
+\(\mu\)-measure, equivalently the set of points whose every open
+neighborhood has positive \(\mu\)-measure.
+
+After applying the whole-space Helmholtz--Leray projection \(\mathbb P\),
+equation \eqref{eq:centered} becomes
 \begin{equation}\label{eq:projected}
    \partial_\tau V
    =
@@ -112,7 +156,20 @@ becomes
    -\mathbb P\operatorname{div}(V\otimes V).
 \end{equation}
 Let \(S(a)\), \(a>0\), denote the semigroup generated by
-\(\Delta-\frac12y\cdot\nabla-\frac12\).
+\(\Delta-\frac12y\cdot\nabla-\frac12\).  The pressure reconstruction and the
+passage between the projected mild equation and the local classical
+Navier--Stokes equation are those proved in the lemma ``Local smoothing and
+pressure reconstruction'' of \cite{DuranCompactAncient}.
+
+The mild formulation is used only to specify the ancient solution class and
+to make the time-translation action intrinsic.  The arguments below use the
+locally smooth representatives in the compact hull and distributional
+identities obtained from \eqref{eq:centered}.  The distribution
+\(\mathbb P\operatorname{div}(V\otimes V)\) is interpreted as in
+\cite[Definition ``Bounded mild ancient solution'"]{DuranCompactAncient}, by
+duality against smooth test fields and as a tempered-distribution Fourier
+multiplier on each time slice.  No boundedness of the Riesz transforms on
+\(L^\infty\) is used in this paper.
 
 \begin{definition}[Bounded mild ancient solution]\label{def:mild}
 A vector field \(V:\mathbb R^3\times\mathbb R\to\mathbb R^3\) is a bounded
@@ -146,10 +203,31 @@ The set \(K\) is invariant if \(\Theta_tK=K\) for every \(t\in\mathbb R\).  It
 is minimal if it has no proper nonempty compact invariant subset.
 \end{definition}
 
+\begin{lemma}[Continuity of time translation]\label{lem:translation-continuity}
+For each \(t\in\mathbb R\), the map \(\Theta_t:K\to K\) is a homeomorphism.
+Moreover, for every \(W\in K\), the orbit map
+\[
+   \mathbb R\ni t\mapsto \Theta_tW\in K
+\]
+is continuous, and the action map
+\[
+   \mathbb R\times K\ni(t,W)\mapsto\Theta_tW\in K
+\]
+is continuous.
+\end{lemma}
+
+\begin{proof}
+This is the lemma ``Continuity of the restricted translation action'' in
+\cite{DuranCompactAncient}.  The result is stated for the same locally smooth
+topology and the same compact invariant sets used here.  It proves continuity
+of each time-translation map, joint continuity of the action, and the identity
+\(\Theta_t^{-1}=\Theta_{-t}\), hence the asserted homeomorphism property.
+\end{proof}
+
 \begin{definition}[Stationary trajectory]\label{def:stationary}
 An element \(W\in K\) is stationary if \(\Theta_tW=W\) for every
-\(t\in\mathbb R\).  Equivalently, \(W\) is independent of \(\tau\).  In that
-case \(W(y,\tau)=w(y)\), where \(w\) solves
+\(t\in\mathbb R\).  For a time-independent trajectory \(W(y,\tau)=w(y)\), the
+corresponding stationary self-similar profile equation is
 \begin{equation}\label{eq:stationary}
    (w\cdot\nabla)w+\nabla p
    =
@@ -158,11 +236,180 @@ case \(W(y,\tau)=w(y)\), where \(w\) solves
 \end{equation}
 \end{definition}
 
+\begin{lemma}[Distributions with zero gradient]\label{lem:zero-gradient-constant}
+Let \(\Omega\subset\mathbb R^3\) be connected and open.  If
+\(q\in\mathcal D'(\Omega)\) satisfies \(\nabla q=0\) in
+\(\mathcal D'(\Omega)\), then \(q\) is constant in \(\Omega\), in the sense
+that there exists \(c\in\mathbb R\) with \(q=c\) in \(\mathcal D'(\Omega)\).
+\end{lemma}
+
+\begin{proof}
+Let \(\rho_\varepsilon\) be a Friedrichs mollifier.  If
+\(\Omega'\Subset\Omega\) and
+\(\varepsilon<\operatorname{dist}(\Omega',\partial\Omega)\), then
+\[
+   q_\varepsilon(x)
+   =
+   \langle q(y),\rho_\varepsilon(x-y)\rangle
+\]
+is well-defined and smooth for \(x\in\Omega'\).  Moreover,
+\[
+   \nabla q_\varepsilon
+   =
+   (\nabla q)*\rho_\varepsilon
+   =
+   0
+   \qquad\hbox{on }\Omega' .
+\]
+Thus \(q_\varepsilon\) is constant on every connected component of
+\(\Omega'\).  In particular, if \(B\Subset\Omega\) is a ball, then
+\(q_\varepsilon\) is constant on \(B\) for all sufficiently small
+\(\varepsilon\).  To see that the limit is also constant, let
+\(\varphi\in C_c^\infty(B)\) satisfy \(\int_B\varphi\,dx=0\).  Since
+\(q_\varepsilon\) is constant on \(B\),
+\[
+   \langle q_\varepsilon,\varphi\rangle=0 .
+\]
+Passing to the limit gives \(\langle q,\varphi\rangle=0\) for every such
+\(\varphi\).  Choose \(\eta\in C_c^\infty(B)\) with \(\int_B\eta\,dx=1\), and
+set \(c=\langle q,\eta\rangle\).  For arbitrary
+\(\psi\in C_c^\infty(B)\), the test function
+\(\psi-(\int_B\psi\,dx)\eta\) has integral zero; hence
+\[
+   \langle q,\psi\rangle
+   =
+   c\int_B\psi\,dx .
+\]
+Thus the restriction of \(q\) to \(B\) is the constant distribution \(c\).
+
+If \(B_1,B_2\Subset\Omega\) are balls with \(B_1\cap B_2\ne\varnothing\), the
+constants obtained on \(B_1\) and \(B_2\) agree, because both represent the
+restriction of \(q\) to \(B_1\cap B_2\).  It remains only to justify that this
+propagates through all of \(\Omega\).  Fix a ball \(B_0\Subset\Omega\), and
+let \(U\) be the union of all balls \(B\Subset\Omega\) that can be joined to
+\(B_0\) by a finite chain of compactly contained balls with consecutive
+nonempty intersections.  The set \(U\) is open by construction.  It is also
+closed relative to \(\Omega\): if \(x_j\in U\) and \(x_j\to x\in\Omega\),
+choose a ball \(B_x\Subset\Omega\) containing \(x\); then \(x_j\in B_x\) for
+large \(j\), so the chain reaching a ball containing \(x_j\), followed by
+\(B_x\), reaches \(B_x\).  Since \(\Omega\) is connected and \(U\) is nonempty,
+we have \(U=\Omega\).  Hence the local constants agree throughout \(\Omega\).
+\end{proof}
+
+\begin{lemma}[Stationary elements and the profile equation]
+\label{lem:stationary-profile}
+Let \(W\in K\).  Then \(W\) is stationary if and only if there is a smooth
+divergence-free vector field \(w:\mathbb R^3\to\mathbb R^3\) such that
+\[
+   W(y,\tau)=w(y)
+   \qquad\hbox{for all }(y,\tau)\in\mathbb R^3\times\mathbb R .
+\]
+For every such \(w\), there is a scalar distribution \(p\), unique modulo
+additive constants, such that \(w\) solves \eqref{eq:stationary} in
+\(\mathcal D'(\mathbb R^3)\).
+\end{lemma}
+
+\begin{proof}
+If \(W\) is stationary, then \(\Theta_tW=W\) as elements of the locally smooth
+function space for every \(t\in\mathbb R\).  Equality in this Hausdorff
+function space is equality of the smooth representatives; hence
+\[
+   W(y,\tau+t)=W(y,\tau)
+   \qquad\hbox{for all }y,\tau,t .
+\]
+Taking \(\tau=0\) and then writing \(t\) as an arbitrary time variable gives
+\(W(y,t)=W(y,0)\).  Thus \(W\) is independent of time.  Conversely, if
+\(W(y,\tau)=w(y)\), then \(W(y,\tau+t)=W(y,\tau)\) for every \(t\), so
+\(\Theta_tW=W\) for every \(t\).
+
+Set \(w(y)=W(y,0)\).  The local smoothness of \(W\) gives
+\(w\in C^\infty(\mathbb R^3;\mathbb R^3)\), and the distributional condition
+\(\operatorname{div}W=0\) gives \(\operatorname{div}w=0\).  By the lemma
+``Local smoothing and pressure reconstruction'' in
+\cite{DuranCompactAncient}, every bounded mild ancient solution in the compact
+hull has, on each compact space-time cylinder, a smooth local pressure for
+which \eqref{eq:centered} holds pointwise.  For each integer \(N\ge1\), apply
+that result on the cylinder \(B_N\times(-1,1)\).  There is a smooth pressure
+\(P_N(y,\tau)\) on this cylinder satisfying \eqref{eq:centered} with
+\(V=W\).  Since the present
+\(W\) is independent of \(\tau\), the vector field
+\[
+   \Delta w-\frac12(w+y\cdot\nabla w)-(w\cdot\nabla)w
+\]
+is independent of \(\tau\), and therefore \(\nabla_yP_N(y,\tau)\) is
+independent of \(\tau\) on \(B_N\times(-1,1)\).  Setting
+\(p_N(y)=P_N(y,0)\), the local identity reduces on \(B_N\) to
+\[
+   (w\cdot\nabla)w+\nabla p_N
+   =
+   \Delta w-\frac12(w+y\cdot\nabla w),
+   \qquad \operatorname{div}w=0 .
+\]
+On overlaps the gradients of two such local pressures agree, because the
+remaining terms in the displayed equation are global functions of \(w\).
+Set \(c_1=0\).  For each integer \(R\ge2\), apply
+\cref{lem:zero-gradient-constant} on
+\(B_{R-1}\) to the distribution \(p_R-p_{R-1}-c_{R-1}\).  Its gradient
+vanishes on \(B_{R-1}\), because both \(\nabla p_R\) and
+\(\nabla p_{R-1}\) are equal there to
+\[
+   \Delta w-\frac12(w+y\cdot\nabla w)-(w\cdot\nabla)w .
+\]
+Therefore the distribution is constant on \(B_{R-1}\).
+Choose \(c_R\) to be the negative of that constant.  Then
+\[
+   p_R+c_R=p_{R-1}+c_{R-1}
+   \qquad\hbox{in }\mathcal D'(B_{R-1}) .
+\]
+
+Define the global distribution \(p\) as follows.  If
+\(\varphi\in C_c^\infty(\mathbb R^3)\), choose an integer \(R\ge1\) such that
+\(\operatorname{supp}\varphi\subset B_R\), and set
+\[
+   \langle p,\varphi\rangle
+   =
+   \langle p_R+c_R,\varphi\rangle .
+\]
+This definition is independent of the chosen sufficiently large \(R\), because
+the preceding compatibility relation iterates: if \(S>R\) are integers, then
+\[
+   p_S+c_S=p_R+c_R
+   \qquad\hbox{in }\mathcal D'(B_R).
+\]
+Indeed, one applies the preceding compatibility identity successively on
+\(B_{S-1},B_{S-2},\ldots,B_R\), and then restricts the resulting distributional
+identity to \(B_R\).
+Hence \(p\) is a well-defined scalar distribution on \(\mathbb R^3\), and its
+gradient agrees with the patched local pressure gradients.
+
+Let \(\Phi\in C_c^\infty(\mathbb R^3;\mathbb R^3)\).  Choose an integer \(R\)
+so large that \(\operatorname{supp}\Phi\subset B_R\).  Testing the local
+identity on \(B_R\) against \(\Phi\), and using the definition of \(p\) on
+\(B_R\), gives
+\[
+   \left\langle
+      (w\cdot\nabla)w+\nabla p
+      -\Delta w+\frac12(w+y\cdot\nabla w),
+      \Phi
+   \right\rangle=0 .
+\]
+Since this holds for every compactly supported smooth vector field \(\Phi\),
+\eqref{eq:stationary} holds in \(\mathcal D'(\mathbb R^3)\).  If \(p\) and
+\(\tilde p\) both have the required gradient, then
+\(\nabla(p-\tilde p)=0\) in \(\mathcal D'(\mathbb R^3)\), so
+\cref{lem:zero-gradient-constant} applied on the connected set
+\(\mathbb R^3\) gives
+\(p-\tilde p\) constant.
+\end{proof}
+
 \begin{theorem}[Invariant measures on compact hulls]\label{thm:invariant-measures}
 Let \(K\) be a compact invariant hull and let \(W_0\in K\).  For \(T>0\), set
 \[
    \mu_T=\frac1T\int_0^T\delta_{\Theta_sW_0}\,ds .
 \]
+Equivalently, \(\mu_T\) is the push-forward of normalized Lebesgue measure on
+\([0,T]\) under the continuous orbit map \(s\mapsto\Theta_sW_0\); hence
+\(\mu_T\) is a Borel probability measure on \(K\).
 Every sequence \(T_n\to\infty\) has a subsequence for which \(\mu_{T_n}\)
 converges weakly to an invariant Borel probability measure \(\mu\) on \(K\).
 If \(K\) is minimal, then the support of every invariant Borel probability
@@ -170,26 +417,12 @@ measure on \(K\) is all of \(K\).
 \end{theorem}
 
 \begin{proof}
-The compactness of \(K\) implies weak compactness of the set of Borel
-probability measures on \(K\), so subsequential limits exist.  If \(F\) is
-continuous on \(K\) and \(t>0\), then
-\[
-   \int_K F(\Theta_tW)\,d\mu_T(W)-\int_K F(W)\,d\mu_T(W)
-   =
-   \frac1T\int_T^{T+t}F(\Theta_sW_0)\,ds
-   -
-   \frac1T\int_0^tF(\Theta_sW_0)\,ds .
-\]
-The right-hand side tends to zero as \(T\to\infty\).  Passing to the
-subsequential limit gives invariance for positive \(t\), and invariance for
-negative \(t\) follows by applying the positive-time identity to
-\(F\circ\Theta_t\).
-
-If \(\mu\) is invariant, its support is compact and invariant: for any open
-neighborhood \(U\) of \(\Theta_tW\), the set \(\Theta_{-t}U\) is an open
-neighborhood of \(W\), and invariance gives
-\(\mu(U)=\mu(\Theta_{-t}U)\).  Thus minimality of \(K\) forces
-\(\operatorname{supp}\mu=K\).
+This is the Krylov--Bogolyubov averages theorem proved in
+\cite[Theorem ``Krylov--Bogolyubov averages'"]{DuranCompactAncient}.  The
+hypotheses match because \cref{def:compact-hull} uses the same compact
+locally smooth hull and time-translation flow.  That theorem gives
+subsequential weak limits of the orbit averages, invariance under every
+\(\Theta_t\), and the full-support conclusion in the minimal case.
 \end{proof}
 
 \section{The equilibrium hypothesis}
@@ -205,6 +438,10 @@ such that, for every \(W\in K\) and every \(t\ge0\),
    =
    -\int_0^t D(\Theta_sW)\,ds .
 \end{equation}
+The integral is the ordinary Lebesgue integral of the continuous function
+\([0,t]\ni s\mapsto D(\Theta_sW)\).  Thus \eqref{eq:lyapunov} is an integral
+identity along each orbit; no differentiability of \(E(\Theta_tW)\) in \(t\)
+is assumed.
 Assume also that
 \begin{equation}\label{eq:zero-dissipation}
    D(W)=0
@@ -217,7 +454,7 @@ Assume also that
 The paper proves the consequences of \cref{hyp:lyapunov}.  It does not claim
 that such a functional has been constructed for the full Navier--Stokes
 dynamics.  Constructing it, or replacing it by an equivalent rigidity
-principle, is the substantive equilibrium problem.
+principle, is the remaining equilibrium problem.
 \end{remark}
 
 \begin{lemma}[Invariant measures annihilate dissipation]\label{lem:zero-diss}
@@ -229,8 +466,16 @@ Let \(K\) be a compact invariant hull satisfying \cref{hyp:lyapunov}.  If
 \end{lemma}
 
 \begin{proof}
-Fix \(t>0\).  Integrating \eqref{eq:lyapunov} with respect to \(\mu\), and
-using invariance of \(\mu\), gives
+Fix \(t>0\).  The functions \(E\) and \(D\) are continuous on compact \(K\),
+so they are bounded and Borel measurable.  By
+\cref{lem:translation-continuity}, \((s,W)\mapsto D(\Theta_sW)\) is continuous
+on \([0,t]\times K\).  In particular it is Borel measurable and bounded on the
+compact product \([0,t]\times K\).  With respect to the finite product measure
+\(ds\otimes d\mu(W)\), all integrals below are finite, and Fubini's theorem
+applies.
+
+Integrating \eqref{eq:lyapunov} with respect to \(\mu\), and using invariance
+of \(\mu\) with the continuous test function \(E\), gives
 \[
    0
    =
@@ -238,7 +483,8 @@ using invariance of \(\mu\), gives
    =
    -\int_K\int_0^tD(\Theta_sW)\,ds\,d\mu(W).
 \]
-By Fubini's theorem and invariance again,
+By Fubini's theorem and invariance again, now with the continuous test
+function \(D\), for each fixed \(s\in[0,t]\),
 \[
    \int_K\int_0^tD(\Theta_sW)\,ds\,d\mu(W)
    =
@@ -246,7 +492,11 @@ By Fubini's theorem and invariance again,
    =
    t\int_KD(W)\,d\mu(W).
 \]
-Since \(D\ge0\), the claim follows.
+Combining the two displayed identities gives
+\[
+   t\int_KD(W)\,d\mu(W)=0 .
+\]
+Since \(t>0\), the claim follows.
 \end{proof}
 
 \begin{lemma}[Zero dissipation gives stationary support]\label{lem:support-zero-d}
@@ -267,9 +517,16 @@ is closed, hence Borel.  Since \(D\ge\varepsilon\) on \(K_\varepsilon\),
 \[
    0=\int_KD\,d\mu\ge\varepsilon\,\mu(K_\varepsilon).
 \]
-Thus \(\mu(K_\varepsilon)=0\) for every \(\varepsilon>0\).  The complement of
-\(\{D=0\}\) is the countable union of the sets \(K_{1/n}\).  Hence it has
-\(\mu\)-measure zero.
+Thus \(\mu(K_\varepsilon)=0\) for every \(\varepsilon>0\).  Since \(D\) is
+continuous, the zero set \(\{D=0\}\) is closed.  Its complement is the
+countable union
+\[
+   K\setminus\{D=0\}
+   =
+   \bigcup_{n=1}^\infty K_{1/n}.
+\]
+Indeed, if \(D(W)>0\), then \(1/n\le D(W)\) for all sufficiently large \(n\).
+Hence \(K\setminus\{D=0\}\) has \(\mu\)-measure zero.
 \end{proof}
 
 \begin{theorem}[Equilibrium support]\label{thm:equilibrium-support}
@@ -279,12 +536,13 @@ trajectories.
 \end{theorem}
 
 \begin{proof}
-By \cref{lem:zero-diss},
+Let \(\mu\) be an invariant Borel probability measure on \(K\).  By
+\cref{lem:zero-diss},
 \[
    \int_KD(W)\,d\mu(W)=0 .
 \]
 By \cref{lem:support-zero-d}, \(\mu\) is supported on \(\{D=0\}\).  The zero
-set of \(D\) is exactly the set of stationary trajectories by
+set of \(D\) is precisely the set of stationary trajectories by
 \eqref{eq:zero-dissipation}.  Hence every invariant measure is supported on
 stationary trajectories.
 \end{proof}
@@ -296,48 +554,91 @@ Let \(K\) be a minimal compact invariant hull satisfying
 \end{corollary}
 
 \begin{proof}
-By \cref{thm:invariant-measures}, \(K\) supports an invariant probability
-measure whose support is all of \(K\).  By \cref{thm:equilibrium-support}, the
-support is contained in the set of stationary trajectories.  Hence every
-element of \(K\) is stationary.
+Choose \(W_0\in K\) and a sequence \(T_n\to\infty\).  By
+\cref{thm:invariant-measures}, after passing to a subsequence the averages
+\[
+   \mu_{T_n}
+   =
+   \frac1{T_n}\int_0^{T_n}\delta_{\Theta_sW_0}\,ds
+\]
+converge weakly to an invariant Borel probability measure \(\mu\) on \(K\).
+Since \(K\) is minimal, the support assertion in
+\cref{thm:invariant-measures} yields \(\operatorname{supp}\mu=K\).
+
+By \cref{thm:equilibrium-support}, \(\mu\) is supported on stationary
+trajectories.  By \cref{hyp:lyapunov}, the set of stationary trajectories is
+\(\{D=0\}\), and this set is closed because \(D\) is continuous.  We claim
+that \(\operatorname{supp}\mu\subset\{D=0\}\).  Indeed, if
+\(W\in\operatorname{supp}\mu\setminus\{D=0\}\), then the open set
+\[
+   U=K\setminus\{D=0\}
+\]
+is an open neighborhood of \(W\).  By the definition of support,
+\(\mu(U)>0\).  This contradicts \(\mu(K\setminus\{D=0\})=0\).  Therefore
+\[
+   K=\operatorname{supp}\mu
+   \subset\{W\in K:\ W\hbox{ is stationary}\}.
+\]
+Hence every element of \(K\) is stationary.
 
 If \(W\in K\) is stationary, then the singleton \(\{W\}\) is compact and
-invariant.  Minimality of \(K\) therefore gives \(K=\{W\}\).
+nonempty.  It is invariant because \(\Theta_tW=W\) for every \(t\).  Since
+\(K\) has no proper nonempty compact invariant subset, minimality gives
+\(K=\{W\}\).
 \end{proof}
 
 \section{Stationary self-similar rigidity}
 
 \begin{theorem}[Stationary self-similar theorem]\label{thm:NRS}
 Let \(w\in C^\infty(\mathbb R^3;\mathbb R^3)\cap L^3(\mathbb R^3)\) solve
-\eqref{eq:stationary} in distributions for some pressure \(p\), with
-\(\operatorname{div}w=0\).  Then \(w\equiv0\).
+\eqref{eq:stationary} in distributions for some scalar distribution \(p\),
+with \(\operatorname{div}w=0\).  Then \(w\equiv0\).
 \end{theorem}
 
 \begin{proof}
-This is the theorem of Necas--Ruzicka--Sverak \cite{NRS1996}.
+This is the stationary self-similar Liouville theorem of
+Necas--Ruzicka--Sverak \cite{NRS1996}, recalled in this series as the
+stationary self-similar rigidity theorem in
+\cite{DuranTightAncient}.  Their theorem is stated for weak
+\(L^3(\mathbb R^3)\) solutions of the stationary Leray self-similar system;
+the smooth distributional formulation above is a special case.
 \end{proof}
 
-\begin{theorem}[No nonzero compact tight dynamics]\label{thm:no-compact-tight}
+\begin{theorem}[Rigidity of compact tight minimal dynamics]\label{thm:no-compact-tight}
 Let \(K\) be a minimal compact invariant hull satisfying
 \cref{hyp:lyapunov}.  Assume that there is \(L<\infty\) such that
 \[
    \sup_{W\in K}\sup_{\tau\in\mathbb R}
    \|W(\tau)\|_{L^3(\mathbb R^3)}\le L .
 \]
-Then every element of \(K\) is the zero solution.
+Then every element of \(K\) is identically zero.
 \end{theorem}
 
 \begin{proof}
-By \cref{cor:minimal-stationary}, \(K=\{W\}\) for a stationary trajectory
-\(W(y,\tau)=w(y)\).  The displayed \(L^3\) bound gives
-\(w\in L^3(\mathbb R^3)\).  The stationary equation for \(w\) is
-\eqref{eq:stationary}.  By \cref{thm:NRS}, \(w\equiv0\).
+By \cref{cor:minimal-stationary}, \(K=\{W\}\) for a stationary trajectory.
+By \cref{lem:stationary-profile}, there is a smooth divergence-free profile
+\(w\) such that \(W(y,\tau)=w(y)\), and \(w\) solves \eqref{eq:stationary} in
+the sense of distributions for some pressure.  Since \(W\in K\), the assumed
+bound gives
+\[
+   \|w\|_{L^3(\mathbb R^3)}
+   =
+   \|W(\tau)\|_{L^3(\mathbb R^3)}
+   \le L
+   \qquad\hbox{for every }\tau\in\mathbb R .
+\]
+Thus \(w\in L^3(\mathbb R^3)\).  The hypotheses of \cref{thm:NRS} are
+satisfied, and hence \(w\equiv0\).  Therefore \(W\) is the identically zero
+trajectory, and every element of \(K\) is identically zero.
 \end{proof}
 
 \section{Conditional assembly}
 
 The preceding theorem is a compact-dynamical rigidity statement.  We now
-record the precise form in which it combines with a minimal-element reduction.
+record the precise form in which it combines with the minimal-element
+reduction developed in \cite{DuranMinimalAncient}.  The reduction itself is
+not reproved here; it is isolated as the hypothesis below so that this paper
+only supplies the compact-equilibrium implication.
 
 \begin{hypothesis}[Minimal compact reduction]\label{hyp:minimal-compact}
 Let \(A\) be a collection of bounded mild ancient solutions of
@@ -363,10 +664,10 @@ such that every \(W\in K\) satisfies
 \end{hypothesis}
 
 \begin{remark}
-This hypothesis is meant for normalized collections, such as the fixed
+This hypothesis is formulated for normalized collections, such as the fixed
 nonvanishing classes obtained in the minimal-element reduction.  In
-particular, if \(A\) is nonempty then the first item excludes the zero solution
-from \(A\).
+particular, if \(A\) is nonempty, then the first item excludes the
+identically zero trajectory from \(A\).
 \end{remark}
 
 \begin{theorem}[Conditional ancient Liouville theorem]\label{thm:conditional-liouville}
@@ -379,40 +680,82 @@ Suppose that \(A\) is nonempty.  By the first part of
 By the second part, the time-translation hull of \(V_*\) contains a minimal
 compact invariant hull \(K\) containing a nonzero trajectory.  By the third
 and fourth parts, \(K\) satisfies the hypotheses of
-\cref{thm:no-compact-tight}.  Therefore every element of \(K\) is the zero
-solution, contradicting the fact that \(K\) contains a nonzero trajectory.
+\cref{thm:no-compact-tight}.  Therefore every element of \(K\) is identically
+zero.  This contradicts the second part of
+\cref{hyp:minimal-compact}, which asserts that the same \(K\) contains a
+nonzero trajectory.  The assumption that \(A\) is nonempty is therefore false.
 \end{proof}
 
 \begin{corollary}[Conditional Type I exclusion]\label{cor:type-I-exclusion}
-Assume that a putative Type I singularity in a given class produces, by the
-standard blow-up construction, a nonzero bounded mild ancient solution
-belonging to a collection \(A\) satisfying \cref{hyp:minimal-compact}.  Then
-no Type I singularity occurs in that class.
+Assume that a putative Type I singularity in a given class produces, through
+the Type I blow-up procedure cited in \cite{DuranTypeIBlowup}, a nonzero
+bounded mild ancient solution belonging to a collection \(A\) satisfying
+\cref{hyp:minimal-compact}.  Then no Type I singularity occurs in that class.
 \end{corollary}
 
 \begin{proof}
-The blow-up construction would give a nonzero element of \(A\), while
-\cref{thm:conditional-liouville} gives \(A=\emptyset\).  This contradiction
-excludes the singularity.
+The nonzero centered ancient limit is the Type I blow-up output used in
+\cite{DuranTypeIBlowup}; the local concentration/nonvanishing input underlying
+the surrounding singularity dichotomy is recorded in \cite{DuranPaper0TypeII}.
+Thus the blow-up construction would give a nonzero element of \(A\), while
+\cref{thm:conditional-liouville} gives \(A=\emptyset\).  Since a set cannot
+both be empty and contain the produced nonzero ancient solution, this
+contradiction excludes the singularity.
 \end{proof}
 
 \section{Conclusion}
 
-The conditional structure is now explicit.  Compactness and invariant
-measures reduce compact ancient dynamics to invariant probability measures.
-A strict Lyapunov identity forces all such measures to be supported on
-stationary trajectories.  Uniform \(L^3\) control then invokes the stationary
+The conditional structure is as follows.  Compactness and invariant measures
+reduce compact ancient dynamics to invariant probability measures.  A strict
+Lyapunov identity forces all such measures to be supported on stationary
+trajectories.  Uniform \(L^3\) control then invokes the stationary
 self-similar theorem and eliminates every nonzero minimal compact hull.  Thus
-the remaining analytic task is sharply identified: prove the strict
-Lyapunov hypothesis, or an equivalent equilibrium-support theorem, for the
-compact hulls generated by minimal ancient Navier--Stokes solutions.
+the remaining analytic task is to prove the strict Lyapunov hypothesis, or an
+equivalent equilibrium-support theorem, for compact hulls generated by minimal
+ancient Navier--Stokes solutions.
 
 \begin{thebibliography}{99}
 
+\bibitem{DuranPaper0TypeII}
+G.~Cordero,
+\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
+Navier--Stokes},
+manuscript in this series,
+\path{docs/source/first_nodes/paper0_local_concentration_entry_typeII.tex}.
+
+\bibitem{DuranTypeIBlowup}
+G.~Duran Ballester,
+\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes
+Equations and the Centered Ancient Equation},
+manuscript in this series,
+\path{docs/source/type_1/paper1_typeI_blowup_limits_centered_ancient.tex}.
+
+\bibitem{DuranTightAncient}
+G.~Duran Ballester,
+\emph{Uniformly Tight Ancient Solutions of the Navier--Stokes Equations in
+Self-similar Variables},
+manuscript in this series,
+\path{docs/source/type_1/paper2_tight_ancient_stationary_rigidity.tex}.
+
+\bibitem{DuranMinimalAncient}
+G.~Duran Ballester,
+\emph{Minimal Ancient Solutions for the Navier--Stokes Equations in
+Self-similar Variables},
+manuscript in this series,
+\path{docs/source/type_1/paper3_minimal_ancient_solutions_reduction.tex}.
+
+\bibitem{DuranCompactAncient}
+G.~Duran Ballester,
+\emph{Compact Ancient Navier--Stokes Dynamics and Invariant Measures in
+Self-similar Variables},
+manuscript in this series,
+\path{docs/source/type_1/paper4_compact_ancient_dynamics_invariant_measures.tex}.
+
 \bibitem{NRS1996}
-J.~Necas, M.~Ruzicka, and V.~Sverak,
+J.~Ne\v{c}as, M.~R\r{u}\v{z}i\v{c}ka, and V.~\v{S}ver\'ak,
 \emph{On Leray's self-similar solutions of the Navier--Stokes equations},
-Acta Math. \textbf{176} (1996), 283--294.
+Acta Math. \textbf{176} (1996), no.~2, 283--294,
+doi:10.1007/BF02551584.
 
 \end{thebibliography}
 

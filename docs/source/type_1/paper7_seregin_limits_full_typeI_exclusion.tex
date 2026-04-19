@@ -45,16 +45,16 @@ concentration carried by every singular point, we extract ancient limits by
 the Seregin blow-up procedure and separate the possible centered limits into
 small-amplitude, stationary \(L^3\), uniformly \(L^3\)-tight, fast-decaying,
 structured, and residual alternatives.  The small-amplitude and stationary
-\(L^3\) alternatives are excluded unconditionally by standard Liouville
+\(L^3\) alternatives are excluded unconditionally by classical Liouville
 theorems.  The structured taxonomy also includes the established
 Lei--Zhang--Zhao \(L_t^\infty L_x^p\)-swirl branch and the
 Lei--Ren--Zhang periodic bounded-swirl branch.  Assuming Liouville criteria
 for the remaining tight and structured alternatives, full finite-energy Type I
 exclusion is reduced to one explicit analytic assertion: the residual
 non-tight/non-decaying class is empty, or else satisfies a replacement
-Liouville theorem.  The positive concentration and the Type I/Type II local
-dichotomy are used as proved local facts; the only additional inputs are the
-stated nonclassical Liouville criteria.
+Liouville theorem.  The positive concentration and the local Type I/Type II
+dichotomy are invoked as results proved earlier in the series; the additional
+inputs are precisely the stated nonclassical Liouville criteria.
 \end{abstract}
 
 \maketitle
@@ -75,6 +75,17 @@ used here, if the scale-invariant \(L^\infty\) quantity remains bounded near
    \limsup_{t\uparrow T}\sqrt{T-t}\,
    \|u(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
 \end{equation}
+Equivalently, after decreasing the time interval if necessary, there are
+constants \(M<\infty\) and \(t_0<T\) such that
+\[
+   \|u(\cdot,t)\|_{L^\infty(\mathbb R^3)}
+   \le M(T-t)^{-1/2}
+   \qquad\hbox{for }t_0<t<T.
+\]
+This is the form used when passing the Type I bound to blow-up sequences.
+Indeed, if the limsup in \eqref{eq:type-i} equals \(L<\infty\), choose
+\(M>L\); by the definition of limsup there is \(t_0<T\) such that
+\(\sqrt{T-t}\,\|u(t)\|_{L^\infty}\le M\) for \(t_0<t<T\).
 The local Caffarelli--Kohn--Nirenberg concentration theorem gives a sequence
 of shrinking backward parabolic cylinders centered at every singular point on
 which the pressure-normalized critical density is bounded from below.  In the
@@ -104,7 +115,7 @@ If the original finite-energy suitable weak solution satisfies
 \]
 then the endpoint theorem of Escauriaza--Seregin--Sverak \cite{ESS2003}
 implies that no point of \(\mathbb R^3\times\{T\}\) is singular.  Thus a
-Type I singularity can occur only outside the global critical
+Type I singularity would have to lie outside the global critical
 \(L^\infty_tL^3_x\) source regime.  This is a condition on the original
 solution, not on an individual ancient limit, and it is therefore not included
 among the residual classes below.
@@ -112,8 +123,8 @@ among the residual classes below.
 
 No unconditional Liouville theorem is known for all bounded ancient solutions
 of \eqref{eq:centered}.  The reduction below is therefore organized around
-classes for which Liouville mechanisms are available or can be assumed
-precisely.  Very small bounded ancient solutions vanish by the mild
+classes for which Liouville mechanisms are available or are formulated below
+as explicit hypotheses.  Very small bounded ancient solutions vanish by the mild
 formulation and decay of the centered Stokes semigroup.  Stationary
 self-similar profiles in \(L^3(\mathbb R^3)\) vanish by the theorem of
 Necas--Ruzicka--Sverak.  Uniform \(L^3\)-tightness is the natural compactness
@@ -125,16 +136,16 @@ nonclassical classes, excludes finite-energy Type I singularities.
 
 \subsection{Logical ledger of the reduction}
 
-The argument below is a finite exhaustion argument.  It uses the following
-inputs and no others.  First, local CKN concentration at a singular point
+The argument below is a finite exhaustion argument.  It relies on the following
+inputs.  First, local CKN concentration at a singular point
 supplies a positive pressure-normalized density.  Second, the Type I bound and
-Seregin compactness turn a concentration sequence into a nonzero bounded
+Seregin compactness yield a nonzero bounded
 ancient solution of \eqref{eq:centered}.  Third, the source-level
 \(L^\infty_tL^3_x\) regime has already been removed by
 Escauriaza--Seregin--Sverak.  Fourth, small ancient limits and stationary
 \(L^3\) ancient limits are unconditionally zero.  Fifth, the tight,
-structured, and residual classes are eliminated only under the hypotheses
-explicitly stated below.  Thus the final theorem is conditional exactly in
+structured, and residual classes are eliminated precisely under the hypotheses
+explicitly stated below.  Thus the final theorem is conditional precisely in
 those places where a nonclassical Liouville theorem is still required.
 
 \section{Local concentration and Seregin ancient limits}
@@ -151,11 +162,22 @@ A pair \((u,p)\) is a finite-energy Type I source at \(z_*=(x_*,T)\) if
 \]
 the local energy inequality holds, \(z_*\) is a singular point, and the Type I
 bound \eqref{eq:type-i} holds.
+When the singular point is part of the notation, we write
+\((u,p,z_*)\) for the corresponding source triple.
 \end{definition}
+
+Here a point is regular if the velocity is essentially bounded in some
+backward parabolic cylinder with that point as top center; otherwise it is
+singular.  This is the regularity notion used in the CKN epsilon-regularity
+criterion.
 
 For \(z_0=(x_0,t_0)\) and \(r>0\), write
 \[
    Q_r(z_0)=B_r(x_0)\times(t_0-r^2,t_0).
+\]
+For an integrable function \(f\) on a ball \(B\), write
+\[
+   (f)_B=\frac1{|B|}\int_B f(x)\,dx .
 \]
 Define the pressure-normalized CKN quantities
 \[
@@ -168,10 +190,19 @@ and
       |p(x,t)-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt.
 \]
 
+Throughout the paper, pressures are understood modulo functions of time.  Thus
+two pressures \(p\) and \(p-b(t)\) represent the same velocity equation and the
+same local energy inequality.  All pressure norms used below are either
+pressure oscillations over balls or are written after subtracting an explicitly
+allowed time-dependent gauge.  This convention is the usual CKN pressure
+normalization and is justified for the rescaled solutions by
+\cite{Paper1TypeI}, lemma \texttt{lem:gauges-\allowbreak harmless}.
+
 \begin{theorem}[Local concentration at singular points]\label{thm:local-concentration}
-Let \((u,p)\) be a suitable weak solution near time \(T\).  If
-\(x_*\) is singular at time \(T\), then there are \(\eta>0\) and
-\(r_k\downarrow0\) such that
+Let \((u,p)\) be suitable in a parabolic neighborhood of
+\(z_*=(x_*,T)\).  If \(z_*\) is singular, then there are \(\eta>0\) and
+radii \(r_k\downarrow0\), with \(Q_{r_k}(z_*)\) contained in the neighborhood,
+such that
 \begin{equation}\label{eq:positive-ckn}
    C((x_*,T),r_k)+D((x_*,T),r_k)\ge\eta
    \qquad\hbox{for all }k.
@@ -182,11 +213,97 @@ sequence lies in the local Type II alternative.
 \end{theorem}
 
 \begin{proof}
-This is the local CKN concentration theorem and the associated local
-Type I/Type II blow-up-rate dichotomy.  It follows from the
-Caffarelli--Kohn--Nirenberg epsilon-regularity criterion: if the
-pressure-normalized critical density vanished at every singular point, then
-all such points would be regular.
+This is the local concentration entry result from
+\cite{Paper0LocalConcentration}.  More precisely, the pressure-normalized
+CKN criterion \cite{CKN1982} is recorded there as theorem
+\texttt{thm:ckn}; theorem \texttt{thm:singular-\allowbreak positive} proves that every
+singular point carries a positive concentration sequence in the sense of
+\eqref{eq:positive-ckn}; and theorem \texttt{thm:blowup-\allowbreak rate-\allowbreak dichotomy} proves
+the stated local Type I/Type II alternative along such shrinking cylinders.
+The scale-invariance of the quantities \(C\) and \(D\), needed to identify the
+same sequence after rescaling, is proposition \texttt{prop:critical-\allowbreak scaling}
+in the same paper.  No global compactness or finite-energy input is used in
+this local step.
+\end{proof}
+
+\begin{lemma}[Scaling and pressure gauges]\label{lem:scaling-gauges}
+Let \((u,p)\) be suitable near \(z_*=(x_*,T)\), and set
+\[
+   u^{(\lambda)}(x,t)=\lambda u(x_*+\lambda x,T+\lambda^2t),
+   \qquad
+   p^{(\lambda)}(x,t)=\lambda^2 p(x_*+\lambda x,T+\lambda^2t).
+\]
+Then \((u^{(\lambda)},p^{(\lambda)})\) is suitable on the rescaled domain.
+Moreover
+\[
+   C_{u^{(\lambda)}}((0,0),r/\lambda)=C_u(z_*,r),
+   \qquad
+   D_{p^{(\lambda)}}((0,0),r/\lambda)=D_p(z_*,r),
+\]
+where the pressure averages are taken over the corresponding balls.  Replacing
+\(p^{(\lambda)}\) by \(p^{(\lambda)}-b(t)\), with \(b\) depending only on
+time, does not change the equation, the local energy inequality, or the
+quantity \(D\).
+\end{lemma}
+
+\begin{proof}
+The suitability and scale-invariance assertions are proposition
+\texttt{prop:critical-\allowbreak scaling} of \cite{Paper0LocalConcentration} and lemma
+\texttt{lem:scaling} of \cite{Paper1TypeI}.  The pressure-gauge assertion is
+lemma \texttt{lem:gauges-\allowbreak harmless} of \cite{Paper1TypeI}: subtracting a
+function of time has zero spatial gradient, leaves the distributional equation
+unchanged, and cancels from every pressure oscillation
+\(p-(p)_{B_r}(t)\).  The cited proofs use the Navier--Stokes parabolic
+scaling, the local energy inequality tested against pulled-back nonnegative
+cutoffs, and the corresponding parabolic cylinder Jacobian.
+\end{proof}
+
+\begin{proposition}[Extraction of a normalized Seregin limit]
+\label{prop:seregin-extraction}
+Let \((u,p,z_*)\) be a finite-energy Type I source.  Then some positive
+concentration sequence \(\lambda_k\downarrow0\) produces, after passing to a
+subsequence and fixing pressure gauges, an ancient suitable weak limit
+\((U,\Pi)\) on \(\mathbb R^3\times(-\infty,0)\).  The limit satisfies
+\[
+   \sup_{t<0}\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
+\]
+Its centered representative \(V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t)\),
+\(\tau=-\log(-t)\), is a Seregin ancient limit satisfying
+\eqref{eq:nonvanishing}.
+\end{proposition}
+
+\begin{proof}
+Choose \(\lambda_k\downarrow0\) from \Cref{thm:local-concentration}.  The
+rescaled domains exhaust \(\mathbb R^3\times(-\infty,0)\), and
+\Cref{lem:scaling-gauges} preserves suitability, the CKN normalization, and
+pressure gauges.  The extraction itself is the classical Seregin
+blow-up construction \cite{Seregin2012}, in the local Type I formulation of
+Albritton--Barker \cite{AlbrittonBarker2019}.
+
+All estimates used by that construction in the present normalization have
+already been proved earlier in the series.  In \cite{Paper1TypeI}, lemma
+\texttt{lem:inherited-bound} gives the compact-cylinder Type I bound for the
+rescalings; lemma \texttt{lem:energy-diss} gives the local energy and
+dissipation bounds; lemma \texttt{lem:pressure} fixes admissible pressure
+gauges and gives local \(L^{3/2}\) pressure compactness; lemma
+\texttt{lem:time-derivative} gives the negative-Sobolev time-derivative bound;
+proposition \texttt{prop:compactness} gives strong local velocity convergence
+and weak local pressure convergence; proposition \texttt{prop:ancient-limit}
+passes the equation, divergence-free condition, and local energy inequality to
+the ancient suitable weak limit; and lemmas \texttt{lem:limit-bound} and
+\texttt{lem:smoothness} give the inherited Type I bound and smoothness.
+
+The point specific to the present formulation is the normalization used below.
+The positive local CKN density comes from \cite{Paper0LocalConcentration},
+theorem \texttt{thm:singular-\allowbreak positive}.  Its persistence under the above
+compactness and pressure gauges is supplied by \cite{Paper1TypeI}, lemma
+\texttt{lem:scale-selection} and proposition \texttt{prop:nonzero}.  Passing
+from \((U,\Pi)\) to centered variables is \cite{Paper1TypeI}, lemmas
+\texttt{lem:renormalized-equation} and \texttt{lem:renorm-bounds}.  Under the
+change of variables \((x,t)=(e^{-\tau/2}y,-e^{-\tau})\), the compact
+negative-time cylinder carrying positive mass maps to
+\(K\Subset\mathbb R^3\times\mathbb R\), and the pressure gauge becomes a
+function \(a(\tau)\).  This is precisely \eqref{eq:nonvanishing}.
 \end{proof}
 
 \begin{definition}[Seregin ancient limit]\label{def:seregin-limit}
@@ -212,6 +329,14 @@ and \(V\) is the self-similar representative of \(U\):
 \[
    V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t),\qquad \tau=-\log(-t).
 \]
+The associated centered pressure class is represented by
+\[
+   P(y,\tau)=(-t)\,\Pi(y\sqrt{-t},t),
+\]
+and replacing \(\Pi\) by \(\Pi-b(t)\) replaces \(P\) by
+\(P-e^{-\tau}b(-e^{-\tau})\).  Thus the pressure remains defined modulo a
+function of \(\tau\), exactly as allowed by \cite{Paper1TypeI}, lemma
+\texttt{lem:gauges-\allowbreak harmless}.
 In particular, after passing to centered variables, there are a compact
 cylinder \(K\Subset\mathbb R^3\times\mathbb R\), a pressure gauge \(a(\tau)\),
 and \(\eta_0>0\) such that
@@ -221,14 +346,129 @@ and \(\eta_0>0\) such that
 \end{equation}
 \end{definition}
 
+\begin{definition}[Normalized Seregin collection]\label{def:normalized-collection}
+A collection \(\mathcal S\) of Seregin ancient limits is called normalized if
+there are a compact cylinder \(K\Subset\mathbb R^3\times\mathbb R\) and a
+constant \(\eta_0>0\) such that every \(V\in\mathcal S\), with its associated
+centered pressure \(P\), admits a measurable time-dependent pressure gauge
+\(a_V(\tau)\) for which
+\begin{equation}\label{eq:collection-nonvanishing}
+   \int_K\left(|V(y,\tau)|^3+|P(y,\tau)-a_V(\tau)|^{3/2}\right)\,dy\,d\tau
+   \ge\eta_0 .
+\end{equation}
+When \(\mathcal S\) is obtained from one finite-energy Type I source, \(K\) and
+\(\eta_0\) are fixed by the chosen concentration normalization; the admissible
+gauge is allowed to depend on the element \(V\).
+The condition is independent of the representative of the pressure class:
+replacing \(P\) by \(P-c(\tau)\) only replaces the gauge \(a_V(\tau)\) by
+\(a_V(\tau)-c(\tau)\).
+The integral is finite on \(K\) for every Seregin limit because local
+\(L^{3/2}\)-pressure compactness after admissible gauges is part of
+\cite{Paper1TypeI}, lemma \texttt{lem:pressure}, and is preserved by the
+centered change of variables in \cite{Paper1TypeI}, lemma
+\texttt{lem:renorm-bounds}.
+\end{definition}
+
+\begin{definition}[Associated normalized collection]\label{def:associated-collection}
+Fix a finite-energy Type I source \((u,p,z_*)\).  An associated normalized
+collection is obtained as follows.  First choose one positive local
+concentration normalization furnished by
+\cite{Paper1TypeI}, lemma \texttt{lem:scale-selection}; equivalently, fix the
+compact cylinder and lower bound which persist in the ancient limit by
+\cite{Paper1TypeI}, proposition \texttt{prop:nonzero}.  Then let
+\(\mathcal S\) be any collection of Seregin ancient limits produced from the
+same source by subsequences compatible with that fixed normalization, each
+equipped with an admissible centered pressure gauge.  The common cylinder
+\(K\) and lower bound \(\eta_0\) are those fixed in the first step.  With these
+data, \(\mathcal S\) satisfies \Cref{def:normalized-collection}.  The gauges
+are measurable: before centering they are spatial averages over fixed balls,
+as in \cite{Paper1TypeI}, lemma \texttt{lem:pressure}, and after centering
+they are composed with the smooth time map \(t=-e^{-\tau}\) and multiplied by
+the smooth factor \(e^{-\tau}\).
+\end{definition}
+
 \begin{remark}\label{rem:normalization}
-The nonvanishing condition \eqref{eq:nonvanishing} is not an additional
-assumption.  It is the persistence, under the compactness used in the Seregin
-blow-up procedure, of the positive CKN concentration supplied by
-\Cref{thm:local-concentration}.  The compact cylinder \(K\), the gauge
-\(a(\tau)\), and the constant \(\eta_0\) may depend on the singular point and
-on the chosen concentration sequence.
+The nonvanishing conditions \eqref{eq:nonvanishing} and
+\eqref{eq:collection-nonvanishing} are not additional assumptions.  They are
+the persistence, under the compactness used in the Seregin blow-up procedure,
+of the positive CKN concentration supplied by \Cref{thm:local-concentration}.
+This persistence is precisely the scale-selection and nonzero-limit mechanism
+proved in \cite{Paper1TypeI}, lemma \texttt{lem:scale-selection} and
+proposition \texttt{prop:nonzero}.  The sole choice made in forming
+\(\mathcal S\) is which concentration normalization is fixed once and for all.
 \end{remark}
+
+\begin{lemma}[Centered equation]\label{lem:centered-equation}
+Let \((U,\Pi)\) be a smooth ancient Navier--Stokes solution on
+\(\mathbb R^3\times(-\infty,0)\), and define
+\[
+   t=-e^{-\tau},\qquad x=e^{-\tau/2}y,\qquad
+   V(y,\tau)=e^{-\tau/2}U(e^{-\tau/2}y,-e^{-\tau}),
+\]
+with
+\[
+   P(y,\tau)=e^{-\tau}\Pi(e^{-\tau/2}y,-e^{-\tau}).
+\]
+Then \(V\) satisfies \eqref{eq:centered} and \(\nabla_y\cdot V=0\).
+\end{lemma}
+
+\begin{proof}
+This is the self-similar change-of-variables computation carried out in
+\cite{Paper1TypeI}, lemma \texttt{lem:renormalized-equation}.  That lemma
+differentiates \(U(x,t)=e^{\tau/2}V(e^{\tau/2}x,\tau)\), records the common
+factor \(e^{3\tau/2}\) in \(\partial_tU\), \((U\cdot\nabla)U\),
+\(\nabla\Pi\), and \(\Delta U\), and verifies that
+\(\nabla_x\cdot U=e^\tau\nabla_y\cdot V\).  Dividing by the common factor gives
+\eqref{eq:centered}.
+\end{proof}
+
+\begin{lemma}[Zero velocity and pressure normalization]\label{lem:zero-pressure}
+Let \(V\equiv0\) solve \eqref{eq:centered} in distributions on
+\(\mathbb R^3\times\mathbb R\).  Then every associated pressure satisfies
+\(\nabla_yP=0\).  Consequently, after subtracting the admissible gauge
+given by the resulting spatial constant \(a(\tau)\), the integrand in
+\eqref{eq:nonvanishing}, and likewise the integrand in
+\eqref{eq:collection-nonvanishing}, vanishes identically.
+\end{lemma}
+
+\begin{proof}
+With \(V\equiv0\), equation \eqref{eq:centered} reduces to
+\(\nabla_yP=0\) in distributions, meaning
+\[
+   \int_{\mathbb R}\int_{\mathbb R^3}P(y,\tau)\,\nabla_y\cdot\varphi(y,\tau)
+      \,dy\,d\tau=0
+\]
+for every \(\varphi\in C_c^\infty(\mathbb R^3\times\mathbb R;\mathbb R^3)\).
+By applying this identity to test fields of the form
+\(\varphi(y,\tau)=\psi(\tau)\phi(y)e_j\), with
+\(\psi\in C_c^\infty(\mathbb R)\) and
+\(\phi\in C_c^\infty(\mathbb R^3)\), one obtains
+\[
+   \int_{\mathbb R}\psi(\tau)
+      \left\langle \partial_{y_j}P(\cdot,\tau),\phi\right\rangle
+      \,d\tau=0 .
+\]
+Since this holds for every \(\psi\), Fubini's theorem and the fundamental
+lemma of distributions imply that
+\(\partial_{y_j}P(\cdot,\tau)=0\) in \(\mathcal D'(\mathbb R^3)\) for almost
+every \(\tau\).  Intersecting the three full-measure sets gives
+\(\nabla_yP(\cdot,\tau)=0\) for almost every \(\tau\).  The elementary
+distributional fact that a distribution on \(\mathbb R^3\) with zero first
+spatial derivatives is constant gives
+\[
+   P(\cdot,\tau)=a(\tau)\quad\hbox{in }\mathcal D'(\mathbb R^3)
+\]
+for almost every \(\tau\).  The function \(a\) is measurable because it may be
+chosen, for a fixed \(\chi\in C_c^\infty(\mathbb R^3)\) with
+\(\int\chi=1\), as
+\[
+   a(\tau)=\langle P(\cdot,\tau),\chi\rangle .
+\]
+This is an admissible pressure gauge.  After subtracting it,
+\(P-a(\tau)=0\) almost everywhere, while \(|V|^3=0\).  Hence every
+nonvanishing integral of the form \eqref{eq:nonvanishing} or
+\eqref{eq:collection-nonvanishing} is zero for the zero velocity field.
+\end{proof}
 
 \begin{lemma}[Basic properties]\label{lem:basic-properties}
 Every Seregin ancient limit \(V\) satisfies
@@ -247,15 +487,23 @@ are again bounded mild ancient solutions of \eqref{eq:centered} with the same
 
 \begin{proof}
 The \(L^\infty\) bound is the Type I ancient bound written in centered
-variables.  Since \(U\) is locally bounded on each compact subcylinder of
-\(\mathbb R^3\times(-\infty,0)\), the local regularity criterion for suitable
-weak solutions gives smoothness away from \(t=0\); in centered variables this
-is smoothness on every compact cylinder in
-\(\mathbb R^3\times\mathbb R\).  With the Leray pressure gauge, the smooth
-whole-space solution satisfies the Duhamel formula for the projected equation,
-hence is mild.  Since \eqref{eq:centered} is autonomous in \(\tau\), time
-translation preserves the equation and the mild formulation.  The
-\(L^\infty\) norm is unchanged.
+variables:
+\[
+   |V(y,\tau)|
+   =
+   \sqrt{-t}\,|U(y\sqrt{-t},t)|
+   \le
+   \sup_{s<0}\sqrt{-s}\,\|U(s)\|_{L^\infty}.
+\]
+Smoothness in centered variables is \cite{Paper1TypeI}, lemma
+\texttt{lem:smoothness}.  The whole-space Leray pressure gauge and projected
+Duhamel formulation are those of the bounded mild framework in
+\cite{Paper3Minimal}: definition \texttt{def:mild} fixes the mild formulation
+for \eqref{eq:centered}, lemma \texttt{lem:smoothing} gives the smooth
+representative, and the time-translation invariance following that definition
+shows that \(V^s(y,\tau)=V(y,\tau+s)\) is again a bounded mild ancient solution
+with the same \(L^\infty\) norm.  The centered equation is autonomous, so no
+additional normalization is introduced by translating \(\tau\).
 \end{proof}
 
 \begin{lemma}[Local energy bounds in centered variables]\label{lem:finite-energy-local}
@@ -272,34 +520,69 @@ of \(\tau\) one also has
 \[
    P\in L^{3/2}(B_R\times I).
 \]
-These local bounds are stable under locally smooth limits of time translates.
+These local bounds are stable under locally smooth limits of time translates
+on each fixed compact cylinder.
 \end{lemma}
 
 \begin{proof}
-The unrenormalized ancient limit \((U,\Pi)\) is suitable and inherits the local
-energy inequality on compact negative-time cylinders.  The change of variables
-\(t=-e^{-\tau}\), \(x=e^{-\tau/2}y\), maps compact \((y,\tau)\)-cylinders to
-compact negative-time cylinders away from \(t=0\), with smooth positive
-Jacobian factors.  Hence the displayed local bounds follow.  The pressure
-statement follows from local pressure compactness for suitable weak solutions
-after subtracting the usual time-dependent gauge.  Stability under locally
-smooth velocity limits and weak local pressure limits is immediate on compact
-cylinders.
+The unrenormalized ancient limit \((U,\Pi)\) is suitable and satisfies the
+local energy and pressure bounds on compact negative-time cylinders by
+\cite{Paper1TypeI}, lemmas \texttt{lem:energy-diss} and \texttt{lem:pressure}
+and proposition \texttt{prop:ancient-limit}.  The transfer to centered
+variables is the bounded-renormalization estimate of \cite{Paper1TypeI}, lemma
+\texttt{lem:renorm-bounds}: on every compact \((y,\tau)\)-cylinder the map
+\[
+   (y,\tau)\mapsto (x,t)=(e^{-\tau/2}y,-e^{-\tau})
+\]
+has Jacobian \(dx\,dt=e^{-5\tau/2}\,dy\,d\tau\), with
+\(V=e^{-\tau/2}U\), \(\nabla_yV=e^{-\tau}\nabla_xU\), and
+\(P=e^{-\tau}\Pi\).  Since the exponential weights are bounded above and below
+on compact \(\tau\)-intervals, the local \(L^2\), dissipation, and
+\(L^{3/2}\)-pressure estimates pass in the stated form.  Stability under
+locally smooth velocity limits and weak local pressure limits is the following
+consequence of the same compactness package.  If
+\(V_n\to V\) in \(C^\infty_{\mathrm{loc}}\) and the associated pressures,
+after admissible gauges, converge weakly in
+\(L^{3/2}_{\mathrm{loc}}\), then the \(L^2\) and \(L^2\)-gradient bounds pass
+on each \(B_R\times I\) by ordinary convergence of the integrands
+\(|V_n|^2\) and \(|\nabla V_n|^2\), while the pressure bound passes by the weak
+lower semicontinuity of the \(L^{3/2}(B_R\times I)\)-norm.
 \end{proof}
 
 \begin{remark}\label{rem:no-global-tightness}
 \Cref{lem:finite-energy-local} is deliberately local.  It does not give
 uniform \(L^3\)-tightness in \(y\), nor does it give a global
-\(L^\infty_\tau L^3_y\) bound.  The absence of precisely this information is
-the source of the residual class below.
+\(L^\infty_\tau L^3_y\) bound.  The absence of this information is the reason
+for the residual class below.
 \end{remark}
 
 \section{Admissible classes and the residual class}
 
-Let \(\mathcal S\) denote a collection of Seregin ancient limits associated
-with a fixed Type I source and a fixed inherited nonvanishing condition of the
-form \eqref{eq:nonvanishing}.  Throughout this section an admissible parameter
-set means a specified nonempty subset of \((0,\infty)\).
+Let \(\mathcal S\) denote a normalized collection of Seregin ancient limits in
+the sense of \Cref{def:normalized-collection}.  Thus all elements of
+\(\mathcal S\) are associated with the same fixed nonvanishing normalization
+\((K,\eta_0)\), while their pressure gauges may differ.  Every class introduced
+in this section is a subset of this fixed ambient set \(\mathcal S\), and every
+set-theoretic complement is taken relative to \(\mathcal S\).  For the
+remainder of the paper, fix admissible parameter sets
+\[
+   I,J\subset(0,\infty),
+\]
+where admissible means nonempty.
+
+If \(V\in\mathcal S\) is represented by an unrenormalized ancient solution
+\(U\), then changing the extraction only within the same Seregin limit changes
+neither the velocity \(V\) nor the physical velocity \(U\) determined by
+\[
+   U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)).
+\]
+Thus the structural properties below are properties of the velocity field, not
+of the pressure gauge or of a particular pressure representative.
+All pointwise-in-time conditions in the definitions below are imposed on the
+smooth representative supplied by \Cref{lem:basic-properties}.  Hence
+statements such as \(V(y,\tau)=W(y)\), \(L^\infty_\tau L^3_y\)-bounds, and
+uniform tail limits are literal statements for the smooth ancient solution,
+not merely assertions about a choice of time slices modulo a null set.
 
 \begin{definition}[Small-amplitude class]\label{def:small-branch}
 Let \(\varepsilon_0>0\) be the absolute constant in the small bounded ancient
@@ -356,9 +639,9 @@ physical ancient representative \(U\) satisfies at least one of the following:
    \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
    \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty;
 \]
-\item \(U\) is axisymmetric and, for some \(1\le p<\infty\),
+\item \(U\) is axisymmetric and, for some \(1\le q<\infty\),
 \[
-   rU_\theta\in L_t^\infty L_x^p
+   rU_\theta\in L_t^\infty L_x^q
       \bigl(\mathbb R^3\times(-\infty,0)\bigr);
 \]
 \item \(U\) is axisymmetric, periodic in the axial variable \(z\), and
@@ -369,6 +652,20 @@ physical ancient representative \(U\) satisfies at least one of the following:
 for some \(m\in J\).
 \end{enumerate}
 \end{definition}
+
+\begin{remark}\label{rem:structured-import}
+The structured alternatives are the centered-limit formulation of the
+axisymmetric and weighted-decay branches treated in \cite{Paper6Structured}.
+The preservation of the stated hypotheses under self-similar variables and
+time shifts is \cite{Paper6Structured}, lemma
+\texttt{lem:structure-preserved}.  The no-swirl, \(L_t^\infty L_x^p\)-swirl,
+periodic bounded-\(\Gamma\), controlled-swirl, and weighted-decay exclusions
+are recorded there as propositions \texttt{prop:no-swirl-type-i},
+\texttt{prop:lp-swirl-exclusion}, \texttt{prop:periodic-swirl-exclusion},
+\texttt{prop:swirl-exclusion}, and \texttt{prop:weighted-exclusion}.  The
+present paper uses those mechanisms solely through the single structured
+Liouville input stated below.
+\end{remark}
 
 \begin{definition}[Residual Seregin class]\label{def:residual}
 The residual class associated with \(\mathcal S\), \(I\), and \(J\) is
@@ -403,10 +700,9 @@ union, so overlaps among the non-residual classes cause no ambiguity.
 \end{remark}
 
 \begin{proposition}[Exhaustion by admissible classes]\label{prop:exhaustion}
-Let \(\mathcal S\) be any collection of Seregin ancient limits with fixed
-inherited nonvanishing condition, and fix admissible sets
-\(I,J\subset(0,\infty)\).  Every \(V\in\mathcal S\) satisfies at least one of
-the following alternatives:
+Let \(\mathcal S\) be a normalized collection of Seregin ancient limits, and
+fix admissible sets \(I,J\subset(0,\infty)\).  Every \(V\in\mathcal S\)
+satisfies at least one of the following alternatives:
 \[
 \begin{gathered}
    V\in\mathcal X_{\mathrm{small}},\qquad
@@ -420,23 +716,147 @@ the following alternatives:
 \end{proposition}
 
 \begin{proof}
-This is the exhaustion induced by \Cref{def:residual}.  If \(V\) is in one of
-the five listed non-residual classes, there is nothing to prove.  Otherwise it
-belongs to the complement of their union inside \(\mathcal S\), which is
-exactly \(\mathcal R(\mathcal S;I,J)\).
+Set
+\[
+   \mathcal U
+   =
+   \mathcal X_{\mathrm{small}}
+   \cup
+   \mathcal X_{\mathrm{stat}\text{-}L^3}
+   \cup
+   \mathcal X_{L^3\mathrm{-tight}}
+   \cup
+   \mathcal X_{\mathrm{fast}}(J)
+   \cup
+   \mathcal X_{\mathrm{str}}(I,J).
+\]
+For any \(V\in\mathcal S\), either \(V\in\mathcal U\), in which case \(V\)
+belongs to at least one of the five displayed classes by the definition of
+union, or \(V\notin\mathcal U\).  In the second case
+\[
+   V\in\mathcal S\setminus\mathcal U
+   =
+   \mathcal R(\mathcal S;I,J)
+\]
+by \Cref{def:residual}.  This proves the stated exhaustive alternative.
 \end{proof}
 
 \section{Liouville inputs for the non-residual classes}
 
-We now state the Liouville inputs used in the reduction.  The first two are
-unconditional classical consequences: small bounded ancient solutions vanish,
-and stationary \(L^3\) self-similar profiles vanish.  The remaining inputs are
-hypotheses of the present theorem, formulated so that each can be replaced by
-any independently proved Liouville theorem in the corresponding class.
+We now state the Liouville inputs used in the reduction.  The first two
+closures are unconditional: small bounded ancient solutions vanish by the
+centered mild formulation, and stationary \(L^3\) self-similar profiles vanish
+by the theorem of Necas--Ruzicka--Sverak.  The remaining inputs are hypotheses
+of the present theorem, formulated so that each can be replaced by any
+independently proved Liouville theorem in the corresponding class.
+
+\begin{lemma}[Small bounded ancient Liouville theorem]
+\label{lem:small-liouville}
+There is an absolute \(\varepsilon_0>0\) such that every bounded mild ancient
+solution \(V\) of \eqref{eq:centered} with
+\[
+   \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le\varepsilon_0
+\]
+is identically zero.
+\end{lemma}
+
+\begin{proof}
+Write the projected centered equation as
+\[
+   \partial_\tau V=LV-\mathbb P\nabla\cdot(V\otimes V),
+   \qquad
+   L=\Delta-\frac12y\cdot\nabla-\frac12 .
+\]
+Let \(S(s)=e^{sL}\) be the centered Stokes semigroup on divergence-free
+fields.  The Ornstein--Uhlenbeck formula for \(S(s)\) and its \(L^\infty\)
+decay estimate are \cite{Paper3Minimal}, equations \texttt{eq:OU-semigroup}
+and \texttt{eq:stokes-Linfty-estimate}:
+\[
+   (S(s)f)(y)
+   =
+   e^{-s/2}
+   \left(e^{(1-e^{-s})\Delta}f\right)(e^{-s/2}y),
+   \qquad s>0.
+\]
+Hence
+\[
+   \|S(s)f\|_{L^\infty}\le e^{-s/2}\|f\|_{L^\infty}.
+\]
+The corresponding projected-divergence estimate is the bounded-data Stokes
+estimate recorded in \cite{Paper3Minimal}, equation
+\texttt{eq:stokes-\allowbreak Linfty-\allowbreak estimate}; the adjoint-test
+estimate \texttt{eq:stokes-\allowbreak adjoint-\allowbreak test-\allowbreak estimate}
+in the same paper is the dual formulation used to define the weak-* Duhamel
+term.  These are the centered forms of Kato's \(L^p\) estimates
+\cite{Kato1984}.  Thus there is an absolute constant \(C_0\) such that, for
+every bounded tensor field \(F\),
+\[
+   \|S(s)\mathbb P\nabla\cdot F\|_{L^\infty}
+   \le
+   C_0 e^{-s/2}(1-e^{-s})^{-1/2}\|F\|_{L^\infty},
+   \qquad s>0.
+\]
+The factor on the right is integrable on \((0,\infty)\).  Set
+\[
+   A=C_0\int_0^\infty e^{-s/2}(1-e^{-s})^{-1/2}\,ds<\infty .
+\]
+Indeed, \(1-e^{-s}\sim s\) as \(s\downarrow0\), so the kernel is comparable to
+\(s^{-1/2}\) near the origin, while the factor \(e^{-s/2}\) gives exponential
+decay as \(s\to\infty\).
+
+Fix \(\tau\in\mathbb R\) and \(T>0\).  The mild identity is definition
+\texttt{def:mild} of \cite{Paper3Minimal}.  Applied on \([\tau-T,\tau]\), it
+gives
+\[
+   V(\tau)
+   =
+   S(T)V(\tau-T)
+   -
+   \int_0^T
+      S(T-\sigma)\mathbb P\nabla\cdot
+      \bigl(V\otimes V\bigr)(\tau-T+\sigma)\,d\sigma .
+\]
+If \(M=\|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\), the preceding two
+estimates and the pointwise bound
+\(\|V(\tau)\otimes V(\tau)\|_{L^\infty}\le M^2\) imply
+\[
+\begin{aligned}
+   \|V(\tau)\|_{L^\infty}
+   &\le
+   \|S(T)V(\tau-T)\|_{L^\infty}  \\
+   &\quad+
+   \int_0^T
+      \left\|
+      S(T-\sigma)\mathbb P\nabla\cdot
+      \bigl(V\otimes V\bigr)(\tau-T+\sigma)
+      \right\|_{L^\infty}\,d\sigma        \\
+   &\le
+   e^{-T/2}M
+   +
+   C_0 M^2\int_0^T
+      e^{-(T-\sigma)/2}
+      \bigl(1-e^{-(T-\sigma)}\bigr)^{-1/2}\,d\sigma .
+\end{aligned}
+\]
+The change of variables \(s=T-\sigma\) and the definition of \(A\) give
+\[
+   \|V(\tau)\|_{L^\infty}
+   \le
+   e^{-T/2}M
+   +
+   A M^2 .
+\]
+Letting \(T\to\infty\) yields \(\|V(\tau)\|_{L^\infty}\le A M^2\).  Taking
+the supremum in \(\tau\) gives \(M\le A M^2\).  If \(M>0\), division by \(M\)
+gives \(1\le AM\).  Choose \(\varepsilon_0<1/A\).  The assumption
+\(M\le\varepsilon_0\) then contradicts \(1\le AM\).  Hence \(M=0\), which is
+equivalent to \(V\equiv0\).
+\end{proof}
 
 \begin{theorem}[Unconditional small and stationary branch exclusion]
 \label{thm:classical-closed-branches}
-Let \(V\in\mathcal S\) be a nonzero Seregin ancient limit.  Then
+Let \(\mathcal S\) be a normalized collection of Seregin ancient limits, and
+let \(V\in\mathcal S\) be nonzero.  Then
 \[
    V\notin\mathcal X_{\mathrm{small}}
    \qquad\hbox{and}\qquad
@@ -450,25 +870,67 @@ Assume first that \(V\in\mathcal X_{\mathrm{small}}\).  By definition,
    \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le\varepsilon_0 ,
 \]
 where \(\varepsilon_0\) is the small-data constant for bounded mild ancient
-solutions of the centered equation.  The small ancient Liouville theorem
-therefore gives \(V\equiv0\).  In that case the Leray pressure is spatially
-constant, modulo the allowed gauge \(a(\tau)\), and the integral in
-\eqref{eq:nonvanishing} is zero.  This contradicts the inherited positive
-normalization.
+solutions of the centered equation from \Cref{lem:small-liouville}.  The mild
+solution property is part of \Cref{lem:basic-properties}, hence that lemma
+gives \(V\equiv0\).  By \Cref{lem:zero-pressure}, after subtracting
+the allowed pressure gauge the integral in \eqref{eq:nonvanishing} is zero.
+This contradicts the inherited positive normalization.
 
 Assume next that \(V\in\mathcal X_{\mathrm{stat}\text{-}L^3}\).  Then
-\(V(y,\tau)=W(y)\) for some \(W\in L^3(\mathbb R^3)\).  Substituting
-\(\partial_\tau V=0\) into \eqref{eq:centered} gives the stationary
-self-similar Navier--Stokes equation for \(W\):
+\(V(y,\tau)=W(y)\) for some \(W\in L^3(\mathbb R^3)\).  Since \(V\) is a
+smooth distributional solution of \eqref{eq:centered}, the identity
+\(\partial_\tau V=0\) is classical and the remaining terms in the equation are
+smooth functions of \(y\).  For every
+\(\phi\in C_c^\infty(\mathbb R^3;\mathbb R^3)\) and
+\(\psi\in C_c^\infty(\mathbb R)\), testing the equation against
+\(\psi(\tau)\phi(y)\) gives
 \[
-   (W\cdot\nabla)W+\nabla P
+   \int_{\mathbb R}\psi(\tau)
+   \left\langle
+      \nabla_yP(\cdot,\tau)
+      -\Delta W+\frac12(W+y\cdot\nabla W)+(W\cdot\nabla)W,
+      \phi
+   \right\rangle\,d\tau=0 .
+\]
+Taking a countable dense family of spatial tests and using the fundamental
+lemma of distributions in \(\tau\), there is a full-measure set
+\(E\subset\mathbb R\) such that, for every \(\tau\in E\),
+\[
+   \nabla_yP(\cdot,\tau)
+   =
+   \Delta W-\frac12(W+y\cdot\nabla W)-(W\cdot\nabla)W
+   \quad\hbox{in }\mathcal D'(\mathbb R^3).
+\]
+The right-hand side is independent of \(\tau\).  Hence for
+\(\tau_1,\tau_2\in E\),
+\[
+   \nabla_y\bigl(P(\cdot,\tau_1)-P(\cdot,\tau_2)\bigr)=0
+   \quad\hbox{in }\mathcal D'(\mathbb R^3),
+\]
+so \(P(\cdot,\tau_1)-P(\cdot,\tau_2)\) is spatially constant.  Fix
+\(\tau_0\in E\), set \(P_{\mathrm{st}}=P(\cdot,\tau_0)\), and subtract the
+admissible time-dependent constant
+\[
+   a(\tau)=\langle P(\cdot,\tau)-P_{\mathrm{st}},\chi\rangle ,
+   \qquad \int_{\mathbb R^3}\chi=1,
+\]
+for a fixed \(\chi\in C_c^\infty(\mathbb R^3)\).  Then the gauged pressure
+equals the single stationary pressure profile \(P_{\mathrm{st}}\) for
+almost every \(\tau\in E\), and the profile equation is
+\[
+   (W\cdot\nabla)W+\nabla P_{\mathrm{st}}
    =
    \Delta W-\frac12(W+y\cdot\nabla W),
    \qquad \nabla\cdot W=0 .
 \]
-The theorem of Necas--Ruzicka--Sverak applies exactly to this
-\(L^3\)-stationary profile and gives \(W\equiv0\).  Again the nonvanishing
-condition \eqref{eq:nonvanishing} is contradicted.
+The stationary-profile passage and the \(L^3\) Liouville input are recorded in
+\cite{Paper5Equilibrium}.  The lemma labelled \texttt{lem:stationary}-\texttt{profile}
+identifies stationary mild trajectories with stationary self-similar profiles,
+and theorem \texttt{thm:NRS} states the Necas--Ruzicka--Sverak theorem
+\cite{NRS1996} in this form.  Thus the
+assumed \(W\in L^3(\mathbb R^3)\) gives \(W\equiv0\).  Again
+\Cref{lem:zero-pressure} makes the left-hand side of
+\eqref{eq:nonvanishing} vanish, contradicting the inherited normalization.
 \end{proof}
 
 \begin{hypothesis}[Tight-class Liouville input]\label{hyp:tight-liouville}
@@ -477,26 +939,26 @@ For every normalized Seregin collection \(\mathcal S\), no nonzero element of
 \end{hypothesis}
 
 \begin{hypothesis}[Structured Liouville input]\label{hyp:structured-liouville}
-For the parameter sets \(I,J\), no nonzero Seregin ancient limit may belong to
-\(\mathcal X_{\mathrm{str}}(I,J)\).
+For every normalized Seregin collection \(\mathcal S\), no nonzero element of
+\(\mathcal S\cap\mathcal X_{\mathrm{str}}(I,J)\) exists.
 \end{hypothesis}
 
 \begin{remark}\label{rem:hypotheses}
 \Cref{hyp:tight-liouville} is the form obtained, for instance, from a
 minimal-element reduction plus compact-hull equilibrium rigidity in the
 uniformly \(L^3\)-tight class.  \Cref{hyp:structured-liouville} contains the
+structured reductions imported in \Cref{rem:structured-import}: the
 axisymmetric no-swirl Liouville theorem of Koch--Nadirashvili--Seregin--Sverak
-\cite{KNSS2009}, the \(L_t^\infty L_x^p\)-swirl theorem of
-Lei--Zhang--Zhao \cite{LZZ2017}, the periodic bounded-\(\Gamma\) theorem of
-Lei--Ren--Zhang \cite{LRZ2022}, and any additional admissible
-controlled-swirl or weighted-decay Liouville criteria assumed for the sets
-\(I\) and \(J\).
+\cite{KNSS2009}, the \(L_t^\infty L_x^p\)-swirl theorem of Lei--Zhang--Zhao
+\cite{LZZ2017}, the periodic bounded-\(\Gamma\) theorem of Lei--Ren--Zhang
+\cite{LRZ2022}, and any additional admissible controlled-swirl or
+weighted-decay Liouville criteria assumed for the sets \(I\) and \(J\).
 \end{remark}
 
 \begin{proposition}[Non-residual class exclusion]\label{prop:closed-branch-exclusion}
 Assume \Cref{hyp:tight-liouville,hyp:structured-liouville}.  Let
-\(V\in\mathcal S\) be a nonzero Seregin ancient limit.  Then \(V\) cannot
-belong to
+\(\mathcal S\) be a normalized collection of Seregin ancient limits, and let
+\(V\in\mathcal S\) be nonzero.  Then \(V\) cannot belong to
 \[
    \mathcal X_{\mathrm{small}}
    \cup
@@ -517,43 +979,56 @@ Membership in \(\mathcal X_{L^3\mathrm{-tight}}\) is excluded by
 \Cref{hyp:tight-liouville}.  Membership in
 \(\mathcal X_{\mathrm{str}}(I,J)\) is excluded by
 \Cref{hyp:structured-liouville}.  Finally,
-\(\mathcal X_{\mathrm{fast}}(J)\) is contained in the structured class by the
-third alternative in \Cref{def:structured-branch}, so it is excluded by the
-same hypothesis.
+\(\mathcal X_{\mathrm{fast}}(J)\subset\mathcal X_{\mathrm{str}}(I,J)\) because
+both definitions require the existence of some \(m\in J\) for which
+\eqref{eq:weighted-decay} holds, and this is precisely the fifth alternative in
+\Cref{def:structured-branch}.  Thus the structured hypothesis also excludes
+the fast-decay class.
 \end{proof}
 
 \section{The residual class}
 
-The residual class is the only alternative not covered by the stated
+The residual class is the remaining alternative not covered by the stated
 Liouville inputs.  We state the needed assertion in two equivalent forms.
 
 \begin{hypothesis}[No residual Seregin class]\label{hyp:no-residual}
-For every finite-energy Type I source and every associated normalized
-collection \(\mathcal S\) of Seregin ancient limits, one has
+For the fixed admissible sets \(I,J\), every finite-energy Type I source and
+every associated normalized collection \(\mathcal S\) in the sense of
+\Cref{def:associated-collection} satisfy
 \[
    \mathcal R(\mathcal S;I,J)=\varnothing .
 \]
 \end{hypothesis}
 
 \begin{hypothesis}[Residual rigidity]\label{hyp:residual-rigidity}
-For every finite-energy Type I source and every associated normalized
-collection \(\mathcal S\), every element of
+For the fixed admissible sets \(I,J\), every finite-energy Type I source,
+every associated normalized collection \(\mathcal S\) in the sense of
+\Cref{def:associated-collection}, and every element of
 \(\mathcal R(\mathcal S;I,J)\) is identically zero.
 \end{hypothesis}
 
 \begin{proposition}[Equivalence for Seregin limits]\label{prop:residual-equivalence}
-On collections of Seregin ancient limits satisfying the inherited
-nonvanishing condition \eqref{eq:nonvanishing}, \Cref{hyp:no-residual} and
+For normalized Seregin collections associated with finite-energy Type I
+sources in the sense of \Cref{def:associated-collection}, the no-residual
+assertion \Cref{hyp:no-residual} and the residual rigidity assertion
 \Cref{hyp:residual-rigidity} are equivalent.
 \end{proposition}
 
 \begin{proof}
 If \Cref{hyp:no-residual} holds, then the residual class is empty and the
 rigidity assertion is vacuous.  Conversely, assume
-\Cref{hyp:residual-rigidity}.  If \(V\in\mathcal R(\mathcal S;I,J)\), then
-\(V\equiv0\).  In the Leray pressure gauge the associated pressure is then
-spatially constant, so the left-hand side of \eqref{eq:nonvanishing} is zero.
-This contradicts \eqref{eq:nonvanishing}.  Hence no such \(V\) exists.
+\Cref{hyp:residual-rigidity}, and let \(\mathcal S\) be a normalized Seregin
+collection associated with a finite-energy Type I source in the sense of
+\Cref{def:associated-collection}.  If
+\(\mathcal R(\mathcal S;I,J)=\varnothing\), there is nothing to prove.  If it
+is nonempty, choose \(V\in\mathcal R(\mathcal S;I,J)\).  Then
+\Cref{hyp:residual-rigidity} gives \(V\equiv0\).  By \Cref{lem:zero-pressure},
+the associated pressure is spatially constant after gauge normalization, so
+the left-hand side of \eqref{eq:collection-nonvanishing} is zero.  This
+contradicts the defining lower bound
+\(\eta_0>0\) of the normalized collection.  Hence
+\(\mathcal R(\mathcal S;I,J)=\varnothing\), which is
+\Cref{hyp:no-residual}.
 \end{proof}
 
 \begin{remark}\label{rem:meaning-residual}
@@ -569,44 +1044,56 @@ formal statement above because either one eliminates
 \section{Conditional Type I exclusion}
 
 \begin{theorem}[Residual-class criterion for Type I exclusion]\label{thm:full-type-i}
-Assume the tight-class Liouville input \Cref{hyp:tight-liouville}, the
-structured Liouville input \Cref{hyp:structured-liouville}, and the
-no-residual assertion \Cref{hyp:no-residual}.  Then no finite-energy suitable
-weak solution of the three-dimensional Navier--Stokes equations develops a
-Type I singularity in the sense of \Cref{def:source}.
+For the fixed admissible sets \(I,J\), assume the tight-class Liouville input
+\Cref{hyp:tight-liouville}, the structured Liouville input
+\Cref{hyp:structured-liouville}, and the no-residual assertion
+\Cref{hyp:no-residual}.  Then no finite-energy suitable weak solution of the
+three-dimensional Navier--Stokes equations develops a Type I singularity in the
+sense of \Cref{def:source}.
 \end{theorem}
 
 \begin{proof}
 Suppose, toward a contradiction, that \((u,p)\) has a finite-energy Type I
-singular point \(z_*=(x_*,T)\).  By the Seregin blow-up construction, there
-exists a nonzero Seregin ancient limit \(V\) associated with \(z_*\),
-satisfying the inherited nonvanishing condition \eqref{eq:nonvanishing}.  Let
-\(\mathcal S\) be the collection of all such limits obtained from the same
-source and the same concentration sequence.
+singular point \(z_*=(x_*,T)\).  By \Cref{prop:seregin-extraction}, there
+exists a Seregin ancient limit \(V\) associated with \(z_*\), satisfying the
+inherited nonvanishing condition \eqref{eq:nonvanishing}.  This condition
+implies \(V\not\equiv0\): if \(V\equiv0\), then
+\Cref{lem:zero-pressure} would make the left-hand side of
+\eqref{eq:nonvanishing} vanish.  Fix the concentration normalization used to
+obtain this limit, and let \(\mathcal S\) be the collection of all Seregin
+limits obtained from the same source with that fixed normalization.  By
+\Cref{def:associated-collection,def:normalized-collection} and
+\Cref{rem:normalization}, this \(\mathcal S\) is an associated normalized
+collection; in particular it is nonempty because it contains the limit \(V\).
 
-By \Cref{prop:exhaustion}, exactly the following exhaustive assertion holds:
-either \(V\) belongs to at least one of the five non-residual classes, or
+By \Cref{prop:exhaustion}, the following exhaustive assertion holds: either
+\(V\) belongs to at least one of the five non-residual classes, or
 \[
    V\in\mathcal R(\mathcal S;I,J).
 \]
 If \(V\) belongs to a non-residual class, then
-\Cref{prop:closed-branch-exclusion} rules it out.  This proposition uses the
+\Cref{prop:closed-branch-exclusion} excludes it.  This proposition invokes the
 unconditional small and stationary exclusions for the first two classes,
 \Cref{hyp:tight-liouville} for the uniformly \(L^3\)-tight class, and
 \Cref{hyp:structured-liouville} for the structured and fast-decay classes.
 If \(V\) belongs to the residual class, then
-\Cref{hyp:no-residual} says that no such element exists.  Both alternatives
+\Cref{hyp:no-residual} asserts that no such element exists.  Both alternatives
 are impossible.  This contradiction proves that the assumed Type I singular
 point cannot exist.
 \end{proof}
 
 \begin{corollary}[Replacement-rigidity version]\label{cor:replacement}
-The conclusion of \Cref{thm:full-type-i} remains valid if
-\Cref{hyp:no-residual} is replaced by \Cref{hyp:residual-rigidity}.
+For the fixed admissible sets \(I,J\), the conclusion of
+\Cref{thm:full-type-i} remains valid if \Cref{hyp:no-residual} is replaced by
+\Cref{hyp:residual-rigidity}.
 \end{corollary}
 
 \begin{proof}
-This follows from \Cref{prop:residual-equivalence}.
+Under \Cref{hyp:residual-rigidity}, \Cref{prop:residual-equivalence} gives
+\Cref{hyp:no-residual} for the same fixed admissible sets \(I,J\) and the same
+associated normalized Seregin collections.  The hypotheses of
+\Cref{thm:full-type-i} are therefore satisfied, and the theorem gives the
+claimed exclusion of Type I singularities.
 \end{proof}
 
 \section{Conclusion}
@@ -621,6 +1108,12 @@ limits cannot persist in the residual non-tight/non-decaying regime, or to
 prove a Liouville theorem which applies to that regime directly.
 
 \begin{thebibliography}{99}
+
+\bibitem{AlbrittonBarker2019}
+D. Albritton and T. Barker,
+\emph{On local Type I singularities of the Navier--Stokes equations and
+Liouville theorems},
+J. Math. Fluid Mech. \textbf{21} (2019), no. 3, Paper No. 43.
 
 \bibitem{CKN1982}
 L. Caffarelli, R. Kohn, and L. Nirenberg,
@@ -637,6 +1130,12 @@ G. Koch, N. Nadirashvili, G. Seregin, and V. Sverak,
 \emph{Liouville theorems for the Navier-Stokes equations and applications},
 Acta Math. \textbf{203} (2009), no. 1, 83--105.
 
+\bibitem{Kato1984}
+T. Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in
+\(\mathbb R^m\), with applications to weak solutions},
+Math. Z. \textbf{187} (1984), no. 4, 471--480.
+
 \bibitem{LRZ2022}
 Z. Lei, X. Ren, and Q. S. Zhang,
 \emph{A Liouville theorem for axi-symmetric Navier--Stokes equations on
@@ -650,9 +1149,42 @@ equations},
 Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198.
 
 \bibitem{NRS1996}
-J.~Necas, M.~Ruzicka, and V.~Sverak,
+J.~Ne\v{c}as, M.~R\r{u}\v{z}i\v{c}ka, and V.~\v{S}ver\'ak,
 \emph{On Leray's self-similar solutions of the Navier--Stokes equations},
 Acta Math. \textbf{176} (1996), 283--294.
+
+\bibitem{Paper0LocalConcentration}
+Guillem Cordero,
+\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
+Navier--Stokes},
+first-nodes Paper 0,
+\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
+
+\bibitem{Paper1TypeI}
+Type I Paper 1,
+\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes Equations
+and the Centered Ancient Equation},
+\texttt{docs/source/type\_1/paper1\_typeI\_blowup\_limits\_centered\_ancient.tex}.
+
+\bibitem{Paper3Minimal}
+G. Duran Ballester,
+\emph{Minimal Ancient Solutions for the Navier--Stokes Equations in
+Self-similar Variables},
+Type I Paper 3,
+\texttt{docs/source/type\_1/paper3\_minimal\_ancient\_solutions\_reduction.tex}.
+
+\bibitem{Paper5Equilibrium}
+G. Duran Ballester,
+\emph{A Conditional Equilibrium Criterion for Compact Ancient Navier--Stokes
+Dynamics},
+Type I Paper 5,
+\texttt{docs/source/type\_1/paper5\_equilibrium\_rigidity\_compact\_ancient\_dynamics.tex}.
+
+\bibitem{Paper6Structured}
+G. Duran Ballester,
+\emph{Ancient Navier--Stokes solutions under axisymmetry and decay},
+Type I Paper 6,
+\texttt{docs/source/type\_1/paper6\_structured\_bounded\_ancient\_solutions.tex}.
 
 \bibitem{Seregin2012}
 G. Seregin,

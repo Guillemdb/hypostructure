@@ -38,15 +38,17 @@
 \begin{document}
 
 \begin{abstract}
-We study bounded mild ancient solutions of the Navier--Stokes equations in
-backward self-similar variables.  We prove local regularity, compactness, and
-stability of the Leray pressure under a uniform \(L^\infty_\tau L^3_y\) bound.  We
-then show that any locally smooth time-translate limit which is stationary and
-arises from a uniformly \(L^3\)-tight ancient solution is identically zero.
-The proof uses the stationary self-similar theorem of Necas--Ruzicka--Sverak.
+We study bounded mild ancient solutions of the three-dimensional
+Navier--Stokes equations in backward self-similar variables.  We establish
+local regularity, compactness, and stability of the Leray pressure under a
+uniform \(L^\infty(\mathbb R_\tau;L^3(\mathbb R^3_y))\) bound.  We prove
+that any locally smooth time-translate limit which is stationary and arises
+from a uniformly \(L^3\)-tight ancient solution is identically zero.  The
+proof invokes the stationary self-similar rigidity theorem of
+Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}verak.
 We also prove a small-data Liouville theorem for bounded mild ancient
-solutions, using only the mild formulation and decay of the
-Ornstein--Uhlenbeck Stokes semigroup.
+solutions, using only the mild formulation and the decay of the
+Ornstein--Uhlenbeck--Stokes semigroup.
 \end{abstract}
 
 \maketitle
@@ -62,7 +64,7 @@ backward self-similar variables.  The velocity \(V\) and pressure \(P\) solve
    \qquad \operatorname{div} V=0
 \end{equation}
 on \(\mathbb R^3\times\mathbb R\).  This equation is the autonomous form obtained from the
-usual Navier--Stokes system by the change of variables
+physical Navier--Stokes system by the change of variables
 \[
    V(y,\tau)=\sqrt{-t}\,u(y\sqrt{-t},t),\qquad \tau=-\log(-t),
    \qquad t<0.
@@ -71,35 +73,57 @@ The drift term fixes the self-similar scale.  The remaining scaling action is
 translation in the logarithmic time variable \(\tau\).
 
 Throughout the paper repeated spatial indices are summed, and \(R_i\) denotes
-the \(i\)-th Riesz transform on \(\mathbb R^3\).  All differential equations
-are understood in the sense of distributions unless a stronger sense is
-explicitly stated.  Pressures are determined only modulo functions of time; a
-``gauge'' always means the choice of such a time-dependent additive function.
-Constants denoted by \(C\) may change from line to line, but their displayed
-dependencies are the only dependencies used in the argument.
+the \(i\)-th Riesz transform on \(\mathbb R^3\), with Fourier symbol
+\(i\xi_i/|\xi|\).  Thus \(R_iR_j\) has symbol
+\(-\xi_i\xi_j/|\xi|^2\), and
+\[
+   P=R_iR_j(F_{ij})
+   \quad\Longleftrightarrow\quad
+   -\Delta P=\partial_i\partial_jF_{ij}
+\]
+in distributions.  All differential equations are understood in the sense of
+distributions unless a stronger sense is explicitly stated.  Pressures are
+determined only modulo functions of time; a ``gauge'' always means the choice
+of such a time-dependent additive function.  Constants denoted by \(C\) may
+change from line to line, but their displayed dependencies are the only
+dependencies used in the argument.
 
-The purpose of this paper is not to solve the full ancient Liouville problem
-for \eqref{eq:centered}.  Instead we record two standard mechanisms which are
-available under additional compactness or smallness assumptions.
+This paper does not assert a full ancient Liouville theorem for
+\eqref{eq:centered}.  It isolates two conditional Liouville criteria which
+are available under additional compactness or smallness hypotheses.
 
-First, uniform tightness in \(L^3(\mathbb R^3)\) is enough to pass from local smooth
-convergence to a global \(L^3\) stationary self-similar profile.  The theorem
-of Necas, Ruzicka, and Sverak \cite{NRS1996} then forces the stationary limit
-to vanish.  Second, a bounded mild ancient solution with sufficiently small
-\(L^\infty(\mathbb R^3\times\mathbb R)\) norm is zero.  This follows directly from the mild
-formulation of \eqref{eq:centered} and the decay of the linear
-Ornstein--Uhlenbeck Stokes semigroup.
+First, uniform tightness in \(L^3(\mathbb R^3)\) permits one to pass from
+local smooth convergence to a global \(L^3\) stationary self-similar profile.
+The theorem of Ne\v{c}as, R\r{u}\v{z}i\v{c}ka, and \v{S}verak
+\cite{NRS1996} then implies that the stationary limit is zero.  Second, a
+bounded mild ancient solution with sufficiently small
+\(L^\infty(\mathbb R^3\times\mathbb R)\) norm is zero.  This follows from the
+mild formulation of \eqref{eq:centered} and the decay of the linear
+Ornstein--Uhlenbeck--Stokes semigroup.
 
 \subsection{Logical scope}
 
-The results below are intentionally separated by hypothesis.  The global
-source-level condition \(u\in L^\infty_tL^3_x\) is eliminated by the
-Escauriaza--Seregin--Sverak theorem before any ancient-profile classification
-is needed.  The small-amplitude ancient branch is eliminated by the mild
+The results below are separated according to their hypotheses.  The global
+source-level condition
+\(u\in L^\infty(0,T;L^3(\mathbb R^3))\) is ruled out by the
+Escauriaza--Seregin--\v{S}verak theorem before any ancient-profile classification
+is required.  The small-amplitude ancient regime is ruled out by the mild
 formula and the damping of the centered Stokes semigroup.  The stationary
-\(L^3\) branch is eliminated by the stationary self-similar theorem.  The
-uniformly \(L^3\)-tight time-dependent branch is not eliminated here unless an
+\(L^3\) regime is ruled out by the stationary self-similar theorem.  The
+uniformly \(L^3\)-tight time-dependent regime is not excluded here unless an
 additional argument produces a stationary limit.
+
+The source-level facts from the preceding papers in the series are used only
+as inputs.  The first-node paper proves pressure-normalized CKN concentration
+at singular points and the local Type I/Type II dichotomy
+\cite[Theorems ``Singular points carry positive local CKN
+concentration'' and ``Local blowup-rate dichotomy'']{Paper0LocalConcentration}.
+The preceding Type I paper proves that, after the admissible pressure gauges
+and scale selection, a Type I singular point produces a bounded centered
+ancient solution with the nonvanishing normalization
+\cite[Theorem ``Type I blow-up limit and centered ancient equation'' and
+Proposition ``Nonzero ancient limit'']{TypeIPaper1}.  Those concentration,
+gauge, compactness, and nontriviality conclusions are not reproved here.
 
 \subsection{Mild formulation}
 
@@ -123,6 +147,15 @@ side is
    \qquad a>0.
 \end{equation}
 The factor \(e^{-a/2}\) is the damping coming from the term \(-V/2\).
+Equivalently, \(S(a)=e^{aL}\), where
+\[
+   L=\Delta-\frac12y\cdot\nabla-\frac12 .
+\]
+The formula shows that \(S(a)\) maps bounded functions to bounded functions,
+preserves distributional divergence-free vector fields, and satisfies the
+semigroup law \(S(a)S(b)=S(a+b)\).  These facts follow from the change of
+variables representation of the Ornstein--Uhlenbeck heat kernel and the
+corresponding facts for the heat semigroup.
 
 \begin{definition}[Bounded mild ancient solution]\label{def:mild}
 A vector field \(V:\mathbb R^3\times\mathbb R\to\mathbb R^3\) is a bounded mild ancient solution of
@@ -147,11 +180,51 @@ as an identity in the weak-* topology of \(L^\infty(\mathbb R^3)\).  A pressure
 modulo functions of time.
 \end{definition}
 
+The weak-* formulation means that, for every
+\(\phi\in L^1(\mathbb R^3;\mathbb R^3)\), pairing \eqref{eq:mild} against
+\(\phi\) gives a scalar identity.  The Duhamel term is interpreted by duality:
+for compactly supported smooth \(\phi\) and \(s<\tau\),
+\[
+   \left\langle
+      S(\tau-s)\mathbb P\operatorname{div}(V\otimes V)(s),\phi
+   \right\rangle
+   =
+   \left\langle
+      V\otimes V(s),
+      (S(\tau-s)\mathbb P\operatorname{div})^*\phi
+   \right\rangle .
+\]
+For fixed \(\sigma<\tau\), \cref{lem:stokes-estimates} gives
+\[
+   \bigl|
+      \langle
+      S(\tau-s)\mathbb P\operatorname{div}(V\otimes V)(s),\phi
+      \rangle
+   \bigr|
+   \le
+   C\|V\|_{L^\infty}^2
+   e^{-(\tau-s)/2}(1-e^{-(\tau-s)})^{-1/2}\|\phi\|_{L^1},
+\]
+and the right-hand side is integrable for \(s\in(\sigma,\tau)\).  Hence the
+time integral in \eqref{eq:mild} is a well-defined weak-* integral in
+\(L^\infty(\mathbb R^3)\).  Once the integral has been represented by this
+bounded function, equality against compactly supported smooth tests extends
+by density of \(C_c^\infty(\mathbb R^3)\) in \(L^1(\mathbb R^3)\) to equality
+against all \(L^1\) tests.  Since \(L^\infty(\mathbb R^3)\) is identified
+with the dual of \(L^1(\mathbb R^3)\) modulo almost-everywhere equality, two
+bounded representatives which have the same pairing against every
+\(L^1\)-test agree almost everywhere.  Thus no pointwise pressure
+representative is used in the definition of mild solution.
+
 \begin{remark}
-The mild condition excludes parasitic pressure modes.  It is the natural
-pressure normalization for whole-space ancient limits produced from Leray
-solutions: the pressure is the Leray pressure, modulo functions of time, rather
-than an arbitrary local pressure with linear spatial parts.
+The mild condition fixes the whole-space pressure normalization and excludes
+the local pressure ambiguities which are invisible to the projected equation.
+For whole-space ancient limits obtained from Leray solutions, this is the
+Leray pressure, modulo functions of time, rather than an arbitrary local
+pressure with additional affine spatial components.  The invariance under
+time-dependent pressure gauges in the source suitable-weak setting is proved
+in the preceding Type I paper
+\cite[Lemma ``Pressure gauges do not change the equations'']{TypeIPaper1}.
 \end{remark}
 
 \subsection{Main results}
@@ -171,15 +244,22 @@ and, in addition,
 \]
 then the Leray pressures are stable under local limits.  More precisely, if
 \(P_n=R_iR_j(V_{n,i}V_{n,j})\) are the Leray pressures and
-\(V_n\to V\) locally uniformly, then \(V\in L^\infty_\tau L^3_y\), its Leray
-pressure \(P=R_iR_j(V_iV_j)\) is well defined, and on every compact cylinder
+\(V_n\to V\) locally uniformly, then
+\(V\in L^\infty(\mathbb R_\tau;L^3(\mathbb R^3_y))\), its Leray
+pressure satisfies
+\[
+   P=R_iR_j(V_iV_j)\in L^\infty(\mathbb R;L^{3/2}(\mathbb R^3)),
+\]
+and on every compact cylinder
 \(K=B_R\times[\tau_1,\tau_2]\) there are functions \(a_n(\tau)\) such that
 \[
    P_n-a_n(\tau)
    \rightharpoonup P
-   \quad\hbox{weakly in }L^q(K)
+   \quad\text{weakly in }L^q(K)
 \]
-for every \(1<q<\infty\), after passing to a subsequence.
+for every \(1<q<\infty\), after passing to a subsequence which may depend on
+the compact cylinder and on \(q\).  The functions \(a_n\) may be chosen
+measurable on \([\tau_1,\tau_2]\).
 \end{theorem}
 
 The second result records the invariance of the \(L^3\)-norm under the
@@ -208,7 +288,7 @@ satisfies
 \]
 \end{proposition}
 
-\begin{theorem}[Escauriaza--Seregin--Sverak critical \(L^3\) criterion]
+\begin{theorem}[Escauriaza--Seregin--\v{S}verak critical \(L^3\) criterion]
 \label{thm:ESS-L3}
 Let \((u,p)\) be a finite-energy suitable weak solution of the
 Navier--Stokes equations on \(\mathbb R^3\times(0,T)\).  If
@@ -219,27 +299,31 @@ then no point of \(\mathbb R^3\times\{T\}\) is singular.
 \end{theorem}
 
 \begin{proof}
-This is the endpoint regularity theorem of Escauriaza--Seregin--Sverak
-\cite{ESS2003}.  The statement is used here only in its standard
-contrapositive form: a finite-time singularity at time \(T\) forces
-\(\|u(t)\|_{L^3(\mathbb R^3)}\) to become unbounded as \(t\uparrow T\).
+This is the endpoint regularity theorem of Escauriaza--Seregin--\v{S}verak
+\cite{ESS2003}.  We use it only through the logically equivalent
+contrapositive: if a finite-time singularity occurs at time \(T\), then
+\(\|u(t)\|_{L^3(\mathbb R^3)}\) is unbounded as \(t\uparrow T\).
 \end{proof}
 
-\begin{corollary}[Source-level critical \(L^3\) branch is closed]
+\begin{corollary}[Exclusion of the source-level critical \(L^3\) regime]
 \label{cor:source-L3-branch}
 A finite-energy Type I singularity cannot occur for a suitable weak solution
 satisfying
 \[
    u\in L^\infty(0,T;L^3(\mathbb R^3)).
 \]
-Consequently the Seregin blow-up analysis of Type I singularities is needed
-only outside the global critical \(L^\infty_tL^3_x\) regime.
+Consequently the analysis of Type I blow-up limits is relevant only outside
+the global critical class \(L^\infty(0,T;L^3(\mathbb R^3))\).
 \end{corollary}
 
 \begin{proof}
-The asserted \(L^\infty_tL^3_x\) bound is exactly the hypothesis of
+The asserted \(L^\infty(0,T;L^3(\mathbb R^3))\) bound is exactly the hypothesis of
 \Cref{thm:ESS-L3}.  Hence there is no singular point at time \(T\), and in
-particular no Type I singular point.
+particular no Type I singular point.  Thus the local concentration and
+Type I/Type II alternatives of the first-node paper are never reached under
+this global critical assumption
+\cite[Theorems ``Singular points carry positive local CKN concentration'' and
+``Local blowup-rate dichotomy'']{Paper0LocalConcentration}.
 \end{proof}
 
 \begin{theorem}[Small bounded ancient solutions vanish]\label{thm:small}
@@ -296,7 +380,7 @@ Every nonzero bounded mild ancient solution of \eqref{eq:centered} satisfies
 where \(\varepsilon_0\) is the constant in \cref{thm:small}.
 \end{corollary}
 
-\begin{corollary}[Unconditional small-amplitude exclusion]\label{cor:small-branch}
+\begin{corollary}[Exclusion of the small-amplitude ancient regime]\label{cor:small-branch}
 Let \(V\) be a bounded mild ancient solution of \eqref{eq:centered}.  If
 \[
    \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le\varepsilon_0,
@@ -310,12 +394,21 @@ to this small-amplitude class.
 \end{corollary}
 
 \begin{proof}
-The first assertion is exactly \cref{thm:small}.  A nonzero Type I ancient
-limit has a nonvanishing normalization inherited from the blow-up construction,
-so it cannot be identically zero.
+The first assertion is exactly \cref{thm:small}.  The final sentence concerns
+only ancient limits obtained from a source-level Type I singular point.  In
+that setting the nonvanishing normalization is not an extra assumption of this
+paper: it is the output of the scale-selection and pressure-compactness
+construction in the preceding Type I paper, which itself invokes the
+pressure-normalized CKN concentration theorem from the first-node paper
+\cite[Theorem ``Singular points carry positive local CKN
+concentration'']{Paper0LocalConcentration}
+\cite[Proposition ``Nonzero ancient limit'' and Theorem ``Type I blow-up limit
+and centered ancient equation'']{TypeIPaper1}.  Therefore a Type I ancient
+limit produced by that construction cannot both be nonzero in the cited
+normalization and vanish by the small-amplitude theorem.
 \end{proof}
 
-\begin{corollary}[Unconditional stationary \(L^3\) exclusion]\label{cor:stationary-L3-branch}
+\begin{corollary}[Exclusion of the stationary \(L^3\) ancient regime]\label{cor:stationary-L3-branch}
 Let \(V\) be a bounded mild ancient solution of \eqref{eq:centered}.  Suppose
 that \(V\) is stationary, \(V(y,\tau)=W(y)\), and
 \[
@@ -330,16 +423,70 @@ stationary and globally \(L^3\).
 \end{corollary}
 
 \begin{proof}
-Substituting \(V(y,\tau)=W(y)\) into \eqref{eq:centered} gives the stationary
-self-similar equation \eqref{eq:stationary-profile}.  Since
-\(W\in L^3(\mathbb R^3)\), \cref{thm:NRS} gives \(W\equiv0\).  The final
-claim again follows from the nonvanishing normalization of a nonzero Type I
-ancient limit.
+By \cref{thm:gauges}, \(V\) is smooth.  Since it is independent of \(\tau\),
+\(\partial_\tau V=0\) in \(\mathcal D'(\mathbb R^3\times\mathbb R)\).  By
+\cref{lem:mild-to-projected}, the mild formulation implies the projected
+stationary equation
+\[
+   0
+   =
+   \Delta W-\frac12y\cdot\nabla W-\frac12W
+   -\mathbb P\operatorname{div}(W\otimes W).
+\]
+The assumption \(W\in L^3\) implies
+\(W_iW_j\in L^{3/2}(\mathbb R^3)\).  Since the Riesz transforms are bounded
+on \(L^{3/2}(\mathbb R^3)\) \cite{Stein1970}, the Leray pressure
+\[
+   P=R_iR_j(W_iW_j)
+\]
+belongs to \(L^{3/2}(\mathbb R^3)\).  The whole-space Helmholtz decomposition
+in \(\mathcal D'(\mathbb R^3)\) \cite{Sohr2001,Galdi2011} gives
+\[
+   (I-\mathbb P)\operatorname{div}(W\otimes W)=-\nabla P .
+\]
+Equivalently,
+\[
+   \mathbb P\operatorname{div}(W\otimes W)
+   =
+   \operatorname{div}(W\otimes W)+\nabla P .
+\]
+Substituting this identity into the projected equation gives
+\[
+   \operatorname{div}(W\otimes W)+\nabla P
+   =
+   \Delta W-\frac12(W+y\cdot\nabla W)
+\]
+in \(\mathcal D'(\mathbb R^3)\).  Since \(\operatorname{div}W=0\),
+\[
+   \operatorname{div}(W\otimes W)_i
+   =
+   \partial_j(W_iW_j)
+   =
+   W_j\partial_jW_i+W_i\partial_jW_j
+   =
+   (W\cdot\nabla)W_i .
+\]
+Thus \eqref{eq:stationary-profile} holds in \(\mathcal D'(\mathbb R^3)\), and
+\cref{thm:NRS} gives \(W\equiv0\).  The final claim is then a direct
+comparison with the nonvanishing normalization supplied by the Type I blow-up
+limit theorem in the preceding paper, ultimately based on the positive local
+CKN concentration theorem at the singular point
+\cite[Theorem ``Singular points carry positive local CKN
+concentration'']{Paper0LocalConcentration}
+\cite[Theorem ``Type I blow-up limit and centered ancient equation'' and
+Proposition ``Nonzero ancient limit'']{TypeIPaper1}.  No additional
+normalization or compactness assumption is introduced in this corollary.
 \end{proof}
 
 \section{Pressure estimates and compactness}
 
-We first record the local pressure estimates used below.
+We first record the local pressure estimates used below.  The invariance of
+time-dependent pressure gauges for source suitable weak solutions and their
+parabolic rescalings is part of the preceding Type I construction
+\cite[Lemma ``Pressure gauges do not change the equations'' and Lemma
+``Pressure gauges and local pressure bounds'']{TypeIPaper1}.  The lemmas in
+this section are the whole-space Leray-pressure and smooth-ancient-profile
+estimates needed for the conditional arguments of the present paper.
 
 \begin{lemma}[Local pressure decomposition]\label{lem:pressure-decomp}
 Let \(V\) be bounded on \(B_{4R}\times[\tau_1,\tau_2]\), and let
@@ -347,14 +494,16 @@ Let \(V\) be bounded on \(B_{4R}\times[\tau_1,\tau_2]\), and let
 \[
    -\Delta P=\partial_i\partial_j(V_iV_j)
 \]
-in distributions.  Then there is a function \(a(\tau)\) such that, for every
-\(1<q<\infty\),
+in \(\mathcal D'(B_{4R}\times(\tau_1,\tau_2))\).  Then there is a measurable
+function \(a:(\tau_1,\tau_2)\to\mathbb R\) such that,
+for every \(1<q<\infty\) and almost every \(\tau\in[\tau_1,\tau_2]\),
 \[
-   \|P-a(\tau)\|_{L^q(B_R\times[\tau_1,\tau_2])}
-   \le C(q,R,\tau_1,\tau_2)\|V\|_{L^\infty(B_{4R}\times[\tau_1,\tau_2])}^2
-   +C(q,R,\tau_1,\tau_2)\|P\|_{L^1(B_{4R}\times[\tau_1,\tau_2])}.
+   \|P(\tau)-a(\tau)\|_{L^q(B_R)}
+   \le C(q,R)\|V(\tau)\|_{L^\infty(B_{4R})}^2
+   +C(q,R)\|P(\tau)\|_{L^1(B_{4R})}.
 \]
-If \(P\) is the whole-space Leray pressure and \(V\in L^\infty_\tau L^3_y\),
+If \(P\) is the whole-space Leray pressure and
+\(V\in L^\infty(\mathbb R_\tau;L^3(\mathbb R^3_y))\),
 then, after choosing the Leray gauge,
 \[
    \|P-a(\tau)\|_{L^q(B_R\times[\tau_1,\tau_2])}
@@ -364,68 +513,105 @@ then, after choosing the Leray gauge,
       +\sup_{\tau\in\mathbb R}\|V(\tau)\|_{L^3(\mathbb R^3)}^2
       \right).
 \]
+Here the spacetime norm is taken with the representative
+\((y,\tau)\mapsto P(y,\tau)-a(\tau)\).
 \end{lemma}
 
 \begin{proof}
-It is enough to argue for almost every fixed \(\tau\), with constants
-independent of that \(\tau\), and then integrate in time.  Choose
+For the first assertion it is enough to argue for almost every fixed
+\(\tau\), with constants independent of that \(\tau\).  Indeed, testing the
+spacetime distributional equation against products
+\(\zeta(\tau)\varphi(y)\) and applying Fubini shows that, for every
+\(\varphi\in C_c^\infty(B_{4R})\), the scalar identity
+\[
+   \int_{B_{4R}}P(y,\tau)(-\Delta\varphi)(y)\,dy
+   =
+   \int_{B_{4R}}V_i(y,\tau)V_j(y,\tau)\partial_i\partial_j\varphi(y)\,dy
+\]
+holds for almost every \(\tau\).  Applying this first to a countable dense
+set of test functions in \(C_c^\infty(B_{4R})\), and then using continuity of
+the two sides with respect to the usual test-function topology, gives a
+single null set outside which
+\[
+   -\Delta P(\cdot,\tau)
+   =
+   \partial_i\partial_j(V_iV_j)(\cdot,\tau)
+   \quad\text{in }\mathcal D'(B_{4R})
+\]
+for every test function.  Choose
 \(\chi\in C_c^\infty(B_{4R})\) with \(\chi\equiv1\) on \(B_{3R}\), and set
 \[
-   q=(-\Delta)^{-1}\partial_i\partial_j(\chi V_iV_j).
+   \pi_{\mathrm{loc}}
+   =
+   (-\Delta)^{-1}\partial_i\partial_j(\chi V_iV_j).
 \]
-The inverse Laplacian is the whole-space Newtonian potential, so \(q\) is
-defined as a singular integral of the compactly supported function
+The inverse Laplacian is the whole-space Newtonian potential, so
+\(\pi_{\mathrm{loc}}\) is defined as a singular integral of the compactly
+supported function
 \(\chi V_iV_j\).  Since \(V\) is bounded on \(B_{4R}\), this compactly
 supported product belongs to \(L^q(\mathbb R^3)\) for every
-\(1<q<\infty\).  The Calderon--Zygmund theorem gives
+\(1<q<\infty\).  The Calder\'on--Zygmund theorem \cite{Stein1970} gives
 \[
-   \|q\|_{L^q(\mathbb R^3)}
+   \|\pi_{\mathrm{loc}}\|_{L^q(\mathbb R^3)}
    \le C(q)\|\chi V_iV_j\|_{L^q(\mathbb R^3)}
    \le C(q,R)\|V\|_{L^\infty(B_{4R})}^2 .
 \]
 In \(B_{3R}\) we have
 \[
-   -\Delta(P-q)
+   -\Delta(P-\pi_{\mathrm{loc}})
    =
    \partial_i\partial_j(V_iV_j)-\partial_i\partial_j(\chi V_iV_j)=0
 \]
-in distributions, because \(\chi\equiv1\) on \(B_{3R}\).  Weyl's lemma then
-implies that \(h=P-q\) is harmonic in \(B_{3R}\).  Define
+in \(\mathcal D'(B_{3R})\), because \(\chi\equiv1\) on \(B_{3R}\).  Weyl's lemma then
+implies that \(h=P-\pi_{\mathrm{loc}}\) is harmonic in \(B_{3R}\); this is
+the interior elliptic regularity implication for the Laplacian, see for
+instance \cite{GilbargTrudinger2001}.  Define
 \[
    a(\tau)=(h)_{B_{2R}}(\tau)
    =|B_{2R}|^{-1}\int_{B_{2R}}h(y,\tau)\,dy .
 \]
-The mean value property and standard interior estimates for harmonic
-functions give
+The mean value property and interior estimates for harmonic functions give
 \[
    \|h-a(\tau)\|_{L^q(B_R)}
    \le C(R,q)\|h-a(\tau)\|_{L^1(B_{2R})}.
 \]
-Poincare's inequality may be applied to \(h\), or equivalently one subtracts
-the mean in the previous display, to obtain
+Since \(a(\tau)\) is the mean of \(h\) on \(B_{2R}\),
+\[
+   \|h-a(\tau)\|_{L^1(B_{2R})}
+   \le
+   \|h\|_{L^1(B_{2R})}
+   +|B_{2R}|\, |(h)_{B_{2R}}|
+   \le 2\|h\|_{L^1(B_{2R})}.
+\]
+Therefore
 \[
    \|h-a(\tau)\|_{L^q(B_R)}
    \le C(R,q)\|h\|_{L^1(B_{2R})}.
 \]
-Since \(h=P-q\), the last two estimates imply
+Since \(h=P-\pi_{\mathrm{loc}}\), the last two estimates imply
 \[
    \|P-a(\tau)\|_{L^q(B_R)}
    \le C(R,q)\|P\|_{L^1(B_{2R})}
-      +C(R,q)\|q\|_{L^1(B_{2R})}
-      +C(R,q)\|q\|_{L^q(B_R)} .
+      +C(R,q)\|\pi_{\mathrm{loc}}\|_{L^1(B_{2R})}
+      +C(R,q)\|\pi_{\mathrm{loc}}\|_{L^q(B_R)} .
 \]
-The \(q\)-terms are bounded by the Calderon--Zygmund estimate above, and
-integration over \([\tau_1,\tau_2]\) gives the first assertion.  The function
-\(a\) is measurable because it is obtained by integrating the locally
-integrable function \(h=P-q\) over \(B_{2R}\).
+The \(\pi_{\mathrm{loc}}\)-terms are bounded by the Calder\'on--Zygmund
+estimate above, and this gives the pointwise-in-time local pressure estimate.
+The function \(a\) is measurable because it is obtained by integrating the
+locally integrable function \(h=P-\pi_{\mathrm{loc}}\) over \(B_{2R}\).
 
 Assume now that \(P=R_iR_j(V_iV_j)\) is the Leray pressure and
-\(M_3=\sup_\tau\|V(\tau)\|_{L^3}<\infty\).  We spell out the gauge because this
-is where the nonlocal pressure tail enters.  Let \(K_{ij}\) be the homogeneous
+\[
+   M_3=\sup_{\tau\in\mathbb R}\|V(\tau)\|_{L^3(\mathbb R^3)}<\infty .
+\]
+We spell out the gauge because this is where the nonlocal pressure tail
+enters.  Let \(K_{ij}\) be the homogeneous
 degree \(-3\) kernel of \(R_iR_j\), interpreted in the principal value sense.
-The local part \(R_iR_j(\chi V_iV_j)\) is controlled exactly as above.  For
-the exterior part we subtract a constant in \(x\).  The kernel is smooth away
-from the origin and satisfies, for
+The singular-integral facts used here are the Riesz-transform
+Calder\'on--Zygmund bounds \cite{Stein1970}.  The local part
+\(R_iR_j(\chi V_iV_j)\) is controlled exactly as above.  For the exterior part
+we subtract a constant in \(x\).  The kernel is smooth away from the origin
+and satisfies, for
 \(x\in B_R\) and \(|z|>4R\),
 \[
    |K_{ij}(x-z)-K_{ij}(-z)|\le CR|z|^{-4}.
@@ -434,7 +620,7 @@ On the dyadic annulus
 \[
    A_m=\{2^mR<|z|<2^{m+1}R\},\qquad m\ge2,
 \]
-Holder's inequality gives
+H\"older's inequality gives
 \[
    \int_{A_m}|V(z,\tau)|^2\,dz
    \le
@@ -451,7 +637,7 @@ Consequently
 \]
 uniformly in \(\tau\).  This gives a bounded far-field contribution modulo
 the chosen constant, with a bound depending only on \(M_3\).  Combining the
-near-field Calderon--Zygmund estimate and this dyadic exterior estimate gives
+near-field Calder\'on--Zygmund estimate and this dyadic exterior estimate gives
 the stated Leray-gauge bound on \(B_R\times[\tau_1,\tau_2]\).
 \end{proof}
 
@@ -475,8 +661,74 @@ define
 \[
    U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)).
 \]
-The change of variables transforms \eqref{eq:centered} and its Duhamel
-formula into the usual mild Navier--Stokes equation for \(U\).  Moreover
+The map
+\[
+   (x,t)\longmapsto (y,\tau)=\left(x/\sqrt{-t},-\log(-t)\right)
+\]
+is a \(C^\infty\) diffeomorphism from
+\(\mathbb R^3\times t(J)\) onto \(\mathbb R^3\times J\).  Its spatial
+Jacobian at fixed time is \((-t)^{-3/2}\), and all derivatives of the map and
+of its inverse are bounded on compact subcylinders because \(t(J)\Subset
+(-\infty,0)\).
+We first justify that \(U\) is a bounded mild Navier--Stokes solution on
+\(\mathbb R^3\times t(J)\).  If
+\[
+   x=\sqrt{-t}\,y,\qquad t=-e^{-\tau},
+\]
+then \(d\tau/dt=-1/t\) and
+\[
+   \partial_t U
+   =
+   (-t)^{-3/2}
+   \left(
+      \partial_\tau V
+      +\frac12V+\frac12y\cdot\nabla_yV
+   \right),
+   \quad
+   \Delta_xU=(-t)^{-3/2}\Delta_yV,
+\]
+while
+\[
+   (U\cdot\nabla_x)U=(-t)^{-3/2}(V\cdot\nabla_y)V .
+\]
+The pressure transforms as
+\[
+   p(x,t)=(-t)^{-1}P(x/\sqrt{-t},-\log(-t)).
+\]
+Consequently
+\[
+   \nabla_xp=(-t)^{-3/2}\nabla_yP,
+   \qquad
+   \operatorname{div}_xU=(-t)^{-1}\operatorname{div}_yV .
+\]
+Substituting these identities in \eqref{eq:centered} gives
+\[
+   \partial_tU+(U\cdot\nabla)U+\nabla p=\Delta U,
+   \qquad \operatorname{div}U=0,
+\]
+in \(\mathcal D'(\mathbb R^3\times t(J))\).  This distributional statement
+is obtained by testing against compactly supported functions in
+\((x,t)\), pulling the tests back by the above diffeomorphism, and using the
+displayed Jacobian; no boundary term occurs because the tests are compactly
+supported in the open time interval \(t(J)\).  Moreover, for
+\(t_1<t_2\) in \(t(J)\), the corresponding logarithmic times
+\(\tau_i=-\log(-t_i)\) satisfy \(\tau_1<\tau_2\), and testing the weak-*
+Duhamel formula \eqref{eq:mild} against the rescaled function
+\((-t_2)^{-3/2}\phi(\cdot/\sqrt{-t_2})\) gives, after the change of
+variables \(x=\sqrt{-t}\,y\), the usual heat-kernel Duhamel formula
+\[
+   U(t_2)=e^{(t_2-t_1)\Delta}U(t_1)
+   -\int_{t_1}^{t_2}
+      e^{(t_2-s)\Delta}\mathbb P\operatorname{div}(U\otimes U)(s)\,ds
+\]
+in weak-* \(L^\infty(\mathbb R^3)\).  The covariance of the Leray projection
+under translations and dilations is used here through its Fourier multiplier
+symbol
+\(\delta_{ij}-\xi_i\xi_j/|\xi|^2\), which is homogeneous of degree zero.
+Thus \(U\) is a bounded mild Navier--Stokes solution on every compact
+subinterval of \(t(J)\).  On \(J\), the quantities \((-t)^{1/2}\) and
+\((-t)^{-1/2}\) are bounded above and below by positive constants depending
+only on \(J\).  Hence
 \[
    \|U\|_{L^\infty(\mathbb R^3\times t(J))}
    \le
@@ -484,11 +736,131 @@ formula into the usual mild Navier--Stokes equation for \(U\).  Moreover
 \]
 The interior smoothing theorem for bounded mild Navier--Stokes solutions,
 in the form of Kato \cite{Kato1984} and Giga--Miyakawa
-\cite{GigaMiyakawa1985}, gives bounds for all derivatives of \(U\) on compact
-subcylinders of \(\mathbb R^3\times t(J)\), with constants depending only on the
-displayed bound and the parabolic distance to the ends of \(t(J)\).  Returning
-to \((y,\tau)\) gives the asserted estimates for \(V\).  The same argument
-applies uniformly to any family with a common \(L^\infty\) bound.
+\cite{GigaMiyakawa1985}, followed by the local parabolic bootstrap
+for the Stokes system \cite{Ladyzhenskaya1968,Sohr2001}, gives bounds for all
+spatial and time derivatives of \(U\) on compact subcylinders of
+\(\mathbb R^3\times t(J)\).  The constants depend only on the displayed
+bound, the compact cylinder, and the parabolic distance to the ends of
+\(t(J)\).  The derivatives of the map
+\((y,\tau)\mapsto(x,t)=(y\sqrt{-t},-e^{-\tau})\) are bounded on the chosen
+compact cylinder, with bounds depending only on \(J\) and the spatial size of
+the cylinder.  Returning to \((y,\tau)\) therefore gives the asserted
+estimates for \(V\).  The same argument applies uniformly to any family with
+a common \(L^\infty\) bound.
+\end{proof}
+
+\begin{lemma}[From mild to projected distributional form]\label{lem:mild-to-projected}
+Let \(V\) be a bounded mild solution of \eqref{eq:centered} on
+\(\mathbb R^3\times(\tau_0,\tau_1)\).  If \(V\) is smooth on this cylinder,
+then \(V\) satisfies \eqref{eq:projected} in
+\(\mathcal D'(\mathbb R^3\times(\tau_0,\tau_1))\).
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+   L=\Delta-\frac12y\cdot\nabla-\frac12,
+   \qquad
+   N(\tau)=\mathbb P\operatorname{div}(V\otimes V)(\tau).
+\]
+The semigroup \(S(a)\) is generated by \(L\) on test functions and, by
+duality, on the \(L^\infty\)-weak-* side.  This is the differentiation
+theorem for \(C_0\)-semigroups applied to compactly supported smooth tests
+\cite{Pazy1983}.  Fix
+\(\phi\in C_c^\infty(\mathbb R^3;\mathbb R^3)\) and
+\(\tau\in(\tau_0,\tau_1)\).  For \(h>0\) small enough that
+\(\tau+h<\tau_1\), the mild formula on \([\tau,\tau+h]\) gives
+\[
+   V(\tau+h)-V(\tau)
+   =
+   (S(h)-I)V(\tau)
+   -
+   \int_0^h S(h-s)N(\tau+s)\,ds .
+\]
+Pair this identity with \(\phi\) and divide by \(h\).  For the linear term,
+\[
+   \frac1h\langle (S(h)-I)V(\tau),\phi\rangle
+   =
+   \left\langle V(\tau),\frac{S(h)^*\phi-\phi}{h}\right\rangle
+   \to
+   \langle V(\tau),L^*\phi\rangle
+   =
+   \langle LV(\tau),\phi\rangle ,
+\]
+where the last equality follows by integration by parts, justified because
+\(\phi\) is compactly supported and \(V(\tau)\) is smooth.  For the Duhamel
+term put \(F=V\otimes V\).  By definition of \(N\),
+\[
+   \langle S(h-s)N(\tau+s),\phi\rangle
+   =
+   \langle F(\tau+s),
+      (S(h-s)\mathbb P\operatorname{div})^*\phi\rangle .
+\]
+For fixed \(\phi\in C_c^\infty\), the Oseen-kernel representation and the
+Riesz-transform bounds imply
+\[
+   (S(r)\mathbb P\operatorname{div})^*\phi
+   \to
+   (\mathbb P\operatorname{div})^*\phi
+   \quad\text{in }L^1(\mathbb R^3)
+   \qquad (r\downarrow0),
+\]
+and the same family is bounded in \(L^1\) for \(0\le r\le h_0\), with \(h_0\)
+fixed.  The convergence in \(L^1\) also implies uniform tightness of this
+family in \(L^1\) for small \(r\).  This is the strong continuity of the
+regularized Stokes kernel on smooth test data \cite{Stein1970,Sohr2001}.
+To see explicitly why the limiting adjoint is integrable, use that
+\(\mathbb P\) is self-adjoint on \(L^2\) and commutes with derivatives.  For
+matrix fields \(F\),
+\[
+   \langle \mathbb P\operatorname{div}F,\phi\rangle
+   =
+   -\int_{\mathbb R^3}F_{ij}\,
+      \partial_j(\mathbb P\phi)_i\,dy .
+\]
+Hence
+\[
+   (\mathbb P\operatorname{div})^*\phi
+   =
+   -\nabla(\mathbb P\phi).
+\]
+Since \(\phi\) is compactly supported and smooth, the local part is smooth and
+compactly supported, while the nonlocal Riesz part has kernel derivatives
+decaying like \(|y|^{-4}\).  This decay is integrable in three dimensions,
+so \((\mathbb P\operatorname{div})^*\phi\in L^1(\mathbb R^3)\).
+Since \(F\) is bounded and smooth, \(F(\tau+s)\to F(\tau)\) locally uniformly
+and pointwise as \(s\to0\).  We spell out the limiting argument.  Let
+\(\varepsilon>0\).  By the uniform \(L^1\)-tightness of
+\((S(r)\mathbb P\operatorname{div})^*\phi\), choose \(R\) so large that the
+\(L^1(\mathbb R^3\setminus B_R)\)-norm of every member of the family, and of
+the limit \((\mathbb P\operatorname{div})^*\phi\), is at most
+\(\varepsilon/(1+\|F\|_{L^\infty})\).  On \(B_R\), local uniform convergence
+of \(F(\tau+s)\) and strong \(L^1\)-convergence of the adjoint kernels give
+convergence of the pairings.  The exterior part is bounded by
+\(C\|F\|_{L^\infty}\varepsilon\), uniformly for small \(s\) and \(r\).  Hence
+the integrand converges to
+\(\langle N(\tau),\phi\rangle\), and it is bounded by an integrable constant
+on \(0<s<h\) for \(h<h_0\).  Averaging over \(s\in(0,h)\) therefore preserves
+the limit as \(h\downarrow0\).
+Therefore
+\[
+   \frac1h\int_0^h
+      \langle N(\tau+s),S(h-s)^*\phi\rangle\,ds
+   \to
+   \langle N(\tau),\phi\rangle .
+\]
+The left-hand side converges to
+\(\langle\partial_\tau V(\tau),\phi\rangle\) because \(V\) is smooth in
+\(\tau\).  Thus
+\[
+   \langle\partial_\tau V(\tau),\phi\rangle
+   =
+   \langle LV(\tau),\phi\rangle-\langle N(\tau),\phi\rangle
+\]
+for every compactly supported smooth \(\phi\) and every
+\(\tau\in(\tau_0,\tau_1)\).  Multiplying by a scalar test function of time and
+integrating in \(\tau\) gives \eqref{eq:projected} in
+\(\mathcal D'(\mathbb R^3\times(\tau_0,\tau_1))\).
 \end{proof}
 
 \begin{lemma}[Local smooth compactness]\label{lem:smooth-compactness}
@@ -503,10 +875,34 @@ solution \(V\).
 
 \begin{proof}
 \Cref{lem:mild-smoothing} gives uniform \(C^m\)-bounds on every compact
-cylinder, for every \(m\).  Arzela--Ascoli and a diagonal argument yield local
-\(C^m\) convergence along a subsequence for every \(m\).
+cylinder, for every \(m\).  Choose an exhaustion
+\[
+   Q_\ell=B_\ell\times[-\ell,\ell],\qquad \ell=1,2,\dots .
+\]
+For fixed \(\ell\) and \(m\), the uniform \(C^{m+1}(Q_{\ell+1})\)-bound gives
+equicontinuity of all derivatives of order at most \(m\) on \(Q_\ell\).
+Arzel\`a--Ascoli gives a subsequence converging in \(C^m(Q_\ell)\).  Extracting
+successively over the countable pairs \((\ell,m)\) and taking the diagonal
+subsequence yields convergence in \(C^m_{\mathrm{loc}}\) for every \(m\).
+The limit satisfies
+\[
+   \|V\|_{L^\infty(\mathbb R^3\times\mathbb R)}\le M
+\]
+by pointwise convergence on compact subsets.  It is also divergence free in
+the sense of distributions: for every
+\(\varphi\in C_c^\infty(\mathbb R^3\times\mathbb R)\),
+\[
+   \langle \operatorname{div}V,\varphi\rangle
+   =
+   -\int V\cdot\nabla\varphi
+   =
+   -\lim_{n\to\infty}\int V_n\cdot\nabla\varphi
+   =
+   0,
+\]
+because \(\operatorname{div}V_n=0\) distributionally.
 
-It remains to justify that the global mild formulation is closed under this
+It remains to verify that the global mild formulation is closed under this
 convergence.  Fix \(\sigma<\tau\).  For every \(\phi\in L^1(\mathbb R^3)\), local
 uniform convergence, the common \(L^\infty\) bound, and approximation of
 \(\phi\) by compactly supported functions give
@@ -561,12 +957,34 @@ Smoothness follows directly from \cref{lem:mild-smoothing}.  For each fixed
    =
    \lim_{n\to\infty}\int_{B_R}|V_n(y,\tau)|^3\,dy
 \]
-for every \(R<\infty\).  Letting \(R\to\infty\) shows that \(V\in
-L^\infty_\tau L^3_y\).  The same smoothing lemma and the uniqueness of the
-locally uniform limit imply, after passing to a subsequence, that
-\(V_n\to V\) locally smoothly.
+for every \(R<\infty\).  Letting \(R\to\infty\) shows that
+\(V\in L^\infty(\mathbb R_\tau;L^3(\mathbb R^3_y))\).  More explicitly, if
+\[
+   M_3=\sup_n\sup_{\tau\in\mathbb R}\|V_n(\tau)\|_{L^3},
+\]
+then monotone convergence in \(R\) yields
+\[
+   \|V(\tau)\|_{L^3}^3
+   =
+   \sup_{R<\infty}\int_{B_R}|V(y,\tau)|^3\,dy
+   \le M_3^3
+\]
+for every \(\tau\).  The same smoothing lemma and the uniqueness of the
+locally uniform limit imply, after passing to a subsequence if necessary, that
+\(V_n\to V\) locally smoothly.  Indeed, any subsequence of \(\{V_n\}\) has a
+further subsequence converging in \(C^m_{\mathrm{loc}}\), for every \(m\), by
+\cref{lem:smooth-compactness}; its \(C^0_{\mathrm{loc}}\)-limit must be the
+given locally uniform limit \(V\).  Thus the subsequence used below may be
+chosen so that the convergence is locally smooth.
+Since \(V_iV_j\in L^\infty(\mathbb R;L^{3/2}(\mathbb R^3))\), the
+Calder\'on--Zygmund boundedness of the Riesz transforms on \(L^{3/2}\)
+\cite{Stein1970} defines
+\[
+   P=R_iR_j(V_iV_j)
+   \in L^\infty(\mathbb R;L^{3/2}(\mathbb R^3)).
+\]
 
-It remains to identify the pressure limit in the Leray gauge.  Fix
+We now identify the pressure limit in the Leray gauge.  Fix
 \(B_R\times I\).  Let \(K_{ij}\) be the kernel of \(R_iR_j\), and choose
 \(\eta_R\in C^\infty(\mathbb R^3)\) with \(\eta_R=0\) on \(B_{2R}\) and
 \(\eta_R=1\) on \(\mathbb R^3\setminus B_{4R}\).  Set
@@ -575,13 +993,21 @@ It remains to identify the pressure limit in the Leray gauge.  Fix
              V_{n,i}(z,\tau)V_{n,j}(z,\tau)\,dz
 \]
 and define \(b(\tau)\) analogously with \(V\).  These integrals converge
-absolutely, since on each dyadic annulus
+absolutely and uniformly in \(n,\tau\), since on each dyadic annulus
+\(A_\rho=\{\rho<|z|<2\rho\}\)
 \[
    \int_{A_\rho}|z|^{-3}|V_n(z,\tau)|^2\,dz
-   \le C M_3^2\rho^{-2},
-   \qquad
-   M_3=\sup_n\sup_\tau\|V_n(\tau)\|_{L^3}.
+   \le
+   C\rho^{-3}\|V_n(\tau)\|_{L^3(A_\rho)}^2 |A_\rho|^{1/3}
+   \le C M_3^2\rho^{-2}.
 \]
+The integrands are measurable in \(\tau\), and the preceding summable
+majorant is independent of \(\tau\); hence \(b_n\) and \(b\) are measurable
+functions on \(I\).  Consequently the gauges
+\[
+   a_n(\tau)=b_n(\tau)-b(\tau)
+\]
+are measurable.
 For \(x\in B_R\), the gauged pressure is represented by
 \[
    P_n(x,\tau)-b_n(\tau)
@@ -590,51 +1016,92 @@ For \(x\in B_R\), the gauged pressure is represented by
    \bigl(K_{ij}(x-z)-\eta_R(z)K_{ij}(-z)\bigr)
    V_{n,i}(z,\tau)V_{n,j}(z,\tau)\,dz .
 \]
-The part with \(|z|\le L\) converges strongly in
-\(L^q(B_R\times I)\), \(1<q<\infty\), by local smooth convergence and
-Calderon--Zygmund boundedness.  The tail is uniform in \(n\).  Indeed, for
-\(L>4R\),
+This is the principal-value definition of \(R_iR_j\), with the subtracted
+term \(b_n(\tau)\) removing only a spatially constant far-field piece;
+subtracting such a constant does not change the pressure gradient.
+
+Fix \(L>4R\).  Choose \(\chi_L\in C_c^\infty(B_{2L})\) with
+\(\chi_L\equiv1\) on \(B_L\).  Split the gauged pressure into the part with
+factor \(\chi_L(z)\) and the remaining exterior part.  On the bounded set
+\(B_{2L}\times I\), local smooth convergence implies
+\[
+   V_{n,i}V_{n,j}\to V_iV_j
+   \quad\text{strongly in }L^q(B_{2L}\times I)
+\]
+for every finite \(q\).  The truncated principal value operator is a
+Calder\'on--Zygmund operator applied to \(\chi_L V_{n,i}V_{n,j}\), followed
+by restriction to \(B_R\), plus the smooth subtraction operator with kernel
+\(\eta_R(z)K_{ij}(-z)\chi_L(z)\).  This subtraction kernel is smooth and
+compactly supported because \(\chi_L\) is compactly supported and
+\(\eta_R=0\) on \(B_{2R}\), away from the singularity of \(K_{ij}(-z)\) at
+the origin.  Calder\'on--Zygmund boundedness on \(L^q\),
+\(1<q<\infty\), and Young's inequality for this smooth compactly supported
+kernel therefore show that the contribution with factor \(\chi_L\)
+converges strongly in \(L^q(B_R\times I)\) for every \(1<q<\infty\).
+
+The exterior contribution is uniform in \(n\).  On the support of
+\(1-\chi_L\) one has \(|z|>L\), and for \(x\in B_R\)
 \[
    |K_{ij}(x-z)-K_{ij}(-z)|\le C_R|z|^{-4},
-   \qquad x\in B_R,\quad |z|>L,
 \]
 and therefore
 \[
-   \sup_{n,\tau}\sup_{x\in B_R}
-   \left|
-      \int_{|z|>L}[K_{ij}(x-z)-K_{ij}(-z)]
-      V_{n,i}V_{n,j}(z,\tau)\,dz
-   \right|
-   \le C_R M_3^2 L^{-3}.
+\begin{aligned}
+   &\sup_{n,\tau}\sup_{x\in B_R}
+      \left|
+         \int_{|z|>L}[K_{ij}(x-z)-K_{ij}(-z)]
+         V_{n,i}V_{n,j}(z,\tau)\,dz
+      \right| \\
+   &\le
+   C_R\sum_{m=0}^\infty (2^mL)^{-4}
+      \int_{2^mL<|z|<2^{m+1}L}|V_n(z,\tau)|^2\,dz  \\
+   &\le C_R M_3^2 L^{-3}.
+\end{aligned}
 \]
 The same estimate holds for the limit \(V\).  Letting \(n\to\infty\) for fixed
 \(L\), and then \(L\to\infty\), gives
 \(P_n-b_n\to P-b\) strongly in \(L^q(B_R\times I)\) for every
 \(1<q<\infty\).  Taking \(a_n=b_n-b\) gives the stated convergence to the
-Leray pressure \(P\).
+Leray pressure \(P\); in particular the asserted weak convergence follows.
 \end{proof}
 
 \section{\texorpdfstring{\(L^3\)}{L3} transfer and tightness}
 
 The \(L^3\)-norm is invariant under both the Navier--Stokes parabolic scaling
-and the centered self-similar scaling.
+and the centered self-similar scaling.  The parabolic scaling identities and
+pressure-gauge conventions for the source blow-up sequence are those of the
+preceding Type I paper \cite[Lemma ``Scaling'']{TypeIPaper1}; the calculation
+below records only the resulting global \(L^3\) consequence used here.
 
 \begin{proof}[Proof of \cref{prop:L3-transfer}]
-For each fixed \(t<0\),
+For each fixed \(t<0\), the time \(T+\lambda_k^2t\) belongs to \((0,T)\) for
+all sufficiently large \(k\).  For those \(k\),
 \[
    \|u_k(t)\|_{L^3(\mathbb R^3)}
    =
    \|u(T+\lambda_k^2t)\|_{L^3(\mathbb R^3)}
    \le A.
 \]
-By local strong convergence and lower semicontinuity,
+The equality follows by the change of variables
+\(X=x_0+\lambda_kx\), for which \(dX=\lambda_k^3dx\) and
+\(|u_k(x,t)|^3=\lambda_k^3|u(X,T+\lambda_k^2t)|^3\).  By local smooth
+convergence, \(u_k(\cdot,t)\to U(\cdot,t)\) uniformly on each ball \(B_R\).
+Since \(B_R\) has finite measure and
+\[
+   \|u_k(\cdot,t)-U(\cdot,t)\|_{L^3(B_R)}
+   \le |B_R|^{1/3}
+      \|u_k(\cdot,t)-U(\cdot,t)\|_{L^\infty(B_R)},
+\]
+the convergence is strong in \(L^3(B_R)\).  Hence
 \[
    \int_{B_R}|U(x,t)|^3\,dx
-   \le
-   \liminf_{k\to\infty}\int_{B_R}|u_k(x,t)|^3\,dx
+   =
+   \lim_{k\to\infty}\int_{B_R}|u_k(x,t)|^3\,dx
    \le A^3
 \]
-for every \(R<\infty\) and every \(t<0\).  Letting \(R\to\infty\) gives
+for every \(R<\infty\) and every \(t<0\).  Since
+\(\int_{B_R}|U(x,t)|^3\,dx\) is monotone increasing in \(R\), the monotone
+convergence theorem gives
 \(\|U(t)\|_{L^3(\mathbb R^3)}\le A\) for every \(t<0\).
 Finally,
 \[
@@ -643,16 +1110,22 @@ Finally,
    \|U(t)\|_{L^3(\mathbb R^3)},
    \qquad t=-e^{-\tau},
 \]
-because \(V(y,\tau)=\sqrt{-t}\,U(y\sqrt{-t},t)\) and the Jacobian contributes
-exactly \((-t)^{-3/2}\).
+because, with \(x=y\sqrt{-t}\),
+\[
+   \int_{\mathbb R^3}|V(y,\tau)|^3\,dy
+   =
+   \int_{\mathbb R^3}(-t)^{3/2}|U(y\sqrt{-t},t)|^3\,dy
+   =
+   \int_{\mathbb R^3}|U(x,t)|^3\,dx .
+\]
 \end{proof}
 
 \begin{lemma}[Closure of uniform \(L^3\)-tightness]\label{lem:tight-closure}
 Let \(V_n\) be bounded mild ancient solutions of \eqref{eq:centered}.  Assume
 that
 \[
-   \sup_n\|V_n\|_{L^\infty_{\tau,y}}
-   +\sup_n\sup_\tau\|V_n(\tau)\|_{L^3}
+   \sup_n\|V_n\|_{L^\infty(\mathbb R^3_y\times\mathbb R_\tau)}
+   +\sup_n\sup_{\tau\in\mathbb R}\|V_n(\tau)\|_{L^3(\mathbb R^3_y)}
    <\infty
 \]
 and that the tightness in \eqref{eq:tightness} is uniform in \(n\):
@@ -672,28 +1145,46 @@ and
 \end{lemma}
 
 \begin{proof}
+Let
+\[
+   M_3=\sup_n\sup_{\tau\in\mathbb R}\|V_n(\tau)\|_{L^3}<\infty .
+\]
 Fix \(\tau\).  On \(B_R\), local smooth convergence gives
 \[
    \int_{B_R}|V(\tau)|^3\,dy
    =
    \lim_{n\to\infty}\int_{B_R}|V_n(\tau)|^3\,dy.
 \]
-Taking \(R\to\infty\) and using the uniform \(L^3\)-bound gives
+Taking the supremum over \(R\) and using monotone convergence gives
 \[
-   \|V(\tau)\|_{L^3}\le \liminf_{n\to\infty}\|V_n(\tau)\|_{L^3}.
+   \|V(\tau)\|_{L^3}^3
+   =
+   \sup_{R<\infty}\int_{B_R}|V(\tau)|^3\,dy
+   \le M_3^3 .
 \]
 Thus \(V\) has the same uniform \(L^3\) bound.  For tightness, choose \(R\)
-large so that the uniform tails of \(V_n\) outside \(B_R\) are smaller than
-\(\varepsilon\).  Since local smooth convergence gives pointwise convergence
-everywhere, Fatou's lemma on the exterior domain gives
+large so that
+\[
+   \sup_n\sup_{\tau\in\mathbb R}\int_{|y|>R}|V_n(y,\tau)|^3\,dy
+   \le \varepsilon .
+\]
+Local smooth convergence gives pointwise convergence everywhere after fixing
+\(\tau\).  Fatou's lemma on the exterior domain gives
 \[
    \int_{|y|>R}|V(\tau)|^3\,dy
    \le
    \liminf_{n\to\infty}\int_{|y|>R}|V_n(\tau)|^3\,dy
    \le \varepsilon .
 \]
-Taking the supremum over \(\tau\) and then letting \(R\to\infty\) gives the
-desired tail bound for \(V\).
+The choice of \(R\) was made only from the uniform tail bound for the
+sequence \(\{V_n\}\), and therefore is independent of the fixed time
+\(\tau\).  Hence
+\[
+   \sup_{\tau\in\mathbb R}\int_{|y|>R}|V(y,\tau)|^3\,dy
+   \le \varepsilon .
+\]
+Since \(\varepsilon>0\) was arbitrary, the displayed uniform tail limit is
+zero.
 \end{proof}
 
 \section{The small ancient Liouville theorem}
@@ -723,10 +1214,35 @@ Consequently
 
 \begin{proof}
 The first estimate follows immediately from the positive kernel formula
-\eqref{eq:OU-semigroup}.  For the second, use the identity between the
-Ornstein--Uhlenbeck flow and the heat flow at time \(1-e^{-a}\), followed by
-the dilation \(y\mapsto e^{-a/2}y\).  The kernel of
-\(e^{s\Delta}\mathbb P\operatorname{div}\) is the Oseen derivative kernel
+\eqref{eq:OU-semigroup}, since the Gaussian factor has total mass one.  The
+Oseen-kernel estimates used below are the classical heat-kernel bounds for
+the Stokes semigroup; see, for example, \cite{Sohr2001,Galdi2011}.
+
+For the second estimate, first take \(F\in C_c^\infty(\mathbb R^3;\mathbb R^{3\times3})\).
+The scalar Ornstein--Uhlenbeck semigroup in \eqref{eq:OU-semigroup} may be
+written as
+\[
+   S(a)g(y)=e^{-a/2}\bigl(e^{(1-e^{-a})\Delta}g\bigr)(e^{-a/2}y).
+\]
+The Leray projection is the Fourier multiplier
+\[
+   \widehat{(\mathbb P f)}_i(\xi)
+   =
+   \left(\delta_{ij}-\frac{\xi_i\xi_j}{|\xi|^2}\right)\widehat f_j(\xi),
+   \qquad \xi\ne0.
+\]
+It is homogeneous of degree zero and therefore commutes with the heat
+multiplier \(e^{-s|\xi|^2}\) and with the derivative multipliers
+\(i\xi_k\).  Therefore, for
+\(s=1-e^{-a}\),
+\[
+   S(a)\mathbb P\operatorname{div}F(y)
+   =
+   e^{-a/2}
+   \bigl(e^{s\Delta}\mathbb P\operatorname{div}F\bigr)(e^{-a/2}y).
+\]
+The operator \(e^{s\Delta}\mathbb P\operatorname{div}\) has the Oseen
+derivative kernel
 \[
    K_s(x)=s^{-2}K_1(x/\sqrt{s}),
 \]
@@ -734,11 +1250,34 @@ with
 \[
    \|K_s\|_{L^1(\mathbb R^3)}\le C s^{-1/2}.
 \]
-The dilation has \(L^\infty\)-operator norm one, and the amplitude factor in
-\(S(a)\) gives \(e^{-a/2}\).  This proves
-\eqref{eq:nonlinear-semigroup-est}.  The integral in
-\eqref{eq:semigroup-integral} is finite because the integrand is comparable to
-\(a^{-1/2}\) near \(0\) and to \(e^{-a/2}\) as \(a\to\infty\).
+This scaling follows from the single derivative in \(\operatorname{div}\):
+the heat kernel contributes \(s^{-3/2}\), the derivative contributes
+\(s^{-1/2}\), and the change of variables in the \(L^1\)-norm contributes
+\(s^{3/2}\).  Young's inequality gives
+\[
+   \|e^{s\Delta}\mathbb P\operatorname{div}F\|_{L^\infty}
+   \le \|K_s\|_{L^1}\|F\|_{L^\infty}
+   \le Cs^{-1/2}\|F\|_{L^\infty}.
+\]
+The dilation \(y\mapsto e^{-a/2}y\) has \(L^\infty\)-operator norm one, and
+the amplitude factor in \(S(a)\) gives \(e^{-a/2}\).  Substituting
+\(s=1-e^{-a}\) proves \eqref{eq:nonlinear-semigroup-est} for smooth compactly
+supported \(F\).  Since \(K_s\in L^1(\mathbb R^3)\), the convolution formula
+defines \(e^{s\Delta}\mathbb P\operatorname{div}F\) pointwise almost
+everywhere for every
+\(F\in L^\infty(\mathbb R^3;\mathbb R^{3\times3})\), and Young's inequality
+applies directly to that convolution.  Therefore the same estimate holds for
+all bounded matrix fields \(F\).
+
+Finally,
+\[
+   1-e^{-a}\sim a \quad (a\downarrow0),
+   \qquad
+   1-e^{-a}\to1 \quad (a\to\infty).
+\]
+Thus the integrand in \eqref{eq:semigroup-integral} is comparable to
+\(a^{-1/2}\) near \(0\) and to \(e^{-a/2}\) for large \(a\), and the integral
+is finite.
 \end{proof}
 
 \begin{proof}[Proof of \cref{thm:small}]
@@ -755,8 +1294,15 @@ Apply the mild formula \eqref{eq:mild} on \([\tau-T,\tau]\):
    \int_0^T
    S(a)\mathbb P\operatorname{div}(V\otimes V)(\tau-a)\,da .
 \]
-The first term is bounded by \(e^{-T/2}M\).  For the Duhamel term,
-\cref{lem:stokes-estimates} gives
+The identity is an equality in weak-* \(L^\infty\), and the right-hand side is
+represented by an \(L^\infty\) function because of
+\cref{lem:stokes-estimates}.  Therefore the difference between \(V(\tau)\)
+and the displayed right-hand side pairs to zero against every
+\(L^1(\mathbb R^3)\) test, hence the two bounded representatives are equal
+almost everywhere.  It is consequently legitimate to estimate the
+\(L^\infty\)-norm of \(V(\tau)\) by the \(L^\infty\)-norm of that
+representative.  The first term is bounded by \(e^{-T/2}M\).  For the Duhamel term,
+\cref{lem:stokes-estimates} and \(\|V\otimes V\|_{L^\infty}\le M^2\) give
 \[
    \|V(\tau)\|_{L^\infty}
    \le
@@ -780,7 +1326,8 @@ Choose \(\varepsilon_0=(2C_*)^{-1}\).  If \(0<M\le\varepsilon_0\), then
 \section{Gaussian identity under rapid decay}
 
 The following identity is not needed for \cref{thm:small}, but it is the
-standard weighted energy identity under rapid spatial decay.
+weighted energy identity naturally associated with the Gaussian measure in
+self-similar variables.
 
 \begin{proposition}[Gaussian energy identity]\label{prop:gaussian}
 Let \(V\) be a smooth bounded mild ancient solution of \eqref{eq:centered},
@@ -807,10 +1354,21 @@ Then
 \end{proposition}
 
 \begin{proof}
-All integrations by parts are justified by the fast decay.  Multiply
-\eqref{eq:centered} by \(2VG\) and integrate over \(\mathbb R^3\).  The time
-derivative gives the left-hand side of \eqref{eq:gaussian-identity}.  Since
-\(\operatorname{div} V=0\),
+All integrations by parts below may first be performed on \(B_R\) with a
+cutoff \(\chi_R\in C_c^\infty(B_{2R})\), \(\chi_R=1\) on \(B_R\), \(\chi_R=0\) outside
+\(B_{2R}\), and \(|\nabla^k\chi_R|\le C_kR^{-k}\).  The assumed polynomial
+decay of all derivatives, together with the Gaussian factor, makes every
+boundary and cutoff-error term tend to zero as \(R\to\infty\).  Thus the
+formal whole-space integrations by parts are justified.
+
+Multiply \eqref{eq:centered} by \(2VG\) and integrate over \(\mathbb R^3\).
+Smoothness in \(\tau\) and dominated convergence give
+\[
+   2\int_{\mathbb R^3}\partial_\tau V\cdot VG\,dy
+   =
+   \frac{d}{d\tau}\int_{\mathbb R^3}|V|^2G\,dy .
+\]
+Since \(\operatorname{div} V=0\),
 \[
    2\int (V\cdot\nabla)V\cdot VG
    =
@@ -826,10 +1384,18 @@ The pressure term gives
 \]
 For the diffusion term,
 \[
+\begin{aligned}
    2\int \Delta V\cdot VG
-   =
+   &=
+   -2\int|\nabla V|^2G
+   -2\int \partial_kV_iV_i\partial_kG  \\
+   &=
+   -2\int|\nabla V|^2G
+   -\int \partial_k(|V|^2)\partial_kG  \\
+   &=
    -2\int|\nabla V|^2G
    +\int |V|^2\Delta G.
+\end{aligned}
 \]
 Finally,
 \[
@@ -847,25 +1413,40 @@ Using
    \nabla G=-\frac y2G,\qquad
    \Delta G=\left(\frac{|y|^2}{4}-\frac32\right)G,
 \]
-the pure quadratic terms combine to \(-\int |V|^2G\), and the convection and
-pressure terms combine to the last integral in
-\eqref{eq:gaussian-identity}.
+the pure quadratic terms are
+\[
+   \int |V|^2\Delta G
+   -\int |V|^2G
+   +\frac12\int |V|^2(3G+y\cdot\nabla G)
+   =
+   -\int |V|^2G.
+\]
+The convection and pressure terms are
+\[
+   -\int |V|^2 V\cdot\nabla G
+   -2\int P V\cdot\nabla G
+   =
+   \frac12\int (|V|^2+2P)(V\cdot y)G .
+\]
+Moving the non-time-derivative terms to the right-hand side of the equation
+gives \eqref{eq:gaussian-identity}.
 \end{proof}
 
 \section{Stationary self-similar rigidity}
 
-We now recall the stationary theorem of Necas, Ruzicka, and Sverak
+We now recall the stationary theorem of
+Ne\v{c}as, R\r{u}\v{z}i\v{c}ka, and \v{S}verak
 \cite{NRS1996}.
 
 \begin{theorem}[Stationary self-similar rigidity]\label{thm:NRS}
-Let \(W\in L^3(\mathbb R^3)\) be a weak solution, with
-\(\operatorname{div} W=0\), of
+Let \(W\in L^3(\mathbb R^3)\) be divergence free.  Assume that there exists
+\(P\in L^{3/2}_{\mathrm{loc}}(\mathbb R^3)\) such that
 \begin{equation}\label{eq:stationary-profile}
    (W\cdot\nabla)W+\nabla P
    =
    \Delta W-\frac12(W+y\cdot\nabla W)
 \end{equation}
-on \(\mathbb R^3\).  Then
+in \(\mathcal D'(\mathbb R^3)\).  Then
 \[
    W\equiv0.
 \]
@@ -878,17 +1459,105 @@ directly.
 \end{remark}
 
 \begin{proof}[Proof of \cref{thm:stationary-limits}]
+First note that each time translate \(V_n(y,\tau)=V(y,\tau+\tau_n)\) is again
+a bounded mild ancient solution.  The \(L^\infty\) bound is unchanged, and
+\(\operatorname{div}V_n=0\) in distributions because translation in \(\tau\)
+does not affect the spatial divergence.  If \(\sigma<\tau\), applying
+\eqref{eq:mild} to \(V\) on the interval
+\([\sigma+\tau_n,\tau+\tau_n]\) gives
+\[
+   V_n(\tau)
+   =
+   S(\tau-\sigma)V_n(\sigma)
+   -
+   \int_\sigma^\tau
+      S(\tau-s)\mathbb P\operatorname{div}
+      (V_n\otimes V_n)(s)\,ds
+\]
+after the change of variables \(s\mapsto s+\tau_n\) in the weak-* time
+integral.  Thus \(V_n\) satisfies the same mild formulation as \(V\).
+
 The assumptions \eqref{eq:L3-bound-tight} and \eqref{eq:tightness} are
-invariant under translations in \(\tau\).  The sequence
-\(V_n(y,\tau)=V(y,\tau+\tau_n)\) has the same \(L^\infty\), uniform \(L^3\),
-and uniform tightness bounds as \(V\).  By \cref{lem:tight-closure}, the local
-smooth limit \(W\) satisfies the same global \(L^3\) bound.  Since \(W\) is
+invariant under translations in \(\tau\).  Hence the sequence \(V_n\) has the
+same \(L^\infty\), uniform \(L^3\), and uniform tightness bounds as \(V\).  By
+\cref{lem:tight-closure}, the local smooth limit \(W\) satisfies the same
+global \(L^3\) bound.  Since \(W\) is
 independent of \(\tau\), write \(W(y,\tau)=W_0(y)\).  Then
 \[
    W_0\in L^3(\mathbb R^3).
 \]
-Substituting \(\partial_\tau W=0\) into \eqref{eq:centered} gives, in
-distributions,
+We verify that this stationary function satisfies the
+stationary self-similar equation in the distributional sense required by
+\cref{thm:NRS}.  Since \(W\) is a
+locally smooth limit of the bounded mild solutions \(V_n\), the limit-passage
+argument in \cref{lem:smooth-compactness} applies to this already convergent
+sequence and shows that \(W\) is itself a bounded mild ancient solution.
+By \cref{lem:mild-to-projected}, \(W\) satisfies the projected
+distributional equation
+\[
+   \partial_\tau W
+   =
+   \Delta W-\frac12y\cdot\nabla W-\frac12W
+   -\mathbb P\operatorname{div}(W\otimes W).
+\]
+Because \(W(y,\tau)=W_0(y)\), its time derivative vanishes in
+\(\mathcal D'(\mathbb R^3\times\mathbb R)\): for
+\(\Phi\in C_c^\infty(\mathbb R^3\times\mathbb R;\mathbb R^3)\),
+\[
+   \langle \partial_\tau W,\Phi\rangle
+   =
+   -\int_{\mathbb R}\int_{\mathbb R^3}W_0(y)\cdot\partial_\tau\Phi(y,\tau)\,dy\,d\tau
+   =
+   -\int_{\mathbb R^3}W_0(y)\cdot
+      \left(\int_{\mathbb R}\partial_\tau\Phi(y,\tau)\,d\tau\right)dy
+   =
+   0 .
+\]
+For the stationary velocity \(W(y,\tau)=W_0(y)\), the Leray pressure
+\[
+   P_0=R_iR_j(W_{0,i}W_{0,j})
+\]
+belongs to \(L^{3/2}(\mathbb R^3)\), because \(W_0\in L^3\), hence
+\(W_{0,i}W_{0,j}\in L^{3/2}(\mathbb R^3)\), and the Riesz transforms are
+bounded on \(L^{3/2}\) \cite{Stein1970}.  In
+\(\mathcal D'(\mathbb R^3)\),
+\[
+   (I-\mathbb P)\operatorname{div}(W_0\otimes W_0)=-\nabla P_0,
+   \qquad
+   \mathbb P\nabla P_0=0.
+\]
+This is the Helmholtz decomposition in the whole space
+\cite{Sohr2001,Galdi2011}.  Hence
+\[
+   \mathbb P\operatorname{div}(W_0\otimes W_0)
+   =
+   \operatorname{div}(W_0\otimes W_0)+\nabla P_0 .
+\]
+Substituting this identity into the projected stationary equation converts it
+into
+\[
+   \operatorname{div}(W_0\otimes W_0)+\nabla P_0
+   =
+   \Delta W_0-\frac12(W_0+y\cdot\nabla W_0)
+\]
+in \(\mathcal D'(\mathbb R^3)\).
+
+For every test function \(\varphi\in C_c^\infty(\mathbb R^3;\mathbb R^3)\),
+testing the resulting distributional identity against
+\(\psi(\tau)\varphi(y)\), where \(\psi\in C_c^\infty(\mathbb R)\) and
+\(\int\psi\,d\tau=1\), leaves the same spatial weak form because all terms in
+the identity are independent of \(\tau\).  Finally,
+\(\operatorname{div}W_0=0\) gives, pointwise because \(W_0\) is smooth,
+\[
+   \operatorname{div}(W_0\otimes W_0)_i
+   =
+   \partial_j(W_{0,i}W_{0,j})
+   =
+   W_{0,j}\partial_jW_{0,i}+W_{0,i}\partial_jW_{0,j}
+   =
+   (W_0\cdot\nabla)W_{0,i}
+\]
+and hence the same identity holds in \(\mathcal D'(\mathbb R^3)\).  Therefore
 \[
    (W_0\cdot\nabla)W_0+\nabla P_0
    =
@@ -914,7 +1583,7 @@ These results do not by themselves imply a Type I exclusion theorem.
 They prove two conditional Liouville statements for bounded mild ancient
 solutions of \eqref{eq:centered}.  A stationary local limit is zero whenever
 uniform \(L^3\)-tightness supplies the global \(L^3\) hypothesis in the
-Necas--Ruzicka--Sverak theorem.  Independently, a mild ancient solution with
+Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}verak theorem.  Independently, a mild ancient solution with
 sufficiently small \(L^\infty(\mathbb R^3\times\mathbb R)\) norm is zero.  Thus any
 nontrivial bounded mild ancient solution must carry a definite
 \(L^\infty\)-size, and any argument which produces a stationary limit must
@@ -922,15 +1591,41 @@ also provide enough spatial compactness to retain the critical \(L^3\) bound.
 
 \begin{thebibliography}{99}
 
+\bibitem{Paper0LocalConcentration}
+G. Cordero,
+\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
+Navier--Stokes},
+manuscript in this series,
+\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
+
+\bibitem{TypeIPaper1}
+\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes
+Equations and the Centered Ancient Equation},
+manuscript in this series,
+\texttt{docs/source/type\_1/paper1\_typeI\_blowup\_limits\_centered\_ancient.tex}.
+
 \bibitem{ESS2003}
-L. Escauriaza, G. Seregin, and V. \v{S}verak,
+L. Escauriaza, G. A. Seregin, and V. \v{S}verak,
 \emph{\(L_{3,\infty}\)-solutions of Navier--Stokes equations and backward uniqueness},
-Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250.
+Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250,
+doi:10.1070/RM2003v058n02ABEH000609.
+
+\bibitem{Galdi2011}
+G. P. Galdi,
+\emph{An introduction to the mathematical theory of the Navier--Stokes
+equations},
+2nd ed., Springer Monographs in Mathematics, Springer, New York, 2011.
+
+\bibitem{GilbargTrudinger2001}
+D. Gilbarg and N. S. Trudinger,
+\emph{Elliptic partial differential equations of second order},
+Classics in Mathematics, Springer, Berlin, 2001.
 
 \bibitem{GigaMiyakawa1985}
 Y. Giga and T. Miyakawa,
 \emph{Solutions in \(L_r\) of the Navier--Stokes initial value problem},
-Arch. Rational Mech. Anal. \textbf{89} (1985), no. 3, 267--281.
+Arch. Rational Mech. Anal. \textbf{89} (1985), no. 3, 267--281,
+doi:10.1007/BF00276875.
 
 \bibitem{Kato1984}
 T. Kato,
@@ -938,10 +1633,29 @@ T. Kato,
 \(\mathbb R^m\), with applications to weak solutions},
 Math. Z. \textbf{187} (1984), no. 4, 471--480.
 
+\bibitem{Ladyzhenskaya1968}
+O. A. Ladyzhenskaya, V. A. Solonnikov, and N. N. Ural'tseva,
+\emph{Linear and quasilinear equations of parabolic type},
+Translations of Mathematical Monographs, vol. 23, American Mathematical
+Society, Providence, RI, 1968.
+
 \bibitem{NRS1996}
-J. Necas, M. Ruzicka, and V. Sverak,
+J. Ne\v{c}as, M. R\r{u}\v{z}i\v{c}ka, and V. \v{S}verak,
 \emph{On Leray's self-similar solutions of the Navier--Stokes equations},
-Acta Math. \textbf{176} (1996), no. 2, 283--294.
+Acta Math. \textbf{176} (1996), no. 2, 283--294,
+doi:10.1007/BF02551584.
+
+\bibitem{Pazy1983}
+A. Pazy,
+\emph{Semigroups of linear operators and applications to partial differential
+equations},
+Applied Mathematical Sciences, vol. 44, Springer, New York, 1983.
+
+\bibitem{Sohr2001}
+H. Sohr,
+\emph{The Navier--Stokes equations: an elementary functional analytic
+approach},
+Birkh\"auser Advanced Texts, Birkh\"auser, Basel, 2001.
 
 \bibitem{Stein1970}
 E. M. Stein,
