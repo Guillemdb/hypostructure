@@ -1,0 +1,2097 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\diver}{div}
+
+\title[Structured ancient branch exclusions]
+{Structured Ancient Navier--Stokes Solutions and Lyapunov Branch Exclusions}
+\author{Guillem Duran Ballester}
+\email{guillem@fragile.tech}
+\date{}
+
+\subjclass[2020]{35Q30, 35B40, 35B44, 35B45, 76D05}
+\keywords{Navier--Stokes equations, ancient solutions, Type I blow-up, axisymmetric flows, Lyapunov functionals, Burgers vortices}
+
+\begin{document}
+
+\begin{abstract}
+We study structured bounded ancient solutions of the three-dimensional
+Navier--Stokes equations arising in the Type I blow-up reduction.  We separate
+the structured branch into closed Liouville subclasses, perturbative Lyapunov
+subclasses, model-vortex subclasses, and a remaining bounded-swirl obstruction.
+
+For the unforced equations, several axisymmetric branches are closed by known
+Liouville theorems: no swirl, pointwise scale-invariant control, finite
+\(L_t^\infty L_x^p\) control of the swirl variable
+\(\Gamma=ru_\theta\), and axial periodicity with bounded \(\Gamma\).  When such
+branches occur as normalized Type I ancient limits, the Galilean-trivial
+conclusions of the external Liouville theorems reduce to the zero solution and
+contradict the blow-up normalization.
+
+We also record two Lyapunov-based exclusions.  First, Gallay--Wayne's
+small-data decay theorem for the three-dimensional rescaled vorticity equation
+yields a coercive Lyapunov functional excluding perturbative weighted-vorticity
+ancient trajectories.  Second, Gallay--Maekawa's stability theorem for the
+strained Burgers-vortex model yields a profile-relative Lyapunov functional and
+ancient rigidity inside a small weighted tube around the Burgers-vortex family.
+
+Finally, for the open nonperiodic bounded-swirl axisymmetric branch, we prove
+the exact scalar \(\Gamma\)-defect identity and the anisotropic shell-error
+decomposition.  These identities give a coercive shell-control criterion under
+which \(\Gamma\) must vanish, reducing the solution to a no-swirl branch.  The
+paper concludes with a branch ledger specifying which structured alternatives are
+closed, which are conditional, and which analytic inputs remain.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Structured ancient branches in the Type I program}
+
+The Type I blow-up reduction in Paper I \cite{DuranPaperI} associates an
+admissible Type I singularity with a normalized nonzero Seregin ancient limit.
+In physical variables this limit is represented by a smooth ancient solution
+\((U,P)\) of
+\begin{equation}\label{eq:NS}
+   \partial_tU+(U\cdot\nabla)U+\nabla P=\Delta U,
+   \qquad \nabla\cdot U=0,
+   \qquad t<0,
+\end{equation}
+satisfying the Type I ancient bound
+\begin{equation}\label{eq:typeI}
+   \sup_{t<0}\sqrt{-t}\,
+   \|U(t)\|_{L^\infty(\mathbb R^3)}<\infty .
+\end{equation}
+The extraction also gives a nonvanishing normalization.  Thus every theorem in
+this paper is used in the Type I program through the same pattern:
+\[
+   \text{structured ancient branch}
+   \quad\Longrightarrow\quad
+   U\equiv0
+   \quad\Longrightarrow\quad
+   \text{contradiction with normalization}.
+\]
+
+The present paper treats only those structured alternatives for which a
+specific closure mechanism is available or for which a precise conditional
+criterion can be stated.  The branches considered are:
+\[
+   \begin{gathered}
+   \text{axisymmetric Liouville branches},\qquad
+   \text{perturbative weighted-vorticity branch},\\
+   \text{Burgers-vortex model branch},\qquad
+   \text{bounded-swirl shell branch}.
+   \end{gathered}
+\]
+It does not claim that every structured or decaying ancient solution is closed.
+The output is a branch ledger for the structured/decay part of the residual
+criterion of Paper I.
+
+\subsection{Closed axisymmetric Liouville branches}
+
+Several unforced axisymmetric branches are already closed by external
+Liouville theorems.  Koch--Nadirashvili--Seregin--\v{S}ver\'ak close the no-swirl
+branch and the pointwise scale-invariant branch \(|u|\le C/r\).  The
+swirl-bearing finite-\(L^p\) branch
+\[
+   \Gamma=ru_\theta\in L_t^\infty L_x^p,\qquad 1\le p<\infty,
+\]
+is closed by Lei--Zhang--Zhao.  The \(z\)-periodic bounded-\(\Gamma\) branch is
+closed by Lei--Ren--Zhang.
+
+The only extra step needed for Type I ancient limits is to convert
+Galilean-triviality into zero in the blow-up frame.  We time-shift away from
+the possible singular time \(t=0\), apply the bounded ancient Liouville
+theorem, patch the resulting constants on backward intervals, and use
+\eqref{eq:typeI}: if \(U(x,t)\equiv c\), then
+\[
+   \sup_{t<0}\sqrt{-t}\,\|U(t)\|_\infty
+   =
+   \sup_{t<0}\sqrt{-t}\,|c|
+\]
+is finite only when \(c=0\).
+
+\subsection{Lyapunov branches}
+
+Two branch exclusions below are Lyapunov arguments.  The first is the
+Gallay--Wayne perturbative weighted-vorticity branch.  If \(w\) solves the
+rescaled three-dimensional vorticity equation and remains in the
+Gallay--Wayne small ball of \(L^2_\sigma(m)\), \(m>7/2\), then the functional
+\begin{equation}\label{eq:intro-weighted-lyap}
+   \mathcal L_m(w_0)
+   =
+   \sup_{\tau\ge0}e^{2\tau}\|\Phi_\tau w_0\|_m^2
+\end{equation}
+is coercive and contracts along the forward semiflow.  An ancient trajectory
+inside the small ball is therefore zero after sending the starting time to
+\(-\infty\).
+
+The second Lyapunov branch is the strained Burgers-vortex model.  The theorem
+proved here is a theorem for
+\[
+   \partial_\tau\Omega+(U\cdot\nabla)\Omega-(\Omega\cdot\nabla)U
+   =
+   \Delta\Omega-(Ax\cdot\nabla)\Omega+A\Omega,
+   \qquad
+   A=\operatorname{diag}\left(-\frac12,-\frac12,1\right),
+\]
+not directly for the unforced Navier--Stokes equations.  Gallay--Maekawa's
+stability theorem gives a profile-relative Lyapunov functional on a fixed
+circulation fiber and forces ancient trajectories in a small weighted tube to
+be exactly stationary Burgers vortices.  Transferring that conclusion to an
+unforced branch requires the model-reduction assumption stated later.
+
+\subsection{The bounded-swirl obstruction}
+
+The remaining axisymmetric obstruction is the nonperiodic bounded-swirl branch
+\[
+   \Gamma=ru_\theta\in L^\infty
+      \bigl(\mathbb R^3\times(-\infty,0)\bigr),
+\]
+with no finite-\(L^p\) control, no axial periodicity, and no decay hypothesis.
+For a smooth axisymmetric solution, the scalar \(\Gamma\) satisfies
+\begin{equation}\label{eq:intro-gamma}
+   \partial_t\Gamma+b\cdot\nabla\Gamma+\frac2r\partial_r\Gamma
+   =
+   \Delta\Gamma,
+   \qquad
+   b=u_re_r+u_ze_z .
+\end{equation}
+The corresponding weighted identity is
+\begin{equation}\label{eq:intro-gamma-identity}
+   \frac12\frac{d}{dt}\int\Gamma^2\phi\,dx
+   +
+   \int|\nabla\Gamma|^2\phi\,dx
+   =
+   \frac12\int\Gamma^2
+   \left(
+      \partial_t\phi+\Delta\phi+b\cdot\nabla\phi+\frac2r\partial_r\phi
+   \right)\,dx .
+\end{equation}
+For anisotropic shell weights
+\[
+   \phi_{R,Z,\zeta}(r,z,t)=\lambda_R(r)\eta_Z(z-\zeta(t)),
+\]
+the error density splits exactly into radial shell transport, axial drift
+mismatch, and cutoff curvature.  The radial diffusion operator is
+\(\partial_r^2+3r^{-1}\partial_r\), the radial Laplacian in four dimensions.
+The paper proves that a coercive shell-control hypothesis forces
+\(\Gamma\equiv0\).  It does not prove that every bounded nonperiodic
+\(\Gamma\) satisfies this shell-control hypothesis.
+
+\subsection{Main results}
+
+The first result closes the unforced axisymmetric branches relevant to the
+Type I program.
+
+\begin{theorem}[Closed axisymmetric ancient branches]
+\label{thm:closed-axisymmetric-branches}
+Let \(U\) be a smooth Type I ancient solution of \eqref{eq:NS} satisfying
+\eqref{eq:typeI}.  Assume \(U\) is a normalized ancient limit produced by a
+Type I blow-up sequence.  If \(U\) belongs to any of the following
+axisymmetric branches, then \(U\equiv0\):
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item axisymmetric without swirl;
+\item axisymmetric and satisfying a pointwise scale-invariant bound
+\[
+   |U(x,t)|\le \frac{C}{r};
+\]
+\item axisymmetric with
+\[
+   \Gamma=rU_\theta\in L_t^\infty L_x^p
+   \bigl(\mathbb R^3\times(-\infty,0)\bigr),
+   \qquad 1\le p<\infty;
+\]
+\item axisymmetric, periodic in the physical axial variable \(z\), and with
+\[
+   \Gamma=rU_\theta\in L^\infty
+   \bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+\end{enumerate}
+Consequently none of these branches can occur as a nonzero normalized Type I
+ancient limit.
+\end{theorem}
+
+\begin{theorem}[Perturbative weighted-vorticity Lyapunov exclusion]
+\label{thm:weighted-vorticity-exclusion-intro}
+Let \(m>\frac72\).  Let \(w(\tau)\) be an ancient mild solution of the
+Gallay--Wayne rescaled vorticity equation
+\begin{equation}\label{eq:weighted-vorticity-intro}
+   \partial_\tau w
+   =
+   \Lambda w-(v\cdot\nabla)w+(w\cdot\nabla)v,
+   \qquad \nabla\cdot w=0,
+\end{equation}
+with \(v\) recovered by the three-dimensional Biot--Savart law.  Assume
+\[
+   \sup_{\tau\in\mathbb R}\|w(\tau)\|_{L^2_\sigma(m)}
+   \le \rho_m,
+\]
+where \(\rho_m\) is the Gallay--Wayne small-data radius.  Then
+\[
+   w\equiv0.
+\]
+\end{theorem}
+
+Here ``ancient mild'' means that every forward time-shift of \(w\) is the
+Gallay--Wayne mild solution launched from its value at the starting time.
+
+\begin{theorem}[Ancient rigidity in the Burgers-vortex tube]
+\label{thm:burgers-vortex-tube-intro}
+Let \(m>2\).  Let
+\(\Omega:\mathbb R\to\mathcal X_{\mathrm{full}}(m)\) be an admissible ancient
+mild solution of the strained Burgers-vortex vorticity equation
+\begin{equation}\label{eq:burgers-intro}
+   \partial_\tau\Omega+(U\cdot\nabla)\Omega-(\Omega\cdot\nabla)U
+   =
+   \Delta\Omega-(Ax\cdot\nabla)\Omega+A\Omega,
+   \qquad
+   A=\operatorname{diag}\left(-\frac12,-\frac12,1\right).
+\end{equation}
+Assume \(\Omega\) remains in the Gallay--Maekawa small weighted tube around the
+Burgers-vortex family, where \(\bar\alpha\) denotes the circulation coordinate
+of \(\Omega\):
+\[
+   \sup_{\tau\in\mathbb R}
+   \|\Omega(\tau)-\bar\alpha G\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le
+   \delta_{\bar\alpha,m}.
+\]
+Then
+\[
+   \Omega(\tau)\equiv\bar\alpha G
+   \qquad\text{for all }\tau\in\mathbb R.
+\]
+\end{theorem}
+
+This theorem is a theorem for the strained Burgers-vortex model.  It becomes a
+statement about unforced Navier--Stokes ancient limits only after an additional
+model-reduction hypothesis, stated as \Cref{ass:bv-reduction}.  The term
+``ancient mild'' includes compatibility with the forward Gallay--Maekawa
+semiflow after every time shift, as made explicit in \Cref{def:bv-tube}.
+
+\begin{theorem}[Conditional scalar flattening]
+\label{thm:scalar-flattening-intro}
+Let \(u\) be a smooth bounded ancient mild axisymmetric solution of the
+unforced Navier--Stokes equations with bounded swirl variable
+\[
+   \Gamma=ru_\theta\in L^\infty.
+\]
+Assume the coercive shell-control hypotheses stated in
+\Cref{ass:shell-control}.  Then
+\[
+   \Gamma\equiv0
+   \quad\text{on }\mathbb R^3\times(-\infty,0).
+\]
+Consequently, if the resulting no-swirl solution lies in a closed no-swirl
+Liouville branch, then \(u\) is Galilean-trivial; if in addition \(u\) is a
+Type I ancient limit, then \(u\equiv0\).
+\end{theorem}
+
+\begin{theorem}[Structured branch input for the residual criterion]
+\label{thm:structured-input-paperI}
+Let \(V\) be a normalized Seregin ancient limit generated by an admissible
+Type I source, and let \(U\) be its physical ancient representative.  Suppose
+one of the following precise alternatives holds: \(U\) belongs to one of the
+closed structured branches listed in \Cref{thm:closed-axisymmetric-branches};
+the associated rescaled vorticity belongs to the perturbative
+weighted-vorticity branch closed by
+\Cref{thm:weighted-vorticity-exclusion-intro}; the associated model variable
+belongs to the Burgers-vortex tube under the model-reduction hypothesis
+\Cref{ass:bv-reduction}; or \(U\) belongs to the bounded-swirl branch under
+\Cref{ass:shell-control}.  In the first, second, and fourth alternatives the
+corresponding normalized branch is zero and hence cannot occur as a nonzero
+residual-limit alternative in Paper I.  In the Burgers-vortex alternative, the
+conclusion is the model rigidity statement
+\(\mathcal T[U](\tau)\equiv\bar\alpha G\); the model theorem alone makes no
+unforced Navier--Stokes zero-solution assertion.
+\end{theorem}
+
+The theorem applies only to the closed subclasses and to the conditional
+subclasses for which the stated hypotheses hold.
+
+\subsection{Relation to Papers I and II}
+
+Paper I \cite{DuranPaperI} reduces admissible Type I singularities to
+normalized nonzero Seregin ancient limits and formulates a residual-class
+criterion.  Paper II \cite{DuranPaperII} treats the uniformly \(L^3\)-tight
+branch.  The present paper treats structured branches.  Its output is a
+structured-branch ledger: several structured alternatives are excluded
+unconditionally by external Liouville theorems, some perturbative branches are
+excluded by Lyapunov arguments, and the remaining bounded-swirl axisymmetric
+branch is reduced to a precise shell-control criterion.  Paper III does not
+depend on Paper II.
+
+\subsection{Branch ledger}
+
+\begin{center}
+\begin{tabular}{p{0.36\textwidth}p{0.18\textwidth}p{0.34\textwidth}}
+\hline
+Branch & Status & Input \\
+\hline
+axisymmetric no swirl & closed & KNSS \\
+pointwise \(|u|\le C/r\) & closed & KNSS \\
+\(\Gamma\in L_t^\infty L_x^p\), \(1\le p<\infty\) & closed & LZZ \\
+\(z\)-periodic bounded \(\Gamma\) & closed & LRZ \\
+controlled swirl \(\rho^\gamma V_\theta\) & conditional & fixed-exponent hypothesis \\
+broad weighted velocity decay & conditional & fixed-exponent hypothesis \\
+small weighted vorticity & closed & Gallay--Wayne \\
+Burgers-vortex tube & model closed & Gallay--Maekawa \\
+unforced Burgers-vortex transfer & conditional & model-reduction assumption \\
+bounded nonperiodic \(\Gamma\in L^\infty\) & open; conditional criterion & shell-control criterion \\
+bounded \(\Gamma\) plus shell control & closed & scalar flattening plus no-swirl \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Organization}
+
+\Cref{sec:typeI} records the Type I ancient setup, self-similar variables, the
+structure-preservation facts, the time-shift lemma, and the branch classes.
+\Cref{sec:axis-inputs} fixes axisymmetric notation and the external Liouville
+inputs.  \Cref{sec:closed-axisymmetric} proves the closed unforced
+axisymmetric branch theorem.  \Cref{sec:conditional} records the controlled
+swirl and broad weighted velocity-decay alternatives as conditional hypotheses.
+\Cref{sec:weighted-vorticity} proves the Gallay--Wayne Lyapunov exclusion.
+\Cref{sec:burgers} proves the Burgers-vortex model rigidity.  \Cref{sec:gamma}
+derives the scalar \(\Gamma\)-identity, shell-error decomposition, and
+conditional scalar flattening theorem.  \Cref{sec:ledger} gives the final
+branch ledger and the interface with Paper I.
+
+\section{Ancient Type I limits, self-similar variables, and structured classes}
+\label{sec:typeI}
+
+\subsection{Type I ancient solutions}
+
+\begin{definition}[Type I ancient solution]
+\label{def:typeI-ancient}
+A smooth mild solution \(U\) of \eqref{eq:NS} on
+\(\mathbb R^3\times(-\infty,0)\) is called Type I ancient if
+\eqref{eq:typeI} holds.  Mild is understood in the standard velocity
+formulation \cite{Kato1984,Sohr2001}: for every \(-\infty<s<t<0\),
+\begin{equation}\label{eq:mild-formula}
+   U(t)=e^{(t-s)\Delta}U(s)
+   -\int_s^t e^{(t-\sigma)\Delta}\mathbb P\nabla\cdot
+      (U(\sigma)\otimes U(\sigma))\,d\sigma
+\end{equation}
+in distributions, where \(\mathbb P\) is the Leray projector.
+\end{definition}
+
+\subsection{Normalized ancient limits}
+
+\begin{definition}[Normalized Type I ancient limit]
+\label{def:normalized-typeI-limit}
+A Type I ancient solution \(U\) is called a normalized Type I ancient limit if
+it arises from the blow-up extraction of Paper I and satisfies the
+corresponding nonvanishing normalization.  Equivalently, its centered
+representative \(V\) is a normalized Seregin ancient limit in the sense of
+Paper I.
+\end{definition}
+
+\begin{lemma}[Nonzero normalization]
+\label{lem:normalized-nonzero}
+A normalized Type I ancient limit is not identically zero.
+\end{lemma}
+
+\begin{proof}
+This is the nonvanishing conclusion of the Type I extraction theorem in
+Paper I.  The present paper uses only the consequence \(U\not\equiv0\), not
+the particular normalization functional.
+\end{proof}
+
+\subsection{Backward self-similar variables}
+
+For \(t<0\), define
+\begin{equation}\label{eq:self-similar}
+   V(y,\tau)=\sqrt{-t}\,U(x,t),\qquad
+   Q(y,\tau)=(-t)P(x,t),\qquad
+   y=\frac{x}{\sqrt{-t}},\qquad
+   \tau=-\log(-t).
+\end{equation}
+Equivalently,
+\[
+   x=e^{-\tau/2}y,\qquad t=-e^{-\tau}.
+\]
+
+\begin{lemma}[Self-similar equation]\label{lem:self-similar-equation}
+Let \((U,P)\) be a smooth solution of \eqref{eq:NS}, and define \((V,Q)\) by
+\eqref{eq:self-similar}.  Then \(V\) is defined on
+\(\mathbb R^3\times\mathbb R\) and satisfies
+\begin{equation}\label{eq:centered}
+   \partial_\tau V+(V\cdot\nabla)V+\nabla Q
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
+   \qquad \nabla\cdot V=0.
+\end{equation}
+Moreover \eqref{eq:typeI} is equivalent to
+\[
+   \sup_{\tau\in\mathbb R}
+   \|V(\tau)\|_{L^\infty(\mathbb R^3)}<\infty .
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(a=\sqrt{-t}=e^{-\tau/2}\).  Then \(V=aU\), \(y=x/a\), and
+\[
+   \partial_t\tau=\frac1{-t}=\frac1{a^2},
+   \qquad
+   \partial_t y=\frac{y}{2a^2},
+   \qquad
+   \partial_t(a^{-1})=\frac1{2a^3}.
+\]
+Since \(U=a^{-1}V\), differentiating at fixed \(x\) gives
+\[
+   \partial_tU
+   =
+   a^{-3}
+   \left(
+      \partial_\tau V+\frac12 y\cdot\nabla V+\frac12V
+   \right).
+\]
+Spatial derivatives scale as
+\[
+   \nabla_xU=a^{-2}\nabla_yV,\qquad
+   \Delta_xU=a^{-3}\Delta_yV,
+\]
+and the pressure scaling gives
+\[
+   \nabla_xP=a^{-3}\nabla_yQ.
+\]
+Thus
+\[
+   (U\cdot\nabla_x)U=a^{-3}(V\cdot\nabla_y)V.
+\]
+Multiplying \eqref{eq:NS} by \(a^3\) yields \eqref{eq:centered}; the
+divergence equation follows from
+\(\nabla_x\cdot U=a^{-2}\nabla_y\cdot V\).  The spatial map
+\(y\mapsto x=e^{-\tau/2}y\) is a bijection for each \(\tau\), and
+\[
+   \|V(\tau)\|_\infty
+   =
+   \sqrt{-t}\,\|U(t)\|_\infty .
+\]
+Taking suprema over \(t<0\), equivalently \(\tau\in\mathbb R\), gives the
+last assertion.
+\end{proof}
+
+\subsection{Preservation of axisymmetry and swirl variables}
+
+For axisymmetric flows we write
+\[
+   x=(r\cos\theta,r\sin\theta,z),\qquad
+   U=U_re_r+U_\theta e_\theta+U_ze_z,
+\]
+and in centered variables
+\[
+   y=(\rho\cos\theta,\rho\sin\theta,Z),\qquad
+   V=V_\rho e_\rho+V_\theta e_\theta+V_Ze_Z.
+\]
+The scalar swirl variables are
+\[
+   \Gamma_U(r,z,t)=rU_\theta(r,z,t),\qquad
+   \Gamma_V(\rho,Z,\tau)=\rho V_\theta(\rho,Z,\tau).
+\]
+
+\begin{lemma}[Preservation of axisymmetric structure]
+\label{lem:structure-preserved}
+Axisymmetry and absence of swirl are preserved under
+\eqref{eq:self-similar}.  If \(U\) is axisymmetric, then
+\[
+   \Gamma_V(\rho,Z,\tau)=\Gamma_U(r,z,t),
+   \qquad
+   (r,z)=\sqrt{-t}\,(\rho,Z).
+\]
+Fixed physical \(z\)-periodicity is preserved by physical time shifts, but
+under the centered change of variables it becomes a \(\tau\)-dependent period
+in the \(Z\)-coordinate.
+\end{lemma}
+
+\begin{proof}
+The self-similar map is a scalar spatial dilation and a scalar multiplication
+of the velocity, so it commutes with rotations around the symmetry axis.
+The cylindrical basis is unchanged by radial dilation, and
+\[
+   V_\theta(\rho,Z,\tau)
+   =
+   \sqrt{-t}\,U_\theta(r,z,t),
+   \qquad
+   r=\sqrt{-t}\rho,\quad z=\sqrt{-t}Z .
+\]
+Thus \(U_\theta\equiv0\) if and only if \(V_\theta\equiv0\), and
+\[
+   \Gamma_V=\rho V_\theta
+   =
+   \rho\sqrt{-t}\,U_\theta
+   =
+   rU_\theta
+   =
+   \Gamma_U .
+\]
+If \(U\) has physical axial period \(L\), then \(V\) has period
+\(L/\sqrt{-t}=Le^{\tau/2}\) in \(Z\), not a fixed period.
+\end{proof}
+
+\subsection{Time shifts away from the singular time}
+
+\begin{lemma}[Time shifts away from the singular time]
+\label{lem:time-shift}
+Let \(U\) be a smooth Type I ancient solution and fix \(T<0\).  Then
+\[
+   W_T(x,s)=U(x,T+s),\qquad \Pi_T(x,s)=P(x,T+s),\qquad s<0,
+\]
+is a smooth bounded mild ancient solution of \eqref{eq:NS} on
+\(\mathbb R^3\times(-\infty,0)\).  Moreover the axisymmetric, no-swirl,
+\(L^p\)-swirl, bounded-\(\Gamma\), and physical \(z\)-periodic properties are
+preserved.
+\end{lemma}
+
+\begin{proof}
+Time translation preserves the differential equation because
+\(\partial_sW_T(x,s)=\partial_tU(x,T+s)\) and all spatial derivatives are
+unchanged.  For the mild formulation, apply \eqref{eq:mild-formula} to \(U\)
+between the physical times \(T+s<T+t<0\):
+\[
+   U(T+t)=e^{(t-s)\Delta}U(T+s)
+   -\int_{T+s}^{T+t}e^{(T+t-\eta)\Delta}\mathbb P\nabla\cdot
+      (U(\eta)\otimes U(\eta))\,d\eta .
+\]
+With \(\eta=T+\sigma\), this becomes the mild formula for \(W_T\) on the
+interval \((s,t)\).  For \(s<0\), \(T+s<T<0\), so the Type I bound gives
+\[
+   \|W_T(s)\|_\infty
+   =
+   \|U(T+s)\|_\infty
+   \le
+   \frac1{\sqrt{-T}}
+   \sup_{\eta<0}\sqrt{-\eta}\,\|U(\eta)\|_\infty .
+\]
+The structural assertions follow because only the time variable has been
+translated.  In particular
+\[
+   \Gamma_{W_T}(r,z,s)=\Gamma_U(r,z,T+s),
+\]
+so \(L_s^\infty L_x^p\) and \(L^\infty\) bounds for \(\Gamma\) restrict to the
+shifted solution, and a fixed physical axial period remains the same.
+\end{proof}
+
+\subsection{Structured branch classes}
+
+\begin{definition}[Closed axisymmetric branch classes]
+\label{def:closed-axisymmetric-classes}
+A Type I ancient solution \(U\) belongs to:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\mathfrak C_{\mathrm{noswirl}}\) if it is axisymmetric and
+\(U_\theta\equiv0\);
+\item \(\mathfrak C_{1/r}\) if it is axisymmetric and
+\[
+   |U(x,t)|\le C/r \qquad(r>0);
+\]
+\item \(\mathfrak C_{\Gamma,p}\), \(1\le p<\infty\), if it is
+axisymmetric and
+\[
+   \Gamma=rU_\theta\in L_t^\infty L_x^p
+   \bigl(\mathbb R^3\times(-\infty,0)\bigr);
+\]
+\item \(\mathfrak C_{\mathrm{per},\Gamma}\) if it is axisymmetric, periodic
+in the physical axial variable \(z\), and \(\Gamma\in L^\infty\).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Conditional structured branch classes]
+\label{def:conditional-structured-classes}
+We also record the following conditional branches:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the controlled-swirl branch \(\mathfrak C_{\mathrm{cs}}(\gamma)\);
+\item the broad weighted velocity-decay branch \(\mathfrak C_{\mathrm{wd}}(m)\);
+\item the perturbative weighted-vorticity branch \(\mathfrak C_{\mathrm{GW}}(m)\);
+\item the Burgers-vortex reduction branch \(\mathfrak C_{\mathrm{BV}}(m)\);
+\item the bounded-swirl shell-control branch \(\mathfrak C_{\mathrm{shell}}\).
+\end{enumerate}
+The first two require fixed-exponent Liouville hypotheses.  The Burgers-vortex
+branch requires a model-reduction assumption when it is imported into
+unforced Navier--Stokes.  The shell-control branch requires
+\Cref{ass:shell-control}.
+\end{definition}
+
+\section{Axisymmetric notation and external Liouville inputs}
+\label{sec:axis-inputs}
+
+\subsection{Cylindrical variables and the swirl scalar}
+
+For a generic axisymmetric solution \(u\), write
+\[
+   u=u_re_r+u_\theta e_\theta+u_ze_z,\qquad
+   \Gamma=ru_\theta,\qquad
+   b=u_re_r+u_ze_z .
+\]
+When \(\Gamma\) is placed in \(L^p(\mathbb R^3)\), it is regarded as the
+corresponding function of \(x=(r\cos\theta,r\sin\theta,z)\), independent of
+\(\theta\):
+\[
+   \|\Gamma(t)\|_{L^p(\mathbb R^3)}^p
+   =
+   2\pi\int_{\mathbb R}\int_0^\infty
+      |\Gamma(r,z,t)|^p r\,dr\,dz,\qquad 1\le p<\infty .
+\]
+
+\subsection{Constant and Galilean-trivial solutions}
+
+\begin{definition}[Galilean-trivial]
+A velocity field is Galilean-trivial if, after a Galilean transform, it is a
+constant vector field.  In the Type I blow-up frame below we use only the
+following consequence: when an external Liouville theorem gives a constant
+velocity field in that frame, the Type I bound forces the constant to be zero.
+\end{definition}
+
+\begin{lemma}[Spatially constant mild solutions]\label{lem:spatial-constant-mild}
+Let \(W\) be a smooth mild solution of \eqref{eq:NS} on
+\(\mathbb R^3\times(-\infty,0)\).  If \(W(x,t)=b(t)\) for all \(x\) and \(t\),
+then \(b\) is constant in time.
+\end{lemma}
+
+\begin{proof}
+Insert \(W(x,t)=b(t)\) into \eqref{eq:mild-formula}.  The heat semigroup
+leaves constant vector fields fixed, and
+\(\nabla\cdot(b(\sigma)\otimes b(\sigma))=0\).  Thus
+\(b(t)=b(s)\) for every \(s<t<0\).
+\end{proof}
+
+\begin{lemma}[Patching constants on backward intervals]
+\label{lem:patch-constants}
+Let \(U:\mathbb R^3\times(-\infty,0)\to\mathbb R^3\) be a function.  Assume
+that for every \(T<0\) there exists \(c_T\in\mathbb R^3\) such that
+\[
+   U(x,t)=c_T\qquad(x\in\mathbb R^3,\ t<T).
+\]
+Then there is a single \(c\in\mathbb R^3\) such that
+\[
+   U(x,t)=c\qquad(x\in\mathbb R^3,\ t<0).
+\]
+\end{lemma}
+
+\begin{proof}
+If \(T_1<T_2<0\), the two constants agree on the nonempty interval
+\((-\infty,T_1)\).  Hence all \(c_T\) are equal.  For any \(t<0\), choose
+\(T\) with \(t<T<0\).
+\end{proof}
+
+\begin{lemma}[Constant Type I ancient solutions vanish]
+\label{lem:galilean-typeI-zero}
+Let \(U\) be a Type I ancient solution.  If \(U(x,t)\equiv c\), then
+\(c=0\).
+\end{lemma}
+
+\begin{proof}
+The Type I bound gives
+\[
+   \sqrt{-t}\,|c|
+   \le
+   \sup_{s<0}\sqrt{-s}\,\|U(s)\|_\infty<\infty
+   \qquad(t<0).
+\]
+Letting \(t\to-\infty\) gives \(c=0\).
+\end{proof}
+
+\subsection{External Liouville inputs}
+
+The following theorems are used as external PDE inputs.
+
+\begin{theorem}[KNSS no-swirl Liouville theorem]
+\label{thm:knss-noswirl}
+Every bounded ancient mild axisymmetric no-swirl solution of the unforced
+Navier--Stokes equations is Galilean-trivial.  In the form used below, the
+solution is a spatially constant axial drift.
+\end{theorem}
+
+\begin{proof}
+This is the no-swirl Liouville theorem of
+Koch--Nadirashvili--Seregin--\v{S}ver\'ak \cite{KNSS2009}, stated in the form needed
+for the branch exclusion.
+\end{proof}
+
+\begin{theorem}[KNSS pointwise scale-invariant branch]
+\label{thm:knss-pointwise}
+Every bounded ancient mild axisymmetric solution satisfying
+\[
+   |u(x,t)|\le \frac{C}{r}
+   \qquad(r>0,\ t<0)
+\]
+is Galilean-trivial.  In the form used below it is identically zero.
+\end{theorem}
+
+\begin{proof}
+This is the pointwise branch theorem of \cite{KNSS2009}, stated in the form
+used here.
+\end{proof}
+
+\begin{theorem}[Lei--Zhang--Zhao]
+\label{thm:lzz}
+Let \(u\) be a bounded ancient mild axisymmetric solution.  If
+\[
+   \Gamma=ru_\theta\in L_t^\infty L_x^p
+   \bigl(\mathbb R^3\times(-\infty,0)\bigr),
+   \qquad 1\le p<\infty,
+\]
+then \(u\) is a constant vector field.
+\end{theorem}
+
+\begin{proof}
+This is the ancient axisymmetric \(L^p\)-swirl Liouville theorem of
+Lei--Zhang--Zhao \cite{LZZ}.
+\end{proof}
+
+\begin{theorem}[Lei--Ren--Zhang]
+\label{thm:lrz}
+Let \(u\) be a bounded ancient mild axisymmetric solution, periodic in \(z\),
+with
+\[
+   \Gamma=ru_\theta\in L^\infty
+   \bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+Then \(u\) is a constant axial vector field.
+\end{theorem}
+
+\begin{proof}
+This is the periodic bounded-swirl theorem of Lei--Ren--Zhang
+\cite{LRZ}.  Their statement is on \(\mathbb R^2\times\mathbb T^1\); a
+physical \(z\)-periodic whole-space solution descends to the quotient, and a
+Navier--Stokes scaling normalizes the period.
+\end{proof}
+
+\section{Closed unforced axisymmetric branches}
+\label{sec:closed-axisymmetric}
+
+\subsection{No swirl}
+
+\begin{proposition}[No-swirl Type I exclusion]\label{prop:noswirl-typeI}
+Let \(U\) be a smooth Type I ancient solution in
+\(\mathfrak C_{\mathrm{noswirl}}\).  Then \(U\equiv0\).
+\end{proposition}
+
+\begin{proof}
+Fix \(T<0\) and set \(W_T(x,s)=U(x,T+s)\).  By \Cref{lem:time-shift},
+\(W_T\) is a bounded ancient mild axisymmetric no-swirl solution.  Applying
+\Cref{thm:knss-noswirl} gives that \(W_T\) is a spatially constant axial
+drift, say \(W_T(x,s)=b_T(s)e_z\).  By
+\Cref{lem:spatial-constant-mild}, \(b_T(s)\) is constant in \(s\).  Thus
+\(U(x,t)=c_T\) for \(t<T\).  Since \(T<0\) is arbitrary,
+\Cref{lem:patch-constants} gives \(U(x,t)=c\) for all \(t<0\).  Finally,
+\Cref{lem:galilean-typeI-zero} gives \(c=0\).
+\end{proof}
+
+\subsection{Pointwise scale-invariant control}
+
+\begin{proposition}[Pointwise \(1/r\) Type I exclusion]\label{prop:pointwise-typeI}
+Let \(U\) be a smooth Type I ancient solution in \(\mathfrak C_{1/r}\).  Then
+\(U\equiv0\).
+\end{proposition}
+
+\begin{proof}
+Fix \(T<0\).  The shifted solution \(W_T(x,s)=U(x,T+s)\) is bounded, ancient,
+axisymmetric, and satisfies the same pointwise bound \(|W_T|\le C/r\).
+\Cref{thm:knss-pointwise} gives \(W_T\equiv0\).  Hence \(U\equiv0\) on
+\((-\infty,T)\).  Since \(T<0\) is arbitrary, \(U\equiv0\).
+\end{proof}
+
+\subsection{\texorpdfstring{Finite \(L^p\) control of \(\Gamma\)}
+{Finite Lp control of Gamma}}
+
+\begin{proposition}[Finite-\(L^p\) swirl Type I exclusion]
+\label{prop:lp-swirl-typeI}
+Let \(U\) be a smooth Type I ancient solution in
+\(\mathfrak C_{\Gamma,p}\) for some \(1\le p<\infty\).  Then \(U\equiv0\).
+\end{proposition}
+
+\begin{proof}
+Fix \(T<0\).  By \Cref{lem:time-shift}, \(W_T(x,s)=U(x,T+s)\) is a bounded
+ancient mild axisymmetric solution and
+\[
+   \Gamma_{W_T}\in L_s^\infty L_x^p
+   \bigl(\mathbb R^3\times(-\infty,0)\bigr).
+\]
+\Cref{thm:lzz} gives that \(W_T\) is a constant vector field.  Patch these
+constants in \(T\) by \Cref{lem:patch-constants} and then use
+\Cref{lem:galilean-typeI-zero}.
+\end{proof}
+
+\subsection{Periodic bounded swirl}
+
+\begin{proposition}[Periodic bounded-swirl Type I exclusion]
+\label{prop:periodic-swirl-typeI}
+Let \(U\) be a smooth Type I ancient solution in
+\(\mathfrak C_{\mathrm{per},\Gamma}\).  Then \(U\equiv0\).
+\end{proposition}
+
+\begin{proof}
+Fix \(T<0\).  By \Cref{lem:time-shift}, the shifted solution \(W_T\) is
+bounded, ancient, axisymmetric, physically \(z\)-periodic, and has bounded
+\(\Gamma\).  \Cref{thm:lrz} gives that \(W_T\) is a constant axial vector
+field.  The constants patch as \(T\) varies, and the Type I bound eliminates
+the resulting constant by \Cref{lem:galilean-typeI-zero}.
+\end{proof}
+
+\subsection{Proof of the closed branch theorem}
+
+\begin{proof}[Proof of \Cref{thm:closed-axisymmetric-branches}]
+The four alternatives are exactly the hypotheses of
+\Cref{prop:noswirl-typeI,prop:pointwise-typeI,prop:lp-swirl-typeI,prop:periodic-swirl-typeI}.
+Each proposition gives \(U\equiv0\).  This contradicts
+\Cref{lem:normalized-nonzero} when \(U\) is a normalized Type I ancient limit.
+\end{proof}
+
+\section{Conditional controlled-swirl and weighted-decay hypotheses}
+\label{sec:conditional}
+
+\subsection{Controlled swirl in self-similar variables}
+
+\begin{definition}[Controlled-swirl branch]
+\label{def:controlled-swirl}
+Fix \(\gamma>0\).  A centered ancient solution \(V\) belongs to the
+controlled-swirl branch \(\mathfrak C_{\mathrm{cs}}(\gamma)\) if \(V\) is
+axisymmetric and
+\[
+   \sup_{\tau\in\mathbb R}\sup_{\rho>0,\ Z\in\mathbb R}
+   \rho^\gamma |V_\theta(\rho,Z,\tau)|<\infty .
+\]
+\end{definition}
+
+\begin{hypothesis}[Fixed-exponent controlled-swirl Liouville theorem]
+\label{hyp:controlled-swirl-liouville}
+For the chosen exponent \(\gamma>0\), every normalized Type I ancient limit
+whose centered representative lies in
+\(\mathfrak C_{\mathrm{cs}}(\gamma)\) is zero.
+\end{hypothesis}
+
+\begin{proposition}[Conditional controlled-swirl exclusion]
+\label{prop:controlled-swirl-conditional}
+If \Cref{hyp:controlled-swirl-liouville} holds for a fixed \(\gamma>0\), then
+no nonzero normalized Type I ancient limit belongs to
+\(\mathfrak C_{\mathrm{cs}}(\gamma)\).
+\end{proposition}
+
+\begin{proof}
+This is exactly the hypothesis combined with the nonzero normalization
+\Cref{lem:normalized-nonzero}.
+\end{proof}
+
+\subsection{Broad weighted velocity-decay branch}
+
+\begin{definition}[Broad weighted velocity-decay branch]
+\label{def:weighted-velocity-branch}
+Fix \(m>0\).  A centered ancient solution \(V\) belongs to
+\(\mathfrak C_{\mathrm{wd}}(m)\) if
+\[
+   \sup_{\tau\in\mathbb R}
+   \int_{\mathbb R^3}(1+|y|^2)^m |V(y,\tau)|^2\,dy<\infty .
+\]
+\end{definition}
+
+\begin{hypothesis}[Fixed-exponent weighted velocity Liouville theorem]
+\label{hyp:weighted-velocity-liouville}
+For the chosen exponent \(m>0\), every normalized Type I ancient limit whose
+centered representative lies in \(\mathfrak C_{\mathrm{wd}}(m)\) is zero.
+\end{hypothesis}
+
+\begin{proposition}[Conditional weighted velocity exclusion]
+\label{prop:weighted-velocity-conditional}
+If \Cref{hyp:weighted-velocity-liouville} holds for a fixed \(m>0\), then no
+nonzero normalized Type I ancient limit belongs to
+\(\mathfrak C_{\mathrm{wd}}(m)\).
+\end{proposition}
+
+\begin{proof}
+This is \Cref{hyp:weighted-velocity-liouville} plus
+\Cref{lem:normalized-nonzero}.
+\end{proof}
+
+\begin{remark}[Weighted velocity versus weighted vorticity]
+The broad weighted velocity branch is not closed by the Gallay--Wayne theorem
+below.  Gallay--Wayne applies only to ancient trajectories whose rescaled
+vorticity remains in a sufficiently small ball of \(L^2_\sigma(m)\).  Thus
+\Cref{hyp:weighted-velocity-liouville} is a separate fixed-exponent Liouville
+input unless an additional reduction from broad weighted velocity decay to
+perturbative weighted vorticity is supplied.
+\end{remark}
+
+\section{Perturbative weighted-vorticity Lyapunov exclusion}
+\label{sec:weighted-vorticity}
+
+\subsection{The rescaled vorticity equation}
+
+In this section \(\tau\) is the forward self-similar time used in the
+Gallay--Wayne vorticity formulation.  The ancient trajectories are indexed by
+all \(\tau\in\mathbb R\), and the forward semiflow acts by increasing
+\(\tau\).
+
+Let \(w=\nabla\times v\).  The rescaled vorticity equation is
+\begin{equation}\label{eq:weighted-vorticity}
+   \partial_\tau w
+   =
+   \Lambda w-(v\cdot\nabla)w+(w\cdot\nabla)v,
+   \qquad \nabla\cdot w=0,
+\end{equation}
+where
+\begin{equation}\label{eq:lambda}
+   \Lambda w=\Delta w+\frac12\xi\cdot\nabla w+w,
+\end{equation}
+and \(v\) is recovered from \(w\) by the three-dimensional Biot--Savart law.
+For \(m\ge0\), set
+\[
+   L^2_\sigma(m)
+   =
+   \left\{
+      f\in L^2(\mathbb R^3;\mathbb R^3):
+      \nabla\cdot f=0,\quad \|f\|_m<\infty
+   \right\},
+\]
+where
+\[
+   \|f\|_m^2
+   =
+   \int_{\mathbb R^3}(1+|\xi|)^{2m}|f(\xi)|^2\,d\xi .
+\]
+
+\subsection{Gallay--Wayne small-data decay}
+
+\begin{theorem}[Gallay--Wayne small-data decay]\label{thm:gallay}
+Let \(0<\mu\le1\) and \(m>2\mu+\frac12\).  There exist constants
+\(\rho_m>0\) and \(C_m\ge1\) such that if \(\|w_0\|_m\le\rho_m\), then
+\eqref{eq:weighted-vorticity} has a unique global mild solution
+\(w(\tau)=\Phi_\tau w_0\) in \(C([0,\infty);L^2_\sigma(m))\) and
+\[
+   \|\Phi_\tau w_0\|_m
+   \le
+   C_m e^{-\mu\tau}\|w_0\|_m,\qquad \tau\ge0.
+\]
+In particular, if \(m>\frac72\), one may use \(\mu=1\).
+\end{theorem}
+
+\begin{proof}
+This is the Gallay--Wayne weighted small-data theorem for the rescaled
+three-dimensional vorticity equation \cite{GallayWayne2002}.  The only
+conclusions used below are existence, uniqueness, the semiflow property, and
+the displayed exponential decay.
+\end{proof}
+
+\subsection{The Lyapunov functional}
+
+\begin{definition}[Perturbative weighted-vorticity branch]
+\label{def:weighted-vorticity-branch}
+Fix \(m>\frac72\), and let \(\rho_m\) be the radius in \Cref{thm:gallay}.
+The branch \(\mathfrak C_{\mathrm{GW}}(m)\) consists of all
+\[
+   w\in C(\mathbb R;L^2_\sigma(m))
+\]
+which solve \eqref{eq:weighted-vorticity} for all \(\tau\in\mathbb R\) and
+satisfy
+\[
+   \sup_{\tau\in\mathbb R}\|w(\tau)\|_m\le\rho_m .
+\]
+Solving for all \(\tau\) means that every time shift is compatible with the
+Gallay--Wayne forward mild semiflow.
+\end{definition}
+
+\begin{proposition}[Semiflow Lyapunov functional]\label{prop:weighted-lyap}
+Fix \(m>\frac72\).  For \(\|w_0\|_m\le\rho_m\), define
+\begin{equation}\label{eq:weighted-lyap}
+   \mathcal L_m(w_0)
+   =
+   \sup_{\tau\ge0}e^{2\tau}\|\Phi_\tau w_0\|_m^2 .
+\end{equation}
+Then \(\mathcal L_m\) is well-defined and satisfies
+\begin{equation}\label{eq:weighted-coercive}
+   \|w_0\|_m^2
+   \le
+   \mathcal L_m(w_0)
+   \le
+   C_m^2\|w_0\|_m^2 .
+\end{equation}
+Moreover, for every \(s\ge0\),
+\begin{equation}\label{eq:weighted-contract}
+   \mathcal L_m(\Phi_s w_0)
+   \le
+   e^{-2s}\mathcal L_m(w_0).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The Gallay--Wayne estimate with \(\mu=1\) gives
+\[
+   e^{2\tau}\|\Phi_\tau w_0\|_m^2
+   \le C_m^2\|w_0\|_m^2,
+\]
+which proves finiteness and the upper bound.  The lower bound is the value at
+\(\tau=0\).  By uniqueness,
+\[
+   \Phi_\tau(\Phi_s w_0)=\Phi_{\tau+s}w_0 .
+\]
+Hence
+\[
+   \mathcal L_m(\Phi_s w_0)
+   =
+   \sup_{\tau\ge0}e^{2\tau}\|\Phi_{\tau+s}w_0\|_m^2
+   =
+   e^{-2s}\sup_{\sigma\ge s}e^{2\sigma}\|\Phi_\sigma w_0\|_m^2
+   \le e^{-2s}\mathcal L_m(w_0).
+\]
+\end{proof}
+
+\subsection{Ancient rigidity in the small weighted ball}
+
+\begin{proof}[Proof of \Cref{thm:weighted-vorticity-exclusion-intro}]
+Let \(w\) be an ancient solution in the small ball and fix
+\(\tau_0\in\mathbb R\).  For \(s<\tau_0\), the shifted function
+\[
+   W_s(\theta)=w(s+\theta),\qquad \theta\ge0,
+\]
+is the Gallay--Wayne mild solution with initial datum \(w(s)\).  The small-ball
+hypothesis gives \(\|w(s)\|_m\le\rho_m\), so the forward solution is in the
+domain of \(\Phi_\theta\), and uniqueness gives
+\[
+   W_s(\theta)=\Phi_\theta w(s),\qquad \theta\ge0.
+\]
+Choosing \(\theta=\tau_0-s\) gives
+\[
+   w(\tau_0)=\Phi_{\tau_0-s}w(s).
+\]
+Since \(\|w(\tau_0)\|_m\le\rho_m\), the Lyapunov functional is also defined at
+\(w(\tau_0)\).  Applying \Cref{prop:weighted-lyap} with forward time
+\(\tau_0-s\),
+\[
+   \mathcal L_m(w(\tau_0))
+   \le
+   e^{-2(\tau_0-s)}\mathcal L_m(w(s))
+   \le
+   C_m^2\rho_m^2e^{-2(\tau_0-s)} .
+\]
+Letting \(s\to-\infty\) gives \(\mathcal L_m(w(\tau_0))=0\).  The lower
+coercive bound \eqref{eq:weighted-coercive} gives \(w(\tau_0)=0\).  Since
+\(\tau_0\) was arbitrary, \(w\equiv0\).
+\end{proof}
+
+\begin{remark}[Relation to weighted velocity decay]
+This theorem supplies a structured/decay branch exclusion only for normalized
+limits whose vorticity can be placed inside the Gallay--Wayne perturbative
+weighted branch.  It does not by itself exclude all weighted velocity-decay
+alternatives in the branch taxonomy of Paper I.
+\end{remark}
+
+\section{The Burgers-vortex model branch}
+\label{sec:burgers}
+
+This section proves a rigidity theorem for the strained Burgers-vortex model.
+It is not, by itself, a theorem for the unforced Navier--Stokes equations.  The
+final corollary states the additional model-reduction assumption needed to
+transfer the conclusion to an unforced ancient-solution class.
+
+\subsection{The strained vorticity equation}
+
+Let \(x=(x_h,x_3)\in\mathbb R^2\times\mathbb R\) and
+\[
+   A=\operatorname{diag}\left(-\frac12,-\frac12,1\right).
+\]
+The Burgers-vortex vorticity equation is
+\begin{equation}\label{eq:burgers}
+   \partial_\tau\Omega+(U\cdot\nabla)\Omega-(\Omega\cdot\nabla)U
+   =
+   \Delta\Omega-(Ax\cdot\nabla)\Omega+A\Omega,
+   \qquad
+   \nabla\cdot\Omega=0,
+\end{equation}
+with \(U\) recovered from \(\Omega\) by the Biot--Savart law.  It has the
+stationary family
+\begin{equation}\label{eq:burgers-family}
+   \Omega=\alpha G,\qquad
+   G(x)=\begin{pmatrix}0\\0\\g(x_h)\end{pmatrix},
+   \qquad
+   g(x_h)=\frac1{4\pi}e^{-|x_h|^2/4},
+   \qquad \alpha\in\mathbb R .
+\end{equation}
+
+\subsection{Weighted horizontal spaces}
+
+For \(m>1\), let \(L^2_h(m)\) denote the horizontal weighted space with norm
+\[
+   \|f\|_{L^2_h(m)}^2
+   =
+   \int_{\mathbb R^2}|f(x_h)|^2
+   \left(1+\frac{|x_h|^2}{4m}\right)^m\,dx_h .
+\]
+Set
+\[
+   X(m)=BC(\mathbb R_{x_3};L^2_h(m)),\qquad
+   X_0(m)=
+   \left\{
+      f\in X(m):
+      \int_{\mathbb R^2}f(x_h,x_3)\,dx_h=0
+      \text{ for every }x_3
+   \right\},
+\]
+and
+\[
+   \mathcal X_{\mathrm{full}}(m)=X(m)^3,\qquad
+   \mathcal X_{\mathrm{mod}}(m)=X(m)\times X(m)\times X_0(m).
+\]
+
+\subsection{Admissible Burgers-vortex solutions}
+
+\begin{definition}[Admissible Burgers-vortex solutions]\label{def:admissible-bv}
+A mild solution
+\(\Omega:\mathbb R\to\mathcal X_{\mathrm{full}}(m)\) is called admissible if
+the following operations are justified on every compact time interval:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item horizontal integrations by parts against constants and against \(x_h\)
+are valid, with no boundary contribution at \(|x_h|=\infty\);
+\item the identity
+\[
+   \int_{\mathbb R^2}
+   \bigl[(U\cdot\nabla)\Omega-(\Omega\cdot\nabla)U\bigr]_3\,dx_h=0
+\]
+holds in distributions in \(x_3\) and \(\tau\);
+\item the map
+\[
+   \tau\mapsto
+   \int_{\mathbb R^2}\Omega_3(x_h,x_3,\tau)\,dx_h
+\]
+is absolutely continuous after testing in \(x_3\).
+\end{enumerate}
+Smooth rapidly decaying solutions are admissible.
+\end{definition}
+
+\subsection{Circulation coordinate and conservation}
+
+\begin{lemma}[Circulation coordinate]\label{lem:circulation}
+Let \(m>1\) and let
+\(\Omega\in\mathcal X_{\mathrm{full}}(m)\) be divergence-free.  Assume that
+the horizontal integration by parts
+\[
+   \int_{\mathbb R^2}\nabla_h\cdot\Omega_h(x_h,x_3)\,dx_h=0
+\]
+is valid.  Then
+\[
+   \alpha[\Omega](x_3)
+   =
+   \int_{\mathbb R^2}\Omega_3(x_h,x_3)\,dx_h
+\]
+is well-defined and independent of \(x_3\).  Writing the common value as
+\(\alpha[\Omega]\), one has
+\[
+   Q\Omega:=\Omega-\alpha[\Omega]G\in\mathcal X_{\mathrm{mod}}(m).
+\]
+\end{lemma}
+
+\begin{proof}
+Since \(m>1\), \(L^2_h(m)\hookrightarrow L^1(\mathbb R^2)\) by
+Cauchy--Schwarz:
+\[
+   \int_{\mathbb R^2}|f(x_h)|\,dx_h
+   \le
+   \|f\|_{L^2_h(m)}
+   \left(
+      \int_{\mathbb R^2}
+      \left(1+\frac{|x_h|^2}{4m}\right)^{-m}\,dx_h
+   \right)^{1/2},
+\]
+and the last integral is finite in two dimensions exactly because \(m>1\).
+Thus \(\alpha[\Omega](x_3)\) is well-defined.  Using
+\(\nabla\cdot\Omega=0\),
+\[
+   \partial_{x_3}\alpha[\Omega](x_3)
+   =
+   \int_{\mathbb R^2}\partial_{x_3}\Omega_3\,dx_h
+   =
+   -\int_{\mathbb R^2}\nabla_h\cdot\Omega_h\,dx_h
+   =
+   0 .
+\]
+Also \(\int_{\mathbb R^2}g(x_h)\,dx_h=1\), so subtracting
+\(\alpha[\Omega]G\) removes the horizontal mean of the third component.
+\end{proof}
+
+\begin{lemma}[Conservation of circulation]\label{lem:circulation-conserved}
+Let \(m>1\), and let \(\Omega(\tau)\) be an admissible mild solution of
+\eqref{eq:burgers} with values in \(\mathcal X_{\mathrm{full}}(m)\).  Then
+\(\alpha[\Omega(\tau)]\) is independent of \(\tau\).  If
+\(\bar\alpha\) denotes this constant, then
+\[
+   \omega(\tau)=\Omega(\tau)-\bar\alpha G
+\]
+belongs to \(\mathcal X_{\mathrm{mod}}(m)\) for every \(\tau\) and solves the
+fixed-circulation perturbation equation around \(\bar\alpha G\).
+\end{lemma}
+
+\begin{proof}
+Integrate the third component of \eqref{eq:burgers} over \(x_h\).  The
+nonlinear term is a horizontal divergence:
+\[
+   (U\cdot\nabla)\Omega-(\Omega\cdot\nabla)U
+   =
+   -\nabla\times(U\times\Omega),
+\]
+and the third component of a curl is a horizontal divergence.  It therefore
+has zero horizontal integral by admissibility.  For the linear part,
+\[
+   \bigl[\Delta\Omega-(Ax\cdot\nabla)\Omega+A\Omega\bigr]_3
+   =
+   \Delta_h\Omega_3+\partial_{x_3}^2\Omega_3
+   +\frac12x_h\cdot\nabla_h\Omega_3
+   -x_3\partial_{x_3}\Omega_3+\Omega_3 .
+\]
+The \(\Delta_h\) term integrates to zero, and
+\[
+   \int_{\mathbb R^2}\frac12x_h\cdot\nabla_h\Omega_3\,dx_h
+   =
+   -\int_{\mathbb R^2}\Omega_3\,dx_h,
+\]
+which cancels the \(+\Omega_3\) term.  Hence
+\[
+   \frac{d}{d\tau}\alpha[\Omega(\tau)]
+   =
+   \partial_{x_3}^2\alpha[\Omega(\tau)]
+   -x_3\partial_{x_3}\alpha[\Omega(\tau)].
+\]
+By \Cref{lem:circulation}, the right-hand side is zero.
+\end{proof}
+
+\subsection{Gallay--Maekawa stability}
+
+\begin{theorem}[Gallay--Maekawa stability]\label{thm:gm}
+Let \(m>2\) and \(\alpha\in\mathbb R\).  There exist constants
+\(\delta_{\alpha,m}>0\) and \(C_{\alpha,m}\ge1\) such that every
+divergence-free perturbation
+\[
+   \omega_0\in\mathcal X_{\mathrm{mod}}(m),
+   \qquad
+   \|\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le\delta_{\alpha,m},
+\]
+generates a unique global mild solution of the fixed-circulation perturbation
+equation around \(\alpha G\), denoted \(\Phi_\tau^\alpha\omega_0\), and
+\[
+   \|\Phi_\tau^\alpha\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le
+   C_{\alpha,m}e^{-\tau/2}
+   \|\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \qquad(\tau\ge0).
+\]
+\end{theorem}
+
+\begin{proof}
+This is the Gallay--Maekawa nonlinear stability theorem for Burgers vortices
+in horizontal weighted spaces \cite{GallayMaekawa}.  We use only existence,
+uniqueness, the fixed-circulation semiflow property, and the displayed
+exponential decay.
+\end{proof}
+
+\subsection{Profile-relative Lyapunov functional}
+
+\begin{proposition}[Profile-relative Lyapunov functional]\label{prop:bv-lyap}
+Fix \(m>2\) and \(\alpha\in\mathbb R\).  On the ball
+\[
+   \|\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le\delta_{\alpha,m}
+\]
+define
+\begin{equation}\label{eq:bv-lyap}
+   \mathcal B_{\alpha,m}(\omega_0)
+   =
+   \sup_{\tau\ge0}e^\tau
+   \|\Phi_\tau^\alpha\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2 .
+\end{equation}
+Then
+\[
+   \|\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2
+   \le
+   \mathcal B_{\alpha,m}(\omega_0)
+   \le
+   C_{\alpha,m}^2
+   \|\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2,
+\]
+and
+\[
+   \mathcal B_{\alpha,m}(\Phi_s^\alpha\omega_0)
+   \le
+   e^{-s}\mathcal B_{\alpha,m}(\omega_0)
+   \qquad(s\ge0).
+\]
+\end{proposition}
+
+\begin{proof}
+Gallay--Maekawa stability gives, for every \(\tau\ge0\),
+\[
+   e^\tau
+   \|\Phi_\tau^\alpha\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2
+   \le
+   C_{\alpha,m}^2
+   \|\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2 .
+\]
+Taking the supremum over \(\tau\ge0\) proves that
+\(\mathcal B_{\alpha,m}\) is finite and gives the upper coercive bound.  The
+lower bound follows from the value at \(\tau=0\), because
+\(\Phi_0^\alpha\omega_0=\omega_0\).
+
+For \(s\ge0\), uniqueness of the fixed-circulation perturbation equation gives
+the semiflow identity
+\[
+   \Phi_\tau^\alpha(\Phi_s^\alpha\omega_0)
+   =
+   \Phi_{\tau+s}^\alpha\omega_0 .
+\]
+Therefore
+\[
+   \mathcal B_{\alpha,m}(\Phi_s^\alpha\omega_0)
+   =
+   \sup_{\tau\ge0}
+   e^\tau
+   \|\Phi_{\tau+s}^\alpha\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2 .
+\]
+With \(\sigma=\tau+s\), this is
+\[
+   e^{-s}\sup_{\sigma\ge s}
+   e^\sigma
+   \|\Phi_\sigma^\alpha\omega_0\|_{\mathcal X_{\mathrm{mod}}(m)}^2
+   \le
+   e^{-s}\mathcal B_{\alpha,m}(\omega_0).
+\]
+\end{proof}
+
+\subsection{Ancient rigidity in the Burgers-vortex tube}
+
+\begin{definition}[Burgers-vortex ancient tube]\label{def:bv-tube}
+Fix \(m>2\).  The Burgers-vortex ancient tube consists of all admissible
+ancient mild solutions \(\Omega:\mathbb R\to\mathcal X_{\mathrm{full}}(m)\)
+of \eqref{eq:burgers} such that, with
+\(\bar\alpha=\alpha[\Omega(\tau)]\),
+\[
+   \sup_{\tau\in\mathbb R}
+   \|\Omega(\tau)-\bar\alpha G\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le
+   \delta_{\bar\alpha,m}.
+\]
+The term ``ancient mild'' includes compatibility with the
+Gallay--Maekawa forward mild semiflow after every time shift.
+\end{definition}
+
+\begin{proof}[Proof of \Cref{thm:burgers-vortex-tube-intro}]
+By \Cref{lem:circulation-conserved}, \(\bar\alpha\) is independent of time and
+\[
+   \omega(\tau)=\Omega(\tau)-\bar\alpha G
+\]
+is an ancient solution of the fixed-circulation perturbation equation in the
+small ball.  Fix \(\tau_0\in\mathbb R\) and \(s<\tau_0\).  By the ancient mild
+compatibility, the shifted perturbation
+\[
+   \omega_s(\theta)=\omega(s+\theta),\qquad \theta\ge0,
+\]
+is the Gallay--Maekawa mild solution launched from \(\omega(s)\).  The tube
+hypothesis gives
+\[
+   \|\omega(s)\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le\delta_{\bar\alpha,m},
+\]
+so uniqueness of the fixed-circulation semiflow gives
+\[
+   \omega(\tau_0)=\Phi_{\tau_0-s}^{\bar\alpha}\omega(s).
+\]
+Using \Cref{prop:bv-lyap},
+\[
+   \mathcal B_{\bar\alpha,m}(\omega(\tau_0))
+   \le
+   e^{-(\tau_0-s)}
+   \mathcal B_{\bar\alpha,m}(\omega(s))
+   \le
+   e^{-(\tau_0-s)}
+   C_{\bar\alpha,m}^2\delta_{\bar\alpha,m}^2 .
+\]
+Letting \(s\to-\infty\) gives
+\(\mathcal B_{\bar\alpha,m}(\omega(\tau_0))=0\).  The coercive lower bound
+gives \(\omega(\tau_0)=0\).  Since \(\tau_0\) was arbitrary,
+\(\Omega(\tau)\equiv\bar\alpha G\).
+\end{proof}
+
+\subsection{Conditional transfer to unforced Navier--Stokes}
+
+\begin{assumption}[Reduction to the Burgers-vortex model]\label{ass:bv-reduction}
+Let \(\mathcal C\) be a class of ancient solutions of an unforced or
+renormalized Navier--Stokes problem.  Assume there are \(m>2\), a map
+\[
+   \mathcal T:\mathcal C\to
+   C_{\mathrm{loc}}(\mathbb R;\mathcal X_{\mathrm{full}}(m)),
+\]
+and a nonnegative defect \(d[u(\tau)]\) such that for every \(u\in\mathcal C\):
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\Omega=\mathcal T[u]\) is an admissible ancient mild solution of
+\eqref{eq:burgers} in the sense of \Cref{def:admissible-bv};
+\item with \(\bar\alpha=\alpha[\Omega]\),
+\[
+   \|\Omega(\tau)-\bar\alpha G\|_{\mathcal X_{\mathrm{mod}}(m)}
+   \le C_* d[u(\tau)]
+   \qquad(\tau\in\mathbb R);
+\]
+\item \(\sup_{\tau\in\mathbb R}d[u(\tau)]\le
+\delta_{\bar\alpha,m}/C_*\).
+\end{enumerate}
+\end{assumption}
+
+\begin{corollary}[Conditional Burgers-vortex model transfer]
+\label{cor:bv-import}
+Under \Cref{ass:bv-reduction}, every \(u\in\mathcal C\) is mapped by
+\(\mathcal T\) to an exact Burgers vortex:
+\[
+   \mathcal T[u](\tau)\equiv\bar\alpha G .
+\]
+\end{corollary}
+
+\begin{proof}
+The assumptions put \(\Omega=\mathcal T[u]\) in the Burgers-vortex ancient
+tube of \Cref{def:bv-tube}.  Applying
+\Cref{thm:burgers-vortex-tube-intro} gives the conclusion.
+\end{proof}
+
+\section{The scalar \texorpdfstring{\(\Gamma\)}{Gamma} defect and shell-control criterion}
+\label{sec:gamma}
+
+\subsection{The equation for \texorpdfstring{\(\Gamma\)}{Gamma}}
+
+\begin{lemma}[Swirl equation]\label{lem:gamma-equation}
+Let \(u\) be a smooth axisymmetric solution of \eqref{eq:NS}.  Then
+\(\Gamma=ru_\theta\) satisfies
+\begin{equation}\label{eq:gamma}
+   \partial_t\Gamma
+   +b\cdot\nabla\Gamma
+   +\frac2r\partial_r\Gamma
+   =
+   \Delta\Gamma,
+   \qquad b=u_re_r+u_ze_z .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The angular component of \eqref{eq:NS} is
+\[
+   \partial_tu_\theta+u_r\partial_r u_\theta+u_z\partial_z u_\theta
+   +\frac{u_r}{r}u_\theta
+   =
+   \left(\partial_r^2+\frac1r\partial_r+\partial_z^2-\frac1{r^2}\right)
+   u_\theta .
+\]
+Multiplying by \(r\), the transport terms become
+\[
+   r u_r\partial_ru_\theta+u_ru_\theta
+   =
+   u_r\partial_r(ru_\theta)
+   =
+   u_r\partial_r\Gamma,
+   \qquad
+   r u_z\partial_zu_\theta
+   =
+   u_z\partial_z\Gamma .
+\]
+For the radial diffusion, use \(u_\theta=\Gamma/r\).  Then
+\[
+   \partial_ru_\theta
+   =
+   \frac1r\partial_r\Gamma-\frac1{r^2}\Gamma,
+   \qquad
+   \partial_r^2u_\theta
+   =
+   \frac1r\partial_r^2\Gamma
+   -\frac2{r^2}\partial_r\Gamma
+   +\frac2{r^3}\Gamma .
+\]
+Consequently
+\[
+   r\left(\partial_r^2+\frac1r\partial_r-\frac1{r^2}\right)u_\theta
+   =
+   \partial_r^2\Gamma-\frac1r\partial_r\Gamma .
+\]
+The axial diffusion satisfies \(r\partial_z^2u_\theta=\partial_z^2\Gamma\).
+Since
+\[
+   \Delta\Gamma
+   =
+   \partial_r^2\Gamma+\frac1r\partial_r\Gamma+\partial_z^2\Gamma,
+\]
+the total diffusion term after multiplication by \(r\) is
+\[
+   \partial_r^2\Gamma-\frac1r\partial_r\Gamma+\partial_z^2\Gamma
+   =
+   \Delta\Gamma-\frac2r\partial_r\Gamma .
+\]
+Substitution gives
+\[
+   \partial_t\Gamma+b\cdot\nabla\Gamma
+   =
+   \Delta\Gamma-\frac2r\partial_r\Gamma,
+\]
+which is \eqref{eq:gamma}.
+\end{proof}
+
+\subsection{The weighted scalar defect identity}
+
+\begin{proposition}[Weighted scalar defect identity]\label{prop:gamma-identity}
+Let \(u\) be a smooth axisymmetric solution of \eqref{eq:NS}.  Set
+\(W=\Gamma\), and let \(\phi=\phi(r,z,t)\ge0\) be a smooth compactly supported
+axisymmetric weight.  Then
+\begin{equation}\label{eq:gamma-identity}
+   \frac12\frac{d}{dt}\int_{\mathbb R^3}W^2\phi\,dx
+   +
+   \int_{\mathbb R^3}|\nabla W|^2\phi\,dx
+   =
+   \frac12\int_{\mathbb R^3}W^2
+   \left(
+      \partial_t\phi+\Delta\phi+b\cdot\nabla\phi+\frac2r\partial_r\phi
+   \right)\,dx .
+\end{equation}
+If \(W=\Gamma-c\), the same identity holds provided \(c=0\) or \(\phi\)
+vanishes near the axis.  Without this restriction, the right-hand side must be
+augmented by the axis boundary term
+\[
+   2\pi c^2\int_{\mathbb R}\phi(0,z,t)\,dz .
+\]
+\end{proposition}
+
+\begin{proof}
+From \Cref{lem:gamma-equation},
+\[
+   \partial_tW
+   =
+   \Delta W-b\cdot\nabla W-\frac2r\partial_rW .
+\]
+Multiply by \(W\phi\) and integrate.  The time derivative gives
+\[
+   \int W\partial_tW\,\phi\,dx
+   =
+   \frac12\frac{d}{dt}\int W^2\phi\,dx
+   -
+   \frac12\int W^2\partial_t\phi\,dx .
+\]
+The Laplacian gives
+\[
+   \int W\Delta W\,\phi\,dx
+   =
+   -\int|\nabla W|^2\phi\,dx
+   +
+   \frac12\int W^2\Delta\phi\,dx .
+\]
+Because \(u\) is divergence-free and \(b\) is its meridional part,
+\(\nabla\cdot b=0\) in the three-dimensional sense:
+\[
+   \nabla\cdot b
+   =
+   \frac1r\partial_r(ru_r)+\partial_zu_z
+   =
+   \nabla\cdot u
+   =
+   0.
+\]
+Thus, using compact support of \(\phi\),
+\[
+   -\int W(b\cdot\nabla W)\phi\,dx
+   =
+   \frac12\int W^2 b\cdot\nabla\phi\,dx .
+\]
+Finally, in cylindrical variables \(dx=r\,dr\,d\theta\,dz\),
+\[
+   -\int W\frac2r\partial_rW\,\phi\,dx
+   =
+   -\int_0^{2\pi}\int_{\mathbb R}\int_0^\infty
+      \partial_r(W^2)\phi\,dr\,dz\,d\theta .
+\]
+For \(W=\Gamma\), smoothness gives \(\Gamma=O(r^2)\) at the axis, so the
+boundary term at \(r=0\) vanishes.  More explicitly, after integrating on
+\(\delta<r<\infty\) and letting \(\delta\downarrow0\), the boundary
+contribution is
+\[
+   \int_0^{2\pi}\int_{\mathbb R}W(\delta,z,t)^2\phi(\delta,z,t)\,dz\,d\theta
+   \longrightarrow0 .
+\]
+Therefore the last display equals
+\[
+   \int W^2\frac1r\partial_r\phi\,dx
+   =
+   \frac12\int W^2\frac2r\partial_r\phi\,dx .
+\]
+Combining the terms proves \eqref{eq:gamma-identity}.  If \(W=\Gamma-c\),
+then \(W(0,z,t)=-c\).  The same integration on \(\delta<r<\infty\) leaves the
+limit
+\[
+   \int_0^{2\pi}\int_{\mathbb R}c^2\phi(0,z,t)\,dz\,d\theta
+   =
+   2\pi c^2\int_{\mathbb R}\phi(0,z,t)\,dz ,
+\]
+which is absent exactly when \(c=0\) or \(\phi\) avoids the axis.
+\end{proof}
+
+\subsection{Anisotropic shell weights}
+
+Let
+\[
+   \phi_{R,Z,\zeta}(r,z,t)=\lambda_R(r)\eta_Z(z-\zeta(t)),
+\]
+where \(\lambda_R,\eta_Z\) are smooth cutoffs and \(\zeta\) is a smooth axial
+modulation.
+
+\begin{proposition}[Shell-error decomposition]\label{prop:shell}
+Let \(W=\Gamma\).  With the notation above,
+\begin{equation}\label{eq:shell-identity}
+   \frac12\frac{d}{dt}\int W^2\lambda_R\eta_Z\,dx
+   +
+   \int|\nabla W|^2\lambda_R\eta_Z\,dx
+   =
+   \frac12\int W^2\mathcal E_{R,Z,\zeta}[u]\,dx,
+\end{equation}
+where
+\begin{equation}\label{eq:shell-error}
+   \mathcal E_{R,Z,\zeta}[u]
+   =
+   \eta_Z\left(
+      \lambda_R''+\frac3r\lambda_R'+u_r\lambda_R'
+   \right)
+   +
+   \lambda_R\left(
+      \eta_Z''+(u_z-\dot\zeta)\eta_Z'
+   \right).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For an axisymmetric scalar,
+\[
+   \Delta(\lambda_R\eta_Z)
+   =
+   \left(\lambda_R''+\frac1r\lambda_R'\right)\eta_Z
+   +
+   \lambda_R\eta_Z'' .
+\]
+Also
+\[
+   \frac2r\partial_r(\lambda_R\eta_Z)
+   =
+   \frac2r\lambda_R'\eta_Z,\qquad
+   b\cdot\nabla(\lambda_R\eta_Z)
+   =
+   u_r\lambda_R'\eta_Z+u_z\lambda_R\eta_Z',
+\]
+and
+\[
+   \partial_t(\lambda_R\eta_Z)
+   =
+   -\dot\zeta\,\lambda_R\eta_Z'.
+\]
+Adding these four contributions gives \eqref{eq:shell-error}; substitution
+into \Cref{prop:gamma-identity} gives \eqref{eq:shell-identity}.
+\end{proof}
+
+\begin{remark}[The radial geometry]
+The differential expression
+\[
+   \lambda_R''+\frac3r\lambda_R'
+\]
+is the radial Laplacian in four dimensions.  Thus the natural radial barrier
+for the \(\Gamma\)-defect is adapted to
+\(\partial_r^2+3r^{-1}\partial_r\).  The shell errors in
+\eqref{eq:shell-error} are precisely radial transport, axial drift mismatch,
+and the two cutoff-curvature terms.
+\end{remark}
+
+\subsection{Coercive shell control}
+
+\begin{assumption}[Coercive shell control]\label{ass:shell-control}
+Let \(u\) be a bounded ancient mild axisymmetric solution with bounded
+\(\Gamma\).  Assume in addition that \(u\) is smooth and that the identities
+\Cref{lem:gamma-equation,prop:gamma-identity,prop:shell} hold for the weights
+below.  There exist expanding smooth weights
+\[
+   \phi_n(r,z,t)=\lambda_n(r)\eta_n(z-\zeta_n(t)),
+   \qquad 0\le\phi_n\le1,\qquad \phi_n\uparrow1
+\]
+locally uniformly on compact subsets of
+\(\mathbb R^3\times(-\infty,0)\), compactly supported in space for each fixed
+time.  There are constants \(a_n>0\), \(M_n<\infty\), and
+\(\varepsilon_n\ge0\), with \(\varepsilon_n/a_n\to0\), such that
+\[
+   L_n(t):=\int_{\mathbb R^3}\Gamma^2\phi_n(t)\,dx<\infty
+\]
+for every \(t<0\), \(L_n\) is locally absolutely continuous, and, for each
+\(n\), the following estimates hold for a.e. \(\sigma<0\):
+\begin{equation}\label{eq:shell-coercive}
+   \int_{\mathbb R^3}|\nabla\Gamma|^2\phi_n(\sigma)\,dx
+   \ge
+   a_n L_n(\sigma),
+\end{equation}
+\begin{equation}\label{eq:shell-error-bound}
+   \left|
+   \int_{\mathbb R^3}\Gamma^2\mathcal E_n[u]\,dx
+   \right|
+   \le
+   2\varepsilon_n,
+\end{equation}
+and
+\begin{equation}\label{eq:shell-past-bound}
+   \sup_{\sigma<t}L_n(\sigma)\le M_n .
+\end{equation}
+Here \(\mathcal E_n[u]\) is the shell-error density associated with
+\(\phi_n\).
+\end{assumption}
+
+\subsection{Conditional scalar flattening}
+
+\begin{proof}[Proof of \Cref{thm:scalar-flattening-intro}]
+Fix \(n\).  Integrating \eqref{eq:shell-identity} from \(s\) to \(t\), with
+\(-\infty<s<t<0\), gives
+\[
+   \frac12L_n(t)-\frac12L_n(s)
+   +
+   \int_s^t\int_{\mathbb R^3}|\nabla\Gamma|^2\phi_n\,dx\,d\sigma
+   =
+   \frac12\int_s^t\int_{\mathbb R^3}\Gamma^2\mathcal E_n[u]\,dx\,d\sigma .
+\]
+Using \eqref{eq:shell-coercive} and \eqref{eq:shell-error-bound}, this implies
+\[
+   \frac12L_n(t)-\frac12L_n(s)
+   +
+   a_n\int_s^tL_n(\sigma)\,d\sigma
+   \le
+   \varepsilon_n(t-s).
+\]
+Since \(L_n\) is locally absolutely continuous, the preceding integral
+inequality yields the differential inequality
+\[
+   \frac{d}{dt}L_n(t)+2a_nL_n(t)\le2\varepsilon_n
+\]
+for a.e. \(t<0\).  Multiplying by \(e^{2a_nt}\) and integrating from \(s\) to
+\(t\) gives
+\[
+   L_n(t)
+   \le
+   e^{-2a_n(t-s)}L_n(s)
+   +
+   \frac{\varepsilon_n}{a_n}
+   \left(1-e^{-2a_n(t-s)}\right).
+\]
+Using the past bound \eqref{eq:shell-past-bound} and letting
+\(s\to-\infty\) yields
+\[
+   L_n(t)\le \frac{\varepsilon_n}{a_n}.
+\]
+Let \(K\subset\mathbb R^3\) be compact and fix \(t<0\).  Since
+\(\phi_n\uparrow1\) locally uniformly in space-time, for every
+\(\eta\in(0,1)\) there is \(n_0=n_0(K,t,\eta)\) such that
+\[
+   \phi_n(x,t)\ge 1-\eta
+   \qquad (x\in K,\ n\ge n_0).
+\]
+Therefore, for \(n\ge n_0\),
+\[
+   (1-\eta)\int_K\Gamma(x,t)^2\,dx
+   \le
+   L_n(t)
+   \le
+   \frac{\varepsilon_n}{a_n}.
+\]
+Letting \(n\to\infty\) and using \(\varepsilon_n/a_n\to0\) gives
+\[
+   \int_K\Gamma(x,t)^2\,dx=0
+\]
+for every compact \(K\) and every \(t<0\).  Since \(\Gamma\) is continuous by
+the smoothness in \Cref{ass:shell-control}, local \(L^2\)-vanishing on every
+compact set implies \(\Gamma(x,t)=0\) pointwise for every \(x\) and \(t<0\).
+Thus \(\Gamma\equiv0\).
+\end{proof}
+
+\subsection{Reduction after scalar flattening}
+
+\begin{corollary}[Reduction after scalar flattening]\label{cor:zero-gamma}
+Let \(u\) be as in \Cref{thm:scalar-flattening-intro}.  If in addition \(u\)
+is a normalized Type I ancient limit in the same physical frame, then
+\(\Gamma\equiv0\), \(u\) belongs to the no-swirl branch, and \(u\equiv0\),
+contradicting normalization.
+\end{corollary}
+
+\begin{proof}
+\Cref{thm:scalar-flattening-intro} gives \(\Gamma\equiv0\).  Then
+\(u_\theta=0\) for \(r>0\), so the no-swirl branch closure
+\Cref{prop:noswirl-typeI} applies.
+\end{proof}
+
+\section{Branch ledger and interface with the residual criterion}
+\label{sec:ledger}
+
+\subsection{Closed branches}
+
+\begin{theorem}[Closed structured branch ledger]
+\label{thm:closed-structured-ledger}
+The following branches cannot contain a nonzero normalized Type I ancient
+limit:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item axisymmetric no-swirl branch;
+\item axisymmetric pointwise \(1/r\) branch;
+\item axisymmetric finite-\(L^p\) swirl branch,
+\[
+   \Gamma\in L_t^\infty L_x^p,\qquad 1\le p<\infty;
+\]
+\item axisymmetric \(z\)-periodic bounded-\(\Gamma\) branch;
+\item perturbative Gallay--Wayne weighted-vorticity branch, whenever the
+normalized limit is represented by the associated Biot--Savart velocity in
+that branch;
+\item bounded-\(\Gamma\) shell-control branch.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Items (i)--(iv) are \Cref{thm:closed-axisymmetric-branches}.  Item (v) is
+\Cref{thm:weighted-vorticity-exclusion-intro}; since the velocity in that
+branch is recovered from \(w\) by the Biot--Savart law, \(w\equiv0\) gives the
+zero branch representative.  Item (vi) is \Cref{cor:zero-gamma}.  In each
+Type I case, the zero conclusion contradicts
+\Cref{lem:normalized-nonzero}.
+\end{proof}
+
+\subsection{Model branches}
+
+\begin{theorem}[Model branch ledger]
+\label{thm:model-branch-ledger}
+The Burgers-vortex ancient tube for the strained model consists exactly of the
+stationary Burgers vortices \(\alpha G\).  Under the model-reduction assumption
+\Cref{ass:bv-reduction}, this rigidity can be transferred to any ancient
+solution class mapped into the tube.
+\end{theorem}
+
+\begin{proof}
+The model rigidity is \Cref{thm:burgers-vortex-tube-intro}; the conditional
+transfer is \Cref{cor:bv-import}.
+\end{proof}
+
+\subsection{Conditional branches}
+
+\begin{proposition}[Conditional structured exclusions]
+\label{prop:conditional-structured}
+Under \Cref{hyp:controlled-swirl-liouville}, the controlled-swirl branch
+\(\mathfrak C_{\mathrm{cs}}(\gamma)\) contains no nonzero normalized Type I
+ancient limit.  Under \Cref{hyp:weighted-velocity-liouville}, the broad
+weighted velocity-decay branch \(\mathfrak C_{\mathrm{wd}}(m)\) contains no
+nonzero normalized Type I ancient limit.
+\end{proposition}
+
+\begin{proof}
+This is \Cref{prop:controlled-swirl-conditional,prop:weighted-velocity-conditional}.
+\end{proof}
+
+\subsection{Open bounded-swirl obstruction}
+
+\begin{remark}[Open nonperiodic bounded-swirl branch]
+The branch not closed unconditionally here is the full class of bounded ancient
+axisymmetric unforced Navier--Stokes solutions with nontrivial bounded
+\(\Gamma\), no finite-\(L^p\) decay of \(\Gamma\), no axial periodicity, and no
+verified shell-control estimate.  The identity \eqref{eq:shell-identity}
+reduces this obstruction to explicit transport terms, but it does not
+eliminate them.
+\end{remark}
+
+\subsection{Structured input for Paper I}
+
+\begin{proof}[Proof of \Cref{thm:structured-input-paperI}]
+The closed axisymmetric alternatives are excluded by
+\Cref{thm:closed-axisymmetric-branches}.  The perturbative weighted-vorticity
+alternative is excluded by \Cref{thm:weighted-vorticity-exclusion-intro} once
+the normalized limit is known to lie in that vorticity branch; the
+Biot--Savart reconstruction then gives the zero branch representative.  The
+bounded-swirl shell branch is excluded by \Cref{cor:zero-gamma}.  These are
+the alternatives whose conclusion is zero and hence contradicts the nonzero
+normalization of Paper I.  The Burgers-vortex alternative is separate: under
+\Cref{ass:bv-reduction}, \Cref{cor:bv-import} transfers the strained-model
+conclusion \(\mathcal T[U](\tau)\equiv\bar\alpha G\), and no unforced
+zero-solution conclusion is asserted from that model theorem alone.
+\end{proof}
+
+\begin{theorem}[Structured/decay input for Paper I]
+\label{thm:structured-input}
+Let \(\mathcal X_{\mathrm{sd}}\) be the structured/decay branch in Paper I,
+restricted to the union of the zero-closure branches in
+\Cref{thm:closed-structured-ledger} and the conditional zero-closure branches
+for which the corresponding hypotheses above hold.  Then no nonzero normalized
+Seregin ancient limit belongs to \(\mathcal X_{\mathrm{sd}}\).  The
+Burgers-vortex tube contributes the separate model rigidity statement of
+\Cref{thm:model-branch-ledger}.
+\end{theorem}
+
+\begin{proof}
+This is the zero-closure part of \Cref{thm:structured-input-paperI}, now
+phrased as a branch-class statement for Paper I.  The model assertion is
+recorded separately in \Cref{thm:model-branch-ledger}.
+\end{proof}
+
+\subsection{Dependency ledger}
+
+\begin{center}
+\begin{tabular}{p{0.36\textwidth}p{0.18\textwidth}p{0.34\textwidth}}
+\hline
+Branch & Status & Input \\
+\hline
+no swirl & closed & KNSS plus Type I constant removal \\
+pointwise \(1/r\) & closed & KNSS \\
+\(\Gamma\in L_t^\infty L_x^p\) & closed & LZZ plus Type I constant removal \\
+periodic bounded \(\Gamma\) & closed & LRZ plus Type I constant removal \\
+controlled swirl \(\rho^\gamma V_\theta\) & conditional & \Cref{hyp:controlled-swirl-liouville} \\
+broad weighted velocity decay & conditional & \Cref{hyp:weighted-velocity-liouville} \\
+perturbative weighted vorticity & closed & Gallay--Wayne Lyapunov functional \\
+Burgers-vortex tube & model closed & Gallay--Maekawa Lyapunov functional \\
+unforced Burgers-vortex transfer & conditional & \Cref{ass:bv-reduction} \\
+bounded nonperiodic \(\Gamma\in L^\infty\) & open; conditional criterion & \Cref{ass:shell-control} \\
+bounded \(\Gamma\) plus shell control & closed & scalar flattening plus no-swirl \\
+\hline
+\end{tabular}
+\end{center}
+
+The structured ancient branch is therefore decomposed into several sharply
+distinguished mechanisms.  The no-swirl, pointwise scale-invariant,
+finite-\(L^p\)-swirl, and periodic bounded-swirl branches are closed by known
+axisymmetric Liouville theorems.  The perturbative weighted-vorticity branch is
+closed by a Lyapunov functional derived from Gallay--Wayne decay, and
+the Burgers-vortex tube is rigid for the strained model by Gallay--Maekawa
+stability.  The remaining nonperiodic bounded-swirl branch is not closed here;
+it is reduced to the coercive shell-control criterion for the scalar
+\(\Gamma=ru_\theta\).  This ledger supplies the structured-branch component of
+the residual criterion in Paper I precisely for the closed and conditionally
+closed subclasses identified above.
+
+\begin{thebibliography}{99}
+
+\bibitem{CSTY2008}
+C.-C. Chen, R. M. Strain, T.-P. Tsai, and H.-T. Yau,
+\emph{Lower bound on the blow-up rate of the axisymmetric Navier--Stokes
+equations},
+Int. Math. Res. Not. IMRN \textbf{2008}, Art. ID rnn016, 31 pp.,
+doi:10.1093/imrn/rnn016.
+
+\bibitem{CSTY2009}
+C.-C. Chen, R. M. Strain, T.-P. Tsai, and H.-T. Yau,
+\emph{Lower bounds on the blow-up rate of the axisymmetric Navier--Stokes
+equations II},
+Comm. Partial Differential Equations \textbf{34} (2009), no. 3, 203--232,
+doi:10.1080/03605300902793956.
+
+\bibitem{DuranPaperI}
+G. Duran Ballester,
+\emph{Type I blow-up limits and a residual-class criterion for the
+three-dimensional Navier--Stokes equations}, preprint, 2026.
+
+\bibitem{DuranPaperII}
+G. Duran Ballester,
+\emph{Uniformly tight ancient Navier--Stokes dynamics and conditional
+equilibrium rigidity}, preprint, 2026.
+
+\bibitem{ESS2003}
+L. Escauriaza, G. A. Seregin, and V. \v{S}ver\'ak,
+\emph{\(L_{3,\infty}\)-solutions of the Navier--Stokes equations and backward
+uniqueness},
+Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250,
+doi:10.1070/RM2003v058n02ABEH000609.
+
+\bibitem{GallayWayne2002}
+T. Gallay and C. E. Wayne,
+\emph{Long-time asymptotics of the Navier--Stokes and vorticity equations on
+\(\mathbb R^3\)},
+Philos. Trans. Roy. Soc. London Ser. A \textbf{360} (2002), no. 1799,
+2155--2188, doi:10.1098/rsta.2002.1068.
+
+\bibitem{GallayWayne2006}
+T. Gallay and C. E. Wayne,
+\emph{Three-dimensional stability of Burgers vortices: the low Reynolds number
+case},
+Physica D \textbf{213} (2006), no. 2, 164--180,
+doi:10.1016/j.physd.2005.11.006.
+
+\bibitem{GallayMaekawa}
+T. Gallay and Y. Maekawa,
+\emph{Three-dimensional stability of Burgers vortices},
+Comm. Math. Phys. \textbf{302} (2011), no. 2, 477--511,
+doi:10.1007/s00220-010-1132-6.
+
+\bibitem{Kato1984}
+T. Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in
+\(\mathbb R^m\), with applications to weak solutions},
+Math. Z. \textbf{187} (1984), no. 4, 471--480,
+doi:10.1007/BF01174182.
+
+\bibitem{KNSS2009}
+G. Koch, N. Nadirashvili, G. Seregin, and V. \v{S}ver\'ak,
+\emph{Liouville theorems for the Navier--Stokes equations and applications},
+Acta Math. \textbf{203} (2009), no. 1, 83--105,
+doi:10.1007/s11511-009-0039-6.
+
+\bibitem{LeiZhang2011}
+Z. Lei and Q. S. Zhang,
+\emph{A Liouville theorem for the axially-symmetric Navier--Stokes equations},
+J. Funct. Anal. \textbf{261} (2011), no. 8, 2323--2345,
+doi:10.1016/j.jfa.2011.06.016.
+
+\bibitem{LRZ}
+Z. Lei, X. Ren, and Q. S. Zhang,
+\emph{A Liouville theorem for axially symmetric Navier--Stokes equations on
+\(\mathbb R^2\times\mathbb T^1\)},
+Math. Ann. \textbf{383} (2022), no. 1--2, 415--431,
+doi:10.1007/s00208-020-02128-9.
+
+\bibitem{LZZ}
+Z. Lei, Q. Zhang, and N. Zhao,
+\emph{Improved Liouville theorems for axially symmetric Navier--Stokes
+equations},
+Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198,
+doi:10.1360/N012016-00149.
+
+\bibitem{SchmidRossi2004}
+P. J. Schmid and M. Rossi,
+\emph{Three-dimensional stability of a Burgers vortex},
+J. Fluid Mech. \textbf{500} (2004), 103--112,
+doi:10.1017/S0022112003007341.
+
+\bibitem{Seregin2012}
+G. Seregin,
+\emph{A certain necessary condition of potential blow up for Navier--Stokes
+equations},
+Comm. Math. Phys. \textbf{312} (2012), no. 3, 833--845,
+doi:10.1007/s00220-011-1391-x.
+
+\bibitem{SereginSverak2009}
+G. Seregin and V. \v{S}ver\'ak,
+\emph{On Type I singularities of the local axi-symmetric solutions of the
+Navier--Stokes equations},
+Comm. Partial Differential Equations \textbf{34} (2009), no. 2, 171--201,
+doi:10.1080/03605300802683687.
+
+\bibitem{Sohr2001}
+H. Sohr,
+\emph{The Navier--Stokes Equations: An Elementary Functional Analytic
+Approach},
+Birkh\"auser, Basel, 2001,
+doi:10.1007/978-3-0348-0551-3.
+
+\end{thebibliography}
+
+\end{document}

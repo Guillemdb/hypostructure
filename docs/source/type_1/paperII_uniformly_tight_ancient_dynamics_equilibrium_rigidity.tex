@@ -1,0 +1,1906 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\divergence}{\operatorname{div}}
+\newcommand{\calH}{\mathcal H}
+
+\title[Uniformly tight ancient dynamics]
+{Uniformly Tight Ancient Navier--Stokes Dynamics and Conditional Equilibrium Rigidity}
+
+\author{Guillem Duran Ballester}
+\address{Fragile Tech}
+\email{guillem@fragile.tech}
+\date{}
+
+\subjclass[2020]{35Q30, 35B44, 35B41, 37A25, 76D05}
+\keywords{Navier--Stokes equations, ancient solutions, self-similar variables, invariant measures, Lyapunov functionals, Liouville theorems}
+
+\begin{document}
+
+\begin{abstract}
+We study bounded ancient solutions of the three-dimensional Navier--Stokes
+equations in backward self-similar variables under uniform \(L^3\)-tightness.
+We first establish the analytic compactness framework: bounded mild ancient
+solutions are smooth, locally compact under time translation, and the
+uniform \(L^\infty_\tau L^3_y\) and tightness bounds are stable under locally
+smooth limits.  We then prove a minimal-element reduction for closed normalized
+uniformly tight collections: any nonempty such collection contains a nonzero
+solution of minimal \(L^\infty(\R^3\times\R)\) size.
+
+For the time-translation hull of a bounded ancient solution we construct compact
+invariant hulls and invariant probability measures by Krylov--Bogolyubov
+averaging.  These measures satisfy a stationary statistical form of the
+self-similar Navier--Stokes equation.  Passing to the barycenter produces an
+explicit quadratic covariance term, isolating the obstruction to obtaining a
+single stationary self-similar profile.
+
+Finally, we formulate a strict compact-hull Lyapunov hypothesis.  Under this
+hypothesis, invariant measures are supported on stationary trajectories.  Hence
+a minimal compact uniformly \(L^3\)-bounded hull consists of a single stationary
+profile, which is zero by the stationary self-similar theorem of
+Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}ver\'ak.  As a consequence, the uniformly
+\(L^3\)-tight branch of the Type I ancient-profile reduction is excluded
+provided the corresponding nonzero compact-recurrence and generated Lyapunov
+properties hold.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction and main results}\label{sec:introduction}
+
+\subsection{The uniformly tight ancient branch}
+
+We consider the three-dimensional incompressible Navier--Stokes equations in
+backward self-similar variables.  The centered velocity \(V\) and pressure \(P\)
+solve
+\begin{equation}\label{eq:centered}
+   \partial_\tau V+(V\cdot\nabla)V+\nabla P
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
+   \qquad \divergence V=0
+\end{equation}
+on \(\R^3\times\R\).  In the companion Type I reduction paper
+\cite{DuranPaperI}, admissible Type I singularities are reduced to nonzero
+normalized ancient solutions of \eqref{eq:centered}.  The present paper starts
+after that reduction and studies the branch in which
+\begin{equation}\label{eq:L3-bound}
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty
+\end{equation}
+and
+\begin{equation}\label{eq:L3-tightness}
+   \lim_{R\to\infty}
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
+\end{equation}
+We call this the uniformly \(L^3\)-tight ancient branch.
+
+This profile condition is distinct from the source-level condition
+\[
+   u\in L^\infty(0,T;L^3(\R^3)).
+\]
+For finite-energy suitable weak solutions, the source-level assumption
+\(u\in L^\infty_tL^3_x\) near a putative singular time is incompatible with
+singularity by the theorem of Escauriaza--Seregin--\v{S}ver\'ak
+\cite{ESS2003}.  Uniform \(L^3\)-tightness in this paper is a condition on
+centered ancient profiles after blow-up.
+
+\subsection{Minimal elements and compact hulls}
+
+The first reduction is variational:
+\[
+   \hbox{nonempty tight normalized class}
+   \quad\Longrightarrow\quad
+   \hbox{\(L^\infty\)-minimal ancient element}.
+\]
+The normalization is a fixed local velocity nonvanishing condition.  It
+prevents minimizing sequences from losing all mass by time translation.
+Once a minimal element \(V_*\) is selected, its time-translation hull is
+\[
+   \calH(V_*)
+   =
+   \overline{\{\Theta_sV_*:\ s\in\R\}}^{C^\infty_{\loc}},
+   \qquad
+   (\Theta_sV)(y,\tau)=V(y,\tau+s).
+\]
+The hull is compact because bounded mild ancient solutions are locally smooth
+with estimates depending only on their common \(L^\infty\) bound.
+
+\subsection{Invariant measures and covariance}
+
+Every compact invariant hull \(K\) carries invariant probability measures.
+Indeed, Krylov--Bogolyubov averages
+\[
+   \mu_T=\frac1T\int_0^T\delta_{\Theta_sW_0}\,ds
+\]
+have weak subsequential limits.  Such invariant measures satisfy a stationary
+statistical form of \eqref{eq:centered}.  If
+\[
+   \overline W(y)=\int_K W(y,0)\,d\mu(W),
+\]
+then the averaged nonlinearity decomposes as
+\[
+   \int_K W_iW_j\,d\mu
+   =
+   \overline W_i\,\overline W_j+C_{ij}.
+\]
+Thus the barycenter solves the stationary self-similar equation only up to the
+explicit covariance defect \(C\).  The invariant-measure argument alone does
+not prove that a recurrent compact hull contains a single stationary profile.
+
+\subsection{The strict Lyapunov hypothesis}
+
+The present paper therefore isolates the exact conditional input needed to pass
+from compact recurrent dynamics to equilibria.  It does not construct a
+universal Lyapunov functional for all compact ancient Navier--Stokes hulls.
+Instead, it proves that if such a strict Lyapunov functional exists on the
+compact hull generated by a minimal tight element, then the tight branch is
+excluded.
+
+The logical status of the paper is summarized as follows.
+
+\begin{center}
+\small
+\begin{tabular}{p{0.58\linewidth}p{0.25\linewidth}}
+\hline
+Step & Status in this paper\\
+\hline
+bounded ancient smoothing & proved\\
+local smooth compactness & proved\\
+closure of uniform \(L^3\)-tightness & proved\\
+minimal \(L^\infty\) element & proved\\
+compact trajectory hull & proved\\
+invariant measures & proved\\
+stationary statistical identity & proved\\
+covariance obstruction & identified\\
+strict Lyapunov functional & assumed\\
+nonzero compact recurrence of minimal element & assumed\\
+compact tight rigidity under Lyapunov & proved\\
+tight-class input for the companion paper & conditional corollary\\
+\hline
+\end{tabular}
+\end{center}
+
+Thus the paper does not prove an unconditional uniformly tight Liouville
+theorem.  It proves that the uniformly tight branch is empty once the two
+compact-dynamical inputs \(\mathrm{RC}\) and \(\mathrm{LY}\) formulated in
+\Cref{def:RC,def:LY} are available.
+
+\subsection{Main results}
+
+The first headline theorem is the analytic compactness and closure statement.
+
+\begin{theorem}[Compactness and closure of uniformly tight ancient solutions]
+\label{thm:tight-compactness-intro}
+Let \(\{V_n\}\) be a sequence of bounded mild ancient solutions of
+\eqref{eq:centered}.  Assume
+\[
+   \sup_n\|V_n\|_{L^\infty(\R^3\times\R)}<\infty .
+\]
+Then a subsequence converges locally smoothly to a bounded mild ancient
+solution \(V\).
+
+If in addition there are \(L<\infty\) and a modulus
+\(\omega:[1,\infty)\to[0,\infty)\), \(\omega(R)\to0\), such that
+\[
+   \sup_n\sup_{\tau\in\R}\|V_n(\tau)\|_{L^3(\R^3)}\le L
+\]
+and
+\[
+   \sup_n\sup_{\tau\in\R}
+   \int_{|y|>R}|V_n(y,\tau)|^3\,dy\le \omega(R)
+   \qquad (R\ge1),
+\]
+then
+\[
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}\le L,
+   \qquad
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy\le\omega(R),
+\]
+and in particular \(V\) is uniformly \(L^3\)-tight.
+\end{theorem}
+
+Compatible pressure representatives also converge locally weakly modulo
+time-dependent gauges under the additional \(L^\infty_\tau L^3_y\) assumption;
+see \Cref{lem:pressure-reconstruction}.
+
+The second headline theorem is the minimal-element reduction.
+
+\begin{theorem}[Minimal element in a normalized uniformly tight class]
+\label{thm:minimal-tight-intro}
+Let \(A\) be a nonempty collection of bounded mild ancient solutions satisfying
+a common \(L^\infty\) bound, a common \(L^\infty_\tau L^3_y\) bound, a common
+uniform \(L^3\)-tightness modulus, and a fixed local nonvanishing
+normalization
+\[
+   \sup_{\tau\in\R}\int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge \eta_0>0.
+\]
+Assume \(A\) is invariant under time translation and closed under locally
+smooth limits which retain the normalization.  Then \(A\) contains an element
+\(V_*\) minimizing
+\[
+   \|V\|_{L^\infty(\R^3\times\R)}
+\]
+among all \(V\in A\).  In particular \(V_*\not\equiv0\).
+\end{theorem}
+
+The third headline theorem is the conditional tight-branch Liouville
+criterion.
+
+\begin{theorem}[Conditional uniformly tight Liouville criterion]
+\label{thm:conditional-tight-liouville-intro}
+Let \(A\) be a normalized uniformly \(L^3\)-tight collection as in
+\Cref{thm:minimal-tight-intro}.  If \(A\) satisfies the recurrence property
+\(\mathrm{RC}(A)\) and the generated Lyapunov property \(\mathrm{LY}(A)\) of
+\Cref{def:RC,def:LY}, then
+\[
+   A=\varnothing .
+\]
+\end{theorem}
+
+The proof of the last theorem follows the dependency diagram
+\[
+\begin{array}{c}
+\text{uniformly \(L^3\)-tight normalized class }A\\[2mm]
+\Downarrow\\[2mm]
+\text{\(L^\infty\)-minimal element }V_*\\[2mm]
+\Downarrow\\[2mm]
+\text{compact trajectory hull }\calH(V_*)\\[2mm]
+\Downarrow\\[2mm]
+\text{nonzero compact minimal invariant hull }K\\[2mm]
+\Downarrow\quad\text{strict Lyapunov}\\[2mm]
+\text{invariant measures supported on stationary trajectories}\\[2mm]
+\Downarrow\\[2mm]
+K=\{w\},\quad w\in L^3\\[2mm]
+\Downarrow\quad\text{Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}ver\'ak}\\[2mm]
+w=0\\[2mm]
+\Downarrow\\[2mm]
+\text{contradiction with nonzero }K .
+\end{array}
+\]
+
+\subsection{Relation to the companion paper}
+
+The companion paper \cite{DuranPaperI} reduces admissible Type I singularities
+to normalized Seregin ancient limits and organizes such limits into small,
+stationary \(L^3\), uniformly tight, structured/decay, and residual classes.
+The present paper supplies the conditional tight-class input: under the
+compact-recurrence and strict Lyapunov properties stated below, the uniformly
+\(L^3\)-tight class contains no nonzero normalized ancient limit.
+
+\subsection{Organization of the paper}
+
+\Cref{sec:centered-topology} fixes the centered equation, mild formulation,
+time translation, and local smooth topology.  \Cref{sec:smoothing-compactness}
+proves smoothing, pressure reconstruction, stability, and compactness.
+\Cref{sec:tightness-rigidity} proves closure of uniform \(L^3\)-tightness and
+recalls stationary \(L^3\) rigidity.  \Cref{sec:minimal-elements} proves the
+minimal-element reduction.  \Cref{sec:compact-hulls} constructs compact
+trajectory hulls and minimal invariant subsets.  \Cref{sec:measures-covariance}
+constructs invariant measures and identifies the covariance obstruction.
+\Cref{sec:lyapunov-equilibrium} proves the consequences of the strict Lyapunov
+hypothesis.  \Cref{sec:conditional-liouville} assembles the conditional
+tight-branch Liouville criterion and records the interface with the companion
+residual-criterion paper.
+
+\section{Centered ancient solutions and the local smooth topology}
+\label{sec:centered-topology}
+
+\subsection{The centered equation}
+
+Throughout the paper \(V\) denotes a centered ancient velocity and \(P\) its
+pressure.  A generic trajectory in a compact hull is denoted by \(W\), and a
+stationary profile by \(w(y)\).  Define
+\[
+   L V=\Delta V-\frac12 y\cdot\nabla V-\frac12 V .
+\]
+After applying the Helmholtz--Leray projection \(\mathbb P\), the centered
+equation becomes
+\begin{equation}\label{eq:projected}
+   \partial_\tau V
+   =
+   LV-\mathbb P\divergence(V\otimes V).
+\end{equation}
+
+\subsection{The Ornstein--Uhlenbeck--Stokes semigroup}
+
+Let \(S(a)=e^{aL}\), \(a>0\).  It is given by
+\begin{equation}\label{eq:OU-semigroup}
+   (S(a)f)(y)
+   =
+   e^{-a/2}
+   \int_{\R^3}
+   \frac{\exp\!\left(-\frac{|z-e^{-a/2}y|^2}{4(1-e^{-a})}\right)}
+        {[4\pi(1-e^{-a})]^{3/2}}
+   f(z)\,dz .
+\end{equation}
+The factor \(e^{-a/2}\) records the damping caused by the term \(-V/2\).
+
+\begin{lemma}[Centered Stokes kernel estimate]\label{lem:centered-stokes-kernel}
+For \(a>0\) and \(\phi\in C_c^\infty(\R^3;\R^3)\),
+\begin{equation}\label{eq:stokes-adjoint-estimate}
+   \|(S(a)\mathbb P\divergence)^*\phi\|_{L^1(\R^3)}
+   \le
+   C e^{-a/2}(1-e^{-a})^{-1/2}\|\phi\|_{L^1(\R^3)}.
+\end{equation}
+Consequently the Duhamel term in \eqref{eq:mild} is well-defined by duality
+for bounded \(V\).
+\end{lemma}
+
+\begin{proof}
+Set \(\lambda=e^{-a/2}\) and \(\theta=1-e^{-a}\).  From
+\eqref{eq:OU-semigroup},
+\[
+   S(a)f(y)=e^{-a/2}(e^{\theta\Delta}f)(\lambda y).
+\]
+Thus
+\[
+   S(a)^*\phi(z)
+   =
+   e^{-a/2}\lambda^{-3}
+   (e^{\theta\Delta}\psi)(z),
+   \qquad
+   \psi(x)=\phi(x/\lambda),
+\]
+and \(\|\psi\|_{L^1}=\lambda^3\|\phi\|_{L^1}\).  The Leray projection is a
+homogeneous Fourier multiplier of degree zero, so it commutes with this
+dilation.  The classical heat--Stokes kernel estimate
+\[
+   \|(e^{\theta\Delta}\mathbb P\divergence)^*\phi\|_{L^1}
+   \le C\theta^{-1/2}\|\phi\|_{L^1},
+   \qquad \theta>0,
+\]
+follows from the Oseen kernel bound; see
+\cite{FabesJonesRiviere1972,GigaMiyakawa1985,Sohr2001}.  Substituting
+\(\theta=1-e^{-a}\) and using
+\[
+   e^{-a/2}\lambda^{-3}\|\psi\|_{L^1}=e^{-a/2}\|\phi\|_{L^1}
+\]
+gives \eqref{eq:stokes-adjoint-estimate}.  Since
+\((1-e^{-a})^{-1/2}\) is integrable at \(a=0\), the duality pairing in
+\eqref{eq:mild} is integrable on finite time intervals for
+\(V\in L^\infty\).
+\end{proof}
+
+\subsection{Riesz transform convention}
+
+We use the convention that \(R_i\) has Fourier symbol \(i\xi_i/|\xi|\).  Thus
+\(R_iR_j\) has symbol \(-\xi_i\xi_j/|\xi|^2\), and
+\[
+   P=R_iR_j(F_{ij})
+   \quad\Longleftrightarrow\quad
+   -\Delta P=\partial_i\partial_jF_{ij}.
+\]
+Pressures are determined only modulo functions of time unless a whole-space
+Leray gauge is explicitly chosen.
+
+\subsection{Bounded mild ancient solutions}
+
+\begin{definition}[Bounded mild ancient solution]\label{def:mild}
+A vector field \(V:\R^3\times\R\to\R^3\) is a bounded mild ancient solution of
+\eqref{eq:centered} if
+\[
+   V\in L^\infty(\R^3\times\R),\qquad \divergence V=0
+\]
+in distributions, and for every \(\sigma<\tau\),
+\begin{equation}\label{eq:mild}
+   V(\tau)
+   =
+   S(\tau-\sigma)V(\sigma)
+   -
+   \int_\sigma^\tau
+   S(\tau-s)\mathbb P\divergence(V\otimes V)(s)\,ds
+\end{equation}
+in the weak-* topology of \(L^\infty(\R^3)\).
+\end{definition}
+
+The Duhamel term in \eqref{eq:mild} is interpreted by duality.  For
+\(\phi\in C_c^\infty(\R^3;\R^3)\),
+\[
+   \left\langle
+      S(\tau-s)\mathbb P\divergence(V\otimes V)(s),\phi
+   \right\rangle
+   =
+   \left\langle
+      V\otimes V(s),
+      (S(\tau-s)\mathbb P\divergence)^*\phi
+   \right\rangle ,
+\]
+and \Cref{lem:centered-stokes-kernel} makes the scalar integrand absolutely
+integrable on \(s\in(\sigma,\tau)\).
+
+\subsection{Time translation}
+
+For \(s\in\R\) define
+\[
+   (\Theta_sV)(y,\tau)=V(y,\tau+s).
+\]
+The equation, the mild formulation, the \(L^\infty\) norm, and the
+\(L^\infty_\tau L^3_y\) and tail bounds used below are invariant under
+\(\Theta_s\).  Indeed, replacing \((\sigma,\tau)\) by
+\((\sigma+s,\tau+s)\) in \eqref{eq:mild} and changing variables in the time
+integral gives the mild formula for \(\Theta_sV\).
+
+\subsection{The locally smooth topology}
+
+\begin{definition}[Local smooth topology]\label{def:local-smooth-topology}
+The locally smooth topology on \(C^\infty_{\loc}(\R^3\times\R;\R^3)\) is
+generated by the seminorms
+\[
+   \|V\|_{m,N}
+   =
+   \max_{|\alpha|+j\le m}
+   \sup_{\substack{|y|\le N\\ |\tau|\le N}}
+   |\partial_y^\alpha\partial_\tau^jV(y,\tau)|,
+   \qquad m,N\in\N .
+\]
+One compatible metric is
+\[
+   d(U,V)
+   =
+   \sum_{m,N=1}^{\infty}
+   2^{-(m+N)}
+   \frac{\|U-V\|_{m,N}}{1+\|U-V\|_{m,N}}.
+\]
+\end{definition}
+
+Thus \(V_n\to V\) locally smoothly if and only if the convergence is in
+\(C^m(K)\) for every compact cylinder
+\(K\Subset\R^3\times\R\) and every \(m\ge0\).
+
+\section{Smoothing, pressure reconstruction, and compactness}
+\label{sec:smoothing-compactness}
+
+\subsection{Local smoothing}
+
+\begin{lemma}[Smoothing of bounded mild solutions]\label{lem:mild-smoothing}
+Every bounded mild ancient solution is smooth on \(\R^3\times\R\) and satisfies
+the projected equation \eqref{eq:projected} classically.  Moreover, for each
+compact cylinder \(K\Subset\R^3\times\R\) and each integer \(m\ge0\),
+\[
+   \|V\|_{C^m(K)}
+   \le
+   C\bigl(m,K,\|V\|_{L^\infty(\R^3\times\R)}\bigr).
+\]
+The same estimate holds uniformly for any family with a common
+\(L^\infty\) bound.
+\end{lemma}
+
+\begin{proof}
+Fix a compact time interval \(J\Subset\R\) containing the time projection of
+\(K\), and set \(t=-e^{-\tau}\).  On the corresponding compact interval
+\(t(J)\Subset(-\infty,0)\), define
+\[
+   U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)).
+\]
+The map \((x,t)\mapsto (x/\sqrt{-t},-\log(-t))\) is a smooth diffeomorphism
+between \(\R^3\times t(J)\) and \(\R^3\times J\), with all derivatives bounded
+on compact subcylinders.
+
+The centered mild formula \eqref{eq:mild} transforms, under this parabolic
+change of variables, into the usual projected Navier--Stokes mild formula on
+every compact subinterval of \(t(J)\):
+\[
+   U(t)=e^{(t-s)\Delta}U(s)
+   -
+   \int_s^t e^{(t-r)\Delta}\mathbb P\divergence(U\otimes U)(r)\,dr,
+   \qquad s<t.
+\]
+This transformation uses only the projected mild equation: the Leray projection
+is homogeneous of degree zero and commutes with the parabolic dilation, while
+the Ornstein--Uhlenbeck kernel in \eqref{eq:OU-semigroup} becomes the heat
+kernel with time parameter \(t-s\).  No pressure formulation is used at this
+stage.  The \(L^\infty\) norm of \(U\) on \(\R^3\times t(J)\) is bounded by a
+constant depending only on \(J\) and \(\|V\|_{L^\infty}\).
+
+The standard local smoothing theorem for bounded projected mild
+Navier--Stokes solutions \cite{Kato1984,GigaMiyakawa1985} gives first local
+derivative bounds away from the initial time in any mild representation.  In
+the present ancient setting one may choose the initial time strictly before the
+compact subcylinder under consideration.  Iterating the differentiated
+Duhamel formula and then applying the interior parabolic bootstrap for the
+Stokes system \cite{Ladyzhenskaya1968,Sohr2001} gives uniform bounds for all
+derivatives of \(U\) on compact subcylinders of \(\R^3\times t(J)\).  The mild
+formula may then be differentiated in time, so \(U\) solves the projected
+Navier--Stokes equation classically.  Returning to \((y,\tau)\) gives the
+asserted estimates for \(V\) and the classical projected equation
+\eqref{eq:projected}.  The argument is uniform for families with a common
+\(L^\infty\) bound.
+\end{proof}
+
+\subsection{Pressure reconstruction}
+
+\begin{lemma}[Local pressure reconstruction]\label{lem:local-pressure}
+Let \(V\) be a smooth bounded solution of the projected centered equation
+\eqref{eq:projected}.  Then for every ball \(B_R\) and compact interval
+\(I\Subset\R\) there exists
+\[
+   P_R\in C^\infty(B_R\times I),
+\]
+unique up to an additive function of time, such that
+\[
+   \partial_\tau V+(V\cdot\nabla)V+\nabla P_R
+   =
+   \Delta V-\frac12(V+y\cdot\nabla V),
+   \qquad \divergence V=0,
+\]
+on \(B_R\times I\).
+\end{lemma}
+
+\begin{proof}
+Set
+\[
+   F=
+   \Delta V-\frac12(V+y\cdot\nabla V)
+   -\partial_\tau V-(V\cdot\nabla)V .
+\]
+Since \((V\cdot\nabla)V=\divergence(V\otimes V)\) and \(V\) satisfies
+\eqref{eq:projected}, self-adjointness of the Leray projection gives
+\[
+   \int_I\int_{B_R}F\cdot\Phi\,dy\,d\tau=0
+\]
+for every \(\Phi\in C_c^\infty(B_R\times I;\R^3)\) satisfying
+\(\divergence_y\Phi=0\).  The local de Rham theorem, applied in the spatial
+variables with \(\tau\) as a parameter, gives a scalar distribution \(P_R\) on
+\(B_R\times I\), unique up to a distribution depending only on time, such that
+\(\nabla_yP_R=F\).  Since \(F\) is smooth, all spatial derivatives of \(P_R\)
+of positive order are smooth.  Fixing, for instance, the spatial mean of
+\(P_R\) over \(B_R\) to be zero for each \(\tau\) selects a representative
+which is smooth on \(B_R\times I\).  This proves the local pressure
+formulation.
+\end{proof}
+
+\begin{lemma}[Leray pressure and local gauges]\label{lem:pressure-reconstruction}
+Let \(V\) be a bounded mild ancient solution satisfying
+\[
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty .
+\]
+Then the whole-space Leray pressure
+\[
+   P=R_iR_j(V_iV_j)
+\]
+belongs to \(L^\infty(\R;L^{3/2}(\R^3))\).  Moreover, if \(V_n\to V\) locally
+smoothly, the \(V_n\) have a common \(L^\infty_\tau L^3_y\) bound, and
+\[
+   P_n=R_iR_j(V_{n,i}V_{n,j}),
+\]
+then on every compact cylinder \(B_R\times[\tau_1,\tau_2]\) there are bounded
+measurable gauges \(a_n(\tau)\) and \(a(\tau)\) such that, after passing to a
+subsequence,
+\[
+   P_n-a_n(\tau)
+   \rightharpoonup P-a(\tau)
+   \quad\hbox{weakly in }L^{3/2}(B_R\times[\tau_1,\tau_2]).
+\]
+Equivalently, after replacing the limiting pressure by an equivalent
+representative modulo a function of time, the weak limit may be denoted by
+\(P\).
+\end{lemma}
+
+\begin{proof}
+The first assertion follows from the Calderon--Zygmund boundedness of Riesz
+transforms on \(L^{3/2}(\R^3)\) \cite{Stein1970}:
+\[
+   \|P(\tau)\|_{L^{3/2}}
+   \le C\|V_i(\tau)V_j(\tau)\|_{L^{3/2}}
+   \le C\|V(\tau)\|_{L^3}^2 .
+\]
+For the local stability statement, choose
+\(\chi\in C_c^\infty(B_{4R})\) with \(\chi\equiv1\) on \(B_{3R}\).  Decompose
+on each time slice
+\[
+   P_n=R_iR_j(\chi V_{n,i}V_{n,j})
+       +R_iR_j((1-\chi)V_{n,i}V_{n,j}) .
+\]
+The local term converges strongly in \(L^q(B_{2R}\times[\tau_1,\tau_2])\) for
+every finite \(q\).  This is because \(V_n\to V\) smoothly on
+\(\overline B_{4R}\times[\tau_1,\tau_2]\), so
+\(\chi V_{n,i}V_{n,j}\to\chi V_iV_j\) strongly in every finite \(L^q\), and
+the Riesz transforms are Calderon--Zygmund operators on \(L^q\), \(1<q<\infty\).
+
+It remains to control the exterior part modulo constants.  Let \(K_{ij}\) be
+the convolution kernel of \(R_iR_j\).  For \(x\in B_R\) and
+\(|z|>4R\),
+\[
+   |K_{ij}(x-z)-K_{ij}(-z)|\le C_R |z|^{-4}.
+\]
+Define the exterior gauges
+\[
+   b_n(\tau)
+   =
+   \int_{\R^3} K_{ij}(-z)(1-\chi(z))V_{n,i}(z,\tau)V_{n,j}(z,\tau)\,dz
+\]
+and \(b(\tau)\) by the same formula with \(V\) in place of \(V_n\).
+The cutoff removes the singularity at the origin, and the integral is
+absolutely convergent at infinity because, on the dyadic annulus
+\(A_m=\{2^mR<|z|<2^{m+1}R\}\),
+\[
+   \int_{A_m}|z|^{-3}|V_n(z,\tau)|^2\,dz
+   \le
+   C(2^mR)^{-3}
+   \|V_n(\tau)\|_{L^3(A_m)}^2|A_m|^{1/3}
+   \le C L^2(2^mR)^{-2}.
+\]
+The same dyadic estimate shows that \(b_n\) and \(b\) are bounded uniformly on
+\([\tau_1,\tau_2]\).  The maps \(\tau\mapsto b_n(\tau)\) and
+\(\tau\mapsto b(\tau)\) are measurable, because they are limits of measurable
+truncated integrals.
+After subtracting \(b_n(\tau)\), the exterior contribution on \(B_R\) is
+\[
+   E_n(x,\tau)
+   =
+   \int_{\R^3}
+   [K_{ij}(x-z)-K_{ij}(-z)]
+   (1-\chi(z))V_{n,i}(z,\tau)V_{n,j}(z,\tau)\,dz .
+\]
+The same dyadic estimate, now using \(|z|^{-4}\), gives
+\[
+   \|E_n(\cdot,\tau)\|_{L^\infty(B_R)}
+   \le C(R)L^2
+\]
+uniformly in \(n\) and \(\tau\).  Splitting the exterior integral into
+\(\{4R<|z|<R'\}\) and \(\{|z|>R'\}\), the first part converges by local smooth
+convergence, while the second part is bounded uniformly by \(C L^2/R'\).  Letting
+first \(n\to\infty\) and then \(R'\to\infty\) identifies the local limit of
+\(E_n\) with the corresponding exterior contribution for \(V\).  Therefore,
+with \(a_n=b_n\) and \(a=b\), the decompositions of \(P_n-a_n\) and \(P-a\)
+have local parts converging strongly and exterior parts converging
+distributionally with a uniform local \(L^{3/2}\) bound.  Hence
+\[
+   P_n-a_n(\tau)\rightharpoonup P-a(\tau)
+   \quad\text{weakly in }L^{3/2}(B_R\times[\tau_1,\tau_2]).
+\]
+\end{proof}
+
+\subsection{Stability under locally smooth limits}
+
+\begin{lemma}[Closure of the mild formulation]\label{lem:mild-limit}
+Let \(V_n\) be bounded mild ancient solutions satisfying
+\[
+   \sup_n\|V_n\|_{L^\infty(\R^3\times\R)}<\infty .
+\]
+If \(V_n\to V\) locally smoothly, then \(V\) is a bounded mild ancient solution
+of \eqref{eq:centered}.
+\end{lemma}
+
+\begin{proof}
+The common \(L^\infty\) bound passes to \(V\) by pointwise convergence on
+compact subsets.  Divergence freeness passes distributionally.  Fix
+\(\sigma<\tau\) and test \eqref{eq:mild} for \(V_n\) against
+\(\phi\in C_c^\infty(\R^3;\R^3)\).  The endpoint terms are
+\[
+   \langle V_n(\tau),\phi\rangle,
+   \qquad
+   \langle V_n(\sigma),S(\tau-\sigma)^*\phi\rangle .
+\]
+The first converges by local smooth convergence.  For the second, note that
+\(S(\tau-\sigma)^*\phi\in L^1(\R^3)\).  Approximate this \(L^1\) function by
+a compactly supported smooth function and use the common \(L^\infty\) bound to
+control the \(L^1\) approximation error uniformly in \(n\).
+
+For the Duhamel term, write
+\[
+   \left\langle
+      S(\tau-s)\mathbb P\divergence(V_n\otimes V_n)(s),\phi
+   \right\rangle
+   =
+   \left\langle
+      V_n(s)\otimes V_n(s),
+      (S(\tau-s)\mathbb P\divergence)^*\phi
+   \right\rangle .
+\]
+For fixed \(s\), the adjoint test belongs to \(L^1\); pairing convergence
+again follows by compact approximation in \(L^1\), local smooth convergence,
+and the common \(L^\infty\) bound on \(V_n\otimes V_n\).  The approximation
+error is uniform in \(n\) for this fixed \(s\).  Moreover
+\Cref{lem:centered-stokes-kernel} gives the integrable domination
+\[
+   C\sup_n\|V_n\|_{L^\infty}^2
+   e^{-(\tau-s)/2}(1-e^{-(\tau-s)})^{-1/2}\|\phi\|_{L^1},
+   \qquad s\in(\sigma,\tau).
+\]
+Dominated convergence in \(s\) passes the Duhamel integral to the limit.
+Thus \(V\) satisfies \eqref{eq:mild}.
+\end{proof}
+
+\subsection{Compactness of bounded families}
+
+\begin{proposition}[Compactness of bounded ancient families]
+\label{prop:bounded-compactness}
+Let \(\{V_n\}\) be bounded mild ancient solutions satisfying
+\[
+   \sup_n\|V_n\|_{L^\infty(\R^3\times\R)}<\infty .
+\]
+Then a subsequence converges locally smoothly to a bounded mild ancient
+solution \(V\).
+\end{proposition}
+
+\begin{proof}
+By \Cref{lem:mild-smoothing}, the sequence is bounded in every
+\(C^m\)-norm on every compact cylinder.  Arzela--Ascoli on a countable
+exhaustion \(B_N\times[-N,N]\), followed by a diagonal extraction over
+\((m,N)\), gives a subsequence converging locally smoothly to a smooth limit.
+\Cref{lem:mild-limit} shows that the limit is again a bounded mild ancient
+solution.
+\end{proof}
+
+\section{\texorpdfstring{Uniform \(L^3\)-tightness and stationary \(L^3\) rigidity}{Uniform L3-tightness and stationary L3 rigidity}}
+\label{sec:tightness-rigidity}
+
+\subsection{\texorpdfstring{Uniform \(L^3\)-tightness}{Uniform L3-tightness}}
+
+\begin{definition}[Uniform \(L^3\)-tightness]\label{def:L3-tight}
+A bounded ancient solution \(V\) is uniformly \(L^3\)-tight if
+\[
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty
+\]
+and
+\[
+   \lim_{R\to\infty}
+   \sup_{\tau\in\R}
+   \int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
+\]
+\end{definition}
+
+\subsection{Closedness under locally smooth convergence}
+
+\begin{lemma}[Closure of uniform \(L^3\)-tightness]\label{lem:tight-closure}
+Let \(V_n\) be bounded mild ancient solutions satisfying
+\[
+   \sup_n\sup_{\tau\in\R}\|V_n(\tau)\|_{L^3(\R^3)}\le L<\infty
+\]
+and assume that they have a common tightness modulus: for some
+\(\omega:[1,\infty)\to[0,\infty)\) with \(\omega(R)\to0\),
+\[
+   \sup_n\sup_{\tau\in\R}
+   \int_{|y|>R}|V_n(y,\tau)|^3\,dy\le \omega(R),
+   \qquad R\ge1.
+\]
+If \(V_n\to V\) locally smoothly, then
+\[
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}\le L
+\]
+and
+\[
+   \sup_{\tau\in\R}
+   \int_{|y|>R}|V(y,\tau)|^3\,dy\le \omega(R),
+   \qquad R\ge1.
+\]
+In particular \(V\) is uniformly \(L^3\)-tight.
+\end{lemma}
+
+\begin{proof}
+Fix \(\tau\).  On \(B_R\), local smooth convergence gives
+\[
+   \int_{B_R}|V(y,\tau)|^3\,dy
+   =
+   \lim_{n\to\infty}\int_{B_R}|V_n(y,\tau)|^3\,dy
+   \le L^3 .
+\]
+Letting \(R\to\infty\) and using monotone convergence gives
+\(\|V(\tau)\|_{L^3}\le L\).  Since \(\tau\) was arbitrary, the same bound is
+uniform in time.
+
+For the tail bound, fix \(1\le R<R'\).  On the bounded annulus
+\(\{R<|y|<R'\}\), dominated convergence gives
+\[
+   \int_{R<|y|<R'}|V(y,\tau)|^3\,dy
+   =
+   \lim_{n\to\infty}
+   \int_{R<|y|<R'}|V_n(y,\tau)|^3\,dy
+   \le \omega(R).
+\]
+Letting \(R'\to\infty\) and using monotone convergence gives
+\[
+   \int_{|y|>R}|V(y,\tau)|^3\,dy\le \omega(R).
+\]
+The estimate is independent of \(\tau\), so taking the supremum in time gives
+the asserted tail bound.  Since \(\omega(R)\to0\), \(V\) is uniformly
+\(L^3\)-tight.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:tight-compactness-intro}]
+The compactness assertion is \Cref{prop:bounded-compactness}.  The
+\(L^\infty_\tau L^3_y\) and tightness closure assertions follow from
+\Cref{lem:tight-closure} with the displayed constants \(L\) and \(\omega\).
+\end{proof}
+
+\subsection{Stationary time-translate limits}
+
+The stationary self-similar profile equation used below is
+\begin{equation}\label{eq:stationary-profile}
+   (w\cdot\nabla)w+\nabla p
+   =
+   \Delta w-\frac12(w+y\cdot\nabla w),
+   \qquad \divergence w=0 .
+\end{equation}
+
+\begin{theorem}[Stationary limits under uniform \(L^3\)-tightness]
+\label{thm:stationary-limits-tight}
+Let \(V\) be uniformly \(L^3\)-tight.  Let \(\tau_n\in\R\), and suppose
+\[
+   \Theta_{\tau_n}V\to W
+\]
+locally smoothly.  If \(W\) is stationary, then \(W\equiv0\).
+\end{theorem}
+
+\begin{proof}
+The sequence \(\Theta_{\tau_n}V\) has the same \(L^3\) bound and tightness
+modulus as \(V\).  By \Cref{lem:tight-closure}, the limit \(W\) belongs to
+\(L^\infty_\tau L^3_y\).  If \(W\) is stationary, write
+\(W(y,\tau)=w(y)\).  Then \(w\in L^3(\R^3)\).
+
+By \Cref{lem:mild-limit}, \(W\) is a bounded mild ancient solution.  The
+smoothness from \Cref{lem:mild-smoothing} and the local pressure lemma
+\Cref{lem:local-pressure} give smooth local pressures \(p_N\) on \(B_N\) at
+time \(0\).  Since
+\(\partial_\tau W=0\), each \(p_N\) satisfies
+\[
+   (w\cdot\nabla)w+\nabla p_N
+   =
+   \Delta w-\frac12(w+y\cdot\nabla w)
+   \quad\text{on }B_N .
+\]
+On overlaps the gradients of the local pressures agree, so the pressures
+differ only by constants.  Adjusting those constants and passing to the
+compatible union gives a scalar distribution \(p\) on \(\R^3\) for which
+\eqref{eq:stationary-profile} holds in distributions.  The stationary
+\(L^3\) rigidity theorem \Cref{thm:NRS} applies and gives \(w=0\).
+\end{proof}
+
+\subsection{Stationary self-similar rigidity}
+
+\begin{theorem}[Stationary self-similar rigidity]\label{thm:NRS}
+Let \(w\in C^\infty(\R^3;\R^3)\cap L^3(\R^3)\) solve
+\eqref{eq:stationary-profile} in distributions for some scalar distribution
+\(p\), with \(\divergence w=0\).  Then \(w\equiv0\).
+\end{theorem}
+
+\begin{proof}
+This is the theorem of Ne\v{c}as, R\r{u}\v{z}i\v{c}ka, and
+\v{S}ver\'ak \cite{NRS1996}, applied to the stationary Leray self-similar
+system.  The smooth distributional formulation stated here is a special case
+of their weak \(L^3(\R^3)\) theorem.
+\end{proof}
+
+\section{Normalized collections and minimal ancient solutions}
+\label{sec:minimal-elements}
+
+\subsection{Closed normalized collections}
+
+\begin{definition}[Closed normalized collection]\label{def:closed-normalized}
+A collection \(A\) of bounded mild ancient solutions is called a closed
+normalized collection if:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item there is \(M<\infty\) such that
+\[
+   \|V\|_{L^\infty(\R^3\times\R)}\le M
+   \qquad\text{for all }V\in A;
+\]
+\item there are \(R_0>0\) and \(\eta_0>0\) such that
+\begin{equation}\label{eq:local-nonzero}
+   \sup_{\tau\in\R}
+   \int_{B_{R_0}}|V(y,\tau)|^3\,dy
+   \ge \eta_0
+   \qquad\text{for all }V\in A;
+\end{equation}
+\item \(A\) is invariant under time translation:
+\[
+   V\in A,\ s\in\R
+   \quad\Longrightarrow\quad
+   \Theta_sV\in A;
+\]
+\item if \(V_n\in A\), \(V_n\to V\) locally smoothly, and \(V\) satisfies the
+same \((R_0,\eta_0)\)-nonvanishing condition \eqref{eq:local-nonzero}, then
+\(V\in A\).
+\end{enumerate}
+\end{definition}
+
+\subsection{Time-centering}
+
+\begin{lemma}[Time-centering]\label{lem:time-centering}
+Let \(A\) be a closed normalized collection.  If \(V\in A\), then for every
+\(\delta>0\) there exists \(s\in\R\) such that
+\[
+   \int_{B_{R_0}}|\Theta_sV(y,0)|^3\,dy
+   \ge \eta_0-\delta.
+\]
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:local-nonzero}, the supremum in time of the local \(L^3\) mass is
+at least \(\eta_0\).  Choose \(s\) within \(\delta\) of this supremum.  Since
+\((\Theta_sV)(y,0)=V(y,s)\), the displayed estimate follows.  Time-translation
+invariance keeps \(\Theta_sV\) in \(A\).
+\end{proof}
+
+\subsection{Stability of local nonvanishing}
+
+\begin{lemma}[Stability of local nonvanishing]\label{lem:nonzero-stability}
+If \(V_n\to V\) locally smoothly and
+\[
+   \int_{B_{R_0}}|V_n(y,0)|^3\,dy\ge \eta_0-o(1),
+\]
+then
+\[
+   \int_{B_{R_0}}|V(y,0)|^3\,dy\ge \eta_0 .
+\]
+\end{lemma}
+
+\begin{proof}
+Local smooth convergence implies uniform convergence on
+\(\overline B_{R_0}\times\{0\}\), hence convergence in
+\(L^3(B_{R_0})\).  The map \(f\mapsto\int_{B_{R_0}}|f|^3\) is continuous on
+\(L^3(B_{R_0})\), and the claim follows by passing to the limit.
+\end{proof}
+
+\subsection{Lower semicontinuity of size}
+
+\begin{lemma}[Lower semicontinuity of \(L^\infty\) size]
+\label{lem:lsc-size}
+If \(V_n\to V\) locally smoothly and
+\[
+   \sup_n\|V_n\|_{L^\infty(\R^3\times\R)}<\infty,
+\]
+then
+\[
+   \|V\|_{L^\infty(\R^3\times\R)}
+   \le
+   \liminf_{n\to\infty}
+   \|V_n\|_{L^\infty(\R^3\times\R)}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(L_0\) be the liminf on the right.  If
+\(|V(y_0,\tau_0)|>L_0+\eps\), choose a subsequence with
+\(\|V_n\|_{L^\infty}\to L_0\).  Local uniform convergence at
+\((y_0,\tau_0)\) gives
+\(|V_n(y_0,\tau_0)|>L_0+\eps/2\) for all large \(n\), contradicting
+\(\|V_n\|_{L^\infty}\to L_0\).  Hence \(|V|\le L_0\) pointwise.  Since the
+smooth representative has pointwise supremum equal to its essential
+\(L^\infty\) norm, the result follows.
+\end{proof}
+
+\subsection{Existence of a minimal element}
+
+\begin{theorem}[Existence of a minimal ancient solution]
+\label{thm:minimal-existence}
+Let \(A\) be nonempty and closed normalized.  Set
+\[
+   m=
+   \inf_{V\in A}
+   \|V\|_{L^\infty(\R^3\times\R)}.
+\]
+Then \(0<m<\infty\), and there exists \(V_*\in A\) such that
+\[
+   \|V_*\|_{L^\infty(\R^3\times\R)}=m.
+\]
+In particular \(V_*\not\equiv0\).
+\end{theorem}
+
+\begin{proof}
+The common \(L^\infty\) bound gives \(m<\infty\).  The local nonvanishing gives
+a positive lower bound:
+\[
+   \eta_0
+   \le
+   \sup_{\tau\in\R}\int_{B_{R_0}}|V(y,\tau)|^3\,dy
+   \le
+   |B_{R_0}|\|V\|_{L^\infty(\R^3\times\R)}^3,
+\]
+so
+\[
+   m\ge \left(\eta_0/|B_{R_0}|\right)^{1/3}>0.
+\]
+
+Choose \(V_n\in A\) with
+\[
+   m\le \|V_n\|_{L^\infty(\R^3\times\R)}\le m+\frac1n .
+\]
+By \Cref{lem:time-centering}, after replacing \(V_n\) by a time translate,
+which stays in \(A\) and preserves the \(L^\infty\) norm, we may assume
+\[
+   \int_{B_{R_0}}|V_n(y,0)|^3\,dy\ge \eta_0-\frac1n .
+\]
+The common \(L^\infty\) bound and \Cref{prop:bounded-compactness} give a
+locally smooth subsequential limit \(V_*\), which is a bounded mild ancient
+solution.  By \Cref{lem:nonzero-stability},
+\[
+   \int_{B_{R_0}}|V_*(y,0)|^3\,dy\ge\eta_0,
+\]
+so \(V_*\) retains the fixed \((R_0,\eta_0)\)-normalization.  Closedness of
+\(A\) then gives \(V_*\in A\).  Finally, \Cref{lem:lsc-size} gives
+\[
+   \|V_*\|_{L^\infty}
+   \le
+   \liminf_{n\to\infty}\|V_n\|_{L^\infty}
+   =m.
+\]
+Since \(m\) is the infimum over \(A\) and \(V_*\in A\), equality holds.  The
+positive lower bound on \(m\) rules out \(V_*\equiv0\).
+\end{proof}
+
+\subsection{The uniformly tight normalized class}
+
+\begin{definition}[Uniformly tight normalized collection]
+\label{def:tight-normalized-collection}
+Fix \(M,L,R_0,\eta_0>0\) and a modulus
+\[
+   \omega:[1,\infty)\to[0,\infty),
+   \qquad \omega(R)\to0.
+\]
+A collection \(A\) of bounded mild ancient solutions is called a uniformly
+tight normalized collection with data \((M,L,\omega,R_0,\eta_0)\) if:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item for every \(V\in A\),
+\[
+   \|V\|_{L^\infty(\R^3\times\R)}\le M;
+\]
+\item for every \(V\in A\),
+\[
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}\le L;
+\]
+\item for every \(V\in A\) and every \(R\ge1\),
+\[
+   \sup_{\tau\in\R}
+   \int_{|y|>R}|V(y,\tau)|^3\,dy\le \omega(R);
+\]
+\item for every \(V\in A\),
+\[
+   \sup_{\tau\in\R}
+   \int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge\eta_0;
+\]
+\item \(A\) is invariant under time translation;
+\item \(A\) is closed under locally smooth limits retaining item \textup{(4)}.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Uniformly tight normalized collections are closed normalized]
+\label{prop:tight-closed-normalized}
+Every uniformly tight normalized collection is a closed normalized collection.
+\end{proposition}
+
+\begin{proof}
+The \(L^\infty\) bound, local nonvanishing, time-translation invariance, and
+closedness clause in \Cref{def:closed-normalized} are part of
+\Cref{def:tight-normalized-collection}.  The only non-formal point is that
+the stated \(L^3\) bound and fixed tightness modulus survive locally smooth
+limits.  This follows from \Cref{lem:tight-closure}.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:minimal-tight-intro}]
+By \Cref{prop:tight-closed-normalized}, the collection is closed normalized.
+\Cref{thm:minimal-existence} gives the asserted nonzero minimizer.
+\end{proof}
+
+\section{Compact trajectory hulls}
+\label{sec:compact-hulls}
+
+\subsection{Trajectory hulls}
+
+\begin{definition}[Trajectory hull]\label{def:trajectory-hull}
+For a bounded mild ancient solution \(V\), its trajectory hull is
+\[
+   \calH(V)
+   =
+   \overline{\{\Theta_sV:\ s\in\R\}}^{C^\infty_{\loc}}.
+\]
+\end{definition}
+
+\subsection{Compactness of bounded hulls}
+
+\begin{theorem}[Compact trajectory hull]\label{thm:compact-hull}
+If \(V\) is a bounded mild ancient solution, then \(\calH(V)\) is compact in
+the locally smooth topology and invariant under every time translation
+\(\Theta_s\).  Every \(W\in\calH(V)\) is a bounded mild ancient solution with
+\[
+   \|W\|_{L^\infty(\R^3\times\R)}
+   \le
+   \|V\|_{L^\infty(\R^3\times\R)}.
+\]
+\end{theorem}
+
+\begin{proof}
+Every translate \(\Theta_sV\) is a bounded mild ancient solution with the same
+\(L^\infty\) bound as \(V\).  Hence every sequence of translates has a
+locally smoothly convergent subsequence by \Cref{prop:bounded-compactness}.
+If \((W_n)\subset\calH(V)\), choose translates \(\Theta_{s_n}V\) with
+\(d(W_n,\Theta_{s_n}V)<1/n\).  A subsequence of \(\Theta_{s_n}V\) converges
+locally smoothly, and the corresponding subsequence of \(W_n\) has the same
+limit.  Thus \(\calH(V)\) is sequentially compact.  Since the locally smooth
+topology is metrizable, it is compact.
+
+The \(L^\infty\) estimate and the mild equation pass to elements of the hull
+by local smooth convergence and \Cref{lem:mild-limit}.  For invariance, note
+that \(\Theta_t\) maps the orbit of \(V\) onto itself.  If \(W_n\to W\)
+locally smoothly, then \(\Theta_tW_n\to\Theta_tW\) locally smoothly because
+time translation only shifts the compact time interval on which the
+seminorms are evaluated.  Hence \(\Theta_t\calH(V)=\calH(V)\).
+
+\end{proof}
+
+\begin{corollary}[Uniform tightness on hulls]\label{cor:tightness-on-hulls}
+If \(V\) is uniformly \(L^3\)-tight with bound \(L\) and modulus \(\omega\),
+then every \(W\in\calH(V)\) satisfies
+\[
+   \sup_{\tau\in\R}\|W(\tau)\|_{L^3(\R^3)}\le L
+\]
+and
+\[
+   \sup_{\tau\in\R}\int_{|y|>R}|W(y,\tau)|^3\,dy\le\omega(R),
+   \qquad R\ge1.
+\]
+The same estimates hold uniformly on every compact invariant subset
+\(K\subset\calH(V)\).
+\end{corollary}
+
+\begin{proof}
+Every translate of \(V\) has the same \(L^3\) bound and tightness modulus.
+Applying \Cref{lem:tight-closure} to any sequence of translates converging
+locally smoothly to \(W\in\calH(V)\) gives the displayed estimates for \(W\).
+Taking the supremum over \(W\in K\subset\calH(V)\) gives the final assertion.
+\end{proof}
+
+\subsection{Compact invariant sets}
+
+\begin{definition}[Compact invariant set]\label{def:compact-invariant}
+A nonempty compact subset \(K\) of the locally smooth space of bounded mild
+ancient solutions is invariant if
+\[
+   \Theta_tK=K
+   \qquad\text{for every }t\in\R .
+\]
+It is minimal if it contains no proper nonempty compact invariant subset.
+\end{definition}
+
+\begin{lemma}[Continuity of the translation action]\label{lem:action-continuity}
+Let \(K\) be a compact invariant set.  For each \(t\in\R\),
+\(\Theta_t:K\to K\) is a homeomorphism, and the action
+\[
+   \R\times K\ni(t,W)\mapsto \Theta_tW\in K
+\]
+is jointly continuous.
+\end{lemma}
+
+\begin{proof}
+For fixed \(t\), convergence \(W_n\to W\) locally smoothly implies
+\[
+   \|\Theta_tW_n-\Theta_tW\|_{C^m(B_R\times[-T,T])}
+   =
+   \|W_n-W\|_{C^m(B_R\times[-T+t,T+t])}\to0.
+\]
+Thus \(\Theta_t\) is continuous, and its inverse is \(\Theta_{-t}\).  If
+\(t_n\to t\) and \(W_n\to W\), then on any fixed compact cylinder the
+difference
+\[
+   \Theta_{t_n}W_n-\Theta_tW
+\]
+is bounded by a term involving \(W_n-W\) on a slightly larger compact cylinder
+and a term involving the uniform continuity of finitely many derivatives of
+\(W\) on that larger cylinder.  Both terms tend to zero, proving joint
+continuity.
+\end{proof}
+
+\subsection{Minimal compact invariant subsets}
+
+\begin{proposition}[Minimal compact invariant subsets]\label{prop:minimal-subset}
+Let \(K\) be a nonempty compact invariant set.  Then \(K\) contains a
+nonempty compact minimal invariant subset.
+\end{proposition}
+
+\begin{proof}
+Let \(\mathcal F\) be the family of nonempty compact invariant subsets of
+\(K\), ordered by reverse inclusion.  For a chain \(\{K_\alpha\}\), the
+intersection \(\bigcap_\alpha K_\alpha\) is nonempty by compactness and the
+finite intersection property, since the chain is totally ordered by ordinary
+inclusion.  The intersection is compact and invariant: invariance follows
+from \(\Theta_tK_\alpha=K_\alpha\) for all \(\alpha\) and the fact that
+\(\Theta_t\) is a homeomorphism.  Thus every chain has an upper bound in the
+reverse-inclusion order.  Zorn's lemma gives a maximal element for that order,
+equivalently a minimal compact invariant subset under ordinary inclusion.
+\end{proof}
+
+\subsection{The zero trajectory}
+
+\begin{lemma}[The zero trajectory]\label{lem:zero-trajectory}
+The singleton \(\{0\}\) is compact and invariant.  If a minimal compact
+invariant set contains the zero trajectory, then it equals \(\{0\}\).
+\end{lemma}
+
+\begin{proof}
+The zero solution satisfies \(\Theta_t0=0\) for all \(t\).  Therefore
+\(\{0\}\) is a nonempty compact invariant subset of any invariant set
+containing zero.  Minimality forces equality.
+\end{proof}
+
+\section{Invariant measures and the covariance obstruction}
+\label{sec:measures-covariance}
+
+\subsection{Krylov--Bogolyubov averages}
+
+The following is the standard Krylov--Bogolyubov averaging argument
+\cite{KryloffBogoliouboff1937,Billingsley1999}.
+
+\begin{theorem}[Krylov--Bogolyubov averages]\label{thm:KB}
+Let \(K\) be a compact invariant set and \(W_0\in K\).  For \(T>0\), define
+\[
+   \mu_T
+   =
+   \frac1T\int_0^T\delta_{\Theta_sW_0}\,ds .
+\]
+Then every sequence \(T_n\to\infty\) has a subsequence such that
+\[
+   \mu_{T_n}\rightharpoonup\mu
+\]
+weakly as Borel probability measures on \(K\), and every such limit \(\mu\)
+is invariant:
+\[
+   (\Theta_t)_\#\mu=\mu
+   \qquad\text{for all }t\in\R .
+\]
+If \(K\) is minimal, then every invariant Borel probability measure on \(K\)
+has support equal to \(K\).
+\end{theorem}
+
+\begin{proof}
+The orbit map \(s\mapsto\Theta_sW_0\) is continuous by
+\Cref{lem:action-continuity}; thus \(\mu_T\) is the push-forward of normalized
+Lebesgue measure on \([0,T]\).  Since \(K\) is compact and metrizable, the
+space of Borel probability measures on \(K\) is weakly sequentially compact
+\cite{Billingsley1999}.  Hence \(\mu_{T_n}\) has a weakly convergent
+subsequence.
+
+For \(F\in C(K)\) and \(t>0\),
+\[
+   \int_K F(\Theta_tW)\,d\mu_T(W)-\int_KF(W)\,d\mu_T(W)
+   =
+   \frac1T\int_T^{T+t}F(\Theta_sW_0)\,ds
+   -
+   \frac1T\int_0^tF(\Theta_sW_0)\,ds .
+\]
+The absolute value is at most \(2t\|F\|_{C(K)}/T\).  Letting
+\(T=T_{n_k}\to\infty\) gives invariance for \(t>0\); negative times follow by
+applying the positive-time result to \(F\circ\Theta_t\).
+
+If \(K\) is minimal and \(\mu\) is invariant, then \(\supp\mu\) is nonempty,
+closed, and invariant.  Indeed, if \(U\) is a neighborhood of
+\(\Theta_tW\), then \(\Theta_{-t}U\) is a neighborhood of \(W\), and invariance
+shows \(\mu(U)=\mu(\Theta_{-t}U)>0\) whenever \(W\in\supp\mu\).  Hence
+\(\Theta_t(\supp\mu)\subset\supp\mu\).  Applying the same argument with
+\(-t\) gives the reverse inclusion, so \(\supp\mu\) is invariant.  It is
+nonempty because \(\mu(K)=1\), and it is compact because it is closed in
+compact \(K\).  Minimality forces \(\supp\mu=K\).
+\end{proof}
+
+\subsection{Support on minimal hulls}
+
+\begin{corollary}[Nonzero support]\label{cor:nonzero-support}
+Let \(K\) be a minimal compact invariant set with \(K\ne\{0\}\).  Then zero is
+not in \(K\), and every invariant probability measure on \(K\) has support
+equal to \(K\).
+\end{corollary}
+
+\begin{proof}
+If zero were in \(K\), \Cref{lem:zero-trajectory} would give \(K=\{0\}\),
+contrary to the assumption.  The support conclusion is the minimal-support part
+of \Cref{thm:KB}.
+\end{proof}
+
+\subsection{Stationary statistical identity}
+
+\begin{theorem}[Stationary statistical form]\label{thm:statistical-identity}
+Let \(K\) be a compact invariant set and \(\mu\) an invariant Borel
+probability measure on \(K\).  Then for every solenoidal
+\(\phi\in C_c^\infty(\R^3;\R^3)\),
+\begin{equation}\label{eq:statistical-identity}
+\begin{aligned}
+0
+=
+\int_K
+\bigg[
+   &\int_{\R^3}
+   W(y,0)\cdot
+   \left(\Delta\phi+\phi+\frac12 y\cdot\nabla\phi\right)\,dy  \\
+   &+
+   \int_{\R^3}
+   W_i(y,0)W_j(y,0)\partial_j\phi_i(y)\,dy
+\bigg]\,d\mu(W).
+\end{aligned}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Define
+\[
+   F(W)=\int_{\R^3}W(y,0)\cdot\phi(y)\,dy .
+\]
+Local smooth convergence makes \(F\) continuous on \(K\): if \(W_n\to W\),
+then \(W_n(\cdot,0)\to W(\cdot,0)\) uniformly on the compact support of
+\(\phi\).  Invariance gives
+\[
+   \int_K\frac{F(\Theta_hW)-F(W)}{h}\,d\mu(W)=0
+   \qquad (0<|h|\le1).
+\]
+Choose \(R\) with \(\supp\phi\subset B_R\).  On
+\(\overline B_R\times[-1,1]\), compactness of \(K\) in the locally smooth
+topology gives
+\[
+   M_\phi
+   =
+   \sup_{W\in K}
+   \|\partial_\tau W\|_{L^\infty(\overline B_R\times[-1,1])}
+   <\infty .
+\]
+For \(0<|h|\le1\),
+\[
+   \frac{F(\Theta_hW)-F(W)}{h}
+   =
+   \int_{\R^3}
+   \left(\frac1h\int_0^h\partial_\tau W(y,s)\,ds\right)\cdot\phi(y)\,dy,
+\]
+and the absolute value is bounded by
+\(|B_R|\|\phi\|_{L^\infty}M_\phi\), uniformly in \(W\) and \(h\).  For each
+fixed \(W\), smoothness gives uniform convergence of the inner average to
+\(\partial_\tau W(y,0)\) on \(\supp\phi\).  Dominated convergence on \(K\)
+yields
+\[
+   \int_K\int_{\R^3}\partial_\tau W(y,0)\cdot\phi(y)\,dy\,d\mu(W)=0 .
+\]
+For each \(W\), the smooth local equation \eqref{eq:centered} at time zero,
+tested against solenoidal \(\phi\), gives
+\[
+\begin{aligned}
+\int_{\R^3}\partial_\tau W\cdot\phi\,dy
+=
+&\int_{\R^3} W\cdot\Delta\phi\,dy
+ +\int_{\R^3} W\cdot\phi\,dy
+ +\frac12\int_{\R^3}W\cdot(y\cdot\nabla\phi)\,dy\\
+&+\int_{\R^3}W_iW_j\partial_j\phi_i\,dy .
+\end{aligned}
+\]
+The pressure term vanishes because \(\divergence\phi=0\); the drift identity
+uses
+\[
+   \int y_j\partial_jW_i\,\phi_i\,dy
+   =
+   -3\int W\cdot\phi\,dy-\int W\cdot(y\cdot\nabla\phi)\,dy .
+\]
+The right-hand side is a continuous bounded function of \(W\in K\).  Averaging
+over \(K\) gives \eqref{eq:statistical-identity}.
+\end{proof}
+
+\subsection{Barycenter and covariance}
+
+\begin{theorem}[Barycenter and covariance]\label{thm:barycenter-covariance}
+Let \(K\) and \(\mu\) be as in \Cref{thm:statistical-identity}.  Define
+\[
+   \overline W(y)=\int_K W(y,0)\,d\mu(W)
+\]
+and
+\[
+   C_{ij}(y)
+   =
+   \int_K W_i(y,0)W_j(y,0)\,d\mu(W)
+   -
+   \overline W_i(y)\overline W_j(y).
+\]
+Then \(\overline W\) and \(C\) are \(C^\infty_{\loc}\), \(\overline W\) is
+solenoidal, and for every solenoidal
+\(\phi\in C_c^\infty(\R^3;\R^3)\),
+\begin{equation}\label{eq:barycenter-covariance}
+   \int_{\R^3}
+   \overline W\cdot
+   \left(\Delta\phi+\phi+\frac12 y\cdot\nabla\phi\right)\,dy
+   +
+   \int_{\R^3}
+   \overline W_i\overline W_j\partial_j\phi_i\,dy
+   +
+   \int_{\R^3}C_{ij}\partial_j\phi_i\,dy
+   =0 .
+\end{equation}
+In particular, \(\overline W\) is a weak stationary self-similar solution
+against solenoidal test fields if and only if
+\[
+   \int_{\R^3}C_{ij}\partial_j\phi_i\,dy=0
+\]
+for every solenoidal test field \(\phi\).
+\end{theorem}
+
+\begin{proof}
+Compactness of \(K\) in the locally smooth topology gives, for every compact
+ball and every derivative order, a uniform bound on
+\(\partial_y^\alpha W(y,0)\) for \(W\in K\).  Hence one may differentiate
+\(\overline W\) under the integral sign.  More explicitly, for every
+multiindex \(\alpha\) and every \(y\) in a fixed compact ball,
+\[
+   \partial_y^\alpha\overline W(y)
+   =
+   \int_K\partial_y^\alpha W(y,0)\,d\mu(W),
+\]
+because the difference quotients are dominated by the next derivative
+seminorm, uniformly on \(K\).  The same argument applies to the second moment
+\[
+   M_{ij}(y)=\int_KW_i(y,0)W_j(y,0)\,d\mu(W),
+\]
+using Leibniz' rule and the uniform bounds on derivatives of \(W\).  This
+gives \(C^\infty_{\loc}\) regularity of \(\overline W\), \(M\), and
+\(C=M-\overline W\otimes\overline W\).  Since every \(W\) is divergence free,
+Fubini against scalar test functions gives \(\divergence\overline W=0\):
+for \(\eta\in C_c^\infty(\R^3)\),
+\[
+   \int_{\R^3}\overline W\cdot\nabla\eta\,dy
+   =
+   \int_K\int_{\R^3}W(y,0)\cdot\nabla\eta(y)\,dy\,d\mu(W)=0.
+\]
+
+For each compactly supported test field \(\phi\), the maps
+\[
+   W\mapsto\int_{\R^3}W(y,0)\cdot\phi(y)\,dy,
+   \qquad
+   W\mapsto\int_{\R^3}W_i(y,0)W_j(y,0)\partial_j\phi_i(y)\,dy
+\]
+are continuous and bounded on \(K\), again by compactness in
+\(C^\infty_{\loc}\).  Thus all integrals below are finite, and Fubini's theorem
+applies.
+
+Applying \Cref{thm:statistical-identity} and passing the linear term through
+the \(K\)-integral gives the first integral in
+\eqref{eq:barycenter-covariance}.  Passing the nonlinear term through the
+integral gives
+\[
+   \int_K W_iW_j\,d\mu
+   =
+   \overline W_i\overline W_j+C_{ij}.
+\]
+Substitution yields \eqref{eq:barycenter-covariance}.  Comparing this identity
+with the pressure-free stationary weak formulation for \(\overline W\) gives
+the stated equivalence with vanishing covariance contribution.
+\end{proof}
+
+\section{Strict Lyapunov functionals and equilibrium support}
+\label{sec:lyapunov-equilibrium}
+
+\subsection{Stationary trajectories}
+
+\begin{definition}[Stationary trajectory]\label{def:stationary-trajectory}
+An element \(W\) of a compact invariant hull \(K\) is stationary if
+\[
+   \Theta_tW=W
+   \qquad\text{for every }t\in\R.
+\]
+Equivalently, \(W(y,\tau)=w(y)\) is independent of \(\tau\).
+\end{definition}
+
+\begin{lemma}[Stationary trajectories and stationary profiles]
+\label{lem:stationary-profile}
+If \(W\) is stationary, then \(W(y,\tau)=w(y)\), and \(w\) solves
+\eqref{eq:stationary-profile} in distributions for some scalar distribution
+\(p\).
+\end{lemma}
+
+\begin{proof}
+Stationarity means \(W(y,\tau+t)=W(y,\tau)\) for all \(t\), hence
+\(W(y,\tau)=W(y,0)=w(y)\).  Conversely, a time-independent trajectory is fixed
+by every \(\Theta_t\).  By \Cref{lem:local-pressure}, for each \(N\) there is
+a smooth pressure \(p_N\) on \(B_N\) such that
+\[
+   (w\cdot\nabla)w+\nabla p_N
+   =
+   \Delta w-\frac12(w+y\cdot\nabla w)
+   \quad\text{on }B_N.
+\]
+On overlaps, the gradients of two local pressures agree, so their difference
+is constant on each connected overlap.  More explicitly, if \(M>N\), then on
+\(B_N\) both gradients equal the same smooth vector field
+\[
+   \Delta w-\frac12(w+y\cdot\nabla w)-(w\cdot\nabla)w .
+\]
+Thus \(\nabla(p_M-p_N)=0\) on \(B_N\), and \(p_M-p_N\) is constant there.
+Choose the additive constants in the pressures inductively so that
+\(p_{N+1}=p_N\) on \(B_N\).  If
+\(\varphi\in C_c^\infty(\R^3)\), choose \(N\) with
+\(\supp\varphi\subset B_N\) and define
+\[
+   \langle p,\varphi\rangle=\langle p_N,\varphi\rangle .
+\]
+The compatibility on overlaps makes this independent of \(N\).  Testing the
+local identity on a ball containing the support of a vector test field then
+shows that \eqref{eq:stationary-profile} holds in \(\mathcal D'(\R^3)\), with
+\(\divergence w=0\).
+\end{proof}
+
+\subsection{The strict Lyapunov hypothesis}
+
+\begin{hypothesis}[Strict compact-hull Lyapunov functional]
+\label{hyp:strict-lyapunov}
+Let \(K\) be a compact invariant hull.  There exist continuous functions
+\[
+   E:K\to\R,
+   \qquad
+   D:K\to[0,\infty),
+\]
+such that for every \(W\in K\) and every \(t\ge0\),
+\begin{equation}\label{eq:strict-lyapunov}
+   E(\Theta_tW)-E(W)
+   =
+   -\int_0^tD(\Theta_sW)\,ds,
+\end{equation}
+and
+\begin{equation}\label{eq:zero-dissipation}
+   D(W)=0
+   \quad\Longleftrightarrow\quad
+   W \text{ is stationary}.
+\end{equation}
+\end{hypothesis}
+
+\begin{remark}
+The construction of such a Lyapunov pair \((E,D)\) is not asserted in this
+paper.  The role of the paper is to prove the consequences of this
+hypothesis for uniformly \(L^3\)-tight compact ancient dynamics.
+\end{remark}
+
+\subsection{Invariant measures annihilate dissipation}
+
+\begin{lemma}[Invariant measures annihilate Lyapunov dissipation]
+\label{lem:zero-dissipation}
+Let \(K\) satisfy \Cref{hyp:strict-lyapunov}, and let \(\mu\) be an invariant
+Borel probability measure on \(K\).  Then
+\[
+   \int_KD(W)\,d\mu(W)=0.
+\]
+\end{lemma}
+
+\begin{proof}
+Fix \(t>0\).  Integrating \eqref{eq:strict-lyapunov} with respect to the
+invariant measure \(\mu\) gives
+\[
+   0
+   =
+   -\int_K\int_0^tD(\Theta_sW)\,ds\,d\mu(W).
+\]
+The integrand is continuous on the compact product \([0,t]\times K\), so
+Fubini applies.  Invariance of \(\mu\) with the continuous test function \(D\)
+gives
+\[
+   \int_K\int_0^tD(\Theta_sW)\,ds\,d\mu(W)
+   =
+   \int_0^t\int_KD(W)\,d\mu(W)\,ds
+   =
+   t\int_KD(W)\,d\mu(W).
+\]
+Since \(t>0\), the claim follows.
+\end{proof}
+
+\subsection{Equilibrium support}
+
+\begin{theorem}[Equilibrium support]\label{thm:equilibrium-support}
+Let \(K\) be a compact invariant hull satisfying
+\Cref{hyp:strict-lyapunov}.  Then every invariant Borel probability measure on
+\(K\) is supported on stationary trajectories.
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:zero-dissipation},
+\[
+   \int_KD\,d\mu=0.
+\]
+Since \(D\ge0\) is continuous, the sets
+\[
+   K_\eps=\{W\in K:\ D(W)\ge\eps\}
+\]
+have zero \(\mu\)-measure for every \(\eps>0\).  Therefore
+\(\mu(K\setminus\{D=0\})=0\).  By \eqref{eq:zero-dissipation}, \(\{D=0\}\) is
+exactly the set of stationary trajectories.  Since \(D\) is continuous, this
+stationary set is closed.
+\end{proof}
+
+\subsection{Minimal compact hulls are stationary}
+
+\begin{corollary}[Minimal compact hulls are stationary]
+\label{cor:minimal-stationary}
+Let \(K\) be a minimal compact invariant hull satisfying
+\Cref{hyp:strict-lyapunov}.  Then every element of \(K\) is stationary.
+Consequently \(K\) consists of a single stationary trajectory.
+\end{corollary}
+
+\begin{proof}
+By \Cref{thm:KB}, \(K\) carries an invariant Borel probability measure
+\(\mu\), and minimality gives \(\supp\mu=K\).  By
+\Cref{thm:equilibrium-support}, \(\mu\) is supported on the closed set of
+stationary trajectories.  Hence \(K=\supp\mu\) is contained in that set.
+If \(W\in K\) is stationary, the singleton \(\{W\}\) is compact and invariant.
+Minimality of \(K\) forces \(K=\{W\}\).
+\end{proof}
+
+\subsection{Compact tight rigidity}
+
+\begin{theorem}[Rigidity of compact tight minimal dynamics]
+\label{thm:compact-tight-rigidity}
+Let \(K\) be a minimal compact invariant hull satisfying
+\Cref{hyp:strict-lyapunov}.  Assume
+\[
+   \sup_{W\in K}\sup_{\tau\in\R}
+   \|W(\tau)\|_{L^3(\R^3)}<\infty.
+\]
+Then every element of \(K\) is identically zero.
+\end{theorem}
+
+\begin{proof}
+By \Cref{cor:minimal-stationary}, \(K=\{W\}\) with
+\(W(y,\tau)=w(y)\).  By \Cref{lem:stationary-profile}, \(w\) solves
+\eqref{eq:stationary-profile}.  The assumed uniform \(L^3\) bound gives
+\(w\in L^3(\R^3)\).  Therefore \Cref{thm:NRS} applies and gives \(w=0\).
+\end{proof}
+
+\section{Conditional tight-branch Liouville criterion}
+\label{sec:conditional-liouville}
+
+\subsection{Recurrence and generated Lyapunov properties}
+
+From a minimal element \(V_*\), the full trajectory hull \(\calH(V_*)\) is
+compact and invariant.  It is not a consequence of compactness alone that this
+hull contains a nonzero minimal compact invariant subset; the local limit
+dynamics may admit the zero singleton as a minimal invariant subset.  We
+therefore isolate the required recurrence input.
+
+\begin{definition}[The recurrence property \(\mathrm{RC}(A)\)]
+\label{def:RC}
+Let \(A\) be a uniformly tight normalized collection.  We say that \(A\)
+satisfies \(\mathrm{RC}(A)\) if every \(L^\infty\)-minimal element
+\(V_*\in A\) has a trajectory hull
+\[
+   \calH(V_*)
+\]
+containing a compact minimal invariant subset \(K\) with \(K\ne\{0\}\).
+\end{definition}
+
+\begin{definition}[The generated Lyapunov property \(\mathrm{LY}(A)\)]
+\label{def:LY}
+Let \(A\) be a uniformly tight normalized collection satisfying
+\(\mathrm{RC}(A)\).  We say that \(A\) satisfies \(\mathrm{LY}(A)\) if every
+compact minimal invariant subset \(K\) supplied by \(\mathrm{RC}(A)\) satisfies
+the strict compact-hull Lyapunov hypothesis \Cref{hyp:strict-lyapunov}.
+\end{definition}
+
+\subsection{The conditional tight Liouville theorem}
+
+\begin{theorem}[No nonempty tight class under compact recurrence and Lyapunov]
+\label{thm:conditional-tight-liouville}
+No nonempty uniformly tight normalized collection \(A\) can satisfy both
+\(\mathrm{RC}(A)\) and \(\mathrm{LY}(A)\).  Equivalently, if \(A\) is a
+uniformly tight normalized collection satisfying \(\mathrm{RC}(A)\) and
+\(\mathrm{LY}(A)\), then \(A=\varnothing\).
+\end{theorem}
+
+\begin{proof}
+Suppose \(A\) is nonempty.  By
+\Cref{prop:tight-closed-normalized,thm:minimal-existence}, choose an
+\(L^\infty\)-minimal element \(V_*\in A\).
+
+By \(\mathrm{RC}(A)\), the trajectory hull \(\calH(V_*)\) contains a compact
+minimal invariant subset \(K\) with \(K\ne\{0\}\).  Since \(V_*\) is uniformly
+\(L^3\)-tight, \Cref{cor:tightness-on-hulls} gives
+\[
+   \sup_{W\in K}\sup_{\tau\in\R}\|W(\tau)\|_{L^3(\R^3)}<\infty .
+\]
+By \(\mathrm{LY}(A)\), \(K\) satisfies the strict Lyapunov hypothesis.  Hence
+\Cref{thm:compact-tight-rigidity} implies that every element of \(K\) is
+identically zero, so \(K=\{0\}\).  This contradicts \(K\ne\{0\}\).  Therefore
+no such nonempty \(A\) exists.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:conditional-tight-liouville-intro}]
+This is \Cref{thm:conditional-tight-liouville}.
+\end{proof}
+
+\subsection{Interface with the companion residual criterion}
+
+\begin{definition}[Tight-class Liouville input]
+\label{def:tight-class-input}
+The tight-class Liouville input is the assertion that no nonzero normalized
+Seregin ancient limit generated by an admissible Type I source is uniformly
+\(L^3\)-tight.
+\end{definition}
+
+\begin{lemma}[Vanishing velocity removes pressure normalization]
+\label{lem:pressure-nonzero-implies-velocity-nonzero}
+Let \((V,\Pi)\) be a smooth centered ancient solution of \eqref{eq:centered}.
+If \(V\equiv0\), then \(\Pi(y,\tau)=b(\tau)\) for some function of time.
+Consequently any pressure-normalized local nonvanishing condition of the form
+\[
+   \iint_Q\left(|V|^3+|\Pi-b(\tau)|^{3/2}\right)\,dy\,d\tau>0
+\]
+for every admissible pressure gauge \(b(\tau)\) forces \(V\not\equiv0\).
+\end{lemma}
+
+\begin{proof}
+If \(V\equiv0\), the centered equation gives \(\nabla\Pi=0\) in distributions.
+Thus \(\Pi\) is independent of \(y\) on each time slice, so
+\(\Pi(y,\tau)=b(\tau)\).  Choosing this pressure gauge makes both terms in the
+displayed pressure-normalized integral vanish on every compact cylinder \(Q\).
+\end{proof}
+
+\begin{lemma}[From normalized Seregin nonvanishing to local velocity normalization]
+\label{lem:seregin-to-velocity-nonzero}
+Let \(V\) be a nonzero smooth bounded normalized Seregin ancient limit.  Then
+there exist \(R_0>0\) and \(\eta_0>0\) such that
+\[
+   \sup_{\tau\in\R}\int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge\eta_0 .
+\]
+\end{lemma}
+
+\begin{proof}
+Since \(V\not\equiv0\), there is \((y_0,\tau_0)\) with
+\(V(y_0,\tau_0)\ne0\).  By continuity, \(|V|\ge c>0\) on a small spatial ball
+centered at \(y_0\) at time \(\tau_0\).  Choose \(R_0\) large enough to
+contain that ball.  Then
+\[
+   \int_{B_{R_0}}|V(y,\tau_0)|^3\,dy>0.
+\]
+Taking \(\eta_0\) to be half of this positive value gives the claim.
+\end{proof}
+
+\begin{corollary}[Tight-class input for the residual criterion]
+\label{cor:tight-input-for-paper-I}
+Assume that every uniformly \(L^3\)-tight normalized Seregin collection
+generated by admissible Type I sources satisfies \(\mathrm{RC}(A)\) and
+\(\mathrm{LY}(A)\).  Then \Cref{def:tight-class-input} holds.
+\end{corollary}
+
+\begin{proof}
+Suppose, contrary to \Cref{def:tight-class-input}, that the companion
+residual-criterion paper produces a nonzero normalized Seregin ancient limit
+\(V\) in the uniformly \(L^3\)-tight class.  If one starts instead from a
+pressure-normalized nonvanishing condition in that construction, then
+\Cref{lem:pressure-nonzero-implies-velocity-nonzero} justifies the conclusion
+that \(V\not\equiv0\).  Choose \(M\), \(L\), and a tightness modulus from \(V\),
+for instance
+\[
+   M=\|V\|_{L^\infty(\R^3\times\R)},\qquad
+   L=\sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)},
+\]
+and
+\[
+   \omega(R)=
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy .
+\]
+By \Cref{lem:seregin-to-velocity-nonzero}, choose \(R_0,\eta_0\) giving local
+velocity nonvanishing.  Let
+\[
+   A_{V,R_0,\eta_0}
+   =
+   \left\{
+      W\in\calH(V):
+      \sup_{\tau\in\R}\int_{B_{R_0}}|W(y,\tau)|^3\,dy\ge\eta_0
+   \right\}.
+\]
+This is the normalized compact-hull collection generated by \(V\).  It is
+nonempty because \(V\in A_{V,R_0,\eta_0}\).  It is invariant because
+\(\calH(V)\) is invariant and the normalization uses a supremum over all
+\(\tau\).  If \(W_n\in A_{V,R_0,\eta_0}\), \(W_n\to W\) locally smoothly, and
+\(W\) retains the same \((R_0,\eta_0)\)-nonvanishing condition, then
+\(W\in\calH(V)\) because \(\calH(V)\) is closed, and hence
+\(W\in A_{V,R_0,\eta_0}\).  Thus \(A_{V,R_0,\eta_0}\) has exactly the
+closedness property required in \Cref{def:tight-normalized-collection}.
+
+By \Cref{thm:compact-hull,cor:tightness-on-hulls}, every element of
+\(\calH(V)\), hence every element of \(A_{V,R_0,\eta_0}\), satisfies the same
+\(L^\infty\) bound, \(L^3\) bound, and tightness modulus.  Thus
+\(A_{V,R_0,\eta_0}\) is a uniformly tight normalized Seregin collection with
+the displayed data.
+
+The assumed recurrence and generated Lyapunov properties apply to this
+collection, so \Cref{thm:conditional-tight-liouville} gives
+\(A_{V,R_0,\eta_0}=\varnothing\).  This contradicts
+\(V\in A_{V,R_0,\eta_0}\).  Hence no such nonzero uniformly tight Seregin
+limit exists under the stated assumptions, which is precisely
+\Cref{def:tight-class-input}.
+\end{proof}
+
+The results above reduce the uniformly \(L^3\)-tight ancient branch to two
+compact-dynamical inputs: nonzero compact recurrence of \(L^\infty\)-minimal
+elements and the strict Lyapunov equilibrium property on the resulting
+minimal compact hulls.  Under these inputs the tight branch is empty, because
+the Lyapunov principle forces minimal compact dynamics to be stationary and
+the stationary \(L^3\) self-similar theorem forces the stationary profile to
+vanish.  Thus, within the present framework, the tight-class Liouville input
+used in the companion residual criterion is reduced to the compact recurrence
+and strict Lyapunov assertions isolated here.
+
+\begin{thebibliography}{99}
+
+\bibitem{Billingsley1999}
+P. Billingsley,
+\emph{Convergence of Probability Measures}, second ed.,
+Wiley, New York, 1999.
+
+\bibitem{DuranPaperI}
+G. Duran Ballester,
+\emph{Type I blow-up limits and a residual-class criterion for the
+three-dimensional Navier--Stokes equations}, preprint, 2026.
+
+\bibitem{ESS2003}
+L. Escauriaza, G. Seregin, and V. \v{S}ver\'ak,
+\emph{\(L_{3,\infty}\)-solutions of Navier--Stokes equations and backward
+uniqueness},
+Russian Math. Surveys 58 (2003), 211--250.
+
+\bibitem{FabesJonesRiviere1972}
+E. B. Fabes, B. F. Jones, and N. M. Riviere,
+\emph{The initial value problem for the Navier--Stokes equations with data in
+\(L^p\)},
+Arch. Rational Mech. Anal. 45 (1972), 222--240.
+
+\bibitem{GigaMiyakawa1985}
+Y. Giga and T. Miyakawa,
+\emph{Solutions in \(L_r\) of the Navier--Stokes initial value problem},
+Arch. Rational Mech. Anal. 89 (1985), 267--281.
+
+\bibitem{Kato1984}
+T. Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in
+\(\R^m\), with applications to weak solutions},
+Math. Z. 187 (1984), 471--480.
+
+\bibitem{KryloffBogoliouboff1937}
+N. Kryloff and N. Bogoliouboff,
+\emph{La theorie generale de la mesure dans son application a l'etude des
+systemes dynamiques de la mecanique non lineaire},
+Ann. of Math. (2) 38 (1937), 65--113.
+
+\bibitem{Ladyzhenskaya1968}
+O. A. Ladyzhenskaya, V. A. Solonnikov, and N. N. Ural'tseva,
+\emph{Linear and Quasilinear Equations of Parabolic Type},
+American Mathematical Society, Providence, 1968.
+
+\bibitem{NRS1996}
+J. Ne\v{c}as, M. R\r{u}\v{z}i\v{c}ka, and V. \v{S}ver\'ak,
+\emph{On Leray's self-similar solutions of the Navier--Stokes equations},
+Acta Math. 176 (1996), 283--294.
+
+\bibitem{Sohr2001}
+H. Sohr,
+\emph{The Navier--Stokes Equations: An Elementary Functional Analytic
+Approach},
+Birkhauser, Basel, 2001.
+
+\bibitem{Stein1970}
+E. M. Stein,
+\emph{Singular Integrals and Differentiability Properties of Functions},
+Princeton University Press, Princeton, 1970.
+
+\end{thebibliography}
+
+\end{document}

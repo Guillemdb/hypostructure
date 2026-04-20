@@ -60,9 +60,10 @@
 We prove a local analytic reduction for possible finite-time singularities of
 the three-dimensional Navier--Stokes equations.  For a suitable weak solution,
 a singular point at time \(T\) must carry a positive amount of
-the pressure-normalized Caffarelli--Kohn--Nirenberg critical density on
-arbitrarily small backward parabolic cylinders.  If that density vanishes at
-each point of the singular set, the solution is regular at time \(T\) by the
+the pressure-normalized Caffarelli--Kohn--Nirenberg critical density, and also
+a positive amount of velocity \(L^3\)-concentration, on arbitrarily small
+backward parabolic cylinders.  If the critical density vanishes at each point
+of the singular set, the solution is regular at time \(T\) by the
 epsilon-regularity theorem.  After positive local concentration has been
 obtained, the sequence either satisfies a Type I scale-invariant bound or it
 constitutes the local Type II alternative.
@@ -96,11 +97,13 @@ The argument has four parts.  First, the pressure-normalized critical
 quantities \(C\) and \(D\) are finite for suitable weak solutions and invariant
 under the usual parabolic scaling.  Second, the Caffarelli--Kohn--Nirenberg
 epsilon-regularity theorem implies that vanishing of \(C+D\) at a candidate
-singular point gives local regularity.  Third, a finite-time singularity
-therefore produces a sequence of shrinking cylinders on which \(C+D\) is
-bounded below by a positive constant.  Finally, once such a sequence is fixed,
-it either satisfies a Type I scale-invariant bound or falls in the local
-Type II alternative.
+singular point gives local regularity, while the velocity-only epsilon
+criterion gives a velocity concentration sequence.  Third, a finite-time
+singularity therefore produces sequences of shrinking cylinders on which the
+critical density, and separately the velocity \(L^3\)-quantity, are bounded
+below by positive constants.  Finally, once such a sequence is fixed, it
+either satisfies a Type I scale-invariant bound or falls in the local Type II
+alternative.
 
 The proof is local in spacetime.  Apart from the standard
 Caffarelli--Kohn--Nirenberg epsilon-regularity theorem, all quantities and
@@ -343,6 +346,26 @@ representatives of the pressure differ by functions of time, and the spatial
 mean subtraction on \(B_r(x_0)\) removes this ambiguity.
 \end{proof}
 
+\begin{theorem}[Velocity epsilon regularity]\label{thm:velocity-ckn}
+There exists a universal constant \(\varepsilon_v>0\) with the following
+property.  Let \((u,p)\) be a suitable weak solution in \(Q_r(z_0)\).  If
+\[
+  C(z_0,r)<\varepsilon_v,
+\]
+then \(u\) is locally bounded in \(Q_{r/2}(z_0)\).  In particular, if
+\(z_0=(x_0,T)\), then \(x_0\notin\Sigma(T)\).
+\end{theorem}
+
+\begin{proof}
+This is the velocity-only form of the Caffarelli--Kohn--Nirenberg
+epsilon-regularity criterion.  It follows from the standard local pressure
+decay lemma together with the pressure-normalized criterion
+\cref{thm:ckn}; equivalently, it is the \(L^3_{x,t}\)-smallness criterion
+proved in the Caffarelli--Kohn--Nirenberg theory and in Lin's direct proof
+\cite{CKN1982,Lin1998}.  The statement is scale invariant because \(C\) is
+invariant under the parabolic Navier--Stokes scaling.
+\end{proof}
+
 \begin{definition}[Vanishing local critical density at time \(T\)]
 We say that the local critical density vanishes at time \(T\) if, for every
 \(x_0\in\Sigma(T)\),
@@ -547,6 +570,33 @@ If the first alternative in \cref{prop:local-alternative} held, then
 \cref{thm:no-concentration} would imply \(\Sigma(T)=\emptyset\), contrary to
 the hypothesis.  Therefore the second alternative in
 \cref{prop:local-alternative} holds.
+\end{proof}
+
+\begin{corollary}[Singular points carry positive velocity concentration]
+\label{cor:velocity-concentration}
+Let \((u,p)\) be a suitable weak solution on
+\(\mathbb R^3\times(T-\delta,T)\).  If \(x_0\in\Sigma(T)\), then there are
+\(\eta_v>0\) and \(r_n\downarrow0\) such that
+\[
+  C((x_0,T),r_n)\ge\eta_v
+  \qquad\text{for all }n.
+\]
+\end{corollary}
+
+\begin{proof}
+If the conclusion failed, then
+\[
+  \limsup_{r\downarrow0} C((x_0,T),r)=0.
+\]
+Choose \(r>0\) so small that
+\[
+  C((x_0,T),r)<\varepsilon_v,
+\]
+where \(\varepsilon_v\) is the constant in
+\cref{thm:velocity-ckn}.  The velocity epsilon-regularity theorem gives
+boundedness of \(u\) in \(Q_{r/2}(x_0,T)\), contradicting
+\(x_0\in\Sigma(T)\).  Hence the limsup is positive; taking any
+\(\eta_v\) below it and passing to a realizing sequence gives the result.
 \end{proof}
 
 \section{The Type I/Type II Blowup-Rate Dichotomy}
