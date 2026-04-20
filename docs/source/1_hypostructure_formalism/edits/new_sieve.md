@@ -31,7 +31,7 @@ flowchart TD
 
     DE{"Current Node 1: D_E<br/>energy escape danger?"}
     REC{"Current Node 2: Rec_N<br/>Zeno/event accumulation danger?"}
-    CMU{"Current Node 3: C_mu<br/>concentration-profile danger?"}
+    CMU{"Current Node 3: C_mu<br/>concentration profile missing?"}
 
     BOUND{"Current Node 13: Bound_partial<br/>open-boundary scope?"}
     OVER{"Current Node 14: Bound_B<br/>overload danger?"}
@@ -42,9 +42,11 @@ flowchart TD
     BSAT["BarrierSat"]
     BCAUSAL["BarrierCausal"]
     BSCAT["BarrierScat"]
+    BSCOPE["BarrierBoundaryScope"]
     BBODE["BarrierBode"]
     BINPUT["BarrierInput"]
     BVARIETY["BarrierVariety"]
+    BLOCK["BarrierExclusion tactics"]
 
     MCE["Mode C.E<br/>energy blow-up"]
     MCC["Mode C.C<br/>event accumulation"]
@@ -73,23 +75,23 @@ flowchart TD
     PS16{"PS16<br/>Radiation check"}
     PS17{"PS17<br/>Rough-core / capacity check<br/>(replaces old Node 6 role)"}
     PS18{"PS18<br/>Multicenter check"}
-    PS19{"PS19<br/>Finite-packet check"}
-    PS20{"PS20<br/>Terminal-decoupling check"}
+    PS19{"PS19<br/>Infinite-packet check"}
+    PS20{"PS20<br/>Interaction-defect check"}
     PS21{"PS21<br/>Smallness check"}
     PS22{"PS22<br/>Stationary critical-norm check"}
     PS23{"PS23<br/>Profile-symmetry tag check"}
     PS24{"PS24<br/>Relative-equilibrium check"}
-    PS25{"PS25 / old 7a<br/>BifurcateCheck<br/>dynamically unstable?"}
+    PS25{"PS25 / old 7a<br/>BifurcateCheck<br/>bifurcation direction missing?"}
     PS26{"PS26 / old 7b<br/>SymCheck<br/>profile symmetry acts nontrivially?"}
-    PS27{"PS27 / old 7c<br/>CheckSSB<br/>broken-phase parameters stable?"}
-    PS28{"PS28 / old 7d<br/>CheckTB<br/>tunneling action finite?"}
-    PS29{"PS29<br/>Lyapunov-structure check<br/>(replaces old Node 7 stiffness role)"}
-    PS30{"PS30<br/>Defect-free check<br/>(replaces old Node 12 + boundary-defect role)"}
-    PS31{"PS31<br/>Endpoint-hypotheses check"}
-    PS32{"PS32<br/>Endpoint-exclusion check"}
+    PS27{"PS27 / old 7c<br/>CheckSSB<br/>symmetry-broken branch unstable?"}
+    PS28{"PS28 / old 7d<br/>CheckTB<br/>connecting action infinite?"}
+    PS29{"PS29<br/>Missing Lyapunov-structure check<br/>(replaces old Node 7 stiffness role)"}
+    PS30{"PS30<br/>Defect-vector incomplete check<br/>(replaces old Node 12 + boundary-defect role)"}
+    PS31{"PS31<br/>Endpoint-hypotheses mismatch check"}
+    PS32{"PS32<br/>Endpoint-exclusion failure check"}
     PS33{"PS33<br/>Endpoint-realization check"}
-    PS34{"PS34<br/>Residual-complement check<br/>(replaces old Node 9 tameness/complement role)"}
-    PS35{"PS35<br/>Library-completeness check<br/>(replaces old Node 11 library role)"}
+    PS34{"PS34<br/>Residual-complement defect check<br/>(replaces old Node 9 tameness/complement role)"}
+    PS35{"PS35<br/>Library-incompleteness check<br/>(replaces old Node 11 library role)"}
 
     BPS0["Barrier_PS0"]
     BPS1["Barrier_PS1"]
@@ -231,70 +233,70 @@ flowchart TD
     MCC -- "surgery required" --> SCC
     SCC -. "re-entry certificate" .-> CMU
 
-    CMU -- "YES danger:<br/>profile present" --> PS0
-    CMU -- "NO fallback" --> BSCAT
+    CMU -- "NO: certified profile" --> PS0
+    CMU -- "YES/INC danger:<br/>profile missing" --> BSCAT
     BSCAT -- "benign / blocked" --> BOUND
     BSCAT -- "pathological" --> MCDSCAT
     MCDSCAT -- "surgery required" --> SCDSCAT
     SCDSCAT -. "re-entry certificate" .-> PS0
 
-    PS0 -- "danger/INC" --> BPS0
+    PS0 -- "YES/INC danger" --> BPS0
     BPS0 -- "blocked" --> PS1
     BPS0 -- "breached" --> MPS0
     MPS0 -- "surgery required" --> SPS0
     SPS0 -. "re-entry certificate" .-> PS1
     PS0 -- "safe certificate" --> PS1
 
-    PS1 -- "danger/INC" --> BPS1
+    PS1 -- "YES/INC danger" --> BPS1
     BPS1 -- "blocked" --> PS2
     BPS1 -- "breached" --> MPS1
     MPS1 -- "surgery required" --> SPS1
     SPS1 -. "re-entry certificate" .-> PS2
     PS1 -- "safe certificate" --> PS2
 
-    PS2 -- "danger/INC" --> BPS2
+    PS2 -- "YES/INC danger" --> BPS2
     BPS2 -- "blocked" --> PS3
     BPS2 -- "breached" --> MPS2
     MPS2 -- "surgery required" --> SPS2
     SPS2 -. "re-entry certificate" .-> PS3
     PS2 -- "safe certificate" --> PS3
 
-    PS3 -- "danger/INC" --> BPS3
+    PS3 -- "YES/INC danger" --> BPS3
     BPS3 -- "blocked" --> PS4
     BPS3 -- "breached" --> MPS3
     MPS3 -- "surgery required" --> SPS3
     SPS3 -. "re-entry certificate" .-> PS4
     PS3 -- "safe certificate" --> PS4
 
-    PS4 -- "danger/INC" --> BPS4
+    PS4 -- "YES/INC danger" --> BPS4
     BPS4 -- "blocked" --> PS5
     BPS4 -- "breached" --> MPS4
     MPS4 -- "surgery required" --> SPS4
     SPS4 -. "re-entry certificate" .-> PS5
     PS4 -- "safe certificate" --> PS5
 
-    PS5 -- "danger/INC" --> BPS5
+    PS5 -- "YES/INC danger" --> BPS5
     BPS5 -- "blocked" --> PS6
     BPS5 -- "breached" --> MPS5
     MPS5 -- "surgery required" --> SPS5
     SPS5 -. "re-entry certificate" .-> PS6
     PS5 -- "safe certificate" --> PS6
 
-    PS6 -- "danger/INC" --> BPS6
+    PS6 -- "YES/INC danger" --> BPS6
     BPS6 -- "blocked" --> PS7
     BPS6 -- "breached" --> MPS6
     MPS6 -- "surgery required" --> SPS6
     SPS6 -. "re-entry certificate" .-> PS7
     PS6 -- "safe certificate" --> PS7
 
-    PS7 -- "danger/INC" --> BPS7
+    PS7 -- "YES/INC danger" --> BPS7
     BPS7 -- "blocked" --> PS8
     BPS7 -- "breached" --> MPS7
     MPS7 -- "surgery required" --> SPS7
     SPS7 -. "re-entry certificate" .-> PS8
     PS7 -- "safe certificate" --> PS8
 
-    PS8 -- "danger/INC" --> BPS8
+    PS8 -- "YES/INC danger" --> BPS8
     BPS8 -- "blocked" --> PS9
     BPS8 -- "breached" --> MPS8
     MPS8 -- "surgery required" --> SPS8
@@ -371,19 +373,19 @@ flowchart TD
     SPS18 -. "re-entry certificate" .-> PS19
     PS18 -- "NO safe" --> PS19
 
-    PS19 -- "NO/INC danger" --> BPS19
+    PS19 -- "YES/INC danger" --> BPS19
     BPS19 -- "blocked" --> PS20
     BPS19 -- "breached" --> MPS19
     MPS19 -- "surgery required" --> SPS19
     SPS19 -. "re-entry certificate" .-> PS20
-    PS19 -- "YES safe" --> PS20
+    PS19 -- "NO safe" --> PS20
 
-    PS20 -- "NO/INC danger" --> BPS20
+    PS20 -- "YES/INC danger" --> BPS20
     BPS20 -- "blocked" --> PS21
     BPS20 -- "breached" --> MPS20
     MPS20 -- "surgery required" --> SPS20
     SPS20 -. "re-entry certificate" .-> PS21
-    PS20 -- "YES safe" --> PS21
+    PS20 -- "NO safe" --> PS21
 
     PS21 -- "YES danger" --> BPS21
     BPS21 -- "blocked" --> PS22
@@ -413,88 +415,89 @@ flowchart TD
     SPS24 -. "re-entry certificate" .-> PS25
     PS24 -- "NO safe" --> PS25
 
-    PS25 -- "YES: unstable bifurcation" --> PS26
-    PS25 -- "NO/INC danger" --> BPS25
+    PS25 -- "NO: unstable bifurcation certified" --> PS26
+    PS25 -- "YES/INC danger" --> BPS25
     BPS25 -- "blocked by higher-order stiffness" --> PS29
     BPS25 -- "breached" --> MPS25
     MPS25 -- "surgery required" --> SPS25
     SPS25 -. "re-entry certificate" .-> PS29
 
-    PS26 -- "YES: symmetry present" --> PS27
+    PS26 -- "YES/INC danger" --> BPS26
     PS26 -- "NO: no symmetry" --> PS28
-    PS26 -- "INC danger" --> BPS26
     BPS26 -- "blocked by quotient certificate" --> PS27
     BPS26 -- "breached" --> MPS26
     MPS26 -- "surgery required" --> SPS26
     SPS26 -. "re-entry certificate" .-> PS27
 
-    PS27 -- "YES: controlled reduced branch" --> SPS27
-    PS27 -- "NO/INC danger" --> BPS27
+    PS27 -- "NO: controlled reduced branch" --> SPS27
+    PS27 -- "YES/INC danger" --> BPS27
     BPS27 -- "blocked by coercive-gap certificate" --> PS29
     BPS27 -- "breached" --> MPS27
     MPS27 -- "surgery required" --> SPS27
     SPS27 -. "coercive re-entry certificate" .-> PS29
 
-    PS28 -- "YES: finite connecting action" --> SPS28
-    PS28 -- "NO/INC danger" --> BPS28
+    PS28 -- "NO: finite connecting action" --> SPS28
+    PS28 -- "YES/INC danger" --> BPS28
     BPS28 -- "blocked by sector-transition certificate" --> PS29
     BPS28 -- "breached" --> MPS28
     MPS28 -- "surgery required" --> SPS28
     SPS28 -. "sector re-entry certificate" .-> PS29
 
-    PS29 -- "NO/INC danger" --> BPS29
+    PS29 -- "YES/INC danger" --> BPS29
     BPS29 -- "blocked" --> PS30
     BPS29 -- "breached" --> MPS29
     MPS29 -- "surgery required" --> SPS29
     SPS29 -. "re-entry certificate" .-> PS30
-    PS29 -- "YES safe" --> PS30
+    PS29 -- "NO safe" --> PS30
 
-    PS30 -- "NO/INC danger" --> BPS30
+    PS30 -- "YES/INC danger" --> BPS30
     BPS30 -- "blocked" --> PS31
     BPS30 -- "breached" --> MPS30
     MPS30 -- "surgery required" --> SPS30
     SPS30 -. "re-entry certificate" .-> PS31
-    PS30 -- "YES safe" --> PS31
+    PS30 -- "NO safe" --> PS31
 
-    PS31 -- "NO/INC danger" --> BPS31
+    PS31 -- "YES/INC danger" --> BPS31
     BPS31 -- "blocked" --> PS32
     BPS31 -- "breached" --> MPS31
     MPS31 -- "surgery required" --> SPS31
     SPS31 -. "re-entry certificate" .-> PS32
-    PS31 -- "YES safe" --> PS32
+    PS31 -- "NO safe" --> PS32
 
-    PS32 -- "NO/INC danger" --> BPS32
+    PS32 -- "YES/INC danger" --> BPS32
     BPS32 -- "blocked" --> PS33
     BPS32 -- "breached" --> MPS32
     MPS32 -- "surgery required" --> SPS32
     SPS32 -. "re-entry certificate" .-> PS33
-    PS32 -- "YES safe" --> PS33
+    PS32 -- "NO safe" --> PS33
 
-    PS33 -. "YES terminal certificate" .-> BLOWUP
     PS33 -- "YES danger" --> BPS33
+    BPS33 -. "terminal realization certificate" .-> BLOWUP
     BPS33 -- "blocked" --> PS34
     BPS33 -- "breached" --> MPS33
     MPS33 -- "surgery required" --> SPS33
     SPS33 -. "re-entry certificate" .-> PS34
     PS33 -- "NO safe" --> PS34
 
-    PS34 -- "NO/INC danger" --> BPS34
+    PS34 -- "YES/INC danger" --> BPS34
     BPS34 -- "blocked" --> PS35
     BPS34 -- "breached" --> MPS34
     MPS34 -- "surgery required" --> SPS34
     SPS34 -. "re-entry certificate" .-> PS35
-    PS34 -- "YES safe" --> PS35
+    PS34 -- "NO safe" --> PS35
 
-    PS35 -- "NO/INC danger" --> BPS35
+    PS35 -- "YES/INC danger" --> BPS35
     BPS35 -- "blocked" --> BOUND
     BPS35 -- "breached" --> MPS35
     MPS35 -- "surgery required" --> SPS35
     SPS35 -. "re-entry certificate" .-> BOUND
 
-    PS35 -- "K_CatLib^+<br/>certified bad-profile library" --> BOUND
+    PS35 -- "NO safe:<br/>K_CatLib^+ certified bad-profile library" --> BOUND
 
     BOUND -- "NO: closed / safe" --> LOCK
-    BOUND -- "YES scope" --> OVER
+    BOUND -- "YES/INC scope danger" --> BSCOPE
+    BSCOPE -- "boundary scope certified" --> OVER
+    BSCOPE -- "closed scope certified" --> LOCK
     OVER -- "NO: safe" --> STARVE
     OVER -- "YES danger" --> BBODE
     BBODE -- "blocked" --> STARVE
@@ -514,8 +517,10 @@ flowchart TD
     MBC -- "surgery required" --> SBC
     SBC -. "re-entry certificate" .-> LOCK
 
-    LOCK -- "NO: blocked / excluded" --> STRUCT
-    LOCK -- "YES danger" --> MLOCK
+    LOCK -- "NO: Hom empty / excluded" --> STRUCT
+    LOCK -- "YES/INC danger" --> BLOCK
+    BLOCK -- "blocked / Hom empty" --> STRUCT
+    BLOCK -- "breached" --> MLOCK
     MLOCK -- "surgery required" --> SLOCK
     SLOCK -. "lock repair certificate" .-> STRUCT
     STRUCT -- "structural regularity certificate" --> CONT
@@ -549,10 +554,18 @@ template. The point of the template is to keep each node atomized: one node
 checks one logical proposition in PDE terms, then records the certificates
 that justify the next route.
 
-The node is not merely a diagram box. It is a local PDE decision package:
+The node is not merely a diagram box. It is a local PDE decision package. The
+standard polarity convention is:
+
+\[
+\boxed{\text{YES means danger and routes to the barrier.}}
+\]
+
+Every check predicate should therefore be phrased as a danger proposition. A
+safe, absent, certified, or non-applicable outcome is recorded on the NO edge.
 
 1. a check of a single proposition,
-2. a barrier attempt if the check reports danger or incompleteness,
+2. a barrier attempt if the check reports YES/danger or incompleteness,
 3. a named singularity mode if the barrier is breached,
 4. a surgery attempt with a certified re-entry, terminal, prune, spawn, or
    unresolved outcome.
@@ -566,7 +579,7 @@ right mathematical operation.
 ```mermaid
 flowchart LR
     IN["Input route<br/>pred(N) and Gamma_in"]
-    C{"Check box<br/>single proposition P_N?"}
+    C{"Check box<br/>single danger proposition P_N?"}
     B{"Barrier box B_N<br/>can danger be blocked?"}
     M["Mode box Mode_N<br/>classified failure"]
     S{"Surgery box Surg_N<br/>admissible repair?"}
@@ -575,8 +588,8 @@ flowchart LR
     FAIL["Unresolved mode<br/>record in ledger"]
 
     IN -- "enter with Gamma_in" --> C
-    C -- "safe certificate K_N^+" --> OUT
-    C -- "danger certificate K_N^- or INC certificate K_N^inc" --> B
+    C -- "NO: safe/absent certificate K_N^-" --> OUT
+    C -- "YES: danger certificate K_N^+ or INC certificate K_N^inc" --> B
     B -- "blocked certificate K_N^blk" --> OUT
     B -- "breached certificate K_N^br" --> M
     M -- "mode certificate K_Mode_N" --> S
@@ -635,10 +648,11 @@ Position in the DAG:
 
 Logical proposition checked:
   P_N :=
-    One single yes/no/inc proposition.
+    One single yes/no/inc danger proposition.
   Danger polarity:
-    State whether YES means danger or YES means safe.
-    In the main integration diagram we use YES danger for singularity checks.
+    YES means danger and routes to B_N.
+    NO means safe, absent, already certified, or non-applicable and routes to
+    succ(N), unless the node explicitly emits a prune certificate.
   Atomicity test:
     If the proposition secretly contains independent checks, split the node.
     A node may reference definitions, but it may not bundle unrelated PDE
@@ -661,15 +675,15 @@ Check box C_N:
     contradiction argument, rigidity theorem, or counterexample witness used.
   Outputs:
     K_N^+:
-      Certificate for the safe/affirmative branch, with payload and verifier.
+      Certificate for the YES/danger branch, with payload and verifier.
     K_N^-:
-      Certificate for the danger/negative branch, with payload and verifier.
+      Certificate for the NO/safe-or-absent branch, with payload and verifier.
     K_N^inc:
       Certificate that the node is incomplete or undecided, including the
       missing hypothesis, unresolved estimate, or insufficient witness.
   Routing:
-    Safe route goes to succ(N).
-    Danger or INC goes to the barrier box B_N.
+    NO/safe route goes to succ(N).
+    YES/danger or INC goes to the barrier box B_N.
 
 Barrier box B_N:
   Trigger:
@@ -754,7 +768,8 @@ Output context:
 1. The logical proposition $P_N$ must be a single PDE proposition. If a box
    checks several independent facts, split it into several first-class nodes.
 2. The danger polarity must be explicit. For singularity checks, the standard
-   convention is that YES means danger.
+   convention is that YES means danger, and this document uses that convention
+   for every execution node.
 3. Every node must record its input node(s), default successor, and exceptional
    terminal/prune/spawn routes.
 4. Every certificate emitted by the node must be named and explained. The
@@ -782,9 +797,9 @@ new PS nodes. Old current nodes whose role is replaced by PS nodes are not
 listed as independent execution nodes; their replacement is named in the PS
 node title.
 
-## Current Node 1 — EnergyCheck (`D_E`)
+## Current Node 1 — EnergyEscapeCheck (`D_E`)
 
-**Single check:** Is the height/energy functional bounded on the analysis window?
+**Single check:** Is there height/energy escape on the analysis window?
 
 **Filled node template**
 
@@ -793,16 +808,16 @@ node title.
   It rules out uncontrolled escape of the energy functional on the time window.
 - **DAG position:** Input node is the initial substrate/PDE instance `H0`;
   default output node is Current Node 2 (`Rec_N`).
-- **Logical proposition:** $P_{D_E}$: the selected energy or height
-  functional is finite and uniformly bounded on the analysis window. YES is
-  safe; NO or INC is danger.
+- **Logical proposition:** $P_{D_E}$: the selected energy or height functional
+  escapes every certified bound on the analysis window. YES or INC is danger;
+  NO means the energy bound is certified.
 - **Inputs:** $\Gamma_{\rm in}$ contains the PDE instance, time window,
   energy functional, admissible class, initial data bounds, and any conserved
   or monotone quantities already available.
-- **Check box:** Prove the energy inequality, conservation law, or coercive
-  height estimate. Output $K_{D_E}^{+}$ for a verified bound,
-  $K_{D_E}^{-}$ for a witnessed energy escape, and $K_{D_E}^{\rm inc}$
-  when the estimate or functional domain is incomplete.
+- **Check box:** Test for failure of the energy inequality, conservation law,
+  or coercive height estimate. Output $K_{D_E}^{+}$ for witnessed energy
+  escape, $K_{D_E}^{-}$ for a verified bound, and $K_{D_E}^{\rm inc}$ when the
+  estimate or functional domain is incomplete.
 - **Barrier box:** `BarrierSat` asks whether saturation, renormalization, or
   drift control blocks the energy escape without changing the main object.
   It emits $K_{D_E}^{\rm blk}$ if the escape is neutralized and
@@ -820,9 +835,9 @@ node title.
 
 ```mermaid
 flowchart LR
-    C{"Current Node 1: D_E<br/>Energy bounded?"}
-    C -- "YES: K_D_E^+" --> N["Current Node 2: Rec_N"]
-    C -- "NO / INC danger" --> B{"BarrierSat<br/>Can saturation or drift control block energy escape?"}
+    C{"Current Node 1: D_E<br/>Energy escape danger?"}
+    C -- "NO: bounded<br/>K_D_E^-" --> N["Current Node 2: Rec_N"]
+    C -- "YES / INC danger<br/>K_D_E^+ or K_D_E^inc" --> B{"BarrierSat<br/>Can saturation or drift control block energy escape?"}
     B -- "Blocked<br/>K_D_E^blk" --> N
     B -- "Breached<br/>K_D_E^br" --> M["Mode C.E<br/>Energy blow-up"]
     M --> S{"SurgEnergySat<br/>Renormalize energy / add saturation"}
@@ -845,7 +860,7 @@ flowchart LR
 
 ## Current Node 2 — ZenoCheck (`Rec_N`)
 
-**Single check:** Are discrete events finite on every bounded analysis interval?
+**Single check:** Is there Zeno/event-accumulation danger?
 
 **Filled node template**
 
@@ -854,16 +869,17 @@ flowchart LR
   In PDE terms it prevents a Zeno failure of the analysis clock.
 - **DAG position:** Input node is `D_E`; default output node is Current Node 3
   (`C_mu`).
-- **Logical proposition:** $P_{\mathrm{Rec}_N}$: the event schedule is
-  locally finite on every bounded analysis interval. YES is safe; NO or INC is
-  danger.
+- **Logical proposition:** $P_{\mathrm{Rec}_N}$: the event schedule has
+  accumulation in a bounded analysis interval, or local finiteness is
+  uncertified. YES or INC is danger; NO means local event finiteness is
+  certified.
 - **Inputs:** $\Gamma_{\rm in}$ contains the energy-controlled run, event
   times, rescaling triggers, causal ordering, and any lower bounds on event
   separation.
-- **Check box:** Prove local finiteness by a separation estimate, causal
+- **Check box:** Test for event accumulation by a separation estimate, causal
   monotonicity, or compactness of admissible restart data. Output
-  $K_{\mathrm{Rec}_N}^{+}$, $K_{\mathrm{Rec}_N}^{-}$, or
-  $K_{\mathrm{Rec}_N}^{\rm inc}$.
+  $K_{\mathrm{Rec}_N}^{+}$ for Zeno danger, $K_{\mathrm{Rec}_N}^{-}$ for local
+  finiteness, or $K_{\mathrm{Rec}_N}^{\rm inc}$.
 - **Barrier box:** `BarrierCausal` asks whether causal censorship, time
   reparametrization, or event thinning blocks the accumulation. It emits
   $K_{\mathrm{Rec}_N}^{\rm blk}$ or $K_{\mathrm{Rec}_N}^{\rm br}$.
@@ -880,9 +896,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"Current Node 2: Rec_N<br/>Event accumulation absent?"}
-    C -- "YES: K_Rec_N^+" --> N["Current Node 3: C_mu"]
-    C -- "NO / INC danger" --> B{"BarrierCausal<br/>Can causal censorship block Zeno accumulation?"}
+    C{"Current Node 2: Rec_N<br/>Event accumulation danger?"}
+    C -- "NO: locally finite<br/>K_Rec_N^-" --> N["Current Node 3: C_mu"]
+    C -- "YES / INC danger<br/>K_Rec_N^+ or K_Rec_N^inc" --> B{"BarrierCausal<br/>Can causal censorship block Zeno accumulation?"}
     B -- "Blocked<br/>K_Rec_N^blk" --> N
     B -- "Breached<br/>K_Rec_N^br" --> M["Mode C.C<br/>Event accumulation"]
     M --> S{"SurgCausal<br/>Event thinning / causal compactification"}
@@ -905,7 +921,7 @@ flowchart LR
 
 ## Current Node 3 — CompactCheck (`C_mu`)
 
-**Single check:** Is a certified concentration/profile present?
+**Single check:** Is the concentration/profile package missing or uncertified?
 
 **Filled node template**
 
@@ -915,15 +931,16 @@ flowchart LR
 - **DAG position:** Input node is `Rec_N`; profile output node is `PS0`.
   A certified benign no-profile branch routes to Current Node 13
   (`Bound_partial`) because the profile micro-sieve is then not meaningful.
-- **Logical proposition:** $P_{C_\mu}$: a concentration measure, profile, or
-  compactness witness is present and certified. YES enters the profile audit;
-  NO or INC invokes the no-profile barrier.
+- **Logical proposition:** $P_{C_\mu}$: the concentration measure, profile, or
+  compactness witness needed for the profile Sieve is missing or uncertified.
+  YES or INC invokes the no-profile barrier; NO enters the profile audit.
 - **Inputs:** $\Gamma_{\rm in}$ contains bounded energy, event finiteness,
   candidate concentration measures, weak limits, profile witnesses, and
   compactness/scattering criteria.
 - **Check box:** Apply concentration compactness, tightness of measures, or
-  profile extraction to decide whether a nontrivial profile is present. Output
-  $K_{C_\mu}^{+}$, $K_{C_\mu}^{-}$, or $K_{C_\mu}^{\rm inc}$.
+  profile extraction to test for missing profile data. Output
+  $K_{C_\mu}^{+}$ for missing/uncertified profile data, $K_{C_\mu}^{-}$ for a
+  certified nontrivial profile, or $K_{C_\mu}^{\rm inc}$.
 - **Barrier box:** `BarrierScat` asks whether no-profile behavior is benign,
   scattering, dispersive, or regular. It emits $K_{C_\mu}^{\rm ben}$ or
   $K_{C_\mu}^{\rm blk}$ for a harmless no-profile branch, and
@@ -941,9 +958,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"Current Node 3: C_mu<br/>Certified concentration profile present?"}
-    C -- "YES: \(K_{C_\mu}^{+}\)" --> N["PS0 Continuation-failure check"]
-    C -- "NO / INC fallback<br/>\(K_{C_\mu}^{-}\) or \(K_{C_\mu}^{\rm inc}\)" --> B{"BarrierScat<br/>Can no-profile behavior be certified benign/scattering?"}
+    C{"Current Node 3: C_mu<br/>Concentration profile missing/uncertified?"}
+    C -- "NO: certified profile<br/>\(K_{C_\mu}^{-}\)" --> N["PS0 Continuation-failure check"]
+    C -- "YES / INC danger<br/>\(K_{C_\mu}^{+}\) or \(K_{C_\mu}^{\rm inc}\)" --> B{"BarrierScat<br/>Can no-profile behavior be certified benign/scattering?"}
     B -- "Benign / blocked<br/>\(K_{C_\mu}^{\rm ben}\) or \(K_{C_\mu}^{\rm blk}\)" --> E["Current Node 13: Bound_partial"]
     B -- "Pathological<br/>\(K_{C_\mu}^{\rm br}\)" --> M["Mode C.D<br/>Concentration escape"]
     M --> S{"SurgScat<br/>Profile extraction / scattering repair"}
@@ -986,7 +1003,7 @@ DAG fully granular without running an old node and its replacement in parallel.
 
 ## PS0 — Continuation-failure check
 
-**Single check:** Does failure of the continuation criterion imply a bad event?
+**Single check:** Does the continuation criterion fail to produce a certified bad event?
 
 **Filled node template**
 
@@ -994,14 +1011,15 @@ DAG fully granular without running an old node and its replacement in parallel.
   if a solution cannot be continued, the failure must produce a mathematically
   named bad event rather than an undefined stop.
 - **DAG position:** Input node is `C_mu`; default output node is `PS1`.
-- **Logical proposition:** $P_{\mathrm{PS0}}$: failure of the selected
-  continuation criterion implies a certified bad event in the profile context.
-  YES is the safe bridge; NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS0}}$: the selected continuation
+  criterion fails to produce a certified bad event in the profile context. YES
+  or INC is danger; NO is the certified bridge.
 - **Inputs:** $\Gamma_{\rm in}$ contains the candidate maximal solution,
   continuation norm, blow-up time/window, and the profile witness from
   `C_mu`.
-- **Check box:** Prove the continuation theorem or contrapositive blow-up
-  criterion. Output $K_{\mathrm{PS0}}^{+}$, $K_{\mathrm{PS0}}^{-}$, or
+- **Check box:** Test for failure of the continuation theorem or
+  contrapositive blow-up criterion. Output $K_{\mathrm{PS0}}^{+}$ for bridge
+  failure, $K_{\mathrm{PS0}}^{-}$ for a certified bad-event bridge, or
   $K_{\mathrm{PS0}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS0` asks whether an alternate continuation
   theorem, weaker solution class, or localized criterion supplies the missing
@@ -1020,9 +1038,9 @@ DAG fully granular without running an old node and its replacement in parallel.
 
 ```mermaid
 flowchart LR
-    C{"PS0 Check<br/>Continuation failure => bad event?"}
-    C -- "YES: K_PS0^+" --> N["PS1 Local concentration"]
-    C -- "NO / INC" --> B{"Barrier_PS0<br/>Can failure be localized by an alternate continuation theorem?"}
+    C{"PS0 Check<br/>Continuation bridge failure?"}
+    C -- "NO: bad event certified<br/>K_PS0^-" --> N["PS1 Local concentration"]
+    C -- "YES / INC danger<br/>K_PS0^+ or K_PS0^inc" --> B{"Barrier_PS0<br/>Can failure be localized by an alternate continuation theorem?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode WP<br/>Continuation bridge failure"]
     M --> S{"Surg_PS0<br/>Refine solution class / continuation criterion"}
@@ -1046,22 +1064,23 @@ flowchart LR
 
 ## PS1 — Local concentration check
 
-**Single check:** Does the bad event produce a localized critical concentration?
+**Single check:** Is localized critical concentration missing?
 
 **Filled node template**
 
 - **PDE role:** This node turns an abstract bad event into localized critical
   concentration, the PDE object that can be centered, rescaled, and analyzed.
 - **DAG position:** Input node is `PS0`; default output node is `PS2`.
-- **Logical proposition:** $P_{\mathrm{PS1}}$: the bad event produces a
-  localized concentration at the critical scale or critical norm. YES is the
-  safe extraction; NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS1}}$: the bad event fails to produce
+  localized concentration at the critical scale or critical norm. YES or INC is
+  danger; NO is the safe extraction.
 - **Inputs:** $\Gamma_{\rm in}$ contains the bad-event certificate,
   localization windows, critical norm or energy density, and candidate
   concentration measures.
 - **Check box:** Use concentration compactness, inverse estimates, or epsilon
-  regularity contrapositions to locate critical concentration. Output
-  $K_{\mathrm{PS1}}^{+}$, $K_{\mathrm{PS1}}^{-}$, or
+  regularity contrapositions to test whether critical concentration is missing.
+  Output $K_{\mathrm{PS1}}^{+}$ for missing concentration,
+  $K_{\mathrm{PS1}}^{-}$ for localized concentration, or
   $K_{\mathrm{PS1}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS1` asks whether no-concentration implies
   scattering, dispersion, or regularity. It emits $K_{\mathrm{PS1}}^{\rm blk}$
@@ -1079,9 +1098,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS1 Check<br/>Localized critical concentration exists?"}
-    C -- "YES: K_PS1^+" --> N["PS2 Center check"]
-    C -- "NO / INC" --> B{"Barrier_PS1<br/>Can no-concentration be upgraded to scattering/dispersion?"}
+    C{"PS1 Check<br/>Localized critical concentration missing?"}
+    C -- "NO: concentration exists<br/>K_PS1^-" --> N["PS2 Center check"]
+    C -- "YES / INC danger<br/>K_PS1^+ or K_PS1^inc" --> B{"Barrier_PS1<br/>Can no-concentration be upgraded to scattering/dispersion?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode C.D<br/>Concentration-defect failure"]
     M --> S{"Surg_PS1<br/>Concentration-compactness extraction"}
@@ -1105,21 +1124,22 @@ flowchart LR
 
 ## PS2 — Center check
 
-**Single check:** Is a concentration center selected?
+**Single check:** Is the concentration center missing?
 
 **Filled node template**
 
 - **PDE role:** This node selects the spatial or spacetime center of the active
   concentration so later nodes can work in a fixed moving frame.
 - **DAG position:** Input node is `PS1`; default output node is `PS3`.
-- **Logical proposition:** $P_{\mathrm{PS2}}$: there exists a certified
-  concentration center $z_n$ for the active window. YES is safe; NO or INC is
-  danger.
+- **Logical proposition:** $P_{\mathrm{PS2}}$: no certified concentration
+  center $z_n$ has been selected for the active window. YES or INC is danger;
+  NO means the center is selected.
 - **Inputs:** $\Gamma_{\rm in}$ contains the localized concentration measure,
   active window, candidate centers, barycenters, and localization radii.
-- **Check box:** Select a center by maximal density, barycenter, active camera,
-  or compactness of concentration supports. Output $K_{\mathrm{PS2}}^{+}$,
-  $K_{\mathrm{PS2}}^{-}$, or $K_{\mathrm{PS2}}^{\rm inc}$.
+- **Check box:** Test whether center selection by maximal density, barycenter,
+  active camera, or compactness of concentration supports has failed. Output
+  $K_{\mathrm{PS2}}^{+}$ for missing center, $K_{\mathrm{PS2}}^{-}$ for a
+  selected center, or $K_{\mathrm{PS2}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS2` asks whether barycenter selection or
   active-window recentering recovers a center. It emits
   $K_{\mathrm{PS2}}^{\rm blk}$ or $K_{\mathrm{PS2}}^{\rm br}$.
@@ -1136,9 +1156,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS2 Check<br/>Center z_n selected?"}
-    C -- "YES: K_PS2^+" --> N["PS3 Scale check"]
-    C -- "NO / INC" --> B{"Barrier_PS2<br/>Can barycenter / active-window centering recover a center?"}
+    C{"PS2 Check<br/>Center z_n missing?"}
+    C -- "NO: center selected<br/>K_PS2^-" --> N["PS3 Scale check"]
+    C -- "YES / INC danger<br/>K_PS2^+ or K_PS2^inc" --> B{"Barrier_PS2<br/>Can barycenter / active-window centering recover a center?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode C.D-center<br/>Center escape"]
     M --> S{"Surg_PS2<br/>Recenter by active concentration window"}
@@ -1162,7 +1182,7 @@ flowchart LR
 
 ## PS3 — Scale check
 
-**Single check:** Is a concentration scale selected?
+**Single check:** Is the concentration scale missing?
 
 **Filled node template**
 
@@ -1170,15 +1190,15 @@ flowchart LR
   can be renormalized. It replaces the old coarse scaling node with an atomic
   scale-selection proposition.
 - **DAG position:** Input node is `PS2`; default output node is `PS4`.
-- **Logical proposition:** $P_{\mathrm{PS3}}$: there exists a certified
-  concentration scale $\lambda_n$ for the active center/window. YES is safe;
-  NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS3}}$: no certified concentration
+  scale $\lambda_n$ has been selected for the active center/window. YES or INC
+  is danger; NO means the scale is selected.
 - **Inputs:** $\Gamma_{\rm in}$ contains the center, concentration density,
   critical thresholds, dyadic windows, and scaling law of the PDE.
-- **Check box:** Select $\lambda_n$ by threshold crossing, critical mass
-  capture, parabolic scaling, or frequency localization. Output
-  $K_{\mathrm{PS3}}^{+}$, $K_{\mathrm{PS3}}^{-}$, or
-  $K_{\mathrm{PS3}}^{\rm inc}$.
+- **Check box:** Test whether selection of $\lambda_n$ by threshold crossing,
+  critical mass capture, parabolic scaling, or frequency localization has
+  failed. Output $K_{\mathrm{PS3}}^{+}$ for missing scale,
+  $K_{\mathrm{PS3}}^{-}$ for a selected scale, or $K_{\mathrm{PS3}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS3` asks whether dyadic refinement or threshold
   reselection supplies the missing scale. It emits
   $K_{\mathrm{PS3}}^{\rm blk}$ or $K_{\mathrm{PS3}}^{\rm br}$.
@@ -1195,9 +1215,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS3 Check<br/>Scale lambda_n selected?"}
-    C -- "YES: K_PS3^+" --> N["PS4 Gauge check"]
-    C -- "NO / INC" --> B{"Barrier_PS3<br/>Can scale be selected by critical threshold crossing?"}
+    C{"PS3 Check<br/>Scale lambda_n missing?"}
+    C -- "NO: scale selected<br/>K_PS3^-" --> N["PS4 Gauge check"]
+    C -- "YES / INC danger<br/>K_PS3^+ or K_PS3^inc" --> B{"Barrier_PS3<br/>Can scale be selected by critical threshold crossing?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode S.E-scale<br/>Scale-selection failure"]
     M --> S{"Surg_PS3<br/>Threshold reselection / dyadic refinement"}
@@ -1221,7 +1241,7 @@ flowchart LR
 
 ## PS4 — Gauge check
 
-**Single check:** Is the symmetry/gauge fixed?
+**Single check:** Is there gauge/modulation drift?
 
 **Filled node template**
 
@@ -1229,14 +1249,15 @@ flowchart LR
   pressure, or other gauge freedoms so that the normalized profile is not
   drifting in a symmetry direction.
 - **DAG position:** Input node is `PS3`; default output node is `PS5`.
-- **Logical proposition:** $P_{\mathrm{PS4}}$: a canonical gauge or
-  modulation slice is fixed for the normalized profile. YES is safe; NO or INC
-  is danger.
+- **Logical proposition:** $P_{\mathrm{PS4}}$: the normalized profile has
+  unfixed gauge or modulation drift. YES or INC is danger; NO means a canonical
+  gauge or modulation slice is fixed.
 - **Inputs:** $\Gamma_{\rm in}$ contains the center, scale, symmetry group,
   modulation parameters, orthogonality conditions, and quotient variables.
-- **Check box:** Prove a slice theorem, modulation lemma, pressure gauge
-  normalization, or orthogonality condition. Output $K_{\mathrm{PS4}}^{+}$,
-  $K_{\mathrm{PS4}}^{-}$, or $K_{\mathrm{PS4}}^{\rm inc}$.
+- **Check box:** Test for failure of a slice theorem, modulation lemma,
+  pressure gauge normalization, or orthogonality condition. Output
+  $K_{\mathrm{PS4}}^{+}$ for gauge drift, $K_{\mathrm{PS4}}^{-}$ for fixed
+  gauge, or $K_{\mathrm{PS4}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS4` asks whether slice refinement or quotienting
   by symmetry fixes the gauge drift. It emits $K_{\mathrm{PS4}}^{\rm blk}$
   or $K_{\mathrm{PS4}}^{\rm br}$.
@@ -1253,9 +1274,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS4 Check<br/>Gauge/modulation fixed?"}
-    C -- "YES: K_PS4^+" --> N["PS5 Renormalized equation"]
-    C -- "NO / INC" --> B{"Barrier_PS4<br/>Can slice/orthogonality conditions fix gauge?"}
+    C{"PS4 Check<br/>Gauge/modulation drift?"}
+    C -- "NO: gauge fixed<br/>K_PS4^-" --> N["PS5 Renormalized equation"]
+    C -- "YES / INC danger<br/>K_PS4^+ or K_PS4^inc" --> B{"Barrier_PS4<br/>Can slice/orthogonality conditions fix gauge?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode G.D<br/>Gauge drift"]
     M --> S{"Surg_PS4<br/>Impose canonical slice / quotient by symmetry"}
@@ -1279,7 +1300,7 @@ flowchart LR
 
 ## PS5 — Renormalized-equation check
 
-**Single check:** Does the normalized sequence satisfy a closed renormalized equation?
+**Single check:** Does the renormalized equation fail to close?
 
 **Filled node template**
 
@@ -1287,15 +1308,15 @@ flowchart LR
   sequence still satisfies a closed PDE rather than an equation with hidden
   forcing, pressure, or defect terms.
 - **DAG position:** Input node is `PS4`; default output node is `PS6`.
-- **Logical proposition:** $P_{\mathrm{PS5}}$: the normalized sequence obeys
-  a closed renormalized equation in the declared variables. YES is safe; NO or
-  INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS5}}$: the normalized sequence fails
+  to obey a closed renormalized equation in the declared variables. YES or INC
+  is danger; NO means the equation closes.
 - **Inputs:** $\Gamma_{\rm in}$ contains normalized variables, scaling
   identities, transformed operators, pressure/gauge terms, and weak-form
   residuals.
-- **Check box:** Derive the renormalized PDE and verify closure of all
-  transformed terms. Output $K_{\mathrm{PS5}}^{+}$,
-  $K_{\mathrm{PS5}}^{-}$, or $K_{\mathrm{PS5}}^{\rm inc}$.
+- **Check box:** Derive the renormalized PDE and test for unclosed transformed
+  terms. Output $K_{\mathrm{PS5}}^{+}$ for closure failure,
+  $K_{\mathrm{PS5}}^{-}$ for a closed equation, or $K_{\mathrm{PS5}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS5` asks whether missing terms can be absorbed
   into gauge, pressure, commutator, or declared defect variables. It emits
   $K_{\mathrm{PS5}}^{\rm blk}$ or $K_{\mathrm{PS5}}^{\rm br}$.
@@ -1312,9 +1333,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS5 Check<br/>Renormalized equation closes?"}
-    C -- "YES: K_PS5^+" --> N["PS6 Profile-limit check"]
-    C -- "NO / INC" --> B{"Barrier_PS5<br/>Can missing terms be absorbed into gauge/pressure/defect variables?"}
+    C{"PS5 Check<br/>Renormalized equation fails to close?"}
+    C -- "NO: equation closes<br/>K_PS5^-" --> N["PS6 Profile-limit check"]
+    C -- "YES / INC danger<br/>K_PS5^+ or K_PS5^inc" --> B{"Barrier_PS5<br/>Can missing terms be absorbed into gauge/pressure/defect variables?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode D.F<br/>Renormalized-equation defect"]
     M --> S{"Surg_PS5<br/>Add defect variables or repair gauge"}
@@ -1338,7 +1359,7 @@ flowchart LR
 
 ## PS6 — Profile-limit check
 
-**Single check:** Does the normalized sequence have a subsequential limit?
+**Single check:** Is the subsequential profile limit missing?
 
 **Filled node template**
 
@@ -1346,16 +1367,16 @@ flowchart LR
   normalized sequence. It is the compactness step that turns a bad sequence
   into an object that can be classified.
 - **DAG position:** Input node is `PS5`; default output node is `PS7`.
-- **Logical proposition:** $P_{\mathrm{PS6}}$: the normalized sequence has a
-  subsequential limit in the declared topology. YES is safe; NO or INC is
-  danger.
+- **Logical proposition:** $P_{\mathrm{PS6}}$: the normalized sequence lacks a
+  subsequential limit in the declared topology. YES or INC is danger; NO means
+  a profile limit exists.
 - **Inputs:** $\Gamma_{\rm in}$ contains uniform bounds, closed renormalized
   equation, compactness topology, symmetry quotient, and possible defect
   measures.
-- **Check box:** Apply Rellich compactness, Aubin-Lions, concentration
-  compactness, weak compactness, or profile decomposition. Output
-  $K_{\mathrm{PS6}}^{+}$, $K_{\mathrm{PS6}}^{-}$, or
-  $K_{\mathrm{PS6}}^{\rm inc}$.
+- **Check box:** Test whether Rellich compactness, Aubin-Lions,
+  concentration compactness, weak compactness, or profile decomposition fails
+  to produce a limit. Output $K_{\mathrm{PS6}}^{+}$ for missing limit,
+  $K_{\mathrm{PS6}}^{-}$ for an extracted limit, or $K_{\mathrm{PS6}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS6` asks whether compactness can be recovered
   modulo symmetry or by extracting defect measures. It emits
   $K_{\mathrm{PS6}}^{\rm blk}$ or $K_{\mathrm{PS6}}^{\rm br}$.
@@ -1372,9 +1393,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS6 Check<br/>Subsequential profile limit exists?"}
-    C -- "YES: K_PS6^+" --> N["PS7 Admissibility inheritance"]
-    C -- "NO / INC" --> B{"Barrier_PS6<br/>Can concentration-compactness recover a profile modulo symmetry?"}
+    C{"PS6 Check<br/>Subsequential profile limit missing?"}
+    C -- "NO: limit exists<br/>K_PS6^-" --> N["PS7 Admissibility inheritance"]
+    C -- "YES / INC danger<br/>K_PS6^+ or K_PS6^inc" --> B{"Barrier_PS6<br/>Can concentration-compactness recover a profile modulo symmetry?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode C_mu-rough<br/>Compactness failure"]
     M --> S{"Surg_PS6<br/>Profile decomposition / defect measure extraction"}
@@ -1398,7 +1419,7 @@ flowchart LR
 
 ## PS7 — Admissibility-inheritance check
 
-**Single check:** Does the limit inherit the admissible solution class?
+**Single check:** Does the limit fail admissibility inheritance?
 
 **Filled node template**
 
@@ -1406,14 +1427,16 @@ flowchart LR
   admissible PDE class: suitable, entropy, Leray, viscosity, weak, or another
   declared class appropriate to the problem.
 - **DAG position:** Input node is `PS6`; default output node is `PS8`.
-- **Logical proposition:** $P_{\mathrm{PS7}}$: the profile limit inherits the
-  declared admissibility conditions. YES is safe; NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS7}}$: the profile limit fails to
+  inherit the declared admissibility conditions. YES or INC is danger; NO means
+  admissibility is inherited.
 - **Inputs:** $\Gamma_{\rm in}$ contains the profile limit, convergence mode,
   energy/entropy inequalities, boundary or sector conditions, and weak-form
   identities.
-- **Check box:** Pass inequalities, local energy conditions, entropy
-  inequalities, sector constraints, and weak formulations to the limit. Output
-  $K_{\mathrm{PS7}}^{+}$, $K_{\mathrm{PS7}}^{-}$, or
+- **Check box:** Test whether inequalities, local energy conditions, entropy
+  inequalities, sector constraints, and weak formulations fail to pass to the
+  limit. Output $K_{\mathrm{PS7}}^{+}$ for admissibility defect,
+  $K_{\mathrm{PS7}}^{-}$ for inherited admissibility, or
   $K_{\mathrm{PS7}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS7` asks whether admissibility can be restored by
   a weak, renormalized, entropy, viscosity, or suitable formulation. It emits
@@ -1431,9 +1454,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS7 Check<br/>Limit inherits admissibility?"}
-    C -- "YES: K_PS7^+" --> N["PS8 Activity check"]
-    C -- "NO / INC" --> B{"Barrier_PS7<br/>Can admissibility be restored by weak/renormalized formulation?"}
+    C{"PS7 Check<br/>Admissibility inheritance fails?"}
+    C -- "NO: admissibility inherited<br/>K_PS7^-" --> N["PS8 Activity check"]
+    C -- "YES / INC danger<br/>K_PS7^+ or K_PS7^inc" --> B{"Barrier_PS7<br/>Can admissibility be restored by weak/renormalized formulation?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode A.D<br/>Admissibility defect"]
     M --> S{"Surg_PS7<br/>Pass to suitable / entropy / viscosity solution class"}
@@ -1457,7 +1480,7 @@ flowchart LR
 
 ## PS8 — Activity check
 
-**Single check:** Is the extracted profile nontrivial or active?
+**Single check:** Is the extracted profile trivial or inactive?
 
 **Filled node template**
 
@@ -1466,13 +1489,14 @@ flowchart LR
   quantity. It prevents the audit from classifying a vanishing artifact.
 - **DAG position:** Input node is `PS7`; default output node is `PS9`.
 - **Logical proposition:** $P_{\mathrm{PS8}}$: the extracted profile is
-  nontrivial or active in the declared critical quantity. YES is safe; NO or
-  INC is danger.
+  trivial, vanishing, or inactive in the declared critical quantity. YES or INC
+  is danger; NO means the profile is active.
 - **Inputs:** $\Gamma_{\rm in}$ contains the admissible profile, activity
   functional, critical threshold, normalization, and nonvanishing witness.
-- **Check box:** Prove nonvanishing by normalization, lower semicontinuity, or
-  active-window mass capture. Output $K_{\mathrm{PS8}}^{+}$,
-  $K_{\mathrm{PS8}}^{-}$, or $K_{\mathrm{PS8}}^{\rm inc}$.
+- **Check box:** Test for vanishing despite normalization, lower
+  semicontinuity, or active-window mass capture. Output $K_{\mathrm{PS8}}^{+}$
+  for vanishing/inactivity, $K_{\mathrm{PS8}}^{-}$ for active nontriviality, or
+  $K_{\mathrm{PS8}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS8` asks whether vanishing implies regularity,
   scattering, or harmless dispersion. It emits $K_{\mathrm{PS8}}^{\rm blk}$
   or $K_{\mathrm{PS8}}^{\rm br}$.
@@ -1489,9 +1513,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS8 Check<br/>Profile is nontrivial/active?"}
-    C -- "YES: K_PS8^+" --> N["PS9 Type I check"]
-    C -- "NO / INC" --> B{"Barrier_PS8<br/>Can vanishing be upgraded to regularity/scattering?"}
+    C{"PS8 Check<br/>Profile vanishing/inactive?"}
+    C -- "NO: active profile<br/>K_PS8^-" --> N["PS9 Type I check"]
+    C -- "YES / INC danger<br/>K_PS8^+ or K_PS8^inc" --> B{"Barrier_PS8<br/>Can vanishing be upgraded to regularity/scattering?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode C.V<br/>Vanishing extraction"]
     M --> S{"Surg_PS8<br/>Reselect active scale/window"}
@@ -2108,7 +2132,7 @@ flowchart LR
 
 ## PS19 — Finite-packet check
 
-**Single check:** Is the active packet finite?
+**Single check:** Is the active packet infinite or uncertified?
 
 **Filled node template**
 
@@ -2116,14 +2140,15 @@ flowchart LR
   finitely many significant components, so that later decoupling is a finite
   calculation rather than an uncontrolled infinite packet.
 - **DAG position:** Input node is `PS18`; default output node is `PS20`.
-- **Logical proposition:** $P_{\mathrm{PS19}}$: the active packet is finite.
-  YES is safe; NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS19}}$: the active packet is infinite
+  or its finiteness is uncertified. YES or INC is danger; NO means the active
+  packet is finite.
 - **Inputs:** $\Gamma_{\rm in}$ contains extracted centers/scales, packet
   amplitudes, orthogonality relations, summability bounds, and residual mass.
-- **Check box:** Prove finiteness by energy quantization, critical mass lower
-  bounds, profile orthogonality, or scale/center exhaustion. Output
-  $K_{\mathrm{PS19}}^{+}$, $K_{\mathrm{PS19}}^{-}$, or
-  $K_{\mathrm{PS19}}^{\rm inc}$.
+- **Check box:** Test for failure of finiteness using energy quantization,
+  critical mass lower bounds, profile orthogonality, or scale/center
+  exhaustion. Output $K_{\mathrm{PS19}}^{+}$ for infinite/uncertified packet,
+  $K_{\mathrm{PS19}}^{-}$ for finite packet, or $K_{\mathrm{PS19}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS19` asks whether an apparent infinite packet is
   blocked by energy quantization, summability, and scale/center exhaustion. It
   emits
@@ -2141,9 +2166,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS19 Check<br/>Finite active packet?"}
-    C -- "YES: K_PS19^+" --> N["PS20 Terminal-decoupling check"]
-    C -- "NO / INC danger" --> B{"Barrier_PS19<br/>Can infinite packet be blocked by quantization/exhaustion?"}
+    C{"PS19 Check<br/>Infinite active packet?"}
+    C -- "NO: finite packet<br/>K_PS19^-" --> N["PS20 Terminal-decoupling check"]
+    C -- "YES / INC danger<br/>K_PS19^+ or K_PS19^inc" --> B{"Barrier_PS19<br/>Can infinite packet be blocked by quantization/exhaustion?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode C.D-packet<br/>Infinite active packet"]
     M --> S{"Surg_PS19<br/>Scale/center exhaustion"}
@@ -2167,7 +2192,7 @@ flowchart LR
 
 ## PS20 — Terminal-decoupling check
 
-**Single check:** Do separated packet interactions vanish locally?
+**Single check:** Is there a terminal nonlinear interaction defect?
 
 **Filled node template**
 
@@ -2176,14 +2201,15 @@ flowchart LR
   no-multibubble/no-splitting mechanism.
 - **DAG position:** Input node is `PS19`; default output node is `PS21`.
 - **Logical proposition:** $P_{\mathrm{PS20}}$: nonlinear interactions among
-  separated packets vanish locally in the declared topology. YES is safe; NO
-  or INC is danger.
+  separated packets fail to vanish locally in the declared topology. YES or INC
+  is danger; NO means terminal nonlinear decoupling holds.
 - **Inputs:** $\Gamma_{\rm in}$ contains finite packet data, separation
   scales, nonlinear interaction terms, pressure/gauge couplings, and residuals.
-- **Check box:** Prove orthogonality and vanishing cross terms by bilinear
-  estimates, local energy decoupling, commutator bounds, or profile
-  decomposition identities. Output $K_{\mathrm{PS20}}^{+}$,
-  $K_{\mathrm{PS20}}^{-}$, or $K_{\mathrm{PS20}}^{\rm inc}$.
+- **Check box:** Test for non-vanishing cross terms by bilinear estimates,
+  local energy decoupling, commutator bounds, or profile decomposition
+  identities. Output $K_{\mathrm{PS20}}^{+}$ for interaction defect,
+  $K_{\mathrm{PS20}}^{-}$ for terminal decoupling, or
+  $K_{\mathrm{PS20}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS20` asks whether the interaction defect can be
   absorbed into pressure, gauge, or a hidden camera. It emits
   $K_{\mathrm{PS20}}^{\rm blk}$ or $K_{\mathrm{PS20}}^{\rm br}$.
@@ -2200,9 +2226,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS20 Check<br/>Terminal nonlinear decoupling holds?"}
-    C -- "YES: K_PS20^+" --> N["PS21 Smallness check"]
-    C -- "NO / INC" --> B{"Barrier_PS20<br/>Can interaction defect be absorbed into pressure/gauge?"}
+    C{"PS20 Check<br/>Terminal interaction defect?"}
+    C -- "NO: decoupling holds<br/>K_PS20^-" --> N["PS21 Smallness check"]
+    C -- "YES / INC danger<br/>K_PS20^+ or K_PS20^inc" --> B{"Barrier_PS20<br/>Can interaction defect be absorbed into pressure/gauge?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode C.D-split<br/>No-splitting failure"]
     M --> S{"Surg_PS20<br/>Refine packet / add hidden camera"}
@@ -2466,7 +2492,7 @@ flowchart LR
 
 ## PS25 — BifurcateCheck
 
-**Single check:** Is the current profile dynamically unstable, i.e. does it admit a bifurcation direction?
+**Single check:** Is the bifurcation direction missing or uncertified?
 
 **Filled node template**
 
@@ -2474,19 +2500,21 @@ flowchart LR
   dynamical bifurcation direction in the linearized or modulation dynamics. It
   replaces the old restoration split by one atomic instability proposition
   before routing to the symmetry/sector-transition restoration subnodes.
-- **DAG position:** Input node is `PS24`. YES routes to `PS26`; blocked or
-  surgically repaired flat-direction outcomes route to `PS29`.
-- **Logical proposition:** $P_{\mathrm{PS25}}$: the linearized or
-  normal-form dynamics admits a certified unstable/bifurcating direction. YES
-  is a decisive restoration branch; NO or INC is danger because the degenerate
-  flat direction has not been classified.
+- **DAG position:** Input node is `PS24`. NO routes to `PS26`; YES/INC enters
+  `Barrier_PS25`; blocked or surgically repaired flat-direction outcomes route
+  to `PS29`.
+- **Logical proposition:** $P_{\mathrm{PS25}}$: the linearized or normal-form
+  dynamics lacks a certified unstable/bifurcating direction. YES or INC is
+  danger because the degenerate flat direction has not been classified; NO is a
+  decisive restoration branch.
 - **Inputs:** $\Gamma_{\rm in}$ contains the profile, linearized operator,
   Hessian or stiffness form, spectral data, center manifold variables, and
   nonlinear normal-form coefficients.
-- **Check box:** Test for a bifurcation direction by spectral instability,
-  negative mode, kernel crossing, Crandall-Rabinowitz data, or normal-form
-  instability. Output $K_{\mathrm{PS25}}^{+}$,
-  $K_{\mathrm{PS25}}^{-}$, or $K_{\mathrm{PS25}}^{\rm inc}$.
+- **Check box:** Test whether spectral instability, negative mode, kernel
+  crossing, Crandall-Rabinowitz data, or normal-form instability is missing.
+  Output $K_{\mathrm{PS25}}^{+}$ for missing bifurcation direction,
+  $K_{\mathrm{PS25}}^{-}$ for certified bifurcation, or
+  $K_{\mathrm{PS25}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS25` asks whether higher-order stiffness or
   coercivity certifies the flat direction without entering the bifurcation
   branch. It emits $K_{\mathrm{PS25}}^{\rm blk}$ or
@@ -2505,9 +2533,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS25 Check<br/>Dynamically unstable?"}
-    C -- "YES: unstable bifurcation" --> N["PS26 SymCheck"]
-    C -- "NO / INC danger" --> B{"Barrier_PS25<br/>Can higher-order stiffness certify the flat direction?"}
+    C{"PS25 Check<br/>Bifurcation direction missing?"}
+    C -- "NO: unstable bifurcation certified<br/>K_PS25^-" --> N["PS26 SymCheck"]
+    C -- "YES / INC danger<br/>K_PS25^+ or K_PS25^inc" --> B{"Barrier_PS25<br/>Can higher-order stiffness certify the flat direction?"}
     B -- "Blocked" --> L["PS29 Lyapunov-structure check"]
     B -- "Breached" --> M["Mode S.D-bif<br/>Bifurcation unresolved"]
     M --> S{"Surg_PS25<br/>Lyapunov-Schmidt / normal-form analysis"}
@@ -2538,11 +2566,11 @@ flowchart LR
 - **PDE role:** This node decides whether the bifurcating degenerate PDE
   profile is governed by a nontrivial symmetry action on the profile manifold,
   or instead should be routed to finite-action sector-transition analysis.
-- **DAG position:** Input node is `PS25`. YES routes to `PS27`; NO routes to
-  `PS28`; INC enters the barrier and repaired outcomes route to `PS27`.
+- **DAG position:** Input node is `PS25`. YES/INC enters `Barrier_PS26`; NO
+  routes to `PS28`; blocked or repaired outcomes route to `PS27`.
 - **Logical proposition:** $P_{\mathrm{PS26}}$: a symmetry group acts
-  nontrivially on the degenerate profile manifold. YES and NO are both
-  decisive branch certificates; INC is danger.
+  nontrivially on the degenerate profile manifold. YES or INC is danger and
+  enters the quotient barrier; NO routes to sector-transition analysis.
 - **Inputs:** $\Gamma_{\rm in}$ contains bifurcation data, profile-manifold
   family, candidate symmetry group, action map, quotient variables, and
   infinitesimal generators.
@@ -2567,9 +2595,8 @@ flowchart LR
 ```mermaid
 flowchart LR
     C{"PS26 Check<br/>Profile symmetry acts nontrivially?"}
-    C -- "YES: symmetry present" --> SSB["PS27 CheckSSB"]
+    C -- "YES / INC danger<br/>K_PS26^+ or K_PS26^inc" --> B{"Barrier_PS26<br/>Can the symmetry action be detected after quotient/slice refinement?"}
     C -- "NO: no symmetry" --> TB["PS28 CheckTB"]
-    C -- "INC danger" --> B{"Barrier_PS26<br/>Can the symmetry action be detected after quotient/slice refinement?"}
     B -- "Blocked" --> SSB
     B -- "Breached" --> M["Mode G.D-symvac<br/>Hidden profile symmetry"]
     M --> U{"Surg_PS26<br/>Symmetry quotient refinement"}
@@ -2593,7 +2620,7 @@ flowchart LR
 
 ## PS27 — CheckSSB
 
-**Single check:** Do the broken-phase parameters remain within the certified stability bound?
+**Single check:** Is the symmetry-broken branch unstable?
 
 **Filled node template**
 
@@ -2603,15 +2630,15 @@ flowchart LR
 - **DAG position:** Input node is `PS26`; constructive surgery/action and
   blocked outcomes route to `PS29`.
 - **Logical proposition:** $P_{\mathrm{PS27}}$: the symmetry-broken branch
-  parameters remain inside the certified coercivity and stability bounds. YES
-  triggers the constructive symmetry-breaking action; NO or INC is danger.
+  parameters leave the certified coercivity and stability bounds. YES or INC is
+  danger; NO triggers the constructive symmetry-breaking action.
 - **Inputs:** $\Gamma_{\rm in}$ contains symmetry-action data, branch
   parameters, spectral-gap/coercivity estimates, reduced coordinates, and
   stability thresholds.
-- **Check box:** Test the reduced branch by coercivity, spectral gap,
-  constrained Hessian bounds, or modulation stability. Output
-  $K_{\mathrm{PS27}}^{+}$,
-  $K_{\mathrm{PS27}}^{-}$, or $K_{\mathrm{PS27}}^{\rm inc}$.
+- **Check box:** Test for failure of coercivity, spectral gap, constrained
+  Hessian bounds, or modulation stability. Output $K_{\mathrm{PS27}}^{+}$ for
+  instability, $K_{\mathrm{PS27}}^{-}$ for a controlled reduced branch, or
+  $K_{\mathrm{PS27}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS27` asks whether the coercive gap blocks runaway
   along the symmetry-broken branch. It emits $K_{\mathrm{PS27}}^{\rm blk}$ or
   $K_{\mathrm{PS27}}^{\rm br}$.
@@ -2628,9 +2655,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS27 Check<br/>Symmetry-broken branch stable?"}
-    C -- "YES: controlled reduced branch" --> A{"ActionSSB / Surg_PS27<br/>Coercive symmetry-broken reduction"}
-    C -- "NO / INC danger" --> B{"Barrier_PS27<br/>Can coercive gap block branch runaway?"}
+    C{"PS27 Check<br/>Symmetry-broken branch unstable?"}
+    C -- "NO: controlled reduced branch<br/>K_PS27^-" --> A{"ActionSSB / Surg_PS27<br/>Coercive symmetry-broken reduction"}
+    C -- "YES / INC danger<br/>K_PS27^+ or K_PS27^inc" --> B{"Barrier_PS27<br/>Can coercive gap block branch runaway?"}
     B -- "Blocked" --> N["PS29 Lyapunov-structure check"]
     B -- "Breached" --> M["Mode S.C<br/>Symmetry-broken branch instability"]
     M --> A
@@ -2654,7 +2681,7 @@ flowchart LR
 
 ## PS28 — CheckTB
 
-**Single check:** Is the tunneling action finite?
+**Single check:** Is the connecting action infinite or uncertified?
 
 **Filled node template**
 
@@ -2663,14 +2690,15 @@ flowchart LR
   for the PDE variational/action functional.
 - **DAG position:** Input node is `PS26`; constructive surgery/action and
   blocked outcomes route to `PS29`.
-- **Logical proposition:** $P_{\mathrm{PS28}}$: the tunneling or sector
-  transition action is finite. YES triggers the constructive transition action;
-  NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS28}}$: the connecting or sector
+  transition action is infinite or uncertified. YES or INC is danger; NO
+  triggers the constructive transition action.
 - **Inputs:** $\Gamma_{\rm in}$ contains sector labels, transition path,
   action functional, connecting-orbit candidates, and boundary conditions.
 - **Check box:** Estimate the action of a transition path or connecting orbit
-  and verify finiteness. Output $K_{\mathrm{PS28}}^{+}$,
-  $K_{\mathrm{PS28}}^{-}$, or $K_{\mathrm{PS28}}^{\rm inc}$.
+  and test for failure of finiteness. Output $K_{\mathrm{PS28}}^{+}$ for
+  infinite/uncertified action, $K_{\mathrm{PS28}}^{-}$ for finite action, or
+  $K_{\mathrm{PS28}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS28` asks whether sector-transition control bounds
   the action. It emits $K_{\mathrm{PS28}}^{\rm blk}$ or
   $K_{\mathrm{PS28}}^{\rm br}$.
@@ -2688,9 +2716,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS28 Check<br/>Connecting action finite?"}
-    C -- "YES: finite connecting action" --> A{"ActionTunnel / Surg_PS28<br/>Finite-action sector transition"}
-    C -- "NO / INC danger" --> B{"Barrier_PS28<br/>Can sector-transition control bound the action?"}
+    C{"PS28 Check<br/>Connecting action infinite?"}
+    C -- "NO: finite connecting action<br/>K_PS28^-" --> A{"ActionTunnel / Surg_PS28<br/>Finite-action sector transition"}
+    C -- "YES / INC danger<br/>K_PS28^+ or K_PS28^inc" --> B{"Barrier_PS28<br/>Can sector-transition control bound the action?"}
     B -- "Blocked" --> N["PS29 Lyapunov-structure check"]
     B -- "Breached" --> M["Mode T.E<br/>Infinite connecting action"]
     M --> A
@@ -2714,7 +2742,7 @@ flowchart LR
 
 ## PS29 — Lyapunov-structure check
 
-**Single check:** Is there a valid local Lyapunov/monotonicity functional on the relevant hull?
+**Single check:** Is the local Lyapunov/monotonicity structure missing?
 
 **Filled node template**
 
@@ -2723,15 +2751,16 @@ flowchart LR
   can drive the final exclusion or classification.
 - **DAG position:** Input nodes are `PS25`, `PS27`, and `PS28`; default output
   node is `PS30`.
-- **Logical proposition:** $P_{\mathrm{PS29}}$: a valid local
-  Lyapunov/monotonicity functional exists on the relevant hull. YES is safe;
-  NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS29}}$: no valid local
+  Lyapunov/monotonicity functional is certified on the relevant hull. YES or
+  INC is danger; NO means the structure is valid.
 - **Inputs:** $\Gamma_{\rm in}$ contains the restored branch/hull, local
   dynamics, candidate functional, dissipation identity, invariant-measure data,
   and stiffness information.
-- **Check box:** Prove a local monotonicity formula, entropy inequality,
-  Lyapunov decrease, or invariant-measure rigidity statement. Output
-  $K_{\mathrm{PS29}}^{+}$, $K_{\mathrm{PS29}}^{-}$, or
+- **Check box:** Test for absence of a local monotonicity formula, entropy
+  inequality, Lyapunov decrease, or invariant-measure rigidity statement.
+  Output $K_{\mathrm{PS29}}^{+}$ for missing structure,
+  $K_{\mathrm{PS29}}^{-}$ for a valid structure, or
   $K_{\mathrm{PS29}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS29` asks whether invariant-measure rigidity can
   replace a missing Lyapunov functional. It emits
@@ -2750,9 +2779,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"PS29 Check<br/>Local Lyapunov/monotonicity structure valid?"}
-    C -- "YES: K_PS29^+" --> N["PS30 Defect-free check"]
-    C -- "NO / INC" --> B{"Barrier_PS29<br/>Can missing Lyapunov be replaced by invariant-measure rigidity?"}
+    C{"PS29 Check<br/>Lyapunov/monotonicity missing?"}
+    C -- "NO: structure valid<br/>K_PS29^-" --> N["PS30 Defect-free check"]
+    C -- "YES / INC danger<br/>K_PS29^+ or K_PS29^inc" --> B{"Barrier_PS29<br/>Can missing Lyapunov be replaced by invariant-measure rigidity?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode S.D-lyap<br/>Gradient-structure failure"]
     M --> S{"Surg_PS29<br/>Construct hull-local Lyapunov / pass to invariant measure"}
@@ -2780,7 +2809,7 @@ This node should be **hull-local**, not global. That keeps it compatible with yo
 
 ## PS30 — Defect-free check
 
-**Single check:** Is the defect certificate vector complete with no unresolved entries?
+**Single check:** Is the defect certificate vector incomplete or unresolved?
 
 **Filled node template**
 
@@ -2791,8 +2820,9 @@ This node should be **hull-local**, not global. That keeps it compatible with yo
   that the resulting defect certificate vector has no unresolved entry.
 - **DAG position:** Input node is `PS29`; default output node is `PS31`.
 - **Logical proposition:** $P_{\mathrm{PS30}}$: the defect certificate vector
-  is complete, and each declared defect channel is certified absent, blocked,
-  repaired, terminal, pruned, or spawned. YES is safe; NO or INC is danger.
+  is incomplete, or some declared defect channel is unresolved. YES or INC is
+  danger; NO means every declared channel is certified absent, blocked,
+  repaired, terminal, pruned, or spawned.
 - **Inputs:** $\Gamma_{\rm in}$ contains the profile/hull, weak limits,
   defect measures, Reynolds or stress residuals, pressure multipliers,
   boundary traces, frequency envelopes, and the channel certificates produced
@@ -2800,8 +2830,9 @@ This node should be **hull-local**, not global. That keeps it compatible with yo
 - **Check box:** Verify the defect vector entry-by-entry without recombining
   the channels: weak convergence defects, commutator/Reynolds stress defects,
   pressure multiplier defects, trace defects, and frequency-envelope defects
-  must each already have a certificate. Output $K_{\mathrm{PS30}}^{+}$,
-  $K_{\mathrm{PS30}}^{-}$, or $K_{\mathrm{PS30}}^{\rm inc}$.
+  must each already have a certificate. Output $K_{\mathrm{PS30}}^{+}$ for an
+  incomplete/unresolved vector, $K_{\mathrm{PS30}}^{-}$ for a complete vector,
+  or $K_{\mathrm{PS30}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS30` asks whether a missing or unresolved defect
   entry can be promoted to a named defect stratum with a valid certificate. It
   emits $K_{\mathrm{PS30}}^{\rm blk}$ or $K_{\mathrm{PS30}}^{\rm br}$.
@@ -2819,9 +2850,9 @@ This node should be **hull-local**, not global. That keeps it compatible with yo
 
 ```mermaid
 flowchart LR
-    C{"PS30 Check<br/>Defect vector complete?"}
-    C -- "YES: K_PS30^+" --> N["PS31 Endpoint hypotheses"]
-    C -- "NO / INC" --> B{"Barrier_PS30<br/>Can missing defect entry become a named stratum?"}
+    C{"PS30 Check<br/>Defect vector incomplete?"}
+    C -- "NO: vector complete<br/>K_PS30^-" --> N["PS31 Endpoint hypotheses"]
+    C -- "YES / INC danger<br/>K_PS30^+ or K_PS30^inc" --> B{"Barrier_PS30<br/>Can missing defect entry become a named stratum?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode D.F<br/>Unclassified defect"]
     M --> S{"Surg_PS30<br/>Add or repair one defect stratum"}
@@ -2865,7 +2896,7 @@ Do not bundle them in code.
 
 ## PS31 — Endpoint-hypotheses check
 
-**Single check:** Do the hypotheses of the selected endpoint theorem match exactly?
+**Single check:** Do the selected endpoint theorem hypotheses mismatch?
 
 **Filled node template**
 
@@ -2875,15 +2906,16 @@ Do not bundle them in code.
   assumptions.
 - **DAG position:** Input node is `PS30`; default output node is `PS32`.
 - **Logical proposition:** $P_{\mathrm{PS31}}$: the endpoint theorem
-  hypotheses match the certified branch exactly. YES is safe; NO or INC is
-  danger.
+  hypotheses fail to match the certified branch exactly. YES or INC is danger;
+  NO means the hypotheses match.
 - **Inputs:** $\Gamma_{\rm in}$ contains the classified branch, defect
   vector, solution class, topology, boundary conditions, norm bounds, and the
   candidate endpoint theorem statement.
 - **Check box:** Compare theorem hypotheses against available certificates
-  one-by-one: regularity class, domain, boundary, decay, symmetry, norm, and
-  equation form. Output $K_{\mathrm{PS31}}^{+}$,
-  $K_{\mathrm{PS31}}^{-}$, or $K_{\mathrm{PS31}}^{\rm inc}$.
+  one-by-one and test for mismatches in regularity class, domain, boundary,
+  decay, symmetry, norm, or equation form. Output $K_{\mathrm{PS31}}^{+}$ for
+  mismatch, $K_{\mathrm{PS31}}^{-}$ for exact match, or
+  $K_{\mathrm{PS31}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS31` asks whether missing hypotheses can be
   obtained by an upgrade theorem, localization, trace theorem, compactness
   upgrade, or bootstrap. It emits $K_{\mathrm{PS31}}^{\rm blk}$ or
@@ -2901,9 +2933,9 @@ Do not bundle them in code.
 
 ```mermaid
 flowchart LR
-    C{"PS31 Check<br/>Endpoint theorem hypotheses match exactly?"}
-    C -- "YES: K_PS31^+" --> N["PS32 Endpoint-exclusion check"]
-    C -- "NO / INC" --> B{"Barrier_PS31<br/>Can hypotheses be obtained by an upgrade theorem?"}
+    C{"PS31 Check<br/>Endpoint hypotheses mismatch?"}
+    C -- "NO: hypotheses match<br/>K_PS31^-" --> N["PS32 Endpoint-exclusion check"]
+    C -- "YES / INC danger<br/>K_PS31^+ or K_PS31^inc" --> B{"Barrier_PS31<br/>Can hypotheses be obtained by an upgrade theorem?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode E.H<br/>Endpoint mismatch"]
     M --> S{"Surg_PS31<br/>Add missing hypothesis as explicit subnode / refine branch"}
@@ -2929,22 +2961,23 @@ This is critical. It prevents importing a Liouville theorem, rigidity theorem, o
 
 ## PS32 — Endpoint-exclusion check
 
-**Single check:** Does the endpoint theorem exclude this branch?
+**Single check:** Does the endpoint theorem fail to exclude this branch?
 
 **Filled node template**
 
 - **PDE role:** This node applies the matched endpoint theorem to decide
   whether the current bad-profile branch is empty or impossible.
 - **DAG position:** Input node is `PS31`; default output node is `PS33`.
-- **Logical proposition:** $P_{\mathrm{PS32}}$: the endpoint theorem proves
-  the current branch empty. YES is safe for a regularity proof; NO or INC is
-  danger.
+- **Logical proposition:** $P_{\mathrm{PS32}}$: the endpoint theorem fails to
+  prove the current branch empty. YES or INC is danger; NO means the branch is
+  excluded.
 - **Inputs:** $\Gamma_{\rm in}$ contains matched theorem hypotheses, the
   branch certificate vector, endpoint theorem, and all defect-free/defect-
   repaired certificates.
 - **Check box:** Execute the Liouville, rigidity, local regularity, backward
-  uniqueness, monotonicity, or compactness contradiction theorem. Output
-  $K_{\mathrm{PS32}}^{+}$, $K_{\mathrm{PS32}}^{-}$, or
+  uniqueness, monotonicity, or compactness contradiction theorem and test
+  whether it fails to exclude the branch. Output $K_{\mathrm{PS32}}^{+}$ for
+  non-exclusion, $K_{\mathrm{PS32}}^{-}$ for exclusion, or
   $K_{\mathrm{PS32}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS32` asks whether a non-excluded branch can be
   routed to realization analysis rather than falsely closed. It emits
@@ -2962,9 +2995,9 @@ This is critical. It prevents importing a Liouville theorem, rigidity theorem, o
 
 ```mermaid
 flowchart LR
-    C{"PS32 Check<br/>Endpoint theorem proves branch empty?"}
-    C -- "YES: K_PS32^+" --> N["PS33 Endpoint-realization check"]
-    C -- "NO / INC" --> B{"Barrier_PS32<br/>Can branch be routed to realization check instead?"}
+    C{"PS32 Check<br/>Endpoint exclusion fails?"}
+    C -- "NO: branch excluded<br/>K_PS32^-" --> N["PS33 Endpoint-realization check"]
+    C -- "YES / INC danger<br/>K_PS32^+ or K_PS32^inc" --> B{"Barrier_PS32<br/>Can branch be routed to realization check instead?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode E.X<br/>No exclusion theorem"]
     M --> S{"Surg_PS32<br/>Refine branch or create new endpoint obligation"}
@@ -3058,7 +3091,7 @@ This is what makes the same Sieve useful for both regularity and blowup problems
 
 ## PS34 — Residual-complement check
 
-**Single check:** Is the residual class defined as the complement of all earlier branches?
+**Single check:** Is the residual complement ill-defined?
 
 **Filled node template**
 
@@ -3066,15 +3099,17 @@ This is what makes the same Sieve useful for both regularity and blowup problems
   ordered complement of all earlier classified branches, not an informal
   leftover label.
 - **DAG position:** Input node is `PS33`; default output node is `PS35`.
-- **Logical proposition:** $P_{\mathrm{PS34}}$: the residual class equals the
-  exact complement of all earlier branch predicates inside the bad-profile
-  space. YES is safe; NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS34}}$: the residual class fails to
+  equal the exact complement of all earlier branch predicates inside the
+  bad-profile space. YES or INC is danger; NO means the residual complement is
+  well-defined.
 - **Inputs:** $\Gamma_{\rm in}$ contains the ordered branch predicates,
   bad-profile space, branch certificates, realization/exclusion statuses, and
   set-theoretic complement definition.
-- **Check box:** Verify ordered subtraction, disjointness conventions,
-  coverage of prior branches, and the exact formula for the residual set.
-  Output $K_{\mathrm{PS34}}^{+}$, $K_{\mathrm{PS34}}^{-}$, or
+- **Check box:** Test for failure of ordered subtraction, disjointness
+  conventions, coverage of prior branches, or the exact formula for the
+  residual set. Output $K_{\mathrm{PS34}}^{+}$ for ill-defined residual,
+  $K_{\mathrm{PS34}}^{-}$ for exact complement, or
   $K_{\mathrm{PS34}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS34` asks whether residual definition can be
   repaired by ordered subtraction or predicate refinement. It emits
@@ -3092,9 +3127,9 @@ This is what makes the same Sieve useful for both regularity and blowup problems
 
 ```mermaid
 flowchart LR
-    C{"PS34 Check<br/>Residual defined as exact complement?"}
-    C -- "YES: K_PS34^+" --> N["PS35 Library-completeness check"]
-    C -- "NO / INC" --> B{"Barrier_PS34<br/>Can residual be repaired by ordered subtraction?"}
+    C{"PS34 Check<br/>Residual complement ill-defined?"}
+    C -- "NO: exact complement<br/>K_PS34^-" --> N["PS35 Library-completeness check"]
+    C -- "YES / INC danger<br/>K_PS34^+ or K_PS34^inc" --> B{"Barrier_PS34<br/>Can residual be repaired by ordered subtraction?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode T.C-res<br/>Residual not well-defined"]
     M --> S{"Surg_PS34<br/>Define ordered predicates and complement residual"}
@@ -3129,7 +3164,7 @@ This is the most important formal repair from your Navier–Stokes residual stra
 
 ## PS35 — Library-completeness check
 
-**Single check:** Does the branch library exhaust the normalized bad-profile space?
+**Single check:** Is the branch library incomplete?
 
 **Filled node template**
 
@@ -3138,15 +3173,16 @@ This is the most important formal repair from your Navier–Stokes residual stra
   and Lock route.
 - **DAG position:** Input node is `PS34`; default output node is Current Node
   13 (`Bound_partial`).
-- **Logical proposition:** $P_{\mathrm{PS35}}$: the bad-profile branch
-  library is complete. YES is safe; NO or INC is danger.
+- **Logical proposition:** $P_{\mathrm{PS35}}$: the bad-profile branch library
+  fails to exhaust the normalized bad-profile space. YES or INC is danger; NO
+  means the library is complete.
 - **Inputs:** $\Gamma_{\rm in}$ contains the full branch certificate vector,
   residual complement, endpoint statuses, bad-profile space, and library
   indexing map.
-- **Check box:** Prove that every normalized bad profile lies in exactly one
-  ordered branch or the residual complement. Output $K_{\mathrm{PS35}}^{+}$,
-  also recorded as $K_{\mathrm{CatLib}}^{+}$, plus
-  $K_{\mathrm{PS35}}^{-}$ or $K_{\mathrm{PS35}}^{\rm inc}$.
+- **Check box:** Test whether some normalized bad profile fails to lie in an
+  ordered branch or the residual complement. Output $K_{\mathrm{PS35}}^{+}$ for
+  incompleteness, $K_{\mathrm{PS35}}^{-}$ for completeness, also recorded as
+  $K_{\mathrm{CatLib}}^{+}$, or $K_{\mathrm{PS35}}^{\rm inc}$.
 - **Barrier box:** `Barrier_PS35` asks whether incompleteness can be repaired
   by adding the residual complement or a missing stratum. It emits
   $K_{\mathrm{PS35}}^{\rm blk}$ or $K_{\mathrm{PS35}}^{\rm br}$.
@@ -3163,9 +3199,9 @@ This is the most important formal repair from your Navier–Stokes residual stra
 
 ```mermaid
 flowchart LR
-    C{"PS35 Check<br/>Bad-profile library complete?"}
-    C -- "YES: K_PS35^+ = K_CatLib^+" --> N["Current Node 13: Bound_partial"]
-    C -- "NO / INC" --> B{"Barrier_PS35<br/>Can incompleteness be repaired by adding residual complement?"}
+    C{"PS35 Check<br/>Bad-profile library incomplete?"}
+    C -- "NO: library complete<br/>K_PS35^- = K_CatLib^+" --> N["Current Node 13: Bound_partial"]
+    C -- "YES / INC danger<br/>K_PS35^+ or K_PS35^inc" --> B{"Barrier_PS35<br/>Can incompleteness be repaired by adding residual complement?"}
     B -- "Blocked" --> N
     B -- "Breached" --> M["Mode CatLib<br/>Library incompleteness"]
     M --> S{"Surg_PS35<br/>Add missing stratum / refine bad-object space"}
@@ -3191,7 +3227,7 @@ This node produces the formal (K_{\mathrm{CatLib}}^+) input needed by the Lock r
 
 ## Current Node 13 — BoundaryCheck (`Bound_partial`)
 
-**Single check:** Does the system have open-boundary or external coupling scope?
+**Single check:** Is open-boundary or external-coupling scope active?
 
 **Filled node template**
 
@@ -3199,11 +3235,12 @@ This node produces the formal (K_{\mathrm{CatLib}}^+) input needed by the Lock r
   analysis. It decides whether boundary-input checks are meaningful for the
   current PDE/domain.
 - **DAG position:** Input node is `PS35` or the benign no-profile route from
-  `C_mu`; NO output goes directly to Current Node 17 (`Cat_Hom`), and YES
-  output goes to Current Node 14 (`Bound_B`).
+  `C_mu`; NO output goes directly to Current Node 17 (`Cat_Hom`), and YES/INC
+  output enters the boundary-scope barrier before Current Node 14 (`Bound_B`).
 - **Logical proposition:** $P_{\mathrm{Bound}_\partial}$: the system has
-  open boundary scope or external coupling. YES means evaluate the boundary
-  subgraph; NO means the subgraph is non-applicable.
+  open boundary scope or external coupling. YES or INC is danger/scope that
+  must be certified by the barrier before the boundary subgraph runs; NO means
+  the subgraph is non-applicable.
 - **Inputs:** $\Gamma_{\rm in}$ contains the domain, boundary conditions,
   external forcing/coupling data, branch library certificate, and profile
   status.
@@ -3235,10 +3272,9 @@ This node produces the formal (K_{\mathrm{CatLib}}^+) input needed by the Lock r
 
 ```mermaid
 flowchart LR
-    C{"Current Node 13: Bound_partial<br/>Open boundary scope?"}
+    C{"Current Node 13: Bound_partial<br/>Open boundary scope active?"}
     C -- "NO: closed scope<br/>K_Bound_partial^prune" --> N["Current Node 17: Cat_Hom Lock"]
-    C -- "YES: boundary scope<br/>K_Bound_partial^+" --> BND["Current Node 14: Bound_B"]
-    C -- "INC: scope undecided" --> B{"BarrierBoundaryScope<br/>Can domain/trace data certify scope?"}
+    C -- "YES / INC danger<br/>K_Bound_partial^+ or K_Bound_partial^inc" --> B{"BarrierBoundaryScope<br/>Can domain/trace data certify scope?"}
     B -- "Closed scope certified" --> N
     B -- "Boundary scope certified" --> BND
     B -- "Breached" --> M["Mode B.Scope<br/>Boundary model incomplete"]
@@ -3266,7 +3302,7 @@ proceeds to the Lock. If boundary scope is present, Nodes 14--16 are evaluated.
 
 ## Current Node 14 — OverloadCheck (`Bound_B`)
 
-**Single check:** Is the boundary input bounded enough to avoid overload?
+**Single check:** Is there boundary/input overload danger?
 
 **Filled node template**
 
@@ -3274,16 +3310,16 @@ proceeds to the Lock. If boundary scope is present, Nodes 14--16 are evaluated.
   coupling amplitude is bounded enough to avoid a boundary-driven singularity.
 - **DAG position:** Input node is `Bound_partial`; default output node is
   Current Node 15 (`Bound_Sigma`).
-- **Logical proposition:** $P_{\mathrm{Bound}_B}$: the boundary/external
-  input is bounded in the required trace or control norm. YES is safe; NO or
-  INC is danger.
+- **Logical proposition:** $P_{\mathrm{Bound}_B}$: the boundary/external input
+  exceeds the required trace or control norm, or boundedness is uncertified.
+  YES or INC is danger; NO means the input is bounded.
 - **Inputs:** $\Gamma_{\rm in}$ contains active boundary scope, trace data,
   input functions, forcing norms, transfer/sensitivity estimates, and
   compatibility conditions.
-- **Check box:** Prove trace/input bounds by energy estimates, maximal
-  regularity, Bode/sensitivity bounds, or boundary coercivity. Output
-  $K_{\mathrm{Bound}_B}^{+}$, $K_{\mathrm{Bound}_B}^{-}$, or
-  $K_{\mathrm{Bound}_B}^{\rm inc}$.
+- **Check box:** Test for overload by energy estimates, maximal regularity,
+  Bode/sensitivity bounds, or boundary coercivity. Output
+  $K_{\mathrm{Bound}_B}^{+}$ for overload, $K_{\mathrm{Bound}_B}^{-}$ for
+  bounded input, or $K_{\mathrm{Bound}_B}^{\rm inc}$.
 - **Barrier box:** `BarrierBode` asks whether sensitivity estimates block
   overload. It emits $K_{\mathrm{Bound}_B}^{\rm blk}$ or
   $K_{\mathrm{Bound}_B}^{\rm br}$.
@@ -3301,9 +3337,9 @@ proceeds to the Lock. If boundary scope is present, Nodes 14--16 are evaluated.
 
 ```mermaid
 flowchart LR
-    C{"Current Node 14: Bound_B<br/>Input bounded?"}
-    C -- "YES: K_Bound_B^+" --> N["Current Node 15: Bound_Sigma"]
-    C -- "NO / INC danger" --> B{"BarrierBode<br/>Can sensitivity bounds block overload?"}
+    C{"Current Node 14: Bound_B<br/>Input overload danger?"}
+    C -- "NO: input bounded<br/>K_Bound_B^-" --> N["Current Node 15: Bound_Sigma"]
+    C -- "YES / INC danger<br/>K_Bound_B^+ or K_Bound_B^inc" --> B{"BarrierBode<br/>Can sensitivity bounds block overload?"}
     B -- "Blocked<br/>K_Bound_B^blk" --> N
     B -- "Breached<br/>K_Bound_B^br" --> M["Mode B.E<br/>Sensitivity explosion"]
     M --> S{"SurgBode / SurgBE<br/>Desensitize overloaded boundary"}
@@ -3326,7 +3362,7 @@ flowchart LR
 
 ## Current Node 15 — StarveCheck (`Bound_Sigma`)
 
-**Single check:** Is the boundary/input supply sufficient to avoid starvation?
+**Single check:** Is there boundary/input starvation danger?
 
 **Filled node template**
 
@@ -3336,14 +3372,15 @@ flowchart LR
 - **DAG position:** Input node is `Bound_B`; default output node is Current
   Node 16 (`GC_T`).
 - **Logical proposition:** $P_{\mathrm{Bound}_\Sigma}$: the boundary/input
-  supply is sufficient in the declared reserve, flux, or control norm. YES is
-  safe; NO or INC is danger.
+  supply is insufficient in the declared reserve, flux, or control norm. YES or
+  INC is danger; NO means supply is sufficient.
 - **Inputs:** $\Gamma_{\rm in}$ contains input reserves, flux constraints,
   buffer variables, forcing support, controllability data, and compatibility
   with prior overload bounds.
-- **Check box:** Prove lower supply bounds, reserve estimates, controllability,
-  or boundary flux sufficiency. Output $K_{\mathrm{Bound}_\Sigma}^{+}$,
-  $K_{\mathrm{Bound}_\Sigma}^{-}$, or
+- **Check box:** Test for failure of lower supply bounds, reserve estimates,
+  controllability, or boundary flux sufficiency. Output
+  $K_{\mathrm{Bound}_\Sigma}^{+}$ for starvation,
+  $K_{\mathrm{Bound}_\Sigma}^{-}$ for sufficient supply, or
   $K_{\mathrm{Bound}_\Sigma}^{\rm inc}$.
 - **Barrier box:** `BarrierInput` asks whether reserve or buffer control blocks
   starvation. It emits $K_{\mathrm{Bound}_\Sigma}^{\rm blk}$ or
@@ -3361,9 +3398,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"Current Node 15: Bound_Sigma<br/>Input sufficient?"}
-    C -- "YES: K_Bound_Sigma^+" --> N["Current Node 16: GC_T"]
-    C -- "NO / INC danger" --> B{"BarrierInput<br/>Can reserve/buffer control block starvation?"}
+    C{"Current Node 15: Bound_Sigma<br/>Input starvation danger?"}
+    C -- "NO: input sufficient<br/>K_Bound_Sigma^-" --> N["Current Node 16: GC_T"]
+    C -- "YES / INC danger<br/>K_Bound_Sigma^+ or K_Bound_Sigma^inc" --> B{"BarrierInput<br/>Can reserve/buffer control block starvation?"}
     B -- "Blocked<br/>K_Bound_Sigma^blk" --> N
     B -- "Breached<br/>K_Bound_Sigma^br" --> M["Mode B.D<br/>Resource depletion"]
     M --> S{"SurgInput / SurgBD<br/>Resource replenishment"}
@@ -3386,7 +3423,7 @@ flowchart LR
 
 ## Current Node 16 — AlignCheck (`GC_T`)
 
-**Single check:** Is the controller/proxy objective aligned with the true target?
+**Single check:** Is the controller/proxy objective misaligned with the true target?
 
 **Filled node template**
 
@@ -3395,15 +3432,16 @@ flowchart LR
   does not steer the proof into an irrelevant branch.
 - **DAG position:** Input node is `Bound_Sigma`; default output node is Current
   Node 17 (`Cat_Hom`).
-- **Logical proposition:** $P_{GC_T}$: the control/proxy objective is aligned
-  with the true target functional or PDE property. YES is safe; NO or INC is
-  danger.
+- **Logical proposition:** $P_{GC_T}$: the control/proxy objective is
+  misaligned with the true target functional or PDE property. YES or INC is
+  danger; NO means the control/proxy objective is aligned.
 - **Inputs:** $\Gamma_{\rm in}$ contains controller/proxy objectives, target
   functional, constraints, admissible controls, boundary input status, and
   comparison inequalities.
-- **Check box:** Prove alignment by variational comparison, consistency of
-  objectives, coercive target bounds, or controller verification. Output
-  $K_{GC_T}^{+}$, $K_{GC_T}^{-}$, or $K_{GC_T}^{\rm inc}$.
+- **Check box:** Test for misalignment by variational comparison, consistency
+  of objectives, coercive target bounds, or controller verification. Output
+  $K_{GC_T}^{+}$ for misalignment, $K_{GC_T}^{-}$ for alignment, or
+  $K_{GC_T}^{\rm inc}$.
 - **Barrier box:** `BarrierVariety` asks whether controller variety or proxy
   diversification blocks misalignment. It emits $K_{GC_T}^{\rm blk}$ or
   $K_{GC_T}^{\rm br}$.
@@ -3419,9 +3457,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"Current Node 16: GC_T<br/>Control aligned?"}
-    C -- "YES: K_GC_T^+" --> N["Current Node 17: Cat_Hom Lock"]
-    C -- "NO / INC danger" --> B{"BarrierVariety<br/>Can controller variety block misalignment?"}
+    C{"Current Node 16: GC_T<br/>Control misalignment danger?"}
+    C -- "NO: control aligned<br/>K_GC_T^-" --> N["Current Node 17: Cat_Hom Lock"]
+    C -- "YES / INC danger<br/>K_GC_T^+ or K_GC_T^inc" --> B{"BarrierVariety<br/>Can controller variety block misalignment?"}
     B -- "Blocked<br/>K_GC_T^blk" --> N
     B -- "Breached<br/>K_GC_T^br" --> M["Mode B.C<br/>Control deficit"]
     M --> S{"SurgVariety / SurgBC<br/>Controller augmentation"}
@@ -3444,7 +3482,7 @@ flowchart LR
 
 ## Current Node 17 — BarrierExclusion / Lock (`Cat_Hom`)
 
-**Single check:** Is the certified bad-pattern Hom-space empty?
+**Single check:** Does a bad-pattern morphism exist or remain undecided?
 
 **Filled node template**
 
@@ -3456,16 +3494,17 @@ flowchart LR
   $K_{\mathrm{StructReg}_T}^{+}$, then $K_{\mathrm{Reg}_T}^{+}$ or a
   realization output.
 - **Logical proposition:** $P_{\mathrm{CatHom}}$: the Hom-space
-  $\operatorname{Hom}(H_{\rm bad},H)$ is empty for the certified bad-pattern
-  library. YES is blocked/excluded; NO or INC is danger.
+  $\operatorname{Hom}(H_{\rm bad},H)$ contains a bad morphism or remains
+  undecided for the certified bad-pattern library. YES or INC is danger; NO
+  means Hom-emptiness is certified.
 - **Inputs:** $\Gamma_{\rm in}$ contains $K_{\mathrm{CatLib}}^{+}$, boundary
   and alignment certificates, obstruction library, target PDE instance,
   morphism definitions, and the E1--E13 exclusion tactics.
-- **Check box:** Test Hom-emptiness by obstruction matching, functorial
-  incompatibility, rigidity, conservation, scaling, boundary, and categorical
-  exclusion arguments. Output $K_{\mathrm{CatHom}}^{+}$ or
-  $K_{\mathrm{CatHom}}^{\rm blk}$ for emptiness,
-  $K_{\mathrm{CatHom}}^{-}$ for a witnessed bad morphism, and
+- **Check box:** Test for nonempty Hom-space by obstruction matching,
+  functorial incompatibility, rigidity, conservation, scaling, boundary, and
+  categorical exclusion arguments. Output $K_{\mathrm{CatHom}}^{+}$ for a
+  witnessed or undecided bad morphism, $K_{\mathrm{CatHom}}^{-}$ or
+  $K_{\mathrm{CatHom}}^{\rm blk}$ for Hom-emptiness, and
   $K_{\mathrm{CatHom}}^{\rm inc}$ for undecided Hom status.
 - **Barrier box:** `BarrierExclusion tactics` asks whether E1--E13 can prove
   Hom-emptiness after the direct check is missing or inconclusive. It emits
@@ -3485,9 +3524,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    C{"Current Node 17: Cat_Hom<br/>Hom(H_bad,H)=empty?"}
-    C -- "YES: blocked / excluded<br/>K_Cat_Hom^blk" --> N["K_StructReg_T^+"]
-    C -- "NO / INC danger" --> B{"BarrierExclusion tactics<br/>Can E1-E13 prove Hom-emptiness?"}
+    C{"Current Node 17: Cat_Hom<br/>Bad morphism exists or undecided?"}
+    C -- "NO: Hom empty<br/>K_Cat_Hom^-" --> N["K_StructReg_T^+"]
+    C -- "YES / INC danger<br/>K_Cat_Hom^+ or K_Cat_Hom^inc" --> B{"BarrierExclusion tactics<br/>Can E1-E13 prove Hom-emptiness?"}
     B -- "Blocked<br/>K_Cat_Hom^blk" --> N
     B -- "Breached<br/>K_Cat_Hom^br" --> M["Mode Lock-Open<br/>Bad morphism or undecided Hom"]
     M --> S{"SurgLock<br/>Refine obstruction library / reconstruction"}
@@ -3863,7 +3902,7 @@ flowchart TD
     M1["Mode C.D-FinitePacket:<br/>finite multibubble"]
     U1["SurgFinitePacket:<br/>terminal nonlinear decoupling"]
 
-    S2{"Split-Decouple Check:<br/>cross-interactions vanish?"}
+    S2{"Split-Decouple Check:<br/>cross-interaction defect present?"}
     B2["BarrierDecouple:<br/>interaction-decoupling theorem?"]
     M2["Mode D.D-CoupledPacket:<br/>non-decoupled profiles"]
     U2["SurgDecouple:<br/>pressure/gauge/cross-term repair"]
@@ -3895,8 +3934,8 @@ flowchart TD
     B1 -- "Blocked" --> S2
     B1 -- "Breached" --> M1 --> U1 --> S2
 
-    S2 -- "NO/INC danger" --> B2
-    S2 -- "YES" --> S3
+    S2 -- "YES/INC danger" --> B2
+    S2 -- "NO" --> S3
     B2 -- "Blocked" --> S3
     B2 -- "Breached" --> M2 --> U2 --> S3
 
@@ -4089,7 +4128,7 @@ flowchart TD
     M5["Mode D.E-Frequency:<br/>frequency cascade"]
     S5["SurgFrequencyDefect:<br/>Littlewood-Paley / envelope refinement"]
 
-    D6{"Def-Clean Check:<br/>all declared defects absent?"}
+    D6{"Def-Clean Check:<br/>declared defect vector incomplete?"}
     B6["BarrierCleanDefect:<br/>can clean-limit status be certified?"]
     M6["Mode D.D-UnknownDefect:<br/>unidentified defect"]
     S6["SurgUnknownDefect:<br/>add defect channel"]
@@ -4121,8 +4160,8 @@ flowchart TD
     B5 -- "Blocked" --> D6
     B5 -- "Breached" --> M5 --> S5 --> D6
 
-    D6 -- "YES" --> NEXT
-    D6 -- "NO/INC danger" --> B6
+    D6 -- "YES/INC danger" --> B6
+    D6 -- "NO" --> NEXT
     B6 -- "Blocked" --> NEXT
     B6 -- "Breached" --> M6 --> S6 --> D1
 
@@ -4152,17 +4191,17 @@ has been audited or an explicit terminal/prune/spawn certificate applies.
 
 ```mermaid
 flowchart TD
-    E1{"End-ExclExists Check:<br/>exclusion theorem exists?"}
+    E1{"End-ExclExists Check:<br/>exclusion theorem missing?"}
     B1["BarrierNoExclusion:<br/>can exclusion be derived from existing package?"]
     M1["Mode Endpoint-MissingExclusion:<br/>unclosed branch"]
     S1["SurgEndpointExclusion:<br/>prove branch rigidity theorem"]
 
-    E2{"End-HypMatch Check:<br/>hypotheses match exactly?"}
+    E2{"End-HypMatch Check:<br/>hypothesis mismatch present?"}
     B2["BarrierHypMatch:<br/>can interface be strengthened or branch narrowed?"]
     M2["Mode Endpoint-Mismatch:<br/>hypothesis gap"]
     S2["SurgHypMatch:<br/>add interface lemma / narrow class"]
 
-    E3{"End-Conclusion Check:<br/>conclusion proves emptiness or realization?"}
+    E3{"End-Conclusion Check:<br/>endpoint conclusion too weak?"}
     B3["BarrierConclusion:<br/>can theorem conclusion be upgraded?"]
     M3["Mode Endpoint-WeakConclusion:<br/>insufficient endpoint"]
     S3["SurgConclusion:<br/>upgrade theorem / add corollary"]
@@ -4174,18 +4213,18 @@ flowchart TD
 
     NEXT["Library micro-sieve"]
 
-    E1 -- "YES" --> E2
-    E1 -- "NO/INC danger" --> B1
+    E1 -- "YES/INC danger" --> B1
+    E1 -- "NO" --> E2
     B1 -- "Blocked" --> E2
     B1 -- "Breached" --> M1 --> S1 --> E2
 
-    E2 -- "YES" --> E3
-    E2 -- "NO/INC danger" --> B2
+    E2 -- "YES/INC danger" --> B2
+    E2 -- "NO" --> E3
     B2 -- "Blocked" --> E3
     B2 -- "Breached" --> M2 --> S2 --> E3
 
-    E3 -- "YES" --> E4
-    E3 -- "NO/INC danger" --> B3
+    E3 -- "YES/INC danger" --> B3
+    E3 -- "NO" --> E4
     B3 -- "Blocked" --> E4
     B3 -- "Breached" --> M3 --> S3 --> E4
 
@@ -4221,55 +4260,55 @@ certified child-scope action, not the default exit from the library audit.
 
 ```mermaid
 flowchart TD
-    L1{"Lib-BadSpace Check:<br/>bad-profile space B_T defined?"}
+    L1{"Lib-BadSpace Check:<br/>bad-profile space undefined?"}
     B1["BarrierBadSpace:<br/>can bad space be constructed from profile module?"]
     M1["Mode CatLib-NoBadSpace:<br/>undefined bad object space"]
     S1["SurgBadSpace:<br/>define normalized bad-object space"]
 
-    L2{"Lib-Order Check:<br/>ordered predicate list declared?"}
+    L2{"Lib-Order Check:<br/>ordered predicate list missing?"}
     B2["BarrierOrder:<br/>can predicates be ordered by precedence?"]
     M2["Mode CatLib-NoOrder:<br/>overlapping unranked branches"]
     S2["SurgOrder:<br/>add ordered subtraction convention"]
 
-    L3{"Lib-Complement Check:<br/>residual defined as complement?"}
+    L3{"Lib-Complement Check:<br/>residual complement ill-defined?"}
     B3["BarrierComplement:<br/>can residual be made literal complement?"]
     M3["Mode CatLib-ResidualAmbiguous:<br/>informal residual"]
     S3["SurgComplement:<br/>define residual by set subtraction"]
 
-    L4{"Lib-Disjoint Check:<br/>disjoint-union proof recorded?"}
+    L4{"Lib-Disjoint Check:<br/>branch overlap ambiguity present?"}
     B4["BarrierDisjoint:<br/>can disjointness be forced by subtraction?"]
     M4["Mode CatLib-Overlap:<br/>ambiguous branch membership"]
     S4["SurgDisjoint:<br/>successive subtraction"]
 
-    L5{"Lib-Status Check:<br/>each branch has endpoint status?"}
+    L5{"Lib-Status Check:<br/>branch endpoint status missing?"}
     B5["BarrierStatus:<br/>can missing branch be routed to endpoint sieve?"]
     M5["Mode CatLib-Incomplete:<br/>branch without endpoint"]
     S5["SurgStatus:<br/>return branch to endpoint micro-sieve"]
 
     NEXT["Current Cat_Sing / Cat_Hom Lock"]
 
-    L1 -- "YES" --> L2
-    L1 -- "NO/INC danger" --> B1
+    L1 -- "YES/INC danger" --> B1
+    L1 -- "NO" --> L2
     B1 -- "Blocked" --> L2
     B1 -- "Breached" --> M1 --> S1 --> L2
 
-    L2 -- "YES" --> L3
-    L2 -- "NO/INC danger" --> B2
+    L2 -- "YES/INC danger" --> B2
+    L2 -- "NO" --> L3
     B2 -- "Blocked" --> L3
     B2 -- "Breached" --> M2 --> S2 --> L3
 
-    L3 -- "YES" --> L4
-    L3 -- "NO/INC danger" --> B3
+    L3 -- "YES/INC danger" --> B3
+    L3 -- "NO" --> L4
     B3 -- "Blocked" --> L4
     B3 -- "Breached" --> M3 --> S3 --> L4
 
-    L4 -- "YES" --> L5
-    L4 -- "NO/INC danger" --> B4
+    L4 -- "YES/INC danger" --> B4
+    L4 -- "NO" --> L5
     B4 -- "Blocked" --> L5
     B4 -- "Breached" --> M4 --> S4 --> L5
 
-    L5 -- "YES" --> NEXT
-    L5 -- "NO/INC danger" --> B5
+    L5 -- "YES/INC danger" --> B5
+    L5 -- "NO" --> NEXT
     B5 -- "Blocked" --> NEXT
     B5 -- "Breached" --> M5 --> S5 --> L5
 
