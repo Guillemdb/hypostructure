@@ -49,9 +49,14 @@
 \Crefname{definition}{Definition}{Definitions}
 \crefname{remark}{Remark}{Remarks}
 \Crefname{remark}{Remark}{Remarks}
-\title[Local CKN Concentration for Navier--Stokes]
-{Local CKN Concentration and the Type I/Type II Dichotomy for Navier--Stokes}
-\author{Guillem Cordero}
+\title[Local Concentration for Navier--Stokes]
+{Local Scale-Invariant Concentration and the Type I/Type II Dichotomy
+for Navier--Stokes}
+\author{Guillem Duran Ballester}
+\email{guillem@fragile.tech}
+\subjclass[2020]{Primary 35Q30; Secondary 76D05, 35B44, 35B65}
+\keywords{Navier--Stokes equations, suitable weak solutions,
+\(\varepsilon\)-regularity, Type I blow-up, Type II blow-up}
 \date{}
 
 \begin{document}
@@ -59,14 +64,15 @@
 \begin{abstract}
 We prove a local analytic reduction for possible finite-time singularities of
 the three-dimensional Navier--Stokes equations.  For a suitable weak solution,
-a singular point at time \(T\) must carry a positive amount of
-the pressure-normalized Caffarelli--Kohn--Nirenberg critical density, and also
-a positive amount of velocity \(L^3\)-concentration, on arbitrarily small
-backward parabolic cylinders.  If the critical density vanishes at each point
-of the singular set, the solution is regular at time \(T\) by the
-epsilon-regularity theorem.  After positive local concentration has been
-obtained, the sequence either satisfies a Type I scale-invariant bound or it
-constitutes the local Type II alternative.
+every singular point at time \(T\) has arbitrarily small backward parabolic
+cylinders on which both the standard mean-subtracted
+Caffarelli--Kohn--Nirenberg scale-invariant quantity \(C+D\) and the
+scale-invariant velocity quantity \(C\) are bounded below by positive
+constants.  If these local scale-invariant quantities tend to zero at each
+point of the singular set, the solution is regular at time \(T\) by the
+\(\varepsilon\)-regularity theorem.  Along any such positive concentration
+sequence, the solution either satisfies a local Type I scale-invariant bound or
+falls under the local Type II alternative.
 \end{abstract}
 
 \maketitle
@@ -83,31 +89,31 @@ We use the standard normalization in which the viscosity is one.  The weak
 solution theory goes back to Leray \cite{Leray1934}.  Suitable weak solutions
 and their partial regularity theory were introduced and developed by Scheffer
 \cite{Scheffer1976} and by Caffarelli, Kohn, and Nirenberg \cite{CKN1982}; see
-also Lin \cite{Lin1998}.  This paper proves the local reduction from a possible
-singularity at time \(T\) to the Type I/Type II blowup-rate dichotomy.
+also Lin \cite{Lin1998}.  This paper establishes a local reduction from a
+possible singularity at time \(T\) to the Type I/Type II blow-up rate
+dichotomy.
 
-Scale-invariant regularity and blow-up criteria form the standard background for
-this formulation; see Serrin \cite{Serrin1962}, Giga \cite{Giga1986},
+Scale-invariant regularity and blow-up criteria provide the standard background
+for this formulation; see Serrin \cite{Serrin1962}, Giga \cite{Giga1986},
 Escauriaza--Seregin--{\v S}verak \cite{ESS2003}, and Seregin
-\cite{Seregin2012}.  The proof below uses this literature only for context; its
-external analytic input is the Caffarelli--Kohn--Nirenberg epsilon-regularity
-theorem.
+\cite{Seregin2012}.  The principal regularity input used below is the
+Caffarelli--Kohn--Nirenberg \(\varepsilon\)-regularity theorem.
 
-The argument has four parts.  First, the pressure-normalized critical
+The proof proceeds in four steps.  First, the local scale-invariant
 quantities \(C\) and \(D\) are finite for suitable weak solutions and invariant
 under the usual parabolic scaling.  Second, the Caffarelli--Kohn--Nirenberg
-epsilon-regularity theorem implies that vanishing of \(C+D\) at a candidate
-singular point gives local regularity, while the velocity-only epsilon
-criterion gives a velocity concentration sequence.  Third, a finite-time
-singularity therefore produces sequences of shrinking cylinders on which the
-critical density, and separately the velocity \(L^3\)-quantity, are bounded
-below by positive constants.  Finally, once such a sequence is fixed, it
-either satisfies a Type I scale-invariant bound or falls in the local Type II
-alternative.
+\(\varepsilon\)-regularity theorem implies that vanishing of \(C+D\) at a
+candidate singular point gives local regularity, while the velocity
+\(\varepsilon\)-regularity criterion gives positive concentration in the
+scale-invariant \(L^3_{x,t}\) quantity.  Third, a finite-time singularity
+therefore produces sequences of shrinking cylinders on which \(C+D\), and
+separately \(C\), are bounded below by positive constants.  Finally, once such
+a sequence is fixed, it either satisfies a Type I scale-invariant bound or
+falls under the local Type II alternative.
 
-The proof is local in spacetime.  Apart from the standard
-Caffarelli--Kohn--Nirenberg epsilon-regularity theorem, all quantities and
-alternatives used in the argument are defined below.
+All arguments are local in spacetime.  Apart from the standard
+Caffarelli--Kohn--Nirenberg \(\varepsilon\)-regularity theorem, all quantities
+and alternatives used in the argument are defined below.
 
 \section{Suitable Weak Solutions and Singular Points}
 
@@ -161,7 +167,7 @@ that \(\|u\|_{L^\infty(Q_r(x,T))}\le M\).
 If a finite-time singularity occurs at time \(T\), then
 \(\Sigma(T)\ne\emptyset\) in this local sense.
 
-\section{Parabolic Rescaling and Critical Quantities}
+\section{Parabolic Rescaling and Scale-Invariant Quantities}
 
 Fix \(z_0=(x_0,T)\).  For \(r>0\), define the parabolic rescaling
 \[
@@ -181,9 +187,8 @@ functions of the rescaled time.
 
 \begin{proof}
 The distributional equations and the divergence condition follow from the
-change of variables \(x=x_0+ry\), \(t=T+r^2s\).  We spell out the local
-energy inequality because this is the only point at which the suitability
-condition is not purely formal.
+change of variables \(x=x_0+ry\), \(t=T+r^2s\).  We include the verification of
+the local energy inequality to fix the normalization.
 
 Let \(\psi\in C_c^\infty\) be nonnegative and compactly supported in the
 rescaled domain.  Define
@@ -206,8 +211,8 @@ Apply that inequality for \((u,p)\) to \(\phi\) on
   u(x_0+ry,T+r^2s)=r^{-1}u^{(r)}(y,s),\qquad
   p(x_0+ry,T+r^2s)=r^{-2}p^{(r)}(y,s),
 \]
-all terms contain the same common factor \(r\).  Dividing by this factor gives
-exactly
+each term contains the same common factor \(r\).  Dividing by this factor gives
+the rescaled inequality
 \[
 \begin{aligned}
 &\int_{\mathbb R^3}\frac{|u^{(r)}(y,s_2)|^2}{2}\psi(y,s_2)\,dy
@@ -223,11 +228,11 @@ exactly
 \end{aligned}
 \]
 Thus \((u^{(r)},p^{(r)})\) is suitable on the rescaled domain.  The pressure
-transformation is the one dictated by Navier--Stokes scaling, and addition of
-a function of \(t\) becomes addition of a function of \(s\).
+transforms according to the Navier--Stokes scaling, and addition of a function
+of \(t\) becomes addition of a function of \(s\).
 \end{proof}
 
-\begin{definition}[Pressure-normalized critical quantities]
+\begin{definition}[Scale-invariant local quantities]
 For \(z_0=(x_0,t_0)\) and \(r>0\), set
 \[
   C(z_0,r)=r^{-2}\int_{Q_r(z_0)} |u|^3\,dx\,dt
@@ -242,7 +247,7 @@ Here \((p)_{B_r(x_0)}(t)\) denotes the spatial mean of \(p(\cdot,t)\) on
 \(B_r(x_0)\).
 \end{definition}
 
-The subtraction of the spatial mean fixes the pressure ambiguity in the form
+The subtraction of the spatial mean removes the pressure ambiguity in the form
 used by the Caffarelli--Kohn--Nirenberg criterion.
 
 \begin{proposition}[Local finiteness and scaling]\label{prop:critical-scaling}
@@ -291,7 +296,7 @@ while Jensen's inequality gives
   |(p)_B(t)|^{3/2}
   \le \frac1{|B|}\int_B |p(x,t)|^{3/2}\,dx.
 \]
-After integration over \(B\) and over time, the normalized pressure term is
+After integration over \(B\) and over time, the mean-subtracted pressure term is
 controlled by the local \(L^{3/2}\) norm of \(p\).
 
 For the scaling identity, use \(x=x_0+ry\), \(t=T+r^2s\).  The velocity term
@@ -323,15 +328,15 @@ r^{-2}\int_{T-(rR)^2}^{T}\int_{B_{rR}(x_0)}
 Adding the velocity and pressure identities gives the displayed formula.
 \end{proof}
 
-\section{Epsilon Regularity and the Vanishing Case}
+\section{\texorpdfstring{\(\varepsilon\)-Regularity}{Epsilon-Regularity} and the Vanishing Case}
 
-\begin{theorem}[Caffarelli--Kohn--Nirenberg epsilon regularity]
+\begin{theorem}[Caffarelli--Kohn--Nirenberg \(\varepsilon\)-regularity]
 \label{thm:ckn}
-There exists a universal constant \(\varepsilon_{\mathrm{CKN}}>0\) with the
+There exists a universal constant \(\varepsilon_0>0\) with the
 following property.  Let \((u,p)\) be a suitable weak solution in \(Q_r(z_0)\).
 If
 \[
-  C(z_0,r)+D(z_0,r)<\varepsilon_{\mathrm{CKN}},
+  C(z_0,r)+D(z_0,r)<\varepsilon_0,
 \]
 then \(u\) is locally bounded in a smaller cylinder, for instance in
 \(Q_{r/2}(z_0)\).  In particular, if \(z_0=(x_0,T)\), then
@@ -339,14 +344,14 @@ then \(u\) is locally bounded in a smaller cylinder, for instance in
 \end{theorem}
 
 \begin{proof}
-This is the local epsilon-regularity theorem of
+This is the local \(\varepsilon\)-regularity theorem of
 Caffarelli--Kohn--Nirenberg \cite{CKN1982}; see also Lin \cite{Lin1998}.  It is
-stated here with the pressure normalization used in \(D\).  Equivalent
+stated here with the spatial mean subtraction used in \(D\).  Equivalent
 representatives of the pressure differ by functions of time, and the spatial
 mean subtraction on \(B_r(x_0)\) removes this ambiguity.
 \end{proof}
 
-\begin{theorem}[Velocity epsilon regularity]\label{thm:velocity-ckn}
+\begin{theorem}[Velocity \(\varepsilon\)-regularity]\label{thm:velocity-ckn}
 There exists a universal constant \(\varepsilon_v>0\) with the following
 property.  Let \((u,p)\) be a suitable weak solution in \(Q_r(z_0)\).  If
 \[
@@ -357,18 +362,18 @@ then \(u\) is locally bounded in \(Q_{r/2}(z_0)\).  In particular, if
 \end{theorem}
 
 \begin{proof}
-This is the velocity-only form of the Caffarelli--Kohn--Nirenberg
-epsilon-regularity criterion.  It follows from the standard local pressure
-decay lemma together with the pressure-normalized criterion
-\cref{thm:ckn}; equivalently, it is the \(L^3_{x,t}\)-smallness criterion
+This is the standard \(L^3_{x,t}\) form of the Caffarelli--Kohn--Nirenberg
+\(\varepsilon\)-regularity criterion.  It follows from the standard local
+pressure decay lemma together with \cref{thm:ckn}; equivalently, it is the
+\(L^3_{x,t}\)-smallness criterion
 proved in the Caffarelli--Kohn--Nirenberg theory and in Lin's direct proof
 \cite{CKN1982,Lin1998}.  The statement is scale invariant because \(C\) is
 invariant under the parabolic Navier--Stokes scaling.
 \end{proof}
 
-\begin{definition}[Vanishing local critical density at time \(T\)]
-We say that the local critical density vanishes at time \(T\) if, for every
-\(x_0\in\Sigma(T)\),
+\begin{definition}[Vanishing local scale-invariant quantities at time \(T\)]
+We say that the local scale-invariant quantities vanish at time \(T\) if, for
+every \(x_0\in\Sigma(T)\),
 \[
   \limsup_{r\downarrow0}
   \bigl(C((x_0,T),r)+D((x_0,T),r)\bigr)=0.
@@ -400,25 +405,26 @@ Thus vanishing of \(C+D\) implies vanishing on every fixed rescaled cylinder.
 Conversely, taking \(R=1\) gives the original pointwise condition.
 \end{proof}
 
-\begin{theorem}[No-concentration regularity]\label{thm:no-concentration}
+\begin{theorem}[Regularity under vanishing local quantities]\label{thm:no-concentration}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\) for some \(\delta>0\).  If the local
-critical density vanishes at time \(T\), then \(\Sigma(T)=\emptyset\).  Thus no
-finite-time singularity occurs at time \(T\) in the no-concentration case.
+scale-invariant quantities vanish at time \(T\), then
+\(\Sigma(T)=\emptyset\).  Thus no finite-time singularity occurs at time \(T\)
+in the no-concentration case.
 \end{theorem}
 
 \begin{proof}
 Suppose, toward a contradiction, that \(x_0\in\Sigma(T)\).  By the vanishing
 hypothesis, choose \(r>0\) such that
 \[
-  C((x_0,T),r)+D((x_0,T),r)<\varepsilon_{\mathrm{CKN}}.
+  C((x_0,T),r)+D((x_0,T),r)<\varepsilon_0.
 \]
 \Cref{thm:ckn} implies that \(u\) is bounded in \(Q_{r/2}(x_0,T)\), hence
 \(x_0\notin\Sigma(T)\).  This contradicts the choice of \(x_0\).  Hence
 \(\Sigma(T)=\emptyset\).
 \end{proof}
 
-\begin{corollary}[Vanishing rescaled density excludes terminal singularity]
+\begin{corollary}[Vanishing local quantities exclude a terminal singularity]
 \label{cor:escape}
 Let \((u,p)\) be suitable near \((x_0,T)\).  If
 \[
@@ -427,13 +433,13 @@ Let \((u,p)\) be suitable near \((x_0,T)\).  If
 \]
 then \(u\) is bounded in some backward cylinder \(Q_\rho(x_0,T)\), and hence
 \(x_0\notin\Sigma(T)\).  Equivalently, membership in \(\Sigma(T)\) requires
-nonzero pressure-normalized CKN density on a sequence of shrinking backward
+that \(C+D\) have a positive lower bound along a sequence of shrinking backward
 parabolic cylinders.
 \end{corollary}
 
 \begin{proof}
 The hypothesis gives a scale at which \(C+D\) is below the universal threshold
-in \cref{thm:ckn}.  The epsilon-regularity theorem gives local boundedness in
+in \cref{thm:ckn}.  The \(\varepsilon\)-regularity theorem gives local boundedness in
 a backward cylinder ending at \(T\), so \(x_0\notin\Sigma(T)\).
 \end{proof}
 
@@ -441,15 +447,16 @@ a backward cylinder ending at \(T\), so \(x_0\notin\Sigma(T)\).
 
 \begin{lemma}[Failure of vanishing gives a positive concentration sequence]
 \label{lem:positive-concentration}
-Suppose the local critical density does not vanish at time \(T\).  Then there
-exist \(x_0\in\Sigma(T)\), a number \(\eta>0\), and radii \(r_n\downarrow0\)
-such that
+Suppose the local scale-invariant quantities do not vanish at time \(T\).  Then
+there exist \(x_0\in\Sigma(T)\), a constant \(\eta>0\), and radii
+\(r_n\downarrow0\) such that
 \[
   C((x_0,T),r_n)+D((x_0,T),r_n)\ge\eta
   \qquad\text{for all }n.
 \]
-Equivalently, the rescaled sequence around \((x_0,T)\) has nonzero critical
-local density on a fixed bounded cylinder.
+Equivalently, the rescaled sequence around \((x_0,T)\) has a positive lower
+bound for the corresponding local scale-invariant quantities on a fixed
+bounded cylinder.
 \end{lemma}
 
 \begin{proof}
@@ -502,9 +509,11 @@ Then
   \int_{-R^2}^{0}\int_{B_R}
   \left(|U|^3+|\Pi|^{3/2}\right)\,dy\,ds\ge\eta.
 \]
-In particular, the limiting pair has nonzero pressure-normalized local
-critical density on this cylinder.  If \(\Pi=P-(P)_{B_R}(s)\), this is the
-CKN density of \((U,P)\) on \(B_R\times(-R^2,0)\).
+In particular, the limiting pair retains the same positive lower bound for the
+mean-subtracted local scale-invariant quantity.  If
+\(\Pi=P-(P)_{B_R}(s)\), this is the corresponding
+Caffarelli--Kohn--Nirenberg quantity of \((U,P)\) on
+\(B_R\times(-R^2,0)\).
 \end{proposition}
 
 \begin{proof}
@@ -515,15 +524,13 @@ Strong convergence in \(L^3\) gives
   \int_{-R^2}^{0}\int_{B_R}|U|^3\,dy\,ds.
 \]
 Strong convergence in \(L^{3/2}\) gives the analogous convergence of the
-normalized pressure integrals.  Passing to the limit in the lower bound yields
-the asserted inequality.
+mean-subtracted pressure integrals.  Passing to the limit in the lower bound
+yields the asserted inequality.
 \end{proof}
 
 \begin{remark}
-\Cref{prop:compactness-persistence} is not used in the proof of the main
-dichotomy below.  It is included only as an auxiliary statement for later
-compactness arguments, where strong convergence of a rescaled sequence has
-already been obtained by other means.
+\Cref{prop:compactness-persistence} is an auxiliary compactness observation,
+independent of the proof of the dichotomy below.
 \end{remark}
 
 \begin{proposition}[Local alternative]\label{prop:local-alternative}
@@ -547,14 +554,14 @@ that
 
 \begin{proof}
 The first alternative is a universal assertion over the singular set, and the
-second is precisely its failure written with a realizing sequence.  If the
-first alternative fails, then for some \(x_0\in\Sigma(T)\) the corresponding
-limsup is positive; choosing a positive number below this limsup and a
-realizing sequence gives the second alternative.  Conversely, the second
+second is its failure expressed by a sequence.  If the first alternative fails,
+then for some \(x_0\in\Sigma(T)\) the corresponding limsup is positive;
+choosing a positive number below this limsup and a sequence along which the
+lower bound holds gives the second alternative.  Conversely, the second
 alternative contradicts the first.  Hence exactly one alternative holds.
 \end{proof}
 
-\begin{theorem}[Singular points carry positive local CKN concentration]
+\begin{theorem}[Finite-time singularity yields positive local scale-invariant concentration]
 \label{thm:singular-positive}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\).  If \(\Sigma(T)\ne\emptyset\), then there
@@ -593,13 +600,14 @@ Choose \(r>0\) so small that
   C((x_0,T),r)<\varepsilon_v,
 \]
 where \(\varepsilon_v\) is the constant in
-\cref{thm:velocity-ckn}.  The velocity epsilon-regularity theorem gives
+\cref{thm:velocity-ckn}.  The velocity \(\varepsilon\)-regularity theorem gives
 boundedness of \(u\) in \(Q_{r/2}(x_0,T)\), contradicting
 \(x_0\in\Sigma(T)\).  Hence the limsup is positive; taking any
-\(\eta_v\) below it and passing to a realizing sequence gives the result.
+\(\eta_v\) below it and passing to a sequence with
+\(C((x_0,T),r_n)\ge\eta_v\) gives the result.
 \end{proof}
 
-\section{The Type I/Type II Blowup-Rate Dichotomy}
+\section{The Type I/Type II Blow-Up Rate Dichotomy}
 
 Let \(x_0\in\Sigma(T)\), \(\eta>0\), and \(r_n\downarrow0\) be given by
 \cref{thm:singular-positive}.  Define
@@ -609,30 +617,31 @@ Let \(x_0\in\Sigma(T)\), \(\eta>0\), and \(r_n\downarrow0\) be given by
   p_n(y,s)=r_n^2p(x_0+r_ny,T+r_n^2s).
 \]
 Then \((u_n,p_n)\) are suitable weak solutions on expanding backward
-cylinders, and by \cref{prop:critical-scaling} they retain a nonzero
-pressure-normalized critical density on a fixed bounded cylinder.
+cylinders, and by \cref{prop:critical-scaling} they retain a positive lower
+bound for the mean-subtracted local scale-invariant quantity on a fixed
+bounded cylinder.
 
 \begin{definition}[Type I concentration sequence]
 \label{def:typeI-concentration}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and let \(r_n\downarrow0\) be a positive
 local concentration sequence at \((x_0,T)\).  The sequence is called Type I
-when the concentration point \((x_0,T)\) satisfies a local Type I
+if the concentration point \((x_0,T)\) satisfies a local Type I
 scale-invariant bound:
 there are \(\rho>0\) and \(M<\infty\), with \(\rho^2<\delta\), such that
 \[
   \operatorname*{ess\,sup}_{T-\rho^2<t<T}
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_0))}\le M.
 \]
-The corresponding case is the Type I alternative.
+This is the Type I alternative.
 \end{definition}
 
 \begin{definition}[Local Type II alternative]
 \label{def:typeII-alternative}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and let \(r_n\downarrow0\) be a positive
-local concentration sequence at \((x_0,T)\).  The sequence is in the local
-Type II alternative when the concentration point \((x_0,T)\) satisfies no
+local concentration sequence at \((x_0,T)\).  The sequence belongs to the local
+Type II alternative if the concentration point \((x_0,T)\) satisfies no
 local Type I scale-invariant bound.  Equivalently, for every \(\rho>0\) with
 \(\rho^2<\delta\),
 \[
@@ -641,7 +650,7 @@ local Type I scale-invariant bound.  Equivalently, for every \(\rho>0\) with
 \]
 \end{definition}
 
-\begin{theorem}[Local blowup-rate dichotomy]\label{thm:blowup-rate-dichotomy}
+\begin{theorem}[Local blow-up rate dichotomy]\label{thm:typeI-typeII-dichotomy}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and suppose \(\Sigma(T)\ne\emptyset\).
 Then there exist \(x_0\in\Sigma(T)\),
@@ -650,29 +659,30 @@ Then there exist \(x_0\in\Sigma(T)\),
   C((x_0,T),r_n)+D((x_0,T),r_n)\ge\eta
   \qquad\text{for all }n.
 \]
-The sequence \(r_n\) is a positive local concentration sequence.  It is either a
-Type I concentration sequence or a local Type II alternative.  Consequently,
-after the no-concentration case has been excluded by epsilon regularity, every
-finite-time singular case reaches exactly one of the two blowup-rate
-alternatives.
+The sequence \(r_n\) is a positive local concentration sequence.  The
+corresponding concentration regime satisfies either the local Type I bound or
+the local Type II alternative.  Consequently, once the vanishing case has been
+excluded by \(\varepsilon\)-regularity, every finite-time singular case falls
+under exactly one of the two blow-up rate alternatives.
 \end{theorem}
 
 \begin{proof}
-If the local critical density vanished at every point of \(\Sigma(T)\), then
-\cref{thm:no-concentration} would give \(\Sigma(T)=\emptyset\), contrary to the
-hypothesis.  Therefore \cref{thm:singular-positive} gives
+If the local scale-invariant quantities vanished at every point of
+\(\Sigma(T)\), then \cref{thm:no-concentration} would give
+\(\Sigma(T)=\emptyset\), contrary to the hypothesis.  Therefore
+\cref{thm:singular-positive} gives
 \(x_0\in\Sigma(T)\), \(\eta>0\), and \(r_n\downarrow0\) with the stated lower
-bound.  The rescaled sequence has positive local critical density by
-\cref{prop:critical-scaling}.  It either satisfies the Type I bound in
-\cref{def:typeI-concentration}, or it does not.  In the latter case it is, by
-\cref{def:typeII-alternative}, a local Type II alternative.
+bound.  The rescaled sequence has a positive local scale-invariant lower bound
+by \cref{prop:critical-scaling}.  By definition, either the Type I bound in
+\cref{def:typeI-concentration} holds, or the local Type II alternative in
+\cref{def:typeII-alternative} holds.
 \end{proof}
 
 \begin{remark}
-The preceding theorem is a local statement.  Its conclusion is the existence of
-a positive pressure-normalized CKN concentration sequence and the dichotomy
-between a local Type I bound and failure of every such bound at the concentration
-point.
+This theorem is local.  Its conclusion is the existence of a positive
+mean-subtracted scale-invariant concentration sequence and the dichotomy
+between a local Type I bound and failure of every such bound at the
+concentration point.
 \end{remark}
 
 \begin{thebibliography}{9}

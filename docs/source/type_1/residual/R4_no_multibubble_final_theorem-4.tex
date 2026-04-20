@@ -1,0 +1,544 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\CKN}{\mathrm{CKN}}
+\newcommand{\RNSE}{\mathrm{RNSE}}
+\newcommand{\NS}{\mathrm{NS}}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cM}{\mathcal M}
+\newcommand{\NoMulti}{\mathrm{NoMulti}_{R4}}
+
+\title{Discharging the \(R4\) Branch from a Finite No-Multibubble Theorem}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note isolates the final logical step in the \(R4\) branch.  We prove, in
+standard PDE language, that the generic \(R4\) residual class is empty once
+finite retained active multibubble terminal states are excluded.  We also state
+the precise finite no-multibubble theorem and show how it may be reused from a
+terminal nonlinear profile-decoupling theorem.  The proof uses terminal
+state-space exhaustion, inactive-stratum discharge, recurrent tail rigidity,
+atomic sequence-\(L^3\) completeness, mildness inheritance, and the
+Albritton--Barker Liouville theorem for mild ancient Navier--Stokes solutions.
+\end{abstract}
+
+\tableofcontents
+
+\section{Renormalized setting}
+
+We work with the backward self-similar renormalized Navier--Stokes equation
+\begin{equation}
+  \partial_\tau U-\Delta U+\frac12 y\cdot\nabla U+\frac12 U
+  +(U\cdot\nabla)U+\nabla\Pi=0,
+  \qquad
+  \nabla\cdot U=0
+  \label{eq:rnse}
+\end{equation}
+on \(\R^3_y\times\R_\tau\).  The associated physical variables are
+\begin{equation}
+  u(x,t)=(-t)^{-1/2}
+  U\!\left(\frac{x}{\sqrt{-t}},-\log(-t)\right),
+  \qquad t<0,
+  \label{eq:pullback-u}
+\end{equation}
+and
+\begin{equation}
+  p(x,t)=(-t)^{-1}
+  \Pi\!\left(\frac{x}{\sqrt{-t}},-\log(-t)\right).
+  \label{eq:pullback-p}
+\end{equation}
+A direct computation gives that \((u,p)\) solves the physical Navier--Stokes
+equations
+\begin{equation}
+  \partial_tu-\Delta u+(u\cdot\nabla)u+\nabla p=0,
+  \qquad
+  \nabla\cdot u=0.
+  \label{eq:physical-ns}
+\end{equation}
+
+For a parabolic cylinder
+\[
+  Q_r(z_0):=B_r(y_0)\times(\tau_0-r^2,\tau_0),
+  \qquad z_0=(y_0,\tau_0),
+\]
+define the local Caffarelli--Kohn--Nirenberg quantity
+\begin{equation}
+  \cE_r(U,\Pi;z_0)
+  :=
+  \iint_{Q_r(z_0)}
+  \left(
+    |U|^3+\left|\Pi-c_{r,z_0}(\tau)\right|^{3/2}
+  \right)\,dy\,d\tau,
+  \label{eq:local-ckn}
+\end{equation}
+where \(c_{r,z_0}(\tau)\) is an admissible local pressure gauge, for instance
+the average of \(\Pi(\cdot,\tau)\) over \(B_r(y_0)\).  We write \(Q_r=Q_r(0,0)\).
+
+\section{The \(R4\) class and terminal decomposition}
+
+The class \(R4\) is the residual Type I branch left after all previously
+identified branches have been removed.  Its elements are bounded ancient
+Seregin-limit profiles satisfying the Type I \(L^\infty\) bound, local
+suitability, persistent compact CKN density, and none of the previously closed
+small, stationary \(L^3\), tight, fast-decay, structured, axisymmetric,
+controlled-swirl, R1, R2, or R3 alternatives.
+
+\begin{definition}[R4 profile]
+An \(R4\) profile is a smooth bounded ancient solution \((V,P)\) of
+\eqref{eq:rnse} such that:
+\begin{enumerate}[label=(\roman*)]
+  \item \(\|V\|_{L^\infty(\R^3\times\R)}\le M\);
+  \item \(V\) is suitable on every compact cylinder;
+  \item \(V\) carries persistent compact CKN density, i.e. along the terminal
+  extraction under consideration there is a compact cylinder on which the
+  local CKN quantity is bounded below by a fixed positive number;
+  \item \(V\) is not in any of the previously closed branches.
+\end{enumerate}
+\end{definition}
+
+We assume the following terminal decomposition input.
+
+\begin{assumption}[Terminal state-space exhaustion]
+\label{ass:terminal-exhaustion}
+Every terminal extraction of a tail-normalized \(R4\) profile belongs to exactly
+one of the following alternatives:
+\[
+  \text{core},\quad
+  \text{scattering},\quad
+  \text{exterior},\quad
+  \text{radiative},\quad
+  \text{rough},\quad
+  \text{finite multibubble}.
+\]
+Furthermore, the scattering, exterior, radiative, and rough alternatives do not
+retain the compact active CKN density of an \(R4\) profile.
+\end{assumption}
+
+\begin{assumption}[Tail reduction and affine normalization]
+\label{ass:tail-normalization}
+The tail-hull analysis has been performed.  Nonconstant recurrent tail cores
+are discharged by recurrent tail rigidity, and constant tails are removed by
+the affine renormalized Galilean symmetry.  Thus any remaining \(R4\) candidate
+may be represented as a tail-zero profile.
+\end{assumption}
+
+\section{Retained active profiles and finite multibubbles}
+
+Fix a small positive threshold \(\eps_*>0\).
+
+\begin{definition}[retained active terminal profile]
+A terminal profile \((U,\Pi)\) is called retained active if
+\begin{equation}
+  \cE_1(U,\Pi;0)\ge \eps_*.
+  \label{eq:active-profile}
+\end{equation}
+\end{definition}
+
+\begin{definition}[finite retained active multibubble]
+A finite retained active multibubble terminal state is a finite family of
+terminal cameras
+\[
+  g_{1,n},\dots,g_{J,n},
+  \qquad J\ge2,
+\]
+such that:
+\begin{enumerate}[label=(\roman*)]
+  \item the cameras are mutually separated:
+  \[
+    g_{i,n}^{-1}g_{j,n}\to\infty
+    \qquad (i\ne j);
+  \]
+  \item after passing to a subsequence,
+  \[
+    g_{j,n}\cdot V\to U_j
+  \]
+  locally smoothly for velocity and locally in \(L^{3/2}\) for pressure modulo
+  admissible gauges;
+  \item each terminal profile is retained active:
+  \[
+    \cE_1(U_j,\Pi_j;0)\ge\eps_*,
+    \qquad j=1,\dots,J.
+  \]
+\end{enumerate}
+The packet is called maximal if no further separated retained active terminal
+camera may be added to it.
+\end{definition}
+
+\begin{theorem}[Finite no-multibubble theorem]
+\label{thm:no-multi}
+No \(R4\) profile admits a finite retained active multibubble terminal state.
+\end{theorem}
+
+Theorem~\ref{thm:no-multi} is the final multibubble statement.  In
+Section~\ref{sec:reuse}, we explain how it can be reused from terminal
+nonlinear profile decoupling.
+
+\section{Atomic terminal profiles}
+
+\begin{definition}[tail descendant]
+Let \((U,\Pi)\) be a terminal profile.  A retained active tail descendant of
+\(U\) is a terminal limit \(W\) obtained from cameras escaping to infinity
+relative to \(U\), such that
+\[
+  \cE_1(W,\Pi_W;0)\ge\eps_*.
+\]
+\end{definition}
+
+\begin{definition}[radiative and rough descendants]
+A radiative descendant of \(U\) is a sequence
+\[
+  \tau_n\to-\infty,\qquad R_n\to\infty,
+\]
+and a number \(\eta>0\), such that
+\[
+  \int_{|y|>R_n}|U(y,\tau_n)|^3\,dy\ge\eta,
+  \label{eq:radiative}
+\]
+while every unit-scale exterior camera is below the retained-active threshold,
+after excluding rough cameras.
+
+A rough descendant is a tail camera for which the local compactness,
+suitability, or pressure control needed to extract a terminal profile fails.
+\end{definition}
+
+\begin{definition}[atomic profile]
+A retained active terminal profile is atomic if it has no retained active tail
+descendant, no radiative descendant, and no rough descendant.
+\end{definition}
+
+\section{One active descendant gives a two-camera multibubble}
+
+\begin{lemma}
+\label{lem:desc-to-multi}
+Let \(U\) be a retained active terminal profile.  If \(U\) has a retained
+active tail descendant, then \(U\) belongs to the finite retained active
+multibubble stratum.
+\end{lemma}
+
+\begin{proof}
+The origin camera of \(U\) carries positive local CKN mass:
+\[
+  \cE_1(U,\Pi;0)\ge\eps_*.
+\]
+Let \(W\) be a retained active tail descendant.  By definition there are
+cameras \(h_n\to\infty\), relative to \(U\), such that
+\[
+  h_n\cdot U\to W
+\]
+in the terminal topology and
+\[
+  \cE_1(W,\Pi_W;0)\ge\eps_*.
+\]
+By local convergence of the velocity and pressure, after gauges,
+\[
+  \cE_1(h_n\cdot U,\Pi_{h_n};0)\ge \frac12\eps_*
+\]
+for all sufficiently large \(n\).  Thus, for large \(n\), the same terminal
+object has two separated retained active cameras: the origin camera and the
+camera \(h_n\).  This is a finite two-camera retained active multibubble.
+\end{proof}
+
+\begin{proposition}
+\label{prop:no-multi-implies-atomic}
+Assume Theorem~\ref{thm:no-multi} and
+Assumption~\ref{ass:terminal-exhaustion}.  Then every singleton retained active
+terminal profile arising from an \(R4\) candidate is atomic.
+\end{proposition}
+
+\begin{proof}
+Let \(U\) be a singleton retained active terminal profile.  If \(U\) had a
+retained active tail descendant, Lemma~\ref{lem:desc-to-multi} would place it
+in the finite multibubble stratum, contradicting Theorem~\ref{thm:no-multi}.
+
+If \(U\) had a radiative or rough descendant, then the corresponding terminal
+extraction would lie in the radiative or rough alternative.  These alternatives
+are excluded as carriers of the persistent compact CKN density by
+Assumption~\ref{ass:terminal-exhaustion}.  Hence no such descendant exists, and
+\(U\) is atomic.
+\end{proof}
+
+\section{Atomic sequence-\(L^3\) completeness}
+
+\begin{lemma}
+\label{lem:atomic-L3}
+Let \(U\) be a bounded smooth ancient solution of \eqref{eq:rnse}.  If \(U\) is
+retained active and atomic, then there exists a sequence
+\[
+  \tau_k\to-\infty
+\]
+such that
+\[
+  \sup_k\|U(\cdot,\tau_k)\|_{L^3(\R^3)}<\infty.
+\]
+\end{lemma}
+
+\begin{proof}
+We argue by contrapositive.  Suppose no such sequence exists.  Then
+\begin{equation}
+  \liminf_{\tau\to-\infty}
+  \|U(\cdot,\tau)\|_{L^3(\R^3)}
+  =\infty.
+  \label{eq:no-seq-L3}
+\end{equation}
+Choose \(\tau_n\to-\infty\) so that
+\[
+  \int_{\R^3}|U(y,\tau_n)|^3\,dy\to\infty.
+\]
+Since \(U\) is bounded, choose \(R_n\to\infty\) sufficiently slowly so that
+\begin{equation}
+  \int_{|y|>R_n}|U(y,\tau_n)|^3\,dy\ge 1.
+  \label{eq:tail-mass}
+\end{equation}
+Set
+\[
+  m_n:=
+  \sup_{|x|>R_n}
+  \int_{B_1(x)}|U(y,\tau_n)|^3\,dy.
+\]
+
+If \(\limsup_n m_n\ge\eps_*\), then for a subsequence there exist
+\(|x_n|>R_n\) such that
+\[
+  \int_{B_1(x_n)}|U(y,\tau_n)|^3\,dy\ge\eps_*.
+\]
+After recentering at \((x_n,\tau_n)\), either terminal compactness fails,
+which gives a rough descendant, or a terminal subsequence converges to a
+retained active tail descendant.  Both alternatives contradict atomicity.
+
+It remains to consider the case \(m_n<\eps_*\) for all sufficiently large
+\(n\).  Then \eqref{eq:tail-mass} says that exterior \(L^3\)-mass persists,
+while every unit-scale exterior camera is below the retained-active threshold.
+This is precisely a radiative descendant, contradicting atomicity.
+
+Thus \eqref{eq:no-seq-L3} is impossible.
+\end{proof}
+
+\section{Albritton--Barker endpoint}
+
+\begin{assumption}[mildness inheritance]
+\label{ass:mildness}
+If \(U\) is a retained active terminal profile, then the physical pullback
+\eqref{eq:pullback-u} is a mild ancient solution of the physical
+Navier--Stokes equations, after any finite time shift.
+\end{assumption}
+
+\begin{theorem}[Albritton--Barker]
+\label{thm:AB}
+Let \(u\) be a mild ancient solution of the three-dimensional Navier--Stokes
+equations.  If there exists a sequence \(t_k\downarrow-\infty\) such that
+\[
+  \sup_k\|u(\cdot,t_k)\|_{L^3(\R^3)}<\infty,
+\]
+then \(u\equiv0\).
+\end{theorem}
+
+\begin{lemma}
+\label{lem:atomic-vanish}
+Assume Assumption~\ref{ass:mildness}.  No retained active atomic terminal
+profile exists.
+\end{lemma}
+
+\begin{proof}
+Let \(U\) be retained active and atomic.  By Lemma~\ref{lem:atomic-L3}, choose
+\(\tau_k\to-\infty\) such that
+\[
+  \sup_k\|U(\cdot,\tau_k)\|_{L^3}<\infty.
+\]
+Let \(u\) be the physical pullback \eqref{eq:pullback-u}, and set
+\[
+  t_k=-e^{-\tau_k}.
+\]
+Then \(t_k\downarrow-\infty\), and by critical scaling,
+\[
+  \|u(\cdot,t_k)\|_{L^3(\R^3)}
+  =
+  \|U(\cdot,\tau_k)\|_{L^3(\R^3)}.
+\]
+By Assumption~\ref{ass:mildness}, \(u\) is mild ancient.  Theorem~\ref{thm:AB}
+therefore gives \(u\equiv0\), hence \(U\equiv0\).  This contradicts retained
+activity, since \(\cE_1(U,\Pi;0)\ge\eps_*>0\).
+\end{proof}
+
+\section{R4 closure from no multibubbles}
+
+\begin{theorem}[R4 closure from finite no-multibubble]
+\label{thm:R4-closure}
+Assume:
+\begin{enumerate}[label=(\roman*)]
+  \item tail reduction and affine normalization,
+  Assumption~\ref{ass:tail-normalization};
+  \item terminal state-space exhaustion and inactive-stratum discharge,
+  Assumption~\ref{ass:terminal-exhaustion};
+  \item no finite retained active multibubbles, Theorem~\ref{thm:no-multi};
+  \item mildness inheritance, Assumption~\ref{ass:mildness};
+  \item the Albritton--Barker Liouville theorem, Theorem~\ref{thm:AB}.
+\end{enumerate}
+Then the \(R4\) class is empty.
+\end{theorem}
+
+\begin{proof}
+Suppose, for contradiction, that \(V\in R4\).  By
+Assumption~\ref{ass:tail-normalization}, we reduce to a tail-zero representative.
+By definition of \(R4\), persistent compact CKN density remains.
+
+Apply terminal state-space exhaustion.  By
+Assumption~\ref{ass:terminal-exhaustion}, the persistent compact CKN density
+cannot be carried by scattering, exterior, radiative, or rough alternatives.
+Hence it is carried either by a finite retained active multibubble terminal
+state or by at least one singleton retained active terminal profile.
+
+The first case is impossible by Theorem~\ref{thm:no-multi}.  In the second
+case, let \(U\) be such a singleton retained active terminal profile.  By
+Proposition~\ref{prop:no-multi-implies-atomic}, \(U\) is atomic.  By
+Lemma~\ref{lem:atomic-vanish}, \(U\) cannot exist.  This contradiction proves
+that no \(R4\) profile exists.
+\end{proof}
+
+\section{Reusing a no-multibubble theorem}
+\label{sec:reuse}
+
+The proof above isolates exactly how a no-multibubble theorem is reused in the
+\(R4\) branch.  The input required by Theorem~\ref{thm:R4-closure} is simply
+Theorem~\ref{thm:no-multi}.  One may prove Theorem~\ref{thm:no-multi} by any
+method.  A standard route is through terminal nonlinear profile decoupling.
+
+\begin{theorem}[Terminal nonlinear profile decoupling]
+\label{thm:terminal-decoupling}
+Let \((V_n,P_n)\) be a terminal sequence with a maximal finite retained active
+packet \(g_{1,n},\ldots,g_{J,n}\).  Then, after passing to a subsequence, there
+are mild ancient profiles \((U_j,\Pi_j)\), \(j=1,\ldots,J\), such that:
+\begin{enumerate}[label=(\roman*)]
+  \item \(g_{j,n}\cdot V_n\to U_j\) in \(C^\infty_{\loc}\);
+  \item \(g_{j,n}\cdot P_n-c_{j,n}(\tau)\to\Pi_j\) locally in \(L^{3/2}\);
+  \item in the \(j\)-th camera, every other profile escapes every compact set;
+  \item the pressure generated by distant profiles is harmonic on compact
+  cylinders and is absorbed into the local pressure gauge;
+  \item nonlinear cross-interactions between distinct profiles vanish on
+  compact terminal windows;
+  \item after removing the finite packet, no hidden retained active camera
+  remains.
+\end{enumerate}
+\end{theorem}
+
+Theorem~\ref{thm:terminal-decoupling} is the usual terminal no-splitting
+statement: separated active profiles behave independently in terminal cameras,
+and any further retained active camera contradicts maximality.
+
+\begin{proposition}[Terminal decoupling implies no finite multibubbles]
+\label{prop:decoupling-to-no-multi}
+Assume Theorem~\ref{thm:terminal-decoupling}, discharge of radiative and rough
+terminal alternatives, recurrent tail rigidity, mildness inheritance, and the
+Albritton--Barker theorem.  Then Theorem~\ref{thm:no-multi} holds.
+\end{proposition}
+
+\begin{proof}
+Suppose a finite retained active multibubble packet exists, and let
+\(U_1,\ldots,U_J\) be a maximal packet.
+
+If some \(U_j\) is atomic, then Lemma~\ref{lem:atomic-vanish} gives a
+contradiction.
+
+Assume therefore that no \(U_j\) is atomic.  Since radiative and rough
+alternatives are discharged, every \(U_j\) has a retained active tail
+descendant.  By Theorem~\ref{thm:terminal-decoupling}, each such descendant
+lifts back to a retained active terminal camera of the original sequence.  By
+maximality of the packet, the lifted camera must be equivalent to one of the
+existing \(g_{i,n}\).  Thus the finite set of indices
+\(\{1,\ldots,J\}\) carries a directed graph in which each vertex has an
+outgoing edge.
+
+A finite directed graph with every vertex having an outgoing edge contains a
+directed cycle.  This cycle produces a compact recurrent tail set.  By
+recurrent tail rigidity, that recurrent tail set consists only of affine
+constant profiles.  After tail-zero normalization, the recurrent set is
+trivial.  This contradicts retained activity of the profiles in the cycle.
+
+Therefore the assumption that a finite retained active multibubble exists is
+impossible.
+\end{proof}
+
+Combining Proposition~\ref{prop:decoupling-to-no-multi} with
+Theorem~\ref{thm:R4-closure} gives the final reusable form:
+\[
+  \boxed{
+  \text{terminal nonlinear profile decoupling}
+  \Longrightarrow
+  \text{no finite retained multibubbles}
+  \Longrightarrow
+  R4=\varnothing.
+  }
+\]
+
+\section{Summary of the closure chain}
+
+The complete logical chain is:
+\[
+\begin{aligned}
+  &\text{terminal nonlinear profile decoupling} \\
+  &\qquad\Longrightarrow
+  \text{no finite retained active multibubbles in }R4 \\
+  &\qquad\Longrightarrow
+  \text{all singleton retained active carriers are atomic} \\
+  &\qquad\Longrightarrow
+  \text{backward sequence-}L^3\text{ completeness} \\
+  &\qquad\Longrightarrow
+  \text{Albritton--Barker Liouville contradiction} \\
+  &\qquad\Longrightarrow
+  R4=\varnothing.
+\end{aligned}
+\]
+
+\section*{References}
+
+\begin{thebibliography}{9}
+
+\bibitem{AB}
+D.~Albritton and T.~Barker,
+\emph{On local Type I singularities of the Navier--Stokes equations and
+Liouville theorems},
+arXiv:1811.00502.
+
+\bibitem{CKN}
+L.~Caffarelli, R.~Kohn, and L.~Nirenberg,
+\emph{Partial regularity of suitable weak solutions of the Navier--Stokes equations},
+Comm. Pure Appl. Math. 35 (1982), 771--831.
+
+\bibitem{Kato}
+T.~Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in \(\R^m\), with applications to weak solutions},
+Math. Z. 187 (1984), 471--480.
+
+\end{thebibliography}
+
+\end{document}

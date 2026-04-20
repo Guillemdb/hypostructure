@@ -1,0 +1,436 @@
+% -----------------------------------------------------------------------------
+% R2: rotational relative-equilibrium residual class
+% -----------------------------------------------------------------------------
+% This section closes the rotational relative-equilibrium class without using a
+% whole-space Coriolis--Leray Liouville theorem.  The only estimates introduced
+% here are local.  The Coriolis contribution is recorded as a localized annular
+% flux, and every non-small annular flux is routed into the same retained-active
+% local concentration alternatives used later in the terminal analysis.
+% -----------------------------------------------------------------------------
+
+\section{The rotational relative-equilibrium residual class}
+\label{sec:R2-reduction}
+
+We next isolate the second refined residual class.  This class consists of
+centered Type~I ancient limits whose time dependence is a rigid rotation of a
+fixed spatial profile.  Passing to the co-rotating frame converts the centered
+Navier--Stokes equation into a stationary Leray profile equation with a
+Coriolis transport term.  Earlier drafts closed this class by postulating a
+bounded whole-space Coriolis--Leray Liouville theorem.  We do not use that
+global statement here.  Instead, the Coriolis term is localized as an annular
+flux and is then treated by the local concentration analysis proved in
+\Cref{sec:terminal-concentration,sec:separated-profiles-atomic}.
+
+Throughout this section the centered equation is
+\begin{equation}\label{eq:centered-R2-safe}
+   \partial_\tau V-\Delta V+\frac12 y\cdot\nabla V+\frac12 V
+   +(V\cdot\nabla)V+\nabla P=0,
+   \qquad \nabla\cdot V=0 .
+\end{equation}
+For \(\Omega\in\mathfrak{so}(3)\), set
+\begin{equation}\label{eq:rotation-group-R2-safe}
+   Q(\tau):=\exp(\tau\Omega)\in SO(3).
+\end{equation}
+
+\begin{definition}[Rotational relative-equilibrium profile]
+\label{def:R2-relative-profile-safe}
+A bounded smooth ancient solution \((V,P)\) of \eqref{eq:centered-R2-safe} is a
+rotational relative equilibrium if there exist
+\(\Omega\in\mathfrak{so}(3)\), a bounded smooth divergence-free vector field
+\(W\), and a pressure profile \(\Pi\), such that
+\begin{equation}\label{eq:R2-relative-form-safe}
+   V(y,\tau)=Q(\tau)W(Q(\tau)^Ty),
+   \qquad
+   P(y,\tau)=\Pi(Q(\tau)^Ty)
+\end{equation}
+up to the usual time-dependent pressure gauge.
+The class \(\Crot\) consists of such residual Seregin profiles, after the
+axisymmetric bounded-circulation class and the previously closed Paper I--III
+alternatives have been removed.
+\end{definition}
+
+\begin{lemma}[Co-rotating stationary equation]
+\label{lem:co-rotating-equation-safe}
+Let \((V,P)\) be a rotational relative equilibrium.  Then the co-rotating
+profile \((W,\Pi)\) satisfies
+\begin{equation}\label{eq:R2-coriolis-profile-safe}
+   -\Delta W+\frac12 y\cdot\nabla W+\frac12 W
+   +(W\cdot\nabla)W
+   +\Omega W-(\Omega y)\cdot\nabla W
+   +\nabla\Pi=0,
+   \qquad \nabla\cdot W=0 .
+\end{equation}
+Equivalently,
+\begin{equation}\label{eq:R2-coriolis-profile-project-safe}
+   \mathbb P\Big[
+   -\Delta W+\frac12 y\cdot\nabla W+\frac12 W
+   +(W\cdot\nabla)W
+   +\Omega W-(\Omega y)\cdot\nabla W
+   \Big]=0,
+\end{equation}
+where \(\mathbb P\) is the whole-space Leray projector.
+\end{lemma}
+
+\begin{proof}
+Let \(z=Q(\tau)^Ty\).  Since \(Q'(\tau)=\Omega Q(\tau)\) and
+\(Q(\tau)^T\Omega Q(\tau)=\Omega\), one has
+\[
+   \partial_\tau z=-\Omega z.
+\]
+Therefore
+\[
+   \partial_\tau V(y,\tau)
+   =Q(\tau)\Big(\Omega W(z)-(\Omega z)\cdot\nabla W(z)\Big).
+\]
+The Laplacian, divergence, convection term, and pressure gradient are invariant
+under the orthogonal change of variables.  Substitution into
+\eqref{eq:centered-R2-safe}, followed by multiplication by \(Q(\tau)^T\), gives
+\eqref{eq:R2-coriolis-profile-safe}.  Applying the Leray projector gives
+\eqref{eq:R2-coriolis-profile-project-safe}.
+\end{proof}
+
+\subsection{The Bernoulli identity and the local Coriolis flux}
+
+Write
+\begin{equation}\label{eq:R2-F-def}
+   F(y):=\frac12y-\Omega y,
+   \qquad
+   A(y):=W(y)+F(y),
+   \qquad
+   \omega:=\nabla\times W .
+\end{equation}
+Since \(\Omega\) is skew-symmetric, there is a unique vector
+\(\varpi\in\mathbb R^3\) such that
+\begin{equation}\label{eq:R2-Omega-vector}
+   \Omega y=\varpi\times y .
+\end{equation}
+Then
+\begin{equation}\label{eq:R2-curlF}
+   \nabla\times F=-2\varpi .
+\end{equation}
+
+\begin{lemma}[Coriolis Bernoulli identity]
+\label{lem:R2-coriolis-bernoulli}
+Let \((W,\Pi)\) be a smooth solution of
+\eqref{eq:R2-coriolis-profile-safe}.  Define
+\begin{equation}\label{eq:R2-Bernoulli-def}
+   B:=\frac12|W|^2+\Pi+F\cdot W .
+\end{equation}
+Then
+\begin{equation}\label{eq:R2-gradient-B}
+   \nabla B+\nabla\times\omega-A\times\omega=0,
+\end{equation}
+and consequently
+\begin{equation}\label{eq:R2-Bernoulli-PDE}
+   -\Delta B+A\cdot\nabla B
+   =
+   -|\omega|^2-\omega\cdot(\nabla\times F)
+   =
+   -|\omega|^2+2\varpi\cdot\omega .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The vector identity
+\[
+   (W\cdot\nabla)W=\nabla\left(\frac12|W|^2\right)-W\times\omega
+\]
+and the identity
+\[
+   (F\cdot\nabla)W+(\nabla F)^TW
+   =\nabla(F\cdot W)-F\times\omega
+\]
+apply because
+\((\nabla F)^TW=\frac12W+\Omega W\).  Thus
+\eqref{eq:R2-coriolis-profile-safe} can be rewritten as
+\[
+   -\Delta W+
+   \nabla\left(\frac12|W|^2+\Pi+F\cdot W\right)
+   -(W+F)\times\omega=0 .
+\]
+Since \(\nabla\cdot W=0\), one has
+\(-\Delta W=\nabla\times\omega\), which gives
+\eqref{eq:R2-gradient-B}.
+
+Taking divergence in \eqref{eq:R2-gradient-B} gives
+\[
+   \Delta B=\nabla\cdot(A\times\omega),
+\]
+because the divergence of a curl vanishes.  Using
+\[
+   \nabla\cdot(A\times\omega)
+   =\omega\cdot(\nabla\times A)-A\cdot(\nabla\times\omega),
+   \qquad
+   \nabla\times A=\omega+\nabla\times F,
+\]
+we obtain
+\[
+   \Delta B
+   =|\omega|^2+\omega\cdot(\nabla\times F)
+      -A\cdot(\nabla\times\omega).
+\]
+On the other hand, by \eqref{eq:R2-gradient-B},
+\[
+   A\cdot\nabla B
+   =A\cdot(A\times\omega)-A\cdot(\nabla\times\omega)
+   =-A\cdot(\nabla\times\omega).
+\]
+Combining the last two identities gives \eqref{eq:R2-Bernoulli-PDE}.  Finally,
+\eqref{eq:R2-curlF} follows from \eqref{eq:R2-Omega-vector}.
+\end{proof}
+
+\begin{lemma}[Localized Coriolis flux identity]
+\label{lem:R2-coriolis-flux-localization}
+Let \((W,\Pi)\) be as in \Cref{lem:R2-coriolis-bernoulli}, and let
+\(\chi\in C_c^\infty(\mathbb R^3)\).  Then
+\begin{equation}\label{eq:R2-local-coriolis-source}
+   \int_{\mathbb R^3}\chi
+   \left(
+      -\Delta B+A\cdot\nabla B+|\omega|^2
+   \right)\,dy
+   =
+   -2\int_{\mathbb R^3}(W\times\varpi)\cdot\nabla\chi\,dy .
+\end{equation}
+In particular the Coriolis contribution is supported only where the cutoff
+varies.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:R2-Bernoulli-PDE},
+\[
+   -\Delta B+A\cdot\nabla B+|\omega|^2=2\varpi\cdot\omega .
+\]
+Because \(\varpi\) is constant and \(\omega=\nabla\times W\),
+\[
+   \varpi\cdot\omega
+   =
+   \nabla\cdot(W\times\varpi).
+\]
+Multiplying by \(\chi\), integrating over \(\mathbb R^3\), and integrating by
+parts gives
+\[
+   2\int\chi\,\varpi\cdot\omega
+   =
+   2\int\chi\,\nabla\cdot(W\times\varpi)
+   =
+   -2\int(W\times\varpi)\cdot\nabla\chi ,
+\]
+which proves \eqref{eq:R2-local-coriolis-source}.
+\end{proof}
+
+\begin{lemma}[Non-small Coriolis flux creates an active local concentration]
+\label{lem:R2-annular-flux-active-concentration}
+Let \(\chi\in C_c^\infty(\mathbb R^3)\), let
+\(A_\chi:=\operatorname{supp}\nabla\chi\), and put
+\[
+   C_\chi:=\int_{A_\chi}|\nabla\chi|^{3/2}\,dy .
+\]
+Fix \(T\in(0,1]\), and let
+\[
+   \mathcal T_{\chi,T}
+   :=
+   \{(y,\tau): -T<\tau<0,\ Q(\tau)^Ty\in A_\chi\}
+\]
+be the swept annular tube in the original centered variables.  Cover
+\(\mathcal T_{\chi,T}\) by finitely many unit terminal cylinders
+\[
+   \mathcal T_{\chi,T}\subset \bigcup_{m=1}^{N_{\chi,T}}Q_1(z_m).
+\]
+Let \(\eps_{\rm sd}>0\) be the local activity threshold used in
+\Cref{def:terminal-measures}.  If \(\varpi\ne0\) and
+\begin{equation}\label{eq:R2-flux-active-threshold}
+   \left|
+      2\int_{\mathbb R^3}(W\times\varpi)\cdot\nabla\chi\,dy
+   \right|
+   \ge
+   2|\varpi|\,C_\chi^{2/3}
+      \left(\frac{N_{\chi,T}\eps_{\rm sd}}{T}\right)^{1/3},
+\end{equation}
+then at least one cylinder \(Q_1(z_m)\) is active for the original
+centered solution \(V\).
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+   \delta_\chi:=
+   \left|
+      2\int_{\mathbb R^3}(W\times\varpi)\cdot\nabla\chi\,dy
+   \right| .
+\]
+Holder's inequality gives
+\[
+\begin{aligned}
+   \delta_\chi
+   &\le
+   2|\varpi|\int_{A_\chi}|W|\,|\nabla\chi|\,dy  \\
+   &\le
+   2|\varpi|
+   \left(\int_{A_\chi}|W|^3\,dy\right)^{1/3}
+   C_\chi^{2/3}.
+\end{aligned}
+\]
+Thus \eqref{eq:R2-flux-active-threshold} implies
+\[
+   \int_{A_\chi}|W|^3\,dy\ge \frac{N_{\chi,T}\eps_{\rm sd}}{T}.
+\]
+Since \(V(y,\tau)=Q(\tau)W(Q(\tau)^Ty)\) and \(Q(\tau)\) is an isometry,
+\[
+\begin{aligned}
+   \iint_{\mathcal T_{\chi,T}} |V(y,\tau)|^3\,dy\,d\tau
+   &=
+   \int_{-T}^{0}\int_{Q(\tau)A_\chi}
+      |W(Q(\tau)^Ty)|^3\,dy\,d\tau \\
+   &=
+   T\int_{A_\chi}|W(z)|^3\,dz
+   \ge N_{\chi,T}\eps_{\rm sd}.
+\end{aligned}
+\]
+Because the tube is covered by \(N_{\chi,T}\) unit terminal cylinders, one of
+them satisfies
+\[
+   \iint_{Q_1(z_m)} |V|^3\,dy\,d\tau\ge \eps_{\rm sd}.
+\]
+The pressure contribution to the local CKN measure is nonnegative after the
+allowed pressure gauge.  Hence
+\[
+   \mu(Q_1(z_m))\ge \eps_{\rm sd},
+\]
+so the corresponding recentering sequence is active in the sense of
+\Cref{def:terminal-measures}.
+\end{proof}
+
+\begin{lemma}[Local Coriolis-flux routing dichotomy]
+\label{lem:R2-flux-routing-dichotomy}
+Fix \(\chi\in C_c^\infty(\mathbb R^3)\) and \(T\in(0,1]\).  Along every
+terminal extraction of a rotational relative equilibrium, exactly one of the
+following local alternatives occurs:
+\begin{enumerate}[label=(\roman*)]
+   \item \(\varpi\ne0\), the flux across
+   \(A_\chi=\operatorname{supp}\nabla\chi\) satisfies the threshold
+   \eqref{eq:R2-flux-active-threshold}, and the swept annular tube contains an
+   active unit-scale concentration;
+   \item either \(\varpi=0\), or the threshold
+   \eqref{eq:R2-flux-active-threshold} fails; then the flux is a bounded
+   compactly supported functional of \(W\) on \(A_\chi\), passes to terminal
+   limits by local \(L^3\) convergence, and creates no terminal state other than
+   the standard single-profile, separated-profile, exterior, radiative,
+   scattering, or rough
+   alternatives of \Cref{thm:terminal-exhaustion-main}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Alternative \emph{(i)} is precisely
+\Cref{lem:R2-annular-flux-active-concentration}.  If \(\varpi=0\), then the flux
+vanishes identically.  If \(\varpi\ne0\) and
+\eqref{eq:R2-flux-active-threshold} fails, the flux is bounded by the right hand
+side of that threshold.  In both cases the functional
+\[
+   W\longmapsto -2\int_{\mathbb R^3}(W\times\varpi)\cdot\nabla\chi\,dy
+\]
+depends only on \(W\) on the compact annular set \(A_\chi\).  Under the local
+Seregin compactness supplied by Paper I, velocities converge strongly in
+\(L^3_{\rm loc}\); since \(\nabla\chi\in L^{3/2}\) and \(\varpi\) is fixed, the
+functional is continuous along every terminal subsequence:
+\[
+   \int (W_n\times\varpi)\cdot\nabla\chi
+   \longrightarrow
+   \int (W_\infty\times\varpi)\cdot\nabla\chi .
+\]
+Thus a subthreshold flux is retained only as a local term in the limiting
+localized Bernoulli identity \eqref{eq:R2-local-coriolis-source}.  It is not a
+new carrier of local velocity mass.  Every actual carrier of compact velocity
+\(L^3\)-mass is still one of the terminal local concentration alternatives listed in
+\Cref{thm:terminal-exhaustion-main}.
+\end{proof}
+
+\begin{remark}[Why this is not a global Liouville argument]
+\label{rem:R2-no-global-liouville}
+For \(\Omega=0\), the Coriolis flux in
+\Cref{lem:R2-coriolis-flux-localization} vanishes.  For \(\Omega\ne0\), the
+same lemma does not give a sign-definite maximum principle for \(B\).  It gives
+only the local dichotomy in \Cref{lem:R2-flux-routing-dichotomy}: either a
+chosen annulus already contains an active recentered local concentration, or the
+annular flux is a subthreshold compact functional which passes to the local
+terminal limit.  No tail decay, whole-space \(L^p\) bound, Gaussian energy
+estimate, or global pressure normalization is used.
+\end{remark}
+
+\subsection{Local closure of the rotational relative-equilibrium class}
+
+\begin{theorem}[Stratified exclusion of rotational relative equilibria]
+\label{thm:R2-exclusion-safe}
+The ordered rotational relative-equilibrium residual class is empty:
+\begin{equation}\label{eq:R2-empty-safe}
+   \Crot(\mathcal S;I,J)=\varnothing .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Suppose, for contradiction, that
+\(V\in\Crot(\mathcal S;I,J)\).  By
+\Cref{def:R2-relative-profile-safe} and
+\Cref{lem:co-rotating-equation-safe}, there are
+\(\Omega\in\mathfrak{so}(3)\) and a bounded smooth divergence-free profile
+\((W,\Pi)\) satisfying the Coriolis--Leray equation
+\eqref{eq:R2-coriolis-profile-safe}.  The centered representative \(V\) is a
+normalized Seregin ancient limit, so by
+\Cref{hyp:base-seregin-package} it carries a fixed positive compact
+velocity \(L^3\)-mass.
+
+Choose a countable family of smooth cutoffs which is cofinal among compact
+annuli in the terminal variables.  For each cutoff and each rational
+\(T\in(0,1]\), apply the local dichotomy
+\Cref{lem:R2-flux-routing-dichotomy}.  A superthreshold Coriolis flux produces
+an active unit-scale concentration and is therefore already part of the active
+local concentration decomposition.  A subthreshold Coriolis flux is a compactly
+supported functional
+of \(W\), continuous under the local convergence supplied by Paper I, and hence
+remains inside the localized limiting equation; it carries no independent CKN
+mass and creates no additional terminal stratum.
+
+We now apply the terminal local concentration decomposition to the inherited compact
+density.  The rough, inactive, exterior, scattering, and radiative alternatives
+cannot be the sole carriers of this density by
+\Cref{thm:terminal-nonactive-discharge}.  By the preceding paragraph, the
+Coriolis flux has already been routed either into an active local concentration or into a
+compact local term in the selected terminal equation.  Thus, after local active
+extraction, the retained density is carried by either a finite separated family
+of retained active profiles or a singleton retained active terminal profile.
+
+The finite separated-family alternative is impossible by
+\Cref{thm:no-finite-separated-profile-family}.  In the singleton case,
+\Cref{prop:no-multi-implies-atomic} makes the terminal profile atomic, and
+\Cref{lem:no-atomic-active} excludes retained active atomic profiles.  Both
+possible carriers of the inherited compact density are impossible.  This
+contradicts the normalization of \(V\), and therefore
+\(\Crot(\mathcal S;I,J)=\varnothing\).
+\end{proof}
+
+\begin{proposition}[Already-closed integrable subcase]
+\label{prop:R2-integrable-subcase}
+Let \(V\) be a rotational relative equilibrium with co-rotating profile \(W\).
+If
+\begin{equation}\label{eq:R2-L3-subcase}
+   W\in L^3(\mathbb R^3),
+\end{equation}
+then \(V\equiv0\).  More generally, the same conclusion holds under any
+condition which places the physical representative in
+\(L^\infty_tL^3_x\) on its ancient time interval.
+\end{proposition}
+
+\begin{proof}
+Rotations and the Navier--Stokes critical scaling preserve the \(L^3\) norm.
+Thus \(W\in L^3\) implies
+\[
+   \sup_{\tau\in\mathbb R}\|V(\cdot,\tau)\|_{L^3(\mathbb R^3)}<\infty .
+\]
+Equivalently, the physical representative lies in the critical class
+\(L^\infty_tL^3_x\).  The endpoint \(L^3\) class is one of the already closed
+alternatives in Paper I, by the Escauriaza--Seregin--\v Sver\'ak and stationary
+Ne\v cas--R\r u\v zi\v cka--\v Sver\'ak inputs cited there.  Therefore
+\(V\equiv0\).  A zero profile has zero local velocity mass, so no such profile
+can belong to the residual
+nonvanishing class.
+\end{proof}

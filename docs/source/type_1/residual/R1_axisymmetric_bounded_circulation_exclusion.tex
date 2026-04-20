@@ -1,0 +1,293 @@
+% -----------------------------------------------------------------------------
+% R1 exclusion: axisymmetric bounded-circulation residual class
+% -----------------------------------------------------------------------------
+% This file is written as a self-contained replacement/insert section.  It uses
+% only standard PDE terminology.  The class R_1 is the axisymmetric
+% bounded-circulation residual class from the refined residual stratification.
+
+\section{Exclusion of the axisymmetric bounded-circulation residual class}
+\label{sec:R1-exclusion}
+
+In this section we prove the rigidity statement needed for the first refined
+residual class.  The argument uses the scale-invariant angular circulation in
+centered variables.  The essential point is that the centered Type~I equation
+contains the Ornstein--Uhlenbeck drift.  Thus the angular-circulation equation
+has an absorbing boundary at the symmetry axis together with a confining drift
+at spatial infinity.  This gives a scalar Liouville theorem for bounded ancient
+solutions of the circulation equation.
+
+Throughout the section we write cylindrical coordinates as
+\((\rho,\theta,Z)\), and an axisymmetric vector field as
+\[
+   V=V_\rho e_\rho+V_\theta e_\theta+V_Z e_Z .
+\]
+The centered Navier--Stokes equation is
+\begin{equation}\label{eq:centered-R1}
+   \partial_\tau V-\Delta V+\frac12 y\cdot\nabla V+\frac12 V
+   +(V\cdot\nabla)V+\nabla P=0,
+   \qquad \nabla\cdot V=0 .
+\end{equation}
+For an axisymmetric solution define the centered angular circulation
+\begin{equation}\label{eq:centered-Gamma-def}
+   \Gamma(\rho,Z,\tau):=\rho V_\theta(\rho,Z,\tau).
+\end{equation}
+This is the same scale-invariant quantity as the physical circulation
+\(rU_\theta\).  If the physical representative is
+\[
+   U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)),
+\]
+then
+\[
+   rU_\theta(r,z,t)=\rho V_\theta(\rho,Z,\tau),
+   \qquad r=\sqrt{-t}\,\rho,
+   \quad z=\sqrt{-t}\,Z.
+\]
+
+\begin{lemma}[Centered circulation equation]\label{lem:centered-circulation-equation}
+Let \((V,P)\) be a smooth bounded axisymmetric solution of
+\eqref{eq:centered-R1}.  Then \(\Gamma=\rho V_\theta\) satisfies
+\begin{equation}\label{eq:centered-Gamma-equation}
+   \partial_\tau\Gamma
+   =
+   \partial_\rho^2\Gamma-\frac1\rho\partial_\rho\Gamma
+      +\partial_Z^2\Gamma
+   -\left(V_\rho+\frac\rho2\right)\partial_\rho\Gamma
+   -\left(V_Z+\frac Z2\right)\partial_Z\Gamma
+\end{equation}
+on \((0,\infty)\times\mathbb R\times\mathbb R\).  Moreover
+\begin{equation}\label{eq:axis-boundary-Gamma}
+   \Gamma(0,Z,\tau)=0
+   \qquad\hbox{for all }(Z,\tau)\in\mathbb R\times\mathbb R .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The angular component of \eqref{eq:centered-R1} is
+\[
+   \partial_\tau V_\theta
+   -\left(\Delta-\frac1{\rho^2}\right)V_\theta
+   +\frac12(\rho\partial_\rho+Z\partial_Z)V_\theta
+   +\frac12V_\theta
+   +V_\rho\partial_\rho V_\theta+V_Z\partial_ZV_\theta
+   +\frac{V_\rho V_\theta}{\rho}=0 .
+\]
+Multiplying by \(\rho\), using
+\[
+   \rho\left(\Delta-\frac1{\rho^2}\right)V_\theta
+   =\partial_\rho^2\Gamma-\frac1\rho\partial_\rho\Gamma+
+      \partial_Z^2\Gamma,
+\]
+\[
+   \rho\left[\frac12(\rho\partial_\rho+Z\partial_Z)V_\theta
+      +\frac12V_\theta\right]
+   =\frac12(\rho\partial_\rho+Z\partial_Z)\Gamma,
+\]
+and
+\[
+   \rho\left(V_\rho\partial_\rho V_\theta+V_Z\partial_ZV_\theta
+      +\frac{V_\rho V_\theta}{\rho}\right)
+   =V_\rho\partial_\rho\Gamma+V_Z\partial_Z\Gamma,
+\]
+gives \eqref{eq:centered-Gamma-equation}.  Finally, smoothness of a bounded
+axisymmetric vector field at the axis implies \(V_\theta(\rho,Z,\tau)=O(\rho)\)
+as \(\rho\downarrow0\), locally uniformly in \((Z,\tau)\).  Hence
+\(\Gamma=\rho V_\theta=O(\rho^2)\), which gives
+\eqref{eq:axis-boundary-Gamma}.
+\end{proof}
+
+We next record the scalar Liouville theorem used below.  It is stated in a
+form that isolates precisely the PDE mechanism: bounded drift perturbations of
+the centered circulation operator cannot sustain a bounded ancient solution
+which vanishes on the symmetry axis.
+
+\begin{lemma}[Axis-absorption Liouville theorem]
+\label{lem:axis-absorption-liouville}
+Let \(B=(B_\rho,B_Z)\) be a smooth vector field on
+\((0,\infty)\times\mathbb R\times\mathbb R\) satisfying
+\[
+   \|B\|_{L^\infty}<\infty .
+\]
+Let \(G\in C^{2,1}((0,\infty)\times\mathbb R\times\mathbb R)\cap L^\infty\)
+solve
+\begin{equation}\label{eq:abstract-Gamma-equation}
+   \partial_\tau G
+   =
+   \partial_\rho^2G-\frac1\rho\partial_\rho G+
+      \partial_Z^2G
+   -\left(B_\rho+\frac\rho2\right)\partial_\rho G
+   -\left(B_Z+\frac Z2\right)\partial_ZG
+\end{equation}
+for all \(\tau\in\mathbb R\), and assume
+\begin{equation}\label{eq:abstract-axis-zero}
+   \lim_{\rho\downarrow0}G(\rho,Z,\tau)=0
+   \qquad\hbox{locally uniformly in }(Z,\tau).
+\end{equation}
+Then \(G\equiv0\).
+\end{lemma}
+
+\begin{proof}
+Set \(M_B=\|B\|_{L^\infty}\).  For \(R>1\) define
+\begin{equation}\label{eq:radial-barrier}
+   h_R(\rho)
+   :=
+   \frac{\displaystyle\int_0^{\min\{\rho,R\}} s
+      \exp\left(\frac{s^2}{4}-M_Bs\right)\,ds}
+   {\displaystyle\int_0^R s
+      \exp\left(\frac{s^2}{4}-M_Bs\right)\,ds} .
+\end{equation}
+Then \(0\le h_R\le1\), \(h_R(0)=0\), \(h_R(R)=1\), and, on
+\(0<\rho<R\),
+\begin{equation}\label{eq:hR-ode}
+   h_R''+\left(M_B-\frac\rho2-\frac1\rho\right)h_R'=0,
+   \qquad h_R'>0 .
+\end{equation}
+Let
+\[
+   \mathcal L_\tau f
+   :=
+   \partial_\rho^2f-\frac1\rho\partial_\rho f+\partial_Z^2f
+   -\left(B_\rho+\frac\rho2\right)\partial_\rho f
+   -\left(B_Z+\frac Z2\right)\partial_Z f .
+\]
+Since \(B_\rho\ge -M_B\), \eqref{eq:hR-ode} gives
+\begin{equation}\label{eq:hR-superharmonic}
+   \mathcal L_\tau h_R
+   =h_R''-\left(\frac1\rho+\frac\rho2+B_\rho\right)h_R'
+   \le
+   h_R''+\left(M_B-\frac\rho2-\frac1\rho\right)h_R'
+   =0 .
+\end{equation}
+Thus \((\partial_\tau-\mathcal L_\tau)h_R\ge0\).
+
+We now compare \(G\) to this barrier on the strip
+\(\Omega_R=(0,R)\times\mathbb R\).  Let
+\(M_G=\|G\|_{L^\infty}\).  We first record the killed-strip decay estimate used
+by the comparison argument.  If \(q_{s,R}\) solves
+\[
+   \partial_\tau q_{s,R}=\mathcal L_\tau q_{s,R},
+   \qquad q_{s,R}=0\hbox{ on }\rho=0,R,
+   \qquad q_{s,R}(\rho,Z,s)=1,
+\]
+then, for every compact \(K\Subset\Omega_R\) and every fixed \(t\),
+\begin{equation}\label{eq:killed-strip-decay}
+   \lim_{s\to-\infty}\sup_{(\rho,Z)\in K}q_{s,R}(\rho,Z,t)=0 .
+\end{equation}
+To prove \eqref{eq:killed-strip-decay}, fix \(K\Subset\Omega_R\).  Choose
+\(\delta>0\), \(Z_K>0\), and \(Z_1>Z_K+1\) so that
+\[
+   K\subset [\delta,R-\delta]\times[-Z_K,Z_K]
+   \subset (0,R)\times(-Z_1,Z_1).
+\]
+On the finite cylinder
+\[
+   \Omega_{R,Z_1}:=(0,R)\times(-Z_1,Z_1)
+\]
+with Dirichlet data on the full parabolic boundary, the operator
+\(\mathcal L_\tau\) is uniformly parabolic on
+\([\delta/2,R-\delta/2]\times[-Z_1,Z_1]\), has bounded first-order coefficients
+there, and has absorbing boundary at \(\rho=0,R\).  The boundary parabolic
+Harnack inequality and the strong maximum principle give a time \(T_R>0\) and a
+number \(\vartheta_R\in(0,1)\), depending only on
+\(R,M_B,\delta,Z_K\) and not on \(Z_1\), such that every nonnegative solution
+with initial data bounded by \(1\) and zero lateral data satisfies
+\[
+   0\le q(\cdot,s+T_R)\le 1-\vartheta_R
+   \qquad\hbox{on }[\delta,R-\delta]\times[-Z_K,Z_K].
+\]
+Applying the same estimate after each time translation and using the maximum
+principle between the compact set and the boundary gives
+\[
+   \sup_K q_{s,R}(\cdot,s+mT_R)
+   \le (1-\vartheta_R)^m,\qquad m=1,2,\dots .
+\]
+For a fixed \(t>s\), choose \(m\) with
+\(s+mT_R\le t<s+(m+1)T_R\).  The maximum principle and interior Harnack estimate
+on the final interval \([s+mT_R,t]\) preserve the preceding bound up to a
+constant depending only on \(R,M_B,\delta,Z_K,T_R\).  Letting \(s\to-\infty\)
+forces \(m\to\infty\), proving decay on \(K\) for the truncated problem.  The
+solutions on \(\Omega_{R,Z_1}\) increase monotonically to the killed-strip
+solution as \(Z_1\to\infty\); passing to this limit gives
+\eqref{eq:killed-strip-decay}.
+
+Fix \(R>1\), \(s<t\), and set
+\[
+   W^+_{R}:=\frac{G}{M_G}-h_R,
+   \qquad
+   W^-_{R}:=-\frac{G}{M_G}-h_R,
+\]
+with the convention that the conclusion is immediate if \(M_G=0\).
+By \eqref{eq:abstract-Gamma-equation} and \eqref{eq:hR-superharmonic},
+\[
+   (\partial_\tau-\mathcal L_\tau)W_R^\pm\le0
+   \qquad\hbox{in }\Omega_R\times(s,t).
+\]
+On \(\rho=0\), \eqref{eq:abstract-axis-zero} and \(h_R(0)=0\) give
+\(W_R^\pm\le0\).  On \(\rho=R\), \(h_R(R)=1\) and \(|G|\le M_G\) give again
+\(W_R^\pm\le0\).  The parabolic comparison principle with the killed-strip
+kernel therefore yields, for \(\tau=t\),
+\[
+   (W_R^\pm)_+(\rho,Z,t)
+   \le q_{s,R}(\rho,Z,t)
+   \qquad ((\rho,Z)\in\Omega_R).
+\]
+Letting \(s\to-\infty\) and using \eqref{eq:killed-strip-decay} gives
+\(W_R^\pm\le0\) on compact subsets of \(\Omega_R\).  Since the compact subset
+is arbitrary,
+\begin{equation}\label{eq:G-bounded-by-hR}
+   |G(\rho,Z,t)|\le M_G h_R(\rho)
+   \qquad (0<\rho<R, Z\in\mathbb R,
+   \ t\in\mathbb R).
+\end{equation}
+Finally, for each fixed \(\rho<\infty\), the denominator in
+\eqref{eq:radial-barrier} tends to infinity super-exponentially as
+\(R\to\infty\), while the numerator remains fixed.  Hence
+\(h_R(\rho)\to0\).  Letting \(R\to\infty\) in
+\eqref{eq:G-bounded-by-hR} gives \(G(\rho,Z,t)=0\) for every
+\(\rho>0\), \(Z\in\mathbb R\), and \(t\in\mathbb R\).  The boundary value at
+\(\rho=0\) is already zero by assumption.  Therefore \(G\equiv0\).
+\end{proof}
+
+\begin{theorem}[Exclusion of the axisymmetric bounded-circulation residual class]
+\label{thm:R1-exclusion}
+Let \(\Cax(\mathcal S;I,J)\) be the axisymmetric bounded-circulation residual
+class in the refined residual decomposition.  Then
+\begin{equation}\label{eq:R1-empty}
+   \Cax(\mathcal S;I,J)=\varnothing .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Assume, for contradiction, that
+\(V\in\Cax(\mathcal S;I,J)\).  By definition of \(\Cax\), the
+associated physical ancient representative is axisymmetric and has bounded
+angular circulation.  Equivalently, in centered variables,
+\[
+   \Gamma(\rho,Z,\tau)=\rho V_\theta(\rho,Z,\tau)
+\]
+is bounded on \((0,\infty)\times\mathbb R\times\mathbb R\).  Since \(V\) is a
+Seregin ancient limit, it is smooth and bounded in centered variables.  Hence
+\(B=(V_\rho,V_Z)\) is bounded.
+
+By \Cref{lem:centered-circulation-equation}, \(\Gamma\) satisfies
+\eqref{eq:centered-Gamma-equation} and vanishes at the axis.  Applying
+\Cref{lem:axis-absorption-liouville} with \(G=\Gamma\) and
+\(B=(V_\rho,V_Z)\) gives
+\[
+   \Gamma\equiv0 .
+\]
+Therefore \(V_\theta\equiv0\) for \(\rho>0\), and by smoothness also on the
+axis.  Thus the associated ancient solution is axisymmetric without swirl.
+But the axisymmetric no-swirl class is one of the structured alternatives
+removed before the residual class is defined.  This contradicts
+\(V\in\mathcal R(\mathcal S;I,J)\), and therefore no such \(V\) exists.
+\end{proof}
+
+\begin{remark}[Why this does not assert the full bounded-swirl Liouville theorem]
+The proof uses the centered Type~I equation, specifically the
+Ornstein--Uhlenbeck drift terms \(-\rho\partial_\rho/2\) and
+\(-Z\partial_Z/2\) in the scalar equation for \(\Gamma\).  It is therefore a
+Type~I Seregin-limit argument.  It does not prove that every bounded ancient
+axisymmetric solution of the unrenormalized Navier--Stokes equations with
+bounded physical circulation is swirl-free.  The latter lacks the confining
+centered drift and remains a different shell-transport problem.
+\end{remark}

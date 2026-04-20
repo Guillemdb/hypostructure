@@ -1,0 +1,395 @@
+% -----------------------------------------------------------------------------
+% R3: degenerate stationary-hull residual class
+% -----------------------------------------------------------------------------
+% This section is written as a rigorous PDE insert.  It is intentionally
+% conservative.  The naive formulation "the time-translation hull merely meets a
+% bifurcating stationary family" is too broad: an inactive stationary profile in
+% the hull does not by itself contradict singularity formation.  The useful
+% residual class is the active-attained degenerate stationary-hull class: the
+% hull must contain a stationary-family profile which is itself an active
+% Seregin limit, i.e. it retains a positive local CKN concentration.
+%
+% The section proves the exact implication needed to close this class:
+%
+%   no active Seregin-attainable degenerate stationary-family profile
+%       ==> R_3 = empty.
+%
+% It also proves the standard structural facts used in that reduction: hull
+% limits of Type I Seregin profiles are again Type I Seregin profiles after
+% reselecting scales; nontrivial C^1 stationary families produce linearized
+% kernel elements; and any exact trajectory constrained to a stationary family
+% is stationary.
+% -----------------------------------------------------------------------------
+
+\section{The degenerate stationary-hull residual class}
+\label{sec:R3-degenerate-stationary-hull}
+
+We now isolate the third refined residual class.  This class is designed to
+capture Type~I ancient limits whose time-translation hull contains an active
+stationary profile lying on a non-isolated family of stationary centered
+profiles.  The role of the stationary-family condition is to separate genuinely degenerate
+stationary profile families from isolated stationary profiles and from the
+symmetry-generated classes already removed in \(\Cax\) and \(\Crot\).
+
+A small point of formulation is important.  It is not enough to assume that the
+hull of a residual ancient solution contains some stationary-family element.  A
+stationary element may occur as an inactive limit and need not retain the local
+CKN concentration inherited from the original singular point.  Such an inactive
+hull element should not be placed in a class that is to be closed by a
+stationary-profile obstruction.  Therefore the class below is defined using
+\emph{active attainment}: the stationary-family profile must itself occur as a
+Seregin limit carrying a positive local CKN concentration.
+
+Throughout this section the centered equation is
+\begin{equation}\label{eq:centered-R3}
+   \partial_\tau V-\Delta V+\frac12 y\cdot\nabla V+\frac12 V
+   +(V\cdot\nabla)V+\nabla P=0,
+   \qquad \nabla\cdot V=0 .
+\end{equation}
+Its projected form is
+\begin{equation}\label{eq:projected-centered-R3}
+   \partial_\tau V=\mathcal F(V),
+   \qquad
+   \mathcal F(W)
+   :=
+   \mathbb P\left[
+      \Delta W-\frac12(W+y\cdot\nabla W)-(W\cdot\nabla)W
+   \right],
+\end{equation}
+where \(\mathbb P\) is the whole-space Leray projector.
+
+\subsection{Stationary branches and active hull attainment}
+
+\begin{definition}[Admissible stationary phase space]
+\label{def:R3-stationary-phase-space}
+An admissible stationary phase space is a Banach space \(\mathfrak B\) of
+solenoidal vector fields on \(\mathbb R^3\) such that:
+\begin{enumerate}[label=(\roman*)]
+   \item \(\mathfrak B\hookrightarrow C^{2,\alpha}_{\loc}(\mathbb R^3)
+      \cap L^\infty(\mathbb R^3)\) continuously for some
+      \(\alpha\in(0,1)\);
+   \item the map \(\mathcal F\) in \eqref{eq:projected-centered-R3} is
+      well-defined on an open subset \(\mathcal U\subset\mathfrak B\) and maps
+      \(\mathcal U\) into a Banach space \(\mathfrak Y\);
+   \item \(\mathcal F:\mathcal U\to\mathfrak Y\) is \(C^1\).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Nontrivial stationary family]
+\label{def:R3-stationary-family}
+Let \(W\in\mathcal U\subset\mathfrak B\) satisfy \(\mathcal F(W)=0\).  We say
+that \(W\) lies on an admissible nontrivial stationary family if there exist
+\(\varepsilon>0\) and a \(C^1\) curve
+\[
+   a\mapsto W_a\in\mathcal U,
+   \qquad |a|<\varepsilon,
+\]
+such that
+\begin{equation}\label{eq:R3-stationary-family}
+   W_0=W,
+   \qquad
+   \mathcal F(W_a)=0 \quad (|a|<\varepsilon),
+\end{equation}
+and such that the family is not locally generated only by the action of the
+rigid rotation group.  Equivalently, after possibly reparametrizing the curve,
+one may assume that
+\begin{equation}\label{eq:R3-nontrivial-tangent}
+   \dot W_0\notin
+   \{\Omega W-(\Omega y)\cdot\nabla W:\Omega\in\mathfrak{so}(3)\}
+\end{equation}
+whenever the tangent \(\dot W_0\) exists and is nonzero.
+\end{definition}
+
+\begin{definition}[Local CKN activity]
+\label{def:R3-active-profile}
+Let \((W,\Pi)\) be a stationary centered profile.  We say that \((W,\Pi)\) is
+\(\varepsilon_*\)-active if there exist a compact parabolic cylinder
+\(Q_r(z_0)\) and an admissible pressure gauge \(c_{r,z_0}\) such that
+\begin{equation}\label{eq:R3-active-ckn}
+   \iint_{Q_r(z_0)}
+   \left(|W|^3+|\Pi-c_{r,z_0}|^{3/2}\right)\,dy\,d\tau
+   \ge \varepsilon_* .
+\end{equation}
+For a stationary profile the integrand is independent of \(\tau\), but the
+parabolic-cylinder notation is retained to match the CKN normalization used for
+Seregin limits.
+\end{definition}
+
+\begin{definition}[Active degenerate stationary-hull residual class]
+\label{def:R3-active-class}
+Fix an admissible stationary phase space \(\mathfrak B\).  The active
+degenerate stationary-hull residual class
+\[
+   \Cstat(\mathcal S;I,J;\mathfrak B)
+\]
+consists of those \(V\in\mathcal R(\mathcal S;I,J)\), after the ordered
+removal of \(\Cax\) and \(\Crot\), for which there exists a
+sequence \(s_k\in\mathbb R\) and a stationary profile \((W,\Pi)\) such that
+\begin{equation}\label{eq:R3-hull-convergence}
+   (V(\cdot,\cdot+s_k),P(\cdot,\cdot+s_k)-c_k(\cdot))
+   \longrightarrow (W,\Pi)
+\end{equation}
+locally smoothly for the velocity and locally in \(L^{3/2}\) for the pressure
+modulo admissible gauges, and such that:
+\begin{enumerate}[label=(\roman*)]
+   \item \(W\in\mathfrak B\) and \(\mathcal F(W)=0\);
+   \item \(W\) lies on an admissible nontrivial stationary family in the sense
+      of \Cref{def:R3-stationary-family};
+   \item \((W,\Pi)\) is \(\varepsilon_*\)-active in the sense of
+      \Cref{def:R3-active-profile};
+   \item \((W,\Pi)\) is not in any previously closed stationary, structured,
+      axisymmetric bounded-circulation, or rotational relative-equilibrium
+      class.
+\end{enumerate}
+In the ordered residual decomposition one keeps this active-attainment class as
+the degenerate stationary-hull alternative.  The inactive hull cases
+should be assigned to the generic terminal residual class, where they are
+handled by the terminal local concentration decomposition rather than by a
+stationary-profile obstruction.
+\end{definition}
+
+\begin{remark}[Why the active condition is necessary]
+\label{rem:R3-active-necessary}
+The condition \eqref{eq:R3-active-ckn} prevents the following logical error.  A
+nonstationary ancient solution may have an inactive stationary profile in its
+hull, for instance a profile with zero local CKN mass on the relevant compact
+cylinders.  Excluding the stationary profile would not exclude the original
+ancient solution.  The stationary-profile obstruction used below applies only to stationary
+profiles that are themselves attainable as nontrivial Seregin limits with
+positive local concentration.
+\end{remark}
+
+\subsection{Hull limits are again Seregin limits}
+
+The next lemma is the basic compatibility between time-translation hulls in
+centered variables and rescaling sequences in physical variables.  It is the
+reason that an active stationary profile in the hull may be treated as an
+attained blow-up profile, not merely as an internal dynamical limit of the
+already extracted ancient solution.
+
+\begin{lemma}[Scale reselection for centered hull limits]
+\label{lem:R3-hull-is-seregin}
+Let \((V,P)\) be a centered Type~I Seregin limit obtained from a finite-energy
+suitable weak solution \((u,p)\) at a singular point \(z_*=(x_*,t_*)\).  Suppose
+that, for some sequence \(s_k\in\mathbb R\),
+\[
+   (V(\cdot,\cdot+s_k),P(\cdot,\cdot+s_k)-c_k(\cdot))
+   \to (W,\Pi)
+\]
+locally in the Seregin topology.  Then, after passing to a diagonal subsequence
+and reselecting the physical blow-up scales, \((W,\Pi)\) is itself a centered
+Type~I Seregin limit of \((u,p)\) at \(z_*\).  If the convergence to \((W,\Pi)\)
+retains a positive local CKN lower bound, then \((W,\Pi)\) is a nontrivial
+Seregin limit with the same type of inherited nonvanishing condition.
+\end{lemma}
+
+\begin{proof}
+Let \(\lambda_n\downarrow0\) be a sequence of scales producing \((V,P)\).  In
+centered variables, a time translation by \(s\) is exactly a change of the
+physical blow-up scale by a factor depending only on \(s\).  With the convention
+used in \eqref{eq:centered-R3}, write this adjusted scale as
+\begin{equation}\label{eq:R3-adjusted-scale}
+   \lambda_{n,s}:=e^{-s/2}\lambda_n .
+\end{equation}
+The rescaled fields built from \((u,p)\) at scale \(\lambda_{n,s}\) are the same
+as the fields at scale \(\lambda_n\), translated by \(s\) in the centered time
+variable, up to the corresponding pressure gauge.
+
+Fix an exhaustion of compact cylinders \(K_m\subset\mathbb R^3\times\mathbb R\).
+For each \(k\), choose \(n(k)\) so large that \(\lambda_{n(k),s_k}\to0\) and the
+rescaled fields at scale \(\lambda_{n(k)}\), shifted by \(s_k\), are within
+\(1/k\) of \((V(\cdot,\cdot+s_k),P(\cdot,\cdot+s_k)-c_k)\) on \(K_k\) in the
+local Seregin topology.  This is possible because \(\lambda_n\downarrow0\) and
+because the original sequence converges locally to \((V,P)\).
+
+By the assumed hull convergence, the shifted limit
+\((V(\cdot,\cdot+s_k),P(\cdot,\cdot+s_k)-c_k)\) converges to \((W,\Pi)\) on each
+fixed compact cylinder.  The diagonal sequence of physical rescalings with
+scales \(\lambda_{n(k),s_k}\) therefore converges locally to \((W,\Pi)\).  Hence
+\((W,\Pi)\) is again a centered Type~I Seregin limit at \(z_*\).  The assertion
+about nonvanishing follows from lower semicontinuity and local convergence of
+the CKN quantities after the prescribed pressure gauges.
+\end{proof}
+
+\subsection{Elementary consequences of stationary-family degeneracy}
+
+The stationary-family condition has two immediate PDE consequences.  First, a differentiable
+nontrivial family produces a nontrivial element of the kernel of the linearized
+stationary Leray operator.  Second, if an ancient trajectory is exactly
+constrained to a stationary family, then it is stationary.
+
+\begin{lemma}[Stationary family implies linearized degeneracy]
+\label{lem:R3-family-kernel}
+Let \(a\mapsto W_a\in\mathfrak B\) be a \(C^1\) stationary family satisfying
+\eqref{eq:R3-stationary-family}.  Then
+\begin{equation}\label{eq:R3-kernel}
+   D\mathcal F(W_0)\dot W_0=0 .
+\end{equation}
+In particular, if \(\dot W_0\ne0\) modulo infinitesimal rotations, the
+linearized stationary Leray operator has a genuine non-symmetry kernel element.
+\end{lemma}
+
+\begin{proof}
+Differentiate \(\mathcal F(W_a)=0\) at \(a=0\).  Since \(\mathcal F\) is \(C^1\)
+on \(\mathfrak B\), this gives \eqref{eq:R3-kernel}.  The final statement is
+exactly the nontriviality condition in \Cref{def:R3-stationary-family}.
+\end{proof}
+
+\begin{lemma}[Trajectories constrained to a stationary family are stationary]
+\label{lem:R3-family-constrained-stationary}
+Let \(a\mapsto W_a\in\mathfrak B\) be a \(C^1\) stationary family with
+\(\dot W_a\ne0\) on an interval.  Suppose that a smooth solution of
+\eqref{eq:projected-centered-R3} has the form
+\begin{equation}\label{eq:R3-family-trajectory}
+   V(\tau)=W_{a(\tau)}
+\end{equation}
+for a \(C^1\) function \(a(\tau)\).  Then \(a\) is constant, and hence
+\(V\) is stationary.
+\end{lemma}
+
+\begin{proof}
+Since \(\mathcal F(W_a)=0\) for every \(a\), equation
+\eqref{eq:projected-centered-R3} gives
+\[
+   a'(\tau)\dot W_{a(\tau)}=\partial_\tau V(\tau)=\mathcal F(W_{a(\tau)})=0 .
+\]
+Because \(\dot W_{a(\tau)}\ne0\), we obtain \(a'(\tau)=0\).  Thus \(a\) is
+constant on the interval.
+\end{proof}
+
+\begin{corollary}[Exact stationary-family subcase]
+\label{cor:R3-exact-family-subcase}
+If an element of the residual class is itself an exact trajectory on an
+admissible stationary family, then it is a stationary centered profile.  Hence
+it is excluded whenever it satisfies the stationary \(L^3\) Liouville
+criterion, or more generally whenever the stationary profile belongs to one of
+the previously closed stationary or structured classes.
+\end{corollary}
+
+\begin{proof}
+Let \(V(\tau)=W_{a(\tau)}\) be such an exact stationary-family trajectory.  By
+\Cref{lem:R3-family-constrained-stationary}, \(a'(\tau)=0\) on every interval on
+which the stationary-family parametrization is nondegenerate.  Hence \(a\) is constant and
+\(V\) is a single stationary centered profile.  If that stationary profile
+satisfies the stationary \(L^3\) Liouville criterion or lies in one of the
+previously closed structured or ordered lower residual classes, the corresponding
+prior exclusion removes it from the residual class.
+\end{proof}
+
+\subsection{The exact attainability statement for the stationary-hull class}
+
+The remaining issue is not the internal dynamics along a stationary family; exact
+stationary-family
+motion is stationary by \Cref{lem:R3-family-constrained-stationary}.  The real
+issue is attainability: can a degenerate stationary-family profile occur as an
+active Seregin limit of a finite-energy Type~I source?  The following statement
+is the precise attainability statement required to close the active
+degenerate stationary-hull class.  It is proved in the following section by
+the terminal local concentration theorem.
+
+\begin{theorem}[No active degenerate stationary-family profile is Seregin-attainable]
+\label{thm:R3-no-attainable-degenerate-family}
+Fix an admissible stationary phase space \(\mathfrak B\).  Let \((W,\Pi)\) be a
+stationary centered profile satisfying:
+\begin{enumerate}[label=(\roman*)]
+   \item \(W\in\mathfrak B\), \(\mathcal F(W)=0\), and \(W\) lies on an
+      admissible nontrivial stationary family;
+   \item \((W,\Pi)\) is a centered Type~I Seregin limit of a finite-energy
+      suitable weak solution at a singular point;
+   \item \((W,\Pi)\) is \(\varepsilon_*\)-active;
+   \item \((W,\Pi)\) is not in the small, stationary \(L^3\), tight,
+      fast-decay, structured, axisymmetric bounded-circulation, or rotational
+      relative-equilibrium classes already removed earlier in the stratification.
+\end{enumerate}
+Then no such \((W,\Pi)\) exists.
+\end{theorem}
+
+\begin{proof}
+This is exactly \Cref{cor:R3S-no-active-degenerate-family}, proved below from
+the local terminal stratification theorem.
+\end{proof}
+
+\begin{remark}[Interpretation of the attainability theorem]
+\label{rem:R3-input-interpretation}
+\Cref{thm:R3-no-attainable-degenerate-family} is a forward-attainability
+obstruction.  It does not assert that degenerate stationary profiles cannot
+exist as elliptic solutions of the stationary centered equation.  It asserts
+only that such profiles cannot occur as active Type~I blow-up limits of
+finite-energy suitable weak solutions after all previously closed classes have
+been removed.  This is the correct formulation for the residual problem: the
+elliptic family may exist, but it must be inaccessible to the local blow-up
+procedure coming from a finite-energy Leray source.
+\end{remark}
+
+\subsection{Closure of the active degenerate stationary-hull class}
+
+\begin{theorem}[Exclusion of the active degenerate stationary-hull class]
+\label{thm:R3-exclusion}
+\begin{equation}\label{eq:R3-empty}
+   \Cstat(\mathcal S;I,J;\mathfrak B)=\varnothing .
+\end{equation}
+Consequently the ordered third residual class is empty, provided it is defined
+with the active-attainment condition in \Cref{def:R3-active-class}.
+\end{theorem}
+
+\begin{proof}
+Suppose, for contradiction, that
+\(V\in\Cstat(\mathcal S;I,J;\mathfrak B)\).  By
+\Cref{def:R3-active-class}, there is a stationary profile \((W,\Pi)\) in the
+centered time-translation hull of \((V,P)\), and \((W,\Pi)\) is
+\(\varepsilon_*\)-active.  The profile \(W\) belongs to \(\mathfrak B\), satisfies
+\(\mathcal F(W)=0\), and lies on an admissible nontrivial stationary family.
+Moreover, by the ordered definition of \(\Cstat\), it is not
+in any of the previously closed lower classes.
+
+By \Cref{lem:R3-hull-is-seregin}, the hull profile \((W,\Pi)\) is itself a
+centered Type~I Seregin limit of the original finite-energy suitable weak
+solution at the same singular point, after reselecting scales.  Since activity
+is retained, \((W,\Pi)\) satisfies every condition in
+\Cref{thm:R3-no-attainable-degenerate-family}.  This contradicts the
+attainability theorem.
+Therefore no such \(V\) exists, proving \eqref{eq:R3-empty}.
+\end{proof}
+
+\begin{proposition}[Already-closed integrable stationary-family subcase]
+\label{prop:R3-L3-subcase}
+Let \((W,\Pi)\) be a stationary centered profile lying on an admissible
+stationary family.  If
+\begin{equation}\label{eq:R3-L3}
+   W\in L^3(\mathbb R^3),
+\end{equation}
+then \(W\equiv0\).  Hence no active hull profile satisfying
+\eqref{eq:R3-L3} can occur in \(\Cstat\).
+\end{proposition}
+
+\begin{proof}
+The stationary physical representative associated with \(W\) is a backward
+self-similar Navier--Stokes solution.  The assumption \(W\in L^3(\mathbb R^3)\)
+places it in the stationary \(L^3\) class already excluded by the classical
+Ne\v cas--R\r u\v zi\v cka--\v Sver\'ak Liouville theorem, equivalently by the
+endpoint ancient Liouville theorem cited in Paper I.  Hence \(W\equiv0\).  A
+zero profile has zero pressure-normalized local CKN mass after choosing the
+admissible pressure gauge, so it cannot be \(\varepsilon_*\)-active.
+\end{proof}
+
+\begin{remark}[Closure after terminal local concentration analysis]
+\label{rem:R3-final-obligation}
+The preceding argument reduces the active stationary-hull class from a dynamical hull question to a static
+attainability question for stationary centered profiles in nontrivial stationary
+families.
+\Cref{thm:R3-no-attainable-degenerate-family} is supplied by the terminal local
+concentration analysis in the next section.
+\end{remark}
+
+\begin{remark}[Recommended statement for the residual decomposition]
+\label{rem:R3-decomposition-replacement}
+For the residual decomposition, the third closure line should be stated as follows:
+\[
+   \text{active degenerate stationary-hull residual}
+   \quad\xrightarrow{\;\text{no active stationary-family attainability}\;}\quad
+   \varnothing .
+\]
+The older phrase ``bifurcating profile families'' should be used only as
+informal motivation.  The theorem-level class should be called the
+\emph{active degenerate stationary-hull residual class}.
+\end{remark}

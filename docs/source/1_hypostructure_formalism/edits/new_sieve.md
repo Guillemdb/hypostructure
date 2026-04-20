@@ -1,10 +1,10 @@
 You are right. The extension should **not** introduce large composite “smart nodes.” Each added node should have the same Hypostructure architecture as the existing Sieve:
 
-[
+$$
 \boxed{
 \text{Check} ;\longrightarrow; \text{Barrier} ;\longrightarrow; \text{Singularity Mode} ;\longrightarrow; \text{Surgery} ;\longrightarrow; \text{forward re-entry}.
 }
-]
+$$
 
 The obligation ledger is only a **meta-record** attached to certificates. It should not appear as a DAG node. This is consistent with the existing formalism: the Sieve is built from gate, barrier, and surgery nodes, each predicate evaluation produces typed certificates, and inconclusive outputs are recorded as certificates rather than silent failures.  The current node specs also already separate gate predicates, barrier fallback, and surgery re-entry contracts. 
 
@@ -14,7 +14,12 @@ Below is the corrected design.
 
 # 1. Main integration diagram
 
-The new PDE/profile extension should be inserted after current Node 3 (C_\mu), because (C_\mu) is already the certified concentration/profile entry point. It should feed the library/Lock route used in the Navier–Stokes proof, where the profile module produces (K_{\mathrm{Prof}}^+), (K_{\mathrm{Germ}}^+), (K_{\mathrm{init}}^+), (K_{\mathrm{CatLib}}^+), and then the Lock produces structural exclusion. 
+The new PDE/profile extension should be inserted after current Node 3 $C_\mu$,
+because $C_\mu$ is already the certified concentration/profile entry point. It
+should feed the library/Lock route used in the Navier–Stokes proof, where the
+profile module produces $K_{\mathrm{Prof}}^+$, $K_{\mathrm{Germ}}^+$,
+$K_{\mathrm{init}}^+$, $K_{\mathrm{CatLib}}^+$, and then the Lock produces
+structural exclusion.
 
 The profile-sieve route shown here is a **full-pass audit route**. The current
 Sieve still runs through its ordinary current-node chain, while the PS extension
@@ -557,9 +562,9 @@ that justify the next route.
 The node is not merely a diagram box. It is a local PDE decision package. The
 standard polarity convention is:
 
-\[
+$$
 \boxed{\text{YES means danger and routes to the barrier.}}
-\]
+$$
 
 Every check predicate should therefore be phrased as a danger proposition. A
 safe, absent, certified, or non-applicable outcome is recorded on the NO edge.
@@ -959,12 +964,12 @@ flowchart LR
 ```mermaid
 flowchart LR
     C{"Current Node 3: C_mu<br/>Concentration profile missing/uncertified?"}
-    C -- "NO: certified profile<br/>\(K_{C_\mu}^{-}\)" --> N["PS0 Continuation-failure check"]
-    C -- "YES / INC danger<br/>\(K_{C_\mu}^{+}\) or \(K_{C_\mu}^{\rm inc}\)" --> B{"BarrierScat<br/>Can no-profile behavior be certified benign/scattering?"}
-    B -- "Benign / blocked<br/>\(K_{C_\mu}^{\rm ben}\) or \(K_{C_\mu}^{\rm blk}\)" --> E["Current Node 13: Bound_partial"]
-    B -- "Pathological<br/>\(K_{C_\mu}^{\rm br}\)" --> M["Mode C.D<br/>Concentration escape"]
+    C -- "NO: certified profile<br/>$K_{C_\mu}^{-}$" --> N["PS0 Continuation-failure check"]
+    C -- "YES / INC danger<br/>$K_{C_\mu}^{+}$ or $K_{C_\mu}^{\rm inc}$" --> B{"BarrierScat<br/>Can no-profile behavior be certified benign/scattering?"}
+    B -- "Benign / blocked<br/>$K_{C_\mu}^{\rm ben}$ or $K_{C_\mu}^{\rm blk}$" --> E["Current Node 13: Bound_partial"]
+    B -- "Pathological<br/>$K_{C_\mu}^{\rm br}$" --> M["Mode C.D<br/>Concentration escape"]
     M --> S{"SurgScat<br/>Profile extraction / scattering repair"}
-    S -- "re-entry<br/>\(K_{\mathrm{Surg}C_\mu}^{\rm re}\)" --> N
+    S -- "re-entry<br/>$K_{\mathrm{Surg}C_\mu}^{\rm re}$" --> N
 
     classDef check fill:#3b82f6,stroke:#1d4ed8,color:#ffffff;
     classDef barrier fill:#f97316,stroke:#c2410c,color:#ffffff;
@@ -2874,21 +2879,15 @@ flowchart LR
 
 This node must check one chosen defect family at a time in implementation. For example:
 
-[
-\text{pressure defect absent?}
-]
+$\text{pressure defect absent?}$
 
 then separately
 
-[
-\text{Reynolds/stress defect absent?}
-]
+$\text{Reynolds/stress defect absent?}$
 
 then separately
 
-[
-\text{boundary defect absent?}
-]
+$\text{boundary defect absent?}$
 
 Do not bundle them in code.
 
@@ -3151,14 +3150,13 @@ flowchart LR
 
 This is the most important formal repair from your Navier–Stokes residual stratification. The final residual must be a literal complement:
 
-[
+$$
 \mathcal B_{\mathrm{res}}
-=========================
-
+=
 \mathcal B_{\mathrm{bad}}
 \setminus
 \bigcup_{j=1}^{N}\mathcal B_j.
-]
+$$
 
 ---
 
@@ -3221,7 +3219,7 @@ flowchart LR
     class N next;
 ```
 
-This node produces the formal (K_{\mathrm{CatLib}}^+) input needed by the Lock route.
+This node produces the formal $K_{\mathrm{CatLib}}^+$ input needed by the Lock route.
 
 ---
 
@@ -3555,7 +3553,7 @@ The old labels C.E, C.D, D.D, D.E, S.E, S.D, etc. should remain **mode families*
 
 A final singularity subtype should now be recorded as a path:
 
-[
+$$
 \text{Mode family}
 +
 \text{profile node where failure occurred}
@@ -3563,13 +3561,11 @@ A final singularity subtype should now be recorded as a path:
 \text{barrier outcome}
 +
 \text{surgery outcome}.
-]
+$$
 
 For example:
 
-[
-\texttt{S.E / PS10 / Barrier breached / Surg_PS10}
-]
+$\texttt{S.E / PS10 / Barrier breached / Surg\_PS10}$
 
 means:
 
@@ -3577,9 +3573,7 @@ means:
 
 A Navier–Stokes Type I residual branch might become:
 
-[
-\texttt{C.D / PS18 singleton / PS20 no-splitting / PS34 residual complement / PS32 excluded}.
-]
+$\texttt{C.D / PS18 singleton / PS20 no-splitting / PS34 residual complement / PS32 excluded}.$
 
 That is far more precise than saying merely “R4” or “D.D.”
 
@@ -3609,19 +3603,19 @@ For each problem type T:
 
 The main rule is:
 
-[
+$$
 \boxed{
 \text{No composite node. No hidden ledger node. No informal residual.}
 }
-]
+$$
 
 Every node is:
 
-[
+$$
 \boxed{
 \text{one predicate, one barrier, one singularity mode, one surgery route.}
 }
-]
+$$
 
 This gives you a much cleaner and more rigorous general PDE Sieve.
 
@@ -3695,14 +3689,13 @@ flowchart TD
 
 The final residual node is a complement node, not an informal “unknown.” Formally,
 
-[
+$$
 \mathcal B_{\mathrm{scale,res}}
-===============================
-
+=
 \mathcal B_{\mathrm{bad}}
 \setminus
 (\mathcal B_{\mathrm{I}}\cup \mathcal B_{\mathrm{II}}\cup \mathcal B_{\mathrm{cas}}).
-]
+$$
 
 ---
 
@@ -3973,7 +3966,7 @@ For Navier–Stokes, this is where the terminal finite-packet/no-splitting mecha
 
 # 16. Detailed structure micro-sieve
 
-This is where former labels like (R1,R2,R3,R4) should be replaced by structural names.
+This is where former labels like $R_1,R_2,R_3,R_4$ should be replaced by structural names.
 
 **Micro-sieve mode:** `FULL_PASS_AUDIT`. Blocked and surgically repaired
 structure dangers route to the next structure check; the defect micro-sieve is
@@ -4080,7 +4073,7 @@ flowchart TD
 For your Navier–Stokes Type I series, this structure corresponds to:
 
 * small-amplitude branch,
-* stationary (L^3)/critical-norm branch,
+* stationary $L^3$/critical-norm branch,
 * fast-decay branch,
 * structured/symmetric branch,
 * rotational relative-equilibrium branch,
@@ -4327,22 +4320,22 @@ flowchart TD
 
 The rigorous partition rule is:
 
-[
+$$
 \mathcal B_1:=\mathcal B_T\cap P_1,
-]
+$$
 
-[
+$$
 \mathcal B_j:=
 (\mathcal B_T\cap P_j)\setminus
 \bigcup_{i<j}\mathcal B_i,
-]
+$$
 
-[
+$$
 \mathcal B_{\mathrm{res}}
 :=
 \mathcal B_T\setminus
 \bigcup_{j=1}^N\mathcal B_j.
-]
+$$
 
 This ensures that the classification is exhaustive by construction.
 
@@ -4362,10 +4355,9 @@ or
 
 Formal definition:
 
-[
+$$
 \mathsf{Resolve}_T
-==================
-
+=
 \mathsf{Extract}_T
 \circ
 \mathsf{Scale}_T
@@ -4383,7 +4375,7 @@ Formal definition:
 \mathsf{Endpoint}_T
 \circ
 \mathsf{Library}_T.
-]
+$$
 
 But each factor is itself a sequence of Hypostructure-style nodes, not a single classifier.
 
@@ -4457,48 +4449,46 @@ Progress:
 For a full-pass micro-sieve $M=(N_1,\ldots,N_k)$, the endpoint receives a
 certificate vector rather than a first-hit label:
 
-[
+$$
 \mathrm{DNA}_M(x)=(c_1,\ldots,c_k),
-]
+$$
 
 where each $c_i$ records the result for $N_i$, for example absent,
 present-blocked, present-repaired, present-unresolved, or not-applicable.
 
-```tex
-\begin{theorem}[Full-pass micro-sieve coverage]
-Let
-\[
-   M=(N_1,\ldots,N_k)
-\]
+**Theorem (Full-pass micro-sieve coverage).** Let
+
+$$
+M=(N_1,\ldots,N_k)
+$$
+
 be a full-pass micro-sieve. Suppose each node $N_i$ has a single check
 predicate $P_i$, a barrier $B_i$, a singularity mode $M_i$, and a surgery
 $\mathrm{Surg}_i$. Assume that every safe certificate, blocked barrier
-certificate, and surgery re-entry certificate routes either to $N_{i+1}$ or
-to a certified terminal/prune/spawn policy. Then every completed nonterminal
-run of $M$ produces a certificate vector
-\[
-   (c_1,\ldots,c_k)
-\]
-with one entry for every meaningful node of $M$. In particular, the endpoint
-of $M$ is reached only after all meaningful checks have been evaluated or
+certificate, and surgery re-entry certificate routes either to $N_{i+1}$ or to
+a certified terminal/prune/spawn policy. Then every completed nonterminal run
+of $M$ produces a certificate vector
+
+$$
+(c_1,\ldots,c_k)
+$$
+
+with one entry for every meaningful node of $M$. In particular, the endpoint of
+$M$ is reached only after all meaningful checks have been evaluated or
 certifiably declared non-applicable.
-\end{theorem}
 
-\begin{proof}
-Proceed by induction on $i$. For $i=1$, the node $N_1$ either returns a
-safe certificate, a blocked barrier certificate, a surgery re-entry certificate,
-or a certified terminal/prune/spawn certificate. In the first three cases, the
-routing hypothesis sends the run to $N_2$, and the context contains a
-certificate for $P_1$. In the terminal cases, the run is closed with an
-explicit certificate.
+**Proof.** Proceed by induction on $i$. For $i=1$, the node $N_1$ either
+returns a safe certificate, a blocked barrier certificate, a surgery re-entry
+certificate, or a certified terminal/prune/spawn certificate. In the first
+three cases, the routing hypothesis sends the run to $N_2$, and the context
+contains a certificate for $P_1$. In the terminal cases, the run is closed with
+an explicit certificate.
 
-Assume the claim after $N_i$. At $N_{i+1}$, the same node contract produces
-a certificate for $P_{i+1}$ or a certified terminal/prune/spawn outcome. If
+Assume the claim after $N_i$. At $N_{i+1}$, the same node contract produces a
+certificate for $P_{i+1}$ or a certified terminal/prune/spawn outcome. If
 nonterminal, the routing hypothesis sends the run to $N_{i+2}$. Thus after
 $N_{i+1}$, the context contains certificates for all meaningful predicates
 $P_1,\ldots,P_{i+1}$. The claim follows by induction.
-\end{proof}
-```
 
 That is the exact analogue of the existing gate/barrier/surgery format.
 
@@ -4513,6 +4503,6 @@ This version fixes the issue you pointed out:
 * Every danger outcome passes through a barrier.
 * Every breached barrier produces one specific singularity mode.
 * Every singularity mode has a surgery or re-entry protocol.
-* The ledger is only a meta-record attached to certificates in (\Gamma), never a DAG node.
+* The ledger is only a meta-record attached to certificates in $\Gamma$, never a DAG node.
 
 The Navier–Stokes proof then becomes one certified traversal through this expanded profile-resolution sub-sieve: singularity gives concentration, concentration gives a normalized profile, the profile is routed through scale/orbit/localization/splitting/structure/defect nodes, every dangerous branch is blocked by a PDE theorem or repaired by a refinement surgery, the library becomes complete, the Lock blocks the bad-pattern Hom-set, and the continuation bridge upgrades structural exclusion to analytic regularity.
