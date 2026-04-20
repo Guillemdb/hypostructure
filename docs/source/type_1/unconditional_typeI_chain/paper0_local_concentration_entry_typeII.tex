@@ -73,6 +73,8 @@ point of the singular set, the solution is regular at time \(T\) by the
 \(\varepsilon\)-regularity theorem.  Along any such positive concentration
 sequence, the solution either satisfies a local Type I scale-invariant bound or
 falls under the local Type II alternative.
+For whole-space finite-energy Type I terminal singularities, the velocity
+no-escape condition used in the companion Type I blow-up analysis is automatic.
 \end{abstract}
 
 \maketitle
@@ -111,9 +113,14 @@ separately \(C\), are bounded below by positive constants.  Finally, once such
 a sequence is fixed, it either satisfies a Type I scale-invariant bound or
 falls under the local Type II alternative.
 
-All arguments are local in spacetime.  Apart from the standard
-Caffarelli--Kohn--Nirenberg \(\varepsilon\)-regularity theorem, all quantities
-and alternatives used in the argument are defined below.
+The concentration and Type I/Type II dichotomy arguments are local in
+spacetime.  Apart from the standard Caffarelli--Kohn--Nirenberg
+\(\varepsilon\)-regularity theorem, all quantities and alternatives used in
+that local argument are defined below.  The final no-escape section adds a
+whole-space finite-energy Type I hypothesis only to fix the standard Leray
+pressure gauge and to handle fixed rescalings near the terminal time; its
+uniform estimates are still uniformly local and do not use the size of the
+global energy or global dissipation.
 
 \section{Suitable Weak Solutions and Singular Points}
 
@@ -607,6 +614,379 @@ boundedness of \(u\) in \(Q_{r/2}(x_0,T)\), contradicting
 \(C((x_0,T),r_n)\ge\eta_v\) gives the result.
 \end{proof}
 
+\section{Automatic No-Escape for Finite-Energy Type I Singularities}
+\label{sec:auto-no-escape}
+
+The preceding concentration result gives the positive velocity concentration
+sequence used in the Type I blow-up analysis.  In the companion paper, the
+remaining compactness input is a no-escape condition excluding the possibility
+that all of the selected scale-invariant velocity mass collapses into the
+final rescaled time slice.  We prove here that this no-escape condition is
+automatic for finite-energy Type I singularities.
+
+For this section we use, in addition to \(C\) and \(D\), the standard local
+kinetic-energy and dissipation quantities
+\[
+  A(z_0,r)
+  =r^{-1}\operatorname*{ess\,sup}_{t_0-r^2<t<t_0}
+    \int_{B_r(x_0)} |u(x,t)|^2\,dx,
+\]
+and
+\[
+  E(z_0,r)
+  =r^{-1}\int_{t_0-r^2}^{t_0}\int_{B_r(x_0)}
+    |\nabla u(x,t)|^2\,dx\,dt .
+\]
+These quantities are invariant under the Navier--Stokes scaling.
+
+\begin{definition}[Finite-energy Type I terminal singularity]
+\label{def:finite-energy-typeI-paper0}
+Let \((u,p)\) be a suitable weak solution on \(\mathbb R^3\times(0,T)\).
+We say that \(z_*=(x_*,T)\) is a finite-energy Type I terminal singularity if
+\(x_*\in\Sigma(T)\),
+\[
+  u\in L^\infty(0,T;L^2(\mathbb R^3))
+  \cap L^2(0,T;\dot H^1(\mathbb R^3)),
+\]
+and there are \(T_0<T\) and \(M<\infty\) such that
+\begin{equation}\label{eq:paper0-global-typeI}
+  \|u(t)\|_{L^\infty(\mathbb R^3)}
+  \le \frac{M}{\sqrt{T-t}},
+  \qquad T_0<t<T .
+\end{equation}
+\end{definition}
+
+The key point is a uniformly-local energy propagation estimate.  It is stated
+at unit scale, because the application is obtained by parabolic rescaling from
+\((x_*,T)\).  The estimate is a local state-space closure: the state is the
+uniformly-local kinetic energy, and the Type I envelope turns the nonlinear
+pressure stratum into an integrable linear coefficient.  No bound below
+depends on the size of the global \(L^2\) energy or the global dissipation;
+finite energy is used only to place the pressure in the standard whole-space
+Leray gauge and to make fixed-scale terminal \(L^3\) absolute continuity
+immediate.
+
+We use the standard Leray pressure gauge throughout this section.  At almost
+every terminal time on which the Type I bound holds,
+\(u(t)\in L^2(\mathbb R^3)\cap L^\infty(\mathbb R^3)\), hence
+\(u_i(t)u_j(t)\in L^{3/2}(\mathbb R^3)\).  The whole-space pressure
+\[
+  p^L(t)=\mathcal R_i\mathcal R_j(u_i(t)u_j(t))
+\]
+is then defined by the Calderon--Zygmund theory.  The distributional pressure
+equation gives
+\(-\Delta p=\partial_i\partial_j(u_i u_j)=-\Delta p^L\), and the whole-space
+de Rham argument applied to the momentum equation shows that \(p-p^L\) is a
+function of time.  Thus replacing \(p\) by \(p^L\) is only a pressure-gauge
+change and does not alter suitability.  This gauge choice uses the
+finite-energy setting to define the representative; the uniform constants
+below, in particular \(B_{\mathrm{uloc}}\) and \(B_A\), do not contain
+\(\|u\|_{L^\infty(0,T;L^2(\mathbb R^3))}\) or
+\(\int_0^T\|\nabla u(t)\|_{L^2(\mathbb R^3)}^2\,dt\).
+
+\begin{lemma}[Uniformly-local energy propagation under a Type I envelope]
+\label{lem:uloc-typeI-propagation}
+Let \((v,\pi)\) be a suitable weak solution on
+\(\mathbb R^3\times(-4,0)\) with \(v(s)\in L^2(\mathbb R^3)\) for a.e.
+\(s\), and take \(\pi\) to be the whole-space Leray pressure representative,
+modulo functions of time.  Assume that
+\begin{equation}\label{eq:unit-typeI-envelope}
+  |v(x,s)|\le M(-s)^{-1/2},
+  \qquad \text{for a.e. }(x,s)\in\mathbb R^3\times(-4,0),
+\end{equation}
+and that for some admissible initial time \(s_0\in(-4,-3)\),
+\begin{equation}\label{eq:unit-uloc-initial}
+  \alpha_0
+  :=\sup_{a\in\mathbb R^3}\int_{B_2(a)} |v(x,s_0)|^2\,dx
+  \le K .
+\end{equation}
+Then there is a constant \(B_{\mathrm{uloc}}=B_{\mathrm{uloc}}(M,K)<\infty\)
+such that
+\begin{equation}\label{eq:unit-uloc-bound}
+  \operatorname*{ess\,sup}_{-1<s<0}\sup_{a\in\mathbb R^3}
+  \int_{B_1(a)} |v(x,s)|^2\,dx
+  +
+  \sup_{a\in\mathbb R^3}\int_{-1}^{0}\int_{B_1(a)}
+  |\nabla v|^2\,dx\,ds
+  \le B_{\mathrm{uloc}} .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We give the proof because the estimate is the mechanism that closes the
+terminal no-escape gap.  Let
+\[
+  \alpha(s)=\sup_{a\in\mathbb R^3}\int_{B_1(a)} |v(x,s)|^2\,dx .
+\]
+By \eqref{eq:unit-typeI-envelope},
+\begin{equation}\label{eq:alpha-typeI-trivial}
+  \alpha(s)^{1/2}\le C M(-s)^{-1/2},
+  \qquad -4<s<0 .
+\end{equation}
+Fix \(a\in\mathbb R^3\) and choose
+\(\phi_a\in C_c^\infty(B_2(a))\) with
+\(0\le\phi_a\le1\), \(\phi_a\equiv1\) on \(B_1(a)\), and
+\(|\nabla\phi_a|+|\Delta\phi_a|\le C\), uniformly in \(a\).  Applying the
+local energy inequality on \((s_0,t)\), using the standard monotone
+approximation of temporal cutoffs and with the pressure gauge chosen below,
+gives for a.e. \(t\in(s_0,0)\)
+\begin{align}
+ &\int |v(t)|^2\phi_a\,dx
+   +2\int_{s_0}^{t}\int |\nabla v|^2\phi_a\,dx\,ds       \notag \\
+ &\quad\le
+   \int |v(s_0)|^2\phi_a\,dx
+   +C\int_{s_0}^{t}\int_{B_2(a)} |v|^2\,dx\,ds
+   +C\int_{s_0}^{t}\int_{B_2(a)} |v|^3\,dx\,ds          \notag \\
+ &\qquad
+   +C\int_{s_0}^{t}\int_{B_2(a)}
+       |\pi-c_a(s)|\,|v|\,dx\,ds .
+\label{eq:lei-unit-estimate}
+\end{align}
+Here \(c_a(s)\) is an arbitrary function of time; adding or subtracting such a
+function does not change the local energy inequality, since
+\(\nabla\cdot v=0\) and \(\phi_a\) is compactly supported.
+
+The velocity terms are controlled by the state.  Since \(B_2(a)\) is covered by
+finitely many unit balls,
+\[
+  \int_{B_2(a)} |v|^2\,dx\le C\alpha(s),
+\]
+and by \eqref{eq:unit-typeI-envelope},
+\begin{equation}\label{eq:cubic-unit-bound}
+  \int_{B_2(a)} |v|^3\,dx
+  \le M(-s)^{-1/2}\int_{B_2(a)} |v|^2\,dx
+  \le C M(-s)^{-1/2}\alpha(s).
+\end{equation}
+It remains to estimate the pressure term uniformly in \(a\).
+
+Use the whole-space pressure representative
+\(\pi=\mathcal R_i\mathcal R_j(v_i v_j)\), modulo functions of time.  Let
+\(\chi_a\in C_c^\infty(B_8(a))\), \(\chi_a\equiv1\) on \(B_4(a)\), and write
+inside \(B_4(a)\)
+\[
+  \pi=q_a+h_a,
+  \qquad
+  q_a=\mathcal R_i\mathcal R_j(\chi_a v_i v_j).
+\]
+Then \(h_a\) is harmonic in \(B_4(a)\).  Calderon--Zygmund boundedness
+\cite{Stein1970} and \eqref{eq:unit-typeI-envelope} give, for a.e. \(s\),
+\begin{align*}
+  \|q_a(s)\|_{L^2(B_4(a))}
+  &\le C\|\chi_a v(s)\otimes v(s)\|_{L^2(\mathbb R^3)}  \\
+  &\le C M(-s)^{-1/2}\|v(s)\|_{L^2(B_8(a))}             \\
+  &\le C M(-s)^{-1/2}\alpha(s)^{1/2},
+\end{align*}
+where the last step again uses a finite covering by unit balls.  Hence
+\begin{equation}\label{eq:local-pressure-unit}
+  \int_{B_2(a)} |q_a|\,|v|\,dx
+  \le C M(-s)^{-1/2}\alpha(s).
+\end{equation}
+
+For the harmonic part, set \(c_a(s)=h_a(a,s)\).  The kernel estimate
+\[
+  |K_{ij}(x-z)-K_{ij}(a-z)|
+  \le C |x-a|\,|z-a|^{-4},
+  \qquad x\in B_2(a),\quad |z-a|>4,
+\]
+where \(K_{ij}\) is the kernel of \(\mathcal R_i\mathcal R_j\), gives
+\[
+  |h_a(x,s)-c_a(s)|
+  \le
+  C\sum_{m=2}^{\infty}2^{-4m}
+    \int_{2^m<|z-a|<2^{m+1}} |v(z,s)|^2\,dz .
+\]
+The annulus \(\{2^m<|z-a|<2^{m+1}\}\) is covered by at most \(C2^{3m}\)
+unit balls.  Therefore
+\begin{equation}\label{eq:harmonic-pressure-unit}
+  \|h_a(s)-c_a(s)\|_{L^\infty(B_2(a))}
+  \le C\sum_{m=2}^{\infty}2^{-m}\alpha(s)
+  \le C\alpha(s).
+\end{equation}
+Consequently,
+\begin{align}
+  \int_{B_2(a)} |h_a-c_a|\,|v|\,dx
+  &\le C\alpha(s)\int_{B_2(a)} |v|\,dx                    \notag\\
+  &\le C\alpha(s)^{3/2}                                    \notag\\
+  &\le C M(-s)^{-1/2}\alpha(s),
+\label{eq:harmonic-pressure-flux-unit}
+\end{align}
+where the last inequality is exactly the Type I state-space closure
+\eqref{eq:alpha-typeI-trivial}.
+Combining \eqref{eq:local-pressure-unit} and
+\eqref{eq:harmonic-pressure-flux-unit},
+\begin{equation}\label{eq:pressure-flux-unit}
+  \int_{B_2(a)} |\pi-c_a(s)|\,|v|\,dx
+  \le C M(-s)^{-1/2}\alpha(s).
+\end{equation}
+
+Insert \eqref{eq:cubic-unit-bound} and \eqref{eq:pressure-flux-unit} into
+\eqref{eq:lei-unit-estimate}, then take the supremum over \(a\).  Since
+\((-s)^{-1/2}\in L^1(-4,0)\), Gronwall's inequality yields
+\[
+  \operatorname*{ess\,sup}_{s_0<s<0}\alpha(s)
+  \le C K
+     \exp\left(C\int_{s_0}^{0}\bigl(1+M(-s)^{-1/2}\bigr)\,ds\right)
+  \le B_1(M,K).
+\]
+Returning to \eqref{eq:lei-unit-estimate}, using this bound, and then letting
+\(t\uparrow0\) through admissible times gives the corresponding
+uniformly-local dissipation estimate on \((-1,0)\).  This proves
+\eqref{eq:unit-uloc-bound}.
+\end{proof}
+
+\begin{remark}[State-space stratification]
+\label{rem:state-space-stratification}
+The preceding proof can be read as a three-stratum closure of the local state
+\(\alpha(s)\).  The diffusion and transport strata are linear in
+\(\alpha\), with coefficient \(1+M(-s)^{-1/2}\).  The local pressure stratum is
+also linear after Calderon--Zygmund and the Type I envelope.  The only
+apparently superlinear stratum is the harmonic pressure flux, which is
+\(O(\alpha^{3/2})\); the pointwise Type I envelope implies
+\(\alpha^{1/2}\le C M(-s)^{-1/2}\), reducing it to the same integrable linear
+coefficient.  Thus the bad region \(\alpha\gg1\) is not invariant: the
+state-space dynamics are trapped in a bounded absorbing interval depending
+only on \(M\) and the initial uniformly-local energy state.
+\end{remark}
+
+\begin{proposition}[Automatic terminal kinetic tightness]
+\label{prop:auto-terminal-A}
+Let \((u,p,z_*)\), \(z_*=(x_*,T)\), be a finite-energy Type I terminal
+singularity in the sense of \cref{def:finite-energy-typeI-paper0}.  Then there
+exist \(r_0>0\) and \(B_A<\infty\), with \(B_A\) depending only on the Type I
+constant \(M\), such that
+\begin{equation}\label{eq:auto-A-bound}
+  A(z_*,r)\le B_A,
+  \qquad 0<r<r_0 .
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:auto-E-bound}
+  r^{-1}\int_{T-r^2}^{T}\int_{B_r(x_*)}|\nabla u|^2\,dx\,dt
+  \le B_A,
+  \qquad 0<r<r_0 .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Choose \(r_0>0\) so small that \(T-4r^2>T_0\) for \(0<r<r_0\).  For such
+\(r\), use the whole-space Leray pressure gauge fixed above and define the
+rescaled solution
+\[
+  v^{(r)}(y,s)=r u(x_*+ry,T+r^2s),
+  \qquad
+  \pi^{(r)}(y,s)=r^2 p(x_*+ry,T+r^2s),
+\]
+on \(\mathbb R^3\times(-4,0)\).  The Type I bound
+\eqref{eq:paper0-global-typeI} gives
+\[
+  |v^{(r)}(y,s)|\le M(-s)^{-1/2},
+  \qquad -4<s<0 .
+\]
+For any admissible \(s_0\in(-4,-3)\) at which the Type I bound holds, and any
+\(a\in\mathbb R^3\),
+\begin{align*}
+  \int_{B_2(a)} |v^{(r)}(y,s_0)|^2\,dy
+  &= r^{-1}\int_{B_{2r}(x_*+ra)}
+       |u(x,T+r^2s_0)|^2\,dx                                    \\
+  &\le r^{-1}|B_{2r}|\frac{M^2}{r^2|s_0|}
+   \le C M^2 .
+\end{align*}
+Such times form a full-measure subset of \((-4,-3)\).  The preceding estimate
+is uniform in this choice, so \cref{lem:uloc-typeI-propagation} applies with
+\(K=CM^2\), uniformly in \(r\).  Hence
+\[
+  \operatorname*{ess\,sup}_{-1<s<0}\int_{B_1}|v^{(r)}(y,s)|^2\,dy
+  +\int_{-1}^{0}\int_{B_1}|\nabla v^{(r)}|^2\,dy\,ds
+  \le B_A .
+\]
+Undoing the parabolic change of variables gives exactly
+\eqref{eq:auto-A-bound} and \eqref{eq:auto-E-bound}.  The constant \(B_A\)
+depends only on \(M\); no global energy norm of \(u\) has been used in the
+estimate.
+\end{proof}
+
+\begin{theorem}[Automatic velocity no-escape]
+\label{thm:auto-velocity-no-escape}
+Let \((u,p,z_*)\), \(z_*=(x_*,T)\), be a finite-energy Type I terminal
+singularity.  Let \(\lambda_k\downarrow0\) be any sequence of scales, and set
+\[
+  u_k(x,t)=\lambda_k u(x_*+\lambda_k x,T+\lambda_k^2 t).
+\]
+Then
+\begin{equation}\label{eq:auto-no-escape}
+  \lim_{\sigma\downarrow0}
+  \sup_k\int_{-\sigma}^{0}\int_{B_1}|u_k(x,t)|^3\,dx\,dt=0 .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By \cref{prop:auto-terminal-A}, after discarding at most finitely many indices,
+\[
+  \operatorname*{ess\,sup}_{-1<t<0}\int_{B_1}|u_k(x,t)|^2\,dx\le B_A .
+\]
+The Type I bound gives, for the same tail of the sequence,
+\[
+  \|u_k(t)\|_{L^\infty(\mathbb R^3)}
+  \le M(-t)^{-1/2},
+  \qquad -1<t<0 .
+\]
+Therefore, for \(0<\sigma<1\),
+\[
+\begin{aligned}
+  \int_{-\sigma}^{0}\int_{B_1}|u_k|^3\,dx\,dt
+  &\le
+  \int_{-\sigma}^{0}\|u_k(t)\|_{L^\infty(B_1)}
+       \int_{B_1}|u_k(x,t)|^2\,dx\,dt  \\
+  &\le M B_A\int_{-\sigma}^{0}(-t)^{-1/2}\,dt
+   =2M B_A\sigma^{1/2} .
+\end{aligned}
+\]
+This bound is uniform over the tail.  For each of the finitely many discarded
+indices \(k\), choose \(\sigma_k>0\) so that
+\(T+\lambda_k^2t>T_0\) for \(-\sigma_k<t<0\).  On this terminal subinterval
+the Type I envelope and the finite-energy assumption imply
+\[
+  \int_{-\sigma_k}^{0}\int_{B_1}|u_k|^3\,dx\,dt
+  \le
+  \int_{-\sigma_k}^{0}\|u_k(t)\|_{L^\infty(B_1)}
+       \int_{B_1}|u_k(x,t)|^2\,dx\,dt
+  <\infty .
+\]
+Indeed, on \((-\sigma_k,0)\),
+\[
+  \|u_k(t)\|_{L^\infty(B_1)}\le M(-t)^{-1/2},
+  \qquad
+  \int_{B_1}|u_k(x,t)|^2\,dx
+  \le \lambda_k^{-1}\|u(T+\lambda_k^2t)\|_{L^2(\mathbb R^3)}^2,
+\]
+and the right-hand side is finite for this fixed \(k\) by finite energy.
+Thus each discarded index has absolute continuity of its \(L^3\)-integral at
+the terminal slice.  Taking the maximum over this finite set gives the same
+limit for the full supremum over \(k\).  This proves
+\eqref{eq:auto-no-escape}.
+\end{proof}
+
+\begin{corollary}[Automatic admissibility of Type I concentration sequences]
+\label{cor:auto-paperI-admissibility}
+Let \((u,p,z_*)\), \(z_*=(x_*,T)\), be a finite-energy Type I terminal
+singularity.  Then there exist \(\eta_v>0\) and \(\lambda_k\downarrow0\) such
+that
+\[
+  C(z_*,\lambda_k)\ge\eta_v
+  \qquad\text{for every }k,
+\]
+and the corresponding rescaled velocities satisfy the no-escape condition
+\eqref{eq:auto-no-escape}.  Hence the concentration and no-escape
+admissibility condition used in the companion Type I blow-up-limit paper is
+automatic for finite-energy Type I singularities.
+\end{corollary}
+
+\begin{proof}
+Since \(x_*\in\Sigma(T)\), \cref{cor:velocity-concentration} gives
+\(\eta_v>0\) and \(\lambda_k\downarrow0\) with
+\(C(z_*,\lambda_k)\ge\eta_v\) for all \(k\).  The no-escape condition for this
+same sequence follows from \cref{thm:auto-velocity-no-escape}.
+\end{proof}
+
 \section{The Type I/Type II Blow-Up Rate Dichotomy}
 
 Let \(x_0\in\Sigma(T)\), \(\eta>0\), and \(r_n\downarrow0\) be given by
@@ -685,6 +1065,246 @@ between a local Type I bound and failure of every such bound at the
 concentration point.
 \end{remark}
 
+\section{Local Pointwise Type I Bridge to the Terminal Concentration Package}
+\label{sec:local-typeI-terminal-bridge-paper0}
+
+We record the interface used by the companion residual paper
+\cite{DuranPaperIV}.  The point is that the local pointwise Type I alternative in
+\cref{def:typeI-concentration} is already strong enough, after rescaling at
+the singular point, to give the compactness input required by the terminal
+concentration package.  Thus a finite-energy singular point satisfying the
+local pointwise Type I bound enters the terminal profile analysis without adding a
+separate whole-space no-escape hypothesis.
+
+Throughout this section \(z_*=(x_*,T)\), and
+\[
+  Q_1(0,0)=B_1(0)\times(-1,0).
+\]
+
+\begin{proposition}[Local pointwise Type I rescalings have terminal compactness]
+\label{prop:paper0-local-typeI-terminal-compactness}
+Let \((u,p)\) be a suitable weak solution on
+\(\mathbb R^3\times(0,T)\) satisfying the finite-energy bounds
+\[
+  u\in L^\infty(0,T;L^2(\mathbb R^3))
+  \cap L^2(0,T;\dot H^1(\mathbb R^3)).
+\]
+Let \(z_*=(x_*,T)\) be a singular point, and assume that \(z_*\) satisfies the
+local pointwise Type I bound: there exist \(\rho>0\) and \(M<\infty\) such that
+\begin{equation}\label{eq:paper0-local-typeI-bridge-bound}
+  \operatorname*{ess\,sup}_{T-\rho^2<t<T}
+  \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M .
+\end{equation}
+For any sequence \(r_n\downarrow0\), define
+\begin{equation}\label{eq:paper0-local-typeI-bridge-rescaling}
+  u_n(x,t)=r_nu(x_*+r_nx,T+r_n^2t),
+  \qquad
+  p_n(x,t)=r_n^2p(x_*+r_nx,T+r_n^2t).
+\end{equation}
+Then the following hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item If
+\[
+  K=B_R\times[-S,-\sigma]\Subset\mathbb R^3\times(-\infty,0),
+  \qquad R,S<\infty,\quad \sigma>0,
+\]
+then, for all sufficiently large \(n\),
+\begin{equation}\label{eq:paper0-local-typeI-bridge-Linfty}
+  \|u_n\|_{L^\infty(K)}\le M\sigma^{-1/2}.
+\end{equation}
+\item On each such compact cylinder \(K\), after subtracting time-dependent
+local pressure gauges \(a_{n,K}(t)\), the sequence satisfies uniform local
+Seregin bounds
+\begin{equation}\label{eq:paper0-local-typeI-bridge-Seregin-bounds}
+  \|u_n\|_{L^\infty_tL^2_x(K)}
+  +\|\nabla u_n\|_{L^2(K)}
+  +\|p_n-a_{n,K}(t)\|_{L^{3/2}(K)}
+  \le C_K .
+\end{equation}
+Here \(C_K\) may depend on \(K,M,\rho\), and on the finite Leray energy level
+of the original solution, but it does not depend on \(n\) and does not use a
+terminal no-escape assumption.
+\item After passing to a subsequence, \((u_n,p_n-a_{n,K})\) converges on every
+compact \(K\Subset\mathbb R^3\times(-\infty,0)\) to an ancient suitable weak
+solution \((U,Q)\), with
+\[
+  u_n\to U\quad\text{strongly in }L^q(K),\qquad 1\le q<\infty,
+\]
+\[
+  p_n-a_{n,K}(t)\rightharpoonup Q
+  \quad\text{weakly in }L^{3/2}(K),
+\]
+and
+\[
+  |U(x,t)|\le M(-t)^{-1/2},\qquad t<0.
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Fix \(K=B_R\times[-S,-\sigma]\Subset\mathbb R^3\times(-\infty,0)\).  For
+large \(n\),
+\[
+  r_nR<\rho/2,\qquad r_n^2S<\rho^2/2.
+\]
+Thus \(x_*+r_nx\in B_\rho(x_*)\) and
+\(T+r_n^2t\in(T-\rho^2,T)\) for a.e. \((x,t)\in K\).  The local pointwise Type I bound
+\eqref{eq:paper0-local-typeI-bridge-bound} gives
+\[
+  |u_n(x,t)|
+  =r_n|u(x_*+r_nx,T+r_n^2t)|
+  \le r_nM(T-(T+r_n^2t))^{-1/2}
+  =M(-t)^{-1/2}
+  \le M\sigma^{-1/2}.
+\]
+This proves \eqref{eq:paper0-local-typeI-bridge-Linfty}.  It also gives
+uniform local \(L^\infty_tL^2_x\) and \(L^3_{x,t}\) bounds on \(K\).
+
+It remains to explain the pressure and dissipation bounds.  Use the
+whole-space Leray pressure representative, which is legitimate in the
+finite-energy class up to addition of functions of time.  Choose
+\(\chi_R\in C_c^\infty(B_{8R})\), \(\chi_R\equiv1\) on \(B_{4R}\), and write
+inside \(B_{4R}\)
+\[
+  p_n=q_n+h_n,\qquad
+  q_n=\mathcal R_i\mathcal R_j(\chi_Ru_{n,i}u_{n,j}).
+\]
+Calderon--Zygmund boundedness and the local \(L^3\)-bound for \(u_n\) give a
+uniform \(L^{3/2}\)-bound for \(q_n\).  For \(h_n\), take the gauge
+\(a_{n,K}(t)=h_n(0,t)\).  The harmonic pressure kernel estimate gives
+\[
+  |h_n(x,t)-a_{n,K}(t)|
+  \le
+  C_R\sum_{m\ge2}2^{-4m}
+  \int_{2^mR<|z|<2^{m+1}R}|u_n(z,t)|^2\,dz,
+  \qquad x\in B_{2R}.
+\]
+For annuli whose physical image remains inside \(B_\rho(x_*)\), the local
+Type I bound controls the \(L^2\)-mass by
+\[
+  C M^2\sigma^{-1}(2^mR)^3,
+\]
+and the resulting series is geometric.  For the outer annuli, the finite
+Leray energy gives
+\[
+  \int_{\mathbb R^3}|u_n(z,t)|^2\,dz
+  =r_n^{-1}\int_{\mathbb R^3}|u(y,T+r_n^2t)|^2\,dy,
+\]
+while the first outer annulus has radius comparable to \(\rho/r_n\).  Hence
+the tail of the kernel series is bounded by
+\[
+  C_{\rho,R}\,r_n^3\|u\|_{L^\infty(0,T;L^2)}^2,
+\]
+which is uniform in \(n\).  This proves the pressure-gauge part of
+\eqref{eq:paper0-local-typeI-bridge-Seregin-bounds}.
+
+Apply the local energy inequality for \((u_n,p_n)\) with a cutoff equal to one
+on \(K\) and supported in a slightly larger compact cylinder.  The local
+kinetic, cubic velocity, and pressure-flux terms are bounded by the estimates
+just proved, so \(\|\nabla u_n\|_{L^2(K)}\le C_K\).  The Navier--Stokes
+equation then bounds \(\partial_tu_n\) locally in a negative Sobolev space.
+Aubin--Lions compactness and the pressure bound give the asserted Seregin
+subsequence convergence.  Passing to the limit in the equations and local
+energy inequality gives an ancient suitable weak solution, and the pointwise
+Type I bound passes to the limit.
+\end{proof}
+
+\begin{lemma}[Local pointwise Type I concentration enters the terminal dichotomy]
+\label{lem:paper0-local-typeI-into-terminal-dichotomy}
+Assume the companion residual paper's realized critical-tail rigidity input.
+Under the hypotheses of
+\cref{prop:paper0-local-typeI-terminal-compactness}, there exist
+\(\eta_v>0\) and a sequence \(r_n\downarrow0\) such that
+\begin{equation}\label{eq:paper0-local-typeI-bridge-velocity-concentration}
+  \int_{Q_1(0,0)} |u_n|^3\,dx\,dt\ge\eta_v
+  \qquad\text{for all }n.
+\end{equation}
+Consequently, after applying the terminal concentration package of the
+companion residual paper \cite{DuranPaperIV} with a threshold
+\(\varepsilon_{\rm sd}\le\eta_v\), the retained compact concentration issued
+from the origin recentering has no loss of local compactness.  The paired
+terminal decomposition produces an active retained profile locus plus a
+residual remainder.  With realized critical-tail rigidity made explicit in the
+companion paper, and with active path-space recurrence proved there, the
+companion package excludes mixed compact--diffuse remainders,
+compact--noncompact remainders, and infinite active descendant branches.  Thus
+the retained compact concentration is reduced to a single retained
+concentrating profile or a finite separated family of retained concentrating
+profiles.
+\end{lemma}
+
+\begin{proof}
+Since \(x_*\in\Sigma(T)\), \cref{cor:velocity-concentration} supplies
+\(\eta_v>0\) and \(r_n\downarrow0\) with
+\[
+  C(z_*,r_n)
+  =r_n^{-2}\int_{T-r_n^2}^{T}\int_{B_{r_n}(x_*)}|u|^3\,dx\,dt
+  \ge\eta_v .
+\]
+After the rescaling \eqref{eq:paper0-local-typeI-bridge-rescaling}, this is
+exactly \eqref{eq:paper0-local-typeI-bridge-velocity-concentration}.  The
+compactness part follows from
+\cref{prop:paper0-local-typeI-terminal-compactness}.  The local CKN measure in
+the terminal package dominates the velocity contribution, so the origin
+recentering is \(\varepsilon_{\rm sd}\)-concentrating whenever
+\(\varepsilon_{\rm sd}\le\eta_v\).  The terminal exhaustion theorem of the
+companion residual paper is paired: it records the active retained profile
+locus together with a residual remainder.  Its diffuse-defect trichotomy and
+critical-tail compactification route compact core plus diffuse/noncompact
+remainders to the realized critical-tail rigidity theorem, while its active
+path-space recurrence rules out infinite active cascades.  Therefore only a
+single retained profile or a finite separated retained family remains at this
+bridge stage.
+\end{proof}
+
+\begin{theorem}[Local pointwise Type I entry into the full exclusion pipeline]
+\label{thm:paper0-local-typeI-entry-pipeline}
+Assume the companion terminal concentration package and residual exclusions of
+\cite{DuranPaperIV}, including the realized critical-tail rigidity input stated
+there.  Let \((u,p)\) be a finite-energy suitable weak solution
+on \(\mathbb R^3\times(0,T)\), and let \(z_*=(x_*,T)\) be a singular point
+satisfying the local pointwise Type I bound
+\eqref{eq:paper0-local-typeI-bridge-bound}.  Then the rescalings at \(z_*\)
+generate a bounded centered Type I Seregin profile with retained local
+concentration, and the companion terminal package applies to that profile.  In
+particular, no finite-energy local pointwise Type I singular point exists once
+the terminal package is included.
+\end{theorem}
+
+\begin{proof}
+By \cref{lem:paper0-local-typeI-into-terminal-dichotomy}, the local pointwise Type I
+singularity generates retained compact concentration with local compactness.
+The compactness statement gives an ancient Type I limit satisfying
+\(|U(x,t)|\le M(-t)^{-1/2}\); after the centered change of variables this is a
+bounded centered Type I Seregin profile.  If all retained profiles generated by
+the terminal package belong to lower classes already closed in Papers I--III,
+then the contradiction is supplied by those earlier class exclusions.  If some
+retained profile lies outside the lower classes, it is a residual candidate.
+For residual candidates, the terminal local stratification theorem of the
+residual paper applies: finite separated retained families are excluded there,
+infinite active branches are excluded by active path-space recurrence, mixed
+compact--diffuse tails are routed through critical-tail compactification and
+realized critical-tail rigidity, and a remaining single retained profile is forced through indecomposability,
+parasitic-free mildness inheritance, and the endpoint Liouville contradiction.  Thus the
+assumed local pointwise Type I singular point cannot exist in the completed pipeline.
+\end{proof}
+
+\begin{corollary}[Finite-energy singularities are locally Type II]
+\label{cor:paper0-local-typeII-after-bridge}
+In the completed Papers~0--IV pipeline, assuming the companion residual
+paper's realized critical-tail rigidity input, every
+finite-energy singular point falls into the local Type II alternative of
+\cref{def:typeII-alternative}.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:typeI-typeII-dichotomy}, every singular point lies in either the
+local Type I alternative or the local Type II alternative.  The local Type I
+alternative is excluded by
+\cref{thm:paper0-local-typeI-entry-pipeline}.  Therefore only the local Type II
+alternative remains.
+\end{proof}
+
 \begin{thebibliography}{9}
 
 \bibitem{CKN1982}
@@ -700,6 +1320,11 @@ L.~Escauriaza, G.~A.~Seregin, and V.~{\v S}verak,
  backward uniqueness},
 Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250,
 doi:\ \nolinkurl{10.1070/RM2003v058n02ABEH000609}.
+
+\bibitem{DuranPaperIV}
+G.~Duran Ballester,
+\emph{Local Exclusion of Residual Type I Navier--Stokes Seregin Limits},
+companion manuscript in the Type I chain, 2026.
 
 \bibitem{Giga1986}
 Y.~Giga,
@@ -739,6 +1364,11 @@ J.~Serrin,
  equations},
 Arch. Rational Mech. Anal. \textbf{9} (1962), 187--195,
 doi:\ \nolinkurl{10.1007/BF00253344}.
+
+\bibitem{Stein1970}
+E.~M. Stein,
+\emph{Singular Integrals and Differentiability Properties of Functions},
+Princeton Mathematical Series, No.~30, Princeton University Press, 1970.
 
 \end{thebibliography}
 

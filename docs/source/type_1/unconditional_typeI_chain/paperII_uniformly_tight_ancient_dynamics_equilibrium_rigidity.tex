@@ -54,10 +54,11 @@ We study bounded ancient solutions of the three-dimensional Navier--Stokes
 equations in backward self-similar variables under uniform \(L^3\)-tightness.
 We first establish the analytic compactness framework: bounded mild ancient
 solutions are smooth, locally compact under time translation, and the
-uniform \(L^\infty_\tau L^3_y\) and tightness bounds are stable under locally
-smooth limits.  We then prove a minimal-element reduction for closed normalized
-uniformly tight collections: any nonempty such collection contains a nonzero
-solution of minimal \(L^\infty(\R^3\times\R)\) size.
+common \(L^\infty_\tau L^3_y\) and tightness bounds used in the compactness
+statements are stable under locally smooth limits.  We then prove a
+minimal-element reduction for closed normalized uniformly tight collections:
+any nonempty such collection contains a nonzero solution of minimal
+\(L^\infty(\R^3\times\R)\) size.
 
 For the time-translation hull of a bounded ancient solution we construct compact
 invariant hulls and invariant probability measures by Krylov--Bogolyubov
@@ -67,11 +68,10 @@ explicit quadratic covariance term, isolating the obstruction to obtaining a
 single stationary self-similar profile.
 
 Finally, we close the uniformly \(L^3\)-tight stratum unconditionally.  The
-physical pullback of a centered ancient solution preserves the critical
-\(L^3\)-norm on each time slice.  Thus a uniformly \(L^3\)-tight centered
-ancient solution gives a mild ancient Navier--Stokes solution whose physical
-time slices are bounded in \(L^3(\R^3)\) along a sequence tending to
-\(-\infty\).  The endpoint ancient Liouville theorem of
+tail condition, together with the boundedness of the ancient profile, gives the
+sequence-\(L^3\) bound needed after the physical pullback.  Since this pullback
+preserves the critical \(L^3\)-norm on each time slice, the endpoint ancient
+Liouville theorem of
 Albritton--Barker then forces the pullback, and hence the centered profile, to
 vanish.  Therefore the uniformly \(L^3\)-tight stratum of the Type I
 ancient-profile reduction is excluded without any compact-hull Lyapunov
@@ -96,16 +96,18 @@ solve
 on \(\R^3\times\R\).  In the companion Type I reduction paper
 \cite{DuranPaperI}, admissible Type I singularities are reduced to nonzero
 normalized ancient solutions of \eqref{eq:centered}.  The present paper starts
-after that reduction and studies the stratum in which
-\begin{equation}\label{eq:L3-bound}
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty
-\end{equation}
-and
+after that reduction and studies the uniformly \(L^3\)-tight stratum, meaning
+the stratum in which
 \begin{equation}\label{eq:L3-tightness}
    \lim_{R\to\infty}
    \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \end{equation}
-We call this the uniformly \(L^3\)-tight ancient stratum.
+Several compactness statements below also record the common bound
+\begin{equation}\label{eq:L3-bound}
+   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty ,
+\end{equation}
+but the endpoint exclusion of the tight branch uses only boundedness and the
+tail condition \eqref{eq:L3-tightness}.
 
 This profile condition is distinct from the source-level condition
 \[
@@ -164,10 +166,9 @@ not prove that a recurrent compact hull contains a single stationary profile.
 
 The compact-hull and invariant-measure constructions identify the covariance
 obstruction in a purely local topology, but they are not needed to close the
-uniformly \(L^3\)-tight stratum.  That stratum already contains exactly the
-critical information required by the endpoint ancient Liouville theorem: a
-uniform bound of the centered profile in \(L^\infty_\tau L^3_y\).  Under the
-physical change of variables
+uniformly \(L^3\)-tight stratum.  The tail condition already gives the
+sequence-\(L^3\) information required by the endpoint ancient Liouville theorem,
+because the centered profile is bounded.  Under the physical change of variables
 \[
    u(x,t)=(-t)^{-1/2}
    V\left(\frac{x}{\sqrt{-t}},-\log(-t)\right),
@@ -179,14 +180,14 @@ the \(L^3\)-norm is invariant:
    =
    \|V(-\log(-t))\|_{L^3_y}.
 \]
-Consequently every uniformly \(L^3\)-tight centered ancient solution produces
-a physical mild ancient solution with uniformly bounded \(L^3\)-norm along
-sequences \(t_k\downarrow-\infty\).  The endpoint theorem of
+Consequently every tail-tight centered ancient solution produces
+a physical mild ancient solution with bounded \(L^3\)-norm along a
+sequence \(t_k\downarrow-\infty\).  The endpoint theorem of
 Albritton--Barker \cite{AlbrittonBarker2019} then gives \(u\equiv0\), and the
 change of variables gives \(V\equiv0\).
 
-This is a stratum-local argument.  It uses the \(L^\infty_\tau L^3_y\) bound
-only as part of the definition of the uniformly tight class and introduces no
+This is a stratum-local argument.  It uses only the boundedness and tail
+tightness already present in the ancient profile class and introduces no
 additional estimate outside that stratum, recurrence object, or Lyapunov
 functional.
 
@@ -281,8 +282,20 @@ criterion.
 
 \begin{theorem}[Uniformly tight Liouville criterion]
 \label{thm:tight-liouville-intro}
-Let \(A\) be a normalized uniformly \(L^3\)-tight collection as in
-\Cref{thm:minimal-tight-intro}.  Then
+Let \(A\) be a collection of bounded mild ancient solutions of
+\eqref{eq:centered}.  Assume there is a modulus
+\(\omega:[1,\infty)\to[0,\infty)\), \(\omega(R)\to0\), such that
+\[
+   \sup_{\tau\in\R}
+   \int_{|y|>R}|V(y,\tau)|^3\,dy\le\omega(R)
+   \qquad\text{for every }V\in A,\ R\ge1,
+\]
+and assume that \(A\) has a fixed local nonvanishing normalization:
+\[
+   \sup_{\tau\in\R}\int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge\eta_0>0
+   \qquad\text{for every }V\in A.
+\]
+Then
 \[
    A=\varnothing .
 \]
@@ -291,11 +304,13 @@ Let \(A\) be a normalized uniformly \(L^3\)-tight collection as in
 The proof of the last theorem follows the dependency diagram
 \[
 \begin{array}{c}
-\text{uniformly \(L^3\)-tight normalized class }A\\[2mm]
-\Downarrow\quad\text{physical pullback}\\[2mm]
-\text{mild ancient Navier--Stokes solution }u\\[2mm]
-\Downarrow\quad\text{critical \(L^3\)-invariance}\\[2mm]
-\sup_k\|u(t_k)\|_{L^3(\R^3)}<\infty
+\text{uniformly \(L^3\)-tight locally nonzero class }A\\[2mm]
+\Downarrow\quad\text{boundedness plus tail tightness}\\[2mm]
+\sup_k\|V(\tau_k)\|_{L^3(\R^3)}<\infty
+\quad\text{for a sequence }\tau_k\to-\infty\\[2mm]
+\Downarrow\quad\text{physical pullback and critical \(L^3\)-invariance}\\[2mm]
+\text{mild ancient Navier--Stokes solution }u\\[1mm]
+\text{with }\sup_k\|u(t_k)\|_{L^3(\R^3)}<\infty
 \quad\text{for some }t_k\downarrow-\infty\\[2mm]
 \Downarrow\quad\text{Albritton--Barker endpoint theorem}\\[2mm]
 u=0\\[2mm]
@@ -776,15 +791,17 @@ solution.
 \begin{definition}[Uniform \(L^3\)-tightness]\label{def:L3-tight}
 A bounded ancient solution \(V\) is uniformly \(L^3\)-tight if
 \[
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty
-\]
-and
-\[
    \lim_{R\to\infty}
    \sup_{\tau\in\R}
    \int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \]
 \end{definition}
+
+For the compactness statements in this section we sometimes assume, in
+addition, a common \(L^\infty_\tau L^3_y\) bound.  The endpoint Liouville
+argument in \Cref{sec:endpoint-L3-closure} does not take this bound as a
+separate hypothesis; it obtains the required sequence estimate from boundedness
+and the tail condition above.
 
 \subsection{Closedness under locally smooth convergence}
 
@@ -1612,6 +1629,34 @@ Multiplying these two identities and integrating over \(\R^3\) gives
 \eqref{eq:L3-pullback-invariance}.
 \end{proof}
 
+\begin{lemma}[Tail tightness gives an endpoint sequence]
+\label{lem:tail-tight-sequence-L3}
+Let \(V\) be a bounded function on \(\R^3\times\R\) satisfying
+\[
+   \lim_{R\to\infty}
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
+\]
+Then, for every sequence \(\tau_k\in\R\),
+\[
+   \sup_k\|V(\tau_k)\|_{L^3(\R^3)}<\infty .
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(M=\|V\|_{L^\infty(\R^3\times\R)}\).  Choose \(R\ge1\) such that
+\[
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy\le1 .
+\]
+Then, for every \(k\),
+\[
+   \int_{\R^3}|V(y,\tau_k)|^3\,dy
+   \le M^3 |B_R|
+      + \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy
+   \le M^3|B_R|+1 .
+\]
+This gives the claimed endpoint sequence bound.
+\end{proof}
+
 \subsection{Mildness after finite terminal-time restriction}
 
 \begin{lemma}[Physical pullbacks are mild ancient solutions on finite intervals]
@@ -1678,11 +1723,12 @@ This is the endpoint ancient Liouville theorem of Albritton--Barker
 terminal-time version needed here.
 \end{proof}
 
-\begin{theorem}[Uniformly \(L^3\)-tight centered ancient solutions vanish]
+\begin{theorem}[Tail-tight centered ancient solutions vanish]
 \label{thm:tight-liouville}
 Let \(V\) be a bounded mild ancient solution of \eqref{eq:centered}.  Assume
 \[
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty .
+   \lim_{R\to\infty}
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \]
 Then \(V\equiv0\).
 \end{theorem}
@@ -1692,15 +1738,19 @@ Let \(u\) be the physical pullback of \(V\).  Fix \(T<0\).  By
 \Cref{lem:physical-mild}, after translating the terminal time \(T\) to \(0\),
 the restriction of \(u\) to \((-\infty,T]\) is a bounded mild ancient
 solution.  Choose \(t_k=-e^k\).  For all sufficiently large \(k\), \(t_k<T\),
-and \eqref{eq:L3-pullback-invariance} gives
+and \(\tau_k=-\log(-t_k)=-k\).  By
+\Cref{lem:tail-tight-sequence-L3},
+\[
+   \sup_k\|V(-k)\|_{L^3(\R^3)}<\infty .
+\]
+Hence \eqref{eq:L3-pullback-invariance} gives
 \[
    \|u(t_k)\|_{L^3(\R^3)}
    =
    \|V(-k)\|_{L^3(\R^3)}
-   \le
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}
-   <\infty .
 \]
+uniformly along the same sequence, after discarding the finitely many indices
+for which \(t_k\ge T\).
 Set \(u_T(x,\sigma)=u(x,\sigma+T)\) for \(\sigma\le0\) and
 \(s_k=t_k-T\).  Then \(s_k\downarrow-\infty\) and
 \[
@@ -1730,13 +1780,11 @@ No uniformly tight normalized collection in the sense of
 \end{theorem}
 
 \begin{proof}
-Suppose \(A\) is such a collection and choose \(V\in A\).  By the
-\(L^\infty_\tau L^3_y\) part of \Cref{def:tight-normalized-collection},
-\[
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty .
-\]
-Thus \Cref{thm:tight-liouville} gives \(V\equiv0\).  This contradicts the
-local velocity normalization in the same definition:
+Suppose \(A\) is such a collection and choose \(V\in A\).  By the tightness
+modulus in item \textup{(3)} of \Cref{def:tight-normalized-collection}, \(V\)
+satisfies the tail condition in \Cref{thm:tight-liouville}.  Hence
+\Cref{thm:tight-liouville} gives \(V\equiv0\).  This contradicts the local
+velocity normalization in the same definition:
 \[
    \sup_{\tau\in\R}
    \int_{B_{R_0}}|V(y,\tau)|^3\,dy\ge\eta_0>0 .
@@ -1745,7 +1793,9 @@ Hence \(A\) is empty.
 \end{proof}
 
 \begin{proof}[Proof of \Cref{thm:tight-liouville-intro}]
-This is \Cref{thm:no-tight-normalized-collection}.
+If \(A\) were nonempty, choose \(V\in A\).  The common tail modulus gives the
+tail condition in \Cref{thm:tight-liouville}, so \(V\equiv0\).  This contradicts
+the fixed local nonvanishing normalization in \Cref{thm:tight-liouville-intro}.
 \end{proof}
 
 \subsection{Interface with the companion residual criterion}
@@ -1798,9 +1848,10 @@ there are \(K\Subset\mathbb R^3\times\mathbb R\) and \(\eta_I>0\) with
    \iint_K |V(y,\tau)|^3\,dy\,d\tau\ge\eta_I .
 \]
 In particular \(V\not\equiv0\).  Since \(V\) is assumed uniformly
-\(L^3\)-tight, it satisfies
+\(L^3\)-tight, it satisfies the tail condition
 \[
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty .
+   \lim_{R\to\infty}
+   \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \]
 \Cref{thm:tight-liouville} then gives \(V\equiv0\), contradicting the compact
 velocity lower bound above.  Hence no normalized Seregin ancient limit
@@ -1809,10 +1860,9 @@ generated by an admissible Type I source can belong to the uniformly
 \end{proof}
 
 The tight-stratum input used in the companion residual criterion is therefore
-unconditional.  The proof uses only the \(L^\infty_\tau L^3_y\) component
-already present in the definition of the uniformly \(L^3\)-tight stratum, the
-local-in-time physical pullback, and the endpoint ancient Liouville theorem
-of Albritton--Barker.
+unconditional.  The proof uses only boundedness, the tail-tightness component
+of the uniformly \(L^3\)-tight stratum, the local-in-time physical pullback,
+and the endpoint ancient Liouville theorem of Albritton--Barker.
 
 \begin{thebibliography}{99}
 

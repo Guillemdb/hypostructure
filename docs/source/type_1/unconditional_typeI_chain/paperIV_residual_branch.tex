@@ -25,6 +25,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
@@ -55,6 +56,19 @@
 \newcommand{\Crot}{\mathcal C_{\mathrm{rot}}}
 \newcommand{\Cstat}{\mathcal C_{\mathrm{stat}}^{\mathrm{ret}}}
 \newcommand{\Cgen}{\mathcal C_{\mathrm{gen}}}
+\newcommand{\Ccritdiff}{\mathcal C_{\mathrm{critdiff}}}
+\newcommand{\Ccohcrit}{\mathcal C_{\mathrm{cohcrit}}}
+\newcommand{\Chomcrit}{\mathcal C_{\mathrm{homcrit}}}
+\newcommand{\CDSStail}{\mathcal C_{\mathrm{DSS\text{-}tail}}}
+\newcommand{\Capercrit}{\mathcal C_{\mathrm{apercrit}}}
+\newcommand{\Tcrit}{\mathfrak T_M}
+\newcommand{\Tcoh}{\mathfrak T_{\mathrm{coh}}}
+\newcommand{\Tyoung}{\mathfrak T_{\mathrm{Young}}}
+\newcommand{\Tlogdiff}{\mathfrak T_{\log\mathrm{diff}}}
+\newcommand{\Clogper}{\mathcal C_{\mathrm{logper}}}
+\newcommand{\Capcrit}{\mathcal C_{\mathrm{ap}}}
+\newcommand{\Cyoung}{\mathcal C_{\mathrm{Young}}}
+\newcommand{\Clogdiff}{\mathcal C_{\log\mathrm{diff}}}
 \newcommand{\bP}{\mathbb P}
 
 \title[Residual Type I Seregin limit exclusion]
@@ -89,13 +103,16 @@ remains inside the compact local limiting equation.  The third class is
 reduced, by scale reselection for time-translation hulls, to a stationary
 profile in a degenerate stationary family which occurs as a Seregin limit
 and still carries local CKN concentration; it is then excluded by the terminal
-local concentration theorem.  The final class is
-reduced by covariant tail normalization, exclusion of finite separated
-concentration profiles, indecomposable-profile sequence-\(L^3\) completeness,
-mildness inheritance, and the Albritton--Barker endpoint Liouville theorem.  The paper
-distinguishes statements imported from Papers I--III and statements proved
-here.  No global Coriolis--Leray Liouville theorem for bounded profiles or global
-tail estimate is used in the residual closure.
+local concentration theorem.  The final class is reduced by covariant tail
+normalization, active-locus extraction, diffuse-defect compactness, critical-tail
+compactification, active successor path-space recurrence, exclusion of finite
+separated concentration profiles, indecomposable-profile sequence-\(L^3\)
+completeness, parasitic-free mildness inheritance, and the Albritton--Barker
+endpoint Liouville theorem.  The paper distinguishes statements imported from
+Papers I--III, local compactness and bookkeeping statements proved here, and the
+remaining realized critical-tail rigidity theorem needed to close the critical
+boundary compactification.  No global Coriolis--Leray Liouville theorem for
+bounded profiles or global tail estimate is used in the residual closure.
 \end{abstract}
 
 \maketitle
@@ -145,6 +162,63 @@ local concentration decompositions, exclusions of local compactness failure and
 diffuse exterior concentration, and finite separated-profile exclusions used
 below are proved in the present paper from local estimates rather than imported
 as global estimates.
+
+\begin{definition}[Type I convention used in the chain]
+\label{def:pointwise-typeI-convention}
+In this paper and in the final Papers~0--IV assembly, a terminal singular point
+\(z_*=(x_*,T)\) is called \emph{local pointwise Type~I} if there are
+\(\rho>0\) and \(M<\infty\) such that
+\[
+   \esssup_{T-\rho^2<t<T}
+   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M .
+\]
+This is the local pointwise Type~I hypothesis used in Paper~0 and in
+\Cref{sec:local-typeI-bridge}.  The paper does not use the phrase ``Type~I''
+to mean an unrelated global \(L^\infty\), local CKN, weak-\(L^3\), or Serrin
+scale condition unless that condition is explicitly stated.
+\end{definition}
+
+\begin{remark}[Translation table for standard Type I hypotheses]
+\label{rem:typeI-translation-table}
+The global pointwise condition
+\[
+   \sup_{t<T}\sqrt{T-t}\,
+      \|u(t)\|_{L^\infty(\mathbb R^3)}<\infty
+\]
+implies \Cref{def:pointwise-typeI-convention} at every terminal point.  Any
+stronger local criterion that yields the displayed \(L^\infty\) envelope on a
+neighborhood of \(x_*\) also enters the same pipeline.  Purely CKN-type,
+weak-\(L^3\), or other critical criteria are not silently identified with this
+hypothesis; they require their own implication into the local pointwise
+envelope before the present exclusion applies.
+\end{remark}
+
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+   \item Local concentration entry: depends on CKN theory and Paper~0;
+   status: proved/imported.
+   \item Seregin extraction and parasitic-free normalization: depends on
+   Paper~I and the Paper~II bounded mild formulation; status: proved/imported.
+   \item Small and stationary \(L^3\) strata: depend on Paper~I; status:
+   proved/imported.
+   \item Uniformly tight stratum: depends on Paper~II and endpoint Liouville
+   input; status: proved/imported.
+   \item Closed structured/decay strata: depend only on the unconditional part
+   of Paper~III; status: proved/imported.
+   \item Axisymmetric and rotational residual strata: proved in this paper.
+   \item Terminal active-locus stratification, active path-space recurrence, and
+   diffuse-defect compactness: proved in this paper.
+   \item Realized critical-tail rigidity for the boundary compactification:
+   explicit local state-space input
+   \Cref{hyp:realized-critical-tail-rigidity}.
+   \item Residual indecomposable-profile closure: proved in this paper, with
+   the final sequence-\(L^3\) endpoint supplied by Albritton--Barker.
+\end{enumerate}
+
+The final local pointwise Type~I exclusion does not use the conditional
+controlled-swirl, weighted-velocity, Burgers-vortex association, or shell-control
+hypotheses from Paper~III.  Those conditional statements remain background
+criteria for other structured classes and are not on the main logical path
+closed here.
 
 \begin{theorem}[Paper I Type I Seregin extraction theorem]
 \label{hyp:base-seregin-package}
@@ -215,6 +289,8 @@ generic terminal residual class.
 
 \begin{theorem}[Refined residual closure by local concentration analysis]
 \label{thm:refined-residual-closure}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 Relative to the imported Paper I--III alternatives in
 \Cref{hyp:base-seregin-package,hyp:previous-nonresidual}, one has
 \[
@@ -243,6 +319,8 @@ refined residual decomposition.
 
 \begin{corollary}[Paper I residual input]
 \label{cor:paperI-residual-input}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 For every normalized Seregin collection \(\calS\) generated by a
 Paper~0-admissible finite-energy Type I singularity, the Paper I remaining
 class is empty.
@@ -257,10 +335,11 @@ decomposition; the indices \(I,J\) add no analytic assumption.  By
 \Cref{thm:refined-residual-closure}, this class is empty.
 \end{proof}
 
-\begin{theorem}[Type I exclusion after local residual closure]
+\begin{theorem}[Local pointwise Type I exclusion after residual closure]
 \label{thm:typeI-exclusion-main}
-No Paper~0-admissible finite-energy Type I singularity exists whose normalized
-Seregin collection is \(\calS\).
+Assume \Cref{hyp:realized-critical-tail-rigidity}.
+No Paper~0-admissible finite-energy local pointwise Type~I singularity exists
+whose normalized Seregin collection is \(\calS\).
 \end{theorem}
 
 \begin{proof}
@@ -276,6 +355,348 @@ the uniformly \(L^3\)-tight class is excluded in Paper II, and the closed
 structured/decay class is excluded in Paper III.  The second alternative is
 impossible by \Cref{thm:refined-residual-closure}.  This contradiction proves
 the theorem.
+\end{proof}
+
+\subsection{Local Type I singularities enter the terminal concentration package}
+\label{sec:local-typeI-bridge}
+
+The purpose of this subsection is to make explicit the local reduction that is
+implicit in the proof architecture of Papers~0--IV.  A finite-energy singular
+point satisfying the local Type~I bound of Paper~0 already supplies the local
+compactness needed to enter the terminal concentration package.  Thus the
+whole-space no-escape hypothesis used to formulate the Paper~I admissible class
+is not an additional assumption for a locally Type~I terminal singularity: the
+local Type~I envelope gives compactness on every fixed terminal cylinder which
+remains inside the local Type~I window after rescaling around the singular
+point, while concentration attempting to leave every such bounded local window
+is one of the exterior terminal alternatives.  The Paper~0 concentration
+theorem supplies the retained local \(L^3\)-mass.
+
+For this subsection, if \(z_*=(x_*,T)\) and \(r_n\downarrow0\), write
+\[
+   u_n(x,t):=r_nu(x_*+r_nx,T+r_n^2t),
+   \qquad
+   p_n(x,t):=r_n^2p(x_*+r_nx,T+r_n^2t).
+\]
+Also write \(Q_R:=B_R(0)\times(-R^2,0)\) and
+\[
+   Q_1(0,0)=B_1(0)\times(-1,0).
+\]
+
+\begin{proposition}[Local Type I rescalings have Seregin compactness]
+\label{prop:local-typeI-terminal-compactness}
+Let \((u,p)\) be a suitable Leray--Hopf solution on
+\(\R^3\times(0,T)\), let \(z_*=(x_*,T)\) be a singular point, and assume that
+there exist \(\rho>0\) and \(M<\infty\) such that
+\begin{equation}\label{eq:local-typeI-bridge-bound}
+   \esssup_{T-\rho^2<t<T}
+   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M .
+\end{equation}
+Let \(r_n\downarrow0\), and let \((u_n,p_n)\) be the rescaled sequence above.
+Then the following hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item For every compact cylinder
+\[
+   K=B_R\times[-S,-\sigma]\Subset\R^3\times(-\infty,0),
+   \qquad R,S<\infty,\quad \sigma>0,
+\]
+there exists \(n_0(K)\) such that
+\begin{equation}\label{eq:local-typeI-bridge-unifLinfty}
+   \|u_n\|_{L^\infty(K)}\le M\sigma^{-1/2},
+   \qquad n\ge n_0(K).
+\end{equation}
+\item On every compact cylinder \(K\Subset\R^3\times(-\infty,0)\) there are
+time-dependent pressure gauges \(a_{n,K}(t)\) and a constant \(C_K<\infty\)
+such that, for \(n\ge n_0(K)\),
+\begin{equation}\label{eq:local-typeI-bridge-local-bounds}
+   \|u_n\|_{L^\infty_tL^2_x(K)}
+   +\|\nabla u_n\|_{L^2(K)}
+   +\|p_n-a_{n,K}(t)\|_{L^{3/2}(K)}
+   \le C_K .
+\end{equation}
+The constant \(C_K\) may depend on the fixed Leray energy level of the original
+solution, but no concentration or no-escape assumption enters it.
+\item After subtracting these local pressure gauges, the family
+\((u_n,p_n)\) is locally precompact in the standard Seregin topology on
+\(\R^3\times(-\infty,0)\).  Along every subsequence there is a further
+subsequence and an ancient suitable weak solution \((U,Q)\) such that, on
+every compact \(K\Subset\R^3\times(-\infty,0)\),
+\[
+   u_n\to U\quad\hbox{strongly in }L^q(K),\qquad 1\le q<\infty,
+\]
+and
+\[
+   p_n-a_{n,K}(t)\rightharpoonup Q
+   \quad\hbox{weakly in }L^{3/2}(K).
+\]
+The limit is bounded and satisfies
+\[
+   |U(x,t)|\le M(-t)^{-1/2},\qquad t<0.
+\]
+\item More generally, let \(\mathfrak c=(z_n)\), \(z_n=(y_n,\tau_n)\), be a
+parabolic recentering sequence for \((u_n,p_n)\) with \(\tau_n\le0\).  Assume
+that \(\mathfrak c\) remains in the local Type~I window in the following
+precise sense: for every \(R,S<\infty\), all sufficiently large \(n\) satisfy
+\[
+   r_n(|y_n|+R)<\rho,
+   \qquad
+   T+r_n^2(\tau_n-S)>T-\rho^2 .
+\]
+If \(\mathfrak c\) carries retained compact velocity \(L^3\)-mass, then after
+passing to a subsequence it has no loss of local compactness in the sense of
+\Cref{def:terminal-measures}, and its recentered fields converge locally to a
+bounded suitable terminal profile.  Recenterings which do not satisfy this
+local-window condition are, by definition, routed to the exterior or diffuse
+terminal alternatives rather than to the compact local profile class.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Fix
+\[
+   K=B_R\times[-S,-\sigma]\Subset\R^3\times(-\infty,0).
+\]
+For \(n\) sufficiently large,
+\[
+   r_nR<\rho/2,\qquad r_n^2S<\rho^2/2.
+\]
+Hence, for a.e. \((x,t)\in K\),
+\[
+   x_*+r_nx\in B_\rho(x_*),
+   \qquad
+   T+r_n^2t\in(T-\rho^2,T).
+\]
+The local Type~I bound \eqref{eq:local-typeI-bridge-bound} gives
+\[
+   |u_n(x,t)|
+   =r_n|u(x_*+r_nx,T+r_n^2t)|
+   \le r_n M\,(T-(T+r_n^2t))^{-1/2}
+   =M(-t)^{-1/2}
+   \le M\sigma^{-1/2}.
+\]
+This proves \eqref{eq:local-typeI-bridge-unifLinfty}.  In particular,
+\[
+   \esssup_{-S<t<-\sigma}\int_{B_R}|u_n(x,t)|^2\,dx
+   \le |B_R|M^2\sigma^{-1},
+\]
+and
+\[
+   \iint_K |u_n|^3\,dx\,dt
+   \le |K|M^3\sigma^{-3/2}.
+\]
+
+We next record the pressure estimate because it is the only place where a
+local Type~I proof can hide a nonlocal issue.  Use the whole-space Leray
+pressure representative.  Fix a cutoff
+\(\chi_R\in C_c^\infty(B_{8R})\) with \(\chi_R\equiv1\) on \(B_{4R}\), and
+write in \(B_{4R}\)
+\[
+   p_n=q_n+h_n,\qquad
+   q_n=\mathcal R_i\mathcal R_j(\chi_R u_{n,i}u_{n,j}).
+\]
+The local term satisfies
+\[
+   \|q_n\|_{L^{3/2}(B_{4R}\times[-S,-\sigma])}
+   \le C_{R,S,\sigma,M}.
+\]
+For the harmonic part choose the gauge \(a_{n,K}(t)=h_n(0,t)\).  The standard
+kernel difference estimate for the Riesz pressure kernel gives, for
+\(x\in B_{2R}\),
+\[
+   |h_n(x,t)-a_{n,K}(t)|
+   \le
+   C_R\sum_{m\ge2}2^{-4m}
+   \int_{2^mR<|z|<2^{m+1}R}|u_n(z,t)|^2\,dz .
+\]
+For annuli whose physical image remains in \(B_\rho(x_*)\), the local Type~I
+bound gives
+\[
+   \int_{2^mR<|z|<2^{m+1}R}|u_n(z,t)|^2\,dz
+   \le C M^2\sigma^{-1}(2^mR)^3 .
+\]
+The corresponding part of the series is bounded by a geometric sum.  For the
+remaining outer annuli one uses only the finite Leray energy:
+\[
+   \int_{\R^3}|u_n(z,t)|^2\,dz
+   =r_n^{-1}\int_{\R^3}|u(y,T+r_n^2t)|^2\,dy .
+\]
+If \(m_n\) is the first index for which \(2^{m_n}Rr_n\gtrsim\rho\), then
+\[
+   \sum_{m\ge m_n}2^{-4m}\int_{\R^3}|u_n(z,t)|^2\,dz
+   \le
+   C_{\rho,R}\,r_n^3\|u\|_{L^\infty(0,T;L^2)}^2
+   \le C_{\rho,R,u}.
+\]
+Thus \(h_n-a_{n,K}\) is uniformly bounded on \(B_{2R}\times[-S,-\sigma]\), and
+\[
+   \|p_n-a_{n,K}(t)\|_{L^{3/2}(B_{2R}\times[-S,-\sigma])}
+   \le C_K .
+\]
+
+Apply the local energy inequality for \((u_n,p_n)\) with a cutoff equal to one
+on \(K\) and supported in a slightly larger compact cylinder
+\(K'\Subset\R^3\times(-\infty,0)\).  The already obtained local \(L^2\),
+\(L^3\), and pressure-gauge bounds control every term on the right-hand side,
+and therefore
+\[
+   \iint_K |\nabla u_n|^2\,dx\,dt\le C_K .
+\]
+This proves \eqref{eq:local-typeI-bridge-local-bounds}.
+
+The Navier--Stokes equation now bounds \(\partial_tu_n\) locally in a negative
+Sobolev space, for instance in \(L^{3/2}_tH^{-2}_x(K)\).  Aubin--Lions
+compactness and the uniform \(L^\infty\) bound give strong local convergence of
+the velocity in every finite \(L^q\), after passing to a subsequence.  The
+pressure bound gives weak \(L^{3/2}\) convergence after gauges.  Passing to the
+limit in the distributional equations and in the local energy inequality gives
+an ancient suitable weak solution \((U,Q)\).  The pointwise Type~I bound passes
+to the limit, so \(U\) is bounded on every compact negative-time cylinder.
+This proves (iii).
+
+Finally, let \(\mathfrak c=(y_n,\tau_n)\) be as in (iv), and set
+\[
+   u_n^{\mathfrak c}(y,s)=u_n(y+y_n,s+\tau_n),
+   \qquad
+   p_n^{\mathfrak c}(y,s)=p_n(y+y_n,s+\tau_n).
+\]
+The local-window condition, together with \(\tau_n\le0\), is exactly what is
+needed to repeat the preceding estimates on each fixed backward compact cylinder
+in the \((y,s)\)-variables: the
+physical cylinders remain in \(B_\rho(x_*)\times(T-\rho^2,T)\), the local
+Type~I envelope gives the same \(L^\infty\) bound on compact windows, and the
+pressure decomposition has the same local and finite-energy tail estimates.
+Thus the two failure modes in \Cref{def:terminal-measures}, blow-up of the
+local dissipation measure or failure of local pressure-gauge control, cannot
+occur for such a retained local recentering sequence after subsequence
+extraction.  The recentered fields therefore converge locally to a bounded
+suitable terminal profile.  If the local-window condition fails, then the
+recentering leaves every bounded terminal window attached to the singular
+point, or its critical mass persists only through expanding regions; those are
+precisely the exterior and diffuse terminal alternatives rather than loss of
+local compactness inside the local Type~I bridge.
+\end{proof}
+
+\begin{lemma}[Local Type I concentration enters the terminal dichotomy]
+\label{lem:local-typeI-into-terminal-dichotomy}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
+Under the hypotheses of
+\Cref{prop:local-typeI-terminal-compactness}, there exist \(\eta_v>0\) and a
+positive local velocity concentration sequence \(r_n\downarrow0\) at \(z_*\)
+such that
+\begin{equation}\label{eq:local-typeI-bridge-velocity-concentration}
+   \iint_{Q_1(0,0)} |u_n|^3\,dx\,dt\ge \eta_v
+   \qquad\hbox{for all }n.
+\end{equation}
+For the associated terminal extraction sequence \((V_N,P_N)\) generated by a
+Seregin limit of this sequence, choose the small-data threshold
+\(\eps_{\rm sd}\le\eta_v\).  Then the retained compact concentration generated
+from the origin recentering has no loss of local compactness.  Any retained
+local recentering which stays in the local Type~I window has the same
+compactness property by \Cref{prop:local-typeI-terminal-compactness}; any
+concentration leaving that window is routed to the exterior or diffuse
+terminal remainder.  The paired terminal decomposition of
+\Cref{thm:terminal-exhaustion-main}, together with the mixed-state and active
+branch exclusions
+\Cref{thm:no-mixed-compact-diffuse,thm:compact-active-descendant}, reduces the
+retained possibilities to a single retained concentrating terminal profile or a
+finite separated family of retained concentrating terminal profiles.
+\end{lemma}
+
+\begin{proof}
+By the local velocity concentration theorem of Paper~0, every singular point
+admits \(\eta_v>0\) and \(r_n\downarrow0\) such that
+\[
+   r_n^{-2}\iint_{B_{r_n}(x_*)\times(T-r_n^2,T)}|u|^3\,dx\,dt\ge\eta_v .
+\]
+After the rescaling this is exactly
+\eqref{eq:local-typeI-bridge-velocity-concentration}.  By
+\Cref{prop:local-typeI-terminal-compactness}, the rescaled sequence has local
+Seregin compactness on every compact terminal cylinder, and therefore the
+origin concentration produces a bounded ancient Seregin profile with retained
+local \(L^3\)-mass.
+
+The local CKN measure \(\mu_N\) in \Cref{def:terminal-measures} dominates
+\(|V_N|^3\,dy\,d\tau\).  Choosing \(\eps_{\rm sd}\le\eta_v\) therefore makes
+the distinguished origin recentering \(\eps_{\rm sd}\)-concentrating.  The
+origin recentering satisfies the local-window condition in
+\Cref{prop:local-typeI-terminal-compactness}, so it is not in
+the local-compactness-failure class.  Other retained local recenterings inside the
+same Type~I window have the same compactness.  Recenterings leaving the window
+are exterior or diffuse terminal remainders.  The paired decomposition
+\Cref{thm:terminal-exhaustion-main} records these remainders alongside the
+active profile locus rather than treating them as mutually exclusive
+alternatives.  The sole-carrier radiative cases are excluded by
+\Cref{thm:terminal-nonactive-discharge}, mixed compact--diffuse or
+compact--noncompact coexistence is excluded by
+\Cref{thm:no-mixed-compact-diffuse}, and infinite active branches are excluded
+by \Cref{thm:compact-active-descendant}.  Hence
+\Cref{cor:persistent-forces-active} leaves only a single retained concentrating
+terminal profile or a finite separated family of retained concentrating
+terminal profiles.
+\end{proof}
+
+\begin{theorem}[Local Type I singularities enter the full exclusion pipeline]
+\label{thm:local-typeI-entry-or-discharge}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
+Let \((u,p)\) be a suitable Leray--Hopf solution on
+\(\R^3\times(0,T)\), let \(z_*=(x_*,T)\) be a singular point, and assume that
+\(z_*\) satisfies the local Type~I bound
+\eqref{eq:local-typeI-bridge-bound}.  Then there exists a bounded centered
+Type~I Seregin profile with retained local concentration generated from
+\((u,p,z_*)\).  Consequently the local terminal concentration package of
+\Cref{thm:terminal-local-stratification-package} applies.  In particular, no
+finite-energy local Type~I singular point exists.
+\end{theorem}
+
+\begin{proof}
+Apply \Cref{lem:local-typeI-into-terminal-dichotomy}.  The local Type~I
+rescalings therefore produce at least one bounded terminal profile carrying
+retained local concentration.  After passing to the centered variables, the
+bound \(|U(x,t)|\le M(-t)^{-1/2}\) becomes the global centered Type~I bound
+\[
+   |V(y,\tau)|\le M,
+\]
+so each retained profile generated by the bridge is a bounded centered Type~I
+Seregin profile.
+
+If every such retained profile belongs to one of the previously closed lower
+classes, then the contradiction is supplied by the earlier papers:
+small-amplitude and stationary \(L^3\) profiles are excluded in Paper~I, the
+uniformly tight class is excluded in Paper~II, and the closed structured/decay
+class is excluded in Paper~III.  Otherwise choose a retained profile outside
+those lower classes.  It is then a refined residual candidate, so
+\Cref{thm:terminal-local-stratification-package} applies.  In that residual
+setting, a finite separated family of retained concentrating terminal profiles
+is excluded by \Cref{thm:no-finite-separated-profile-family}, infinite active
+branches are excluded by \Cref{thm:compact-active-descendant}, and mixed
+compact--diffuse tails are excluded by \Cref{thm:no-mixed-compact-diffuse}.  The
+remaining single retained profile is terminally indecomposable, has the
+backward finite-critical-norm sequence, has parasitic-free finite-shift
+mildness, and is then excluded by the Albritton--Barker endpoint Liouville
+input used in this paper.  Both
+routes are impossible.  Hence the assumed finite-energy local Type~I singular
+point does not exist.
+\end{proof}
+
+\begin{corollary}[Local Type I exclusion under realized critical-tail rigidity]
+\label{cor:local-typeI-unconditional}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
+Let \((u,p)\) be a suitable Leray--Hopf solution on
+\(\R^3\times(0,T)\).  If \(z_*=(x_*,T)\) is a singular point, then \(z_*\)
+cannot satisfy the local Type~I bound \eqref{eq:local-typeI-bridge-bound}.
+Equivalently, in the local Type~I/local Type~II dichotomy of Paper~0, every
+finite-energy singular point belongs to the local Type~II alternative.
+\end{corollary}
+
+\begin{proof}
+The first assertion is exactly
+\Cref{thm:local-typeI-entry-or-discharge}.  The equivalence is the local
+Type~I/local Type~II dichotomy of Paper~0: at a singular point, either some
+local Type~I bound of the form \eqref{eq:local-typeI-bridge-bound} holds, or
+every such bound fails.
 \end{proof}
 
 \section{Shared local notation}
@@ -304,6 +725,27 @@ concentration if, after the terminal normalization under consideration,
 \[
    \calE_1(U,\Pi;0)\ge \eps_* .
 \]
+\end{definition}
+
+\begin{definition}[Threshold ledger]
+\label{def:threshold-ledger}
+The constants used in the terminal package are chosen in the following order.
+The compact velocity lower bounds \(\eta_0\) and \(\eta_v\) are supplied by
+Paper~I and Paper~0, respectively.  The local small-data threshold
+\(\eps_{\rm sd}\) is then fixed with
+\[
+   0<\eps_{\rm sd}\le \min\{\eta_0,\eta_v,\eps_{\CKN}\},
+\]
+where \(\eps_{\CKN}\) denotes the universal CKN regularity threshold whenever
+that threshold is invoked.  The retained descendant threshold \(\eps_*\) is
+chosen after the pressure gauges and compactness topology are fixed, with
+\[
+   0<\eps_*\le \frac12\eps_{\rm sd}.
+\]
+Whenever a compactness or lower-semicontinuity passage loses a harmless fixed
+factor, \(\eps_*\) is replaced once and for all by a smaller positive value.
+No later argument chooses a new concentration threshold depending on a
+previously extracted profile tree.
 \end{definition}
 
 \begin{definition}[Refined residual candidate]
@@ -1461,6 +1903,8 @@ stationary-hull closure with retained local concentration.
 
 \begin{theorem}[Terminal local concentration exclusion theorem]
 \label{thm:R3S-terminal-package}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 Let \((U,\Pi)\) be a bounded centered Type~I Seregin profile satisfying local
 suitability and carrying a retained local CKN concentration, i.e. for some
 compact parabolic cylinder \(Q\) and some \(\varepsilon_*>0\),
@@ -1473,16 +1917,17 @@ stationary \(L^3\), tight, closed structured/decay, axisymmetric
 bounded-circulation, and rotational relative-equilibrium classes.  Then the
 following hold.
 \begin{enumerate}[label=(\roman*)]
-   \item Every terminal extraction of \((U,\Pi)\) belongs to one of the local
-   alternatives in \Cref{thm:terminal-exhaustion-main}: a single retained
-   concentration profile, local vanishing after removal of concentrating
-   sequences, exterior escape of the concentrating sequence, diffuse exterior
-   concentration, loss of local compactness, or a finite separated family of
-   retained concentration profiles.
+   \item Every terminal extraction of \((U,\Pi)\) has the paired decomposition
+   of \Cref{thm:terminal-exhaustion-main}: an active retained profile locus
+   together with a residual remainder which is locally vanishing, diffuse, or
+   noncompact after neighborhoods of the active locus are removed.
    \item Local vanishing, exterior escape, diffuse exterior concentration, and
    loss of local compactness cannot be the sole locations of the retained
    compact CKN concentration
    \eqref{eq:R3S-retained-activity}.
+   \item Mixed compact--diffuse and compact--noncompact residual states, and
+   infinite active descendant branches, are impossible in the refined residual
+   class.
    \item Finite separated families of retained concentration profiles are
    impossible.
    \item Any remaining single retained concentration profile is terminally
@@ -1495,24 +1940,28 @@ following hold.
    \begin{equation}\label{eq:R3S-atomic-L3-input}
       \sup_k \|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}<\infty .
    \end{equation}
-   \item Retained terminal concentration profiles inherit mildness under the
-   physical pullback.  Therefore the Albritton--Barker endpoint Liouville theorem
-   applies to any profile satisfying \eqref{eq:R3S-atomic-L3-input}.
+   \item Retained terminal concentration profiles are either affine/parasitic
+   lower-stratum profiles or have parasitic-free finite-shift mild physical
+   pullbacks.  Therefore the Albritton--Barker endpoint Liouville theorem
+   applies to any normalized residual profile satisfying
+   \eqref{eq:R3S-atomic-L3-input}.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 This is \Cref{thm:terminal-local-stratification-package} applied to
 \((U,\Pi)\).  The local alternatives in (i) are those of
-\Cref{thm:terminal-exhaustion-main}.  Item (ii) is the exclusion of local
-vanishing, exterior escape, diffuse exterior concentration, and local
-compactness failure in \Cref{thm:terminal-nonactive-discharge}.  Item (iii) is
-\Cref{thm:no-finite-separated-profile-family}.  Item (iv) is
-\Cref{prop:no-multi-implies-atomic}.  Item (v) is
-\Cref{lem:atomic-sequence-L3}, and item (vi) is
-\Cref{hyp:mildness-inheritance-main,thm:AB-main}.  These results are proved in
-the present paper from Paper 0, Paper I, and local concentration analysis;
-no global bound is assumed.
+  \Cref{thm:terminal-exhaustion-main}.  Item (ii) is the sole-carrier exclusion
+in \Cref{thm:terminal-nonactive-discharge}.  Item (iii) is
+\Cref{thm:no-mixed-compact-diffuse,thm:compact-active-descendant}.  Item (iv) is
+\Cref{thm:no-finite-separated-profile-family}.  Item (v) is
+\Cref{prop:no-multi-implies-atomic}.  Item (vi) is
+\Cref{lem:atomic-sequence-L3}, and item (vii) is
+   \Cref{hyp:mildness-inheritance-main,thm:AB-main}.  The active-locus,
+   active path-space recurrence, and diffuse-defect compactness statements are
+   proved below from local compactness.  The only remaining state-space input
+   named in the theorem statement is realized critical-tail rigidity.  No global
+   bound is assumed.
 \end{proof}
 
 \begin{remark}[Local nature of the theorem]
@@ -1521,9 +1970,9 @@ The theorem above is a local concentration statement.  It uses the local
 suitable-weak-solution compactness and pressure normalization developed from
 the Caffarelli--Kohn--Nirenberg theory \cite{CKN1982}, together with the
 Paper 0 local concentration input and the Paper I Seregin compactness theorem.
-It then uses terminal profile decomposition, exclusion of local vanishing,
-diffuse exterior concentration, and local compactness failure, and the finite
-separated-profile theorem.  It does not
+It then uses paired terminal profile decomposition, sole-carrier exclusions,
+critical-tail compactification with realized critical-tail rigidity, active
+path-space recurrence, and the finite separated-profile theorem.  It does not
 assert or require a global a priori bound for the original physical solution.
 \end{remark}
 
@@ -1568,10 +2017,12 @@ If \(\limsup_n m_n\ge\varepsilon_*\), then for a subsequence there exist
 \begin{equation}\label{eq:R3S-active-tail-cube}
    \int_{B_1(x_n)}|U(y,\tau_n)|^3\,dy\ge \varepsilon_* .
 \end{equation}
-After recentering at \((x_n,\tau_n)\), either the local compactness and pressure
-control required for a terminal profile fail, or a subsequence converges in the
-terminal topology to a retained concentrating tail limit.  Both alternatives
-contradict terminal indecomposability.
+After the covariant recentering \(\mathscr T_{(x_n,\tau_n)}\), either the local
+compactness and pressure control required for a terminal profile fail, or a
+subsequence converges in the terminal topology to a retained concentrating tail
+limit.  The time-slice lower bound gives parabolic CKN activity by
+\Cref{lem:timeslice-to-ckn-activity}.  Both alternatives contradict terminal
+indecomposability.
 
 It remains to consider the case \(m_n<\varepsilon_*\) for all sufficiently large
 \(n\).  Then \eqref{eq:R3S-tail-mass} says that critical mass persists outside
@@ -1587,6 +2038,8 @@ Thus \eqref{eq:R3S-L3-divergence} is impossible, and
 
 \begin{theorem}[No stationary residual concentration profile occurs as a Seregin limit]
 \label{thm:R3S-no-active-stationary-carrier}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 Let \((W,\Pi)\) be a stationary solution of the centered equation,
 \begin{equation}\label{eq:R3S-stationary-centered}
    -\Delta W+\frac12 y\cdot\nabla W+\frac12 W
@@ -1611,13 +2064,15 @@ centered Type~I Seregin limit and has retained local concentration, it is an adm
 for the terminal local concentration theorem.  Apply \Cref{thm:R3S-terminal-package} to
 \((W,\Pi)\).
 
-Finite separated terminal concentration profiles are impossible by
-\Cref{thm:R3S-terminal-package}.  Local vanishing, exterior escape, diffuse
-exterior concentration, and local compactness failure cannot be the only
-locations of the retained compact CKN concentration.  Hence the retained
-concentration is represented by a single terminal concentration profile.  By
-the indecomposability conclusion in \Cref{thm:R3S-terminal-package}, this
-single profile is terminally indecomposable.
+Finite separated terminal concentration profiles, infinite active descendant
+branches, and mixed compact--diffuse or compact--noncompact remainders are
+impossible by \Cref{thm:R3S-terminal-package}.  Local vanishing, exterior
+escape, diffuse exterior concentration, and local compactness failure cannot be
+the only locations of the retained compact CKN concentration.  Hence the
+retained concentration is represented by a single terminal concentration
+profile with no surviving tail remainder.  By the indecomposability conclusion
+in \Cref{thm:R3S-terminal-package}, this single profile is terminally
+indecomposable.
 
 Because \((W,\Pi)\) is stationary in \(\tau\), the single terminal
 concentration profile may be represented by \((W,\Pi)\) itself after the
@@ -1638,14 +2093,18 @@ Let
    q(x,t)=(-t)^{-1}\Pi\!\left(\frac{x}{\sqrt{-t}}\right),
    \qquad t<0 .
 \end{equation}
-By \Cref{hyp:mildness-inheritance-main}, \((w,q)\) is a mild ancient
-Navier--Stokes solution after any finite time shift.  The critical scaling gives
+By \Cref{hyp:mildness-inheritance-main}, either \((W,\Pi)\) is in the
+affine/parasitic lower stratum, already excluded from the residual class, or
+every finite terminal shift \(w^T(x,s):=w(x,T+s)\), \(s<0\), is a bounded mild
+ancient Navier--Stokes solution.  The critical scaling gives
 \begin{equation}\label{eq:R3S-critical-L3-scaling}
    \|w(\cdot,t)\|_{L^3(\mathbb R^3)}=\|W\|_{L^3(\mathbb R^3)}<\infty
    \qquad (t<0).
 \end{equation}
-Applying the Albritton--Barker endpoint Liouville theorem along any sequence
-\(t_k\downarrow-\infty\), \Cref{thm:AB-main}, we obtain \(w\equiv0\), and hence
+Fix \(T<0\), choose any sequence \(t_k\downarrow-\infty\) with \(t_k<T\), and
+put \(s_k=t_k-T\).  Applying the Albritton--Barker endpoint Liouville theorem
+to \(w^T\) along \(s_k\downarrow-\infty\), \Cref{thm:AB-main}, we obtain
+\(w^T\equiv0\).  Since \(T<0\) is arbitrary, \(w\equiv0\), and hence
 \(W\equiv0\).
 This contradicts retained local concentration, since the pressure-normalized
 local CKN quantity of the zero profile is zero.  Therefore no stationary
@@ -1679,6 +2138,8 @@ families.
 
 \begin{theorem}[Closure of the degenerate stationary-hull concentration class]
 \label{thm:R3S-R3-empty}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 Let \(\Cstat(\mathcal S;I,J;\mathfrak B)\) be the degenerate
 stationary-hull residual class with retained local concentration.  Then
 \begin{equation}\label{eq:R3S-R3-empty}
@@ -1779,6 +2240,224 @@ Thus fixed translates do not define a compact invariant far-field hull for the
 renormalized dynamics.
 \end{remark}
 
+\begin{definition}[Spacetime covariant action]
+\label{def:spacetime-covariant-action}
+For \(s\in\R\), define the centered time translation
+\[
+   (\Theta_sV)(y,\tau):=V(y,\tau+s),
+   \qquad
+   (\Theta_sP)(y,\tau):=P(y,\tau+s).
+\]
+For a tail center \(x\in\R^3\) observed at centered time \(\sigma\), define the
+covariant tail recentering
+\[
+   \mathscr T_{(x,\sigma)}V(y,s)
+   :=V(y+e^{s/2}x,\sigma+s),
+   \qquad
+   \mathscr T_{(x,\sigma)}P(y,s)
+   :=P(y+e^{s/2}x,\sigma+s).
+\]
+Equivalently,
+\[
+   \mathscr T_{(x,\sigma)}
+   =
+   \Theta_\sigma T_{e^{-\sigma/2}x}.
+\]
+Thus \(\mathscr T_{(x,\sigma)}\) is a composition of exact symmetries of the
+centered equation.  Raw parabolic recenterings are used below only for local
+terminal extraction before one has passed to a centered ancient profile; all
+escaping tail limits of centered profiles use \(\mathscr T_{(x,\sigma)}\).
+\end{definition}
+
+\begin{lemma}[Semidirect covariance of the centered action]
+\label{lem:semidirect-covariance}
+The centered time translations and spatial covariant translations satisfy
+\[
+   \Theta_sT_a\Theta_{-s}=T_{e^{s/2}a},
+   \qquad s\in\R,\ a\in\R^3.
+\]
+In particular the subgroup \(\{T_a:a\in\R^3\}\) is normal in the full
+spacetime covariant action, and the subspace of observables invariant under all
+spatial covariant translations is invariant under every \(\Theta_s\).
+\end{lemma}
+
+\begin{proof}
+For a profile \(V\),
+\[
+   (\Theta_sT_a\Theta_{-s}V)(y,\tau)
+   =
+   V(y+e^{(\tau+s)/2}a,\tau)
+   =
+   (T_{e^{s/2}a}V)(y,\tau).
+\]
+The pressure transforms identically.  The asserted invariance of the
+spatially invariant observable subspace is the same identity written on the
+induced \(L^2\)-representation.
+\end{proof}
+
+\begin{theorem}[Covariant observer calculus]
+\label{thm:covariant-observer-calculus}
+Let \(Z:=\mathbb R^3\times\mathbb R\) denote the centered observer space, with
+points \(z=(\xi,\sigma)\).  For \(a\in\mathbb R^3\) and
+\(\sigma\in\mathbb R\),
+\[
+   (T_aU)(y,\tau)=U(y+e^{\tau/2}a,\tau),
+   \qquad
+   (\Theta_\sigma U)(y,\tau)=U(y,\tau+\sigma).
+\]
+Then
+\[
+   \Theta_\sigma T_a=T_{e^{\sigma/2}a}\Theta_\sigma,
+   \qquad
+   \Theta_\sigma T_a\Theta_{-\sigma}=T_{e^{\sigma/2}a}.
+\]
+For \(z=(\xi,\sigma)\), define the covariant observer
+\[
+   \calR_zU
+   :=
+   \Theta_\sigma T_{e^{-\sigma/2}\xi}U .
+\]
+Equivalently,
+\[
+   (\calR_{(\xi,\sigma)}U)(y,s)
+   =
+   U(y+e^{s/2}\xi,\sigma+s).
+\]
+The covariant tube pulled back from \(Q_r(0,0)\) is
+\[
+   \mathcal Q_r^{\rm cov}(\xi,\sigma)
+   :=
+   \left\{
+      (Y,\tau):
+      |\tau-\sigma|<r^2,\ 
+      |Y-e^{(\tau-\sigma)/2}\xi|<r
+   \right\}.
+\]
+The map
+\[
+   (y,s)\mapsto(Y,\tau)
+   =
+   (y+e^{s/2}\xi,\sigma+s)
+\]
+is a bijection from \(Q_r(0,0)\) onto
+\(\mathcal Q_r^{\rm cov}(\xi,\sigma)\) with spacetime Jacobian one.  The same
+formulas apply to the pressure, modulo the admissible time-dependent gauges.
+\end{theorem}
+
+\begin{proof}
+The semidirect identities are exactly
+\Cref{lem:semidirect-covariance}; written without conjugation,
+\[
+   (\Theta_\sigma T_aU)(y,\tau)
+   =
+   U(y+e^{(\tau+\sigma)/2}a,\tau+\sigma)
+   =
+   (T_{e^{\sigma/2}a}\Theta_\sigma U)(y,\tau).
+\]
+Taking \(a=e^{-\sigma/2}\xi\) gives
+\[
+   (\Theta_\sigma T_{e^{-\sigma/2}\xi}U)(y,s)
+   =
+   U(y+e^{(s+\sigma)/2}e^{-\sigma/2}\xi,\sigma+s)
+   =
+   U(y+e^{s/2}\xi,\sigma+s).
+\]
+If \(Y=y+e^{s/2}\xi\) and \(\tau=\sigma+s\), then
+\[
+   y=Y-e^{(\tau-\sigma)/2}\xi,\qquad s=\tau-\sigma,
+\]
+so \(|s|<r^2\) and \(|y|<r\) are equivalent to the defining inequalities for
+\(\mathcal Q_r^{\rm cov}(\xi,\sigma)\).  The transformation is a
+time-dependent spatial translation, hence has Jacobian one.
+\end{proof}
+
+\begin{definition}[Terminal state space and local topology]
+\label{def:terminal-state-space}
+For \(M<\infty\), let \(\mathfrak X_M\) be the class of pairs
+\((U,\Pi)\), modulo addition of arbitrary functions of time to \(\Pi\), such
+that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \(U\) is a smooth bounded ancient solution of
+   \eqref{eq:centered-main} on \(\mathbb R^3\times\mathbb R\), with
+   \(\|U\|_{L^\infty}\le M\);
+   \item \((U,\Pi)\) is locally suitable on every compact terminal cylinder;
+   \item on every compact cylinder the pressure has an admissible
+   \(L^{3/2}\)-representative after subtracting a time-dependent gauge.
+\end{enumerate}
+The topology on \(\mathfrak X_M\) is
+\[
+   U_n\to U \quad\hbox{in }C^\infty_{\loc},
+   \qquad
+   \Pi_n-c_n(\tau)\rightharpoonup \Pi
+      \quad\hbox{in }L^{3/2}_{\loc}
+\]
+for suitable time-dependent gauges \(c_n\).  All profile limits, tail
+descendants, active-tree hulls, and recurrent-core limits below are taken in
+this topology.
+\end{definition}
+
+\begin{definition}[Affine-normalized observer oscillation]
+\label{def:observer-oscillation}
+Let \(Q\) be a bounded covariant terminal cylinder.  For a velocity field \(U\)
+set
+\[
+   \operatorname{osc}_3(U;Q)
+   :=
+   \inf_{c\in\mathbb R^3}\iint_Q |U-c|^3\,dy\,d\tau .
+\]
+A covariant observer \(z\in Z\) is \(\eta\)-oscillation-active for \(U\) if
+\[
+   \operatorname{osc}_3\bigl(U;\mathcal Q_1^{\rm cov}(z)\bigr)\ge\eta .
+\]
+On each compact observer window we fix a uniformly locally finite family of
+observer centers \(\{z_k\}\subset Z\), subordinate to a bounded-overlap
+covariant unit-cylinder cover.  The corresponding local oscillation measure on
+observer-center sets \(E\subset Z\) is
+\[
+   \mu_U^{\rm osc}(E)
+   :=
+   \sum_{z_k\in E}
+      \operatorname{osc}_3\bigl(U;\mathcal Q_1^{\rm cov}(z_k)\bigr) .
+\]
+For a sequence \(U_n\) we write \(\mu_n^{\rm osc}\) for this measure.  All
+uses of \(\mu_n^{\rm osc}\) are on compact observer-center windows or on
+specified escaping windows after restriction, so the bounded overlap gives uniform local
+finiteness.  Replacing the cover by another bounded-overlap covariant unit
+cover changes only harmless constants and never changes the alternatives
+``positive threshold,'' ``vanishing threshold,'' or ``diffuse defect.''
+\end{definition}
+
+\begin{lemma}[Local compactness and continuity of the state actions]
+\label{lem:state-space-local-compactness}
+Let \((U_n,\Pi_n)\subset\mathfrak X_M\) be a sequence with the local suitability
+and pressure-gauge bounds supplied by Paper~I on every fixed compact cylinder.
+Then every subsequence has a further subsequence converging in the topology of
+\(\mathfrak X_M\).  Moreover the actions \(T_a\), \(\Theta_s\), the covariant
+tail recenterings \(\mathscr T_{(x,\sigma)}\) are continuous on
+\(\mathfrak X_M\).  The affine maps satisfy the bound-tracking continuity
+\[
+   S_c:\mathfrak X_M\longrightarrow \mathfrak X_{M+|c|},
+\]
+again with the pressure interpreted modulo the corresponding transformed time
+gauges.
+\end{lemma}
+
+\begin{proof}
+The compactness assertion is the standard local Seregin compactness theorem
+applied on an exhausting sequence of compact cylinders, followed by a diagonal
+argument.  The velocity convergence is upgraded to \(C^\infty_{\loc}\) for
+bounded smooth centered profiles by interior parabolic estimates for
+\eqref{eq:centered-main}; the pressure representatives converge weakly in
+\(L^{3/2}_{\loc}\) after the local gauges.  The formulas defining \(T_a\),
+\(\Theta_s\), \(\mathscr T_{(x,\sigma)}\), and \(S_c\) are smooth changes of
+variables and affine pressure changes on each fixed compact cylinder.  The
+first three preserve the \(L^\infty\) bound \(M\).  The affine map \(S_c\)
+subtracts the constant vector \(c\), so its velocity bound is at most
+\(M+|c|\).  All four maps preserve the local topology and transform admissible
+gauges into admissible gauges.  No global spatial norm or global pressure
+representative is used.
+\end{proof}
+
 \begin{definition}[Affine homogeneous symmetry]
 \label{def:affine-symmetry}
 For \(c\in\R^3\), define
@@ -1826,6 +2505,148 @@ The two \(c\cdot\nabla V\) terms cancel.  Finally,
 Substitution into \eqref{eq:centered-main} at the point \((z,\tau)\) gives the
 equation for \((U,\Pi)\).  The divergence condition is unchanged by translation
 and subtracting a constant vector.
+\end{proof}
+
+\begin{definition}[Affine-constant lower stratum and residual normalization]
+\label{def:affine-constant-lower-stratum}
+The affine-constant stratum consists of centered profiles which become zero
+after one affine homogeneous symmetry \(S_c\).  In the ordered residual
+decomposition this stratum is part of the previously closed lower classes, not
+part of \(\Cgen\).  Equivalently, every generic residual profile is considered
+after the canonical affine normalization which removes its spatially homogeneous
+mild mode.  Retained activity in the residual class is therefore always measured
+after this normalization.
+\end{definition}
+
+\begin{remark}[How affine constants are used]
+\label{rem:affine-constant-use}
+When a compact recurrent tail core is shown below to consist only of affine
+constants, the contradiction is not that an unnormalized nonzero constant has
+zero local \(L^3\)-mass.  The contradiction is that affine constants have already
+been assigned to the closed lower stratum in
+\Cref{def:affine-constant-lower-stratum}; after the canonical affine
+normalization they are the zero profile and cannot represent a generic residual
+state carrying retained activity.
+\end{remark}
+
+\begin{theorem}[Closed non-affine activity functional]
+\label{thm:closed-nonaffine-activity}
+Let \(Q\Subset\mathbb R^3\times\mathbb R\) be a bounded connected parabolic
+cylinder.  For \(U\in\mathfrak X_M\), define
+\[
+   d_Q(U)
+   :=
+   \inf_{c\in\mathbb R^3}
+      \left(\iint_Q |U-c|^3\,dy\,d\tau\right)^{1/3}.
+\]
+Then
+\[
+   |d_Q(U)-d_Q(V)|
+   \le
+   \|U-V\|_{L^3(Q)} .
+\]
+In particular \(d_Q\) is continuous under the local topology of
+\(\mathfrak X_M\).  Moreover,
+\[
+   d_Q(U)=0
+   \quad\Longleftrightarrow\quad
+   U \hbox{ is spatially and temporally constant on } Q .
+\]
+Fix once and for all a nested exhaustion
+\[
+   Q_1\Subset Q_2\Subset\cdots,\qquad
+   \bigcup_{j=1}^{\infty}Q_j=\mathbb R^3\times\mathbb R,
+\]
+by bounded connected parabolic cylinders.  Define
+\[
+   \Phi(U)
+   :=
+   \sum_{j=1}^{\infty}2^{-j}\min\{1,d_{Q_j}(U)\}.
+\]
+Then \(\Phi\) is continuous on \(\mathfrak X_M\), and
+\[
+   \Phi(U)=0
+   \quad\Longleftrightarrow\quad
+   U \hbox{ is globally constant}.
+\]
+Consequently, for every \(\eta>0\), the non-affine activity set
+\[
+   \mathfrak A_\eta
+   :=
+   \{(U,\Pi)\in\mathfrak X_M:\Phi(U)\ge\eta\}
+\]
+is closed in the local state-space topology.
+\end{theorem}
+
+\begin{proof}
+For every \(c\in\mathbb R^3\), the triangle inequality in \(L^3(Q)\) gives
+\[
+   \|U-c\|_{L^3(Q)}
+   \le
+   \|U-V\|_{L^3(Q)}+\|V-c\|_{L^3(Q)}.
+\]
+Taking the infimum over \(c\) gives
+\[
+   d_Q(U)\le \|U-V\|_{L^3(Q)}+d_Q(V).
+\]
+Interchanging \(U\) and \(V\) proves the Lipschitz estimate.  Local smooth
+convergence implies local \(L^3\)-convergence, so \(d_Q\) is continuous in the
+topology of \(\mathfrak X_M\).
+
+If \(d_Q(U)=0\), choose \(c_k\in\mathbb R^3\) such that
+\(\|U-c_k\|_{L^3(Q)}\to0\).  The sequence \(c_k\) is bounded; otherwise
+\[
+   \|U-c_k\|_{L^3(Q)}
+   \ge |c_k|\,|Q|^{1/3}-\|U\|_{L^3(Q)}
+   \to\infty ,
+\]
+which is impossible.  Passing to a subsequence, \(c_k\to c\), and hence
+\(U=c\) almost everywhere on \(Q\).  Since \(U\) is smooth, \(U\equiv c\)
+pointwise on \(Q\).  The converse is immediate.
+
+Each summand in the definition of \(\Phi\) is continuous and bounded by
+\(2^{-j}\).  The Weierstrass test gives uniform convergence of the defining
+series, hence continuity of \(\Phi\).  If \(\Phi(U)=0\), then
+\(d_{Q_j}(U)=0\) for every \(j\), so \(U\) is constant on every \(Q_j\).  The
+cylinders are nested and overlap, so the constants agree and \(U\) is globally
+constant.  The converse is again immediate.  Closedness of
+\(\mathfrak A_\eta\) follows from continuity of \(\Phi\).
+\end{proof}
+
+\begin{theorem}[Affine normalization dichotomy]
+\label{thm:affine-normalization-dichotomy}
+Let \(S_c\) be the affine homogeneous symmetry of
+\Cref{def:affine-symmetry}, and suppose the ordered lower strata include all
+constant centered profiles as in \Cref{def:affine-constant-lower-stratum}.
+For every \((U,\Pi)\in\mathfrak X_M\) and every \(c\in\mathbb R^3\), exactly
+one of the following alternatives holds:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \(\Phi(S_cU)>0\), so the affine-normalized representative has
+   positive non-affine retained activity;
+   \item \(\Phi(S_cU)=0\), so \(S_cU\) is globally constant and
+   \((U,\Pi)\) belongs to the affine/parasitic lower stratum.
+\end{enumerate}
+Moreover, if \(K\subset\mathfrak X_M\) is compact and
+\[
+   K\cap\{(U,\Pi):\Phi(U)=0\}=\varnothing ,
+\]
+then there exists \(\eta_K>0\) such that
+\[
+   \Phi(U)\ge\eta_K
+   \qquad\hbox{for every }(U,\Pi)\in K .
+\]
+\end{theorem}
+
+\begin{proof}
+By \Cref{thm:closed-nonaffine-activity}, \(\Phi(S_cU)=0\) if and only if
+\(S_cU\) is globally constant.  That is exactly the affine/parasitic lower
+stratum recorded in \Cref{def:affine-constant-lower-stratum}.  If this does
+not happen, \(\Phi(S_cU)>0\).  The two alternatives are mutually exclusive and
+exhaust all cases.  For the compact statement, \(\Phi\) is continuous and
+strictly positive on \(K\), so it attains a positive minimum
+\[
+   \eta_K:=\min_{(U,\Pi)\in K}\Phi(U)>0 .
+\]
 \end{proof}
 
 \begin{definition}[Asymptotic hull at infinity]
@@ -2133,10 +2954,18 @@ Evaluate \eqref{eq:centered-main} at \((0,0)\).  The drift term vanishes at
    +(W(0,0)\cdot\nabla)W(0,0)+\nabla P_W(0,0)=0 .
 \]
 Project this identity onto the spatially invariant subspace.  The spatial
-derivative terms vanish under \(\Pi_0\): the Laplacian is
-\(D_jD_j u_i\), and the nonlinear term is \(D_j(u_ju_i)\) because
-\(D_ju_j=0\).  Since time translations commute with spatial translations,
-\(\Pi_0\partial_\tau u_i=\partial_\tau u_i^0\).  Thus
+   derivative terms vanish under \(\Pi_0\): the Laplacian is
+   \(D_jD_j u_i\), and the nonlinear term is \(D_j(u_ju_i)\) because
+   \(D_ju_j=0\).  Time translations do not literally commute with the
+   covariant spatial translations; by \Cref{lem:semidirect-covariance} they
+   normalize them:
+   \[
+      \Theta_sT_a\Theta_{-s}=T_{e^{s/2}a}.
+   \]
+   Hence the subspace of observables invariant under all \(T_a\) is invariant
+   under \(\Theta_s\), and the orthogonal projection \(\Pi_0\) commutes with the
+   time-translation representation.  Therefore
+   \(\Pi_0\partial_\tau u_i=\partial_\tau u_i^0\).  Thus
 \begin{equation}\label{eq:zero-mode-momentum-core}
    \partial_\tau u_i^0+\frac12u_i^0+p_i^0=0
    \qquad\hbox{in }L^2(\calM,\mu).
@@ -2282,6 +3111,33 @@ gauge.  All convergence assertions for a recentering sequence are made on fixed
 compact sets in the variables \((y,s)\).
 \end{definition}
 
+\begin{definition}[Combined raw-covariant descendant recentering]
+\label{def:combined-raw-covariant-recentering}
+Let \(g_n=(y_n,\tau_n)\) be a raw parabolic recentering sequence for a terminal
+extraction \((V_n,P_n)\), and let \(\zeta_n=(\xi_n,\sigma_n)\) be a covariant
+tail recentering sequence in the centered limit generated by \(g_n\).  The
+combined raw-covariant descendant recentering is denoted
+\[
+   d_n=(g_n;\xi_n,\sigma_n)
+\]
+and acts on the original terminal sequence by
+\[
+   V_n^{d}(y,s)
+   :=
+   V_n(y+y_n+e^{s/2}\xi_n,\ s+\tau_n+\sigma_n),
+\]
+with the pressure pulled back by the same formula and then adjusted by an
+admissible time-dependent gauge.  Its relative distance from \(g_n\) is
+\[
+   |\xi_n|+|\sigma_n|^{1/2}.
+\]
+Thus \(d_n\) is separated from \(g_n\) exactly when this relative distance tends
+to infinity.  This definition is used only to lift descendants of a centered
+profile back to the original terminal extraction; ordinary first-generation
+terminal recenterings remain the raw parabolic recenterings of
+\Cref{def:parabolic-recentering-sequence}.
+\end{definition}
+
 \begin{definition}[Local CKN measure and concentrating recentering sequences]
 \label{def:terminal-measures}
 After choosing local pressure gauges \(a_n(\tau)\), define
@@ -2296,6 +3152,18 @@ The local mass of a recentering sequence \(\mathfrak c=(z_n)\) is
 \[
    m(\mathfrak c):=\limsup_{n\to\infty}\mu_n(Q_1(z_n)).
 \]
+For a combined raw-covariant descendant recentering
+\(d_n=(g_n;\xi_n,\sigma_n)\), the same notation means the mass of the pulled
+back CKN measure in the combined coordinates:
+\[
+   m(\mathfrak d):=
+   \limsup_{n\to\infty}\mu_n^{\mathfrak d}(Q_1(0,0)),
+\]
+where \(\mu_n^{\mathfrak d}\) is obtained from \(\mu_n\) by the coordinate
+change in \Cref{def:combined-raw-covariant-recentering} and by the admissible
+pressure gauges used in that recentered frame.  Thus raw first-generation
+recentering sequences and lifted covariant descendants use the same local
+unit-cylinder criterion, expressed in their own local coordinates.
 For a fixed small-data threshold \(\eps_{\rm sd}>0\), the recentering sequence
 is \(\eps_{\rm sd}\)-concentrating if \(m(\mathfrak c)\ge\eps_{\rm sd}\), and
 locally vanishing at unit scale otherwise.  It has loss of local compactness if
@@ -2305,6 +3173,62 @@ locally vanishing at unit scale otherwise.  It has loss of local compactness if
 or if the local pressure gauges fail to be uniformly controlled in
 \(L^{3/2}(Q_2(z_n))\).
 \end{definition}
+
+\begin{lemma}[Gauge compatibility and retained-activity semicontinuity]
+\label{lem:gauge-compatibility}
+Let \((U_n,\Pi_n)\to(U,\Pi)\) in the topology of
+\(\mathfrak X_M\) on a fixed compact cylinder containing \(Q_1(0,0)\).  After
+choosing the pressure gauges used in that convergence, the following hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item The pressure gauges are compatible with centered time shifts,
+   covariant translations, covariant tail recenterings, affine normalization,
+   and diagonal profile-tree extraction: applying any of these operations only
+   changes the gauge by another admissible function of time.
+   \item The local CKN quantity is lower semicontinuous in the direction needed
+   for lifting active limits:
+   \[
+      \calE_1(U,\Pi;0)
+      \le
+      \liminf_{n\to\infty}\calE_1(U_n,\Pi_n;0).
+   \]
+   Consequently, if the limit profile has
+   \(\calE_1(U,\Pi;0)\ge\eta\), then all sufficiently far approximating
+   profiles have CKN mass at least any prescribed \(\eta'<\eta\).
+   \item If retained activity is carried by the velocity part, then it is
+   closed under the same convergence:
+   \[
+      \liminf_{n\to\infty}\iint_{Q_1}|U_n|^3\ge\eta
+      \quad\Longrightarrow\quad
+      \iint_{Q_1}|U|^3\ge\eta .
+   \]
+   In applications where the lower bound is first obtained for velocity alone
+   and then converted into a CKN lower bound, the descendant threshold is chosen
+   below the resulting positive constant as in
+   \Cref{def:threshold-ledger}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Time shifts and covariant translations compose the pressure with a smooth local
+change of variables; affine normalization adds the explicit linear pressure
+\(\frac12c\cdot y\); and every local pressure is defined only up to a
+time-dependent function.  Thus admissible gauges remain admissible under all
+operations listed in (i).  For (ii), strong local convergence of \(U_n\) gives
+\[
+   \iint_{Q_1}|U_n|^3\to\iint_{Q_1}|U|^3 .
+   \]
+The pressure terms are convex in the weak \(L^{3/2}\) topology after the fixed
+gauges, hence
+\[
+   \iint_{Q_1}|\Pi-c(\tau)|^{3/2}
+   \le
+   \liminf_{n\to\infty}
+   \iint_{Q_1}|\Pi_n-c_n(\tau)|^{3/2}.
+   \]
+Adding the two inequalities gives the claimed lower semicontinuity direction
+for \(\calE_1\).  The velocity-only assertion follows directly from strong
+\(L^3(Q_1)\) convergence.  The statement is entirely local on \(Q_1\).
+\end{proof}
 
 \begin{lemma}[Paper I compactness excludes retained local compactness failure]
 \label{lem:rough-stratum-discharge}
@@ -2335,27 +3259,120 @@ retained recentering sequence arising from the Paper I Type I extraction theorem
 cannot remain in the local-compactness-failure alternative.
 \end{proof}
 
-\begin{lemma}[Maximal separated families of concentrating recenterings]
+\begin{theorem}[Local active-locus extraction]
 \label{lem:maximal-active-family}
-There exists a maximal separated family of \(\eps_{\rm sd}\)-concentrating
-recentering sequences without loss of local compactness.  After this family is
-extracted, every residual unit parabolic cylinder outside sufficiently large
-tubes around the selected recentering sequences has CKN mass below
-\(\eps_{\rm sd}\).
+Let \(Z=\mathbb R^3\times\mathbb R\) be the centered covariant observer space,
+and let \(K_m\Subset Z\), \(m\ge1\), be a compact exhaustion.  Let
+\(\mu_n\) be the local CKN measures of a terminal sequence, with local finite
+mass on compact observer windows:
+\[
+   \sup_n\mu_n(K_m^+)<\infty
+   \qquad(m\ge1),
+\]
+where \(K_m^+\) denotes the union of the supports of the transported bumps
+defined below for \(z\in K_m\).  Fix
+\(\chi\in C_c^\infty(Q_1(0,0))\), \(0\le\chi\le1\), with
+\(\chi\equiv1\) on \(Q_{1/2}(0,0)\).  For \(z\in Z\), put
+\[
+   \chi_z(Y,\tau)
+   :=
+   \chi\bigl(\calR_z^{-1}(Y,\tau)\bigr),
+   \qquad
+   M_n(z):=\int \chi_z\,d\mu_n .
+\]
+For \(\eta>0\), define the compact-window active locus
+\[
+   A_{n,m}^{\eta}
+   :=
+   \{z\in K_m:M_n(z)\ge\eta\}.
+\]
+After passing to a subsequence, for every \(m\) and every rational
+\(\eta>0\), the compact sets \(A_{n,m}^{\eta}\) converge in the
+Hausdorff--Fell topology to compact sets \(A_m^\eta\subset K_m\).  Moreover,
+for every open neighborhood \(O\subset K_m\) of \(A_m^\eta\),
+\[
+   \limsup_{n\to\infty}
+   \sup_{z\in K_m\setminus O}M_n(z)
+   \le \eta .
+\]
+Thus outside every neighborhood of the active locus \(A_m^\eta\), no
+\(\eta\)-active covariant unit tube remains in the compact observer window
+\(K_m\).  The active object is the closed locus \(A_m^\eta\), not a finite or
+countable enumeration of tubes.
+\end{theorem}
+
+\begin{proof}
+For fixed \(n\), the map \(z\mapsto\chi_z\) is continuous in \(C_c\) on
+\(K_m\), and all supports are contained in the compact enlargement \(K_m^+\).
+Since \(\mu_n\) is a Radon measure finite on \(K_m^+\), \(M_n\) is continuous
+on \(K_m\).  Therefore \(A_{n,m}^{\eta}\) is compact.
+
+The hyperspace of compact subsets of the compact metric space \(K_m\) is
+compact in the Hausdorff--Fell topology.  Hence, for each fixed pair
+\((m,\eta)\), a subsequence exists along which \(A_{n,m}^{\eta}\) converges.
+A diagonal argument over \(m\in\mathbb N\) and
+\(\eta\in\mathbb Q_+\) gives simultaneous convergence.
+
+Let \(O\subset K_m\) be an open neighborhood of \(A_m^\eta\).  If the stated
+residual bound failed, there would exist \(\delta>0\), a subsequence
+\(n_k\), and points \(z_{n_k}\in K_m\setminus O\) such that
+\[
+   M_{n_k}(z_{n_k})\ge\eta+\delta .
+\]
+After replacing \(O\) by a slightly smaller open neighborhood of \(A_m^\eta\),
+we may assume \(K_m\setminus O\) is compact.  Passing to a further subsequence,
+\[
+   z_{n_k}\to z_*\in K_m\setminus O .
+\]
+For all large \(k\),
+\[
+   z_{n_k}\in A_{n_k,m}^{\eta+\delta/2}.
+\]
+Hausdorff--Fell convergence gives \(z_*\in A_m^{\eta+\delta/2}\).  Since
+\(A_m^{\eta+\delta/2}\subset A_m^\eta\subset O\), this contradicts
+\(z_*\in K_m\setminus O\).  The residual estimate follows.  All bounds used
+here are local on \(K_m^+\); no global CKN budget or countability of active
+profiles is assumed.
+\end{proof}
+
+\begin{lemma}[Oscillation-active observers are CKN-active]
+\label{lem:oscillation-active-implies-ckn-active}
+Let \(\mu_n\) be the local CKN measure used in
+\Cref{lem:maximal-active-family}, so that \(\mu_n\) dominates the velocity
+measure \(|U_n|^3\,dy\,d\tau\).  If a covariant unit observer \(z\) satisfies
+\[
+   \operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(z))\ge\eta ,
+\]
+then the same observer is CKN-active at threshold \(\eta\):
+\[
+   \mu_n(\mathcal Q_1^{\rm cov}(z))\ge\eta .
+\]
+Consequently, after the CKN active loci of
+\Cref{lem:maximal-active-family} are removed at every positive threshold, no
+positive affine-normalized oscillation-active unit observer remains outside
+those loci.
 \end{lemma}
 
 \begin{proof}
-The existence of a maximal separated concentrating family follows by Zorn's
-lemma on the partially ordered set of separated concentrating families.  If residual local
-vanishing failed after extraction, there would be centers \(z_n'\) outside all
-large selected tubes such that
+By definition of the affine-normalized oscillation,
 \[
-   \limsup_{n\to\infty}\mu_n(Q_1(z_n'))\ge\eps_{\rm sd}.
+   \operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(z))
+   =
+   \inf_{c\in\mathbb R^3}
+      \iint_{\mathcal Q_1^{\rm cov}(z)}|U_n-c|^3
+   \le
+   \iint_{\mathcal Q_1^{\rm cov}(z)}|U_n|^3 .
 \]
-Such a recentering sequence is \(\eps_{\rm sd}\)-concentrating and
-asymptotically separated from every selected concentrating recentering sequence,
-contradicting maximality.  Hence the residual after maximal concentration
-extraction is locally vanishing at unit scale.
+The local CKN measure contains the velocity contribution, hence
+\[
+   \iint_{\mathcal Q_1^{\rm cov}(z)}|U_n|^3
+   \le
+   \mu_n(\mathcal Q_1^{\rm cov}(z)).
+\]
+Thus oscillation activity implies CKN activity with the same threshold.  The
+last statement follows by applying the local active-locus extraction theorem to
+all rational positive thresholds and then lowering thresholds by harmless fixed
+cover and cutoff constants when the smoothed bump convention is used.
 \end{proof}
 
 \begin{lemma}[Separation of recentered cylinders]
@@ -2384,53 +3401,67 @@ relative positions of the two recentering sequences.  It does not estimate the s
 all of space and does not use a global norm.
 \end{proof}
 
-\begin{theorem}[Terminal local concentration alternatives]
+\begin{theorem}[Paired terminal active-profile decomposition]
 \label{thm:terminal-exhaustion-main}
-Every terminal concentration sequence belongs to exactly one of the following
-alternatives:
+Every terminal concentration sequence admits a paired decomposition
 \[
-   \mathcal S_{\rm one},\quad
-   \mathcal S_{\rm locvan},\quad
-   \mathcal S_{\rm ext},\quad
-   \mathcal S_{\rm diff},\quad
-   \mathcal S_{\rm noncomp},\quad
-   \mathcal S_{\rm sep}.
+   \hbox{active retained profile locus}
+   \quad+\quad
+   \hbox{residual remainder}.
 \]
-Here \(\mathcal S_{\rm noncomp}\) consists of recentering sequences with loss of
-local compactness; \(\mathcal S_{\rm one}\) and \(\mathcal S_{\rm sep}\) are
-the bounded concentrating alternatives with respectively one, or at least two,
-bounded separated equivalence classes; \(\mathcal S_{\rm ext}\) consists of
-concentrating recentering sequences escaping the terminal frame; \(\mathcal
-S_{\rm diff}\) consists of diffuse exterior concentration, namely critical mass
-persisting on expanding regions while every fixed unit cylinder is locally
-vanishing; and \(\mathcal S_{\rm locvan}\) is local CKN vanishing after removal
-of the selected concentrating recentering sequences.
+More precisely, after passing to a subsequence, the compact observer-window
+active loci \(A_m^\eta\) of \Cref{lem:maximal-active-family} exist
+simultaneously for every \(m\) and every rational \(\eta>0\).  Every observer
+sequence that remains in these loci at a fixed positive threshold and has no
+loss of local compactness generates a bounded retained terminal profile after
+local pressure gauges.  Outside every neighborhood of the active locus in each
+fixed compact observer window, the residual local CKN mass is below the chosen
+threshold.  The residual remainder is then of exactly one of the following
+types:
+\[
+   \mathcal R_{\rm van},\qquad
+   \mathcal R_{\rm diff},\qquad
+   \mathcal R_{\rm noncomp}.
+\]
+Here \(\mathcal R_{\rm van}\) means no critical mass remains on expanding
+regions, \(\mathcal R_{\rm diff}\) means diffuse exterior critical mass remains
+on expanding regions while every fixed unit cylinder is below threshold, and
+\(\mathcal R_{\rm noncomp}\) means that some escaping residual recentering loses
+the local Seregin compactness or pressure-gauge control.  Thus mixed states such
+as one active compact profile plus diffuse exterior remainder are part of the
+decomposition; they are not silently identified with the pure diffuse stratum.
 \end{theorem}
 
 \begin{proof}
-Let \(\mathfrak c\) be a terminal concentration sequence.  If it has loss of
-local compactness, it belongs to \(\mathcal S_{\rm noncomp}\).  Assume it has no
-loss of local compactness.  If it is \(\eps_{\rm sd}\)-concentrating, maximal
-concentration extraction puts it into the selected concentrating family up to
-equivalence.
-If its representative remains bounded in the terminal frame and it is the
-unique bounded concentrating class, it gives the single-profile alternative.  If
-more than one bounded concentrating class is present, it gives a finite separated
-profile family.  If it escapes every bounded terminal frame, it is the exterior
-escape alternative.  This classifies concentrating sequences without loss of
-local compactness.
+Apply the local active-locus extraction theorem,
+\Cref{lem:maximal-active-family}, on the compact observer exhaustion
+\(\{K_m\}\).  It produces closed active loci \(A_m^\eta\) and the residual
+estimate
+\[
+   \limsup_{n\to\infty}
+   \sup_{z\in K_m\setminus O}M_n(z)\le\eta
+\]
+outside every neighborhood \(O\) of \(A_m^\eta\).  This is the precise
+replacement for a maximal finite or countable tube family: active centers are
+recorded by closed loci, and the residual is defined by restricting away from
+their neighborhoods.
 
-It remains to classify residual sequences which are locally vanishing at unit
-scale and have no loss of local compactness.  By
-\Cref{lem:maximal-active-family}, the residual after concentration extraction
-has local CKN vanishing on every fixed compact terminal cylinder.  If no
-critical mass remains on expanding regions, this is the local-vanishing
-alternative \(\mathcal S_{\rm locvan}\).  If critical mass persists only on
-expanding regions while every fixed unit cylinder remains below
-\(\eps_{\rm sd}\), this is the diffuse exterior concentration alternative
-\(\mathcal S_{\rm diff}\).  This is a terminal alternative, not an a priori
-global estimate on the original solution.  The alternatives are mutually
-exclusive by construction and exhaustive by the preceding cases.
+If an observer sequence stays in a positive-threshold active locus and has no
+loss of the local compactness specified in \Cref{def:terminal-measures}, then
+\Cref{lem:rough-stratum-discharge} and the standard diagonal Seregin compactness
+argument give a bounded retained terminal profile.  If such an observer
+sequence loses local dissipation or pressure-gauge control, the corresponding
+remainder is \(\mathcal R_{\rm noncomp}\).
+
+It remains to classify what is outside the active loci.  If the residual
+critical CKN mass tends to zero on every expanding terminal region, the
+remainder is \(\mathcal R_{\rm van}\).  If a positive amount of critical CKN
+mass persists on expanding regions while every fixed compact observer window is
+below every active threshold after removing neighborhoods of the active loci,
+the remainder is \(\mathcal R_{\rm diff}\).  These three residual states are
+mutually exclusive once the active loci are fixed, and they exhaust the
+residual possibilities.  No step asserts that a diffuse or exterior remainder
+cannot coexist with active compact profiles.
 \end{proof}
 
 \begin{corollary}[Persistent local velocity mass forces retained concentration]
@@ -2441,19 +3472,22 @@ If a terminal sequence satisfies
    \iint_{Q_1(0,0)} |V_n|^3\,dy\,d\tau\ge\eta_0>0
 \]
 with \(\eta_0\ge\eps_{\rm sd}\), then the terminal decomposition contains a
-local concentration profile unless the distinguished recentering sequence has
+local concentration profile unless the distinguished observer sequence has
 loss of local compactness.  In the generic residual after local vanishing and
 local compactness failure are excluded, the persistent compact velocity mass is
-therefore carried by either one retained concentration profile or a finite
-separated family of retained concentration profiles.
+therefore carried by the active retained profile locus of
+\Cref{thm:terminal-exhaustion-main}; the locus may contain one, finitely many,
+infinitely many, or continuum many active observer classes, and the residual
+remainder may still be diffuse until the mixed compact--diffuse stratum is
+excluded.
 \end{corollary}
 
 \begin{proof}
 The local CKN measure \(\mu_n\) dominates the velocity contribution.  Hence the
 origin recentering sequence has \(\mu\)-mass at least \(\eta_0\), and is
 \(\eps_{\rm sd}\)-concentrating unless it has loss of local compactness.  If it
-has no loss of local compactness and is bounded in the terminal frame, it lies
-in the single-profile or separated-profile alternative of
+has no loss of local compactness, active-locus extraction places its observer
+class in a positive-threshold active locus \(A_m^\eta\) of
 \Cref{thm:terminal-exhaustion-main}.
 \end{proof}
 
@@ -2511,10 +3545,447 @@ concentration theorem of Paper 0, the local Type I Seregin compactness and
 pressure gauges of Paper I, and fixed compact terminal cylinders.
 \end{proof}
 
+\begin{theorem}[Diffuse-defect compactness]
+\label{thm:diffuse-defect-compactness}
+Let \(\mu_n^{\rm osc}\) be the residual affine-normalized oscillation measures
+of \Cref{def:observer-oscillation}, after removing neighborhoods of all
+positive-threshold active loci from \Cref{lem:maximal-active-family}.  By
+\Cref{lem:oscillation-active-implies-ckn-active}, this removal also removes all
+positive-threshold oscillation-active unit observers on compact windows.
+Assume there are observer regions \(E_n\subset Z\), escaping every compact
+subset of \(Z\), and a number \(m_0>0\) such that
+\[
+   \mu_n^{\rm osc}(E_n)\ge m_0 ,
+\]
+while no unit observer in \(E_n\) carries a positive oscillation threshold:
+\[
+   \sup_{z\in E_n}
+      \operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(z))
+   \longrightarrow0 .
+\]
+Let \(\overline Z\) be a compact metrizable observer compactification on which
+the fixed covariant observer maps extend continuously, and define probability
+measures
+\[
+   \lambda_n
+   :=
+   \frac{\mu_n^{\rm osc}\lfloor E_n}{\mu_n^{\rm osc}(E_n)}
+   \qquad\hbox{on }\overline Z .
+\]
+After passing to a subsequence,
+\[
+   \lambda_n\rightharpoonup\lambda
+\]
+weakly as probability measures on \(\overline Z\).  The limit satisfies
+\[
+   \lambda(\overline Z)=1,\qquad
+   \lambda(B)=0\quad\hbox{for every }B\Subset Z .
+\]
+Thus the limit is a nonzero diffuse-defect state supported at the boundary of
+the observer compactification, not a local active profile.
+\end{theorem}
+
+\begin{proof}
+The measures \(\lambda_n\) are probability measures on the compact metric space
+\(\overline Z\), so weak compactness gives a convergent subsequence.  Testing
+against the constant function \(1\) preserves total mass and gives
+\(\lambda(\overline Z)=1\).
+
+Let \(B\Subset Z\).  Since \(E_n\) escapes every compact subset of \(Z\), one
+has \(B\cap E_n=\varnothing\) for all sufficiently large \(n\).  Hence
+\(\lambda_n(B)=0\) eventually, and the portmanteau theorem gives
+\(\lambda(B)=0\).  The additional unit-scale diffuseness assumption gives the
+stronger moving-window estimate
+\[
+   \sup_{z\in E_n}
+      \lambda_n\bigl(B_Z(z,1)\bigr)
+   \le
+   \frac{C}{m_0}
+   \sup_{\zeta\in E_n}
+      \operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(\zeta))
+   \longrightarrow0 .
+\]
+Here \(B_Z(z,1)\) is any fixed unit ball for a proper metric on \(Z\),
+and \(C\) is the bounded-overlap constant of the observer cover.  The
+restriction \(\lambda_n=\mu_n^{\rm osc}\lfloor E_n/\mu_n^{\rm osc}(E_n)\) is
+why only cover centers lying in \(E_n\) enter the estimate.
+Therefore no positive unit-scale local oscillation profile is hidden inside the
+escaping windows.  The proof is local on the chosen observer windows and uses no
+global critical-mass or energy budget.
+\end{proof}
+
+\begin{definition}[Diffuse-defect state space]
+\label{def:diffuse-defect-state-space}
+Let \(\mathfrak D_M\) be the compact closure, in the weak topology of
+probability measures on \(\overline Z\) together with the local
+\(\mathfrak X_M\)-topology for the associated velocity hulls, of all normalized
+diffuse-defect states produced by \Cref{thm:diffuse-defect-compactness}.  The
+diffuse-defect mass functional is normalized to be identically one on
+\(\mathfrak D_M\).  This compactness is the product of weak compactness of
+probability measures on the compact observer space \(\overline Z\) and the
+local Seregin compactness of bounded velocity hulls in \(\mathfrak X_M\), after
+the admissible pressure gauges.  The covariant observer group
+\[
+   G:=\mathbb R^3\rtimes\mathbb R
+\]
+acts on \(\mathfrak D_M\) by the observer maps generated by \(T_a\) and
+\(\Theta_s\).
+\end{definition}
+
+\begin{theorem}[Recurrent diffuse-defect measure]
+\label{thm:recurrent-diffuse-defect-measure}
+Assume the covariant observer action of \(G\) is continuous on
+\(\mathfrak D_M\).  Every nonzero diffuse-defect state
+\(\lambda\in\mathfrak D_M\) generates a \(G\)-invariant Borel probability
+measure \(\mathbb P\) on \(\mathfrak D_M\).  The normalized diffuse-defect mass
+remains one under this averaging.
+\end{theorem}
+
+\begin{proof}
+The group \(G=\mathbb R^3\rtimes\mathbb R\), with the semidirect law from
+\Cref{lem:semidirect-covariance}, is solvable and hence amenable.  Let
+\((F_\alpha)\) be a left Følner net for \(G\), with Haar measure \(|F_\alpha|\),
+and define probability measures on \(\mathfrak D_M\) by
+\[
+   \mathbb P_\alpha
+   :=
+   \frac1{|F_\alpha|}
+   \int_{F_\alpha}\delta_{g\lambda}\,dg .
+\]
+Compactness of \(\mathfrak D_M\) implies weak-* compactness of its probability
+measures, so a subnet converges weakly to a probability measure \(\mathbb P\).
+For every continuous observable \(F\) on \(\mathfrak D_M\) and every fixed
+\(h\in G\),
+\[
+   \int F(h\omega)\,d\mathbb P_\alpha(\omega)
+   -
+   \int F(\omega)\,d\mathbb P_\alpha(\omega)
+   =
+   \frac1{|F_\alpha|}
+   \int_{F_\alpha}\bigl(F(hg\lambda)-F(g\lambda)\bigr)\,dg .
+\]
+The Følner property makes the right-hand side tend to zero.  Passing to the
+weak limit gives \(G\)-invariance of \(\mathbb P\).  Since the diffuse-defect
+mass is identically one on \(\mathfrak D_M\), its average against
+\(\mathbb P\) is also one.
+\end{proof}
+
+\begin{theorem}[Diffuse-defect trichotomy]
+\label{thm:diffuse-defect-trichotomy}
+Let \((U_n,\Pi_n)\subset\mathfrak X_M\) be a normalized terminal residual
+sequence with \(\|U_n\|_{L^\infty}\le M\).  Suppose that, after removing the
+active loci at every positive affine-normalized threshold, there are escaping
+observer windows \(E_n\) such that
+\[
+   \mu_n^{\rm osc}(E_n)\ge m_0>0 .
+\]
+Then, after passing to a subsequence, the residual diffuse branch falls into
+one of the following ordered alternatives:
+\begin{enumerate}[label=\textup{D\arabic*.}]
+   \item \emph{Active regeneration.}  There exist covariant observers \(z_n\)
+   and a threshold \(\eta>0\) such that
+   \[
+      \operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(z_n))\ge\eta .
+   \]
+   This produces a retained active descendant.
+   \item \emph{Affine/parasitic collapse.}  Every velocity tangent associated
+   with the diffuse-defect hull is locally constant after the admissible affine
+   normalization; the branch belongs to the affine/parasitic lower stratum of
+   \Cref{def:affine-constant-lower-stratum}.
+   \item \emph{Critical diffuse tail.}  There is a nonzero recurrent
+   diffuse-defect state supported on \(\overline Z\setminus Z\), carrying
+   normalized diffuse oscillation mass one, annihilating every fixed unit
+   active observable, and not contained in the affine/parasitic lower stratum.
+\end{enumerate}
+Equivalently, residual diffuse defects are contained in the union of the active
+regeneration branch, the affine/parasitic branch, and the critical diffuse-tail
+class \(\Ccritdiff\).
+\end{theorem}
+
+\begin{proof}
+If D1 occurs there is nothing to prove.  Assume D1 does not occur.  Then, for
+every fixed \(\eta>0\), all sufficiently large \(n\) satisfy
+\[
+   \sup_{z\in E_n}
+      \operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(z))<\eta .
+\]
+The hypotheses of \Cref{thm:diffuse-defect-compactness} apply to
+\(\mu_n^{\rm osc}\lfloor E_n\), and hence produce a diffuse-defect state
+\(\lambda\) with total mass one and zero mass on each compact subset of \(Z\).
+By \Cref{thm:recurrent-diffuse-defect-measure}, the orbit closure of
+\(\lambda\) carries a \(G\)-invariant probability measure \(\mathbb P\).
+
+If every local velocity tangent in the support of \(\mathbb P\), after the
+canonical affine normalization, is locally constant, then
+\Cref{def:affine-constant-lower-stratum} places the branch in the affine
+lower stratum.  This is D2.  If not, the invariant diffuse boundary state has
+positive normalized diffuse oscillation mass, no unit-scale active observable,
+and non-affine velocity content.  This is precisely the critical diffuse-tail
+alternative D3.  The alternatives are ordered by first extracting all active
+regeneration and then all affine/parasitic collapse; after those removals, the
+remaining nonzero diffuse state is \(\Ccritdiff\).
+\end{proof}
+
+\begin{definition}[Critical-tail compactification]
+\label{def:critical-diffuse-tail-strata}
+The class \(\Ccritdiff\) consists of recurrent diffuse-defect states produced
+by \Cref{thm:diffuse-defect-trichotomy} which are supported on the boundary of
+the covariant observer compactification, carry normalized affine oscillation
+mass one, annihilate every fixed unit active observable, and are not
+affine/parasitic.
+
+The critical-tail compactification \(\Tcrit\) is the compact state space of
+triples
+\[
+   \mathcal T=(\bar W,\mathcal Y,\Lambda)
+\]
+generated by such critical diffuse states after macroscopic blow-down.  Here
+\(\bar W\) is the barycentric macroscopic velocity, \(\mathcal Y_{x,s}\) is the
+Young measure recording unresolved bounded macroscopic oscillation, and
+\(\Lambda\) is the log-scale diffuse measure recording mass escaping every fixed
+multiplicative annulus.  The coherent subspace \(\Tcoh\) is the special case
+\[
+   \mathcal Y_{x,s}=\delta_{\bar W(x,s)},\qquad \Lambda=0.
+\]
+The purely log-diffuse subspace is denoted \(\Tlogdiff\), and the oscillatory
+Young-tail subspace is denoted \(\Tyoung\).
+
+For coherent elements, the corresponding macroscopic tangent pair \((W,Q)\)
+belongs to \(\Ccohcrit\) and satisfies on annular cylinders
+\(\{0<r_0<|x|<r_1<\infty\}\times I\)
+\[
+   \partial_s W+\frac12 x\cdot\nabla W+\frac12W+\nabla Q=0,
+   \qquad
+   \nabla\cdot W=0
+\]
+in distributions, with nonzero affine-normalized diffuse oscillation and
+recurrence under the induced logarithmic dilation flow.
+\end{definition}
+
+\begin{theorem}[Critical-tail compactification extraction]
+\label{thm:critical-tail-compactification-extraction}
+Let \((U_n,\Pi_n)\subset\mathfrak X_M\) be a bounded normalized terminal
+residual sequence, \(\|U_n\|_{L^\infty}\le M\).  Assume that, after removal of
+all affine-normalized active covariant observers, there remains a nonzero
+diffuse exterior oscillation defect.  Then, after passing to a subsequence, the
+sequence generates a nonzero element
+\[
+   \mathcal T=(\bar W,\mathcal Y,\Lambda)\in\Tcrit .
+\]
+Moreover, the barycentric velocity satisfies the linear critical-tail transport
+law
+\[
+   \partial_s\bar W+\frac12 x\cdot\nabla\bar W+\frac12\bar W+\nabla Q=0,
+   \qquad
+   \nabla\cdot\bar W=0
+\]
+in distributions on macroscopic annular cylinders, and the full defect
+\((\mathcal Y,\Lambda)\) is transported by the induced log-dilation flow.
+\end{theorem}
+
+\begin{proof}
+Let \(\mu_n^{\rm osc}\) be the affine-normalized oscillation defect measure
+after active-locus removal.  By the mixed-diffuse hypothesis there are escaping
+observer windows \(E_n\) and \(m_0>0\) such that
+\[
+   \mu_n^{\rm osc}(E_n)\ge m_0 .
+\]
+Normalize
+\[
+   \lambda_n:=
+   \frac{\mu_n^{\rm osc}\lfloor E_n}{\mu_n^{\rm osc}(E_n)} .
+\]
+By \Cref{thm:diffuse-defect-compactness}, after passing to a subsequence these
+probability measures converge to a boundary diffuse-defect state.  Because all
+positive-threshold active observers have been removed, the limit gives no mass
+to ordinary unit active observers in \(Z\).
+
+We now compactify the critical boundary without imposing annular tightness.
+Apply Prokhorov compactness first in the observer compactification and then in
+the logarithmic radial compactification.  If the normalized defect is tight in a
+fixed multiplicative annulus, select macroscopic scales \(R_n\to\infty\),
+observers \(z_n\), affine gauges \(c_n(s)\), and pressure gauges.  On fixed
+annular cylinders set, schematically,
+\[
+   W_n(x,s)=U_n(y_n+R_nx,\sigma_n+s)-c_n(s).
+\]
+The uniform bound \(\|U_n\|_{L^\infty}\le M\) gives weak-* compactness of
+\(W_n\) in \(L^\infty_{\rm loc}\), and the fundamental theorem of Young
+measures gives, after passing to a further subsequence, a barycenter
+\(\bar W\) and Young measure \(\mathcal Y_{x,s}\).  If the sequence is strongly
+compact in \(L^3_{\rm loc}\), then \(\mathcal Y_{x,s}=\delta_{\bar W(x,s)}\);
+otherwise \(\mathcal Y\) records the unresolved oscillation defect.  If the
+defect is not tight in any fixed logarithmic annulus, the escaping logarithmic
+mass is recorded by \(\Lambda\).  These alternatives are exhaustive and define
+an element of \(\Tcrit\).  Since the normalized defect mass is one,
+\(\mathcal T\ne0\).
+
+It remains to identify the equation satisfied by the barycenter.  After the
+change \(y=y_n+R_nx\) and the admissible affine/pressure normalizations, the
+centered equation becomes, in distributions on fixed macroscopic annuli,
+\[
+   \partial_s W_n
+   -R_n^{-2}\Delta_xW_n
+   +R_n^{-1}W_n\cdot\nabla_xW_n
+   +\frac12x\cdot\nabla_xW_n
+   +\frac12W_n
+   +\nabla_xQ_n
+   =o(1).
+\]
+For every compactly supported test function, the viscous and nonlinear
+contributions are bounded respectively by
+\[
+   CR_n^{-2}\|W_n\|_{L^\infty},
+   \qquad
+   CR_n^{-1}\|W_n\|_{L^\infty}^2 ,
+\]
+and hence both tend to zero.  The pressure gauges give distributional
+compactness of the remaining gradients on annuli.  Passing to the weak-*
+barycentric limit yields the displayed linear critical-tail transport equation.
+Applying the same weak formulation to transported test functions
+shows that \((\mathcal Y,\Lambda)\) is transported by the induced log-dilation
+flow.  This construction is local on macroscopic annuli and uses no global
+critical norm, CKN budget, or energy estimate.
+\end{proof}
+
+\begin{corollary}[Coherent extraction under annular tightness and strong compactness]
+\label{cor:coherent-critical-tail-extraction}
+If the critical-tail defect \(\mathcal T\in\Tcrit\) produced by
+\Cref{thm:critical-tail-compactification-extraction} satisfies
+\(\Lambda=0\) and
+\(\mathcal Y_{x,s}=\delta_{W(x,s)}\) for a.e. \((x,s)\), then there exist
+macroscopic scales, covariant observers, affine gauges, and pressure gauges for
+which the blown-down fields converge strongly in \(L^3_{\rm loc}\) and weak-*
+in \(L^\infty_{\rm loc}\) to a nonzero coherent critical tail
+\((W,Q)\in\Ccohcrit\).
+\end{corollary}
+
+\begin{proof}
+This is the coherent subcase of
+\Cref{thm:critical-tail-compactification-extraction}.  The condition
+\(\Lambda=0\) rules out loss of mass across logarithmic scale, and the
+Dirac-valued Young measure gives strong \(L^3_{\rm loc}\) convergence by
+uniform \(L^\infty\) boundedness.  Nontriviality follows from the normalized
+affine oscillation mass.
+\end{proof}
+
+\begin{theorem}[Coherent critical-tail classification]
+\label{thm:coherent-critical-tail-classification}
+Let \((W,Q)\in\Ccohcrit\) be a coherent critical tail.  In logarithmic radial
+variables
+\[
+   x=e^\rho\omega,\qquad Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s),
+\]
+its compact log-translation/time-translation hull belongs to exactly one of
+\[
+   \mathcal C_{\rm affine},\qquad
+   \Chomcrit,\qquad
+   \Clogper,\qquad
+   \Capcrit .
+\]
+Here \(\Chomcrit\) is the homogeneous \((-1)\)-tail class,
+\(\Clogper\) is the nonzero log-periodic tail class, and \(\Capcrit\) is the
+remaining aperiodic minimal log-translation hull class.
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+   \mathcal H(Z):=
+   \overline{\{Z(\rho+a,\omega,s+b):a,b\in\R\}}
+\]
+be the compact logarithmic translation hull.  If the affine-normalized
+oscillation vanishes on every compact log-cylinder, then the tail is
+affine/parasitic.  Otherwise, if every element of \(\mathcal H(Z)\) is independent of
+\(\rho\), then \(W\) is \((-1)\)-homogeneous and belongs to \(\Chomcrit\).  If
+the log-translation orbit has a nonzero period, then \(W\) is discretely
+self-similar at infinity and belongs to \(\Clogper\).  If neither alternative
+holds, compact-flow decomposition gives a minimal compact invariant subsystem
+with no nonzero log period; this is the aperiodic log-translation class
+\(\Capcrit\).  These alternatives exhaust compact log-translation hulls.
+\end{proof}
+
+\begin{assumption}[Realized critical-tail rigidity]
+\label{hyp:realized-critical-tail-rigidity}
+Every nonzero critical-tail defect \(\mathcal T\in\Tcrit\) generated by a
+bounded normalized residual Navier--Stokes profile satisfies one of the
+following alternatives:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \(\mathcal T\) regenerates affine-normalized active covariant observers;
+   \item \(\mathcal T\) collapses to the affine/parasitic lower stratum;
+   \item \(\mathcal T\) lies in one of the structured critical-tail lower strata
+   already removed before entering \(\Cgen\):
+   \[
+      \Chomcrit,\qquad \Clogper,\qquad \Capcrit,\qquad
+      \Cyoung,\qquad \Clogdiff .
+   \]
+\end{enumerate}
+Equivalently, the realized residual class contains no nonzero critical-tail
+defect in
+\[
+   \Tcoh\cup\Tyoung\cup\Tlogdiff
+\]
+after active regeneration, affine/parasitic collapse, and the listed structured
+critical-tail strata have been removed.
+\end{assumption}
+
+\begin{theorem}[No mixed compact--diffuse residual state]
+\label{thm:no-mixed-compact-diffuse}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.  Let \((U,\Pi)\) be a retained
+terminal profile in the refined residual class, after the affine normalization
+of \Cref{def:affine-constant-lower-stratum}.  Then \(U\) cannot have a diffuse
+exterior oscillation remainder, nor an escaping retained noncompact
+recentering remainder, coexisting with its compact retained core.  Equivalently,
+the paired terminal states
+\[
+   \hbox{one active compact core}+\mathcal R_{\rm diff},
+   \qquad
+   \hbox{one active compact core}+\mathcal R_{\rm noncomp},
+\]
+and their finite, infinite, or continuum active-locus analogues do not occur in
+the refined residual class.
+\end{theorem}
+
+\begin{proof}
+The noncompact escaping case is local.  In this theorem the noncompact
+remainder is retained in the velocity or affine-oscillation sense.  If an
+escaping recentering with retained mass loses the local dissipation or
+pressure-gauge bounds in \Cref{def:terminal-measures}, then after its own local
+normalization it is a retained compact-mass recentering sequence.  This
+contradicts \Cref{lem:rough-stratum-discharge}.  Thus it remains to exclude a
+compact core plus diffuse exterior remainder.
+
+Assume that such a diffuse exterior remainder exists.  By the paired
+active-locus decomposition \Cref{thm:terminal-exhaustion-main}, remove
+neighborhoods of the active locus at every positive affine-normalized activity
+threshold.  The mixed assumption says that a nonzero diffuse oscillation
+residual remains.  Apply \Cref{thm:diffuse-defect-trichotomy}.
+
+If active regeneration occurs, then a positive oscillation-active observer
+survives after all positive-threshold active loci were removed, contradicting
+the definition of the diffuse residual.  If affine/parasitic collapse occurs,
+then \Cref{def:affine-constant-lower-stratum,thm:descendant-heredity} places
+the relevant descendant hull in an already closed lower stratum.  This cannot
+occur inside \(\Cgen\).
+
+The only remaining alternative is a critical diffuse tail.  By
+\Cref{thm:critical-tail-compactification-extraction}, it generates a nonzero
+\(\mathcal T\in\Tcrit\).  Apply
+\Cref{hyp:realized-critical-tail-rigidity}.  Active regeneration and
+affine/parasitic collapse have already been excluded, and every structured
+critical-tail lower stratum listed in the remaining alternative has been removed
+before \(\Cgen\) is entered.  All alternatives are impossible.  Hence no mixed
+compact--diffuse residual profile exists.
+\end{proof}
+
 \begin{definition}[Finite separated family of retained concentration profiles]
 \label{def:finite-separated-profile-family}
 A finite separated family of retained concentration profiles is a finite
-family of parabolic recentering sequences
+family of recentering sequences.  For the original terminal extraction these
+are the parabolic recenterings of \Cref{def:parabolic-recentering-sequence}; for
+descendants of a centered profile they are the covariant tail recenterings of
+\Cref{def:spacetime-covariant-action}.  We write them uniformly as
 \(g_{1,n},\dots,g_{J,n}\), \(J\ge2\), such that:
 \begin{enumerate}[label=(\roman*)]
    \item the recentering sequences are mutually separated;
@@ -2564,31 +4035,84 @@ We now close the terminal alternatives carrying retained local concentration.
 The proof uses no global critical-mass budget.  Instead, finite separated
 concentration families are treated
 through local recentering and compactness.  Iterating retained tail limits from
-such a finite family has only
-three local outcomes: an indecomposable retained concentration profile, a
-finite recurrent tail loop, or escape into one of the non-concentrating or
-non-compact alternatives already excluded by
-\Cref{thm:terminal-nonactive-discharge}.
+such a finite family has only local state-space outcomes: an indecomposable
+retained concentration profile, a mixed compact--diffuse or compact--noncompact
+successor, or an active descendant branch.  The mixed successors are excluded
+by \Cref{thm:no-mixed-compact-diffuse}; infinite active branches and finite
+loops are excluded by the compact active descendant theorem.
 
 \begin{definition}[Tail limits and terminal indecomposability]
 \label{def:atomic-terminal-profile}
 Let \((U,\Pi)\) be a terminal profile with retained local concentration.  A
-retained concentrating tail limit is a terminal limit obtained from recentering
-sequences escaping to infinity relative to \(U\), with retained local
-concentration at the origin.  Diffuse exterior concentration means that there
-are \(\tau_n\to-\infty\), \(R_n\to\infty\), and \(\eta>0\), such that
+retained concentrating tail limit is a limit of covariant tail recenterings
+\[
+   \mathscr T_{(x_n,\tau_n)}(U,\Pi),
+   \qquad |x_n|+|\tau_n|^{1/2}\to\infty,
+\]
+in the local smooth velocity topology and the local \(L^{3/2}\) pressure
+topology modulo gauges, with retained local concentration at the origin.  A raw
+fixed spatial shift is not used in this definition; by
+\Cref{rem:raw-translates,def:spacetime-covariant-action}, it would introduce an
+unbounded spurious drift for escaping centers.  Diffuse exterior concentration
+means that there are \(\tau_n\to-\infty\), \(R_n\to\infty\), and \(\eta>0\),
+such that
 \[
    \int_{|y|>R_n}|U(y,\tau_n)|^3\,dy\ge\eta,
 \]
-while every unit-scale exterior recentering sequence remains below the
-retained-concentration threshold, unless that recentering sequence has loss of
-local compactness.  An escaping non-compact recentering sequence is a tail
-recentering sequence for which the local compactness, suitability, or pressure
-control needed to extract a terminal profile fails.  A retained concentration
-profile is terminally indecomposable if it has no retained concentrating tail
-limit, no diffuse exterior concentration, and no escaping non-compact
-recentering sequence.
+while every unit-scale exterior covariant recentering sequence remains below
+the retained-concentration threshold, unless that recentering sequence has loss
+of local compactness.  An escaping non-compact recentering sequence is a
+covariant tail recentering sequence for which the local compactness,
+suitability, or pressure control needed to extract a terminal profile fails.  A
+retained concentration profile is terminally indecomposable if it has no
+retained concentrating tail limit, no diffuse exterior concentration, and no
+escaping non-compact recentering sequence.
 \end{definition}
+
+\begin{lemma}[Time-slice activity gives parabolic CKN activity]
+\label{lem:timeslice-to-ckn-activity}
+Let \((U,\Pi)\) be a bounded smooth solution of \eqref{eq:centered-main} with
+\(\|U\|_{L^\infty}\le M\).  If
+\[
+   \int_{B_1(0)}|U(y,0)|^3\,dy\ge\eps_0>0,
+\]
+then there are \(\delta=\delta(M,\eps_0)>0\) and
+\(c_0=c_0(M,\eps_0)>0\) such that, after the standard local pressure gauge,
+\[
+   \iint_{B_1(0)\times(-\delta^2,0)} |U|^3\,dy\,d\tau
+   \ge c_0,
+   \qquad\hbox{and hence}\qquad
+   \calE_1(U,\Pi;0)\ge c_0 .
+\]
+The same constants apply to every covariant tail recentering
+\(\mathscr T_{(x,\sigma)}(U,\Pi)\).
+\end{lemma}
+
+\begin{proof}
+Apply interior parabolic regularity on \(B_2\times[-2\delta_0,\delta_0]\),
+with \(\delta_0>0\) universal and small.  On this cylinder the drift
+\(-\frac12y\cdot\nabla U\) has bounded smooth coefficients, and the nonlinear
+forcing is bounded by \(M^2\).  After choosing local pressure gauges, the
+standard interior estimates give
+\[
+   \|\partial_\tau U\|_{L^\infty(B_1\times[-\delta_0,0])}
+   +\|\nabla U\|_{L^\infty(B_1\times[-\delta_0,0])}
+   \le C(M)
+\]
+where \(C(M)\) is independent of the particular profile.  Hence the map
+\(\tau\mapsto \int_{B_1}|U(y,\tau)|^3\,dy\) is uniformly continuous with a
+modulus depending only on \(M\) and \(|B_1|\).  Choose
+\(\delta\le\delta_0\) so that
+\[
+   \int_{B_1}|U(y,\tau)|^3\,dy\ge \frac12\eps_0
+   \qquad -\delta^2<\tau<0 .
+\]
+Integrating in time gives a positive lower bound for the velocity part of
+\(\calE_1(U,\Pi;0)\); the pressure contribution is nonnegative after any
+admissible gauge.  The constants are unchanged under
+\(\mathscr T_{(x,\sigma)}\), because that recentering is an exact composition of
+the centered symmetries in \Cref{def:spacetime-covariant-action}.
+\end{proof}
 
 \begin{lemma}[One retained tail limit gives two separated concentration profiles]
 \label{lem:descendant-to-separated-family}
@@ -2603,18 +4127,21 @@ The origin recentering sequence carries retained concentration:
    \calE_1(U,\Pi;0)\ge\eps_*.
 \]
 Let \(W\) be a retained concentrating tail limit.  By definition there are
-relative tail recentering sequences \(h_n\to\infty\) such that \(h_n\cdot U\to W\) in the
-terminal topology and
+covariant relative tail recentering parameters
+\(\zeta_n=(x_n,\tau_n)\), with
+\(|x_n|+|\tau_n|^{1/2}\to\infty\), such that
+\(\mathscr T_{\zeta_n}(U,\Pi)\to(W,\Pi_W)\) in the terminal topology and
 \[
    \calE_1(W,\Pi_W;0)\ge\eps_*.
 \]
 By local convergence of velocity and pressure after gauges,
 \[
-   \calE_1(h_n\cdot U,\Pi_{h_n};0)\ge\frac12\eps_*
+   \calE_1(\mathscr T_{\zeta_n}U,\mathscr T_{\zeta_n}\Pi;0)
+   \ge\frac12\eps_*
 \]
 for all sufficiently large \(n\).  Thus, for large \(n\), the origin
-recentering sequence and the sequence \(h_n\) are separated and have retained
-local concentration.
+recentering sequence and the covariant tail sequence \(\zeta_n\) are separated
+and have retained local concentration.
 They form a finite separated two-profile concentration family.
 \end{proof}
 
@@ -2630,9 +4157,10 @@ retained concentrating tail limit, \Cref{lem:descendant-to-separated-family} wou
 produce a finite two-profile separated family with retained concentration, contradicting
 \Cref{thm:no-finite-separated-profile-family}.  If \(U\) had diffuse exterior
 concentration or an escaping non-compact recentering sequence, the corresponding
-terminal extraction would belong to one of the terminal alternatives excluded
-by \Cref{thm:terminal-nonactive-discharge}.  Hence no retained concentrating
-tail limit, diffuse exterior concentration, or escaping non-compact recentering
+terminal extraction would be a mixed state consisting of the retained compact
+core \(U\) plus a diffuse or noncompact tail remainder.  This is excluded by
+\Cref{thm:no-mixed-compact-diffuse}.  Hence no retained concentrating tail
+limit, diffuse exterior concentration, or escaping non-compact recentering
 sequence exists, and \(U\) is terminally indecomposable.
 \end{proof}
 
@@ -2695,7 +4223,10 @@ limit \(W\), and
 \[
    \int_{B_1(0)}|W(y,0)|^3\,dy\ge\eps_*,
 \]
-so \(W\) is a retained concentrating tail limit, again contradicting terminal
+after lowering \(\eps_*\) by a harmless fixed factor if necessary.  By
+\Cref{lem:timeslice-to-ckn-activity}, this time-slice velocity concentration
+gives parabolic CKN activity on \(Q_1(0,0)\).  Thus \(W\) is a retained
+concentrating covariant tail limit, again contradicting terminal
 indecomposability.
 
 The remaining alternative is that \(m_n<\eps_*\) for all sufficiently large
@@ -2709,33 +4240,73 @@ with \(\eta=1\), again contradicting terminal indecomposability.  Both
 alternatives are impossible, so the desired sequence exists.
 \end{proof}
 
-\begin{lemma}[Mildness inheritance for terminal profiles]
+\begin{theorem}[Parasitic-free mildness inheritance from the normalized package]
 \label{hyp:mildness-inheritance-main}
-If \(U\) is a terminal profile with retained local concentration, then the physical pullback
+\label{thm:parasitic-free-mildness}
+Assume the Paper~I normalized Seregin extraction package together with the
+Paper~II bounded mild centered normalization.  Let \((U,\Pi)\) be a retained
+terminal profile, retained covariant tail descendant, active-tree limit, or
+recurrent-core limit represented in the normalized residual state space.  Then
+exactly one of the following alternatives applies.
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \((U,\Pi)\) belongs to the affine/parasitic lower stratum of
+   \Cref{def:affine-constant-lower-stratum};
+   \item after the canonical affine normalization already built into the
+   residual representative, the physical pullback
 \[
    u(x,t)=(-t)^{-1/2}
    U\!\left(\frac{x}{\sqrt{-t}},-\log(-t)\right),
    \qquad t<0,
 \]
-is a mild ancient Navier--Stokes solution after any finite time shift.
-\end{lemma}
+is parasitic-free and has the following property: for every \(T<0\), the
+finite-terminal shift
+\[
+   u^T(x,s):=u(x,T+s),\qquad s<0,
+\]
+is a bounded mild ancient Navier--Stokes solution in the Albritton--Barker
+sense on \(\mathbb R^3\times(-\infty,0)\).
+\end{enumerate}
+The dichotomy and the normalized mildness property are part of this imported
+normalization convention and are preserved by the local state-space operations:
+Seregin extraction, centered time shifts, covariant translations, covariant tail
+descendants, active-tree limits, and recurrent-core limits.
+\end{theorem}
 
 \begin{proof}
-Fix \(T<0\).  On \(\R^3\times(-\infty,T]\), the pullback is smooth and bounded
-by \((-T)^{-1/2}\|U\|_{L^\infty}\).  It solves the physical Navier--Stokes
-equations by the direct self-similar change of variables.  For
-\(-\infty<s<t\le T\), applying the Duhamel formula to the smooth bounded
-solution on \([s,t]\), with the Leray projection interpreted in the same
-distributional-duality sense as the bounded mild formulation of Paper II
-\cite{DuranPaperII}, gives
+Affine-constant centered profiles are precisely the homogeneous parasitic
+profiles removed by \Cref{def:affine-constant-lower-stratum}; they are assigned
+to alternative (i).  We therefore consider a representative outside that lower
+stratum.  The Paper~I normalization, interpreted through the bounded mild
+centered formulation of Paper~II, is imported as part of the normalized
+residual representative: the spatially homogeneous parasitic mode has already
+been removed before the residual terminal analysis begins.  The local
+state-space operations \(T_a\), \(\Theta_s\), \(\mathscr T_{(x,\sigma)}\), and
+\(S_c\) act by exact centered symmetries and admissible gauge changes, with
+the \(S_c\) bound tracked as in \Cref{lem:state-space-local-compactness}.  Hence
+they carry normalized representatives to normalized representatives, unless
+the limit is affine/parasitic, in which case the ordered decomposition assigns
+it to the affine lower stratum.  This is bookkeeping for the imported
+normalization; it is not a new global estimate.
+
+Fix \(T<0\).  On \(\R^3\times(-\infty,T]\), the physical pullback is smooth and
+bounded by \((-T)^{-1/2}\|U\|_{L^\infty}\), and it solves the physical
+Navier--Stokes equations by the direct self-similar change of variables.  Since
+the parasitic zero mode has been removed, the pressure has no unprojected
+linear parasitic component on this finite terminal interval.  Hence the
+bounded mild formulation of Paper~II applies: for
+\(-\infty<s<t\le T\),
 \[
    u(t)=e^{(t-s)\Delta}u(s)
    -\int_s^t e^{(t-\sigma)\Delta}
       \mathbb P\nabla\cdot(u\otimes u)(\sigma)\,d\sigma .
 \]
-After translating the terminal time \(T\) to \(0\), this is exactly the mild
-ancient formulation on every finite forward interval.  Since \(T<0\) was
-arbitrary, the pullback is mild after any finite time shift.
+After translating the terminal time \(T\) to \(0\), this is the mild ancient
+formulation for \(u^T\) on every finite forward interval
+\((-\infty,0)\).  The bound
+\(\|u^T\|_{L^\infty(\mathbb R^3\times(-\infty,0))}
+\le (-T)^{-1/2}\|U\|_{L^\infty}\) is finite.  Thus \(u^T\) is a genuine
+bounded mild ancient solution in the sense required by the
+Albritton--Barker endpoint theorem.
 \end{proof}
 
 \begin{theorem}[Albritton--Barker endpoint Liouville theorem]
@@ -2774,9 +4345,23 @@ critical scaling gives
    =
    \|U(\cdot,\tau_k)\|_{L^3(\R^3)}.
 \]
-By \Cref{hyp:mildness-inheritance-main}, \(u\) is mild ancient; hence
-\Cref{thm:AB-main} gives \(u\equiv0\), and therefore \(U\equiv0\).  This
-contradicts retained local concentration.
+By \Cref{hyp:mildness-inheritance-main}, either \(U\) is in the affine/parasitic
+lower stratum, which is not part of the normalized residual class, or else for
+each \(T<0\)
+\[
+   u^T(x,s):=u(x,T+s),\qquad s<0,
+\]
+is a bounded mild ancient solution.  Choose \(T<0\) and discard finitely many
+indices so that \(t_k<T\).  Then \(s_k:=t_k-T\downarrow-\infty\), and
+\[
+   \|u^T(\cdot,s_k)\|_{L^3(\R^3)}
+   =
+   \|u(\cdot,t_k)\|_{L^3(\R^3)}
+   \le \sup_j\|U(\cdot,\tau_j)\|_{L^3(\R^3)}<\infty .
+   \]
+\Cref{thm:AB-main} gives \(u^T\equiv0\).  Since \(T<0\) was arbitrary, the
+physical pullback vanishes on \(\mathbb R^3\times(-\infty,0)\), and therefore
+\(U\equiv0\).  This contradicts retained local concentration.
 \end{proof}
 
 \begin{lemma}[Diagonal lifting of retained concentrating tail limits]
@@ -2786,7 +4371,9 @@ retained concentration separated family for a refined residual candidate, repres
 separated recentering sequences \(g_{j,n}=(y_{j,n},\tau_{j,n})\).  Let
 \((U_j,\Pi_j)\) be the terminal profile obtained in the \(j\)-th recentering.  If
 \((U_j,\Pi_j)\) has a retained concentrating tail limit \((W,\Pi_W)\), then
-there is a parabolic recentering sequence \(\mathfrak d=(d_n)\) for the original terminal
+there is a combined raw-covariant descendant recentering sequence
+\(\mathfrak d=(d_n)\), in the sense of
+\Cref{def:combined-raw-covariant-recentering}, for the original terminal
 sequence such that:
 \begin{enumerate}[label=(\roman*)]
    \item \(\mathfrak d\) is asymptotically separated from \(g_j\);
@@ -2797,51 +4384,103 @@ sequence such that:
 \end{lemma}
 
 \begin{proof}
-By definition of retained concentrating tail limit, there are relative tail
-recenterings \(\zeta_m=(\xi_m,\sigma_m)\), with
+By definition of retained concentrating tail limit, there are relative
+covariant tail recenterings \(\zeta_m=(\xi_m,\sigma_m)\), with
 \[
    |\xi_m|+|\sigma_m|^{1/2}\to\infty,
 \]
-such that the fields obtained from \((U_j,\Pi_j)\) by recentering at
-\(\zeta_m\) converge locally in the terminal topology to \((W,\Pi_W)\), and
+such that
+\[
+   \mathscr T_{\zeta_m}(U_j,\Pi_j)\to(W,\Pi_W)
+\]
+locally in the terminal topology, and
 \[
    \calE_1(W,\Pi_W;0)\ge\eps_* .
 \]
 Fix \(m\).  Since \(V_n^{g_j}\to U_j\) locally smoothly and
 \((P_n^{g_j})\to\Pi_j\) locally in \(L^{3/2}\) modulo gauges, the convergence
-also holds on the fixed compact cylinder \(Q_m(\zeta_m)\).  Therefore one can
-choose \(n(m)\) so large that the recentered original fields
+also holds on the fixed covariant tube
 \[
-   V_{n(m)}(\,\cdot+y_{j,n(m)}+\xi_m,\,
-             \cdot+\tau_{j,n(m)}+\sigma_m)
+   \{(y+e^{s/2}\xi_m,s+\sigma_m):(y,s)\in Q_m(0,0)\}.
+\]
+Therefore one can choose \(n(m)\) so large that the covariantly recentered
+original fields
+\[
+   V_{n(m)}(y+y_{j,n(m)}+e^{s/2}\xi_m,\,
+             s+\tau_{j,n(m)}+\sigma_m)
 \]
 and the corresponding pressure gauges are within \(m^{-1}\) of the
-\(\zeta_m\)-recentered fields of \((U_j,\Pi_j)\) on \(Q_m(0,0)\).
+\(\mathscr T_{\zeta_m}\)-recentered fields of \((U_j,\Pi_j)\) on
+\(Q_m(0,0)\).
 
 Set
 \[
-   d_m:=(y_{j,n(m)}+\xi_m,\tau_{j,n(m)}+\sigma_m).
+   d_m:=(g_{j,n(m)};\xi_m,\sigma_m).
 \]
-Relabeling the subsequence \(n(m)\) as the terminal index gives a recentering sequence
-\(\mathfrak d=(d_m)\) for the original terminal sequence.  Since
-parabolic distance from \(d_m\) to \(g_{j,n(m)}\) is exactly
-\(|\xi_m|+|\sigma_m|^{1/2}\), the sequence \(\mathfrak d\) is separated from
-the \(j\)-th recentering sequence.  The diagonal choice gives local convergence of the
-original sequence at \(\mathfrak d\) to \((W,\Pi_W)\).  Finally, the local
-CKN quantity is continuous under the strong local velocity convergence and
-weak lower semicontinuity of the pressure term after the fixed gauges, so
+Relabeling the subsequence \(n(m)\) as the terminal index gives a combined
+raw-covariant descendant recentering sequence \(\mathfrak d=(d_m)\) for the
+original terminal sequence.  Since the covariant parabolic distance from \(d_m\) to
+\(g_{j,n(m)}\) is
+\(|\xi_m|+|\sigma_m|^{1/2}\), the sequence \(\mathfrak d\) is separated from the
+\(j\)-th recentering sequence.  The diagonal choice gives local convergence of
+the original sequence at \(\mathfrak d\) to \((W,\Pi_W)\).  Let
+\(\mu_{n(m)}^{\mathfrak d}\) denote the local CKN measure of the original
+terminal sequence pulled back by this combined raw-covariant recentering and by
+the pressure gauges used in the diagonal convergence.  The local CKN quantity
+is continuous under the strong local velocity convergence and weak lower
+semicontinuity of the pressure term after these fixed gauges, so
 \[
-   \liminf_{m\to\infty}\mu_{n(m)}(Q_1(d_m))
+   \liminf_{m\to\infty}\mu_{n(m)}^{\mathfrak d}(Q_1(0,0))
    \ge \calE_1(W,\Pi_W;0)\ge\eps_* .
 \]
 Thus \(\mathfrak d\) has retained local concentration.
+\end{proof}
+
+\begin{theorem}[Heredity of retained descendants]
+\label{thm:descendant-heredity}
+Let \((U,\Pi)\) be a normalized retained residual profile in
+\(\mathfrak X_M\), and let \((W,\Pi_W)\) be a retained covariant tail
+descendant of \((U,\Pi)\).  Then \((W,\Pi_W)\in\mathfrak X_M\), it carries
+retained local concentration at the descendant threshold fixed in
+\Cref{def:threshold-ledger}, and it has the same parasitic-free normalization
+status as a terminal profile generated directly by the Paper~I extraction.
+Consequently exactly one of the following ordered outcomes occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \((W,\Pi_W)\) belongs to one of the previously closed lower strata,
+   in which case that descendant is already discharged;
+   \item \((W,\Pi_W)\) belongs to the normalized residual terminal state space,
+   so the active-tree and terminal-indivisibility arguments may be iterated
+   from \(W\).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The descendant is obtained as a limit of covariant tail recenterings
+\(\mathscr T_{\zeta_n}(U,\Pi)\).  By
+\Cref{lem:state-space-local-compactness}, the recentered sequence is locally
+precompact in \(\mathfrak X_M\), and the limit remains a bounded smooth
+locally suitable centered solution with the same \(L^\infty\) bound and
+compatible pressure gauges.  Retained local concentration is part of the
+definition of retained descendant; when the descendant is produced through a
+limit passage, \Cref{lem:gauge-compatibility} fixes the threshold loss once and
+for all through \Cref{def:threshold-ledger}.  The affine/parasitic
+normalization is canonical for the residual representative and is preserved by
+\(T_a\), \(\Theta_s\), and their composition
+\(\mathscr T_{\zeta_n}\); if a limit is affine-parasitic, it is assigned to the
+affine-constant lower stratum of
+\Cref{def:affine-constant-lower-stratum}.  Otherwise it is represented in the
+same normalized residual state space.  The ordered residual decomposition then
+places the descendant either in a previously closed lower class or in the
+generic residual state space.  This is local state-space bookkeeping and does
+not use a global critical norm or global tail budget.
 \end{proof}
 
 \begin{lemma}[Escaping recenterings in a separated family]
 \label{lem:finite-successor-alternatives}
 Let \(A=\{\mathfrak s_1,\dots,\mathfrak s_J\}\), \(J\ge2\), be a finite
 retained concentration separated family for a refined residual candidate.  For each component
-\(\mathfrak s_j\), exactly one of the following alternatives holds:
+\(\mathfrak s_j\), the following ordered alternatives exhaust the possible
+successor states:
 \begin{enumerate}[label=(\roman*)]
    \item the profile \((U_j,\Pi_j)\) is terminally indecomposable;
    \item \((U_j,\Pi_j)\) has diffuse exterior concentration or an escaping
@@ -2854,15 +4493,18 @@ retained concentration separated family for a refined residual candidate.  For e
 
 \begin{proof}
 This is the definition of terminal indecomposability plus the diagonal lifting
-lemma.  If \((U_j,\Pi_j)\) is not terminally indecomposable, then at least one
+lemma, with no disjointness assertion.  If \((U_j,\Pi_j)\) is terminally
+indecomposable, (i) holds.  If it is not terminally indecomposable, at least one
 of the three excluded alternatives in \Cref{def:atomic-terminal-profile} occurs:
 a retained concentrating tail limit, diffuse exterior concentration, or an
 escaping recentering sequence with loss of local compactness.  The diffuse
 exterior and local-compactness-failure cases give (ii).  In the retained
 concentrating tail-limit case, \Cref{lem:diagonal-lifting-descendants} lifts the
 limit to a recentering sequence of the original terminal sequence with retained
-local concentration, giving (iii).  The three alternatives are disjoint by
-definition.
+local concentration, and \Cref{thm:descendant-heredity} places the descendant
+either in a closed lower stratum or back in the normalized residual state space,
+giving (iii) in the iterative residual case.  If several successor states
+coexist, they are all recorded; the next lemma removes the nonactive ones.
 \end{proof}
 
 \begin{lemma}[No diffuse or non-compact escaping recentering from a retained family]
@@ -2873,24 +4515,153 @@ In the setting of \Cref{lem:finite-successor-alternatives}, alternative
 
 \begin{proof}
 Suppose that \((U_j,\Pi_j)\) has diffuse exterior concentration or an escaping
-recentering sequence with loss of local compactness.  By the
-same diagonal procedure used in
-\Cref{lem:diagonal-lifting-descendants}, this alternative is realized by a
-terminal extraction of the original refined residual candidate, after passing to
-a subsequence and choosing the local pressure gauges supplied by Paper I.  Loss
-of local compactness contradicts \Cref{lem:rough-stratum-discharge}.  Diffuse
-exterior concentration places the retained compact velocity mass in the diffuse
-exterior alternative, contradicting \Cref{lem:radiative-stratum-discharge}.
-Therefore alternative (ii) cannot occur for a refined residual family with
-retained local concentration.
+recentering sequence with loss of local compactness.  By the same diagonal
+procedure used in \Cref{lem:diagonal-lifting-descendants}, this tail state is
+realized by a terminal extraction of the original refined residual candidate,
+after passing to a subsequence and choosing the local pressure gauges supplied
+by Paper I.  It is not enough to say that the diffuse or noncompact state is not
+the sole carrier of the original compact concentration: the compact core
+\((U_j,\Pi_j)\) may coexist with that tail state.  The paired exclusion
+\Cref{thm:no-mixed-compact-diffuse} rules out exactly this coexistence in the
+refined residual class.  Therefore alternative (ii) cannot occur for a refined
+residual family with retained local concentration.
 \end{proof}
 
-\begin{lemma}[Finite separated families produce indecomposable profiles or recurrent loops]
+\begin{definition}[Closed active successor relation]
+\label{def:closed-active-successor-relation}
+For a fixed threshold \(\eta>0\), let
+\[
+   \mathfrak A_\eta:=\{U\in\mathfrak X_M:\Phi(U)\ge\eta\}
+\]
+be the closed affine-normalized activity set of
+\Cref{thm:closed-nonaffine-activity}.  We write
+\[
+   U\,\mathcal R_\eta\,V
+\]
+if \(U,V\in\mathfrak A_\eta\) and \(V\) is a retained active covariant tail
+descendant of \(U\).
+\end{definition}
+
+\begin{lemma}[Closedness of the active successor relation]
+\label{lem:closed-active-successor-relation}
+The relation
+\[
+   \mathcal R_\eta\subset\mathfrak A_\eta\times\mathfrak A_\eta
+\]
+is closed in the local \(\mathfrak X_M\) topology.
+\end{lemma}
+
+\begin{proof}
+Let \(U_m\to U\), \(V_m\to V\) in \(\mathfrak X_M\), with
+\(U_m\,\mathcal R_\eta\,V_m\).  For each \(m\), choose a retained covariant tail
+observer sequence \(\zeta_{m,\ell}\) for \(U_m\) whose recentered fields converge
+to \(V_m\) on \(Q_m(0,0)\) to accuracy \(m^{-1}\), after admissible pressure
+gauges.  A diagonal choice in \((m,\ell)\), using
+\Cref{lem:state-space-local-compactness,lem:gauge-compatibility}, gives a
+single escaping covariant tail sequence for \(U\) converging locally to \(V\).
+Closedness of \(\mathfrak A_\eta\) follows from
+\Cref{thm:closed-nonaffine-activity}, and lower semicontinuity of the retained
+local CKN quantity after the fixed gauges preserves the descendant threshold.
+Hence \(U\,\mathcal R_\eta\,V\).
+\end{proof}
+
+\begin{theorem}[Active path-space recurrence]
+\label{thm:active-path-space-recurrence}
+Assume there exists an infinite active descendant chain
+\[
+   U_0\,\mathcal R_\eta\,U_1\,\mathcal R_\eta\,U_2\,
+   \mathcal R_\eta\cdots .
+\]
+Then the path space
+\[
+   \mathscr P_\eta
+   :=
+   \left\{
+      (W_j)_{j\ge0}\in\mathfrak A_\eta^{\mathbb N}:
+      W_j\,\mathcal R_\eta\,W_{j+1}\ \hbox{for all }j
+   \right\}
+\]
+is nonempty and compact, is invariant under the left shift
+\[
+   S(W_0,W_1,W_2,\ldots)=(W_1,W_2,\ldots),
+\]
+and carries an \(S\)-invariant Borel probability measure \(\mathbb P\).  Its
+projected stationary state measure \(\nu=(\pi_0)_\#\mathbb P\) is supported
+entirely on \(\mathfrak A_\eta\).
+\end{theorem}
+
+\begin{proof}
+The set \(\mathfrak A_\eta\) is compact in the local state topology inherited
+from the bounded Seregin state space.  Hence
+\(\mathfrak A_\eta^{\mathbb N}\) is compact and metrizable.  By
+\Cref{lem:closed-active-successor-relation},
+\[
+   \mathscr P_\eta
+   =
+   \bigcap_{j=0}^\infty
+   \{(W_k)_{k\ge0}:(W_j,W_{j+1})\in\mathcal R_\eta\}
+\]
+is closed, hence compact.  The given infinite chain is an element of
+\(\mathscr P_\eta\), so the path space is nonempty, and it is plainly invariant
+under the left shift.
+
+For the path \(p=(U_0,U_1,\ldots)\), define empirical measures
+\[
+   \mathbb P_N:=\frac1N\sum_{k=0}^{N-1}\delta_{S^kp}.
+\]
+Weak-* compactness of probability measures on compact \(\mathscr P_\eta\) gives
+a convergent subsequence \(\mathbb P_{N_\ell}\rightharpoonup\mathbb P\).  For
+each continuous \(F\) on \(\mathscr P_\eta\),
+\[
+   \int F\circ S\,d\mathbb P_N-\int F\,d\mathbb P_N
+   =
+   \frac{F(S^Np)-F(p)}{N}\to0.
+\]
+Thus \(\mathbb P\) is shift-invariant.  Since every coordinate of every path in
+\(\mathscr P_\eta\) belongs to \(\mathfrak A_\eta\), the projected measure
+\(\nu=(\pi_0)_\#\mathbb P\) is supported in \(\mathfrak A_\eta\).
+\end{proof}
+
+\begin{theorem}[No infinite active descendant branch]
+\label{thm:compact-active-descendant}
+No infinite retained active descendant branch can occur in the refined residual
+class.
+\end{theorem}
+
+\begin{proof}
+Suppose an infinite retained active branch exists.  If
+\(\limsup_j\Phi(U_j)=0\), local compactness gives a subsequential limit
+\(U_{j_k}\to U_\infty\) with \(\Phi(U_\infty)=0\).  The diagonal lifting used in
+\Cref{lem:diagonal-lifting-descendants} shows that this limit is still a
+retained tail descendant of the original residual profile.  By
+\Cref{thm:affine-normalization-dichotomy}, \(U_\infty\) belongs to the
+affine/parasitic lower stratum, contradicting descendant heredity in the
+refined residual class.  Hence \(\limsup_j\Phi(U_j)>0\).  Choose
+\(\eta>0\) and an infinite ordered subbranch contained in \(\mathfrak A_\eta\).
+By transitivity of retained tail descendants through
+\Cref{lem:diagonal-lifting-descendants}, this ordered subbranch is an
+\(\mathcal R_\eta\)-chain.
+
+\Cref{thm:active-path-space-recurrence} gives a compact shift-invariant active
+path space and a stationary path measure supported on \(\mathfrak A_\eta\).  By
+Poincare recurrence for the shift, a recurrent path returns arbitrarily close to
+itself.  Concatenating the retained tail-limit observers along the returning
+blocks and using the diagonal lifting lemma produces a compact tail-minimal
+recurrent core for \eqref{eq:centered-main} whose states lie in
+\(\mathfrak A_\eta\).  The recurrent-core rigidity theorem
+\Cref{thm:recurrent-tail-core-rigidity} forces this core to be affine-constant
+after the canonical affine normalization.  But affine/parasitic profiles have
+\(\Phi=0\), whereas \(\mathfrak A_\eta=\{\Phi\ge\eta\}\).  This contradiction
+rules out the infinite active branch.
+\end{proof}
+
+\begin{lemma}[Finite separated families produce indecomposable profiles or active branches]
 \label{lem:finite-graph-cycle}
 Let \(A=\{\mathfrak s_1,\dots,\mathfrak s_J\}\), \(J\ge2\), be a finite
 retained concentration separated family for a refined residual candidate.  Then either one of
 the terminal profiles \((U_j,\Pi_j)\) is terminally indecomposable, or the
-family generates a finite recurrent loop of retained concentrating tail limits.
+family generates an infinite active descendant branch.  A finite recurrent loop
+is counted as an infinite branch by periodic repetition.
 \end{lemma}
 
 \begin{proof}
@@ -2915,25 +4686,13 @@ sequence, the directed recentering relation contains a finite loop
    \mathfrak s_{j_0}\to\mathfrak s_{j_1}\to\cdots
    \to\mathfrak s_{j_q}=\mathfrak s_{j_0}.
 \]
-This is the desired finite recurrent loop of retained concentrating tail limits.
-
-It remains to explain why the construction cannot avoid both alternatives by
-producing concentrating recentering sequences escaping every finite stage.  Such
-an escaping sequence of lifted concentrating recenterings is, by
-\Cref{thm:terminal-exhaustion-main}, an exterior escaping concentration
-relative to each previously fixed finite family unless local compactness fails
-or the mass becomes diffuse below the unit concentration threshold.  The latter
-two cases are loss of local compactness and diffuse exterior concentration,
-already excluded by \Cref{lem:no-nonactive-successor}.  The exterior case gives
-a retained compact CKN concentration outside every fixed finite family.
-Recenter at that exterior concentration.  In that frame, all previously chosen
-finite family components leave
-every compact terminal cylinder by \Cref{lem:separated-recentered-cylinders}; hence
-the retained compact density is located solely in the exterior escaping
-alternative relative to the preceding finite family.  This contradicts the exterior case of
-\Cref{lem:radiative-stratum-discharge}.  Therefore indefinite escape without a
-return is impossible, and a finite recurrent loop must occur unless an
-indecomposable profile has already occurred.
+Repeating the loop periodically gives an infinite active descendant branch.  If
+the process never returns to a previously occurring concentrating class, the
+successively lifted retained tail limits themselves form an infinite active
+descendant branch.  The nonactive successor alternatives at each stage are
+excluded by \Cref{lem:no-nonactive-successor}, while coexistence of a compact
+core with a diffuse or noncompact remainder is handled separately by
+\Cref{thm:no-mixed-compact-diffuse}.
 \end{proof}
 
 \begin{lemma}[Finite recurrent loops of retained tail limits are impossible]
@@ -2965,21 +4724,9 @@ returns to \(\calK\) through tail limits, so the closed invariant subset of
 \(\calK\) generated by the loop is nonempty, compact, invariant, and contains
 the retained concentration profiles.
 
-Choose a compact invariant subset \(\calM\) of this loop-generated set which
-is minimal among compact invariant subsets still containing the loop profiles.
-The invariant mean argument in
-\Cref{thm:recurrent-tail-core-rigidity} applies to \(\calM\): all ingredients
-used there are local on compact cylinders, and the pressure term is justified
-by the invariant local pressure-gauge lemma
-\Cref{lem:recurrent-core-pressure-gauges}.  Hence every element of \(\calM\),
-in particular every loop profile \(U_\ell\), is spatially and temporally
-constant.  Applying the affine homogeneous symmetry
-\Cref{lem:affine-symmetry} removes this constant and sends each loop profile to
-the zero profile.  This contradicts retained local concentration,
-\[
-   \calE_1(U_\ell,\Pi_\ell;0)\ge\eps_* .
-\]
-Therefore no finite recurrent loop of retained concentrating tail limits exists.
+Repeating the loop periodically gives an infinite active descendant branch.
+This contradicts \Cref{thm:compact-active-descendant}.  Therefore no finite
+recurrent loop of retained concentrating tail limits exists.
 \end{proof}
 
 \begin{theorem}[Finite separated retained concentration profile families are impossible]
@@ -2992,43 +4739,55 @@ concentration profiles.
 Suppose, for contradiction, that a refined residual candidate admits a finite
 retained concentration separated family \(A=\{\mathfrak s_1,\dots,\mathfrak s_J\}\),
 \(J\ge2\).  By \Cref{lem:finite-graph-cycle}, either some component of the
-family is terminally indecomposable
-or the family generates a finite recurrent loop of retained concentrating tail
-limits.  The first
-alternative contradicts \Cref{lem:no-atomic-active}.  The second contradicts
-\Cref{lem:no-finite-recurrent-cycle}.  Hence the finite retained concentration
+family is terminally indecomposable or the family generates an infinite active
+descendant branch.  The first alternative contradicts
+\Cref{lem:no-atomic-active}.  The second contradicts
+\Cref{thm:compact-active-descendant}.  Hence the finite retained concentration
 separated family cannot exist.
 \end{proof}
 
 \begin{theorem}[Terminal local concentration theorem]
 \label{thm:terminal-local-stratification-package}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 Every bounded centered Type I Seregin profile with retained local concentration outside the
 previously closed lower classes admits the local terminal concentration decomposition of
-\Cref{thm:terminal-exhaustion-main}; loss of local compactness, local
-vanishing, exterior escape, and diffuse exterior concentration are excluded by
-\Cref{thm:terminal-nonactive-discharge}; finite separated retained
+\Cref{thm:terminal-exhaustion-main} as an active retained profile locus plus a
+residual remainder.  Pure local vanishing, exterior escape, and noncompact
+loss cannot be the sole locations of the distinguished compact mass by
+\Cref{thm:terminal-nonactive-discharge}; mixed compact--diffuse and
+compact--noncompact states are excluded by
+\Cref{thm:no-mixed-compact-diffuse}; infinite active descendant branches are
+excluded by \Cref{thm:compact-active-descendant}; finite separated retained
 concentration profile families are excluded by
 \Cref{thm:no-finite-separated-profile-family}; every remaining single retained
 concentration terminal profile is terminally indecomposable by
 \Cref{prop:no-multi-implies-atomic}; retained indecomposable profiles have a
 backward sequence of finite critical norm by \Cref{lem:atomic-sequence-L3}; and
-retained concentration terminal profiles inherit mildness by
+retained concentration terminal profiles are parasitic-free mild, unless they
+are already in the affine lower stratum, by
 \Cref{hyp:mildness-inheritance-main}.
 \end{theorem}
 
 \begin{proof}
-This is the assembly of the local results proved in
-\Cref{sec:terminal-concentration,sec:separated-profiles-atomic}.  The local concentration decomposition is
-\Cref{thm:terminal-exhaustion-main}.  The local-vanishing, exterior-escape,
-diffuse-exterior-concentration, and local-compactness-failure alternatives are
-excluded by \Cref{thm:terminal-nonactive-discharge}.  The finite separated
-concentration profile-family alternative is empty by
+This is the assembly of the local results and explicit state-space inputs in
+\Cref{sec:terminal-concentration,sec:separated-profiles-atomic}.  The local
+concentration decomposition is the paired active-locus/remainder decomposition
+\Cref{thm:terminal-exhaustion-main}.  The old pure radiative alternatives are
+only sole-carrier exclusions, and are used only in that form through
+\Cref{thm:terminal-nonactive-discharge}.  Coexistence of a compact active core
+with diffuse or noncompact tail remainder is separately ruled out by
+\Cref{thm:no-mixed-compact-diffuse}, using realized critical-tail rigidity
+\Cref{hyp:realized-critical-tail-rigidity}.  Infinite active trees and finite
+recurrent loops are ruled out by the active path-space recurrence theorem
+\Cref{thm:compact-active-descendant}, while finite separated active families are ruled out by
 \Cref{thm:no-finite-separated-profile-family}.  Therefore any retained
-concentration terminal profile that survives the ordered lower class removals is
-single.  By \Cref{prop:no-multi-implies-atomic} it is terminally
+concentration terminal profile that survives the ordered lower-class removals is
+single and has no retained active descendant or diffuse/noncompact tail
+remainder.  By \Cref{prop:no-multi-implies-atomic} it is terminally
 indecomposable, and then
 \Cref{lem:atomic-sequence-L3,hyp:mildness-inheritance-main} give the
-sequence-\(L^3\) and mildness conclusions.  All estimates used in this assembly
+sequence-\(L^3\) and parasitic-free finite-shift mildness conclusions.  All estimates used in this assembly
 are localized to fixed terminal cylinders, except for the final sequence
 \(L^3\) conclusion, which is derived by contradiction from terminal
 indecomposability and is not assumed as a global bound.
@@ -3049,6 +4808,8 @@ classes removed earlier.
 
 \begin{theorem}[Closure of the generic residual class by local concentration analysis]
 \label{thm:R4-final-closure}
+Assume the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}.
 One has
 \[
    \Cgen=\varnothing .
@@ -3060,33 +4821,43 @@ Suppose, for contradiction, that \(V\in\Cgen\).  By the tail geometry
 developed above, constant tails may be removed by the exact affine symmetry
 and nonconstant recurrent profile tail cores collapse to affine constants.
 Thus the remaining representative may be taken to be tail-normalized without
-leaving the centered equation or the residual decomposition.  The inherited compact
-velocity \(L^3\)-mass remains positive.
+leaving the centered equation or the residual decomposition.  If this
+normalization eliminates non-affine activity, then
+\Cref{thm:affine-normalization-dichotomy} places the profile in the
+affine/parasitic lower stratum already removed from \(\Cgen\).  Thus, for the
+residual representative still under consideration, a positive non-affine
+activity threshold survives.
 
-Apply the terminal local concentration decomposition to a terminal extraction of this
-tail-normalized candidate.  Local vanishing, exterior escape, diffuse exterior
-concentration, and loss of local compactness cannot be the sole locations of the
-persistent compact local concentration in the generic residual, by
-\Cref{thm:terminal-nonactive-discharge}.  Therefore the retained concentration
-is located either in a finite separated family of retained concentration
-profiles or in a single retained concentration terminal profile.
+Apply the paired terminal local concentration decomposition to a terminal
+extraction of this tail-normalized candidate.  The distinguished compact
+velocity mass from Paper~I still forces the terminal active locus to be
+nonempty by \Cref{cor:persistent-forces-active}; after affine normalization the
+surviving residual activity is measured by \(\Phi\).  Pure radiative
+alternatives cannot be the sole location of the compact mass by
+\Cref{thm:terminal-nonactive-discharge}, and mixed compact--diffuse or
+compact--noncompact remainders are excluded by
+\Cref{thm:no-mixed-compact-diffuse}.  Infinite active branches are excluded by
+\Cref{thm:compact-active-descendant}.  Thus the active locus reduces, in the
+refined residual class, either to a finite separated family or to a single
+retained profile with no surviving tail remainder.
 
 The finite separated-family case contradicts
 \Cref{thm:no-finite-separated-profile-family}.  In the single-profile case,
 \Cref{prop:no-multi-implies-atomic} makes the terminal profile terminally
-indecomposable.  Then \Cref{lem:no-atomic-active} excludes it.  Both possible
-locations of the retained compact velocity mass are impossible.  Hence no
-generic residual profile exists.
+indecomposable.  Then \Cref{lem:no-atomic-active} excludes it.  All paired
+state-space possibilities are impossible.  Hence no generic residual profile
+exists.
 \end{proof}
 
 \section{Final assembly}
 \label{sec:final-assembly}
 
-The class closures above form the following dependency chain.  The
-rotational relative-equilibrium arrow is the localized Coriolis-flux argument; the
-terminal local concentration, no finite separated-family, and
-indecomposability arrows
-are proved in this paper from local estimates:
+Assuming the realized critical-tail rigidity input
+\Cref{hyp:realized-critical-tail-rigidity}, the class
+closures above form the following dependency chain.  The rotational
+relative-equilibrium arrow is the localized Coriolis-flux argument; the terminal
+active-locus compactness, no finite separated-family, and indecomposability
+arrows are proved in this paper from local estimates:
 \[
 \begin{aligned}
 \Cax
@@ -3099,12 +4870,35 @@ are proved in this paper from local estimates:
    &\xrightarrow{\;\hbox{terminal concentration}\;}
    \varnothing,\\
 \Cgen
-   &\xrightarrow{\;\hbox{tail normalization, finite separation, sequence-}L^3\;}
+   &\xrightarrow{\;\hbox{critical-tail closure, finite separation, sequence-}L^3\;}
    \varnothing .
 \end{aligned}
 \]
-The positive local velocity mass inherited by every normalized Seregin limit is the
-common contradiction target in all four classes.
+The positive local velocity mass inherited by every normalized Seregin limit,
+after affine normalization through the non-affine activity functional
+\(\Phi\), is the common contradiction target in all four classes.
+
+Equivalently, the final exclusion is the composition of five certificates:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+   \item \emph{Entry certificate:} Paper~0 and Paper~I turn a finite-energy
+   local pointwise Type~I singular point into a normalized Seregin profile with
+   retained compact velocity concentration.
+   \item \emph{Stratification certificate:} the ordered residual decomposition
+   places every remaining retained profile in one of the refined strata
+   \(\Cax,\Crot,\Cstat,\Cgen\).
+   \item \emph{Closed-strata certificate:} the small, stationary \(L^3\),
+   tight, closed structured/decay, axisymmetric, rotational, and
+   stationary-hull strata are discharged by the results cited above.
+   \item \emph{Residual terminal certificate:} the generic residual is reduced
+   by the paired active-locus decomposition, diffuse-defect compactness,
+   diffuse-defect trichotomy, critical-tail compactification, realized
+   critical-tail rigidity, descendant heredity, active path-space recurrence, finite
+   separated-family exclusion, and terminal indecomposability.
+   \item \emph{Endpoint Liouville certificate:} a terminally indecomposable
+   retained profile is either affine/parasitic lower-stratum or has a
+   parasitic-free bounded mild physical pullback with a backward
+   \(L^3\)-bounded sequence, and is therefore zero by Albritton--Barker.
+\end{enumerate}
 
 \begin{proof}[Proof of \Cref{thm:refined-residual-closure}, revisited]
 The detailed reductions have now been given in the four class sections.  The
@@ -3113,8 +4907,9 @@ axisymmetric bounded-circulation class is empty unconditionally by
 by the local Coriolis-flux and recentered concentration analysis in
 \Cref{thm:R2-exclusion-safe}.  The degenerate stationary-hull class with
 retained local concentration is empty by the terminal local concentration theorem, through
-\Cref{thm:R3S-R3-empty}.  The generic terminal residual is empty by the
-finite separated-family and indecomposability argument in
+\Cref{thm:R3S-R3-empty}.  The generic terminal residual is empty, under the
+   explicit realized critical-tail rigidity input, by the finite
+   separated-family and indecomposability argument in
 \Cref{thm:R4-final-closure}.
 Since the refined decomposition exhausts the residual class by definition, these four
 local exclusions imply that the residual class is empty.
@@ -3126,8 +4921,12 @@ The paper imports from Paper 0 only local positive concentration and the local
 Type I/Type II dichotomy, imports from Paper I only the Type I Seregin
 extraction and residual criterion, imports from Paper II only the results proved
 there, and imports from Paper III only the closed
-structured alternatives.  The terminal finite separated-family exclusion is not imported:
-it is implemented above by local concentration analysis.  The rotational
+structured alternatives.  The terminal active-locus extraction, diffuse-defect
+compactness, active path-space recurrence, and finite separated-family exclusion
+are not imported: they are implemented above by local concentration analysis.
+The realized critical-tail rigidity statement is the explicit local state-space
+input for the critical boundary compactification, not a hidden consequence of
+local CKN observables.  The rotational
 relative-equilibrium class is not closed by a global Coriolis--Leray Liouville
 theorem for bounded profiles; it is closed by the localized flux identity
 and the same recentered local concentration analysis.

@@ -1405,15 +1405,16 @@ We say \(V\in\calC_{\mathrm{stat},L^3}\) if
 
 \begin{definition}[Uniformly \(L^3\)-tight class]\label{def:tight-class}
 We say \(V\in\calC_{L^3\mathrm{-tight}}\) if
-\begin{equation}\label{eq:L3-bound}
-   \sup_{\tau\in\R}\|V(\tau)\|_{L^3(\R^3)}<\infty
-\end{equation}
-and
 \begin{equation}\label{eq:L3-tightness}
    \lim_{R\to\infty}
    \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \end{equation}
 \end{definition}
+
+Every \(V\in\calS\) is bounded.  Paper II shows that, for such profiles, the
+tail condition \eqref{eq:L3-tightness} gives the endpoint sequence-\(L^3\)
+control needed after physical pullback; no separate
+\(L^\infty_\tau L^3_y\) hypothesis is required for the tight-class exclusion.
 
 \begin{definition}[Liouville-covered structure and decay class]
 \label{def:known-structure-decay-class}
@@ -1712,10 +1713,10 @@ No nonzero normalized Seregin ancient limit belongs to
 \begin{proof}
 This is the tight-class Liouville theorem proved in Paper II
 \cite[Corollary~\emph{Tight-class input for the residual criterion}]
-{DuranPaperII}.  Paper II applies the physical pullback and the
-Albritton--Barker endpoint ancient Liouville theorem to uniformly
-\(L^3\)-tight centered ancient profiles carrying the Paper I compact velocity
-normalization.
+{DuranPaperII}.  Paper II proves that, for bounded centered ancient profiles,
+the tail-tightness condition gives the endpoint sequence-\(L^3\) control after
+physical pullback.  It then applies the Albritton--Barker endpoint ancient
+Liouville theorem and contradicts the Paper I compact velocity normalization.
 \end{proof}
 
 \begin{theorem}[Liouville-covered structure and decay exclusions]
