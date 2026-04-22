@@ -1,0 +1,57 @@
+\contentsline {section}{\tocsection {}{1}{Local Single-Core Criterion}}{3}{section.1}%
+\contentsline {subsection}{\tocsubsection {}{1.1}{Introduction}}{3}{subsection.1.1}%
+\contentsline {subsection}{\tocsubsection {}{1.2}{Setup and definitions}}{3}{subsection.1.2}%
+\contentsline {subsection}{\tocsubsection {}{1.3}{Local analytic inputs}}{4}{subsection.1.3}%
+\contentsline {subsection}{\tocsubsection {}{1.4}{Compactness and pressure stability}}{6}{subsection.1.4}%
+\contentsline {subsection}{\tocsubsection {}{1.5}{Contradiction lemmas}}{9}{subsection.1.5}%
+\contentsline {subsection}{\tocsubsection {}{1.6}{Main theorem}}{10}{subsection.1.6}%
+\contentsline {section}{\tocsection {}{2}{Repaired-Gauge Construction}}{11}{section.2}%
+\contentsline {subsection}{\tocsubsection {}{2.1}{Assumptions and notation}}{11}{subsection.2.1}%
+\contentsline {subsection}{\tocsubsection {}{2.2}{Preliminary frame map from the selected core}}{12}{subsection.2.2}%
+\contentsline {subsection}{\tocsubsection {}{2.3}{Exact renormalized change of variables}}{13}{subsection.2.3}%
+\contentsline {subsection}{\tocsubsection {}{2.4}{Domain bookkeeping and support}}{15}{subsection.2.4}%
+\contentsline {subsection}{\tocsubsection {}{2.5}{Transport of local quantities under the chart}}{15}{subsection.2.5}%
+\contentsline {subsection}{\tocsubsection {}{2.6}{Local repaired gauge map}}{16}{subsection.2.6}%
+\contentsline {subsection}{\tocsubsection {}{2.7}{Repaired gauge by implicit inversion in time}}{20}{subsection.2.7}%
+\contentsline {subsection}{\tocsubsection {}{2.8}{Pressure transport and decomposition}}{23}{subsection.2.8}%
+\contentsline {subsection}{\tocsubsection {}{2.9}{Modulation from differentiated constraints}}{24}{subsection.2.9}%
+\contentsline {subsection}{\tocsubsection {}{2.10}{Repaired suitable structure in renormalized variables}}{26}{subsection.2.10}%
+\contentsline {subsection}{\tocsubsection {}{2.11}{Stability under subsequences}}{27}{subsection.2.11}%
+\contentsline {subsection}{\tocsubsection {}{2.12}{Final representation package}}{27}{subsection.2.12}%
+\contentsline {section}{\tocsection {}{3}{Multibubble and Cascade Exclusion}}{29}{section.3}%
+\contentsline {subsection}{\tocsubsection {}{}{Imported inputs}}{29}{section*.2}%
+\contentsline {subsection}{\tocsubsection {}{3.1}{Local setting and active frames}}{29}{subsection.3.1}%
+\contentsline {paragraph}{\tocparagraph {}{}{Normalised local Navier--Stokes setting.}}{29}{section*.3}%
+\contentsline {subsection}{\tocsubsection {}{3.2}{Elementary local decoupling estimates}}{34}{subsection.3.2}%
+\contentsline {subsection}{\tocsubsection {}{3.3}{Terminal active-frame decoupling}}{37}{subsection.3.3}%
+\contentsline {subsection}{\tocsubsection {}{3.4}{Same-point and separated-point reductions}}{39}{subsection.3.4}%
+\contentsline {subsection}{\tocsubsection {}{3.5}{Multibubble and cascade exclusion}}{41}{subsection.3.5}%
+\contentsline {section}{\tocsection {}{4}{Local Caccioppoli and Rough-Core Exclusion}}{44}{section.4}%
+\contentsline {subsection}{\tocsubsection {}{4.1}{Imported inputs and notation}}{44}{subsection.4.1}%
+\contentsline {subsection}{\tocsubsection {}{4.2}{Compact-cylinder Caccioppoli estimate}}{45}{subsection.4.2}%
+\contentsline {subsection}{\tocsubsection {}{4.3}{Inputs exported to later sections}}{48}{subsection.4.3}%
+\contentsline {section}{\tocsection {}{5}{Scale-Collapse Cost and Autonomous Limits}}{49}{section.5}%
+\contentsline {paragraph}{\tocparagraph {}{}{Notation and functional conventions.}}{49}{section*.4}%
+\contentsline {subsection}{\tocsubsection {}{5.1}{Renormalized scale-collapse setting}}{49}{subsection.5.1}%
+\contentsline {paragraph}{\tocparagraph {}{}{Position of the result.}}{49}{section*.5}%
+\contentsline {subsection}{\tocsubsection {}{5.2}{Elementary alternative}}{51}{subsection.5.2}%
+\contentsline {subsection}{\tocsubsection {}{5.3}{Scale collapse versus localized core lower bounds}}{51}{subsection.5.3}%
+\contentsline {subsection}{\tocsubsection {}{5.4}{Finite-cost exclusions}}{52}{subsection.5.4}%
+\contentsline {subsection}{\tocsubsection {}{5.5}{Autonomous reduced-limit theorem from the selected-window estimates}}{53}{subsection.5.5}%
+\contentsline {paragraph}{\tocparagraph {}{}{Dependencies used in this section.}}{53}{section*.6}%
+\contentsline {paragraph}{\tocparagraph {}{}{(i) Time derivative.}}{58}{section*.7}%
+\contentsline {paragraph}{\tocparagraph {}{}{(ii) Convection term.}}{58}{section*.8}%
+\contentsline {paragraph}{\tocparagraph {}{}{(iii) Viscous term.}}{58}{section*.9}%
+\contentsline {paragraph}{\tocparagraph {}{}{(iv) Pressure term.}}{59}{section*.10}%
+\contentsline {paragraph}{\tocparagraph {}{}{(v) Drift term with \(a\): part involving \(V_n\).}}{59}{section*.11}%
+\contentsline {paragraph}{\tocparagraph {}{}{(vi) Drift term with \(a\): part involving \(y\cdot \nabla V_n\).}}{60}{section*.12}%
+\contentsline {paragraph}{\tocparagraph {}{}{(vii) Term with \(b\).}}{60}{section*.13}%
+\contentsline {subsection}{\tocsubsection {}{5.6}{State-space stratification of the scale-collapse branch}}{61}{subsection.5.6}%
+\contentsline {subsection}{\tocsubsection {}{5.7}{Conclusion}}{63}{subsection.5.7}%
+\contentsline {section}{\tocsection {}{6}{Assembly of the Local Type II Exclusion}}{64}{section.6}%
+\contentsline {subsection}{\tocsubsection {}{6.1}{Local Entry}}{64}{subsection.6.1}%
+\contentsline {subsection}{\tocsubsection {}{6.2}{Local Theorems Used in the Assembly}}{65}{subsection.6.2}%
+\contentsline {subsection}{\tocsubsection {}{6.3}{State-Space Assembly}}{67}{subsection.6.3}%
+\contentsline {subsection}{\tocsubsection {}{6.4}{Assembly Theorem}}{68}{subsection.6.4}%
+\contentsline {subsection}{\tocsubsection {}{6.5}{Conclusion}}{69}{subsection.6.5}%
+\contentsline {section}{\tocsection {}{}{References}}{70}{section*.14}%

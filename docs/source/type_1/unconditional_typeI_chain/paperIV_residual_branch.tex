@@ -117,10 +117,10 @@ normalization, active-locus extraction, diffuse-defect compactness, critical-tai
 compactification, active successor path-space recurrence, exclusion of finite
 separated concentration profiles, indecomposable-profile sequence-\(L^3\)
 completeness, parasitic-free mildness inheritance, and the Albritton--Barker
-endpoint Liouville theorem.  The paper distinguishes statements imported from
-Papers I--III, local compactness and formal reduction statements proved here, and
-the first-bad-mesoscopic-scale routing theorem which discharges the hidden
-critical-tail boundary defects.  The affine stratum and the coherent
+endpoint Liouville theorem.  The paper distinguishes statements inherited from
+the setup paper, local compactness and formal reduction statements
+proved here, and the first-bad-mesoscopic-scale routing theorem which
+discharges the hidden critical-tail boundary defects.  The affine stratum and the coherent
 critical-tail alternatives are closed here; the log-diffuse and Young
 alternatives are both reduced to the same first-bad mesoscopic routing theorem, which is then
 proved by pressure compactness and a bounded ancient variance Liouville
@@ -166,34 +166,33 @@ function of time.  Conversely,
    \qquad t<0 .
 \end{equation}
 
-The purpose of the paper is to present the refined residual decomposition as a
+The purpose of this paper is to present the refined residual decomposition as a
 single standard PDE argument, using only the reductions already established in
-the preceding papers of the series.  To keep the logical status clear, we first state the imported Paper
-0 and Paper I--III dependencies.  Apart from those four companion papers, the
-only external inputs used below are the cited peer-reviewed Navier--Stokes
-regularity and Liouville theorems.  All rotational-flux estimates, terminal
-local concentration decompositions, exclusions of local compactness failure and
-diffuse exterior concentration, and finite separated-profile exclusions used
-below are proved in the present paper from local estimates rather than imported
-as global estimates.
+the setup paper.  In this two-paper presentation, the current paper depends
+only on the setup paper \(\texttt{proof\_setup.tex}\) and on cited
+peer-reviewed Navier--Stokes regularity and Liouville literature.  The
+rotational-flux estimates, terminal local concentration decompositions,
+exclusions of local compactness failure and diffuse exterior concentration, and
+finite separated-profile exclusions are proved in this paper from local
+estimates rather than imported as global estimates.
 
 \begin{definition}[Type I convention used in the chain]
 \label{def:pointwise-typeI-convention}
-In this paper and in the final Papers~0--IV assembly, a terminal singular point
+In this paper and in the final two-paper chain, a terminal singular point
 \(z_*=(x_*,T)\) is called \emph{local pointwise Type~I} if there are
 \(\rho>0\) and \(M<\infty\) such that
 \[
    \esssup_{T-\rho^2<t<T}
    \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M .
 \]
-This is the local pointwise Type~I hypothesis used in Paper~0 and in
+This is the local pointwise Type~I hypothesis used in the setup paper and in
 \Cref{sec:local-typeI-bridge}.  For suitable weak solutions this envelope lies
 in the endpoint weak Serrin class \(L^{2,\infty}_tL^\infty_x\).  The
 Albritton--Barker weak-Serrin local Type~I estimate, recorded below as
 \Cref{thm:AB-weak-serrin-typeI-package}, upgrades it on smaller cylinders to
 the scale-invariant local energy package needed for terminal velocity
-no-escape.  Thus the terminal no-escape condition used by Paper~I is automatic
-for the local pointwise Type~I singularities considered here.
+no-escape.  Thus the terminal no-escape condition used by the setup paper is
+automatic for the local pointwise Type~I singularities considered here.
 The paper does not use the phrase ``Type~I'' to mean an unrelated global
 \(L^\infty\), local CKN, weak-\(L^3\), or Serrin scale condition unless that
 condition is explicitly stated.
@@ -219,17 +218,18 @@ present exclusion applies.
 
 \begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
    \item Local concentration and terminal no-escape entry: positive local
-   concentration depends on CKN theory and Paper~0; terminal no-escape follows
+   concentration depends on CKN theory and the setup paper; terminal no-escape follows
    from the endpoint weak Serrin local Type~I package in
    \Cref{thm:AB-weak-serrin-typeI-package,thm:local-typeI-terminal-energy-package}.
-   \item Seregin extraction and parasitic-free normalization: depends on
-   Paper~I and the Paper~II bounded mild formulation; status: proved/imported.
-   \item Small and stationary \(L^3\) strata: depend on Paper~I; status:
+   \item Seregin extraction and parasitic-free normalization: follows from
+   the setup paper and the mildness and compactness machinery in this paper;
+   status: proved/imported.
+   \item Small and stationary \(L^3\) strata: handled in the setup paper;
+   status: proved/imported.
+   \item Uniformly tight stratum: handled in the setup paper; status:
    proved/imported.
-   \item Uniformly tight stratum: depends on Paper~II and endpoint Liouville
-   input; status: proved/imported.
-   \item Closed structured/decay strata: depend on Paper~III; status:
-   proved/imported.
+   \item Closed structured/decay strata: handled in the setup paper;
+   status: proved/imported.
    \item Axisymmetric and rotational residual strata: proved in this paper.
    \item Terminal active-locus stratification, active path-space recurrence, and
    diffuse-defect compactness: proved in this paper.
@@ -252,11 +252,11 @@ present exclusion applies.
    lab/.style={align=left, font=\scriptsize, text width=4.7cm}
 ]
 \node[box] (typeI) {local pointwise Type~I singularity};
-\node[box, below=of typeI] (admissible) {Paper~I admissible Type~I package};
+\node[box, below=of typeI] (admissible) {admissible Type~I framework};
 \node[widebox, below=of admissible] (seregin)
    {nonzero bounded centered Seregin profile\\with retained \(L^3\) mass};
 \node[box, below=of seregin] (split)
-   {Paper~I--III lower classes\\or\\\(\calR(\calS;I,J)\)};
+   {inherited lower classes\\or\\\(\calR(\calS;I,J)\)};
 \node[widebox, below=of split] (decomp)
    {\(\Cax,\ \Crot,\ \Cstat,\ \Caff,\ \Clogdiff,\ \Cyoung\)\\
     \(\Chomcrit,\ \Clogper,\ \Capcrit,\ \Cgen\)};
@@ -272,14 +272,14 @@ present exclusion applies.
 \end{tikzpicture}}
 \caption{Decision diagram for the Type~I state-space stratification.  The first
 arrow uses the local pointwise Type~I to terminal no-escape bridge supplied by
-the endpoint weak Serrin local Type~I package.  The Paper~I--III lower classes
-are imported closed classes.  The residual alternatives in the boxed list are
-discharged by the case-closure theorems cited in the proof of
+the endpoint weak Serrin local Type~I estimate.  The inherited lower classes in
+the split node are already closed in the setup paper.  The residual alternatives in the boxed
+list are discharged by the case-closure theorems cited in the proof of
 \Cref{thm:refined-residual-closure-complete-decomposition}.}
 \label{fig:typeI-state-stratification-tree}
 \end{figure}
 
-\begin{theorem}[Paper I admissible Type I Seregin extraction theorem]
+\begin{theorem}[Admissible Type I Seregin extraction theorem]
 \label{hyp:base-seregin-package}
 An admissible finite-energy Type I singular point produces a normalized Seregin
 ancient limit \((V,P)\) satisfying \eqref{eq:centered-main}, with
@@ -298,26 +298,24 @@ denoted by \(\calS\).
 \end{theorem}
 
 \begin{proof}
-This is Paper I's extraction theorem \cite{DuranPaperI}, including velocity
-nonvanishing, local suitability, and local pressure compactness.  The underlying
-positive local concentration input comes from Paper 0 \cite{DuranPaper0}.  The
-present paper uses this as an imported reduction and does not reprove the
-Type I blow-up compactness theorem.
+This is the base admissible Seregin extraction theorem from
+\(\texttt{proof\_setup.tex}\), including velocity nonvanishing, local suitability,
+and local pressure compactness.  The underlying positive local concentration
+input is also provided there.  The present paper uses this as an imported
+reduction and does not reprove the Type I blow-up compactness theorem.
 \end{proof}
 
 \begin{definition}[Imported earlier alternatives]
 \label{hyp:previous-nonresidual}
 Within a fixed normalized Seregin collection \(\calS\), the small-amplitude,
 stationary \(L^3\), uniformly \(L^3\)-tight, and closed structured/decay
-classes are the non-residual alternatives defined in Paper I.  The
-small-amplitude and stationary \(L^3\) alternatives are closed in Paper I; the
-uniformly tight class is excluded in Paper II \cite{DuranPaperII}; and the
-closed structured/decay class is precisely the part of the structured
-alternatives proved empty in Paper III \cite{DuranPaperIII}.  Any
-structured profile not belonging to that closed Paper I class is residual by
-definition and is handled by the present paper.  The present paper does not
-reprove those earlier alternatives and does not add any hypothesis to their
-statements.
+classes are the non-residual alternatives already established in the setup
+paper.  The small-amplitude and stationary \(L^3\) alternatives are closed
+there; the uniformly tight class is excluded there; and the closed structured/decay
+class is precisely the part proved empty there.  Any structured profile not
+belonging to that closed class is residual by definition and is handled by
+the present paper.  The present paper does not reprove those earlier
+alternatives and does not add any hypothesis to their statements.
 \end{definition}
 
 \begin{definition}[Coarse residual class]
@@ -414,8 +412,8 @@ and is used below as a logical reduction principle.  Exact centered
 symmetries preserve the centered equation, local suitability, pressure gauges,
 and retained local concentration; this is recorded in
 \Cref{lem:covariant-translation-invariance,thm:covariant-observer-calculus}.
-Raw terminal recenterings before centering are the recenterings in the Paper~I
-Seregin extraction and are compact after the gauges in
+Raw terminal recenterings before centering are the recenterings in the Seregin
+extraction theorem of the setup paper and are compact after the gauges in
 \Cref{prop:local-typeI-terminal-compactness}.  Retained tail limits and active
 successors are ancestor-realized by diagonal lifting:
 \Cref{lem:diagonal-lifting-descendants,thm:descendant-heredity} show that the
@@ -446,7 +444,7 @@ principle.
 \begin{theorem}[Refined residual closure for the complete ordered decomposition]
 \label{thm:refined-residual-closure}
 \label{thm:refined-residual-closure-complete-decomposition}
-Relative to the imported Paper I--III alternatives in
+Relative to the inherited alternatives in
 \Cref{hyp:base-seregin-package,hyp:previous-nonresidual}, one has
 \[
 \begin{gathered}
@@ -478,15 +476,15 @@ generic terminal residual class \(\Cgen\) is excluded by
 decomposition \eqref{eq:complete-residual-decomposition}.
 \end{proof}
 
-\begin{corollary}[Paper I residual input]
+\begin{corollary}[Residual input from the setup paper]
 \label{cor:paperI-residual-input}
 For every normalized Seregin collection \(\calS\) generated by a
-Paper~0-admissible finite-energy Type I singularity, the Paper I remaining
-class is empty.
+admissible finite-energy Type I singularity in the setup paper, the setup
+remaining class is empty.
 \end{corollary}
 
 \begin{proof}
-Paper I defines its remaining class as the complement, inside \(\calS\), of
+The setup paper defines its remaining class as the complement, inside \(\calS\), of
 the small-amplitude, stationary \(L^3\), uniformly \(L^3\)-tight, and closed
 structured/decay classes.  The notation \(\calR(\calS;I,J)\) used here records
 the same complement together with the ordered removals used in the residual
@@ -501,21 +499,21 @@ Seregin collection \(\calS\).
 \end{theorem}
 
 \begin{proof}
-Suppose that such a singular point exists.  Paper~0 supplies a positive local
-velocity concentration sequence.  By
+Suppose that such a singular point exists.  The setup paper supplies a
+positive local velocity concentration sequence.  By
 \Cref{thm:local-typeI-terminal-energy-package,cor:local-typeI-implies-admissible},
-the local pointwise Type~I envelope gives the Paper~I terminal velocity
+the local pointwise Type~I envelope gives the terminal velocity
 no-escape condition for this sequence.  Hence
 \Cref{hyp:base-seregin-package} applies, and the Seregin blow-up procedure
 produces a
 normalized ancient limit \((V,P)\) satisfying \eqref{eq:centered-main} and the
 local velocity nonvanishing condition \eqref{eq:positive-velocity-main}.  By
-the Paper I class exhaustion, \(V\) is either in one of the non-residual
+the inherited class exhaustion, \(V\) is either in one of the non-residual
 classes recorded in \Cref{hyp:previous-nonresidual} or in
 \(\calR(\calS;I,J)\).  The first alternative is impossible by the corresponding
-closed inputs: the small and stationary \(L^3\) classes are excluded in Paper I,
-the uniformly \(L^3\)-tight class is excluded in Paper II, and the closed
-structured/decay class is excluded in Paper III.  The second alternative is
+closed inputs: the small and stationary \(L^3\) classes are excluded in the setup
+paper, the uniformly \(L^3\)-tight class is also excluded there, and the
+closed structured/decay class is excluded there.  The second alternative is
 impossible by \Cref{thm:refined-residual-closure}.  This contradiction proves
 the theorem.
 \end{proof}
@@ -524,7 +522,7 @@ the theorem.
 \label{sec:local-typeI-bridge}
 
 The purpose of this subsection is to make explicit the local reduction that is
-implicit in the proof architecture of Papers~0--IV.  There are two logically
+implicit in the two-paper proof architecture here.  There are two logically
 different issues.  The local pointwise Type~I envelope gives Seregin compactness
 on every compact negative-time cylinder
 \[
@@ -534,12 +532,13 @@ but this compactness is strictly away from the terminal slice \(t=0\).  It does
 not by itself say that the positive \(L^3\)-mass in
 \(B_1\times(-1,0)\) survives away from the terminal layer
 \((- \sigma,0)\).  The latter is exactly the terminal velocity no-escape
-condition used in Paper~I.
+condition used in the setup paper.
 
-The bridge below first records the admissible form used by Paper~I.  It then
-uses the endpoint weak Serrin local Type~I estimate of Albritton--Barker to
-derive the required scale-invariant \(L^2\) bound on the terminal interval.
-Interpolation with the Type~I envelope gives terminal velocity no-escape.
+The bridge below first records the admissible form used by the unified setup
+paper.  It then uses the endpoint weak Serrin local Type~I estimate of
+Albritton--Barker to derive the required scale-invariant \(L^2\) bound on the
+terminal interval.  Interpolation with the Type~I envelope gives terminal
+velocity no-escape.
 
 For this subsection, if \(z_*=(x_*,T)\) and \(r_n\downarrow0\), write
 \[
@@ -1316,7 +1315,7 @@ finite-energy local pointwise Type~I singular point exists.
 \end{theorem}
 
 \begin{proof}
-By the local velocity concentration theorem of Paper~0, choose
+By the local velocity concentration theorem in the setup paper, choose
 \(r_n\downarrow0\) and \(\eta_v>0\) with
 \[
    \iint_{B_1\times(-1,0)} |u_n|^3\,dx\,dt\ge\eta_v,
@@ -1324,8 +1323,8 @@ By the local velocity concentration theorem of Paper~0, choose
    u_n(x,t)=r_nu(x_*+r_nx,T+r_n^2t).
 \]
 \Cref{thm:local-typeI-terminal-energy-package,cor:local-typeI-implies-admissible}
-show that this concentration sequence satisfies the Paper~I terminal
-velocity no-escape condition.
+show that this concentration sequence satisfies the terminal
+velocity no-escape condition required by the setup paper.
 Apply \Cref{lem:local-typeI-into-terminal-dichotomy} to this sequence.  The
 local Type~I rescalings therefore produce at least one bounded terminal profile
 carrying retained local concentration.  After passing to the centered variables, the
@@ -1337,11 +1336,11 @@ so each retained profile generated by the bridge is a bounded centered Type~I
 Seregin profile.
 
 If every such retained profile belongs to one of the previously closed lower
-classes, then the contradiction is supplied by the earlier papers:
-small-amplitude and stationary \(L^3\) profiles are excluded in Paper~I, the
-uniformly tight class is excluded in Paper~II, and the closed structured/decay
-class is excluded in Paper~III.  Otherwise choose a retained profile outside
-those lower classes.  It is then a refined residual candidate, so
+classes, then the contradiction is supplied by the setup paper:
+small-amplitude and stationary \(L^3\) profiles are excluded there, the
+uniformly tight class is excluded there, and the closed structured/decay class
+is excluded there.  Otherwise choose a retained profile outside those lower
+classes.  It is then a refined residual candidate, so
 \Cref{thm:terminal-local-stratification-package} applies.  In that residual
 setting, a finite separated family of retained concentrating terminal profiles
 is excluded by \Cref{thm:no-finite-separated-profile-family}, infinite active
@@ -1361,25 +1360,26 @@ Let \((u,p)\) be a suitable Leray--Hopf solution on
 \(\R^3\times(0,T)\).  If \(z_*=(x_*,T)\) is a singular point satisfying the
 local Type~I bound \eqref{eq:local-typeI-bridge-bound}, then the completed
 case closures give a contradiction.  Equivalently, in the local
-Type~I/local Type~II dichotomy of Paper~0, every finite-energy singular point
+Type~I/local Type~II dichotomy of the setup paper, every finite-energy
+singular point
 belongs to the local Type~II alternative.
 \end{corollary}
 
 \begin{proof}
 The first assertion is exactly \Cref{thm:local-typeI-entry-or-discharge}.  The
-equivalence is the local Type~I/local Type~II dichotomy of Paper~0.
+equivalence is the local Type~I/local Type~II dichotomy of the setup paper.
 \end{proof}
 
 \section{Rendered decision tree for the state-space partition}
 \label{sec:mermaid-decision-tree}
 
-The following rendered decision tree records the ordered partition used in the paper.
-Each diamond is a stratification criterion.  Each terminal node is a possible
-singularity or candidate blow-up profile type selected by the criteria.  The
-local Type~II terminal alternative is the remaining regime after the local
+The following rendered decision tree records the ordered partition used in the
+paper.  Each diamond is a stratification criterion.  Each terminal node is a
+possible singularity or candidate blow-up profile type selected by the criteria.
+The local Type~II terminal alternative is the remaining regime after the local
 pointwise Type~I case is excluded; every Type~I terminal alternative is
-discharged either by Papers~I--III or by the case-closure theorems proved
-below.
+excluded either by the inherited alternatives or by the case-closure
+theorems proved below.
 
 \begin{figure}[tbp]
 \centering
@@ -1403,7 +1403,7 @@ below.
    {Endpoint weak-Serrin package\\terminal no-escape};
 \node[process, below=of WS] (SE)
    {Admissible Seregin profile\\retained local \(L^3\) mass};
-\node[decision, below=of SE] (P13) {Earlier Paper~I--III class?};
+\node[decision, below=of SE] (P13) {Inherited alternatives?};
 \node[process, below=of P13] (R) {Coarse residual class\\\(\calR(\calS;I,J)\)};
 
 \node[terminalnode, right=1.55cm of P13, yshift=1.95cm] (Lsmall)
@@ -1426,7 +1426,7 @@ below.
 \draw[arrow] (P13) -- node[elab, above] {structured/decay} (Lstruct);
 \draw[arrow] (P13) -- node[elab, left] {none} (R);
 \end{tikzpicture}}
-\caption{Rendered entry tree.  Local pointwise Type~I enters the Paper~I
+\caption{Rendered entry tree.  Local pointwise Type~I enters the
 admissible Seregin package through endpoint weak Serrin estimates and terminal
 no-escape.  If the bound fails, the point belongs to the local Type~II
 alternative, which is not excluded here.}
@@ -1464,7 +1464,7 @@ alternative, which is not excluded here.}
    {\(\Cgen\) generic terminal residual};
 
 \node[terminalnode, right=1.35cm of Qtail, yshift=1.25cm] (Llog)
-   {\(\Clogdiff\) tail singularity};
+   {\(\Clogdiff\) critical tail};
 \node[terminalnode, right=1.35cm of Qtail] (Lyng) {\(\Cyoung\) tail};
 \node[decision, right=1.35cm of Qtail, yshift=-1.25cm] (Qcoh)
    {Coherent\\logarithmic type?};
@@ -1521,19 +1521,19 @@ For the table, write
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.25}
 \begin{longtable}{@{}L{1.20in}L{4.65in}@{}}
-\caption{Classification and closure table for the decision tree.  Each row gives the criterion
-selecting the terminal alternative, the mechanism that discharges it when it is a Type~I alternative,
-and the theorem or imported statement used at that point.  For the imported
-Paper~I--III alternatives, the displayed condition is a representative form of the
-imported definition; the precise definitions and closures are those of the
-cited papers.}
+\caption{Classification and closure table for the decision tree.  Each row gives
+the criterion selecting the terminal alternative, the mechanism that excludes
+it when it is a Type~I alternative, and the statement used at that point.
+For the inherited alternatives, the displayed condition is a representative
+form of the inherited definition; the precise definitions and closures are those
+of \(\texttt{proof\_setup.tex}\).}
 \label{tab:decision-tree-classification}\\
 \hline
-\textbf{Terminal alternative} & \textbf{Criterion, discharge mechanism, and reference}\\
+\textbf{Terminal alternative} & \textbf{Criterion, exclusion mechanism, and reference}\\
 \hline
 \endfirsthead
 \hline
-\textbf{Terminal alternative} & \textbf{Criterion, discharge mechanism, and reference}\\
+\textbf{Terminal alternative} & \textbf{Criterion, exclusion mechanism, and reference}\\
 \hline
 \endhead
 \hline
@@ -1546,37 +1546,38 @@ after local pointwise Type~I is ruled out.
 \textbf{Link.}  \Cref{cor:local-typeI-unconditional}.\\
 
 Small Type~I profile &
-\textbf{Criterion.}  Imported Paper~I small-amplitude class; schematically
+\textbf{Criterion.}  Inherited small-amplitude class; schematically
 \(\|V\|_{L^\infty(\R^3\times\R)}\le\eps_{\rm sm}\).
-\textbf{Discharge.}  Small-data/regularity closure imported from Paper~I.
+\textbf{Exclusion.}  Small-data/regularity closure recorded in the setup
+paper.
 \textbf{Link.}  \Cref{hyp:previous-nonresidual}.\\
 
 Stationary \(L^3\) Type~I profile &
-\textbf{Criterion.}  Imported Paper~I stationary class; representative condition
+\textbf{Criterion.}  Inherited stationary class; representative condition
 \(\partial_\tau V=0\) and \(V\in L^3(\R^3)\).
-\textbf{Discharge.}  Stationary \(L^3\) Liouville/regularity closure imported
-from Paper~I.
+\textbf{Exclusion.}  Stationary \(L^3\) Liouville/regularity closure recorded
+in the setup paper.
 \textbf{Link.}  \Cref{hyp:previous-nonresidual}.\\
 
 Tight Type~I profile &
-\textbf{Criterion.}  Imported Paper~II tight class; representative condition
+\textbf{Criterion.}  Inherited tight class; representative condition
 \(\lim_{R\to\infty}\sup_\tau\int_{|y|>R}|V(y,\tau)|^3\,dy=0\).
-\textbf{Discharge.}  Endpoint \(L^3\) rigidity for uniformly tight ancient
+\textbf{Exclusion.}  Endpoint \(L^3\) rigidity for uniformly tight ancient
 dynamics.
 \textbf{Link.}  \Cref{hyp:previous-nonresidual}.\\
 
 Structured Type~I profile &
-\textbf{Criterion.}  Imported closed structured/decay class of Paper~III,
-\(V\in\mathcal C_{\rm struct/decay}^{\rm PIII}\).
-\textbf{Discharge.}  Closed structured/decay alternatives imported from
-Paper~III.
+\textbf{Criterion.}  Inherited closed structured/decay class,
+\(V\in\mathcal C_{\rm struct/decay}^{\rm setup}\).
+\textbf{Exclusion.}  Closed structured/decay alternatives recorded in the
+setup paper.
 \textbf{Link.}  \Cref{hyp:previous-nonresidual}.\\
 
 \(\Cax\) residual profile &
 \textbf{Criterion.}  Axisymmetric residual profile with bounded centered
 circulation \(\Gamma(\rho,Z,\tau)=\rho V_\theta\) and
 \(\|\Gamma\|_{L^\infty}<\infty\).
-\textbf{Discharge.}  Centered circulation equation plus axis-absorption
+\textbf{Exclusion.}  Centered circulation equation plus axis-absorption
 Liouville theorem; the profile becomes no-swirl and falls into an earlier
 structured class.
 \textbf{Link.}  \Cref{thm:R1-exclusion}.\\
@@ -1584,7 +1585,7 @@ structured class.
 \(\Crot\) residual profile &
 \textbf{Criterion.}  Rotational relative equilibrium
 \(V(y,\tau)=Q(\tau)W(Q(\tau)^Ty)\), \(Q(\tau)=e^{\tau\Omega}\).
-\textbf{Discharge.}  Localized Coriolis-flux routing into the terminal local
+\textbf{Exclusion.}  Localized Coriolis-flux reduction into the terminal local
 concentration decomposition.
 \textbf{Link.}  \Cref{thm:R2-exclusion-safe}.\\
 
@@ -1592,36 +1593,36 @@ concentration decomposition.
 \textbf{Criterion.}  Degenerate stationary-hull retained profile: along
 time translations \(T_{s_k}V\to W\), where \(W\) is stationary and
 \(\calE_1(W,\Pi;0)\ge\eps_*\).
-\textbf{Discharge.}  Scale reselection reduces to a stationary retained
+\textbf{Exclusion.}  Scale reselection reduces to a stationary retained
 concentration profile, then terminal concentration excludes it.
 \textbf{Link.}  \Cref{thm:R3S-R3-empty}.\\
 
 \(\Caff\) lower stratum &
 \textbf{Criterion.}  Affine-normalized oscillatory activity vanishes:
 \(\Phi(S_cU)=0\) for an admissible affine symmetry \(S_c\).
-\textbf{Discharge.}  Oscillatory entry normalization forces retained residual
+\textbf{Exclusion.}  Oscillatory entry normalization forces retained residual
 states to keep positive non-affine activity after affine normalization.
 \textbf{Link.}  \Cref{thm:oscillatory-entry-normalization}.\\
 
-\(\Clogdiff\) tail singularity &
+\(\Clogdiff\) critical tail &
 \textbf{Criterion.}  Logarithmic escape component in the realized
 critical-tail compactification: \(\Lambda\ne0\).
-\textbf{Discharge.}  Log-window descendant selection plus first-bad
-mesoscopic routing and hidden-scale compactness.
+\textbf{Exclusion.}  Log-window descendant selection plus first-bad
+mesoscopic-scale reduction and hidden-scale compactness.
 \textbf{Link.}  \Cref{cor:log-diffuse-branch-discharge}.\\
 
 \(\Cyoung\) tail &
 \textbf{Criterion.}  Tight annular critical-tail state with non-Dirac Young
 measure: \(\Lambda=0\) and
 \(\mathcal Y_{x,s}\ne\delta_{\bar W(x,s)}\) on a set of positive measure.
-\textbf{Discharge.}  No hidden-scale variance gives strong
+\textbf{Exclusion.}  No hidden-scale variance gives strong
 \(L^3_{\loc}\) compactness, hence a Dirac Young measure.
 \textbf{Link.}  \Cref{cor:young-branch-discharge}.\\
 
 \(\Chomcrit\) coherent tail &
 \textbf{Criterion.}  Coherent \((-1)\)-homogeneous tail:
 \(W(r\omega,s)=r^{-1}A(\omega,s)\).
-\textbf{Discharge.}  Bounded-origin realization gives
+\textbf{Exclusion.}  Bounded-origin realization gives
 \(W\in L^\infty_{\loc}\) near \(r=0\), forcing \(A=0\).
 \textbf{Link.}  \Cref{cor:coherent-critical-tail-branch-closure}.\\
 
@@ -1629,7 +1630,7 @@ measure: \(\Lambda=0\) and
 \textbf{Criterion.}  Nonzero log-periodic coherent tail:
 \(Z(\rho+L,\omega,s)=Z(\rho,\omega,s)\), \(L\ne0\), where
 \(Z=e^\rho W(e^\rho\omega,s)\).
-\textbf{Discharge.}  Bounded-origin realization gives
+\textbf{Exclusion.}  Bounded-origin realization gives
 \(Z(\rho,\cdot,\cdot)\to0\) as \(\rho\to-\infty\); periodicity forces
 \(Z\equiv0\).
 \textbf{Link.}  \Cref{cor:coherent-critical-tail-branch-closure}.\\
@@ -1637,7 +1638,7 @@ measure: \(\Lambda=0\) and
 \(\Capcrit\) coherent tail &
 \textbf{Criterion.}  Nonzero aperiodic minimal logarithmic hull:
 \(\mathcal H(Z)\) is minimal, nonperiodic, and nonzero.
-\textbf{Discharge.}  Bounded-origin realization puts \(0\) in the compact
+\textbf{Exclusion.}  Bounded-origin realization puts \(0\) in the compact
 log-translation hull; minimality forces the hull to be \(\{0\}\).
 \textbf{Link.}  \Cref{cor:coherent-critical-tail-branch-closure}.\\
 
@@ -1649,7 +1650,7 @@ log-translation hull; minimality forces the hull to be \(\{0\}\).
 \]
 where \(\mathfrak B_{\rm lower}\) is the list of all preceding Type~I
 alternatives.
-\textbf{Discharge.}  Paired active-locus decomposition, finite
+\textbf{Exclusion.}  Paired active-locus decomposition, finite
 separated-family exclusion, terminal indecomposability, sequence-\(L^3\),
 parasitic-free mildness, and the Albritton--Barker endpoint Liouville theorem.
 \textbf{Link.}  \Cref{thm:R4-final-closure}.\\
@@ -1688,7 +1689,8 @@ concentration if, after the terminal normalization under consideration,
 \label{def:threshold-hierarchy}
 The constants used in the terminal package are chosen in the following order.
 The compact velocity lower bounds \(\eta_0\) and \(\eta_v\) are supplied by
-Paper~I and Paper~0, respectively.  The local small-data threshold
+the setup package in \texttt{proof\_setup.tex} and the local concentration input
+therein, respectively.  The local small-data threshold
 \(\eps_{\rm sd}\) is then fixed with
 \[
    0<\eps_{\rm sd}\le \min\{\eta_0,\eta_v,\eps_{\CKN}\},
@@ -1708,11 +1710,12 @@ previously extracted profile tree.
 \begin{definition}[Refined residual candidate]
 \label{def:refined-residual-candidate}
 A refined residual candidate is a bounded normalized Seregin ancient limit
-obtained from the Paper I extraction theorem which carries the positive compact local
-velocity mass in \eqref{eq:positive-velocity-main} and which is not in any alternative
-already closed before the refined residual decomposition is entered.  The definition is local:
-the only persistent lower bound attached to the candidate by Paper I is the
-fixed compact velocity \(L^3\) lower bound.
+obtained from the admissible Seregin extraction theorem in
+\texttt{proof\_setup.tex}, which carries the positive compact local velocity
+mass in \eqref{eq:positive-velocity-main}, and which is not in any alternative
+already closed before the refined residual decomposition is entered.  The
+definition is local: the only persistent lower bound attached to the candidate by
+the setup package is the fixed compact velocity \(L^3\) lower bound.
 \end{definition}
 
 \begin{remark}[No hidden global \(L^3\) assertion]
@@ -2049,8 +2052,8 @@ rotational relative equilibrium if there exist
 \end{equation}
 up to the usual time-dependent pressure gauge.
 The class \(\Crot\) consists of such residual Seregin profiles, after the
-axisymmetric bounded-circulation class and the previously closed Paper I--III
-alternatives have been removed.
+axisymmetric bounded-circulation class and the previously closed alternatives in
+the setup package have been removed.
 \end{definition}
 
 \begin{lemma}[Co-rotating stationary equation]
@@ -2335,7 +2338,8 @@ side of that threshold.  In both cases the functional
    W\longmapsto -2\int_{\mathbb R^3}(W\times\varpi)\cdot\nabla\chi\,dy
 \]
 depends only on \(W\) on the compact annular set \(A_\chi\).  Under the local
-Seregin compactness supplied by Paper I, velocities converge strongly in
+Seregin compactness supplied by the admissible setup package, velocities converge
+strongly in
 \(L^3_{\rm loc}\); since \(\nabla\chi\in L^{3/2}\) and \(\varpi\) is fixed, the
 functional is continuous along every terminal subsequence:
 \[
@@ -2391,8 +2395,9 @@ annuli in the terminal variables.  For each cutoff and each rational
 a unit-scale concentration and is therefore already part of the local
 concentration decomposition.  A subthreshold Coriolis flux is a compactly
 supported functional
-of \(W\), continuous under the local convergence supplied by Paper I, and hence
-remains inside the localized limiting equation; it carries no independent CKN
+of \(W\), continuous under the local convergence supplied by the admissible setup
+package, and hence remains inside the localized limiting equation; it carries no
+independent CKN
 mass and creates no additional terminal alternative.
 
 We now apply the terminal local concentration decomposition to the inherited compact
@@ -2435,7 +2440,7 @@ Thus \(W\in L^3\) implies
 \]
 Equivalently, the physical representative lies in the critical class
 \(L^\infty_tL^3_x\).  The endpoint \(L^3\) class is one of the already closed
-alternatives in Paper I, by the Escauriaza--Seregin--\v Sver\'ak endpoint
+alternatives used in the setup package, by the Escauriaza--Seregin--\v Sver\'ak endpoint
 regularity theorem \cite{ESS2003} and the stationary
 Ne\v cas--R\r u\v zi\v cka--\v Sver\'ak Liouville theorem \cite{NRS1996}.
 Therefore
@@ -2797,8 +2802,8 @@ The stationary physical representative associated with \(W\) is a backward
 self-similar Navier--Stokes solution.  The assumption \(W\in L^3(\mathbb R^3)\)
 places it in the stationary \(L^3\) class already excluded by the classical
 Ne\v cas--R\r u\v zi\v cka--\v Sver\'ak Liouville theorem \cite{NRS1996},
-equivalently by the endpoint ancient Liouville theorem recorded in Paper I and
-cited below as \Cref{thm:AB-main}.  Hence \(W\equiv0\).  A
+equivalently by the endpoint ancient Liouville theorem already recorded in
+the setup package and cited below as \Cref{thm:AB-main}.  Hence \(W\equiv0\).  A
 zero profile has zero pressure-normalized local CKN mass after choosing the
 admissible pressure gauge, so it cannot be \(\varepsilon_*\)-concentrating.
 \end{proof}
@@ -2923,12 +2928,13 @@ in \Cref{thm:terminal-nonactive-discharge}.  Item (iii) is
 \label{rem:R3S-local-nature}
 The theorem above is a local concentration statement.  It uses the local
 suitable-weak-solution compactness and pressure normalization developed from
-the Caffarelli--Kohn--Nirenberg theory \cite{CKN1982}, together with the
-Paper 0 local concentration input and the Paper I Seregin compactness theorem.
-It then uses paired terminal profile decomposition, sole-carrier exclusions,
-critical-tail compactification with realized critical-tail rigidity, active
-path-space recurrence, and the finite separated-profile theorem.  It does not
-assert or require a global a priori bound for the original physical solution.
+the Caffarelli--Kohn--Nirenberg theory \cite{CKN1982} together with the
+unified setup package in \texttt{proof\_setup.tex}: local positive concentration
+and the Type~I Seregin compactness package.  It then uses paired terminal
+profile decomposition, sole-carrier exclusions, critical-tail compactification
+with realized critical-tail rigidity, active path-space recurrence, and the
+finite separated-profile theorem.  It does not assert or require a global a
+priori bound for the original physical solution.
 \end{remark}
 
 For completeness, and to make the dependence on local estimates explicit, we
@@ -3400,7 +3406,8 @@ cover changes only harmless constants and never changes the alternatives
 \begin{lemma}[Local compactness and continuity of the state actions]
 \label{lem:state-space-local-compactness}
 Let \((U_n,\Pi_n)\subset\mathfrak X_M\) be a sequence with the local suitability
-and pressure-gauge bounds supplied by Paper~I on every fixed compact cylinder.
+and pressure-gauge bounds supplied by the setup package on every fixed compact
+cylinder.
 Then every subsequence has a further subsequence converging in the topology of
 \(\mathfrak X_M\).  Moreover the actions \(T_a\), \(\Theta_s\), the covariant
 tail recenterings \(\mathscr T_{(x,\sigma)}\) are continuous on
@@ -3431,8 +3438,8 @@ representative is used.
 \begin{definition}[Compact normalized descendant state space]
 \label{def:compact-normalized-state-space}
 Let \(\mathfrak X_M^\#\subset\mathfrak X_M\) denote the sequential closure, in
-the local topology of \(\mathfrak X_M\), of all normalized Paper~I Seregin
-profiles and all profiles obtained from them by the state-space operations used
+the local topology of \(\mathfrak X_M\), of all normalized Seregin profiles from
+the setup package and all profiles obtained from them by the state-space operations used
 in this paper: centered time translations, covariant translations, covariant
 tail recenterings, terminal profile limits, active descendant limits, recurrent-core
 limits, and the canonical affine normalization whenever the affine parameter is
@@ -3870,8 +3877,8 @@ The pressure gradient is fixed by the velocity through the equation
    -\partial_\tau W-(W\cdot\nabla)W .
 \]
 Thus \(W\mapsto p_i(W)\) is a continuous bounded local observable on
-\(\calM\).  Paper II, \cite[Lemma~\emph{Local pressure reconstruction}]
-{DuranPaperII}, supplies the local pressure representatives; the present
+\(\calM\).  The local pressure reconstruction step in
+\texttt{proof\_setup.tex} supplies the local pressure representatives; the present
 argument uses only their gradients, so the additive gauges never enter.
 
 Let \(U_a\) be the unitary representation of spatial covariant translations
@@ -3981,12 +3988,13 @@ Combining this with \eqref{eq:pressure-nonzero-modes-core} proves
 \begin{theorem}[Rigidity of recurrent profile tail cores]
 \label{thm:recurrent-tail-core-rigidity}
 Let \(\calM\) be a compact tail-minimal recurrent core for
-\eqref{eq:centered-main} arising from the Paper I normalized Seregin theorem,
+\eqref{eq:centered-main} arising from the normalized Seregin setup in
+\texttt{proof\_setup.tex},
 with the affine zero mode interpreted by the affine symmetry
 \Cref{lem:affine-symmetry}.  Equivalently, after applying one fixed affine
-normalization \(S_c\), the spatially homogeneous part of the core satisfies
-the bounded mild centered formulation of Paper II
-\cite[Definition~\emph{Bounded mild ancient solution}]{DuranPaperII}.  Then
+normalization \(S_c\), the spatially homogeneous part of the core satisfies the
+bounded mild centered formulation recorded in
+\texttt{proof\_setup.tex}.  Then
 every \(W\in\calM\) is spatially and temporally constant.
 More precisely, there exists \(m\in\R^3\) such that
 \[
@@ -4134,12 +4142,13 @@ Thus every element of \(\calM\) is spatially constant:
    W(y,\tau)=a_W(\tau).
 \]
 It remains only to identify the allowed spatially homogeneous zero mode.  This
-is not a pressure-gauge assertion.  By the Paper I normalization quoted in the
-statement, there is one fixed affine normalization \(S_c\) for which the
-spatially homogeneous representatives satisfy the bounded mild centered
-formulation of Paper II.  For a spatially constant mild centered solution
-\(B(\tau)\), the nonlinear Duhamel term in Paper II's mild formula vanishes
-and the Ornstein--Uhlenbeck--Stokes semigroup of Paper II acts on constants by
+is not a pressure-gauge assertion.  By the normalization in the setup package
+quoted in the statement, there is one fixed affine normalization \(S_c\) for which
+the spatially homogeneous representatives satisfy the bounded mild centered
+formulation recorded in \texttt{proof\_setup.tex}.  For a spatially constant
+mild centered solution \(B(\tau)\), the nonlinear Duhamel term in the mild
+formulation vanishes, and the Ornstein--Uhlenbeck--Stokes semigroup acts on
+constants by
 \[
    S(\tau-\sigma)B(\sigma)=e^{-(\tau-\sigma)/2}B(\sigma).
 \]
@@ -4311,10 +4320,11 @@ for \(\calE_1\).  The velocity-only assertion follows directly from strong
 \(L^3(Q_1)\) convergence.  The statement is entirely local on \(Q_1\).
 \end{proof}
 
-\begin{lemma}[Paper I compactness excludes retained local compactness failure]
+\begin{lemma}[Setup compactness excludes retained local compactness failure]
 \label{lem:rough-stratum-discharge}
-Let \((V_n,P_n)\) be a terminal sequence obtained from a Paper I Type I
-Seregin extraction, or from a later terminal extraction of such a sequence.
+Let \((V_n,P_n)\) be a terminal sequence obtained from the Seregin setup in
+\texttt{proof\_setup.tex}, or from a later terminal extraction of such a
+sequence.
 If a recentering sequence \(\mathfrak c=(z_n)\) carries retained compact
 velocity \(L^3\)-mass, then
 after passing to a subsequence it has no loss of local compactness and its
@@ -4325,7 +4335,8 @@ profile.
 
 \begin{proof}
 Fix \(R<\infty\).  The recentered cylinders \(Q_{2R}(z_n)\) are compact
-terminal cylinders in the variables of the chosen extraction.  Paper I gives
+terminal cylinders in the variables of the chosen extraction.  The setup package
+gives
 local suitability, local pressure-gauge compactness, and the inherited Type I
 bound on every such compact cylinder.  Therefore, after choosing the pressure
 gauges \(a_n^{\mathfrak c}\), the sequence
@@ -4336,7 +4347,8 @@ pressure, and the local energy inequality in the limit.  A diagonal argument
 over \(R=1,2,\dots\) gives a suitable bounded terminal profile.  The two
 failures used in the definition of loss of local compactness are precisely the
 negations of these local compactness and pressure-gauge conclusions, so a
-retained recentering sequence arising from the Paper I Type I extraction theorem
+retained recentering sequence arising from the Seregin setup in
+\texttt{proof\_setup.tex}
 cannot remain in the local-compactness-failure alternative.
 \end{proof}
 
@@ -4575,16 +4587,19 @@ class in a positive-threshold active locus \(A_m^\eta\) of
 \begin{lemma}[Local vanishing and exterior alternatives do not carry compact concentration]
 \label{lem:radiative-stratum-discharge}
 Let a terminal extraction inherit the positive compact velocity \(L^3\)-mass
-supplied by Paper 0 and Paper I.  Then the retained compact velocity mass
+supplied by the setup package \texttt{proof\_setup.tex}.  Then the retained
+compact velocity mass
 cannot be carried solely by local vanishing, exterior escape, or diffuse
 exterior concentration.
 \end{lemma}
 
 \begin{proof}
-The assertion is local.  By Paper 0, failure of local vanishing at a singular
-terminal point gives a positive local velocity concentration sequence.  Paper I
-carries this through the Type I Seregin extraction as the compact velocity lower
-bound \eqref{eq:positive-velocity-main}.  Cover the fixed compact cylinder
+The assertion is local.  By the local no-escape and concentration input in
+\texttt{proof\_setup.tex}, failure of local vanishing at a singular terminal
+point gives a positive local velocity concentration sequence.  The setup package
+carries this through the Type~I Seregin extraction as the compact velocity
+lower bound \eqref{eq:positive-velocity-main}.  Cover the fixed compact
+cylinder
 \(K\) in \eqref{eq:positive-velocity-main} by finitely many unit terminal
 cylinders.  At least one cylinder in the cover carries a positive velocity
 lower bound, say \(\eta_K>0\).  Since \(\mu_n\) dominates
@@ -4602,8 +4617,9 @@ escapes every bounded window.  By
 lower bound that remains in the distinguished compact window.  Finally, diffuse
 exterior concentration is defined by persistence through expanding regions
 while all fixed unit cylinders are locally vanishing.  If such a sequence
-contained the compact Paper 0/Paper I velocity lower bound, the positive
-concentration lemma of Paper 0 would select a unit terminal cylinder with mass
+contained the compact lower-bound threshold from \texttt{proof\_setup.tex}, the
+positive concentration input in that package would select a unit terminal
+cylinder with mass
 at least the retained threshold, contradicting local vanishing.  Thus none of
 these alternatives can be the unique location of the retained compact velocity
 mass.
@@ -4611,7 +4627,8 @@ mass.
 
 \begin{theorem}[Local exclusion of non-compact and non-concentrating terminal alternatives]
 \label{thm:terminal-nonactive-discharge}
-For terminal sequences generated by the Paper I Type I Seregin extraction
+For terminal sequences generated by the Seregin setup in
+\texttt{proof\_setup.tex}
 theorem, loss of local compactness, local vanishing, exterior escape, and
 diffuse exterior concentration are not possible sole locations of the retained
 compact velocity mass.
@@ -4621,9 +4638,9 @@ compact velocity mass.
 Retained recentering sequences with loss of local compactness are removed by
 \Cref{lem:rough-stratum-discharge}.  Local vanishing, exterior escape, and
 diffuse exterior concentration are removed by
-\Cref{lem:radiative-stratum-discharge}.  The proof uses only the local positive
-concentration theorem of Paper 0, the local Type I Seregin compactness and
-pressure gauges of Paper I, and fixed compact terminal cylinders.
+\Cref{lem:radiative-stratum-discharge}.  The proof uses only the positive
+concentration input and the local compactness package in
+\texttt{proof\_setup.tex}, and fixed compact terminal cylinders.
 \end{proof}
 
 \begin{theorem}[Diffuse-defect compactness]
@@ -6494,8 +6511,9 @@ statements about realized residual descendants; none is a global
 
 \begin{theorem}[Oscillatory entry normalization]
 \label{thm:oscillatory-entry-normalization}
-Let \((U,\Pi)\) be a retained residual state after the earlier Paper I--III
-lower classes have been removed.  Then exactly one of the following holds:
+Let \((U,\Pi)\) be a retained residual state after the earlier lower classes
+recorded in the setup package \texttt{proof\_setup.tex} have been removed.  Then
+exactly one of the following holds:
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item after an admissible affine symmetry \(S_c\), the profile retains
    positive non-affine oscillatory activity:
@@ -7146,14 +7164,14 @@ all \(-\infty<s<t<0\),
    -\int_s^t e^{(t-\sigma)\Delta}
       \mathbb P\nabla\cdot(u^T\otimes u^T)(\sigma)\,d\sigma
 \end{equation}
-in the bounded mild duality sense of Paper~II.  The same conclusion is
+in the bounded mild duality sense used in the setup package.  The same conclusion is
 preserved by centered time translations, covariant translations, retained tail
 limits, active successors, recurrent-core limits, and affine normalization
 outside \(\Caff\).
 \end{proposition}
 
 \begin{proof}
-For each \(m\), the Paper~I/Paper~II normalized representative satisfies the
+For each \(m\), the normalized setup representative satisfies the
 Duhamel formula on every finite physical interval.  Fix \(T<0\) and
 \(-\infty<s<t<0\).  Pull the centered convergence back to the compact physical
 time interval \([s,t]\) after the finite terminal shift.  The velocities
@@ -7165,8 +7183,8 @@ locally in every finite \(L^q\), and in particular in distributions.  Testing
 the Duhamel identity for \(u_m^T\) against a compactly supported smooth vector
 field and using the heat-kernel/Leray-projection duality gives convergence of
 the linear heat term and of the bilinear Duhamel term.  The bounded mild
-duality formulation of Paper~II then extends the identity from compactly
-supported tests to the standard bounded mild class, yielding
+duality formulation used in the setup package then extends the identity from
+compactly supported tests to the standard bounded mild class, yielding
 \eqref{eq:finite-shift-duhamel} for \(u^T\).
 
 Centered time translations and covariant translations are exact symmetries of
@@ -7185,7 +7203,8 @@ identity holds for the canonical representative.
 \label{thm:parasitic-free-mildness}
 Let \((U,\Pi)\) be a retained terminal profile, retained covariant tail
 descendant, active descendant limit, or recurrent-core limit represented in the
-normalized residual state space generated by the Paper~I Seregin extraction.
+normalized residual state space generated by the Seregin extraction in the
+setup package.
 Then exactly one of the following alternatives applies.
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item \((U,\Pi)\) belongs to the affine/parasitic lower stratum of
@@ -7213,9 +7232,9 @@ profiles removed by \Cref{def:affine-constant-lower-stratum}; they are assigned
 to alternative (i).  We therefore consider a representative outside that lower
 stratum.
 
-Paper~I constructs normalized Seregin limits as centered bounded mild ancient
-representatives in the Paper~II sense, after removal of the spatially
-homogeneous parasitic mode.  The stability statement
+The setup package constructs normalized Seregin limits as centered bounded mild
+ancient representatives, after removal of the spatially homogeneous parasitic
+mode.  The stability statement
 \Cref{prop:bounded-mild-stability} shows that the state-space operations used
 in this paper preserve the bounded mild formulation: exact centered symmetries
 preserve the Duhamel identity, local limits preserve it by bounded mild duality,
@@ -7260,9 +7279,7 @@ then \(u\equiv0\).
 
 \begin{proof}
 This is the endpoint ancient Liouville theorem in the sequence-\(L^3\) form
-proved by Albritton and Barker \cite{AlbrittonBarker2019}.  Paper I records the
-same peer-reviewed input among its auxiliary Liouville results
-\cite{DuranPaperI}.
+proved by Albritton and Barker \cite{AlbrittonBarker2019}.
 \end{proof}
 
 \begin{lemma}[No retained indecomposable concentration profile]
@@ -7382,7 +7399,7 @@ Let \((U,\Pi)\) be a normalized retained residual profile in
 descendant of \((U,\Pi)\).  Then \((W,\Pi_W)\in\mathfrak X_M\), it carries
 retained local concentration at the descendant threshold fixed in
 \Cref{def:threshold-hierarchy}, and it has the same parasitic-free normalization
-status as a terminal profile generated directly by the Paper~I extraction.
+status as a terminal profile generated directly by the setup package extraction.
 Consequently exactly one of the following ordered outcomes occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item \((W,\Pi_W)\) belongs to one of the previously closed lower strata,
@@ -7458,7 +7475,8 @@ recentering sequence with loss of local compactness.  By the same diagonal
 procedure used in \Cref{lem:diagonal-lifting-descendants}, this tail state is
 realized by a terminal extraction of the original refined residual candidate,
 after passing to a subsequence and choosing the local pressure gauges supplied
-by Paper I.  It is not enough to say that the diffuse or noncompact state is not
+by the setup package in \texttt{proof\_setup.tex}.  It is not enough to say that
+the diffuse or noncompact state is not
 the sole carrier of the original compact concentration: the compact core
 \((U_j,\Pi_j)\) may coexist with that tail state.  The paired exclusion
 \Cref{thm:no-mixed-compact-diffuse} rules out exactly this coexistence in the
@@ -7735,10 +7753,11 @@ Let \(\calK\) be the closure, in the local smooth velocity topology and local
 \(L^{3/2}\) pressure topology modulo gauges, of all profiles obtained from the
 finite set \(\{U_0,\dots,U_{q-1}\}\) by time translations and covariant
 terminal translations.  The boundedness inherited from the Type I Seregin
-extraction theorem and the local pressure compactness of Paper I give compactness of
-\(\calK\) on every fixed terminal cylinder; a diagonal argument gives compactness
-of \(\calK\).  The set is invariant under the same time and covariant
-translations by construction.  The recurrent-loop relations imply that each \(U_\ell\)
+extraction theorem and the local pressure compactness from
+\texttt{proof\_setup.tex} give compactness of \(\calK\) on every fixed terminal
+cylinder; a diagonal argument gives compactness of \(\calK\).  The set is
+invariant under the same time and covariant translations by construction.  The
+recurrent-loop relations imply that each \(U_\ell\)
 returns to \(\calK\) through tail limits, so the closed invariant subset of
 \(\calK\) generated by the loop is nonempty, compact, invariant, and contains
 the retained concentration profiles.
@@ -7846,7 +7865,7 @@ activity threshold survives.
 
 Apply the paired terminal local concentration decomposition to a terminal
 extraction of this tail-normalized candidate.  The distinguished compact
-velocity mass from Paper~I still forces the terminal active locus to be
+velocity mass from the setup package still forces the terminal active locus to be
 nonempty by \Cref{cor:persistent-forces-active}; after affine normalization the
 surviving residual activity is measured by \(\Phi\).  Pure radiative
 alternatives cannot be the sole location of the compact mass by
@@ -7907,14 +7926,14 @@ decomposition.
 
 Equivalently, the final exclusion is the composition of six certificates:
 \begin{enumerate}[label=\textup{(\arabic*)}]
-   \item \emph{Entry certificate:} Paper~0 supplies a positive local velocity
-   concentration sequence; the endpoint weak Serrin local Type~I package
+   \item \emph{Entry certificate:} The setup package supplies a positive local
+   velocity concentration sequence; the endpoint weak Serrin local Type~I package
    \Cref{thm:AB-weak-serrin-typeI-package} gives the terminal local
    energy/no-escape estimate in
    \Cref{thm:local-typeI-terminal-energy-package}.  Thus the sequence is
    admissible in the sense of \Cref{def:admissible-local-typeI-sequence}, and
-   Paper~I turns it into a normalized Seregin profile with retained compact
-   velocity concentration.
+   \Cref{hyp:base-seregin-package} turns it into a normalized Seregin profile
+   with retained compact velocity concentration.
    \item \emph{Stratification certificate:} the ordered residual decomposition
    places every remaining retained profile in the complete list of alternatives
    \[
@@ -7967,53 +7986,25 @@ class is empty.
 
 \begin{remark}[What is imported and what is proved here]
 \label{rem:imported-vs-proved}
-The paper imports from Paper 0 only local positive concentration and the local
-Type I/Type II dichotomy, imports from Paper I only the Type I Seregin
-extraction and residual criterion, imports from Paper II only the results proved
-there, and imports from Paper III only the closed
-structured alternatives.  The terminal active-locus extraction, diffuse-defect
-compactness, active path-space recurrence, and finite separated-family exclusion
-are not imported: they are implemented above by local concentration analysis.
-The realized critical-tail rigidity statement is proved above as an explicit
-local state-space stratification of the critical boundary compactification, not
-a hidden consequence of local CKN observables.  The affine lower stratum and the
-coherent critical-tail alternatives are closed above by oscillatory entry
-normalization and bounded-origin realization.  The log-diffuse and Young lower
-alternatives are both reduced above to hidden-scale compactness.  The complete
-discharge of hidden recurrent critical-tail defects is isolated in
-\BranchClosurePackage; it is proved here by the first-bad blow-down,
-local pressure compactness, and bounded ancient variance Liouville argument.
-The rotational
-relative-equilibrium class is not closed by a global Coriolis--Leray Liouville
-theorem for bounded profiles; it is closed by the localized flux identity
-and the same recentered local concentration analysis.
+The paper inherits the base setup, including local concentration, the local Type I
+Type II dichotomy, the Type I Seregin extraction framework, and the initial
+structural decomposition, from the unified setup package in
+\texttt{proof\_setup.tex}.  All remaining branch-closure steps are proved in this
+paper using local concentration and terminal dynamics:
+\begin{itemize}
+\item terminal active-locus extraction;
+\item compactness of descendant/tail families and pressure controls;
+\item active path-space recurrence;
+\item finite separated-family exclusion;
+\item oscillatory-entry normalization;
+\item hidden-scale compactness routing for critical tails;
+\item bounded-origin realization and critical-tail branch exclusion;
+\item and the compactness and branching exclusions culminating in
+ \Cref{thm:R4-final-closure}.
+\end{itemize}
 \end{remark}
 
 \begin{thebibliography}{99}
-
-\bibitem{DuranPaper0}
-G.~Duran Ballester,
-\emph{Local CKN concentration and the Type I/Type II dichotomy for
-Navier--Stokes},
-preprint, 2026.
-
-\bibitem{DuranPaperI}
-G.~Duran Ballester,
-\emph{Type I blow-up limits and residual closure for the
-three-dimensional Navier--Stokes equations},
-preprint, 2026.
-
-\bibitem{DuranPaperII}
-G.~Duran Ballester,
-\emph{Uniformly tight ancient Navier--Stokes dynamics and endpoint \(L^3\)
-rigidity},
-preprint, 2026.
-
-\bibitem{DuranPaperIII}
-G.~Duran Ballester,
-\emph{Structured ancient solution exclusions for Type I Navier--Stokes blow-up
-limits},
-preprint, 2026.
 
 \bibitem{AlbrittonBarker2019}
 D.~Albritton and T.~Barker,
