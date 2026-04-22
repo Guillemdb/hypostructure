@@ -76,8 +76,8 @@ together with the distributional, weak, strong, variational, entropy,
 viscosity, renormalized, or problem-specific formulation in which the equation
 will be used. It must identify:
 
-* the unknown $u$ and any auxiliary unknowns such as pressure, multipliers,
-  potentials, constraints, gauges, or Lagrange multipliers;
+* the unknown $u$ and any auxiliary unknowns such as multipliers, potentials,
+  constraints, gauges, or Lagrange multipliers;
 * the principal operator and lower-order terms;
 * forcing, source, drift, constraint, and coupling terms;
 * the class of test functions or variations;
@@ -264,7 +264,7 @@ audit. At minimum it must state which of the following are relevant:
 
 * weak convergence or measure-valued defects;
 * stress, Reynolds, or commutator defects;
-* constraint, multiplier, pressure, or gauge defects;
+* constraint, multiplier, auxiliary-potential, or gauge defects;
 * boundary or interface defects;
 * oscillation, frequency-envelope, or high-frequency defects;
 * problem-specific residual terms.
@@ -290,6 +290,40 @@ Each endpoint theorem must be stated with its exact hypotheses: solution
 class, topology, domain, boundary conditions, decay or integrability,
 normalization, defect status, and conclusion. The endpoint nodes may use only
 theorems recorded in this library or theorems produced by a prior refinement.
+
+### No disguised global-node rule
+
+The sieve is not allowed to hide a hard whole-domain theorem hypothesis inside
+one ordinary node. A node may not ask for a whole-domain bound, whole-domain
+integral formulation, endpoint sequence bound, terminal tightness statement, or
+global representative as a primitive local check.
+
+Such a statement is admissible only in one of the following two forms:
+
+1. **Imported theorem input.** A named theorem in $\mathcal L$ supplies the
+   implication, and every hypothesis of that theorem has already been matched
+   by earlier branch data.
+2. **Assembled endpoint output.** The statement is produced by a ledger of
+   local checks: exterior witness extraction, bounded-overlap covers, active
+   core versus diffuse residual alternatives, observer recentering, local
+   compactness, defect routing, recurrence or finite-family discharge, and
+   terminal indecomposability.
+
+If neither form is available, the branch records an explicit obligation rather
+than closing. This is the conservation-of-difficulty convention: a global
+endpoint-looking conclusion may be the result of many local estimates, but it
+is never treated as one easy estimate.
+
+Consequently nodes fall into the following audit classes:
+
+* **local check:** one estimate or compact-window proposition;
+* **finite-cover check:** a bounded-overlap local counting argument;
+* **defect split:** an ordered active/diffuse/source/compactness alternative;
+* **assembly ledger:** a sequence of local checks whose output is
+  endpoint-looking but not assumed;
+* **imported theorem application:** a theorem call after all hypotheses are
+  already in the branch record;
+* **open obligation:** a named missing bridge.
 
 ### Verified-conclusion format
 
@@ -445,6 +479,150 @@ flowchart TD
     PS33{"PS33<br/>Endpoint-realization check"}
     PS34{"PS34<br/>Residual-complement defect check"}
     PS35{"PS35<br/>Case-decomposition incompleteness check"}
+
+    subgraph STBLOCK["ST0-ST20 StateSpaceResidualClosure"]
+        ST0["ST0<br/>Lower-strata ledger"]
+        ST1["ST1<br/>Covariant observers"]
+        ST2["ST2<br/>Terminal local state space"]
+        ST3["ST3<br/>Affine/parasitic split"]
+        ST4["ST4<br/>Local regularity and oscillation measures"]
+        ST5["ST5<br/>Active-locus extraction"]
+        ST6["ST6<br/>Paired remainder decomposition"]
+        ST7["ST7<br/>Nonactive sole-carrier discharge"]
+        ST8["ST8<br/>Diffuse-defect compactness"]
+        ST9["ST9<br/>Diffuse recurrence trichotomy"]
+        ST10["ST10<br/>Critical-tail compactification"]
+        ST11["ST11<br/>Critical-tail rigidity"]
+        ST12["ST12<br/>Descendant heredity"]
+        ST13["ST13<br/>Active successor recurrence"]
+        ST14["ST14<br/>Recurrent-core rigidity"]
+        ST15["ST15<br/>No finite separated family"]
+        ST16["ST16<br/>Terminal indecomposability"]
+        ST17["ST17<br/>Endpoint sequence ledger"]
+        ST18["ST18<br/>Integral-formulation ledger"]
+        ST19["ST19<br/>Imported endpoint theorem"]
+        ST20["ST20<br/>Local residual closure"]
+
+        ST0 --> ST1
+        ST1 --> ST2
+        ST2 --> ST3
+        ST3 --> ST4
+        ST4 --> ST5
+        ST5 --> ST6
+        ST6 --> ST7
+        ST7 --> ST8
+        ST8 --> ST9
+        ST9 --> ST10
+        ST10 --> ST11
+        ST11 --> ST12
+        ST12 --> ST13
+        ST13 --> ST14
+        ST14 --> ST15
+        ST15 --> ST16
+        ST16 --> ST17
+        ST17 --> ST18
+        ST18 --> ST19
+        ST19 --> ST20
+        ST3 -. "affine/lower exit" .-> PS34
+        ST9 -. "local activity regenerated" .-> ST5
+        ST11 -. "local activity regenerated" .-> ST5
+        ST11 -. "critical-tail obligation" .-> PS34
+        ST14 -. "recurrent-core obligation" .-> PS34
+        ST15 -. "finite-family obligation" .-> PS34
+        ST18 -. "integral-formulation gap" .-> PS34
+    end
+
+    subgraph PS15LOCAL["PS15a-PS15n LocalTightnessReplacement"]
+        P15A["PS15a<br/>Exterior witness"]
+        P15B["PS15b<br/>Core/diffuse dichotomy"]
+        P15C["PS15c<br/>Covariant recentering"]
+        P15D["PS15d<br/>Exterior compactness"]
+        P15E["PS15e<br/>Diffuse compactification"]
+        P15F["PS15f<br/>Diffuse trichotomy"]
+        P15G["PS15g<br/>Critical-tail state"]
+        P15H["PS15h<br/>Active successor"]
+        P15I["PS15i<br/>No infinite chain"]
+        P15J["PS15j<br/>No finite separated family"]
+        P15K["PS15k<br/>Terminal indecomposable"]
+        P15L["PS15l<br/>Endpoint sequence ledger"]
+        P15M["PS15m<br/>Integral-formulation ledger"]
+        P15N["PS15n<br/>Imported endpoint theorem"]
+
+        P15A --> P15B
+        P15B --> P15C
+        P15B --> P15E
+        P15C --> P15D
+        P15D --> P15H
+        P15E --> P15F
+        P15F --> P15G
+        P15G --> P15H
+        P15H --> P15I
+        P15I --> P15J
+        P15J --> P15K
+        P15K --> P15L
+        P15L --> P15M
+        P15M --> P15N
+        P15F -. "activity regenerated" .-> P15C
+        P15G -. "activity regenerated" .-> P15C
+        P15D -. "rough-core defect" .-> PS17
+        P15D -. "auxiliary/source defect" .-> PS30
+        P15G -. "critical-tail obligation" .-> PS34
+        P15I -. "recurrence obligation" .-> PS34
+        P15J -. "finite-family obligation" .-> PS18
+        P15M -. "integral-formulation gap" .-> PS31
+        P15N -. "endpoint theorem gap" .-> PS31
+    end
+
+    subgraph TIIBLOCK["TII0-TII16 LocalTypeIIReplacement"]
+        TII0["TII0<br/>Local Type II packet"]
+        TII1["TII1<br/>Compact-window admissibility"]
+        TII2["TII2<br/>Local active budget"]
+        TII3["TII3<br/>Repaired local gauge"]
+        TII4["TII4<br/>Local auxiliary field"]
+        TII5["TII5<br/>Represented equation"]
+        TII6["TII6<br/>Compact-window limit"]
+        TII7["TII7<br/>Zero-dissipation test"]
+        TII8["TII8<br/>Rough-core redirect"]
+        TII9["TII9<br/>Active-frame partition"]
+        TII10["TII10<br/>Local invisibility"]
+        TII11["TII11<br/>Compound/cascade core"]
+        TII12["TII12<br/>Local decoupling"]
+        TII13["TII13<br/>Scale-collapse strata"]
+        TII14["TII14<br/>Scale-rigid terminal state"]
+        TII15["TII15<br/>Type II state decomposition"]
+        TII16["TII16<br/>Local Type II closure ledger"]
+
+        TII0 --> TII1
+        TII1 --> TII2
+        TII2 --> TII3
+        TII3 --> TII4
+        TII4 --> TII5
+        TII5 --> TII6
+        TII6 --> TII7
+        TII6 --> TII8
+        TII8 --> TII9
+        TII9 --> TII10
+        TII10 --> TII11
+        TII11 --> TII12
+        TII11 --> TII13
+        TII13 --> TII14
+        TII7 --> TII15
+        TII12 --> TII15
+        TII14 --> TII15
+        TII15 --> TII16
+        TII2 -. "missing local budget" .-> TII8
+        TII3 -. "gauge degeneracy" .-> TII9
+        TII3 -. "compound/cascade degeneracy" .-> TII11
+        TII4 -. "local auxiliary-field defect" .-> PS30
+        TII5 -. "coefficient defect" .-> TII13
+        TII6 -. "frame compactness defect" .-> TII9
+        TII8 -. "new active frame" .-> TII2
+        TII10 -. "recentered active frame" .-> TII2
+        TII12 -. "interaction defect" .-> PS30
+        TII14 -. "unabsorbed terminal defect" .-> PS34
+        TII16 -. "defect obligation" .-> PS30
+        TII16 -. "terminal obligation" .-> PS34
+    end
 
     BPS0["Estimate_PS0"]
     BPS1["Estimate_PS1"]
@@ -668,6 +846,7 @@ flowchart TD
     BPS10 -- "failed" --> MPS10
     MPS10 -- "refinement required" --> SPS10
     SPS10 -. "refinement conclusion" .-> PS11
+    SPS10 -. "local Type II replacement route" .-> TII0
     PS10 -- "NO: obstruction absent" --> PS11
 
     PS11 -- "YES/INC obstruction" --> BPS11
@@ -675,7 +854,9 @@ flowchart TD
     BPS11 -- "failed" --> MPS11
     MPS11 -- "refinement required" --> SPS11
     SPS11 -. "refinement conclusion" .-> PS12
+    SPS11 -. "scale-state local Type II route" .-> TII0
     PS11 -- "NO: obstruction absent" --> PS12
+    TII16 -. "local Type II row discharged or obligation recorded" .-> PS12
 
     PS12 -- "YES/INC obstruction" --> BPS12
     BPS12 -- "controlled" --> PS13
@@ -703,7 +884,9 @@ flowchart TD
     BPS15 -- "failed" --> MPS15
     MPS15 -- "refinement required" --> SPS15
     SPS15 -. "refinement conclusion" .-> PS16
+    SPS15 -. "local non-tight closure" .-> P15A
     PS15 -- "NO: obstruction absent" --> PS16
+    P15N -. "local non-tight branch excluded or obligation routed" .-> PS16
 
     PS16 -- "YES/INC obstruction" --> BPS16
     BPS16 -- "controlled" --> PS17
@@ -804,11 +987,16 @@ flowchart TD
     PS29 -- "NO: obstruction absent" --> PS30
 
     PS30 -- "YES/INC obstruction" --> BPS30
-    BPS30 -- "controlled" --> PS31
+    BPS30 -- "controlled generic residual stratum" --> ST0
+    BPS30 -- "controlled endpoint stratum" --> PS31
     BPS30 -- "failed" --> MPS30
     MPS30 -- "refinement required" --> SPS30
-    SPS30 -. "refinement conclusion" .-> PS31
-    PS30 -- "NO: obstruction absent" --> PS31
+    SPS30 -. "refinement residual conclusion" .-> ST0
+    SPS30 -. "refinement endpoint conclusion" .-> PS31
+    PS30 -- "NO: complete generic residual vector" --> ST0
+    PS30 -- "NO: complete nonresidual endpoint vector" --> PS31
+    ST20 -- "generic residual excluded<br/>K_ST20" --> PS31
+    ST20 -. "Obl_ST nonempty" .-> PS34
 
     PS31 -- "YES/INC obstruction" --> BPS31
     BPS31 -- "controlled" --> PS32
@@ -884,6 +1072,7 @@ flowchart TD
     classDef estimate fill:#f97316,stroke:#c2410c,color:#ffffff;
     classDef failure fill:#ef4444,stroke:#b91c1c,color:#ffffff;
     classDef refinement fill:#9333ea,stroke:#6b21a8,color:#ffffff;
+    classDef state fill:#0f766e,stroke:#115e59,color:#ffffff;
     classDef terminal fill:#fef3c7,stroke:#d97706,color:#111827;
 
     class H0 source;
@@ -895,6 +1084,9 @@ flowchart TD
     class SCE,SCC,SCDSCAT,SBE,SBD,SBC,SLOCK refinement;
     class SPS0,SPS1,SPS2,SPS3,SPS4,SPS5,SPS6,SPS7,SPS8,SPS9,SPS10,SPS11,SPS12,SPS13,SPS14,SPS15,SPS16,SPS17,SPS18,SPS19,SPS20,SPS21,SPS22,SPS23,SPS24,SPS25,SPS26,SPS27,SPS28,SPS29,SPS30,SPS31,SPS32,SPS33,SPS34,SPS35 refinement;
     class PS0,PS1,PS2,PS3,PS4,PS5,PS6,PS7,PS8,PS9,PS10,PS11,PS12,PS13,PS14,PS15,PS16,PS17,PS18,PS19,PS20,PS21,PS22,PS23,PS24,PS25,PS26,PS27,PS28,PS29,PS30,PS31,PS32,PS33,PS34,PS35 check;
+    class ST0,ST1,ST2,ST3,ST4,ST5,ST6,ST7,ST8,ST9,ST10,ST11,ST12,ST13,ST14,ST15,ST16,ST17,ST18,ST19,ST20 state;
+    class P15A,P15B,P15C,P15D,P15E,P15F,P15G,P15H,P15I,P15J,P15K,P15L,P15M,P15N state;
+    class TII0,TII1,TII2,TII3,TII4,TII5,TII6,TII7,TII8,TII9,TII10,TII11,TII12,TII13,TII14,TII15,TII16 state;
     class BLOW_UP,STRUCT,CONT,REG terminal;
 ```
 
@@ -1306,11 +1498,14 @@ headings, not transition vertices.
 | Core entry and coarse compactness | `D_E`, `Rec_N`, `C_mu` | Establish energy control, local finiteness of rescaling times, and the profile or no-profile branch. | `PS0` or `Bound_partial` |
 | Profile setup and normalization | `PS0`--`PS8` | Convert continuation failure into a normalized, admissible, active PDE profile. | `PS9` |
 | Scale-law case analysis | `PS9`--`PS11` | Classify Type I, Type II, and scale-cascade behavior. | `PS12` |
+| Local Type II replacement | `TII0`--`TII16` | Replace global Type II profile budgets, tail assumptions, and whole-domain auxiliary-field reconstructions by compact-window local checks and state-space alternatives. | `PS12`, `PS30`, or `PS34` |
 | Orbit-type case analysis | `PS12`--`PS14` | Classify stationary, compact-orbit, and terminal orbit behavior. | `PS15` |
 | Localization case analysis | `PS15`--`PS17` | Check tightness, radiation, and rough-core/capacity obstructions. | `PS18` |
+| Local non-tight closure | `PS15a`--`PS15n` | Replace a global tightness hypothesis by exterior witnesses, covariant local observers, diffuse-tail compactification, terminal indecomposability, an endpoint-sequence assembly ledger, an integral-formulation assembly ledger, and finally a theorem-matching imported endpoint application. | `PS16`, `PS18`, `PS31`, or `PS34` |
 | Splitting and packet case analysis | `PS18`--`PS20` | Check multicenter, finite-packet, and terminal-decoupling mechanisms. | `PS21` |
 | Structural case analysis | `PS21`--`PS29` | Check smallness, stationary critical-norm, symmetry, relative equilibrium, structural reduction, and Lyapunov structure. | `PS30` |
-| Defect closure | `PS30` | Verify that the defect verified conclusion vector is complete. | `PS31` |
+| Defect closure | `PS30` | Verify that the defect verified conclusion vector is complete and route generic residual witnesses to the local state-space block. | `ST0`--`ST20` or `PS31` |
+| Local residual state-space closure | `ST0`--`ST20` | Replace global-looking tail, auxiliary-field, and endpoint sequence-bound failures by local observer-state stratification, close the generic residual when the ST-obligation ledger is empty, and pass only the local theorem record forward. | `PS31` or `PS34` |
 | Endpoint and case-decomposition closure | `PS31`--`PS35` | Match endpoint hypotheses, apply endpoint exclusion or realization, define residual complement, and verify case decomposition completeness. | `Bound_partial` |
 | Boundary, control, and final exclusion step | `Bound_partial`, `Bound_B`, `Bound_Sigma`, `GC_T`, `FinalExcl` | Resolve boundary scope, input excess forcing and input insufficiency, alignment, and final singular-profile realization set-exclusion. | structural regularity or realization output |
 
@@ -1348,12 +1543,14 @@ the components of $H_0$ defined in Section 1.
 | `PS7` | $\mathcal P$ for the limiting equation; $\mathcal U,\mathcal A$ for solution and limit admissibility; $\mathcal D$ for inherited data compatibility; $\mathcal B$ for boundary compatibility; $\mathcal T$ for trace and limit topology. | Profile limit from `PS6` and renormalized equation from `PS5`. | Admissibility-inheritance certificate, sector or class refinement, non-admissibility witness, and context for `PS8`. |
 | `PS8` | $\mathcal E$ for nontriviality or activity thresholds; $\mathcal C$ for continuation-relevant activity criteria; $\mathcal T$ for nonvanishing topology; $\mathcal S$ for scale and frame normalization. | Admissible profile from `PS7`, profile limit from `PS6`, and concentration witness from `PS1`. | Active-profile witness, vanishing witness, activity threshold data, and context for `PS9`. |
 | `PS9` | $\mathcal S$ for scale law and rate normalization; $\mathcal E$ for critical quantities; $\mathcal C$ for Type I continuation or regularity thresholds; $\mathcal T$ for rate-limit topology; $\mathcal L$ for endpoint consequences of Type I bounds. | Active profile from `PS8` and selected scale from `PS3`. | Type I status, Type I rate bound or failure witness, and rate context for `PS10`. |
-| `PS10` | $\mathcal S$ for alternative scale laws; $\mathcal E$ for critical norms and rate functionals; $\mathcal C$ for Type II threshold criteria; $\mathcal T$ for limiting rate topology; $\mathcal L$ for endpoint consequences of Type II bounds. | Type I status from `PS9`, active profile from `PS8`, and scale data from `PS3`. | Type II status, renormalized rate envelope, Type II failure witness, and context for `PS11`. |
-| `PS11` | $\mathcal S$ for multiscale, dyadic, and frequency decompositions; $\mathcal E$ for scale-localized quantities; $\mathcal T$ for multiscale convergence; $\mathcal R$ for cascade or frequency defects. | Type I and Type II rate data from `PS9` and `PS10`. | Scale-cascade certificate, scale-space stratification, cascade witness, and context for `PS12`. |
+| `PS10` | $\mathcal S$ for alternative scale laws; $\mathcal E$ for critical norms and rate functionals; $\mathcal C$ for Type II threshold criteria; $\mathcal T$ for limiting rate topology; $\mathcal L$ for endpoint consequences of Type II bounds. | Type I status from `PS9`, active profile from `PS8`, and scale data from `PS3`. | Type II status, renormalized rate envelope, Type II failure witness, context for `PS11`, and optional local Type II packet entry for `TII0`. |
+| `PS11` | $\mathcal S$ for multiscale, dyadic, and frequency decompositions; $\mathcal E$ for scale-localized quantities; $\mathcal T$ for multiscale convergence; $\mathcal R$ for cascade or frequency defects. | Type I and Type II rate data from `PS9` and `PS10`. | Scale-cascade certificate, scale-space stratification, cascade witness, context for `PS12`, and scale-state input for `TII0` when the Type II local replacement route is active. |
+| `TII0`--`TII16` | $\mathcal P$ for the locally represented equation; $\Omega,I$ for compact observer windows; $\mathcal U,\mathcal A$ for local admissibility; $\mathcal T$ for compact-window convergence and source convergence; $\mathcal E$ for local activity and local upper-bound packages; $\mathcal S$ for local gauges, frames, scales, and observer recentering; $\mathcal R$ for rough-core, auxiliary-field/source, cascade, and terminal-state obligations; $\mathcal L$ for local rigidity or endpoint ingredients; $\mathcal Z$ for the local Type II obligation ledger. | Positive local Type II packet from `PS10`, scale-state information from `PS11`, local equation data from `PS5`, compactness and admissibility data from `PS6`--`PS7`, and activity from `PS8`. | Local Type II state-space decomposition, compact-window packet counts, repaired local gauge, local auxiliary-field replacement, local terminal decoupling, scale-collapse alternatives, scale-rigid terminal status, and either a closed Type II row or an explicit obligation routed to `PS30` or `PS34`. |
 | `PS12` | $\mathcal P$ for the renormalized flow; $\mathcal U$ for solution regularity; $\mathcal S$ for renormalized time and symmetries; $\mathcal T$ for time-translation limits; $\mathcal L$ for stationary rigidity candidates. | Scale-law context from `PS11` and renormalized equation from `PS5`. | Stationary or nonstationary status, time-translation hull, stationary-profile witness, and context for `PS13`. |
 | `PS13` | $\mathcal S$ for orbit parameters; $\mathcal T$ for compactness of the orbit hull; $\mathcal E$ for orbit bounds; $\mathcal L$ for compact-dynamics rigidity. | Renormalized trajectory or stationary-context data from `PS12`. | Compact-orbit certificate, invariant hull, compactness failure witness, and context for `PS14`. |
 | `PS14` | $\Omega,I$ for terminal-time geometry; $\mathcal S$ for terminal rescaling; $\mathcal T$ for terminal limits; $\mathcal C$ for continuation past terminal time; $\mathcal L$ for terminal profile theorems. | Orbit or hull data from `PS13` and renormalized flow data from `PS12`. | Terminal or nonterminal orbit status, terminal time-shift profile, and context for `PS15`. |
-| `PS15` | $\Omega$ for spatial localization; $\mathcal E$ for tail quantities; $\mathcal T$ for tightness topology; $\mathcal S$ for localized frames; $\mathcal R$ for tail or measure defects. | Profile or terminal context from `PS14`, plus profile limit from `PS6`. | Tightness certificate, tail decomposition, tightness failure witness, and context for `PS16`. |
+| `PS15` | $\Omega$ for spatial localization; $\mathcal E$ for tail quantities; $\mathcal T$ for tightness topology; $\mathcal S$ for localized frames; $\mathcal R$ for tail or measure defects. | Profile or terminal context from `PS14`, plus profile limit from `PS6`. | Tightness status, tail decomposition, tightness failure witness, context for `PS16`, and the local non-tight replacement input for `PS15a` when a global tightness hypothesis has not been proved. |
+| `PS15a`--`PS15n` | $\Omega,I$ for exterior and observer windows; $\mathcal P$ for the transformed local equation or integral formulation; $\mathcal U,\mathcal A$ for local state admissibility; $\mathcal T$ for observer compactness, measure compactness, path-space compactness, and endpoint convergence; $\mathcal E$ for retained local activity and exterior densities; $\mathcal S$ for covariant observers and terminal recenterings; $\mathcal R$ for diffuse, active-chain, finite-family, critical-tail, endpoint-sequence, and integral-formulation obligations; $\mathcal L$ for lower-stratum and endpoint inputs. | Tightness failure witness from `PS15`, local equation and compactness data from `PS5`--`PS7`, activity from `PS8`, and endpoint theorem interface from `PS31` when the terminal gate is reached. | Exterior witness, active exterior core or diffuse tail, covariant local observer, compact exterior profile or local defect, diffuse state, critical-tail state, active successor relation, terminal indecomposability, endpoint sequence assembled from local alternatives or a named obligation, integral-formulation assembled from local residual checks or a named obligation, and imported endpoint theorem status. |
 | `PS16` | $\mathcal P$ for radiation equations; $\mathcal E$ for radiative energy or flux; $\mathcal T$ for weak radiation limits; $\mathcal S$ for outgoing or frequency-localized frames; $\mathcal R$ for radiation defects. | Tightness and tail data from `PS15`. | Radiation profile, absence of radiation, radiative-defect witness, and context for `PS17`. |
 | `PS17` | $\Omega$ for capacity or rough-core localization; $\mathcal T$ for trace, capacity, and local convergence; $\mathcal E$ for local energy near rough sets; $\mathcal C$ for local regularity criteria; $\mathcal L$ for capacity or removability theorems. | Localization and radiation status from `PS15` and `PS16`. | Rough-core or capacity status, removability certificate, rough-core witness, and context for `PS18`. |
 | `PS18` | $\mathcal S$ for multicenter frames; $\mathcal T$ for orthogonality and profile convergence; $\mathcal E$ for localized mass or energy separation; $\mathcal R$ for interaction defects. | Localized core data from `PS17` and center data from `PS2`. | Multicenter decomposition, dominant frame, multicenter failure witness, and context for `PS19`. |
@@ -1368,8 +1565,9 @@ the components of $H_0$ defined in Section 1.
 | `PS27` | $\mathcal P$ for reduced dynamics; $\mathcal E$ for mass-gap or stability energy; $\mathcal S$ for symmetry-broken coordinates; $\mathcal T$ for stability topology; $\mathcal L$ for stability or instability theorems. | Symmetry-action and quotient data from `PS26`. | Symmetry-breaking stability status, mass-gap data, and context for `PS29`. |
 | `PS28` | $\mathcal E$ for action, energy, or transition functional; $\mathcal S$ for sector or connecting-orbit parameters; $\mathcal T$ for convergence of transitions; $\mathcal L$ for finite-action or transition-rigidity results. | No-symmetry sector data from `PS26`. | Transition-action status, finite-action refinement, infinite-action witness, and context for `PS29`. |
 | `PS29` | $\mathcal E$ for Lyapunov, monotonicity, or stiffness functionals; $\mathcal C$ for stability consequences; $\mathcal S$ for hull-local coordinates; $\mathcal T$ for compact-hull topology; $\mathcal L$ for Lyapunov or spectral rigidity results. | Case-reduced branch data from `PS25`, `PS27`, or `PS28`, plus orbit data from `PS13`. | Lyapunov-structure certificate, stiffness failure witness, hull-local functional, and context for `PS30`. |
-| `PS30` | $\mathcal P$ for equations generating residuals; $\mathcal U,\mathcal A$ for admissible defect variables; $\mathcal T$ for distributional, measure, trace, and frequency convergence; $\mathcal B$ for boundary/interface defects; $\mathcal S$ for frequency and gauge defects; $\mathcal R$ for the declared defect vocabulary; $\mathcal Z$ for the defect vector format. | Renormalized equation from `PS5`, profile limit from `PS6`, and structural context from `PS29`. | Complete defect vector, unresolved defect channel, added defect stratum, and context for `PS31`. |
-| `PS31` | $\mathcal L$ for endpoint theorem hypotheses; $\mathcal U,\mathcal A$ for solution class compatibility; $\mathcal T$ for convergence required by endpoint theorems; $\mathcal B$ for boundary hypotheses; $\mathcal D$ for data hypotheses; $\mathcal R$ for defect-free assumptions. | Defect vector from `PS30` and profile or branch data from `PS9`--`PS29`. | Endpoint-hypothesis package, mismatch witness, added endpoint hypothesis, and context for `PS32`. |
+| `PS30` | $\mathcal P$ for equations generating residuals; $\mathcal U,\mathcal A$ for admissible defect variables; $\mathcal T$ for distributional, measure, trace, and frequency convergence; $\mathcal B$ for boundary/interface defects; $\mathcal S$ for frequency and gauge defects; $\mathcal R$ for the declared defect vocabulary; $\mathcal Z$ for the defect vector format. | Renormalized equation from `PS5`, profile limit from `PS6`, and structural context from `PS29`. | Complete defect vector, unresolved defect channel, added defect stratum, and context for `ST0`--`ST20` or `PS31`. |
+| `ST0`--`ST20` | $\mathcal P$ for the locally represented PDE and its observer symmetries; $\mathcal U,\mathcal A$ for bounded local state spaces; $\mathcal T$ for compact-window, Hausdorff--Fell, measure, path-space, and endpoint topologies; $\mathcal S$ for covariant observers and affine normalization; $\mathcal E$ for retained local activity and oscillation; $\mathcal R$ for diffuse, critical-tail, active-chain, finite-family, and integral-formulation obligations; $\mathcal L$ for lower-stratum and endpoint inputs; $\mathcal Z$ for the ST-obligation ledger. | Complete defect vector from `PS30`, local equation and admissibility from `PS5`--`PS7`, retained activity from `PS8`, structural lower-strata ledger from `PS21`--`PS29`, and local gauge or auxiliary-field records from `PS4`/`PS30`. | Local residual theorem `T_ST20`, routed lower-strata ledger, covariant observer state space, active/diffuse/critical-tail/recurrence decomposition, forced backward sequence bound, finite-shift integral-formulation record, $\mathrm{Obl}_{\mathrm{ST}}$, and context for `PS31` or `PS34`. |
+| `PS31` | $\mathcal L$ for endpoint theorem hypotheses; $\mathcal U,\mathcal A$ for solution class compatibility; $\mathcal T$ for convergence required by endpoint theorems; $\mathcal B$ for boundary hypotheses; $\mathcal D$ for data hypotheses; $\mathcal R$ for defect-free assumptions. | Defect vector from `PS30`, residual theorem record from `ST20` when the generic residual branch is present, and profile or branch data from `PS9`--`PS29`. | Endpoint-hypothesis package, mismatch witness, added endpoint hypothesis, and context for `PS32`. |
 | `PS32` | $\mathcal L$ for exclusion theorems; $\mathcal P$ for the endpoint equation; $\mathcal U$ for theorem solution class; $\mathcal T$ for endpoint topology; $\mathcal E,\mathcal C$ for bounds or continuation consequences. | Matched endpoint package from `PS31`. | Endpoint-exclusion status, missing-exclusion witness, additional endpoint condition, and context for `PS33`. |
 | `PS33` | $\mathcal L$ for realization or construction theorems; $\mathcal D$ for admissible data for constructed objects; $\mathcal U,\mathcal A$ for construction class; $\mathcal T$ for convergence of constructed families; $\mathcal S$ for modulation or manifold parameters. | Endpoint-exclusion status from `PS32` and endpoint package from `PS31`. | Realization or non-realization status, attainability witness, stable/unstable manifold data, and context for `PS34`. |
 | `PS34` | $\mathcal L$ for branch taxonomy; $\mathcal R$ for residual defect vocabulary; $\mathcal T$ for complement topology; $\mathcal Z$ for verified case entries. | Endpoint statuses from `PS31`--`PS33`, defect vector from `PS30`, and branch data from `PS9`--`PS29`. | Residual-complement definition, residual ambiguity witness, and context for `PS35`. |
@@ -1576,6 +1774,7 @@ flowchart LR
     class B estimate;
     class M failure;
     class S refinement;
+    class R state;
     class N next;
 ```
 
@@ -3773,6 +3972,495 @@ flowchart LR
 
 ---
 
+# 8A. Local Type II replacement subnodes
+
+The subnodes `TII0`--`TII16` are used only on a Type II local branch emitted by
+`PS10` and refined by the scale-state information of `PS11`. They replace any
+argument that would otherwise assume a whole-domain critical norm, a global
+profile-mass budget, a global auxiliary-field reconstruction, or a terminal
+whole-domain profile decomposition. Every `TII` subnode is a local
+compact-window PDE proof step: it inspects one current observer window, records
+one local alternative, and either returns a refined local branch or records a
+named obligation.
+
+## TII0 -- Local Type II packet
+
+**Single check:** Has the Type II branch produced a positive local activity
+packet in admissible normalized variables?
+
+**Filled node template**
+
+- **PDE role:** This node fixes the local Type II entry packet: terminal point
+  or event, shrinking scales, normalized unknowns, local activity lower bounds,
+  and the original non-Type-I rate predicate.
+- **Proof-dependency position:** Inputs are `PS10` and `PS11`; default output is
+  `TII1`.
+- **Logical proposition:** $P_{\mathrm{TII0}}$: the local Type II packet is
+  missing or is not tied to the original non-Type-I predicate.
+- **Inputs:** $\Gamma_{\rm in}$ contains the active profile, local scales,
+  activity lower bounds, admissibility class, and rate predicate.
+- **Explicit lemma objects:** Active profile sequence, selected local event or
+  terminal point, shrinking scales, normalized variables, local activity
+  functional, admissible compact observer windows, and the original non-Type-I
+  rate predicate.
+- **Check box:** Verify that the normalized variables are admissible on compact
+  observer windows, retain positive local activity, and remain tied to the
+  original non-Type-I predicate. Output a missing-packet, valid-packet, or
+  undecided-rate-link conclusion.
+- **Local lemma to prove:** Show that the branch contains normalized local
+  variables on compact observer windows with positive local activity and with
+  the non-Type-I predicate still stated in original variables.
+- **Output context:** $\Gamma_{\mathrm{TII0}}$ records the local Type II packet,
+  normalized variables, local activity lower bounds, and non-Type-I predicate.
+
+## TII1 -- Compact-window admissibility package
+
+**Single check:** Are the local upper bounds needed for compactness available
+on the selected compact window?
+
+**Filled node template**
+
+- **PDE role:** This node separates lower activity from upper compactness.
+- **Proof-dependency position:** Input is `TII0`; default output is `TII2`;
+  rough local failure routes to `TII8`.
+- **Logical proposition:** $P_{\mathrm{TII1}}$: the compact-window upper-bound
+  package is missing.
+- **Inputs:** $\Gamma_{\rm in}$ contains the local Type II packet and a compact
+  observer window $Q\Subset Q^+$.
+- **Explicit lemma objects:** Compact observer windows $Q\Subset Q^+$, local
+  energy or coercive quantities, dissipation quantities, active density,
+  auxiliary-field oscillation, time-derivative norm, and compactness topology.
+- **Check box:** Verify every upper bound required by the compactness theorem
+  on $Q^+$. Output compact-window package, rough-core failure, or the exact
+  missing bound.
+- **Local lemma to prove:** On $Q^+$, verify the local energy, dissipation,
+  activity, auxiliary-field oscillation, and time-derivative bounds required by
+  the compactness topology declared in $H_0$.
+- **Output context:** $\Gamma_{\mathrm{TII1}}$ records either the
+  compact-window package or the exact rough-core/compactness failure.
+
+## TII2 -- Local active-window budget
+
+**Single check:** Can active local frames be counted on a compact observer
+window by a local budget?
+
+**Filled node template**
+
+- **PDE role:** This node replaces global profile-mass counting by finite
+  compact-window counting.
+- **Proof-dependency position:** Input is `TII1`; default output is `TII3`;
+  missing budget routes to `TII8`.
+- **Logical proposition:** $P_{\mathrm{TII2}}$: no finite local active-frame
+  budget is available.
+- **Inputs:** A compact window $K\Subset K^+$, a bounded-overlap parabolic or
+  geometric cover, an activity threshold $\eta$, and a local budget $M_K$ for
+  the declared active density plus auxiliary-field oscillation.
+- **Explicit lemma objects:** Compact windows $K\Subset K^+$, bounded-overlap
+  cover, local activity threshold, active cylinders or charts, activity
+  density, auxiliary-field oscillation density, local means or gauges, and the
+  budget constant $M_K$.
+- **Check box:** Count above-threshold active windows using only the local
+  budget and bounded overlap. Output finite active list, missing-budget
+  failure, or unresolved auxiliary-field comparison.
+- **Local lemma to prove:** If each active cylinder carries at least $\eta$ and
+  the enlarged compact window has budget $M_K$, then bounded overlap gives
+  $N_{\rm active}\le C M_K/\eta$. Local auxiliary-field means are always taken
+  over genuine local sets, never over abstract compact labels.
+- **Output context:** $\Gamma_{\mathrm{TII2}}$ records the finite active
+  cylinders on each compact observer window.
+
+## TII3 -- Repaired local gauge
+
+**Single check:** Is the selected active core equipped with a nondegenerate
+local center-scale or modulation gauge?
+
+**Filled node template**
+
+- **PDE role:** This node chooses local coordinates by compactly supported
+  moment or orthogonality constraints.
+- **Proof-dependency position:** Input is `TII2`; default output is `TII4`;
+  degeneracy routes to `TII9` or `TII11`.
+- **Logical proposition:** $P_{\mathrm{TII3}}$: the gauge is degenerate or
+  the constraint map is not theorem-ready.
+- **Inputs:** The selected active core, local constraints, topology for the
+  constraint map, and candidate modulation parameters.
+- **Explicit lemma objects:** Selected core, compactly supported constraint
+  functionals, modulation variables, derivative matrix of the constraint map,
+  lower-bound constant for invertibility, and topology for parameter
+  dependence.
+- **Check box:** Test the constraint map and its derivative. Output repaired
+  gauge, gauge degeneracy, or missing topology/nondegeneracy estimate.
+- **Local lemma to prove:** If the derivative of the constraint map in the
+  modulation variables is invertible with quantitative lower bound on the
+  compact window, the parameters are locally well-defined and absolutely
+  continuous in the declared topology.
+- **Output context:** $\Gamma_{\mathrm{TII3}}$ records the repaired local gauge,
+  modulation coefficients, or gauge-degeneracy obligation.
+
+## TII4 -- Local auxiliary-field replacement
+
+**Single check:** Are auxiliary fields, multipliers, or constraint potentials
+controlled locally without a whole-domain reconstruction?
+
+**Filled node template**
+
+- **PDE role:** This node replaces global auxiliary-field formulae by
+  compact-ball or compact-chart decompositions.
+- **Proof-dependency position:** Input is `TII3`; default output is `TII5`;
+  failure routes to `TII8` or `PS30`.
+- **Logical proposition:** $P_{\mathrm{TII4}}$: the local auxiliary-field
+  component has an uncontrolled harmonic, homogeneous, constraint, or gauge
+  remainder.
+- **Inputs:** Local unknowns, auxiliary-field equation or constraint, cutoff
+  decomposition, and larger-window oscillation bounds.
+- **Explicit lemma objects:** Auxiliary field or multiplier, local constraint
+  equation, cutoff functions, forced local component, homogeneous or harmonic
+  remainder, larger compact window, oscillation or gauge bounds, and local
+  comparison estimate.
+- **Check box:** Verify local forced-field control and homogeneous-remainder
+  control. Output local auxiliary-field decomposition, controlled remainder, or
+  named auxiliary-field defect.
+- **Local lemma to prove:** Split the auxiliary field into a locally forced
+  part controlled by the active unknown and a homogeneous remainder controlled
+  only by a larger compact-window oscillation or gauge bound.
+- **Output context:** $\Gamma_{\mathrm{TII4}}$ records the local auxiliary-field
+  decomposition and the controlled or missing remainder.
+
+## TII5 -- Represented local Type II equation
+
+**Single check:** Does the repaired gauge produce the exact represented local
+PDE with all drift, source, and defect terms recorded?
+
+**Filled node template**
+
+- **PDE role:** This node derives the transformed PDE in the repaired local
+  frame.
+- **Proof-dependency position:** Input is `TII4`; default output is `TII6`;
+  uncontrolled coefficients route to `TII13`.
+- **Logical proposition:** $P_{\mathrm{TII5}}$: the represented equation is not
+  closed in the declared local topology.
+- **Inputs:** The original PDE, repaired gauge, transformed variables,
+  modulation coefficients, cutoff data, auxiliary fields, and source terms.
+- **Explicit lemma objects:** Original weak formulation, transformation map,
+  represented unknowns, transformed auxiliary fields, modulation coefficients,
+  cutoff functions, source terms, constraint defects, and test functions.
+- **Check box:** Derive the represented PDE term by term. Output closed
+  represented equation, coefficient/source defect, or missing transformation
+  identity.
+- **Local lemma to prove:** In distributions on the compact window, derive the
+  represented PDE and record every modulation coefficient, cutoff source,
+  divergence or constraint defect, and auxiliary-field gauge.
+- **Output context:** $\Gamma_{\mathrm{TII5}}$ records the exact represented
+  local equation and coefficient topology.
+
+## TII6 -- Compact-window compactness
+
+**Single check:** Does the represented sequence have compactness on the
+selected compact observer window?
+
+**Filled node template**
+
+- **PDE role:** This node applies the compactness theorem only after the local
+  upper-bound package has been verified.
+- **Proof-dependency position:** Input is `TII5`; default output is `TII7`;
+  failures route to `TII8` or `TII9`.
+- **Logical proposition:** $P_{\mathrm{TII6}}$: compactness or passage to the
+  local limit is missing.
+- **Inputs:** Uniform local bounds, auxiliary-field bounds, time-derivative
+  bounds, coefficient convergence, and source/defect topology.
+- **Explicit lemma objects:** Represented sequence, compact windows, local
+  coercive bounds, auxiliary-field bounds, time derivative bounds, modulation
+  coefficients, source/defect terms, compactness theorem, and convergence
+  topology for nonlinear terms.
+- **Check box:** Apply compactness only after all upper bounds and coefficient
+  convergence requirements are present. Output compact-window limit, coefficient
+  defect, source defect, or compactness failure.
+- **Local lemma to prove:** Extract a subsequence converging strongly enough
+  to pass nonlinear terms and weakly enough to pass coercive, auxiliary-field,
+  and admissibility structures.
+- **Output context:** $\Gamma_{\mathrm{TII6}}$ records the compact-window
+  limit or the exact compactness defect.
+
+## TII7 -- Compact single-core zero-dissipation test
+
+**Single check:** Does a single retained core collapse to a regular or
+mean-only object rather than a singular Type II core?
+
+**Filled node template**
+
+- **PDE role:** This node tests whether localized dissipation or coercive
+  variation vanishes on a compact core.
+- **Proof-dependency position:** Input is `TII6`; default output is `TII15`.
+- **Logical proposition:** $P_{\mathrm{TII7}}$: the single-core
+  zero-dissipation alternative is unresolved.
+- **Inputs:** Compact-window convergence, local activity lower bound, local
+  mean or modulation normalization, and auxiliary-field convergence.
+- **Explicit lemma objects:** Single retained core, local dissipation or
+  variation quantity, compact subwindow, spatial or structural mean, modulation
+  normalization, local activity lower bound, and auxiliary-field convergence.
+- **Check box:** Test whether local dissipation vanishes and whether the
+  surviving mean or lower stratum is compatible with the singular-core record.
+  Output exclusion, regular-background route, or auxiliary-field defect.
+- **Local lemma to prove:** Vanishing local dissipation implies convergence to
+  a mean, affine, homogeneous, or lower-stratum object. If the normalized mean
+  vanishes, retained activity is contradicted; if it persists, it is a regular
+  background or modulation datum, not a singular core.
+- **Output context:** $\Gamma_{\mathrm{TII7}}$ records exclusion of the
+  activity-bearing single core or the lower-stratum/modulation obligation.
+
+## TII8 -- Rough-core redirect
+
+**Single check:** Does compact-window regularity fail in a way that forces a
+new local active core?
+
+**Filled node template**
+
+- **PDE role:** This node redirects failed compact $H^1$, coercive, or
+  regularity control into local active-frame extraction.
+- **Proof-dependency position:** Inputs are `TII1`, `TII4`, or `TII6`; default
+  output is `TII9`, with regenerated activity returning to `TII2`.
+- **Logical proposition:** $P_{\mathrm{TII8}}$: rough-core loss has not been
+  converted into a local active core.
+- **Inputs:** Failed local upper bound, local energy inequality or coercive
+  estimate, compact-window cover, and activity threshold.
+- **Explicit lemma objects:** Failed coercive quantity, local energy or
+  monotonicity inequality, compact-window cover, smaller subwindows, activity
+  threshold, auxiliary-field comparison, and rescaling or recentering map.
+- **Check box:** Use the local estimate and finite cover to turn compactness
+  failure into a new active frame or a named missing estimate.
+- **Local lemma to prove:** A Caccioppoli, coercive, or local regularity
+  estimate shows that loss of compact regularity forces failure of a compact
+  activity/auxiliary-field bound on some smaller window; a finite cover then
+  extracts a new local active frame.
+- **Output context:** $\Gamma_{\mathrm{TII8}}$ records either recovered
+  compact control or a new active core.
+
+## TII9 -- Local active-frame partition
+
+**Single check:** Are all local active frames classified by parabolic or
+PDE-native space-time geometry?
+
+**Filled node template**
+
+- **PDE role:** This node replaces global profile decomposition by local
+  active-frame geometry.
+- **Proof-dependency position:** Input is `TII8`; default output is `TII10`.
+- **Logical proposition:** $P_{\mathrm{TII9}}$: pairwise frame geometry is
+  unresolved.
+- **Inputs:** Finite active frames with centers, times, scales, charts, and
+  activity lower bounds.
+- **Explicit lemma objects:** Active frame list, centers, times or parameters,
+  scales, chart maps, normalized space-time offsets, scale ratios, activity
+  lower bounds, and subsequence-selection rule.
+- **Check box:** Classify every pair of frames into one ordered geometric
+  alternative. Output separated, comparable, cascade, time-shift, or unresolved
+  geometry.
+- **Local lemma to prove:** After subsequence extraction, each pair is
+  parabolically separated, comparable, same-point scale-cascade, or comparable
+  with unbounded normalized time shift. Time-shift branches are routed; they
+  are not declared invisible without a theorem.
+- **Output context:** $\Gamma_{\mathrm{TII9}}$ records the frame partition.
+
+## TII10 -- Local radiation and invisibility
+
+**Single check:** Is a nonselected component genuinely invisible in the
+selected compact frame?
+
+**Filled node template**
+
+- **PDE role:** This node tests local invisibility of separated or outer-scale
+  components and their source effects.
+- **Proof-dependency position:** Input is `TII9`; default output is `TII11`;
+  regenerated activity returns to `TII2`.
+- **Logical proposition:** $P_{\mathrm{TII10}}$: a nonselected component is
+  discarded without proving unknown, source, and auxiliary-field invisibility.
+- **Inputs:** Selected frame, nonselected components, local uniform
+  integrability or compactness, source topology, and auxiliary-field
+  decomposition.
+- **Explicit lemma objects:** Selected frame, nonselected component, local
+  uniform integrability family, compact observer window, mixed nonlinear terms,
+  cutoff commutators, source topology, and auxiliary-field decomposition.
+- **Check box:** Verify local invisibility of the component and every term it
+  generates in the selected equation. Output invisible component, recentered
+  active frame, diffuse residual, or source/auxiliary-field defect.
+- **Local lemma to prove:** A component can be removed only when it vanishes in
+  the local topology used by the equation and its mixed stresses, commutators,
+  and auxiliary-field contributions vanish or become controlled homogeneous
+  remainders. Otherwise it is recentered or routed as a defect.
+- **Output context:** $\Gamma_{\mathrm{TII10}}$ records invisible, recentered,
+  diffuse, or auxiliary-field/source-defect status.
+
+## TII11 -- Same-point compound and cascade reduction
+
+**Single check:** Should same-point activity be grouped into a compound core
+or routed as a scale cascade?
+
+**Filled node template**
+
+- **PDE role:** This node prevents discarding inner scales or comparable
+  same-point components in the wrong frame.
+- **Proof-dependency position:** Input is `TII10`; outputs are `TII12` or
+  `TII13`.
+- **Logical proposition:** $P_{\mathrm{TII11}}$: same-point components have
+  not been grouped or cascade-routed.
+- **Inputs:** Same-point comparable frames, same-point scale-separated frames,
+  selected frame direction, and local interaction topology.
+- **Explicit lemma objects:** Same-point frame family, comparable-scale group,
+  scale-separated group, innermost-frame choice, compound-core definition,
+  cascade record, and local interaction topology.
+- **Check box:** Decide whether same-point components form one compound local
+  core or a scale cascade, and verify that no inner scale is discarded from an
+  outer frame.
+- **Local lemma to prove:** Comparable same-point components form one compound
+  local core; scale-separated components are discarded only in an innermost
+  frame or after all nonvanishing inner scales are included in the selected
+  compound/cascade core.
+- **Output context:** $\Gamma_{\mathrm{TII11}}$ records compound-core or
+  scale-cascade status.
+
+## TII12 -- Local terminal decoupling
+
+**Single check:** Do nonselected local components vanish from the selected
+equation and admissibility structure?
+
+**Filled node template**
+
+- **PDE role:** This node decouples a selected local branch from its
+  nonselected local remainder.
+- **Proof-dependency position:** Input is `TII11`; default output is `TII15`;
+  interaction defects route to `PS30`.
+- **Logical proposition:** $P_{\mathrm{TII12}}$: terminal local decoupling is
+  not proved.
+- **Inputs:** Selected component, local remainder, mixed nonlinear terms,
+  auxiliary-field decomposition, cutoff commutators, and the full admissible
+  sequence.
+- **Explicit lemma objects:** Full admissible sequence, selected component,
+  local remainder, mixed nonlinear tensor or source terms, auxiliary-field
+  local and homogeneous parts, cutoff commutators, local convergence topology,
+  and local admissibility stability theorem.
+- **Check box:** Verify that every nonselected term vanishes in the selected
+  local equation and that the limit's admissibility comes from the full
+  sequence. Output decoupled selected branch, interaction defect, or
+  auxiliary-field/source defect.
+- **Local lemma to prove:** If the remainder vanishes in the local topology and
+  all mixed stresses, sources, commutators, and auxiliary-field remainders
+  vanish or are controlled, the selected limit is obtained through the full
+  admissible sequence, not by assuming the selected component is independently
+  admissible.
+- **Output context:** $\Gamma_{\mathrm{TII12}}$ records local decoupling and
+  full-sequence admissible limit.
+
+## TII13 -- Local scale-collapse stratification
+
+**Single check:** Which local scale-collapse state applies to the repaired
+scale?
+
+**Filled node template**
+
+- **PDE role:** This node classifies scale collapse using selected-window
+  modulation cost, not a global terminal cost.
+- **Proof-dependency position:** Input is `TII11`; default output is `TII14`.
+- **Logical proposition:** $P_{\mathrm{TII13}}$: scale-collapse cost or
+  modulation state is unclassified.
+- **Inputs:** Repaired scale, modulation coefficient, local activity window,
+  coefficient convergence topology, and compactness status.
+- **Explicit lemma objects:** Repaired scale, logarithmic scale derivative,
+  local activity window, modulation coefficient, coefficient convergence
+  topology, drift-cost integrals, compactness status, and reduced-limit
+  candidate.
+- **Check box:** Apply the local scale identity and assign exactly one
+  scale-collapse alternative. Output finite-cost closure, thin-drift defect,
+  autonomous-modulation defect, compactness defect, or reduced-limit branch.
+- **Local lemma to prove:** On selected windows, the logarithmic scale identity
+  partitions the branch into finite cost, infinite/thin drift, autonomous
+  modulation defect, compactness defect, or autonomous reduced limit.
+- **Output context:** $\Gamma_{\mathrm{TII13}}$ records the scale-collapse
+  alternative.
+
+## TII14 -- Local scale-rigid terminal state
+
+**Single check:** Does a scale-rigid terminal state satisfy a localized
+coercive or virial identity that closes it?
+
+**Filled node template**
+
+- **PDE role:** This node tests terminal scale-rigid states with localized
+  weights and explicit defect absorption.
+- **Proof-dependency position:** Input is `TII13`; default output is `TII15`;
+  unabsorbed defects route to `PS34`.
+- **Logical proposition:** $P_{\mathrm{TII14}}$: the scale-rigid terminal state
+  has unabsorbed boundary, cutoff, source, or modulation defects.
+- **Inputs:** Localized weights, compact-window represented equation, retained
+  activity, source terms, auxiliary fields, and modulation coefficients.
+- **Explicit lemma objects:** Localized weight, cutoff, represented local
+  equation, coercive or virial functional, retained activity lower bound,
+  source terms, auxiliary fields, modulation coefficients, and defect
+  absorption estimates.
+- **Check box:** Compute the localized identity and test whether every defect
+  is absorbable. Output terminal-state elimination, unabsorbed defect, or
+  missing localized identity.
+- **Local lemma to prove:** A localized virial, monotonicity, or coercive
+  identity gives a nonnegative dissipation plus explicit defects. If defects
+  are absorbable, retained local activity is contradicted; otherwise the exact
+  unabsorbed defect is routed.
+- **Output context:** $\Gamma_{\mathrm{TII14}}$ records scale-rigid elimination
+  or routed terminal obligation.
+
+## TII15 -- Local Type II state-space decomposition
+
+**Single check:** Is every positive local Type II packet assigned to one of
+the declared local alternatives?
+
+**Filled node template**
+
+- **PDE role:** This node states the local Type II ordered case split.
+- **Proof-dependency position:** Inputs are `TII7`, `TII12`, and `TII14`;
+  default output is `TII16`.
+- **Logical proposition:** $P_{\mathrm{TII15}}$: the local Type II alternatives
+  are incomplete.
+- **Inputs:** Outputs from single-core, rough-core, multicore, decoupling,
+  scale-collapse, and scale-rigid checks.
+- **Explicit lemma objects:** Ordered list of Type II local alternatives,
+  outputs of `TII7`, `TII8`, `TII9`--`TII12`, `TII13`, and `TII14`,
+  obligation ledger, and branch-selection rule.
+- **Check box:** Verify that each positive local Type II packet is assigned to
+  exactly one alternative or to a named obligation. Output complete
+  decomposition or missing-case witness.
+- **Local lemma to prove:** The ordered tests are exhaustive: every positive
+  local Type II packet is single-core, rough-core, multibubble/cascade/gauge
+  degenerate, finite-cost scale-collapse, scale-rigid, or explicitly routed as
+  an obligation.
+- **Output context:** $\Gamma_{\mathrm{TII15}}$ records the local Type II
+  state-space decomposition.
+
+## TII16 -- Local Type II closure
+
+**Single check:** Has every local Type II alternative been discharged or
+routed as an explicit obligation?
+
+**Filled node template**
+
+- **PDE role:** This node is the local replacement for any global Type II
+  endpoint row.
+- **Proof-dependency position:** Input is `TII15`; outputs are `PS12`, `PS30`,
+  or `PS34`.
+- **Logical proposition:** $P_{\mathrm{TII16}}$: a positive local Type II
+  concentration branch survives without a named obligation.
+- **Inputs:** The Type II obligation ledger from `TII15`.
+- **Explicit lemma objects:** Type II obligation ledger, discharged local
+  alternatives, remaining obligations, local exclusion or routing theorems, and
+  successor map to `PS12`, `PS30`, or `PS34`.
+- **Check box:** Inspect the obligation ledger. Output local Type II exclusion
+  when it is empty, or route each remaining obligation by name.
+- **Local lemma to prove:** If all single-core, multicore, rough-core,
+  finite-cost, scale-rigid, source, and compactness obligations are discharged,
+  no positive local Type II packet survives. If any obligation remains, it is
+  routed by name rather than closed.
+- **Output context:** $\Gamma_{\mathrm{TII16}}$ records local Type II exclusion
+  or the exact remaining local obligation.
+
+---
+
 # 9. Orbit-type case-analysis steps
 
 These nodes identify the compactness and recurrence type of the normalized
@@ -4311,12 +4999,16 @@ bound, and the unresolved tight profile component.
 ##### Recovery or refinement construction
 
 The recovery lemma decomposes the tail, changes localization scale, separates
-compact and exterior components, or passes to an auxiliary tail problem.
+compact and exterior components, or enters the local non-tight replacement
+chain `PS15a`--`PS15n`. A global tightness estimate may be used only when it
+has been verified as part of $K_{\mathrm{PS15}}^{+}$.
 
 ##### Re-entry and output requirements
 
 The successor is `PS16`. The output context records tightness status, tail
-estimates, and any compact/exterior decomposition.
+estimates, any compact/exterior decomposition, and, when tightness is not
+available, the exterior witness or local state-space input required by
+`PS15a`--`PS15n`.
 
 ##### Minimal lemma checklist
 
@@ -4332,7 +5024,9 @@ $K_{\mathrm{PS15}}^{\rm br}$, and $K_{\mathrm{RefinePS15}}^{\rm re}$.
   $K_{\mathrm{PS15}}^{\rm br}$.
 - **Failure scenario and refinement:** Failure scenario `C.D-tight` records tightness failure.
   `Refine_PS15` performs tail decomposition and emits
-  $K_{\mathrm{RefinePS15}}^{\rm re}$ to enter `PS16`.
+  $K_{\mathrm{RefinePS15}}^{\rm re}$ to enter either `PS16` when the local
+  route has been discharged or `PS15a` when the non-tight branch still needs
+  local observer-state closure.
 - **Exceptional verified conclusions:** $K_{\mathrm{PS15}}^{\rm term}$ records a
   terminal tight localized singularity, $K_{\mathrm{PS15}}^{\rm scope}$
   declares non-applicability for localization checks, $K_{\mathrm{PS15}}^{\rm aux}$ starts an auxiliary
@@ -4364,6 +5058,408 @@ flowchart LR
     class S refinement;
     class N next;
 ```
+
+---
+
+## PS15a--PS15n — Local non-tight replacement chain
+
+The subnodes `PS15a`--`PS15n` are entered only when `PS15` cannot use a
+verified global tightness hypothesis. Their purpose is to turn non-tightness
+into local observer data, diffuse or active alternatives, terminal
+indecomposability, and finally theorem-matching endpoint inputs. They do not
+ask for an endpoint sequence bound or an integral formulation as primitive
+checks. The endpoint sequence and integral formulation are ledger outputs:
+each is available only after the preceding local active-core, diffuse-tail,
+compactness, recurrence, finite-family, and defect alternatives have been
+discharged. `PS15n` is the only imported-theorem step in this chain, and it is
+entered only after its hypotheses are already present. These are generic PDE
+nodes: the active density may be energy, entropy, action, critical norm
+density, measure density, or another declared quantity from $H_0$.
+
+### PS15a -- Exterior witness extraction
+
+**Single check:** Does failure of tightness produce a quantified exterior
+witness?
+
+**Filled node template**
+
+- **PDE role:** Convert non-tightness into data rather than a vague tail
+  branch.
+- **Proof-dependency position:** Input is `PS15`; default output is `PS15b`.
+- **Logical proposition:** $P_{\mathrm{PS15a}}$: tightness fails but no
+  exterior witness has been recorded.
+- **Inputs:** Active density, localization radii, tail topology, and selected
+  frame.
+- **Explicit lemma objects:** Active density, selected frame, exterior sets,
+  localization radii, tail topology, tolerance $\eta_{\rm tail}$, parameter or
+  time sequence, and the negated tightness statement.
+- **Check box:** Apply the negation of tightness to produce a quantified
+  exterior witness. Output exterior witness, verified tightness, or missing
+  tail-topology statement.
+- **Local lemma to prove:** The negation of tightness yields
+  $\eta_{\rm tail}>0$, radii or exterior regions $R_k\to\infty$, and times or
+  parameters $\tau_k$ such that the declared active density has at least
+  $\eta_{\rm tail}$ on the exterior region.
+- **Output context:** $\Gamma_{\mathrm{PS15a}}$ records the explicit exterior
+  witness.
+
+### PS15b -- Active exterior core versus diffuse tail
+
+**Single check:** Does the exterior witness contain a local active core?
+
+**Filled node template**
+
+- **PDE role:** Split exterior mass into compact local activity or diffuse
+  exterior density.
+- **Proof-dependency position:** Input is `PS15a`; outputs are `PS15c` or
+  `PS15e`.
+- **Logical proposition:** $P_{\mathrm{PS15b}}$: the exterior witness has not
+  been classified as active-core or diffuse.
+- **Inputs:** Exterior witness, local observer balls or compact windows, and
+  activity threshold.
+- **Explicit lemma objects:** Exterior witness, observer windows, unit-scale
+  activity function, activity threshold, exterior lower bound, and subsequence
+  selection.
+- **Check box:** Test the supremum of local observer-window activity. Output
+  active exterior core, diffuse exterior tail, or missing observer-window
+  topology.
+- **Local lemma to prove:** The supremum of the exterior active density over
+  unit observer windows either stays above a positive threshold, producing an
+  active exterior core, or tends to zero while the exterior lower bound
+  persists, producing a diffuse tail.
+- **Output context:** $\Gamma_{\mathrm{PS15b}}$ records active exterior core
+  or diffuse exterior tail.
+
+### PS15c -- Covariant exterior recentering
+
+**Single check:** Can an active exterior core be moved to a fixed local
+observer window without changing the represented PDE incorrectly?
+
+**Filled node template**
+
+- **PDE role:** Recenter active exterior cores by the PDE's declared
+  covariant observer transformation, not by an arbitrary translation.
+- **Proof-dependency position:** Input is `PS15b`; default output is `PS15d`;
+  compatible active cores may also feed `PS16` or `PS18`.
+- **Logical proposition:** $P_{\mathrm{PS15c}}$: the exterior recentering is
+  not covariant or loses the local equation, gauge, or activity record.
+- **Inputs:** Active exterior core, observer transformation rules, local
+  equation, gauge data, and compact-window topology.
+- **Explicit lemma objects:** Exterior active core, covariant observer map,
+  transformed local variables, transformed equation, gauge or auxiliary-field
+  data, compact observer window, and retained activity lower bound.
+- **Check box:** Verify covariance of the observer map, transformed equation,
+  local admissibility, and retained activity. Output recentered active branch,
+  observer-defect route, or missing transformation rule.
+- **Local lemma to prove:** The covariant observer maps the active core into a
+  fixed compact window while preserving local admissibility, activity, and the
+  transformed equation with all new source or drift terms recorded.
+- **Output context:** $\Gamma_{\mathrm{PS15c}}$ records the recentered exterior
+  sequence and retained compact-window activity.
+
+### PS15d -- Compact-window extraction of the exterior core
+
+**Single check:** Does the recentered exterior sequence have the compact-window
+package needed for a local limit?
+
+**Filled node template**
+
+- **PDE role:** Apply the same compactness gate used for ordinary local
+  profiles to the recentered exterior branch.
+- **Proof-dependency position:** Input is `PS15c`; default output is `PS15h`;
+  failures route to `PS17` or `PS30`.
+- **Logical proposition:** $P_{\mathrm{PS15d}}$: local compactness,
+  auxiliary-field control, or admissibility fails for the recentered exterior
+  branch.
+- **Inputs:** Recentered sequence, compact observer windows, local upper
+  bounds, auxiliary fields, source terms, and time-derivative topology.
+- **Explicit lemma objects:** Recentered exterior sequence, compact windows
+  $Q\Subset Q^+$, local upper bounds, auxiliary fields, source terms,
+  time-derivative topology, compactness theorem, and admissibility stability
+  theorem.
+- **Check box:** Test the compact-window package for the recentered sequence.
+  Output compact exterior profile, rough-core defect, auxiliary-field/source
+  defect, or missing compactness input.
+- **Local lemma to prove:** If the compact-window package holds, extract a
+  retained exterior local profile; otherwise record the exact rough-core,
+  auxiliary-field, or source defect.
+- **Output context:** $\Gamma_{\mathrm{PS15d}}$ records compact exterior
+  profile or local defect.
+
+### PS15e -- Diffuse exterior defect compactification
+
+**Single check:** Can diffuse exterior mass be compactified as a local
+observer-state object?
+
+**Filled node template**
+
+- **PDE role:** Replace a non-tight diffuse tail by a measure or state on a
+  compactified local observer space.
+- **Proof-dependency position:** Input is `PS15b`; default output is `PS15f`.
+- **Logical proposition:** $P_{\mathrm{PS15e}}$: the diffuse exterior witness
+  has no compact state representation.
+- **Inputs:** Diffuse exterior density, normalizing sets, observer
+  compactification, and measure topology.
+- **Explicit lemma objects:** Diffuse exterior density, normalizing exterior
+  sets, total exterior mass, normalized measures or states, observer
+  compactification, and weak or narrow convergence topology.
+- **Check box:** Normalize the diffuse density and test compactness in the
+  observer state space. Output diffuse state or compactification defect.
+- **Local lemma to prove:** Normalized diffuse exterior densities admit a weak
+  limit in the declared compactified observer space.
+- **Output context:** $\Gamma_{\mathrm{PS15e}}$ records the diffuse exterior
+  state.
+
+### PS15f -- Diffuse tail trichotomy
+
+**Single check:** Which local state-space class contains the diffuse state?
+
+**Filled node template**
+
+- **PDE role:** Prevent diffuse tails from remaining an undifferentiated
+  global residual.
+- **Proof-dependency position:** Input is `PS15e`; default output is `PS15g`;
+  regenerated activity returns to `PS15c`.
+- **Logical proposition:** $P_{\mathrm{PS15f}}$: the diffuse state has not
+  been assigned to regenerated activity, a lower stratum, or critical diffuse
+  behavior.
+- **Inputs:** Diffuse state, lower-stratum ledger, local activity test, and
+  critical-tail criteria.
+- **Explicit lemma objects:** Diffuse state, local activity detector,
+  lower-stratum predicates, critical-tail predicate, observer topology, and
+  routing ledger.
+- **Check box:** Apply the ordered trichotomy. Output regenerated activity,
+  lower-stratum exit, critical diffuse tail, or missing class predicate.
+- **Local lemma to prove:** The diffuse state either regenerates local
+  activity, belongs to a declared lower stratum, or remains a genuinely
+  critical diffuse state.
+- **Output context:** $\Gamma_{\mathrm{PS15f}}$ records regenerated activity,
+  lower stratum, or critical diffuse tail.
+
+### PS15g -- Critical-tail compactification and rigidity
+
+**Single check:** Does the critical diffuse tail close by local rigidity or
+regenerate activity?
+
+**Filled node template**
+
+- **PDE role:** Compactify critical tails and test local rigidity without a
+  global tail estimate.
+- **Proof-dependency position:** Input is `PS15f`; default output is `PS15h`;
+  unresolved rigidity routes to `PS34`.
+- **Logical proposition:** $P_{\mathrm{PS15g}}$: the critical-tail state has no
+  rigidity, activity-regeneration, or named obligation.
+- **Inputs:** Critical-tail state, local equation, observer compactness,
+  lower-stratum ledger, and rigidity theorem candidates.
+- **Explicit lemma objects:** Critical-tail state, compactified observer
+  variables, local equation, lower-stratum ledger, activity-regeneration
+  criterion, rigidity theorem candidates, and missing-hypothesis ledger.
+- **Check box:** Test rigidity and activity regeneration. Output closure,
+  regenerated activity, lower-stratum route, or named critical-tail obligation.
+- **Local lemma to prove:** A critical-tail state either regenerates active
+  local mass, falls into a closed lower stratum, is ruled out by a local
+  rigidity theorem, or records the missing rigidity input.
+- **Output context:** $\Gamma_{\mathrm{PS15g}}$ records closure,
+  regenerated activity, or critical-tail obligation.
+
+### PS15h -- Active successor relation
+
+**Single check:** Is the active-descendant relation well-defined on retained
+local states?
+
+**Filled node template**
+
+- **PDE role:** Build a local successor relation for active exterior
+  descendants.
+- **Proof-dependency position:** Inputs are `PS15d` and `PS15g`; default output
+  is `PS15i`.
+- **Logical proposition:** $P_{\mathrm{PS15h}}$: a claimed successor lacks
+  local compactness, activity, or covariant observer compatibility.
+- **Inputs:** Retained local active states, observer transformations, activity
+  threshold, and compact state topology.
+- **Explicit lemma objects:** Retained active states, covariant observer maps,
+  activity threshold, compact state topology, descendant relation
+  $\mathcal R_\eta$, and compatibility conditions.
+- **Check box:** Verify that each successor pair is compact, active, and
+  covariantly related. Output well-defined successor relation or missing
+  successor datum.
+- **Local lemma to prove:** $U\mathcal R_\eta W$ is declared only when $W$ is a
+  retained active descendant of $U$ in the local state topology.
+- **Output context:** $\Gamma_{\mathrm{PS15h}}$ records the active successor
+  relation.
+
+### PS15i -- No infinite active descendant chain
+
+**Single check:** Can an infinite active successor chain persist?
+
+**Filled node template**
+
+- **PDE role:** Convert infinite active descent into a compact path-space or
+  recurrence problem.
+- **Proof-dependency position:** Input is `PS15h`; default output is `PS15j`;
+  recurrence obligations route to `PS34`.
+- **Logical proposition:** $P_{\mathrm{PS15i}}$: an infinite active chain
+  persists without recurrence control.
+- **Inputs:** Active successor relation, compact state topology, path-space
+  compactness, and recurrent-core rigidity inputs.
+- **Explicit lemma objects:** Infinite successor chain, compact state space,
+  path space, shift map, recurrence or invariant-measure construction,
+  recurrent-core rigidity input, and obligation ledger.
+- **Check box:** Convert an infinite chain into a recurrent object and test
+  recurrent-core rigidity. Output no-infinite-chain conclusion or recurrence
+  obligation.
+- **Local lemma to prove:** An infinite chain yields a compact path-space
+  object and a recurrent or invariant component; if recurrent-core rigidity is
+  available, the chain closes, otherwise the recurrence obligation is recorded.
+- **Output context:** $\Gamma_{\mathrm{PS15i}}$ records no infinite chain or
+  recurrent-core obligation.
+
+### PS15j -- No finite separated retained family
+
+**Single check:** Can finitely many separated retained descendants persist?
+
+**Filled node template**
+
+- **PDE role:** Reuse local frame geometry to discharge finite separated
+  exterior families.
+- **Proof-dependency position:** Input is `PS15i`; default output is `PS15k`;
+  finite-family obligations may route to `PS18`.
+- **Logical proposition:** $P_{\mathrm{PS15j}}$: a finite separated retained
+  family remains without decoupling or classification.
+- **Inputs:** Finite retained descendants, parabolic or PDE-native frame
+  geometry, local budget, and decoupling topology.
+- **Explicit lemma objects:** Finite retained descendants, frame geometry,
+  compact-window budget, pairwise separation data, compound-core grouping,
+  cascade routing, local decoupling topology, and finite-family obligation.
+- **Check box:** Classify and decouple the finite family. Output no-family
+  conclusion, compound/cascade route, or finite-family obligation.
+- **Local lemma to prove:** A finite retained family is either decoupled into
+  already handled active branches, grouped into a compound local core, routed
+  as a cascade, or recorded as a finite-family obligation.
+- **Output context:** $\Gamma_{\mathrm{PS15j}}$ records no finite separated
+  family or the exact finite-family obligation.
+
+### PS15k -- Terminal indecomposability
+
+**Single check:** Has every active, diffuse, infinite-chain, finite-family,
+and compactness-losing alternative been eliminated or routed?
+
+**Filled node template**
+
+- **PDE role:** Define the local analogue of tightness modulo all verified
+  local alternatives.
+- **Proof-dependency position:** Input is `PS15j`; default output is `PS15l`.
+- **Logical proposition:** $P_{\mathrm{PS15k}}$: terminal indecomposability is
+  claimed while a local route remains open.
+- **Inputs:** Outputs from `PS15b`--`PS15j`, local defect records, and
+  lower-stratum ledger.
+- **Explicit lemma objects:** Active-core status, diffuse-tail status,
+  infinite-chain status, finite-family status, local compactness and
+  auxiliary-field defect records, lower-stratum ledger, and terminal
+  indecomposability predicate.
+- **Check box:** Inspect all local routes. Output terminal indecomposable
+  profile or the exact route still open.
+- **Local lemma to prove:** If there is no active exterior core, no diffuse
+  exterior tail, no infinite active chain, no finite separated family, and no
+  unresolved local defect, the retained profile is terminally indecomposable.
+- **Output context:** $\Gamma_{\mathrm{PS15k}}$ records terminal
+  indecomposability.
+
+### PS15l -- Endpoint sequence ledger from indecomposability
+
+**Assembly ledger:** Do all local obstructions to an endpoint bounded sequence
+close?
+
+**Filled node template**
+
+- **PDE role:** Recover the endpoint sequence bound from local alternatives
+  rather than assuming a global tail or global norm estimate.
+- **Proof-dependency position:** Input is `PS15k`; default output is `PS15m`.
+- **Logical proposition:** $P_{\mathrm{PS15l}}$: the endpoint sequence bound has
+  not been assembled from the local obstruction ledger.
+- **Inputs:** Terminally indecomposable profile, endpoint norm, exterior
+  witness extraction, and diffuse/active dichotomy.
+- **Explicit lemma objects:** Terminally indecomposable profile, endpoint norm
+  or topology, backward parameter sequence, exterior witness extraction lemma,
+  active-core/diffuse-tail dichotomy, and contradiction route to
+  indecomposability.
+- **Check box:** This is not a single estimate. Run the ordered local ledger:
+  shell or exterior witness extraction; bounded-overlap local cover;
+  active-core versus diffuse-tail split; recentering of active cores; diffuse
+  compactification; finite-family and infinite-chain discharge; and terminal
+  indecomposability. Output the endpoint sequence bound only if every local
+  escape route is closed.
+- **Local lemma to prove:** If the endpoint sequence bound fails, the failure
+  produces an exterior witness. The exterior witness either contains an active
+  local core or produces a diffuse residual state. Both are forbidden by
+  terminal indecomposability after `PS15b`--`PS15k` have discharged their
+  obligations. Therefore the endpoint sequence bound is an assembled output.
+- **Output context:** $\Gamma_{\mathrm{PS15l}}$ records either the assembled
+  endpoint sequence bound or the exact open local obstruction preventing the
+  assembly.
+
+### PS15m -- Integral-formulation assembly ledger
+
+**Assembly ledger:** Have all local residuals in the endpoint integral
+formulation vanished or been routed?
+
+**Filled node template**
+
+- **PDE role:** Build the theorem-specific integral formulation from local
+  residual checks instead of inferring it from local smoothness or local
+  compactness.
+- **Proof-dependency position:** Input is `PS15l`; default output is `PS15n`;
+  missing formulation routes to `PS31`.
+- **Logical proposition:** $P_{\mathrm{PS15m}}$: the endpoint integral
+  formulation, parasitic-free condition, or theorem topology has not been
+  assembled.
+- **Inputs:** Terminally indecomposable profile, unrenormalized pullback,
+  endpoint topology, data class, and candidate endpoint theorem.
+- **Explicit lemma objects:** Terminally indecomposable profile,
+  unrenormalized or physical pullback, endpoint integral formulation,
+  finite-slab restrictions, data class, lower-stratum removal record, and
+  theorem topology.
+- **Check box:** This is not a single global formulation check. Decompose the
+  endpoint residual into near-field local terms, exterior shell terms,
+  commutator or source terms, gauge terms, boundary or observer terms, and
+  lower-stratum/parasitic terms. Each term must vanish, be absorbed by a local
+  estimate, or be routed as a named obligation.
+- **Local lemma to prove:** The pullback satisfies the endpoint theorem's
+  integral formulation on every required terminal slab only after the residual
+  ledger has no open entry. If any term remains, `PS15m` outputs the exact
+  integral-formulation obligation rather than a theorem-ready object.
+- **Output context:** $\Gamma_{\mathrm{PS15m}}$ records either the assembled
+  endpoint integral-formulation package or the exact residual/gauge/parasitic
+  gap.
+
+### PS15n -- Imported endpoint theorem application
+
+**Imported theorem application:** Do the already assembled endpoint inputs
+match a theorem in $\mathcal L$?
+
+**Filled node template**
+
+- **PDE role:** Apply a recorded endpoint theorem; do not prove or assume its
+  hypotheses inside this node.
+- **Proof-dependency position:** Input is `PS15m`; default output is `PS16` or
+  `PS31` depending on theorem status.
+- **Logical proposition:** $P_{\mathrm{PS15n}}$: the endpoint theorem cannot be
+  applied to the terminally indecomposable branch.
+- **Inputs:** Backward sequence bound, integral-formulation gate, retained
+  local activity, and endpoint theorem hypotheses.
+- **Explicit lemma objects:** Backward sequence bound, integral-formulation
+  gate, retained local activity witness, endpoint theorem, theorem hypothesis
+  map, and contradiction conclusion.
+- **Check box:** Verify that the endpoint sequence package from `PS15l`, the
+  integral-formulation package from `PS15m`, domain and boundary status,
+  boundedness or data hypotheses, defect-free status, and active-attainment
+  transfer exactly match a theorem in $\mathcal L$.
+- **Local lemma to prove:** There is no local lemma here except the matching
+  audit. If the imported theorem applies, its conclusion is compared with the
+  retained local activity. If any hypothesis is missing, the node routes the
+  endpoint gap to `PS31`.
+- **Output context:** $\Gamma_{\mathrm{PS15n}}$ records endpoint contradiction
+  or theorem-matching obligation.
 
 ---
 
@@ -4658,22 +5754,25 @@ has to be represented by a multicenter or finite-packet structure.
 
 ## PS18 — Multicenter check
 
-**Single check:** Is there more than one active center?
+**Single check:** Is there more than one active local frame?
 
 **Filled node template**
 
 - **PDE role:** This node checks whether the active profile has multiple
-  centers, which force a packet or multiprofile decomposition.
+  local concentration frames on the selected compact observer window, forcing
+  a packet, compound-core, cascade, or separated-frame decomposition.
 - **Proof-dependency position:** Input node is `PS17`; default output node is `PS19`.
 - **Logical proposition:** $P_{\mathrm{PS18}}$: there is more than one active
-  center. YES or INC is obstruction; NO records absence.
-- **Inputs:** $\Gamma_{\rm in}$ contains center candidates, activity
-  measures, separation scales, orthogonality data, and concentration-frame
-  witnesses.
-- **Explicit lemma objects:** Candidate centers $z_n^{(j)}$, associated
-  scales $\lambda_n^{(j)}$, localized activity contributions, separation
-  distances, orthogonality or decoupling relations, concentration frames,
-  interaction errors, and residual activity away from selected centers.
+  local frame. YES or INC is obstruction; NO records absence.
+- **Inputs:** $\Gamma_{\rm in}$ contains compact observer windows, local
+  activity measures, frame candidates, separation scales, bounded-overlap
+  covers, auxiliary-field oscillation data, and concentration-frame witnesses.
+- **Explicit lemma objects:** Candidate local frames
+  $(z_n^{(j)},\tau_n^{(j)},\lambda_n^{(j)})$, localized activity
+  contributions, compact-window activity budget, bounded-overlap cover,
+  separation distances in the PDE-native space-time geometry, orthogonality or
+  decoupling relations, interaction errors, and residual activity away from
+  selected frames.
 - **Check box:** Test multicenter structure by concentration functions,
   maximal separated families, or bubble-tree extraction. Output
   $K_{\mathrm{PS18}}^{+}$, $K_{\mathrm{PS18}}^{-}$, or
@@ -4684,103 +5783,110 @@ has to be represented by a multicenter or finite-packet structure.
 ##### Analytic setting and unknowns
 
 Use the localized active profile after rough-core analysis. The node tests
-whether more than one separated concentration center carries nontrivial
-activity.
+whether more than one separated local concentration frame carries nontrivial
+activity on the selected compact observer window.
 
 ##### Standing assumptions
 
-Assume localization, center/scale data, and active quantity bounds are
-available. The incoming context must specify the separation metric, activity
-threshold, orthogonality relation, and concentration-frame extraction theorem.
+Assume localization, center/scale/time data, and compact-window activity bounds
+are available. The incoming context must specify the separation metric,
+activity threshold, bounded-overlap budget, orthogonality relation, and
+concentration-frame extraction theorem.
 
 ##### Objects inspected
 
-Inspect candidate centers, localized activity around each center, separation
-scales, profile frames, interaction errors, and residual activity outside the
-dominant center.
+Inspect candidate frames, localized activity around each frame, separation
+scales and time offsets, compact-window budgets, interaction errors, and
+residual activity outside the dominant frame.
 
 ##### Local obstruction predicate
 
-$P_{\mathrm{PS18}}$ states that there is more than one active center. YES
-records multicenter behavior. NO means all activity is represented by one
-center up to the declared tolerance.
+$P_{\mathrm{PS18}}$ states that there is more than one active local frame.
+YES records multicenter or multiframework behavior. NO means all activity is
+represented by one frame up to the declared tolerance.
 
 ##### Local lemma to prove
 
-Prove the multicenter decomposition lemma: the active concentration set either
-contains at least two separated centers with nontrivial contributions, or a
-single center controls all active mass. The inconclusive case names the missing
-separation, quantization, or concentration-frame extraction theorem.
+Prove the local multicenter decomposition lemma: a compact-window activity
+budget and bounded-overlap cover give finitely many above-threshold active
+frames; these frames are then classified as comparable, parabolically
+separated, same-point cascade, or comparable scale with unbounded normalized
+time shift. The inconclusive case names the missing local budget, separation,
+or concentration-frame extraction theorem.
 
 ##### Specific estimate or compactness statement to verify
 
-Verify center separation and orthogonality of localized contributions, together
-with a lower bound for every active center and a tail bound away from the
-selected centers.
+Verify compact-window active counting, frame separation and orthogonality of
+localized contributions, together with a lower bound for every active frame and
+a local residual bound away from selected frames. No global profile-mass budget
+may be substituted for the compact-window budget unless the current branch
+explicitly declares such a global theorem as its analysis window.
 
 ##### Practical verification steps
 
-Search outside the dominant center, select secondary centers if present,
-estimate their localized activity, prove separation and interaction control,
-and record the center list or single-center certificate.
+Search outside the dominant frame, select secondary frames if present, estimate
+their localized activity, prove separation and interaction control, and record
+the frame list or single-frame verified conclusion.
 
 ##### Certificate contents
 
-$K_{\mathrm{PS18}}^{+}$ contains separated centers, activity lower bounds, and
-orthogonality data. $K_{\mathrm{PS18}}^{-}$ contains single-center control.
-$K_{\mathrm{PS18}}^{\rm inc}$ records the missing separation or frame theorem.
+$K_{\mathrm{PS18}}^{+}$ contains parabolically separated or compound active
+frames, activity lower bounds, and orthogonality data.
+$K_{\mathrm{PS18}}^{-}$ contains single-frame control.
+$K_{\mathrm{PS18}}^{\rm inc}$ records the missing separation, frame theorem,
+or compact-window budget.
 
 ##### A priori estimate or exclusion test
 
 After a YES or INC outcome, test whether dominant-frame extraction, decoupling,
-or center-separation estimates resolve the multicenter branch.
+or frame-separation estimates resolve the multicenter branch.
 
 ##### Failure-scenario data
 
-Record unresolved centers, failed separation or decoupling, interaction terms,
-and missing quantization.
+Record unresolved frames, failed separation or decoupling, interaction terms,
+and missing local budget or quantization.
 
 ##### Recovery or refinement construction
 
 The recovery lemma extracts dominant concentration frames, separates secondary
-centers, or stratifies center families with a finite progress measure.
+frames, or stratifies frame families with a finite progress measure.
 
 ##### Re-entry and output requirements
 
-The successor is `PS19`. The output context records center multiplicity,
+The successor is `PS19`. The output context records frame multiplicity,
 separation, activity contributions, and orthogonality estimates.
 
 ##### Minimal lemma checklist
 
-Provide the multicenter decomposition lemma, center separation/orthogonality
-estimate, multicenter-control theorem, center-ambiguity obstruction statement,
+Provide the multicenter decomposition lemma, frame separation/orthogonality
+estimate, multicenter-control theorem, frame-ambiguity obstruction statement,
 frame-extraction refinement lemma, and the data in
 $K_{\mathrm{PS18}}^{+}$, $K_{\mathrm{PS18}}^{-}$,
 $K_{\mathrm{PS18}}^{\rm inc}$, $K_{\mathrm{PS18}}^{\rm blk}$,
 $K_{\mathrm{PS18}}^{\rm br}$, and $K_{\mathrm{RefinePS18}}^{\rm re}$.
 
 - **Estimate box:** `Estimate_PS18` asks whether multicenter behavior can be
-  resolved by dominant concentration-frame extraction and center-separation
+  resolved by dominant concentration-frame extraction and frame-separation
   verified conclusions. It emits
   $K_{\mathrm{PS18}}^{\rm blk}$ or $K_{\mathrm{PS18}}^{\rm br}$.
-- **Failure scenario and refinement:** Failure scenario `C.D-center` records unresolved center
+- **Failure scenario and refinement:** Failure scenario `C.D-center` records unresolved frame
   ambiguity. `Refine_PS18` extracts dominant concentration frames and emits
   $K_{\mathrm{RefinePS18}}^{\rm re}$ to enter `PS19`.
 - **Exceptional verified conclusions:** $K_{\mathrm{PS18}}^{\rm term}$ records a
   terminal multicenter singularity, $K_{\mathrm{PS18}}^{\rm scope}$ declares non-applicability for
-  packet checks, $K_{\mathrm{PS18}}^{\rm aux}$ starts an auxiliary center-selection problem, and
-  $K_{\mathrm{PS18}}^{\rm unres}$ records the missing center separation
+  packet checks, $K_{\mathrm{PS18}}^{\rm aux}$ starts an auxiliary frame-selection problem, and
+  $K_{\mathrm{PS18}}^{\rm unres}$ records the missing frame separation
   theorem.
-- **Output context:** $\Gamma_{\rm out}$ records multicenter status and
+- **Output context:** $\Gamma_{\rm out}$ records multiframework status and
   proof context entry $c_{\mathrm{PS18}}$.
 
 ```mermaid
 flowchart LR
-    C{"PS18 Check<br/>Multiple active centers?"}
+    C{"PS18 Check<br/>Multiple active frames?"}
     C -- "NO: absent" --> N["PS19 Finite-packet check"]
     C -- "YES / INC obstruction" --> B{"Estimate_PS18<br/>Can multicenter branch be resolved by concentration-frame extraction?"}
     B -- "Controlled" --> N
-    B -- "Failed" --> M["Failure C.D-center<br/>Unresolved center ambiguity"]
+    B -- "Failed" --> M["Failure C.D-center<br/>Unresolved frame ambiguity"]
     M --> S{"Refine_PS18<br/>Dominant concentration-frame extraction"}
     S -- "successor transition" --> N
 
@@ -4806,20 +5912,23 @@ flowchart LR
 
 **Filled node template**
 
-- **PDE role:** This node checks whether the active packet decomposition has
-  finitely many significant components, so that later decoupling is a finite
-  calculation rather than an uncontrolled infinite packet.
+- **PDE role:** This node checks whether the active local packet on the
+  selected compact observer window has finitely many significant components
+  and a verified remainder topology, so later decoupling is a finite local
+  calculation rather than an uncontrolled packet assertion.
 - **Proof-dependency position:** Input node is `PS18`; default output node is `PS20`.
 - **Logical proposition:** $P_{\mathrm{PS19}}$: the active packet is infinite
   or its finiteness is unverified. YES or INC is obstruction; NO means the active
   packet is finite.
-- **Inputs:** $\Gamma_{\rm in}$ contains extracted centers/scales, packet
-  amplitudes, orthogonality relations, summability bounds, and residual mass.
+- **Inputs:** $\Gamma_{\rm in}$ contains extracted local frames, packet
+  amplitudes, orthogonality relations, compact-window budgets, packet mode
+  data, and residual mass or source terms.
 - **Explicit lemma objects:** The packet list
   $\{(z_n^{(j)},\lambda_n^{(j)},V^{(j)})\}$, packet amplitudes or masses,
   quantization threshold, orthogonality matrix or frame separation relations,
-  summability bound, residual mass, and an exhaustion order for significant
-  packets.
+  compact-window budget, local remainder $S_n$, packet topology
+  $\mathcal X_{\rm loc}$, residual mass or source terms, and an exhaustion
+  order for significant packets.
 - **Check box:** Test for failure of finiteness using energy quantization,
   critical mass lower bounds, profile orthogonality, or scale/center
   exhaustion. Output $K_{\mathrm{PS19}}^{+}$ for infinite/unverified packet,
@@ -4829,19 +5938,23 @@ flowchart LR
 
 ##### Analytic setting and unknowns
 
-Use the center decomposition from `PS18`. The node tests whether the active
-packet decomposition has finitely many significant components.
+Use the local frame decomposition from `PS18`. The node tests whether the
+active packet decomposition has finitely many significant components and
+whether the nonselected part is small in the exact topology required by
+`PS20`.
 
 ##### Standing assumptions
 
-Assume packet candidates, centers, scales, orthogonality data, and an active
-quantity bound are available. The incoming context must specify packet
-quantization, summability, and exhaustion criteria.
+Assume packet candidates, centers, times, scales, orthogonality data, and a
+compact-window active-quantity budget are available. The incoming context must
+specify packet quantization, finite active count, packet mode, and exhaustion
+criteria.
 
 ##### Objects inspected
 
-Inspect packet amplitudes, localized norms, center/scale labels,
-orthogonality errors, residual mass, and summability tails.
+Inspect packet amplitudes, localized norms, frame labels, orthogonality errors,
+residual mass, source terms, and the local topology in which the nonselected
+remainder is claimed to vanish.
 
 ##### Local obstruction predicate
 
@@ -4851,34 +5964,40 @@ finite packet list is certified.
 
 ##### Local lemma to prove
 
-Prove the finite-packet lemma: every nontrivial packet carries a uniform
-quantum of the declared active quantity, so only finitely many packets remain
-under the available bound, or an infinite packet is explicitly witnessed. The
-inconclusive case identifies the missing lower quantum, orthogonality, or
-exhaustion argument.
+Prove the finite local packet lemma: every above-threshold packet carries a
+uniform quantum of the declared active quantity on the compact window, so the
+local budget gives a finite packet. Then record whether the branch is in
+fixed-packet mode, where one finite packet has a vanishing local remainder, or
+two-limit packet mode, where packets depend on a tolerance and all estimates
+keep the limit order explicit. The inconclusive case identifies the missing
+lower quantum, local budget, orthogonality, or remainder-topology argument.
 
 ##### Specific estimate or compactness statement to verify
 
-Verify packet quantization and summability: localized packet contributions are
-almost orthogonal and their total is controlled by the inherited bound.
+Verify packet quantization and local finite counting: localized packet
+contributions are almost orthogonal or bounded-overlap, and their total is
+controlled by the inherited compact-window budget. Separately verify the
+topology in which the discarded local remainder is small.
 
 ##### Practical verification steps
 
 Order packets by contribution, prove a lower quantum for significant packets,
-sum the contributions using orthogonality, control the residual, and record the
-finite list or infinite sequence.
+sum the contributions using orthogonality or bounded overlap, control the
+residual in $\mathcal X_{\rm loc}$, and record the finite list, packet mode,
+or infinite/unresolved sequence.
 
 ##### Certificate contents
 
 $K_{\mathrm{PS19}}^{+}$ contains infinite or unexhausted packet data.
-$K_{\mathrm{PS19}}^{-}$ contains the finite packet list, quantization, and
-summability estimates. $K_{\mathrm{PS19}}^{\rm inc}$ records the missing
-packet theorem.
+$K_{\mathrm{PS19}}^{-}$ contains the finite packet list, packet mode,
+quantization, and local remainder estimates. $K_{\mathrm{PS19}}^{\rm inc}$
+records the missing packet theorem or missing source-readiness estimate.
 
 ##### A priori estimate or exclusion test
 
-After a YES or INC outcome, test whether energy quantization, summability, and
-scale/center exhaustion control the apparent infinite packet.
+After a YES or INC outcome, test whether local quantization, compact-window
+budgeting, and scale/center/time exhaustion control the apparent infinite
+packet or unresolved remainder.
 
 ##### Failure-scenario data
 
@@ -4951,20 +6070,22 @@ flowchart LR
 
 **Filled node template**
 
-- **PDE role:** This node checks the nonlinear decoupling needed to treat
-  separated packets as independent at the terminal scale. It is the local
-  finite-packet decoupling mechanism.
+- **PDE role:** This node checks the nonlinear, source, auxiliary-field, and
+  cutoff decoupling needed to treat the selected local packet as the same
+  local limit as the full admissible sequence.
 - **Proof-dependency position:** Input node is `PS19`; default output node is `PS21`.
 - **Logical proposition:** $P_{\mathrm{PS20}}$: nonlinear interactions among
   separated packets fail to vanish locally in the declared topology. YES or INC
   is obstruction; NO means terminal nonlinear decoupling holds.
 - **Inputs:** $\Gamma_{\rm in}$ contains finite packet data, separation
-  scales, nonlinear interaction terms, multiplier or gauge couplings, and residuals.
+  scales, nonlinear interaction terms, multiplier or gauge couplings,
+  auxiliary-field/source terms, local remainder topology, and residuals.
 - **Explicit lemma objects:** The finite packet family $V^{(1)},\ldots,V^{(N)}$,
   separation parameters, nonlinear cross terms
   $\mathcal N(\sum_j V^{(j)})-\sum_j\mathcal N(V^{(j)})$, bilinear or
   multilinear estimates, commutator terms, multiplier or gauge couplings,
-  residuals, and the decoupling identity to be proved.
+  residuals, the full admissible sequence, and the decoupling identity to be
+  proved.
 - **Check box:** Test for non-vanishing cross terms by bilinear estimates,
   local energy decoupling, commutator bounds, or profile decomposition
   identities. Output $K_{\mathrm{PS20}}^{+}$ for interaction defect,
@@ -4976,20 +6097,21 @@ flowchart LR
 ##### Analytic setting and unknowns
 
 Use the finite packet data from `PS19`. The node tests whether separated
-packets decouple nonlinearly at the terminal scale in the topology required by
-the structural checks.
+packets decouple nonlinearly and in all auxiliary/source channels at the
+terminal scale in the topology required by the structural checks.
 
 ##### Standing assumptions
 
 Assume packet centers, scales, amplitudes, and orthogonality relations are
 known. The incoming context must specify the nonlinear interaction terms,
-commutators, residual couplings, and local topology in which cross terms should
-vanish.
+commutators, residual couplings, auxiliary-field/source topology, and local
+topology in which cross terms should vanish.
 
 ##### Objects inspected
 
 Inspect pairwise nonlinear interactions, commutators, multiplier couplings,
-gauge couplings, residuals, packet overlaps, and decoupling identities.
+gauge couplings, auxiliary-field/source terms, residuals, packet overlaps, and
+decoupling identities.
 
 ##### Local obstruction predicate
 
@@ -5000,27 +6122,32 @@ decoupling holds.
 ##### Local lemma to prove
 
 Prove the terminal decoupling lemma: for the finite packet list, all cross
-interactions, commutators, and residual couplings vanish in the declared
-topology or are absorbed by named variables. The inconclusive case records the
-missing bilinear estimate, orthogonality, or residual-control theorem.
+interactions, commutators, residual couplings, and auxiliary-field/source
+contributions vanish in the declared topology or are absorbed by named
+variables. The limit's admissibility is obtained from the full admissible
+sequence, not from the selected component alone. The inconclusive case records
+the missing bilinear estimate, orthogonality, source-control, or
+residual-control theorem.
 
 ##### Specific estimate or compactness statement to verify
 
-Verify bilinear, multilinear, commutator, or local energy decoupling estimates
-showing that cross terms tend to zero or are controlled by declared defects.
+Verify bilinear, multilinear, commutator, auxiliary-field/source, or local
+energy decoupling estimates showing that cross terms tend to zero or are
+controlled by declared defects.
 
 ##### Practical verification steps
 
 Expand the nonlinear terms on the packet decomposition, estimate pairwise
-interactions using separation and orthogonality, control residuals, and record
-the convergence-to-zero or absorption identity.
+interactions using separation and orthogonality, control source and auxiliary
+terms, pass admissibility through the full sequence, and record the
+convergence-to-zero or absorption identity.
 
 ##### Certificate contents
 
-$K_{\mathrm{PS20}}^{+}$ contains the nonvanishing interaction term and packet
-witnesses. $K_{\mathrm{PS20}}^{-}$ contains the decoupling identity or
-convergence estimate. $K_{\mathrm{PS20}}^{\rm inc}$ records the missing
-interaction theorem.
+$K_{\mathrm{PS20}}^{+}$ contains the nonvanishing interaction or source term
+and packet witnesses. $K_{\mathrm{PS20}}^{-}$ contains the full-sequence
+decoupling identity or convergence estimate. $K_{\mathrm{PS20}}^{\rm inc}$
+records the missing interaction, source, or auxiliary-field theorem.
 
 ##### A priori estimate or exclusion test
 
@@ -6441,7 +7568,9 @@ endpoint theorem is matched.
   tests are one-channel nodes such as multiplier defect, stress or commutator defect,
   boundary defect, or frequency defect; PS30 checks the single join proposition
   that the resulting defect verified conclusion vector has no unresolved entry.
-- **Proof-dependency position:** Input node is `PS29`; default output node is `PS31`.
+- **Proof-dependency position:** Input node is `PS29`; default output is
+  `ST0`--`ST20` for generic residual branches and `PS31` for nonresidual
+  endpoint branches.
 - **Logical proposition:** $P_{\mathrm{PS30}}$: the defect verified conclusion vector
   is incomplete, or some declared defect channel is unresolved. YES or INC is
   obstruction; NO means every declared channel is verified absent, controlled,
@@ -6452,7 +7581,7 @@ endpoint theorem is matched.
   by the detailed defect local case analysis.
 - **Explicit lemma objects:** The profile $V$, compactness hull, weak and
   distributional limits, defect vector entries, measure-valued defects,
-  stress, Reynolds, or commutator residuals, multiplier, pressure, constraint,
+  stress, commutator residuals, multiplier, auxiliary-field, constraint,
   or gauge defects, boundary/interface traces, frequency envelopes, and the
   estimates certifying each channel as absent, controlled, refined, terminal,
   non-applicable, or unresolved.
@@ -6535,8 +7664,11 @@ measure preventing indefinite channel addition.
 
 ##### Re-entry and output requirements
 
-The successor is `PS31`. The output context records the complete defect vector
-and the PDE formulas that justify each channel status.
+The successor is conditional. A complete generic residual vector enters
+`ST0`--`ST20`, where global-looking tail, auxiliary-field, and endpoint
+sequence-bound failures are treated as local state-space branches. A complete nonresidual
+endpoint vector enters `PS31` directly. The output context records the
+complete defect vector and the PDE formulas that justify each channel status.
 
 ##### Minimal lemma checklist
 
@@ -6553,7 +7685,8 @@ $K_{\mathrm{RefinePS30}}^{\rm re}$.
 - **Failure scenario and refinement:** Failure scenario `D.F` records an unclassified defect
   channel. `Refine_PS30` adds or refines exactly one defect variable or
   defect-measure stratum, then emits $K_{\mathrm{RefinePS30}}^{\rm re}$ to
-  enter `PS31`.
+  enter `ST0`--`ST20` for generic residual branches or `PS31` for endpoint
+  branches.
 - **Exceptional verified conclusions:** $K_{\mathrm{PS30}}^{\rm term}$ records a
   terminal unresolved defect singularity, $K_{\mathrm{PS30}}^{\rm scope}$
   proves endpoint checks are not applicable, $K_{\mathrm{PS30}}^{\rm aux}$
@@ -6565,17 +7698,22 @@ $K_{\mathrm{RefinePS30}}^{\rm re}$.
 ```mermaid
 flowchart LR
     C{"PS30 Check<br/>Defect vector incomplete?"}
-    C -- "NO: vector complete<br/>K_PS30^-" --> N["PS31 Endpoint hypotheses"]
+    C -- "NO: generic residual vector complete<br/>K_PS30^-" --> R["ST0-ST20<br/>StateSpaceResidualClosure"]
+    C -- "NO: nonresidual endpoint vector complete<br/>K_PS30^-" --> N["PS31 Endpoint hypotheses"]
     C -- "YES / INC obstruction<br/>K_PS30^+ or K_PS30^inc" --> B{"Estimate_PS30<br/>Can missing defect entry become a named stratum?"}
-    B -- "Controlled" --> N
+    B -- "Controlled residual stratum" --> R
+    B -- "Controlled endpoint stratum" --> N
     B -- "Failed" --> M["Failure D.F<br/>Unclassified defect"]
     M --> S{"Refine_PS30<br/>Add or refine one defect stratum"}
-    S -- "successor transition" --> N
+    S -- "residual transition" --> R
+    S -- "endpoint transition" --> N
+    R -- "ST20 excluded / local theorem record" --> N
 
     classDef check fill:#3b82f6,stroke:#1d4ed8,color:#ffffff;
     classDef estimate fill:#f97316,stroke:#c2410c,color:#ffffff;
     classDef failure fill:#ef4444,stroke:#b91c1c,color:#ffffff;
     classDef refinement fill:#9333ea,stroke:#6b21a8,color:#ffffff;
+    classDef state fill:#0f766e,stroke:#115e59,color:#ffffff;
     classDef next fill:#e5e7eb,stroke:#374151,color:#111827;
     classDef terminal fill:#fef3c7,stroke:#d97706,color:#111827;
 
@@ -6621,13 +7759,17 @@ complete.
   with exactly the hypotheses supplied by the PDE proof scheme. It prevents importing a
   Liouville, rigidity, regularity, or blow-up theorem with mismatched
   assumptions.
-- **Proof-dependency position:** Input node is `PS30`; default output node is `PS32`.
+- **Proof-dependency position:** Input node is `PS30` for nonresidual
+  endpoint branches and `ST20` for the generic residual theorem record;
+  default output node is `PS32`.
 - **Logical proposition:** $P_{\mathrm{PS31}}$: the endpoint theorem
   hypotheses fail to match the verified branch exactly. YES or INC is obstruction;
   NO means the hypotheses match.
 - **Inputs:** $\Gamma_{\rm in}$ contains the selected branch, defect
   vector, solution class, topology, boundary conditions, norm bounds, and the
-  candidate endpoint theorem statement.
+  candidate endpoint theorem statement. For the generic residual branch it
+  also contains the `ST20` local theorem record and the empty
+  $\mathrm{Obl}_{\mathrm{ST}}$ ledger.
 - **Explicit lemma objects:** The selected branch object, endpoint theorem
   $T_{\rm end}$, its hypothesis list, solution class, domain and boundary
   hypotheses, topology, norm bounds, decay or integrability assumptions,

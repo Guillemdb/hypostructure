@@ -2,27 +2,84 @@
 
 This document records a step-by-step local blow-up analysis for the
 three-dimensional incompressible Navier--Stokes equations in standard PDE
-terminology. Each proof step is a local lemma or local estimate. The named
-steps
+terminology. Each proof step is a local lemma, local estimate, finite-cover
+argument, state-space ledger, or explicitly imported endpoint theorem. The
+named steps
 
 $$
 H0,\ D_E,\ Rec_N,\ C_\mu,\ PS1,\ldots
 $$
 
 are only identifiers for the order of the argument; the mathematical content is
-given by the stated estimates, compactness statements, and reductions.
+given by the stated estimates, compactness statements, reductions,
+state-space ledgers, and explicitly imported endpoint theorems. In particular,
+a node is not allowed to disguise a global regularity-scale hypothesis as a
+single local estimate.
 
-This file treats the pre-entry data, the profile analysis, the compatibility
-checks, and the final local exclusion record:
+This file treats the pre-entry data, the profile analysis, the local
+state-space residual closure, the compatibility checks, and the final local
+exclusion record:
 
 $$
-H0,\ D_E,\ Rec_N,\ C_\mu,\ PS1,\ldots,\ PS35,\ Bound\_\partial,\ Bound_B,\ Bound_\Sigma,\ GC_T,\ FinalExcl.
+H0,\ D_E,\ Rec_N,\ C_\mu,\ PS1,\ldots,\ PS30,\ ST0,\ldots,\ ST20,\ PS31,\ldots,\ PS35,\ Bound\_\partial,\ Bound_B,\ Bound_\Sigma,\ GC_T,\ FinalExcl.
 $$
 
-Each named step is a local verification problem. An exclusion is asserted only
+The main local routing diagram is:
+
+$$
+\begin{array}{ccccccccc}
+H0&\to&D_E&\to&Rec_N&\to&C_\mu&\to&PS1\\
+&&&&&&&&\downarrow\\
+&&&&&&&&PS2\to PS3\to PS4\to PS5\\
+&&&&&&&&\downarrow\\
+&&&&&&&&PS6\to PS7\to PS8\\
+&&&&&&&&\downarrow\\
+&&&&&&&&
+\begin{array}{c}
+PS9\text{ Type I profile}\\
+PS10\text{ raw Type II branch}
+\end{array}
+\end{array}
+$$
+
+The Type I terminal/tail row is localized as
+
+$$
+PS15
+\quad\leadsto\quad
+PS15a\to PS15b\to\cdots\to PS15n,
+$$
+
+where the subnodes convert non-tightness into covariant local observer states,
+derive terminal indecomposability, assemble the backward sequence-$L^3$ input
+from local alternatives, and assemble the finite-shift Duhamel/mildness input
+from a residual ledger. Only after those inputs have been assembled may the
+endpoint ancient theorem be imported and applied. Thus `PS15` is not a global
+tightness assumption on the sieve; it is a branch point whose non-tight side
+enters the local state-space closure.
+
+The Type II row is localized as
+
+$$
+PS10,PS11
+\quad\leadsto\quad
+TII0\to TII1\to\cdots\to TII16.
+$$
+
+The nodes `TII0`--`TII16` replace global profile budgets, global far-field
+tails, and whole-space pressure reconstructions by compact-window CKN budgets,
+local pressure decompositions, repaired gauges, parabolic active-frame
+classification, compact-window decoupling, and local state-space alternatives.
+The older packet nodes `PS18`--`PS20` remain available only after their inputs
+have been produced locally by the `TII` block, or in a separate non-Type-II
+branch that explicitly supplies a theorem-matching global profile package.
+
+Each named step is either a local verification problem, a finite-cover
+argument, a defect split, an assembly ledger, an imported theorem
+application, or an explicit obligation record. An exclusion is asserted only
 where the selected endpoint theorem appears together with the hypotheses
-proved at that step. A full NS3D local exclusion is used only when its full
-theorem hypotheses appear in the same local branch data.
+proved or assembled before that step. A full NS3D local exclusion is used only
+when its full theorem hypotheses appear in the same local branch data.
 
 The external results invoked below are used only as named theorem inputs with
 their hypotheses checked at the point of use: Leray's energy theory, the
@@ -48,9 +105,29 @@ W\in L^3(\mathbb R^3),
 $$
 
 that assumption must be verified by a stated tail estimate, tightness
-hypothesis, decay hypothesis, or exact endpoint premise. If the branch supplies
-only compact-cylinder bounds, then the endpoint theorem is not applicable and
-the missing tail or decay statement is recorded as an explicit obligation.
+hypothesis, decay hypothesis, exact endpoint premise, or by the local
+state-space mechanism `ST0`--`ST20` when that mechanism proves the required
+endpoint sequence from terminal indecomposability. If the branch supplies only
+compact-cylinder bounds, then the endpoint theorem is not applicable directly.
+The missing global-looking input is either routed as a local terminal-state
+branch, with covariant observer gauges and compact-window pressure
+normalizations, or it remains an explicit obligation.
+
+The sieve therefore enforces the following no-disguised-global-node rule.
+A node may not ask for one super-hard whole-space property as though it were a
+single computable local estimate. Whole-space $L^3$ sequences, tightness
+moduli, global Duhamel/mildness formulations, and theorem-ready ancient
+solution classes may appear only in two ways:
+
+1. as hypotheses of a named external theorem after all hypotheses have already
+   been assembled and matched; or
+2. as outputs of many smaller local checks: dyadic shell decomposition,
+   bounded-overlap local covers, active exterior core extraction, diffuse-tail
+   compactification, pressure/source-defect routing, parasitic-mode removal,
+   recurrence or finite-family discharge, and terminal indecomposability.
+
+If the assembly is incomplete, the output is an explicit local obligation,
+not a closed branch.
 
 In particular, the following local bounds do not imply any whole-space bound
 unless a tail condition is also present:
@@ -63,6 +140,25 @@ $$
 
 for fixed $R<\infty$. They give compactness only after localization to smaller
 cylinders.
+
+Thus failure of global tightness, failure of a whole-space $L^3$ bound, and
+failure of a global pressure-tail representative are not raw estimates to be
+proved by the sieve. They are local residual states. The allowed replacement
+principle is
+
+$$
+\text{global-looking failure}
+\quad\Longrightarrow\quad
+\text{local observer state}
+\quad\Longrightarrow\quad
+\text{local stratified exclusion}.
+$$
+
+The only places where a backward whole-space $L^3$ sequence is recovered from
+the residual branch are `PS15l` and `ST17`, and there it is an output of local
+terminal indecomposability rather than an assumed a priori estimate. The
+Duhamel/mildness input is similarly handled by `PS15m` and `ST18` as a
+residual ledger, not as a consequence of local smoothness alone.
 
 ## NS3D Objects Used
 
@@ -5737,6 +5833,682 @@ The next node depends on the selected alternative: radiation/escape goes to
 
 ---
 
+# Type II Local Replacement Block `TII0`--`TII16`
+
+This block is the Type II replacement for every route that would otherwise
+ask for a whole-space critical norm, a global profile-mass budget, a global
+pressure tail, or a terminal whole-space profile decomposition. It is entered
+only from the local Type II packet of `PS10` and the scale-state classification
+of `PS11`.
+
+The organizing rule is
+
+$$
+\text{global Type II quantity}
+\quad\leadsto\quad
+\text{compact-window local check}
+\quad\leadsto\quad
+\text{local state-space alternative}.
+$$
+
+No node in this block assumes
+
+$$
+\sup_n\|u_n\|_{L^3(\mathbb R^3)}<\infty,
+\qquad
+\sum_j\|\phi^j\|_{L^3(\mathbb R^3)}^3<\infty,
+\qquad
+p=\mathcal R_i\mathcal R_j(u_i u_j)
+$$
+
+as an entry hypothesis. Such statements may appear only if a later endpoint
+theorem requires them and a previous local node has actually proved them.
+
+Each `TII` subnode follows the same verification format as the main nodes,
+compressed to avoid duplicating hypotheses already stated in `PS10`--`PS11`:
+analytic setting and unknowns, standing assumptions or local check, objects
+inspected when they differ from the setting, proof or estimate, failure route,
+refinement route when applicable, and data passed forward. A `TII` output is
+never a proof object by itself; it is only valid with the displayed local
+checks and the inherited `PS10`--`PS11` branch data.
+
+## `TII0` -- Local Type II Entry Packet
+
+### Analytic Setting and Unknowns
+
+The unknowns are the selected terminal point $z_*=(x_*,T)$, shrinking
+entry-admissible radii $r_n\downarrow0$, and the normalized pair
+
+$$
+u_n(y,s)=r_nu(x_*+r_ny,T+r_n^2s),
+\qquad
+p_n(y,s)=r_n^2p(x_*+r_ny,T+r_n^2s).
+$$
+
+### Local Check
+
+The incoming record must contain
+
+$$
+C(u;z_*,r_n)+D(p;z_*,r_n)\ge\eta_0,
+\qquad
+C(u;z_*,r_n)\ge\eta_v,
+$$
+
+and the original-variable non-Type-I predicate
+
+$$
+\forall \rho>0,\quad
+\operatorname*{ess\,sup}_{T-\rho^2<t<T}
+\sqrt{T-t}\|u(t)\|_{L^\infty(B_\rho(x_*))}=\infty .
+$$
+
+The predicate remains in original variables; it is not inferred from one
+normalized sequence.
+
+### Output
+
+The node passes
+
+$$
+\Gamma_{\mathrm{TII0}}
+=
+\{z_*,r_n,u_n,p_n,\ C+D\ge\eta_0,\ C\ge\eta_v,
+\text{non-Type-I predicate}\}.
+$$
+
+## `TII1` -- Compact-Window Upper-Bound Package
+
+### Analytic Setting and Unknowns
+
+Fix a compact normalized window
+
+$$
+Q=B_R\times I\Subset\mathbb R^3\times(-\infty,0)
+$$
+
+and a slightly larger compact cylinder $Q^+$.
+
+### Local Check
+
+The Type II branch may use compactness on $Q$ only if it has proved
+
+$$
+A(u_n;Q^+)+E(u_n;Q^+)+C(u_n;Q^+)+D(p_n;Q^+)\le M(Q).
+$$
+
+Here the notation means the corresponding unscaled compact-cylinder
+energy, enstrophy, cubic velocity, and mean-subtracted pressure quantities on
+$Q^+$. These are local upper bounds and are independent of the lower
+concentration inequalities.
+
+### Alternatives
+
+If the package holds, the branch may pass to local compactness and repaired
+pressure gauges. If it fails, the branch routes to `TII8` as rough-core or
+compact CKN failure. A lower CKN concentration bound is never counted as this
+upper-bound package.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII1}}
+=
+\Gamma_{\mathrm{TII0}}
+\cup
+\{\text{compact-window package on each selected }Q
+\text{ or rough-core failure}\}.
+$$
+
+## `TII2` -- Local Active-Window Budget
+
+### Analytic Setting and Unknowns
+
+Fix a compact analysis window
+
+$$
+K\Subset B_{R_*}\times I_*
+$$
+
+and a slightly larger compact window
+
+$$
+K^+=B_{R^*}\times I^*,
+\qquad
+K\Subset K^+,
+$$
+
+where $B_{R_*}\Subset B_{R^*}$. Cover $K$ by finitely many bounded-overlap
+parabolic cylinders
+
+$$
+\{Q_\rho(z^\ell)\}_{\ell=1}^{N(K,\rho)}.
+$$
+
+### Local Check
+
+A cylinder is active at threshold $\eta$ if
+
+$$
+\rho^{-2}\iint_{Q_\rho(z^\ell)}|V_n|^3
++
+\rho^{-2}\iint_{Q_\rho(z^\ell)}
+|P_n-(P_n)_{B_\rho}|^{3/2}
+\ge\eta.
+$$
+
+If the larger compact window has bounded CKN mass
+
+$$
+\iint_{K^+}|V_n|^3
++
+\int_{I^*}\int_{B_{R^*}}
+|P_n-(P_n)_{B_{R^*}}(\tau)|^{3/2}
+\le M_K,
+$$
+
+then bounded overlap and the pressure mean comparison give
+
+$$
+N_{\rm active}(K,\eta)
+\le
+C(K,\rho)\frac{M_K}{\eta}.
+$$
+
+### Proof
+
+Sum the active-cylinder inequalities over the selected subfamily. The velocity
+terms are controlled by bounded overlap. For pressure, set
+$q_n=P_n-(P_n)_{B_{R^*}}(\tau)$. On each selected ball,
+
+$$
+P_n-(P_n)_{B_\rho}=q_n-(q_n)_{B_\rho},
+$$
+
+and Jensen gives the local mean comparison. Summing over the bounded-overlap
+cover yields the displayed count.
+
+### Failure
+
+If $M_K$ is not bounded, no global mass budget may be substituted. The branch
+routes to `TII8`.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII2}}
+=
+\Gamma_{\mathrm{TII1}}
+\cup
+\{\text{finite active cylinders on every compact analysis window}\}.
+$$
+
+## `TII3` -- Local Repaired Single-Core Gauge
+
+### Local Check
+
+On a retained active cylinder, choose local center-scale parameters by compactly
+supported moment constraints
+
+$$
+\mathcal F(\lambda,c;V)=0.
+$$
+
+The repaired gauge is accepted only if the constraint map, topology, and
+Jacobian are fixed and
+
+$$
+\det\partial_{(\lambda,c)}\mathcal F\ne0
+$$
+
+with a quantitative lower bound after shrinking the window. Then
+$\lambda(\tau)$ and $x_c(\tau)$ are absolutely continuous, and
+
+$$
+V(y,\tau)=\lambda(\tau)
+u(x_c(\tau)+\lambda(\tau)y,t(\tau)),
+$$
+
+$$
+P(y,\tau)=\lambda(\tau)^2
+p(x_c(\tau)+\lambda(\tau)y,t(\tau))+\pi(\tau).
+$$
+
+### Alternatives and Output
+
+If the gauge is nondegenerate, pass the represented local variables and
+coefficients forward. If the gauge is degenerate, route to `TII9` or `TII11`.
+
+$$
+\Gamma_{\mathrm{TII3}}
+=
+\Gamma_{\mathrm{TII2}}
+\cup
+\{\lambda,x_c,a,b,\text{ or gauge degeneracy}\}.
+$$
+
+## `TII4` -- Local Pressure Replacement
+
+### Local Check
+
+For compact balls $B_r\Subset B_R$, write
+
+$$
+P_n=P_{{\rm loc},n}+H_n,
+$$
+
+where
+
+$$
+-\Delta P_{{\rm loc},n}
+=
+\partial_i\partial_j(\zeta V_{n,i}V_{n,j}),
+\qquad
+\zeta\equiv1\text{ on }B_r.
+$$
+
+Calderon--Zygmund gives
+
+$$
+\|P_{{\rm loc},n}\|_{L^{3/2}(B_R)}
+\lesssim
+\|V_n\|_{L^3(B_R)}^2.
+$$
+
+The harmonic part is controlled on $B_r$ only by a larger-ball pressure
+oscillation bound and harmonic interior estimates. Velocity alone does not
+control $H_n$.
+
+### Failure and Output
+
+If the harmonic remainder is not controlled, route to `TII8` or the local
+pressure-defect coordinate of `PS30`. Otherwise pass
+
+$$
+\Gamma_{\mathrm{TII4}}
+=
+\Gamma_{\mathrm{TII3}}
+\cup
+\{P=P_{\rm loc}+H,\text{ compact-ball pressure bounds}\}.
+$$
+
+## `TII5` -- Local Represented Type II Equation
+
+### Local Check
+
+In the repaired gauge, the represented equation must be derived
+distributionally as
+
+$$
+\partial_\tau V+(V\cdot\nabla)V+\nabla P
+=
+\nu\Delta V
++a(\tau)(V+y\cdot\nabla V)
++b(\tau)\cdot\nabla V,
+\qquad
+\nabla\cdot V=0.
+$$
+
+The coefficient topology must be stated on the compact window: either
+$a,b\in L^\infty(I)$, or the exact weaker topology required later by `PS6`
+and the time-derivative estimates.
+
+### Output
+
+If coefficients are controlled,
+
+$$
+\Gamma_{\mathrm{TII5}}
+=
+\Gamma_{\mathrm{TII4}}
+\cup
+\{\text{represented local equation},a,b\}.
+$$
+
+If they are not controlled, route to `TII13`.
+
+## `TII6` -- Compact-Window Compactness
+
+### Local Check
+
+On every compact window, verify
+
+$$
+V_n\text{ bounded in }L^\infty_tL^2_x\cap L^2_tH^1_x,
+$$
+
+$$
+P_n-(P_n)_{B_R}\text{ bounded in }L^{3/2},
+\qquad
+\partial_\tau V_n\text{ bounded in }L^1H^{-m},\ m\ge3.
+$$
+
+Then `PS6` gives
+
+$$
+V_n\to V\quad\text{strongly in }L^3_{\rm loc},
+\qquad
+P_n-(P_n)_{B_R}\rightharpoonup P
+\quad\text{weakly in }L^{3/2}_{\rm loc}.
+$$
+
+### Failure and Output
+
+Failure routes to `TII8` or `TII9`. Success passes
+
+$$
+\Gamma_{\mathrm{TII6}}
+=
+\Gamma_{\mathrm{TII5}}
+\cup
+\{\text{compact-window limit}\}.
+$$
+
+## `TII7` -- Compact Single-Core Zero-Dissipation Test
+
+### Local Check
+
+Assume a single retained core has compact-window bounds, a repaired gauge,
+bounded or otherwise admissible coefficients, and
+
+$$
+\int_{Q_\rho}|\nabla V_n|^2\to0.
+$$
+
+Then `PS21.3` gives spatial means $c_n(s)$ with
+
+$$
+V_n-c_n(s)\to0\quad\text{strongly in }L^3_{\rm loc}.
+$$
+
+If the local mean is removed or converges to zero, the retained velocity lower
+bound is contradicted. If a nonzero spatial constant remains, the branch is a
+regular background or modulation datum, not a Type II singular core. If only
+combined $C+D$ mass remains, pressure convergence must also be proved; otherwise
+route to the local pressure-defect coordinate.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII7}}
+=
+\Gamma_{\mathrm{TII6}}
+\cup
+\{\text{single-core branch excluded or not a single singular core}\}.
+$$
+
+## `TII8` -- Rough-Core Caccioppoli Redirect
+
+### Local Check
+
+On compact cylinders, use
+
+$$
+\mathcal A_{J'}(R)+\mathcal H_{J'}(R)
+\le
+C\left(1+\mathcal C_J(2R)+\mathcal D_J(2R)\right).
+$$
+
+Thus loss of compact $H^1$ control forces compact CKN failure. A finite
+parabolic cover then extracts a new local active core by the pressure mean
+comparison used in `PS17.3`.
+
+This redirect applies to the divergence-free represented velocity. If a cutoff
+variable is used, the cutoff source and divergence defect must be kept in the
+local energy inequality; otherwise the ordinary pressure-mean cancellation is
+not available.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII8}}
+=
+\Gamma_{\rm in}
+\cup
+\{\text{rough core returns to active CKN extraction}\}.
+$$
+
+## `TII9` -- Local Active-Frame Partition
+
+### Local Check
+
+Every active frame is parabolic,
+
+$$
+\mathfrak F_n^j=(x_n^j,t_n^j,\lambda_n^j).
+$$
+
+Pairs are classified as parabolically separated, comparable parabolic,
+same-point scale cascade, or comparable scale with unbounded normalized time
+shift exactly as in Lemma PS11.1. Large normalized time shift is routed to a
+time-hull branch unless a separate decay or invisibility theorem applies.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII9}}
+=
+\Gamma_{\mathrm{TII8}}
+\cup
+\{\text{separated / comparable / cascade / time-hull classification}\}.
+$$
+
+## `TII10` -- Local Radiation and Invisibility
+
+### Local Check
+
+A nonselected component may be discarded in a selected compact frame only if
+it is locally invisible in $L^3$ and its mixed stress and pressure source are
+invisible in the topology needed by `TII12`. If it carries a local CKN lower
+bound after recentering, it becomes a new active frame. If velocity vanishes
+but pressure or source control is missing, it is a defect, not radiation.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII10}}
+=
+\Gamma_{\mathrm{TII9}}
+\cup
+\{\text{invisible / recentered / diffuse / pressure-source defect}\}.
+$$
+
+## `TII11` -- Same-Point Compound and Cascade Reduction
+
+### Local Check
+
+Comparable same-point active frames are grouped into one local compound core.
+Same-point scale-separated frames are routed to scale-cascade analysis. A
+compound object is only a local selected branch containing all non-negligible
+same-scale components; it is not assumed to be a global Navier--Stokes
+profile.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII11}}
+=
+\Gamma_{\mathrm{TII10}}
+\cup
+\{\text{compound core or scale cascade}\}.
+$$
+
+## `TII12` -- Local Terminal Decoupling
+
+### Local Check
+
+For a selected core $U_n$ and local remainder $S_n$, prove on compact windows
+
+$$
+S_n\to0\quad\text{in }L^3_{\rm loc},
+$$
+
+$$
+U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n
+\to0
+\quad\text{in }L^{3/2}_{\rm loc}.
+$$
+
+For pressure, use compact-ball decomposition. The local Calderon--Zygmund
+part is controlled by the local mixed stress. Any exterior source that is
+invisible in the selected compact ball contributes only a harmonic pressure
+there, whose oscillation is controlled by larger compact-ball pressure
+oscillation. If the source does not become harmonic or invisible, it is a new
+local observer branch.
+
+The selected component $U_n$ is not assumed to be a suitable weak solution by
+itself. Suitability of the selected limit is inherited from the full suitable
+sequence after the remainder, mixed stresses, pressure contributions, and
+cutoff commutators vanish in the stated compact-window topologies.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII12}}
+=
+\Gamma_{\mathrm{TII11}}
+\cup
+\{\text{selected local equation decoupled through the full suitable sequence}\}.
+$$
+
+## `TII13` -- Local Scale-Collapse Stratification
+
+### Local Check
+
+For the repaired local scale $\lambda(\tau)$ set
+
+$$
+a(\tau)=-\partial_\tau\log\lambda(\tau).
+$$
+
+On every selected terminal window,
+
+$$
+\log\frac{\lambda(\tau_2)}{\lambda(\tau_1)}
+=
+-\int_{\tau_1}^{\tau_2}a(\tau)\,d\tau.
+$$
+
+The branch is assigned to exactly one of: finite scale-collapsing cost, finite
+absolute scale cost, thin-drift defect, autonomous-modulation defect,
+compactness defect, or nonzero autonomous reduced limit. Finite cost
+contradicts genuine collapse with retained core; the other cases are local
+state-space alternatives, not global failures.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII13}}
+=
+\Gamma_{\rm in}
+\cup
+\{\text{scale-collapse alternative}\}.
+$$
+
+## `TII14` -- Local Scale-Rigid Terminal State
+
+### Local Check
+
+Scale-rigid states are tested only through localized weights such as
+
+$$
+G_{\nu,R}(y)=\chi_R(y)G_\nu(y).
+$$
+
+The localized virial identity has the form
+
+$$
+\frac{d}{d\tau}\int |V|^2G_{\nu,R}
+=
+-\text{coercive terms}
++\text{boundary/cutoff/pressure/modulation defects}.
+$$
+
+The node checks whether the defects are locally absorbable. If so, the
+coercive term forces the declared local weighted activity to vanish and
+contradicts retained activity. If a swirl or circulation quantity is used, its
+definition, axis, and weighted identity must already be present in the branch
+record. If defects are not absorbable, route to scale-rigidity or multibubble
+obligations.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII14}}
+=
+\Gamma_{\mathrm{TII13}}
+\cup
+\{\text{scale-rigid state eliminated or routed}\}.
+$$
+
+## `TII15` -- Local Type II State-Space Decomposition
+
+### Statement
+
+Every positive local Type II concentration sequence is assigned by the ordered
+local tests to exactly one clean alternative or to an explicitly named
+obligation. The clean alternatives are compact single-core zero-dissipation,
+multibubble/cascade/gauge degeneracy, rough-core loss, a scale-collapse
+alternative, or a scale-rigid terminal state. The named obligations include
+pressure, source, compactness, modulation, cascade, decoupling, and terminal
+defects.
+
+### Proof
+
+`TII3` handles nondegenerate single-core gauges. Gauge failure gives the
+multibubble or degeneracy route. `TII8` handles rough-core loss. `TII13`
+handles scale collapse. `TII14` handles scale-rigid terminal states. Whenever
+one of the required local estimates is missing, the missing estimate is
+entered into the Type II obligation ledger. The ordered tests are exhaustive
+by construction and use only compact-window objects.
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII15}}
+=
+\Gamma_{\mathrm{TII0}}
+\cup
+\{\text{local Type II state-space decomposition and obligation ledger}\}.
+$$
+
+## `TII16` -- Local Type II Closure Ledger
+
+### Statement
+
+No positive local Type II concentration sequence is excluded at this node
+unless the local state-space alternatives have all been discharged and the
+Type II obligation ledger is empty.
+
+### Proof Routing
+
+The compact single-core branch is closed by `TII7`. Multibubble, cascade, and
+gauge-degenerate branches are handled by `TII9`--`TII12` or routed as explicit
+obligations if a local decoupling estimate is missing. Rough-core loss returns
+to active-core extraction by `TII8`. Finite-cost collapse is excluded by
+`TII13`. Scale-rigid terminal states are excluded or routed by `TII14`. Hence
+only when the obligation ledger is empty,
+
+$$
+\text{positive local Type II concentration}\Rightarrow\bot .
+$$
+
+### Output
+
+$$
+\Gamma_{\mathrm{TII16}}
+=
+\Gamma_{\mathrm{TII15}}
+\cup
+\{\text{local Type II branch excluded if the ledger is empty, or exact local obligation listed}\}.
+$$
+
+This is the only admissible substitute for a global Type II endpoint row. If
+any pressure, source, compactness, cascade, modulation, or terminal obligation
+remains, the Type II branch is routed by that obligation and is not closed.
+
+---
+
 # 18. `PS12` -- Stationary Ancient-Profile Branch
 
 ## Implementation and Verification in NS3D Terms
@@ -5909,6 +6681,16 @@ $$
 ---
 
 # 19. `PS13` -- Compact Orbit or Compact Hull Branch
+
+For `PS13`--`PS22`, every named record, status, witness, route, theorem match,
+or obligation must be derived inside the proof from one of the following:
+a previously constructed NS3D object, an estimate proved in the current node,
+the negation of a stated estimate, a pressure or compactness representative
+fixed by an earlier node, or an endpoint theorem whose hypotheses are matched
+line by line. The words "record", "status", and "route" are bookkeeping for
+those proved items only. They do not create an independent mathematical
+object, and they cannot be used to close or reroute a branch before the stated
+estimate or theorem-hypothesis match has been verified.
 
 ## Implementation and Verification in NS3D Terms
 
@@ -6623,7 +7405,11 @@ The incoming record contains normalized nonvanishing from `PS8` and the Type I p
 
 ### Objects Inspected
 
-Inspect the $L^3$ tail integral outside $B_R$ uniformly for all $\tau$.
+Inspect the $L^3$ tail integral outside $B_R$ uniformly for all $\tau$ when
+the branch claims tightness. If tightness fails, inspect the escaping
+time-space witnesses and their covariant observer cylinders. The node does
+not attempt to estimate the whole exterior tail after failure; it records the
+local state-space data required by `ST1`--`ST20`.
 
 ### Dependencies Used
 
@@ -6632,8 +7418,12 @@ limits, when used, come from `PS13`.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{PS15}}$ holds when uniform $L^3$ tightness is present, because
-that branch is excluded by the endpoint ancient $L^3$ theorem.
+$P_{\mathrm{PS15}}$ holds when uniform $L^3$ tightness is present and the
+finite-shift mildness gate is verified, because that branch is excluded by
+the endpoint ancient $L^3$ theorem. If uniform tightness is absent,
+`PS15` does not become a demand for a global tail estimate. It produces an
+escaping local observer witness and routes the branch to the local residual
+state-space closure `ST0`--`ST20`.
 
 The external endpoint input used in this node is the following precise
 Albritton--Barker theorem input:
@@ -6836,13 +7626,12 @@ $$
 \int_{|y|>R_k}|V(y,\tau_k)|^3\,dy\ge \eta_{\rm tail}.
 $$
 
-After passing to a subsequence, this witness may be routed to one of the
-next exterior mechanisms, but only after the corresponding verification is
-proved:
-a recentered active exterior core for `PS16`, a finite separated family for
-`PS18`--`PS20`, or a diffuse residual tail for `PS34`. This lemma itself
-produces only the exterior witness displayed above and the obligation to run
-those later tests.
+After passing to a subsequence, this witness is converted into local observer
+data. One may still route a verified active exterior core to `PS16`, or a
+verified finite separated family to `PS18`--`PS20`, but the generic
+non-tight branch is sent to `ST0`--`ST20`. This lemma itself produces only
+the exterior witness displayed above and the obligation to run those local
+state-space tests.
 
 **Proof.** The negation of uniform tightness is the existence of
 $\eta_{\rm tail}>0$ such that for every $R$ there is a time $\tau_R$ with
@@ -6855,53 +7644,422 @@ Choosing $R_k\uparrow\infty$ and setting $\tau_k=\tau_{R_k}$ gives the
 displayed witness. No localization conclusion follows from this tail inequality
 alone. Each possible route requires an additional check written in the target
 node. If a sequence of compact terminal cylinders inside the exterior region
-has a scale-invariant CKN lower bound, then recentering at those cylinders
-gives the active exterior input for `PS16`. If the above-threshold cylinders
-can be chosen as a finite parabolically separated family within a compact
-terminal window with a recorded CKN budget, they give the finite packet input
-for `PS18`--`PS20`. If the exterior lower bound persists through expanding
-regions while every fixed compact cylinder is below the retained threshold,
-then the branch satisfies the diffuse-residual hypothesis used by `PS34`.
-If none of these verification conditions has been proved, the conclusion of
-`PS15` is only the displayed exterior witness together with a missing
-route-data item; it is not a completed classification.
+has a scale-invariant CKN lower bound, then covariant recentering at those
+cylinders gives the active exterior input for `PS16` and the active-locus
+input for `ST5`. If the above-threshold cylinders can be chosen as a finite
+parabolically separated family within a compact terminal window with a
+recorded CKN budget, they give the finite packet input for `PS18`--`PS20` and
+the finite-family input for `ST15`. If the exterior lower bound persists
+through expanding regions while every fixed compact observer cylinder is below
+the retained threshold, then the branch satisfies the diffuse-defect
+hypothesis used by `ST8`--`ST11`. If none of these verification conditions has
+been proved, the conclusion of `PS15` is only the displayed exterior witness
+together with a missing local route-data item; it is not a completed
+classification and it is not a global estimate obligation.
 
-### Specific Estimate
+### Local Replacement Subnodes `PS15a`--`PS15n`
 
-The decisive estimate is the uniform tail bound
+The non-tight side of `PS15` is implemented by the following local subnodes.
+They are the explicit front end of the `ST0`--`ST20` state-space closure and
+do not assume a global tail estimate. Each subnode is written in the same
+compressed verification format used for local branches elsewhere in the file:
+input, local check or dichotomy, output, and an implicit failure route. The
+failure route is always the named missing item in the output line, such as a
+local compactness defect, pressure defect, recurrence obligation,
+finite-family obligation, critical-tail obligation, or mildness gap. No
+subnode closes a branch merely by naming a state.
+
+The last three subnodes are not ordinary local-estimate checks. `PS15l` is an
+endpoint-sequence assembly ledger: it derives the backward whole-space
+$L^3$ sequence only after every local exterior-core and diffuse-tail
+alternative has been closed. `PS15m` is a Duhamel/mildness residual ledger: it
+checks the integral formulation by eliminating local near-field, far-field,
+pressure, gauge, and parasitic residuals. `PS15n` is only the imported
+Albritton--Barker endpoint theorem application after `PS15l` and `PS15m` have
+already supplied the exact hypotheses.
+
+**`PS15a` -- Exterior witness extraction.**
+Input: a bounded centered ancient profile with retained compact activity. If
+tightness fails, Lemma PS15.4 gives
+
+$$
+\eta_{\rm tail}>0,\qquad R_k\to\infty,\qquad \tau_k,
+\qquad
+\int_{|y|>R_k}|V(y,\tau_k)|^3\,dy\ge\eta_{\rm tail}.
+$$
+
+Output:
+
+$$
+\Gamma_{\mathrm{PS15a}}
+=
+\Gamma_{\rm in}\cup\{\eta_{\rm tail},R_k,\tau_k\}.
+$$
+
+**`PS15b` -- Active exterior core versus diffuse tail.**
+Set
+
+$$
+m_k=\sup_{|x|>R_k}\int_{B_1(x)}|V(y,\tau_k)|^3\,dy.
+$$
+
+If $\limsup_k m_k>0$, pass to a subsequence and choose
+$\varepsilon_*>0$ and $x_k$ with $|x_k|>R_k$ such that
+
+$$
+\int_{B_1(x_k)}|V(y,\tau_k)|^3\,dy\ge\varepsilon_*.
+$$
+
+This is an active exterior core. If $m_k\to0$ while the exterior lower bound
+persists, the branch is a diffuse exterior tail. Output:
+
+$$
+\Gamma_{\mathrm{PS15b}}
+=
+\Gamma_{\mathrm{PS15a}}
+\cup
+\{\text{active exterior core or diffuse exterior tail}\}.
+$$
+
+**`PS15c` -- Covariant exterior recentering.**
+For an active exterior core, use the covariant observer recentering
+
+$$
+V_k^{\rm ext}(y,s)
+=
+V(y+e^{s/2}x_k,\tau_k+s),
+$$
+
+not a raw spatial translation. On every compact observer cylinder, verify
+boundedness, local pressure gauges, local suitability, and retention of the
+active unit cylinder in a fixed compact observer window. The transformed
+equation must also be derived with every drift, cutoff, and pressure-gauge
+term recorded. If the recentering produces an uncontrolled drift or a
+coefficient outside the compactness topology, the output is an observer or
+modulation defect, not a compact exterior profile. Output:
+
+$$
+\Gamma_{\mathrm{PS15c}}
+=
+\Gamma_{\mathrm{PS15b}}
+\cup
+\{V_k^{\rm ext},\text{ compact-window active core}\}.
+$$
+
+**`PS15d` -- Compact-window extraction of the exterior core.**
+For $V_k^{\rm ext}$, test the same compact-window package as `PS6`: local
+energy, enstrophy, cubic velocity, pressure oscillation, and time-derivative
+control on $Q^+\supset Q$. If the package holds, extract a retained exterior
+profile. If it fails, route to rough-core or local pressure defect extraction.
+Output:
+
+$$
+\Gamma_{\mathrm{PS15d}}
+=
+\Gamma_{\mathrm{PS15c}}
+\cup
+\{\text{compact exterior profile or local defect}\}.
+$$
+
+**`PS15e` -- Diffuse exterior defect compactification.**
+For the diffuse alternative, normalize the escaping exterior density on a
+finite positive exterior region $E_k$:
+
+$$
+\lambda_k
+=
+\frac{|V(y,\tau_k)|^3\,dy\!\restriction E_k}
+{\int_{E_k}|V(y,\tau_k)|^3\,dy}.
+$$
+
+Pass to a weak limit in the observer compactification. Output:
+
+$$
+\Gamma_{\mathrm{PS15e}}
+=
+\Gamma_{\mathrm{PS15b}}
+\cup
+\{\lambda,\text{ diffuse exterior state}\}.
+$$
+
+**`PS15f` -- Diffuse tail trichotomy.**
+The diffuse state is assigned to exactly one of: regenerated local activity,
+affine/parasitic lower stratum, or critical diffuse tail. The first returns to
+active-frame extraction, the second exits through the lower-strata ledger, and
+the third enters critical-tail compactification. Output:
+
+$$
+\Gamma_{\mathrm{PS15f}}
+=
+\Gamma_{\mathrm{PS15e}}
+\cup
+\{\text{regenerated activity / lower stratum / critical diffuse tail}\}.
+$$
+
+**`PS15g` -- Critical-tail compactification and rigidity.**
+A critical diffuse tail is compactified using only local boundedness, local
+pressure gauges, observer-space compactification, and local weak compactness.
+It may close only through a verified local rigidity or activity-regeneration
+implication; otherwise it records a critical-tail rigidity obligation. Output:
+
+$$
+\Gamma_{\mathrm{PS15g}}
+=
+\Gamma_{\mathrm{PS15f}}
+\cup
+\{\text{critical tail closed, activity regenerated, or rigidity obligation}\}.
+$$
+
+**`PS15h` -- Active successor relation.**
+Define $U\mathcal R_\eta W$ only when $W$ is a retained active covariant tail
+descendant of $U$ in the local state-space topology. Escaping witnesses that
+are not compact in that topology return to `PS15e`--`PS15g`. Output:
+
+$$
+\Gamma_{\mathrm{PS15h}}
+=
+\Gamma_{\rm in}
+\cup
+\{\mathcal R_\eta\text{ on retained local active states}\}.
+$$
+
+**`PS15i` -- No infinite active descendant chain.**
+An infinite chain for $\mathcal R_\eta$ gives a compact path space and a
+shift-invariant probability measure. The branch closes only if the
+recurrent-core rigidity implication forces the recurrent core into a lower
+closed stratum. Otherwise it records a recurrent-core obligation. Output:
+
+$$
+\Gamma_{\mathrm{PS15i}}
+=
+\Gamma_{\mathrm{PS15h}}
+\cup
+\{\text{no infinite active chain or recurrent-core obligation}\}.
+$$
+
+**`PS15j` -- No finite separated retained family.**
+Finite retained descendants are classified by parabolic frame geometry:
+separated, comparable, or same-point cascade. The branch closes only if the
+no-separated-family implication is verified; otherwise it records a
+finite-family obligation. Output:
+
+$$
+\Gamma_{\mathrm{PS15j}}
+=
+\Gamma_{\mathrm{PS15i}}
+\cup
+\{\text{no finite separated retained family or finite-family obligation}\}.
+$$
+
+**`PS15k` -- Terminal indecomposability.**
+If there is no active exterior core, no diffuse exterior tail, no infinite
+active successor chain, no finite separated retained family, and no local
+compactness or pressure defect, the retained profile is terminally
+indecomposable. If any one of those routes is still open, terminal
+indecomposability is not available and the branch must follow the named
+obligation. Output:
+
+$$
+\Gamma_{\mathrm{PS15k}}
+=
+\Gamma_{\mathrm{PS15j}}
+\cup
+\{\text{terminally indecomposable retained profile}\}.
+$$
+
+**`PS15l` -- Endpoint sequence ledger from indecomposability.**
+This node does not ask for the backward $L^3$ sequence as a primitive
+whole-space estimate. It is an assembly ledger. The only admissible proof is:
+assume the endpoint sequence is absent, convert that absence into exterior
+mass on larger and larger shells, split that exterior mass into active local
+cores or diffuse local tails, and use the already closed local alternatives
+`PS15b`--`PS15k` to rule out both.
+
+Concretely, if no sequence $\tau_k\to-\infty$ satisfies
+
+$$
+\sup_k\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}<\infty,
+$$
+
+then the $L^3$ norm is unbounded along every sufficiently far backward tail.
+Since the branch entering `PS15l` is a bounded centered ancient profile, for a
+chosen exhaustion $R_k\to\infty$ the interior contribution obeys
+
+$$
+\int_{|y|\le R_k}|U(y,\tau)|^3\,dy
+\le
+\|U\|_{L^\infty}^3 |B_{R_k}|.
+$$
+
+Choose $\tau_k\to-\infty$ so that
+
+$$
+\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}^3
+>
+\|U\|_{L^\infty}^3 |B_{R_k}|+1.
+$$
+
+Then
+
+$$
+\int_{|y|>R_k}|U(y,\tau_k)|^3\,dy\ge1.
+$$
+
+The unit-ball supremum of this exterior mass either produces an active
+exterior core or tends to zero and produces a diffuse exterior tail, both
+contradicting terminal indecomposability. Therefore
+
+$$
+\exists\,\tau_k\to-\infty
+\quad
+\sup_k\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}<\infty.
+$$
+
+If any part of the local ledger is still open, this node does not output the
+sequence. The output is instead the precise open obligation: active exterior
+core, diffuse tail, recurrence, finite separated family, pressure defect,
+compactness defect, or terminal indecomposability gap.
+
+Output:
+
+$$
+\Gamma_{\mathrm{PS15l}}
+=
+\Gamma_{\mathrm{PS15k}}
+\cup
+\{\tau_k\to-\infty,\ \sup_k\|U(\tau_k)\|_{L^3}<\infty
+\text{ or exact endpoint-sequence obligation}\}.
+$$
+
+**`PS15m` -- Duhamel/mildness residual ledger.**
+For
+
+$$
+u(x,t)=(-t)^{-1/2}
+U\left(\frac{x}{\sqrt{-t}},-\log(-t)\right)
+$$
+
+and each fixed $T<0$, $u^T(x,s)=u(x,T+s)$ may be sent to the endpoint theorem
+only if it is a bounded mild ancient solution and satisfies the Duhamel
+formula in the endpoint topology. Bounded smoothness and local compactness do
+not imply this gate.
+
+Thus `PS15m` must verify the Duhamel residual by a ledger rather than by a
+single global assertion. For every finite terminal slab and all admissible
+times $s<t<0$, write the residual
+
+$$
+\mathcal D_{s,t}
+=
+u^T(t)-e^{(t-s)\Delta}u^T(s)
++
+\int_s^t e^{(t-\sigma)\Delta}
+\mathbb P\nabla\cdot(u^T\otimes u^T)(\sigma)\,d\sigma .
+$$
+
+The branch must prove that $\mathcal D_{s,t}=0$ in the endpoint topology by
+checking, separately, the near-field nonlinear term, far-field shell terms,
+pressure-projection compatibility, gauge terms, commutators, parasitic or
+affine lower-stratum components, and the limit as the ancient lower time is
+taken. Each residual either vanishes by a local estimate, is absorbed by a
+proved local compactness/tail statement, or is routed as an exact mildness
+obligation.
+
+If the Duhamel ledger has an open entry, this node records a mildness gap
+instead of an endpoint-ready solution. Output:
+
+$$
+\Gamma_{\mathrm{PS15m}}
+=
+\Gamma_{\mathrm{PS15l}}
+\cup
+\{\text{finite-shift bounded mild ancient pullback or exact mildness gap}\}.
+$$
+
+**`PS15n` -- Imported endpoint theorem application.**
+If `PS15l` supplies the backward sequence-$L^3$ and `PS15m` supplies the
+finite-shift bounded mild ancient pullback, the Albritton--Barker endpoint
+theorem gives $u^T\equiv0$ for each $T<0$. Hence $U\equiv0$, contradicting
+retained compact activity. If either the backward sequence, the mild Duhamel
+gate, whole-space domain status, boundedness, or active-attainment transfer is
+missing, this node records the exact endpoint theorem gap and routes to
+`PS31`; it does not close the branch. Output:
+
+$$
+\Gamma_{\mathrm{PS15n}}
+=
+\Gamma_{\mathrm{PS15m}}
+\cup
+\{\text{local non-tight terminal branch excluded, or exact endpoint theorem gap}\}.
+$$
+
+Thus `PS15a`--`PS15n` is the explicit local replacement for using global
+uniform tightness as an entry assumption. The chain may close only when every
+local compactness, pressure, recurrence, finite-family, and mildness
+obligation has been discharged.
+
+### Optional Global Shortcut and Local Assembly Route
+
+There is an optional global shortcut. If the branch already proves the uniform
+tail bound
 
 $$
 \sup_{\tau\in\mathbb R}\int_{|y|>R}|V(y,\tau)|^3\,dy\to0
 \qquad (R\to\infty).
 $$
 
+then `PS15` may recover a global $L^\infty_\tau L^3_y$ bound and proceed to
+the endpoint theorem after the Duhamel/mildness gate is also verified. This is
+not the default local sieve route.
+
+If this estimate is unavailable or false, the decisive output is instead the
+local residual witness
+
+$$
+\eta_{\rm tail}>0,\qquad R_k\to\infty,\qquad \tau_k,
+\qquad
+\int_{|y|>R_k}|V(y,\tau_k)|^3\,dy\ge\eta_{\rm tail},
+$$
+
+together with the covariant observer routing status required by
+`ST1`--`ST20`.
+
 ### Practical Verification Steps
 
-1. Estimate the spatial $L^3$ tails of $V$ uniformly in $\tau$.
-2. Record the induced global $L^\infty_\tau L^3_y$ bound.
-3. If tightness holds, verify the physical pullback is bounded mild ancient on
+1. If a theorem or prior estimate already proves uniform tightness, record the
+   induced global
+   $L^\infty_\tau L^3_y$ bound.
+2. If tightness holds, verify the physical pullback is bounded mild ancient on
    each finite terminal-time restriction.
-4. Use $L^3$ critical-norm invariance on times $t_k\downarrow-\infty$.
-5. Apply the endpoint ancient $L^3$ theorem.
-6. Compare the zero conclusion with retained activity.
-7. If tightness fails, record the exterior witness of Lemma PS15.4. Route it
-   only after the active-core, finite-separated-family, or diffuse-residual
-   verification required by the target node has been proved.
+3. Use $L^3$ critical-norm invariance on times $t_k\downarrow-\infty$.
+4. Apply the endpoint ancient $L^3$ theorem only after its hypotheses match.
+5. Compare the zero conclusion with retained activity.
+6. If tightness is unavailable or fails, do not try to prove one global tail
+   estimate at this node. Record the exterior witness of Lemma PS15.4, convert it
+   into covariant observer data through `PS15a`--`PS15d`, and route diffuse or
+   generic non-tight branches through `PS15e`--`PS15n`, equivalently through
+   `ST0`--`ST20`. Route to `PS16` or `PS18`--`PS20` only when the active-core
+   or finite-separated-family hypotheses of those nodes have already been
+   verified.
 
 ## Estimate Step $B_{\mathrm{PS15}}$
 
-The estimate step is the tightness-to-endpoint-$L^3$ argument in Lemmas
-PS15.1--PS15.3, together with the non-tightness witness extraction in
-Lemma PS15.4. Later routes are not used in this estimate unless their
-own local lower bounds, finite-budget arguments, or diffuse-residual tests
-have been verified.
+The estimate step has two modes. In the imported global mode, it is the
+tightness-to-endpoint-$L^3$ argument in Lemmas PS15.1--PS15.3, together with a
+separately verified Duhamel/mildness gate. In the local sieve mode, it is only
+the non-tightness witness extraction in Lemma PS15.4 followed by
+`PS15a`--`PS15n` or `ST0`--`ST20`. Later routes are not used unless their own
+local lower bounds, finite-budget arguments, diffuse-residual tests, and
+residual-ledger entries have been verified.
 
 ## Failure Case
 
-Failure name: unresolved tightness branch.
+Failure name: unresolved tightness or observer-routing branch.
 
-Analytic meaning: the record asserts spatial tightness but lacks the exact tail
-estimate, the mild Duhamel gate, or another endpoint $L^3$ input.
+Analytic meaning: either the record asserts spatial tightness but lacks the
+exact tail estimate or mild Duhamel gate, or tightness fails but the escaping
+tail witness has not yet been converted into a covariant local state-space
+branch.
 
 ## Refinement Step
 
@@ -6910,17 +8068,22 @@ Allowed refinements:
 1. strengthen tail estimates;
 2. verify the mild Duhamel gate on finite terminal slabs;
 3. pass to hull limits using `PS13`;
-4. assign failed tightness to `PS16`.
+4. assign verified active exterior packets to `PS16`;
+5. assign verified finite separated packets to `PS18`--`PS20`;
+6. send the generic non-tight residual witness to `PS15a`--`PS15n` and the
+   corresponding `ST0`--`ST20` state-space closure.
 
-Progress measure: tail modulus is fixed, or non-tightness is recorded.
+Progress measure: tail modulus is fixed, or non-tightness is represented by a
+covariant observer-state witness.
 
 ## Data Passed Forward
 
 If tightness holds and mildness is verified, `PS15` excludes the branch. If
 tightness holds but mildness is not verified, the data passed forward record a
-mildness obstruction. If tightness fails, the next proof step is `PS16` only
-after the exterior route status has been determined. The data passed forward
-are
+mildness obstruction. If tightness fails, the next proof step is the explicit
+local chain `PS15a`--`PS15n` together with the state-space residual block
+`ST0`--`ST20`, except for subbranches already verified as active exterior or
+finite separated packets. The data passed forward are
 
 $$
 \Gamma_{\mathrm{PS15}}
@@ -6929,7 +8092,9 @@ $$
 \cup
 \{\text{endpoint exclusion, or mildness obstruction, or }
 \eta_{\rm tail},R_k,\tau_k,
-\text{ route status: active exterior / finite separated / diffuse / unresolved}\}.
+\text{ route status: active exterior / finite separated / local residual state},
+\Gamma_{\mathrm{PS15a}}\to\cdots\to\Gamma_{\mathrm{PS15n}}
+\text{ on the local non-tight closure path}\}.
 $$
 
 ---
@@ -7010,6 +8175,45 @@ $$
 For large $n$, $z_n+\rho_nB_R\subset\mathbb R^3\setminus K$, hence the same
 integral is below $\varepsilon$.
 
+**Lemma PS16.1b -- Uniform-in-time spatial invisibility.**
+Let $I$ be a compact time interval, let $\sigma_n(I)\subset K$ for a compact
+time interval $K$, and assume
+
+$$
+\{|\phi(\cdot,\sigma)|^3:\sigma\in K\}
+$$
+
+is uniformly integrable in space. For example, this holds when
+$\phi\in C(K;L^3(\mathbb R^3))$. If
+
+$$
+W_n(y,s)=\rho_n\phi(z_n+\rho_n y,\sigma_n(s))
+$$
+
+and either $\rho_n\to0$ or $z_n+\rho_n B_R$ escapes every compact set
+uniformly for $s\in I$, then
+
+$$
+\|W_n\|_{L^\infty(I;L^3(B_R))}\to0,
+\qquad
+\|W_n\|_{L^3(B_R\times I)}\to0.
+$$
+
+**Proof.** For every $s\in I$,
+
+$$
+\|W_n(s)\|_{L^3(B_R)}^3
+=
+\int_{z_n+\rho_nB_R}
+|\phi(x,\sigma_n(s))|^3\,dx.
+$$
+
+Uniform integrability in $\sigma\in K$ gives uniform convergence to zero when
+the integration sets shrink or escape. Taking the supremum in $s$ gives the
+$L^\infty_sL^3_y$ estimate, and the spacetime estimate follows. Mere
+boundedness in $L^\infty_tL^3_x$ is not enough unless uniform spatial
+integrability on $K$ has also been proved.
+
 **Lemma PS16.2 -- Separated active frames are invisible in each other locally.**
 If
 
@@ -7057,8 +8261,10 @@ $$
 $$
 
 for an innermost scale $\lambda_n^1$, then every outer profile $\phi^j\in L^3$
-converges to zero in $L^3(B_R)$ when viewed in the $\lambda_n^1$-frame. Constant
-ambient velocities are incorporated into the translation modulation.
+converges to zero in $L^3(B_R)$ when viewed in the $\lambda_n^1$-frame.
+This lemma is used only after the selected frame has been chosen innermost
+among the same-point cascade, or after all stricter inner scales have been
+included in the selected compound core.
 
 **Proof.** In the innermost variables the outer contribution has the form
 
@@ -7069,10 +8275,11 @@ W_n^j(y)=
 $$
 
 Apply Lemma PS16.1 with
-$\rho_n=\lambda_n^1/\lambda_n^j\to0$. The only possible nondecaying first-order
-term is a constant velocity, and Navier--Stokes is invariant under Galilean
-translation of the local frame; that term is therefore recorded in the
-translation modulation rather than as a radiative component.
+$\rho_n=\lambda_n^1/\lambda_n^j\to0$. Non-$L^3$ ambient components, such as
+constant or affine backgrounds, are not covered by this lemma. They must be
+recorded separately as modulation or Galilean data before any removal is
+claimed. Strict inner scales do not generally vanish in an outer frame; they
+can concentrate there and must be retained or routed to the cascade analysis.
 
 **Spacetime form used in applications.**
 The preceding three lemmas are applied on compact time intervals in the
@@ -7133,8 +8340,8 @@ the following statuses is recorded:
 2. the component carries a positive scale-invariant CKN lower bound and is
    recentered as a new active frame by Lemma PS16.4;
 3. the velocity is locally small but the associated pressure source, cutoff
-   source, or far-field tail is not controlled, in which case the branch is a
-   named defect routed to `PS30`;
+   source, or local harmonic pressure remainder is not controlled, in which
+   case the branch is a named defect routed to `PS30`;
 4. the remaining mass is exterior and diffuse with no above-threshold compact
    cylinder, in which case the branch is routed to the residual complement
    `PS34`.
@@ -7529,9 +8736,10 @@ representative.
 
 ### Standing Assumptions
 
-The incoming record states that every registered active frame has a fixed positive local critical lower
-bound and that the total local critical mass in the selected analysis window is
-finite.
+The incoming record states that every registered active frame has a fixed
+positive local critical lower bound and that the selected compact analysis
+window carries a finite compact-window CKN budget in the sense of
+Lemma PS18.1.
 
 ### Objects Inspected
 
@@ -7550,122 +8758,185 @@ because at least two active cores remain after local invisibility reductions.
 
 ### Local Lemmas to Prove
 
-**Lemma PS18.1 -- Finite active count above threshold.**
-Assume the active profile package has finite critical mass
+**Lemma PS18.1 -- Local finite active count above threshold.**
+Fix a compact analysis window
 
 $$
-\sum_{j\in J}\|\phi^j\|_{L^3(\mathbb R^3)}^3\le M_*<\infty
+K\Subset B_{R_*}\times I_*
 $$
 
-and that a profile is active only when
+and a slightly larger compact window
 
 $$
-\|\phi^j\|_{L^3(\mathbb R^3)}\ge \eta_*>0.
+K^+=B_{R^*}\times I^*,
+\qquad
+K\Subset K^+,
+\qquad
+B_{R_*}\Subset B_{R^*}.
 $$
 
-Then there are at most $M_*\eta_*^{-3}$ active profiles.
-
-**Proof.** For every finite active subfamily $J_0\subset J$,
+Cover $K$ by parabolic cylinders $Q_\rho(z^\ell)$ whose doubled cylinders
+remain in $K^+$ and whose overlap is bounded by $N_0$. Declare a cylinder
+active when
 
 $$
-\#J_0\,\eta_*^3
+\rho^{-2}\iint_{Q_\rho(z^\ell)}|V_n|^3
++
+\rho^{-2}\iint_{Q_\rho(z^\ell)}
+|P_n-(P_n)_{B_\rho}|^{3/2}
+\ge\eta_*.
+$$
+
+Assume the compact-window budget
+
+$$
+\iint_{K^+}|V_n|^3
++
+\int_{I^*}\int_{B_{R^*}}
+|P_n-(P_n)_{B_{R^*}}(\tau)|^{3/2}
+\le M_K.
+$$
+
+Then the number of active cylinders in $K$ is bounded by
+
+$$
+N_{\rm active}(K,\eta_*)
 \le
-\sum_{j\in J_0}\|\phi^j\|_{L^3}^3
-\le
-\sum_{j\in J}\|\phi^j\|_{L^3}^3
-\le M_*.
+C\,N_0\,\frac{M_K}{\eta_*}.
 $$
 
-Taking the supremum over finite subfamilies gives
-$\#J\le M_*\eta_*^{-3}$. This proof uses only nonnegativity and finite critical
-mass; asymptotic orthogonality is needed later for interaction estimates, not
-for the count.
+This is the Type II counting mechanism. A global profile budget
 
-**Lemma PS18.2 -- Pairwise active-frame classification.**
+$$
+\sum_j\|\phi^j\|_{L^3(\mathbb R^3)}^3<\infty
+$$
+
+may be used only in a separate branch that explicitly supplies such a global
+profile decomposition; it is not an entry assumption for the local Type II
+path.
+
+**Proof.** Sum the active-cylinder inequalities over the selected active
+subfamily. The velocity contributions are bounded by the overlap constant.
+For pressure, set
+
+$$
+q_n=P_n-(P_n)_{B_{R^*}}(\tau).
+$$
+
+On every selected ball,
+
+$$
+P_n-(P_n)_{B_\rho}=q_n-(q_n)_{B_\rho},
+$$
+
+and Jensen's inequality gives
+
+$$
+\int_{B_\rho}|q_n-(q_n)_{B_\rho}|^{3/2}
+\le
+C\int_{B_\rho}|q_n|^{3/2}.
+$$
+
+After integrating in time and summing, bounded overlap controls the sum by
+$C N_0M_K$. Dividing by $\eta_*$ gives the count.
+
+**Lemma PS18.2 -- Pairwise parabolic active-frame classification.**
 After passing to a subsequence, each pair of active frames
-$\mathfrak F^i=(x_n^i,\lambda_n^i)$ and
-$\mathfrak F^j=(x_n^j,\lambda_n^j)$ falls into exactly one of the following
-ordered classes:
-
-1. separated point:
-
-   $$
-   \frac{|x_n^i-x_n^j|}{\max(\lambda_n^i,\lambda_n^j)}\to\infty;
-   $$
-
-2. same-point comparable scale:
-
-   $$
-   \frac{|x_n^i-x_n^j|}{\max(\lambda_n^i,\lambda_n^j)}=O(1),
-   \qquad
-   0<\liminf_n\frac{\lambda_n^i}{\lambda_n^j}
-   \le
-   \limsup_n\frac{\lambda_n^i}{\lambda_n^j}<\infty;
-   $$
-
-3. same-point cascade:
-
-   $$
-   \frac{|x_n^i-x_n^j|}{\max(\lambda_n^i,\lambda_n^j)}=O(1),
-   \qquad
-   \frac{\lambda_n^i}{\lambda_n^j}\to0
-   \quad\text{or}\quad
-   \frac{\lambda_n^i}{\lambda_n^j}\to\infty .
-   $$
-
-If none of these classes is visible in a selected compact frame, then one of
-the two contributions is locally invisible there and has already been handled
-by `PS16`.
-
-**Proof.** Because the active set is finite by Lemma PS18.1, pass to one
-subsequence on which every scale ratio
-$\lambda_n^i/\lambda_n^j$ converges in $[0,\infty]$ and every normalized center
-distance
 
 $$
-\frac{|x_n^i-x_n^j|}{\max(\lambda_n^i,\lambda_n^j)}
+\mathfrak F_n^i=(x_n^i,t_n^i,\lambda_n^i),
+\qquad
+\mathfrak F_n^j=(x_n^j,t_n^j,\lambda_n^j)
 $$
 
-either stays bounded or tends to infinity. If the normalized center distance
-tends to infinity, the frames are separated. If it stays bounded and the scale
-ratio has a finite positive limit, the pair is same-point comparable-scale. If
-it stays bounded and the scale ratio tends to $0$ or $\infty$, the pair is a
-same-point cascade. These alternatives exhaust all subsequential limits. When
-the selected frame sees neither bounded same-point geometry nor separated
-positive mass, the local invisibility estimates of `PS16` remove that
-contribution from the selected compact equation.
+falls into exactly one of the following ordered classes:
+
+1. parabolically separated:
+
+   $$
+   \frac{|x_n^i-x_n^j|}{\max(\lambda_n^i,\lambda_n^j)}
+   +
+   \frac{|t_n^i-t_n^j|}
+   {\max((\lambda_n^i)^2,(\lambda_n^j)^2)}
+   \to\infty;
+   $$
+
+2. comparable parabolic frame: scale ratios are bounded above and below by
+   positive constants, and normalized space-time offsets are bounded;
+
+3. same-point scale cascade: normalized space-time offsets are bounded, but
+   $\lambda_n^i/\lambda_n^j\to0$ or $\lambda_n^i/\lambda_n^j\to\infty$;
+
+4. comparable scale with unbounded normalized time shift: scales and spatial
+   offsets are comparable, but
+
+   $$
+   \frac{|t_n^i-t_n^j|}{(\lambda_n^i)^2}\to\infty
+   $$
+
+   after replacing $(\lambda_n^i)^2$ by a comparable squared scale if needed.
+
+The last case is a time-hull or terminal-translation branch. It is not
+automatic local invisibility.
+
+**Proof.** Lemma PS18.1 gives a finite active list on the selected compact
+window. Pass to one subsequence on which every scale ratio converges in
+$[0,\infty]$ and every normalized spatial and temporal offset either stays
+bounded or tends to infinity. The ordered alternatives above exhaust these
+subsequential limits. Parabolic separation permits invisibility only after the
+spacetime invisibility hypotheses of `PS16` have been checked.
 
 **Lemma PS18.3 -- Same-point comparable profiles form one compound core.**
-If a group has same center and comparable scales, then its finite sum is a
-single divergence-free compound profile in a common scale. If the compound
-profile is below the perturbative critical threshold, it is removed by local
-small-data theory; otherwise it is retained as one active core.
+If a group has bounded normalized space-time offsets and comparable scales,
+then its finite sum is a single divergence-free compound local core in a common
+parabolic frame. The compound core may be removed only if the exact
+perturbative criterion being invoked is verified. For a CKN removal this means
+a spacetime pressure-aware smallness condition, not merely a small spatial
+$L^3$ norm.
 
 **Proof.** Choose one representative
-$(x_n^{j_k},\lambda_n^{j_k})$ for the comparable class. After passing to the
-subsequence already fixed in Lemma PS18.2,
+$(x_n^{j_k},t_n^{j_k},\lambda_n^{j_k})$ for the comparable class. After
+passing to the subsequence already fixed in Lemma PS18.2,
 
 $$
 \rho_j=\lim_n\frac{\lambda_n^j}{\lambda_n^{j_k}}\in(0,\infty),
 \qquad
-z_j=\lim_n\frac{x_n^j-x_n^{j_k}}{\lambda_n^{j_k}}\in\mathbb R^3 .
+z_j=\lim_n\frac{x_n^j-x_n^{j_k}}{\lambda_n^{j_k}}\in\mathbb R^3,
+\qquad
+\theta_j=\lim_n
+\frac{t_n^j-t_n^{j_k}}{(\lambda_n^{j_k})^2}
+\in\mathbb R .
 $$
 
-In the representative frame the class is represented by the finite
-$L^3_\sigma$ sum
+In the representative frame the class is represented by the finite parabolic
+sum
 
 $$
-\Phi^k(y)=
+\Phi^k(y,s)=
 \sum_{j\in J_k}\rho_j^{-1}
-\phi^j\left(\frac{y-z_j}{\rho_j}\right).
+\phi^j\left(\frac{y-z_j}{\rho_j},
+\frac{s-\theta_j}{\rho_j^2}\right).
 $$
 
 Finiteness of $J_k$ comes from Lemma PS18.1. Each summand is divergence-free,
 and divergence commutes with translation and dilation, so $\Phi^k$ is
-divergence-free. Critical $L^3$ norms are invariant under the displayed
-bounded changes of variables. If $\|\Phi^k\|_{L^3}$ is below the local
-small-data threshold, the compound class is perturbative and is removed by
-`PS21`; otherwise $\Phi^k$ is retained as a single active compound core.
+divergence-free. Local critical spacetime norms are controlled under the
+displayed bounded changes of variables. If the branch verifies
+
+$$
+\iint_Q|\Phi^k|^3
++
+\iint_Q|\Pi^k-(\Pi^k)_B|^{3/2}
+<
+\varepsilon_{\rm CKN}
+$$
+
+on the same compact cylinder and pressure gauge used by the branch, then the
+compound class is perturbative by the local CKN criterion and is removed by
+`PS21`. If the theorem invoked is instead a global mild small-data theorem,
+the branch must verify that the compound object is genuinely global initial
+data in that theorem's topology. Without such a theorem-matching smallness
+record, $\Phi^k$ is retained as a single active compound core.
 
 This grouping is only a geometric and critical-norm reduction. It does not
 claim that the finite sum $\Phi^k$ by itself solves Navier--Stokes with a
@@ -7681,36 +8952,36 @@ core, a same-point scale cascade, separated active centers, or a
 gauge-degenerate active selection.
 
 **Proof.** Start with the finite active list supplied by Lemma PS18.1 and
-classify every pair by Lemma PS18.2. Comparable same-point equivalence classes
-are replaced by compound cores using Lemma PS18.3. A pair with separated
-physical points remains a separated-center branch unless its contribution is
-locally invisible in the selected compact frame; the invisible case was already
+classify every pair by Lemma PS18.2. Comparable parabolic equivalence classes
+are replaced by compound cores using Lemma PS18.3. A parabolically separated
+pair remains a separated active branch unless its contribution is locally
+invisible in the selected compact frame; the invisible case was already
 removed or recentered by `PS16`. A same-point pair with scale ratio tending to
-$0$ or $\infty$ is precisely a scale cascade. After these reductions, if the
-branch is still not a single nondegenerate selected core, the only unassigned
-obstruction is nonuniqueness or degeneracy in the center-scale selection of the
-selected core. This is recorded as the gauge-degenerate active selection.
+$0$ or $\infty$ is precisely a scale cascade. A comparable-scale pair with
+unbounded normalized time shift is a time-hull or terminal-translation branch.
+After these reductions, if the branch is still not a single nondegenerate
+selected core, the only unassigned obstruction is nonuniqueness or degeneracy
+in the center-scale selection of the selected core. This is recorded as the
+gauge-degenerate active selection.
 
 ### Specific Estimate
 
-The decisive counting estimate is
+The decisive counting estimate is the compact-window budget
 
 $$
-N_{\eta_*}\eta_*^3
+N_{\rm active}(K,\eta_*)\eta_*
 \le
-\sum_{j=1}^{N_{\eta_*}}m_j
-\le M_*,
+C N_0M_K,
 $$
 
-where $m_j=\|\phi^j\|_{L^3}^3$ is the critical mass of the $j$-th active
-profile.
+where $M_K$ is the compact-window CKN mass and $N_0$ is the bounded-overlap
+constant.
 
 ### Practical Verification Steps
 
 1. Fix an activity threshold $\eta_*$ below the retained lower bound.
-2. Count all frames with local CKN mass at least the corresponding threshold,
-   equivalently profiles with $m_j\ge\eta_*^3$ in the active package.
-3. Classify every pair by center and scale ratios.
+2. Count all active cylinders by compact-window CKN mass and bounded overlap.
+3. Classify every pair by parabolic center, time, and scale ratios.
 4. Group comparable same-point frames into compound cores.
 5. Remove locally invisible separated or outer-scale components using `PS16`.
 6. Assign the resulting finite active packet to `PS19`.
@@ -7734,7 +9005,7 @@ Allowed refinements:
 1. lower the active threshold and repeat the finite count;
 2. pass to subsequences to settle all pairwise ratios;
 3. group comparable same-point profiles;
-4. recenter separated positive-mass components.
+4. recenter parabolically separated positive-mass components.
 
 Progress measure: the unclassified active-frame list is replaced by a finite
 classified packet.
@@ -7748,7 +9019,8 @@ $$
 =
 \Gamma_{\mathrm{PS17}}
 \cup
-\{\text{single core, finite packet, cascade, separated centers, or gauge degeneracy}\}.
+\{\text{single core, finite local packet, same-point cascade,
+parabolically separated frames, time-hull branch, or gauge degeneracy}\}.
 $$
 
 ---
@@ -7759,14 +9031,19 @@ $$
 
 ### Analytic Setting and Unknowns
 
-The unknown is a finite or countable profile expansion in critical variables,
-with each profile divergence-free and each pressure represented modulo a
-time-dependent gauge.
+The unknown is a finite local packet of active parabolic cylinders or local
+profile pieces in critical variables. A countable global profile expansion is
+used only in a separate theorem-specific branch that explicitly supplies that
+object. Each retained local packet component is divergence-free, or carries a
+recorded cutoff/divergence defect, and each pressure is represented modulo a
+time-dependent gauge by local spatial-mean normalization.
 
 ### Standing Assumptions
 
-The incoming record states that total retained critical mass is finite and the active-frame partition of
-`PS18` has been completed.
+The incoming record states that `PS18` has produced a finite local active list
+on the selected compact window by the compact-window CKN budget. If a global
+profile expansion is present, it is recorded as an optional theorem-specific
+package, not as a Type II entry assumption.
 
 ### Objects Inspected
 
@@ -7785,53 +9062,52 @@ the selected packet has unresolved local interactions.
 
 ### Local Lemmas to Prove
 
-**Lemma PS19.1 -- Finite packet selection with small summable tail.**
-For each $\eta>0$, the set $\mathcal P_\eta$ of profiles with retained mass at
-least $\eta$ is finite. Moreover, if
+**Lemma PS19.1 -- Finite local packet selection.**
+For a fixed compact analysis window and threshold $\eta$, the packet
+$\mathcal P_\eta$ of active cylinders supplied by Lemma PS18.1 is finite. The
+nonselected part may be used as a perturbative remainder only in one of the
+following explicitly recorded modes.
 
-$$
-\sum_{j\in J}m_j<\infty,
-$$
+1. **Fixed-packet mode.** There is one finite packet $\mathcal P$ such that
+   the local remainder $S_n$ satisfies
 
-then for every $\varepsilon>0$ there is a finite packet
-$\mathcal P_{\eta,\varepsilon}\supset\mathcal P_\eta$ such that
+   $$
+   S_n\to0
+   \quad\text{in the exact local topology required by }PS20.
+   $$
 
-$$
-\sum_{j\notin\mathcal P_{\eta,\varepsilon}}m_j<\varepsilon .
-$$
+2. **Two-limit packet mode.** For every $\varepsilon>0$ there is a finite
+   packet $\mathcal P_\varepsilon$ such that
 
-**Proof.** The above-threshold count follows from
+   $$
+   \limsup_{n\to\infty}
+   \|S_n^\varepsilon\|_{\mathcal X_{\rm loc}}
+   \le\varepsilon,
+   $$
 
-$$
-\#\mathcal P_\eta\,\eta
-\le
-\sum_{j\in\mathcal P_\eta}m_j
-\le
-\sum_{j\in J}m_j<\infty .
-$$
+   where $\mathcal X_{\rm loc}$ is the topology used to estimate mixed
+   stresses and pressure sources in `PS20`. Conclusions then have the order
+   $\lim_{\varepsilon\downarrow0}\limsup_{n\to\infty}$ unless a diagonal
+   packet is explicitly selected.
 
-For the small tail, enumerate the countable complement of $\mathcal P_\eta$ as
-$\{j_1,j_2,\dots\}$. Since the critical masses are summable, choose $N$ so that
+If only velocity smallness is known but pressure/source readiness is missing,
+the packet is not decoupled; it is routed to the local pressure or source
+defect coordinates.
 
-$$
-\sum_{k>N}m_{j_k}<\varepsilon .
-$$
-
-Then
-
-$$
-\mathcal P_{\eta,\varepsilon}
-=
-\mathcal P_\eta\cup\{j_1,\dots,j_N\}
-$$
-
-is finite and has the required tail bound.
+**Proof.** Finiteness of $\mathcal P_\eta$ is exactly Lemma PS18.1. The two
+remainder modes are definitions of the topology available for the local
+packet. In fixed-packet mode the selected core is stable along the original
+subsequence. In two-limit mode the packet may depend on $\varepsilon$, so all
+estimates must keep the two limits in the displayed order or perform a
+diagonal selection that records the selected core. Neither mode follows from a
+global summability assertion unless the branch separately supplies the
+unconditional convergence of the profile tail in the local topology
+$\mathcal X_{\rm loc}$.
 
 **Lemma PS19.2 -- The discarded tail is perturbative after finite
 truncation.**
-Let $r_n$ be the sum of all profiles and remainders not included in
-$\mathcal P_{\eta,\varepsilon}$. If the finite truncation has been chosen so
-that
+Let $r_n$ be the nonselected local remainder in either fixed-packet mode or
+two-limit packet mode. If the packet has been chosen so that
 
 $$
 \|r_n\|_{L^\infty_I L^3(B_{2R})}\le\varepsilon_*
@@ -7847,15 +9123,10 @@ $$
 |I|\,\varepsilon_*^2 .
 $$
 
-**Proof.** The finite critical-mass tail bound from Lemma PS19.1 is converted,
-using the profile-decomposition remainder estimate in the active package, into
-the displayed $L^\infty_I L^3(B_{2R})$ smallness. This conversion is an
-explicit input: summability of the numbers $m_j$ alone is not enough unless
-the decomposition also supplies unconditional convergence of the profile tail
-in the selected local critical topology. If that tail estimate is absent, the
-tail is not treated as perturbative. Once the displayed smallness is verified,
-Holder's inequality on
-the compact cylinder gives
+**Proof.** The displayed $L^\infty_I L^3(B_{2R})$ smallness is an explicit
+packet-readiness input. It is not inferred from the finite active count.
+Once the displayed smallness is verified, Holder's inequality on the compact
+cylinder gives
 
 $$
 \|r_n\otimes r_n\|_{L^1_I L^{3/2}(B_R)}
@@ -7865,8 +9136,10 @@ $$
 |I|\,\varepsilon_*^2.
 $$
 
-The local small-data stability theorem then treats the tail as a perturbative
-solution on the selected window.
+The discarded tail is a perturbative error contribution in the selected local
+equation. It is a perturbative solution only if the branch separately proves
+that the tail itself solves the relevant Navier--Stokes or forced
+Navier--Stokes equation.
 
 The topology in the displayed smallness is part of the packet data. If the
 profile package supplies only $L^3_{I,x}(B_{2R}\times I)$ smallness, the node
@@ -7877,14 +9150,15 @@ $L^{3/2}_{I,x}$ estimates rather than the $L^\infty_I L^3_x$ shorthand.
 
 **Lemma PS19.3 -- Packet ordering by active geometry.**
 After passing to a subsequence, the finite packet is ordered into
-same-point comparable groups, same-point scale chains, and separated-center
-groups.
+same-point comparable groups, same-point scale chains, parabolically separated
+groups, and comparable-scale groups with unbounded normalized time shift.
 
 **Proof.** Since the packet is finite, apply the pairwise classification of
 Lemma PS18.2 to all pairs simultaneously. Make a graph whose vertices are
 packet elements and whose edges connect same-point comparable-scale pairs.
 Connected components of this graph are compound-core groups. The remaining
-edges are classified as either same-point cascade or separated-center.
+edges are classified as same-point cascade, parabolic separation, or
+comparable scale with unbounded normalized time shift.
 Because the graph is finite, this sorting is stable after passing to the
 already chosen subsequence.
 
@@ -7900,7 +9174,10 @@ $$
 after grouping comparable same-point elements into compound cores.
 
 **Proof.** Separated components vanish in the selected frame by Lemma PS16.2.
-Strict outer-scale components vanish by Lemma PS16.3. The finite-tail
+Strict outer-scale components vanish by Lemma PS16.3 only in an innermost
+selected frame, or after all stricter inner scales have been included in the
+selected compound or cascade core. Strict inner scales are never discarded from
+an outer selected frame. The finite-tail
 remainder is small by Lemma PS19.2, and the truncation tolerance is chosen to
 go to zero along the terminal subsequence if an actual limit is needed.
 Comparable same-point terms are never placed in $S_n$; they are grouped into
@@ -7923,7 +9200,8 @@ $$
    $\varepsilon$.
 2. Select $\mathcal P_{\eta,\varepsilon}$ and prove it is finite.
 3. Group same-point comparable packet elements.
-4. Assign separated and outer-scale components to $S_n$ in the selected frame.
+4. Assign parabolically separated and admissible strict outer-scale components
+   to $S_n$ in the selected frame, after checking the direction of the cascade.
 5. Prove $S_n\to0$ in the exact local critical topology needed by `PS20`,
    preferably $L^\infty_I L^3(B_{2R})$ and otherwise a recorded weaker
    $L^3_{I,x}$ topology with matching mixed-stress estimates.
@@ -7962,7 +9240,8 @@ $$
 =
 \Gamma_{\mathrm{PS18}}
 \cup
-\{\mathcal P_{\eta,\varepsilon},\ \text{packet ordering},\ \text{interaction record}\}.
+\{\mathcal P_\eta\text{ or }\mathcal P_\varepsilon,\ \text{packet mode},
+\text{packet ordering},\ \text{interaction and pressure-source readiness record}\}.
 $$
 
 ---
@@ -7988,8 +9267,9 @@ $$
 
 and that pressure representatives are normalized by spatial means on balls.
 For mixed-pressure decoupling the hypotheses additionally include the
-kernel-tail pressure record described above, or an equivalent pressure
-payload from the terminal profile decomposition.
+compact-ball pressure decomposition record described below, including control
+of the harmonic remainder on a larger ball. No global exterior pressure tail
+is used on the Type II local path.
 
 ### Objects Inspected
 
@@ -8048,82 +9328,76 @@ $L^1_I L^{3/2}(B_R)$. The proof uses whichever of these two convergence
 routes is actually supplied; it does not infer the strong packet topology from
 a weaker remainder estimate.
 
-**Lemma PS20.3 -- Mixed pressure oscillations and forces vanish.**
-Let $\pi_n^{\rm mix}$ solve locally
+**Lemma PS20.3 -- Mixed pressure oscillations and forces vanish locally.**
+Let $B_R\Subset B_{\Theta R}$, $\Theta>1$, and let
+$\pi_n^{\rm mix}$ be decomposed on $B_{\Theta R}$ as
 
 $$
--\Delta\pi_n^{\rm mix}
+\pi_n^{\rm mix}
 =
-\partial_i\partial_j(\mathcal T_{n,ij})
+\pi_{n,\rm loc}^{\rm mix}+h_n^{\rm mix},
 $$
 
-with spatial means subtracted. Then
+where
+
+$$
+-\Delta\pi_{n,\rm loc}^{\rm mix}
+=
+\partial_i\partial_j(\zeta\mathcal T_{n,ij}),
+\qquad
+\zeta\equiv1\text{ on }B_R,
+$$
+
+and $h_n^{\rm mix}$ is harmonic on $B_R$. Assume
+
+$$
+\mathcal T_n\to0
+\quad\text{in }L^1_I L^{3/2}(B_{\Theta R})
+$$
+
+and the harmonic remainder has the larger-ball oscillation control
+
+$$
+\|h_n^{\rm mix}-(h_n^{\rm mix})_{B_{\Theta R}}\|
+_{L^1_I L^{3/2}(B_{\Theta R})}\to0
+$$
+
+or an equivalent local pressure-decomposition estimate. Then
 
 $$
 \|\pi_n^{\rm mix}-(\pi_n^{\rm mix})_{B_R}\|_{L^1_I L^{3/2}(B_R)}
-\to0,
+\to0.
 $$
 
-and the pressure force vanishes in the represented-equation dual topology,
-namely $L^1_IW^{-1,3/2}(B_R)$; when the compact-cylinder $L^2$ energy upgrade
-is invoked, the same term is controlled in the local $H^{-1}$ space used by
-the energy formulation.
-
-**Proof.** Localize to $B_{2R}$ and split the pressure into a near-field
-Calderon--Zygmund part, an intermediate annular part, and a far-field harmonic
-part. For the local part,
+The pressure force vanishes in
 
 $$
-\pi_{n,\rm loc}^{\rm mix}
-=
-R_iR_j(\chi_{2R}\mathcal T_{n,ij}),
+L^1_IW^{-1,3/2}(B_R),
 $$
 
-where $\chi_{2R}$ is one on $B_{3R/2}$. Calderon--Zygmund boundedness gives
+and also in $L^1_IH^{-m}(B_R)$ for every $m\ge3$. It may be treated as an
+$H^{-1}$ term only if an additional pressure improvement, such as
+$\pi_n^{\rm mix}\in L^2$, has been proved.
+
+**Proof.** Calderon--Zygmund boundedness gives
 
 $$
-\|\pi_{n,\rm loc}^{\rm mix}\|_{L^1_I L^{3/2}(B_{3R/2})}
-\le C
-\|\mathcal T_n\|_{L^1_I L^{3/2}(B_{2R})}
-\to0
-$$
-
-by Lemma PS20.2. For the remaining pressure, fix $A>4R$ and write the source
-outside $B_{2R}$ as the sum of the annulus $B_A\setminus B_{2R}$ and the
-exterior $\mathbb R^3\setminus B_A$. On the annulus, Lemma PS20.2 applied on
-$B_A$ gives
-
-$$
-\|\mathcal T_n\|_{L^1_I L^{3/2}(B_A\setminus B_{2R})}\to0
-$$
-
-for fixed $A$, so smooth kernel bounds give vanishing harmonic pressure
-oscillation on $B_R$ from that annular source.
-
-For the exterior source, subtract the kernel value at the center of $B_R$.
-The Calderon--Zygmund kernel difference satisfies
-
-$$
-|K(x-y)-K(0-y)|\le C_R |y|^{-4},
-\qquad x\in B_R,\ |y|>A .
-$$
-
-Holder's inequality gives the uniform tail bound
-
-$$
-\int_{|y|>A}|K(x-y)-K(0-y)|\,|\mathcal T_n(y,\tau)|\,dy
+\|\pi_{n,\rm loc}^{\rm mix}\|_{L^1_I L^{3/2}(B_R)}
 \le
-C_R A^{-3}
-\|\mathcal T_n(\tau)\|_{L^{3/2}(\mathbb R^3\setminus B_A)}
+C\|\mathcal T_n\|_{L^1_I L^{3/2}(B_{\Theta R})}
+\to0.
 $$
 
-whenever the global or annular $L^{3/2}$ pressure-tail record is present.
-After integration in time, the exterior oscillation is bounded by a quantity
-that tends to zero as $A\to\infty$, uniformly in $n$. Taking first
-$n\to\infty$ for fixed $A$ and then $A\to\infty$ proves the local pressure
-oscillation convergence in $L^1_IL^{3/2}(B_R)$.
+For the harmonic part, the assumed larger-ball oscillation bound and the
+pressure mean comparison imply
 
-For a test vector $\varphi\in C_c^\infty(B_R)$,
+$$
+\|h_n^{\rm mix}-(h_n^{\rm mix})_{B_R}\|_{L^1_I L^{3/2}(B_R)}
+\to0.
+$$
+
+Combining the local and harmonic estimates gives the displayed pressure
+oscillation convergence. For a test vector $\varphi\in C_c^\infty(B_R)$,
 
 $$
 \langle\nabla\pi_n^{\rm mix},\varphi\rangle
@@ -8133,10 +9407,11 @@ $$
 \nabla\cdot\varphi .
 $$
 
-This is exactly the $W^{-1,3/2}$ pressure-force topology. In applications that
-use the compact-cylinder $H^1$ energy upgrade, the same pressure force is
-paired only with the admissible localized test fields from that energy
-formulation and is controlled in the corresponding $H^{-1}$ error space.
+This is the $W^{-1,3/2}$ pressure-force topology. Since
+$H^m_0(B_R)\hookrightarrow W^{1,3}(B_R)$ for $m\ge3$, the same convergence
+holds in $H^{-m}$. No conclusion is drawn from local velocity convergence
+alone; if the harmonic remainder control is missing, the branch is routed to
+the local pressure-defect audit.
 
 **Lemma PS20.4 -- Cutoff commutators vanish.**
 Let $\chi_R\in C_c^\infty(B_{2R})$ be one on $B_R$. Every localization
@@ -8171,22 +9446,26 @@ positive lower bound.
 
 The pure $S_n$ pressure estimate is not implicit. It is either supplied by the
 same packet-tail topology that gives $S_n\otimes S_n\to0$ in
-$L^1_I L^{3/2}_{\rm loc}$ together with the far-field tail record, or it
-is a separate pressure-defect obligation. In the supplied case, the proof of
-Lemma PS20.3 applies with $\mathcal T_n$ replaced by $S_n\otimes S_n$ and
-shows that the pressure oscillation generated by the discarded part vanishes
-after subtracting spatial means. If this pure discarded-pressure estimate is
-missing, the selected positive mass cannot be transferred from $V_n$ to
-$U_n$; the branch is routed to `PS30` as a pressure defect.
+$L^1_I L^{3/2}_{\rm loc}$ together with the compact-ball harmonic-remainder
+control of Lemma PS20.3, or it is a separate pressure-defect obligation. In
+the supplied case, the proof of Lemma PS20.3 applies with $\mathcal T_n$
+replaced by $S_n\otimes S_n$ and shows that the pressure oscillation generated
+by the discarded part vanishes after subtracting spatial means. If this pure
+discarded-pressure estimate is missing, the selected positive mass cannot be
+transferred from $V_n$ to $U_n$; the branch is routed to `PS30` as a pressure
+defect.
 
-**Lemma PS20.6 -- The selected limit solves the standalone local equation.**
-Assume Lemmas PS20.1--PS20.5 and the local compactness package of `PS17`.
-Then every locally convergent subsequence of the selected components has a
-limit $(U,P_U)$ satisfying the same local Navier--Stokes equation, local energy
-inequality, pressure convention, and retained positive CKN lower bound as the
-original selected branch, with no remaining source term from $S_n$.
+**Lemma PS20.6 -- The selected limit is the full suitable limit after
+decoupling.**
+Assume Lemmas PS20.1--PS20.5 and the local compactness package of `PS17` for
+the full suitable sequence $V_n=U_n+S_n$. Then a subsequence of the full
+sequence converges to a suitable weak limit $(U,P_U)$. The same velocity $U$
+is the selected-component limit because $S_n\to0$ locally in $L^3$. The limit
+satisfies the standalone local Navier--Stokes equation, local energy
+inequality, pressure convention, and retained positive CKN lower bound, with
+no remaining source term from $S_n$.
 
-**Proof.** Write the weak equation for
+**Proof.** Write the weak equation for the full suitable sequence
 $V_n=U_n+S_n$ against a compactly supported divergence-free test field
 $\varphi$ in $B_R\times I$. The linear terms split exactly. The nonlinear
 term is
@@ -8202,11 +9481,14 @@ $$
 The second integral tends to zero by Lemma PS20.2. For non-divergence-free
 localized energy test fields, the pressure contribution created by
 $\mathcal T_n$ tends to zero by Lemma PS20.3, and all cutoff terms containing
-$S_n$ vanish by Lemma PS20.4. The remaining terms pass to the selected limit
-by the local compactness and pressure convergence already recorded in `PS17`
-and the pressure gauge from `PS4`. Lemma PS20.5 supplies the retained positive
-CKN lower bound. Hence the selected limit is not merely a formal component of
-the packet; it is an admissible local NS3D branch in its own right.
+$S_n$ vanish by Lemma PS20.4. The remaining terms pass to the limit by the
+local compactness and pressure convergence of the full suitable sequence and
+the pressure gauge from `PS4`. Suitability of the limit follows from the
+stability theorem applied to $V_n$, not from a local energy inequality for
+$U_n$ alone. Since $U_n=V_n-S_n$ and $S_n\to0$ locally in $L^3$, the selected
+component has the same velocity limit. Lemma PS20.5 supplies the retained
+positive CKN lower bound. Hence the selected limit is an admissible local NS3D
+branch only after full-sequence suitability and decoupling have both been used.
 
 ### Specific Estimate
 
@@ -8219,18 +9501,12 @@ $$
 \to0.
 $$
 
-For the pressure term this shorthand includes the two-scale tail limit
-
-$$
-\lim_{A\to\infty}\limsup_n
-\int_I
-A^{-3}\|\mathcal T_n(\tau)\|_{L^{3/2}(\mathbb R^3\setminus B_A)}
-\,d\tau=0,
-$$
-
-together with local convergence of $\mathcal T_n$ on each fixed $B_A$. If this
-tail statement is missing, only the near-field pressure has been decoupled and
-the branch must be routed to the pressure-defect audit `PS30`.
+For the pressure term this shorthand includes the compact-ball decomposition
+from Lemma PS20.3: near-field Calderon--Zygmund convergence on
+$B_{\Theta R}$ and harmonic-remainder oscillation control on the larger ball.
+If that local harmonic control is missing, only the near-field pressure has
+been decoupled and the branch must be routed to the pressure-defect audit
+`PS30`.
 
 ### Practical Verification Steps
 
@@ -8239,8 +9515,8 @@ the branch must be routed to the pressure-defect audit `PS30`.
    $L^1_I L^{3/2}$ mixed-stress convergence estimate from `PS19`.
 3. Estimate all mixed stresses by Holder's inequality or by the direct
    mixed-stress record.
-4. Apply local pressure reconstruction to mixed sources, including the
-   far-field kernel-tail estimate record.
+4. Apply compact-ball pressure reconstruction to mixed sources, including the
+   larger-ball harmonic-remainder oscillation record.
 5. Check cutoff commutators in the represented-equation dual topology, and in
    the compatible local energy space when the $H^1$ upgrade is being used.
 6. Verify the selected CKN lower bound persists.
@@ -8277,7 +9553,7 @@ $$
 =
 \Gamma_{\mathrm{PS19}}
 \cup
-\{\text{terminal decoupling and selected positive branch}\}.
+\{\text{terminal decoupling, full-sequence suitable limit, and selected positive branch}\}.
 $$
 
 ---
@@ -8329,7 +9605,7 @@ V\equiv0\\
 \int_{Q_\rho}|\nabla V_n|^2\to0
 \text{ plus compact convergence and velocity activity, or retained }C+D
 \text{ plus pressure convergence} &
-\text{not a Type II single core}
+\text{zero-dissipation single-core closure}
 \end{array}
 $$
 
@@ -8385,8 +9661,9 @@ case the conclusion is only a regular subregion; remaining activity must be
 returned to active-frame selection.
 
 **Lemma PS21.2 -- Small bounded mild centered ancient profiles vanish.**
-There is $\varepsilon_\infty>0$ such that every bounded mild ancient solution
-of the centered Navier--Stokes equation on
+There is $\varepsilon_\infty>0$, chosen below the constant threshold in the
+proof, such that every bounded mild ancient solution of the centered
+Navier--Stokes equation on
 $\mathbb R^3\times\mathbb R$ satisfying
 
 $$
@@ -8426,8 +9703,35 @@ semigroup estimate or the corresponding mild formulation is absent, the proof
 does not use small $L^\infty$ alone as a Liouville theorem. In that case the
 output is only "small bounded smooth profile, mildness unresolved."
 
-The kernel is integrable for $s>0$. Applying the mild formula on
-$[\tau-T,\tau]$ gives
+The mild formulation used here is the identity
+
+$$
+V(\tau)
+=
+e^{TL}V(\tau-T)
+-
+\int_0^T
+e^{\sigma L}\mathbb P\nabla\cdot
+(V\otimes V)(\tau-\sigma)\,d\sigma
+$$
+
+in $L^\infty$, for every $T>0$. The kernel in the second semigroup estimate is
+integrable for $\sigma>0$, and
+
+$$
+A
+=
+C\int_0^\infty e^{-\sigma/2}(1-e^{-\sigma})^{-1/2}\,d\sigma
+<\infty.
+$$
+
+Choose once and for all
+
+$$
+0<\varepsilon_\infty<\frac1A.
+$$
+
+Applying the mild formula on $[\tau-T,\tau]$ gives
 
 $$
 \|V(\tau)\|_\infty
@@ -8436,8 +9740,9 @@ $$
 M=\|V\|_{L^\infty}.
 $$
 
-Letting $T\to\infty$ gives $M\le AM^2$. If
-$M<1/A$, then $M=0$.
+Taking the supremum in $\tau$ and then letting $T\to\infty$ gives
+$M\le AM^2$. Since $M\le\varepsilon_\infty<1/A$, the only possibility is
+$M=0$.
 
 **Lemma PS21.3 -- Zero localized dissipation gives a mean-subtracted
 alternative.**
@@ -8495,10 +9800,29 @@ C\rho\|\nabla V_n(\cdot,s)\|_{L^2(B_\rho)}.
 $$
 
 Integrating in $s$ gives strong convergence of $V_n-c_n(s)$ to zero in
-$L^2(Q_\rho)$. The compactness package gives a uniform
-$L^{10/3}(Q_\rho)$ bound. Interpolating between strong $L^2$ convergence and
-the uniform $L^{10/3}$ bound yields strong $L^3_{\rm loc}$ convergence of
-$V_n-c_n(s)$ to zero.
+$L^2(Q_\rho)$. The compactness package gives $V_n$ uniformly bounded in
+$L^\infty_sL^2_y\cap L^2_sH^1_y$, hence uniformly bounded in
+$L^{10/3}(Q_\rho)$. The means are also harmless: by Jensen,
+
+$$
+|c_n(s)|
+\le |B_\rho|^{-1/2}\|V_n(\cdot,s)\|_{L^2(B_\rho)},
+$$
+
+so $c_n(s)$ is uniformly bounded on finite cylinders by the
+$L^\infty_sL^2_y$ part of the compactness package. Thus
+$V_n-c_n(s)$ is uniformly bounded in $L^{10/3}$ on compact subcylinders.
+For $Q'\Subset Q_\rho$,
+
+$$
+\|V_n-c_n\|_{L^3(Q')}
+\le
+\|V_n-c_n\|_{L^2(Q')}^{1/6}
+\|V_n-c_n\|_{L^{10/3}(Q')}^{5/6}.
+$$
+
+The first factor tends to zero and the second is uniformly bounded, proving
+strong $L^3_{\rm loc}$ convergence of $V_n-c_n(s)$ to zero.
 
 If the selected gauge or modulation removes $c_n$, or if $c_n\to0$, the
 velocity itself converges strongly to zero on compact subcylinders. A retained
@@ -8991,9 +10315,12 @@ information inherited from `PS7` and `PS30`. These are exactly the items that
 axis has escaped in the selected frame, this lemma does not supply no-swirl
 endpoint data.
 If the theorem hypotheses match, `PS32` translates its regularity conclusion
-back to the singular-entry variables and contradicts retained singular
-activity. If any theorem hypothesis is missing, the conclusion of this lemma is
-the missing hypothesis, not a closure claim.
+back to the singular-entry variables and closes the branch only when the
+regularity conclusion applies to the same selected active branch carrying the
+retained singular-core activity. If the theorem applies only to a regular
+subregion, the remaining activity is returned to active-frame selection. If
+any theorem hypothesis is missing, the conclusion of this lemma is the missing
+hypothesis, not a closure claim.
 
 **Lemma PS23.3 -- Controlled circulation supplies scalar endpoint hypotheses
 data.**
@@ -9028,11 +10355,13 @@ the exact exponent $q$ or weight $\gamma$, the time interval, the domain, and
 the behavior at the axis $r=0$. If the selected frame does not contain a
 limiting axis, or if the axis has escaped, this scalar endpoint is not
 available. `PS31` compares
-these data with the selected controlled-swirl theorem. Only after that match
+these data with the selected controlled-swirl theorem. Only after that match,
+and only when the theorem conclusion covers the selected active branch itself,
 does `PS32` use the theorem conclusion, such as regularity, vanishing, or a
-constant ancient state, to contradict retained singular activity. Without the
-exact exponent, axis condition, pressure convention, and solution class, the
-controlled-swirl theorem is not invoked.
+constant ancient state, to close the retained singular branch. Without the
+exact exponent, axis condition, pressure convention, solution class, and
+same-branch activity link, the controlled-swirl theorem is not invoked as an
+exclusion.
 
 **Lemma PS23.4 -- Weighted decay is a structured hypothesis.**
 If
@@ -9183,11 +10512,19 @@ If
 $$
 V(y,\tau)=Q(\tau)W(Q(\tau)^Ty),
 \qquad
-Q'(\tau)=\Omega Q(\tau),
+Q'(\tau)=\Omega_{\rm sp} Q(\tau),
 $$
 
-with $Q(\tau)\in SO(3)$, $\Omega^T=-\Omega$, and $\Omega$ constant, then,
-after setting $z=Q(\tau)^Ty$, the profile $W$ satisfies
+with $Q(\tau)\in SO(3)$, $\Omega_{\rm sp}^T=-\Omega_{\rm sp}$, and
+$\Omega_{\rm sp}$ constant, define the body-frame generator
+
+$$
+\Omega
+=Q(\tau)^T\Omega_{\rm sp}Q(\tau).
+$$
+
+This matrix is independent of $\tau$. After setting $z=Q(\tau)^Ty$, the
+profile $W$ satisfies
 
 $$
 -\Delta W+\frac12z\cdot\nabla W+\frac12W
@@ -9197,16 +10534,54 @@ $$
 \nabla\cdot W=0.
 $$
 
-**Proof.** Differentiate $z=Q(\tau)^Ty$ to get $\partial_\tau z=-\Omega z$.
-The Laplacian, divergence, convection term, and pressure gradient are invariant
-under the orthogonal map $Q(\tau)$. Substituting into the centered
-Navier--Stokes equation and multiplying by $Q(\tau)^T$ gives the displayed
-equation.
+**Proof.** First,
 
-If $\Omega=\Omega(\tau)$ is not constant, the co-rotating frame contains
-time-dependent modulation terms and the profile is not stationary in this
-sense. That case is routed to modulation/coherent-defect analysis with the
-extra terms retained.
+$$
+\frac{d}{d\tau}(Q^T\Omega_{\rm sp}Q)
+=
+Q^T\Omega_{\rm sp}^T\Omega_{\rm sp}Q
++
+Q^T\Omega_{\rm sp}^2Q
+=0,
+$$
+
+because $\Omega_{\rm sp}^T=-\Omega_{\rm sp}$. Thus
+$\Omega=Q^T\Omega_{\rm sp}Q$ is constant and skew-symmetric. Differentiate
+$z=Q(\tau)^Ty$ to get $\partial_\tau z=-\Omega z$.
+The velocity derivative transforms as
+
+$$
+Q^T\partial_\tau V
+=
+\Omega W-(\Omega z)\cdot\nabla W.
+$$
+
+The remaining terms are orthogonally covariant:
+
+$$
+Q^T\Delta_y V=\Delta_zW,
+\qquad
+Q^T((V\cdot\nabla_y)V)=(W\cdot\nabla_z)W,
+$$
+
+$$
+Q^T(y\cdot\nabla_yV)=z\cdot\nabla_zW,
+\qquad
+Q^T\nabla_yP=\nabla_z\Pi,
+$$
+
+where $\Pi(z,\tau)=P(Q(\tau)z,\tau)$. Substituting these identities into the
+centered Navier--Stokes equation and multiplying by $Q(\tau)^T$ gives the
+displayed equation with $\nabla_z\Pi(\cdot,\tau)$. Since every velocity and
+drift term in that equation is independent of $\tau$, the pressure gradient is
+independent of $\tau$. Fixing one time and subtracting the remaining
+time-dependent spatial constant gives a pressure representative $\Pi(z)$ and
+the displayed stationary co-rotating equation.
+
+If the body-frame generator $Q^TQ'$ is not constant, the co-rotating frame
+contains time-dependent modulation terms and the profile is not stationary in
+this sense. That case is routed to modulation/coherent-defect analysis with
+the extra terms retained.
 
 **Lemma PS24.2 -- Physical Galilean normalization and centered translations
 are different.**
@@ -9274,16 +10649,19 @@ verified.
 
 **Lemma PS24.3 -- Non-small co-moving flux creates retained local activity.**
 Let $F_{\rm coh}$ denote the additional transport or Coriolis-type term in the
-co-moving stationary equation. If its localized annular flux satisfies
+co-moving stationary equation. Assume the localized energy identity on
+$A_R\times I$ is available, all pressure, cutoff, and source terms except
+$F_{\rm coh}$ are controlled, and the annulus has a finite parabolic cover
+with constant $C_{\rm cover}$. If the localized annular flux satisfies
 
 $$
 \left|\iint_{A_R\times I} F_{\rm coh}\cdot W\,\chi_R\right|
 \ge \eta
 $$
 
-on a fixed annulus $A_R$, then the branch contains a retained local
-concentration component and is assigned to active-frame analysis rather than a
-coherent-structure endpoint route.
+with $\eta>C_{\rm cover}\varepsilon_{\rm CKN}$, then the branch contains a
+retained local concentration component and is assigned to active-frame
+analysis rather than a coherent-structure endpoint route.
 
 **Proof.** Insert the co-moving equation into the localized energy identity on
 the annulus. Cover $A_R\times I$ by finitely many parabolic cylinders whose
@@ -9297,12 +10675,16 @@ $$
 and all pressure, cutoff, and source terms except $F_{\rm coh}$ are controlled,
 then the perturbative estimates from `PS21` bound the coherent flux by
 $C_{\rm cover}\varepsilon_{\rm CKN}$, with the constant depending only on the
-cover, cutoff, and coefficient bounds. Therefore, if the flux is bounded below
-by $\eta>C_{\rm cover}\varepsilon_{\rm CKN}$, at least one cylinder in the
-cover has non-small CKN quantity. Rescaling that cylinder gives an active local
+cover, cutoff, and coefficient bounds. This finite-cover perturbative flux
+estimate is part of the lemma's hypothesis; it is not inferred from flux
+smallness alone. Therefore, if the flux is bounded below by
+$\eta>C_{\rm cover}\varepsilon_{\rm CKN}$, at least one cylinder in the cover
+has non-small CKN quantity. Rescaling that cylinder gives an active local
 concentration frame. If any pressure, cutoff, or modulation term in the
-localized energy identity is uncontrolled, the conclusion is not active-frame
-routing; the uncontrolled term is entered into the `PS30` defect vector.
+localized energy identity is uncontrolled, or if the finite-cover flux
+estimate has not been proved in the required topology, the conclusion is not
+active-frame routing; the missing or uncontrolled term is entered into the
+`PS30` defect vector.
 
 **Lemma PS24.4 -- Small co-moving flux produces a stationary or perturbative
 endpoint candidate.**
@@ -9365,7 +10747,7 @@ transport terms are not controlled by the recorded local estimates.
 Allowed refinements:
 
 1. change to the exact co-moving frame;
-2. absorb constant drifts by Galilean normalization;
+2. absorb physical constant drifts by a verified Galilean normalization;
 3. assign non-small flux to active-frame analysis;
 4. assign degenerate stationary-family behavior to `PS25`.
 
@@ -9408,7 +10790,7 @@ pressure-normalized local CKN mass.
 ### Objects Inspected
 
 Inspect the stationary profile equation, the topology and pressure gauge of a
-stationary family, the tangent vector $Z$, the linearized operator, true
+stationary family, the tangent vectors $Z_j$, the linearized operator, true
 symmetry tangents, modulation/frame directions, and active attainment sequence.
 
 ### Dependencies Used
@@ -9425,26 +10807,33 @@ endpoint profile.
 
 ### Local Lemmas to Prove
 
-**Lemma PS25.1 -- A stationary family gives a linearized stationary solution.**
-Assume $a\mapsto W_a$ is $C^1$ in a topology strong enough to differentiate
-the stationary centered equation, for example $C^2_{\rm loc}$, and that
-$a\mapsto\Pi_a$ is differentiable modulo constants. If
-$a\mapsto(W_a,\Pi_a)$ is a stationary family, then
-$Z=\partial_aW_a|_{a=0}$ satisfies
+**Lemma PS25.1 -- A stationary family gives linearized stationary solutions.**
+Assume $a\mapsto W_a$, $a\in\mathbb R^m$, is $C^1$ in a topology strong enough
+to differentiate the stationary centered equation, for example
+$C^2_{\rm loc}$, and that $a\mapsto\Pi_a$ is differentiable modulo constants.
+If $a\mapsto(W_a,\Pi_a)$ is a stationary family and $W=W_0$, then each tangent
+vector
 
 $$
--\Delta Z+\frac12y\cdot\nabla Z+\frac12Z
-+(Z\cdot\nabla)W+(W\cdot\nabla)Z+\nabla\pi=0,
+Z_j=\partial_{a_j}W_a|_{a=0}
+$$
+
+satisfies
+
+$$
+-\Delta Z_j+\frac12y\cdot\nabla Z_j+\frac12Z_j
++(Z_j\cdot\nabla)W+(W\cdot\nabla)Z_j+\nabla\pi_j=0,
 \qquad
-\nabla\cdot Z=0.
+\nabla\cdot Z_j=0.
 $$
 
 **Proof.** The topology assumption permits differentiating the Laplacian,
 centered drift, pressure gradient, and product $(W_a\cdot\nabla)W_a$ locally.
 The pressure-gauge assumption gives a derivative
-$\pi=\partial_a\Pi_a|_{a=0}$ modulo constants. Differentiating the stationary
-centered equation at $a=0$ gives the displayed linearized equation, and
-differentiating $\nabla\cdot W_a=0$ gives $\nabla\cdot Z=0$.
+$\pi_j=\partial_{a_j}\Pi_a|_{a=0}$ modulo constants. Differentiating the
+stationary centered equation with respect to $a_j$ at $a=0$ gives the
+displayed linearized equation, and differentiating $\nabla\cdot W_a=0$ gives
+$\nabla\cdot Z_j=0$.
 
 **Lemma PS25.2 -- True symmetry directions and modulation directions are
 different.**
@@ -9474,23 +10863,25 @@ directions, but then the extra equation terms must be retained and routed to
 
 **Lemma PS25.3 -- Exact motion along a stationary family is stationary only
 modulo true symmetries.**
-If an ancient trajectory satisfies $V(\tau)=W_{a(\tau)}$ for a stationary
-family whose parametrization is an immersion modulo pressure gauges and true
-velocity symmetries, then $a'(\tau)=0$ after quotienting those true symmetries,
-and $V$ is stationary in the quotient.
+If an ancient trajectory satisfies $V(\tau)=W_{a(\tau)}$ with
+$a\in W^{1,1}_{\rm loc}$ for a stationary family whose parametrization is an
+immersion modulo pressure gauges and true velocity symmetries, then
+$a'(\tau)=0$ for a.e. $\tau$ after quotienting those true symmetries, and $V$
+is stationary in the quotient.
 
 **Proof.** Substitute $V(\tau)=W_{a(\tau)}$ into the centered equation. Since
 each $W_a$ solves the stationary equation, the only remaining term is
 
 $$
-a'(\tau)\partial_aW_{a(\tau)}.
+\sum_{j=1}^m a_j'(\tau)\partial_{a_j}W_{a(\tau)}.
 $$
 
-The immersion hypothesis says that this tangent vanishes only when
+The immersion hypothesis says that this tangent combination vanishes only when
 $a'(\tau)=0$, after quotienting pressure gauges and true velocity symmetries.
-If the tangent is a rotation generator, the branch is a relative equilibrium
-handled by `PS24`. If it is a frame/modulation direction, the equation is not
-the exact stationary equation and is routed to `PS26`.
+If the tangent combination lies in a rotation generator, the branch is a
+relative equilibrium handled by `PS24`. If it lies in a frame/modulation
+direction, the equation is not the exact stationary equation and is routed to
+`PS26`.
 
 **Lemma PS25.4 -- Active attainment is required for stationary endpoint use.**
 If a compact hull contains a stationary profile lying on a nontrivial
@@ -9531,11 +10922,12 @@ activity is missing, hull containment alone is insufficient for contradiction.
 
 ### Specific Estimate
 
-The decisive verification is the linearized stationary equation for $Z$ and
+The decisive verification is the linearized stationary equation for each
+$Z_j$ and
 the classification
 
 $$
-Z\in
+Z_j\in
 \{\text{true symmetry tangent},
 \text{ modulation/frame tangent},
 \text{ genuine stationary-family tangent},
@@ -9595,8 +10987,8 @@ $$
 \Gamma_{\mathrm{PS24}}
 \cup
 \{\text{stationary family topology and pressure gauge},
-\text{ linearized stationary equation for }Z,
-\text{ classification of }Z:
+\text{ linearized stationary equations for }Z_j,
+\text{ classification of each }Z_j:
 \text{ true symmetry / modulation direction / genuine family / unresolved kernel},
 \text{ active attainment status},
 \text{ endpoint hypothesis status}\}.
@@ -10233,8 +11625,10 @@ means.
 ### Objects Inspected
 
 Inspect weak convergence of $u_n$, strong convergence in $L^3_{\rm loc}$,
-convergence of $u_n\otimes u_n$, pressure oscillation convergence, cutoff
-commutators, high-frequency projections, and modulation coefficients.
+convergence of $u_n\otimes u_n$, pressure oscillation convergence on compact
+cylinders after local gauge subtraction, cutoff commutators, high-frequency
+projections, modulation coefficients, and every defect that must be handed to
+the local residual state space.
 
 ### Dependencies Used
 
@@ -10245,8 +11639,11 @@ Measure defects use `C_mu`, `PS1`, and `PS16`; stress defects use `PS6`,
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{PS30}}$ holds when some meaningful defect channel has no conclusion
-compatible with the endpoint theorem hypotheses.
+$P_{\mathrm{PS30}}$ holds when some meaningful defect channel has no
+conclusion compatible with the endpoint theorem hypotheses or with the local
+state-space residual theorem. A pressure defect is not a demand for a global
+pressure representative; it is a local gauge or compact-window pressure
+failure unless an endpoint theorem explicitly requires more.
 
 ### Local Lemmas to Prove
 
@@ -10288,12 +11685,15 @@ $\partial_i\partial_j(u_{n,i}u_{n,j})$ and a harmonic part. The singular
 integral is continuous on $L^{3/2}$ locally after cutoff. Interior harmonic
 estimates control the harmonic oscillation on smaller balls.
 
-**Lemma PS30.4 -- Cutoff and artificial-boundary defects vanish under compact
-control.**
-If the localized fields are bounded in $L^\infty_tL^3_x$ and their mixed
-stresses vanish in $L^1_tL^{3/2}_x$, then all commutators generated by fixed
-cutoffs vanish in $L^1_tH^{-1}_x$ whenever at least one factor is a vanishing
-component.
+**Lemma PS30.4 -- Cutoff and artificial-boundary defects are controlled only
+in the recorded topology.**
+If the localized fields are bounded in $L^\infty_tL^3_x$, their mixed stresses
+vanish in the branch topology, and the pressure source has a recorded annular
+pressure convergence or pressure-decomposition estimate, then fixed-cutoff
+commutators are either absent on cylinders contained in $\{\chi=1\}$ or are
+controlled in the source topology recorded for the branch. A fixed
+$L^1_tH^{-1}_x$ control is sufficient only for endpoint theorems whose
+registered source topology accepts that space.
 
 **Proof.** A cutoff commutator has the form
 
@@ -10304,10 +11704,16 @@ $$
 $$
 
 or a finite sum of such terms, with $\chi\in C_c^\infty$. The coefficients
-$\nabla\chi$ and $\Delta\chi$ are bounded on the compact cylinder. The
-recorded convergence of $w_n$, mixed stresses, or pressure sources to zero in
-the stated spaces gives convergence of each displayed commutator to zero in
-$L^1_tH^{-1}_x$ on compact balls.
+$\nabla\chi$ and $\Delta\chi$ are bounded and are supported on the cutoff
+annulus. On a cylinder contained in $\{\chi=1\}$ all displayed cutoff
+commutators are absent. On a cylinder meeting the cutoff annulus, the
+commutators are real source terms: products involving a vanishing velocity
+component are controlled by the recorded mixed-stress convergence, while
+$(\nabla\chi)(P_n-\bar P_n)$ is controlled only by the recorded annular
+pressure estimate or pressure decomposition. The conclusion is therefore
+topology-relative: the commutator is marked vanishing or absorbed only in the
+source topology later registered for the endpoint theorem; otherwise the
+uncontrolled term remains in the `PS30` defect vector.
 
 **Lemma PS30.5 -- Frequency defects either vanish or define a new scale.**
 Let $P_{\ge N}$ be a Littlewood--Paley projection on a compact window. If
@@ -10334,6 +11740,57 @@ assigned to `PS11`, `PS26`, or `PS28`.
 rotation, or drift parameters. Failure of their boundedness or convergence is a
 failure of the corresponding parameter selection or transition-cost estimate.
 
+**Lemma PS30.7 -- Pressure-tail defects are local gauge states.**
+If a branch has local pressure oscillation bounds
+
+$$
+P_n-a_{n,Q}(t)\rightharpoonup P
+\quad\text{in }L^{3/2}(Q)
+$$
+
+on every compact observer cylinder $Q$, then pressure is admissible for the
+local residual state space even if no global pressure representative on
+$\mathbb R^3$ has been fixed. If such compact-window gauge bounds fail on a
+selected observer cylinder, the failure is recorded as a local pressure
+compactness defect for `ST4` and `ST6`.
+
+**Proof.** The local energy inequality, local CKN quantities, and centered
+equation use either $\nabla P$ or pressure oscillations modulo functions of
+time. Subtracting $a_{n,Q}(t)$ leaves those quantities unchanged on $Q$ and is
+stable under restriction to smaller cylinders. Hence compact-window
+$L^{3/2}$ weak control is exactly the pressure datum required by
+$\mathfrak X_M$ in `ST2`. A missing whole-space Riesz representative affects
+only endpoint theorems whose registry entry in `PS31` demands that
+representative. It is not a residual obstruction for the local state-space
+closure.
+
+**Lemma PS30.8 -- Residual defects have local destinations.**
+If a defect channel remains after the audit, it must be assigned to one of the
+following local residual destinations:
+
+$$
+\text{active local concentration},\quad
+\text{diffuse exterior defect},\quad
+\text{critical-tail boundary state},\quad
+\text{local pressure compactness failure},\quad
+\text{local coefficient or source failure}.
+$$
+
+The first three are routed to `ST5`--`ST11`, pressure compactness failure is
+routed to `ST4` and `ST6`, and coefficient/source failures are routed to the
+earlier node that owns the missing transformed equation or to `PS33` if
+realization is the issue.
+
+**Proof.** The defect vector is meaningful only when each entry has a target
+predicate. A local concentration defect has positive mass on a compact
+observer cylinder and therefore belongs to the active-locus extraction.
+A diffuse defect is precisely mass that survives through escaping observer
+windows while subthreshold on each unit cylinder. A critical tail is a
+boundary state of the observer compactification. A pressure failure on a
+compact cylinder is local because gauges are defined cylinderwise. Any
+remaining coefficient or source term belongs to the equation construction or
+to the provenance graph, not to a global tail estimate.
+
 ### Specific Estimate
 
 The decisive vector statement is
@@ -10353,10 +11810,14 @@ with no blank entry.
 2. Verify strong $L^3$ convergence or record a stress defect.
 3. Verify pressure convergence after spatial-mean normalization.
 4. Check measure concentration and recenter any positive defect measure.
-5. Check cutoff commutators on every compact cylinder used later.
-6. Check frequency tails or assign a new scale.
-7. Check modulation coefficients and assign parameter failures.
-8. Record unknown residues only if they are explicit distributions.
+5. Check pressure only through local gauges on every compact observer
+   cylinder unless a registered endpoint theorem requires a global
+   representative.
+6. Check cutoff commutators on every compact cylinder used later.
+7. Check frequency tails or assign a new scale.
+8. Check modulation coefficients and assign parameter failures.
+9. Record unknown residues only if they are explicit local distributions or
+   local residual-state witnesses for `ST0`--`ST20`.
 
 ## Estimate Step $B_{\mathrm{PS30}}$
 
@@ -10378,89 +11839,3301 @@ Allowed refinements:
 2. improve strong convergence;
 3. refine pressure decomposition;
 4. shrink or enlarge cutoffs;
-5. name an explicit residual distribution and assign it to `PS34`.
+5. name an explicit local residual distribution and assign it to the
+   state-space residual block `ST0`--`ST20` or to `PS34` only as
+   set-theoretic bookkeeping for that routed branch.
 
 Progress measure: each refinement fills one previously blank defect-vector
 entry.
 
 ## Data Passed Forward
 
-The next proof step is `PS31`. The data passed forward are
+The next proof step is `ST0` for any generic residual branch with local
+state-space destinations. Nonresidual endpoint branches may continue directly
+to `PS31`. The data passed forward are
 
 $$
 \Gamma_{\mathrm{PS30}}
 =
 \Gamma_{\mathrm{PS29}}
 \cup
-\{\mathbf d\text{ complete}\}.
+\left\{
+\begin{array}{l}
+\mathbf d\text{ complete},\\
+\text{all pressure entries are local-gauge controlled, endpoint-specific,}\\
+\text{or routed as local pressure compactness defects to }ST4/ST6,\\
+\text{all residual entries have local destinations in }ST0\text{--}ST20
+\end{array}
+\right\}.
 $$
 
 ---
 
-# 37. `PS31` -- Endpoint Hypothesis Verification
+# 37. `ST0` -- Lower-Strata Ledger
 
 ## Implementation and Verification in NS3D Terms
 
 ### Analytic Setting and Unknowns
 
-The unknown is the selected endpoint candidate: CKN regularity, Serrin
-regularity, small-data theory, stationary $L^3$ Liouville, endpoint ancient
-$L^3$ Liouville, structured Liouville, Type II local exclusion, or residual
-closure.
+The unknown is a bounded centered profile $(U,\Pi)$ or a terminal sequence
+$(U_n,\Pi_n)$ that has reached the residual state-space audit after the
+earlier profile, structure, defect, and endpoint-routing nodes have been run.
+
+### Standing Assumptions
+
+The incoming record contains retained compact CKN activity, local suitability,
+local pressure gauges, and a complete defect vector from `PS30`. The record
+also contains the status of every lower class already treated by the sieve.
+
+### Objects Inspected
+
+Inspect membership in the lower strata whose status is already known or whose
+open theorem/realization route is already owned by an earlier node:
+
+$$
+\begin{array}{l}
+\text{small amplitude},\quad
+\text{stationary }L^3,\quad
+\text{uniformly }L^3\text{-tight},\\
+\text{closed structured or decay classes},\quad
+\text{axisymmetric bounded-circulation classes},\\
+\text{rotational relative equilibria},\quad
+\text{degenerate stationary-hull profiles},\\
+\text{affine/parasitic constant profiles}.
+\end{array}
+$$
+
+### Dependencies Used
+
+Smallness comes from `PS21`; stationary branches from `PS22`; structured,
+axisymmetric, rotational, perturbative, and degenerate stationary-hull
+branches from `PS23`--`PS29`; tight branches from `PS15`; defect status from
+`PS30`. If a lower stratum has an endpoint theorem or realization issue that
+has not yet been matched, `ST0` records the lower-stratum route and exits the
+generic residual block; it does not wait for, or assume, a later `PS31`--`PS33`
+closure record.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST0}}$ holds if the residual block is entered before the proof has
+recorded whether the incoming profile is already in a lower stratum with a
+closed status or an owned open obligation. The residual block may not reprove
+lower cases or count a lower case again as generic residual.
+
+### Local Lemmas to Prove
+
+**Lemma ST0.1 -- Closed lower strata are absorbing exits.**
+If the incoming profile belongs to a lower stratum whose realized admissible
+part has already been excluded or proved nonattainable, then the residual
+state-space block stops for that branch and records the corresponding
+exclusion source. If it belongs to a lower stratum whose endpoint or
+realization status is still open, the residual block also stops, but records
+the open lower-stratum obligation rather than treating the branch as generic
+residual.
+
+**Proof.** The lower-strata ledger stores, for each class $\mathcal L_j$, the
+predicate defining the class, its proof source, and its status. If
+$(U,\Pi)\in\mathcal L_j$ and the status is closed, then the branch has already
+received either an endpoint contradiction or a nonattainability proof. If the
+status is open, the correct next obligation is the theorem or realization
+route attached to $\mathcal L_j$. In both cases the profile is not a generic
+residual profile. Running a residual argument on the same branch would
+duplicate the class rather than refine the proof.
+
+**Lemma ST0.2 -- Generic residual means outside the routed lower ledger.**
+Define
+
+$$
+\mathcal L_j^{\rm routed}
+=
+\left\{
+\begin{array}{l}
+\mathcal L_j\text{ with closed status, or}\\
+\mathcal L_j\text{ with an open endpoint/realization obligation owned by}\\
+\text{its lower-stratum node}
+\end{array}
+\right\},
+\qquad
+\mathcal R_{\rm loc}
+=
+\mathfrak X_M
+\setminus
+\bigcup_j \mathcal L_j^{\rm routed}.
+$$
+
+A profile enters `ST1` only if it lies in $\mathcal R_{\rm loc}$ and carries
+retained compact activity.
+
+**Proof.** This is the ordered subtraction convention used in `PS34`. The
+residual class is not a vague complement; it is the exact complement of all
+lower predicates whose status already has an owner. Closed lower predicates
+exit with their existing exclusion source. Open lower predicates exit with
+their theorem or realization obligation. Only profiles outside this routed
+ledger enter the generic residual state space.
+
+### Specific Estimate
+
+The decisive check is the lower-strata membership vector
+
+$$
+\ell(U)
+=
+\left(
+\mathbf 1_{U\in\mathcal L_j},
+\mathrm{status}(\mathcal L_j),
+\mathrm{source}(\mathcal L_j)
+\right)_j
+$$
+
+with no blank entry.
+
+### Practical Verification Steps
+
+1. List every lower stratum available before the residual block.
+2. Attach the defining predicate, proof source, and status to each entry.
+3. If a closed lower predicate holds, route to that existing exclusion.
+4. If an open lower predicate holds, route to the theorem or realization gap
+   that owns it.
+5. If no lower predicate holds, declare the profile generic residual and pass
+   it to `ST1`.
+
+## Estimate Step $B_{\mathrm{ST0}}$
+
+The estimate step is ordered lower-strata ledger verification. No PDE estimate
+is introduced at this node.
+
+## Failure Case
+
+Failure name: lower-strata ledger gap.
+
+Analytic meaning: the branch is being called generic residual while a lower
+class has not been checked, or while an open lower-class status is being
+silently treated as excluded.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. add the missing lower-stratum predicate;
+2. reroute the branch to the lower node that owns it;
+3. split a mixed-status class into closed and open subbranches;
+4. update `PS34` so the same class is not counted twice.
+
+Progress measure: the membership vector $\ell(U)$ has no blank entries.
+
+## Data Passed Forward
+
+On the generic residual path, the next proof step is `ST1`. Lower-stratum
+matches exit through their owning lower node or obligation ledger. The data
+passed forward on the generic residual path are
+
+$$
+\Gamma_{\mathrm{ST0}}
+=
+\Gamma_{\mathrm{PS30}}
+\cup
+\left\{
+\begin{array}{l}
+\mathcal R_{\rm loc}\text{ defined by ordered routed lower-strata subtraction},\\
+(U,\Pi)\in\mathcal R_{\rm loc},\\
+\text{retained compact activity},\\
+\text{lower-strata ledger with sources}
+\end{array}
+\right\}.
+$$
+
+---
+
+# 38. `ST1` -- Covariant Observer Calculus
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a bounded centered profile $(U,\Pi)$ and the family of local
+observer transforms used to recenter escaping activity without breaking the
+centered equation.
+
+### Standing Assumptions
+
+The incoming profile solves the centered equation locally,
+
+$$
+\partial_\tau U+(U\cdot\nabla)U+\nabla\Pi-\Delta U
++\frac12U+\frac12y\cdot\nabla U=0,
+\qquad \nabla\cdot U=0,
+$$
+
+with pressure defined modulo functions of $\tau$.
+
+### Objects Inspected
+
+Inspect the covariant centered translations
+
+$$
+(T_aU)(y,\tau)=U(y+e^{\tau/2}a,\tau),
+$$
+
+time translations
+
+$$
+(\Theta_sU)(y,\tau)=U(y,\tau+s),
+$$
+
+and observer recenterings
+
+$$
+\mathscr T_{(x,\sigma)}U(y,s)
+=
+U(y+e^{s/2}x,\sigma+s).
+$$
+
+The pressure is transformed by composition and by any affine correction needed
+for the affine/parasitic normalization of `ST3`; time-dependent gauge terms
+remain quotiented out.
+
+### Dependencies Used
+
+The centered equation comes from `PS5`; pressure gauges from `PS4` and
+`PS30`; local suitability from `PS7`; retained activity from `PS8`;
+terminal recentering warnings from `PS14`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST1}}$ holds if a branch uses raw spatial translations as if they
+preserved the centered equation. Raw translations create the wrong
+$\frac12y\cdot\nabla U$ drift and cannot be used in an endpoint-ready residual
+branch.
+
+### Local Lemmas to Prove
+
+**Lemma ST1.1 -- Covariant translations preserve the centered equation.**
+If $(U,\Pi)$ solves the centered equation, then
+
+$$
+U_a(y,\tau)=U(y+e^{\tau/2}a,\tau),
+\qquad
+\Pi_a(y,\tau)=\Pi(y+e^{\tau/2}a,\tau)
+$$
+
+solves the same centered equation, modulo the same time-dependent pressure
+gauge.
+
+**Proof.** Set $z=y+e^{\tau/2}a$. Then
+
+$$
+\partial_\tau U_a
+=
+(\partial_\tau U)(z,\tau)
++\frac12 e^{\tau/2}a\cdot\nabla U(z,\tau),
+$$
+
+while
+
+$$
+\frac12y\cdot\nabla U_a
++\frac12 e^{\tau/2}a\cdot\nabla U(z,\tau)
+=
+\frac12z\cdot\nabla U(z,\tau).
+$$
+
+All other terms are invariant under spatial composition. Substitution gives
+the centered equation for $U_a$.
+
+**Lemma ST1.2 -- Observer recentering preserves local suitability.**
+If $(U,\Pi)$ is locally suitable on compact centered cylinders, then
+$\mathscr T_{(x,\sigma)}(U,\Pi)$ is locally suitable on every compact
+observer cylinder whose image is a compact centered cylinder.
+
+**Proof.** The observer map is a smooth parabolic change of variables on each
+compact window and is an exact symmetry of the centered equation by
+Lemma ST1.1 and time translation. Pulling test functions through the map gives
+the local energy inequality with the pressure gauge transformed by
+composition and by a function of time.
+
+### Specific Estimate
+
+The decisive identity is
+
+$$
+\partial_s\mathscr T_{(x,\sigma)}U
++\frac12 y\cdot\nabla\mathscr T_{(x,\sigma)}U
+=
+\left(\partial_\tau U+\frac12 z\cdot\nabla U\right)(z,\sigma+s),
+\quad z=y+e^{s/2}x.
+$$
+
+### Practical Verification Steps
+
+1. Write every recentering in covariant observer form.
+2. Check the pressure gauge after composition.
+3. Verify that compact observer cylinders map to compact centered cylinders.
+4. Recompute the centered drift if any raw translate appears.
+5. Route noncovariant formulas back to this node before compactness is used.
+
+## Estimate Step $B_{\mathrm{ST1}}$
+
+The estimate step is the chain-rule verification of the covariant observer
+symmetry and the local suitability pullback.
+
+## Failure Case
+
+Failure name: noncovariant recentering.
+
+Analytic meaning: an escaping branch has been recentered by a map that changes
+the centered equation but the new drift or pressure term has not been
+recorded.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. replace raw translations by $T_a$ or $\mathscr T_{(x,\sigma)}$;
+2. add the missing drift if the branch intentionally uses a noncovariant
+   frame;
+3. shrink the compact observer cylinder so the map is admissible;
+4. return to `PS5` if the transformed equation has changed.
+
+Progress measure: every observer transform is exact or its defect is recorded.
+
+## Data Passed Forward
+
+The next proof step is `ST2`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST1}}
+=
+\Gamma_{\mathrm{ST0}}
+\cup
+\left\{
+Z=\mathbb R^3\times\mathbb R,\quad
+T_a,\quad \Theta_s,\quad \mathscr T_{(x,\sigma)},
+\quad \text{covariant observer gauges}
+\right\}.
+$$
+
+---
+
+# 39. `ST2` -- Terminal Local State Space
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the compact local state space replacing global compactness
+assumptions in the residual branch.
+
+### Standing Assumptions
+
+The residual profile is bounded by a fixed $M$, solves the centered equation
+locally, is locally suitable on compact terminal cylinders, and has pressure
+oscillation representatives modulo time-dependent gauges.
+
+### Objects Inspected
+
+Define $\mathfrak X_M$ to be the set of pairs $(U,\Pi)$ modulo
+time-dependent pressure gauges such that
+
+$$
+\|U\|_{L^\infty(Z)}\le M,
+$$
+
+$(U,\Pi)$ solves the centered equation locally, $(U,\Pi)$ is locally suitable
+on every compact terminal cylinder, and
+
+$$
+\Pi-c_Q(\tau)\in L^{3/2}(Q)
+$$
+
+for every compact observer cylinder $Q\Subset Z$ and some gauge $c_Q(\tau)$.
+The smooth branch topology is
+
+$$
+U_n\to U\quad\text{in }C^\infty_{\rm loc},
+\qquad
+\Pi_n-c_{n,Q}(\tau)\rightharpoonup \Pi
+\quad\text{in }L^{3/2}(Q)
+$$
+
+on every compact $Q$. If a sequence reaches this node only with the suitable
+weak compactness package from `PS6`, the velocity topology is first the
+recorded strong $L^3_{\rm loc}$ suitable topology with weak
+$L^{3/2}_{\rm loc}$ pressure. It may be upgraded to $C^\infty_{\rm loc}$ only
+after the bounded local regularity input has been applied on the compact
+window. The node must record which of these two topologies is being used.
+
+### Dependencies Used
+
+Bounded centered profiles come from `PS9`; smooth local compactness from
+`PS13` or the local compactness package of `PS6`; pressure gauges from `PS4`
+and `PS30`; local suitability from `PS7`; covariant observers from `ST1`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST2}}$ holds if the residual branch invokes compactness without
+specifying the compact-window topology, pressure quotient, or local suitability
+class.
+
+### Local Lemmas to Prove
+
+**Lemma ST2.1 -- Compact-window closure of $\mathfrak X_M$.**
+Every sequence in $\mathfrak X_M$ with the recorded compact-window pressure
+gauges and either the smooth bounded-profile package or the `PS6` suitable
+compactness package has a subsequence converging on any fixed compact observer
+cylinder in the corresponding local topology.
+
+**Proof.** In the smooth bounded-profile branch, uniform boundedness, the
+centered equation, and local pressure-gauge bounds give local parabolic
+regularity on compact subcylinders, hence $C^\infty_{\rm loc}$ subsequential
+compactness. In the suitable branch, the output is only the strong
+$L^3_{\rm loc}$ and weak pressure topology already justified in `PS6` until a
+separate bounded-regularity upgrade is recorded. Pressure oscillation bounds
+give weak compactness in $L^{3/2}$ after subtracting local gauges in either
+case. Diagonal extraction over a compact exhaustion gives the stated
+compact-window topology. No global compactness is used.
+
+**Lemma ST2.2 -- No global norm is part of the state-space definition.**
+Membership in $\mathfrak X_M$ requires no global $L^3$ bound, no uniform
+tightness modulus, and no whole-space pressure representative.
+
+**Proof.** Each defining item is checked on compact observer cylinders or is
+the global boundedness inherited from the Type I profile. The pressure is
+quotiented by local time-dependent gauges. Whole-space integrability appears
+only later if an endpoint theorem requires it, and in the residual branch it
+is recovered at `ST17` rather than assumed here.
+
+### Specific Estimate
+
+The decisive compactness statement is
+
+$$
+\forall K\Subset Z,\qquad
+\sup_n\|U_n\|_{L^\infty(K)}+
+\sup_n\|\Pi_n-c_{n,K}(\tau)\|_{L^{3/2}(K)}<\infty
+$$
+
+with local suitability on $K$, plus an explicit topology label:
+$C^\infty_{\rm loc}$ after bounded regularity, or the `PS6`
+strong-$L^3_{\rm loc}$/weak-pressure topology before that upgrade.
+
+### Practical Verification Steps
+
+1. Fix the bound $M$ and the compact exhaustion of observer space.
+2. Normalize pressure separately on each compact cylinder.
+3. Verify the centered equation and local suitability after observer
+   recentering.
+4. Extract subsequences only on compact windows and diagonalize.
+5. Keep the pressure quotient in every later state-space map.
+
+## Estimate Step $B_{\mathrm{ST2}}$
+
+The estimate step is compact-window parabolic compactness plus local
+pressure-gauge weak compactness.
+
+## Failure Case
+
+Failure name: missing local state-space topology.
+
+Analytic meaning: the branch has a residual profile but lacks the topology or
+pressure gauge needed to pass to local observer limits.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. shrink to compact observer cylinders;
+2. subtract local pressure gauges;
+3. downgrade smooth compactness to the `PS6` suitable topology when needed;
+4. return to `PS30` if a local pressure bound is missing.
+
+Progress measure: every compact observer window has a recorded state-space
+compactness package.
+
+## Data Passed Forward
+
+The next proof step is `ST3`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST2}}
+=
+\Gamma_{\mathrm{ST1}}
+\cup
+\{\mathfrak X_M,\ \text{local topology},\
+\text{compactness on compact observer windows}\}.
+$$
+
+---
+
+# 40. `ST3` -- Affine/Parasitic Lower Stratum and Non-Affine Activity
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a local observer state in $\mathfrak X_M$ that may contain a
+constant or affine parasitic component rather than genuine singular activity.
+
+### Standing Assumptions
+
+The branch is outside the lower-strata ledger of `ST0` except possibly for
+affine/parasitic behavior revealed only after local observer normalization.
+
+### Objects Inspected
+
+Inspect the affine centered normalization
+
+$$
+(S_cU)(y,\tau)=U(y-2c,\tau)-c,
+$$
+
+with the pressure transformed by the corresponding affine linear correction.
+On a compact observer cylinder $Q$, define
+
+$$
+\operatorname{osc}_3(U;Q)
+=
+\inf_{c\in\mathbb R^3}\iint_Q |U-c|^3\,dy\,d\tau .
+$$
+
+### Dependencies Used
+
+The affine transform is checked against the centered equation from `PS5`;
+local pressure gauges come from `PS4` and `ST2`; retained activity comes from
+`PS8`; lower-strata status comes from `ST0`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST3}}$ holds if the branch treats a constant or affine parasitic
+state as a genuine residual singular profile.
+
+### Local Lemmas to Prove
+
+**Lemma ST3.1 -- Affine/parasitic states are lower strata.**
+If on every retained compact observer cylinder
+
+$$
+\operatorname{osc}_3(U;Q)=0,
+$$
+
+then $U$ is locally constant in space on the retained observer component, and
+the branch belongs to the affine/parasitic lower stratum after the pressure
+linear correction.
+
+**Proof.** Vanishing oscillation on a cylinder means $U=c_Q$ almost
+everywhere there. Overlapping cylinders force the constants to agree on the
+connected retained component. Substitution into the centered equation leaves
+only an affine pressure gradient, which is exactly the pressure correction in
+$S_c$.
+
+**Lemma ST3.2 -- Non-affine activity is a local observable.**
+If the branch is not affine/parasitic, then there exist a compact observer
+cylinder $Q$ and $\eta>0$ such that
+
+$$
+\Phi(U;Q):=\operatorname{osc}_3(U;Q)\ge\eta.
+$$
+
+**Proof.** If all compact-cylinder oscillations were zero, Lemma ST3.1 would
+place the branch in the lower stratum. The negation gives a compact cylinder
+with positive oscillation; reduce the positive value to a rational threshold
+$\eta$ for the ledger.
+
+### Specific Estimate
+
+The decisive local activity estimate is
+
+$$
+\Phi(U;Q)\ge\eta
+$$
+
+on a specified compact observer cylinder, unless the affine/parasitic lower
+stratum status is recorded.
+
+### Practical Verification Steps
+
+1. Apply the affine/parasitic normalization if a constant component is present.
+2. Compute local oscillation on the retained observer cylinders.
+3. If all oscillations vanish, route to the affine/parasitic lower stratum.
+4. If some oscillation is positive, record $Q$ and $\eta$.
+5. Use oscillation, not global tail mass, as the residual activity observable.
+
+## Estimate Step $B_{\mathrm{ST3}}$
+
+The estimate step is the local oscillation test and affine pressure
+normalization.
+
+## Failure Case
+
+Failure name: parasitic activity ambiguity.
+
+Analytic meaning: the branch carries nonzero-looking tail data, but the proof
+has not separated genuine local oscillation from an affine or constant
+parasitic mode.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. subtract the best local constant;
+2. apply the affine pressure correction;
+3. shrink to a retained compact cylinder with positive oscillation;
+4. route zero-oscillation cases to the affine lower stratum.
+
+Progress measure: the branch receives either affine lower-stratum status or a
+positive non-affine local activity threshold.
+
+## Data Passed Forward
+
+If non-affine activity is recorded, the next proof step is `ST4`. If the
+affine/parasitic lower stratum is detected, the branch exits through `ST0`.
+The data passed forward on the non-affine path are
+
+$$
+\Gamma_{\mathrm{ST3}}
+=
+\Gamma_{\mathrm{ST2}}
+\cup
+\{\Phi(U;Q)\ge\eta\}.
+$$
+
+---
+
+# 41. `ST4` -- Local CKN and Oscillation Measures
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a terminal sequence $(U_n,\Pi_n)$ in $\mathfrak X_M$ and the
+local measures used to detect active, diffuse, or pressure-compactness
+residual behavior.
+
+### Standing Assumptions
+
+The branch has covariant observer coordinates, local pressure gauges, and
+non-affine local activity unless it has already exited through `ST3`.
+
+### Objects Inspected
+
+For compact observer windows define local CKN measures. The pressure gauge is
+part of the compact-window datum: for $K\Subset Z$ choose an enlarged window
+$K^+$ and a gauge $a_{n,K^+}(\tau)$, and set
+
+$$
+d\mu_{n,K}
+=
+\left(
+|U_n|^3+|\Pi_n-a_{n,K^+}(\tau)|^{3/2}
+\right)\,dy\,d\tau,
+$$
+
+on $K$. These are compatible local measures on selected compact windows, not
+a single global pressure measure. Also fix a bounded-overlap covariant
+unit-cylinder cover
+$\{\mathcal Q_1^{\rm cov}(z_k)\}_{k\in I}$ with locally finite index set.
+For $E\subset K$, set
+
+$$
+I_K(E)
+=
+\{k\in I:\ z_k\in K,\ \mathcal Q_1^{\rm cov}(z_k)\cap E\ne\emptyset\},
+$$
+
+and define
+
+$$
+\mu_{n,K}^{\rm osc}(E)
+=
+\sum_{k\in I_K(E)}
+\operatorname{osc}_3
+\left(U_n;\mathcal Q_1^{\rm cov}(z_k)\right).
+$$
+
+### Dependencies Used
+
+Observer cylinders come from `ST1`; state-space gauges from `ST2`; oscillation
+from `ST3`; pressure compactness from `PS30`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST4}}$ holds if local activity or pressure is measured without a
+compact-window gauge, or if a local pressure compactness failure is hidden as
+a global pressure-tail problem.
+
+### Local Lemmas to Prove
+
+**Lemma ST4.1 -- Compact windows have finite local mass.**
+For every compact observer window $K\Subset Z$,
+
+$$
+\sup_n\mu_{n,K^+}(K^+)<\infty
+$$
+
+after enlarging $K$ to a fixed compact $K^+$ used for local estimates.
+
+**Proof.** The velocity term is bounded by $M^3|K^+|$. The pressure term is
+bounded by the local pressure-gauge estimate in $\mathfrak X_M$ or by the
+`PS30` local pressure audit. The bounded-overlap cover converts cylinder
+oscillation sums into a finite multiple of the $L^3$ bound on a fixed
+enlarged compact window containing all cylinders that meet $K$.
+
+**Lemma ST4.2 -- Local pressure failure has a local residual destination.**
+If the estimate in Lemma ST4.1 fails because no pressure gauge has compact
+$L^{3/2}$ control on a cylinder, the branch is assigned to the local
+noncompactness remainder in `ST6`, not to a global pressure-tail estimate.
+
+**Proof.** The failure occurs on a named compact observer cylinder and hence
+is a local compactness failure. It prevents the state-space topology of `ST2`
+on that window. No statement about pressure on the complement of the cylinder
+is involved.
+
+### Specific Estimate
+
+The decisive estimate is
+
+$$
+\forall K\Subset Z,\qquad
+\sup_n\mu_{n,K}(K)+\sup_n\mu_{n,K}^{\rm osc}(K)<\infty.
+$$
+
+### Practical Verification Steps
+
+1. Choose compact observer windows and their bounded-overlap unit-cylinder
+   covers.
+2. Select local pressure gauges on each enlarged window.
+3. Bound the velocity and pressure pieces of $\mu_{n,K}$ locally.
+4. Bound the oscillation measure by the same compact-window control.
+5. Route missing pressure compactness to `ST6`.
+
+## Estimate Step $B_{\mathrm{ST4}}$
+
+The estimate step is local finite-mass control for CKN and oscillation
+measures.
+
+## Failure Case
+
+Failure name: local measure/gauge failure.
+
+Analytic meaning: a compact observer window lacks the pressure or oscillation
+control needed to define local active and diffuse states.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. choose a smaller compact observer window;
+2. subtract a compatible local pressure gauge;
+3. replace CKN mass by oscillation mass if pressure is not needed for the
+   branch;
+4. route genuine local pressure compactness failure to `ST6`.
+
+Progress measure: every compact observer window has a finite local measure or
+a named local noncompactness defect.
+
+## Data Passed Forward
+
+The next proof step is `ST5`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST4}}
+=
+\Gamma_{\mathrm{ST3}}
+\cup
+\{\mu_{n,K},\ \mu_{n,K}^{\rm osc}\text{ for }K\Subset Z,\
+\text{local finite mass on compact observer windows}\}.
+$$
+
+---
+
+# 42. `ST5` -- Active-Locus Extraction on Compact Observer Windows
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the compact-window active set of a terminal sequence measured
+by the local CKN or oscillation mass.
+
+### Standing Assumptions
+
+The sequence has local finite measure on compact observer windows and a
+retained activity threshold.
+
+### Objects Inspected
+
+For an exhaustion $K_m\Subset Z$ and threshold $\eta>0$, define
+
+$$
+A_{n,m}^{\eta}
+=
+\{z\in K_m:\ M_n(z)\ge\eta\},
+$$
+
+where $M_n(z)$ is the local CKN or oscillation mass on
+$\mathcal Q_1^{\rm cov}(z)$.
+
+### Dependencies Used
+
+Measures come from `ST4`; observer cylinders from `ST1`; retained compact
+activity from `PS8`; compactness of closed subsets of $K_m$ from the
+Hausdorff--Fell topology.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST5}}$ holds if the proof claims tail activity without extracting
+active sets on compact observer windows or without a threshold.
+
+### Local Lemmas to Prove
+
+**Lemma ST5.1 -- Compact-window active sets have subsequential limits.**
+For each fixed $m$ and rational $\eta>0$, after passing to a subsequence,
+
+$$
+A_{n,m}^{\eta}\to A_m^\eta
+$$
+
+in the Hausdorff--Fell topology on closed subsets of $K_m$.
+
+**Proof.** After replacing $A_{n,m}^\eta$ by its closure, the hyperspace of
+closed subsets of compact $K_m$ is compact. Diagonal extraction over the
+countable set of pairs $(m,\eta)$ gives compatible limits.
+
+**Lemma ST5.2 -- Active retained loci give local profile descendants.**
+If $z_n\in A_{n,m}^{\eta}$ with $z_n\to z\in A_m^\eta$, then covariant
+recenterings at $z_n$ have a subsequential local state-space limit with
+positive local activity, unless `ST6` records local compactness failure.
+
+**Proof.** The definition of $A_{n,m}^\eta$ supplies a lower bound on a fixed
+covariant unit cylinder. `ST2` gives compactness on compact observer windows
+provided pressure gauges and the local topology are available. Lower
+semicontinuity of the local mass or oscillation gives positive retained
+activity in the limit.
+
+### Specific Estimate
+
+The decisive extraction is
+
+$$
+A_{n,m}^{\eta}\to A_m^\eta
+\quad
+\text{for all }m\in\mathbb N,\ \eta\in\mathbb Q_+.
+$$
+
+### Practical Verification Steps
+
+1. Choose the compact exhaustion $K_m$.
+2. Choose rational thresholds.
+3. Define $M_n(z)$ using CKN or oscillation mass on covariant unit cylinders.
+4. Extract Hausdorff--Fell limits on each $K_m$.
+5. Record every positive retained active locus and its recentering sequence.
+
+## Estimate Step $B_{\mathrm{ST5}}$
+
+The estimate step is compact active-set extraction and retained local profile
+recovery.
+
+## Failure Case
+
+Failure name: missing active-locus extraction.
+
+Analytic meaning: the branch speaks of escaping or retained activity but has
+not produced compact-window active sets or thresholds.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. lower the threshold to a rational value;
+2. enlarge the compact observer window;
+3. switch from CKN mass to oscillation mass if pressure is not compact;
+4. send compactness failure to `ST6`.
+
+Progress measure: every activity claim has a compact-window active set or a
+named remainder.
+
+## Data Passed Forward
+
+The next proof step is `ST6`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST5}}
+=
+\Gamma_{\mathrm{ST4}}
+\cup
+\{A_m^\eta,\ \text{active retained profile loci and recenterings}\}.
+$$
+
+---
+
+# 43. `ST6` -- Paired Terminal Decomposition
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the residual remainder after active neighborhoods have been
+removed from compact observer windows.
+
+### Standing Assumptions
+
+Active loci have been extracted for all compact windows and thresholds.
+
+### Objects Inspected
+
+After deleting fixed covariant neighborhoods of $A_m^\eta$, classify the
+remaining sequence as one of
+
+$$
+\mathcal R_{\rm van},\qquad
+\mathcal R_{\rm diff},\qquad
+\mathcal R_{\rm noncomp},
+$$
+
+meaning local vanishing, diffuse exterior concentration, or loss of local
+compactness.
+
+### Dependencies Used
+
+Active loci come from `ST5`; local finite mass from `ST4`; local state-space
+compactness from `ST2`; pressure compactness defects from `PS30`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST6}}$ holds if a residual remainder is left without being named
+as vanishing, diffuse, or locally noncompact.
+
+### Local Lemmas to Prove
+
+**Lemma ST6.1 -- Ordered active/remainder decomposition.**
+For every compact $K_m$ and threshold $\eta$, the sequence decomposes into
+active neighborhoods of $A_m^\eta$ plus a remainder on which every covariant
+unit cylinder has mass below $\eta$, unless local compactness fails.
+
+**Proof.** By definition, outside a small neighborhood of the Hausdorff--Fell
+limit of $A_{n,m}^\eta$, all remaining unit cylinders eventually fail the
+$\eta$ lower bound. If this assertion fails, there is a new sequence of
+points with mass at least $\eta$, and compactness of $K_m$ produces a point in
+$A_m^\eta$, contradicting that the point was outside the active neighborhood.
+If the local topology needed for this argument fails, the branch is
+$\mathcal R_{\rm noncomp}$.
+
+**Lemma ST6.2 -- The residual alternatives are exhaustive.**
+The remainder either vanishes on compact observer windows, persists only
+through escaping windows with subthreshold unit mass, or lacks local
+state-space compactness.
+
+**Proof.** If compact-window mass tends to zero, it is
+$\mathcal R_{\rm van}$. If compact-window mass is controlled and nonzero mass
+survives only outside every compact set while unit cylinders remain
+subthreshold, it is $\mathcal R_{\rm diff}$. The only remaining possibility is
+failure of the compact-window topology, pressure gauge, or equation/source
+compactness, which is $\mathcal R_{\rm noncomp}$.
+
+### Specific Estimate
+
+The decisive remainder statement is
+
+$$
+\sup_{z\in K_m\setminus N_\rho(A_m^\eta)}
+M_n(z)<\eta
+\quad\text{eventually},
+$$
+
+unless the branch is explicitly marked $\mathcal R_{\rm noncomp}$.
+
+### Practical Verification Steps
+
+1. Remove covariant neighborhoods of active sets.
+2. Check subthreshold unit-cylinder mass on the complement.
+3. Test whether the complement vanishes on compact windows.
+4. If mass escapes every compact window, label it diffuse.
+5. If compactness or pressure gauges fail locally, label it noncompact.
+
+## Estimate Step $B_{\mathrm{ST6}}$
+
+The estimate step is active-neighborhood removal and exhaustive remainder
+classification.
+
+## Failure Case
+
+Failure name: unpaired residual remainder.
+
+Analytic meaning: active loci have been found, but the leftover sequence has
+no local status.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. adjust the active threshold;
+2. shrink or enlarge active neighborhoods;
+3. add a missing pressure-gauge compactness check;
+4. route escaping subthreshold mass to `ST8`.
+
+Progress measure: every remainder is vanishing, diffuse, or locally
+noncompact.
+
+## Data Passed Forward
+
+The next proof step is `ST7`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST6}}
+=
+\Gamma_{\mathrm{ST5}}
+\cup
+\{\text{paired active-locus/remainder decomposition},
+\mathcal R_{\rm van},\mathcal R_{\rm diff},\mathcal R_{\rm noncomp}\}.
+$$
+
+---
+
+# 44. `ST7` -- Nonactive Sole-Carrier Discharge
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a branch in which the retained singular activity is claimed to
+be carried only by local vanishing, diffuse exterior behavior, or local
+noncompactness.
+
+### Standing Assumptions
+
+The singular-entry packet supplies a fixed compact retained activity lower
+bound
+
+$$
+\iint_{Q_{\rm act}} |U_n|^3\,dy\,d\tau\ge\eta_*,
+$$
+
+or the corresponding pressure-normalized CKN lower bound.
+
+### Objects Inspected
+
+Inspect a finite covariant unit-cylinder cover of $Q_{\rm act}$ and the
+remainder status from `ST6`.
+
+### Dependencies Used
+
+Retained activity comes from `PS8`; finite covering from compactness of
+$Q_{\rm act}$; local measures from `ST4`; paired decomposition from `ST6`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST7}}$ holds if the proof allows the distinguished compact
+retained mass to disappear into a nonactive or escaping remainder without a
+finite covering check.
+
+### Local Lemmas to Prove
+
+**Lemma ST7.1 -- Compact retained activity forces an active local carrier.**
+If $Q_{\rm act}$ is covered by $N$ covariant unit cylinders and
+
+$$
+\iint_{Q_{\rm act}} |U_n|^3\ge\eta_*,
+$$
+
+then at least one cylinder in the cover carries mass at least
+$\eta_*/N$.
+
+**Proof.** Sum the local masses over the finite cover. Bounded overlap changes
+only the constant. If every cylinder had mass below $\eta_*/N$ with the
+appropriate overlap factor, the total mass on $Q_{\rm act}$ would be below
+$\eta_*$.
+
+**Lemma ST7.2 -- Pure nonactive remainders cannot be sole carriers.**
+The alternatives $\mathcal R_{\rm van}$ and $\mathcal R_{\rm diff}$ cannot
+alone carry the retained compact activity on $Q_{\rm act}$. A local
+noncompactness claim must be recorded as an `ST6` defect rather than as a
+closed branch.
+
+**Proof.** Local vanishing contradicts Lemma ST7.1 on the finite cover.
+Diffuse exterior concentration escapes every compact set, while
+$Q_{\rm act}$ is fixed compact. Local noncompactness is a named defect and
+therefore cannot be counted as the carrier of a completed retained profile.
+
+### Specific Estimate
+
+The decisive finite-cover estimate is
+
+$$
+\max_{1\le j\le N}
+\iint_{\mathcal Q_j}|U_n|^3
+\ge
+c(N)\eta_*.
+$$
+
+### Practical Verification Steps
+
+1. Fix the compact retained activity cylinder.
+2. Cover it by finitely many covariant unit cylinders.
+3. Compare the lower bound with the cover constant.
+4. Reject pure local vanishing and pure diffuse exterior carriers.
+5. Route local noncompactness to its owning defect node.
+
+## Estimate Step $B_{\mathrm{ST7}}$
+
+The estimate step is the finite covering argument on the retained compact
+activity cylinder.
+
+## Failure Case
+
+Failure name: retained mass without active carrier.
+
+Analytic meaning: the proof has a compact activity lower bound but no active
+unit cylinder or local defect explaining it.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. refine the finite cover;
+2. lower the active threshold according to the cover constant;
+3. identify the local pressure or compactness defect;
+4. return to `ST5` to extract the active locus.
+
+Progress measure: the retained compact mass is attached to an active local
+carrier or to an explicit local defect.
+
+## Data Passed Forward
+
+The next proof step is `ST8`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST7}}
+=
+\Gamma_{\mathrm{ST6}}
+\cup
+\{\text{nonactive alternatives cannot be sole retained-mass carriers}\}.
+$$
+
+---
+
+# 45. `ST8` -- Diffuse-Defect Compactness
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is subthreshold activity that escapes every compact observer
+window but retains positive total oscillation or CKN mass.
+
+### Standing Assumptions
+
+The remainder is $\mathcal R_{\rm diff}$: there are escaping finite-measure
+observer sets $E_n\subset Z$ such that
+
+$$
+0<m_0\le\mu_{n,K_n}^{\rm osc}(E_n)<\infty,
+\qquad
+\sup_{k\in I_{K_n}(E_n)}
+\operatorname{osc}_3(U_n;\mathcal Q_1^{\rm cov}(z_k))\to0.
+$$
+
+Here $K_n$ is a compact observer window containing $E_n$; the windows
+$K_n$ escape every fixed compact subset of $Z$. If the natural escaping set
+has infinite oscillation mass, first restrict it to a finite union of
+covariant unit cylinders carrying mass in $[m_0,2m_0]$.
+
+The same diffuse state-space route is allowed for the time-slice exterior
+measure produced in `ST17`:
+
+$$
+d\nu_n(y)=\mathbf 1_{\{|y|>R_n\}}|U(y,\tau_n)|^3\,dy,
+$$
+
+after decomposing it by covariant unit balls at centered time $\tau_n$ and
+normalizing a finite positive truncation. A later node may thicken a finite
+truncation to short observer cylinders if a spacetime CKN measure is needed,
+but the diffuse contradiction itself does not require a uniform thickening of
+infinitely many subthreshold balls.
+
+### Objects Inspected
+
+Normalize the diffuse measure
+
+$$
+\lambda_n
+=
+\frac{\mu_{n,K_n}^{\rm osc}\lfloor E_n}
+{\mu_{n,K_n}^{\rm osc}(E_n)}.
+$$
+
+Choose a compactification $\overline Z$ of observer space compatible with
+covariant observer translations and extract weak limits of $\lambda_n$.
+For a time-slice diffuse input, first embed the normalized ball measure at
+observer time $s=0$ into $\overline Z$ and attach the same local velocity hull
+data obtained by covariant recentering.
+
+### Dependencies Used
+
+Diffuse status comes from `ST6`; local finite measures from `ST4`; observer
+space from `ST1`; finite-cover discharge from `ST7`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST8}}$ holds if diffuse exterior concentration is recorded as an
+unresolved global tail instead of being compactified as a local observer
+boundary state.
+
+### Local Lemmas to Prove
+
+**Lemma ST8.1 -- Diffuse measures compactify to observer-boundary states.**
+After passing to a subsequence,
+
+$$
+\lambda_n\rightharpoonup\lambda
+$$
+
+as probability measures on $\overline Z$, and
+
+$$
+\lambda(\overline Z)=1,\qquad
+\lambda(B)=0
+\quad\text{for every }B\Subset Z.
+$$
+
+**Proof.** The finite-measure truncation makes each $\lambda_n$ a probability.
+Viewing it as a probability on compact $\overline Z$, weak compactness gives
+a subsequential limit. Since $E_n$ escapes every compact subset of $Z$, for
+any $B\Subset Z$ one has $\lambda_n(B)=0$ for large $n$ after enlarging $B$
+slightly. Hence $\lambda(B)=0$. The time-slice variant is the same argument
+with $E_n$ contained in the slice $s=0$ after covariant recentering; compact
+boundary support records the escaping spatial coordinate, while local hull
+coordinates record the recentered state.
+
+**Lemma ST8.2 -- Diffuse defects remain local state objects.**
+The diffuse state records observer-boundary support and local hull data; it
+does not require a global $L^3$ tail estimate.
+
+**Proof.** The normalized measures use only local oscillation on covariant
+unit cylinders, or local time-slice $L^3$ mass decomposed by covariant unit
+balls, together with compactness of probability measures on $\overline Z$.
+Velocity hull data are extracted from local observer recenterings in
+$\mathfrak X_M$. No integral over the whole spatial complement is estimated
+as a closing hypothesis; the exterior mass is only a witness used to create a
+local observer-boundary state.
+
+### Specific Estimate
+
+The decisive compactness statement is
+
+$$
+\lambda_n\rightharpoonup\lambda\in\mathcal P(\overline Z),
+\qquad
+\operatorname{supp}\lambda\subset\partial\overline Z.
+$$
+
+### Practical Verification Steps
+
+1. Verify escaping support of $E_n$.
+2. If needed, truncate to a finite union of escaping unit cylinders with
+   mass in a fixed positive finite range.
+3. Normalize the oscillation or local CKN measure on $E_n$.
+4. Choose the observer compactification.
+5. Extract the probability-measure limit.
+6. Record boundary support and the associated local velocity hull.
+
+## Estimate Step $B_{\mathrm{ST8}}$
+
+The estimate step is probability compactness of diffuse observer measures.
+
+## Failure Case
+
+Failure name: uncompactified diffuse defect.
+
+Analytic meaning: mass escapes every compact observer window but has not been
+turned into a state-space object.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. replace CKN mass by oscillation mass if pressure gauges are insufficient;
+2. adjust the compactification;
+3. pass to a subsequence;
+4. return to `ST6` if the support is not actually escaping.
+
+Progress measure: diffuse mass becomes a probability state on the observer
+boundary.
+
+## Data Passed Forward
+
+The next proof step is `ST9`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST8}}
+=
+\Gamma_{\mathrm{ST7}}
+\cup
+\{\mathfrak D_M,\ \lambda,\ \text{diffuse-defect state}\}.
+$$
+
+---
+
+# 46. `ST9` -- Diffuse-Defect Recurrence and Trichotomy
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the compact diffuse-defect state space $\mathfrak D_M$ and the
+action of the covariant observer group on it.
+
+### Standing Assumptions
+
+A nonzero diffuse-defect state has been produced by `ST8`, and the chosen
+observer compactification carries a verified continuous action of the
+covariant observer group on the compact diffuse-defect state space.
+
+### Objects Inspected
+
+Let
+
+$$
+G=\mathbb R^3\rtimes\mathbb R
+$$
+
+denote the covariant observer group generated by $T_a$ and $\Theta_s$.
+For a Følner net $F_\alpha\subset G$, form
+
+$$
+\mathbb P_\alpha
+=
+\frac1{|F_\alpha|}
+\int_{F_\alpha}\delta_{g\lambda}\,dg.
+$$
+
+### Dependencies Used
+
+Observer group from `ST1`; diffuse compactification from `ST8`; local state
+space from `ST2`; lower-strata ledger from `ST0` and `ST3`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST9}}$ holds if a diffuse boundary state is left as an unresolved
+tail instead of being assigned to recurrence, lower stratum, or critical-tail
+compactification.
+
+### Local Lemmas to Prove
+
+**Lemma ST9.1 -- Diffuse states admit invariant probability measures.**
+The Følner averages $\mathbb P_\alpha$ have weak limit points, and every such
+limit is $G$-invariant on the compact diffuse state space.
+
+**Proof.** The state space is compact and the verified observer action is
+continuous, so the probability measures on it are weakly compact and the
+pushforward map is continuous. Amenability of the locally compact group
+$G=\mathbb R^3\rtimes\mathbb R$ gives Følner sets. The usual
+Krylov--Bogolyubov/Følner argument shows that every weak limit is invariant
+under each fixed group element. If the compactification does not carry this
+continuous action, the output is a diffuse recurrence gap rather than an
+invariant measure.
+
+**Lemma ST9.2 -- Diffuse recurrence has three ordered outcomes.**
+Every recurrent diffuse state either regenerates local activity in
+$\mathfrak X_M$, falls into the affine/parasitic lower stratum, or is a
+critical diffuse tail.
+
+**Proof.** If a recurrent translate has positive unit-cylinder oscillation,
+it regenerates local activity and returns to `ST5`. If all recurrent
+oscillation vanishes, `ST3` identifies the affine/parasitic stratum. The
+remaining case has nonzero boundary-supported diffuse mass with no active
+unit cylinder and no affine collapse; this is, by definition, the critical
+diffuse tail sent to `ST10`.
+
+### Specific Estimate
+
+The decisive recurrence output is
+
+$$
+\mathbb P\in\mathcal P(\mathfrak D_M),
+\qquad
+g_\#\mathbb P=\mathbb P
+\quad(g\in G),
+$$
+
+plus exactly one trichotomy label.
+
+### Practical Verification Steps
+
+1. Verify the compact diffuse state space and group action.
+2. Choose Følner sets.
+3. Average Dirac masses over observer translates.
+4. Extract an invariant probability measure.
+5. Apply the ordered trichotomy: local activity, affine lower stratum, or
+   critical diffuse tail.
+
+## Estimate Step $B_{\mathrm{ST9}}$
+
+The estimate step is amenable-group averaging and trichotomy assignment.
+
+## Failure Case
+
+Failure name: diffuse recurrence gap.
+
+Analytic meaning: a diffuse boundary state survives without an invariant
+state or ordered route.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. repair the compact state-space topology;
+2. restrict the group action to the verified covariant observer subgroup;
+3. rerun the oscillation test of `ST3`;
+4. route nonzero critical boundary data to `ST10`.
+
+Progress measure: every diffuse state is recurrently classified.
+
+## Data Passed Forward
+
+If the diffuse trichotomy produces a critical tail, the next proof step is
+`ST10`. If it regenerates local activity, the branch returns to `ST5`. If it
+falls into the affine/parasitic lower stratum, the branch exits through
+`ST3`/`ST0`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST9}}
+=
+\Gamma_{\mathrm{ST8}}
+\cup
+\{\text{diffuse trichotomy: activity / affine lower stratum / critical tail}\}.
+$$
+
+---
+
+# 47. `ST10` -- Critical-Tail Compactification
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a critical diffuse tail that has survived recurrence without
+regenerating active unit-cylinder mass and without affine collapse.
+
+### Standing Assumptions
+
+The branch is in the critical-tail case of `ST9`.
+
+### Objects Inspected
+
+Define a compact critical-tail state space $\mathfrak T_M$. A state
+$\mathcal T\in\mathfrak T_M$ records:
+
+$$
+\begin{array}{l}
+\text{barycentric velocity data},\\
+\text{Young-measure or coherent tail data},\\
+\text{logarithmic radial dynamics},\\
+\text{local pressure/gauge data},\\
+\text{observer-boundary support}.
+\end{array}
+$$
+
+### Dependencies Used
+
+Diffuse boundary support comes from `ST8`; recurrence from `ST9`; pressure
+gauges from `ST2` and `ST4`; lower-strata exclusions from `ST0`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST10}}$ holds if the proof names a critical tail but does not put
+it in a compact state space with local pressure and observer-boundary data.
+
+### Local Lemmas to Prove
+
+**Lemma ST10.1 -- Critical diffuse tails have compactification limits.**
+Every critical diffuse tail has a subsequential limit
+
+$$
+\mathcal T\in\mathfrak T_M.
+$$
+
+**Proof.** Barycentric velocity data are bounded by $M$. Young-measure data are
+compact by weak-* compactness of probability-valued measures on compactified
+local ranges. Logarithmic radial dynamics are recorded modulo the observer
+compactification, and local pressure gauges are compact in the weak
+$L^{3/2}_{\rm loc}$ quotient. Tychonoff and diagonal extraction over compact
+observer windows give a limit in $\mathfrak T_M$.
+
+**Lemma ST10.2 -- Critical-tail states are local records.**
+The state $\mathcal T$ contains no global pressure norm and no global
+$L^3$ tail bound as a hypothesis.
+
+**Proof.** Each coordinate of $\mathfrak T_M$ is defined from local observer
+cylinders, weak local measures, or boundary support in $\overline Z$. The
+whole-space tail is represented by the boundary state, not estimated as an
+integral over $\mathbb R^3$.
+
+### Specific Estimate
+
+The decisive compactness statement is
+
+$$
+\mathcal T_n\to\mathcal T
+\quad\text{in }\mathfrak T_M.
+$$
+
+### Practical Verification Steps
+
+1. List the critical-tail coordinates.
+2. Verify compactness of each coordinate.
+3. Preserve pressure gauges in the local quotient.
+4. Record observer-boundary support.
+5. Pass the realized critical-tail state to `ST11`.
+
+## Estimate Step $B_{\mathrm{ST10}}$
+
+The estimate step is compactification of the critical diffuse tail into
+$\mathfrak T_M$.
+
+## Failure Case
+
+Failure name: unregistered critical tail.
+
+Analytic meaning: a critical diffuse tail is named but lacks compact
+state-space coordinates.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. add the missing Young-measure coordinate;
+2. add the missing logarithmic radial coordinate;
+3. repair local pressure-gauge data;
+4. return to `ST9` if the state actually regenerates local activity.
+
+Progress measure: the tail is represented by a point of $\mathfrak T_M$.
+
+## Data Passed Forward
+
+The next proof step is `ST11`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST10}}
+=
+\Gamma_{\mathrm{ST9}}
+\cup
+\{\mathcal T\in\mathfrak T_M\}.
+$$
+
+---
+
+# 48. `ST11` -- Realized Critical-Tail Rigidity
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a realized critical-tail state $\mathcal T\in\mathfrak T_M$.
+
+### Standing Assumptions
+
+The critical tail is realized by the original residual branch through the
+observer compactification and is outside the routed lower-strata ledger unless
+this node routes it there.
+
+### Objects Inspected
+
+Inspect the ordered critical-tail types:
+
+$$
+\text{Young critical tail},\quad
+\text{coherent homogeneous critical tail},\quad
+\text{coherent log-periodic critical tail},\quad
+\text{coherent aperiodic critical tail}.
+$$
+
+### Dependencies Used
+
+Critical-tail compactification from `ST10`; recurrence from `ST9`; lower
+strata from `ST0` and `ST3`; structured branch nodes `PS23`--`PS29`; and the
+critical-tail rigidity records verified in this node for the Young,
+homogeneous, log-periodic, and aperiodic cases.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST11}}$ holds if a realized critical-tail state survives without
+being routed to local activity, lower structured strata, or a rigidity
+contradiction.
+
+### Local Lemmas to Prove
+
+**Lemma ST11.1 -- Realized critical tails have ordered type.**
+Every $\mathcal T\in\mathfrak T_M$ belongs to one of the Young, coherent
+homogeneous, coherent log-periodic, or coherent aperiodic critical-tail types.
+
+**Proof.** The Young/coherent split is determined by whether the tail state is
+represented by a non-atomic Young measure or by a single coherent tail
+representative. For coherent tails, the logarithmic radial dynamics is fixed,
+periodic, or neither. These alternatives are mutually exhaustive.
+
+**Lemma ST11.2 -- Critical-tail discharge requires a rigidity record.**
+For each realized critical-tail type, the node must record one of the
+following verified outcomes:
+
+$$
+\text{local activity regenerated},\qquad
+\text{membership in a closed lower structured stratum},\qquad
+\text{zero/affine collapse}.
+$$
+
+If the corresponding rigidity statement for a Young, homogeneous,
+log-periodic, or aperiodic tail has not been proved or registered as an
+available theorem, the branch is not discharged and is passed forward as a
+critical-tail rigidity obligation.
+
+**Proof.** Positive observer-translate oscillation is a direct local check and
+returns the branch to `ST5`. Affine collapse is the lower-stratum test of
+`ST3`. Every remaining nonactive critical-tail type requires a specific
+rigidity implication identifying it with a closed structured class or with the
+zero state. Without that implication, classification by type is only
+bookkeeping and does not exclude the branch. With the rigidity record
+verified, the state is no longer a generic residual state.
+
+### Specific Estimate
+
+The decisive output is
+
+$$
+\mathcal T
+\longrightarrow
+\left\{
+\begin{array}{l}
+\text{local activity regenerated and routed to }ST5,\\
+\text{closed lower structured stratum with source recorded},\\
+\text{zero or affine/parasitic state},\\
+\text{or explicit critical-tail rigidity obligation}
+\end{array}
+\right.
+$$
+
+### Practical Verification Steps
+
+1. Decide Young versus coherent.
+2. For coherent states, decide homogeneous, log-periodic, or aperiodic radial
+   dynamics.
+3. Test for local activity in observer translates.
+4. For nonactive states, attach the rigidity theorem or proof source for the
+   selected type.
+5. Route activity to `ST5`.
+6. Route verified nonactive structured states to the lower-strata ledger.
+7. If the type-specific rigidity source is missing, record a critical-tail
+   rigidity obligation rather than closing the branch.
+
+## Estimate Step $B_{\mathrm{ST11}}$
+
+The estimate step is realized critical-tail classification and local discharge.
+
+## Failure Case
+
+Failure name: surviving critical-tail state or missing rigidity source.
+
+Analytic meaning: a critical-tail compactification point has no local activity
+route, no lower-stratum route, or no verified rigidity implication for its
+type.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. add the missing critical-tail type predicate;
+2. test observer translates for oscillation;
+3. register or prove the corresponding structured rigidity theorem;
+4. return to `ST10` if compactification data are incomplete.
+
+Progress measure: every critical-tail state is discharged, returns to
+active-locus extraction, or is recorded as an explicit rigidity obligation.
+
+## Data Passed Forward
+
+If the critical-tail state is discharged into a lower stratum, the branch
+exits through the lower-strata ledger. If it regenerates local activity, it
+returns to `ST5`. If it produces a rigidity obligation, that obligation is
+entered into $\mathrm{Obl}_{\mathrm{ST}}$. Only discharged residual states
+continue to `ST12`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST11}}
+=
+\Gamma_{\mathrm{ST10}}
+\cup
+\{\text{critical tail discharged, local activity regenerated, or explicit }
+\text{critical-tail rigidity obligation}\}.
+$$
+
+---
+
+# 49. `ST12` -- Descendant Heredity
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a retained covariant tail descendant $W$ of a residual state
+$U$.
+
+### Standing Assumptions
+
+$U\in\mathfrak X_M$ is residual, has retained activity, and is outside the
+routed lower-strata ledger of `ST0`.
+
+### Objects Inspected
+
+Inspect descendant limits of the form
+
+$$
+W=\lim_{n\to\infty}\mathscr T_{(x_n,\sigma_n)}U
+$$
+
+in the local state-space topology, with retained local activity in the
+observer frame.
+
+### Dependencies Used
+
+Observer covariance from `ST1`; compact state space from `ST2`; activity
+semicontinuity from `ST5`; lower-strata ledger from `ST0`; pressure gauges
+from `ST4`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST12}}$ holds if a descendant is used later without proving that
+it remains in the residual universe or falls into a known lower stratum.
+
+### Local Lemmas to Prove
+
+**Lemma ST12.1 -- Descendants inherit the local state-space class.**
+If $U\in\mathfrak X_M$ and $W$ is a covariant observer limit of $U$, then
+$W\in\mathfrak X_M$.
+
+**Proof.** Covariant observers preserve the centered equation and local
+suitability by `ST1`. The $L^\infty$ bound is unchanged. Pressure gauges pass
+by the local quotient topology of `ST2`.
+
+**Lemma ST12.2 -- Descendants are residual or lower-stratum.**
+If $U$ is residual and $W$ is a retained active descendant, then either $W$ is
+outside the routed lower-strata ledger and hence residual, or the first lower
+predicate that holds for $W$ routes it to the lower-strata ledger.
+
+**Proof.** Apply the membership vector of `ST0` to $W$. Heredity of the
+state-space class makes $W$ admissible for the same ledger. Retained activity
+passes by lower semicontinuity of the local mass or oscillation.
+
+### Specific Estimate
+
+The decisive heredity statement is
+
+$$
+U\in\mathfrak X_M,\quad
+W=\lim\mathscr T_{(x_n,\sigma_n)}U
+\quad\Longrightarrow\quad
+W\in\mathfrak X_M
+$$
+
+with retained activity or a lower-stratum exit.
+
+### Practical Verification Steps
+
+1. Write the descendant as a covariant observer limit.
+2. Verify local state-space compactness and pressure gauges.
+3. Pass retained activity by semicontinuity.
+4. Run the lower-strata ledger on the descendant.
+5. Declare residual heredity only after the ledger excludes lower exits.
+
+## Estimate Step $B_{\mathrm{ST12}}$
+
+The estimate step is observer-limit compactness and lower-strata heredity.
+
+## Failure Case
+
+Failure name: descendant status gap.
+
+Analytic meaning: a tail descendant is used in an active chain or recurrence
+argument without residual/lower-stratum status.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. repair the observer limit;
+2. add a missing pressure gauge;
+3. re-run the lower-strata ledger;
+4. discard descendants without retained activity from active-chain arguments.
+
+Progress measure: every retained descendant is residual or lower-stratum.
+
+## Data Passed Forward
+
+The next proof step is `ST13`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST12}}
+=
+\Gamma_{\mathrm{ST11}}
+\cup
+\{\text{descendant heredity}\}.
+$$
+
+---
+
+# 50. `ST13` -- Active Successor Relation and Path-Space Recurrence
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the active successor graph of retained residual descendants.
+
+### Standing Assumptions
+
+Descendant heredity has been proved and lower-stratum exits have been removed.
+
+### Objects Inspected
+
+For a registered compact observer cylinder $Q_\eta$ and threshold $\eta>0$,
+define
+
+$$
+\mathfrak A_{\eta,Q_\eta}
+=
+\{U\in\mathfrak X_M:\Phi(U;Q_\eta)\ge\eta\}.
+$$
+
+Define $U\,\mathcal R_\eta\,V$ if $V$ is a retained active covariant tail
+descendant of $U$ carrying the same registered activity observable, with no
+intervening diffuse, critical-tail, or local noncompactness defect. If a
+witnessing observer sequence escapes the local state-space topology, it is
+routed back to `ST6`--`ST11` and is not counted as an edge of
+$\mathcal R_\eta$.
+
+### Dependencies Used
+
+Activity from `ST3` and `ST5`; heredity from `ST12`; compact state space from
+`ST2`; observer covariance from `ST1`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST13}}$ holds if an infinite active descendant chain is allowed
+without a compact path-space or recurrence measure.
+
+### Local Lemmas to Prove
+
+**Lemma ST13.1 -- The active successor relation is closed.**
+
+$$
+\mathcal R_\eta
+\subset
+\mathfrak A_{\eta,Q_\eta}\times\mathfrak A_{\eta,Q_\eta}
+$$
+
+is closed in the local state-space topology.
+
+**Proof.** Let $U_j\to U$, $V_j\to V$, and
+$U_j\mathcal R_\eta V_j$. The descendant relation is represented by covariant
+observer sequences whose witnesses are retained in the local state-space
+topology by definition of the edge. If those witnesses escaped compactness,
+the branch would have been routed to `ST6`--`ST11` instead of producing an
+edge. Under retained compactness, diagonal extraction passes the descendant
+limit to $V$. Local activity is lower semicontinuous at threshold $\eta$ after
+reducing to a rational subthreshold if necessary; in the strong local
+topology the fixed-cylinder oscillation observable is continuous. Thus the
+closed relation is recorded at the slightly reduced threshold and
+$U,V\in\mathfrak A_{\eta,Q_\eta}$.
+
+**Lemma ST13.2 -- Infinite active chains produce recurrent path measures.**
+If
+
+$$
+U_0\mathcal R_\eta U_1\mathcal R_\eta U_2\cdots,
+$$
+
+then the path space
+
+$$
+\mathscr P_\eta
+=
+\{(W_j)_{j\ge0}: W_j\mathcal R_\eta W_{j+1}\}
+$$
+
+is compact and shift-invariant, and Krylov--Bogolyubov averaging gives a
+shift-invariant probability measure.
+
+**Proof.** Compactness follows from compactness of
+$\mathfrak A_{\eta,Q_\eta}$ and closedness of $\mathcal R_\eta$ in the product
+topology. The left shift maps paths to paths. Averaging the orbit of any
+infinite path under the shift and extracting a weak limit gives a
+shift-invariant probability measure.
+
+### Specific Estimate
+
+The decisive recurrence output is
+
+$$
+\mathbb Q\in\mathcal P(\mathscr P_\eta),
+\qquad
+S_\#\mathbb Q=\mathbb Q,
+$$
+
+or else no infinite active chain exists.
+
+### Practical Verification Steps
+
+1. Fix the activity threshold $\eta$.
+2. Register the compact activity cylinder $Q_\eta$ and define
+   $\mathfrak A_{\eta,Q_\eta}$ and $\mathcal R_\eta$.
+3. Prove closedness of the successor relation, with escaping witnesses routed
+   back to the diffuse/noncompact nodes.
+4. If an infinite chain exists, build the compact path space.
+5. Average under the shift to obtain recurrence.
+
+## Estimate Step $B_{\mathrm{ST13}}$
+
+The estimate step is closed-relation compactness and shift recurrence.
+
+## Failure Case
+
+Failure name: active chain without recurrence.
+
+Analytic meaning: the proof permits infinitely many retained active
+descendants but does not extract a recurrent core.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. lower the activity threshold slightly;
+2. repair descendant heredity;
+3. add missing pressure-gauge compactness for path limits;
+4. prove that the active chain terminates.
+
+Progress measure: either an invariant path measure is produced or infinite
+active chains are excluded.
+
+## Data Passed Forward
+
+The next proof step is `ST14`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST13}}
+=
+\Gamma_{\mathrm{ST12}}
+\cup
+\{\text{compact active path space or no infinite active chain}\}.
+$$
+
+---
+
+# 51. `ST14` -- Recurrent-Core Rigidity and No Infinite Active Branch
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a compact recurrent active tail core produced by `ST13`.
+
+### Standing Assumptions
+
+There is a shift-invariant active path measure or a compact tail-minimal
+recurrent core $\mathcal M\subset\mathfrak A_{\eta,Q_\eta}$ outside the routed
+lower-strata ledger.
+
+### Objects Inspected
+
+Inspect local observables at the observer origin,
+
+$$
+u_i(W)=W_i(0,0),
+\qquad
+p_i(W)=\partial_i P_W(0,0),
+$$
+
+after choosing local pressure gauges on a fixed compact cylinder.
+Point observables are allowed only on branches whose local topology has been
+upgraded to smooth bounded-profile compactness. If the branch still carries
+only the suitable `PS6` topology, replace them by fixed mollified
+compact-cylinder observables and record the mollifier scale in the constants
+ledger.
+
+### Dependencies Used
+
+Recurrence from `ST13`; pressure gauges from `ST2` and `ST4`; affine lower
+stratum from `ST3`; centered equation from `PS5`; and a recurrent-core
+rigidity record whose hypotheses are checked in this node.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST14}}$ holds if a recurrent active tail core remains outside
+lower strata, or if the proof invokes recurrent-core rigidity without
+checking the invariant-measure identities, pressure gauges, and affine
+normalization it requires.
+
+### Local Lemmas to Prove
+
+**Lemma ST14.1 -- Recurrent-core averages satisfy local invariant identities.**
+A compact recurrent core carries an invariant probability measure $\nu$ such
+that the averaged centered equation at the observer origin is valid for the
+local observables.
+
+**Proof.** The invariant measure comes from the path-space recurrence of
+`ST13` and the projection to the zero coordinate. Smooth local state-space
+topology permits evaluation of velocity and locally gauged pressure gradients
+at $(0,0)$. If only suitable compactness is available, the same identity is
+first tested against the fixed mollified compact-cylinder observables; a
+pointwise identity is not asserted until the bounded-regularity upgrade from
+`ST2` has been recorded. Integrating the centered equation against $\nu$ gives
+the averaged identity in the verified observable class.
+
+**Lemma ST14.2 -- Recurrent active cores require a rigidity implication.**
+The recurrent core is excluded only after verifying the following local
+rigidity implication:
+
+$$
+\left[
+\begin{array}{l}
+\mathcal M\subset\mathfrak A_{\eta,Q_\eta}\text{ compact and tail-minimal},\\
+\nu\text{ invariant under the verified observer dynamics},\\
+\text{local origin observables and pressure gradients are gauge-compatible},\\
+\text{the averaged centered equation holds}
+\end{array}
+\right]
+\Longrightarrow
+\mathcal M\text{ lies in the affine/parasitic lower stratum}.
+$$
+
+If this implication is not available, the infinite active branch is not
+excluded; it is recorded as a recurrent-core rigidity obligation.
+
+**Proof.** Lemma ST14.1 supplies the invariant-measure identities and the
+well-defined local observables. The displayed rigidity implication is the
+separate mathematical step that turns those identities into affine/parasitic
+collapse. Once it is verified, `ST3` routes the core to the lower stratum,
+contradicting the assumption that the active recurrent core is residual. If
+the implication is missing, the averaged identities alone are not a
+contradiction.
+
+### Specific Estimate
+
+The decisive check is the pair consisting of the local invariant averaged
+identity and the verified recurrent-core rigidity implication yielding
+affine/parasitic status.
+
+### Practical Verification Steps
+
+1. Project the invariant path measure to a recurrent core measure.
+2. Fix local pressure gauges near the observer origin.
+3. Justify pointwise observables from local smooth topology, or use mollified
+   compact-cylinder observables in the suitable topology.
+4. Average the centered equation.
+5. Verify the recurrent-core rigidity implication.
+6. Route the resulting affine/constant core to `ST3` and exclude infinite
+   active branches.
+7. If the implication is missing, record a recurrent-core rigidity obligation.
+
+## Estimate Step $B_{\mathrm{ST14}}$
+
+The estimate step is local invariant-measure averaging and affine rigidity.
+
+## Failure Case
+
+Failure name: recurrent-core rigidity gap.
+
+Analytic meaning: an infinite active descendant branch has produced a
+recurrent core that has not been collapsed to a lower stratum.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. strengthen the local topology to justify origin observables;
+2. choose compatible local pressure gauges;
+3. restrict to a tail-minimal recurrent component;
+4. register any missing recurrent-core rigidity theorem in `PS31`.
+
+Progress measure: recurrent cores are lower-stratum, impossible, or recorded
+as explicit rigidity obligations.
+
+## Data Passed Forward
+
+The next proof step is `ST15`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST14}}
+=
+\Gamma_{\mathrm{ST13}}
+\cup
+\{\text{no infinite active descendant branch, or recurrent-core rigidity obligation}\}.
+$$
+
+---
+
+# 52. `ST15` -- No Finite Separated Retained Profile Family
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a finite family of separated retained active profiles that
+might survive after infinite active branches are excluded.
+
+### Standing Assumptions
+
+There is no infinite active descendant branch, or any recurrent-core
+obligation has been separately recorded; diffuse critical tails have been
+discharged or assigned rigidity obligations; and descendant heredity holds.
+
+### Objects Inspected
+
+Inspect finitely many separated covariant observer cylinders
+
+$$
+\mathcal Q_1^{\rm cov}(z_{n,j}),
+\qquad 1\le j\le N,
+$$
+
+with uniform lower local CKN or oscillation bounds and pairwise separation.
+
+### Dependencies Used
+
+Finite packet information from `PS18`--`PS20` when present; active loci from
+`ST5`; descendant heredity from `ST12`; no infinite active branches from
+`ST14`; diffuse exclusion from `ST8`--`ST11`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST15}}$ holds if a finite separated retained family is left as a
+surviving residual object, or if such a family is excluded without the
+separated-family exclusion check below.
+
+### Local Lemmas to Prove
+
+**Lemma ST15.1 -- A nontrivial retained tail limit splits a finite family.**
+If one retained profile has a nontrivial separated tail limit, then after
+covariant recentering the branch produces two separated active descendants.
+
+**Proof.** The original retained cylinder and the escaping retained tail
+cylinder have disjoint covariant neighborhoods for large $n$. Local compactness
+on each cylinder gives two active state-space limits, and the separation
+persists in observer coordinates.
+
+**Lemma ST15.2 -- Finite separated families require a no-separated-family
+record.**
+A finite separated retained family is excluded only after the branch verifies
+the local no-separated-family implication:
+
+$$
+\left[
+\begin{array}{l}
+\text{finite covariantly separated retained active profiles},\\
+\text{descendant heredity for every member},\\
+\text{no diffuse, critical-tail, or local noncompact component},\\
+\text{no infinite active branch}
+\end{array}
+\right]
+\Longrightarrow
+\text{contradiction}.
+$$
+
+If this implication is not verified, the family is recorded as a finite
+separated-family obligation.
+
+**Proof.** Lemma ST15.1 shows that any member with a retained separated tail
+splits the family and starts an active successor. Iterating either reaches an
+infinite active branch, handled by `ST14`, or leaves a finite terminal
+separated family with no diffuse, critical-tail, or noncompact component. The
+displayed no-separated-family implication is the remaining local exclusion
+needed for that terminal finite case. Without it, termination of the
+iteration is not itself a contradiction.
+
+### Specific Estimate
+
+The decisive local separation record is
+
+$$
+\operatorname{dist}_{\rm par}
+(\mathcal Q_1^{\rm cov}(z_{n,i}),
+\mathcal Q_1^{\rm cov}(z_{n,j}))\to\infty
+\quad(i\ne j),
+$$
+
+with a fixed lower activity bound on each cylinder.
+
+### Practical Verification Steps
+
+1. List the separated active cylinders.
+2. Extract local profiles on each cylinder.
+3. Apply descendant heredity to every profile.
+4. Check whether any member has a retained tail successor.
+5. Use `ST14` and diffuse-tail discharge to remove nonterminal alternatives.
+6. Verify the no-separated-family implication for the terminal finite case.
+7. If the implication is missing, record a finite separated-family obligation.
+
+## Estimate Step $B_{\mathrm{ST15}}$
+
+The estimate step is separated-cylinder profile extraction and finite-family
+elimination.
+
+## Failure Case
+
+Failure name: finite separated family survives or lacks exclusion source.
+
+Analytic meaning: a finite packet of active residual profiles remains without
+being made into an active chain, diffuse state, or lower stratum.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. verify pairwise covariant separation;
+2. extract the missing descendant;
+3. route diffuse members to `ST8`;
+4. lower the activity threshold and rerun `ST13`.
+
+Progress measure: finite separated families are excluded, transformed into
+already handled alternatives, or recorded as explicit obligations.
+
+## Data Passed Forward
+
+The next proof step is `ST16`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST15}}
+=
+\Gamma_{\mathrm{ST14}}
+\cup
+\{\text{finite separated retained families excluded, or finite-family obligation}\}.
+$$
+
+---
+
+# 53. `ST16` -- Terminal Indecomposability
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is any retained residual profile that survives all active,
+diffuse, critical-tail, infinite-chain, and finite-family exclusions.
+
+### Standing Assumptions
+
+Nodes `ST5`--`ST15` have been completed with no remaining diffuse-tail,
+critical-tail, recurrent-core, finite-family, or local noncompactness
+obligation on the branch being declared terminal.
+
+### Objects Inspected
+
+A retained profile is terminally indecomposable if it has no retained
+concentrating tail limit, no diffuse exterior concentration, and no escaping
+recentering with local compactness or pressure failure.
+
+### Dependencies Used
+
+Active/remainder decomposition from `ST6`; nonactive discharge from `ST7`;
+diffuse and critical-tail closure from `ST8`--`ST11`; heredity and recurrence
+from `ST12`--`ST14`; finite-family exclusion from `ST15`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST16}}$ holds if a residual profile is declared terminal without
+checking every decomposition channel, or while one of the explicit obligations
+from `ST11`, `ST14`, or `ST15` remains open.
+
+### Local Lemmas to Prove
+
+**Lemma ST16.1 -- Surviving retained residual profiles are single.**
+After `ST15` closes without a finite-family obligation, no finite separated
+retained family remains. Therefore any surviving retained residual profile has
+only one active component.
+
+**Proof.** Two or more separated active components form a finite separated
+family. `ST15` excludes such families only when its no-separated-family record
+has been verified; otherwise `ST16` is not allowed to run. Nonseparated
+components belong to the same local active component by the active-locus
+decomposition.
+
+**Lemma ST16.2 -- Surviving single profiles are terminally indecomposable.**
+The remaining single retained profile has no retained tail successor, no
+diffuse exterior concentration, and no local noncompactness defect.
+
+**Proof.** A retained tail successor would generate an active descendant and
+hence either an infinite active branch or a finite separated family, both
+excluded. Diffuse exterior concentration is excluded by `ST8`--`ST11`.
+Local compactness or pressure failure is a named `ST6` noncompactness defect
+and cannot be part of a completed terminal profile.
+
+### Specific Estimate
+
+The decisive ordered consequence is
+
+$$
+\text{surviving residual}
+\Longrightarrow
+\text{single terminally indecomposable retained profile}.
+$$
+
+### Practical Verification Steps
+
+1. Check that mixed compact--diffuse states were discharged.
+2. Check that compact--noncompact states were assigned as defects.
+3. Check that infinite active chains were excluded with no recurrent-core
+   rigidity obligation.
+4. Check that finite separated families were excluded with no finite-family
+   obligation.
+5. Record the terminally indecomposable profile.
+
+## Estimate Step $B_{\mathrm{ST16}}$
+
+The estimate step is ordered consequence bookkeeping from the previous ST
+nodes.
+
+## Failure Case
+
+Failure name: premature terminal profile.
+
+Analytic meaning: a residual profile is being treated as indecomposable while
+some active, diffuse, separated, or noncompact channel has not been closed.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. rerun active-locus extraction;
+2. rerun diffuse compactification;
+3. rerun active successor recurrence;
+4. rerun finite-family exclusion;
+5. name the remaining local noncompactness defect.
+
+Progress measure: every decomposition channel is closed before
+indecomposability is declared.
+
+## Data Passed Forward
+
+The next proof step is `ST17`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST16}}
+=
+\Gamma_{\mathrm{ST15}}
+\cup
+\{\text{single terminally indecomposable retained profile}\}.
+$$
+
+---
+
+# 54. `ST17` -- Backward Sequence-$L^3$ from Terminal Indecomposability
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a single terminally indecomposable retained centered profile
+$(U,\Pi)$.
+
+### Standing Assumptions
+
+The profile is bounded, belongs to $\mathfrak X_M$, is retained, and is
+terminally indecomposable in the sense of `ST16`.
+
+### Objects Inspected
+
+Inspect backward centered time slices $\tau\to-\infty$ and exterior unit-ball
+local $L^3$ masses.
+
+### Dependencies Used
+
+Terminal indecomposability from `ST16`; observer recentering from `ST1`;
+local compactness from `ST2`; diffuse exclusion from `ST8`--`ST11`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST17}}$ holds if the proof assumes a global backward
+$L^3$ sequence instead of deriving it from terminal indecomposability.
+
+### Local Lemmas to Prove
+
+**Lemma ST17.1 -- Absence of a bounded sequence creates local tail alternatives.**
+If there is no sequence $\tau_k\to-\infty$ with
+
+$$
+\sup_k\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}<\infty,
+$$
+
+then one can choose $R_n\to\infty$ first and then choose
+$\tau_n\to-\infty$ so negative that
+
+$$
+\int_{\mathbb R^3}|U(y,\tau_n)|^3\,dy
+>
+M^3|B_{R_n}|+1.
+$$
+
+Since $|U|\le M$, this implies
+
+$$
+\int_{|y|>R_n}|U(y,\tau_n)|^3\,dy\ge1.
+$$
+
+Define
+
+$$
+m_n
+=
+\sup_{|x|>R_n}
+\int_{B_1(x)}|U(y,\tau_n)|^3\,dy .
+$$
+
+Either $\limsup_n m_n>0$, producing a local tail core at some positive
+threshold $\varepsilon_{\rm tail}$, or $m_n\to0$, producing diffuse exterior
+concentration.
+
+**Proof.** If no bounded sequence exists, then
+$\|U(\cdot,\tau)\|_{L^3(\mathbb R^3)}\to\infty$ as
+$\tau\to-\infty$. Fix any increasing sequence $R_n\to\infty$. For each $n$,
+choose $\tau_n$ so negative that the integral of $|U|^3$ is larger than
+$M^3|B_{R_n}|+1$. The interior contribution on $B_{R_n}$ is at most
+$M^3|B_{R_n}|$, so the exterior integral is at least $1$. The dichotomy for
+$m_n$ is the elementary split between a positive unit-ball concentration and
+vanishing unit-ball supremum with nonzero exterior mass. If
+$\limsup_n m_n>0$, pass to a subsequence and choose a rational
+$\varepsilon_{\rm tail}>0$ below that limsup.
+
+**Lemma ST17.2 -- Local tail alternatives contradict indecomposability.**
+The local tail core alternative contradicts terminal indecomposability by
+producing a retained concentrating tail limit or a local compactness failure.
+The diffuse alternative contradicts terminal indecomposability by producing
+diffuse exterior concentration. In the local tail-core alternative the
+time-slice lower bound is first thickened to a short covariant observer
+cylinder using bounded local regularity; the length of the short interval is
+recorded in the constants ledger. In the diffuse alternative one records a
+normalized escaping time-slice diffuse measure as an `ST8` input. If a later
+argument specifically needs spacetime CKN mass, it first restricts to a
+finite positive truncation and thickens only that finite truncation.
+
+**Proof.** In the local tail core case choose $x_n$ with
+
+$$
+\int_{B_1(x_n)}|U(y,\tau_n)|^3\,dy\ge\varepsilon_{\rm tail}.
+$$
+
+Covariantly recenter
+
+$$
+U_n(y,s)
+=
+U(y+e^{s/2}x_n,\tau_n+s).
+$$
+
+By bounded local regularity, the lower bound persists, after reducing the
+constant, on a fixed short observer cylinder around $(0,0)$. If the
+recentered sequence is compact in $\mathfrak X_M$, a retained tail descendant
+is obtained, contradicting `ST16`. If it is not compact, `ST16` is
+contradicted by a local compactness or pressure failure. In the case
+$m_n\to0$, exterior mass persists while every unit ball on the time slice is
+subthreshold. Normalizing a finite positive exterior truncation gives the
+time-slice diffuse state accepted by `ST8`; terminal indecomposability
+excludes that state as diffuse exterior concentration.
+
+### Specific Estimate
+
+The decisive conclusion is
+
+$$
+\exists\,\tau_k\to-\infty
+\quad
+\sup_k\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}<\infty.
+$$
+
+This is an output of local state-space exclusion, not an a priori global
+estimate.
+
+### Practical Verification Steps
+
+1. Assume no bounded backward $L^3$ sequence.
+2. Choose exterior mass witnesses $(\tau_n,R_n)$.
+3. Compute the unit-tail supremum $m_n$.
+4. If $m_n$ has a positive limsup, choose a positive rational
+   $\varepsilon_{\rm tail}$, thicken the time-slice lower bound to an observer
+   cylinder, covariantly recenter, and contradict indecomposability.
+5. If $m_n\to0$, identify diffuse exterior concentration and contradict
+   indecomposability.
+6. Record the resulting bounded backward $L^3$ sequence.
+
+## Estimate Step $B_{\mathrm{ST17}}$
+
+The estimate step is the local tail-core/diffuse dichotomy forcing the
+backward sequence-$L^3$ bound.
+
+## Failure Case
+
+Failure name: unforced endpoint $L^3$ sequence.
+
+Analytic meaning: the endpoint theorem is being prepared with a backward
+$L^3$ sequence that has not been derived from the local residual state-space
+alternatives.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. complete terminal indecomposability in `ST16`;
+2. identify the positive unit-tail core;
+3. identify the diffuse exterior state;
+4. repair the covariant recentering from `ST1`.
+
+Progress measure: absence of the $L^3$ sequence is converted into a forbidden
+local tail alternative.
+
+## Data Passed Forward
+
+The next proof step is `ST18`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST17}}
+=
+\Gamma_{\mathrm{ST16}}
+\cup
+\left\{
+\tau_k\to-\infty,\quad
+\sup_k\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}<\infty
+\right\}.
+$$
+
+---
+
+# 55. `ST18` -- Parasitic-Free Mildness Inheritance
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the physical pullback of a retained terminal profile or of any
+retained covariant tail descendant, active-tree limit, or recurrent-core
+limit that survived lower-stratum removal.
+
+### Standing Assumptions
+
+The affine/parasitic lower stratum has been removed, the profile is bounded in
+$\mathfrak X_M$, the centered equation is exact in covariant observer
+coordinates, local pressure gauges are compatible, and the branch must verify
+the finite-shift mildness gate below. Bounded local smoothness alone is not
+counted as mildness until the Duhamel formula has been proved in the endpoint
+topology.
+
+### Objects Inspected
+
+For
+
+$$
+u(x,t)
+=
+(-t)^{-1/2}
+U\left(\frac{x}{\sqrt{-t}},-\log(-t)\right),
+$$
+
+and each fixed $T<0$, define
+
+$$
+u^T(x,s)=u(x,T+s),
+\qquad s<0.
+$$
+
+### Dependencies Used
+
+Affine/parasitic removal from `ST3`; observer covariance from `ST1`; centered
+equation from `PS5`; local pressure gauges from `ST2`; boundedness from
+`ST2`; sequence-$L^3$ from `ST17`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST18}}$ holds if the endpoint theorem is invoked before proving
+that the physical pullback is parasitic-free and bounded mild ancient on every
+finite terminal shift.
+
+### Local Lemmas to Prove
+
+**Lemma ST18.1 -- Finite-shift pullbacks are bounded ancient solutions.**
+For every fixed $T<0$, the pullback $u^T$ is bounded on
+$\mathbb R^3\times(-\infty,0)$.
+
+**Proof.** If $\|U\|_\infty\le M$ and $s<0$, then $T+s<T<0$, so
+
+$$
+|u^T(x,s)|\le (-T)^{-1/2}M.
+$$
+
+The centered-to-physical change of variables from `PS5` gives the
+Navier--Stokes equation on the shifted ancient interval.
+
+**Lemma ST18.2 -- Parasitic-free normalized profiles inherit mildness only
+through the mildness gate.**
+After affine/parasitic lower-stratum removal, the finite-shift physical
+pullback may be passed to the endpoint theorem only if it satisfies the
+Duhamel formula required by that theorem:
+
+$$
+u^T(t)=e^{(t-s)\Delta}u^T(s)
+-\int_s^t e^{(t-\sigma)\Delta}
+\mathbb P\nabla\cdot(u^T\otimes u^T)(\sigma)\,d\sigma
+$$
+
+for all $s<t<0$ in the registered endpoint topology.
+
+**Proof.** The centered-to-physical transform and Lemma ST18.1 give a bounded
+ancient distributional solution on every finite-shift slab. The additional
+mildness gate is the verification that no affine/parasitic forcing, harmonic
+pressure drift, or non-decaying pressure representative remains in the
+projected equation and that the heat-kernel identity holds in the topology
+used by the endpoint theorem. Any residual affine forcing would be a lower
+stratum from `ST3`. If the heat-kernel identity or pressure compatibility is
+not proved, this lemma outputs a mildness inheritance gap rather than an
+endpoint-ready branch.
+
+### Specific Estimate
+
+The decisive endpoint-class statement is
+
+$$
+u^T\text{ is a bounded mild ancient solution on }
+\mathbb R^3\times(-\infty,0)
+\quad(T<0).
+$$
+
+This statement includes the Duhamel formula and pressure-projection
+compatibility, not merely bounded distributional ancientness.
+
+### Practical Verification Steps
+
+1. Confirm affine/parasitic lower modes have been removed or normalized.
+2. Pull the centered equation back to physical variables.
+3. Fix $T<0$ before estimating the bound.
+4. Verify the pressure gauge is compatible with the mild formulation.
+5. Prove the Duhamel formula on the shifted ancient interval.
+
+## Estimate Step $B_{\mathrm{ST18}}$
+
+The estimate step is finite-shift boundedness and mildness inheritance for
+the physical pullback.
+
+## Failure Case
+
+Failure name: mildness inheritance gap.
+
+Analytic meaning: the branch has the local sequence-$L^3$ output but does not
+yet satisfy the bounded mild ancient solution hypothesis of the endpoint
+theorem.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. remove affine/parasitic modes through `ST3`;
+2. fix a finite terminal shift $T<0$;
+3. repair pressure-gauge compatibility;
+4. prove the Duhamel formula in the endpoint topology.
+
+Progress measure: the physical pullback is endpoint-ready on every finite
+terminal shift.
+
+## Data Passed Forward
+
+If the mildness gate is verified, the next proof step is `ST19`. If the
+Duhamel or pressure-projection compatibility check fails, the branch is not
+endpoint-ready and the mildness inheritance gap is entered into
+$\mathrm{Obl}_{\mathrm{ST}}$. The data passed forward on the successful path
+are
+
+$$
+\Gamma_{\mathrm{ST18}}
+=
+\Gamma_{\mathrm{ST17}}
+\cup
+\{\text{finite-shift bounded mild ancient pullback}\}.
+$$
+
+---
+
+# 56. `ST19` -- Endpoint Liouville after Local Sequence-$L^3$
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the endpoint-ready physical pullback of a terminally
+indecomposable retained residual profile.
+
+### Standing Assumptions
+
+`ST17` supplies a backward centered sequence with bounded $L^3$ norm, and
+`ST18` supplies a parasitic-free bounded mild ancient physical pullback on
+each finite terminal shift.
+
+### Objects Inspected
+
+Under the physical pullback, set
+
+$$
+t_k=-e^{-\tau_k}.
+$$
+
+Then $\tau_k\to-\infty$ gives $t_k\to-\infty$, and critical invariance gives
+
+$$
+\|u(\cdot,t_k)\|_{L^3(\mathbb R^3)}
+=
+\|U(\cdot,\tau_k)\|_{L^3(\mathbb R^3)}.
+$$
+
+### Dependencies Used
+
+Sequence-$L^3$ from `ST17`; mildness from `ST18`; the named
+Albritton--Barker endpoint ancient theorem as an external endpoint input;
+retained activity from `PS8`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST19}}$ holds if the Albritton--Barker endpoint theorem is
+applied without the locally derived sequence-$L^3$ input, finite-shift
+mildness, or retained-activity contradiction.
+
+### Local Lemmas to Prove
+
+**Lemma ST19.1 -- The endpoint theorem applies to the finite-shift pullback.**
+For every fixed $T<0$, the shifted solution $u^T$ is bounded mild ancient and
+has a sequence $s_k=t_k-T\to-\infty$ with
+
+$$
+\sup_k\|u^T(\cdot,s_k)\|_{L^3(\mathbb R^3)}<\infty.
+$$
+
+**Proof.** Mildness and boundedness come from `ST18`. Critical $L^3$
+invariance and `ST17` give the displayed bound.
+
+**Lemma ST19.2 -- Endpoint zero contradicts retained activity.**
+The Albritton--Barker endpoint theorem gives $u^T\equiv0$ for each fixed
+$T<0$, hence $U\equiv0$. This contradicts retained compact activity
+
+$$
+\iint_Q |U|^3+
+|\Pi-c_Q(\tau)|^{3/2}\,dy\,d\tau
+\ge\varepsilon_*.
+$$
+
+**Proof.** The endpoint theorem gives zero on each shifted ancient slab.
+Since $T<0$ is arbitrary, $u\equiv0$ for all physical times $t<0$. The
+self-similar transform is invertible for $t<0$, so $U\equiv0$. The zero
+profile has zero velocity activity and zero pressure oscillation in the local
+gauge, contradicting the retained lower bound.
+
+### Specific Estimate
+
+The decisive endpoint chain is
+
+$$
+\sup_k\|U(\tau_k)\|_{L^3}<\infty
+\Longrightarrow
+\sup_k\|u^T(s_k)\|_{L^3}<\infty
+\Longrightarrow
+u^T\equiv0
+\Longrightarrow
+U\equiv0,
+$$
+
+contradicting retained local activity.
+
+### Practical Verification Steps
+
+1. Convert $\tau_k$ to physical times $t_k$.
+2. Fix a finite terminal shift $T<0$.
+3. Verify $s_k=t_k-T\to-\infty$.
+4. Apply critical $L^3$ invariance.
+5. Apply the endpoint theorem.
+6. Compare the zero conclusion with the retained activity cylinder.
+
+## Estimate Step $B_{\mathrm{ST19}}$
+
+The estimate step is endpoint theorem application after the locally forced
+sequence-$L^3$ and mildness inputs.
+
+## Failure Case
+
+Failure name: endpoint residual mismatch.
+
+Analytic meaning: the terminal residual profile has not been matched to the
+Albritton--Barker theorem or the zero conclusion has not been tied to the
+retained activity witness.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. rerun `ST17` for the sequence-$L^3$ output;
+2. rerun `ST18` for finite-shift mildness;
+3. repair critical norm invariance bookkeeping;
+4. identify the retained activity cylinder and pressure gauge.
+
+Progress measure: the endpoint theorem gives a Type C zero/activity
+contradiction.
+
+## Data Passed Forward
+
+The next proof step is `ST20`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST19}}
+=
+\Gamma_{\mathrm{ST18}}
+\cup
+\{\text{terminally indecomposable retained profile excluded}\}.
+$$
+
+---
+
+# 57. `ST20` -- Local Residual Closure Theorem
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is a bounded centered Seregin profile or terminal residual state
+$(U,\Pi)\in\mathfrak X_M$ with retained compact concentration and outside the
+routed lower-strata ledger.
+
+### Standing Assumptions
+
+The hypotheses are strictly local except for boundedness of the centered
+profile:
+
+$$
+(U,\Pi)\in\mathfrak X_M,\qquad
+\|U\|_{L^\infty}\le M,
+$$
+
+local centered equation, local suitability, local pressure gauges on compact
+observer cylinders, retained compact CKN or oscillation activity, and
+membership outside the routed lower-strata ledger. The closure assertion is
+made only after the local ST-obligation ledger is empty.
+
+No global $L^3$ bound, no uniform tightness estimate, and no whole-space
+pressure representative is assumed.
+
+### Objects Inspected
+
+Inspect the full residual closure chain:
+
+$$
+ST5\text{--}ST6,\quad
+ST7,\quad
+ST8\text{--}ST11,\quad
+ST12\text{--}ST14,\quad
+ST15,\quad
+ST16,\quad
+ST17,\quad
+ST18,\quad
+ST19,
+\quad
+\mathrm{Obl}_{\mathrm{ST}}.
+$$
+
+### Dependencies Used
+
+All previous ST nodes, the centered equation and local suitability from
+`PS5`--`PS7`, retained activity from `PS8`, local pressure gauges from `PS4`
+and `PS30`, and the named Albritton--Barker endpoint ancient theorem used in
+`ST19`. `PS31` later audits the theorem match; it is not an input to the
+proof of `ST20`.
+
+### Local Obstruction Predicate
+
+$P_{\mathrm{ST20}}$ holds if the generic residual class is declared excluded
+while any ST obligation remains open, if it is left as open after all
+state-space alternatives have been exhausted, or if its theorem statement
+contains any global tightness, global $L^3$, or global pressure-tail
+hypothesis.
+
+### Local Lemmas to Prove
+
+**Lemma ST20.1 -- Local residual alternatives are exhaustive.**
+Every retained generic residual profile has an active-locus/remainder
+decomposition. The remainder is vanishing, diffuse, or locally noncompact.
+Diffuse and critical-tail alternatives are either discharged or recorded in
+$\mathrm{Obl}_{\mathrm{ST}}$; active descendants cannot form infinite chains
+or finite separated retained families unless the corresponding rigidity or
+finite-family obligation is recorded.
+
+**Proof.** Active-locus extraction is `ST5`, paired decomposition is `ST6`,
+nonactive sole-carrier discharge is `ST7`, diffuse closure is `ST8`--`ST9`,
+critical-tail closure is `ST10`--`ST11`, descendant heredity is `ST12`,
+infinite active-branch exclusion is `ST13`--`ST14`, and finite-family
+exclusion is `ST15`. The conclusion is valid only when
+$\mathrm{Obl}_{\mathrm{ST}}=\emptyset$, including no local noncompactness,
+diffuse recurrence, critical-tail rigidity, recurrent-core rigidity, or
+finite-family obligation.
+
+**Lemma ST20.2 -- The only surviving residual is endpoint-ready and excluded.**
+Any surviving residual profile is terminally indecomposable by `ST16`.
+`ST17` forces a backward sequence-$L^3$ bound, `ST18` gives parasitic-free
+finite-shift mildness, and `ST19` applies the endpoint ancient theorem to
+contradict retained activity.
+
+**Proof.** This is the ordered chain
+
+$$
+\text{surviving residual}
+\Rightarrow
+\text{terminally indecomposable}
+\Rightarrow
+\exists \tau_k\to-\infty:
+\sup_k\|U(\tau_k)\|_{L^3}<\infty
+$$
+
+followed by finite-shift mildness and the Albritton--Barker zero conclusion.
+The zero conclusion contradicts the compact retained activity lower bound.
+The implication is closed only when `ST18` has produced the finite-shift
+bounded mild ancient pullback rather than a mildness inheritance gap.
+
+### Specific Estimate
+
+The decisive theorem statement is
+
+$$
+\left[
+\begin{array}{l}
+(U,\Pi)\in\mathfrak X_M,\quad \|U\|_\infty\le M,\\
+\text{local suitability and local pressure gauges},\\
+\text{retained compact activity},\\
+(U,\Pi)\notin\bigcup_j\mathcal L_j^{\rm routed},\\
+\mathrm{Obl}_{\mathrm{ST}}=\emptyset
+\end{array}
+\right]
+\Longrightarrow
+\text{contradiction}.
+$$
+
+### Practical Verification Steps
+
+1. Run `ST5`--`ST6` to obtain active-locus plus residual decomposition.
+2. Use `ST7` to discharge pure nonactive carriers.
+3. Verify that no local compactness or pressure noncompactness defect remains
+   from `ST6`.
+4. Use `ST8`--`ST11` to discharge diffuse and critical-tail boundary states.
+5. Verify that no diffuse compactification, diffuse recurrence, or
+   critical-tail rigidity obligation remains from `ST8`--`ST11`.
+6. Use `ST12`--`ST14` to exclude infinite active descendant branches.
+7. Verify that no recurrent-core rigidity obligation remains from `ST14`.
+8. Use `ST15` to exclude finite separated retained families.
+9. Verify that no finite-family obligation remains from `ST15`.
+10. Use `ST16` to reduce to one terminally indecomposable retained profile.
+11. Use `ST17` to force the backward sequence-$L^3$ bound.
+12. Use `ST18` to inherit parasitic-free mildness and verify that no
+    mildness inheritance gap remains.
+13. Use `ST19` to apply endpoint Liouville and contradict retained activity.
+
+## Estimate Step $B_{\mathrm{ST20}}$
+
+The estimate step is the assembly of the local residual state-space closure.
+It is not a global tail estimate.
+
+## Failure Case
+
+Failure name: unclosed local residual state.
+
+Analytic meaning: one of the local state-space alternatives has not been
+discharged, an ST obligation remains open, the mildness gate has not been
+passed, or the residual theorem has been stated with an illicit global input.
+
+## Refinement Step
+
+Allowed refinements:
+
+1. identify the first missing ST node in the chain;
+2. repair the local pressure-gauge or observer-state data;
+3. rerun lower-strata ledger subtraction;
+4. prove or explicitly record the missing local compactness, diffuse,
+   critical-tail, recurrent-core, finite-family, or mildness obligation;
+5. rerun endpoint matching in `PS31` using only local hypotheses;
+6. if the endpoint theorem itself is unavailable, record that theorem status
+   in `PS31` rather than reopening the residual class.
+
+Progress measure: the generic residual class has status
+$\mathrm{excluded}$ with source `ST20`.
+
+## Data Passed Forward
+
+The next proof step is `PS31`. The data passed forward are
+
+$$
+\Gamma_{\mathrm{ST20}}
+=
+\Gamma_{\mathrm{ST19}}
+\cup
+\left\{
+\begin{array}{l}
+\text{generic residual class empty},\\
+\mathrm{status}(\mathcal R_{\rm loc})=\mathrm{excluded},\\
+\mathrm{Obl}_{\mathrm{ST}}=\emptyset
+\end{array}
+\right\}.
+$$
+
+---
+
+# 58. `PS31` -- Endpoint Hypothesis Verification
+
+## Implementation and Verification in NS3D Terms
+
+### Analytic Setting and Unknowns
+
+The unknown is the selected endpoint candidate together with an admissibility
+record for applying it: CKN regularity, Serrin regularity, small-data
+theory, stationary $L^3$ Liouville, endpoint ancient $L^3$ Liouville,
+structured Liouville, Type II local exclusion, or residual closure.
 
 ### Standing Assumptions
 
 The incoming record states that every defect channel has a conclusion and no
 unnamed distributional term appears in the limit equation. If a channel is
 marked unresolved, the endpoint theorem must either list that unresolved
-object as an explicit hypothesis or the branch is blocked at this node.
+object as an explicit hypothesis or the branch is blocked at this node. For
+the generic residual branch, the incoming record is the local theorem output
+of `ST20`.
 
 ### Objects Inspected
 
 Inspect solution class, pressure normalization, domain, boundary condition,
-critical norm, compactness topology, decay or tightness, symmetry hypotheses,
-and positivity normalization.
+trace class, flattening map, boundary local energy inequality, boundary
+smallness criterion, endpoint source topology, critical norm, compactness
+topology, decay or tightness when the selected theorem requires it, symmetry
+hypotheses, positivity normalization, and the local residual closure theorem
+`ST20`.
 
 ### Dependencies Used
 
 The earlier estimates feed `PS31`; `PS30` is decisive because endpoint
-hypotheses cannot be checked while the defect vector is incomplete.
+hypotheses cannot be checked while the defect vector is incomplete. The
+generic residual endpoint is supplied by `ST20`, which is decisive because it
+replaces global tightness, global $L^3$, and global pressure-tail obligations
+by local state-space hypotheses. The local Type II endpoint is supplied by
+`TII16` only when its Type II obligation ledger is empty. In that case it is
+decisive because it replaces global Type II profile budgets, whole-space tail
+estimates, and global pressure reconstructions by compact-window Type II
+state-space alternatives. If the ledger is nonempty, the corresponding entries
+are routed as explicit obligations and no Type II endpoint theorem is
+available for that branch.
+
+### Endpoint Theorem Registry
+
+Endpoint matching is recorded in a theorem registry
+
+$$
+\mathscr T=\{T_\beta\}_{\beta\in B}.
+$$
+
+Each entry is a tuple
+
+$$
+T_\beta
+=
+\left(
+\mathrm{status},
+\mathrm{equation},
+\mathrm{domain},
+\mathrm{time\ interval},
+\mathrm{solution\ class},
+\mathrm{pressure\ convention},
+\mathrm{boundary\ record},
+\mathrm{source\ topology},
+\mathrm{norms},
+\mathrm{quantifiers},
+\mathrm{constants},
+\mathrm{conclusion}
+\right).
+$$
+
+The status field belongs to
+
+$$
+\{\mathrm{established},\ \mathrm{proved\ earlier},\
+\mathrm{conditional},\ \mathrm{conjectural},\ \mathrm{open}\}.
+$$
+
+`PS31` may pass $T_\beta$ to `PS32` only in one of the following cases:
+
+1. $\mathrm{status}(T_\beta)\in
+   \{\mathrm{established},\mathrm{proved\ earlier}\}$;
+2. $\mathrm{status}(T_\beta)=\mathrm{conditional}$ and the entire downstream
+   theorem statement is explicitly tagged as conditional on $T_\beta$.
+
+An entry with status $\mathrm{conjectural}$ or $\mathrm{open}$ cannot close a
+branch. A branch relying on such an entry is routed to `PS33` or `PS34` as an
+explicit endpoint obligation.
+
+The boundary record field is empty only for interior or whole-space
+theorems. For boundary theorems it records the boundary condition, trace
+class, flattening map, boundary local energy inequality, pressure convention,
+and boundary smallness criterion. The source topology field records the space
+$Y_{T_\beta}$ used later by `Bound_B`.
+
+The residual closure entry is
+
+$$
+T_{\mathrm{ST20}}
+=
+\left(
+\begin{array}{l}
+\mathrm{proved\ earlier},\\
+\text{centered Navier--Stokes in covariant observer variables},\\
+Z=\mathbb R^3\times\mathbb R\text{ locally on compact observer cylinders},\\
+\mathbb R\text{ in centered time},\\
+\mathfrak X_M\text{ with retained compact activity},\\
+\text{pressure modulo local time-dependent gauges},\\
+\emptyset,\quad \text{no source term},\\
+\text{local }C^\infty_{\rm loc}\text{ velocity and weak }L^{3/2}_{\rm loc}
+\text{ pressure topology},\\
+\|U\|_{L^\infty}\le M,\quad
+\text{local suitability},\quad
+\text{local pressure gauges},\\
+\text{outside the routed lower-strata ledger},\\
+\mathrm{Obl}_{\mathrm{ST}}=\emptyset,\\
+\text{generic residual class empty}
+\end{array}
+\right).
+$$
+
+The first field $\mathrm{proved\ earlier}$ is assigned only when the
+`ST20` output ledger records
+
+$$
+\mathrm{Obl}_{\mathrm{ST}}
+=
+\emptyset,
+$$
+
+where $\mathrm{Obl}_{\mathrm{ST}}$ contains every local state-space gap that
+would block the `ST20` chain: missing local state-space topology or pressure
+gauge from `ST2`--`ST4`, active/remainder or local noncompactness defects
+from `ST5`--`ST6`, diffuse compactification or recurrence gaps from
+`ST8`--`ST9`, critical-tail rigidity obligations from `ST11`,
+recurrent-core rigidity obligations from `ST14`, finite-family obligations
+from `ST15`, and the mildness inheritance gap from `ST18`. If this set is
+nonempty, $T_{\mathrm{ST20}}$ is not a closing theorem entry; the nonempty
+elements of $\mathrm{Obl}_{\mathrm{ST}}$ are routed as explicit obligations.
+
+The hypothesis list for $T_{\mathrm{ST20}}$ is exactly
+
+$$
+(U,\Pi)\in\mathfrak X_M,\quad
+\|U\|_{L^\infty}\le M,\quad
+\text{local suitability},\quad
+\text{local pressure gauges},\quad
+\text{retained compact CKN or oscillation activity},\quad
+(U,\Pi)\notin\bigcup_j\mathcal L_j^{\rm routed},\quad
+\mathrm{Obl}_{\mathrm{ST}}=\emptyset.
+$$
+
+It contains no global $L^3$ bound, no uniform tightness hypothesis, and no
+whole-space pressure representative.
+
+The local Type II closure entry is
+
+$$
+T_{\mathrm{TII16}}
+=
+\left(
+\begin{array}{l}
+\mathrm{proved\ earlier},\\
+\text{Navier--Stokes in local Type II represented variables},\\
+\text{compact normalized observer windows},\\
+\text{selected Type II windows below the terminal face},\\
+\text{positive local Type II concentration sequence},\\
+\text{pressure modulo compact-ball spatial means},\\
+\emptyset\text{ after all local source/defect coordinates are discharged},\\
+\text{local }L^3\text{ velocity and }L^{3/2}\text{ pressure compactness},\\
+C+D\ge\eta_0,\quad C\ge\eta_v,\\
+\text{non-Type-I predicate in original variables},\\
+\mathrm{Obl}_{\mathrm{TII}}=\emptyset,\\
+\text{local Type II branch excluded}
+\end{array}
+\right).
+$$
+
+The hypothesis list for $T_{\mathrm{TII16}}$ is exactly the raw positive local
+Type II packet from `TII0`, compact-window suitability and pressure data from
+`TII1`--`TII6`, the local state-space decomposition from `TII15`, and
+
+$$
+\mathrm{Obl}_{\mathrm{TII}}=\emptyset
+$$
+
+after `TII16`. It contains no global profile-mass
+sum, no uniform tightness hypothesis, no whole-space pressure representative,
+and no global far-field pressure-tail estimate.
+
+If $\mathrm{Obl}_{\mathrm{TII}}\ne\emptyset$, the status field of
+$T_{\mathrm{TII16}}$ is not $\mathrm{proved\ earlier}$ for that branch. The
+nonempty elements of $\mathrm{Obl}_{\mathrm{TII}}$ are routed to `PS30`,
+`PS34`, or the named local Type II refinement node.
 
 ### Local Obstruction Predicate
 
 $P_{\mathrm{PS31}}$ holds when an endpoint theorem is being invoked with a
-hypothesis not actually proved in the branch.
+hypothesis, theorem status, variable convention, pressure gauge, domain, time
+interval, or constant dependence not actually verified in the branch.
 
 ### Local Lemmas to Prove
 
-**Lemma PS31.1 -- Hypothesis map is complete.**
-For every endpoint theorem $T$ selected by the branch, each hypothesis
-$H_j\in\mathcal H(T)$ must be supplied by a preceding Navier--Stokes estimate,
-or else shown to be irrelevant to the selected theorem.
-
-**Proof.** Write the theorem hypotheses as
+**Lemma PS31.1 -- Endpoint record is complete.**
+For every endpoint theorem $T_\beta$ selected by the branch, each hypothesis
+$H_j\in\mathcal H(T_\beta)$ must be supplied by a record
 
 $$
-\mathcal H(T)=\{H_1,\ldots,H_m\}.
+\mathfrak h_{T_\beta}(H_j)
+=
+(\mathrm{status}_j,\mathrm{source}_j,\mathrm{variables}_j,\mathrm{gauge}_j),
 $$
 
-For each $j$, define
+where
 
 $$
-\mathfrak h_T(H_j)\in
-\{\text{proved by an earlier estimate},\ \text{not applicable with reason},\
-\text{missing}\}.
+\mathrm{status}_j\in
+\{\mathrm{proved},\mathrm{not\ applicable},\mathrm{missing}\}.
 $$
 
-The theorem hypotheses are complete precisely when no value equals `missing`.
-A value `missing` identifies the exact theorem hypothesis not proved by the
-branch data.
+Here $\mathrm{source}_j$ names the node or theorem proving the hypothesis,
+$\mathrm{variables}_j$ records whether the hypothesis is in physical,
+rescaled, centered, or co-moving variables, and $\mathrm{gauge}_j$ records the
+pressure and normalization convention. The endpoint record is complete
+only if no applicable hypothesis has status $\mathrm{missing}$ and all
+variable, gauge, domain, time, quantifier, and constant fields match the entry
+$T_\beta$.
+
+**Proof.** Write
+
+$$
+\mathcal H(T_\beta)=\{H_1,\ldots,H_m\}.
+$$
+
+If an applicable hypothesis has $\mathrm{status}_j=\mathrm{missing}$, the
+theorem hypothesis has not been proved from the branch data. If the source is
+present but in a different variable frame, pressure gauge, domain, time
+interval, or constant regime, the statement proved by the source is not the
+statement required by $T_\beta$. Conversely, if every applicable hypothesis is
+proved with matching source, variables, gauge, domain, time, quantifiers, and
+constants, the endpoint theorem receives exactly its hypotheses.
 
 **Lemma PS31.2 -- Pressure conventions must match endpoint norms.**
-For an endpoint theorem whose hypotheses contain pressure oscillations, the
-branch pressure representative normalized by spatial means is admissible for
-that theorem. For an endpoint theorem whose hypotheses contain only
-$\nabla p$, time-dependent pressure gauges leave the theorem data unchanged.
+Pressure matching has three distinct cases:
+
+1. if the endpoint theorem uses only $\nabla P$, time-dependent gauges do not
+   matter;
+2. if the endpoint theorem uses local oscillations
+   $P-(P)_{B_R}(t)$, spatial-mean gauges match;
+3. if the endpoint theorem uses an actual pressure representative, a global
+   pressure norm, or a Riesz-transform normalization such as
+   $P=\mathcal R_i\mathcal R_j(U_iU_j)$, then the branch must prove that exact
+   representative. Local mean-subtracted pressures are not sufficient unless
+   the theorem explicitly quotients by that gauge.
 
 **Proof.** For $P'=P+a(t)$,
 
@@ -10470,61 +15143,192 @@ $$
 P'-(P')_{B_r}=P-P_{B_r}.
 $$
 
-Thus both possible pressure data used by endpoint theorems, $\nabla P$ and
-the oscillation $P-P_{B_r}$, are unchanged by the allowed gauge. The branch
-pressure convention is therefore matched to the theorem norm by the displayed
-identities.
+Thus gradient data and local oscillation data are invariant under the
+corresponding allowed gauges. However,
 
-**Lemma PS31.3 -- Convergence topology must supply the endpoint class.**
+$$
+\|P+a(t)\|_{L^{3/2}(\mathbb R^3\times I)}
+$$
+
+and the identity
+
+$$
+P=\mathcal R_i\mathcal R_j(U_iU_j)
+$$
+
+are not invariant under arbitrary additions $a(t)$ unless the theorem
+explicitly modded out that freedom. Therefore a theorem requiring a pressure
+representative requires a record for that representative, not merely a
+local oscillation record.
+
+**Lemma PS31.3 -- Solution classes are matched by verified implication.**
 For an endpoint theorem whose hypotheses require a smooth ancient solution,
-mild solution, suitable weak solution, or strong critical convergence, the
-corresponding compactness node supplies exactly that class.
-
-**Proof.** The branch record lists its solution class as one of
+mild solution, suitable weak solution, bounded mild ancient solution, or strong
+critical convergence, the branch must prove a named implication
 
 $$
-C^\infty_{\rm loc}\text{ ancient},\qquad
-\text{mild ancient},\qquad
-\text{suitable weak},\qquad
-\text{strongly convergent in the critical local norm}.
+\mathrm{recorded\ class}\Longrightarrow\mathrm{endpoint\ class}.
 $$
 
-The compactness steps `PS6`, `PS7`, `PS13`, `PS20`, and `PS30` specify which
-entry in this list has been proved. The endpoint theorem is admissible exactly
-when its required class equals the recorded entry.
+Equality of labels is neither necessary nor sufficient.
+
+**Proof.** Some recorded classes are stronger than endpoint classes, but only
+after the auxiliary structures have been checked. For example,
+
+$$
+C^\infty_{\rm loc}+L^\infty+\text{mild Duhamel}
+\Longrightarrow
+\text{bounded mild ancient}.
+$$
+
+Likewise a smooth mild ancient solution with pressure satisfying the local
+energy inequality gives a suitable weak solution on compact cylinders.
+However,
+
+$$
+C^\infty_{\rm loc}+L^\infty
+\not\Longrightarrow
+\text{mild ancient}
+$$
+
+unless the Duhamel formula and its time interval are separately proved. The
+endpoint class is therefore admissible exactly when the implication and all
+auxiliary pressure and local-energy requirements have named sources.
 
 **Lemma PS31.4 -- Missing hypotheses become explicit obligations.**
-The value $\mathfrak h_T(H_j)=\text{missing}$ blocks endpoint application; the
-missing item is assigned to the proof step that can supply it or to `PS33` as a
-precise open attainability or exclusion item.
+The value
+
+$$
+\mathfrak h_{T_\beta}(H_j)
+=
+(\mathrm{missing},\mathrm{source}_j,\mathrm{variables}_j,\mathrm{gauge}_j)
+$$
+
+blocks endpoint application; the missing item is assigned to the proof step
+that can supply it or to `PS33` as a precise open attainability or exclusion
+item.
 
 **Proof.** The endpoint-admissibility predicate is
 
 $$
-\forall H_j\in\mathcal H(T),\qquad
-\mathfrak h_T(H_j)\ne\text{missing}.
+\forall H_j\in\mathcal H(T_\beta),\qquad
+\mathrm{status}_j\ne\mathrm{missing}.
 $$
 
-The displayed predicate fails as soon as one hypothesis has value `missing`.
+The displayed predicate fails as soon as one hypothesis has missing status.
 Therefore the theorem is not applied, and the unresolved entry remains a named
 regularity, decay, pressure, compactness, or attainability item.
+
+**Lemma PS31.5 -- Theorem status controls branch closure.**
+An endpoint theorem with status $\mathrm{established}$ or
+$\mathrm{proved\ earlier}$ may be used in an unconditional branch exclusion.
+A conditional theorem may be used only in a conclusion explicitly conditional
+on that theorem. A conjectural or open theorem cannot close a branch.
+
+**Proof.** A branch is closed only by statements already available to the
+proof, or by statements that the proof has declared as assumptions of a
+conditional theorem. A conjectural or open statement has neither property.
+Using it as an exclusion would replace a missing theorem by a hidden axiom.
+
+**Lemma PS31.6 -- Quantifiers and constants are part of theorem matching.**
+Endpoint matching requires the branch to prove the theorem hypotheses with the
+same quantifier order and with constants in the admissible range recorded in
+$T_\beta$. In particular, a theorem of the form
+
+$$
+\forall M\ \exists \varepsilon(M)>0\quad H(M,\varepsilon)\Rightarrow C
+$$
+
+cannot be applied with an $\varepsilon$ chosen before $M$, and a theorem whose
+conclusion holds on $Q_{\theta r}$ cannot be compared with a lower bound on a
+different cylinder unless the constants ledger records the inclusion and the
+losses.
+
+**Proof.** Changing quantifier order changes the mathematical statement: an
+epsilon depending on a later bound is not available uniformly before that
+bound is fixed. Likewise, endpoint conclusions are scale- and cylinder-specific
+statements. The contradiction step compares a theorem conclusion with a
+branch lower bound only after the constants ledger verifies that the radius,
+shrink factor, threshold, covering constant, and normalization are the same or
+are related by proved monotonicity. Hence quantifiers and constants are not
+cosmetic metadata; they are hypotheses of the endpoint application.
+
+**Lemma PS31.7 -- The `ST20` theorem has local hypotheses only.**
+When the selected theorem is $T_{\mathrm{ST20}}$, `PS31` checks only the local
+state-space hypotheses displayed above and the emptiness of
+$\mathrm{Obl}_{\mathrm{ST}}$. A branch may not add global
+$L^3$ boundedness, uniform tightness, global pressure-tail compactness, or a
+Riesz-transform pressure representative to the hypothesis list.
+
+**Proof.** `ST20` proves residual emptiness by deriving the endpoint
+sequence-$L^3$ bound in `ST17` from terminal indecomposability and by using
+local pressure gauges throughout `ST2`--`ST6`. Adding a global tail or pressure
+representative to $T_{\mathrm{ST20}}$ would change the theorem from local
+state-space closure into the global estimate machine that the residual block
+was built to avoid. The emptiness of $\mathrm{Obl}_{\mathrm{ST}}$ is not a
+global estimate; it is the statement that the local ST subtheorems needed by
+`ST20` have actually closed. Therefore global statements can appear only as
+outputs or as hypotheses of other endpoint theorems, never as hypotheses of
+the residual closure theorem.
 
 ### Specific Estimate
 
 The decisive verification is
 
 $$
-\mathfrak h_T(H_j)=\text{proved}
-\quad\text{for every applicable }H_j\in\mathcal H(T).
+\mathrm{status}(T_\beta)\in
+\{\mathrm{established},\mathrm{proved\ earlier}\}
+\quad\text{or}\quad
+\text{the proof is explicitly conditional on }T_\beta,
 $$
+
+and, for every applicable $H_j\in\mathcal H(T_\beta)$,
+
+$$
+\mathfrak h_{T_\beta}(H_j)
+=
+(\mathrm{proved},\mathrm{source}_j,\mathrm{variables}_j,\mathrm{gauge}_j)
+$$
+
+with matching variables, gauge, domain, boundary record, source topology,
+time interval, quantifiers, and constants.
+
+For the residual branch, the decisive verification is instead the local
+hypothesis map
+
+$$
+\mathfrak h_{T_{\mathrm{ST20}}}
+=
+\left\{
+\begin{array}{l}
+(U,\Pi)\in\mathfrak X_M,\\
+\|U\|_{L^\infty}\le M,\\
+\text{local suitability},\\
+\text{local pressure gauges},\\
+\text{retained compact activity},\\
+\text{outside the routed lower-strata ledger},\\
+\mathrm{Obl}_{\mathrm{ST}}=\emptyset
+\end{array}
+\right\}
+$$
+
+with every entry proved by `ST0`--`ST20` and no global tail hypothesis.
 
 ### Practical Verification Steps
 
-1. Select the endpoint theorem for the branch.
+1. Select the endpoint theorem entry $T_\beta\in\mathscr T$ for the branch.
 2. List all theorem hypotheses verbatim in mathematical form.
-3. Attach each hypothesis to the estimate that proves it.
-4. Verify pressure and convergence conventions.
-5. Record missing hypotheses as explicit obligations.
+3. Attach each hypothesis to a record
+   $(\mathrm{status},\mathrm{source},\mathrm{variables},\mathrm{gauge})$.
+4. Verify theorem status, pressure representative, boundary record, source
+   topology, topology implication, domain, time interval, quantifiers, and
+   constants.
+5. If the selected theorem is `ST20`, verify only the local state-space
+   hypothesis list, check that $\mathrm{Obl}_{\mathrm{ST}}=\emptyset$, and
+   check that no global $L^3$, tightness, or pressure-tail hypothesis has
+   been inserted.
+6. Record missing, conjectural, or open items as explicit obligations; do not
+   apply the theorem to close the branch.
 
 ## Estimate Step $B_{\mathrm{PS31}}$
 
@@ -10559,12 +15363,32 @@ $$
 =
 \Gamma_{\mathrm{PS30}}
 \cup
-\{\mathfrak h_T\text{ complete}\}.
+\Gamma_{\mathrm{ST20}}^{\rm res}
+\cup
+\left\{
+\begin{array}{l}
+T_\beta\in\mathscr T,\quad
+\mathrm{status}(T_\beta)\in
+\{\mathrm{established},\mathrm{proved\ earlier}\}
+\text{ or declared conditional},\\
+\mathrm{Obl}_{\mathrm{ST}}=\emptyset
+\text{ when }T_\beta=T_{\mathrm{ST20}},\\
+\mathfrak h_{T_\beta}\text{ complete with sources},\\
+\text{variable, gauge, domain, boundary, source topology, time, quantifier,}\\
+\text{and constant matching verified}
+\end{array}
+\right\}.
 $$
+
+Here $\Gamma_{\mathrm{ST20}}^{\rm res}=\Gamma_{\mathrm{ST20}}$ on the
+residual-closure branch and is empty on nonresidual endpoint branches.
+
+If any item is missing, mismatched, conjectural, or open, `PS31` routes the
+branch to `PS33` or `PS34`; it does not pass an endpoint exclusion to `PS32`.
 
 ---
 
-# 38. `PS32` -- Endpoint Exclusion Theorem Application
+# 59. `PS32` -- Endpoint Exclusion Theorem Application
 
 ## Implementation and Verification in NS3D Terms
 
@@ -10575,12 +15399,15 @@ Navier--Stokes theorem.
 
 ### Standing Assumptions
 
-The incoming record states that the theorem is applicable exactly as checked in `PS31`.
+The incoming record states that the theorem is applicable exactly as checked
+in `PS31`, including theorem status, variable frame, pressure gauge, domain,
+time interval, and constants.
 
 ### Objects Inspected
 
 Inspect the theorem conclusion, local regularity implication, zero-profile
-implication, or branch-emptiness implication.
+implication, branch-emptiness implication, retained activity witness, and the
+object to which the theorem conclusion applies.
 
 ### Dependencies Used
 
@@ -10590,26 +15417,77 @@ singularity from `C_mu`; pressure and defect closure from `PS30`.
 ### Local Obstruction Predicate
 
 $P_{\mathrm{PS32}}$ holds when the endpoint conclusion is insufficient to
-contradict the retained branch.
+contradict the retained branch after object, frame, gauge, and prelimit
+transfer have been checked.
 
 ### Local Lemmas to Prove
 
-**Lemma PS32.1 -- CKN-type endpoint conclusions contradict singular entry.**
-If the endpoint theorem gives boundedness or Holder regularity in a smaller
-cylinder around the selected point, then the singular-entry conclusion of
-`C_mu` is false.
+Endpoint contradictions have three admissible types.
 
-**Proof.** The singular set was defined by failure of local boundedness on
-every cylinder. Regularity on one smaller cylinder excludes membership in that
-set.
+**Type A -- direct physical regularity.** The endpoint theorem applies
+directly to the original pair $(u,p)$ on a physical cylinder $Q_r(z_*)$ and
+gives local boundedness or Holder regularity in $Q_{r/2}(z_*)$.
+
+**Type B -- quantitative prelimit contradiction.** The endpoint theorem
+applies to a limit profile and gives a quantitative conclusion stable under
+the convergence used to obtain the profile, for example
+
+$$
+C(V;Q)+D(P;Q)<\frac12\varepsilon_{\rm CKN}.
+$$
+
+Strong velocity convergence and pressure convergence then imply, for large
+$n$,
+
+$$
+C(V_n;Q)+D(P_n;Q)<\varepsilon_{\rm CKN},
+$$
+
+contradicting the retained lower bound on the same cylinder.
+
+**Type C -- zero or rigidity contradiction.** The endpoint theorem gives
+$V\equiv0$ for the same endpoint object that carries a compact activity
+witness
+
+$$
+\iint_K |V|^3\ge\eta_*>0.
+$$
+
+**Lemma PS32.1 -- Regularity conclusions contradict singular entry only after
+transfer to the original branch.**
+If an endpoint theorem gives local boundedness of the original solution near
+$z_*=(x_*,T)$, then $x_*\notin\Sigma(T)$, contradicting the singular-entry
+branch. If the theorem gives local boundedness only for a rescaled limit
+profile, no contradiction follows unless the branch also proves a quantitative
+prelimit transfer yielding CKN smallness or boundedness for the original
+solution on a physical cylinder ending at $z_*$.
+
+**Proof.** The singular set is defined by failure of local boundedness of the
+original solution on physical cylinders. Thus Type A contradicts singular
+entry directly. A limit profile is only a limit of rescaled objects; its
+smoothness by itself does not imply regularity of the original solution.
+Type B supplies the missing implication by transferring a quantitative
+smallness or boundedness statement back to sufficiently large prelimit
+cylinders, where the CKN regularity criterion contradicts the retained
+singular concentration.
 
 **Lemma PS32.2 -- Zero-profile conclusions contradict retained activity.**
-If the endpoint theorem gives $V\equiv0$ or $W\equiv0$, then the
-pressure-normalized local CKN lower bound from `PS8` is impossible.
+If the endpoint theorem gives $V\equiv0$ for the same endpoint object, same
+frame, same time interval, and same pressure gauge that carries
 
-**Proof.** The zero velocity has zero velocity contribution. The pressure
-gradient is zero in the endpoint equation. Choosing the spatial-mean pressure
-gauge gives zero pressure oscillation on compact balls.
+$$
+\iint_K |V|^3\ge\eta_*>0,
+$$
+
+then the branch is contradictory.
+
+**Proof.** The zero velocity has zero $L^3$ activity on every compact set, so
+it cannot satisfy the displayed positive activity bound. If the activity bound
+belongs only to a different sequence, a different hull element, or a different
+frame, the contradiction is unavailable until active attainment is transferred
+to the endpoint object. A combined velocity-pressure lower bound may be used
+only when the endpoint conclusion also forces the pressure oscillation to
+vanish in the same gauge.
 
 **Lemma PS32.3 -- Empty-branch conclusions remove the branch.**
 If the endpoint theorem states that no object satisfying the verified
@@ -10618,23 +15496,95 @@ hypotheses exists, then the selected branch is impossible.
 **Proof.** The branch hypothesis vector proves exactly those hypotheses; the
 theorem denies existence of such an object.
 
-**Lemma PS32.4 -- Non-exclusion becomes a realization question.**
-If the theorem applies but permits a nonzero branch, the remaining issue is
-whether such a branch is realized by a Navier--Stokes blow-up sequence; this is
-the task of `PS33`.
+**Lemma PS32.4 -- Endpoint conclusion must match the retained branch.**
+`PS32` may conclude contradiction only if the endpoint theorem's conclusion is
+about the same object, same frame, same time interval, and same pressure gauge
+as the retained activity or singular-entry condition.
+
+**Proof.** Endpoint theorems are statements about a specified object in a
+specified coordinate frame and gauge. Applying a theorem to a stationary hull
+element, for example, does not exclude a different active hull element unless
+the branch proves they coincide or transfers the activity and conclusion
+between them. Without that identification, the theorem has excluded a
+different object.
+
+**Lemma PS32.5 -- Quantitative prelimit transfer is a separate record.**
+For a Type B contradiction, the branch must record a transfer record
+
+$$
+\mathcal Q_{\rm trans}
+=
+\left(
+Q,\ Q_n,\ \Phi_n,\ \mathrm{topology},\ \delta,\ \varepsilon_{\rm CKN},
+\mathrm{source}
+\right),
+$$
+
+where $\Phi_n$ maps the endpoint cylinder $Q$ to the physical or rescaled
+prelimit cylinder $Q_n$, the convergence topology implies convergence of the
+CKN quantities on $Q$, and
+
+$$
+C(V;Q)+D(P;Q)\le\varepsilon_{\rm CKN}-2\delta
+\quad\Longrightarrow\quad
+C(V_n;Q_n)+D(P_n;Q_n)<\varepsilon_{\rm CKN}
+$$
+
+for all sufficiently large $n$.
+
+**Proof.** Type B uses a limiting theorem to contradict a prelimit lower
+bound. This requires more than qualitative convergence. The map $\Phi_n$
+identifies the exact cylinders, the topology gives convergence of both the
+velocity and pressure terms in the scale-invariant quantities, and the margin
+$2\delta$ absorbs convergence errors and all constant losses. Without such a
+margin and cylinder identification, smallness of the limit may coexist with
+large prelimit concentration on the cylinder where singularity was retained.
+
+**Lemma PS32.6 -- Non-exclusion becomes a realization question.**
+If the theorem applies but permits a nonzero branch, or if the conclusion
+applies to a different object without active-attainment transfer, the remaining
+issue is whether such a branch is realized by a Navier--Stokes blow-up
+sequence; this is the task of `PS33`.
 
 **Proof.** The branch record contains two completed fields:
 
 $$
-\mathfrak h_T(H_j)\ne\text{missing}\quad(1\le j\le m),
+\mathfrak h_{T_\beta}(H_j)\ne\mathrm{missing}\quad(1\le j\le m),
 \qquad
-T(\text{branch})=\text{nonzero admissible object}.
+T_\beta(\text{branch})=\text{nonzero admissible or unmatched object}.
 $$
 
 Thus theorem matching and theorem application have both been evaluated. The
 remaining unevaluated predicate is the existence of a suitable NS3D blow-up
-sequence converging to that admissible object, which is the realization
-predicate checked in `PS33`.
+sequence converging to the active object, or a transfer from the theorem object
+to the active object, which is the realization predicate checked in `PS33`.
+
+**Lemma PS32.7 -- Exclusion labels require proof records, not statuses alone.**
+Whenever `PS32` outputs $\mathrm{excluded}$, it also outputs an exclusion
+record
+
+$$
+\mathcal R_{\rm excl}^{\rm PS32}
+=
+\left(
+\mathrm{type},\ T_\beta,\ \mathrm{theorem\ status},\
+\mathrm{object},\ \mathrm{frame},\ \mathrm{gauge},\
+\mathrm{time\ interval},\ \mathrm{activity\ or\ singularity\ target},\
+\mathcal Q_{\rm trans}
+\right),
+$$
+
+where $\mathrm{type}\in\{\mathrm{A},\mathrm{B},\mathrm{C}\}$ and
+$\mathcal Q_{\rm trans}$ is required exactly for Type B. The theorem status
+is either established, proved earlier, or explicitly conditional as recorded
+in `PS31`.
+
+**Proof.** The word $\mathrm{excluded}$ is ambiguous unless the contradiction
+mechanism and target object are recorded. Type A needs the physical
+singularity target, Type B needs the quantitative transfer record, and Type C
+needs active attainment for the same endpoint object. The exclusion record stores
+these data in one row, so later nodes can audit that the branch was closed by
+a valid contradiction rather than by a theorem label.
 
 ### Specific Estimate
 
@@ -10643,15 +15593,21 @@ The decisive comparison is
 $$
 \text{endpoint conclusion}
 \quad\Longrightarrow\quad
-\neg\{\text{retained singular activity}\}.
+\neg\{\text{retained singular activity or singular entry}\},
 $$
+
+by Type A, Type B, or Type C above.
 
 ### Practical Verification Steps
 
 1. Apply the endpoint theorem.
-2. Translate its conclusion into the selected variables.
-3. Compare with the retained CKN lower bound or singular-entry condition.
-4. If no contradiction follows, record the precise non-excluded branch.
+2. Classify the endpoint conclusion as Type A, Type B, Type C, or
+   non-excluding.
+3. Verify same object, frame, gauge, time interval, and pressure convention.
+4. For Type B, prove the quantitative prelimit transfer to the original branch.
+5. If a contradiction follows, build $\mathcal C_{\rm excl}^{\rm PS32}$.
+6. If no contradiction follows, record the precise non-excluded branch or the
+   missing active-attainment transfer.
 
 ## Estimate Step $B_{\mathrm{PS32}}$
 
@@ -10670,7 +15626,9 @@ Allowed refinements:
 
 1. choose a stronger endpoint theorem whose hypotheses are recorded;
 2. add a missing endpoint hypothesis through `PS31`;
-3. assign the non-excluded branch to realization analysis in `PS33`.
+3. prove quantitative prelimit transfer;
+4. prove active-attainment transfer to the endpoint object;
+5. assign the non-excluded branch to realization analysis in `PS33`.
 
 Progress measure: the endpoint conclusion either contradicts retained activity
 or becomes a precise realizable-branch question.
@@ -10684,12 +15642,21 @@ $$
 =
 \Gamma_{\mathrm{PS31}}
 \cup
-\{\text{endpoint conclusion and contradiction status}\}.
+\left\{
+\begin{array}{l}
+\text{endpoint contradiction achieved by Type A, Type B, or Type C with }
+\mathcal C_{\rm excl}^{\rm PS32},\\
+\text{or endpoint theorem applies but does not exclude the active branch},\\
+\text{or endpoint conclusion applies to a different object and requires transfer}
+\end{array}
+\right\}.
 $$
+
+The status $\mathrm{excluded}$ is passed forward only in the first case.
 
 ---
 
-# 39. `PS33` -- Realization or Admissible Counterexample Check
+# 60. `PS33` -- Realization or Admissible Counterexample Check
 
 ## Implementation and Verification in NS3D Terms
 
@@ -10700,7 +15667,9 @@ admissible sequence of suitable weak solutions producing it.
 
 ### Standing Assumptions
 
-The incoming record states that the branch has not been excluded by the selected endpoint theorem.
+The incoming record states that the branch has not been excluded by the
+selected endpoint theorem, or that a claimed exclusion requires a missing
+active-attainment or prelimit-transfer record.
 
 ### Objects Inspected
 
@@ -10710,13 +15679,44 @@ vector.
 
 ### Dependencies Used
 
-Every preceding estimate contributes a necessary condition for realization;
-failure of any condition gives non-attainability.
+Every preceding estimate contributes either a universal necessary condition
+for realization or a branch-specific condition for membership in a named
+class. These two roles are kept separate.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{PS33}}$ holds when the branch is not merely formal but actually
-arises as a local blow-up limit from NS3D.
+$P_{\mathrm{PS33}}$ holds when a formal branch is treated as relevant without
+an admissible provenance sequence, or when a non-excluded branch lacks either
+a proof that it is generated by the original blow-up sequence or a proof that
+it cannot be so generated.
+
+### Provenance Graph
+
+Every branch reaching `PS33` carries a provenance graph
+
+$$
+\mathcal P_{\rm prov}.
+$$
+
+The nodes of this graph are transformations used to produce the branch:
+
+$$
+\text{subsequence extraction},\quad
+\text{rescaling},\quad
+\text{recentering},\quad
+\text{time translation},\quad
+\text{pressure gauge},\quad
+\text{cutoff},\quad
+\text{limit passage},\quad
+\text{endpoint theorem}.
+$$
+
+Each edge is marked either as an actual operation on the original suitable
+sequence or as a formal candidate only. If all edges are actual operations on
+the original sequence, the branch is realized by provenance. If some edge is
+formal only, realization is unresolved unless an attaining sequence is
+constructed. If a necessary condition is violated, the branch is proved
+nonattainable.
 
 ### Local Lemmas to Prove
 
@@ -10729,16 +15729,53 @@ endpoint-hypothesis conclusions recorded in `C_mu` and `PS1`--`PS32`.
 of the branch. Dropping any one changes the local PDE problem or the endpoint
 class.
 
-**Lemma PS33.2 -- Failure of any necessary verified condition gives
-non-attainability.**
-If one prior necessary verified condition cannot be satisfied by the proposed
-branch, then no admissible NS3D blow-up sequence realizes that branch.
+**Lemma PS33.2 -- Universal and branch-specific necessary conditions have
+different consequences.**
+Let
 
-**Proof.** Lemma PS33.1 requires every realization sequence to satisfy the
-verified condition. The proposed branch violates that condition, so no
-admissible realization sequence exists.
+$$
+\mathcal N_{\rm univ}
+=
+\{\text{conditions necessary for every admissible realization}\}
+$$
 
-**Lemma PS33.3 -- Formal profiles without sequences are obligations, not
+and
+
+$$
+\mathcal N_{\rm branch}
+=
+\{\text{conditions necessary only for this named branch}\}.
+$$
+
+A violation of $\mathcal N_{\rm univ}$ gives proved nonattainability. A
+violation of $\mathcal N_{\rm branch}$ means the object is not in that named
+branch and must be rerouted. A violation of a chosen gauge gives proved
+nonattainability only if no allowed symmetry or pressure normalization repairs
+it.
+
+**Proof.** Universal necessary conditions are imposed by the original suitable
+weak sequence and its admissible blow-up operations. Violating one contradicts
+the existence of any admissible realization. Branch-specific conditions define
+membership in a particular class; failing one removes that class label but may
+leave another admissible branch. Gauge choices are representatives of an
+equivalence class until a theorem requires an exact representative.
+
+**Lemma PS33.3 -- Provenance decides realized, formal, and undecided status.**
+If all edges of $\mathcal P_{\rm prov}$ are actual operations on the original
+sequence, then the branch has status $\mathrm{realized}$. If a necessary
+universal condition is violated, the branch has status
+$\mathrm{proved\ nonattainable}$. If the branch is a candidate object with
+only formal edges and no attaining sequence, it has status
+$\mathrm{formal\ only}$. If the record proves neither realization nor
+nonattainability, it has status $\mathrm{undecided}$.
+
+**Proof.** Actual provenance is precisely an admissible construction from the
+original sequence. Violation of a universal necessary condition forbids every
+such construction. A purely formal edge records a candidate in the limiting
+PDE class but not a limit of the original NS3D branch. If none of these tests
+settles the issue, the realization predicate is undecided.
+
+**Lemma PS33.4 -- Formal profiles without sequences are obligations, not
 counterexamples.**
 A profile solving a limiting equation but lacking a suitable weak
 approximating sequence is not an admissible NS3D obstruction; it is a missing
@@ -10747,6 +15784,16 @@ attainability theorem.
 **Proof.** The blow-up analysis studies limits of actual NS3D solutions. A
 formal limiting solution not obtained from such a sequence does not contradict
 regularity of the original equation.
+
+**Lemma PS33.5 -- Realized non-excluded profiles are surviving branches.**
+If a non-excluded profile is actually produced by the original blow-up
+sequence, then the proof cannot close unless a later node excludes it or proves
+it incompatible with the original singular-entry assumptions.
+
+**Proof.** A realized non-excluded profile is not a formal artifact; it is an
+admissible limit of the branch generated from the alleged singular point.
+Since neither endpoint exclusion nor proved nonattainability has removed it,
+it remains a genuine surviving local branch.
 
 ### Specific Estimate
 
@@ -10757,40 +15804,44 @@ $$
 u_n^{(z_n,r_n)}\to V
 $$
 
-in the branch topology with all previous local estimates.
+in the branch topology with all previous local estimates, together with a
+provenance graph whose edges are actual operations on the original sequence.
 
 ### Practical Verification Steps
 
-1. State the proposed realization sequence.
-2. Check local energy and pressure conventions.
-3. Check convergence topology and retained activity.
-4. Check every prior verified condition against the sequence.
-5. If no sequence is recorded, record the exact missing construction or
-   non-attainability theorem.
+1. Build the provenance graph $\mathcal P_{\rm prov}$.
+2. Mark every edge as actual on the original sequence or formal only.
+3. Separate $\mathcal N_{\rm univ}$ from $\mathcal N_{\rm branch}$.
+4. Check local energy, pressure conventions, convergence topology, and
+   retained activity against the graph.
+5. Assign exactly one status:
+   $\mathrm{realized}$, $\mathrm{proved\ nonattainable}$,
+   $\mathrm{formal\ only}$, or $\mathrm{undecided}$.
 
 ## Estimate Step $B_{\mathrm{PS33}}$
 
-The estimate step is verification of the realization package or a
-non-attainability contradiction.
+The estimate step is verification of the realization package or a proved
+nonattainability contradiction.
 
 ## Failure Case
 
 Failure name: undecided branch realization.
 
 Analytic meaning: a formal branch survives endpoint exclusion, and the record
-lacks either an attaining NS3D sequence or a non-attainability proof.
+lacks either an attaining NS3D sequence or a proved nonattainability proof.
 
 ## Refinement Step
 
 Allowed refinements:
 
-1. prove non-attainability from prior verified conditions;
+1. prove nonattainability from prior verified conditions;
 2. construct an admissible sequence;
-3. add a missing local estimate;
-4. assign undecided attainability to `PS34` as residual.
+3. repair a gauge or symmetry normalization;
+4. reroute an object that fails only a branch-specific condition;
+5. assign undecided attainability to `PS34` as residual.
 
-Progress measure: the branch becomes non-attainable, realized, or part of the
-exact residual complement.
+Progress measure: the branch becomes proved nonattainable, realized, or part
+of the exact residual complement.
 
 ## Data Passed Forward
 
@@ -10801,12 +15852,26 @@ $$
 =
 \Gamma_{\mathrm{PS32}}
 \cup
-\{\text{realization status}\}.
+\left\{
+\begin{array}{l}
+\mathcal P_{\rm prov},\\
+\mathrm{realization\ status}\in
+\{\mathrm{realized},\mathrm{proved\ nonattainable},
+\mathrm{formal\ only},\mathrm{undecided}\},\\
+\text{source of proved nonattainability if applicable}
+\end{array}
+\right\}.
 $$
+
+Only $\mathrm{proved\ nonattainable}$ closes a candidate at `PS33`.
+A $\mathrm{realized}$ non-excluded branch is passed forward as a live
+obstruction. A $\mathrm{formal\ only}$ or $\mathrm{undecided}$ branch is not an
+admissible counterexample, but it remains an attainability obligation until
+`PS33` proves nonattainability or constructs admissible provenance.
 
 ---
 
-# 40. `PS34` -- Residual Complement Branch
+# 61. `PS34` -- Residual Complement Branch
 
 ## Implementation and Verification in NS3D Terms
 
@@ -10817,49 +15882,278 @@ PDE alternative has been checked.
 
 ### Standing Assumptions
 
-The incoming record states that each named branch predicate has a yes/no/inc conclusion and every
-realization issue has been recorded.
+The incoming record states that each named branch predicate has a yes/no/inc
+conclusion, every realization issue has been recorded, and the generic local
+residual branch has been routed through `ST0`--`ST20` when its local
+hypotheses are present.
 
 ### Objects Inspected
 
 Inspect the list of named predicates, their overlaps, residual membership, and
-all unresolved endpoint or attainability obligations.
+all unresolved endpoint, attainability, and nonattainability-source
+obligations.
 
 ### Dependencies Used
 
 All previous branch classifications feed `PS34`; `PS33` supplies the last
-non-exclusion status.
+non-exclusion status; `ST20` supplies the closure status for the generic local
+residual class.
 
 ### Local Obstruction Predicate
 
 $P_{\mathrm{PS34}}$ holds when there is no exact set-theoretic residual
-identity for the remaining branches.
+identity for the remaining branches, or when classification completeness is
+being treated as exclusion completeness, or when an unsourced
+nonattainability label is counted as closed, or when a branch satisfying the
+local hypotheses of `ST20` is left as an open generic residual.
+
+### Candidate and Admissible Branch Universes
+
+First define the candidate universe
+
+$$
+\mathcal S_{\rm cand}
+=
+\left\{
+\begin{array}{l}
+\text{all formal or realized local objects named by the branch predicates,}\\
+\text{endpoint candidates, residual witnesses, or limiting equations}
+\end{array}
+\right\}.
+$$
+
+The admissible local universe is the realized-provenance subcollection
+
+$$
+\mathcal S_{\rm loc}
+=
+\left\{
+\begin{array}{l}
+V\in\mathcal S_{\rm cand}: V\text{ is actually obtainable from the}\\
+\text{singular-entry branch by the allowed operations}
+\end{array}
+\right\}.
+$$
+
+Membership in $\mathcal S_{\rm loc}$ records equation class, domain, time
+interval, pressure convention, defect-vector status, activity witness, and
+realization/provenance status. A candidate with only claimed, formal, or
+refuted provenance is not in $\mathcal S_{\rm loc}$ unless `PS33` supplies an
+actual attaining sequence. This keeps the realized universe separate from the
+bookkeeping universe of formal candidates.
+
+The proved nonattainability ledger is
+
+$$
+\mathcal N_{\rm att}^{0}
+=
+\left\{
+V\in\mathcal S_{\rm cand}:
+\mathrm{status}(V)=\mathrm{proved\ nonattainable}
+\right\}.
+$$
+
+Its unsourced subledger is
+
+$$
+\mathcal O_{\rm src}
+=
+\left\{
+V\in\mathcal N_{\rm att}^{0}:
+\text{the `PS33' source or failed necessary condition is missing}
+\right\}.
+$$
+
+An element of $\mathcal N_{\rm att}^{0}$ is a closed candidate only when it is
+not in $\mathcal O_{\rm src}$. These are candidates, not realized local
+objects. If a profile is recorded both in $\mathcal S_{\rm loc}$ and in
+$\mathcal N_{\rm att}^{0}$, the ledger is inconsistent: the proof must return
+to `PS33` and decide whether the provenance is actual or impossible.
+
+The unsettled attainability-obligation set is
+
+$$
+\mathcal O_{\rm att}
+=
+\left\{
+V\in\mathcal S_{\rm cand}:
+\mathrm{status}(V)\in
+\{\mathrm{formal\ only},\mathrm{undecided}\}
+\right\}.
+$$
+
+The set $\mathcal O_{\rm att}$ is not an admissible counterexample set, but it
+is a proof-obligation set. The proof cannot close while
+$\mathcal O_{\rm att}\ne\emptyset$, because one of its elements may still be
+made admissible by a later attaining-sequence construction. The proof also
+cannot close while $\mathcal O_{\rm src}\ne\emptyset$, because an unsupported
+nonattainability label has not yet been proved.
+
+Define the union of named classes by
+
+$$
+\mathcal U_{\rm named}
+=
+\bigcup_{\alpha\in A}\mathcal U_\alpha.
+$$
+
+Let $A_{\rm excl}\subset A$ be the set of indices whose realized admissible
+part is excluded by `PS32`:
+
+$$
+\alpha\in A_{\rm excl}
+\quad\Longleftrightarrow\quad
+\mathcal U_\alpha\cap\mathcal S_{\rm loc}
+\text{ has status }\mathrm{excluded}.
+$$
+
+Named candidates proved nonattainable by `PS33` are recorded in
+$\mathcal N_{\rm att}^{0}$ instead. They close a formal or claimed branch by
+showing that it cannot enter $\mathcal S_{\rm loc}$ only when they are not in
+$\mathcal O_{\rm src}$.
+Define the preliminary named excluded union
+
+$$
+\mathcal U_{\rm excl}^{0}
+=
+\left(\bigcup_{\alpha\in A_{\rm excl}}\mathcal U_\alpha\right)
+\cap\mathcal S_{\rm loc}.
+$$
+
+There are two different complements before residual closure:
+
+$$
+\mathcal R_{\rm named}
+=
+\mathcal S_{\rm loc}\setminus\mathcal U_{\rm named},
+\qquad
+\mathcal R_{\rm open}^{0}
+=
+\mathcal S_{\rm loc}\setminus\mathcal U_{\rm excl}^{0}.
+$$
+
+The first is the unnamed residual among admissible local objects. The second
+is the not-yet-excluded admissible local branch set before applying the local
+residual closure theorem.
+
+Let
+
+$$
+\mathcal R_{\rm ST20}
+=
+\left\{
+V\in\mathcal R_{\rm named}:
+V\text{ satisfies the local hypotheses of }T_{\mathrm{ST20}}
+\text{ and }\mathrm{Obl}_{\mathrm{ST}}(V)=\emptyset
+\right\}.
+$$
+
+The residual ST-obligation set is
+
+$$
+\mathcal O_{\rm ST}
+=
+\left\{
+V\in\mathcal R_{\rm named}:
+V\text{ satisfies the local residual hypotheses but }
+\mathrm{Obl}_{\mathrm{ST}}(V)\ne\emptyset
+\right\}.
+$$
+
+After `ST20` and the `PS31` theorem match for $T_{\mathrm{ST20}}$, this
+subclass has status $\mathrm{excluded}$. The excluded realized universe is
+
+$$
+\mathcal U_{\rm excl}
+=
+\mathcal U_{\rm excl}^{0}\cup\mathcal R_{\rm ST20}.
+$$
+
+The final open realized complement is
+
+$$
+\mathcal R_{\rm open}
+=
+\mathcal S_{\rm loc}\setminus\mathcal U_{\rm excl}.
+$$
+
+The proof can close only if
+
+$$
+\mathcal R_{\rm open}=\emptyset
+\qquad\text{and}\qquad
+\mathcal O_{\rm ST}=\emptyset
+\qquad\text{and}\qquad
+\mathcal O_{\rm att}=\emptyset
+\qquad\text{and}\qquad
+\mathcal O_{\rm src}=\emptyset.
+$$
 
 ### Local Lemmas to Prove
 
-**Lemma PS34.1 -- Complement identity.**
-Every admissible local profile belongs either to $\mathcal U$ or to
-$\mathcal R_{\rm loc}$.
+**Lemma PS34.1 -- Named complement gives classification, not exclusion.**
+Every admissible local profile belongs either to $\mathcal U_{\rm named}$ or
+to $\mathcal R_{\rm named}$.
 
 **Proof.** The residual class is declared by the displayed formula
 
 $$
-\mathcal R_{\rm loc}
-=\mathcal S_{\rm loc}\setminus\mathcal U.
+\mathcal R_{\rm named}
+=\mathcal S_{\rm loc}\setminus\mathcal U_{\rm named}.
 $$
 
-For $V\in\mathcal S_{\rm loc}$, membership in $\mathcal U$ gives the named
-branch alternative, and nonmembership in $\mathcal U$ gives
-$V\in\mathcal R_{\rm loc}$ by the displayed set identity.
+For $V\in\mathcal S_{\rm loc}$, membership in $\mathcal U_{\rm named}$ gives a
+named branch alternative, and nonmembership gives
+$V\in\mathcal R_{\rm named}$ by the displayed set identity. This proves
+coverage by named-or-residual classes. It does not prove that any class is
+empty or excluded until the class is included in $\mathcal U_{\rm excl}$; for
+the generic residual this happens through $\mathcal R_{\rm ST20}$.
 
-**Lemma PS34.2 -- Overlaps among named branches create no residual class.**
+**Lemma PS34.2 -- Exclusion complement records live branches.**
+The open complement
+
+$$
+\mathcal R_{\rm open}
+=
+\mathcal S_{\rm loc}\setminus\mathcal U_{\rm excl}
+$$
+
+is empty if and only if every actually obtainable local branch is excluded by
+a `PS32` contradiction or by the locally matched `ST20` residual closure.
+Proved nonattainability closes candidates before they enter
+$\mathcal S_{\rm loc}$. The full local audit is closed only when, in
+addition, every nonattainability claim has its `PS33` source and
+$\mathcal O_{\rm att}=\emptyset$, equivalently
+$\mathcal O_{\rm ST}=\emptyset$, $\mathcal O_{\rm att}=\emptyset$, and
+$\mathcal O_{\rm src}=\emptyset$.
+
+**Proof.** By definition, $\mathcal U_{\rm excl}$ contains only realized
+objects in $\mathcal S_{\rm loc}$ closed by an endpoint contradiction or by
+the residual closure theorem `ST20`. Thus
+$V\notin\mathcal U_{\rm excl}$ exactly means that the actually obtainable
+local object has not been excluded. Therefore
+$\mathcal R_{\rm open}=\emptyset$ exactly when no realized nonclosed branch
+remains. Candidate branches in $\mathcal O_{\rm att}$ are not closed either:
+they lack both an attaining sequence and a proved nonattainability record.
+They remain open obligations because a later attaining-sequence construction
+could move them into $\mathcal S_{\rm loc}$ as realized branches. Candidate
+branches in $\mathcal N_{\rm att}^{0}$ are closed only because `PS33` supplies
+the separate necessary-condition contradiction; they are not counted as
+realized exclusions. If a candidate lies in $\mathcal O_{\rm src}$, that
+contradiction has not been supplied and the candidate remains open.
+Branches in $\mathcal O_{\rm ST}$ are realized residual branches whose local
+hypotheses have been identified but whose ST subtheorems have not all closed;
+they are therefore open local PDE obligations until
+$\mathrm{Obl}_{\mathrm{ST}}$ is emptied.
+
+**Lemma PS34.3 -- Overlaps among named branches create no residual class.**
 If a profile belongs to more than one named branch, it is still in
-$\mathcal U$ and is not residual.
+$\mathcal U_{\rm named}$ and is not an unnamed residual.
 
 **Proof.** Membership in a union requires membership in at least one branch.
 Multiple memberships do not create a new complement class.
 
-**Lemma PS34.3 -- Ordered subtraction gives disjoint reporting.**
+**Lemma PS34.4 -- Ordered subtraction gives disjoint reporting.**
 If a disjoint record is desired, define
 
 $$
@@ -10874,23 +16168,123 @@ Then the disjoint classes have the same union as the original named classes.
 **Proof.** The construction removes only elements already assigned to earlier
 classes, so the union is unchanged and the resulting classes are disjoint.
 
+**Lemma PS34.5 -- Unresolved named classes remain open.**
+Membership in a named class is not an exclusion unless that class status is
+$\mathrm{excluded}$ for the realized part, or unless `PS33` separately proves
+that the named candidate is nonattainable.
+
+**Proof.** A status such as $\mathrm{inc}$, $\mathrm{undecided}$,
+$\mathrm{formal\ only}$, $\mathrm{realized\ nonexcluded}$, or
+$\mathrm{unresolved}$ records that the branch has been classified, not that it
+has been eliminated. Such a branch lies in $\mathcal U_{\rm named}$ but remains in
+$\mathcal R_{\rm open}$ unless it also lies in $\mathcal U_{\rm excl}$.
+If the branch lacks admissible provenance, it lies instead in
+$\mathcal O_{\rm att}$ until `PS33` decides realization or nonattainability.
+A named candidate with a proved nonattainability record lies in
+$\mathcal N_{\rm att}^{0}$; this closes the candidate but does not convert it
+into a realized excluded branch. If its source is missing, it lies in
+$\mathcal O_{\rm src}$ and is not closed.
+
+**Lemma PS34.6 -- Residual obligations require witnesses.**
+Every residual item must be recorded as a concrete mathematical proposition
+with a witness.
+
+**Proof.** A residual label without a witness is only a name for ignorance and
+does not define a subset of $\mathcal S_{\rm loc}$. Examples of admissible
+residual witnesses are
+
+$$
+\mathcal R_{\rm tail}:\quad
+\exists \eta>0,\ R_k\to\infty,\ \tau_k
+\text{ such that }
+\int_{|y|>R_k}|V(y,\tau_k)|^3\ge\eta,
+$$
+
+or
+
+$$
+\mathcal R_{\rm pressure}:\quad
+\text{the harmonic pressure remainder lacks local }L^{3/2}\text{ compactness}.
+$$
+
+Each displayed proposition specifies the property by which an object belongs
+to the residual set. Under the corrected architecture, these witnesses are
+not requests for global estimates: tail witnesses are routed through
+`ST1`--`ST20`, and pressure witnesses are local gauge or compact-window
+defects routed through `ST4` and `ST6`.
+
+**Lemma PS34.7 -- Generic local residual is closed by `ST20`.**
+If $V\in\mathcal R_{\rm named}$ satisfies the local residual hypotheses
+
+$$
+V\in\mathfrak X_M,\quad
+\|V\|_{L^\infty}\le M,\quad
+\text{local suitability},\quad
+\text{local pressure gauges},\quad
+\text{retained compact activity},\quad
+V\notin\bigcup_j\mathcal L_j^{\rm routed},\quad
+\mathrm{Obl}_{\mathrm{ST}}(V)=\emptyset,
+$$
+
+then $V\in\mathcal R_{\rm ST20}\subset\mathcal U_{\rm excl}$.
+
+**Proof.** These are exactly the hypotheses of the theorem entry
+$T_{\mathrm{ST20}}$ registered in `PS31`. `ST20` proves the generic residual
+class empty by local state-space stratification and endpoint sequence
+recovery once the local ST obligation ledger is empty. Therefore a realized
+residual branch with these hypotheses is excluded, not open. If
+$\mathrm{Obl}_{\mathrm{ST}}(V)\ne\emptyset$, the branch is not placed in
+$\mathcal R_{\rm ST20}$; the nonempty obligation is recorded in the open
+residual ledger. No global $L^3$, tightness, or whole-space pressure
+hypothesis is added in this classification step.
+
 ### Specific Estimate
 
-The decisive statement is the exact identity
+The decisive bookkeeping identities are
 
 $$
 \mathcal S_{\rm loc}
 =
-\mathcal U\cup\mathcal R_{\rm loc}.
+\mathcal U_{\rm named}\cup\mathcal R_{\rm named},
+\qquad
+\mathcal U_{\rm excl}
+=
+\mathcal U_{\rm excl}^{0}\cup\mathcal R_{\rm ST20},
+\qquad
+\mathcal R_{\rm open}
+=
+\mathcal S_{\rm loc}\setminus\mathcal U_{\rm excl}.
+$$
+
+The decisive closure condition is
+
+$$
+\mathcal R_{\rm open}=\emptyset,\qquad
+\mathcal O_{\rm ST}=\emptyset,\qquad
+\mathcal O_{\rm att}=\emptyset,\qquad
+\mathcal O_{\rm src}=\emptyset.
 $$
 
 ### Practical Verification Steps
 
-1. Define $\mathcal S_{\rm loc}$ explicitly.
-2. List every named branch predicate.
-3. Define $\mathcal U$ as their union.
-4. Define the residual complement by set subtraction.
-5. Record all residual obligations as explicit PDE statements.
+1. Define $\mathcal S_{\rm cand}$ explicitly.
+2. Define $\mathcal S_{\rm loc}$ by admissible provenance and compute
+   $\mathcal O_{\rm att}$.
+3. List every named branch predicate and status.
+4. Record $\mathcal N_{\rm att}^{0}$ for candidates proved nonattainable by
+   `PS33`.
+5. Compute $\mathcal O_{\rm src}$ for unsourced nonattainability labels.
+6. Define $\mathcal U_{\rm named}$ and $\mathcal U_{\rm excl}^{0}$
+   separately.
+7. Define $\mathcal R_{\rm named}$ and $\mathcal R_{\rm open}$ by set
+   subtraction.
+8. Test the generic residual component against the local hypotheses of
+   `ST20`; include the matched component in $\mathcal R_{\rm ST20}$ with
+   status $\mathrm{excluded}$ only when $\mathrm{Obl}_{\mathrm{ST}}=\emptyset$.
+9. Put local residual components with nonempty $\mathrm{Obl}_{\mathrm{ST}}$
+   into $\mathcal O_{\rm ST}$.
+10. Record all residual, attainability, and source obligations as explicit PDE
+   statements with witnesses.
 
 ## Estimate Step $B_{\mathrm{PS34}}$
 
@@ -10899,10 +16293,11 @@ estimate.
 
 ## Failure Case
 
-Failure name: ill-defined residual complement.
+Failure name: ill-defined residual complement or source ledger.
 
 Analytic meaning: a branch remains outside named classes without a precise
-predicate or obligation.
+predicate or obligation, or a nonattainability label lacks the `PS33` source
+needed to close it.
 
 ## Refinement Step
 
@@ -10911,9 +16306,15 @@ Allowed refinements:
 1. add the missing predicate;
 2. define ordered subtraction;
 3. move an unresolved theorem to `PS31` or `PS33`;
-4. repeat the complement identity.
+4. split a named branch into excluded and open subclasses;
+5. attach a mathematical witness to each residual or attainability obligation;
+6. attach the missing `PS33` source to a nonattainability claim or move it to
+   the open source ledger.
 
-Progress measure: the residual class becomes exact.
+Progress measure: the residual class becomes exact, the `ST20`-eligible
+generic residual component is excluded, every nonempty ST obligation is
+visible, and every nonattainability label is either sourced or explicitly
+open.
 
 ## Data Passed Forward
 
@@ -10924,12 +16325,30 @@ $$
 =
 \Gamma_{\mathrm{PS33}}
 \cup
-\{\mathcal R_{\rm loc}\text{ exact}\}.
+\left\{
+\begin{array}{l}
+\mathcal S_{\rm cand}\text{ precisely defined},\\
+\mathcal S_{\rm loc}\text{ precisely defined},\\
+\mathcal O_{\rm att}\text{ computed},\\
+\mathcal N_{\rm att}^{0}\text{ computed},\\
+\mathcal O_{\rm src}\text{ computed},\\
+\mathcal O_{\rm ST}\text{ computed},\\
+\mathcal U_{\rm named},\quad
+\mathcal U_{\rm excl}^{0},\quad
+\mathcal R_{\rm ST20},\quad
+\mathcal U_{\rm excl},\\
+\mathcal R_{\rm named}
+=\mathcal S_{\rm loc}\setminus\mathcal U_{\rm named},\\
+\mathcal R_{\rm open}
+=\mathcal S_{\rm loc}\setminus\mathcal U_{\rm excl},\\
+\text{explicit witness for every residual, attainability, or source item}
+\end{array}
+\right\}.
 $$
 
 ---
 
-# 41. `PS35` -- Case-Decomposition Completeness Check
+# 62. `PS35` -- Case-Decomposition Completeness Check
 
 ## Implementation and Verification in NS3D Terms
 
@@ -10940,90 +16359,253 @@ blow-up procedure.
 
 ### Standing Assumptions
 
-The incoming record states that the residual complement has been defined exactly in `PS34`.
+The incoming record states that the candidate universe, admissible universe,
+named residual complement, realized-open complement, attainability-obligation
+set, local ST-obligation set, nonattainability ledger, and
+unsourced-nonattainability set have all been defined exactly in `PS34`.
 
 ### Objects Inspected
 
 Inspect the complete branch list: Type I, Type II, compact, stationary, tight,
 radiative, rough, multicore, finite packet, terminal, perturbative, structured,
 scale-transition, rigidity, defect, endpoint, realization, and residual
-classes.
+classes, together with the `PS33` source for every claimed
+nonattainability label.
 
 ### Dependencies Used
 
-The nodes `C_mu` and `PS1`--`PS34` contribute one or more branch predicates or
-exclusions.
+The nodes `C_mu`, `PS1`--`PS34`, and `ST0`--`ST20` contribute one or more
+branch predicates or exclusions, and `PS34` distinguishes named coverage from
+actual closure.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{PS35}}$ holds if an admissible local profile is not assigned to any
-named branch and is not in the residual complement.
+$P_{\mathrm{PS35}}$ holds if an admissible local profile is not assigned to a
+named or residual status, if an attainability obligation is hidden, or if an
+open branch, local ST obligation, unsourced nonattainability label, or merely
+classified branch is treated as excluded.
 
 ### Local Lemmas to Prove
 
+Define coverage completeness by
+
+$$
+\mathbf C_{\rm cover}:\quad
+\forall V\in\mathcal S_{\rm loc},\quad
+V\in\mathcal U_{\rm named}
+\text{ or }
+V\in\mathcal R_{\rm named}.
+$$
+
+Define realized-branch exclusion by
+
+$$
+\mathbf C_{\rm real}:\quad
+\forall V\in\mathcal S_{\rm loc},\quad
+V\in\mathcal U_{\rm excl}.
+$$
+
+Define full exclusion completeness by
+
+$$
+\mathbf C_{\rm excl}:\quad
+\mathbf C_{\rm real}
+\quad\text{and}\quad
+\mathcal O_{\rm ST}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm att}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm src}=\emptyset.
+$$
+
+Thus
+
+$$
+\mathbf C_{\rm real}\quad\Longleftrightarrow\quad
+\mathcal R_{\rm open}=\emptyset
+$$
+
+and
+
+$$
+\mathbf C_{\rm excl}\quad\Longleftrightarrow\quad
+\mathcal R_{\rm open}=\emptyset,\quad
+\mathcal O_{\rm ST}=\emptyset,\quad
+\mathcal O_{\rm att}=\emptyset,\quad
+\mathcal O_{\rm src}=\emptyset.
+$$
+
 **Lemma PS35.1 -- Every profile is classified by named predicates or residual
 membership.**
-For every $V\in\mathcal S_{\rm loc}$, either $V\in\mathcal U_\alpha$ for some
-$\alpha$, or $V\in\mathcal R_{\rm loc}$.
+The predicate $\mathbf C_{\rm cover}$ holds.
 
 **Proof.** `PS34` defines
 
 $$
-\mathcal U=\bigcup_{\alpha\in A}\mathcal U_\alpha,
+\mathcal U_{\rm named}=\bigcup_{\alpha\in A}\mathcal U_\alpha,
 \qquad
-\mathcal R_{\rm loc}=\mathcal S_{\rm loc}\setminus\mathcal U.
+\mathcal R_{\rm named}
+=\mathcal S_{\rm loc}\setminus\mathcal U_{\rm named}.
 $$
 
 For every $V\in\mathcal S_{\rm loc}$, either
-$V\in\mathcal U$ or $V\notin\mathcal U$. In the first case, the union identity
-gives at least one $\alpha\in A$ with $V\in\mathcal U_\alpha$; in the second
-case, the complement identity gives $V\in\mathcal R_{\rm loc}$.
+$V\in\mathcal U_{\rm named}$ or $V\notin\mathcal U_{\rm named}$. In the second
+case, the complement identity gives $V\in\mathcal R_{\rm named}$.
 
 **Lemma PS35.2 -- Completed decomposition preserves endpoint obligations.**
 If a branch is excluded, the exclusion status is recorded. If a branch is
-not excluded, its endpoint, realization, or residual obligation is recorded.
+not excluded, its endpoint, realization, residual, attainability, or
+nonattainability-source obligation is recorded.
 
 **Proof.** Nodes `PS31`--`PS34` attach theorem, realization, and residual
-statuses to every branch that reaches them.
+statuses to every branch that reaches them. `PS33` supplies the
+nonattainability source when the status is $\mathrm{proved\ nonattainable}$;
+without that source the item is recorded in $\mathcal O_{\rm src}$ and
+remains open.
 
-**Lemma PS35.3 -- No silent branch remains after full-pass audit.**
-Because `PS30` gives a complete defect vector and `PS34` gives an exact
-residual complement, every limit equation term and branch predicate has a
-named status.
+**Lemma PS35.3 -- No silent branch remains, but open branches may remain.**
+If `PS30` gives a complete defect vector and `PS34` gives an exact residual
+complement, then every local profile branch has a named status. Therefore no
+silent branch remains. However, if any branch status is
+
+$$
+\mathrm{realized\ nonexcluded},\quad
+\mathrm{undecided},\quad
+\mathrm{formal\ only},\quad
+\mathrm{residual\ not\ closed\ by\ }ST20,\quad
+\mathrm{ST\ obligation\ open},\quad
+\mathrm{unresolved},
+$$
+
+and not $\mathrm{excluded}$ or $\mathrm{proved\ nonattainable}$, then the local
+contradiction is not complete.
 
 **Proof.** A silent branch is either an unrecorded defect or an element outside
-the residual complement. The first case contradicts the complete defect vector
-from `PS30`; the second contradicts the complement identity from `PS34`.
+the named/residual coverage. The first case contradicts the complete defect
+vector from `PS30`; the second contradicts $\mathbf C_{\rm cover}$ from
+`PS34`. This proves classification coverage only. A branch with one of the
+displayed open statuses is recorded. If it has admissible provenance, it is not
+in $\mathcal U_{\rm excl}$, so it remains in $\mathcal R_{\rm open}$. If its
+provenance is unsettled, it remains in $\mathcal O_{\rm att}$. In either case
+it cannot be used as a contradiction.
+
+**Lemma PS35.4 -- Exclusion report separates closed and open statuses.**
+Define
+
+$$
+\mathcal E_{\rm report}
+=
+\left\{
+(\mathcal U_\alpha,\mathrm{status}_\alpha,\mathrm{witness}_\alpha):
+\alpha\in A
+\right\}
+\cup
+\left\{
+(\mathcal R_i,\mathrm{obligation}_i,\mathrm{witness}_i)
+\right\}
+\cup
+\left\{
+(O_j,\mathrm{attainability\ obligation}_j,\mathrm{witness}_j)
+\right\}
+\cup
+\left\{
+(N_k,\mathrm{nonattainability\ source\ status}_k,\mathrm{failed\ necessary\ condition}_k)
+\right\}.
+$$
+
+The allowed statuses are
+
+$$
+\mathrm{excluded},\quad
+\mathrm{excluded\ by\ }ST20,\quad
+\mathrm{proved\ nonattainable},\quad
+\mathrm{realized\ nonexcluded},\quad
+\mathrm{formal\ only},\quad
+\mathrm{undecided},\quad
+\mathrm{residual\ not\ closed\ by\ }ST20,\quad
+\mathrm{ST\ obligation\ open}.
+$$
+
+The status $\mathrm{excluded}$ is closed for realized elements of
+$\mathcal S_{\rm loc}$; the status $\mathrm{excluded\ by\ }ST20$ is the
+closed status of the generic local residual row only when
+$\mathcal O_{\rm ST}=\emptyset$. The status
+$\mathrm{proved\ nonattainable}$ is closed for candidates in
+$\mathcal N_{\rm att}^{0}$ only when the displayed
+`PS33` source and failed necessary condition are recorded, equivalently when
+the candidate is not in $\mathcal O_{\rm src}$. All other statuses are open
+unless a later theorem handles them.
+
+**Proof.** The status $\mathrm{excluded}$ records a valid `PS32`
+contradiction for an actually obtainable branch. The status
+$\mathrm{excluded\ by\ }ST20$ records the local residual closure theorem and
+its `PS31` hypothesis match, including the empty ST-obligation ledger. The
+status
+$\mathrm{proved\ nonattainable}$ records a valid `PS33` non-realization proof
+with a named failed necessary condition, so it closes the candidate before it
+can enter $\mathcal S_{\rm loc}$. Each other status either has an actual
+non-excluded profile, lacks an attaining sequence, lacks a nonattainability
+proof, or is a residual witness. None is a contradiction without an additional
+theorem.
+
+**Lemma PS35.5 -- Handoff to boundary compatibility is conditional.**
+If $\mathcal R_{\rm open}=\emptyset$, $\mathcal O_{\rm ST}=\emptyset$,
+$\mathcal O_{\rm att}=\emptyset$, and $\mathcal O_{\rm src}=\emptyset`,
+`PS35` passes a no-local-profile conclusion to `Bound_partial`. If any of
+these checks fails, it passes the open branch, ST-obligation,
+attainability-obligation, or unsourced nonattainability list for compatibility
+checking only, not as a local contradiction.
+
+**Proof.** Boundary compatibility cannot eliminate an unresolved interior
+branch unless it supplies a new estimate. Therefore the handoff must preserve
+whether the local audit has already excluded every branch or merely
+classified them with explicit obligations.
 
 ### Specific Estimate
 
-The decisive statement is the coverage identity
+The decisive statements are
 
 $$
-\forall V\in\mathcal S_{\rm loc},\qquad
-V\in\bigcup_{\alpha\in A}\mathcal U_\alpha
-\quad\text{or}\quad
-V\in\mathcal R_{\rm loc}.
+\mathbf C_{\rm cover}\text{ true},
+\qquad
+\mathbf C_{\rm excl}
+\Longleftrightarrow
+\mathcal R_{\rm open}=\emptyset
+\text{ and }
+\mathcal O_{\rm ST}=\emptyset
+\text{ and }
+\mathcal O_{\rm att}=\emptyset
+\text{ and }
+\mathcal O_{\rm src}=\emptyset.
 $$
 
 ### Practical Verification Steps
 
 1. List all branch predicates in order.
 2. Confirm each predicate has a conclusion.
-3. Confirm the residual complement identity.
-4. Confirm no defect-vector entry is blank.
-5. Pass the completed case decomposition to the compatibility nodes.
+3. Build $\mathcal E_{\rm report}$ with a witness for every status.
+4. Compute $\mathcal R_{\rm ST20}$, $\mathcal R_{\rm open}$, and
+   $\mathcal O_{\rm ST}$.
+5. Compute $\mathcal O_{\rm att}$ and $\mathcal O_{\rm src}$ and verify both
+   are empty before closure.
+6. Verify that the generic residual row, if present, is in
+   $\mathcal R_{\rm ST20}$ or is listed as an explicit open residual
+   obligation.
+7. Pass either the no-local-profile conclusion or the open-obligation list to
+   the compatibility nodes.
 
 ## Estimate Step $B_{\mathrm{PS35}}$
 
-The estimate step is coverage verification.
+The estimate step is coverage verification plus exclusion-status reporting.
 
 ## Failure Case
 
-Failure name: incomplete local branch decomposition.
+Failure name: incomplete or nonclosed local branch decomposition.
 
 Analytic meaning: there is an admissible profile branch not represented by the
-named alternatives or residual complement.
+named alternatives or residual complement, or there is a represented branch
+whose status is open or whose nonattainability source is missing but is being
+treated as closed.
 
 ## Refinement Step
 
@@ -11035,7 +16617,9 @@ Allowed refinements:
 4. rerun endpoint matching if the new branch has an exclusion theorem.
 
 Progress measure: the uncovered profile is either named or added to the exact
-residual complement.
+residual complement, every realized open branch is either excluded or
+preserved as an explicit obligation, and every nonattainability claim is
+backed by its `PS33` source.
 
 ## Data Passed Forward
 
@@ -11046,106 +16630,295 @@ $$
 =
 \Gamma_{\mathrm{PS34}}
 \cup
-\{\text{local branch decomposition complete}\}.
+\left\{
+\begin{array}{l}
+\mathbf C_{\rm cover}\text{ true},\\
+\mathcal E_{\rm report}\text{ complete},\\
+\mathcal R_{\rm open}\text{ computed},\\
+\mathcal R_{\rm ST20}\text{ computed},\\
+\mathcal O_{\rm ST}\text{ computed},\\
+\mathcal O_{\rm att}\text{ computed},\\
+\mathcal N_{\rm att}^{0}\text{ computed},\\
+\mathcal O_{\rm src}\text{ computed},\\
+\mathbf C_{\rm excl}\Longleftrightarrow
+\mathcal R_{\rm open}=\emptyset,\quad
+\mathcal O_{\rm ST}=\emptyset,\quad
+\mathcal O_{\rm att}=\emptyset,\quad
+\mathcal O_{\rm src}=\emptyset
+\end{array}
+\right\}.
+$$
+
+The next node receives either
+
+$$
+\text{local realized branches excluded, ST obligations empty, and nonattainability sources verified},
+$$
+
+or
+
+$$
+\text{local branch decomposition complete but open obligations remain}.
 $$
 
 ---
 
-# 42. `Bound_partial` -- Boundary or Physical-Domain Compatibility
+# 63. `Bound_partial` -- Boundary or Physical-Domain Compatibility
 
 ## Implementation and Verification in NS3D Terms
 
 ### Analytic Setting and Unknowns
 
-The unknown is a suitable weak solution on either $\mathbb R^3$ or a local
-domain $\Omega$.
+The unknown is a suitable weak solution on either $\mathbb R^3$ or a physical
+domain $\Omega$, together with every physical cylinder and rescaled frame used
+downstream.
 
 ### Standing Assumptions
 
-The incoming record states that all local profile branches have been classified or the no-profile conclusion
-is active.
+The incoming record states that all local profile branches have been
+classified with an exclusion report, or that the no-local-profile conclusion is
+active. Classification alone is not a contradiction: the terminal block may
+close only with a verified negative branch record, or else it must report the
+remaining open obligations.
 
 ### Objects Inspected
 
-Inspect the cylinder location, boundary conditions, trace spaces, pressure
-representative, and flux terms in the local energy inequality.
+Inspect the boundary status of every active cylinder and frame, the boundary
+condition, trace spaces, pressure representative, flattening map, boundary
+local energy inequality, finite-entry record, and flux terms in the local
+energy inequality.
 
 ### Dependencies Used
 
-The domain comes from `H0`; cutoff commutators come from `PS17`, `PS20`, and
-`PS30`; completed profile status comes from `PS35`.
+The domain comes from `H0`; terminal finite entry comes from `D_E`, `PS0`, and
+`PS1`; cutoff commutators come from `PS17`, `PS20`, and `PS30`; endpoint
+registration and application come from `PS31` and `PS32`; completed profile
+status comes from `PS35`.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{Bound\_partial}}$ holds only if a physical boundary or coupling
-enters a cylinder used by the proof without a verified boundary estimate.
+$P_{\mathrm{Bound\_partial}}$ holds if a physical boundary, boundary-visible
+frame, uncontrolled boundary scaling, or missing terminal finite-entry record
+enters a cylinder used by the proof without the record required by the
+endpoint theorem.
 
 ### Local Lemmas to Prove
 
-**Lemma Bound_partial.1 -- Interior cylinders have no physical boundary term.**
-For $Q_r(z_0)\Subset\Omega\times I$, all test functions used in the local
-energy inequality are chosen compactly supported in the domain, and no
-physical boundary integral appears.
+**Lemma Bound_partial.1 -- Every active cylinder has a boundary-status
+record.**
+For every physical cylinder or active frame used by the proof, record exactly
+one of
 
-**Proof.** Choose spatial cutoffs supported in $B_r(x_0)\Subset\Omega$. The
-distributional equation and local energy inequality are tested with compactly
-supported functions, so integration by parts produces no boundary term.
+$$
+\mathrm{interior},\qquad
+\mathrm{whole\ space},\qquad
+\mathrm{boundary\ visible},\qquad
+\mathrm{boundary\ unresolved}.
+$$
 
-**Lemma Bound_partial.2 -- Whole-space profiles have no physical boundary.**
-For $\Omega=\mathbb R^3$, every finite cylinder is interior.
-
-**Proof.** Compact subsets of $\mathbb R^3$ have positive distance from the
-empty boundary.
-
-**Lemma Bound_partial.3 -- Boundary branches require trace and flux estimates.**
-If a physical boundary is present, then the proof must verify the boundary
-condition, trace class, pressure compatibility, and boundary local energy
-inequality on boundary cylinders.
-
-**Proof.** Boundary local regularity theorems require boundary condition,
-trace, pressure, and boundary local energy hypotheses that are absent from the
-interior CKN theorem. Applying an interior theorem across a boundary is
-therefore a hypothesis mismatch and is assigned back to `PS31`.
-
-### Specific Estimate
-
-The decisive condition in the interior case is
+For a physical cylinder, the interior record is
 
 $$
 \operatorname{dist}(B_r(x_0),\partial\Omega)>0.
 $$
 
+For a rescaled frame
+
+$$
+x=x_n+\lambda_n y,
+$$
+
+the scale-sensitive boundary coordinate is
+
+$$
+d_n^{\partial}
+=
+\frac{\operatorname{dist}(x_n,\partial\Omega)}{\lambda_n}.
+$$
+
+If $d_n^{\partial}\to\infty$, the profile has an interior whole-space limit. If
+$d_n^{\partial}\to d_*\in[0,\infty)$ along the declared subsequence, a
+boundary or half-space limit may be visible. If no controlled subsequential
+behavior of $d_n^{\partial}$ is recorded, the branch has a named
+boundary-geometry defect.
+
+**Proof.** For a physical cylinder, the condition
+$\operatorname{dist}(B_r(x_0),\partial\Omega)>0$ gives an open collar between
+the support of every spatial test function and $\partial\Omega$. Thus the
+distributional equation and local energy inequality can be tested with
+functions compactly supported in $\Omega$, and spatial integration by parts
+produces only interior distributional terms. No boundary trace or boundary
+flux is used.
+
+For a rescaled frame, a point at bounded $y$-distance from the origin
+corresponds to $x_n+\lambda_n y$ in physical variables. The physical distance
+to $\partial\Omega$ seen at unit scale is therefore exactly the physical
+distance divided by $\lambda_n$, namely $d_n^\partial$. If
+$d_n^\partial\to\infty$, then every fixed $y$-ball is eventually contained in
+$\Omega$ after rescaling, so the limiting frame is interior and whole-space on
+every compact set. If $d_n^\partial\to d_*<\infty$, some fixed-scale compact
+sets may see the boundary, so an interior theorem is not verified. If no
+subsequence or diagonal extraction controls $d_n^\partial$, the proof does not
+know whether a fixed endpoint cylinder is interior or boundary-visible; this is
+exactly the named boundary-geometry defect.
+
+**Lemma Bound_partial.2 -- Whole-space profiles have no physical boundary.**
+For $\Omega=\mathbb R^3$, every finite cylinder is interior.
+
+**Proof.** When $\Omega=\mathbb R^3$, the boundary set is empty and every
+finite ball $B_R$ is an admissible spatial support for compactly supported
+tests. In the rescaled variables, the physical domains remain all of
+$\mathbb R^3$ for every $n$, so there is no boundary ratio to control and no
+boundary trace can enter the local energy inequality. The record is
+therefore $\mathrm{whole\ space}$ for every active cylinder and frame.
+
+**Lemma Bound_partial.3 -- Boundary branches require registered endpoint
+theorems.**
+If a boundary-visible cylinder or frame appears, the exact boundary regularity
+theorem must already be registered through `PS31` and applied through `PS32`.
+The boundary endpoint record contains
+
+$$
+\text{boundary condition},\quad
+\text{trace class},\quad
+\text{pressure convention},\quad
+\text{flattening map},\quad
+\text{boundary local energy inequality},\quad
+\text{boundary smallness criterion}.
+$$
+
+For no-slip NS3D, for instance, the record states whether
+
+$$
+u|_{\partial\Omega}=0
+$$
+
+holds in the required trace sense and whether the pressure is controlled in
+the boundary cylinder.
+
+**Proof.** A boundary-visible cylinder has test functions whose supports may
+meet $\partial\Omega$ after flattening or rescaling. The integration-by-parts
+identity then uses boundary traces and the boundary version of the local
+energy inequality, not merely the interior distributional equation. The
+endpoint theorem must know the boundary condition, the trace class in which it
+holds, the pressure representative or oscillation convention, and the
+flattening map used to transfer the estimate to a model boundary cylinder.
+These data are not hypotheses of the interior CKN theorem. Therefore a
+boundary-visible branch can be closed only by a boundary endpoint theorem
+registered in `PS31` with those hypotheses and applied in `PS32`; otherwise
+the endpoint invocation is a theorem-hypothesis mismatch rather than a
+contradiction.
+
+**Lemma Bound_partial.4 -- Interior shrinking and terminal entry have separate
+records.**
+Shrinking to an interior cylinder is allowed only when the target point or
+selected active frame is strictly interior at the relevant scale. If
+$x_0\in\partial\Omega$, no backward cylinder centered at $x_0$ is fully
+interior, so the branch must be treated as a boundary branch. A top-time
+terminal face is not a spatial boundary term, but every terminal branch still
+requires the finite-entry record
+
+$$
+A+C+D+E<\infty
+$$
+
+from `D_E`, `PS0`, and `PS1`.
+
+**Proof.** If $x_0$ has positive distance from $\partial\Omega$, one may choose
+$r<\operatorname{dist}(x_0,\partial\Omega)$ and obtain a strictly interior
+backward cylinder. If $x_0\in\partial\Omega$, every centered ball
+$B_r(x_0)$ intersects the complement of $\Omega$, so no reduction to an
+interior cylinder is possible without changing the target point or frame. The
+branch must therefore retain its boundary status and use a boundary endpoint
+record.
+
+For terminal time, the obstruction is different. Backward cylinders
+$B_r(x_0)\times(t_0-r^2,t_0)$ do not create a spatial boundary face at
+$t=t_0$, so no physical boundary flux is added to the local energy identity.
+However, the quantities $A$, $C$, $D$, and $E$ must be finite on the entry
+cylinder before CKN smallness, normalization, or profile extraction is
+well-defined. Thus terminal-time branches are harmless only after the
+finite-entry record has been supplied; without it they are finite-entry
+obstructions, not interior branches.
+
+### Specific Estimate
+
+The decisive interior and frame conditions are
+
+$$
+\operatorname{dist}(B_r(x_0),\partial\Omega)>0.
+$$
+
+and
+
+$$
+\frac{\operatorname{dist}(x_n,\partial\Omega)}{\lambda_n}
+\to\infty
+$$
+
+for an interior whole-space limit. Boundary-visible limits require the
+boundary endpoint record, and uncontrolled ratios are named
+boundary-geometry defects.
+
+The boundary/entry obstruction ledger is
+
+$$
+\mathcal O_{\partial}
+=
+\left\{
+\begin{array}{l}
+\text{active cylinders or frames with }\mathrm{boundary\ unresolved},\\
+\text{boundary-visible branches missing the registered boundary endpoint theorem},\\
+\text{terminal branches missing the finite-entry record}
+\end{array}
+\right\}.
+$$
+
 ### Practical Verification Steps
 
 1. Identify the physical domain.
-2. Check whether each proof cylinder is interior.
-3. If whole-space or interior, record no physical boundary term.
-4. If boundary cylinders occur, state the boundary condition and trace
-   estimates needed.
-5. Assign missing boundary hypotheses to `PS31` or boundary-specific analysis.
+2. Build the boundary-status ledger for every active cylinder and frame.
+3. For rescaled frames, record the subsequential behavior of
+   $\operatorname{dist}(x_n,\partial\Omega)/\lambda_n$.
+4. If whole-space or interior, record the whole-space or interior record.
+5. If boundary-visible, attach the `PS31` boundary endpoint theorem record
+   and the `PS32` application.
+6. If terminal time is involved, attach the finite-entry record from `D_E`,
+   `PS0`, and `PS1`.
+7. Assign missing boundary hypotheses or uncontrolled boundary scaling to a
+   named boundary-geometry defect.
+8. Verify $\mathcal O_{\partial}=\emptyset$ before treating boundary and
+   terminal compatibility as closed.
 
 ## Estimate Step $B_{\mathrm{Bound\_partial}}$
 
-The estimate step is the interior-cylinder or boundary-trace verification.
+The estimate step is the interior-cylinder, scale-sensitive frame,
+boundary-endpoint, or terminal-entry verification.
 
 ## Failure Case
 
-Failure name: unresolved boundary compatibility.
+Failure names: unresolved boundary compatibility; boundary-geometry defect;
+missing boundary endpoint theorem; terminal finite-entry obstruction.
 
-Analytic meaning: a proof cylinder touches a physical boundary without the
-boundary estimates required by the endpoint theorem.
+Analytic meaning: a proof cylinder or frame touches or sees a physical
+boundary without the estimates required by the endpoint theorem, or a terminal
+branch lacks the finite-entry record required to enter the profile machinery.
 
 ## Refinement Step
 
 Allowed refinements:
 
-1. shrink to an interior cylinder;
-2. add boundary trace estimates;
-3. switch to a boundary regularity theorem;
-4. assign boundary defects to `PS30`.
+1. shrink to an interior cylinder only when the target point or selected active
+   frame is strictly interior at the relevant scale;
+2. add boundary trace and pressure estimates;
+3. switch to a boundary regularity theorem registered in `PS31`;
+4. pass the boundary theorem through `PS32`;
+5. close or explicitly list terminal finite-entry obstructions;
+6. assign boundary defects to `PS30` or `PS31`.
 
-Progress measure: every cylinder is either interior or covered by a boundary
-theorem.
+Progress measure: every cylinder and frame is whole-space, interior,
+boundary-visible with a verified boundary endpoint theorem, or explicitly
+marked by a named boundary/entry defect.
 
 ## Data Passed Forward
 
@@ -11156,105 +16929,300 @@ $$
 =
 \Gamma_{\mathrm{PS35}}
 \cup
-\{\text{boundary compatibility status}\}.
+\left\{
+\begin{array}{l}
+\text{boundary status of every active cylinder/frame},\\
+\text{interior or whole-space record},\\
+\text{or boundary theorem record},\\
+\mathcal O_{\partial}\text{ empty or explicit boundary/entry defect list}
+\end{array}
+\right\}.
 $$
+
+A boundary-visible branch is closed only if the correct boundary endpoint
+theorem has already been verified through `PS31` and applied through `PS32`.
+If $\mathcal O_{\partial}\ne\emptyset$, the terminal block reports the
+corresponding boundary or finite-entry obligation rather than a contradiction.
 
 ---
 
-# 43. `Bound_B` -- Forcing, Lower-Order, or Cutoff-Source Compatibility
+# 64. `Bound_B` -- Forcing, Lower-Order, or Cutoff-Source Compatibility
 
 ## Implementation and Verification in NS3D Terms
 
 ### Analytic Setting and Unknowns
 
-The unknown is the selected localized or renormalized velocity equation.
+The unknown is the selected localized or renormalized velocity equation,
+together with the source ledger for the endpoint theorem being applied.
 
 ### Standing Assumptions
 
-The incoming record states that the physical equation is unforced and all additional terms are created
-only by localization or normalization.
+The incoming record states that the physical equation is unforced and all
+additional terms are created only by localization, pressure normalization,
+tail removal, divergence correction, or modulation. No such term may be
+dropped unless it is absent on the endpoint cylinder, vanishes in the endpoint
+source topology, is absorbed by a verified estimate, or is explicitly included
+in the endpoint theorem.
 
 ### Objects Inspected
 
-Inspect all terms on the right side of the localized equation and the endpoint
-space in which they must vanish or be controlled.
+Inspect the source ledger
+
+$$
+\mathcal F
+=
+\{F^{\rm cut},F^{\rm press},F^{\rm mod},F^{\rm div},F^{\rm tail},F^{\rm force}\},
+$$
+
+the endpoint source topology $Y_{T_\beta}(Q)$, and every right-hand term in
+the localized or normalized equation.
 
 ### Dependencies Used
 
 Cutoff terms come from `PS17` and `PS20`; modulation terms from `PS5`,
-`PS26`, and `PS28`; pressure terms from `PS4` and `PS30`.
+`PS26`, and `PS28`; pressure terms from `PS4` and `PS30`; endpoint source
+topologies and equation classes come from `PS31`.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{Bound\_B}}$ holds when a source term remains in the equation but
-does not appear among the endpoint theorem hypotheses.
+$P_{\mathrm{Bound\_B}}$ holds when a source term remains unresolved: it is not
+absent, not vanishing in $Y_{T_\beta}$, not absorbed in the required topology,
+and not included in the endpoint theorem's equation.
 
 ### Local Lemmas to Prove
 
 **Lemma Bound_B.1 -- Physical forcing is absent.**
 For the incompressible unforced NS3D equation, the physical source term is
-identically zero.
+identically zero and the source ledger entry $F^{\rm force}$ is marked
+$\mathrm{absent}$.
 
 **Proof.** The equation in `H0` is
-$\partial_tu+(u\cdot\nabla)u+\nabla p=\Delta u$.
+$\partial_tu+(u\cdot\nabla)u+\nabla p=\Delta u$, with no prescribed external
+force on the right-hand side. Hence every nonzero right-hand term appearing
+after this point must come from a proof operation: cutoff localization,
+pressure normalization, divergence correction, tail truncation, or modulation.
+The physical forcing entry is therefore not estimated; it is identified with
+zero before localization and marked $\mathrm{absent}$ in $\mathcal F$.
 
-**Lemma Bound_B.2 -- Cutoff sources are compact commutators.**
-If $\chi$ is fixed and smooth, then commutators involving $\nabla\chi$ and
-$\Delta\chi$ are controlled by the local norms of velocity, stress, and
-pressure already audited in `PS30`.
+**Lemma Bound_B.2 -- Source convergence uses the endpoint topology.**
+For each endpoint theorem $T_\beta$, `PS31` specifies a source space
 
-**Proof.** Fixed cutoff derivatives are bounded coefficients. Multiplication
-by them maps the compact local spaces used in `PS30` into $H^{-1}$ or
-$L^{3/2}$ on smaller cylinders.
+$$
+Y_{T_\beta}(Q).
+$$
 
-**Lemma Bound_B.3 -- Vanishing modulation errors do not alter the endpoint
-equation.**
-If modulation errors tend to zero in $L^1_tH^{-1}_x$ on every endpoint
-cylinder, then they do not alter the limiting endpoint equation.
+A source marked $\mathrm{vanishing}$ must satisfy
 
-**Proof.** Testing the equation against compact smooth divergence-free
-functions shows the modulation error contributes a term bounded by its
-$L^1H^{-1}$ norm times the test-function norm.
+$$
+\|F_n\|_{Y_{T_\beta}(Q_R)}\to0
+$$
+
+on every endpoint cylinder $Q_R$. Ordinary local compactness may use, for
+example,
+
+$$
+L^1_tW^{-1,3/2}_x(Q_R)
+$$
+
+or
+
+$$
+L^1_tH^{-m}_x(Q_R),\qquad m\ge3,
+$$
+
+while an energy-based theorem may use $L^2_tH^{-1}_x(Q_R)$ only when the
+source terms actually belong to that space.
+
+**Proof.** Let $\varphi$ be an admissible test object for the endpoint theorem
+$T_\beta$. The source contribution in the weak formulation has the form
+
+$$
+\langle F_n,\varphi\rangle_{Y_{T_\beta},Y_{T_\beta}' }.
+$$
+
+If $\|F_n\|_{Y_{T_\beta}(Q_R)}\to0$ and the test norm is bounded in the dual
+space required by $T_\beta$, this contribution vanishes and the source does
+not appear in the endpoint equation. Conversely, convergence in some unrelated
+space, such as a fixed $L^1_tH^{-1}_x$, does not imply that the pairing used
+by $T_\beta$ vanishes unless the registry supplies the corresponding
+embedding. The proof must therefore use the topology in the endpoint registry,
+and the source is removable exactly in that topology.
+
+**Lemma Bound_B.3 -- Cutoff sources vanish only where the cutoff is constant.**
+If $W=\chi V$, then terms such as
+
+$$
+(V\cdot\nabla\chi)V,\qquad
+P\nabla\chi,\qquad
+2\nabla\chi\cdot\nabla V,\qquad
+V\Delta\chi
+$$
+
+are supported on $\operatorname{supp}\nabla\chi$. They are absent on an
+endpoint cylinder only when that cylinder lies inside $\{\chi=1\}$. Otherwise
+they remain explicit source terms and must be controlled in
+$Y_{T_\beta}$.
+
+**Proof.** Applying the equation for $V$ to $W=\chi V$ differentiates the
+cutoff whenever a derivative or transport operator lands on $\chi$. These
+terms are products of $V$, $P$, or $\nabla V$ with $\nabla\chi$ or
+$\Delta\chi$. Since the derivative factors vanish exactly on the set where
+$\chi$ is locally constant, the commutators are zero on any endpoint cylinder
+contained in $\{\chi=1\}$. On a cylinder meeting the cutoff annulus,
+$\nabla\chi$ and $\Delta\chi$ are bounded coefficients but the products are
+not zero. They must therefore remain in $\mathcal F$ and be estimated in
+$Y_{T_\beta}$, including the pressure term if present.
+
+**Lemma Bound_B.4 -- Pressure cutoff terms require pressure-tail control.**
+A pressure source such as $(P_n-\bar P_n)\nabla\chi$ is compatible only if the
+pressure defect coordinate from `PS30` is marked absent or absorbed in the
+same source topology required here. This may be verified by
+
+$$
+P_n-\bar P_n\to0
+\quad\text{in }L^{3/2}
+\quad\text{on the cutoff annulus},
+$$
+
+or by a pressure decomposition showing that the Calderon-Zygmund and harmonic
+pressure pieces vanish or are absorbed in $Y_{T_\beta}$.
+
+**Proof.** The term $(P_n-\bar P_n)\nabla\chi$ is supported where
+$\nabla\chi\ne0$, and $\nabla\chi$ contributes only a fixed bounded multiplier.
+Thus its size in any reasonable negative or distributional source topology is
+controlled by the pressure oscillation on the annulus, not by velocity
+compactness on the endpoint core. If `PS30` has marked the pressure defect
+absent, the required pressure convergence or decomposition is already
+available and the source can be marked $\mathrm{vanishing}$ or
+$\mathrm{absorbed}$. If the pressure defect remains, the cutoff pressure term
+may carry a nonzero harmonic or Calderon-Zygmund tail into the endpoint
+equation. In that case it is compatible only if the endpoint theorem explicitly
+includes that source; otherwise the ledger entry is unresolved.
+
+**Lemma Bound_B.5 -- Modulation terms may define the endpoint equation.**
+Suppose the normalized equation contains
+
+$$
+a_n(\tau)(V_n+y\cdot\nabla V_n)
++
+b_n(\tau)\cdot\nabla V_n.
+$$
+
+If $a_n\to a$ and $b_n\to b$, the limiting equation has drift coefficients
+$a,b$. This is compatible if the endpoint theorem is registered for that
+drifted equation. If the endpoint theorem is ordinary NS3D, then compatibility
+requires $a=0$ and $b=0$ and the residual modulation source must vanish in
+$Y_{T_\beta}$.
+
+**Proof.** Testing against a compact smooth divergence-free test function
+$\varphi$ gives contributions of the form
+
+$$
+\int a_n(\tau)\langle V_n+y\cdot\nabla V_n,\varphi\rangle\,d\tau
++
+\int b_n(\tau)\cdot\langle \nabla V_n,\varphi\rangle\,d\tau .
+$$
+
+After the compactness and weak convergence already recorded in the branch, the
+limits of these pairings are the same expressions with $a,b,V$ in place of
+$a_n,b_n,V_n$, plus any residual that must vanish in $Y_{T_\beta}$. If
+$a$ or $b$ is nonzero, the limiting weak equation contains the corresponding
+dilation or translation drift. It is therefore not the ordinary NS3D endpoint
+equation unless $a=b=0$. A drifted endpoint theorem may still apply, but only
+when that theorem is explicitly registered with the drift in its equation
+field.
+
+**Lemma Bound_B.6 -- The source ledger is the pass/fail object.**
+Each entry of $\mathcal F$ receives one of
+
+$$
+\mathrm{absent},\quad
+\mathrm{vanishing},\quad
+\mathrm{included\ in\ theorem},\quad
+\mathrm{absorbed},\quad
+\mathrm{unresolved}.
+$$
+
+`Bound_B` passes exactly when no entry is marked $\mathrm{unresolved}$.
+
+Define the unresolved source-obstruction ledger by
+
+$$
+\mathcal O_{\mathcal F}
+=
+\{F\in\mathcal F:\mathrm{status}(F)=\mathrm{unresolved}\}.
+$$
+
+Thus source compatibility is closed exactly when
+$\mathcal O_{\mathcal F}=\emptyset$.
+
+**Proof.** For each source entry there are four ways it can fail to obstruct
+the endpoint theorem. If it is $\mathrm{absent}$, it does not occur in the
+localized equation on the endpoint cylinder. If it is $\mathrm{vanishing}$, its
+weak contribution tends to zero in $Y_{T_\beta}$. If it is
+$\mathrm{absorbed}$, a recorded estimate places it under a smallness or
+compactness hypothesis of the endpoint theorem. If it is
+$\mathrm{included\ in\ theorem}$, the endpoint theorem is for the equation that
+contains that term. These alternatives exhaust the verified non-obstructive
+cases. Any source outside them changes the equation seen by the endpoint
+theorem without a matching hypothesis, so it is precisely an unresolved source
+defect.
 
 ### Specific Estimate
 
-The decisive estimate is
+For every source marked $\mathrm{vanishing}$, the decisive estimate is
 
 $$
-\|F_n\|_{L^1_tH^{-1}_x(Q_R)}\to0
+\|F_n\|_{Y_{T_\beta}(Q_R)}\to0
 $$
 
-for every artificial source not included in the endpoint theorem.
+where $Y_{T_\beta}$ is specified in the endpoint theorem registry. Sources
+marked $\mathrm{included\ in\ theorem}$ must appear in the registered endpoint
+equation, and sources marked $\mathrm{absorbed}$ must cite the absorption
+estimate in that same topology.
 
 ### Practical Verification Steps
 
 1. Write the localized equation explicitly.
-2. List every right-hand source term.
-3. Mark physical forcing absent.
-4. Estimate cutoff, pressure, and modulation sources.
-5. Assign any nonvanishing source to `PS30` or `PS31`.
+2. Build the ledger $\mathcal F$ with entries for cutoff, pressure,
+   modulation, divergence, tail, and physical forcing.
+3. Read $Y_{T_\beta}$ and the endpoint equation from the `PS31` theorem
+  registry.
+4. Mark physical forcing absent.
+5. Mark cutoff terms absent only when the endpoint cylinder lies inside
+   $\{\chi=1\}$; otherwise estimate them in $Y_{T_\beta}$.
+6. Check pressure cutoff terms against the `PS30` pressure defect coordinate.
+7. Mark modulation terms as vanishing, theorem-included, absorbed, or
+   unresolved according to the endpoint equation.
+8. Compute $\mathcal O_{\mathcal F}$ and pass as closed only if
+   $\mathcal O_{\mathcal F}=\emptyset$.
 
 ## Estimate Step $B_{\mathrm{Bound\_B}}$
 
-The estimate step is source convergence in the endpoint topology.
+The estimate step is source ledger verification in the endpoint-specific
+topology $Y_{T_\beta}$.
 
 ## Failure Case
 
 Failure name: unresolved local source term.
 
-Analytic meaning: the branch equation differs from unforced NS3D by a term not
-absorbed in the endpoint theorem.
+Analytic meaning: the branch equation differs from the registered endpoint
+equation by a term that is not absent, not vanishing, not absorbed, and not
+included in the endpoint theorem.
 
 ## Refinement Step
 
 Allowed refinements:
 
-1. improve cutoff estimates;
+1. move the endpoint cylinder inside $\{\chi=1\}$ when justified;
 2. change pressure decomposition;
 3. refine modulation;
-4. assign source defects to `PS30`.
+4. strengthen source convergence in $Y_{T_\beta}$;
+5. register a drifted or forced endpoint theorem in `PS31`;
+6. assign source defects to `PS30` or `PS31`.
 
-Progress measure: every source is absent, vanishing, absorbed, or named.
+Progress measure: every source is absent, vanishing in $Y_{T_\beta}$,
+absorbed, theorem-included, or named as an unresolved source defect.
 
 ## Data Passed Forward
 
@@ -11265,81 +17233,253 @@ $$
 =
 \Gamma_{\mathrm{Bound\_partial}}
 \cup
-\{\text{source compatibility status}\}.
+\left\{
+\begin{array}{l}
+\mathcal F\text{ source ledger},\\
+Y_{T_\beta}\text{ endpoint source topology},\\
+\text{all sources absent, vanishing, absorbed, or theorem-included},\\
+\mathcal O_{\mathcal F}\text{ empty or explicit unresolved source defect list}
+\end{array}
+\right\}.
 $$
+
+If $\mathcal O_{\mathcal F}\ne\emptyset$, the terminal block reports the
+corresponding source defect rather than treating the endpoint equation as
+matched.
 
 ---
 
-# 44. `Bound_Sigma` -- Sufficiency of Input Data and Selected Objects
+# 65. `Bound_Sigma` -- Sufficiency of Input Data and Selected Objects
 
 ## Implementation and Verification in NS3D Terms
 
 ### Analytic Setting and Unknowns
 
 The objects inspected are the NS3D hypotheses already assembled for the final
-local exclusion, not a new PDE solution.
+local exclusion, not a new PDE solution. This node is the final no-hidden-object
+audit before the local branch record is connected to the target theorem.
 
 ### Standing Assumptions
 
 The incoming record states that local branch decomposition, boundary
-compatibility, and source compatibility have been checked.
+compatibility, and source compatibility have been checked, with any open
+branches preserved as explicit obligations rather than erased.
 
 ### Objects Inspected
 
-Inspect every selected mathematical object used in the final implication and
-its source node.
+Inspect every selected mathematical object used in the endpoint implication,
+its source node, branch condition, subsequence, frame, pressure gauge,
+representative identity, and compatibility status. Also inspect the constants
+and inequalities used in the final contradiction.
 
 ### Dependencies Used
 
-Every previous node contributes to $\mathfrak S$.
+Every previous node contributes to the proof record matrix
+$\mathfrak S_T$ and constants ledger $\mathcal K$.
 
 ### Local Obstruction Predicate
 
 $P_{\mathrm{Bound\_\Sigma}}$ holds when a final proof step refers to an object
-that was not constructed or was constructed inconsistently.
+that was not constructed, was constructed on an incompatible subsequence, is
+used outside its active branch condition, has an incompatible frame or pressure
+gauge, or relies on unverified constants.
 
 ### Local Lemmas to Prove
 
-**Lemma Bound_Sigma.1 -- Data completeness.**
-If every entry of $\mathfrak S$ is assigned to the step that constructs it, then no
-unconstructed object is used in the final implication.
+**Lemma Bound_Sigma.1 -- Data completeness uses the endpoint record
+matrix.**
+For each endpoint application, define
 
-**Proof.** The record is finite. Checking every entry proves completeness.
+$$
+\mathfrak S_T
+=
+\left\{
+(X,\mathrm{branch},\mathrm{node},\mathrm{subsequence},\mathrm{frame},
+\mathrm{gauge},\mathrm{status})
+\right\}.
+$$
 
-**Lemma Bound_Sigma.2 -- Compatibility of duplicated objects.**
+The record is finite for each endpoint application, or countable with an
+explicit exhaustion and diagonal subsequence. Completeness means
+
+$$
+\forall X\in\mathfrak S_T,\qquad
+X\text{ has a construction node and compatibility status.}
+$$
+
+**Proof.** Fix one endpoint application $T$. Its statement mentions a
+definite set of solution objects, domains, frames, gauges, limits, source
+terms, and constants. Each such object is entered as a row of $\mathfrak S_T$.
+If the endpoint application is finite, checking all rows proves that no object
+in the endpoint implication is anonymous. If the endpoint application is built
+by exhaustion, for example over $R=1,2,\ldots$, completeness is checked at
+each finite level and the matrix must also name the diagonal subsequence that
+survives all levels. Thus every object used at the endpoint has both a
+construction node and a compatibility status before the final implication is
+allowed to cite it.
+
+**Lemma Bound_Sigma.2 -- Subsequence lineage is common.**
+Every object has a field $\mathrm{subseq}(X)$. All objects used in the same
+final implication must be built along a common subsequence or a declared
+diagonal subsequence. For example,
+
+$$
+V_{n_k}\to V,\qquad
+P_{n_k}\rightharpoonup P,\qquad
+a_{n_k}\to a,\qquad
+b_{n_k}\to b
+$$
+
+must all hold for the same $n_k$, unless the matrix declares the diagonal
+subsequence that makes them simultaneous.
+
+**Proof.** Suppose the velocity limit is constructed along $n_k$ but the
+pressure or modulation coefficient is constructed only along another
+subsequence $m_j$. Without a declared common refinement, there is no single
+sequence of approximate solutions for which all limits appear simultaneously.
+The endpoint equation would then combine objects that were never obtained from
+one prelimit branch. Requiring a common subsequence, or explicitly recording a
+diagonal extraction $n_{k_\ell}$, ensures that every convergence statement in
+the endpoint equation is true along the same indices and hence defines one
+admissible limiting branch.
+
+**Lemma Bound_Sigma.3 -- Branch-conditional objects are used only on active
+branches.**
+Each row of $\mathfrak S_T$ carries a branch condition. The final implication
+may use an object only when its branch condition is active. A boundary pressure
+estimate, for example, is required in a boundary-visible branch and irrelevant
+in a verified interior branch.
+
+**Proof.** A row whose branch condition is inactive is not false; it is simply
+irrelevant to the branch currently being closed. For example, an interior
+branch has no boundary pressure term, so a boundary pressure estimate should
+not be required there. Conversely, a boundary-visible branch cannot borrow an
+interior-only pressure record. The branch condition column prevents both
+errors: it suppresses irrelevant hypotheses and forces every active endpoint
+hypothesis to have a record in the branch where it is actually used.
+
+**Lemma Bound_Sigma.4 -- Representative compatibility records all operations.**
 If the same object is produced in two nodes, the later node must either use the
 same representative or record the transformation between representatives.
+Allowed recorded operations include scalings, translations, rotations,
+Galilean transforms, pressure gauges, subsequence restrictions, diagonal
+extractions, time translations, cutoff localizations, and frame-to-physical
+pullbacks.
 
-**Proof.** For NS3D the only allowed changes are the declared scalings,
-translations, rotations, Galilean transforms, and pressure gauges. Each has
-already been checked in `PS26`.
+For every duplicated object, record the exact identity, for example
+
+$$
+V_n(y,s)=r_nu(x_*+r_ny,T+r_n^2s),
+$$
+
+or
+
+$$
+P^R=P-(P)_{B_R}(t).
+$$
+
+**Proof.** The final contradiction often compares a lower bound or defect in
+one representation with an endpoint conclusion in another. This comparison is
+valid only if the record gives the identity connecting those representations.
+A scaling changes the cylinder size and the normalization of velocity and
+pressure; a time translation changes the time interval; a pressure gauge
+changes the representative but not the gradient; a cutoff changes the equation
+by adding sources; and a subsequence restriction changes the lineage of every
+limit. Recording the exact formula for each duplicated object makes these
+changes auditable and guarantees that the endpoint theorem and the prelimit
+contradiction refer to the same branch object.
+
+**Lemma Bound_Sigma.5 -- Constants and inequalities are verified.**
+The constants ledger
+
+$$
+\mathcal K
+=
+\{\varepsilon_0,\varepsilon_v,\eta_*,M,R,\sigma,\kappa,\ldots\}
+$$
+
+contains every constant used in the final contradiction and verifies the
+needed ordering, such as
+
+$$
+\eta_* >0,\qquad
+\eta_0\ge\varepsilon_{\rm CKN},\qquad
+C+D<\varepsilon_{\rm CKN}/2.
+$$
+
+It is not enough to record separately that a lower bound and a smallness
+theorem exist; the ledger must verify that their constants are compatible.
+
+**Proof.** The endpoint contradiction is not produced by the existence of a
+lower bound and a smallness theorem separately. It is produced by an
+incompatible chain of inequalities in one normalization. For example, a
+concentration lower bound $\eta_*$ contradicts a CKN smallness conclusion only
+after the ledger proves that $\eta_*$ is measured on the same cylinder and
+that the upper bound is below the same threshold. The ledger records all
+thresholds, losses, covering constants, shrink factors, and chosen scales.
+Checking their order prevents a proof from silently using an epsilon smaller
+than the one actually available or a radius outside the range where the
+estimate was proved.
 
 ### Specific Estimate
 
 The decisive statement is
 
 $$
-\forall X\in\mathfrak S,\qquad
+\forall X\in\mathfrak S_T,\qquad
 X\text{ has a prior construction node and compatibility status.}
 $$
 
+with common-subsequence, active-branch, representative, gauge, and constants
+compatibility verified.
+
+The insufficiency-obstruction ledger is
+
+$$
+\mathcal O_{\Sigma}
+=
+\left\{
+\begin{array}{l}
+\text{missing construction rows in }\mathfrak S_T,\\
+\text{incompatible subsequence or diagonal lineage},\\
+\text{inactive-branch object use},\\
+\text{frame, pullback, or pressure-gauge mismatch},\\
+\text{unverified constants or inequality ordering}
+\end{array}
+\right\}.
+$$
+
+The data sufficiency audit is closed exactly when
+$\mathcal O_{\Sigma}=\emptyset$.
+
 ### Practical Verification Steps
 
-1. Build the sufficiency record.
+1. Build $\mathfrak S_T$ for each endpoint theorem application.
 2. Attach each object to the node that constructs it.
-3. Check representative compatibility.
-4. Assign missing objects to their construction nodes.
+3. Record the active branch condition for every row.
+4. Record $\mathrm{subseq}(X)$ and verify common or diagonal subsequence
+   lineage.
+5. Check frame, time-translation, cutoff, pullback, and pressure-gauge
+   compatibility.
+6. Record exact representative identities for duplicated objects.
+7. Build $\mathcal K$ and verify the constants are in the right order for the
+   contradiction being used.
+8. Assign missing or inconsistent objects to $\mathcal O_{\Sigma}$ and pass as
+   closed only if $\mathcal O_{\Sigma}=\emptyset$.
 
 ## Estimate Step $B_{\mathrm{Bound\_\Sigma}}$
 
-The estimate step is record verification.
+The estimate step is proof record matrix and constants ledger
+verification.
 
 ## Failure Case
 
 Failure name: insufficient analytic data.
 
 Analytic meaning: the final implication uses a mathematical object not
-constructed by the local proof.
+constructed by the local proof, constructed on the wrong subsequence, used in
+the wrong branch, stated in an incompatible frame or gauge, or paired with
+unverified constants.
 
 ## Refinement Step
 
@@ -11347,11 +17487,15 @@ Allowed refinements:
 
 1. add the missing construction;
 2. reconcile representatives through `PS26`;
-3. add missing pressure or scale data;
-4. rerun endpoint matching.
+3. declare the diagonal subsequence;
+4. add missing pressure, scale, frame, time-translation, cutoff, or pullback
+   data;
+5. add the constants ledger or repair the constants;
+6. rerun endpoint matching.
 
-Progress measure: every object in $\mathfrak S$ becomes constructed and
-compatible.
+Progress measure: every object in $\mathfrak S_T$ becomes constructed,
+branch-active, subsequence-compatible, frame/gauge-compatible, and verified by
+the constants ledger.
 
 ## Data Passed Forward
 
@@ -11362,142 +17506,443 @@ $$
 =
 \Gamma_{\mathrm{Bound\_B}}
 \cup
-\{\mathfrak S\text{ complete}\}.
+\left\{
+\begin{array}{l}
+\mathfrak S_T\text{ proof record matrix complete},\\
+\text{common subsequence/diagonal verified},\\
+\text{frame and pressure gauge compatibility verified},\\
+\mathcal K\text{ constants ledger verified},\\
+\mathcal O_{\Sigma}\text{ empty or explicit insufficiency defect list}
+\end{array}
+\right\}.
 $$
+
+If $\mathcal O_{\Sigma}\ne\emptyset$, the terminal block reports the missing
+object, lineage, frame, gauge, or constants obligation instead of closing the
+target theorem.
 
 ---
 
-# 45. `GC_T` -- Local Compatibility with the Target Regularity Statement
+# 66. `GC_T` -- Local Compatibility with the Target Regularity Statement
 
 ## Implementation and Verification in NS3D Terms
 
 ### Analytic Setting and Unknowns
 
-The unknown is a hypothetical singular point of a suitable weak solution.
+The unknown is a hypothetical target singular point of a suitable weak
+solution, together with the declared target regularity statement.
 
 ### Standing Assumptions
 
-The incoming record states that all local branches generated from such a singular point have been
-classified and their endpoint or residual statuses recorded.
+The incoming record states that all local branches generated from such a
+singular point have been classified and their endpoint, realization, or
+residual statuses recorded in the exclusion report. This node distinguishes
+classification coverage from exclusion completeness.
 
 ### Objects Inspected
 
-Inspect the local singularity criterion, positive concentration sequence,
-branch decomposition, and final status of every branch.
+Inspect the target declaration, finite-entry record, local singularity
+criterion, positive concentration sequence, branch decomposition, open branch
+record, and final status of every branch.
 
 ### Dependencies Used
 
-Singular entry comes from `C_mu` and normalized concentration from `PS1`;
-branch completeness from `PS35`;
-data sufficiency from `Bound_Sigma`.
+Finite entry comes from `D_E`, `PS0`, and `PS1`; singular entry comes from
+`C_mu` and normalized concentration from `PS1`; branch completeness and open
+branch status come from `PS35`; nonattainability provenance comes from `PS33`;
+boundary and source compatibility come from `Bound_partial` and `Bound_B`;
+data sufficiency comes from `Bound_Sigma`; endpoint theorem status comes from
+`PS31`.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{GC\_T}}$ holds if a singular point could fail to generate any of
-the branches checked by the local analysis.
+$P_{\mathrm{GC\_T}}$ holds if a target singular point lacks an admissible
+finite-entry route into the profile machinery, if the declared target theorem
+is broader than the local machinery covers, or if the final open-obligation
+set defined below satisfies
+$\mathfrak O_{\rm final}\ne\emptyset$.
 
 ### Local Lemmas to Prove
 
-**Lemma GC_T.1 -- Singular points generate local concentration.**
-If $z_0$ is a singular point of a suitable weak solution, then there exists a
-sequence of scales $r_n\downarrow0$ with positive local CKN concentration.
-
-**Proof.** The contrapositive of CKN regularity at $z_0$ states
+**Lemma GC_T.1 -- Singular entry generates concentration.**
+Let $z_0=(x_0,t_0)$ be an interior point, or a terminal point with a verified
+finite-entry radius. Suppose $z_0$ is singular in the sense that $u$ is not
+locally bounded in any admissible backward cylinder. Then for every
+sufficiently small entry-admissible radius $r$,
 
 $$
-z_0\in\Sigma
-\Longrightarrow
-\limsup_{r\downarrow0}
-\{C(u;z_0,r)+D(p;z_0,r)\}\ge\varepsilon_0.
+C(u;z_0,r)+D(p;z_0,r)\ge\varepsilon_0.
 $$
 
-Choose a sequence $r_n\downarrow0$ along which the limsup is attained up to a
-factor $1/2$. Then
-$C(u;z_0,r_n)+D(p;z_0,r_n)\ge\varepsilon_0/2$, which is the required positive
-local CKN concentration.
+If the velocity-only criterion is used, then also
 
-**Lemma GC_T.2 -- Local concentration enters the profile decomposition.**
-The positive concentration sequence constructed from a singular point enters
-`C_mu` and `PS1`--`PS35` and is assigned to one named branch or the residual
-complement.
+$$
+C(u;z_0,r)\ge\varepsilon_v.
+$$
 
-**Proof.** `Rec_N` selects the singular entry point, `C_mu` constructs the
-original-scale concentration sequence, `PS1` normalizes it on the fixed
-cylinder, `PS2` fixes the center and parabolic scaling, and `PS3` separates
-the local Type I predicate from its local Type II negation. The resulting
-admissible local profile lies in
-$\mathcal S_{\rm loc}$, and `PS35` gives
+**Proof.** Work only with radii for which the backward cylinder is admissible
+and the finite-entry quantities are defined. The contrapositive of the CKN
+epsilon-regularity theorem at $z_0$ states
+
+$$
+\text{if }C(u;z_0,r)+D(p;z_0,r)<\varepsilon_0
+\text{ on an entry-admissible cylinder, then }z_0
+\text{ is regular in a smaller cylinder.}
+$$
+
+If a singular $z_0$ had one sufficiently small entry-admissible radius with
+$C(u;z_0,r)+D(p;z_0,r)<\varepsilon_0$, the theorem would give local boundedness
+in a smaller admissible cylinder, contradicting the definition of singularity.
+Therefore every sufficiently small entry-admissible radius satisfies the
+displayed lower bound. If the proof chooses the velocity-only criterion, the
+same argument is applied with the velocity threshold $\varepsilon_v$: a radius
+with $C(u;z_0,r)<\varepsilon_v$ would imply regularity, so singularity forces
+$C(u;z_0,r)\ge\varepsilon_v$ on every sufficiently small admissible radius.
+
+If the target singular point lacks any finite-entry radius, then it does not
+enter the `PS0`--`PS35` profile machinery. It is a finite-entry obstruction and
+must be either excluded by a separate global-energy/pressure argument or listed
+in $\mathcal O_{\rm target}$ as an open finite-entry obligation.
+
+**Lemma GC_T.2 -- Target declaration controls the local-to-global scope.**
+The record declares
+
+$$
+\mathcal T_{\rm target}
+=
+\begin{array}{c}
+\text{interior regularity, terminal regularity, boundary regularity,}\\
+\text{or whole-space blow-up exclusion}
+\end{array}.
+$$
+
+If the target theorem is only interior regularity, then `GC_T` quantifies only
+over points with positive distance from the parabolic boundary. If the target
+includes boundary points, `Bound_partial` must have supplied the boundary
+endpoint records. If the target is a global finite-time blow-up
+exclusion, the record must include the global-to-local selection principle
+
+$$
+\text{finite-time singularity}
+\Rightarrow
+\exists x_*\text{ such that }(x_*,T)\in\Sigma(T),
+$$
+
+together with finite entry at that point.
+
+**Proof.** The local profile machinery begins with an admissible local
+singular-entry packet. For an interior target theorem, positive distance from
+the parabolic boundary supplies the admissible cylinders. For a boundary
+target theorem, admissibility also requires the boundary records from
+`Bound_partial`. For a terminal theorem, the backward cylinders must carry the
+finite-entry record. For a global finite-time blow-up statement, a further
+selection principle is needed to produce a point $x_*$ at time $T$ to which the
+local machinery applies. Since these hypotheses are different, the final
+implication may quantify only over the target class whose bridge has been
+recorded.
+
+**Lemma GC_T.3 -- Local concentration enters the profile decomposition.**
+The positive concentration packet constructed from an admissible singular
+entry enters `C_mu` and `PS1`--`PS35` and is assigned to one admissible branch
+or the named residual complement.
+
+**Proof.** By Lemma GC_T.1, singularity supplies a finite-entry concentration
+packet at arbitrarily small admissible scales. `Rec_N` records the selected
+entry point and scales. `C_mu` turns the lower bound into the original-scale
+packet used by the sieve. `PS1` normalizes the packet on a fixed cylinder, and
+`PS2` records the center and parabolic scaling so that the normalized object
+has admissible provenance from the original solution. `PS3` then sends the
+packet into the local Type I predicate or its Type II negation, and the later
+profile nodes refine those alternatives. Thus the resulting admissible local
+profile lies in $\mathcal S_{\rm loc}$, and `PS35` gives
 
 $$
 \mathcal S_{\rm loc}
 =
-\left(\bigcup_{\alpha\in A}\mathcal U_\alpha\right)
-\cup\mathcal R_{\rm loc}.
+\mathcal U_{\rm named}\cup\mathcal R_{\rm named}.
 $$
 
-Hence the concentration sequence is assigned to a named branch or to the
-residual complement.
+Hence the concentration packet is not merely named informally: it is assigned
+by the recorded decomposition to a named branch or to the named residual
+complement, with its open/closed status recorded separately in
+$\mathcal E_{\rm report}$.
 
-**Lemma GC_T.3 -- Excluding every admissible branch excludes the singular
-point.**
-If every branch produced by Lemma GC_T.2 is excluded or declared
-non-attainable, then the initial assumption $z_0\in\Sigma$ is impossible.
+**Lemma GC_T.4 -- Exclusion completeness is required.**
+Branch coverage alone gives only
 
-**Proof.** Lemma GC_T.2 gives an admissible branch
+$$
+\mathcal S_{\rm loc}
+=
+\mathcal U_{\rm named}\cup\mathcal R_{\rm named}.
+$$
+
+Let $\mathfrak L$ denote the provenance-audited branch universe assembled from
+realized local branches, `PS32` excluded branches, and the `PS33`
+proved-nonattainability ledger. Define
+
+$$
+\mathfrak L_{\rm open}
+=
+\left\{
+B\in\mathfrak L:
+\mathrm{status}(B)\notin
+\{\mathrm{excluded},\mathrm{proved\ nonattainable}\}
+\right\}
+$$
+
+and
+
+$$
+\mathcal O_{\rm src}
+=
+\left\{
+B\in\mathcal N_{\rm att}^{0}:
+\text{the `PS33' source or failed necessary condition is missing}
+\right\}.
+$$
+
+The branch-record part of target regularity is
+
+$$
+\mathfrak O_{\rm branch}
+=
+\mathfrak L_{\rm open}\cup\mathcal O_{\rm ST}
+\cup\mathcal O_{\rm att}\cup\mathcal O_{\rm src}
+=\emptyset.
+$$
+
+Equivalently, for the branch ledger alone,
+
+$$
+\mathcal R_{\rm open}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm ST}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm att}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm src}=\emptyset.
+$$
+
+The compatibility obstruction ledger is
+
+$$
+\mathcal O_{\rm target}
+=
+\left\{
+\begin{array}{l}
+\text{finite-entry obstruction not closed by a separate argument},\\
+\text{target declaration broader than the local machinery},\\
+\text{missing global-to-local selection bridge for a global target}
+\end{array}
+\right\},
+$$
+
+$$
+\mathcal O_T
+=
+\left\{
+T_\beta\in\mathscr T:
+T_\beta\text{ is needed for closure and has status }
+\mathrm{conjectural}\text{ or }\mathrm{open},
+\text{ or has undeclared conditional status}
+\right\},
+$$
+
+and
+
+$$
+\mathfrak O_{\rm compat}
+=
+\mathcal O_{\partial}
+\cup\mathcal O_{\mathcal F}
+\cup\mathcal O_{\Sigma}
+\cup\mathcal O_{\rm target}
+\cup\mathcal O_T.
+$$
+
+Here $\mathcal O_{\partial}$ records boundary and terminal-entry defects from
+`Bound_partial`, $\mathcal O_{\mathcal F}$ records unresolved source defects
+from `Bound_B`, $\mathcal O_{\Sigma}$ records missing-object, lineage, gauge,
+or constants defects from `Bound_Sigma`, $\mathcal O_{\rm target}$ records a
+target declaration, finite-entry, or global-to-local bridge gap, and
+$\mathcal O_T$ records endpoint theorem gaps such as a theorem with status
+$\mathrm{conjectural}$ or $\mathrm{open}$ being needed for closure.
+
+Thus the actual target-closure condition is
+
+$$
+\mathfrak O_{\rm final}
+=
+\mathfrak O_{\rm branch}
+\cup\mathfrak O_{\rm compat}
+=\emptyset.
+$$
+
+A branch marked $\mathrm{proved\ nonattainable}$ closes only if `PS33` proved
+nonattainability from necessary conditions. The statuses
+$\mathrm{formal\ only}$, $\mathrm{undecided}$, and $\mathrm{unresolved}$ do not
+close a target regularity theorem. Purely formal profiles with no closed
+provenance decision remain in $\mathcal O_{\rm att}$. The condition
+$\mathcal O_{\rm ST}=\emptyset$ says every local state-space subtheorem needed
+for `ST20` has closed. The condition
+$\mathcal O_{\rm src}=\emptyset$ says that every nonattainability label has an
+actual `PS33` necessary-condition proof. The condition
+$\mathfrak O_{\rm compat}=\emptyset$ says that no boundary, source, data,
+target-entry, or endpoint-theorem gap is still needed for the final
+implication.
+
+**Proof.** Lemma GC_T.3 assigns a singular-entry packet to some
+$B\in\mathcal S_{\rm loc}$. Because the packet comes from the original
+solution, the assigned branch enters the provenance-audited universe unless it
+is only a formal candidate whose attainability is still undecided; that latter
+case is recorded in $\mathcal O_{\rm att}$. If the record only says that an
+audited $B$ belongs to a named class, then the packet is classified but not
+contradicted. If the realized branch $B$ has status $\mathrm{excluded}$,
+`PS32` supplies an endpoint contradiction for that same branch. If a proposed
+branch alternative has status $\mathrm{proved\ nonattainable}$, `PS33`
+supplies a necessary-condition failure showing that no admissible sequence
+from the singular packet can realize that alternative. These are the only
+recorded statuses that negate, respectively, a realized branch or a candidate
+alternative. Therefore the final target argument needs every realized branch
+to be excluded, every nonattainability label to be backed by its `PS33`
+source, $\mathcal O_{\rm ST}=\emptyset$ so no local state-space subtheorem is
+still open, and $\mathcal O_{\rm att}=\emptyset$ so no unsettled candidate can
+later enter the audited universe. The compatibility nodes must also have
+empty obstruction ledgers. Equivalently, the single terminal obstruction set
+$\mathfrak O_{\rm final}$ is empty: no open audited branch, no open ST
+obligation, no unsourced nonattainability claim, no open attainability
+obligation, and no boundary, source, data, target-entry, or endpoint-theorem
+gap remains.
+
+**Lemma GC_T.5 -- Excluding realized branches and sourcing nonattainability
+excludes the singular point.**
+If the target declaration applies to $z_0$, the singular point has admissible
+finite entry or a closed finite-entry obstruction, and
+$\mathfrak O_{\rm final}=\emptyset$, then the initial assumption
+$z_0\in\Sigma$ is impossible. If $\mathfrak O_{\rm final}\ne\emptyset$, the
+output is target compatibility incomplete: an open local branch, open ST
+obligation, open attainability obligation, unsourced nonattainability label,
+or compatibility defect remains.
+
+**Proof.** Assume for contradiction that $z_0\in\Sigma$ and that the target
+declaration applies. If finite entry is not available, the hypothesis of the
+lemma says that the finite-entry obstruction has already been closed by a
+separate argument; otherwise Lemma GC_T.1 supplies a concentration packet.
+Lemma GC_T.3 then assigns that packet to an admissible branch
 
 $$
 B\in
-\left(\bigcup_{\alpha\in A}\mathcal U_\alpha\right)
-\cup\mathcal R_{\rm loc}.
+\mathfrak L\cap\mathcal S_{\rm loc}
+\subset
+\mathcal U_{\rm named}\cup\mathcal R_{\rm named}.
 $$
 
-The verified branch-status record assigns each element of this set one of the
-statuses `excluded` or `non-attainable`. The first status contradicts the
-endpoint conclusion for that branch; the second contradicts existence of the
-NS3D blow-up sequence that produced $B$. Both alternatives contradict the
-initial membership $z_0\in\Sigma$.
+The verified branch-status record assigns each element of
+$\mathfrak L$ one of the closed statuses
+$\mathrm{excluded}$ or
+$\mathrm{proved\ nonattainable}$ exactly when
+$\mathcal R_{\rm open}=\emptyset$ and $\mathcal O_{\rm src}=\emptyset$. The
+condition $\mathcal O_{\rm ST}=\emptyset$ ensures that residual closure has no
+open local state-space subtheorem. The condition
+$\mathcal O_{\rm att}=\emptyset$ ensures that no
+undecided candidate is still available as the branch assigned to the packet.
+Together these four checks give $\mathfrak O_{\rm branch}=\emptyset$. The
+compatibility audits from `Bound_partial`, `Bound_B`, `Bound_Sigma`, `GC_T`,
+and `PS31` give $\mathfrak O_{\rm compat}=\emptyset$. These two statements
+are exactly $\mathfrak O_{\rm final}=\emptyset$.
+If the assigned branch is excluded, the `PS32` record applies to the branch
+generated from the packet and gives a direct endpoint, prelimit, or rigidity
+contradiction. If a proposed branch alternative is proved nonattainable, the
+`PS33` provenance record says that no admissible sequence with the recorded
+necessary conditions can produce it; such an alternative cannot be the branch
+generated by the sequence just constructed from $z_0$. Each remaining possible
+assignment is therefore contradicted or removed. If an open branch, ST
+obligation, attainability obligation, unsourced nonattainability label,
+boundary defect, source defect, missing object, target-entry gap, or endpoint
+theorem gap remains, the proof must report target compatibility incomplete
+instead of concluding regularity.
 
 ### Specific Estimate
 
-The decisive implication is
+The singular-entry implication is
 
 $$
 z_0\in\Sigma
 \Longrightarrow
-\exists\text{ admissible branch in }
-\left(\bigcup_{\alpha\in A}\mathcal U_\alpha\right)\cup\mathcal R_{\rm loc}.
+C(u;z_0,r)+D(p;z_0,r)\ge\varepsilon_0
+$$
+
+for every sufficiently small entry-admissible radius $r$. The decisive closing
+condition is
+
+$$
+\mathfrak O_{\rm final}
+=
+\mathfrak O_{\rm branch}\cup\mathfrak O_{\rm compat}
+=\emptyset,
+$$
+
+equivalently
+
+$$
+\mathcal R_{\rm open}=\emptyset,\qquad
+\mathcal O_{\rm ST}=\emptyset,\qquad
+\mathcal O_{\rm att}=\emptyset,\qquad
+\mathcal O_{\rm src}=\emptyset,\qquad
+\mathfrak O_{\rm compat}=\emptyset.
 $$
 
 ### Practical Verification Steps
 
-1. Start from the recorded singular-point hypothesis.
-2. Produce a positive local concentration sequence.
-3. Run the completed local branch decomposition.
-4. Check the status of every branch.
-5. Conclude regularity only if no attainable branch remains.
+1. Declare $\mathcal T_{\rm target}$.
+2. Check that the target point lies in the declared target class.
+3. Verify finite entry, or close/list the finite-entry obstruction.
+4. Produce the singular-entry concentration packet.
+5. Run the completed local branch decomposition.
+6. Check that every realized admissible branch is $\mathrm{excluded}$ and
+   every proved nonattainability label has a `PS33` source.
+7. Check that $\mathcal O_{\rm ST}=\emptyset$ for residual components closed
+   through `ST20`.
+8. Check boundary, source, data, target-entry, and endpoint theorem ledgers
+   and build $\mathfrak O_{\rm compat}$.
+9. Build
+   $\mathfrak O_{\rm final}
+   =\mathfrak O_{\rm branch}\cup\mathfrak O_{\rm compat}$.
+10. Conclude target regularity only if $\mathfrak O_{\rm final}=\emptyset$.
+11. If this check fails, output the open branch, ST obligation, attainability
+    obligation, unsourced nonattainability label, or compatibility defect list
+    rather than a contradiction.
 
 ## Estimate Step $B_{\mathrm{GC\_T}}$
 
-The estimate step is the CKN singular-entry implication.
+The estimate step is the finite-entry CKN singular-entry implication plus the
+negative branch-record check.
 
 ## Failure Case
 
-Failure name: target-compatibility gap.
+Failure names: target-compatibility gap; finite-entry obstruction; open local
+branch.
 
 Analytic meaning: the local decomposition does not cover every singular point
-needed for the target regularity statement.
+needed for the target regularity statement, the point does not enter the
+finite-entry profile machinery, or coverage exists but exclusion completeness
+fails.
 
 ## Refinement Step
 
 Allowed refinements:
 
 1. strengthen singular-entry construction;
-2. add missing local branch predicates;
-3. refine the target regularity statement;
-4. return to `PS35`.
+2. prove a finite-entry bridge;
+3. add missing local branch predicates;
+4. refine the target regularity statement;
+5. add a global-to-local selection principle if the target is global;
+6. return to `PS35` or `PS33` for open branch closure or nonattainability
+   sourcing.
 
-Progress measure: every target singular point enters the completed local
-decomposition.
+Progress measure: every target singular point either enters the completed
+finite-entry local decomposition and has no open branch, or is reported as a
+named finite-entry or target-compatibility obstruction.
 
 ## Data Passed Forward
 
@@ -11508,125 +17953,545 @@ $$
 =
 \Gamma_{\mathrm{Bound\_\Sigma}}
 \cup
-\{\text{local-to-target implication verified}\}.
+\left\{
+\begin{array}{l}
+\mathcal T_{\rm target}\text{ declared},\\
+\text{singular point has admissible finite entry or finite-entry obstruction is closed},\\
+\text{singular point generates a }PS0\text{ concentration packet},\\
+\mathfrak O_{\rm final}=\emptyset,\\
+\mathcal R_{\rm open}=\emptyset,\\
+\mathcal O_{\rm ST}=\emptyset,\\
+\mathcal O_{\rm att}=\emptyset,\\
+\mathcal O_{\rm src}=\emptyset,\\
+\mathfrak O_{\rm compat}=\emptyset,\\
+\text{therefore target singular point impossible}
+\end{array}
+\right\}.
+$$
+
+If $\mathfrak O_{\rm final}\ne\emptyset$, equivalently if
+$\mathcal R_{\rm open}\ne\emptyset$, $\mathcal O_{\rm ST}\ne\emptyset$,
+$\mathcal O_{\rm att}\ne\emptyset$, or $\mathcal O_{\rm src}\ne\emptyset$, or
+$\mathfrak O_{\rm compat}\ne\emptyset$, `GC_T` instead passes forward
+
+$$
+\text{target compatibility incomplete: open branch, ST, attainability, source, boundary, data, target, or endpoint obligations remain}.
 $$
 
 ---
 
-# 46. `FinalExcl` -- Final Local Singularity Exclusion Record
+# 67. `FinalExcl` -- Final Local Singularity Exclusion Record
 
 ## Implementation and Verification in NS3D Terms
 
 ### Analytic Setting and Unknowns
 
-The unknown is the finite branch-status record for all admissible local profile
-branches.
+The unknown is the final branch universe generated from the original
+singular-entry packet by admissible operations, together with all exclusion,
+nonattainability, endpoint-theorem, and open-obligation records.
 
 ### Standing Assumptions
 
-The incoming record states that the local-to-target implication has been verified in `GC_T`.
+The incoming record states that the local-to-target implication has been
+verified in `GC_T` only under a negative branch record. Naming or classifying
+all branches is weaker than excluding them. The terminal block outputs exactly
+one of the following:
+
+$$
+\boxed{
+\begin{array}{c}
+\text{Every admissible local singular branch is excluded or proved}\\
+\text{nonattainable, with all `PS33' sources recorded,}\\
+\text{hence the target point is regular.}
+\end{array}
+}
+$$
+
+or
+
+$$
+\boxed{
+\begin{array}{c}
+\text{The proof is complete up to the following explicit open branch}\\
+\text{obligations.}
+\end{array}
+}
+$$
 
 ### Objects Inspected
 
 Inspect every branch status, endpoint theorem application, residual class, and
-realization decision.
+realization decision; the `ST20` residual closure record; the `PS32`
+contradiction record for every excluded branch; the `PS33` provenance record
+for every proved nonattainable branch; and the status of every endpoint
+theorem used.
 
 ### Dependencies Used
 
-All preceding estimates contribute to the final branch status.
+All preceding estimates contribute to the final branch status. Endpoint
+contradiction records come from `PS32`; nonattainability provenance comes
+from `PS33`; generic residual closure comes from `ST20`; branch coverage and
+residual bookkeeping come from `PS35`; target compatibility comes from
+`GC_T`.
 
 ### Local Obstruction Predicate
 
-$P_{\mathrm{FinalExcl}}$ holds if some branch has status realized or remains an
-attainable non-excluded obstruction.
+$P_{\mathrm{FinalExcl}}$ holds if some branch has status
+$\mathrm{realized\ nonexcluded}$, $\mathrm{undecided}$,
+$\mathrm{unresolved}$, $\mathrm{residual\ not\ closed\ by\ }ST20$, or
+$\mathrm{ST\ obligation\ open}$, or
+$\mathrm{formal\ but\ possibly\ attainable}$, or if an allegedly closed
+branch lacks its `PS32` or `PS33` record, or if
+$\mathcal O_{\rm ST}\ne\emptyset$, $\mathcal O_{\rm att}\ne\emptyset$,
+$\mathcal O_{\rm src}\ne\emptyset$, or $\mathfrak O_{\rm compat}\ne\emptyset$.
 
 ### Local Lemmas to Prove
 
-**Lemma FinalExcl.1 -- Complete negative record excludes local singularity.**
-If every branch in $\mathfrak L$ has status excluded or nonattainable, then no
-admissible local singular profile remains.
-
-**Proof.** `PS35` gives that the branch universe is
+**Lemma FinalExcl.1 -- The final branch universe has audited provenance.**
+Let $\mathfrak L$ be the set of all branch alternatives assigned to the
+singular-entry packet before final status evaluation:
 
 $$
-\left(\bigcup_{\alpha\in A}\mathcal U_\alpha\right)
-\cup\mathcal R_{\rm loc}.
+B\in\mathfrak L
+\quad\Longleftrightarrow\quad
+B\text{ has realized, claimed, or still-unsettled provenance from the original singular-entry sequence}.
 $$
 
-Before `FinalExcl`, heterogeneous named classes are split into uniform-status
-subclasses. Hence the condition that every subclass has status
-`excluded` or `nonattainable` implies that every admissible branch $B$ in the
-displayed universe has one of those two statuses. The first status contradicts
-the endpoint theorem conclusion matched in `PS31` and applied in `PS32`; the
-second status contradicts the existence of a suitable NS3D blow-up sequence
-realizing $B$ as checked in `PS33`. Therefore no branch recorded in
-$\mathfrak L$ remains as an admissible local singular profile.
-
-**Lemma FinalExcl.2 -- Local exclusion implies regularity at the target point.**
-If no admissible local singular profile remains, then the target point is
-regular.
-
-**Proof.** Lemma GC_T.3 proves the implication
+The unsourced nonattainability set is
 
 $$
-\{\text{all admissible branches excluded or nonattainable}\}
+\mathcal O_{\rm src}
+=
+\left\{
+B\in\mathcal N_{\rm att}^{0}:
+\text{the `PS33' source or failed necessary condition is missing}
+\right\}.
+$$
+
+The endpoint theorem gap set is
+
+$$
+\mathcal O_T
+=
+\left\{
+T_\beta\in\mathscr T:
+T_\beta\text{ is needed for closure and has status }
+\mathrm{conjectural}\text{ or }\mathrm{open},
+\text{ or has undeclared conditional status}
+\right\}.
+$$
+
+The compatibility-obligation set is
+
+$$
+\mathfrak O_{\rm compat}
+=
+\mathcal O_{\partial}
+\cup\mathcal O_{\mathcal F}
+\cup\mathcal O_{\Sigma}
+\cup\mathcal O_{\rm target}
+\cup\mathcal O_T,
+$$
+
+where the five terms record, respectively, boundary/entry defects, unresolved
+source terms, missing proof objects or constants, target finite-entry or
+global-to-local bridge gaps, and endpoint theorem status gaps.
+
+The open part of the audited branch universe is
+
+$$
+\mathfrak L_{\rm open}
+=
+\left\{
+B\in\mathfrak L:
+\mathrm{status}(B)\notin
+\{\mathrm{excluded},\mathrm{proved\ nonattainable}\}
+\right\}.
+$$
+
+Purely formal profiles are never counted as closed merely because they are
+named. They are either outside $\mathfrak L$ and listed in
+$\mathcal O_{\rm att}$, or included in $\mathfrak L$ only as open
+formal-but-possibly-attainable obligations unless `PS33` proves that they are
+realized by an admissible sequence or proves that they are nonattainable.
+
+**Proof.** `PS35` gives coverage of the realized local universe
+
+$$
+\mathcal S_{\rm loc}
+=
+\mathcal U_{\rm named}\cup\mathcal R_{\rm named},
+$$
+
+and separately records formal, undecided, and proved-nonattainable candidates
+in $\mathcal O_{\rm att}$ and $\mathcal N_{\rm att}^{0}$. `FinalExcl`
+assembles these records into the final audit universe $\mathfrak L$ so that no
+candidate is silently counted as either excluded or irrelevant. It keeps a
+branch $B$ in $\mathfrak L$ exactly when the record supplies either the chain
+
+$$
+\text{singular entry packet}
+\longrightarrow
+\text{admissible operations}
+\longrightarrow
+B.
+$$
+
+or an explicit unresolved or failed edge in that chain. If the record proves
+that a purely formal profile cannot have such a chain, it is retained only as a
+closed $\mathrm{proved\ nonattainable}$ record. If the record does not decide
+whether such a chain exists, the profile is listed in $\mathcal O_{\rm att}$
+or, if it has already been tied to the branch universe, as a
+$\mathrm{formal\ but\ possibly\ attainable}$ open record. Thus
+$\mathfrak L$ contains exactly the provenance-audited branch alternatives that
+the hypothetical singular point could generate unless a closing record negates
+them. The realized/admissible component of $\mathfrak L$ agrees with
+$\mathcal S_{\rm loc}$, so
+
+$$
+\mathcal R_{\rm open}=\emptyset
+$$
+
+closes the realized-branch component. The full terminal open-obligation set is
+
+$$
+\mathfrak O_{\rm final}
+=
+\mathfrak L_{\rm open}\cup\mathcal O_{\rm ST}\cup\mathcal O_{\rm att}
+\cup\mathcal O_{\rm src}\cup\mathfrak O_{\rm compat}.
+$$
+
+Thus the final theorem closes only when $\mathfrak O_{\rm final}=\emptyset$,
+not merely when the realized-branch complement $\mathcal R_{\rm open}$ is
+empty.
+
+**Lemma FinalExcl.2 -- Closed and open statuses are disjoint.**
+Define
+
+$$
+\mathrm{Closed}
+=
+\{\mathrm{excluded},\mathrm{proved\ nonattainable}\},
+$$
+
+and
+
+$$
+\mathrm{Open}
+=
+\{
+\mathrm{realized\ nonexcluded},
+\mathrm{undecided},
+\mathrm{unresolved},
+\mathrm{residual\ not\ closed\ by\ }ST20,
+\mathrm{ST\ obligation\ open},
+\mathrm{formal\ but\ possibly\ attainable}
+\}.
+$$
+
+The final exclusion condition is
+
+$$
+\forall B\in\mathfrak L,\qquad
+\mathrm{status}(B)\in\mathrm{Closed},
+\qquad
+\mathcal O_{\rm att}=\emptyset,
+\qquad
+\mathcal O_{\rm ST}=\emptyset,
+\qquad
+\mathcal O_{\rm src}=\emptyset,
+\qquad
+\mathfrak O_{\rm compat}=\emptyset,
+$$
+
+equivalently
+
+$$
+\mathfrak O_{\rm final}
+=
+\mathfrak L_{\rm open}\cup\mathcal O_{\rm ST}\cup\mathcal O_{\rm att}
+\cup\mathcal O_{\rm src}\cup\mathfrak O_{\rm compat}
+=
+\emptyset.
+$$
+
+**Proof.** A branch status is closed only when it negates the branch as a
+possible singular mechanism. The status $\mathrm{excluded}$ negates the branch
+by an endpoint contradiction. The status $\mathrm{proved\ nonattainable}$
+negates it by a provenance contradiction. Each open status fails to provide
+one of these negations: a realized nonexcluded branch is still present,
+undecided and unresolved branches lack a decision, residual branches not
+matched by `ST20` have not been reduced to closed subclasses, and
+formal-but-possibly-attainable branches have not been ruled out by `PS33`.
+The generic local residual branch is closed only when it carries the
+`ST20` status
+
+$$
+\mathrm{status}(\mathcal R_{\rm loc})=\mathrm{excluded}.
+$$
+
+Therefore the set
+$\mathfrak L_{\rm open}$ is empty exactly when every branch generated by the
+singular-entry packet has a closing record. The additional condition
+$\mathcal O_{\rm ST}=\emptyset$ says there is no residual branch whose local
+state-space subtheorems are still open. The condition
+$\mathcal O_{\rm att}=\emptyset$ says there is no unresolved candidate that
+might still become generated by that packet. The condition
+$\mathcal O_{\rm src}=\emptyset$ ensures that every nonattainability item
+counted as closed has the required `PS33` proof. The condition
+$\mathfrak O_{\rm compat}=\emptyset$ ensures that no boundary, source,
+missing-object, target-entry, or endpoint theorem gap remains outside the
+branch-status ledger. With these conventions, the terminal closure condition is
+$\mathfrak O_{\rm final}=\emptyset$.
+
+**Lemma FinalExcl.3 -- Excluded branches carry contradiction type.**
+Every branch with status $\mathrm{excluded}$ carries a `PS32` contradiction
+record of one of the following types:
+
+$$
+\mathrm{Type\ A}:\quad
+\text{direct physical regularity};
+$$
+
+$$
+\mathrm{Type\ B}:\quad
+\text{quantitative prelimit contradiction};
+$$
+
+$$
+\mathrm{Type\ C}:\quad
+\text{zero/rigidity contradiction with active attainment}.
+$$
+
+**Proof.** The label $\mathrm{excluded}$ is not a proof by itself. In Type A,
+the endpoint theorem gives regularity of the original physical target or of a
+pullback cylinder, contradicting the singular-entry assumption. In Type B, the
+endpoint theorem yields a quantitative smallness or decay estimate that, when
+pulled back through the verified frame and constants ledger, contradicts the
+positive prelimit concentration. In Type C, the endpoint theorem or rigidity
+statement forces a zero or rigid profile while the attainment record says that
+the branch carries active nonzero mass. These three mechanisms cover the
+allowed `PS32` contradiction routes. For the generic residual branch, the
+`ST20` record supplies the local Type C zero/activity contradiction through
+`ST17`--`ST19`; `PS31` registers it as the residual closure theorem and
+`PS32` records the matching contradiction. Recording the type identifies the
+exact logical contradiction used to close the branch.
+
+**Lemma FinalExcl.4 -- Proved nonattainability carries provenance.**
+Every branch with status $\mathrm{proved\ nonattainable}$ carries a
+provenance record $\mathcal P_{\rm prov}$ from `PS33`, including the
+exact necessary condition that fails, such as pressure-gauge incompatibility,
+impossible boundary geometry, an inadmissible defect vector, or absence of any
+admissible subsequence realizing the profile.
+
+**Proof.** To close a branch by nonattainability, `PS33` must prove that every
+admissible sequence realizing that branch would satisfy a necessary condition
+$N(B)$. The provenance record then records that the candidate branch
+violates $N(B)$. For instance, the pressure gauge may be incompatible with the
+endpoint pressure class, the boundary ratio may have no admissible geometric
+limit, the defect vector may violate a required sign or vanishing condition, or
+no common subsequence may realize all selected objects. The contradiction is
+between admissible provenance and the failure of $N(B)$; without this recorded
+necessary condition, nonattainability has not been proved.
+
+**Lemma FinalExcl.5 -- Endpoint theorem status controls final theorem status.**
+`FinalExcl` is unconditional only if every endpoint theorem used has status
+$\mathrm{established}$ or $\mathrm{proved\ earlier}$. If an endpoint theorem
+used has status $\mathrm{conditional}$, the final conclusion is conditional on
+that theorem. If an endpoint theorem has status $\mathrm{conjectural}$ or
+$\mathrm{open}$, it cannot be used to close the final exclusion.
+
+**Proof.** Each excluded branch depends on at least one endpoint theorem in the
+registry. If all such theorems are established or proved earlier in the same
+development, the branch contradictions are unconditional. If a branch uses a
+conditional theorem, the implication closing that branch is conditional, and
+the conjunction closing all branches is conditional on that theorem. If a
+branch uses a conjectural or open theorem, the branch has not been closed by a
+proved implication at all, so it must be moved to the open-obligation list
+rather than counted as excluded. The final theorem status is therefore the
+maximum logical weakness among the endpoint theorems actually used.
+
+**Lemma FinalExcl.6 -- Complete negative record excludes local singularity.**
+If $\mathfrak O_{\rm final}=\emptyset$, and every closed branch has the
+required `PS32` or `PS33` record, then no admissible local singular
+profile remains.
+
+**Proof.** Let $B\in\mathfrak L$ be arbitrary. Since
+$\mathfrak O_{\rm final}=\emptyset$, Lemma FinalExcl.2 gives
+$\mathrm{status}(B)\in\mathrm{Closed}$. If
+$\mathrm{status}(B)=\mathrm{excluded}$, Lemma FinalExcl.3 supplies the
+`PS32` contradiction type and hence an explicit contradiction for that branch.
+If $\mathrm{status}(B)=\mathrm{proved\ nonattainable}$, Lemma FinalExcl.4
+supplies the failed necessary condition from `PS33`, so $B$ cannot lie in the
+realized component of $\mathfrak L$ generated by the original sequence. If the
+singular-entry packet were assigned to that alternative, the assignment would
+contradict the `PS33` provenance record. Thus no arbitrary $B\in\mathfrak L$
+can remain as a possible local singular profile.
+
+**Lemma FinalExcl.7 -- Local exclusion implies regularity at the target point.**
+If no admissible local singular profile remains and `GC_T` has verified the
+target declaration and finite-entry bridge, then the target point is regular.
+
+**Proof.** `GC_T` proves the target bridge
+
+$$
+\{\mathfrak O_{\rm final}=\emptyset\}
 \Longrightarrow
 z_0\notin\Sigma.
 $$
 
-The conclusion of Lemma FinalExcl.1 supplies the hypothesis on the left-hand
-side, so the target point is regular.
+Lemma FinalExcl.6 supplies the hypothesis on the left-hand side by closing
+every branch in the admissible universe generated by the singular-entry
+packet. Hence the hypothetical target singular point cannot exist. In the
+language of the target theorem, $z_0\notin\Sigma$ means the target point is
+regular in the declared class. The conclusion is unconditional or conditional
+according to Lemma FinalExcl.5.
 
-**Lemma FinalExcl.3 -- Undecided or realized branches are exact obligations.**
-For every branch with status undecided or realized, the final conclusion is that branch
-and its named theorem gap, construction gap, or exclusion-estimate gap.
+**Lemma FinalExcl.8 -- Open branches are exact obligations.**
+For every branch with status $\mathrm{realized\ nonexcluded}$,
+$\mathrm{undecided}$, $\mathrm{unresolved}$,
+$\mathrm{residual\ not\ closed\ by\ }ST20$,
+$\mathrm{ST\ obligation\ open}$, or
+$\mathrm{formal\ but\ possibly\ attainable}$, the final conclusion is that
+branch and its named theorem gap, local ST subtheorem gap, construction gap,
+finite-entry gap, boundary defect, source defect, missing-object defect,
+endpoint theorem gap, or exclusion-estimate gap.
 
-**Proof.** The record contains every branch and all endpoint/realization
-statuses. Therefore any nonnegative conclusion is already localized to a
-specific PDE obligation.
+**Proof.** By Lemma FinalExcl.1, every branch in $\mathfrak L$ has realized,
+claimed, failed, or still-unsettled provenance from the singular-entry packet.
+By Lemma FinalExcl.2, a branch is open exactly when its status is not one of
+the two closed statuses. The branch record also carries the reason it failed
+to close: missing endpoint theorem, missing construction, unresolved source,
+boundary defect, missing finite entry, unresolved residual, or failed
+constants/object verification. Therefore
+$\mathfrak L_{\rm open}\ne\emptyset$ is not a vague failure of the proof; it is
+an explicit finite or declared countable list of remaining PDE obligations.
+The same applies to every element of $\mathcal O_{\rm ST}$: it is recorded
+with the residual branch, the missing ST subtheorem, and the witness produced
+by the state-space stratification.
+The same applies to every element of $\mathcal O_{\rm att}$: it is recorded
+with the candidate profile, missing provenance edge, and the theorem or
+construction needed to decide attainability. Every element of
+$\mathcal O_{\rm src}$ is recorded with the candidate branch and the missing
+`PS33` source or failed necessary condition needed before the branch may be
+counted as proved nonattainable. Every element of
+$\mathfrak O_{\rm compat}$ is recorded with its source ledger:
+$\mathcal O_{\partial}$ for boundary or terminal-entry defects,
+$\mathcal O_{\mathcal F}$ for unresolved equation sources,
+$\mathcal O_{\Sigma}$ for missing objects, lineage, gauges, or constants,
+$\mathcal O_{\rm target}$ for target-scope or global-to-local gaps, and
+$\mathcal O_T$ for endpoint theorem status gaps.
+
+**Lemma FinalExcl.9 -- The generic residual row is closed by `ST20`.**
+If the final branch report contains the generic local residual class
+$\mathcal R_{\rm loc}$ with the local hypotheses registered in `PS31` and
+$\mathrm{Obl}_{\mathrm{ST}}=\emptyset$, then
+its final status is
+
+$$
+\mathrm{status}(\mathcal R_{\rm loc})
+=
+\mathrm{excluded}
+\quad\text{with source }ST20.
+$$
+
+It is not listed in $\mathfrak L_{\rm open}$.
+
+**Proof.** `ST20` proves that no bounded centered residual profile in
+$\mathfrak X_M$ with local suitability, local pressure gauges, retained
+compact activity, and outside-routed-lower-ledger status can exist. `PS31` verifies
+that this theorem has local hypotheses only and that the ST obligation ledger
+is empty. Therefore the generic residual row has a closing theorem source.
+If $\mathrm{Obl}_{\mathrm{ST}}\ne\emptyset$, the row is instead recorded in
+$\mathcal O_{\rm ST}$. Listing a closed residual row as merely
+$\mathrm{residual}$ would discard the `ST20` contradiction and would re-open
+the global-estimate gap that the state-space block was inserted to close.
 
 ### Specific Estimate
 
 The decisive final condition is
 
 $$
-\forall \alpha\in A,\qquad
-\mathrm{status}_\alpha\in\{\mathrm{excluded},\mathrm{nonattainable}\},
-\qquad
-\mathrm{status}_{\rm res}\in\{\mathrm{excluded},\mathrm{nonattainable}\}.
+\mathfrak O_{\rm final}
+=
+\mathfrak L_{\rm open}\cup\mathcal O_{\rm ST}\cup\mathcal O_{\rm att}
+\cup\mathcal O_{\rm src}\cup\mathfrak O_{\rm compat}
+=\emptyset,
+\qquad\text{equivalently}\qquad
+\forall B\in\mathfrak L,\quad
+\mathrm{status}(B)\in
+\{\mathrm{excluded},\mathrm{proved\ nonattainable}\}
+\quad\text{with }
+\mathrm{status}(\mathcal R_{\rm loc})=\mathrm{excluded}
+\text{ by }ST20\text{ when present}
+\quad\text{and}\quad
+\mathcal O_{\rm ST}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm att}=\emptyset
+\quad\text{and}\quad
+\mathcal O_{\rm src}=\emptyset
+\quad\text{and}\quad
+\mathfrak O_{\rm compat}=\emptyset.
 $$
 
 ### Practical Verification Steps
 
-1. Build the final branch record.
+1. Build $\mathfrak L$ from branches with admissible provenance from the
+   original singular-entry packet.
 2. Split any branch class with mixed statuses into uniform-status subclasses.
-3. Confirm each subclass has one allowed status.
-4. If all statuses are excluded or nonattainable, apply `GC_T`.
-5. If a branch is realized or undecided, report it as the exact remaining PDE
-   obligation.
+3. Put every status in $\mathrm{Closed}$ or $\mathrm{Open}$.
+4. For every excluded branch, attach the `PS32` contradiction type A, B, or C.
+5. For the generic residual row, attach the `ST20` exclusion source, the
+   local hypothesis match from `PS31`, and the check
+   $\mathrm{Obl}_{\mathrm{ST}}=\emptyset$.
+6. For every proved nonattainable branch, attach the `PS33` provenance
+   record $\mathcal P_{\rm prov}$ and failed necessary condition.
+7. Add every residual component with nonempty $\mathrm{Obl}_{\mathrm{ST}}$ to
+   $\mathcal O_{\rm ST}$.
+8. Add every formal-only or undecided candidate to $\mathcal O_{\rm att}$ and
+   every unsourced nonattainability label to $\mathcal O_{\rm src}$.
+9. Build $\mathfrak O_{\rm compat}$ from boundary/entry, source, data,
+   target-bridge, and endpoint theorem ledgers.
+10. Check endpoint theorem statuses: established, proved earlier, conditional,
+   conjectural, or open; put closure-blocking theorem gaps in $\mathcal O_T$.
+11. If $\mathfrak O_{\rm final}=\emptyset$, apply `GC_T` and report theorem
+   status proved or conditional.
+12. If $\mathfrak O_{\rm final}\ne\emptyset$, report the explicit open list and
+   mark the final theorem open.
 
 ## Estimate Step $B_{\mathrm{FinalExcl}}$
 
-The estimate step is final branch status assembly.
+The estimate step is final branch universe assembly, closed/open status
+splitting, contradiction/provenance verification, and endpoint theorem status
+checking.
 
 ## Failure Case
 
 Failure name: remaining local singular branch.
 
 Analytic meaning: a branch in the exhaustive local decomposition remains
-attainable and not excluded by the verified endpoint theorems.
+attainable and not excluded by the verified endpoint theorems, or an allegedly
+closed branch lacks its contradiction or nonattainability record, or a
+boundary, source, data, target-entry, or endpoint theorem compatibility
+obligation remains, or a local ST obligation remains open.
 
 ## Refinement Step
 
 Allowed refinements:
 
 1. prove the missing endpoint theorem;
-2. prove non-attainability;
+2. prove nonattainability with `PS33` provenance;
 3. refine the residual complement;
-4. rerun endpoint matching and realization checks.
+4. repair the `PS32` contradiction record;
+5. rerun `ST0`--`ST20` if the generic residual row lacks its local closure
+   source or has a nonempty ST obligation ledger;
+6. rerun endpoint matching and realization checks;
+7. downgrade the final theorem to conditional or open when endpoint theorem
+   status requires it.
 
 Progress measure: every remaining obstruction is reduced to a named theorem or
-construction problem.
+construction problem, and every closed branch has either a `PS32`
+contradiction record or a `PS33` nonattainability record.
 
 ## Data Passed Forward
 
@@ -11637,5 +18502,19 @@ $$
 =
 \Gamma_{\mathrm{GC\_T}}
 \cup
-\{\mathfrak L\text{ final}\}.
+\left\{
+\begin{array}{l}
+\mathfrak L\text{ final branch universe},\\
+\mathfrak O_{\rm final}=\emptyset\text{ or explicit open list},\\
+\mathrm{status}(\mathcal R_{\rm loc})=\mathrm{excluded}
+\text{ by }ST20\text{ when the generic residual row is present and }
+\mathcal O_{\rm ST}=\emptyset,\\
+\mathcal O_{\rm ST},\ \mathcal O_{\rm att},\ \mathcal O_{\rm src},\text{ and }
+\mathfrak O_{\rm compat}\text{ empty or explicitly listed},\\
+\mathcal N_{\rm att}^{0}\text{ sourced whenever counted as closed},\\
+\text{for every closed branch: exclusion or nonattainability record},\\
+\text{endpoint theorem status report},\\
+\text{final theorem status: proved / conditional / open}
+\end{array}
+\right\}.
 $$

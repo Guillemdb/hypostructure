@@ -73,8 +73,9 @@ point of the singular set, the solution is regular at time \(T\) by the
 \(\varepsilon\)-regularity theorem.  Along any such positive concentration
 sequence, the solution either satisfies a local Type I scale-invariant bound or
 falls under the local Type II alternative.
-For whole-space finite-energy Type I terminal singularities, the velocity
-no-escape condition used in the companion Type I blow-up analysis is automatic.
+For local pointwise Type I terminal singularities of suitable weak solutions,
+the endpoint weak-Serrin bridge in the companion residual paper gives the
+velocity no-escape condition used in the Type I blow-up analysis.
 \end{abstract}
 
 \maketitle
@@ -116,11 +117,10 @@ falls under the local Type II alternative.
 The concentration and Type I/Type II dichotomy arguments are local in
 spacetime.  Apart from the standard Caffarelli--Kohn--Nirenberg
 \(\varepsilon\)-regularity theorem, all quantities and alternatives used in
-that local argument are defined below.  The final no-escape section adds a
-whole-space finite-energy Type I hypothesis only to fix the standard Leray
-pressure gauge and to handle fixed rescalings near the terminal time; its
-uniform estimates are still uniformly local and do not use the size of the
-global energy or global dissipation.
+that local argument are defined below.  The terminal bridge section records how
+the companion residual paper upgrades the local pointwise Type I envelope to
+terminal velocity no-escape through the endpoint weak-Serrin local Type I
+package.
 
 \section{Suitable Weak Solutions and Singular Points}
 
@@ -1069,17 +1069,41 @@ concentration point.
 \label{sec:local-typeI-terminal-bridge-paper0}
 
 We record the interface used by the companion residual paper
-\cite{DuranPaperIV}.  The point is that the local pointwise Type I alternative in
-\cref{def:typeI-concentration} is already strong enough, after rescaling at
-the singular point, to give the compactness input required by the terminal
-concentration package.  Thus a finite-energy singular point satisfying the
-local pointwise Type I bound enters the terminal profile analysis without adding a
-separate whole-space no-escape hypothesis.
+\cite{DuranPaperIV}.  The local pointwise Type I alternative in
+\cref{def:typeI-concentration} is strong enough, after rescaling at the singular
+point, to give compactness on every compact negative-time cylinder.  The
+companion residual paper also records the endpoint weak-Serrin bridge:
+for suitable weak solutions the local pointwise Type I envelope belongs to
+\(L^{2,\infty}_tL^\infty_x\), hence the Albritton--Barker weak Serrin local
+Type I package gives the scale-invariant \(A\)-bound on smaller cylinders and
+therefore terminal velocity no-escape.  Thus positive local Type I
+concentration sequences are admissible for the Paper I Seregin extraction.
 
 Throughout this section \(z_*=(x_*,T)\), and
 \[
   Q_1(0,0)=B_1(0)\times(-1,0).
 \]
+
+\begin{definition}[Admissible local Type I bridge sequence]
+\label{def:paper0-admissible-local-bridge-sequence}
+For a local pointwise Type I point \(z_*=(x_*,T)\), a sequence
+\(r_n\downarrow0\) is an admissible local Type I bridge sequence if the rescaled
+velocities
+\[
+  u_n(x,t)=r_nu(x_*+r_nx,T+r_n^2t)
+\]
+satisfy, for some \(\eta_v>0\),
+\[
+   \int_{Q_1(0,0)} |u_n|^3\,dx\,dt\ge\eta_v
+   \qquad\text{for every }n,
+\]
+and
+\[
+   \lim_{\sigma\downarrow0}
+   \sup_n
+   \int_{-\sigma}^{0}\int_{B_1}|u_n|^3\,dx\,dt=0 .
+\]
+\end{definition}
 
 \begin{proposition}[Local pointwise Type I rescalings have terminal compactness]
 \label{prop:paper0-local-typeI-terminal-compactness}
@@ -1209,23 +1233,52 @@ energy inequality gives an ancient suitable weak solution, and the pointwise
 Type I bound passes to the limit.
 \end{proof}
 
-\begin{lemma}[Local pointwise Type I concentration enters the terminal dichotomy]
-\label{lem:paper0-local-typeI-into-terminal-dichotomy}
-Assume the companion residual paper's realized critical-tail rigidity input.
+\begin{corollary}[Local pointwise Type I bridge sequences are admissible]
+\label{cor:paper0-local-typeI-bridge-admissible}
 Under the hypotheses of
-\cref{prop:paper0-local-typeI-terminal-compactness}, there exist
-\(\eta_v>0\) and a sequence \(r_n\downarrow0\) such that
-\begin{equation}\label{eq:paper0-local-typeI-bridge-velocity-concentration}
-  \int_{Q_1(0,0)} |u_n|^3\,dx\,dt\ge\eta_v
+\cref{prop:paper0-local-typeI-terminal-compactness}, let \(r_n\downarrow0\) be
+any sequence such that the rescaled velocities satisfy
+\[
+  \int_{Q_1(0,0)} |u_n|^3\,dx\,dt\ge\eta_v>0
+  \qquad\text{for all }n .
+\]
+Then \(r_n\) is an admissible local Type I bridge sequence in the sense of
+\cref{def:paper0-admissible-local-bridge-sequence}.
+\end{corollary}
+
+\begin{proof}
+The displayed positive concentration lower bound is the first requirement in
+\cref{def:paper0-admissible-local-bridge-sequence}.  The companion residual
+paper proves, using the Albritton--Barker weak Serrin local Type I estimate,
+that the local pointwise Type I envelope implies terminal velocity no-escape
+for every rescaled sequence
+\cite{AlbrittonBarker2019,DuranPaperIV}.  This is exactly the second requirement in
+\cref{def:paper0-admissible-local-bridge-sequence}.
+\end{proof}
+
+\begin{lemma}[Local Type I concentration enters the terminal dichotomy]
+\label{lem:paper0-local-typeI-into-terminal-dichotomy}
+Under the hypotheses of
+\cref{prop:paper0-local-typeI-terminal-compactness}, let \(r_n\downarrow0\) be
+a velocity concentration sequence satisfying
+\[
+  \int_{Q_1(0,0)} |u_n|^3\,dx\,dt\ge\eta_v>0
+  \qquad\text{for all }n .
+\]
+Then \(r_n\) is admissible by
+\cref{cor:paper0-local-typeI-bridge-admissible}.  There are
+\(\sigma_0\in(0,1)\) and \(\eta_1>0\) such that
+\begin{equation}\label{eq:paper0-local-typeI-bridge-away-mass}
+  \int_{-1}^{-\sigma_0}\int_{B_1}|u_n|^3\,dx\,dt\ge\eta_1
   \qquad\text{for all }n.
 \end{equation}
 Consequently, after applying the terminal concentration package of the
 companion residual paper \cite{DuranPaperIV} with a threshold
-\(\varepsilon_{\rm sd}\le\eta_v\), the retained compact concentration issued
+\(\varepsilon_{\rm sd}\le\eta_1\), the retained compact concentration issued
 from the origin recentering has no loss of local compactness.  The paired
 terminal decomposition produces an active retained profile locus plus a
-residual remainder.  With realized critical-tail rigidity made explicit in the
-companion paper, and with active path-space recurrence proved there, the
+residual remainder.  With realized critical-tail stratification and discharge
+proved in the companion paper, and with active path-space recurrence proved there, the
 companion package excludes mixed compact--diffuse remainders,
 compact--noncompact remainders, and infinite active descendant branches.  Thus
 the retained compact concentration is reduced to a single retained
@@ -1234,20 +1287,22 @@ profiles.
 \end{lemma}
 
 \begin{proof}
-Since \(x_*\in\Sigma(T)\), \cref{cor:velocity-concentration} supplies
-\(\eta_v>0\) and \(r_n\downarrow0\) with
-\[
-  C(z_*,r_n)
-  =r_n^{-2}\int_{T-r_n^2}^{T}\int_{B_{r_n}(x_*)}|u|^3\,dx\,dt
-  \ge\eta_v .
-\]
-After the rescaling \eqref{eq:paper0-local-typeI-bridge-rescaling}, this is
-exactly \eqref{eq:paper0-local-typeI-bridge-velocity-concentration}.  The
-compactness part follows from
-\cref{prop:paper0-local-typeI-terminal-compactness}.  The local CKN measure in
-the terminal package dominates the velocity contribution, so the origin
-recentering is \(\varepsilon_{\rm sd}\)-concentrating whenever
-\(\varepsilon_{\rm sd}\le\eta_v\).  The terminal exhaustion theorem of the
+The no-escape condition in
+\cref{def:paper0-admissible-local-bridge-sequence} gives \(\sigma_0>0\) such
+that the terminal layer \(B_1\times(-\sigma_0,0)\) carries at most half of the
+fixed \(Q_1\) velocity mass.  This proves
+\eqref{eq:paper0-local-typeI-bridge-away-mass}.  The compactness part follows
+from \cref{prop:paper0-local-typeI-terminal-compactness} on the compact
+negative-time cylinder \(B_1\times[-1,-\sigma_0]\).  Strong local \(L^3\)
+convergence on this cylinder passes the positive mass to the ancient limit.
+The local CKN measure in the terminal package dominates the velocity
+contribution, so after a finite covering of
+\(B_1\times(-1,-\sigma_0)\) by unit terminal cylinders, one origin-frame
+recentering is \(\varepsilon_{\rm sd}\)-concentrating for a fixed
+\(\varepsilon_{\rm sd}>0\) depending on \(\eta_1\).  This is the only point at
+which terminal no-escape is used.
+
+The terminal exhaustion theorem of the
 companion residual paper is paired: it records the active retained profile
 locus together with a residual remainder.  Its diffuse-defect trichotomy and
 critical-tail compactification route compact core plus diffuse/noncompact
@@ -1257,22 +1312,24 @@ single retained profile or a finite separated retained family remains at this
 bridge stage.
 \end{proof}
 
-\begin{theorem}[Local pointwise Type I entry into the full exclusion pipeline]
+\begin{theorem}[Local Type I entry into the full exclusion pipeline]
 \label{thm:paper0-local-typeI-entry-pipeline}
-Assume the companion terminal concentration package and residual exclusions of
-\cite{DuranPaperIV}, including the realized critical-tail rigidity input stated
-there.  Let \((u,p)\) be a finite-energy suitable weak solution
+Let \((u,p)\) be a finite-energy suitable weak solution
 on \(\mathbb R^3\times(0,T)\), and let \(z_*=(x_*,T)\) be a singular point
 satisfying the local pointwise Type I bound
 \eqref{eq:paper0-local-typeI-bridge-bound}.  Then the rescalings at \(z_*\)
 generate a bounded centered Type I Seregin profile with retained local
 concentration, and the companion terminal package applies to that profile.  In
-particular, no finite-energy local pointwise Type I singular point exists once
-the terminal package is included.
+particular, no finite-energy local pointwise Type I singular point exists in
+the completed Papers~0--IV pipeline.
 \end{theorem}
 
 \begin{proof}
-By \cref{lem:paper0-local-typeI-into-terminal-dichotomy}, the local pointwise Type I
+Choose the positive \(Q_1\) velocity concentration sequence supplied by the
+local concentration theorem.  By
+\cref{cor:paper0-local-typeI-bridge-admissible}, this sequence satisfies
+terminal no-escape and is admissible.
+By \cref{lem:paper0-local-typeI-into-terminal-dichotomy}, the local Type I
 singularity generates retained compact concentration with local compactness.
 The compactness statement gives an ancient Type I limit satisfying
 \(|U(x,t)|\le M(-t)^{-1/2}\); after the centered change of variables this is a
@@ -1285,27 +1342,30 @@ residual paper applies: finite separated retained families are excluded there,
 infinite active branches are excluded by active path-space recurrence, mixed
 compact--diffuse tails are routed through critical-tail compactification and
 realized critical-tail rigidity, and a remaining single retained profile is forced through indecomposability,
-parasitic-free mildness inheritance, and the endpoint Liouville contradiction.  Thus the
-assumed local pointwise Type I singular point cannot exist in the completed pipeline.
+parasitic-free mildness inheritance, and the endpoint Liouville contradiction.
+Thus the assumed local Type I singular point cannot exist in the completed
+pipeline.
 \end{proof}
 
-\begin{corollary}[Finite-energy singularities are locally Type II]
+\begin{corollary}[Local Type I alternatives are excluded]
 \label{cor:paper0-local-typeII-after-bridge}
-In the completed Papers~0--IV pipeline, assuming the companion residual
-paper's realized critical-tail rigidity input, every
-finite-energy singular point falls into the local Type II alternative of
-\cref{def:typeII-alternative}.
+In the completed Papers~0--IV pipeline, the local Type I alternative is
+excluded for every finite-energy singular point.  Hence every finite-energy
+singular point belongs to the local Type II alternative in the dichotomy above.
 \end{corollary}
 
 \begin{proof}
-By \cref{thm:typeI-typeII-dichotomy}, every singular point lies in either the
-local Type I alternative or the local Type II alternative.  The local Type I
-alternative is excluded by
-\cref{thm:paper0-local-typeI-entry-pipeline}.  Therefore only the local Type II
-alternative remains.
+This is \cref{thm:paper0-local-typeI-entry-pipeline} restated in the language
+of the local Type I/local Type II dichotomy.
 \end{proof}
 
 \begin{thebibliography}{9}
+
+\bibitem{AlbrittonBarker2019}
+D.~Albritton and T.~Barker,
+\emph{On local Type I singularities of the Navier--Stokes equations and
+Liouville theorems},
+J. Math. Fluid Mech. \textbf{21} (2019), Article 43.
 
 \bibitem{CKN1982}
 L.~Caffarelli, R.~Kohn, and L.~Nirenberg,

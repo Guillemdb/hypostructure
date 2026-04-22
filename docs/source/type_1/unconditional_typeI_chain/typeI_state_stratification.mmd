@@ -1,0 +1,110 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 30, "rankSpacing": 42}, "theme": "base"}}%%
+flowchart TD
+    A([Hypothetical local pointwise Type I singularity at z_*])
+    B{Terminal entry criterion}
+    C[Admissible Type I package<br/>Type I bound + velocity concentration + terminal no-escape]
+    D[Paper I Seregin extraction<br/>nonzero bounded ancient mild/Seregin profile U<br/>with retained compact local L3 concentration]
+
+    A --> B
+    B -->|local terminal no-escape theorem| C
+    C --> D
+
+    E{Paper I--III non-residual tests}
+    D --> E
+
+    L1[[Leaf: small-amplitude Type I singularity<br/>excluded by epsilon-regularity / Paper I]]
+    L2[[Leaf: stationary L3 ancient singularity<br/>excluded by Paper I]]
+    L3[[Leaf: uniformly L3-tight ancient singularity<br/>excluded by Paper II + endpoint Liouville]]
+    L4[[Leaf: closed structured/decay singularity<br/>excluded by Paper III]]
+    R[Coarse residual class R(S;I,J)<br/>all earlier alternatives removed]
+
+    E -->|small amplitude?| L1
+    E -->|stationary L3?| L2
+    E -->|uniformly L3-tight?| L3
+    E -->|closed structured/decay?| L4
+    E -->|none of the above| R
+
+    F{Refined residual ledger<br/>ordered branch criterion}
+    R --> F
+
+    R1[[Leaf: C_ax singularity<br/>axisymmetric bounded-circulation residual<br/>excluded by R1 axis-circulation Liouville]]
+    R2[[Leaf: C_rot singularity<br/>rotational relative equilibrium<br/>excluded by localized Coriolis-flux rigidity]]
+    R3[[Leaf: C_stat singularity<br/>degenerate stationary hull with retained concentration<br/>excluded by terminal concentration theorem]]
+    R4[[Leaf: C_aff singularity<br/>affine/parasitic lower branch<br/>excluded by oscillatory-entry normalization]]
+
+    F -->|axisymmetric bounded circulation?| R1
+    F -->|rotational relative equilibrium?| R2
+    F -->|stationary hull with retained concentration?| R3
+    F -->|affine/parasitic lower branch?| R4
+
+    T{Critical-tail criterion}
+    F -->|critical-tail boundary defect?| T
+
+    T1[[Leaf: C_logdiff singularity<br/>log-diffuse critical tail<br/>excluded by log-window descendants + hidden-scale closure]]
+    T2[[Leaf: C_young singularity<br/>Young critical tail<br/>excluded by first-bad mesoscopic routing]]
+    T3[[Leaf: C_homcrit singularity<br/>coherent homogeneous critical tail<br/>excluded by bounded-origin realization]]
+    T4[[Leaf: C_logper singularity<br/>coherent log-periodic critical tail<br/>excluded by bounded-origin realization]]
+    T5[[Leaf: C_apcrit singularity<br/>coherent aperiodic critical tail<br/>excluded by bounded-origin realization]]
+
+    T -->|log-diffuse?| T1
+    T -->|Young-measure tail?| T2
+    T -->|homogeneous coherent tail?| T3
+    T -->|log-periodic coherent tail?| T4
+    T -->|aperiodic coherent tail?| T5
+
+    G[C_gen generic terminal residual<br/>no named symmetry, no lower branch, no critical-tail stratum]
+    F -->|none of the residual ledger branches above| G
+
+    H{Terminal active-profile criterion}
+    G --> H
+
+    G1[[Leaf: mixed residual singularity<br/>compact retained core + diffuse or noncompact remainder<br/>excluded by no mixed compact--diffuse residual state]]
+    G2[[Leaf: multi-profile singularity<br/>finite separated retained concentration profiles<br/>excluded by no finite separated-family theorem]]
+    G3[[Leaf: active-descendant singularity<br/>finite loop or infinite active branch<br/>excluded by compact active path-space recurrence]]
+    I[Single terminally indecomposable retained profile]
+
+    H -->|mixed compact--diffuse/noncompact state?| G1
+    H -->|two or more separated retained profiles?| G2
+    H -->|active descendant branch or loop?| G3
+    H -->|single profile; no tail limit, no diffuse tail, no noncompact recentering| I
+
+    J{Endpoint criterion}
+    I --> J
+
+    G4[[Leaf: indecomposable L3-sequence singularity<br/>backward sequence tau_k to -infinity with bounded L3<br/>excluded by parasitic-free mildness + Albritton--Barker endpoint Liouville]]
+    G5[[Leaf: failed sequence-L3 alternative<br/>forces diffuse/tail concentration or retained tail limit<br/>therefore returns to mixed, critical-tail, or active branch above]]
+
+    J -->|sequence-L3 completeness holds| G4
+    J -->|otherwise| G5
+
+    Z([All leaves are impossible<br/>therefore no Type I singularity remains])
+    L1 --> Z
+    L2 --> Z
+    L3 --> Z
+    L4 --> Z
+    R1 --> Z
+    R2 --> Z
+    R3 --> Z
+    R4 --> Z
+    T1 --> Z
+    T2 --> Z
+    T3 --> Z
+    T4 --> Z
+    T5 --> Z
+    G1 --> Z
+    G2 --> Z
+    G3 --> Z
+    G4 --> Z
+    G5 --> Z
+
+    classDef entry fill:#eef7ff,stroke:#2b5c8a,stroke-width:1px,color:#111;
+    classDef decision fill:#fff8df,stroke:#9a6b00,stroke-width:1px,color:#111;
+    classDef leaf fill:#fff1f1,stroke:#8a2b2b,stroke-width:1px,color:#111;
+    classDef residual fill:#f1f5ff,stroke:#4b5f9a,stroke-width:1px,color:#111;
+    classDef conclusion fill:#eef9ee,stroke:#2f7d32,stroke-width:2px,color:#111;
+
+    class A,C,D entry;
+    class B,E,F,T,H,J decision;
+    class R,G,I residual;
+    class L1,L2,L3,L4,R1,R2,R3,R4,T1,T2,T3,T4,T5,G1,G2,G3,G4,G5 leaf;
+    class Z conclusion;
