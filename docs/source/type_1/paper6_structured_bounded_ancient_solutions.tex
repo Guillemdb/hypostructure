@@ -54,16 +54,15 @@ Let \(U:\mathbb R^{3}\times(-\infty,0)\to\mathbb R^{3}\) and
 \end{equation}
 The Type I analysis of a finite-time singularity leads, after rescaling about a
 singular point, to nonzero mild ancient solutions satisfying the Type I bound
-\cite{Paper0LocalConcentration,Paper1TypeI,Seregin2012,SereginSverak2009}
+\cite{Seregin2012,SereginSverak2009}
 \begin{equation}\label{eq:type-i}
 \sup_{t<0}\sqrt{-t}\,\|U(\cdot,t)\|_{L^\infty(\mathbb R^3)}<\infty .
 \end{equation}
 Throughout the paper, a nonzero ancient limit means an ancient solution
-obtained from the blow-up procedure with the normalization fixed in the
-companion papers: the limiting solution carries a positive
+obtained from the blow-up procedure with the following normalization: the
+limiting solution carries a positive
 pressure-normalized local critical density, as in Seregin's compactness
-argument
-\cite{Paper0LocalConcentration,Paper1TypeI,Seregin2012}.  The present paper
+argument \cite{Seregin2012}.  The present paper
 records three additional structures under which such limits can be excluded.
 
 The first case is axisymmetry without swirl.  In this case the argument is
@@ -93,12 +92,8 @@ Every exclusion below is applied to an ancient limit produced by a singularity.
 Such a limit is a bounded ancient solution together with the nontriviality
 normalization inherited from the blow-up sequence: it carries a fixed positive
 pressure-normalized local critical density.  This is the nonzero ancient-limit
-normalization obtained from the positive local concentration and compactness
-persistence statements in
-\cite[Theorem \texttt{thm:singular-positive} and Proposition
-\texttt{prop:compactness-persistence}]{Paper0LocalConcentration} and from the
-selected-scale nontriviality theorem
-\cite[Proposition \texttt{prop:nonzero}]{Paper1TypeI}.  Therefore any
+normalization obtained from positive local concentration, compactness
+persistence, and selected-scale nontriviality.  Therefore any
 Liouville theorem which concludes \(U\equiv0\) contradicts the construction of
 the limit.  Apart from this nontriviality normalization, the arguments below
 use only the stated PDE properties of the ancient solution.
@@ -106,17 +101,14 @@ use only the stated PDE properties of the ancient solution.
 \begin{lemma}[Nonzero normalization of blow-up limits]
 \label{lem:nonzero-normalization}
 Let \(U\) be a Type I ancient limit obtained from the blow-up procedure used in
-the companion papers.  Then \(U\not\equiv0\) on
+the normalized Seregin compactness construction.  Then \(U\not\equiv0\) on
 \(\mathbb R^3\times(-\infty,0)\).
 \end{lemma}
 
 \begin{proof}
 The blow-up construction fixes a positive pressure-normalized local critical
-density for the limiting solution.  The persistence of this positive density
-under the local compactness passage is
-\cite[Proposition \texttt{prop:compactness-persistence}]
-{Paper0LocalConcentration}, and the selected Type I ancient limit is proved
-nonzero in \cite[Proposition \texttt{prop:nonzero}]{Paper1TypeI}.  The
+density for the limiting solution.  This positive density persists under the
+local compactness passage, and the selected Type I ancient limit is nonzero.  The
 identically zero velocity has vanishing local critical velocity density and,
 under the pressure gauge convention used throughout this paper, vanishing
 pressure-normalized density.  Hence the normalized ancient limit cannot be the
@@ -150,11 +142,9 @@ the whole-space operators on \(\mathbb R^3\); see, for example, Sohr's
 functional-analytic treatment of the Navier--Stokes equations \cite{Sohr2001}.
 The pressure is always understood modulo functions of time, since only
 \(\nabla P\) appears in \eqref{eq:ns}; invariance of the equation and the
-local energy inequality under such pressure gauges is recorded in
-\cite[Lemma \texttt{lem:gauges-harmless}]{Paper1TypeI}.  The scale-invariant
-pressure-normalized quantities used in the blow-up construction are those of
-\cite[Proposition \texttt{prop:critical-scaling}]
-{Paper0LocalConcentration}.
+local energy inequality under such pressure gauges is used throughout.  The
+pressure-normalized quantities used in the blow-up construction are
+scale-invariant.
 When an axisymmetric scalar such as
 \(\Gamma_U(r,z,t)=rU_\theta(r,z,t)\) is placed in an \(L^p_x(\mathbb R^3)\)
 space, it is regarded as the corresponding function of
@@ -207,12 +197,8 @@ standard pressure identity
 \[
    -\Delta P=\partial_i\partial_j(U_iU_j).
 \]
-This pressure reconstruction and the associated time-dependent gauge ambiguity
-are already established for the series in
-\cite[Lemmas \texttt{lem:gauges-harmless} and \texttt{lem:pressure}]
-{Paper1TypeI} and
-\cite[Theorem \texttt{thm:gauges} and Lemma \texttt{lem:mild-to-projected}]
-{Paper2TightAncient}; we use that convention here without reproving it.
+This pressure reconstruction is understood modulo functions of time, which is
+the gauge convention used here.
 The velocity and pressure in backward self-similar variables are
 \begin{equation}\label{eq:self-similar}
 V(y,\tau)=\sqrt{-t}\,U(x,t),\qquad
@@ -235,11 +221,9 @@ smooth solution of \eqref{eq:ns} by the inverse change of variables.
 \end{lemma}
 
 \begin{proof}
-The asserted equation is the backward self-similar formulation used throughout
-the Type I part of the series.  The chain-rule computation, including the
-pressure scaling and the divergence equation, is given in
-\cite[Lemma \texttt{lem:renormalized-equation}]{Paper1TypeI}.  That lemma
-writes the equation as
+The asserted equation follows from the backward self-similar chain-rule
+computation, including the pressure scaling and the divergence equation.  The
+computation writes the equation as
 \[
    \partial_\tau V+(V\cdot\nabla)V+\nabla Q
    =
@@ -583,11 +567,7 @@ a finite-time Type I singularity can be axisymmetric without swirl.
 By the definition used in the blow-up construction, the ancient limit is a
 smooth Type I ancient solution and is not identically zero: the normalization
 fixes a positive pressure-normalized local critical density, as recalled in the
-normalization convention above and proved in
-\cite[Theorem \texttt{thm:singular-positive} and Proposition
-\texttt{prop:compactness-persistence}]{Paper0LocalConcentration} and
-\cite[Proposition \texttt{prop:nonzero}, Lemma \texttt{lem:smoothness}, and
-Corollary \texttt{cor:classical-type-I-bound}]{Paper1TypeI}.  If this limit
+normalization convention above.  If this limit
 were axisymmetric without swirl,
 \Cref{prop:no-swirl-type-i} would imply \(U\equiv0\).  This contradicts the
 nonzero normalization in \Cref{lem:nonzero-normalization}, and hence the
@@ -707,13 +687,10 @@ with \(\lambda=L/(2\pi)\).  Then
 \]
 so the scaled solution is defined on
 \(\mathbb R^2\times(\mathbb R/2\pi\mathbb Z)=\mathbb R^2\times\mathbb T^1\).
-The fact that this parabolic scaling preserves the Navier--Stokes equation,
-the divergence condition, and pressure gauges is the scaling statement
-proved earlier in \cite[Lemmas \texttt{lem:scaling} and
-\texttt{lem:gauges-harmless}]{Paper1TypeI}, together with the
-scale-invariance of the pressure-normalized local quantities in
-\cite[Proposition \texttt{prop:critical-scaling}]
-{Paper0LocalConcentration}; we use it here only to normalize the axial period.
+The fact that this parabolic scaling preserves the Navier--Stokes equation, the
+divergence condition, pressure gauges, and the pressure-normalized local
+quantities follows by direct scaling.  We use it here only to normalize the
+axial period.
 Axisymmetry is preserved because scalar dilations commute with rotations around
 the \(z\)-axis.  Boundedness is preserved because
 \[
@@ -808,11 +785,8 @@ cannot be axisymmetric with self-similar velocity satisfying
 
 \begin{proof}
 The parameter in the proposition is the same \(\gamma\) as in
-\Cref{hyp:swirl}.  By the blow-up construction cited in the normalization
-convention, specifically
-\cite[Proposition \texttt{prop:nonzero}, Lemma \texttt{lem:smoothness}, and
-Corollary \texttt{cor:classical-type-I-bound}]{Paper1TypeI}, \(U\) is a smooth
-Type I ancient solution and is not identically zero.  The additional
+\Cref{hyp:swirl}.  By the normalization convention, \(U\) is a smooth Type I
+ancient solution and is not identically zero.  The additional
 hypotheses in the proposition are precisely axisymmetry and
 \eqref{eq:controlled-swirl-assumption}.  Thus all hypotheses of
 \Cref{hyp:swirl} are satisfied with the same exponent \(\gamma\), and no
@@ -914,10 +888,8 @@ self-similar variables cannot satisfy \eqref{eq:weighted-decay}.
 
 \begin{proof}
 The parameter in the proposition is the same \(m\) as in \Cref{hyp:weighted}.
-By the blow-up construction cited in the normalization convention, specifically
-\cite[Proposition \texttt{prop:nonzero}, Lemma \texttt{lem:smoothness}, and
-Corollary \texttt{cor:classical-type-I-bound}]{Paper1TypeI}, \(U\) is a smooth
-Type I ancient solution and is not identically zero.  If its
+By the normalization convention, \(U\) is a smooth Type I ancient solution and
+is not identically zero.  If its
 self-similar velocity \(V\) satisfied \eqref{eq:weighted-decay}, then all
 hypotheses of \Cref{hyp:weighted} would be satisfied with the same weight
 \(m\).  Therefore \(U\equiv0\), contradicting the nonzero normalization
@@ -1019,27 +991,6 @@ G. Koch, N. Nadirashvili, G. Seregin, and V. Sverak,
 Acta Math. \textbf{203} (2009), no. 1, 83--105,
 doi: \href{https://doi.org/10.1007/s11511-009-0039-6}
 {10.1007/s11511-009-0039-6}.
-
-\bibitem{Paper0LocalConcentration}
-G. Cordero,
-\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
-Navier--Stokes},
-companion manuscript in this series,
-\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
-
-\bibitem{Paper1TypeI}
-G. Duran Ballester,
-\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes Equations
-and the Centered Ancient Equation},
-companion manuscript in this series,
-\texttt{docs/source/type\_1/paper1\_typeI\_blowup\_limits\_centered\_ancient.tex}.
-
-\bibitem{Paper2TightAncient}
-G. Duran Ballester,
-\emph{Uniformly Tight Ancient Solutions of the Navier--Stokes Equations in
-Self-similar Variables},
-companion manuscript in this series,
-\texttt{docs/source/type\_1/paper2\_tight\_ancient\_stationary\_rigidity.tex}.
 
 \bibitem{LRZ2022}
 Z. Lei, X. Ren, and Q. S. Zhang,

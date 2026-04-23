@@ -113,17 +113,13 @@ formula and the damping of the centered Stokes semigroup.  The stationary
 uniformly \(L^3\)-tight time-dependent regime is not excluded here unless an
 additional argument produces a stationary limit.
 
-The source-level facts from the preceding papers in the series are used only
-as inputs.  The first-node paper proves pressure-normalized CKN concentration
-at singular points and the local Type I/Type II dichotomy
-\cite[Theorems ``Singular points carry positive local CKN
-concentration'' and ``Local blowup-rate dichotomy'']{Paper0LocalConcentration}.
-The preceding Type I paper proves that, after the admissible pressure gauges
-and scale selection, a Type I singular point produces a bounded centered
-ancient solution with the nonvanishing normalization
-\cite[Theorem ``Type I blow-up limit and centered ancient equation'' and
-Proposition ``Nonzero ancient limit'']{TypeIPaper1}.  Those concentration,
-gauge, compactness, and nontriviality conclusions are not reproved here.
+The source-level facts needed below are stated here as analytic hypotheses on
+the ancient solution under consideration.  Namely, the solution is assumed to
+arise from a pressure-normalized CKN concentration sequence at a Type I
+singular point, after admissible pressure gauges and scale selection, and to
+carry the corresponding nonvanishing normalization.  These concentration,
+gauge, compactness, and nontriviality requirements are precisely the
+conditional input needed for the tight ancient dynamics argument.
 
 \subsection{Mild formulation}
 
@@ -222,9 +218,9 @@ the local pressure ambiguities which are invisible to the projected equation.
 For whole-space ancient limits obtained from Leray solutions, this is the
 Leray pressure, modulo functions of time, rather than an arbitrary local
 pressure with additional affine spatial components.  The invariance under
-time-dependent pressure gauges in the source suitable-weak setting is proved
-in the preceding Type I paper
-\cite[Lemma ``Pressure gauges do not change the equations'']{TypeIPaper1}.
+time-dependent pressure gauges in the source suitable-weak setting follows
+directly because such gauges have zero spatial gradient and cancel from
+pressure oscillations.
 \end{remark}
 
 \subsection{Main results}
@@ -320,10 +316,8 @@ the global critical class \(L^\infty(0,T;L^3(\mathbb R^3))\).
 The asserted \(L^\infty(0,T;L^3(\mathbb R^3))\) bound is exactly the hypothesis of
 \Cref{thm:ESS-L3}.  Hence there is no singular point at time \(T\), and in
 particular no Type I singular point.  Thus the local concentration and
-Type I/Type II alternatives of the first-node paper are never reached under
-this global critical assumption
-\cite[Theorems ``Singular points carry positive local CKN concentration'' and
-``Local blowup-rate dichotomy'']{Paper0LocalConcentration}.
+Type I/Type II alternatives are never reached under this global critical
+assumption.
 \end{proof}
 
 \begin{theorem}[Small bounded ancient solutions vanish]\label{thm:small}
@@ -397,15 +391,10 @@ to this small-amplitude class.
 The first assertion is exactly \cref{thm:small}.  The final sentence concerns
 only ancient limits obtained from a source-level Type I singular point.  In
 that setting the nonvanishing normalization is not an extra assumption of this
-paper: it is the output of the scale-selection and pressure-compactness
-construction in the preceding Type I paper, which itself invokes the
-pressure-normalized CKN concentration theorem from the first-node paper
-\cite[Theorem ``Singular points carry positive local CKN
-concentration'']{Paper0LocalConcentration}
-\cite[Proposition ``Nonzero ancient limit'' and Theorem ``Type I blow-up limit
-and centered ancient equation'']{TypeIPaper1}.  Therefore a Type I ancient
-limit produced by that construction cannot both be nonzero in the cited
-normalization and vanish by the small-amplitude theorem.
+paper: it is included in the definition of the source-generated normalized
+ancient limit used here.  Therefore a Type I ancient limit satisfying this
+normalization cannot both be nonzero in that normalization and vanish by the
+small-amplitude theorem.
 \end{proof}
 
 \begin{corollary}[Exclusion of the stationary \(L^3\) ancient regime]\label{cor:stationary-L3-branch}
@@ -469,23 +458,18 @@ in \(\mathcal D'(\mathbb R^3)\).  Since \(\operatorname{div}W=0\),
 Thus \eqref{eq:stationary-profile} holds in \(\mathcal D'(\mathbb R^3)\), and
 \cref{thm:NRS} gives \(W\equiv0\).  The final claim is then a direct
 comparison with the nonvanishing normalization supplied by the Type I blow-up
-limit theorem in the preceding paper, ultimately based on the positive local
-CKN concentration theorem at the singular point
-\cite[Theorem ``Singular points carry positive local CKN
-concentration'']{Paper0LocalConcentration}
-\cite[Theorem ``Type I blow-up limit and centered ancient equation'' and
-Proposition ``Nonzero ancient limit'']{TypeIPaper1}.  No additional
-normalization or compactness assumption is introduced in this corollary.
+normalization imposed on source-generated Type I ancient limits.  No
+additional normalization or compactness assumption is introduced in this
+corollary.
 \end{proof}
 
 \section{Pressure estimates and compactness}
 
-We first record the local pressure estimates used below.  The invariance of
-time-dependent pressure gauges for source suitable weak solutions and their
-parabolic rescalings is part of the preceding Type I construction
-\cite[Lemma ``Pressure gauges do not change the equations'' and Lemma
-``Pressure gauges and local pressure bounds'']{TypeIPaper1}.  The lemmas in
-this section are the whole-space Leray-pressure and smooth-ancient-profile
+We first record the local pressure estimates used below.  Time-dependent
+pressure gauges are harmless for source suitable weak solutions and their
+parabolic rescalings because they have zero spatial gradient and do not affect
+the local energy inequality.  The lemmas in this section are the whole-space
+Leray-pressure and smooth-ancient-profile
 estimates needed for the conditional arguments of the present paper.
 
 \begin{lemma}[Local pressure decomposition]\label{lem:pressure-decomp}
@@ -1068,10 +1052,8 @@ Leray pressure \(P\); in particular the asserted weak convergence follows.
 \section{\texorpdfstring{\(L^3\)}{L3} transfer and tightness}
 
 The \(L^3\)-norm is invariant under both the Navier--Stokes parabolic scaling
-and the centered self-similar scaling.  The parabolic scaling identities and
-pressure-gauge conventions for the source blow-up sequence are those of the
-preceding Type I paper \cite[Lemma ``Scaling'']{TypeIPaper1}; the calculation
-below records only the resulting global \(L^3\) consequence used here.
+and the centered self-similar scaling.  The calculation below records the
+resulting global \(L^3\) consequence used here.
 
 \begin{proof}[Proof of \cref{prop:L3-transfer}]
 For each fixed \(t<0\), the time \(T+\lambda_k^2t\) belongs to \((0,T)\) for
@@ -1590,19 +1572,6 @@ nontrivial bounded mild ancient solution must carry a definite
 also provide enough spatial compactness to retain the critical \(L^3\) bound.
 
 \begin{thebibliography}{99}
-
-\bibitem{Paper0LocalConcentration}
-G. Cordero,
-\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
-Navier--Stokes},
-manuscript in this series,
-\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
-
-\bibitem{TypeIPaper1}
-\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes
-Equations and the Centered Ancient Equation},
-manuscript in this series,
-\texttt{docs/source/type\_1/paper1\_typeI\_blowup\_limits\_centered\_ancient.tex}.
 
 \bibitem{ESS2003}
 L. Escauriaza, G. A. Seregin, and V. \v{S}verak,

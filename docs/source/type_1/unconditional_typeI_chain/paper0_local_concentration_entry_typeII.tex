@@ -618,11 +618,11 @@ boundedness of \(u\) in \(Q_{r/2}(x_0,T)\), contradicting
 \label{sec:auto-no-escape}
 
 The preceding concentration result gives the positive velocity concentration
-sequence used in the Type I blow-up analysis.  In the companion paper, the
-remaining compactness input is a no-escape condition excluding the possibility
-that all of the selected scale-invariant velocity mass collapses into the
-final rescaled time slice.  We prove here that this no-escape condition is
-automatic for finite-energy Type I singularities.
+sequence used in the Type I blow-up analysis.  The remaining compactness input
+is a no-escape condition excluding the possibility that all of the selected
+scale-invariant velocity mass collapses into the final rescaled time slice.
+We prove here that this no-escape condition is automatic for finite-energy
+Type I singularities.
 
 For this section we use, in addition to \(C\) and \(D\), the standard local
 kinetic-energy and dissipation quantities
@@ -1068,16 +1068,16 @@ concentration point.
 \section{Local Pointwise Type I Bridge to the Terminal Concentration Package}
 \label{sec:local-typeI-terminal-bridge-paper0}
 
-We record the interface used by the companion residual paper
-\cite{DuranPaperIV}.  The local pointwise Type I alternative in
+We record the interface used by the conditional Type I proof setup
+\cite{ProofSetupTypeI}.  The local pointwise Type I alternative in
 \cref{def:typeI-concentration} is strong enough, after rescaling at the singular
 point, to give compactness on every compact negative-time cylinder.  The
-companion residual paper also records the endpoint weak-Serrin bridge:
+proof setup also records the endpoint weak-Serrin bridge:
 for suitable weak solutions the local pointwise Type I envelope belongs to
 \(L^{2,\infty}_tL^\infty_x\), hence the Albritton--Barker weak Serrin local
 Type I package gives the scale-invariant \(A\)-bound on smaller cylinders and
 therefore terminal velocity no-escape.  Thus positive local Type I
-concentration sequences are admissible for the Paper I Seregin extraction.
+concentration sequences are admissible for the conditional Seregin extraction.
 
 Throughout this section \(z_*=(x_*,T)\), and
 \[
@@ -1248,11 +1248,12 @@ Then \(r_n\) is an admissible local Type I bridge sequence in the sense of
 
 \begin{proof}
 The displayed positive concentration lower bound is the first requirement in
-\cref{def:paper0-admissible-local-bridge-sequence}.  The companion residual
-paper proves, using the Albritton--Barker weak Serrin local Type I estimate,
-that the local pointwise Type I envelope implies terminal velocity no-escape
-for every rescaled sequence
-\cite{AlbrittonBarker2019,DuranPaperIV}.  This is exactly the second requirement in
+\cref{def:paper0-admissible-local-bridge-sequence}.  The terminal
+no-escape statement is taken here as the endpoint weak-Serrin bridge from the
+conditional proof setup \cite{ProofSetupTypeI}; analytically, it is the
+application of the Albritton--Barker weak Serrin local Type I estimate
+\cite{AlbrittonBarker2019} to the local pointwise Type I envelope.  This is
+exactly the second requirement in
 \cref{def:paper0-admissible-local-bridge-sequence}.
 \end{proof}
 
@@ -1272,14 +1273,14 @@ Then \(r_n\) is admissible by
   \int_{-1}^{-\sigma_0}\int_{B_1}|u_n|^3\,dx\,dt\ge\eta_1
   \qquad\text{for all }n.
 \end{equation}
-Consequently, after applying the terminal concentration package of the
-companion residual paper \cite{DuranPaperIV} with a threshold
+Consequently, after applying the terminal concentration package stated in the
+conditional proof setup \cite{ProofSetupTypeI} with a threshold
 \(\varepsilon_{\rm sd}\le\eta_1\), the retained compact concentration issued
 from the origin recentering has no loss of local compactness.  The paired
 terminal decomposition produces an active retained profile locus plus a
-residual remainder.  With realized critical-tail stratification and discharge
-proved in the companion paper, and with active path-space recurrence proved there, the
-companion package excludes mixed compact--diffuse remainders,
+residual remainder.  With realized critical-tail stratification and active
+path-space recurrence assumed as part of the proof setup, the terminal package
+excludes mixed compact--diffuse remainders,
 compact--noncompact remainders, and infinite active descendant branches.  Thus
 the retained compact concentration is reduced to a single retained
 concentrating profile or a finite separated family of retained concentrating
@@ -1302,14 +1303,12 @@ recentering is \(\varepsilon_{\rm sd}\)-concentrating for a fixed
 \(\varepsilon_{\rm sd}>0\) depending on \(\eta_1\).  This is the only point at
 which terminal no-escape is used.
 
-The terminal exhaustion theorem of the
-companion residual paper is paired: it records the active retained profile
-locus together with a residual remainder.  Its diffuse-defect trichotomy and
-critical-tail compactification route compact core plus diffuse/noncompact
-remainders to the realized critical-tail rigidity theorem, while its active
-path-space recurrence rules out infinite active cascades.  Therefore only a
-single retained profile or a finite separated retained family remains at this
-bridge stage.
+The terminal exhaustion statement used here is the following conditional input
+from the proof setup: the active retained profile locus and residual remainder
+are paired; compact core plus diffuse or noncompact remainders are routed to
+the realized critical-tail rigidity theorem; and infinite active cascades are
+ruled out by recurrence.  Therefore only a single retained profile or a finite
+separated retained family remains at this bridge stage.
 \end{proof}
 
 \begin{theorem}[Local Type I entry into the full exclusion pipeline]
@@ -1319,7 +1318,7 @@ on \(\mathbb R^3\times(0,T)\), and let \(z_*=(x_*,T)\) be a singular point
 satisfying the local pointwise Type I bound
 \eqref{eq:paper0-local-typeI-bridge-bound}.  Then the rescalings at \(z_*\)
 generate a bounded centered Type I Seregin profile with retained local
-concentration, and the companion terminal package applies to that profile.  In
+concentration, and the conditional terminal package applies to that profile.  In
 particular, no finite-energy local pointwise Type I singular point exists in
 the completed Papers~0--IV pipeline.
 \end{theorem}
@@ -1337,11 +1336,12 @@ bounded centered Type I Seregin profile.  If all retained profiles generated by
 the terminal package belong to lower classes already closed in Papers I--III,
 then the contradiction is supplied by those earlier class exclusions.  If some
 retained profile lies outside the lower classes, it is a residual candidate.
-For residual candidates, the terminal local stratification theorem of the
-residual paper applies: finite separated retained families are excluded there,
-infinite active branches are excluded by active path-space recurrence, mixed
-compact--diffuse tails are routed through critical-tail compactification and
-realized critical-tail rigidity, and a remaining single retained profile is forced through indecomposability,
+For residual candidates, we assume the terminal local stratification package
+from the proof setup \cite{ProofSetupTypeI}: finite separated retained
+families are excluded, infinite active branches are excluded by active
+path-space recurrence, mixed compact--diffuse tails are routed through
+critical-tail compactification and realized critical-tail rigidity, and a
+remaining single retained profile is forced through indecomposability,
 parasitic-free mildness inheritance, and the endpoint Liouville contradiction.
 Thus the assumed local Type I singular point cannot exist in the completed
 pipeline.
@@ -1349,7 +1349,7 @@ pipeline.
 
 \begin{corollary}[Local Type I alternatives are excluded]
 \label{cor:paper0-local-typeII-after-bridge}
-In the completed Papers~0--IV pipeline, the local Type I alternative is
+Under the conditional proof-setup hypotheses, the local Type I alternative is
 excluded for every finite-energy singular point.  Hence every finite-energy
 singular point belongs to the local Type II alternative in the dichotomy above.
 \end{corollary}
@@ -1381,10 +1381,10 @@ L.~Escauriaza, G.~A.~Seregin, and V.~{\v S}verak,
 Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250,
 doi:\ \nolinkurl{10.1070/RM2003v058n02ABEH000609}.
 
-\bibitem{DuranPaperIV}
+\bibitem{ProofSetupTypeI}
 G.~Duran Ballester,
-\emph{Local Exclusion of Residual Type I Navier--Stokes Seregin Limits},
-companion manuscript in the Type I chain, 2026.
+\emph{Conditional Type I Navier--Stokes proof setup},
+\texttt{docs/source/type\_1/unconditional\_typeI\_chain/proof\_setup.tex}.
 
 \bibitem{Giga1986}
 Y.~Giga,

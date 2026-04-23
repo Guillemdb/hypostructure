@@ -89,30 +89,18 @@ PDE conclusion which any subsequent rigidity argument must rule out.  In this
 form the statement uses only the standard compactness theory for bounded
 ancient Navier--Stokes solutions.
 
-\subsection{Relation with the preceding papers}
+\subsection{Analytic inputs used in the reduction}
 
-We use the preceding papers in the series as inputs rather than reproving
-their conclusions.  Paper~0 proves that a terminal singular point carries a
-positive pressure-normalized Caffarelli--Kohn--Nirenberg density and records
-the local Type I/Type II dichotomy
-\cite[theorems ``Singular points carry positive local CKN concentration'' and
-``Local blowup-rate dichotomy'']{Paper0}.  Paper~1 converts the Type I branch
-into a smooth bounded ancient solution of \eqref{eq:centered}; the pressure
-gauges, compactness of the rescaled sequence, scale selection, non-triviality,
-renormalized equation, renormalized boundedness, and smoothness are established
-there
-\cite[lemmas ``Pressure gauges and local pressure bounds,'' ``Scale selection
-from local concentration,'' ``Renormalized equation,'' ``Renormalized
-boundedness and non-triviality,'' ``Smoothness,'' and propositions
-``Compactness'' and ``Nonzero ancient limit'']{Paper1}.  Paper~2 proves the
-bounded mild smoothing and compactness results used below, together with
-uniform \(L^3\)-tightness closure and the stationary self-similar rigidity
-interface
-\cite[lemmas ``Smoothing of bounded mild solutions,'' ``Local smooth
-compactness,'' ``Closure of uniform \(L^3\)-tightness,'' theorem ``Stationary
-limits under uniform \(L^3\)-tightness,'' and corollary ``Stationary solutions
-under uniform \(L^3\)-tightness'']{Paper2}.  The last two results in Paper~2
-invoke the stationary theorem of
+We use the following analytic inputs, stated in the language needed below.  A
+terminal singular point carries a positive pressure-normalized
+Caffarelli--Kohn--Nirenberg density and satisfies the local Type I/Type II
+dichotomy.  On the Type I branch, the rescaled sequence admits pressure gauges,
+scale selection, compactness, non-triviality, the centered equation
+\eqref{eq:centered}, renormalized boundedness, and smoothness.  For bounded
+mild ancient solutions, the paper uses the smoothing and compactness results
+proved below, together with uniform \(L^3\)-tightness closure and the stationary
+self-similar rigidity interface.  The stationary rigidity input invokes the
+stationary theorem of
 Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}ver\'ak \cite{NRS1996}; it is not
 reproved here.
 
@@ -271,8 +259,8 @@ Duhamel term is understood by this duality formula.  It defines a bounded
 \]
 Equality against compactly supported smooth tests extends to equality against
 every \(L^1(\mathbb R^3;\mathbb R^3)\) test function by density and boundedness
-of both sides in \(L^\infty(\mathbb R^3;\mathbb R^3)\).  This is the same
-whole-space weak-* mild formulation used in Paper~2 \cite{Paper2}.
+of both sides in \(L^\infty(\mathbb R^3;\mathbb R^3)\).  This is the
+whole-space weak-* mild formulation used throughout the present paper.
 After applying local smoothing, the weak-* time-slice representatives agree
 with the smooth representative on every compact subcylinder.  All pointwise
 and local integral expressions below use this smooth representative.
@@ -304,13 +292,9 @@ The same estimate holds uniformly for any family with a common
 \end{lemma}
 
 \begin{proof}
-This is the bounded mild smoothing theorem proved in Paper~2, in the lemma
-\emph{Smoothing of bounded mild solutions}
-\cite[lemma ``Smoothing of bounded mild solutions'']{Paper2}.  That result is
-stated for the same equation \eqref{eq:centered}, the same whole-space mild
-formulation, and the same \(L^\infty\) class.  Its proof uses the self-similar
-change of variables to the usual Navier--Stokes system, the bounded-data local
-smoothing theory of Kato \cite{Kato1984} and Giga--Miyakawa
+The proof uses the self-similar change of variables to the usual Navier--Stokes
+system, the bounded-data local smoothing theory of Kato \cite{Kato1984} and
+Giga--Miyakawa
 \cite{GigaMiyakawa1985}, and the standard interior parabolic bootstrap, in the
 classical form of Ladyzhenskaya--Solonnikov--Ural'tseva \cite{LSU1968}.  The
 cited statement records explicitly that the constants depend only on the
@@ -345,14 +329,9 @@ for every \(m\ge0\) to a bounded mild ancient solution \(V\) of
 \end{proposition}
 
 \begin{proof}
-This is the local smooth compactness theorem proved in Paper~2, in the lemma
-\emph{Local smooth compactness}
-\cite[lemma ``Local smooth compactness'']{Paper2}.  The hypotheses there are
-identical: the sequence consists of bounded mild ancient solutions of
-\eqref{eq:centered} with a common \(L^\infty\) bound.  The proof in Paper~2
-uses the smoothing theorem \emph{Smoothing of bounded mild solutions},
-Arzela--Ascoli on a countable compact exhaustion, and weak-* passage to the
-mild Duhamel formula using the adjoint Stokes estimate.  Hence it gives both
+The proof uses the smoothing theorem \emph{Smoothing of bounded mild
+solutions}, Arzela--Ascoli on a countable compact exhaustion, and weak-* passage
+to the mild Duhamel formula using the adjoint Stokes estimate.  Hence it gives both
 the local \(C^m\)-subsequence convergence and the fact that the limit remains
 a bounded mild ancient solution.  No pressure or far-field assumption beyond
 the whole-space Leray mild formulation is added.
@@ -437,10 +416,9 @@ then \(V\in A\).
 
 \begin{remark}
 The constants \(R_0\) and \(\eta_0\) are part of the normalization.  In a
-Type I blow-up construction they are obtained after the scale selection and
-nonzero centered-limit construction of Paper~1, which in turn uses the
-positive local CKN concentration supplied by Paper~0
-\cite{Paper0,Paper1}.  In this paper they are fixed data of the closed
+Type I blow-up construction they are obtained after scale selection, nonzero
+centered-limit construction, and positive local CKN concentration.  In this
+paper they are fixed data of the closed
 collection \(A\), not extra assumptions on an individual minimizing sequence.
 \end{remark}
 
@@ -702,10 +680,9 @@ particular, the equation and the Leray mild formulation hold for \(V\).
 \Cref{lem:lsc} gives the \(L^\infty\) bound in
 \eqref{eq:tight-class-bounds}.
 
-Paper~2, in the lemma \emph{Closure of uniform \(L^3\)-tightness}, supplies
-the qualitative closedness of uniform \(L^3\)-tightness under locally smooth
-convergence \cite[lemma ``Closure of uniform \(L^3\)-tightness'']{Paper2}.
-The present class records the stronger fixed-modulus tail bound
+The qualitative closedness of uniform \(L^3\)-tightness under locally smooth
+convergence follows from the next monotone-convergence argument.  The present
+class records the stronger fixed-modulus tail bound
 \eqref{eq:tight-class-tail}; the following monotone-convergence argument
 verifies that this specified modulus is also closed.  The argument uses only
 the displayed inequalities for each fixed radius \(R\), and not any
@@ -801,8 +778,8 @@ uniform tightness hypotheses required in Paper~2.  Applying the
 stationary-tightness corollary there, \emph{Stationary solutions under uniform
 \(L^3\)-tightness}, to the bounded mild ancient solution \(V_*\) gives
 \(V_*\equiv0\)
-\cite[corollary ``Stationary solutions under uniform
-\(L^3\)-tightness'']{Paper2}.  This contradicts \eqref{eq:local-nonzero},
+  by the stationary-rigidity statement for uniformly \(L^3\)-tight stationary
+  profiles.  This contradicts \eqref{eq:local-nonzero},
 which every element of \(A\) satisfies.
 \end{proof}
 
@@ -816,26 +793,10 @@ ancient solutions contains a nonzero solution of smallest
 theorem in such a collection is reduced to the exclusion of these minimal
 solutions.  In the uniformly \(L^3\)-tight setting, the hypotheses are closed
 under locally smooth limits, and stationary minimal solutions are already
-excluded by the stationary self-similar rigidity interface proved in Paper~2.
+excluded by the stationary self-similar rigidity argument stated in this
+paper through the Necas--Ruzicka--Sverak theorem.
 
 \begin{thebibliography}{99}
-
-\bibitem{Paper0}
-G.~Duran Ballester,
-\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
-Navier--Stokes},
-manuscript in this series.
-
-\bibitem{Paper1}
-G.~Duran Ballester,
-\emph{Type I Blow-up Limits and Centered Ancient Solutions for Navier--Stokes},
-manuscript in this series.
-
-\bibitem{Paper2}
-G.~Duran Ballester,
-\emph{Tight Ancient Solutions and Stationary Rigidity for Navier--Stokes in
-Self-similar Variables},
-manuscript in this series.
 
 \bibitem{FabesJonesRiviere1972}
 E.~B. Fabes, B.~F. Jones, and N.~M. Riviere,

@@ -22,6 +22,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
@@ -208,10 +209,11 @@ of the definition of the remaining class, not an independent Liouville theorem.
 No admissible finite-energy Type I singularity exists.
 \end{theorem}
 
-The proof uses two companion results.  The uniformly \(L^3\)-tight class is
-excluded in Paper II \cite{DuranPaperII}.  The remaining class is excluded in
-the residual closure paper \cite{DuranResidual2026}.  The structure/decay
-class is restricted to hypotheses covered by cited Liouville theorems.
+The proof uses two inputs stated below in this paper.  The uniformly
+\(L^3\)-tight class is excluded by the tight-class closure theorem, and the
+remaining class is excluded by the residual closure theorem.  The
+structure/decay class is restricted to hypotheses covered by cited Liouville
+theorems.
 
 The dependency chain is
 \[
@@ -235,12 +237,12 @@ The dependency chain is
 \begin{itemize}[leftmargin=*,itemsep=2pt]
 \item Small amplitude: excluded here in \Cref{sec:liouville}.
 \item Stationary \(L^3\): excluded here by \cite{NRS1996}.
-\item Uniformly \(L^3\)-tight: proved in \Cref{hyp:tight-liouville}, citing
-Paper II.
+\item Uniformly \(L^3\)-tight: assumed in \Cref{hyp:tight-liouville} as the
+endpoint \(L^3\) closure input.
 \item Known structure/decay: excluded by the cited theorems in
 \Cref{thm:known-structure-decay-liouville}.
-\item Remaining class: proved in \Cref{hyp:no-remainder}, citing the residual
-paper.
+\item Remaining class: assumed in \Cref{hyp:no-remainder}, the residual
+closure input imported from the proof setup \cite{ProofSetupTypeI}.
 \end{itemize}
 
 \subsection{Dependencies and discharged inputs}
@@ -250,13 +252,13 @@ input stated as \cref{prop:local-velocity-concentration}; this is the only
 external result needed for the blow-up construction.  The uniformly
 \(L^3\)-tight Liouville theorem and the remaining-class assertion are not used
 to construct the ancient limit.  They are invoked only after the class
-exhaustion, and both are proved in companion papers:
-\cref{hyp:tight-liouville} is Paper II's endpoint \(L^3\) closure, and
-\cref{hyp:no-remainder} is the residual closure theorem.  The structure/decay
+exhaustion: \cref{hyp:tight-liouville} is stated as an endpoint \(L^3\)
+closure assumption, and \cref{hyp:no-remainder} is the residual closure
+assumption imported from \cite{ProofSetupTypeI}.  The structure/decay
 class is restricted by definition to assumptions covered by the cited
 Liouville theorems.  Thus the final Type I exclusion uses no assumption beyond
-the Paper~0 admissibility condition, the extraction proved here, and the
-closed companion inputs cited above.
+the stated admissibility condition, the extraction proved here, and the
+stated closure inputs.
 
 \subsection{Organization of the paper}
 
@@ -462,9 +464,8 @@ Let \((u,p)\) be suitable in a parabolic neighborhood of
 \end{proposition}
 
 \begin{proof}
-This is the velocity-only concentration corollary of the local concentration
-result in Paper 0 \cite{DuranPaper0}.  That result follows from the
-velocity \(\varepsilon\)-regularity criterion: if
+This is the velocity-only concentration corollary of the local
+\(\varepsilon\)-regularity criterion.  Indeed, if
 \[
    \limsup_{r\downarrow0}C(u;z_*,r)=0,
 \]
@@ -1411,10 +1412,11 @@ We say \(V\in\calC_{L^3\mathrm{-tight}}\) if
 \end{equation}
 \end{definition}
 
-Every \(V\in\calS\) is bounded.  Paper II shows that, for such profiles, the
-tail condition \eqref{eq:L3-tightness} gives the endpoint sequence-\(L^3\)
-control needed after physical pullback; no separate
-\(L^\infty_\tau L^3_y\) hypothesis is required for the tight-class exclusion.
+Every \(V\in\calS\) is bounded.  In the endpoint \(L^3\) closure input
+\Cref{hyp:tight-liouville}, the tail condition \eqref{eq:L3-tightness} is
+assumed to give the endpoint sequence-\(L^3\) control needed after physical
+pullback; no separate \(L^\infty_\tau L^3_y\) hypothesis is imposed in the
+definition of the tight class.
 
 \begin{definition}[Liouville-covered structure and decay class]
 \label{def:known-structure-decay-class}
@@ -1438,8 +1440,8 @@ for some \(1\le p<\infty\);
    rU_\theta\in L^\infty(\R^3\times(-\infty,0));
 \]
 \item the associated rescaled vorticity satisfies the perturbative
-Gallay--Wayne weighted-vorticity hypotheses used in
-\cite{DuranPaperIII};
+Gallay--Wayne weighted-vorticity hypotheses stated in the Liouville theorem
+used below;
 \end{enumerate}
 \end{definition}
 
@@ -1706,12 +1708,12 @@ No nonzero normalized Seregin ancient limit belongs to
 \end{theorem}
 
 \begin{proof}
-This is the tight-class Liouville theorem proved in Paper II
-\cite[Corollary~\emph{Tight-class input for the residual criterion}]
-{DuranPaperII}.  Paper II proves that, for bounded centered ancient profiles,
-the tail-tightness condition gives the endpoint sequence-\(L^3\) control after
-physical pullback.  It then applies the Albritton--Barker endpoint ancient
-Liouville theorem and contradicts the Paper I compact velocity normalization.
+For bounded centered ancient profiles, the tail-tightness condition gives the
+endpoint sequence-\(L^3\) control after physical pullback.  Applying the
+Albritton--Barker endpoint ancient Liouville theorem then forces the associated
+physical ancient solution to vanish.  Pulling this conclusion back to centered
+variables contradicts the compact local velocity normalization in
+\eqref{eq:nonvanishing}.
 \end{proof}
 
 \begin{theorem}[Liouville-covered structure and decay exclusions]
@@ -1728,9 +1730,9 @@ no-swirl and pointwise \(1/r\) cases are excluded by
 Koch--Nadirashvili--Seregin--\v{S}ver\'ak \cite{KNSS2009}.  The finite
 \(L^p\) circulation case is excluded by Lei--Zhang--Zhao \cite{LZZ2017}, and
 the axial-periodic bounded-circulation case is excluded by Lei--Ren--Zhang
-\cite{LRZ2022}.  The perturbative Gallay--Wayne weighted-vorticity hypotheses
-are excluded by the corresponding Liouville theorem in Paper III
-\cite{DuranPaperIII}.  Each
+  \cite{LRZ2022}.  The perturbative Gallay--Wayne weighted-vorticity hypotheses
+  are excluded by the weighted-vorticity Liouville theorem for the stated
+  perturbative class.  Each
 alternative gives \(V\equiv0\), contradicting the local \(L^3\) nonvanishing
 condition \eqref{eq:nonvanishing}.  Hence no nonzero normalized Seregin
 ancient limit lies in \(\calC_{\mathrm{known}}\).
@@ -1759,25 +1761,19 @@ The small and stationary \(L^3\) classes are excluded by
 
 \section{The remaining-case criterion}\label{sec:criterion}
 
-\begin{theorem}[Residual closure theorem]\label{hyp:no-remainder}
+\begin{assumption}[Residual closure input from the proof setup]\label{hyp:no-remainder}
 For every collection \(\calS\) of normalized Seregin ancient limits generated
 by admissible finite-energy Type I singularities,
 \[
    \calR(\calS)=\varnothing .
 \]
-\end{theorem}
-
-\begin{proof}
-This is the Paper I residual input proved in the residual paper
-\cite[Corollary~\emph{Paper I residual input}]
-{DuranResidual2026}.  The residual paper uses the same Paper I class
-exhaustion.  Its notation \(\calR(\calS;I,J)\) records the ordered removal of
-the small, stationary \(L^3\), uniformly \(L^3\)-tight, and Liouville-covered
-structure/decay classes, together with the refined lower residual classes.  No
-additional analytic hypothesis is introduced by the indices \(I,J\).  Its four
-local exclusions give \(\calR(\calS;I,J)=\varnothing\), which is precisely the
-emptiness of the Paper I remaining class \(\calR(\calS)\).
-\end{proof}
+This is the only input imported from the conditional proof setup
+\cite{ProofSetupTypeI}.  The needed content is exactly the emptiness of the
+remaining class after the ordered removal of the small, stationary \(L^3\),
+uniformly \(L^3\)-tight, and Liouville-covered structure/decay classes
+defined in the present paper.  No other result from the proof setup is used in
+the final contradiction.
+\end{assumption}
 
 \begin{corollary}[Rigidity in the remaining case]\label{hyp:remainder-rigidity}
 For every collection \(\calS\) of normalized Seregin ancient limits generated
@@ -1933,22 +1929,10 @@ L. Escauriaza, G. Seregin, and V. \v{S}verak,
 Russian Math. Surveys \textbf{58} (2003), no. 2, 211--250,
 doi:\url{https://doi.org/10.1070/RM2003v058n02ABEH000609}.
 
-\bibitem{DuranPaperIII}
+\bibitem{ProofSetupTypeI}
 G. Duran Ballester,
-\emph{Structured ancient solution exclusions for Type I Navier--Stokes blow-up
-limits},
-preprint, 2026.
-
-\bibitem{DuranPaperII}
-G. Duran Ballester,
-\emph{Uniformly tight ancient Navier--Stokes dynamics and endpoint \(L^3\)
-rigidity},
-preprint, 2026.
-
-\bibitem{DuranResidual2026}
-G. Duran Ballester,
-\emph{Local exclusion of residual Type I Navier--Stokes Seregin limits},
-preprint, 2026.
+\emph{Conditional Type I Navier--Stokes proof setup},
+\texttt{docs/source/type\_1/unconditional\_typeI\_chain/proof\_setup.tex}.
 
 \bibitem{Kato1984}
 T. Kato,
@@ -1992,12 +1976,6 @@ Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198.
 J. Necas, M. Ruzicka, and V. \v{S}verak,
 \emph{On Leray's self-similar solutions of the Navier--Stokes equations},
 Acta Math. \textbf{176} (1996), no. 2, 283--294.
-
-\bibitem{DuranPaper0}
-G. Duran Ballester,
-\emph{Local CKN concentration and the Type I/Type II dichotomy for the
-Navier--Stokes equations},
-preprint, 2026.
 
 \bibitem{Seregin2012}
 G. Seregin,

@@ -195,8 +195,10 @@ two pressures \(p\) and \(p-b(t)\) represent the same velocity equation and the
 same local energy inequality.  All pressure norms used below are either
 pressure oscillations over balls or are written after subtracting an explicitly
 allowed time-dependent gauge.  This convention is the usual CKN pressure
-normalization and is justified for the rescaled solutions by
-\cite{Paper1TypeI}, lemma \texttt{lem:gauges-\allowbreak harmless}.
+normalization.  Indeed, subtracting a function of time has zero spatial
+gradient, leaves the distributional equation and the local energy inequality
+unchanged, and cancels from every pressure oscillation
+\(p-(p)_{B_r}(t)\).
 
 \begin{theorem}[Local concentration at singular points]\label{thm:local-concentration}
 Let \((u,p)\) be suitable in a parabolic neighborhood of
@@ -213,17 +215,22 @@ sequence lies in the local Type II alternative.
 \end{theorem}
 
 \begin{proof}
-This is the local concentration entry result from
-\cite{Paper0LocalConcentration}.  More precisely, the pressure-normalized
-CKN criterion \cite{CKN1982} is recorded there as theorem
-\texttt{thm:ckn}; theorem \texttt{thm:singular-\allowbreak positive} proves that every
-singular point carries a positive concentration sequence in the sense of
-\eqref{eq:positive-ckn}; and theorem \texttt{thm:blowup-\allowbreak rate-\allowbreak dichotomy} proves
-the stated local Type I/Type II alternative along such shrinking cylinders.
-The scale-invariance of the quantities \(C\) and \(D\), needed to identify the
-same sequence after rescaling, is proposition \texttt{prop:critical-\allowbreak scaling}
-in the same paper.  No global compactness or finite-energy input is used in
-this local step.
+Let \(\varepsilon_{\rm CKN}>0\) be the absolute epsilon-regularity threshold
+for the pressure-normalized CKN criterion \cite{CKN1982,Lin1998}.  If
+\(C(z_*,r)+D(z_*,r)<\varepsilon_{\rm CKN}\) along a sequence
+\(r\downarrow0\), then \(u\) is locally bounded in a smaller cylinder and
+\(z_*\) is regular.  Since \(z_*\) is singular, there are
+\(\eta>0\) and radii \(r_k\downarrow0\) for which
+\eqref{eq:positive-ckn} holds.  Along these same radii, either the
+scale-invariant quantity
+\[
+   \sup_{Q_{\theta r_k}(z_*)}(T-t)^{1/2}|u|
+\]
+is bounded at some fixed local scale \(\theta\in(0,1)\), which is the local
+Type I alternative, or no such uniform bound is available along the shrinking
+cylinders.  The latter case is precisely the local Type II alternative.  This
+uses only the CKN criterion and the definitions of the two local rate
+alternatives.
 \end{proof}
 
 \begin{lemma}[Scaling and pressure gauges]\label{lem:scaling-gauges}
@@ -247,15 +254,16 @@ quantity \(D\).
 \end{lemma}
 
 \begin{proof}
-The suitability and scale-invariance assertions are proposition
-\texttt{prop:critical-\allowbreak scaling} of \cite{Paper0LocalConcentration} and lemma
-\texttt{lem:scaling} of \cite{Paper1TypeI}.  The pressure-gauge assertion is
-lemma \texttt{lem:gauges-\allowbreak harmless} of \cite{Paper1TypeI}: subtracting a
-function of time has zero spatial gradient, leaves the distributional equation
-unchanged, and cancels from every pressure oscillation
-\(p-(p)_{B_r}(t)\).  The cited proofs use the Navier--Stokes parabolic
-scaling, the local energy inequality tested against pulled-back nonnegative
-cutoffs, and the corresponding parabolic cylinder Jacobian.
+The distributional equation and the local energy inequality are invariant
+under the Navier--Stokes parabolic scaling after testing with pulled-back
+nonnegative cutoffs.  The cylinder Jacobian is \(\lambda^5\), while
+\(|u|^3\), \(|p-(p)_{B_{\lambda r}}|^{3/2}\), and the prefactor \(r^{-2}\)
+scale as \(\lambda^3\), \(\lambda^3\), and \(\lambda^{-2}\), respectively.
+Consequently \(C\) and \(D\) are unchanged by the transformation.  If
+\(p^{(\lambda)}\) is replaced by \(p^{(\lambda)}-b(t)\), then the additional
+term has zero spatial gradient and its contribution to the local energy
+identity vanishes because \(u^{(\lambda)}\) is divergence free.  It also
+cancels from the oscillation defining \(D\).
 \end{proof}
 
 \begin{proposition}[Extraction of a normalized Seregin limit]
@@ -280,28 +288,27 @@ pressure gauges.  The extraction itself is the classical Seregin
 blow-up construction \cite{Seregin2012}, in the local Type I formulation of
 Albritton--Barker \cite{AlbrittonBarker2019}.
 
-All estimates used by that construction in the present normalization have
-already been proved earlier in the series.  In \cite{Paper1TypeI}, lemma
-\texttt{lem:inherited-bound} gives the compact-cylinder Type I bound for the
-rescalings; lemma \texttt{lem:energy-diss} gives the local energy and
-dissipation bounds; lemma \texttt{lem:pressure} fixes admissible pressure
-gauges and gives local \(L^{3/2}\) pressure compactness; lemma
-\texttt{lem:time-derivative} gives the negative-Sobolev time-derivative bound;
-proposition \texttt{prop:compactness} gives strong local velocity convergence
-and weak local pressure convergence; proposition \texttt{prop:ancient-limit}
-passes the equation, divergence-free condition, and local energy inequality to
-the ancient suitable weak limit; and lemmas \texttt{lem:limit-bound} and
-\texttt{lem:smoothness} give the inherited Type I bound and smoothness.
+The estimates used by that construction in the present normalization are the
+following standard local compactness estimates.  The Type I bound gives
+uniform compact-cylinder \(L^\infty\) control of the rescaled velocities.
+The local energy inequality gives uniform local \(L^\infty_tL^2_x\) and
+\(L^2_t\dot H^1_x\) bounds.  After subtracting spatial pressure averages on
+fixed balls, the pressure is bounded in \(L^{3/2}_{\mathrm{loc}}\).  The
+equation then bounds \(\partial_t u^{(k)}\) in a negative Sobolev space, so
+the Aubin--Lions--Simon lemma gives strong local velocity convergence, while
+the pressure converges weakly in \(L^{3/2}_{\mathrm{loc}}\).  These
+convergences pass the equation, divergence-free constraint, and local energy
+inequality to an ancient suitable weak limit; standard local regularity under
+the inherited Type I bound gives smoothness away from the terminal time.
 
 The point specific to the present formulation is the normalization used below.
-The positive local CKN density comes from \cite{Paper0LocalConcentration},
-theorem \texttt{thm:singular-\allowbreak positive}.  Its persistence under the above
-compactness and pressure gauges is supplied by \cite{Paper1TypeI}, lemma
-\texttt{lem:scale-selection} and proposition \texttt{prop:nonzero}.  Passing
-from \((U,\Pi)\) to centered variables is \cite{Paper1TypeI}, lemmas
-\texttt{lem:renormalized-equation} and \texttt{lem:renorm-bounds}.  Under the
-change of variables \((x,t)=(e^{-\tau/2}y,-e^{-\tau})\), the compact
-negative-time cylinder carrying positive mass maps to
+The positive local CKN density is supplied by \Cref{thm:local-concentration}.
+Its persistence follows from choosing the concentration sequence so that a
+fixed subcylinder carries positive pressure-normalized density and then using
+the strong local \(L^3\) convergence of velocities together with weak lower
+semicontinuity for the gauged \(L^{3/2}\)-pressure norm.  Under the change of
+variables \((x,t)=(e^{-\tau/2}y,-e^{-\tau})\), the compact negative-time
+cylinder carrying positive mass maps to
 \(K\Subset\mathbb R^3\times\mathbb R\), and the pressure gauge becomes a
 function \(a(\tau)\).  This is precisely \eqref{eq:nonvanishing}.
 \end{proof}
@@ -335,8 +342,7 @@ The associated centered pressure class is represented by
 \]
 and replacing \(\Pi\) by \(\Pi-b(t)\) replaces \(P\) by
 \(P-e^{-\tau}b(-e^{-\tau})\).  Thus the pressure remains defined modulo a
-function of \(\tau\), exactly as allowed by \cite{Paper1TypeI}, lemma
-\texttt{lem:gauges-\allowbreak harmless}.
+function of \(\tau\).
 In particular, after passing to centered variables, there are a compact
 cylinder \(K\Subset\mathbb R^3\times\mathbb R\), a pressure gauge \(a(\tau)\),
 and \(\eta_0>0\) such that
@@ -363,28 +369,25 @@ The condition is independent of the representative of the pressure class:
 replacing \(P\) by \(P-c(\tau)\) only replaces the gauge \(a_V(\tau)\) by
 \(a_V(\tau)-c(\tau)\).
 The integral is finite on \(K\) for every Seregin limit because local
-\(L^{3/2}\)-pressure compactness after admissible gauges is part of
-\cite{Paper1TypeI}, lemma \texttt{lem:pressure}, and is preserved by the
-centered change of variables in \cite{Paper1TypeI}, lemma
-\texttt{lem:renorm-bounds}.
+\(L^{3/2}\)-pressure compactness after admissible gauges is part of the
+extraction, and the centered change of variables has bounded Jacobian and
+bounded pressure scaling factor on every compact \(\tau\)-interval.
 \end{definition}
 
 \begin{definition}[Associated normalized collection]\label{def:associated-collection}
 Fix a finite-energy Type I source \((u,p,z_*)\).  An associated normalized
 collection is obtained as follows.  First choose one positive local
-concentration normalization furnished by
-\cite{Paper1TypeI}, lemma \texttt{lem:scale-selection}; equivalently, fix the
-compact cylinder and lower bound which persist in the ancient limit by
-\cite{Paper1TypeI}, proposition \texttt{prop:nonzero}.  Then let
+concentration normalization, namely a compact cylinder and a lower bound which
+persist in the ancient limit by the scale selection and compactness argument
+in \Cref{prop:seregin-extraction}.  Then let
 \(\mathcal S\) be any collection of Seregin ancient limits produced from the
 same source by subsequences compatible with that fixed normalization, each
 equipped with an admissible centered pressure gauge.  The common cylinder
 \(K\) and lower bound \(\eta_0\) are those fixed in the first step.  With these
 data, \(\mathcal S\) satisfies \Cref{def:normalized-collection}.  The gauges
 are measurable: before centering they are spatial averages over fixed balls,
-as in \cite{Paper1TypeI}, lemma \texttt{lem:pressure}, and after centering
-they are composed with the smooth time map \(t=-e^{-\tau}\) and multiplied by
-the smooth factor \(e^{-\tau}\).
+and after centering they are composed with the smooth time map
+\(t=-e^{-\tau}\) and multiplied by the smooth factor \(e^{-\tau}\).
 \end{definition}
 
 \begin{remark}\label{rem:normalization}
@@ -393,8 +396,7 @@ The nonvanishing conditions \eqref{eq:nonvanishing} and
 the persistence, under the compactness used in the Seregin blow-up procedure,
 of the positive CKN concentration supplied by \Cref{thm:local-concentration}.
 This persistence is precisely the scale-selection and nonzero-limit mechanism
-proved in \cite{Paper1TypeI}, lemma \texttt{lem:scale-selection} and
-proposition \texttt{prop:nonzero}.  The sole choice made in forming
+in \Cref{prop:seregin-extraction}.  The sole choice made in forming
 \(\mathcal S\) is which concentration normalization is fixed once and for all.
 \end{remark}
 
@@ -413,12 +415,15 @@ Then \(V\) satisfies \eqref{eq:centered} and \(\nabla_y\cdot V=0\).
 \end{lemma}
 
 \begin{proof}
-This is the self-similar change-of-variables computation carried out in
-\cite{Paper1TypeI}, lemma \texttt{lem:renormalized-equation}.  That lemma
-differentiates \(U(x,t)=e^{\tau/2}V(e^{\tau/2}x,\tau)\), records the common
-factor \(e^{3\tau/2}\) in \(\partial_tU\), \((U\cdot\nabla)U\),
-\(\nabla\Pi\), and \(\Delta U\), and verifies that
-\(\nabla_x\cdot U=e^\tau\nabla_y\cdot V\).  Dividing by the common factor gives
+Differentiate \(U(x,t)=e^{\tau/2}V(e^{\tau/2}x,\tau)\), where
+\(\tau=-\log(-t)\).  The terms \(\partial_tU\), \((U\cdot\nabla)U\),
+\(\nabla\Pi\), and \(\Delta U\) all carry the common factor
+\(e^{3\tau/2}\) after expressing them in \((y,\tau)\).  The derivative of the
+self-similar variables contributes
+\(-\frac12(V+y\cdot\nabla V)\), and the pressure transformation gives
+\(\nabla_yP\).  Since
+\(\nabla_x\cdot U=e^\tau\nabla_y\cdot V\), the divergence-free condition is
+also preserved.  Dividing the transformed equation by the common factor gives
 \eqref{eq:centered}.
 \end{proof}
 
@@ -495,15 +500,19 @@ variables:
    \le
    \sup_{s<0}\sqrt{-s}\,\|U(s)\|_{L^\infty}.
 \]
-Smoothness in centered variables is \cite{Paper1TypeI}, lemma
-\texttt{lem:smoothness}.  The whole-space Leray pressure gauge and projected
-Duhamel formulation are those of the bounded mild framework in
-\cite{Paper3Minimal}: definition \texttt{def:mild} fixes the mild formulation
-for \eqref{eq:centered}, lemma \texttt{lem:smoothing} gives the smooth
-representative, and the time-translation invariance following that definition
-shows that \(V^s(y,\tau)=V(y,\tau+s)\) is again a bounded mild ancient solution
-with the same \(L^\infty\) norm.  The centered equation is autonomous, so no
-additional normalization is introduced by translating \(\tau\).
+Smoothness follows from the inherited Type I bound and standard local
+parabolic regularity for suitable weak solutions.  Applying the Leray
+projection to \eqref{eq:centered} gives the whole-space projected Duhamel
+formulation
+\[
+   V(\tau)=S(\tau-\sigma)V(\sigma)
+   -\int_\sigma^\tau
+      S(\tau-s)\mathbb P\nabla\cdot(V\otimes V)(s)\,ds,
+\]
+where \(S\) is the centered Stokes semigroup.  This formulation gives a
+bounded mild representative.  Since the centered equation is autonomous,
+\(V^s(y,\tau)=V(y,\tau+s)\) is again a bounded mild ancient solution with the
+same \(L^\infty\) norm and introduces no additional normalization.
 \end{proof}
 
 \begin{lemma}[Local energy bounds in centered variables]\label{lem:finite-energy-local}
@@ -526,11 +535,9 @@ on each fixed compact cylinder.
 
 \begin{proof}
 The unrenormalized ancient limit \((U,\Pi)\) is suitable and satisfies the
-local energy and pressure bounds on compact negative-time cylinders by
-\cite{Paper1TypeI}, lemmas \texttt{lem:energy-diss} and \texttt{lem:pressure}
-and proposition \texttt{prop:ancient-limit}.  The transfer to centered
-variables is the bounded-renormalization estimate of \cite{Paper1TypeI}, lemma
-\texttt{lem:renorm-bounds}: on every compact \((y,\tau)\)-cylinder the map
+local energy and pressure bounds on compact negative-time cylinders by the
+extraction estimates in \Cref{prop:seregin-extraction}.  On every compact
+\((y,\tau)\)-cylinder the map
 \[
    (y,\tau)\mapsto (x,t)=(e^{-\tau/2}y,-e^{-\tau})
 \]
@@ -655,16 +662,15 @@ for some \(m\in J\).
 
 \begin{remark}\label{rem:structured-import}
 The structured alternatives are the centered-limit formulation of the
-axisymmetric and weighted-decay branches treated in \cite{Paper6Structured}.
-The preservation of the stated hypotheses under self-similar variables and
-time shifts is \cite{Paper6Structured}, lemma
-\texttt{lem:structure-preserved}.  The no-swirl, \(L_t^\infty L_x^p\)-swirl,
-periodic bounded-\(\Gamma\), controlled-swirl, and weighted-decay exclusions
-are recorded there as propositions \texttt{prop:no-swirl-type-i},
-\texttt{prop:lp-swirl-exclusion}, \texttt{prop:periodic-swirl-exclusion},
-\texttt{prop:swirl-exclusion}, and \texttt{prop:weighted-exclusion}.  The
-present paper uses those mechanisms solely through the single structured
-Liouville input stated below.
+axisymmetric and weighted-decay branches.  The stated properties are
+preserved by the self-similar transformation and by time translation because
+the axis of symmetry is unchanged, the swirl component scales by the same
+homogeneous factors as the velocity, axial periods scale in the physical
+variables and become stationary constraints in centered variables, and the
+weighted \(L^2\) condition is imposed directly on \(V(\tau)\).  The no-swirl,
+\(L_t^\infty L_x^p\)-swirl, periodic bounded-\(\Gamma\), controlled-swirl,
+and weighted-decay exclusions are used below only through the single
+structured Liouville input stated below.
 \end{remark}
 
 \begin{definition}[Residual Seregin class]\label{def:residual}
@@ -768,9 +774,7 @@ Write the projected centered equation as
    L=\Delta-\frac12y\cdot\nabla-\frac12 .
 \]
 Let \(S(s)=e^{sL}\) be the centered Stokes semigroup on divergence-free
-fields.  The Ornstein--Uhlenbeck formula for \(S(s)\) and its \(L^\infty\)
-decay estimate are \cite{Paper3Minimal}, equations \texttt{eq:OU-semigroup}
-and \texttt{eq:stokes-Linfty-estimate}:
+fields.  The Ornstein--Uhlenbeck formula for \(S(s)\) is
 \[
    (S(s)f)(y)
    =
@@ -782,13 +786,9 @@ Hence
 \[
    \|S(s)f\|_{L^\infty}\le e^{-s/2}\|f\|_{L^\infty}.
 \]
-The corresponding projected-divergence estimate is the bounded-data Stokes
-estimate recorded in \cite{Paper3Minimal}, equation
-\texttt{eq:stokes-\allowbreak Linfty-\allowbreak estimate}; the adjoint-test
-estimate \texttt{eq:stokes-\allowbreak adjoint-\allowbreak test-\allowbreak estimate}
-in the same paper is the dual formulation used to define the weak-* Duhamel
-term.  These are the centered forms of Kato's \(L^p\) estimates
-\cite{Kato1984}.  Thus there is an absolute constant \(C_0\) such that, for
+The corresponding projected-divergence estimate is the centered form of
+Kato's \(L^p\) estimate \cite{Kato1984}.  Thus there is an absolute constant
+\(C_0\) such that, for
 every bounded tensor field \(F\),
 \[
    \|S(s)\mathbb P\nabla\cdot F\|_{L^\infty}
@@ -804,9 +804,8 @@ Indeed, \(1-e^{-s}\sim s\) as \(s\downarrow0\), so the kernel is comparable to
 \(s^{-1/2}\) near the origin, while the factor \(e^{-s/2}\) gives exponential
 decay as \(s\to\infty\).
 
-Fix \(\tau\in\mathbb R\) and \(T>0\).  The mild identity is definition
-\texttt{def:mild} of \cite{Paper3Minimal}.  Applied on \([\tau-T,\tau]\), it
-gives
+Fix \(\tau\in\mathbb R\) and \(T>0\).  The mild identity for the projected
+centered equation on \([\tau-T,\tau]\) gives
 \[
    V(\tau)
    =
@@ -923,12 +922,11 @@ almost every \(\tau\in E\), and the profile equation is
    \Delta W-\frac12(W+y\cdot\nabla W),
    \qquad \nabla\cdot W=0 .
 \]
-The stationary-profile passage and the \(L^3\) Liouville input are recorded in
-\cite{Paper5Equilibrium}.  The lemma labelled \texttt{lem:stationary}-\texttt{profile}
-identifies stationary mild trajectories with stationary self-similar profiles,
-and theorem \texttt{thm:NRS} states the Necas--Ruzicka--Sverak theorem
-\cite{NRS1996} in this form.  Thus the
-assumed \(W\in L^3(\mathbb R^3)\) gives \(W\equiv0\).  Again
+The preceding calculation has identified the stationary mild trajectory with
+a stationary self-similar profile.  The theorem of
+Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}verak \cite{NRS1996} then applies to
+the profile equation with \(W\in L^3(\mathbb R^3)\), and gives
+\(W\equiv0\).  Again
 \Cref{lem:zero-pressure} makes the left-hand side of
 \eqref{eq:nonvanishing} vanish, contradicting the inherited normalization.
 \end{proof}
@@ -1136,6 +1134,11 @@ T. Kato,
 \(\mathbb R^m\), with applications to weak solutions},
 Math. Z. \textbf{187} (1984), no. 4, 471--480.
 
+\bibitem{Lin1998}
+F.-H. Lin,
+\emph{A new proof of the Caffarelli--Kohn--Nirenberg theorem},
+Comm. Pure Appl. Math. \textbf{51} (1998), no. 3, 241--257.
+
 \bibitem{LRZ2022}
 Z. Lei, X. Ren, and Q. S. Zhang,
 \emph{A Liouville theorem for axi-symmetric Navier--Stokes equations on
@@ -1152,39 +1155,6 @@ Sci. Sin. Math. \textbf{47} (2017), no. 10, 1183--1198.
 J.~Ne\v{c}as, M.~R\r{u}\v{z}i\v{c}ka, and V.~\v{S}ver\'ak,
 \emph{On Leray's self-similar solutions of the Navier--Stokes equations},
 Acta Math. \textbf{176} (1996), 283--294.
-
-\bibitem{Paper0LocalConcentration}
-Guillem Cordero,
-\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
-Navier--Stokes},
-first-nodes Paper 0,
-\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
-
-\bibitem{Paper1TypeI}
-Type I Paper 1,
-\emph{Type I Blow-up Limits for the Three-dimensional Navier--Stokes Equations
-and the Centered Ancient Equation},
-\texttt{docs/source/type\_1/paper1\_typeI\_blowup\_limits\_centered\_ancient.tex}.
-
-\bibitem{Paper3Minimal}
-G. Duran Ballester,
-\emph{Minimal Ancient Solutions for the Navier--Stokes Equations in
-Self-similar Variables},
-Type I Paper 3,
-\texttt{docs/source/type\_1/paper3\_minimal\_ancient\_solutions\_reduction.tex}.
-
-\bibitem{Paper5Equilibrium}
-G. Duran Ballester,
-\emph{A Conditional Equilibrium Criterion for Compact Ancient Navier--Stokes
-Dynamics},
-Type I Paper 5,
-\texttt{docs/source/type\_1/paper5\_equilibrium\_rigidity\_compact\_ancient\_dynamics.tex}.
-
-\bibitem{Paper6Structured}
-G. Duran Ballester,
-\emph{Ancient Navier--Stokes solutions under axisymmetry and decay},
-Type I Paper 6,
-\texttt{docs/source/type\_1/paper6\_structured\_bounded\_ancient\_solutions.tex}.
 
 \bibitem{Seregin2012}
 G. Seregin,

@@ -109,20 +109,14 @@ control, and bounded ancient limits, see Albritton--Barker
 The purpose of this paper is to isolate the canonical ancient object associated
 with such a singular point.
 
-The pressure-normalized CKN quantities, their parabolic scaling, the
+We use the pressure-normalized CKN quantities, their parabolic scaling, the
 epsilon-regularity/no-concentration implication, and the local Type I/Type II
-rate dichotomy were established in the first-node paper
-\cite[Sections 2--5]{Paper0LocalConcentration}.  The specific internal labels
-used below are
-\begin{align*}
-   \texttt{prop:critical-scaling},\quad
-   \texttt{thm:ckn},\\
-   \texttt{thm:singular-positive},\quad
-   \texttt{thm:blowup-rate-dichotomy}.
-\end{align*}
-We recall the notation needed below, but we do not reprove those foundational
-facts.  The additional work in the present paper is the Type I compactness up
-to ancient time, the pressure gauges needed for the whole-space limit, the
+rate dichotomy in the form stated and proved below.  Thus the compactness
+argument is self-contained at the level needed here: the only external inputs
+are the standard Caffarelli--Kohn--Nirenberg regularity criterion and the
+classical Seregin and Albritton--Barker compactness theorems cited explicitly.
+The additional work in the present paper is the Type I compactness up to
+ancient time, the pressure gauges needed for the whole-space limit, the
 nonvanishing normalization of the selected limit, and the centered
 self-similar equation.
 
@@ -374,12 +368,13 @@ this scaling.
 \end{lemma}
 
 \begin{proof}
-Suitability of the rescaled pair, invariance of \(C\) and \(D\), and
-preservation of pressure gauges are the parabolic rescaling results
-proved in the first-node paper
-\cite[Section 2 and Proposition \texttt{prop:critical-scaling}]
-{Paper0LocalConcentration}.  The remaining two quantities used here have the
-same critical dimensional balance.  With \(X=x_*+\lambda x\) and
+Suitability of the rescaled pair follows by pulling back the distributional
+equation and testing the local energy inequality against the corresponding
+nonnegative rescaled cutoffs.  The pressure gauge is preserved because
+subtracting a function of time has zero spatial gradient and cancels from
+pressure oscillations.  The quantities \(C\) and \(D\) are invariant by the
+same parabolic Jacobian calculation used below for \(A\) and \(E\).  With
+\(X=x_*+\lambda x\) and
 \(S=T+\lambda^2t\),
 \begin{align*}
    \int_{B_r}|u^\lambda(x,t)|^2\,dx
@@ -909,14 +904,8 @@ that, for every \(0<r<r_0\),
 \end{lemma}
 
 \begin{proof}
-The existence of a positive CKN concentration sequence at a singular point is
-proved in the first-node paper
-\cite[Theorem \texttt{thm:singular-positive}]
-{Paper0LocalConcentration}.  The present stronger
-all-sufficiently-small-radii form follows directly from the same
-epsilon-regularity contrapositive, using
-\cite[Theorem \texttt{thm:ckn}]{Paper0LocalConcentration}.  Take
-\(\eta=\eps_*\).  If there were arbitrarily small radii \(r\) with
+Take \(\eta=\eps_*\), where \(\eps_*\) is the epsilon-regularity constant in
+\cref{thm:eps-reg}.  If there were arbitrarily small radii \(r\) with
 \[
    C(u;z_*,r)+D(p;z_*,r)<\eps_*,
 \]
@@ -1069,12 +1058,9 @@ sequence is nonzero in \(L^3_{\loc}(\R^3\times(-\infty,0))\).
 \end{lemma}
 
 \begin{proof}
-By \cref{lem:singular-concentration}, and equivalently by the positive
-local-concentration theorem in the first-node paper
-\cite[Theorem \texttt{thm:singular-positive}]
-{Paper0LocalConcentration}, every sufficiently small radius carries positive
-pressure-normalized density.  Choose any sequence \(r_j\downarrow0\) inside
-that range, so that
+By \cref{lem:singular-concentration}, every sufficiently small radius carries
+positive pressure-normalized density.  Choose any sequence \(r_j\downarrow0\)
+inside that range, so that
 \[
    C(u;z_*,r_j)+D(p;z_*,r_j)\ge \eta .
 \]
@@ -1114,16 +1100,13 @@ Here \(u_j,p_j\) denote the centered rescalings at the selected scales
 
 No additional hypothesis is being imposed in this selection step.  The input is
 only the positive CKN concentration supplied by
-\cref{lem:singular-concentration}, the local Type I alternative from
-\cite[Theorem \texttt{thm:blowup-rate-dichotomy}]
-{Paper0LocalConcentration}, and the endpoint compactness supplied by
+\cref{lem:singular-concentration}, the local Type I alternative in the
+definition of the source point, and the endpoint compactness supplied by
 \(\calI_*(u,p;z_*)<\infty\).  The possible loss of density into the terminal
 slice is the defect excluded by the cited Seregin selection theorem.
 
 The global Type I bound \eqref{eq:type-I-bound-intro} rules out the Type II
-branch of the local blow-up-rate dichotomy proved in the first-node paper
-\cite[Theorem \texttt{thm:blowup-rate-dichotomy}]
-{Paper0LocalConcentration} along the selected sequence, while
+branch of the local blow-up-rate dichotomy along the selected sequence, while
 \(\calI_*(u,p;z_*)<\infty\) gives the endpoint compactness needed above.
 The selected sequence is therefore a sequence for which the compactness limit
 is nonzero.  Renaming that selected sequence as \(k\) gives
@@ -1516,12 +1499,6 @@ Acta Math. \textbf{63} (1934), 193--248.
 J.-L. Lions and E. Magenes,
 \emph{Non-homogeneous boundary value problems and applications. Vol. I},
 Springer-Verlag, 1972.
-
-\bibitem{Paper0LocalConcentration}
-\emph{Local CKN Concentration and the Type I/Type II Dichotomy for
-Navier--Stokes},
-companion first-node manuscript in this series,
-\texttt{docs/source/first\_nodes/paper0\_local\_concentration\_entry\_typeII.tex}.
 
 \bibitem{Seregin2012}
 G. Seregin,

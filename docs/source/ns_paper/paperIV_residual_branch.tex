@@ -1499,15 +1499,18 @@ alternatives are impossible.  Hence the assumed finite-energy local Type~I singu
 point does not exist.
 \end{proof}
 
-\begin{corollary}[Unconditional local pointwise Type I exclusion]
+\begin{corollary}[Local pointwise Type~I exclusion after setup plus residual closure]
 \label{cor:local-typeI-unconditional}
 Let \((u,p)\) be a suitable Leray--Hopf solution on
-\(\R^3\times(0,T)\).  If \(z_*=(x_*,T)\) is a singular point satisfying the
-local Type~I bound \eqref{eq:local-typeI-bridge-bound}, then the completed
-case closures give a contradiction.  Equivalently, in the local
+\(\R^3\times(0,T)\).  Combining the residual closure
+\Cref{thm:refined-residual-closure-complete-decomposition} of this paper with
+the setup paper, the following holds: if \(z_*=(x_*,T)\) is a singular point
+satisfying the local Type~I bound \eqref{eq:local-typeI-bridge-bound}, then the
+completed case closures give a contradiction.  Equivalently, in the local
 Type~I/local Type~II dichotomy of the setup paper, every finite-energy
-singular point
-belongs to the local Type~II alternative.
+singular point belongs to the local Type~II alternative.  The conclusion is
+the joint output of the two-paper chain; it is not asserted as a hidden
+hypothesis inside Paper~IV alone.
 \end{corollary}
 
 \begin{proof}
@@ -1872,6 +1875,99 @@ sequence-\(L^3\) completeness of retained indecomposable concentration
 profiles, and that conclusion is derived from local terminal alternatives rather than from an
 a priori global estimate on the original residual class.
 \end{remark}
+
+\subsection{Notation, threshold, and gauge directories}
+\label{subsec:notation-directories}
+
+The following compact directories collect the persistent symbols, thresholds,
+and gauges used in the residual closure.  They are not new definitions; each
+entry refers to the location where the object is first defined.
+
+\paragraph{Velocity, pressure, and state-space symbols.}
+\begin{itemize}[leftmargin=1.6em]
+   \item \((V,P)\): centered Seregin ancient profile in \eqref{eq:centered-main};
+      first used in \Cref{sec:introduction}.
+   \item \((U,Q)\): physical ancient representative when \((V,P)\) is treated
+      under physical pullback \eqref{eq:physical-pullback-main}; also used in
+      \(\calR_z\)-recentered form throughout
+      \Cref{sec:R4-tail-geometry,sec:terminal-concentration}.  The intended
+      meaning is fixed locally in each section by the explicit definition of
+      the immediately preceding rescaling.
+   \item \((W,Q_W)\): blown-down, co-rotating, or tail profile, depending on
+      the section; defined locally in
+      \Cref{sec:R2-reduction,subsec:hidden-scale-young-variance}.
+   \item \(\calE_r(V,P;z_0)\): pressure-normalized local critical quantity, see
+      \eqref{eq:local-energy-main}.
+   \item \(\calE_1\): pressure-normalized unit CKN activity, fixed at
+      \(r=1\); used throughout the terminal concentration arguments and in the
+      retained-concentration definition \Cref{def:retained-active-main}.
+   \item \(\Tcrit\): terminal state space, \Cref{def:terminal-state-space}.
+   \item \(\Tcrit^\#\): compact normalized descendant state space,
+      \Cref{def:compact-normalized-state-space}.
+   \item \(\Caff\): affine/parasitic routing/quotient stratum,
+      \Cref{def:affine-constant-lower-stratum}; not a usual nonempty/empty PDE
+      class but a discharge label, see
+      \Cref{rem:affine-constant-use,thm:oscillatory-entry-normalization}.
+   \item \(\oscsp\): spatial oscillation modulo time-dependent homogeneous
+      gauges, \Cref{def:multiscale-affine-oscillation}.
+   \item \(\actthree\) and \(\Phi\): constant-mode/non-affine retained
+      activity, \Cref{def:observer-oscillation,thm:closed-nonaffine-activity}.
+\end{itemize}
+
+\paragraph{Threshold ordering.}
+\begin{itemize}[leftmargin=1.6em]
+   \item \(\eta_0\): compact velocity \(L^3\) lower bound supplied by the base
+      Seregin extraction \Cref{hyp:base-seregin-package}.
+   \item \(\eta_v\): compact velocity lower bound from the local concentration
+      input of the setup paper, used as initial mass for terminal extraction;
+      see \Cref{def:threshold-hierarchy}.
+   \item \(\eps_{\rm sd}\): local small-data threshold,
+      \(0<\eps_{\rm sd}\le\min\{\eta_0,\eta_v,\eps_{\CKN}\}\),
+      \Cref{def:threshold-hierarchy}.
+   \item \(\eps_*\): retained descendant CKN threshold,
+      \(0<\eps_*\le\eps_{\rm sd}/2\), used in
+      \Cref{def:retained-active-main} and in active-locus extraction.
+   \item \(\eps_0\): minimal mesoscopic-scale oscillation threshold; depends
+      only on the hidden-scale defect lower bound and on the finite-overlap
+      constants of \Cref{lem:finite-overlap-affine-oscillation}; first appears
+      in \Cref{def:first-bad-mesoscopic-scale}.
+   \item \(\eta_K\): compact-activity lower bound on the recurrent active core,
+      first introduced in \Cref{thm:active-path-space-recurrence}.
+\end{itemize}
+The thresholds are fixed in the order
+\(\eta_0,\eta_v\Rightarrow\eps_{\rm sd}\Rightarrow\eps_*\Rightarrow\eps_0,
+\eta_K\), and no later argument chooses a new concentration threshold depending
+on a previously extracted profile tree.  Phrases of the form ``after lowering
+the threshold'' refer either to the once-and-for-all reduction of \(\eps_*\)
+recorded in \Cref{def:threshold-hierarchy} or to a slight reduction of the
+mesoscopic threshold \(\eps_0\) recorded in
+\Cref{lem:h2-failure-first-bad-scale}; in either case the reduction does not
+disturb earlier choices.
+
+\paragraph{Pressure and velocity gauges.}
+\begin{itemize}[leftmargin=1.6em]
+   \item \(c_{r,z_0}(\tau)\): local pressure time gauge in
+      \eqref{eq:local-energy-main}; measurable in \(\tau\); used because
+      pressure is defined modulo functions of time.
+   \item \(c_n(s)\): homogeneous velocity gauge at the minimal mesoscopic
+      scale, \Cref{def:first-bad-spatial-blowdown}; bounded; either compactifies
+      or routes the descendant to \(\Caff\) by
+      \Cref{lem:homogeneous-gauge-compactness}; no pointwise derivative
+      \(\partial_s c_n\) is used unless that compactness has already been
+      obtained.
+   \item \(\beta(s)\cdot y+\alpha(s)\): affine parasitic pressure paired with a
+      spatially homogeneous velocity mode; quotient notation introduced in
+      \Cref{def:affine-constant-lower-stratum} and used only in the gauged
+      formulation of the affine/parasitic stratum.
+   \item \(L_n(x,s)=b_n(s)\cdot x+a_n(s)\): scaled affine pressure at the
+      minimal mesoscopic scale, \Cref{lem:scaled-pressure-compactness-affine};
+      affine in \(x\), measurable in \(s\); discarded in the non-affine quotient
+      and routed to \(\Caff\) when it does not vanish.
+   \item \(a_{n,K}(t)\): local Seregin pressure time gauge on a compact
+      cylinder \(K\), used by the local pressure-gauge compactness package
+      inherited from the setup paper and recorded in
+      \Cref{prop:local-typeI-terminal-compactness}.
+\end{itemize}
 
 \section{Exclusion of the axisymmetric bounded-circulation residual class}
 \label{sec:R1-exclusion}
@@ -5267,15 +5363,74 @@ the virial identity remains valid for smooth annular cutoffs but cannot by
 itself close the critical-tail alternatives.
 \end{remark}
 
+\begin{lemma}[Realized log-window virial compactness]
+\label{lem:realized-log-window-virial-compactness}
+Let \(\mathcal D\in\Tcrit\) be a recurrent critical-tail defect generated by an
+ancestor-realized normalized terminal sequence after active-locus removal and
+affine normalization.  Then, along the selected defect subsequence and after
+the admissible local pressure gauges of
+\Cref{prop:local-typeI-terminal-compactness}, the annular virial observables
+\(\mathcal V_{\rho,A}\), the local dissipation \(\mathcal D_{\rho,A}\), and the
+right-hand side flux contributions
+\[
+   R^{-1}\int(\Delta\phi)|V|^2 ,\qquad
+   R^{-1}\int|V|^2 U\cdot\nabla\phi ,\qquad
+   2R^{-1}\int(\Pi-\pi)V\cdot\nabla\phi
+\]
+appearing in \eqref{eq:log-annular-virial-identity} are compact in the local
+distributional topology and define continuous observables on the closed hull of
+\(\mathcal D\) under the joint time-translation and log-translation flow.
+Equivalently, the hypothesis on legitimate compact observability invoked in
+\Cref{lem:recurrent-virial-equality-routing} is automatic for ancestor-realized
+recurrent defects, after either ordinary minimal mesoscopic-scale routing or
+assignment to the affine/parasitic stratum \(\Caff\).
+\end{lemma}
+
+\begin{proof}
+Each ingredient is bounded by the uniform \(L^\infty\) bound on the realizing
+sequence and by the local pressure-gauge compactness inherited through
+\Cref{prop:local-typeI-terminal-compactness}.  Specifically, on every fixed
+log-annular cylinder
+\(\Sigma_{\rho,A}=\{e^{\rho-A}\le|y|\le e^{\rho+A}\}\times[s_0,s_1]\),
+the cutoff \(\phi\) and its derivatives are supported away from the spatial
+origin and have bounded \(C^2\) norm uniformly in \(\rho\) by the polar-cutoff
+estimates in \eqref{eq:log-cutoff-derivative-bounds}.  Combined with
+\(\|U_n\|_{L^\infty(\Sigma_{\rho,A})}\le M\), the integrals
+\(\int\phi|V_{\rho,A}|^2\), \(\int(\Delta\phi)|V|^2\), and
+\(\int|V|^2 U\cdot\nabla\phi\) are uniformly bounded.  The pressure flux term
+\(\int(\Pi-\pi)V\cdot\nabla\phi\) involves only the cutoff gradient, supported
+away from the origin; using the local pressure gauge subtraction
+\(\Pi-\pi\) recorded in
+\Cref{lem:local-pressure-projected-caccioppoli,prop:normalized-pressure-representation},
+the corresponding integrals are uniformly bounded in \(L^1\).  Local
+dissipation \(\int\phi|\nabla U|^2\) is uniformly bounded along the realizing
+sequence by the local energy inequality of the suitable weak formulation.
+
+Continuity in the local distributional topology is the standard fact that
+each integral is a continuous bilinear pairing of the \(L^\infty\) field
+against a smooth compactly supported test function, with the pressure gauge
+chosen to make \(\Pi-\pi\) locally \(L^{3/2}\)-compact, see
+\Cref{lem:scaled-pressure-compactness-affine}.  The joint time-translation and
+log-translation flow extends these observables to the recurrent hull by
+density.  If at any stage the homogeneous gauge sequence loses compactness,
+\Cref{lem:homogeneous-gauge-compactness} routes the descendant to \(\Caff\) and
+the assertion is recorded as the affine alternative.  In the complementary
+case the observability hypothesis of
+\Cref{lem:recurrent-virial-equality-routing} is verified, and the routing
+provided by the minimal mesoscopic-scale theorem
+\Cref{thm:first-bad-mesoscopic-routing} closes the diagram.
+\end{proof}
+
 \begin{lemma}[Recurrent virial equality case and reduction]
 \label{lem:recurrent-virial-equality-routing}
 Let \(\mathcal D\in\Tcrit\) be a recurrent critical-tail defect generated by a
 bounded normalized terminal sequence after active-locus removal and affine
-normalization.  Assume that the log-annular virials in
-\Cref{lem:log-annular-oscillation-virial} are legitimate compact observables on
-the recurrent hull of \(\mathcal D\), in the sense of
-\Cref{rem:virial-normalization-warning}, and let \(\mathbb P\) be an invariant
-probability measure on that hull for the joint time-translation and
+normalization.  By \Cref{lem:realized-log-window-virial-compactness} the
+log-annular virials in \Cref{lem:log-annular-oscillation-virial} are
+legitimate compact observables on the recurrent hull of \(\mathcal D\) in the
+sense of \Cref{rem:virial-normalization-warning}, after either minimal
+mesoscopic-scale routing or assignment to \(\Caff\).  Let \(\mathbb P\) be an
+invariant probability measure on that hull for the joint time-translation and
 log-translation flow.  Assume also that the averaged pressure gauges are chosen
 by a local annular pressure decomposition, so that the three right-hand side
 terms in \eqref{eq:log-annular-virial-identity} have limits as defect
@@ -6526,23 +6681,91 @@ in distributions on \(\mathbb R^3\times\mathbb R\).  Then \(F\equiv0\).
 \end{lemma}
 
 \begin{proof}
-Mollify \(F\) in space-time and apply the standard renormalized
-characteristic argument; then let the mollification parameter tend to zero.
-Equivalently, test the distributional inequality against the adjoint transport
-kernel.  Along a backward characteristic
+\emph{Step 1: renormalization.}  Set \(G(x,s):=e^{s}F(x,s)\), so that
+\(0\le G\le Ce^{s}\) and, for every smooth nonnegative compactly supported
+test function \(\psi\),
 \[
-   x(\sigma)=e^{(\sigma-s)/2}x,\qquad \sigma\le s,
+   \langle G,(-\partial_s-\tfrac12 x\cdot\nabla-\tfrac32)\psi\rangle
+   =\langle F,(-\partial_s-\tfrac12 x\cdot\nabla-\tfrac12)(e^s\psi)\rangle
+   =\langle F,e^s(-\partial_s-\tfrac12 x\cdot\nabla-\tfrac12)\psi
+            -e^s\psi\rangle.
 \]
-the inequality gives, for every \(T>0\),
+Adding the two contributions reduces to
+\(\langle F,e^s(-\partial_s-\frac12 x\cdot\nabla-\frac32)\psi\rangle\), and the
+distributional hypothesis \(\partial_sF+\frac12 x\cdot\nabla F+F\le0\) applied
+to \(e^s\psi\ge0\) gives
+\begin{equation}\label{eq:variance-renormalized-transport}
+   \partial_sG+\frac12 x\cdot\nabla G\le 0
+   \qquad\hbox{in distributions on }\mathbb R^3\times\mathbb R .
+\end{equation}
+
+\emph{Step 2: backward adjoint semigroup.}  The forward characteristic flow of
+\(\widetilde L:=\partial_s+\frac12 x\cdot\nabla\) starting from \((x_0,s_0)\) is
+\(x(\sigma)=e^{(\sigma-s_0)/2}x_0\).  Define, for \(T\ge 0\), the backward
+adjoint operator on test functions
 \[
-   F(x,s)\le e^{-T}F(e^{-T/2}x,s-T)
+   (\mathcal S_T\psi)(x,s)
+   :=
+   e^{-3T/2}\psi\!\bigl(e^{-T/2}x,\,s-T\bigr) .
 \]
-at Lebesgue points of \(F\).  Since \(F\le C\), we obtain
+The prefactor \(e^{-3T/2}\) is exactly the Jacobian of \(x\mapsto e^{-T/2}x\)
+on \(\mathbb R^3\), so \(\int\mathcal S_T\psi\,dx\,ds=\int\psi\,dx\,ds\) and
+the family \(\{\mathcal S_T\}_{T\ge 0}\) is the adjoint of the forward
+characteristic flow on \(L^1(\mathbb R^3\times\mathbb R)\).  In particular, by
+the substitution \(x=e^{T/2}x'\), \(s=s'+T\) (Jacobian \(e^{3T/2}\)),
+\begin{equation}\label{eq:variance-pairing-substitution}
+   \langle G,\mathcal S_T\psi\rangle
+   =\iint G(e^{T/2}x',s'+T)\,\psi(x',s')\,dx'\,ds' .
+\end{equation}
+
+\emph{Step 3: monotonicity in \(T\).}  Fix \(\psi\ge 0\) smooth and compactly
+supported.  A direct computation using the chain rule shows that
+\(\frac{d}{dT}\mathcal S_T\psi=-\widetilde L^\ast(\mathcal S_T\psi)\) where
+\(\widetilde L^\ast=-\partial_s-\frac12 x\cdot\nabla-\frac32\); equivalently,
 \[
-   F(x,s)\le Ce^{-T}.
+   \frac{d}{dT}\langle G,\mathcal S_T\psi\rangle
+   =\langle G,-\widetilde L^\ast(\mathcal S_T\psi)\rangle
+   =\langle \widetilde L G,\mathcal S_T\psi\rangle .
 \]
-Letting \(T\to\infty\) gives \(F(x,s)=0\) at every Lebesgue point, hence
-almost everywhere.  The distributional inequality then gives \(F\equiv0\).
+Since \(\mathcal S_T\psi\ge 0\) and \(\widetilde L G\le 0\) distributionally by
+\eqref{eq:variance-renormalized-transport},
+\begin{equation}\label{eq:variance-monotone}
+   \frac{d}{dT}\langle G,\mathcal S_T\psi\rangle\le 0 .
+\end{equation}
+
+\emph{Step 4: Lebesgue limit and conclusion.}  Pick a standard nonnegative
+mollifier \(\psi_0\in C_c^\infty(\mathbb R^3\times\mathbb R)\) of unit total
+mass, fix \((x_1,s_1)\in\mathbb R^3\times\mathbb R\) and \(T\ge 0\), and set
+\((x_0,s_0):=(e^{-T/2}x_1,s_1-T)\).  Apply
+\eqref{eq:variance-monotone} to the rescaled test function
+\(\psi_\varepsilon(x,s)=\varepsilon^{-4}\psi_0\bigl((x-x_0)/\varepsilon,(s-s_0)/\varepsilon\bigr)\):
+since \(T\mapsto\langle G,\mathcal S_T\psi_\varepsilon\rangle\) is
+nonincreasing on \([0,\infty)\),
+\[
+   \langle G,\mathcal S_T\psi_\varepsilon\rangle
+   \le
+   \langle G,\psi_\varepsilon\rangle .
+\]
+By \eqref{eq:variance-pairing-substitution},
+\[
+   \langle G,\mathcal S_T\psi_\varepsilon\rangle
+   =\iint G(e^{T/2}x',s'+T)\,\psi_\varepsilon(x',s')\,dx'\,ds'
+\]
+which approximates \(G(e^{T/2}x_0,s_0+T)=G(x_1,s_1)\) at the rate dictated by
+Lebesgue differentiation.  Similarly \(\langle G,\psi_\varepsilon\rangle\to
+G(x_0,s_0)\) as \(\varepsilon\downarrow 0\) at common Lebesgue points.
+Therefore, at every common Lebesgue point of \(G\),
+\[
+   G(x_1,s_1)\le G(e^{-T/2}x_1,s_1-T) .
+\]
+Translating back through \(G=e^sF\),
+\begin{equation}\label{eq:variance-monotone-along-char}
+   e^{s_1}F(x_1,s_1)\le e^{s_1-T}F(e^{-T/2}x_1,s_1-T) ,
+\end{equation}
+hence \(F(x_1,s_1)\le e^{-T}F(e^{-T/2}x_1,s_1-T)\le Ce^{-T}\) using the
+hypothesis \(F\le C\) a.e.  Letting \(T\to\infty\) gives \(F(x_1,s_1)=0\) at
+every Lebesgue point, hence almost everywhere.  The distributional inequality
+is satisfied by the zero a.e. representative, so \(F\equiv 0\).
 \end{proof}
 
 \begin{lemma}[Minimal-scale blow-downs are strongly compact]
@@ -8368,6 +8591,33 @@ paper using local concentration and terminal dynamics:
 \item and the compactness and alternative exclusions culminating in
  \Cref{thm:R4-final-closure}.
 \end{itemize}
+\end{remark}
+
+\begin{remark}[No hidden global Liouville or critical-norm input]
+\label{rem:no-hidden-global-liouville}
+The residual closure does not invoke any global critical-norm bound on the
+original residual class, any global Coriolis--Leray Liouville theorem for
+bounded centered profiles, or any global Liouville theorem for bounded ancient
+solutions of the centered equation.  The only external Liouville input used
+after residual closure is the Albritton--Barker endpoint Liouville theorem
+\Cref{thm:AB-main}, applied in exactly two places.  First, the local
+weak-Serrin Type~I package
+\Cref{thm:AB-weak-serrin-typeI-package,thm:local-typeI-terminal-energy-package}
+upgrades the local pointwise Type~I envelope to terminal velocity
+no-escape; this is an entry-bridge use, optional inside Paper~IV in the sense
+of \Cref{sec:local-typeI-bridge}.  Second, in
+\Cref{lem:no-atomic-active}, the endpoint ancient Liouville theorem is applied
+to a parasitic-free bounded mild physical pullback that carries a backward
+\(L^3\)-bounded sequence supplied by indecomposable sequence-\(L^3\)
+completeness \Cref{lem:atomic-sequence-L3}.  No other global Liouville
+theorem and no global critical-norm estimate is used in any of the closure
+steps for \(\Cax,\Crot,\Cstat,\Caff,\Clogdiff,\Cyoung,\Chomcrit,\Clogper,
+\Capcrit,\Cgen\).  In particular, the rotational closure
+\Cref{thm:R2-exclusion-safe} routes through the localized Coriolis-flux
+identity and terminal local concentration, and the variance/critical-tail
+closures route through the minimal mesoscopic-scale reduction theorem
+\Cref{thm:first-bad-mesoscopic-routing} together with bounded-origin
+realization \Cref{thm:bounded-origin-realization-coherent-tails}.
 \end{remark}
 
 \begin{thebibliography}{99}
