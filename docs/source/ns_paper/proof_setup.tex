@@ -85,19 +85,19 @@
 \begin{document}
 
 \begin{abstract}
-We prove the concentration, compactness, and non-residual Liouville
-reductions used in a conditional local Type I Navier--Stokes exclusion
-strategy.  Starting from a finite-energy local pointwise Type I singular
+We prove the concentration, compactness, and Liouville reductions needed for a
+conditional exclusion of local pointwise Type I Navier--Stokes singularities.
+Starting from a finite-energy local pointwise Type I singular
 point, we obtain a normalized nonzero bounded centered Seregin ancient
-profile with retained compact local \(L^3\) velocity mass.  We define the
-small, stationary \(L^3\), uniformly \(L^3\)-tight, and Liouville-covered
-structure/decay classes, and prove the exclusion of these classes by
-perturbative, stationary, endpoint \(L^3\), and axisymmetric or weighted-vorticity
-Liouville mechanisms.  The closure of the uniformly \(L^3\)-tight class
+profile with positive compact local \(L^3\) velocity mass.  We define the
+small-amplitude, stationary \(L^3\), uniformly \(L^3\)-tight, and
+structure and decay classes, and prove their exclusion by
+perturbative, stationary, endpoint \(L^3\), and axisymmetric or
+weighted-vorticity Liouville theorems.  The exclusion of the uniformly
+\(L^3\)-tight class
 rests on the Albritton--Barker endpoint ancient Liouville theorem after a
-physical pullback on truncated ancient intervals.  The only remaining input
-is the residual closure theorem, isolated here as the conditional hypothesis
-\Cref{p1:hyp:no-remainder}.
+physical pullback on truncated ancient intervals.  The only conditional
+ingredient is the residual closure hypothesis \Cref{p1:hyp:no-remainder}.
 Consequently, residual closure implies the local pointwise Type I exclusion
 for the stated admissible finite-energy class.
 \end{abstract}
@@ -147,24 +147,25 @@ residual-class hypothesis \Cref{p1:hyp:no-remainder}.
 \hline
 Result & Proved here? & Used for \\
 \hline
-Local CKN concentration & yes & selects velocity mass at singular point \\
-Local/global no-escape & yes (with cited weak-Serrin) & keeps mass away from terminal slice \\
-Seregin extraction & yes & produces normalized centered ancient profile \\
-Small/stationary class exclusion & yes (NRS cited) & excludes lower classes \\
-Uniformly tight class exclusion & yes (Albritton--Barker cited) & excludes endpoint \(L^3\) class \\
-Structure/decay exclusions & yes (KNSS, LZZ, LRZ, Gallay--Wayne cited) & excludes structured cases \\
-Residual closure & conditional hypothesis \Cref{p1:hyp:no-remainder} & final contradiction \\
+Velocity epsilon regularity & yes (GKT cited) & singularity gives \(L^3\) concentration \\
+AB weak-Serrin estimate & yes (AB cited) & local pointwise Type I gives local \(A,C,D,E\) bounds \\
+Terminal no-escape & yes & keeps selected mass away from \(t=0\) \\
+Seregin compactness & yes & produces normalized centered ancient profile \\
+Nonvanishing lemma & yes & profile is nonzero \\
+Non-residual Liouville closures & yes (cited) & excludes the four named classes \\
+Residual closure hypothesis & conditional & excludes \(\calR(\calS)\) \\
+Contradiction & yes, conditional & rules out local pointwise Type I singularity \\
 \hline
 \end{tabular}
 \end{center}
 
 \subsection*{How to read this paper}
 
-Readers interested only in the setup of the residual theorem should read
+Readers interested only in the construction of the ancient limit should read
 Parts I and II together with the final assembly
 \Cref{p1:thm:final-assembly}.  Readers interested in the closed non-residual
 classes should read Parts III and IV.  The residual closure hypothesis
-\Cref{p1:hyp:no-remainder} is stated as a conditional analytic input.
+\Cref{p1:hyp:no-remainder} is stated as a conditional analytic assumption.
 
 \subsection*{Pressure notation}
 
@@ -174,7 +175,7 @@ limit after blow-up.  \(\Pi\) denotes a centered pressure obtained from
 \(Q\) by the self-similar change of variables.  All pressures are
 considered modulo functions of time only; this gauge ambiguity is invisible
 to the equations and to the local energy inequality
-(\Cref{p1:lem:gauges,p1:rem:centered-gauge,p1:rem:pressure-atlas}).
+(\Cref{p1:lem:gauges,p1:rem:centered-gauge,p1:lem:pressure-atlas,p1:rem:pressure-atlas}).
 
 \clearpage
 \section*{Part I. Local Concentration and the Type I/Type II Dichotomy}
@@ -222,7 +223,7 @@ The proof has four components.  First, the local scale-invariant
 quantities \(C\) and \(D\) are finite for suitable weak solutions and invariant
 under the usual parabolic scaling.  Second, the Caffarelli--Kohn--Nirenberg
 \(\varepsilon\)-regularity theorem implies that vanishing of \(C+D\) at a
-candidate singular point gives local regularity, while the velocity
+putative singular point gives local regularity, while the velocity
 \(\varepsilon\)-regularity criterion gives positive concentration in the
 scale-invariant \(L^3_{x,t}\) quantity.  Third, a finite-time singularity
 therefore produces sequences of shrinking cylinders on which \(C+D\), and
@@ -500,13 +501,17 @@ then \(u\) is locally bounded in \(Q_{r/2}(z_0)\).  In particular, if
 \end{theorem}
 
 \begin{proof}
-This is the standard \(L^3_{x,t}\) form of the Caffarelli--Kohn--Nirenberg
-\(\varepsilon\)-regularity criterion.  It follows from the standard local
-pressure decay lemma together with \cref{p0:thm:ckn}; equivalently, it is the
-\(L^3_{x,t}\)-smallness criterion
-proved in the Caffarelli--Kohn--Nirenberg theory and in Lin's direct proof
-\cite{CKN1982,Lin1998}.  The statement is scale invariant because \(C\) is
-invariant under the parabolic Navier--Stokes scaling.
+This is the one-scale velocity criterion of
+Gustafson--Kang--Tsai \cite{GustafsonKangTsai2007} in the case
+\(p=q=3\).  In their notation the scaled \(L^{p,q}_{x,t}\) velocity norm is
+small under the range \(3/p+2/q\le2\); taking \(p=q=3\) gives exactly the
+scale-invariant quantity \(C(z_0,r)\) used here.  Thus a singular point must
+satisfy the concentration consequence
+\[
+   \limsup_{r\downarrow0} C(z_0,r)\ge\varepsilon_v .
+\]
+The statement is scale invariant because \(C\) is invariant under the
+parabolic Navier--Stokes scaling.
 \end{proof}
 
 \begin{definition}[Vanishing local scale-invariant quantities at time \(T\)]
@@ -764,7 +769,7 @@ boundedness of \(u\) in \(Q_{r/2}(x_0,T)\), contradicting
 \(C((x_0,T),r_n)\ge\eta_v\) gives the result.
 \end{proof}
 
-\begin{proposition}[Concentration package at a terminal singular point]
+\begin{proposition}[Concentration consequences at a terminal singular point]
 \label{p0:prop:concentration-package}
 Let \((u,p)\) be a suitable weak solution on \(\mathbb R^3\times(T-\delta,T)\)
 and let \(x_*\in\Sigma(T)\).  Then:
@@ -774,12 +779,12 @@ and let \(x_*\in\Sigma(T)\).  Then:
 \item \(\limsup_{r\downarrow0}C((x_*,T),r)>0\) by
 \Cref{p0:cor:velocity-concentration};
 \item if the local pointwise Type I bound
-\eqref{p0:eq:paper0-local-typeI-bridge-bound} holds at \(z_*=(x_*,T)\) (or
+\eqref{p0:eq:paper0-local-typeI-bound} holds at \(z_*=(x_*,T)\) (or
 the global pointwise Type I bound holds), then
 \Cref{p0:thm:local-weak-serrin-typeI} (respectively
-\Cref{p0:thm:auto-velocity-no-escape}) supplies an admissible concentration
-sequence in the sense of
-\Cref{p0:def:paper0-admissible-local-bridge-sequence} suitable for the
+\Cref{p0:thm:auto-velocity-no-escape}) supplies an admissible local Type I
+concentration sequence in the sense of
+\Cref{p0:def:paper0-admissible-local-typeI-sequence} suitable for the
 Seregin extraction.
 \end{enumerate}
 \end{proposition}
@@ -788,8 +793,8 @@ Seregin extraction.
 Items (1) and (2) are restatements of the cited results at the singular
 point \(x_*\).  Item (3) combines (2) with the no-escape conclusion in
 \Cref{p0:thm:local-weak-serrin-typeI} or
-\Cref{p0:thm:auto-velocity-no-escape}, packaged through
-\Cref{p0:cor:paper0-local-typeI-bridge-admissible} for the local entry and
+\Cref{p0:thm:auto-velocity-no-escape}, together with
+\Cref{p0:cor:paper0-local-typeI-admissible} for the local entry and
 \Cref{p0:cor:auto-paperI-admissibility} for the global entry.
 \end{proof}
 
@@ -1247,7 +1252,7 @@ concentration point.
 \end{remark}
 
 \section{Local Pointwise Type I Reduction to Seregin Extraction}
-\label{p0:sec:local-typeI-terminal-bridge-paper0}
+\label{p0:sec:local-typeI-terminal-reduction-paper0}
 
 The following consequence of the weak-Serrin endpoint argument is used.
 The local pointwise Type I alternative in
@@ -1267,7 +1272,7 @@ Throughout this section \(z_*=(x_*,T)\), and
 \]
 
 \begin{definition}[Admissible local Type I concentration sequence]
-\label{p0:def:paper0-admissible-local-bridge-sequence}
+\label{p0:def:paper0-admissible-local-typeI-sequence}
 For a local pointwise Type I point \(z_*=(x_*,T)\), a sequence
 \(r_n\downarrow0\) is an admissible local Type I concentration sequence if the rescaled
 velocities
@@ -1297,12 +1302,12 @@ Let \((u,p)\) be a suitable weak solution on
 \]
 Let \(z_*=(x_*,T)\) be a singular point, and assume that \(z_*\) satisfies the
 local pointwise Type I bound: there exist \(\rho>0\) and \(M<\infty\) such that
-\begin{equation}\label{p0:eq:paper0-local-typeI-bridge-bound}
+\begin{equation}\label{p0:eq:paper0-local-typeI-bound}
   \operatorname*{ess\,sup}_{T-\rho^2<t<T}
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M .
 \end{equation}
 For any sequence \(r_n\downarrow0\), define
-\begin{equation}\label{p0:eq:paper0-local-typeI-bridge-rescaling}
+\begin{equation}\label{p0:eq:paper0-local-typeI-rescaling}
   u_n(x,t)=r_nu(x_*+r_nx,T+r_n^2t),
   \qquad
   p_n(x,t)=r_n^2p(x_*+r_nx,T+r_n^2t).
@@ -1315,13 +1320,13 @@ Then the following hold.
   \qquad R,S<\infty,\quad \sigma>0,
 \]
 then, for all sufficiently large \(n\),
-\begin{equation}\label{p0:eq:paper0-local-typeI-bridge-Linfty}
+\begin{equation}\label{p0:eq:paper0-local-typeI-Linfty}
   \|u_n\|_{L^\infty(K)}\le M\sigma^{-1/2}.
 \end{equation}
 \item On each such compact cylinder \(K\), after subtracting time-dependent
 local pressure gauges \(a_{n,K}(t)\), the sequence satisfies uniform local
 Seregin bounds
-\begin{equation}\label{p0:eq:paper0-local-typeI-bridge-Seregin-bounds}
+\begin{equation}\label{p0:eq:paper0-local-typeI-Seregin-bounds}
   \|u_n\|_{L^\infty_tL^2_x(K)}
   +\|\nabla u_n\|_{L^2(K)}
   +\|p_n-a_{n,K}(t)\|_{L^{3/2}(K)}
@@ -1355,7 +1360,7 @@ large \(n\),
 \]
 Thus \(x_*+r_nx\in B_\rho(x_*)\) and
 \(T+r_n^2t\in(T-\rho^2,T)\) for a.e. \((x,t)\in K\).  The local pointwise Type I bound
-\eqref{p0:eq:paper0-local-typeI-bridge-bound} gives
+\eqref{p0:eq:paper0-local-typeI-bound} gives
 \[
   |u_n(x,t)|
   =r_n|u(x_*+r_nx,T+r_n^2t)|
@@ -1363,7 +1368,7 @@ Thus \(x_*+r_nx\in B_\rho(x_*)\) and
   =M(-t)^{-1/2}
   \le M\sigma^{-1/2}.
 \]
-This proves \eqref{p0:eq:paper0-local-typeI-bridge-Linfty}.  It also gives
+This proves \eqref{p0:eq:paper0-local-typeI-Linfty}.  It also gives
 uniform local \(L^\infty_tL^2_x\) and \(L^3_{x,t}\) bounds on \(K\).
 
 It remains to explain the pressure and dissipation bounds.  Use the
@@ -1390,8 +1395,21 @@ Type I bound controls the \(L^2\)-mass by
 \[
   C M^2\sigma^{-1}(2^mR)^3,
 \]
-and the resulting series is geometric.  For the outer annuli, the finite
-Leray energy gives
+and therefore the inner part of the kernel series satisfies
+\[
+\begin{aligned}
+  \sum_{m\le m_n}2^{-4m}
+  \int_{2^mR<|z|<2^{m+1}R}|u_n(z,t)|^2\,dz
+  &\le
+  C M^2\sigma^{-1}R^3\sum_{m\le m_n}2^{-m}  \\
+  &\le C M^2\sigma^{-1}R^3 .
+\end{aligned}
+\]
+Here \(m_n\) is chosen by
+\[
+   2^{m_n}Rr_n\le \rho <2^{m_n+1}Rr_n .
+\]
+For the outer annuli, the finite Leray energy gives
 \[
   \int_{\mathbb R^3}|u_n(z,t)|^2\,dz
   =r_n^{-1}\int_{\mathbb R^3}|u(y,T+r_n^2t)|^2\,dy,
@@ -1399,10 +1417,14 @@ Leray energy gives
 while the first outer annulus has radius comparable to \(\rho/r_n\).  Hence
 the tail of the kernel series is bounded by
 \[
+  C\sum_{m\ge m_n}2^{-4m}r_n^{-1}
+  \|u\|_{L^\infty(0,T;L^2)}^2
+  \le
   C_{\rho,R}\,r_n^3\|u\|_{L^\infty(0,T;L^2)}^2,
 \]
-which is uniform in \(n\).  This proves the pressure-gauge part of
-\eqref{p0:eq:paper0-local-typeI-bridge-Seregin-bounds}.
+which is harmless and in particular uniform in \(n\).  This proves the
+pressure-gauge part of
+\eqref{p0:eq:paper0-local-typeI-Seregin-bounds}.
 
 Apply the local energy inequality for \((u_n,p_n)\) with a cutoff equal to one
 on \(K\) and supported in a slightly larger compact cylinder.  The local
@@ -1417,9 +1439,9 @@ Type I bound passes to the limit.
 
 \begin{theorem}[Local endpoint weak-Serrin Type I estimate]
 \label{p0:thm:local-weak-serrin-typeI}
-Let \((u,p)\) be a finite-energy suitable weak solution near
-\(z_*=(x_*,T)\) and assume the local pointwise Type I bound
-\eqref{p0:eq:paper0-local-typeI-bridge-bound}
+Let \((u,p)\) be a suitable weak solution in a backward cylinder
+\(Q_\rho(z_*)\), \(z_*=(x_*,T)\), and assume the local pointwise Type I bound
+\eqref{p0:eq:paper0-local-typeI-bound}
 \[
   \esssup_{T-\rho^2<t<T}
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M.
@@ -1434,42 +1456,89 @@ Then, after possibly shrinking \(\rho\), the rescaled velocities
 \end{theorem}
 
 \begin{proof}
-The local pointwise Type I bound, finite local energy, and the local
-analogue of the uniformly-local energy propagation argument
-\Cref{p0:lem:uloc-typeI-propagation} (applied to a backward parabolic
-neighborhood of \(z_*\) with the local pointwise Type I bound supplying the
-initial scale-invariant data) provide a uniform-in-time uniformly-local
-\(L^2\) bound on \(B_\rho(x_*)\): there exist \(K=K(M,E_{\mathrm{loc}})\)
-and \(r_0=r_0(\rho)>0\) such that
+After translating and scaling, assume \(z_*=(0,0)\) and work in
 \[
-   \sup_{T-\rho^2/4<t<T}\sup_{x\in B_{\rho/2}(x_*)}
-   r^{-1}\int_{B_r(x)}|u(\cdot,t)|^2\le K
-   \qquad(0<r\le r_0).
+   Q_\rho=B_\rho\times(-\rho^2,0).
 \]
-Rescaling at \(z_*\) by \(r_n\downarrow0\) (eventually \(r_n\le r_0\)) and
-choosing \(x=x_*\), \(r=r_n\), gives
+Put
 \[
-   \int_{B_1}|u_n(\cdot,s)|^2\,dy
-   =r_n^{-1}\int_{B_{r_n}(x_*)}|u(\cdot,T+r_n^2s)|^2\,dx\le K
+   f(t)=\|u(t)\|_{L^\infty(B_\rho)} .
 \]
-uniformly in \(n\) and \(s\in[-1,0]\).  Combined with the pointwise Type I
-envelope \(\|u_n(s)\|_{L^\infty(B_1)}\le M(-s)^{-1/2}\) on
-\(s\in[-1,0)\), the interpolation
+The pointwise Type I bound gives \(f(t)\le M(-t)^{-1/2}\).  Hence, for every
+\(\alpha>0\),
 \[
-  \int_{-\sigma}^{0}\int_{B_1}|u_n|^3\,dy\,ds
-  \le \int_{-\sigma}^{0}\|u_n(s)\|_{L^\infty(B_1)}
-  \int_{B_1}|u_n|^2\,dy\,ds
-  \le \int_{-\sigma}^{0}M(-s)^{-1/2}\cdot K\,ds
-  =2MK\sigma^{1/2}
+   |\{t\in(-\rho^2,0): f(t)>\alpha\}|
+   \le \min\{\rho^2,M^2\alpha^{-2}\},
 \]
-gives the no-escape limit uniformly in \(n\).  The same conclusion is the
-local endpoint weak-Serrin Type I estimate of Albritton--Barker
-\cite{AlbrittonBarker2019}; the elementary derivation above suffices because
-no-escape requires only a uniform-in-\(n\) terminal-layer \(L^3\) smallness.
+and therefore
+\[
+   \|f\|_{L^{2,\infty}(-\rho^2,0)}\le C M .
+\]
+Thus
+\[
+   u\in L_t^{2,\infty}L_x^\infty(Q_\rho).
+\]
+
+Fix \(0<\theta<1\).  Apply the Albritton--Barker weak-Serrin Type I lemma
+\cite[Lemma 2.5]{AlbrittonBarker2019} with \(p=\infty\) and \(q=2\).  In
+their notation,
+\[
+   I(\omega)
+   =
+   \sup_{Q'\Subset\omega}\bigl(A(Q')+C(Q')+D(Q')+E(Q')\bigr),
+\]
+and the endpoint weak-Serrin hypothesis above gives a finite bound
+\[
+   I(Q_{\theta\rho})\le K_\theta .
+\]
+The constant \(K_\theta\) is finite and independent of the blow-up scale
+\(r_n\).  In particular, for all sufficiently small \(r\),
+\[
+   r^{-1}\esssup_{-r^2<t<0}
+   \int_{B_r}|u(x,t)|^2\,dx
+   \le K_\theta .
+\]
+
+Let \(r_n\downarrow0\) and
+\[
+   u_n(y,s)=r_n u(r_ny,r_n^2s).
+\]
+For all sufficiently large \(n\),
+\[
+   \esssup_{-1<s<0}\int_{B_1}|u_n(y,s)|^2\,dy
+   =
+   r_n^{-1}\esssup_{-r_n^2<t<0}
+   \int_{B_{r_n}}|u(x,t)|^2\,dx
+   \le K_\theta .
+\]
+Moreover,
+\[
+   \|u_n(s)\|_{L^\infty(B_1)}
+   \le M(-s)^{-1/2}.
+\]
+Therefore, for \(0<\sigma<1\),
+\[
+\begin{aligned}
+   \int_{-\sigma}^{0}\int_{B_1}|u_n|^3\,dy\,ds
+   &\le
+   \int_{-\sigma}^{0}
+   \|u_n(s)\|_{L^\infty(B_1)}
+   \int_{B_1}|u_n(y,s)|^2\,dy\,ds  \\
+   &\le
+   M K_\theta \int_{-\sigma}^{0}(-s)^{-1/2}\,ds
+   =
+   2M K_\theta\sigma^{1/2}.
+\end{aligned}
+\]
+This proves the required terminal velocity no-escape for all sufficiently
+large \(n\).  The finitely many remaining indices are harmless by absolute
+continuity of the local \(L^3\) integral, since suitable weak solutions are
+locally in \(L^3\) on terminal subcylinders.  Taking the
+supremum in \(n\) and then letting \(\sigma\downarrow0\) gives the claim.
 \end{proof}
 
 \begin{corollary}[Local pointwise Type I concentration sequences are admissible]
-\label{p0:cor:paper0-local-typeI-bridge-admissible}
+\label{p0:cor:paper0-local-typeI-admissible}
 Under the hypotheses of
 \cref{p0:prop:paper0-local-typeI-terminal-compactness}, let \(r_n\downarrow0\) be
 any sequence such that the rescaled velocities satisfy
@@ -1478,18 +1547,18 @@ any sequence such that the rescaled velocities satisfy
   \qquad\text{for all }n .
 \]
 Then \(r_n\) is an admissible local Type I concentration sequence in the sense of
-\cref{p0:def:paper0-admissible-local-bridge-sequence}.
+\cref{p0:def:paper0-admissible-local-typeI-sequence}.
 \end{corollary}
 
 \begin{proof}
 The displayed positive concentration lower bound is the first requirement in
-\cref{p0:def:paper0-admissible-local-bridge-sequence}.  The Albritton--Barker
+\cref{p0:def:paper0-admissible-local-typeI-sequence}.  The Albritton--Barker
 local weak-Serrin Type I estimate implies
 that the local pointwise Type I envelope implies terminal velocity no-escape
 for every rescaled sequence
 \cite{AlbrittonBarker2019}; the precise statement used here is
 \Cref{p0:thm:local-weak-serrin-typeI}.  This gives the second requirement in
-\cref{p0:def:paper0-admissible-local-bridge-sequence}.
+\cref{p0:def:paper0-admissible-local-typeI-sequence}.
 \end{proof}
 
 \begin{lemma}[Local Type I concentration enters the Seregin extraction]
@@ -1502,9 +1571,9 @@ a velocity concentration sequence satisfying
   \qquad\text{for all }n .
 \]
 Then \(r_n\) is admissible by
-\cref{p0:cor:paper0-local-typeI-bridge-admissible}.  There are
+\cref{p0:cor:paper0-local-typeI-admissible}.  There are
 \(\sigma_0\in(0,1)\) and \(\eta_1>0\) such that
-\begin{equation}\label{p0:eq:paper0-local-typeI-bridge-away-mass}
+\begin{equation}\label{p0:eq:paper0-local-typeI-away-mass}
   \int_{-1}^{-\sigma_0}\int_{B_1}|u_n|^3\,dx\,dt\ge\eta_1
   \qquad\text{for all }n.
 \end{equation}
@@ -1516,10 +1585,10 @@ nontriviality.
 
 \begin{proof}
 The no-escape condition in
-\cref{p0:def:paper0-admissible-local-bridge-sequence} gives \(\sigma_0>0\) such
+\cref{p0:def:paper0-admissible-local-typeI-sequence} gives \(\sigma_0>0\) such
 that the terminal layer \(B_1\times(-\sigma_0,0)\) carries at most half of the
 fixed \(Q_1\) velocity mass.  This proves
-\eqref{p0:eq:paper0-local-typeI-bridge-away-mass}.  The compactness part follows
+\eqref{p0:eq:paper0-local-typeI-away-mass}.  The compactness part follows
 from \cref{p0:prop:paper0-local-typeI-terminal-compactness} on the compact
 negative-time cylinder \(B_1\times[-1,-\sigma_0]\).  Strong local \(L^3\)
 convergence on this cylinder passes the positive mass to the ancient limit.
@@ -1535,7 +1604,7 @@ slice.
 Under the hypotheses of
 \cref{p0:prop:paper0-local-typeI-terminal-compactness}, let \(r_n\downarrow0\)
 be an admissible local Type I concentration sequence in the sense of
-\cref{p0:def:paper0-admissible-local-bridge-sequence}.  Then, after passing to
+\cref{p0:def:paper0-admissible-local-typeI-sequence}.  Then, after passing to
 a subsequence, the rescaled velocities produce a smooth bounded centered
 solution \(V\) of \eqref{p1:eq:centered} on
 \(\mathbb R^3\times\mathbb R\).  The solution \(V\) satisfies the
@@ -1579,7 +1648,7 @@ bound for \(U\) becomes the displayed local \(L^3\) nonvanishing for \(V\).
 Assume the residual-class hypothesis \Cref{p1:hyp:no-remainder}.
 Let \((u,p)\) be a finite-energy suitable weak solution on
 \(\mathbb R^3\times(0,T)\).  Then no singular point \(z_*=(x_*,T)\) satisfying
-the local pointwise Type I bound \eqref{p0:eq:paper0-local-typeI-bridge-bound}
+the local pointwise Type I bound \eqref{p0:eq:paper0-local-typeI-bound}
 exists.  More precisely, any such point would generate a bounded centered Type I
 Seregin limit with positive local concentration, and that limit is excluded
 by the Liouville alternatives established in the sequel or cited, together with
@@ -1589,10 +1658,10 @@ by the Liouville alternatives established in the sequel or cited, together with
 \begin{proof}
 Assume \Cref{p1:hyp:no-remainder}.
 Suppose, toward a contradiction, that \(z_*=(x_*,T)\) is a singular point
-satisfying \eqref{p0:eq:paper0-local-typeI-bridge-bound}.
+satisfying \eqref{p0:eq:paper0-local-typeI-bound}.
 Choose the positive \(Q_1\) velocity concentration sequence supplied by the
 local concentration theorem.  By
-\cref{p0:cor:paper0-local-typeI-bridge-admissible}, this sequence satisfies
+\cref{p0:cor:paper0-local-typeI-admissible}, this sequence satisfies
 terminal no-escape and is admissible.
 By \cref{p0:lem:paper0-local-typeI-into-terminal-dichotomy}, the local Type I
 sequence has local compactness and positive compact \(L^3\)-mass away from the
@@ -1601,17 +1670,17 @@ By \cref{p0:lem:local-seregin-extraction}, the sequence generates a smooth
 bounded centered Type I Seregin limit with local \(L^3\) nonvanishing.  By the
 class exhaustion in
 \cref{p1:prop:exhaustion}, this limit lies either in one of the Liouville
-classes excluded by the stated Liouville theorems or in the remaining class \(\calR(\calS)\) for the
-collection \(\calS\) generated by the extraction.  The Liouville classes are
-excluded by the small-amplitude, stationary, uniformly tight, and
-structure/decay Liouville results stated in Parts II--IV.  The remaining
-class is empty by the residual-class hypothesis.  This contradicts the
-local \(L^3\) nonvanishing, so the assumed local Type I singular point
-cannot exist under \Cref{p1:hyp:no-remainder}.
+classes excluded by the stated Liouville theorems or in the remaining class
+\(\calR(\calS(u,p,z_*))\) for the generated time-translation closure associated with
+the extraction.  The Liouville classes are excluded by the small-amplitude,
+stationary, uniformly tight, and structure and decay Liouville results stated in
+Parts II--IV.  The remaining class is empty by the residual-class hypothesis.
+This contradicts the local \(L^3\) nonvanishing, so the assumed local Type I
+singular point cannot exist under \Cref{p1:hyp:no-remainder}.
 \end{proof}
 
 \begin{corollary}[Conditional exclusion of the local Type I alternative]
-\label{p0:cor:paper0-local-typeII-after-bridge}
+\label{p0:cor:paper0-local-typeII-after-local-typeI-reduction}
 Assume the residual-class hypothesis \Cref{p1:hyp:no-remainder}.  Then the
 local Type I alternative is excluded for every finite-energy singular point.
 Hence every finite-energy singular point belongs to the local Type II
@@ -1633,19 +1702,19 @@ singular point \(z_*=(x_*,T)\)\\
 positive velocity concentration scales\\
 \(\downarrow\) \Cref{p0:thm:local-weak-serrin-typeI} (local) \emph{or} \Cref{p0:thm:auto-velocity-no-escape} (global)\\
 no-escape away from terminal slice\\
-\(\downarrow\) \Cref{p0:cor:paper0-local-typeI-bridge-admissible} / \Cref{p0:cor:auto-paperI-admissibility}\\
+\(\downarrow\) \Cref{p0:cor:paper0-local-typeI-admissible} / \Cref{p0:cor:auto-paperI-admissibility}\\
 admissible concentration sequence\\
 \(\downarrow\) \Cref{p0:lem:local-seregin-extraction} \emph{or} \Cref{p1:thm:extraction}\\
 normalized Seregin ancient limit (Part II)\\
 \(\downarrow\) class decomposition \Cref{p1:def:remaining-class}\\
 non-residual classes (excluded here) \(\cup\) residual class\\
-\(\downarrow\) \Cref{p1:hyp:no-remainder} (conditional residual closure input)\\
+\(\downarrow\) \Cref{p1:hyp:no-remainder} (conditional residual closure hypothesis)\\
 contradiction\(\Rightarrow\) \Cref{p1:thm:final-assembly}.
 \end{tabular}
 \end{center}
 
-This is a setup pipeline, not a self-contained residual proof; the residual
-input is isolated in \Cref{p1:hyp:no-remainder}.
+This is a reduction theorem, not a self-contained residual proof; the residual
+closure assumption is isolated in \Cref{p1:hyp:no-remainder}.
 
 \clearpage
 \section*{Part II. Type I Blow-up Limits and the Residual Hypothesis}
@@ -1663,11 +1732,11 @@ local \(L^3\) nonvanishing condition.
 
 The possible normalized Seregin ancient limits are organized by the analytic
 hypotheses used in the class decomposition: small amplitude, stationary
-\(L^3\), uniform \(L^3\)-tightness, and structure or decay assumptions covered
-by cited Liouville theorems.  The small-amplitude case is excluded by the bounded ancient
+\(L^3\), uniform \(L^3\)-tightness, and structure or decay assumptions to which
+cited Liouville theorems apply.  The small-amplitude case is excluded by the bounded ancient
 perturbative Liouville theorem in \Cref{p1:lem:small-liouville}, and the stationary \(L^3\) case by
 the theorem of Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}ver\'ak.  The
-structure/decay class contains only hypotheses for which the cited Liouville
+structure and decay class contains only hypotheses for which the cited Liouville
 theorems force \(V\equiv0\).  The uniformly \(L^3\)-tight class is closed in
 \Cref{p2:thm:tight-liouville}.  The remaining class is not proved empty; its
 emptiness is the residual-class hypothesis \Cref{p1:hyp:no-remainder}.
@@ -1752,7 +1821,8 @@ following analytic classes:
    \calR(\calS).
 \]
 They denote, respectively, small amplitude, stationary \(L^3\), uniform
-\(L^3\)-tightness, structure or decay covered by cited Liouville theorems
+\(L^3\)-tightness, and structure or decay hypotheses to which the cited
+Liouville theorems apply
 (\(\mathrm{sd}\)), and the complement of these four classes inside a fixed
 collection \(\calS\) of normalized limits.  The last set carries no additional
 analytic hypothesis; it is the remaining case after the stated Liouville
@@ -1807,8 +1877,8 @@ The argument uses one closure theorem and one explicit residual-class
 hypothesis.  The uniformly \(L^3\)-tight class is excluded by
 \Cref{p2:thm:tight-liouville}.
 The remaining class is excluded only under the residual-class hypothesis
-\Cref{p1:hyp:no-remainder}.  The structure/decay
-class is restricted to hypotheses covered by cited Liouville theorems.
+\Cref{p1:hyp:no-remainder}.  The structure and decay
+class is restricted to hypotheses to which cited Liouville theorems apply.
 
 The resulting implication is
 \[
@@ -1821,7 +1891,7 @@ The resulting implication is
 \\
 \Downarrow
 \\
-\text{small/stationary/tight/structure--decay/remaining alternative}
+\text{small/stationary/tight/structure and decay/remaining alternative}
 \\
 \Downarrow
 \\
@@ -1832,9 +1902,9 @@ The resulting implication is
 \begin{itemize}[leftmargin=*,itemsep=2pt]
 \item Small amplitude: excluded in \Cref{p1:sec:liouville}.
 \item Stationary \(L^3\): excluded by \cite{NRS1996}.
-\item Uniformly \(L^3\)-tight: proved in \Cref{p1:hyp:tight-liouville}, using
+\item Uniformly \(L^3\)-tight: proved in \Cref{p1:thm:tight-liouville}, using
 \Cref{p2:thm:tight-liouville}.
-\item Structure/decay: excluded by the cited theorems in
+\item Structure and decay: excluded by the cited theorems in
 \Cref{p1:thm:known-structure-decay-liouville}.
 \item Remaining class: excluded under the residual-class hypothesis
 \Cref{p1:hyp:no-remainder}.
@@ -1847,25 +1917,25 @@ result stated as \cref{p1:prop:local-velocity-concentration}; no other result
 from the local concentration theory enters the blow-up construction.
 The uniformly \(L^3\)-tight Liouville theorem and the residual-class hypothesis
 are not used to construct the ancient limit.  They are invoked only after the
-class exhaustion.  The statement \cref{p1:hyp:tight-liouville} follows from the
+class exhaustion.  The statement \cref{p1:thm:tight-liouville} follows from the
 endpoint \(L^3\) closure in \Cref{p2:thm:tight-liouville}, and
 \cref{p1:hyp:no-remainder} is the residual-class hypothesis.  The
-structure/decay class is restricted by definition to assumptions covered by
-the cited Liouville theorems.  Thus the final Type I conclusion is conditional
+structure and decay class is restricted by definition to assumptions to which
+the cited Liouville theorems apply.  Thus the final Type I conclusion is conditional
 on the admissibility condition in \Cref{p0:cor:auto-paperI-admissibility}, the
 extraction theorem, the Liouville-class exclusions, and the
 residual-class hypothesis.
 
-\subsection{Two equivalent entry points for the setup}
+\subsection{Two entry routes for the reduction}
 \label{p1:sec:two-entry-points}
 
-The paper uses two Type I entry points whose interface is fixed once and for
-all here:
+There are two routes to the same class of normalized Seregin limits; they have
+different hypotheses and produce the same type of ancient solution.
 \begin{enumerate}[label=\textup{(\arabic*)}]
 \item \emph{Local pointwise Type I.}  The Part I local concentration and
 local endpoint weak-Serrin estimate \Cref{p0:thm:local-weak-serrin-typeI}
-produce an admissible local Type I bridge sequence at any singular point
-satisfying \eqref{p0:eq:paper0-local-typeI-bridge-bound}, and
+produce an admissible local Type I concentration sequence at any singular point
+satisfying \eqref{p0:eq:paper0-local-typeI-bound}, and
 \Cref{p0:lem:paper0-local-typeI-into-terminal-dichotomy} feeds the resulting
 rescalings into the Seregin extraction with positive compact \(L^3\)
 velocity mass on a fixed negative-time cylinder.  This is the entry point
@@ -1878,12 +1948,22 @@ bound on \(\R^3\).  This streamlines the harmonic-pressure tail estimates,
 which would otherwise require the local pressure-tail decomposition recorded
 in \Cref{p0:prop:paper0-local-typeI-terminal-compactness}.
 \end{enumerate}
-In both cases the output is the same object: a normalized Seregin ancient
+In both cases the conclusion is a normalized Seregin ancient
 limit satisfying the local \(L^3\) nonvanishing condition
 \eqref{p1:eq:nonvanishing}.  The local pointwise entry uses Part I to produce
-an admissible bridge sequence and pressure-tail control, while Part II then
-runs on the resulting compact cylinders.  No analytic hypothesis beyond local
-pointwise Type I and finite Leray energy is added in this bridge.
+an admissible concentration sequence and pressure-tail control, while Part II
+then runs on the resulting compact cylinders.  No analytic hypothesis beyond
+local pointwise Type I and finite Leray energy is added in this reduction.
+
+\begin{center}
+\begin{tabular}{p{0.18\textwidth}p{0.30\textwidth}p{0.40\textwidth}}
+Global route & global pointwise Type I &
+global no-escape \(\Rightarrow\) finite-energy Seregin extraction \\
+Local route & local pointwise Type I &
+AB endpoint weak-Serrin bounds \(\Rightarrow\) terminal no-escape
+\(\Rightarrow\) local Seregin extraction
+\end{tabular}
+\end{center}
 
 \subsection{Organization}
 
@@ -1897,8 +1977,8 @@ normalized Seregin limits and collections.  \Cref{p1:sec:classes} defines the
 Liouville classes and the remaining class.  \Cref{p1:sec:liouville} proves the
 class exclusions and the uniformly tight theorem.  \Cref{p1:sec:criterion} proves
 the conditional remaining-case criterion of
-\Cref{p1:thm:remaining-criterion} and the interface with the companion
-residual closure paper.  Appendix \ref{p1:app:centered-symmetries} gives
+\Cref{p1:thm:remaining-criterion} and the residual closure hypothesis.
+Appendix \ref{p1:app:centered-symmetries} gives
 the elementary symmetries of the centered equation.
 
 \section{Suitable solutions, scale-invariant quantities, and local concentration}
@@ -2418,12 +2498,42 @@ The last assertion is \cref{p1:lem:gauges}, and centering transforms the
 time-dependent gauge into another time-dependent gauge.
 \end{proof}
 
+\begin{lemma}[Pressure gauge atlas]\label{p1:lem:pressure-atlas}
+Let \((u_n,p_n)\) be a rescaled sequence of suitable weak solutions satisfying
+the local compactness bounds on every compact cylinder
+\(K\Subset\R^3\times(-\infty,0)\).  For every ball \(B_R\) and compact time
+interval \(I\Subset(-\infty,0)\) there are time-dependent functions
+\(a_{n,R}(t)\) such that
+\[
+   p_n-a_{n,R}(t)
+   \quad\hbox{is bounded in }L^{3/2}(B_R\times I).
+\]
+On nested balls, any two such gauges for the same \(n\) differ by functions of
+time only, and the same compatibility passes to pressure limits.  These gauge
+changes do not affect the distributional Navier--Stokes equations or the local
+energy inequality.
+\end{lemma}
+
+\begin{proof}
+The local pressure bounds are those proved in \Cref{p1:lem:pressure} for the
+global Type I extraction and in
+\Cref{p0:prop:paper0-local-typeI-terminal-compactness} for the local Type I
+rescaling construction.  On each fixed \(B_R\times I\), choose any of the gauges
+provided there, for instance a spatial average on a unit ball contained in
+\(B_R\) after enlarging \(R\) if necessary.  Compatibility on nested balls is
+\Cref{p1:lem:gauge-compatibility}: subtracting two admissible representatives
+leaves the same pressure gradient, hence the difference is spatially constant
+for a.e. time.  Invariance of the equation and local energy inequality under
+time-only pressure changes is \Cref{p1:lem:gauges}.
+\end{proof}
+
 \begin{remark}[Pressure-gauge atlas]
 \label{p1:rem:pressure-atlas}
 In the sequel, a pressure limit \(Q\) means a compatible family of local
 representatives modulo time-dependent gauges.  On overlaps, the gradients
 agree; hence the representatives differ only by functions of time.  This is
-the standard pressure atlas for local suitable limits.  When local
+the pressure atlas of \Cref{p1:lem:pressure-atlas} for local suitable limits.
+When local
 compactness is run on a fixed compact cylinder \(K\), we use the gauge
 \(a_{k,K}(t)=(p_k)_{B_1}(t)\) supplied by \Cref{p1:lem:pressure}, and
 \Cref{p1:lem:gauge-compatibility} identifies a single pressure limit on
@@ -2801,7 +2911,7 @@ Hence
 
 Thus concentration generated by the singular point propagates through the
 compactness limit.  The velocity concentration and no-escape condition are the
-inputs that prevent the ancient limit from being identically zero.
+hypotheses that prevent the ancient limit from being identically zero.
 
 \section{Centered variables and normalized Seregin limits}\label{p1:sec:seregin}
 
@@ -2827,6 +2937,35 @@ If \(Q\) is replaced by \(Q+a(t)\) for a function \(a\) of \(t\) only, then
 gauge-invariant: changing the pressure by a function of physical time amounts
 to changing the centered pressure by a function of centered time.
 \end{remark}
+
+\begin{lemma}[Centered pullback identities]
+\label{p1:lem:centered-pullback-identities}
+The centered and physical variables are related by
+\[
+   t=-e^{-\tau},\qquad x=e^{-\tau/2}y,\qquad
+   U(x,t)=e^{\tau/2}V(y,\tau),
+\]
+or equivalently
+\[
+   V(y,\tau)=e^{-\tau/2}U(e^{-\tau/2}y,-e^{-\tau}).
+\]
+For every \(\tau\in\R\), with \(t=-e^{-\tau}\),
+\[
+   \int_{\R^3}|U(x,t)|^3\,dx
+   =
+   \int_{\R^3}|V(y,\tau)|^3\,dy .
+\]
+\end{lemma}
+
+\begin{proof}
+The first identities are the definitions with \(-t=e^{-\tau}\).  Since
+\[
+   |U(x,t)|^3=e^{3\tau/2}|V(y,\tau)|^3,
+   \qquad
+   dx=e^{-3\tau/2}\,dy,
+\]
+the critical \(L^3\) identity follows by multiplication and integration.
+\end{proof}
 
 \begin{lemma}[Renormalized equation]\label{p1:lem:renormalized-equation}
 The pair \((V,\Pi)\) solves \eqref{p1:eq:centered}.
@@ -3011,7 +3150,7 @@ procedures:
 \item the finite-energy Type I extraction in \Cref{p1:def:admissible-type-I}
 and \Cref{p1:thm:extraction};
 \item the local pointwise Type I extraction in
-\Cref{p0:def:paper0-admissible-local-bridge-sequence,p0:lem:local-seregin-extraction}.
+\Cref{p0:def:paper0-admissible-local-typeI-sequence,p0:lem:local-seregin-extraction}.
 \end{enumerate}
 In both cases the conclusion is a smooth bounded solution of the centered equation
 \eqref{p1:eq:centered} with compact local \(L^3\) nonvanishing.
@@ -3020,26 +3159,38 @@ In both cases the conclusion is a smooth bounded solution of the centered equati
 \begin{definition}[Normalized Seregin ancient limit]\label{p1:def:seregin-limit}
 A smooth bounded solution \((V,\Pi)\) of \eqref{p1:eq:centered} is a normalized
 Seregin ancient limit if it is generated by an admissible Type I extraction in
-the sense of \Cref{p1:def:admissible-type-I-extraction}.  Equivalently, it is
-a centered Type I blow-up limit satisfying the local \(L^3\) nonvanishing
-normalization \eqref{p1:eq:nonvanishing}.
+the sense of \Cref{p1:def:admissible-type-I-extraction}.  Every normalized
+Seregin ancient limit is therefore a centered Type I blow-up limit satisfying
+the local \(L^3\) nonvanishing normalization
+\eqref{p1:eq:nonvanishing}.  The terminology is reserved for generated limits:
+abstract bounded centered ancient solutions satisfying the same formal
+estimates are not called normalized Seregin limits unless they arise from an
+admissible extraction or from the generated time-translation closure in
+\Cref{p1:def:seregin-collection}.
 \end{definition}
 
 \begin{definition}[Collection of normalized Seregin limits]
 \label{p1:def:seregin-collection}
-A \emph{raw} collection \(\calS\) is any nonempty set of normalized Seregin
+A \emph{initial} collection \(\calS\) is any nonempty set of normalized Seregin
 ancient limits generated by admissible Type I extractions.  The
-\emph{generated Seregin hull} \(\overline{\calS}\) is the closure of
-\(\calS\) under logarithmic time translations and locally smooth limits
-retaining the local \(L^3\) normalization
-\eqref{p1:eq:nonvanishing}.  When needed,
-\(\calS(u,p,z_*)\) denotes a raw collection associated with a fixed singular
-point \(z_*\).  The residual closure hypothesis
-\Cref{p1:hyp:no-remainder} is stated for raw collections; the same
-conclusion for the hull \(\overline{\calS}\) follows because every element
-of \(\overline{\calS}\setminus\calS\) is again a normalized Seregin ancient
-limit and so itself a member of some raw collection.
+\emph{generated time-translation closure} \(\overline{\calS}^{\,\mathrm{tr}}\) is,
+by definition, the smallest class containing \(\calS\) and closed under
+logarithmic time translations and locally smooth limits which retain the local
+\(L^3\) normalization \eqref{p1:eq:nonvanishing}.  A \emph{generated Seregin
+limit} is either an extracted limit or an element of such a generated
+time-translation closure.  When needed, \(\calS(u,p,z_*)\) denotes the generated
+time-translation closure associated with the fixed singular point \(z_*\) and all
+admissible local Type I concentration sequences at that point.
 \end{definition}
+
+\begin{remark}[Generated time-translation closures]
+\label{p1:rem:raw-hull}
+No assertion is made here that an arbitrary locally smooth hull limit is an extracted
+limit from the original physical sequence without further diagonalization.
+Instead, the generated time-translation closure is the class to which the
+residual closure hypothesis is applied.  This is the class on which the residual set
+\(\calR(\calS)\) is formed in the final assembly.
+\end{remark}
 
 \begin{remark}
 The local \(L^3\) nonvanishing condition is part of the normalization, not an
@@ -3050,6 +3201,20 @@ and through \cref{p0:lem:local-seregin-extraction} for the local pointwise
 Type I extraction.  Thus every normalized Seregin ancient limit is nonzero in
 the sense of \eqref{p1:eq:nonvanishing}.
 \end{remark}
+
+\begin{corollary}[Normalized Seregin limits are nonzero]
+\label{p1:cor:normalized-nonzero}
+Every normalized Seregin ancient limit generated by an admissible extraction
+satisfies \eqref{p1:eq:nonvanishing}; in particular it is not identically
+zero.
+\end{corollary}
+
+\begin{proof}
+For the finite-energy extraction this is
+\Cref{p1:lem:scale-selection,p1:prop:nonzero,p1:lem:renorm-bounds}.  For the
+local pointwise Type I extraction it is
+\Cref{p0:lem:paper0-local-typeI-into-terminal-dichotomy,p0:lem:local-seregin-extraction}.
+\end{proof}
 
 \begin{proof}[Proof of \cref{p1:thm:extraction}]
 Choose an admissible concentration sequence
@@ -3066,9 +3231,10 @@ smoothness, boundedness, and local \(L^3\) nonvanishing are
 
 \section{Liouville classes and the remaining class}\label{p1:sec:classes}
 
-Fix a collection \(\calS\) of normalized Seregin ancient limits.  Complements
-below are taken relative to \(\calS\).  Structural conditions involving the
-unrenormalized ancient field refer to
+Fix a generated time-translation closure \(\calS\) of normalized Seregin limits in the
+sense of \Cref{p1:def:seregin-collection}.  Complements below are taken
+relative to \(\calS\).  Structural conditions involving the unrenormalized
+ancient field refer to
 \[
    U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)).
 \]
@@ -3104,7 +3270,7 @@ tail condition \eqref{p1:eq:L3-tightness} gives the endpoint sequence-\(L^3\)
 control needed after physical pullback; no separate
 \(L^\infty_\tau L^3_y\) hypothesis is required for the tight-class exclusion.
 
-\begin{definition}[Liouville-covered structure and decay class]
+\begin{definition}[Structure and decay class]
 \label{p1:def:known-structure-decay-class}
 A normalized Seregin limit \(V\) belongs to \(\calC_{\mathrm{sd}}\) if its
 physical ancient representative \(U\) satisfies at least one of the following
@@ -3127,14 +3293,17 @@ for some \(1\le p<\infty\);
 \]
 \item the associated rescaled vorticity satisfies the perturbative
 Gallay--Wayne weighted-vorticity hypotheses used in
-\Cref{p3:thm:typeI-zero-hypotheses};
+\Cref{p3:thm:typeI-zero-hypotheses}, with the velocity recovered as the
+Biot--Savart representative associated with that vorticity.
 \end{enumerate}
 \end{definition}
 
 \begin{remark}
 Only hypotheses for which a cited Liouville theorem gives \(U\equiv0\) are
 included in \(\calC_{\mathrm{sd}}\).  Broader qualitative descriptions are
-not included unless they imply one of the listed hypotheses.
+not included unless they imply one of the listed hypotheses.  In the
+weighted-vorticity alternative the Biot--Savart representative excludes a
+harmonic constant velocity mode, so zero vorticity gives zero velocity.
 \end{remark}
 
 \begin{lemma}[Structural quantities under centering]
@@ -3180,7 +3349,7 @@ The remaining class is
 \begin{remark}
 The first four classes are not intended to be disjoint.  The remaining class is
 the complement of their union, so overlaps among the Liouville classes cause no
-ambiguity.  The remaining class is a bookkeeping complement, not a new
+ambiguity.  The remaining class is a set-theoretic complement, not a new
 structural hypothesis: it carries no analytic content beyond ``not in any of
 the four named classes,'' and the only role of \Cref{p1:hyp:no-remainder} is
 to assert its emptiness.
@@ -3193,7 +3362,7 @@ The exclusion of a single normalized Seregin limit in
 together with boundedness, via \Cref{p2:thm:tight-liouville}.  The stronger
 collection-level tightness modulus appearing in
 \Cref{p2:def:tight-normalized-collection} is used only in the
-compactness/minimal-element diagnostic material of Part III; no hidden common
+auxiliary compactness and minimal-element material of Part III; no hidden common
 modulus is imposed on individual normalized Seregin limits.
 \end{remark}
 
@@ -3270,6 +3439,14 @@ for the gradient of the Oseen kernel \(O(\cdot,\theta)\).  This is the
 bounded-data Stokes estimate used by Kato \cite{Kato1984}; it does not require
 boundedness of the Leray projector itself on \(L^\infty\).
 \end{proof}
+
+\begin{remark}[Oseen interpretation in \(L^\infty\)]
+\label{p1:rem:oseen-Linfty}
+All occurrences of \(S(t)\mathbb P\nabla\cdot F\) in \(L^\infty\) are
+understood through the projected heat-divergence, or Oseen, kernel
+representation.  They do not use boundedness of the Leray projector as a
+Calderon--Zygmund operator on \(L^\infty\).
+\end{remark}
 
 \begin{lemma}[Mild representation for normalized limits]
 \label{p1:lem:mild-representation}
@@ -3378,6 +3555,55 @@ from \(\Pi\) leaves the equation unchanged and yields the displayed
 stationary self-similar equation for \(W\).
 \end{proof}
 
+\begin{theorem}[Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}ver\'ak]
+\label{p1:thm:NRS-import}
+Let \(W\in L^3(\R^3)\) be a distributional solution of the stationary Leray
+system
+\[
+   -\Delta W+\frac12 y\cdot\nabla W+\frac12 W
+   +(W\cdot\nabla)W+\nabla P=0,
+   \qquad \divergence W=0,
+\]
+for some scalar distribution \(P\).  Then \(W\equiv0\).
+\end{theorem}
+
+\begin{proof}
+This is the stationary self-similar rigidity theorem of
+Ne\v{c}as, R\r{u}\v{z}i\v{c}ka, and \v{S}ver\'ak \cite{NRS1996}.  The
+formulation above is the sign convention obtained from
+\eqref{p1:eq:centered}: moving all terms in
+\[
+   (W\cdot\nabla)W+\nabla P
+   =
+   \Delta W-\frac12(W+y\cdot\nabla W)
+\]
+to the left gives precisely the displayed stationary Leray system.  The
+pressure class required by the cited theorem is satisfied because \(P\) is the
+distributional pressure reconstructed from this equation.
+\end{proof}
+
+\begin{lemma}[Galilean-trivial normalized profiles vanish]
+\label{p1:lem:galilean-trivial-zero}
+Let \(U\) be the physical ancient representative of a normalized Seregin
+limit \(V\).  If \(U\) is spatially constant, or if a cited Liouville
+theorem reduces \(U\) to a spatially constant solution in the Type I blow-up
+frame, then \(U\equiv0\) and hence \(V\equiv0\).
+\end{lemma}
+
+\begin{proof}
+Mildness excludes parasitic spatially constant solutions: if
+\(U(x,t)=c(t)\), the mild formula has zero nonlinear term and the heat
+semigroup fixes constants, so \(c(t)=c(s)\) for all \(s<t<0\).  Thus
+\(U(x,t)\equiv c\).  The centered profile is then
+\[
+   V(y,\tau)=e^{-\tau/2}c .
+\]
+Since normalized Seregin limits are bounded for all \(\tau\in\R\), letting
+\(\tau\to-\infty\) forces \(c=0\).  The Galilean-trivial alternatives used
+below are invoked only in this compatible Type I blow-up frame, so the same
+constant-removal argument applies.
+\end{proof}
+
 \begin{theorem}[Small and stationary class exclusions]
 \label{p1:thm:classical-classes}
 Let \(V\) be a normalized Seregin ancient limit.  Then
@@ -3398,16 +3624,12 @@ If \(V\in\calC_{\mathrm{stat},L^3}\), then
 \(V(y,\tau)=W(y)\) with \(W\in L^3(\R^3)\).  By
 \cref{p1:lem:stationary-profile}, \(W\) satisfies the stationary self-similar
 profile equation after a pressure gauge change.
-The theorem of Ne\v{c}as--R\r{u}\v{z}i\v{c}ka--\v{S}ver\'ak
-\cite{NRS1996} gives \(W\equiv0\).  No global \(L^{3/2}\) pressure assumption
-is needed: the pressure is obtained distributionally from the stationary
-self-similar equation, and \cite{NRS1996} applies to weak solutions of the
-stationary Leray system in \(L^3(\R^3)\).  Again
+The stationary Leray theorem \Cref{p1:thm:NRS-import} gives \(W\equiv0\).  Again
 \eqref{p1:eq:nonvanishing} gives the contradiction.
 \end{proof}
 
 \begin{theorem}[Uniformly tight \(L^3\) closure]
-\label{p1:hyp:tight-liouville}
+\label{p1:thm:tight-liouville}
 No nonzero normalized Seregin ancient limit belongs to
 \(\calC_{L^3\mathrm{-tight}}\).
 \end{theorem}
@@ -3417,12 +3639,16 @@ This is the tight-class Liouville theorem proved in
 \Cref{p2:thm:tight-liouville,p2:cor:tight-input-for-paper-I}.
 \Cref{p2:thm:tight-liouville} proves that, for bounded centered ancient solutions,
 the tail-tightness condition gives the endpoint sequence-\(L^3\) control after
-physical pullback.  It then applies the Albritton--Barker endpoint ancient
-Liouville theorem and contradicts the compact velocity normalization
+physical pullback.  The compactness and pressure-gauge construction first give
+a suitable physical ancient representative; local \(L^\infty\) regularity makes
+it smooth, and the bounded ancient Duhamel representation in
+\Cref{p2:lem:physical-mild} makes the finite-terminal restrictions mild.
+Thus the Albritton--Barker endpoint ancient Liouville theorem applies.  The
+zero conclusion contradicts the compact velocity normalization
 \Cref{p1:prop:nonzero}.
 \end{proof}
 
-\begin{theorem}[Liouville-covered structure and decay exclusions]
+\begin{theorem}[Structure and decay exclusions from Liouville theorems]
 \label{p1:thm:known-structure-decay-liouville}
 No nonzero normalized Seregin ancient limit belongs to
 \(\calC_{\mathrm{sd}}\).
@@ -3431,17 +3657,56 @@ No nonzero normalized Seregin ancient limit belongs to
 \begin{proof}
 By \cref{p1:def:known-structure-decay-class}, membership in
 \(\calC_{\mathrm{sd}}\) means that the physical ancient representative
-\(U\) satisfies one of the listed analytic hypotheses.  The axisymmetric
-no-swirl and pointwise \(1/r\) cases are excluded by
-Koch--Nadirashvili--Seregin--\v{S}ver\'ak \cite{KNSS2009}.  The finite
-\(L^p\) circulation case is excluded by Lei--Zhang--Zhao \cite{LZZ}, and
-the axial-periodic bounded-circulation case is excluded by Lei--Ren--Zhang
-\cite{LRZ}.  The perturbative Gallay--Wayne weighted-vorticity hypotheses
-are excluded by the corresponding Liouville theorem in
-\Cref{p3:thm:typeI-zero-hypotheses}.  Each
-alternative gives \(V\equiv0\), contradicting the local \(L^3\) nonvanishing
-condition \eqref{p1:eq:nonvanishing}.  Hence no nonzero normalized Seregin
-ancient limit lies in \(\calC_{\mathrm{sd}}\).
+\(U\) satisfies one of the listed analytic hypotheses.  In every case \(U\) is
+the smooth bounded mild physical representative supplied by the extraction and
+the mildness upgrade used in \Cref{p2:lem:physical-mild}.
+
+\paragraph{Axisymmetric no-swirl.}
+The relevant result is the KNSS no-swirl Liouville theorem in
+\Cref{p3:thm:knss-noswirl}; the Type I application is recorded as
+\Cref{p3:prop:noswirl-typeI}.  Its hypotheses are bounded ancient mildness,
+axisymmetry, no swirl, and the whole-space domain.  These hypotheses are
+provided by the class assumptions and by the extracted representative.  The theorem
+returns a spatially constant axial drift, and
+\Cref{p1:lem:galilean-trivial-zero} forces that drift to be zero.
+
+\paragraph{Axisymmetric pointwise \(1/r\) control.}
+The relevant result is the KNSS pointwise scale-invariant Liouville theorem
+\Cref{p3:thm:knss-pointwise}, applied in the Type I form
+\Cref{p3:prop:pointwise-typeI}.  The class assumption gives
+\(|U(x,t)|\le C/r\), and the representative is bounded and mild on every
+finite terminal restriction.  The conclusion is \(U\equiv0\).
+
+\paragraph{Finite \(L^p\) circulation.}
+For \(1\le p<\infty\), the relevant result is the Lei--Zhang--Zhao
+Liouville theorem \Cref{p3:thm:lzz}, applied through
+\Cref{p3:prop:lp-swirl-typeI}.  The required hypotheses are bounded ancient
+mildness, axisymmetry, and
+\[
+   rU_\theta\in L_t^\infty L_x^p.
+\]
+The theorem gives a constant vector field; the normalized Type I frame removes
+the constant by \Cref{p1:lem:galilean-trivial-zero}.
+
+\paragraph{Axial-periodic bounded circulation.}
+The relevant result is the Lei--Ren--Zhang periodic bounded-swirl theorem
+\Cref{p3:thm:lrz}, applied through
+\Cref{p3:prop:periodic-swirl-typeI}.  The physical representative is used
+because a fixed physical axial period becomes \(\tau\)-dependent after
+centering.  The theorem gives a constant axial vector field, which again
+vanishes in the normalized Type I frame.
+
+\paragraph{Gallay--Wayne weighted vorticity.}
+The relevant result is the weighted-vorticity vanishing theorem
+\Cref{p3:thm:weighted-vorticity-vanishing-intro}, used in
+\Cref{p3:thm:typeI-zero-hypotheses}.  The class definition includes recovery
+of the velocity by the Biot--Savart law in the Gallay--Wayne function class;
+therefore zero vorticity implies zero velocity and no harmonic constant mode
+remains.
+
+Thus every structure and decay alternative gives \(V\equiv0\), contradicting the
+local \(L^3\) nonvanishing condition \eqref{p1:eq:nonvanishing}.  Hence no
+nonzero normalized Seregin ancient limit lies in \(\calC_{\mathrm{sd}}\).
 \end{proof}
 
 \begin{proposition}[Exclusion of the Liouville classes]
@@ -3461,11 +3726,11 @@ No normalized Seregin ancient limit can belong to
 \begin{proof}
 The small and stationary \(L^3\) classes are excluded by
 \cref{p1:thm:classical-classes}.  The uniformly tight class is excluded by
-\cref{p1:hyp:tight-liouville}.  The structure/decay class is excluded by
+\cref{p1:thm:tight-liouville}.  The structure and decay class is excluded by
 \cref{p1:thm:known-structure-decay-liouville}.
 \end{proof}
 
-\section{Interface with the residual closure paper}\label{p1:sec:criterion}
+\section{Residual closure hypothesis}\label{p1:sec:criterion}
 
 The preceding sections prove that every normalized Seregin ancient limit
 generated by an admissible finite-energy Type I singularity is either in one
@@ -3473,37 +3738,41 @@ of the four non-residual Liouville classes or in the complement
 \(\calR(\calS)\).  The four non-residual classes
 (\(\calC_{\mathrm{small}}\), \(\calC_{\mathrm{stat},L^3}\),
 \(\calC_{L^3\mathrm{-tight}}\), \(\calC_{\mathrm{sd}}\)) are excluded in
-\Cref{p1:prop:known-class-exclusion}.  The remaining input for the Type I
+\Cref{p1:prop:known-class-exclusion}.  The remaining assumption for the Type I
 contradiction is the residual closure statement below.  No result in the
 preceding sections depends on the proof of residual closure; it is invoked
 only in \Cref{p1:thm:remaining-criterion} and in the final assembly
 \Cref{p1:thm:final-assembly}.
 
 \begin{hypothesis}[Residual-class hypothesis]\label{p1:hyp:no-remainder}
-For every collection \(\calS\) of normalized Seregin ancient limits generated
-by admissible Type I extractions,
+For every generated time-translation closure \(\calS=\calS(u,p,z_*)\) of normalized
+Seregin ancient limits obtained from admissible Type I extractions at a fixed
+singular point,
 \[
    \calR(\calS)=\varnothing .
 \]
 \end{hypothesis}
 
-\begin{remark}[Companion residual paper]
+\begin{remark}[Residual closure as a conditional assumption]
 \label{p1:rem:companion-paper}
-\Cref{p1:hyp:no-remainder} is the only residual-class input not proved from
+\Cref{p1:hyp:no-remainder} is the only residual-class assumption not proved from
 the preceding compactness and Liouville arguments in this paper.  It concerns
-the present complement \(\calR(\calS)\) after the ordered removal of the
-non-residual classes defined in \Cref{p1:sec:classes}.  When this hypothesis
-is assumed, \Cref{p1:thm:remaining-criterion} and
+the generated time-translation closure \(\calS(u,p,z_*)\) after the ordered
+removal of the non-residual classes defined in \Cref{p1:sec:classes}.  The
+hypothesis is a conditional analytic statement about the same generated class of
+Seregin limits constructed here.  When this hypothesis is assumed,
+\Cref{p1:thm:remaining-criterion} and
 \Cref{p1:thm:final-assembly} give the local Type I exclusion within the stated
 admissible finite-energy class; every consequence of
 \Cref{p1:hyp:no-remainder} is stated
 conditionally and \(\Cref{p1:hyp:no-remainder}\) itself is not proved.
 \end{remark}
 
-\begin{corollary}[Rigidity in the remaining case]\label{p1:hyp:remainder-rigidity}
+\begin{corollary}[Rigidity in the remaining case]\label{p1:cor:remainder-rigidity}
 Assume \Cref{p1:hyp:no-remainder}.
-For every collection \(\calS\) of normalized Seregin ancient limits generated
-by admissible Type I extractions, every element of \(\calR(\calS)\) is
+For every generated time-translation closure \(\calS=\calS(u,p,z_*)\) of normalized
+Seregin ancient limits generated by admissible Type I extractions, every
+element of \(\calR(\calS)\) is
 identically zero.
 \end{corollary}
 
@@ -3513,15 +3782,16 @@ The assertion follows directly from \cref{p1:hyp:no-remainder}.
 
 \begin{proposition}[Equivalence on normalized Seregin limits]
 \label{p1:prop:remainder-equivalence}
-For collections of normalized Seregin limits, the residual-class hypothesis
-\cref{p1:hyp:no-remainder} implies \cref{p1:hyp:remainder-rigidity}.  Conversely,
-the corresponding rigidity assertion implies emptiness of the remaining class.
+For generated time-translation closures of normalized Seregin limits, the
+residual-class hypothesis \cref{p1:hyp:no-remainder} implies
+\cref{p1:cor:remainder-rigidity}.  Conversely, the corresponding rigidity
+assertion implies emptiness of the remaining class.
 \end{proposition}
 
 \begin{proof}
 If \cref{p1:hyp:no-remainder} holds, the rigidity statement is vacuous.
-Conversely, assume \cref{p1:hyp:remainder-rigidity}.  If some normalized
-collection had \(V\in\calR(\calS)\), the rigidity hypothesis would give
+Conversely, assume \cref{p1:cor:remainder-rigidity}.  If some generated
+time-translation closure had \(V\in\calR(\calS)\), the rigidity hypothesis would give
 \(V\equiv0\), directly contradicting the local \(L^3\) nonvanishing condition
 \eqref{p1:eq:nonvanishing}.  Hence the remaining class is empty.
 \end{proof}
@@ -3530,8 +3800,9 @@ collection had \(V\in\calR(\calS)\), the rigidity hypothesis would give
 Assume \Cref{p1:hyp:no-remainder}.
 Suppose that \((u,p,z_*)\) is an admissible finite-energy Type I singularity.
 By \cref{p1:thm:extraction}, there exists a normalized nonzero Seregin ancient
-limit \(V\).  Let \(\calS\) be any collection of normalized limits containing
-\(V\).
+limit \(V\).  Let \(\calS=\calS(u,p,z_*)\) be the generated time-translation closure
+associated with \(z_*\) and the admissible extraction scales.  By construction,
+\(V\in\calS\).
 
 By \cref{p1:prop:exhaustion}, either \(V\) belongs to one of the Liouville classes
 or \(V\in\calR(\calS)\).  The first alternative is impossible by
@@ -3544,7 +3815,7 @@ The preceding theorem is conditional on the residual-class hypothesis for the
 stated admissible finite-energy class.  The compactness construction, pressure
 normalization, and class exhaustion are established above, with the local
 velocity concentration result recorded in
-\cref{p1:prop:local-velocity-concentration}.  The structure/decay class is
+\cref{p1:prop:local-velocity-concentration}.  The structure and decay class is
 restricted to the assumptions in \cref{p1:def:known-structure-decay-class}; any
 other structured behavior lies in the remaining class and is addressed only by
 \cref{p1:hyp:no-remainder}.  No whole-space critical-norm estimate on the
@@ -3638,7 +3909,7 @@ apart from exceptional fixed solutions satisfying \(a\cdot\nabla V\equiv0\).
 
 Bounded ancient solutions of the three-dimensional Navier--Stokes equations
 are considered in backward self-similar variables under uniform
-\(L^3\)-tightness.  The analytic compactness framework shows that bounded mild
+\(L^3\)-tightness.  The compactness theory shows that bounded mild
 ancient solutions are smooth, locally compact under time translation, and that
 the common \(L^\infty_\tau L^3_y\) and tightness bounds used in compactness
 statements are stable under locally smooth limits.  A minimal-element reduction
@@ -3652,6 +3923,8 @@ Krylov--Bogolyubov averaging.  These measures satisfy a stationary statistical f
 self-similar Navier--Stokes equation.  Passing to the barycenter produces an
 explicit quadratic covariance term, isolating the obstruction to obtaining a
 single stationary self-similar profile.
+This compact-hull and invariant-measure material is auxiliary only; it is
+not used in the final Type I contradiction.
 
 Finally, the uniformly \(L^3\)-tight class is closed directly from its defining
 hypotheses.  The tail condition, together with the boundedness of the ancient
@@ -3769,9 +4042,9 @@ change of variables gives \(V\equiv0\).
 
 The endpoint closure uses only the boundedness and tail tightness already
 present in the ancient solution class and introduces no additional estimate,
-recurrence object, or Lyapunov functional.  The compactness and
+recurrence assumption, or Lyapunov functional.  The compactness and
 invariant-measure results establish the
-local smooth compactness framework, the existence of minimal elements and
+local smooth compactness theory, the existence of minimal elements and
 compact trajectory hulls, and the stationary statistical identity with its
 covariance term.  The endpoint \(L^3\) exclusion of the uniformly tight class
 is then obtained by the physical pullback and the Albritton--Barker ancient
@@ -3886,7 +4159,7 @@ u=0\\[2mm]
 
 \Cref{p1:thm:extraction} reduces admissible Type I singularities
 to normalized Seregin ancient limits and organizes such limits into small,
-stationary \(L^3\), uniformly tight, structured/decay, and residual classes.
+stationary \(L^3\), uniformly tight, structure and decay, and residual classes.
 The tight-class exclusion requires no additional compact-dynamical hypothesis:
 the uniformly \(L^3\)-tight class contains no
 nonzero normalized ancient limit.
@@ -4711,7 +4984,7 @@ By \Cref{p2:prop:tight-closed-normalized}, the collection is closed normalized.
 \label{p2:sec:compact-hulls}
 
 The material in \Cref{p2:sec:compact-hulls,p2:sec:measures-covariance} is
-diagnostic: it is included to clarify why a purely recurrent compactness
+auxiliary: it is included to clarify why a purely recurrent compactness
 argument does not by itself produce a stationary profile, since the
 barycenter carries a covariance defect.  None of these results is used in the
 proof of \Cref{p2:thm:tight-liouville} or in the final assembly
@@ -5320,7 +5593,7 @@ The theorem in \cite{AlbrittonBarker2019} is stated for a bounded mild ancient
 solution on \(\R^3\times(-\infty,0]\) with a backward sequence of times
 \(s_k\to-\infty\) along which the spatial \(L^3\) norm is uniformly bounded;
 it concludes that \(u\equiv0\).  The hypothesis that \(u\) is bounded and
-mild on \(\R^3\times(-\infty,0]\) is exactly the function class produced by
+mild on \(\R^3\times(-\infty,0]\) is the function class produced by
 the physical pullback in \Cref{p2:lem:physical-pullback} on every truncated
 ancient interval after translation to terminal time \(0\).  No additional
 assumption is imposed beyond what the pullback supplies.
@@ -5523,8 +5796,9 @@ Thus every result proving \(U\equiv0\) for an ancient solution satisfying
    \text{contradiction with nonzero blow-up limit}.
 \]
 
-The hypotheses treated in this part are precisely those covered by a cited Liouville
-theorem or by the perturbative argument in \Cref{p3:sec:weighted-vorticity}:
+The hypotheses treated in this part are precisely those to which a cited
+Liouville theorem or the perturbative argument in
+\Cref{p3:sec:weighted-vorticity} applies:
 \[
    \begin{gathered}
    \text{axisymmetric Liouville hypotheses},\qquad
@@ -5542,15 +5816,15 @@ hypotheses are treated separately.
 
 \subsection{Axisymmetric Liouville hypotheses}
 
-Several unforced axisymmetric cases are covered by cited Liouville theorems.
-Koch--Nadirashvili--Seregin--\v{S}ver\'ak cover the no-swirl case
+Several unforced axisymmetric cases fall under cited Liouville theorems.
+Koch--Nadirashvili--Seregin--\v{S}ver\'ak treat the no-swirl case
 and the pointwise scale-invariant condition \(|u|\le C/r\).  The
 swirl-bearing finite-\(L^p\) condition
 \[
    \Gamma=ru_\theta\in L_t^\infty L_x^p,\qquad 1\le p<\infty,
 \]
-is covered by Lei--Zhang--Zhao.  The \(z\)-periodic case with bounded
-\(\Gamma\) is covered by Lei--Ren--Zhang.
+is treated by Lei--Zhang--Zhao.  The \(z\)-periodic case with bounded
+\(\Gamma\) is treated by Lei--Ren--Zhang.
 
 For Type I ancient limits, a constant conclusion after the relevant Galilean
 reduction must be converted into zero in the blow-up frame.  The proof
@@ -5683,7 +5957,7 @@ small weighted vorticity & \(w\equiv0\) & Gallay--Wayne \\
 
 \subsection{Organization}
 
-\Cref{p3:sec:typeI} introduces the Type I ancient setup, self-similar variables, the
+\Cref{p3:sec:typeI} introduces the Type I ancient setting, self-similar variables, the
 invariance facts, and the time-shift lemma.
 \Cref{p3:sec:axisymmetric-liouville-theorems} fixes axisymmetric notation and the
 cited Liouville theorems.  \Cref{p3:sec:axisymmetric-consequences} proves the
@@ -6430,8 +6704,8 @@ small weighted vorticity & \(w\equiv0\) & Gallay--Wayne Lyapunov functional \\
 \end{center}
 
 The no-swirl, pointwise scale-invariant, finite-\(L^p\)-swirl, and periodic
-bounded-swirl cases are covered by the cited axisymmetric Liouville theorems.
-The perturbative weighted-vorticity case is covered by a Lyapunov functional
+bounded-swirl cases follow from the cited axisymmetric Liouville theorems.
+The perturbative weighted-vorticity case follows from a Lyapunov functional
 derived from Gallay--Wayne decay.
 Thus every zero conclusion used in the Type I application rests on one of the
 explicit PDE hypotheses in the table.
@@ -6442,10 +6716,10 @@ explicit PDE hypotheses in the table.
 
 \subsection*{Overview}
 
-This part collects the preceding inputs and proves the local pointwise Type I
-exclusion conditional on the residual closure hypothesis.  The pipeline is
+This part collects the preceding results and proves the local pointwise Type I
+exclusion conditional on the residual closure hypothesis.  The argument is
 linear: local concentration, local endpoint weak-Serrin no-escape, admissible
-local bridge sequence, Seregin extraction, normalized centered ancient limit,
+local Type I concentration sequence, Seregin extraction, normalized centered ancient limit,
 exhaustion into Liouville classes plus residual class, exclusion of the four
 non-residual classes, and residual closure.
 
@@ -6454,46 +6728,86 @@ non-residual classes, and residual closure.
 \begin{theorem}[Conditional local pointwise Type I exclusion]
 \label{p1:thm:final-assembly}
 Let \((u,p)\) be a finite-energy suitable weak solution on
-\(\R^3\times(0,T)\), and let \(z_*=(x_*,T)\) be a singular point satisfying
+\(\R^3\times(0,T)\), and let \(z_*=(x_*,T)\) be a terminal point satisfying
 the local pointwise Type I bound
 \[
   \esssup_{T-\rho^2<t<T}
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}<\infty .
 \]
-Assume the residual closure hypothesis \Cref{p1:hyp:no-remainder} for the
-collection of normalized Seregin ancient limits generated by the corresponding
-admissible local Type I bridge sequences.  Then \(z_*\) cannot be singular.
+Assume the residual closure hypothesis \Cref{p1:hyp:no-remainder} holds for
+the generated time-translation closure
+\(\calS(u,p,z_*)\) of all normalized Seregin ancient limits obtained from
+admissible local Type I concentration sequences at \(z_*\).  Then \(z_*\) is regular;
+equivalently, no singular point satisfying the displayed local pointwise Type
+I bound exists under this residual closure hypothesis.
 \end{theorem}
 
 \begin{proof}
-By \Cref{p0:cor:velocity-concentration}, there is \(\eta_v>0\) and a velocity
-concentration sequence \(r_n\downarrow0\) at \(z_*\) with
-\(C(z_*,r_n)\ge\eta_v\).  By
-\Cref{p0:thm:local-weak-serrin-typeI}, the local pointwise Type I bound
-implies terminal velocity no-escape for every such rescaled sequence.
-\Cref{p0:cor:paper0-local-typeI-bridge-admissible} therefore promotes the
-sequence to an admissible local Type I bridge sequence in the sense of
-\Cref{p0:def:paper0-admissible-local-bridge-sequence}, and
-\Cref{p0:lem:paper0-local-typeI-into-terminal-dichotomy} produces local
-\(L^3\) compactness with positive mass on a fixed negative-time cylinder.
-\Cref{p0:lem:local-seregin-extraction} then yields a smooth bounded centered
-Seregin ancient limit \(V\) satisfying the local \(L^3\) nonvanishing
-condition \eqref{p1:eq:nonvanishing}.
+Assume for contradiction that \(z_*=(x_*,T)\) is singular.
 
-Let \(\calS\) be any collection of normalized Seregin ancient limits
-containing \(V\).  By \Cref{p1:prop:exhaustion}, either \(V\) belongs to one
-of \(\calC_{\mathrm{small}}\), \(\calC_{\mathrm{stat},L^3}\),
-\(\calC_{L^3\mathrm{-tight}}\), \(\calC_{\mathrm{sd}}\), or
-\(V\in\calR(\calS)\).  The four non-residual alternatives are excluded by
-\Cref{p1:prop:known-class-exclusion}, where the uniformly tight class is
-closed by \Cref{p2:thm:tight-liouville} and the structure/decay class by the
+\emph{Step 1: concentration.}
+By \Cref{p0:cor:velocity-concentration}, there are \(\eta_v>0\) and
+\(r_n\downarrow0\) such that
+\[
+   C(z_*,r_n)\ge\eta_v .
+\]
+
+\emph{Step 2: terminal no-escape.}
+The local pointwise Type I bound gives
+\[
+   u\in L_t^{2,\infty}L_x^\infty(Q_\rho(z_*)).
+\]
+By the Albritton--Barker weak-Serrin Type I lemma, in the form proved in
+\Cref{p0:thm:local-weak-serrin-typeI}, the local Type I quantities
+\(A,C,D,E\) are bounded on smaller terminal cylinders.  Hence the rescaled
+sequence satisfies
+\[
+   \lim_{\sigma\downarrow0}\sup_n
+   \int_{-\sigma}^{0}\int_{B_1}|u_n|^3=0 .
+\]
+
+\emph{Step 3: nontrivial ancient extraction.}
+\Cref{p0:cor:paper0-local-typeI-admissible} promotes the sequence to
+an admissible local Type I concentration sequence.  The concentration and no-escape
+properties give, by
+\Cref{p0:lem:paper0-local-typeI-into-terminal-dichotomy}, a fixed compact
+negative-time cylinder carrying positive \(L^3\) mass.  Then
+\Cref{p0:lem:local-seregin-extraction} yields a smooth bounded centered
+Seregin ancient limit \(V\) satisfying
+\[
+   \iint_K |V|^3>0
+\]
+for some compact \(K\Subset\R^3\times\R\).
+
+\emph{Step 4: class decomposition.}
+Let \(\calS=\calS(u,p,z_*)\) be the generated time-translation closure associated with
+the singular point \(z_*\) and all admissible local Type I concentration sequences.
+By construction, \(V\in\calS\).  By \Cref{p1:prop:exhaustion},
+\[
+   V\in
+   \calC_{\mathrm{small}}
+   \cup
+   \calC_{\mathrm{stat},L^3}
+   \cup
+   \calC_{L^3\mathrm{-tight}}
+   \cup
+   \calC_{\mathrm{sd}}
+   \cup
+   \calR(\calS).
+\]
+
+\emph{Step 5: contradiction.}
+The first four alternatives are excluded by
+\Cref{p1:prop:known-class-exclusion}; the uniformly tight class is closed by
+\Cref{p2:thm:tight-liouville}, and the structure and decay class by the
 axisymmetric and weighted-vorticity exclusions in
-\Cref{p3:thm:typeI-zero-hypotheses}.  The residual alternative is impossible
-by \Cref{p1:hyp:no-remainder}.  This contradicts the local \(L^3\)
-nonvanishing of \(V\).  Hence \(z_*\) cannot be singular.
+\Cref{p3:thm:typeI-zero-hypotheses}.  The residual alternative is excluded by
+\Cref{p1:hyp:no-remainder}, applied to the generated time-translation closure
+\(\calS(u,p,z_*)\).  No alternative is possible, contradicting the nonzero
+normalization of \(V\).  Hence \(z_*\) cannot be singular.
 \end{proof}
 
-\begin{remark}[Companion residual paper]
+\begin{remark}[Conditional conclusion]
 Assuming \Cref{p1:hyp:no-remainder}, \Cref{p1:thm:final-assembly} gives the
 local pointwise Type I exclusion within the stated admissible finite-energy
 class.
@@ -6528,6 +6842,13 @@ Y.~Giga,
  of weak solutions of the Navier--Stokes system},
 J. Differential Equations \textbf{62} (1986), no. 2, 186--212,
 doi:\ \nolinkurl{10.1016/0022-0396(86)90096-3}.
+
+\bibitem{GustafsonKangTsai2007}
+S.~Gustafson, K.~Kang, and T.-P.~Tsai,
+\emph{Interior regularity criteria for suitable weak solutions of the
+ Navier--Stokes equations},
+Comm. Math. Phys. \textbf{273} (2007), no. 1, 161--176,
+doi:\ \nolinkurl{10.1007/s00220-007-0214-6}.
 
 \bibitem{Leray1934}
 J.~Leray,

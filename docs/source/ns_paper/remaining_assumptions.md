@@ -33,10 +33,23 @@ The cost-exclusion pass changed the status of the Section 7 cost layer:
   `paper7:cor:windowwise-only-transition-and-scale-remain`,
   `paper7:def:windowwise-transition-routing`,
   `paper7:def:windowwise-positive-scale-routing`,
+  `paper7:def:normalized-carrier-blocks`,
+  `paper7:lem:closed-carrier-diagnostics`,
+  `paper7:lem:carrier-state-compactness-labels`,
+  `paper7:lem:nonintegrable-component-certificate`,
+  `paper7:lem:transition-carrier-label-is-exterior`,
+  `paper7:lem:transition-carrier-state-stratification`,
+  `paper7:lem:positive-scale-carrier-core-realization`,
+  `paper7:thm:positive-scale-certificate-enters-scale-rigid`,
+  `paper7:lem:positive-scale-work-stratification`,
+  `paper7:cor:windowwise-transition-routing-holds`,
+  `paper7:cor:windowwise-positive-scale-routing-holds`,
   `paper7:thm:windowwise-routing-gives-stratified-routing`,
   `paper7:thm:stratified-moving-carrier-routing`, and the direct closure
   corollary `paper7:cor:adjacent-closure-reduced-to-windowwise-routing`.
-  The older four-statement theorem
+  The two windowwise routing definitions are now discharged in the TeX by
+  normalized carrier-state extraction and local state-space labelling, so they
+  are not counted as active assumptions.  The older four-statement theorem
   `paper7:thm:small-routing-statements-give-stratified-routing` remains in the
   file as a more general fallback, but it is no longer the sharp residual.  In
   the same pass, the scale-cutoff drift term was reduced from a full
@@ -45,11 +58,12 @@ The cost-exclusion pass changed the status of the Section 7 cost layer:
   annular estimate `paper7:lem:annular-pressure-flux` to a local enlarged-shell
   \(L^3\) bound plus an \(R^{-1}\) harmonic-tail term.  The canonical
   reformulation is now: on the windowwise moving family, viscous cutoff,
-  convection, pressure, and translation are automatic; persistent failure of
-  the transition term is read as an exterior-leakage /
-  exterior-concentration / non-tightness diagnostic; persistent failure of the
-  positive scale-shell term is read as a scale-dynamics branch; and the
-  negative scale-drift term remains routed to Section 6.
+  convection, pressure, and translation are automatic; nonintegrable failure
+  of the transition term is read as a transition carrier state labelled by
+  exterior/leakage; nonintegrable failure of the positive scale-shell term is
+  read as positive scale-work carrier state routed to scale-rigidity unless an
+  earlier exterior, modulation-driven recentering, or negative-drift label has
+  already fired; and the negative scale-drift term remains routed to Section 6.
 * `paper8:ass:exterior-regularity` has been replaced by the local annular
   exterior concentration alternative: no-exterior-concentration annuli are
   regular by `paper8:thm:exterior-regularity-no-concentration`, while failed
@@ -59,6 +73,10 @@ The cost-exclusion pass changed the status of the Section 7 cost layer:
   separately, because the manuscript treats it as replaceable by the terminal
   critical profile package based on
   `paper6a:ass:critical-ns-profile-decomposition`.
+* `paper6a:ass:cost-divergence-exclusion` is now discharged by
+  `paper6a:thm:cost-divergence-exclusion-discharged` and
+  `paper6a:cor:cost-divergence-exclusion-unconditional`; it is retained below
+  only as an audit item, not as an active remaining assumption.
 
 Each active remaining item is read in the same way:
 
@@ -442,18 +460,30 @@ The manuscript now proves:
   `paper7:cor:windowwise-only-transition-and-scale-remain`,
   `paper7:def:windowwise-transition-routing`,
   `paper7:def:windowwise-positive-scale-routing`,
+  `paper7:def:normalized-carrier-blocks`,
+  `paper7:lem:closed-carrier-diagnostics`,
+  `paper7:lem:carrier-state-compactness-labels`,
+  `paper7:lem:nonintegrable-component-certificate`,
+  `paper7:lem:transition-carrier-label-is-exterior`,
+  `paper7:lem:transition-carrier-state-stratification`,
+  `paper7:lem:positive-scale-carrier-core-realization`,
+  `paper7:thm:positive-scale-certificate-enters-scale-rigid`,
+  `paper7:lem:positive-scale-work-stratification`,
+  `paper7:cor:windowwise-transition-routing-holds`,
+  `paper7:cor:windowwise-positive-scale-routing-holds`,
   `paper7:thm:windowwise-routing-gives-stratified-routing`, and
   `paper7:cor:adjacent-closure-reduced-to-windowwise-routing`: after
-  expanding the moving carrier components, the sharp Section 7 burden is
-  reduced to two genuinely new local routing statements plus the already
-  existing Section 6 negative-drift branch.  For monotone radial cutoffs only
-  the \(a_+\)-part of the scale-shell term remains,
+  expanding the moving carrier components, the sharp Section 7 windowwise
+  burden is discharged by normalized carrier-state extraction plus the ordered
+  local state-space labels.  For monotone radial cutoffs only the
+  \(a_+\)-part of the scale-shell term remains,
   `paper7:lem:annular-pressure-flux` reduces the pressure term to enlarged-shell
   \(L^3\) control plus an \(R^{-1}\) tail, and
   `paper7:lem:windowwise-shell-pressure-translation` shows that on the
   canonical windowwise moving family the \(J_2\) through \(J_5\) terms are
-  already summable.  Once the remaining \(J_1,J_6,J_7\) terms are handled,
-  `paper7:lem:successful-moving-test-family` closes the carrier immediately.
+  already summable.  The \(J_1\) and \(J_7\) nonintegrable tails are now routed
+  by carrier-state stratification; \(J_6\) remains the already assigned
+  Section 6 negative-drift branch.
 * `paper7:cor:annular-finite-error-selection-gives-carrier-completion`:
   annular finite-error selection gives carrier-estimate completion in the
   canonical or energy-controlled cost channel.
@@ -506,13 +536,11 @@ last four rows.  After the latest reduction, finite initial energy and carrier
 comparison are no longer part of the hard residual in the canonical or
 energy-controlled channel.  The exact localized energy identity is also no
 longer part of the hard residual, because a suitable local energy inequality
-supplies the needed one-sided carrier subidentity.  The remaining hard content
-is the local routing of moving-carrier failure modes into already named
-adjacent branches.  On the canonical windowwise moving family, the \(J_2\)
-through \(J_5\) terms are already summable, so the sharp residual is now
-`paper7:def:windowwise-transition-routing`,
-`paper7:def:windowwise-positive-scale-routing`, plus the existing
-negative-drift branch.
+supplies the needed one-sided carrier subidentity.  The moving-carrier
+failure modes \(J_1\) and \(J_7\) are now routed into already named adjacent
+branches by the carrier-state discharge.  On the canonical windowwise moving
+family, the \(J_2\) through \(J_5\) terms are already summable, and \(J_6\)
+remains assigned to the existing negative-drift branch.
 
 ---
 
@@ -530,73 +558,52 @@ The following are no longer open Section 7 assumptions:
 * finite localized energy in the carrier package;
 * carrier comparison for canonical or nested energy-controlled costs.
 * replacement of localized energy identities by suitable-energy subidentities.
+* windowwise transition/leakage routing on the canonical moving family.
+* windowwise positive-scale routing on the canonical moving family.
 
 Those are now supplied by the local verification proposition, the retained
 carrier theorem, the classwise coverage theorem, and the carrier-closure
-theorems listed above.
+theorems listed above, together with the carrier-state windowwise routing
+corollaries.
 
 ---
 
-### What still has to be proved
+### Discharged windowwise routing package
 
-The broad adjacent-closure theorem has now been reduced to one canonical local
-target in the canonical or energy-controlled compact-cost channel.
+The broad adjacent-closure theorem has now been reduced through the canonical
+windowwise moving family and the two windowwise routing definitions have been
+proved in the TeX:
 
-**Theorem 2.1: Stratified moving-carrier routing.**
-Let \(\omega\) be an admissible local Type II branch in the pre-carrier
-validated compact-cost channel, and suppose the validated compact cost is the
-canonical identity cost or is energy-controlled by the fixed identity cost.
-Then the canonical remaining target is to prove
-`paper7:def:stratified-moving-carrier-routing`.  Concretely, after passing to a
-later terminal tail if necessary, it is enough to show that \(\omega\)
-admits one of the following local outcomes:
+* `paper7:lem:successful-moving-test-family` closes the branch whenever one
+  moving test family has all seven moving components summable.
+* `paper7:lem:windowwise-shell-pressure-translation` makes
+  \(J_2,J_3,J_4,J_5\) automatic on the canonical family.
+* `paper7:def:normalized-carrier-blocks`,
+  `paper7:lem:closed-carrier-diagnostics`, and
+  `paper7:lem:carrier-state-compactness-labels` construct compact labelled
+  carrier states with closed first-label rows;
+  `paper7:lem:nonintegrable-component-certificate` handles arbitrary
+  nonintegrable tails without assuming persistent unit-window lower bounds.
+* `paper7:lem:transition-carrier-label-is-exterior` and
+  `paper7:lem:transition-carrier-state-stratification` route \(J_1\)-carrier
+  states through the transition-leakage carrier label into the
+  exterior/leakage cluster.
+* `paper7:lem:positive-scale-carrier-core-realization`,
+  `paper7:thm:positive-scale-certificate-enters-scale-rigid`, and
+  `paper7:lem:positive-scale-work-stratification` route \(J_7\)-carrier states
+  to scale-rigid residual behavior, unless an earlier exterior/leakage,
+  modulation-driven recentering, or negative-drift label has already fired.
+* `paper7:cor:windowwise-transition-routing-holds` and
+  `paper7:cor:windowwise-positive-scale-routing-holds` discharge
+  `paper7:def:windowwise-transition-routing` and
+  `paper7:def:windowwise-positive-scale-routing`.
 
-* fixed carrier closure;
-* moving carrier closure;
-* exterior/leakage routing, meaning selected windows and radii with persistent
-  shell \(L^2/L^3\) mass that force entry into critical-tightness failure, the
-  exterior concentration alternative, or local windowed \(H^1\)-loss;
-* positive-scale routing, meaning persistent \(a_+\)-weighted shell transport
-  on selected windows that forces entry into the scale-rigid residual branch or
-  its bounded selected-window-limit refinement;
-* negative-drift routing, which is already the Section 6 obstruction.
-
-This is the state-space reading of the carrier diagnostics.  It treats the
-moving cutoff as a local detector of adjacent-branch entry, not as a device for
-one global analytic estimate.  Once
-`paper7:def:stratified-moving-carrier-routing` is proved,
-`paper7:thm:stratified-moving-carrier-routing` and
-`paper7:cor:adjacent-closure-reduced-to-stratified-routing` show that the
-compact-cost channel leaves no unresolved branch beyond already named strata.
-
-**Theorem 2.2: Windowwise routing statements imply the stratified package.**
-The manuscript now isolates the exact sharp statements needed to prove
-`paper7:def:stratified-moving-carrier-routing`:
-
-* `paper7:def:moving-test-family` fixes the local moving cutoff language;
-* `paper7:lem:successful-moving-test-family` shows that one successful moving
-  test family already gives moving carrier closure and hence exclusion;
-* `paper7:lem:windowwise-tight-radius-schedule`,
-  `paper7:lem:windowwise-shell-pressure-translation`, and
-  `paper7:cor:windowwise-only-transition-and-scale-remain` produce a genuine
-  moving family on which \(J_2,J_3,J_4,J_5\) are automatic;
-* `paper7:def:windowwise-transition-routing` and
-  `paper7:def:windowwise-positive-scale-routing` are the only new Section 7
-  routing obligations left on that family;
-* `paper7:thm:windowwise-routing-gives-stratified-routing` proves that these
-  two routing statements, together with the already existing negative-drift
-  branch, are enough to recover the full stratified moving-carrier routing
-  package;
-* `paper7:cor:adjacent-closure-reduced-to-windowwise-routing` then converts
-  those statements directly into compact-cost adjacent closure once the already
-  named adjacent branches are known to close.
-
-One further refinement is now built into the TeX file: for radial monotone
-cutoffs the scale-cutoff drift contributes only through \(a_+\),
-`paper7:lem:annular-pressure-flux` reduces the pressure flux to enlarged-shell
-\(L^3\) mass plus an \(R^{-1}\) harmonic-tail term, and
-`paper7:lem:windowwise-shell-pressure-translation` shows that pressure and
-translation are automatic on the canonical windowwise moving family.
+The audit point is that this proof must remain carrier-state based.  It must
+not reintroduce the false implication that nonintegrability of \(J_1\) or
+\(J_7\) gives a uniform pointwise or unit-window lower bound.  Diffuse tails
+are routed as normalized local carrier states, and retained \(J_7\)-carrier
+states must continue to pass through the compact-core realization lemma before
+scale-rigidity is invoked.
 
 ---
 
@@ -632,246 +639,63 @@ What remains is therefore not a monolithic PDE theorem.  After replacing exact
 identities by suitable-energy subidentities, the moving carrier residual is
 read through the explicit component diagnostics in
 `paper7:def:componentwise-annular-finite-error`.  In the canonical state-space
-reading, \(J_1\) is the surviving shell-leakage/non-tightness detector on the
-canonical windowwise moving family, \(J_7\) is the positive scale-dynamics
-detector, and \(J_6\) is already assigned to Section 6.  The \(J_2\)--\(J_5\)
-terms are already closed on that family.  So the honest remaining target is
-exactly the two windowwise routing statements plus the existing
-negative-drift branch.
+reading, \(J_1\) is now routed as a transition carrier state and \(J_7\) is
+now routed as a positive scale-work carrier state.  The \(J_2\)--\(J_5\) terms
+are already closed on that family, and \(J_6\) remains the already assigned
+Section 6 negative-drift branch.  Thus the two windowwise routing definitions
+are retired from the active Section 7 assumption list.
 
 ---
 
 ### Current narrowed bottleneck
 
-After this pass, the sharp Section 7 target is not:
-
-> prove one global PDE package for the moving shell.
-
-It is:
-
-> prove the two sharp windowwise moving-routing statements
-> `paper7:def:windowwise-transition-routing`,
-> `paper7:def:windowwise-positive-scale-routing`,
-> together with the already existing negative-drift branch.
-
-The required local routing lemmas are now small and explicit:
-
-* **Transition/leakage routing lemma.**
-  If no nested moving cutoff yields summable cutoff-transition, viscous, and
-  convection errors, extract unit windows and radii with persistent shell
-  \(L^2/L^3\) mass.  Route that shell persistence to critical-tightness
-  failure, the exterior concentration alternative, or local windowed
-  \(H^1\)-loss.
-
-* **Positive scale-shell routing lemma.**
-  If the \(a_+\)-weighted shell term persists, extract selected windows with
-  persistent outward scale forcing.  Route that to the scale-rigid residual
-  branch, or more sharply to the bounded selected-window-limit refinement of
-  that branch.
-
-* **Negative scale-drift routing lemma.**
-  This is already Section 6.  No new Section 7 theorem should try to replace it
-  by an unproved equivalence with compact-cost divergence.
-
-The canonical route is moving and local: let the cutoff follow the branch, and
-show that failure of carrier closure is itself a local certificate of entry
-into a named adjacent stratum.  On the sharp windowwise family, pressure and
-translation no longer remain as separate assumptions.  There is no second
-discharge route in the remaining plan.
-
-**Difficulty: medium-hard to hard.**
-The coverage and bookkeeping logic is now formal.  The remaining Section 7 work
-is structural rather than classical-tail analytic: prove that each moving
-carrier failure mode lands in an already named adjacent branch.  Some of those
-adjacent branches, especially the scale-rigid residual branch and the exterior
-profile machinery, still depend on the separate proof obligations recorded
-elsewhere in this tracker.
+There is no active Section 7 windowwise-routing bottleneck left in this
+tracker.  The remaining global assembly still uses the already assigned
+negative-drift branch, but the separate local cost-divergence exclusion
+criterion is also discharged by
+`paper6a:thm:cost-divergence-exclusion-discharged` under the same canonical
+windowwise routing and adjacent-closure package.  The routing definitions
+`paper7:def:windowwise-transition-routing` and
+`paper7:def:windowwise-positive-scale-routing` are discharged by theorem.
 
 ---
 
-# 3. `paper6a:ass:cost-divergence-exclusion`
+# 3. `paper6a:ass:cost-divergence-exclusion` -- retired audit item
 
 ## Cost-divergence exclusion criterion
 
-This is one of the main final conditional assumptions in the manuscript.
+This item is no longer counted as an active remaining assumption.
 
----
+The TeX now contains an explicit discharge package in
+`paper6a:subsec:discharge-cost-divergence-assumption`:
 
-### Literal content
+* `paper6a:lem:corrected-energy-nonnegative` verifies the nonnegativity of the
+  corrected fixed and moving localized energies.
+* `paper6a:lem:corrected-monotonicity-versus-divergent-cost` proves the
+  arithmetic contradiction: corrected monotonicity, finite initial corrected
+  energy, and a nonnegative cost force finite total cost.
+* `paper6a:thm:cost-divergence-routing-dichotomy` shows that cost divergence
+  on the canonical windowwise moving schedule forces failure of one of the
+  remaining local moving-error components \(J_1,J_6,J_7\).
+* `paper6a:thm:cost-divergence-exclusion-discharged` routes those failures:
+  \(J_1\) enters the transition/exterior route, \(J_7\) enters the
+  positive-scale route, and \(J_6\) is the assigned negative-drift route.
+* `paper6a:cor:cost-divergence-exclusion-unconditional` records that, under the
+  same windowwise routing and adjacent-closure package already used in Section
+  7, `paper6a:ass:cost-divergence-exclusion` is a theorem and may be removed
+  from `paper6a:def:abstract-final-data` and
+  `paper6a:def:expanded-terminal-data`.
 
-It says:
+The current `type_II_regularity.tex` has been updated accordingly: the final
+and expanded terminal hypothesis lists no longer include
+`paper6a:ass:cost-divergence-exclusion` as a primitive input.  Later assembly
+references now cite the discharge theorem/corollary instead of treating the
+criterion as an open assumption.
 
-> for every renormalized local Type II branch satisfying the conditional cost hypotheses, if the corresponding nonnegative localized cost has divergent tail integral, then the branch is excluded from the local Type II class.
-
-Symbolically:
-[
-\int_{\tau_0}^\infty \mathcal D_{R_0}(\tau),d\tau=\infty
-\quad\Longrightarrow\quad
-\text{branch excluded.}
-]
-
-But crucially, this is only asserted for branches satisfying the preceding definition of **conditional cost hypotheses**.
-
----
-
-### The preceding cost hypotheses matter
-
-That preceding package requires:
-
-1. the branch lies in the local Type II concentration alternative;
-2. bounded physical energy is available;
-3. the repaired-gauge representation ((V,P,a,b)) is available;
-4. the localized cost is identified with
-   [
-   \tilde{\mathfrak D}_{R_0}
-   =========================
-
-   \nu\int |\nabla V|^2\phi_{R_0}
-   +
-   a_+ \int |V|^2\phi_{R_0},
-   ]
-   or an explicit comparable nonnegative replacement;
-5. a localized energy identity or local energy inequality is available;
-6. a corrected localized monotonicity inequality is available.
-
-So this assumption is not a bare statement about cost divergence.
-It is an assumption about cost divergence **inside a very specific analytic framework**.
-
----
-
-### What this assumption means conceptually
-
-This is the final local-engine version of the cost program.
-
-It says:
-
-> once the branch has been put into repaired-gauge variables, once the localized cost has been correctly identified, and once you have a corrected monotonicity framework, then divergence of that cost is enough to kill the branch.
-
-So compared with the Section 7 assumptions, this one is:
-
-* more local,
-* more operational,
-* more directly tied to the repaired-gauge branch,
-* and more integrated into the final assembly.
-
----
-
-### Why it is so important
-
-Because the final assembly of the paper repeatedly reduces branch alternatives to cost divergence.
-
-For example:
-
-* scale-collapse drift branches are reduced to divergent localized cost;
-* moving/fixed cutoff comparisons reduce one cost to another;
-* corrected monotonicity supplies a framework in which divergence is meaningful.
-
-But none of that excludes the branch unless this assumption is present.
-
-So this is the place where the whole cost machinery cashes out.
-
----
-
-### Relation to the Section 7 retained-stratum package
-
-The Section 7 retained-stratum theorem handles the compact cost channel after carrier validation.  This remaining assumption is the final localized criterion used in assembly:
-
-* for a renormalized **local Type II branch** satisfying explicit cost hypotheses and corrected monotonicity input, divergence of the localized cost excludes the branch or routes it to a named adjacent stratum.
-
-So this assumption is more concrete and more embedded in the final proof architecture than the Section 7 retained-stratum interface.
-
----
-
-### Why it is strong
-
-Because it assumes the exact theorem the rest of the local cost machinery is trying to justify.
-
-The manuscript proves:
-
-* cost identification,
-* corrected monotonicity candidates,
-* some drift-obstruction criteria,
-* compatibility between various localized costs.
-
-But this assumption says that once one of those costs diverges, that is already enough to exclude the branch.
-
-So it is really a **final contradiction principle**.
-
----
-
-### What proving it would require
-
-A proof would probably need to show something like:
-
-* the corrected localized energy is bounded below or controlled,
-* the monotonicity inequality forces energy drop proportional to the cost,
-* divergent cost would then force impossible behavior in the renormalized branch,
-* or would contradict bounded energy / concentration structure / admissibility / compactness.
-
-In other words, it would need to convert:
-[
-\text{infinite tail dissipation-type quantity}
-]
-into
-[
-\text{impossibility of remaining in the local Type II class}.
-]
-
-That is exactly the missing theorem.
-
----
-
-### Why it is a central bottleneck
-
-In your final conditional assembly, this assumption is one of the last gates.
-Many branch alternatives are reduced either directly to this cost-divergence criterion or to costs that are compared to it.
-
-So this is not peripheral.
-It is one of the principal remaining conditional inputs.
-
----
-
-### Discharge package: required theorems/lemmas and difficulty
-
-To discharge `paper6a:ass:cost-divergence-exclusion`, the paper would need the
-local, operational version of the cost-to-exclusion bridge.
-
-**Theorem 3.1: Corrected localized energy inequality with coercive cost.**
-For every branch satisfying the conditional cost hypotheses, there is a
-corrected localized energy functional \(\mathcal E_R(\tau)\) such that its
-one-sided variation controls the localized cost:
-\[
-  \mathcal E_R(T_2)-\mathcal E_R(T_1)
-  + c\int_{T_1}^{T_2}\mathcal D_R(\tau)\,d\tau
-  \le \text{controlled boundary/modulation errors}.
-\]
-
-**Lemma 3.2: Boundary and modulation error summability.**
-The cutoff, pressure, drift, and modulation errors in Theorem 3.1 are either
-nonpositive, absorbable into the cost, or summable along the terminal tail.
-
-**Lemma 3.3: Lower and upper control of the corrected energy.**
-The corrected localized energy remains bounded below and cannot lose meaning
-under the repaired-gauge normalization, while the upper bounds are compatible
-with finite physical energy and retained compact mass.
-
-**Theorem 3.4: Divergent localized cost alternative.**
-If \(\int_{\tau_0}^\infty \mathcal D_R(\tau)\,d\tau=\infty\), then the
-coercive inequality and energy bounds either exclude the compact cost stratum
-or force entry into a named noncompactness, non-tightness, scale-collapse, or
-rigidity alternative.
-
-**Lemma 3.5: Compatibility of comparable costs.**
-The fixed-cutoff, moving-cutoff, scale-collapse, and identity costs used in the
-paper all feed into the same local cost-divergence alternative when the declared
-comparison hypotheses hold.
-
-**Difficulty: hard.**
-This is the final local alternative theorem for the cost machinery.  The local
-energy identity is plausible, but absorbing every pressure/modulation/cutoff
-error while preserving enough control to route the branch correctly is a major
-PDE estimate.  Its local form is still serious, but it is not required to rule
-out all other strata by itself.
+Audit point: this retirement depends on the canonical windowwise schedule and
+the Section 7 adjacent-closure/routing package.  If that package is weakened or
+reopened, this item should be rechecked, but it is not an independent active
+assumption in the present manuscript.
 
 ---
 
@@ -1165,10 +989,12 @@ profile extraction to the exact terminal geometry used by the Type II proof.
 
 # Big-picture comparison of the active remaining proof obligations
 
-After retiring `paper3:ass:scale-rigidity` to audit-only status, the active
-remaining proof obligations fall into two clusters.
+After retiring `paper3:ass:scale-rigidity` and
+`paper6a:ass:cost-divergence-exclusion` to audit-only status, the active
+remaining proof obligations have narrowed to the terminal profile-completion
+package.
 
-## A. Remaining cost-routing and local cost assumptions
+## A. Retired cost-routing and local cost assumptions
 
 The retained compact Section 7 branch and classwise compact-cost coverage have
 been handled.  The broad adjacent-stratum closure statement has been reduced to
@@ -1183,22 +1009,19 @@ statements
 with `paper7:lem:successful-moving-test-family` closing the carrier whenever
 one moving test family succeeds, `paper7:lem:windowwise-shell-pressure-translation`
 making \(J_2\) through \(J_5\) automatic on the canonical family, and the
-negative scale-drift term already routed to Section 6.  The remaining cost
-items are therefore the local moving-routing package inside Section 7 and the
-separate final local
-cost-divergence criterion used in assembly:
+negative scale-drift term already routed to Section 6.  The two windowwise
+routing definitions are now discharged by
+`paper7:cor:windowwise-transition-routing-holds` and
+`paper7:cor:windowwise-positive-scale-routing-holds`.  The separate final local
+cost-divergence criterion used in assembly is then discharged by
+`paper6a:thm:cost-divergence-exclusion-discharged` and
+`paper6a:cor:cost-divergence-exclusion-unconditional`.
 
-* `paper7:def:windowwise-transition-routing`
-* `paper7:def:windowwise-positive-scale-routing`
-* `paper6a:ass:cost-divergence-exclusion`
+The Section 7 moving-routing discharge and the Section 6A cost-divergence
+discharge are retained only as audit trails; neither is counted as an active
+assumption.
 
-They differ in level:
-
-* local construction of the moving-routing discharge package after all
-  pre-carrier compact-cost tests have passed,
-* final local-criterion form.
-
-## B. Terminal profile-completion assumption
+## B. Active terminal profile-completion assumption
 
 This says the terminal critical profile analysis is genuinely complete:
 
@@ -1214,20 +1037,32 @@ has been tightened in the note above: bounded selected-window limits must come
 from CKN/no-subconcentration, and single-core dissipation must be dissipation of
 the original selected sequence.
 
+`paper7:def:windowwise-transition-routing` and
+`paper7:def:windowwise-positive-scale-routing` are also no longer counted as
+active.  Their audit point is that the proof must continue to use normalized
+carrier states for diffuse nonintegrability; it must not silently replace
+nonintegrable \(J_1\) or \(J_7\) tails by persistent pointwise or unit-window
+lower bounds.  The positive-scale proof must also keep the compact-core
+realization lemma between a \(J_7\)-carrier state and the invocation of
+scale-rigidity.
+
+`paper6a:ass:cost-divergence-exclusion` is also no longer counted as active.
+Its audit point is that the discharge must remain tied to the canonical
+windowwise moving family, the corrected-monotonicity arithmetic, and the
+already assigned \(J_1,J_6,J_7\) routing/adjacent-closure package.
+
 ---
 
-# My blunt summary of what each one is really asking for
+# My blunt summary of what each active one is really asking for
 
 `paper7:def:windowwise-transition-routing` and
-`paper7:def:windowwise-positive-scale-routing`
-ask for **the two sharp local routing lemmas showing that, on the canonical
-windowwise moving family, the only surviving failed moving-carrier ingredients
-\(J_1\) and \(J_7\) already place the branch in an exterior/non-tight or
-scale-dynamics adjacent stratum, with negative drift handled separately in
-Section 6**.
+`paper7:def:windowwise-positive-scale-routing` are no longer active: the TeX
+now proves them by carrier-state extraction and local state-space
+stratification.
 
-`paper6a:ass:cost-divergence-exclusion`
-is the final local version of **divergent localized cost excludes the branch**.
+`paper6a:ass:cost-divergence-exclusion` is no longer active: the TeX now
+derives it from corrected-monotonicity arithmetic plus canonical windowwise
+routing and adjacent closure.
 
 `paper6a:ass:critical-ns-profile-decomposition`
 asks for a theorem saying **critical profile extraction is complete and leaves no hidden terminal mass**.
@@ -1236,26 +1071,9 @@ asks for a theorem saying **critical profile extraction is complete and leaves n
 
 # Difficulty order, easiest to hardest
 
-This is the practical order in which I would try to discharge the assumptions.
-“Easiest” here does not mean easy; it means least entangled with the full local
-state-space stratification compared with the others.
+Only one active item remains in this tracker.
 
-1. **`paper6a:ass:cost-divergence-exclusion` — hard.**
-   This is the sharp local version of the cost bridge.  It requires a corrected
-   localized energy inequality, absorption of pressure/modulation/cutoff errors,
-   lower control of the corrected energy, and a divergent-cost alternative.
-
-2. **`paper7:def:windowwise-transition-routing` and
-   `paper7:def:windowwise-positive-scale-routing` — medium-hard to hard.**
-   The retained compact coverage itself is now a theorem.  The remaining work is
-   the sharp windowwise-routing package on the pre-carrier channel: suitable
-   local energy supplies the subidentity, one successful moving test family
-   gives carrier closure automatically, the canonical windowwise moving family
-   already makes \(J_2\) through \(J_5\) summable, and the only new work is to
-   route the surviving persistent failures \(J_1\) and \(J_7\) into already
-   named adjacent branches.
-
-3. **`paper6a:ass:critical-ns-profile-decomposition` — very hard.**
+1. **`paper6a:ass:critical-ns-profile-decomposition` — very hard.**
    The standard critical profile decomposition and perturbative stability are
    known-type hard results, but the terminal-frame compatibility and no-hidden
    terminal mass clauses are manuscript-specific and likely require new work.

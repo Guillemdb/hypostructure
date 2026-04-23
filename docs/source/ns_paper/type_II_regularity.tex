@@ -73,8 +73,8 @@ The three-dimensional Navier--Stokes regularity problem is governed by the
 interaction between local energy control, scale-critical concentration, and the
 possible formation of singular structures at arbitrarily small parabolic
 scales.  Since Leray's construction of global weak solutions
-\cite{Leray1934}, the suitable weak-solution framework and the partial
-regularity theory of Scheffer and Caffarelli--Kohn--Nirenberg have provided the
+\cite{Leray1934}, the theory of suitable weak solutions and the partial
+regularity theorem of Scheffer and Caffarelli--Kohn--Nirenberg have provided the
 basic local language for this interaction
 \cite{Scheffer1976,CaffarelliKohnNirenberg1982,Lin1998}.  In that theory,
 singularity formation is detected by scale-invariant velocity-pressure
@@ -5049,8 +5049,8 @@ active frame.
 The following statements isolate the analytic inputs needed for the
 multibubble reduction: the (already proved) single-core exclusion, the
 scale-rigidity reduction (a remaining hypothesis), and terminal active-frame
-admissibility (proved here as a bridge from the terminal nonlinear decoupling
-package of \cref{paper8:thm:terminal-nonlinear-decoupling}).  They are stated
+admissibility (deduced here from the terminal nonlinear decoupling theorem
+\cref{paper8:thm:terminal-nonlinear-decoupling}).  They are stated
 explicitly so that the following theorem uses no unstated compactness,
 pressure, or profile completeness conclusion.
 
@@ -5085,13 +5085,13 @@ with the local Type II condition.
 
 \begin{remark}[Status of \cref{paper3:ass:scale-rigidity}]
 \label{paper3:rem:scale-rigidity-discharge}
-The remainder of this subsection discharges
-\cref{paper3:ass:scale-rigidity} by an explicit local stratification package.
-The package consists of the local lemmas
+The remainder of this subsection proves
+\cref{paper3:ass:scale-rigidity} by an explicit local compactness
+stratification.  The proof consists of the local lemmas
 \cref{paper3:lem:scale-rigid-bounded-limit-exit,paper3:lem:scale-rigid-pressure-modulation-stability,paper3:lem:scale-rigid-chart-comparability,paper3:lem:scale-rigid-two-sided-ckn-transfer,paper3:lem:scale-rigid-ckn-in-gauge,paper3:lem:scale-rigid-scaled-pressure-decay,paper3:lem:scale-rigid-dyadic-ckn-persistence,paper3:lem:scale-rigid-exterior-pressure-routing,paper3:lem:scale-rigid-pressure-core-activation,paper3:lem:scale-rigid-active-core-capture,paper3:lem:scale-rigid-no-subconcentration-bounded,paper3:lem:scale-rigid-degenerate-jacobian,paper3:thm:scale-rigid-single-core-compatibility}
 and the main decomposition
 \cref{paper3:thm:scale-rigid-stratum-decomposition}.  The final
-\cref{paper3:prop:scale-rigidity-discharged} then derives the conclusion of
+\cref{paper3:prop:scale-rigidity-discharged} then proves the conclusion of
 \cref{paper3:ass:scale-rigidity} from these results.  All proofs use only the
 local Type II definition \cref{paper1:def:typeII}, the represented variables of
 \cref{paper2:thm:C}, the local pressure decomposition of
@@ -5153,7 +5153,7 @@ produced by Step~3 or Step~4 of \cref{paper3:thm:same-point-reduction} or by
 The bounds (R1)--(R3) are not extra hypotheses but are inherited from the
 preceding reductions.  Bound (R1) is the compact-cylinder hypothesis carried
 through \cref{paper3:thm:minimal-bad-extraction}; if it failed,
-\cref{paper3:lem:compactness-failure} would route the branch to the
+\cref{paper3:lem:compactness-failure} would assign the branch to the
 multicore alternative, not to the scale-rigid stratum.  Bound (R2) is the
 positive concentration capture in \cref{paper3:def:active-family}.  Bound
 (R3) is the selected-cylinder modulation control of
@@ -6090,7 +6090,7 @@ excluded by \cref{paper1:thm:single-core-criterion}.  These are precisely the
 two terminal residual outcomes claimed.
 \end{proof}
 
-\begin{proposition}[Discharge of scale-rigidity exclusion]
+\begin{proposition}[Scale-rigidity exclusion]
 \label{paper3:prop:scale-rigidity-discharged}
 Every scale-rigid local branch produced by
 \cref{paper3:thm:same-point-reduction} or
@@ -6100,10 +6100,11 @@ selected-window limit on a compact cylinder (and so fails
 \cref{paper1:def:typeII} by
 \cref{paper3:lem:scale-rigid-bounded-limit-exit}) or reduces to the compact
 single-core branch governed by
-\cref{paper1:thm:single-core-criterion} (equivalently by the discharged
+\cref{paper1:thm:single-core-criterion} (equivalently by the local
 proposition \cref{paper3:ass:single-core}).  Consequently no such branch is
 compatible with the local Type II condition.  This is the conclusion of
-\cref{paper3:ass:scale-rigidity}; that assumption is therefore discharged.
+\cref{paper3:ass:scale-rigidity}, proved here as a theorem in the stated
+class.
 \end{proposition}
 
 \begin{proof}
@@ -6168,7 +6169,7 @@ hypotheses and produces, on every compact terminal cylinder, the conclusions
 of \cref{paper8:def:terminal-nonlinear-decoupling}.  We verify each clause of
 \cref{paper3:def:admissible-terminal}.
 
-Items (i) and (ii) are the active-family bookkeeping of
+Items (i) and (ii) are the active-family enumeration of
 \cref{paper3:def:active-family} together with the same-point and
 separated-point grouping of \cref{paper3:lem:separated-vanish,paper3:lem:outer-vanish};
 they are properties of the active family that survive the terminal-frame
@@ -6381,7 +6382,7 @@ form \(\phi^2\), where \(\phi\in C_c^\infty(Q_R^*)\) is nonnegative.  Setting
 \(C_c^k(Q_{2R,J})\) for every \(k\), of squares of nonnegative smooth
 compactly supported functions \(\phi_\varepsilon:=(\Phi+\varepsilon^2)^{1/2}-\varepsilon\),
 the inequality extends by approximation to all such \(\Phi\); this is the
-standard reformulation used in the suitable weak solution framework
+standard reformulation used in the theory of suitable weak solutions
 \cite{CaffarelliKohnNirenberg1982,Lin1998}.  The compact-window
 representation theorem \cref{paper2:thm:C} provides the cylinder
 \(Q_{2R,J}=B_{2R}\times J\) and the divergence-free renormalized equation
@@ -9987,15 +9988,15 @@ cost-to-exclusion theorem.
 Assume the renormalized Type II class satisfies:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item the local classification has exactly the following alternatives: the
-compact cost-divergence channel, to be further stratified by carrier
+compact cost-divergence regime, to be further stratified by carrier
 validation, failure of uniform critical tightness, and failure of local
 windowed \(H^1\) control;
 \item every renormalized solution is uniformly critically tight;
 \item every renormalized solution satisfies the tail windowed \(H^1\) bound;
-\item the compact cost-divergence channel is evaluated as the retained compact
+\item the compact cost-divergence regime is evaluated as the retained compact
 cost-divergence stratum after the carrier-validation alternatives of
 \cref{paper7:thm:carrier-validation-retained-stratum} have been tested;
-\item every carrier-validation adjacent stratum arising from this channel is
+\item every carrier-validation adjacent stratum arising from this regime is
 treated by its corresponding local stratum argument.
 \end{enumerate}
 Then every renormalized Type II solution is either excluded in a
@@ -10008,7 +10009,7 @@ Consequently no remaining Type II case exists.
 Fix a renormalized Type II solution \(\omega\).  By the local
 classification, \(\omega\) reaches exactly one of the following alternatives:
 \begin{enumerate}[label=\textup{(\arabic*)}]
-\item the compact cost-divergence channel, with its carrier-validation
+\item the compact cost-divergence regime, with its carrier-validation
 subalternatives;
 \item failure of uniform critical tightness;
 \item failure of windowed \(H^1\) control, after uniform critical tightness
@@ -10018,8 +10019,8 @@ By the universal tightness hypothesis and
 \cref{paper7:def:pointwise-exclusion-tests}, the second alternative is unavailable.  By
 the universal windowed \(H^1\) hypothesis and
 \cref{paper7:def:pointwise-exclusion-tests}, the third alternative is unavailable.  The
-only remaining alternative is the compact cost-divergence channel.  By
-hypothesis this channel has already been passed through the ordered
+only remaining alternative is the compact cost-divergence regime.  By
+hypothesis this regime has already been passed through the ordered
 carrier-validation alternatives of
 \cref{paper7:thm:carrier-validation-retained-stratum}.  If a carrier-validation
 test fails, \(\omega\) leaves the retained compact stratum and belongs to the
@@ -10053,16 +10054,16 @@ A renormalized Navier--Stokes Type II branch satisfying the compact
 cost-divergence criterion has Navier--Stokes cost-to-exclusion data if the
 validated compact cost admits local monotonicity-carrier data in the sense of
 \cref{paper7:def:local-monotonicity-carrier}.  In particular, this may be
-verified either by the fixed-cutoff package of
+verified either by the fixed-cutoff criterion of
 \cref{paper7:lem:fixed-monotonicity-gives-cost-to-exclusion-data} or by the
-moving-cutoff package of
+moving-cutoff criterion of
 \cref{paper7:lem:moving-monotonicity-gives-cost-to-exclusion-data}.
 This is a data condition, not a primitive cost-exclusion assumption.  On the
 retained compact cost-divergence stratum it is supplied by
 \cref{paper7:thm:carrier-validation-retained-stratum}.  Failure of this data
 condition is therefore not an unclassified obstruction: it is the carrier
 validation exit recorded in \cref{paper7:def:cost-exclusion-missing-hypotheses}
-and is treated as an adjacent state-space stratum.
+and is treated as an adjacent compactness stratum.
 \end{definition}
 
 \begin{lemma}[Navier--Stokes cost-divergence exclusion from carrier data]
@@ -10777,7 +10778,7 @@ implies the corresponding compact Type II cost-divergence conclusion
   \mathfrak C_{\rm II}^{NS}(\tau)\,d\tau=\infty .
 \]
 Consequently the use of \(\mathfrak C_{\rm II}^{NS}\) introduces no additional
-escape from the compact-cost stratum beyond the explicit failure of this
+exit from the compact-cost stratum beyond the explicit failure of this
 comparison.
 \end{lemma}
 
@@ -10984,7 +10985,7 @@ local inputs is absent; by the ordered stratification, that absence is recorded
 as the corresponding local alternative.
 \end{proof}
 
-\begin{proposition}[Active scaling stability package]
+\begin{proposition}[Active scaling stability criterion]
 \label{paper7:prop:active-scaling-stability-package}
 Let \(\omega\) be an admissible local Type II branch with active supercritical
 scaling on a terminal tail.  A passage from a raw Type II chart to a
@@ -11038,7 +11039,7 @@ scaling is stable through the listed operations exactly on the local stratum on
 which those operations are admissible.
 \end{proof}
 
-\begin{lemma}[No unrecorded escape from compact cost divergence]
+\begin{lemma}[No unrecorded exit from compact cost divergence]
 \label{paper7:lem:no-unrecorded-cost-escape}
 Let \(\omega\) be an admissible local Type II branch with active supercritical
 scaling on a terminal tail.  Before declaring that a continuation lies in the
@@ -11047,7 +11048,7 @@ compact cost-divergence stratum, run the ordered local validation tests:
 \item Type II analytic data and exhaustion data;
 \item raw-chart selection, repaired-gauge representation, and scale
 admissibility;
-\item local state-space decomposition into the alternatives of
+\item local compactness decomposition into the alternatives of
 \cref{paper6:thm:state-decomposition};
 \item positive finite critical \(L^3\) annulus;
 \item the critical-tightness/exterior-leakage test at the retained scale;
@@ -11055,7 +11056,7 @@ admissibility;
 \item local modulation integrability, cost well-posedness, and compatibility of
 the chosen compact Type II cost;
 \item local monotonicity-carrier data for the validated compact cost, supplied
-by the fixed-cutoff package, the moving-cutoff package, or another explicit
+by the fixed-cutoff criterion, the moving-cutoff criterion, or another explicit
 localized carrier;
 \item the compact Type II cost-divergence conclusion for the validated cost.
 \end{enumerate}
@@ -11075,7 +11076,7 @@ cost, or failure of compact cost divergence for the validated cost.
 \end{enumerate}
 Thus a renormalized continuation preserving active scaling and validated compact
 cost divergence cannot leave the compact cost-divergence regime without being
-recorded by the state-space stratification.
+recorded by the local compactness stratification.
 \end{lemma}
 
 \begin{proof}
@@ -11089,7 +11090,7 @@ scale-degeneracy recorded by
 \cref{paper7:prop:active-scaling-stability-package}.
 \par
 Once a scale-admissible repaired branch is available, apply the local
-state-space decomposition \cref{paper6:thm:state-decomposition}.  If the branch
+compactness decomposition \cref{paper6:thm:state-decomposition}.  If the branch
 falls into the multibubble, multicore, cascade, gauge-degenerate, finite-cost
 scale-collapse, local \(H^1\)-loss, or scale-rigid residual alternatives, it has
 left the compact single-core cost-divergence stratum through a named local
@@ -11121,9 +11122,9 @@ the identity case of \cref{paper7:lem:canonical-cost-compatibility} or the
 explicit comparison case of
 \cref{paper7:lem:comparable-cost-compatibility}; failure of both is a
 cost-compatibility failure.  Next test whether the validated compact cost has a
-local monotonicity carrier.  In the fixed-cutoff route this means the fixed
+local monotonicity carrier.  In the fixed-cutoff case this means the fixed
 carrier subidentity, finite fixed-cutoff error, and energy-control comparison.
-In the moving-cutoff route this means the moving carrier subidentity, summable
+In the moving-cutoff case this means the moving carrier subidentity, summable
 moving-annulus errors, and moving-cost comparison.  Exact localized energy
 identities are sufficient for these subidentities, but the one-sided suitable
 local energy inequality is the actual input needed.  Failure of these inputs is
@@ -11135,12 +11136,12 @@ If it fails, the branch is a finite-cost or non-divergent compact branch and is
 not counted as a compact cost-divergence branch.  The tests are ordered, so the
 first failure is unique.  If no failure occurs, the branch has the analytic data,
 scale-admissible repaired-gauge representation, compact single-core
-state-space position, positive finite critical annulus, critical tightness,
+local compactness position, positive finite critical annulus, critical tightness,
 local windowed \(H^1\) control, local modulation integrability, a compatible
 compact cost, local monotonicity-carrier data, and the validated compact
 cost-divergence conclusion.  Together with the assumed active scaling, these
 hypotheses place the branch in the compact Type II cost-divergence regime.
-Therefore there is no unrecorded escape.
+Therefore there is no unrecorded exit.
 \end{proof}
 
 \begin{theorem}[Carrier validation alternative on the retained compact stratum]
@@ -11166,7 +11167,7 @@ validated compact cost admits local monotonicity-carrier data.
 
 \begin{proof}
 After the branch has passed the Type II analytic, representation,
-state-space, critical-annulus, critical-tightness, local windowed \(H^1\),
+compactness, critical-annulus, critical-tightness, local windowed \(H^1\),
 modulation, cost well-posedness, and cost-compatibility tests, the next ordered
 test in \cref{paper7:lem:no-unrecorded-cost-escape} is precisely the
 local monotonicity-carrier test for the validated compact cost.  If this test
@@ -11226,7 +11227,7 @@ then follows from
 from \cref{paper7:lem:comparable-cost-compatibility} in the explicitly
 comparable-cost case.  Stability of the active scaling condition is
 \cref{paper7:prop:active-scaling-stability-package}.  Stability of the
-validated cost-divergence conclusion, with all exits routed to named local
+validated cost-divergence conclusion, with all exits assigned to named local
 alternatives, is \cref{paper7:lem:no-unrecorded-cost-escape}.  These prove
 clauses \textup{(i)}--\textup{(iv)} of
 \cref{paper7:def:cost-exclusion-data}.  Since the branch remains in the
@@ -11268,7 +11269,7 @@ If a test fails, the first failed test is one of the named local alternatives in
 \cref{paper7:lem:no-unrecorded-cost-escape}.  Since the present theorem assumes
 the validated compact cost-divergence conclusion, the last listed failure,
 failure of compact cost divergence for the validated cost, cannot occur.  Every
-other first failure is an adjacent state-space stratum: exhaustion,
+other first failure is an adjacent compactness stratum: exhaustion,
 representation, repaired-gauge or scale-degeneracy failure,
 multibubble/multicore splitting, cascade, exterior tightness failure, local
 \(H^1\)-loss, finite-cost scale-collapse, scale-rigid residual behavior,
@@ -11284,10 +11285,10 @@ compact coverage.
 \label{paper7:rem:uniform-cost-scope}
 \Cref{paper7:prop:local-cost-exclusion-data-verification} is deliberately local.
 It proves the interface hypotheses for a branch only after the branch has been
-placed in the validated compact cost-divergence stratum by the state-space
+placed in the validated compact cost-divergence stratum by the compactness
 stratification.  Branches with multibubble, cascade, exterior leakage,
 scale-collapse, scale-rigid, or rough-core behavior are not forced into this
-stratum; they are routed to their own local alternatives.  Thus the
+stratum; they are assigned to their own local alternatives.  Thus the
 cost-divergence exclusion step is unconditional on the retained compact
 stratum, while a classwise statement is obtained only after the adjacent
 strata have been treated by their own local arguments.  The coverage part itself
@@ -11365,7 +11366,7 @@ supercritical scaling condition is still the relevant one.  Cost compatibility
 ensures that the validated compact cost-divergence conclusion is the
 Navier--Stokes compact cost conclusion for \(\omega\), not an external or
 incomparable cost statement.  Stability of the cost-divergence conclusion rules
-out an escape from the compact Type II cost-divergence regime to a Type II case
+out an exit from the compact Type II cost-divergence regime to a Type II case
 outside the compact cost-divergence criterion inside the same class.
 \par
 It remains only to justify the transition from cost divergence to exclusion.
@@ -11395,21 +11396,21 @@ verified on this retained stratum.  Applying
 \cref{paper7:thm:pointwise-cost-exclusion} gives the exclusion conclusion.
 \end{proof}
 
-\begin{definition}[Adjacent-stratum closure for the compact-cost channel]
+\begin{definition}[Adjacent-stratum closure for the compact-cost regime]
 \label{paper7:def:compact-cost-adjacent-closure}
-The compact-cost channel has adjacent-stratum closure if every named adjacent
+The compact-cost regime has adjacent-stratum closure if every named adjacent
 alternative produced by
 \cref{paper7:lem:no-unrecorded-cost-escape} for a branch with active
 supercritical scaling and validated compact Type II cost divergence has its own
 stratum-local argument giving the same Type II exclusion conclusion, either
-directly or by routing the branch to a previously listed non-compact-cost
+directly or by placing the branch in a previously listed non-compact-cost
 alternative whose own closure theorem already gives the Type II exclusion
 conclusion.
 \end{definition}
 
 \begin{corollary}[Uniform Navier--Stokes cost-divergence exclusion]
 \label{paper7:cor:uniform-cost-exclusion}
-Assume adjacent-stratum closure for the compact-cost channel in the sense of
+Assume adjacent-stratum closure for the compact-cost regime in the sense of
 \cref{paper7:def:compact-cost-adjacent-closure}.  Then every
 renormalized Type II solution with active supercritical scaling condition and
 validated compact Type II cost-divergence conclusion is either excluded in its
@@ -11468,10 +11469,10 @@ validated compact cost admits local monotonicity-carrier data, and then
 local cost-to-exclusion data.
 \end{proof}
 
-\begin{definition}[Pre-carrier validated compact-cost channel]
+\begin{definition}[Pre-carrier validated compact-cost regime]
 \label{paper7:def:precarrier-validated-compact-channel}
 A renormalized Type II branch lies in the pre-carrier validated compact-cost
-channel if, on a terminal tail, it has active supercritical scaling and the
+regime if, on a terminal tail, it has active supercritical scaling and the
 validated compact Type II cost-divergence conclusion, and the ordered validation
 tests of \cref{paper7:lem:no-unrecorded-cost-escape} have passed through the
 following stages:
@@ -11479,7 +11480,7 @@ following stages:
 \item the Type II analytic data and ordered exhaustion tests;
 \item raw-chart selection, repaired-gauge representation, pressure
 reconstruction, modulation data, and scale-admissibility of the repaired chart;
-\item the local state-space decomposition without entering a multibubble,
+\item the local compactness decomposition without entering a multibubble,
 multicore, cascade, exterior-tightness, local \(H^1\)-loss,
 finite-cost scale-collapse, or scale-rigid residual alternative;
 \item the positive finite critical \(L^3\) annulus;
@@ -11489,7 +11490,7 @@ control;
 compatibility of the chosen compact Type II cost with the validated
 Navier--Stokes cost.
 \end{enumerate}
-This channel deliberately stops immediately before local monotonicity-carrier
+This regime deliberately stops immediately before local monotonicity-carrier
 validation.  Thus it contains all compact-cost interface data needed to ask for
 the fixed-cutoff or moving-cutoff carrier estimates, but it does not assert
 that those estimates have already been proved.
@@ -11549,16 +11550,16 @@ For a moving cutoff, use smooth positive approximations \(R_k\to R\) in
 inequality applies to \(\Phi_k(\tau,y)=\phi(y/R_k(\tau))\), and the preceding
 argument gives the moving subidentity with \(B_{\mathrm{mov},k}\).  Passing to
 the limit in distributions uses the local finite-energy and local \(H^1\)
-bounds already present on the pre-carrier channel.  The term
+bounds already present on the pre-carrier regime.  The term
 \(\partial_\tau\Phi\) is interpreted as the \(L^1_{\mathrm{loc}}\) derivative
 coming from \(R\in AC_{\mathrm{loc}}\).  The limit is exactly the moving
 carrier subidentity.
 \end{proof}
 
-\begin{definition}[Fixed-cutoff carrier closure package]
+\begin{definition}[Fixed-cutoff localized-energy closure criterion]
 \label{paper7:def:fixed-carrier-closure-package}
-A branch in the pre-carrier validated compact-cost channel satisfies the
-fixed-cutoff carrier closure package if, for the cutoff \(\phi_{R_0}\) used to
+A branch in the pre-carrier validated compact-cost regime satisfies the
+fixed-cutoff localized-energy closure criterion if, for the cutoff \(\phi_{R_0}\) used to
 evaluate the validated compact cost and for
 \[
   \mathcal E_\phi(\tau)=\frac12\int |V(y,\tau)|^2\phi_{R_0}(y)\,dy,
@@ -11579,10 +11580,10 @@ the following local analytic statements hold on a terminal tail:
 \end{enumerate}
 \end{definition}
 
-\begin{definition}[Moving-cutoff carrier closure package]
+\begin{definition}[Moving-cutoff localized-energy closure criterion]
 \label{paper7:def:moving-carrier-closure-package}
-A branch in the pre-carrier validated compact-cost channel satisfies the
-moving-cutoff carrier closure package if there is a finite-valued
+A branch in the pre-carrier validated compact-cost regime satisfies the
+moving-cutoff localized-energy closure criterion if there is a finite-valued
 nondecreasing locally absolutely continuous radius \(R(\tau)\ge R_0\), with
 \(R(\tau)\to\infty\) and moving cutoff
 \(\Phi(\tau,y)=\phi(y/R(\tau))\), such that, on a terminal tail:
@@ -11613,7 +11614,7 @@ the terminal tail: for some \(C_m<\infty\),
 \end{enumerate}
 \end{definition}
 
-\begin{theorem}[Non-carrier adjacent exits are routed before carrier validation]
+\begin{theorem}[Non-carrier adjacent exits are identified before carrier validation]
 \label{paper7:thm:noncarrier-exits-route}
 Let \(\omega\) be an admissible local Type II branch with active supercritical
 scaling and validated compact Type II cost divergence.  Apply the ordered tests
@@ -11626,7 +11627,7 @@ and is not one of the carrier-validation failures
   \text{carrier comparison},
 \]
 then the branch has already failed to enter the pre-carrier validated
-compact-cost channel of
+compact-cost regime of
 \cref{paper7:def:precarrier-validated-compact-channel}.  More precisely, its
 first failure is one of the following named non-carrier strata:
 \[
@@ -11649,7 +11650,7 @@ branch.
 \begin{proof}
 The validation procedure in
 \cref{paper7:lem:no-unrecorded-cost-escape} is ordered.  The
-pre-carrier channel is exactly the set of branches for which all tests before
+pre-carrier regime is the set of branches for which all tests before
 local monotonicity-carrier validation have passed.  Therefore any first failure
 before the carrier-validation row prevents membership in
 \cref{paper7:def:precarrier-validated-compact-channel}.
@@ -11660,7 +11661,7 @@ the exhaustion failures are those of
 are those of
 \cref{def:c2-representation-failures,def:c2r-minimal-failures} together with
 scale-degeneracy from
-\cref{paper7:prop:active-scaling-stability-package}; the state-space failures
+\cref{paper7:prop:active-scaling-stability-package}; the compactness failures
 are the alternatives in
 \cref{paper6:thm:state-decomposition}; critical-mass failures are the
 alternatives of \cref{def:c3-critical-mass-alternatives}; compact tightness
@@ -11672,12 +11673,12 @@ Thus the displayed list is exhaustive for non-carrier first failures.
 \par
 If the surrounding Type II class includes the local closure theorem assigned to
 the named stratum, then the branch is handled there.  It is therefore not a
-branch remaining to be treated by the retained compact-cost carrier argument.
+branch remaining to be treated by the retained compact-cost localized-energy argument.
 \end{proof}
 
 \begin{theorem}[Pre-carrier reduction to carrier validation]
 \label{paper7:thm:precarrier-reduces-to-carrier}
-Let \(\omega\) be in the pre-carrier validated compact-cost channel.  Then
+Let \(\omega\) be in the pre-carrier validated compact-cost regime.  Then
 exactly one of the following alternatives occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item the validated compact cost admits local monotonicity-carrier data in the
@@ -11692,7 +11693,7 @@ compact-cost argument.
 \end{theorem}
 
 \begin{proof}
-By definition of the pre-carrier channel, every ordered validation test before
+By definition of the pre-carrier regime, every ordered validation test before
 carrier validation has passed, and the validated compact cost-divergence
 conclusion is already present.  Thus the next unresolved row in
 \cref{paper7:lem:no-unrecorded-cost-escape} is precisely the local
@@ -11711,16 +11712,16 @@ the same conclusion is
 
 \begin{theorem}[Fixed-cutoff carrier closure]
 \label{paper7:thm:fixed-carrier-closure}
-Let \(\omega\) be in the pre-carrier validated compact-cost channel.  If
-\(\omega\) satisfies the fixed-cutoff carrier closure package of
+Let \(\omega\) be in the pre-carrier validated compact-cost regime.  If
+\(\omega\) satisfies the fixed-cutoff localized-energy closure criterion of
 \cref{paper7:def:fixed-carrier-closure-package}, then \(\omega\) is excluded
 from the Type II class under consideration.
 \end{theorem}
 
 \begin{proof}
-The pre-carrier channel supplies active supercritical scaling, local
+The pre-carrier regime supplies active supercritical scaling, local
 well-posedness and compatibility of the validated compact cost, and the
-validated compact cost-divergence conclusion.  The fixed-cutoff carrier package
+validated compact cost-divergence conclusion.  The fixed-cutoff localized-energy criterion
 supplies finite initial localized energy, the fixed carrier subidentity, finite
 fixed-cutoff error, and energy-control comparison of the validated cost with
 \(\tilde{\mathfrak D}_{R_0}\).  Let \(C_1,\tau_1\) be the constants in that
@@ -11746,7 +11747,7 @@ in distributions.  Since
 Together with the validated compact cost-divergence conclusion, these are the
 local cost-to-exclusion data with
 \(\mathcal D_\omega=\mathfrak C_{\rm II}^{NS}\).  Equivalently, the fixed
-package is a successful carrier-validation row.  Since all pre-carrier tests
+criterion is a successful carrier-validation row.  Since all pre-carrier tests
 and the validated compact cost-divergence conclusion are already present,
 \(\omega\) is on the retained compact cost-divergence stratum after carrier
 validation.  Applying \cref{paper7:thm:local-cost-to-exclusion} gives the Type
@@ -11755,17 +11756,17 @@ II exclusion conclusion.
 
 \begin{theorem}[Moving-cutoff carrier closure]
 \label{paper7:thm:moving-carrier-closure}
-Let \(\omega\) be in the pre-carrier validated compact-cost channel.  If
-\(\omega\) satisfies the moving-cutoff carrier closure package of
+Let \(\omega\) be in the pre-carrier validated compact-cost regime.  If
+\(\omega\) satisfies the moving-cutoff localized-energy closure criterion of
 \cref{paper7:def:moving-carrier-closure-package}, then \(\omega\) is excluded
 from the Type II class under consideration.
 \end{theorem}
 
 \begin{proof}
-The pre-carrier channel supplies active supercritical scaling, local
+The pre-carrier regime supplies active supercritical scaling, local
 well-posedness and compatibility of the validated compact cost, and the
 validated compact cost-divergence conclusion.  The moving-cutoff carrier
-package supplies the finite initial moving localized energy, the
+criterion supplies the finite initial moving localized energy, the
 moving carrier subidentity, summable moving-annulus errors, and
 the terminal comparison
 \[
@@ -11793,7 +11794,7 @@ in distributions.  The moving comparison gives
 Together with the validated compact cost-divergence conclusion, these are the
 local cost-to-exclusion data with
 \(\mathcal D_\omega=\mathfrak C_{\rm II}^{NS}\).  Equivalently, the moving
-package is a successful carrier-validation row.  Since all pre-carrier tests
+criterion is a successful carrier-validation row.  Since all pre-carrier tests
 and the validated compact cost-divergence conclusion are already present,
 \(\omega\) is on the retained compact cost-divergence stratum after carrier
 validation.  Applying \cref{paper7:thm:local-cost-to-exclusion} excludes the
@@ -11802,19 +11803,19 @@ branch.
 
 \begin{lemma}[Pre-carrier compact critical mass gives finite localized energy]
 \label{paper7:lem:precarrier-finite-local-energy}
-Let \(\omega\) be in the pre-carrier validated compact-cost channel, represented
+Let \(\omega\) be in the pre-carrier validated compact-cost regime, represented
 by \(V\) on a terminal tail.  Then, for every finite \(R<\infty\) and every
 \(\tau\) on the tail,
 \[
   \int_{B_R}|V(y,\tau)|^2\,dy<\infty .
 \]
 Consequently the initial localized-energy clauses in the fixed and moving
-carrier closure packages are automatic for every compactly supported fixed
+localized-energy closure criterions are automatic for every compactly supported fixed
 cutoff and every moving cutoff with \(R(\tau_0)<\infty\).
 \end{lemma}
 
 \begin{proof}
-The pre-carrier channel includes the positive finite critical \(L^3\) annulus.
+The pre-carrier regime includes the positive finite critical \(L^3\) annulus.
 By \cref{def:c3-critical-mass}, after passing to the terminal tail there is
 \(M<\infty\) such that
 \[
@@ -11837,7 +11838,7 @@ ball.  If \(\Phi(\tau,y)=\phi(y/R(\tau))\) and \(R(\tau_0)<\infty\), then
 
 \begin{lemma}[Nested moving cutoffs give carrier comparison]
 \label{paper7:lem:nested-moving-carrier-comparison}
-Let \(\omega\) be in the pre-carrier validated compact-cost channel, and
+Let \(\omega\) be in the pre-carrier validated compact-cost regime, and
 assume the validated compact cost is energy-controlled by the fixed identity
 cost:
 \[
@@ -11889,8 +11890,8 @@ moving comparison.  The canonical identity cost is energy-controlled by
 
 \begin{definition}[Finite-error carrier selection]
 \label{paper7:def:finite-error-carrier-selection}
-The pre-carrier validated compact-cost channel has finite-error carrier
-selection if every branch in that channel whose validated compact cost is
+The pre-carrier validated compact-cost regime has finite-error carrier
+selection if every branch in that regime whose validated compact cost is
 energy-controlled by the fixed identity cost satisfies, after passing to a
 later terminal tail if necessary, at least one of the following two local
 alternatives:
@@ -11920,8 +11921,8 @@ carrier comparison, because those are supplied by
 
 \begin{definition}[Annular finite-error selection]
 \label{paper7:def:annular-finite-error-selection}
-The pre-carrier validated compact-cost channel has annular finite-error
-selection if every branch in that channel whose validated compact cost is
+The pre-carrier validated compact-cost regime has annular finite-error
+selection if every branch in that regime whose validated compact cost is
 energy-controlled by the fixed identity cost satisfies, after passing to a
 later terminal tail if necessary, at least one of the following two alternatives:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -11941,7 +11942,7 @@ include local energy subidentities, finite initial energy, or carrier comparison
 
 \begin{definition}[Componentwise fixed-or-moving finite-error estimates]
 \label{paper7:def:componentwise-annular-finite-error}
-For a branch in the pre-carrier validated compact-cost channel, the
+For a branch in the pre-carrier validated compact-cost regime, the
 componentwise annular finite-error estimates hold if, after passing to a later
 terminal tail if necessary, either the six fixed-cutoff components
 \[
@@ -11977,14 +11978,14 @@ belongs to \(L^1(\tau_0,\infty)\).
 \label{paper7:rem:componentwise-annular-residual}
 The quantities in
 \cref{paper7:def:componentwise-annular-finite-error} are exactly the fixed and
-moving carrier-error components: in the fixed route, viscous cutoff,
+moving carrier-error components: in the fixed-cutoff case, viscous cutoff,
 convection, pressure-tail, center drift, negative scale drift, and the
-positive scale-shell drift; in the moving route, cutoff transition, viscous
+positive scale-shell drift; in the moving-cutoff case, cutoff transition, viscous
 cutoff, convection, pressure-tail, center drift, negative scale drift, and the
 positive scale-shell drift.  These diagnostics need not be closed by a single
 global tail estimate.  In the stratified use of Section~7, persistent failure
 of the cutoff, viscous, convection, or pressure diagnostics is read as shell
-mass that cannot be evacuated from selected windows and is therefore routed to
+mass that cannot be evacuated from selected windows and is therefore assigned to
 exterior leakage, exterior concentration, loss of critical tightness, or local
 windowed \(H^1\)-loss.  Persistent failure of the translation diagnostic is
 read as a modulation-driven adjacent branch, while persistent failure of the
@@ -11996,20 +11997,20 @@ For radial nonincreasing cutoffs, the scale-shell term
   -\frac{a}{2}\int |V|^2 y\cdot\nabla\Phi
 \]
 has only an \(a_+\)-contribution in the residual carrier error.  The \(a_-\)
-part is favorable and is already absorbed into the negative-drift routing.
+part is favorable and is already absorbed into the negative-drift alternative.
 The negative scale-drift component \(J_6\) is not to be replaced by an
 unproved equivalence with compact-cost divergence: if \(J_6\) is not summable,
-it must be routed through the explicit scale-drift alternatives of
+it must be handled through the explicit scale-drift alternatives of
 \cref{paper6a:cor:scale-drift-alternatives,paper6a:thm:moving-cutoff-scale-collapse-alternative}
 or treated by a direct summability estimate.
 \end{remark}
 
 \begin{lemma}[Componentwise estimates give annular finite-error selection]
 \label{paper7:lem:componentwise-gives-annular-finite-error}
-If every branch in the pre-carrier validated compact-cost channel whose
+If every branch in the pre-carrier validated compact-cost regime whose
 validated compact cost is energy-controlled by the fixed identity cost
 satisfies the componentwise annular finite-error estimates of
-\cref{paper7:def:componentwise-annular-finite-error}, then the channel has
+\cref{paper7:def:componentwise-annular-finite-error}, then the regime has
 annular finite-error selection in the sense of
 \cref{paper7:def:annular-finite-error-selection}.
 \end{lemma}
@@ -12037,7 +12038,7 @@ exactly the summability requirements in
 alternative in \cref{paper7:def:annular-finite-error-selection}.
 \end{proof}
 
-\begin{definition}[Fixed annular PDE estimate package]
+\begin{definition}[Fixed annular PDE estimates]
 \label{paper7:def:fixed-pde-error-package}
 Let \(\phi_{R_0}\) be the fixed cutoff used in the validated compact cost and
 set
@@ -12045,8 +12046,8 @@ set
   A_\phi:=\operatorname{supp}(\nabla\phi_{R_0})\cup
   \operatorname{supp}(\Delta\phi_{R_0}).
 \]
-A branch in the pre-carrier validated compact-cost channel satisfies the fixed
-annular PDE estimate package if, on a terminal tail,
+A branch in the pre-carrier validated compact-cost regime satisfies the fixed
+annular PDE estimates if, on a terminal tail,
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item
 \[
@@ -12081,9 +12082,9 @@ annular PDE estimate package if, on a terminal tail,
 \end{enumerate}
 \end{definition}
 
-\begin{lemma}[Fixed PDE package gives fixed finite error]
+\begin{lemma}[Fixed PDE estimates gives fixed finite error]
 \label{paper7:lem:fixed-pde-package-gives-components}
-If a pre-carrier branch satisfies the fixed annular PDE estimate package of
+If a pre-carrier branch satisfies the fixed annular PDE estimates of
 \cref{paper7:def:fixed-pde-error-package}, then the fixed alternative in
 \cref{paper7:def:componentwise-annular-finite-error} holds.
 \end{lemma}
@@ -12126,17 +12127,17 @@ and
   C_{y\nabla,\phi}a_+\int_{A_\phi}|V|^2.
 \]
 The pressure term \(I_3\) is integrable by item \textup{(iii)} of the fixed
-package, \(I_5=a_-M_\phi\) is integrable by item \textup{(v)}, and \(I_6\) is
+criterion, \(I_5=a_-M_\phi\) is integrable by item \textup{(v)}, and \(I_6\) is
 integrable by item \textup{(vi)}.  Therefore
 all six fixed components in
 \cref{paper7:def:componentwise-annular-finite-error} belong to
 \(L^1(\tau_0,\infty)\), which is exactly the fixed alternative there.
 \end{proof}
 
-\begin{definition}[Moving annular PDE estimate package]
+\begin{definition}[Moving annular PDE estimates]
 \label{paper7:def:moving-pde-error-package}
-A branch in the pre-carrier validated compact-cost channel satisfies the
-moving annular PDE estimate package if there is a finite-valued nondecreasing
+A branch in the pre-carrier validated compact-cost regime satisfies the
+moving annular PDE estimates if there is a finite-valued nondecreasing
 locally absolutely continuous nested radius \(R(\tau)\ge R_0\), with
 \(R(\tau)\to\infty\) and
 \(\Phi(\tau,y)=\phi(y/R(\tau))\ge\phi_{R_0}(y)\), such that on a terminal tail:
@@ -12175,21 +12176,21 @@ or the branch lies in the scale-collapse drift obstruction of
 \end{enumerate}
 \end{definition}
 
-\begin{remark}[Pressure item in the moving PDE package]
+\begin{remark}[Pressure item in the moving PDE estimates]
 \label{paper7:rem:moving-pressure-package}
 The pressure-flux clause in
 \cref{paper7:def:moving-pde-error-package} is not a separate global pressure
 hypothesis.  By
 \cref{paper7:cor:moving-pressure-from-annular-l3}, it follows from enlarged-
 shell \(L^3\) packing together with a summable \(R(\tau)^{-1}\) schedule.
-Thus the genuinely new moving-route burden is concentrated in the annular
+Thus the genuinely new moving-cutoff burden is concentrated in the annular
 velocity packing, the translation term, the positive scale-shell term, and the
-negative-drift routing.
+negative-drift alternative.
 \end{remark}
 
-\begin{lemma}[Moving PDE package gives moving finite error or scale-drift routing]
+\begin{lemma}[Moving PDE estimates gives moving finite error or scale-drift alternative]
 \label{paper7:lem:moving-pde-package-gives-components}
-If a pre-carrier branch satisfies the moving annular PDE estimate package of
+If a pre-carrier branch satisfies the moving annular PDE estimates of
 \cref{paper7:def:moving-pde-error-package}, then either the moving alternative
 in \cref{paper7:def:componentwise-annular-finite-error} holds or the branch
 lies in the scale-collapse drift obstruction of
@@ -12268,7 +12269,7 @@ and
   \le
   C_{\phi,3}a_+\int_{A_{R(\tau)}}|V|^2.
 \]
-Hence items \textup{(i)} and \textup{(iii)} of the moving package make
+Hence items \textup{(i)} and \textup{(iii)} of the moving criterion make
 \(J_1,J_2,J_3,J_5\) integrable, and item \textup{(iv)} makes \(J_7\)
 integrable.  Item \textup{(ii)} makes \(J_4\)
 integrable.  If the first branch of item \textup{(v)} holds, then \(J_6\) is
@@ -12464,16 +12465,15 @@ radius \(R(\tau)\).  Integrating the resulting pointwise bound gives
 and both terms on the right are finite by hypothesis.
 \end{proof}
 
-\begin{theorem}[Carrier closure reduced to explicit PDE estimates and scale-drift routing]
+\begin{theorem}[Carrier closure reduced to explicit PDE estimates and scale-drift alternative]
 \label{paper7:thm:carrier-closure-reduced-to-pde-estimates}
 Assume repaired-gauge suitable local energy gives the fixed and moving carrier
 subidentities in the sense of
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities}.  Let \(\omega\)
-be a branch in the pre-carrier validated compact-cost channel whose validated
+be a branch in the pre-carrier validated compact-cost regime whose validated
 compact cost is energy-controlled by the fixed identity cost.  Assume that
-\(\omega\) satisfies either the fixed annular PDE estimate package of
-\cref{paper7:def:fixed-pde-error-package} or the moving annular PDE estimate
-package of \cref{paper7:def:moving-pde-error-package}.  Then exactly one of the
+\(\omega\) satisfies either the fixed annular PDE estimates of
+\cref{paper7:def:fixed-pde-error-package} or the moving annular PDE estimates of \cref{paper7:def:moving-pde-error-package}.  Then exactly one of the
 following occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \(\omega\) is excluded by the fixed-cutoff carrier closure theorem
@@ -12486,7 +12486,7 @@ following occurs:
 \end{theorem}
 
 \begin{proof}
-If the fixed annular PDE estimate package holds, then
+If the fixed annular PDE estimates hold, then
 \cref{paper7:lem:fixed-pde-package-gives-components} gives the fixed
 alternative in \cref{paper7:def:componentwise-annular-finite-error}.  Writing
 \(I_1,\ldots,I_6\) for those six fixed components, the identity
@@ -12498,13 +12498,13 @@ alternative in \cref{paper7:def:componentwise-annular-finite-error}.  Writing
 from \cref{paper6a:def:fixed-error-density} yields
 \(B_{R_0}\in L^1(\tau_0,\infty)\).  The suitable local energy lemma gives the
 fixed carrier subidentity.  Finite initial localized energy and carrier
-comparison are automatic on the pre-carrier channel by
+comparison are automatic on the pre-carrier regime by
 \cref{paper7:lem:precarrier-finite-local-energy} and the assumed
 energy-control of the validated cost by the fixed identity cost.
-Thus the fixed-cutoff carrier closure package holds, and
+Thus the fixed-cutoff localized-energy closure criterion holds, and
 \cref{paper7:thm:fixed-carrier-closure} excludes \(\omega\).
 \par
-Suppose instead that the moving annular PDE estimate package holds.  By
+Suppose instead that the moving annular PDE estimates hold.  By
 \cref{paper7:lem:moving-pde-package-gives-components}, either the branch lies
 in the scale-collapse drift obstruction, giving alternative \textup{(iii)}, or
 the moving alternative in
@@ -12513,30 +12513,29 @@ case, the seven moving components \(J_1,\ldots,J_7\) are integrable, which is
 exactly the summable moving-annulus condition of
 \cref{paper6a:def:summable-moving-errors}.  The suitable local energy lemma gives the moving carrier
 subidentity.  Finite initial moving energy and moving carrier comparison are
-automatic on the pre-carrier channel by
+automatic on the pre-carrier regime by
 \cref{paper7:lem:precarrier-finite-local-energy,paper7:lem:nested-moving-carrier-comparison}.
-Therefore the moving-cutoff carrier closure package holds, and
+Therefore the moving-cutoff localized-energy closure criterion holds, and
 \cref{paper7:thm:moving-carrier-closure} excludes \(\omega\).  The three
 alternatives are disjoint by construction.
 \end{proof}
 
-\begin{corollary}[Explicit PDE packages leave no unresolved compact-cost branch]
+\begin{corollary}[Explicit PDE estimates leave no unresolved compact-cost branch]
 \label{paper7:cor:adjacent-closure-reduced-to-pde-estimates}
 Assume the non-carrier adjacent strata listed in
 \cref{paper7:thm:noncarrier-exits-route} are closed by their corresponding
-local state-space or interface arguments in the ambient Type II class.  Assume
+local compactness or interface arguments in the ambient Type II class.  Assume
 also that any branch entering the scale-collapse drift obstruction is closed by
 its assigned Section~6 local argument, for example through
 \cref{paper6a:thm:moving-cutoff-scale-collapse-alternative}.  If every branch
-in the pre-carrier validated compact-cost channel whose validated compact cost
+in the pre-carrier validated compact-cost regime whose validated compact cost
 is energy-controlled by the fixed identity cost satisfies either the fixed
-annular PDE estimate package of
-\cref{paper7:def:fixed-pde-error-package} or the moving annular PDE estimate
-package of \cref{paper7:def:moving-pde-error-package}, then every branch with
+annular PDE estimates of
+\cref{paper7:def:fixed-pde-error-package} or the moving annular PDE estimates of \cref{paper7:def:moving-pde-error-package}, then every branch with
 active supercritical scaling and validated compact Type II cost divergence is
 either excluded on the retained compact stratum, excluded by fixed or moving
-carrier closure, or routed to a non-carrier or scale-drift branch that is
-already closed in the ambient class.  In particular, the compact-cost channel
+carrier closure, or assigned to a non-carrier or scale-drift branch that is
+already closed in the ambient class.  In particular, the compact-cost regime
 leaves no unresolved branch.
 \end{corollary}
 
@@ -12549,26 +12548,26 @@ The retained compact stratum is excluded by
 \cref{paper7:cor:retained-stratum-cost-exclusion}.  If \(\omega\) enters a
 non-carrier adjacent stratum, the first assumption closes it.  The only
 remaining case is that \(\omega\) lies in the pre-carrier validated
-compact-cost channel.  Then the explicit PDE-package hypothesis and
+compact-cost regime.  Then the explicit PDE-estimate hypothesis and
 \cref{paper7:thm:carrier-closure-reduced-to-pde-estimates} show that
 \(\omega\) is either excluded by fixed carrier closure, excluded by moving
-carrier closure, or routed to the scale-collapse drift obstruction, which is
+carrier closure, or assigned to the scale-collapse drift obstruction, which is
 closed by the second assumption.  Hence every branch is either excluded on the
 retained stratum or handled in a closed non-carrier or scale-drift branch.
 This is exactly the claimed no-unresolved-branch conclusion.
 \end{proof}
 
-\begin{remark}[The explicit PDE packages are not the remaining target]
+\begin{remark}[The explicit PDE estimates are not the remaining target]
 \label{paper7:rem:pde-packages-optional}
-The explicit PDE packages of
+The explicit PDE estimates of
 \cref{paper7:def:fixed-pde-error-package,paper7:def:moving-pde-error-package}
 give a sufficient analytic realization of carrier closure, but they are not the
-remaining discharge target.  The proof architecture does not require one global
+remaining analytic target.  The proof does not require one global
 tail estimate that simultaneously absorbs every carrier error.  Instead,
 persistent failure of a moving-carrier ingredient is supposed to force entry
-into a neighboring state-space stratum.  The remainder of this section
-therefore isolates only the small routing statements needed for that
-state-space discharge.
+into a neighboring compactness stratum.  The remainder of this section
+therefore isolates only the small alternative statements needed for that
+local compactness reduction.
 \end{remark}
 
 \begin{theorem}[Finite-error selection reduced to annular finite-error]
@@ -12576,14 +12575,14 @@ state-space discharge.
 Assume that repaired-gauge suitable local energy gives the fixed and moving
 carrier subidentities in the sense of
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities}.  If the
-pre-carrier channel has annular finite-error selection in the sense of
+pre-carrier regime has annular finite-error selection in the sense of
 \cref{paper7:def:annular-finite-error-selection}, then it has finite-error
 carrier selection in the sense of
 \cref{paper7:def:finite-error-carrier-selection}.
 \end{theorem}
 
 \begin{proof}
-Let \(\omega\) be a branch in the pre-carrier channel whose validated compact
+Let \(\omega\) be a branch in the pre-carrier regime whose validated compact
 cost is energy-controlled by the fixed identity cost.  By annular finite-error
 selection, after restricting to a later tail either the fixed error density is
 integrable or there is a nested moving radius for which the moving-annulus
@@ -12595,26 +12594,26 @@ subidentity in the second.  These are exactly the two alternatives in
 
 \begin{theorem}[Carrier completion reduced to finite-error selection]
 \label{paper7:thm:carrier-completion-reduced-to-finite-error}
-Assume the pre-carrier validated compact-cost channel has finite-error carrier
+Assume the pre-carrier validated compact-cost regime has finite-error carrier
 selection in the sense of
 \cref{paper7:def:finite-error-carrier-selection}.  Then every branch in the
-pre-carrier channel whose validated compact cost is energy-controlled by the
+pre-carrier regime whose validated compact cost is energy-controlled by the
 fixed identity cost satisfies the fixed-cutoff or moving-cutoff carrier closure
-package.  Consequently that branch is excluded from the Type II class under
+criterion.  Consequently that branch is excluded from the Type II class under
 consideration.
 \end{theorem}
 
 \begin{proof}
 Let \(\omega\) be such a branch.  The positive finite critical \(L^3\) annulus
-in the pre-carrier channel gives the finite initial localized energy required
-by either carrier package through
+in the pre-carrier regime gives the finite initial localized energy required
+by either localized-energy criterion through
 \cref{paper7:lem:precarrier-finite-local-energy}.  The assumed energy-control
 comparison gives the fixed carrier-comparison clause.
 \par
 If the fixed alternative in
 \cref{paper7:def:finite-error-carrier-selection} holds, then the fixed
 carrier subidentity and the finite \(B_{R_0}\)-tail are precisely the two
-remaining clauses of the fixed-cutoff carrier closure package.  Hence
+remaining clauses of the fixed-cutoff localized-energy closure criterion.  Hence
 \cref{paper7:thm:fixed-carrier-closure} excludes the branch.
 \par
 If the moving alternative holds, the summable moving-annulus condition gives
@@ -12627,19 +12626,19 @@ energy-control comparison give the moving carrier comparison by
 \cref{paper7:lem:nested-moving-carrier-comparison}.  Together with finite
 initial moving energy from
 \cref{paper7:lem:precarrier-finite-local-energy}, these are exactly the moving
-carrier closure package.  Therefore
+localized-energy closure criterion.  Therefore
 \cref{paper7:thm:moving-carrier-closure} excludes the branch.
 \par
 The two alternatives in finite-error carrier selection exhaust the branch, so
 the claimed fixed-or-moving carrier completion and exclusion follow.
 \end{proof}
 
-\begin{theorem}[Carrier package closes the pre-carrier channel]
+\begin{theorem}[Localized-energy criterion closes the pre-carrier regime]
 \label{paper7:thm:carrier-package-closes-precarrier}
-Let \(\omega\) be in the pre-carrier validated compact-cost channel.  If
-\(\omega\) satisfies either the fixed-cutoff carrier closure package of
-\cref{paper7:def:fixed-carrier-closure-package} or the moving-cutoff carrier
-closure package of \cref{paper7:def:moving-carrier-closure-package}, then
+Let \(\omega\) be in the pre-carrier validated compact-cost regime.  If
+\(\omega\) satisfies either the fixed-cutoff localized-energy closure criterion of
+\cref{paper7:def:fixed-carrier-closure-package} or the moving-cutoff
+localized-energy closure criterion of \cref{paper7:def:moving-carrier-closure-package}, then
 \(\omega\) is excluded from the Type II class under consideration.
 \end{theorem}
 
@@ -12650,32 +12649,32 @@ In the fixed-cutoff case apply
 stated disjunction.
 \end{proof}
 
-\begin{definition}[Carrier-estimate completion for the compact-cost channel]
+\begin{definition}[Carrier-estimate completion for the compact-cost regime]
 \label{paper7:def:carrier-estimate-completion}
-The compact-cost channel has carrier-estimate completion if every branch in the
-pre-carrier validated compact-cost channel satisfies, after passing to a later
-terminal tail if necessary, either the fixed-cutoff carrier closure package of
-\cref{paper7:def:fixed-carrier-closure-package} or the moving-cutoff carrier
-closure package of \cref{paper7:def:moving-carrier-closure-package}.
+The compact-cost regime has carrier-estimate completion if every branch in the
+pre-carrier validated compact-cost regime satisfies, after passing to a later
+terminal tail if necessary, either the fixed-cutoff localized-energy closure criterion of
+\cref{paper7:def:fixed-carrier-closure-package} or the moving-cutoff
+localized-energy closure criterion of \cref{paper7:def:moving-carrier-closure-package}.
 \end{definition}
 
 \begin{corollary}[Finite-error selection gives carrier-estimate completion]
 \label{paper7:cor:finite-error-selection-gives-carrier-completion}
-Assume every branch in the pre-carrier validated compact-cost channel uses a
+Assume every branch in the pre-carrier validated compact-cost regime uses a
 validated compact cost that is energy-controlled by the fixed identity cost; in
 particular this holds for the canonical identity cost.  If finite-error carrier
 selection holds in the sense of
-\cref{paper7:def:finite-error-carrier-selection}, then the compact-cost channel
+\cref{paper7:def:finite-error-carrier-selection}, then the compact-cost regime
 has carrier-estimate completion in the sense of
 \cref{paper7:def:carrier-estimate-completion}.
 \end{corollary}
 
 \begin{proof}
-Let \(\omega\) be any branch in the pre-carrier validated compact-cost channel.
+Let \(\omega\) be any branch in the pre-carrier validated compact-cost regime.
 By the energy-control hypothesis, \(\omega\) is one of the branches covered by
 \cref{paper7:thm:carrier-completion-reduced-to-finite-error}.  That theorem
-gives either the fixed-cutoff carrier closure package or the moving-cutoff
-carrier closure package on a terminal tail.  This is exactly
+gives either the fixed-cutoff localized-energy closure criterion or the moving-cutoff
+localized-energy closure criterion on a terminal tail.  This is exactly
 \cref{paper7:def:carrier-estimate-completion}.  The parenthetical canonical
 case follows from
 \cref{paper7:def:energy-controlled-validated-cost}.
@@ -12683,13 +12682,13 @@ case follows from
 
 \begin{corollary}[Annular finite-error selection gives carrier-estimate completion]
 \label{paper7:cor:annular-finite-error-selection-gives-carrier-completion}
-Assume every branch in the pre-carrier validated compact-cost channel uses a
+Assume every branch in the pre-carrier validated compact-cost regime uses a
 validated compact cost that is energy-controlled by the fixed identity cost.
 Assume also that repaired-gauge suitable local energy gives the fixed and
 moving carrier subidentities in the sense of
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities}.  If annular
 finite-error selection holds in the sense of
-\cref{paper7:def:annular-finite-error-selection}, then the compact-cost channel
+\cref{paper7:def:annular-finite-error-selection}, then the compact-cost regime
 has carrier-estimate completion.
 \end{corollary}
 
@@ -12704,9 +12703,9 @@ carrier-estimate completion.
 \label{paper7:thm:adjacent-closure-reduced-to-carrier-completion}
 Assume the non-carrier adjacent strata listed in
 \cref{paper7:thm:noncarrier-exits-route} are closed by their corresponding
-local state-space or interface arguments in the ambient Type II class.  If the
-compact-cost channel has carrier-estimate completion in the sense of
-\cref{paper7:def:carrier-estimate-completion}, then the compact-cost channel
+local compactness or interface arguments in the ambient Type II class.  If the
+compact-cost regime has carrier-estimate completion in the sense of
+\cref{paper7:def:carrier-estimate-completion}, then the compact-cost regime
 has adjacent-stratum closure in the sense of
 \cref{paper7:def:compact-cost-adjacent-closure}.
 \end{theorem}
@@ -12721,36 +12720,36 @@ of the named adjacent strata produced by
 \par
 If the adjacent stratum is non-carrier, then
 \cref{paper7:thm:noncarrier-exits-route} identifies it with one of the
-previously named exhaustion, representation, state-space, critical-mass,
+previously named exhaustion, representation, compactness, critical-mass,
 compact-test, modulation, cost-well-posedness, or cost-compatibility strata.
 By the first hypothesis of the present theorem, that stratum is closed by its
 own local argument, so the Type II exclusion conclusion holds there, or the
-branch is routed to a previously closed non-compact-cost alternative.
+branch is assigned to a previously closed non-compact-cost alternative.
 \par
-It remains to consider a branch that reaches the pre-carrier channel.  By
+It remains to consider a branch that reaches the pre-carrier regime.  By
 carrier-estimate completion, after restriction to a later tail if needed, it
-satisfies either the fixed-cutoff or moving-cutoff carrier closure package.  In
+satisfies either the fixed-cutoff or moving-cutoff localized-energy closure criterion.  In
 the fixed or moving case,
 \cref{paper7:thm:carrier-package-closes-precarrier} gives the Type II
 exclusion conclusion.  Thus every named adjacent stratum arising from the
-compact-cost channel has a local exclusion or a route to a previously closed
+compact-cost regime has a local exclusion or an assignment to a previously closed
 alternative, which is exactly
 \cref{paper7:def:compact-cost-adjacent-closure}.
 \end{proof}
 
-\begin{definition}[Stratified moving-carrier routing package]
+\begin{definition}[Stratified moving-carrier alternative]
 \label{paper7:def:stratified-moving-carrier-routing}
 Assume the validated compact cost is energy-controlled by the fixed identity
-cost.  The pre-carrier validated compact-cost channel has stratified
-moving-carrier routing if every branch \(\omega\) in that channel, after
+cost.  The pre-carrier validated compact-cost regime has stratified
+moving-cutoff alternative if every branch \(\omega\) in that regime, after
 passing to a later terminal tail if necessary, satisfies at least one of the
 following local alternatives:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item \(\omega\) satisfies the fixed-cutoff carrier closure package of
+\item \(\omega\) satisfies the fixed-cutoff localized-energy closure criterion of
 \cref{paper7:def:fixed-carrier-closure-package};
-\item \(\omega\) satisfies the moving-cutoff carrier closure package of
+\item \(\omega\) satisfies the moving-cutoff localized-energy closure criterion of
 \cref{paper7:def:moving-carrier-closure-package};
-\item \(\omega\) satisfies the exterior/leakage routing alternative: either
+\item \(\omega\) satisfies the exterior/leakage alternative: either
 there are unit windows \(I_n=[T_n,T_n+1]\), selected times \(\tau_n\in I_n\),
 radii \(R_n\to\infty\), and \(\eta>0\) such that
 \[
@@ -12767,9 +12766,11 @@ radii \(R_n\to\infty\), and \(\eta>0\) such that
 for every \(n\), and this selected-window shell persistence is assigned to one
 of the already named critical-tightness failure, exterior concentration, or
 local windowed \(H^1\)-loss branches; or the normalized transition-carrier
-blocks of the moving cutoff have a local carrier-state limit whose first
-state-space label is one of those same three exterior/leakage branches.
-\item \(\omega\) satisfies the translation-routing alternative: there are unit
+blocks of the moving cutoff have a local occupation-state limit with the
+transition-leakage carrier label of
+\cref{paper7:lem:transition-carrier-label-is-exterior}, which is identified
+there with the same exterior/leakage cluster.
+\item \(\omega\) satisfies the translation alternative: there are unit
 windows \(I_n=[T_n,T_n+1]\), selected times \(\tau_n\in I_n\), radii
 \(R_n\to\infty\), cutoffs \(\Phi_n(y)=\phi(y/R_n)\), and \(\eta>0\) such that
 \[
@@ -12781,7 +12782,7 @@ windows \(I_n=[T_n,T_n+1]\), selected times \(\tau_n\in I_n\), radii
 for every \(n\), and this persistent translation transport is assigned to the
 already named modulation-integrability failure or to a multicore/exterior
 branch produced after selected-window recentering;
-\item \(\omega\) satisfies the positive-scale routing alternative: either
+\item \(\omega\) satisfies the positive-scale alternative: either
 there are unit windows \(I_n=[T_n,T_n+1]\), selected times
 \(\tau_n\in I_n\), radii \(R_n\to\infty\), cutoffs
 \(\Phi_n(y)=\phi(y/R_n)\), and \(\eta>0\) such that
@@ -12795,43 +12796,46 @@ there are unit windows \(I_n=[T_n,T_n+1]\), selected times
 for every \(n\), and this persistent positive scale forcing is assigned to the
 already named scale-rigid residual alternative or to a bounded selected-window
 limit refinement of that alternative; or the normalized positive-scale-work
-carrier blocks have a local carrier-state limit whose first state-space label
-is the scale-rigid residual branch or its bounded selected-window-limit
-refinement.
+carrier blocks have a retained compact occupation-state limit whose compact-core
+realization satisfies the scale-rigid branch clauses of
+\cref{paper3:def:scale-rigid-branch}.  If the occupation state instead has an
+earlier exterior/leakage, modulation-driven recentering, or negative-drift
+label, the branch is read in that earlier alternative rather than in the
+positive-scale alternative.
 \item \(\omega\) enters the negative scale-drift obstruction of
 \cref{paper6a:def:negative-drift}.
 \end{enumerate}
-The fixed-cutoff route is auxiliary here.  The canonical local route is the
+The fixed-cutoff case is auxiliary here.  The canonical local alternative is the
 moving one: either a nested moving cutoff closes the carrier, or a persistent
-failure produces one of the displayed selected-window diagnostics and is routed
+failure produces one of the displayed selected-window diagnostics and is assigned
 to the corresponding adjacent stratum.
 \end{definition}
 
 \begin{remark}[How the moving diagnostics match the carrier components]
 \label{paper7:rem:stratified-moving-routing}
 The exterior/leakage alternative in
-\cref{paper7:def:stratified-moving-carrier-routing} packages the moving cutoff,
+\cref{paper7:def:stratified-moving-carrier-routing} groups the moving cutoff,
 viscous, convection, and pressure diagnostics.  The point is that
 \cref{paper7:lem:annular-pressure-flux} already converts pressure failure into
 enlarged-shell \(L^3\) persistence plus an \(R^{-1}\) tail, and the
 \(R^{-1}\)-tail can be made harmless on discrete selected radii.  Thus the
 pressure obstruction is not an independent global theorem; it is another way
 of detecting shell mass that refuses to leave the selected windows.  The
-translation alternative packages the \(J_5\) term and is meant to be combined
+translation alternative contains the \(J_5\) term and is meant to be combined
 with the bounded selected-window modulation provided by
 \cref{paper7:cor:unit-window-selection,paper7:cor:selected-window-modulation}.
-The positive-scale alternative packages the \(J_7\) term and isolates the only
+The positive-scale alternative contains the \(J_7\) term and isolates the only
 genuinely positive scale-dynamics obstruction left after the favorable
 \(a_-\)-part has been separated.  The negative-drift term \(J_6\) is already
 assigned to Section~6 and is not to be replaced by an unproved compact-cost
-equivalence.  The carrier-state clauses are included so that a diffuse
+equivalence.  The occupation-state clauses are included so that a diffuse
 nonintegrable error is not incorrectly converted into a pointwise lower bound;
 it is instead read as an occupation state in the local ordered stratification.
 \end{remark}
 
 \begin{definition}[Moving test family]
 \label{paper7:def:moving-test-family}
-For a branch in the pre-carrier validated compact-cost channel, a moving test
+For a branch in the pre-carrier validated compact-cost regime, a moving test
 family is a finite-valued nondecreasing locally absolutely continuous radius
 \(R(\tau)\ge R_0\), with \(R(\tau)\to\infty\), together with the nested moving
 cutoff
@@ -12847,7 +12851,7 @@ components of \cref{paper7:def:componentwise-annular-finite-error}.
 Assume repaired-gauge suitable local energy gives the moving carrier
 subidentity in the sense of
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities}.  Let \(\omega\)
-be a branch in the pre-carrier validated compact-cost channel whose validated
+be a branch in the pre-carrier validated compact-cost regime whose validated
 compact cost is energy-controlled by the fixed identity cost.  If there exists
 a moving test family in the sense of \cref{paper7:def:moving-test-family} such
 that, for some \(\tau_1\ge\tau_0\),
@@ -12855,7 +12859,7 @@ that, for some \(\tau_1\ge\tau_0\),
   J_k\in L^1(\tau_1,\infty)
   \qquad\text{for each }1\le k\le7,
 \]
-then \(\omega\) satisfies the moving-cutoff carrier closure package of
+then \(\omega\) satisfies the moving-cutoff localized-energy closure criterion of
 \cref{paper7:def:moving-carrier-closure-package} after restriction to the later
 tail \([\tau_1,\infty)\).  In particular, \(\omega\) is excluded by
 \cref{paper7:thm:moving-carrier-closure}.
@@ -12870,7 +12874,7 @@ components is exactly the summable moving-annulus condition for \(\Phi\).
 Hence \(\int_{\tau_1}^\infty B_{\mathrm{mov}}(\tau)\,d\tau<\infty\) by
 \cref{paper6a:lem:summable-moving-errors}.  The suitable local energy lemma
 gives the moving carrier subidentity for the same cutoff.  Finite initial
-localized energy on the pre-carrier channel is automatic by
+localized energy on the pre-carrier regime is automatic by
 \cref{paper7:lem:precarrier-finite-local-energy}, and the moving carrier
 comparison is automatic by
 \cref{paper7:lem:nested-moving-carrier-comparison}.  These are exactly the
@@ -12880,7 +12884,7 @@ clauses of \cref{paper7:def:moving-carrier-closure-package}.  Therefore
 
 \begin{lemma}[Critical tightness gives a tailored windowwise radius schedule]
 \label{paper7:lem:windowwise-tight-radius-schedule}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 represented by \(V\) on a terminal tail.  For the unit windows
 \[
   I_n=[\tau_0+n,\tau_0+n+1],\qquad n\in\mathbb N,
@@ -12903,7 +12907,7 @@ such that
 \end{lemma}
 
 \begin{proof}
-Since \(\omega\) lies in the pre-carrier validated compact-cost channel, the
+Since \(\omega\) lies in the pre-carrier validated compact-cost regime, the
 critical-tightness test and the modulation-integrability test in
 \cref{paper7:lem:no-unrecorded-cost-escape} have already passed.  Thus
 \cref{paper7:def:critical-tightness} holds and
@@ -12939,7 +12943,7 @@ which is the desired estimate.
 
 \begin{lemma}[Canonical windowwise moving family controls shell, pressure, and translation terms]
 \label{paper7:lem:windowwise-shell-pressure-translation}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel.
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime.
 Let \(R_n\) be the sequence supplied by
 \cref{paper7:lem:windowwise-tight-radius-schedule}.  On the unit windows
 \(I_n=[\tau_0+n,\tau_0+n+1]\), define the canonical interpolated radius
@@ -12978,7 +12982,7 @@ locally absolutely continuous, and satisfies \(R(\tau)\to\infty\).  Thus it is
 an admissible moving test family in the sense of
 \cref{paper7:def:moving-test-family}.
 \par
-Since \(\omega\) is in the pre-carrier channel, the positive finite critical
+Since \(\omega\) is in the pre-carrier regime, the positive finite critical
 annulus has already passed.  Hence
 \[
   \|V(\tau)\|_{L^3(\mathbb R^3)}\le M
@@ -13117,10 +13121,10 @@ that the moving carrier has exactly seven components, of which
 \(J_2,J_3,J_4,J_5\).
 \end{proof}
 
-\begin{definition}[Windowwise transition/leakage routing statement]
+\begin{definition}[Windowwise transition/leakage alternative statement]
 \label{paper7:def:windowwise-transition-routing}
-The pre-carrier validated compact-cost channel has windowwise
-transition/leakage routing if, for every branch \(\omega\) in that channel,
+The pre-carrier validated compact-cost regime has windowwise
+transition/leakage alternative if, for every branch \(\omega\) in that regime,
 the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation} has the following
 property: if
@@ -13132,10 +13136,10 @@ exterior/leakage alternative of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{definition}
 
-\begin{definition}[Windowwise positive-scale routing statement]
+\begin{definition}[Windowwise positive-scale alternative statement]
 \label{paper7:def:windowwise-positive-scale-routing}
-The pre-carrier validated compact-cost channel has windowwise positive-scale
-routing if, for every branch \(\omega\) in that channel, the canonical
+The pre-carrier validated compact-cost regime has windowwise positive-scale
+alternative if, for every branch \(\omega\) in that regime, the canonical
 windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation} has the following
 property: if
@@ -13143,20 +13147,20 @@ property: if
   J_7\notin L^1(\tau_1,\infty)
 \]
 on every later tail \([\tau_1,\infty)\), then \(\omega\) enters the
-positive-scale routing alternative of
+positive-scale alternative of
 \cref{paper7:def:stratified-moving-carrier-routing}, unless it has already
-entered the exterior/leakage or negative scale-drift alternatives of the same
-stratified moving-carrier package.
+entered the exterior/leakage, modulation-driven recentering, or negative
+scale-drift alternatives of the same stratified moving-localized-energy criterion.
 \end{definition}
 
-\subsubsection{Discharge of the windowwise routing statements}
+\subsubsection{Proof of the windowwise alternative statements}
 
-We now prove that the two routing properties of
+We now prove that the two alternative properties of
 \cref{paper7:def:windowwise-transition-routing,paper7:def:windowwise-positive-scale-routing}
 hold for the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation}.  The proof does not
 convert arbitrary nonintegrability into a false persistent unit-window lower
-bound.  Instead it uses the local state-space reading of a failed carrier
+bound.  Instead it uses the local compactness interpretation of a failed carrier
 component: the nonintegrable component defines normalized carrier blocks; each
 block is then labelled by the ordered first-failure stratification already used
 in \cref{paper7:lem:no-unrecorded-cost-escape}.
@@ -13178,15 +13182,114 @@ The associated carrier probability measures are
 \[
   d\mu_m(\tau):=g(\tau)\mathbf 1_{[s_m,t_m]}(\tau)\,d\tau .
 \]
-For \(g=J_i\), \(i\in\{1,7\}\), a \(J_i\)-carrier state means the terminal
-local state obtained by evaluating the branch, the repaired gauge, the moving
-cutoff, and the relevant component \(J_i\) against a subsequential family
-\(\mu_m\).  The state is labelled by the first state-space alternative reached
-by the ordered validation procedure of
-\cref{paper7:lem:no-unrecorded-cost-escape}.
+For \(g=J_i\), \(i\in\{1,7\}\), a \(J_i\)-occupation state means the terminal
+local occupation state obtained as follows.  Fix any compact retained
+renormalized cylinder and record on it the repaired-gauge variables
+\((V,P,a,b)\), the moving radius \(R\), the cutoff \(\Phi\), and the component
+density \(J_i\), using the weak local topology supplied by
+\cref{paper1:prop:compactness} and the pressure reconstruction for
+\((V,P)\), the compactified repaired-gauge topology for \((a,b,R,\Phi)\), and
+the one-point compactification of \([0,\infty)\) for the scalar component
+density.  Push
+\(\mu_m\) forward by this local-data map and pass, on every compact cylinder
+and then diagonally, to a weak-\(*\) limit of probability measures on this
+metrizable local state space.  Any such limit is a \(J_i\)-occupation state.  Its
+label row is the first closed stratum met by its support in the ordered
+validation procedure of \cref{paper7:lem:no-unrecorded-cost-escape}, with the
+carrier row refined by the active component \(J_i\).  If several named
+diagnostics are met at the same row, they are read as the declared label
+cluster for that row.
 \end{definition}
 
-\begin{lemma}[Carrier-state extraction from nonintegrability]
+\begin{lemma}[Closed local carrier diagnostics]
+\label{paper7:lem:closed-carrier-diagnostics}
+On the local state space of
+\cref{paper7:def:normalized-carrier-blocks}, each row of the ordered
+validation procedure in \cref{paper7:lem:no-unrecorded-cost-escape} is
+represented by a closed diagnostic set, after grouping diagnostics that are
+declared to belong to the same row.  The component-refined carrier diagnostic
+for \(J_i\), \(i\in\{1,7\}\), is also closed on normalized \(J_i\)-carrier
+states.
+\end{lemma}
+
+\begin{proof}
+Fix a compact retained cylinder.  The solution variables are recorded in the
+weak local compactness topology of \cref{paper1:prop:compactness}; pressure is
+recorded modulo spatial constants in the corresponding weak
+\(L^{3/2}_{\rm loc}\) topology; and the auxiliary scale, center, radius, and
+cutoff data are recorded in the compactified repaired-gauge topology, with the
+boundary faces labelled by loss of scale admissibility, modulation
+integrability, exterior tightness, multicore escape, or local \(H^1\) control.
+Thus leaving a retained compact row is convergence to one of the prescribed
+boundary faces, hence a closed condition.
+\par
+The quantitative rows are closed for the standard lower-semicontinuity
+reasons used throughout the retained compactness arguments: \(L^3\), pressure
+\(L^{3/2}\), \(L^2_tH^1_x\), and local energy quantities are lower
+semicontinuous under the recorded weak/strong local convergence, while
+failure of a required finite bound is the closed face at infinity in the
+compactified coordinate.  Critical-annulus, local \(H^1\)-loss,
+modulation-loss, cost-compatibility, and carrier-comparison failures are
+therefore closed diagnostic sets in this topology.  Equal-scale, separated,
+same-point cascade, gauge-degenerate, and scale-drift alternatives are closed
+because they are defined by limits of the recorded scale-center parameters in
+the finite parameter partition.
+\par
+Finally, the component-refined carrier row is the closed face consisting of
+nonzero \(J_i\,d\tau\)-occupation states.  Each approximating block has total
+occupation mass
+\[
+  \mu_m(\mathfrak X)=\int_{s_m}^{t_m}J_i(\tau)\,d\tau=1,
+\]
+where \(\mathfrak X\) denotes the local occupation-state space.  Weak-\(*\)
+limits of probability measures have the same total mass.  Hence the row
+``\(J_i\) is not negligible/summable on the carrier tail'' is closed on the
+normalized occupation-measure compactification.  This is a statement about the
+occupation measure; it does not choose pointwise times and does not assert a
+unit-window lower bound.
+\end{proof}
+
+\begin{lemma}[Compactness and labels for normalized occupation states]
+\label{paper7:lem:carrier-state-compactness-labels}
+Let \(i\in\{1,7\}\).  Every normalized \(J_i\)-carrier block sequence for a
+pre-carrier branch has a subsequential \(J_i\)-occupation state in the sense of
+\cref{paper7:def:normalized-carrier-blocks}.  The state has a unique first
+label row in the finite ordered list of
+\cref{paper7:lem:no-unrecorded-cost-escape}.  If no non-carrier label occurs
+before carrier validation, then the first carrier label is the
+component-refined \(J_i\)-moving-annulus summability failure.
+\end{lemma}
+
+\begin{proof}
+On every compact retained cylinder, the pre-carrier hypotheses give the
+represented suitable estimates, pressure reconstruction, local \(L^3\) bounds,
+and local \(L^2_tH^1_x\) bounds used in
+\cref{paper1:prop:compactness}.  The repaired-gauge modulation data are locally
+integrable by \cref{paper7:lem:local-modulation-integrability}, and the moving
+radius is locally absolutely continuous.  Hence the local-data maps take values
+in a metrizable product of weakly compact bounded sets after restricting to a
+subsequence and a compact cylinder.  Banach--Alaoglu, the pressure compactness
+part of \cref{paper1:prop:compactness}, and a diagonal extraction over compact
+cylinders give weak-\(*\) convergence of the pushed-forward probability
+measures.  This is precisely the occupation state in
+\cref{paper7:def:normalized-carrier-blocks}.
+\par
+The ordered validation list is finite and its strata are evaluated in order.
+By \cref{paper7:lem:closed-carrier-diagnostics}, each row is a closed
+diagnostic set on the local occupation-measure compactification.  The first row
+whose closed diagnostic meets the occupation-state support is therefore unique;
+ties inside that row are exactly the declared label cluster.  If a
+non-carrier diagnostic appears before carrier validation, that row is the
+label row.  If all non-carrier diagnostics pass on the support, the carrier
+row is reached.  Because the measures are normalized by
+\(\int J_i\,d\tau=1\), the limiting occupation state has total carrier mass
+one.  Thus the active carrier row cannot be the statement that \(J_i\) is
+summable and negligible on the carrier tail.  The component-refined failure of
+\(J_i\)-moving-annulus summability is then the first carrier label.  This is a
+compactness label, not a pointwise lower bound for \(J_i\).
+\end{proof}
+
+\begin{lemma}[Occupation-state extraction from nonintegrability]
 \label{paper7:lem:nonintegrable-component-certificate}
 Let \(g\in L^1_{\rm loc}([\tau_0,\infty))\) be nonnegative and assume
 \[
@@ -13203,14 +13306,14 @@ unit intervals \(U_m=[T_m,T_m+1]\), \(T_m\to\infty\), such that
 \[
   \int_{U_m}g(\tau)\,d\tau\ge\gamma .
 \]
-\item \emph{Diffuse carrier mass.}  For one, hence every, normalized block
-subsequence retained in this case,
+\item \emph{Diffuse carrier mass.}  For the normalized block subsequence
+retained in this case,
 \[
-  \sup_{\substack{T\ge s_m\\T+1\le t_m}}
-  \int_T^{T+1}g(\tau)\,d\tau\longrightarrow0 .
+  \sup_{T\in[s_m,t_m]}
+  \int_{[T,T+1]\cap[s_m,t_m]}g(\tau)\,d\tau\longrightarrow0 .
 \]
 The probability measures \(d\mu_m=g\mathbf 1_{[s_m,t_m]}d\tau\) are then the
-diffuse local carrier states of \(g\).
+diffuse local occupation states of \(g\).
 \end{enumerate}
 If, in addition, \(q(\tau):=|a(\tau)|+\|b(\tau)\|_\infty\) satisfies the
 uniform unit-window bound
@@ -13229,7 +13332,7 @@ by the high-modulation sets
   \qquad
   \int_{H_m}g(\tau)\,d\tau\ge\gamma/2 .
 \]
-The latter is a modulation carrier state; it is not converted into a shell or
+The latter is a modulation occupation state; it is not converted into a shell or
 scale lower bound.
 \end{lemma}
 
@@ -13243,14 +13346,26 @@ then \(t_{m+1}>s_{m+1}\) with \(\int_{s_{m+1}}^{t_{m+1}}g=1\).  This gives
 normalized carrier blocks and \(s_m\to\infty\).
 \par
 \emph{Persistent versus diffuse.}  If case \textup{(C1)} fails, then for each
-j there is \(m(j)\) such that every unit interval inside every retained block
-with index \(m\ge m(j)\) has \(g\)-mass at most \(1/j\).  A diagonal
-subsequence gives the displayed diffuse condition.  Conversely, if
+j there is \(m(j)\) such that every interval of the form
+\([T,T+1]\cap[s_m,t_m]\) inside every retained block with index
+\(m\ge m(j)\) has \(g\)-mass at most \(1/j\).  A diagonal subsequence gives
+the displayed diffuse condition.  Conversely, if
 \textup{(C1)} holds then the block sequence has a persistent unit-window
 carrier by definition.  The two alternatives are therefore exhaustive after
 subsequence extraction.
 \par
 \emph{Bounded modulation on persistent windows.}  In case \textup{(C1)}, set
+\[
+  Q:=\sup_{T\ge\tau_0}\int_T^{T+1}q(\tau)\,d\tau .
+\]
+If \(Q=0\), then \(q=0\) for a.e. time in every \(U_m\).  Since
+\(\int_{U_m}g\ge\gamma\) and \(|U_m|=1\), the set
+\(\{\tau\in U_m:q(\tau)=0,\ g(\tau)\ge\gamma/2\}\) has positive measure after
+modifying \(g,q\) only on null sets; otherwise \(g<\gamma/2\) a.e. on
+\(\{q=0\}\cap U_m\) and \(\int_{U_m}g\le\gamma/2<\gamma\).  Choose
+\(\tau_m\) to be a Lebesgue time in that set.  This gives the low-modulation
+alternative.
+Assume now that \(Q>0\).  Set
 \[
   H_m:=\{\tau\in U_m:q(\tau)>4Q/\gamma\},
   \qquad E_m:=U_m\setminus H_m .
@@ -13258,62 +13373,74 @@ subsequence extraction.
 Chebyshev gives \(|H_m|\le\gamma/4\).  Since
 \(\int_{U_m}g\ge\gamma\), either \(\int_{E_m}g\ge\gamma/2\) or
 \(\int_{H_m}g\ge\gamma/2\) along a subsequence.  In the first case
-\(|E_m|\le1\) gives a point \(\tau_m\in E_m\) with
+\(|E_m|\le1\) gives a Lebesgue time \(\tau_m\in E_m\) with
 \(g(\tau_m)\ge\gamma/2\) and \(q(\tau_m)\le4Q/\gamma\).  In the second case
 the displayed high-modulation carrier mass holds.  This proves the final
-dichotomy and deliberately leaves the second case as a carrier state rather
+dichotomy and deliberately leaves the second case as a occupation state rather
 than replacing it by a pointwise shell or scale estimate.
 \end{proof}
 
-\begin{lemma}[Transition carrier states are exterior/leakage states]
+\begin{lemma}[Transition carrier label is exterior/leakage]
+\label{paper7:lem:transition-carrier-label-is-exterior}
 \label{paper7:lem:transition-carrier-state-stratification}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and let \(R(\tau)\) be the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation}.  If
 \[
   J_1\notin L^1(\tau_1,\infty)
 \]
-on every later tail, then every \(J_1\)-carrier state of
-\cref{paper7:def:normalized-carrier-blocks} is labelled by the
-exterior/leakage side of
-\cref{paper7:def:stratified-moving-carrier-routing}: critical-tightness
-failure, exterior concentration, or local windowed \(H^1\)-loss.
+on every later tail, then every \(J_1\)-occupation state of
+\cref{paper7:def:normalized-carrier-blocks} satisfies the exterior/leakage
+alternative of \cref{paper7:def:stratified-moving-carrier-routing}.  More
+precisely, either an earlier non-carrier exterior/leakage label occurs, or the
+component-refined \(J_1\)-moving-annulus summability failure is the
+transition-leakage carrier label, which belongs to the same exterior/leakage
+cluster.
 \end{lemma}
 
 \begin{proof}
-The pre-carrier channel has already passed the analytic, representation,
-critical-annulus, compact-tightness, local \(H^1\), modulation, and
-cost-compatibility tests listed in
-\cref{paper7:def:precarrier-validated-compact-channel}.  Therefore a later
-carrier state cannot be assigned to any earlier non-carrier row unless the
-state-space limit itself leaves the retained compact window.  By the ordered
-classification in \cref{paper7:lem:no-unrecorded-cost-escape}, such a
-departure is recorded exactly as critical-tightness failure, exterior
-concentration/multicore escape, or local windowed \(H^1\)-loss.
+By \cref{paper7:lem:carrier-state-compactness-labels}, every normalized
+\(J_1\)-block has a subsequential labelled occupation state.  Since \(\omega\) is
+in the pre-carrier regime, the analytic, representation, critical-annulus,
+compact-tightness, local \(H^1\), modulation, and cost-compatibility rows in
+\cref{paper7:def:precarrier-validated-compact-channel} have already passed on
+the retained branch.  By
+\cref{paper7:lem:closed-carrier-diagnostics}, these rows are closed diagnostic
+sets in the occupation-measure compactification.  Hence if one fails in the carrier
+limit, the failure is exactly a loss of retained compactness, exterior
+concentration/multicore escape, or local windowed \(H^1\)-loss by the ordered
+classification in \cref{paper7:lem:no-unrecorded-cost-escape}.  Those are
+exterior/leakage labels.
 \par
-It remains to exclude the possibility that a nonintegrable \(J_1\)-carrier
-state stays retained and yet has no exterior/leakage label.  The component
+It remains to identify the first carrier label when all earlier rows remain
+retained.  The component
 \[
   J_1(\tau)=\left|\int |V|^2\partial_\tau\Phi(\tau,\cdot)\right|
 \]
 is the time-transition part of the moving cutoff.  It contains no pressure,
-convection, translation, or scale-drift factor.  On a retained compact state
-for which critical tightness and local \(H^1\) control remain valid, this term
-is precisely one of the moving-annulus summability rows in the carrier
-validation test of
-\cref{paper7:lem:no-unrecorded-cost-escape}.  If that row passed on a terminal
-tail, then \(J_1\in L^1\) on that tail, contradicting the hypothesis.  Hence
-the first failed local row for the \(J_1\)-carrier is the retained-window
-transition failure.  In the stratified moving-carrier package this row is, by
-definition, the exterior/leakage alternative: the moving window is forced to
-detect mass crossing the retained compact boundary, or the selected compact
-regularity needed to ignore that crossing has failed.  Those are exactly the
-three labels stated in the theorem.
+convection, translation, or scale-drift factor.  The exact identity
+\[
+  \partial_\tau\Phi(\tau,y)
+  =
+  -\frac{R'(\tau)}{R(\tau)^2}\,y\cdot\nabla\phi(y/R(\tau))
+\]
+shows that \(J_1\) measures only occupation of the moving boundary of the
+retained compact window.  Therefore the component-refined carrier row supplied
+by \cref{paper7:lem:carrier-state-compactness-labels} is the
+\emph{transition-leakage carrier label}: the retained moving boundary carries
+non-summable transition occupation.  This is not a new compact-cost stratum.
+In the finite compactness list it is assigned to the same exterior/leakage
+cluster as critical-tightness failure, exterior concentration, and local
+windowed \(H^1\)-loss, because the only local interpretation of non-summable
+boundary transition in a retained compact single-core state is that mass is
+crossing the retained boundary or the compact regularity needed to ignore that
+crossing has failed.  Thus every possible first label satisfies the
+exterior/leakage alternative.
 \end{proof}
 
-\begin{theorem}[Windowwise transition/leakage routing by carrier states]
+\begin{theorem}[Windowwise transition/leakage alternative by occupation states]
 \label{paper7:thm:windowwise-transition-routing-certificate}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and let \(R(\tau)\) be the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation}.  If
 \[
@@ -13330,20 +13457,21 @@ with either persistent unit-window mass or diffuse carrier mass.  In the
 persistent case, the supplementary modulation selection gives bounded
 selected-time representatives when the low-modulation subcase occurs; in the
 high-modulation subcase and in the diffuse case one keeps the normalized
-carrier state instead of imposing an artificial pointwise lower bound.
+occupation state instead of imposing an artificial pointwise lower bound.
 \par
-All three outputs are \(J_1\)-carrier states in the sense of
+All three outputs are \(J_1\)-occupation states in the sense of
 \cref{paper7:def:normalized-carrier-blocks}.  By
-\cref{paper7:lem:transition-carrier-state-stratification}, their first
-state-space label is critical-tightness failure, exterior concentration, or
-local windowed \(H^1\)-loss.  This is exactly the exterior/leakage alternative
-allowed in \cref{paper7:def:stratified-moving-carrier-routing}.
+\cref{paper7:lem:transition-carrier-state-stratification}, each such state
+either has an earlier exterior/leakage label or has the transition-leakage
+carrier label identified there with the exterior/leakage cluster.  This is
+exactly the exterior/leakage alternative allowed in
+\cref{paper7:def:stratified-moving-carrier-routing}.
 \end{proof}
 
-\begin{corollary}[Windowwise transition/leakage routing holds]
+\begin{corollary}[Windowwise transition/leakage alternative holds]
 \label{paper7:cor:windowwise-transition-routing-holds}
-The pre-carrier validated compact-cost channel has the windowwise
-transition/leakage routing property in the sense of
+The pre-carrier validated compact-cost regime has the windowwise
+transition/leakage alternative property in the sense of
 \cref{paper7:def:windowwise-transition-routing}.
 \end{corollary}
 
@@ -13353,17 +13481,19 @@ This is the definition of
 \cref{paper7:thm:windowwise-transition-routing-certificate}.
 \end{proof}
 
-\begin{theorem}[Positive scale-work carrier states enter the scale-rigid branch]
-\label{paper7:thm:positive-scale-certificate-enters-scale-rigid}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+\begin{lemma}[Retained positive scale-work realizes a scale-rigid core]
+\label{paper7:lem:positive-scale-carrier-core-realization}
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and let \(R(\tau)\) be the canonical windowwise moving family.  Let
-\(\mu_m\) be any normalized \(J_7\)-carrier block sequence.  If the
-corresponding carrier state is not labelled by exterior/leakage or by
-negative scale drift, then, after admissible scale-center reselection, it is a
-scale-rigid local branch in the sense of
-\cref{paper3:def:scale-rigid-branch}.  Consequently it is excluded from the
-local Type II class by \cref{paper3:prop:scale-rigidity-discharged}.
-\end{theorem}
+\(\mu_m\) be any normalized \(J_7\)-carrier block sequence and let \(\mathfrak
+s\) be a subsequential \(J_7\)-occupation state.  Assume that \(\mathfrak s\) has
+no earlier exterior/leakage label, no modulation-driven recentering label, and
+no negative scale-drift label.  Then, after admissible scale-center
+reselection, the represented sequence carried by \(\mathfrak s\) is produced
+by Step~3 or Step~4 of \cref{paper3:thm:same-point-reduction} or by
+\cref{paper3:thm:separated-point-reduction}, and satisfies the four clauses
+(R1)--(R4) of \cref{paper3:def:scale-rigid-branch}.
+\end{lemma}
 
 \begin{proof}
 \emph{Step 1: what the \(J_7\)-carrier records.}  By definition,
@@ -13378,39 +13508,89 @@ Thus each normalized block satisfies
   a_+(\tau)\int |V|^2(-y\cdot\nabla\Phi)\,dy\,d\tau=1 .
 \]
 This is positive scale-generator work carried by the retained moving window.
-It is a scale-center state-space datum, not a consequence of an annular
+It is a scale-center compactness datum, not a consequence of an annular
 \(L^2\)-to-CKN conversion.
 \par
-\emph{Step 2: ordered local label.}  The pre-carrier channel has already passed
-the earlier local state-space tests in
-\cref{paper7:def:precarrier-validated-compact-channel}.  If the carrier state
-loses compact tightness, exits through exterior mass, or loses local
-\(H^1\)-control, it has the exterior/leakage label and is outside the retained
-case of the present theorem.  If the negative part of the scale drift is the
-active obstruction, it is assigned to the Section~6 negative-drift branch and
-is also outside the retained case.  The remaining retained possibility is a
-compact single-core state with nonzero positive scale-generator work and no
-available summable moving-carrier absorption.
+\emph{Step 2: compact-core realization.}  By
+\cref{paper7:lem:carrier-state-compactness-labels}, \(\mathfrak s\) is a
+labelled local occupation state.  The absence of an exterior/leakage label means
+that the state remains in the retained compact single-core window: critical
+tightness has not failed, no exterior/multicore loss has occurred, and local
+windowed \(H^1\) control is retained.  Consequently the compactness,
+pressure-reconstruction, and suitable-energy estimates inherited from the
+pre-carrier regime give a fixed compact selected cylinder \(Q_{R_*}\) on
+which the represented sequence has the uniform \(A+E+C+D\) bound required in
+(R1).  This is only the usual compact-cylinder suitable bound; it is not an
+\(L^\infty\) or regularity assertion.
 \par
-\emph{Step 3: scale-rigid realization.}  In the ordered local decomposition,
-such a retained compact scale-work state is exactly the scale-rigid residual
-alternative.  The compact-cylinder bounds and pressure bounds are inherited
-from the pre-carrier retained compact tests and the represented suitable
-energy estimates; positive retained concentration is the positive finite
-critical annulus transported to the selected compact cylinder; bounded
-modulation on compact selected cylinders is supplied by the repaired-gauge
-construction and the selected-window modulation bound.  The nonzero positive
-scale work fixes the relative scale-center selection instead of allowing a
-summable carrier correction, giving clause (R4) of
-\cref{paper3:def:scale-rigid-branch}.  Hence, after the admissible
-scale-center reselection, the carrier state satisfies (R1)--(R4) and is a
-scale-rigid local branch.  Applying
-\cref{paper3:prop:scale-rigidity-discharged} excludes it.
+The positive inner concentration needed for (R2) is inherited from the
+pre-carrier row itself, not inferred from the \(J_7\)-density.  That regime
+has already passed the positive finite critical \(L^3\)-annulus test.  Since
+the present occupation state has no exterior/leakage label, the corresponding
+critical mass remains inside the retained compact single-core region.  Cover a
+slightly smaller retained cylinder by finitely many CKN cylinders.  If each
+member of this finite cover had arbitrarily small velocity-pressure CKN
+quantity along the represented sequence, then the retained positive critical
+annulus would either vanish on the compact core or exit through the exterior
+face; the first contradicts the positive-annulus row and the second is exactly
+the exterior/leakage label excluded above.  Thus, after passing to a
+subsequence and reselecting the scale-center within this finite cover, there
+are \(Q_{r_*}\Subset Q_{R_*}\) and \(\eta_0>0\) with positive CKN mass.  This
+is (R2).
+\par
+If the modulation were unbounded on the selected compact cylinder, the
+component-refined carrier label would be the modulation-driven recentering
+branch.  That label is excluded by hypothesis, so the repaired-gauge
+modulation remains bounded on the selected cylinder; this is (R3).
+\par
+\emph{Step 3: scale-rigid relative selection.}  The normalized \(J_7\)-mass is
+nonzero positive scale-generator work.  If this work could be absorbed by a
+summable scale correction, the \(J_7\)-moving-annulus row would pass on a
+terminal carrier tail, contradicting the normalized carrier label.  If the
+work instead caused scale collapse or negative scale drift, the first label
+would be the negative-drift branch, excluded by hypothesis.
+\par
+Apply the finite parameter partition
+\cref{paper3:lem:parameter-partition} to the retained compact core selected in
+Step~2 and to the inherited active ledger.  A separated physical-center
+relation is exactly the input of
+\cref{paper3:thm:separated-point-reduction}.  A same-point comparable-scale
+relation is reduced by Step~3 of
+\cref{paper3:thm:same-point-reduction}, and a strict same-point scale
+separation is reduced by Step~4 of that theorem.  The nonretained outputs of
+this partition are exterior/leakage, modulation-driven recentering, negative
+drift, or perturbative absorption; the first three are excluded by hypothesis
+and perturbative absorption would make the \(J_7\)-row summable.  The only
+retained compact scale-center label left is therefore the scale-rigid residual
+alternative produced by those reductions: the relative scale-center selection
+is rigid in the sense of (R4), either through the gauge-degenerate selection or
+through the innermost same-point cascade after outer profiles have been
+absorbed.  Thus the production requirement in
+\cref{paper3:def:scale-rigid-branch} and clauses (R1)--(R4) all hold.
 \end{proof}
 
-\begin{lemma}[Positive-scale carrier-state stratification]
+\begin{theorem}[Positive scale-work occupation states enter the scale-rigid branch]
+\label{paper7:thm:positive-scale-certificate-enters-scale-rigid}
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
+and let \(R(\tau)\) be the canonical windowwise moving family.  Let
+\(\mu_m\) be any normalized \(J_7\)-carrier block sequence, and let
+\(\mathfrak s\) be any subsequential \(J_7\)-occupation state generated by
+\(\mu_m\).  If \(\mathfrak s\) is not labelled by exterior/leakage, by
+modulation-driven recentering, or by negative scale drift, then the represented
+branch carried by \(\mathfrak s\) is excluded from the local Type II class by
+\cref{paper3:prop:scale-rigidity-discharged}.
+\end{theorem}
+
+\begin{proof}
+\Cref{paper7:lem:positive-scale-carrier-core-realization} realizes the
+\(J_7\)-occupation state \(\mathfrak s\) as a scale-rigid local branch satisfying
+\cref{paper3:def:scale-rigid-branch}.  Applying
+\cref{paper3:prop:scale-rigidity-discharged} excludes that branch.
+\end{proof}
+
+\begin{lemma}[Positive-scale occupation-state stratification]
 \label{paper7:lem:positive-scale-work-stratification}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and let \(R(\tau)\) be the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation}, with cutoff
 \(\Phi(\tau,y)=\phi(y/R(\tau))\) and \(J_7\) defined as in
@@ -13418,21 +13598,22 @@ and let \(R(\tau)\) be the canonical windowwise moving family of
 \[
   J_7\notin L^1(\tau_1,\infty)
 \]
-on every later tail, then every \(J_7\)-carrier state is labelled either by
-exterior/leakage, by the Section~6 negative scale-drift branch, or by the
-scale-rigid residual branch excluded in
+on every later tail, then every \(J_7\)-occupation state is labelled either by
+exterior/leakage, by modulation-driven recentering, by the Section~6 negative
+scale-drift branch, or by the scale-rigid residual branch excluded in
 \cref{paper7:thm:positive-scale-certificate-enters-scale-rigid}.
 \end{lemma}
 
 \begin{proof}
-Carrier-state extraction is
+Occupation-state extraction is
 \cref{paper7:lem:nonintegrable-component-certificate} with \(g=J_7\).
 The ordered first-failure map of \cref{paper7:lem:no-unrecorded-cost-escape}
-first removes exterior loss, critical-tightness failure, and local
-\(H^1\)-loss.  The scale decomposition then separates the favorable negative
-scale-drift obstruction, already assigned to Section~6, from retained compact
-states carrying positive scale work.  The latter states are exactly the
-scale-rigid states handled by
+first removes exterior loss, critical-tightness failure, local \(H^1\)-loss,
+and modulation-driven recentering.  The scale decomposition then separates
+the favorable negative scale-drift obstruction, already assigned to Section~6,
+from retained compact states carrying positive scale work.  The retained
+compact states are realized as scale-rigid states by
+\cref{paper7:lem:positive-scale-carrier-core-realization} and excluded by
 \cref{paper7:thm:positive-scale-certificate-enters-scale-rigid}.  These
 alternatives exhaust the \(J_7\)-carrier because no other moving component is
 being tested here and \(J_2,J_3,J_4,J_5\) are already summable on the
@@ -13440,9 +13621,9 @@ canonical windowwise family by
 \cref{paper7:lem:windowwise-shell-pressure-translation}.
 \end{proof}
 
-\begin{theorem}[Windowwise positive-scale routing by carrier states]
+\begin{theorem}[Windowwise positive-scale alternative by occupation states]
 \label{paper7:thm:windowwise-positive-scale-routing-certificate}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and let \(R(\tau)\) be the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation}, with cutoff
 \(\Phi(\tau,y)=\phi(y/R(\tau))\) and \(J_7\) defined as in
@@ -13450,29 +13631,31 @@ and let \(R(\tau)\) be the canonical windowwise moving family of
 \[
   J_7\notin L^1(\tau_1,\infty)
 \]
-on every later tail, then \(\omega\) enters the positive-scale routing
-alternative of \cref{paper7:def:stratified-moving-carrier-routing}, unless it
-has already entered the exterior/leakage or negative-drift alternatives.
+on every later tail, then \(\omega\) enters the positive-scale alternative of
+\cref{paper7:def:stratified-moving-carrier-routing}, unless it
+has already entered the exterior/leakage, modulation-driven recentering, or
+negative-drift alternatives.
 \end{theorem}
 
 \begin{proof}
 Apply \cref{paper7:lem:positive-scale-work-stratification}.  Exterior/leakage
 carrier labels already satisfy alternative \textup{(iii)} of
-\cref{paper7:def:stratified-moving-carrier-routing}, and negative drift
-satisfies alternative \textup{(vi)}.  In the retained positive-scale case,
+\cref{paper7:def:stratified-moving-carrier-routing}, modulation-driven
+recentering satisfies alternative \textup{(iv)}, and negative drift satisfies
+alternative \textup{(vi)}.  In the retained positive-scale case,
 \cref{paper7:thm:positive-scale-certificate-enters-scale-rigid} places the
 carrier in the scale-rigid residual branch and then applies
 \cref{paper3:prop:scale-rigidity-discharged}.  The persistent unit-window
 subcase gives the pointwise selected-time form of alternative \textup{(v)}
 whenever bounded-modulation points are selected; the high-modulation and
-diffuse subcases give the carrier-state form of the same alternative.  Hence
+diffuse subcases give the occupation-state form of the same alternative.  Hence
 there is no unhandled diffuse \(J_7\) tail.
 \end{proof}
 
-\begin{corollary}[Windowwise positive-scale routing holds]
+\begin{corollary}[Windowwise positive-scale alternative holds]
 \label{paper7:cor:windowwise-positive-scale-routing-holds}
-The pre-carrier validated compact-cost channel has the windowwise
-positive-scale routing property in the sense of
+The pre-carrier validated compact-cost regime has the windowwise
+positive-scale alternative property in the sense of
 \cref{paper7:def:windowwise-positive-scale-routing}.
 \end{corollary}
 
@@ -13482,46 +13665,48 @@ This is exactly the alternatives allowed by
 \cref{paper7:thm:windowwise-positive-scale-routing-certificate}.
 \end{proof}
 
-\begin{remark}[Status of the windowwise routing definitions]
+\begin{remark}[Status of the windowwise alternative definitions]
 \label{paper7:rem:windowwise-routing-discharged}
 \Cref{paper7:cor:windowwise-positive-scale-routing-holds,paper7:cor:windowwise-transition-routing-holds}
 together prove unconditionally that the pre-carrier validated compact-cost
-channel has the routing properties of
+regime has the alternative properties of
 \cref{paper7:def:windowwise-transition-routing,paper7:def:windowwise-positive-scale-routing}.
 The two definitions are therefore not independent assumptions in the
 present manuscript; they are properties whose proof has been reduced to
-the carrier-state extraction
-\cref{paper7:lem:nonintegrable-component-certificate}, the transition
-state-space label in
+the occupation-measure compactness and extraction argument
+\cref{paper7:lem:closed-carrier-diagnostics,paper7:lem:carrier-state-compactness-labels,paper7:lem:nonintegrable-component-certificate},
+the transition carrier label in
 \cref{paper7:lem:transition-carrier-state-stratification}, the positive
-scale-work bridge
+scale-work compact-core realization
+\cref{paper7:lem:positive-scale-carrier-core-realization}, the scale-rigid
+exclusion argument
 \cref{paper7:thm:positive-scale-certificate-enters-scale-rigid}, and the
 canonical windowwise schedule of
 \cref{paper7:lem:windowwise-tight-radius-schedule}.  The proof does not use
 the invalid implication from nonintegrability to persistent unit-window lower
-bounds; diffuse tails are retained as normalized carrier states and routed by
+bounds; diffuse tails are retained as normalized occupation states and classified by
 the local ordered stratification.
 \end{remark}
 
-\begin{theorem}[Canonical windowwise family reduces routing to transition, positive scale, and negative drift]
+\begin{theorem}[Canonical windowwise family reduces the alternatives to transition, positive scale, and negative drift]
 \label{paper7:thm:windowwise-routing-gives-stratified-routing}
-Assume every branch in the pre-carrier validated compact-cost channel uses a
+Assume every branch in the pre-carrier validated compact-cost regime uses a
 validated compact cost that is energy-controlled by the fixed identity cost.
 Assume repaired-gauge suitable local energy gives the moving carrier
 subidentity in the sense of
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities}.  Assume also
-that the channel has the windowwise transition/leakage and windowwise
-positive-scale routing statements of
+that the regime has the windowwise transition/leakage and windowwise
+positive-scale alternative statements of
 \cref{paper7:def:windowwise-transition-routing,paper7:def:windowwise-positive-scale-routing},
 and that failure of \(J_6\in L^1(\tau_1,\infty)\) on every later tail for the
 canonical windowwise moving family forces entry into the negative scale-drift
-obstruction of \cref{paper6a:def:negative-drift}.  Then the channel has
-stratified moving-carrier routing in the sense of
+obstruction of \cref{paper6a:def:negative-drift}.  Then the regime has
+stratified moving-cutoff alternative in the sense of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{theorem}
 
 \begin{proof}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and let \(R(\tau)\) be the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation}.  Write
 \(J_1,\ldots,J_7\) for its moving carrier components.
@@ -13536,7 +13721,7 @@ If there exists \(\tau_1\ge\tau_0\) such that
 \]
 then all seven components are integrable on \([\tau_1,\infty)\).  Therefore
 \cref{paper7:lem:successful-moving-test-family} gives the moving-cutoff
-carrier closure package, so \(\omega\) satisfies alternative \textup{(ii)} of
+localized-energy closure criterion, so \(\omega\) satisfies alternative \textup{(ii)} of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \par
 Assume now that no later tail has \(J_1,J_6,J_7\) all integrable.  Since
@@ -13546,50 +13731,51 @@ the proof of \cref{paper7:thm:small-routing-statements-give-stratified-routing},
 failure on arbitrarily late tails implies failure on every later tail:
 otherwise the component would be integrable on some tail and hence on every
 subsequent tail.  If \(J_1\) fails on every later tail, the windowwise
-transition/leakage routing statement gives alternative
+transition/leakage alternative statement gives alternative
 \textup{(iii)} of
 \cref{paper7:def:stratified-moving-carrier-routing}.  If \(J_6\) fails on
 every later tail, the negative scale-drift hypothesis gives alternative
 \textup{(vi)}.  If \(J_7\) fails on every later tail, the windowwise
-positive-scale routing statement gives alternative \textup{(v)}, unless the
-branch has already entered alternative \textup{(iii)} or \textup{(vi)}.
+positive-scale alternative statement gives alternative \textup{(v)}, unless the
+branch has already entered alternative \textup{(iii)}, \textup{(iv)}, or
+\textup{(vi)}.
 Therefore one
 of the alternatives in
 \cref{paper7:def:stratified-moving-carrier-routing} always holds.
 \end{proof}
 
-\begin{corollary}[Adjacent closure reduced to windowwise transition and positive-scale routing]
+\begin{corollary}[Adjacent closure reduced to windowwise transition and positive-scale alternative]
 \label{paper7:cor:adjacent-closure-reduced-to-windowwise-routing}
 Assume the non-carrier adjacent strata listed in
 \cref{paper7:thm:noncarrier-exits-route} are closed by their corresponding
-local state-space or interface arguments in the ambient Type II class.  Assume
+local compactness or interface arguments in the ambient Type II class.  Assume
 also that the exterior concentration, local windowed \(H^1\)-loss,
 modulation-driven recentering branches, scale-rigid residual branches, and the
 negative scale-drift obstruction are closed by their assigned local arguments
 in the ambient class.  Assume every branch in the pre-carrier validated
-compact-cost channel uses a validated
+compact-cost regime uses a validated
 compact cost that is energy-controlled by the fixed identity cost, that
 repaired-gauge suitable local energy gives the moving carrier subidentity, and
-that the windowwise transition/leakage and windowwise positive-scale routing
+that the windowwise transition/leakage and windowwise positive-scale alternative
 statements of
 \cref{paper7:def:windowwise-transition-routing,paper7:def:windowwise-positive-scale-routing}
-hold, together with the negative-drift routing statement used in
+hold, together with the negative-drift alternative statement used in
 \cref{paper7:thm:windowwise-routing-gives-stratified-routing}.  Then the
-compact-cost channel has adjacent-stratum closure in the sense of
+compact-cost regime has adjacent-stratum closure in the sense of
 \cref{paper7:def:compact-cost-adjacent-closure}.
 \end{corollary}
 
 \begin{proof}
 \Cref{paper7:thm:windowwise-routing-gives-stratified-routing} gives the
-stratified moving-carrier routing package.  Then
+stratified moving-cutoff alternative.  Then
 \cref{paper7:cor:adjacent-closure-reduced-to-stratified-routing} gives the
 adjacent-stratum closure conclusion.
 \end{proof}
 
-\begin{definition}[Transition/leakage routing statement]
+\begin{definition}[Transition/leakage alternative statement]
 \label{paper7:def:transition-leakage-routing}
-The pre-carrier validated compact-cost channel has transition/leakage routing
-if, for every branch \(\omega\) in that channel and every moving test family in
+The pre-carrier validated compact-cost regime has transition/leakage alternative
+if, for every branch \(\omega\) in that regime and every moving test family in
 the sense of \cref{paper7:def:moving-test-family}, failure of at least one of
 \[
   J_1,\qquad J_2,\qquad J_3
@@ -13599,10 +13785,10 @@ forces \(\omega\) into the exterior/leakage alternative of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{definition}
 
-\begin{definition}[Pressure routing statement]
+\begin{definition}[Pressure alternative statement]
 \label{paper7:def:pressure-routing}
-The pre-carrier validated compact-cost channel has pressure routing if, for
-every branch \(\omega\) in that channel and every moving test family in the
+The pre-carrier validated compact-cost regime has pressure alternative if, for
+every branch \(\omega\) in that regime and every moving test family in the
 sense of \cref{paper7:def:moving-test-family}, failure of
 \[
   J_4\in L^1(\tau_1,\infty)
@@ -13612,51 +13798,51 @@ exterior/leakage alternative of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{definition}
 
-\begin{definition}[Translation routing statement]
+\begin{definition}[Translation alternative statement]
 \label{paper7:def:translation-routing}
-The pre-carrier validated compact-cost channel has translation routing if, for
-every branch \(\omega\) in that channel and every moving test family in the
+The pre-carrier validated compact-cost regime has the translation alternative if, for
+every branch \(\omega\) in that regime and every moving test family in the
 sense of \cref{paper7:def:moving-test-family}, failure of
 \[
   J_5\in L^1(\tau_1,\infty)
 \]
 on every later tail \([\tau_1,\infty)\) forces \(\omega\) into the
-translation-routing alternative of
+translation alternative of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{definition}
 
-\begin{definition}[Positive-scale routing statement]
+\begin{definition}[Positive-scale alternative statement]
 \label{paper7:def:positive-scale-routing}
-The pre-carrier validated compact-cost channel has positive-scale routing if,
-for every branch \(\omega\) in that channel and every moving test family in the
+The pre-carrier validated compact-cost regime has positive-scale alternative if,
+for every branch \(\omega\) in that regime and every moving test family in the
 sense of \cref{paper7:def:moving-test-family}, failure of
 \[
   J_7\in L^1(\tau_1,\infty)
 \]
 on every later tail \([\tau_1,\infty)\) forces \(\omega\) into the
-positive-scale routing alternative of
+positive-scale alternative of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{definition}
 
-\begin{theorem}[Small routing statements imply stratified moving-carrier routing]
+\begin{theorem}[Small alternative statements imply stratified moving-cutoff alternative]
 \label{paper7:thm:small-routing-statements-give-stratified-routing}
-Assume every branch in the pre-carrier validated compact-cost channel uses a
+Assume every branch in the pre-carrier validated compact-cost regime uses a
 validated compact cost that is energy-controlled by the fixed identity cost.
 Assume repaired-gauge suitable local energy gives the moving carrier
 subidentity in the sense of
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities}.  Assume also
-that the channel has the transition/leakage, pressure, translation, and
-positive-scale routing statements of
+that the regime has the transition/leakage, pressure, translation, and
+positive-scale alternative statements of
 \cref{paper7:def:transition-leakage-routing,paper7:def:pressure-routing,paper7:def:translation-routing,paper7:def:positive-scale-routing},
 and that failure of \(J_6\in L^1(\tau_1,\infty)\) on every later tail forces
 entry into the negative scale-drift obstruction of
-\cref{paper6a:def:negative-drift}.  Then the channel has stratified
-moving-carrier routing in the sense of
+\cref{paper6a:def:negative-drift}.  Then the regime has stratified
+moving-cutoff alternative in the sense of
 \cref{paper7:def:stratified-moving-carrier-routing}.
 \end{theorem}
 
 \begin{proof}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel,
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime,
 and choose the affine moving test family
 \[
   R(\tau)=R_0+(\tau-\tau_0),\qquad
@@ -13671,7 +13857,7 @@ If there exists \(\tau_1\ge\tau_0\) such that
   \qquad\text{for all }1\le k\le7,
 \]
 then \cref{paper7:lem:successful-moving-test-family} gives the moving-cutoff
-carrier closure package.  Hence \(\omega\) satisfies alternative \textup{(ii)}
+localized-energy closure criterion.  Hence \(\omega\) satisfies alternative \textup{(ii)}
 in \cref{paper7:def:stratified-moving-carrier-routing}.
 \par
 Assume now that no later tail has all seven components integrable.  Since
@@ -13679,24 +13865,24 @@ there are only seven components, one may choose an index
 \(k\in\{1,\dots,7\}\) that fails on arbitrarily late tails.  Such a component
 then fails on every later tail: otherwise \(J_k\in L^1(\tau_1,\infty)\) for
 some \(\tau_1\), hence also on every later tail beyond \(\tau_1\), contrary to
-the choice of \(k\).  If \(k\in\{1,2,3\}\), the transition/leakage routing
+the choice of \(k\).  If \(k\in\{1,2,3\}\), the transition/leakage alternative
 statement places \(\omega\) in alternative \textup{(iii)} of
 \cref{paper7:def:stratified-moving-carrier-routing}.  If \(k=4\), the pressure
-routing statement gives the same conclusion.  If \(k=5\), the translation
-routing statement gives alternative \textup{(iv)}.  If \(k=6\), the negative
+alternative statement gives the same conclusion.  If \(k=5\), the translation
+alternative statement gives alternative \textup{(iv)}.  If \(k=6\), the negative
 scale-drift hypothesis gives alternative \textup{(vi)}.  If \(k=7\), the
-positive-scale routing statement gives alternative \textup{(v)}.  Therefore
+positive-scale alternative statement gives alternative \textup{(v)}.  Therefore
 one of the alternatives in
 \cref{paper7:def:stratified-moving-carrier-routing} always holds.
 \end{proof}
 
-\begin{theorem}[Stratified moving-carrier routing leaves only named branches]
+\begin{theorem}[Stratified moving-cutoff alternative leaves only named branches]
 \label{paper7:thm:stratified-moving-carrier-routing}
-Assume every branch in the pre-carrier validated compact-cost channel uses a
+Assume every branch in the pre-carrier validated compact-cost regime uses a
 validated compact cost that is energy-controlled by the fixed identity cost.
-Assume also that the channel has stratified moving-carrier routing in the sense
+Assume also that the regime has stratified moving-cutoff alternative in the sense
 of \cref{paper7:def:stratified-moving-carrier-routing}.  Then every branch in
-the pre-carrier validated compact-cost channel, after restriction to a later
+the pre-carrier validated compact-cost regime, after restriction to a later
 terminal tail if necessary, satisfies at least one of the following
 conclusions:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -13716,7 +13902,7 @@ to a bounded selected-window limit refinement of that alternative;
 \end{theorem}
 
 \begin{proof}
-Let \(\omega\) be a branch in the pre-carrier validated compact-cost channel.
+Let \(\omega\) be a branch in the pre-carrier validated compact-cost regime.
 By the energy-control hypothesis, \(\omega\) is one of the branches covered by
 \cref{paper7:def:stratified-moving-carrier-routing}.  If alternative
 \textup{(i)} in that definition holds, then
@@ -13724,21 +13910,21 @@ By the energy-control hypothesis, \(\omega\) is one of the branches covered by
 \textup{(ii)} holds, then
 \cref{paper7:thm:moving-carrier-closure} excludes \(\omega\).  In the
 remaining alternatives, the branch assignment is part of the definition of the
-stratified routing package itself.  This yields the displayed list.
+stratified alternative itself.  This yields the displayed list.
 \end{proof}
 
-\begin{corollary}[Adjacent closure reduced to stratified moving-carrier routing]
+\begin{corollary}[Adjacent closure reduced to stratified moving-cutoff alternative]
 \label{paper7:cor:adjacent-closure-reduced-to-stratified-routing}
 Assume the non-carrier adjacent strata listed in
 \cref{paper7:thm:noncarrier-exits-route} are closed by their corresponding
-local state-space or interface arguments in the ambient Type II class.  Assume
+local compactness or interface arguments in the ambient Type II class.  Assume
 also that the exterior concentration, local windowed \(H^1\)-loss,
 modulation-driven recentering branches, scale-rigid residual branches, and the
 negative scale-drift obstruction appearing in
 \cref{paper7:def:stratified-moving-carrier-routing} are closed by their
 assigned local arguments in the ambient class.  If the pre-carrier validated
-compact-cost channel has stratified moving-carrier routing, then the
-compact-cost channel has adjacent-stratum closure in the sense of
+compact-cost regime has stratified moving-cutoff alternative, then the
+compact-cost regime has adjacent-stratum closure in the sense of
 \cref{paper7:def:compact-cost-adjacent-closure}.
 \end{corollary}
 
@@ -13749,40 +13935,40 @@ compact Type II cost divergence.  By
 remains in the retained compact stratum or it enters one of the named adjacent
 strata.  The retained compact stratum is excluded by
 \cref{paper7:cor:retained-stratum-cost-exclusion}.  If \(\omega\) enters a
-non-carrier adjacent stratum before the pre-carrier channel, then the first
+non-carrier adjacent stratum before the pre-carrier regime, then the first
 hypothesis closes it by \cref{paper7:thm:noncarrier-exits-route}.  It remains
-to consider a branch in the pre-carrier validated compact-cost channel.
+to consider a branch in the pre-carrier validated compact-cost regime.
 \Cref{paper7:thm:stratified-moving-carrier-routing} then shows that \(\omega\)
 is either excluded by fixed or moving carrier closure, or is assigned to one
 of the branches closed by the second hypothesis.  Therefore every compact-cost
-branch is either excluded on the retained stratum or routed to a previously
+branch is either excluded on the retained stratum or assigned to a previously
 closed adjacent branch.  This is exactly
 \cref{paper7:def:compact-cost-adjacent-closure}.
 \end{proof}
 
-\begin{corollary}[Adjacent closure reduced to the small routing statements]
+\begin{corollary}[Adjacent closure reduced to the small alternative statements]
 \label{paper7:cor:adjacent-closure-reduced-to-small-routing-statements}
 Assume the non-carrier adjacent strata listed in
 \cref{paper7:thm:noncarrier-exits-route} are closed by their corresponding
-local state-space or interface arguments in the ambient Type II class.  Assume
+local compactness or interface arguments in the ambient Type II class.  Assume
 also that the exterior concentration, local windowed \(H^1\)-loss,
 modulation-driven recentering branches, scale-rigid residual branches, and the
 negative scale-drift obstruction are closed by their assigned local arguments
 in the ambient class.  Assume every branch in the pre-carrier validated
-compact-cost channel uses a validated compact cost that is energy-controlled by
+compact-cost regime uses a validated compact cost that is energy-controlled by
 the fixed identity cost, that repaired-gauge suitable local energy gives the
 moving carrier subidentity, and that the transition/leakage, pressure,
-translation, and positive-scale routing statements of
+translation, and positive-scale alternative statements of
 \cref{paper7:def:transition-leakage-routing,paper7:def:pressure-routing,paper7:def:translation-routing,paper7:def:positive-scale-routing}
-hold, together with the negative-drift routing statement used in
+hold, together with the negative-drift alternative statement used in
 \cref{paper7:thm:small-routing-statements-give-stratified-routing}.  Then the
-compact-cost channel has adjacent-stratum closure in the sense of
+compact-cost regime has adjacent-stratum closure in the sense of
 \cref{paper7:def:compact-cost-adjacent-closure}.
 \end{corollary}
 
 \begin{proof}
 \Cref{paper7:thm:small-routing-statements-give-stratified-routing} gives the
-stratified moving-carrier routing package.  Then
+stratified moving-cutoff alternative.  Then
 \cref{paper7:cor:adjacent-closure-reduced-to-stratified-routing} gives the
 adjacent-stratum closure conclusion.
 \end{proof}
@@ -13802,13 +13988,13 @@ test is not a retained compact branch but an adjacent stratum.
 \section{Terminal Profile Decoupling and Exterior Regularity}
 \label{sec:terminal-profile-decoupling-exterior}
 
-This section records the terminal-profile estimates used to remove
-multibubble configurations, small critical profiles, and profiles carried at a
-positive physical distance from the selected Type II core.  The statements are
-conditional on the analytic inputs explicitly stated below: critical profile
-decomposition, terminal windowed profile completeness, repaired-gauge
-representation, local Caccioppoli estimates, exterior regularity, and the
-stationary rigidity input for the compact scale-collapse limit.
+This section records the terminal local estimates used to remove multibubble
+configurations, small residual components, and components carried at a positive
+physical distance from the selected Type II core.  The statements are
+conditional on the analytic inputs explicitly stated below: terminal
+state-space completeness on compact windows, repaired-gauge representation,
+local Caccioppoli estimates, exterior regularity, and the stationary rigidity
+input for the compact scale-collapse limit.
 
 \subsection{Renormalized frames and active critical profiles}
 
@@ -14040,7 +14226,7 @@ lemma \cref{paper8:lem:same-point-outer-static}, applied with
 \(\mu_n=\mu_j^n\), \(\xi_n=(x_*^n-x_j^n)/\lambda_j^n\), and \(\phi=\phi^j\).
 \end{proof}
 
-\begin{assumption}[Perturbative package for strict outer profiles]
+\begin{assumption}[Perturbative estimates for strict outer profiles]
 \label{paper8:ass:same-point-scale-separation}
 In the same setting as \cref{paper8:lem:same-point-rescaled-form}, the
 remaining analytic input for the same-point cascade is:
@@ -14528,7 +14714,7 @@ The retained solution \(U_n\) is the repaired-gauge nonlinear evolution of
 remainder field.
 \end{definition}
 
-\begin{assumption}[Terminal windowed profile completeness]
+\begin{assumption}[Terminal windowed state-space completeness]
 \label{paper8:ass:terminal-windowed-profile-completeness}
 For a sequence \(f_n\) and a frame \((x_n,\lambda_n)\), define
 \[
@@ -14549,14 +14735,14 @@ and
   \lambda_nf_n(x_n+\lambda_n\cdot,t_n+\lambda_n^2\tau)
   \right\|_{L^3(B_R)}.
 \]
-Terminal windowed profile completeness means that if
+Terminal windowed state-space completeness means that if
 \(\mathfrak M_{R,I}(f_n;x_n,\lambda_n)>0\) for a sequence left in the
-remainder, then after passing to a subsequence the profile decomposition
-contains a nonzero profile with physical center \(x_n+O(\lambda_n)\) and scale
-comparable to \(\lambda_n\).  If that nonlinear profile is above the
-small-data threshold, it is active; if it is below the threshold, it is
-controlled by the small-data perturbative theory uniformly on compact
-windows.
+remainder, then after passing to a subsequence the local state-space
+stratification assigns that residual mass either to a named adjacent local
+alternative or to the retained comparable class.  In the latter case the
+component must have been grouped into the retained terminal class before
+selecting the frame.  Hence no positive nonretained residual mass remains on a
+retained terminal branch.
 \end{assumption}
 
 \begin{remark}[Status of \cref{paper8:ass:terminal-windowed-profile-completeness}]
@@ -14565,14 +14751,14 @@ The Section~8 results below use
 \cref{paper8:ass:terminal-windowed-profile-completeness} as a working
 hypothesis at the point at which terminal frames first appear.  In
 \cref{paper6a:cor:profile-completeness-from-critical-hypotheses} the same
-conclusion is derived from the terminal critical profile hypotheses
-(\cref{paper6a:def:terminal-critical-profile-hypotheses}), namely a bounded
-critical terminal sequence, small-data critical stability, and the critical
-Navier--Stokes profile decomposition
+conclusion is derived from the terminal local compactness hypotheses
+(\cref{paper6a:def:terminal-critical-profile-hypotheses}), namely local compact
+terminal-window estimates, local perturbative residual stability, and local
+state-space completeness
 \cref{paper6a:ass:critical-ns-profile-decomposition}.  Throughout the
 manuscript, \cref{paper8:ass:terminal-windowed-profile-completeness} can be
-freely replaced by that conditional package whenever the terminal critical
-profile hypotheses are available.
+freely replaced by that conditional hypothesis set whenever the terminal local
+compactness hypotheses are available.
 \end{remark}
 
 \begin{lemma}[Terminal local velocity decoupling]
@@ -14602,23 +14788,18 @@ at time
 \[
   t_n+(\lambda_{\mathcal C}^n)^2\tau_n.
 \]
-By terminal windowed profile completeness, this nonvanishing mass produces a
-profile whose physical center is \(x_\alpha^*\) and whose scale is comparable
-to \(\lambda_{\mathcal C}^n\).
-
-If the resulting profile is active, it belongs to the same comparable-scale
-class as \(\mathcal C\).  But all comparable active profiles at that physical
-point were grouped into \(\mathcal C\), so it cannot remain in \(S_n\), a
-contradiction.  If the resulting profile is below the small-data threshold, it
-belongs to the perturbative part of the decomposition.  The small-data
-stability input and the choice of the terminal truncation give a contribution
-smaller than \(\delta/2\) on the compact window, so it cannot account for
-\(\|S_n(\tau_n)\|_{L^3(B_R)}\ge\delta\).  This is again a contradiction.
+By terminal windowed state-space completeness, this nonvanishing mass has a
+first local state-space label.  If the label is an adjacent alternative, the
+branch has left the retained terminal class and is handled by the corresponding
+local closure theorem, contradicting that it remains in \(S_n\) on the retained
+branch.  If the label is the retained comparable class, then it was already
+grouped into \(\mathcal C\) before the terminal frame was selected, so it cannot
+remain in \(S_n\).  This is again a contradiction.
 
 Thus no such \(\delta\) exists.  The same argument covers same-point
-larger-scale profiles and separated-point profiles: any nonzero mass seen in
-the terminal frame would generate an omitted profile at the terminal scale or
-at the selected physical point, contradicting the terminal partition.
+larger-scale and separated-point components: any nonzero mass seen in the
+terminal frame is either a named adjacent local state or part of the retained
+comparable class, contradicting the terminal partition.
 \end{proof}
 
 \begin{lemma}[Uniform terminal \(H^1\) bounds]
@@ -14906,24 +15087,25 @@ nonretained profiles have been removed,
   \ge c_{\rm act}>0
 \]
 on the selected compact windows, after passing to the subsequences used in the
-profile decomposition.  The upper bound follows from the retained local
+local state-space selection.  The upper bound follows from the retained local
 compact-cylinder bound:
 \[
   \sup_{\tau\in I}\|U_n(\tau)\|_{L^3(B_R)}\le C(M).
 \]
 
-The terminal profile completeness also gives the required tightness.  If
+The terminal state-space completeness also gives the required tightness.  If
 \(U_n\) were not uniformly \(L^3\)-tight on the selected windows, then there
 would be \(\varepsilon>0\), radii \(R_k\to\infty\), and times \(\tau_n\) such
 that
 \[
   \int_{|y|>R_k}|U_n(y,\tau_n)|^3\,dy\ge\varepsilon.
 \]
-Applying the profile decomposition to this escaping sequence produces either an
-exterior-regular component, which is removed by the exterior regularity
-argument below, or an additional active profile at a different physical point
-or larger same-point scale.  Such a profile belongs to \(S_n\) and is handled
-by terminal decoupling.  Hence no non-tight retained terminal solution remains.
+Applying the local state-space stratification to this escaping sequence
+produces either an exterior-regular component, which is removed by the exterior
+regularity argument below, or an additional active local component at a
+different physical point or larger same-point scale.  Such a component belongs
+to \(S_n\) and is handled by terminal decoupling.  Hence no non-tight retained
+terminal solution remains.
 
 The repaired-gauge representation gives pressure reconstruction and bounded
 modulation.  The local Caccioppoli estimate gives local windowed \(H^1\)
@@ -14933,9 +15115,10 @@ the selected windows.
 
 \begin{theorem}[Terminal nonlinear profile decoupling theorem]
 \label{paper8:thm:terminal-nonlinear-decoupling}
-Assume finite critical norm, terminal windowed profile completeness,
-small-data perturbative stability, the exterior annulus alternative,
-repaired-gauge representation, and local Caccioppoli regularity.  Then
+Assume local compact critical bounds, terminal windowed state-space
+completeness, local perturbative residual stability, the exterior annulus
+alternative, repaired-gauge representation, and local Caccioppoli regularity.
+Then
 terminal nonlinear profile decoupling holds in the sense of
 \cref{paper8:def:terminal-nonlinear-decoupling}.
 \end{theorem}
@@ -14952,8 +15135,8 @@ retained repaired-gauge nonlinear solution in its terminal frame, and set
   \quad\text{in }L^\infty_\tau L^3_y(B_{2R})
 \]
 on every compact terminal cylinder.  Divergence-free compatibility follows
-from the divergence-free profile data and the divergence-free
-Navier--Stokes evolution of each nonlinear profile.
+from the divergence-free repaired-gauge equation and the local terminal
+decomposition.
 
 \Cref{paper8:lem:terminal-stress-decoupling} proves
 \[
@@ -14961,8 +15144,8 @@ Navier--Stokes evolution of each nonlinear profile.
   \to0
   \quad\text{in }L^1_\tau L^2_y(B_R).
 \]
-The finite critical norm and the retained profile bounds give the global
-\(L^\infty_\tau L^3_y\) control required in the pressure lemma below.
+The local compact critical bounds give the \(L^\infty_\tau L^3_y\) control
+required in the pressure lemma below on the cylinders under consideration.
 \Cref{paper8:lem:terminal-pressure-decoupling} proves
 \[
   \nabla P_{{\rm cross},n}\to0
@@ -14983,21 +15166,22 @@ gives compact scale-collapse admissibility of the retained terminal solution.
 These are the items in \cref{paper8:def:terminal-nonlinear-decoupling}.
 \end{proof}
 
-\begin{corollary}[Multibubble exclusion from terminal profile decoupling]
+\begin{corollary}[Multibubble exclusion from terminal local decoupling]
 \label{paper8:cor:multibubble-exclusion-terminal}
-Under the Type II profile data, terminal windowed profile completeness,
-small-data perturbative stability, the exterior annulus alternative, repaired-gauge
-representation, local Caccioppoli regularity, and the compact scale-collapse
-stationary-rigidity input, no active multibubble Type II configuration occurs.
+Under the Type II local terminal data, terminal windowed state-space
+completeness, local perturbative residual stability, the exterior annulus
+alternative, repaired-gauge representation, local Caccioppoli regularity, and
+the compact scale-collapse stationary-rigidity input, no active multibubble
+Type II configuration occurs.
 \end{corollary}
 
 \begin{proof}
 \Cref{paper8:thm:terminal-nonlinear-decoupling} gives terminal nonlinear
-profile decoupling.  \Cref{paper8:thm:terminal-decoupling-implies-local-decoupling}
+decoupling.  \Cref{paper8:thm:terminal-decoupling-implies-local-decoupling}
 then supplies the same-point and separated-point decoupling hypotheses used in
-\cref{paper8:thm:multibubble-frame-reduction}.  The active-profile mass floor
-follows from \cref{paper8:thm:active-profile-mass-floor} and the small-data
-perturbative stability assumption.  Applying
+\cref{paper8:thm:multibubble-frame-reduction}.  The active local mass floor
+follows from the retained positive local critical annulus and local
+perturbative residual stability.  Applying
 \cref{paper8:thm:multibubble-frame-reduction} gives the claimed exclusion of
 active multibubble configurations.
 \end{proof}
@@ -16117,9 +16301,10 @@ Every branch satisfying the fixed-cutoff cost hypotheses is covered by
 
 \begin{proof}
 By \cref{paper6a:cor:fixed-input}, the finite-tail condition supplies the
-corrected monotonicity input.  The remaining assumptions are precisely the other
-items in \cref{paper6a:def:cost-hypotheses}, together with cost
-divergence and \cref{paper6a:ass:cost-divergence-exclusion}.
+corrected monotonicity input.  The remaining inputs are precisely the other
+items in \cref{paper6a:def:cost-hypotheses}, together with cost divergence.
+The local exclusion step is later proved on the canonical windowwise
+schedule in \cref{paper6a:thm:cost-divergence-exclusion-discharged}.
 \end{proof}
 
 \begin{definition}[Compact cost-divergence replacement]\label{paper6a:def:compact-cost-replacement}
@@ -16617,7 +16802,7 @@ cost is used.  The third branch is
 \cref{paper6a:prop:cost-divergence-exclusion}.
 \end{proof}
 
-\subsection{Discharge of the Cost-Divergence Exclusion Assumption}
+\subsection{Cost-Divergence Exclusion on the Canonical Windowwise Schedule}
 \label{paper6a:subsec:discharge-cost-divergence-assumption}
 
 The conditional exclusion criterion of
@@ -16625,9 +16810,9 @@ The conditional exclusion criterion of
 monotonicity input that is already part of
 \cref{paper6a:def:cost-hypotheses}, an arithmetic consequence of the
 nonnegativity of the localized renormalized energy together with the
-windowwise routing discharge of
+windowwise alternative argument of
 \cref{paper7:cor:windowwise-positive-scale-routing-holds,paper7:cor:windowwise-transition-routing-holds}.
-We make this discharge explicit here so that the assumption can be removed
+We make this implication explicit here so that the assumption can be removed
 from the assembly hypotheses.
 
 \begin{lemma}[Nonnegativity of the corrected localized energy]
@@ -16718,7 +16903,7 @@ right-hand side is finite, a contradiction.
 \begin{theorem}[Cost-divergence/corrected-monotonicity dichotomy on the canonical schedule]
 \label{paper6a:thm:cost-divergence-routing-dichotomy}
 Let \(\omega\) be a renormalized local Type II branch in the pre-carrier
-validated compact-cost channel of
+validated compact-cost regime of
 \cref{paper7:def:precarrier-validated-compact-channel}.  Equip \(\omega\)
 with the canonical windowwise interpolated cutoff
 \(\Phi(\tau,y)=\phi(y/R(\tau))\) of
@@ -16728,9 +16913,9 @@ with the canonical windowwise interpolated cutoff
 localized energy identity for the moving cutoff \(\Phi(\tau,\cdot)\) of
 \cref{paper6a:def:cost-hypotheses}\textup{(v)} (supplied, e.g., by
 \cref{paper7:lem:suitable-energy-gives-carrier-subidentities} on the
-channel), and the renormalized Lebesgue control
+regime), and the renormalized Lebesgue control
 \(\sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(\mathbb R^3)}\le M<\infty\)
-that is part of the pre-carrier validated compact-cost channel data
+that is part of the pre-carrier validated compact-cost regime data
 (established in the proof of
 \cref{paper7:lem:windowwise-shell-pressure-translation}).  If
 \[
@@ -16823,23 +17008,23 @@ and case \textup{(D1)} must hold; that is, at least one of \(J_1,J_6,J_7\)
 fails to be in \(L^1\) on every later tail.
 \end{proof}
 
-\begin{theorem}[Discharge of the cost-divergence exclusion assumption on the canonical windowwise schedule]
+\begin{theorem}[Cost-divergence exclusion on the canonical windowwise schedule]
 \label{paper6a:thm:cost-divergence-exclusion-discharged}
 Fix the canonical windowwise moving family of
 \cref{paper7:lem:windowwise-shell-pressure-translation} on the pre-carrier
-validated compact-cost channel of
+validated compact-cost regime of
 \cref{paper7:def:precarrier-validated-compact-channel}, and assume the
 localized energy identity for the moving cutoff
 (\cref{paper7:lem:suitable-energy-gives-carrier-subidentities}) and the
 renormalized Lebesgue control
 \(\sup_{\tau\ge\tau_0}\|V(\tau)\|_{L^3(\mathbb R^3)}\le M<\infty\) carried
-by the channel.  Assume further that
+by the regime.  Assume further that
 \textup{(R1)} failure of \(J_6\in L^1(\tau_1,\infty)\) on every later tail
-\([\tau_1,\infty)\) routes the branch into the negative scale-drift
+\([\tau_1,\infty)\) places the branch into the negative scale-drift
 alternative \textup{(vi)} of
 \cref{paper7:def:stratified-moving-carrier-routing}, in the sense of
 \cref{paper7:thm:windowwise-routing-gives-stratified-routing} (this is the
-same negative-drift routing hypothesis already standing in that theorem,
+same negative-drift alternative hypothesis already standing in that theorem,
 realized through \cref{paper6a:def:negative-drift,paper6a:cor:scale-drift-alternatives});
 and \textup{(R2)} the named adjacent strata of
 \cref{paper7:thm:noncarrier-exits-route} together with the
@@ -16847,14 +17032,14 @@ exterior/translation/positive-scale/negative-drift alternatives
 \textup{(iii)}--\textup{(vi)} of
 \cref{paper7:def:stratified-moving-carrier-routing} are closed by their
 assigned local arguments in the ambient Type II class.
-Then for every renormalized local Type II branch \(\omega\) in that channel
+Then for every renormalized local Type II branch \(\omega\) in that regime
 satisfying \cref{paper6a:def:cost-hypotheses}, divergence of the localized
 cost
 \[
   \int_{\tau_0}^{\infty}\widetilde{\mathfrak D}_{R(\tau)}(\tau)\,d\tau=\infty
 \]
 excludes \(\omega\) from the local Type II class.  Equivalently, the
-negative-drift routing \textup{(R1)} together with the adjacent-stratum
+negative-drift alternative \textup{(R1)} together with the adjacent-stratum
 closures \textup{(R2)} imply
 \cref{paper6a:ass:cost-divergence-exclusion} as a theorem on the canonical
 windowwise schedule.
@@ -16867,42 +17052,42 @@ impossible, so case \textup{(D1)} occurs: at least one of
 \(J_1\), \(J_6\), \(J_7\) fails to be in \(L^1(\tau_1,\infty)\) for every
 \(\tau_1\ge\tau_0\).
 
-Apply the routing statement assigned to that index:
+Apply the alternative statement assigned to that index:
 \begin{itemize}
-\item if \(J_1\) fails, the windowwise transition/leakage routing of
+\item if \(J_1\) fails, the windowwise transition/leakage alternative of
 \cref{paper7:cor:windowwise-transition-routing-holds} (proved
-unconditionally on the channel via
-\cref{paper7:thm:windowwise-transition-routing-certificate}) routes
+unconditionally on the regime via
+\cref{paper7:thm:windowwise-transition-routing-certificate}) places
 \(\omega\) into the exterior/leakage alternative \textup{(iii)} of
 \cref{paper7:def:stratified-moving-carrier-routing}, entering the named
 critical-tightness failure stratum of
 \cref{paper7:thm:noncarrier-exits-route};
-\item if \(J_6\) fails, hypothesis \textup{(R1)} routes \(\omega\) into the
+\item if \(J_6\) fails, hypothesis \textup{(R1)} places \(\omega\) into the
 negative scale-drift alternative \textup{(vi)};
-\item if \(J_7\) fails, the windowwise positive-scale routing of
+\item if \(J_7\) fails, the windowwise positive-scale alternative of
 \cref{paper7:cor:windowwise-positive-scale-routing-holds} (proved
-unconditionally via the bridge
+unconditionally via the argument
 \cref{paper7:thm:positive-scale-certificate-enters-scale-rigid} and
-\cref{paper3:prop:scale-rigidity-discharged}) routes \(\omega\) into the
+\cref{paper3:prop:scale-rigidity-discharged}) places \(\omega\) into the
 positive-scale alternative \textup{(v)}.
 \end{itemize}
 By hypothesis \textup{(R2)}, each of these named alternatives is closed by
-an already-discharged argument in the ambient Type II class.  Therefore
+an already proved argument in the ambient Type II class.  Therefore
 \(\omega\) is excluded.  This proves the conclusion of
 \cref{paper6a:ass:cost-divergence-exclusion} as a theorem under the standing
 hypotheses \textup{(R1)} and \textup{(R2)}.
 \end{proof}
 
-\begin{corollary}[Cost-divergence exclusion holds under the same hypothesis package as adjacent closure]
+\begin{corollary}[Cost-divergence exclusion holds under the same hypothesis set as adjacent closure]
 \label{paper6a:cor:cost-divergence-exclusion-unconditional}
 The hypotheses \textup{(R1)}--\textup{(R2)} of
 \cref{paper6a:thm:cost-divergence-exclusion-discharged} on the canonical
 windowwise schedule coincide, after combining with the unconditional
-windowwise discharges
+windowwise alternatives
 \cref{paper7:cor:windowwise-positive-scale-routing-holds,paper7:cor:windowwise-transition-routing-holds},
-with the standing hypothesis package of
+with the standing hypothesis set of
 \cref{paper7:thm:windowwise-routing-gives-stratified-routing} (negative-drift
-routing for \(J_6\)) plus the adjacent-stratum closure of
+alternative for \(J_6\)) plus the adjacent-stratum closure of
 \cref{paper7:cor:adjacent-closure-reduced-to-windowwise-routing}.  In
 particular, on any ambient Type II class on which the conclusion of
 \cref{paper7:cor:adjacent-closure-reduced-to-windowwise-routing} (compact-cost
@@ -16913,13 +17098,13 @@ from the hypothesis lists of
 \end{corollary}
 
 \begin{proof}
-The windowwise transition/leakage routing
+The windowwise transition/leakage alternative
 \cref{paper7:cor:windowwise-transition-routing-holds} and windowwise
-positive-scale routing
+positive-scale alternative
 \cref{paper7:cor:windowwise-positive-scale-routing-holds} are unconditional
-on the channel.  Combined with the negative-drift routing for \(J_6\)
+on the regime.  Combined with the negative-drift alternative for \(J_6\)
 imported from \cref{paper7:thm:windowwise-routing-gives-stratified-routing},
-the routing component \textup{(R1)} of
+the alternative component \textup{(R1)} of
 \cref{paper6a:thm:cost-divergence-exclusion-discharged} is satisfied.
 The adjacent-stratum closure component \textup{(R2)} is exactly the
 standing hypothesis closed under
@@ -16932,7 +17117,7 @@ class.
 
 \begin{remark}[Status of the cost-divergence assumption]
 \label{paper6a:rem:cost-divergence-assumption-status}
-The discharge has three independent ingredients:
+The proof has three independent ingredients:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item the trivial arithmetic consequence
 \cref{paper6a:lem:corrected-monotonicity-versus-divergent-cost} that
@@ -16944,16 +17129,16 @@ energy and \(\mathcal D\ge 0\) forces \(\int\mathcal D<\infty\);
 (positive linear combination), combined with the canonical schedule
 integrability \(J_2,J_3,J_4,J_5\in L^1(\tau_0,\infty)\) of
 \cref{paper7:lem:windowwise-shell-pressure-translation};
-\item the windowwise routing for \(J_1\) and \(J_7\)
+\item the windowwise alternative for \(J_1\) and \(J_7\)
 (\cref{paper7:cor:windowwise-transition-routing-holds,paper7:cor:windowwise-positive-scale-routing-holds},
-proved unconditionally on the channel) plus the negative-drift routing for
+proved unconditionally on the regime) plus the negative-drift alternative for
 \(J_6\) imported from
 \cref{paper7:thm:windowwise-routing-gives-stratified-routing}.
 \end{enumerate}
 Thus \cref{paper6a:ass:cost-divergence-exclusion} no longer represents an
 independent analytic input.  Its content is the conjunction of the
-trivial monotonicity-vs-divergence arithmetic and the windowwise routing
-package that is already used to close adjacent strata in
+trivial monotonicity-vs-divergence arithmetic and the windowwise alternative
+argument that is already used to close adjacent strata in
 \cref{paper7:cor:adjacent-closure-reduced-to-windowwise-routing}.
 \end{remark}
 
@@ -18240,169 +18425,314 @@ bounded modulation are the remaining hypotheses used in
 
 \subsection{Terminal Profile Compactness Hypotheses}
 
-\begin{assumption}[Critical Navier--Stokes profile decomposition]
+\begin{assumption}[Local terminal state-space completeness]
 \label{paper6a:ass:critical-ns-profile-decomposition}
-Let \(u_{0,n}\) be a bounded sequence in \(L^3_\sigma(\mathbb R^3)\), or in a
-stronger admissible critical profile space for which the standard
-Navier--Stokes profile theorem and perturbation theorem are available.  After
-passing to a subsequence, there are profiles
-\(\phi^j\), scales \(\lambda_{j,n}>0\), centers \(x_{j,n}\in\mathbb R^3\), and
-remainders \(r_n^J\) such that
+Let \(Q_{2R,I}:=B_{2R}\times I\) be a compact terminal-frame cylinder and let
 \[
-  u_{0,n}
-  =
-  \sum_{j=1}^J \Lambda_{\lambda_{j,n},x_{j,n}}\phi^j+r_n^J,
-  \qquad
-  (\Lambda_{\lambda,x_0}f)(x)
-  =
-  \lambda^{-1}f\left(\frac{x-x_0}{\lambda}\right),
+  V_n=U_n+S_n
 \]
-with pairwise orthogonality of the parameters and critical mass decoupling
+be the local decomposition into the retained terminal component \(U_n\) and the
+nonretained residual \(S_n\).  Local terminal state-space completeness is the
+following purely local assertion.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item On every \(Q_{2R,I}\), the represented fields satisfy the repaired-gauge
+equation, local energy inequality, pressure reconstruction modulo functions of
+time, bounded modulation, and the compact-cylinder estimates
 \[
-  \|u_{0,n}\|_{L^3}^3
-  =
-  \sum_{j=1}^J \|\phi^j\|_{L^3}^3
-  +\|r_n^J\|_{L^3}^3
-  +o_n(1).
+  \sup_n\Big(
+  \|V_n\|_{L^\infty(I;L^3(B_{2R}))}
+  +\|V_n\|_{L^\infty(I;L^2(B_{2R}))}
+  +\|V_n\|_{L^2(I;H^1(B_{2R}))}
+  +\|P_n-c_{n,2R}\|_{L^{3/2}(Q_{2R,I})}
+  \Big)<\infty ,
 \]
-Moreover, if the corresponding nonlinear profiles are evolved and the small
-critical profiles are removed by the small-data theory, then
+and the same local velocity bounds hold for \(U_n\).  The time derivatives are
+bounded in \(L^1(I;H^{-m}(B_{2R}))\) for some \(m\) large enough for the
+Aubin--Lions compactness argument.
+\item If, after passing to a subsequence,
 \[
-  \lim_{J\to\infty}\limsup_{n\to\infty}
-  \|e^{t\Delta}r_n^J\|_{X_{\rm Kato}}=0,
+  \limsup_{n\to\infty}\|S_n\|_{L^\infty(I;L^3(B_R))}>0,
 \]
-and the nonlinear remainder is perturbatively small on every compact
-profile-time window.  Finally, if after removal of all extracted profiles a
-terminal coordinate frame still contains nonzero local critical mass, then,
-after passing to a further subsequence, the profile theorem produces an
-additional nonzero profile associated to that coordinate frame.
+then a selected subwindow and subcylinder carry a nonzero local occupation
+state.  Its first closed label in the local state space is one of the named
+alternatives in \(\cref{paper6:thm:state-decomposition}\): multibubble or
+multicore splitting, same-point cascade, exterior leakage or critical
+tightness failure, loss of local windowed \(H^1\) control, finite-cost
+scale-collapse, scale-rigid residual behavior, or a representation,
+modulation, pressure, or cost-compatibility failure recorded earlier in the
+ordered validation.
+\item If all named adjacent alternatives are closed by their local arguments
+and comparable retained classes have been grouped before selecting the
+terminal frame, then no nonretained residual with the preceding positive local
+mass can remain on the retained terminal branch.  Consequently
+\[
+  S_n\to0
+  \quad\text{in }L^\infty(I;L^3(B_R))
+\]
+on every compact terminal cylinder of the retained branch.
+\end{enumerate}
+No global \(L^3\) profile decomposition, global heat-flow norm, or global
+Kato estimate is part of this assumption.
 \end{assumption}
 
-\begin{definition}[Bounded critical terminal sequences]
-\label{paper6a:def:bounded-critical-terminal-sequences}
-The bounded critical terminal-sequence hypothesis is the assertion that every
-terminal active sequence used in the terminal profile analysis consists of
-divergence-free data \(u_{0,n}\) satisfying
-\[
-  \sup_n \|u_{0,n}\|_{L^3(\mathbb R^3)}<\infty,
-\]
-or satisfying the corresponding uniform bound in a stronger admissible critical
-profile space to which
-\cref{paper6a:ass:critical-ns-profile-decomposition} applies.
-\end{definition}
+\subsubsection*{Local proof of terminal state-space completeness}
+\label{paper6a:subsec:discharge-critical-ns-profile-decomposition}
 
-\begin{theorem}[Kato small-data critical stability]
-\label{paper6a:thm:kato-small-data-critical-stability}
-There is \(\varepsilon_{\rm sd}>0\) such that, if
-\(f\in L^3_\sigma(\mathbb R^3)\) and
-\(\|f\|_{L^3}\le\varepsilon_{\rm sd}\), then the Navier--Stokes equations have a
-global mild solution in a standard critical Kato class \(X_{\rm Kato}\),
+\begin{lemma}[Local compactness of terminal occupation states]
+\label{paper6a:lem:l3-profile-extraction-cited}
+Assume the estimates in
+\cref{paper6a:ass:critical-ns-profile-decomposition}\textup{(i)} on
+\(Q_{2R,I}\).  Then every sequence of selected subwindows and subcylinders has
+a subsequential local occupation state.  More precisely, after passing to a
+subsequence, \(V_n\), \(U_n\), and \(S_n\) converge weakly in
+\(L^2(I;H^1(B_R))\), strongly in \(L^2(I;L^q(B_R))\) for every \(q<6\), and
+their pressure gradients converge distributionally modulo functions of time.
+\end{lemma}
+
+\begin{proof}
+The velocity bounds and the time-derivative bound give compactness by the
+Aubin--Lions--Simon theorem applied to
 \[
-  U\in C([0,\infty);L^3_\sigma(\mathbb R^3))\cap X_{\rm Kato},
-  \qquad
-  \|U\|_{X_{\rm Kato}}\le C\|f\|_{L^3}.
+  H^1(B_R)\Subset L^2(B_R)\hookrightarrow H^{-m}(B_R).
 \]
-The solution map is Lipschitz on this small ball, and perturbations whose
-linear heat evolutions are small in \(X_{\rm Kato}\) remain perturbative in the
-same topology.
+Interpolation with the uniform \(L^2(I;H^1(B_R))\) bound gives strong
+convergence in \(L^2(I;L^q(B_R))\) for every \(q<6\).  The pressure
+normalization bound gives weak compactness in \(L^{3/2}(Q_{R,I})\); on overlaps
+the limits differ only by functions of time, so the gradients assemble
+distributionally.
+\end{proof}
+
+\begin{lemma}[Closed local labels for terminal residuals]
+\label{paper6a:lem:critical-mass-decoupling}
+In the local topology of
+\cref{paper6a:lem:l3-profile-extraction-cited}, the ordered alternatives in
+\cref{paper6:thm:state-decomposition} are closed under subsequential limits of
+selected compact terminal windows.
+\end{lemma}
+
+\begin{proof}
+Each label is expressed by a local compact-cylinder condition.  Multibubble and
+multicore splitting are detected by positive CKN mass in two separated or
+scale-separated subcylinders.  Cascade and scale-rigid labels are closed under
+the corresponding scale-center limits.  Loss of local windowed \(H^1\) control
+is the failure of a uniform compact-cylinder bound.  Finite-cost scale collapse
+and negative-drift labels are determined by lower semicontinuous nonnegative
+localized costs.  Representation, modulation, pressure, and cost-compatibility
+failures are ordered failures of the local hypotheses used to enter the
+retained compact branch.  These conditions are stable under the compact local
+convergence above, after passing to subsequences and shrinking cylinders when
+needed.
+\end{proof}
+
+\begin{lemma}[Positive residual mass produces a local state-space label]
+\label{paper6a:lem:heat-flow-kato-smallness}
+Assume the local compact-window estimates of
+\cref{paper6a:ass:critical-ns-profile-decomposition}\textup{(i)}.  If
+\[
+  \limsup_{n\to\infty}\|S_n\|_{L^\infty(I;L^3(B_R))}>0,
+\]
+then, after passing to a subsequence and selecting times and subcylinders, the
+residual produces one of the first closed labels listed in
+\cref{paper6a:ass:critical-ns-profile-decomposition}\textup{(ii)}.
+\end{lemma}
+
+\begin{proof}
+Choose \(\delta>0\), times \(\tau_n\in I\), and a subsequence such that
+\(\|S_n(\tau_n)\|_{L^3(B_R)}\ge\delta\).  By the local energy inequality,
+pressure reconstruction, and compact-cylinder estimates, the selected
+subwindows are admissible for the local alternative decomposition.  Apply
+\cref{paper6:thm:state-decomposition} to the selected local concentration
+sequence generated by this residual mass.  The ordered first failure or
+retained local state is closed by
+\cref{paper6a:lem:critical-mass-decoupling}; hence, after passing to a
+subsequence, the residual has one of the named labels in
+\cref{paper6a:ass:critical-ns-profile-decomposition}\textup{(ii)}.
+\end{proof}
+
+\begin{lemma}[Residual mass cannot remain in the retained terminal branch]
+\label{paper6a:lem:nonlinear-profile-evolution-cited}
+Assume the local terminal frame has been chosen after grouping comparable
+retained classes and that every adjacent label in
+\cref{paper6a:ass:critical-ns-profile-decomposition}\textup{(ii)} is closed by
+its local argument.  Then a nonretained residual satisfying the hypotheses of
+\cref{paper6a:lem:heat-flow-kato-smallness} cannot remain on the retained
+terminal branch.
+\end{lemma}
+
+\begin{proof}
+If the residual has positive local mass, then
+\cref{paper6a:lem:heat-flow-kato-smallness} assigns it to a first closed local
+label.  If this label is an adjacent alternative, it is handled by its local
+closure theorem and is not part of the retained branch.  If the label is the
+retained compact class, then the corresponding component is comparable to the
+selected retained terminal frame; by the terminal selection rule, comparable
+retained classes based at the same physical point were already grouped into
+\(U_n\).  It therefore cannot remain in \(S_n\).  Both cases contradict the
+assumption that positive residual mass persists in the nonretained component of
+the retained terminal branch.
+\end{proof}
+
+\begin{lemma}[Subsequential exhaustion of local residual mass]
+\label{paper6a:lem:profile-exhaustion-by-diagonal-extraction}
+Under the hypotheses of
+\cref{paper6a:lem:nonlinear-profile-evolution-cited}, every compact terminal
+cylinder satisfies
+\[
+  S_n\to0
+  \quad\text{in }L^\infty(I;L^3(B_R)).
+\]
+\end{lemma}
+
+\begin{proof}
+If the convergence failed, then a subsequence would have positive residual
+mass in the sense of \cref{paper6a:lem:heat-flow-kato-smallness}.  The preceding
+lemma shows that such mass cannot remain in the retained terminal branch after
+local state-space closure and grouping of comparable retained classes.  This
+contradiction proves the convergence.
+\end{proof}
+
+\begin{theorem}[Local terminal completeness from state-space stratification]
+\label{paper6a:thm:critical-ns-profile-decomposition-discharged}
+\Cref{paper6a:ass:critical-ns-profile-decomposition} holds on every retained
+terminal branch satisfying the compact-cylinder estimates, the ordered local
+state-space decomposition, closure of adjacent alternatives, and terminal
+grouping of comparable retained classes.
 \end{theorem}
 
 \begin{proof}
-This is the classical Kato fixed-point theorem in the critical \(L^3\) space.
-Writing the mild formulation as
-\[
-  U(t)=e^{t\Delta}f
-  -\int_0^t e^{(t-s)\Delta}\mathbb P\nabla\cdot(U\otimes U)(s)\,ds,
-\]
-the heat estimate and bilinear estimate in \(X_{\rm Kato}\) give
-\[
-  \|B(U,V)\|_{X_{\rm Kato}}
-  \le C\|U\|_{X_{\rm Kato}}\|V\|_{X_{\rm Kato}} .
-\]
-For \(\|f\|_{L^3}\le\varepsilon_{\rm sd}\), the map is a contraction in the
-ball \(\|U\|_{X_{\rm Kato}}\le 2C\|f\|_{L^3}\).  The same estimate applied to
-the difference of two mild solutions gives Lipschitz dependence.  If a
-perturbing datum has small heat evolution in \(X_{\rm Kato}\), the Duhamel
-difference inequality is absorbed by the left-hand side after the same
-smallness choice.
+\Cref{paper6a:lem:l3-profile-extraction-cited} gives the local compactness
+needed to pass to occupation states.  \Cref{paper6a:lem:critical-mass-decoupling}
+identifies the closed local labels.  \Cref{paper6a:lem:heat-flow-kato-smallness}
+assigns any positive nonretained residual mass to one of those labels.
+\Cref{paper6a:lem:nonlinear-profile-evolution-cited} rules out persistence of
+such a label inside the retained branch once adjacent labels have been closed
+and comparable retained classes have been grouped.  Hence
+\cref{paper6a:lem:profile-exhaustion-by-diagonal-extraction} gives
+\(S_n\to0\) on compact terminal cylinders.  These are exactly the clauses of
+\cref{paper6a:ass:critical-ns-profile-decomposition}.
 \end{proof}
 
-\begin{definition}[Small-data critical stability]
-\label{paper6a:def:small-data-critical-stability}
-Small-data critical stability means that every divergence-free datum whose
-critical size is below \(\varepsilon_{\rm sd}\), and every perturbation whose
-linear heat flow is small in \(X_{\rm Kato}\), generates only a perturbative
-Navier--Stokes evolution on compact profile-time windows.
+\begin{remark}[Status of the terminal completeness assumption]
+\label{paper6a:rem:profile-decomposition-status}
+\Cref{paper6a:thm:critical-ns-profile-decomposition-discharged} is local.  It
+uses only compact-cylinder estimates, Aubin--Lions compactness, pressure
+reconstruction modulo functions of time, and the local state-space
+stratification.  It does not use a global critical profile decomposition, a
+global heat-flow smallness norm, or a global Kato perturbation theorem.
+\end{remark}
+
+\begin{definition}[Local compact terminal windows]
+\label{paper6a:def:bounded-critical-terminal-sequences}
+The local compact terminal-window hypothesis is the assertion that every
+terminal active sequence used in the terminal analysis is represented, on each
+compact terminal-frame cylinder \(Q_{2R,I}\), by fields satisfying the local
+compact-cylinder bounds in
+\cref{paper6a:ass:critical-ns-profile-decomposition}\textup{(i)}.  Equivalently,
+the analysis is carried out on the local state variables
+\[
+  (V_n,U_n,S_n,P_n,a_n,b_n)\big|_{Q_{2R,I}},
+\]
+not on an arbitrary global sequence of initial data.
 \end{definition}
 
-\begin{corollary}[Kato theorem gives small-data stability]
+\begin{theorem}[Local perturbative residual stability]
+\label{paper6a:thm:kato-small-data-critical-stability}
+Let \(Q_{2R,I}\) be a compact terminal cylinder.  Assume
+\[
+  S_n\to0\quad\text{in }L^\infty(I;L^3(B_{2R})),
+\]
+and assume \(U_n\) and \(S_n\) are uniformly bounded in
+\[
+  L^2(I;H^1(B_{2R}))\cap L^\infty(I;L^3(B_{2R})).
+\]
+Then all velocity interactions involving at least one factor \(S_n\) vanish on
+the smaller cylinder:
+\[
+  U_n\otimes S_n+S_n\otimes U_n+S_n\otimes S_n
+  \to0
+  \quad\text{in }L^1(I;L^2(B_R)).
+\]
+If the corresponding cross pressures are reconstructed by the local
+Calderon--Zygmund decomposition, then their gradients vanish in
+\[
+  L^1(I;H^{-1}(B_R)).
+\]
+\end{theorem}
+
+\begin{proof}
+By Sobolev on \(B_{2R}\), the \(L^2H^1\) bounds give uniform
+\(L^2(I;L^6(B_{2R}))\) bounds.  Holder's inequality gives
+\[
+  \|U_n\otimes S_n\|_{L^1(I;L^2(B_R))}
+  \le
+  \|S_n\|_{L^\infty(I;L^3(B_R))}
+  \|U_n\|_{L^1(I;L^6(B_R))}\to0,
+\]
+and the same estimate treats \(S_n\otimes U_n\).  The term
+\(S_n\otimes S_n\) is identical, using the uniform \(L^1L^6\) bound for
+\(S_n\).  The pressure statement follows from the local pressure-kernel
+estimate applied to the cross stress just shown to vanish in \(L^1L^2\), with
+the pressure normalized modulo functions of time.
+\end{proof}
+
+\begin{definition}[Local perturbative stability]
+\label{paper6a:def:small-data-critical-stability}
+Local perturbative stability means that every residual component which is
+small in \(L^\infty(I;L^3(B_R))\) on compact terminal cylinders contributes
+only vanishing velocity-stress, pressure, and linear-residual terms in the
+local topologies used in
+\cref{paper8:def:terminal-nonlinear-decoupling}.
+\end{definition}
+
+\begin{corollary}[Local residual stability gives perturbative stability]
 \label{paper6a:cor:kato-gives-small-data-stability}
 \Cref{paper6a:thm:kato-small-data-critical-stability} implies the
-small-data critical stability condition of
+local perturbative stability condition of
 \cref{paper6a:def:small-data-critical-stability}.
 \end{corollary}
 
 \begin{proof}
-The theorem gives global critical control for data below
-\(\varepsilon_{\rm sd}\) and Lipschitz stability under small heat-flow
-perturbations.  Restricting the resulting global estimate to any compact
-profile-time window gives the stated stability condition.
+This is exactly the conclusion of
+\cref{paper6a:thm:kato-small-data-critical-stability} on each compact terminal
+cylinder, combined with the local pressure and residual estimates already
+included in terminal nonlinear decoupling.
 \end{proof}
 
-\begin{definition}[Terminal critical profile hypotheses]
+\begin{definition}[Terminal local compactness hypotheses]
 \label{paper6a:def:terminal-critical-profile-hypotheses}
-The terminal critical profile hypotheses consist of the bounded critical
-terminal-sequence hypothesis
-\cref{paper6a:def:bounded-critical-terminal-sequences}, the small-data
-stability condition
-\cref{paper6a:def:small-data-critical-stability}, and the critical
-Navier--Stokes profile theorem
+The terminal local compactness hypotheses consist of the local compact
+terminal-window hypothesis
+\cref{paper6a:def:bounded-critical-terminal-sequences}, local perturbative
+stability
+\cref{paper6a:def:small-data-critical-stability}, and local terminal
+state-space completeness
 \cref{paper6a:ass:critical-ns-profile-decomposition}.
 \end{definition}
 
 \begin{theorem}[Terminal critical local compactness]
 \label{paper6a:thm:terminal-critical-local-compactness}
-Assume the terminal critical profile hypotheses.  Then the terminal profile
-analysis is complete in the following sense: after passing to subsequences,
-all non-scattering critical profiles appear as active profiles, and the
-remaining terminal component is perturbatively small on compact profile-time
-windows.
+Assume the terminal local compactness hypotheses.  Then, on every retained
+terminal branch and every compact terminal cylinder, all nonretained residual
+components vanish in the local perturbative topology of
+\cref{paper8:def:terminal-nonlinear-decoupling}.
 \end{theorem}
 
 \begin{proof}
-Fix a terminal active sequence.  By
-\cref{paper6a:def:bounded-critical-terminal-sequences} and
-\cref{paper6a:ass:critical-ns-profile-decomposition}, a critical profile
-decomposition is available after passing to a subsequence:
+The local compact terminal-window hypothesis gives the compact-cylinder
+estimates.  Local terminal state-space completeness gives
 \[
-  u_{0,n}
-  =
-  \sum_{j=1}^J \Lambda_{\lambda_{j,n},x_{j,n}}\phi^j+r_n^J .
+  S_n\to0\quad\text{in }L^\infty(I;L^3(B_R))
 \]
-The mass decoupling identity shows that only finitely many profiles can have
-critical norm at least \(\varepsilon_{\rm sd}\).  Profiles with smaller
-critical norm generate perturbative evolutions by
-\cref{paper6a:cor:kato-gives-small-data-stability}.  The finitely many
-remaining profiles are the non-scattering active profiles.
-
-It remains to exclude hidden terminal mass.  Suppose that, after removing all
-active profiles and all small-data perturbative profiles, a terminal
-coordinate frame still sees nonzero local critical mass.  The final clause of
-\cref{paper6a:ass:critical-ns-profile-decomposition} then produces an
-additional nonzero profile associated to that frame.  If its critical norm is
-below \(\varepsilon_{\rm sd}\), the Kato stability estimate makes its nonlinear
-contribution perturbative, contradicting the assumed nonzero terminal
-critical mass.  If its critical norm is at least \(\varepsilon_{\rm sd}\), then
-it is another active profile, contradicting the claim that all active profiles
-had already been removed.  Hence no hidden terminal critical mass remains, and
-the residual component is perturbatively small on compact profile-time
-windows.
+after all adjacent local alternatives have been closed and comparable retained
+classes have been grouped.  Local perturbative stability then converts this
+velocity convergence into the nonlinear-stress, pressure, and residual
+convergences required in terminal nonlinear decoupling.
 \end{proof}
 
-\begin{corollary}[Profile completeness from terminal critical profile hypotheses]
+\begin{corollary}[Terminal completeness from local compactness hypotheses]
 \label{paper6a:cor:profile-completeness-from-critical-hypotheses}
-The terminal profile completeness hypothesis in the final argument may be replaced
-by the terminal critical profile hypotheses of
+The terminal profile completeness hypothesis in the final argument may be
+replaced by the terminal local compactness hypotheses of
 \cref{paper6a:def:terminal-critical-profile-hypotheses}.
 \end{corollary}
 
@@ -18413,11 +18743,12 @@ terminal profile completeness.
 
 \begin{remark}[Boundary of the terminal compactness hypothesis]
 \label{paper6a:rem:terminal-compactness-boundary}
-The preceding compactness conclusion applies only to terminal sequences with a
-uniform bound in \(L^3_\sigma\), or in a stronger admissible critical profile
-space.  If a terminal sequence is not a compact-cylinder sequence in such a
-space, then the failure is a critical-norm blowup defect or a failure of the
-coordinate-frame construction, not a failure of the critical profile theorem.
+The preceding compactness conclusion applies only to terminal windows on which
+the repaired-gauge representation, pressure reconstruction, local Caccioppoli
+control, bounded modulation, and local state-space labels are available.  If
+one of these inputs is absent, the branch is assigned to the corresponding
+representation, pressure, rough-core, modulation, or state-space alternative;
+it is not treated by importing a global profile theorem.
 \end{remark}
 
 \begin{definition}[Terminal sequences sampled from the renormalized orbit]
@@ -18461,69 +18792,67 @@ Taking cube roots gives the claim.
 
 \begin{theorem}[Bounded terminal sequences from the critical annulus]
 \label{paper6a:thm:bounded-terminal-sequences-from-l3}
-Assume the renormalized orbit satisfies
+Assume the renormalized orbit satisfies the local compact-window bounds
 \[
-  0<\inf_{\tau}\|V(\tau)\|_{L^3}
+  0<\inf_{\tau\in I}\|V(\tau)\|_{L^3(B_R)}
   \le
-  \sup_{\tau}\|V(\tau)\|_{L^3}
+  \sup_{\tau\in I}\|V(\tau)\|_{L^3(B_{2R})}
   <\infty,
 \]
-on the terminal interval under consideration.  If every terminal active
-sequence is sampled from the renormalized orbit, then every terminal active
-sequence is bounded in \(L^3_\sigma(\mathbb R^3)\).
+on the terminal interval under consideration, together with the local
+Caccioppoli and pressure bounds on \(Q_{2R,I}\).  If every terminal active
+window is sampled from the renormalized orbit, then every terminal active
+window satisfies the local compact terminal-window hypothesis.
 \end{theorem}
 
 \begin{proof}
-Let \(u_{0,n}=\Lambda_{\lambda_n,x_n}V(\tau_n)\).  By
-\cref{paper6a:lem:critical-symmetry-preserves-l3},
-\[
-  \|u_{0,n}\|_{L^3}=\|V(\tau_n)\|_{L^3}.
-\]
-The assumed finite upper bound on the terminal interval gives
-\(\sup_n\|u_{0,n}\|_{L^3}<\infty\).  If the positive lower bound is also used,
-the sequence is nontrivial in the critical norm.
+The local \(L^3\) upper bound is one component of the compact-window
+hypothesis.  Local \(L^\infty L^2\), \(L^2H^1\), and pressure bounds are supplied
+by the local Caccioppoli estimate and pressure reconstruction on \(Q_{2R,I}\).
+The repaired-gauge equation gives the required time-derivative bound in
+\(H^{-m}\).  The lower bound records that the retained window is nontrivial.
 \end{proof}
 
-\begin{theorem}[Terminal boundedness alternatives]
+\begin{theorem}[Terminal compactness alternatives]
 \label{paper6a:thm:terminal-boundedness-alternatives}
 For a candidate terminal active sequence in the Type II analysis, the following
-alternatives exhaust the possible boundedness outcomes, after passing to a
+alternatives exhaust the possible local compactness outcomes, after passing to a
 subsequence when necessary:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item the sequence is not sampled from the renormalized orbit;
-\item the terminal \(L^3\) norm of \(V\) is not defined in the asserted
-critical class;
-\item \(\|V(\tau_n)\|_{L^3}\to\infty\) along a terminal sampling subsequence;
-\item \(\|V(\tau_n)\|_{L^3}\to0\) along a terminal sampling subsequence;
+\item the repaired-gauge representation, pressure reconstruction, or local
+Caccioppoli estimate is unavailable on the selected compact cylinder;
+\item the local \(L^3\) upper bound fails along a terminal sampling subsequence;
+\item the retained local \(L^3\) lower bound vanishes along a terminal sampling
+subsequence;
 \item after excluding the preceding alternatives, the terminal active sequence
-satisfies a positive finite critical annulus and is bounded in
-\(L^3_\sigma(\mathbb R^3)\).
+satisfies the local compact terminal-window hypothesis.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 If the terminal sequence is not sampled from the renormalized orbit, then
-\textup{(i)} holds.  If the critical norm is not defined in the asserted class,
-then \textup{(ii)} holds.  If the critical norm is defined but has no positive
-finite terminal annulus, then either its limsup is infinite, which gives
-\textup{(iii)} after passing to a subsequence, or its liminf is zero, which
-gives \textup{(iv)} after passing to a subsequence.  Otherwise the positive
-finite annulus condition of
+\textup{(i)} holds.  If one of the local PDE inputs is missing, then
+\textup{(ii)} holds and the branch is assigned to the corresponding local
+alternative.  If the local critical upper bound fails, then \textup{(iii)}
+holds after passing to a subsequence.  If the retained lower bound vanishes,
+then \textup{(iv)} holds.  Otherwise the local hypotheses of
 \cref{paper6a:thm:bounded-terminal-sequences-from-l3} holds, and
 \textup{(v)} follows.
 \end{proof}
 
-\begin{corollary}[Boundedness from orbit sampling]
+\begin{corollary}[Local compactness from orbit sampling]
 \label{paper6a:cor:boundedness-from-orbit-sampling}
-In the presence of terminal orbit sampling and a positive finite terminal
-\(L^3\) annulus, the bounded critical terminal-sequence hypothesis in
+In the presence of terminal orbit sampling, local repaired-gauge estimates, and
+a positive finite local terminal \(L^3\) annulus, the local compact
+terminal-window hypothesis in
 \cref{paper6a:def:bounded-critical-terminal-sequences} follows from
 \cref{paper6a:thm:bounded-terminal-sequences-from-l3}.
 \end{corollary}
 
 \begin{proof}
-The theorem gives the required uniform \(L^3\) bound for every terminal active
-sequence.
+The theorem gives the required compact-cylinder bounds for every terminal
+active window.
 \end{proof}
 
 \begin{definition}[Terminal coordinate-frame construction]
@@ -18531,28 +18860,29 @@ sequence.
 The terminal coordinate-frame construction means that every terminal active
 frame used in the analysis is obtained from the repaired-gauge orbit as
 follows.  Choose sampling times \(\tau_n\to\infty\) and critical symmetry
-parameters \((\lambda_n,x_n)\); form the data by applying the critical
-coordinate-frame map to \(V(\tau_n)\); group comparable profiles based at the
-same physical point before selecting the terminal active frame.  No external
-data are introduced.
+parameters \((\lambda_n,x_n)\); form the local terminal windows by applying the
+critical coordinate-frame map to \(V\) on compact time intervals around
+\(\tau_n\); group comparable retained local classes based at the same physical
+point before selecting the terminal active frame.  No external data are
+introduced.
 \end{definition}
 
-\begin{theorem}[Terminal coordinate-frame construction from profile selection]
+\begin{theorem}[Terminal coordinate-frame construction from local state selection]
 \label{paper6a:thm:terminal-coordinate-frame-construction-profile-selection}
-Assume terminal active frames are selected by first partitioning active
-profiles by physical concentration point, then grouping comparable profiles at
-the same point into compound profiles, and finally choosing a minimal-scale
-active class at that point.  Then the terminal coordinate-frame construction
-of \cref{paper6a:def:terminal-coordinate-frame-construction} holds for the
-selected terminal frames.
+Assume terminal active frames are selected by first partitioning local active
+states by physical concentration point, then grouping comparable retained
+states at the same point into compound local states, and finally choosing a
+minimal-scale retained class at that point.  Then the terminal coordinate-frame
+construction of \cref{paper6a:def:terminal-coordinate-frame-construction} holds
+for the selected terminal frames.
 \end{theorem}
 
 \begin{proof}
 By the stated selection rule, each terminal active frame is attached to a
-compound active class after all comparable profiles at the same physical
+compound active class after all comparable retained states at the same physical
 point have been grouped.  The scale and center of the terminal frame are the
 scale and center of this compound class.  The terminal data are then obtained
-by applying the Navier--Stokes critical change of variables to the
+by applying the Navier--Stokes critical change of variables to the local
 renormalized branch along the chosen sampling sequence \(\tau_n\to\infty\).
 Thus the construction uses only the repaired-gauge orbit and the
 Navier--Stokes critical symmetries, and it satisfies all clauses of
@@ -18614,19 +18944,23 @@ This is the contrapositive of
 \begin{corollary}[Terminal compactness from explicit PDE hypotheses]
 \label{paper6a:cor:terminal-compactness-from-explicit-hypotheses}
 Assume the repaired-gauge representation, the terminal coordinate-frame
-construction, a positive finite terminal \(L^3\) annulus for \(V\), the Kato
-small-data stability theorem, and the critical Navier--Stokes profile
-decomposition.  Then the terminal profile completeness hypothesis in the final
-argument holds.
+construction, a positive finite local terminal \(L^3\) annulus for \(V\), local
+Caccioppoli and pressure reconstruction estimates on compact terminal
+cylinders, bounded modulation, local perturbative residual stability, and
+closure of the adjacent alternatives in the local state-space decomposition.
+Then the terminal profile completeness hypothesis in the final argument holds.
 \end{corollary}
 
 \begin{proof}
 \Cref{paper6a:thm:representation-gives-terminal-orbit-sampling} gives terminal
-orbit sampling.  Together with the positive finite \(L^3\) annulus,
-\cref{paper6a:thm:bounded-terminal-sequences-from-l3} gives bounded critical
-terminal sequences.  The Kato theorem gives small-data stability by
-\cref{paper6a:cor:kato-gives-small-data-stability}.  Therefore the terminal
-critical profile hypotheses of
+orbit sampling.  Together with the positive finite local \(L^3\) annulus and
+the local PDE estimates,
+\cref{paper6a:thm:bounded-terminal-sequences-from-l3} gives local compact
+terminal windows.  Local perturbative residual stability is supplied by
+\cref{paper6a:cor:kato-gives-small-data-stability}.  The local state-space
+closure hypotheses give \cref{paper6a:ass:critical-ns-profile-decomposition}
+through \cref{paper6a:thm:critical-ns-profile-decomposition-discharged}.
+Therefore the terminal local compactness hypotheses of
 \cref{paper6a:def:terminal-critical-profile-hypotheses} hold, and
 \cref{paper6a:cor:profile-completeness-from-critical-hypotheses} gives terminal
 profile completeness.
@@ -18647,14 +18981,13 @@ are excluded under the hypotheses of \cref{paper6:thm:multibubble};
 \cref{paper6:thm:scale-cost}, while scale-collapse branches with divergent
 negative scale-drift cost are covered by
 \cref{paper6a:thm:scale-collapse-drift-cost} or
-\cref{paper6a:cor:absolute-scale-cost-criterion};
+\cref{paper6a:cor:absolute-scale-cost-criterion} and then excluded by the
+cost-divergence theorem
+\cref{paper6a:thm:cost-divergence-exclusion-discharged};
 \item failure of uniform critical tightness is excluded, equivalently uniform critical
 tightness holds for every renormalized branch in the class;
 \item failure of local windowed \(H^1\) control is excluded, equivalently the required local
 windowed \(H^1\) control holds for every renormalized branch in the class;
-\item the cost-divergence exclusion criterion
-\cref{paper6a:ass:cost-divergence-exclusion} holds for the localized costs
-used in the preceding items.
 \end{enumerate}
 \end{definition}
 
@@ -18672,8 +19005,8 @@ Items \textup{(ii)} and \textup{(iii)} exclude the compact single-core,
 multibubble, cascade, gauge-degenerate, and scale-rigid alternatives.  Item
 \textup{(iv)} excludes finite-cost scale collapse and also excludes the
 divergent negative-drift scale-collapse branch whenever the corresponding cost
-is one of the costs covered by
-\cref{paper6a:ass:cost-divergence-exclusion}.  Items \textup{(v)} and
+is one of the costs covered by the cost-divergence theorem
+\cref{paper6a:thm:cost-divergence-exclusion-discharged}.  Items \textup{(v)} and
 \textup{(vi)} exclude failure of uniform critical tightness and failure of
 local windowed \(H^1\) control.  These cases exhaust the alternatives, so no
 branch remains.
@@ -18686,18 +19019,15 @@ The following analytic hypotheses imply the final conditional hypotheses:
 \item the compact single-core, multibubble/cascade, finite-cost
 scale-collapse, and scale-rigidity exclusions from the preceding sections;
 \item a critical-tightness estimate giving uniform critical tightness;
-\item an exhaustive terminal state-space partition and a local finite
+\item an exhaustive terminal compactness partition and a local finite
 critical-mass statement for retained active terminal strata;
-\item small-data stability in \(L^3\) and a critical Navier--Stokes profile
-decomposition with nonlinear stability;
-\item removal of the scattering branch and of physically exterior regular
-profiles;
+\item local perturbative residual stability and terminal state-space
+completeness on compact windows;
+\item removal of physically exterior regular components;
 \item the repaired-gauge representation theorem;
 \item the local Caccioppoli/windowed regularity input;
 \item the scale-collapse rigidity input used by the multibubble and
-scale-collapse reductions;
-\item the cost-divergence exclusion criterion
-\cref{paper6a:ass:cost-divergence-exclusion}.
+scale-collapse reductions.
 \end{enumerate}
 \end{definition}
 
@@ -18708,10 +19038,10 @@ The expanded terminal hypotheses imply uniform critical tightness.
 
 \begin{proof}
 The repaired-gauge representation turns each renormalized orbit into the
-terminal sequence used in the profile analysis.  The terminal state-space
-partition, finite critical-mass statement, small-data \(L^3\) stability, and
-critical profile decomposition give the required terminal profile completeness.
-The scattering branch and exterior regular profiles are removed by hypothesis.
+terminal windows used in the local state-space analysis.  The terminal
+compactness partition, finite critical-mass statement, local perturbative
+stability, and terminal state-space completeness give the required terminal
+completeness.  Exterior regular components are removed by hypothesis.
 Together with the multibubble and scale-collapse exclusions, this leaves only
 possible loss of critical tightness; the critical-tightness estimate excludes
 that loss.
@@ -18737,10 +19067,13 @@ The expanded terminal hypotheses imply the final conditional hypotheses of
 \end{lemma}
 
 \begin{proof}
-Items \textup{(i)}, \textup{(ii)}, and \textup{(x)} of
+Items \textup{(i)} and \textup{(ii)} of
 \cref{paper6a:def:expanded-terminal-data} give the local alternative
-decomposition, the compact, multibubble, scale-collapse, and scale-rigidity
-exclusions, and the cost-divergence criterion.  By
+decomposition and the compact, multibubble, scale-collapse, and scale-rigidity
+exclusions.  The cost-divergence criterion is supplied separately by the
+cost-divergence theorem
+\cref{paper6a:thm:cost-divergence-exclusion-discharged} and its status
+corollary \cref{paper6a:cor:cost-divergence-exclusion-unconditional}.  By
 \cref{paper6a:lem:terminal-critical-tightness} they also give critical
 tightness, and by
 \cref{paper6a:lem:terminal-windowed-h1} they give the local windowed \(H^1\)
@@ -18764,12 +19097,12 @@ exclusion.
 Compact single-core branches are removed by the compact criterion;
 scale-collapse branches are removed by the scale-collapse rigidity input, or by
 \cref{paper6a:thm:scale-collapse-drift-cost} when the scale-collapse drift
-cost is compatible with the cost-divergence criterion; multibubble and
+cost is compatible with the cost-divergence theorem; multibubble and
 non-tight cases are removed by the terminal profile and critical-tightness
 inputs; failures of local windowed \(H^1\) control are removed by the local
-Caccioppoli estimate; and
-every divergent compatible localized cost is handled by
-\cref{paper6a:prop:cost-divergence-exclusion}.
+Caccioppoli estimate; and every divergent compatible localized cost on the
+canonical windowwise schedule is handled by
+\cref{paper6a:thm:cost-divergence-exclusion-discharged}.
 \end{remark}
 
 \clearpage
@@ -20038,7 +20371,7 @@ exclusion conclusion.
 \begin{theorem}[Compact exclusion or two-alternative classification]
 \label{thm:c5-exclusion-or-two-alternative}
 Assume every admissible Type II branch has compact Type II data and assume
-adjacent-stratum closure for the compact-cost channel in the sense of
+adjacent-stratum closure for the compact-cost regime in the sense of
 \cref{paper7:def:compact-cost-adjacent-closure}.  Then each admissible Type II
 branch has exactly one ordered alternative:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -20082,14 +20415,14 @@ conclusion does not hold for that branch.
 \label{cor:c5-two-alternative-finite-cost}
 Under the hypotheses of \cref{thm:c5-exclusion-or-two-alternative}, every
 finite-cost admissible Type II branch not excluded by the retained compact
-cost-divergence argument or by treated adjacent-stratum routing is either
+cost-divergence argument or by the treated adjacent-stratum alternatives is either
 non-tight or fails local windowed \(H^1\) control.
 \end{corollary}
 
 \begin{proof}
 Apply \cref{thm:c5-exclusion-or-two-alternative}.  Since the branch is not
-excluded by retained compact cost-divergence or by treated adjacent-stratum
-routing, the first alternative is unavailable.  Therefore the
+excluded by retained compact cost-divergence or by the treated adjacent-stratum
+alternatives, the first alternative is unavailable.  Therefore the
 ordered alternative is failure of critical tightness or failure of local
 windowed \(H^1\) control.  The finite-cost assumption records that the resulting
 branch remains finite-cost.
@@ -20122,15 +20455,15 @@ compact limits after passing to selected windows.  The zero limit contradicts
 the persistence of the velocity-pressure concentration by strong convergence
 and pressure stability, while a nonzero spatially constant limit gives a
 bounded selected-window profile and hence exits the Type II regime.  The rest
-of the proof shows that the apparent escape routes from this compact
-alternative are also accounted for: rough cores are reduced to compact-cylinder
+of the proof shows that the remaining alternatives to this compact
+mechanism are also accounted for: rough cores are reduced to compact-cylinder
 control, active multibubbles and cascades are separated by the profile
 analysis, and finite-cost scale collapse is incompatible with a nonvanishing
 retained core.
 
 The scale-collapse analysis is intentionally explicit about its limits.  Finite
 scale-collapsing cost, and hence finite absolute scale cost in the covered
-setting, are excluded within the renormalized framework.  Thick autonomous
+setting, are excluded within the renormalized setting.  Thick autonomous
 windows produce nontrivial autonomous limits only after the stated compactness
 and modulation hypotheses are available; such limits are eliminated precisely in
 the parameter regimes where the corresponding stationary or generalized
@@ -20144,7 +20477,7 @@ text, every covered positive local Type II concentration sequence is eliminated.
 The final local dichotomy is that a singular point in the covered class must
 belong to the local Type I alternative once the Type II branch has been removed.
 The contribution is not an unconditional resolution of the Navier--Stokes
-regularity problem; it is a precise local Type II exclusion framework whose
+regularity problem; it is a precise local Type II exclusion theorem whose
 unresolved cases are isolated as concrete PDE compactness, decoupling, cost, or
 Liouville inputs.
 
