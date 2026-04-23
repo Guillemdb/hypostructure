@@ -39,39 +39,43 @@
 \newcommand{\fint}{\mathop{\ooalign{\(\int\)\cr\hidewidth\(-\)\hidewidth\cr}}}
 
 \title[Type II Regularity]{Type II Regularity for Navier--Stokes}
-\author{Guillem Cordero}
+\author{Guillem Duran Ballester}
+\email{guillem@fragile.tech}
 \date{}
 
 \begin{document}
 
 \begin{abstract}
-This document consolidates the Type II regularity argument into one working draft. The source material has been placed in a single LaTeX file, with duplicated scaffolding removed and shared notation, references, and bibliography handled by one preamble.
+We establish a local Type II exclusion criterion for the three-dimensional
+Navier--Stokes equations near a possible singular point.  From a positive
+Caffarelli--Kohn--Nirenberg concentration sequence we select renormalized local
+windows around a retained core and analyze the resulting alternatives by
+compactness, pressure reconstruction, and local energy estimates.  The argument
+combines a compact single-core exclusion criterion, a repaired-gauge
+representation for nondegenerate concentration cores, local Calderon--Zygmund
+pressure control, a Caccioppoli estimate on compact cylinders, multibubble and
+cascade reductions, and scale-collapse cost estimates.  The conclusion is
+conditional on the analytic inputs and rigidity hypotheses stated in the paper;
+no additional stationary or self-similar classification theorem is used
+implicitly.
 \end{abstract}
 
 \maketitle
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 
 \clearpage
 \section{Local Single-Core Criterion}\label{sec:single-core-criterion}
-\begin{quote}
-\textbf{Abstract.}
-We prove a local compact single-core exclusion criterion for Type II
-Navier--Stokes concentration.  The theorem is formulated on fixed compact
-parabolic cylinders with explicit Caffarelli--Kohn--Nirenberg bounds, positive
-core concentration, localized scale-translation representation, local pressure
-reconstruction, and vanishing localized dissipation on selected windows.
-Compactness and pressure stability then force
-the selected limit to be spatially constant.  A zero constant contradicts the
-positive CKN core; a nonzero constant gives a bounded selected-window limit, which
-is excluded by the definition of the local Type II regime.
-\end{quote}
-
 \subsection{Introduction}
 
-This section isolates a local compactness mechanism for Type II concentration in
-the three-dimensional Navier--Stokes equations.  The setting is a sequence of
+We first isolate a local compactness mechanism for Type II concentration in
+the three-dimensional Navier--Stokes equations, in the standard class of
+suitable weak solutions introduced by Leray and the partial-regularity theory of Scheffer and
+Caffarelli--Kohn--Nirenberg
+\cite{Leray1934,Scheffer1976,CaffarelliKohnNirenberg1982,Lin1998}.  The
+setting is a sequence of
 renormalized solutions on fixed parabolic cylinders, centered at a selected
 concentration core and written in scale-translation variables.  The result
 excludes the case in which one compact core carries a fixed positive
@@ -80,13 +84,16 @@ selected windows vanishes.  The theorem is conditional on the local
 representation and pressure decomposition/stability inputs stated below; the
 compact-cylinder \(A,E,C,D\) bounds are part of the branch hypothesis.
 
+The notation and estimates follow the usual local energy, critical-space, and
+monograph conventions for Navier--Stokes
+\cite{Ladyzhenskaya1969,Temam1977,ConstantinFoias1988,Kato1984,EscauriazaSereginSverak2003,LemarieRieusset2002}.
 The argument is local.  Uniform Caffarelli--Kohn--Nirenberg bounds and bounded
 modulation coefficients give compactness on smaller cylinders.  Vanishing
 localized dissipation forces the compactness limit to be spatially constant.
 If the constant is zero, strong velocity convergence and pressure stability
 contradict the positive core density.  If the constant is nonzero, the sequence
-has a nonzero bounded selected-window limit, which is incompatible with the local
-Type II condition used here.
+has a nonzero bounded selected-window limit, which is incompatible with the
+local Type II condition.
 
 \subsection{Setup and definitions}
 
@@ -142,7 +149,7 @@ sequence is a compact single-core vanishing-dissipation branch if:
       =\nu\Delta V_n+a_n(s)(V_n+y\cdot\nabla V_n)+b_n(s)\cdot\nabla V_n,
       \qquad \nabla\cdot V_n=0;
       \end{equation}
-\item the compact-cylinder suitable package is uniformly bounded:
+\item the compact-cylinder suitable estimates are uniformly bounded:
       \[
       A_{V_n}(R_*)+E_{V_n}(R_*)+C_{V_n}(R_*)+D_{P_n}(R_*)\le M;
       \]
@@ -179,14 +186,13 @@ selected-window subsequence, there is \(\rho\in(r_*,R_*)\) such that
 
 \subsection{Local analytic inputs}
 
-The proof uses the following imported local analytic statements.  They are
-stated here in the form needed for the compact single-core argument.
+The compact single-core argument is based on the following local analytic statements.
 
 \begin{theorem}[Local concentration dichotomy]
 \label{paper1:thm:paper0-dichotomy}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\), and suppose \(\Sigma(T)\ne\emptyset\).
-Then, using the pressure-normalized quantities \(C,D\) from the local concentration dichotomy, there exist
+Then, using the pressure-normalized quantities \(C,D\), there exist
 \(x_0\in\Sigma(T)\), \(\eta>0\), and \(r_n\downarrow0\) such that
 \[
   C((x_0,T),r_n)+D((x_0,T),r_n)\ge\eta
@@ -198,7 +204,7 @@ no such local Type I bound holds.
 \end{theorem}
 
 \begin{proof}
-This is the local blowup-rate dichotomy used as the entry point for the Type II analysis.
+The statement is the standing local concentration dichotomy assumed in the sequel.
 \end{proof}
 
 \begin{proposition}[Bridge to local Type II sequences]
@@ -214,15 +220,16 @@ selected windows are a local Type II sequence in the sense of \cref{paper1:def:t
 \end{proposition}
 
 \begin{proof}
-The local concentration dichotomy supplies the positive CKN concentration sequence and the exclusion of the local Type I alternative at the chosen concentration point.  The
+The local concentration dichotomy supplies the positive CKN concentration sequence and the exclusion of
+the local Type I alternative at the chosen concentration point.  The
 scale-translation selection rewrites those shrinking cylinders as fixed
-selected windows.  The last condition is precisely the selected-window
-formulation of the Type II branch used in this section: any branch with a nonzero
-bounded selected-window limit is assigned to the bounded-window alternative,
+selected windows.  The last condition is the selected-window
+formulation of the Type II branch considered here: any branch with a nonzero
+bounded selected-window limit belongs to the bounded-window alternative,
 not to \cref{paper1:def:typeII}.
 \end{proof}
 
-\begin{proposition}[Imported local representation input]\label{paper1:prop:representation-input}
+\begin{proposition}[Local representation input]\label{paper1:prop:representation-input}
 For a nondegenerate selected single core, the local scale-translation
 construction gives represented variables \((V_n,P_n,a_n,b_n)\) satisfying
 \eqref{paper1:eq:represented-ns} on compact cylinders.  Failure of the localized
@@ -230,7 +237,7 @@ nondegeneracy condition is a multibubble, cascade, or gauge-degenerate
 alternative, not a compact single-core branch.
 \end{proposition}
 
-\begin{proposition}[Imported local pressure decomposition and stability]
+\begin{proposition}[Local pressure decomposition and stability]
 \label{paper1:prop:pressure-reconstruction}
 For every \(B_r\Subset B_R\), the represented pressure decomposes as
 \[
@@ -240,6 +247,7 @@ For every \(B_r\Subset B_R\), the represented pressure decomposes as
 \]
 where \(\zeta\in C_c^\infty(B_R)\) equals one on \(B_r\), and \(H_n\) is
 harmonic in \(B_r\).  The local part satisfies the Calderon--Zygmund bound
+\cite{CalderonZygmund1952,Stein1970}
 \[
   \|P_{{\rm loc},n}\|_{L^{3/2}(B_R)}
   \le C\|V_n\|_{L^3(B_R)}^2
@@ -410,7 +418,7 @@ time-derivative bound; the \(D\)-bound on \(Q_{r_1}\) follows from the bound on
 \(Q_{R_*}\) by \cref{paper1:lem:D-localization}.
 
 The compact embedding \(H^1(B_{r_1})\Subset L^2(B_r)\), together with
-Aubin--Lions, gives
+Aubin--Lions compactness \cite{Aubin1963,LionsMagenes1972,Simon1987}, gives
 \[
   V_n\to V\qquad\text{strongly in }L^2(Q_r)
 \]
@@ -451,15 +459,15 @@ The second factor is uniformly bounded and the first tends to zero, so
   V_n\to V\qquad\text{strongly in }L^3(Q_r).
 \]
 
-The pressure compactness is the weak compactness from the uniform \(D\)-bound:
+The pressure compactness follows from the uniform \(D\)-bound:
 after subtracting spatial means,
 \[
   P_n-(P_n)_{B_r}
   \rightharpoonup P
   \qquad\text{in }L^{3/2}(Q_r).
 \]
-We pass to the limit distributionally using the preceding convergences.  The
-only point requiring comment is the modulation.  For every compactly supported
+We pass to the limit distributionally using the preceding convergences.  It
+remains to justify the modulation terms.  For every compactly supported
 test field \(\varphi\),
 \[
   \int a_n(s)\, y\cdot\nabla V_n\cdot\varphi
@@ -616,7 +624,7 @@ subsequence,
 \end{lemma}
 
 \begin{proof}
-This is part of the definition of the selected compact core and is preserved by
+The lower bound is part of the definition of the selected compact core and is preserved by
 passing to subsequences of the selected windows.
 \end{proof}
 
@@ -689,7 +697,7 @@ bounded selected-window limit.  This contradicts \cref{paper1:def:typeII}.
 \subsection{Main theorem}
 
 \begin{theorem}[Local single-core Type II criterion]\label{paper1:thm:single-core-criterion}
-Under the imported inputs
+Under the analytic inputs
 \cref{paper1:prop:paper0-typeII-bridge,paper1:prop:representation-input,paper1:prop:pressure-reconstruction},
 a compact single-core vanishing-dissipation branch in the sense of
 \cref{paper1:def:single-core-branch} cannot be a local Type II sequence.
@@ -731,41 +739,18 @@ spatially constant limits, so the branch cannot occur.
 \end{proof}
 
 \begin{remark}[Minimal local inputs]
-The proof uses two local analytic inputs from the Type II analysis: the
+The proof uses two local analytic inputs from the Type II argument: the
 localized representation for a nondegenerate selected core, the compact-ball
 pressure reconstruction with stability on smaller balls.  The
 compact-cylinder \(A,E,C,D\) bounds and vanishing localized dissipation are
 part of the branch hypothesis, not separate analytic inputs.  Multibubble,
-cascade, gauge-degenerate, and compactness-failure alternatives are not treated
-inside this single-core theorem; they are treated by the local multibubble and
+cascade, gauge-degenerate, and compactness-failure alternatives are outside
+this single-core theorem; they are treated by the local multibubble and
 cascade exclusion theorem.
 \end{remark}
 
 \clearpage
 \section{Repaired-Gauge Construction}\label{sec:repaired-gauge-construction}
-\begin{quote}
-\textbf{Abstract.}
-This section gives the local representation theorem for the retained
-nondegenerate single-core Type II stratum.  From explicit physical-core
-assumptions and the nondegenerate repaired-gauge selection defining this stratum
-on a compact time window we obtain:
-\begin{enumerate}
-\item a preliminary scale-center path and its renormalized map,
-\item exact transformed equations with fixed sign conventions,
-\item an explicit finite-dimensional gauge map,
-\item a full Jacobian computation and Schur-complement invertibility criterion,
-\item propagation of the repaired-gauge constraints along the
-  absolutely continuous modulation path,
-\item exact local pressure transport and a local pressure decomposition,
-\item explicit modulation coefficients from differentiated constraints, and
-\item preservation of local suitable structure in renormalized variables.
-\end{enumerate}
-Failure of this local repaired-gauge selection is not treated as a defect of the
-single-core representation theorem. It is the gauge-degenerate/multibubble or
-cascade alternative in the state-space stratification. On the retained
-nondegenerate stratum, pressure transport, modulation formulas, suitable
-structure, and compact-window representation follow by the theorems below.
-\end{quote}
 \subsection{Assumptions and notation}\label{paper2:sec:assumptions}
 
 Let \(u:\RR^{3}\times (T-\delta,T)\to \RR^{3}\), \(p:\RR^{3}\times (T-\delta,T)\to\RR\)
@@ -797,7 +782,7 @@ D(p;Q_R(x_0,t_0))&:=R^{-2}\int_{t_0-R^2}^{t_0}\int_{B_R(x_0)}
 Here \(\langle p(s)\rangle_{B_R(x_0)}:=|B_R|^{-1}\int_{B_R(x_0)}p(x,s)\,dx\);
 pressure is always understood modulo time-dependent constants.
 
-\begin{definition}[Single-core assumption package]\label{paper2:def:SC}
+\begin{definition}[Single-core hypotheses]\label{paper2:def:SC}
 Let \((R_*,r_*,M,\eta,\kappa,\Lambda_{\min},\Lambda_{\max})\) satisfy
 \(\Lambda_{\min}\le \Lambda_{\max}<\infty\).
 We say \((u,p)\) satisfies \(\mathrm{SC}(R_*,r_*,M,\eta,\kappa)\) on \(Q_{R_*}(x_\bullet,t_\star)\)
@@ -832,7 +817,7 @@ if the following hold:
   - \int_{B_r}|\bar\rho^{-1}u(\bar x+\bar\rho y,t)|^3\,\dd y\right|
   \ge \eta.
   \]
-  This is the quantitative non-competing core condition, and is imposed on the
+  This quantitative non-competing core condition is imposed on the
   selected physical core directly; it is not a consequence of the repaired-gauge
   construction.
 \item[(\textup{SC4})] For the selected core,
@@ -858,7 +843,7 @@ if the following hold:
 \end{enumerate}
 \end{definition}
 \noindent
-The parameter \(\kappa\) records the quantitative constants obtained in the local gauge estimates and is not used in items \textup{(SC1)--(SC5)}.
+The parameter \(\kappa\) denotes the quantitative constants obtained in the local gauge estimates and is not used in items \textup{(SC1)--(SC5)}.
 
 \begin{remark}
 The selected core \((x_{\rm c},\rho_{\rm c})\) and its separation/nondegeneracy
@@ -869,8 +854,8 @@ to be constructed.
 
 \subsection{Preliminary frame map from the selected core}\label{paper2:sec:preliminary-frame}
 
-This section records the transport map generated by the selected core; no new core extraction
-is proved here.
+The transport map is constructed from the selected core; the core selection
+itself is part of the hypotheses.
 
 Define
 \[
@@ -1066,7 +1051,7 @@ Then the preceding identities run in reverse and give
 in \(\mathcal D'\) on the physical image.
 \end{proof}
 
-\subsection{Domain bookkeeping and support}\label{paper2:sec:domains}
+\subsection{Domain localization and support}\label{paper2:sec:domains}
 
 Let \(R>0\) be fixed and \(0<\ell\le \ell_0\). Set \(Q_R^*=B_R\times I_*\).
 With \(\Phi\) as above define physical support maps
@@ -1662,9 +1647,9 @@ using Lipschitz continuity of \(F(\tau,\cdot)\) on that ball.
 \end{proof}
 \end{lemma}
 
-\begin{definition}[Retained nondegenerate repaired-gauge stratum]\label{paper2:def:admissible-gauge-path}
+\begin{definition}[Retained nondegenerate repaired-gauge regime]\label{paper2:def:admissible-gauge-path}
 Let \(J\subset I_*\) be compact. The retained nondegenerate repaired-gauge
-stratum over the preliminary profile \(V_{\rm pre}\) consists of branches for
+regime over the preliminary profile \(V_{\rm pre}\) consists of branches for
 which there are
 \[
 \lambda\in AC(J;(0,\infty)),\qquad c\in AC(J;\mathbb R^3),
@@ -1678,13 +1663,13 @@ The path is quantitatively nondegenerate if the translation-block, annular,
 weighted first-moment, and Schur-complement bounds in
 Proposition~\ref{paper2:thm:quant-jac} hold on \(J\).
 If no such local AC selection exists, or if the quantitative nondegeneracy
-package fails persistently, the branch is not in this stratum; it is routed to
-the gauge-degenerate, multibubble, or cascade alternatives.
+hypotheses fail persistently, the branch lies in the gauge-degenerate,
+multibubble, or cascade alternatives rather than in the retained regime.
 \end{definition}
 
-\begin{proposition}[Gauge regularity on the retained stratum]\label{paper2:prop:preliminary-correction}
+\begin{proposition}[Gauge regularity on the retained regime]\label{paper2:prop:preliminary-correction}
 Let \((\lambda,c)\) be the repaired-gauge selection of the retained
-nondegenerate stratum on \(J\). Then
+nondegenerate regime on \(J\). Then
 \[
 \mathcal F\bigl(\lambda(\tau),c(\tau);V_{\rm pre}(\tau)\bigr)=0
 \quad\text{for a.e. }\tau\in J,
@@ -1698,7 +1683,7 @@ quantitatively nondegenerate, then
 \begin{proof}
 The constraint follows from Lemma~\ref{paper2:lem:gauge-covariance} applied to
 \(V(\tau)=V_{\rm pre}^{\lambda(\tau),c(\tau)}\). The absolute continuity is part
-of Definition~\ref{paper2:def:admissible-gauge-path}. The final assertion is exactly
+of Definition~\ref{paper2:def:admissible-gauge-path}. The uniform inverse bound is
 Proposition~\ref{paper2:thm:quant-jac}.
 \end{proof}
 
@@ -1716,7 +1701,7 @@ P(\tau):=P_{\rm pre}^{\lambda(\tau),c(\tau)}\ \text{(same physical pressure pull
 
 \begin{theorem}[AC repaired parameters]\label{paper2:thm:repaired-existence}
 Assume \(\mathrm{SC}(R_*,r_*,M,\eta,\kappa)\), and suppose the branch lies in the
-retained nondegenerate repaired-gauge stratum on \(J\), with selection
+retained nondegenerate repaired-gauge regime on \(J\), with selection
 \((\lambda,c)\). Then the corrected
 chart \((\Lambda,X)\) is absolutely continuous on \(J\), satisfies
 \[
@@ -1747,14 +1732,15 @@ preserve AC, hence \((\Lambda,X)\in AC(I_*)\). Differentiating,
 a=-\Lambda' =-(\Lambda_{\rm pre}'\lambda+\Lambda_{\rm pre}\lambda')\in L^1_{\rm loc},\qquad
 b=-X' =-(X_{\rm pre}'+\Lambda_{\rm pre}'c+\Lambda_{\rm pre}c')\in L^1_{\rm loc}.
 \]
-This proves the claimed regularity.
+This gives the claimed regularity.
 \end{proof}
 
 \begin{remark}[Gauge degeneracy]
-Failure of invertibility of \(J\) is the gauge-degenerate exit from the retained
-single-core stratum for this fixed renormalization mechanism. In the Type II
-state-space stratification this exit is handled with the multibubble/cascade
-and scale-rigidity alternatives, not inside the present representation theorem.
+Failure of invertibility of \(J\) is the gauge-degenerate alternative to the
+retained single-core regime for this fixed renormalization mechanism.  In the
+Type II decomposition of alternatives this case belongs to the
+multibubble/cascade and scale-rigidity alternatives, rather than to the
+representation theorem.
 \end{remark}
 
 \subsection{Pressure transport and decomposition}\label{paper2:sec:pressure}
@@ -2135,11 +2121,11 @@ yields the corresponding limit constraints and equations.
 \end{proof}
 \end{proposition}
 
-\subsection{Final representation package}\label{paper2:sec:final}
+\subsection{Final representation theorem}\label{paper2:sec:final}
 
 \begin{theorem}[Chart and repaired-gauge representation]\label{paper2:thm:A}
 Assume \(\mathrm{SC}(R_*,r_*,M,\eta,\kappa)\), and suppose the branch lies in the
-retained repaired-gauge stratum with selection \((\lambda,c)\) on
+retained repaired-gauge regime with selection \((\lambda,c)\) on
 \(J=[\tau_0-\ell,\tau_0+\ell]\subset I_*\). Then there are fields \((V,P)\) on \(Q_{2R}^J\), with
 \((\Lambda,X)\in AC(J),\ a=-\Lambda',\ b=-X'\in L^1_{\rm loc}(J)\), such that
 \[
@@ -2150,7 +2136,7 @@ and \(\mathcal F(1,0;V(\tau))=0\) for \(\tau\in J\).
 \begin{proof}
 From \textup{(SC5)} and Proposition~\ref{paper2:prop:prelim-frame}, \((\Lambda_{\rm pre},X_{\rm pre})\)
 are AC on \(I_*\), so \(V_{\rm pre}\) is defined on \(Q_{2R}^*\).
-The retained repaired-gauge stratum supplies
+The retained repaired-gauge regime supplies
 \((\lambda,c)\in AC(J;(0,\infty)\times\mathbb R^3)\) and
 \(\mathcal F(1,0;V_{\rm pre}^{\lambda,c})=0\) a.e.
 By Definition~\ref{paper2:def:repaired-chart} and Theorem~\ref{paper2:thm:repaired-existence}, setting
@@ -2186,19 +2172,19 @@ with bounds \(|(a,b)|\le K|\mathcal R|\), where \(K\) depends on
 Equation and sign convention are inherited directly from Theorem~\ref{paper2:thm:ren-NS} applied to
 \((\Lambda,X)\) from Theorem~\ref{paper2:thm:A} and the definition of \(V\).
 By Theorem~\ref{paper2:thm:pressure-decomp} applied at each time slice, the decomposition on \(Q_R^J\)
-is available and unique once \(\fint_{B_R}H=0\) is imposed.
-The modulation identity is exactly Theorem~\ref{paper2:thm:mod-sys}; uniqueness follows from invertibility of
+is defined and unique once \(\fint_{B_R}H=0\) is imposed.
+The modulation identity is Theorem~\ref{paper2:thm:mod-sys}; uniqueness follows from invertibility of
 \(J\) (Theorem~\ref{paper2:thm:quant-jac}) and the pointwise identity \((a,b)=J^{-1}\mathcal R\).
 Uniform bounds on \((a,b)\) are obtained by the bound on \(J^{-1}\) there and the stated bound on
 \(\mathcal R\).
 \end{proof}
 \end{theorem}
 
-\begin{theorem}[Theorem C: compact-window representation output]\label{paper2:thm:C}
-Under the assumptions of Theorems~\ref{paper2:thm:A} and~\ref{paper2:thm:B}, for every compact
+\begin{theorem}[Compact-window representation theorem]\label{paper2:thm:C}
+Under the assumptions of \cref{paper2:thm:A,paper2:thm:B}, for every compact
 window \(J\subset I_*\) and each fixed \(R>0\), setting
-\(Q_R^J:=B_R\times J\), the
-following are available for later sections:
+\(Q_R^J:=B_R\times J\),
+one has:
 \begin{enumerate}
 \item the exact renormalized equation on \(Q_{2R}^J\),
 \item the four repaired-gauge constraints \(\mathcal F(1,0;V(\tau))=0\),
@@ -2209,69 +2195,54 @@ following are available for later sections:
 	\item renormalized local suitable energy inequality on \(Q_R^J\),
 	\item stability under subsequences in the topologies above.
 \end{enumerate}
-No step beyond these items is used in later sections.
+The later reductions use only these conclusions.
 \begin{proof}
 From Theorem~\ref{paper2:thm:A} and the choice of \(J\subset I_*\), all quantities are defined on \(Q_{2R}^J\).
 Items (1) and (2) are Theorems~\ref{paper2:thm:ren-NS} and~\ref{paper2:thm:repaired-existence};
 item (3) is Theorem~\ref{paper2:thm:mod-sys} together with the inverse bound from
 Proposition~\ref{paper2:thm:quant-jac}; item (4) is Theorem~\ref{paper2:thm:pressure-decomp};
 item (5) is Proposition~\ref{paper2:prop:ren-suitable}; item (6) is
-Proposition~\ref{paper2:prop:stability}. This is the package exported by the previous theorems.
+Proposition~\ref{paper2:prop:stability}. Combining these results gives the
+stated compact-window representation.
 \end{proof}
 \end{theorem}
 
 \begin{remark}
-The results above separate two alternatives cleanly:
+The preceding results separate two alternatives:
 \begin{enumerate}
-\item nondegenerate single-core repaired-gauge regime, where Theorems A--C apply;
-\item gauge degeneracy (\(\det J=0\)) or compact-structure failure, which exits
-the retained stratum and is routed to the multibubble, cascade, or
-scale-rigidity alternatives.
+\item the nondegenerate single-core repaired-gauge regime, where the representation theorems apply;
+\item gauge degeneracy (\(\det J=0\)) or compact-structure failure, which belongs
+to the multibubble, cascade, or scale-rigidity alternatives.
 \end{enumerate}
 \end{remark}
 
 \clearpage
 \section{Multibubble and Cascade Exclusion}\label{sec:multibubble-cascade-exclusion}
-\begin{quote}
-\textbf{Abstract.}
-We prove a local multibubble and cascade reduction for the conditional
-Type II Navier--Stokes exclusion problem.  The setting is a positive local
-Caffarelli--Kohn--Nirenberg concentration sequence at a possible singular
-point.  All arguments are local in parabolic cylinders.  Compact-cylinder
-failure, splitting of active CKN mass, strict same-point scale cascades,
-separated active physical points, and localized gauge degeneracy are reduced by
-explicit active-frame decoupling.  Under the single-core, scale-rigidity, and
-terminal active-frame admissibility inputs stated below, exterior profiles and
-remainders are perturbative in every selected active frame, and the remaining
-branch is single-core, scale-rigid, or no longer an independent multibubble
-mechanism.  Thus no local multibubble, cascade, or gauge-degenerate Type II
-configuration remains under these inputs.
-This section uses the classical theory of suitable weak solutions of the
-Navier--Stokes equations, including Leray \cite{Leray1934},
-Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer
-\cite{Scheffer1976}, and Lin \cite{Lin1998}.
-\end{quote}
+\medskip
+\noindent\textbf{Analytic inputs.}
 
-\subsection*{Imported inputs}
-
-This section is a local reduction theorem.  It uses the analytic inputs already established in \cref{sec:single-core-criterion,sec:repaired-gauge-construction,sec:rough-core-exclusion,sec:scale-collapse-cost} and proves only the multibubble, cascade, and terminal-frame decoupling steps.
+The local reduction theorem uses the following analytic inputs from the
+preceding sections, with profile decompositions and decoupling estimates in
+their standard critical-space sense \cite{Gallagher2001,BrezisLieb1983}.  The
+remaining work is the multibubble, cascade, and terminal-frame decoupling.
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item From \cref{sec:single-core-criterion}, the compact single-core criterion \cref{paper1:thm:single-core-criterion}: a
 compact single-core finite-cost Type II branch with positive local CKN
 concentration, nondegenerate scale-center selection, pressure reconstruction,
-bounded compact-cylinder suitable package, bounded modulation, and vanishing
+bounded compact-cylinder suitable estimates, bounded modulation, and vanishing
 localized dissipation is excluded.
 \item From \cref{sec:repaired-gauge-construction}, the renormalized equation \cref{paper2:thm:ren-NS}, pressure decomposition \cref{paper2:thm:pressure-decomp}, modulation system \cref{paper2:thm:mod-sys}, and repaired-gauge representation \cref{paper2:thm:A,paper2:thm:B,paper2:thm:C}: the renormalized equation,
 pressure decomposition modulo functions of time, bounded modulation
 coefficients, renormalized suitable structure, and stability of these structures
 under subsequences.
 \item From \cref{sec:rough-core-exclusion}, the compact-cylinder Caccioppoli estimate \cref{paper4:thm:caccioppoli} and rough-core exclusion \cref{paper4:cor:rough-core}.
-\item From \cref{sec:scale-collapse-cost}, the collapse cost exclusion \cref{paper5:thm:collapse-core-floor,paper5:thm:cost-exclusion} and autonomous reduced-limit theorem \cref{paper5:thm:autonomous-limit} wherever a scale-rigid or scale-collapsing branch is produced.
+\item From \cref{sec:scale-collapse-cost}, the collapse cost exclusion \cref{paper5:thm:collapse-core-floor,paper5:thm:cost-exclusion} and autonomous reduced-limit theorem \cref{paper5:thm:autonomous-limit} for scale-rigid or scale-collapsing branches.
 \end{enumerate}
 
 \subsection{Local setting and active frames}
 
-\paragraph{Normalised local Navier--Stokes setting.}
+\medskip
+\noindent\textit{Normalized local Navier--Stokes setting.}
 All quantities are written in rescaled local variables \((x,t)\in Q_R=B_R\times(-R^2,0)\)
 with viscosity \(\nu=1\) (critical scaling has absorbed \(\nu\)).  A local pair
 \((u_n,p_n)\) on such a cylinder satisfies
@@ -2424,7 +2395,7 @@ for every compact \(B_R\times I\).
 A local multibubble/cascade branch is a positive-concentration local Type II
 branch for which at least one of the following alternatives occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item the compact-cylinder suitable package $A_n+E_n+C_n+D_n$ is unbounded on some
+\item the compact-cylinder suitable estimates $A_n+E_n+C_n+D_n$ are unbounded on some
   fixed rescaled cylinder;
 \item positive CKN mass splits into two or more comparable active cores;
 \item a strict same-point scale cascade appears inside bounded rescaled cylinders;
@@ -2434,8 +2405,8 @@ branch for which at least one of the following alternatives occurs:
 \end{enumerate}
 \end{definition}
 
-\begin{definition}[Active profile package]\label{paper3:def:active-package}
-An active profile package is a family
+\begin{definition}[Active profile family]\label{paper3:def:active-family}
+An active profile family is a family
 \[
   \{(\phi^j,x_n^j,\lambda_n^j)\}_{j\in J},
   \qquad \phi^j\in L^3_\sigma(\mathbb R^3),
@@ -2445,7 +2416,7 @@ concentration sequence.  In physical variables write
 \[
   \Lambda_{\lambda,x_0}\phi(x):=\lambda^{-1}\phi\left(\frac{x-x_0}{\lambda}\right).
 \]
-For every finite \(J_0\subset J\) the package gives an expansion
+For every finite \(J_0\subset J\) the family gives an expansion
 \[
   u(\cdot,t_n)=\sum_{j\in J_0}\Lambda_{\lambda^j_n,x^j_n}\phi^j+r^{J_0}_n
 \]
@@ -2457,7 +2428,7 @@ compound profiles as in \cref{paper3:def:compound-profile}.  A profile is active
 \[
   \|\phi^j\|_{L^3(\mathbb R^3)}\ge\eta_*>0.
 \]
-The package has finite critical mass when
+The family has finite critical mass when
 \[
   \sum_{j\in J}\|\phi^j\|_{L^3(\mathbb R^3)}^3\le M_*<\infty .
 \]
@@ -2492,7 +2463,7 @@ representative frame.
 \end{definition}
 
 \begin{lemma}[Finite active profile count]\label{paper3:lem:finite-active-count}
-Every active profile package with finite critical mass contains only finitely many
+Every active profile family with finite critical mass contains only finitely many
 active profiles.  More precisely,
 \[
   \#J\le M_*\eta_*^{-3}.
@@ -2554,10 +2525,10 @@ subsequential limits of the scale ratio and normalized center distance.
 \end{proof}
 
 \begin{theorem}[Minimal bad-configuration extraction]\label{paper3:thm:minimal-bad-extraction}
-Let a positive local Type II branch admit an active profile package with finite
+Let a positive local Type II branch admit an active profile family with finite
 critical mass, perturbative remainder in the sense of
 \cref{paper3:def:terminal-frame}, and concentration capture in the sense of
-\cref{paper3:def:active-package}.  If the branch is not already a single active
+\cref{paper3:def:active-family}.  If the branch is not already a single active
 terminal frame satisfying the single-core hypotheses, then after passing to a
 subsequence one of the following occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -2577,23 +2548,23 @@ compound profile, not by the perturbative remainder.
 \begin{proof}
 If compact-cylinder suitable control fails, item \((i)\) follows from
 \cref{paper3:lem:compactness-failure}.  Assume therefore that the compact-cylinder
-package is bounded on the windows under consideration.
+family is bounded on the windows under consideration.
 \par
 By concentration capture, positive local concentration cannot remain solely in
 the perturbative remainder.  Hence either one selected active frame carries the
 terminal-window concentration, or another active frame remains non-negligible.
-If there is only one nondegenerate selected active frame and no competing active
-object, the branch is precisely the single-core regime.  Since this case is
+If there is one nondegenerate selected active frame and no competing active
+object, the branch is in the single-core regime.  Since this case is
 excluded by hypothesis, either the selected scale-center map is degenerate,
 giving item \((v)\), or at least two active frames remain.
 \par
 For two active frames, apply \cref{paper3:lem:parameter-partition}.  Same-point
 comparable-scale frames give item \((ii)\), same-point scale separation gives
-item \((iii)\), and separated points give item \((iv)\).  The only remaining
+item \((iii)\), and separated points give item \((iv)\).  The remaining
 alternative in \cref{paper3:lem:parameter-partition} is local invisibility of one
 contribution in the selected compact frame; such a contribution is absorbed
 into the perturbative remainder and cannot carry the retained positive local
-concentration by the capture property.  This proves the extraction statement.
+concentration by the capture property.  This gives the extraction statement.
 \end{proof}
 
 \subsection{Elementary local decoupling estimates}
@@ -2799,7 +2770,7 @@ translation modulation and does not remain as an exterior perturbation.
 \end{proof}
 
 \begin{lemma}[Compactness failure produces another core]\label{paper3:lem:compactness-failure}
-If the compact-cylinder suitable package is unbounded on a fixed rescaled
+If the compact-cylinder suitable estimates are unbounded on a fixed rescaled
 cylinder, then after passing to a subsequence the local \(C_n+D_n\) quantity is
 unbounded on a comparable cylinder.  Consequently the branch contains an
 additional local CKN concentration core.
@@ -2820,7 +2791,7 @@ Suppose that \(A_n(r)+E_n(r)+C_n(r)+D_n(r)\) is unbounded along a subsequence.
 If \(C_n(2r)+D_n(2r)\) were bounded on this subsequence, the preceding estimate
 would give uniform boundedness of \(A_n(r)+E_n(r)\).  Monotonicity of the local
 integrals also gives \(C_n(r)+D_n(r)\le C_n(2r)+D_n(2r)\), contradicting
-unboundedness of the full package on \(Q_r\).  Therefore, after extracting a
+unboundedness of the full family on \(Q_r\).  Therefore, after extracting a
 subsequence,
 \[
   C_n(2r)+D_n(2r)\to\infty .
@@ -2857,17 +2828,17 @@ Using the critical Jacobian identity,
   =G_n(x_n,t_n,\rho_n)\ge\tfrac12.
 \]
 Hence this new frame carries positive local critical mass, i.e. a new local CKN
-concentration core.  This proves the asserted additional core extraction.
+concentration core, as required.
 \end{proof}
 
 \subsection{Terminal active-frame decoupling}
 
-\begin{definition}[Admissible terminal active package]\label{paper3:def:admissible-terminal}
+\begin{definition}[Admissible terminal active family]\label{paper3:def:admissible-terminal}
 Fix a compact cylinder \(B_{2R}\times I\) and a selected active frame.  A
-terminal active package is admissible on this cylinder if the following hold.
+terminal active family is admissible on this cylinder if the following hold.
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item The active profiles satisfy the finite-mass and active-mass conditions of
-\cref{paper3:def:active-package}.
+\cref{paper3:def:active-family}.
 \item Every nonselected active profile is either separated from the selected
 physical point in the sense of \cref{paper3:lem:separated-vanish}, or has the same
 physical point and a strictly outer scale in the sense of
@@ -2916,7 +2887,7 @@ uniformly for \(u\in L^3(B_{2R})\) and the same type of estimate for
 \end{definition}
 
 \begin{theorem}[Terminal profile-evolution decoupling]\label{paper3:thm:terminal-decoupling}
-Consider an admissible terminal active package on \(B_{2R}\times I\).  Let
+Consider an admissible terminal active family on \(B_{2R}\times I\).  Let
 \(U_n\) be the selected-frame velocity and let \(S_n\) be the sum, in that
 frame, of all nonselected active profiles together with the rescaled remainder.
 Then on \(B_R\times I\):
@@ -2951,9 +2922,9 @@ bounds required by the single-core analysis.
 \end{theorem}
 
 \begin{proof}
-Each profile in the package is divergence-free, and the rescaled remainder is
+Each profile in the family is divergence-free, and the rescaled remainder is
 divergence-free.  Since divergence commutes with the Navier--Stokes critical
-rescalings, finite sums remain divergence-free in distributions.  This proves
+rescalings, finite sums remain divergence-free in distributions.  This establishes
 \((i)\).
 
 We prove \((ii)\).  By admissibility, every nonselected active profile is either
@@ -2970,7 +2941,7 @@ tends to zero in \(L^\infty_I L^3(B_{2R})\), the triangle inequality gives
   \sum_{j\ne j_*}\|S^j_n\|_{L^\infty_I L^3(B_{2R})}
   +\|r_n\|_{L^\infty_I L^3(B_{2R})}\to0.
 \]
-This proves \((ii)\).
+This establishes \((ii)\).
 
 For \((iii)\), admissibility gives
 \[
@@ -3007,7 +2978,7 @@ The nonlinear stresses tend to zero in \(L^1_IL^{3/2}(B_R)\), hence in
 \(L^1_IH^{-1}(B_R)\), because \(L^{3/2}(B_R)\hookrightarrow H^{-1}(B_R)\) on a
 bounded three-dimensional ball.  The residual term vanishes by
 \cref{paper3:def:admissible-terminal}.  The cutoff terms vanish by the localization
-part of admissibility, recorded explicitly in \((vi)\).  This proves the
+part of admissibility, recorded explicitly in \((vi)\).  This gives the
 displayed convergence in \(L^1_IH^{-1}(B_R)\).
 
 For \((v)\), decompose the pressure source of \(U_n+S_n\) into the pure selected
@@ -3056,7 +3027,7 @@ subtracting a term that tends to zero in local \(L^3\) and whose
 mixed pressure sources vanish by \((v)\).  The pressure reconstruction is stable
 under the same decomposition by the pressure-stability condition in
 \cref{paper3:def:admissible-terminal}.  The compact-cylinder bounds pass to the
-selected component because the full package is bounded and the discarded terms
+selected component because the full family is bounded and the discarded terms
 vanish on compact cylinders.  Thus the selected frame remains a positive
 finite-mass local Type II branch with the analytic inputs needed for the
 single-core analysis.
@@ -3068,7 +3039,7 @@ single-core analysis.
 Every same-point multibubble or strict same-point cascade reduces, in the
 selected innermost or compound frame, to one of the following: the single-core
 criterion, scale-rigidity, or a perturbative terminal branch covered by
-\cref{paper3:thm:terminal-decoupling}, provided the terminal package generated in the
+\cref{paper3:thm:terminal-decoupling}, provided the terminal family generated in the
 selected innermost frame is admissible in the sense of
 \cref{paper3:def:admissible-terminal}.
 \end{theorem}
@@ -3098,11 +3069,11 @@ If the \(L^3\)-size of this rescaled sum satisfies
   \left\|\sum_{j\in J_k}\phi^j\right\|_{L^3(\mathbb R^3)}<\varepsilon_\star,
 \]
 with \(\varepsilon_\star\) the perturbative small-data threshold, then standard local
-small-data theory for Navier--Stokes in the critical space removes this whole class
-from the active list.
+small-data theory for Navier--Stokes in the critical space eliminates this class
+from the active alternatives.
 
 If the class is above threshold, it is retained as a single compound active core;
-no longer than one active core is needed from that class for local selection.
+at most one active core from that class is needed for local selection.
 
 \smallskip
 \noindent\textit{Step 3: local alternatives.}
@@ -3127,20 +3098,20 @@ Let \(S_n\) be the sum of all such outer profiles plus the rescaled remainder
 
 Subtracting the equation for the innermost selected profile from the full-frame
 equation gives a perturbation equation for the selected profile whose forcing
-belongs to \(L^1_I H^{-1}(B_R)\) and vanishes.  This is the setting of
-\cref{paper3:thm:terminal-decoupling}.  Therefore one of three outcomes holds:
+belongs to \(L^1_I H^{-1}(B_R)\) and vanishes.  Thus
+\cref{paper3:thm:terminal-decoupling} applies, and one of three outcomes holds:
 \begin{enumerate}[label=\textup{(\alph*)}]
 \item \textbf{Single-core branch:}
   after discarding \(S_n\), the branch is governed by one active component, so it
-  lands in the compact single-core branch of \cref{paper3:ass:single-core};
+  reduces to the compact single-core branch of \cref{paper3:ass:single-core};
 \item \textbf{Scale-rigid branch:}
   the relative Jacobian between comparable scales becomes rigid in the sense of
   \cref{paper3:ass:scale-rigidity}, so \cref{paper3:ass:scale-rigidity} excludes it;
 \item \textbf{Purely perturbative branch:}
   \(S_n\to0\) and the selected profile satisfies a vanishing forcing perturbation
-  in \(L^1_IH^{-1}(B_R)\).  This branch carries no independent same-point
-  cascade mechanism; after discarding \(S_n\), the selected component is passed
-  to the single-core or scale-rigidity analysis.
+  in \(L^1_IH^{-1}(B_R)\).  No independent same-point cascade mechanism remains;
+  after discarding \(S_n\), the selected component is reduced to the single-core
+  or scale-rigidity analysis.
 \end{enumerate}
 
 These are the strict same-point scale-separation alternatives, so the
@@ -3152,7 +3123,7 @@ same-point reduction is exhausted.
 Separated active physical points are locally invisible in each other's active
 rescaled frames.  Consequently every separated-point multibubble reduces in each
 selected active frame to a single-core, scale-rigid, or perturbative terminal
-branch, provided the terminal package in that selected active frame is
+branch, provided the terminal family in that selected active frame is
 admissible in the sense of \cref{paper3:def:admissible-terminal}.
 \end{theorem}
 
@@ -3190,16 +3161,16 @@ active frame.
 
 \subsection{Multibubble and cascade exclusion}
 
-The assumptions in this section isolate the analytic inputs needed for the
+The following assumptions isolate the analytic inputs needed for the
 multibubble reduction: the single-core exclusion, the scale-rigidity reduction,
 and terminal active-frame admissibility.  They are stated explicitly so that the
-theorem below uses no unstated compactness, pressure, or profile-completeness
+following theorem uses no unstated compactness, pressure, or profile completeness
 conclusion.
 
 \begin{assumption}[Local single-core exclusion]\label{paper3:ass:single-core}
 Every compact single-core branch with positive local CKN concentration,
 nondegenerate scale-center selection, pressure reconstruction, bounded
-compact-cylinder suitable package, bounded modulation, and vanishing localized
+compact-cylinder suitable estimates, bounded modulation, and vanishing localized
 dissipation is excluded from the local Type II regime.
 \end{assumption}
 
@@ -3212,7 +3183,7 @@ with the local Type II condition.
 \end{assumption}
 
 \begin{assumption}[Terminal admissibility in active frames]\label{paper3:ass:terminal-admissibility}
-Every terminal package produced by the same-point and separated-point reductions
+Every terminal family produced by the same-point and separated-point reductions
 is admissible on each compact selected cylinder in the sense of
 \cref{paper3:def:admissible-terminal}.
 \end{assumption}
@@ -3221,7 +3192,7 @@ is admissible on each compact selected cylinder in the sense of
 Assume the local single-core and scale-rigidity exclusions
 \cref{paper3:ass:single-core,paper3:ass:scale-rigidity}, and assume terminal admissibility in
 active frames, \cref{paper3:ass:terminal-admissibility}.  Let a positive local Type II
-branch admit an active package satisfying the hypotheses of
+branch admit an active family satisfying the hypotheses of
 \cref{paper3:thm:minimal-bad-extraction}.  Then no local multibubble, cascade, or
 gauge-degenerate Type II case can occur in this class.
 \end{theorem}
@@ -3242,15 +3213,16 @@ at the same physical point, or separated physical center.  Comparable same-point
 cores are grouped into compound profiles.  A perturbative compound profile is
 removed by small-data stability; an active compound profile is treated as one
 selected core in its active frame.  If the scale-center selection inside such a
-compound core is degenerate, the branch is gauge-degenerate, giving the
-non-uniqueness alternative in \cref{paper3:def:local-multibubble} rather than a new
-independent core dynamics.
+compound core is degenerate, the branch is gauge-degenerate and belongs to the
+non-uniqueness alternative in \cref{paper3:def:local-multibubble}, rather than to
+a separate core dynamics.
 \par
 \textit{Case 1a: gauge degeneracy.}
 If the scale-center selection of the selected compound or terminal frame is
 degenerate, then the branch is in the gauge-degenerate alternative of
-\cref{paper3:def:local-multibubble}.  By the repaired-gauge representation in \cref{sec:repaired-gauge-construction}, nondegeneracy is exactly the hypothesis needed to enter the
-single-core branch.  Persistent degeneracy is therefore routed to the
+\cref{paper3:def:local-multibubble}.  By the repaired-gauge representation
+from \cref{sec:repaired-gauge-construction}, nondegeneracy is the hypothesis needed to enter the
+single-core branch.  Persistent degeneracy therefore belongs to the
 scale-rigidity alternative in \cref{paper3:ass:scale-rigidity}; if the degeneracy
 disappears after passing to a subsequence, the branch enters the single-core or
 terminal-frame alternatives below.
@@ -3266,7 +3238,7 @@ comparable same-point profiles do not produce an additional multibubble
 mechanism.
 \par
 \textit{Case 2: same-point cascading.}
-Strict same-point scale cascades are handled by
+Strict same-point scale cascades are treated by
 \cref{paper3:thm:same-point-reduction}.  In the innermost frame, all outer scales are
 locally invisible after constant drifts are absorbed.  The branch therefore
 reduces to one of the three terminal alternatives
@@ -3282,52 +3254,43 @@ three terminal alternatives as in Case 2:
 \]
 
 The single-core alternative is excluded by \cref{paper3:ass:single-core}.  The
-scale-rigid alternative is excluded by \cref{paper3:ass:scale-rigidity}, which packages
+scale-rigid alternative is excluded by \cref{paper3:ass:scale-rigidity}, which includes
 the scale-collapse and autonomous-limit exclusions in \cref{sec:scale-collapse-cost} in this setting.  The
-terminal perturbative alternative cannot sustain an independent multibubble
-obstruction because
+terminal perturbative alternative gives no independent multibubble obstruction:
 \cref{paper3:thm:terminal-decoupling} removes all exterior profiles and remainders from
 the selected active equation in \(L^1H^{-1}_{\mathrm{loc}}\), preserves the positive
 finite-mass selected branch, and leaves only the single-core or scale-rigid
 possibilities already excluded.  Consequently every alternative in
-\cref{paper3:def:local-multibubble} is impossible in the local Type II regime.
+\cref{paper3:def:local-multibubble} is incompatible with the local Type II regime.
 \end{proof}
 
 \begin{corollary}[Removal of the multibubble alternative]\label{paper3:cor:multi-removal}
-In the local Type II analysis, every failure of the single nondegenerate compact
-core alternative is excluded by \cref{paper3:thm:multi} under the hypotheses stated
-there.
+Under the hypotheses of \cref{paper3:thm:multi}, every failure of the single
+nondegenerate compact core alternative is excluded.
 \end{corollary}
 
 \begin{proof}
 By \cref{paper3:def:local-multibubble}, failure of the single nondegenerate compact
 core alternative means that at least one of the following occurs: the
-compact-cylinder suitable package is unbounded; positive local CKN mass splits
+compact-cylinder suitable estimates are unbounded; positive local CKN mass splits
 between active cores; a strict same-point scale cascade occurs; separated
 physical points remain active in distinct local frames; or the localized scale
 or center selection is degenerate.  The compactness-failure case produces an
 additional core by \cref{paper3:lem:compactness-failure}.  Same-point and separated
 cases are reduced by \cref{paper3:thm:same-point-reduction,paper3:thm:separated-point-reduction}.
-The final exclusion is \cref{paper3:thm:multi}.  Hence no failure of the single
-nondegenerate compact core alternative remains.
+\Cref{paper3:thm:multi} excludes the remaining cases.  Hence no failure of the
+single nondegenerate compact core alternative remains.
 \end{proof}
 
 \clearpage
 \section{Local Caccioppoli and Rough-Core Exclusion}\label{sec:rough-core-exclusion}
-\begin{quote}
-\textbf{Abstract.}
-We present a fully explicit local Caccioppoli estimate for renormalized Navier--Stokes fields. All terms produced by the localized energy inequality are estimated separately, and all absorptions are written explicitly. The argument uses standard PDE notation and the usual integrability classes of suitable weak solutions.
+\subsection{Analytic inputs and notation}
 
-In particular, we derive local windowed $H^1$ control on compact space--time cylinders from local compact Caffarelli--Kohn--Nirenberg quantities. The result gives the rough-core alternative as the negation of local compact-CKN control.
-
-This section is written in the classical setting of suitable weak solutions (Leray \cite{Leray1934}, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}, Scheffer \cite{Scheffer1976}, Lin \cite{Lin1998}).
-\end{quote}
-
-\subsection{Imported inputs and notation}
-
-This section uses the renormalized local energy inequality obtained in \cref{sec:repaired-gauge-construction}. It does not rederive the renormalized suitable structure or the pressure reconstruction. All estimates
-below are conditional on the following local hypotheses on the compact
-renormalized cylinders under consideration.
+The renormalized local energy inequality from the preceding renormalized-chart
+analysis is used as an analytic input.  The renormalized suitable structure and
+pressure reconstruction are not rederived.  All estimates are conditional on
+the following local hypotheses on the compact renormalized cylinders under
+consideration.
 
 \begin{assumption}[Renormalized local energy inequality]\label{paper4:ass:lei}
 Let $(V,P,a,b)$ be defined on a compact renormalized cylinder
@@ -3592,7 +3555,7 @@ Young's inequality gives
 \]
 
 \textbf{Step 5: modulation terms.}
-The imported local energy inequality already contains the modulation terms
+The local energy inequality already contains the modulation terms
 after the spatial integrations by parts from the repaired-gauge equation:
 \[
 \int_{B_{2R}}(y\cdot\nabla V)\cdot V\,\phi
@@ -3605,7 +3568,7 @@ and
 =\frac12\int_{B_{2R}}b(\tau)\cdot\nabla(|V|^2)\phi
 =-\frac12\int_{B_{2R}}|V|^2b(\tau)\cdot\nabla\phi.
 \]
-Thus we estimate the imported terms directly. Split
+Thus we estimate the additional terms directly. Split
 \[
 R_{\mathrm{mod}}=R_a+R_{ay}+R_b,
 \]
@@ -3682,13 +3645,13 @@ $\mathcal C_J(2R)+\mathcal D_J(2R)<\infty$. Then
 \[
 \mathcal A_{J'}(R)+\mathcal H_{J'}(R)<\infty.
 \]
-More quantitatively, the bound is the one in \cref{paper4:thm:caccioppoli}. If a
-later argument uses pressure means on a smaller ball, \cref{paper4:lem:pressure-means}
-converts those normalizations to the outer-ball normalization used here.
+More quantitatively, the bound is the one in \cref{paper4:thm:caccioppoli}. If an
+argument uses pressure means on a smaller ball, \cref{paper4:lem:pressure-means}
+converts those normalizations to the outer-ball normalization above.
 \end{corollary}
 
 \begin{proof}
-This is \cref{paper4:thm:caccioppoli}. The final sentence follows from
+The estimate follows from \cref{paper4:thm:caccioppoli}. The comparison of pressure normalizations follows from
 \cref{paper4:lem:pressure-means}.
 \end{proof}
 
@@ -3704,7 +3667,7 @@ then
 \]
 Equivalently, if $\mathcal H_{J'}(R)=+\infty$ for an inner cylinder
 $Q_{R,J'}$, then for every enclosing cylinder $Q_{2R,J}$ with
-$J'\Subset J$ on which the imported local energy inequality and bounded
+$J'\Subset J$ on which the local energy inequality and bounded
 modulation hypotheses hold,
 \[
 \mathcal C_J(2R)=+\infty
@@ -3721,39 +3684,33 @@ $\mathcal H$ on $Q_{R,J'}$.
 \end{proof}
 
 \begin{remark}[Meaning of rough core]
-In later applications, a rough core means failure of local windowed $H^1$
+Here a rough core means failure of local windowed $H^1$
 control on compact inner renormalized cylinders while the modulation
 coefficients are bounded. \Cref{paper4:cor:rough-core} shows that such a failure is
 not independent of compact-cylinder Caffarelli--Kohn--Nirenberg control: it can
-occur only if the velocity-pressure package $\mathcal C+\mathcal D$ fails on
+occur only if the velocity-pressure bounds $\mathcal C+\mathcal D$ fail on
 every relevant larger enclosing compact cylinder.
 \end{remark}
 
-\subsection{Inputs exported to later sections}
+\subsection{Consequences for the assembly}
 
-The following consequences are used later in the document.
+We shall use the following consequences in the final assembly.
 \begin{enumerate}[label=\textup{(\arabic*)}]
-\item On every compact renormalized window satisfying the imported local energy
+\item On every compact renormalized window satisfying the local energy
 inequality and bounded modulation, finite $\mathcal C+\mathcal D$ on
 $Q_{2R,J}$ implies finite $\mathcal A+\mathcal H$ on $Q_{R,J'}$ whenever
 $J'\Subset J$.
 \item The pressure normalization may be taken on any comparable ball, after
 using \cref{paper4:lem:pressure-means}.
 \item Failure of local windowed $H^1$ control on an inner compact cylinder
-forces failure of the compact-cylinder $\mathcal C+\mathcal D$ package on each
+forces failure of the compact-cylinder $\mathcal C+\mathcal D$ bounds on each
 larger enclosing cylinder to which \cref{paper4:thm:caccioppoli} applies.
 \end{enumerate}
 
 \clearpage
 \section{Scale-Collapse Cost and Autonomous Limits}\label{sec:scale-collapse-cost}
-\begin{quote}
-\textbf{Abstract.}
-We work with suitable weak solutions of the three-dimensional Navier--Stokes equations and give an explicit step-by-step version of the scale-collapse exclusions.  Under a renormalized gauge, the logarithmic scale satisfies
-\(\partial_\tau\log\lambda=a\).  If a renormalized branch has a nontrivial localized core and the scale collapses, then
-\(\int a_-(\tau)M_R(\tau)\,d\tau=\infty\); thus finite scale-collapsing cost or finite absolute cost is incompatible with collapse.  In addition, we record the autonomous-window limit passage under an explicitly stated compactness input; that input is not derived from the cost hypotheses in this section.
-\end{quote}
-
-\paragraph{Notation and functional conventions.}
+\medskip
+\noindent\textit{Notation and functional conventions.}
 For a bounded spatial region \(K\subset\mathbb R^3\), we use
 \[
   (f,g)_{L^2(K)}:=\int_K f\cdot g\,dx,\qquad
@@ -3768,16 +3725,17 @@ for any fixed \(T>0\), with the usual modification \(p=\infty\).
 
 \subsection{Renormalized scale-collapse setting}
 
-\paragraph{Position of the result.}
-We split the scale-collapse analysis into two separate levels:
+\medskip
+\noindent\textit{Position of the result.}
+The scale-collapse analysis has two components:
 \begin{enumerate}[label=(\arabic*)]
-  \item Part A (Sections~\ref{paper5:sec:cost}--\ref{paper5:sec:finite-cost}): unconditional cost
-    exclusion arguments that do not use compactness.
-  \item Part B (Section~\ref{paper5:sec:autonomous}): a conditional compactness statement under explicitly
-    stated compactness hypotheses.
+  \item Sections~\ref{paper5:sec:cost}--\ref{paper5:sec:finite-cost} contain the cost
+    exclusion arguments, which do not use compactness.
+  \item Section~\ref{paper5:sec:autonomous} contains the autonomous compactness
+    statement under explicitly stated compactness hypotheses.
 \end{enumerate}
 
-Throughout this section, we assume the renormalized representation established earlier: on the
+Throughout the scale-collapse analysis, the renormalized representation established earlier is assumed: on the
 time interval under consideration, the fields \((V,P)\) satisfy \eqref{paper5:eq:renorm-ns} and its
 distributional weak formulation.  In particular, the solenoidal formulation is obtained by
 restricting the test fields below to divergence-free fields.
@@ -3860,7 +3818,7 @@ and the scale convention
 \end{equation}
 for a.e. \(\tau\ge\tau_0\), with \(\log\lambda\) absolutely continuous on compact intervals.
 
-All integrals in this section are interpreted in \([0,\infty]\). When we write
+All integrals below are interpreted in \([0,\infty]\). When we write
 \(\int_{\tau_0}^{\infty}\), partial integrals are taken over \([\tau_0,T]\) and
 monotone convergence is used as \(T\to\infty\).
 
@@ -4072,7 +4030,7 @@ Then
     \int_{\tau_1}^{\infty}a_-M_R
     \,d\tau.
   \]
-  The first term is finite or infinite independent from the argument; the second term
+  The first term is finite or infinite independently of the argument; the second term
   satisfies
   \[
     \int_{\tau_1}^{\infty}a_-(\tau)M_R(\tau)
@@ -4150,19 +4108,19 @@ infinite, contradicting finite absolute cost.
 \end{proof}
 
 \begin{remark}
-The exclusions in this section are purely integral and use neither compactness nor any
+The exclusions above are purely integral and use neither compactness nor any
 autonomous-limit argument.
 \end{remark}
 
 \subsection{Autonomous reduced-limit theorem from the selected-window estimates}
 \label{paper5:sec:autonomous}
 
-The exclusions above are integral statements and do not rely on compactness.  We now give the
-standard local compactness argument on a fixed finite autonomous window.  The input used here is
-not the cost bound alone; it is the selected-window suitable package supplied by the renormalized representation, pressure reconstruction, and local Caccioppoli estimates in \cref{sec:repaired-gauge-construction,sec:rough-core-exclusion}.
+The preceding exclusions are integral statements and do not rely on compactness.  On a fixed finite autonomous window, compactness requires not only the cost bound but also the selected-window estimates supplied by the preceding renormalized representation, pressure reconstruction, and local Caccioppoli estimates.
 
-\paragraph{Dependencies used in this section.}
-In standard PDE terms, \cref{sec:repaired-gauge-construction,sec:rough-core-exclusion} supply the following ingredients on selected compact renormalized windows:
+\medskip
+\noindent\textit{Analytic inputs.}
+The preceding sections supply the following ingredients on selected compact
+renormalized windows:
 \begin{enumerate}[label=(\arabic*)]
   \item the repaired-gauge renormalized equation and weak formulation for \((V,P)\);
   \item pressure reconstruction modulo spatial means, with local \(L^{3/2}\) bounds on compact
@@ -4198,8 +4156,8 @@ A branch has \emph{thick autonomous windows} if there exist constants
 \end{enumerate}
 \end{definition}
 \begin{remark}
-This notion is used only to isolate a limiting drift coefficient \(a_\infty<0\).  The
-compactness to extract a profile limit is obtained from the selected-window suitable estimates,
+This notion isolates a limiting drift coefficient \(a_\infty<0\).  The
+compactness to extract a profile limit is obtained from the selected-window compactness estimates,
 not from the scalar cost inequalities of Sections~\ref{paper5:sec:cost}--\ref{paper5:sec:finite-cost}.
 \end{remark}
 
@@ -4279,10 +4237,10 @@ for all \(n\ge N\),
 \]
 \end{assumption}
 
-\begin{proposition}[Derivation of the selected-window estimates]
+\begin{proposition}[Derivation of the selected-window estimates from the preceding sections]
 \label{paper5:prop:selected-window-derived}
 Let a repaired-gauge branch satisfy the renormalized representation and pressure reconstruction
-of the repaired-gauge representation theorem \cref{paper2:thm:C} on the windows \([\tau_n,\tau_n+T]\).  Assume that on
+of the compact-window representation theorem, \cref{paper2:thm:C}, on the windows \([\tau_n,\tau_n+T]\).  Assume that on
 each compact cylinder \((0,T)\times K\) the local compact-cylinder Caffarelli--Kohn--Nirenberg
 quantities are finite uniformly in \(n\), and that the selected core has the localized lower
 bound stated in Assumption~\ref{paper5:ass:selected-window-estimates}.  Then
@@ -4305,7 +4263,7 @@ cylinder gives the inner bounds
 These are precisely the local velocity and pressure estimates in
 Assumption~\ref{paper5:ass:selected-window-estimates}.  The retained selected-core lower bound is the
 last condition in that assumption.  Hence all items in
-Assumption~\ref{paper5:ass:selected-window-estimates} follow from the repaired-gauge representation,
+Assumption~\ref{paper5:ass:selected-window-estimates} follow from the representation,
 pressure, and local Caccioppoli results.
 \end{proof}
 
@@ -4536,9 +4494,9 @@ in \(\mathcal D'((0,T)\times\mathbb R^3)\).  Equivalently, for every
 \end{theorem}
 
 \begin{remark}
-The theorem does not assert an autonomous Liouville or rigidity contradiction.  It proves the
-compact finite-window autonomous limit from the selected-window estimates.  Any later rigidity
-step must apply a separate Liouville theorem to the class containing \((U,\Pi)\).
+The theorem asserts only the compact finite-window autonomous limit from the
+selected-window estimates.  A rigidity contradiction requires a separate
+Liouville theorem for the class containing \((U,\Pi)\).
 \end{remark}
 
 \begin{proof}
@@ -4647,7 +4605,8 @@ Since \((V,P)\) satisfies~\eqref{paper5:eq:renorm-ns} in distributions, the chan
 \emph{Step 4: term-by-term passage to the limit.}
 Write \(\alpha_n(s):=a(\tau_n+s)\), \(\beta_n(s):=b(\tau_n+s)\).
 
-\paragraph{(i) Time derivative.}
+\medskip
+\noindent\textit{(i) Time derivative.}
 
 By strong convergence in \(L^2(0,T;L^2(K_\varphi))\),
 \[
@@ -4662,7 +4621,8 @@ Hence
 \[\int V_n\cdot\partial_s\varphi\to\int U\cdot\partial_s\varphi.
 \]
 
-\paragraph{(ii) Convection term.}
+\medskip
+\noindent\textit{(ii) Convection term.}
 Decompose
 \[
   V_n\otimes V_n-U\otimes U=(V_n-U)\otimes V_n+U\otimes(V_n-U).
@@ -4686,7 +4646,8 @@ using boundedness of \(V_n\) in \(L^2(0,T;L^2(K_\varphi))\). Therefore
   \to\int(U\otimes U):\nabla\varphi.
 \)
 
-\paragraph{(iii) Viscous term.}
+\medskip
+\noindent\textit{(iii) Viscous term.}
 From weak convergence of \(V_n\) in \(L^2(0,T;H^1_{\mathrm{loc}})\),
 \[
   \int_0^T\!\int\nabla V_n:\nabla\varphi
@@ -4696,7 +4657,8 @@ From weak convergence of \(V_n\) in \(L^2(0,T;H^1_{\mathrm{loc}})\),
   \,dy\,ds.
 \]
 
-\paragraph{(iv) Pressure term.}
+\medskip
+\noindent\textit{(iv) Pressure term.}
 Let \(K\) be a bounded Lipschitz domain with \(K_\varphi\Subset K\).  Since
 \(\varphi\) is compactly supported in \(K\),
 \[
@@ -4725,10 +4687,11 @@ as \(\Pi\), modulo functions of time.  Hence
 \]
 The value of the last integral is independent of the chosen \(K\), because replacing
 \(\Pi_K\) by \(\Pi_K+c(s)\) changes the integral by
-\(\int_0^Tc(s)\int_K\nabla\cdot\varphi\,dy\,ds=0\).  This is the pressure term
+\(\int_0^Tc(s)\int_K\nabla\cdot\varphi\,dy\,ds=0\).  The limit is therefore the pressure term
 \(\int\Pi\nabla\cdot\varphi\).
 
-\paragraph{(v) Drift term with \(a\): part involving \(V_n\).}
+\medskip
+\noindent\textit{(v) Drift term with \(a\): part involving \(V_n\).}
 Define
 \[
   Y_n^0(s):=\int_{\mathbb R^3}V_n(y,s)\cdot\varphi(y,s)
@@ -4779,7 +4742,8 @@ Thus the signed contribution in \eqref{paper5:eq:weak-n} satisfies
   \,dy\,ds.
 \]
 
-\paragraph{(vi) Drift term with \(a\): part involving \(y\cdot\nabla V_n\).}
+\medskip
+\noindent\textit{(vi) Drift term with \(a\): part involving \(y\cdot\nabla V_n\).}
 Since \(\varphi\in C_c^\infty\), integrating by parts in \(y\) gives
 \[
   \int_{\mathbb R^3}(y\cdot\nabla V_n)\cdot\varphi
@@ -4832,7 +4796,8 @@ Integrating by parts once more in the limit gives
   \,dy\,ds.
 \]
 
-\paragraph{(vii) Term with \(b\).}
+\medskip
+\noindent\textit{(vii) Term with \(b\).}
 Since \(\beta_n(s)\) is independent of \(y\),
 \[
   \int_{\mathbb R^3}(\beta_n\cdot\nabla V_n)\cdot\varphi
@@ -4927,17 +4892,15 @@ Since this holds for every compactly supported vector field \(\varphi\), equatio
 \((0,T)\times\mathbb R^3\).
 \end{proof}
 
-\subsection{State-space stratification of the scale-collapse branch}
+\subsection{Decomposition of alternatives of the scale-collapse branch}
 \label{paper5:sec:branch-closure}
 
-The cost argument above closes the finite-cost scale-collapse branch.  The remaining
-scale-collapse obstruction is treated by a state-space stratification, following the local
-estimate and autonomous-reduction route established earlier in this document.  The purpose of this section is
-not to assert a blanket Liouville theorem for every autonomous negative-drift equation.  Instead,
-we separate the closed branches from the precise residual defects.
+The cost argument in \cref{paper5:sec:cost,paper5:sec:finite-cost} excludes the finite-cost scale-collapse branch.  The remaining
+scale-collapse obstruction is treated by a decomposition of alternatives, following the local
+estimate and autonomous-reduction argument of the preceding sections.  The conclusion separates the excluded branches from the residual alternatives; it does not assert a Liouville theorem for every autonomous negative-drift equation.
 
 \begin{theorem}[Selected core retention]\label{paper5:thm:core-retention}
-Let a represented Type II branch be obtained from the selected-core construction developed above.  Then there exist \(R>0\), a cutoff \(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), a
+Let a represented Type II branch be obtained from the selected-core construction of the preceding sections.  Then there exist \(R>0\), a cutoff \(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), a
 constant \(\eta>0\), and a terminal time \(\tau_1\) such that, along every selected window used
 below,
 \[
@@ -4960,7 +4923,7 @@ window.
 \begin{theorem}[Autonomous modulation selection]\label{paper5:thm:autonomous-modulation-selection}
 Let a represented scale-collapse branch satisfy the modulation bounds obtained in the repaired
 gauge construction.  Suppose that a sequence of windows \([\tau_n,\tau_n+T]\) is selected in the
-autonomous stratum.  Then, after passing to a subsequence, there exist constants
+autonomous regime.  Then, after passing to a subsequence, there exist constants
 \(a_\infty\in\mathbb R\) and \(b_\infty\in\mathbb R^3\) such that
 \[
   a(\tau_n+\cdot)\to a_\infty
@@ -4972,13 +4935,13 @@ autonomous stratum.  Then, after passing to a subsequence, there exist constants
 \end{theorem}
 
 \begin{proof}
-This is the autonomous-window selection conclusion of the repaired-gauge modulation analysis:
-the selected stratum is defined by convergence of the modulation functions to constant
-autonomous parameters on the fixed window length \(T\).  Passing to the subsequence supplied by
-that selection gives exactly the displayed \(L^1\)-convergences.
+The autonomous-window selection in the repaired-gauge modulation analysis gives convergence
+of the modulation functions to constant autonomous parameters on the fixed window length
+\(T\).  Passing to the corresponding subsequence gives the displayed
+\(L^1\)-convergences.
 \end{proof}
 
-\begin{theorem}[Scale-collapse state-space stratification]\label{paper5:thm:scale-collapse-stratification}
+\begin{theorem}[Scale-collapse decomposition of alternatives]\label{paper5:thm:scale-collapse-stratification}
 Let a represented Type II branch have genuine scale collapse and nonvanishing selected core.
 Then exactly one of the following alternatives occurs after passing to selected terminal
 windows:
@@ -4990,12 +4953,12 @@ windows:
   \item the branch admits thick autonomous windows in the sense of
   Definition~\ref{paper5:def:thick-autonomous-windows}, satisfies the selected-window estimates of
   Assumption~\ref{paper5:ass:selected-window-estimates}, and has autonomous modulation convergence;
-  \item the branch has a thin-drift defect: no selected fixed-length window carries a uniform
+  \item the branch has a thin-drift alternative: no selected fixed-length window carries a uniform
   positive lower bound for the averaged weighted negative drift;
-  \item the branch has an autonomous-modulation defect: thick windows exist, but no subsequence
+  \item the branch has an autonomous-modulation alternative: thick windows exist, but no subsequence
   has a constant-coefficient \(L^1\) modulation limit in the sense needed for
   Theorem~\ref{paper5:thm:autonomous-limit};
-  \item the branch has a compactness defect: the local estimates needed for
+  \item the branch has a compactness alternative: the local estimates needed for
   Assumption~\ref{paper5:ass:selected-window-estimates} fail on the selected windows.
 \end{enumerate}
 \end{theorem}
@@ -5008,12 +4971,12 @@ averaged negative-drift mass
 \]
 If the accumulated cost is finite, alternatives (i) or (ii) apply according to the cost
 functional under consideration.  If the averaged negative-drift mass stays bounded below on a
-subsequence, one obtains thick windows; otherwise the branch is in the thin-drift alternative.
+subsequence, one obtains thick windows; otherwise the branch lies in the thin-drift alternative.
 On thick windows, either the local estimates and core retention hold, in which case
 Proposition~\ref{paper5:prop:selected-window-derived} and Theorem~\ref{paper5:thm:core-retention} give
-Assumption~\ref{paper5:ass:selected-window-estimates}, or the branch is in the compactness defect.  If
+Assumption~\ref{paper5:ass:selected-window-estimates}, or the branch lies in the compactness alternative.  If
 the estimates hold but no subsequence has the required constant-coefficient modulation limit,
-the branch is in the autonomous-modulation defect.  The remaining case is precisely the thick
+the branch lies in the autonomous-modulation alternative.  The remaining case is the thick
 autonomous alternative.
 \end{proof}
 
@@ -5041,20 +5004,21 @@ For a parameter pair \((a_\infty,b_\infty)\), the stationary class is rigidity-c
 admissible stationary solution in Definition~\ref{paper5:def:stationary-omega-class} is either zero or
 is not a terminal Type II branch.  In the classical backward self-similar normalization this is
 the role of the Nečas--Růžička--Šverák rigidity theorem, after the harmless translation drift is
-removed.  Other parameter regimes require their own stated Liouville or classification theorem.
+removed \cite{NecasRuzickaSverak1996}.  Other parameter regimes require their own stated
+Liouville or classification theorem.
 \end{definition}
 
-\begin{theorem}[Stationary-rigidity blocker]\label{paper5:thm:stationary-rigidity-blocker}
+\begin{theorem}[Stationary-rigidity exclusion]\label{paper5:thm:stationary-rigidity-blocker}
 Assume a thick autonomous branch produces a nonzero autonomous limit by
 Theorem~\ref{paper5:thm:autonomous-limit}.  If that autonomous limit has a stationary omega-limit in
 the admissible class and the corresponding stationary class is rigidity-covered, then the branch
-is not an unresolved Type II scale-collapse branch.
+cannot occur as a terminal Type II scale-collapse branch.
 \end{theorem}
 
 \begin{proof}
 The stationary omega-limit gives a nonzero stationary profile \((W,Q)\) in the admissible class.
 The rigidity-covered hypothesis says that no such nonzero profile can represent a terminal Type
-II branch.  This contradicts unresolved membership in the scale-collapse Type II state.
+II branch.  This contradicts membership in the terminal scale-collapse Type II class.
 \end{proof}
 
 \begin{theorem}[Scale-collapse alternatives]\label{paper5:thm:scale-collapse-alternatives}
@@ -5063,23 +5027,23 @@ Then one of the following mutually exclusive outcomes occurs:
 \begin{enumerate}[label=(\roman*)]
   \item the finite scale-collapsing cost exclusion applies;
   \item the finite absolute cost exclusion applies;
-  \item the branch has a thin-drift defect;
-  \item the branch has an autonomous-modulation defect;
-  \item the branch has a compactness defect;
-  \item the branch has a nonzero autonomous reduced limit, and either a stationary-rigidity
-  blocker applies or the remaining obstruction is the corresponding stationary/generalized
+  \item the branch has a thin-drift alternative;
+  \item the branch has an autonomous-modulation alternative;
+  \item the branch has a compactness alternative;
+  \item the branch has a nonzero autonomous reduced limit, and either stationary rigidity
+  excludes it or the remaining obstruction is the corresponding stationary/generalized
   self-similar Liouville problem.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-Apply Theorem~\ref{paper5:thm:scale-collapse-stratification}.  The finite-cost alternatives are exactly
-items (i) and (ii).  The thin, modulation, and compactness defects are items (iii)--(v).  In the
+Apply \cref{paper5:thm:scale-collapse-stratification}.  The finite-cost alternatives are
+items (i) and (ii).  The thin-drift, modulation, and compactness alternatives are items (iii)--(v).  In the
 remaining thick autonomous case, Lemma~\ref{paper5:lem:negative-parameter} gives \(a_\infty<0\), and
 Theorem~\ref{paper5:thm:autonomous-limit} produces a nonzero autonomous reduced limit.  If
 Definitions~\ref{paper5:def:stationary-omega-class} and~\ref{paper5:def:rigidity-covered-class} apply, then
-Theorem~\ref{paper5:thm:stationary-rigidity-blocker} blocks the branch.  If not, the unresolved
-remainder is precisely the stationary or generalized self-similar Liouville problem for the
+Theorem~\ref{paper5:thm:stationary-rigidity-blocker} excludes the branch.  If not, the remaining
+obstruction is the stationary or generalized self-similar Liouville problem for the
 parameter pair \((a_\infty,b_\infty)\).
 \end{proof}
 
@@ -5093,33 +5057,941 @@ no branch with finite scale-collapsing (hence finite absolute) cost can have
 Lemma~\ref{paper5:lem:negative-parameter} shows that any thick autonomous window admits a negative
 autonomous drift limit \(a_\infty\).  Lemmas~\ref{paper5:lem:window-time-regularity}
 and~\ref{paper5:lem:autonomous-window-compactness}, together with Theorem~\ref{paper5:thm:autonomous-limit},
-assemble the selected-window estimates from \cref{sec:repaired-gauge-construction,sec:rough-core-exclusion} into a nontrivial autonomous
+assemble the selected-window estimates from the preceding sections into a nontrivial autonomous
 finite-window limit \((U,\Pi)\) satisfying the full distributional autonomous equation.
 
-Section~\ref{paper5:sec:branch-closure} records the same state-space stratification as the markdown
-route.  The autonomous reduction is a closed contradiction only in parameter regimes where a
-stationary omega-limit is available and the resulting stationary class is covered by a Liouville
+Section~\ref{paper5:sec:branch-closure} gives the corresponding decomposition of alternatives for the scale-collapse branch.  The autonomous reduction gives a contradiction only in parameter regimes where a
+stationary omega-limit exists and the resulting stationary class is covered by a Liouville
 or rigidity theorem, such as the classical Nečas--Růžička--Šverák self-similar class.  Outside
-those regimes this document records the precise thin-drift, modulation, compactness, or
-Liouville-defect alternative rather than asserting an unconditional closure.
+those regimes the conclusion is the thin-drift, modulation, compactness, or
+Liouville alternative, rather than an unconditional exclusion.
+
+\clearpage
+\section{Corrected Monotonicity and Scale-Drift Barriers}
+\label{sec:corrected-monotonicity-scale-drift}
+
+This section records the remaining conditional analytic inputs needed to use a
+barrier argument on represented Type II branches.  The statements are written
+entirely in the variables of the repaired gauge:
+\[
+  \partial_\tau V+(V\cdot\nabla)V+\nabla P
+  =
+  \nu\Delta V+a(\tau)(V+y\cdot\nabla V)+b(\tau)\cdot\nabla V,
+  \qquad \nabla\cdot V=0.
+\]
+All pressure terms are understood modulo functions of time.
+
+\subsection{Application Data for a Conditional Type II Barrier}
+
+\begin{definition}[Barrier-application data]\label{paper6a:def:barrier-application-data}
+A represented Type II branch is said to have barrier-application data if the
+following analytic facts hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the branch is a scale-supercritical local Type II branch in the sense of
+the local concentration route;
+\item the physical Navier--Stokes energy inequality gives bounded energy along
+the branch;
+\item the branch is represented by the repaired-gauge variables
+\((V,P,a,b)\) above, including the scale, center, pressure normalization, and
+modulation data;
+\item the active localized barrier cost is identified with
+\[
+  \tilde{\mathfrak D}_{R_0}(\tau)
+  =
+  \nu\int_{\mathbb R^3}|\nabla V(y,\tau)|^2\phi_{R_0}(y)\,dy
+  +a_+(\tau)\int_{\mathbb R^3}|V(y,\tau)|^2\phi_{R_0}(y)\,dy,
+\]
+or with an explicitly stated tail-comparable nonnegative replacement;
+\item a localized energy identity or suitable-solution local energy inequality
+is available for the cutoff used in the cost;
+\item a corrected localized monotonicity inequality, in the sense of
+\cref{paper6a:def:corrected-monotonicity-input}, is available;
+\item the conditional Type II barrier principle used in the final assembly has
+the same conclusion as the local Type II exclusion target: once the branch is
+scale-supercritical and its admissible nonnegative barrier cost is divergent,
+the branch cannot remain in the represented Type II class.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Scale route and energy]\label{paper6a:lem:scale-energy-data}
+If a branch is routed through the local Type II concentration alternative and
+satisfies the physical Navier--Stokes energy inequality, then it satisfies
+\cref{paper6a:def:barrier-application-data}\textup{(i)} and
+\textup{(ii)}.
+\end{lemma}
+
+\begin{proof}
+The local Type II route asserts precisely that the selected branch is
+scale-supercritical and carries a concentration profile.  The physical energy
+inequality gives the bounded-energy part.  These are precisely items
+\textup{(i)} and \textup{(ii)}.
+\end{proof}
+
+\begin{lemma}[Cost identification]\label{paper6a:lem:cost-identification}
+Assume the Type II barrier cost is the localized Navier--Stokes cost
+\(\tilde{\mathfrak D}_{R_0}\).  Then divergence of
+\[
+  \int_{\tau_0}^{\infty}\tilde{\mathfrak D}_{R_0}(\tau)\,d\tau
+\]
+is the barrier-cost divergence used by the conditional Type II barrier
+principle.
+\end{lemma}
+
+\begin{proof}
+The active cost is assumed to be equal to
+\(\tilde{\mathfrak D}_{R_0}\).  Thus the cost appearing in the local
+Navier--Stokes estimates and the cost consumed by the barrier principle are
+the same nonnegative functional.  The divergence condition is therefore
+identical in the two formulations.
+\end{proof}
+
+\begin{lemma}[Parabolic representation class]\label{paper6a:lem:parabolic-class}
+If the repaired-gauge representation theorem applies to a Type II branch, then
+the branch lies in the parabolic transport-diffusion class required by the
+conditional Type II barrier principle.
+\end{lemma}
+
+\begin{proof}
+The repaired-gauge theorem supplies the renormalized orbit \((V,P,a,b)\), the
+scale and center, the pressure reconstruction modulo functions of time, and the
+modulation coefficients.  The displayed equation is a parabolic
+Navier--Stokes equation with transport, dilation, and translation drift terms.
+Consequently the branch has the parabolic represented structure required by
+the barrier principle, with the same scale-supercritical and barrier-cost
+interpretations.
+\end{proof}
+
+\begin{definition}[Corrected localized monotonicity input]
+\label{paper6a:def:corrected-monotonicity-input}
+A represented branch has corrected localized monotonicity if there are a
+localized renormalized energy \(\mathcal E_{R_0}\), a nonnegative barrier cost
+\(\mathcal D_{R_0}\), a constant \(c_0>0\), and a nonnegative remainder
+\(\mathcal R_{R_0}\) such that, on the tail of the branch,
+\[
+  \frac{d}{d\tau}\mathcal E_{R_0}(\tau)
+  +c_0\mathcal D_{R_0}(\tau)
+  +\mathcal R_{R_0}(\tau)\le0
+\]
+in distributions.  If the localized energy identity has an integrable error
+\(B_{R_0}\), the corrected energy is
+\[
+  \mathcal E_{R_0}^{\mathrm{corr}}(\tau)
+  =
+  \mathcal E_{R_0}(\tau)
+  +\int_\tau^\infty B_{R_0}(s)\,ds,
+\]
+and the same inequality is required for
+\(\mathcal E_{R_0}^{\mathrm{corr}}\).  Multiplication of a nonnegative barrier
+cost by \(c_0>0\) does not change whether its tail integral diverges.
+\end{definition}
+
+\begin{lemma}[Energy and Caccioppoli bounds alone are not monotonicity]
+\label{paper6a:lem:caccioppoli-not-monotonicity}
+The global physical energy inequality and compact-cylinder Caccioppoli
+estimates do not, by themselves, imply the corrected localized monotonicity
+input of \cref{paper6a:def:corrected-monotonicity-input}.
+\end{lemma}
+
+\begin{proof}
+The global physical energy inequality controls total physical energy and
+physical dissipation, but it does not identify a localized renormalized energy
+at the active Type II scale whose derivative is monotone after pressure flux,
+cutoff flux, transport, and modulation terms are included.  The Caccioppoli
+estimate gives local spacetime \(H^1\) control from the local energy inequality.
+It is an a priori estimate, not a corrected monotonicity formula.  Therefore an
+additional absorption or tail-correction argument is needed.
+\end{proof}
+
+\begin{theorem}[Conditional barrier application]\label{paper6a:thm:conditional-barrier-application}
+Let a represented Type II branch have the data of
+\cref{paper6a:def:barrier-application-data}.  If its admissible nonnegative
+barrier cost has divergent tail integral, then the conditional Type II barrier
+principle applies to the branch, and the branch is excluded from the represented
+Type II class covered by that principle.
+\end{theorem}
+
+\begin{proof}
+\Cref{paper6a:lem:scale-energy-data} gives the scale-supercritical and
+bounded-energy inputs.  \Cref{paper6a:lem:cost-identification} identifies the
+localized Navier--Stokes cost with the cost used in the barrier argument.
+\Cref{paper6a:lem:parabolic-class} gives the represented parabolic class.
+The corrected monotonicity input is an explicit hypothesis of
+\cref{paper6a:def:barrier-application-data}.  These are precisely the analytic
+inputs listed in that definition, and the last item of the definition is the
+conditional Type II barrier implication with the same local conclusion.
+\end{proof}
+
+\subsection{Fixed-Cutoff Monotonicity}
+
+Let \(\phi=\phi_{R_0}\in C_c^\infty(\mathbb R^3)\), \(0\le\phi\le1\), be the
+cutoff used in the localized cost.  Define
+\[
+  \mathcal E_\phi(\tau)=\frac12\int_{\mathbb R^3}|V(y,\tau)|^2\phi(y)\,dy,
+\]
+\[
+  A_\phi(\tau)=\int_{\mathbb R^3}|\nabla V(y,\tau)|^2\phi(y)\,dy,\qquad
+  M_\phi(\tau)=\int_{\mathbb R^3}|V(y,\tau)|^2\phi(y)\,dy,
+\]
+and
+\[
+  \tilde{\mathfrak D}_{R_0}(\tau)=\nu A_\phi(\tau)+a_+(\tau)M_\phi(\tau),
+  \qquad a_+(\tau)=\max\{a(\tau),0\}.
+\]
+The localized energy identity used below is
+\begin{align}
+  \frac{d}{d\tau}\mathcal E_\phi
+  ={}&-\nu A_\phi
+  +\frac{\nu}{2}\int |V|^2\Delta\phi
+  +\frac12\int |V|^2V\cdot\nabla\phi
+  +\int P\,V\cdot\nabla\phi \notag\\
+  &-\frac{a}{2}M_\phi
+  -\frac{a}{2}\int |V|^2y\cdot\nabla\phi
+  -\frac12 b\cdot\int |V|^2\nabla\phi .
+  \label{paper6a:eq:fixed-local-energy}
+\end{align}
+
+\begin{definition}[Fixed-cutoff error density]\label{paper6a:def:fixed-error-density}
+Set \(a_-(\tau)=\max\{-a(\tau),0\}\) and define
+\begin{align*}
+  B_{R_0}(\tau)
+  :={}&
+  \frac{\nu}{2}\left|\int |V|^2\Delta\phi\right|
+  +\frac12\left|\int |V|^2V\cdot\nabla\phi\right|
+  +\left|\int P\,V\cdot\nabla\phi\right|\\
+  &+\frac12|b(\tau)|\left|\int |V|^2\nabla\phi\right|
+  +\frac12a_-(\tau)M_\phi(\tau)
+  +\frac12|a(\tau)|\left|\int |V|^2y\cdot\nabla\phi\right|.
+\end{align*}
+The fixed-cutoff finite-error condition is
+\[
+  \int_{\tau_0}^{\infty}B_{R_0}(\tau)\,d\tau<\infty .
+\]
+\end{definition}
+
+\begin{remark}[Pressure normalization]
+The pressure term in \(B_{R_0}\) is independent of the representative of the
+pressure modulo functions of time.  Replacing \(P\) by \(P+c(\tau)\) changes
+the pressure flux by
+\[
+  c(\tau)\int V\cdot\nabla\phi
+  =
+  -c(\tau)\int \phi\,\nabla\cdot V
+  =0.
+\]
+\end{remark}
+
+\begin{theorem}[Fixed-cutoff corrected monotonicity]
+\label{paper6a:thm:fixed-corrected-monotonicity}
+Assume \eqref{paper6a:eq:fixed-local-energy} holds on
+\((\tau_0,\infty)\) and that \(B_{R_0}\in L^1(\tau_0,\infty)\).  Define
+\[
+  \mathcal E_\phi^{\mathrm{corr}}(\tau)
+  =
+  \mathcal E_\phi(\tau)+\int_\tau^\infty B_{R_0}(s)\,ds .
+\]
+Then, in distributions on \((\tau_0,\infty)\),
+\[
+  \frac{d}{d\tau}\mathcal E_\phi^{\mathrm{corr}}(\tau)
+  +\frac12\tilde{\mathfrak D}_{R_0}(\tau)\le0 .
+\]
+\end{theorem}
+
+\begin{proof}
+Add
+\[
+  \frac12\tilde{\mathfrak D}_{R_0}
+  =
+  \frac{\nu}{2}A_\phi+\frac12a_+M_\phi
+\]
+to both sides of \eqref{paper6a:eq:fixed-local-energy}.  The gradient term
+becomes
+\[
+  -\nu A_\phi+\frac{\nu}{2}A_\phi=-\frac{\nu}{2}A_\phi\le0.
+\]
+The core scale term satisfies
+\[
+  -\frac{a}{2}M_\phi+\frac12a_+M_\phi
+  =
+  \frac12a_-M_\phi
+  \le B_{R_0}(\tau).
+\]
+Every remaining term in \eqref{paper6a:eq:fixed-local-energy} is bounded above
+by its corresponding absolute-value contribution in \(B_{R_0}\).  Therefore
+\[
+  \frac{d}{d\tau}\mathcal E_\phi(\tau)
+  +\frac12\tilde{\mathfrak D}_{R_0}(\tau)
+  \le B_{R_0}(\tau)
+\]
+in distributions.  Since \(B_{R_0}\in L^1(\tau_0,\infty)\), the correction
+tail is finite for every \(\tau\ge\tau_0\), absolutely continuous on compact
+subintervals, and
+\[
+  \frac{d}{d\tau}\int_\tau^\infty B_{R_0}(s)\,ds=-B_{R_0}(\tau).
+\]
+Adding this identity gives the claimed inequality.
+\end{proof}
+
+\begin{corollary}[Fixed-cutoff monotonicity input]\label{paper6a:cor:fixed-input}
+If the repaired-gauge representation, the cost identification, the localized
+energy identity, and the fixed-cutoff finite-error condition all hold, then
+\cref{paper6a:def:corrected-monotonicity-input} holds with
+\(\mathcal D_{R_0}=\tilde{\mathfrak D}_{R_0}\) and \(c_0=1/2\).
+\end{corollary}
+
+\begin{proof}
+The repaired-gauge representation supplies \((V,P,a,b)\).  The cost
+identification supplies \(\tilde{\mathfrak D}_{R_0}\).  The localized energy
+identity and finite-error condition allow
+\cref{paper6a:thm:fixed-corrected-monotonicity} to be applied.
+\end{proof}
+
+\begin{remark}[Finite-tail subconditions]\label{paper6a:rem:fixed-tail-subconditions}
+The fixed-cutoff finite-error condition is equivalent to the conjunction of tail
+integrability for the viscous cutoff term, the convective flux, the pressure
+flux, the center-drift cutoff term, the negative-scale term, and the
+scale-cutoff term:
+\[
+\begin{gathered}
+  \left|\int |V|^2\Delta\phi\right|,\qquad
+  \left|\int |V|^2V\cdot\nabla\phi\right|,\qquad
+  \left|\int P\,V\cdot\nabla\phi\right|,\\
+  |b|\left|\int |V|^2\nabla\phi\right|,\qquad
+  a_-M_\phi,\qquad
+  |a|\left|\int |V|^2y\cdot\nabla\phi\right|.
+\end{gathered}
+\]
+Uniform compact-window bounds do not by themselves give this global tail
+integrability on \([\tau_0,\infty)\).
+\end{remark}
+
+\begin{definition}[Direct fixed-cutoff application data]\label{paper6a:def:direct-fixed-data}
+A represented Type II branch has direct fixed-cutoff application data if it has
+the scale-supercritical concentration route, bounded physical energy,
+repaired-gauge representation, cost identification with
+\(\tilde{\mathfrak D}_{R_0}\), divergent admissible barrier cost, localized
+energy identity, and the finite-tail bound
+\(\int_{\tau_0}^{\infty}B_{R_0}<\infty\).
+\end{definition}
+
+\begin{theorem}[Direct fixed-cutoff application]\label{paper6a:thm:direct-fixed-application}
+Every branch with direct fixed-cutoff application data is covered by
+\cref{paper6a:thm:conditional-barrier-application}.
+\end{theorem}
+
+\begin{proof}
+By \cref{paper6a:cor:fixed-input}, the finite-tail condition supplies the
+corrected monotonicity input.  The remaining assumptions are precisely the other
+items in \cref{paper6a:def:barrier-application-data}, together with cost
+divergence.
+\end{proof}
+
+\begin{definition}[Compact-barrier replacement]\label{paper6a:def:compact-barrier-replacement}
+A compact-barrier replacement is available when the compact Type II hypotheses
+of the preceding sections imply
+\[
+  \int_{\tau_0}^{\infty}\tilde{\mathfrak D}_{R_0}(\tau)\,d\tau=\infty,
+\]
+and this divergence is the admissible barrier-cost divergence used in
+\cref{paper6a:thm:conditional-barrier-application}.  In particular, it may be
+supplied by the combination of classification of local alternatives, uniform
+critical tightness, local windowed \(H^1\) control, and the cost identification
+above whenever those are the active route to the compact Type II theorem.
+\end{definition}
+
+\begin{theorem}[Expanded compact-barrier application]\label{paper6a:thm:expanded-compact-application}
+If a represented branch has all direct fixed-cutoff application data except
+that cost divergence is supplied through the compact-barrier replacement of
+\cref{paper6a:def:compact-barrier-replacement}, then the conditional Type II
+barrier principle applies.
+\end{theorem}
+
+\begin{proof}
+The compact-barrier replacement supplies the missing divergent admissible cost.
+Substituting this into the direct fixed-cutoff data gives the hypotheses of
+\cref{paper6a:thm:direct-fixed-application}.
+\end{proof}
+
+\subsection{Moving-Cutoff Monotonicity}
+
+Let \(\phi\in C_c^\infty(\mathbb R^3)\) be radial, \(0\le\phi\le1\),
+\(\phi=1\) on \(B_1\), and \(\phi=0\) outside \(B_2\).  For
+\(R(\tau)\ge R_0\), locally absolutely continuous and nondecreasing, set
+\[
+  \Phi(\tau,y)=\phi(y/R(\tau)),\qquad
+  A_{R(\tau)}=\{R(\tau)\le |y|\le2R(\tau)\},
+\]
+\[
+  \mathcal E_R(\tau)=\frac12\int |V(y,\tau)|^2\Phi(\tau,y)\,dy,
+\]
+and
+\[
+  \tilde{\mathfrak D}_{R(\tau)}(\tau)
+  =
+  \nu\int|\nabla V|^2\Phi
+  +a_+(\tau)\int|V|^2\Phi .
+\]
+
+\begin{definition}[Moving-cutoff error density]\label{paper6a:def:moving-error-density}
+Define
+\begin{align*}
+  B_{\mathrm{mov}}(\tau)
+  :={}&
+  \frac12\left|\int |V|^2\partial_\tau\Phi\right|
+  +\frac{\nu}{2}\left|\int |V|^2\Delta\Phi\right|
+  +\frac12\left|\int |V|^2V\cdot\nabla\Phi\right|
+  +\left|\int P\,V\cdot\nabla\Phi\right|\\
+  &+\frac12|b(\tau)|\left|\int |V|^2\nabla\Phi\right|
+  +\frac12a_-(\tau)\int |V|^2\Phi
+  +\frac12|a(\tau)|\left|\int |V|^2y\cdot\nabla\Phi\right|.
+\end{align*}
+The moving finite-error condition is
+\[
+  \int_{\tau_0}^{\infty}B_{\mathrm{mov}}(\tau)\,d\tau<\infty .
+\]
+\end{definition}
+
+\begin{theorem}[Moving-cutoff corrected monotonicity]
+\label{paper6a:thm:moving-corrected-monotonicity}
+Assume the localized energy identity is valid with the time-dependent cutoff
+\(\Phi\), and assume \(B_{\mathrm{mov}}\in L^1(\tau_0,\infty)\).  Then
+\[
+  \mathcal E_R^{\mathrm{corr}}(\tau)
+  =
+  \mathcal E_R(\tau)+\int_\tau^\infty B_{\mathrm{mov}}(s)\,ds
+\]
+satisfies
+\[
+  \frac{d}{d\tau}\mathcal E_R^{\mathrm{corr}}(\tau)
+  +\frac12\tilde{\mathfrak D}_{R(\tau)}(\tau)\le0
+\]
+in distributions.
+\end{theorem}
+
+\begin{proof}
+Use the localized energy identity with the time-dependent test function
+\(\Phi(\tau,y)\).  Compared with the fixed-cutoff identity, the only new term
+is
+\[
+  \frac12\int |V|^2\partial_\tau\Phi,
+\]
+which comes from differentiating the cutoff inside \(\mathcal E_R\).  All
+other terms are the fixed-cutoff terms with \(\phi\) replaced by \(\Phi\).  Add
+\(\frac12\tilde{\mathfrak D}_{R(\tau)}\) to both sides.  The gradient term
+leaves
+\[
+  -\frac{\nu}{2}\int|\nabla V|^2\Phi\le0,
+\]
+and the core scale term contributes
+\[
+  \frac12a_-\int |V|^2\Phi .
+\]
+Each remaining term is bounded above by the corresponding absolute-value term
+in \(B_{\mathrm{mov}}\).  Hence
+\[
+  \frac{d}{d\tau}\mathcal E_R(\tau)
+  +\frac12\tilde{\mathfrak D}_{R(\tau)}(\tau)
+  \le B_{\mathrm{mov}}(\tau).
+\]
+The moving finite-error condition makes the correction tail finite and
+absolutely continuous on compact subintervals.  Differentiating that tail
+subtracts \(B_{\mathrm{mov}}\), giving the stated inequality.
+\end{proof}
+
+\begin{definition}[Summable moving-annulus errors]\label{paper6a:def:summable-moving-errors}
+The moving-annulus summability condition is the existence of a nondecreasing
+locally absolutely continuous \(R(\tau)\to\infty\) such that each of the seven
+quantities
+\[
+\begin{gathered}
+  \left|\int |V|^2\partial_\tau\Phi\right|,\quad
+  \left|\int |V|^2\Delta\Phi\right|,\quad
+  \left|\int |V|^2V\cdot\nabla\Phi\right|,\quad
+  \left|\int P\,V\cdot\nabla\Phi\right|,\\
+  |b|\left|\int |V|^2\nabla\Phi\right|,\quad
+  a_-\int |V|^2\Phi,\quad
+  |a|\left|\int |V|^2y\cdot\nabla\Phi\right|
+\end{gathered}
+\]
+is integrable on \([\tau_0,\infty)\).
+\end{definition}
+
+\begin{lemma}[Summable annuli imply moving finite error]
+\label{paper6a:lem:summable-moving-errors}
+If \cref{paper6a:def:summable-moving-errors} holds, then
+\(B_{\mathrm{mov}}\in L^1(\tau_0,\infty)\).
+\end{lemma}
+
+\begin{proof}
+The density \(B_{\mathrm{mov}}\) is a finite positive linear combination of
+the seven quantities listed in
+\cref{paper6a:def:summable-moving-errors}.  If each is integrable, then their
+linear combination is integrable.
+\end{proof}
+
+\begin{definition}[Summable tightness schedule]\label{paper6a:def:summable-tightness}
+A summable tightness schedule is a nondecreasing sequence \(R_n\to\infty\) such
+that, on unit windows \(I_n=[\tau_0+n,\tau_0+n+1]\),
+\[
+  \sum_{n=0}^{\infty}
+  \sup_{\tau\in I_n}
+  \|V(\tau)\|_{L^3(A_{R_n})}^3<\infty,
+\]
+and the same schedule is compatible with the pressure-tail normalization used
+for \(P\).  This is stronger than uniform critical tightness, which permits
+large radii on each window but does not by itself give a monotone radius
+schedule with a summable series.
+\end{definition}
+
+\begin{definition}[Moving-cost admissibility]\label{paper6a:def:moving-cost-admissibility}
+The moving localized cost is admissible if
+\[
+  \tilde{\mathfrak D}_{R(\tau)}(\tau)
+  =
+  \nu\int|\nabla V|^2\phi_{R(\tau)}
+  +a_+(\tau)\int|V|^2\phi_{R(\tau)}
+\]
+is accepted as the active Type II barrier cost, or is compared to the fixed
+cost by a positive constant on the tail so that cost divergence is unchanged.
+\end{definition}
+
+\begin{theorem}[Moving-cutoff replacement]\label{paper6a:thm:moving-replacement}
+Assume the repaired-gauge representation, localized energy identity,
+moving-cost admissibility, and summable moving-annulus errors.  Then the moving
+cutoff supplies the corrected monotonicity input needed in
+\cref{paper6a:thm:conditional-barrier-application}.
+\end{theorem}
+
+\begin{proof}
+\Cref{paper6a:lem:summable-moving-errors} gives
+\(B_{\mathrm{mov}}\in L^1(\tau_0,\infty)\).  Applying
+\cref{paper6a:thm:moving-corrected-monotonicity} gives corrected monotonicity
+with cost \(\tilde{\mathfrak D}_{R(\tau)}\).  The moving-cost admissibility
+assumption identifies this cost, or a tail-comparable version of it, with the
+active barrier cost.
+\end{proof}
+
+\subsection{Negative Scale Drift}
+
+Set
+\[
+  M_R(\tau)=\int |V(y,\tau)|^2\Phi(\tau,y)\,dy .
+\]
+The negative-scale contribution in the moving cutoff argument is
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau.
+\]
+
+\begin{definition}[Negative scale-drift alternatives]\label{paper6a:def:negative-drift}
+We say that the branch has finite negative drift if
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)\,d\tau<\infty.
+\]
+It has bounded moving \(L^2\) core mass if
+\[
+  \sup_{\tau\ge\tau_0}M_R(\tau)<\infty.
+\]
+It has a moving \(L^2\) core floor if there are \(m_0>0\) and
+\(\tau_1\ge\tau_0\) such that
+\[
+  M_R(\tau)\ge m_0
+  \qquad\text{for a.e. }\tau\ge\tau_1.
+\]
+The scale-collapse drift obstruction is the divergent alternative
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau=\infty .
+\]
+\end{definition}
+
+\begin{lemma}[Finite negative drift controls the scale term]
+\label{paper6a:lem:finite-negative-drift}
+If the branch has bounded moving \(L^2\) core mass and finite negative drift,
+then
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau<\infty .
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(M_*=\sup_{\tau\ge\tau_0}M_R(\tau)<\infty\).  Since \(a_-\ge0\),
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau
+  \le
+  M_*\int_{\tau_0}^{\infty}a_-(\tau)\,d\tau<\infty.
+\]
+\end{proof}
+
+\begin{theorem}[Finite-or-infinite scale-negative alternative]
+\label{paper6a:thm:finite-infinite-scale-negative}
+For every represented orbit for which \(a_-\) and \(M_R\) are measurable and
+nonnegative, precisely one of the following alternatives holds:
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau<\infty,
+  \qquad
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau=\infty.
+\]
+\end{theorem}
+
+\begin{proof}
+The integral
+\[
+  I_R=\int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau
+\]
+is an extended nonnegative number.  Hence either \(I_R<\infty\) or
+\(I_R=\infty\), and the two cases are mutually exclusive.
+\end{proof}
+
+\begin{lemma}[Logarithmic scale identity]\label{paper6a:lem:log-scale}
+For the repaired-gauge convention
+\[
+  \tau_t=\lambda(t)^{-2},\qquad a(\tau)=\lambda(t)\lambda_t(t),
+\]
+one has
+\[
+  \int_{\tau_1}^{\tau_2}a(\tau)\,d\tau
+  =
+  \log\lambda(\tau_2)-\log\lambda(\tau_1)
+\]
+whenever \(\tau_0\le\tau_1<\tau_2<\infty\).
+\end{lemma}
+
+\begin{proof}
+The chain rule gives
+\[
+  \frac{d}{d\tau}\log\lambda
+  =
+  \frac{\lambda_t}{\lambda}\frac{dt}{d\tau}
+  =
+  \frac{\lambda_t}{\lambda}\lambda^2
+  =
+  \lambda\lambda_t=a.
+\]
+Integrating over \([\tau_1,\tau_2]\) proves the identity.
+\end{proof}
+
+\begin{theorem}[Collapse with core floor forces scale-drift obstruction]
+\label{paper6a:thm:collapse-core-floor}
+Assume
+\[
+  \lambda(\tau)\to0\qquad\text{as }\tau\to\infty,
+\]
+and assume the moving \(L^2\) core floor of
+\cref{paper6a:def:negative-drift}.  Then
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau=\infty .
+\]
+\end{theorem}
+
+\begin{proof}
+By \cref{paper6a:lem:log-scale},
+\[
+  \int_{\tau_1}^{\tau_2}a(\tau)\,d\tau
+  =
+  \log\lambda(\tau_2)-\log\lambda(\tau_1).
+\]
+Since \(\lambda(\tau)\to0\), the right-hand side tends to \(-\infty\) as
+\(\tau_2\to\infty\).  If
+\(\int_{\tau_1}^{\infty}a_-(\tau)\,d\tau<\infty\), then
+\[
+  \int_{\tau_1}^{\tau_2}a(\tau)\,d\tau
+  =
+  \int_{\tau_1}^{\tau_2}a_+(\tau)\,d\tau
+  -
+  \int_{\tau_1}^{\tau_2}a_-(\tau)\,d\tau
+  \ge
+  -\int_{\tau_1}^{\infty}a_-(\tau)\,d\tau>-\infty,
+\]
+which contradicts the preceding limit.  Thus
+\(\int_{\tau_1}^{\infty}a_-(\tau)\,d\tau=\infty\).
+
+By the moving \(L^2\) core floor, \(M_R(\tau)\ge m_0\) for a.e.
+\(\tau\ge\tau_1\).  Therefore
+\[
+  \int_{\tau_0}^{\infty}a_-(\tau)M_R(\tau)\,d\tau
+  \ge
+  m_0\int_{\tau_1}^{\infty}a_-(\tau)\,d\tau
+  =
+  \infty.
+\]
+\end{proof}
+
+\begin{corollary}[Scale-drift routing]\label{paper6a:cor:scale-drift-routing}
+In the moving-cutoff setup, the negative-scale term has the following
+exhaustive routing.  If bounded moving \(L^2\) core mass and finite negative
+drift hold, then the negative-scale term is integrable.  If the weighted
+negative-drift integral is infinite, the branch lies in the scale-collapse
+drift obstruction.  If genuine collapse and a moving \(L^2\) core floor also
+hold, then the obstruction is forced.
+\end{corollary}
+
+\begin{proof}
+The first case is \cref{paper6a:lem:finite-negative-drift}.  The exhaustive
+split is \cref{paper6a:thm:finite-infinite-scale-negative}.  The final
+assertion is \cref{paper6a:thm:collapse-core-floor}.
+\end{proof}
+
+\subsection{Scale-Drift Barrier Costs}
+
+\begin{definition}[Scale-collapse drift cost]\label{paper6a:def:scale-collapse-cost}
+For a represented branch define
+\[
+  \mathfrak C_{\mathrm{sc}}(\tau)
+  =
+  a_-(\tau)M_R(\tau),
+  \qquad
+  M_R(\tau)=\int |V(y,\tau)|^2\phi_{R(\tau)}(y)\,dy,
+\]
+and
+\[
+  \mathcal C_{\mathrm{sc}}[\tau_0,\infty)
+  =
+  \int_{\tau_0}^{\infty}\mathfrak C_{\mathrm{sc}}(\tau)\,d\tau .
+\]
+Thus the scale-collapse drift obstruction is precisely
+\(\mathcal C_{\mathrm{sc}}[\tau_0,\infty)=\infty\).  The density is
+nonnegative and local in the renormalized core.
+\end{definition}
+
+\begin{definition}[Scale-collapse cost admissibility]\label{paper6a:def:scale-collapse-cost-admissibility}
+The scale-collapse drift cost is admissible when:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\mathfrak C_{\mathrm{sc}}\) is measurable, nonnegative, and locally
+integrable on finite \(\tau\)-intervals for represented branches;
+\item divergence of \(\mathcal C_{\mathrm{sc}}[\tau_0,\infty)\) is an
+accepted Type II barrier condition;
+\item the resulting barrier conclusion is the same local Type II exclusion
+conclusion used for the fixed localized cost.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Scale-collapse drift is a barrier when admissible]
+\label{paper6a:thm:scale-collapse-drift-barrier}
+If the scale-collapse drift obstruction holds and the cost
+\(\mathfrak C_{\mathrm{sc}}\) is admissible, then the divergent-cost hypothesis
+of \cref{paper6a:thm:conditional-barrier-application} is satisfied for the
+scale-collapse branch.
+\end{theorem}
+
+\begin{proof}
+By \cref{paper6a:def:scale-collapse-cost}, the obstruction is precisely
+\[
+  \mathcal C_{\mathrm{sc}}[\tau_0,\infty)=\infty .
+\]
+By \cref{paper6a:def:scale-collapse-cost-admissibility}, this divergence is an
+accepted nonnegative Type II barrier condition with the same local conclusion.
+\end{proof}
+
+\begin{corollary}[Scale-collapse suppression under the conditional principle]
+\label{paper6a:cor:scale-collapse-suppression}
+Assume a scale-supercritical represented Type II branch has scale-collapse
+drift obstruction, admissible scale-collapse drift cost, and all other
+application data required by the conditional Type II barrier principle.  Then
+the branch is excluded from the represented Type II class covered by that
+principle.
+\end{corollary}
+
+\begin{proof}
+\Cref{paper6a:thm:scale-collapse-drift-barrier} supplies the divergent
+admissible barrier cost.  Applying
+\cref{paper6a:thm:conditional-barrier-application} gives the exclusion.
+\end{proof}
+
+\begin{definition}[Absolute scale-drift cost]\label{paper6a:def:absolute-scale-cost}
+Define
+\[
+  \mathfrak C_{\mathrm{abs}}(\tau)
+  =
+  \nu\int|\nabla V|^2\phi_{R(\tau)}
+  +|a(\tau)|M_R(\tau).
+\]
+The absolute scale-drift cost is admissible if divergence of
+\(\int_{\tau_0}^{\infty}\mathfrak C_{\mathrm{abs}}(\tau)\,d\tau\) is accepted
+as a Type II barrier condition with the same local conclusion.
+\end{definition}
+
+\begin{lemma}[Scale-collapse drift forces absolute-cost divergence]
+\label{paper6a:lem:scale-drift-absolute}
+If the scale-collapse drift obstruction holds, then
+\[
+  \int_{\tau_0}^{\infty}\mathfrak C_{\mathrm{abs}}(\tau)\,d\tau=\infty .
+\]
+\end{lemma}
+
+\begin{proof}
+Since
+\[
+  \mathfrak C_{\mathrm{abs}}(\tau)
+  =
+  \nu\int|\nabla V|^2\phi_{R(\tau)}
+  +|a(\tau)|M_R(\tau)
+  \ge a_-(\tau)M_R(\tau),
+\]
+divergence of \(\int a_-M_R\) forces divergence of
+\(\int\mathfrak C_{\mathrm{abs}}\).
+\end{proof}
+
+\begin{corollary}[Absolute scale-cost barrier]\label{paper6a:cor:absolute-scale-cost-barrier}
+If the scale-collapse drift obstruction holds and the absolute scale-drift
+cost is admissible, then the divergent-cost hypothesis of
+\cref{paper6a:thm:conditional-barrier-application} is satisfied.
+\end{corollary}
+
+\begin{proof}
+\Cref{paper6a:lem:scale-drift-absolute} gives divergence of the absolute
+scale-drift cost, and admissibility makes this divergence an accepted Type II
+barrier condition.
+\end{proof}
+
+\begin{theorem}[Moving route with scale-collapse fallback]
+\label{paper6a:thm:moving-route-scale-fallback}
+Assume the moving-cutoff setup and a scale-supercritical represented Type II
+branch.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item If the negative-scale term is integrable and the remaining moving-annulus
+errors are summable, then the moving-cutoff monotonicity route is available.
+\item If the scale-collapse drift obstruction holds and either the
+scale-collapse drift cost or the absolute scale-drift cost is admissible, then
+the divergent-cost hypothesis of the conditional barrier principle is
+satisfied directly.
+\item If, in addition, the remaining application data of
+\cref{paper6a:def:barrier-application-data} hold, then the represented Type II
+branch is excluded.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The first branch is \cref{paper6a:thm:moving-replacement}.  The second branch
+is \cref{paper6a:thm:scale-collapse-drift-barrier} or
+\cref{paper6a:cor:absolute-scale-cost-barrier}, depending on which admissible
+cost is used.  The third branch is
+\cref{paper6a:thm:conditional-barrier-application}.
+\end{proof}
+
+\subsection{Terminal Conditional Assembly}
+
+\begin{definition}[Abstract final Type II data]\label{paper6a:def:abstract-final-data}
+The abstract final Type II data consist of:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item classification of represented Type II branches into the local alternatives
+used in the final assembly;
+\item exclusion of the radiative or noncompact alternative, equivalently the
+uniform critical tightness conclusion on represented branches;
+\item exclusion of the rough-core alternative, equivalently uniform local
+windowed \(H^1\) control on represented branches;
+\item the conditional Type II barrier principle of
+\cref{paper6a:thm:conditional-barrier-application}.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Abstract final conditional Type II theorem]
+\label{paper6a:thm:abstract-final-typeII}
+If the abstract final Type II data hold, then every represented Type II branch
+in the covered class is excluded.
+\end{theorem}
+
+\begin{proof}
+The classification data place every represented Type II branch in one of the
+local alternatives.  The radiative and rough-core alternatives are excluded by
+items \textup{(ii)} and \textup{(iii)} of
+\cref{paper6a:def:abstract-final-data}.  Any branch carrying a divergent
+admissible Type II barrier cost is excluded by item \textup{(iv)}.  The
+remaining compact, multibubble, cascade, and scale-rigid alternatives are the
+ones treated in the preceding local sections and in the final assembly below.
+\end{proof}
+
+\begin{definition}[Expanded terminal data]\label{paper6a:def:expanded-terminal-data}
+Expanded terminal data are the following analytic inputs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item classification of represented Type II branches into the ordered local
+alternatives;
+\item the aggregate technical Type II exclusions used for compact,
+multibubble, scale-collapse, and rough-core branches, excluding the conditional
+barrier principle itself;
+\item the no-radiation route yielding uniform critical tightness;
+\item an exhaustive terminal state-space partition and a local finite
+critical-mass package for retained active terminal strata;
+\item small-data stability in \(L^3\) and a critical Navier--Stokes profile
+decomposition with nonlinear stability;
+\item removal of the scattering branch and discard of physically exterior
+regular profiles;
+\item the repaired-gauge representation theorem;
+\item the Caccioppoli/windowed regularity input;
+\item the scale-collapse rigidity input used by the multibubble and
+scale-collapse reductions;
+\item the conditional Type II barrier principle.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Terminal data give the radiative exclusion]
+\label{paper6a:lem:terminal-radiative}
+The expanded terminal data imply exclusion of the radiative or noncompact
+alternative.
+\end{lemma}
+
+\begin{proof}
+The repaired-gauge representation turns represented orbits into terminal
+sequences.  The terminal state-space partition, the finite critical-mass input,
+small-data \(L^3\) stability, and the critical profile decomposition give the
+profile completeness needed for the terminal profile route.  The scattering
+branch and exterior regular profiles are removed by hypothesis.  Together with
+the aggregate technical Type II exclusions, the Caccioppoli input, and the
+scale-collapse rigidity input, the multibubble alternatives are removed.  The
+remaining non-bubble noncompact branch is the radiative alternative,
+and the no-radiation route excludes it, equivalently giving uniform critical
+tightness.
+\end{proof}
+
+\begin{lemma}[Terminal data give the rough-core exclusion]
+\label{paper6a:lem:terminal-roughcore}
+The expanded terminal data imply exclusion of the rough-core alternative.
+\end{lemma}
+
+\begin{proof}
+The rough-core composition requires the represented branch, local pressure and
+modulation control, compact-cylinder critical bounds, and Caccioppoli/windowed
+regularity.  These are included in the expanded terminal data through the
+aggregate technical exclusions, the repaired-gauge representation, and the
+Caccioppoli input.  Hence the universal rough-core exclusion is available.
+\end{proof}
+
+\begin{lemma}[Expanded terminal data give abstract final data]
+\label{paper6a:lem:expanded-to-abstract}
+The expanded terminal data imply the abstract final Type II data.
+\end{lemma}
+
+\begin{proof}
+The expanded terminal data include classification of represented Type II
+branches and the conditional Type II barrier principle.  By
+\cref{paper6a:lem:terminal-radiative} they give the radiative exclusion, and by
+\cref{paper6a:lem:terminal-roughcore} they give the rough-core exclusion.
+These are precisely the four entries in
+\cref{paper6a:def:abstract-final-data}.
+\end{proof}
+
+\begin{theorem}[Expanded terminal Type II theorem]
+\label{paper6a:thm:expanded-terminal-typeII}
+If the expanded terminal data hold, then every represented Type II branch in
+the covered class is excluded.
+\end{theorem}
+
+\begin{proof}
+\Cref{paper6a:lem:expanded-to-abstract} gives the abstract final Type II data.
+Applying \cref{paper6a:thm:abstract-final-typeII} excludes every represented
+Type II branch in the covered class.
+\end{proof}
+
+\begin{remark}[Direct branchwise reading]
+Equivalently, compact single-core branches are removed by the compact Type II
+barrier; scale-collapse branches are removed by the scale-collapse rigidity
+input, or by \cref{paper6a:thm:scale-collapse-drift-barrier} when the
+scale-collapse drift cost is admissible; multibubble and radiative branches
+are removed by the terminal profile and no-radiation inputs; rough-core
+branches are removed by the rough-core estimate; and every divergent admissible
+barrier cost is converted to the same local Type II exclusion conclusion by
+the conditional barrier principle.
+\end{remark}
 
 \clearpage
 \section{Assembly of the Local Type II Exclusion}\label{sec:typeII-assembly}
-\begin{quote}
-\textbf{Abstract.}
-We assemble the local Type II exclusion argument for the three-dimensional
-Navier--Stokes equations from the local results proved in \cref{sec:single-core-criterion,sec:repaired-gauge-construction,sec:multibubble-cascade-exclusion,sec:rough-core-exclusion,sec:scale-collapse-cost}.
-The entry point is the local Caffarelli--Kohn--Nirenberg concentration theorem:
-any singular point which is not in the local Type I alternative yields a
-positive local Type II concentration sequence.  The repaired-gauge construction
-places each retained nondegenerate core into a renormalized local Navier--Stokes
-chart.  The single-core, multibubble/cascade, rough-core, scale-collapse, and
-virial-controlled terminal analyses then exhaust or eliminate the local
-state-space alternatives to which they apply.  The proof of the assembly below uses only those
-local alternatives and does not add any stationary-profile classification
-theorem.
-\end{quote}
-
 \subsection{Local Entry}
 
 Let \((u,p)\) be a suitable weak solution of the three-dimensional
@@ -5182,12 +6054,12 @@ Type II alternative.
 \end{theorem}
 
 \begin{proof}
-This is the local concentration and blow-up dichotomy used as the entry point for \cref{sec:typeII-assembly}.
+The theorem is the standing local concentration dichotomy assumed in the assembly.
 \end{proof}
 
 \subsection{Local Theorems Used in the Assembly}
 
-We record the local results established above in the form used below.  They are quoted here as PDE statements to keep the final assembly self-contained.
+The local results needed for the final assembly are restated in the following form.
 
 \begin{theorem}[Repaired-gauge representation]
 \label{paper6:thm:representation}
@@ -5213,7 +6085,7 @@ multibubble, cascade, or scale-rigidity alternatives.
 \end{theorem}
 
 \begin{proof}
-This is the compact-window representation package of \cref{paper2:thm:C}.
+\Cref{paper2:thm:C} is precisely the compact-window representation theorem.
 \end{proof}
 
 \begin{theorem}[Compact single-core exclusion]
@@ -5222,7 +6094,7 @@ No compact single-core vanishing-dissipation branch can be a local Type II
 sequence.  More explicitly, let a represented selected-window sequence have:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item positive local CKN concentration on a fixed compact cylinder;
-\item a uniformly bounded compact-cylinder suitable package \(A+E+C+D\);
+\item uniformly bounded compact-cylinder suitable estimates \(A+E+C+D\);
 \item nondegenerate local scale-center representation;
 \item bounded modulation coefficients;
 \item local pressure reconstruction and pressure stability modulo spatial
@@ -5233,7 +6105,7 @@ Then the sequence is incompatible with the local Type II condition.
 \end{theorem}
 
 \begin{proof}
-This is exactly \cref{paper1:thm:single-core-criterion}.
+\Cref{paper1:thm:single-core-criterion} gives the stated exclusion.
 \end{proof}
 
 \begin{theorem}[Multibubble and cascade exclusion]
@@ -5247,7 +6119,8 @@ local multibubble/cascade analysis under those stated hypotheses.
 \end{theorem}
 
 \begin{proof}
-This is the local multibubble and cascade exclusion theorem \cref{paper3:thm:multi}, together with its removal corollary \cref{paper3:cor:multi-removal}.
+\Cref{paper3:thm:multi}, together with its removal corollary
+\cref{paper3:cor:multi-removal}, gives the stated exclusion.
 \end{proof}
 
 \begin{theorem}[Rough-core reduction]
@@ -5256,12 +6129,12 @@ On any compact renormalized window satisfying the local energy inequality and
 bounded modulation hypotheses, finite outer velocity-pressure CKN control
 \(\mathcal C+\mathcal D\) implies finite inner windowed \(H^1\) control.  Hence
 failure of local windowed \(H^1\) control on a retained inner cylinder forces
-failure of the compact-cylinder \(\mathcal C+\mathcal D\) package on every
+failure of the compact-cylinder \(\mathcal C+\mathcal D\) bounds on every
 relevant enclosing cylinder.
 \end{theorem}
 
 \begin{proof}
-This is the rough-core exclusion on compact windows, \cref{paper4:cor:rough-core}.
+\Cref{paper4:cor:rough-core} gives the stated reduction.
 \end{proof}
 
 \begin{theorem}[Finite-cost scale-collapse exclusion]
@@ -5272,33 +6145,34 @@ nonvanishing selected core.
 \end{theorem}
 
 \begin{proof}
-This is the scale-collapse cost exclusion \cref{paper5:thm:cost-exclusion} and absolute scale-cost exclusion \cref{paper5:cor:absolute-cost-exclusion}.
+\Cref{paper5:thm:cost-exclusion,paper5:cor:absolute-cost-exclusion} give the stated exclusion.
 \end{proof}
 
-\begin{theorem}[Scale-collapse state-space stratification]
+\begin{theorem}[Scale-collapse decomposition of alternatives]
 \label{paper6:thm:scale-stratification}
 Let a represented Type II branch have genuine scale collapse and a nonvanishing
 selected core.  After passing to selected terminal windows, exactly one of the
-state-space alternatives isolated in \cref{sec:scale-collapse-cost} occurs:
+alternatives isolated in \cref{sec:scale-collapse-cost} occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item finite scale-collapsing cost;
 \item finite absolute scale cost;
-\item thin-drift defect;
-\item autonomous-modulation defect;
-\item compactness defect;
+\item thin-drift alternative;
+\item autonomous-modulation alternative;
+\item compactness alternative;
 \item a nonzero autonomous reduced limit in the scale-rigid state.
 \end{enumerate}
-In the local Type II state space used by the multibubble/cascade and
+In the local Type II class of alternatives used by the multibubble/cascade and
 scale-collapse analyses, alternatives
-\textup{(iii)}--\textup{(vi)} are not new compact single-core mechanisms: the
-thin-drift, modulation, and compactness defects are exits from the compact
-finite-cost scale-collapse branch, and the scale-rigid state is the state
-handled by the scale-rigidity hypothesis in the multibubble/cascade theorem.
+\textup{(iii)}--\textup{(vi)} do not constitute additional compact single-core
+mechanisms: the thin-drift, modulation, and compactness alternatives lie outside
+the compact finite-cost scale-collapse branch, and the scale-rigid state is
+covered by the scale-rigidity hypothesis in the multibubble/cascade theorem.
 \end{theorem}
 
 \begin{proof}
-This is the scale-collapse state-space stratification, combined with the
-scale-rigidity branch used in the multibubble/cascade reduction.
+The assertion follows by combining the scale-collapse decomposition of
+alternatives with the scale-rigidity alternative used in the
+multibubble/cascade reduction.
 \end{proof}
 
 \begin{definition}[Virial-dissipative terminal state]
@@ -5423,20 +6297,17 @@ weighted circulation identity gives the a priori estimate
   \lesssim
   \|V\|_{L^\infty}\|\Gamma\|_{L^\infty}
 \]
-for bounded ancient terminal states.  This estimate is useful in the local
-state-space stratification, but by itself it is not an exclusion.  The exclusion
-above requires the stated absorption, vanishing defect, or an equivalent
+for bounded ancient terminal states.  This estimate enters the local
+decomposition of alternatives but does not by itself exclude a terminal state.  The exclusion
+requires the stated absorption, vanishing conclusion, or an equivalent
 condition which makes the virial inequality dissipative.
 \end{remark}
 
-\subsection{State-Space Assembly}
+\subsection{Assembly of Alternatives}
 
-\begin{theorem}[Local Type II state-space decomposition]
+\begin{theorem}[Local Type II decomposition into local alternatives]
 \label{paper6:thm:state-decomposition}
-Every positive local Type II concentration sequence in
-\cref{paper6:def:local-typeII-sequence}, after passing to subsequences and selected
-windows in the local state-space analysis, enters one of the following
-alternatives:
+Every positive local Type II concentration sequence in \cref{paper6:def:local-typeII-sequence}, after passing to subsequences and selected windows, enters one of the following alternatives:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item a compact single-core vanishing-dissipation branch;
 \item a multibubble, cascade, or gauge-degenerate branch;
@@ -5452,11 +6323,11 @@ state is passed to the scale-rigidity hypothesis.
 \end{theorem}
 
 \begin{proof}
-This is the local state-space decomposition obtained by combining
+This decomposition is obtained by combining
 \cref{paper6:thm:representation,paper6:thm:multibubble,paper6:thm:rough-core,paper6:thm:scale-stratification}.
 The representation theorem gives the nondegenerate single-core chart whenever a
 unique retained core is selected.  Failure of that selection, splitting of
-positive CKN mass, compactness failure, or scale cascade is precisely the
+positive CKN mass, compactness failure, or scale cascade is the
 multibubble/cascade side.  On a represented retained core, rough-core loss is
 equivalent by \cref{paper6:thm:rough-core} to failure of compact CKN control on an
 enclosing cylinder, hence returns to the multibubble/cascade side.  Genuine
@@ -5482,8 +6353,8 @@ scale-rigidity hypotheses.
 
 Alternative \textup{(iii)} is not an independent terminal state.  By
 \cref{paper6:thm:rough-core}, rough-core loss of local \(H^1\) control forces
-failure of the compact-cylinder \(\mathcal C+\mathcal D\) package on enclosing
-compact cylinders.  Such failure produces an active compact-cylinder
+failure of the compact-cylinder \(\mathcal C+\mathcal D\) bounds on enclosing
+compact cylinders.  Such failure yields an active compact-cylinder
 concentration branch and therefore belongs to the multibubble/cascade
 alternative, already excluded by \cref{paper6:thm:multibubble}.
 
@@ -5496,7 +6367,7 @@ Alternative \textup{(v)} is the scale-rigid terminal state in
 contradicts retention of a positive terminal core.  If it is axisymmetric and
 swirl-virial dissipative with positive retained circulation mass, the same
 theorem forces \(\Gamma\equiv0\), contradicting that positive circulation mass.
-The remaining scale-rigid terminal states are precisely those left to the
+The remaining scale-rigid terminal states are covered by the
 scale-rigidity hypothesis in \cref{paper6:thm:multibubble}.  Under that hypothesis, the
 state either has a nonzero bounded selected-window limit, which is incompatible
 with the local Type II condition, or it reduces to the compact single-core
@@ -5510,51 +6381,949 @@ Type II branch.
 \label{paper6:thm:local-typeII-exclusion}
 Let \((u,p)\) be a suitable weak solution on
 \(\mathbb R^3\times(T-\delta,T)\).  Then no point of \(\Sigma(T)\) lies in the
-local Type II alternative, within the local state-space class covered by
+local Type II alternative, within the class of local alternatives covered by
 \cref{paper6:thm:state-decomposition}.
 \end{theorem}
 
 \begin{proof}
 Assume, for contradiction, that \(x_0\in\Sigma(T)\) lies in the local Type II
-alternative.  By the local concentration dichotomy, \cref{paper6:thm:paper0}, there is a positive local Type II
-concentration sequence \(r_n\downarrow0\) at \((x_0,T)\).  The local
-state-space decomposition, \cref{paper6:thm:state-decomposition}, places this sequence,
+alternative.  By \cref{paper6:thm:paper0}, there is a positive local Type II
+concentration sequence \(r_n\downarrow0\) at \((x_0,T)\).  By the decomposition into local alternatives, \cref{paper6:thm:state-decomposition}, this sequence lies,
 after passing to selected windows, in one of the five alternatives listed
 there.  Each alternative is impossible by \cref{paper6:prop:state-elimination}.  This
 contradiction proves that no such \(x_0\) exists in the covered local
-state-space class.
+class of alternatives.
 \end{proof}
 
 \begin{corollary}[Final local dichotomy after Type I separation]
 \label{paper6:cor:final-local-dichotomy}
-Every singular point at time \(T\) in the covered local state-space class
-belongs to the local Type I alternative.  Equivalently, after the Type I case is
-handled by the Type I part of the theory, the local Type II state space contains
-no remaining singular branch in that class.
+Every singular point at time \(T\) in the covered class of local alternatives
+belongs to the local Type I alternative.  Equivalently, once the Type I case is
+covered by the Type I part of the theory, the local Type II class of alternatives contains no remaining singular branch.
 \end{corollary}
 
 \begin{proof}
-Let \(x_0\in\Sigma(T)\).  By the local concentration dichotomy, \cref{paper6:thm:paper0}, a concentration point is
+Let \(x_0\in\Sigma(T)\).  By \cref{paper6:thm:paper0}, a concentration point is
 either in the local Type I alternative or in the local Type II alternative.
 \Cref{paper6:thm:local-typeII-exclusion} excludes the latter.
 \end{proof}
 
 \subsection{Conclusion}
 
-The proof uses only local PDE statements.  The local concentration theorem
-supplies positive local CKN concentration and the Type I/Type II dichotomy.  The
-repaired-gauge theorem supplies the local renormalized representation for
+The proof uses only local PDE statements.  The local concentration theorem gives
+positive local CKN concentration and the Type I/Type II dichotomy.  The
+repaired-gauge theorem gives the local renormalized representation for
 nondegenerate selected cores.  The single-core theorem excludes compact
 single-core vanishing-dissipation branches.  The multibubble/cascade theorem
-removes splitting, cascades, gauge degeneracy, and the scale-rigid terminal
+excludes splitting, cascades, gauge degeneracy, and the scale-rigid terminal
 state under its stated local hypotheses.  The virial identities eliminate the
 velocity-virial dissipative terminal states and the axisymmetric
 swirl-virial dissipative terminal states before the remaining scale-rigid
-alternatives are handled by that hypothesis.  The rough-core estimate sends loss
-of windowed \(H^1\) control back to failure of compact CKN control.  The
-scale-collapse theorem excludes finite-cost scale collapse and stratifies the
-remaining scale-collapse states locally.  Thus the local state-space
-alternatives are exhausted without adding any further classification theorem.
+alternatives are covered by that hypothesis.  The rough-core estimate reduces
+loss of windowed \(H^1\) control to failure of compact CKN control.  The
+scale-collapse theorem excludes finite-cost scale collapse and decomposes the remaining scale-collapse alternatives locally.  Thus the local alternatives are exhausted without adding any further classification theorem.
+
+\clearpage
+\section{PDE Translation of the C1--C5 Classification Inputs}
+\label{sec:c1-c5-pde-translation}
+
+This section records, in PDE notation, the Type II classification inputs encoded
+in the C1--C5 cluster notes.  The statements are conditional classification
+statements for declared Type II branches.  They do not assert the existence of
+such branches and do not add any regularity theorem beyond the analytic
+hypotheses explicitly stated below.
+
+\subsection{Declared Type II branches and exhaustion}
+
+\begin{definition}[Declared local Type II class]
+\label{def:c1-declared-typeII-class}
+Let \(\mathcal U_{\mathrm{II}}^{NS}\) be the class of candidate terminal
+branches \((u,p,T^*)\) such that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \((u,p)\) is a three-dimensional incompressible Navier--Stokes solution
+on a terminal interval \([0,T^*)\) in the analytic class under consideration;
+\item \(T^*<\infty\) is the terminal time of the branch;
+\item the branch is not in the local Type I class associated with the
+scale-invariant Type I criterion;
+\item the branch is a Type II candidate rather than a continuation, Type I,
+boundary, or non-Navier--Stokes-domain alternative.
+\end{enumerate}
+Membership in \(\mathcal U_{\mathrm{II}}^{NS}\) is only a declaration of the
+classification problem; no nonemptiness assertion is made.
+\end{definition}
+
+\begin{definition}[Type II route data]
+\label{def:c1-typeII-route-data}
+A branch \(\omega=(u,p,T^*)\in\mathcal U_{\mathrm{II}}^{NS}\) has the Type II
+route data if the following three analytic outputs are present:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a concentration profile or blow-up germ modulo the Navier--Stokes
+symmetry group;
+\item a supercritical scale route, meaning that the branch enters the Type II
+scale alternative rather than the Type I scale alternative;
+\item a complete local profile output in the Navier--Stokes profile class used
+for the subsequent compactness and representation arguments.
+\end{enumerate}
+The route is exhaustive if every declared Type II branch either has these three
+outputs or falls into one of the ordered failures in
+\cref{def:c1-exhaustion-failures}.
+\end{definition}
+
+\begin{definition}[Ordered exhaustion failures]
+\label{def:c1-exhaustion-failures}
+For a declared Type II branch, the ordered failures of the Type II route are:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item concentration extraction fails;
+\item concentration extraction succeeds but the supercritical scale route fails;
+\item concentration extraction and scale routing succeed but the local profile
+output is not complete;
+\item the declared Type II branch lies outside the certified
+concentration/scale/profile route.
+\end{enumerate}
+The first applicable failure in this order is the emitted exhaustion
+alternative.
+\end{definition}
+
+\begin{theorem}[Type II branch exhaustion]
+\label{thm:c1-typeII-branch-exhaustion}
+Assume the Type II route data of \cref{def:c1-typeII-route-data} are exhaustive
+on \(\mathcal U_{\mathrm{II}}^{NS}\).  Then every
+\(\omega\in\mathcal U_{\mathrm{II}}^{NS}\) has the concentration output, the
+supercritical scale route, and the complete local profile output.
+\end{theorem}
+
+\begin{proof}
+Fix \(\omega=(u,p,T^*)\in\mathcal U_{\mathrm{II}}^{NS}\).  By the
+concentration-extraction component of the route data, the branch has a
+concentration profile or blow-up germ.  By the scale-routing component, the
+same branch lies in the supercritical Type II scale route.  By profile
+completeness, the extracted profile belongs to the local Navier--Stokes profile
+class used in the subsequent arguments.  Since \(\omega\) was arbitrary, the
+three outputs hold for every declared Type II branch.
+\end{proof}
+
+\begin{corollary}[Ordered C1 classification]
+\label{cor:c1-ordered-exhaustion}
+For each \(\omega\in\mathcal U_{\mathrm{II}}^{NS}\), exactly one ordered output
+occurs: the Type II route data hold, or one of the four failures in
+\cref{def:c1-exhaustion-failures} occurs.  The Type II route is exhaustive on
+\(\mathcal U_{\mathrm{II}}^{NS}\) if and only if the first output holds for
+every \(\omega\in\mathcal U_{\mathrm{II}}^{NS}\).
+\end{corollary}
+
+\begin{proof}
+Test the four route requirements in the stated order.  If concentration
+extraction, scale routing, and profile completeness all hold, the branch has
+the Type II route data.  If a test fails, the first failed test gives the
+corresponding ordered failure.  The alternatives are disjoint by the first
+failure convention and exhaustive by construction.  The final equivalence is
+the definition of exhaustion on \(\mathcal U_{\mathrm{II}}^{NS}\).
+\end{proof}
+
+\begin{theorem}[Entry into the downstream Type II analysis]
+\label{thm:c1-downstream-entry}
+Assume the Type II route is exhaustive.  Then each declared Type II branch
+enters the downstream analysis in exactly one of the following ways:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item it reaches the compact Type II barrier hypotheses after the
+representation, critical-mass, tightness, and windowed-\(H^1\) tests;
+\item it falls into an ordered representation failure, critical-mass failure,
+loss of critical tightness, or loss of local windowed \(H^1\) control.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+By \cref{thm:c1-typeII-branch-exhaustion}, every declared Type II branch has
+the concentration, scale, and profile route data.  The representation step then
+either gives a repaired-gauge orbit or one of the ordered representation
+failures in \cref{def:c2-representation-failures}.  If a repaired-gauge orbit
+exists, the critical \(L^3\) test gives either the positive finite annulus or
+one of the ordered critical-mass alternatives in
+\cref{def:c3-critical-mass-alternatives}.  If the positive finite annulus
+holds, the remaining compact-barrier inputs are critical tightness and local
+windowed \(H^1\) control.  Their failures are exactly the radiative/noncompact
+and rough-core alternatives of \cref{def:c5-compact-tests}.  If both hold, the
+compact Type II barrier applies.
+\end{proof}
+
+\subsection{Repaired-gauge representation from a Type II route}
+
+\begin{definition}[Raw Type II chart]
+\label{def:c2-raw-chart}
+A raw Type II chart consists of
+\[
+  (u,p,T^*,x_c,\lambda,\tau,V,P,\mathcal I),
+  \qquad \mathcal I=(t_0,T^*),
+\]
+where \(u,p\) solve
+\[
+  \partial_tu+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad
+  \nabla\cdot u=0,
+\]
+\(\lambda(t)>0\), \(x_c(t)\in\mathbb R^3\), \(x_c,\lambda\in AC_{\rm loc}\),
+\(\lambda(t)\to0\) as \(t\uparrow T^*\), and
+\[
+  \frac{d\tau}{dt}=\lambda(t)^{-2},\qquad
+  \tau(t)\to\infty\quad\text{as }t\uparrow T^*.
+\]
+The renormalized variables are
+\[
+  y=\frac{x-x_c(t)}{\lambda(t)},\qquad
+  u(x,t)=\lambda(t)^{-1}V(y,\tau(t)),\qquad
+  p(x,t)=\lambda(t)^{-2}P(y,\tau(t)),
+\]
+with enough regularity to justify the distributional chain rule on compact
+\(y\)-sets.
+\end{definition}
+
+\begin{lemma}[Raw renormalized equation]
+\label{lem:c2-raw-renormalized-equation}
+For a raw Type II chart, define
+\[
+  a_{\rm raw}(\tau(t))=\lambda(t)\lambda_t(t),\qquad
+  b_{\rm raw}(\tau(t))=\lambda(t)x_c'(t).
+\]
+Then \(V,P\) satisfy, distributionally on compact \(y\)-sets,
+\[
+  \partial_\tau V+(V\cdot\nabla)V+\nabla P
+  =
+  \nu\Delta V
+  +a_{\rm raw}(\tau)(V+y\cdot\nabla V)
+  +b_{\rm raw}(\tau)\cdot\nabla V,
+  \qquad \nabla\cdot V=0 .
+\]
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+u(x,t)=\lambda(t)^{-1}V(y,\tau(t)),\qquad
+y=\frac{x-x_c(t)}{\lambda(t)},\qquad \tau_t=\lambda^{-2}.
+\]
+Then
+\[
+  \nabla_xu=\lambda^{-2}\nabla_yV,\qquad
+  \Delta_xu=\lambda^{-3}\Delta_yV,\qquad
+  (u\cdot\nabla_x)u=\lambda^{-3}(V\cdot\nabla_y)V.
+\]
+Since
+\[
+  y_t=-\frac{x_c'(t)}{\lambda(t)}
+      -\frac{\lambda_t(t)}{\lambda(t)}y,
+\]
+one has
+\[
+  \partial_tu
+  =
+  \lambda^{-3}\partial_\tau V
+  -\lambda_t\lambda^{-2}(V+y\cdot\nabla V)
+  -\lambda^{-2}x_c'(t)\cdot\nabla V .
+\]
+Moreover \(\nabla_xp=\lambda^{-3}\nabla_yP\).  Substitution in
+Navier--Stokes and multiplication by \(\lambda^3\) give
+\[
+  \partial_\tau V-\lambda\lambda_t(V+y\cdot\nabla V)
+  -\lambda x_c'(t)\cdot\nabla V
+  +(V\cdot\nabla)V+\nabla P
+  =\nu\Delta V .
+\]
+Moving the modulation terms to the right-hand side gives the equation with
+\(a_{\rm raw}=\lambda\lambda_t\) and \(b_{\rm raw}=\lambda x_c'\).  Finally,
+\(\nabla_x\cdot u=\lambda^{-2}\nabla_y\cdot V\), so incompressibility of \(u\)
+implies \(\nabla_y\cdot V=0\).
+\end{proof}
+
+\begin{definition}[Repaired-gauge realization]
+\label{def:c2-repaired-gauge-realization}
+Let \(0<p<3\), \(\Theta_0>0\), and let \(\psi_R\) be a smooth compactly
+supported centering cutoff.  A raw Type II chart admits a repaired-gauge
+realization if, after an admissible time-dependent scale and translation
+correction, the profile satisfies
+\[
+  G_{\rm sc}(V)=\int_{\mathbb R^3}|y|^{-p}|V(y)|^3\,dy-\Theta_0=0,
+\]
+and
+\[
+  G_j(V)=\int_{\mathbb R^3}y_j|V(y)|^2\psi_R(y)\,dy=0,
+  \qquad j=1,2,3,
+\]
+for a.e. renormalized time.  The corrected profile belongs to the admissible
+gauge class \(\mathcal A_p\), has the regularity needed to differentiate these
+functionals, and all time-dependent symmetry corrections have been absorbed
+into final modulation coefficients \(a,b\).
+\end{definition}
+
+\begin{definition}[Repaired-gauge representation]
+\label{def:c2-representation}
+A Type II branch has a repaired-gauge representation if it has:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a raw Type II chart;
+\item a repaired-gauge realization;
+\item pressure reconstruction modulo functions of time;
+\item final modulation coefficients \(a,b\) appearing in the repaired-gauge
+equation.
+\end{enumerate}
+The output is the tuple
+\[
+  (V,P,a,b,G_{\rm sc},G_1,G_2,G_3,\tau_0).
+\]
+\end{definition}
+
+\begin{theorem}[C2 representation implication]
+\label{thm:c2-representation-implication}
+Assume a Type II profile branch has a raw Type II chart, a repaired-gauge
+realization, pressure reconstruction modulo functions of time, and final
+modulation coefficients.  Then the branch has a repaired-gauge representation
+in the sense of \cref{def:c2-representation}.  In particular,
+\((V,P,a,b)\) satisfies the PDE class required by the compact Type II barrier.
+\end{theorem}
+
+\begin{proof}
+The raw chart gives \(V,P\) and, by \cref{lem:c2-raw-renormalized-equation},
+the renormalized Navier--Stokes equation with raw modulation coefficients.  The
+repaired-gauge realization places the profile on the scale and centering gauge
+surface and absorbs the time-dependent symmetry correction into updated
+coefficients.  The pressure reconstruction identifies the pressure associated
+with \(V\), modulo the usual functions of time.  The modulation data identify
+the final coefficients \(a,b\).  These are the components of
+\cref{def:c2-representation}.
+\end{proof}
+
+\begin{definition}[Ordered representation failures]
+\label{def:c2-representation-failures}
+If a repaired-gauge representation is not obtained, the ordered failures are:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item no raw orbit is supplied by the concentration/profile output;
+\item the raw orbit exists but the repaired gauge cannot be realized;
+\item pressure reconstruction modulo functions of time is unavailable;
+\item the final modulation coefficients are unavailable.
+\end{enumerate}
+The first applicable failure is the emitted representation alternative.
+\end{definition}
+
+\begin{corollary}[Ordered C2 representation classification]
+\label{cor:c2-ordered-representation}
+Every Type II profile branch in the declared class has exactly one ordered
+output: a repaired-gauge representation, or one of the four failures in
+\cref{def:c2-representation-failures}.
+\end{corollary}
+
+\begin{proof}
+Verify the four representation inputs in order.  If all are present,
+\cref{thm:c2-representation-implication} gives the repaired-gauge
+representation.  If not, the first missing input gives the corresponding
+ordered failure.  This is exhaustive and disjoint by first-failure ordering.
+\end{proof}
+
+\subsection{Minimal chart and gauge realization}
+
+\begin{definition}[Minimal representation data]
+\label{def:c2r-minimal-representation-data}
+The minimal data for a routed Type II branch consist of:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item an absolutely continuous concentration chart
+\[
+  (u,p,T^*,x_c,\lambda,\rho,U,Q,\mathcal I),
+\]
+where \(\mathcal I=(t_0,T^*)\), \(\lambda(t)>0\), \(\lambda(t)\to0\),
+\(\rho_t=\lambda^{-2}\), and
+\[
+  u(x,t)=\lambda(t)^{-1}U(y,\rho(t)),\qquad
+  p(x,t)=\lambda(t)^{-2}Q(y,\rho(t))+c(t),\qquad
+  y=\frac{x-x_c(t)}{\lambda(t)};
+\]
+\item an absolutely continuous repaired-gauge correction consisting of
+\(\rho=\rho(\tau)\), \(\mu(\tau)>0\), and \(q(\tau)\in\mathbb R^3\), with
+\[
+  \rho_\tau=\mu(\tau)^2,
+\]
+\[
+  V(Y,\tau)=\mu(\tau)U(\mu(\tau)Y+q(\tau),\rho(\tau)),\qquad
+  P(Y,\tau)=\mu(\tau)^2Q(\mu(\tau)Y+q(\tau),\rho(\tau)),
+\]
+and
+\[
+  G_{\rm sc}(V(\tau))=0,\qquad
+  G_j(V(\tau))=0,\quad j=1,2,3.
+\]
+The condition \(\rho_\tau=\mu^2\) preserves the viscosity coefficient after the
+time-dependent scale correction.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Chart data imply the raw orbit]
+\label{lem:c2r-chart-raw-orbit}
+Under the chart data in \cref{def:c2r-minimal-representation-data}, \(U,Q\)
+satisfy
+\[
+  \partial_\rho U+(U\cdot\nabla)U+\nabla Q
+  =
+  \nu\Delta U+A(\rho)(U+y\cdot\nabla U)+B(\rho)\cdot\nabla U,
+  \qquad \nabla\cdot U=0,
+\]
+where
+\[
+  A(\rho(t))=\lambda(t)\lambda_t(t),\qquad
+  B(\rho(t))=\lambda(t)x_c'(t).
+\]
+\end{lemma}
+
+\begin{proof}
+The chart data are the raw orbit data with raw time \(\rho\).  The additive
+pressure function \(c(t)\) has zero spatial gradient.  The chain-rule
+computation is the one in \cref{lem:c2-raw-renormalized-equation}, with
+\(\tau\) replaced by \(\rho\).  Thus spatial derivatives scale as
+\(\nabla_xu=\lambda^{-2}\nabla_yU\), \(\Delta_xu=\lambda^{-3}\Delta_yU\), the
+convection term scales as \(\lambda^{-3}(U\cdot\nabla)U\), and
+\(\rho_t=\lambda^{-2}\).  The terms generated by \(\lambda_t\) and \(x_c'\)
+give \(A=\lambda\lambda_t\) and \(B=\lambda x_c'\).  Incompressibility pulls
+back as \(\nabla_x\cdot u=\lambda^{-2}\nabla_y\cdot U\).
+\end{proof}
+
+\begin{lemma}[Pressure pullback]
+\label{lem:c2r-pressure-pullback}
+Under the chart data,
+\[
+  -\Delta Q=\partial_i\partial_j(U_iU_j)
+\]
+in distributions, modulo functions of \(\rho\).  After any admissible
+repaired-gauge correction, the transformed pressure satisfies
+\[
+  -\Delta P=\partial_i\partial_j(V_iV_j)
+\]
+in distributions, modulo functions of \(\tau\).
+\end{lemma}
+
+\begin{proof}
+Taking divergence of the physical Navier--Stokes equation gives
+\[
+  -\Delta p=\partial_i\partial_j(u_iu_j),
+\]
+with pressure determined up to a function of time.  Pulling this identity back
+through \(p=\lambda^{-2}Q+c(t)\), \(u=\lambda^{-1}U\), and
+\(y=(x-x_c)/\lambda\) gives the pressure equation for \(Q\).  If
+\[
+  V(Y)=\mu U(\mu Y+q),\qquad P(Y)=\mu^2Q(\mu Y+q),
+\]
+then
+\[
+  -\Delta_YP
+  =\mu^4(-\Delta Q)(\mu Y+q)
+  =\mu^4\partial_i\partial_j(U_iU_j)(\mu Y+q)
+  =\partial_i\partial_j(V_iV_j).
+\]
+Adding a function of \(\rho\) or \(\tau\) to the pressure does not affect the
+identity.
+\end{proof}
+
+\begin{lemma}[Forced modulation coefficients]
+\label{lem:c2r-forced-modulation}
+Assume the minimal data of \cref{def:c2r-minimal-representation-data}.  Then
+\((V,P)\) satisfies
+\[
+  \partial_\tau V+(V\cdot\nabla)V+\nabla P
+  =
+  \nu\Delta V
+  +a(\tau)(V+Y\cdot\nabla V)
+  +b(\tau)\cdot\nabla V,
+\]
+where
+\[
+  a(\tau)=\mu(\tau)^2A(\rho(\tau))+\frac{\mu_\tau(\tau)}{\mu(\tau)}
+\]
+and
+\[
+  b(\tau)=\mu(\tau)B(\rho(\tau))
+      +\mu(\tau)A(\rho(\tau))q(\tau)
+      +\frac{q_\tau(\tau)}{\mu(\tau)}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+  z=\mu(\tau)Y+q(\tau),\qquad
+  V(Y,\tau)=\mu(\tau)U(z,\rho(\tau)),\qquad
+  \rho_\tau=\mu^2.
+\]
+The raw equation in \((z,\rho)\) is
+\[
+  U_\rho+(U\cdot\nabla_z)U+\nabla_zQ
+  =
+  \nu\Delta_zU+A(U+z\cdot\nabla_zU)+B\cdot\nabla_zU.
+\]
+The identities
+\[
+  \nabla_YV=\mu^2\nabla_zU,\qquad
+  \Delta_YV=\mu^3\Delta_zU,\qquad
+  (V\cdot\nabla_Y)V=\mu^3(U\cdot\nabla_z)U,\qquad
+  \nabla_YP=\mu^3\nabla_zQ
+\]
+together with differentiation in \(\tau\) give
+\[
+  V_\tau+(V\cdot\nabla_Y)V+\nabla_YP-\nu\Delta_YV
+  =
+  \left(\frac{\mu_\tau}{\mu}+\mu^2A\right)(V+Y\cdot\nabla_YV)
+  +
+  \left(\mu B+\mu Aq+\frac{q_\tau}{\mu}\right)\cdot\nabla_YV.
+\]
+This is the displayed equation.  Since \(\mu,q,\rho\) are absolutely continuous
+and \(A,B\) are the raw chart coefficients, \(a,b\) are measurable and locally
+integrable on every finite renormalized window.
+\end{proof}
+
+\begin{theorem}[Minimal representation theorem]
+\label{thm:c2r-minimal-representation}
+If a routed Type II branch has the minimal data of
+\cref{def:c2r-minimal-representation-data}, then it has a repaired-gauge
+representation in the sense of \cref{def:c2-representation}.
+\end{theorem}
+
+\begin{proof}
+\Cref{lem:c2r-chart-raw-orbit} gives the raw orbit.  The gauge correction
+places the profile on the repaired scale and centering surface, hence gives the
+repaired-gauge realization.  \Cref{lem:c2r-pressure-pullback} gives pressure
+reconstruction modulo functions of time.  \Cref{lem:c2r-forced-modulation}
+gives the final modulation coefficients.  These are the four inputs in
+\cref{def:c2-representation}.
+\end{proof}
+
+\begin{definition}[Minimal representation failures]
+\label{def:c2r-minimal-failures}
+Outside the declared repaired-gauge representation class, the ordered failures
+are:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item no absolutely continuous concentration chart is available;
+\item the chart exists but the repaired scale and centering gauges cannot be
+solved admissibly and absolutely continuously.
+\end{enumerate}
+Pressure-pullback and modulation-coefficient failures are not independent
+alternatives when the chart and the absolutely continuous gauge solve exist.
+\end{definition}
+
+\begin{corollary}[Ordered minimal representation classification]
+\label{cor:c2r-ordered-classification}
+Every routed Type II branch has exactly one ordered output: a repaired-gauge
+representation, failure of the raw chart, or failure of the repaired-gauge
+solve.
+\end{corollary}
+
+\begin{proof}
+If the chart is absent, the first failure occurs.  If the chart exists but the
+admissible absolutely continuous gauge solve is absent, the second failure
+occurs.  If both are present, \cref{thm:c2r-minimal-representation} gives the
+repaired-gauge representation.  The alternatives are disjoint by their order
+and exhaustive for the representation row.
+\end{proof}
+
+\subsection{\texorpdfstring{Critical \(L^3\) annulus}{Critical L3 annulus}}
+
+\begin{definition}[Critical mass and positive finite annulus]
+\label{def:c3-critical-mass}
+For a repaired-gauge renormalized Type II candidate \((V,P,a,b)\) on
+\([\tau_0,\infty)\), define
+\[
+  N_3(\tau)=\|V(\tau)\|_{L^3(\mathbb R^3)}.
+\]
+The orbit has positive finite critical mass if there are constants
+\(0<\eta\le M<\infty\) such that
+\[
+  \eta\le N_3(\tau)\le M,\qquad \tau\ge\tau_0.
+\]
+This condition replaces the exact normalization
+\(\|V(\tau)\|_{L^3}=1\); no amplitude rescaling is performed.
+\end{definition}
+
+\begin{definition}[Critical-mass alternatives]
+\label{def:c3-critical-mass-alternatives}
+For a represented orbit, the ordered critical-mass alternatives are:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(N_3\) is not a well-defined extended measurable critical norm on the
+represented branch;
+\item \(N_3(\tau)=\infty\) for some \(\tau\), or
+\(\sup_{\tau\ge\tau_0}N_3(\tau)=\infty\);
+\item \(\sup_{\tau\ge\tau_0}N_3(\tau)<\infty\) and
+\(\liminf_{\tau\to\infty}N_3(\tau)=0\);
+\item after discarding at most a finite initial time interval, the positive
+finite critical annulus of \cref{def:c3-critical-mass} holds.
+\end{enumerate}
+The first applicable alternative is emitted.
+\end{definition}
+
+\begin{theorem}[Nonzero-mass compact Type II barrier]
+\label{thm:c3-nonzero-mass-barrier}
+Let \((V,P,a,b)\) be a repaired-gauge renormalized Type II candidate.  Assume:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the positive finite critical annulus holds:
+\[
+  0<\eta\le \|V(\tau)\|_{L^3(\mathbb R^3)}\le M<\infty;
+\]
+\item uniform critical tightness holds:
+\[
+  \forall\varepsilon>0\ \exists R_\varepsilon:\quad
+  \sup_{\tau\ge\tau_0}
+  \int_{|y|>R_\varepsilon}|V(y,\tau)|^3\,dy<\varepsilon;
+\]
+\item local windowed \(H^1\) control holds:
+\[
+  \forall m\ge1:\quad
+  \sup_{n\in\mathbb N}
+  \int_{\tau_0+n}^{\tau_0+n+1}
+  \|V(\tau)\|_{H^1(B_m)}^2\,d\tau<\infty.
+\]
+\end{enumerate}
+Then finite total localized renormalization cost is impossible:
+\[
+  \int_{\tau_0}^{\infty}
+  \tilde{\mathfrak D}_{R_0}(\tau)\,d\tau=\infty.
+\]
+\end{theorem}
+
+\begin{proof}
+The proof is the compact Type II barrier proof with the exact normalization
+\(\|V(\tau)\|_{L^3}=1\) replaced by the lower bound
+\(N_3(\tau)\ge\eta\).  Assume for contradiction that the total localized
+renormalization cost is finite.  The good-window selection and compactness
+portion of the compact barrier gives times \(\sigma_j\to\infty\) such that,
+after passing to a subsequence,
+\[
+  V(\sigma_j)\to V_\infty\quad\text{strongly in }L^3_{\rm loc},
+\]
+the selected sequence has vanishing local dissipation on the exhaustion used by
+the compact barrier, and consequently
+\[
+  \nabla V_\infty=0
+\]
+distributionally on every fixed ball.  These conclusions use only tightness,
+local windowed \(H^1\) control, and finite total cost.
+
+The low-dissipation limit is spatially constant on each fixed ball.  The
+constants are compatible as the balls increase, so \(V_\infty\equiv c\) on
+\(\mathbb R^3\).  The upper critical-mass bound gives, for every \(R\),
+\[
+  |c|^3|B_R|
+  =
+  \lim_{j\to\infty}\int_{B_R}|V(y,\sigma_j)|^3\,dy
+  \le M^3 .
+\]
+Letting \(R\to\infty\) forces \(c=0\).  Thus
+\[
+  V(\sigma_j)\to0\quad\text{strongly in }L^3_{\rm loc}.
+\]
+Choose \(R\) so that the critical \(L^3\)-tail outside \(B_R\) is
+\(<\eta^3/4\) uniformly in \(\tau\).  Strong convergence on \(B_R\) gives
+\[
+  \int_{B_R}|V(y,\sigma_j)|^3\,dy<\eta^3/4
+\]
+for \(j\) large.  Therefore
+\[
+  \|V(\sigma_j)\|_{L^3(\mathbb R^3)}^3<\eta^3/2,
+\]
+contradicting \(N_3(\sigma_j)\ge\eta\).  Hence the total localized
+renormalization cost is infinite.
+\end{proof}
+
+\begin{theorem}[\texorpdfstring{Critical \(L^3\)-annulus classification}{Critical L3-annulus classification}]
+\label{thm:c3-l3-annulus-classification}
+For a represented repaired-gauge Type II candidate, exactly one of the ordered
+alternatives in \cref{def:c3-critical-mass-alternatives} occurs.  In the fourth
+case the compact Type II barrier remains valid with the positive finite
+critical annulus in place of exact unit \(L^3\)-normalization.
+\end{theorem}
+
+\begin{proof}
+If \(N_3\) is not a well-defined measurable extended norm, the first
+alternative holds.  Otherwise \(N_3\) is an extended nonnegative measurable
+function.  If it is infinite at some time, or has infinite supremum on the
+tail, the second alternative holds.  If the supremum is finite but
+\(\liminf_{\tau\to\infty}N_3(\tau)=0\), the third alternative holds.  In the
+remaining case,
+\[
+  0<\liminf_{\tau\to\infty}N_3(\tau)
+  \quad\text{and}\quad
+  \sup_{\tau\ge\tau_0}N_3(\tau)<\infty.
+\]
+After discarding a finite initial time interval, there exist
+\(0<\eta\le M<\infty\) such that
+\[
+  \eta\le N_3(\tau)\le M
+\]
+for all remaining \(\tau\).  Relabeling this tail initial time as \(\tau_0\)
+gives the fourth alternative.  The barrier statement is
+\cref{thm:c3-nonzero-mass-barrier}.
+\end{proof}
+
+\subsection{Localized cost and the Type II barrier condition}
+
+\begin{definition}[Localized Type II cost]
+\label{def:c4-localized-cost}
+For a repaired-gauge Type II candidate, let
+\[
+  \tilde{\mathfrak D}_{R_0}(\tau)
+  =
+  \nu\int_{\mathbb R^3}|\nabla V(y,\tau)|^2\phi_{R_0}(y)\,dy
+  +
+  a_+(\tau)\int_{\mathbb R^3}|V(y,\tau)|^2\phi_{R_0}(y)\,dy,
+\]
+where \(a_+=\max(a,0)\), \(\phi_{R_0}\) is the compact Type II cutoff, and
+\(\nu>0\).  A Type II barrier cost is a measurable nonnegative function
+\(\mathfrak C_{\mathrm{II}}\) that is locally integrable on finite
+\(\tau\)-intervals and whose divergence on \([\tau_0,\infty)\) is accepted as
+the blocked Type II scale condition.
+\end{definition}
+
+\begin{definition}[Cost comparison]
+\label{def:c4-cost-comparison}
+A cost comparison for a repaired-gauge Type II candidate consists of
+\(R_0,\phi_{R_0},\mathfrak C_{\mathrm{II}},c_0,\tau_1\), with \(c_0>0\) and
+\(\tau_1\ge\tau_0\), such that
+\[
+  \mathfrak C_{\mathrm{II}}(\tau)
+  \ge c_0\,\tilde{\mathfrak D}_{R_0}(\tau)
+  \qquad\text{for a.e. }\tau\ge\tau_1.
+\]
+The canonical Navier--Stokes choice is
+\[
+  \mathfrak C_{\mathrm{II}}(\tau)=\tilde{\mathfrak D}_{R_0}(\tau),
+  \qquad c_0=1,\qquad \tau_1=\tau_0.
+\]
+\end{definition}
+
+\begin{lemma}[Identity-cost bridge]
+\label{lem:c4-identity-cost}
+If \(\tilde{\mathfrak D}_{R_0}\) is measurable, nonnegative, and locally
+integrable on finite \(\tau\)-intervals, then the canonical choice
+\(\mathfrak C_{\mathrm{II}}=\tilde{\mathfrak D}_{R_0}\) defines a valid Type II
+barrier cost and satisfies the cost comparison with \(c_0=1\) and
+\(\tau_1=\tau_0\).
+\end{lemma}
+
+\begin{proof}
+The assumed measurability, nonnegativity, and local finite-interval
+integrability give the cost properties in \cref{def:c4-localized-cost}.  The
+identity
+\[
+  \mathfrak C_{\mathrm{II}}=\tilde{\mathfrak D}_{R_0}
+\]
+gives the comparison in \cref{def:c4-cost-comparison} with \(c_0=1\) and
+\(\tau_1=\tau_0\).
+\end{proof}
+
+\begin{theorem}[Cost bridge]
+\label{thm:c4-cost-bridge}
+Let \((V,P,a,b)\) be a repaired-gauge Type II candidate.  Assume:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\tilde{\mathfrak D}_{R_0}\) is measurable, nonnegative, and locally
+integrable on finite \(\tau\)-intervals;
+\item
+\[
+  \int_{\tau_0}^{\infty}
+  \tilde{\mathfrak D}_{R_0}(\tau)\,d\tau=\infty;
+\]
+\item either the canonical cost
+\(\mathfrak C_{\mathrm{II}}=\tilde{\mathfrak D}_{R_0}\) is used, or a cost
+comparison as in \cref{def:c4-cost-comparison} is available.
+\end{enumerate}
+Then the blocked Type II scale condition associated with
+\(\mathfrak C_{\mathrm{II}}\) holds.
+\end{theorem}
+
+\begin{proof}
+In the canonical case, \cref{lem:c4-identity-cost} supplies the cost comparison.
+In the general case, the comparison is assumed.  Hence there are
+\(c_0>0\) and \(\tau_1\ge\tau_0\) such that
+\[
+  \mathfrak C_{\mathrm{II}}(\tau)
+  \ge c_0\tilde{\mathfrak D}_{R_0}(\tau)
+\]
+for a.e. \(\tau\ge\tau_1\).  Since
+\(\tilde{\mathfrak D}_{R_0}\ge0\) and is locally integrable on finite
+intervals, divergence on \([\tau_0,\infty)\) implies
+\[
+  \int_{\tau_1}^{\infty}
+  \tilde{\mathfrak D}_{R_0}(\tau)\,d\tau=\infty.
+\]
+Therefore
+\[
+  \int_{\tau_1}^{\infty}
+  \mathfrak C_{\mathrm{II}}(\tau)\,d\tau
+  \ge
+  c_0\int_{\tau_1}^{\infty}
+  \tilde{\mathfrak D}_{R_0}(\tau)\,d\tau
+  =\infty.
+\]
+Since \(\mathfrak C_{\mathrm{II}}\) is nonnegative and locally integrable on
+finite intervals,
+\[
+  \int_{\tau_0}^{\infty}
+  \mathfrak C_{\mathrm{II}}(\tau)\,d\tau
+  =
+  \int_{\tau_0}^{\tau_1}\mathfrak C_{\mathrm{II}}(\tau)\,d\tau
+  +
+  \int_{\tau_1}^{\infty}\mathfrak C_{\mathrm{II}}(\tau)\,d\tau
+  =\infty.
+\]
+By definition of the Type II barrier cost, this divergence is the blocked Type
+II scale condition.
+\end{proof}
+
+\begin{corollary}[Compact barrier implies blocked scale]
+\label{cor:c4-compact-barrier-blocks-scale}
+Assume the hypotheses of \cref{thm:c3-nonzero-mass-barrier} and use the canonical
+Navier--Stokes cost \(\mathfrak C_{\mathrm{II}}=\tilde{\mathfrak D}_{R_0}\).
+Then the blocked Type II scale condition holds.  If, in addition, the
+supercritical scale route is present and the corresponding Navier--Stokes
+promotion hypothesis is available, then the promoted Type II suppression
+condition holds.
+\end{corollary}
+
+\begin{proof}
+\Cref{thm:c3-nonzero-mass-barrier} gives
+\[
+  \int_{\tau_0}^{\infty}
+  \tilde{\mathfrak D}_{R_0}(\tau)\,d\tau=\infty.
+\]
+By \cref{lem:c4-identity-cost}, the canonical cost satisfies the cost comparison.
+\Cref{thm:c4-cost-bridge} converts the infinite PDE cost into the blocked Type
+II scale condition.  Combining the blocked condition with the supercritical
+scale route gives the promoted suppression condition only under the stated
+Navier--Stokes promotion hypothesis.
+\end{proof}
+
+\subsection{Two-bucket finite-cost classification}
+
+\begin{definition}[Remaining compact-barrier tests]
+\label{def:c5-compact-tests}
+For a represented repaired-gauge Type II orbit, define the critical-tightness
+condition by
+\[
+  \forall\varepsilon>0\ \exists R_\varepsilon:\quad
+  \sup_{\tau\ge\tau_0}
+  \int_{|y|>R_\varepsilon}|V(y,\tau)|^3\,dy<\varepsilon.
+\]
+Its failure is the radiative/noncompact alternative:
+\[
+  \exists\varepsilon_0>0\ \forall R>0\ \exists\tau_R\ge\tau_0:\quad
+  \int_{|y|>R}|V(y,\tau_R)|^3\,dy\ge\varepsilon_0.
+\]
+Define local windowed \(H^1\) control by
+\[
+  \forall m\ge1:\quad
+  \sup_{n\in\mathbb N}
+  \int_{\tau_0+n}^{\tau_0+n+1}
+  \|V(\tau)\|_{H^1(B_m)}^2\,d\tau<\infty.
+\]
+Its failure is the rough-core alternative:
+\[
+  \exists m\ge1:\quad
+  \sup_{n\in\mathbb N}
+  \int_{\tau_0+n}^{\tau_0+n+1}
+  \|V(\tau)\|_{H^1(B_m)}^2\,d\tau=\infty.
+\]
+\end{definition}
+
+\begin{definition}[Classification-ready compact route]
+\label{def:c5-class-complete}
+A declared Type II branch reaches the classification-ready compact route if
+it has:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the Type II route data of \cref{def:c1-typeII-route-data};
+\item the repaired-gauge representation of \cref{def:c2-representation};
+\item the positive finite critical annulus of \cref{def:c3-critical-mass};
+\item the locally integrable nonnegative cost and cost comparison of
+\cref{def:c4-localized-cost,def:c4-cost-comparison}.
+\end{enumerate}
+This condition does not include critical tightness or windowed \(H^1\) control;
+those are the two remaining compact-barrier tests.
+\end{definition}
+
+\begin{lemma}[Compact positive branch is suppressed]
+\label{lem:c5-compact-positive-suppressed}
+Assume a declared Type II candidate reaches the classification-ready compact
+route and satisfies both compact-barrier tests in \cref{def:c5-compact-tests}.
+If the Navier--Stokes promotion hypothesis for the blocked Type II scale
+condition is available, then the candidate satisfies the promoted Type II
+suppression condition.
+\end{lemma}
+
+\begin{proof}
+The classification-ready compact route gives the supercritical scale route,
+a repaired-gauge orbit \((V,P,a,b)\), the positive finite critical annulus, and
+the cost comparison.  Together with critical tightness and local windowed
+\(H^1\) control, the hypotheses of \cref{thm:c3-nonzero-mass-barrier} hold.
+Thus
+\[
+  \int_{\tau_0}^{\infty}
+  \tilde{\mathfrak D}_{R_0}(\tau)\,d\tau=\infty.
+\]
+\Cref{thm:c4-cost-bridge} converts this divergence into the blocked Type II
+scale condition.  Combining the blocked condition with the supercritical scale
+route gives the promoted Type II suppression condition under the stated
+Navier--Stokes promotion hypothesis.
+\end{proof}
+
+\begin{theorem}[Suppressed-or-two-bucket classification]
+\label{thm:c5-suppressed-or-two-bucket}
+Assume every declared Type II candidate reaches the classification-ready
+compact route and that the Navier--Stokes promotion hypothesis is available.
+Then each declared Type II candidate has exactly one ordered output:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the promoted compact Type II suppression condition;
+\item the radiative/noncompact alternative, i.e. failure of critical tightness;
+\item the rough-core alternative, i.e. failure of local windowed \(H^1\) control
+after critical tightness has been verified.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Fix a declared Type II candidate.  Since it reaches the
+classification-ready compact route, only the two compact-barrier tests
+remain.  First evaluate critical tightness.  If tightness fails, the candidate
+is in the radiative/noncompact alternative.  If tightness holds, evaluate
+local windowed \(H^1\) control.  If the windowed \(H^1\) condition fails, the
+candidate is in the rough-core alternative.  If it holds, then
+\cref{lem:c5-compact-positive-suppressed} gives the promoted compact Type II
+suppression condition.  The outputs are exhaustive and disjoint by this ordered
+evaluation.
+\end{proof}
+
+\begin{definition}[Finite-cost non-suppressed branch]
+\label{def:c5-finite-cost-nonsuppressed}
+A declared Type II branch is finite-cost if
+\[
+  \int_{\tau_0}^{\infty}\mathfrak C_{\mathrm{II}}(\tau)\,d\tau<\infty.
+\]
+In the canonical Navier--Stokes cost this is equivalent to finite localized PDE
+cost, because
+\(\mathfrak C_{\mathrm{II}}=\tilde{\mathfrak D}_{R_0}\).  It is
+non-suppressed if the promoted compact Type II suppression condition is not
+emitted for that branch.
+\end{definition}
+
+\begin{corollary}[Two-bucket finite-cost classification]
+\label{cor:c5-two-bucket-finite-cost}
+Under the hypotheses of \cref{thm:c5-suppressed-or-two-bucket}, every
+finite-cost non-suppressed declared Type II branch is either
+radiative/noncompact or rough-core.
+\end{corollary}
+
+\begin{proof}
+Apply \cref{thm:c5-suppressed-or-two-bucket}.  Since the branch is
+non-suppressed, the first output is unavailable.  Therefore the ordered output
+is the radiative/noncompact alternative or the rough-core alternative.  The
+finite-cost assumption records that the resulting branch remains finite-cost;
+the exclusion of the suppressed case is the explicit
+non-suppression hypothesis.
+\end{proof}
+
+\begin{remark}[Content of the C1--C5 translation]
+The preceding statements translate the C1--C5 cluster proof obligations into
+PDE form.  Exhaustion failure, missing repaired-gauge representation,
+ambiguous critical \(L^3\) normalization, and cost-comparison failure are all
+replaced by ordered alternatives.  Once those alternatives are excluded or
+assumed absent, the only finite-cost non-suppressed Type II alternatives left
+by C5 are the radiative/noncompact alternative and the rough-core alternative.
+\end{remark}
 
 \clearpage
 \bibliographystyle{alpha}
