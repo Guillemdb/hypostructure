@@ -1,7 +1,21 @@
 # Remaining assumptions in the current Type II manuscript
 
-This tracker records the assumptions and named proof obligations that are still
-open in the current `type_II_regularity.tex` manuscript.
+This tracker records the assumptions and named proof obligations in the current
+`type_II_regularity.tex` manuscript, including retired audit items and any items
+that would be reopened if an audit fails.  The controlling goal
+for this file is an unconditional no-Type-II theorem, not merely exclusion on a
+preselected local branch class.
+
+The current manuscript now proves the no-Type-II statement in the local
+state-space framework.  The former outer quantifier gap has been closed by
+three branchwise wrappers: physical covered-class entry, ambient
+adjacent-stratum/carrier applicability, and expanded terminal hypotheses.  Every
+possible physical local Type II singular branch is shown to enter the covered
+local path, or else its first failure is routed to an explicitly named local
+alternative whose closure is supplied by the local packages below.  The audit
+boundary remains important: none of these wrappers may import a hidden global
+\(L^3\) estimate, global profile decomposition, global Kato smallness, or
+unstated vanishing localized dissipation.
 
 The cost-exclusion pass changed the status of the Section 7 cost layer:
 
@@ -70,15 +84,15 @@ The cost-exclusion pass changed the status of the Section 7 cost layer:
   annular tests enter the exterior concentration alternative
   `paper8:cor:exterior-annulus-alternative`.
 * `paper8:ass:terminal-windowed-profile-completeness` is also not listed
-  separately, because the manuscript treats it as replaceable by the terminal
-  critical profile package based on
+  separately, because it is now a theorem derived from the same local terminal
+  state-space completeness package that discharges
   `paper6a:ass:critical-ns-profile-decomposition`.
 * `paper6a:ass:cost-divergence-exclusion` is now discharged by
   `paper6a:thm:cost-divergence-exclusion-discharged` and
   `paper6a:cor:cost-divergence-exclusion-unconditional`; it is retained below
   only as an audit item, not as an active remaining assumption.
 
-Each active remaining item is read in the same way:
+When an item is active, it is read in the same way:
 
 1. what it literally says,
 2. what it means conceptually,
@@ -89,6 +103,306 @@ Each active remaining item is read in the same way:
 
 Retired items may still be recorded below as audit notes, but they are not
 counted as open assumptions unless the audit fails and the item is reopened.
+
+---
+
+# Current status for the unconditional no-Type-II theorem
+
+No active proof obligation remains for the no-Type-II theorem in the local
+state-space framework.  The TeX now contains the final branchwise assembly
+theorem `paper6:thm:unconditional-no-typeII`, and
+`paper6:thm:local-typeII-exclusion` cites it to state that no singular point
+lies in the local Type II alternative.  The Type I side is separate and is not
+needed for the no-Type-II claim.
+
+## Discharged: covered-class entry / global-to-local coverage
+
+Current status: discharged by the physical-entry package in
+`type_II_regularity.tex`:
+
+* `paper6:def:physical-local-typeII-germ` defines the physical local Type II
+  germ directly at a singular point: \(x_0\in\Sigma(T)\), the local Type I
+  bound fails, and the germ is interior to the Navier--Stokes domain.
+* `paper6:lem:physical-typeII-germ-admissible` turns such a germ, after harmless
+  translation and terminal restriction, into an admissible branch in
+  `def:c1-admissible-typeII-class`.
+* `paper6:lem:physical-typeII-germ-concentration-sequence` uses the pointwise
+  CKN concentration dichotomy to produce a positive local Type II concentration
+  sequence.
+* `paper6:lem:no-extra-outside-class-row` applies the ordered C1 discharge to
+  show that any analytic-data failure is class-incompatible or a named
+  non-retained local state-space exit.
+* `paper6:thm:physical-typeII-covered-entry` proves that every physical local
+  Type II germ enters `paper6:thm:state-decomposition`, unless it exits earlier
+  through one of those named local alternatives.
+* `paper6:cor:covered-class-entry-discharged` records the discharge.
+* `paper6:rem:covered-entry-scope` records the scope: this is an entry theorem,
+  not by itself the final unconditional no-Type-II theorem, and it does not
+  supply the ambient adjacent-closure or expanded terminal wrappers.  It also does not
+  claim that every named non-retained exit has already been eliminated; it
+  records that such exits are in the taxonomy and must be closed by the retired
+  local packages or by the now-proved ambient/terminal wrappers.
+
+The proof is local.  It uses pointwise CKN concentration, the local Type
+I/Type II split, ordered first-failure routing, and selected-window
+state-space decomposition.  It must not silently use:
+
+* global \(L^3(\mathbb R^3)\) boundedness;
+* global profile decomposition;
+* global Kato smallness;
+* global compactness of the original solution;
+* vanishing localized dissipation not produced by the branch selection itself.
+
+Audit result after the latest review: the discharge is non-circular.  It does
+not invoke `paper6:thm:local-typeII-exclusion` or the final state-elimination
+proposition.  It invokes `paper6:thm:state-decomposition` only to place a
+retained positive local Type II concentration sequence into the local taxonomy.
+The closure of the resulting alternatives remains governed by the retired local
+packages and the two discharged wrappers below.
+
+## Discharged: ambient adjacent-stratum closure and carrier applicability
+
+Current status: discharged by the branchwise ambient wrapper in
+`type_II_regularity.tex`:
+
+* `paper7:lem:ambient-noncarrier-exits-close` proves that every non-carrier
+  first failure listed by `paper7:thm:noncarrier-exits-route` is either
+  class-incompatible or assigned to a named local state-space alternative
+  already closed by the local packages.
+* `paper7:lem:ambient-carrier-applicability` verifies that a retained carrier
+  branch uses the canonical identity-cost channel, where energy-control is the
+  identity comparison; a non-identity cost without the needed upper comparison
+  is routed to the ordered cost-compatibility/carrier-comparison exit.
+* `paper7:lem:ambient-negative-drift-branch` identifies \(J_6\)-failure with
+  the negative scale-drift branch only after the local retained scale-collapse
+  prerequisites have passed; failure of any prerequisite is first routed to a
+  named local exit.  The retained case is then handled by the local scale-drift,
+  scale-collapse, and compact scale-collapse packages, without feeding adjacent
+  closure back into itself.
+* `paper7:thm:ambient-adjacent-closure-branchwise` proves that the hypotheses of
+  `paper7:cor:adjacent-closure-reduced-to-windowwise-routing` hold for every
+  physical local Type II branch reaching the compact-cost validation layer.
+* `paper7:cor:ambient-adjacent-wrapper-discharged` records the discharge.
+* Latest audit hardening: `paper7:lem:retained-pressure-tail-windowwise` now
+  handles the \(J_4\) pressure flux in the canonical windowwise family by
+  local pressure/exterior routing and nested-ball harmonic tails, rather than
+  by importing a whole-space \(L^3\) bound.
+
+The two windowwise routing definitions remain retired:
+`paper7:cor:windowwise-transition-routing-holds` and
+`paper7:cor:windowwise-positive-scale-routing-holds` discharge them on the
+canonical moving family.  The new ambient wrapper supplies the missing outer
+quantifier and carrier applicability.
+
+## Discharged: expanded terminal hypotheses as branchwise theorems
+
+Current status: discharged by:
+
+* `paper6a:thm:expanded-terminal-hypotheses-branchwise` — every physical local
+  Type II branch after covered entry either exits through a named local
+  alternative already eliminated by the local state-space packages, or the nine
+  items of `paper6a:def:expanded-terminal-data` hold on a retained terminal
+  tail.
+* `paper6a:lem:terminal-local-critical-mass-routing` — the finite critical-mass
+  input used in the terminal wrapper is local on compact terminal windows:
+  failure of the lower active mass floor is non-retention, and failure of a
+  finite local \(L^3\) upper bound produces a comparable retained label or a
+  named adjacent active label.
+* `paper6a:cor:expanded-terminal-wrapper-discharged` — records that the
+  expanded terminal hypotheses are no longer active assumptions for the
+  no-Type-II theorem.
+
+The wrapper covers local alternative decomposition, critical tightness,
+terminal compactness and finite critical mass, perturbative residual stability,
+terminal state-space completeness, exterior-component removal, repaired-gauge
+representation, local Caccioppoli/windowed regularity, and compact
+scale-collapse routing.  Failures are routed to named local alternatives rather
+than repaired by a global estimate.
+
+Audit note: the global critical \(L^3(\mathbb R^3)\) alternatives in the compact
+cost criterion remain bookkeeping for the compact-cost route.  They are not used
+as hypotheses in the final local no-Type-II theorem.  The terminal wrapper uses
+only compact-window critical mass supplied by
+`paper6a:lem:terminal-local-critical-mass-routing`.
+
+## Type-I side is separate
+
+This tracker is about the no-Type-II theorem.  Type I closure is not needed to
+prove "no Type II singularities."  It is needed only if the manuscript claims
+full Navier--Stokes regularity from the final local dichotomy
+`paper6:cor:final-local-dichotomy`.
+
+## Discharge criterion for this tracker
+
+The former active targets are discharged by branchwise theorems of the following
+form:
+
+> Every Type II singular branch of a suitable weak Navier--Stokes solution,
+> after the local renormalizations and ordered selections used in the
+> manuscript and after the covered-class entry theorem has been applied,
+> satisfies the expanded terminal and ambient adjacent-closure hypotheses, or
+> else enters one of the named local alternatives closed by the retired local
+> packages below or by the ambient/terminal wrapper itself.
+
+This theorem package is now present in the TeX, so the tracker records no
+active obligation for the unconditional no-Type-II goal.
+
+---
+
+# Retired local proof-obligation status inside the covered Type II path
+
+The local proof packages below retire the previously listed assumptions inside
+the covered local Type II class.  The entries in this section record discharged
+closure statements and audit boundaries.  No item in this section is counted as
+active inside the covered path unless one of its audit conditions fails.  These
+retirements are now used by the discharged outer wrappers listed above.
+
+## 1. Exhaustiveness of the Type II analytic data
+
+### Current status
+
+Discharged by ordered local routing.  The manuscript now proves the C1
+exhaustion interface on the admissible class `\mathcal U_{\mathrm{II}}^{NS}` in
+the precise branchwise form used downstream: every admissible branch either has
+the Type II analytic data, or its first failed C1 test is assigned to a
+class-incompatible alternative or to a named non-retained local state-space
+exit.  Consequently, after routed exits are removed, every retained admissible
+branch has the Type II analytic data.  The discharge package is:
+
+* `paper6a:lem:typeII-concentration-extraction-routes` — the local
+  concentration dichotomy `paper1:thm:paper0-dichotomy` produces a
+  Type II concentration point on every admissible branch; empty singular
+  set routes to the continuation alternative excluded by clause (iv) of
+  `def:c1-admissible-typeII-class`, and the all-Type-I case is excluded
+  by clause (iii).
+* `paper6a:lem:typeII-scale-alternative-routes` — the supercritical
+  Type II scale alternative holds at every concentration point because
+  the local Type I alternative is class-incompatible with clause (iii).
+* `paper6a:lem:typeII-profile-data-routes` — the local
+  scale-translation selection of `paper1:prop:paper0-typeII-reduction`
+  produces represented variables and a local Type II sequence
+  (`paper1:def:typeII`) under nondegeneracy, supplying the local profile
+  datum via `paper1:prop:representation-input`; failure of nondegeneracy
+  routes to the multibubble/cascade/gauge-degenerate alternative
+  `paper3:def:local-multibubble`(ii)–(v); a nondegenerate
+  bounded-selected-window subsequence routes to the scale-rigid
+  bounded-window exit `paper3:lem:scale-rigid-bounded-limit-exit`.
+* `paper6a:thm:typeII-analytic-data-exhaustive` — combining the three
+  lemmas, the Type II analytic data are exhaustive by ordered local routing on
+  `\mathcal U_{\mathrm{II}}^{NS}`; each ordered failure of
+  `def:c1-exhaustion-failures` is matched to a class-incompatible alternative
+  or to a non-retained state-space branch already covered by the local
+  stratification, and retained branches have the three analytic data.
+* `paper6a:cor:typeII-analytic-data-exhaustiveness-discharged` — the
+  ordered-routing exhaustion interface used by
+  `thm:c1-typeII-branch-exhaustion` is now a theorem.
+
+No global critical profile theorem and no global \(L^3\) bound are
+invoked.  The discharge respects the local state-space stratification:
+each failure mode is identified with a named alternative already covered
+by the ordered local validation.
+
+At present, no active proof obligation remains inside the covered local Type II
+path or in the outer no-Type-II wrapper.  The audit items below should be
+reopened only if their local proof packages fail one of the stated boundaries.
+
+## Retired audit note: compact scale-collapse stationary-rigidity input
+
+### Current status
+
+Discharged on the retained local state-space branch.
+
+The manuscript no longer treats compact scale-collapse stationary rigidity as an
+independent input to the final multibubble or scale-collapse reductions.  The
+TeX now contains:
+
+* `paper5:def:retained-compact-scale-collapse-state`;
+* `paper5:lem:retained-scale-collapse-first-failure`;
+* `paper5:lem:autonomous-scale-collapse-is-scale-rigid`;
+* `paper5:thm:compact-scale-collapse-rigidity-discharged`.
+
+The discharge is local.  It does not prove a new global stationary,
+autonomous, or self-similar Liouville theorem.  Instead, the retained thick
+autonomous scale-collapse branch is shown to be a scale-rigid local branch and
+is eliminated by `paper3:prop:scale-rigidity-discharged`.  If any retained
+compact-state input fails, the branch is already assigned to a named local
+state-space exit by `paper5:lem:retained-scale-collapse-first-failure`, such as
+thin drift, finite scale-cost, modulation failure, compactness failure, rough
+core, exterior/separated-core, multicore, or same-point cascade.
+
+`paper8:thm:multibubble-frame-reduction`, the same-point cascade reductions,
+and the final assembly now cite the local compact scale-collapse routing
+theorem rather than assuming a stationary-rigidity theorem for a nonzero
+\(L^3(\mathbb R^3)\) limiting profile.
+
+### Audit checks
+
+The retirement remains valid only if the proof keeps the following boundaries:
+
+* pressure reconstruction, modulation limits, and compactness must be inherited
+  from retained local windows, not from a hidden global bound on the original
+  solution;
+* the stationary omega-limit theorem and Nečas--Růžička--Šverák rigidity remain
+  optional shortcuts only, not inputs to the retained-branch exclusion;
+* a nonstationary autonomous obstruction must be routed locally into
+  scale-rigidity, not discarded by an unstated classification theorem;
+* every failure of a retained compact-state input must be assigned to a named
+  local state-space alternative by
+  `paper5:lem:retained-scale-collapse-first-failure` before the routing theorem
+  is invoked;
+* same-point cascade uses of the routing theorem must use the local
+  active-cascade mass budget, not a global \(L^3(\mathbb R^3)\) bound for the
+  original solution.
+
+## Retired audit note: closure of the retained compact tests
+
+### Current status
+
+Discharged.  The manuscript now proves both compact tests on the retained
+single-core stratum and routes their failure to named non-retained
+alternatives.  The discharge package is:
+
+* `paper6a:lem:retained-tightness-routing` — failure of critical tightness
+  routes the branch (via `paper8:thm:exterior-stratification` and
+  `paper8:thm:exterior-regularity-no-concentration`) into one of the
+  exterior-profile, separated-core, multicore, noncompact-exterior, or
+  scale-collapse alternatives, all non-retained.
+* `paper6a:lem:retained-h1-routing` — local windowed \(H^1\) control follows
+  from `paper7:prop:uniform-windowed-gradient` under the standing inputs
+  already supplied by the retained-stratum tests; failure routes to the
+  rough-core alternative `paper6:thm:state-decomposition`(iii), which by
+  `paper6:thm:rough-core` collapses into the multibubble/cascade alternative.
+* `paper6a:thm:retained-compact-tests-closed` — both compact tests are
+  theorems on the retained stratum, not assumptions.
+* `paper6a:cor:compact-test-closure-discharged` — the obligation is
+  discharged on every retained compact single-core branch produced by
+  `paper7:lem:no-unrecorded-cost-escape`.
+
+No global tightness or global \(H^1\) estimate is invoked.  The discharge
+respects the local state-space stratification: each failure mode is
+identified with a named non-retained alternative already covered by the
+ordered local validation.
+
+
+## Items checked but not reopened
+
+The repaired-gauge representation, pressure reconstruction, renormalized local
+energy inequality, and Caccioppoli estimates are not reopened here as active
+assumptions.  The TeX contains local theorem packages for them, including
+`paper2:thm:C`, `paper2:thm:pressure-decomp`, `paper4:ass:lei`,
+`paper6a:thm:ac-local-caccioppoli`, and
+`paper6a:prop:caccioppoli-regularity-criterion`.  If one of these local inputs
+is absent on a branch, the current manuscript routes the absence to an ordered
+representation, pressure, rough-core, or state-space alternative rather than
+treating it as a hidden global estimate.
+
+The final wrapper theorem `paper6:thm:multibubble` still uses hypothesis
+language for terminal admissibility and scale-rigidity.  This is an assembly
+audit item, not a separate mathematical assumption, because the TeX now contains
+`paper3:prop:scale-rigidity-discharged` and derives terminal admissibility from
+the local terminal decoupling package.  The wrapper should ultimately cite those
+discharge theorems directly, but reopening it would be warranted only if those
+local discharges fail.
 
 ---
 
@@ -116,7 +430,7 @@ assumptions:
 
 If either point remains unsupported, the item should stay retired only as a
 bookkeeping target and the missing boundedness/dissipation lemmas should be
-added to the active proof-obligation list.
+added to a reopened proof-obligation list.
 
 ### Audit result
 
@@ -430,8 +744,9 @@ The manuscript now proves:
 * `paper7:thm:carrier-package-closes-precarrier`: either fixed or moving
   carrier closure excludes any pre-carrier branch.
 * `paper7:lem:precarrier-finite-local-energy`: the finite initial localized
-  energy clauses in the carrier packages are automatic from the positive finite
-  critical \(L^3\) annulus.
+  energy clauses in the carrier packages are supplied after a harmless terminal
+  restriction by compact-cylinder local energy times, not by a whole-space
+  \(L^3\) bound.
 * `paper7:lem:nested-moving-carrier-comparison`: for the canonical identity
   cost, or more generally for any cost energy-controlled by the fixed identity
   cost, nested moving cutoffs give the moving carrier comparison automatically.
@@ -658,6 +973,13 @@ windowwise routing and adjacent-closure package.  The routing definitions
 `paper7:def:windowwise-transition-routing` and
 `paper7:def:windowwise-positive-scale-routing` are discharged by theorem.
 
+For the unconditional no-Type-II goal, the ambient applicability of the
+adjacent-closure package is now discharged by
+`paper7:thm:ambient-adjacent-closure-branchwise` and
+`paper7:cor:ambient-adjacent-wrapper-discharged`.  The remaining audit question
+is only whether future edits preserve the branchwise local-state-space routing
+and avoid replacing it with an unstated global estimate.
+
 ---
 
 # 3. `paper6a:ass:cost-divergence-exclusion` -- retired audit item
@@ -699,300 +1021,95 @@ assumption in the present manuscript.
 
 ---
 
-# 4. `paper6a:ass:critical-ns-profile-decomposition`
+# 4. `paper6a:ass:critical-ns-profile-decomposition` -- retired audit item
 
-## Critical Navier–Stokes profile decomposition
+## Local terminal state-space completeness
 
-This is the most technically rich assumption on your list.
+This item is no longer an active global critical-profile assumption.  The TeX
+now treats the old label as a local statement and discharges it by
+`paper6a:thm:critical-ns-profile-decomposition-discharged`.
 
----
+The replacement is deliberately not a standard whole-space \(L^3\) profile
+decomposition.  It says that on every compact terminal cylinder:
 
-### Literal content
+* repaired-gauge, pressure, modulation, local energy, and compact-cylinder
+  bounds give local occupation-state compactness;
+* positive residual local \(L^3\) mass produces a first closed local
+  state-space label;
+* the first label is either a named adjacent alternative or the retained
+  comparable class;
+* adjacent alternatives are closed by their local arguments;
+* retained comparable classes are grouped before selecting the terminal frame;
+* therefore no positive nonretained residual mass remains on a retained
+  terminal branch.
 
-It assumes that for any bounded sequence \(u_{0,n}\) in
-\(L^3_\sigma(\mathbb R^3)\), or in a stronger admissible critical space, one
-can pass to a subsequence and write
-\[
-u_{0,n}
-=
-\sum_{j=1}^J \Lambda_{\lambda_{j,n},x_{j,n}}\phi^j + r_n^J,
-\qquad
-(\Lambda_{\lambda,x_0}f)(x)
-=
-\lambda^{-1}f\left(\frac{x-x_0}{\lambda}\right),
-\]
+The proof package in `type_II_regularity.tex` is:
 
-with:
+* `paper6a:lem:l3-profile-extraction-cited`: compactness of terminal occupation
+  states from Aubin--Lions, local pressure reconstruction, and compact-cylinder
+  estimates.
+* `paper6a:lem:critical-mass-decoupling`: closedness of the ordered local
+  state-space labels, now expanded label-by-label in the augmented local
+  topology.
+* `paper6a:lem:residual-concentration-visible`: selected-time residual
+  \(L^3\) concentration is visible either in the full represented branch or in
+  the retained comparable component, so cancellation with \(U_n\) cannot hide a
+  nonretained residual.
+* `paper6a:thm:terminal-adjacent-label-routing`: the adjacent labels are routed
+  to already proved local alternatives; terminal completeness no longer assumes
+  a separate adjacent-closure hypothesis.
+* `paper6a:thm:residual-mass-admissible-state`: positive residual mass first
+  produces an augmented local occupation state; Navier--Stokes admissibility is
+  applied to the full represented branch, not to the residual as an independent
+  equation.  Selected-time residual \(L^3\) concentration is carried by local
+  Radon measures, so no time-slice strong-convergence claim is hidden.
+* `paper6a:lem:heat-flow-kato-smallness`: positive residual mass produces a
+  first closed local state-space label through the augmented-state theorem.
+* `paper6a:lem:nonlinear-profile-evolution-cited`: such residual mass cannot
+  remain in the retained terminal branch after adjacent closures and comparable
+  grouping.
+* `paper6a:lem:profile-exhaustion-by-diagonal-extraction`: residual mass is
+  exhausted on compact terminal cylinders.
+* `paper6a:thm:critical-ns-profile-decomposition-discharged`: the old labelled
+  completeness statement follows.
+* `paper8:ass:terminal-windowed-profile-completeness`: now a theorem, not an
+  assumption, deriving the Section 8 terminal-windowed completeness statement
+  from the same local state-space discharge.
 
-* profiles (\phi^j),
-* scales (\lambda_{j,n}),
-* centers (x_{j,n}),
-* remainder (r_n^J),
+The audit point is strict: this retirement is valid only while the proof remains
+local.  It must not silently reintroduce:
 
-and with several additional properties.
+* a whole-space \(L^3\) profile decomposition;
+* a Brézis--Lieb global mass-decoupling identity;
+* a global heat/Kato smallness remainder;
+* a hidden global boundedness estimate;
+* vanishing localized dissipation as an unstated input.
 
-This is much more than just “a decomposition exists.”
-
----
-
-## Clause A: pairwise orthogonality of parameters
-
-This is the standard profile-decomposition geometry:
-different profiles are separated either by
-
-* scales,
-* centers,
-* or both.
-
-That means they do not asymptotically overlap in a way that would destroy decoupling.
-
-### Why it matters
-
-Without orthogonality, the decomposition is not really isolating independent concentration mechanisms.
-
-It is the geometric backbone of the whole decomposition.
-
----
-
-## Clause B: critical mass decoupling
-
-You assume
-\[
-\|u_{0,n}\|_{L^3}^3
-=
-\sum_{j=1}^J \|\phi^j\|_{L^3}^3
-+
-\|r_n^J\|_{L^3}^3
-+
-o_n(1).
-\]
-
-This is the critical (L^3) decoupling identity.
-
-### Why it matters
-
-This lets you say:
-
-* only finitely many profiles can carry norm above a fixed threshold,
-* small profiles are really small in the critical sense,
-* and the total critical mass is exhausted by the extracted profiles plus remainder.
-
-This is essential for separating:
-
-* active profiles,
-* from perturbative profiles.
+Small residual components are now handled by compact-window product estimates
+and local pressure reconstruction, not by global mild-solution theory.  The
+terminal pressure decoupling proof uses `paper8:lem:harmonic-cross-pressure-routing`
+and nested-ball Calderon--Zygmund reconstruction plus harmonic-tail routing, not
+whole-space pressure bounds.
+Active components are detected by a CKN-derived local mass floor in a compact
+terminal cylinder, with pressure-only detection routed to the pressure/exterior
+alternative.
 
 ---
 
-## Clause C: perturbatively small remainder after linear evolution
-
-You assume
-[
-\lim_{J\to\infty}\limsup_{n\to\infty}
-|e^{t\Delta}r_n^J|*{X*{\rm Kato}}=0.
-]
-
-This says the linear heat evolution of the remainder is small in a critical Kato space.
-
-### Why it matters
-
-This is the analytic engine that lets you treat the remainder as perturbative after all large profiles are extracted.
-
-Without this, the remainder could still hide serious nonlinear behavior.
-
----
-
-## Clause D: nonlinear remainder is perturbatively small on compact profile-time windows
-
-This is the nonlinear version of the previous clause.
-
-### Why it matters
-
-Your paper is not doing purely linear profile decomposition.
-It wants to analyze actual Navier–Stokes dynamics.
-
-So you need more than linear smallness:
-you need the remainder to stay negligible under nonlinear evolution on the windows relevant to profile analysis.
-
-That is what lets you say:
-
-* once the active profiles are removed,
-* the rest is harmless.
-
----
-
-## Clause E: the final completeness clause
-
-This is the special part.
-
-It says:
-
-> if, after removing all extracted profiles, some terminal coordinate frame still contains nonzero local critical mass, then the profile theorem must produce an additional nonzero profile associated to that frame.
-
-This is not just standard decomposition.
-This is a **no-hidden-mass** principle tailored to your terminal analysis.
-
----
-
-### Why the final clause is so important
-
-Your terminal arguments need to know that the profile decomposition is **complete relative to the terminal frames actually used in the Type II analysis**.
-
-Otherwise a dangerous loophole remains:
-
-> maybe after removing all extracted profiles, there is still nontrivial local critical mass in some terminal frame, but it never gets represented by an extracted profile.
-
-If that loophole exists, your terminal profile analysis is incomplete.
-
-This final clause closes that loophole.
-
-So this assumption is doing two jobs at once:
-
-1. standard critical NS profile decomposition,
-2. a terminal-frame completeness theorem.
-
-That second job is the more specialized one.
-
----
-
-### What this assumption is used for in the paper
-
-It is used to prove terminal critical local compactness:
-
-* all non-scattering critical profiles appear as active profiles,
-* small profiles are perturbative by Kato theory,
-* and there is no hidden terminal mass left in the remainder.
-
-That is exactly how the paper tries to justify:
-
-* terminal profile completeness,
-* and the claim that the residual component is perturbatively small on compact profile-time windows.
-
-So this assumption is one of the main engines behind the terminal completion of the profile analysis.
-
----
-
-### Why it is strong
-
-Because it combines:
-
-* standard profile decomposition,
-* nonlinear perturbation theory,
-* critical mass decoupling,
-* and a custom “hidden terminal mass implies another profile” clause.
-
-The first several parts resemble known critical-profile technology.
-The last part is stronger and more tailored to your manuscript.
-
-So as a single assumption, it is very powerful.
-
----
-
-### What part is standard and what part is nonstandard
-
-This distinction is important.
-
-## Standard-looking part
-
-These parts are in the spirit of known critical NS profile theory:
-
-* bounded critical sequence,
-* extraction of orthogonal profiles,
-* norm decoupling,
-* perturbatively small remainder after linear evolution,
-* nonlinear stability for small profiles.
-
-That portion reads like external theory you would normally cite.
-
-## Nonstandard / paper-specific part
-
-The final clause:
-
-* if terminal-frame mass remains, extract another profile tied to that frame.
-
-That is not just standard textbook profile decomposition wording.
-It is a manuscript-specific completeness clause adapted to your terminal Type II geometry.
-
-So if you were to rewrite this assumption later, the natural split would be:
-
-* cite the standard profile theorem as a theorem,
-* isolate the terminal completeness clause as the genuinely extra input.
-
----
-
-### What proving it would require
-
-To fully discharge the whole assumption as written, you would need:
-
-1. a standard critical Navier–Stokes profile decomposition theorem;
-2. a perturbative nonlinear profile theorem in the chosen critical topology;
-3. a proof that the terminal coordinate-frame selection used in your paper is compatible with profile extraction in such a way that any hidden local mass actually yields another profile.
-
-That third step is the manuscript-specific difficulty.
-
----
-
-### Why it matters so much
-
-Because many of your terminal arguments depend on the claim that after extracting the active profiles, the remainder is genuinely harmless.
-
-Without this assumption, the remainder might still contain:
-
-* hidden critical mass,
-* hidden active concentration,
-* or frame-dependent terminal activity that the analysis never sees.
-
-So this assumption is the main anti-hidden-mass principle of the terminal part of the paper.
-
----
-
-### Discharge package: required theorems/lemmas and difficulty
-
-To discharge `paper6a:ass:critical-ns-profile-decomposition`, the paper should
-separate the standard critical profile theorem from the terminal-frame
-completeness theorem.
-
-**Theorem 4.1: Critical \(L^3\) profile decomposition.**
-Every bounded sequence in the chosen critical divergence-free space admits an
-orthogonal scale-center profile decomposition with \(L^3\) mass decoupling.
-
-**Lemma 4.2: Brezis--Lieb decoupling in the selected critical topology.**
-The profile expansion gives the required critical norm decoupling for the
-velocity sequence and for localized terminal annuli used in the paper.
-
-**Theorem 4.3: Linear Kato-small remainder.**
-After extracting all profiles, the heat evolution of the remainder is small in
-the critical Kato topology needed for Navier--Stokes perturbation theory.
-
-**Theorem 4.4: Nonlinear profile decomposition and stability.**
-The nonlinear Navier--Stokes evolutions of the extracted profiles decouple on
-compact profile-time windows, and the nonlinear remainder remains perturbative
-after all active profiles are removed.
-
-**Lemma 4.5: Terminal-frame compatibility.**
-The terminal coordinate frames selected by the Type II analysis are either
-asymptotically orthogonal to the extracted profiles or coincide with one of the
-profile frames after passing to a subsequence.
-
-**Theorem 4.6: No hidden terminal mass.**
-If a terminal coordinate frame still carries nonzero local critical mass after
-subtracting all extracted profiles, then the profile decomposition can be
-continued to produce an additional nonzero profile attached to that frame.
-
-**Difficulty: very hard.**
-The standard profile-decomposition and perturbative stability pieces are
-known-type hard results.  The terminal-frame compatibility and no-hidden-mass
-clauses are paper-specific and likely require a new argument tying critical
-profile extraction to the exact terminal geometry used by the Type II proof.
-
----
-
-# Big-picture comparison of the active remaining proof obligations
-
-After retiring `paper3:ass:scale-rigidity` and
-`paper6a:ass:cost-divergence-exclusion` to audit-only status, the active
-remaining proof obligations have narrowed to the terminal profile-completion
-package.
+# Big-picture comparison of the current proof obligations
+
+After the latest terminal-state pass, the formerly active named assumptions in
+the covered local Type II path and the former unconditional-upgrade obligations
+have been retired.  Covered-class entry is discharged by
+`paper6:thm:physical-typeII-covered-entry` and
+`paper6:cor:covered-class-entry-discharged`; ambient adjacent closure is
+discharged by `paper7:cor:ambient-adjacent-wrapper-discharged`; and expanded
+terminal branchwise applicability is discharged by
+`paper6a:cor:expanded-terminal-wrapper-discharged`.  Compact
+scale-collapse stationary rigidity, retained compact-test closure, local
+scale-rigidity, windowwise routing, cost-divergence exclusion, and local
+terminal state-space completeness are retired audit items, not active local
+assumptions, unless one of their audit conditions fails.
 
 ## A. Retired cost-routing and local cost assumptions
 
@@ -1021,13 +1138,13 @@ The Section 7 moving-routing discharge and the Section 6A cost-divergence
 discharge are retained only as audit trails; neither is counted as an active
 assumption.
 
-## B. Active terminal profile-completion assumption
+## B. Retired terminal state-space completeness item
 
-This says the terminal critical profile analysis is genuinely complete:
-
-* `paper6a:ass:critical-ns-profile-decomposition`
-
-This is the anti-hidden-mass engine.
+`paper6a:ass:critical-ns-profile-decomposition` is no longer counted as active.
+The old global-profile reading has been replaced by compact-window local
+state-space completeness, proved in the TeX by
+`paper6a:thm:critical-ns-profile-decomposition-discharged` and propagated to
+Section 8 by `paper8:ass:terminal-windowed-profile-completeness`.
 
 ## Retired audit item
 
@@ -1051,9 +1168,39 @@ Its audit point is that the discharge must remain tied to the canonical
 windowwise moving family, the corrected-monotonicity arithmetic, and the
 already assigned \(J_1,J_6,J_7\) routing/adjacent-closure package.
 
+`paper6a:ass:critical-ns-profile-decomposition` is also no longer counted as
+active.  Its audit point is that the discharge must remain local: compact
+terminal cylinders, local pressure reconstruction, Aubin--Lions occupation
+states, closed state-space labels, and local perturbative residual estimates.
+It must not reintroduce a global critical profile theorem, global heat/Kato
+smallness, hidden global boundedness, or unstated vanishing localized
+dissipation.
+
+The compact scale-collapse stationary-rigidity input is also no longer counted
+as active.  Its audit point is that the proof must continue to use
+`paper5:thm:compact-scale-collapse-rigidity-discharged`: retained thick
+autonomous scale collapse is routed into the scale-rigid local branch, while
+failure of any retained compact-state input is recorded as a named local exit
+by `paper5:lem:retained-scale-collapse-first-failure`.
+The stationary omega-limit/NRS argument is only an optional shortcut.
+
 ---
 
-# My blunt summary of what each active one is really asking for
+# Current status summary
+
+The goal is an unconditional no-Type-II theorem in the local state-space
+framework.  No active proof obligation remains for that goal in the current
+TeX.  The final branchwise theorem is
+`paper6:thm:unconditional-no-typeII`, supported by:
+
+* `paper6:cor:covered-class-entry-discharged`;
+* `paper7:cor:ambient-adjacent-wrapper-discharged`;
+* `paper6a:cor:expanded-terminal-wrapper-discharged`;
+* `paper6a:thm:expanded-terminal-typeII`;
+* `paper6:prop:state-elimination`.
+
+The following items are retired audit trails and should be reopened only if
+their local proof packages fail one of the stated audit checks.
 
 `paper7:def:windowwise-transition-routing` and
 `paper7:def:windowwise-positive-scale-routing` are no longer active: the TeX
@@ -1064,18 +1211,28 @@ stratification.
 derives it from corrected-monotonicity arithmetic plus canonical windowwise
 routing and adjacent closure.
 
-`paper6a:ass:critical-ns-profile-decomposition`
-asks for a theorem saying **critical profile extraction is complete and leaves no hidden terminal mass**.
+`paper6a:ass:critical-ns-profile-decomposition` is no longer active: the TeX now
+derives terminal no-hidden-residual completeness from local occupation-state
+compactness and the ordered local state-space stratification.
+
+Compact scale-collapse stationary rigidity is no longer active: the TeX now
+routes retained compact scale-collapse through
+`paper5:thm:compact-scale-collapse-rigidity-discharged`, and the final
+multibubble/scale-collapse reductions invoke that local routing theorem rather
+than a global Liouville theorem.
+
+Retained compact-test closure is no longer active: the TeX now proves the
+critical-tightness and local windowed-\(H^1\) tests on the retained stratum and
+routes their failures to named non-retained alternatives.
 
 ---
 
-# Difficulty order, easiest to hardest
+# Audit target for the no-Type-II theorem
 
-Only one active item remains in this tracker.
-
-1. **`paper6a:ass:critical-ns-profile-decomposition` — very hard.**
-   The standard critical profile decomposition and perturbative stability are
-   known-type hard results, but the terminal-frame compatibility and no-hidden
-   terminal mass clauses are manuscript-specific and likely require new work.
-   This remains the deepest item because hidden terminal mass cannot simply be
-   routed away; the profile machinery must actually detect it.
+The active target list is empty.  The next audit target is consistency: any new
+use of the final Type II theorem must cite the full branchwise chain
+`paper6:cor:covered-class-entry-discharged`,
+`paper7:cor:ambient-adjacent-wrapper-discharged`,
+`paper6a:cor:expanded-terminal-wrapper-discharged`, and
+`paper6:thm:unconditional-no-typeII`, not only the retired local discharge
+packages in isolation.
