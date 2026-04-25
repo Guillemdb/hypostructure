@@ -2080,8 +2080,9 @@ ranking function, transition map, or lifted state encoding.
 
 **Obstruction Certificate:** $K_{\sharp}^- = (\text{glassy}, \lambda = 0, \theta \to 0)$
 
-**Application:** Random 3-SAT near threshold has glassy landscape (Mézard-Parisi-Zecchina 2002,
-Achlioptas-Coja-Oghlan 2008), supplying a sharp frontend blockage certificate.
+**Application:** Under the explicit hard-set assumption $\mathbf{HSAT}_{4.2}$, the semantic
+test sets $H_n$ carry the required glassy landscape data. Results on clustered random CSPs
+motivate this hypothesis, but no random-threshold theorem is used as a load-bearing input here.
 :::
 
 :::{prf:proof}
@@ -2089,7 +2090,7 @@ The argument uses two ingredients: the **$\sharp$-purity constraint**, which lim
 vocabulary of $F_n^\sharp$ to metric-descent operations, and the **landscape properties**, which ensure
 that metric-descent operations cannot navigate the shattered solution space. The combination is
 non-circular: it derives the obstruction from the modal typing of the witness (a definitional constraint)
-and proven landscape properties (ZFC theorems about random 3-SAT), without assuming hardness of any
+and the landscape clauses imported by $\mathbf{HSAT}_{4.2}$, without assuming hardness of any
 computational problem.
 
 **Step 1 ($\sharp$-purity constraint).**
@@ -2249,32 +2250,19 @@ H_n^+
 \left(\tfrac{7}{8}\right)^{\alpha n/2}\binom{n}{w}\Bigr\}.
 $$
 
-*Density of $H_n^+$ in $H_n$.* For any fixed weight $w$, the expected number of weight-$w$
-satisfying assignments of a uniformly random 3-CNF formula at ratio $\alpha$ is
-$\binom{n}{w}\cdot(7/8)^{\alpha n}$. By Markov's inequality, the probability that this count
-exceeds $(7/8)^{\alpha n/2}\binom{n}{w}$ is at most $(7/8)^{\alpha n/2} = \exp(-\Omega(n))$.
-A union bound over $n+1$ weights gives
+*Density of $H_n^+$ in $H_n$.* The proof no longer derives this from the informal threshold
+claim $\alpha<\alpha^*\approx4.267$. The required density statement is part of
+$\mathbf{HSAT}_{4.2}$ ({prf:ref}`hyp-hsat-42`): along the hard-set subsequence,
+$H_n^+\subseteq H_n$ satisfies
 
 $$
-\Pr\!\bigl[F \notin H_n^+\bigr] \;\leq\; (n+1)\exp(-\Omega(n)) \;=\; o(1).
+|H_n^+| \;\geq\; (1-o(1))|H_n|
 $$
 
-This Markov bound applies to the *unconditional* distribution of random 3-CNF formulas at
-ratio $\alpha$. Since $\alpha < \alpha^* \approx 4.267$, a random formula at ratio $\alpha$ is
-satisfiable with probability $1 - o(1)$ and satisfies each of properties 1–6 with probability
-$1 - o(1)$, so $\Pr[F \in H_n] = 1 - o(1)$. The fraction of $H_n$ excluded from $H_n^+$ is
-
-$$
-\frac{|H_n \setminus H_n^+|}{|H_n|}
-\;=\; \Pr\!\bigl[F \notin H_n^+ \;\big|\; F \in H_n\bigr]
-\;=\; \frac{\Pr[F \in H_n \setminus H_n^+]}{\Pr[F \in H_n]}
-\;\leq\; \frac{\Pr[F \notin H_n^+]}{\Pr[F \in H_n]}
-\;\leq\; \frac{o(1)}{1-o(1)}
-\;=\; o(1),
-$$
-
-where the first inequality uses $H_n \setminus H_n^+ \subseteq \{F \notin H_n^+\}$ (since
-$H_n^+ \subseteq H_n$). Hence $|H_n^+| \geq (1-o(1))|H_n| \geq (1-o(1))n!$.
+and every $F\in H_n^+$ obeys the displayed weight-slice bound. The elementary Markov
+calculation for random formulas is useful evidence for the shape of the bound, but it is not
+load-bearing unless an external appendix proves that conditioning on the whole hard-set bundle
+preserves the required failure probability.
 
 *Dense collision subset.* Recall $S = \{F \in H_n : \mu_n^\sharp(e_F) = \mu^*\}$ with
 $|S| \geq |H_n|/\mathrm{poly}(n)$. Set $S^+ := S \cap H_n^+$. Then
@@ -2358,18 +2346,18 @@ $q_\sharp(n)^{D+2} = \mathrm{poly}(n)$ of the profile space; (iii) automorphism 
 $H_n$ into orbits of size exactly $n!$; and (iv) a Markov-based density bound on the
 auxiliary dense sub-family $H_n^+ \subseteq H_n$, which guarantees that within each orbit of
 $H_n^+$, at most an $\exp(-\Omega(n))$ fraction of formulas are satisfied by any fixed
-assignment $x^*$. The density bound is derived from the unconditional distribution at ratio
-$\alpha < \alpha^*$ (where satisfiability probability is $1-o(1)$), not from a named property
-of $H_n$ itself. These are respectively a definitional constraint, a counting fact, a structural
-symmetry property of $H_n$, and a probabilistic regularity statement derived inline.
+assignment $x^*$. In the hardened proof, the density bound is supplied by
+$\mathbf{HSAT}_{4.2}$ rather than derived from the predicted threshold. These are respectively
+a definitional constraint, a hard-set hypothesis row, and a structural symmetry property of
+$H_n$.
 
 :::{prf:remark} Structure of the Step 4 argument
 :label: rem-sharp-pigeonhole-multi-formula
 
 The Step 4 argument has two levels that must be kept carefully distinct.
 
-_Level 1 — the landscape (single formula, Steps 1–3)._ For a single 3-SAT formula $F$ near
-the satisfiability threshold, the solution set $\mathrm{Sol}(F)$ shatters into
+_Level 1 — the landscape (single formula, Steps 1–3)._ For a single 3-SAT formula
+$F\in H_n$, the solution set $\mathrm{Sol}(F)$ shatters into
 $\exp(\Theta(n))$ well-separated clusters (property 1 of {prf:ref}`def-hard-subfamily-3sat`).
 The vanishing spectral gap (property 2) and Łojasiewicz failure (property 3) certify that
 gradient-based metric descent cannot navigate between clusters. These single-formula properties
@@ -2662,14 +2650,13 @@ A pure $\flat$-witness ({prf:ref}`def-pure-flat-witness-rigorous`) requires:
   transforms, polynomial-identity cancellation, monodromy-based reductions),
 - and the correctness identity $\mathcal{A}_n = d_n^\flat \circ e_n^\flat \circ s_n^\flat$.
 
-We show that random 3-SAT at the satisfiability threshold admits no such witness, addressing
+We show that the semantic hard sets supplied by $\mathbf{HSAT}_{4.2}$ admit no such witness, addressing
 both the visible-symmetry route and the broader algebraic sketch routes in turn.
 
 **Step 2. [Visible symmetry blockage — trivial automorphism]:**
 The simplest $\flat$-route is quotient compression via the automorphism group
-$G_\Phi := \mathrm{Aut}(\mathcal{X}, \Phi)$. For random 3-SAT at ratio
-$\alpha \approx 4.267$, each variable participates in $\Theta(1)$ clauses with distinct
-neighborhoods, so $G_\Phi = \{e\}$ for every $F \in H_n$ deterministically
+$G_\Phi := \mathrm{Aut}(\mathcal{X}, \Phi)$. For every $F\in H_n$, the hard-set
+automorphism-triviality condition gives $G_\Phi = \{e\}$ deterministically
 (property 5 of {prf:ref}`def-hard-subfamily-3sat`). Since the quotient equals the full space
 $\mathcal{X}/G = \mathcal{X}$, no compression via visible symmetry quotienting occurs.
 
@@ -2679,8 +2666,8 @@ algebraic sketches, not merely symmetry quotients. We must therefore show that *
 algebraic elimination map $e_n^\flat$ over *any* effective ring or field structure can keep
 intermediate structure cardinalities polynomial. The obstruction has two independent sources:
 
-**(3a) Frozen-variable algebraic rigidity.** The solution space of random 3-SAT in the hard
-subfamily ({prf:ref}`def-hard-subfamily-3sat`) exhibits propagation rigidity: an
+**(3a) Frozen-variable algebraic rigidity.** The solution space of $H_n$
+({prf:ref}`def-hard-subfamily-3sat`) exhibits propagation rigidity: an
 $\Omega(n)$-sized set of frozen variables whose values are determined by membership in a
 solution cluster (property 1, solution-space shattering). Any algebraic elimination map
 $e_n^\flat$ must have its kernel/image controlled by the algebraic structure of the solution
@@ -2769,8 +2756,9 @@ cannot be satisfied, because crossing constraints at every split force the merge
 the *entire* instance rather than on a local interface.
 
 **Step 1. [Crossing constraints couple the subproblems]:**
-Consider any balanced split $\mathcal{X} = \mathcal{X}_1 \sqcup \mathcal{X}_2$ of a random 3-SAT
-instance. The expansion property guarantees $|\operatorname{boundary}(\mathcal{X}_1, \mathcal{X}_2)|
+Consider any balanced split $\mathcal{X} = \mathcal{X}_1 \sqcup \mathcal{X}_2$ of a semantic
+hard-set instance $F\in H_n$. The expansion property in $\mathbf{HSAT}_{4.2}$ guarantees
+$|\operatorname{boundary}(\mathcal{X}_1, \mathcal{X}_2)|
 = \Theta(n)$ crossing clauses, each involving variables from *both* $\mathcal{X}_1$ and
 $\mathcal{X}_2$. The subanswers for $\mathcal{X}_1$ and $\mathcal{X}_2$ are therefore not
 independently correct — an assignment satisfying all clauses internal to $\mathcal{X}_1$ may violate
@@ -2798,15 +2786,14 @@ on) $o(n)$ variables preserves the properties required by Steps 2--4:
 - *Clause-density preservation:* Each variable appears in $\Theta(1)$ clauses, so removing $o(n)$
   variables eliminates at most $o(n) \cdot O(1) = o(n)$ clauses. The residual formula has
   $m - o(n)$ clauses on $n - o(n)$ variables, and the clause-to-variable ratio converges to the
-  threshold $\alpha$ as $n \to \infty$.
-- *Cluster structure stability:* By the results of Achlioptas--Coja-Oghlan (2008), the shattering
-  of the solution space into $\exp(\Theta(n))$ clusters is robust to the removal of $o(n)$
-  variables. Conditioning on $o(n)$ variables can collapse some clusters but preserves
-  $\exp(\Theta(n - o(n))) = \exp(\Theta(n))$ clusters in the residual instance.
-- *Expansion preservation:* Removing $o(n)$ vertices from an $n$-vertex expander leaves an
-  $(n - o(n))$-vertex graph with the same expansion constant up to lower-order corrections
-  (the edge expansion $h(G) \geq c$ implies $h(G') \geq c - o(1)$ for the subgraph $G'$ induced
-  by the remaining vertices).
+  hard-set density $\alpha$ as $n \to \infty$.
+- *Cluster structure stability:* The robustness of shattering under $o(n)$ conditioning is
+  part of the operational reading of the $\mathbf{HSAT}_{4.2}$ shattering and frozen-core
+  clauses. Conditioning on $o(n)$ variables can collapse some clusters but preserves
+  $\exp(\Theta(n-o(n)))=\exp(\Theta(n))$ clusters in the residual instance.
+- *Expansion preservation:* The $\mathbf{HSAT}_{4.2}$ expansion clause is used with its
+  standard induced-subgraph stability under $o(n)$ vertex removal: the residual interface
+  keeps the same expansion constant up to lower-order corrections.
 
 With these properties intact, the recursion on the large
 part reduces to a near-sequential computation: the recursion tree degenerates into a path of
@@ -2849,10 +2836,10 @@ The merge map $\mathrm{merge}_n$ receives partial assignments $\sigma_1, \sigma_
 subinstances and must produce a globally consistent assignment. To reconcile the $\Theta(n)$
 crossing constraints, the merge must modify some variable assignments. Define the *repair graph*
 $R$: its vertices are variables and its edges connect any two variables that co-occur in a clause
-with a variable whose assignment was flipped during reconciliation. For random 3-SAT at the
-critical clause-to-variable ratio, the constraint hypergraph is an expander: every set of $k$
-variables with $k \leq \delta n$ (for a constant $\delta > 0$) appears in at least $c \cdot k$
-clauses involving variables outside the set. Consequently, flipping any variable to satisfy a
+with a variable whose assignment was flipped during reconciliation. For the semantic hard-set
+instances, the $\mathbf{HSAT}_{4.2}$ expansion clause says that every set of $k$ variables with
+$k \leq \delta n$ (for a constant $\delta > 0$) appears in at least $c \cdot k$ clauses involving
+variables outside the set. Consequently, flipping any variable to satisfy a
 crossing clause can violate an internal clause in $\mathcal{X}_1$ or $\mathcal{X}_2$, requiring a
 further flip, which by expansion propagates through the constraint graph until $\Omega(n)$ variables
 have been touched. In other words, any repair process — sequential, parallel, or algebraic — that
@@ -3060,7 +3047,7 @@ particular encoding.
 
 **(c) Multi-way splits** ($k$-way for $k \geq 3$): Any partition of $n$ variables into $k$
 parts has total crossing-clause count at least as large as the minimum binary partition's
-crossing count. For random 3-SAT at threshold, the expansion property gives
+crossing count. For the semantic hard sets $H_n$, the expansion property gives
 $|\operatorname{boundary}| \geq c' n$ for any $k$-way partition with $k = O(1)$. For
 $k = \omega(1)$, the crossing count only increases.
 :::
@@ -3155,8 +3142,8 @@ has description size bounded by $q_\partial(n)$ bits. This is a polynomial bottl
 information about the input that is needed to produce the correct output must pass through this
 $q_\partial(n)$-bit channel.
 
-Let $G_n$ denote the constraint graph of a random 3-SAT instance at clause-to-variable ratio
-$\alpha \approx 4.267$. Its vertex expansion guarantees: for any partition of the variable set
+Let $G_n$ denote the constraint graph of an instance $F\in H_n$. Its vertex expansion guarantees:
+for any partition of the variable set
 into two parts $V_1, V_2$ with $|V_1|, |V_2| \geq \delta n$, at least
 $c'' \cdot \min(|V_1|, |V_2|)$ clauses have variables in both parts. The treewidth satisfies
 $\operatorname{tw}(G_n) \geq c'' \cdot n$.
@@ -3195,7 +3182,7 @@ assignment $\sigma_S : S \to \{0,1\}$ to the $\Theta(n)$ separator variables $S$
 every crossing clause is satisfied and $\sigma_S$ is consistent with valid extensions on
 both sides.
 
-For random 3-SAT at clause-to-variable ratio $\alpha \approx 4.267$, this interface CSP
+For the semantic hard sets $H_n$, this interface CSP
 inherits the hardness of the original instance. The $\exp(\Theta(n))$ solution clusters
 (Achlioptas and Ricci-Tersenghi, 2006; Mezard and Montanari, 2009) project to
 $2^{\Omega(n)}$ distinct feasible partial assignments on any $\Theta(n)$-sized separator
@@ -5712,7 +5699,7 @@ $\mathbb{K}_\sharp^-(\Pi_{3\text{-SAT}})$: no minimal-rank polynomial-time corre
 contains an irreducible $\sharp$-witness.
 
 This is established in Part VI by {prf:ref}`lem-random-3sat-metric-blockage`, which proves that the glassy energy
-landscape of random 3-SAT at threshold blocks all pure $\sharp$-witnesses. The barrier metatheorem of Part IX
+landscape of the semantic hard sets $H_n$ blocks all pure $\sharp$-witnesses. The barrier metatheorem of Part IX
 ({prf:ref}`thm-sharp-barrier-obstruction-metatheorem`) provides the supporting quantitative infrastructure.
 
 A general sound-and-complete $\sharp$-obstruction calculus for arbitrary problem families is developed in the
@@ -5727,7 +5714,7 @@ $\mathbb{K}_{\mathrm{int}}^-(\Pi_{3\text{-SAT}})$: no minimal-rank polynomial-ti
 contains an irreducible $\int$-witness.
 
 This is established in Part VI by {prf:ref}`lem-random-3sat-causal-blockage`, which proves that the frustrated
-dependency structure of random 3-SAT blocks all pure $\int$-witnesses. The barrier metatheorem of Part IX
+dependency structure of the semantic hard sets $H_n$ blocks all pure $\int$-witnesses. The barrier metatheorem of Part IX
 ({prf:ref}`thm-int-barrier-obstruction-metatheorem`) provides the supporting quantitative infrastructure.
 
 A general sound-and-complete $\int$-obstruction calculus for arbitrary problem families is developed in the
@@ -5759,7 +5746,7 @@ $\mathbb{K}_\ast^-(\Pi_{3\text{-SAT}})$: no minimal-rank polynomial-time correct
 contains an irreducible $\ast$-witness.
 
 This is established in Part VI by {prf:ref}`lem-random-3sat-scaling-blockage`, which proves that the supercritical
-expansion of random 3-SAT blocks all pure $\ast$-witnesses. The barrier metatheorem of Part IX
+expansion of the semantic hard sets $H_n$ blocks all pure $\ast$-witnesses. The barrier metatheorem of Part IX
 ({prf:ref}`thm-star-barrier-obstruction-metatheorem`) provides the supporting quantitative infrastructure.
 
 A general sound-and-complete $\ast$-obstruction calculus for arbitrary problem families is developed in the
@@ -5774,7 +5761,7 @@ $\mathbb{K}_\partial^-(\Pi_{3\text{-SAT}})$: no minimal-rank polynomial-time cor
 contains an irreducible $\partial$-witness.
 
 This is established in Part VI by {prf:ref}`lem-random-3sat-boundary-blockage`, which proves that the linear
-treewidth growth of random 3-SAT blocks all pure $\partial$-witnesses. The barrier metatheorem of Part IX
+treewidth growth of the semantic hard sets $H_n$ blocks all pure $\partial$-witnesses. The barrier metatheorem of Part IX
 ({prf:ref}`thm-partial-barrier-obstruction-metatheorem`) provides the supporting quantitative infrastructure.
 
 A general sound-and-complete $\partial$-obstruction calculus for arbitrary problem families is developed in the
@@ -6334,12 +6321,104 @@ back only the $\lozenge$-component of the global state because the modal workspa
 $\mathfrak{Z}^\lozenge$ is structurally disjoint from the non-$\lozenge$ components.
 :::
 
+:::{prf:definition} Saturated One-Hole Context
+:label: def-saturated-one-hole-context
+
+A **saturated context**
+
+$$
+C[-]
+$$
+
+is a modal factorization tree with one typed hole. It is generated from the same constructors
+as the saturated modal closure {prf:ref}`def-saturated-modal-closure-rigorous`:
+presentation translators, composition, finite products, bounded iteration, and guarded
+structural recursion. If $B:\mathfrak U\Rightarrow\mathfrak V$ has the hole type, then
+$C[B]$ is the completed factorization tree obtained by plugging $B$ into the hole.
+
+The context is **solver-typed for $\Pi$** if $C[B]$ has the source and target families of
+$\Pi$ and its extensional specification can be compared with $\mathsf{Spec}_\Pi$.
+:::
+
+:::{prf:definition} Contextual Modal Obstruction
+:label: def-contextual-modal-obstruction
+
+For a problem family $\Pi$ and modality $\lozenge$, define
+
+$$
+\mathbb K_{\lozenge,\mathrm{ctx}}^-(\Pi)
+$$
+
+to mean:
+
+$$
+\forall B\in\mathsf W_\lozenge,\ \forall C[-]\ \text{solver-typed for }\Pi,\qquad
+C[B]\text{ is not a correct solver for }\Pi.
+$$
+
+This is the obstruction proposition used in the separation proof. It rules out a pure
+$\lozenge$-leaf not only as a standalone solver at the problem types, but also as an
+irreducible subroutine inside any saturated solver context.
+:::
+
+:::{prf:theorem} Contextual Leaf Obstruction Equivalence
+:label: thm-contextual-leaf-obstruction
+
+For each modality $\lozenge$,
+
+$$
+\mathbb K_\lozenge^-(\Pi)
+\iff
+\mathbb K_{\lozenge,\mathrm{ctx}}^-(\Pi).
+$$
+:::
+
+:::{prf:proof}
+If $\mathbb K_{\lozenge,\mathrm{ctx}}^-(\Pi)$ fails, then some pure
+$B\in\mathsf W_\lozenge$ and saturated context $C[-]$ make $C[B]$ a correct solver for
+$\Pi$. Choose a minimal-rank representative of $C[B]$. The occurrence of $B$ either remains
+an irreducible $\lozenge$-component, or the rank-minimization rewrites it into a finite tree
+whose irreducible leaves are classified by {prf:ref}`thm-irreducible-witness-classification`.
+In the first case $\mathbb K_\lozenge^-(\Pi)$ fails directly. In the second case the
+rewriting removes $B$ only by replacing it with lower-rank pure leaves and presentation
+translators, so the completed minimal solver still contains an irreducible modal route
+responsible for the same transported $\lozenge$-barrier crossing. By the uniqueness of the
+transported channel in the modal barrier decomposition, that route is a $\lozenge$-route.
+Thus $\mathbb K_\lozenge^-(\Pi)$ fails.
+
+Conversely, if $\mathbb K_\lozenge^-(\Pi)$ fails, then a minimal-rank correct solver for
+$\Pi$ contains an irreducible $\lozenge$-subtree denoting some
+$B\in\mathsf W_\lozenge$. Removing that subtree leaves a saturated one-hole context $C[-]$,
+and plugging $B$ back in gives the original correct solver. Hence
+$\mathbb K_{\lozenge,\mathrm{ctx}}^-(\Pi)$ fails.
+:::
+
+:::{prf:theorem} Contextual Transfer Through a Pure Leaf
+:label: thm-contextual-transfer-through-leaf
+
+Let $B\in\mathsf W_\lozenge$ and let $C[-]$ be a saturated context such that $C[B]$ is a
+correct solver for $\Pi$. Then, on the transported state space of $B$, the leaf $B$ must
+cross the $\lozenge$-barrier component of $\Pi$.
+:::
+
+:::{prf:proof}
+Because $C[B]$ is correct, every hard input path induced by the completed tree reaches a
+solved state. Property 4 of the modal barrier decomposition requires the path to cross the
+$\lozenge$-sub-barrier. By modal orthogonality, all leaves of type $\lozenge'\ne\lozenge$
+preserve $E_\lozenge$. Presentation translators and the allowed context constructors can
+transport or duplicate the bookkeeping for $E_\lozenge$, but by translator stability they
+distort its thresholds only polynomially and cannot perform the crossing themselves. Hence
+the crossing must occur inside the plugged $\lozenge$-leaf, in the state space obtained by
+transporting $E_\lozenge$ through the maps surrounding the hole.
+:::
+
 :::{prf:theorem} $\mathbb{K}_\lozenge^-$ from Modal Barrier Orthogonality
 :label: thm-modal-barrier-obstruction-transfer
 
 Let $\Pi$ be a problem family whose barrier datum $\mathfrak{B}$ admits a modal barrier decomposition ({prf:ref}`def-modal-barrier-decomposition`). Suppose that for each $\lozenge \in \{\sharp, \int, \flat, \ast, \partial\}$:
 
-1. The $\lozenge$-blockage holds: no pure $\lozenge$-witness at the problem types is correct for $\Pi$ ({prf:ref}`lem-random-3sat-metric-blockage`–{prf:ref}`lem-random-3sat-boundary-blockage`).
+1. The contextual $\lozenge$-blockage holds: for every pure $B\in\mathsf W_\lozenge$ and every saturated context
+   $C[-]$ solver-typed for $\Pi$, $C[B]$ is not correct for $\Pi$ ({prf:ref}`thm-contextual-leaf-obstruction`).
 2. The blockage is translator-stable ({prf:ref}`thm-canonical-3sat-barrier-translator-stable`).
 
 Then the semantic modal obstruction proposition $\mathbb{K}_\lozenge^-(\Pi)$ holds for each $\lozenge$.
@@ -6361,7 +6440,14 @@ By property 2 (modal orthogonality), only $\lozenge$-computation can change $E_\
 The irreducible leaf $B$ operates at types $(\mathfrak{U}, \mathfrak{V})$ via its modal endomorphism $F^\lozenge$ on $\mathfrak{Z}^\lozenge$. The barrier component $E_\lozenge$ is transported to $\mathfrak{Z}^\lozenge$ through the tree's connecting maps and $B$'s modal encoding $E^\lozenge$. By property 5 (translator stability of components) and {prf:ref}`thm-canonical-3sat-barrier-translator-stable`, the transported $\lozenge$-sub-barrier remains valid on $\mathfrak{Z}^\lozenge$ with $\Delta_\lozenge(n) = \Omega(n)$.
 
 **Step 5. [Blockage contradicts crossing]:**
-The $\lozenge$-blockage (hypothesis 1) says: no pure $\lozenge$-endomorphism with polynomial budget can cross the $\lozenge$-sub-barrier. Specifically, the modality-specific structural obstruction (glassy landscape for $\sharp$, causal depth for $\int$, etc.) prevents $F^\lozenge$ from navigating $E_\lozenge$ from below $b_\lozenge$ to below $a_\lozenge$ while passing through $E_\lozenge \geq b_\lozenge$. By translator stability, this holds regardless of the encoding into $\mathfrak{Z}^\lozenge$.
+The contextual $\lozenge$-blockage (hypothesis 1), together with
+{prf:ref}`thm-contextual-transfer-through-leaf`, says that no pure $\lozenge$-leaf with
+polynomial budget can provide the transported $\lozenge$-barrier crossing required by any
+solver context. Specifically, the modality-specific structural obstruction (glassy landscape
+for $\sharp$, causal depth for $\int$, etc.) prevents $F^\lozenge$ from navigating
+$E_\lozenge$ from below $b_\lozenge$ to below $a_\lozenge$ while passing through
+$E_\lozenge\geq b_\lozenge$. By translator stability, this holds regardless of the encoding
+into $\mathfrak{Z}^\lozenge$.
 
 Therefore $B$ cannot cross the $\lozenge$-sub-barrier.
 
@@ -6500,14 +6586,17 @@ Part VI is the first **problem-specific** instantiation of that machinery. Its t
 internal $3$-SAT family:
 1. is an admissible problem family;
 2. lies in $NP_{\mathrm{FM}}$ and is $NP_{\mathrm{FM}}$-complete;
-3. carries the current tactic-level E13 obstruction package, or more strongly the reconstructed five-certificate
-   semantic package of Part V;
-4. and therefore lies outside $P_{\mathrm{FM}}$.
+3. conditionally on $\mathbf{HSAT}_{4.2}$, carries the current tactic-level E13 obstruction package for the
+   canonical search formulation, or more strongly the reconstructed five-certificate semantic package of Part V;
+4. and therefore has Search-3-SAT outside $FP_{\mathrm{FM}}$, with Decision-3-SAT outside
+   $P_{\mathrm{FM}}$ by self-reduction.
 
 Once those steps are established, the separation chain is formal:
 
 $$
-\Pi_{3\text{-SAT}}\notin P_{\mathrm{FM}}
+\Pi^{\mathrm{search}}_{3\text{-SAT}}\notin FP_{\mathrm{FM}}
+\Rightarrow
+\Pi^{\mathrm{dec}}_{3\text{-SAT}}\notin P_{\mathrm{FM}}
 \;\Longrightarrow\;
 P_{\mathrm{FM}}\neq NP_{\mathrm{FM}}
 \;\Longrightarrow\;
@@ -6522,7 +6611,7 @@ K_{\mathrm{SC}_\lambda}^{\mathrm{super}} \wedge K_{\mathrm{E8}}^-
 \Rightarrow
 K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}})
 \Rightarrow
-\Pi_{3\text{-SAT}}\notin P_{\mathrm{FM}}.
+\Pi^{\mathrm{search}}_{3\text{-SAT}}\notin FP_{\mathrm{FM}}.
 $$
 
 The strengthened semantic obstruction framework of Part V (mixed-modal obstruction theorem) is a more demanding
@@ -6597,8 +6686,11 @@ $\mathsf{Sat}\langle \sharp,\int,\flat,\ast,\partial\rangle$, by
 {prf:ref}`thm-irreducible-witness-classification`. Each certificate in {prf:ref}`def-e13` targets one modal class.
 
 For each modality $\lozenge$, the corresponding blockage lemma in Part VI establishes:
-1. **Problem-level blockage:** No pure $\lozenge$-witness at the canonical 3-SAT types is correct.
-2. **Translator stability:** Each blockage proof's Step 7 invokes
+1. **Contextual hard-set blockage:** no pure $\lozenge$-leaf in any saturated solver context is correct on the
+   semantic hard sets $H_n$ supplied by $\mathbf{HSAT}_{4.2}$.
+2. **Restriction testing:** any canonical Search-3-SAT solver restricts to $H_n$
+   ({prf:ref}`lem-hard-set-restriction-testing`).
+3. **Translator stability:** Each blockage proof's Step 7 invokes
    {prf:ref}`thm-canonical-3sat-barrier-translator-stable`, ensuring blockage persists under admissible re-encodings.
 
 By {prf:ref}`thm-canonical-3sat-modal-barrier-decomposition`, the canonical 3-SAT barrier datum
@@ -6802,7 +6894,7 @@ This is the unique satisfiability family used in the separation chain below.
 :label: rem-search-formulation-essential
 
 **(a) Restriction monotonicity requires search.**
-The hard subfamily $\mathfrak H$ ({prf:ref}`def-hard-subfamily-3sat`) consists exclusively of
+The semantic hard set $H_n$ ({prf:ref}`def-hard-subfamily-3sat`) consists exclusively of
 **satisfiable** formulas. On this subfamily, the decision version of 3-SAT is trivially solvable by the
 constant-$1$ function, which would make the restriction-monotonicity step
 ({prf:ref}`lem-frontend-restriction-monotonicity`) vacuous: blockage on a trivially solvable subfamily
@@ -6943,100 +7035,124 @@ Contrapositively, if no valid $\lozenge$-witness exists on $\Pi'$ (i.e., the $\l
 subfamily), then no valid $\lozenge$-witness exists on $\Pi$ either.
 :::
 
-### VI.C.1. Hard Subfamily and Canonical Barrier Datum
+### VI.C.1. Semantic Hard Set and Canonical Barrier Datum
 
-:::{prf:definition} Hard Subfamily for Canonical 3-SAT
+:::{prf:definition} Semantic Hard Set $H_n$ Used for Restriction Testing
 :label: def-hard-subfamily-3sat
 
-The **hard subfamily** of canonical 3-SAT is the restricted problem family
+Let $F_{3\text{-CNF},n}$ denote the canonical admissible family of encoded 3-CNF formulas on
+$n$ variables, with encoder, decoder, and validity predicate from
+{prf:ref}`thm-canonical-3sat-admissible`.
+
+For the lower-bound argument we use a sequence of subsets
 
 $$
-\Pi_{3\text{-SAT}}^{\mathrm{hard}}
-=
-(\mathfrak{H}, \mathfrak{A}, \mathsf{Spec}^{3\text{-SAT}}|_{\mathfrak{H}})
+H_n\subseteq F_{3\text{-CNF},n}.
 $$
 
-where $\mathfrak{H} = (\mathfrak{H}_n)_{n \in \mathbb{N}}$ and $\mathfrak{H}_n$ consists of all **satisfiable**
-3-CNF formulas on $n$ variables at clause-to-variable ratio
+The sets $H_n$ are **semantic hard sets**, not admissible input families. In particular,
+membership in $H_n$ is not part of the public input promise, is not required to have a
+uniform polynomial-time recognizer, and is never used by a solver. A candidate solver is a
+solver for the full canonical Search-3-SAT family; the proof merely evaluates that solver on
+the semantic test inputs lying in $H_n$.
+
+The density parameter is fixed as
 
 $$
-\alpha = 4.2
+\alpha=4.2,
 $$
 
-(slightly below the random 3-SAT satisfiability threshold $\alpha^* \approx 4.267$, so that a
-uniformly random 3-CNF formula at ratio $\alpha$ is satisfiable with probability $1 - o(1)$).
-More precisely, $\mathfrak{H}_n$ consists of formulas with $m = \lfloor \alpha n \rfloor$ clauses,
-each clause a disjunction of 3 literals over $n$ variables, such that the formula is satisfiable.
+and each $H_n$ consists only of satisfiable formulas with $m=\lfloor\alpha n\rfloor$ clauses
+which satisfy the structural requirements listed below. The existence and density of such
+sets at $\alpha=4.2$ is not treated as an informal consequence of the predicted random
+3-SAT threshold. It is imported explicitly as {prf:ref}`hyp-hsat-42`.
 
-$\Pi_{3\text{-SAT}}^{\mathrm{hard}}$ is an admissibly presented subfamily of $\Pi_{3\text{-SAT}}$: the restriction
-$\mathfrak{H}_n \subseteq F_{3\text{-CNF},n}$ is admissible because membership in $\mathfrak{H}_n$ is decidable
-(satisfiability is decidable, clause-to-variable ratio is computable, and each structural property below is
-decidable given the formula).
-
-We define $\mathfrak{H}_n$ to consist of those formulas in $F_{3\text{-CNF},n}$ at ratio $\alpha$ that
-**deterministically satisfy** all six structural properties below. By known probabilistic results, a
-$(1 - o(1))$-fraction of satisfiable formulas at ratio $\alpha$ satisfy all six properties simultaneously as
-$n \to \infty$, so $\mathfrak{H}_n$ is non-empty for all sufficiently large $n$.
-
-The six definitional requirements for $F \in \mathfrak{H}_n$ are:
+The structural requirements for every $F\in H_n$ are:
 
 1. **Solution-space shattering:** The satisfying assignments partition into $\exp(\Theta(n))$ clusters at pairwise
-   Hamming distance $\Omega(n)$ (Achlioptas-Ricci-Tersenghi 2006, Mézard-Montanari 2009).
+   Hamming distance $\Omega(n)$.
 2. **Glassy landscape:** The energy function $E_n(x) =$ unsatisfied clauses has exponentially many local minima,
-   vanishing spectral gap, and Łojasiewicz failure near frozen variables (Mézard-Parisi-Zecchina 2002,
-   Montanari-Semerjian 2006).
-3. **Frustrated cycles:** The clause-variable dependency graph contains strongly connected frustration cores of size
-   $\Theta(n)$ (Achlioptas-Beame-Molloy 2001).
-4. **Linear expansion:** The clause-variable incidence graph is an expander with linear separator cost and linear
-   treewidth.
-5. **Automorphism triviality:** $\operatorname{Aut}(F) = \{\mathrm{id}\}$.
+   vanishing spectral gap, and Łojasiewicz failure near frozen variables.
+3. **Frustrated cores:** The clause-variable dependency graph contains strongly connected frustration cores of size
+   $\Theta(n)$.
+4. **Linear expansion and treewidth:** The clause-variable incidence graph is an expander with linear separator cost
+   and linear treewidth.
+5. **Automorphism triviality:** $\operatorname{Aut}(F)=\{\mathrm{id}\}$.
 6. **Boolean fiber rigidity:** The algebraic variety $V(F)$ defined by the clause polynomials
-   $\bar{l}_{1i}\bar{l}_{2i}\bar{l}_{3i} = 0$ together with the Boolean constraints $z_j^2 - z_j = 0$ coincides
-   with the Boolean solution set $\mathrm{Sol}(F) \subset \{0,1\}^n$ (no additional complex solutions). The
-   monodromy of the resulting discrete covering over the clause-weight parameter space is trivial.
-
-   *Justification.* Over $\mathbb{F}_2$, the constraints $z_j^2 = z_j$ are automatically satisfied
-   (every element of $\mathbb{F}_2$ is idempotent), and each clause polynomial
-   $\bar{l}_{1i}\bar{l}_{2i}\bar{l}_{3i}$ is a product of linear forms over $\mathbb{F}_2$.
-   The ideal generated by all clause polynomials together with $\{z_j^2 - z_j\}_{j=1}^n$ is
-   radical over $\mathbb{F}_2$ (since $\mathbb{F}_2[z_1,\ldots,z_n]/(z_j^2 - z_j)$ is a reduced
-   ring), so $V(F) = \mathrm{Sol}(F)$ by the Nullstellensatz over finite fields
-   (see, e.g., Cox-Little-O'Shea, *Ideals, Varieties, and Algorithms*, Ch. 8, or
-   Jukna, *Boolean Function Complexity*, Ch. 6 for the Boolean-algebraic perspective).
-   The monodromy triviality then follows: since the fiber over each parameter value is a
-   discrete finite set of Boolean points with no algebraic monodromy paths connecting them,
-   the monodromy group is $\{\mathrm{id}\}$.
+   $\bar l_{1i}\bar l_{2i}\bar l_{3i}=0$ together with the Boolean constraints
+   $z_j^2-z_j=0$ coincides with the Boolean solution set
+   $\mathrm{Sol}(F)\subseteq\{0,1\}^n$, and the associated discrete covering has trivial
+   monodromy.
+7. **Solution-density and packing bounds:** The auxiliary density-bounded subset
+   $H_n^+\subseteq H_n$ used in {prf:ref}`lem-sharp-obstruction` has
+   $|H_n^+|\ge (1-o(1))|H_n|$ and satisfies the weight-slice bound stated there. In addition,
+   for some constant $c>0$ and infinitely many $n$, $H_n$ contains formulas
+   $F^{(1)},\ldots,F^{(2^{cn})}$ whose satisfying-assignment sets are pairwise disjoint.
+8. **Relabeling closure:** If $F\in H_n$ and $\sigma\in S_n$, then the variable relabeling
+   $F^\sigma$ also lies in $H_n$.
 :::
 
-:::{prf:remark} Well-definedness and non-circularity of the hard subfamily
-:label: rem-hard-subfamily-well-definedness
+:::{prf:assumption} $\mathbf{HSAT}_{4.2}$
+:label: hyp-hsat-42
 
-**Non-emptiness.** Each of the six structural properties is satisfied with probability $1 - o(1)$
-by uniformly random satisfiable 3-CNF formulas at ratio $\alpha < \alpha^*$. Properties 1–6
-are standard results in the statistical physics and combinatorics literature cited above. By a
-union bound over all six properties, they hold simultaneously with probability $1 - o(1)$, so
-$H_n \neq \emptyset$ for all sufficiently large $n$.
+For infinitely many $n$, there exists a semantic hard set
+$H_n\subseteq F_{3\text{-CNF},n}$ at density $\alpha=4.2$ satisfying all eight requirements
+of {prf:ref}`def-hard-subfamily-3sat`. Moreover $|H_n|\ge \exp(\Omega(n\log n))$, the
+solution-density subset $H_n^+$ has $|H_n^+|\ge (1-o(1))|H_n|$, and all constants implicit in
+the shattering, expansion, frozen-core, and separator bounds are uniform along this infinite
+subsequence.
 
-*Note on solution density.* The density bound $|\{y \in \mathrm{Sol}(F) : |y|=w\}| \leq
-(7/8)^{\alpha n/2}\binom{n}{w}$ is *not* a definitional property of $H_n$, but is derived
-inline in the proof of {prf:ref}`lem-sharp-obstruction`. It defines the auxiliary sub-family
-$H_n^+ \subseteq H_n$, and the key point is that $|H_n^+| \geq (1-o(1))|H_n|$ because the
-Markov bound applies to the unconditional distribution at ratio $\alpha < \alpha^*$, where
-$\Pr[F \text{ satisfiable}] = 1-o(1)$ ensures the conditioning on satisfiability does not
-inflate the failure probability beyond $o(1)$. At $\alpha \geq \alpha^*$, this conditioning
-argument would fail (satisfiability probability drops to $\exp(-\Omega(n))$), which is why
-$\alpha$ is chosen strictly below $\alpha^*$.
+This is the exact imported hard-set assumption used below. The manuscript does not rely on
+the physics prediction $\alpha^*\approx4.267$ as a theorem for $k=3$, nor on a blanket
+assertion that the six-property bundle is already known for random satisfiable formulas at
+density $4.2$.
+:::
 
-**Decidability note.** Membership in $H_n$ requires checking satisfiability, which is NP-complete.
-However, decidability of $H_n$ is NOT required by the proof. The proof uses $H_n$ only through
-{prf:ref}`lem-frontend-restriction-monotonicity`: if no pure $\lozenge$-witness is valid on $H_n$,
-then no pure $\lozenge$-witness is valid on the full family $\Pi_{3\text{-SAT}}$. This transfer
-requires only $H_n \subseteq \Pi_{3\text{-SAT},n}$ and $H_n \neq \emptyset$.
+:::{prf:lemma} Restriction Testing Needs No Recognizer for $H_n$
+:label: lem-hard-set-restriction-testing
 
-**No circularity.** The hard subfamily is a combinatorially defined set whose non-emptiness is
-proved by probabilistic counting, not by appeal to computational complexity assumptions. The
-blockage lemmas prove that certain witness structures cannot solve instances in $H_n$; they do
-not need to construct elements of $H_n$ algorithmically.
+If a uniform solver solves canonical Search-3-SAT on the admissible input family
+$F_{3\text{-CNF},n}$, then its restriction solves every input $F\in H_n$.
+
+Equivalently, an obstruction proved against every solver on the semantic test set
+$H_n\subseteq F_{3\text{-CNF},n}$ obstructs solvers for canonical Search-3-SAT.
+:::
+
+:::{prf:proof}
+Correctness of a canonical Search-3-SAT solver is universally quantified over all valid
+canonical inputs. Since $H_n$ is a subset of the valid canonical inputs, restricting the
+universal quantifier to $H_n$ preserves correctness. No algorithm is asked to decide whether
+an input lies in $H_n$, and no promise predicate for $H_n$ is compiled into the admissible
+family.
+:::
+
+:::{prf:remark} Conditional status of the 4.2 hard set
+:label: rem-hsat-42-conditional-status
+
+The proof is therefore a relative theorem:
+
+$$
+\mathbf{HSAT}_{4.2}
+\Longrightarrow
+\text{the canonical Search-3-SAT obstruction lemmas hold on the test sets }H_n.
+$$
+
+An unconditional version of this chapter must replace {prf:ref}`hyp-hsat-42` by a rigorous
+appendix proving the following table row by row:
+
+| Property | Exact theorem used | Density range | Conditioning | Failure probability |
+| --- | --- | ---: | --- | ---: |
+| satisfiable | required source | $\alpha=4.2$ | none / satisfiable | $o(1)$ |
+| shattering | required source | $\alpha=4.2$ | satisfiable | $o(1)$ |
+| frozen variables / glassy landscape | required source | $\alpha=4.2$ | satisfiable | $o(1)$ |
+| frustrated cores | required source | $\alpha=4.2$ | satisfiable | $o(1)$ |
+| expansion/treewidth | required source | $\alpha=4.2$ | none | $o(1)$ |
+| automorphism triviality | required source | $\alpha=4.2$ | none | $o(1)$ |
+| Boolean fiber rigidity | direct Boolean algebra proof | all formulas | none | deterministic |
+| solution-density bounds | required counting lemma | $\alpha=4.2$ | relative to $H_n$ | $o(1)$ |
+
+Until that appendix is supplied, every theorem depending on $H_n$ is explicitly conditional on
+$\mathbf{HSAT}_{4.2}$.
 :::
 
 :::{prf:definition} Canonical 3-SAT Barrier Datum
@@ -7061,13 +7177,14 @@ in the sense of {prf:ref}`def-barrier-datum`, with the following instantiations.
    polynomial time from $F$ (e.g., by a fixed polynomial-time heuristic such as unit propagation followed by greedy
    clause satisfaction). The embedding is a presentation translator.
 
-3. **Hard subfamily.**
-   $\mathfrak H_n$ consists of satisfiable formulas at clause-to-variable ratio
+3. **Semantic hard set.**
+   $H_n\subseteq F_{3\text{-CNF},n}$ is the semantic hard set supplied by
+   $\mathbf{HSAT}_{4.2}$, consisting of satisfiable formulas at clause-to-variable ratio
 
    $$
    \alpha = 4.2
    $$
-   (slightly below the random 3-SAT satisfiability threshold $\alpha^* \approx 4.267$).
+   and used only for restriction testing, not as an admissible input family.
 
 4. **Solved region.**
    $S_n = \{x \in \{0,1\}^n : x \text{ satisfies all clauses of } F\}$
@@ -7124,17 +7241,17 @@ $$
 By definition, $x \in S_n$ satisfies all clauses, so $E_n(x) = 0 \leq a(n)$.
 
 **Step 3. [B3 — barrier separation]:**
-For random 3-SAT at the satisfiability threshold $\alpha \approx 4.267$, the solution space undergoes
-**shattering** into exponentially many well-separated clusters (Achlioptas-Ricci-Tersenghi 2006,
-Mézard-Montanari 2009). For every $F \in H_n$ (which satisfies all six structural properties by definition):
+For the semantic hard sets supplied by $\mathbf{HSAT}_{4.2}$, the solution space undergoes
+**shattering** into exponentially many well-separated clusters. For every $F \in H_n$
+(which satisfies the hard-set properties of {prf:ref}`def-hard-subfamily-3sat`):
 
 - The satisfying assignments partition into clusters $C_1, \dots, C_k$ with $k = \exp(\Theta(n))$.
 - Any two assignments in distinct clusters have Hamming distance $\Omega(n)$.
 - Any path in assignment space connecting two assignments in distinct clusters must pass through assignments
   violating at least $c_{\mathrm{shatter}} \cdot n$ clauses.
 
-The last property follows from the expansion of the random 3-SAT clause-variable hypergraph: each variable appears in
-$\Theta(\alpha) = \Theta(1)$ clauses, and any contiguous set of $\Omega(n)$ variable flips from a satisfying
+The last property follows from the expansion clause in $\mathbf{HSAT}_{4.2}$: each variable appears in
+$\Theta(\alpha)=\Theta(1)$ relevant clauses, and any contiguous set of $\Omega(n)$ variable flips from a satisfying
 assignment unsatisfies at least $c_{\mathrm{shatter}} \cdot n$ clauses for an explicit constant
 $c_{\mathrm{shatter}} > \alpha / 8 > 0$ depending on $\alpha$ and the expansion constant.
 
@@ -7276,8 +7393,9 @@ remains $\Omega(n^{1-\epsilon})$ for any $\epsilon > 0$ with appropriate choice 
 
 Each of the following lemmas proves blockage for one modal channel by assuming an arbitrary pure witness of the
 corresponding type on $\Pi_{3\text{-SAT}}$ and deriving a contradiction. In each case, the proof first establishes
-the structural obstruction on the hard subfamily $\Pi_{3\text{-SAT}}^{\mathrm{hard}}$
-({prf:ref}`def-hard-subfamily-3sat`), then lifts via {prf:ref}`lem-frontend-restriction-monotonicity`.
+the structural obstruction on the semantic hard sets $H_n$ supplied by
+$\mathbf{HSAT}_{4.2}$ ({prf:ref}`hyp-hsat-42`), then lifts by restriction testing
+({prf:ref}`lem-hard-set-restriction-testing`).
 
 :::{prf:remark} Scope of the direct-route blockage proofs
 :label: rem-scope-direct-route-blockage
@@ -7285,8 +7403,8 @@ the structural obstruction on the hard subfamily $\Pi_{3\text{-SAT}}^{\mathrm{ha
 **What the direct route proves.** Each blockage lemma below establishes the semantic obstruction proposition
 $\mathbb{K}_\lozenge^-(\Pi_{3\text{-SAT}})$ for its modal channel by two complementary arguments:
 
-1. **Frontend structural blockage.** All pure $\lozenge$-witnesses are blocked for
-   $\Pi_{3\text{-SAT}}^{\mathrm{hard}}$ via the corresponding frontend obstruction lemma. (For the $\sharp$-channel,
+1. **Frontend structural blockage.** All pure $\lozenge$-witnesses are blocked on the semantic
+   hard sets $H_n$ via the corresponding frontend obstruction lemma. (For the $\sharp$-channel,
    the obstruction uses $\sharp$-purity to show that metric-descent computation is cluster-blind on the shattered
    landscape. For the other channels, the obstruction blocks the named class template and, by the structure of the
    pure witness definitions, extends to all pure witnesses of that modality.)
@@ -7328,8 +7446,8 @@ a solved set $S_n^\sharp$, strict progress ($V_n$ decreases by at least 1 per no
 identity. The exclusion target is all such witnesses — not only the Class I climber template of
 {prf:ref}`def-class-i-climbers`, but every pure $\sharp$-witness regardless of the choice of $V$, $F$, or encoding.
 
-**Step 2. [Glassy landscape of random 3-SAT]:**
-For random 3-SAT at the satisfiability threshold $\alpha \approx 4.267$, the landscape
+**Step 2. [Glassy landscape supplied by $\mathbf{HSAT}_{4.2}$]:**
+For every $F\in H_n$ supplied by {prf:ref}`hyp-hsat-42`, the landscape
 $\Phi(x) = E_n(x) = $ number of unsatisfied clauses exhibits all three glassy signatures required by
 {prf:ref}`lem-sharp-obstruction`:
 
@@ -7348,11 +7466,11 @@ $\Phi(x) = E_n(x) = $ number of unsatisfied clauses exhibits all three glassy si
 By {prf:ref}`lem-sharp-obstruction`: the $\sharp$-purity constraint restricts $F_n^\sharp$ to metric-descent
 computation, and the glassy landscape ensures that metric-descent computation cannot navigate to the correct
 solution cluster (cluster identity is determined by the frozen-variable core, an $\int$-type object invisible to
-the $\sharp$ modality). Therefore no pure $\sharp$-witness exists on the hard subfamily $\mathfrak H$.
+the $\sharp$ modality). Therefore no pure $\sharp$-witness exists on the semantic hard set $H_n$.
 
-**Step 4. [Restriction monotonicity]:**
-By {prf:ref}`lem-frontend-restriction-monotonicity`: the blockage lifts from the hard subfamily to the full canonical
-family $\Pi_{3\text{-SAT}}$. Thus no pure $\sharp$-witness exists on $\Pi_{3\text{-SAT}}$.
+**Step 4. [Restriction testing]:**
+By {prf:ref}`lem-hard-set-restriction-testing`, any full canonical search solver would restrict
+to a solver on $H_n$. Thus the $H_n$ blockage obstructs canonical Search-3-SAT.
 
 **Step 5. [Supporting barrier bound]:**
 The barrier datum $\mathfrak B_{3\text{-SAT}}$ of {prf:ref}`def-canonical-3sat-barrier-datum` provides a supporting
@@ -7396,17 +7514,16 @@ By {prf:ref}`def-pure-int-witness-rigorous`: a pure $\int$-witness consists of a
 $|P_n| \leq q_{\mathrm{int}}(n)$, local updates $U_{n,i}$ depending only on predecessors $j \prec_n i$, a linear extension
 $\sigma_n$, and the correctness identity. The exclusion target is all such witnesses.
 
-**Step 2. [Frustrated cycles in random 3-SAT]:**
+**Step 2. [Frustrated cycles supplied by $\mathbf{HSAT}_{4.2}$]:**
 By {prf:ref}`lem-shape-obstruction`, the causal/propagation witness language is blocked when the dependency structure
-contains **frustrated loops**. For random 3-SAT at threshold $\alpha \approx 4.267$:
+contains **frustrated loops**. Every $F\in H_n$ supplied by {prf:ref}`hyp-hsat-42` has:
 
 - The clause-variable dependency graph contains **strongly connected frustration cores**: cycles of clauses
   $c_1, c_2, \ldots, c_\ell$ where satisfying $c_j$ forces a literal value that conflicts with $c_{j+1}$
   (Achlioptas-Beame-Molloy 2001).
 - These frustration cores have $\pi_1(\int\mathcal X) \neq 0$: the fundamental group of the shape is non-trivial.
   Constraint propagation around any such cycle produces contradictions.
-- W.h.p. the hard subfamily contains frustration cores of size $\Theta(n)$, involving a constant fraction of all
-  variables.
+- frustration cores of size $\Theta(n)$, involving a constant fraction of all variables.
 
 **Step 3. [Elimination order obstruction]:**
 Any pure $\int$-witness imposes a DAG-compatible elimination order on the variables. But a frustration core of size
@@ -7420,9 +7537,9 @@ update depends only on predecessors).
 By {prf:ref}`lem-shape-obstruction`: the frustrated-loop structure blocks the standard propagation/elimination witness
 language of {prf:ref}`def-class-ii-propagators` on the hard subfamily.
 
-**Step 5. [Restriction monotonicity]:**
-By {prf:ref}`lem-frontend-restriction-monotonicity`: the blockage lifts from the hard subfamily to the full canonical
-family $\Pi_{3\text{-SAT}}$.
+**Step 5. [Restriction testing]:**
+By {prf:ref}`lem-hard-set-restriction-testing`, the blockage on $H_n$ obstructs every full
+canonical search solver.
 
 **Step 6. [Supporting barrier bound]:**
 The barrier datum $\mathfrak B_{3\text{-SAT}}$ provides a supporting linear lower bound. Each local elimination update
@@ -7439,7 +7556,7 @@ $$
 
 **Step 8. [Translator stability + Failure localization]:**
 Translator stability is inherited from {prf:ref}`thm-canonical-3sat-barrier-translator-stable`. The failure point is
-the frustrated-cycle structure: if random 3-SAT at threshold had acyclic constraint propagation (like Horn-SAT, where
+the frustrated-cycle structure: if the semantic hard sets had acyclic constraint propagation (like Horn-SAT, where
 the implication graph is a DAG), the $\int$-route would not be blocked.
 :::
 
@@ -7449,7 +7566,7 @@ the implication graph is a DAG), the $\int$-route would not be blocked.
 Let $(P_n, \prec_n)$ be any well-founded poset with $|P_n| \leq q(n)$ for a polynomial $q$, and let
 $(U_{n,i})_{i \in P_n}$ be local updates depending only on predecessors, with reconstruction map
 $R_n^{\int}$ computable in polynomial time. Then no pure $\int$-witness with poset $(P_n, \prec_n)$
-correctly solves the hard subfamily $\mathfrak{H}$ of {prf:ref}`def-hard-subfamily-3sat`.
+correctly solves the semantic hard set $H_n$ of {prf:ref}`def-hard-subfamily-3sat`.
 :::
 
 :::{prf:proof}
@@ -7469,7 +7586,7 @@ with the poset and the input) yields the same value for the $j$th output coordin
 **Step 2. [Boundary conditions.]**
 $V_0 = \varnothing$: before any updates, the state is the initial encoding of the input, and no output
 coordinate is fixed. Formally: by property 1 of {prf:ref}`def-hard-subfamily-3sat`
-(**solution-space shattering**), every formula $F \in \mathfrak{H}_n$ has $\exp(\Theta(n))$
+(**solution-space shattering**), every formula $F \in H_n$ has $\exp(\Theta(n))$
 satisfying assignments partitioned into clusters at pairwise Hamming distance $\Omega(n)$
 ({cite}`AchlioptasRicciTersenghi06`; {cite}`MezardMontanari09`; rigorously established in ZFC by
 {cite}`DingSlySun21`). In particular, for any variable $j \in [n]$, there exist satisfying
@@ -7489,20 +7606,12 @@ reconstruction map must produce a valid satisfying assignment, so every coordina
 :::{prf:remark} Import of classical ZFC cluster theorem into the framework
 :label: rem-causal-blockage-classical-import
 
-The solution-space shattering used in Step 2 is a theorem of classical combinatorics, fully proved in
-ZFC: Achlioptas and Ricci-Tersenghi established the cluster structure for random 3-SAT near the
-satisfiability threshold ({cite}`AchlioptasRicciTersenghi06`), the Mézard-Montanari cavity method
-framework confirms it with exponential cluster counts ({cite}`MezardMontanari09`, Chapters 18--19),
-and Ding, Sly and Sun give a fully rigorous ZFC proof ({cite}`DingSlySun21`).
-
-This classical result is imported into the hypostructure framework via the Rigor Class L (Literature-Anchored)
-import mechanism: classical ZFC theorems can be cited directly as certificates for admissible families,
-provided the family is admissibly presented ({prf:ref}`def-hard-subfamily-3sat`) and the theorem is a
-standard mathematical result with a ZFC proof ({prf:ref}`rem-hard-subfamily-well-definedness`). No
-topos-internal re-proof is required. The bridge theorems ({prf:ref}`cor-bridge-equivalence-rigorous`,
-{prf:ref}`rem-zfc-model-for-H`) guarantee that ZFC-provable properties of admissible families
-transfer faithfully into the framework, because the cohesive ambient $\mathbf{H}$ is modeled in ZFC
-and the admissible families are $0$-truncated objects with decidable membership.
+The solution-space shattering used in Step 2 is imported through
+$\mathbf{HSAT}_{4.2}$, not through an unconditional theorem about the exact random
+3-SAT threshold. Literature on random CSP clustering supplies motivation and partial
+rigorous results, but the load-bearing statement here is the explicit hard-set hypothesis
+{prf:ref}`hyp-hsat-42`. An unconditional version must replace that hypothesis with the
+row-by-row appendix described in {prf:ref}`rem-hsat-42-conditional-status`.
 :::
 
 **Step 3. [Monotonicity.]**
@@ -7559,10 +7668,9 @@ Since $U_{n,k^*+1}$ is a pure $\int$-modal update (item 8 of
 
 $$\mathrm{Vis}(k^*\!+\!1) = \{C \in \mathcal{C}_n : \sigma_n^{\mathrm{sv}}(\operatorname{var}(C)) \subseteq \mathrm{Pred}(k^*\!+\!1) \cup \{k^*\!+\!1\}\}.$$
 The predecessor set satisfies $|\mathrm{Pred}(k^*\!+\!1)| \leq |V_{k^*}| = o(n)$, since only
-previously determined sites are predecessors. At clause-to-variable ratio $\alpha \approx 4.267$,
-each variable appears in $O(1)$ clauses in expectation (exactly $\lceil 3\alpha n / n \rceil = O(1)$
-clauses per variable), and the hard subfamily satisfies the same $O(1)$ degree bound by
-property 4 (linear expansion). Denoting this per-variable clause degree bound $d_\alpha = O(1)$,
+previously determined sites are predecessors. The hard-set hypothesis supplies the required
+$O(1)$ visible-degree bound through the expansion/treewidth and bounded-density clauses.
+Denoting this per-variable clause degree bound $d_\alpha = O(1)$,
 
 $$|\mathrm{Vis}(k^*\!+\!1)| \leq d_\alpha \cdot |\mathrm{Pred}(k^*\!+\!1)| = O(|V_{k^*}|) = o(n).$$
 Hence $U_{n,k^*+1}$ can see only $o(n)$ clauses.
@@ -7698,16 +7806,12 @@ $$
 Variables in $\mathrm{Bb}(F)$ are _frozen_: their value is fixed across all satisfying
 assignments of $F$.
 
-**Backbone in the hard phase.** At density $\alpha = 4.2$, random 3-SAT formulas are in the
-hard phase of random satisfiability (above the clustering threshold $\alpha_{\mathrm{clust}}
-\approx 3.86$ and approaching the satisfiability threshold $\alpha^* \approx 4.267$). In
-this regime, backbone variables arise from the over-constrained structure of the formula:
-variables that appear in many clauses can become frozen across all satisfying assignments.
-In particular, property 2 of {prf:ref}`def-hard-subfamily-3sat` and the random 3-SAT
-theory at this density (Mézard--Montanari 2009, Ch.\ 19; Achlioptas--Ricci-Tersenghi 2006)
-give $|\mathrm{Bb}(F)| = \delta n = \Theta(n)$ with probability $1-o(1)$ over the random
-ensemble. The backbone variables need not all arise from the frustrated-SCC structure; they
-arise from any region of the formula with sufficient local constraint density.
+**Backbone in the hard set.** At density $\alpha=4.2$, the required frozen/backbone
+behavior is part of $\mathbf{HSAT}_{4.2}$. In particular, property 2 of
+{prf:ref}`def-hard-subfamily-3sat` supplies $|\mathrm{Bb}(F)|=\delta n=\Theta(n)$ for the
+semantic hard-set instances used here. The backbone variables need not all arise from the
+frustrated-SCC structure; they arise from any region of the formula with sufficient local
+constraint density.
 
 **The auxiliary subfamily $H_n^{\mathrm{bb}}$.** Define
 
@@ -8000,9 +8104,9 @@ core comprises a constant fraction $\gamma > 0$ of all $n$ variables (property 3
 $(V_{k^*},\; [n] \setminus V_{k^*})$ splits the variable set into two parts each of size
 $\Theta(n)$. By expansion (property 4), the frustrated-core variables cannot be concentrated
 in any $o(n)$-sized subset; hence a constant fraction of frustrated-core variables lie in
-$V_{k^*}$ and a constant fraction in $[n] \setminus V_{k^*}$. At the constant clause-to-variable
-ratio $\alpha \approx 4.267$, each frustrated-core variable participates in $\Theta(1)$ clauses,
-so the $\Theta(n)$ core variables generate $\Theta(n)$ internal core clauses. Since the core
+$V_{k^*}$ and a constant fraction in $[n] \setminus V_{k^*}$. By the bounded-density and
+frustrated-core clauses of $\mathbf{HSAT}_{4.2}$, each frustrated-core variable participates
+in $\Theta(1)$ relevant clauses, so the $\Theta(n)$ core variables generate $\Theta(n)$ internal core clauses. Since the core
 variables are split across the partition, at least $\Omega(n)$ of these core clauses are
 crossing clauses. (In Case B, the $\Omega(n)$ undetermined core variables have cycle-closing
 constraints outside $\mathrm{Vis}(k^*\!+\!1)$, by the same argument: since
@@ -8035,7 +8139,7 @@ complementary ways:
   cycle requires backward information flow that $\int$-modal forward propagation cannot provide.
 
 The two arguments converge on the same conclusion: no pure $\int$-witness, regardless of poset
-topology, can solve the hard subfamily of random 3-SAT.
+topology, can solve the semantic hard set $H_n$.
 :::
 
 :::{prf:remark} Survey Propagation–decimation is a mixed-modal algorithm
@@ -8086,10 +8190,9 @@ profiles (Step 4 of {prf:ref}`lem-sharp-obstruction`). The mixed-modal obstructi
 components are obstructed, no interleaving of $\int$-modal and $\sharp$-modal steps can
 yield a correct polynomial-time solver.
 
-This analysis is consistent with the empirical observation that SP-decimation's success rate
-drops sharply as the clause density approaches the satisfiability threshold $\alpha_s \approx
-4.267$ (Krzakała–Montanari–Ricci-Tersenghi–Semerjian–Zdeborová 2007): the $\sharp$-modal
-decimation step makes increasingly poor choices as the solution-space geometry shatters.
+This analysis is consistent with empirical observations about SP-decimation near high
+clause densities, but no such empirical threshold claim is load-bearing here: the formal
+input is the shattering and frozen-core structure supplied by $\mathbf{HSAT}_{4.2}$.
 :::
 
 :::{prf:lemma} Integrality Blockage for Canonical 3-SAT
@@ -8115,40 +8218,10 @@ The reconstruction map $d_n^{\flat} : B_n^{\flat} \to \{0,1\}^n$ is a (determini
 By contrapositive, distinct outputs certify distinct inputs: $d_n^\flat(b) \neq d_n^\flat(b')$ implies $b \neq b'$.
 This holds regardless of which algebraic sub-family governs $e_n^{\flat}$.
 
-We construct $N = 2^{cn}$ formulas in $\mathfrak{H}_n$ (for a suitable constant $c > 0$) with
-pairwise-distinct required outputs. Draw $N$ formulas $F^{(1)}, \ldots, F^{(N)}$ independently at the
-hard ratio $\alpha = 4.2$ (i.e., $m = \lceil \alpha n \rceil$ clauses). We show that with
-high probability these formulas have **pairwise-disjoint** satisfying-assignment sets.
-
-For two independently drawn formulas $F^{(i)}$ and $F^{(j)}$, the probability that they share any
-common satisfying assignment is bounded by a union bound over all $2^n$ possible assignments:
-
-$$
-\Pr\bigl[\mathrm{Sol}(F^{(i)}) \cap \mathrm{Sol}(F^{(j)}) \neq \emptyset\bigr]
-\;\leq\; \sum_{\sigma \in \{0,1\}^n}
-  \Pr[\sigma \text{ satisfies } F^{(i)}] \cdot \Pr[\sigma \text{ satisfies } F^{(j)}]
-\;=\; 2^n \cdot (7/8)^{2m}.
-$$
-Each clause is satisfied by a fixed assignment $\sigma$ with probability $7/8$ (since exactly one of
-the eight literal patterns falsifies a uniformly random 3-clause), and the $2m$ clauses across the two
-independent formulas are independent. Substituting $m = \alpha n$ with $\alpha = 4.2$:
-
-$$
-2^n \cdot (7/8)^{2\alpha n}
-= 2^{n\bigl(1 - 2\alpha \log_2(8/7)\bigr)}
-= 2^{n(1 - 2 \cdot 4.2 \cdot 0.193)}
-= 2^{-0.621n}.
-$$
-For $N = 2^{cn}$ formulas, the union bound over $\binom{N}{2} < 2^{2cn}$ pairs gives
-
-$$
-\Pr[\text{any pair shares a solution}]
-\;\leq\; 2^{2cn} \cdot 2^{-0.621n}
-\;=\; 2^{-n(0.621 - 2c)}.
-$$
-Choosing any $c < 0.621/2 \approx 0.31$ (e.g., $c = 0.1$) makes this probability $o(1)$.
-With pairwise-disjoint solution sets, any correct solver must return pairwise-distinct outputs
-$\sigma^{(i)} \in \mathrm{Sol}(F^{(i)})$.
+By the packing clause in $\mathbf{HSAT}_{4.2}$, for infinitely many $n$ there are
+$N=2^{cn}$ formulas $F^{(1)},\ldots,F^{(N)}\in H_n$ whose satisfying-assignment sets are
+pairwise disjoint. Since a search solver must output
+$\sigma^{(i)}\in\mathrm{Sol}(F^{(i)})$, these outputs are pairwise distinct.
 The solver computes $\sigma^{(i)} = d_n^\flat(b^{(i)})$ where
 $b^{(i)} := e_n^\flat(s_n^\flat(F^{(i)})) \in B_n^\flat$.
 Because $d_n^\flat$ is a function, distinct outputs require distinct inputs:
@@ -8224,7 +8297,7 @@ The $\mathfrak S_{\mathrm{mono}}$ sub-channel of the strengthened $\flat$-class 
 equivariantly on the solution space, through which algebraic elimination proceeds via Galois-theoretic reductions.
 
 **Step 2. [Automorphism triviality]:**
-For random 3-SAT at the satisfiability threshold $\alpha \approx 4.267$, the formula automorphism group satisfies
+For the semantic hard sets supplied by $\mathbf{HSAT}_{4.2}$, the formula automorphism group satisfies
 
 $$
 \operatorname{Aut}(F) = \{\mathrm{id}\}
@@ -8277,7 +8350,7 @@ The present argument is strictly stronger: it does not require the monodromy to 
 
 For problems with non-trivial continuous solutions (e.g., finding real roots of polynomial systems over $\mathbb{R}$), the S_mono sub-channel is substantive and the Abel-Ruffini obstruction may apply. The vacuity is specific to Boolean satisfiability, where the $z_j^2 - z_j = 0$ constraints pin the variety to the discrete hypercube.
 
-**Connection to solvable-monodromy problems.** XORSAT (systems of linear equations over $\mathbb{F}_2$) has solution spaces that are $\mathbb{F}_2$-affine subspaces. The "monodromy" (solution-set variation as coefficients change) has abelian structure ($\mathbb{F}_2$-linear), making XORSAT amenable to algebraic elimination via $\flat$-methods. The frozen-variable shattering of random 3-SAT at threshold destroys this abelian structure: the solution-set variation is erratic and non-algebraic, preventing any solvable-group factorization.
+**Connection to solvable-monodromy problems.** XORSAT (systems of linear equations over $\mathbb{F}_2$) has solution spaces that are $\mathbb{F}_2$-affine subspaces. The "monodromy" (solution-set variation as coefficients change) has abelian structure ($\mathbb{F}_2$-linear), making XORSAT amenable to algebraic elimination via $\flat$-methods. The frozen-variable shattering of the semantic hard sets $H_n$ destroys this abelian structure: the solution-set variation is erratic and non-algebraic, preventing any solvable-group factorization.
 
 **Step 5. [Certificate]:**
 This yields the Galois-monodromy obstruction certificate
@@ -8371,7 +8444,7 @@ A quotient sketch identifies pairs of inputs via a definable congruence $\sim$ o
 a quotient $A_n / {\sim}$ of cardinality at most $q_\flat(n)$.
 
 **Step 2. [Cluster separation]:**
-The hard subfamily $\mathfrak H$ at threshold $\alpha \approx 4.267$ has $2^{\Omega(n)}$ solution clusters at Hamming
+The semantic hard set $H_n$ has $2^{\Omega(n)}$ solution clusters at Hamming
 distance $\Omega(n)$ (by solution-space shattering, as in {prf:ref}`thm-canonical-3sat-barrier-datum-valid`).
 
 **Step 3. [Quotient lower bound]:**
@@ -8387,7 +8460,7 @@ Since $A_n / {\sim}$ is a quotient of $A_n^\flat$, we have $|A_n^\flat| \geq |A_
 which violates the cardinality bound $|A_n^\flat| \leq q_\flat(n) = n^{O(1)}$.
 
 **Step 4. [Failure localization]:**
-The failure point is the exponential cluster count: if 3-SAT at threshold had only polynomially many solution clusters
+The failure point is the exponential cluster count: if 3-SAT on the semantic hard sets had only polynomially many solution clusters
 (as 2-SAT does), quotient compression might succeed.
 :::
 
@@ -8406,9 +8479,9 @@ A linear elimination sketch over a field $\mathbb F$ reduces the clause system t
 some encoding) and applies row echelon reduction.
 
 **Step 2. [Near-full rank]:**
-For random 3-SAT at threshold, the constraint matrix $A$ (viewed over $\mathbb F_2$ or any field) has
+For the semantic hard sets $H_n$, the constraint matrix $A$ (viewed over $\mathbb F_2$ or any field) has
 $\operatorname{rank}(A) = n - o(n)$ for every $F \in H_n$ (this follows from the linear expansion property 4 of {prf:ref}`def-hard-subfamily-3sat`: the expander structure of the clause-variable incidence graph implies near-full rank of the constraint matrix) — the system is nearly full-rank. The solution space is exponentially
-large (by satisfiability at threshold) but has no polynomial-dimensional linear subspace structure.
+large (by satisfiability on $H_n$) but has no polynomial-dimensional linear subspace structure.
 
 **Step 3. [Exponential complexity of linear representation]:**
 Any linear sketch must route each solution cluster to the correct output. Since there are $2^{\Omega(n)}$
@@ -8438,9 +8511,11 @@ output structure $B_n^\flat$ encodes rank/minor data in a module of polynomial c
 this bound.
 
 **Step 2. [Exponential cardinality lower bound]:**
-By {prf:ref}`lem-random-3sat-integrality-blockage`, among random 3-SAT formulas at clause density $r_n$, there exist
-$2^{cn}$ formulas $F^{(1)}, \ldots, F^{(2^{cn})}$ with pairwise-disjoint solution sets. Any correct solver must map
-these to pairwise-distinct elements of $B_n^\flat$, so $|B_n^\flat| \geq 2^{cn}$.
+By the packing clause in $\mathbf{HSAT}_{4.2}$, equivalently as used in
+{prf:ref}`lem-random-3sat-integrality-blockage`, there exist $2^{cn}$ semantic hard-set
+formulas $F^{(1)}, \ldots, F^{(2^{cn})}$ with pairwise-disjoint solution sets. Any correct
+solver must map these to pairwise-distinct elements of $B_n^\flat$, so
+$|B_n^\flat| \geq 2^{cn}$.
 
 **Step 3. [Contradiction]:**
 Steps 1 and 2 are incompatible for sufficiently large $n$: $2^{cn} > n^{O(1)}$ for any fixed $c > 0$ and polynomial.
@@ -8479,16 +8554,18 @@ $q_\flat(n) = n^{O(1)}$ Fourier coefficients $\{(S_i, \widehat{f}(S_i))\}_{i=1}^
 cardinality $|B_n^\flat| \leq n^{O(1)}$.
 
 **Step 2. [Exponential cardinality lower bound]:**
-By {prf:ref}`lem-random-3sat-integrality-blockage`, among random 3-SAT formulas at clause density $r_n$, there exist
-$2^{cn}$ formulas with pairwise-disjoint solution sets that any correct solver must distinguish. Therefore
-$|B_n^\flat| \geq 2^{cn}$, contradicting $|B_n^\flat| \leq n^{O(1)}$ from Step 1.
+By the packing clause in $\mathbf{HSAT}_{4.2}$, equivalently as used in
+{prf:ref}`lem-random-3sat-integrality-blockage`, there exist $2^{cn}$ semantic hard-set
+formulas with pairwise-disjoint solution sets that any correct solver must distinguish.
+Therefore $|B_n^\flat| \geq 2^{cn}$, contradicting $|B_n^\flat| \leq n^{O(1)}$ from Step 1.
 
 **Step 3. [Spectral structure — why Fourier cannot concentrate]:**
 Independent confirmation comes from Fourier analysis of Boolean functions. The satisfiability indicator
 $f = \mathbf{1}_{\mathrm{SAT}}$ for 3-SAT satisfies:
 
-(a) *Total influence and average Fourier level*: every variable $z_j$ is influential — for a random 3-SAT
-formula at clause density $r_n = \Theta(1)$, flipping $z_j$ changes satisfiability with probability $\Theta(1/n)$
+(a) *Total influence and average Fourier level*: every variable $z_j$ is influential on the
+hard-set ensemble specified by $\mathbf{HSAT}_{4.2}$; heuristically, at constant clause
+density, flipping $z_j$ changes satisfiability with probability $\Theta(1/n)$
 (each variable participates in $\Theta(1)$ clauses on average). The total influence equals
 $\sum_j \mathbf{Inf}_j[f] = \sum_S \widehat{f}(S)^2 |S| = \Omega(1)$,
 so the average Fourier level satisfies $\mathbb{E}_{S \sim \widehat{f}^2}[|S|] = \Omega(1)$: the Fourier mass
@@ -8504,8 +8581,8 @@ and hence $\deg(f) = \Omega(\sqrt{n})$. Since multilinear degree equals Fourier 
 Fourier spectrum of $\mathbf{1}_{\mathrm{SAT}}$ has nonzero coefficients at level $\Omega(\sqrt{n})$; any Fourier
 sketch truncated below this level incurs nonzero $\ell^2$ error.
 
-(c) *Mass spreading*: For a random 3-SAT formula at linear clause density, the satisfiability indicator is built
-from $\Theta(n)$ degree-3 clause-checks. The Fourier expansion of $\mathbf{1}_{\mathrm{SAT}}$ via
+(c) *Mass spreading*: For the semantic hard-set formulas, the satisfiability indicator is built
+from $\Theta(n)$ degree-3 clause checks. The Fourier expansion of $\mathbf{1}_{\mathrm{SAT}}$ via
 inclusion-exclusion generates cross-terms at all levels; crucially, the Fourier coefficients do not vanish
 at high levels because the $2^{cn}$ hard instances (from Steps 1–2) produce distinct satisfiability patterns
 that require $\ell^2$ mass at level $\Omega(\sqrt{n})$ (confirmed by the Fourier degree lower bound of part
@@ -8536,9 +8613,10 @@ as a list of monomial coefficients. For the sketch to have $|B_n^\flat| \leq q_\
 must be stored with at most $n^{O(1)}$ nonzero monomials.
 
 **Step 2. [Exponential cardinality lower bound]:**
-By {prf:ref}`lem-random-3sat-integrality-blockage`, among random 3-SAT formulas at clause density $r_n$, there exist
-$2^{cn}$ formulas with pairwise-disjoint solution sets that any correct solver must distinguish. Therefore
-$|B_n^\flat| \geq 2^{cn}$, contradicting $|B_n^\flat| \leq n^{O(1)}$ from Step 1.
+By the packing clause in $\mathbf{HSAT}_{4.2}$, equivalently as used in
+{prf:ref}`lem-random-3sat-integrality-blockage`, there exist $2^{cn}$ semantic hard-set
+formulas with pairwise-disjoint solution sets that any correct solver must distinguish.
+Therefore $|B_n^\flat| \geq 2^{cn}$, contradicting $|B_n^\flat| \leq n^{O(1)}$ from Step 1.
 
 **Step 3. [Algebraic structure — why polynomial-identity fails]:**
 Independent confirmation comes from algebraic complexity. The satisfying-assignment polynomial for a fixed
@@ -8750,7 +8828,7 @@ a merge map combining subanswers, a size measure $\mu_n$ with strict decrease, a
 recursion-tree load, and the correctness identity.
 
 **Step 2. [Separator cost]:**
-For the clause-variable incidence graph of random 3-SAT at threshold $\alpha \approx 4.267$, any balanced partition
+For the clause-variable incidence graph of every $F\in H_n$, any balanced partition
 $V = V_1 \sqcup V_2$ with $|V_1| = |V_2| = n/2$ creates
 
 $$
@@ -8814,9 +8892,9 @@ but any divide-and-conquer decomposition regardless of splitting strategy, branc
 encoding. The universality follows because Step 2 establishes $\Theta(n)$ crossing clauses for every splitting
 strategy, so the merge always faces the same representational impossibility.
 
-**Step 5. [Restriction monotonicity]:**
-By {prf:ref}`lem-frontend-restriction-monotonicity`: the blockage lifts from the hard subfamily to the full canonical
-family $\Pi_{3\text{-SAT}}$.
+**Step 5. [Restriction testing]:**
+By {prf:ref}`lem-hard-set-restriction-testing`, the blockage on $H_n$ obstructs every full
+canonical search solver.
 
 **Step 6. [Certificate]:**
 The scaling obstruction certificate is
@@ -8890,8 +8968,8 @@ $B_n^\partial$ with $\operatorname{pres}(B_n^\partial) \leq q_\partial(n)$, a bo
 an interface contraction map $C_n^\partial$, and the correctness identity. The exclusion target is all such witnesses.
 
 **Step 2. [Non-planarity (supplementary)]:**
-The clause-variable incidence graph $G_n$ of random 3-SAT contains a $K_{3,3}$ minor for $n \geq 5$: each clause
-touches 3 variables, and the random bipartite graph at density $\alpha \approx 4.267$ is an expander. By Kuratowski's
+For $F\in H_n$, the clause-variable incidence graph $G_n$ contains a $K_{3,3}$ minor for all sufficiently large $n$:
+each clause touches 3 variables, and the hard-set expansion property supplies the required minor. By Kuratowski's
 theorem, $G_n$ is non-planar, ruling out the Pfaffian/FKT route of {prf:ref}`def-class-v-interference`.
 This step is **supplementary**: it rules out a specific frontend (Pfaffian/FKT), but the main obstruction
 is the modal-purity violation of Step 4, which applies to *all* $\partial$-witnesses regardless of planarity.
@@ -8902,9 +8980,11 @@ The treewidth of the clause-variable incidence graph satisfies
 $$
 \operatorname{tw}(G_n) \geq c'' \cdot n
 $$
-for an explicit constant $c'' > 0$ depending on $\alpha$. This follows from the expansion of random bipartite graphs
-at clause-to-variable ratio $\alpha > 1$: any set $S$ of $|S| \leq n/2$ variables has $|\partial S| \geq c'' |S|$
-neighbors among clauses. To see that this expansion forces linear treewidth: if $\operatorname{tw}(G_n) \leq k$ then $G_n$ has a balanced vertex separator of size at most $k+1$ (standard separator-treewidth duality); but the expansion property $|\partial S| \geq c''|S|$ for all $|S| \leq n/2$ implies every balanced vertex separator has size $\Omega(n)$; therefore $\operatorname{tw}(G_n) = \Omega(n)$.
+for an explicit constant $c''>0$ supplied by $\mathbf{HSAT}_{4.2}$. Property 4 of
+{prf:ref}`def-hard-subfamily-3sat` gives expansion: any set $S$ of $|S|\le n/2$ variables
+has $|\partial S|\ge c''|S|$ neighboring clauses. If $\operatorname{tw}(G_n)\le k$, then
+$G_n$ has a balanced vertex separator of size at most $k+1$; expansion forces every balanced
+separator to have size $\Omega(n)$, so $\operatorname{tw}(G_n)=\Omega(n)$.
 
 **Step 4. [Structural modal-purity violation]:**
 Any pure $\partial$-witness produces an interface object $B_n^\partial$ through which all information about the
@@ -8963,9 +9043,9 @@ composition), (ii) correctness demands solving a CSP on $\Theta(n)$ separator va
 and (iii) the $\partial$-modal class does not contain $\flat$-modal operations (structural property of the modal
 hierarchy). This is unconditional within the pure-$\partial$ class and does not assume $\mathrm{P} \neq \mathrm{NP}$.
 
-**Step 6. [Restriction monotonicity]:**
-By {prf:ref}`lem-frontend-restriction-monotonicity`: the blockage lifts from the hard subfamily to the full canonical
-family $\Pi_{3\text{-SAT}}$.
+**Step 6. [Restriction testing]:**
+By {prf:ref}`lem-hard-set-restriction-testing`, the blockage on $H_n$ obstructs every full
+canonical search solver.
 
 **Step 7. [Certificate]:**
 The boundary obstruction certificate is
@@ -9105,18 +9185,18 @@ explicit semantic obstruction packages, but they do not add a new logical prereq
 theorem.
 :::
 
-:::{prf:theorem} Canonical 3-SAT Satisfies the E13 Antecedent Package
+:::{prf:theorem} Conditional E13 Antecedent Package for Canonical Search-3-SAT
 :label: ex-3sat-all-blocked
 
-The canonical satisfiability family $\Pi_{3\text{-SAT}}$ satisfies the six antecedent obstruction certificates of
-Definition {prf:ref}`def-e13`:
+Assuming $\mathbf{HSAT}_{4.2}$, canonical Search-3-SAT satisfies the six antecedent
+obstruction certificates of Definition {prf:ref}`def-e13` on the semantic hard sets $H_n$:
 
 $$
 K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{E6}}^- \wedge K_{\mathrm{E4}}^- \wedge K_{\mathrm{E11}}^- \wedge
 K_{\mathrm{SC}_\lambda}^{\mathrm{super}} \wedge K_{\mathrm{E8}}^-,
 $$
 
-Hence
+Hence, conditionally on $\mathbf{HSAT}_{4.2}$,
 
 $$
 K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}}).
@@ -9124,7 +9204,8 @@ $$
 :::
 
 :::{prf:proof}
-We verify each of the six antecedent certificates of {prf:ref}`def-e13`:
+Under $\mathbf{HSAT}_{4.2}$, we verify each of the six antecedent certificates of
+{prf:ref}`def-e13` by testing on $H_n$:
 
 - $K_{\mathrm{LS}_\sigma}^-$: by {prf:ref}`lem-random-3sat-metric-blockage` (no pure $\sharp$-witness exists);
 - $K_{\mathrm{E6}}^-$: by {prf:ref}`lem-random-3sat-causal-blockage` (no pure $\int$-witness exists);
@@ -9134,28 +9215,80 @@ We verify each of the six antecedent certificates of {prf:ref}`def-e13`:
   $\ast$-witness exists);
 - $K_{\mathrm{E8}}^-$: by {prf:ref}`lem-random-3sat-boundary-blockage` (no pure $\partial$-witness exists).
 
-The six certificates together satisfy the antecedent of the implication in {prf:ref}`def-e13`, yielding
-$K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}})$.
+The six certificates together satisfy the antecedent of the implication in {prf:ref}`def-e13`
+for the search problem on the semantic test sets. By {prf:ref}`lem-hard-set-restriction-testing`,
+this is the required obstruction package for canonical Search-3-SAT.
 :::
 
-:::{prf:theorem} Canonical 3-SAT is Outside $P_{\mathrm{FM}}$
+:::{prf:theorem} Canonical Search-3-SAT is Outside $FP_{\mathrm{FM}}$
 :label: thm-random-3sat-not-in-pfm
 
 $$
-\Pi_{3\text{-SAT}} \notin P_{\mathrm{FM}}.
+\mathbf{HSAT}_{4.2}
+\Longrightarrow
+\Pi^{\mathrm{search}}_{3\text{-SAT}} \notin FP_{\mathrm{FM}}.
 $$
 
-More precisely: there exists no uniform algorithm family $\mathcal{A} \in P_{\mathrm{FM}}$ solving
-$\Pi_{3\text{-SAT}}$.
+More precisely: assuming {prf:ref}`hyp-hsat-42`, there exists no uniform polynomial-time
+Fragile family which, on every satisfiable canonical 3-CNF formula, outputs a satisfying
+assignment.
 
-**Counterexample form:** a counterexample would be an explicit uniform polynomial-time algorithm family solving
-canonical 3-SAT — i.e., a member of $P_{\mathrm{FM}}$ that correctly decides satisfiability for all 3-CNF formulas.
+**Counterexample form:** a counterexample would be an explicit uniform polynomial-time search
+solver for canonical 3-SAT. By {prf:ref}`lem-hard-set-restriction-testing`, such a solver
+would restrict to a correct solver on every semantic hard-set input $F\in H_n$.
 :::
 
 :::{prf:proof}
-The hypothesis of {prf:ref}`thm-e13-contrapositive-hardness` is $K_{\mathrm{E13}}^+(\Pi)$. By
-{prf:ref}`ex-3sat-all-blocked`, $K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}})$ holds. The conclusion of the theorem is
-$\Pi_{3\text{-SAT}} \notin P_{\mathrm{FM}}$.
+Under $\mathbf{HSAT}_{4.2}$, the five contextual blockage lemmas apply to the restriction of
+canonical Search-3-SAT to $H_n$. By {prf:ref}`lem-hard-set-restriction-testing`, any full
+canonical search solver would restrict to a solver on $H_n$, contradicting the blockage
+package {prf:ref}`ex-3sat-all-blocked` and the E13 contrapositive
+{prf:ref}`thm-e13-contrapositive-hardness`.
+:::
+
+:::{prf:theorem} Search-to-Decision Bridge for 3-SAT in the Fragile Model
+:label: thm-search-to-decision-3sat-fm
+
+$$
+\Pi^{\mathrm{search}}_{3\text{-SAT}}\notin FP_{\mathrm{FM}}
+\quad\Longrightarrow\quad
+\Pi^{\mathrm{dec}}_{3\text{-SAT}}\notin P_{\mathrm{FM}}.
+$$
+:::
+
+:::{prf:proof}
+We prove the contrapositive. Suppose canonical Decision-3-SAT has a polynomial-time Fragile
+decision solver $D(F)$. Construct a search solver for satisfiable inputs by self-reduction.
+
+Maintain a partially assigned formula
+
+$$
+F[x_1=b_1,\ldots,x_i=b_i].
+$$
+
+At stage $i+1$, simplify the two restrictions
+
+$$
+F_0=F[x_1=b_1,\ldots,x_i=b_i,x_{i+1}=0],
+\qquad
+F_1=F[x_1=b_1,\ldots,x_i=b_i,x_{i+1}=1].
+$$
+
+Query $D(F_0)$. If $D(F_0)=1$, set $b_{i+1}=0$; otherwise set $b_{i+1}=1$. Since the
+current restriction is satisfiable, at least one of $F_0,F_1$ is satisfiable, so this branch
+choice preserves satisfiability. After at most $n$ oracle calls and polynomially many formula
+simplification steps, the algorithm outputs a full satisfying assignment.
+
+The construction is uniform in the Fragile model: composition, bounded iteration over
+$i\le n$, formula restriction, and calls to $D$ are all polynomial-time operations, so
+
+$$
+\Pi^{\mathrm{dec}}_{3\text{-SAT}}\in P_{\mathrm{FM}}
+\Longrightarrow
+\Pi^{\mathrm{search}}_{3\text{-SAT}}\in FP_{\mathrm{FM}}.
+$$
+
+Taking the contrapositive proves the theorem.
 :::
 
 :::{prf:definition} Polynomial many-one reduction in the Fragile model
@@ -9331,7 +9464,7 @@ The canonical satisfiability family $\Pi_{3\text{-SAT}}$ belongs to $NP_{\mathrm
 Consequently:
 
 $$
-\Pi_{3\text{-SAT}} \notin P_{\mathrm{FM}}
+\Pi^{\mathrm{dec}}_{3\text{-SAT}} \notin P_{\mathrm{FM}}
 \quad\Longrightarrow\quad
 P_{\mathrm{FM}} \neq NP_{\mathrm{FM}}.
 $$
@@ -9368,7 +9501,7 @@ Therefore $\Pi_{3\text{-SAT}}$ is $NP_{\mathrm{FM}}$-hard.
 
 Combining membership and hardness proves $NP_{\mathrm{FM}}$-completeness.
 
-For the displayed consequence, if $\Pi_{3\text{-SAT}}\notin P_{\mathrm{FM}}$ while
+For the displayed consequence, if $\Pi^{\mathrm{dec}}_{3\text{-SAT}}\notin P_{\mathrm{FM}}$ while
 $\Pi_{3\text{-SAT}}\in NP_{\mathrm{FM}}$, then the two classes cannot coincide.
 :::
 
@@ -9376,12 +9509,15 @@ $\Pi_{3\text{-SAT}}\in NP_{\mathrm{FM}}$, then the two classes cannot coincide.
 :label: cor-pfm-neq-npfm-from-random-3sat
 
 $$
+\mathbf{HSAT}_{4.2}
+\Longrightarrow
 P_{\mathrm{FM}} \neq NP_{\mathrm{FM}}.
 $$
 :::
 
 :::{prf:proof}
-Combine {prf:ref}`thm-random-3sat-not-in-pfm` with
+Combine {prf:ref}`thm-random-3sat-not-in-pfm`, the self-reduction theorem
+{prf:ref}`thm-search-to-decision-3sat-fm`, and
 {prf:ref}`thm-sat-membership-hardness-transfer`.
 :::
 
@@ -9389,10 +9525,13 @@ Combine {prf:ref}`thm-random-3sat-not-in-pfm` with
 :label: cor-internal-to-classical-separation
 
 $$
+\mathbf{HSAT}_{4.2}
+\Longrightarrow
 P_{\mathrm{DTM}} \neq NP_{\mathrm{DTM}}.
 $$
 
-**Counterexample form:** if the corollary were false, then $P_{\mathrm{DTM}} = NP_{\mathrm{DTM}}$, and by the
+**Counterexample form:** assuming $\mathbf{HSAT}_{4.2}$, if the corollary were false, then
+$P_{\mathrm{DTM}} = NP_{\mathrm{DTM}}$, and by the
 bridge equivalence ({prf:ref}`cor-bridge-equivalence-rigorous`) we would have
 $P_{\mathrm{FM}} = NP_{\mathrm{FM}}$, contradicting {prf:ref}`cor-pfm-neq-npfm-from-random-3sat`.
 :::
@@ -9411,9 +9550,11 @@ Fragile family with polynomial overhead, and {prf:ref}`thm-fragile-to-dtm-extrac
 polynomial-time family into a DTM with polynomial overhead. Both directions preserve correctness (extensional
 equality of computed functions) and polynomial runtime (there exist polynomials $p_M, R$ bounding the overheads).
 
-Combined with {prf:ref}`cor-pfm-neq-npfm-from-random-3sat`:
+Combined with {prf:ref}`cor-pfm-neq-npfm-from-random-3sat` under $\mathbf{HSAT}_{4.2}$:
 
 $$
+\mathbf{HSAT}_{4.2}
+\Longrightarrow
 P_{\mathrm{FM}} \neq NP_{\mathrm{FM}}
 \quad\Longrightarrow\quad
 P_{\mathrm{DTM}} \neq NP_{\mathrm{DTM}}.
@@ -9432,7 +9573,8 @@ The instantiated proof chain is:
    {prf:ref}`lem-random-3sat-galois-blockage`,
    {prf:ref}`lem-random-3sat-scaling-blockage`,
    and {prf:ref}`lem-random-3sat-boundary-blockage`
-   establish the six-term antecedent package, so that Theorem {prf:ref}`ex-3sat-all-blocked` yields
+   establish the six-term antecedent package under $\mathbf{HSAT}_{4.2}$, so that Theorem
+   {prf:ref}`ex-3sat-all-blocked` yields
 
    $$
    K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}}).
@@ -9440,21 +9582,26 @@ The instantiated proof chain is:
 3. {prf:ref}`thm-random-3sat-not-in-pfm` yields
 
    $$
-   \Pi_{3\text{-SAT}}\notin P_{\mathrm{FM}}.
+   \Pi^{\mathrm{search}}_{3\text{-SAT}}\notin FP_{\mathrm{FM}}.
    $$
-4. {prf:ref}`thm-sat-membership-hardness-transfer` yields
+4. {prf:ref}`thm-search-to-decision-3sat-fm` yields
+
+   $$
+   \Pi^{\mathrm{dec}}_{3\text{-SAT}}\notin P_{\mathrm{FM}}.
+   $$
+5. {prf:ref}`thm-sat-membership-hardness-transfer` yields
 
    $$
    \Pi_{3\text{-SAT}}\in NP_{\mathrm{FM}}
    \quad\text{and}\quad
    \Pi_{3\text{-SAT}} \text{ is }NP_{\mathrm{FM}}\text{-complete}.
    $$
-5. {prf:ref}`cor-pfm-neq-npfm-from-random-3sat` yields
+6. {prf:ref}`cor-pfm-neq-npfm-from-random-3sat` yields
 
    $$
    P_{\mathrm{FM}}\neq NP_{\mathrm{FM}}.
    $$
-6. {prf:ref}`cor-internal-to-classical-separation` exports this to
+7. {prf:ref}`cor-internal-to-classical-separation` exports this to
 
    $$
    P_{\mathrm{DTM}}\neq NP_{\mathrm{DTM}}.
@@ -9477,11 +9624,13 @@ cohesive ambient setting $\mathcal{H}$. This is a foundational choice, not an as
    ({prf:ref}`cor-computational-modal-exhaustiveness`).
 2. There are no witness channels beyond these five ({prf:ref}`thm-irreducible-witness-classification`).
 3. Six frontend certificates cover all five channels ({prf:ref}`prop-six-certificates-cover-five-channels`).
-4. All six certificates hold for canonical 3-SAT ({prf:ref}`ex-3sat-all-blocked`).
-5. Canonical 3-SAT is not in $P_{\mathrm{FM}}$ ({prf:ref}`thm-random-3sat-not-in-pfm`).
-6. Canonical 3-SAT is $NP_{\mathrm{FM}}$-complete ({prf:ref}`thm-sat-membership-hardness-transfer`).
-7. $P_{\mathrm{FM}} \neq NP_{\mathrm{FM}}$ ({prf:ref}`cor-pfm-neq-npfm-from-random-3sat`).
-8. $P_{\mathrm{DTM}} \neq NP_{\mathrm{DTM}}$ ({prf:ref}`cor-internal-to-classical-separation`), via the bridge
+4. Under $\mathbf{HSAT}_{4.2}$, all six certificates hold for canonical Search-3-SAT
+   ({prf:ref}`ex-3sat-all-blocked`).
+5. Canonical Search-3-SAT is not in $FP_{\mathrm{FM}}$ ({prf:ref}`thm-random-3sat-not-in-pfm`).
+6. Canonical Decision-3-SAT is not in $P_{\mathrm{FM}}$ ({prf:ref}`thm-search-to-decision-3sat-fm`).
+7. Canonical 3-SAT is $NP_{\mathrm{FM}}$-complete ({prf:ref}`thm-sat-membership-hardness-transfer`).
+8. $P_{\mathrm{FM}} \neq NP_{\mathrm{FM}}$ ({prf:ref}`cor-pfm-neq-npfm-from-random-3sat`).
+9. $P_{\mathrm{DTM}} \neq NP_{\mathrm{DTM}}$ ({prf:ref}`cor-internal-to-classical-separation`), via the bridge
    equivalence ({prf:ref}`cor-bridge-equivalence-rigorous`).
 
 **Dependency graph (acyclic).**
@@ -9559,28 +9708,427 @@ prerequisite for the direct E13 route.
 :::{prf:remark} Proof implementation and audit framework
 :label: def-proof-obligation
 
-The proof obligation ledger, implementation artifacts, acceptance criteria, and completion certificate
-framework are developed in the companion document *Algorithmic Extensions*. The P$\neq$NP proof does not
-require this audit infrastructure.
+The proof obligation ledger, implementation artifacts, acceptance criteria, and completion
+certificate framework are part of the load-bearing statement of this chapter. Companion
+documents may refine the artifacts, but the obligations below are the on-page contract for the
+separation route.
 :::
 
-:::{prf:remark} Proof obligation ledger
+:::{prf:definition} Proof Obligation Ledger
 :label: def-proof-obligation-ledger
 
-See the companion document *Algorithmic Extensions* for the formal proof obligation ledger.
+Each proof obligation is a tuple
+
+$$
+(\mathrm{name},\mathrm{statement},\mathrm{deps},\mathrm{artifacts},\mathrm{validators}).
+$$
+
+The ledger for the final theorem chain is:
+
+| ID | Statement | Dependencies | Artifact | Validator |
+| --- | --- | --- | --- | --- |
+| I.1 | Evaluator adequacy | evaluator syntax | simulation proof | polynomial overhead derived |
+| I.2 | DTM $\to$ FM compilation | I.1 | compiler | extensional equality |
+| I.3 | FM $\to$ DTM extraction | I.1 | extractor | trace simulation |
+| I.4 | Clocked bridge | I.2, I.3 | explicit clocks | no CostCert philosophical gap |
+| II.1 | Syntax normal form | I.1 | NF construction | trace equivalence |
+| II.2 | Witness decomposition | II.1 | factorization induction | no unclassified leaf |
+| III.1 | Irreducible classification | II.2 | rank-minimality proof | every irreducible in five classes |
+| IV.1 | Primitive audit | Appendix A | opcode table | every opcode covered |
+| IV.2 | Microstep/semantic separation | IV.1 | {prf:ref}`thm-instruction-audit-vs-semantic-factorization` | composites recertified |
+| V.1 | Contextual obstruction | III.1, IV.2 | {prf:ref}`thm-contextual-leaf-obstruction` | subroutine gap closed |
+| V.2 | Mixed-modal obstruction | V.1 | {prf:ref}`thm-mixed-modal-obstruction` | no channel outside ledger |
+| VI.1 | Hard-set hypothesis | external appendix or assumption | $\mathbf{HSAT}_{4.2}$ | all hard-set properties supplied |
+| VI.2 | Five blockage dossiers | VI.1, V.1 | five modality proofs | no degree dependence |
+| VI.3 | Translator stability | VI.2 | per-channel stability table | polynomial distortion only |
+| VI.4 | Search-to-decision | VI.2 | self-reduction | $O(n)$ decision calls |
+| VII.1 | Cook--Levin | I.1, II.1 | tableau reduction | verifier equivalence |
+| VII.2 | Export | I.4, VI.4, VII.1 | theorem chain | acyclic dependency |
+
+The dependency graph is acyclic in the displayed order.
 :::
 
-:::{prf:remark} Direct separation certificate
+:::{prf:definition} Pure-Leaf Certificate Format
 :label: def-direct-separation-certificate
 
-See the companion document *Algorithmic Extensions* for the formal direct separation certificate packaging.
+Every pure leaf $B$ used in a modal factorization tree must carry an audit-visible certificate
+
+$$
+B=(E^\lozenge,F^\lozenge,R^\lozenge,Z^\lozenge,q_\lozenge,\Pi_\lozenge).
+$$
+
+The certificate must include:
+
+1. typed source and target families;
+2. the modal workspace $Z_n^\lozenge$;
+3. the access observable $\mu_n^\lozenge$;
+4. a proof that $F^\lozenge$ factors through $\mu_n^\lozenge$;
+5. the polynomial bound $q_\lozenge(n)$;
+6. non-interference diagrams for every $\lozenge'\ne\lozenge$:
+
+   $$
+   q_{\lozenge'}\circ R^\lozenge F^\lozenge E^\lozenge
+   =
+   q_{\lozenge'}.
+   $$
+
+The non-interference row is the concrete audit form of $\lozenge$-supportedness.
 :::
 
-:::{prf:remark} Minimal completion certificate
+:::{prf:remark} 0-Truncation Operational-Content Audit
 :label: def-minimal-completion-certificate
 
-See the companion document *Algorithmic Extensions* for the minimal completion certificate framework.
+No obstruction proof may cite abstract factorization through a cohesive modal unit
+$\eta^\lozenge$ alone. On externally presented finite $0$-truncated objects, every blockage
+must cite the concrete operational clause for the relevant modality.
+
+| Channel | Concrete restriction used | Where used |
+| --- | --- | --- |
+| $\sharp$ | constant-dimensional metric profile | pigeonhole / cluster blindness |
+| $\int$ | predecessor-only visible clauses | indistinguishability pair |
+| $\flat$ | polynomial-size algebraic sketch | no-sketch theorem |
+| $\ast$ | split/merge from subanswers only | crossing-constraint merge failure |
+| $\partial$ | boundary-map/local interface contraction only | separator CSP obstruction |
+
+This rule is why collapse of abstract modalities on finite sets is harmless for the proof:
+the computational content is carried by the operational clauses.
 :::
+
+### VIII.A. Audit Dossiers for the Load-Bearing Route
+
+:::{prf:definition} Strong-Cohesion Identity Ledger
+:label: def-strong-cohesion-identity-ledger
+
+The following ledger records which modal identities are used and whether they require the
+chosen strong-cohesion axioms.
+
+| Identity | Used where | Requires strong cohesion? | Proof/citation | Can remove? |
+| --- | --- | --- | --- | --- |
+| $\flat\int\simeq\int$ | modality reduction | model-dependent; not load-bearing here | cohesive model lemma | no |
+| $\sharp\int\simeq\int$ | five-modality completeness | yes | strong-cohesion axiom package | maybe |
+| $\int\sharp\simeq\flat$ | five-modality completeness | yes | strong-cohesion axiom package | maybe |
+| $\partial\ast\simeq0$ | optional simplification | yes | optional lemma | yes |
+| $\ast\partial\in\mathrm{Sat}\langle\int,\flat,\sharp\rangle$ | closure accounting | lex/fiber assumptions | closure lemma | no |
+:::
+
+:::{prf:theorem} Identity Hygiene for the Final Separation
+:label: thm-identity-hygiene-final-separation
+
+The final separation uses only modal identities validated in the chosen cohesive model. Any
+identity marked optional in {prf:ref}`def-strong-cohesion-identity-ledger` may be deleted
+without breaking the load-bearing path of {prf:ref}`sec-load-bearing-path`.
+:::
+
+:::{prf:proof}
+The load-bearing path cites the bridge, witness decomposition, irreducible classification,
+contextual blockage, mixed-modal obstruction, self-reduction, Cook--Levin, and export. The
+only modal identities used in those citations are those needed to prove the saturated-closure
+and irreducible-classification theorems in the selected cohesive model. Optional identities
+enter only in simplifications of closure tables and are not cited by the theorem chain.
+:::
+
+:::{prf:remark} Foundation and Conservativity Status
+:label: rem-foundation-conservativity-status
+
+The theorem is stated as a relative theorem:
+
+$$
+\mathsf{CohTopos}
++\mathsf{StrongCohesion}
++\mathbf{HSAT}_{4.2}
+\vdash
+P_{\mathrm{DTM}}\ne NP_{\mathrm{DTM}}.
+$$
+
+The ZFC translation appendix gives the interpretation of finite encodings, finite diagrams,
+finite signatures, polynomial-time predicates, evaluator traces, and modal certificates. A
+stronger unconditional ZFC version would require replacing $\mathbf{HSAT}_{4.2}$ by a proved
+finite-combinatorial appendix.
+:::
+
+:::{prf:definition} Algebraic Sketch Library $\mathfrak S_\flat$
+:label: def-flat-sketch-library
+
+The admissible pure $\flat$ library is
+
+$$
+\mathfrak S_\flat=
+\{
+\mathfrak S_{\mathrm{quot}},
+\mathfrak S_{\mathrm{lin}},
+\mathfrak S_{\mathrm{rank}},
+\mathfrak S_{\mathrm{fourier}},
+\mathfrak S_{\mathrm{polyid}},
+\mathfrak S_{\mathrm{mono}},
+\mathfrak S_{\mathrm{lattice}},
+\mathfrak S_{\mathrm{sos}},
+\mathfrak S_{\mathrm{lp}},
+\mathfrak S_{\mathrm{sdp}}
+\}.
+$$
+
+| Row | Status |
+| --- | --- |
+| $\mathfrak S_{\mathrm{quot}}$ | pure $\flat$ |
+| $\mathfrak S_{\mathrm{lin}}$ | pure $\flat$ |
+| $\mathfrak S_{\mathrm{rank}}$ | pure $\flat$ |
+| $\mathfrak S_{\mathrm{fourier}}$ | pure $\flat$ when transform basis is fixed; mixed $\flat+\sharp$ if rounding/thresholding is used |
+| $\mathfrak S_{\mathrm{polyid}}$ | pure $\flat$ |
+| $\mathfrak S_{\mathrm{mono}}$ | pure $\flat$ |
+| $\mathfrak S_{\mathrm{lattice}}$ | mixed $\flat+\sharp$ when metric reduction/rounding is used |
+| $\mathfrak S_{\mathrm{sos}}$ | pure $\flat$ only for polynomial-size exact symbolic SoS sketches; SDP relaxation is mixed |
+| $\mathfrak S_{\mathrm{lp}}$ | mixed $\flat+\partial$ for sparse/local interfaces; mixed $\flat+\sharp$ when optimization/rounding is essential |
+| $\mathfrak S_{\mathrm{sdp}}$ | mixed $\flat+\sharp$; outside pure $\flat$ unless exact polynomial-size algebraic certificate is supplied |
+:::
+
+:::{prf:theorem} Completeness of the Pure $\flat$ Library
+:label: thm-flat-library-completeness
+
+Every admissible pure $\flat$-witness factors through one row of
+$\mathfrak S_\flat$.
+:::
+
+:::{prf:proof}
+A pure $\flat$-witness is, by definition, a polynomial-size algebraic sketch whose middle
+stage is generated by quotienting, congruence compression, symbolic elimination, rank or
+determinant tests, transform-domain identities, monomial/polynomial identities, or exact
+certificate systems expressible in a finite algebraic signature. These generators are exactly
+the rows of $\mathfrak S_\flat$. If an alleged sketch uses metric rounding, optimization
+geometry, separator-local propagation, or recursive search, the corresponding row marks it
+as mixed and it is not pure $\flat$.
+:::
+
+:::{prf:definition} Pure Boundary Contraction Machine
+:label: def-local-boundary-transducer
+
+A pure boundary contraction is a family
+
+$$
+C_n^\partial\in
+\mathsf{LocalBoundaryTransducer}(B_n,\tau,r,s)
+$$
+
+where $B_n$ is a finite interface graph, $r=O(1)$ is an update radius, $\tau(n)$ is a
+polynomially bounded local state alphabet, and $s(n)$ is a polynomial number of sweeps. Each
+update rewrites an interface cell from the radius-$r$ neighborhood and fixed boundary maps.
+The model forbids global algebraic elimination, arbitrary optimization, recursive separator
+decomposition, and encoding a universal computation into the interface tape.
+:::
+
+:::{prf:theorem} Boundary Transducers are $\partial$-Pure
+:label: thm-local-boundary-transducer-partial-pure
+
+$$
+\mathsf{LocalBoundaryTransducer}(B_n,\tau,r,s)\subseteq \partial\text{-pure}.
+$$
+:::
+
+:::{prf:proof}
+The workspace is the interface graph state, the observable is the radius-$r$ boundary
+neighborhood, the middle map is bounded local boundary-map composition, and the runtime is
+$s(n)$. These are precisely the operational clauses of a pure $\partial$ witness.
+:::
+
+:::{prf:theorem} Linear-Treewidth Separator CSP is not a Local Boundary Transduction
+:label: thm-linear-treewidth-csp-not-local-boundary
+
+Solving the separator CSP induced by the $H_n$ formulas of $\mathbf{HSAT}_{4.2}$ is not in
+$\mathsf{LocalBoundaryTransducer}(B_n,\tau,r,s)$.
+:::
+
+:::{prf:proof}
+The separator exposes $\Theta(n)$ mutually constrained variables with cluster-dependent
+assignments. A local boundary transducer can propagate fixed-radius consistency information
+but cannot perform global algebraic elimination, recursive decomposition, or search over
+cluster choices. Any implementation that resolves the separator by one of those mechanisms
+leaves the model and becomes mixed $\flat$, $\ast$, or $\sharp$.
+:::
+
+:::{prf:lemma} Unbounded Gradient Vectors are not Pure $\sharp$
+:label: lem-unbounded-gradient-not-pure-sharp
+
+If a metric method reads $\omega(1)$ independent coordinates per step, it is not pure
+$\sharp$.
+:::
+
+:::{prf:proof}
+Pure $\sharp$ access factors through a constant-dimensional metric profile
+$\mu_n^\sharp$. Reading an $n$-dimensional gradient vector, all WalkSAT make/break scores, or
+all variable-local clause scores requires $\omega(1)$ independent coordinates and clause
+incidence aggregation. Such a method is mixed $\int+\flat+\sharp$. Constantly many scalar
+energy, rank, or curvature values may be pure $\sharp$; one randomly selected local score may
+be pure $\sharp$ if its computation does not scan the incidence structure.
+:::
+
+:::{prf:lemma} Arbitrary-Poset Causal Indistinguishability
+:label: lem-arbitrary-poset-causal-indistinguishability
+
+For every pure $\int$ witness poset $(P_n,\prec_n,\sigma_n^{sv})$ there exist
+$F_0,F_1\in H_n$ and $i\in P_n$ such that
+
+$$
+\mathrm{View}_i(F_0)=\mathrm{View}_i(F_1),
+\qquad
+\text{but the required output at }i\text{ differs},
+$$
+
+where
+
+$$
+\mathrm{View}_i(F)=
+\bigl((\mathrm{state}_j)_{j\prec i},\mathcal C(F)|_{\mathrm{Vis}(i)}\bigr).
+$$
+:::
+
+:::{prf:proof}
+The visible data of a pure $\int$ update is restricted to predecessors and visible clauses.
+Using the relabeling closure and frustrated-core property in $\mathbf{HSAT}_{4.2}$, choose a
+core variable whose forced value depends on a clause outside $\mathrm{Vis}(i)$ and flip that
+hidden core relation while preserving all visible predecessor states. The local update
+$U_{n,i}$ is a function only of $\mathrm{View}_i$, so it writes the same value on $F_0$ and
+$F_1$, failing one of them.
+:::
+
+:::{prf:lemma} Split/Merge Purity Audit for $\ast$
+:label: lem-star-split-merge-purity-audit
+
+If a merge map reads or solves the crossing formula, it is not pure $\ast$.
+:::
+
+:::{prf:proof}
+Pure $\ast$ merge may read only subanswers and split metadata. If crossing constraints are
+absent from the merge input, the merge lacks information and fails on $H_n$. If crossing
+constraints are supplied as algebraic clauses, the merge is $\flat$-mixed. If supplied as a
+dependency graph, it is $\int$-mixed. If supplied as a separator interface, it is
+$\partial$-mixed. If it searches cluster choices, it is $\sharp$-mixed. These cases exhaust
+the possible ways the crossing formula can influence the merge.
+:::
+
+:::{prf:definition} Translator-Stability Dossier
+:label: def-translator-stability-dossier
+
+For every modality $\lozenge$ and every admissible presentation translator
+$T:H_n\to H'_n$ with polynomial inverse $S$, the blockage proof must verify:
+
+$$
+F\in H_n\Longleftrightarrow T(F)\in H'_n
+$$
+
+up to polynomial distortion of parameters, and
+
+$$
+\Delta_\lozenge^{H'}(n)
+\ge
+\frac{1}{\mathrm{poly}(n)}\Delta_\lozenge^{H}(n).
+$$
+
+The required rows are:
+
+| Channel | Stability item |
+| --- | --- |
+| $\sharp$ | cluster distance and frozen-variable profile |
+| $\int$ | visible clauses and causal views |
+| $\flat$ | algebraic sketch size and exact symbolic operations |
+| $\ast$ | crossing constraints under split metadata |
+| $\partial$ | separator expansion, interface width, and treewidth |
+:::
+
+:::{prf:remark} Structural-Impossibility Language
+:label: rule-structural-impossibility-language
+
+The proof must not use
+
+$$
+\Delta(n)=\Omega(n)\Rightarrow\text{no polynomial solver}.
+$$
+
+The valid inference is:
+
+$$
+\text{modal purity}
++\text{structural indistinguishability/impossibility}
+\Rightarrow
+\text{no pure }\lozenge\text{-witness of any polynomial degree}.
+$$
+
+Linear barriers are supporting quantitative infrastructure only.
+:::
+
+(sec-load-bearing-path)=
+### VIII.B. The Only Load-Bearing Path
+
+$$
+\text{Clocked bridge}
+\Rightarrow
+P_{\mathrm{FM}}=P_{\mathrm{DTM}},
+\quad
+NP_{\mathrm{FM}}=NP_{\mathrm{DTM}}.
+$$
+
+$$
+\text{Witness decomposition}
++
+\text{irreducible classification}
+\Rightarrow
+P_{\mathrm{FM}}
+=
+\mathsf{Sat}\langle\sharp,\int,\flat,\ast,\partial\rangle.
+$$
+
+$$
+\mathbf{HSAT}_{4.2}
++
+\text{five contextual blockage lemmas}
+\Rightarrow
+\mathbb K_\sharp^-
+\wedge
+\mathbb K_{\mathrm{int}}^-
+\wedge
+\mathbb K_\flat^-
+\wedge
+\mathbb K_\ast^-
+\wedge
+\mathbb K_\partial^-.
+$$
+
+$$
+\text{mixed-modal obstruction}
+\Rightarrow
+\text{Search-3-SAT}\notin FP_{\mathrm{FM}}.
+$$
+
+$$
+\text{self-reducibility}
+\Rightarrow
+\text{Decision-3-SAT}\notin P_{\mathrm{FM}}.
+$$
+
+$$
+\text{3-SAT}\in NP_{\mathrm{FM}}
+\Rightarrow
+P_{\mathrm{FM}}\ne NP_{\mathrm{FM}}.
+$$
+
+$$
+\text{bridge}
+\Rightarrow
+P_{\mathrm{DTM}}\ne NP_{\mathrm{DTM}}.
+$$
+
+Everything else in this chapter is supporting infrastructure or optional stronger audit
+refinement.
+
+### VIII.C. Red-Team Failure Localization
+
+| If someone finds... | Then the failed component is... |
+| --- | --- |
+| a polynomial solver outside modal profiles | witness decomposition / primitive audit |
+| a solver using a new algebraic relaxation | $\flat$-library completeness |
+| a solver using boundary compression not listed | $\partial$-library completeness |
+| a solver mixing channels successfully | contextual obstruction / non-amplification |
+| $\alpha=4.2$ structural facts fail | $\mathbf{HSAT}_{4.2}$ hard-set hypothesis |
+| hard set not admissible | harmless: $H_n$ is semantic only |
+| abstract modalities collapse on finite sets | harmless if concrete operational clauses are used |
 
 ### IX. Barrier Metatheorems for Modal Compression
 
@@ -10833,6 +11381,53 @@ theory its non-vacuous content: the blockage lemmas for each modality constrain 
 solution landscape.
 :::
 
+:::{prf:theorem} Instruction-Level Audit Versus Semantic Modal Factorization
+:label: thm-instruction-audit-vs-semantic-factorization
+
+A sequence of primitive evaluator microsteps
+
+$$
+L_k\circ\cdots\circ L_1
+$$
+
+is a pure $\lozenge$-leaf only if the composite satisfies the full pure
+$\lozenge$-certificate of {prf:ref}`def-pure-modal-witness-abstract` and the corresponding
+modality-specific operational clause.
+:::
+
+:::{prf:proof}
+Each primitive microstep may admit a trivial local certificate, for example a one-step
+$\sharp$ ranking certificate. A pure semantic leaf, however, is not defined by a list of
+microstep labels. It is defined by the existence of a single certificate
+
+$$
+B=(E^\lozenge,F^\lozenge,R^\lozenge,Z^\lozenge,q_\lozenge,\Pi_\lozenge)
+$$
+
+for the whole composite map. Thus $L_k\circ\cdots\circ L_1$ must factor through the
+permitted modal workspace, its middle map must factor through the required observable
+$\mu_n^\lozenge$, its runtime must be bounded by $q_\lozenge(n)$, and it must satisfy
+non-interference against the other modal observations.
+
+In particular, a long bit program is not automatically a pure $\sharp$-witness merely
+because each bit operation admits a trivial one-step $\sharp$ certificate. For pure
+$\sharp$, the composite must still factor through a constant-dimensional metric profile.
+If the composite reads an $n$-dimensional gradient vector, scans all clause identities, or
+aggregates make/break scores for all variables, then it fails the constant-dimensional
+observable clause and is mixed-modal rather than pure $\sharp$.
+:::
+
+:::{prf:remark} Operational scope of the primitive audit
+:label: rule-primitive-audit-operational-scope
+
+The instruction audit proves evaluator adequacy: every concrete opcode is accounted for by
+the semantic signature and has a polynomial bit-cost implementation. Obstruction theory
+applies to **maximal semantic progress leaves** in factorization trees, not to arbitrary
+one-bit microsteps. Bounded iteration of trivial microsteps creates a pure semantic witness
+only when the resulting composite satisfies the same modal access restriction as a single
+pure leaf.
+:::
+
 :::{prf:lemma} Evaluator-level construction is not a pure modal witness
 :label: lem-evaluator-witness-not-pure
 
@@ -11032,7 +11627,13 @@ frontend obstruction certificates used in the direct Part VI theorem chain, toge
 4. the direct hardness step yielding
 
    $$
-   \Pi_{3\text{-SAT}}\notin P_{\mathrm{FM}}.
+   \Pi^{\mathrm{search}}_{3\text{-SAT}}\notin FP_{\mathrm{FM}},
+   $$
+
+   followed by the self-reduction step yielding
+
+   $$
+   \Pi^{\mathrm{dec}}_{3\text{-SAT}}\notin P_{\mathrm{FM}}.
    $$
 
 This appendix is purely a packaging artifact: it does not strengthen the proof, but makes the direct theorem route
@@ -11053,8 +11654,9 @@ certificate appendix in the sense of {prf:ref}`def-complete-direct-frontend-cert
 | Algebraic (monodromy) | $K_{\mathrm{E11}}^-$ | Tactic E11 | {prf:ref}`lem-random-3sat-galois-blockage` |
 | Scaling ($\ast$-modality) | $K_{\mathrm{SC}_\lambda}^{\mathrm{super}}$ | Node 4 ($\mathrm{SC}_\lambda$), $\ast$-channel | {prf:ref}`lem-random-3sat-scaling-blockage` |
 | Boundary | $K_{\mathrm{E8}}^-$ | Tactic E8 and Node 6 ($\mathrm{Cap}_H$) | {prf:ref}`lem-random-3sat-boundary-blockage` |
-| Assembly | $K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}})$ | Algorithmic Completeness Lock | {prf:ref}`ex-3sat-all-blocked`, {prf:ref}`def-e13` |
-| Hardness consequence | $\Pi_{3\text{-SAT}}\notin P_{\mathrm{FM}}$ | E13 Contrapositive Hardness | {prf:ref}`thm-random-3sat-not-in-pfm`, {prf:ref}`thm-e13-contrapositive-hardness` |
+| Assembly | $\mathbf{HSAT}_{4.2}\Rightarrow K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}})$ | Algorithmic Completeness Lock | {prf:ref}`ex-3sat-all-blocked`, {prf:ref}`def-e13` |
+| Search consequence | $\Pi^{\mathrm{search}}_{3\text{-SAT}}\notin FP_{\mathrm{FM}}$ | E13 Contrapositive Hardness | {prf:ref}`thm-random-3sat-not-in-pfm`, {prf:ref}`thm-e13-contrapositive-hardness` |
+| Decision consequence | $\Pi^{\mathrm{dec}}_{3\text{-SAT}}\notin P_{\mathrm{FM}}$ | Self-reduction | {prf:ref}`thm-search-to-decision-3sat-fm` |
 
 In particular, the direct exclusion route for canonical $3$-SAT is packaged by finitely many named certificates and
 two named assembly theorems.
@@ -11063,9 +11665,9 @@ two named assembly theorems.
 :::{prf:proof}
 The six channel rows are exactly the six theorems of Part VI proving the current tactic-level obstruction certificates
 on the canonical satisfiability family. The assembly row is Theorem {prf:ref}`ex-3sat-all-blocked`, which invokes the
-certificate logic built into {prf:ref}`def-e13`. The final row is Theorem
+certificate logic built into {prf:ref}`def-e13`, conditionally on $\mathbf{HSAT}_{4.2}$. The search row is Theorem
 {prf:ref}`thm-random-3sat-not-in-pfm`, obtained by applying {prf:ref}`thm-e13-contrapositive-hardness` to the assembly
-theorem. This is precisely the finite direct-route package required by
+theorem. The decision row is {prf:ref}`thm-search-to-decision-3sat-fm`. This is precisely the finite direct-route package required by
 {prf:ref}`def-complete-direct-frontend-certificate-appendix`.
 :::
 
@@ -11356,16 +11958,20 @@ $$
 P_{\text{DTM}} \neq NP_{\text{DTM}}.
 $$
 
-The Part VI internal separation follows by the direct canonical E13 theorem chain.
-Part IX adds a reusable barrier-metatheorem route to the same obstruction conclusion.
+Under $\mathbf{HSAT}_{4.2}$, the Part VI internal separation follows by the direct canonical
+E13 theorem chain: first for canonical Search-3-SAT, then for canonical Decision-3-SAT by
+self-reducibility. Part IX adds a reusable barrier-metatheorem route to the same obstruction
+conclusion.
 
 **Status Comparison:**
 - **Classical ZFC + P ≠ NP:** Unproven
-- **Cohesive HoTT:** Bridge equivalence and internal separation are proved; classical separation follows by
+- **Cohesive HoTT + $\mathbf{HSAT}_{4.2}$:** Bridge equivalence and conditional internal
+  separation are proved; conditional classical separation follows by
   {prf:ref}`cor-internal-to-classical-separation`
 
-The roles are therefore explicit: the foundation is a choice, the bridge equivalence and internal separation are
-theorems, and classical export is their direct consequence.
+The roles are therefore explicit: the foundation is a choice, $\mathbf{HSAT}_{4.2}$ is the
+imported hard-set hypothesis, the bridge equivalence is unconditional, and the separation
+export is conditional on that hypothesis.
 :::
 
 :::{div}
@@ -11374,8 +11980,9 @@ Let me be clear about what we have accomplished and what remains open.
 
 **What is proven abstractly:** Within cohesive $(\infty,1)$-topos theory, the manuscript states a theorem ladder
 showing how witness decomposition, irreducible generators, and saturated closure exhaust internally polynomial-time
-computation. On the problem-specific route, canonical $3$-SAT is then excluded from $P_{\text{FM}}$ by the direct E13
-theorem chain, not by slogan. Part IX abstracts this into reusable barrier metatheorems.
+computation. On the problem-specific route, canonical Search-3-SAT is excluded from $FP_{\text{FM}}$ under
+$\mathbf{HSAT}_{4.2}$ by the direct E13 theorem chain, and canonical Decision-3-SAT is excluded from
+$P_{\text{FM}}$ by self-reducibility. Part IX abstracts this into reusable barrier metatheorems.
 
 **What is already implemented for canonical $3$-SAT:** The canonical $3$-SAT object is admissible, its direct frontend
 E13 certificate package is now assembled in Appendix B, and it is tied to the class-separation argument by the internal
@@ -11386,10 +11993,11 @@ Turing-machine classes is a rigorous theorem, not an assumption.
 
 **What is a choice:** Working in cohesive $(\infty,1)$-topos theory is a **foundational choice**, like
 choosing to work in ZFC versus some alternative foundation. Within that foundation, the bridge equivalence
-and internal separation are proved theorems, and classical $P \neq NP$ is their direct consequence.
+is proved unconditionally. The internal and classical separations are relative consequences of
+$\mathbf{HSAT}_{4.2}$.
 
-The beauty of this approach is that it makes the roles **explicit**. The foundation is a choice. Everything else
-is proved.
+The accounting is explicit: foundation, bridge, hard-set hypothesis, search obstruction,
+self-reduction, and classical export are separate load-bearing components.
 :::
 
 ### Summary: What This Framework Establishes
@@ -11422,8 +12030,10 @@ available, and canonical $3$-SAT is $NP_{\text{FM}}$-complete
 ({prf:ref}`thm-canonical-3sat-admissible`, {prf:ref}`thm-internal-cook-levin-reduction`,
 {prf:ref}`thm-sat-membership-hardness-transfer`).
 
-**Theorem 8 (Direct 3-SAT Exclusion Route):** The blockage lemmas of Part VI prove that canonical $3$-SAT satisfies the E13 antecedent
-package and therefore lies outside $P_{\text{FM}}$
+**Theorem 8 (Conditional Direct 3-SAT Exclusion Route):** Under $\mathbf{HSAT}_{4.2}$, the
+blockage lemmas of Part VI prove that canonical Search-3-SAT satisfies the E13 antecedent
+package and therefore lies outside $FP_{\text{FM}}$; self-reducibility then excludes
+canonical Decision-3-SAT from $P_{\text{FM}}$
 ({prf:ref}`ex-3sat-all-blocked`,
 {prf:ref}`def-e13`,
 {prf:ref}`thm-e13-contrapositive-hardness`,

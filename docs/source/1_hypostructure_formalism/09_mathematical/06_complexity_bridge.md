@@ -11,10 +11,11 @@ title: "The P/NP Bridge to Classical Complexity"
 :class: feynman-prose
 Let me tell you what this chapter is about and why it matters. We have spent a lot of effort building a categorical
 framework for complexity theory: the five algorithm classes, the Algorithmic Completeness theorem, and the universal
-obstruction certificates. Parts VI--IX isolate the exact internal route to
-$P_{\text{FM}} \neq NP_{\text{FM}}$: canonical $3$-SAT admissibility, the internal Cook--Levin reduction, and the
-current E13 exclusion route on the canonical problem object, with the audited primitive appendix and canonical backend
-dossiers available as a stronger semantic implementation layer.
+obstruction certificates. Parts VI--IX isolate the exact conditional internal route to
+$P_{\text{FM}} \neq NP_{\text{FM}}$: canonical $3$-SAT admissibility, the internal Cook--Levin reduction,
+the $\mathbf{HSAT}_{4.2}$ hard-set hypothesis, and the current E13 exclusion route on the canonical search
+problem object, with the audited primitive appendix and canonical backend dossiers available as a stronger
+semantic implementation layer.
 
 But here is the question a skeptic would reasonably ask: "Why should I believe your internal separation implies the classical P ≠ NP conjecture? Maybe your 'Fragile P' is not the same as classical P. Maybe your 'Fragile NP' is secretly larger or smaller than classical NP."
 
@@ -48,7 +49,8 @@ $$
 P_{\text{FM}} = P_{\text{DTM}} \quad\text{and}\quad NP_{\text{FM}} = NP_{\text{DTM}}
 $$
 
-Therefore:
+Therefore, any internal separation obtained in the algorithmic chapter, including the
+$\mathbf{HSAT}_{4.2}$-conditional separation, exports along the bridge:
 
 $$
 P_{\text{FM}} \neq NP_{\text{FM}} \quad\Rightarrow\quad P_{\text{DTM}} \neq NP_{\text{DTM}}
@@ -203,6 +205,52 @@ A natural worry: "Aren't you just *defining* P to be P?" No. Here is the key dis
 The bridge theorems *prove* these coincide. The definitions are independent; the equivalence is a theorem, not a definition.
 
 The cost certificate is analogous to a type derivation in a type system: it is a *witness* that the program has a certain property (polynomial-time), checkable independently of running the program.
+:::
+
+:::{prf:definition} Clocked Fragile Polynomial Time
+:label: def-clocked-fragile-p
+
+$P_{\mathrm{FM}}^{\mathrm{clock}}$ is the class of Fragile programs equipped with an
+explicit polynomial clock $p(n)$. On input of size $n$, the evaluator runs the program for at
+most $p(n)$ steps and rejects or returns a distinguished timeout value if the clock expires.
+
+The nondeterministic verifier analogue is denoted
+$NP_{\mathrm{FM}}^{\mathrm{clock}}$.
+:::
+
+:::{prf:theorem} Clocked Bridge Removes the CostCert Gap
+:label: thm-clocked-bridge-equivalence
+
+For the standard admissible binary-string families,
+
+$$
+P_{\mathrm{FM}}^{\mathrm{clock}}
+=
+P_{\mathrm{DTM}}^{\mathrm{clock}}
+=
+P_{\mathrm{DTM}},
+$$
+
+and likewise
+
+$$
+NP_{\mathrm{FM}}^{\mathrm{clock}}
+=
+NP_{\mathrm{DTM}}.
+$$
+:::
+
+:::{prf:proof}
+A clocked DTM with polynomial clock compiles to a clocked Fragile program by
+{prf:ref}`thm-dtm-to-fragile-compilation`, carrying the same polynomial clock up to the
+proved polynomial overhead. Conversely, a clocked Fragile program extracts to a DTM by
+{prf:ref}`thm-fragile-to-dtm-extraction`; the DTM simulates at most the supplied
+polynomial number of Fragile steps, each with polynomial overhead.
+
+Finally, $P_{\mathrm{DTM}}^{\mathrm{clock}}=P_{\mathrm{DTM}}$ in classical complexity:
+if a DTM runs in polynomial time, it can be equipped with any polynomial bound witnessing
+that runtime; if it is clocked by a polynomial, it is plainly a polynomial-time DTM. The NP
+statement is the same argument applied to verifiers and polynomial witness bounds.
 :::
 
 ### D0.3 NP in Fragile Form (Verifier + Witness)
@@ -489,10 +537,12 @@ And there we have it: the four bridge directions are isolated. Under the explici
 classical to Fragile and back again, for both P and NP, with only polynomial overhead. This is the robustness claim
 the manuscript actually needs.
 
-Now here is the punchline: once the internal theorem package yields $P_{\text{FM}} \neq NP_{\text{FM}}$ using the
-hypostructure machinery, these equivalences immediately give $P_{\text{DTM}} \neq NP_{\text{DTM}}$.
+Now here is the punchline: once the internal theorem package yields
+$\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{FM}} \neq NP_{\text{FM}}$ using the hypostructure machinery,
+these equivalences immediately give
+$\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{DTM}} \neq NP_{\text{DTM}}$.
 
-The internal separation exports to the classical one. That is what these bridges buy us.
+The conditional internal separation exports to the conditional classical one. That is what these bridges buy us.
 :::
 
 
@@ -510,23 +560,26 @@ $$
 **Proof:** Immediate from {prf:ref}`cor-bridge-equivalence-rigorous`. $\square$
 :::
 
-:::{prf:corollary} Export of Separation (The Main Result)
+:::{prf:corollary} Conditional Export of Separation
 :label: cor-export-separation
 
-The direct separation certificate ({prf:ref}`def-direct-separation-certificate`) yields
+Assuming $\mathbf{HSAT}_{4.2}$, the direct separation certificate
+({prf:ref}`def-direct-separation-certificate`) yields
 $P_{\text{FM}} \neq NP_{\text{FM}}$
-({prf:ref}`thm-sufficiency-direct-separation-certificate`).
-Combined with the bridge equivalence ({prf:ref}`cor-bridge-equivalence-rigorous`):
-
-**Then:**
+({prf:ref}`thm-sufficiency-direct-separation-certificate`; see also
+{prf:ref}`cor-pfm-neq-npfm-from-random-3sat`).
+Combined with the bridge equivalence ({prf:ref}`cor-bridge-equivalence-rigorous`), it yields:
 
 $$
+\mathbf{HSAT}_{4.2}
+\Longrightarrow
 P_{\text{DTM}} \neq NP_{\text{DTM}}
 $$
 
 **Proof:**
 
-Suppose for contradiction that $P_{\text{DTM}} = NP_{\text{DTM}}$.
+Assume $\mathbf{HSAT}_{4.2}$ and suppose for contradiction that
+$P_{\text{DTM}} = NP_{\text{DTM}}$.
 
 By Corollary {prf:ref}`cor-class-equivalence-full`:
 
@@ -534,9 +587,10 @@ $$
 P_{\text{FM}} = P_{\text{DTM}} = NP_{\text{DTM}} = NP_{\text{FM}}
 $$
 
-Therefore $P_{\text{FM}} = NP_{\text{FM}}$, contradicting the internal separation.
+Therefore $P_{\text{FM}} = NP_{\text{FM}}$, contradicting the internal separation obtained
+under $\mathbf{HSAT}_{4.2}$.
 
-Thus $P_{\text{DTM}} \neq NP_{\text{DTM}}$. $\square$
+Thus $\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{DTM}} \neq NP_{\text{DTM}}$. $\square$
 :::
 
 :::{div}
@@ -559,10 +613,10 @@ The hypotheses break down into two types:
    Part VIII packages the stronger audited semantic implementation of those refinements. That proof content is handled
    in Part XIX.
 
-By the bridge package, the manuscript simply transports the internal statement
-$P_{\text{FM}} \neq NP_{\text{FM}}$ to the DTM setting. The audit package strengthens the proof trail but is not a
-separate logical prerequisite for the direct Part VI exclusion chain. The bridge neither adds nor removes proof
-content.
+By the bridge package, the manuscript transports the internal statement
+$\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{FM}} \neq NP_{\text{FM}}$ to the DTM setting.
+The audit package strengthens the proof trail but is not a separate logical prerequisite for the direct
+Part VI exclusion chain. The bridge neither adds nor removes proof content.
 
 This is the value of the framework: it converts an amorphous problem ("does there exist an algorithm?") into a concrete problem ("does this geometric structure exist?"). One is philosophy; the other is mathematics.
 :::
@@ -632,9 +686,11 @@ What this closes on the internal side is unchanged. Part XIX isolates the theore
    ({prf:ref}`ex-3sat-all-blocked`,
    {prf:ref}`def-e13`,
    {prf:ref}`thm-e13-contrapositive-hardness`,
-   {prf:ref}`thm-random-3sat-not-in-pfm`) excludes canonical $3$-SAT from $P_{\text{FM}}$
+   {prf:ref}`thm-random-3sat-not-in-pfm`) excludes canonical Search-3-SAT from
+   $FP_{\text{FM}}$ under $\mathbf{HSAT}_{4.2}$, and the self-reduction theorem excludes
+   canonical Decision-3-SAT from $P_{\text{FM}}$ under the same hypothesis
 3. {prf:ref}`thm-internal-cook-levin-reduction` and {prf:ref}`thm-sat-membership-hardness-transfer` yield
-   $P_{\text{FM}} \neq NP_{\text{FM}}$
+   $\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{FM}} \neq NP_{\text{FM}}$
 
 The Part IX barrier layer, the Part X thin-contract/factory layer, and the optional Part VIII dossier package are
 stronger reusable/audited routes to the same Step 2 conclusion.
