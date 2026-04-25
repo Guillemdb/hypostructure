@@ -13,29 +13,29 @@
 \contentsline {section}{\tocsection {}{4}{Exclusion of the axisymmetric bounded-circulation residual class}}{28}{section.4}%
 \contentsline {section}{\tocsection {}{5}{The rotational relative-equilibrium residual class}}{33}{section.5}%
 \contentsline {subsection}{\tocsubsection {}{5.1}{The Bernoulli identity and the local Coriolis flux}}{34}{subsection.5.1}%
-\contentsline {subsection}{\tocsubsection {}{5.2}{Routing of the rotational relative-equilibrium class}}{37}{subsection.5.2}%
-\contentsline {section}{\tocsection {}{6}{The degenerate stationary-hull residual class}}{38}{section.6}%
+\contentsline {subsection}{\tocsubsection {}{5.2}{Routing of the rotational relative-equilibrium class}}{36}{subsection.5.2}%
+\contentsline {section}{\tocsection {}{6}{The degenerate stationary-hull residual class}}{37}{section.6}%
 \contentsline {subsection}{\tocsubsection {}{6.1}{Stationary families and retained-velocity hull limits}}{38}{subsection.6.1}%
 \contentsline {subsection}{\tocsubsection {}{6.2}{Hull limits are again Seregin limits}}{39}{subsection.6.2}%
 \contentsline {subsection}{\tocsubsection {}{6.3}{Elementary consequences of stationary-family degeneracy}}{40}{subsection.6.3}%
 \contentsline {subsection}{\tocsubsection {}{6.4}{Stationary-hull profiles which occur as Seregin limits}}{41}{subsection.6.4}%
 \contentsline {subsection}{\tocsubsection {}{6.5}{Routing of the degenerate stationary-hull concentration class}}{41}{subsection.6.5}%
 \contentsline {section}{\tocsection {}{7}{Reduction of degenerate stationary-hull profiles with retained velocity concentration}}{42}{section.7}%
-\contentsline {subsection}{\tocsubsection {}{7.1}{Deferred terminal stratification corollary for R3}}{43}{subsection.7.1}%
+\contentsline {subsection}{\tocsubsection {}{7.1}{Deferred terminal stratification corollary for R3}}{42}{subsection.7.1}%
 \contentsline {subsection}{\tocsubsection {}{7.2}{Deferred stationary concentration statement}}{44}{subsection.7.2}%
 \contentsline {subsection}{\tocsubsection {}{7.3}{Deferred degenerate stationary-hull closure statement}}{44}{subsection.7.3}%
 \contentsline {section}{\tocsection {}{8}{Tail geometry of the generic terminal residual}}{45}{section.8}%
-\contentsline {section}{\tocsection {}{9}{Terminal concentration profiles and separated centers}}{58}{section.9}%
-\contentsline {subsection}{\tocsubsection {}{9.1}{Log-annular virial identities for recurrent critical defects}}{80}{subsection.9.1}%
-\contentsline {subsection}{\tocsubsection {}{9.2}{Logarithmic escape as a hidden-scale obstruction}}{84}{subsection.9.2}%
-\contentsline {subsection}{\tocsubsection {}{9.3}{Hidden-scale Young variance}}{86}{subsection.9.3}%
-\contentsline {subsection}{\tocsubsection {}{9.4}{Complete closure of lower alternatives}}{103}{subsection.9.4}%
-\contentsline {section}{\tocsection {}{10}{Separated concentration profiles, indecomposability, and sequence-\(L^3\)}}{109}{section.10}%
-\contentsline {section}{\tocsection {}{11}{Closure of the generic terminal residual}}{124}{section.11}%
-\contentsline {section}{\tocsection {}{12}{Final assembly}}{125}{section.12}%
-\contentsline {section}{\tocsection {Appendix}{A}{Setup-Paper Label Dictionary}}{127}{appendix.A}%
-\contentsline {section}{\tocsection {Appendix}{B}{Generator calculus on compact recurrent cores}}{128}{appendix.B}%
-\contentsline {subsection}{\tocsubsection {}{B.1}{Hilbert framework and unitary representation}}{128}{subsection.B.1}%
-\contentsline {subsection}{\tocsubsection {}{B.2}{Pressure observables and bounded continuous core}}{129}{subsection.B.2}%
-\contentsline {subsection}{\tocsubsection {}{B.3}{Regularized inverse and distributional pressure identity}}{129}{subsection.B.3}%
-\contentsline {section}{\tocsection {Appendix}{}{References}}{130}{section*.5}%
+\contentsline {section}{\tocsection {}{9}{Terminal concentration profiles and separated centers}}{57}{section.9}%
+\contentsline {subsection}{\tocsubsection {}{9.1}{Log-annular virial identities for recurrent critical defects}}{78}{subsection.9.1}%
+\contentsline {subsection}{\tocsubsection {}{9.2}{Logarithmic escape as a hidden-scale obstruction}}{82}{subsection.9.2}%
+\contentsline {subsection}{\tocsubsection {}{9.3}{Hidden-scale Young variance}}{84}{subsection.9.3}%
+\contentsline {subsection}{\tocsubsection {}{9.4}{Complete closure of lower alternatives}}{101}{subsection.9.4}%
+\contentsline {section}{\tocsection {}{10}{Separated concentration profiles, indecomposability, and sequence-\(L^3\)}}{107}{section.10}%
+\contentsline {section}{\tocsection {}{11}{Closure of the generic terminal residual}}{122}{section.11}%
+\contentsline {section}{\tocsection {}{12}{Final assembly}}{123}{section.12}%
+\contentsline {section}{\tocsection {Appendix}{A}{Setup-Paper Label Dictionary}}{125}{appendix.A}%
+\contentsline {section}{\tocsection {Appendix}{B}{Generator calculus on compact recurrent cores}}{126}{appendix.B}%
+\contentsline {subsection}{\tocsubsection {}{B.1}{Hilbert framework and unitary representation}}{126}{subsection.B.1}%
+\contentsline {subsection}{\tocsubsection {}{B.2}{Pressure observables and bounded continuous core}}{126}{subsection.B.2}%
+\contentsline {subsection}{\tocsubsection {}{B.3}{Regularized inverse and distributional pressure identity}}{127}{subsection.B.3}%
+\contentsline {section}{\tocsection {Appendix}{}{References}}{127}{section*.5}%

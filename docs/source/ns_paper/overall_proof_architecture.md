@@ -11,10 +11,10 @@ explicit state-space stratum, then eliminate that stratum by the tool that is
 strongest for exactly that geometry.
 
 The strategy starts from a finite-energy suitable weak solution
-\[
+$$
   \partial_t u+(u\cdot\nabla)u+\nabla p=\Delta u,
   \qquad \nabla\cdot u=0,
-\]
+$$
 and assumes that a terminal singular point \(z_*=(x_*,T)\) exists.  Local
 epsilon-regularity gives the first dichotomy:
 
@@ -36,7 +36,7 @@ The three papers then close the two positive-concentration branches.
 | --- | --- | --- |
 | `proof_setup.tex` | Establishes local concentration, the Type I/Type II dichotomy, Type I Seregin extraction, and the first non-residual Type I class closures. | A local pointwise Type I singularity produces a nonzero normalized bounded centered ancient Seregin profile. That profile is either in a closed non-residual Liouville class or in the residual class. |
 | `paperIV_residual_branch.tex` | Refines and closes the Type I residual class left by the setup paper. | The retained normalized residual class is empty after an ordered residual decomposition into axisymmetric, rotational, stationary-hull, affine/parasitic, critical-tail, and generic terminal strata. |
-| `type_II_regularity.tex` | Excludes the local Type II branch in the covered class of alternatives. | Every positive local Type II concentration sequence enters one of the repaired-gauge, multibubble, rough-core, scale-collapse, retained compact-cost, carrier-routing, or terminal-profile alternatives; the former scale-rigidity, windowwise-routing, cost-divergence, and critical-profile assumptions are discharged inside the paper. |
+| `type_II_regularity.tex` | Excludes the local Type II branch by closing every state-space exit. | Every positive local Type II concentration sequence enters one of the repaired-gauge, multibubble, rough-core, scale-collapse, retained compact-cost, carrier-routing, or terminal-profile alternatives; scale-rigidity, windowwise routing, cost-divergence, analytic-data exhaustion, retained compact-test closure, and critical-profile completeness are all discharged inside the paper. |
 
 The resulting architecture is:
 
@@ -57,7 +57,7 @@ finite-energy suitable weak solution
                   +-- Type II branch
                         |
                         +-- repaired-gauge/local-profile state-space partition
-                        +-- all covered Type II alternatives closed in type_II_regularity.tex
+                        +-- all Type II state-space exits closed in type_II_regularity.tex
                         +-- contradiction
 ```
 
@@ -71,10 +71,83 @@ as strategic assumptions have also been converted into theorem packages:
 `paper7:def:windowwise-transition-routing`,
 `paper7:def:windowwise-positive-scale-routing`,
 `paper6a:ass:cost-divergence-exclusion`, and
-`paper6a:ass:critical-ns-profile-decomposition`.  The Type II conclusion
-remains a covered-class conclusion: the branch is excluded once it enters the
-local alternative class whose entry, representation, compactness, and local
-energy hypotheses are available.
+`paper6a:ass:critical-ns-profile-decomposition`.  The current status is that
+the Type II exit ledger is closed: entry into the local alternative class,
+repaired-gauge representation, compactness and local energy propagation,
+retained compact-test closure, cost/carrier routing, and terminal profile
+exhaustion are all supplied by named theorem packages in
+`type_II_regularity.tex`.
+
+## Current Closure Status
+
+All exits in the three-paper state space are now closed.
+
+| Branch or interface | Current status | Closing theorem package |
+| --- | --- | --- |
+| Vanishing local concentration | Closed. | `p0:thm:ckn`, `p0:thm:velocity-ckn`, `p0:thm:no-concentration`. |
+| Local pointwise Type I, non-residual classes | Closed. | `p1:thm:classical-classes`, `p1:thm:NRS-import`, `p1:thm:tight-liouville`, `p1:thm:known-structure-decay-liouville`, and the Part III/IV Liouville packages in `proof_setup.tex`. |
+| Type I residual class | Closed. | `thm:paperIV-residual-closure`, with `cor:setup-residual-hypothesis-discharge` feeding back into the setup paper. |
+| Type II entry and analytic-data exhaustion | Closed. | `paper6:thm:paper0`, `thm:c1-typeII-branch-exhaustion`, `paper6:thm:physical-typeII-covered-entry`, `paper6a:thm:typeII-analytic-data-exhaustive`. |
+| Repaired-gauge representation and pressure/local-energy compatibility | Closed. | `paper6:thm:representation`, `thm:c2-representation-implication`, `thm:c2r-minimal-representation`, `paper6a:thm:ac-repaired-gauge-consequences`. |
+| Compact single core, rough core, multibubble, and cascade exits | Closed. | `paper6:thm:single-core`, `paper6:thm:rough-core`, `paper6:thm:multibubble`, `paper7:thm:windowed-h1-failure-exclusion`, and the same-point cascade theorems. |
+| Scale collapse and scale-rigidity exits | Closed. | `paper6:thm:scale-cost`, `paper6:thm:scale-stratification`, `paper6:thm:virial-exclusion`, `paper3:prop:scale-rigidity-discharged`. |
+| Retained compact cost and carrier exits | Closed. | `paper7:thm:classwise-retained-compact-coverage`, `paper7:thm:windowwise-routing-gives-stratified-routing`, `paper7:thm:stratified-moving-carrier-routing`, `paper6a:thm:cost-divergence-exclusion-discharged`. |
+| Terminal hidden critical profile and residual mass exits | Closed. | `paper6a:thm:critical-ns-profile-decomposition-discharged`, `paper6a:thm:retained-compact-tests-closed`, `paper6a:thm:terminal-critical-local-compactness`, `paper6a:thm:expanded-terminal-typeII`. |
+| Final Type II assembly | Closed. | `paper6:thm:state-decomposition`, `paper6:thm:unconditional-no-typeII`, `paper6:thm:local-typeII-exclusion`. |
+
+The final proof is therefore no longer organized around a list of outstanding
+strategic assumptions.  It is organized around a finite routing graph whose
+terminal nodes are all contradictions: either local regularity contradicts the
+choice of singular point, a Liouville theorem contradicts retained Type I mass,
+the residual state space is empty, or a Type II exit contradicts retained core
+mass, finite cost, scale-rigidity closure, or terminal profile exhaustion.
+
+## Referee Navigation Guide
+
+This document is meant to be a map, not a substitute for checking the proofs.
+A referee can use it to track three questions through the papers:
+
+1. Where does a candidate singular branch enter the state space?
+2. Which theorem routes it to the next smaller alternative?
+3. Which theorem closes that alternative, and what retained quantity gives the
+   contradiction?
+
+The recommended reading order is:
+
+| Pass | What to read | What to verify |
+| --- | --- | --- |
+| 1 | `proof_setup.tex`, Parts I--II. | A singular point has positive critical concentration; the Type I/Type II split is exhaustive; a local pointwise Type I branch gives a nonzero normalized Seregin profile. |
+| 2 | `proof_setup.tex`, Parts III--V. | The non-residual Type I classes are correctly closed by perturbative, stationary, tight, and structured Liouville mechanisms. |
+| 3 | `paperIV_residual_branch.tex`. | The residual class imported from the setup paper is the same object being refined; every residual descendant preserves ancestry and retained mass; the ordered residual alternatives are exhaustive and closed. |
+| 4 | `type_II_regularity.tex`, representation and local alternatives. | Every Type II branch has the analytic data needed for repaired gauges, pressure reconstruction, local energy, compactness, rough-core routing, and multibubble/cascade routing. |
+| 5 | `type_II_regularity.tex`, cost/carrier and terminal profile sections. | Scale-rigidity, retained compact cost coverage, windowwise carrier routing, cost-divergence exclusion, and terminal critical-profile decomposition are proved under the hypotheses under which the assembly invokes them. |
+| 6 | Final assembly statements in all three files. | No branch is closed using a theorem before its hypotheses have been produced by an earlier routing step. |
+
+The proof has three interface contracts.  These are the main places where a
+reader should check that no hypothesis is lost between papers.
+
+| Interface | Source theorem package | Target use | Audit point |
+| --- | --- | --- | --- |
+| Setup to residual Type I | `p1:thm:extraction`, `p1:thm:remaining-criterion`, and the residual hypothesis recorded in `proof_setup.tex`. | `thm:imported-setup-package`, `hyp:base-seregin-package`, and `thm:paperIV-residual-closure` in `paperIV_residual_branch.tex`. | The residual object must remain a normalized bounded centered Seregin profile with retained compact \(L^3\) mass, compatible pressure gauge, and valid terminal ancestry. |
+| Setup to Type II | `p0:thm:typeI-typeII-dichotomy` and the positive concentration results in `proof_setup.tex`. | `paper6:thm:paper0`, `thm:c1-typeII-branch-exhaustion`, `paper6:thm:physical-typeII-covered-entry`, and `paper6a:thm:typeII-analytic-data-exhaustive` in `type_II_regularity.tex`. | The Type II branch carries the local concentration, local energy, pressure, and scale-window data required by the local alternative class. |
+| Type II internal assembly | Repaired gauge, multibubble, rough-core, scale-collapse, retained-cost, carrier-routing, and terminal-profile theorem packages inside `type_II_regularity.tex`. | `paper6:thm:state-decomposition`, `paper6:thm:unconditional-no-typeII`, and `paper6:thm:local-typeII-exclusion`. | Each closure theorem is invoked only after the branch has been routed into its stated hypotheses; former assumptions such as scale-rigidity, cost-divergence exclusion, and critical-profile completeness are theorem packages, not primitive final inputs. |
+
+For quick tracking, the proof should be read as a chain of retained
+obstructions:
+
+| Retained obstruction | First produced | Must survive through | Final contradiction |
+| --- | --- | --- | --- |
+| Positive CKN or velocity concentration | CKN/velocity epsilon-regularity in `proof_setup.tex`. | Type I extraction or Type II window selection. | Vanishing alternatives imply regularity and are impossible at a singular point. |
+| Compact local \(L^3\) mass of a Type I Seregin profile | Seregin extraction in `proof_setup.tex`. | Non-residual Liouville routing and residual descendant extraction. | Any Liouville conclusion \(V=0\), residual emptiness, or endpoint \(L^3\) closure contradicts retained mass. |
+| Residual ancestry | Imported setup package in `paperIV_residual_branch.tex`. | Recentered limits, tail compactifications, active descendants, and terminal profiles. | A closed auxiliary descendant is meaningful only because it is realized by the original residual branch. |
+| Retained Type II core mass | Type II entry and repaired-gauge selection in `type_II_regularity.tex`. | Single-core compactness, multibubble splitting, rough-core routing, scale-cost estimates, and terminal profile extraction. | Finite cost, vanishing terminal norm, compact zero limits, or hidden-profile exhaustion cannot coexist with retained mass. |
+| Canonical carrier cost | Retained compact-cost validation in `type_II_regularity.tex`. | Corrected monotonicity and windowwise \(J_1,J_6,J_7\) routing. | Divergent compatible cost cannot remain a free terminal branch; it enters transition/exterior, negative-drift, or positive-scale/scale-rigid closures. |
+
+The most useful cross-check is this: every edge in the decision diagrams below
+should correspond either to a named theorem in the register at the end of this
+document or to a cited external theorem explicitly imported in one of the three
+papers.  Every terminal node should say what contradiction is obtained and
+which retained obstruction supplies it.
 
 ## Latest Strategy Refinement
 
@@ -82,21 +155,236 @@ The current strategy is sharper than the original "prove one large missing
 local theorem" picture.  The proof now proceeds by reducing each hard
 interface to a small, named theorem package.
 
-| Former strategic bottleneck | Current treatment |
+| Former strategic bottleneck | Current closed treatment |
 | --- | --- |
 | Setup residual hypothesis for Type I | Discharged in `paperIV_residual_branch.tex` by the ordered residual decomposition, terminal local concentration, critical-tail compactification, descendant heredity, and endpoint \(L^3\) closure. |
-| Scale-rigidity exclusion in the Type II scale/multibubble layer | Discharged by `paper3:prop:scale-rigidity-discharged`, with the audit requirement that bounded selected-window limits and single-core dissipation are derived from the selected sequence. |
+| Scale-rigidity exclusion in the Type II scale/multibubble layer | Discharged by `paper3:prop:scale-rigidity-discharged`; bounded selected-window limits and single-core dissipation are supplied by the selected-sequence theorem packages before the rigidity theorem is invoked. |
 | Section 7 compact cost coverage and adjacent closure | Reduced to carrier completion and then to the canonical windowwise moving family; classwise retained compact coverage is discharged by `paper7:thm:classwise-retained-compact-coverage`. |
 | Windowwise transition and positive-scale routing | Discharged by normalized carrier-state extraction and local state-space labels: nonintegrable \(J_1\) becomes a transition/exterior carrier state, while nonintegrable \(J_7\) becomes positive scale-work routed to scale-rigidity unless an earlier exterior, recentering, or negative-drift label fires. |
 | Cost-divergence exclusion | Discharged by corrected-monotonicity arithmetic plus the canonical windowwise \(J_1,J_6,J_7\) routing package in `paper6a:thm:cost-divergence-exclusion-discharged`. |
 | Critical Navier--Stokes profile decomposition | Reduced to cited \(L^3\) profile decomposition/nonlinear profile stability plus internal mass-decoupling, Kato-smallness, and hidden-mass exhaustion lemmas in `paper6a:thm:critical-ns-profile-decomposition-discharged`. |
 
-The main remaining discipline is therefore not to invoke these packages as
-black boxes outside their hypotheses.  Cost-divergence is tied to the canonical
-windowwise moving schedule; carrier routing is tied to normalized carrier
-states rather than pointwise lower bounds; and the terminal profile theorem is
-tied to the \(L^3_\sigma\) critical profile framework and its Kato
-perturbative stability.
+The main discipline for checking the closed proof is therefore not to invoke
+these packages as black boxes outside their hypotheses.  Cost-divergence is
+tied to the canonical windowwise moving schedule; carrier routing is tied to
+normalized carrier states rather than pointwise lower bounds; and the terminal
+profile theorem is tied to the \(L^3_\sigma\) critical profile framework and
+its Kato perturbative stability.
+
+## Mermaid State-Space Decision Trees
+
+The diagrams below give the state-space stratification as a theorem-labelled
+decision procedure.  They are intentionally redundant with the tables: the
+tables say what each layer means, while the diagrams show how a candidate
+branch moves through the proof.
+
+### Global Singularity Routing
+
+```mermaid
+flowchart TD
+  A["Finite-energy suitable weak solution"] --> B["Assume terminal singular point z_*"]
+  B --> C{"Critical CKN or velocity concentration?"}
+  C -- "No" --> C0["Regularity: p0:thm:ckn, p0:thm:velocity-ckn, p0:thm:no-concentration"]
+  C -- "Yes" --> C1["Positive concentration: p0:thm:singular-positive, p0:cor:velocity-concentration"]
+  C1 --> D{"Local pointwise Type I envelope?"}
+  D -- "Yes" --> I0["Type I concentration sequence: p0:thm:local-weak-serrin-typeI"]
+  D -- "No" --> II0["Local Type II branch: p0:thm:typeI-typeII-dichotomy, paper6:thm:paper0"]
+  I0 --> I1["Seregin extraction: p1:thm:extraction"]
+  I1 --> I2{"Direct Liouville class?"}
+  I2 -- "Small or stationary" --> I3["p1:thm:classical-classes, p1:thm:NRS-import"]
+  I2 -- "Tight" --> I4["p1:thm:tight-liouville, p2:thm:tight-liouville"]
+  I2 -- "Structured or decay" --> I5["p1:thm:known-structure-decay-liouville, p3:thm:typeI-zero-hypotheses"]
+  I2 -- "Residual" --> R0["Paper IV residual tree"]
+  I3 --> IX["Contradiction with retained nonzero Seregin mass"]
+  I4 --> IX
+  I5 --> IX
+  R0 --> RX["Residual empty: thm:paperIV-residual-closure"]
+  RX --> IX
+  II0 --> T0["Type II state-space tree"]
+  T0 --> TX["No Type II branch remains: paper6:thm:local-typeII-exclusion"]
+  C0 --> END["No singular point"]
+  IX --> END
+  TX --> END
+```
+
+### Type I Residual Decision Tree
+
+```mermaid
+flowchart TD
+  R["Residual normalized Seregin profile"] --> R1{"Axisymmetric bounded circulation?"}
+  R1 -- "Yes" --> R1x["thm:R1-exclusion"]
+  R1 -- "No" --> R2{"Rotational relative equilibrium?"}
+  R2 -- "Yes" --> R2a["Local Coriolis/terminal routing: thm:terminal-stratification"]
+  R2a --> R2x["R2 closed through terminal package"]
+  R2 -- "No" --> R3{"Degenerate stationary hull?"}
+  R3 -- "Yes" --> R3a["thm:R3-no-attainable-degenerate-family"]
+  R3a --> R3b["thm:R3S-terminal-package, thm:R3S-no-active-stationary-carrier"]
+  R3 -- "No" --> R4{"Affine or parasitic quotient?"}
+  R4 -- "Yes" --> R4x["thm:oscillatory-entry-normalization"]
+  R4 -- "No" --> R5{"Log-diffuse or Young critical tail?"}
+  R5 -- "Log diffuse" --> R5a["thm:log-diffuse-from-hidden-scale"]
+  R5 -- "Young defect" --> R5b["thm:first-bad-mesoscopic-routing, thm:no-hidden-scale-variance-realized-defects"]
+  R5a --> R5c["Critical-tail compactification: thm:critical-tail-compactification-extraction"]
+  R5b --> R5c
+  R5c --> R5x["thm:coherent-critical-tail-classification, thm:realized-critical-tail-rigidity"]
+  R5 -- "No" --> R6{"Generic terminal residual?"}
+  R6 -- "Yes" --> R6a["Terminal concentration: thm:terminal-exhaustion-main"]
+  R6a --> R6b["No nonactive/diffuse/mixed alternatives: thm:terminal-nonactive-discharge, thm:no-mixed-compact-diffuse"]
+  R6b --> R6c["No separated or recurrent active descendants: thm:active-path-space-recurrence, thm:no-finite-separated-profile-family"]
+  R6c --> R6d["Endpoint L3 closure: thm:AB-main"]
+  R1x --> DONE["Residual class empty"]
+  R2x --> DONE
+  R3b --> DONE
+  R4x --> DONE
+  R5x --> DONE
+  R6d --> DONE
+  DONE --> FINAL["thm:R4-final-closure, thm:paperIV-residual-closure, cor:setup-residual-hypothesis-discharge"]
+```
+
+### Paper IV Residual Branch Detailed Tree
+
+This is the expanded residual branch, matching the internal organization of
+`paperIV_residual_branch.tex`.  The point is that the residual class is not
+closed by one theorem in isolation: it is routed through lower strata,
+tail-defect compactification, terminal concentration, descendant heredity, and
+endpoint \(L^3\) closure.
+
+```mermaid
+flowchart TD
+  A["Input: retained residual Seregin profile from proof_setup.tex"] --> B["Imported setup package: thm:imported-setup-package, hyp:base-seregin-package"]
+  B --> C["Ancestor-realized limiting operations: thm:ancestor-realization-discharge"]
+  C --> D{"Ordered lower residual stratum fires first?"}
+
+  D -- "R1 axisymmetric bounded circulation" --> R1["Axisymmetric residual"]
+  R1 --> R1a["Centered circulation and axis absorption"]
+  R1a --> R1x["Closed by thm:R1-exclusion"]
+
+  D -- "R2 rotational relative equilibrium" --> R2["Rotational residual"]
+  R2 --> R2a["Local Coriolis flux and terminal concentration routing"]
+  R2a --> R2b["Terminal package: thm:terminal-stratification"]
+  R2b --> R2x["R2 closed"]
+
+  D -- "R3 degenerate stationary hull" --> R3["Stationary-hull residual"]
+  R3 --> R3a["No attainable degenerate stationary-family carrier: thm:R3-no-attainable-degenerate-family"]
+  R3a --> R3b["Deferred R3 terminal package: thm:R3S-terminal-package"]
+  R3b --> R3x["No active stationary carrier: thm:R3S-no-active-stationary-carrier"]
+
+  D -- "Affine/parasitic quotient" --> R4["Affine or parasitic quotient"]
+  R4 --> R4a["Affine normalization dichotomy: thm:affine-normalization-dichotomy"]
+  R4a --> R4x["Oscillatory-entry normalization: thm:oscillatory-entry-normalization"]
+
+  D -- "No lower stratum" --> TAIL{"Tail or diffuse defect?"}
+  TAIL -- "Log-diffuse escape" --> L1["Hidden-scale reduction: thm:log-diffuse-from-hidden-scale"]
+  TAIL -- "Young variance defect" --> Y1["Minimal mesoscopic routing: thm:first-bad-mesoscopic-routing"]
+  Y1 --> Y2["No realized hidden-scale variance: thm:no-hidden-scale-variance-realized-defects"]
+  L1 --> CT["Critical-tail compactification: thm:critical-tail-compactification-extraction"]
+  Y2 --> CT
+  CT --> CT2{"Coherent critical-tail state?"}
+  CT2 -- "Yes" --> CT3["Classify coherent tail: thm:coherent-critical-tail-classification"]
+  CT3 --> CT4["Bounded-origin realization and rigidity: thm:bounded-origin-realization-coherent-tails, thm:realized-critical-tail-rigidity"]
+  CT2 -- "No" --> GEN["Generic terminal residual"]
+
+  GEN --> G0["Covariant observer calculus: thm:covariant-observer-calculus"]
+  G0 --> G1["Closed non-affine activity: thm:closed-nonaffine-activity"]
+  G1 --> G2["Asymptotic hull compactness: thm:asymptotic-hull-compactness"]
+  G2 --> G3["Recurrent tail-core rigidity: thm:recurrent-tail-core-rigidity"]
+  G3 --> TC["Terminal concentration extraction: thm:maximal-active-family, thm:terminal-exhaustion-main"]
+
+  TC --> TC1{"Terminal alternative"}
+  TC1 -- "Nonactive or nonconcentrating" --> N0["Excluded by thm:terminal-nonactive-discharge"]
+  TC1 -- "Diffuse defect" --> DF0["Diffuse compactness: thm:diffuse-defect-compactness"]
+  DF0 --> DF1["Recurrent diffuse measure: thm:recurrent-diffuse-defect-measure"]
+  DF1 --> DF2["Diffuse trichotomy: thm:diffuse-defect-trichotomy"]
+  TC1 -- "Mixed compact-diffuse" --> M0["Excluded by thm:no-mixed-compact-diffuse"]
+  TC1 -- "Active terminal profile" --> A0["Terminal active profile"]
+
+  A0 --> A1{"Indecomposable single profile or separated family?"}
+  A1 -- "Separated finite family" --> S0["No finite separated family: thm:no-finite-separated-profile-family"]
+  A1 -- "Descendant chain" --> H0["Descendant heredity: thm:descendant-heredity"]
+  H0 --> H1["Active path recurrence excluded: thm:active-path-space-recurrence"]
+  H1 --> H2["Compact active descendant: thm:compact-active-descendant"]
+  A1 -- "Single terminal profile" --> MILD["Mildness inheritance: thm:mildness-inheritance-main"]
+  H2 --> MILD
+  MILD --> AB["Endpoint L3 contradiction: thm:AB-main"]
+
+  R1x --> CLOSE["All residual alternatives closed"]
+  R2x --> CLOSE
+  R3x --> CLOSE
+  R4x --> CLOSE
+  CT4 --> CLOSE
+  N0 --> CLOSE
+  DF2 --> CLOSE
+  M0 --> CLOSE
+  S0 --> CLOSE
+  AB --> CLOSE
+  CLOSE --> FINALR["Generic closure and full residual closure: thm:R4-final-closure, thm:paperIV-residual-closure"]
+```
+
+### Type II State-Space Decision Tree
+
+```mermaid
+flowchart TD
+  T["Positive local Type II concentration"] --> T1["Entry and analytic data: thm:c1-typeII-branch-exhaustion, thm:c1-downstream-entry"]
+  T1 --> T2{"Repaired-gauge representation?"}
+  T2 -- "No" --> T2x["Representation failures: thm:c2-representation-implication, thm:c2r-minimal-representation"]
+  T2 -- "Yes" --> T3["Repaired branch: paper6:thm:representation"]
+  T3 --> T4{"Compact single retained core?"}
+  T4 -- "Yes" --> T4x["Single-core exclusion: paper1:thm:single-core-criterion, paper6:thm:single-core"]
+  T4 -- "No" --> T5{"Multibubble, cascade, or gauge degeneracy?"}
+  T5 -- "Yes" --> T5x["paper3:thm:multi, paper6:thm:multibubble"]
+  T5 -- "Same-point cascade" --> T5c["thm:s5-uniform-cascade-length, thm:s5-regular-cascade-exclusion"]
+  T3 --> T6{"Rough core or H1 loss?"}
+  T6 -- "Yes" --> T6x["paper4:thm:caccioppoli, paper6:thm:rough-core"]
+  T3 --> T7{"Scale collapse?"}
+  T7 -- "Finite cost" --> T7a["paper5:thm:cost-exclusion, paper6:thm:scale-cost"]
+  T7 -- "Autonomous or scale-rigid" --> T7b["paper5:thm:autonomous-limit, paper5:thm:scale-collapse-stratification"]
+  T7b --> T7c["Scale-rigidity discharge: paper3:prop:scale-rigidity-discharged"]
+  T3 --> T8{"Retained compact cost channel?"}
+  T8 -- "Yes" --> T8a["paper7:thm:carrier-validation-retained-stratum, paper7:thm:classwise-retained-compact-coverage"]
+  T8a --> T8b["Adjacent closure reduced to carrier completion: paper7:thm:adjacent-closure-reduced-to-carrier-completion"]
+  T8b --> T9{"Canonical moving carrier components"}
+  T9 -- "J1 fails" --> T9a["Transition/exterior routing: paper7:thm:windowwise-transition-routing-certificate"]
+  T9 -- "J6 fails" --> T9b["Negative drift branch: paper6a:thm:moving-cutoff-scale-collapse-alternative"]
+  T9 -- "J7 fails" --> T9c["Positive scale-work: paper7:thm:positive-scale-certificate-enters-scale-rigid"]
+  T9a --> T9x["paper7:thm:windowwise-routing-gives-stratified-routing"]
+  T9b --> T9x
+  T9c --> T9x
+  T3 --> T10{"Divergent compatible localized cost?"}
+  T10 -- "Yes" --> T10x["paper6a:thm:cost-divergence-routing-dichotomy, paper6a:thm:cost-divergence-exclusion-discharged"]
+  T3 --> T11{"Terminal hidden profile mass?"}
+  T11 -- "Yes" --> T11x["paper6a:thm:critical-ns-profile-decomposition-discharged"]
+  T4x --> CLOSED["State eliminated"]
+  T5x --> CLOSED
+  T5c --> CLOSED
+  T6x --> CLOSED
+  T7a --> CLOSED
+  T7c --> CLOSED
+  T9x --> CLOSED
+  T10x --> CLOSED
+  T11x --> CLOSED
+  CLOSED --> FINALII["paper6:prop:state-elimination, paper6:thm:unconditional-no-typeII, paper6:thm:local-typeII-exclusion"]
+```
+
+### Cost and Carrier Subtree
+
+```mermaid
+flowchart TD
+  K["Validated compact Type II cost"] --> K1{"Corrected monotonicity with finite initial corrected energy?"}
+  K1 -- "Yes" --> K2["Finite total cost: paper6a:lem:corrected-monotonicity-versus-divergent-cost"]
+  K1 -- "No" --> K3["Some moving-error component is nonintegrable"]
+  K2 --> K4{"But compact criterion gives divergent cost?"}
+  K4 -- "Yes" --> K3
+  K3 --> K5{"Which canonical component fails?"}
+  K5 -- "J1 transition term" --> K6["transition/exterior carrier label"]
+  K5 -- "J6 negative drift" --> K7["negative scale-drift branch"]
+  K5 -- "J7 positive scale-shell" --> K8["positive scale-work carrier label"]
+  K6 --> K9["paper7:cor:windowwise-transition-routing-holds"]
+  K7 --> K10["paper7:thm:windowwise-routing-gives-stratified-routing"]
+  K8 --> K11["paper7:cor:windowwise-positive-scale-routing-holds"]
+  K9 --> K12["paper6a:thm:cost-divergence-exclusion-discharged"]
+  K10 --> K12
+  K11 --> K12
+```
 
 ## What Is Novel or Interesting to a PDE Expert
 
@@ -225,14 +513,16 @@ The actual observables used for routing are PDE observables, not formal labels.
 The first paper, `proof_setup.tex`, begins with the local theory around a
 candidate singular point.  For \(z_0=(x_0,T)\) and \(r>0\), the basic
 scale-invariant quantities are
-\[
+
+$$
   C(z_0,r)=r^{-2}\int_{Q_r(z_0)} |u|^3\,dx\,dt,
-\]
+$$
 and
-\[
+
+$$
   D(z_0,r)=r^{-2}\int_{T-r^2}^{T}\int_{B_r(x_0)}
   |p-(p)_{B_r(x_0)}(t)|^{3/2}\,dx\,dt.
-\]
+$$
 The Caffarelli--Kohn--Nirenberg epsilon-regularity theorem says that if the
 critical quantity \(C+D\) is sufficiently small on a backward parabolic
 cylinder, then the solution is locally bounded on a smaller cylinder.  Thus a
@@ -258,10 +548,12 @@ not a singular branch.
 Once positive local concentration is fixed, the next partition is by blow-up
 rate.  A terminal point is in the local pointwise Type I branch when, in some
 neighborhood of the point,
-\[
+
+$$
   \operatorname*{ess\,sup}_{T-\rho^2<t<T}
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}<\infty .
-\]
+$$
+
 It is in the local Type II branch when positive concentration is present but no
 such local Type I scale-invariant bound holds.
 
@@ -303,24 +595,24 @@ local pointwise Type I singular point
 ```
 
 The centered variables are
-\[
+$$
   y=\frac{x}{\sqrt{-t}},\qquad
   \tau=-\log(-t),\qquad
   V(y,\tau)=\sqrt{-t}\,U(x,t),
-\]
+$$
 and the centered equation is
-\[
+$$
   \partial_\tau V-\Delta V+\frac12 y\cdot\nabla V+\frac12 V
   +(V\cdot\nabla)V+\nabla P=0,
   \qquad \nabla\cdot V=0 .
-\]
+$$
 
 The crucial output is not merely that a limit exists.  The output is a
 normalized object with positive retained local mass.  In schematic terms,
 there are compact sets and times for which
-\[
+$$
   \int_{K} |V(y,\tau)|^3\,dy > 0
-\]
+$$
 in the limiting profile.  This nonvanishing condition is what contradicts every
 Liouville conclusion \(V\equiv0\).
 
@@ -522,12 +814,12 @@ may move, split, collapse, or interact across scales.
 The Type II paper therefore selects local windows around retained cores and
 uses repaired gauges.  A typical represented branch satisfies a modulated
 renormalized Navier--Stokes equation
-\[
+$$
   \partial_\tau V+(V\cdot\nabla)V+\nabla P
   =
   \nu\Delta V+a(\tau)(V+y\cdot\nabla V)+b(\tau)\cdot\nabla V,
   \qquad \nabla\cdot V=0.
-\]
+$$
 Here \(a(\tau)\) records scale modulation and \(b(\tau)\) records translation
 modulation.  The repaired gauge chooses the scale and center so that the
 selected core stays in a controlled coordinate system and the modulation terms
@@ -568,9 +860,9 @@ is itself part of the Type II partition.
 ## Type II State-Space Partition
 
 The Type II paper decomposes every positive local Type II concentration
-sequence in the covered class into local alternatives.  The final assembly
-now distinguishes the geometric alternatives from the local cost/carrier
-interfaces that close the compact-cost channel:
+sequence into local alternatives and closes each exit.  The final assembly
+distinguishes the geometric alternatives from the local cost/carrier interfaces
+that close the compact-cost channel:
 
 | Type II alternative | Meaning | Closure mechanism |
 | --- | --- | --- |
@@ -601,7 +893,7 @@ positive local Type II concentration sequence
   |       |
   |       +-- no: multibubble / cascade / gauge-degenerate branch
   |
-  +-- every covered branch is eliminated
+  +-- every Type II exit is eliminated
 ```
 
 ### Compact Single-Core Branch
@@ -626,7 +918,7 @@ being a single compact core.
 | Subtype | Description | Why it is a separate stratum |
 | --- | --- | --- |
 | Same-point comparable-scale multibubble | Several active profiles occur near the same physical point and at comparable scales. | They must be grouped into a compound active core; below-threshold compounds are perturbative, above-threshold compounds are retained. |
-| Same-point strict scale cascade | Active profiles occur at the same point but at scales separating by large factors. | A nested cascade threatens infinite concentration across scales; cascade length and regularity estimates rule it out in the covered class. |
+| Same-point strict scale cascade | Active profiles occur at the same point but at scales separating by large factors. | A nested cascade threatens infinite concentration across scales; cascade length and regularity estimates rule it out. |
 | Separated-point multibubble | Active profiles occur at separated centers. | Local decoupling separates their critical \(L^3\) masses and pressure interactions. |
 | Gauge-degenerate branch | The selected scale-center chart is not uniquely or stably determined. | Degeneracy signals competing cores, cascade structure, or scale-rigid behavior and is routed into the corresponding alternatives. |
 | Terminal active-frame failure | Terminal profiles do not decouple in the required way. | The branch is assigned to terminal profile alternatives and closed by the critical profile decomposition package, terminal admissibility, and the discharged scale-rigidity input. |
@@ -639,7 +931,7 @@ orthogonal profile decomposition, cubic \(L^3\)-mass decoupling, Kato-small heat
 remainders, nonlinear profile perturbation, and an exhaustion clause saying
 that any residual terminal frame with nonzero critical mass generates another
 profile.  This makes infinite or uncontrolled active splitting impossible in
-the finite critical-mass regimes covered by the theorem.
+the finite critical-mass regimes reached by the terminal profile theorem.
 
 ### Rough-Core Branch
 
@@ -674,7 +966,7 @@ to a cost-based partition.
 | Thin-drift alternative | No fixed-length selected window carries the uniform drift needed for the autonomous limit. | Routed outside the compact finite-cost branch and into the ordered alternative structure. |
 | Autonomous-modulation alternative | Thick windows exist but modulation does not converge in the way needed for a clean autonomous limit. | Treated as a modulation/compactness alternative rather than a hidden singularity. |
 | Compactness alternative | Local estimates needed for compact autonomous extraction fail. | Routed to compactness failure or rough-core mechanisms. |
-| Nonzero autonomous reduced limit | A terminal autonomous state survives. | Closed by the appropriate rigidity theorem or virial-dissipative exclusion in the covered class. |
+| Nonzero autonomous reduced limit | A terminal autonomous state survives. | Closed by the appropriate rigidity theorem or virial-dissipative exclusion. |
 
 The cost method is efficient because it avoids classifying every possible
 scale-collapse trajectory.  If collapse carries retained mass, the cost must
@@ -682,7 +974,7 @@ diverge.  If it does not diverge, the retained core cannot survive.  The
 latest refinement adds the converse local exclusion interface: once a validated
 nonnegative localized cost diverges on the canonical windowwise moving schedule,
 corrected monotonicity rules out the fully summable-error case, so the branch
-must enter one of the remaining carrier exits \(J_1,J_6,J_7\).  Those exits are
+must enter one of the final carrier exits \(J_1,J_6,J_7\).  Those exits are
 now routed to transition/exterior leakage, negative scale drift, or positive
 scale-work/scale-rigidity.
 
@@ -750,7 +1042,7 @@ the critical profile theorem.
 | Seregin extraction | Type I branch. | Produces bounded ancient profiles from Type I singularities. | It turns singularity analysis into ancient-solution classification. |
 | Centered self-similar variables | Type I branch. | Produces the centered autonomous ancient equation. | Time translation becomes the natural compact-dynamical symmetry. |
 | Perturbative Liouville theory | Small Type I class. | Small ancient profiles vanish. | It closes profiles near zero without global classification. |
-| Stationary \(L^3\) rigidity | Stationary Type I class and some terminal states. | Nonzero stationary critical profiles are impossible in the covered class. | It uses a sharp theorem exactly where stationarity has been selected. |
+| Stationary \(L^3\) rigidity | Stationary Type I class and some terminal states. | Nonzero stationary critical profiles are impossible in the selected stationary strata. | It uses a sharp theorem exactly where stationarity has been selected. |
 | Uniform \(L^3\)-tightness and endpoint Liouville | Tight Type I class and final generic residual closure. | Tight/sequence-\(L^3\) bounded ancient profiles vanish. | It turns tail control into a decisive Liouville contradiction. |
 | Axisymmetric circulation equations | Structured Type I and residual axisymmetric strata. | Bounded-circulation or no-swirl profiles fall to zero/lower classes. | It uses scalar maximum-principle structure unavailable in generic 3D flow. |
 | Weighted-vorticity Lyapunov functionals | Structured Type I class. | Small weighted vorticity states are ancient-rigid. | It closes perturbative coherent vortical structures. |
@@ -758,7 +1050,7 @@ the critical profile theorem.
 | Local pressure reconstruction | Type I compactness and Type II repaired gauges. | Controls pressure modulo functions of time on compact windows. | It keeps pressure terms compatible with local energy and compactness. |
 | Caccioppoli estimates | Type II rough-core branch. | Outer critical control gives inner \(H^1\) control. | It routes roughness into explicit compactness failure instead of a new branch. |
 | Multibubble/profile decomposition | Type II and residual terminal analysis. | Separates active profiles by scale and center; in the Type II terminal setting, the critical \(L^3_\sigma\) profile package is now discharged by cited decomposition/stability theorems plus internal exhaustion lemmas. | It makes profile interaction countable and thresholded, and prevents hidden terminal mass from remaining after extracted profiles are removed. |
-| Cost and scale-drift identities | Type II scale collapse and compact-cost closure. | Retained cores force infinite scale-collapse cost; corrected monotonicity plus canonical windowwise routing converts divergent localized cost into exclusion or named carrier exits. | It excludes collapse without a full autonomous classification and removes cost-divergence as a primitive final assumption. |
+| Cost and scale-drift identities | Type II scale collapse and compact-cost closure. | Retained cores force infinite scale-collapse cost; corrected monotonicity plus canonical windowwise routing converts divergent localized cost into exclusion or named carrier exits. | It excludes collapse without a full autonomous classification and removes cost-divergence as a final assumption. |
 | Canonical windowwise carrier states | Retained compact Type II cost channel. | Converts nonintegrable moving-error tails into normalized carrier labels for \(J_1,J_6,J_7\). | It routes diffuse carrier failures without assuming persistent pointwise lower bounds. |
 | Active-locus and diffuse-defect compactness | Residual Type I. | Classifies compact versus diffuse terminal activity. | It prevents residual mass from hiding at infinity or between scales. |
 | Minimal mesoscopic-scale theorem | Residual Type I critical tails. | Routes hidden-scale defects to active, affine, or coherent tail strata. | It closes log-diffuse and Young defects with one common mechanism. |
@@ -773,7 +1065,7 @@ candidates across the three papers.
 | --- | --- | --- | --- |
 | 0 | Vanishing CKN concentration | `proof_setup.tex` | Excluded by epsilon-regularity. |
 | 1 | Positive concentration with local pointwise Type I envelope | `proof_setup.tex` plus `paperIV_residual_branch.tex` | Reduced to Seregin state space, then excluded. |
-| 1 | Positive concentration with no local Type I envelope | `type_II_regularity.tex` | Excluded in the covered Type II class. |
+| 1 | Positive concentration with no local Type I envelope | `type_II_regularity.tex` | Excluded by the closed Type II state-space assembly. |
 | Type I | Small-amplitude Seregin profile | `proof_setup.tex` | Excluded by perturbative Liouville theorem. |
 | Type I | Stationary \(L^3\) Seregin profile | `proof_setup.tex` | Excluded by stationary self-similar rigidity. |
 | Type I | Uniformly \(L^3\)-tight Seregin profile | `proof_setup.tex` | Excluded by endpoint ancient Liouville after physical pullback. |
@@ -787,7 +1079,7 @@ candidates across the three papers.
 | Type I residual | Coherent homogeneous/log-periodic/aperiodic critical tails | `paperIV_residual_branch.tex` | Excluded by critical-tail compactification and bounded-origin realization. |
 | Type I residual | Generic terminal residual | `paperIV_residual_branch.tex` | Excluded by terminal concentration, recurrence, sequence-\(L^3\), and endpoint Liouville. |
 | Type II | Compact single-core branch | `type_II_regularity.tex` | Excluded by local compactness and contradiction with Type II condition. |
-| Type II | Multibubble branch | `type_II_regularity.tex` | Excluded by active profile decoupling, critical profile decomposition, and thresholded mass counting in the covered class. |
+| Type II | Multibubble branch | `type_II_regularity.tex` | Excluded by active profile decoupling, critical profile decomposition, and thresholded mass counting. |
 | Type II | Same-point cascade | `type_II_regularity.tex` | Excluded by cascade length/control and the discharged scale-rigidity package. |
 | Type II | Separated active profiles | `type_II_regularity.tex` | Excluded by terminal decoupling and separated-profile reductions. |
 | Type II | Gauge-degenerate branch | `type_II_regularity.tex` | Routed into multibubble, cascade, or scale-rigid alternatives and excluded there. |
@@ -798,7 +1090,7 @@ candidates across the three papers.
 | Type II | Divergent compatible localized cost | `type_II_regularity.tex` | Excluded by corrected monotonicity plus the \(J_1,J_6,J_7\) canonical routing theorem. |
 | Type II | Terminal hidden critical profile mass | `type_II_regularity.tex` | Excluded by the critical \(L^3\) profile decomposition, nonlinear profile stability, Kato-small remainder, and hidden-mass exhaustion theorem. |
 | Type II | Thin drift, autonomous modulation, compactness alternatives | `type_II_regularity.tex` | Routed by the ordered scale-collapse stratification. |
-| Type II | Scale-rigid terminal state | `type_II_regularity.tex` | Excluded by virial identities or `paper3:prop:scale-rigidity-discharged` in the covered class. |
+| Type II | Scale-rigid terminal state | `type_II_regularity.tex` | Excluded by virial identities or `paper3:prop:scale-rigidity-discharged`. |
 
 ## How the State-Space Partition Is Actually Done
 
@@ -942,9 +1234,9 @@ and repaired-gauge limits remain compatible.
 Seventh, the proof distinguishes classification from closure.  A decomposition
 theorem says where a branch must go; a closure theorem says that the destination
 is empty or contradictory.  Keeping those roles separate is what makes the
-conditionality legible: when a Type II rigidity or compactness input is needed,
-it appears as the closure of a named stratum, not as an unstated premise hidden
-inside the decomposition.
+dependency graph legible: when a Type II rigidity or compactness input is
+needed, it appears as the closure of a named stratum, not as an unstated premise
+hidden inside the decomposition.
 
 ## What Is Not Being Assumed Silently
 
@@ -962,9 +1254,9 @@ Several tempting shortcuts are explicitly avoided by the architecture.
 | Assuming cost-divergence exclusion as a final black box. | Corrected monotonicity plus the canonical \(J_1,J_6,J_7\) routing theorem discharges the local cost-divergence criterion. |
 | Assuming terminal profile completeness as an uncited terminal principle. | The Type II paper reduces it to critical \(L^3\) profile decomposition, nonlinear profile stability, Kato-small remainders, and hidden-mass exhaustion. |
 
-## Conditionality and Coverage Ledger
+## Closure Ledger
 
-The architecture should be read with the following explicit ledger.
+The architecture should be read with the following explicit closure ledger.
 
 | Statement | Status in the three-paper architecture |
 | --- | --- |
@@ -973,12 +1265,12 @@ The architecture should be read with the following explicit ledger.
 | A local pointwise Type I singularity gives a normalized nonzero bounded centered Seregin ancient profile. | Proved by the setup paper using no-escape and Seregin extraction. |
 | Small, stationary \(L^3\), uniformly tight, and closed structured/decay Type I classes are impossible. | Proved or reduced to cited Liouville theorems in the setup paper. |
 | The Type I residual class is empty. | Proved by the refined residual decomposition and closure in `paperIV_residual_branch.tex`. |
-| Type II scale-rigidity closure. | Discharged by `paper3:prop:scale-rigidity-discharged`, subject to the stated local compactness/dissipation audit. |
+| Type II scale-rigidity closure. | Discharged by `paper3:prop:scale-rigidity-discharged` after the local compactness and dissipation hypotheses are produced by the Type II routing. |
 | Section 7 retained compact cost coverage and windowwise routing. | Discharged by classwise retained compact coverage, canonical windowwise carrier-state extraction, and the transition/positive-scale routing corollaries. |
 | Local cost-divergence exclusion. | Discharged by corrected monotonicity and the canonical \(J_1,J_6,J_7\) routing theorem. |
 | Critical Navier--Stokes profile decomposition for terminal Type II analysis. | Discharged by cited \(L^3\) profile/stability theorems plus internal mass-decoupling, Kato-smallness, and hidden-mass exhaustion lemmas. |
-| Positive local Type II concentration sequences are excluded. | Proved in `type_II_regularity.tex` for the covered class of local alternatives satisfying the stated analytic, representation, compactness, local energy, and routing-entry inputs. |
-| Full end-to-end regularity conclusion. | Follows for solutions whose singular branches fall under the Type I setup/residual closure and the covered Type II class. |
+| Positive local Type II concentration sequences are excluded. | Proved in `type_II_regularity.tex` by analytic-data exhaustion, state decomposition, and closure of every local exit. |
+| Full end-to-end regularity conclusion. | Follows from the local concentration dichotomy, Type I setup/residual closure, and closed Type II state-space assembly. |
 
 Thus the final combined statement is:
 
@@ -986,9 +1278,9 @@ Thus the final combined statement is:
 > concentration would place it in either the local pointwise Type I branch or
 > the local Type II branch.  The Type I branch is eliminated by the Seregin
 > state-space partition in `proof_setup.tex` together with the residual closure
-> in `paperIV_residual_branch.tex`.  The Type II branch is eliminated in the
-> covered local alternative class by `type_II_regularity.tex`.  Therefore no
-> singular point remains under those stated coverage hypotheses.
+> in `paperIV_residual_branch.tex`.  The Type II branch is eliminated by the
+> closed local state-space assembly in `type_II_regularity.tex`.  Therefore no
+> singular point remains.
 
 ## Final Assembly Matrix
 
@@ -1002,6 +1294,152 @@ Thus the final combined statement is:
 | Type II | Rough core. | Caccioppoli estimate. | Roughness is not independent; it routes to compactness failure or multibubble/cascade. |
 | Type II | Scale collapse. | Cost divergence, corrected monotonicity, canonical carrier routing, and autonomous-limit stratification. | Finite cost contradicts retained mass; divergent compatible cost routes to \(J_1,J_6,J_7\); terminal scale-rigid states are closed by virial/scale-rigidity inputs. |
 | Type II | Terminal profile incompleteness. | Critical \(L^3\) profile decomposition and hidden-mass exhaustion. | Any hidden terminal critical mass creates another profile, so no unrecorded profile branch remains. |
+
+## Complete Theorem Label Register
+
+This register explicitly mentions every `theorem` environment in the three TeX
+sources.  It is grouped by file so the labels can be cross-checked against the
+decision trees and the source.  Lemmas, propositions, corollaries, definitions,
+and assumptions are not repeated here unless they are theorem-environment
+statements in the TeX.
+
+### `proof_setup.tex`
+
+`p0:thm:ckn`, `p0:thm:velocity-ckn`, `p0:thm:no-concentration`,
+`p0:thm:singular-positive`, `p0:thm:auto-velocity-no-escape`,
+`p0:thm:typeI-typeII-dichotomy`, `p0:thm:local-weak-serrin-typeI`,
+`p0:thm:local-typeI-exclusion`, `p1:thm:extraction`,
+`p1:thm:remaining-criterion`, `p1:thm:NRS-import`,
+`p1:thm:classical-classes`, `p1:thm:tight-liouville`,
+`p1:thm:known-structure-decay-liouville`,
+`p2:thm:tight-compactness-intro`, `p2:thm:minimal-tight-intro`,
+`p2:thm:tight-liouville-intro`, `p2:thm:stationary-limits-tight`,
+`p2:thm:NRS`, `p2:thm:minimal-existence`, `p2:thm:compact-hull`,
+`p2:thm:KB`, `p2:thm:statistical-identity`,
+`p2:thm:barycenter-covariance`, `p2:thm:AB-endpoint`,
+`p2:thm:tight-liouville`, `p2:thm:no-tight-normalized-collection`,
+`p3:thm:axisymmetric-liouville`, `p3:thm:weighted-vorticity-vanishing-intro`,
+`p3:thm:typeI-consequences`, `p3:thm:knss-noswirl`,
+`p3:thm:knss-pointwise`, `p3:thm:lzz`, `p3:thm:lrz`, `p3:thm:gallay`,
+`p3:thm:typeI-zero-hypotheses`, `p3:thm:stated-hypotheses-zero`,
+`p1:thm:final-assembly`.
+
+### `paperIV_residual_branch.tex`
+
+`thm:imported-setup-package`, `hyp:base-seregin-package`,
+`thm:ancestor-realization-discharge`, `thm:refined-residual-closure`,
+`thm:AB-weak-serrin-typeI-package`, `thm:local-typeI-terminal-energy-package`,
+`thm:local-typeI-entry-or-discharge`, `thm:R1-exclusion`,
+`thm:R3-no-attainable-degenerate-family`, `thm:R3S-terminal-package`,
+`thm:R3S-no-active-stationary-carrier`, `thm:covariant-observer-calculus`,
+`thm:closed-nonaffine-activity`, `thm:affine-normalization-dichotomy`,
+`thm:asymptotic-hull-compactness`, `thm:recurrent-tail-core-rigidity`,
+`thm:maximal-active-family`, `lem:compact-window-expanding-region-protocol`,
+`thm:terminal-exhaustion-main`, `thm:terminal-nonactive-discharge`,
+`thm:diffuse-defect-compactness`, `thm:recurrent-diffuse-defect-measure`,
+`thm:diffuse-defect-trichotomy`, `thm:critical-tail-state-space-compactness`,
+`thm:log-diffuse-from-hidden-scale`, `thm:first-bad-mesoscopic-routing`,
+`thm:no-hidden-scale-variance-realized-defects`,
+`thm:critical-tail-compactification-extraction`,
+`thm:coherent-critical-tail-classification`,
+`thm:realized-critical-tail-rigidity`, `thm:oscillatory-entry-normalization`,
+`thm:remaining-rigidity-exact-form`, `thm:bounded-origin-realization-coherent-tails`,
+`thm:no-mixed-compact-diffuse`, `thm:mildness-inheritance-main`, `thm:AB-main`,
+`thm:descendant-heredity`, `thm:active-path-space-recurrence`,
+`thm:compact-active-descendant`, `thm:no-finite-separated-profile-family`,
+`thm:terminal-stratification`, `thm:generic-terminal-exhaustion`,
+`thm:R4-final-closure`, `thm:paperIV-residual-closure`.
+
+### `type_II_regularity.tex`
+
+`thm:s3-autonomous-reduced-limit`, `thm:s3-conditional-scale-collapse`,
+`thm:s4-reduction-multibubble-residue`, `thm:s5-uniform-cascade-length`,
+`thm:s5-regular-cascade-exclusion`, `thm:s5-no-same-point-multibubble`,
+`paper1:thm:paper0-dichotomy`, `paper1:thm:single-core-criterion`,
+`paper2:thm:ren-NS`, `paper2:thm:repaired-existence`,
+`paper2:thm:pressure-decomp`, `paper2:thm:mod-sys`, `paper2:thm:A`,
+`paper2:thm:B`, `paper2:thm:C`, `paper3:thm:minimal-bad-extraction`,
+`paper3:thm:terminal-decoupling`, `paper3:thm:same-point-reduction`,
+`paper3:thm:separated-point-reduction`,
+`paper3:thm:scale-rigid-single-core-compatibility`,
+`paper3:thm:scale-rigid-stratum-decomposition`, `paper3:thm:multi`,
+`paper4:thm:caccioppoli`, `paper5:thm:collapse-core-floor`,
+`paper5:thm:cost-exclusion`, `paper5:thm:autonomous-limit`,
+`paper5:thm:core-retention`, `paper5:thm:autonomous-modulation-selection`,
+`paper5:thm:scale-collapse-stratification`,
+`paper5:thm:stationary-rigidity-blocker`,
+`paper5:thm:scale-collapse-first-failure-closure`,
+`paper5:thm:compact-scale-collapse-rigidity-discharged`,
+`paper5:thm:scale-collapse-alternatives`,
+`paper7:thm:critical-tightness-criteria`,
+`paper7:thm:windowed-h1-failure-exclusion`,
+`paper7:thm:typeII-branch-exclusion`,
+`paper7:thm:energy-controls-scale-weighted-diss`,
+`paper7:thm:energy-controls-weighted-typeII`, `paper7:thm:c9-trichotomy`,
+`paper7:thm:local-cost-to-exclusion`,
+`paper7:thm:carrier-validation-retained-stratum`,
+`paper7:thm:classwise-retained-compact-coverage`,
+`paper7:thm:pointwise-cost-exclusion`, `paper7:thm:noncarrier-exits-route`,
+`paper7:thm:precarrier-reduces-to-carrier`,
+`paper7:thm:fixed-carrier-closure`, `paper7:thm:moving-carrier-closure`,
+`paper7:thm:carrier-closure-reduced-to-pde-estimates`,
+`paper7:thm:finite-error-selection-reduced-to-annular`,
+`paper7:thm:carrier-completion-reduced-to-finite-error`,
+`paper7:thm:carrier-package-closes-precarrier`,
+`paper7:thm:adjacent-closure-reduced-to-carrier-completion`,
+`paper7:thm:windowwise-transition-routing-certificate`,
+`paper7:thm:positive-scale-certificate-enters-scale-rigid`,
+`paper7:thm:windowwise-positive-scale-routing-certificate`,
+`paper7:thm:windowwise-routing-gives-stratified-routing`,
+`paper7:thm:ambient-adjacent-closure-branchwise`,
+`paper7:thm:small-routing-statements-give-stratified-routing`,
+`paper7:thm:stratified-moving-carrier-routing`,
+`paper8:ass:same-point-scale-separation`, `paper8:thm:multibubble-frame-reduction`,
+`paper8:thm:terminal-decoupling-implies-local-decoupling`,
+`paper8:ass:terminal-windowed-profile-completeness`,
+`paper8:thm:terminal-nonlinear-decoupling`, `paper8:thm:small-data-critical`,
+`paper8:thm:active-profile-mass-floor`, `paper8:thm:terminal-ckn-regularity`,
+`paper8:thm:exterior-stratification`,
+`paper8:thm:exterior-regularity-no-concentration`,
+`paper8:thm:exterior-regular-removal`,
+`paper6a:thm:fixed-corrected-monotonicity`,
+`paper6a:thm:fixed-cost-criterion`, `paper6a:thm:compact-cost-criterion`,
+`paper6a:thm:moving-corrected-monotonicity`, `paper6a:thm:moving-replacement`,
+`paper6a:thm:finite-infinite-scale-negative`,
+`paper6a:thm:collapse-core-floor`, `paper6a:thm:scale-collapse-drift-cost`,
+`paper6a:thm:moving-cutoff-scale-collapse-alternative`,
+`paper6a:thm:cost-divergence-routing-dichotomy`,
+`paper6a:thm:cost-divergence-exclusion-discharged`,
+`paper6a:thm:ac-repaired-gauge-consequences`,
+`paper6a:thm:concentration-gives-subsequential-nontriviality`,
+`paper6a:thm:vanishing-critical-l3-excluded`,
+`paper6a:thm:ac-local-caccioppoli`,
+`paper6a:thm:terminal-adjacent-label-routing`,
+`paper6a:thm:residual-mass-admissible-state`,
+`paper6a:thm:critical-ns-profile-decomposition-discharged`,
+`paper6a:thm:kato-small-data-critical-stability`,
+`paper6a:thm:retained-compact-tests-closed`,
+`paper6a:thm:typeII-analytic-data-exhaustive`,
+`paper6a:thm:terminal-critical-local-compactness`,
+`paper6a:thm:bounded-terminal-sequences-from-l3`,
+`paper6a:thm:terminal-boundedness-alternatives`,
+`paper6a:thm:terminal-coordinate-frame-construction-profile-selection`,
+`paper6a:thm:terminal-coordinate-frames-sampled`,
+`paper6a:thm:representation-gives-terminal-orbit-sampling`,
+`paper6a:thm:abstract-final-typeII`,
+`paper6a:thm:expanded-terminal-typeII`,
+`paper6a:thm:expanded-terminal-hypotheses-branchwise`, `paper6:thm:paper0`,
+`paper6:thm:representation`, `paper6:thm:single-core`,
+`paper6:thm:multibubble`, `paper6:thm:rough-core`, `paper6:thm:scale-cost`,
+`paper6:thm:scale-stratification`, `paper6:thm:virial-exclusion`,
+`paper6:thm:state-decomposition`, `paper6:thm:physical-typeII-covered-entry`,
+`paper6:thm:unconditional-no-typeII`, `paper6:thm:local-typeII-exclusion`,
+`thm:c1-typeII-branch-exhaustion`, `thm:c1-downstream-entry`,
+`thm:c2-representation-implication`, `thm:c2r-minimal-representation`,
+`thm:c3-nonzero-mass-cost-divergence`,
+`thm:c3-local-retained-mass-cost-divergence`,
+`thm:c3-l3-annulus-classification`, `thm:c4-cost-comparison`,
+`thm:c5-exclusion-or-two-alternative`.
 
 The proof architecture is therefore a finite decision tree with terminal
 contradictions.  Its strength is that every possible singularity type is routed

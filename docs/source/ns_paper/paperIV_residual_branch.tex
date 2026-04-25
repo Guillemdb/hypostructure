@@ -83,7 +83,39 @@
 \newcommand{\actthree}{\operatorname{osc}_{3,\mathrm{ct}}}
 \newcommand{\bP}{\mathbb P}
 \newcommand{\NoResidual}{\mathsf{NoResidual}}
-\newcommand{\SetupLabel}[1]{\textup{\texttt{#1}}}
+% SetupLabel: render each imported setup-paper result by final companion-paper
+% theorem/lemma/proposition number, while retaining the stable source label as a
+% parenthetical audit key.
+\makeatletter
+\newcommand{\SetupNum}[2]{\expandafter\gdef\csname SetupNum@#1\endcsname{#2}}
+\SetupNum{p0:thm:singular-positive}{Theorem~5.7}
+\SetupNum{p0:prop:concentration-package}{Proposition~5.9}
+\SetupNum{p0:thm:local-weak-serrin-typeI}{Theorem~8.3}
+\SetupNum{p0:cor:paper0-local-typeI-admissible}{Corollary~8.4}
+\SetupNum{p0:lem:local-seregin-extraction}{Lemma~8.6}
+\SetupNum{p1:thm:extraction}{Theorem~9.1}
+\SetupNum{p1:prop:ancient-limit}{Proposition~11.12}
+\SetupNum{p1:prop:nonzero}{Proposition~12.2}
+\SetupNum{p1:lem:pressure}{Lemma~11.2}
+\SetupNum{p1:lem:gauge-compatibility}{Lemma~11.3}
+\SetupNum{p1:lem:pressure-atlas}{Lemma~11.4}
+\SetupNum{p1:lem:mild-representation}{Lemma~15.3}
+\SetupNum{p2:lem:mild-limit}{Lemma~20.4}
+\SetupNum{p2:lem:physical-mild}{Lemma~25.4}
+\SetupNum{p1:thm:classical-classes}{Theorem~15.8}
+\SetupNum{p1:thm:known-structure-decay-liouville}{Theorem~15.10}
+\SetupNum{p2:thm:no-tight-normalized-collection}{Theorem~26.1}
+\SetupNum{p2:thm:tight-liouville}{Theorem~25.8}
+\SetupNum{p2:thm:AB-endpoint}{Theorem~25.5}
+\SetupNum{p1:hyp:no-remainder}{Hypothesis~16.1}
+\SetupNum{p1:thm:final-assembly}{Theorem~33.1}
+\newcommand{\SetupLabel}[1]{%
+   \@ifundefined{SetupNum@#1}%
+      {\textup{\texttt{#1}}}%
+      {\csname SetupNum@#1\endcsname\ of the setup paper%
+       \textup{ (\texttt{#1})}}%
+}
+\makeatother
 
 \title[Residual Type I Seregin limit exclusion]
 {Local Exclusion of Residual Type I Navier--Stokes Seregin Limits}
@@ -98,45 +130,19 @@
 \raggedbottom
 
 \begin{abstract}
-This paper gives the refined residual analysis for Type I
-Navier--Stokes Seregin limits.  A finite-energy local pointwise Type I
-singularity for a suitable weak solution produces, through the endpoint weak
-Serrin local Type~I bounds, terminal no-escape, and the Seregin blow-up
-procedure, a nonzero bounded ancient solution of the centered self-similar
-Navier--Stokes equation carrying positive local velocity \(L^3\)-mass.  After the
-previously treated small, stationary \(L^3\), uniformly \(L^3\)-tight, and
-closed structured/decay alternatives have been removed, the remaining
-residual class is divided into four analytic classes: axisymmetric
-bounded-circulation profiles, rotational relative equilibria, degenerate
-stationary-hull profiles with retained local velocity concentration, and the generic
-terminal residual.  The terminal case is then refined into the
-affine/parasitic quotient stratum, log-diffuse and Young critical-tail
-alternatives, coherent homogeneous/log-periodic/aperiodic critical tails, and
-the final generic residual class.
-
-The first class is excluded by a centered angular-circulation equation and an
-axis-absorption Liouville theorem.  The second class is closed by a local
-Coriolis-flux identity and a local concentration decomposition: a superthreshold
-rotational flux gives a nontrivial recentered local profile, while a subthreshold flux
-remains inside the compact local limiting equation.  The third class is
-reduced, by scale reselection for time-translation hulls, to a stationary
-profile in a degenerate stationary family which occurs as a Seregin limit
-and still carries local velocity concentration; it is then excluded by the terminal
-stratification assembly theorem.  The final class is reduced by covariant tail
-normalization, concentration-set extraction, diffuse-defect compactness,
-critical-tail compactification, recurrence for chains of concentration profiles,
-exclusion of finite separated concentration profiles, indecomposable-profile sequence-\(L^3\)
-completeness, parasitic-free mildness inheritance, and the Albritton--Barker
-endpoint Liouville theorem.  The paper distinguishes statements inherited from
-the setup paper, local compactness estimates and reduction results
-proved here, and the minimal mesoscopic-scale reduction theorem which
-excludes the critical-tail boundary defects.  The affine stratum and the coherent
-critical-tail alternatives are closed here; the log-diffuse and Young
-alternatives are both reduced to the same minimal mesoscopic-scale theorem, which is then
-proved by pressure compactness and a bounded ancient variance Liouville
-argument.  No global
-Coriolis--Leray Liouville theorem for bounded profiles or global critical-norm
-estimate is used in the residual closure.
+This paper proves the residual-class hypothesis left open by the companion
+setup paper for local pointwise Type-I Navier--Stokes blow-up.  Starting from
+the setup Seregin extraction, every remaining bounded centered ancient profile
+with retained local velocity \(L^3\)-concentration is assigned to an ordered
+residual decomposition.  Axisymmetric bounded-circulation profiles are excluded
+by a centered angular-circulation absorption argument.  Rotational and
+stationary-hull profiles are routed to a terminal concentration package.  The
+generic terminal branch is closed by a local concentration-set decomposition,
+diffuse-defect and critical-tail compactifications, a minimal mesoscopic-scale
+rigidity theorem, exclusion of separated retained profiles, and an endpoint
+sequence-\(L^3\) Liouville argument for bounded mild ancient solutions.  No
+global critical-norm estimate or global Liouville theorem for bounded centered
+profiles is used.
 \end{abstract}
 
 \maketitle
@@ -179,7 +185,7 @@ function of time.  Conversely,
 The purpose of this paper is to present the refined residual decomposition as a
 single standard PDE argument, using only the reductions already established in
 the companion setup paper.  In this two-paper presentation, the current paper
-depends only on the imported setup theorem stated below and on cited
+depends only on the imported setup package stated below and on cited
 Navier--Stokes regularity and Liouville literature
 \cite{KNSS2009,Seregin2012}.  The
 rotational-flux estimates, terminal concentration-set decompositions,
@@ -194,6 +200,59 @@ prove that the residual alternative left open there is empty, namely
    \NoResidual:\qquad
    \calR^\#(\calS;I,J)=\varnothing .
 \]
+
+\subsection{Proof architecture}
+\label{subsec:proof-architecture}
+The retained normalized residual class \(\calR^\#(\calS;I,J)\) of
+\Cref{def:coarse-residual} is the complement, inside the normalized Seregin
+collection \(\calS\), of the alternatives already removed in the setup paper.
+After the previously treated small, stationary \(L^3\), uniformly
+\(L^3\)-tight, and closed structured/decay alternatives have been removed
+(\Cref{hyp:previous-nonresidual}), \(\calR^\#(\calS;I,J)\) is divided in
+\Cref{def:refined-decomposition} into four analytic classes -- axisymmetric
+bounded-circulation profiles \(\Cax\), rotational relative equilibria
+\(\Crot\), degenerate stationary-hull profiles with retained local velocity
+concentration \(\Cstat\), and the generic terminal residual \(\Cgen\) -- and
+the terminal generic case is itself refined into the affine/parasitic quotient
+stratum \(\Caff\), the log-diffuse and Young critical-tail alternatives
+\(\Clogdiff,\Cyoung\), the coherent homogeneous, log-periodic, and aperiodic
+critical-tail alternatives \(\Chomcrit,\Clogper,\Capcrit\), and the residual
+remainder \(\Cgen\).
+
+The closure of these classes is organized as follows.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+   \item \(\Cax\) is excluded directly by a centered angular-circulation
+   equation and an axis-absorption Liouville theorem
+   (\Cref{thm:R1-exclusion}).
+   \item \(\Crot\) is routed by a local Coriolis-flux identity into either
+   setup-closed lower classes or the terminal stratification assembly
+   (\Cref{prop:R2-routing-to-terminal}); its closure is obtained only
+   after the terminal assembly has excluded retained velocity concentration
+   profiles.
+   \item \(\Cstat\) is reduced, by scale reselection for time-translation
+   hulls, to a stationary profile in a degenerate stationary family which
+   occurs as a Seregin limit and still carries local velocity concentration,
+   and is then excluded by the terminal stratification assembly theorem
+   (\Cref{prop:R3S-R3-terminal-routing}).
+   \item \(\Cgen\) and the critical-tail subclasses are closed by covariant
+   tail normalization, concentration-set extraction, diffuse-defect
+   compactness, critical-tail compactification, recurrence for chains of
+   concentration profiles, exclusion of finite separated concentration
+   profiles, indecomposable-profile sequence-\(L^3\) completeness,
+   parasitic-free mildness inheritance, and the Albritton--Barker endpoint
+   Liouville theorem.
+\end{enumerate}
+The paper distinguishes statements inherited from the setup paper, local
+compactness estimates and reduction results proved here, and the minimal
+mesoscopic-scale reduction theorem
+(\Cref{thm:first-bad-mesoscopic-routing}) which excludes the
+critical-tail boundary defects.  The affine stratum and the coherent
+critical-tail alternatives are closed here; the log-diffuse and Young
+alternatives are both reduced to the same minimal mesoscopic-scale theorem,
+which is then proved by pressure compactness and a bounded ancient variance
+Liouville argument.  No global Coriolis--Leray Liouville theorem for bounded
+profiles or global critical-norm estimate is used in the residual closure.
+A short reader's guide is given in \Cref{subsec:reading-guide} below.
 
 \begin{definition}[Type I convention used in the chain]
 \label{def:pointwise-typeI-convention}
@@ -238,7 +297,7 @@ present exclusion applies.
 \subsection{Imported setup results and remaining hypothesis}
 \label{subsec:imported-setup-package}
 
-\begin{theorem}[Imported setup theorem]
+\begin{theorem}[Imported setup package]
 \label{thm:imported-setup-package}
 The companion setup paper proves the following facts, in the exact theorem
 labels listed below.
@@ -254,7 +313,7 @@ labels listed below.
    concentration.
    \begin{quote}\small
    \SetupLabel{p0:thm:local-weak-serrin-typeI}\\
-   \SetupLabel{p0:cor:paper0-local-typeI-bridge-admissible}\\
+   \SetupLabel{p0:cor:paper0-local-typeI-admissible}\\
    \SetupLabel{p0:lem:local-seregin-extraction}
    \end{quote}
    \item Every normalized Seregin limit produced by this extraction is a
@@ -298,7 +357,7 @@ The purpose of the present paper is exactly to prove
 
 \begin{remark}[Use of imported labels]
 \label{rem:imported-label-convention}
-Below, the phrase ``by the imported setup theorem'' means that the terminal
+Below, the phrase ``by the imported setup package'' means that the terminal
 profile is bounded, locally suitable, pressure-normalized by the setup pressure
 atlas, parasitic-free modulo the affine class, and mild after finite terminal
 shift, with the exact imported labels listed in
@@ -475,7 +534,7 @@ following operations:
    \item unreduced parabolic recenterings before passing to centered variables, with
    the local pressure gauges supplied by Seregin compactness;
    \item retained tail limits or concentrating successors with
-   \(\Vel_1\ge\eps_*\) after the fixed admissible pressure gauges;
+   \(\Vel_1\ge\eta_*\) after the fixed admissible pressure gauges;
    \item normalized diffuse or critical-tail defect limits obtained by
    restricting the associated defect measure to a positive-measure window and
    renormalizing it;
@@ -546,7 +605,7 @@ sense of \Cref{def:ancestor-realized-residual-object}.  More precisely, each
 such limit satisfies one of the following alternatives.
 \begin{enumerate}[label=\textup{(\alph*)}]
    \item It is a retained Seregin descendant of the original candidate, with
-   the fixed descendant lower bound \(\Vel_1\ge\eps_*\).
+   the fixed descendant lower bound \(\Vel_1\ge\eta_*\).
    \item It is a normalized defect profile whose unnormalized defect
    measure has positive total mass on the selected window.  If every normalized
    window descendant is excluded, then the original defect is excluded.
@@ -672,7 +731,7 @@ exclusion of all reduced cases.  The dependency order is recorded in
 \endhead
 \hline
 \endfoot
-Imported setup theorem &
+Imported setup package &
 Setup paper only: local concentration, local Type~I bridge, normalized
 Seregin extraction, pressure atlas, lower classes, mildness, and conditional
 final assembly. &
@@ -685,10 +744,18 @@ R2 routing &
 Rotational flux identities and finite unit-cylinder velocity concentration
 cover; closure is obtained only after terminal stratification. &
 R2 closure or terminal stratification conclusion.\\
+R2 closure &
+R2 routing, terminal stratification assembly, finite separated-family exclusion,
+and no atomic active profile. &
+Standalone rotational Liouville theorem.\\
 R3 routing &
 Hull realization, centered scale reselection, and retained velocity heredity;
 closure is obtained only after terminal stratification. &
 R3 closure or terminal stratification conclusion.\\
+R3 closure &
+R3 routing, terminal stratification assembly, sequence-\(L^3\), and endpoint
+atomic contradiction. &
+Premature stationary-hull exclusion.\\
 Concentration-set extraction &
 Local compactness, local defect measures, compact observer windows, and pressure
 atlas. &
@@ -743,6 +810,53 @@ This is the final two-paper consequence recorded in
 \Cref{cor:two-paper-local-typeI-exclusion}; it is stated here only to identify
 the consequence of residual closure.
 \end{proof}
+
+\subsection{How to read the proof}
+\label{subsec:reading-guide}
+
+A reader interested only in the residual closure can navigate the paper as
+follows.  The proof is read top-down by class.
+
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+   \item \emph{Setup interface and Type-I bridge}
+   (\Cref{subsec:imported-setup-package,sec:local-typeI-bridge}). Records the
+   setup outputs used here as black boxes and verifies that local pointwise
+   Type-I singularities enter the admissible Seregin framework.
+   \item \emph{Residual decomposition} (\Cref{def:refined-decomposition}).
+   The ordered list of alternatives is
+   \[
+      \Cax,\ \Crot,\ \Cstat,\ \Caff,\ \Clogdiff,\quad
+      \Cyoung,\ \Chomcrit,\ \Clogper,\ \Capcrit,\ \Cgen .
+   \]
+   The inherited ledger of allowed limiting operations is recorded in
+   \Cref{thm:ancestor-realization-discharge}.
+   \item \emph{Class \(\Cax\)}. Centered angular-circulation equation
+   (\Cref{lem:centered-circulation-equation}), one-dimensional killed radial
+   absorption, axis-absorption Liouville theorem, closure
+   (\Cref{thm:R1-exclusion}).
+   \item \emph{Class \(\Crot\)}. Coriolis Bernoulli identity, local flux
+   dichotomy, routing proposition
+   (\Cref{prop:R2-routing-to-terminal}).  Closure deferred until the terminal
+   stratification assembly.
+   \item \emph{Class \(\Cstat\)}. Stationary phase space, hull realization,
+   centered scale reselection, routing
+   (\Cref{prop:R3-stationary-hull-routing,prop:R3S-R3-terminal-routing}).
+   Closure deferred until the terminal stratification assembly.
+   \item \emph{Generic terminal residual}. Tail geometry and covariant observer
+   calculus, asymptotic hull, recurrent-core rigidity, terminal concentration
+   profiles, separated-profile theory, Albritton--Barker endpoint, generic
+   exhaustion (\Cref{thm:terminal-stratification,thm:R4-final-closure}).
+   \item \emph{Final assembly} (\Cref{sec:final-assembly}). Combines all
+   class closures and the deferred lower-class arguments.
+\end{enumerate}
+
+A reader who only wants to see the central technical core can read in this
+order: the asymptotic hull and recurrent-core rigidity, the terminal
+concentration-set extraction, the diffuse-defect compactification, the
+critical-tail compactification, and the minimal mesoscopic-scale reduction
+theorem (\Cref{thm:first-bad-mesoscopic-routing}).  Everything else is
+either bookkeeping for the residual decomposition or routing of the four
+analytic classes into this terminal core.
 
 \subsection{Local Type I singularities enter the terminal concentration framework}
 \label{sec:local-typeI-bridge}
@@ -889,7 +1003,8 @@ If \(\mathfrak c\) carries retained compact velocity \(L^3\)-mass, then after
 passing to a subsequence it has no loss of local compactness in the sense of
 \Cref{def:terminal-measures}, and its recentered fields converge locally to a
 bounded suitable terminal profile.  Recenterings which do not satisfy this
-local-window condition are, by definition, assigned to the exterior or diffuse
+local-window condition are routed by the compact-window-to-expanding-region
+protocol to the exterior, diffuse, pressure/noncompact, or critical-tail
 terminal alternatives rather than to the compact local profile class.
 \end{enumerate}
 \end{proposition}
@@ -1236,7 +1351,7 @@ instead by the endpoint weak Serrin local Type~I bounds in
 \Cref{thm:AB-weak-serrin-typeI-package}.
 \end{remark}
 
-\begin{theorem}[Imported weak-Serrin local Type I estimate]
+\begin{theorem}[Setup local Type-I bridge]
 \label{thm:AB-weak-serrin-typeI-package}
 Let \((v,q)\) be a suitable weak solution in a parabolic cylinder
 \[
@@ -1245,48 +1360,42 @@ Let \((v,q)\) be a suitable weak solution in a parabolic cylinder
 Assume the local pointwise Type~I envelope
 \[
    \esssup_{t_0-\rho^2<t<t_0}
-   (t_0-t)^{1/2}\|v(t)\|_{L^\infty(B_\rho(x_0))}<\infty .
+   (t_0-t)^{1/2}\|v(t)\|_{L^\infty(B_\rho(x_0))}\le M<\infty .
 \]
-The setup paper imports the Albritton--Barker weak-Serrin estimate in the exact
-form needed here: for every \(0<\theta<1\), the scale-invariant local Type~I
-bounds are finite on \(Q_{\theta\rho}(z_0)\).  That is, there is
-\[
-   K_{\theta}<\infty
-\]
-such that every cylinder \(Q_\lambda(y,\tau)\subset Q_{\theta\rho}(z_0)\)
-satisfies
-\[
-   A(Q_\lambda(y,\tau))+C(Q_\lambda(y,\tau))
-   +D(Q_\lambda(y,\tau))+E(Q_\lambda(y,\tau))\le K_{\theta}.
-\]
-Here
-\[
-   A(Q_\lambda(y,\tau))
-   :=
-   \lambda^{-1}
-   \esssup_{\tau-\lambda^2<s<\tau}
-   \int_{B_\lambda(y)}|v(x,s)|^2\,dx ,
-\]
-and \(C,D,E\) denote the usual scale-invariant \(L^3\)-velocity,
-\(L^{3/2}\)-pressure, and dissipation quantities of
-Albritton--Barker.  The constant is allowed to depend on the local
-suitable-solution background quantities on \(Q_\rho(z_0)\), including the local
-\(C\)- and \(D\)-bounds.
+Then the setup paper proves that the terminal local energy, pressure-gauge,
+and no-escape bounds stated in
+\Cref{prop:local-typeI-terminal-compactness} hold on every smaller cylinder
+\(Q_{\theta\rho}(z_0)\) with \(0<\theta<1\), with constants depending only on
+\(\rho,\theta,M\) and on the suitability constants of \((v,q)\) on
+\(Q_\rho(z_0)\).  In particular every rescaling sequence centered at a local
+pointwise Type~I terminal singularity satisfies
+\Cref{def:admissible-local-typeI-sequence}.
 \end{theorem}
 
 \begin{proof}
-This theorem is quoted from the companion setup paper; Paper~IV does not
-reprove the weak-Serrin-to-local-Type~I estimate.  Its only role here is to put
-first-generation terminal sequences inside the admissible local-window class and
-to supply the local energy, pressure, and no-escape bounds used by
+This theorem is imported verbatim from the companion setup paper; see
+\Cref{thm:imported-setup-package}\,(2).  Paper~IV does not reprove the
+weak-Serrin-to-local-Type~I estimate or the terminal no-escape estimate.  Its
+only role here is to place first-generation terminal sequences inside the
+admissible local-window class and to supply the local energy, pressure, and
+no-escape bounds used by
 \Cref{def:first-generation-local-window-condition}.
-The local pointwise Type~I envelope is the endpoint weak-Serrin hypothesis
-\(L^{2,\infty}_tL^\infty_x\) on the cylinder.  The setup theorem cited in
-\Cref{thm:imported-setup-package} imports the Albritton--Barker local estimate
-in precisely this endpoint form and supplies the constants needed for terminal
-no-escape.  Paper~IV uses only this endpoint consequence, not a broader
-restatement of the weak-Serrin theorem.
 \end{proof}
+
+\begin{remark}[Albritton--Barker as the underlying input]
+\label{rem:AB-underlying-input}
+The setup proof of
+\Cref{thm:AB-weak-serrin-typeI-package} relies on the Albritton--Barker
+endpoint weak-Serrin estimate, which gives finite scale-invariant
+\(A,C,D,E\)-quantities on every \(Q_{\theta\rho}(z_0)\) under the local
+pointwise Type~I envelope.  The constants depend on local suitable-solution
+background quantities on \(Q_\rho(z_0)\), with no circularity because the
+input envelope and the suitable-solution data are part of the hypothesis
+data of the cylinder \(Q_\rho(z_0)\), while the conclusion is restricted to
+\(Q_{\theta\rho}(z_0)\).  The detailed weak-Serrin discussion belongs to the
+setup paper; it is recalled here only to identify the source of the constants
+used in \Cref{prop:local-typeI-terminal-compactness}.
+\end{remark}
 
 \begin{theorem}[Local pointwise Type I implies terminal no-escape]
 \label{thm:local-typeI-terminal-energy-package}
@@ -1840,14 +1949,15 @@ structured class.
 \(\Crot\) residual profile &
 \textbf{Criterion.}  Rotational relative equilibrium
 \(V(y,\tau)=Q(\tau)W(Q(\tau)^Ty)\), \(Q(\tau)=e^{\tau\Omega}\).
-\textbf{Exclusion.}  Localized Coriolis-flux reduction into the terminal local
-concentration decomposition.
+\textbf{Routing/closure.}  Localized Coriolis-flux reduction routes the profile
+into setup-closed lower classes or the terminal velocity-concentration
+decomposition; closure is only after terminal stratification assembly.
 \textbf{Link.}  \Cref{cor:R2-closure}.\\
 
 \(\Cstat\) residual profile &
 \textbf{Criterion.}  Degenerate stationary-hull retained profile: along
 time translations \(T_{s_k}V\to W\), where \(W\) is stationary and
-\(\Vel_1(W;0)\ge\eps_*\).
+\(\Vel_1(W;0)\ge\eta_*\).
 \textbf{Exclusion.}  Scale reselection reduces to a stationary retained
 concentration profile, then terminal concentration excludes it.
 \textbf{Link.}  \Cref{cor:R3-closure}.\\
@@ -1988,10 +2098,10 @@ These two quantities are never identified.
 
 \begin{definition}[Retained local velocity concentration and CKN activity]
 \label{def:retained-active-main}
-Fix \(\eps_*>0\).  A terminal profile \((U,\Pi)\) has retained local
+Fix \(0<\eta_*,\eps_*<\infty\).  A terminal profile \((U,\Pi)\) has retained local
 velocity concentration if, after the terminal normalization under consideration,
 \[
-   \Vel_1(U;0)\ge \eps_* .
+   \Vel_1(U;0)\ge \eta_* .
 \]
 It has retained CKN activity if
 \[
@@ -2008,22 +2118,28 @@ below.
 \label{def:threshold-hierarchy}
 The constants used in the terminal concentration argument are chosen in the following order.
 The compact velocity lower bounds \(\eta_0\) and \(\eta_v\) are supplied by
-the imported setup theorem and the local concentration input of the companion
+the imported setup package and the local concentration input of the companion
 setup paper, respectively.  The local small-data threshold
 \(\eps_{\rm sd}\) is then fixed with
 \[
    0<\eps_{\rm sd}\le \min\{\eta_0,\eta_v,\eps_{\CKN}\},
 \]
 where \(\eps_{\CKN}\) denotes the universal CKN regularity threshold whenever
-that threshold is invoked.  The retained descendant threshold \(\eps_*\) is
-chosen after the pressure gauges and compactness topology are fixed, with
+that threshold is invoked.  The retained descendant velocity threshold
+\(\eta_*\) is chosen after the pressure gauges and compactness topology are fixed, with
+\[
+   0<\eta_*\le \frac12\eps_{\rm sd}.
+\]
+The pressure-inclusive retained CKN activity threshold \(\eps_*\) is then
+chosen with
 \[
    0<\eps_*\le \frac12\eps_{\rm sd}.
 \]
 Whenever a compactness or lower-semicontinuity passage loses a harmless fixed
-factor, \(\eps_*\) is replaced once and for all by a smaller positive value.
-No later argument chooses a new concentration threshold depending on a
-previously extracted profile tree.
+factor, the relevant threshold, \(\eta_*\) for velocity retention or
+\(\eps_*\) for pressure-inclusive CKN activity, is replaced once and for all
+by a smaller positive value.  No later argument chooses a new concentration
+threshold depending on a previously extracted profile tree.
 \end{definition}
 
 \begin{definition}[Refined residual candidate]
@@ -2080,9 +2196,12 @@ entry refers to the location where the symbol is first defined.
       compactness, not as a scale-invariant quantity.
    \item \(\mathcal A_n(z,r)\): spatial/logarithmic averaged affine-quotient
       oscillation with \(r^{-3}\) normalization, distinct from \(\calE_r\).
-   \item \(\Tcrit\): terminal profile class, \Cref{def:terminal-state-space}.
-   \item \(\Tcrit^\#\): compact normalized descendant profile class,
+   \item \(\mathfrak X_M\): bounded terminal profile class with pressure gauges,
+      \Cref{def:terminal-state-space}.
+   \item \(\mathfrak X_M^\#\): compact normalized descendant profile class,
       \Cref{def:compact-normalized-state-space}.
+   \item \(\Tcrit\): critical-tail compactification of triples
+      \((\bar W,\mathcal Y,\Lambda)\), \Cref{def:critical-diffuse-tail-strata}.
    \item \(\Caff\): affine/parasitic reduction/quotient stratum,
       \Cref{def:affine-constant-lower-stratum}; not a usual nonempty/empty PDE
       class but an exclusion label, see
@@ -2103,9 +2222,12 @@ entry refers to the location where the symbol is first defined.
    \item \(\eps_{\rm sd}\): local small-data threshold,
       \(0<\eps_{\rm sd}\le\min\{\eta_0,\eta_v,\eps_{\CKN}\}\),
       \Cref{def:threshold-hierarchy}.
-   \item \(\eps_*\): retained descendant velocity threshold,
-      \(0<\eps_*\le\eps_{\rm sd}/2\), used in
+   \item \(\eta_*\): retained descendant velocity threshold,
+      \(0<\eta_*\le\eps_{\rm sd}/2\), used in
       \Cref{def:retained-active-main} and in concentration-set extraction.
+   \item \(\eps_*\): retained CKN activity threshold,
+      \(0<\eps_*\le\eps_{\rm sd}/2\), used only for pressure-inclusive
+      CKN activity and smallness bookkeeping.
    \item \(\eps_0\): minimal mesoscopic-scale oscillation threshold; depends
       only on the hidden-scale defect lower bound and on the finite-overlap
       constants of \Cref{lem:finite-overlap-affine-oscillation}; first appears
@@ -2114,12 +2236,12 @@ entry refers to the location where the symbol is first defined.
       first introduced in \Cref{thm:active-path-space-recurrence}.
 \end{itemize}
 The thresholds are fixed in the order
-\(\eta_0,\eta_v\Rightarrow\eps_{\rm sd}\Rightarrow\eps_*\Rightarrow\eps_0,
+\(\eta_0,\eta_v\Rightarrow\eps_{\rm sd}\Rightarrow(\eta_*,\eps_*)\Rightarrow\eps_0,
 \eta_K\), and no later argument chooses a new concentration threshold depending
 on a previously extracted profile tree.  Phrases of the form ``after lowering
-the threshold'' refer either to the once-and-for-all reduction of \(\eps_*\)
-recorded in \Cref{def:threshold-hierarchy} or to a slight reduction of the
-mesoscopic threshold \(\eps_0\) recorded in
+the threshold'' refer either to the once-and-for-all reduction of \(\eta_*\)
+or \(\eps_*\) recorded in \Cref{def:threshold-hierarchy}, or to a slight
+reduction of the mesoscopic threshold \(\eps_0\) recorded in
 \Cref{lem:h2-failure-first-bad-scale}; in either case the reduction does not
 disturb earlier choices.
 
@@ -2503,6 +2625,49 @@ Iterating the block estimate yields
 \]
 which tends to \(0\) as \(s\to-\infty\).  This proves
 \eqref{eq:killed-strip-decay} directly on the infinite strip.
+
+\smallskip\noindent\emph{Truncated Feynman--Kac justification.}
+The displayed killed-kernel and survival-probability statements are first
+established on the bounded box
+\[
+   \Omega_{\varepsilon,R,L}
+   :=(\varepsilon,R)\times(-L,L)
+   \qquad (0<\varepsilon<R<\infty,\ L>0)
+\]
+with Dirichlet boundary conditions on the entire boundary of
+\(\Omega_{\varepsilon,R,L}\), where the standard killed parabolic theory
+provides a Feynman--Kac representation of the strip kernel
+\(q^{(\varepsilon,R,L)}_{s}(\rho,Z,t)\) by the killed diffusion
+\((\rho_\tau,Z_\tau)\) with drift
+\((-(\rho^{-1}+\rho/2+\beta_\tau),-(Z/2+\gamma_\tau))\) and additive Brownian
+noise.  The block survival estimate of
+\Cref{lem:one-dimensional-killed-radial-absorption} applies because the
+one-dimensional radial absorption in \(\rho\) does not depend on the
+\(Z\)-component or on \(\varepsilon\) or \(L\) once
+\(\delta\le\rho\le R-\delta\); hence
+\[
+   \sup_{(\rho,Z)\in K}q^{(\varepsilon,R,L)}_{s}(\rho,Z,t)
+   \le (1-\theta)^{\lfloor (t-s)/T\rfloor}
+\]
+holds uniformly in \(\varepsilon\) and \(L\) for any compact
+\(K\Subset (\delta,R-\delta)\times[-L_0,L_0]\) and all
+\(\varepsilon<\delta\), \(L>L_0\).  The truncated comparison
+\((W_R^\pm)_+\le q^{(\varepsilon,R,L)}_s\) on
+\(\Omega_{\varepsilon,R,L}\) then follows from the parabolic maximum
+principle applied to the truncated problem (the \(\rho=\varepsilon\)
+boundary contributes nonpositively because both \(G/M_G\) and \(h_R\) are
+bounded by \(1\), so the truncated boundary corrector
+\(\rho_{\rm tr}(\tau):=2\sup\{|G/M_G|+h_R\}\cdot
+   \mathbf 1_{\rho=\varepsilon\,\mathrm{or}\,|Z|=L}\)
+is killed by the same Dirichlet kernel and tends to zero on every fixed
+compact \(K\) as \(L\to\infty\), \(\varepsilon\downarrow0\)).  Sending
+\(L\to\infty\) recovers the half-strip
+\((\varepsilon,R)\times\mathbb R\) by monotone convergence of the killed
+semigroup; sending \(\varepsilon\downarrow0\) recovers
+\((0,R)\times\mathbb R\) using \(h_R(0)=0\) and the axis condition
+\eqref{eq:abstract-axis-zero} on \(G\); finally sending \(R\to\infty\)
+gives the global statement \eqref{eq:G-bounded-by-hR} and the conclusion
+\(G\equiv0\) as in the next paragraph.
 
 Fix \(R>1\), \(s<t\), and set
 \[
@@ -2889,8 +3054,8 @@ quotient gauge convention in \Cref{def:local-critical-quantity}.
 \begin{lemma}[Local Coriolis-flux dichotomy]
 \label{lem:R2-flux-routing-dichotomy}
 Fix \(\chi\in C_c^\infty(\mathbb R^3)\) and \(T\in(0,1]\).  Along every
-terminal extraction of a rotational relative equilibrium, exactly one of the
-following local alternatives occurs:
+terminal extraction of a rotational relative equilibrium, the following
+priority alternatives are applied:
 \begin{enumerate}[label=(\roman*)]
    \item \(\varpi\ne0\), the flux across
    \(A_\chi=\operatorname{supp}\nabla\chi\) satisfies the threshold
@@ -3111,16 +3276,16 @@ whenever the tangent \(\dot W_0\) exists and is nonzero.
 \begin{definition}[Retained local velocity concentration]
 \label{def:R3-active-profile}
 Let \((W,\Pi)\) be a stationary centered profile.  We say that \((W,\Pi)\) is
-\(\varepsilon_*\)-concentrating if it has retained velocity concentration in the normalized
+retained-stationary concentrating if it has retained velocity concentration in the normalized
 unit sense: there is a recentering/rescaling realized from the original blow-up
 sequence
 \(\mathscr T\) such that
-\begin{equation}\label{eq:R3-active-ckn}
+\begin{equation}\label{eq:R3-active-velocity}
    \Vel_1\bigl(\mathscr T W;0\bigr)
-   \ge \varepsilon_* .
+   \ge \eta_* .
 \end{equation}
 Equivalently, before the final unit normalization one may require
-\(\Vel_r(W;z_0)\ge\varepsilon_*\) for some parabolic cylinder
+\(\Vel_r(W;z_0)\ge\eta_*\) for some parabolic cylinder
 \(Q_r(z_0)\).  Unnormalized large-cylinder mass is not a retained velocity concentration
 criterion.
 \end{definition}
@@ -3145,7 +3310,7 @@ modulo admissible gauges, and such that:
    \item \(W\in\mathfrak B\) and \(\mathcal F(W)=0\);
    \item \(W\) lies on an admissible nontrivial stationary family in the sense
       of \Cref{def:R3-stationary-family};
-   \item \((W,\Pi)\) is \(\varepsilon_*\)-concentrating in the sense of
+   \item \((W,\Pi)\) is retained-stationary concentrating in the sense of
       \Cref{def:R3-active-profile};
    \item \((W,\Pi)\) is not in any previously closed stationary, structured,
       axisymmetric bounded-circulation, or rotational relative-equilibrium
@@ -3162,7 +3327,7 @@ stationary-profile exclusion.
 
 \begin{remark}[Why retained velocity concentration is necessary]
 \label{rem:R3-active-necessary}
-The condition \eqref{eq:R3-active-ckn} prevents the following logical error.  A
+The condition \eqref{eq:R3-active-velocity} prevents the following logical error.  A
 nonstationary ancient solution may have a stationary profile in its hull with
 zero local velocity mass on the relevant compact cylinders.  Excluding that stationary
 profile would not exclude the original ancient solution.  The
@@ -3315,7 +3480,7 @@ required to close the degenerate stationary-hull class with retained local
 velocity concentration.  Its proof is deferred until the terminal stratification assembly theorem
 has been established.
 
-\begin{theorem}[No degenerate stationary-family concentration profile occurs as a Seregin limit]
+\begin{proposition}[R3 degenerate stationary-family reduction target]
 \label{thm:R3-no-attainable-degenerate-family}
 Fix an admissible stationary phase space \(\mathfrak B\).  Let \((W,\Pi)\) be a
 stationary centered profile satisfying:
@@ -3324,13 +3489,15 @@ stationary centered profile satisfying:
       admissible nontrivial stationary family;
    \item \((W,\Pi)\) is a centered Type~I Seregin limit of a finite-energy
       suitable weak solution at a singular point;
-   \item \((W,\Pi)\) is \(\varepsilon_*\)-concentrating;
+   \item \((W,\Pi)\) is retained-stationary concentrating in the sense of
+      \Cref{def:R3-active-profile};
    \item \((W,\Pi)\) is not in the small, stationary \(L^3\), tight, closed
       structured/decay, axisymmetric bounded-circulation, or rotational
       relative-equilibrium classes already removed earlier in the stratification.
 \end{enumerate}
-Then no such \((W,\Pi)\) exists.
-\end{theorem}
+Then no such \((W,\Pi)\) exists after the terminal stratification assembly is
+inserted.
+\end{proposition}
 
 \begin{proof}[Proof deferred]
 The proof is given after the terminal stratification assembly theorem in
@@ -3365,7 +3532,7 @@ stratification assembly theorem.
 Let \(V\in\Cstat(\mathcal S;I,J;\mathfrak B)\).  By
 \Cref{def:R3-active-class}, there is a stationary profile \((W,\Pi)\) in the
 centered time-translation hull of \((V,P)\), and \((W,\Pi)\) is
-\(\varepsilon_*\)-concentrating.  The profile \(W\) belongs to \(\mathfrak B\), satisfies
+retained-stationary concentrating.  The profile \(W\) belongs to \(\mathfrak B\), satisfies
 \(\mathcal F(W)=0\), and lies on an admissible nontrivial stationary family.
 Moreover, by the ordered definition of \(\Cstat\), it is not
 in any of the previously closed lower classes.
@@ -3400,7 +3567,7 @@ Ne\v cas--R\r u\v zi\v cka--\v Sver\'ak Liouville theorem \cite{NRS1996},
 equivalently by the endpoint ancient Liouville theorem already recorded in
 the setup paper and cited below as \Cref{thm:AB-main}.  Hence \(W\equiv0\).  A
 zero profile has zero local velocity concentration, so it cannot be
-\(\varepsilon_*\)-concentrating.
+retained-stationary concentrating.
 \end{proof}
 
 \begin{remark}[Closure after terminal stratification assembly]
@@ -3459,17 +3626,20 @@ pressure-gauge conventions.
 
 We record the following specialization of the terminal stratification assembly
 theorem.  It is stated here exactly in the form needed for the stationary-hull
-closure with retained local velocity concentration, with proof deferred to the
-terminal section.
+closure with retained local velocity concentration as a \emph{reduction
+target}; the substantive proof is the terminal stratification proof later in
+the paper.  Following the recommendation that only one actual R3 closure
+theorem appear after terminal assembly, this statement is recorded as a
+proposition rather than a theorem.
 
-\begin{theorem}[Deferred terminal stratification corollary for R3]
+\begin{proposition}[R3 reduction target]
 \label{thm:R3S-terminal-package}
 Let \((U,\Pi)\) be a bounded centered Type~I Seregin profile satisfying local
 suitability and carrying a retained local velocity concentration, i.e. for some
-compact parabolic cylinder \(Q_r(z_0)\) and some \(\varepsilon_*>0\),
+admissible recentering/rescaling \(\mathscr T_{z_0,r}\),
 \begin{equation}\label{eq:R3S-retained-activity}
-   \Vel_r(U;z_0)
-   \ge \varepsilon_* .
+   \Vel_1\bigl(\mathscr T_{z_0,r}U;0\bigr)
+   \ge \eta_* .
 \end{equation}
 Assume that \((U,\Pi)\) is outside the previously closed small-amplitude,
 stationary \(L^3\), tight, closed structured/decay, axisymmetric
@@ -3505,7 +3675,7 @@ following hold.
    applies to any normalized residual profile satisfying
    \eqref{eq:R3S-atomic-L3-input}.
 \end{enumerate}
-\end{theorem}
+\end{proposition}
 
 \begin{proof}[Proof deferred]
 This is the R3 specialization of
@@ -3520,7 +3690,7 @@ stratification proof in
 The theorem above is a local velocity concentration statement.  It uses the local
 suitable-weak-solution compactness and pressure normalization developed from
 the Caffarelli--Kohn--Nirenberg theory \cite{CKN1982} together with the
-imported setup theorem: local positive concentration
+imported setup package: local positive concentration
 and Type~I Seregin compactness.  It then uses paired terminal
 profile decomposition, sole-source exclusions, critical-tail compactification
 with realized critical-tail rigidity, recurrence for concentration chains, and the
@@ -3556,7 +3726,7 @@ escaping recentering with local compactness or pressure-gauge failure.  Applying
 
 \subsection{Deferred stationary concentration statement}
 
-\begin{theorem}[No stationary residual concentration profile occurs as a Seregin limit]
+\begin{remark}[Deferred R3 stationary consequence]
 \label{thm:R3S-no-active-stationary-carrier}
 Let \((W,\Pi)\) be a stationary solution of the centered equation,
 \begin{equation}\label{eq:R3S-stationary-centered}
@@ -3571,21 +3741,17 @@ Assume that:
    \item \((W,\Pi)\) has retained local velocity concentration in the sense of
    \eqref{eq:R3S-retained-activity};
    \item \((W,\Pi)\) is outside all previously closed lower classes listed in
-   \Cref{thm:R3S-terminal-package};
+   \Cref{thm:R3S-terminal-package}.
 \end{enumerate}
-Then no such \((W,\Pi)\) exists.
-\end{theorem}
-
-\begin{proof}[Proof deferred]
-The proof is the stationary case of the R3 closure after
-\Cref{thm:terminal-stratification}; see \Cref{cor:R3-closure}.  This theorem is
-kept here to name the exact stationary concentration statement used by the
-stationary-hull routing.
-\end{proof}
+Then no such \((W,\Pi)\) exists.  This statement is the stationary case of
+the R3 closure after \Cref{thm:terminal-stratification}; it follows from
+\Cref{cor:R3-closure} and is recorded here only to name the exact stationary
+concentration statement used by the stationary-hull routing.
+\end{remark}
 
 \subsection{Deferred degenerate stationary-hull closure statement}
 
-\begin{corollary}[No degenerate stationary-family concentration profile occurs as a Seregin limit]
+\begin{remark}[Deferred R3 degenerate-family consequence]
 \label{cor:R3S-no-active-degenerate-family}
 Fix an admissible stationary phase space \(\mathfrak B\).  There is no stationary
 centered profile \((W,\Pi)\) satisfying all of the following conditions:
@@ -3596,16 +3762,14 @@ centered profile \((W,\Pi)\) satisfying all of the following conditions:
    \item \((W,\Pi)\) is a centered Type~I Seregin limit of a finite-energy
    suitable weak solution at a singular point;
    \item \((W,\Pi)\) has retained local velocity concentration;
-   \item \((W,\Pi)\) is outside the previously closed lower classes;
+   \item \((W,\Pi)\) is outside the previously closed lower classes.
 \end{enumerate}
-\end{corollary}
-
-\begin{proof}[Proof deferred]
-The proof is included in the post-terminal R3 closure,
-\Cref{cor:R3-closure}.  The stationary-family condition in (i) is additional
-structure; once the terminal stratification assembly theorem is available, the stationary concentration
+This statement is recorded as a deferred R3 consequence; it follows from the
+post-terminal R3 closure \Cref{cor:R3-closure}.  The stationary-family
+condition in \textup{(i)} is additional structure; once the terminal
+stratification assembly theorem is available, the stationary concentration
 argument applies to these profiles in particular.
-\end{proof}
+\end{remark}
 
 \begin{proposition}[Stationary-hull reduction to terminal stratification]
 \label{prop:R3S-R3-terminal-routing}
@@ -3948,11 +4112,13 @@ gauges.
 \end{lemma}
 
 \begin{proof}
-The compactness assertion is the standard local Seregin compactness theorem
-applied on an exhausting sequence of compact cylinders, followed by a diagonal
-argument.  The velocity convergence is upgraded to \(C^\infty_{\loc}\) for
-bounded smooth centered profiles by interior parabolic estimates for
-\eqref{eq:centered-main}; the pressure representatives converge weakly in
+On each compact cylinder \(K\), the setup local suitability, dissipation,
+strong local \(L^3\)-velocity compactness, and pressure-gauge compactness give
+a Seregin subsequential limit in the local topology of \(\mathfrak X_M\).
+Diagonalizing over the countable compact exhaustion gives the asserted
+subsequence.  For bounded smooth centered profiles, interior parabolic
+estimates for \eqref{eq:centered-main} upgrade the velocity convergence to
+\(C^\infty_{\loc}\); the pressure representatives converge weakly in
 \(L^{3/2}_{\loc}\) after the local gauges.  The formulas defining \(T_a\),
 \(\Theta_s\), \(\mathscr T_{(x,\sigma)}\), and \(S_c\) are smooth changes of
 variables and affine pressure changes on each fixed compact cylinder.  The
@@ -4398,8 +4564,22 @@ where \(d_j\) is a metric for \(C^j\)-convergence on
    \qquad
    |g_{j,k(j)}|_{\rm cov}\to\infty .
 \]
-Hence \(W\in\calH_\infty(V)\).  Sequential compactness in the metrizable local
-smooth topology gives compactness.
+Hence \(W\in\calH_\infty(V)\).  This proves closedness.
+
+To see sequential precompactness of the whole hull, let
+\(W_j\in\calH_\infty(V)\) be arbitrary.  For each \(j\), choose an escaping
+sequence \(g_{j,k}\) with \(\mathscr G_{g_{j,k}}V\to W_j\), and choose
+\(k(j)\) so that
+\[
+   |g_{j,k(j)}|_{\rm cov}\ge j,\qquad
+   d_j\!\left(\mathscr G_{g_{j,k(j)}}V,W_j\right)\le j^{-1}.
+\]
+The sequence \(\mathscr G_{g_{j,k(j)}}V\) is an escaping transformed sequence
+with the same local \(C^k\)-bounds as above, so it has a locally smooth
+convergent subsequence.  Along that subsequence, \(W_j\) converges to the same
+limit.  The closedness argument places the limit in \(\calH_\infty(V)\).
+Thus every sequence in the hull has a convergent subsequence with limit still
+in the hull; metrizability of the local smooth topology gives compactness.
 \end{proof}
 
 \begin{lemma}[Full covariant invariance of the asymptotic hull]
@@ -4528,7 +4708,7 @@ The pressure gradient is fixed by the velocity through the equation
 \]
 Thus \(W\mapsto p_i(W)\) is a continuous bounded local observable on
 \(\calM\).  The local pressure reconstruction step in
-the imported setup theorem supplies the local pressure representatives; the present
+the imported setup package supplies the local pressure representatives; the present
 argument uses only their gradients, so the additive gauges never enter.
 
 Let \(U_a\) be the unitary representation of spatial covariant translations
@@ -4644,7 +4824,7 @@ with the affine zero mode interpreted by the affine symmetry
 \Cref{lem:affine-symmetry}.  Equivalently, after applying one fixed affine
 normalization \(S_c\), the spatially homogeneous part of the core satisfies the
 bounded mild centered formulation recorded in
-the imported setup theorem.  Then
+the imported setup package.  Then
 every \(W\in\calM\) is spatially and temporally constant.
 More precisely, there exists \(m\in\R^3\) such that
 \[
@@ -4795,7 +4975,7 @@ It remains only to identify the allowed spatially homogeneous zero mode.  This
 is not a pressure-gauge assertion.  By the normalization in the setup paper
 quoted in the statement, there is one fixed affine normalization \(S_c\) for which
 the spatially homogeneous representatives satisfy the bounded mild centered
-formulation recorded in the imported setup theorem.  For a spatially constant
+formulation recorded in the imported setup package.  For a spatially constant
 mild centered solution \(B(\tau)\), the nonlinear Duhamel term in the mild
 formulation vanishes, and the Ornstein--Uhlenbeck--Stokes semigroup acts on
 constants by
@@ -4878,7 +5058,7 @@ terminal recenterings remain the ordinary parabolic recenterings of
 \Cref{def:parabolic-recentering-sequence}.
 \end{definition}
 
-\begin{definition}[Atlas-dependent defect measure and concentrating recentering sequences]
+\begin{definition}[Raw local defect measure and concentrating recentering sequences]
 \label{def:terminal-measures}
 After choosing local pressure gauges \(a_n(\tau)\), define
 \[
@@ -4889,9 +5069,11 @@ After choosing local pressure gauges \(a_n(\tau)\), define
    d\nu_n:=|\nabla V_n|^2\,dy\,d\tau .
 \]
 The measure \(\mu_n\) is the atlas-dependent Radon measure from
-\Cref{def:local-critical-quantity}.  It is used for local compactness and
-concentration-set extraction.  Scale-invariant threshold and regularity statements
-are written with \(\calE_r\).
+\Cref{def:local-critical-quantity}.  It is raw, gauge-dependent, and used on
+fixed unit observer cylinders for local compactness and concentration-set
+extraction.  It is not a scale-invariant CKN measure.  Scale-invariant
+threshold and regularity statements at arbitrary radius are written with
+\(\Vel_r\), \(D_r\), or \(\calE_r\).
 The local mass of a recentering sequence \(\mathfrak c=(z_n)\) is
 \[
    m(\mathfrak c):=\limsup_{n\to\infty}\mu_n(Q_1(z_n)).
@@ -4992,8 +5174,9 @@ Consequently, suppose
    \Vel_1(U;0)=0 .
 \]
 Then the velocity part of the approximating concentration vanishes in the
-limit, and the remaining lower bound is pressure-only.  Exactly one of the
-following alternatives holds:
+limit, and the remaining lower bound is pressure-only.  At least one of the
+following ordered alternatives holds; when more than one applies, the proof
+uses the first applicable alternative:
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item the pressure gauges or pressure masses are not strongly compact in the
    local \(L^{3/2}\) quotient topology on \(Q_2(0,0)\), so the recentering
@@ -5067,6 +5250,129 @@ forces a nonzero Riesz-pressure source on a finite enlargement, returning to
 certified by pressure alone.
 \end{proof}
 
+\begin{lemma}[Local pressure decomposition and pressure-only alternatives]
+\label{lem:local-pressure-decomposition}
+Let \((u_n,p_n)\) be locally suitable on a parabolic cylinder
+\(Q_4=B_4\times(-16,0)\) with \(\|u_n\|_{L^\infty(Q_4)}\le M\) and pressure
+gauges \(a_n(t)\) compatible with \Cref{def:pressure-gauge-affine-quotient}.
+Fix a compactly supported cutoff \(\chi\in C_c^\infty(B_3)\) with
+\(\chi\equiv1\) on \(B_2\).  Then on \(B_2\)
+\begin{equation}\label{eq:local-pressure-split}
+   p_n-a_n(t)=p_n^{\rm loc}+h_n,
+   \qquad
+   p_n^{\rm loc}:=\mathcal R_i\mathcal R_j(\chi u_{n,i}u_{n,j}),
+\end{equation}
+where \(h_n\) is harmonic in the spatial variables on \(B_2\) for almost
+every \(t\in(-4,0)\) and depends only on the values of
+\((u_n,p_n-a_n)\) on \(Q_4\setminus Q_2\) (the boundary data of the cutoff
+representation).  The following four properties hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \emph{Local Riesz strong continuity.} If
+   \(u_n\to0\) strongly in \(L^3(Q_4)\), then
+   \(p_n^{\rm loc}\to0\) strongly in \(L^{3/2}(Q_2)\), with
+   \(\|p_n^{\rm loc}\|_{L^{3/2}(Q_2)}\le C\|u_n\|_{L^3(Q_4)}^2\).
+   \item \emph{Harmonic moment compactness.} For every multi-index
+   \(\alpha\) with \(|\alpha|\le K\) and every Schwartz test function
+   \(\psi\) compactly supported in \(B_1\),
+   \[
+      t\mapsto \int (\partial^\alpha h_n)(x,t)\,\psi(x)\,dx
+   \]
+   is bounded uniformly in \(n\) by a constant depending only on
+   \(\|u_n\|_{L^3(Q_4)}\), \(\|p_n-a_n\|_{L^{3/2}(Q_4)}\), \(K\), and
+   \(\psi\).
+   \item \emph{Affine quotient ledger.} The quotient of \(h_n\) by spatial
+   affine functions
+   \[
+      h_n(x,t)\sim h_n(x,t)+(\alpha_n(t)+\beta_n(t)\cdot x)
+   \]
+   is bounded in any local norm by the same data; the
+   quotient \([h_n]\in D_1\) is the affine quotient of
+   \Cref{def:pressure-gauge-affine-quotient}.  If the affine part of \(h_n\)
+   is the only carrier of a positive pressure lower bound, the corresponding
+   recentering belongs to the affine/parasitic stratum \(\Caff\).
+   \item \emph{Non-affine harmonic detection.} If \([h_n]\) has a nonzero
+   limit \([h]\) in the quotient \(D_1\), then either
+   \([h]\) is purely affine (case \textup{(ii)} of
+   \Cref{lem:no-pressure-only-retained-profile}), or there is a finite
+   collection \(\{\psi_\ell\}_{\ell\le L}\) of compactly supported
+   Schwartz test functions and a multi-index \(\alpha_\ell\) with
+   \(|\alpha_\ell|=2\) such that
+   \(\int (\partial^{\alpha_\ell}h_n)\psi_\ell\,dx\) is bounded away from
+   zero on a positive-measure set of times, in which case the pressure
+   Poisson equation
+   \(-\Delta(p_n-a_n)=\partial_i\partial_j(u_{n,i}u_{n,j})\) on \(Q_4\)
+   forces a nonzero Riesz-pressure source on a finite enlargement of
+   \(B_2\), and the resulting source is detected on a neighboring unit
+   cylinder by the local Riesz strong continuity of \textup{(i)}.
+\end{enumerate}
+The conclusion of \textup{(iv)} is the precise mechanism behind the routing
+of the pressure-only case to alternative \textup{(iii)} of
+\Cref{lem:no-pressure-only-retained-profile}: a non-affine harmonic
+representative cannot survive in normalized whole-space Riesz representatives
+outside the affine quotient because such a representative is exhibited as a
+nonzero Riesz source by the displayed Poisson equation, and that source is
+then detected as a nonzero velocity-product mass on a neighboring unit
+cylinder.
+\end{lemma}
+
+\begin{proof}
+The decomposition \eqref{eq:local-pressure-split} is the standard local
+pressure cutoff: writing
+\[
+   -\Delta(p_n-a_n)=\partial_i\partial_j(u_{n,i}u_{n,j})
+\]
+on \(Q_4\) and applying the Riesz operators
+\(\mathcal R_i\mathcal R_j\) to the cutoff right-hand side
+\(\partial_i\partial_j(\chi u_{n,i}u_{n,j})\) gives a local representative of
+the velocity-product part of the pressure, and the difference
+\(h_n=p_n-a_n-p_n^{\rm loc}\) is then a harmonic function in space on
+\(B_2\) at almost every time.  This is the same construction used in the
+setup paper for the local pressure atlas
+(\Cref{thm:imported-setup-package}\,(3)).
+
+\textup{(i)} The boundedness of Riesz transforms on \(L^{3/2}\) gives
+\[
+   \|p_n^{\rm loc}\|_{L^{3/2}(Q_2)}
+   \le C\|\chi u_{n,i}u_{n,j}\|_{L^{3/2}(Q_4)}
+   \le C\|u_n\|_{L^3(Q_4)}^2 .
+\]
+Strong \(L^3\)-vanishing of \(u_n\) on \(Q_4\) thus forces strong
+\(L^{3/2}\)-vanishing of \(p_n^{\rm loc}\) on \(Q_2\).
+
+\textup{(ii)} The standard interior estimates for harmonic functions in
+\(B_2\) bound every spatial derivative of \(h_n\) on \(B_1\) by an
+\(L^{3/2}\)-norm of \(h_n\) on \(B_2\), which in turn is bounded by
+\(\|p_n-a_n\|_{L^{3/2}(Q_4)}+\|p_n^{\rm loc}\|_{L^{3/2}(Q_2)}\).  The
+displayed bound on time-integrated moments follows.
+
+\textup{(iii)} The affine subspace of harmonic functions on \(B_2\) is
+finite-dimensional; the projection onto it is bounded for any local norm.
+The quotient \([h_n]\) is therefore bounded.  By the affine pressure quotient
+fixed in \Cref{def:pressure-gauge-affine-quotient}, the affine part of \(h_n\)
+is the parasitic pressure mode allowed in \(\Caff\); a recentering with
+positive lower bound carried only by this mode is the affine/parasitic
+recentering and is recorded in \(\Caff\).
+
+\textup{(iv)} Assume the limit \([h]\) is non-affine in the quotient
+\(D_1\).  Then \([h]\) has a nonzero second spatial derivative as an
+element of the local distribution space; by the standard density of
+compactly supported smooth test functions there is a finite collection
+\(\{\psi_\ell\}_{\ell\le L}\) and multi-indices \(|\alpha_\ell|=2\) with
+\(\int (\partial^{\alpha_\ell}h)\psi_\ell\,dx\ne0\) on a positive-measure
+set of times; by stability \(\int (\partial^{\alpha_\ell}h_n)\psi_\ell\,dx\)
+is bounded away from zero for large \(n\) on the same set.  Since
+\(\partial_i\partial_j h_n=0\) on \(B_2\) (harmonicity), the same
+combination applied to the full pressure
+\(-\Delta(p_n-a_n)=\partial_i\partial_j(u_{n,i}u_{n,j})\) forces a nonzero
+contribution from the velocity-product source on a finite enlargement of
+\(B_2\).  By \textup{(i)}, this contribution is realized as a nonzero
+\(L^{3/2}\)-mass of the local Riesz pressure on a neighboring unit cylinder,
+which by the same Riesz boundedness corresponds to a nonzero
+\(L^3\)-mass of \(u_n\) on a slightly larger cylinder.  This is exactly
+alternative \textup{(iii)} of
+\Cref{lem:no-pressure-only-retained-profile}.
+\end{proof}
+
 \begin{definition}[Local-window condition for first-generation recenterings]
 \label{def:first-generation-local-window-condition}
 Let \((V_n,P_n)\) be a first-generation terminal sequence obtained by undoing
@@ -5111,7 +5417,7 @@ after lowering the retained threshold once.
 \begin{proof}
 Fix \(R,S<\infty\).  By the local-window condition, the physical image of
 \(K_{2R,2S}\) in the \(\mathfrak c\)-frame lies inside the setup local Type~I
-cylinder for all large \(n\).  The imported setup theorem therefore gives the
+cylinder for all large \(n\).  The imported setup package therefore gives the
 local energy, dissipation, velocity \(L^3\), and pressure-gauge bounds on this
 physical image, uniformly in \(n\), after the pressure gauges supplied by the
 setup atlas.  Rescaling back to the \(\mathfrak c\)-coordinates gives the
@@ -5175,8 +5481,8 @@ available on that cylinder, so the recentering cannot be treated by
 \Cref{lem:first-generation-local-window-compactness}.  The retained unit
 velocity mass gives a positive residual measure in the corresponding selected
 expanding terminal region.  Applying
-\Cref{lem:compact-window-expanding-region-protocol} to that region gives exactly
-one of the listed alternatives: a selected unit observer with velocity
+\Cref{lem:compact-window-expanding-region-protocol} to that region selects one
+of the protocol's priority alternatives: a selected unit observer with velocity
 concentration, a residual measure escaping to the observer boundary, a failure
 of local compactness or pressure-gauge compactness, or a nonzero normalized
 critical-tail scale.  These are routing alternatives, not compactness
@@ -5298,6 +5604,111 @@ here are local on \(K_m^+\); no global CKN budget or countability of concentrati
 profiles is assumed.
 \end{proof}
 
+\begin{lemma}[Closed-active-locus reduction]
+\label{lem:closed-active-locus-reduction}
+Let \(A_m^\eta\subset K_m\) be the compact concentration loci produced by
+\Cref{thm:maximal-active-family} for a rational threshold
+\(\eta\in(0,\eps_{\CKN}/2)\) and a compact observer window \(K_m\Subset Z\).
+Then \(A_m^\eta\) is a compact subset of \(K_m\) for which the following
+reduction holds.  For every open neighborhood \(O\Supset A_m^\eta\) in
+\(K_m\) there is \(N(O)\in\mathbb N\) such that for all \(n\ge N(O)\) the
+following hold simultaneously.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+   \item \emph{Sole carrier of compact retained concentration.}  Every
+   covariant unit cylinder
+   \(\mathcal Q_1^{\rm cov}(z)\subset K_m\) with center \(z\in K_m\setminus O\)
+   carries less than \(\eta\) defect mass:
+   \(M_n(z)<\eta\).
+   \item \emph{Locality of the residual.}  The residual measure
+   \(\mu_n\lfloor (K_m\setminus O)\) satisfies
+   \(\sup_{z\in K_m\setminus O} M_n(z)<\eta\); equivalently, no covariant unit
+   cylinder centered in \(K_m\setminus O\) is \(\eta\)-concentrating.
+   \item \emph{No additional compact concentration locus.}  Any further
+   Hausdorff--Fell limit point of compact \(\eta\)-concentration sets in
+   \(K_m\) is contained in \(A_m^\eta\); the compact concentration locus is
+   the unique maximal closed locus of compact retained concentration in
+   \(K_m\).
+\end{enumerate}
+Consequently, the only candidate compact carriers of retained terminal
+concentration on \(K_m\) at threshold \(\eta\) are the points of \(A_m^\eta\),
+and the trichotomy alternatives of
+\Cref{def:active-removed-residual-measure} (vanishing, diffuse, or
+noncompact residual) describe the entirety of the residual after a
+\(\rho\)-neighborhood of \(A_m^\eta\) is removed.
+\end{lemma}
+
+\begin{proof}
+Compactness of \(A_m^\eta\) is recorded in
+\Cref{thm:maximal-active-family}.  Statement \textup{(1)}--\textup{(2)} is
+the displayed residual estimate of that theorem applied with neighborhood
+\(O\) of \(A_m^\eta\).  Statement \textup{(3)} follows because every other
+compact \(\eta\)-concentration limit \(A'\subset K_m\) along the same
+extraction is, by Hausdorff--Fell limit-point characterization, contained in
+\(A_m^\eta\): otherwise a point \(z'\in A'\setminus A_m^\eta\) would carry a
+covariant unit defect mass \(\ge\eta\) and could not be evicted from
+\(K_m\setminus O\) for \(O\) any open neighborhood of \(A_m^\eta\),
+contradicting \textup{(1)}.  The trichotomy then exhausts the residual on
+\(K_m\setminus U_\rho(A_m^\eta)\) by definition of
+\Cref{def:active-removed-residual-measure}.
+\end{proof}
+
+\begin{lemma}[Closed active loci reduce to single, finite separated, or chain alternatives]
+\label{lem:closed-active-locus-single-finite-chain}
+Let \(A_m^\eta\subset K_m\) be a nonempty compact active locus from
+\Cref{thm:maximal-active-family}.  For each \(z\in A_m^\eta\), choose
+centers \(z_n\in A_{n,m}^{\eta'}\), with \(\eta'<\eta\), converging to \(z\)
+in the Hausdorff--Fell realization and extract the corresponding locally
+compact retained velocity profile whenever the local-window/profile-level
+compactness hypotheses of \Cref{lem:rough-stratum-discharge} hold.  Declare two
+realized centers preliminarily related if their realizing recentering sequences
+have bounded covariant parabolic distance and converge, after the admissible
+pressure gauges and after passing to a common subsequence, to the same retained
+terminal profile class.  The non-separated local profile equivalence relation
+is the transitive closure of this preliminary relation.  Then the compact active
+locus contributes to the terminal assembly in exactly one of the following
+priority ways.
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item All realized centers in \(A_m^\eta\) lie in one equivalence class; the
+   compact active locus represents a single retained profile class.
+   \item There are at least two separated equivalence classes; choosing one
+   realizing sequence from each of finitely many such classes gives a finite
+   separated family of retained velocity concentration profiles in the sense of
+   \Cref{def:finite-separated-profile-family}.
+   \item After every finite separated subfamily has been selected, a further
+   retained active descendant remains separated from the selected family.
+   Iterating the realized descendant construction and using
+   \Cref{lem:diagonal-lifting-descendants,thm:descendant-heredity} produces an
+   infinite retained concentration chain.
+\end{enumerate}
+Thus a continuum active set is not a separate terminal alternative: after
+quotienting by non-separated local profile equivalence, it enters the terminal
+assembly as a single profile class, a finite separated family, or an infinite
+retained chain.
+\end{lemma}
+
+\begin{proof}
+The relation is an equivalence relation by construction.  If all realized
+centers are equivalent, the active locus has one non-separated local profile
+class, proving \textup{(i)}.
+
+If not, choose two inequivalent realized center sequences.  Their covariant
+distance cannot stay bounded along a subsequence that realizes the same local
+profile class, because then they would be related by the preliminary relation.
+Thus, after passing to the realizing subsequences defining the inequivalent
+classes, they are separated in the sense of
+\Cref{def:finite-separated-profile-family}.  The same argument selects any
+finite number of separated inequivalent classes, giving \textup{(ii)} whenever
+the process stops after finitely many selections.
+
+If the process does not stop, construct inductively a sequence of retained
+active descendants, each separated from the finite family already chosen.  The
+diagonal lifting lemma realizes each descendant as a recentering of the
+original terminal extraction, and descendant heredity keeps the profile in the
+same normalized retained residual class unless it has already fallen into a
+closed lower stratum.  Removing the closed lower strata, the inductive sequence
+is an infinite retained concentration chain.  This is \textup{(iii)}.
+\end{proof}
+
 \begin{definition}[Residual measure after concentration-set removal]
 \label{def:active-removed-residual-measure}
 Let \(U_\rho(A_{n,m}^{\eta})\) be the \(\rho\)-neighborhood of the concentration set in
@@ -5318,19 +5729,54 @@ escaping residual recentering loses local compactness or pressure-gauge
 control under its own normalization.
 \end{definition}
 
-\begin{lemma}[Compact-window to expanding-region terminal protocol]
+\begin{definition}[Canonical countable family of expanding terminal regions]
+\label{def:canonical-expanding-family}
+The \emph{canonical countable family} \(\mathcal E\subset 2^Z\) is the closure
+under finite intersection of the family of regions of one of the following
+elementary types:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+   \item exterior balls \(\{|y|>N\}\) with \(N\in\mathbb N\);
+   \item dyadic spatial annuli \(\{2^k<|y|<2^{k+1}\}\) with
+      \(k\in\mathbb Z\);
+   \item time slabs \(\{|\tau-q|<\ell\}\) with \(q\in\mathbb Q\) and
+      \(\ell\in\mathbb Q_{>0}\);
+   \item logarithmic annuli \(\{2^k<|y-y_0|<2^{k+1}\}\) with
+      \(y_0\in\mathbb Q^3\) and \(k\in\mathbb Z\),
+\end{enumerate}
+together with their images under finitely many covariant observer shifts
+\(T_a\) with \(a\in\mathbb Q^3\rtimes\mathbb Q\) and parabolic rescalings
+\(\Theta_s\) with \(s\in\mathbb Q\).  Equivalently, \(\mathcal E\) is the set
+of all finite intersections of the rationally parametrized images of
+\textup{(i)}--\textup{(iv)}.  This family is countable.
+
+Every concrete exterior or tail window used in the residual proof is of one
+of the following two forms: \textup{(a)} an element of \(\mathcal E\) up to
+covariant action; \textup{(b)} a multiplicative or additive scale-shift of an
+element of \(\mathcal E\) by an index-dependent parameter \(R_n\to\infty\) or
+\(R_n\downarrow0\).  In case \textup{(a)} the inclusion in \(\mathcal E\) is
+direct; in case \textup{(b)} the relevant scale-shifted region is one of the
+canonical dyadic annuli or logarithmic annuli of \(\mathcal E\) after
+substitution \(R_n\mapsto2^{k(n)}\) for an integer index \(k(n)\) chosen
+within a bounded distance from \(\log_2R_n\), at the cost of an absolute
+multiplicative loss in the captured mass.
+
+For convenience we write \(E_n^{(j)}=g_n^{(j)}\cdot E^{(j)}\), where
+\(E^{(j)}\in\mathcal E\) and \(g_n^{(j)}\) is the index-dependent covariant
+shift or scale change selecting the \(j\)-th window at time \(n\).
+\end{definition}
+
+\begin{theorem}[Compact-window to expanding-region terminal protocol]
 \label{lem:compact-window-expanding-region-protocol}
 Let \(K_m\uparrow Z\) be the compact observer exhaustion used in
 \Cref{thm:maximal-active-family}, and let \(\mu_n\) be the raw terminal defect
-measures.  Fix a countable family of selected expanding terminal regions
-\[
-   E_n^{(j)}\subset Z,\qquad j\in\mathbb N,
-\]
-where each \(E_n^{(j)}\cap K_m\) is Borel and each selected exterior or tail
-window used later is one of these regions after passing to a subsequence.  After
-one diagonal subsequence, for every \(j\), every rational \(\eta>0\), and every
-rational \(\rho>0\), exactly one of the following alternatives occurs for the
-concentration-deleted measures
+measures.  Let \(\mathcal E\) be the canonical countable family of expanding
+terminal regions of \Cref{def:canonical-expanding-family}, indexed by
+\(j\in\mathbb N\), and write \(E_n^{(j)}\subset Z\) for its members along the
+extraction.  After one diagonal subsequence, for every \(j\), every rational
+\(\eta>0\), and every rational \(\rho>0\), and for every CKN threshold
+\(\eta\le\eps_{\CKN}/2\), exactly one of the following \emph{priority
+alternatives} occurs in the order listed for the concentration-deleted
+measures
 \[
    \mu_n\lfloor\bigl(E_n^{(j)}\setminus U_\rho(A_{n,m}^{\eta})\bigr).
 \]
@@ -5342,6 +5788,11 @@ concentration-deleted measures
    \]
    and the remaining mass outside \(K_m\) tends to zero as \(m\to\infty\) along
    the selected protocol.
+   \item \emph{Compact subthreshold regular residual.}
+   A positive amount of residual mass remains in some fixed compact
+   observer window \(K_m\) after deleting \(U_\rho(A_{n,m}^{\eta})\), every
+   unit cylinder inside the residual region has CKN activity \(\calE_1<\eta\),
+   pressure gauges are compact, and no escape outside \(K_m\) takes place.
    \item \emph{Boundary diffuse defect.}  A positive amount of residual mass
    leaves every fixed \(K_m\); normalized restrictions converge on
    \(\overline Z\) to a nonzero probability measure supported on
@@ -5357,32 +5808,49 @@ concentration-deleted measures
    windows has nonzero limiting mass.  This is the critical-tail compactification
    input of \Cref{def:critical-diffuse-tail-strata}.
 \end{enumerate}
-\end{lemma}
+The priority order is: \textup{(a)} preempts the others; failing
+\textup{(a)}, the alternatives \textup{(b)}--\textup{(e)} are intrinsically
+distinct after the CKN-active deletion, with \textup{(b)} being the only
+compact-window alternative in which no unit cylinder is CKN-active above
+\(\eta\).  By \Cref{lem:compact-subthreshold-regular-residual}, alternative
+\textup{(b)} carries no retained terminal velocity concentration and is
+removed from the residual decomposition before any later use; the terminal
+stratification theorem
+\Cref{thm:terminal-stratification} therefore lists only the alternatives
+\textup{(c)}--\textup{(e)} together with the four compact retained
+alternatives proved later.
+\end{theorem}
 
 \begin{proof}
 The extraction in \Cref{thm:maximal-active-family} is already diagonal over the
 countable pairs \((m,\eta)\).  Refine it over the countable selected regions
-\(E_n^{(j)}\) and rational deletion radii \(\rho\).  If alternative
+\(E_n^{(j)}\) and rational deletion radii \(\rho\); since \(\mathcal E\) is
+itself countable by \Cref{def:canonical-expanding-family}, the resulting
+diagonal extraction is a countable refinement.  If alternative
 \textup{(a)} fails, then for some \(j,\eta,\rho\) either a positive amount of
 mass remains in some fixed compact window after deleting
 \(U_\rho(A_{n,m}^{\eta})\), or positive mass escapes every fixed compact
 window.
 
 In the first case, if a unit observer inside the residual set has velocity
-activity above the retained threshold, it is a retained active recentering.  If
-the local compactness or pressure gauges fail along the selected observer
-sequence, this is \textup{(c)}.  If compactness holds but the lower bound is
-pressure-only, \Cref{lem:no-pressure-only-retained-profile} routes it either to
-\textup{(c)}, to the affine/parasitic quotient, or to a neighboring velocity
-observer.  If every unit observer remains below threshold and compactness holds,
-the residual mass is diffuse on that compact window; after normalization it is
-the same measure-theoretic object as in \textup{(b)}, restricted to the compact
-part of \(\overline Z\).
+activity above the retained threshold, it is a retained active recentering and
+its observer cylinder is CKN-active by
+\Cref{lem:oscillation-active-implies-ckn-active}; but every CKN-active
+observer at threshold \(\eta\) has been deleted by construction, so this case
+does not occur after deletion.  If the local compactness or pressure gauges
+fail along the selected observer sequence, this is \textup{(d)}.  If
+compactness holds but the lower bound is pressure-only,
+\Cref{lem:no-pressure-only-retained-profile} routes it either to \textup{(d)},
+to the affine/parasitic quotient, or to a neighboring velocity observer.  The
+remaining sub-alternative is exactly \textup{(b)}: every unit cylinder in
+\(K_m\setminus U_\rho(A_{n,m}^{\eta})\) has CKN activity \(\calE_1<\eta\),
+pressure gauges are compact, and the residual mass is contained in
+\(K_m\) for some fixed \(m\) (no escape).
 
 In the second case, normalize the residual restrictions outside \(K_m\) and use
 weak compactness of probability measures on \(\overline Z\).  The limit has no
 mass on any compact subset of \(Z\), hence is supported on the boundary and gives
-\textup{(b)}.  Finally suppose that the residual mass is invisible at every
+\textup{(c)}.  Finally suppose that the residual mass is invisible at every
 fixed unit observer but is not lost in the compactification.  Cover the selected
 tail region by dyadic annular/logarithmic windows \(\mathcal A_{n,k}\) with
 bounded overlap, ordered by increasing \(|k|\) and then by sign.  Choose
@@ -5395,14 +5863,168 @@ bounded overlap, ordered by increasing \(|k|\) and then by sign.  Choose
    \mu_n\!\left(\mathcal A_{n,k}
       \setminus U_\rho(A_{n,m}^{\eta})\right)>0 .
 \]
-Normalize the residual measure on this selected window.  If the selected
-windows stay in a fixed logarithmic annulus, the normalized measure has a
-compact diffuse limit already covered above; otherwise the corresponding
-scales \(R_n=2^{k(n)}\) tend to \(0\) or \(\infty\), and the normalized
-annular/logarithmic measures give the critical-tail alternative
-\textup{(d)}.  This selection is local in the chosen windows and uses no global
-mass budget.
+Normalize the residual measure on this selected window.  By
+\Cref{lem:annular-tight-vs-log-escape-dichotomy}, after passing to a further
+subsequence either the normalized log-radius measures have a nonzero vague
+limit on the logarithmic compactification (case \textup{(e)}), or a fixed
+multiplicative annulus captures a positive fraction of the mass at macroscopic
+scales \(R_n\), again giving case \textup{(e)} via the macroscopic
+critical-tail input of \Cref{def:critical-diffuse-tail-strata}.  This
+selection is local in the chosen windows and uses no global mass budget.
 \end{proof}
+
+\begin{lemma}[Compact subthreshold regular residual cannot carry retained mass]
+\label{lem:compact-subthreshold-regular-residual}
+Let the residual measure
+\(\mu_{n,m,\eta,\rho}^{\rm rem}\) of
+\Cref{def:active-removed-residual-measure} fall into alternative \textup{(b)}
+of \Cref{lem:compact-window-expanding-region-protocol} at the threshold
+\(\eta\le\eps_{\CKN}/2\), where \(\eps_{\CKN}\) is the CKN smallness constant
+of \Cref{thm:imported-setup-package}\,(1).  Then the corresponding portion of
+the residual measure is supported on a relatively compact set of
+\(\eps_{\CKN}\)-regular points of the underlying suitable solutions, and the
+following two conclusions hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \emph{Local regularity.}  The compact-window residual mass is
+   carried by velocity fields which are uniformly bounded and locally
+   smooth on a slight enlargement of the selected residual region; in
+   particular it cannot accumulate retained terminal velocity concentration
+   at any compact observer.
+   \item \emph{Disjointness from singular cores.}  After alternative
+   \textup{(b)} has been recorded and removed, no surviving residual
+   measure with retained velocity concentration intersects the same compact
+   region.  Equivalently, alternative \textup{(b)} cannot coexist with a
+   retained singular concentration core inside the same compact observer
+   window after the CKN threshold has been chosen below \(\eps_{\CKN}\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Fix the compact window \(K_m\) and the deletion radius \(\rho\) provided by
+the alternative.  Let \(R_m=\dist(K_m,\partial K_{m+1})>0\).  Cover
+\(K_m\) by a finite collection of unit covariant cylinders
+\(\mathcal Q_1^{\rm cov}(z_i)\), \(i=1,\dots,N_m\), arranged so that the
+slightly enlarged cylinders \(\mathcal Q_{1+\delta}^{\rm cov}(z_i)\) with
+\(\delta\in(0,R_m/4)\) still lie in \(K_{m+1}\setminus
+U_{\rho/2}(A_{n,m}^{\eta})\) for all sufficiently large \(n\), using that the
+CKN-active locus has been deleted at radius \(\rho\) and the cylinders are
+chosen at distance \(\rho/2\) from it.
+
+By the compact subthreshold hypothesis, every such cylinder satisfies
+\[
+   \calE_1\bigl(\mathcal Q_{1+\delta}^{\rm cov}(z_i)\bigr)
+   <\eta\le \eps_{\CKN}/2 .
+\]
+The pressure gauge attached to \((U_n,\Pi_n)\) on \(K_{m+1}\) is compact in
+the relevant atlas
+(\Cref{def:terminal-measures}).  By the imported \(\eps\)-regularity criterion
+of Caffarelli--Kohn--Nirenberg, recorded in
+\Cref{thm:imported-setup-package}\,(1), each cylinder
+\(\mathcal Q_{1+\delta}^{\rm cov}(z_i)\) is \(\eps_{\CKN}\)-regular for the
+underlying suitable solution \((U_n,\Pi_n)\) along the diagonal extraction:
+the velocity is bounded by an absolute constant on
+\(\mathcal Q_1^{\rm cov}(z_i)\) and is locally smooth there.  Taking the
+finite union over \(i\) and over the at most countably many windows in
+alternative \textup{(b)} gives a uniformly bounded smooth representative of
+the velocity on a slight enlargement of the residual support, proving
+\textup{(i)}.
+
+For \textup{(ii)}, a retained singular concentration core inside the same
+compact window has, by definition of the CKN threshold below
+\(\eps_{\CKN}\), at least one CKN-active unit cylinder of mass exceeding
+\(\eta\).  All such cylinders are removed by passing to the
+concentration-deleted measure at radius \(\rho\).  The compact subthreshold
+alternative is recorded only on the complement of these cylinders.  Hence
+the compact subthreshold residual and any retained singular core are
+disjointly supported on the compact window after deletion.  In particular
+the compact subthreshold residual carries no retained terminal velocity
+concentration, and is removed from the residual decomposition before the
+terminal stratification theorem
+\Cref{thm:terminal-stratification} is applied.
+\end{proof}
+
+\begin{lemma}[Annular tight/log-escape dichotomy]
+\label{lem:annular-tight-vs-log-escape-dichotomy}
+Let \(\lambda_n\) be normalized residual probability measures on dyadic
+annuli or logarithmic windows in escaping tail regions, with
+\(\lambda_n(\mathbb R^3\setminus\{0\})=1\) and supports tending to infinity
+or to zero in the radial sense.  Then after passing to a subsequence exactly
+one of the following alternatives occurs.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+   \item \emph{Macroscopic annular tightness.}  There exist macroscopic
+   scales \(R_n\) (with \(R_n\to\infty\) or \(R_n\downarrow0\) according to
+   the observer convention) and constants \(0<a<b<\infty\) and \(\delta>0\)
+   such that
+   \[
+      \lambda_n\bigl(\{aR_n<|x|<bR_n\}\bigr)\ge\delta
+      \qquad\hbox{for all sufficiently large }n.
+   \]
+   \item \emph{Logarithmic escape.}  The pushforwards
+   \(\Lambda_n:=(\log|\cdot|)_*\lambda_n\) on \(\mathbb R\) have a nonzero
+   vague limit \(\Lambda\) on the two-point compactification
+   \(\overline{\mathbb R}_{\log}=[-\infty,+\infty]\), with \(\Lambda\)
+   charging at least one of the points \(\pm\infty\) or having no
+   exponentially decaying mass on every fixed bounded log-window.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For each \(n\) and each \(L>0\), set
+\[
+   \alpha_n(L):=\lambda_n\bigl(\{e^{-L}\le|x|\le e^L\}\bigr)
+   =\Lambda_n([-L,L]).
+\]
+Since \(\alpha_n(L)\) is non-decreasing in \(L\) and bounded above by \(1\),
+the limits
+\(\alpha(L):=\liminf_n\alpha_n(L)\) and
+\(\bar\alpha(L):=\limsup_n\alpha_n(L)\) exist and are non-decreasing in
+\(L\).  Pass to a subsequence so that \(\alpha_n(L)\to\alpha_\infty(L)\) for
+every rational \(L\), with \(\alpha_\infty\) non-decreasing and bounded by
+\(1\); set
+\[
+   m:=\sup_L \alpha_\infty(L)
+   =\lim_{L\to\infty}\alpha_\infty(L)\in[0,1] .
+\]
+
+If \(m<1\), a positive amount \(1-m\) of mass escapes every fixed bounded
+log-window in the limit; hence \(\Lambda_n\) restricted to
+\(\overline{\mathbb R}_{\log}\) has weak-\(*\) limit points charging at least
+one of \(\pm\infty\), and we are in alternative \textup{(2)}.
+
+If \(m=1\) but \(\alpha_\infty\) is not eventually constant on every bounded
+window, the same conclusion holds in the form ``no exponentially decaying
+mass on every fixed bounded log-window,'' i.e.\ \textup{(2)}.
+
+Otherwise \(m=1\) and \(\alpha_\infty\) is eventually constant: there is
+\(L_0>0\) with \(\alpha_\infty(L_0)=1\), so the \(\lambda_n\) are tight in
+the log-radius variable.  Cover \([-L_0,L_0]\) by finitely many sub-intervals
+\(I_k=[\log a_k,\log b_k]\) of length \(\le1\) with \(0<a_k<b_k<\infty\).
+At least one of these intervals carries mass at least \(1/(2N)\) along a
+further subsequence, where \(N\) is the number of intervals; that is,
+\[
+   \lambda_n\bigl(\{a_k<|x|<b_k\}\bigr)\ge \frac{1}{2N}
+\]
+for all sufficiently large \(n\).  Since the original measures live on
+escaping windows, the supports translate by index-dependent macroscopic
+scales \(R_n\); after factoring out this translation, the captured fixed
+annulus is exactly \(\{a_kR_n<|x|<b_kR_n\}\), giving alternative
+\textup{(1)}.
+\end{proof}
+
+\begin{remark}[How the dichotomy enters the protocol]
+\label{rem:annular-dichotomy-protocol}
+The dichotomy
+\Cref{lem:annular-tight-vs-log-escape-dichotomy} is invoked exactly at the
+last step of the proof of
+\Cref{lem:compact-window-expanding-region-protocol}: the normalized residual
+measure on the selected dyadic annular window is either macroscopically
+annular tight, in which case it gives the macroscopic critical-tail input of
+\Cref{def:critical-diffuse-tail-strata}, or it has nonzero logarithmic
+escape, in which case it yields the log-defect measure \(\Lambda\) used in
+the critical-tail compactification of
+\Cref{def:critical-diffuse-tail-strata}.  In both cases alternative
+\textup{(e)} of the protocol is realized.
+\end{remark}
 
 \begin{lemma}[Oscillatory observers are CKN-concentrating]
 \label{lem:oscillation-active-implies-ckn-active}
@@ -5520,7 +6142,7 @@ fixed compact observer window, the residual local CKN mass is below the chosen
 threshold in the precise concentration-deleted sense of
 \(\mu_{n,m,\eta,\rho}^{\rm rem}\) from
 \Cref{def:active-removed-residual-measure}.  The residual remainder is then of
-exactly one of the following types:
+one of the following priority types:
 \[
    \mathcal R_{\rm van},\qquad
    \mathcal R_{\rm diff},\qquad
@@ -5555,8 +6177,9 @@ their neighborhoods.
 
 If an observer sequence stays in a positive-threshold concentration set and has no
 loss of the local compactness specified in \Cref{def:terminal-measures}, then
-\Cref{lem:rough-stratum-discharge} and the standard diagonal Seregin compactness
-argument give a bounded retained terminal profile.  If such an observer
+\Cref{lem:rough-stratum-discharge} gives a bounded retained terminal profile:
+the diagonal compactness is supplied there either by the first-generation
+local-window compactness lemma or by profile-level covariant compactness.  If such an observer
 sequence loses local dissipation or pressure-gauge control, the corresponding
 remainder is \(\mathcal R_{\rm noncomp}\).
 
@@ -5604,7 +6227,7 @@ class in a positive-threshold concentration set \(A_m^\eta\) of
 \begin{lemma}[Local vanishing and exterior alternatives do not carry compact concentration]
 \label{lem:radiative-stratum-discharge}
 Let a terminal extraction inherit the positive compact velocity \(L^3\)-mass
-supplied by the imported setup theorem.  Then the retained
+supplied by the imported setup package.  Then the retained
 compact velocity mass
 cannot be carried solely by local vanishing, exterior escape, or diffuse
 exterior concentration.
@@ -5612,7 +6235,7 @@ exterior concentration.
 
 \begin{proof}
 The assertion is local.  By the local no-escape and concentration input in
-the imported setup theorem, failure of local vanishing at a singular terminal
+the imported setup package, failure of local vanishing at a singular terminal
 point gives a positive local velocity concentration sequence.  The setup paper
 carries this through the Type~I Seregin extraction as the compact velocity
 lower bound \eqref{eq:positive-velocity-main}.  Cover the fixed compact
@@ -5634,7 +6257,7 @@ escapes every bounded window.  By
 lower bound that remains in the distinguished compact window.  Finally, diffuse
 exterior concentration is defined by persistence through expanding regions
 while all fixed unit cylinders are locally vanishing.  If such a sequence
-contained the compact lower-bound threshold from the imported setup theorem, the
+contained the compact lower-bound threshold from the imported setup package, the
 positive concentration input in that framework would select a unit terminal
 cylinder with mass
 at least the retained threshold, contradicting local vanishing.  Thus none of
@@ -5657,7 +6280,7 @@ Retained recentering sequences with loss of local compactness are removed by
 diffuse exterior concentration are removed by
 \Cref{lem:radiative-stratum-discharge}.  The proof uses only the positive
 concentration input and the local compactness framework in
-the imported setup theorem, and fixed compact terminal cylinders.
+the imported setup package, and fixed compact terminal cylinders.
 \end{proof}
 
 \begin{definition}[Observer compactification]
@@ -5749,34 +6372,143 @@ escaping windows.  The proof is local on the chosen observer windows and uses no
 global critical-mass or energy budget.
 \end{proof}
 
+\begin{definition}[Defect observables]
+\label{def:diffuse-defect-observables}
+Let \(M\ge 1\) be the velocity bound of the underlying admissible class.
+Fix the following six countable families of bounded continuous observables,
+each defined on diffuse-defect-state candidates produced by
+\Cref{thm:diffuse-defect-compactness}.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+   \item \emph{Observer test functions.} A countable dense family
+   \(\{\varphi_j\}_{j\in\mathbb N}\subset C(\overline Z)\), separating
+   probability measures on the compact metrizable observer compactification
+   \(\overline Z\) of \Cref{def:observer-compactification}.
+   \item \emph{Smoothed unit-cylinder activity observables.} For each rational
+   \(z\in Z\) and each \(\eta\in\mathbb Q_{>0}\), the smooth bounded functional
+   \(\Psi_{z,\eta}\) recording the convolved CKN activity \(\calE_1\) of a
+   defect-state representative on the unit covariant cylinder
+   \(\mathcal Q_1^{\rm cov}(z)\), thresholded by a smooth cutoff at
+   \(\eta\).  This family is countable.
+   \item \emph{Compact-exhaustion cutoff observables.} For each
+   \(m\in\mathbb N\), a smooth cutoff \(\zeta_m\) supported in \(K_{m+1}\)
+   and equal to \(1\) on \(K_m\), recording the mass that the defect state
+   places on the compact exhaustion of \Cref{thm:maximal-active-family}.
+   \item \emph{Local velocity observables.} For each compact cylinder
+   \(K_m\) and each finite list \(F_1,\dots,F_N\) of polynomials of total
+   degree \(\le m\) in the variables \(W,\nabla W,\dots,\nabla^m W\), the
+   localized observable \(\int F_j(W,\nabla W,\dots)\zeta_m\,dy\,d\tau\).
+   \item \emph{Pressure-gradient observables modulo gauges.} For each
+   compactly supported divergence-free test field
+   \(\Psi\in C_c^\infty(K_m,\mathbb R^3)\) with rational coefficients in a
+   countable dense subspace, the bounded observable
+   \[
+      \mathcal P_\Psi(W,P)=\langle \nabla P,\Psi\rangle ,
+   \]
+   computed for representatives modulo the time-only and affine pressure
+   gauges of \Cref{def:pressure-gauge-affine-quotient}.
+   \item \emph{Log-annular observables.} For each rational \(\rho_0\) and
+   \(A>0\), the cutoffs
+   \(\chi_{\rho_0,A}\) of \Cref{def:log-annular-compactification} applied
+   to the log-radial pushforward of any defect representative.
+\end{enumerate}
+The combined family is countable; let \(\{\mathcal O_k\}_{k\in\mathbb N}\)
+enumerate it after fixing a uniform bound \(\|\mathcal O_k\|_\infty\le C_k\).
+\end{definition}
+
+\begin{theorem}[Construction of the diffuse-defect state space]
+\label{thm:diffuse-defect-state-space-construction}
+There exists a compact metrizable space \(X_{\rm def}\), a continuous action
+\(\sigma\colon G\times X_{\rm def}\to X_{\rm def}\) of
+\(G=\mathbb R^3\rtimes\mathbb R\), and a closed \(G\)-invariant subset
+\[
+   X_{\rm def}^{\rm anc}\subset X_{\rm def} ,
+\]
+such that every normalized diffuse-defect sequence generated by the original
+terminal sequence has a subsequential limit in \(X_{\rm def}^{\rm anc}\).
+\end{theorem}
+
+\begin{proof}
+Let \(\{\mathcal O_k\}_{k\in\mathbb N}\) be the observable family of
+\Cref{def:diffuse-defect-observables} with uniform bound
+\(\|\mathcal O_k\|_\infty\le C_k\).  Define the embedding
+\[
+   \iota\colon \omega\longmapsto
+   \bigl(\mathcal O_k(\omega)\bigr)_{k\in\mathbb N}
+   \in
+   \prod_{k\in\mathbb N}[-C_k,C_k] ,
+\]
+where \(\omega\) ranges over the diffuse-defect-state candidates produced by
+\Cref{thm:diffuse-defect-compactness}.  By Tychonoff's theorem, the product
+space
+\[
+   \mathcal X_0:=\prod_{k\in\mathbb N}[-C_k,C_k]
+\]
+is compact and metrizable (the metric
+\(d(x,y)=\sum_k 2^{-k}\frac{|x_k-y_k|}{1+|x_k-y_k|}\) generates the product
+topology).  Set
+\[
+   X_{\rm def}:=\overline{\iota(\text{all defect-state candidates})}
+   \subset \mathcal X_0 .
+\]
+\(X_{\rm def}\) is compact metrizable as a closed subset of a compact
+metrizable space.
+
+The covariant action: for each \(g=(a,s)\in G\), the pullback of every
+observable \(\mathcal O_k\) by the covariant observer map \(T_aZ_s\) is
+again an observable in the chosen family
+(\Cref{def:diffuse-defect-observables} is closed under the rational
+\(G\)-action and is dense enough that the closure under \(G\) lies in the
+same product space after a permutation of coordinates).  Hence the map
+\(\sigma_g\colon \iota(\omega)\mapsto\iota(g\cdot\omega)\) extends
+continuously to \(X_{\rm def}\), and \((g,x)\mapsto\sigma_g(x)\) is jointly
+continuous because the rational orbit on the countable family of
+observables is dense in the natural \(G\)-orbit map and convergence in
+\(X_{\rm def}\) is coordinatewise.
+
+The ancestor-realized class:
+\[
+   X_{\rm def}^{\rm anc}
+   :=
+   \overline{\iota(\text{ancestor-realized defect states})}
+   \subset X_{\rm def} ,
+\]
+where ``ancestor-realized'' means realized from the original blow-up
+sequence in the sense of
+\Cref{def:ancestor-realized-residual-object}.  This gives a closed subset of
+the compact product, and the diagonal argument below verifies that this closure
+is still represented by limits of realized states rather than by an abstract
+compactification artifact.
+
+It remains to check \(G\)-invariance of \(X_{\rm def}^{\rm anc}\) and the
+diagonal-closure property.  \(G\)-invariance follows because the covariant
+observer maps belong to the allowed realized operations.  For the
+diagonal-closure property, suppose \(\omega_j\in X_{\rm def}^{\rm anc}\) and
+\(\omega_j\to\omega\) in \(X_{\rm def}\).  By definition of the closure each
+\(\omega_j\) is a limit point of a sequence \(\iota(\omega_j^{(n)})\) with
+\(\omega_j^{(n)}\) realized from the original blow-up sequence.  Choose
+indices \(n=n(j)\) so large that \(d(\iota(\omega_j),\iota(\omega_j^{(n(j))}))
+<2^{-j}\).  Then \(\iota(\omega_j^{(n(j))})\to\iota(\omega)\), and the
+\(\omega_j^{(n(j))}\) are realized.  Hence \(\omega\) is in the closure of
+the realized states, i.e.\ \(\omega\in X_{\rm def}^{\rm anc}\).
+
+Finally, every normalized diffuse-defect sequence generated by the original
+terminal sequence is a sequence \(\omega_n\) of realized states.  Their
+images \(\iota(\omega_n)\) lie in the compact metrizable space
+\(X_{\rm def}\) and have a convergent subsequence; the limit lies in
+\(X_{\rm def}^{\rm anc}\) by the closure argument above.
+\end{proof}
+
 \begin{definition}[Diffuse-defect profile class]
 \label{def:diffuse-defect-state-space}
-Let
-\[
-   X_{\rm def}:=\mathfrak D_M
-\]
-be the compact metrizable observer-defect state space, defined as the compact
-closure, in the weak topology of
-probability measures on \(\overline Z\) together with the local
-\(\mathfrak X_M\)-topology for the associated velocity hulls, of all normalized
-diffuse-defect profiles produced by \Cref{thm:diffuse-defect-compactness}.  The
+The compact metrizable space \(X_{\rm def}=\mathfrak D_M\) and its closed
+\(G\)-invariant ancestor-realized subset \(X_{\rm def}^{\rm anc}=
+\mathfrak D_M^{\rm anc}\) are those constructed in
+\Cref{thm:diffuse-defect-state-space-construction}.  The
 diffuse-defect mass functional is normalized to be identically one on
-\(\mathfrak D_M\).  This compactness is the product of weak compactness of
-probability measures on the compact observer space \(\overline Z\) and the
-local Seregin compactness of bounded velocity hulls in \(\mathfrak X_M\), after
-the admissible pressure gauges.  The covariant observer group
-\[
-   G:=\mathbb R^3\rtimes\mathbb R
-\]
-acts on \(\mathfrak D_M\) by the observer maps generated by \(T_a\) and
-\(\Theta_s\).  The closed subset
-\[
-   \mathfrak D_M^{\rm anc}\subset\mathfrak D_M
-\]
-is the closure of diffuse-defect states realized from the original blow-up
-sequence in the sense of \Cref{def:ancestor-realized-residual-object}.  It is
-closed by definition and \(G\)-invariant because the covariant observer maps are
-among the allowed realized operations.
+\(\mathfrak D_M\).  The covariant observer group
+\(G=\mathbb R^3\rtimes\mathbb R\) acts on \(\mathfrak D_M\) continuously
+through the action \(\sigma\) of
+\Cref{thm:diffuse-defect-state-space-construction}.
 \end{definition}
 
 \begin{proposition}[Amenable averaging protocol for realized diffuse defects]
@@ -5932,13 +6664,27 @@ multiplicative annulus.  The coherent subspace \(\Tcoh\) is the special case
 \]
 The purely log-diffuse subspace is denoted \(\Tlogdiff\), and the oscillatory
 Young-tail subspace is denoted \(\Tyoung\).
-Convergence in \(\Tcrit\) means local weak-\(*\) convergence of the bounded
-velocity representatives, pressure convergence modulo time and affine gauges in
-the distribution topology needed for the limiting equation, vague convergence
-of the defect measures, weak convergence of the Young measures against bounded
-continuous test functions, convergence of the logarithmic annular coordinates,
-and convergence in the affine pressure quotient fixed in
-\Cref{def:pressure-gauge-affine-quotient}.
+A sequence
+\[
+   \mathcal T_n=(\bar W_n,\mathcal Y_n,\Lambda_n)
+\]
+converges to \(\mathcal T=(\bar W,\mathcal Y,\Lambda)\) in \(\Tcrit\) if:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \(\bar W_n\rightharpoonup^\ast\bar W\) in
+   \(L^\infty_{\loc}\) on macroscopic annular cylinders;
+   \item the Young measures converge against every bounded continuous velocity
+   observable with compact support in the macroscopic variables;
+   \item the log-scale defect measures \(\Lambda_n\) converge vaguely on the
+   logarithmic annular compactification;
+   \item pressure gradients converge distributionally after the time-dependent
+   gauges and affine pressure quotients fixed in
+   \Cref{def:pressure-gauge-affine-quotient};
+   \item the affine quotient data converge in the finite-dimensional local
+   quotient topology; and
+   \item when the states are ancestor-realized, the limiting state remains in
+   the closed ancestor-realized support class generated by the original terminal
+   sequence.
+\end{enumerate}
 
 For coherent elements, the corresponding macroscopic tangent pair \((W,Q)\)
 belongs to \(\Ccohcrit\) and satisfies on annular cylinders
@@ -5951,6 +6697,254 @@ belongs to \(\Ccohcrit\) and satisfies on annular cylinders
 in distributions, with nonzero spatial quotient oscillation and
 recurrence under the induced logarithmic dilation flow.
 \end{definition}
+
+\begin{theorem}[Compactness of the critical-tail state space]
+\label{thm:critical-tail-state-space-compactness}
+Every bounded ancestor-realized family of critical-tail states has a convergent
+subsequence in \(\Tcrit\).  If all states in the sequence are ancestor-realized,
+then the limit is ancestor-realized.
+\end{theorem}
+
+\begin{proof}
+The barycentric velocities are bounded in \(L^\infty_{\loc}\), so
+Banach--Alaoglu gives local weak-\(*\) subsequential convergence.  The
+fundamental compactness theorem for Young measures gives convergence of the
+oscillation measures against bounded continuous velocity observables.  The
+logarithmic annular compactification is metrizable on the countable family of
+windows used in the extraction, hence Prokhorov compactness gives a vaguely
+convergent subsequence of the log-scale measures.  The pressure components are
+recorded only through distributional gradients after the time and affine gauges;
+local pressure compactness modulo these gauges gives distributional
+subsequential limits.  The affine quotient data are finite-dimensional on each
+fixed time window, and the quotient topology was chosen so that bounded
+sequences have subsequential limits.  Diagonalizing over the countable annular
+exhaustion gives convergence in all components listed in
+\Cref{def:critical-diffuse-tail-strata}.  For ancestor-realized sequences,
+choose for each approximating state a realizing subsequence from the original
+terminal sequence and diagonalize over the annular exhaustion and the countable
+observables in the topology above.  The diagonal realizing sequence converges
+to the same limit, so the limiting critical-tail state remains
+ancestor-realized.
+\end{proof}
+
+\begin{definition}[Log-annular compactification]
+\label{def:log-annular-compactification}
+Set \(\rho=\log|x|\) and write \(\overline{\mathbb R}_{\log}=[-\infty,+\infty]\)
+for the two-point compactification of the log-radius axis.  Fix the countable
+family of log-window cutoffs
+\[
+   \chi_{\rho_0,A}(\rho):=\chi\!\Bigl(\tfrac{\rho-\rho_0}{A}\Bigr),
+   \qquad \rho_0\in\mathbb Q,\ A\in\mathbb Q_{>0},
+\]
+where \(\chi\) is the fixed compactly supported even cutoff of
+\Cref{subsec:log-annular-virial-critical-defects}.  The log-annular space
+\(\overline{\mathbb R}_{\log}\) is endowed with the metrizable vague topology
+generated by these cutoffs.  A sequence \(\Lambda_n\) of finite Borel measures
+on \(\overline{\mathbb R}_{\log}\) converges to \(\Lambda\) vaguely if
+\[
+   \int \chi_{\rho_0,A}(\rho)\,d\Lambda_n(\rho)
+   \longrightarrow
+   \int \chi_{\rho_0,A}(\rho)\,d\Lambda(\rho)
+\]
+for every cutoff in the countable family above and additionally for the test
+functions
+\[
+   \rho\mapsto \chi(\rho/A),\quad
+   \rho\mapsto \chi((\rho\mp A)/1)
+\]
+witnessing the masses at \(\pm\infty\).
+\end{definition}
+
+\begin{definition}[Young-measure convergence at the macroscopic critical scale]
+\label{def:young-measure-convergence}
+Let \(\overline{B_M}\subset\mathbb R^3\) be the closed velocity ball of radius
+\(M\).  A sequence of Young measures \(\mathcal Y_n\) on the macroscopic
+spacetime annulus \(\{a<|x|<b\}\times I\) with values in \(\overline{B_M}\)
+converges to \(\mathcal Y\) if for every \(\psi\in C_c^\infty(\{a<|x|<b\}\times
+I)\) and every \(F\in C(\overline{B_M})\),
+\[
+   \iint \psi(x,s)\!\int F(\xi)\,d\mathcal Y_{n,x,s}(\xi)\,dx\,ds
+   \longrightarrow
+   \iint \psi(x,s)\!\int F(\xi)\,d\mathcal Y_{x,s}(\xi)\,dx\,ds .
+\]
+This is the fundamental theorem of Young measures applied to the bounded
+sequence of macroscopic representatives \(W_n\), with associated Young
+measures \(\mathcal Y_{n,x,s}\) recording the unresolved bounded oscillations
+at \((x,s)\).  Equivalently, \(\mathcal Y_n\to\mathcal Y\) in the
+\(\sigma(L^\infty,L^1)\)-topology induced by tensor test functions.
+\end{definition}
+
+\begin{definition}[Distributional pressure-gradient convergence at critical scale]
+\label{def:critical-pressure-gradient-convergence}
+A sequence of pressure profiles \(Q_n\), each defined on the same macroscopic
+annular cylinder up to the affine and time-only gauges of
+\Cref{def:pressure-gauge-affine-quotient}, converges \emph{annularly
+distributionally} to \(Q\), written \(\nabla Q_n\to\nabla Q\) in
+\(\mathcal D'_{\rm ann}\), if for every compactly supported divergence-free
+test vector field \(\Psi\in C_c^\infty(\{a<|x|<b\}\times I,\mathbb R^3)\)
+\[
+   \langle\nabla Q_n,\Psi\rangle
+   =-\langle Q_n,\nabla\cdot\Psi\rangle\to0
+\]
+and for every general compactly supported \(\Phi\in C_c^\infty(\{a<|x|<b\}\times
+I,\mathbb R^3)\) one has
+\[
+   \langle\nabla Q_n,\Phi\rangle\to\langle\nabla Q,\Phi\rangle ,
+\]
+where the left-hand sides are computed for representatives of \(Q_n\) chosen
+inside the affine quotient.
+\end{definition}
+
+\begin{lemma}[Critical-tail Young balance with pressure and viscous defects]
+\label{lem:critical-tail-young-log-transport}
+Let \(V_n\in L^\infty\) be uniformly bounded by \(M\) and satisfy the exact
+critical-tail blow-down equation
+\begin{equation}\label{eq:critical-blow-down-equation}
+   \partial_s V_n
+   -R_n^{-2}\Delta V_n
+   +\frac12 x\cdot\nabla V_n+\frac12 V_n
+   +R_n^{-1}V_n\cdot\nabla V_n+\nabla Q_n=0,
+   \qquad \nabla\cdot V_n=0
+\end{equation}
+on a fixed macroscopic annular cylinder \(\{a<|x|<b\}\times I\), with
+\(R_n\to\infty\), affine pressure quotient fixed, and pressure gradients
+satisfying the gauge of
+\Cref{def:critical-pressure-gradient-convergence}.  Let
+\((\bar W,\mathcal Y,\Lambda)\) be the limiting critical-tail state.  After
+passing to the subsequence defining \(\Tcrit\), the pressure and viscous
+pairings
+\[
+   \mathscr P_{n,F}[\psi]
+   :=
+   \iint \psi(x,s)\,
+      \nabla_\xi F(V_n(x,s))\cdot\nabla Q_n(x,s)\,dx\,ds
+\]
+\[
+   \mathscr D_{n,F}[\psi]
+   :=
+   -R_n^{-2}\iint
+      \psi(x,s)\,
+      \nabla_xV_n(x,s)^T
+      \nabla_\xi^2F(V_n(x,s))
+      \nabla_xV_n(x,s)\,dx\,ds
+\]
+converge for every \(\psi\in C_c^\infty\) and every
+\(F\in C^2(\overline{B_M})\) in the countable dense test class used to define
+the critical-tail topology.  Denote the limits by \(\mathscr P_F[\psi]\) and
+\(\mathscr D_F[\psi]\).  Then the Young measure satisfies the exact weak
+balance
+\begin{equation}\label{eq:young-transport-identity}
+\begin{aligned}
+   &\iint
+   \Bigl(\partial_s\psi+\tfrac12 x\cdot\nabla_x\psi+\tfrac32\psi\Bigr)
+   \int F(\xi)\,d\mathcal Y_{x,s}(\xi)\,dx\,ds\\
+   &\qquad =
+   \frac12\iint \psi
+   \int \xi\cdot\nabla_\xi F(\xi)\,d\mathcal Y_{x,s}(\xi)\,dx\,ds
+   +\mathscr P_F[\psi]+\mathscr D_F[\psi].
+\end{aligned}
+\end{equation}
+with the usual approximation from \(C^2\) to bounded continuous observables on
+\(\overline{B_M}\) whenever the velocity derivatives and the two defect
+pairings are represented by uniform limits.  In particular, if \(F\) is
+homogeneous of degree \(p\) and
+\(\mathscr P_F[\psi]=\mathscr D_F[\psi]=0\), then
+\[
+   \iint
+   \Bigl(\partial_s\psi+\tfrac12x\cdot\nabla_x\psi
+      +\tfrac{3-p}{2}\psi\Bigr)
+   \int F(\xi)\,d\mathcal Y_{x,s}(\xi)\,dx\,ds=0 .
+\]
+The log-scale component \(\Lambda\), which records the covariant positions of
+the selected annular windows rather than a pressure-renormalized velocity
+observable, is invariant under the induced log-translation
+\(\rho\mapsto\rho+\tfrac12 s\) on \(\overline{\mathbb R}_{\log}\).
+\end{lemma}
+
+\begin{proof}
+Test \eqref{eq:critical-blow-down-equation} against \(\psi(x,s)F'(V_n(x,s))\)
+for \(F\in C^2(\overline{B_M})\) and \(\psi\in C_c^\infty\).  Each term is
+integrated by parts inside the chosen macroscopic annular cylinder where
+\(\psi\) has compact support.  The viscous term contributes
+\[
+   R_n^{-2}\!\iint F'(V_n)\Delta V_n\,\psi\,dx\,ds
+   =-R_n^{-2}\!\iint
+   \Bigl[
+      \psi\,\nabla_xV_n^T\nabla_\xi^2F(V_n)\nabla_xV_n
+      +\nabla_\xi F(V_n)\nabla_xV_n\cdot\nabla\psi
+   \Bigr]\,dx\,ds .
+\]
+Since \(F'\) and \(F''\) are bounded on \(\overline{B_M}\), \(V_n\) is bounded
+by \(M\), and the local energy bound from
+\Cref{lem:local-energy-blow-down} gives \(R_n^{-2}\iint
+|\nabla V_n|^2\psi\,dx\,ds\le C\), the Hessian part has a subsequential
+distributional limit on the countable test family; this is
+\(\mathscr D_F[\psi]\).  The remaining first-derivative part equals
+\(-R_n^{-2}\iint\nabla_xF(V_n)\cdot\nabla\psi\), which after integration by
+parts is \(R_n^{-2}\iint F(V_n)\Delta\psi=O(R_n^{-2})\) and tends to \(0\).
+
+The convective term, after the standard chain-rule manipulation, equals
+\[
+   R_n^{-1}\!\iint F'(V_n)(V_n\cdot\nabla V_n)\psi\,dx\,ds
+   =R_n^{-1}\!\iint (V_n\cdot\nabla)F(V_n)\,\psi\,dx\,ds
+   =-R_n^{-1}\!\iint F(V_n)V_n\cdot\nabla\psi\,dx\,ds ,
+\]
+using \(\nabla\cdot V_n=0\).  Since \(F\) and \(V_n\) are bounded, this term
+is \(O(R_n^{-1})\) and tends to \(0\).
+
+The drift term \(\tfrac12 x\cdot\nabla V_n+\tfrac12 V_n\) tested against
+\(F'(V_n)\psi\) gives, after the chain rule and integration by parts in
+\(x\),
+\[
+   \iint\Bigl(\tfrac12 x\cdot\nabla F(V_n)+\tfrac12 F'(V_n)V_n\Bigr)\psi\,dx\,ds
+   =-\iint F(V_n)\Bigl(\tfrac12\nabla\cdot(x\psi)\Bigr)\,dx\,ds
+   +\iint \tfrac12 F'(V_n)V_n\,\psi\,dx\,ds ,
+\]
+where the boundary term vanishes by compact support of \(\psi\).  Using
+\(\tfrac12\nabla\cdot(x\psi)=\tfrac32\psi+\tfrac12 x\cdot\nabla\psi\) gives
+\[
+   -\iint F(V_n)
+   \Bigl(\tfrac32\psi+\tfrac12 x\cdot\nabla\psi\Bigr)\,dx\,ds
+   +\iint \tfrac12 F'(V_n)V_n\,\psi\,dx\,ds .
+\]
+Combining with the remaining \(\partial_s\) term, which gives
+\(-\iint F(V_n)\partial_s\psi\,dx\,ds\) after integration by parts in time,
+and keeping the pressure term explicitly, we obtain
+\[
+   \iint
+   F(V_n)
+   \Bigl(\partial_s\psi+\tfrac12 x\cdot\nabla\psi+\tfrac32\psi\Bigr)\,dx\,ds
+   -\iint \tfrac12 F'(V_n)V_n\,\psi\,dx\,ds
+   =
+   \iint \psi\,F'(V_n)\cdot\nabla Q_n\,dx\,ds+o(1) .
+\]
+Choosing \(F(\xi)=\xi\cdot e_k\) recovers the linear barycenter equation;
+choosing more general \(F\) and passing to the Young-measure limit using
+\Cref{def:young-measure-convergence} gives the exact weak identity
+\[
+\begin{aligned}
+   &\iint
+   \Bigl(\partial_s\psi+\tfrac12 x\cdot\nabla\psi+\tfrac32\psi\Bigr)
+   \int F(\xi)\,d\mathcal Y_{x,s}(\xi)\,dx\,ds\\
+   &\qquad =
+   \iint \tfrac12 \psi
+   \int F'(\xi)\xi\,d\mathcal Y_{x,s}(\xi)\,dx\,ds
+   +\mathscr P_F[\psi]+\mathscr D_F[\psi].
+\end{aligned}
+\]
+This is \eqref{eq:young-transport-identity}.  The homogeneous-observable
+special case follows from Euler's identity
+\(\xi\cdot\nabla_\xi F=pF\) whenever the pressure and viscous defect pairings
+vanish for that observable.  If either pairing does not vanish, the nonzero
+defect is retained as pressure-gradient or Young/viscous defect data in
+\(\Tcrit\) and is routed by the pressure/noncompact, affine quotient, or Young
+critical-tail alternatives rather than silently discarded.
+
+The same calculation applied to the radial pushforward
+\(\rho\mapsto\log|x|\) of \(V_n\), or directly to the dyadic annular
+\(\Lambda_n\), gives the invariance of \(\Lambda\) under the induced
+log-translation \(\rho\mapsto\rho+\tfrac12 s\).
+\end{proof}
 
 \subsection{Log-annular virial identities for recurrent critical defects}
 \label{subsec:log-annular-virial-critical-defects}
@@ -6290,14 +7284,17 @@ bounded blown-down fields
    \widetilde U_n:=\calR_{(y_n,\sigma_n)}U_n,\qquad
    W_n(x,s)=\widetilde U_n(R_nx,s)-c_n(s)
 \]
-on every fixed annular cylinder.  Terminal compactness gives a
+on every fixed annular cylinder, with pressure and affine gauges normalized by
+the exact blow-down ledger of \Cref{def:macroscopic-critical-tail-blowdown}.
+Terminal compactness gives a
 weak-\(*\) \(L^\infty_{\loc}\) limit and an associated Young measure.  By the
 Dirac hypothesis on the selected flux, the Young measure is
 \(\delta_W\) almost everywhere.  Uniform boundedness then upgrades convergence
 to strong \(L^3_{\loc}\) convergence on annular cylinders.  Passing to the
-limit in the blown-down equation, the viscous and nonlinear terms vanish by
-the factors \(R_n^{-2}\) and \(R_n^{-1}\), and the pressure gauges converge in
-annular distributions.  The limit therefore satisfies
+limit in the exact ungauged equation
+\eqref{eq:critical-tail-exact-blowdown-equation}, the viscous and nonlinear
+terms vanish by the factors \(R_n^{-2}\) and \(R_n^{-1}\), and the normalized
+pressure gradients converge in annular distributions.  The limit therefore satisfies
 \[
    \partial_s W+\frac12x\cdot\nabla W+\frac12W+\nabla Q=0,
    \qquad \nabla\cdot W=0,
@@ -6748,7 +7745,7 @@ the corresponding centered spatial/logarithmic tail scale.  This is an
 observer blow-down scale, not a Navier--Stokes parabolic rescaling of the
 centered time variable.
 Then, after passing to a subsequence, exactly one of the following alternatives
-occurs.
+is selected by the ordered priority rule.
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item A positive-threshold unit concentrating observer is regenerated.
    \item The defect is carried only by a spatially homogeneous time-dependent
@@ -6932,6 +7929,126 @@ of the ungauged scaled equation gives
 \eqref{eq:first-bad-pressure-poisson}; the linear drift has zero divergence
 contribution because \(V_n\) is divergence-free.  The \(L^\infty\) bounds follow
 from \(\|U_n\|_{L^\infty}\le M\) and \(|c_n|\le M\).
+\end{proof}
+
+\begin{lemma}[Local energy inequality under spatial/logarithmic blow-down]
+\label{lem:local-energy-blow-down}
+Let \((U_n,\Pi_n)\) be locally suitable centered profiles realized from the
+original blow-up sequence in the sense of
+\Cref{def:ancestor-realized-residual-object}, and let
+\[
+   V_n(x,s)=U_n^{z_n}(r_nx,s),
+   \qquad
+   Q_n(x,s)=r_n^{-1}\Pi_n^{z_n}(r_nx,s),
+\]
+be the minimal-scale spatial/logarithmic blow-downs of
+\Cref{def:first-bad-spatial-blowdown}.  Then \((V_n,Q_n)\) satisfy the local
+energy inequality associated to
+\eqref{eq:first-bad-scaled-equation} on every relatively compact spacetime
+domain \(K\Subset\mathbb R^3\times\mathbb R\): for every nonnegative
+\(\phi\in C_c^\infty(K)\),
+\begin{equation}\label{eq:blow-down-local-energy}
+\begin{aligned}
+   r_n^{-2}\!\iint |\nabla V_n|^2\phi\,dx\,ds
+   &\le
+   \iint \frac{|V_n|^2}{2}
+   \Bigl(
+      \partial_s\phi
+      +r_n^{-2}\Delta\phi
+      +\frac12 x\cdot\nabla\phi
+      -\frac12\phi
+   \Bigr)\,dx\,ds\\
+   &\quad
+   +r_n^{-1}\!\iint
+   \frac{|V_n|^2}{2}V_n\cdot\nabla\phi\,dx\,ds
+   +\iint Q_n V_n\cdot\nabla\phi\,dx\,ds .
+\end{aligned}
+\end{equation}
+In particular,
+\begin{equation}\label{eq:blow-down-local-energy-bound}
+   r_n^{-2}\!\iint |\nabla V_n|^2\phi\,dx\,ds
+   \le
+   C\!\left(M,\|\phi\|_{C^2},|K|,r_n\right)
+\end{equation}
+with a finite constant uniform in \(n\), and the right-hand side of
+\eqref{eq:blow-down-local-energy} converges, as \(n\to\infty\), to the
+distributional drift--pressure identity for the limiting bounded profile.
+\end{lemma}
+
+\begin{proof}
+The setup-paper local energy inequality (recalled inside the imported package
+\Cref{thm:imported-setup-package}\,(3)) states that for every locally suitable
+centered profile \((U,\Pi)\) and every nonnegative
+\(\Phi\in C_c^\infty(\mathbb R^3\times\mathbb R)\),
+\begin{equation}\label{eq:centered-local-energy-original}
+   \iint |\nabla_y U|^2\Phi\,dy\,d\tau
+   \le
+   \iint \frac{|U|^2}{2}\bigl(\partial_\tau\Phi+\Delta_y\Phi
+      +\tfrac12 y\cdot\nabla_y\Phi-\tfrac12\Phi\bigr)\,dy\,d\tau
+   +\iint
+   \Bigl(\tfrac{|U|^2}{2}+\Pi\Bigr)U\cdot\nabla_y\Phi\,dy\,d\tau .
+\end{equation}
+This identity is preserved by the exact covariant recentering
+\(\calR_{z_n}\), so it applies to \(U_n^{z_n}\) and \(\Pi_n^{z_n}\) with the
+same constants.
+
+Apply \eqref{eq:centered-local-energy-original} to \(U_n^{z_n},\Pi_n^{z_n}\)
+with the test function
+\[
+   \Phi(y,\tau):=r_n^{-3}\,\phi(y/r_n,\tau)
+\]
+where \(\phi\in C_c^\infty(K)\) is fixed.  Change variables
+\(y=r_nx\), keeping \(\tau=s\) (centered time is not rescaled).  Then
+\[
+   \iint|\nabla_yU_n^{z_n}|^2\Phi\,dy\,d\tau
+   =\iint |\nabla_yU_n^{z_n}(r_nx,s)|^2 r_n^{-3}\phi(x,s)\,r_n^3\,dx\,ds
+   =r_n^{-2}\iint|\nabla_xV_n|^2\phi\,dx\,ds ,
+\]
+because \(|\nabla_yU_n^{z_n}|^2(r_nx,s)=r_n^{-2}|\nabla_xV_n|^2(x,s)\).
+Similarly,
+\[
+   \iint\frac{|U_n^{z_n}|^2}{2}\partial_\tau\Phi\,dy\,d\tau
+   =\iint\frac{|V_n|^2}{2}\partial_s\phi\,dx\,ds ,
+\]
+\[
+   \iint\frac{|U_n^{z_n}|^2}{2}\Delta_y\Phi\,dy\,d\tau
+   =r_n^{-2}\iint\frac{|V_n|^2}{2}\Delta_x\phi\,dx\,ds ,
+\]
+\[
+   \iint\frac{|U_n^{z_n}|^2}{2}\tfrac12 y\cdot\nabla_y\Phi\,dy\,d\tau
+   =\iint\frac{|V_n|^2}{2}\tfrac12 x\cdot\nabla_x\phi\,dx\,ds ,
+\]
+\[
+   -\iint\frac{|U_n^{z_n}|^2}{2}\tfrac12\Phi\,dy\,d\tau
+   =-\iint\frac{|V_n|^2}{2}\tfrac12\phi\,dx\,ds .
+\]
+For the convective and pressure-flux terms,
+\[
+   \iint
+   \Bigl(\tfrac{|U_n^{z_n}|^2}{2}+\Pi_n^{z_n}\Bigr)
+   U_n^{z_n}\cdot\nabla_y\Phi\,dy\,d\tau
+   =
+   r_n^{-1}\!\iint
+   \tfrac{|V_n|^2}{2}V_n\cdot\nabla_x\phi\,dx\,ds
+   +\iint Q_nV_n\cdot\nabla_x\phi\,dx\,ds ,
+\]
+using \(Q_n=r_n^{-1}\Pi_n^{z_n}(r_nx,s)\),
+\(\nabla_y\Phi=r_n^{-4}\nabla_x\phi(\cdot/r_n,\cdot)\), and
+\(dy=r_n^3dx\).  Substituting
+all changes into \eqref{eq:centered-local-energy-original} gives
+\eqref{eq:blow-down-local-energy}.
+
+The uniform bound \eqref{eq:blow-down-local-energy-bound} follows from the
+\(L^\infty\) bounds \(|V_n|\le M\), the local \(L^{3/2}\)-pressure compactness
+in \Cref{lem:first-bad-pressure-compactness}, H\"older's inequality on the
+compact support of \(\phi\), and the explicit dependence of the right-hand
+side on \(\|\phi\|_{C^2}\), \(|K|\), and \(r_n\).  Since \(r_n\to\infty\), the
+viscous and convective terms carry the vanishing factors \(r_n^{-2}\) and
+\(r_n^{-1}\).  After passing to the pressure-gauge subsequence supplied by
+\Cref{lem:first-bad-pressure-compactness} and to the bounded-velocity
+subsequence, the remaining drift and pressure-flux terms pass to their
+distributional limits.  This is the local energy identity used in the proof of
+\Cref{lem:first-bad-young-variance}.
 \end{proof}
 
 \begin{lemma}[Minimal-scale quotient formulation]
@@ -7255,9 +8372,17 @@ the second term tends to zero by weak-* convergence in \(L^\infty(K)\).
 
 \begin{lemma}[Pressure compactness at a minimal mesoscopic scale]
 \label{lem:first-bad-pressure-compactness}
-Let \(Q_n\) be as in \Cref{lem:first-bad-blowdown-equation}.  For every compact
-cylinder \(K\Subset\mathbb R^3\times\mathbb R\), exactly one of the following
-holds:
+Let \(Q_n\) be as in \Cref{lem:first-bad-blowdown-equation}.  Assume in
+addition the \emph{normalized whole-space Riesz-pressure hypothesis}: each
+\(Q_n\) is the whole-space Riesz-pressure representative of the
+minimal-scale rescaled solution, normalized modulo the affine pressure
+gauges and modulo time-only functions in the sense of
+\Cref{def:pressure-gauge-affine-quotient} and the local pressure atlas
+imported in \Cref{thm:imported-setup-package}\,(3); equivalently, each
+\(Q_n\) is the canonical normalized representative produced by
+\Cref{lem:local-pressure-decomposition} after subtracting affine gauges.
+For every compact cylinder \(K\Subset\mathbb R^3\times\mathbb R\), exactly
+one of the following holds:
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item the affine pressure/velocity gauges produce a retained descendant in
    \(\Caff\);
@@ -7752,7 +8877,11 @@ law
    \nabla\cdot\bar W=0
 \]
 in distributions on macroscopic annular cylinders, and the full defect
-\((\mathcal Y,\Lambda)\) is transported by the induced log-dilation flow.
+\((\mathcal Y,\Lambda)\) satisfies the Young/log balance of
+\Cref{lem:critical-tail-young-log-transport}; in particular the log-scale
+component is transported by the induced log-dilation flow, while nonlinear
+velocity observables retain the pressure and viscous defect pairings explicitly
+recorded in \eqref{eq:young-transport-identity}.
 \end{theorem}
 
 \begin{proof}
@@ -7802,35 +8931,31 @@ an element of \(\Tcrit\).  Since the normalized defect mass is one,
 It remains to identify the equation satisfied by the barycenter.  The ungauged
 fields \(V_n\) satisfy the exact scaled equation
 \eqref{eq:critical-tail-exact-blowdown-equation}.  Passing from \(V_n\) to
-\(W_n=V_n-c_n(s)\) changes only the spatially homogeneous quotient component;
-if that component is retained, it is assigned to \(\Caff\), and otherwise the
-canonical affine normalization removes it.  Therefore, in the non-affine
-quotient, on fixed macroscopic annuli,
-\[
-   \partial_s W_n
-   -R_n^{-2}\Delta_xW_n
-   +R_n^{-1}V_n\cdot\nabla_xV_n
-   +\frac12x\cdot\nabla_xW_n
-   +\frac12W_n
-   +\nabla_xQ_n
-   =\operatorname{Err}_n,
-\]
-where \(\operatorname{Err}_n\to0\) in distributions and consists only of the
-discarded homogeneous affine/parasitic quotient terms.
+\(W_n=V_n-c_n(s)\) is used only to measure oscillation.  We do not differentiate
+the homogeneous gauge \(c_n(s)\).  Instead, the exact equation is passed to the
+limit for \(V_n\) and then projected to the affine/parasitic quotient.  If the
+homogeneous component represented by \(c_n\) is retained, it is assigned to
+\(\Caff\); otherwise the canonical affine normalization removes it from the
+non-affine quotient barycenter.
 For every compactly supported test function, the viscous and nonlinear
 contributions are bounded respectively by
 \[
-   CR_n^{-2}\|W_n\|_{L^\infty},
+   CR_n^{-2}\|V_n\|_{L^\infty},
    \qquad
-   CR_n^{-1}\|W_n\|_{L^\infty}^2 ,
+   CR_n^{-1}\|V_n\|_{L^\infty}^2 ,
 \]
 and hence both tend to zero.  The pressure gauges give distributional
 compactness of the remaining gradients on annuli.  Passing to the weak-*
-barycentric limit yields the displayed linear critical-tail transport equation.
-Applying the same weak formulation to transported test functions
-shows that \((\mathcal Y,\Lambda)\) is transported by the induced log-dilation
-flow.  This construction is local on macroscopic annuli and uses no global
-critical norm, CKN budget, or energy estimate.
+barycentric limit of \(V_n\), then applying the affine quotient just described,
+yields the displayed linear critical-tail transport equation for the
+non-affine barycenter \(\bar W\).
+Applying \Cref{lem:critical-tail-young-log-transport} gives the exact
+Young/log balance: the log-scale component is transported by the induced
+log-dilation flow, while nonlinear velocity observables retain the pressure and
+viscous defect pairings displayed in
+\eqref{eq:young-transport-identity}.  This construction is local on
+macroscopic annuli and uses no global critical norm, CKN budget, or energy
+estimate.
 \end{proof}
 
 \begin{corollary}[Coherent extraction under annular tightness and strong compactness]
@@ -7894,8 +9019,8 @@ with no nonzero log period; this is the aperiodic log-translation class
 \label{thm:realized-critical-tail-rigidity}
 Let \(\mathcal T=(\bar W,\mathcal Y,\Lambda)\in\Tcrit\) be a nonzero realized
 critical-tail profile generated by a bounded normalized residual Navier--Stokes
-terminal sequence after terminal concentration-set removal.  Then exactly one of the
-following ordered profile alternatives occurs:
+terminal sequence after terminal concentration-set removal.  Then the ordered
+stratification selects one of the following priority profile alternatives:
 \begin{enumerate}[label=\textup{(\alph*)}]
    \item \(\mathcal T\) regenerates affine-normalized local concentration;
    \item \(\mathcal T\) is affine/parasitic;
@@ -8034,8 +9159,8 @@ remains.
 
 \begin{proof}
 Let \(\mathcal D\in\Tcrit\) be a nonzero recurrent critical-tail defect.  By
-\Cref{thm:realized-critical-tail-rigidity}, exactly one ordered alternative
-occurs: regenerated concentration, affine/parasitic collapse, log-diffuse defect,
+\Cref{thm:realized-critical-tail-rigidity}, the ordered priority alternative is
+one of: regenerated concentration, affine/parasitic collapse, log-diffuse defect,
 Young critical tail, or coherent critical tail.  The first two alternatives are
 precisely \(\Cactive\) and \(\Caff\).  The log-diffuse alternative is empty by
 \Cref{cor:log-diffuse-branch-discharge}.  The Young alternative is empty by
@@ -8134,6 +9259,16 @@ coherent critical tail has a representative which is locally bounded near
 \(x=0\) on compact macroscopic time intervals, and whose restrictions to all
 tail windows reproduce the coherent tail.
 \end{theorem}
+
+\begin{remark}[Use of the bounded-origin representative]
+\label{rem:bounded-origin-used-only-as-extension}
+The bounded-origin representative is used only as a locally bounded extension
+of the annular coherent tail.  The coherent transport equation and pressure
+normalization are required only on punctured annular cylinders
+\(\{0<r_0<|x|<r_1<\infty\}\times I\).  None of the homogeneous,
+log-periodic, or aperiodic exclusions below uses a distributional equation
+through \(x=0\).
+\end{remark}
 
 \begin{proof}
 Let \((W,Q)\in\Ccohcrit\) be a coherent critical tail generated by a bounded
@@ -8234,6 +9369,18 @@ affine normalization; it uses no global critical norm or global tail budget.
 
 \begin{lemma}[Minimal coherent hulls inherit bounded-origin vanishing]
 \label{lem:minimal-coherent-hull-origin-vanishing}
+\emph{Scope clarification.}  The bounded-origin realization recorded in the
+statement and used throughout this lemma is taken in the precise sense of
+\Cref{thm:bounded-origin-realization-coherent-tails} (the \emph{bounded-origin
+realization} theorem) in the present paper: every macroscopic tangent of an element of
+\(\Ccohcrit\) admits a representative that is locally bounded on every
+compact macroscopic cylinder, including cylinders meeting the macroscopic
+origin \(\{x=0\}\), with constants stable under local hull limits.  The
+hypothesis is local in the centered variables and uses no global
+critical-norm or global tail budget; it propagates under logarithmic
+translation by the same argument as in
+\Cref{thm:bounded-origin-realization-coherent-tails}.
+
 Let \((W,Q)\in\Ccohcrit\) be realized by the bounded-origin theorem, and write
 \[
    Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s).
@@ -8277,6 +9424,73 @@ Since \(\{0\}\) is closed and invariant, minimality forces
 \(\mathcal M=\{0\}\).
 \end{proof}
 
+\begin{lemma}[Homogeneous tails are incompatible with bounded-origin retention]
+\label{lem:homogeneous-tail-bounded-origin-closure}
+Let \((W,Q)\in\Chomcrit\) be a coherent critical tail obtained from the
+bounded-origin realization theorem.  Assume it carries the retained non-affine
+annular activity required in the definition of the coherent tail stratum.  Then
+no such \(W\) exists.
+\end{lemma}
+
+\begin{proof}
+In the homogeneous critical-tail class,
+\[
+   W(r\omega,s)=r^{-1}A(\omega,s).
+\]
+The bounded-origin realization gives a locally bounded representative on
+\(\{0<r<r_0\}\) for each compact angular-time set.  Hence
+\[
+   |A(\omega,s)|=r|W(r\omega,s)|\le C_K r
+\]
+on every compact angular-time set \(K\).  Letting \(r\downarrow0\) gives
+\(A=0\), and therefore \(W\equiv0\) on punctured compact cylinders.  This is
+incompatible with the retained non-affine annular activity that defines a
+nonzero coherent critical tail.
+\end{proof}
+
+\begin{lemma}[Log-periodic tails are incompatible with bounded-origin retention]
+\label{lem:logperiodic-tail-bounded-origin-closure}
+Let \((W,Q)\in\Clogper\) be a coherent critical tail obtained from the
+bounded-origin realization theorem.  Assume it carries retained non-affine
+annular activity.  Then no such \(W\) exists.
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+   Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s).
+\]
+Bounded-origin realization gives \(Z(\rho,\cdot,\cdot)\to0\) in the local
+logarithmic topology as \(\rho\to-\infty\).  If the log-period is
+\(L\ne0\), then
+\[
+   Z(\rho,\omega,s)=Z(\rho-kL,\omega,s)
+   \qquad(k\in\mathbb Z).
+\]
+For \(L>0\) take \(k\to+\infty\), and for \(L<0\) take \(k\to-\infty\).  In
+both cases \(\rho-kL\to-\infty\), so the right-hand side converges to zero.
+Thus \(Z\equiv0\), hence \(W\equiv0\) on punctured annular cylinders, contrary
+to retained non-affine annular activity.
+\end{proof}
+
+\begin{lemma}[Aperiodic coherent tails are incompatible with bounded-origin retention]
+\label{lem:aperiodic-tail-bounded-origin-closure}
+Let \((W,Q)\in\Capcrit\) be a coherent critical tail obtained from the
+bounded-origin realization theorem.  Assume it carries retained non-affine
+annular activity.  Then no such \(W\) exists.
+\end{lemma}
+
+\begin{proof}
+Let \(Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s)\), and let \(\mathcal M\) be
+the nonzero minimal aperiodic logarithmic subsystem in the definition of
+\(\Capcrit\).  Choose \(Z_*\in\mathcal M\).  By
+\Cref{lem:minimal-coherent-hull-origin-vanishing}, \(0\in\mathcal H(Z_*)\).
+Minimality gives \(\mathcal H(Z_*)=\mathcal M\).  Since the zero state is a
+closed invariant subsystem, \(\mathcal M=\{0\}\).  This contradicts the
+retained non-affine annular activity that makes the aperiodic coherent tail a
+nonzero residual tail.
+\end{proof}
+
 \begin{corollary}[Coherent critical-tail alternative closure]
 \label{cor:coherent-critical-tail-branch-closure}
 One has
@@ -8288,46 +9502,12 @@ One has
 \end{corollary}
 
 \begin{proof}
-Let \((W,Q)\) be a coherent critical tail and use the bounded-origin realization
-theorem to view \(W\) as locally bounded near \(x=0\) on compact time
-intervals.
-
-If \(W\in\Chomcrit\), then
-\[
-   W(r\omega,s)=r^{-1}A(\omega,s).
-\]
-Local boundedness near \(r=0\) gives
-\[
-   |A(\omega,s)|=r|W(r\omega,s)|\le Mr
-\]
-for small \(r\).  Letting \(r\downarrow0\) gives \(A=0\), hence \(W\equiv0\),
-contradicting the nonzero spatial quotient oscillation of a realized coherent
-tail.  Thus \(\Chomcrit=\varnothing\).
-
-If \(W\in\Clogper\), set
-\[
-   Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s).
-\]
-Bounded-origin realization gives \(Z(\rho,\cdot,\cdot)\to0\) as
-\(\rho\to-\infty\) in the local logarithmic topology.  If \(Z\) has nonzero
-period \(L\), then
-\[
-   Z(\rho,\omega,s)=Z(\rho-kL,\omega,s)
-\]
-for every integer \(k\).  If \(L>0\), send \(k\to+\infty\); if \(L<0\), send
-\(k\to-\infty\).  In both cases the orbit approaches \(r=0\), where
-bounded-origin realization gives zero.  Hence \(Z(\rho,\omega,s)=0\) for every
-\(\rho\), so \(W\equiv0\), again contradicting nonzero critical tail mass.
-Thus \(\Clogper=\varnothing\).
-
-If \(W\in\Capcrit\), let \(\mathcal M\) be the nonzero minimal aperiodic
-logarithmic subsystem used to define this alternative and choose
-\(Z_*\in\mathcal M\).  By
-\Cref{lem:minimal-coherent-hull-origin-vanishing}, \(0\in\mathcal H(Z_*)\).
-Since \(\mathcal M\) is minimal, \(\mathcal H(Z_*)=\mathcal M\); hence the
-closed invariant set \(\{0\}\) contained in \(\mathcal M\) forces
-\(\mathcal M=\{0\}\).  This contradicts the nonzero affine-normalized
-oscillation required in \(\Capcrit\).  Therefore \(\Capcrit=\varnothing\).
+\Cref{lem:homogeneous-tail-bounded-origin-closure} excludes
+\(\Chomcrit\), \Cref{lem:logperiodic-tail-bounded-origin-closure} excludes
+\(\Clogper\), and \Cref{lem:aperiodic-tail-bounded-origin-closure} excludes
+\(\Capcrit\).  Each contradiction uses the same retained non-affine annular
+activity that makes the coherent tail a nonzero realized residual object, so no
+coherent critical-tail lower stratum remains.
 \end{proof}
 
 \begin{corollary}[Critical-tail exclusion, complete form]
@@ -8338,8 +9518,8 @@ concentration-set removal and affine/parasitic lower-stratum removal.
 
 \begin{proof}
 Let \(\mathcal T\in\Tcrit\) be a remaining nonzero realized critical-tail profile.
-By \Cref{thm:realized-critical-tail-rigidity}, exactly one ordered alternative
-occurs: regenerated concentration, affine/parasitic collapse, log-diffuse defect,
+By \Cref{thm:realized-critical-tail-rigidity}, the ordered priority alternative
+is one of: regenerated concentration, affine/parasitic collapse, log-diffuse defect,
 Young critical tail, coherent homogeneous tail, coherent log-periodic tail, or
 coherent aperiodic tail.
 
@@ -8412,7 +9592,7 @@ descendants of a centered profile they are the covariant tail recenterings of
    \((U_j,\Pi_j)\);
    \item each limiting profile has retained local velocity concentration:
 \[
-   \Vel_1(U_j;0)\ge\eps_*
+   \Vel_1(U_j;0)\ge\eta_*
    \qquad (j=1,\dots,J).
 \]
 \end{enumerate}
@@ -8643,7 +9823,7 @@ finite separated family of retained velocity concentration profiles.
 \begin{proof}
 The origin recentering sequence carries retained velocity concentration:
 \[
-   \Vel_1(U;0)\ge\eps_*.
+   \Vel_1(U;0)\ge\eta_*.
 \]
 Let \(W\) be a retained concentrating tail limit.  By definition there are
 covariant relative tail recentering parameters
@@ -8651,12 +9831,12 @@ covariant relative tail recentering parameters
 \(|x_n|+|\tau_n|^{1/2}\to\infty\), such that
 \(\mathscr T_{\zeta_n}(U,\Pi)\to(W,\Pi_W)\) in the terminal topology and
 \[
-   \Vel_1(W;0)\ge\eps_*.
+   \Vel_1(W;0)\ge\eta_*.
 \]
 By strong local convergence of the velocity,
 \[
    \Vel_1(\mathscr T_{\zeta_n}U;0)
-   \ge\frac12\eps_*
+   \ge\frac12\eta_*
 \]
 for all sufficiently large \(n\).  Thus, for large \(n\), the origin
 recentering sequence and the covariant tail sequence \(\zeta_n\) are separated
@@ -8730,12 +9910,12 @@ Fix once and for all a small \(\alpha_0>0\), and let
 \Cref{def:threshold-hierarchy}, lower the retained descendant threshold once,
 before reading terminal indecomposability for this bounded class, so that
 \[
-   4\eps_*<c_{\rm sl}(M,\alpha_0).
+   4\eta_*<c_{\rm sl}(M,\alpha_0).
 \]
 This only makes the retained-tail test more sensitive and is independent of any
 later profile tree extraction.
 
-First suppose \(\limsup_{n\to\infty}m_n^{\rm vel}\ge4\eps_*\).  Passing to a
+First suppose \(\limsup_{n\to\infty}m_n^{\rm vel}\ge4\eta_*\).  Passing to a
 subsequence, choose \((x_n,s_n)\), with
 \[
    |x_n|>R_n-2,\qquad |s_n-\tau_n|\le1,
@@ -8743,19 +9923,19 @@ subsequence, choose \((x_n,s_n)\), with
 such that
 \[
    \Vel_1\!\left(\mathscr T_{(x_n,s_n)}U;0\right)
-   \ge2\eps_* .
+   \ge2\eta_* .
 \]
 Since \(R_n\to\infty\) and \(\tau_n\to-\infty\), these are escaping covariant
 tail recenterings.  If they have loss of local compactness, terminal
 indecomposability is contradicted.  Otherwise local compactness gives a
 subsequential terminal limit \((W,\Pi_W)\), and strong local \(L^3\) convergence gives
 \[
-   \Vel_1(W;0)\ge\eps_* .
+   \Vel_1(W;0)\ge\eta_* .
 \]
 Thus \(W\) is a retained concentrating covariant tail limit, contradicting
 terminal indecomposability.
 
-It remains to consider the case in which \(m_n^{\rm vel}<4\eps_*\) for
+It remains to consider the case in which \(m_n^{\rm vel}<4\eta_*\) for
 all large \(n\).  If some unit exterior
 covariant recentering sequence in the windows
 \[
@@ -8775,11 +9955,11 @@ critical-tail normalization is selected, then the exterior time-slice lower boun
 \[
    \int_{|y|>R_n}|U(y,\tau_n)|^3\,dy\ge1
 \]
-together with the parabolic velocity smallness \(m_n^{\rm vel}<4\eps_*\)
+together with the parabolic velocity smallness \(m_n^{\rm vel}<4\eta_*\)
 is now
 handled quantitatively by \Cref{lem:exterior-slice-to-diffuse-defect}.  Apply
 that lemma with \(m_0=1\), \(\alpha=\alpha_0\), and the inequality
-\(m_n^{\rm vel}<4\eps_*<c_{\rm sl}(M,\alpha_0)\).
+\(m_n^{\rm vel}<4\eta_*<c_{\rm sl}(M,\alpha_0)\).
 If the lemma produces local compactness loss, pressure-gauge loss, pressure-only
 mass, or a critical-tail normalization, the branch is one of the already routed
 noncompact, pressure, affine/parasitic, or critical-tail alternatives.  In the
@@ -9005,7 +10185,7 @@ such that
 \]
 locally in the terminal topology, and
 \[
-   \Vel_1(W;0)\ge\eps_* .
+   \Vel_1(W;0)\ge\eta_* .
 \]
 Fix \(m\).  Since \(V_n^{g_j}\to U_j\) locally smoothly and
 \((P_n^{g_j})\to\Pi_j\) locally in \(L^{3/2}\) modulo gauges, the convergence
@@ -9041,7 +10221,7 @@ continuous under the strong local \(L^3\) convergence, so
 \[
    \liminf_{m\to\infty}
       \iint_{Q_1(0,0)}|V_{n(m)}^{\mathfrak d}|^3\,dy\,d\tau
-   \ge \Vel_1(W;0)\ge\eps_* .
+   \ge \Vel_1(W;0)\ge\eta_* .
 \]
 Thus \(\mathfrak d\) has retained local velocity concentration.
 \end{proof}
@@ -9131,7 +10311,7 @@ recentering sequence with loss of local compactness.  By the same diagonal
 procedure used in \Cref{lem:diagonal-lifting-descendants}, this tail profile is
 realized by a terminal extraction of the original refined residual candidate,
 after passing to a subsequence and choosing the local pressure gauges supplied
-by the imported setup theorem.  The fact that the diffuse or
+by the imported setup package.  The fact that the diffuse or
 noncompact profile is not the sole source of the original compact concentration
 does not exclude coexistence with the compact core \((U_j,\Pi_j)\).  The paired exclusion
 \Cref{thm:no-mixed-compact-diffuse} rules out exactly this coexistence in the
@@ -9418,7 +10598,7 @@ Let \(\calK\) be the closure, in the local smooth velocity topology and local
 finite set \(\{U_0,\dots,U_{q-1}\}\) by time translations and covariant
 terminal translations.  The boundedness inherited from the Type I Seregin
 extraction theorem and the local pressure compactness from
-the imported setup theorem give compactness of \(\calK\) on every fixed terminal
+the imported setup package give compactness of \(\calK\) on every fixed terminal
 cylinder; a diagonal argument gives compactness of \(\calK\).  The set is
 invariant under the same time and covariant translations by construction.  The
 recurrent-loop relations imply that each \(U_\ell\)
@@ -9538,7 +10718,12 @@ a retained unit velocity concentration lower bound
 \[
    \liminf_{n\to\infty}\Vel_1(V_n;z_n)\ge\eta_*>0 .
 \]
-Assume all setup-closed lower classes have been removed.  Then the paired
+Assume all setup-closed lower classes have been removed.  The compact
+subthreshold regular residual alternative \textup{(b)} of
+\Cref{lem:compact-window-expanding-region-protocol} is excluded before the
+terminal stratification by \Cref{lem:compact-subthreshold-regular-residual}
+(CKN \(\varepsilon\)-regularity); hence it does not appear as a terminal
+residual alternative below.  Then the paired
 terminal extraction of \Cref{thm:terminal-exhaustion-main} gives the following
 ordered alternatives:
 \begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
@@ -9565,7 +10750,10 @@ profile satisfying the retained unit velocity concentration lower bound remains.
 This is the assembly of the local results and explicit profile-class arguments in
 \Cref{sec:terminal-concentration,sec:separated-profiles-atomic}.  The local
 concentration decomposition is the paired concentration-set/remainder decomposition
-\Cref{thm:terminal-exhaustion-main}.  This theorem does not introduce an
+\Cref{thm:terminal-exhaustion-main}.  Closed or continuum active loci are reduced
+to the single-profile, finite-separated, or infinite-chain cases by
+\Cref{lem:closed-active-locus-single-finite-chain}, so no additional continuum
+active-locus branch is hidden in the compact concentration set.  This theorem does not introduce an
 additional compactness principle; it only combines the preceding extraction,
 routing, and closure results in the order recorded in
 \Cref{tab:terminal-dependency-ledger}.  The pure radiative alternatives enter
@@ -9609,7 +10797,7 @@ The ordered rotational relative-equilibrium residual class is empty:
 By \Cref{prop:R2-routing-to-terminal}, every R2 residual either belongs to a
 previously closed lower class or produces a terminal concentration profile
 realized from the original blow-up sequence with retained unit velocity concentration.
-The lower classes are empty by the imported setup theorem, and the terminal
+The lower classes are empty by the imported setup package, and the terminal
 concentration case is empty by
 \Cref{thm:terminal-stratification}.  Hence no R2 residual remains.
 \end{proof}
@@ -9627,7 +10815,7 @@ By
 \Cref{prop:R3-stationary-hull-routing,prop:R3S-R3-terminal-routing}, every R3
 stationary-hull residual either lies in a setup-closed lower class or produces
 a stationary terminal concentration profile realized from the original blow-up
-sequence.  The lower classes are empty by the imported setup theorem.  The stationary terminal
+sequence.  The lower classes are empty by the imported setup package.  The stationary terminal
 profile satisfies the retained unit velocity concentration hypotheses of
 \Cref{thm:terminal-stratification}, so it is reduced to the atomic alternative
 only after all separated, diffuse, noncompact, critical-tail, and affine
@@ -9655,6 +10843,52 @@ classes removed earlier, including the ordered critical-tail lower strata
 \(\Clogdiff,\Cyoung,\Chomcrit,\Clogper,\Capcrit\).
 \end{definition}
 
+\begin{theorem}[Generic terminal exhaustion]
+\label{thm:generic-terminal-exhaustion}
+Let \((U,\Pi)\in\Cgen\) be represented after canonical affine/parasitic
+normalization and after removal of the setup-closed lower alternatives.  Then a
+terminal extraction of \((U,\Pi)\), with the priority order used throughout the
+terminal section, selects one of the following priority alternatives:
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+   \item a retained compact active descendant;
+   \item a finite separated family of retained velocity profiles;
+   \item an infinite chain of retained active descendants;
+   \item a diffuse exterior defect after active-neighborhood removal;
+   \item a noncompact or pressure-gauge defect;
+   \item a critical-tail defect;
+   \item a single terminally indecomposable retained velocity profile.
+\end{enumerate}
+This is a concentration-compactness exhaustion of the realized terminal
+sequence, not a convention in the definition of \(\Cgen\).
+\end{theorem}
+
+\begin{proof}
+The generic representative is first put in the affine-normalized quotient.  If
+all non-affine oscillation disappears, then
+\Cref{thm:affine-normalization-dichotomy} places the profile in the
+affine/parasitic lower stratum, contradicting the assumption that we are in
+\(\Cgen\).  Thus a positive non-affine oscillation threshold survives, while the
+setup package supplies retained compact velocity mass.
+
+Apply the paired terminal concentration-set/remainder decomposition
+\Cref{thm:terminal-exhaustion-main} together with the compact-window to
+expanding-region protocol
+\Cref{lem:compact-window-expanding-region-protocol}.  The retained velocity
+mass forces at least one selected active or residual alternative by
+\Cref{cor:persistent-forces-active}.  If active neighborhoods persist, the
+priority order first records a compact retained descendant; iterating the same
+realized-descendant construction either produces a finite separated retained
+family, an infinite active chain, or terminates at a single retained profile
+with no further retained active descendant.  If active neighborhoods do not
+exhaust the residual measure on the selected terminal regions, the protocol
+selects a diffuse exterior defect, a loss of local compactness or pressure-gauge
+compactness, or a scale-critical tail window.  These alternatives are exactly
+\textup{(4)}--\textup{(6)}.  If none of the separated, chained, diffuse,
+noncompact, or critical-tail remainders occurs, then the remaining single
+profile is terminally indecomposable by \Cref{prop:no-multi-implies-atomic}.
+The priority order makes the selected alternative unique.
+\end{proof}
+
 \begin{theorem}[Closure of the generic residual class by local concentration analysis]
 \label{thm:R4-final-closure}
 One has
@@ -9664,36 +10898,25 @@ One has
 \end{theorem}
 
 \begin{proof}
-Suppose, for contradiction, that \(V\in\Cgen\).  By the tail geometry
-developed above, constant tails may be removed by the exact affine symmetry
-and nonconstant recurrent profile tail cores collapse to affine constants.
-Thus the remaining representative may be taken to be tail-normalized without
-leaving the centered equation or the residual decomposition.  If this
-normalization eliminates non-affine oscillation, then
-\Cref{thm:affine-normalization-dichotomy} places the profile in the
-affine/parasitic lower stratum already removed from \(\Cgen\).  Thus, for the
-residual representative still under consideration, a positive non-affine
-oscillation threshold survives.
-
-Apply the paired terminal concentration-set/remainder decomposition to a terminal
-extraction of this tail-normalized candidate.  The distinguished compact
-velocity mass from the setup paper still forces the terminal concentration set to be
-nonempty by \Cref{cor:persistent-forces-active}; after affine normalization the
-surviving residual oscillation is measured by \(\Phi\).  The pure radiative
-alternatives cannot be the sole location of the compact mass by
-\Cref{thm:terminal-nonactive-discharge}, and mixed compact--diffuse or
-compact--noncompact remainders are excluded by
-\Cref{thm:no-mixed-compact-diffuse}.  Infinite chains of retained concentrating descendants are excluded by
-\Cref{thm:compact-active-descendant}.  Thus the concentration set reduces, in the
-refined residual class, either to a finite separated family or to a single
-retained profile with no surviving tail remainder.
-
-The finite separated-family case contradicts
-\Cref{thm:no-finite-separated-profile-family}.  In the single-profile case,
-\Cref{prop:no-multi-implies-atomic} makes the terminal profile terminally
-indecomposable.  Then \Cref{lem:no-atomic-active} excludes it.  All paired
-profile possibilities are impossible.  Hence no generic residual profile
-exists.
+Suppose, for contradiction, that \(V\in\Cgen\).  Apply
+\Cref{thm:generic-terminal-exhaustion}.  A retained compact active descendant is
+not a terminal stopping case: by descendant heredity it is reinserted into the
+same ordered terminal extraction until it gives a finite separated family, an
+infinite active chain, a diffuse/noncompact/critical-tail remainder, or a single
+indecomposable retained profile.  Finite separated families are excluded by
+\Cref{thm:no-finite-separated-profile-family}, and infinite active chains by
+\Cref{thm:compact-active-descendant}.  Diffuse and noncompact remainders are
+excluded by
+\Cref{thm:terminal-nonactive-discharge,thm:no-mixed-compact-diffuse}; critical
+tails are excluded by
+\Cref{thm:realized-critical-tail-rigidity,cor:critical-tail-discharge-complete}.
+The pressure-only case is routed by
+\Cref{lem:no-pressure-only-retained-profile} into the pressure/noncompact or
+affine/parasitic lower stratum, both already removed.  In the remaining
+single-profile case, \Cref{prop:no-multi-implies-atomic} gives terminal
+indecomposability and \Cref{lem:no-atomic-active} gives the endpoint
+contradiction.  Every selected alternative in the generic terminal exhaustion is
+impossible, so \(\Cgen=\varnothing\).
 \end{proof}
 
 \section{Final assembly}
@@ -9709,10 +10932,10 @@ arrows are proved in this paper from local estimates:
    &\xrightarrow{\;\Gamma\hbox{-Liouville}\;}
    \varnothing,\\
 \Crot
-   &\xrightarrow{\;\hbox{local flux}\;}
+   &\xrightarrow{\;\hbox{local flux routing + terminal assembly}\;}
    \varnothing,\\
 \Cstat
-   &\xrightarrow{\;\hbox{terminal concentration}\;}
+   &\xrightarrow{\;\hbox{stationary-hull routing + terminal assembly}\;}
    \varnothing,\\
 \Caff
    &\xrightarrow{\;\hbox{affine/parasitic normalization}\;}
@@ -9898,10 +11121,11 @@ realization \Cref{thm:bounded-origin-realization-coherent-tails}.
 \section{Setup-Paper Label Dictionary}
 \label{app:setup-label-dictionary}
 
-The labels displayed in \Cref{thm:imported-setup-package} are the companion
-setup paper's theorem labels.  In a standalone arXiv submission, these labels
-should be replaced by the final theorem numbers of the companion paper or kept
-as a label dictionary in the following form.
+The imported setup results displayed in \Cref{thm:imported-setup-package} are
+cited by their companion-paper theorem numbers, with stable source labels kept
+as parenthetical audit keys.  This table records the same dictionary in one
+place so that Paper~IV can be read without relying on private file names or
+source-file conventions.
 \begingroup
 \scriptsize
 \begin{longtable}{@{}L{0.60\textwidth}L{0.34\textwidth}@{}}
@@ -9910,7 +11134,7 @@ Type~I singular point.\\
 \SetupLabel{p0:prop:concentration-package} & Terminal concentration package.\\
 \SetupLabel{p0:thm:local-weak-serrin-typeI} & Local weak-Serrin/Type~I
 bridge.\\
-\SetupLabel{p0:cor:paper0-local-typeI-bridge-admissible} & Admissibility of
+\SetupLabel{p0:cor:paper0-local-typeI-admissible} & Admissibility of
 local Type~I sequences.\\
 \SetupLabel{p0:lem:local-seregin-extraction} & Local Seregin extraction.\\
 \SetupLabel{p1:thm:extraction} & Normalized Seregin extraction theorem.\\
@@ -9936,6 +11160,147 @@ paper.\\
 \endgroup
 Paper~IV uses these results only through the imported package; it does not
 invoke private source-file conventions.
+
+\section{Generator calculus on compact recurrent cores}
+\label{app:generator-calculus}
+
+This appendix collects the operator-theoretic facts used implicitly in the
+amenable-averaging and pressure-observable arguments of the body of the
+paper.  The setting is a compact metrizable invariant minimal core
+\((M,\mu,\Phi_t)\) of the centered translation hull, where \(\mu\) is an
+\(\Phi_t\)-invariant Borel probability measure (existence of such a
+measure is the standard Krylov--Bogolyubov consequence of
+\Cref{thm:diffuse-defect-compactness}; uniqueness is not used).  The acting group is
+\(G:=\mathbb R^3\rtimes\mathbb R\) (covariant translations and parabolic
+time shift).
+
+\subsection{Hilbert framework and unitary representation}
+Let \(H:=L^2(M,\mu;\mathbb C)\).  The Koopman representation
+\(U_g f:=f\circ\Phi_g^{-1}\) (\(g\in G\)) is a strongly continuous unitary
+representation of \(G\) on \(H\), by \(\Phi_t\)-invariance of \(\mu\) and
+the dominated convergence theorem.  Write \(\Pi_0:H\to\ker(\nabla_G)\) for
+the orthogonal projection onto the \(G\)-invariant subspace of \(H\).  If the
+chosen invariant measure is ergodic on the minimal core, this projection is the
+spatial mean \(f\mapsto\int f\,d\mu\); the arguments below require only the
+projection \(\Pi_0\), not ergodicity or uniqueness of \(\mu\).
+
+For each one-parameter subgroup \(\{e^{tX_k}\}_{t\in\mathbb R}\) of \(G\)
+(\(k=0,1,2,3\): time translation \(X_0\) and three covariant spatial
+translations \(X_1,X_2,X_3\)), Stone's theorem gives a self-adjoint
+generator \(A_k\) on a dense domain \(\mathcal D(A_k)\subset H\) with
+\(U_{e^{tX_k}}=e^{itA_k}\).  Define the non-negative self-adjoint operator
+\(\mathcal L\) by the closed quadratic form
+\[
+   \mathfrak q(f)
+   :=
+   \sum_{k=0}^3\|A_k f\|_{L^2(M,\mu)}^2,
+   \qquad
+   f\in\bigcap_{k=0}^3\mathcal D(A_k).
+\]
+Thus \(\mathcal L\) is the Friedrichs generator associated with the formal
+operator
+\[
+   \mathcal L=\sum_{k=0}^3 A_k^2,
+\]
+and \(\mathcal L\Pi_0=\Pi_0\mathcal L=0\).  All inverses below are understood
+as resolvent limits of \((\varepsilon+\mathcal L)^{-1}(I-\Pi_0)\).
+
+\subsection{Pressure observables and bounded continuous core}
+The pressure observables used in
+\Cref{def:diffuse-defect-observables}\,(iv)--(v) (compatible-gauge averaged
+pressure differences \(\Pi(\cdot)-a(\cdot)\) integrated against compactly
+supported test functions, plus the affine quotient observables
+\([\Pi]\in D_1\)) define bounded measurable functions
+\(b_{ij}^{(\varphi,a)}\colon M\to\mathbb R\) for each test function
+\(\varphi\in C_c^\infty\) and each gauge selection \(a\) compatible with
+\Cref{def:pressure-gauge-affine-quotient}.  These observables generate a
+unital \(C^*\)-subalgebra
+\(\mathcal B\subset C(M)\) which is dense in \(L^2(M,\mu)\).  The
+restriction of the unitary representation \(U_g\) to \(\mathcal B\) is the
+Koopman action by composition.
+
+\subsection{Regularized inverse and distributional pressure identity}
+For each \(\varepsilon>0\) and each generator \(A_k\), define the
+regularized distributional pressure functional by
+\[
+   \left\langle q_{k,\varepsilon}^{(\varphi,a)},F\right\rangle
+   :=
+   \left\langle
+      (I-\Pi_0)D_iD_j b_{ij}^{(\varphi,a)},
+      (\varepsilon+\mathcal L)^{-1}D_k^*F
+   \right\rangle
+\]
+for cylinder test observables \(F\in\mathcal B\).  Here \(D_k=iA_k\) is the
+skew-adjoint generator, \(D_k^*=-D_k\), and \(D_iD_jb_{ij}\) is interpreted in
+the weak generator sense on the cylinder core.  The operator
+\((\varepsilon+\mathcal L)^{-1}\) is bounded on \(H\) with
+norm \(\le\varepsilon^{-1}\) and commutes with \(\Pi_0\); each \(D_k\) is
+closed on \(\mathcal D(A_k)\), and
+\((\varepsilon+\mathcal L)^{-1}D_k^*F\) lies in the form domain.  Therefore the
+displayed pairing is well-defined for every \(\varepsilon>0\), \(\varphi\),
+\(a\), and \(F\in\mathcal B\).  If the weak source
+\((I-\Pi_0)D_iD_jb_{ij}^{(\varphi,a)}\) is represented by an \(L^2\) function,
+then this functional is represented by the corresponding \(H\)-element; the
+arguments in the paper need only the weak pairing.
+
+\begin{lemma}[Distributional pressure identity in the generator calculus]
+\label{lem:generator-pressure-identity}
+For every test function \(\varphi\in C_c^\infty\) and every compatible
+gauge \(a\), the family
+\(\{q_{k,\varepsilon}^{(\varphi,a)}\}_{\varepsilon>0}\) has a distributional
+limit along the cylinder core as \(\varepsilon\downarrow0\).  The limit is
+independent of the chosen gauge \(a\) in the affine quotient of
+\Cref{def:pressure-gauge-affine-quotient} and represents the centered
+distributional pressure identity
+\(\Pi(\cdot)-a(\cdot)=R_iR_j(\chi u_i u_j)+h\) of
+\Cref{lem:local-pressure-decomposition} averaged against \(\mu\).
+\end{lemma}
+
+\begin{proof}
+The spectral theorem applied to \(\mathcal L\) gives
+\[
+   D_k(\varepsilon+\mathcal L)^{-1}(I-\Pi_0)
+   \xrightarrow{\;\varepsilon\downarrow0\;}
+   D_k\mathcal L^{-1}(I-\Pi_0)
+\]
+in the weak resolvent sense on the form domain, after projecting away the
+invariant kernel.  For \(F\in\mathcal B\), the test
+\((\varepsilon+\mathcal L)^{-1}D_k^*F\) converges in the form topology to
+\(\mathcal L^{-1}D_k^*F\) modulo \(\Pi_0H\).  Hence the displayed weak pairing
+with \((I-\Pi_0)D_iD_jb_{ij}^{(\varphi,a)}\) converges and defines the
+distributional limit \(q_k^{(\varphi,a)}\).  Gauge independence in the affine
+quotient is the statement that two compatible
+gauges \(a,a'\) differ by an affine pressure mode whose distributional
+contribution to \(D_iD_j b_{ij}\) vanishes (because affine functions are
+killed by two derivatives).  The identification with the centered
+distributional pressure identity is the statement that, in a fixed local
+covariant chart, the operators \(D_k\) on \(M\) restrict to the
+distributional spatial derivatives along the chart and \(A^{-1}(I-\Pi_0)\)
+restricts to the inverse Laplacian on the centered ancient solution
+modulo the kernel of \(G\)-invariant functions; this restriction is the
+content of the local pressure atlas
+(\Cref{thm:imported-setup-package}\,(3)).
+\end{proof}
+
+\begin{remark}[Gauge independence in the affine quotient]
+\label{rem:generator-gauge-independence}
+The limit \(q_k^{(\varphi,a)}\) depends on the gauge \(a\) only through
+its affine quotient \([a]\in D_1\) of
+\Cref{def:pressure-gauge-affine-quotient}.  If two compatible gauges
+\(a,a'\) give the same affine quotient, then \(a-a'\) is the time-only
+contribution allowed by the gauge atlas, and the pressure identity in
+\Cref{lem:generator-pressure-identity} differs by a quantity in the
+kernel of \(D_iD_j\), which is killed in the regularized formula and
+therefore does not contribute to the limit.  This is the precise
+statement underlying the use of pressure observables in the
+amenable-averaging arguments of
+\Cref{thm:diffuse-defect-state-space-construction} and
+\Cref{thm:diffuse-defect-compactness}: averaging is performed on the
+gauge-quotient pressure observables, and the regularized inverse
+\(q_{k,\varepsilon}\) provides a regularized weak representative for each fixed
+\(\varepsilon\) before the limit \(\varepsilon\downarrow0\) gives the
+gauge-independent pressure identity.
+\end{remark}
 
 \begin{thebibliography}{99}
 

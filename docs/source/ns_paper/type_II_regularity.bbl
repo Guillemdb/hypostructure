@@ -6,12 +6,6 @@ Jean-Pierre Aubin.
 \newblock {\em Comptes Rendus de l'Acad{\'e}mie des Sciences de Paris},
   256:5042--5044, 1963.
 
-\bibitem[BG99]{BahouriGerard1999}
-Hajer Bahouri and Patrick G{\'e}rard.
-\newblock High frequency approximation of solutions to critical nonlinear wave
-  equations.
-\newblock {\em American Journal of Mathematics}, 121(1):131--175, 1999.
-
 \bibitem[BL83]{BrezisLieb1983}
 Ha{\"i}m Brezis and Elliott~H. Lieb.
 \newblock A relation between pointwise convergence of functions and convergence
@@ -48,36 +42,11 @@ Isabelle Gallagher.
 \newblock {\em Bulletin de la Soci{\'e}t{\'e} Math{\'e}matique de France},
   129(2):285--316, 2001.
 
-\bibitem[G{\'e}r98]{Gerard1998}
-Patrick G{\'e}rard.
-\newblock Description du d{\'e}faut de compacit{\'e} de l'injection de sobolev.
-\newblock {\em ESAIM: Control, Optimisation and Calculus of Variations},
-  3:213--233, 1998.
-
-\bibitem[GIP03]{GallagherIftimiePlanchon2003}
-Isabelle Gallagher, Drago{\c s} Iftimie, and Fabrice Planchon.
-\newblock Asymptotics and stability for global solutions to the
-  {N}avier--{S}tokes equations.
-\newblock {\em Annales de l'Institut Fourier}, 53(5):1387--1424, 2003.
-
 \bibitem[Kat84]{Kato1984}
 Tosio Kato.
 \newblock Strong {$L^p$}-solutions of the navier--stokes equation in {$\mathbb
   R^m$}, with applications to weak solutions.
 \newblock {\em Mathematische Zeitschrift}, 187:471--480, 1984.
-
-\bibitem[KK11]{KenigKoch2011}
-Carlos~E. Kenig and Gabriel~S. Koch.
-\newblock An alternative approach to regularity for the {N}avier--{S}tokes
-  equations in critical spaces.
-\newblock {\em Annales de l'Institut Henri Poincar{\'e} C, Analyse Non
-  Lin{\'e}aire}, 28(2):159--187, 2011.
-
-\bibitem[Koc10]{Koch2010}
-Gabriel~S. Koch.
-\newblock Profile decompositions for critical {L}ebesgue and {B}esov space
-  embeddings.
-\newblock {\em Indiana University Mathematics Journal}, 59(5):1801--1830, 2010.
 
 \bibitem[Lad69]{Ladyzhenskaya1969}
 Olga~A. Ladyzhenskaya.
