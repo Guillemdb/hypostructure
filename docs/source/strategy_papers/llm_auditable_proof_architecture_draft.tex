@@ -136,13 +136,14 @@ The paper studies proof architecture and verification structure; any full PDE re
   \item We define proof capsules, retained obstructions, routing graphs, terminal closures, and fault containment.
   \item We prove an abstract routed-closure theorem: if every branch is routed and every terminal node is closed against a retained obstruction, then the root branch is impossible.
   \item We propose an LLM-audit protocol for scaling, sign, pressure, compactness, dependency, and failure-route checks.
-  \item We give the \NS{} singularity-routing program as a detailed case study rather than as a black-box proof claim.
+  \item We give the \NS{} singularity-routing program as a detailed case study rather than as a black-box proof claim. We do not claim a proof of the problem, but rather we use it as a stress test to map the current limitations of frontier language models (chat GPT pro 5.5 canot find any unfixable error).
 \end{itemize}
 
 \subsection{What this paper does not claim}
 \begin{itemize}
   \item It does not claim that an LLM can certify a long PDE proof without human proof checking.
   \item It does not replace analytic estimates, Liouville theorems, compactness arguments, or pressure reconstruction.
+  \item It honors conservation of difficulty moving from trying to reason globally about a single impossibly complicated state-sapce to reasoning locally about many different state sapce strate. while the first one is more natural for humans, the second one is more natural for LLMs and allows to bypass the main technical difficulties of applying LLMs to long proofs.
   \item It provides a modular architecture in which such estimates are isolated, typed, and auditable while avoiding single global estimates.
 \end{itemize}
 
@@ -261,6 +262,7 @@ The proof is graph-theoretic: dependency is path-local, so invalidating an edge 
   \item The goal is to make each local proof capsule small enough that humans and LLMs can audit its scaling, signs, hypotheses, and dependencies independently.
   \item The architecture is a hedge against hallucinated estimates because every estimate has a contract and every contract has failure routes.
   \item the automatically generated proof cannot be autonomously verified and requires human checking, but the architecture makes it possible to check each local step independently and to localize any discovered failure.
+  \item The goal is to use the simplest mathematical tools possible so when the unavoidable hallucination happen the errors are easier to correct and their impact isolated as much as possible
 \end{itemize}
 
 \subsection{Audit dimensions}
@@ -310,6 +312,7 @@ Return:
   \item A referee can mark a capsule invalid without needing to reject the entire architecture.
   \item The graph then records a precise open node: missing estimate, unstable observable, nonexhaustive routing, or unclosed terminal stratum.
   \item This turns proof failure into useful diagnostic information rather than an opaque collapse.
+  \item Allows to parallelize the repair process: different experts can work on different open nodes without stepping on each other's verified subgraph.
 \end{itemize}
 
 % =============================================================================
@@ -319,6 +322,7 @@ Return:
 \subsection{The case-study role}
 \begin{itemize}
   \item The \NS{} regularity problem is used as a stress test for the architecture because it combines scaling, pressure, compactness, and critical concentration.
+  \item the millenium problem status triggers maximum skepticism and scrutiny, which is ideal for testing the architecture's ability to localize and contain failures, and avoid psychopantic overreactions to inevitable errors in a first draft.
   \item The case study should be read as a proof-design ledger whose analytic capsules must be independently verified.
   \item The architecture is valuable even if some analytic row later requires repair, because the row and its dependencies are explicitly localized.
 \end{itemize}

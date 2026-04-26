@@ -143,8 +143,9 @@ estimates.  Within this representation, a compact single-core branch with a
 retained positive velocity core and vanishing localized dissipation is
 impossible: local compactness gives a spatially constant limit, the zero
 constant contradicts retained velocity by strong \(L^3\) convergence, and a
-nonzero constant gives a bounded selected-window limit, which exits the
-retained local Type II row.  Pressure-only harmonic concentration is routed to
+nonzero constant gives a bounded selected-window limit, which leaves the strict
+selected-window retained branch and is later physically routed by the
+bounded-window closure theorem.  Pressure-only harmonic concentration is routed to
 the pressure/exterior rows rather than closed by the single-core velocity
 argument.
 
@@ -216,11 +217,20 @@ where \(V_*\in L^\infty(Q_r)\).  The limit is nonzero if
 \(V_*\not\equiv0\) on \(Q_r\).
 \end{definition}
 
-\begin{definition}[Local Type II sequence]\label{paper1:def:typeII}
-A represented sequence is called a local Type II sequence if it has positive
-local Caffarelli--Kohn--Nirenberg concentration on some fixed compact cylinder
-and no selected-window subsequence has a nonzero bounded selected-window limit on
-any compact cylinder in the sense of \cref{paper1:def:bounded-window-limit}.
+\begin{definition}[Strict selected-window Type II branch]\label{paper1:def:typeII}
+A represented selected-window branch is called a strict selected-window Type II
+branch if it has positive local Caffarelli--Kohn--Nirenberg concentration on
+some fixed compact cylinder and no selected-window subsequence has a nonzero
+bounded selected-window limit on any compact cylinder in the sense of
+\cref{paper1:def:bounded-window-limit}.
+
+This is a branch condition inside the selected-window state-space analysis.  It
+is not the physical definition of a local Type II singular germ.  Physical local
+Type II germs are defined later in
+\cref{paper6:def:physical-local-typeII-germ}.  If a selected branch has a
+nonzero bounded selected-window limit, it leaves the strict selected-window
+branch and is handled by the bounded-window physical routing theorem rather
+than being declared incompatible with physical Type II by definition.
 \end{definition}
 
 \begin{definition}[Compact single-core vanishing-dissipation branch]\label{paper1:def:single-core-branch}
@@ -310,26 +320,35 @@ The Type I/Type II split is the dichotomy between existence and failure of the
 local Type I scale-invariant bound at the same point.
 \end{proof}
 
-\begin{proposition}[Passage to local Type II sequences]
+\begin{proposition}[Passage to selected-window branches]
 \label{paper1:prop:paper0-typeII-reduction}
-Let \((x_0,T)\) be a concentration point in the local Type II alternative of
-\cref{paper1:thm:paper0-dichotomy}.  After choosing the positive concentration scales
-given there and applying the local scale-translation selection used in the
-present section to a nondegenerate compact single core, the represented selected
-windows form a sequence with positive local CKN concentration on a fixed compact
-cylinder.  In the selected-window Type II branch, no subsequence has a nonzero
-bounded selected-window limit on any compact cylinder.  Hence the represented
-selected windows are a local Type II sequence in the sense of \cref{paper1:def:typeII}.
+Let \((x_0,T)\) be a concentration point in the physical local Type II
+alternative of \cref{paper1:thm:paper0-dichotomy}.  After choosing the positive
+concentration scales given there and applying the local scale-translation
+selection used in the present section to a nondegenerate compact single core,
+the represented selected windows have positive local CKN concentration on a
+fixed compact cylinder.  Exactly one of the following selected-window
+alternatives is then recorded:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the selected branch is a strict selected-window Type II branch in the
+sense of \cref{paper1:def:typeII};
+\item a selected-window subsequence has a nonzero bounded selected-window limit
+in the sense of \cref{paper1:def:bounded-window-limit}.  This is the
+bounded-window row and is routed by
+\cref{paper6:thm:bounded-selected-window-physical-routing}.
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}
-The local concentration dichotomy supplies the positive CKN concentration sequence and the exclusion of
-the local Type I alternative at the chosen concentration point.  The
-scale-translation selection rewrites those shrinking cylinders as fixed
-selected windows.  The last condition is the selected-window
-formulation of the Type II branch considered here: any branch with a nonzero
-bounded selected-window limit belongs to the bounded-window alternative,
-not to \cref{paper1:def:typeII}.
+The local concentration dichotomy supplies the positive CKN concentration
+sequence and the failure of the local Type I scale-invariant bound at the
+chosen physical point.  The scale-translation selection rewrites those
+shrinking cylinders as fixed selected windows.  On the selected windows there
+are then two mutually exclusive possibilities: either no selected-window
+subsequence has a nonzero bounded selected-window limit, which is precisely
+\cref{paper1:def:typeII}, or such a subsequence exists.  In the latter case the
+branch is not discarded as physically impossible; it is sent to the
+bounded-window physical routing theorem.
 \end{proof}
 
 \begin{proposition}[Local representation input]\label{paper1:prop:representation-input}
@@ -743,16 +762,18 @@ No assertion is made about \(D_{P_n}(r_*)\): a pressure-only harmonic mode may
 remain and is not part of the retained compact single-core velocity row.
 \end{proof}
 
-\begin{lemma}[Nonzero constant exits the retained Type II row]\label{paper1:lem:nonzero-contradiction}
+\begin{lemma}[Nonzero constant exits the strict selected-window branch]\label{paper1:lem:nonzero-contradiction}
 If the compactness limit is spatially constant and nonzero on a compact
-subcylinder, then the original sequence is not a local Type II sequence.
+subcylinder, then the original sequence leaves the strict selected-window
+branch.
 \end{lemma}
 
 \begin{proof}
 By \cref{paper1:lem:constant-limit}, the selected-window subsequence has a nonzero
 bounded selected-window limit.  By \cref{paper1:def:typeII}, such a sequence is
-assigned to the bounded-window alternative rather than the retained local Type
-II row.
+assigned to the bounded-window alternative rather than to the strict
+selected-window branch.  Physical local Type II germs are then routed by
+\cref{paper6:thm:bounded-selected-window-physical-routing}.
 \end{proof}
 
 \subsection{Main theorem}
@@ -795,8 +816,9 @@ contradicting persistence of the retained velocity core.
 
 If the spatially constant limit is not identically zero on \(Q_{r_*}\), the
 nonzero-limit lemma produces a nonzero bounded selected-window limit, so the
-branch exits the retained local Type II row through the bounded-window
-alternative.  The two cases exhaust all
+strict selected-window branch stops at the bounded-window alternative.  In the
+physical assembly that bounded-window event is routed by
+\cref{paper6:thm:bounded-selected-window-physical-routing}.  The two cases exhaust all
 spatially constant limits, so the branch cannot occur.
 \end{proof}
 
@@ -1382,6 +1404,45 @@ For each component this is a direct substitution:
 \]
 \end{proof}
 
+\begin{lemma}[Weighted translation differentiability]
+\label{paper2:lem:weighted-translation-differentiability}
+Let \(0<p<3\), let \(\chi_R\in C_c^\infty(B_{2R})\), and let
+\(V\in\mathcal A_{p,R}\). Then the map
+\[
+  c\mapsto \int \chi_R(Y)|Y|^{-p}|V(c+Y)|^3\,dY
+\]
+is differentiable at \(c=0\), and
+\[
+  \partial_{c_k}
+  \int \chi_R|Y|^{-p}|V(c+Y)|^3\,dY\bigg|_{c=0}
+  =
+  p\int \chi_RY_k|Y|^{-p-2}|V|^3\,dY
+  -\int(\partial_k\chi_R)|Y|^{-p}|V|^3\,dY .
+\]
+\end{lemma}
+
+\begin{proof}
+First assume \(V\) is smooth and compactly supported in \(B_{4R}\).  Then
+differentiation under the integral sign is legitimate and
+\[
+  \partial_{c_k}\int \chi_R|Y|^{-p}|V(c+Y)|^3\,dY\bigg|_{c=0}
+  =3\int \chi_R|Y|^{-p}|V|\,V\cdot\partial_kV\,dY.
+\]
+Integrating by parts gives the displayed identity.
+
+For general \(V\in\mathcal A_{p,R}\), mollify \(V\) inside \(B_{4R}\) and
+apply the smooth identity to \(V^\varepsilon\).  The defining weighted bounds
+\[
+  \int |Y|^{-p}|V|^3\,dY<\infty,\qquad
+  \int |Y|^{-p-1}|V|^3\,dY<\infty
+\]
+control the singular part, while the cutoff derivative term is supported on a
+compact annulus away from the origin and is controlled by local \(L^3\).
+Hence both right-hand side integrals converge as \(\varepsilon\downarrow0\).
+The translated integrals converge locally uniformly for \(c\) near \(0\) under
+the same weighted bounds, so the derivatives converge to the claimed formula.
+\end{proof}
+
 \begin{proposition}[Differentiability of \(\mathcal F\)]\label{paper2:prop:gauge-C1}
 For each fixed \(V\in\mathcal A_{p,R}\), the map
 \((\lambda,c)\mapsto \mathcal F(\lambda,c;V)\) is \(C^1\) in a neighborhood of
@@ -1409,20 +1470,12 @@ the two weighted integrability conditions
 \int |Y|^{-p}|V|\,|Y\cdot\nabla V|<\infty,
 \]
 transported by the smooth change of variables. The translation derivative in
-the scale component is treated by the source identity
-\[
-3\int \chi_R|Y|^{-p}|V|\,V\cdot\partial_kV
-=p\int \chi_RY_k|Y|^{-p-2}|V|^3
--\int (\partial_k\chi_R)|Y|^{-p}|V|^3,
-\]
-obtained first for smooth compactly supported profiles and then by approximation
-in \(\mathcal A_{p,R}\); the right-hand side is finite because
-\(\int |Y|^{-p-1}|V|^3<\infty\), while the cutoff term is supported on a compact
-annulus away from the origin and is controlled by local \(L^3\). The translation
+the scale component is supplied by
+\cref{paper2:lem:weighted-translation-differentiability}. The translation
 components are supported in \(B_{2R}\)
 and are controlled by \(V\in L^2_{\rm loc}\) and \(\nabla V\in L^3_{\rm loc}\).
-These bounds give an integrable majorant for the difference quotients, so
-dominated convergence applies.
+These bounds give an integrable majorant for the remaining nonsingular
+difference quotients, so dominated convergence applies there.
 \[
 \mathcal F_0(\lambda,c;V)
 =\int_{\RR^3}\chi_R(Y)\,|Y|^{-p}|V_{\lambda,c}|^3\,\dd Y-\Theta_0,
@@ -3166,12 +3219,14 @@ belongs to \(L^1_I H^{-1}(B_R)\) and vanishes.  Thus
   reduces to the compact single-core branch of \cref{paper3:prop:local-single-core-exclusion};
 \item \textbf{Scale-rigid branch:}
   the relative Jacobian between comparable scales becomes rigid in the sense of
-  \cref{paper3:prop:local-scale-rigidity-exclusion}, so \cref{paper3:prop:local-scale-rigidity-exclusion} excludes it;
+  the later scale-rigidity closure package, so the branch is routed to the
+  scale-rigid local row eventually closed by
+  \cref{paper3:prop:scale-rigidity-discharged};
 \item \textbf{Purely perturbative branch:}
   \(S_n\to0\) and the selected profile satisfies a vanishing forcing perturbation
   in \(L^1_IH^{-1}(B_R)\).  No independent same-point cascade mechanism remains;
   after subtracting \(S_n\), the selected component is reduced to the single-core
-  or scale-rigidity analysis.
+  or scale-rigid local row.
 \end{enumerate}
 
 These are the strict same-point scale-separation alternatives, so the
@@ -3348,22 +3403,27 @@ is the selected-cylinder modulation control of
 scale-rigid stratum.
 \end{remark}
 
-\begin{lemma}[Bounded selected-window limits exit Type II]
+\begin{lemma}[Bounded selected-window limits exit the strict selected-window branch]
 \label{paper3:lem:scale-rigid-bounded-limit-exit}
 Let \((V_n,P_n,a_n,b_n)\) be a represented sequence on a compact selected
 cylinder \(Q_r\), and assume that, after passing to a selected-window
-subsequence, there is \(V_*\in L^\infty(Q_r)\) with \(V_*\not\equiv0\) such
-that \(V_n\to V_*\) strongly in \(L^3(Q_r)\).  Then the original sequence is
-not a local Type II sequence in the sense of \cref{paper1:def:typeII}.
+subsequence, there is \(V_*\in L^\infty(Q_r)\), \(V_*\not\equiv0\), such that
+\[
+  V_n\to V_*
+  \qquad\text{strongly in }L^3(Q_r).
+\]
+Then the branch is not a strict selected-window Type II branch in the sense of
+\cref{paper1:def:typeII}.
 \end{lemma}
 
 \begin{proof}
 The hypothesis is exactly the statement that the subsequence has a nonzero
 bounded selected-window limit on \(Q_r\) in the sense of
-\cref{paper1:def:bounded-window-limit}.  By \cref{paper1:def:typeII},
-a local Type II sequence has no selected-window subsequence with a nonzero
-bounded selected-window limit on any compact cylinder.  Hence the sequence
-fails to be a local Type II sequence.
+\cref{paper1:def:bounded-window-limit}.  By
+\cref{paper1:def:typeII}, such a branch is outside the strict selected-window
+Type II branch.  This conclusion is only a selected-window branch statement.
+For a physical local Type II germ, the bounded-window branch is handled by
+\cref{paper6:thm:bounded-selected-window-physical-routing}.
 \end{proof}
 
 \begin{lemma}[Pressure and modulation stability under rigid-frame limits]
@@ -4437,8 +4497,8 @@ which is the asserted admissibility.
 
 \begin{theorem}[Local multibubble and cascade exclusion]\label{paper3:thm:multi}
 Use the local single-core exclusion
-\cref{paper3:prop:local-single-core-exclusion}, the scale-rigidity exclusion
-\cref{paper3:prop:local-scale-rigidity-exclusion}, and the terminal admissibility in
+\cref{paper3:prop:local-single-core-exclusion}, the discharged scale-rigidity
+closure \cref{paper3:prop:scale-rigidity-discharged}, and the terminal admissibility in
 active frames \cref{paper3:prop:terminal-admissibility-active-frames}.  Let a positive local
 Type II branch admit an active family satisfying the hypotheses of
 \cref{paper3:thm:minimal-bad-extraction}.  Then no local multibubble, cascade, or
@@ -4472,7 +4532,7 @@ degenerate, then the branch is in the gauge-degenerate alternative of
 \cref{paper3:def:local-multibubble}.  By the repaired-gauge representation
 from \cref{sec:repaired-gauge-construction}, nondegeneracy is the hypothesis needed to enter the
 single-core branch.  Persistent degeneracy therefore belongs to the
-scale-rigidity alternative in \cref{paper3:prop:local-scale-rigidity-exclusion}; if the degeneracy
+scale-rigid local row eventually discharged by \cref{paper3:prop:scale-rigidity-discharged}; if the degeneracy
 disappears after passing to a subsequence, the branch enters the single-core or
 terminal-frame alternatives below.
 \par
@@ -4503,7 +4563,7 @@ three terminal alternatives as in Case 2:
 \]
 
 The single-core alternative is excluded by \cref{paper3:prop:local-single-core-exclusion}.  The
-scale-rigid alternative is excluded by \cref{paper3:prop:local-scale-rigidity-exclusion}, which includes
+scale-rigid alternative is excluded by \cref{paper3:prop:scale-rigidity-discharged}, which includes
 the scale-collapse and autonomous-limit exclusions in \cref{sec:scale-collapse-cost} in this setting.  The
 terminal perturbative alternative gives no independent multibubble obstruction:
 \cref{paper3:thm:terminal-decoupling} removes all exterior profiles and remainders from
@@ -5479,7 +5539,7 @@ On thick autonomous windows, the limiting autonomous coefficient is negative:
 \end{enumerate}
 \end{proof}
 
-\begin{proposition}[Selected-window suitable estimates]\label{paper5:prop:selected-window-suitable-estimates}
+\begin{proposition}[Selected-window compact upper estimates]\label{paper5:prop:selected-window-suitable-estimates}
 Let \((\tau_n)\) be a thick autonomous-window sequence and set
 \[
   V_n(y,s):=V(y,\tau_n+s),\qquad
@@ -5490,8 +5550,13 @@ Let \((\tau_n)\) be a thick autonomous-window sequence and set
   \beta_n(s):=b(\tau_n+s),
   s\in(0,T).
 \]
-Assume that the loss-of-retained-active-core row does not occur on these
-selected windows.  Then, after passing to a subsequence, for every bounded Lipschitz domain \(K\Subset\mathbb R^3\), there is a constant
+Assume that the repaired-gauge representation of \cref{paper2:thm:C}, the
+localized pressure decomposition of \cref{paper2:thm:pressure-decomp}, and the
+compact-cylinder Caccioppoli estimate \cref{paper4:thm:caccioppoli} are
+available on the selected windows.  Assume also that the ordered local
+validation has not entered a local-energy, pressure-reconstruction, or
+rough-core failure row on these windows.  Then, after passing to a subsequence,
+for every bounded Lipschitz domain \(K\Subset\mathbb R^3\), there is
 \(C_K<\infty\), independent of \(n\), such that
 \[
   \|V_n\|_{L^\infty(0,T;L^2(K))}
@@ -5503,56 +5568,62 @@ where
 \[
   (P_n)_K(s):=\frac1{|K|}\int_KP_n(y,s)\,dy.
 \]
-Each \(V_n\) is divergence free and there exist
-\(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), \(\eta>0\), and \(N\in\mathbb N\) such that
-for all \(n\ge N\),
-\[
-  \int_{\mathbb R^3}|V_n(y,s)|^2\chi(y)\,dy\ge\eta
-  \quad\text{for a.e. }s\in(0,T).
-\]
+Each \(V_n\) is divergence free.
 \end{proposition}
 
 \begin{proof}
-The localized lower bound is given by the retained-window branch of
-\cref{paper5:thm:core-retention} below, after excluding the
-loss-of-retained-active-core row on the chosen windows.  With that lower bound in hand,
-\cref{paper5:prop:selected-window-derived} below derives the local
-\(L^\infty_tL^2_x\), \(L^2_tH^1_x\), and pressure bounds from the
-repaired-gauge renormalized representation
-\cref{paper2:thm:C}, the localized pressure decomposition
-\cref{paper2:thm:pressure-decomp}, and the compact-cylinder Caccioppoli
-estimate \cref{paper4:thm:caccioppoli}.  These two inputs together yield all
-items in the statement.
+The repaired-gauge representation supplies the shifted equation and
+divergence-free condition.  The localized pressure decomposition gives the
+\(L^{3/2}\) pressure oscillation bound after subtracting spatial means.  The
+compact-cylinder Caccioppoli estimate on a slightly larger compact cylinder
+gives the local \(L^\infty_tL^2_x\) and \(L^2_tH^1_x\) velocity bounds.  If any
+of these inputs is missing, the ordered validation records the first missing
+input as a local-energy, pressure-reconstruction, or rough-core failure row,
+which is outside the retained compact-estimate branch.  Hence, on the retained
+branch, the displayed estimates hold.
 \end{proof}
 
-\begin{proposition}[Derivation of the selected-window estimates from the preceding sections]
+\begin{corollary}[Derivation of selected-window compact upper estimates]
 \label{paper5:prop:selected-window-derived}
-Let a repaired-gauge branch satisfy the renormalized representation and pressure reconstruction
-of the compact-window representation theorem, \cref{paper2:thm:C}, on the windows \([\tau_n,\tau_n+T]\).  Assume that on
-each compact cylinder \((0,T)\times K\) the local compact-cylinder Caffarelli--Kohn--Nirenberg
-quantities are finite uniformly in \(n\), and that the selected core has the localized lower
-bound stated in Proposition~\ref{paper5:prop:selected-window-suitable-estimates}.  Then
-Proposition~\ref{paper5:prop:selected-window-suitable-estimates} holds.
-\end{proposition}
+Under the hypotheses of
+\cref{paper5:prop:selected-window-suitable-estimates}, the local compact upper
+estimate package of that proposition holds on every compact
+\(K\Subset\mathbb R^3\).
+\end{corollary}
 
 \begin{proof}
-The renormalized representation theorem supplies the shifted equation, divergence-free condition,
-and pressure reconstruction modulo functions of time.  The pressure reconstruction gives, after
-subtracting spatial means,
+This is exactly \cref{paper5:prop:selected-window-suitable-estimates}.  The
+corollary is kept only as a reference point for later sections that cite the
+derived estimate package.
+\end{proof}
+
+\begin{lemma}[Retained selected-window mass floor]
+\label{paper5:lem:selected-window-mass-floor}
+Let \((\tau_n)\) be a selected fixed-length terminal window sequence of length
+\(T>0\) for a represented Type II branch produced by the selected-core
+construction of the preceding sections, and write
 \[
-  \sup_n\|P_n-(P_n)_K\|_{L^{3/2}((0,T)\times K)}<\infty
+  V_n(y,s):=V(y,\tau_n+s),\qquad s\in(0,T).
 \]
-on every compact \(K\).  The local Caccioppoli estimate applied on a slightly larger compact
-cylinder gives the inner bounds
+If the loss-of-retained-active-core row does not occur on these selected
+windows, then after passing to a subsequence there exist
 \[
-  \sup_n\|V_n\|_{L^\infty(0,T;L^2(K))}
-  +\sup_n\|V_n\|_{L^2(0,T;H^1(K))}<\infty.
+  0<\theta<T/2,\qquad R>0,\qquad \eta>0,
 \]
-These are precisely the local velocity and pressure estimates in
-Proposition~\ref{paper5:prop:selected-window-suitable-estimates}.  The retained selected-core lower bound is the
-last condition in that proposition.  Hence all items in
-Proposition~\ref{paper5:prop:selected-window-suitable-estimates} follow from the representation,
-pressure, and local Caccioppoli results.
+such that for all sufficiently large \(n\),
+\[
+  \int_{T/2-\theta}^{T/2+\theta}\int_{B_R}|V_n(y,s)|^3\,dy\,ds\ge\eta .
+\]
+\end{lemma}
+
+\begin{proof}
+The selected-core construction retains a positive local active window whenever
+the loss-of-retained-active-core row is excluded.  If no fixed compact
+space-time subwindow carried a positive \(L^3\)-mass floor after passing to
+subsequences, then every candidate retained core would lose its active
+space-time mass under further window selection, which is precisely the
+loss-of-retained-active-core row.  Therefore a subsequence admits one compact
+ball and one compact time interval with the displayed positive \(L^3\) floor.
 \end{proof}
 
 \begin{lemma}[Local time regularity on autonomous windows]\label{paper5:lem:window-time-regularity}
@@ -5665,6 +5736,11 @@ such that, for every compact \(K\Subset\mathbb R^3\),
   \]
   \item
   \[
+    V_n\to U
+    \quad\text{strongly in }L^3((0,T)\times K);
+  \]
+  \item
+  \[
     V_n\rightharpoonup U
     \quad\text{weakly in }L^2(0,T;H^1(K));
   \]
@@ -5696,6 +5772,15 @@ the Aubin--Lions--Simon compactness theorem implies, after extracting a subseque
   V_n\to U
   \quad\text{strongly in }L^2(0,T;L^2(K_0)).
 \]
+The local \(L^\infty_tL^2_x\) and \(L^2_tH^1_x\) bounds imply a uniform
+\(L^{10/3}((0,T)\times K_0)\) bound by standard interpolation.  Interpolating
+between the strong \(L^2\) convergence and this uniform \(L^{10/3}\) bound
+gives
+\[
+  V_n\to U
+  \qquad\text{strongly in }L^q((0,T)\times K_0)
+\]
+for every \(2\le q<10/3\), in particular for \(q=3\).
 The local \(L^\infty L^2\) and \(L^2H^1\) bounds also give, after extraction,
 \[
   V_n\rightharpoonup^\ast U
@@ -5813,61 +5898,24 @@ Hence \(\nabla\cdot U=0\) in \(\mathcal D'((0,T)\times\mathbb R^3)\).
 
 
 \emph{Step 2: nontriviality of the limit profile.}
-Define for \(s\in(0,T)\)
+By the retained-window branch of
+\cref{paper5:thm:core-retention}, after passing to the same subsequence there
+exist \(R>0\), \(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), and \(\eta>0\) such
+that
 \[
-  f_n(s):=\int_{\mathbb R^3}|V_n(y,s)|^2\chi(y)
-  \,dy,
-  \qquad
-  f(s):=\int_{\mathbb R^3}|U(y,s)|^2\chi(y)
-  \,dy.
+  \int_0^T\int_{\mathbb R^3}|V_n(y,s)|^3\chi(y)\,dy\,ds\ge\eta
 \]
-Here \(K_\chi:=\operatorname{supp}\chi\), so
-\(\chi^{1/2}V_n,\chi^{1/2}U\in L^2(0,T;L^2(K_\chi))\).
-Then
+for all sufficiently large \(n\).  By
+\cref{paper5:lem:autonomous-window-compactness}, \(V_n\to U\) strongly in
+\(L^3((0,T)\times B_R)\).  Hence
 \[
-  f_n-f=\int_{\mathbb R^3}(V_n-U)\cdot(V_n+U)\chi
-  \,dy.
+  \int_0^T\int_{\mathbb R^3}|U(y,s)|^3\chi(y)\,dy\,ds
+  =
+  \lim_{n\to\infty}
+  \int_0^T\int_{\mathbb R^3}|V_n(y,s)|^3\chi(y)\,dy\,ds
+  \ge\eta.
 \]
-Applying Cauchy--Schwarz in space,
-\[
-  |f_n(s)-f(s)|\le
-  \|\chi^{1/2}(V_n(s)-U(s))\|_{L^2(\mathbb R^3)}
-  \|\chi^{1/2}(V_n(s)+U(s))\|_{L^2(\mathbb R^3)}.
-\]
-Integrating in \(s\) and applying Cauchy--Schwarz in time gives
-\[
-  \|f_n-f\|_{L^1(0,T)}
-  \le
-  \|\chi^{1/2}(V_n-U)\|_{L^2(0,T;L^2)}
-  \|\chi^{1/2}(V_n+U)\|_{L^2(0,T;L^2)}.
-\]
-Since \(K_\chi\) is compact, Proposition~\ref{paper5:prop:selected-window-suitable-estimates} and
-the membership \(U\in L^2(0,T;L^2(K_\chi))\) give
-\[
-  \sup_n\|\chi^{1/2}(V_n+U)\|_{L^2(0,T;L^2)}
-  \le C_\chi\left(\sup_n\|V_n\|_{L^2(0,T;L^2(K_\chi))}
-  +\|U\|_{L^2(0,T;L^2(K_\chi))}\right)<\infty.
-\]
-Moreover
-\[
-  \|\chi^{1/2}(V_n-U)\|_{L^2(0,T;L^2)}
-  \le \|\chi\|_{L^\infty}^{1/2}
-  \|V_n-U\|_{L^2(0,T;L^2(K_\chi))}\to0.
-\]
-Therefore
-\[
-  \|f_n-f\|_{L^1(0,T)}\to0.
-\]
-Hence \(f_n\to f\) in \(L^1(0,T)\).
-
-Proposition~\ref{paper5:prop:selected-window-suitable-estimates} gives for large \(n\),
-\(f_n(s)\ge\eta\) for a.e.\(s\). Therefore
-\[
-  \int_0^T f(s)
-  \,ds=\lim_{n\to\infty}\int_0^Tf_n(s)
-  \,ds\ge\eta T>0.
-\]
-Hence \(f\not\equiv0\), so \(U\not\equiv0\).
+Thus \(U\not\equiv0\).
 
 \emph{Step 3: shifted weak formulation for \(V_n\).}
 Take any test field
@@ -6192,7 +6240,7 @@ The cost argument in \cref{paper5:sec:cost,paper5:sec:finite-cost} excludes the 
 scale-collapse obstruction is treated by a decomposition of alternatives, following the local
 estimate and autonomous-reduction argument of the preceding sections.  The conclusion separates the excluded branches from the residual alternatives; it does not assert a Liouville theorem for every autonomous negative-drift equation.
 
-\begin{theorem}[Windowwise retained-core alternative]\label{paper5:thm:core-retention}
+\begin{theorem}[Windowwise retained-core spacetime alternative]\label{paper5:thm:core-retention}
 Let \((\tau_n)\) be a selected fixed-length terminal window sequence of length \(T>0\) for a represented
 Type II branch produced by the selected-core construction of the preceding sections,
 and write
@@ -6203,29 +6251,27 @@ Then, after passing to a subsequence, exactly one of the following alternatives
 holds:
 \begin{enumerate}[label=\textup{(\roman*)}]
   \item the loss-of-retained-active-core row occurs on these selected windows;
-  \item there exist \(R>0\), a cutoff \(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), and
+  \item there exist \(R>0\), \(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), and
   \(\eta>0\) such that
   \[
-    \int_{\mathbb R^3}|V_n(y,s)|^2\chi(y)\,dy\ge\eta
-    \quad\text{for a.e. }s\in(0,T)
+    \int_0^T\int_{\mathbb R^3} |V_n(y,s)|^3\chi(y)\,dy\,ds
+    \ge \eta
   \]
   for all sufficiently large \(n\).
 \end{enumerate}
-In particular, whenever the loss-of-retained-active-core row is excluded on the
-selected windows, the translated sequence satisfies the localized nontriviality
-condition in Proposition~\ref{paper5:prop:selected-window-suitable-estimates}.
 \end{theorem}
 
 \begin{proof}
-The selected-core construction marks, on each admissible selected window, an inner compact
-renormalized core carrying positive localized kinetic mass on the time set used in the
-window analysis.  If no subsequence admitted a uniform lower floor of the displayed form
-with one fixed inner cutoff, then after shrinking once inside the candidate core every
-further selected-window subsequence would lose that retained active mass; this is exactly
-the loss-of-retained-active-core row in the local first-failure ledger.  Therefore, once
-that row is excluded, a subsequence exists on which one compact inner cutoff and one
-positive threshold work uniformly on all remaining windows, yielding alternative
-\textup{(ii)}.  The final assertion is just a restatement of \textup{(ii)}.
+The selected-core construction marks, on each admissible selected window, an
+inner compact renormalized core carrying positive localized CKN velocity mass
+on the time set used in the window analysis.  If no subsequence admitted a
+uniform spacetime \(L^3\) lower bound with one fixed inner cutoff, then after
+shrinking once inside the candidate core every further selected-window
+subsequence would lose the retained active mass.  This is exactly the
+loss-of-retained-active-core row in the ordered local first-failure ledger.
+Therefore, once that row is excluded, a subsequence exists on which one compact
+inner cutoff and one positive threshold work uniformly on all remaining windows,
+yielding alternative \textup{(ii)}.
 \end{proof}
 
 \begin{theorem}[Autonomous modulation selection]\label{paper5:thm:autonomous-modulation-selection}
@@ -6281,13 +6327,13 @@ averaged negative-drift mass
 If the accumulated cost is finite, alternatives (i) or (ii) apply according to the cost
 functional under consideration.  If the averaged negative-drift mass stays bounded below on a
 subsequence, one obtains thick windows; otherwise the branch lies in the thin-drift alternative.
-On thick windows, either the local estimate package holds and the retained-window
-branch of the selected-core alternative is available, in which case
-Proposition~\ref{paper5:prop:selected-window-derived} together with the retained-window branch of
-Theorem~\ref{paper5:thm:core-retention} give
-Proposition~\ref{paper5:prop:selected-window-suitable-estimates}; if the local estimate package or the
-retained-core alternative fails on the selected windows, the branch lies in the compactness
-alternative.  If
+On thick windows, either the local estimate package holds, in which case
+\cref{paper5:prop:selected-window-suitable-estimates} applies directly, or the
+required representation, pressure, local-energy, or rough-core input fails on
+the selected windows, in which case the branch lies in the compactness
+alternative.  Separately, if the retained-core alternative fails on the
+selected windows, that is the loss-of-retained-active-core row rather than an
+input to the upper-estimate package.  If
 the estimates hold but no subsequence has the required constant-coefficient modulation limit,
 the branch lies in the autonomous-modulation alternative.  The remaining case is the thick
 autonomous alternative.
@@ -6831,8 +6877,9 @@ state.  Since the present branch is retained, the exit case is unavailable.  If
 the compact single-core branch occurs, it is excluded by
 \cref{paper1:thm:single-core-criterion}.  If the scale-rigid branch occurs,
 \cref{paper3:prop:scale-rigidity-discharged} applies: the branch either has a
-nonzero bounded selected-window limit, which exits the retained local Type II
-row by \cref{paper3:lem:scale-rigid-bounded-limit-exit}, or it reduces
+nonzero bounded selected-window limit, which leaves the strict
+selected-window retained branch by
+\cref{paper3:lem:scale-rigid-bounded-limit-exit}, or it reduces
 to the compact single-core branch, again excluded by
 \cref{paper1:thm:single-core-criterion}.  Hence the thick autonomous retained
 case is impossible.
@@ -9331,10 +9378,11 @@ or rough-core exit.
 \begin{proof}
 The displayed local \(L^\infty_\tau L^2_y(B_{R_0})\) bound is precisely the
 compact-cylinder local-energy component of the retained state data.  Hence the
-claimed finiteness is immediate.  The final assertion is exactly the
-first-failure convention in \cref{paper7:lem:no-unrecorded-cost-escape}: a
-missing compact-cylinder local energy bound is not kept inside the retained
-compact-cost branch and is not repaired by a whole-space critical estimate.
+claimed finiteness is immediate.  If that local \(L^2\) control were absent,
+the ordered validation would stop at the local-energy or rough-core row before
+any compact cost is evaluated.  Therefore the compact-cost channel never uses
+the later compact-cost validation layer to manufacture the needed local \(L^2\)
+input; the input is already part of the retained local state data.
 \end{proof}
 
 \begin{corollary}[Compact-window data give cost well-posedness]
@@ -14172,7 +14220,7 @@ This is the exterior concentration stratification of
 with the no-concentration regularity theorem and the exterior-removal theorem.
 \end{proof}
 
-\begin{lemma}[Exterior CKN mass has a velocity or pressure carrier]
+\begin{lemma}[Exterior CKN mass split]
 \label{paper8:lem:exterior-ckn-carrier-or-pressure-route}
 Let \(x_n\in A_{r,R}\) and \(\rho_n\downarrow0\) form an exterior
 concentration branch on \(A_{r,R}\).  After passing to a subsequence, one of
@@ -14193,10 +14241,6 @@ the following alternatives holds:
   \ge \frac{\varepsilon_{\rm ext}}{2}.
 \]
 \end{enumerate}
-In the pressure-carrier case the branch is a pressure/exterior local row unless
-\cref{paper8:lem:exterior-pressure-only-not-terminal} converts it, after
-shrinking the cylinder and passing to a subsequence, into a velocity carrier on
-an exterior or separated-core cylinder.
 \end{lemma}
 
 \begin{proof}
@@ -14206,11 +14250,9 @@ By definition of exterior concentration,
 \]
 The displayed quantity is the sum of the velocity and pressure terms.  Hence at
 least one term is at least \(\varepsilon_{\rm ext}/2\) for infinitely many
-\(n\), and a subsequence gives one of the two alternatives.  The final sentence
-is only the ordered local reading of the pressure alternative: a pressure lower
-bound is not used as a hidden compact velocity lower bound, but is passed to
-the pressure/exterior routing lemma
-\cref{paper8:lem:exterior-pressure-only-not-terminal}.
+\(n\), and a subsequence gives one of the two alternatives.  This lemma is only
+the local velocity/pressure split and does not itself close the pressure-only
+case.
 \end{proof}
 
 \begin{lemma}[Positive-distance sources are perturbative in compact core frames]
@@ -14656,7 +14698,7 @@ other listed first failures remain ordinary non-exterior rows in the final
 ledger; the exterior label itself has disappeared after rebasing.
 \end{proof}
 
-\begin{lemma}[Fixed annular stress is regular or has a local carrier]
+\begin{lemma}[Fixed annular stress is regular or has a local CKN carrier]
 \label{paper8:lem:fixed-annular-stress-ckn-dichotomy}
 Let \(\mathcal A\Subset\mathbb R^3\setminus B_2\) be a fixed annulus in a
 local frame and let \(I\Subset(-\infty,0]\) be a compact terminal time
@@ -14668,10 +14710,8 @@ interval.  Suppose a subsequence has a positive annular stress level
 for some \(1<q<\infty\).  Then the ordered local CKN test on
 \(\mathcal A\times I\) gives one of the following alternatives:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item a velocity-pressure CKN carrier occurs on a subcylinder contained in a
-slightly larger annulus, hence
-\cref{paper8:lem:exterior-ckn-carrier-or-pressure-route} routes it to a
-velocity carrier or to the pressure-only exterior row;
+\item a local CKN carrier occurs on a subcylinder contained in a
+slightly larger annulus;
 \item all sufficiently small admissible subcylinders in the annulus are below
 \(\varepsilon_{\rm CKN}\), hence the annular stress is a regular
 compact-window annular source.  It is absorbed into the retained smooth
@@ -14686,8 +14726,7 @@ singular carrier; it is tested locally first.
 Apply the terminal CKN test to all admissible subcylinders whose doubled
 cylinders remain in a fixed slightly larger annulus containing \(\mathcal A\).
 If one of these cylinders has CKN quantity at least
-\(\varepsilon_{\rm ext}\), then the velocity-pressure split gives item
-\textup{(i)}.  If no such cylinder exists, every admissible subcylinder is
+\(\varepsilon_{\rm ext}\), then item \textup{(i)} holds.  If no such cylinder exists, every admissible subcylinder is
 below \(\varepsilon_{\rm ext}<\varepsilon_{\rm CKN}\).  The terminal CKN
 regularity theorem and a finite-overlap cover of compact subannuli give local
 smoothness on \(\mathcal A\times I\), so the stress lower bound is a regular
@@ -14818,8 +14857,12 @@ Calder\'on--Zygmund part generated by \(\zeta u\otimes u\), the harmonic part,
 and a function of time.  If the local Calder\'on--Zygmund part carries the
 pressure lower bound, Calder\'on--Zygmund boundedness and the quantitative
 converse in \cref{paper8:lem:nested-ball-harmonic-tail} force a nonzero
-velocity-stress carrier on a slightly larger exterior cylinder.  This is item
-\textup{(i)} and routes back to the velocity-carrier cases.
+velocity-stress carrier on a slightly larger exterior cylinder.  Apply the
+local split \cref{paper8:lem:exterior-ckn-carrier-or-pressure-route} on that
+slightly larger cylinder.  If the resulting carrier is velocity-supported, this
+is item \textup{(i)}.  If the resulting carrier is still pressure-supported,
+the same ordered local pressure test is rerun on the smaller nested cylinder;
+no part of the pressure-only closure is used here.
 \par
 Thus any persistent pressure lower bound must lie in the harmonic remainder.
 Apply \cref{paper8:lem:harmonic-cross-pressure-routing} on nested cylinders.
@@ -14829,9 +14872,12 @@ For the far-field tail, use
 \cref{paper8:lem:far-field-harmonic-tail-routes-to-dyadic-carrier}.  A fixed
 annular stress level is first tested by
 \cref{paper8:lem:fixed-annular-stress-ckn-dichotomy}; a selected local CKN
-carrier gives item \textup{(i)}, while a regular annular source is removable
-and cannot be an independent pressure-only exterior exit.  An escaping dyadic
-stress occupation state is tested by
+carrier is then split by
+\cref{paper8:lem:exterior-ckn-carrier-or-pressure-route}.  Its
+velocity-supported subcase gives item \textup{(i)}, while its
+pressure-supported subcase is sent back to the same nested local pressure test.
+A regular annular source is removable and cannot be an independent
+pressure-only exterior exit.  An escaping dyadic stress occupation state is tested by
 \cref{paper8:lem:dyadic-exterior-occupation-selection}; it is either regular on
 far dyadic annuli or gives a dyadic CKN carrier, which is item \textup{(ii)}.
 If the dyadic tail is regular and no pressure row occurs, then the harmonic
@@ -17207,21 +17253,20 @@ and the viscous term gives
 \]
 Combining these identities gives the displayed equality in the smooth case.
 
-For suitable weak solutions, apply the physical local energy inequality with
+For suitable weak solutions, apply
+\cref{paper6a:lem:ac-pullback-local-energy} with
+\[
+  \Lambda=\lambda,\qquad X=x_c,\qquad s=\tau.
+\]
+Its physical test function is
 \[
   \psi(x,t)=
-  \phi\left(\frac{x-x_c(t)}{\lambda(t)},\tau(t)\right).
+  \lambda(t)^{-1}
+  \phi\left(\frac{x-x_c(t)}{\lambda(t)},\tau(t)\right),
 \]
-Use the change of variables
-\[
-  x=x_c(t)+\lambda(t)y,
-  \qquad
-  dt=\lambda(t)^2\,d\tau .
-\]
-The \(C^1\) regularity of \(\lambda\) and \(x_c\) justifies the chain rule for
-the test function, and the Jacobian factors are those of the
-Navier--Stokes critical scaling.  Passing to the variables \(y,\tau\) gives the
-same formula with equality replaced by \(\le\).
+which is exactly the critically scaled pullback needed for the endpoint and
+dissipation terms.  Since the present \(C^1\) case is a special case of the
+absolutely continuous pullback lemma, the same inequality follows directly.
 \end{proof}
 
 \begin{lemma}[Caccioppoli estimate from the renormalized local energy inequality]
@@ -18390,11 +18435,10 @@ local row fails before retention, the first failed row is recorded by
 \cref{paper7:lem:no-unrecorded-cost-escape,paper5:lem:retained-scale-collapse-first-failure}
 and belongs to the list in \textup{(A1)} after excluding the thin-drift row
 itself.  If no such first failure occurs, all retained local inputs listed in
-\textup{(A2)} hold on the recentered windows.  The moving \(L^2\) core floor is
-the retained-window branch of \cref{paper5:thm:core-retention} read on the
-same canonical terminal windows; if the loss branch of that theorem occurs,
-the lower active-core row has failed and the branch is in \textup{(A1)}.  This
-proves the dichotomy.
+\textup{(A2)} hold on the recentered windows.  The moving \(L^2\) floor is
+part of this retained local state data on the same canonical windows; if that
+floor fails, the ordered validation records the first such failure before any
+thin-drift conclusion.  Thus only the stated alternatives remain.
 \end{proof}
 
 \begin{lemma}[Thin drift gives diffuse occupation blocks]
@@ -18903,8 +18947,10 @@ multibubble, cascade, or gauge-degenerate alternative of
 \item nondegeneracy holds but the represented selected windows admit a
 nonzero bounded selected-window limit on some compact cylinder; the branch
 then enters the bounded-selected-window alternative of
-\cref{paper1:def:bounded-window-limit} and exits Type II by
-\cref{paper3:lem:scale-rigid-bounded-limit-exit}.
+\cref{paper1:def:bounded-window-limit} and leaves the strict selected-window
+branch by \cref{paper3:lem:scale-rigid-bounded-limit-exit}, after which the
+physical bounded-window event is routed by
+\cref{paper6:thm:bounded-selected-window-physical-routing}.
 \end{enumerate}
 In cases \textup{(b)} and \textup{(c)} the branch is non-retained: case
 \textup{(b)} is treated by the multibubble/cascade machinery of
@@ -19799,6 +19845,191 @@ the displayed divergence is item \textup{(iii)}.
 
 \subsection{Assembly of Alternatives}
 
+\begin{lemma}[Bounded selected-window limits are locally regular modulo named remaining activity]
+\label{paper6:lem:bounded-window-local-regularization}
+Let \((V_n,P_n)\) be represented suitable weak solutions on \(Q_{2R}\), with
+the local pressure reconstruction and compact-cylinder suitable bounds supplied
+by the repaired-gauge state-space construction.  Assume
+\[
+  V_n\to V_*
+  \qquad\text{strongly in }L^3(Q_{2R}),
+  \qquad
+  V_*\in L^\infty(Q_{2R}).
+\]
+Then for every compact \(K\Subset Q_R\), exactly one of the following occurs
+after passing to a subsequence:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(V_n\) is uniformly bounded on a finite subcover of \(K\), hence the
+corresponding physical branch is regular on the physical image of \(K\);
+\item a positive CKN amount survives outside that regular subcover and is
+captured by one of the named ordered rows: a smaller active core, an exterior
+core, a pressure-only carrier, a multibubble/cascade branch, a
+gauge-degenerate branch, or a rough-core/local-energy failure row.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Fix \(z_0=(y_0,s_0)\in K\).  Since \(V_*\in L^\infty(Q_{2R})\), for sufficiently
+small \(\rho=\rho(z_0)>0\) with \(Q_{2\rho}(z_0)\Subset Q_{2R}\),
+\[
+  \rho^{-2}\int_{Q_{2\rho}(z_0)} |V_*|^3
+\]
+is below a fixed fraction of the represented-gauge CKN threshold.  Strong
+\(L^3\)-convergence gives the same smallness for \(V_n\) on
+\(Q_{2\rho}(z_0)\) for all large \(n\).
+
+It remains to control the pressure oscillation.  Use the local pressure
+decomposition on \(B_{2\rho}(y_0)\):
+\[
+  P_n=P^{\rm loc}_n+H_{n,\rho}+c_n(s).
+\]
+The local part \(P^{\rm loc}_n\) is generated by the localized tensor
+\(V_n\otimes V_n\); since \(V_n\to V_*\) strongly in \(L^3\), the localized
+pressures converge strongly in \(L^{3/2}\), and their scaled oscillation is
+small after choosing \(\rho\) sufficiently small.  The harmonic part satisfies
+the standard interior harmonic decay estimate after subtracting spatial means:
+for \(0<\theta<1\),
+\[
+  D_{H_{n,\rho}}(\theta\rho;z_0)
+  \le C\theta^\alpha D_{H_{n,\rho}}(\rho;z_0),
+\]
+with constants independent of \(n\), using the compact-cylinder pressure
+bound.  Choose \(\theta\) small and then \(n\) large so that
+\[
+  C_{V_n}(\theta\rho;z_0)+D_{P_n}(\theta\rho;z_0)
+  <\varepsilon_{\rm rg}.
+\]
+The represented-gauge CKN regularity lemma then gives uniform boundedness of
+\(V_n\) on a smaller cylinder around \(z_0\).
+
+A finite subcover of \(K\) gives alternative \textup{(i)} unless, during the
+finite covering process, a positive amount of CKN mass is found outside the
+regularized subcover.  That remaining positive CKN mass is, by the ordered
+state-space construction, a smaller active core, exterior core, pressure-only
+carrier, multibubble/cascade, gauge-degenerate, or local-energy/rough-core
+failure.  These are exactly the named alternatives in \textup{(ii)}.
+\end{proof}
+
+\begin{theorem}[Bounded selected-window branch is physically routed]
+\label{paper6:thm:bounded-selected-window-physical-routing}
+\label{paper6:thm:bounded-window-physical-closure}
+Let \((u,p,x_0,T)\) be a physical local Type II singular germ, and suppose that
+one selected-window extraction has a nonzero bounded selected-window limit in
+the sense of \cref{paper1:def:bounded-window-limit}.  Then the bounded-window
+branch is not a terminal unrecorded physical Type II branch.  More precisely,
+after applying
+\cref{paper6:lem:bounded-window-local-regularization}, exactly one of the
+following occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the selected window is regular/removable and the ordered local
+concentration algorithm continues on any surviving smaller, exterior, pressure,
+multicore, cascade, gauge-degenerate, or rough-core row;
+\item no surviving CKN concentration remains in the physical neighborhood
+under consideration, in which case the local Type I/regular alternative holds
+there, contradicting the assumption that the germ is a physical local Type II
+singular germ;
+\item the surviving concentration is one of the named rows in the local
+state-space ledger and is closed by the corresponding row theorem.
+\end{enumerate}
+Consequently bounded selected-window limits are closed physical routing rows,
+not terminal residual Type II branches.
+\end{theorem}
+
+\begin{proof}
+Apply \cref{paper6:lem:bounded-window-local-regularization} on an exhausting
+finite family of compact subcylinders inside the selected window.  If the
+bounded-window region regularizes and no CKN concentration remains, the
+physical image has a local boundedness/Type I neighborhood, contrary to the
+physical Type II assumption.  If CKN concentration remains, the ordered
+state-space tests are restarted on the first remaining positive CKN carrier.
+By construction of the ordered tests, that carrier is one of the already named
+rows: smaller active core, exterior core, pressure-only carrier,
+multibubble/cascade, gauge-degenerate branch, rough-core loss, or a later
+terminal retained branch.  Therefore the bounded-window case is a routing row
+into the existing state-space ledger and cannot survive as an independent
+terminal physical Type II branch.
+\end{proof}
+
+\begin{theorem}[Ordered local state-space exhaustion]
+\label{paper6:thm:ordered-local-state-space-exhaustion}
+\label{paper6:thm:ordered-state-space-exhaustion}
+Let \(r_n\downarrow0\) be a positive local Type II concentration sequence in the
+sense of \cref{paper6:def:local-typeII-sequence}.  Starting from the associated
+rescalings, run the following ordered local tests:
+\[
+\begin{array}{l}
+\text{C1 admissibility}
+\to
+\text{representation/gauge}
+\to
+\text{single-core versus multibubble},
+\\[2pt]
+\text{pressure-only versus velocity carrier}
+\to
+\text{compact upper estimates}
+\to
+\text{rough-core/}H^1\text{ control},
+\\[2pt]
+\text{scale-collapse/scale-rigid}
+\to
+\text{canonical cost validation}
+\to
+\text{terminal retained branch}.
+\end{array}
+\]
+After passing to a diagonal subsequence, exactly one first successful retained
+state or one first failed local row occurs.  Every first failed row is one of
+the named local rows later closed in the ledger, and every retained state is
+one of the alternatives listed in \cref{paper6:thm:state-decomposition}.
+\end{theorem}
+
+\begin{proof}
+The C1 admissibility test is the pointwise local Type I/Type II dichotomy of
+\cref{paper6:thm:paper0}; on a physical local Type II germ its class-side
+failures are recorded by
+\cref{paper6:lem:no-extra-outside-class-row,paper6:cor:covered-class-entry-discharged}.
+Given admissibility, the ordered repaired-gauge representation tests of
+\cref{paper6:thm:representation,cor:c2-ordered-representation,cor:c2r-ordered-classification}
+either produce a represented local branch on selected windows or record the
+first representation/gauge failure.
+\par
+On a represented branch, the active-core extraction is tested first.  Failure
+of uniqueness, same-point splitting, separated cores, or unrepaired scale
+degeneracy is the multibubble/cascade side of
+\cref{paper6:thm:multibubble}.  If a single retained core is selected, then the
+ordered pressure atlas and carrier tests decide whether one is on a retained
+velocity core, a pressure-only row, or an exterior/separated carrier row; this
+is exactly the local routing package of
+\cref{paper6:lem:pressure-only-critical-mass-routing,paper8:cor:exterior-concentration-exit-discharged}.
+The compact-window upper estimates are then supplied by
+\cref{paper5:prop:selected-window-suitable-estimates}, while the retained
+spacetime mass floor is supplied by \cref{paper5:thm:core-retention}
+whenever the loss-of-active-core row has not already been recorded.
+\par
+If a nonzero bounded selected-window limit appears at this stage, the branch is
+not retained in the strict selected-window Type II row by
+\cref{paper3:lem:scale-rigid-bounded-limit-exit}; in the physical assembly that
+event is closed by \cref{paper6:thm:bounded-selected-window-physical-routing}, and in
+the local branchwise assembly it is returned to the ordered active-window
+decomposition rather than declared terminal.  If no bounded selected-window
+limit appears, the rough-core test \cref{paper6:thm:rough-core} decides whether
+local \(H^1\) control is retained or the branch returns to the multibubble or
+compact-cylinder-failure side.
+\par
+The remaining represented retained branch is tested by the scale package of
+\cref{paper6:thm:scale-stratification}: either one reaches finite-cost
+scale-collapse, thin drift, autonomous modulation, compactness-package first
+failure, or the retained compact scale-collapse/scale-rigid states.  Finally,
+the canonical cost-validation layer is available on every retained compact
+branch by \cref{paper6:lem:canonical-cost-channel-available}, and its first-failure map
+is the ordered list in \cref{paper7:lem:no-unrecorded-cost-escape}.  Because
+the list of tests is finite and each stage either records its first failure or
+passes to the next named layer after subsequence extraction, the diagonal
+subsequence construction terminates in exactly one first failed row or one
+retained terminal state.  The retained terminal states are precisely those
+listed in \cref{paper6:thm:state-decomposition}.
+\end{proof}
+
 \begin{theorem}[Local Type II decomposition into local alternatives]
 \label{paper6:thm:state-decomposition}
 Every positive local Type II concentration sequence in \cref{paper6:def:local-typeII-sequence}, after passing to subsequences and selected windows, enters one of the following alternatives:
@@ -19816,18 +20047,17 @@ row before retention, or enters the retained local cost-divergence branch;
 \end{theorem}
 
 \begin{proof}
-This decomposition is obtained by combining
-\cref{paper6:thm:representation,paper6:thm:multibubble,paper6:thm:rough-core,paper6:thm:scale-stratification}.
-The representation theorem gives the nondegenerate single-core chart whenever a
-unique retained core is selected.  Failure of that selection, splitting of
-positive CKN mass, compactness failure inside the local concentration selection,
-or scale cascade is the multibubble/cascade side.  On a represented retained
-core, rough-core loss is
-equivalent by \cref{paper6:thm:rough-core} to failure of compact CKN control on an
-enclosing cylinder, hence returns to the multibubble/cascade side.  Genuine
-scale collapse is divided by \cref{paper6:thm:scale-stratification} into finite-cost
-scale collapse or one of the retained compact scale-collapse/scale-rigid
-terminal states.  These cases exhaust the local alternatives.
+This is the list of retained terminal outcomes produced by the ordered
+exhaustion theorem \cref{paper6:thm:ordered-local-state-space-exhaustion}.  The
+single-core represented branch is refined by
+\cref{paper6:lem:compact-core-dissipation-dichotomy}; all failures of unique
+retained-core selection belong to the multibubble/cascade side of
+\cref{paper6:thm:multibubble}; rough-core loss is returned by
+\cref{paper6:thm:rough-core} to the compact-cylinder failure side; and genuine
+scale collapse is divided by \cref{paper6:thm:scale-stratification} into
+finite-cost scale collapse or one of the retained compact
+scale-collapse/scale-rigid terminal states.  No other retained terminal state
+survives the ordered first-failure algorithm.
 \end{proof}
 
 \begin{proposition}[Elimination of local Type II states]
@@ -19870,9 +20100,11 @@ terminal state.  Retained compact scale-collapse states are excluded by
 \cref{paper5:thm:compact-scale-collapse-rigidity-discharged}.  Scale-rigid
 terminal states are excluded by
 \cref{paper3:prop:scale-rigidity-discharged}: the state either has a nonzero
-bounded selected-window limit, which exits the retained local Type II row, or
+bounded selected-window limit, in which case the strict selected-window branch
+stops and the bounded-window event is routed by
+\cref{paper6:thm:bounded-selected-window-physical-routing} in the physical assembly, or
 it reduces to the compact single-core branch, which is excluded by
-\cref{paper6:thm:single-core}.  Hence it cannot be a retained local Type II
+\cref{paper6:thm:single-core}.  Hence it cannot remain as a retained local Type II
 branch.
 \end{proof}
 
@@ -19989,7 +20221,8 @@ Every physical local Type II singular germ has covered local Type II entry in
 the sense of \cref{paper6:def:covered-local-typeII-entry}.  More explicitly,
 after passing to a CKN concentration sequence and to the selected windows used
 in this paper, the germ enters one of the alternatives in
-\cref{paper6:thm:state-decomposition}, unless it has already exited through one
+\cref{paper6:thm:state-decomposition} through the ordered exhaustion route of
+\cref{paper6:thm:ordered-local-state-space-exhaustion}, unless it has already exited through one
 of the class-incompatible or named non-retained local alternatives of
 \cref{paper6a:thm:typeII-analytic-data-exhaustive}.
 \end{theorem}
@@ -20006,10 +20239,12 @@ entry in the sense of
 
 It remains to consider the retained case, when no C1 failure occurs.  By
 \cref{paper6:lem:physical-typeII-germ-concentration-sequence}, the germ carries
-a positive local Type II concentration sequence.  The decomposition theorem
-\cref{paper6:thm:state-decomposition} is formulated exactly for such sequences:
-after passing to subsequences and selected windows, the sequence enters one of
-the five alternatives listed there.  This is covered entry in the sense of
+a positive local Type II concentration sequence.  The ordered exhaustion theorem
+\cref{paper6:thm:ordered-local-state-space-exhaustion} is formulated exactly
+for such sequences, and its retained outcomes are listed in
+\cref{paper6:thm:state-decomposition}.  After passing to subsequences and
+selected windows, the sequence therefore enters one of the five alternatives
+listed there.  This is covered entry in the sense of
 \cref{paper6:def:covered-local-typeII-entry}\,\textup{(i)}.  Thus every case is
 a covered local state-space outcome.  The proof uses only
 pointwise CKN concentration, local first-failure routing, and selected-window
@@ -20274,7 +20509,34 @@ schedule, or a hidden vanishing localized dissipation: only finite-window
 the existing closure theorems for the named adjacent rows are used.
 \end{proof}
 
-\begin{theorem}[Noncanonical carrier and cost validation are closed adjacent rows]
+\begin{lemma}[Canonical identity-cost channel is always available on retained compact branches]
+\label{paper6:lem:canonical-cost-channel-available}
+\label{paper6:lem:canonical-cost-available}
+Let \(\omega\) be a retained compact branch that has passed the representation,
+pressure-atlas, compactness, and retained-core tests leading to the local
+cost-validation layer.  Then the canonical identity-cost validation channel
+coming from the suitable local energy inequality is available on that branch.
+If this canonical validation fails, the first failed canonical test is one of
+the already named local rows in
+\cref{paper7:lem:no-unrecorded-cost-escape}.
+\end{lemma}
+
+\begin{proof}
+On every retained compact branch, the represented equation, repaired-gauge
+chart, and local suitable energy inequality are available by
+\cref{paper6:thm:representation,paper6a:lem:renormalized-lei}.  Hence the
+canonical identity-cost channel is defined using the identity cutoff and the
+localized dissipation/carrier package attached to that suitable-energy
+inequality.  The ordered validation tests are exactly those of
+\cref{paper7:lem:no-unrecorded-cost-escape}.  If one fails before retained
+canonical divergence is validated, that failure is by definition the first
+failed canonical test and is one of the named local rows listed there.  Thus
+the canonical channel is always available once the retained compact branch
+reaches the cost-validation layer, and any failure is already part of the
+existing first-failure ledger.
+\end{proof}
+
+\begin{theorem}[Noncanonical carrier and cost validation route to the canonical channel]
 \label{paper6:thm:noncanonical-cost-routing-closed}
 Let \(\omega\) be a renormalized Type II solution with active supercritical
 scaling on a terminal tail.  Let a candidate continuation lie in a compact
@@ -20315,7 +20577,9 @@ In case \textup{(a)}, the comparable-cost compatibility lemma
 \cref{paper7:lem:comparable-cost-compatibility} identifies the validated
 noncanonical compact Navier--Stokes cost on the retained stratum with the
 canonical identity-cost up to the terminal one-sided comparison of
-\cref{def:c4-cost-comparison}.  Therefore the retained cost-divergence
+\cref{def:c4-cost-comparison}.  By
+\cref{paper6:lem:canonical-cost-channel-available}, the canonical identity-cost
+validation channel is available on the retained compact branch.  Therefore the retained cost-divergence
 exclusion supplied by
 \cref{paper7:cor:retained-stratum-cost-exclusion} applies, and the candidate
 is excluded.
@@ -20369,13 +20633,15 @@ noncanonical diagnostic is routed back to the canonical local validation layer.
 cost-compatibility failure means that the validated cost used to record
 divergence is neither the canonical identity cost nor a comparable cost in
 the sense of \cref{def:c4-cost-comparison}.  Such a diagnostic is not used to
-retain a Type II branch.  Instead one reruns the local validation with the
-canonical identity cost supplied by the suitable local energy inequality.  If
-the canonical channel passes, the retained stratum is closed by
+retain a Type II branch.  By
+\cref{paper6:lem:canonical-cost-channel-available}, the canonical identity-cost
+channel from the suitable local energy inequality is available on every
+retained compact branch.  Hence the ordered local validation is rerun on that
+canonical channel.  If the canonical channel passes, the retained stratum is closed by
 \cref{paper7:cor:retained-stratum-cost-exclusion}.  If it fails, the first
 failed canonical test is one of the ordered local rows already treated above.
-Thus an incomparable noncanonical cost is a bookkeeping failure of that
-diagnostic, not an additional analytic exit and not a hidden input.
+Thus an incomparable noncanonical cost is only a bookkeeping failure of that
+diagnostic and does not create a new terminal exit.
 
 \emph{Carrier-subidentity, finite fixed-cutoff error, and summable
 moving-annulus error failure.}  By
@@ -20596,10 +20862,11 @@ profile decomposition, no global Kato smallness, and no pressure
 compactness by weak lower semicontinuity is used.
 \end{proof}
 
-\begin{corollary}[All three remaining named exit rows are closed]
+\begin{corollary}[All four remaining named exit rows are closed]
 \label{paper6:cor:remaining-named-exits-closed}
-The three rows listed in \cref{paper6:def:remaining-named-exits} are all
-closed adjacent rows: the autonomous-modulation row by
+The four rows listed in \cref{paper6:def:remaining-named-exits} are all
+closed adjacent rows: the bounded-window row by
+\cref{paper6:thm:bounded-selected-window-physical-routing}; the autonomous-modulation row by
 \cref{paper6:thm:autonomous-modulation-failure-closed}; the noncanonical
 carrier/cost-validation row by
 \cref{paper6:thm:noncanonical-cost-routing-closed}; and the loss-of-active-core
@@ -20617,10 +20884,13 @@ The present retained-state assembly does not count a first-failure row as
 closed merely because it has been named.  The ledger rows outside the retained
 closure theorem before the closure subsection is applied are:
 \begin{enumerate}[label=\textup{(\roman*)}]
+\item a bounded selected-window limit producing a bounded local profile on a
+fixed physical window, before the physical routing theorem is applied;
 \item autonomous-modulation failure or modulation-driven recentering;
 \item carrier or cost-validation failure outside the canonical retained
-identity-cost channel, including noncanonical cost-comparison failures not
-covered by an explicit local comparison theorem;
+identity-cost channel, including noncanonical cost-comparison failures before
+the canonical channel of \cref{paper6:lem:canonical-cost-channel-available} is
+invoked;
 \item loss of a retained active core, including pressure-only critical-mass
 detection, unless the pressure/exterior routing theorem places it in one of the
 closed structural rows listed below.
@@ -20644,9 +20914,10 @@ closed by the theorems cited in \cref{paper6:prop:state-elimination} and in the
 ambient compact-cost package.
 
 \medskip
-The three rows \textup{(i)}, \textup{(ii)}, \textup{(iii)} listed above are
+The four rows \textup{(i)}, \textup{(ii)}, \textup{(iii)}, \textup{(iv)} listed above are
 closed adjacent rows, by the closure theorems of
-\cref{paper6:subsec:remaining-exit-closures}: the autonomous-modulation row
+\cref{paper6:subsec:remaining-exit-closures}: the bounded-window row by
+\cref{paper6:thm:bounded-selected-window-physical-routing}; the autonomous-modulation row
 by \cref{paper6:thm:autonomous-modulation-failure-closed}; the
 noncanonical carrier/cost-validation row by
 \cref{paper6:thm:noncanonical-cost-routing-closed}; and the
@@ -21885,10 +22156,12 @@ lemma uses only local upper bounds and local PDE estimates; it does not require
 the pointwise-in-time lower bound in
 \cref{paper6a:thm:bounded-terminal-sequences-from-l3}.
 
-Finally, a nonzero bounded selected-window limit is incompatible with the local
-Type II definition by \cref{paper3:lem:scale-rigid-bounded-limit-exit}.  Hence
-all hypotheses used in \cref{thm:c3-local-retained-mass-cost-divergence} are
-local consequences of the retained compact data and validation rows.
+Finally, a nonzero bounded selected-window limit leaves the strict
+selected-window retained branch by
+\cref{paper3:lem:scale-rigid-bounded-limit-exit}; on a physical germ it is
+then closed by \cref{paper6:thm:bounded-selected-window-physical-routing}.  Hence all
+hypotheses used in \cref{thm:c3-local-retained-mass-cost-divergence} are local
+consequences of the retained compact data and validation rows.
 \end{proof}
 
 \begin{lemma}[Compact positive case is excluded]

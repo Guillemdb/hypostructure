@@ -649,6 +649,8 @@ such limit satisfies one of the following alternatives.
 Consequently a contradiction obtained for a realized limiting profile is a
 contradiction for the original retained residual candidate, not merely for an
 auxiliary compactification limit.
+The theorem is used only through the concrete support-transfer statements
+proved for the individual compactifications below.
 \end{theorem}
 
 \begin{proof}
@@ -686,6 +688,33 @@ closure removes the corresponding defect.  This proves the stated
 principle.
 \end{proof}
 
+\begin{lemma}[Support transfer in compact metrizable defect spaces]
+\label{lem:compact-defect-support-transfer}
+Let \(X\) be a compact metrizable defect space and let
+\[
+   \lambda_n=\frac{\mu_n\lfloor E_n}{\mu_n(E_n)}
+   \qquad(\mu_n(E_n)>0)
+\]
+be normalized realized defect measures converging weakly to
+\(\lambda\in\mathcal P(X)\).  Let \(A\subset X\) be closed.  If every
+normalized support profile in \(\operatorname{supp}\lambda\) belongs to \(A\),
+then the original normalized defect has no surviving mass in \(X\setminus A\).
+Equivalently, if a positive amount of the normalized defect survives outside
+\(A\), then there exists a support profile in \(X\setminus A\).
+\end{lemma}
+
+\begin{proof}
+If positive normalized defect survives outside \(A\), then
+\(\lambda(X\setminus A)>0\).  Since \(X\) is compact metrizable and \(A\) is
+closed, \(X\setminus A\) is open.  By inner regularity choose a compact set
+\(K\subset X\setminus A\) with \(\lambda(K)>0\).  Then
+\(K\cap\operatorname{supp}\lambda\ne\varnothing\), and every point of this
+intersection is a normalized support profile outside \(A\), contradicting the
+support hypothesis.  Hence \(\lambda\) is supported on \(A\), which is exactly
+the assertion that no normalized defect mass survives outside the closed
+excluded set.
+\end{proof}
+
 \begin{lemma}[Transfer of contradictions to the original blow-up sequence]
 \label{lem:ancestor-contradiction-transfer}
 Let \((V,P)\in\calR(\calS;I,J)\) be a retained residual candidate, and let
@@ -714,9 +743,9 @@ In case \textup{(ii)}, the normalized support profile is obtained by restricting
 positive defect measure to a window and renormalizing.  If all such
 normalized support profiles lie in the closed excluded set \(\mathcal A\), then
 regularity of the compactified defect measure implies that the defect
-measure has no mass outside \(\mathcal A\); this is the mechanism made
-explicit for logarithmic windows in
-\Cref{lem:renormalized-log-window-heredity}.  Hence the defect has no surviving
+measure has no mass outside \(\mathcal A\); this is the support-transfer
+mechanism of \Cref{lem:compact-defect-support-transfer}, instantiated below
+for the individual compactifications.  Hence the defect has no surviving
 support in the residual class after \(\mathcal A\) is removed.  In both cases
 the construction cannot produce a retained residual profile from \((V,P)\),
 contradicting the defining retained velocity concentration of the residual candidate.
@@ -2129,13 +2158,17 @@ on fixed centered time windows; their natural normalization is \(r^{-3}\).
 These two quantities are never identified.
 \end{remark}
 
-\begin{definition}[Velocity retention and unit CKN activity]
+\begin{definition}[Velocity retention at a level and unit CKN activity]
 \label{def:velocity-retention-unit-activity}
-Fix \(0<\eta_*,\eps_*<\infty\).  A terminal profile \((U,\Pi)\) has retained local
-velocity concentration if, after the terminal normalization under consideration,
+Fix \(0<\eta_*,\eps_*<\infty\).  For \(\eta>0\), a terminal profile
+\((U,\Pi)\) has retained local velocity concentration at level \(\eta\) if,
+after the terminal normalization under consideration,
 \[
-   \Vel_1(U;0)\ge \eta_* .
+   \Vel_1(U;0)\ge \eta .
 \]
+It has positive retained local velocity concentration if this holds for some
+\(\eta>0\).  When no level is displayed, the setup-level retained descendant
+threshold is \(\eta_*\).
 It has unit CKN activity if
 \[
    \calE_1(U,\Pi;0)\ge \eps_* .
@@ -6440,6 +6473,30 @@ escaping windows.  The proof is local on the chosen observer windows and uses no
 global critical-mass or energy budget.
 \end{proof}
 
+\begin{lemma}[Support transfer for the diffuse-defect compactification]
+\label{lem:diffuse-defect-support-transfer}
+Let \(X_{\rm def}\) be the compact metrizable diffuse-defect space of
+\Cref{thm:diffuse-defect-compactification-construction}, and let
+\[
+   \lambda_n=\frac{\mu_n^{\rm osc}\lfloor E_n}{\mu_n^{\rm osc}(E_n)}
+\]
+be the normalized realized diffuse-defect measures from
+\Cref{thm:diffuse-defect-compactness}, viewed in \(X_{\rm def}\).  If
+\(\lambda_n\rightharpoonup\lambda\) and \(A\subset X_{\rm def}\) is a closed
+union of already excluded diffuse alternatives, then support of \(\lambda\) in
+\(A\) implies that no diffuse defect mass survives outside \(A\).  Conversely,
+surviving normalized diffuse mass outside \(A\) produces a sequence-realized
+support profile in \(X_{\rm def}\setminus A\).
+\end{lemma}
+
+\begin{proof}
+This is \Cref{lem:compact-defect-support-transfer} with
+\(X=X_{\rm def}\), \(\mu_n=\mu_n^{\rm osc}\), and the escaping observer
+regions \(E_n\).  The construction theorem makes \(X_{\rm def}\) compact
+metrizable and keeps the limit inside the closed sequence-realized subset, so
+the support point obtained outside \(A\) is a realized diffuse-defect profile.
+\end{proof}
+
 \begin{definition}[Defect observables]
 \label{def:diffuse-defect-observables}
 Let \(M\ge 1\) be the velocity bound of the underlying admissible class.
@@ -6807,6 +6864,27 @@ terminal sequence and diagonalize over the annular exhaustion and the countable
 observables in the topology above.  The diagonal realizing sequence converges
 to the same limit, so the limiting critical-tail profile remains
 sequence-realized.
+\end{proof}
+
+\begin{lemma}[Support transfer for the critical-tail compactification]
+\label{lem:critical-tail-support-transfer}
+Let \(\Tcrit\) be the compact metrizable critical-tail compactification and let
+\[
+   \lambda_n=\frac{\mu_n\lfloor E_n}{\mu_n(E_n)}
+\]
+be normalized realized critical-tail defect measures, where \(\mu_n(E_n)>0\).
+If \(\lambda_n\rightharpoonup\lambda\in\mathcal P(\Tcrit)\) and
+\(A\subset\Tcrit\) is closed, then support of \(\lambda\) in \(A\) removes all
+surviving critical-tail defect mass outside \(A\).  If positive normalized
+critical-tail mass survives outside \(A\), then a sequence-realized support
+profile in \(\Tcrit\setminus A\) exists.
+\end{lemma}
+
+\begin{proof}
+This is \Cref{lem:compact-defect-support-transfer} with \(X=\Tcrit\).  The
+compactness theorem above ensures that subsequential limits of realized
+critical-tail profiles remain sequence-realized, so the support point outside
+the closed set is not an abstract compactification artifact.
 \end{proof}
 
 \begin{definition}[Log-annular compactification]
@@ -7466,6 +7544,29 @@ mass \(\lambda_n(I_n)\) is required, because the profile is a normalized
 boundary profile.
 \end{proof}
 
+\begin{lemma}[Support transfer for log-window defect compactification]
+\label{lem:log-window-support-transfer}
+Let \(X_{\log}\) be the compact metrizable log-window defect space obtained by
+restricting the critical-tail compactification \(\Tcrit\) to normalized
+logarithmic windows, and let
+\[
+   \lambda_n=\frac{\Lambda_n\lfloor I_n}{\Lambda_n(I_n)}
+   \qquad(\Lambda_n(I_n)>0)
+\]
+be normalized realized log-window restrictions.  If
+\(\lambda_n\rightharpoonup\lambda\in\mathcal P(X_{\log})\) and
+\(A\subset X_{\log}\) is closed, then support of \(\lambda\) in \(A\) removes
+all surviving log-window defect mass outside \(A\); any positive surviving
+mass outside \(A\) gives a normalized log-window support profile outside \(A\).
+\end{lemma}
+
+\begin{proof}
+Apply \Cref{lem:compact-defect-support-transfer} in the compact metrizable
+space \(X_{\log}\).  The normalization by \(\Lambda_n(I_n)\) is exactly the
+realized support-profile normalization; the size of \(\Lambda_n(I_n)\) is
+irrelevant after passing to probability measures.
+\end{proof}
+
 \begin{lemma}[Renormalized log-window heredity]
 \label{lem:renormalized-log-window-heredity}
 Let \(\mathcal D\in\Clogdiff\) be a log-diffuse defect realized from the original blow-up sequence, and
@@ -7482,20 +7583,11 @@ by the lower-stratum closure theorems, then \(\mathcal D\) is impossible.
 It remains to verify that the selected logarithmic windows remain tied to the
 original defect even if their unnormalized mass tends to zero.
 Let \(\Lambda\) be the compactified logarithmic defect measure associated with
-\(\mathcal D\).  If \(\Lambda(\Tcrit\setminus\mathcal F)>0\), then by
-regularity of Borel probability measures on the compact defect space there is a
-compact set
-\[
-   K\Subset \Tcrit\setminus\mathcal F
-\]
-with \(\Lambda(K)>0\).  Pulling \(K\) back to the approximating observer
-compactification and to the logarithmic coordinate gives, after passing to a
-subsequence, positive-measure windows \(I_n\) whose normalized restrictions
-converge to a probability measure supported in \(K\).  This gives
-a nonzero log-window normalized support profile outside \(\mathcal F\).
-
-This contradicts the hypothesis that every nonzero log-window normalized support profile lies
-in \(\mathcal F\).  Hence \(\Lambda\) is supported on \(\mathcal F\).  Since
+\(\mathcal D\).  If \(\Lambda(\Tcrit\setminus\mathcal F)>0\), the concrete
+support-transfer lemma \Cref{lem:log-window-support-transfer} gives a nonzero
+log-window normalized support profile outside \(\mathcal F\).  This contradicts
+the hypothesis that every nonzero log-window normalized support profile lies in
+\(\mathcal F\).  Hence \(\Lambda\) is supported on \(\mathcal F\).  Since
 \(\mathcal F\) is closed under retained descendants and normalized support profiles and is already excluded,
 the original defect has no admissible surviving normalized support profile.  The
 fact that \(\lambda_n(I_n)\) may tend to zero does not affect the argument: the normalized
@@ -8038,7 +8130,7 @@ domain \(K\Subset\mathbb R^3\times\mathbb R\): for every nonnegative
       \partial_s\phi
       +r_n^{-2}\Delta\phi
       +\frac12 x\cdot\nabla\phi
-      -\frac12\phi
+      +\frac12\phi
    \Bigr)\,dx\,ds\\
    &\quad
    +r_n^{-1}\!\iint
@@ -8066,7 +8158,7 @@ centered profile \((U,\Pi)\) and every nonnegative
    \iint |\nabla_y U|^2\Phi\,dy\,d\tau
    \le
    \iint \frac{|U|^2}{2}\bigl(\partial_\tau\Phi+\Delta_y\Phi
-      +\tfrac12 y\cdot\nabla_y\Phi-\tfrac12\Phi\bigr)\,dy\,d\tau
+      +\tfrac12 y\cdot\nabla_y\Phi+\tfrac12\Phi\bigr)\,dy\,d\tau
    +\iint
    \Bigl(\tfrac{|U|^2}{2}+\Pi\Bigr)U\cdot\nabla_y\Phi\,dy\,d\tau .
 \end{equation}
@@ -8101,8 +8193,8 @@ Similarly,
    =\iint\frac{|V_n|^2}{2}\tfrac12 x\cdot\nabla_x\phi\,dx\,ds ,
 \]
 \[
-   -\iint\frac{|U_n^{z_n}|^2}{2}\tfrac12\Phi\,dy\,d\tau
-   =-\iint\frac{|V_n|^2}{2}\tfrac12\phi\,dx\,ds .
+   \iint\frac{|U_n^{z_n}|^2}{2}\tfrac12\Phi\,dy\,d\tau
+   =\iint\frac{|V_n|^2}{2}\tfrac12\phi\,dx\,ds .
 \]
 For the convective and pressure-flux terms,
 \[
@@ -8494,33 +8586,43 @@ product convergence in distributions by
 \Cref{lem:pressure-velocity-product-convergence}.
 \end{proof}
 
-\begin{lemma}[Homogeneous gauge compactness or affine stratum]
+\begin{lemma}[Homogeneous gauges: compactness modulo the affine stratum]
 \label{lem:homogeneous-gauge-compactness}
 Let \(c_n:I\to\mathbb R^3\) be uniformly bounded in \(L^\infty(I)\) on every
-compact interval \(I\Subset\mathbb R\).  Then either \(c_n\) is precompact in
-\(L^3_{\loc}(\mathbb R;\mathbb R^3)\) after passing to a subsequence, or a
-time recentering of the spatially homogeneous profiles
-\[
-   C_n(y,s):=c_n(s)
-\]
-generates a nonzero affine/parasitic descendant.  In the ordered residual
-decomposition the second alternative belongs to \(\Caff\).
+compact interval \(I\Subset\mathbb R\).  Then, after passing to a subsequence,
+exactly one of the following alternatives is used in the ordered minimal-scale
+argument:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item \(c_n\to c\) strongly in \(L^3_{\loc}(\mathbb R;\mathbb R^3)\);
+   \item the spatially homogeneous sequence
+   \[
+      C_n(y,s):=c_n(s)
+   \]
+   has a noncompact homogeneous quotient defect.  This defect has zero spatial
+   quotient oscillation on every compact cylinder and is assigned to the
+   affine/parasitic stratum \(\Caff\).
+\end{enumerate}
 \end{lemma}
 
 \begin{proof}
-By the Fr\'echet--Kolmogorov criterion on compact time intervals, failure of
-precompactness in \(L^3_{\loc}\) is equivalent, after passing to a subsequence,
-to the existence of an interval \(I\), translations \(\theta_n\to0\), and
+If \(c_n\) has a strongly convergent subsequence in \(L^3_{\loc}\), we pass to
+that subsequence and are in alternative \textup{(i)}.  If no such subsequence
+exists, then the family is not relatively compact in \(L^3(I)\) for some
+compact interval \(I\Subset\mathbb R\).  Since the \(L^\infty(I)\) bound gives
+uniform boundedness and tightness on this fixed interval, the only possible
+failure in the Fr\'echet--Kolmogorov criterion is time-translation
+equicontinuity.  Hence there are translations \(\theta_n\to0\) and
 \(\eta>0\) such that
 \[
    \|c_n(\cdot+\theta_n)-c_n\|_{L^3(I)}\ge\eta .
 \]
 The associated spatially homogeneous profiles \(C_n(y,s)=c_n(s)\) have zero
-spatial quotient oscillation on every compact cylinder, while the displayed
-lower bound gives a nonzero homogeneous time-dependent descendant.
-This is the affine/parasitic lower stratum.  If this alternative does
-not occur, the time translation modulus of \(c_n\) vanishes on every compact
-interval; boundedness then gives \(L^3_{\loc}\) precompactness.
+spatial quotient oscillation on every compact cylinder.  The displayed lower
+bound records noncompactness only in the homogeneous time-dependent quotient;
+it does not assert the existence of a strongly convergent nonzero homogeneous
+descendant.  By the affine/parasitic routing convention and
+\Cref{lem:homogeneous-gauges-are-affine-stratum}, this quotient defect belongs
+to \(\Caff\).  This is alternative \textup{(ii)}.
 \end{proof}
 
 \begin{lemma}[Variance is invariant under homogeneous velocity gauges]
@@ -8562,6 +8664,85 @@ distributional inequality involves only this variance density and therefore is
 unchanged.
 \end{proof}
 
+\begin{lemma}[Support transfer for the Young variance defect]
+\label{lem:young-variance-support-transfer}
+Let \(K\Subset\mathbb R^3\times\mathbb R\) be a compact macroscopic cylinder
+and let \(X_Y(K)=K\times\mathcal P(\overline{B_M})\), where
+\(\overline{B_M}\) is the compact velocity ball fixed by the local
+\(L^\infty\) bound.  Let
+\[
+   \lambda_n=\frac{\mu_n^Y\lfloor E_n}{\mu_n^Y(E_n)}
+   \qquad(\mu_n^Y(E_n)>0)
+\]
+be normalized realized Young-measure variance defects on \(X_Y(K)\).  If
+\(\lambda_n\rightharpoonup\lambda\) and \(A\subset X_Y(K)\) is closed, then
+support of \(\lambda\) in \(A\) removes all surviving Young variance defect
+outside \(A\); positive surviving variance outside \(A\) produces a normalized
+Young support profile outside \(A\).
+\end{lemma}
+
+\begin{proof}
+The space \(X_Y(K)\) is compact metrizable because \(K\) is compact and
+\(\mathcal P(\overline{B_M})\) is compact metrizable in the weak topology.
+The conclusion is \Cref{lem:compact-defect-support-transfer} applied to this
+space.  This is the only measure-theoretic transfer used when the hidden-scale
+Young defect is removed after the variance inequality.
+\end{proof}
+
+\begin{lemma}[Renormalization for the coherent barycenter equation]
+\label{lem:coherent-barycenter-renormalization}
+Let \(Z\in L^\infty_{\loc}(\mathbb R^3\times\mathbb R)\),
+\(Q\in L^{3/2}_{\loc}(\mathbb R^3\times\mathbb R)\), and
+\(\nabla\cdot Z=0\).  Suppose
+\[
+   \partial_s Z+\frac12 x\cdot\nabla Z+\frac12 Z+\nabla Q=0
+\]
+in distributions.  Then
+\[
+   \partial_s\frac{|Z|^2}{2}
+   +\frac12x\cdot\nabla\frac{|Z|^2}{2}
+   +\frac12|Z|^2
+   +\divergence(QZ)=0
+\]
+in distributions.
+\end{lemma}
+
+\begin{proof}
+Let \(\varrho_\varepsilon\) be a standard space--time mollifier and write
+\(Z_\varepsilon=\varrho_\varepsilon*Z\), \(Q_\varepsilon=\varrho_\varepsilon*Q\)
+on a compact cylinder \(K\), after extending across a slightly larger compact
+cylinder.  Since \(x/2\) is smooth and Lipschitz on \(K\),
+\[
+   \varrho_\varepsilon*((x/2)\cdot\nabla Z)
+   -(x/2)\cdot\nabla Z_\varepsilon\to0
+   \qquad\hbox{in }L^p(K)
+\]
+for every finite \(p\).  The mollified equation is therefore
+\[
+   \partial_s Z_\varepsilon+\frac12x\cdot\nabla Z_\varepsilon
+   +\frac12Z_\varepsilon+\nabla Q_\varepsilon=R_\varepsilon,
+   \qquad R_\varepsilon\to0\quad\hbox{in }L^p_{\loc}.
+\]
+Multiplying by \(Z_\varepsilon\) gives
+\[
+   \partial_s\frac{|Z_\varepsilon|^2}{2}
+   +\frac12x\cdot\nabla\frac{|Z_\varepsilon|^2}{2}
+   +\frac12|Z_\varepsilon|^2
+   +Z_\varepsilon\cdot\nabla Q_\varepsilon
+   =R_\varepsilon\cdot Z_\varepsilon .
+\]
+Because \(\nabla\cdot Z=0\), also \(\nabla\cdot Z_\varepsilon=0\), and hence
+\[
+   Z_\varepsilon\cdot\nabla Q_\varepsilon
+   =\divergence(Q_\varepsilon Z_\varepsilon).
+\]
+Now \(Z_\varepsilon\to Z\) in \(L^p_{\loc}\) for every finite \(p\), while
+\(Z\in L^\infty_{\loc}\), and \(Q_\varepsilon\to Q\) in
+\(L^{3/2}_{\loc}\).  Thus \(Q_\varepsilon Z_\varepsilon\to QZ\) in
+distributions, and \(R_\varepsilon\cdot Z_\varepsilon\to0\) in distributions.
+Letting \(\varepsilon\downarrow0\) gives the claimed renormalized identity.
+\end{proof}
+
 \begin{lemma}[Barycenter equation and variance inequality]
 \label{lem:first-bad-young-variance}
 Let \(V_n,W_n,Q_n,c_n\) be a minimal-scale blow-down.  Then either the sequence has
@@ -8597,9 +8778,9 @@ in distributions.
 \end{lemma}
 
 \begin{proof}
-By \Cref{lem:homogeneous-gauge-compactness}, either the homogeneous gauges
-generate an affine/parasitic descendant, or \(c_n\to c\) strongly in
-\(L^3_{\loc}\) after passing to a subsequence.  We work in the second case.
+By \Cref{lem:homogeneous-gauge-compactness}, either the homogeneous gauge
+defect belongs to \(\Caff\), or \(c_n\to c\) strongly in \(L^3_{\loc}\) after
+passing to a subsequence.  We work in the second case.
 The weak-* compactness of \(V_n,W_n\) and generation of Young measures are
 standard consequences of the uniform \(L^\infty_{\loc}\) bound.  Testing
 \eqref{eq:first-bad-scaled-equation} against a compactly supported
@@ -8650,8 +8831,8 @@ in distributions, where
    E_V(x,s):=\langle|\xi|^2\rangle_{\nu_{x,s}}
 \]
 is the second moment of the Young measure generated by \(V_n\).  On the other
-hand, the barycenter equation for \(\bar V\) is an equality for a bounded
-smooth macroscopic limit, so testing it with \(\bar V\) gives
+hand, applying \Cref{lem:coherent-barycenter-renormalization} to the
+barycenter equation for \(\bar V\) gives
 \[
    \partial_s\frac{|\bar V|^2}{2}
    +\frac12x\cdot\nabla\frac{|\bar V|^2}{2}
@@ -9438,43 +9619,57 @@ boundedness inherited from the Type~I terminal profile class and finite-dimensio
 affine normalization; it uses no global critical norm or global tail budget.
 \end{proof}
 
-\begin{lemma}[Minimal coherent hulls inherit bounded-origin vanishing]
-\label{lem:minimal-coherent-hull-origin-vanishing}
-\emph{Scope clarification.}  The bounded-origin realization recorded in the
-statement and used throughout this lemma is taken in the precise sense of
-\Cref{thm:bounded-origin-realization-coherent-tails} (the \emph{bounded-origin
-realization} theorem) in the present paper: every macroscopic tangent of an element of
-\(\Ccohcrit\) admits a representative that is locally bounded on every
-compact macroscopic cylinder, including cylinders meeting the macroscopic
-origin \(\{x=0\}\), with constants stable under local hull limits.  The
-hypothesis is local in the centered variables and uses no global
-critical-norm or global tail budget; it propagates under logarithmic
-translation by the same argument as in
-\Cref{thm:bounded-origin-realization-coherent-tails}.
-
-Let \((W,Q)\in\Ccohcrit\) be realized by the bounded-origin theorem, and write
+\begin{lemma}[Realized amplitude-normalized log-hull heredity]
+\label{lem:realized-amplitude-log-hull-heredity}
+Let \((W,Q)\in\Ccohcrit\) be generated by a bounded terminal sequence and be
+realized by \Cref{thm:bounded-origin-realization-coherent-tails}.  Write
 \[
    Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s).
 \]
-Let \(\mathcal M\) be a compact minimal invariant subset of the logarithmic
-translation hull generated by \(Z\).  Then every \(Z_*\in\mathcal M\) is itself
-realized by a full locally bounded macroscopic tangent near the origin, and
+Let \(Z_*\) be a nonzero element of the amplitude-normalized log/time hull,
+obtained as a local limit
 \[
-   Z_*(\rho,\cdot,\cdot)\to0
-   \qquad\hbox{as }\rho\to-\infty
+   Z_*(\rho,\omega,s)
+   =
+   \lim_{j\to\infty}Z(\rho+a_j,\omega,s+b_j).
 \]
-in the local logarithmic topology.  Consequently \(0\in\mathcal H(Z_*)\).  If
-\(\mathcal M=\mathcal H(Z_*)\) is minimal, then \(\mathcal M=\{0\}\).
+Then one of the following alternatives occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+   \item the translated windows are realized by admissible critical-tail
+   extractions from the original blow-up sequence, with bounded-origin
+   representatives stable under the amplitude-normalized translation, and
+   \[
+      Z_*(\rho,\cdot,\cdot)\to0
+      \qquad\hbox{as }\rho\to-\infty
+   \]
+   in the local logarithmic topology;
+   \item the failure of such realized bounded-origin heredity produces one of
+   the already stratified lower alternatives:
+   \[
+      \Cactive,\qquad \Caff,\qquad \Clogdiff,\qquad
+      \hbox{critical-tail defect},\qquad
+      \hbox{or hidden-scale variance}.
+   \]
+\end{enumerate}
 \end{lemma}
 
 \begin{proof}
-Elements of the logarithmic hull are limits of logarithmic translations of the
-same coherent tail realized from the original blow-up sequence.  Logarithmic translation corresponds to
-choosing another macroscopic scale in the bounded-origin realization.  The
-bounded-origin theorem gives \(L^\infty_{\loc}\) bounds on every full compact
-cylinder, including neighborhoods of the macroscopic origin, with constants
-that are stable under passing to local hull limits.  Hence each hull element
-\(Z_*\) corresponds to a velocity
+A translated log profile \(Z(\rho+a_j,\omega,s+b_j)\) represents
+\[
+   e^{a_j}W(e^{a_j}x,s+b_j),
+\]
+not merely \(W(e^{a_j}x,s+b_j)\).  Thus it is not admitted into the coherent
+critical-tail closure solely by changing the macroscopic scale in the
+no-amplitude blow-down.  It is admitted only when the amplitude-normalized
+profile is itself realized by the normalized critical-tail extraction from the
+original terminal sequence.
+
+Assume first that this realized amplitude-normalized extraction exists along
+the translated windows.  The bounded-origin realization theorem applied to
+these realized representatives gives \(L^\infty_{\loc}\) bounds on every full
+compact macroscopic cylinder, including cylinders meeting \(x=0\), with
+constants stable under the local limit.  Hence \(Z_*\) corresponds to a
+velocity
 \[
    W_*(r\omega,s)=r^{-1}Z_*(\log r,\omega,s)
 \]
@@ -9488,11 +9683,21 @@ For \(r=e^\rho\downarrow0\), local boundedness gives
    \le C_K r
 \]
 on every compact angular-time set \(K\).  Thus
-\(Z_*(\rho,\cdot,\cdot)\to0\) locally as \(\rho\to-\infty\), and the zero profile
-belongs to the orbit closure \(\mathcal H(Z_*)\).  If \(Z_*\) lies in a minimal
-compact invariant set \(\mathcal M\), then \(\mathcal H(Z_*)=\mathcal M\).
-Since \(\{0\}\) is closed and invariant, minimality forces
-\(\mathcal M=\{0\}\).
+\(Z_*(\rho,\cdot,\cdot)\to0\) locally as \(\rho\to-\infty\), proving
+alternative \textup{(i)}.
+
+It remains to identify the complementary case.  If the
+amplitude-normalized translated windows cannot be realized with the same
+bounded-origin control, then one of the realized extraction inputs has failed.
+If positive unit concentration is regenerated, the branch is \(\Cactive\).  If
+the failure is purely homogeneous or affine in the velocity/pressure quotient,
+it is \(\Caff\).  If mass escapes in logarithmic radius before a tight
+amplitude-normalized profile is obtained, it is a log-diffuse or critical-tail
+defect.  If tightness holds but the Young measure is not Dirac on an annular
+window, it is hidden-scale variance.  These are precisely the lower rows in the
+ordered critical-tail compactification, and all are sequence-realized support
+profiles by \Cref{lem:critical-tail-support-transfer,lem:log-window-support-transfer,lem:young-variance-support-transfer}.
+This gives alternative \textup{(ii)}.
 \end{proof}
 
 \begin{lemma}[Homogeneous tails are incompatible with bounded-origin retention]
@@ -9554,8 +9759,16 @@ annular activity.  Then no such \(W\) exists.
 \begin{proof}
 Let \(Z(\rho,\omega,s)=e^\rho W(e^\rho\omega,s)\), and let \(\mathcal M\) be
 the nonzero minimal aperiodic logarithmic subsystem in the definition of
-\(\Capcrit\).  Choose \(Z_*\in\mathcal M\).  By
-\Cref{lem:minimal-coherent-hull-origin-vanishing}, \(0\in\mathcal H(Z_*)\).
+\(\Capcrit\), taken inside the realized amplitude-normalized hull.  Choose
+\(Z_*\in\mathcal M\).  By \Cref{lem:realized-amplitude-log-hull-heredity},
+either a lower stratum has already occurred, or \(Z_*\) has a bounded-origin
+representative and hence
+\[
+   Z_*(\rho,\cdot,\cdot)\to0
+   \qquad\hbox{as }\rho\to-\infty .
+\]
+The lower-stratum alternatives are already removed before the coherent
+aperiodic row is closed.  In the remaining case \(0\in\mathcal H(Z_*)\).
 Minimality gives \(\mathcal H(Z_*)=\mathcal M\).  Since the zero profile is a
 closed invariant subsystem, \(\mathcal M=\{0\}\).  This contradicts the
 retained non-affine annular activity that makes the aperiodic coherent tail a
@@ -9695,8 +9908,10 @@ retained concentrating tail limit is a limit of covariant tail recenterings
    \qquad |x_n|+|\tau_n|^{1/2}\to\infty,
 \]
    in the local smooth velocity topology and the local \(L^{3/2}\) pressure
-   topology modulo gauges, with retained local velocity concentration at the origin.  An ordinary
-   fixed spatial shift is not used in this definition; by
+   topology modulo gauges, with positive retained local velocity concentration
+   at the origin, equivalently with retained local velocity concentration at
+   some rational level \(\eta\in\mathbb Q_{>0}\).  An ordinary fixed spatial
+   shift is not used in this definition; by
    \Cref{rem:raw-translates,def:spacetime-covariant-action}, it would introduce an
    unbounded spurious drift for escaping centers.  Diffuse exterior concentration
    means that there are \(\tau_n\to-\infty\), \(R_n\to\infty\), and \(\eta>0\),
@@ -9719,9 +9934,10 @@ retained concentrating tail limit is a limit of covariant tail recenterings
    slices.  An escaping non-compact recentering sequence is a
    covariant tail recentering sequence for which the local compactness,
 suitability, or pressure control needed to extract a terminal profile fails.  A
-retained velocity concentration profile is terminally indecomposable if it has no
-retained concentrating tail limit, no diffuse exterior concentration, and no
-escaping non-compact recentering sequence.
+retained velocity concentration profile is terminally indecomposable if it has
+no covariant tail recentering limit carrying positive retained local velocity
+concentration at any rational level \(\eta\in\mathbb Q_{>0}\), no diffuse
+exterior concentration, and no escaping non-compact recentering sequence.
 \end{definition}
 
 \begin{lemma}[Compact state-space time-slice concentration]
@@ -10020,19 +10236,7 @@ we may assume that the normalized pressure-atlas closure of all such exterior
 recentering profiles is compact; denote one compact closure by
 \(\calK_{\rm ext}\subset\mathfrak X_M^\#\).
 
-Fix once and for all a small \(\alpha_0>0\), and let
-\(c_{\rm sl}(\calK_{\rm ext},\alpha_0)\) be the corresponding compact-state
-constant from \Cref{lem:timeslice-to-ckn-activity}, as used in
-\Cref{lem:exterior-slice-to-diffuse-defect}.  By the threshold hierarchy
-\Cref{def:threshold-hierarchy}, lower the retained descendant threshold once,
-before reading terminal indecomposability for this bounded class, so that
-\[
-   4\eta_*<c_{\rm sl}(\calK_{\rm ext},\alpha_0).
-\]
-This only makes the retained-tail test more sensitive and is independent of any
-later iterated extraction of descendant profiles.
-
-First suppose \(\limsup_{n\to\infty}m_n^{\rm vel}\ge4\eta_*\).  Passing to a
+If \(\limsup_{n\to\infty}m_n^{\rm vel}=\gamma>0\), then, passing to a
 subsequence, choose \((x_n,s_n)\), with
 \[
    |x_n|>R_n-2,\qquad |s_n-\tau_n|\le1,
@@ -10040,20 +10244,33 @@ subsequence, choose \((x_n,s_n)\), with
 such that
 \[
    \Vel_1\!\left(\mathscr T_{(x_n,s_n)}U;0\right)
-   \ge2\eta_* .
+   \ge\frac{\gamma}{2}.
 \]
 Since \(R_n\to\infty\) and \(\tau_n\to-\infty\), these are escaping covariant
 tail recenterings.  If they have loss of local compactness, terminal
 indecomposability is contradicted.  Otherwise local compactness gives a
 subsequential terminal limit \((W,\Pi_W)\), and strong local \(L^3\) convergence gives
 \[
-   \Vel_1(W;0)\ge\eta_* .
+   \Vel_1(W;0)\ge\frac{\gamma}{4}>0 .
 \]
-Thus \(W\) is a retained concentrating covariant tail limit, contradicting
-terminal indecomposability.
+Choose a rational \(0<\eta<\gamma/4\).  Thus \(W\) is a covariant tail limit
+with retained local velocity concentration at level \(\eta\), contradicting the
+all-positive-threshold definition of terminal indecomposability.  Therefore
+\[
+   m_n^{\rm vel}\to0 .
+\]
 
-It remains to consider the case in which \(m_n^{\rm vel}<4\eta_*\) for
-all large \(n\).  If the
+Fix a small \(\alpha_0>0\), and let
+\[
+   c_{\rm sl}(\calK_{\rm ext},\alpha_0)>0
+\]
+be the compact-state constant from \Cref{lem:timeslice-to-ckn-activity}, as
+used in \Cref{lem:exterior-slice-to-diffuse-defect}.  Since
+\(m_n^{\rm vel}\to0\), for all large \(n\),
+\[
+   m_n^{\rm vel}<c_{\rm sl}(\calK_{\rm ext},\alpha_0).
+\]
+If the
 velocity concentration is small but the pressure-inclusive CKN mass is not,
 \Cref{lem:no-pressure-only-retained-profile} assigns the recentering either to
 pressure compactness failure, to the affine/parasitic pressure quotient, or to
@@ -10066,11 +10283,11 @@ critical-tail normalization is selected, then the exterior time-slice lower boun
 \[
    \int_{|y|>R_n}|U(y,\tau_n)|^3\,dy\ge1
 \]
-together with the parabolic velocity smallness \(m_n^{\rm vel}<4\eta_*\)
+together with the parabolic velocity smallness
+\(m_n^{\rm vel}<c_{\rm sl}(\calK_{\rm ext},\alpha_0)\)
 is now
 handled quantitatively by \Cref{lem:exterior-slice-to-diffuse-defect}.  Apply
-that lemma with \(m_0=1\), \(\alpha=\alpha_0\), and the inequality
-\(m_n^{\rm vel}<4\eta_*<c_{\rm sl}(\calK_{\rm ext},\alpha_0)\).
+that lemma with \(m_0=1\), \(\alpha=\alpha_0\), and the displayed inequality.
 If the lemma produces local compactness loss, pressure-gauge loss, pressure-only
 mass, or a critical-tail normalization, the branch is one of the already covered
 noncompact, pressure, affine/parasitic, or critical-tail alternatives.  In the
