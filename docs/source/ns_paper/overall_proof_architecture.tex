@@ -100,7 +100,7 @@ finite-energy suitable weak solution
 \end{minipage}
 \end{center}
 
-This should be read in the hybrid sense used by the papers themselves.  The architecture is assertive about the intended proof flow, but it is explicit about the inputs on which each branch depends.  The Type I residual closure is now discharged by \path|paperIV_residual_branch.tex|, including the setup residual hypothesis.  In \path|type_II_regularity.tex|, several items that used to be treated as strategic assumptions have also been converted into theorem packages: \path|paper3:prop:local-scale-rigidity-exclusion|, \path|paper7:def:windowwise-transition-routing|, \path|paper7:def:windowwise-positive-scale-routing|, \path|paper6a:thm:cost-divergence-exclusion-discharged|, and \path|paper6a:thm:critical-ns-profile-decomposition-discharged|.  The current status is that the Type II exit ledger is closed: entry into the local alternative class, repaired-gauge representation, compactness and local energy propagation, retained compact-test closure, cost/carrier routing, and terminal profile exhaustion are all supplied by named theorem packages in \path|type_II_regularity.tex|.
+This should be read in the hybrid sense used by the papers themselves.  The architecture is assertive about the intended proof flow, but it is explicit about the inputs on which each branch depends.  The Type I residual closure is now discharged by \path|paperIV_residual_branch.tex|, including the setup residual hypothesis.  In \path|type_II_regularity.tex|, several items that used to be treated as strategic assumptions have also been converted into theorem or corollary packages: \path|paper3:prop:local-scale-rigidity-exclusion|, \path|paper7:cor:windowwise-transition-routing-holds|, \path|paper7:cor:windowwise-positive-scale-routing-holds|, \path|paper6a:thm:cost-divergence-exclusion-discharged|, and \path|paper6a:thm:critical-ns-profile-decomposition-discharged|.  The current status is that the Type II exit ledger is closed: entry into the local alternative class, repaired-gauge representation, compactness and local energy propagation, retained compact-test closure, cost/carrier routing, and terminal profile exhaustion are all supplied by named theorem packages in \path|type_II_regularity.tex|.
 
 \section{Current Closure Status}
 
@@ -407,7 +407,7 @@ This is the expanded residual branch, matching the internal organization of \pat
 \node[archnode, below=of A] (B) {Imported setup package: \path|thm:imported-setup-results|, \path|hyp:base-seregin-hypotheses|};
 \node[archnode, below=of B] (C) {Ancestor-realized limiting operations: \path|thm:ancestor-realization-inheritance|};
 \node[decision, below=of C] (D) {Ordered lower residual stratum fires first?};
-\node[archnode, left=of D, xshift=-35mm] (LOW) {Lower residual closures: R1 axisymmetric \(\to\) \path|thm:R1-exclusion|; R2 rotational \(\to\) \path|thm:terminal-stratification|; R3 stationary hull \(\to\) \path|thm:R3-no-attainable-degenerate-family|, \path|thm:R3S-terminal-theorem|, \path|thm:R3S-no-active-stationary-carrier|; affine/parasitic quotient \(\to\) \path|thm:affine-normalization-dichotomy|, \path|thm:oscillatory-entry-normalization|.};
+\node[archnode, left=of D, xshift=-35mm] (LOW) {Lower residual closures: R1 axisymmetric \(\to\) \path|thm:R1-exclusion|; R2 rotational \(\to\) \path|thm:terminal-stratification|; R3 stationary hull \(\to\) \path|thm:R3-no-attainable-degenerate-family|, \path|thm:R3S-terminal-theorem|, \path|cor:R3-closure|; affine/parasitic quotient \(\to\) \path|thm:affine-normalization-dichotomy|, \path|thm:oscillatory-entry-normalization|.};
 \node[decision, below=of D] (TAIL) {Tail or diffuse defect?};
 \node[archnode, left=of TAIL, xshift=-35mm] (L1) {Log-diffuse escape: \path|thm:log-diffuse-from-hidden-scale|};
 \node[archnode, right=of TAIL, xshift=35mm] (Y1) {Young variance defect: \path|thm:first-bad-mesoscopic-reduction|, \path|thm:no-hidden-scale-variance-realized-defects|};
@@ -432,7 +432,6 @@ This is the expanded residual branch, matching the internal organization of \pat
 \end{landscape}
 
 \subsection{Type II State-Space Decision Tree}
-
 \begin{landscape}
 \begin{figure}[p]
 \centering
@@ -498,7 +497,6 @@ This is the expanded residual branch, matching the internal organization of \pat
 \end{figure}
 
 \clearpage
-
 \section{Diagram Edge Audit}
 
 The diagrams above should be read as theorem interfaces, not just pictures. Every edge has a payload: a property that must be proved before the target node can be used.  The tables below list those properties explicitly.
@@ -1466,7 +1464,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{p0:thm:ckn}.
   \item L2. \texttt{p0:thm:no-concentration}.
-  \item Source: proof\_setup.tex (Part I, local CKN).
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. Suitable weak solution on a backward parabolic cylinder $Q_R(z_*)$.
   \item H2. The CKN scale-invariant quantity $C(z_*,r)+D(z_*,r)$ tends to 0 as r $\to$ 0.
@@ -1490,7 +1488,7 @@ interface rather than a terminal contradiction).
   \item Capsule name: Capsule G2: Vanishing velocity concentration $\to$ regularity.
   \item Implementation labels:
   \item L1. \texttt{p0:thm:velocity-ckn}.
-  \item Source: proof\_setup.tex (velocity-only epsilon-regularity).
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. Suitable weak solution near $z_*$.
   \item H2. Velocity quantity $C(z_*,r) \to$ 0 along the singular scales.
@@ -1560,7 +1558,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{p0:thm:auto-velocity-no-escape}.
   \item L2. \texttt{p0:thm:local-weak-serrin-typeI}.
-  \item Source: proof\_setup.tex (no-escape preparation for extraction).
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. Local pointwise Type I envelope holds near $z_*$.
   \item H2. Positive velocity concentration along $r_n \to$ 0.
@@ -1588,7 +1586,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{p1:thm:extraction}.
   \item L2. \texttt{p0:thm:local-weak-serrin-typeI}.
-  \item Source: proof\_setup.tex (Type I extraction).
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. Admissible Type I bridge sequence (capsules G3-G5).
   \item H2. Local pressure compactness modulo functions of time.
@@ -1615,6 +1613,7 @@ interface rather than a terminal contradiction).
   \item Capsule name: Capsule TI2: Small-amplitude Type I closure.
   \item Implementation labels:
   \item L1. \texttt{p1:thm:classical-classes}.
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. Normalized centered ancient profile V from TI1.
   \item H2. V is small in the relevant scale-invariant topology.
@@ -1638,6 +1637,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{p1:thm:classical-classes}.
   \item L2. \texttt{p2:thm:NRS}.
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. V (or a time translate) is stationary with critical $L^3$ control.
   \item Output contract:
@@ -1661,6 +1661,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{p1:thm:tight-liouville}.
   \item L2. \texttt{p2:thm:tight-liouville}.
   \item L3. \texttt{p2:thm:AB-endpoint}.
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. V's $L^3$ mass uniformly tight in space along ancient time.
   \item H2. Physical pullback gives endpoint sequence-$L^3$ structure.
@@ -1685,6 +1686,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{p3:thm:axisymmetric-liouville}.
   \item L2. \texttt{p3:thm:typeI-zero-hypotheses}.
   \item L3. \texttt{p1:thm:known-structure-decay-liouville}.
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. V exhibits axisymmetry, no-swirl, weighted-vorticity smallness, or one of the listed pointwise scale controls.
   \item Output contract:
@@ -1706,6 +1708,7 @@ interface rather than a terminal contradiction).
   \item Capsule name: Capsule TI6: Direct-class exhaustion $\to$ residual hand-off.
   \item Implementation labels:
   \item L1. \texttt{p1:thm:remaining-criterion}.
+  \item Source: proof\_setup.tex.
   \item Input contract:
   \item H1. V fails the small, stationary, tight, and structured/decay tests.
   \item Output contract:
@@ -1751,6 +1754,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:ancestor-realization-inheritance}.
   \item L2. \texttt{thm:descendant-heredity}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. Output of R0.
   \item H2. Any recentered limit, hull element, tail state, or terminal profile that the proof intends to close.
@@ -1772,6 +1776,7 @@ interface rather than a terminal contradiction).
   \item Capsule name: Capsule R1: Axisymmetric bounded-circulation residual.
   \item Implementation labels:
   \item L1. \texttt{thm:R1-exclusion}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R0/R0b outputs.
   \item H2. Lower direct Type I classes already removed.
@@ -1798,6 +1803,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:terminal-stratification}.
   \item L2. \texttt{thm:R3-no-attainable-degenerate-family} (rotational sub-route).
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. Profile stationary modulo rotation; local Coriolis transport structure.
   \item H2. R1 ruled out.
@@ -1823,12 +1829,13 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:R3-no-attainable-degenerate-family}.
   \item L2. \texttt{thm:R3S-terminal-theorem}.
-  \item L3. \texttt{thm:R3S-no-active-stationary-carrier}.
+  \item L3. \texttt{cor:R3-closure}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R1, R2 ruled out.
   \item H2. A time-translation hull contains a degenerate stationary-family element with retained concentration.
   \item Output contract:
-  \item O1. No realized active stationary carrier; the hull element does not retain concentration in any descendant.
+  \item O1. The stationary-hull residual class is empty; in particular no realized active stationary carrier survives the terminal reduction.
   \item Retained obstruction:
   \item I. Retained concentration on the hull element.
   \item Failure routes:
@@ -1850,6 +1857,7 @@ interface rather than a terminal contradiction).
   \item L3. \texttt{thm:covariant-observer-calculus}.
   \item L4. \texttt{thm:closed-nonaffine-activity}.
   \item L5. \texttt{thm:escaping-covariant-hull-compactness}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R1-R3 ruled out.
   \item H2. Apparent residual activity may be generated by an affine/parasitic normalization mode rather than genuine retained nonlinear mass.
@@ -1874,6 +1882,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:recurrent-tail-core-rigidity}.
   \item L2. \texttt{thm:terminal-exhaustion-main}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R1-R4 ruled out.
   \item H2. Tail activity recurs without entering a compact terminal profile.
@@ -1898,6 +1907,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:log-diffuse-from-hidden-scale}.
   \item L2. \texttt{thm:critical-tail-compactification-extraction}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R1-R4 ruled out.
   \item H2. Critical activity escapes through logarithmic annuli.
@@ -1922,6 +1932,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:first-bad-mesoscopic-reduction}.
   \item L2. \texttt{thm:no-hidden-scale-variance-realized-defects}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. Tail mass survives only as a Young/variance defect.
   \item Output contract:
@@ -1945,6 +1956,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{thm:coherent-critical-tail-classification}.
   \item L2. \texttt{thm:bounded-origin-realization-coherent-tails}.
   \item L3. \texttt{thm:realized-critical-tail-rigidity}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R5b/R5c hand off a compactified coherent critical-tail state.
   \item Output contract:
@@ -1968,6 +1980,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{thm:maximal-active-family}.
   \item L2. \texttt{thm:terminal-exhaustion-main}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. All lower residual and tail strata closed.
   \item H2. Residual mass remains.
@@ -1992,6 +2005,7 @@ interface rather than a terminal contradiction).
   \item Capsule name: Capsule R6b: Terminal inactive / nonconcentrating exclusion.
   \item Implementation labels:
   \item L1. \texttt{thm:terminal-inactive-exclusion}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. Terminal extraction (R6a) yields no active compact concentration.
   \item Output contract:
@@ -2015,6 +2029,7 @@ interface rather than a terminal contradiction).
   \item L2. \texttt{thm:recurrent-diffuse-defect-measure}.
   \item L3. \texttt{thm:diffuse-defect-trichotomy}.
   \item L4. \texttt{thm:no-mixed-compact-diffuse}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. Terminal mass is diffuse, or a mixed compact-diffuse mass coexists.
   \item Output contract:
@@ -2040,6 +2055,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{thm:no-finite-separated-profile-family}.
   \item L2. \texttt{thm:active-path-space-recurrence}.
   \item L3. \texttt{thm:compact-active-descendant}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. Active terminal profile present after R6a.
   \item Output contract:
@@ -2066,6 +2082,7 @@ interface rather than a terminal contradiction).
   \item L3. \texttt{thm:R4-final-closure}.
   \item L4. \texttt{thm:paperIV-residual-closure}.
   \item L5. \texttt{cor:setup-residual-hypothesis-proof}.
+  \item Source: paperIV\_residual\_branch.tex.
   \item Input contract:
   \item H1. R1-R6d outputs: a single indecomposable parasitic-free compact active profile descends from the residual branch.
   \item Output contract:
@@ -2098,7 +2115,7 @@ interface rather than a terminal contradiction).
   \item L3. \texttt{paper6:thm:paper0}.
   \item L4. \texttt{paper6:thm:physical-typeII-covered-entry}.
   \item L5. \texttt{paper6a:thm:typeII-analytic-data-exhaustive}.
-  \item Source: type\_II\_regularity.tex (Part C1 / Paper 0 / Paper 6a entry).
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Capsule G3 token at $z_*$; capsule G4 routes to "no Type I envelope".
   \item Output contract:
@@ -2124,6 +2141,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper6:thm:representation}.
   \item L2. \texttt{thm:c2-representation-implication}.
   \item L3. \texttt{thm:c2r-minimal-representation}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Output of TII1.
   \item H2. A nondegenerate retained core can be selected with controlled scale $\lambda(\tau)$ and center $x_c(\tau)$; modulation coefficients (a,b) are bounded.
@@ -2154,6 +2172,7 @@ interface rather than a terminal contradiction).
   \item L4. \texttt{paper2:thm:C}.
   \item L5. \texttt{paper6a:thm:ac-repaired-gauge-consequences}.
   \item L6. \texttt{paper6a:thm:ac-local-caccioppoli}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Output of TII2.
   \item Output contract:
@@ -2179,6 +2198,7 @@ interface rather than a terminal contradiction).
   \item L3. \texttt{paper1:lem:zero-contradiction}.
   \item L4. \texttt{paper1:lem:nonzero-contradiction}.
   \item L5. \texttt{paper6:thm:single-core}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Outputs of TII2/TII3.
   \item H2. One retained core persists on $Q_{r_*}$ with vanishing localized dissipation; modulation bounded.
@@ -2207,6 +2227,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper3:thm:multi}.
   \item L2. \texttt{paper8:thm:multibubble-frame-reduction}.
   \item L3. \texttt{paper6:thm:multibubble}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Several active profiles near the same point at comparable scales.
   \item Output contract:
@@ -2233,6 +2254,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper3:thm:same-point-reduction}.
   \item L2. \texttt{paper8:thm:same-point-scale-separation}.
   \item L3. \texttt{paper8:thm:terminal-decoupling-implies-local-decoupling}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Active profiles at the same point on separated scales.
   \item Output contract:
@@ -2256,6 +2278,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{paper3:thm:separated-point-reduction}.
   \item L2. \texttt{paper8:thm:terminal-decoupling-implies-local-decoupling}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Active profiles at separated centers.
   \item Output contract:
@@ -2279,6 +2302,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{paper6:thm:state-decomposition} (closure-by-target-exit).
   \item L2. \texttt{paper6:thm:representation}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. The selected chart is nonunique or unstable because several cores or scales compete.
   \item Output contract:
@@ -2301,6 +2325,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper4:thm:caccioppoli}.
   \item L2. \texttt{paper7:thm:windowed-h1-failure-exclusion}.
   \item L3. \texttt{paper6:thm:rough-core}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Selected core has critical mass but lacks compact-cylinder gradient control.
   \item Output contract:
@@ -2326,6 +2351,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper5:thm:cost-exclusion}.
   \item L2. \texttt{paper6a:thm:scale-collapse-drift-cost}.
   \item L3. \texttt{paper6:thm:scale-cost}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Selected scale collapses; scale-collapsing cost (signed or absolute) is finite; retained core mass persists.
   \item Output contract:
@@ -2351,6 +2377,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper5:thm:collapse-core-floor}.
   \item L2. \texttt{paper6a:thm:collapse-core-floor}.
   \item L3. \texttt{paper6a:lem:typeII-concentration-extraction-routes}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. A collapsing branch would fail to retain a nonzero localized core.
   \item Output contract:
@@ -2373,6 +2400,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{paper5:thm:scale-collapse-first-failure-closure}.
   \item L2. \texttt{paper5:thm:scale-collapse-alternatives}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. No fixed-length selected window carries enough drift for autonomous extraction.
   \item Output contract:
@@ -2397,6 +2425,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper5:thm:autonomous-modulation-selection}.
   \item L2. \texttt{paper5:thm:autonomous-limit}.
   \item L3. \texttt{paper5:lem:autonomous-scale-collapse-is-scale-rigid}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Thick windows exist but modulation fails to converge cleanly.
   \item Output contract:
@@ -2424,6 +2453,7 @@ interface rather than a terminal contradiction).
   \item L3. \texttt{paper3:thm:scale-rigid-stratum-decomposition}.
   \item L4. \texttt{paper3:prop:local-scale-rigidity-exclusion}.
   \item L5. \texttt{paper6:thm:scale-stratification}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. A nonzero autonomous or scale-rigid terminal state survives from TII6c/TII6d.
   \item Output contract:
@@ -2449,6 +2479,7 @@ interface rather than a terminal contradiction).
   \item L2. \texttt{paper7:thm:carrier-validation-retained-stratum}.
   \item L3. \texttt{paper7:thm:classwise-retained-compact-coverage}.
   \item L4. \texttt{paper7:thm:local-cost-to-exclusion}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Branch retains compact tests, local mass floor, and localized cost comparison after TII3.
   \item Output contract:
@@ -2477,6 +2508,7 @@ interface rather than a terminal contradiction).
   \item L4. \texttt{paper7:thm:moving-carrier-closure}.
   \item L5. \texttt{paper7:thm:finite-error-selection-reduced-to-annular}.
   \item L6. \texttt{paper7:thm:carrier-package-closes-precarrier}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Output of TII8a; fixed/moving cutoff carrier errors must be decomposed into finite-error identities.
   \item Output contract:
@@ -2500,7 +2532,8 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{paper7:thm:windowwise-transition-routing-certificate}.
   \item L2. \texttt{paper7:thm:windowwise-routing-gives-stratified-routing}.
-  \item L3. \texttt{paper7:def:windowwise-transition-routing}.
+  \item L3. \texttt{paper7:cor:windowwise-transition-routing-holds}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. The cutoff-transition or shell-leakage component is nonintegrable.
   \item Output contract:
@@ -2525,6 +2558,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper6a:thm:moving-cutoff-scale-collapse-alternative}.
   \item L2. \texttt{paper6a:thm:finite-infinite-scale-negative}.
   \item L3. \texttt{paper6a:thm:thin-negative-drift-closed}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Negative scale-drift component is nonintegrable.
   \item Output contract:
@@ -2547,7 +2581,8 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{paper7:thm:positive-scale-certificate-enters-scale-rigid}.
   \item L2. \texttt{paper7:thm:windowwise-positive-scale-routing-certificate}.
-  \item L3. \texttt{paper7:def:windowwise-positive-scale-routing}.
+  \item L3. \texttt{paper7:cor:windowwise-positive-scale-routing-holds}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Positive scale-shell work component is nonintegrable; no earlier exterior, recentering, or negative-drift label fires.
   \item Output contract:
@@ -2576,6 +2611,7 @@ interface rather than a terminal contradiction).
   \item L6. \texttt{paper6a:thm:fixed-cost-criterion}.
   \item L7. \texttt{paper6a:thm:compact-cost-criterion}.
   \item L8. \texttt{paper6a:thm:moving-replacement}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Retained compact cost forces divergence on the canonical windowwise schedule; corrected monotonicity holds with finite initial corrected energy.
   \item Output contract:
@@ -2601,6 +2637,7 @@ interface rather than a terminal contradiction).
   \item Implementation labels:
   \item L1. \texttt{paper6a:lem:typeII-concentration-extraction-routes}.
   \item L2. \texttt{paper6a:lem:terminal-local-critical-mass-routing}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Terminal branch loses critical $L^3$ mass.
   \item Output contract:
@@ -2622,6 +2659,7 @@ interface rather than a terminal contradiction).
   \item Capsule name: Capsule TII9b: Terminal adjacent label.
   \item Implementation labels:
   \item L1. \texttt{paper6a:thm:terminal-adjacent-label-routing}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Terminal compactness produces a state adjacent to a carrier or scale branch.
   \item Output contract:
@@ -2644,6 +2682,7 @@ interface rather than a terminal contradiction).
   \item L1. \texttt{paper6a:thm:residual-mass-admissible-state}.
   \item L2. \texttt{paper6a:thm:critical-ns-profile-decomposition-discharged}.
   \item L3. \texttt{paper6a:thm:kato-small-data-critical-stability}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. A terminal branch retains mass outside the recorded compact/core states; terminal frames sampled from the represented orbit are bounded in the critical $L^3$\_$\sigma$ framework.
   \item Output contract:
@@ -2675,6 +2714,7 @@ interface rather than a terminal contradiction).
   \item L7. \texttt{paper6a:thm:representation-gives-terminal-orbit-sampling}.
   \item L8. \texttt{paper6a:thm:expanded-terminal-typeII}.
   \item L9. \texttt{paper6a:thm:expanded-terminal-data-branchwise}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Retained compact tests survive but are not yet assigned to an existing Type II state; terminal frames are bounded, unbounded, or sampled in incompatible ways.
   \item Output contract:
@@ -2700,6 +2740,7 @@ interface rather than a terminal contradiction).
   \item L2. \texttt{paper8:thm:exterior-regularity-no-concentration}.
   \item L3. \texttt{paper8:thm:exterior-regular-removal}.
   \item L4. \texttt{paper8:thm:exterior-concentration-routed}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Terminal mass escapes to the exterior region rather than a compact core.
   \item Output contract:
@@ -2730,6 +2771,7 @@ interface rather than a terminal contradiction).
   \item L8. \texttt{paper6:thm:autonomous-modulation-failure-closed}.
   \item L9. \texttt{paper6:thm:noncanonical-cost-routing-closed}.
   \item L10. \texttt{paper6:thm:active-core-loss-closed}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
   \item H1. Every individual Type II exit closed by capsules TII1-TII11.
   \item Output contract:
@@ -2755,11 +2797,25 @@ above and are listed for diagram-level traceability.
 \begin{itemize}
   \item Capsule name: Capsule K1: Corrected-monotonicity check on the validated compact cost.
   \item Implementation labels:
-  \item L1. \texttt{paper6a:thm:fixed-corrected-monotonicity} \texttt{paper6a:thm:moving-corrected-monotonicity}.
+  \item L1. \texttt{paper6a:thm:fixed-corrected-monotonicity}.
+  \item L2. \texttt{paper6a:thm:moving-corrected-monotonicity}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
-  \item H1. validated compact Type II cost; finite initial corrected energy.
+  \item H1. A validated compact Type II cost has been selected on the retained branch.
+  \item H2. The localized energy identity and finite initial corrected energy are available on the fixed cutoff or on the canonical moving cutoff.
   \item Output contract:
-  \item O1. fixed or moving corrected monotonicity identity.
+  \item O1. A corrected monotonicity inequality holds on the chosen cutoff package.
+  \item O2. The corrected energy controls the compatible localized cost on that package.
+  \item Retained obstruction:
+  \item I. The retained compact-cost token before carrier-component routing.
+  \item Failure routes:
+  \item F1. Fixed-cutoff data with finite fixed error tail route to the fixed monotonicity subcase.
+  \item F2. Canonical moving-cutoff data with summable moving-annulus errors route to the moving monotonicity subcase.
+  \item Audit checklist:
+  \item A1. Scaling: every term in the local identity transforms with its declared critical dimension.
+  \item A2. Pressure/gauge: the pressure is normalized only modulo functions of time or spatial means, compatibly with all limits.
+  \item A3. Locality: the capsule uses only the declared cylinder/window/state, with no hidden whole-space data.
+  \item A4. Dependencies: every hypothesis is produced by an upstream capsule, with no circular use of a downstream closure.
   \item Closure status:
   \item verified (transport).
 \end{itemize}
@@ -2767,11 +2823,25 @@ above and are listed for diagram-level traceability.
 \begin{itemize}
   \item Capsule name: Capsule K2: Finite-vs-divergent total cost dichotomy.
   \item Implementation labels:
-  \item L1. \texttt{paper6a:lem:corrected-monotonicity-versus-divergent-cost} \texttt{paper6a:thm:fixed-cost-criterion}, \texttt{paper6a:thm:compact-cost-criterion}.
+  \item L1. \texttt{paper6a:lem:corrected-monotonicity-versus-divergent-cost}.
+  \item L2. \texttt{paper6a:thm:cost-divergence-routing-dichotomy}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
-  \item H1. corrected monotonicity from K1.
+  \item H1. Corrected monotonicity from K1 holds on the canonical windowwise schedule.
+  \item H2. The retained compact cost diverges on every later tail of the active branch.
   \item Output contract:
-  \item O1. either total cost finite (compact criterion gives divergent cost, contradiction routes to K3) or some moving-error component nonintegrable (route to K3 directly).
+  \item O1. Fully summable moving errors would force finite total compatible cost, contradicting the divergent-cost branch.
+  \item O2. Hence at least one moving-error component is nonintegrable on every later tail, and the branch routes to K3.
+  \item Retained obstruction:
+  \item I. The retained compact-cost token on the canonical moving schedule.
+  \item Failure routes:
+  \item F1. If the corrected-monotonicity hypotheses are not available, reroute to K1 rather than invoking the dichotomy.
+  \item F2. If cost divergence has not yet been validated on the active branch, remain in the upstream compact-cost validation layer rather than entering K2.
+  \item Audit checklist:
+  \item A1. Scaling: every term in the local identity transforms with its declared critical dimension.
+  \item A2. Locality: the capsule uses only the declared cylinder/window/state, with no hidden whole-space data.
+  \item A3. Retention: the retained obstruction declared in $I$ is preserved through every operation in the capsule.
+  \item A4. Dependencies: every hypothesis is produced by an upstream capsule, with no circular use of a downstream closure.
   \item Closure status:
   \item verified (transport).
 \end{itemize}
@@ -2779,11 +2849,25 @@ above and are listed for diagram-level traceability.
 \begin{itemize}
   \item Capsule name: Capsule K3: Canonical component selection ($J_1$, $J_6$, $J_7$).
   \item Implementation labels:
-  \item L1. \texttt{paper7:thm:moving-carrier-closure} \texttt{paper7:thm:carrier-package-closes-precarrier}.
+  \item L1. \texttt{paper7:cor:windowwise-only-transition-and-scale-remain}.
+  \item L2. \texttt{paper6a:thm:cost-divergence-routing-dichotomy}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
-  \item H1. nonintegrable moving-error component.
+  \item H1. K2 has produced a nonintegrable moving-error component on every later tail.
+  \item H2. The canonical windowwise moving family has already made $J_2$, ..., $J_5$ summable.
   \item Output contract:
-  \item O1. J\_2-J\_5 are summable on the canonical moving family; the failing component is in {$J_1$, $J_6$, $J_7$}.
+  \item O1. The failing component is forced into the canonical set $\{J_1,J_6,J_7\}$.
+  \item O2. The branch routes to the matching carrier capsule TII8c1, TII8c6, or TII8c7.
+  \item Retained obstruction:
+  \item I. The retained carrier-component mass on the canonical moving schedule.
+  \item Failure routes:
+  \item F1. Transition/leakage component $J_1$ fails $\to$ TII8c1.
+  \item F2. Negative drift or positive scale-work fails $\to$ TII8c6 / TII8c7.
+  \item Audit checklist:
+  \item A1. Scaling: every term in the local identity transforms with its declared critical dimension.
+  \item A2. Locality: the capsule uses only the declared cylinder/window/state, with no hidden whole-space data.
+  \item A3. Retention: the retained obstruction declared in $I$ is preserved through every operation in the capsule.
+  \item A4. Dependencies: every hypothesis is produced by an upstream capsule, with no circular use of a downstream closure.
   \item Closure status:
   \item verified (routing).
 \end{itemize}
@@ -2792,10 +2876,23 @@ above and are listed for diagram-level traceability.
   \item Capsule name: Capsule K\_final: Cost-divergence exclusion.
   \item Implementation labels:
   \item L1. \texttt{paper6a:thm:cost-divergence-exclusion-discharged}.
+  \item L2. \texttt{paper6a:cor:cost-divergence-exclusion-unconditional}.
+  \item Source: type\_II\_regularity.tex.
   \item Input contract:
-  \item H1. TII8c1 / TII8c6 / TII8c7 closure.
+  \item H1. The named carrier exits TII8c1, TII8c6, and TII8c7 are closed by their assigned arguments.
+  \item H2. The canonical windowwise schedule and adjacent-stratum closure package are already in force.
   \item Output contract:
-  \item O1. cost-divergence exclusion is discharged.
+  \item O1. Cost-divergence exclusion is discharged, so no residual cost-divergence branch remains open.
+  \item Retained obstruction:
+  \item I. The carrier cost token that persists until all named exits are closed.
+  \item Failure routes:
+  \item F1. If a named carrier exit is not yet closed, reroute to the corresponding TII8c* capsule instead of invoking K\_final.
+  \item F2. If adjacent-stratum closure is unavailable, remain in the ambient Type II closure package rather than claiming final cost-divergence exclusion.
+  \item Audit checklist:
+  \item A1. Scaling: every term in the local identity transforms with its declared critical dimension.
+  \item A2. Locality: the capsule uses only the declared cylinder/window/state, with no hidden whole-space data.
+  \item A3. Retention: the retained obstruction declared in $I$ is preserved through every operation in the capsule.
+  \item A4. Dependencies: every hypothesis is produced by an upstream capsule, with no circular use of a downstream closure.
   \item Closure status:
   \item verified (terminal at the carrier subtree).
 \end{itemize}
@@ -2816,10 +2913,9 @@ above and are listed for diagram-level traceability.
   \item Every implementation label cited above has been verified to occur
         in one of the three source files (\path|proof_setup.tex|,
         \path|paperIV_residual_branch.tex|,
-        \path|type_II_regularity.tex|) at the time of writing.  One label
-        used in earlier drafts of the diagrams,
-        \texttt{thm:terminal-nonactive-exclusion}, has been corrected to
-        the actual label \texttt{thm:terminal-inactive-exclusion}; this
+      \path|type_II_regularity.tex|) at the time of writing.  One obsolete
+      terminal nonactive-exclusion placeholder from earlier diagram drafts
+      has been corrected to the actual label \texttt{thm:terminal-inactive-exclusion}; this
         correction does not change the proof strategy and does not
         introduce new assumptions.
   \item No capsule above introduces a new analytic assumption beyond what

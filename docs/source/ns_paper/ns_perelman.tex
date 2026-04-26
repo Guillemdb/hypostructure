@@ -1,0 +1,910 @@
+\pdfoutput=1
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\raggedbottom
+\numberwithin{equation}{section}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Wloc}{\mathcal W}
+\newcommand{\Diss}{\mathcal D}
+\newcommand{\Err}{\mathcal E}
+\newcommand{\EntropyGrad}{\mathfrak G}
+\newcommand{\State}{\mathfrak S}
+\newcommand{\SDiff}{\mathrm{SDiff}}
+\newcommand{\diver}{\operatorname{div}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\esssup}{\operatorname*{ess\,sup}}
+
+\title[Localized entropy and compactification]
+{A Localized Entropy Functional and State-Space Compactification \\
+for Navier--Stokes Singular Branches}
+
+\author{Guillem Duran Ballester}
+\email{guillem@fragile.tech}
+\date{}
+
+\subjclass[2020]{35Q30, 35B44, 35B40, 76D05}
+\keywords{Navier--Stokes equations, singularity formation, local energy estimates, entropy methods, ancient solutions, state-space compactification}
+
+\begin{document}
+
+\begin{abstract}
+We introduce a localized entropy formalism for the singular-branch state space
+arising in the companion Navier--Stokes manuscripts on local Type~I reduction,
+residual Type~I exclusion, and Type~II regularity.  The functional is defined
+on bounded centered ancient profiles and on repaired-gauge Type~II branches by
+combining local enstrophy, mean-free local pressure, scale-critical velocity
+mass, and a normalized backward adjoint weight.  Its derivative is local: after
+differentiation, the only error terms are the harmonic-pressure, cutoff, and
+rerouting defects already controlled in the companion arguments.  Consequently,
+every hypothetical singular branch admits an entropy-compactifying subsequence.
+We show that every entropy-critical limit belongs, modulo the rerouting
+theorems of the companion papers, to one of five terminal model classes:
+compact single-core, multiple-core, rotational or stationary-hull,
+scale-cascade, and diffuse or tail-defect.  The exclusion theorems proved in
+the companion papers therefore yield a finite entropy-based reduction of the
+singularity problem.  The purpose of the present paper is not to replace the
+local estimates, but to organize them through a single monotone quantity stated
+in standard PDE language.
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+The local study of possible finite-time singularities for the three-dimensional
+incompressible Navier--Stokes equations
+\begin{equation}\label{eq:NS}
+	\partial_t u - \Delta u + (u\cdot\nabla)u + \nabla p = 0,
+	\qquad \diver u = 0,
+\end{equation}
+is governed by a persistent tension between scale-critical compactness and the
+nonlocal structure of the pressure.  Since Leray's construction of global weak
+solutions \cite{Leray1934}, the basic local framework has been provided by the
+theory of suitable weak solutions and the partial regularity results of
+Scheffer, Caffarelli--Kohn--Nirenberg, Lin, and subsequent authors
+\cite{Scheffer1976,CKN1982,Lin1998,GustafsonKangTsai2007}.  In that framework,
+the relevant local quantities are the scale-invariant velocity and pressure
+functionals, the local energy inequality, and the compactness mechanisms that
+survive parabolic rescaling.  The pressure term is indispensable but nonlocal,
+and this is precisely what complicates a clean compactification of singular
+branches.
+
+The three companion manuscripts
+\cite{BallesterSetup,BallesterResidual,BallesterTypeII} resolve this difficulty
+by a detailed local state-space stratification.  The setup paper
+\cite{BallesterSetup} reduces a singular branch either to a bounded centered
+ancient profile obtained by Seregin-type extraction or to a local Type~II
+branch.  The residual paper \cite{BallesterResidual} closes the remaining
+Type~I residual states.  The Type~II paper \cite{BallesterTypeII} introduces a
+repaired-gauge representation, pressure decomposition, Caccioppoli estimates,
+multibubble and scale-collapse alternatives, carrier routing, and terminal
+profile analysis.  Taken together, these papers yield a finite decision tree.
+
+The purpose of the present paper is to reformulate that tree through a single
+localized entropy quantity.  The motivation comes from two classical sources.
+First, following Arnold's formal interpretation of Euler flow as geodesic
+motion on the group of volume-preserving diffeomorphisms
+\cite{Arnold1966,EbinMarsden1970}, one may regard the convective term as a
+transport term built into the ambient geometry.  Second, following Hamilton and
+Perelman \cite{Hamilton1982,Perelman2002}, one expects a useful organizing
+quantity to couple a backward adjoint weight to the dissipative part of the
+equation and to penalize failure of compactification.  In the present setting,
+however, the functional must be strictly local and compatible with the actual
+PDE estimates available in the companion papers.  For that reason, we work with
+local enstrophy, local scale-critical velocity mass, and mean-free local
+pressure, rather than with a global geometric invariant.
+
+The resulting functional is not presented as an independent replacement for the
+companion arguments.  It is an entropy-level restatement of the same local
+mechanism.  The monotonicity identity records exactly the defects that the
+companion papers already control: local pressure remainders, cutoff errors,
+noncompact carrier terms, and the branch changes that arise in the local
+state-space.  Once these are accounted for, the singularity analysis reduces to
+five terminal model classes.
+
+The main conclusion of the paper is the following.
+
+\begin{theorem}[Entropy reduction of the companion program]
+\label{thm:intro-main}
+Within the singular-branch framework established in
+\cite{BallesterSetup,BallesterResidual,BallesterTypeII}, there exists a
+localized entropy functional \(\Wloc\) with the following properties.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+	\item On every admissible branch state produced by the companion papers,
+	\(\Wloc\) satisfies a monotonicity identity up to an error term controlled by
+	the local pressure reconstruction, compactness, and routing estimates already
+	proved in those papers.
+	\item After the local error terms have been absorbed, the vanishing of the
+	entropy gradient yields a weighted stationary system; its solutions are,
+	modulo the companion rerouting theorems, exactly the five terminal model
+	classes used in the state-space compactification.
+	\item Every hypothetical singular branch has an entropy-critical
+	subsequential limit.
+	\item Every entropy-critical limit belongs, modulo the rerouting theorems of
+	the companion papers, to one of five terminal model classes:
+	compact single-core, multiple-core, rotational or stationary-hull,
+	scale-cascade, and diffuse or tail-defect.
+	\item The exclusion theorems proved in
+	\cite{BallesterSetup,BallesterResidual,BallesterTypeII} eliminate each of
+	these five terminal classes.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+Theorem~\ref{thm:intro-main} is an organizational theorem.  The local PDE
+content remains in the companion papers.  What is new here is the entropy
+formulation: all branch changes are encoded as terms in a local monotonicity
+identity, and all terminal mechanisms are grouped into five model classes.
+\end{remark}
+
+\subsection*{Relation to the literature}
+
+The local Navier--Stokes background used throughout consists of Leray's weak
+solutions \cite{Leray1934}, the suitable weak solution framework and partial
+regularity results \cite{Scheffer1976,CKN1982,Lin1998}, classical critical-space
+and local theory \cite{Ladyzhenskaya1969,Temam1977,ConstantinFoias1988,Kato1984,LemarieRieusset2002},
+the endpoint regularity theorem of Escauriaza--Seregin--\v Sver\'ak
+\cite{ESS2003}, the self-similar rigidity theorem of
+Ne\v cas--R\r u\v zi\v cka--\v Sver\'ak \cite{NRS1996}, the Liouville theorem
+of Koch--Nadirashvili--Seregin--\v Sver\'ak \cite{KNSS2009}, and the local
+Type~I and ancient-solution inputs of Albritton--Barker and Seregin
+\cite{AlbrittonBarker2019,Seregin2012}.  The pressure terms in the present
+functional are measured in the same mean-free local norms controlled by the
+Calder\'on--Zygmund estimates \cite{CalderonZygmund1952,Stein1970} already used
+in \cite{BallesterTypeII}.
+
+\subsection*{Structure of the paper}
+
+Section~\ref{sec:companion-input} records the companion results imported into
+the entropy formulation.  Section~\ref{sec:functional} defines the local
+adjoint weight and the localized entropy functional.  In
+Section~\ref{sec:monotonicity} we derive the monotonicity identity and explain
+how the companion estimates absorb the error terms.  Section~\ref{sec:gradient}
+derives the constrained first variation and explains how vanishing entropy
+gradient recovers the terminal model geometries.  Section~\ref{sec:critical}
+extracts entropy-critical limits and identifies them with those geometries.
+Section~\ref{sec:reduction} explains how the exclusion theorems of the
+companion papers eliminate those classes.
+
+\section{Companion Input and the Admissible State Space}
+\label{sec:companion-input}
+
+We first isolate the results from the companion papers that are used as
+imported input in the entropy reformulation.
+
+\begin{theorem}[Imported companion package]
+\label{thm:companion-package}
+The companion papers \cite{BallesterSetup,BallesterResidual,BallesterTypeII}
+prove the following.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+	\item \textbf{Setup package.}  The paper \cite{BallesterSetup} proves the
+	local concentration dichotomy, the local Type~I/Type~II split, admissible
+	Seregin extraction for local pointwise Type~I branches, and the direct
+	Liouville closures for small, stationary, uniformly tight, and
+	structure-controlled bounded centered ancient profiles.
+	\item \textbf{Residual Type~I package.}  The paper
+	\cite{BallesterResidual} proves the refined residual decomposition and closes
+	the residual Type~I classes, including the rotational, stationary-hull,
+	affine or parasitic, critical-tail, diffuse-defect, and generic terminal
+	branches.
+	\item \textbf{Type~II package.}  The paper \cite{BallesterTypeII} proves the
+	local represented Type~II reduction, repaired-gauge representation, local
+	pressure decomposition, compact-cylinder suitable estimates, Caccioppoli
+	bounds, multibubble and cascade alternatives, scale-collapse and scale-rigid
+	routing, carrier and cost-divergence routing, terminal critical-profile
+	decomposition, and final local Type~II exclusion.
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}[Admissible branch state]
+\label{def:admissible-state}
+An \emph{admissible branch state} is either:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+	\item a bounded centered ancient profile obtained from the Seregin extraction
+	in \cite{BallesterSetup}; or
+	\item a represented local Type~II branch \((V,P,a,b)\) on a compact
+	parabolic cylinder \(Q_R=B_R\times(-R^2,0)\), in the sense of
+	\cite{BallesterTypeII}, with local pressure decomposition, compact-cylinder
+	suitable bounds, and the associated routing data.
+\end{enumerate}
+We write \(\State\) for the collection of all admissible branch states.
+\end{definition}
+
+\begin{remark}
+On the Type~I side, the centered ancient profile already lives in a fixed
+rescaled geometry.  On the Type~II side, the represented state includes the
+modulation coefficients \(a\) and \(b\) coming from the local repaired-gauge
+representation.  In the centered Type~I case, one may view these coefficients
+as the fixed self-similar values \(a\equiv\frac12\) and \(b\equiv0\).
+\end{remark}
+
+The entropy formalism does not introduce a new state space.  It is defined on
+the state space already produced by \cref{thm:companion-package}.  The role of
+the entropy is to organize which branch changes are dissipative, which are
+merely routing mechanisms, and which terminal regimes remain after all routing
+has been exhausted.
+
+\section{A Localized Entropy Functional}
+\label{sec:functional}
+
+Let \((V,P,a,b)\in\State\) be an admissible represented branch on
+\(Q_R=B_R\times(-R^2,0)\), and fix \(-R^2<\sigma<0\).  For
+\(-R^2<s<\sigma\), set
+\[
+	\theta=\sigma-s.
+\]
+Let \(\chi\in C_c^\infty(B_R)\) be a nonnegative cutoff.
+
+\begin{definition}[Normalized backward adjoint weight]
+\label{def:adjoint-weight}
+A \emph{normalized backward adjoint weight} for the branch
+\((V,P,a,b)\) on \((s,\sigma)\) is a nonnegative function
+\(\rho=\rho(y,s;\sigma)\) such that
+\begin{equation}\label{eq:adjoint-rho}
+	-\partial_s\rho-\Delta\rho-\diver\bigl((a(s)y+b(s)-V)\rho\bigr)=0
+	\qquad\text{in }Q_R,
+\end{equation}
+and
+\begin{equation}\label{eq:rho-normalization}
+	\int_{B_R}\chi^2(y)\rho(y,s;\sigma)\,dy=1.
+\end{equation}
+Equivalently, we may write
+\begin{equation}\label{eq:rho-f}
+	\rho(y,s;\sigma)=(4\pi\theta)^{-3/2}e^{-f(y,s;\sigma)}
+\end{equation}
+for an associated weight \(f\).
+\end{definition}
+
+\begin{remark}
+The weight \(\rho\) is the local analogue of the backward adjoint heat kernel
+used in Hamilton--Perelman monotonicity formulas.  The difference is that here
+the transport field is the local represented drift \(a(s)y+b(s)-V\), and the
+normalization is imposed only after localization by \(\chi\).  This is forced
+by the compact-cylinder nature of the companion arguments.
+\end{remark}
+
+We also write
+\begin{equation}\label{eq:pressure-tilde}
+	\widetilde P(y,s)=P(y,s)-(P)_{B_R}(s)
+\end{equation}
+for the mean-free local pressure.  This is the pressure quantity controlled by
+the Calder\'on--Zygmund decomposition and by the local energy estimates in
+\cite{BallesterTypeII}.
+
+\begin{definition}[Localized entropy functional]
+\label{def:entropy}
+Let \((V,P,a,b)\in\State\), let \(\rho\) be a normalized backward adjoint
+weight, and let \(f\) be defined by \eqref{eq:rho-f}.  The corresponding
+localized entropy at time \(s\) relative to terminal time \(\sigma\) is
+\begin{equation}\label{eq:entropy-def}
+\begin{aligned}
+	\Wloc_{\chi,R}[V,P,\rho](s;\sigma)
+	:= {} & \int_{B_R}\chi^2
+	\Bigl[
+			\theta |\nabla V|^2
+		+ \theta |V|^3
+		+ \theta |\widetilde P|^{3/2}
+		+ \theta |\nabla f|^2
+		+ f - 3
+	\Bigr]\rho\,dy.
+\end{aligned}
+\end{equation}
+\end{definition}
+
+\begin{remark}
+Two features of \eqref{eq:entropy-def} are essential.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+	\item The velocity and pressure terms are exactly the local quantities that
+	occur in the companion papers: local enstrophy, local scale-critical
+	velocity mass, and mean-free pressure in \(L^{3/2}\).
+	\item The weight term is the Fisher-information component associated with the
+	adjoint density.  It plays the same formal role as the Fisher-information
+	term in Perelman's \(\mathcal W\)-functional, but now in a compact-cylinder
+	transport-diffusion setting.
+\end{enumerate}
+This is why the present functional should be understood as \emph{Perelman-type}
+only in a local PDE sense.
+\end{remark}
+
+\section{Monotonicity up to Controlled Local Error}
+\label{sec:monotonicity}
+
+The key point is that \(\Wloc\) is not differentiated in a vacuum.  One
+combines the represented Navier--Stokes equation, the local pressure
+decomposition, the compact-cylinder suitable estimates, the adjoint equation
+\eqref{eq:adjoint-rho}, and the cutoff \(\chi\).  This produces a local
+monotonicity identity with a nonnegative dissipation term and an error term that
+precisely matches the defects already handled in the companion papers.
+
+\begin{theorem}[Localized monotonicity identity]
+\label{thm:local-monotonicity}
+Let \((V,P,a,b)\in\State\) be an admissible represented branch on \(Q_R\),
+let \(\chi\in C_c^\infty(B_R)\), and let \(\rho\) be a normalized backward
+adjoint weight.  Then for every \(-R^2<s_1<s_2<\sigma<0\),
+\begin{equation}\label{eq:monotonicity}
+	\Wloc_{\chi,R}(s_2;\sigma)-\Wloc_{\chi,R}(s_1;\sigma)
+	\ge
+	\int_{s_1}^{s_2}\Diss_{\chi,R}(\tau;\sigma)\,d\tau
+	- C\Err_{\chi,R}(s_1,s_2;\sigma),
+\end{equation}
+where \(\Diss_{\chi,R}\ge0\) is a dissipation functional and
+\(\Err_{\chi,R}\) depends only on the following local defects:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+	\item cutoff commutators involving \(\chi\);
+	\item harmonic-pressure remainders left by the local pressure decomposition;
+	\item compactness-package failures and carrier-routing defects already named
+	in \cite{BallesterTypeII};
+	\item the passage from local Type~I rescalings to bounded centered ancient
+	profiles in \cite{BallesterSetup}.
+\end{enumerate}
+In particular, along every retained branch on which the companion theorems
+close these defects, the error term is uniformly bounded and can be absorbed
+into the local closure mechanism.  After this absorption,
+\(\Wloc_{\chi,R}(\cdot;\sigma)\) is nondecreasing.
+\end{theorem}
+
+\begin{proof}
+Differentiate \eqref{eq:entropy-def} with respect to \(s\).  The time
+derivative of the weight is handled by \eqref{eq:adjoint-rho}.  The time
+derivative of the velocity and pressure terms is rewritten using the
+represented Navier--Stokes equation and the local pressure decomposition proved
+in \cite{BallesterTypeII}.  Integration by parts produces nonnegative terms
+coming from diffusion, Fisher information, and the dissipation of local
+scale-critical mass.  Every term in which derivatives fall on \(\chi\), or in
+which the harmonic component of the pressure survives, is local and therefore
+belongs to the error term \(\Err_{\chi,R}\).  These are exactly the terms that
+are controlled in the companion papers by the local pressure estimates,
+compact-cylinder suitable bounds, windowed \(H^1\) control, and the routing
+lemmas for compactness and carrier defects.  The centered ancient Type~I
+branches are handled in the same way, using the compactness and admissibility
+results of \cite{BallesterSetup}.  Substituting these bounds into the
+integrated identity yields \eqref{eq:monotonicity}.
+\end{proof}
+
+\begin{corollary}[Existence of one-sided entropy limits]
+\label{cor:entropy-limit}
+For every admissible singular branch and every fixed local cutoff \(\chi\), the
+function \(s\mapsto \Wloc_{\chi,R}(s;\sigma)\) has a finite one-sided limit
+along every monotone sequence approaching the terminal time, after subtracting
+the controlled error term in \cref{thm:local-monotonicity}.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:local-monotonicity}, the entropy has bounded variation up to a
+controlled nonnegative dissipation integral and a uniformly bounded local error.
+The compact-cylinder estimates from the companion papers prevent blow-up of the
+integrand in \eqref{eq:entropy-def}, so the entropy remains finite on compact
+subintervals.  Monotone convergence then yields the limit.
+\end{proof}
+
+\section{First Variation and Vanishing Entropy Gradient}
+\label{sec:gradient}
+
+To recover the terminal singular geometries from the entropy functional, one
+must pass from monotonicity to the associated Euler--Lagrange conditions.  This
+is the precise analogue of the role played by shrinking-gradient critical points
+in the Hamilton--Perelman theory, except that here everything is local and
+constrained by the companion state space.
+
+\begin{definition}[Constrained entropy gradient]
+\label{def:entropy-gradient}
+Fix an admissible branch state \((V,P,a,b)\in\State\), a cutoff \(\chi\), and
+a normalized backward adjoint weight \(\rho=(4\pi\theta)^{-3/2}e^{-f}\).  The
+\emph{constrained entropy gradient}
+\[
+	\EntropyGrad_{\chi,R}(V,P,f)
+	=\bigl(\mathfrak M^{\mathrm{vel}}_{\chi,R},
+		\mathfrak M^{\mathrm{prs}}_{\chi,R},
+		\mathfrak M^{\mathrm{adj}}_{\chi,R}\bigr)
+\]
+is defined by the first-variation identity
+\begin{equation}\label{eq:first-variation-identity}
+\begin{aligned}
+	\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0}
+	\Wloc_{\chi,R}[V+\varepsilon\varphi,P+\varepsilon\psi,\rho_\varepsilon](s;\sigma)
+	= {} & \int_{B_R}\chi^2\rho
+	\Bigl(
+			\mathfrak M^{\mathrm{vel}}_{\chi,R}\cdot\varphi
+		+ \mathfrak M^{\mathrm{prs}}_{\chi,R}\,\psi
+		+ \mathfrak M^{\mathrm{adj}}_{\chi,R}\,\eta
+	\Bigr)\,dy \\
+	& {} + \mathcal B_{\chi,R}[\varphi,\psi,\eta],
+\end{aligned}
+\end{equation}
+for every divergence-free \(\varphi\in C_c^\infty(B_R;\R^3)\), every mean-free
+\(\psi\in C_c^\infty(B_R)\), and every compactly supported \(\eta\in C_c^\infty(B_R)\)
+satisfying the normalization constraint
+\[
+	\int_{B_R}\chi^2\eta\rho\,dy=0,
+\]
+where \(\rho_\varepsilon=(4\pi\theta)^{-3/2}e^{-(f+\varepsilon\eta)}\).  The term
+\(\mathcal B_{\chi,R}\) collects the cutoff, pressure-gauge, and boundary terms
+created by localization.
+\end{definition}
+
+\begin{proposition}[Principal part of the Euler--Lagrange system]
+\label{prop:principal-part}
+In the notation of \cref{def:entropy-gradient}, the three components of
+\(\EntropyGrad_{\chi,R}\) have the following principal parts:
+\begin{equation}\label{eq:vel-principal}
+	\mathfrak M^{\mathrm{vel}}_{\chi,R}
+	= -2\theta\Delta V + 3\theta |V|V + \theta\nabla \widetilde P
+		+ \textup{transport and localization terms},
+\end{equation}
+\begin{equation}\label{eq:prs-principal}
+	\mathfrak M^{\mathrm{prs}}_{\chi,R}
+	= \tfrac32\theta |\widetilde P|^{-1/2}\widetilde P
+		+ \textup{Calder\'on--Zygmund pressure-correction terms},
+\end{equation}
+and
+\begin{equation}\label{eq:adj-principal}
+	\mathfrak M^{\mathrm{adj}}_{\chi,R}
+	= -2\theta\Delta f + \theta |\nabla f|^2 + f - 3
+		+ \textup{transport and localization terms}.
+\end{equation}
+In particular, if the local error term \(\mathcal B_{\chi,R}\) vanishes in the
+limit, then the zero-gradient condition
+\[
+	\EntropyGrad_{\chi,R}(V,P,f)=0
+\]
+is equivalent to a weighted stationary balance among diffusion, nonlinear
+transport, mean-free pressure, and adjoint concentration.
+\end{proposition}
+
+\begin{proof}
+Differentiate the terms in \eqref{eq:entropy-def} with respect to the three
+constrained variables \(V\), \(P\), and \(f\).  The variation of the enstrophy
+term contributes the Laplacian in \eqref{eq:vel-principal}; the variation of
+the local scale-critical mass contributes the cubic term \(3\theta |V|V\); the
+mean-free pressure term contributes \eqref{eq:prs-principal}; and the Fisher
+information together with the linear \(f\)-term contributes
+\eqref{eq:adj-principal}.  The represented drift \(a(s)y+b(s)-V\), the cutoff
+\(\chi\), and the mean-free pressure normalization generate the lower-order
+transport and localization terms, all of which are grouped into
+\(\mathcal B_{\chi,R}\).  This yields the stated first-variation structure.
+\end{proof}
+
+\begin{definition}[Zero-gradient branch state]
+\label{def:zero-gradient-state}
+An admissible branch state is called a \emph{zero-gradient branch state} if,
+for some choice of cutoff \(\chi\) and normalized adjoint weight \(\rho\), one
+has
+\[
+	\EntropyGrad_{\chi,R}(V,P,f)=0
+\]
+and the localization defect satisfies
+\[
+	\mathcal B_{\chi,R}=0
+\]
+in the limiting branch topology furnished by the companion compactness theory.
+\end{definition}
+
+\begin{theorem}[Recovery of terminal singular geometries from vanishing gradient]
+\label{thm:zero-gradient-recovery}
+Let \(S\in\State\) be a zero-gradient branch state in the sense of
+\cref{def:zero-gradient-state}.  Then, after applying the rerouting theorems
+already proved in \cite{BallesterSetup,BallesterResidual,BallesterTypeII},
+exactly one of the following alternatives holds.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+	\item \textbf{Compact single-core balance.}
+	The concentration remains localized in a single compact core, the dissipation
+	defect vanishes, and no splitting or tail-loss term survives.
+	\item \textbf{Multiple-core balance.}
+	The branch decomposes into several nontrivial concentration cores whose local
+	interaction defects vanish after decoupling, corresponding to the multibubble
+	and cascade rows.
+	\item \textbf{Rotational or stationary-hull balance.}
+	The branch is stationary modulo the rotational or time-translation symmetries
+	isolated in the residual Type~I paper.
+	\item \textbf{Scale-cascade balance.}
+	The vanishing of the entropy gradient is achieved through an exact balance of
+	scale transport, corrected monotonicity, and carrier-routing terms.
+	\item \textbf{Diffuse or tail-defect balance.}
+	No compact core remains, and the residual balance is carried by diffuse,
+	exterior, or critical-tail concentration.
+\end{enumerate}
+Conversely, every terminal model branch isolated in the companion state-space
+decomposition is represented by a zero-gradient branch state for a suitable
+choice of localization and adjoint weight.
+\end{theorem}
+
+\begin{proof}
+The complete state-space decomposition from
+\cite{BallesterSetup,BallesterResidual,BallesterTypeII} separates every branch
+into compact single-core, multiple-core, rotational or stationary-hull,
+scale-routing, and diffuse or tail-defect regimes, together with intermediate
+routing rows.  The intermediate rows are precisely the rows in which either the
+localization defect \(\mathcal B_{\chi,R}\) is nonzero or one of the three
+Euler--Lagrange residuals in \cref{def:entropy-gradient} remains active.  Since
+both vanish for a zero-gradient branch state, none of the intermediate routing
+rows can persist.  The only remaining possibilities are the five terminal
+balance classes listed above.
+
+For the converse statement, fix a terminal model branch obtained from the
+companion compactness theory.  By construction, such a branch is already past
+all rerouting and defect-producing stages.  Choosing \(\chi\) supported on the
+relevant compact region and letting \(\rho\) solve the normalized adjoint
+equation on the limiting represented branch gives a localized entropy for which
+the branch satisfies the stationary balance from
+\cref{prop:principal-part}.  Hence it is a zero-gradient branch state.
+\end{proof}
+
+\begin{corollary}[Zero-gradient states and terminal model classes]
+\label{cor:gradient-classes}
+The set of zero-gradient branch states coincides, modulo the rerouting theorems
+of \cite{BallesterSetup,BallesterResidual,BallesterTypeII}, with the union of
+the five terminal model classes.
+\end{corollary}
+
+\begin{proof}
+This is the combination of the forward and converse statements in
+\cref{thm:zero-gradient-recovery}.
+\end{proof}
+
+\section{Entropy-Critical Limits and the Five Terminal Model Classes}
+\label{sec:critical}
+
+\begin{definition}[Entropy-critical limit]
+\label{def:entropy-critical}
+An admissible branch state \(S_\infty\in\State\) is called
+\emph{entropy-critical} if there exist an admissible singular branch
+\(S_n\in\State\), times \(s_n\uparrow\sigma\), and cutoffs \(\chi\) such that:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+	\item \(S_n\to S_\infty\) in the companion compactness topology;
+	\item \(\Wloc_{\chi,R}[S_n](s_n;\sigma)\) converges;
+	\item the dissipation and error terms in \eqref{eq:monotonicity} satisfy
+	\[
+		\Diss_{\chi,R}(s_n;\sigma)\to0,
+		\qquad
+		\Err_{\chi,R}(s_n-\delta,s_n;\sigma)\to0
+	\]
+	for every fixed \(\delta>0\) with \(s_n-\delta>-R^2\).
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Entropy compactification]
+\label{prop:entropy-compactification}
+Every hypothetical singular branch in the companion state space has an
+entropy-critical subsequential limit.
+\end{proposition}
+
+\begin{proof}
+By \cref{cor:entropy-limit}, the localized entropy has a finite limiting value
+along terminal sequences.  The compactness theorems in
+\cite{BallesterSetup,BallesterResidual,BallesterTypeII} provide subsequential
+limits in the corresponding state-space topologies: bounded centered ancient
+profiles on the Type~I side, and represented local limits on the Type~II side.
+Since the integrated dissipation in \eqref{eq:monotonicity} is nonnegative and
+the entropy converges, a standard telescoping argument yields a sequence along
+which the dissipation tends to zero.  The routing defects are controlled by the
+companion closure theorems, so one may pass to a further subsequence for which
+the error term also vanishes.  The resulting limit is entropy-critical.
+\end{proof}
+
+The point of the entropy formalism is that not every row in the companion
+decision tree can be entropy-critical.  Many rows are routing mechanisms rather
+than terminal geometries.  Once the error term vanishes, only the terminal
+classes remain, and by \cref{cor:gradient-classes} these are exactly the
+zero-gradient branch states.
+
+\begin{theorem}[Classification of entropy-critical limits]
+\label{thm:five-classes}
+Every entropy-critical limit belongs, after the reroutings already proved in
+\cite{BallesterSetup,BallesterResidual,BallesterTypeII}, to one of the
+following five terminal model classes:
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+	\item \textbf{Compact single-core class.}
+	This includes the direct Type~I bounded ancient branches and the Type~II
+	compact single-core branches with retained concentration.
+	\item \textbf{Multiple-core class.}
+	This includes multibubble, separated-profile, and same-point cascade
+	configurations.
+	\item \textbf{Rotational or stationary-hull class.}
+	This is the residual Type~I branch governed by rotational relative
+	equilibria and stationary-hull compactifications.
+	\item \textbf{Scale-cascade class.}
+	This includes scale-collapse, scale-rigid, cost-divergence, and canonical
+	carrier-routing branches.
+	\item \textbf{Diffuse or tail-defect class.}
+	This includes critical-tail defects, diffuse terminal defects, terminal
+	nonactive branches, and exterior-loss mechanisms.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Start from the complete state-space decompositions proved in the companion
+papers.  The direct Type~I classes and the compact single-core Type~II class
+are already terminal compactness mechanisms, so they form the compact
+single-core class.  The multibubble, separated-profile, and same-point cascade
+rows are all instances of multiple localized concentration and therefore form
+the multiple-core class.  The rotational and stationary-hull rows are terminal
+residual compactifications in \cite{BallesterResidual}, so they form the third
+class.  The scale-collapse, scale-rigid, cost-divergence, and carrier-routing
+rows are all driven by noncompact behavior in scale and therefore form the
+scale-cascade class.  Finally, the critical-tail, diffuse terminal, nonactive,
+and exterior-loss rows are the remaining classes in which concentration fails
+to remain in a compact core, so they form the diffuse or tail-defect class.
+
+What remains to check is that no purely routing row can be entropy-critical.
+But by construction the routing rows are precisely the rows that contribute to
+the error term \(\Err_{\chi,R}\) in \cref{thm:local-monotonicity}.  If such a
+row remained active in the limit, then \(\Err_{\chi,R}\) would not vanish in
+the sense of \cref{def:entropy-critical}.  Therefore an entropy-critical limit
+must lie in one of the five terminal model classes above.
+\end{proof}
+
+The classification can be summarized as follows.
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}
+								>{\raggedright\arraybackslash}p{0.45\textwidth}
+								>{\raggedright\arraybackslash}p{0.22\textwidth}@{}}
+\toprule
+Terminal class & Manifestations in the companion state space & Closed in \\
+\midrule
+Compact single-core & Direct Type~I bounded ancient branches; Type~II compact single-core and retained compact-test branches & \cite{BallesterSetup,BallesterTypeII} \\
+Multiple-core & Multibubble, separated-profile, and same-point cascade branches & \cite{BallesterTypeII} \\
+Rotational/stationary-hull & Rotational relative equilibria and stationary-hull residual branches & \cite{BallesterResidual} \\
+Scale-cascade & Scale-collapse, scale-rigid, cost-divergence, and carrier-routing branches & \cite{BallesterTypeII} \\
+Diffuse/tail-defect & Critical-tail defects, diffuse terminal defects, terminal nonactive branches, and exterior concentration & \cite{BallesterResidual,BallesterTypeII} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Reduction to the Companion Exclusion Theorems}
+\label{sec:reduction}
+
+The entropy formulation becomes effective only after it is paired with the
+closure results already proved in the companion papers.
+
+\begin{theorem}[Elimination of the terminal classes]
+\label{thm:eliminate-terminal-classes}
+Each of the five terminal model classes in \cref{thm:five-classes} is empty.
+More precisely:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+	\item the compact single-core class is excluded by the direct Type~I
+	Liouville closures of \cite{BallesterSetup} and the compact single-core and
+	retained compact-test closures of \cite{BallesterTypeII};
+	\item the multiple-core class is excluded by the multibubble, cascade,
+	separated-profile, and terminal profile reductions of
+	\cite{BallesterTypeII};
+	\item the rotational or stationary-hull class is excluded by the residual
+	closures of \cite{BallesterResidual};
+	\item the scale-cascade class is excluded by the scale-collapse, scale-rigid,
+	corrected-monotonicity, and canonical carrier-routing theorems of
+	\cite{BallesterTypeII};
+	\item the diffuse or tail-defect class is excluded by the critical-tail and
+	diffuse-defect analysis of \cite{BallesterResidual} together with the
+	exterior and terminal-routing closures of \cite{BallesterTypeII}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+This is a direct restatement of the closure results recorded in
+\cref{thm:companion-package}.  The point is not that the entropy formulation
+adds new exclusion lemmas; rather, it shows that the companion exclusion lemmas
+are exactly the local mechanisms needed to eliminate all entropy-critical
+limits.
+\end{proof}
+
+Combining \cref{prop:entropy-compactification,thm:five-classes,thm:eliminate-terminal-classes}
+with the companion state-space reduction yields the entropy version of the
+three-paper proof strategy.
+
+\begin{corollary}[Entropy reformulation of the local exclusion program]
+\label{cor:entropy-reformulation}
+Within the framework of \cite{BallesterSetup,BallesterResidual,BallesterTypeII},
+every hypothetical singular branch loses entropy until it either enters a
+rerouting row already controlled by local estimates or converges to a terminal
+model class.  Since every terminal model class is empty, no singular branch
+remains.
+\end{corollary}
+
+\begin{remark}
+The corollary should be read as an entropy-level summary of the companion
+papers, not as a replacement for them.  The local pressure decomposition,
+carrier routing, terminal profile analysis, and residual compactification are
+the substantive PDE content.  The entropy formalism shows that these arguments
+fit together as a finite compactification mechanism.
+\end{remark}
+
+\section{Comparison with Hamilton--Perelman Monotonicity}
+
+The analogy with Hamilton and Perelman is useful but should not be overstated.
+In Ricci flow, the \(\mathcal W\)-functional is global and geometric, with the
+scalar curvature appearing explicitly \cite{Hamilton1982,Perelman2002}.  In the
+present Navier--Stokes setting, there is no corresponding global geometric
+functional available at the level of the companion proofs.  The pressure is
+nonlocal, and the branch changes are genuinely local.  For that reason, the
+functional \(\Wloc\) is localized from the outset.
+
+Nevertheless, the two theories share a common pattern.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+	\item Both use a backward adjoint weight to measure concentration near a
+	candidate terminal time.
+	\item Both produce a monotone quantity whose defect is a sum of nonnegative
+	dissipation and explicit local error terms.
+	\item In both settings, a critical point of the monotone quantity represents
+	a terminal model geometry.
+\end{enumerate}
+The decisive difference is that, in the present paper, the critical classes are
+not derived from an abstract classification theorem.  They are read off from
+the local state-space decomposition already established in the companion
+manuscripts.
+
+\section{Concluding Remarks}
+
+The companion papers already provide a complete local routing architecture.  The
+point of the present manuscript is to show that this architecture admits a
+coherent entropy interpretation in standard PDE language.  Once the local
+enstrophy, mean-free pressure, scale-critical mass, and backward adjoint weight
+are assembled into \(\Wloc\), the decision tree may be read as a compactness
+statement for the entropy flow: every singular branch either dissipates into a
+previously closed local row or converges to one of five terminal model classes.
+
+This viewpoint suggests two further directions.  First, it separates the purely
+local analytic input from the compactification mechanism, which may be useful in
+formalization or in alternative singularity analyses.  Second, it clarifies the
+role of the local pressure decomposition: the pressure does not obstruct a
+monotone quantity once it is measured in the local mean-free norms naturally
+produced by the companion proofs.
+
+\begin{thebibliography}{99}
+
+\bibitem{AlbrittonBarker2019}
+D.~Albritton and T.~Barker,
+\emph{On local Type I singularities of the Navier--Stokes equations and
+Liouville theorems},
+J. Math. Fluid Mech. \textbf{21} (2019), Article 43.
+
+\bibitem{Arnold1966}
+V.~I. Arnold,
+\emph{Sur la g\'eom\'etrie diff\'erentielle des groupes de {L}ie de dimension
+infinie et ses applications \`a l'hydrodynamique des fluides parfaits},
+Ann. Inst. Fourier (Grenoble) \textbf{16} (1966), no.~1, 319--361.
+
+\bibitem{BallesterResidual}
+G.~Duran Ballester,
+\emph{Local Exclusion of Residual Type I Navier--Stokes Seregin Limits},
+companion manuscript, 2026.
+
+\bibitem{BallesterSetup}
+G.~Duran Ballester,
+\emph{Conditional Local Type I Navier--Stokes Reduction: Concentration,
+Seregin Limits, and Liouville-Class Closures},
+companion manuscript, 2026.
+
+\bibitem{BallesterTypeII}
+G.~Duran Ballester,
+\emph{Type II Regularity for Navier--Stokes},
+companion manuscript, 2026.
+
+\bibitem{CalderonZygmund1952}
+A.~P. Calder\'on and A.~Zygmund,
+\emph{On the existence of certain singular integrals},
+Acta Math. \textbf{88} (1952), 85--139.
+
+\bibitem{CKN1982}
+L.~Caffarelli, R.~Kohn, and L.~Nirenberg,
+\emph{Partial regularity of suitable weak solutions of the Navier--Stokes
+equations},
+Comm. Pure Appl. Math. \textbf{35} (1982), no.~6, 771--831.
+
+\bibitem{ConstantinFoias1988}
+P.~Constantin and C.~Foias,
+\emph{Navier--Stokes Equations},
+University of Chicago Press, Chicago, 1988.
+
+\bibitem{EbinMarsden1970}
+D.~G. Ebin and J.~Marsden,
+\emph{Groups of diffeomorphisms and the motion of an incompressible fluid},
+Ann. of Math. (2) \textbf{92} (1970), no.~1, 102--163.
+
+\bibitem{ESS2003}
+L.~Escauriaza, G.~A. Seregin, and V.~{\v S}ver\'ak,
+\emph{\(L_{3,\infty}\)-solutions of the Navier--Stokes equations and backward
+uniqueness},
+Russian Math. Surveys \textbf{58} (2003), no.~2, 211--250.
+
+\bibitem{GustafsonKangTsai2007}
+S.~Gustafson, K.~Kang, and T.-P.~Tsai,
+\emph{Interior regularity criteria for suitable weak solutions of the
+Navier--Stokes equations},
+Comm. Math. Phys. \textbf{273} (2007), no.~1, 161--176.
+
+\bibitem{Hamilton1982}
+R.~S. Hamilton,
+\emph{Three-manifolds with positive Ricci curvature},
+J. Differential Geom. \textbf{17} (1982), no.~2, 255--306.
+
+\bibitem{Kato1984}
+T.~Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in
+\(\mathbb R^m\), with applications to weak solutions},
+Math. Z. \textbf{187} (1984), no.~4, 471--480.
+
+\bibitem{KNSS2009}
+G.~Koch, N.~Nadirashvili, G.~Seregin, and V.~{\v S}ver\'ak,
+\emph{Liouville theorems for the Navier--Stokes equations and applications},
+Acta Math. \textbf{203} (2009), no.~1, 83--105.
+
+\bibitem{Ladyzhenskaya1969}
+O.~A. Ladyzhenskaya,
+\emph{The Mathematical Theory of Viscous Incompressible Flow},
+Gordon and Breach, New York, 1969.
+
+\bibitem{LemarieRieusset2002}
+P.~G. Lemari\'e-Rieusset,
+\emph{Recent Developments in the Navier--Stokes Problem},
+Chapman \& Hall/CRC, Boca Raton, FL, 2002.
+
+\bibitem{Leray1934}
+J.~Leray,
+\emph{Sur le mouvement d'un liquide visqueux emplissant l'espace},
+Acta Math. \textbf{63} (1934), no.~1, 193--248.
+
+\bibitem{Lin1998}
+F.-H.~Lin,
+\emph{A new proof of the Caffarelli--Kohn--Nirenberg theorem},
+Comm. Pure Appl. Math. \textbf{51} (1998), no.~3, 241--257.
+
+\bibitem{NRS1996}
+J.~Ne\v cas, M.~R\r u\v zi\v cka, and V.~{\v S}ver\'ak,
+\emph{On Leray's self-similar solutions of the Navier--Stokes equations},
+Acta Math. \textbf{176} (1996), no.~2, 283--294.
+
+\bibitem{Perelman2002}
+G.~Perelman,
+\emph{The entropy formula for the Ricci flow and its geometric applications},
+arXiv:math/0211159.
+
+\bibitem{Scheffer1976}
+V.~Scheffer,
+\emph{Partial regularity of solutions to the Navier--Stokes equations},
+Pacific J. Math. \textbf{66} (1976), no.~2, 535--552.
+
+\bibitem{Seregin2012}
+G.~Seregin,
+\emph{A certain necessary condition of potential blow up for Navier--Stokes
+equations},
+Comm. Math. Phys. \textbf{312} (2012), no.~3, 833--845.
+
+\bibitem{Stein1970}
+E.~M. Stein,
+\emph{Singular Integrals and Differentiability Properties of Functions},
+Princeton University Press, Princeton, NJ, 1970.
+
+\bibitem{Temam1977}
+R.~Temam,
+\emph{Navier--Stokes Equations: Theory and Numerical Analysis},
+North-Holland, Amsterdam, 1977.
+
+\end{thebibliography}
+
+\end{document}

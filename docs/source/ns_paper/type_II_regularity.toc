@@ -25,60 +25,60 @@
 \contentsline {subsection}{\tocsubsection {}{4.4}{Same-point and separated-point reductions}}{42}{subsection.4.4}%
 \contentsline {subsection}{\tocsubsection {}{4.5}{Multibubble and cascade exclusion}}{44}{subsection.4.5}%
 \contentsline {subsubsection}{\tocsubsubsection {}{4.5.1}{Local stratification of scale-rigid branches}}{44}{subsubsection.4.5.1}%
-\contentsline {section}{\tocsection {}{5}{Local Caccioppoli and Rough-Core Exclusion}}{61}{section.5}%
-\contentsline {subsection}{\tocsubsection {}{5.1}{Analytic inputs and notation}}{61}{subsection.5.1}%
-\contentsline {subsection}{\tocsubsection {}{5.2}{Compact-cylinder Caccioppoli estimate}}{62}{subsection.5.2}%
-\contentsline {subsection}{\tocsubsection {}{5.3}{Consequences for the assembly}}{65}{subsection.5.3}%
-\contentsline {section}{\tocsection {}{6}{Scale-Collapse Cost and Autonomous Limits}}{66}{section.6}%
-\contentsline {subsection}{\tocsubsection {}{6.1}{Renormalized scale-collapse setting}}{66}{subsection.6.1}%
-\contentsline {subsection}{\tocsubsection {}{6.2}{Elementary alternative}}{67}{subsection.6.2}%
-\contentsline {subsection}{\tocsubsection {}{6.3}{Scale collapse versus localized core lower bounds}}{68}{subsection.6.3}%
-\contentsline {subsection}{\tocsubsection {}{6.4}{Finite-cost exclusions}}{69}{subsection.6.4}%
-\contentsline {subsection}{\tocsubsection {}{6.5}{Autonomous reduced-limit theorem from the selected-window estimates}}{70}{subsection.6.5}%
-\contentsline {subsection}{\tocsubsection {}{6.6}{Decomposition of alternatives of the scale-collapse branch}}{78}{subsection.6.6}%
-\contentsline {section}{\tocsection {}{7}{Critical Tightness and Windowed-Control Estimates}}{87}{section.7}%
-\contentsline {subsection}{\tocsubsection {}{7.1}{Uniform critical tightness}}{87}{subsection.7.1}%
-\contentsline {subsection}{\tocsubsection {}{7.2}{Tail windowed \(H^1\) control}}{89}{subsection.7.2}%
-\contentsline {subsection}{\tocsubsection {}{7.3}{Modulation and weighted forcing inputs}}{92}{subsection.7.3}%
-\contentsline {subsection}{\tocsubsection {}{7.4}{Window-Integrated Modulation Forcing and Weighted Scale Components}}{95}{subsection.7.4}%
-\contentsline {subsection}{\tocsubsection {}{7.5}{Navier--Stokes Cost-Divergence Exclusion}}{105}{subsection.7.5}%
-\contentsline {subsubsection}{\tocsubsubsection {}{7.5.1}{Proof of the windowwise alternative statements}}{133}{subsubsection.7.5.1}%
-\contentsline {section}{\tocsection {}{8}{Terminal Profile Decoupling and Exterior Regularity}}{144}{section.8}%
-\contentsline {subsection}{\tocsubsection {}{8.1}{Renormalized frames and active local states}}{144}{subsection.8.1}%
-\contentsline {subsection}{\tocsubsection {}{8.2}{Same-point and separated-point reductions}}{145}{subsection.8.2}%
-\contentsline {subsection}{\tocsubsection {}{8.3}{Local perturbation and pressure decoupling}}{149}{subsection.8.3}%
-\contentsline {subsection}{\tocsubsection {}{8.4}{Terminal local-state decoupling}}{152}{subsection.8.4}%
-\contentsline {subsection}{\tocsubsection {}{8.5}{Small local residual components}}{159}{subsection.8.5}%
-\contentsline {subsection}{\tocsubsection {}{8.6}{Exterior regularity}}{161}{subsection.8.6}%
-\contentsline {section}{\tocsection {}{9}{Corrected Monotonicity and Scale-Drift Cost Criteria}}{177}{section.9}%
-\contentsline {subsection}{\tocsubsection {}{9.1}{Data for the Cost Criterion}}{177}{subsection.9.1}%
-\contentsline {subsection}{\tocsubsection {}{9.2}{Fixed-Cutoff Monotonicity}}{178}{subsection.9.2}%
-\contentsline {subsection}{\tocsubsection {}{9.3}{Moving-Cutoff Monotonicity}}{181}{subsection.9.3}%
-\contentsline {subsection}{\tocsubsection {}{9.4}{Negative Scale Drift}}{183}{subsection.9.4}%
-\contentsline {subsection}{\tocsubsection {}{9.5}{Scale-Drift Cost Criteria}}{184}{subsection.9.5}%
-\contentsline {subsection}{\tocsubsection {}{9.6}{Cost-Divergence Exclusion on the Canonical Windowwise Schedule}}{186}{subsection.9.6}%
-\contentsline {subsection}{\tocsubsection {}{9.7}{Absolutely Continuous Repaired-Gauge Charts and Renormalized Equations}}{189}{subsection.9.7}%
-\contentsline {subsection}{\tocsubsection {}{9.8}{Local Caccioppoli Estimate for Absolutely Continuous Suitable Branches}}{195}{subsection.9.8}%
-\contentsline {subsection}{\tocsubsection {}{9.9}{Caccioppoli Regularity Criterion}}{199}{subsection.9.9}%
-\contentsline {subsection}{\tocsubsection {}{9.10}{Terminal Local State-Space Compactness}}{201}{subsection.9.10}%
-\contentsline {subsubsection}{\tocsubsubsection {}{}{Local proof of terminal state-space completeness}}{202}{section*.2}%
-\contentsline {subsubsection}{\tocsubsubsection {}{}{Discharge of the retained compact-test closure}}{209}{section*.3}%
-\contentsline {subsection}{\tocsubsection {}{9.11}{Closure of the thin negative-drift exit}}{213}{subsection.9.11}%
-\contentsline {subsection}{\tocsubsection {}{9.12}{Closure of the Type II analytic-data exhaustiveness row}}{218}{subsection.9.12}%
-\contentsline {subsection}{\tocsubsection {}{9.13}{Terminal Retained-State Assembly}}{224}{subsection.9.13}%
-\contentsline {section}{\tocsection {}{10}{Assembly of the Local Type II Exclusion}}{227}{section.10}%
-\contentsline {subsection}{\tocsubsection {}{10.1}{Local Entry}}{227}{subsection.10.1}%
-\contentsline {subsection}{\tocsubsection {}{10.2}{Local Theorems Used in the Assembly}}{227}{subsection.10.2}%
-\contentsline {subsection}{\tocsubsection {}{10.3}{Assembly of Alternatives}}{229}{subsection.10.3}%
-\contentsline {subsection}{\tocsubsection {}{10.4}{Physical Entry into the Covered Local Type II Path}}{233}{subsection.10.4}%
-\contentsline {subsection}{\tocsubsection {}{10.5}{Closure of the remaining named exit rows}}{235}{subsection.10.5}%
-\contentsline {subsection}{\tocsubsection {}{10.6}{Assembly Theorem}}{243}{subsection.10.6}%
-\contentsline {section}{\tocsection {}{11}{Conclusion}}{244}{section.11}%
-\contentsline {section}{\tocsection {Appendix}{A}{PDE Interface Definitions Used in the Local Type II Proof}}{245}{appendix.A}%
-\contentsline {subsection}{\tocsubsection {}{A.1}{Admissible Type II branches and exhaustion}}{245}{subsection.A.1}%
-\contentsline {subsection}{\tocsubsection {}{A.2}{Repaired-gauge representation from Type II analytic data}}{246}{subsection.A.2}%
-\contentsline {subsection}{\tocsubsection {}{A.3}{Minimal chart and gauge realization}}{248}{subsection.A.3}%
-\contentsline {subsection}{\tocsubsection {}{A.4}{Local Retained Mass Cost Divergence}}{250}{subsection.A.4}%
-\contentsline {subsection}{\tocsubsection {}{A.5}{Localized cost and the Type II scale-exclusion condition}}{251}{subsection.A.5}%
-\contentsline {subsection}{\tocsubsection {}{A.6}{Local compact-cost classification}}{253}{subsection.A.6}%
-\contentsline {section}{\tocsection {Appendix}{}{References}}{258}{section*.4}%
+\contentsline {section}{\tocsection {}{5}{Local Caccioppoli and Rough-Core Exclusion}}{62}{section.5}%
+\contentsline {subsection}{\tocsubsection {}{5.1}{Analytic inputs and notation}}{62}{subsection.5.1}%
+\contentsline {subsection}{\tocsubsection {}{5.2}{Compact-cylinder Caccioppoli estimate}}{63}{subsection.5.2}%
+\contentsline {subsection}{\tocsubsection {}{5.3}{Consequences for the assembly}}{66}{subsection.5.3}%
+\contentsline {section}{\tocsection {}{6}{Scale-Collapse Cost and Autonomous Limits}}{67}{section.6}%
+\contentsline {subsection}{\tocsubsection {}{6.1}{Renormalized scale-collapse setting}}{67}{subsection.6.1}%
+\contentsline {subsection}{\tocsubsection {}{6.2}{Elementary alternative}}{68}{subsection.6.2}%
+\contentsline {subsection}{\tocsubsection {}{6.3}{Scale collapse versus localized core lower bounds}}{69}{subsection.6.3}%
+\contentsline {subsection}{\tocsubsection {}{6.4}{Finite-cost exclusions}}{70}{subsection.6.4}%
+\contentsline {subsection}{\tocsubsection {}{6.5}{Autonomous reduced-limit theorem from the selected-window estimates}}{71}{subsection.6.5}%
+\contentsline {subsection}{\tocsubsection {}{6.6}{Decomposition of alternatives of the scale-collapse branch}}{79}{subsection.6.6}%
+\contentsline {section}{\tocsection {}{7}{Critical Tightness and Windowed-Control Estimates}}{88}{section.7}%
+\contentsline {subsection}{\tocsubsection {}{7.1}{Uniform critical tightness}}{88}{subsection.7.1}%
+\contentsline {subsection}{\tocsubsection {}{7.2}{Tail windowed \(H^1\) control}}{90}{subsection.7.2}%
+\contentsline {subsection}{\tocsubsection {}{7.3}{Modulation and weighted forcing inputs}}{93}{subsection.7.3}%
+\contentsline {subsection}{\tocsubsection {}{7.4}{Window-Integrated Modulation Forcing and Weighted Scale Components}}{96}{subsection.7.4}%
+\contentsline {subsection}{\tocsubsection {}{7.5}{Navier--Stokes Cost-Divergence Exclusion}}{106}{subsection.7.5}%
+\contentsline {subsubsection}{\tocsubsubsection {}{7.5.1}{Proof of the windowwise alternative statements}}{134}{subsubsection.7.5.1}%
+\contentsline {section}{\tocsection {}{8}{Terminal Profile Decoupling and Exterior Regularity}}{145}{section.8}%
+\contentsline {subsection}{\tocsubsection {}{8.1}{Renormalized frames and active local states}}{145}{subsection.8.1}%
+\contentsline {subsection}{\tocsubsection {}{8.2}{Same-point and separated-point reductions}}{146}{subsection.8.2}%
+\contentsline {subsection}{\tocsubsection {}{8.3}{Local perturbation and pressure decoupling}}{150}{subsection.8.3}%
+\contentsline {subsection}{\tocsubsection {}{8.4}{Terminal local-state decoupling}}{153}{subsection.8.4}%
+\contentsline {subsection}{\tocsubsection {}{8.5}{Small local residual components}}{160}{subsection.8.5}%
+\contentsline {subsection}{\tocsubsection {}{8.6}{Exterior regularity}}{162}{subsection.8.6}%
+\contentsline {section}{\tocsection {}{9}{Corrected Monotonicity and Scale-Drift Cost Criteria}}{180}{section.9}%
+\contentsline {subsection}{\tocsubsection {}{9.1}{Data for the Cost Criterion}}{180}{subsection.9.1}%
+\contentsline {subsection}{\tocsubsection {}{9.2}{Fixed-Cutoff Monotonicity}}{181}{subsection.9.2}%
+\contentsline {subsection}{\tocsubsection {}{9.3}{Moving-Cutoff Monotonicity}}{184}{subsection.9.3}%
+\contentsline {subsection}{\tocsubsection {}{9.4}{Negative Scale Drift}}{186}{subsection.9.4}%
+\contentsline {subsection}{\tocsubsection {}{9.5}{Scale-Drift Cost Criteria}}{187}{subsection.9.5}%
+\contentsline {subsection}{\tocsubsection {}{9.6}{Cost-Divergence Exclusion on the Canonical Windowwise Schedule}}{189}{subsection.9.6}%
+\contentsline {subsection}{\tocsubsection {}{9.7}{Absolutely Continuous Repaired-Gauge Charts and Renormalized Equations}}{192}{subsection.9.7}%
+\contentsline {subsection}{\tocsubsection {}{9.8}{Local Caccioppoli Estimate for Absolutely Continuous Suitable Branches}}{198}{subsection.9.8}%
+\contentsline {subsection}{\tocsubsection {}{9.9}{Caccioppoli Regularity Criterion}}{202}{subsection.9.9}%
+\contentsline {subsection}{\tocsubsection {}{9.10}{Terminal Local State-Space Compactness}}{204}{subsection.9.10}%
+\contentsline {subsubsection}{\tocsubsubsection {}{}{Local proof of terminal state-space completeness}}{205}{section*.2}%
+\contentsline {subsubsection}{\tocsubsubsection {}{}{Discharge of the retained compact-test closure}}{213}{section*.3}%
+\contentsline {subsection}{\tocsubsection {}{9.11}{Closure of the thin negative-drift exit}}{219}{subsection.9.11}%
+\contentsline {subsection}{\tocsubsection {}{9.12}{Closure of the Type II analytic-data exhaustiveness row}}{224}{subsection.9.12}%
+\contentsline {subsection}{\tocsubsection {}{9.13}{Terminal Retained-State Assembly}}{229}{subsection.9.13}%
+\contentsline {section}{\tocsection {}{10}{Assembly of the Local Type II Exclusion}}{233}{section.10}%
+\contentsline {subsection}{\tocsubsection {}{10.1}{Local Entry}}{233}{subsection.10.1}%
+\contentsline {subsection}{\tocsubsection {}{10.2}{Local Theorems Used in the Assembly}}{233}{subsection.10.2}%
+\contentsline {subsection}{\tocsubsection {}{10.3}{Assembly of Alternatives}}{235}{subsection.10.3}%
+\contentsline {subsection}{\tocsubsection {}{10.4}{Physical Entry into the Covered Local Type II Path}}{240}{subsection.10.4}%
+\contentsline {subsection}{\tocsubsection {}{10.5}{Closure of the remaining named exit rows}}{242}{subsection.10.5}%
+\contentsline {subsection}{\tocsubsection {}{10.6}{Assembly Theorem}}{250}{subsection.10.6}%
+\contentsline {section}{\tocsection {}{11}{Conclusion}}{251}{section.11}%
+\contentsline {section}{\tocsection {Appendix}{A}{PDE Interface Definitions Used in the Local Type II Proof}}{252}{appendix.A}%
+\contentsline {subsection}{\tocsubsection {}{A.1}{Admissible Type II branches and exhaustion}}{252}{subsection.A.1}%
+\contentsline {subsection}{\tocsubsection {}{A.2}{Repaired-gauge representation from Type II analytic data}}{253}{subsection.A.2}%
+\contentsline {subsection}{\tocsubsection {}{A.3}{Minimal chart and gauge realization}}{255}{subsection.A.3}%
+\contentsline {subsection}{\tocsubsection {}{A.4}{Local Retained Mass Cost Divergence}}{257}{subsection.A.4}%
+\contentsline {subsection}{\tocsubsection {}{A.5}{Localized cost and the Type II scale-exclusion condition}}{258}{subsection.A.5}%
+\contentsline {subsection}{\tocsubsection {}{A.6}{Local compact-cost classification}}{260}{subsection.A.6}%
+\contentsline {section}{\tocsection {Appendix}{}{References}}{265}{section*.4}%
