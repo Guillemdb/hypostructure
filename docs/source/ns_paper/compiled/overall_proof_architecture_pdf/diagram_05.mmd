@@ -1,0 +1,16 @@
+flowchart TD
+  K["Validated compact Type II cost"] --> K1{"Corrected monotonicity with finite initial corrected energy?"}
+  K1 -- "Yes" --> K2["Finite total cost: paper6a:lem:corrected-monotonicity-versus-divergent-cost"]
+  K1 -- "No" --> K3["Some moving-error component is nonintegrable"]
+  K2 --> K4{"But compact criterion gives divergent cost?"}
+  K4 -- "Yes" --> K3
+  K3 --> K5{"Which canonical component fails?"}
+  K5 -- "J1 transition term" --> K6["transition/exterior carrier label"]
+  K5 -- "J6 negative drift" --> K7["negative scale-drift branch"]
+  K5 -- "J7 positive scale-shell" --> K8["positive scale-work carrier label"]
+  K6 --> K9["paper7:cor:windowwise-transition-routing-holds"]
+  K7 --> K10["paper7:thm:windowwise-routing-gives-stratified-routing"]
+  K8 --> K11["paper7:cor:windowwise-positive-scale-routing-holds"]
+  K9 --> K12["paper6a:thm:cost-divergence-exclusion-discharged"]
+  K10 --> K12
+  K11 --> K12

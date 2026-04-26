@@ -1,0 +1,68 @@
+flowchart TD
+  A["Input: retained residual Seregin profile from proof_setup.tex"] --> B["Imported setup package: thm:imported-setup-results, hyp:base-seregin-hypotheses"]
+  B --> C["Ancestor-realized limiting operations: thm:ancestor-realization-inheritance"]
+  C --> D{"Ordered lower residual stratum fires first?"}
+
+  D -- "R1 axisymmetric bounded circulation" --> R1["Axisymmetric residual"]
+  R1 --> R1a["Centered circulation and axis absorption"]
+  R1a --> R1x["Closed by thm:R1-exclusion"]
+
+  D -- "R2 rotational relative equilibrium" --> R2["Rotational residual"]
+  R2 --> R2a["Local Coriolis flux and terminal concentration routing"]
+  R2a --> R2b["Terminal package: thm:terminal-stratification"]
+  R2b --> R2x["R2 closed"]
+
+  D -- "R3 degenerate stationary hull" --> R3["Stationary-hull residual"]
+  R3 --> R3a["No attainable degenerate stationary-family carrier: thm:R3-no-attainable-degenerate-family"]
+  R3a --> R3b["Deferred R3 terminal package: thm:R3S-terminal-theorem"]
+  R3b --> R3x["No active stationary carrier: thm:R3S-no-active-stationary-carrier"]
+
+  D -- "Affine/parasitic quotient" --> R4["Affine or parasitic quotient"]
+  R4 --> R4a["Affine normalization dichotomy: thm:affine-normalization-dichotomy"]
+  R4a --> R4x["Oscillatory-entry normalization: thm:oscillatory-entry-normalization"]
+
+  D -- "No lower stratum" --> TAIL{"Tail or diffuse defect?"}
+  TAIL -- "Log-diffuse escape" --> L1["Hidden-scale reduction: thm:log-diffuse-from-hidden-scale"]
+  TAIL -- "Young variance defect" --> Y1["Minimal mesoscopic routing: thm:first-bad-mesoscopic-reduction"]
+  Y1 --> Y2["No realized hidden-scale variance: thm:no-hidden-scale-variance-realized-defects"]
+  L1 --> CT["Critical-tail compactification: thm:critical-tail-compactification-extraction"]
+  Y2 --> CT
+  CT --> CT2{"Coherent critical-tail state?"}
+  CT2 -- "Yes" --> CT3["Classify coherent tail: thm:coherent-critical-tail-classification"]
+  CT3 --> CT4["Bounded-origin realization and rigidity: thm:bounded-origin-realization-coherent-tails, thm:realized-critical-tail-rigidity"]
+  CT2 -- "No" --> GEN["Generic terminal residual"]
+
+  GEN --> G0["Covariant observer calculus: thm:covariant-observer-calculus"]
+  G0 --> G1["Closed non-affine activity: thm:closed-nonaffine-activity"]
+  G1 --> G2["Escaping covariant hull compactness: thm:escaping-covariant-hull-compactness"]
+  G2 --> G3["Recurrent tail-core rigidity: thm:recurrent-tail-core-rigidity"]
+  G3 --> TC["Terminal concentration extraction: thm:maximal-active-family, thm:terminal-exhaustion-main"]
+
+  TC --> TC1{"Terminal alternative"}
+  TC1 -- "Nonactive or nonconcentrating" --> N0["Excluded by thm:terminal-nonactive-exclusion"]
+  TC1 -- "Diffuse defect" --> DF0["Diffuse compactness: thm:diffuse-defect-compactness"]
+  DF0 --> DF1["Recurrent diffuse measure: thm:recurrent-diffuse-defect-measure"]
+  DF1 --> DF2["Diffuse trichotomy: thm:diffuse-defect-trichotomy"]
+  TC1 -- "Mixed compact-diffuse" --> M0["Excluded by thm:no-mixed-compact-diffuse"]
+  TC1 -- "Active terminal profile" --> A0["Terminal active profile"]
+
+  A0 --> A1{"Indecomposable single profile or separated family?"}
+  A1 -- "Separated finite family" --> S0["No finite separated family: thm:no-finite-separated-profile-family"]
+  A1 -- "Descendant chain" --> H0["Descendant heredity: thm:descendant-heredity"]
+  H0 --> H1["Active path recurrence excluded: thm:active-path-space-recurrence"]
+  H1 --> H2["Compact active descendant: thm:compact-active-descendant"]
+  A1 -- "Single terminal profile" --> MILD["Mildness inheritance: thm:mildness-inheritance-main"]
+  H2 --> MILD
+  MILD --> AB["Endpoint L3 contradiction: thm:AB-main"]
+
+  R1x --> CLOSE["All residual alternatives closed"]
+  R2x --> CLOSE
+  R3x --> CLOSE
+  R4x --> CLOSE
+  CT4 --> CLOSE
+  N0 --> CLOSE
+  DF2 --> CLOSE
+  M0 --> CLOSE
+  S0 --> CLOSE
+  AB --> CLOSE
+  CLOSE --> FINALR["Generic closure and full residual closure: thm:R4-final-closure, thm:paperIV-residual-closure"]

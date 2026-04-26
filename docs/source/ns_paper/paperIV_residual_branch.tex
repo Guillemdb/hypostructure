@@ -1,3 +1,4 @@
+\pdfoutput=1
 \documentclass[11pt]{amsart}
 
 \usepackage[margin=1.1in]{geometry}
@@ -8,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage{longtable}
+\usepackage{aliascnt}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 \usepackage{hyperref}
@@ -17,22 +19,58 @@
   colorlinks=true,
   linkcolor=blue,
   citecolor=blue,
-  urlcolor=blue
+  urlcolor=blue,
+  pdftitle={Local Exclusion of Residual Type I Navier-Stokes Seregin Limits},
+  pdfauthor={Guillem Duran Ballester},
+  pdfsubject={Navier-Stokes Type I singularities and Seregin limits},
+  pdfkeywords={Navier-Stokes equations, Type I singularities, ancient solutions, Seregin limits, Liouville theorems, local concentration}
 }
 
 \numberwithin{equation}{section}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
 
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
 
 \theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+\crefalias{theorem}{theorem}
+\crefalias{lemma}{lemma}
+\crefalias{proposition}{proposition}
+\crefalias{corollary}{corollary}
+\crefalias{definition}{definition}
+\crefalias{remark}{remark}
 
 \newcommand{\R}{\mathbb R}
 \newcommand{\N}{\mathbb N}
@@ -3707,8 +3745,10 @@ sequence-\(L^3\) lemma used after the terminal stratification assembly theorem.
 \begin{lemma}[Indecomposable local profiles have backward sequence-\(L^3\) control]
 \label{lem:R3S-atomic-L3}
 Let \((U,\Pi)\) be a bounded smooth ancient solution of
-\eqref{eq:R3S-centered}.  Suppose that \((U,\Pi)\) has retained local velocity
-concentration and is terminally indecomposable: it has no retained
+\eqref{eq:R3S-centered} which belongs to the normalized parasitic-free compact
+state class \(\mathfrak X_M^\#\) imported from the setup construction.  Suppose
+that \((U,\Pi)\) has retained local velocity concentration and is terminally
+indecomposable: it has no retained
 concentrating tail limit, no diffuse exterior concentration in the parabolic
 CKN sense, and no escaping recentering sequence along which local compactness,
 suitability, or pressure control fails.  Then there
@@ -4123,10 +4163,10 @@ On each compact cylinder \(K\), the setup local suitability, dissipation,
 strong local \(L^3\)-velocity compactness, and pressure-gauge compactness give
 a Seregin subsequential limit in the local topology of \(\mathfrak X_M\).
 Diagonalizing over the countable compact exhaustion gives the asserted
-subsequence.  For bounded smooth centered profiles, interior parabolic
-estimates for \eqref{eq:centered-main} upgrade the velocity convergence to
-\(C^\infty_{\loc}\); the pressure representatives converge weakly in
-\(L^{3/2}_{\loc}\) after the local gauges.  The formulas defining \(T_a\),
+subsequence.  With the setup pressure-atlas bounds and local suitability fixed,
+interior parabolic estimates for \eqref{eq:centered-main} upgrade the velocity
+convergence to \(C^\infty_{\loc}\); the pressure representatives converge
+weakly in \(L^{3/2}_{\loc}\) after the local gauges.  The formulas defining \(T_a\),
 \(\Theta_s\), \(\mathscr T_{(x,\sigma)}\), and \(S_c\) are smooth changes of
 variables and affine pressure changes on each fixed compact cylinder.  The
 first three preserve the \(L^\infty\) bound \(M\).  The affine map \(S_c\)
@@ -4524,30 +4564,31 @@ used for \(|(a,s)|_{\rm cov}\).  Thus the recurrent tail hull is invariant
 under the full covariant action, not merely under ordinary spatial translations.
 \end{definition}
 
-\begin{theorem}[Compactness of the escaping covariant hull]
+\begin{theorem}[Compactness of the normalized escaping covariant hull]
 \label{thm:escaping-covariant-hull-compactness}
-Let \(V\) be a bounded smooth ancient solution of \eqref{eq:centered-main}.
-Then \(\calH_\infty(V)\) is nonempty and compact in
-\(C^\infty_{\loc}(\R^3\times\R)\).  Every
+Let \((V,P)\in\mathfrak X_M^\#\) be represented after canonical
+affine/parasitic normalization.  Assume that every escaping covariant sequence
+for \((V,P)\) has a compact subsequence in the normalized local topology with
+the setup pressure atlas fixed; if this assumption fails, the sequence is
+assigned instead to the local-compactness or pressure-gauge-loss terminal
+alternative.  In the compactness branch, \(\calH_\infty(V)\) is nonempty and
+compact in \(C^\infty_{\loc}(\R^3\times\R)\).  Every
 \(W\in\calH_\infty(V)\) is a bounded smooth ancient solution of
 \eqref{eq:centered-main} with
-\(\|W\|_{L^\infty}\le\|V\|_{L^\infty}\).
+\(\|W\|_{L^\infty}\le M\).
 \end{theorem}
 
 \begin{proof}
 For any escaping covariant sequence \((a_n,s_n)\), the transformed solutions
 \(\mathscr G_{(a_n,s_n)}V\) solve the same equation and have the same
 \(L^\infty\) bound by
-\Cref{lem:covariant-translation-invariance,lem:semidirect-covariance}.  On every compact cylinder, the
-coefficients of \eqref{eq:centered-main} are fixed and smooth.  Interior
-parabolic estimates for the Stokes system with bounded smooth nonlinear data,
-combined with the pressure equation
-\(-\Delta P=\partial_i\partial_j(V_iV_j)\) after local gauges, give uniform
-\(C^k\)-bounds on smaller compact cylinders for every \(k\).  A diagonal
-Arzela--Ascoli argument gives a subsequential limit in
-\(C^\infty_{\loc}\).  Passing to the limit in the equation gives another
-bounded ancient solution.  Nonemptiness follows by applying this to any
-escaping sequence in \(G\).
+\Cref{lem:covariant-translation-invariance,lem:semidirect-covariance}.  The
+\(L^\infty\) bound alone is not used to obtain a time modulus or derivative
+bound.  By the compactness-branch assumption, the transformed profiles have a
+subsequence converging in the normalized pressure-atlas topology, hence locally
+smoothly in velocity.  Passing to the limit in the equation gives another
+bounded ancient solution.  Nonemptiness follows by applying this compactness
+branch to any escaping sequence in \(G\).
 
 It remains to record closedness of the escaping hull.  Suppose
 \[
@@ -4580,9 +4621,9 @@ sequence \(g_{j,k}\) with \(\mathscr G_{g_{j,k}}V\to W_j\), and choose
    d_j\!\left(\mathscr G_{g_{j,k(j)}}V,W_j\right)\le j^{-1}.
 \]
 The sequence \(\mathscr G_{g_{j,k(j)}}V\) is an escaping transformed sequence
-with the same local \(C^k\)-bounds as above, so it has a locally smooth
-convergent subsequence.  Along that subsequence, \(W_j\) converges to the same
-limit.  The closedness argument places the limit in \(\calH_\infty(V)\).
+in the compactness branch, so it has a locally smooth convergent subsequence.
+Along that subsequence, \(W_j\) converges to the same limit.  The closedness
+argument places the limit in \(\calH_\infty(V)\).
 Thus every sequence in the hull has a convergent subsequence with limit still
 in the hull; metrizability of the local smooth topology gives compactness.
 \end{proof}
@@ -4615,6 +4656,9 @@ argument to \(g^{-1}\) gives equality.
 \begin{definition}[Tail alternatives]
 \label{def:R4-tail-strata}
 Let \(\calC\) denote the set of constant vector fields.  Define
+the following classes only in the compact normalized hull branch, after the
+local-compactness and pressure-gauge-loss alternatives identified in
+\Cref{thm:escaping-covariant-hull-compactness}:
 \[
    {\Cgen}_{\mathrm{tail\text{-}const}}
    :=
@@ -5437,15 +5481,19 @@ limit after the fixed threshold loss.  No compactness is asserted outside the
 local-window region.
 \end{proof}
 
-\begin{lemma}[Covariant compactness for descendants of a bounded ancient profile]
+\begin{lemma}[Covariant compactness or pressure-atlas loss for descendants]
 \label{lem:ancient-profile-covariant-compactness}
-Let \((U,\Pi)\) be a bounded pressure-normalized ancient profile in the
-normalized class \(\mathfrak X_M\).  For every covariant recentering
-sequence \(g_n\in G\), the transforms
+Let \((U,\Pi)\in\mathfrak X_M^\#\) be represented after canonical
+affine/parasitic normalization.  For every covariant recentering sequence
+\(g_n\in G\), either the transforms
 \[
    \mathscr G_{g_n}(U,\Pi)
 \]
-admit a locally compact pressure-gauge subsequence in the Seregin topology.  If
+have no compact closure in the normalized local topology with the setup
+pressure atlas fixed, in which case the sequence is assigned to the
+local-compactness or pressure-gauge-loss terminal alternative, or they admit a
+locally compact pressure-gauge subsequence in the Seregin topology.  In the
+compactness branch, if
 \[
    \liminf_{n\to\infty}\Vel_1(\mathscr G_{g_n}U;0)>0,
 \]
@@ -5456,11 +5504,14 @@ then the limiting descendant is nonzero.
 The covariant action is an exact symmetry of the centered equation by
 \Cref{lem:semidirect-covariance}.  Hence the transformed velocities remain
 bounded by \(\|U\|_{L^\infty}\) and solve the same centered equation on all of
-\(\mathbb R^3\times\mathbb R\).  Interior parabolic estimates and the setup
-pressure atlas give local \(C^\infty\)-compactness for the velocity and local
-\(L^{3/2}\)-compactness of pressure modulo gauges on every compact cylinder.
-A diagonal subsequence gives a bounded ancient suitable descendant.  Strong
-local \(L^3\) convergence transfers any velocity lower bound to the limit.
+\(\mathbb R^3\times\mathbb R\).  This boundedness alone is not used as a
+compactness theorem.  If the setup pressure-atlas representatives and local
+compactness bounds fail to have a compact subsequence, this is precisely the
+noncompact/pressure-gauge terminal alternative.  Otherwise the transformed
+profiles lie in a compact subset of \(\mathfrak X_M^\#\), so a diagonal
+subsequence converges in the normalized local topology to a bounded ancient
+suitable descendant.  Strong local \(L^3\) convergence transfers any velocity
+lower bound to the limit.
 \end{proof}
 
 \begin{lemma}[Escaping first-generation recenterings are assigned to terminal alternatives]
@@ -5504,12 +5555,16 @@ of exactly one of the following types.
    \item It is first-generation and satisfies the local-window condition; then
    \Cref{lem:first-generation-local-window-compactness} gives a nonzero locally
    compact Seregin limit.
-   \item It acts on an already extracted bounded ancient profile; then
+   \item It acts on an already extracted normalized ancient profile and its
+   pressure-atlas orbit has compact closure; then
    \Cref{lem:ancient-profile-covariant-compactness} gives a nonzero locally
    compact descendant.
-   \item It is first-generation and fails the local-window condition; then
-   \Cref{lem:escaping-first-generation-alternatives} assigns it to an exterior,
-   diffuse, pressure/noncompact, or critical-tail terminal branch.
+   \item It is either first-generation and fails the local-window condition, or
+   it is an ancient-profile recentering whose pressure-atlas orbit has no
+   compact closure; then
+   \Cref{lem:escaping-first-generation-alternatives,lem:ancient-profile-covariant-compactness}
+   assigns it to an exterior, diffuse, pressure/noncompact, or critical-tail
+   terminal branch.
 \end{enumerate}
 Thus retained unit velocity concentration under an arbitrary recentering is never used by itself as a
 compactness hypothesis.
@@ -5520,8 +5575,10 @@ First-generation recenterings either satisfy or fail the local-window condition.
 The two cases are handled by
 \Cref{lem:first-generation-local-window-compactness,lem:escaping-first-generation-alternatives}.
 Recenterings of extracted ancient profiles act on a bounded ancient profile defined on the full
-centered ancient space, so they are handled by
-\Cref{lem:ancient-profile-covariant-compactness}.  These cases exhaust the
+centered ancient space.  They are handled by
+\Cref{lem:ancient-profile-covariant-compactness}: compact pressure-atlas orbits
+give locally compact descendants, while noncompact or pressure-gauge-loss
+orbits are assigned to the corresponding terminal alternative.  These cases exhaust the
 recenterings used in the terminal extraction arguments.
 \end{proof}
 
@@ -9667,54 +9724,73 @@ retained concentrating tail limit, no diffuse exterior concentration, and no
 escaping non-compact recentering sequence.
 \end{definition}
 
-\begin{lemma}[Time-slice concentration gives parabolic velocity concentration]
+\begin{lemma}[Compact state-space time-slice concentration]
 \label{lem:timeslice-to-ckn-activity}
-Let \((U,\Pi)\) be a bounded smooth solution of \eqref{eq:centered-main} with
-\(\|U\|_{L^\infty}\le M\).  If
+Let \(\calK\subset\mathfrak X_M^\#\) be compact in the normalized local
+profile topology, with pressure representatives taken from the fixed setup
+pressure atlas and with affine/parasitic modes already removed by the
+canonical representative or assigned to \(\Caff\).  For every \(\eps_0>0\)
+there are
+\[
+   \delta_{\rm sl}=\delta_{\rm sl}(\calK,\eps_0)\in(0,1),
+   \qquad
+   c_{\rm sl}=c_{\rm sl}(\calK,\eps_0)>0,
+\]
+such that every \((U,\Pi)\in\calK\) satisfying
 \[
    \int_{B_1(0)}|U(y,0)|^3\,dy\ge\eps_0>0,
 \]
-then there are \(\delta=\delta(M,\eps_0)>0\) and
-\(c_0=c_0(M,\eps_0)>0\) such that, after the standard local pressure gauge,
+also satisfies, after the standard local pressure gauge,
 \[
-   \iint_{B_1(0)\times(-\delta^2,0)} |U|^3\,dy\,d\tau
-   \ge c_0,
+   \iint_{B_1(0)\times(-\delta_{\rm sl}^2,0)} |U|^3\,dy\,d\tau
+   \ge c_{\rm sl},
    \qquad\hbox{and hence}\qquad
-   \Vel_1(U;0)\ge c_0 .
+   \Vel_1(U;0)\ge c_{\rm sl} .
 \]
-The same constants apply to every covariant tail recentering
-\(\mathscr T_{(x,\sigma)}(U,\Pi)\).
+The same constants apply to any covariant tail recentering family whose
+normalized pressure-atlas closure is contained in the same compact set
+\(\calK\).
 \end{lemma}
 
 \begin{proof}
-Apply interior parabolic regularity on \(B_2\times[-2\delta_0,\delta_0]\),
-with \(\delta_0>0\) universal and small.  On this cylinder the drift
-\(-\frac12y\cdot\nabla U\) has bounded smooth coefficients, and the nonlinear
-forcing is bounded by \(M^2\).  After choosing local pressure gauges, the
-standard interior estimates give
+For \((U,\Pi)\in\calK\) define
 \[
-   \|\partial_\tau U\|_{L^\infty(B_1\times[-\delta_0,0])}
-   +\|\nabla U\|_{L^\infty(B_1\times[-\delta_0,0])}
-   \le C(M)
+   F(U,\tau):=\int_{B_1}|U(y,\tau)|^3\,dy .
 \]
-where \(C(M)\) is independent of the particular profile.  Hence the map
-\(\tau\mapsto \int_{B_1}|U(y,\tau)|^3\,dy\) is uniformly continuous with a
-modulus depending only on \(M\) and \(|B_1|\).  Choose
-\(\delta\le\delta_0\) so that
+The topology of \(\mathfrak X_M^\#\) gives local \(C^0\) convergence of the
+velocity.  Hence \((U,\tau)\mapsto F(U,\tau)\) is continuous on
+\(\calK\times[-1,1]\).  Since this set is compact, the continuity is uniform.
+Choose \(\delta_{\rm sl}\in(0,1)\) so small that, for every
+\((U,\Pi)\in\calK\),
 \[
-   \int_{B_1}|U(y,\tau)|^3\,dy\ge \frac12\eps_0
-   \qquad -\delta^2<\tau<0 .
+   |F(U,\tau)-F(U,0)|\le \frac12\eps_0
+   \qquad\hbox{whenever } -\delta_{\rm sl}^2<\tau<0 .
 \]
-Integrating in time gives a positive lower bound for \(\Vel_1(U;0)\).  The
-pressure contribution is not used to certify nontriviality.  The constants are unchanged under
-\(\mathscr T_{(x,\sigma)}\), because that recentering is an exact composition of
-the centered symmetries in \Cref{def:spacetime-covariant-action}.
+If \(F(U,0)\ge\eps_0\), then \(F(U,\tau)\ge\eps_0/2\) throughout that time
+interval.  Therefore
+\[
+   \iint_{B_1\times(-\delta_{\rm sl}^2,0)}|U|^3\,dy\,d\tau
+   \ge \frac12\eps_0\delta_{\rm sl}^2 .
+\]
+Set \(c_{\rm sl}:=\eps_0\delta_{\rm sl}^2/2\).  The pressure contribution is
+not used to certify nontriviality; the pressure atlas is used only to define
+the compact normalized state space in which the uniform time modulus is valid.
+
+The dependence on \(\calK\), rather than only on \(M\), is essential.  A
+spatially homogeneous parasitic family \(U_N(y,\tau)=b_N(\tau)\), paired with
+the affine pressure
+\(-(\partial_\tau b_N+\frac12 b_N)\cdot y\), can have a uniform velocity
+\(L^\infty\) bound and fixed time-slice mass while losing every uniform
+backward time modulus.  Such a family is not compact in the normalized
+pressure-atlas topology unless the homogeneous modes have a convergent modulus,
+and nonzero homogeneous modes are assigned to the affine/parasitic stratum
+\(\Caff\).
 \end{proof}
 
 \begin{lemma}[Quantitative exterior slice-to-defect alternative]
 \label{lem:exterior-slice-to-diffuse-defect}
-Let \((U,\Pi)\) be a bounded smooth solution of \eqref{eq:centered-main} with
-\(\|U\|_{L^\infty}\le M\).  Let \(\tau_n\to-\infty\), \(R_n\to\infty\), and
+Let \((U,\Pi)\in\mathfrak X_M^\#\) be represented after canonical
+affine/parasitic normalization.  Let \(\tau_n\to-\infty\), \(R_n\to\infty\), and
 \[
    E_n:=\{|y|>R_n\}
 \]
@@ -9722,17 +9798,25 @@ satisfy
 \[
    \int_{E_n}|U(y,\tau_n)|^3\,dy\ge m_0>0 .
 \]
-Fix \(\alpha>0\), and let \(c_{\rm sl}(M,\alpha)>0\) be the parabolic lower
-bound supplied by \Cref{lem:timeslice-to-ckn-activity} for a unit ball
-time-slice mass \(\alpha\).  Define
+If the exterior covariant recenterings in the windows
+\[
+   \{|y|>R_n-2\}\times(\tau_n-1,\tau_n+1)
+\]
+do not have compact closure in the normalized local topology with the setup
+pressure atlas fixed, then alternative \textup{(i)} below occurs.  Otherwise,
+after passing to a subsequence, let \(\calK_{\rm ext}\subset\mathfrak X_M^\#\)
+be a compact set containing all these recentered profiles.  Fix \(\alpha>0\),
+and let \(c_{\rm sl}(\calK_{\rm ext},\alpha)>0\) be the parabolic lower bound
+given by \Cref{lem:timeslice-to-ckn-activity} for the compact state class
+\(\calK_{\rm ext}\) and unit ball time-slice mass \(\alpha\).  Define
 \[
    m_n^{\rm vel}
    :=
    \sup_{\substack{|x|>R_n-2\\ |s-\tau_n|\le1}}
    \Vel_1\!\left(\mathscr T_{(x,s)}U;0\right).
 \]
-If \(m_n^{\rm vel}<c_{\rm sl}(M,\alpha)\), then every unit ball with center in
-the exterior collar satisfies
+If \(m_n^{\rm vel}<c_{\rm sl}(\calK_{\rm ext},\alpha)\), then every unit ball
+with center in the exterior collar satisfies
 \[
    \int_{B_1(x)}|U(y,\tau_n)|^3\,dy<\alpha
    \qquad (|x|>R_n-1).
@@ -9763,6 +9847,12 @@ subsequence:
 \end{lemma}
 
 \begin{proof}
+If the exterior recentering family has no compact closure in the normalized
+pressure-atlas topology, this is precisely the local compactness or pressure
+gauge failure alternative \textup{(i)}.  We therefore work under the compact
+closure assumption and use the compact set \(\calK_{\rm ext}\) from the
+statement.
+
 Since \(|U(\cdot,\tau_n)|^3dy\) is a nonatomic measure absolutely continuous
 with respect to Lebesgue measure, the lower bound on \(E_n\) allows us to
 choose a measurable subset \(F_n\subset E_n\) with
@@ -9781,19 +9871,20 @@ enlarging the balls by a fixed harmless factor.  Suppose that for some \(j\),
    \int_{B_1(x_{n,j})}|U(y,\tau_n)|^3\,dy\ge\alpha .
 \]
 Apply \Cref{lem:timeslice-to-ckn-activity} to the covariantly recentered
-solution \(\mathscr T_{(x_{n,j},\tau_n)}(U,\Pi)\).  At local time \(0\) the ball
-\(B_1(0)\) is the original ball \(B_1(x_{n,j})\).  Hence
+solution \(\mathscr T_{(x_{n,j},\tau_n)}(U,\Pi)\), which belongs to
+\(\calK_{\rm ext}\).  At local time \(0\) the ball \(B_1(0)\) is the original
+ball \(B_1(x_{n,j})\).  Hence
 \[
    \Vel_1\!\left(\mathscr T_{(x_{n,j},\tau_n)}U;0\right)
-   \ge c_{\rm sl}(M,\alpha),
+   \ge c_{\rm sl}(\calK_{\rm ext},\alpha),
 \]
 so the parabolic velocity part of the raw atlas defect measure on that unit
-cylinder has mass at least \(c_{\rm sl}(M,\alpha)\).  This is the only
+cylinder has mass at least \(c_{\rm sl}(\calK_{\rm ext},\alpha)\).  This is the only
 ``thickening'' used here: it applies to a unit ball with a quantitative
 time-slice lower bound, not to an arbitrarily diffuse exterior slice as a
 whole.  The displayed lower bound contradicts
-\(m_n^{\rm vel}<c_{\rm sl}(M,\alpha)\).  This proves the stated unit-ball
-time-slice bound.
+\(m_n^{\rm vel}<c_{\rm sl}(\calK_{\rm ext},\alpha)\).  This proves the stated
+unit-ball time-slice bound.
 
 Define discrete exterior slice measures on the observer centers by
 \[
@@ -9820,7 +9911,7 @@ If the mass is not seen at unit scale but becomes critical only after the
 logarithmic or normalized-tail compactification, it is the already
 listed critical-tail alternative \textup{(iii)}.  In the complementary case the
 escaping exterior slice measure persists, all unit exterior velocity observers are
-below the velocity threshold fixed by \(c_{\rm sl}(M,\alpha)\), pressure-only
+below the velocity threshold fixed by \(c_{\rm sl}(\calK_{\rm ext},\alpha)\), pressure-only
 observers have been assigned to the pressure alternatives, and no noncompact
 recentering remains.  The result is the
 parabolic diffuse exterior concentration alternative in
@@ -9874,9 +9965,9 @@ the proof of that theorem.
 
 \begin{lemma}[Indecomposable sequence-\(L^3\) completeness]
 \label{lem:atomic-sequence-L3}
-Let \((U,\Pi)\) be a bounded smooth ancient solution of
-\eqref{eq:centered-main}.  Suppose \(U\) has retained local velocity concentration and
-is terminally indecomposable in the sense of
+Let \((U,\Pi)\in\mathfrak X_M^\#\) be represented after canonical
+affine/parasitic normalization.  Suppose \(U\) has retained local velocity
+concentration and is terminally indecomposable in the sense of
 \Cref{def:atomic-terminal-profile}.  Then there exists a sequence
 \(\tau_k\to-\infty\) such that
 \[
@@ -9919,13 +10010,24 @@ This is the quantity which can be passed to a limiting profile by strong local
 \(L^3\) convergence.  Pressure-inclusive CKN mass in the same exterior windows
 is handled separately by \Cref{lem:no-pressure-only-retained-profile}.
 
+If some unit exterior covariant recentering sequence in the windows
+\[
+   \{|y|>R_n-2\}\times(\tau_n-1,\tau_n+1)
+\]
+has loss of local compactness or pressure-gauge compactness, terminal
+indecomposability is contradicted by the noncompact defect alternative.  Hence
+we may assume that the normalized pressure-atlas closure of all such exterior
+recentering profiles is compact; denote one compact closure by
+\(\calK_{\rm ext}\subset\mathfrak X_M^\#\).
+
 Fix once and for all a small \(\alpha_0>0\), and let
-\(c_{\rm sl}(M,\alpha_0)\) be the corresponding constant in
+\(c_{\rm sl}(\calK_{\rm ext},\alpha_0)\) be the corresponding compact-state
+constant from \Cref{lem:timeslice-to-ckn-activity}, as used in
 \Cref{lem:exterior-slice-to-diffuse-defect}.  By the threshold hierarchy
 \Cref{def:threshold-hierarchy}, lower the retained descendant threshold once,
 before reading terminal indecomposability for this bounded class, so that
 \[
-   4\eta_*<c_{\rm sl}(M,\alpha_0).
+   4\eta_*<c_{\rm sl}(\calK_{\rm ext},\alpha_0).
 \]
 This only makes the retained-tail test more sensitive and is independent of any
 later iterated extraction of descendant profiles.
@@ -9951,13 +10053,7 @@ Thus \(W\) is a retained concentrating covariant tail limit, contradicting
 terminal indecomposability.
 
 It remains to consider the case in which \(m_n^{\rm vel}<4\eta_*\) for
-all large \(n\).  If some unit exterior
-covariant recentering sequence in the windows
-\[
-   \{|y|>R_n-2\}\times(\tau_n-1,\tau_n+1)
-\]
-has loss of local compactness or pressure-gauge compactness, terminal
-indecomposability is contradicted by the noncompact defect alternative.  If the
+all large \(n\).  If the
 velocity concentration is small but the pressure-inclusive CKN mass is not,
 \Cref{lem:no-pressure-only-retained-profile} assigns the recentering either to
 pressure compactness failure, to the affine/parasitic pressure quotient, or to
@@ -9974,7 +10070,7 @@ together with the parabolic velocity smallness \(m_n^{\rm vel}<4\eta_*\)
 is now
 handled quantitatively by \Cref{lem:exterior-slice-to-diffuse-defect}.  Apply
 that lemma with \(m_0=1\), \(\alpha=\alpha_0\), and the inequality
-\(m_n^{\rm vel}<4\eta_*<c_{\rm sl}(M,\alpha_0)\).
+\(m_n^{\rm vel}<4\eta_*<c_{\rm sl}(\calK_{\rm ext},\alpha_0)\).
 If the lemma produces local compactness loss, pressure-gauge loss, pressure-only
 mass, or a critical-tail normalization, the branch is one of the already covered
 noncompact, pressure, affine/parasitic, or critical-tail alternatives.  In the

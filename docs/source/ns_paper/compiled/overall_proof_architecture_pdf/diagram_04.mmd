@@ -1,0 +1,40 @@
+flowchart TD
+  T["Positive local Type II concentration"] --> T1["Entry and analytic data: thm:c1-typeII-branch-exhaustion, cor:c1-ordered-exhaustion"]
+  T1 --> T2{"Repaired-gauge representation?"}
+  T2 -- "No" --> T2x["Representation failures: thm:c2-representation-implication, thm:c2r-minimal-representation"]
+  T2 -- "Yes" --> T3["Repaired branch: paper6:thm:representation"]
+  T3 --> T4{"Compact single retained core?"}
+  T4 -- "Yes" --> T4x["Single-core exclusion: paper1:thm:single-core-criterion, paper6:thm:single-core"]
+  T4 -- "No" --> T5{"Multibubble, cascade, or gauge degeneracy?"}
+  T5 -- "Yes" --> T5x["paper3:thm:multi, paper6:thm:multibubble"]
+  T5 -- "Same-point cascade" --> T5c["paper3:thm:same-point-reduction, paper8:thm:same-point-scale-separation"]
+  T3 --> T6{"Rough core or H1 loss?"}
+  T6 -- "Yes" --> T6x["paper4:thm:caccioppoli, paper6:thm:rough-core"]
+  T3 --> T7{"Scale collapse?"}
+  T7 -- "Finite cost" --> T7a["paper5:thm:cost-exclusion, paper6:thm:scale-cost"]
+  T7 -- "Autonomous or scale-rigid" --> T7b["paper5:thm:autonomous-limit, paper5:thm:scale-collapse-stratification"]
+  T7b --> T7c["Scale-rigidity discharge: paper3:prop:scale-rigidity-discharged"]
+  T3 --> T8{"Retained compact cost channel?"}
+  T8 -- "Yes" --> T8a["paper7:thm:carrier-validation-retained-stratum, paper7:thm:classwise-retained-compact-coverage"]
+  T8a --> T8b["Adjacent closure reduced to carrier completion: paper7:thm:adjacent-closure-reduced-to-carrier-completion"]
+  T8b --> T9{"Canonical moving carrier components"}
+  T9 -- "J1 fails" --> T9a["Transition/exterior routing: paper7:thm:windowwise-transition-routing-certificate"]
+  T9 -- "J6 fails" --> T9b["Negative drift branch: paper6a:thm:moving-cutoff-scale-collapse-alternative"]
+  T9 -- "J7 fails" --> T9c["Positive scale-work: paper7:thm:positive-scale-certificate-enters-scale-rigid"]
+  T9a --> T9x["paper7:thm:windowwise-routing-gives-stratified-routing"]
+  T9b --> T9x
+  T9c --> T9x
+  T3 --> T10{"Divergent compatible localized cost?"}
+  T10 -- "Yes" --> T10x["paper6a:thm:cost-divergence-routing-dichotomy, paper6a:thm:cost-divergence-exclusion-discharged"]
+  T3 --> T11{"Terminal hidden profile mass?"}
+  T11 -- "Yes" --> T11x["paper6a:thm:critical-ns-profile-decomposition-discharged"]
+  T4x --> CLOSED["State eliminated"]
+  T5x --> CLOSED
+  T5c --> CLOSED
+  T6x --> CLOSED
+  T7a --> CLOSED
+  T7c --> CLOSED
+  T9x --> CLOSED
+  T10x --> CLOSED
+  T11x --> CLOSED
+  CLOSED --> FINALII["paper6:prop:state-elimination, paper6:thm:unconditional-no-typeII, paper6:thm:local-typeII-exclusion"]

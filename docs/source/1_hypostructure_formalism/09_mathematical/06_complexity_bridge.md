@@ -11,9 +11,9 @@ title: "The P/NP Bridge to Classical Complexity"
 :class: feynman-prose
 Let me tell you what this chapter is about and why it matters. We have spent a lot of effort building a categorical
 framework for complexity theory: the five algorithm classes, the Algorithmic Completeness theorem, and the universal
-obstruction certificates. Parts VI--IX isolate the exact conditional internal route to
+obstruction certificates. Parts VI--IX isolate the exact internal route to
 $P_{\text{FM}} \neq NP_{\text{FM}}$: canonical $3$-SAT admissibility, the internal Cook--Levin reduction,
-the $\mathbf{HSAT}_{4.2}$ hard-set hypothesis, and the current E13 exclusion route on the canonical search
+the modal input dictionary theorem, and the current E13 exclusion route on the canonical search
 problem object, with the audited primitive appendix and canonical backend dossiers available as a stronger
 semantic implementation layer.
 
@@ -49,8 +49,7 @@ $$
 P_{\text{FM}} = P_{\text{DTM}} \quad\text{and}\quad NP_{\text{FM}} = NP_{\text{DTM}}
 $$
 
-Therefore, any internal separation obtained in the algorithmic chapter, including the
-$\mathbf{HSAT}_{4.2}$-conditional separation, exports along the bridge:
+Therefore, the internal separation obtained in the algorithmic chapter exports along the bridge:
 
 $$
 P_{\text{FM}} \neq NP_{\text{FM}} \quad\Rightarrow\quad P_{\text{DTM}} \neq NP_{\text{DTM}}
@@ -538,11 +537,10 @@ classical to Fragile and back again, for both P and NP, with only polynomial ove
 the manuscript actually needs.
 
 Now here is the punchline: once the internal theorem package yields
-$\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{FM}} \neq NP_{\text{FM}}$ using the hypostructure machinery,
-these equivalences immediately give
-$\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{DTM}} \neq NP_{\text{DTM}}$.
+$P_{\text{FM}} \neq NP_{\text{FM}}$ using the hypostructure machinery, these equivalences
+immediately give $P_{\text{DTM}} \neq NP_{\text{DTM}}$.
 
-The conditional internal separation exports to the conditional classical one. That is what these bridges buy us.
+The internal separation exports to the classical one. That is what these bridges buy us.
 :::
 
 
@@ -560,26 +558,22 @@ $$
 **Proof:** Immediate from {prf:ref}`cor-bridge-equivalence-rigorous`. $\square$
 :::
 
-:::{prf:corollary} Conditional Export of Separation
+:::{prf:corollary} Export of Separation
 :label: cor-export-separation
 
-Assuming $\mathbf{HSAT}_{4.2}$, the direct separation certificate
-({prf:ref}`def-direct-separation-certificate`) yields
+The direct separation certificate ({prf:ref}`def-direct-separation-certificate`) yields
 $P_{\text{FM}} \neq NP_{\text{FM}}$
 ({prf:ref}`thm-sufficiency-direct-separation-certificate`; see also
 {prf:ref}`cor-pfm-neq-npfm-from-random-3sat`).
 Combined with the bridge equivalence ({prf:ref}`cor-bridge-equivalence-rigorous`), it yields:
 
 $$
-\mathbf{HSAT}_{4.2}
-\Longrightarrow
 P_{\text{DTM}} \neq NP_{\text{DTM}}
 $$
 
 **Proof:**
 
-Assume $\mathbf{HSAT}_{4.2}$ and suppose for contradiction that
-$P_{\text{DTM}} = NP_{\text{DTM}}$.
+Suppose for contradiction that $P_{\text{DTM}} = NP_{\text{DTM}}$.
 
 By Corollary {prf:ref}`cor-class-equivalence-full`:
 
@@ -587,10 +581,9 @@ $$
 P_{\text{FM}} = P_{\text{DTM}} = NP_{\text{DTM}} = NP_{\text{FM}}
 $$
 
-Therefore $P_{\text{FM}} = NP_{\text{FM}}$, contradicting the internal separation obtained
-under $\mathbf{HSAT}_{4.2}$.
+Therefore $P_{\text{FM}} = NP_{\text{FM}}$, contradicting the internal separation.
 
-Thus $\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{DTM}} \neq NP_{\text{DTM}}$. $\square$
+Thus $P_{\text{DTM}} \neq NP_{\text{DTM}}$. $\square$
 :::
 
 :::{div}
@@ -614,7 +607,7 @@ The hypotheses break down into two types:
    in Part XIX.
 
 By the bridge package, the manuscript transports the internal statement
-$\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{FM}} \neq NP_{\text{FM}}$ to the DTM setting.
+$P_{\text{FM}} \neq NP_{\text{FM}}$ to the DTM setting.
 The audit package strengthens the proof trail but is not a separate logical prerequisite for the direct
 Part VI exclusion chain. The bridge neither adds nor removes proof content.
 
@@ -687,10 +680,10 @@ What this closes on the internal side is unchanged. Part XIX isolates the theore
    {prf:ref}`def-e13`,
    {prf:ref}`thm-e13-contrapositive-hardness`,
    {prf:ref}`thm-random-3sat-not-in-pfm`) excludes canonical Search-3-SAT from
-   $FP_{\text{FM}}$ under $\mathbf{HSAT}_{4.2}$, and the self-reduction theorem excludes
-   canonical Decision-3-SAT from $P_{\text{FM}}$ under the same hypothesis
+   $FP_{\text{FM}}$, and the self-reduction theorem excludes canonical Decision-3-SAT from
+   $P_{\text{FM}}$
 3. {prf:ref}`thm-internal-cook-levin-reduction` and {prf:ref}`thm-sat-membership-hardness-transfer` yield
-   $\mathbf{HSAT}_{4.2}\Rightarrow P_{\text{FM}} \neq NP_{\text{FM}}$
+   $P_{\text{FM}} \neq NP_{\text{FM}}$
 
 The Part IX barrier layer, the Part X thin-contract/factory layer, and the optional Part VIII dossier package are
 stronger reusable/audited routes to the same Step 2 conclusion.

@@ -1,0 +1,29 @@
+flowchart TD
+  R["Residual normalized Seregin profile"] --> R1{"Axisymmetric bounded circulation?"}
+  R1 -- "Yes" --> R1x["thm:R1-exclusion"]
+  R1 -- "No" --> R2{"Rotational relative equilibrium?"}
+  R2 -- "Yes" --> R2a["Local Coriolis/terminal routing: thm:terminal-stratification"]
+  R2a --> R2x["R2 closed through terminal package"]
+  R2 -- "No" --> R3{"Degenerate stationary hull?"}
+  R3 -- "Yes" --> R3a["thm:R3-no-attainable-degenerate-family"]
+  R3a --> R3b["thm:R3S-terminal-theorem, thm:R3S-no-active-stationary-carrier"]
+  R3 -- "No" --> R4{"Affine or parasitic quotient?"}
+  R4 -- "Yes" --> R4x["thm:oscillatory-entry-normalization"]
+  R4 -- "No" --> R5{"Log-diffuse or Young critical tail?"}
+  R5 -- "Log diffuse" --> R5a["thm:log-diffuse-from-hidden-scale"]
+  R5 -- "Young defect" --> R5b["thm:first-bad-mesoscopic-reduction, thm:no-hidden-scale-variance-realized-defects"]
+  R5a --> R5c["Critical-tail compactification: thm:critical-tail-compactification-extraction"]
+  R5b --> R5c
+  R5c --> R5x["thm:coherent-critical-tail-classification, thm:realized-critical-tail-rigidity"]
+  R5 -- "No" --> R6{"Generic terminal residual?"}
+  R6 -- "Yes" --> R6a["Terminal concentration: thm:terminal-exhaustion-main"]
+  R6a --> R6b["No nonactive/diffuse/mixed alternatives: thm:terminal-nonactive-exclusion, thm:no-mixed-compact-diffuse"]
+  R6b --> R6c["No separated or recurrent active descendants: thm:active-path-space-recurrence, thm:no-finite-separated-profile-family"]
+  R6c --> R6d["Endpoint L3 closure: thm:AB-main"]
+  R1x --> DONE["Residual class empty"]
+  R2x --> DONE
+  R3b --> DONE
+  R4x --> DONE
+  R5x --> DONE
+  R6d --> DONE
+  DONE --> FINAL["thm:R4-final-closure, thm:paperIV-residual-closure, cor:setup-residual-hypothesis-proof"]

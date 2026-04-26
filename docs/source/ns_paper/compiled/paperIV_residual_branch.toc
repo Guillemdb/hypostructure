@@ -31,8 +31,8 @@
 \contentsline {subsection}{\tocsubsection {}{9.3}{Hidden-scale Young variance}}{86}{subsection.9.3}%
 \contentsline {subsection}{\tocsubsection {}{9.4}{Complete closure of lower alternatives}}{104}{subsection.9.4}%
 \contentsline {section}{\tocsection {}{10}{Separated concentration profiles, indecomposability, and sequence-\(L^3\)}}{110}{section.10}%
-\contentsline {section}{\tocsection {}{11}{Closure of the generic terminal residual}}{125}{section.11}%
-\contentsline {section}{\tocsection {}{12}{Final assembly}}{126}{section.12}%
+\contentsline {section}{\tocsection {}{11}{Closure of the generic terminal residual}}{124}{section.11}%
+\contentsline {section}{\tocsection {}{12}{Final assembly}}{125}{section.12}%
 \contentsline {section}{\tocsection {Appendix}{A}{Setup Paper Label Dictionary}}{128}{appendix.A}%
 \contentsline {section}{\tocsection {Appendix}{B}{Generator calculus on compact recurrent cores}}{128}{appendix.B}%
 \contentsline {subsection}{\tocsubsection {}{B.1}{Hilbert space and unitary representation}}{129}{subsection.B.1}%

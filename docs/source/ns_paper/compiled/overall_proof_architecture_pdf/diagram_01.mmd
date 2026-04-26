@@ -1,0 +1,24 @@
+flowchart TD
+  A["Finite-energy suitable weak solution"] --> B["Assume terminal singular point z_*"]
+  B --> C{"Critical CKN or velocity concentration?"}
+  C -- "No" --> C0["Regularity: p0:thm:ckn, p0:thm:velocity-ckn, p0:thm:no-concentration"]
+  C -- "Yes" --> C1["Positive concentration: p0:thm:singular-positive, p0:cor:velocity-concentration"]
+  C1 --> D{"Local pointwise Type I envelope?"}
+  D -- "Yes" --> I0["Type I concentration sequence: p0:thm:local-weak-serrin-typeI"]
+  D -- "No" --> II0["Local Type II branch: p0:thm:typeI-typeII-dichotomy, paper6:thm:paper0"]
+  I0 --> I1["Seregin extraction: p1:thm:extraction"]
+  I1 --> I2{"Direct Liouville class?"}
+  I2 -- "Small or stationary" --> I3["p1:thm:classical-classes, p2:thm:NRS"]
+  I2 -- "Tight" --> I4["p1:thm:tight-liouville, p2:thm:tight-liouville"]
+  I2 -- "Structured or decay" --> I5["p1:thm:known-structure-decay-liouville, p3:thm:typeI-zero-hypotheses"]
+  I2 -- "Residual" --> R0["Paper IV residual tree"]
+  I3 --> IX["Contradiction with retained nonzero Seregin mass"]
+  I4 --> IX
+  I5 --> IX
+  R0 --> RX["Residual empty: thm:paperIV-residual-closure"]
+  RX --> IX
+  II0 --> T0["Type II state-space tree"]
+  T0 --> TX["No Type II branch remains: paper6:thm:local-typeII-exclusion"]
+  C0 --> END["No singular point"]
+  IX --> END
+  TX --> END
