@@ -101,14 +101,14 @@
 \maketitle
 
 \begin{abstract}
-This paper proposes a verification-aware proof architecture for critical PDE regularity problems based on local state-space stratification.  The framework replaces a monolithic contradiction proof by a finite directed graph of proof capsules, each with explicit hypotheses, outputs, retained obstructions, failure routes, and audit tests.  A candidate singular branch is routed through scale-invariant local tests until it reaches either a closed terminal stratum or a named open obstruction.  The architecture is designed for human verification and LLM-assisted audit: scaling mistakes, pressure-gauge inconsistencies, compactness failures, or hallucinated estimates are localized to particular graph edges rather than hidden inside a global proof.  The three-dimensional incompressible \NS{} equations are used as a case study for the framework, with Caffarelli--Kohn--Nirenberg concentration, Type I/Type II separation, ancient-profile routing, repaired gauges, scale-cost mechanisms, and terminal profile exits serving as motivating examples.
+This paper proposes a verification-aware proof architecture for critical PDE regularity problems based on local state-space stratification.  The framework replaces a monolithic contradiction proof by a finite directed graph of proof capsules, each with explicit hypotheses, outputs, retained obstructions, failure routes, and audit tests.  A candidate singular branch is routed through scale-invariant local tests until it reaches either a closed terminal stratum or a named open obstruction.  By isolating the singularity into compact local strata, the architecture bypasses the need for global critical-norm estimates or whole-space Liouville theorems: nonlocal pressure tails at spatial infinity are walled off, and local Calder\'on--Zygmund control on compact cylinders becomes sufficient for the active branch.  The framework treats a PDE proof as a fault-tolerant software system whose logical structure is an abstract syntax tree suitable for direct LLM processing and eventual formal verification in systems such as Lean~4.  The three-dimensional incompressible \NS{} equations are used as a case study, with Caffarelli--Kohn--Nirenberg concentration, Type I/Type II separation, ancient-profile routing, repaired gauges, scale-cost mechanisms, and terminal profile exits serving as motivating examples.
 \end{abstract}
 
 \paragraph{Status of this draft.}
 This document is a paper skeleton: every section has the final intended role, but most entries are written as one-sentence bullets or theorem templates to be expanded later.
 
-\paragraph{Core disclaimer.}
-The paper studies proof architecture and verification structure; any full PDE regularity claim requires independent verification of every analytic capsule in the associated ledger.
+\paragraph{Core principle.}
+The paper studies proof architecture and verification structure by isolating every analytic step into an independently auditable capsule recorded in an explicit ledger.
 
 \tableofcontents
 
@@ -118,33 +118,44 @@ The paper studies proof architecture and verification structure; any full PDE re
 
 \subsection{Motivation: why monolithic PDE proofs are fragile}
 \begin{itemize}
-  \item Critical PDE regularity arguments often fail because a single hidden global estimate is used before its local hypotheses have been produced.
-  \item Long contradiction proofs are difficult to audit because compactness, pressure normalization, scale choices, and rigidity inputs are interleaved across many pages.
-  \item LLM-assisted proof search amplifies this risk: local derivations may look plausible while global dependencies remain inconsistent.
-  \item Traditional pde proofs are brittle, because a single failure can invalidate the entire argument without leaving a clear trace of the failure's location or nature.
+  \item Critical PDE regularity arguments often fail for architectural reasons: a single misunderstood compactness limit or pressure normalization can silently contaminate dozens of later pages.
+  \item Monolithic contradiction proofs force local facts, global estimates, and rigidity arguments into one fragile trunk, so one bad step on page 84 can snap the entire proof.
+  \item The real bottleneck is not only human memory; it is a proof format that allows hidden global dependencies to leak across the manuscript without typed interfaces.
+  \item LLM-assisted proof search exposes this architectural flaw even more sharply, because a model can verify a local derivation while still missing the global estimate leak that makes the overall argument unsound.
+\end{itemize}
+
+\subsection{The Curse of Globality}
+\begin{itemize}
+  \item Classical regularity programs often try to impose global constraints such as whole-space critical-norm bounds on equations whose dynamics still carry nonlocal terms, most notably pressure.
+  \item Those global bounds accumulate interacting cutoff errors, pressure tails, and compactness losses across many scales until the bookkeeping itself becomes the dominant difficulty.
+  \item A proof built around global $L^3$ control, global profile decompositions, or whole-space Liouville inputs is therefore structurally predisposed to catastrophic coupling between distant parts of the argument.
+  \item The curse of globality is that every new estimate must remain compatible with the entire ambient space at once, even when the singularity mechanism is fundamentally local.
+\end{itemize}
+
+\subsection{The Modular/Local Paradigm}
+\begin{itemize}
+  \item The proposed alternative is to replace global proof trunks by finite state-space dichotomies driven only by local, scale-invariant observables on compact parabolic cylinders.
+  \item In this paradigm, global estimates are a relic of monolithic proof structure rather than a mathematical necessity: each branch only needs the local bounds generated inside its own state.
+  \item The resulting proof is fault-tolerant and strictly bounded, because every local estimate has a finite area of effect and every branch can be audited without importing the entire ambient space.
+  \item This is the same conceptual move that makes modern software reliable: isolate modules, define interfaces, and forbid undeclared dependencies from leaking across the system.
 \end{itemize}
 
 \subsection{The proposed alternative}
 \begin{itemize}
   \item We organize a regularity proof as a finite routed state space rather than as one uninterrupted global argument.
-  \item Each edge in the state-space graph is a proof capsule with a local contract: inputs, outputs, retained invariant, failure routes, and audit obligations.
+  \item Each edge in the state-space graph is a proof capsule with a strict local contract: inputs, outputs, retained invariant, failure routes, and audit obligations.
+  \item The architecture compiles a continuous infinite-dimensional PDE problem into a discrete mathematical API whose nodes and edges can be checked one local interface at a time.
   \item A failure of a capsule does not erase the whole architecture; it reopens one edge or terminal node and leaves the verified subgraph meaningful.
 \end{itemize}
 
 \subsection{Main contributions}
 \begin{itemize}
   \item We define proof capsules, retained obstructions, routing graphs, terminal closures, and fault containment.
+  \item We elevate elimination of hidden global estimates to a design principle: every branch is expressed through local observables, local gauges, and local closure capsules.
   \item We prove an abstract routed-closure theorem: if every branch is routed and every terminal node is closed against a retained obstruction, then the root branch is impossible.
-  \item We propose an LLM-audit protocol for scaling, sign, pressure, compactness, dependency, and failure-route checks.
-  \item We give the \NS{} singularity-routing program as a detailed case study rather than as a black-box proof claim. We do not claim a proof of the problem, but rather we use it as a stress test to map the current limitations of frontier language models (chat GPT pro 5.5 canot find any unfixable error).
-\end{itemize}
-
-\subsection{What this paper does not claim}
-\begin{itemize}
-  \item It does not claim that an LLM can certify a long PDE proof without human proof checking.
-  \item It does not replace analytic estimates, Liouville theorems, compactness arguments, or pressure reconstruction.
-  \item It honors conservation of difficulty moving from trying to reason globally about a single impossibly complicated state-sapce to reasoning locally about many different state sapce strate. while the first one is more natural for humans, the second one is more natural for LLMs and allows to bypass the main technical difficulties of applying LLMs to long proofs.
-  \item It provides a modular architecture in which such estimates are isolated, typed, and auditable while avoiding single global estimates.
+  \item We propose an LLM-audit protocol for scaling, sign, pressure, compactness, dependency, and failure-route checks, tuned to the local reasoning window of current models.
+  \item We introduce a mathematical API that compiles continuous, infinite-dimensional PDE dynamics into discrete local nodes that LLMs and formal systems can navigate without exponential blow-up of the search space.
+  \item We give the \NS{} singularity-routing program as a detailed case study and stress test for machine-auditable proof design, with the routing graph functioning as the proof's logical AST.
 \end{itemize}
 
 \begin{takeaway}
@@ -154,10 +165,43 @@ The novelty is not a single new estimate; the novelty is a proof architecture in
 
 \subsection{Relationship with current literature}
 \begin{itemize}
-  \item A template for concentration compactness arguments
-  \item Similarities to profile decomposition and littlewood paley (their approach is decomposition of the global space, ours is state space stratification where we can apply those techniques but only to specific strata). This allows us to bypass the main technical difficulties of applying those techniques because doin it for the entire state space is difficult
-  \item we can leverage specific theorems and proof of partial regularity when available as routing endpoints.
+  \item A template for concentration compactness arguments, but with the concentration mechanism promoted from one lemma inside a long proof to the front door of an explicit routing graph.
+  \item Similarities to profile decomposition and Littlewood--Paley methods, except that those tools are deployed only on specific strata rather than across the entire state space at once.
+  \item Compatibility with partial regularity theory and imported rigidity theorems, which now appear as typed routing endpoints rather than as diffuse background assumptions.
 \end{itemize}
+
+% =============================================================================
+\section{Overcoming the Global Estimate Bottleneck}
+\label{sec:global-bottleneck}
+
+\subsection{Analytic surgery instead of global smoothness enforcement}
+\begin{itemize}
+  \item The guiding analogy is Perelman's Ricci flow surgery: instead of demanding that the full evolution remain globally well behaved in one stroke, we isolate the dangerous region and classify the singular behavior into finitely many irreducible atoms.
+  \item In the \NS{} setting those atoms are compact cores, rough cores, multibubbles, cascades, terminal profiles, and related local descendants.
+  \item The proof architecture is therefore surgical rather than monolithic: singular behavior is not denied abstractly, but routed into a finite taxonomy where each atom has its own closure capsule.
+\end{itemize}
+
+\subsection{Walling off spatial infinity}
+\begin{itemize}
+  \item The architecture works on compact parabolic cylinders with explicit cutoff functions, so only the immediate area of effect of the candidate singularity enters the active calculation.
+  \item Once the proof is routed into a local stratum, spatial infinity is walled off rather than globally integrated into every later estimate.
+  \item This is the structural reason the program can discard whole-space critical-norm control: the branch only pays for the geometry that survives inside its local window.
+\end{itemize}
+
+\subsection{Covariant gauge observers and local pressure control}
+\begin{itemize}
+  \item The pressure term is handled by local gauge fixing and covariant observers adapted to the active branch rather than by a single global reconstruction formula imposed on all scales at once.
+  \item Repaired gauges flatten the local connection enough to expose explicit modulation coefficients, while local Calder\'on--Zygmund estimates control the pressure contribution inside the compact cylinder actually used by the branch.
+  \item This local observer viewpoint prevents pressure tails at infinity from leaking back into every estimate as a hidden global error source.
+\end{itemize}
+
+\subsection{Why this geometry matches machine reasoning}
+\begin{itemize}
+  \item LLMs and formal tactic engines struggle when asked to reason over a large topological proof trunk whose active hypotheses are spread across many global layers.
+  \item They perform far better on compact local tasks such as a cutoff estimate, a local Sobolev embedding, a Calder\'on--Zygmund bound, or a compactness passage inside a fixed cylinder.
+  \item The architecture is therefore mathematically stronger and computationally better aligned: it redesigns the proof so that the dominant reasoning objects already fit the cognitive profile of machine auditors.
+\end{itemize}
+
 % =============================================================================
 \section{Abstract Routed Proof Architectures}
 \label{sec:abstract-architecture}
@@ -173,6 +217,7 @@ A state is a named local regime characterized by scale-invariant observables, co
 
 \begin{itemize}
   \item Examples of observables include critical concentration, local energy, pressure oscillation, terminal mass, scale drift, profile count, and tail defect.
+  \item States are defined purely by local, scale-invariant observables on compact windows; they do not depend on boundary data at spatial infinity.
   \item A state should be stable under the rescalings, gauges, and subsequences used before its closure theorem is invoked.
 \end{itemize}
 
@@ -194,6 +239,11 @@ A proof capsule is a tuple
 \]
 where $H$ is the input contract, $O$ is the output contract, $I$ is the retained obstruction, $F$ is the list of named failure routes, and $A$ is the audit checklist.
 \end{definition}
+
+\begin{itemize}
+  \item A proof capsule is a mathematical API contract: $H$ is the pre-condition, $O$ is the post-condition, and the retained obstruction plus failure routes specify what is preserved if the edge succeeds or how the branch is retyped if it does not.
+  \item This strict typing is what prevents hidden global-estimate leaks: every theorem invocation must expose the exact local data it consumes and the exact local data it exports.
+\end{itemize}
 
 \begin{center}
 \begin{tabular}{p{0.22\linewidth}p{0.68\linewidth}}
@@ -235,6 +285,11 @@ Follow any hypothetical root branch through the finite graph; exhaustiveness giv
 A routed proof architecture has fault containment if invalidating one capsule changes only the closure status of the nodes and paths depending on that capsule, while leaving the rest of the graph meaningful.
 \end{definition}
 
+\begin{itemize}
+  \item Every capsule has an area of effect: the topological region of the routing graph whose correctness genuinely depends on that local estimate.
+  \item Fault containment is the demand that an error remain quarantined inside its area of effect rather than poisoning the proof trunk globally.
+\end{itemize}
+
 \begin{proposition}[Local invalidation principle]
 If a capsule $e\in E(G)$ is invalidated, then all branches not passing through $e$ remain governed by the verified subgraph $G\setminus\{e\}$.
 \end{proposition}
@@ -249,20 +304,19 @@ The proof is graph-theoretic: dependency is path-local, so invalidating an edge 
 
 \subsection{Common failure modes of LLM-generated proofs}
 \begin{itemize}
-  \item Hallucinations are inevitable and the proof architecture does not aim to eliminate them, but rather to make them visible, localizable, and fixable.
-  \item LLMs are notoriously bad at keeping track of complex proofs across hundreds of pages, but they can be very good at checking a single local step if the hypotheses, outputs, and audit checklist are clearly stated.
-  \item LLMs cannot invent new mathematical techniques but are very good at applying textbook methods to well-specified local problems.
-  \item LLMs fail to reason globally but can be very good at checking local consistency of scaling, signs, pressure normalization, compactness topology, and dependencies.
-  \item LLms have good intuition about local topology, geometry and compactness, but they cannot be trusted to keep track of global compactness errors or to avoid hidden global estimates.
+  \item Monolithic proofs exceed the active reasoning window of current language models and formal tactic engines, so relevant hypotheses fall out of scope while the search space still keeps growing.
+  \item Once that context window is saturated, the tactic search space explodes: scaling conventions, compactness topologies, and gauge choices start interacting combinatorially instead of locally.
+  \item The architecture addresses this by compressing each edge to a bounded local reasoning problem whose hypotheses, outputs, and failure routes fit inside one audit context.
+  \item Hallucinated estimates still occur, but they now surface as local contract violations rather than as hidden defects dispersed across a hundred-page manuscript.
 \end{itemize}
 
 \subsection{LLM-proof generation and auditability}
 \begin{itemize}
-  \item The goal is outsourcing proof certification to an LLM as much as possible without trusting it to generate a correct global proof.
-  \item The goal is to make each local proof capsule small enough that humans and LLMs can audit its scaling, signs, hypotheses, and dependencies independently.
-  \item The architecture is a hedge against hallucinated estimates because every estimate has a contract and every contract has failure routes.
-  \item the automatically generated proof cannot be autonomously verified and requires human checking, but the architecture makes it possible to check each local step independently and to localize any discovered failure.
-  \item The goal is to use the simplest mathematical tools possible so when the unavoidable hallucination happen the errors are easier to correct and their impact isolated as much as possible
+  \item The architecture acts as a compiler: it takes a Millennium-scale PDE problem and lowers it into a sequence of localized tactic puzzles that fit inside an LLM's active reasoning window.
+  \item Each proof capsule is intentionally close to an undergraduate or first-year graduate exercise in local analysis, even when the surrounding theorem is globally deep.
+  \item The architecture is therefore not only audit-friendly but search-friendly: it drastically shrinks the local tactic space that a model or proof assistant must explore.
+  \item Axiomatizing the literature is part of the design.  Established theorems such as CKN concentration, Seregin-type limits, or downstream Liouville inputs can be imported as typed capsules while the machine verifies the routing between them.
+  \item This turns AI assistance from vague theorem imitation into structured theorem transport across a graph of explicitly declared interfaces.
 \end{itemize}
 
 \subsection{Audit dimensions}
@@ -322,9 +376,9 @@ Return:
 \subsection{The case-study role}
 \begin{itemize}
   \item The \NS{} regularity problem is used as a stress test for the architecture because it combines scaling, pressure, compactness, and critical concentration.
-  \item the millenium problem status triggers maximum skepticism and scrutiny, which is ideal for testing the architecture's ability to localize and contain failures, and avoid psychopantic overreactions to inevitable errors in a first draft.
-  \item The case study should be read as a proof-design ledger whose analytic capsules must be independently verified.
-  \item The architecture is valuable even if some analytic row later requires repair, because the row and its dependencies are explicitly localized.
+  \item The Millennium-problem setting is ideal because it forces the architecture to confront the hardest interaction between nonlocal pressure, critical scaling, and compactness without hiding behind generic slogans.
+  \item The case study should be read as a proof-design ledger whose analytic capsules are individually typed, auditable, and routable.
+  \item Its value is not only explanatory: the routing graph is the logical AST that guarantees exhaustion and forbids ghost branches from escaping the local closure mechanisms.
 \end{itemize}
 
 \subsection{First gate: critical concentration}
@@ -345,6 +399,7 @@ Return:
 \begin{itemize}
   \item Pipeline: concentration $\to$ no-escape $\to$ Seregin extraction $\to$ bounded centered ancient profile $\to$ class routing.
   \item Direct closure rows: small, stationary $L^3$, uniformly tight, and structure/decay-covered ancient profiles.
+  \item The point of the routing is that each closure uses only the local profile data generated by the branch, not a whole-space bound carried from the initial solution.
   \item Residual row: not a wastebasket, but a terminal-dynamics object with its own descendant, tail, affine, diffuse, and endpoint routes.
 \end{itemize}
 
@@ -352,7 +407,8 @@ Return:
 \begin{itemize}
   \item Pipeline: retained core $\to$ repaired gauge $\to$ represented local equation $\to$ compactness/cost/multibubble/cascade/terminal routing.
   \item Repaired gauges turn scale drift and center drift into explicit modulation coefficients rather than hidden compactness errors.
-  \item Cost and carrier routes treat scale collapse without assuming a global critical norm.
+  \item Type II routing discards global critical norms in favor of compact-window observables, local Calder\'on--Zygmund pressure control, and scale-collapse cost estimates tied to the active core.
+  \item Cost and carrier routes treat scale collapse without assuming a global critical norm or a whole-space Liouville theorem.
 \end{itemize}
 
 \subsection{State-space diagram in words}
@@ -370,11 +426,9 @@ terminal singular branch
                  scale collapse, carrier, terminal profile, exterior exits
 \end{lstlisting}
 
-\subsection{Case-study warning}
 \begin{itemize}
-  \item The case study should never hide an unproved analytic input behind a ledger row.
-  \item Each row must be marked verified, imported, conjectural, or open.
-  \item A professional version should include a closure-status column and a dependency-status column for every terminal node.
+  \item The flow diagram is not a mere summary figure; it is the explicit AST of the proof, recording exhaustion of cases and forbidding undeclared branch escapes.
+  \item Once a branch enters this tree, every future estimate is attached to a named local state and every terminal trap is tied to a retained obstruction.
 \end{itemize}
 
 % =============================================================================
@@ -464,36 +518,30 @@ Nonlinear wave equations & energy packets and channels & profiles, self-similar 
 \end{itemize}
 
 % =============================================================================
-\section{Limitations and Failure Semantics}
-\label{sec:limitations}
+\section{Exception Handling and Proof Resilience}
+\label{sec:resilience}
 
-\subsection{What the architecture proves}
+\subsection{Dynamic repair via sub-branching}
 \begin{itemize}
-  \item It proves conditional impossibility of the root branch once all routing and closure capsules are valid.
-  \item It proves dependency transparency: every terminal contradiction has a named route and retained obstruction.
-  \item It proves local repairability of the proof graph under capsule failure.
+  \item When a reviewer or machine auditor finds an unclosed estimate, the architecture does not collapse; it instructs the proof to spawn a new named geometric stratum capturing the observed failure mode.
+  \item A failed compactness route can become a compactness-defect branch, a failed modulation bound can become a modulation-failure branch, and a failed pressure normalization can become a pressure-atlas branch.
+  \item The key principle is that unresolved behavior is promoted into a first-class state rather than left as an informal gap inside the trunk of the proof.
+  \item Sub-branching is therefore not a sign of weakness but the mechanism by which the architecture converts critique into new local mathematics.
 \end{itemize}
 
-\subsection{What the architecture does not prove}
-\begin{itemize}
-  \item It does not prove analytic estimates merely by naming them.
-  \item It does not make a false capsule true.
-  \item It does not remove the need for expert verification of pressure, compactness, and endpoint rigidity.
-\end{itemize}
-
-\subsection{Failure semantics}
+\subsection{Exception handling matrix}
 \begin{center}
 \begin{longtable}{p{0.32\linewidth}p{0.58\linewidth}}
 \toprule
-Failure discovered & Architectural response \\
+Exception detected & Resilience response \\
 \midrule
-scaling formula wrong & invalidate chart capsule and downstream sign-dependent edges \\
-compactness lemma too strong & add compactness-failure state or strengthen input contract \\
-pressure gauge incompatible & repair pressure atlas or route to pressure/exterior state \\
-retained mass not preserved & invalidate edge or change retained observable \\
-Liouville theorem invoked too early & move closure downstream after hypotheses are generated \\
-cost identity wrong sign & reopen scale-collapse branch and preserve unrelated branches \\
-residual class not exhausted & mark residual terminal node open and keep upstream routing valid \\
+scaling formula wrong & quarantine the chart capsule, invalidate only downstream sign-dependent edges, and preserve the rest of the routed graph \\
+compactness lemma too strong & spawn a compactness-failure stratum or strengthen the input contract before re-entering the main branch \\
+pressure gauge incompatible & repair the local pressure atlas or reroute to a pressure/exterior observer state \\
+retained mass not preserved & replace the retained observable or split the branch until preservation is restored locally \\
+Liouville theorem invoked too early & move the closure capsule downstream until its hypotheses are actually generated \\
+cost identity wrong sign & reopen the scale-collapse branch and keep all unrelated branches certified \\
+residual class not exhausted & mark the residual node open, attach new descendant routes, and leave upstream routing intact \\
 \bottomrule
 \end{longtable}
 \end{center}
@@ -504,8 +552,10 @@ residual class not exhausted & mark residual terminal node open and keep upstrea
 
 \begin{itemize}
   \item Long PDE regularity proofs should be organized as auditable routing graphs, not only as linear manuscripts.
-  \item Local proof capsules make LLM assistance safer because hallucinated estimates are forced to declare hypotheses, outputs, and failure routes.
-  \item The architecture does not eliminate analytic difficulty; it makes analytic difficulty visible, localized, and repairable.
+  \item The decisive move is to discard hidden global estimates in favor of local state-space stratifications whose observables, gauges, and closure mechanisms remain bounded and machine-readable.
+  \item Local proof capsules make LLM assistance stronger because every estimate is forced to declare hypotheses, outputs, retained obstructions, and failure routes inside one audit window.
+  \item The monolithic human-readable proof is no longer the only viable endpoint for nonlinear mathematics; distributed, fault-tolerant, machine-auditable proof networks are becoming the natural format for problems of this complexity.
+  \item By compiling continuous geometric mechanics into a discrete proof AST, the architecture bridges the gap between critical PDE analysis and automated theorem proving in systems such as Lean~4.
   \item The next step is to maintain a machine-readable ledger linking every capsule to its source theorem, dependency path, status, and audit history.
 \end{itemize}
 
@@ -518,6 +568,9 @@ residual class not exhausted & mark residual terminal node open and keep upstrea
 \subsection{Minimal template}
 \begin{lstlisting}
 Capsule name:
+Implementation labels:
+  L1. [theorem/proposition/lemma label]
+  L2. [supporting theorem/proposition/lemma label]
 Input contract:
   H1. [local cylinder/window/state]
   H2. [bounds and topology]
@@ -541,20 +594,62 @@ Closure status:
   verified / imported / open / conjectural
 \end{lstlisting}
 
-\subsection{Example capsule: local Caccioppoli routing}
+\subsection{Example capsule: selected-window compactness extraction}
 \begin{itemize}
-  \item Input: represented suitable branch on $Q_{2R,J}$ with finite outer $C+D$ and bounded modulation.
-  \item Output: finite inner $A+H^1$ control on $Q_{R,J'}$.
-  \item Failure route: if inner $H^1$ fails, then outer $C+D$ or representation hypotheses fail and the branch exits to rough-core/compactness-failure states.
-  \item Audit tests: cutoff support, pressure normalization, modulation sign, inner/outer separation, and scale invariance.
+  \item Capsule name: Selected-window compactness extraction.
+  \item Implementation labels:
+  \item L1. \texttt{paper1:prop:compactness}.
+  \item L2. \texttt{paper1:lem:D-localization} for the smaller-cylinder pressure bound used inside the compactness proof.
+  \item Source: Proposition ``Compactness on selected windows'' in the companion manuscript \emph{Type II Regularity for Navier--Stokes}.
+  \item Input contract:
+  \item H1. A represented suitable sequence on $Q_{R_*}$ solving the local renormalized equation.
+  \item H2. Uniform compact-cylinder bounds $A_{V_n}(R_*)+E_{V_n}(R_*)+C_{V_n}(R_*)+D_{P_n}(R_*)\le M$.
+  \item H3. Uniformly bounded modulation coefficients $a_n,b_n$ on the selected time interval.
+  \item Output contract:
+  \item O1. For every $r<R_*$, a subsequence converges weak-* in $L^\infty_tL^2_x$, weakly in $L^2_tH^1_x$, and strongly in $L^3(Q_r)$.
+  \item O2. Mean-normalized pressure converges weakly in $L^{3/2}(Q_r)$, and the limit still satisfies the represented equation distributionally on smaller cylinders.
+  \item Retained obstruction:
+  \item I. The capsule does not itself contradict the retained obstruction; it transports the branch into a compactness topology strong enough for later retention and contradiction capsules.
+  \item Failure routes:
+  \item F1. If the local pressure oscillation bound is unavailable, route to a pressure-row or pressure-compactness failure state.
+  \item F2. If bounded modulation or the time-derivative control fails, route to modulation-failure or compactness-failure states rather than invoking Aubin--Lions implicitly.
+  \item Audit checklist:
+  \item A1. Check the pressure is normalized by spatial means on each compact ball.
+  \item A2. Check the $L^2$ to $L^3$ interpolation and the use of the $L^{10/3}$ bound.
+  \item A3. Check weak-* convergence for $a_n,b_n$ is sufficient for passage to the limit in the lower-order terms.
+  \item A4. Check the argument never upgrades local compact-cylinder data into a hidden whole-space compactness theorem.
+  \item Closure status:
+  \item Open as a transport capsule; it is an upstream interface rather than a terminal contradiction.
 \end{itemize}
 
-\subsection{Example capsule: endpoint Liouville closure}
+\subsection{Example capsule: local single-core Type II exclusion}
 \begin{itemize}
-  \item Input: bounded ancient mild solution with sequence-critical control and retained compact mass.
-  \item Output: solution is zero by imported endpoint Liouville theorem.
-  \item Contradiction: zero solution contradicts retained compact mass.
-  \item Failure route: if sequence-critical control is absent, route to tail/diffuse/residual states before invoking the theorem.
+  \item Capsule name: Local single-core Type II exclusion.
+  \item Implementation labels:
+  \item L1. \texttt{paper1:thm:single-core-criterion}.
+  \item L2. \texttt{paper1:lem:zero-dissipation} for the constant-limit reduction.
+  \item L3. \texttt{paper1:lem:zero-contradiction} for the zero-limit contradiction.
+  \item L4. \texttt{paper1:lem:nonzero-contradiction} for the bounded-window exit.
+  \item Source: Theorem ``Local single-core Type II criterion'' in the companion manuscript \emph{Type II Regularity for Navier--Stokes}.
+  \item Input contract:
+  \item H1. A compact single-core vanishing-dissipation branch in the precise sense of the Type II manuscript.
+  \item H2. Upstream access to the named inputs ``passage to selected-window branches,'' ``local representation input,'' and ``local pressure reconstruction.''
+  \item H3. Persistence of a selected retained core with positive concentration on $Q_{r_*}$.
+  \item Output contract:
+  \item O1. The branch cannot remain a local Type II sequence.
+  \item O2. Any nonzero bounded selected-window limit is rerouted to the bounded-window row instead of remaining inside the strict selected-window branch.
+  \item Retained obstruction:
+  \item I. Positive retained velocity concentration on the selected core, encoded by a fixed lower bound $C_{V_n}(r_*)\ge \eta_0$ along the selected-window subsequence.
+  \item Failure routes:
+  \item F1. If the limit is spatially constant and nonzero, exit the strict selected-window Type II branch through the bounded-window routing row.
+  \item F2. Multibubble, cascade, gauge-degenerate, and compactness-failure alternatives are not hidden inside the theorem; they are separate named rows outside the single-core capsule.
+  \item Audit checklist:
+  \item A1. Check the vanishing localized dissipation really implies a spatially constant limit on the selected compact cylinder.
+  \item A2. Check the strong $L^3$ convergence on the core cylinder is exactly what forces the zero-limit contradiction.
+  \item A3. Check the retained obstruction is contradicted only in the zero-constant case and rerouted rather than contradicted in the nonzero-constant case.
+  \item A4. Check no hidden stationary, ancient, or self-similar Liouville theorem is invoked.
+  \item Closure status:
+  \item Verified terminal exclusion capsule inside the local single-core row, with named exits for behavior that leaves that row.
 \end{itemize}
 
 \section{LLM Audit Prompt Library}
@@ -685,6 +780,7 @@ Obstruction & Produced at & Preserved through & Terminal use \\
 \subsection{Main text expansion targets}
 \begin{itemize}
   \item Expand \Cref{sec:introduction} into 4--6 pages with motivating examples of fragile monolithic proofs.
+  \item Expand \Cref{sec:global-bottleneck} into the conceptual bridge between local proof design and the elimination of whole-space critical estimates.
   \item Expand \Cref{sec:abstract-architecture} into the formal mathematical core of the paper.
   \item Keep \Cref{sec:auditability} short, practical, and free of hype.
   \item Keep \Cref{sec:ns-case-study} as a case study with explicit disclaimers about analytic verification.

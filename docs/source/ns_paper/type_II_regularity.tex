@@ -223,15 +223,22 @@ branch if it has positive local Caffarelli--Kohn--Nirenberg concentration on
 some fixed compact cylinder and no selected-window subsequence has a nonzero
 bounded selected-window limit on any compact cylinder in the sense of
 \cref{paper1:def:bounded-window-limit}.
-
-This is a branch condition inside the selected-window state-space analysis.  It
-is not the physical definition of a local Type II singular germ.  Physical local
-Type II germs are defined later in
-\cref{paper6:def:physical-local-typeII-germ}.  If a selected branch has a
-nonzero bounded selected-window limit, it leaves the strict selected-window
-branch and is handled by the bounded-window physical routing theorem rather
-than being declared incompatible with physical Type II by definition.
 \end{definition}
+
+\begin{remark}[Strict selected-window Type II versus physical Type II]
+\label{paper1:rem:strict-selected-window-vs-physical-typeII}
+\Cref{paper1:def:typeII} is a local branch condition inside the
+selected-window state-space decomposition.  It is not the definition of a
+physical Type II singular germ; physical local Type II germs are defined later
+in \cref{paper6:def:physical-local-typeII-germ} by failure of the local
+Type I scale-invariant bound at a singular point.  A bounded selected-window
+limit is therefore not discarded as ``not physically Type II''; it leaves the
+strict selected-window branch and is routed through the bounded-window local
+closure row by
+\cref{paper3:lem:scale-rigid-bounded-limit-exit,paper6:thm:bounded-selected-window-physical-routing}.
+Only after that row is closed, or reselected into one of the named local
+alternatives, may the proof continue in the strict selected-window branch.
+\end{remark}
 
 \begin{definition}[Compact single-core vanishing-dissipation branch]\label{paper1:def:single-core-branch}
 Fix radii \(0<r_*<R_*\), constants \(M<\infty\), \(\eta_0>0\), and a sequence
@@ -1311,6 +1318,74 @@ The larger ball is only a domain buffer: all gauge integrals are supported in
 \(B_{2R}\), while \((\lambda,c)\) is restricted near \((1,0)\) so that
 \(c+\lambda B_{2R}\subset B_{4R}\).
 
+For the actual repaired-gauge implicit-function step we use the following
+strong local chart class.
+
+\begin{definition}[Strong translation-admissible gauge class]
+\label{paper2:def:strong-translation-admissible-gauge-class}
+Fix \(0<p<3\) and \(R>0\).  Let \(\chi_R\in C_c^\infty(B_{2R})\).
+A profile \(V\) belongs to \(\mathcal A^{\rm tr,C^1}_{p,R}\) if there exists
+\(\delta_0>0\) such that the following maps are finite and continuous for
+\[
+   |c|+|\lambda-1|<\delta_0,\qquad \lambda>0:
+\]
+\[
+   \mathcal J(c,\lambda;V)
+   :=
+   \int_{B_{2R}}\chi_R(Y)|Y|^{-p}|V(c+\lambda Y)|^3\,dY ,
+\]
+\[
+\begin{aligned}
+   \mathcal J_{c_k}(c,\lambda;V)
+   &:=
+   \lambda^{-1}
+   \left[
+   p\int_{B_{2R}}\chi_R(Y)Y_k|Y|^{-p-2}|V(c+\lambda Y)|^3\,dY \right.\\
+   &\hspace{2.7cm}\left.
+   -
+   \int_{B_{2R}}\partial_k\chi_R(Y)|Y|^{-p}|V(c+\lambda Y)|^3\,dY
+   \right],
+\end{aligned}
+\]
+and
+\[
+\begin{aligned}
+   \mathcal J_{\lambda}(c,\lambda;V)
+   &:=
+   -\lambda^{-1}
+   \int_{B_{2R}}
+   \left[(3-p)\chi_R(Y)+Y\cdot\nabla\chi_R(Y)\right]
+   |Y|^{-p}|V(c+\lambda Y)|^3\,dY .
+\end{aligned}
+\]
+The analogous continuity requirements are imposed on the remaining moment
+functionals used to fix the translation and orientation gauges.
+\end{definition}
+
+\begin{lemma}[Gauge chart entry test]
+\label{paper2:lem:strong-gauge-chart-entry-test}
+\label{paper2:lem:gauge-differentiability-entry}
+At every point where the repaired gauge normalization is used, exactly one of
+the following occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the profile belongs to the strong translation-admissible class
+\(\mathcal A^{\rm tr,C^1}_{p,R}\), and the gauge Jacobian is nondegenerate;
+\item the profile fails to belong to
+\(\mathcal A^{\rm tr,C^1}_{p,R}\), or the gauge Jacobian degenerates.  This is
+the repaired-gauge degeneracy row.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This is the ordered gauge test in the local state-space algorithm.  The test is
+performed before applying the implicit-function theorem.  If the strong chart
+conditions and Jacobian nondegeneracy hold, the branch proceeds through the
+regular gauge chart.  If either condition fails, the first failed test is the
+repaired-gauge degeneracy row.  No closure theorem is used in this routing
+step; closure of the degeneracy row is supplied later by the gauge-degeneracy
+closure theorem.
+\end{proof}
+
 \begin{definition}[Gauge actions]\label{paper2:def:gauge-action}
 For \((\lambda,c)\in (0,\infty)\times\RR^3\), define
 \[
@@ -1404,111 +1479,105 @@ For each component this is a direct substitution:
 \]
 \end{proof}
 
-\begin{lemma}[Weighted translation differentiability]
+\begin{lemma}[Weighted gauge functionals are \(C^1\) on the strong chart]
+\label{paper2:lem:weighted-gauge-C1-strong-chart}
 \label{paper2:lem:weighted-translation-differentiability}
 Let \(0<p<3\), let \(\chi_R\in C_c^\infty(B_{2R})\), and let
-\(V\in\mathcal A_{p,R}\). Then the map
+\(V\in\mathcal A^{\rm tr,C^1}_{p,R}\).  Define
 \[
-  c\mapsto \int \chi_R(Y)|Y|^{-p}|V(c+Y)|^3\,dY
+   \mathcal J(c,\lambda;V)
+   :=
+   \int_{\RR^3}\chi_R(Y)|Y|^{-p}|V(c+\lambda Y)|^3\,dY
 \]
-is differentiable at \(c=0\), and
+for \(|c|+|\lambda-1|<\delta_0\).  Then \((c,\lambda)\mapsto\mathcal J(c,\lambda;V)\)
+is \(C^1\) on this neighborhood.  In particular,
 \[
-  \partial_{c_k}
-  \int \chi_R|Y|^{-p}|V(c+Y)|^3\,dY\bigg|_{c=0}
-  =
-  p\int \chi_RY_k|Y|^{-p-2}|V|^3\,dY
-  -\int(\partial_k\chi_R)|Y|^{-p}|V|^3\,dY .
+\partial_{c_k}\mathcal J(c,\lambda;V)
+=
+\mathcal J_{c_k}(c,\lambda;V),
+\qquad
+\partial_{\lambda}\mathcal J(c,\lambda;V)
+=
+\mathcal J_{\lambda}(c,\lambda;V).
+\]
+At \((c,\lambda)=(0,1)\),
+\[
+\partial_{c_k}\mathcal J(0,1;V)
+=
+ p\int \chi_R(Y)Y_k|Y|^{-p-2}|V(Y)|^3\,dY
+-
+ \int (\partial_k\chi_R)(Y)|Y|^{-p}|V(Y)|^3\,dY,
+\]
+\[
+\partial_\lambda \mathcal J(0,1;V)
+=
+-\int \left[(3-p)\chi_R(Y)+Y\cdot\nabla\chi_R(Y)\right]
+|Y|^{-p}|V(Y)|^3\,dY.
 \]
 \end{lemma}
 
 \begin{proof}
-First assume \(V\) is smooth and compactly supported in \(B_{4R}\).  Then
-differentiation under the integral sign is legitimate and
+First assume \(V\) is smooth.  Differentiating under the integral sign and
+integrating by parts in the \(Y\)-variable gives the displayed formulas.  The
+factor \(\lambda^{-1}\) appears because
 \[
-  \partial_{c_k}\int \chi_R|Y|^{-p}|V(c+Y)|^3\,dY\bigg|_{c=0}
-  =3\int \chi_R|Y|^{-p}|V|\,V\cdot\partial_kV\,dY.
+   \partial_{Y_k}|V(c+\lambda Y)|^3
+   =
+   \lambda\,\partial_{x_k}|V(c+\lambda Y)|^3 .
 \]
-Integrating by parts gives the displayed identity.
+Thus
+\[
+   \partial_{c_k}|V(c+\lambda Y)|^3
+   =
+   \lambda^{-1}\partial_{Y_k}|V(c+\lambda Y)|^3 .
+\]
+Similarly,
+\[
+   \partial_\lambda |V(c+\lambda Y)|^3
+   =
+   Y\cdot\nabla_x |V(c+\lambda Y)|^3
+   =
+   \lambda^{-1}Y\cdot\nabla_Y |V(c+\lambda Y)|^3 .
+\]
+Integrating by parts gives the formulas for
+\(\mathcal J_{c_k}\) and \(\mathcal J_\lambda\).
 
-For general \(V\in\mathcal A_{p,R}\), mollify \(V\) inside \(B_{4R}\) and
-apply the smooth identity to \(V^\varepsilon\).  The defining weighted bounds
-\[
-  \int |Y|^{-p}|V|^3\,dY<\infty,\qquad
-  \int |Y|^{-p-1}|V|^3\,dY<\infty
-\]
-control the singular part, while the cutoff derivative term is supported on a
-compact annulus away from the origin and is controlled by local \(L^3\).
-Hence both right-hand side integrals converge as \(\varepsilon\downarrow0\).
-The translated integrals converge locally uniformly for \(c\) near \(0\) under
-the same weighted bounds, so the derivatives converge to the claimed formula.
+For general \(V\in\mathcal A^{\rm tr,C^1}_{p,R}\), mollify \(V\) in space.
+The smooth formulas hold for the mollified profiles.  The defining continuity
+and finiteness properties of \(\mathcal A^{\rm tr,C^1}_{p,R}\) allow the
+mollification parameter to be sent to zero in the functionals and in their
+displayed derivative expressions.  Thus the displayed derivatives exist for
+\(V\), and the derivative maps are continuous by definition of the strong chart
+class.
 \end{proof}
 
 \begin{proposition}[Differentiability of \(\mathcal F\)]\label{paper2:prop:gauge-C1}
-For each fixed \(V\in\mathcal A_{p,R}\), the map
+For each fixed \(V\in\mathcal A^{\rm tr,C^1}_{p,R}\), the map
 \((\lambda,c)\mapsto \mathcal F(\lambda,c;V)\) is \(C^1\) in a neighborhood of
 \((1,0)\). In each component \( \mathcal F_\alpha\) all derivatives under the
-integral sign are legitimate.
+integral sign are legitimate on the retained gauge chart.  By
+\cref{paper2:lem:strong-gauge-chart-entry-test}, every retained
+repaired-gauge branch either lies in \(\mathcal A^{\rm tr,C^1}_{p,R}\) on the
+selected chart, or has already exited through the repaired-gauge degeneracy
+row before this proposition is invoked.
 \end{proposition}
 
 \begin{proof}
-Fix \((\lambda,c)\) near \((1,0)\), and abbreviate
-\[
-V_{\lambda,c}(Y):=\lambda V(c+\lambda Y).
-\]
-By direct differentiation,
-\[
-\partial_\lambda V_{\lambda,c}
-=\lambda^{-1}V_{\lambda,c}+\lambda^{-1}Y\cdot\nabla V_{\lambda,c},\qquad
-\partial_{c_k}V_{\lambda,c}=\lambda\,\partial_kV(c+\lambda Y)
-=\lambda^{-1}\partial_kV_{\lambda,c}.
-\]
-The neighborhood of \((1,0)\) is chosen so that the arguments of \(V\) remain
-inside \(B_{4R}\) for \(Y\in\supp\chi_R\). The scale derivative is controlled by
-the two weighted integrability conditions
-\[
-\int |Y|^{-p}|V|^3<\infty,\qquad
-\int |Y|^{-p}|V|\,|Y\cdot\nabla V|<\infty,
-\]
-transported by the smooth change of variables. The translation derivative in
-the scale component is supplied by
-\cref{paper2:lem:weighted-translation-differentiability}. The translation
-components are supported in \(B_{2R}\)
-and are controlled by \(V\in L^2_{\rm loc}\) and \(\nabla V\in L^3_{\rm loc}\).
-These bounds give an integrable majorant for the remaining nonsingular
-difference quotients, so dominated convergence applies there.
-\[
-\mathcal F_0(\lambda,c;V)
-=\int_{\RR^3}\chi_R(Y)\,|Y|^{-p}|V_{\lambda,c}|^3\,\dd Y-\Theta_0,
-\]
-for which dominated convergence gives
-\[
-\partial_{\lambda}\mathcal F_0
-=\int_{\RR^3}\chi_R|Y|^{-p}\,3|V_{\lambda,c}|\,V_{\lambda,c}\cdot\partial_\lambda V_{\lambda,c}\,dY,
-\]
-\[
-\partial_{c_k}\mathcal F_0
-=\int_{\RR^3}\chi_R|Y|^{-p}\,3|V_{\lambda,c}|\,V_{\lambda,c}\cdot\partial_{c_k}V_{\lambda,c}\,dY.
-\]
-Similarly
-\[
-\mathcal F_j(\lambda,c;V)=\int_{\RR^3}Y_j\chi_R(Y)\,|V_{\lambda,c}|^2\,\dd Y,\quad j=1,2,3,
-\]
-hence
-\[
-\partial_\lambda \mathcal F_j
-\ =\int_{\RR^3}2Y_j\chi_R\,V_{\lambda,c}\cdot\partial_\lambda V_{\lambda,c}\,dY,
-\]
-\[
-\partial_{c_k}\mathcal F_j
-=\int_{\RR^3}2Y_j\chi_R\,V_{\lambda,c}\cdot\partial_{c_k}V_{\lambda,c}\,dY.
-\]
+The \(C^1\) regularity of the gauge functionals follows from
+\cref{paper2:lem:weighted-gauge-C1-strong-chart}.  The nondegeneracy of the
+Jacobian is part of the regular gauge-chart alternative in
+\cref{paper2:lem:strong-gauge-chart-entry-test}.  The implicit-function theorem
+therefore gives the claimed local \(C^1\) gauge map.  If either the strong
+translation-admissible chart condition or the Jacobian nondegeneracy fails, the
+branch is routed to the repaired-gauge degeneracy row and is not treated by
+this proposition.
 Thus each component admits pointwise \(C^1\) formulas and these are continuous in
 \((\lambda,c)\) near \((1,0)\). Therefore \((\lambda,c)\mapsto\mathcal F(\lambda,c;V)\in C^1\)
 near \((1,0)\).
 \end{proof}
 
 \begin{proposition}[Full local Jacobian at \((1,0)\)]\label{paper2:prop:full-jacobian}
-Let \(V\in\mathcal A_{p,R}\).
+Let \(V\in\mathcal A^{\rm tr,C^1}_{p,R}\).
 Set \(V_0(Y)=V(Y)\).
 At \((\lambda,c)=(1,0)\), the matrix
 \[
@@ -3403,7 +3472,158 @@ is the selected-cylinder modulation control of
 scale-rigid stratum.
 \end{remark}
 
-\begin{lemma}[Bounded selected-window limits exit the strict selected-window branch]
+\begin{lemma}[Bounded selected-window limits have VMO pressure]
+\label{paper3:lem:bounded-window-vmo-pressure}
+Let \((V_n,P_n)\) be a represented suitable sequence on a parabolic cylinder
+\(Q_R\), with the local pressure atlas and compact-cylinder suitable bounds
+available on every \(Q_{R'}\Subset Q_R\).  Assume that, after subtracting
+functions of time from \(P_n\),
+\[
+   V_n\to V_*
+   \qquad\text{strongly in }L^3(Q_R),
+\]
+and that
+\[
+   V_*\in L^\infty(Q_R).
+\]
+Then, after passing to a subsequence, there exists a pressure \(P_*\) such that
+\[
+   P_n\rightharpoonup P_*
+   \qquad\text{weakly in }L^{3/2}_{\mathrm{loc}}(Q_R),
+\]
+and \((V_*,P_*)\) is a suitable weak solution on every compact subcylinder of
+\(Q_R\).  Moreover, \(V_*\) and \(P_*\) are smooth on every
+\(Q_{R''}\Subset Q_R\).  Consequently, for every \(Q_{R''}\Subset Q_R\),
+\[
+   \lim_{\rho\downarrow0}
+   \sup_{Q_\rho(z)\Subset Q_{R''}}
+   \left[
+      \rho^{-2}\iint_{Q_\rho(z)} |V_*|^3
+      +
+      \rho^{-2}\iint_{Q_\rho(z)}
+      |P_*-(P_*)_{B_\rho(x_z)}(t)|^{3/2}
+   \right]
+   =0.
+\]
+Finally, on every smaller subcylinder, the local Calder\'on--Zygmund pressure
+pieces associated to \(V_n\otimes V_n\) converge strongly in \(L^{3/2}\) to the
+corresponding local pressure piece associated to \(V_*\otimes V_*\).
+\end{lemma}
+
+\begin{proof}
+Fix \(Q_{4r}(z_0)\Subset Q_R\), and let \(\zeta\in C_c^\infty(B_{4r}(x_0))\)
+satisfy \(\zeta\equiv1\) on \(B_{3r}(x_0)\).  Decompose, after subtracting a
+function of time,
+\[
+   P_n=P_n^{\mathrm{loc}}+H_n,
+\]
+where
+\[
+   -\Delta P_n^{\mathrm{loc}}
+   =
+   \partial_i\partial_j\bigl(\zeta (V_n)_i(V_n)_j\bigr)
+\]
+in \(B_{4r}(x_0)\), and \(H_n(\cdot,t)\) is harmonic in \(B_{3r}(x_0)\) for
+a.e. \(t\).
+Since
+\[
+   V_n\to V_*
+   \qquad\text{strongly in }L^3(Q_{4r}(z_0)),
+\]
+we have
+\[
+   V_n\otimes V_n\to V_*\otimes V_*
+   \qquad\text{strongly in }L^{3/2}(Q_{4r}(z_0)).
+\]
+Thus the Calder\'on--Zygmund estimate gives
+\[
+   P_n^{\mathrm{loc}}\to P_*^{\mathrm{loc}}
+   \qquad\text{strongly in }L^{3/2}(Q_{4r}(z_0)),
+\]
+where
+\[
+   -\Delta P_*^{\mathrm{loc}}
+   =
+   \partial_i\partial_j\bigl(\zeta (V_*)_i(V_*)_j\bigr).
+\]
+The pressure-atlas bounds give \(H_n\) bounded in
+\(L^{3/2}_tL^{3/2}_x(Q_{3r}(z_0))\).  Since \(H_n(\cdot,t)\) is harmonic in
+space, the interior harmonic estimates imply compactness of \(H_n\) in
+\(L^{3/2}_tC^m_x(B_{2r}(x_0))\) for each fixed finite \(m\), after passing to a
+subsequence.  Hence
+\[
+   H_n\to H_*
+   \qquad\text{strongly in }L^{3/2}_{\mathrm{loc}}(Q_{2r}(z_0)).
+\]
+Set \(P_*:=P_*^{\mathrm{loc}}+H_*\).  Passing to the limit in the represented equation
+uses the strong \(L^3\) convergence of \(V_n\) and the weak \(L^{3/2}\)
+compactness of \(P_n\); the local energy inequality passes to the limit by
+lower semicontinuity of the dissipation and strong convergence of the cubic
+velocity terms.  Thus \((V_*,P_*)\) is suitable on compact subcylinders.
+
+Since \(V_*\in L^\infty(Q_R)\), local Serrin regularity for bounded suitable
+solutions gives smoothness of \(V_*\) on every \(Q_{R''}\Subset Q_R\).  The
+pressure relation then gives smoothness of \(P_*\), modulo functions of time,
+on the same subcylinders.  Therefore the scaled CKN quantities vanish
+uniformly on compact subcylinders as \(\rho\downarrow0\), and the strong
+convergence of the local pressure pieces has already been proved above.
+\end{proof}
+
+\begin{lemma}[Bounded selected-window limits are CKN-small away from pressure failure]
+\label{paper3:lem:bounded-window-ckn-smallness}
+Let \((V_n,P_n)\) be represented suitable windows on a compact cylinder
+\(Q_R(z_0)\).  Suppose that, after passing to a subsequence,
+\[
+   V_n\to V_*
+   \qquad\text{strongly in }L^3(Q_R(z_0)),
+   \qquad V_*\in L^\infty(Q_R(z_0)).
+\]
+Assume also that the local pressure atlas / pressure reconstruction row has
+not failed on \(Q_R(z_0)\).  Then for every compact subcylinder
+\(Q\Subset Q_R(z_0)\) and every \(\varepsilon>0\) there exists
+\(0<\rho_Q<R\), depending only on \(Q\), \(\varepsilon\), the local pressure
+atlas, and \(\|V_*\|_{L^\infty(Q_R)}\), such that
+\[
+   C_{V_n}(z,\rho_Q)+D_{P_n}(z,\rho_Q)<\varepsilon
+\]
+for all sufficiently large \(n\) and every admissible parabolic cylinder
+\(Q_{\rho_Q}(z)\Subset Q\).  If this conclusion fails, then the first failed
+local test is the pressure atlas, pressure gauge, or pressure compactness row.
+\end{lemma}
+
+\begin{proof}
+Fix \(Q\Subset Q_R(z_0)\).  Because \(V_*\in L^\infty(Q_R)\), for every
+\(z\in Q\) one has
+\[
+   C_{V_*}(z,\rho)
+   =\rho^{-2}\int_{Q_\rho(z)}|V_*|^3\,dx\,dt
+   \le \|V_*\|_{L^\infty(Q_R)}^3\,\rho^3\to0
+\]
+as \(\rho\downarrow0\), uniformly for \(Q_\rho(z)\Subset Q\).  Choose
+\(\rho_Q\) so that this velocity contribution is below \(\varepsilon/8\) on a
+finite cover of \(Q\).  Strong convergence in \(L^3(Q_R)\) then gives
+\[
+   C_{V_n-V_*}(z,\rho_Q)<\varepsilon/8
+\]
+for all sufficiently large \(n\) and every admissible center in the cover.
+Hence the velocity part is below \(\varepsilon/2\).
+
+By \cref{paper3:lem:bounded-window-vmo-pressure}, the bounded selected-window
+limit has a smooth pressure representative on smaller cylinders, and its CKN
+velocity--pressure quantity is uniformly small at sufficiently small scales.
+The strong convergence of \(V_n\) in \(L^3\), together with strong convergence
+of the local Calder\'on--Zygmund pressure pieces and harmonic pressure decay,
+therefore transfers this smallness to \((V_n,P_n)\) for all large \(n\),
+unless the pressure-atlas or harmonic-pressure bounds fail.  Such a failure is
+precisely one of the named pressure rows.
+
+Combining the velocity and pressure estimates gives the displayed CKN
+smallness.  If any pressure step is unavailable, the first unavailable item is
+exactly the pressure atlas, pressure gauge, or pressure compactness row, so
+the bounded window is not retained as an independent terminal branch.
+\end{proof}
+
+\begin{theorem}[Bounded selected-window row is locally removable or reselected]
 \label{paper3:lem:scale-rigid-bounded-limit-exit}
 Let \((V_n,P_n,a_n,b_n)\) be a represented sequence on a compact selected
 cylinder \(Q_r\), and assume that, after passing to a selected-window
@@ -3412,18 +3632,49 @@ subsequence, there is \(V_*\in L^\infty(Q_r)\), \(V_*\not\equiv0\), such that
   V_n\to V_*
   \qquad\text{strongly in }L^3(Q_r).
 \]
-Then the branch is not a strict selected-window Type II branch in the sense of
-\cref{paper1:def:typeII}.
-\end{lemma}
+Then this sequence cannot be a terminal branch of the strict selected-window
+Type II row.  More precisely, after running the ordered local tests, exactly
+one of the following occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the local pressure atlas, pressure gauge, or pressure compactness row
+      fails;
+\item the bounded selected window is CKN-small on a smaller compact core and
+      is locally regular/removable by the Caffarelli--Kohn--Nirenberg
+      regularity criterion;
+\item the retained concentration is not carried by the bounded compact core
+      and is reselected as a smaller active core, an exterior core, a
+      multibubble/cascade label, a gauge-degenerate label, a pressure label, or
+      another named local row in the ordered state-space decomposition.
+\end{enumerate}
+Consequently a bounded selected-window limit is a closed local routing row, not
+an independent retained terminal Type II state.  In particular, by
+\cref{paper1:def:typeII}, the branch is not a strict selected-window Type II
+branch; the physical bounded-window event is handled by
+\cref{paper6:thm:bounded-selected-window-physical-routing}.
+\end{theorem}
 
 \begin{proof}
-The hypothesis is exactly the statement that the subsequence has a nonzero
-bounded selected-window limit on \(Q_r\) in the sense of
-\cref{paper1:def:bounded-window-limit}.  By
-\cref{paper1:def:typeII}, such a branch is outside the strict selected-window
-Type II branch.  This conclusion is only a selected-window branch statement.
-For a physical local Type II germ, the bounded-window branch is handled by
-\cref{paper6:thm:bounded-selected-window-physical-routing}.
+The existence of a nonzero bounded selected-window limit is exactly the
+negation of the strict selected-window condition in \cref{paper1:def:typeII},
+so the branch is not a strict selected-window Type II branch.  This
+observation alone is only branch routing, not physical closure.
+
+To close the bounded row locally, apply
+\cref{paper3:lem:bounded-window-ckn-smallness}.  If the pressure-atlas
+hypotheses required there fail, item \textup{(i)} occurs.  Otherwise, on each
+compact subcylinder of the bounded window, all sufficiently large selected
+windows are CKN-small after shrinking once.  By the
+Caffarelli--Kohn--Nirenberg regularity criterion, the bounded compact core is
+regular and removable, giving item \textup{(ii)}.
+
+If the original positive CKN concentration of the physical Type II germ still
+survives once this regular compact core is removed, then it cannot be carried
+by the bounded compact core.  The ordered local selection is then rerun on
+the remaining concentration.  Since the state-space tests are ordered before
+terminal retention, the surviving concentration is recorded as an inner
+active core, exterior core, multibubble/cascade, gauge-degenerate, pressure,
+or other named local row, giving item \textup{(iii)}.  No global Type I bound,
+global \(L^3\) bound, or global profile decomposition is used.
 \end{proof}
 
 \begin{lemma}[Pressure and modulation stability under rigid-frame limits]
@@ -5599,6 +5850,7 @@ derived estimate package.
 
 \begin{lemma}[Retained selected-window mass floor]
 \label{paper5:lem:selected-window-mass-floor}
+\label{paper5:lem:retained-selected-window-mass-floor}
 Let \((\tau_n)\) be a selected fixed-length terminal window sequence of length
 \(T>0\) for a represented Type II branch produced by the selected-core
 construction of the preceding sections, and write
@@ -14825,8 +15077,90 @@ in item \textup{(i)}.  Applying
 \cref{paper8:lem:dyadic-exterior-occupation-selection} to that occupation
 state gives a dyadic CKN carrier or a regular dyadic tail.  In the regular-tail
 case, either the corresponding harmonic contribution vanishes modulo functions
-of time on \(B_1\), or the nonzero harmonic contribution is by definition the
+  of time on \(B_1\), or the nonzero harmonic contribution is by definition the
 ordered pressure row.  No whole-space pressure or velocity norm is used.
+\end{proof}
+
+\begin{lemma}[Nested pressure-only tests are well-founded]
+\label{paper8:lem:nested-pressure-only-well-founded}
+Let
+\[
+   Q_{\rho_j}(z_j)
+\]
+be a nested sequence of cylinders selected by the exterior pressure-only test.
+Assume that each cylinder carries a pressure lower bound at the pressure-only
+threshold and that no velocity carrier has been selected at any previous stage.
+Then, after passing to a subsequence, one of the following named rows occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a velocity-stress carrier row;
+\item a far-field harmonic pressure-tail row;
+\item a pressure-gauge or pressure-reconstruction failure row;
+\item a same-point pressure cascade or scale-collapse row;
+\item a diffuse pressure-only defect row.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+On each selected cylinder, decompose the pressure into the local
+Calder\'on--Zygmund part and the harmonic part:
+\[
+   P_j=P_j^{\mathrm{loc}}+H_j.
+\]
+If \(P_j^{\mathrm{loc}}\) carries a fixed fraction of the pressure lower bound, then
+the local pressure is generated by the local velocity stress \(V_j\otimes V_j\).
+The fixed-annular stress dichotomy gives either a velocity carrier on a
+slightly enlarged cylinder or a stress concentration at a smaller nested scale.
+In the first case we are in alternative \textup{(i)}.  In the second case the
+nested scale test continues.
+
+If \(H_j\) carries a fixed fraction of the pressure lower bound, then the
+harmonic interior estimates and the far-field harmonic-tail lemma give either a
+far-field harmonic pressure-tail row or a pressure-gauge/reconstruction
+failure.  These are alternatives \textup{(ii)} and \textup{(iii)}.
+
+It remains to consider the possibility that the pressure-only test continues
+indefinitely through smaller nested cylinders without producing a velocity
+carrier, harmonic tail, or gauge failure.  Compare the selected centers and
+scales.  If the centers remain at the same physical point and the scales form a
+strict nested chain, the branch is a same-point pressure cascade.  If the
+relative centers or relative scales fail to have a compact limit, the branch is
+a scale-collapse row.  This gives alternative \textup{(iv)}.
+
+Finally, if the pressure lower bound persists but no support profile carries a
+positive local pressure atom, normalize the pressure measures on the nested
+cylinders and pass to the pressure-defect compactification.  The realized
+support-profile transfer theorem gives a nonzero diffuse pressure-only defect.
+This is alternative \textup{(v)}.  The alternatives exhaust all infinite nested
+pressure-only selections.
+\end{proof}
+
+\begin{lemma}[Diffuse pressure-only defects are not terminal]
+\label{paper8:lem:diffuse-pressure-only-not-terminal}
+A diffuse pressure-only defect produced by
+\cref{paper8:lem:nested-pressure-only-well-founded} cannot be a terminal
+retained branch.
+\end{lemma}
+
+\begin{proof}
+Let \(\pi\) be the normalized diffuse pressure-defect measure.  By realized
+support-profile transfer, every nonzero support profile of \(\pi\) is realized
+from the original pressure-only sequence.
+
+If a support profile has nonzero local Calder\'on--Zygmund source, then the
+source is generated by a nontrivial velocity stress.  The fixed-annular stress
+dichotomy produces a velocity carrier, contradicting pressure-only terminality.
+
+If the support profile is harmonic and non-affine after quotienting by
+time-dependent constants and affine gauges, then the far-field harmonic-tail
+row occurs.
+
+If the harmonic profile is affine or pure gauge, then it is removed by the
+pressure gauge and cannot carry terminal pressure mass.
+
+If the pressure gauge, pressure atlas, or compactness needed to make one of
+these conclusions fails, the branch is exactly the pressure-gauge or
+pressure-reconstruction failure row.  Thus no diffuse pressure-only defect is
+terminal.
 \end{proof}
 
 \begin{lemma}[Exterior pressure-only concentration is not terminal]
@@ -14846,8 +15180,10 @@ occupation state, which is regular or gives a dyadic CKN carrier by
 \cref{paper8:lem:dyadic-exterior-occupation-selection};
 \item the pressure reconstruction or pressure gauge fails, which is the ordered
 non-exterior pressure row;
-\item all pressure contributions vanish modulo functions of time on the smaller
-cylinder, contradicting the pressure-carrier lower bound.
+\item the pressure-only selection continues through nested cylinders and is
+well-foundedly routed by
+\cref{paper8:lem:nested-pressure-only-well-founded}, with its diffuse case
+excluded by \cref{paper8:lem:diffuse-pressure-only-not-terminal}.
 \end{enumerate}
 \end{lemma}
 
@@ -14860,9 +15196,7 @@ converse in \cref{paper8:lem:nested-ball-harmonic-tail} force a nonzero
 velocity-stress carrier on a slightly larger exterior cylinder.  Apply the
 local split \cref{paper8:lem:exterior-ckn-carrier-or-pressure-route} on that
 slightly larger cylinder.  If the resulting carrier is velocity-supported, this
-is item \textup{(i)}.  If the resulting carrier is still pressure-supported,
-the same ordered local pressure test is rerun on the smaller nested cylinder;
-no part of the pressure-only closure is used here.
+is item \textup{(i)}.
 \par
 Thus any persistent pressure lower bound must lie in the harmonic remainder.
 Apply \cref{paper8:lem:harmonic-cross-pressure-routing} on nested cylinders.
@@ -14875,18 +15209,19 @@ annular stress level is first tested by
 carrier is then split by
 \cref{paper8:lem:exterior-ckn-carrier-or-pressure-route}.  Its
 velocity-supported subcase gives item \textup{(i)}, while its
-pressure-supported subcase is sent back to the same nested local pressure test.
-A regular annular source is removable and cannot be an independent
-pressure-only exterior exit.  An escaping dyadic stress occupation state is tested by
+pressure-supported subcase is handled by
+\cref{paper8:lem:nested-pressure-only-well-founded}.  A regular annular source
+is removable and cannot be an independent pressure-only exterior exit.  An
+escaping dyadic stress occupation state is tested by
 \cref{paper8:lem:dyadic-exterior-occupation-selection}; it is either regular on
 far dyadic annuli or gives a dyadic CKN carrier, which is item \textup{(ii)}.
-If the dyadic tail is regular and no pressure row occurs, then the harmonic
-tail vanishes modulo functions of time on the smaller cylinder.  Together with
-vanishing of the local Calder\'on--Zygmund part this contradicts the original
-pressure-carrier lower bound, giving item \textup{(iv)}.  Hence pressure-only
-exterior concentration has been routed to a velocity/dyadic exterior carrier or
-to the ordered non-exterior pressure row; it is not an independent terminal
-exterior exit.
+If the local pressure-only selection attempts to continue to smaller nested
+cylinders, apply \cref{paper8:lem:nested-pressure-only-well-founded}.
+Alternatives \textup{(i)}--\textup{(iv)} there are the already named
+velocity-stress, harmonic tail, pressure-gauge, and scale-cascade rows.
+Alternative \textup{(v)} is excluded by
+\cref{paper8:lem:diffuse-pressure-only-not-terminal}.  Hence an exterior
+pressure-only concentration cannot be terminal.
 \end{proof}
 
 \begin{lemma}[Locality audit for exterior routing]
@@ -18074,86 +18409,121 @@ included in terminal nonlinear decoupling.
 \subsubsection*{Discharge of the retained compact-test closure}
 \label{paper6a:subsec:discharge-retained-compact-tests}
 
-\begin{lemma}[Critical-tightness failure routes to an exterior alternative]
+\begin{lemma}[Failure of critical tightness is a named local row]
+\label{paper9:lem:critical-tightness-failure-row}
 \label{paper6a:lem:retained-tightness-routing}
-Assume the retained compact single-core stratum: the branch \(V\) has
-passed the ordered local tests of
-\cref{paper7:lem:no-unrecorded-cost-escape} up to and including the local
-state-space decomposition \cref{paper6:thm:state-decomposition}, with the
-single-core alternative \textup{(i)} retained.  If the critical-tightness
-condition of \cref{def:c5-compact-tests} fails, i.e.\ there exist
-\(\varepsilon_0>0\) and sequences \(R_n\uparrow\infty\) and
-\(\tau_n\ge\tau_0\) such that
+Let \(V\) be a retained compact single-core branch in the renormalized
+variables, with scale function \(\lambda(\tau)\).  Suppose critical tightness
+fails: there exist \(\varepsilon_0>0\), times \(\tau_n\to+\infty\), and radii
+\(R_n\to\infty\) such that
 \[
-  \int_{|y|>R_n}|V(y,\tau_n)|^3\,dy\ge\varepsilon_0,
+   \int_{|y|>R_n}|V(y,\tau_n)|^3\,dy\ge \varepsilon_0 .
 \]
-then, after passing to a subsequence, the branch admits an exterior
-concentration sequence on every annulus \(A_{r,R}\) with \(r\) sufficiently
-large.  By \cref{paper8:thm:exterior-stratification} the branch then
-belongs to one of the exterior-profile, separated-core, multicore,
-noncompact-exterior, or scale-collapse alternatives.  All of these are
-non-retained alternatives in
-\cref{paper6:thm:state-decomposition}\textup{(ii),(iv)} and are excluded
-from the retained single-core stratum.  Equivalently, on the retained
-stratum critical tightness holds automatically.
+Then, after passing to a subsequence, one of the following named rows occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a same-point larger-scale cascade row;
+\item a separated physical exterior concentration row;
+\item a noncompact escaping exterior row;
+\item a pressure/gauge/reconstruction failure row;
+\item a rough-core or time-slice-to-activity failure row;
+\item a diffuse critical-tail row.
+\end{enumerate}
+In particular, failure of critical tightness cannot remain inside the retained
+compact single-core terminal stratum.
 \end{lemma}
 
 \begin{proof}
-Failure of critical tightness gives \(\varepsilon_0>0\), \(R_n\uparrow\infty\),
-and \(\tau_n\ge\tau_0\) with
+Set
 \[
-  \int_{|y|>R_n}|V(y,\tau_n)|^3\,dy\ge\varepsilon_0
-  \qquad\text{for all }n.
+   M_n:=\int_{|y|>R_n}|V(y,\tau_n)|^3\,dy.
 \]
-The integrand \(|V|^3\,dy\) is scale-invariant under the parabolic
-rescaling defining \(V\) from \(u\), so this lower bound is a positive
-critical-mass-floor that, in the original physical coordinates centred
-at \((x_*,T^*)\), records positive \(L^3\) mass on physical annuli
-\(\{|x-x_*|>R_n e^{-\tau_n}\}\) at terminal times
-\(t_n:=T^*-e^{-2\tau_n}\to T^*\).  Two cases occur after passing to a
-subsequence.
-
-\emph{Case A: bounded distance from the core.} Some \(R^*<\infty\) and
-some \(r_0>0\) admit infinitely many \(n\) with
+After passing to a subsequence, assume \(M_n\ge\varepsilon_0\).  Decompose the
+tail into dyadic shells
 \[
-  \int_{r_0<|y|<R^*}|V(y,\tau_n)|^3\,dy
-  \ge\varepsilon_0/2.
+   A_{n,k}
+   :=
+   \{2^kR_n<|y|\le 2^{k+1}R_n\},
+   \qquad k\ge0.
 \]
-Suppose, towards contradiction, that there is no exterior concentration
-on the slightly larger annulus
-\(A_{r_0/2,2R^*}\) in the physical-coordinate sense of
-\cref{paper8:def:exterior-concentration-branch}.  By
-\cref{paper8:thm:exterior-regularity-no-concentration} (\(k=0\)), there
-is then a uniform \(C^0\) bound for \(u\) on
-\(A_{r_0,R^*}\) on a terminal time interval, hence by integration the
-critical \(L^3\) mass on the corresponding renormalized annulus is
-\(O(e^{-3\tau})\), contradicting the positive lower bound
-\(\varepsilon_0/2\) for \(\tau_n\to\infty\).  Therefore
-\cref{paper8:lem:exterior-test-dichotomy} forces the exterior
-concentration alternative on \(A_{r_0/2,2R^*}\).
-
-\emph{Case B: escape to infinity in the renormalized coordinate.}  For every
-\(R<\infty\),
+Cover each occupied shell \(A_{n,k}\) by finitely overlapping unit balls in the
+\(y\)-variables.  Suppose first that for some \(\eta>0\) there are shells
+\(A_{n,k_n}\) and unit balls \(B_1(y_n)\subset A_{n,k_n}\) such that
 \[
-  \int_{r_0<|y|<R}|V(y,\tau_n)|^3\,dy<\varepsilon_0/2
+   \int_{B_1(y_n)} |V(y,\tau_n)|^3\,dy\ge \eta .
 \]
-infinitely often.  Then a subsequence puts at least \(\varepsilon_0/2\)
-of its mass on shells \(\{|y|>R_k\}\) with \(R_k\uparrow\infty\),
-producing a sequence of \(L^3\)-concentration centers
-\(x_n\) with \(|x_n|/1\to\infty\) in the renormalized frame.  This is
-the noncompact-exterior alternative of
-\cref{paper8:thm:exterior-stratification}, which is one of the listed
-exterior concentration alternatives.
+By the local time-slice-to-activity conversion, this produces a parabolic
+retained carrier unless that conversion fails.  If it fails, the branch is in
+the rough-core or local-energy/pressure failure row, giving item
+\textup{(v)} or \textup{(iv)}.
 
-In either case the dichotomy of
-\cref{paper8:thm:exterior-stratification} selects the exterior
-concentration branch.  By the second clause of that theorem the branch
-is exterior profile, separated core, multicore, noncompact exterior, or
-scale collapse.  Each is one of the alternatives
-\textup{(ii)}--\textup{(iv)} of \cref{paper6:thm:state-decomposition}
-and disqualifies the branch from the retained single-core alternative
-\textup{(i)}.  This contradicts the retained-stratum hypothesis, so on
-the retained stratum critical tightness holds.
+Assume therefore that a parabolic carrier is produced.  Let
+\[
+   d_n:=\lambda(\tau_n)|y_n|
+\]
+be the physical distance of the carrier from the selected core.  Passing to a
+subsequence, exactly one of the following occurs.  If \(d_n\to0\), the carrier
+remains at the same physical point but at a larger renormalized radius, giving
+item \textup{(i)}.  If \(d_n\to d\in(0,\infty)\), the carrier is separated by a
+positive physical distance from the selected core, giving item \textup{(ii)}.
+If \(d_n\to\infty\), the carrier escapes every compact physical neighborhood in
+the selected chart, giving item \textup{(iii)}.
+
+The only remaining possibility is that no positive local carrier exists at any
+fixed level.  In that case the tail mass is diffuse.  Define the normalized
+tail measures
+\[
+   \nu_n
+   :=
+   M_n^{-1}|V(y,\tau_n)|^3\mathbf 1_{\{|y|>R_n\}}\,dy .
+\]
+Use the logarithmic shell compactification of the tail together with realized
+support-profile transfer.  After passing to a subsequence, \(\nu_n\) converges
+to a probability measure on the compactified tail state space.  Since no
+support profile carries positive local retained velocity activity, the
+normalized defect is a diffuse critical-tail defect, giving item
+\textup{(vi)}.
+
+If the pressure atlas, gauge normalization, or represented equation needed in
+this extraction fails, then the first failed test is one of the named
+pressure/gauge/reconstruction rows, giving item \textup{(iv)}.  This exhausts
+all possibilities.
+\end{proof}
+
+\begin{lemma}[Diffuse critical-tail row is closed]
+\label{paper9:lem:diffuse-critical-tail-row-closed}
+A diffuse critical-tail defect produced by
+\cref{paper9:lem:critical-tightness-failure-row} cannot remain as a terminal
+retained compact single-core branch.  It either produces a lower named row
+already present in the state-space ledger, or it contradicts the minimal
+mesoscopic/critical-tail closure theorem.
+\end{lemma}
+
+\begin{proof}
+Let \(\nu\) be the normalized limiting tail-defect measure produced in
+\cref{paper9:lem:critical-tightness-failure-row}.  By construction, \(\nu\) is
+nonzero.  Apply realized support-profile transfer to the logarithmic tail
+compactification.
+
+If some normalized support profile of \(\nu\) has positive retained local CKN
+activity, then support-profile heredity realizes this activity as a retained
+local carrier in the original sequence.  This is one of the carrier rows in
+\cref{paper9:lem:critical-tightness-failure-row}, contrary to the diffuse case.
+
+If a support profile loses the pressure atlas, gauge normalization, compact
+upper estimates, or local-energy structure, then the first failed test is the
+corresponding pressure/gauge/rough-core row, already named in the ledger.
+
+We are therefore in the case where every nonzero support profile is a realized
+diffuse critical-tail profile with the pressure/gauge/local-energy structure
+intact and with no retained compact carrier.  The minimal mesoscopic
+extraction theorem applies to this realized defect.  The Young-variance,
+strong-compactness, and coherent critical-tail closure theorems then imply that
+the defect either generates a retained coherent critical-tail carrier or falls
+into the affine, active, pressure, or hidden-scale rows.  All of these are
+lower named rows already closed in the terminal ledger.
+
+Thus a diffuse critical-tail defect cannot be terminal in the retained compact
+single-core stratum.
 \end{proof}
 
 \begin{lemma}[Windowed Caccioppoli with integrated modulation]
@@ -18316,8 +18686,12 @@ to one of the named non-retained alternatives.
 
 \begin{proof}
 Critical tightness holds by
-\cref{paper6a:lem:retained-tightness-routing}: failure routes the branch
-to the exterior-stratification alternatives, all non-retained.  Local
+\cref{paper9:lem:critical-tightness-failure-row}: failure routes the branch
+to a named local row.  The carrier rows are handled by the same-point cascade,
+separated exterior, or noncompact exterior closures.  The pressure/gauge and
+rough-core rows are closed by the corresponding first-failure theorems.  The
+diffuse tail case is closed by
+\cref{paper9:lem:diffuse-critical-tail-row-closed}.  Local
 windowed \(H^1\) control holds by
 \cref{paper6a:lem:retained-h1-routing}: failure routes the branch to the
 rough-core alternative, which by \cref{paper6:thm:rough-core} is
@@ -19847,6 +20221,7 @@ the displayed divergence is item \textup{(iii)}.
 
 \begin{lemma}[Bounded selected-window limits are locally regular modulo named remaining activity]
 \label{paper6:lem:bounded-window-local-regularization}
+\label{paper10:lem:bounded-selected-window-local-regularity}
 Let \((V_n,P_n)\) be represented suitable weak solutions on \(Q_{2R}\), with
 the local pressure reconstruction and compact-cylinder suitable bounds supplied
 by the repaired-gauge state-space construction.  Assume
@@ -19878,29 +20253,16 @@ is below a fixed fraction of the represented-gauge CKN threshold.  Strong
 \(L^3\)-convergence gives the same smallness for \(V_n\) on
 \(Q_{2\rho}(z_0)\) for all large \(n\).
 
-It remains to control the pressure oscillation.  Use the local pressure
-decomposition on \(B_{2\rho}(y_0)\):
-\[
-  P_n=P^{\rm loc}_n+H_{n,\rho}+c_n(s).
-\]
-The local part \(P^{\rm loc}_n\) is generated by the localized tensor
-\(V_n\otimes V_n\); since \(V_n\to V_*\) strongly in \(L^3\), the localized
-pressures converge strongly in \(L^{3/2}\), and their scaled oscillation is
-small after choosing \(\rho\) sufficiently small.  The harmonic part satisfies
-the standard interior harmonic decay estimate after subtracting spatial means:
-for \(0<\theta<1\),
-\[
-  D_{H_{n,\rho}}(\theta\rho;z_0)
-  \le C\theta^\alpha D_{H_{n,\rho}}(\rho;z_0),
-\]
-with constants independent of \(n\), using the compact-cylinder pressure
-bound.  Choose \(\theta\) small and then \(n\) large so that
-\[
-  C_{V_n}(\theta\rho;z_0)+D_{P_n}(\theta\rho;z_0)
-  <\varepsilon_{\rm rg}.
-\]
-The represented-gauge CKN regularity lemma then gives uniform boundedness of
-\(V_n\) on a smaller cylinder around \(z_0\).
+By \cref{paper3:lem:bounded-window-vmo-pressure}, the bounded selected-window
+limit has a smooth pressure representative on smaller cylinders, and its
+velocity--pressure CKN quantity is uniformly small at sufficiently small
+scales.  The strong convergence of \(V_n\), the strong convergence of the local
+Calder\'on--Zygmund pressure pieces, and harmonic pressure decay therefore
+transfer this smallness to \((V_n,P_n)\) for all large \(n\), unless the
+pressure-atlas or harmonic-pressure bounds fail.  Such a failure is one of the
+named pressure rows in alternative \textup{(ii)}.  In the non-failure case, the
+represented-gauge CKN regularity lemma gives uniform boundedness of \(V_n\) on
+a smaller cylinder around \(z_0\).
 
 A finite subcover of \(K\) gives alternative \textup{(i)} unless, during the
 finite covering process, a positive amount of CKN mass is found outside the
@@ -19908,6 +20270,60 @@ regularized subcover.  That remaining positive CKN mass is, by the ordered
 state-space construction, a smaller active core, exterior core, pressure-only
 carrier, multibubble/cascade, gauge-degenerate, or local-energy/rough-core
 failure.  These are exactly the named alternatives in \textup{(ii)}.
+\end{proof}
+
+\begin{lemma}[Bounded-window reselection is well-founded]
+\label{paper10:lem:bounded-window-reselection-well-founded}
+Let a physical local Type II germ produce a bounded selected-window limit on a
+selected compact cylinder.  Remove the regular portion of that bounded window
+using the local CKN criterion, and rerun the ordered local selection on any
+remaining positive CKN concentration in the physical image of a smaller
+terminal neighborhood.
+
+Then exactly one of the following alternatives occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item there is a physical neighborhood \(Q_{\rho_0}(x_0,T)\) and a scale
+\(r_0>0\) such that every admissible subcylinder
+\(Q_r(z)\subset Q_{\rho_0}(x_0,T)\), \(0<r<r_0\), satisfies
+\[
+   C(z,r)+D(z,r)<\varepsilon_{\rm CKN};
+\]
+hence the germ is locally regular there;
+\item after finitely many reselections, the branch enters one of the named
+state-space rows: active core, pressure-only row, separated exterior row,
+multibubble row, same-point cascade row, gauge-degenerate row, rough-core row,
+or retained terminal compact branch;
+\item the reselection process does not terminate finitely.  Then the selected
+centers and scales generate one of the infinite rows: same-point scale cascade,
+scale-collapse row, noncompact exterior row, or diffuse critical-tail row.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Each reselection produces a selected cylinder \(Q_{r_j}(z_j)\) with CKN
+quantity bounded from below by the fixed activity threshold.  If no such
+cylinder exists below some physical scale, the finite-cover form of the CKN
+criterion gives item \textup{(i)}.
+
+Assume therefore that selected cylinders continue to exist.  Compare each new
+selected cylinder with the previous selected core.  There are only finitely many
+geometric possibilities after passing to subsequences.  If the new center is
+separated from the old center at a comparable physical scale, the branch is a
+separated exterior or multibubble row.  If the new center remains at the same
+physical point and the new scale is strictly smaller, the process either
+terminates after finitely many steps or generates a same-point scale cascade.
+If the new scale is strictly larger in the renormalized variables but still
+collapses physically to the same point, the process gives the same-point
+larger-scale cascade row.  If the relative centers or relative scales fail to
+have a compact limit, the process gives the scale-collapse or noncompact
+exterior row.
+
+Finally, if the CKN mass persists but no subsequence produces a fixed local
+carrier, then the normalized remaining mass is diffuse.  By the tail-support
+compactification and \cref{paper9:lem:diffuse-critical-tail-row-closed}, this
+is the diffuse critical-tail row, already named and closed.  Thus infinite
+reselection is not an unclassified possibility: it is exactly one of the named
+infinite rows.
 \end{proof}
 
 \begin{theorem}[Bounded selected-window branch is physically routed]
@@ -19941,13 +20357,13 @@ finite family of compact subcylinders inside the selected window.  If the
 bounded-window region regularizes and no CKN concentration remains, the
 physical image has a local boundedness/Type I neighborhood, contrary to the
 physical Type II assumption.  If CKN concentration remains, the ordered
-state-space tests are restarted on the first remaining positive CKN carrier.
-By construction of the ordered tests, that carrier is one of the already named
-rows: smaller active core, exterior core, pressure-only carrier,
-multibubble/cascade, gauge-degenerate branch, rough-core loss, or a later
-terminal retained branch.  Therefore the bounded-window case is a routing row
-into the existing state-space ledger and cannot survive as an independent
-terminal physical Type II branch.
+state-space tests are not restarted ad infinitum without classification:
+apply \cref{paper10:lem:bounded-window-reselection-well-founded} to any
+remaining positive CKN concentration.  Alternative \textup{(i)} gives physical
+local regularity.  Alternative \textup{(ii)} enters one of the finite named
+rows.  Alternative \textup{(iii)} enters one of the infinite named rows.  All
+rows are closed by the terminal ledger.  Hence the bounded selected-window
+branch cannot remain as a physical Type II germ.
 \end{proof}
 
 \begin{theorem}[Ordered local state-space exhaustion]
@@ -20006,6 +20422,15 @@ The compact-window upper estimates are then supplied by
 spacetime mass floor is supplied by \cref{paper5:thm:core-retention}
 whenever the loss-of-active-core row has not already been recorded.
 \par
+Before applying any repaired gauge chart, the strong gauge-chart entry test
+\cref{paper2:lem:strong-gauge-chart-entry-test} is run.  Failure of this test
+is the repaired-gauge degeneracy row.  If a nonzero bounded selected-window
+limit appears, then \cref{paper3:lem:bounded-window-vmo-pressure} gives the
+local pressure regularity of the bounded limit, and
+\cref{paper10:lem:bounded-window-reselection-well-founded} shows that
+infinite reselection is not left open: it is routed to the same-point cascade,
+scale-collapse, noncompact exterior, or diffuse critical-tail rows.
+\par
 If a nonzero bounded selected-window limit appears at this stage, the branch is
 not retained in the strict selected-window Type II row by
 \cref{paper3:lem:scale-rigid-bounded-limit-exit}; in the physical assembly that
@@ -20015,6 +20440,13 @@ decomposition rather than declared terminal.  If no bounded selected-window
 limit appears, the rough-core test \cref{paper6:thm:rough-core} decides whether
 local \(H^1\) control is retained or the branch returns to the multibubble or
 compact-cylinder-failure side.
+\par
+When critical tightness fails, apply
+\cref{paper9:lem:critical-tightness-failure-row}.  The diffuse case is closed
+by \cref{paper9:lem:diffuse-critical-tail-row-closed}.  When pressure-only
+exterior selection nests indefinitely, apply
+\cref{paper8:lem:nested-pressure-only-well-founded}; the diffuse pressure case
+is closed by \cref{paper8:lem:diffuse-pressure-only-not-terminal}.
 \par
 The remaining represented retained branch is tested by the scale package of
 \cref{paper6:thm:scale-stratification}: either one reaches finite-cost
@@ -20866,16 +21298,19 @@ compactness by weak lower semicontinuity is used.
 \label{paper6:cor:remaining-named-exits-closed}
 The four rows listed in \cref{paper6:def:remaining-named-exits} are all
 closed adjacent rows: the bounded-window row by
-\cref{paper6:thm:bounded-selected-window-physical-routing}; the autonomous-modulation row by
+\cref{paper3:lem:bounded-window-vmo-pressure,paper10:lem:bounded-window-reselection-well-founded,paper6:thm:bounded-selected-window-physical-routing};
+the autonomous-modulation row by
 \cref{paper6:thm:autonomous-modulation-failure-closed}; the noncanonical
 carrier/cost-validation row by
 \cref{paper6:thm:noncanonical-cost-routing-closed}; and the loss-of-active-core
 row, including pressure-only critical-mass detection, by
-\cref{paper6:thm:active-core-loss-closed}.
+\cref{paper6:thm:active-core-loss-closed,paper8:lem:nested-pressure-only-well-founded,paper8:lem:diffuse-pressure-only-not-terminal,paper9:lem:critical-tightness-failure-row,paper9:lem:diffuse-critical-tail-row-closed}.
 \end{corollary}
 
 \begin{proof}
-Direct application of the three closure theorems cited in the statement.
+Direct application of the bounded-window, autonomous-modulation, noncanonical
+cost-routing, active-core-loss, critical-tail, and nested pressure-only
+closure theorems cited in the statement.
 \end{proof}
 
 \begin{definition}[Remaining named exit rows]
@@ -20886,6 +21321,8 @@ closure theorem before the closure subsection is applied are:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item a bounded selected-window limit producing a bounded local profile on a
 fixed physical window, before the physical routing theorem is applied;
+its closure uses
+\cref{paper3:lem:bounded-window-vmo-pressure,paper10:lem:bounded-window-reselection-well-founded};
 \item autonomous-modulation failure or modulation-driven recentering;
 \item carrier or cost-validation failure outside the canonical retained
 identity-cost channel, including noncanonical cost-comparison failures before
@@ -20893,7 +21330,11 @@ the canonical channel of \cref{paper6:lem:canonical-cost-channel-available} is
 invoked;
 \item loss of a retained active core, including pressure-only critical-mass
 detection, unless the pressure/exterior routing theorem places it in one of the
-closed structural rows listed below.
+closed structural rows listed below.  This row also absorbs critical-tightness
+failure and diffuse critical-tail behavior through
+\cref{paper9:lem:critical-tightness-failure-row,paper9:lem:diffuse-critical-tail-row-closed},
+and nested exterior pressure-only behavior through
+\cref{paper8:lem:nested-pressure-only-well-founded,paper8:lem:diffuse-pressure-only-not-terminal}.
 \end{enumerate}
 The closed rows are not in this list.  They are finite scale cost, finite
 absolute scale cost, thin negative drift as an independent terminal row,
@@ -20917,12 +21358,14 @@ ambient compact-cost package.
 The four rows \textup{(i)}, \textup{(ii)}, \textup{(iii)}, \textup{(iv)} listed above are
 closed adjacent rows, by the closure theorems of
 \cref{paper6:subsec:remaining-exit-closures}: the bounded-window row by
-\cref{paper6:thm:bounded-selected-window-physical-routing}; the autonomous-modulation row
+\cref{paper3:lem:bounded-window-vmo-pressure,paper10:lem:bounded-window-reselection-well-founded,paper6:thm:bounded-selected-window-physical-routing}; the autonomous-modulation row
 by \cref{paper6:thm:autonomous-modulation-failure-closed}; the
 noncanonical carrier/cost-validation row by
 \cref{paper6:thm:noncanonical-cost-routing-closed}; and the
 loss-of-active-core row, including pressure-only critical-mass
-detection, by \cref{paper6:thm:active-core-loss-closed}.  This is
+detection, by \cref{paper6:thm:active-core-loss-closed} together with the
+critical-tail and nested pressure-only closures
+\cref{paper9:lem:critical-tightness-failure-row,paper9:lem:diffuse-critical-tail-row-closed,paper8:lem:nested-pressure-only-well-founded,paper8:lem:diffuse-pressure-only-not-terminal}.  This is
 summarised in \cref{paper6:cor:remaining-named-exits-closed}.  The list is
 the controlling ledger for
 \cref{paper6:thm:unconditional-no-typeII}; the unconditional upgrade is recorded in
@@ -20965,15 +21408,22 @@ wrapper
 terminal data of \cref{paper6a:def:expanded-terminal-data}, and
 \cref{paper6a:thm:expanded-terminal-typeII} excludes the branch.
 \par
-Equivalently, once the branch has entered the state-decomposition path,
-\cref{paper6:thm:state-decomposition} lists the five possible local Type II
-states, while \cref{paper6:prop:state-elimination} eliminates the retained
-states.  The ambient and terminal wrappers verify the retained inputs and route
-pre-retention first failures.  Those first failures are either closed by their
-local closure theorem or listed in
-\cref{paper6:def:remaining-named-exits}.  Thus no retained Type II branch
-survives.  The closure corollary above closes the remaining named exits, and
-the next theorem records the resulting full local Type II exclusion.
+Equivalently, starting from a physical local Type II germ, the ordered
+state-space exhaustion produces one first retained row or one first failed row.
+The strong gauge-chart entry test prevents the gauge implicit-function theorem
+from being applied outside its \(C^1\) chart.  Bounded selected-window limits
+are locally regular or well-foundedly reselected by
+\cref{paper3:lem:bounded-window-vmo-pressure,paper10:lem:bounded-window-reselection-well-founded}.
+Failure of critical tightness is routed by
+\cref{paper9:lem:critical-tightness-failure-row}, and the diffuse tail case is
+closed by \cref{paper9:lem:diffuse-critical-tail-row-closed}.  Exterior
+pressure-only nesting is well-founded by
+\cref{paper8:lem:nested-pressure-only-well-founded}, and diffuse pressure-only
+defects are excluded by
+\cref{paper8:lem:diffuse-pressure-only-not-terminal}.  All remaining rows are
+the previously closed active, exterior, multibubble, cascade, rough-core,
+pressure-gauge, cost, and terminal compact rows.  Hence no row can contain a
+physical local Type II germ.
 \end{proof}
 
 \begin{theorem}[No physical local Type II germ]
