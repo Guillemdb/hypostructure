@@ -1,0 +1,740 @@
+\pdfoutput=1
+\documentclass[11pt]{article}
+
+% -----------------------------------------------------------------------------
+% Draft skeleton for a professional paper.
+% Purpose: short main text + modular appendices, with bullets/single sentences
+% that can be expanded into full paragraphs later.
+% -----------------------------------------------------------------------------
+
+\usepackage[margin=1.08in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+\usepackage{listings}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+  pdftitle={Local Proof Architectures for Critical PDE Regularity},
+  pdfauthor={Guillem Duran Ballester},
+  pdfsubject={Proof architecture, critical PDE, Navier--Stokes, LLM-auditable proof design},
+  pdfkeywords={proof architecture, state-space stratification, fault containment, critical PDE, Navier--Stokes, LLM audit}
+}
+
+% Theorem environments.
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+\crefname{example}{Example}{Examples}
+\Crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+% Useful macros.
+\newcommand{\NS}{Navier--Stokes}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\cI}{\mathcal I}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cG}{\mathcal G}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,d}
+\newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{TODO:} #1}}
+\newcommand{\capsule}{\mathfrak C}
+\newcommand{\branch}{\mathfrak b}
+\newcommand{\ledger}{\mathfrak L}
+
+\setlist[itemize]{leftmargin=1.6em,itemsep=0.25em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.8em,itemsep=0.25em,topsep=0.35em}
+\renewcommand{\arraystretch}{1.16}
+
+\lstdefinestyle{auditstyle}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!5}
+}
+\lstset{style=auditstyle}
+
+\newenvironment{takeaway}
+{\par\medskip\noindent\begin{minipage}{\linewidth}\hrule\vspace{0.4em}\textbf{Takeaway.}\ }
+{\vspace{0.4em}\hrule\end{minipage}\par\medskip}
+
+\title{\textbf{Local Proof Architectures for Critical PDE Regularity}\\
+\large State-Space Stratification, Fault Containment, and LLM-Auditable Proof Design}
+\author{Guillem Duran Ballester\\
+\small \texttt{[email / affiliation placeholder]}}
+\date{Working draft --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper proposes a verification-aware proof architecture for critical PDE regularity problems based on local state-space stratification.  The framework replaces a monolithic contradiction proof by a finite directed graph of proof capsules, each with explicit hypotheses, outputs, retained obstructions, failure routes, and audit tests.  A candidate singular branch is routed through scale-invariant local tests until it reaches either a closed terminal stratum or a named open obstruction.  The architecture is designed for human verification and LLM-assisted audit: scaling mistakes, pressure-gauge inconsistencies, compactness failures, or hallucinated estimates are localized to particular graph edges rather than hidden inside a global proof.  The three-dimensional incompressible \NS{} equations are used as a case study for the framework, with Caffarelli--Kohn--Nirenberg concentration, Type I/Type II separation, ancient-profile routing, repaired gauges, scale-cost mechanisms, and terminal profile exits serving as motivating examples.
+\end{abstract}
+
+\paragraph{Status of this draft.}
+This document is a paper skeleton: every section has the final intended role, but most entries are written as one-sentence bullets or theorem templates to be expanded later.
+
+\paragraph{Core disclaimer.}
+The paper studies proof architecture and verification structure; any full PDE regularity claim requires independent verification of every analytic capsule in the associated ledger.
+
+\tableofcontents
+
+% =============================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Motivation: why monolithic PDE proofs are fragile}
+\begin{itemize}
+  \item Critical PDE regularity arguments often fail because a single hidden global estimate is used before its local hypotheses have been produced.
+  \item Long contradiction proofs are difficult to audit because compactness, pressure normalization, scale choices, and rigidity inputs are interleaved across many pages.
+  \item LLM-assisted proof search amplifies this risk: local derivations may look plausible while global dependencies remain inconsistent.
+  \item Traditional pde proofs are brittle, because a single failure can invalidate the entire argument without leaving a clear trace of the failure's location or nature.
+\end{itemize}
+
+\subsection{The proposed alternative}
+\begin{itemize}
+  \item We organize a regularity proof as a finite routed state space rather than as one uninterrupted global argument.
+  \item Each edge in the state-space graph is a proof capsule with a local contract: inputs, outputs, retained invariant, failure routes, and audit obligations.
+  \item A failure of a capsule does not erase the whole architecture; it reopens one edge or terminal node and leaves the verified subgraph meaningful.
+\end{itemize}
+
+\subsection{Main contributions}
+\begin{itemize}
+  \item We define proof capsules, retained obstructions, routing graphs, terminal closures, and fault containment.
+  \item We prove an abstract routed-closure theorem: if every branch is routed and every terminal node is closed against a retained obstruction, then the root branch is impossible.
+  \item We propose an LLM-audit protocol for scaling, sign, pressure, compactness, dependency, and failure-route checks.
+  \item We give the \NS{} singularity-routing program as a detailed case study rather than as a black-box proof claim.
+\end{itemize}
+
+\subsection{What this paper does not claim}
+\begin{itemize}
+  \item It does not claim that an LLM can certify a long PDE proof without human proof checking.
+  \item It does not replace analytic estimates, Liouville theorems, compactness arguments, or pressure reconstruction.
+  \item It provides a modular architecture in which such estimates are isolated, typed, and auditable while avoiding single global estimates.
+\end{itemize}
+
+\begin{takeaway}
+The novelty is not a single new estimate; the novelty is a proof architecture in which every estimate is local, every failure of an estimate has a semantic destination, and every terminal contradiction is tied to a retained obstruction.
+\end{takeaway}
+
+
+\subsection{Relationship with current literature}
+\begin{itemize}
+  \item A template for concentration compactness arguments
+  \item Similarities to profile decomposition and littlewood paley (their approach is decomposition of the global space, ours is state space stratification where we can apply those techniques but only to specific strata). This allows us to bypass the main technical difficulties of applying those techniques because doin it for the entire state space is difficult
+  \item we can leverage specific theorems and proof of partial regularity when available as routing endpoints.
+\end{itemize}
+% =============================================================================
+\section{Abstract Routed Proof Architectures}
+\label{sec:abstract-architecture}
+
+\subsection{Branches, states, and observables}
+\begin{definition}[Branch]
+A branch is a candidate counterexample trajectory together with the local data retained after all preceding routing steps.
+\end{definition}
+
+\begin{definition}[State]
+A state is a named local regime characterized by scale-invariant observables, compactness data, and declared failure alternatives.
+\end{definition}
+
+\begin{itemize}
+  \item Examples of observables include critical concentration, local energy, pressure oscillation, terminal mass, scale drift, profile count, and tail defect.
+  \item A state should be stable under the rescalings, gauges, and subsequences used before its closure theorem is invoked.
+\end{itemize}
+
+\subsection{Retained obstructions}
+\begin{definition}[Retained obstruction]
+A retained obstruction is a nonzero scale-invariant quantity attached to a branch and required to survive every allowed extraction, rescaling, gauge change, or descendant operation.
+\end{definition}
+
+\begin{itemize}
+  \item The retained obstruction is the object contradicted by terminal rigidity or vanishing.
+  \item Typical examples are positive CKN concentration, compact local $L^3$ mass, nonzero terminal profile mass, or a nonvanishing localized core.
+\end{itemize}
+
+\subsection{Proof capsules}
+\begin{definition}[Proof capsule]
+A proof capsule is a tuple
+\[
+  \capsule=(H,O,I,F,A),
+\]
+where $H$ is the input contract, $O$ is the output contract, $I$ is the retained obstruction, $F$ is the list of named failure routes, and $A$ is the audit checklist.
+\end{definition}
+
+\begin{center}
+\begin{tabular}{p{0.22\linewidth}p{0.68\linewidth}}
+\toprule
+Capsule field & Meaning \\
+\midrule
+Input contract $H$ & Exact hypotheses the capsule is allowed to use. \\
+Output contract $O$ & The local conclusion produced if the capsule succeeds. \\
+Retained obstruction $I$ & The invariant that must survive the capsule. \\
+Failure routes $F$ & Named alternatives entered if the capsule hypotheses fail. \\
+Audit checklist $A$ & Scaling, sign, compactness, pressure, dependency, and locality tests. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Routing graphs}
+\begin{definition}[Routing graph]
+A routing graph is a finite directed graph $G=(V,E)$ with a root state, edge labels given by proof capsules, and terminal nodes marked either closed or open.
+\end{definition}
+
+\begin{itemize}
+  \item Edges are local theorems or routing lemmas.
+  \item Terminal nodes are either contradictions, lower already-closed strata, or explicitly open obstructions.
+  \item A graph is useful even before every terminal node is closed, because it records exactly what remains to be proved.
+\end{itemize}
+
+\subsection{The abstract routed-closure principle}
+\begin{theorem}[Abstract routed-closure principle]
+\label{thm:abstract-routed-closure}
+Let $G$ be a finite rooted routing graph.  Suppose every root branch enters at least one outgoing edge, every edge is justified by a valid proof capsule whose hypotheses are produced upstream, every retained obstruction is preserved along edges, and every terminal node is closed by contradiction with its retained obstruction.  Then no root branch exists.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Follow any hypothetical root branch through the finite graph; exhaustiveness gives a terminal node, preservation gives a surviving obstruction there, and terminal closure contradicts that obstruction.
+\end{proof}
+
+\subsection{Fault containment}
+\begin{definition}[Fault containment]
+A routed proof architecture has fault containment if invalidating one capsule changes only the closure status of the nodes and paths depending on that capsule, while leaving the rest of the graph meaningful.
+\end{definition}
+
+\begin{proposition}[Local invalidation principle]
+If a capsule $e\in E(G)$ is invalidated, then all branches not passing through $e$ remain governed by the verified subgraph $G\setminus\{e\}$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The proof is graph-theoretic: dependency is path-local, so invalidating an edge affects exactly those terminal claims whose proof paths use that edge.
+\end{proof}
+
+% =============================================================================
+\section{Auditability and LLM-Oriented Proof Design}
+\label{sec:auditability}
+
+\subsection{Common failure modes of LLM-generated proofs}
+\begin{itemize}
+  \item Hallucinations are inevitable and the proof architecture does not aim to eliminate them, but rather to make them visible, localizable, and fixable.
+  \item LLMs are notoriously bad at keeping track of complex proofs across hundreds of pages, but they can be very good at checking a single local step if the hypotheses, outputs, and audit checklist are clearly stated.
+  \item LLMs cannot invent new mathematical techniques but are very good at applying textbook methods to well-specified local problems.
+  \item LLMs fail to reason globally but can be very good at checking local consistency of scaling, signs, pressure normalization, compactness topology, and dependencies.
+  \item LLms have good intuition about local topology, geometry and compactness, but they cannot be trusted to keep track of global compactness errors or to avoid hidden global estimates.
+\end{itemize}
+
+\subsection{LLM-proof generation and auditability}
+\begin{itemize}
+  \item The goal is outsourcing proof certification to an LLM as much as possible without trusting it to generate a correct global proof.
+  \item The goal is to make each local proof capsule small enough that humans and LLMs can audit its scaling, signs, hypotheses, and dependencies independently.
+  \item The architecture is a hedge against hallucinated estimates because every estimate has a contract and every contract has failure routes.
+  \item the automatically generated proof cannot be autonomously verified and requires human checking, but the architecture makes it possible to check each local step independently and to localize any discovered failure.
+\end{itemize}
+
+\subsection{Audit dimensions}
+\begin{center}
+\begin{longtable}{p{0.25\linewidth}p{0.65\linewidth}}
+\toprule
+Audit type & Local question \\
+\midrule
+Scaling audit & Do all terms transform with the claimed critical dimension? \\
+Sign audit & Are modulation signs consistent across the chart, PDE, energy inequality, and cost identity? \\
+Hypothesis audit & Is each theorem invoked only after its assumptions have been generated? \\
+Locality audit & Does the estimate use only the declared cylinder, window, or compact state? \\
+Pressure/gauge audit & Are pressure normalizations and gauge choices compatible under limits? \\
+Compactness audit & Is the topology strong enough for every nonlinear passage? \\
+Retention audit & Does the retained obstruction survive this edge? \\
+Failure-route audit & If the estimate fails, is the branch routed to a named state? \\
+Dependency audit & Is there any circular use of a closure theorem inside its own entry route? \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{Capsule prompt template for LLM audit}
+\begin{lstlisting}
+Task: Audit the following proof capsule.
+Input contract:
+  [List exact hypotheses.]
+Output contract:
+  [List exact conclusion.]
+Retained obstruction:
+  [Name the nonzero invariant.]
+Failure routes:
+  [List named exits if a hypothesis fails.]
+Audit checks:
+  1. Verify scaling of every term.
+  2. Verify sign conventions.
+  3. Verify pressure/gauge normalization.
+  4. Verify compactness topology and nonlinear passage.
+  5. Verify no hidden global estimate is used.
+  6. Verify the retained obstruction survives.
+  7. Verify all dependencies are upstream.
+Return:
+  PASS / FAIL / NEEDS ROUTING, with exact failing line or hypothesis.
+\end{lstlisting}
+
+\subsection{How fault containment helps human referees}
+\begin{itemize}
+  \item A referee can mark a capsule invalid without needing to reject the entire architecture.
+  \item The graph then records a precise open node: missing estimate, unstable observable, nonexhaustive routing, or unclosed terminal stratum.
+  \item This turns proof failure into useful diagnostic information rather than an opaque collapse.
+\end{itemize}
+
+% =============================================================================
+\section{The Navier--Stokes Program as a Case Study}
+\label{sec:ns-case-study}
+
+\subsection{The case-study role}
+\begin{itemize}
+  \item The \NS{} regularity problem is used as a stress test for the architecture because it combines scaling, pressure, compactness, and critical concentration.
+  \item The case study should be read as a proof-design ledger whose analytic capsules must be independently verified.
+  \item The architecture is valuable even if some analytic row later requires repair, because the row and its dependencies are explicitly localized.
+\end{itemize}
+
+\subsection{First gate: critical concentration}
+\begin{itemize}
+  \item Candidate singularity implies positive scale-critical concentration after excluding the epsilon-regularity branch.
+  \item The retained obstruction begins as positive CKN or velocity concentration.
+  \item Vanishing concentration is closed immediately by local epsilon-regularity.
+\end{itemize}
+
+\subsection{Second gate: Type I versus Type II}
+\begin{itemize}
+  \item Type I branch: local pointwise Type I envelope allows ancient-profile extraction.
+  \item Type II branch: no local Type I envelope, so one studies retained local windows around moving concentration cores.
+  \item The branches are separated because their compactness mechanisms are different.
+\end{itemize}
+
+\subsection{Type I architecture}
+\begin{itemize}
+  \item Pipeline: concentration $\to$ no-escape $\to$ Seregin extraction $\to$ bounded centered ancient profile $\to$ class routing.
+  \item Direct closure rows: small, stationary $L^3$, uniformly tight, and structure/decay-covered ancient profiles.
+  \item Residual row: not a wastebasket, but a terminal-dynamics object with its own descendant, tail, affine, diffuse, and endpoint routes.
+\end{itemize}
+
+\subsection{Type II architecture}
+\begin{itemize}
+  \item Pipeline: retained core $\to$ repaired gauge $\to$ represented local equation $\to$ compactness/cost/multibubble/cascade/terminal routing.
+  \item Repaired gauges turn scale drift and center drift into explicit modulation coefficients rather than hidden compactness errors.
+  \item Cost and carrier routes treat scale collapse without assuming a global critical norm.
+\end{itemize}
+
+\subsection{State-space diagram in words}
+\begin{lstlisting}
+terminal singular branch
+  -> concentration gate
+      -> no concentration: regularity
+      -> positive concentration
+          -> Type I envelope
+              -> Seregin ancient state
+              -> direct Liouville classes or residual class
+          -> Type II branch
+              -> repaired gauge / local state-space alternatives
+              -> compact core, rough core, multibubble, cascade,
+                 scale collapse, carrier, terminal profile, exterior exits
+\end{lstlisting}
+
+\subsection{Case-study warning}
+\begin{itemize}
+  \item The case study should never hide an unproved analytic input behind a ledger row.
+  \item Each row must be marked verified, imported, conjectural, or open.
+  \item A professional version should include a closure-status column and a dependency-status column for every terminal node.
+\end{itemize}
+
+% =============================================================================
+\section{Verification Ledgers}
+\label{sec:ledgers}
+
+\subsection{Interface ledger}
+\begin{center}
+\begin{tabular}{p{0.23\linewidth}p{0.31\linewidth}p{0.31\linewidth}}
+\toprule
+Interface & Source output & Target input \\
+\midrule
+Concentration gate & positive critical mass & Type I/Type II routing \\
+Type I extraction & bounded ancient profile with retained mass & direct classes or residual class \\
+Residual routing & realized descendant or terminal state & matching residual closure capsule \\
+Type II entry & retained moving core & repaired-gauge representation \\
+Gauge representation & local equation with $a,b$ and pressure atlas & compactness, Caccioppoli, cost, and carrier capsules \\
+Terminal profile route & retained terminal mass & profile extraction or hidden-mass exit \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Retained-obstruction ledger}
+\begin{center}
+\begin{longtable}{p{0.25\linewidth}p{0.35\linewidth}p{0.30\linewidth}}
+\toprule
+Obstruction & Produced by & Contradicted by \\
+\midrule
+positive CKN mass & concentration gate & epsilon-regularity or vanishing pressure/velocity \\
+compact local $L^3$ mass & Seregin extraction & Liouville zero conclusion \\
+residual ancestry & descendant realization & closure of non-realized auxiliary objects is disallowed \\
+retained Type II core mass & selected core construction & compact zero limit or finite-cost collapse \\
+carrier cost & local cost validation & corrected monotonicity plus carrier routing \\
+terminal critical mass & terminal profile extraction & profile exhaustion and perturbative remainder \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{Closure-status ledger}
+\begin{itemize}
+  \item Every terminal node should have status \texttt{closed}, \texttt{imported}, \texttt{open}, or \texttt{conjectural}.
+  \item Every imported theorem should be stated with exact hypotheses and bibliographic source.
+  \item Every open node should be allowed to remain open without invalidating unrelated closed nodes.
+\end{itemize}
+
+\subsection{Repair protocol}
+\begin{enumerate}
+  \item Identify the failing capsule and its outgoing edge.
+  \item Decide whether the estimate is false, under-hypothesized, or assigned to the wrong state.
+  \item Add a named failure route if the negation has stable PDE meaning.
+  \item Split the state if two geometrically different failures were conflated.
+  \item Re-run the dependency audit for all downstream closures.
+\end{enumerate}
+
+% =============================================================================
+\section{Portability Beyond Navier--Stokes}
+\label{sec:portability}
+
+\subsection{General principle}
+\begin{itemize}
+  \item The portable idea is not to copy the \NS{} strata.
+  \item The portable idea is to identify invariant observables, route failure modes, and use only rigidity theorems whose hypotheses have been generated.
+\end{itemize}
+
+\subsection{Potential targets}
+\begin{center}
+\begin{longtable}{p{0.23\linewidth}p{0.36\linewidth}p{0.31\linewidth}}
+\toprule
+Problem class & Likely retained obstruction & Likely states \\
+\midrule
+Geometric flows & curvature concentration or entropy drop & tangent flows, necks, bubbles, ancient solitons \\
+Dispersive PDE & critical mass/energy or scattering norm & profiles, soliton channels, radiation, cascades \\
+Gauge theories & energy concentration and gauge class & bubbles, Coulomb gauges, neck regions, defect measures \\
+Harmonic map heat flow & energy density and topological charge & bubble trees, necks, no-neck defects \\
+Nonlinear wave equations & energy packets and channels & profiles, self-similar cones, exterior radiation \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{What changes in another PDE}
+\begin{itemize}
+  \item The critical observable changes.
+  \item The compactness topology changes.
+  \item The gauge or symmetry group changes.
+  \item The closure theorems change.
+  \item The architecture remains: retained obstruction, routing graph, proof capsules, terminal closures, fault containment.
+\end{itemize}
+
+% =============================================================================
+\section{Limitations and Failure Semantics}
+\label{sec:limitations}
+
+\subsection{What the architecture proves}
+\begin{itemize}
+  \item It proves conditional impossibility of the root branch once all routing and closure capsules are valid.
+  \item It proves dependency transparency: every terminal contradiction has a named route and retained obstruction.
+  \item It proves local repairability of the proof graph under capsule failure.
+\end{itemize}
+
+\subsection{What the architecture does not prove}
+\begin{itemize}
+  \item It does not prove analytic estimates merely by naming them.
+  \item It does not make a false capsule true.
+  \item It does not remove the need for expert verification of pressure, compactness, and endpoint rigidity.
+\end{itemize}
+
+\subsection{Failure semantics}
+\begin{center}
+\begin{longtable}{p{0.32\linewidth}p{0.58\linewidth}}
+\toprule
+Failure discovered & Architectural response \\
+\midrule
+scaling formula wrong & invalidate chart capsule and downstream sign-dependent edges \\
+compactness lemma too strong & add compactness-failure state or strengthen input contract \\
+pressure gauge incompatible & repair pressure atlas or route to pressure/exterior state \\
+retained mass not preserved & invalidate edge or change retained observable \\
+Liouville theorem invoked too early & move closure downstream after hypotheses are generated \\
+cost identity wrong sign & reopen scale-collapse branch and preserve unrelated branches \\
+residual class not exhausted & mark residual terminal node open and keep upstream routing valid \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+% =============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+\begin{itemize}
+  \item Long PDE regularity proofs should be organized as auditable routing graphs, not only as linear manuscripts.
+  \item Local proof capsules make LLM assistance safer because hallucinated estimates are forced to declare hypotheses, outputs, and failure routes.
+  \item The architecture does not eliminate analytic difficulty; it makes analytic difficulty visible, localized, and repairable.
+  \item The next step is to maintain a machine-readable ledger linking every capsule to its source theorem, dependency path, status, and audit history.
+\end{itemize}
+
+% =============================================================================
+\appendix
+
+\section{Proof-Capsule Template}
+\label{app:capsule-template}
+
+\subsection{Minimal template}
+\begin{lstlisting}
+Capsule name:
+Input contract:
+  H1. [local cylinder/window/state]
+  H2. [bounds and topology]
+  H3. [pressure/gauge normalization]
+Output contract:
+  O1. [local estimate or routing conclusion]
+Retained obstruction:
+  I. [quantity and survival statement]
+Failure routes:
+  F1. [named exit]
+  F2. [named exit]
+Audit checklist:
+  A1. scaling
+  A2. sign convention
+  A3. pressure/gauge
+  A4. compactness topology
+  A5. nonlinear passage
+  A6. retention
+  A7. dependencies
+Closure status:
+  verified / imported / open / conjectural
+\end{lstlisting}
+
+\subsection{Example capsule: local Caccioppoli routing}
+\begin{itemize}
+  \item Input: represented suitable branch on $Q_{2R,J}$ with finite outer $C+D$ and bounded modulation.
+  \item Output: finite inner $A+H^1$ control on $Q_{R,J'}$.
+  \item Failure route: if inner $H^1$ fails, then outer $C+D$ or representation hypotheses fail and the branch exits to rough-core/compactness-failure states.
+  \item Audit tests: cutoff support, pressure normalization, modulation sign, inner/outer separation, and scale invariance.
+\end{itemize}
+
+\subsection{Example capsule: endpoint Liouville closure}
+\begin{itemize}
+  \item Input: bounded ancient mild solution with sequence-critical control and retained compact mass.
+  \item Output: solution is zero by imported endpoint Liouville theorem.
+  \item Contradiction: zero solution contradicts retained compact mass.
+  \item Failure route: if sequence-critical control is absent, route to tail/diffuse/residual states before invoking the theorem.
+\end{itemize}
+
+\section{LLM Audit Prompt Library}
+\label{app:prompt-library}
+
+\subsection{Scaling audit prompt}
+\begin{lstlisting}
+Given the change of variables and PDE below, verify every scaling exponent.
+Return a table with columns: term, original scaling, transformed scaling, expected coefficient.
+Flag missing powers or inconsistent conventions.
+\end{lstlisting}
+
+\subsection{Sign audit prompt}
+\begin{lstlisting}
+Audit the sign convention for the modulation coefficients a and b.
+Check consistency among: chart definition, chain rule, represented PDE,
+local energy inequality, Caccioppoli estimate, and cost identity.
+Return the first inconsistent formula if any.
+\end{lstlisting}
+
+\subsection{Hypothesis audit prompt}
+\begin{lstlisting}
+For each theorem invocation in this proof segment, list the invoked theorem,
+its hypotheses, the upstream lines that produce each hypothesis, and any missing hypothesis.
+Classify each invocation as VALID, MISSING HYPOTHESIS, or CIRCULAR.
+\end{lstlisting}
+
+\subsection{Pressure/gauge audit prompt}
+\begin{lstlisting}
+Check whether pressure is compared only modulo functions of time or spatial means.
+Verify that every pressure compactness or pressure-flux step uses the declared normalization.
+Flag any absolute pressure estimate not invariant under pressure gauge changes.
+\end{lstlisting}
+
+\subsection{Retention audit prompt}
+\begin{lstlisting}
+Identify the retained obstruction entering this capsule.
+Track it through subsequences, rescalings, gauge changes, and limits.
+State exactly where the terminal contradiction uses the retained obstruction.
+\end{lstlisting}
+
+\section{Navier--Stokes Routing Graph Skeleton}
+\label{app:ns-routing-graph}
+
+\subsection{Global routing}
+\begin{lstlisting}
+finite-energy suitable weak solution
+  -> suppose terminal singular point exists
+      -> concentration gate
+          -> no concentration: epsilon-regularity closure
+          -> positive concentration
+              -> Type I envelope?
+                  yes: Seregin ancient-profile state space
+                  no: Type II retained local-window state space
+\end{lstlisting}
+
+\subsection{Type I routing}
+\begin{lstlisting}
+Type I branch
+  -> Seregin extraction
+      -> small class: perturbative Liouville
+      -> stationary L3 class: stationary rigidity
+      -> uniformly tight class: endpoint ancient Liouville
+      -> structure/decay class: specialized Liouville theorem
+      -> residual class: residual terminal-dynamics graph
+\end{lstlisting}
+
+\subsection{Residual Type I routing}
+\begin{lstlisting}
+residual class
+  -> axisymmetric / rotational / stationary-hull / affine-parasitic strata
+  -> tail strata: log-diffuse, Young defect, coherent critical tails
+  -> terminal strata: nonactive, diffuse, mixed, active descendants
+  -> generic residual: parasitic-free mildness + sequence L3 + endpoint Liouville
+\end{lstlisting}
+
+\subsection{Type II routing}
+\begin{lstlisting}
+Type II branch
+  -> select retained moving core
+      -> repaired gauge representation
+      -> compact single core
+      -> rough core / H1 loss
+      -> multibubble / cascade / gauge degeneracy
+      -> scale collapse / finite cost / carrier routing
+      -> terminal critical profile / exterior states
+\end{lstlisting}
+
+\section{Verification Ledger Templates}
+\label{app:ledger-templates}
+
+\subsection{Closure status table template}
+\begin{center}
+\begin{longtable}{p{0.18\linewidth}p{0.22\linewidth}p{0.17\linewidth}p{0.25\linewidth}}
+\toprule
+Node & Closure mechanism & Status & Audit notes \\
+\midrule
+{[Node]} & {[Capsule]} & verified/open & {[Notes]} \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{Dependency ledger template}
+\begin{center}
+\begin{longtable}{p{0.20\linewidth}p{0.22\linewidth}p{0.22\linewidth}p{0.20\linewidth}}
+\toprule
+Capsule & Uses & Produces & Downstream consumers \\
+\midrule
+{[Capsule]} & {[Inputs]} & {[Outputs]} & {[Downstream]} \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{Retained-obstruction ledger template}
+\begin{center}
+\begin{longtable}{p{0.22\linewidth}p{0.22\linewidth}p{0.22\linewidth}p{0.16\linewidth}}
+\toprule
+Obstruction & Produced at & Preserved through & Terminal use \\
+\midrule
+{[Invariant]} & {[Produced at]} & {[Edges]} & {[Use]} \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\section{Expansion Plan for the Full Manuscript}
+\label{app:expansion-plan}
+
+\subsection{Main text expansion targets}
+\begin{itemize}
+  \item Expand \Cref{sec:introduction} into 4--6 pages with motivating examples of fragile monolithic proofs.
+  \item Expand \Cref{sec:abstract-architecture} into the formal mathematical core of the paper.
+  \item Keep \Cref{sec:auditability} short, practical, and free of hype.
+  \item Keep \Cref{sec:ns-case-study} as a case study with explicit disclaimers about analytic verification.
+  \item Put all large theorem-register material in appendices or supplementary files.
+\end{itemize}
+
+\subsection{Professional style rules}
+\begin{itemize}
+  \item Avoid saying ``LLMs prove the theorem''; say ``LLMs audit local capsules.''
+  \item Avoid saying ``all exits are closed'' unless every closure capsule has been independently checked.
+  \item Use ``open node'' instead of ``gap'' when the architecture intentionally records an unclosed branch.
+  \item Use ``proof capsule'' only for statements with explicit hypotheses and outputs.
+  \item Use ``case study'' for \NS{} until the analytic proof series is independently mature.
+\end{itemize}
+
+\subsection{Suggested companion artifacts}
+\begin{itemize}
+  \item A machine-readable JSON/YAML ledger of capsules and dependencies.
+  \item A theorem-label register generated from the TeX source.
+  \item A prompt library for local audits.
+  \item A status dashboard marking capsules as verified, imported, open, or under revision.
+\end{itemize}
+
+\begin{thebibliography}{99}
+
+\bibitem{CKN82}
+L. Caffarelli, R. Kohn, and L. Nirenberg.
+Partial regularity of suitable weak solutions of the Navier--Stokes equations.
+\emph{Communications on Pure and Applied Mathematics}, 35(6):771--831, 1982.
+
+\bibitem{Leray34}
+J. Leray.
+Sur le mouvement d'un liquide visqueux emplissant l'espace.
+\emph{Acta Mathematica}, 63:193--248, 1934.
+
+\bibitem{ESS03}
+L. Escauriaza, G. Seregin, and V. Sverak.
+$L_{3,\infty}$-solutions of Navier--Stokes equations and backward uniqueness.
+\emph{Russian Mathematical Surveys}, 58(2):211--250, 2003.
+
+\bibitem{NRS96}
+J. Necas, M. Ruzicka, and V. Sverak.
+On Leray's self-similar solutions of the Navier--Stokes equations.
+\emph{Acta Mathematica}, 176:283--294, 1996.
+
+\bibitem{AubinSimon}
+J.-P. Aubin and J. Simon.
+Compactness tools for evolution equations.
+\emph{[Replace with exact references in final bibliography]}.
+
+\bibitem{FormalMethodsPlaceholder}
+[Placeholder]
+References on formal proof assistants, proof engineering, or LLM-assisted theorem proving should be added here only after exact bibliographic verification.
+
+\end{thebibliography}
+
+\end{document}

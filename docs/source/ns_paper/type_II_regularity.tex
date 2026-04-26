@@ -1,3 +1,4 @@
+\pdfoutput=1
 \documentclass[11pt]{amsart}
 \usepackage[margin=1.1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathrsfs,mathtools}
@@ -138,11 +139,14 @@ For a nondegenerate retained core, the solution is rewritten in local
 scale-translation variables.  The repaired-gauge representation produces a
 renormalized Navier--Stokes equation with controlled modulation terms, local
 pressure reconstruction modulo functions of time, and compact-window suitable
-estimates.  Within this representation, a compact single-core branch with
-positive CKN density and vanishing localized dissipation is impossible: local
-compactness gives a spatially constant limit, the zero constant contradicts
-pressure-stable persistence of the positive core, and a nonzero constant gives a
-bounded selected-window limit incompatible with the Type II condition.
+estimates.  Within this representation, a compact single-core branch with a
+retained positive velocity core and vanishing localized dissipation is
+impossible: local compactness gives a spatially constant limit, the zero
+constant contradicts retained velocity by strong \(L^3\) convergence, and a
+nonzero constant gives a bounded selected-window limit, which exits the
+retained local Type II row.  Pressure-only harmonic concentration is routed to
+the pressure/exterior rows rather than closed by the single-core velocity
+argument.
 
 The remaining sections remove the ways in which a Type II branch could avoid
 that compact single-core mechanism.  Caccioppoli estimates convert finite outer
@@ -235,11 +239,13 @@ sequence is a compact single-core vanishing-dissipation branch if:
       \[
       A_{V_n}(R_*)+E_{V_n}(R_*)+C_{V_n}(R_*)+D_{P_n}(R_*)\le M;
       \]
-\item the selected core has positive CKN concentration on \(Q_{r_*}\):
+\item the selected core has retained positive velocity concentration on \(Q_{r_*}\):
       \[
-      C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0
+      C_{V_n}(r_*)\ge\eta_0
       \qquad\text{for all }n;
       \]
+      Pressure-only concentration is not included in this compact single-core
+      row; it is routed to the harmonic/exterior-pressure alternative.
 \item the localized scale and center are nondegenerate for the selected core,
       so the representation theorem gives the variables in
       \eqref{paper1:eq:represented-ns};
@@ -334,7 +340,7 @@ nondegeneracy condition is a multibubble, cascade, or gauge-degenerate
 alternative, not a compact single-core branch.
 \end{proposition}
 
-\begin{proposition}[Local pressure decomposition and stability]
+\begin{proposition}[Local pressure decomposition]
 \label{paper1:prop:pressure-reconstruction}
 For every \(B_r\Subset B_R\), the represented pressure decomposes as
 \[
@@ -349,14 +355,9 @@ harmonic in \(B_r\).  The local part satisfies the Calder\'on--Zygmund bound
   \|P_{{\rm loc},n}\|_{L^{3/2}(B_R)}
   \le C\|V_n\|_{L^3(B_R)}^2
 \]
-for a.e. time, and the harmonic part is controlled modulo spatial means by the
-local pressure norm.
-
-Moreover, if \(V_n\to0\) strongly in \(L^3(Q_R)\), then for every \(r<R\),
-\[
-  P_n-(P_n)_{B_r}\to0
-  \quad\text{strongly in }L^{3/2}(Q_r).
-\]
+for a.e. time. The harmonic part is controlled only by the local pressure norm,
+modulo spatial means; no vanishing of the harmonic part follows from
+\(V_n\to0\) without an additional pressure-row hypothesis.
 \end{proposition}
 
 \begin{lemma}[Localization of pressure oscillation bounds]\label{paper1:lem:D-localization}
@@ -395,7 +396,7 @@ Integrating over \((-r^2,0)\) and using \(Q_r\subset Q_R\),
 \]
 \end{proof}
 
-\subsection{Compactness and pressure stability}
+\subsection{Compactness and localized pressure compactness}
 
 \begin{proposition}[Compactness on selected windows]\label{paper1:prop:compactness}
 Let \((V_n,P_n)\) be suitable on \(Q_{R_*}\), solve \eqref{paper1:eq:represented-ns}, and satisfy
@@ -603,7 +604,7 @@ time-derivative bound for the three lower-order modulation terms in
 limit once \(V_n\to V\) strongly in \(L^2_{\rm loc}\).
 \end{remark}
 
-\begin{lemma}[Stability of local pressure decomposition]\label{paper1:lem:pressure-stability}
+\begin{lemma}[Stability of the localized pressure part]\label{paper1:lem:pressure-stability}
 Let \(V_n\to V\) strongly in \(L^3(Q_R)\), and use the pressure decomposition
 of \cref{paper1:prop:pressure-reconstruction}.  Then for every \(r<R\),
 \[
@@ -613,18 +614,12 @@ of \cref{paper1:prop:pressure-reconstruction}.  Then for every \(r<R\),
 where \(-\Delta P_{\rm loc}=\partial_i\partial_j(\zeta V_iV_j)\).  If
 \(V\equiv0\) on \(Q_R\), then
 \[
-  P_n-(P_n)_{B_r}\to0
+  P_{{\rm loc},n}\to0
   \quad\text{strongly in }L^{3/2}(Q_r).
 \]
-More locally in time, if \(V_n\to0\) strongly in
-\[
-  L^3(B_R\times(-r^2,0)),
-\]
-then
-\[
-  P_n-(P_n)_{B_r}\to0
-  \quad\text{strongly in }L^{3/2}(Q_r).
-\]
+This lemma does not assert convergence of the full mean-normalized pressure:
+the harmonic component may contain local parasitic pressure modes independent
+of \(V_n\).
 \end{lemma}
 
 \begin{proof}
@@ -649,16 +644,11 @@ strong convergence of the localized pressures in \(L^{3/2}\) on smaller balls:
   \|V_{n,i}V_{n,j}-V_iV_j\|_{L^{3/2}(Q_R)}.
 \]
 
-Assume now that \(V\equiv0\) on \(Q_R\).  Then \(P_{\rm loc}=0\).  By the
-zero-limit stability part of \cref{paper1:prop:pressure-reconstruction},
-\[
-  P_n-(P_n)_{B_r}\to0
-  \quad\text{strongly in }L^{3/2}(Q_r).
-\]
-The same proof is local in time.  If \(V_n\to0\) strongly in
-\(L^3(B_R\times(-r^2,0))\), the Calder\'on--Zygmund estimate and harmonic
-pressure control are applied only for times \(s\in(-r^2,0)\), giving the
-strong convergence on \(Q_r\).
+If \(V\equiv0\), then \(P_{\rm loc}=0\), and the first part gives the displayed
+convergence of \(P_{{\rm loc},n}\). The harmonic part \(H_n\) is not controlled
+by Calder\'on--Zygmund from the velocity source and may persist even when
+\(V_n\to0\); it is therefore handled only in the pressure/exterior rows, not in
+the compact single-core zero-velocity contradiction.
 \end{proof}
 
 \begin{lemma}[Zero-dissipation limit]\label{paper1:lem:zero-dissipation}
@@ -710,26 +700,27 @@ bounded selected-window limit in the sense of \cref{paper1:def:bounded-window-li
 
 \subsection{Contradiction lemmas}
 
-\begin{lemma}[Persistence of positive core concentration]\label{paper1:lem:persistence}
+\begin{lemma}[Persistence of retained velocity core]\label{paper1:lem:persistence}
 For a compact single-core branch in the sense of \cref{paper1:def:single-core-branch},
 there are fixed \(r_*>0\) and \(\eta_0>0\) such that along the selected-window
 subsequence,
 \[
-  C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0
+  C_{V_n}(r_*)\ge\eta_0
   \qquad\text{for all }n.
 \]
 \end{lemma}
 
 \begin{proof}
-The lower bound is part of the definition of the selected compact core and is preserved by
-passing to subsequences of the selected windows.
+The retained velocity lower bound is part of the definition of the selected
+compact core and is preserved by passing to subsequences of the selected
+windows.
 \end{proof}
 
-\begin{lemma}[Zero constant contradicts positive CKN concentration]\label{paper1:lem:zero-contradiction}
+\begin{lemma}[Zero constant contradicts retained velocity]\label{paper1:lem:zero-contradiction}
 Let \(r_*<\rho\).  Suppose the compactness limit in \cref{paper1:prop:compactness} is
 spatially constant on \(Q_\rho\) and is identically zero on \(Q_{r_*}\).  Then
 \[
-  C_{V_n}(r_*)+D_{P_n}(r_*)\to0.
+  C_{V_n}(r_*)\to0.
 \]
 Consequently this case contradicts \cref{paper1:lem:persistence}.
 \end{lemma}
@@ -744,41 +735,12 @@ Strong \(L^3(Q_{r_*})\) convergence to zero gives
   r_*^{-2}\|V_n\|_{L^3(Q_{r_*})}^3
   \to0.
 \]
-It remains to control the pressure term.  Since \(V\) is spatially constant on
-\(Q_\rho\), the identity \(V=0\) on \(Q_{r_*}\) implies
+This contradicts the retained velocity lower bound
 \[
-  V=0
-  \qquad\text{on }B_\rho\times(-r_*^2,0).
+  C_{V_n}(r_*)\ge\eta_0.
 \]
-Indeed, for a.e. \(s\in(-r_*^2,0)\), the spatially constant value on
-\(B_\rho\) vanishes on the nonempty subball \(B_{r_*}\), hence vanishes on all
-of \(B_\rho\).  The strong \(L^3_{\rm loc}\) convergence therefore gives
-\[
-  V_n\to0
-  \qquad\text{strongly in }L^3(B_\rho\times(-r_*^2,0)).
-\]
-Applying \cref{paper1:lem:pressure-stability} with \(R=\rho\) and \(r=r_*\), in its
-local-in-time form, gives
-\[
-  P_n-(P_n)_{B_{r_*}}\to0
-  \qquad\text{strongly in }L^{3/2}(Q_{r_*}).
-\]
-Therefore
-\[
-  D_{P_n}(r_*)
-  =
-  r_*^{-2}
-  \|P_n-(P_n)_{B_{r_*}}\|_{L^{3/2}(Q_{r_*})}^{3/2}
-  \to0.
-\]
-Thus
-\[
-  C_{V_n}(r_*)+D_{P_n}(r_*)\to0,
-\]
-contradicting the uniform lower bound
-\[
-  C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0.
-\]
+No assertion is made about \(D_{P_n}(r_*)\): a pressure-only harmonic mode may
+remain and is not part of the retained compact single-core velocity row.
 \end{proof}
 
 \begin{lemma}[Nonzero constant exits the retained Type II row]\label{paper1:lem:nonzero-contradiction}
@@ -827,9 +789,9 @@ cylinder \(Q_{r_*}\).
 If this spatially constant limit is zero on the core cylinder, the zero-limit
 contradiction lemma gives
 \[
-  C_{V_n}(r_*)+D_{P_n}(r_*)\to0,
+  C_{V_n}(r_*)\to0,
 \]
-contradicting persistence of positive core concentration.
+contradicting persistence of the retained velocity core.
 
 If the spatially constant limit is not identically zero on \(Q_{r_*}\), the
 nonzero-limit lemma produces a nonzero bounded selected-window limit, so the
@@ -1449,12 +1411,15 @@ the two weighted integrability conditions
 transported by the smooth change of variables. The translation derivative in
 the scale component is treated by the source identity
 \[
-3\int |Y|^{-p}|V|\,V\cdot\partial_kV
-=p\int Y_k|Y|^{-p-2}|V|^3,
+3\int \chi_R|Y|^{-p}|V|\,V\cdot\partial_kV
+=p\int \chi_RY_k|Y|^{-p-2}|V|^3
+-\int (\partial_k\chi_R)|Y|^{-p}|V|^3,
 \]
 obtained first for smooth compactly supported profiles and then by approximation
 in \(\mathcal A_{p,R}\); the right-hand side is finite because
-\(\int |Y|^{-p-1}|V|^3<\infty\). The translation components are supported in \(B_{2R}\)
+\(\int |Y|^{-p-1}|V|^3<\infty\), while the cutoff term is supported on a compact
+annulus away from the origin and is controlled by local \(L^3\). The translation
+components are supported in \(B_{2R}\)
 and are controlled by \(V\in L^2_{\rm loc}\) and \(\nabla V\in L^3_{\rm loc}\).
 These bounds give an integrable majorant for the difference quotients, so
 dominated convergence applies.
@@ -3265,7 +3230,7 @@ explicitly so that the following theorem uses no unstated compactness,
 pressure, or profile completeness conclusion.
 
 \begin{proposition}[Local single-core exclusion]\label{paper3:prop:local-single-core-exclusion}
-Every compact single-core branch with positive local CKN concentration,
+Every compact single-core branch with retained positive local velocity concentration,
 nondegenerate scale-center selection, pressure reconstruction, bounded
 compact-cylinder suitable estimates, bounded modulation, and vanishing localized
 dissipation is excluded from the local Type II regime.
@@ -3275,7 +3240,7 @@ dissipation is excluded from the local Type II regime.
 This is precisely the conclusion of the local single-core Type II criterion,
 \cref{paper1:thm:single-core-criterion}, applied to the represented compact
 single-core branch in the renormalized chart.  The hypotheses listed here are
-the input data of that theorem: positive local CKN concentration provides the
+the input data of that theorem: retained positive local velocity concentration provides the
 nondegenerate selected core, the nondegenerate scale-center selection together
 with the pressure reconstruction and bounded compact-cylinder suitable
 estimates are the inputs of the compactness statement
@@ -3343,11 +3308,13 @@ produced by Step~3 or Step~4 of \cref{paper3:thm:same-point-reduction} or by
       \[
         A_{V_n}(R_*)+E_{V_n}(R_*)+C_{V_n}(R_*)+D_{P_n}(R_*)\le M;
       \]
-\item the branch carries positive local CKN concentration on a fixed inner
+\item the branch carries retained positive local velocity concentration on a fixed inner
       cylinder \(Q_{r_*}\Subset Q_{R_*}\),
       \[
-        C_{V_n}(r_*)+D_{P_n}(r_*)\ge\eta_0;
+        C_{V_n}(r_*)\ge\eta_0;
       \]
+      If the retained concentration is pressure-only, the branch is assigned
+      instead to the harmonic pressure row or to the exterior-pressure row.
 \item the modulation coefficients are bounded on the selected cylinder,
       \[
         \|a_n\|_{L^\infty(-R_*^2,0)}+\|b_n\|_{L^\infty(-R_*^2,0)}\le M;
@@ -3371,8 +3338,11 @@ preceding reductions.  Bound (R1) is the compact-cylinder hypothesis carried
 through \cref{paper3:thm:minimal-bad-extraction}; if it failed,
 \cref{paper3:lem:compactness-failure} would assign the branch to the
 multicore alternative, not to the scale-rigid stratum.  Bound (R2) is the
-positive concentration capture in \cref{paper3:def:active-family}.  Bound
-(R3) is the selected-cylinder modulation control of
+velocity-carrier part of the positive concentration capture in
+\cref{paper3:def:active-family}: after pressure-only carriers have been routed
+to the harmonic/exterior-pressure row, the retained scale-rigid row is entered
+only by a fixed positive \(L^3\) velocity carrier on \(Q_{r_*}\).  Bound (R3)
+is the selected-cylinder modulation control of
 \cref{paper2:thm:B}, which is part of the represented-variable output of
 \cref{paper2:thm:C}.  No additional analytic input is needed to enter the
 scale-rigid stratum.
@@ -3984,10 +3954,10 @@ velocity-pressure quantity of \((V_*,P_*)\) on \(Q_{r_z}(z)\) is below
 
 It remains to check that the bounded limit is nonzero.  If \(V_*\equiv0\) on
 the retained inner cylinder, then the strong \(L^3\) convergence from
-\cref{paper3:lem:scale-rigid-pressure-modulation-stability} and the pressure
-stability argument of \cref{paper1:lem:zero-contradiction} imply
+\cref{paper3:lem:scale-rigid-pressure-modulation-stability} and the
+zero-velocity argument of \cref{paper1:lem:zero-contradiction} imply
 \[
-  C_{V_n}(r_*)+D_{P_n}(r_*)\to0,
+  C_{V_n}(r_*)\to0,
 \]
 contradicting the retained lower bound (R2) in
 \cref{paper3:def:scale-rigid-branch}.  Hence \(V_*\not\equiv0\) on some
@@ -19686,12 +19656,11 @@ multibubble, cascade, or scale-rigidity alternatives.
 No compact single-core vanishing-dissipation branch can be a local Type II
 sequence.  More explicitly, let a represented selected-window sequence have:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item positive local CKN concentration on a fixed compact cylinder;
+\item retained positive local velocity concentration on a fixed compact cylinder;
 \item uniformly bounded compact-cylinder suitable estimates \(A+E+C+D\);
 \item nondegenerate local scale-center representation;
 \item bounded modulation coefficients;
-\item local pressure reconstruction and pressure stability modulo spatial
-means;
+\item local pressure reconstruction modulo spatial means;
 \item vanishing localized dissipation on some retained compact cylinder.
 \end{enumerate}
 Then the sequence is incompatible with the local Type II condition.
@@ -19786,14 +19755,14 @@ vanishing-dissipation branch in the sense of
 \cref{paper1:def:single-core-branch};
 \item an exterior, rough-core, modulation, scale, carrier, or cost adjacent
 label occurs before the branch is a retained compact single-core state;
-\item on a retained core cylinder carrying the positive local concentration, the
+\item on a retained core cylinder carrying the positive local velocity concentration, the
 localized dissipation has divergent tail integral, hence the canonical
 localized cost diverges for every cutoff which is identically one on that core.
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-Fix a retained cylinder \(Q_\rho\) on which the positive core concentration is
+Fix a retained cylinder \(Q_\rho\) on which the positive velocity core is
 recorded.  If
 \[
   \int_{\tau_0}^{\infty}\int_{B_\rho}|\nabla V|^2\,dy\,d\tau<\infty,
@@ -19804,7 +19773,7 @@ windows after passing to a subsequence, such that
   \int_{I_{n_j}}\int_{B_\rho}|\nabla V|^2\,dy\,d\tau\to0 .
 \]
 The retained compact-cylinder bounds, pressure reconstruction, admissible
-modulation control on the selected windows, and positive core concentration are
+modulation control on the selected windows, and positive velocity core are
 exactly the remaining clauses of \cref{paper1:def:single-core-branch}; if any
 retained compact-cylinder, pressure, exterior, rough-core, modulation, scale,
 carrier, or cost input needed for that definition fails, the ordered
@@ -20802,11 +20771,13 @@ reconstruction, compactness on fixed cylinders, Caccioppoli estimates,
 profile decoupling, and localized scale-cost identities.
 
 The compact single-core mechanism is the central obstruction.  A retained core
-with positive local CKN density and vanishing localized dissipation has only two
-compact limits after passing to selected windows.  The zero limit contradicts
-the persistence of the velocity-pressure concentration by strong convergence
-and pressure stability, while a nonzero spatially constant limit gives a
-bounded selected-window profile and hence exits the Type II regime.  The rest
+with positive local velocity density and vanishing localized dissipation has
+only two compact limits after passing to selected windows.  The zero limit
+contradicts the persistence of the retained velocity core by strong \(L^3\)
+convergence, while a nonzero spatially constant limit gives a bounded
+selected-window profile and hence exits the Type II regime.  Pressure-only
+harmonic modes are routed through the pressure/exterior rows and are not used
+to close the compact single-core velocity row.  The rest
 of the proof shows that the remaining alternatives to this compact
 mechanism are also accounted for: rough cores are reduced to compact-cylinder
 control, active multibubbles and cascades are separated by the profile

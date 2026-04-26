@@ -2,9 +2,9 @@
 \contentsline {section}{\tocsection {}{2}{Local Single-Core Criterion}}{6}{section.2}%
 \contentsline {subsection}{\tocsubsection {}{2.1}{Setup and definitions}}{6}{subsection.2.1}%
 \contentsline {subsection}{\tocsubsection {}{2.2}{Local analytic inputs}}{7}{subsection.2.2}%
-\contentsline {subsection}{\tocsubsection {}{2.3}{Compactness and pressure stability}}{8}{subsection.2.3}%
-\contentsline {subsection}{\tocsubsection {}{2.4}{Contradiction lemmas}}{12}{subsection.2.4}%
-\contentsline {subsection}{\tocsubsection {}{2.5}{Main theorem}}{13}{subsection.2.5}%
+\contentsline {subsection}{\tocsubsection {}{2.3}{Compactness and localized pressure compactness}}{8}{subsection.2.3}%
+\contentsline {subsection}{\tocsubsection {}{2.4}{Contradiction lemmas}}{11}{subsection.2.4}%
+\contentsline {subsection}{\tocsubsection {}{2.5}{Main theorem}}{12}{subsection.2.5}%
 \contentsline {section}{\tocsection {}{3}{Repaired-Gauge Construction}}{14}{section.3}%
 \contentsline {subsection}{\tocsubsection {}{3.1}{Setup and notation}}{14}{subsection.3.1}%
 \contentsline {subsection}{\tocsubsection {}{3.2}{Preliminary frame map from the selected core}}{15}{subsection.3.2}%
