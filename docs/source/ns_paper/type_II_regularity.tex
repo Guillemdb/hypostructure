@@ -1182,9 +1182,10 @@ X(\tau)\in B_{R_*/2}(x_\bullet),\qquad |x-X(\tau)|\le \Lambda_{\max}R,\\
 for every \(\tau\in I_*\) and \(x=X(\tau)+\Lambda(\tau)Y\) with \(Y\in B_{2R}\).
 In particular, if \(|c(\tau)|\le \delta\) from Proposition~\ref{paper2:prop:preliminary-correction},
 then \(X(\tau)\in B_{R_*/2+\Lambda_{\max}\delta}(x_\bullet)\) on \(I_*\).
-Hence, \(\chi_R\in C_c^\infty(B_{2R})\) pulls back to
-\(\chi_R^\tau:=\chi_R\circ \Phi^{-1}\in C_c^\infty(\mathcal Q^{\rm ph}_{2R})\)
-with support depending only on \(R,\Lambda_{\min},\Lambda_{\max}\).
+Hence, \(\chi_R\in C_c^\infty(B_{2R})\) pulls back to a compactly supported
+physical cutoff that is smooth in the spatial variables and absolutely
+continuous in time under the AC chart, with support depending only on
+\(R,\Lambda_{\min},\Lambda_{\max}\).
 \end{proposition}
 \begin{proof}
 Fix \(\tau\in I_*\) and \(Y\in B_R\). Since \(x=X(\tau)+\Lambda(\tau)Y\),
@@ -1202,10 +1203,11 @@ inclusions for \(\mathcal Q_{R}^{\rm ph}\) and \(\mathcal Q_{2R}^{\rm ph}\).
 
 For pull-backs of cutoffs, \(\Phi\) is bi-Lipschitz at every \(\tau\), so composition
 \[
-\chi_R^\tau(x,t):=\chi_R\!\left(\frac{x-X(\tau)}{\Lambda(\tau)}\right)
+\chi_R^{\rm ph}(x,t):=\chi_R\!\left(\frac{x-X(\tau(t))}{\Lambda(\tau(t))}\right)
 \]
-is smooth on \(\mathcal Q^{\rm ph}_{2R}\), supported where
-\(Y\in B_{2R}\), hence supported where \((x,t)\in\mathcal Q^{\rm ph}_{2R}\). The support size depends
+is smooth in \(x\) for each time and is AC in time when the chart is AC. It is
+supported where \(Y\in B_{2R}\), hence supported where
+\((x,t)\in\mathcal Q^{\rm ph}_{2R}\). The support size depends
 only on \(R,\Lambda_{\min},\Lambda_{\max}\) and the fixed \(C_c^\infty\) norm of
 \(\chi_R\), not on the particular branch.
 \end{proof}
@@ -1674,77 +1676,6 @@ then gives the displayed bound.
 
 \subsection{Retained repaired-gauge selection in time}\label{paper2:sec:gauge-solve}
 
-\begin{lemma}[AC implicit inversion with parameters]\label{paper2:lem:AC-IFT}
-Let \(U\subset\RR^4\) be open and \(G:I_*\times U\to\RR^4\). Assume:
-\begin{enumerate}
-\item[(i)] for each \(s\in U\), \(\tau\mapsto G(\tau,s)\in W^{1,1}_{\rm loc}(I_*;\RR^4)\), and
-  \(D_\tau G\in L^1_{\rm loc}(I_*;L^\infty(U;\RR^4))\);
-\item[(ii)] for a.e. \(\tau\in I_*\), \(s\mapsto G(\tau,s)\) is \(C^1\) on \(U\), with \(D_sG\) continuous in \((\tau,s)\);
-\item[(iii)] for some \((\tau_0,s_0)\in I_*\times U\), \(G(\tau_0,s_0)=0\), and there is \(\rho,C>0\) such that
-\[
-\sup_{(\tau,s)\in I_*\times B_\rho(s_0)}\|D_sG(\tau,s)^{-1}\|_{\mathcal L(\RR^4,\RR^4)}\le C.
-\]
-\end{enumerate}
-Then after possibly shrinking \(I_*\) to a subinterval \(J\ni\tau_0\), there is a unique
-map \(s\in AC(J;U)\), \(s(\tau_0)=s_0\), with
-\[
-G(\tau,s(\tau))=0\quad\text{a.e. in }J.
-\]
-Moreover
-\[
-s'(\tau)=-D_sG(\tau,s(\tau))^{-1}\,D_\tau G(\tau,s(\tau))\quad\text{a.e. on }J.
-\]
-\begin{proof}
-By (ii), the matrix field \(D_sG\) is continuous in \(s\), so there is \(r_0\in(0,\rho)\) such that
-\(\inf_{(\tau,s)\in I_*\times B_{r_0}(s_0)}|\det D_sG(\tau,s)|>0\) after possibly
-shrinking \(I_*\); this keeps \(D_sG^{-1}\) bounded and continuous on \(B_{r_0}(s_0)\).
-
-Set
-\[
-F(\tau,s):=-D_sG(\tau,s)^{-1}D_\tau G(\tau,s).
-\]
-Then \(F(\tau,\cdot)\) is continuous on \(B_{r_0}(s_0)\) for a.e. \(\tau\) and
-\(F(\cdot,s)\in L^1_{\rm loc}(I_*;\mathbb R^4)\) by (i), hence \(F\) is a Carath\'eodory
-right-hand side. Since the gauge map is \(C^1\) in the finite variables, after
-shrinking \(r_0\) there is \(L\in L^1(J)\) such that
-\[
-|F(\tau,s_1)-F(\tau,s_2)|\le L(\tau)|s_1-s_2|
-\quad\text{for }s_1,s_2\in B_{r_0}(s_0).
-\]
-Choose \(\delta>0\) so small that
-\[
-\int_{\tau_0-\delta}^{\tau_0+\delta}\sup_{s\in B_{r_0}(s_0)}|F(\sigma,s)|\,d\sigma<r_0.
-\]
-On \(J=[\tau_0-\delta,\tau_0+\delta]\cap I_*\) define the Picard operator
-\[
-(\mathcal Ts)(\tau):=s_0+\int_{\tau_0}^{\tau}F(\sigma,s(\sigma))\,d\sigma
-\]
-on \(C(J;B_{r_0}(s_0))\). The preceding bound keeps \(\mathcal T\) in the same
-closed ball, and the Lipschitz estimate gives
-\[
-\|\mathcal T s_1-\mathcal T s_2\|_{C(J)}
-\le \left(\int_J L(\sigma)\,d\sigma\right)\|s_1-s_2\|_{C(J)}.
-\]
-After decreasing \(\delta\) once more, the coefficient is \(<1\), so Banach's
-fixed-point theorem gives a unique solution
-\[
-s(\tau)=s_0+\int_{\tau_0}^{\tau}F(\sigma,s(\sigma))\,d\sigma,\qquad
-\tau\in J,
-\]
-which stays in \(B_{r_0}(s_0)\subset U\). This solution is absolutely continuous.
-
-Define \(H(\tau):=G(\tau,s(\tau))\). Since \(G(\cdot,s(\cdot))\in W^{1,1}_{\rm loc}\) from (i),
-the chain rule gives for a.e. \(\tau\in J\)
-\[
-H'(\tau)=D_\tau G(\tau,s(\tau))+D_sG(\tau,s(\tau))s'(\tau)
-=D_\tau G(\tau,s(\tau))+D_sG(\tau,s(\tau))F(\tau,s(\tau))=0.
-\]
-Hence \(H\equiv G(\tau_0,s_0)=0\) on \(J\), which is the claimed constraint.
-Uniqueness follows from Gr\"onwall on the difference of two AC solutions on \(B_{r_0}(s_0)\),
-using Lipschitz continuity of \(F(\tau,\cdot)\) on that ball.
-\end{proof}
-\end{lemma}
-
 \begin{definition}[Retained nondegenerate repaired-gauge regime]\label{paper2:def:admissible-gauge-path}
 Let \(J\subset I_*\) be compact. The retained nondegenerate repaired-gauge
 regime over the preliminary profile \(V_{\rm pre}\) consists of branches for
@@ -1942,52 +1873,45 @@ renormalized pressure splitting.
 \end{remark}
 
 \subsection{Modulation from differentiated constraints}\label{paper2:sec:modulation}
-\begin{lemma}[Differentiation of constraints]\label{paper2:lem:diff-f}
-For the repaired profile \(V\) constructed above, with
-\(|Y|^{-p}|V|^3\in L^1_{\rm loc}(I_*;L^1)\),
-Then \(G_\alpha(\tau):=\mathcal F_\alpha(1,0;V(\tau))\) are absolutely
-continuous and
+\begin{definition}[Admissible modulation-differentiability row]\label{paper2:def:mod-diff-row}
+On a compact window \(J\subset I_*\), a retained repaired-gauge branch satisfies
+the modulation-differentiability row if, for each \(\alpha=0,1,2,3\),
 \[
-\frac{\dd}{\dd\tau}G_\alpha(\tau)
-=\int_{\RR^3}\mathbf D_\alpha(V,\nn V,\nabla\chi_R)\,\partial_\tau V\,\dd Y
+G_\alpha(\tau):=\mathcal F_\alpha(1,0;V(\tau))
 \]
-for a.e. \(\tau\). Here \(\mathbf D_\alpha\) is the \(L^1\)-integrable Gateaux
-gradient associated to \(\mathcal F_\alpha\).
+belongs to \(AC(J)\), and there are functions
+\(\mathcal R_\alpha\in L^1(J)\) such that
+\begin{equation}\label{paper2:eq:mod-row}
+G_\alpha'(\tau)
+=-\mathcal R_\alpha(\tau)
++a(\tau)\,\partial_\lambda\mathcal F_\alpha(1,0;V(\tau))
++\sum_{k=1}^3 b_k(\tau)\,\partial_{c_k}\mathcal F_\alpha(1,0;V(\tau))
+\end{equation}
+for a.e. \(\tau\in J\).  The terms \(\mathcal R_\alpha\) are defined as the
+limits obtained by testing the represented renormalized equation against smooth
+compactly supported truncations of the Gateaux gradients of
+\(\mathcal F_\alpha\), then passing to the limit in the local energy and pressure
+topologies.  Thus \(\mathcal R_\alpha\) is a distributional truncated-test limit,
+not the unsupported pairing of an \(L^1_x\) coefficient with a raw
+\(\partial_\tau V\).
+
+If this row fails on a compact window, the branch is routed to the
+modulation-failure exit rather than to the retained modulation theorem.
+\end{definition}
+
+\begin{lemma}[Differentiated repaired constraints under the modulation row]\label{paper2:lem:diff-f}
+If the repaired branch satisfies \cref{paper2:def:mod-diff-row} on \(J\), then
+the repaired constraints have the a.e. derivative identity
+\eqref{paper2:eq:mod-row} on \(J\), with
+\(\mathcal R=(\mathcal R_0,\ldots,\mathcal R_3)\in L^1(J)^4\).
 \end{lemma}
 
 \begin{proof}
-\[
-G_\alpha(\tau)=\mathcal F_\alpha(1,0;V(\tau))
-\]
-is first evaluated on spatial-temporal mollifications \(V^\varepsilon\).  For
-those smooth profiles the ordinary chain rule gives
-\[
-\frac d{d\tau}G_\alpha^\varepsilon(\tau)
-=D_V\mathcal F_\alpha(1,0;V^\varepsilon(\tau))\,[\partial_\tau V^\varepsilon(\tau)].
-\]
-The local suitable bounds, pressure estimates, and compact support of the
-Gateaux gradients below allow passage to the limit \(\varepsilon\downarrow0\),
-which gives the displayed derivative formula for \(V\).
-For \(\mathcal F_0\),
-\[
-\mathbf D_0(V,\nabla V,\nabla\chi_R)
-=3\chi_R|Y|^{-p}|V|\,V;
-\]
-for \(\alpha=1,2,3\),
-\[
-\mathbf D_\alpha(V,\nabla V,\nabla\chi_R)
-=2\chi_R\,Y_\alpha V.
-\]
-Each coefficient is \(L^1(B_{2R})\): \(3\chi_R|Y|^{-p}|V|\,V\in
-L^{3/2}(B_{2R})\subset L^1(B_{2R})\) from \(p<3\) and \(|Y|^{-p}|V|^3\in L^1\), and
-\(2\chi_RY_\alpha V\in L^2(B_{2R})\subset L^1(B_{2R})\) by compact support.
-\[
-\frac d{d\tau}G_\alpha(\tau)
-=\int_{\RR^3}\mathbf D_\alpha(V,\nn V,\nabla\chi_R)\cdot\partial_\tau V\,\dd Y,
-  \]
-Since \(\mathbf D_\alpha(V,\nn V,\nabla\chi_R)\in L^1(B_{2R})\) and
-\(\partial_\tau V\in L^1_{\rm loc}(I_*;L^2(B_{2R}))\),
-the right-hand side is in \(L^1_{\rm loc}(I_*)\), so \(G_\alpha\in W^{1,1}_{\rm loc}(I_*)\subset AC_{\rm loc}(I_*)\).
+This is exactly the retained-row assertion in
+\cref{paper2:def:mod-diff-row}.  The definition records the admissible limiting
+procedure: one first pairs the equation with smooth compactly supported
+truncations of the Gateaux gradients and only then passes to the limit.  No
+step uses an \(L^1_x\)-against-\(L^2_x\) pairing with \(\partial_\tau V\).
 \end{proof}
 
 \begin{lemma}[Directional derivatives in the profile variable]\label{paper2:lem:profile-direction}
@@ -2007,17 +1931,11 @@ Substituting these into the Gateaux formulas from Proposition~\ref{paper2:prop:g
 \end{lemma}
 
 \begin{theorem}[Modulation system]\label{paper2:thm:mod-sys}
-Let \((V,P)\) be the repaired pair on the compact window under consideration.
-Writing \(\theta:=(a,b)\), define
-\[
-\mathcal A_\tau(Y):=V(\tau,Y)+Y\cdot\nn V(\tau,Y).
-\]
-For \(\alpha=0,1,2,3\), define
-\[
-\mathcal R_\alpha(\tau):=
-\int_{\RR^3}\mathbf D_\alpha\bigl(V,\nn V,\nabla\chi_R\bigr)
-\cdot\bigl((V\cdot\nn)V+\nabla P-\nu\Delta V\bigr)\,\dd Y.
-\]
+Let \((V,P)\) be the repaired pair on the compact window under consideration,
+and assume the branch satisfies the modulation-differentiability row
+\cref{paper2:def:mod-diff-row}. Writing \(\theta:=(a,b)\), let
+\(\mathcal R_\alpha\) be the truncated-test limit functions from
+\cref{paper2:def:mod-diff-row}.
 Then for a.e. \(\tau\in I_*\),
 \[
 \partial_\lambda\mathcal F_\alpha(1,0;V)\,a(\tau)
@@ -2037,40 +1955,17 @@ Hence
 
 \begin{proof}
 Set \(G_\alpha(\tau):=\mathcal F_\alpha(1,0;V(\tau))\). By Theorem~\ref{paper2:thm:repaired-existence},
-\(G_\alpha(\tau)=0\) a.e.; by Lemma~\ref{paper2:lem:diff-f}, \(G_\alpha\in W^{1,1}_{\rm loc}\).
-Hence for a.e. \(\tau\),
-\[
-0=\frac{d}{d\tau}G_\alpha(\tau)
-=D_V\mathcal F_\alpha(1,0;V(\tau))\,[\partial_\tau V(\tau)].
-\]
-Insert the equation from Theorem~\ref{paper2:thm:ren-NS},
-\[
-\partial_\tau V=-(V\cdot\nn)V-\nabla P+\nu\Delta V+a\mathcal A_\tau+b\cdot\nn V.
-\]
-This gives
-\[
-0=-D_V\mathcal F_\alpha\bigl[(V\cdot\nn)V+\nabla P-\nu\Delta V\bigr]
-+a\,D_V\mathcal F_\alpha[\mathcal A_\tau]
-+\sum_{k=1}^3b_k\,D_V\mathcal F_\alpha[\partial_kV].
-\]
-By Lemma~\ref{paper2:lem:diff-f}, for any profile direction \(W\),
-\[
-D_V\mathcal F_\alpha(1,0;V)[W]=\int_{\RR^3}\mathbf D_\alpha(V,\nn V,\nabla\chi_R)\cdot W\,\dd Y.
-\]
-By Lemma~\ref{paper2:lem:profile-direction},
-\[
-D_V\mathcal F_\alpha[\mathcal A_\tau]=\partial_\lambda\mathcal F_\alpha(1,0;V),\qquad
-D_V\mathcal F_\alpha[\partial_kV]=\partial_{c_k}\mathcal F_\alpha(1,0;V).
-\]
-Substituting into the previous line yields the linear system
+\(G_\alpha(\tau)=0\) a.e.; by \cref{paper2:lem:diff-f}, \(G_\alpha\in AC\) and
+\eqref{paper2:eq:mod-row} holds. Hence \(G_\alpha'=0\) a.e., and
+\eqref{paper2:eq:mod-row} gives
 \[
 \partial_\lambda\mathcal F_\alpha(1,0;V)\,a(\tau)
 +\sum_{k=1}^3\partial_{c_k}\mathcal F_\alpha(1,0;V)\,b_k(\tau)
 =\mathcal R_\alpha(\tau),
 \]
 which is equivalent to \(J(\tau)\theta(\tau)=\mathcal R(\tau)\).
-By definition of \(\mathbf D_\alpha\), each \(\mathcal R_\alpha\in L^1_{\rm loc}(I_*)\), and
-Proposition~\ref{paper2:thm:quant-jac} gives \(|J^{-1}(\tau)|\le K\) a.e., hence
+The row gives \(\mathcal R\in L^1_{\rm loc}(I_*)^4\), and
+Proposition~\ref{paper2:thm:quant-jac} gives \(|J^{-1}(\tau)|\le K\) a.e.; hence
 \[
 \theta(\tau)=J^{-1}(\tau)\mathcal R(\tau),\quad
 \theta\in L^1_{\rm loc}(I_*),\quad |\theta|\le K|\mathcal R|\text{ a.e.}
@@ -2091,6 +1986,58 @@ immediate from \(\mathcal R\in L^1_{\rm loc}\), while the second follows if \(\m
 \end{proof}
 
 \subsection{Repaired suitable structure in renormalized variables}\label{paper2:sec:suitable}
+
+\begin{lemma}[AC chart-generated tests are admissible]\label{paper2:lem:ac-chart-tests}
+Let \((u,p)\) be suitable on a compact physical cylinder, and let
+\(\Lambda,X\in AC(J)\) on a compact interval \(J\), with
+\(0<\lambda_-\le \Lambda\le\lambda_+<\infty\) and
+\[
+a=\frac{\Lambda'}{\Lambda},\qquad b=\frac{X'}{\Lambda}
+\quad\text{in }L^1(J).
+\]
+Let \(t=t(\tau)\) be defined by \(dt/d\tau=\Lambda(\tau)^2\).  If
+\(\phi\in C_c^\infty(B_R\times J)\) is nonnegative and its chart pullback has a
+positive support buffer inside the physical cylinder, then
+\[
+\psi(x,t):=\Lambda(\tau(t))^{-1}
+\phi\!\left(\frac{x-X(\tau(t))}{\Lambda(\tau(t))},\tau(t)\right)^2
+\]
+is an admissible nonnegative test for the physical local energy inequality.
+The chain-rule identities for \(\nabla_x\psi\), \(\Delta_x\psi\), and
+\(\partial_t\psi\) hold for a.e. \(t\).
+\end{lemma}
+
+\begin{proof}
+For each fixed time, \(x\mapsto\psi(x,t)\) is smooth and compactly supported;
+the AC chart gives
+\[
+\psi,\ \nabla_x\psi,\ \Delta_x\psi\in L^\infty,
+\qquad
+\partial_t\psi\in L^1_tL^\infty_x
+\]
+on the compact cylinder, with the time derivative computed by the a.e. chain
+rule.  Extend \(\psi\) by zero across a small time buffer and set
+\(\psi^\varepsilon:=\rho_\varepsilon*_t\psi\), where \(\rho_\varepsilon\) is a
+nonnegative time mollifier and \(\varepsilon\) is smaller than the support
+buffer. Then \(\psi^\varepsilon\ge0\), \(\psi^\varepsilon\in C_c^\infty\) in
+spacetime with compact support in the same physical cylinder, and
+\[
+\psi^\varepsilon\to\psi,
+\quad \nabla_x\psi^\varepsilon\to\nabla_x\psi,
+\quad \Delta_x\psi^\varepsilon\to\Delta_x\psi
+\quad\text{in }L^\infty,
+\]
+while
+\[
+\partial_t\psi^\varepsilon\to\partial_t\psi
+\quad\text{in }L^1_tL^\infty_x.
+\]
+Apply the physical local energy inequality to \(\psi^\varepsilon\).  The suitable
+bounds \(|u|^2\in L_t^\infty L_x^1\), \(|\nabla u|^2\in L^1\), and
+\(|u|^3+|p||u|\in L^1\) allow passage to the limit in the right-hand side by
+dominated convergence and in the nonnegative dissipation term by lower
+semicontinuity. This gives the physical local energy inequality with \(\psi\).
+\end{proof}
 
 \begin{proposition}[Transport of suitable local energy inequality]\label{paper2:prop:ren-suitable}
 Suppose \((u,p)\) is suitable on \(\mathcal Q^{\rm ph}_{2R}\), and
@@ -2126,23 +2073,16 @@ Hence \((V,P)\) is locally suitable on \(Q_R^*\).
 \end{proposition}
 
 \begin{proof}
-Apply the physical local energy inequality on \(\mathcal Q^{\rm ph}_{2R}\): for
-nonnegative \(\psi\in C_c^\infty(\mathcal Q^{\rm ph}_{2R})\),
-    \[
-  \frac12\int |u|^2\psi\big|_{t_1}^{t_2}
-  +\nu\int_{t_1}^{t_2}\!\!\int |\nabla_xu|^2\psi\,dxdt
-    \le\int_{t_1}^{t_2}\!\!\int\Bigl(
-  \frac12|u|^2(\partial_t\psi+\nu\Delta_x\psi)
-  +\left(\frac{|u|^2}{2}u+p\,u\right)\!\cdot\!\nabla_x\psi\Bigr)\,dxdt.
-    \]
-Choose
-    \[
-    \psi(x,t):=\Lambda(\tau(t))^{-1}\phi\!\left(\frac{x-X(\tau(t))}{\Lambda(\tau(t))},\tau(t)\right)^2,\qquad
-    \tau=\tau(t),\ d\tau/dt=\Lambda^{-2},
-    \]
-let \(t_i=t(\tau_i)\), \(i=1,2\).
-    By Proposition~\ref{paper2:prop:prelim-frame} and Section~\ref{paper2:sec:domains}, \(\psi\in
-    C_c^\infty(\mathcal Q^{\rm ph}_{2R})\).
+Set
+\[
+\psi(x,t):=\Lambda(\tau(t))^{-1}\phi\!\left(\frac{x-X(\tau(t))}{\Lambda(\tau(t))},\tau(t)\right)^2,
+\qquad
+\tau=\tau(t),\qquad d\tau/dt=\Lambda^{-2},
+\]
+and let \(t_i=t(\tau_i)\), \(i=1,2\).  By
+Proposition~\ref{paper2:prop:prelim-frame}, Section~\ref{paper2:sec:domains},
+and \cref{paper2:lem:ac-chart-tests}, the physical local energy inequality is
+valid with this nonnegative AC chart-generated test \(\psi\).
 \[
 \nabla_x\psi=\Lambda^{-2}\nabla_Y\phi^2,\quad
 \Delta_x\psi=\Lambda^{-3}\Delta_Y\phi^2,\quad
@@ -2179,7 +2119,8 @@ side and coefficients \(\tilde a,\tilde b\).
 \begin{proposition}\label{paper2:prop:stability}
 Let \((u^{(n)},p^{(n)})\) satisfy \(\mathrm{SC}(R_*,r_*,M,\eta,\kappa)\) with the same
 data parameters and let \((\Lambda^{(n)},X^{(n)},V^{(n)},P^{(n)},a^{(n)},b^{(n)})\)
-be obtained from retained quantitatively nondegenerate repaired-gauge selections on the same \(I_*\),
+be obtained from retained quantitatively nondegenerate repaired-gauge selections
+on the same \(I_*\) satisfying the modulation-differentiability row,
 with the constants in Proposition~\ref{paper2:thm:quant-jac} uniform in \(n\). Assume also that
 \((a^{(n)},b^{(n)})\) is uniformly integrable on every compact time subinterval
 of \(I_*\) (in particular this holds under the \(L^\infty\) modulation bounds
@@ -2306,7 +2247,9 @@ physical identity with \(\frac{dt}{d\tau}=\Lambda^2\) follows.
 
 \begin{theorem}[Pressure and modulation]\label{paper2:thm:B}
 Assume, in addition to \autoref{paper2:thm:A}, that the retained repaired-gauge
-selection is quantitatively nondegenerate in the sense of Proposition~\ref{paper2:thm:quant-jac}.
+selection is quantitatively nondegenerate in the sense of
+Proposition~\ref{paper2:thm:quant-jac} and satisfies the
+modulation-differentiability row of \cref{paper2:def:mod-diff-row}.
 Then \((V,P)\) satisfies the renormalized Navier--Stokes
 equation with the logarithmic coefficient convention of Theorem~\ref{paper2:thm:ren-NS}; there is a
 decomposition \(P=P_{\rm loc}+H\) on \(Q_R^*\) as in
