@@ -5,7 +5,6 @@ namespace Hypostructure.Backends.NavierStokes.ProofSetup
 structure UnifiedTypeIEntryData where
   localEntry : AdmissibleLocalTypeISequence
   globalEnvelope : Option FiniteEnergyTypeIEnvelope := none
-  deriving Repr
 
 def UnifiedTypeIEntryData.solution
     (entry : UnifiedTypeIEntryData) : SuitableWeakSolution :=

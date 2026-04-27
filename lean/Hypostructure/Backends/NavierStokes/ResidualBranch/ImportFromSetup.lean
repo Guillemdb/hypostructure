@@ -5,7 +5,7 @@ namespace Hypostructure.Backends.NavierStokes.ResidualBranch
 open Hypostructure.Backends.NavierStokes.ProofSetup
 
 def importSetupResidualObject
-    (export : ResidualExportData) : ImportedSetupResidualObject :=
-  { contract := setupResidualInterfaceOfExport export }
+    (residual : ResidualExportData) : ImportedSetupResidualObject :=
+  { contract := setupResidualInterfaceOfExport residual }
 
 end Hypostructure.Backends.NavierStokes.ResidualBranch

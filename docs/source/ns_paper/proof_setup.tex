@@ -162,6 +162,9 @@ Consequently, a generated raw Seregin state in
 Liouville classes or to the residual class.  The Type I contradiction is
 therefore conditional on the residual-class hypothesis
 \Cref{p1:hyp:no-remainder}.
+No unconditional Type I regularity theorem is claimed in this paper; the final
+regularity conclusion is conditional on the residual closure hypothesis for the
+raw generated state space.
 
 \subsection*{Dependency table}
 
@@ -1488,23 +1491,19 @@ energy inequality gives an ancient suitable weak solution, and the pointwise
 Type I bound passes to the limit.
 \end{proof}
 
-\begin{theorem}[Local endpoint weak-Serrin Type I estimate]
-\label{p0:thm:local-weak-serrin-typeI}
+\begin{lemma}[Terminal \(A\)-bound from the local weak-Serrin estimate]
+\label{p0:lem:terminal-A-from-weak-serrin}
 Let \((u,p)\) be a suitable weak solution in a backward cylinder
 \(Q_\rho(z_*)\), \(z_*=(x_*,T)\), and assume the local pointwise Type I bound
-\eqref{p0:eq:paper0-local-typeI-bound}
+\eqref{p0:eq:paper0-local-typeI-bound}.  Then, for every \(0<\theta<1\),
+there is \(K_\theta<\infty\) such that, for all sufficiently small \(r\),
 \[
-  \esssup_{T-\rho^2<t<T}
-  \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M.
+   r^{-1}
+   \esssup_{T-r^2<t<T}
+   \int_{B_r(x_*)}|u(x,t)|^2\,dx
+   \le K_\theta .
 \]
-Then, after possibly shrinking \(\rho\), the rescaled velocities
-\(u_n(y,s)=r_nu(x_*+r_ny,T+r_n^2s)\) along every scale sequence
-\(r_n\downarrow0\) satisfy the terminal velocity no-escape condition
-\[
-   \lim_{\sigma\downarrow0}\sup_n
-   \int_{-\sigma}^{0}\int_{B_1}|u_n(y,s)|^3\,dy\,ds=0 .
-\]
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
 After translating and scaling, assume \(z_*=(0,0)\) and work in
@@ -1542,24 +1541,62 @@ and the endpoint weak-Serrin hypothesis above gives a finite bound
 \[
    I(Q_{\theta\rho})\le K_\theta .
 \]
-Strictly speaking, when \(I\) is defined through compactly contained
-subcylinders, the preceding bound is first applied on
-\(B_r\times(-r^2,-\varepsilon)\), and then
-\(\varepsilon\downarrow0\).  The essential supremum in time is unaffected.
-The constant \(K_\theta\) may depend on \(M,\rho,\theta\) and on the local
-suitable-weak-solution quantities entering the Albritton--Barker lemma, but it
-is finite and independent of the blow-up scale \(r_n\).  In particular, for all
-sufficiently small \(r\),
+Let \(r<(\theta\rho)/\sqrt{2}\) and \(0<\eps<r^2\).  Then
+\[
+   Q_r((0,-\eps))=B_r\times(-r^2-\eps,-\eps)\Subset Q_{\theta\rho},
+\]
+so the Albritton--Barker estimate gives
+\[
+   r^{-1}\esssup_{-r^2-\eps<t<-\eps}
+   \int_{B_r}|u(x,t)|^2\,dx
+   \le K_\theta .
+\]
+Since \((-r^2,-\eps)\subset(-r^2-\eps,-\eps)\), it follows that
+\[
+   r^{-1}\esssup_{-r^2<t<-\eps}
+   \int_{B_r}|u(x,t)|^2\,dx
+   \le K_\theta .
+\]
+As \(\eps\downarrow0\), the intervals \((-r^2,-\eps)\) increase to
+\((-r^2,0)\).  By the definition of essential supremum over nested measurable
+sets,
 \[
    r^{-1}\esssup_{-r^2<t<0}
    \int_{B_r}|u(x,t)|^2\,dx
    \le K_\theta .
 \]
+Undoing the translation and scaling gives the stated estimate at \(z_*\).
+\end{proof}
 
+\begin{theorem}[Local endpoint weak-Serrin Type I estimate]
+\label{p0:thm:local-weak-serrin-typeI}
+Let \((u,p)\) be a suitable weak solution in a backward cylinder
+\(Q_\rho(z_*)\), \(z_*=(x_*,T)\), and assume the local pointwise Type I bound
+\eqref{p0:eq:paper0-local-typeI-bound}
+\[
+  \esssup_{T-\rho^2<t<T}
+  \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}\le M.
+\]
+Then, after possibly shrinking \(\rho\), the rescaled velocities
+\(u_n(y,s)=r_nu(x_*+r_ny,T+r_n^2s)\) along every scale sequence
+\(r_n\downarrow0\) satisfy the terminal velocity no-escape condition
+\[
+   \lim_{\sigma\downarrow0}\sup_n
+   \int_{-\sigma}^{0}\int_{B_1}|u_n(y,s)|^3\,dy\,ds=0 .
+\]
+\end{theorem}
+
+\begin{proof}
+After translating and scaling, assume \(z_*=(0,0)\) and work in
+\[
+   Q_\rho=B_\rho\times(-\rho^2,0).
+\]
 Let \(r_n\downarrow0\) and
 \[
    u_n(y,s)=r_n u(r_ny,r_n^2s).
 \]
+Fix \(0<\theta<1\).  By \Cref{p0:lem:terminal-A-from-weak-serrin}, the terminal
+\(A\)-quantity is bounded uniformly along the chosen scales.
 For all sufficiently large \(n\),
 \[
    \esssup_{-1<s<0}\int_{B_1}|u_n(y,s)|^2\,dy
@@ -3330,25 +3367,25 @@ For a fixed triple \((u,p,z_*)\), fix invariant normalization data
 \((R_0,\eta_*)\) obtained from a raw extracted profile by
 \Cref{p1:lem:compact-to-invariant-nonzero}.  Let
 \[
-   \calS_{\mathrm{raw}}(u,p,z_*)
+   \calS_{\mathrm{raw}}(u,p,z_*;R_0,\eta_*)
 \]
 be the collection of raw extracted normalized Seregin ancient limits
 produced by admissible finite-energy Type I or admissible local pointwise
-Type I extractions at \(z_*\).  In the chosen normalization component,
-membership in this collection also includes the invariant nonvanishing
-condition \eqref{p1:eq:invariant-nonvanishing} with the fixed parameters.
-If several invariant normalization pairs arise from different raw extractions,
-the construction below is made componentwise.  The final assembly uses the
-component associated with the extracted profile under consideration.  This avoids
-asserting any lower semicontinuity or uniform normalization across unrelated
-raw extractions.
+Type I extractions at \(z_*\) which satisfy the invariant nonvanishing
+condition
+\[
+   \sup_{\tau\in\R}
+   \int_{B_{R_0}} |V(y,\tau)|^3\,dy \ge \eta_* .
+\]
+If different raw extractions yield different invariant normalization pairs,
+the construction below is carried out separately for each pair.
 
 The \emph{raw generated descendant hull}
 \[
    \calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
 \]
 is, by definition, the smallest class containing
-\(\calS_{\mathrm{raw}}(u,p,z_*)\) and closed under logarithmic time
+\(\calS_{\mathrm{raw}}(u,p,z_*;R_0,\eta_*)\) and closed under logarithmic time
 translations and locally smooth limits that retain:
 \begin{enumerate}[label=(\roman*)]
 \item the inherited centered \(L^\infty\) bound;
@@ -3364,6 +3401,8 @@ smooth limits.  An element of
 \(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) is called
 a \emph{generated raw Seregin state}.  When the invariant normalization data
 are clear from the extracted profile under discussion, we write
+\(\calS_{\mathrm{raw}}(u,p,z_*)\) for
+\(\calS_{\mathrm{raw}}(u,p,z_*;R_0,\eta_*)\) and
 \(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*)\) for
 \(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).  For notational
 economy, \(\calS(u,p,z_*)\) denotes this raw generated class.
@@ -3452,7 +3491,11 @@ Consider a locally smooth sequence \(V_j\in\calS_{\mathrm{mild}}\) with a common
 The Duhamel terms pass to the limit against compactly supported test fields by
 the Oseen-kernel estimate in \Cref{p1:lem:centered-stokes-estimates}, the common
 \(L^\infty\) bound, and local smooth convergence of \(V_j\otimes V_j\).  Hence
-the projected mild formula holds for \(V\) on \([\sigma,\tau]\).  The remaining
+the projected mild formula holds for \(V\) on \([\sigma,\tau]\).  The
+convergence against compactly supported tests upgrades to weak-* \(L^\infty\)
+convergence against arbitrary \(L^1(\R^3)\) tests by approximating the
+\(L^1\) test function by compactly supported functions and using the common
+\(L^\infty\) bound on the sequence and on the limit.  The remaining
 raw generated and nonvanishing requirements are part of the stated limiting
 hypotheses.
 \end{proof}
@@ -3581,10 +3624,11 @@ for some \(1\le p<\infty\);
 \[
    rU_\theta\in L^\infty(\R^3\times(-\infty,0));
 \]
-\item the associated rescaled vorticity satisfies the perturbative
-Gallay--Wayne weighted-vorticity hypotheses used in
-\Cref{p3:thm:typeI-zero-hypotheses}, with the velocity recovered as the
-Biot--Savart representative associated with that vorticity.
+\item the associated Gallay--Wayne forward rescaled vorticity
+\(w=\nabla\times v\), with \(v\) recovered from \(w\) by the
+three-dimensional Biot--Savart law, satisfies the perturbative
+weighted-vorticity condition of
+\Cref{p3:def:weighted-vorticity-condition}.
 \end{enumerate}
 \end{definition}
 
@@ -3872,12 +3916,11 @@ from \(\Pi\) leaves the equation unchanged and yields the displayed
 stationary self-similar equation for \(W\).
 \end{proof}
 
-\begin{lemma}[Galilean-trivial normalized profiles vanish]
+\begin{lemma}[Spatially constant normalized profiles vanish]
 \label{p1:lem:galilean-trivial-zero}
 Let \(U\) be the physical ancient representative of a generated raw Seregin
-state \(V\) in the mild stratum.  If \(U\) is spatially constant, or if a cited Liouville
-theorem reduces \(U\) to a spatially constant solution in the Type I blow-up
-frame, then \(U\equiv0\) and hence \(V\equiv0\).
+state \(V\) in the mild stratum.  If \(U\) is spatially constant in the
+physical Type I frame, then \(U\equiv0\) and hence \(V\equiv0\).
 \end{lemma}
 
 \begin{proof}
@@ -3889,9 +3932,7 @@ semigroup fixes constants, so \(c(t)=c(s)\) for all \(s<t<0\).  Thus
    V(y,\tau)=e^{-\tau/2}c .
 \]
 Since generated raw Seregin states are bounded for all \(\tau\in\R\),
-letting \(\tau\to-\infty\) forces \(c=0\).  The Galilean-trivial alternatives used
-below are invoked only in this compatible Type I blow-up frame, so the same
-constant-removal argument applies.
+letting \(\tau\to-\infty\) forces \(c=0\).
 \end{proof}
 
 \begin{theorem}[Small and stationary class exclusions]
@@ -3952,8 +3993,9 @@ satisfies one of the listed structural hypotheses.  The inherited centered
 \[
    |U(x,t)|\le \|V\|_\infty(-t)^{-1/2}.
 \]
-By \Cref{p2:lem:physical-mild}, \(U\) satisfies the standard projected mild
-formulation on every finite terminal restriction, hence is a Type I ancient
+By \Cref{p2:lem:physical-mild}, for every \(s<t<0\) the standard projected
+mild formula holds on the interval \([s,t]\): choose \(T=t\) and apply the
+finite-terminal restriction lemma.  Thus \(U\) is a smooth mild Type I ancient
 solution in the sense of \Cref{p3:def:typeI-ancient}.  Therefore
 \Cref{p3:thm:typeI-zero-hypotheses} gives \(U\equiv0\), and hence
 \(V\equiv0\), contradicting the invariant nonvanishing normalization of
@@ -4082,6 +4124,9 @@ zero.  If some raw generated descendant hull had \(V\in\calR(\calS)\),
 the rigidity assertion would give \(V\equiv0\), directly contradicting the
 invariant nonvanishing normalization of \Cref{p1:cor:normalized-nonzero}.  Hence no
 nonzero generated raw Seregin state can remain in \(\calR(\calS)\).
+By \Cref{p1:cor:normalized-nonzero}, every element of
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\), and hence every element of
+\(\calR(\calS)\), is nonzero.  Therefore \(\calR(\calS)=\varnothing\).
 \end{proof}
 
 \begin{proof}[Proof of \cref{p1:thm:remaining-criterion}]
@@ -5876,13 +5921,76 @@ Then \(\sigma<\tau\).  Apply the centered mild formula for \(V\) on
    \int_\sigma^\tau
    S(\tau-\alpha)\mathbb P\nabla\cdot(V\otimes V)(\alpha)\,d\alpha .
 \]
+Put
+\[
+   a=\tau-\sigma,\qquad \lambda=e^{-a/2}=\sqrt{\frac{-t}{-s}},
+   \qquad \theta=1-e^{-a}=\frac{t-s}{-s}.
+\]
+For the linear term, use the explicit Ornstein--Uhlenbeck semigroup formula
+\eqref{p2:eq:OU-semigroup}.  Writing \(x=\sqrt{-t}\,y\) and changing
+variables \(z=\zeta/\sqrt{-s}\), we obtain
+\[
+\begin{aligned}
+(-t)^{-1/2}(S(a)V(\sigma))(y)
+&=(-t)^{-1/2}e^{-a/2}
+  \int_{\R^3}
+  \frac{\exp\!\left(-\frac{|e^{-a/2}y-z|^2}{4(1-e^{-a})}\right)}
+       {[4\pi(1-e^{-a})]^{3/2}}
+  V(z,\sigma)\,dz \\
+&=\int_{\R^3}
+  \frac{\exp\!\left(-\frac{|x-\zeta|^2}{4(t-s)}\right)}
+       {[4\pi(t-s)]^{3/2}}
+  u(\zeta,s)\,d\zeta \\
+&=(e^{(t-s)\Delta}u(s))(x).
+\end{aligned}
+\]
+For the Duhamel term, write \(r=-e^{-\alpha}\) for
+\(\alpha\in[\sigma,\tau]\).  Then \(dr=(-r)\,d\alpha\),
+\[
+   V(\xi,\alpha)\otimes V(\xi,\alpha)
+   =(-r)\,(u\otimes u)(\sqrt{-r}\,\xi,r),
+\]
+and the homogeneity of \(\mathbb P\nabla\cdot\) together with the same
+scaling calculation gives
+\[
+\begin{aligned}
+&(-t)^{-1/2}
+  \bigl(S(\tau-\alpha)\mathbb P\nabla\cdot(V\otimes V)(\alpha)\bigr)(y) \\
+&\qquad =
+  (-r)\,
+  \bigl(e^{(t-r)\Delta}\mathbb P\nabla\cdot(u\otimes u)(r)\bigr)(x).
+\end{aligned}
+\]
+Indeed, if \(F_\alpha(\xi)=V(\xi,\alpha)\otimes V(\xi,\alpha)\) and
+\(H_r(x)=u(x,r)\otimes u(x,r)\), then
+\[
+   F_\alpha(\xi)=(-r)H_r(\sqrt{-r}\,\xi),
+\]
+so
+\[
+   \mathbb P\nabla_\xi\cdot F_\alpha
+   =(-r)^{3/2}
+   \bigl(\mathbb P\nabla_x\cdot H_r\bigr)(\sqrt{-r}\,\xi),
+\]
+and using \(S(b)f(\eta)=e^{-b/2}(e^{(1-e^{-b})\Delta}f)(e^{-b/2}\eta)\)
+with \(b=\tau-\alpha\) yields the displayed identity because
+\(e^{-b/2}\sqrt{-r}=\sqrt{-t}\) and \((-r)(1-e^{-b})=t-r\).
+Therefore, after the change of variables \(r=-e^{-\alpha}\),
+\[
+\begin{aligned}
+&(-t)^{-1/2}
+  \int_\sigma^\tau
+  S(\tau-\alpha)\mathbb P\nabla\cdot(V\otimes V)(\alpha)\,d\alpha \\
+&\qquad =
+  \int_s^t
+  e^{(t-r)\Delta}\mathbb P\nabla\cdot(u\otimes u)(r)\,dr .
+\end{aligned}
+\]
 Under the parabolic change of variables
 \[
    u(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)),
 \]
-the Ornstein--Uhlenbeck--Stokes semigroup becomes the heat--Stokes semigroup,
-and the operator \(\mathbb P\nabla\cdot\) transforms by its usual parabolic
-homogeneity.  Therefore
+the centered mild formula therefore becomes
 \[
    u(t)
    =
@@ -6065,8 +6173,9 @@ For the unforced equations, the cited axisymmetric Liouville theorems cover the
 following cases: absence of swirl, pointwise scale-invariant control, finite
 \(L_t^\infty L_x^p\) control of the swirl variable \(\Gamma=ru_\theta\), and
 axial periodicity with bounded \(\Gamma\).  When one of these hypotheses holds
-for a nonzero Type I blow-up limit, conclusions up to Galilean transformations
-reduce to the zero solution and contradict the nontriviality of the limit.
+for a nonzero Type I blow-up limit, the cited theorems reduce the solution to a
+spatially constant state in the physical Type I frame, and that constant is
+then forced to vanish, contradicting the nontriviality of the limit.
 
 The perturbative part uses the Lyapunov rigidity argument coming from Gallay--Wayne's
 small-data decay theorem for the three-dimensional rescaled vorticity equation.
@@ -6166,8 +6275,8 @@ relevant to the Type I argument.
 
 \begin{theorem}[Axisymmetric Liouville consequences for Type I ancient solutions]
 \label{p3:thm:axisymmetric-liouville}
-Let \(U\) be a smooth Type I ancient solution of \eqref{p3:eq:NS} satisfying
-\eqref{p3:eq:typeI}.  If \(U\) satisfies any of the following axisymmetric
+Let \(U\) be a smooth mild Type I ancient solution of \eqref{p3:eq:NS}
+in the sense of \Cref{p3:def:typeI-ancient}.  If \(U\) satisfies any of the following axisymmetric
 assumptions, then \(U\equiv0\):
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item axisymmetric without swirl;
@@ -6206,11 +6315,8 @@ Gallay--Wayne rescaled vorticity equation
    \qquad \nabla\cdot w=0,
 \end{equation}
 with \(v\) recovered by the three-dimensional Biot--Savart law.  Assume
-\[
-   \sup_{\tau\in\mathbb R}\|w(\tau)\|_{L^2_\sigma(m)}
-   \le \rho_m,
-\]
-where \(\rho_m\) is the Gallay--Wayne small-data radius.  Then
+that \(w\) satisfies the perturbative weighted-vorticity condition of
+\Cref{p3:def:weighted-vorticity-condition}.  Then
 \[
    w\equiv0.
 \]
@@ -6523,14 +6629,13 @@ corresponding function of \(x=(r\cos\theta,r\sin\theta,z)\), independent of
       |\Gamma(r,z,t)|^p r\,dr\,dz,\qquad 1\le p<\infty .
 \]
 
-\subsection{Constant solutions and Galilean reduction}
+\subsection{Constant solutions in the Type I frame}
 
-\begin{definition}[Galilean reduction to a constant]
-A velocity field is constant up to a Galilean transformation if a Galilean
-transform sends it to a constant vector field.  In the Type I blow-up frame
-only the following consequence is used: when a cited Liouville theorem
-gives a constant velocity field in that frame, the Type I bound forces the
-constant to be zero.
+\begin{definition}[Reduction to a spatial constant in the Type I frame]
+The cited Liouville theorems are used below only through the consequence that,
+after passing to the finite-terminal shift in the physical Type I frame, the
+solution is spatially constant.  The Type I bound then forces that constant to
+be zero.
 \end{definition}
 
 \begin{lemma}[Spatially constant mild solutions]\label{p3:lem:spatial-constant-mild}
@@ -6588,12 +6693,14 @@ The following Liouville theorems are used in the stated forms.
 
 \begin{remark}[Match with the cited papers]\label{p3:rem:axi-citations}
 The axisymmetric theorems below are imported from the cited references and are
-recorded with the hypotheses used here.  They are applied after the Type I
-blow-up gives a bounded ancient axisymmetric mild solution.  Where the cited theorem
-concludes with a constant vector or with Galilean triviality, the present
-``identically zero'' conclusion is obtained from the constant-removal
-\Cref{p3:lem:galilean-typeI-zero} (or its pointwise analogue
-\Cref{p3:rem:pointwise-r-infty}).  The notation matches the cited papers
+recorded with the hypotheses used here.  In the Type I application they are
+applied to the finite-terminal time shifts
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,\quad T<0,
+\]
+which are bounded ancient mild solutions by
+\Cref{p3:lem:time-shift}.  The resulting constants are then patched in \(T\)
+and removed by the Type I bound.  The notation matches the cited papers
 modulo the centered-versus-physical translation recorded in
 \Cref{p3:lem:structure-preserved}.
 \end{remark}
@@ -6601,9 +6708,8 @@ modulo the centered-versus-physical translation recorded in
 \begin{theorem}[KNSS no-swirl Liouville theorem]
 \label{p3:thm:knss-noswirl}
 Every bounded ancient mild axisymmetric no-swirl solution of the unforced
-Navier--Stokes equations is constant up to a Galilean transformation.  In the
-form needed for the Type I argument, the solution is a spatially constant
-axial drift.
+Navier--Stokes equations is reduced, in the form used here, to a spatially
+constant axial drift in the physical Type I frame.
 \end{theorem}
 
 \begin{proof}
@@ -6622,20 +6728,23 @@ the no-swirl assumption in this branch.
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-The physical representative associated with a generated raw Seregin state in
-the mild stratum has the required smoothness and boundedness by
-\Cref{p1:lem:raw-generated-closure-stability}; on each finite terminal
-restriction it is mild by \Cref{p2:lem:physical-mild}.  Membership in the
-no-swirl branch of \(\calC_{\mathrm{sd}}\) requires axisymmetry together
-with \(u_\theta\equiv0\), so the cited theorem applies to the physical
-representative after the centered profile is pulled back.
+Let \(U\) be the Type I ancient physical representative.  For each \(T<0\),
+the shifted solution
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,
+\]
+is a smooth bounded mild ancient solution by \Cref{p3:lem:time-shift}.  The
+no-swirl branch of \(\calC_{\mathrm{sd}}\) requires axisymmetry together with
+\(u_\theta\equiv0\), and this structural hypothesis is preserved under the
+time shift.  Therefore the cited theorem applies to \(W_T\).
 
 \smallskip
 \noindent\emph{Conclusion in the Type I frame.}
-The cited theorem gives a spatially constant axial drift in the no-swirl
-class, equivalently a Galilean-trivial solution in the present terminology.
-The later Type I constant-removal step, \Cref{p3:lem:galilean-typeI-zero},
-then forces that constant to vanish.
+For each \(T<0\), the cited theorem gives that \(W_T\) is a spatially
+constant axial drift in the frame used here.  The resulting constants patch in
+\(T\) by
+\Cref{p3:lem:patch-constants}, and \Cref{p3:lem:galilean-typeI-zero} then
+forces the patched constant to vanish.
 \end{proof}
 
 \begin{theorem}[KNSS pointwise scale-invariant condition]
@@ -6645,8 +6754,11 @@ Every bounded ancient mild axisymmetric solution satisfying
    |u(x,t)|\le \frac{C}{r}
    \qquad(r>0,\ t<0)
 \]
-is constant up to a Galilean transformation.  In the form needed here, it is
-identically zero.
+is constant up to a Galilean transformation.  Only the spatially constant
+conclusion in the physical Type I frame is used below; if the source theorem is
+stated modulo Galilean transformations, this branch is invoked only after
+reducing to that constant representative.  Zero is obtained only after the
+constant-removal step.
 \end{theorem}
 
 \begin{proof}
@@ -6669,20 +6781,25 @@ circulation-only assumptions are not included in this class.
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-Generated raw Seregin states in the mild stratum give smooth bounded physical
-ancient representatives, and \Cref{p2:lem:physical-mild} gives the
-finite-terminal mild formulation.  The pointwise branch of
-\(\calC_{\mathrm{sd}}\) requires
-the full velocity bound \(r|u|\le C\), not merely a bound on the drift
-\(u^r e_r+u^z e_z\) or on the circulation \(\Gamma=ru_\theta\).  Thus the
-source hypotheses match the branch definition.
+Let \(U\) be the Type I ancient physical representative.  For each \(T<0\),
+the shifted solution
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,
+\]
+is a smooth bounded mild ancient solution by \Cref{p3:lem:time-shift}.  The
+pointwise branch of \(\calC_{\mathrm{sd}}\) requires the full velocity bound
+\(r|u|\le C\), not merely a bound on the drift \(u^r e_r+u^z e_z\) or on the
+circulation \(\Gamma=ru_\theta\), and this structural hypothesis is preserved
+under the time shift.  Therefore the cited theorem applies to \(W_T\).
 
 \smallskip
 \noindent\emph{Conclusion in the Type I frame.}
-The cited theorem gives a constant or Galilean-trivial solution.  Under the
-pointwise Type I normalization used in the blow-up argument, the constant mode
-is removed by \Cref{p3:rem:pointwise-r-infty} and
-\Cref{p3:lem:galilean-typeI-zero}.
+For each \(T<0\), the cited theorem gives a spatially constant solution in the
+frame used here.  The resulting constants patch in \(T\) by
+\Cref{p3:lem:patch-constants}.  In the Type I ancient frame, the patched
+constant is eliminated by \Cref{p3:lem:galilean-typeI-zero}; in the pointwise
+\(1/r\) branch it is also excluded directly by letting \(r\to\infty\) in the
+pointwise bound, as recorded in \Cref{p3:rem:pointwise-r-infty}.
 \end{proof}
 
 \begin{theorem}[Lei--Zhang--Zhao]
@@ -6693,7 +6810,9 @@ Let \(u\) be a bounded ancient mild axisymmetric solution.  If
    \bigl(\mathbb R^3\times(-\infty,0)\bigr),
    \qquad 1\le p<\infty,
 \]
-then \(u\) is a constant vector field.
+then the no-swirl case \(u_\theta\equiv0\) is handled by
+\Cref{p3:thm:knss-noswirl}, while in the nontrivial-swirl case the cited
+theorem yields that \(u\) is a constant vector field.
 \end{theorem}
 
 \begin{proof}
@@ -6705,7 +6824,7 @@ Lei--Zhang--Zhao \cite[Theorem 1.3]{LZZ}.
 \smallskip
 \noindent\emph{Required hypotheses.}
 The theorem assumes a bounded ancient mild axisymmetric solution in
-\(\R^3\times(-\infty,0)\) and finite critical circulation integrability
+\(\R^3\times(-\infty,0)\), nontrivial swirl, and finite critical circulation integrability
 \[
    \Gamma=ru_\theta
    \in L_t^\infty L_x^p(\R^3\times(-\infty,0)),
@@ -6717,18 +6836,23 @@ The no-swirl case \(u_\theta\equiv0\) is handled separately by
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-The physical representative associated with a generated raw Seregin state in
-the mild stratum is smooth, bounded, axisymmetric in this branch, and mild on
-finite terminal restrictions by
-\Cref{p1:lem:raw-generated-closure-stability,p2:lem:physical-mild}.  The defining
-condition of the branch is precisely
-\(\Gamma=ru_\theta\in L_t^\infty L_x^p\), \(1\le p<\infty\).
+Let \(U\) be the Type I ancient physical representative.  For each \(T<0\),
+the shifted solution
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,
+\]
+is a smooth bounded mild ancient solution by \Cref{p3:lem:time-shift}.  The
+finite-\(L^p\)-swirl branch requires axisymmetry together with
+\(\Gamma=ru_\theta\in L_t^\infty L_x^p\), \(1\le p<\infty\), and this
+structural hypothesis is preserved under the time shift.  Therefore the cited
+theorem applies to \(W_T\).
 
 \smallskip
 \noindent\emph{Conclusion in the Type I frame.}
-The cited theorem concludes that \(u\) is a constant vector field.  Such a
-constant is eliminated in the Type I ancient frame by
-\Cref{p3:lem:galilean-typeI-zero}.
+In the nontrivial-swirl case, for each \(T<0\), the cited theorem gives that
+\(W_T\) is a constant vector field.  The resulting constants patch in \(T\) by
+\Cref{p3:lem:patch-constants}, and \Cref{p3:lem:galilean-typeI-zero} then
+eliminates the patched constant in the Type I ancient frame.
 \end{proof}
 
 \begin{theorem}[Lei--Ren--Zhang]
@@ -6759,21 +6883,26 @@ representative is assumed \(z\)-periodic and satisfies the same bounded
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-The physical representative associated with a generated raw Seregin state in
-the mild stratum is smooth, bounded, and mild on finite terminal restrictions by
-\Cref{p1:lem:raw-generated-closure-stability,p2:lem:physical-mild}.  In the
-periodic branch the periodicity is imposed on the physical axial variable
-\(z\), not on the centered field.  A \(z\)-periodic physical whole-space
-representative descends to \(\R^2\times\mathbb T^1\).  A Navier--Stokes
-scaling normalizes the period, without changing boundedness, mildness,
+Let \(U\) be the Type I ancient physical representative.  For each \(T<0\),
+the shifted solution
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,
+\]
+is a smooth bounded mild ancient solution by \Cref{p3:lem:time-shift}.  In
+the periodic branch the periodicity is imposed on the physical axial variable
+\(z\), not on the centered field, and the branch also requires bounded
+circulation \(\Gamma=ru_\theta\).  These structural hypotheses are preserved
+under the time shift.  Therefore the cited theorem applies to \(W_T\) after
+descending to \(\R^2\times\mathbb T^1\) and normalizing the period by a
+Navier--Stokes scaling, which does not change boundedness, mildness,
 axisymmetry, or boundedness of \(\Gamma\).
 
 \smallskip
 \noindent\emph{Conclusion in the Type I frame.}
-A \(z\)-periodic physical whole-space representative descends to
-\(\R^2\times\mathbb T^1\), so the cited theorem gives a constant axial vector
-field, which is removed by
-\Cref{p3:lem:galilean-typeI-zero} in the Type I ancient frame.
+For each \(T<0\), the cited theorem gives a spatially constant solution in the
+frame used here.  The resulting constants patch in \(T\) by
+\Cref{p3:lem:patch-constants}, and \Cref{p3:lem:galilean-typeI-zero} then
+eliminates the patched constant in the Type I ancient frame.
 \end{proof}
 
 \section{Unforced axisymmetric Liouville consequences}
@@ -6810,10 +6939,24 @@ Then \(U\equiv0\).
 \end{proposition}
 
 \begin{proof}
-Fix \(T<0\).  The shifted solution \(W_T(x,s)=U(x,T+s)\) is bounded, ancient,
-axisymmetric, and satisfies the same pointwise bound \(|W_T|\le C/r\).
-\Cref{p3:thm:knss-pointwise} gives \(W_T\equiv0\).  Hence \(U\equiv0\) on
-\((-\infty,T)\).  Since \(T<0\) is arbitrary, \(U\equiv0\).
+Fix \(T<0\).  By \Cref{p3:lem:time-shift}, the shifted solution
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,
+\]
+is a bounded ancient mild axisymmetric solution and satisfies the same
+pointwise bound
+\[
+   |W_T(x,s)|\le \frac{C}{r}.
+\]
+By \Cref{p3:thm:knss-pointwise}, \(W_T\) is spatially constant in the frame
+used here.  Write \(W_T\equiv c_T\).  The pointwise bound gives
+\[
+   |c_T|\le \frac{C}{r}\qquad\text{for every }r>0,
+\]
+hence \(c_T=0\) by letting \(r\to\infty\).  Equivalently, one may patch the
+constants in \(T\) and apply \Cref{p3:lem:galilean-typeI-zero}.  Thus
+\(W_T\equiv0\), so \(U\equiv0\) on \(( -\infty,T)\).  Since \(T<0\) was
+arbitrary, \(U\equiv0\).
 \end{proof}
 
 \begin{remark}[Pointwise bound rules out a constant directly]
@@ -6840,14 +6983,22 @@ Then \(U\equiv0\).
 \end{proposition}
 
 \begin{proof}
-Fix \(T<0\).  By \Cref{p3:lem:time-shift}, \(W_T(x,s)=U(x,T+s)\) is a bounded
-ancient mild axisymmetric solution and
+If \(U_\theta\equiv0\), then the conclusion follows from
+\Cref{p3:prop:noswirl-typeI}.  Hence assume \(U_\theta\not\equiv0\).
+
+Fix \(T<0\).  By \Cref{p3:lem:time-shift},
+\[
+   W_T(x,s)=U(x,T+s),\qquad s<0,
+\]
+is a bounded ancient mild axisymmetric solution.  The finite-\(L^p\)
+circulation hypothesis is preserved by time shift:
 \[
    \Gamma_{W_T}\in L_s^\infty L_x^p
    \bigl(\mathbb R^3\times(-\infty,0)\bigr).
 \]
-\Cref{p3:thm:lzz} gives that \(W_T\) is a constant vector field.  Patch these
-constants in \(T\) by \Cref{p3:lem:patch-constants} and then use
+The nontrivial-swirl alternative is the case covered by
+\Cref{p3:thm:lzz}, so \(W_T\) is a constant vector field.  Patch the constants
+in \(T\) using \Cref{p3:lem:patch-constants} and then apply
 \Cref{p3:lem:galilean-typeI-zero}.
 \end{proof}
 
@@ -6936,7 +7087,7 @@ where
 
 \begin{theorem}[Gallay--Wayne small-data decay]\label{p3:thm:gallay}
 Let \(0<\mu\le1\) and \(m>2\mu+\frac12\).  There exist constants
-\(\rho_m>0\) and \(C_m\ge1\) such that if \(\|w_0\|_m\le\rho_m\), then
+\(r_m>0\) and \(C_m\ge1\) such that if \(\|w_0\|_m\le r_m\), then
 \eqref{p3:eq:weighted-vorticity} has a unique global mild solution
 \(w(\tau)=\Phi_\tau w_0\) in \(C([0,\infty);L^2_\sigma(m))\) and
 \[
@@ -6976,7 +7127,7 @@ vorticity equation and proves
 \[
    \|w(\tau)\|_m\le K_0e^{-\mu\tau}\|w_0\|_m,\qquad \tau\ge0.
 \]
-We denote the smallness radius and decay constant by \(\rho_m\) and \(C_m\).
+We denote the smallness radius and decay constant by \(r_m\) and \(C_m\).
 For an ancient trajectory staying in the small ball for all
 \(\tau\in\mathbb R\), the forward decay applied from arbitrarily negative
 times forces the rescaled vorticity to vanish.  The Biot--Savart
@@ -6994,9 +7145,8 @@ Gallay--Wayne convention used in this weighted-vorticity subsection.
 
 \begin{definition}[Perturbative weighted-vorticity condition]
 \label{p3:def:weighted-vorticity-condition}
-Fix \(m>\frac72\), and let \(\rho_m\) be a fixed radius strictly smaller
-than the small-data radius of \Cref{p3:thm:gallay} so that the closed ball
-\(\{\|w\|_m\le\rho_m\}\) lies inside the perturbative regime.
+Fix \(m>\frac72\), let \(r_m>0\) be the Gallay--Wayne small-data radius from
+\Cref{p3:thm:gallay}, and fix \(0<\rho_m<r_m\).
 An ancient vorticity trajectory satisfies the perturbative
 weighted-vorticity condition with exponent \(m\) if it is a function
 \[
@@ -7014,13 +7164,14 @@ Lyapunov argument.
 \end{definition}
 
 \begin{proposition}[Semiflow Lyapunov functional]\label{p3:prop:weighted-lyap}
-Fix \(m>\frac72\).  For \(\|w_0\|_m\le\rho_m\), define
+Fix \(m>\frac72\).  For every initial datum \(w_0\) in the Gallay--Wayne
+small-data ball \(\{\|w\|_m\le r_m\}\), define
 \begin{equation}\label{p3:eq:weighted-lyap}
    \mathcal L_m(w_0)
    =
    \sup_{\tau\ge0}e^{2\tau}\|\Phi_\tau w_0\|_m^2 .
 \end{equation}
-Then \(\mathcal L_m\) is well-defined and satisfies
+Then \(\mathcal L_m(w_0)<\infty\), and
 \begin{equation}\label{p3:eq:weighted-coercive}
    \|w_0\|_m^2
    \le
@@ -7028,12 +7179,15 @@ Then \(\mathcal L_m\) is well-defined and satisfies
    \le
    C_m^2\|w_0\|_m^2 .
 \end{equation}
-Moreover, for every \(s\ge0\),
+Moreover, whenever both \(w_0\) and \(\Phi_s w_0\) lie in the
+Gallay--Wayne small-data ball,
 \begin{equation}\label{p3:eq:weighted-contract}
    \mathcal L_m(\Phi_s w_0)
    \le
    e^{-2s}\mathcal L_m(w_0).
 \end{equation}
+In particular, this contraction applies along any ancient trajectory
+satisfying the perturbative weighted-vorticity condition.
 \end{proposition}
 
 \begin{proof}
@@ -7047,7 +7201,8 @@ which proves finiteness and the upper bound.  The lower bound is the value at
 \[
    \Phi_\tau(\Phi_s w_0)=\Phi_{\tau+s}w_0 .
 \]
-Hence
+If also \(\|\Phi_s w_0\|_m\le r_m\), then \(\mathcal L_m(\Phi_s w_0)\) is
+defined.  Hence
 \[
    \mathcal L_m(\Phi_s w_0)
    =
@@ -7098,7 +7253,7 @@ lower bound \eqref{p3:eq:weighted-coercive} gives \(w(\tau_0)=0\).  Since
 
 \begin{theorem}[Zero conclusions for structured Type I ancient solutions]
 \label{p3:thm:typeI-zero-hypotheses}
-Let \(U\) be a Type I ancient solution in the sense of
+Let \(U\) be a smooth mild Type I ancient solution in the sense of
 \Cref{p3:def:typeI-ancient}.  If \(U\) satisfies one of the following
 hypotheses:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -7109,8 +7264,9 @@ hypotheses:
    \Gamma\in L_t^\infty L_x^p,\qquad 1\le p<\infty;
 \]
 \item axisymmetry, \(z\)-periodicity, and bounded \(\Gamma\);
-\item the Gallay--Wayne small weighted-vorticity condition, whenever the
-velocity is recovered from the corresponding vorticity by the Biot--Savart law.
+\item the associated Gallay--Wayne forward rescaled vorticity satisfies
+\Cref{p3:def:weighted-vorticity-condition}, and the velocity is the
+Biot--Savart representative of that vorticity.
 \end{enumerate}
 then \(U\equiv0\).
 \end{theorem}
@@ -7225,12 +7381,10 @@ The local pointwise Type I bound gives
 \[
    u\in L_t^{2,\infty}L_x^\infty(Q_\rho(z_*)).
 \]
-By the Albritton--Barker weak-Serrin Type I lemma, in the form proved in
-\Cref{p0:thm:local-weak-serrin-typeI}, for each \(0<\theta<1\) the local
-functional \(I(Q_{\theta\rho}(z_*))\) is finite on the compactly contained
-smaller terminal cylinder.  In particular, the local \(A\)-bound needed for the
-rescaled terminal no-escape estimate is uniform along the chosen small-scale
-sequence, and the rescaled sequence satisfies
+By \Cref{p0:lem:terminal-A-from-weak-serrin}, for each \(0<\theta<1\) the
+terminal local \(A\)-quantity is uniformly bounded along the chosen
+small-scale sequence.  Hence \Cref{p0:thm:local-weak-serrin-typeI} gives that
+the rescaled sequence satisfies
 \[
    \lim_{\sigma\downarrow0}\sup_n
    \int_{-\sigma}^{0}\int_{B_1}|u_n|^3=0 .

@@ -5,10 +5,9 @@ namespace Hypostructure.Backends.NavierStokes.ProofSetup
 structure BlowupCompactnessDossier where
   entry : UnifiedTypeIEntryData
   blowup : BlowupSequence
-  inheritedBounds : Prop := True
-    pressureAtlas : PressureAtlasData
-  compactness : Prop := True
-    deriving Repr
+  inheritedBounds : Prop := blowup.localBounds ∧ entry.localEntry.admissibility
+  pressureAtlas : PressureAtlasData
+  compactness : Prop := pressureAtlas.compatibility ∧ inheritedBounds
 
 axiom compactnessOfBlowupSequence
     (entry : UnifiedTypeIEntryData) :

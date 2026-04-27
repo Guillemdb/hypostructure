@@ -9,7 +9,6 @@ inductive ResidualAlternative where
   | affineParasitic (obj : ImportedSetupResidualObject)
   | criticalTail (obj : ImportedSetupResidualObject)
   | genericTerminal (obj : ImportedSetupResidualObject)
-  deriving Repr
 
 axiom routeImportedResidualObject
     (obj : ImportedSetupResidualObject) :

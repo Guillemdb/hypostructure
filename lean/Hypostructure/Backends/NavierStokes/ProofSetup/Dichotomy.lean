@@ -9,10 +9,16 @@ def certifyLocalTypeIEntry
     (compact : TerminalCompactnessWitness)
     (noEscape : VelocityNoEscapeCertificate) :
     AdmissibleLocalTypeISequence :=
-  { concentration := seq
-    localEnvelope := env
-    terminalCompactness := compact
-    noEscape := noEscape }
+  { concentration := seq,
+    localEnvelope := env,
+    terminalCompactness := compact,
+    noEscape := noEscape,
+    admissibility :=
+      (0 < seq.etaV ∧ ∀ n, seq.etaV ≤ (seq.criticalValues n).C.value) ∧
+        noEscape.noEscape ∧ compact.compactness,
+    compatibility :=
+      env.solution.name = seq.solution.name ∧
+        noEscape.singularPoint.terminalTime = seq.singularPoint.terminalTime }
 
 def exportTypeIIBranch
     (seq : PositiveConcentrationSequence)
@@ -21,16 +27,18 @@ def exportTypeIIBranch
     (pressure : PressureTransferData)
     (windows : ScaleWindowData) :
     TypeIIExportData :=
-  { concentration := seq
-    failedLocalTypeIEnvelope := failure
-    localEnergy := energy
-    pressure := pressure
-    scaleWindows := windows }
+  { concentration := seq,
+    failedLocalTypeIEnvelope := failure,
+    localEnergy := energy,
+    pressure := pressure,
+    scaleWindows := windows,
+    compatibility :=
+      (0 < seq.etaCD ∧ ∀ n, seq.etaCD ≤ (seq.criticalValues n).totalCD) ∧
+        failure.failure ∧ energy.transferred ∧ pressure.transferred ∧ windows.shrinking }
 
 inductive LocalBlowupAlternative where
   | typeI (entry : AdmissibleLocalTypeISequence)
   | typeII (data : TypeIIExportData)
-  deriving Repr
 
 def typeIAlternativeOfCertifiedEntry
     (entry : AdmissibleLocalTypeISequence) :
@@ -51,7 +59,7 @@ axiom localPointwiseTypeIProducesCompactness
     (env : LocalTypeIEnvelopeWitness) :
     TerminalCompactnessWitness
 
-theorem localPointwiseTypeIIsAdmissible
+noncomputable def localPointwiseTypeIIsAdmissible
     (seq : PositiveConcentrationSequence)
     (env : LocalTypeIEnvelopeWitness)
     (noEscape : VelocityNoEscapeCertificate) :

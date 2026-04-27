@@ -22,16 +22,15 @@ axiom criticalTailAlternativeClosed
 axiom genericTerminalAlternativeClosed
     (obj : ImportedSetupResidualObject) : False
 
-theorem companionResidualClosureHypothesis : ResidualClosureHypothesis := by
-  refine ⟨?_⟩
-  intro export
-  let obj := importSetupResidualObject export
-  cases routeImportedResidualObject obj with
-  | axisymmetric obj => exact axisymmetricAlternativeClosed obj
-  | rotational obj => exact rotationalAlternativeClosed obj
-  | degenerateStationaryHull obj => exact degenerateStationaryHullClosed obj
-  | affineParasitic obj => exact affineParasiticAlternativeClosed obj
-  | criticalTail obj => exact criticalTailAlternativeClosed obj
-  | genericTerminal obj => exact genericTerminalAlternativeClosed obj
+def companionResidualClosureHypothesis : ResidualClosureHypothesis :=
+    { closesRemainingExport := fun residual => by
+            let obj := importSetupResidualObject residual
+            cases routeImportedResidualObject obj with
+            | axisymmetric obj => exact axisymmetricAlternativeClosed obj
+            | rotational obj => exact rotationalAlternativeClosed obj
+            | degenerateStationaryHull obj => exact degenerateStationaryHullClosed obj
+            | affineParasitic obj => exact affineParasiticAlternativeClosed obj
+            | criticalTail obj => exact criticalTailAlternativeClosed obj
+            | genericTerminal obj => exact genericTerminalAlternativeClosed obj }
 
 end Hypostructure.Backends.NavierStokes.ResidualBranch

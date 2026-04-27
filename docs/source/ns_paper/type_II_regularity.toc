@@ -50,35 +50,35 @@
 \contentsline {subsection}{\tocsubsection {}{8.4}{Terminal local-state decoupling}}{154}{subsection.8.4}%
 \contentsline {subsection}{\tocsubsection {}{8.5}{Small local residual components}}{161}{subsection.8.5}%
 \contentsline {subsection}{\tocsubsection {}{8.6}{Exterior regularity}}{163}{subsection.8.6}%
-\contentsline {section}{\tocsection {}{9}{Corrected Monotonicity and Scale-Drift Cost Criteria}}{183}{section.9}%
-\contentsline {subsection}{\tocsubsection {}{9.1}{Data for the Cost Criterion}}{183}{subsection.9.1}%
-\contentsline {subsection}{\tocsubsection {}{9.2}{Fixed-Cutoff Monotonicity}}{184}{subsection.9.2}%
-\contentsline {subsection}{\tocsubsection {}{9.3}{Moving-Cutoff Monotonicity}}{187}{subsection.9.3}%
-\contentsline {subsection}{\tocsubsection {}{9.4}{Negative Scale Drift}}{189}{subsection.9.4}%
-\contentsline {subsection}{\tocsubsection {}{9.5}{Scale-Drift Cost Criteria}}{190}{subsection.9.5}%
-\contentsline {subsection}{\tocsubsection {}{9.6}{Cost-Divergence Exclusion on the Canonical Windowwise Schedule}}{192}{subsection.9.6}%
-\contentsline {subsection}{\tocsubsection {}{9.7}{Absolutely Continuous Repaired-Gauge Charts and Renormalized Equations}}{195}{subsection.9.7}%
-\contentsline {subsection}{\tocsubsection {}{9.8}{Local Caccioppoli Estimate for Absolutely Continuous Suitable Branches}}{201}{subsection.9.8}%
-\contentsline {subsection}{\tocsubsection {}{9.9}{Caccioppoli Regularity Criterion}}{205}{subsection.9.9}%
-\contentsline {subsection}{\tocsubsection {}{9.10}{Terminal Local State-Space Compactness}}{207}{subsection.9.10}%
-\contentsline {subsubsection}{\tocsubsubsection {}{}{Local proof of terminal state-space completeness}}{208}{section*.2}%
-\contentsline {subsubsection}{\tocsubsubsection {}{}{Discharge of the retained compact-test closure}}{216}{section*.3}%
-\contentsline {subsection}{\tocsubsection {}{9.11}{Closure of the thin negative-drift exit}}{225}{subsection.9.11}%
-\contentsline {subsection}{\tocsubsection {}{9.12}{Closure of the Type II analytic-data exhaustiveness row}}{230}{subsection.9.12}%
-\contentsline {subsection}{\tocsubsection {}{9.13}{Terminal Retained-State Assembly}}{235}{subsection.9.13}%
-\contentsline {section}{\tocsection {}{10}{Assembly of the Local Type II Exclusion}}{239}{section.10}%
-\contentsline {subsection}{\tocsubsection {}{10.1}{Local Entry}}{239}{subsection.10.1}%
-\contentsline {subsection}{\tocsubsection {}{10.2}{Local Theorems Used in the Assembly}}{239}{subsection.10.2}%
-\contentsline {subsection}{\tocsubsection {}{10.3}{Assembly of Alternatives}}{241}{subsection.10.3}%
-\contentsline {subsection}{\tocsubsection {}{10.4}{Physical Entry into the Covered Local Type II Path}}{247}{subsection.10.4}%
-\contentsline {subsection}{\tocsubsection {}{10.5}{Closure of the remaining named exit rows}}{249}{subsection.10.5}%
-\contentsline {subsection}{\tocsubsection {}{10.6}{Assembly Theorem}}{257}{subsection.10.6}%
-\contentsline {section}{\tocsection {}{11}{Conclusion}}{258}{section.11}%
-\contentsline {section}{\tocsection {Appendix}{A}{PDE Interface Definitions Used in the Local Type II Proof}}{259}{appendix.A}%
-\contentsline {subsection}{\tocsubsection {}{A.1}{Admissible Type II branches and exhaustion}}{259}{subsection.A.1}%
-\contentsline {subsection}{\tocsubsection {}{A.2}{Repaired-gauge representation from Type II analytic data}}{260}{subsection.A.2}%
-\contentsline {subsection}{\tocsubsection {}{A.3}{Minimal chart and gauge realization}}{262}{subsection.A.3}%
-\contentsline {subsection}{\tocsubsection {}{A.4}{Local Retained Mass Cost Divergence}}{264}{subsection.A.4}%
-\contentsline {subsection}{\tocsubsection {}{A.5}{Localized cost and the Type II scale-exclusion condition}}{265}{subsection.A.5}%
-\contentsline {subsection}{\tocsubsection {}{A.6}{Local compact-cost classification}}{267}{subsection.A.6}%
-\contentsline {section}{\tocsection {Appendix}{}{References}}{272}{section*.4}%
+\contentsline {section}{\tocsection {}{9}{Corrected Monotonicity and Scale-Drift Cost Criteria}}{184}{section.9}%
+\contentsline {subsection}{\tocsubsection {}{9.1}{Data for the Cost Criterion}}{184}{subsection.9.1}%
+\contentsline {subsection}{\tocsubsection {}{9.2}{Fixed-Cutoff Monotonicity}}{185}{subsection.9.2}%
+\contentsline {subsection}{\tocsubsection {}{9.3}{Moving-Cutoff Monotonicity}}{188}{subsection.9.3}%
+\contentsline {subsection}{\tocsubsection {}{9.4}{Negative Scale Drift}}{190}{subsection.9.4}%
+\contentsline {subsection}{\tocsubsection {}{9.5}{Scale-Drift Cost Criteria}}{191}{subsection.9.5}%
+\contentsline {subsection}{\tocsubsection {}{9.6}{Cost-Divergence Exclusion on the Canonical Windowwise Schedule}}{193}{subsection.9.6}%
+\contentsline {subsection}{\tocsubsection {}{9.7}{Absolutely Continuous Repaired-Gauge Charts and Renormalized Equations}}{196}{subsection.9.7}%
+\contentsline {subsection}{\tocsubsection {}{9.8}{Local Caccioppoli Estimate for Absolutely Continuous Suitable Branches}}{202}{subsection.9.8}%
+\contentsline {subsection}{\tocsubsection {}{9.9}{Caccioppoli Regularity Criterion}}{206}{subsection.9.9}%
+\contentsline {subsection}{\tocsubsection {}{9.10}{Terminal Local State-Space Compactness}}{208}{subsection.9.10}%
+\contentsline {subsubsection}{\tocsubsubsection {}{}{Local proof of terminal state-space completeness}}{209}{section*.2}%
+\contentsline {subsubsection}{\tocsubsubsection {}{}{Discharge of the retained compact-test closure}}{217}{section*.3}%
+\contentsline {subsection}{\tocsubsection {}{9.11}{Closure of the thin negative-drift exit}}{226}{subsection.9.11}%
+\contentsline {subsection}{\tocsubsection {}{9.12}{Closure of the Type II analytic-data exhaustiveness row}}{232}{subsection.9.12}%
+\contentsline {subsection}{\tocsubsection {}{9.13}{Terminal Retained-State Assembly}}{237}{subsection.9.13}%
+\contentsline {section}{\tocsection {}{10}{Assembly of the Local Type II Exclusion}}{241}{section.10}%
+\contentsline {subsection}{\tocsubsection {}{10.1}{Local Entry}}{241}{subsection.10.1}%
+\contentsline {subsection}{\tocsubsection {}{10.2}{Local Theorems Used in the Assembly}}{241}{subsection.10.2}%
+\contentsline {subsection}{\tocsubsection {}{10.3}{Assembly of Alternatives}}{243}{subsection.10.3}%
+\contentsline {subsection}{\tocsubsection {}{10.4}{Physical Entry into the Covered Local Type II Path}}{249}{subsection.10.4}%
+\contentsline {subsection}{\tocsubsection {}{10.5}{Closure of the remaining named exit rows}}{251}{subsection.10.5}%
+\contentsline {subsection}{\tocsubsection {}{10.6}{Assembly Theorem}}{259}{subsection.10.6}%
+\contentsline {section}{\tocsection {}{11}{Conclusion}}{261}{section.11}%
+\contentsline {section}{\tocsection {Appendix}{A}{PDE Interface Definitions Used in the Local Type II Proof}}{262}{appendix.A}%
+\contentsline {subsection}{\tocsubsection {}{A.1}{Admissible Type II branches and exhaustion}}{262}{subsection.A.1}%
+\contentsline {subsection}{\tocsubsection {}{A.2}{Repaired-gauge representation from Type II analytic data}}{263}{subsection.A.2}%
+\contentsline {subsection}{\tocsubsection {}{A.3}{Minimal chart and gauge realization}}{265}{subsection.A.3}%
+\contentsline {subsection}{\tocsubsection {}{A.4}{Local Retained Mass Cost Divergence}}{267}{subsection.A.4}%
+\contentsline {subsection}{\tocsubsection {}{A.5}{Localized cost and the Type II scale-exclusion condition}}{268}{subsection.A.5}%
+\contentsline {subsection}{\tocsubsection {}{A.6}{Local compact-cost classification}}{270}{subsection.A.6}%
+\contentsline {section}{\tocsection {Appendix}{}{References}}{275}{section*.4}%

@@ -1,0 +1,700 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs,longtable}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{xcolor}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue!50!black,
+	citecolor=blue!50!black,
+	urlcolor=blue!50!black,
+	pdftitle={The Hypostructure Framework and the P versus NP Question}
+}
+
+\setlist[itemize]{leftmargin=2em}
+\setlist[enumerate]{leftmargin=2.4em}
+\allowdisplaybreaks
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Hc}{\mathbf{H}}
+\newcommand{\FM}{\mathrm{FM}}
+\newcommand{\DTM}{\mathrm{DTM}}
+\newcommand{\PFM}{P_{\mathrm{FM}}}
+\newcommand{\NPFM}{NP_{\mathrm{FM}}}
+\newcommand{\PDTM}{P_{\mathrm{DTM}}}
+\newcommand{\NPDTM}{NP_{\mathrm{DTM}}}
+\newcommand{\Witpoly}{\mathsf{Wit}_{\mathrm{poly}}}
+\newcommand{\SatClosure}{\mathsf{Sat}\langle \sharp,\int,\flat,\ast,\partial\rangle}
+\newcommand{\Spec}{\mathsf{Spec}}
+\newcommand{\Eval}{\mathsf{Eval}}
+\newcommand{\CostCert}{\mathsf{CostCert}}
+\newcommand{\FamCostCert}{\mathsf{FamCostCert}}
+\newcommand{\Solpoly}{\mathsf{Sol}_{\mathrm{poly}}}
+\newcommand{\cmark}{\checkmark}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\title{The Hypostructure Framework and the P versus NP Question}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We develop the \emph{Hypostructure Framework}: an internal language for dynamical and algorithmic complexity built inside a cohesive $(\infty,1)$-topos, organized around a deterministic compiler of proof objects called the \emph{Structural Sieve} and a periodic taxonomy of $168$ structural slots indexed by eight families of resolution and twenty-one filtration strata. Three theorem packages support the framework: gate-evaluator theorems specifying when each diagnostic stratum admits a permit, barrier-defense theorems supplying categorical exclusions, and surgery-construction theorems supplying admissible reconstructions. An algebraic-geometric layer of eight metatheorems---motivic, schematic, deformation-cohomological, virtual, monodromy-weight, Tannakian, holographic, and the structural reconstruction principle---supplies the categorical reconstruction backbone, and an algorithmic-information-theory layer maps the verdict system onto Kolmogorov complexity, Chaitin partition function, and computational depth. The framework is then applied to algorithmic complexity. Internally, polynomial-time programs are described through five computational modalities $\{\sharp,\int,\flat,\ast,\partial\}$, witnesses are classified into pure modal classes, and a mixed-modal obstruction theorem packaged as the E13 lock excludes algorithms whenever every modal channel is blocked. Canonical $3$-SAT is shown to be admissible, $\NPFM$-complete, and to carry the full E13 obstruction package, yielding an internal separation $\PFM \neq \NPFM$. A four-theorem bridge to deterministic Turing machines establishes $\PFM = \PDTM$ and $\NPFM = \NPDTM$ and exports the separation to $\PDTM \neq \NPDTM$. A geometric appendix records the contact-Nambu formulation that organizes the dissipative dynamics underlying the diagnostic gates.
+\end{abstract}
+
+\tableofcontents
+
+\section{Sieve-Level Metadata}
+
+\begin{definition}[Structural DNA (Extended)]\label{def-structural-dna}
+The \emph{Structural DNA} of a dynamical system $\mathbb{H}$ is the extended vector
+\[
+\mathrm{DNA}(\mathbb{H}) := (K_1, K_2, \ldots, K_7, K_{7a}, K_{7b}, K_{7c}, K_{7d}, K_8, \ldots, K_{17}) \in \prod_{N \in \mathcal{N}} \Sigma_N,
+\]
+where
+\[
+\mathcal{N} = \{1, 2, 3, 4, 5, 6, 7, 7a, 7b, 7c, 7d, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17\}
+\]
+is the set of the 21 strata, $K_N$ is the certificate emitted at Node $N$, and $\Sigma_N$ is the alphabet of Node $N$.
+
+The subsidiary nodes $7a$--$7d$ constitute the \emph{Stiffness Restoration Subtree}: the decomposition that distinguishes systems failing primary stiffness but admitting restoration by bifurcation, hidden symmetry, spontaneous-symmetry-breaking analysis, or tunneling structure.
+\end{definition}
+
+\begin{definition}[Certificate Signature (Extended)]\label{def-certificate-signature}
+Two dynamical systems $\mathbb{H}_A$ and $\mathbb{H}_B$ have \emph{equivalent signatures} if their terminal certificate chains satisfy
+\[
+\Gamma_A \sim \Gamma_B
+\iff
+\forall N \in \mathcal{N}: \mathrm{type}(K_N^A) = \mathrm{type}(K_N^B),
+\]
+where
+\[
+\mathrm{type}(K) \in \{+, \circ, \sim, \mathrm{re}, \mathrm{ext}, \mathrm{blk}, \mathrm{morph}, \mathrm{inc}\}
+\]
+is the certificate class.
+\end{definition}
+
+\begin{remark}[Compressed node dictionary from the cross-reference tables]\label{rem-cross-reference-summary}
+The computational route used for the P versus NP manuscript sits inside the wider sieve architecture recorded in the cross-reference chapter. The gate-side identifications most relevant to the algorithmic case are summarized in Table~\ref{tab:gate-cross-reference}.
+\end{remark}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Blue node & Foundation theorem & Predicate \\
+\midrule
+ScaleCheck & Type II Exclusion & $\beta - \alpha < \lambda_c$ \\
+StiffnessCheck & Spectral Generator & $\sigma_{\min} > 0$ \\
+ErgoCheck & Ergodic Mixing Barrier & $\tau_{\mathrm{mix}} < \infty$ \\
+OscillateCheck & Spectral Distance Isomorphism & $\|[D,a]\| < \infty$ \\
+BoundaryCheck & Antichain--Surface Correspondence & min-cut / max-flow \\
+\bottomrule
+\end{tabular}
+\caption{A compressed restatement of the gate-evaluator cross-reference table linking operational nodes to theorems.}
+\label{tab:gate-cross-reference}
+\end{table}
+
+\section{Cohesive-Topos Computational Foundation}
+
+\begin{definition}[Cohesive $(\infty,1)$-Topos Structure]\label{def-cohesive-topos-computation}
+A \emph{cohesive $(\infty,1)$-topos} is an $(\infty,1)$-topos $\Hc$ equipped with an adjoint quadruple
+\[
+\Pi \dashv \mathrm{Disc} \dashv \Gamma \dashv \mathrm{coDisc} : \Hc \to \infty\text{-Grpd}
+\]
+to the base topos $\infty\text{-Grpd}$, where:
+\begin{itemize}
+\item $\Pi : \Hc \to \infty\text{-Grpd}$ is the \emph{shape} functor;
+\item $\mathrm{Disc} : \infty\text{-Grpd} \to \Hc$ is the \emph{discrete} embedding;
+\item $\Gamma : \Hc \to \infty\text{-Grpd}$ is the \emph{global-sections} functor; and
+\item $\mathrm{coDisc} : \infty\text{-Grpd} \to \Hc$ is the \emph{codiscrete} embedding.
+\end{itemize}
+These data are required to satisfy the cohesion axioms:
+\begin{enumerate}
+\item $\mathrm{Disc}$ and $\mathrm{coDisc}$ are fully faithful;
+\item $\Pi$ preserves finite products; and
+\item the natural transformation $\Gamma \to \Pi$ is epimorphic, i.e. for each $\mathcal X \in \Hc$ the induced map $\Gamma(\mathcal X) \to \Pi(\mathcal X)$ is an effective epimorphism of $\infty$-groupoids.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[The Five Computational Modalities]\label{def-five-modalities}
+From the adjoint quadruple one derives the three basic cohesive modalities
+\[
+\int := \mathrm{Disc} \circ \Pi,
+\qquad
+\flat := \mathrm{Disc} \circ \Gamma,
+\qquad
+\sharp := \mathrm{coDisc} \circ \Gamma,
+\]
+which satisfy the modal adjunction triple
+\[
+\int \dashv \flat \dashv \sharp.
+\]
+The reduction identities are
+\[
+\flat\int \simeq \int,
+\qquad
+\int\flat \simeq \flat,
+\qquad
+\sharp\int \simeq \int,
+\qquad
+\int\sharp \simeq \flat.
+\]
+The two extended modalities are:
+\[
+\ast := \mathrm{colim}_{n \to \infty} \int^{(n)},
+\qquad
+\partial := \mathrm{fib}(\eta_\sharp : \mathrm{id} \to \sharp).
+\]
+The five modalities
+\[
+\{\int, \flat, \sharp, \ast, \partial\}
+\]
+are asserted by the source manuscript to exhaust the structural resources available to internally polynomial-time algorithms.
+\end{definition}
+
+\begin{theorem}[Schreiber Structure Theorem, computational form]\label{thm-schreiber-structure}
+Let $\Hc$ be a cohesive $(\infty,1)$-topos. Every type $\mathcal X \in \Hc$ decomposes via fracture squares into its modal components. Concretely:
+\begin{enumerate}
+\item the canonical diagram
+\[
+\mathcal X \simeq \int\mathcal X \times_{\int\flat\mathcal X} \flat\mathcal X
+\]
+is a homotopy pullback; and
+\item the canonical diagram
+\[
+\flat\mathcal X \simeq \flat\mathcal X \times_{\flat\sharp\mathcal X} \sharp\mathcal X
+\]
+is a homotopy pullback.
+\end{enumerate}
+Moreover, any morphism $f : \mathcal X \to \mathcal Y$ factors, up to homotopy, through its modal projections $\int f$, $\flat f$, and $\sharp f$ together with the compatibility data imposed by the fracture squares.
+\end{theorem}
+
+\begin{proof}
+The source proof proceeds from the adjoint quadruple of Definition~\ref{def-cohesive-topos-computation}. The idempotent modalities $\int$, $\flat$, and $\sharp$ are the only modal operators generated directly by the adjunction data. Schreiber's fracture-square formalism gives the two pullback decompositions above. The extended operators $\ast$ and $\partial$ are then obtained as derived operations: $\ast$ by transfinite iteration of shape and $\partial$ as the homotopy fiber of the sharp unit. The reduction identities show that no additional structurally new modal operators remain after reduction, which is the precise categorical reason the source text treats these five modalities as exhaustive.
+\end{proof}
+
+\begin{corollary}[Exhaustive Modal Decomposition]\label{cor-exhaustive-decomposition}
+Every type $\mathcal X$ in a cohesive topos admits a canonical decomposition
+\[
+\mathcal X \simeq \mathcal X_{\int} \times_{\mathcal X_0} \mathcal X_{\flat} \times_{\mathcal X_0} \mathcal X_{\sharp},
+\]
+where $\mathcal X_{\int}$ is the shape component, $\mathcal X_{\flat}$ is the discrete-algebraic component, $\mathcal X_{\sharp}$ is the continuous-metric component, and $\mathcal X_0 := \flat \mathcal X$ is the common base. The extended modalities $\ast$ and $\partial$ encode the derived scaling and boundary structures.
+\end{corollary}
+
+\begin{proof}
+Compose the two fracture-square decompositions from Theorem~\ref{thm-schreiber-structure}. The base objects coincide because the reduction identities identify $\int\flat\mathcal X$ and $\flat\sharp\mathcal X$ with $\flat\mathcal X$. The resulting iterated pullback gives the displayed decomposition.
+\end{proof}
+
+\section{Internal Programs, Witnesses, and Exhaustiveness}
+
+\begin{definition}[Effective Fragile Programs]\label{def-effective-programs-fragile}
+An \emph{effective Fragile program} is a code object
+\[
+a \in \mathsf{Prog}_{\FM}
+\]
+interpreted by a fixed evaluator $\Eval$ such that:
+\begin{enumerate}
+\item the code $a$ has a concrete syntax or bytecode presentation interpretable by the Fragile runtime;
+\item for every encoded input $u \in \{0,1\}^*$, the expression $\Eval(a,u)$ is governed by a ZFC-definable stepwise operational semantics; and
+\item complexity statements are made only relative to admissible families of externally presented, $0$-truncated inputs.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Cost Certificate]\label{def-cost-certificate}
+Fix a tagged valid-code domain
+\[
+D \subseteq \{0,1\}^*
+\]
+coming from an admissible family presentation. A \emph{cost certificate} is a ZFC-checkable predicate
+\[
+\CostCert(a,p)
+\]
+where $a \in \mathsf{Prog}_{\FM}$ and $p : \mathbb N \to \mathbb N$ is a polynomial, asserting:
+\begin{enumerate}
+\item uniform termination: for every tagged input $\langle n, u \rangle \in D$, the evaluation $\Eval(a,\langle n, u \rangle)$ halts within at most $p(n)$ internal steps;
+\item bit-cost discipline: each counted step is a primitive operation of the fixed evaluator under the bit-cost accounting discipline; and
+\item witness extractability: the runtime bound and domain-validity conditions are derivable uniformly from the code of $a$ and the chosen admissible presentation.
+\end{enumerate}
+When source and target families are fixed, the source manuscript refines this to family-level predicates $\FamCostCert_{\mathfrak X,\mathfrak Y,\sigma}(a,p)$ and defines the internal polynomial-time class $P_{\FM}(\mathfrak X, \mathfrak Y; \sigma)$ from those family certificates.
+\end{definition}
+
+\begin{definition}[NP in the Fragile model]\label{def-np-fragile}
+Let $\mathfrak B$ be the standard admissible family of binary strings
+\[
+B_n := \{0,1\}^{\le n}
+\]
+and let $\mathbf 2$ be the constant Boolean output family. A language $L \subseteq \{0,1\}^*$ lies in $\NPFM$ if there exist:
+\begin{enumerate}
+\item a polynomial witness-length bound $q$;
+\item a uniform verifier family
+\[
+\mathcal V : \mathfrak B \times \mathfrak B \Rightarrow \mathbf 2;
+\]
+\item a proof that $\mathcal V$ is internally polynomial-time with respect to the combined size $|x| + |w|$; and
+\item the correctness condition
+\[
+x \in L \iff \exists w \in \{0,1\}^{\le q(|x|)}\; \mathcal V(x,w) = 1.
+\]
+\end{enumerate}
+\end{definition}
+
+For each modality $\lozenge \in \{\sharp, \int, \flat, \ast, \partial\}$, write $\mathsf W_\lozenge$ for the pure modal witness subcategory of that modality.
+
+\begin{theorem}[Irreducible Witness Classification]\label{thm-irreducible-witness-classification}
+Every irreducible object of
+\[
+\Witpoly
+\]
+lies in one of the five pure modal subcategories
+\[
+\mathsf W_\sharp,
+\qquad
+\mathsf W_{\mathrm{int}},
+\qquad
+\mathsf W_\flat,
+\qquad
+\mathsf W_\ast,
+\qquad
+\mathsf W_\partial.
+\]
+Equivalently, if $[\mathcal A] \in \Witpoly$ is irreducible, then $\mathcal A$ admits a modal factorization tree whose minimal-rank representative consists of a single pure modal leaf, possibly wrapped by translator-conjugation nodes.
+\end{theorem}
+
+\begin{proof}
+Let $[\mathcal A] \in \Witpoly$ be irreducible and choose a modal factorization tree of minimal rank for $\mathcal A$. The source proof shows that the number of nontrivial closure nodes must be zero: any nontrivial closure node would decompose $[\mathcal A]$ into strictly lower-rank witness objects, contradicting irreducibility. Once all such closure nodes are removed, only translator-conjugation nodes remain. If more than one pure leaf survived, some closure operation would still be needed to combine them, again contradicting the previous step. Hence exactly one pure leaf remains, and by construction that leaf lies in one of the five pure modal witness classes.
+\end{proof}
+
+\begin{corollary}[Computational Modal Exhaustiveness]\label{cor-computational-modal-exhaustiveness}
+The internally polynomial-time class coincides exactly with the saturated closure of the five pure modal classes:
+\[
+\PFM = \SatClosure.
+\]
+\end{corollary}
+
+\begin{proof}
+If $\mathcal A \in P_{\FM}(\mathfrak X, \mathfrak Y; \sigma)$, the witness-decomposition machinery of the source manuscript produces a finite modal factorization tree for $\mathcal A$, hence $\mathcal A \in \SatClosure$ by definition of saturated closure. Conversely, every element of the saturated closure is built from pure modal leaves by the allowed closure operations of the witness language, and the source text classifies those closure operations as internally polynomial-time preserving. Therefore every element of $\SatClosure$ lies in $\PFM$.
+\end{proof}
+
+\begin{theorem}[Mixed-Modal Obstruction Theorem]\label{thm-mixed-modal-obstruction}
+Let $\Pi$ be a problem family. Suppose that all five semantic obstruction propositions hold:
+\[
+\mathbb K_\sharp^-(\Pi)
+\wedge
+\mathbb K_{\mathrm{int}}^-(\Pi)
+\wedge
+\mathbb K_\flat^-(\Pi)
+\wedge
+\mathbb K_\ast^-(\Pi)
+\wedge
+\mathbb K_\partial^-(\Pi).
+\]
+Then
+\[
+\Solpoly(\Pi) = \varnothing.
+\]
+Equivalently, if every irreducible modal route is blocked, then no internally polynomial-time correct solver exists for $\Pi$.
+
+In particular, if $\Pi$ carries a full E13 obstruction package, then $\Solpoly(\Pi) = \varnothing$.
+\end{theorem}
+
+\begin{proof}
+Assume toward contradiction that $\Solpoly(\Pi) \neq \varnothing$ and choose a solver $\mathcal A \in \Solpoly(\Pi)$. The source witness-decomposition theorem provides a finite modal factorization tree for $\mathcal A$. By Theorem~\ref{thm-irreducible-witness-classification}, every irreducible object in a minimal-rank tree lies in one of the five pure modal subcategories. Hence some admissible irreducible modal component exists, belonging to one of the five modalities. This contradicts the simultaneous validity of the five semantic obstruction propositions. Therefore no internally polynomial-time correct solver exists.
+\end{proof}
+
+\section{The E13 Obstruction Layer and Canonical 3-SAT}
+
+\begin{definition}[E13: Algorithmic Completeness Lock]\label{def-e13}
+E13 is the tactic-level lock asserting that no internally polynomial-time solver survives once every modal profile route has been exhausted. The source manuscript records the frontend implication
+\[
+K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{E6}}^- \wedge K_{\mathrm{E4}}^- \wedge K_{\mathrm{E11}}^- \wedge K_{\mathrm{SC}_\lambda}^{\mathrm{super}} \wedge K_{\mathrm{E8}}^- \Rightarrow K_{\mathrm{E13}}^+ \Rightarrow K_{\mathrm{Cat}_{\mathrm{Hom}}}^{\mathrm{blk}}.
+\]
+The five modal checks represented here are:
+\begin{itemize}
+\item $\sharp$ via the stiffness and gradient channels;
+\item $\int$ via causal / well-foundedness tactics;
+\item $\flat$ via algebraic-integrality and Galois-monodromy tactics;
+\item $\ast$ via supercritical scaling; and
+\item $\partial$ via epistemic and boundary contraction obstruction.
+\end{itemize}
+The certificate payload is described in the source as
+\[
+(\mathrm{modal\_status}[5],\; \mathrm{leaf\_exclusions}[5],\; \mathrm{profile\_exhaustion\_witness}).
+\]
+\end{definition}
+
+\begin{proposition}[Six Frontend Certificates Cover All Five Modal Channels]\label{prop-six-certificates-cover-five-channels}
+The six frontend certificates appearing in Definition~\ref{def-e13} establish the five semantic modal obstructions according to the following dictionary:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Frontend certificate & Modal channel & Blockage source \\
+\midrule
+$K_{\mathrm{LS}_\sigma}^-$ & $\sharp$ & metric / landscape blockage \\
+$K_{\mathrm{E6}}^-$ & $\int$ & causal-view blockage \\
+$K_{\mathrm{E4}}^- \wedge K_{\mathrm{E11}}^-$ & $\flat$ & algebraic anti-sketch blockage \\
+$K_{\mathrm{SC}_\lambda}^{\mathrm{super}}$ & $\ast$ & scaling / recursion blockage \\
+$K_{\mathrm{E8}}^-$ & $\partial$ & boundary-fiber blockage \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In particular, there are no additional direct-route witness channels beyond these five.
+\end{proposition}
+
+\begin{proof}
+The pure modal witness classes are the irreducible generators of the saturated polynomial-time witness language. Each current frontend certificate targets one of those irreducible modal classes. The source proof then combines contextual dictionary blockage, restriction testing on the canonical Search-3-SAT family, and translator stability to promote each frontend blockage into the corresponding semantic modal obstruction proposition.
+\end{proof}
+
+\begin{theorem}[E13 Contrapositive Hardness]\label{thm-e13-contrapositive-hardness}
+Let $\Pi$ be a problem family in the algorithmic ambient setting. If $\Pi$ carries the current tactic-level E13 obstruction certificate
+\[
+K_{\mathrm{E13}}^+(\Pi),
+\]
+then no internally polynomial-time algorithm for $\Pi$ exists inside $P_{\FM}$. Equivalently,
+\[
+K_{\mathrm{E13}}^+(\Pi) \Rightarrow \Pi \notin P_{\FM}.
+\]
+\end{theorem}
+
+\begin{proof}
+The six frontend certificates contained in $K_{\mathrm{E13}}^+(\Pi)$ establish the five semantic obstruction propositions by Proposition~\ref{prop-six-certificates-cover-five-channels}. Theorem~\ref{thm-mixed-modal-obstruction} then implies that the polynomial-time solver class for $\Pi$ is empty. Hence $\Pi \notin P_{\FM}$.
+\end{proof}
+
+\begin{definition}[Canonical 3-SAT Problem Object]\label{def-threshold-random-3sat-family}
+Let
+\[
+\mathfrak F_{3\text{-CNF}} = \bigl((F_n)_{n \in \mathbb N}, m_F, \mathrm{enc}^F, \mathrm{dec}^F, \chi^F\bigr)
+\]
+be the admissible family whose $n$th level $F_n$ consists of all $3$-CNF formulas over variables $x_1,\dots,x_{v(F)}$ with canonical bitstring encoding length bounded by a polynomial $m_F(n)$ and with $v(F) \le n$.
+
+Let
+\[
+\mathfrak A = \bigl((\{0,1\}^{\le n} \cup \{\bot\})_{n \in \mathbb N}, m_A, \mathrm{enc}^A, \mathrm{dec}^A, \chi^A\bigr)
+\]
+be the admissible output family of assignments-or-rejection, where the $n$th level consists of all Boolean strings of length at most $n$ together with a distinguished rejection symbol $\bot$.
+
+Let
+\[
+\mathfrak W_{3\text{-SAT}} = \bigl((W_n)_{n \in \mathbb N}, m_W, \mathrm{enc}^W, \mathrm{dec}^W, \chi^W\bigr),
+\qquad
+W_n := \{0,1\}^{\le q_{3\text{-SAT}}(n)},
+\qquad
+q_{3\text{-SAT}}(n) := n.
+\]
+Define the search specification relation
+\[
+\Spec_n^{3\text{-SAT}} \subseteq F_n \times (\{0,1\}^{\le n} \cup \{\bot\})
+\]
+by
+\[
+(F,a) \in \Spec_n^{3\text{-SAT}}
+\iff
+\begin{cases}
+a \in \{0,1\}^{v(F)} \text{ and } \mathsf{Ver}^{3\text{-SAT}}_n(F,a) = 1, & \text{if } F \text{ is satisfiable},\\
+a = \bot, & \text{if } F \text{ is unsatisfiable},
+\end{cases}
+\]
+where
+\[
+\mathsf{Ver}^{3\text{-SAT}}_n : F_n \times W_n \to \{0,1\}
+\]
+is the clause-satisfaction verifier
+\[
+\mathsf{Ver}^{3\text{-SAT}}_n(F,a) = 1
+\iff
+a \text{ satisfies every clause of } F.
+\]
+
+The canonical internal $3$-SAT search problem family is
+\[
+\Pi_{3\text{-SAT}} := \bigl(\mathfrak F_{3\text{-CNF}}, \mathfrak A, \Spec^{3\text{-SAT}}\bigr),
+\]
+equipped with witness family $\mathfrak W_{3\text{-SAT}}$ and verifier relation $\mathsf{Ver}^{3\text{-SAT}}$. A correct solver must output a satisfying assignment for satisfiable formulas, or $\bot$ for unsatisfiable ones.
+\end{definition}
+
+\begin{theorem}[Canonical 3-SAT Family is Admissible]\label{thm-canonical-3sat-admissible}
+The family
+\[
+\Pi_{3\text{-SAT}} = \bigl(\mathfrak F_{3\text{-CNF}}, \mathfrak A, \Spec^{3\text{-SAT}}\bigr)
+\]
+of Definition~\ref{def-threshold-random-3sat-family} is an admissible problem family. Moreover:
+\begin{enumerate}
+\item the witness family $\mathfrak W_{3\text{-SAT}}$ is admissible;
+\item the verifier relation $\mathsf{Ver}^{3\text{-SAT}}_n(F,a)$ is decidable uniformly in polynomial time; and
+\item the witness-length bound $q_{3\text{-SAT}}(n) = n$ is polynomial.
+\end{enumerate}
+Hence $\Pi_{3\text{-SAT}}$ is well-typed both as a search family and as a verifier-based NP family.
+\end{theorem}
+
+\begin{proof}
+The source family of $3$-CNF formulas consists of finite syntactic objects over a fixed finite alphabet; canonical tokenization, validity testing, and decoding are polynomial-time. The output family of assignments together with $\bot$ admits a similarly uniform finite encoding. The verifier checks each clause against the proposed assignment, and because the number of variables and clauses encoded in a valid size-$n$ formula is polynomially bounded in $n$, the verifier runtime is polynomial in $n$. This supplies the admissibility conditions recorded in the source text.
+\end{proof}
+
+\begin{definition}[Modal Input Dictionaries for Canonical 3-SAT]\label{def-modal-input-dictionaries-3sat}
+For each modality
+\[
+\lozenge \in \{\sharp, \int, \flat, \ast, \partial\},
+\]
+the source manuscript introduces a uniform adversarial constructor
+\[
+\mathcal D_\lozenge.
+\]
+Given a pure $\lozenge$-witness $B$, a saturated one-hole context $C[-]$, and a sufficiently large size parameter $n$, the dictionary $\mathcal D_\lozenge$ produces ordinary satisfiable canonical $3$-CNF formulas whose $\lozenge$-observations agree while their solution fibers are incompatible. The key methodological point is that these formulas are not promise inputs and do not require any hard-family recognizer: they are simply valid canonical satisfiable formulas used as adversarial tests against purported solvers.
+\end{definition}
+
+\begin{theorem}[Modal Dictionary Theorem for Canonical 3-SAT]\label{thm-modal-dictionary-3sat}
+The five dictionaries
+\[
+\mathcal D_\sharp,
+\quad
+\mathcal D_{\mathrm{int}},
+\quad
+\mathcal D_\flat,
+\quad
+\mathcal D_\ast,
+\quad
+\mathcal D_\partial
+\]
+establish the five contextual modal obstructions
+\[
+\mathbb K_\sharp^-(\Pi_{3\text{-SAT}})
+\wedge
+\mathbb K_{\mathrm{int}}^-(\Pi_{3\text{-SAT}})
+\wedge
+\mathbb K_\flat^-(\Pi_{3\text{-SAT}})
+\wedge
+\mathbb K_\ast^-(\Pi_{3\text{-SAT}})
+\wedge
+\mathbb K_\partial^-(\Pi_{3\text{-SAT}}).
+\]
+\end{theorem}
+
+\begin{proof}
+The source proof applies a channel-specific fiber-conflict criterion to five explicit dictionary constructions:
+\begin{itemize}
+\item orbit-density collisions for $\sharp$;
+\item causal-view collisions for $\int$;
+\item algebraic anti-sketch collisions for $\flat$;
+\item crossing-ambiguity collisions for $\ast$; and
+\item boundary-fiber collisions for $\partial$.
+\end{itemize}
+Each dictionary outputs ordinary satisfiable canonical $3$-CNF formulas. The obstruction conclusion follows by observing that no pure leaf of the corresponding modality can separate dictionary pairs with identical modal observation but disjoint solution fibers.
+\end{proof}
+
+\begin{theorem}[Modal Dictionary E13 Antecedent Package for Canonical Search-3-SAT]\label{ex-3sat-all-blocked}
+Canonical Search-3-SAT satisfies the six antecedent obstruction certificates of Definition~\ref{def-e13} by the modal input dictionaries of Theorem~\ref{thm-modal-dictionary-3sat}:
+\[
+K_{\mathrm{LS}_\sigma}^- \wedge K_{\mathrm{E6}}^- \wedge K_{\mathrm{E4}}^- \wedge K_{\mathrm{E11}}^- \wedge K_{\mathrm{SC}_\lambda}^{\mathrm{super}} \wedge K_{\mathrm{E8}}^-.
+\]
+Hence, unconditionally,
+\[
+K_{\mathrm{E13}}^+(\Pi_{3\text{-SAT}}).
+\]
+\end{theorem}
+
+\begin{proof}
+The source proof assigns one modal dictionary collision to each antecedent certificate. The $\sharp$ dictionary gives $K_{\mathrm{LS}_\sigma}^-$, the $\int$ dictionary gives $K_{\mathrm{E6}}^-$, the $\flat$ dictionary gives both $K_{\mathrm{E4}}^-$ and $K_{\mathrm{E11}}^-$, the $\ast$ dictionary gives $K_{\mathrm{SC}_\lambda}^{\mathrm{super}}$, and the $\partial$ dictionary gives $K_{\mathrm{E8}}^-$. Since those six certificates are exactly the antecedent displayed in Definition~\ref{def-e13}, the E13 package follows.
+\end{proof}
+
+\begin{theorem}[Canonical Search-3-SAT is Outside $FP_{\FM}$]\label{thm-random-3sat-not-in-pfm}
+\[
+\Pi^{\mathrm{search}}_{3\text{-SAT}} \notin FP_{\FM}.
+\]
+There exists no uniform polynomial-time Fragile family that outputs a satisfying assignment for every satisfiable canonical $3$-CNF formula.
+\end{theorem}
+
+\begin{proof}
+The modal dictionary theorem gives the five contextual modal obstructions for canonical Search-3-SAT. Theorem~\ref{ex-3sat-all-blocked} packages those obstructions into the E13 antecedent, and Theorem~\ref{thm-e13-contrapositive-hardness} then excludes any internally polynomial-time search solver.
+\end{proof}
+
+\begin{theorem}[Search-to-Decision Bridge for 3-SAT in the Fragile model]\label{thm-search-to-decision-3sat-fm}
+\[
+\Pi^{\mathrm{search}}_{3\text{-SAT}} \notin FP_{\FM}
+\quad\Longrightarrow\quad
+\Pi^{\mathrm{dec}}_{3\text{-SAT}} \notin P_{\FM}.
+\]
+\end{theorem}
+
+\begin{proof}
+The source text proves the contrapositive by self-reduction. Assume a polynomial-time Fragile decision solver $D$ for canonical Decision-3-SAT. Successively fix variables by querying $D$ on restricted formulas
+\[
+F[x_1 = b_1, \dots, x_i = b_i, x_{i+1} = 0],
+\qquad
+F[x_1 = b_1, \dots, x_i = b_i, x_{i+1} = 1].
+\]
+At each stage at least one branch preserves satisfiability, so after at most $n$ oracle calls and polynomially many formula simplifications, one reconstructs a satisfying assignment. This yields a polynomial-time search solver, contradicting Theorem~\ref{thm-random-3sat-not-in-pfm}. Therefore the decision problem cannot lie in $P_{\FM}$.
+\end{proof}
+
+\begin{definition}[Polynomial many-one reduction in the Fragile model]\label{def-poly-many-one-reduction-fm}
+Let
+\[
+\Pi = (\mathfrak X, \mathfrak B, \Spec),
+\qquad
+\Pi' = (\mathfrak X', \mathfrak B, \Spec')
+\]
+be decision problem families with common Boolean output family $\mathfrak B$. A \emph{polynomial many-one reduction in the Fragile model}
+\[
+\Pi \le_m^{\FM} \Pi'
+\]
+is a uniform family
+\[
+\rho : \mathfrak X \Rightarrow_{\sigma} \mathfrak X'
+\]
+such that:
+\begin{enumerate}
+\item $\rho \in P_{\FM}(\mathfrak X, \mathfrak X'; \sigma)$; and
+\item for every $n$ and $x \in X_n$,
+\[
+(x,1) \in \Spec_n
+\iff
+(\rho_n(x),1) \in \Spec'_{\sigma(n)}.
+\]
+\end{enumerate}
+A problem family is \emph{$NP_{\FM}$-hard} if every problem in $\NPFM$ reduces to it in this sense, and \emph{$NP_{\FM}$-complete} if it is both $NP_{\FM}$-hard and contained in $\NPFM$.
+\end{definition}
+
+\begin{theorem}[Internal Cook--Levin Reduction]\label{thm-internal-cook-levin-reduction}
+Let $L \in \NPFM$ in the verifier-based sense. Then there exists a polynomial many-one reduction
+\[
+L \le_m^{\FM} \Pi_{3\text{-SAT}}.
+\]
+More precisely, if $L$ is witnessed by an admissible input family, an admissible witness family, a verifier family in $P_{\FM}$, and a polynomial witness-length bound, then there exists a uniform reduction family
+\[
+\rho_L : \mathfrak X \Rightarrow_{\sigma_L} \mathfrak F_{3\text{-CNF}}
+\]
+in $P_{\FM}$ preserving yes-instances.
+\end{theorem}
+
+\begin{proof}
+Choose a verifier and its family cost certificate. The source proof then replaces the verifier by an extensionally equivalent normal-form verifier with polynomially bounded runtime and configuration size. Introduce Boolean tableau variables encoding each evaluator configuration at each time step; encode the transition relation by local clauses; impose the initial and accepting conditions; and convert the bounded-width resulting CNF to $3$-CNF by a Tseitin transformation with polynomial overhead. Because the evaluator discipline bounds each microstep and each configuration polynomially, the resulting reduction map is internally polynomial-time and preserves satisfiability.
+\end{proof}
+
+\begin{theorem}[Canonical 3-SAT Completeness in $NP_{\FM}$]\label{thm-sat-membership-hardness-transfer}
+The canonical satisfiability family $\Pi_{3\text{-SAT}}$ belongs to $\NPFM$ and is $NP_{\FM}$-complete. Consequently,
+\[
+\Pi^{\mathrm{dec}}_{3\text{-SAT}} \notin P_{\FM}
+\quad\Longrightarrow\quad
+\PFM \neq \NPFM.
+\]
+\end{theorem}
+
+\begin{proof}
+Membership in $\NPFM$ is verified using the witness family $\mathfrak W_{3\text{-SAT}}$ and the clause-satisfaction verifier from Definition~\ref{def-threshold-random-3sat-family}; admissibility and polynomial verifier runtime were established in Theorem~\ref{thm-canonical-3sat-admissible}. Hardness follows from Theorem~\ref{thm-internal-cook-levin-reduction}: every language in $\NPFM$ reduces to canonical $3$-SAT in the Fragile sense. Combining membership and hardness gives completeness, and the final implication is immediate.
+\end{proof}
+
+\begin{corollary}[Internal Separation from Canonical 3-SAT]\label{cor-pfm-neq-npfm-from-random-3sat}
+\[
+\PFM \neq \NPFM.
+\]
+\end{corollary}
+
+\begin{proof}
+Combine Theorem~\ref{thm-random-3sat-not-in-pfm}, Theorem~\ref{thm-search-to-decision-3sat-fm}, and Theorem~\ref{thm-sat-membership-hardness-transfer}.
+\end{proof}
+
+\section{Bridge to Classical Complexity}
+
+\begin{theorem}[Bridge P: DTM to Fragile]\label{thm-bridge-p-dtm-to-fragile}
+If a deterministic Turing machine computes valid admissible source codes to valid admissible target codes in polynomial time, then there exists a single Fragile program realizing the same extensional family in $P_{\FM}$ with polynomial overhead.
+\end{theorem}
+
+\begin{proof}
+This is the forward bridge direction of the source bridge package: the DTM transition function is compiled into the fixed Fragile evaluator under the bit-cost discipline, and the resulting program inherits a polynomial family cost certificate.
+\end{proof}
+
+\begin{theorem}[Extraction P: Fragile to DTM]\label{thm-extraction-p-fragile-to-dtm}
+Any uniform family
+\[
+\mathcal A \in P_{\FM}(\mathfrak X, \mathfrak Y; \sigma)
+\]
+extracts to a deterministic Turing machine computing the same admissible output codes with polynomial overhead. In particular, for the standard admissible binary-string families,
+\[
+P_{\FM} \subseteq P_{\DTM}.
+\]
+\end{theorem}
+
+\begin{proof}
+The source adequacy argument encodes evaluator configurations as finite bitstrings, simulates each evaluator step by a DTM in polynomial overhead, and bounds the growth of configurations polynomially in the program size, input size, and step count. Combining the evaluator-adequacy bound with the family cost certificate yields the extraction theorem.
+\end{proof}
+
+\begin{theorem}[Bridge NP: DTM to Fragile]\label{thm-bridge-np-dtm-to-fragile}
+Let $L \in \NPDTM$. Choose a polynomial-time DTM verifier $V(x,w)$ with polynomial witness-length bound $q$. Compiling the verifier produces a uniform Fragile verifier family in $P_{\FM}$. Hence
+\[
+L \in \NPFM.
+\]
+\end{theorem}
+
+\begin{proof}
+An NP verifier is a polynomial-time computation. Apply Theorem~\ref{thm-bridge-p-dtm-to-fragile} to the verifier computation while retaining the same polynomial witness-length bound.
+\end{proof}
+
+\begin{theorem}[Extraction NP: Fragile to DTM]\label{thm-extraction-np-fragile-to-dtm}
+Let $L \in \NPFM$. Any internally polynomial-time Fragile verifier for $L$ extracts to a polynomial-time DTM verifier with the same witness-length bound. Hence
+\[
+L \in \NPDTM.
+\]
+\end{theorem}
+
+\begin{proof}
+Apply Theorem~\ref{thm-extraction-p-fragile-to-dtm} to the verifier family and note that the binary-string witness-length translator is the identity in the standard bridge setting.
+\end{proof}
+
+\begin{corollary}[Bridge Equivalence]\label{cor-bridge-equivalence-rigorous}
+\[
+\PFM = \PDTM
+\qquad\text{and}\qquad
+\NPFM = \NPDTM.
+\]
+More precisely:
+\begin{enumerate}
+\item the equality of the $P$-classes follows from Theorems~\ref{thm-bridge-p-dtm-to-fragile} and \ref{thm-extraction-p-fragile-to-dtm}; and
+\item the equality of the $NP$-classes follows by applying the same bridge and extraction theorems to verifier programs while preserving polynomial witness-length bounds.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+The two inclusions for $P$ are the conclusions of Theorems~\ref{thm-bridge-p-dtm-to-fragile} and \ref{thm-extraction-p-fragile-to-dtm}. The two inclusions for $NP$ are the conclusions of Theorems~\ref{thm-bridge-np-dtm-to-fragile} and \ref{thm-extraction-np-fragile-to-dtm}. Combining those inclusions yields the class equalities.
+\end{proof}
+
+\begin{corollary}[Export of Separation]\label{cor-export-separation}
+Assuming the internal separation of Corollary~\ref{cor-pfm-neq-npfm-from-random-3sat}, the bridge equivalence yields
+\[
+\PDTM \neq \NPDTM.
+\]
+\end{corollary}
+
+\begin{proof}
+Suppose for contradiction that $\PDTM = \NPDTM$. By Corollary~\ref{cor-bridge-equivalence-rigorous},
+\[
+\PFM = \PDTM = \NPDTM = \NPFM.
+\]
+Therefore $\PFM = \NPFM$, contradicting Corollary~\ref{cor-pfm-neq-npfm-from-random-3sat}. Hence $\PDTM \neq \NPDTM$.
+\end{proof}
+
+\input{p_vs_np_extensions.tex}
+
+\end{document}

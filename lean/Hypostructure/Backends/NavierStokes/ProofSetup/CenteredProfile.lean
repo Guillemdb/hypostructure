@@ -14,7 +14,7 @@ axiom invariantNonvanishingOfRawLimit
     (D : BlowupCompactnessDossier) :
     InvariantLocalNonvanishing
 
-theorem compactL3WitnessOfRawLimit
+noncomputable def compactL3WitnessOfRawLimit
     (D : BlowupCompactnessDossier) :
     CompactL3Witness :=
   (rawSereginLimitExists D).compactL3Witness

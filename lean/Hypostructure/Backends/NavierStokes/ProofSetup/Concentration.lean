@@ -11,15 +11,20 @@ axiom singularityYieldsPositiveConcentration
     (w : SingularityWitness) :
     PositiveConcentrationSequence
 
+def PositiveConcentrationLowerBounds
+    (seq : PositiveConcentrationSequence) : Prop :=
+  (0 < seq.etaCD ∧ ∀ n, seq.etaCD ≤ (seq.criticalValues n).totalCD) ∧
+    (0 < seq.etaV ∧ ∀ n, seq.etaV ≤ (seq.criticalValues n).C.value)
+
 theorem positiveConcentrationCarriesLowerBounds
     (seq : PositiveConcentrationSequence) :
-    seq.criticalMassLowerBound ∧ seq.velocityMassLowerBound := by
+    PositiveConcentrationLowerBounds seq := by
   exact ⟨seq.criticalMassLowerBound, seq.velocityMassLowerBound⟩
 
 theorem singularityYieldsPositiveConcentration_lower_bounds
     (w : SingularityWitness) :
     let seq := singularityYieldsPositiveConcentration w
-    seq.criticalMassLowerBound ∧ seq.velocityMassLowerBound := by
+    PositiveConcentrationLowerBounds seq := by
   simpa using positiveConcentrationCarriesLowerBounds (singularityYieldsPositiveConcentration w)
 
 end Hypostructure.Backends.NavierStokes.ProofSetup

@@ -3,26 +3,25 @@ import Hypostructure.Backends.NavierStokes.ProofSetup.ClassRouting
 namespace Hypostructure.Backends.NavierStokes.ProofSetup
 
 structure SetupResidualInterfaceContract where
-  export : ResidualExportData
-  retainsCompactMass : Prop := export.compactMassCarryover
-  retainsPressureCompatibility : Prop := export.pressureCompatibility.transferred
-  retainsAncestry : Prop := export.ancestry.realizedByOriginalBranch
-  deriving Repr
+  residualExport : ResidualExportData
+  retainsCompactMass : Prop := residualExport.compactMassCarryover
+  retainsPressureCompatibility : Prop := residualExport.pressureCompatibility.transferred
+  retainsAncestry : Prop := residualExport.ancestry.realizedByOriginalBranch
 
 structure ResidualClosureHypothesis where
   closesRemainingExport :
-    ∀ export : ResidualExportData, False
+    ∀ residual : ResidualExportData, False
 
 axiom remainingClassEquivalentToResidualExport
     (G : GeneratedSereginClass)
     (state : GeneratedSereginState)
     (hmem : state ∈ G.states) :
     RemainingClassPredicate state ↔
-      ∃ export : ResidualExportData,
-        export.generatedClass = G ∧ export.chosenState = state
+      ∃ residual : ResidualExportData,
+        residual.generatedClass = G ∧ residual.chosenState = state
 
 def setupResidualInterfaceOfExport
-    (export : ResidualExportData) : SetupResidualInterfaceContract :=
-  { export := export }
+    (residual : ResidualExportData) : SetupResidualInterfaceContract :=
+  { residualExport := residual }
 
 end Hypostructure.Backends.NavierStokes.ProofSetup

@@ -26,16 +26,16 @@
 \contentsline {subsection}{\tocsubsection {}{7.3}{Deferred degenerate stationary-hull closure statement}}{45}{subsection.7.3}%
 \contentsline {section}{\tocsection {}{8}{Tail geometry of the generic terminal residual}}{46}{section.8}%
 \contentsline {section}{\tocsection {}{9}{Terminal concentration profiles and separated centers}}{59}{section.9}%
-\contentsline {subsection}{\tocsubsection {}{9.1}{Log-annular virial identities for recurrent critical defects}}{83}{subsection.9.1}%
-\contentsline {subsection}{\tocsubsection {}{9.2}{Logarithmic escape as a hidden-scale obstruction}}{86}{subsection.9.2}%
-\contentsline {subsection}{\tocsubsection {}{9.3}{Hidden-scale Young variance}}{89}{subsection.9.3}%
-\contentsline {subsection}{\tocsubsection {}{9.4}{Complete closure of lower alternatives}}{107}{subsection.9.4}%
-\contentsline {section}{\tocsection {}{10}{Separated concentration profiles, indecomposability, and sequence-\(L^3\)}}{114}{section.10}%
-\contentsline {section}{\tocsection {}{11}{Closure of the generic terminal residual}}{130}{section.11}%
-\contentsline {section}{\tocsection {}{12}{Final assembly}}{131}{section.12}%
-\contentsline {section}{\tocsection {Appendix}{A}{Setup Paper Label Dictionary}}{133}{appendix.A}%
-\contentsline {section}{\tocsection {Appendix}{B}{Generator calculus on compact recurrent cores}}{134}{appendix.B}%
-\contentsline {subsection}{\tocsubsection {}{B.1}{Hilbert space and unitary representation}}{134}{subsection.B.1}%
-\contentsline {subsection}{\tocsubsection {}{B.2}{Pressure observables and bounded continuous core}}{135}{subsection.B.2}%
-\contentsline {subsection}{\tocsubsection {}{B.3}{Regularized inverse and distributional pressure identity}}{135}{subsection.B.3}%
-\contentsline {section}{\tocsection {Appendix}{}{References}}{136}{section*.5}%
+\contentsline {subsection}{\tocsubsection {}{9.1}{Log-annular virial identities for recurrent critical defects}}{84}{subsection.9.1}%
+\contentsline {subsection}{\tocsubsection {}{9.2}{Logarithmic escape as a hidden-scale obstruction}}{88}{subsection.9.2}%
+\contentsline {subsection}{\tocsubsection {}{9.3}{Hidden-scale Young variance}}{91}{subsection.9.3}%
+\contentsline {subsection}{\tocsubsection {}{9.4}{Complete closure of lower alternatives}}{110}{subsection.9.4}%
+\contentsline {section}{\tocsection {}{10}{Separated concentration profiles, indecomposability, and sequence-\(L^3\)}}{117}{section.10}%
+\contentsline {section}{\tocsection {}{11}{Closure of the generic terminal residual}}{133}{section.11}%
+\contentsline {section}{\tocsection {}{12}{Final assembly}}{134}{section.12}%
+\contentsline {section}{\tocsection {Appendix}{A}{Setup Paper Label Dictionary}}{136}{appendix.A}%
+\contentsline {section}{\tocsection {Appendix}{B}{Generator calculus on compact recurrent cores}}{137}{appendix.B}%
+\contentsline {subsection}{\tocsubsection {}{B.1}{Hilbert space and unitary representation}}{137}{subsection.B.1}%
+\contentsline {subsection}{\tocsubsection {}{B.2}{Pressure observables and bounded continuous core}}{138}{subsection.B.2}%
+\contentsline {subsection}{\tocsubsection {}{B.3}{Regularized inverse and distributional pressure identity}}{138}{subsection.B.3}%
+\contentsline {section}{\tocsection {Appendix}{}{References}}{139}{section*.5}%

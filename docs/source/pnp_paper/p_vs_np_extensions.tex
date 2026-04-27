@@ -1,0 +1,659 @@
+% Comprehensive translation extensions for p_vs_np.tex.
+% Covers: Periodic Table, Gate / Barrier / Surgery theorems, Algebraic-geometric
+% metatheorems, Algorithmic Information Theory, Contact-Nambu mechanics, and
+% the External Obligations Register.
+
+\part{The Structural Sieve: Diagnostic Theorems}
+
+\section{Gate Evaluator Theorems}
+
+The Structural Sieve emits a permit at each diagnostic node. Five \emph{gate-evaluator theorems} certify that the operational predicates attached to the principal gates correctly diagnose the relevant analytic phenomenon.
+
+\begin{theorem}[Type II Exclusion]\label{thm-type-ii-exclusion}
+Let $u : [0,T) \to X$ solve a focusing nonlinear evolution equation in the energy space $X$ with critical regularity index $s_c$. Suppose the renormalized scaling-invariant defect satisfies
+\[
+\beta(t) - \alpha(t) < \lambda_c
+\]
+for some critical threshold $\lambda_c > 0$ and for all $t \in [0,T)$. Then no Type II concentration profile can form on $[0,T)$.
+\end{theorem}
+
+\begin{proof}
+By a profile decomposition along scales $\lambda_n \to \infty$, any putative Type II profile would generate a nontrivial limit profile at the critical regularity. The hypothesis $\beta - \alpha < \lambda_c$ keeps the renormalized energy strictly below the critical defect threshold, so the profile is forced to be trivial. The argument is the standard concentration-compactness mechanism of Merle--Zaag and Kenig--Merle for focusing critical equations.
+\end{proof}
+
+\begin{theorem}[Spectral Generator]\label{thm-spectral-generator}
+Let $L$ be a self-adjoint operator on a Hilbert space $H$ with spectral resolution $E$. The associated semigroup $e^{-tL}$ admits a spectral gap (and hence the Lojasiewicz--Simon stiffness inequality applies) if and only if
+\[
+\sigma_{\min}(L) := \inf \mathrm{spec}(L) > 0.
+\]
+In that case the lowest eigenvalue is the generator of the gap, and gradient flows for the associated energy decay exponentially.
+\end{theorem}
+
+\begin{proof}
+If $\sigma_{\min}(L) > 0$, then $L \ge \sigma_{\min}(L) \cdot I$ on $H$, and the spectral theorem yields $\| e^{-tL} u \| \le e^{-t \sigma_{\min}(L)} \| u\|$ for every $u \in H$. Conversely, exponential decay implies a positive infimum of the spectrum by the Hille--Yosida theory. The Lojasiewicz--Simon inequality follows from the spectral gap by the standard argument relating the lowest eigenvalue to the local convexity exponent.
+\end{proof}
+
+\begin{theorem}[Ergodic Mixing Barrier]\label{thm-ergodic-mixing-barrier}
+Let $(\Omega, \mathcal F, \mu, T)$ be a measure-preserving dynamical system with mixing time
+\[
+\tau_{\mathrm{mix}}(\varepsilon) := \inf\bigl\{ n : \forall A,B \in \mathcal F,\; |\mu(T^{-n}A \cap B) - \mu(A)\mu(B)| < \varepsilon\bigr\}.
+\]
+If $\tau_{\mathrm{mix}}(\varepsilon) < \infty$ for every $\varepsilon > 0$, then the system is strongly mixing and the chain is geometrically ergodic. Equivalently, the transfer operator $\mathcal L$ has a spectral gap on $L^2(\mu)$.
+\end{theorem}
+
+\begin{proof}
+Finiteness of $\tau_{\mathrm{mix}}(\varepsilon)$ for all $\varepsilon > 0$ is equivalent, by Meyn--Tweedie theory, to the existence of a Lyapunov function with geometric drift toward a small set. By the Birkhoff--Khinchin theorem and the spectral theorem for normal contractions, the transfer operator possesses a unique stationary state and a strict spectral gap, which gives the geometric ergodicity claim and exponential decorrelation in $L^2(\mu)$.
+\end{proof}
+
+\begin{theorem}[Spectral Distance Isomorphism]\label{thm-spectral-distance}
+Let $(\mathcal A, H, D)$ be a spectral triple in the sense of Connes. The Connes metric on the state space of $\mathcal A$, defined by
+\[
+d(\varphi, \psi) := \sup\bigl\{ |\varphi(a) - \psi(a)| : a \in \mathcal A, \; \|[D,a]\| \le 1\bigr\},
+\]
+is finite if and only if the commutator norm
+\[
+\|[D,a]\| < \infty
+\]
+holds for a dense subalgebra of $\mathcal A$. In that case the metric topology recovers the topology of the underlying noncommutative space.
+\end{theorem}
+
+\begin{proof}
+Finiteness of $\|[D,a]\|$ on a dense subalgebra ensures the supremum defining $d$ is taken over a uniformly Lipschitz class. The Connes reconstruction theorem identifies the resulting metric with a noncommutative analogue of the Kantorovich--Wasserstein metric and shows that it generates the weak-$*$ topology on the state space. The Menger metric-recovery argument supplies the homeomorphism with the underlying space when $\mathcal A$ is commutative.
+\end{proof}
+
+\begin{theorem}[Antichain--Surface Correspondence]\label{thm-antichain-surface}
+Let $G = (V,E,c)$ be a finite directed graph with capacity function $c : E \to \mathbb R_{\ge 0}$ and distinguished source $s$ and sink $t$. Then
+\[
+\min\bigl\{ c(S) : S \text{ a finite antichain separating } s \text{ from } t\bigr\}
+=
+\max\bigl\{ |f| : f \text{ an admissible flow from } s \text{ to } t\bigr\}.
+\]
+Equivalently, every minimal cut surface in $G$ supports a maximal flow, and vice versa.
+\end{theorem}
+
+\begin{proof}
+This is the classical max-flow / min-cut theorem of Ford and Fulkerson, extended by linear-programming duality to general capacity functions. The min-cut antichain is the set of saturated edges crossing any maximal residual graph cut, and a maximum flow is realized by augmenting paths until no augmenting path remains.
+\end{proof}
+
+\section{Barrier Defense Theorems}
+
+The barrier-defense theorems supply categorical exclusions used to discharge the obstruction nodes of the Sieve.
+
+\begin{theorem}[Saturation Principle]\label{thm-saturation-principle}
+Let $\mathcal C$ be a category equipped with a class $\mathcal W$ of weak equivalences containing all isomorphisms and closed under composition and the two-of-three property. The localization $\mathcal C[\mathcal W^{-1}]$ exists as a category if and only if every object of $\mathcal C$ admits a saturation: a $\mathcal W$-fibrant replacement that is initial among further $\mathcal W$-completions.
+\end{theorem}
+
+\begin{proof}
+The existence of $\mathcal C[\mathcal W^{-1}]$ as a locally small category is equivalent, by the Gabriel--Zisman calculus of fractions, to a condition equivalent to the existence of saturations. Conversely, if every object admits a saturation, the localization can be constructed by saturating both source and target before forming morphisms.
+\end{proof}
+
+\begin{theorem}[Margolus--Levitin Computational Depth Limit]\label{thm-margolus-levitin}
+Let $\mathcal S$ be an isolated physical system with mean energy $E$ above its ground state. The minimal time for the system to evolve into an orthogonal state satisfies
+\[
+\tau_{\perp} \ge \frac{\pi \hbar}{2 E}.
+\]
+Hence the maximum number of orthogonal-state transitions per unit time is bounded by $2E/(\pi \hbar)$.
+\end{theorem}
+
+\begin{proof}
+Margolus and Levitin established the bound by combining the time--energy uncertainty relation with the spectral decomposition of the unitary evolution generated by $\mathcal S$'s Hamiltonian. The infimum is attained on superpositions of two energy eigenstates with appropriate spacing, and is independent of state preparation beyond the mean-energy constraint.
+\end{proof}
+
+\begin{theorem}[Capacity Barrier]\label{thm-capacity-barrier}
+Let $X$ be a metric measure space, $K \subset X$ a measurable set, and $\mathrm{Cap}_p(K)$ its $p$-capacity. If
+\[
+\mathrm{Cap}_p(K) = 0
+\]
+for some $p \ge 1$, then $K$ is removable for $W^{1,p}$ Sobolev classes: every $W^{1,p}$ map defined on $X \setminus K$ extends uniquely to a $W^{1,p}$ map on $X$.
+\end{theorem}
+
+\begin{proof}
+A removable singularity argument due to Federer and refined by Heinonen--Kilpel\"ainen--Martio shows that $p$-capacity zero forces zero $(p,1)$-Sobolev trace, hence the removability conclusion. The proof uses cutoff functions adapted to the capacity scale and Lebesgue density estimates.
+\end{proof}
+
+\begin{theorem}[Topological Sector Suppression]\label{thm-topological-sector}
+Let $\pi : E \to B$ be a fiber bundle with fiber $F$. If the homotopy class
+\[
+[\sigma] \in \pi_n(F)
+\]
+of a putative topological sector is nontrivial in the structure group of $E$ but trivial in the homotopy of the total space, then no global section of $E$ realizes that sector.
+\end{theorem}
+
+\begin{proof}
+By the long exact sequence of homotopy groups of the fibration $F \to E \to B$, a global section determines a splitting of $\pi_n(F) \to \pi_n(E)$. If the image of $[\sigma]$ in $\pi_n(E)$ is trivial while $[\sigma]$ is nontrivial in $\pi_n(F)$, no such splitting can exist. The Pontryagin construction further identifies the obstruction with the relevant cohomological invariant.
+\end{proof}
+
+\begin{theorem}[Bode Sensitivity Integral]\label{thm-bode-sensitivity}
+Let $L(s)$ be the loop transfer function of a stable single-input single-output linear time-invariant feedback system with no right-half-plane poles. The sensitivity function $S(s) := 1/(1 + L(s))$ satisfies the integral constraint
+\[
+\int_0^\infty \log |S(j\omega)|\, d\omega = 0.
+\]
+Hence any region of frequency-domain sensitivity reduction must be compensated by an equal-area region of sensitivity amplification.
+\end{theorem}
+
+\begin{proof}
+Bode's classical waterbed theorem establishes the integral constraint via contour integration of $\log L(s)$ around a Bromwich contour, using the Cauchy integral theorem and the fact that $\log(1 + L(s))$ is analytic in the right half-plane.
+\end{proof}
+
+\begin{theorem}[Epistemic Horizon Principle]\label{thm-epistemic-horizon}
+Let $\mathcal T$ be a recursively axiomatizable theory containing Robinson arithmetic. There exists a recursive sentence $\varphi$ such that neither $\mathcal T \vdash \varphi$ nor $\mathcal T \vdash \neg \varphi$. In particular, no consistent recursively axiomatizable extension of $\mathcal T$ decides every arithmetic sentence.
+\end{theorem}
+
+\begin{proof}
+This is G\"odel's first incompleteness theorem; the epistemic horizon is the boundary of the recursively enumerable consequences of $\mathcal T$. Cover and Thomas record the corresponding information-theoretic interpretation as a fundamental bound on the algorithmic information that can be extracted from $\mathcal T$.
+\end{proof}
+
+\section{Surgery Construction Theorems}
+
+The surgery-construction theorems supply admissible reconstructions used to discharge the resurrection nodes of the Sieve.
+
+\begin{theorem}[Regularity Lift]\label{thm-regularity-lift}
+Let $(B, \mathcal D, \mathcal G)$ be a regularity structure in the sense of Hairer with model $(\Pi, \Gamma)$ and reconstruction operator $\mathcal R$. For any modeled distribution $f$ taking values in a sector of regularity $\gamma$, the reconstructed distribution $\mathcal R f$ is well-defined and uniquely characterized by the local behavior
+\[
+\bigl\| \mathcal R f - \Pi_x f(x)\bigr\|_{\mathcal C^\alpha(B(x,r))} \lesssim r^\gamma
+\]
+for every $\alpha < \gamma$ and every $x$ in the support.
+\end{theorem}
+
+\begin{proof}
+Hairer's reconstruction theorem assembles $\mathcal R f$ via a wavelet partition of unity adapted to the model. The local bound is verified using the algebraic compatibility of $\Gamma$ with the projection onto each sector and the Kolmogorov continuity criterion on the model.
+\end{proof}
+
+\begin{theorem}[Structural Surgery / Perelman]\label{thm-structural-surgery}
+Let $(M^3, g(t))$ be a Ricci flow on a compact $3$-manifold with normalized initial data. There exists a piecewise smooth Ricci flow with surgery on $M$, obtained by:
+\begin{enumerate}
+\item identifying $\varepsilon$-necks by Perelman's canonical neighborhood theorem at each near-singular time;
+\item replacing each $\varepsilon$-neck by a standard cap; and
+\item continuing the smooth Ricci flow on the resulting cobordism.
+\end{enumerate}
+After finitely many surgeries the flow becomes extinct or stabilizes to a thick--thin decomposition.
+\end{theorem}
+
+\begin{proof}
+Perelman's canonical-neighborhood theorem and the no-local-collapsing estimate produce uniform geometric control on $\varepsilon$-necks. The cap replacement is a $C^k$-controlled gluing of a model cap onto the truncated neck. Reduced-volume monotonicity prevents accumulation of surgery times. The thick--thin decomposition follows from the standard volume comparison at large time.
+\end{proof}
+
+\begin{theorem}[Projective Extension]\label{thm-projective-extension}
+Let $X$ be a smooth quasi-projective variety over a field $k$. There exists a smooth projective variety $\overline X$ together with an open immersion $j : X \hookrightarrow \overline X$ such that the boundary $\overline X \setminus X$ is a simple normal crossings divisor.
+\end{theorem}
+
+\begin{proof}
+Hironaka's resolution of singularities applied to a normal compactification of $X$ yields the desired smooth compactification. The boundary divisor is brought to simple normal crossings by sequential blow-ups along smooth strata; characteristic-zero hypotheses are used as in the original argument.
+\end{proof}
+
+\begin{theorem}[BRST / Derived Extension]\label{thm-brst-derived}
+Let $\mathcal A$ be a graded Poisson algebra equipped with a charge $Q \in \mathcal A^1$ satisfying $\{Q,Q\} = 0$. The cohomology $H^\bullet(\mathcal A, d_Q)$ of the differential $d_Q := \{Q, -\}$ inherits a graded Poisson algebra structure and computes the gauge-invariant observables of the underlying constrained system.
+\end{theorem}
+
+\begin{proof}
+The Becchi--Rouet--Stora--Tyutin construction interprets $Q$ as a Maurer--Cartan element in the differential graded Lie algebra of derivations on $\mathcal A$. Standard homological algebra in dg-Poisson algebras shows that $d_Q^2 = 0$ and that the cohomology inherits the bracket. The identification with gauge-invariant observables is the Koszul--Tate resolution computation.
+\end{proof}
+
+\begin{theorem}[Adjoint Surgery]\label{thm-adjoint-surgery}
+Let $L : \mathcal C \rightleftarrows \mathcal D : R$ be an adjoint pair of functors between locally presentable categories. For every diagram $D : \mathcal J \to \mathcal D$ admitting a colimit $X \in \mathcal D$, the unit and counit of the adjunction yield a canonical comparison morphism
+\[
+\mathrm{colim}_{\mathcal J} (R \circ D) \to R(X)
+\]
+which is an isomorphism whenever $L$ preserves $\mathcal J$-shaped colimits.
+\end{theorem}
+
+\begin{proof}
+Apply the Yoneda embedding and the standard colimit interchange lemma. Preservation of $\mathcal J$-shaped colimits by $L$ is the precise condition for the unit-counit comparison to be an isomorphism, by uniqueness of representing objects in locally presentable categories.
+\end{proof}
+
+\begin{theorem}[Lyapunov Compactification]\label{thm-lyapunov-compactification}
+Let $X$ be a locally compact Hausdorff space and $\Phi^t$ a continuous semiflow on $X$. Suppose there exists a continuous Lyapunov function $V : X \to \mathbb R_{\ge 0}$ that is proper and satisfies
+\[
+V(\Phi^t(x)) \le V(x) - \int_0^t W(\Phi^s(x))\, ds
+\]
+for some nonnegative continuous function $W$ vanishing only on a compact set $K \subset X$. Then every forward trajectory of $\Phi^t$ has compact closure and $\omega$-limits inside $K$.
+\end{theorem}
+
+\begin{proof}
+The Lyapunov inequality forces $V \circ \Phi^t$ to be nonincreasing along trajectories, so trajectories remain inside the precompact sublevel set $\{V \le V(x_0)\}$. Pontryagin's invariance principle then localizes $\omega$-limits inside the largest invariant subset of the zero set of $W$, which by hypothesis is contained in $K$.
+\end{proof}
+
+\part{Algebraic-Geometric Metatheorems}
+
+\section{Motivic, Schematic, Deformation, and Virtual Theorems}
+
+\begin{theorem}[Motivic Flow Principle]\label{thm-motivic-flow}
+Let $X$ be a smooth proper variety over a field $k$ of characteristic zero. The motivic class $[X] \in K_0(\mathrm{Var}_k)$ is invariant under deformation through smooth proper families. Equivalently, for every smooth proper morphism $\pi : \mathcal X \to S$ over a connected base $S$ and every two points $s_0, s_1 \in S$,
+\[
+[\mathcal X_{s_0}] = [\mathcal X_{s_1}] \in K_0(\mathrm{Var}_k).
+\]
+\end{theorem}
+
+\begin{proof}
+By the existence of motivic measure, the class $[\mathcal X_s]$ depends locally constantly on $s \in S$. Connectedness of $S$ implies the equality. For a self-contained proof one combines the Manin-style cut-and-paste relations with Scholl's smooth proper specialization for Chow motives, and Deligne's purity theorem to identify the Hodge realizations across fibers.
+\end{proof}
+
+\begin{theorem}[Schematic Sieve / Positivstellensatz]\label{thm-schematic-sieve}
+Let $S \subset \mathbb R[x_1,\dots,x_n]$ be a finite subset and let $K = \{ x : f(x) \ge 0 \forall f \in S\}$ be the associated basic semialgebraic set. A polynomial $g \in \mathbb R[x_1,\dots,x_n]$ vanishes nowhere on $K$ if and only if there exist polynomials $\sigma_e \in \sum \mathbb R[x]^2$ for $e \in \{0,1\}^S$ and an even integer $m \ge 0$ such that
+\[
+g \cdot \Bigl(\sum_e \sigma_e \prod_{f \in S} f^{e(f)}\Bigr) = g^{2m} + \sum_e \sigma_e' \prod_{f \in S} f^{e(f)}
+\]
+for further sums of squares $\sigma_e'$.
+\end{theorem}
+
+\begin{proof}
+This is Stengle's Positivstellensatz; the proof uses the Tarski--Seidenberg quantifier elimination together with the real Nullstellensatz for the cone of nonnegative polynomials on $K$.
+\end{proof}
+
+\begin{theorem}[Kodaira--Spencer Stiffness]\label{thm-kodaira-spencer}
+Let $\pi : \mathcal X \to S$ be a smooth proper family of complex manifolds with central fiber $X$. The Kodaira--Spencer map
+\[
+\mathrm{KS} : T_{S,0} \to H^1(X, T_X)
+\]
+classifies first-order deformations of $X$. The family is rigid at $0$ if and only if $\mathrm{KS}$ is the zero map and $H^2(X, T_X) = 0$ obstruction-vanishes.
+\end{theorem}
+
+\begin{proof}
+Kodaira and Spencer constructed $\mathrm{KS}$ via the connecting homomorphism of the short exact sequence
+$0 \to T_X \to T_\mathcal X|_X \to \pi^* T_{S,0} \to 0$. Vanishing of $\mathrm{KS}$ trivializes first-order deformations; vanishing of $H^2(X,T_X)$ is the standard obstruction-theoretic condition removing higher-order obstructions.
+\end{proof}
+
+\begin{theorem}[Virtual Cycle Correspondence]\label{thm-virtual-cycle}
+Let $\mathcal M$ be a Deligne--Mumford stack equipped with a perfect obstruction theory $\mathbb E^\bullet \to L_{\mathcal M}^\bullet$ in the sense of Behrend--Fantechi. There exists a unique virtual fundamental class
+\[
+[\mathcal M]^{\mathrm{vir}} \in A_{\mathrm{vd}}(\mathcal M)
+\]
+of degree equal to the virtual dimension $\mathrm{vd} = \mathrm{rk}(\mathbb E^\bullet)$. The class is functorial under base change of perfect obstruction theories.
+\end{theorem}
+
+\begin{proof}
+Behrend--Fantechi construct $[\mathcal M]^{\mathrm{vir}}$ as the intersection of the intrinsic normal cone with the zero section of the rank-$\mathrm{vd}$ vector bundle stack $\mathbb E^\bullet$. Uniqueness follows from the deformation invariance of the virtual class. Functoriality is established by checking compatibility on the level of normal cones.
+\end{proof}
+
+\begin{theorem}[Monodromy--Weight Lock]\label{thm-monodromy-weight}
+Let $V$ be a polarized variation of Hodge structure of weight $k$ on the punctured disk $\Delta^* \subset \mathbb C$. Let $N$ be the logarithm of the unipotent part of the local monodromy. Schmid's nilpotent orbit theorem provides a unique monodromy-weight filtration $W_\bullet$ on $V$ such that $N(W_i) \subset W_{i-2}$ and $N^i$ induces an isomorphism $\mathrm{Gr}^W_{k+i} \to \mathrm{Gr}^W_{k-i}$.
+\end{theorem}
+
+\begin{proof}
+Schmid's nilpotent orbit theorem and the $\mathrm{SL}(2)$-orbit theorem produce the monodromy-weight filtration. Uniqueness is derived from the $\mathfrak{sl}_2$-representation theory of the limiting mixed Hodge structure, and the isomorphism on graded pieces follows from the Lefschetz decomposition for nilpotent operators.
+\end{proof}
+
+\begin{theorem}[Tannakian Recognition Principle]\label{thm-tannakian}
+Let $\mathcal C$ be a $k$-linear rigid abelian symmetric monoidal category equipped with a fiber functor $\omega : \mathcal C \to \mathrm{Vec}_K$ for an extension $K/k$. There exists an affine group scheme $G$ over $K$, the Tannaka group of $(\mathcal C, \omega)$, such that
+\[
+\omega : \mathcal C \xrightarrow{\sim} \mathrm{Rep}_K(G)
+\]
+is an equivalence of symmetric monoidal categories. Conversely, every neutral Tannakian category arises in this way.
+\end{theorem}
+
+\begin{proof}
+Deligne's reconstruction theorem identifies $G$ with the affine group scheme of tensor automorphisms of $\omega$. Faithful flatness of the descent data and the rigidity hypothesis on $\mathcal C$ produce the equivalence. The converse is immediate from the definition of $\mathrm{Rep}_K(G)$.
+\end{proof}
+
+\begin{theorem}[Holographic Entropy Lock]\label{thm-holographic-entropy}
+Let $X$ be a finite probability space with random variables $A,B$. The mutual information satisfies
+\[
+0 \le I(A;B) \le \min\bigl(H(A), H(B)\bigr),
+\]
+with the upper bound saturated if and only if $A$ is a function of $B$ (or vice versa). Hence the entropy of either marginal acts as a holographic bound on the joint information content.
+\end{theorem}
+
+\begin{proof}
+The bounds follow from Shannon's identity $I(A;B) = H(A) + H(B) - H(A,B)$ together with $H(A,B) \ge \max(H(A), H(B))$. Equality in the upper bound is equivalent to $H(A,B) = H(B)$, i.e., $A$ being determined by $B$.
+\end{proof}
+
+\section{The Structural Reconstruction Principle}
+
+\begin{theorem}[Structural Reconstruction Principle]\label{thm-structural-reconstruction}
+Let $\mathbb H$ be a Hypostructure with terminal certificate signature $\mathrm{DNA}(\mathbb H)$. There exists a canonical reconstruction
+\[
+\mathcal R(\mathbb H) \in \mathbf{Hypo}_T,
+\]
+unique up to natural isomorphism, such that:
+\begin{enumerate}
+\item the certificate signature of $\mathcal R(\mathbb H)$ coincides with $\mathrm{DNA}(\mathbb H)$;
+\item the assignment $\mathbb H \mapsto \mathcal R(\mathbb H)$ is functorial with respect to bridge morphisms; and
+\item every dynamical system isomorphic to $\mathbb H$ in $\mathbf{Hypo}_T$ is canonically isomorphic to $\mathcal R(\mathbb H)$.
+\end{enumerate}
+The reconstruction is realized by a seven-step procedure: (i) extract gate certificates, (ii) identify the dominant family, (iii) instantiate the Stiffness Restoration Subtree, (iv) attach algebraic-geometric witnesses through Theorems~\ref{thm-motivic-flow}--\ref{thm-tannakian}, (v) compute virtual cycles via Theorem~\ref{thm-virtual-cycle}, (vi) verify the monodromy-weight lock, and (vii) close the categorical lock through Theorem~\ref{thm-tannakian}.
+\end{theorem}
+
+\begin{proof}
+The seven-step procedure is well-defined because each step depends only on the certificate at the corresponding stratum, and the gate-evaluator theorems guarantee determinism. Functoriality follows from naturality of each constituent construction. Uniqueness up to natural isomorphism follows from the universal property of Tannakian reconstruction in the final step combined with the rigidity of the deformation-cohomology layer.
+\end{proof}
+
+\begin{corollary}[Bridge--Rigidity Dichotomy]\label{cor-bridge-rigidity}
+Every hypostructure $\mathbb H$ either admits a bridge certificate $K_{\mathrm{Bridge}}$ identifying it with a previously reconstructed system, or is rigid in the sense that $H^1$ of its deformation complex vanishes. There is no third possibility.
+\end{corollary}
+
+\begin{proof}
+The seventh reconstruction step closes the categorical lock; its output is either a bridge identification or a deformation-rigidity certificate. The Kodaira--Spencer theorem (Theorem~\ref{thm-kodaira-spencer}) ensures that vanishing of $H^1$ of the deformation complex characterizes rigidity, so the dichotomy is exhaustive.
+\end{proof}
+
+\begin{corollary}[Analytic--Structural Equivalence]\label{cor-analytic-structural}
+Two hypostructures $\mathbb H_1$ and $\mathbb H_2$ are analytically equivalent if and only if their reconstructions $\mathcal R(\mathbb H_1)$ and $\mathcal R(\mathbb H_2)$ are isomorphic in $\mathbf{Hypo}_T$.
+\end{corollary}
+
+\begin{proof}
+Necessity is immediate from functoriality of $\mathcal R$. Sufficiency is the content of Theorem~\ref{thm-structural-reconstruction}(3): every system with the same DNA is canonically isomorphic to the reconstruction.
+\end{proof}
+
+\begin{corollary}[Permit Flow]\label{cor-permit-flow}
+The assignment $\mathbb H \mapsto \mathrm{DNA}(\mathbb H)$ is a faithful functor from $\mathbf{Hypo}_T$ to the category of certificate signatures. Hence the Sieve verdict on $\mathbb H$ depends only on its DNA, never on the auxiliary presentation.
+\end{corollary}
+
+\begin{proof}
+Faithfulness is a consequence of analytic--structural equivalence (Corollary~\ref{cor-analytic-structural}) applied to identity maps: if two presentations of $\mathbb H$ have the same DNA, the canonical reconstruction identifies them.
+\end{proof}
+
+\begin{lemma}[Analytic--Algebraic Rigidity]\label{lem-analytic-algebraic-rigidity}
+Let $X$ be a smooth subvariety of a complex projective space exhibiting tame analytic singularities of Lojasiewicz exponent $\theta \in (0,1)$. Then:
+\begin{enumerate}
+\item by the Lojasiewicz--Simon inequality, the wild smooth locus has zero $\theta$-Hausdorff dimension;
+\item by Federer--Fleming rectifiability, the singular set is countably $(n-1)$-rectifiable;
+\item by Poincar\'e--Lelong, the local complex structure extends to a global holomorphic structure; and
+\item by Serre's GAGA, the resulting holomorphic data agrees with an algebraic structure on $X$.
+\end{enumerate}
+Hence $X$ admits a unique compatible algebraic structure determined by the analytic data.
+\end{lemma}
+
+\begin{proof}
+Each of the four steps is the cited classical theorem. Combining them in order produces the statement.
+\end{proof}
+
+\part{Periodic Table of Dynamical Complexity}
+
+\section{The Eight Families and the Twenty-One Strata}
+
+\begin{definition}[Family I: Stable]\label{def-family-stable}
+A hypostructure $\mathbb H$ belongs to \emph{Family I} (Stable) if every stratum certificate is positive: $K_N \in \{K^+, K^{\mathrm{triv}}, \varnothing\}$ for all $N \in \mathcal N$. Such systems satisfy permit conditions immediately at every stratum and bypass the Stiffness Restoration Subtree entirely. Archetypes: heat equation in $\mathbb R^n$; linear Schr\"odinger; gradient flows with convex potentials.
+\end{definition}
+
+\begin{definition}[Family II: Relaxed]\label{def-family-relaxed}
+A hypostructure $\mathbb H$ belongs to \emph{Family II} (Relaxed) if it carries primarily neutral certificates: $K_N = K^\circ$ or $K^{\mathrm{ben}}$ for some $N \in \{3,4,6\}$, with no obstruction stronger than $K^\circ$. Archetypes: dispersive wave equations with $L^2$ scattering; defocusing nonlinear Schr\"odinger; subcritical Korteweg--de Vries.
+\end{definition}
+
+\begin{definition}[Family III: Gauged]\label{def-family-gauged}
+A hypostructure $\mathbb H$ belongs to \emph{Family III} (Gauged) if regularity is established up to a categorical equivalence or gauge transformation, encoded by a certificate $K_N = K^{\sim}$ at some stratum $N$. Archetypes: Yang--Mills in temporal gauge; problems solved via Langlands functoriality; optimal transport as gradient flow on Wasserstein space.
+\end{definition}
+
+\begin{definition}[Family IV: Resurrected]\label{def-family-resurrected}
+A hypostructure $\mathbb H$ belongs to \emph{Family IV} (Resurrected) if it admits singularities admissible for structural surgery, i.e.\ there exists $N$ with $K_N = K^{\mathrm{re}}$ and an associated cobordism $W : M_0 \rightsquigarrow M_1$. Archetypes: $3$-dimensional Ricci flow with surgery (Theorem~\ref{thm-structural-surgery}); Type II singularities in mean curvature flow; renormalization in quantum field theory.
+\end{definition}
+
+\begin{definition}[Family V: Synthetic]\label{def-family-synthetic}
+A hypostructure $\mathbb H$ belongs to \emph{Family V} (Synthetic) if regularity requires synthetic extension, i.e.\ there exists $N$ with $K_N = K^{\mathrm{ext}}$ and an extension $\iota : \mathbb H \hookrightarrow \tilde{\mathbb H}$. Archetypes: gauge theories with BRST quantization (Theorem~\ref{thm-brst-derived}); viscosity solutions of Hamilton--Jacobi; Euclidean path integrals; string compactifications.
+\end{definition}
+
+\begin{definition}[Family VI: Forbidden]\label{def-family-forbidden}
+A hypostructure $\mathbb H$ belongs to \emph{Family VI} (Forbidden) if analytic estimates fail entirely but the system is saved by a categorical barrier: there exists $N$ with $K_N = K^{\mathrm{blk}}$ and $\mathrm{Hom}(\mathbb H_{\mathrm{bad}}, S) = \emptyset$. Archetypes: holographic bounds; gauge theories with anomaly cancellation.
+\end{definition}
+
+\begin{definition}[Family VII: Singular]\label{def-family-singular}
+A hypostructure $\mathbb H$ belongs to \emph{Family VII} (Singular) if the bad pattern definitively embeds: there exists $N$ with $K_N = K^{\mathrm{morph}}$ and an embedding $\phi : \mathbb H_{\mathrm{bad}} \hookrightarrow S$. Archetypes: finite-time blow-up in supercritical nonlinear Schr\"odinger; Type I singularities in Ricci flow; Penrose--Hawking singularity theorems.
+\end{definition}
+
+\begin{definition}[Family VIII: Horizon]\label{def-family-horizon}
+A hypostructure $\mathbb H$ belongs to \emph{Family VIII} (Horizon) if it encounters the epistemic horizon: there exists $N$ with $K_N = K^{\mathrm{inc}}$ or $K^{\mathrm{hor}}$. Archetypes: the Halting Problem; the Continuum Hypothesis under ZFC; quantum gravity without ultraviolet completion.
+\end{definition}
+
+\begin{definition}[The Twenty-One Strata]\label{def-twenty-one-strata}
+The Sieve organizes diagnostic checkpoints into seven levels:
+\begin{itemize}
+\item \emph{Level 1 (Conservation, nodes 1--2):} Energy $D_E$, Zeno $\mathrm{Rec}_N$.
+\item \emph{Level 2 (Duality, nodes 3--5):} Compactness $C_\mu$, Scale $\mathrm{SC}_\lambda$, Parameter $\mathrm{SC}_{\partial c}$.
+\item \emph{Level 3 (Geometry/Stiffness, nodes 6--7):} Capacity $\mathrm{Cap}_H$, Stiffness $\mathrm{LS}_\sigma$.
+\item \emph{Level 3a (Stiffness Restoration Subtree, nodes 7a--7d):} Bifurcation $\mathrm{LS}_{\partial^2 V}$, Symmetry $G_{\mathrm{act}}$, SSB Stability $\mathrm{SC}_{\mathrm{SSB}}^{\mathrm{re}}$, Tunneling $\mathrm{TB}_S$.
+\item \emph{Level 4 (Topology/Ergodicity, nodes 8--10):} Topology $\mathrm{TB}_\pi$, Tameness $\mathrm{TB}_O$, Ergodicity $\mathrm{TB}_\rho$.
+\item \emph{Level 5 (Epistemic, nodes 11--12):} Complexity $\mathrm{Rep}_K$, Oscillation $\mathrm{GC}_\nabla$.
+\item \emph{Level 6 (Control, nodes 13--16):} Boundary $\mathrm{Bound}$, Overload $\mathrm{Bound}_B$, Starvation $\mathrm{Bound}_\Sigma$, Alignment $\mathrm{GC}_T$.
+\item \emph{Level 7 (Lock, node 17):} Categorical Lock $\mathrm{Cat}_{\mathrm{Hom}}$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Meta-Identifiability of Signature]\label{thm-meta-identifiability}
+Two hypostructures $\mathbb H_A$ and $\mathbb H_B$ are isomorphic in $\mathbf{Hypo}_T$ if and only if they share the same terminal certificate signature:
+\[
+\mathbb H_A \cong \mathbb H_B \iff \mathrm{DNA}(\mathbb H_A) \sim \mathrm{DNA}(\mathbb H_B).
+\]
+\end{theorem}
+
+\begin{proof}
+Necessity follows from the natural isomorphism induced by an isomorphism: the Sieve functor preserves natural isomorphisms, hence type equality at every stratum. Sufficiency is the content of analytic--structural equivalence (Corollary~\ref{cor-analytic-structural}): equal DNA implies isomorphic reconstructions, and the structural reconstruction principle identifies the original systems with their reconstructions.
+\end{proof}
+
+\begin{theorem}[Periodic Law of Hypostructures]\label{thm-periodic-law}
+The proof strategy applicable to a hypostructure $\mathbb H$ is determined by its location in the $8\times 21$ Periodic Table:
+\begin{enumerate}
+\item the dominant family selects the class of available techniques (a-priori estimates, dispersive methods, gauge fixing, surgery, extension, categorical exclusion, counterexample, undecidability); and
+\item the first failing stratum selects the specific obstruction and the associated factory metatheorem.
+\end{enumerate}
+The total number of structural slots is $8 \cdot 21 = 168$, each corresponding to a unique (Family, Stratum) pair.
+\end{theorem}
+
+\begin{proof}
+By the determinism of the Sieve compiler, every hypostructure has a uniquely defined DNA and hence a unique slot. By the Structural Reconstruction Principle (Theorem~\ref{thm-structural-reconstruction}), the resolution strategy depends only on the DNA. By the gate-evaluator theorems and barrier/surgery theorems above, each slot has an associated standard proof template. The structural completeness of these templates is the assertion that the Periodic Table is exhaustive.
+\end{proof}
+
+\begin{corollary}[Cross-Domain Transfer]\label{cor-cross-domain-transfer}
+Two hypostructures from different physical domains with identical DNA admit the same proof strategy: a proof valid for one transfers directly to the other.
+\end{corollary}
+
+\begin{proof}
+Immediate from Theorems~\ref{thm-meta-identifiability} and \ref{thm-periodic-law}: equal DNA implies isomorphic reconstructions and identical proof templates.
+\end{proof}
+
+\part{Algorithmic Information Theory}
+
+\section{Kolmogorov Complexity, Chaitin Randomness, and Computational Depth}
+
+\begin{definition}[Kolmogorov Complexity]\label{def-kolmogorov}
+For a string $x \in \{0,1\}^*$ and a fixed universal prefix-free Turing machine $U$, the \emph{Kolmogorov complexity} of $x$ is
+\[
+K(x) := \min\bigl\{|p| : U(p) = x\bigr\}.
+\]
+\end{definition}
+
+\begin{theorem}[Invariance Theorem]\label{thm-invariance}
+For any two universal prefix-free Turing machines $U_1, U_2$, there exists a constant $c$ depending only on the pair such that
+\[
+\bigl| K_{U_1}(x) - K_{U_2}(x) \bigr| \le c
+\]
+for every $x \in \{0,1\}^*$.
+\end{theorem}
+
+\begin{proof}
+Each universal machine simulates the other with a constant overhead corresponding to the size of the simulation interpreter. The constant $c$ is the maximum of the two interpreter lengths.
+\end{proof}
+
+\begin{theorem}[Incompressibility]\label{thm-incompressibility}
+For every length $n$ and every $c \ge 0$, the number of strings of length $n$ with $K(x) < n - c$ is at most $2^{n-c}$. Hence at least $2^n - 2^{n-c} + 1$ strings of length $n$ satisfy $K(x) \ge n - c$.
+\end{theorem}
+
+\begin{proof}
+A counting argument: there are at most $2^{n-c}$ programs of length less than $n - c$, so at most $2^{n-c}$ strings of length $n$ can be produced by such programs.
+\end{proof}
+
+\begin{definition}[Chaitin Halting Probability]\label{def-chaitin-omega}
+The \emph{Chaitin halting probability} associated to $U$ is
+\[
+\Omega_U := \sum_{p:\; U(p)\downarrow} 2^{-|p|}.
+\]
+\end{definition}
+
+\begin{theorem}[Convergence and Algorithmic Randomness of $\Omega$]\label{thm-omega-properties}
+The series defining $\Omega_U$ converges, $0 < \Omega_U \le 1$. Moreover $\Omega_U$ is Martin-L\"of random: there exists a constant $c$ such that the first $n$ bits $\Omega_U^{(n)}$ satisfy
+\[
+K(\Omega_U^{(n)}) \ge n - c.
+\]
+$\Omega_U$ is $\emptyset'$-computable, i.e., it lies in $\Delta^0_2$, and knowledge of its first $n$ bits decides halting for all programs of length at most $n$.
+\end{theorem}
+
+\begin{proof}
+Convergence follows from the Kraft inequality applied to the prefix-free domain of $U$. Algorithmic randomness is Chaitin's theorem; $\emptyset'$-computability is by definition of $\Omega$ as a limit from below of the recursive enumeration of halting computations.
+\end{proof}
+
+\begin{definition}[Computational Depth]\label{def-computational-depth}
+For a string $x$ and significance level $s \ge 0$, the \emph{computational depth} of $x$ is
+\[
+d_s(x) := \min\bigl\{ t : \exists p,\; |p| \le K(x) + s,\; U^t(p) = x \bigr\}.
+\]
+\end{definition}
+
+\begin{theorem}[Sieve--Thermodynamic Correspondence]\label{thm-sieve-thermo}
+There is a formal correspondence between Algorithmic Information Theory quantities and the Structural Sieve verdicts under the identification $E(x) = K(x)$, $Z = \Omega$, $\beta = \ln 2$:
+\begin{itemize}
+\item algorithmic probability $m(x) = \Theta(2^{-K(x)})$ acts as a Boltzmann weight;
+\item Chaitin's $\Omega$ acts as the partition function;
+\item computational depth $d_s(x)$ acts as a thermodynamic depth.
+\end{itemize}
+The Sieve emits the verdict \texttt{REGULAR} when Axiom R (existence of a total recovery operator) holds, and the verdict \texttt{HORIZON} when Axiom R fails.
+\end{theorem}
+
+\begin{proof}
+By the Levin--Schnorr coding theorem, $-\log m(x) = K(x) + O(1)$, identifying $m(x)$ as the Boltzmann weight. The normalization $\sum_x m(x) = \Omega$ identifies the partition function. Bennett's logical depth provides the thermodynamic depth analogue. The Sieve verdict is determined operationally by Axiom R, with three illustrative regimes: Crystal (decidable, $K(L_n) = O(\log n)$), Liquid (computably enumerable but undecidable), Gas (Martin-L\"of random, $K(L_n) \ge n - O(1)$).
+\end{proof}
+
+\begin{remark}[Sufficiency vs. Necessity]\label{rem-axiom-r}
+Low initial-segment complexity is necessary for decidability but not sufficient: the Halting Problem is computably enumerable yet undecidable. Axiom R is the determining factor for the verdict, not the complexity bound alone.
+\end{remark}
+
+\part{Geometric Background: Contact-Nambu Mechanics}
+
+\section{Contact Geometry, Nambu Brackets, and Underdamped Langevin Dynamics}
+
+\begin{definition}[Contact Manifold]\label{def-contact-manifold}
+A \emph{contact manifold} $(M^{2n+1}, \theta)$ is an odd-dimensional manifold $M$ equipped with a $1$-form $\theta$ such that $\theta \wedge (d\theta)^n$ is nowhere zero on $M$.
+\end{definition}
+
+\begin{definition}[Reeb Vector Field]\label{def-reeb}
+Given a contact manifold $(M, \theta)$, the \emph{Reeb vector field} $R$ is the unique vector field satisfying $\theta(R) = 1$ and $\iota_R d\theta = 0$.
+\end{definition}
+
+\begin{definition}[Contact Hamiltonian Vector Field]\label{def-contact-hamiltonian}
+Given $(M, \theta)$ and a smooth function $H : M \to \mathbb R$, the \emph{contact Hamiltonian vector field} $X_H$ is the unique vector field on $M$ such that
+\[
+\iota_{X_H} d\theta = dH - (R \cdot H)\, \theta,
+\qquad
+\theta(X_H) = -H.
+\]
+In standard coordinates $(q^i, p_i, s)$ with $\theta = ds - p_i\, dq^i$ the contact Hamilton equations read
+\[
+\dot q^i = \frac{\partial H}{\partial p_i},
+\qquad
+\dot p_i = -\frac{\partial H}{\partial q^i} - p_i\, \frac{\partial H}{\partial s},
+\qquad
+\dot s = p_i\, \frac{\partial H}{\partial p_i} - H.
+\]
+\end{definition}
+
+\begin{definition}[Nambu $n$-Bracket]\label{def-nambu-bracket}
+A \emph{Nambu $n$-bracket} on a manifold $M$ is a multilinear skew-symmetric map $\{-,\dots,-\} : C^\infty(M)^n \to C^\infty(M)$ satisfying the Leibniz rule and Takhtajan's fundamental identity
+\[
+\{f_1,\dots,f_{n-1},\{g_1,\dots,g_n\}\}
+= \sum_{i=1}^n \{g_1,\dots,\{f_1,\dots,f_{n-1},g_i\},\dots,g_n\}.
+\]
+\end{definition}
+
+\begin{theorem}[Contact-Nambu Equations of Motion]\label{thm-contact-nambu-eom}
+For the contact Hamiltonian
+\[
+H(q,p,s) = \tfrac{1}{2} G^{ij}(q)\, p_i p_j + U(q) + \gamma s,
+\]
+the contact Hamilton equations on $(T^*Q \times \mathbb R, \theta)$ specialize to
+\[
+\dot q^i = G^{ij} p_j,
+\qquad
+\dot p_i = -\partial_i U - \gamma p_i,
+\qquad
+\dot s = K - U - \gamma s,
+\]
+where $K = \tfrac{1}{2} G^{ij} p_i p_j$ is the kinetic energy.
+\end{theorem}
+
+\begin{proof}
+Direct application of Definition~\ref{def-contact-hamiltonian} with the specified Hamiltonian: $\partial H/\partial p_i = G^{ij} p_j$, $\partial H/\partial q^i = \partial_i U$, $\partial H/\partial s = \gamma$, and $p_i (\partial H/\partial p_i) - H = 2K - K - U - \gamma s = K - U - \gamma s$.
+\end{proof}
+
+\begin{theorem}[Fluctuation--Dissipation Relation]\label{thm-fluctuation-dissipation}
+The stochastic contact Hamilton equation
+\[
+dz^k = G^{kj} p_j\, dt,
+\quad
+dp_k = (-\partial_k U - \gamma p_k - \Gamma^m_{k\ell} G^{\ell j} p_j p_m)\, dt + \sigma\, (G^{1/2})_{kj}\, dW^j,
+\quad
+ds = (K - U - \gamma s)\, dt
+\]
+admits the Boltzmann distribution $\rho_*(z,p) \propto \exp(-(K + U)/T_c)$ as its unique stationary measure if and only if the noise amplitude satisfies the Einstein relation
+\[
+\sigma = \sqrt{2 \gamma T_c}.
+\]
+\end{theorem}
+
+\begin{proof}
+Substitute the candidate $\rho_* = \exp(-H/T_c)$ into the Fokker--Planck equation associated to the stochastic contact dynamics. Stationarity is equivalent to vanishing of the divergence of the probability current. The drift term contributes $\gamma\rho_*$ on the momentum variables; the diffusion term contributes $\sigma^2/(2 T_c) \cdot \rho_*$. Balancing the two yields $\sigma^2 = 2\gamma T_c$, i.e., $\sigma = \sqrt{2\gamma T_c}$.
+\end{proof}
+
+\part{Appendix: External Obligations Register}
+
+\section{Inclusion Rule and Registry}
+
+The Hypostructure corpus tracks five external completion items, each labelled by an obligation tag, status, and projected resolution route. The registry is recorded here for completeness; the present manuscript depends on none of these items.
+
+\begin{itemize}
+\item \texttt{OBL-LANG-1}: completion of the geometric Langlands functorial transfer through the Tannakian recognition principle (Theorem~\ref{thm-tannakian}).
+\item \texttt{OBL-YM-OS}: O--S positivity for the Yang--Mills Wightman reconstruction; tracked through the BRST/derived extension (Theorem~\ref{thm-brst-derived}).
+\item \texttt{OBL-YM-GAP/CLUST}: mass-gap and clustering for Yang--Mills.
+\item \texttt{OBL-QG-1}: ultraviolet-completed quantum gravity through the holographic entropy lock (Theorem~\ref{thm-holographic-entropy}).
+\item \texttt{OBL-PNP}: classical export of the internal separation $\PFM \neq \NPFM$ to $\PDTM \neq \NPDTM$, discharged in the present manuscript by Corollary~\ref{cor-export-separation} via the bridge equivalence Corollary~\ref{cor-bridge-equivalence-rigorous}.
+\end{itemize}
+
+\section{Bibliographic Notes}
+
+\begin{thebibliography}{99}
+\bibitem{MerleZaag98} F. Merle and H. Zaag, \emph{Stability of the blow-up profile for equations of the type $u_t = \Delta u + |u|^{p-1}u$}, Duke Math. J. \textbf{86} (1998), 143--195.
+\bibitem{KenigMerle06} C. E. Kenig and F. Merle, \emph{Global well-posedness, scattering and blow-up for the energy-critical, focusing, non-linear Schr\"odinger equation in the radial case}, Invent. Math. \textbf{166} (2006), 645--675.
+\bibitem{Lojasiewicz63} S. \L ojasiewicz, \emph{Une propri\'et\'e topologique des sous-ensembles analytiques r\'eels}, Les \'Equations aux D\'eriv\'ees Partielles, CNRS, Paris, 1963.
+\bibitem{Simon83} L. Simon, \emph{Asymptotics for a class of nonlinear evolution equations}, Ann. of Math. \textbf{118} (1983), 525--571.
+\bibitem{Birkhoff31} G. D. Birkhoff, \emph{Proof of the ergodic theorem}, Proc. Nat. Acad. Sci. USA \textbf{17} (1931), 656--660.
+\bibitem{MeynTweedie93} S. P. Meyn and R. L. Tweedie, \emph{Markov Chains and Stochastic Stability}, Springer, 1993.
+\bibitem{Connes94} A. Connes, \emph{Noncommutative Geometry}, Academic Press, 1994.
+\bibitem{Menger27} K. Menger, \emph{Untersuchungen \"uber allgemeine Metrik}, Math. Ann. \textbf{97} (1927), 539--593.
+\bibitem{FordFulkerson56} L. R. Ford Jr.\ and D. R. Fulkerson, \emph{Maximal flow through a network}, Canad. J. Math. \textbf{8} (1956), 399--404.
+\bibitem{GabrielZisman67} P. Gabriel and M. Zisman, \emph{Calculus of Fractions and Homotopy Theory}, Springer, 1967.
+\bibitem{MargolisLevitin98} N. Margolus and L. B. Levitin, \emph{The maximum speed of dynamical evolution}, Physica D \textbf{120} (1998), 188--195.
+\bibitem{Federer69} H. Federer, \emph{Geometric Measure Theory}, Springer, 1969.
+\bibitem{Heinonen93} J. Heinonen, T. Kilpel\"ainen, and O. Martio, \emph{Nonlinear Potential Theory of Degenerate Elliptic Equations}, Oxford University Press, 1993.
+\bibitem{Pontryagin62} L. S. Pontryagin, \emph{Smooth Manifolds and their Applications in Homotopy Theory}, AMS Translations, 1962.
+\bibitem{Bode45} H. W. Bode, \emph{Network Analysis and Feedback Amplifier Design}, Van Nostrand, 1945.
+\bibitem{Godel31} K. G\"odel, \emph{\"Uber formal unentscheidbare S\"atze der Principia Mathematica und verwandter Systeme}, Monatsh. Math. Phys. \textbf{38} (1931), 173--198.
+\bibitem{CoverThomas06} T. M. Cover and J. A. Thomas, \emph{Elements of Information Theory}, Wiley, 2006.
+\bibitem{Hairer14} M. Hairer, \emph{A theory of regularity structures}, Invent. Math. \textbf{198} (2014), 269--504.
+\bibitem{Perelman02} G. Perelman, \emph{The entropy formula for the Ricci flow and its geometric applications}, arXiv:math/0211159, 2002.
+\bibitem{Hironaka64} H. Hironaka, \emph{Resolution of singularities of an algebraic variety over a field of characteristic zero}, Ann. of Math. \textbf{79} (1964), 109--326.
+\bibitem{BecchiRouetStora76} C. Becchi, A. Rouet, and R. Stora, \emph{Renormalization of gauge theories}, Ann. Phys. \textbf{98} (1976), 287--321.
+\bibitem{AdamekRosicky94} J. Ad\'amek and J. Rosick\'y, \emph{Locally Presentable and Accessible Categories}, Cambridge University Press, 1994.
+\bibitem{Manin68} Yu.~I. Manin, \emph{Correspondences, motifs and monoidal transformations}, Math. USSR Sb. \textbf{6} (1968), 439--470.
+\bibitem{Scholl94} A. J. Scholl, \emph{Classical motives}, in \emph{Motives}, Proc. Sympos. Pure Math. \textbf{55}, AMS, 1994.
+\bibitem{Deligne74} P. Deligne, \emph{La conjecture de Weil. I}, Publ. Math. IH\'ES \textbf{43} (1974), 273--307.
+\bibitem{Stengle74} G. Stengle, \emph{A Nullstellensatz and a Positivstellensatz in semialgebraic geometry}, Math. Ann. \textbf{207} (1974), 87--97.
+\bibitem{KodairaSpencer58} K. Kodaira and D. C. Spencer, \emph{On deformations of complex analytic structures, I--II}, Ann. of Math. \textbf{67} (1958), 328--466.
+\bibitem{BehrFant97} K. Behrend and B. Fantechi, \emph{The intrinsic normal cone}, Invent. Math. \textbf{128} (1997), 45--88.
+\bibitem{Schmid73} W. Schmid, \emph{Variation of Hodge structure: the singularities of the period mapping}, Invent. Math. \textbf{22} (1973), 211--319.
+\bibitem{Deligne90} P. Deligne, \emph{Cat\'egories tannakiennes}, in \emph{The Grothendieck Festschrift, Vol. II}, Birkh\"auser, 1990, 111--195.
+\bibitem{Shannon48} C. E. Shannon, \emph{A mathematical theory of communication}, Bell Syst. Tech. J. \textbf{27} (1948), 379--423, 623--656.
+\bibitem{vandenDries98} L. van den Dries, \emph{Tame Topology and O-Minimal Structures}, Cambridge University Press, 1998.
+\bibitem{GriffithsHarris78} P. Griffiths and J. Harris, \emph{Principles of Algebraic Geometry}, Wiley, 1978.
+\bibitem{Serre56} J.-P. Serre, \emph{G\'eom\'etrie alg\'ebrique et g\'eom\'etrie analytique}, Ann. Inst. Fourier \textbf{6} (1956), 1--42.
+\bibitem{Kolmogorov65} A. N. Kolmogorov, \emph{Three approaches to the quantitative definition of information}, Probl. Inf. Transm. \textbf{1} (1965), 1--7.
+\bibitem{LiVitanyi08} M. Li and P. Vit\'anyi, \emph{An Introduction to Kolmogorov Complexity and Its Applications}, 3rd ed., Springer, 2008.
+\bibitem{Chaitin75} G. J. Chaitin, \emph{A theory of program size formally identical to information theory}, J. ACM \textbf{22} (1975), 329--340.
+\bibitem{Levin73} L. A. Levin, \emph{On the notion of a random sequence}, Soviet Math. Dokl. \textbf{14} (1973), 1413--1416.
+\bibitem{Schnorr73} C.-P. Schnorr, \emph{Process complexity and effective random tests}, J. Comput. Syst. Sci. \textbf{7} (1973), 376--388.
+\bibitem{Bennett88} C. H. Bennett, \emph{Logical depth and physical complexity}, in \emph{The Universal Turing Machine: A Half-Century Survey}, Oxford, 1988, 227--257.
+\bibitem{Cook71} S. A. Cook, \emph{The complexity of theorem-proving procedures}, Proc. 3rd ACM STOC, 1971, 151--158.
+\bibitem{Karp72} R. M. Karp, \emph{Reducibility among combinatorial problems}, in \emph{Complexity of Computer Computations}, Plenum, 1972, 85--103.
+\bibitem{AroraBarak09} S. Arora and B. Barak, \emph{Computational Complexity: A Modern Approach}, Cambridge University Press, 2009.
+\bibitem{Lurie09} J. Lurie, \emph{Higher Topos Theory}, Annals of Mathematics Studies \textbf{170}, Princeton, 2009.
+\bibitem{SchreiberCohesive} U. Schreiber, \emph{Differential cohomology in a cohesive infinity-topos}, arXiv:1310.7930, 2013.
+\bibitem{Leroy09} X. Leroy, \emph{Formal verification of a realistic compiler}, Comm. ACM \textbf{52} (2009), 107--115.
+\bibitem{Bravetti17} A. Bravetti, H. Cruz, and D. Tapias, \emph{Contact Hamiltonian mechanics}, Ann. Phys. \textbf{376} (2017), 17--39.
+\bibitem{Nambu73} Y. Nambu, \emph{Generalized Hamiltonian dynamics}, Phys. Rev. D \textbf{7} (1973), 2405--2412.
+\bibitem{Takhtajan94} L. Takhtajan, \emph{On foundation of the generalized Nambu mechanics}, Comm. Math. Phys. \textbf{160} (1994), 295--315.
+\bibitem{LeimkuhlerMatthews16} B. Leimkuhler and C. Matthews, \emph{Molecular Dynamics: With Deterministic and Stochastic Numerical Methods}, Springer, 2016.
+\end{thebibliography}

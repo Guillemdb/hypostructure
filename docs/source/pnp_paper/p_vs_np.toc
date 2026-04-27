@@ -1,0 +1,21 @@
+\contentsline {section}{\numberline {1}Sieve-Level Metadata}{2}{section.1}%
+\contentsline {section}{\numberline {2}Cohesive-Topos Computational Foundation}{3}{section.2}%
+\contentsline {section}{\numberline {3}Internal Programs, Witnesses, and Exhaustiveness}{5}{section.3}%
+\contentsline {section}{\numberline {4}The E13 Obstruction Layer and Canonical 3-SAT}{7}{section.4}%
+\contentsline {section}{\numberline {5}Bridge to Classical Complexity}{11}{section.5}%
+\contentsline {part}{I\hspace {1em}The Structural Sieve: Diagnostic Theorems}{12}{part.1}%
+\contentsline {section}{\numberline {6}Gate Evaluator Theorems}{12}{section.6}%
+\contentsline {section}{\numberline {7}Barrier Defense Theorems}{14}{section.7}%
+\contentsline {section}{\numberline {8}Surgery Construction Theorems}{15}{section.8}%
+\contentsline {part}{II\hspace {1em}Algebraic-Geometric Metatheorems}{17}{part.2}%
+\contentsline {section}{\numberline {9}Motivic, Schematic, Deformation, and Virtual Theorems}{17}{section.9}%
+\contentsline {section}{\numberline {10}The Structural Reconstruction Principle}{19}{section.10}%
+\contentsline {part}{III\hspace {1em}Periodic Table of Dynamical Complexity}{20}{part.3}%
+\contentsline {section}{\numberline {11}The Eight Families and the Twenty-One Strata}{20}{section.11}%
+\contentsline {part}{IV\hspace {1em}Algorithmic Information Theory}{22}{part.4}%
+\contentsline {section}{\numberline {12}Kolmogorov Complexity, Chaitin Randomness, and Computational Depth}{22}{section.12}%
+\contentsline {part}{V\hspace {1em}Geometric Background: Contact-Nambu Mechanics}{23}{part.5}%
+\contentsline {section}{\numberline {13}Contact Geometry, Nambu Brackets, and Underdamped Langevin Dynamics}{23}{section.13}%
+\contentsline {part}{VI\hspace {1em}Appendix: External Obligations Register}{24}{part.6}%
+\contentsline {section}{\numberline {14}Inclusion Rule and Registry}{24}{section.14}%
+\contentsline {section}{\numberline {15}Bibliographic Notes}{25}{section.15}%

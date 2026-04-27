@@ -2,18 +2,23 @@ import Hypostructure.Backends.NavierStokes.ProofSetup.CenteredProfile
 
 namespace Hypostructure.Backends.NavierStokes.ProofSetup
 
+def GeneratedStateStability (G : GeneratedSereginClass) : Prop :=
+    G.closedUnderTimeTranslations ∧ G.closedUnderLocalSmoothLimits
+
+def MildStratumStability (S : MildStratum) : Prop :=
+    S.projectedMildFormulation ∧ ∀ state, state ∈ S.states → state ∈ S.carrier.states
+
 axiom generatedStateStable
     (G : GeneratedSereginClass) :
-    True
+        GeneratedStateStability G
 
 axiom mildStratumStable
     (S : MildStratum) :
-    True
+        MildStratumStability S
 
 theorem mildStatesAreGenerated
     (S : MildStratum) :
     S.states ⊆ S.carrier.states := by
-  intro state hstate
-  exact hstate
+        exact fun state hstate => ((mildStratumStable S).2) state hstate
 
 end Hypostructure.Backends.NavierStokes.ProofSetup

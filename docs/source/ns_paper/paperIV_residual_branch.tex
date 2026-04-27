@@ -6216,7 +6216,18 @@ the local velocity contribution, hence by the raw atlas defect measure.  The pro
 bounded-overlap domination, and weak compactness of normalized restrictions on
 the observer compactification.  These properties hold for
 \(\nu_U^{\rm sp}\) exactly as they hold for the constant-in-time oscillation
-measure \(\mu_U^{\rm osc}\).
+measure \(\mu_U^{\rm osc}\).  In particular,
+\[
+   \nu_U^{\rm sp}(\{z_k\})
+   =
+   \oscsp\bigl(U;\mathcal Q_1^{\rm cov}(z_k)\bigr)
+   \le
+   \actthree\bigl(U;\mathcal Q_1^{\rm cov}(z_k)\bigr).
+\]
+Hence, on escaping observer windows where all positive-threshold unit
+\(\actthree\)-observers have been removed, the atomic masses of
+\(\nu_U^{\rm sp}\) tend to zero, so the finite atomic window-selection lemma
+applies to \(\nu_U^{\rm sp}\) exactly as it does to \(\mu_U^{\rm osc}\).
 \end{proof}
 
 \begin{lemma}[Separation of recentered cylinders]
@@ -6401,12 +6412,16 @@ compact velocity concentration.
 \end{theorem}
 
 \begin{proof}
-Retained recentering sequences with loss of local compactness are removed by
-\Cref{lem:retained-recentering-alternatives}.  Local vanishing, exterior escape, and
-diffuse exterior concentration are removed by
-\Cref{lem:radiative-stratum-exclusion}.  The proof uses only the positive
-concentration input and the local compactness hypotheses in
-the imported setup results, and fixed compact terminal cylinders.
+Retained recentering sequences with loss of local compactness are first routed
+by \Cref{lem:retained-recentering-alternatives} to one of the terminal
+branches.  If the routed branch is locally compact, it is handled by the
+retained-profile protocol.  If it is diffuse, pressure/noncompact, or
+critical-tail, it is excluded only after applying the corresponding branch
+closure theorem; thus the routing lemma is not itself used as a contradiction.
+Local vanishing, exterior escape, and diffuse exterior concentration are
+excluded by \Cref{lem:radiative-stratum-exclusion}.  The proof uses only the
+positive concentration input and the local compactness hypotheses in the
+imported setup results, and fixed compact terminal cylinders.
 \end{proof}
 
 \begin{definition}[Observer compactification]
@@ -6439,7 +6454,7 @@ positive-threshold oscillatory unit observers on compact windows.
 Assume there are observer regions \(E_n\subset Z\), escaping every compact
 subset of \(Z\), and a number \(m_0>0\) such that
 \[
-   \mu_n^{\rm osc}(E_n)\ge m_0 ,
+   0<m_0\le \mu_n^{\rm osc}(E_n)<\infty ,
 \]
 while no unit observer in \(E_n\) carries a positive oscillation threshold:
 \[
@@ -6470,6 +6485,12 @@ the observer compactification, not a local concentration profile.
 \end{theorem}
 
 \begin{proof}
+The theorem is stated directly in the finite-mass normalization regime needed
+to define \(\lambda_n\).  If one starts only from a positive lower bound on an
+escaping oscillation region, \Cref{lem:finite-diffuse-window-selection}
+provides an escaping finite-mass net-cell subset to which the present argument
+applies.
+
 The measures \(\lambda_n\) are probability measures on the compact metric space
 \(\overline Z\), so weak compactness gives a convergent subsequence.  Testing
 against the constant function \(1\) preserves total mass and gives
@@ -6509,6 +6530,95 @@ unit observer ball contains at most \(N_0\) contributing atoms of
 Therefore no positive unit-scale local oscillation profile is hidden inside the
 escaping windows.  The proof is local on the chosen observer windows and uses no
 global critical-mass or energy budget.
+\end{proof}
+
+\begin{lemma}[Finite diffuse-window selection]
+\label{lem:finite-diffuse-window-selection}
+Let \(\mu_n^{\rm osc}\) be the observer oscillation measures from
+\Cref{def:observer-oscillation}.  Suppose \(E_n\subset Z\) escapes every compact
+subset of \(Z\) and
+\[
+   \liminf_{n\to\infty}\mu_n^{\rm osc}(E_n)>0,
+   \qquad
+   \sup_{z\in E_n}\actthree(U_n;\mathcal Q_1^{\rm cov}(z))\to0 .
+\]
+Then for every \(m_0>0\) below the surviving mass there is, after passing to a
+subsequence, an escaping net-cell subset \(E_n'\subset E_n\cap\{z_k\}_{k\in\mathbb N}\)
+such that
+\[
+   m_0\le \mu_n^{\rm osc}(E_n')\le 2m_0
+\]
+for all large \(n\).
+\end{lemma}
+
+\begin{proof}
+Since \(m_0\) is below the surviving mass, after passing to a subsequence we
+may assume
+\[
+   \mu_n^{\rm osc}(E_n)\ge m_0
+\]
+for every \(n\).  Since the unit-scale oscillation threshold on \(E_n\) tends
+to zero, after passing to a further subsequence we may also assume
+\[
+   \sup_{z\in E_n}\actthree(U_n;\mathcal Q_1^{\rm cov}(z))\le m_0
+\]
+for every \(n\).  Replace \(E_n\) by its net-cell representative
+\(E_n\cap\{z_k\}_{k\in\mathbb N}\), which does not change
+\(\mu_n^{\rm osc}(E_n)\) because the measure is atomic on the fixed observer net.
+
+Enumerate the net points in \(E_n\) arbitrarily and add them one by one until
+the accumulated \(\mu_n^{\rm osc}\)-mass first reaches or exceeds \(m_0\).  The
+partial sum at the preceding step is \(<m_0\), and the last added atom has mass
+at most \(m_0\), so the resulting finite subset \(E_n'\subset E_n\) satisfies
+\[
+   m_0\le \mu_n^{\rm osc}(E_n')\le 2m_0 .
+\]
+Because \(E_n\) escapes every compact subset of \(Z\), every subset
+\(E_n'\subset E_n\) also escapes every compact subset.  Thus the selected
+finite windows retain positive normalized oscillation mass while avoiding any
+division by an infinite total mass.
+\end{proof}
+
+\begin{lemma}[Finite window selection for atomic observer defects]
+\label{lem:finite-atomic-observer-window-selection}
+Let \(\gamma_n\) be a nonnegative atomic measure on the fixed observer net
+\(\{z_k\}_{k\in\mathbb N}\).  Suppose \(E_n\subset Z\) escapes every compact
+subset of \(Z\),
+\[
+   \liminf_{n\to\infty}\gamma_n(E_n)>0,
+   \qquad
+   \sup_{z_k\in E_n}\gamma_n(\{z_k\})\to0 .
+\]
+Then, for every \(m_0>0\) below the surviving mass, after passing to a
+subsequence there is an escaping finite net-cell subset
+\(E_n'\subset E_n\cap\{z_k\}_{k\in\mathbb N}\) such that
+\[
+   m_0\le \gamma_n(E_n')\le 2m_0
+\]
+for all large \(n\).
+\end{lemma}
+
+\begin{proof}
+Since \(m_0\) lies below the surviving mass, after passing to a subsequence we
+may assume \(\gamma_n(E_n)\ge m_0\) for every \(n\).  Since the atomic masses
+on \(E_n\) tend to zero, after passing to a further subsequence we may also
+assume
+\[
+   \sup_{z_k\in E_n}\gamma_n(\{z_k\})\le m_0
+\]
+for every \(n\).  Replacing \(E_n\) by \(E_n\cap\{z_k\}_{k\in\mathbb N}\) does
+not change \(\gamma_n(E_n)\) because \(\gamma_n\) is supported on the fixed
+observer net.
+
+Enumerate the atoms of \(E_n\) arbitrarily and add them one by one until the
+accumulated \(\gamma_n\)-mass first reaches or exceeds \(m_0\).  The partial
+sum at the previous step is \(<m_0\), and the last added atom has mass at most
+\(m_0\), so the resulting finite subset \(E_n'\subset E_n\) satisfies
+\[
+   m_0\le \gamma_n(E_n')\le 2m_0 .
+\]
+Because \(E_n\) escapes every compact subset of \(Z\), every subset
+\(E_n'\subset E_n\) also escapes every compact subset.
 \end{proof}
 
 \begin{lemma}[Support transfer for the diffuse-defect compactification]
@@ -6641,15 +6751,34 @@ are continuous on \(C\) in the local state-space topology; since the realized
 normalized defect class is compact in that topology after embedding into the
 product compactification, these orbit maps are equicontinuous on \(C\),
 uniformly in realized states \(\omega\).  Hence, if \(q_j\to g\) in
-\(G_{\mathbb Q}\), then for every \(x\in X_{\rm def}\) the sequence
-\(\sigma_{q_j}x\) is Cauchy in the product metric on \(\mathcal X_0\).  Define
+\(G_{\mathbb Q}\).
+
+Fix \(x\in X_{\rm def}\), a sequence \(q_j\to g\) in \(G_{\mathbb Q}\), and
+\(\varepsilon>0\).  Choose a finite set of coordinates \(k\le K\) so that the
+tail of the product metric beyond \(K\) is \(<\varepsilon/3\).  Choose realized
+states \(\omega_m\) with \(\iota(\omega_m)\to x\).  By the uniform
+equicontinuity of the first \(K\) orbit maps on \(C\), there exist \(m\) and
+\(J\) such that for all \(j,\ell\ge J\),
+\[
+   d_K\bigl(\sigma_{q_j}x,\sigma_{q_\ell}x\bigr)
+   \le
+   d_K\bigl(\sigma_{q_j}x,\sigma_{q_j}\iota(\omega_m)\bigr)
+   +d_K\bigl(\sigma_{q_j}\iota(\omega_m),\sigma_{q_\ell}\iota(\omega_m)\bigr)
+   +d_K\bigl(\sigma_{q_\ell}\iota(\omega_m),\sigma_{q_\ell}x\bigr)
+   <\varepsilon ,
+\]
+where \(d_K\) denotes the finite-coordinate metric on the first \(K\) entries.
+Together with the metric-tail bound this shows that \(\sigma_{q_j}x\) is Cauchy
+in the product metric on \(\mathcal X_0\).  Define
 \[
    \sigma_gx:=\lim_{j\to\infty}\sigma_{q_j}x .
 \]
-The equicontinuity makes the limit independent of the approximating rational
-sequence and gives the group law by approximation from \(G_{\mathbb Q}\).
-The same argument, applied uniformly on compact subsets of \(G\times X_{\rm def}\),
-gives joint continuity of \((g,x)\mapsto\sigma_gx\).
+Applying the same finite-coordinate estimate to two rational approximating
+sequences \(q_j\to g\) and \(q_j'\to g\) gives independence of the limit from
+the chosen approximation.  The group law follows by approximating both factors
+from \(G_{\mathbb Q}\), and the same finite-coordinate argument, carried out
+uniformly on compact subsets of \(G\times X_{\rm def}\), gives joint continuity
+of \((g,x)\mapsto\sigma_gx\).
 
 The sequence-realized class:
 \[
@@ -6812,7 +6941,15 @@ every fixed \(\eta>0\), all sufficiently large \(n\) satisfy
    \sup_{z\in E_n}
       \actthree(U_n;\mathcal Q_1^{\rm cov}(z))<\eta .
 \]
-The hypotheses of \Cref{thm:diffuse-defect-compactness} apply to
+Since D1 does not occur, the atom size of \(\mu_n^{\rm osc}\) on \(E_n\)
+tends to zero.  By \Cref{lem:finite-diffuse-window-selection}, after passing to
+a subsequence we may replace \(E_n\) by an escaping net-cell subset
+\(E_n'\subset E_n\) such that
+\[
+   m_0\le \mu_n^{\rm osc}(E_n')\le 2m_0 .
+\]
+Relabel \(E_n'\) as \(E_n\).  The hypotheses of
+\Cref{thm:diffuse-defect-compactness} now apply to
 \(\mu_n^{\rm osc}\lfloor E_n\), and hence produce a diffuse-defect profile
 \(\lambda\) with total mass one and zero mass on each compact subset of \(Z\).
 By \Cref{thm:recurrent-diffuse-defect-measure}, the orbit closure of
@@ -6877,7 +7014,15 @@ in \(\Tcrit\) if:
    logarithmic annular compactification;
    \item pressure gradients converge distributionally after the time-dependent
    gauges and affine pressure quotients fixed in
-   \Cref{def:pressure-gauge-affine-quotient};
+   \Cref{def:pressure-gauge-affine-quotient}, and for every pair
+   \((F,\psi)\) in the fixed countable \(C^2\)-test family of
+   \Cref{def:critical-pressure-gradient-convergence} the scalar defect
+   coordinates \(\mathscr P_{n,F}[\psi]\) and \(\mathscr D_{n,F}[\psi]\)
+   converge;
+   \item in the realized recurrent setting, the local virial, dissipation, and
+   pressure-flux coordinates on the fixed rational family of log-windows are
+   recorded as part of the compactification data rather than asserted to be
+   continuous for the weak velocity-pressure topology alone;
    \item the affine quotient data converge in the finite-dimensional local
    quotient topology; and
    \item when the profiles are sequence-realized, the limiting profile remains in
@@ -6915,10 +7060,20 @@ windows used in the extraction, hence Prokhorov compactness gives a vaguely
 convergent subsequence of the log-scale measures.  The pressure components are
 recorded only through distributional gradients after the time and affine gauges;
 local pressure compactness modulo these gauges gives distributional
-subsequential limits.  The affine quotient data are finite-dimensional on each
-fixed time window, and the quotient topology was chosen so that bounded
-sequences have subsequential limits.  Diagonalizing over the countable annular
-exhaustion gives convergence in all components listed in
+subsequential limits.  The pressure-defect coordinates
+\(\mathscr P_{n,F}[\psi]\) and viscous-defect coordinates
+\(\mathscr D_{n,F}[\psi]\) are part of the defining topology from
+\Cref{def:critical-pressure-gradient-convergence,def:critical-diffuse-tail-strata};
+on the fixed countable family they are uniformly bounded by the finite-\(n\)
+Young identity and the local energy bound, so a diagonal extraction gives
+convergent subsequences for all of them simultaneously.  For realized recurrent
+profiles, the virial coordinates are likewise uniformly bounded on the
+countable rational family by \Cref{lem:realized-log-window-virial-compactness},
+hence admit simultaneous limits as coordinate data of the recurrent virial
+hull.  The affine quotient data
+are finite-dimensional on each fixed time window, and the quotient topology was
+chosen so that bounded sequences have subsequential limits.  Diagonalizing over
+the countable annular exhaustion gives convergence in all components listed in
 \Cref{def:critical-diffuse-tail-strata}.  For sequence-realized sequences,
 choose for each approximating profile a realizing subsequence from the original
 terminal sequence and diagonalize over the annular exhaustion and the countable
@@ -6997,6 +7152,11 @@ at \((x,s)\).  Equivalently, \(\mathcal Y_n\to\mathcal Y\) in the
 
 \begin{definition}[Distributional pressure-gradient convergence at critical scale]
 \label{def:critical-pressure-gradient-convergence}
+Fix once and for all a countable dense family \(\mathfrak F_{\rm crit}\) of test
+pairs \((F,\psi)\), where \(F\in C^2(\overline{B_M})\) and
+\(\psi\in C_c^\infty(\{a<|x|<b\}\times I)\) has rational coefficients on the
+chosen countable annular exhaustion.
+
 A sequence of pressure profiles \(Q_n\), each defined on the same macroscopic
 annular cylinder up to the affine and time-only gauges of
 \Cref{def:pressure-gauge-affine-quotient}, converges \emph{annularly
@@ -7013,7 +7173,21 @@ I,\mathbb R^3)\) one has
    \langle\nabla Q_n,\Phi\rangle\to\langle\nabla Q,\Phi\rangle ,
 \]
 where the left-hand sides are computed for representatives of \(Q_n\) chosen
-inside the affine quotient.
+inside the affine quotient.  In addition, for every
+\((F,\psi)\in\mathfrak F_{\rm crit}\) the scalar defect coordinates
+\[
+   \mathscr P_{n,F}[\psi]
+   :=
+   \iint \psi\,\nabla_\xi F(V_n)\cdot\nabla Q_n
+\]
+and
+\[
+   \mathscr D_{n,F}[\psi]
+   :=
+   R_n^{-2}\iint
+   \psi\,\nabla V_n^T\nabla_\xi^2F(V_n)\nabla V_n
+\]
+are required to converge along the selected compactification subsequence.
 \end{definition}
 
 \begin{lemma}[Critical-tail Young balance with pressure and viscous defects]
@@ -7049,10 +7223,27 @@ pairings
       \nabla_\xi^2F(V_n(x,s))
       \nabla_xV_n(x,s)\,dx\,ds
 \]
+\[
+   \mathscr E_{n,F}[\psi]
+   :=
+   -R_n^{-2}\iint F(V_n)\,\Delta\psi\,dx\,ds
+   -R_n^{-1}\iint F(V_n)V_n\cdot\nabla\psi\,dx\,ds .
+\]
 converge for every \(\psi\in C_c^\infty\) and every
 \(F\in C^2(\overline{B_M})\) in the countable dense test class used to define
 the critical-tail topology.  Denote the limits by \(\mathscr P_F[\psi]\) and
-\(\mathscr D_F[\psi]\).  Then the Young measure satisfies the exact weak
+\(\mathscr D_F[\psi]\).  For each finite \(n\), the exact identity
+\begin{equation}\label{eq:young-transport-identity-finite-n}
+\begin{aligned}
+   &\iint
+   \Bigl(\partial_s\psi+\tfrac12 x\cdot\nabla_x\psi+\tfrac32\psi\Bigr)
+   F(V_n)\,dx\,ds\\
+   &\qquad =
+   \frac12\iint \psi\,\nabla_\xi F(V_n)\cdot V_n\,dx\,ds
+   +\mathscr P_{n,F}[\psi]+\mathscr D_{n,F}[\psi]+\mathscr E_{n,F}[\psi].
+\end{aligned}
+\end{equation}
+holds, and \(\mathscr E_{n,F}[\psi]\to0\) as \(n\to\infty\).  Consequently the Young measure satisfies the exact weak
 balance
 \begin{equation}\label{eq:young-transport-identity}
 \begin{aligned}
@@ -7105,9 +7296,9 @@ R_n^{-2}\iint
 Since \(F'\) and \(F''\) are bounded on \(\overline{B_M}\), \(V_n\) is bounded
 by \(M\), and the local energy bound from
 \Cref{lem:local-energy-blow-down} gives \(R_n^{-2}\iint
-|\nabla V_n|^2\psi\,dx\,ds\le C\), the Hessian term has a subsequential
-distributional limit on the countable test family; this is
-\(\mathscr D_F[\psi]\).  The second term equals
+|\nabla V_n|^2\psi\,dx\,ds\le C\), the first term is exactly
+\(\mathscr D_{n,F}[\psi]\) and is uniformly bounded on the fixed countable test
+family.  The second term equals
 \(-R_n^{-2}\iint F(V_n)\Delta\psi\,dx\,ds\), hence is \(O(R_n^{-2})\) and
 tends to \(0\).
 
@@ -7137,15 +7328,28 @@ where the boundary term vanishes by compact support of \(\psi\).  Using
 \]
 Combining with the remaining \(\partial_s\) term, which gives
 \(-\iint F(V_n)\partial_s\psi\,dx\,ds\) after integration by parts in time,
-and keeping the pressure term explicitly, we obtain
+and keeping the pressure term explicitly, we obtain the exact finite-\(n\)
+identity
 \[
-   \iint
+\begin{aligned}
+   &\iint
    F(V_n)
    \Bigl(\partial_s\psi+\tfrac12 x\cdot\nabla\psi+\tfrac32\psi\Bigr)\,dx\,ds
-   -\iint \tfrac12 F'(V_n)V_n\,\psi\,dx\,ds
-   =
-   \iint \psi\,F'(V_n)\cdot\nabla Q_n\,dx\,ds+o(1) .
+   -\iint \tfrac12 F'(V_n)V_n\,\psi\,dx\,ds \\
+   &\qquad =
+   \mathscr P_{n,F}[\psi]+\mathscr D_{n,F}[\psi]+\mathscr E_{n,F}[\psi],
+\end{aligned}
 \]
+which is exactly \eqref{eq:young-transport-identity-finite-n}.  The remainder
+\(\mathscr E_{n,F}[\psi]\) tends to zero because the two terms estimated above
+are \(O(R_n^{-2})\) and \(O(R_n^{-1})\), respectively.  Since the two terms on
+the left-hand side are uniformly bounded by \(M\|\psi\|_{C^1}\) and
+\(\mathscr D_{n,F}[\psi]\) is uniformly bounded as above, the finite-\(n\)
+identity also gives a uniform bound for the pressure pairings
+\(\mathscr P_{n,F}[\psi]\) on the fixed countable family.  These scalar
+coordinates are therefore available for diagonal extraction in the definition of
+\(\Tcrit\).
+
 Choosing \(F(\xi)=\xi\cdot e_k\) recovers the linear barycenter equation;
 choosing more general \(F\) and passing to the Young-measure limit using
 \Cref{def:young-measure-convergence} gives the exact weak identity
@@ -7378,13 +7582,16 @@ right-hand side flux contributions
    R^{-1}\int|V|^2 U\cdot\nabla\phi ,\qquad
    2R^{-1}\int(\Pi-\pi)V\cdot\nabla\phi
 \]
-appearing in \eqref{eq:log-annular-virial-identity} are compact in the local
-distributional topology and define continuous observables on the closed hull of
-\(\mathcal D\) under the joint time-translation and log-translation flow.
-Equivalently, the hypothesis on legitimate compact observability invoked in
-\Cref{lem:recurrent-virial-equality-reduction} is automatic for realized
-recurrent defects, after either ordinary minimal mesoscopic-scale reduction or
-membership in the affine/parasitic stratum \(\Caff\).
+appearing in \eqref{eq:log-annular-virial-identity} are \emph{not} asserted to
+be continuous for the weak velocity-pressure topology alone.  Instead, on the
+fixed countable rational family of log-windows \((\rho,A)\), these virial,
+dissipation, and pressure-flux quantities are included as scalar coordinates of
+the realized recurrent critical-tail compactification.  Along every realized
+sequence they are uniformly bounded, hence admit simultaneous subsequential
+limits by diagonal extraction.  The resulting coordinate functions are
+continuous by definition on the corresponding compact virial hull.  In the
+strong-compactness subcase, these coordinate limits agree with the ordinary
+annular integrals of the limiting coherent profile.
 \end{lemma}
 
 \begin{proof}
@@ -7408,19 +7615,23 @@ the corresponding integrals are uniformly bounded in \(L^1\).  Local
 dissipation \(\int\phi|\nabla U|^2\) is uniformly bounded along the realizing
 sequence by the local energy inequality of the suitable weak formulation.
 
-Continuity in the local distributional topology is the standard fact that
-each integral is a continuous bilinear pairing of the \(L^\infty\) field
-against a smooth compactly supported test function, with the pressure gauge
-chosen to make \(\Pi-\pi\) locally \(L^{3/2}\)-compact, see
-\Cref{lem:scaled-pressure-compactness-affine}.  The joint time-translation and
-log-translation flow extends these observables to the recurrent hull by
-density.  If at any stage the homogeneous gauge sequence loses compactness,
-\Cref{lem:homogeneous-gauge-compactness} assigns the descendant to \(\Caff\) and
-the assertion is recorded as the affine alternative.  In the complementary
-case the observability hypothesis of
-\Cref{lem:recurrent-virial-equality-reduction} is verified, and the reduction
-provided by the minimal mesoscopic-scale theorem
-\Cref{thm:first-bad-mesoscopic-reduction} closes the diagram.
+These quantities are not claimed to be continuous under weak
+\(L^\infty\)-velocity and distributional-pressure convergence alone: quadratic
+energy is only weakly lower semicontinuous, dissipation is not weakly
+continuous, and the pressure flux requires more than distributional convergence
+against fixed test fields.  Instead, one enlarges the recurrent compactification
+by these bounded scalar coordinates.  Tychonoff compactness and diagonal
+extraction on the countable rational family of \((\rho,A)\) then produce limits
+for all virial coordinates simultaneously.  By construction these coordinate
+maps are continuous on the resulting compact virial hull.  If at any stage the
+homogeneous gauge sequence loses compactness,
+\Cref{lem:homogeneous-gauge-compactness} assigns the descendant to \(\Caff\).
+In the complementary case the observability hypothesis of
+\Cref{lem:recurrent-virial-equality-reduction} is verified by these recorded
+coordinates, and the reduction provided by the minimal mesoscopic-scale theorem
+\Cref{thm:first-bad-mesoscopic-reduction} closes the diagram.  When the annular
+blow-downs converge strongly, the recorded coordinate limits coincide with the
+usual virial integrals of the limiting coherent profile.
 \end{proof}
 
 \begin{lemma}[Recurrent virial equality case and reduction]
@@ -7670,9 +7881,11 @@ profiles, the original log-diffuse defect has no surviving mass outside
 
 \begin{theorem}[Logarithmic escape reduces to hidden-scale compactness]
 \label{thm:log-diffuse-from-hidden-scale}
-Assume \Cref{thm:no-hidden-scale-variance-realized-defects}.  Then every
-nonzero log-diffuse critical-tail defect generated after concentration-set removal
-and affine normalization has a nonzero normalized support profile in
+Assume \Cref{thm:no-hidden-scale-variance-realized-defects}.  Let
+\(\mathcal D\in\Clogdiff\) be a nonzero realized log-diffuse critical-tail
+defect generated after concentration-set removal and affine normalization.
+Then every nonzero log-window normalized support profile of \(\mathcal D\)
+belongs to
 \[
    \Cactive\cup\Caff\cup\Ccohcrit .
 \]
@@ -7681,7 +7894,7 @@ alternatives have been removed, no log-diffuse alternative remains.
 \end{theorem}
 
 \begin{proof}
-Let \(\mathcal D\in\Clogdiff\) be nonzero.  By
+By
 \Cref{lem:log-window-descendant-selection}, nonzero tight log-window
 normalized support profiles exist.  Let \(\widetilde{\mathcal D}\) be any such
 profile.  If this support profile regenerates a
@@ -7705,6 +7918,10 @@ In all cases the log-window normalized support profile lies in the closed exclud
 \[
    \mathcal F:=\Cactive\cup\Caff\cup\Ccohcrit .
 \]
+The set \(\mathcal F\) is closed in the log-window compactification by the
+closedness of the positive-threshold activity observables, the closed
+affine-normalized oscillation functional, and the coherent-tail extraction
+topology used in \Cref{cor:coherent-critical-tail-extraction}.
 By \Cref{lem:renormalized-log-window-heredity}, if every log-window normalized
 support profile of the original log-diffuse defect lies in \(\mathcal F\), then the
 original defect has no surviving mass outside \(\mathcal F\).  Once the concentration,
@@ -7760,6 +7977,10 @@ variance on \(K\) if
    \lim_{\delta\downarrow0}\limsup_{n\to\infty}
    \mathfrak H_K(W_n,\delta)=0 .
 \]
+Because the blow-down is spatial/logarithmic rather than parabolic, the time
+shift \(\theta\) is measured in the centered variable itself; only the spatial
+displacement can later be magnified into a mesoscopic spatial radius by
+multiplication with \(R_n\).
 It has no hidden-scale variance if this holds on every compact macroscopic
 annular cylinder.
 \end{definition}
@@ -7977,19 +8198,12 @@ be a bounded macroscopic blow-down, and suppose that for some
 \[
    \|W_n(\cdot+h_n,\cdot+\theta_n)-W_n\|_{L^3(K)}\ge\eta_0 .
 \]
-Set
+Since \((h_n,\theta_n)\to0\), the time displacement remains inside a uniformly
+finite chain of centered unit time windows.  Only the spatial displacement is
+magnified by the spatial/logarithmic blow-down.  Set
 \[
-   \ell_n:=R_n\bigl(|h_n|+|\theta_n|^{1/2}\bigr).
+   \ell_n:=R_n|h_n|.
 \]
-The observer metric used here is the fixed parabolic metric on covariant
-observer space,
-\[
-   d_{\rm obs}\bigl((h,\theta),(0,0)\bigr)\simeq |h|+|\theta|^{1/2}.
-\]
-Multiplication by \(R_n\) converts this macroscopic observer displacement into
-the corresponding centered spatial/logarithmic tail scale.  This is an
-observer blow-down scale, not a Navier--Stokes parabolic rescaling of the
-centered time variable.
 Then, after passing to a subsequence, exactly one of the following alternatives
 is selected by the ordered priority rule.
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -8005,21 +8219,23 @@ is selected by the ordered priority rule.
 \end{lemma}
 
 \begin{proof}
-Since \((h_n,\theta_n)\to0\), \(\ell_n/R_n\to0\).  First assume
-\(\ell_n\) is bounded.  The two points compared in the original centered
-variables are then connected, on the compact set \(K\), by a uniformly finite
-chain of covariant unit cylinders.  If a unit cylinder in that chain has a
-positive constant-in-time oscillation lower bound, alternative (i) holds.
-Otherwise the spatial quotient oscillation on every cylinder in the chain tends to zero.
+Since \((h_n,\theta_n)\to0\), the time displacement remains inside a uniformly
+finite chain of centered unit time windows, while \(\ell_n/R_n=|h_n|\to0\).
+First assume \(\ell_n\) is bounded.  The two points compared in the original
+centered variables are then connected, on the compact set \(K\), by a
+uniformly finite spacetime chain of covariant unit cylinders.  If a unit
+cylinder in that chain has a positive constant-in-time oscillation lower bound,
+alternative (i) holds.  Otherwise the spatial quotient oscillation on every
+cylinder in the chain tends to zero.
 By \Cref{lem:spacetime-finite-overlap-translation}, the displayed translation
 defect can persist only through a spatially homogeneous time-dependent mode.
 This is alternative (ii).  Thus, if neither (i) nor (ii) occurs,
 \(\ell_n\to\infty\).
 
-In that remaining case \(1\ll\ell_n\ll R_n\).  Cover \(K\) and its translated
-copy by finitely many balls of radius comparable to \(|h_n|+|\theta_n|^{1/2}\)
-in macroscopic variables.  Pulling this cover back to the centered variables
-gives covariant cylinders of radius comparable to \(\ell_n\).  If all such
+In that remaining case \(1\ll\ell_n\ll R_n\).  Pulling back a finite
+macroscopic cover of \(K\cup(K+(h_n,\theta_n))\) gives centered cylinders with
+spatial radius comparable to \(\ell_n\); the time shift \(\theta_n\) contributes
+only a uniformly finite overlap in the centered time variable.  If all such
 cylinders had spatial quotient oscillation below a sufficiently small
 \(\varepsilon_0=\varepsilon_0(\eta_0,K)\), then
 \Cref{lem:spacetime-finite-overlap-translation}, after rescaling the finite
@@ -8059,6 +8275,8 @@ regenerates a unit concentrating observer, reaches \(\Caff\), or gives centers
 \[
    \mathcal A_n(z_n,\rho_n)\ge\varepsilon_0 .
 \]
+In particular, pure time-translation defects are already routed to the first
+two alternatives and do not create a fictitious mesoscopic spatial radius.
 In the last case, let \(r_n\) be the smallest dyadic radius in
 \([1,C\rho_n]\) for which
 \[
@@ -8091,23 +8309,28 @@ Thus \(V_n\) is the ungauged blow-down and \(W_n\) is the affine-normalized
 velocity used to measure non-affine oscillation.  The associated scaled
 pressure is
 \[
-   Q_n(x,s):=r_n^{-1}\Pi_n^{z_n}(r_nx,s),
+   Q_n^{\rm act}(x,s):=r_n^{-1}\Pi_n^{z_n}(r_nx,s),
 \]
-modulo the admissible addition of affine functions of \(x\) and arbitrary
-functions of \(s\).  Affine pressure terms are always paired with the
-corresponding spatially homogeneous velocity gauge in the weak formulation; no
-pointwise time derivative of \(c_n\) is required.
+defined modulo time-only gauges.  For the affine-quotient topology one writes
+\[
+   Q_n^\#(x,s):=Q_n^{\rm act}(x,s)-L_n(x,s),
+   \qquad L_n(x,s)=b_n(s)\cdot x+a_n(s),
+\]
+but this affine subtraction is used only in the quotient topology, not inside
+the local energy inequality.  No pointwise time derivative of \(c_n\) is
+required.
 This is not the Navier--Stokes parabolic scaling.  It is the
 spatial/logarithmic tail blow-down adapted to the centered residual equation.
-The pressure normalization is chosen so that \(\nabla_xQ_n\) is the rescaled
-pressure-gradient term appearing in the centered blow-down equation.
+The actual pressure normalization is chosen so that
+\(\nabla_xQ_n^{\rm act}\) is the rescaled pressure-gradient term appearing in
+the centered blow-down equation.
 \end{definition}
 
 \begin{remark}[First-bad pressure and gauge convention]
 \label{rem:first-bad-pressure-gauge-rule}
 Throughout the minimal mesoscopic-scale argument, all distributional equations,
 pressure Poisson equations, and local energy inequalities are written for the
-ungauged field \(V_n\) and its genuine scaled pressure \(Q_n\).  The field
+ungauged field \(V_n\) and its genuine scaled pressure \(Q_n^{\rm act}\).  The field
 \(W_n=V_n-c_n(s)\) is used only for quotient quantities: spatial oscillation,
 Young measures, and variance after the homogeneous gauge sequence has either
 compactified in time or has been assigned to the affine/parasitic stratum
@@ -8119,7 +8342,7 @@ has already been obtained.
 
 \begin{lemma}[Minimal-scale blow-down equation]
 \label{lem:first-bad-blowdown-equation}
-Let \(V_n,W_n,Q_n,c_n\) be the minimal-scale blow-downs of
+Let \(V_n,W_n,Q_n^{\rm act},c_n\) be the minimal-scale blow-downs of
 \Cref{def:first-bad-spatial-blowdown}.  On every compact cylinder
 \(K\Subset\mathbb R^3\times\mathbb R\), \(V_n\) and \(W_n\) are
 divergence-free, \(\|V_n\|_{L^\infty(K)}\le M\),
@@ -8129,7 +8352,7 @@ divergence-free, \(\|V_n\|_{L^\infty(K)}\le M\),
    -r_n^{-2}\Delta V_n
    +\frac12x\cdot\nabla V_n+\frac12V_n
    +r_n^{-1}(V_n\cdot\nabla)V_n
-   +\nabla Q_n
+   +\nabla Q_n^{\rm act}
    =0
 \end{equation}
 in distributions.  The affine-normalized field \(W_n=V_n-c_n(s)\) is used for
@@ -8139,7 +8362,7 @@ the quotient sense made precise in
 and no \(L^{3/2}_{\loc}\) affine pressure for \(W_n\) is assumed.
 Moreover
 \begin{equation}\label{eq:first-bad-pressure-poisson}
-   -\Delta Q_n
+   -\Delta Q_n^{\rm act}
    =
    r_n^{-1}\partial_i\partial_j
    \bigl(V_{n,i}V_{n,j}\bigr)
@@ -8162,9 +8385,9 @@ time is not rescaled,
    =
    r_n^{-1}(V_n\cdot\nabla_x)V_n .
 \]
-If \(Q_n=r_n^{-1}\Pi_n^{z_n}(r_nx,s)\), then
+If \(Q_n^{\rm act}=r_n^{-1}\Pi_n^{z_n}(r_nx,s)\), then
 \[
-   \nabla_xQ_n=(\nabla_y\Pi_n^{z_n})(r_nx,s).
+   \nabla_xQ_n^{\rm act}=(\nabla_y\Pi_n^{z_n})(r_nx,s).
 \]
 Substituting these identities gives the scaled equation for \(V_n\).  We do not
 treat \(W_n=V_n-c_n(s)\) as carrying an ordinary pressure unless the gauges have
@@ -8185,10 +8408,10 @@ original blow-up sequence in the sense of
 \[
    V_n(x,s)=U_n^{z_n}(r_nx,s),
    \qquad
-   Q_n(x,s)=r_n^{-1}\Pi_n^{z_n}(r_nx,s),
+   Q_n^{\rm act}(x,s)=r_n^{-1}\Pi_n^{z_n}(r_nx,s),
 \]
 be the minimal-scale spatial/logarithmic blow-downs of
-\Cref{def:first-bad-spatial-blowdown}.  Then \((V_n,Q_n)\) satisfy the local
+\Cref{def:first-bad-spatial-blowdown}.  Then \((V_n,Q_n^{\rm act})\) satisfy the local
 energy inequality associated to
 \eqref{eq:first-bad-scaled-equation} on every relatively compact spacetime
 domain \(K\Subset\mathbb R^3\times\mathbb R\): for every nonnegative
@@ -8207,7 +8430,7 @@ domain \(K\Subset\mathbb R^3\times\mathbb R\): for every nonnegative
    &\quad
    +r_n^{-1}\!\iint
    \frac{|V_n|^2}{2}V_n\cdot\nabla\phi\,dx\,ds
-   +\iint Q_n V_n\cdot\nabla\phi\,dx\,ds .
+   +\iint Q_n^{\rm act} V_n\cdot\nabla\phi\,dx\,ds .
 \end{aligned}
 \end{equation}
 In particular,
@@ -8278,20 +8501,21 @@ For the convective and pressure-flux terms,
    \tfrac{|V_n|^2}{2}V_n\cdot\nabla_x\phi\,dx\,ds
    +\iint Q_nV_n\cdot\nabla_x\phi\,dx\,ds ,
 \]
-using \(Q_n=r_n^{-1}\Pi_n^{z_n}(r_nx,s)\),
+using \(Q_n^{\rm act}=r_n^{-1}\Pi_n^{z_n}(r_nx,s)\),
 \(\nabla_y\Phi=r_n^{-4}\nabla_x\phi(\cdot/r_n,\cdot)\), and
 \(dy=r_n^3dx\).  Substituting
 all changes into \eqref{eq:centered-local-energy-original} gives
 \eqref{eq:blow-down-local-energy}.
 
 The uniform bound \eqref{eq:blow-down-local-energy-bound} follows from the
-\(L^\infty\) bounds \(|V_n|\le M\), the local \(L^{3/2}\)-pressure compactness
-in \Cref{lem:first-bad-pressure-compactness}, H\"older's inequality on the
+\(L^\infty\) bounds \(|V_n|\le M\), the actual-pressure compactness modulo
+time-only gauges recorded in
+\Cref{lem:actual-pressure-minimal-scale-energy}, H\"older's inequality on the
 compact support of \(\phi\), and the explicit dependence of the right-hand
 side on \(\|\phi\|_{C^2}\), \(|K|\), and \(r_n\).  Since \(r_n\to\infty\), the
 viscous and convective terms carry the vanishing factors \(r_n^{-2}\) and
-\(r_n^{-1}\).  After passing to the pressure-gauge subsequence supplied by
-\Cref{lem:first-bad-pressure-compactness} and to the bounded-velocity
+\(r_n^{-1}\).  After passing to the time-only pressure-gauge subsequence
+supplied by \Cref{lem:actual-pressure-minimal-scale-energy} and to the bounded-velocity
 subsequence, the remaining drift and pressure-flux terms pass to their
 distributional limits.  This is the local energy identity used in the proof of
 \Cref{lem:first-bad-young-variance}.
@@ -8299,16 +8523,21 @@ distributional limits.  This is the local energy identity used in the proof of
 
 \begin{lemma}[Minimal-scale quotient formulation]
 \label{lem:first-bad-quotient-formulation}
-Let \(V_n,W_n,c_n,Q_n\) be as in
+Let \(V_n,W_n,c_n,Q_n^{\rm act},Q_n^\sharp\) be as in
 \Cref{lem:first-bad-blowdown-equation}.  The minimal-scale analysis uses the
 following quotient formulation.
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item The distributional equation and local energy inequality are always
-   applied to the ungauged field \(V_n\) and its pressure \(Q_n\).
+   applied to the ungauged field \(V_n\) and its actual pressure
+   \(Q_n^{\rm act}\), modulo time-only gauges.
    \item The affine-normalized field \(W_n=V_n-c_n(s)\) is used only for
    oscillation functionals and Young measures, which are invariant under
    spatially homogeneous shifts after the gauge sequence is either compact or
    assigned to \(\Caff\).
+   \item The affine-quotient pressure \(Q_n^\sharp=Q_n^{\rm act}-L_n\), with
+   \(L_n(x,s)=b_n(s)\cdot x+a_n(s)\), is used only in the quotient topology
+   after the affine component has either been routed to \(\Caff\) or discarded
+   from the non-affine quotient description.
    \item If \(c_n\) is not compact in \(L^3_{\loc}\) in time, the homogeneous
    gauge sequence itself generates an affine/parasitic descendant.  If
    \(c_n\to c\) strongly in \(L^3_{\loc}\), all Young-measure variances and
@@ -8316,8 +8545,8 @@ following quotient formulation.
    translation of the generated Young measures.
 \end{enumerate}
 Thus the symbol ``affine pressure paired with \(c_n\)'' means a quotient
-functional, not an asserted \(L^{3/2}_{\loc}\) pressure unless the time
-regularity of \(c_n\) has been separately proved.
+functional, not an asserted \(L^{3/2}_{\loc}\) pressure inside the local energy
+inequality unless the time regularity of \(c_n\) has been separately proved.
 \end{lemma}
 
 \begin{proof}
@@ -8494,10 +8723,14 @@ paired with the spatially homogeneous parasitic velocity mode, and the scalar
 
 For natural-scale Seregin profiles, terminal profiles, exact covariant
 descendants, and genuine parabolic concentrating descendants, \(\kappa=1\).
-For spatial/logarithmic blow-down limits with scale \(r_n\to\infty\) or
-\(R_n\to\infty\), \(\kappa=0\), because the finite-\(n\) representatives have
-coefficient \(r_n^{-1}\) or \(R_n^{-1}\).  Outside the affine/parasitic
-stratum \(\Caff\), the representative is taken with \(\beta=0\).
+For finite spatial/logarithmic blow-down representatives, the non-affine Riesz
+part carries coefficient \(r_n^{-1}\) or \(R_n^{-1}\).  For their limiting
+blow-down profiles, \(\kappa=0\).  Outside the affine/parasitic
+stratum \(\Caff\), the representative is taken with \(\beta=0\).  In
+particular, the actual minimal-scale pressure \(Q_n^{\rm act}\) used in the
+local energy inequality carries only the scaled Riesz part and time gauges; the
+affine term \(\beta(s)\cdot y\) appears only after passing to an affine-quotient
+representative.
 \end{proposition}
 
 \begin{proof}
@@ -8507,9 +8740,9 @@ representative and its covariance, recorded in
 harmonic pressure remainders in normalized limits, with the limiting
 coefficient tracked explicitly, is
 \Cref{lem:local-harmonic-remainders-affine}.  Under the spatial/logarithmic
-blow-down \(x\mapsto r_nx\), the pressure is normalized as
+blow-down \(x\mapsto r_nx\), the actual pressure is normalized as
 \[
-   Q_n(x,s)=r_n^{-1}\Pi_n(r_nx,s),
+   Q_n^{\rm act}(x,s)=r_n^{-1}\Pi_n(r_nx,s),
 \]
 so the non-affine Riesz part is
 \[
@@ -8644,16 +8877,17 @@ the second term tends to zero by weak-* convergence in \(L^\infty(K)\).
 
 \begin{lemma}[Pressure compactness at a minimal mesoscopic scale]
 \label{lem:first-bad-pressure-compactness}
-Let \(Q_n\) be as in \Cref{lem:first-bad-blowdown-equation}.  Assume in
+Let \(Q_n^\#\) be the affine-quotient pressures associated to the actual scaled
+pressures \(Q_n^{\rm act}\) from \Cref{lem:first-bad-blowdown-equation}.  Assume in
 addition the \emph{normalized whole-space Riesz-pressure hypothesis}: each
-\(Q_n\) is the scaled whole-space Riesz-pressure representative, with
+\(Q_n^{\rm act}\) is the scaled whole-space Riesz-pressure representative, with
 blow-down coefficient \(r_n^{-1}\), of the minimal-scale rescaled solution,
-normalized modulo the affine pressure
-gauges and modulo time-only functions in the sense of
-\Cref{def:pressure-gauge-affine-quotient} and the local pressure atlas
+normalized modulo time-only functions in the sense of the local pressure atlas
 imported in \Cref{thm:imported-setup-results}\,(3); equivalently, each
-\(Q_n\) is the canonical normalized representative produced by
-\Cref{lem:local-pressure-decomposition} after subtracting affine gauges.
+\(Q_n^{\rm act}\) is the canonical scaled representative produced by
+\Cref{lem:local-pressure-decomposition} before affine subtraction, and
+\(Q_n^\#\) is obtained from \(Q_n^{\rm act}\) only after passing to the affine
+quotient topology.
 For every compact cylinder \(K\Subset\mathbb R^3\times\mathbb R\), exactly
 one of the following holds:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -8662,13 +8896,13 @@ one of the following holds:
    \item after discarding those affine gauges in the affine-normalized quotient,
    there exists a pressure limit \(Q\) such that
 \[
-   Q_n\to Q
+   Q_n^\#\to Q
    \qquad\hbox{strongly in }L^{3/2}(K).
 \]
    In fact, in the non-affine quotient one may take \(Q=0\).  Consequently, if
    \(W_n\rightharpoonup^\ast \bar W\) in \(L^\infty_{\loc}\), then
 \[
-   Q_nW_n\rightharpoonup Q\bar W
+   Q_n^\#W_n\rightharpoonup Q\bar W
    \qquad\hbox{in distributions on }K .
 \]
 \end{enumerate}
@@ -8683,6 +8917,62 @@ pressure converges strongly to \(0\) in \(L^{3/2}(K)\).  Strong convergence of
 the pressure and weak-* convergence of the uniformly bounded velocity give the
 product convergence in distributions by
 \Cref{lem:pressure-velocity-product-convergence}.
+\end{proof}
+
+\begin{lemma}[Actual pressure in the minimal-scale energy inequality]
+\label{lem:actual-pressure-minimal-scale-energy}
+In the minimal-scale blow-down argument, the local energy inequality is always
+applied to the ungauged field \(V_n\) and the actual scaled pressure
+\(Q_n^{\rm act}\), modulo time-only gauges.  Exactly one of the following
+holds:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the affine pressure/velocity component produces a retained
+affine-parasitic descendant, hence the profile is assigned to \(\Caff\);
+\item after time-only gauge normalization, the actual non-affine pressure
+satisfies
+\[
+   Q_n^{\rm act}-a_n(s)\to0
+   \qquad\text{strongly in }L^{3/2}_{\rm loc},
+\]
+and the pressure flux in the local energy inequality satisfies
+\[
+   Q_n^{\rm act}V_n \to 0
+   \qquad\text{in distributions}.
+\]
+\end{enumerate}
+No spatially affine pressure subtraction is used inside the local energy
+inequality unless its contribution has first been routed to \(\Caff\).
+\end{lemma}
+
+\begin{proof}
+The actual scaled pressure \(Q_n^{\rm act}=r_n^{-1}\Pi_n^{z_n}(r_n\cdot,s)\)
+is the pressure entering \eqref{eq:first-bad-scaled-equation} and the local
+energy inequality.  Its non-affine part is the scaled whole-space Riesz
+pressure with coefficient \(r_n^{-1}\), so the BMO/John--Nirenberg estimate in
+\Cref{lem:scaled-pressure-compactness-affine} implies strong
+\(L^{3/2}_{\rm loc}\)-compactness modulo time-only gauges, with limit zero, on
+every compact cylinder.  If an affine pressure/velocity mode survives after the
+quotient normalization, then by definition that mode is routed to \(\Caff\),
+which is alternative \textup{(i)}.
+
+In the complementary case there are measurable time gauges \(a_n(s)\) such
+that
+\[
+   Q_n^{\rm act}-a_n(s)\to0
+   \qquad\hbox{strongly in }L^{3/2}_{\rm loc}.
+\]
+Because \(V_n\) is uniformly bounded in \(L^\infty_{\loc}\),
+\((Q_n^{\rm act}-a_n(s))V_n\to0\) in distributions by
+\Cref{lem:pressure-velocity-product-convergence}.  The time-only gauge itself
+does not contribute to the local energy flux, since for every compactly
+supported \(\phi\),
+\[
+   \iint a_n(s)V_n\cdot\nabla\phi
+   =-\iint a_n(s)\phi\,\nabla\cdot V_n=0.
+\]
+Thus the pressure flux is determined by the actual non-affine pressure alone and
+converges to zero in the non-affine quotient.  This is alternative
+\textup{(ii)}.
 \end{proof}
 
 \begin{lemma}[Homogeneous gauges: compactness modulo the affine stratum]
@@ -8844,7 +9134,10 @@ Letting \(\varepsilon\downarrow0\) gives the claimed renormalized identity.
 
 \begin{lemma}[Barycenter equation and variance inequality]
 \label{lem:first-bad-young-variance}
-Let \(V_n,W_n,Q_n,c_n\) be a minimal-scale blow-down.  Then either the sequence has
+Let \(V_n,W_n,Q_n^{\rm act},Q_n^\#,c_n\) be a minimal-scale blow-down, where
+\(Q_n^{\rm act}\) is the actual scaled pressure entering
+\eqref{eq:first-bad-scaled-equation} and \(Q_n^\#\) is its affine-quotient
+representative.  Then either the sequence has
 a retained affine/parasitic descendant in \(\Caff\), or, after passing to a
 subsequence, \(c_n\to c\) strongly in \(L^3_{\loc}\),
 \[
@@ -8885,16 +9178,16 @@ standard consequences of the uniform \(L^\infty_{\loc}\) bound.  Testing
 \eqref{eq:first-bad-scaled-equation} against a compactly supported
 divergence-free vector field, the viscous term is bounded by
 \[
-   Cr_n^{-2}\|W_n\|_{L^\infty},
+   Cr_n^{-2}\|V_n\|_{L^\infty},
 \]
 and the nonlinear term by
 \[
    Cr_n^{-1}\|V_n\|_{L^\infty}^2.
 \]
-Both tend to zero.  The pressure compactness in
-\Cref{lem:first-bad-pressure-compactness} gives either a retained descendant in
-\(\Caff\), or the pressure gradient limit in the
-affine-normalized quotient.
+Both tend to zero.  The quotient-pressure compactness in
+\Cref{lem:first-bad-pressure-compactness} applied to \(Q_n^\#\) gives either a
+retained descendant in \(\Caff\), or a quotient pressure limit \(Q\) whose
+gradient enters the affine-normalized quotient equation.
 Thus \(\bar V\) satisfies the coherent transport equation.  Since
 \(\bar W=\bar V-c(s)\), passing from \(\bar V\) to \(\bar W\) changes only the
 spatially homogeneous quotient component.  We do not differentiate \(c\) as a
@@ -8909,13 +9202,20 @@ The appropriate form is the scaled suitable inequality of
 \Cref{lem:local-energy-blow-down}, applied to nonnegative compactly supported
 test functions.  This avoids using a formal pointwise multiplication of the
 scaled equation by \(V_n\).  There is no affine pressure work term in this
-inequality; the homogeneous gauge has not been subtracted.  In
+inequality; the homogeneous gauge has not been subtracted.  The local energy
+inequality is applied to \(V_n\) with the actual pressure
+\(Q_n^{\rm act}\), not with the affine-quotient representative.  By
+\Cref{lem:actual-pressure-minimal-scale-energy}, either the affine pressure
+component has already routed the sequence to \(\Caff\), or
+\(Q_n^{\rm act}\to0\) strongly in \(L^{3/2}_{\rm loc}\) after time-only gauges.
+In the latter case the pressure flux converges distributionally to
+\(\divergence(Q\bar V)\), with \(Q=0\) in the non-affine quotient.  In
 \eqref{eq:blow-down-local-energy}, the viscous diffusion and nonlinear-flux
 terms vanish in the limit because of the factors \(r_n^{-2}\) and
 \(r_n^{-1}\), while the dissipation term is nonnegative and may be dropped.
-The strong pressure convergence gives
+The strong actual-pressure convergence modulo time-only gauges gives
 \[
-   \divergence(Q_nV_n)\to\divergence(Q\bar V).
+   \divergence(Q_n^{\rm act}V_n)\to\divergence(Q\bar V).
 \]
 Therefore
 \[
@@ -8997,11 +9297,16 @@ the substitution \(x=e^{T/2}x'\), \(s=s'+T\) (Jacobian \(e^{3T/2}\)),
 
 \emph{Step 3: monotonicity in \(T\).}  Fix \(\psi\ge 0\) smooth and compactly
 supported.  A direct computation using the chain rule shows that
-\(\frac{d}{dT}\mathcal S_T\psi=-\widetilde L^\ast(\mathcal S_T\psi)\) where
-\(\widetilde L^\ast=-\partial_s-\frac12 x\cdot\nabla-\frac32\); equivalently,
+\[
+   \frac{d}{dT}\mathcal S_T\psi
+   =
+   \widetilde L^\ast(\mathcal S_T\psi)
+\]
+where \(\widetilde L^\ast=-\partial_s-\frac12 x\cdot\nabla-\frac32\).
+Therefore
 \[
    \frac{d}{dT}\langle G,\mathcal S_T\psi\rangle
-   =\langle G,-\widetilde L^\ast(\mathcal S_T\psi)\rangle
+   =\langle G,\widetilde L^\ast(\mathcal S_T\psi)\rangle
    =\langle \widetilde L G,\mathcal S_T\psi\rangle .
 \]
 Since \(\mathcal S_T\psi\ge 0\) and \(\widetilde L G\le 0\) distributionally by
@@ -9089,6 +9394,12 @@ concentration alternative is regenerated and the descendant lies in \(\Cactive\)
 consider the case in which unit concentration has been removed at all fixed positive
 thresholds.
 
+By construction, this theorem is invoked only after
+\Cref{lem:translation-defect-to-bad-radius,lem:h2-failure-first-bad-scale}
+have already produced a genuine spatial mesoscopic scale
+\(1\ll r_n\ll R_n\); pure time-translation defects were routed earlier to
+regenerated concentration or to the affine/parasitic stratum.
+
 Form the minimal-scale blow-down \(W_n\) of
 \Cref{def:first-bad-spatial-blowdown}.  By
 \Cref{lem:first-bad-strong-compactness}, either the affine/parasitic stratum
@@ -9146,8 +9457,9 @@ representative.  In the
 third alternative,
 \Cref{thm:first-bad-mesoscopic-reduction} gives a descendant in
 \(\Cactive\cup\Caff\cup\Ccohcrit\).  The concentration case again contradicts
-concentration-set removal; the affine case is removed by
-\Cref{thm:oscillatory-entry-normalization} by the same routing argument; and
+concentration-set removal; the affine case is routed by
+\Cref{thm:oscillatory-entry-normalization} to \(\Caff\), hence it is not a
+retained normalized representative; and
 the coherent critical-tail case is closed by
 \Cref{cor:coherent-critical-tail-branch-closure}.  Thus all
 alternatives are impossible, and hidden-scale variance cannot fail.
@@ -9271,15 +9583,24 @@ pressure gauges.  On fixed annular cylinders use the exact blow-down map of
    W_n(x,s)=V_n(x,s)-c_n(s),
 \]
 with \(\widetilde U_n=\calR_{z_n}U_n\).
-The uniform bound \(\|U_n\|_{L^\infty}\le M\) gives weak-* compactness of
-\(W_n\) in \(L^\infty_{\rm loc}\), and the fundamental theorem of Young
+By \Cref{lem:bounded-velocity-gauges-blowdown}, the affine-normalized gauges
+may be chosen with \(|c_n(s)|\le M\) on compact time intervals.  Hence
+\[
+   |W_n|\le 2M
+\]
+on every selected macroscopic cylinder, and Banach--Alaoglu gives weak-* compactness of
+\(W_n\) in \(L^\infty_{\rm loc}\).  The fundamental theorem of Young
 measures gives, after passing to a further subsequence, a barycenter
 \(\bar W\) and Young measure \(\mathcal Y_{x,s}\).  If the sequence is strongly
 compact in \(L^3_{\rm loc}\), then \(\mathcal Y_{x,s}=\delta_{\bar W(x,s)}\);
 otherwise \(\mathcal Y\) records the unresolved oscillation defect.  If the
 defect is not tight in any fixed logarithmic annulus, the escaping logarithmic
 mass is recorded by \(\Lambda\).  These alternatives are exhaustive and define
-an element of \(\Tcrit\).  Since the normalized defect mass is one,
+an element of \(\Tcrit\).  The pressure-defect coordinates
+\(\mathscr P_{n,F}[\psi]\), the viscous-defect coordinates
+\(\mathscr D_{n,F}[\psi]\), and, in the realized recurrent setting, the
+virial coordinates are extracted simultaneously on the fixed countable dense
+families entering the compactification.  Since the normalized defect mass is one,
 \(\mathcal T\ne0\).
 
 It remains to identify the equation satisfied by the barycenter.  The ungauged
@@ -9660,29 +9981,13 @@ condition holds.  If this domain condition failed, the window would already
 belong to an exterior/diffuse or noncompact branch and would not be an input to
 bounded-origin realization.
 
-We first check that the same gauges which realize the annular coherent tail are
-bounded on compact time intervals.  Fix a compact interval \(I\) and use the
-annulus \(1<|x|<2\).  The weak-\(*\) \(L^\infty\) convergence on
-\(\{1<|x|<2\}\times I\) implies, after discarding finitely many \(n\), that
+By \Cref{lem:bounded-velocity-gauges-blowdown}, the affine-normalized blow-down
+may be represented by gauges satisfying
 \[
-   \|W_n\|_{L^\infty(\{1<|x|<2\}\times I)}\le C_I .
+   |c_n(s)|\le M
 \]
-For a.e. \(s\in I\), if \(|c_n(s)|>M+C_I\), then for every
-\(x\) with \(1<|x|<2\),
-\[
-   |\widetilde U_n(R_nx,s)-c_n(s)|
-   \ge |c_n(s)|-M>C_I,
-\]
-contradicting the preceding \(L^\infty\) bound.  Hence
-\[
-   |c_n(s)|\le M+C_I
-   \qquad\hbox{for a.e. }s\in I .
-\]
-This argument keeps the annular representative fixed.  The bounded-gauge lemma
-above shows, in addition, that the affine-normalized construction may always be
-started with bounded canonical gauges.
-
-Therefore, on every full macroscopic cylinder
+for a.e. \(s\) on every compact time interval, without increasing the
+oscillation functional.  Hence on every full macroscopic cylinder
 \[
    K_{R,I}:=B_R(0)\times I,
 \]
@@ -9690,9 +9995,12 @@ one has
 \[
    |W_n(x,s)|
    \le |\widetilde U_n(R_nx,s)|+|c_n(s)|
-   \le 2M+C_I
+   \le 2M .
 \]
-for a.e. \((x,s)\in K_{R,I}\).  The domain realization dichotomy
+Thus Banach--Alaoglu gives a weak-\(*\) \(L^\infty_{\rm loc}\) limit on full
+cylinders, including cylinders meeting \(x=0\).
+
+The domain realization dichotomy
 \Cref{lem:critical-tail-domain-realization-dichotomy} is the hypothesis
 which ensures that \(W_n\) is defined on \(K_{R,I}\) for all sufficiently large
 \(n\).
@@ -9968,7 +10276,11 @@ The only remaining alternative is a critical diffuse tail.  By
 \Cref{thm:critical-tail-compactification-extraction}, it generates a nonzero
 \(\mathcal T\in\Tcrit\).  This contradicts
 \Cref{cor:critical-tail-exclusion-complete}.  Hence no mixed compact--diffuse residual
-profile exists.
+profile exists.  If the mixed configuration were witnessed by an escaping
+retained recentering, \Cref{lem:escaping-retained-recentering-routing} would
+first route that recentering to the appropriate terminal branch; the
+contradiction occurs only after the corresponding branch closure theorem is
+applied.
 \end{proof}
 
 \begin{lemma}[Escaping retained recenterings are routed by the terminal protocol]
@@ -11434,7 +11746,7 @@ arrows are proved in this paper from local estimates:
    &\xrightarrow{\;\hbox{bounded-origin realization + log-hull minimality}\;}
    \varnothing,\\
 \Cgen
-   &\xrightarrow{\;\hbox{critical-tail closure, finite separation, sequence-}L^3\;}
+   &\xrightarrow{\;\hbox{critical-tail closure + terminal concentration analysis}\;}
    \varnothing .
 \end{aligned}
 \]
@@ -11443,7 +11755,7 @@ after affine normalization through the non-affine oscillation functional
 \(\Phi\), is the common contradiction target in the complete ordered
 decomposition.
 
-Equivalently, the final exclusion is the composition of seven ordered steps:
+Equivalently, the final exclusion is the composition of eight ordered steps:
 \begin{enumerate}[label=\textup{(\arabic*)}]
    \item \emph{Entry step:} The setup paper supplies a positive local
    velocity concentration sequence; the endpoint weak Serrin local Type~I bounds
@@ -11478,7 +11790,7 @@ Equivalently, the final exclusion is the composition of seven ordered steps:
    \item \emph{Residual terminal step:} the generic residual is reduced
    by the paired concentration-set decomposition, diffuse-defect compactness,
    diffuse-defect trichotomy, critical-tail compactification, realized
-   critical-tail rigidity, descendant heredity, recurrence for concentration chains, finite
+   critical-tail rigidity, descendant heredity, active-chain exclusion, finite
    separated-family exclusion, and terminal indecomposability.
    \item \emph{Endpoint Liouville step:} a terminally indecomposable
    retained profile is either routed to the affine/parasitic lower stratum

@@ -6,11 +6,12 @@ open Hypostructure.Backends.NavierStokes.ProofSetup
 
 structure ImportedSetupResidualObject where
   contract : SetupResidualInterfaceContract
-  sameNormalizedCenteredObject : Prop := True
-  retainedCompactMass : Prop := True
-  pressureGaugeCompatible : Prop := True
-  validTerminalAncestry : Prop := True
-  deriving Repr
+  sameNormalizedCenteredObject : Prop :=
+    contract.residualExport.chosenState.centered ∧
+      contract.residualExport.chosenState.nonvanishing.invariantWitness
+  retainedCompactMass : Prop := contract.retainsCompactMass
+  pressureGaugeCompatible : Prop := contract.retainsPressureCompatibility
+  validTerminalAncestry : Prop := contract.retainsAncestry
 
 inductive ResidualAlternativeTag where
   | axisymmetric
@@ -19,11 +20,10 @@ inductive ResidualAlternativeTag where
   | affineParasitic
   | criticalTail
   | genericTerminal
-  deriving DecidableEq, Repr, Fintype
+  deriving DecidableEq, Repr
 
 structure ResidualAlternativeState where
   imported : ImportedSetupResidualObject
   tag : ResidualAlternativeTag
-  deriving Repr
 
 end Hypostructure.Backends.NavierStokes.ResidualBranch
