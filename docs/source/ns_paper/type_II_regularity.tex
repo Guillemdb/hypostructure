@@ -86,7 +86,8 @@ classification theorem is used implicitly.  Thin negative drift is closed as an
 independent terminal row by diffuse occupation-state routing.  Branches that
 leave the retained state through selected compactness-package failure are now
 routed to more specific local rows.  Modulation failure, exterior
-concentration, retained active-core loss, and noncanonical carrier/cost failure
+concentration, failure of the retained spacetime activity floor, and
+noncanonical carrier/cost failure
 are not treated as hidden inputs; they are listed as named exits and closed
 by their own local closure theorems.
 \end{abstract}
@@ -1545,8 +1546,9 @@ At \((c,\lambda)=(0,1)\),
 \end{lemma}
 
 \begin{proof}
-First assume \(V\) is smooth.  Differentiating under the integral sign and
-integrating by parts in the \(Y\)-variable gives the displayed formulas.  The
+First assume \(V\) is smooth.  The displayed identities follow from the chain
+rule, rewriting the resulting \(x\)-derivatives as \(Y\)-derivatives, and then
+integrating by parts in the \(Y\)-variable.  The
 factor \(\lambda^{-1}\) appears because
 \[
    \partial_{Y_k}|V(c+\lambda Y)|^3
@@ -1616,72 +1618,66 @@ has rows
 J_\alpha=\bigl(\partial_\lambda \mathcal F_\alpha,\ \partial_{c_1}\mathcal F_\alpha,\
 \partial_{c_2}\mathcal F_\alpha,\ \partial_{c_3}\mathcal F_\alpha\bigr),\quad \alpha=0,\dots,3.
 \]
-Writing \(W_{\rm scl}=V_0+Y\cdot\nn V_0\), one has
+Writing
+\[
+\mathcal J_*:=\mathcal J(0,1;V),\qquad
+\mathcal J_{\lambda,*}:=\mathcal J_{\lambda}(0,1;V),\qquad
+\mathcal J_{c_k,*}:=\mathcal J_{c_k}(0,1;V),
+\]
+and
+\[
+\mathcal M_{j,*}:=\mathcal M_j(0,1;V),\qquad
+\mathcal M_{j,\lambda,*}:=\mathcal M_{j,\lambda}(0,1;V),\qquad
+\mathcal M_{j,c_k,*}:=\mathcal M_{j,c_k}(0,1;V),
+\]
+one has
 \begin{align}
 \partial_\lambda \mathcal F_0(1,0;V)
 &=
-3\int\chi_R|Y|^{-p}|V_0|\,V_0\cdot W_{\rm scl}\,\dd Y,\label{paper2:eq:jac00}\\
+3\mathcal J_*+\mathcal J_{\lambda,*}
+=p\int\chi_R|Y|^{-p}|V_0|^3\,\dd Y
+-\int (Y\cdot\nabla\chi_R)|Y|^{-p}|V_0|^3\,\dd Y,\label{paper2:eq:jac00}\\
 \partial_{c_k}\mathcal F_0(1,0;V)
-&=3\int_{\RR^3}\chi_R |Y|^{-p}|V_0|\,V_0\cdot\partial_kV_0\,\dd Y,\label{paper2:eq:jac0k}\\
+&=\mathcal J_{c_k,*}
+=p\int \chi_R(Y)Y_k|Y|^{-p-2}|V_0(Y)|^3\,dY
+-\int (\partial_k\chi_R)(Y)|Y|^{-p}|V_0(Y)|^3\,dY,\label{paper2:eq:jac0k}\\
 \partial_\lambda \mathcal F_j(1,0;V)
-&=2\int_{\RR^3}Y_j\chi_R\,V_0\cdot W_{\rm scl}\,\dd Y,\label{paper2:eq:jacjlambda}\\
+&=2\mathcal M_{j,*}+\mathcal M_{j,\lambda,*}
+=-\int_{\RR^3}Y_j\bigl(2\chi_R+Y\cdot\nabla\chi_R\bigr)|V_0|^2\,\dd Y,\label{paper2:eq:jacjlambda}\\
 \partial_{c_k}\mathcal F_j(1,0;V)
-&=2\int_{\RR^3}\chi_R Y_j V_0\cdot\partial_kV_0\,\dd Y,\label{paper2:eq:jacjk}
+&=\mathcal M_{j,c_k,*}
+=-\int_{\RR^3}\bigl(\delta_{jk}\chi_R+Y_j\partial_k\chi_R\bigr)|V_0|^2\,\dd Y,\label{paper2:eq:jacjk}
 \end{align}
 for \(j,k=1,2,3\).
 \end{proposition}
 
 \begin{proof}
-Differentiate the formulas in Definition~\ref{paper2:def:gauge-map} at \((\lambda,c)=(1,0)\).
-
-Since \(V_{\lambda,c}(Y)=\lambda V(c+\lambda Y)\),
+By gauge covariance,
 \[
-\partial_\lambda V_{\lambda,c}
- =\lambda^{-1}V_{\lambda,c}+\lambda^{-1}Y\cdot\nabla V_{\lambda,c},\qquad
-\partial_{c_k}V_{\lambda,c}=\lambda\,\partial_kV(c+\lambda Y).
+\mathcal F_0(\lambda,c;V)=\lambda^3\mathcal J(c,\lambda;V)-\Theta_0,
+\qquad
+\mathcal F_j(\lambda,c;V)=\lambda^2\mathcal M_j(c,\lambda;V).
 \]
-At \((1,0)\), \(\partial_\lambda V_{\lambda,c}|_{(1,0)}=V+Y\cdot\nabla V\),
-\(\partial_{c_k}V_{\lambda,c}|_{(1,0)}=\partial_kV\).
-
-For \(\mathcal F_0\), write
+Since \(V\in\mathcal A^{\rm tr,C^1}_{p,R}\),
+\cref{paper2:lem:weighted-gauge-C1-strong-chart} gives the \(C^1\) chart
+derivatives for \(\mathcal J\), and the same strong chart package supplies the
+\(C^1\) derivatives for \(\mathcal M_j\).  Applying the product rule at
+\((c,\lambda)=(0,1)\) yields
 \[
-\mathcal F_0(\lambda,c;V)=\int \chi_R(Y)|Y|^{-p}|V_{\lambda,c}(Y)|^3\,dY-\Theta_0.
+\partial_\lambda\mathcal F_0(1,0;V)=3\mathcal J(0,1;V)+\mathcal J_\lambda(0,1;V),
+\qquad
+\partial_{c_k}\mathcal F_0(1,0;V)=\mathcal J_{c_k}(0,1;V),
 \]
-Derivative in \(\lambda\):
+and
 \[
-\partial_\lambda \mathcal F_0
-\ =\int\chi_R|Y|^{-p}3|V_{\lambda,c}|\,V_{\lambda,c}\cdot\partial_\lambda V_{\lambda,c}\,dY
+\partial_\lambda\mathcal F_j(1,0;V)=2\mathcal M_j(0,1;V)+\mathcal M_{j,\lambda}(0,1;V),
+\qquad
+\partial_{c_k}\mathcal F_j(1,0;V)=\mathcal M_{j,c_k}(0,1;V).
 \]
-Evaluating at \((1,0)\) yields \eqref{paper2:eq:jac00}.
-
-For \(k=1,2,3\), \(c_k\)-derivative of \(\mathcal F_0\) has no cutoff term:
-\[
-\partial_{c_k}\mathcal F_0(1,0;V)
-=\int \chi_R|Y|^{-p}\,3|V|\,V\cdot\partial_kV\,dY,
-\]
-which is \eqref{paper2:eq:jac0k}.
-
-For \(\mathcal F_j\),
-\[
-\mathcal F_j(\lambda,c;V)=\int Y_j\chi_R(Y)\,|V_{\lambda,c}|^2\,dY.
-\]
-Hence
-\[
-\partial_\lambda \mathcal F_j
-=\int 2Y_j\chi_R\,V_{\lambda,c}\cdot\partial_\lambda V_{\lambda,c}\,dY,
-\]
-and at \((1,0)\):
-\[
-\partial_\lambda \mathcal F_j(1,0;V)
-=2\int Y_j\chi_R\,V\cdot W_{\rm scl}\,dY,
-\]
-which is \eqref{paper2:eq:jacjlambda}. Similarly,
-\[
-\partial_{c_k}\mathcal F_j(1,0;V)
-=\int 2Y_j\chi_R\,V\cdot\partial_{c_k}V_{\lambda,c}\big|_{(1,0)}\,dY
-=2\int \chi_RY_jV\cdot\partial_kV\,dY,
-\]
-giving \eqref{paper2:eq:jacjk}.
+The displayed integral formulas are exactly the explicit \((0,1)\)-formulas for
+these chart derivatives.  In particular, the singular-weight first row is read
+through \(\mathcal J_\lambda\) and \(\mathcal J_{c_k}\), not through the raw
+term \(\chi_R|Y|^{-p}|V|V\cdot\partial_kV\).
 \end{proof}
 
 \begin{proposition}[Translation block and Schur-complement invertibility]\label{paper2:thm:quant-jac}
@@ -1727,10 +1723,25 @@ Then \(J(V(\tau))\) is invertible for a.e. \(\tau\in J\), and
 \]
 \end{proposition}
 \begin{proof}
-The entries are finite by \(V(\tau)\in\mathcal A_{p,R}\) and the compact support
-of \(\chi_R\). With the present parameter convention,
-\(\partial_\lambda V_{\lambda,c}|_{(1,0)}=V+Y\cdot\nabla V\). Hence the
-scale entry satisfies the signed transversality bound
+By \cref{paper2:prop:full-jacobian}, the first row is given by the strong-chart
+derivatives
+\[
+\alpha=3\mathcal J(0,1;V(\tau))+\mathcal J_\lambda(0,1;V(\tau)),
+\qquad
+u_\ell=\mathcal J_{c_\ell}(0,1;V(\tau)),
+\]
+and the remaining rows by
+\[
+v_j=2\mathcal M_j(0,1;V(\tau))+\mathcal M_{j,\lambda}(0,1;V(\tau)),
+\qquad
+A_{j\ell}=\mathcal M_{j,c_\ell}(0,1;V(\tau)).
+\]
+Thus the Jacobian is evaluated entirely in the strong chart already built into
+\(\mathcal A^{\rm tr,C^1}_{p,R}\), and no singular derivative of \(V\) under the
+weight is used.  The entries are finite by \(V(\tau)\in\mathcal A_{p,R}\) and the
+compact support of \(\chi_R\).  On the gauge surface,
+\(\mathcal J(0,1;V(\tau))=\Theta_0\).  Hence the scale entry satisfies the
+signed transversality bound
 \[
 \alpha(\tau)=
 p\int\chi_R|Y|^{-p}|V(Y,\tau)|^3\,dY
@@ -1800,14 +1811,17 @@ which there are
 \]
 such that, for a.e. \(\tau\in J\),
 \[
-V(\tau):=V_{\rm pre}^{\lambda(\tau),c(\tau)}\in\mathcal A_{p,R},\qquad
+V(\tau):=V_{\rm pre}^{\lambda(\tau),c(\tau)}
+\in\mathcal A^{\rm tr,C^1}_{p,R},\qquad
 \mathcal F(1,0;V(\tau))=0.
 \]
 The path is quantitatively nondegenerate if the translation-block, annular,
 weighted first-moment, and Schur-complement bounds in
 Proposition~\ref{paper2:thm:quant-jac} hold on \(J\).
-If no such local AC selection exists, or if the quantitative nondegeneracy
-hypotheses fail persistently, the branch lies in the gauge-degenerate,
+If no such local AC selection exists, if the strong chart condition
+\(\mathcal A^{\rm tr,C^1}_{p,R}\) fails, or if the quantitative
+nondegeneracy hypotheses fail persistently, the branch lies in the
+gauge-degenerate,
 multibubble, or cascade alternatives rather than in the retained regime.
 \end{definition}
 
@@ -1827,7 +1841,10 @@ quantitatively nondegenerate, then
 \begin{proof}
 The constraint follows from Lemma~\ref{paper2:lem:gauge-covariance} applied to
 \(V(\tau)=V_{\rm pre}^{\lambda(\tau),c(\tau)}\). The absolute continuity is part
-of Definition~\ref{paper2:def:admissible-gauge-path}. The uniform inverse bound is
+of Definition~\ref{paper2:def:admissible-gauge-path}. The hypotheses of
+\Cref{paper2:thm:quant-jac} are part of the retained nondegenerate regime
+through the strong chart entry test
+\Cref{paper2:lem:strong-gauge-chart-entry-test}. The uniform inverse bound is
 Proposition~\ref{paper2:thm:quant-jac}.
 \end{proof}
 
@@ -2029,20 +2046,31 @@ truncations of the Gateaux gradients and only then passes to the limit.  No
 step uses an \(L^1_x\)-against-\(L^2_x\) pairing with \(\partial_\tau V\).
 \end{proof}
 
-\begin{lemma}[Directional derivatives in the profile variable]\label{paper2:lem:profile-direction}
+\begin{lemma}[Profile and chart direction identities]\label{paper2:lem:profile-direction}
 For \(\mathcal A_\tau=V+Y\cdot\nn V\) and \(\alpha=0,1,2,3\),
 \[
 D_V\mathcal F_\alpha(1,0;V)[\mathcal A_\tau]
-=\partial_\lambda\mathcal F_\alpha(1,0;V),\qquad
-D_V\mathcal F_\alpha(1,0;V)[\partial_kV]
-=\partial_{c_k}\mathcal F_\alpha(1,0;V).
+=\partial_\lambda\mathcal F_\alpha(1,0;V).
 \]
+For the translation directions, the Jacobian entries are read from the strong
+chart of \cref{paper2:prop:full-jacobian}:
+\[
+\partial_{c_k}\mathcal F_0(1,0;V)=\mathcal J_{c_k}(0,1;V),
+\qquad
+\partial_{c_k}\mathcal F_j(1,0;V)=\mathcal M_{j,c_k}(0,1;V)
+\]
+for \(j,k=1,2,3\).  In particular, the singular weighted translation entries in
+the first row are not identified through the raw profile variation
+\(D_V\mathcal F_0(1,0;V)[\partial_kV]\), but through the strong-chart
+derivative \(\mathcal J_{c_k}\).
+
 Indeed, from \(V_{\lambda,c}(Y)=\lambda V(c+\lambda Y)\),
 \[
-\partial_\lambda V_{\lambda,c}\big|_{(1,0)}=V+Y\cdot\nabla V=\mathcal A_\tau,\qquad
-\partial_{c_k}V_{\lambda,c}\big|_{(1,0)}=\partial_kV.
+\partial_\lambda V_{\lambda,c}\big|_{(1,0)}=V+Y\cdot\nabla V=\mathcal A_\tau.
 \]
-Substituting these into the Gateaux formulas from Proposition~\ref{paper2:prop:gauge-C1} gives the two identities.
+Substituting this into the profile derivative formula for \(\mathcal F_\alpha\)
+gives the scale identity.  The translation identities are exactly the chart
+derivatives already computed in \cref{paper2:prop:full-jacobian}.
 \end{lemma}
 
 \begin{theorem}[Modulation system]\label{paper2:thm:mod-sys}
@@ -6570,7 +6598,8 @@ and write
 Then, after passing to a subsequence, exactly one of the following alternatives
 holds:
 \begin{enumerate}[label=\textup{(\roman*)}]
-  \item the loss-of-retained-active-core row occurs on these selected windows;
+  \item the retained spacetime activity floor fails on these selected windows
+  (equivalently, the loss-of-retained-active-core row occurs);
   \item there exist \(R>0\), \(\chi\in C_c^\infty(B_R)\), \(\chi\ge0\), and
   \(\eta>0\) such that
   \[
@@ -6587,7 +6616,7 @@ inner compact renormalized core carrying positive localized CKN velocity mass
 on the time set used in the window analysis.  If no subsequence admitted a
 uniform spacetime \(L^3\) lower bound with one fixed inner cutoff, then after
 shrinking once inside the candidate core every further selected-window
-subsequence would lose the retained active mass.  This is exactly the
+subsequence would lose the retained spacetime activity floor.  This is exactly the
 loss-of-retained-active-core row in the ordered local first-failure ledger.
 Therefore, once that row is excluded, a subsequence exists on which one compact
 inner cutoff and one positive threshold work uniformly on all remaining windows,
@@ -6772,6 +6801,51 @@ This package is a local compact-cylinder statement.  It contains no whole-space
 localized dissipation vanishes.
 \end{definition}
 
+\begin{lemma}[Spacetime active-core floor is the correct retained nonvanishing hypothesis]
+\label{paper5:lem:spacetime-active-core-floor-suffices}
+In the selected compactness package, every downstream use of the retained
+active-core lower bound is implied by the spacetime \(L^3\) floor in
+\cref{paper5:def:selected-scale-collapse-compactness-package}.  More precisely:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item if \(V_n\to V_\infty\) strongly in \(L^3_{\rm loc}\) on a compact
+subcylinder \(Q':=B_r\times J\Subset B_{2R}\times I\), then
+\[
+\int_{Q'} |V_\infty|^3\,dy\,ds\ge \eta_*,
+\]
+provided \(Q'\) is the inner cylinder and \(\eta_*\) is the retained floor from
+item \textup{(iv)} of
+\cref{paper5:def:selected-scale-collapse-compactness-package}; in particular
+\(V_\infty\not\equiv0\) on \(Q'\);
+\item if one passes instead to an occupation-state or Young-state limit, then
+the same retained spacetime \(L^3\) floor yields a positive visible local
+occupation coordinate on \(Q'\);
+\item no later use of the active-core hypothesis requires an a.e.-in-time
+\(L^2\) lower floor once the local routing and compactness theorems are
+formulated with the spacetime \(L^3\) activity coordinates.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part \textup{(a)} is immediate from strong \(L^3\)-convergence on \(Q'\):
+\[
+\int_{Q'}|V_\infty|^3\,dy\,ds
+=
+\lim_{n\to\infty}\int_{Q'}|V_n|^3\,dy\,ds
+\ge \eta_*.
+\]
+For part \textup{(b)}, choose a nonnegative cutoff \(\phi\in C_c^\infty(Q')\)
+that equals \(1\) on a slightly smaller compact subcylinder \(Q''\Subset Q'\).
+Then
+\[
+\int \phi|V_n|^3\,dy\,ds\ge \int_{Q''}|V_n|^3\,dy\,ds,
+\]
+so any occupation-state or Young-state limit carries a positive local mass
+coordinate after shrinking once if necessary.  Part \textup{(c)} is exactly how
+the later compactness and routing arguments use the retained floor: they need a
+nonvanishing spacetime activity signal on some compact window, not an a.e.-time
+\(L^2\) persistence statement.
+\end{proof}
+
 \begin{lemma}[Selected compactness package gives local strong compactness]
 \label{paper5:lem:selected-compactness-aubin-lions}
 Assume the selected scale-collapse compactness package of
@@ -6954,7 +7028,7 @@ inequality, or pressure reconstruction is item \textup{(i)}.  Failure of the
 local selected-window modulation bound is exactly the
 autonomous-modulation or recentering row, giving item \textup{(ii)}.
 
-If the retained active lower floor fails, the selected candidate is not the
+If the retained spacetime activity floor fails, the selected candidate is not the
 retained terminal component.  The terminal local critical-mass routing lemma
 \cref{paper6a:lem:terminal-local-critical-mass-routing} records this as lower
 active-core loss or, when the CKN signal is carried only by pressure, as the
@@ -9871,8 +9945,9 @@ cost, or exits through one of the remaining compact tests.
 \par
 On the retained compact single-core branch, test the finite critical-mass row
 using the compact-window version of
-\cref{paper6a:lem:terminal-local-critical-mass-routing}: lower active mass
-failure means non-retention, and failure of a finite local upper bound produces
+\cref{paper6a:lem:terminal-local-critical-mass-routing}: failure of the
+retained spacetime activity floor means non-retention, and failure of a finite
+local upper bound produces
 a comparable retained label or a named adjacent active label.  Thus failure of
 the finite critical-mass row is recorded as a critical-mass or adjacent local
 alternative, not as a hidden global estimate.  Once the row passes, the
@@ -15153,7 +15228,9 @@ Fix once and for all a canonical dyadic family of descendant cylinders inside th
 unit cylinder.  For each normalized pressure defect \(\pi_j\) arising from the
 nested parent cylinder \(Q_{\rho_j}(z_j)\), record for every dyadic descendant:
 its compactified relative scale-center coordinates inside the parent, the
-rebased velocity/pressure tuple on a fixed model cylinder, and the harmonic jets
+rebased velocity/pressure tuple on a fixed model cylinder, the named failure
+faces for pressure atlas, pressure gauge, pressure reconstruction,
+compact-upper, local-energy, and rough-core breakdown, and the harmonic jets
 of the rebased harmonic remainder on a slightly smaller model cylinder.  The
 closure of this family in the product topology is a compact metrizable
 pressure-defect state space
@@ -15166,8 +15243,9 @@ pressure-defect state space
 \]
 where \(\overline{\mathcal C}_{\rm pres}\) is the compactified relative
 scale-center chart of the descendants, \(\mathfrak O_{\rm pres}\) is the local
-occupation-state space obtained from the compact-cylinder suitable bounds and
-the local pressure atlas on the rebased model cylinder, and
+occupation-state space obtained from the compact-cylinder suitable bounds,
+local energy structure, rough-core data, and the local pressure atlas on the
+rebased model cylinder, together with the corresponding named failure faces, and
 \(\mathfrak H_{\rm pres}\) is the compact harmonic-jet factor supplied by
 interior harmonic estimates.
 
@@ -15232,6 +15310,13 @@ smaller cylinder.  This is exactly the transported
 Calder\'on--Zygmund/harmonic splitting claimed above.
 \end{proof}
 
+In the pressure-defect compactification we use the same dyadic activity ladder
+as in the shell compactification: a nonzero compact local stress or velocity
+source is recorded at the first dyadic level \(\eta_m>0\) and first basis test
+function for which the corresponding local occupation coordinate is positive.
+Thus positive compact source is routed at an all-positive local level, not only
+at the original retained threshold.
+
 \begin{theorem}[Pressure-defect compactification and support transfer]
 \label{paper8:thm:pressure-defect-compactification-support-transfer}
 Let
@@ -15257,7 +15342,8 @@ satisfies exactly one of the following alternatives:
 \item a nonzero local Calder\'on--Zygmund source generated by velocity stress;
 \item a non-affine harmonic tail;
 \item an affine or pure-gauge harmonic pressure profile;
-\item a pressure-atlas, gauge, or pressure-reconstruction failure.
+\item a pressure-atlas, pressure-gauge, pressure-reconstruction,
+compact-upper, local-energy, or rough-core failure face.
 \end{enumerate}
 \end{theorem}
 
@@ -15270,8 +15356,10 @@ for every support point.
 Fix \(\mathfrak p\in\operatorname{supp}\Pi_{\rm pres}\) and let
 \((\widetilde V_m,\widetilde P_m)\) be a realizing rebased suitable sequence on
 a fixed model cylinder.  If \(\mathfrak p\) lies on a compactification face at
-which admissible pressure reconstruction, gauge normalization, or the pressure
-atlas breaks down, then by definition we are in alternative \textup{(iv)}.
+which admissible pressure reconstruction, gauge normalization, the pressure
+atlas, compact-cylinder upper control, local energy, or rough-core control
+breaks down, then by the ordered state-space test we are in alternative
+\textup{(iv)}.
 Hence we may assume that the realizing sequence remains in the represented part
 of the state space.  The support-realization lemma then supplies the rebased
 splitting
@@ -15284,11 +15372,16 @@ harmonic on a slightly smaller model cylinder.  Passing to the limit in the
 occupation-state and harmonic-jet coordinates yields the same splitting for the
 realized support profile.
 
-If the limiting Calder\'on--Zygmund component is nonzero, its source is a
-nontrivial local velocity stress, which is alternative \textup{(i)}.  If the
+If the limiting Calder\'on--Zygmund component is nonzero, then some compact
+occupation coordinate of the local velocity-stress source is positive.  By the
+dyadic activity ladder fixed above, this source is recorded at the first
+positive local level \(\eta_m>0\), so alternative \textup{(i)} occurs at an
+all-positive local level rather than only at the original retained threshold.
+If the
 Calder\'on--Zygmund component vanishes, the realized profile is harmonic on the
 interior cylinder.  A nonzero non-affine harmonic profile is exactly
-alternative \textup{(ii)}, while an affine or pure-gauge harmonic profile is
+alternative \textup{(ii)}, while a pure-gauge harmonic profile or an affine
+harmonic profile after admissible accelerating rebasement is
 alternative \textup{(iii)}.  Because \(\mathfrak p\) belongs to the support of a
 normalized nonzero defect measure, the realized profile cannot vanish
 identically on the model cylinder.  Thus one and only one of
@@ -15362,21 +15455,147 @@ Let \(\pi\) be the normalized diffuse pressure-defect measure.  By
 nonzero support profile of \(\pi\) is realized from the original pressure-only
 sequence and satisfies one of the four alternatives listed there.
 
-If a support profile has nonzero local Calder\'on--Zygmund source, then the
-source is generated by a nontrivial velocity stress.  The fixed-annular stress
-dichotomy produces a velocity carrier, contradicting pressure-only terminality.
+If a support profile has nonzero local Calder\'on--Zygmund source, then
+some compact test in the pressure-defect occupation chart detects a positive
+velocity-stress level.  By the dyadic activity ladder, this is recorded at a
+positive local level \(\eta_m>0\).  The fixed-annular stress dichotomy and the
+local CKN test then produce either a regular annular source or a velocity
+carrier at that positive level.  The regular source is absorbed by the local
+pressure atlas; the carrier case contradicts pressure-only terminality.
 
-If the support profile is harmonic and non-affine after quotienting by
-time-dependent constants and affine gauges, then the far-field harmonic-tail
-row occurs.
+If the support profile is harmonic and remains non-affine after quotienting by
+time-dependent constants and every admissible local accelerating rebasement,
+then the far-field harmonic-tail row occurs.
 
-If the harmonic profile is affine or pure gauge, then it is removed by the
-pressure gauge and cannot carry terminal pressure mass.
+If the realized harmonic profile is spatially constant, it is removed by the
+ordinary pressure gauge.  If it is spatially affine with nonzero linear part,
+then \cref{paper8:lem:affine-harmonic-pressure-absorption} either absorbs that
+affine forcing into the repaired accelerating-center modulation on a smaller
+local cylinder, reducing the harmonic remainder to a time-gauge term, or else
+the branch enters the affine-pressure/modulation failure row.  Thus no terminal
+pressure-only branch can be supported by an untreated affine harmonic profile.
 
-If the pressure gauge, pressure atlas, or compactness needed to make one of
-these conclusions fails, the branch is exactly the pressure-gauge or
-pressure-reconstruction failure row.  Thus no diffuse pressure-only defect is
-terminal.
+If the pressure gauge, pressure atlas, pressure reconstruction, compact upper
+estimates, local energy structure, or rough-core control needed to make one of
+these conclusions fails, the branch is exactly the corresponding named failure
+row.  Thus no diffuse pressure-only defect is terminal.
+\end{proof}
+
+\begin{lemma}[Affine harmonic pressure absorption by local accelerating rebasement]
+\label{paper8:lem:affine-harmonic-pressure-absorption}
+Let \((u,p)\) be a suitable weak solution on a local cylinder
+\(Q:=B_R(x_0)\times I\), and suppose that on a smaller cylinder
+\(Q':=B_{R'}(x_0)\times I'\Subset Q\) the harmonic pressure component has the
+form
+\[
+H(x,t)=a(t)\cdot x+c(t)
+\]
+with \(a,c\in L^1_{\rm loc}(I')\).  Let \(B\in W^{2,1}_{\rm loc}(I';\RR^3)\).
+On every compact subinterval, \(\dot B\) is bounded and absolutely continuous.
+Assume
+\[
+\ddot B(t)=-a(t)
+\qquad\text{a.e. on }I'.
+\]
+Define on
+\[
+\widetilde Q':=\{(y,t):(y+B(t),t)\in Q'\}
+\]
+the rebased fields
+\[
+v(y,t):=u(y+B(t),t)-\dot B(t),
+\qquad
+q(y,t):=p(y+B(t),t)+\ddot B(t)\cdot y.
+\]
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \((v,q)\) is again a suitable weak solution on every compact
+\(\widetilde Q''\Subset\widetilde Q'\);
+\item the transformed harmonic component is spatially constant,
+\[
+\widetilde H(y,t)=a(t)\cdot B(t)+c(t),
+\]
+hence removable by the ordinary pressure gauge modulo functions of time;
+\item all conclusions are local on compact subcylinders.
+\end{enumerate}
+If the repaired gauge/modulation package on the branch does not admit this
+accelerating rebasement, then the first failed interface is the
+affine-pressure/modulation failure row.
+\end{lemma}
+
+\begin{proof}
+Set \(x=y+B(t)\).  Since \(\dot B\) is spatially constant,
+\(\nabla_y\cdot v=\nabla_x\cdot u=0\).  Also
+\[
+\partial_t v
+=\partial_t u(x,t)+\dot B(t)\cdot\nabla_x u(x,t)-\ddot B(t),
+\]
+while
+\[
+(v\cdot\nabla_y)v
+=(u-\dot B)\cdot\nabla_x u
+=u\cdot\nabla_x u-\dot B\cdot\nabla_x u.
+\]
+Therefore
+\[
+\partial_t v+(v\cdot\nabla)v-\Delta v
+=
+\partial_t u+(u\cdot\nabla)u-\Delta u-\ddot B,
+\]
+and, because
+\[
+\nabla_y q(y,t)=\nabla_x p(x,t)+\ddot B(t),
+\]
+the Navier--Stokes equation for \((u,p)\) implies
+\[
+\partial_t v+(v\cdot\nabla)v-\Delta v+\nabla q=0
+\]
+distributionally on \(\widetilde Q'\).
+
+Decompose \(p=p_{\rm loc}+H\) on \(Q'\), with
+\(H(x,t)=a(t)\cdot x+c(t)\).  Then
+\[
+q(y,t)
+=p_{\rm loc}(y+B(t),t)+a(t)\cdot(y+B(t))+c(t)+\ddot B(t)\cdot y.
+\]
+Since \(\ddot B=-a\), the \(y\)-affine part cancels and
+\[
+q(y,t)=p_{\rm loc}(y+B(t),t)+a(t)\cdot B(t)+c(t).
+\]
+Hence the transformed harmonic remainder is spatially constant.  It is therefore
+removable by subtracting a function of time.
+
+It remains to justify suitability.  The transformed test
+\[
+  \psi(x,t):=\phi(x-B(t),t)
+\]
+is compactly supported after shrinking the cylinder, but since
+\(B\in W^{2,1}_{\rm loc}\), it is in general only absolutely continuous in time.
+This is admissible by the same AC-test approximation used for repaired-gauge
+charts.
+
+For completeness, choose smooth functions \(B^\varepsilon\to B\) in
+\(W^{2,1}\) on the compact time interval of \(\widetilde Q''\), with
+\(\dot B^\varepsilon\to\dot B\) uniformly and
+\(\ddot B^\varepsilon\to\ddot B\) in \(L^1\).  Define
+\[
+  \psi^\varepsilon(x,t):=\phi(x-B^\varepsilon(t),t).
+\]
+Then \(\psi^\varepsilon\in C_c^\infty(Q')\) after shrinking once.  Apply the
+local energy inequality for \((u,p)\) to \(\psi^\varepsilon\), perform the
+change of variables \(x=y+B^\varepsilon(t)\), and rewrite the result in terms
+of
+\[
+  v^\varepsilon(y,t):=u(y+B^\varepsilon(t),t)-\dot B^\varepsilon(t),
+  \qquad
+  q^\varepsilon(y,t):=p(y+B^\varepsilon(t),t)+\ddot B^\varepsilon(t)\cdot y.
+\]
+The transport terms generated by the moving center cancel against the constant
+velocity shift and the affine pressure correction.  Passing
+\(\varepsilon\to0\) uses the local finite-energy bounds, the uniform convergence
+of \(\dot B^\varepsilon\), and the \(L^1\)-convergence of
+\(\ddot B^\varepsilon\).  The limit is the local energy inequality for
+\((v,q)\) on \(\widetilde Q''\).
 \end{proof}
 
 \begin{lemma}[Exterior pressure-only concentration is not terminal]
@@ -18257,7 +18476,7 @@ passing to a subsequence:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item the retained terminal component has positive finite local critical
   \(L^3\) mass on the cylinder;
-\item the lower active mass floor fails, so the candidate is not a retained
+\item the retained spacetime activity floor fails, so the candidate is not a retained
   terminal component;
 \item the local \(L^3\) upper bound fails on the compact cylinder, in which
   case the ordered local state space records an additional compact active
@@ -18270,7 +18489,7 @@ In the retained terminal branch only \textup{(i)} remains.
 \end{lemma}
 
 \begin{proof}
-The lower bound in \textup{(i)} is the active local mass floor of
+The lower bound in \textup{(i)} is the active local spacetime mass floor of
 \cref{paper8:thm:active-profile-mass-floor}.  If this floor is absent, the
 candidate frame is not retained by the terminal selection rule, giving
 \textup{(ii)}.
@@ -18326,7 +18545,8 @@ representation alternatives.  Pressure rows are routed by
 \cref{paper8:lem:harmonic-cross-pressure-routing} and by the pressure
 reconstruction stability \cref{paper1:lem:pressure-stability}.  Critical-mass
 rows are routed by
-\cref{paper6a:lem:terminal-local-critical-mass-routing}: a lower-mass failure
+\cref{paper6a:lem:terminal-local-critical-mass-routing}: failure of the
+retained spacetime activity floor
 is not retained, and an upper local \(L^3\)-failure produces a comparable or
 adjacent active label.  Exterior tightness and exterior leakage are routed by
 \cref{paper8:thm:exterior-stratification}.  Local \(H^1\)-loss is recorded as
@@ -18773,7 +18993,8 @@ support-transfer statement.
 \label{paper9:thm:minimal-mesoscopic-extraction}
 Assume the support profiles furnished by
 \cref{paper9:thm:logarithmic-tail-support-transfer} carry no positive compact
-retained local velocity activity at any fixed level.  Then, after passing to a
+retained local velocity activity at any predeclared dyadic ladder level
+\(\eta_m\).  Then, after passing to a
 subsequence, there exists a realized diffuse critical-tail state whose first
 closed local row is minimal among the support profiles.  This first row is one
 of the named local rows below the compact retained single-core branch.
@@ -18792,6 +19013,25 @@ affine/pure-gauge behavior, hidden-scale/scale-collapse behavior, or the
 diffuse coherent critical-tail row.  This realized profile is the required
 minimal mesoscopic extraction.
 \end{proof}
+
+From this point onward, fix once and for all a dyadic activity ladder
+\[
+\eta_m:=2^{-m}\eta_{\rm ref},\qquad m\in\mathbb N,
+\]
+for some \(\eta_{\rm ref}>0\).  Fix also a countable family of nonnegative
+functions \(\{\phi_j\}_{j\ge1}\subset C_c^\infty(Q_{\rm sh})\) with the following
+separation property: for every compact subcylinder \(Q'\Subset Q_{\rm sh}\)
+and every nonzero \(f\in L^1_+(Q')\), there exists \(j\) with
+\(\operatorname{supp}\phi_j\Subset Q'\) and
+\[
+  \int_{Q_{\rm sh}}\phi_j f>0.
+\]
+The local occupation-state coordinates are generated by the integrals
+\[
+  f\mapsto \int \phi_j f.
+\]
+Positive local \(L^3\) mass is recorded at the first basis pair \((j,m)\) for which
+\(\int \phi_j |W|^3\ge \eta_m\).
 
 \begin{theorem}[Young-variance compactness dichotomy for realized diffuse tails]
 \label{paper9:thm:young-variance-strong-compactness}
@@ -18825,7 +19065,7 @@ If the modulation bound fails, the ordered local validation records the
 autonomous-modulation or modulation-driven recentering row, which is one of the
 named lower rows in
 \cref{paper5:lem:selected-compactness-defect-label}.  If the retained active
-spacetime \(L^3\) floor is lost, then the branch enters the loss-of-active-core / pressure-only
+spacetime \(L^3\) floor is lost, then the branch enters the failure-of-retained-spacetime-activity / pressure-only
 critical-mass row, again named in
 \cref{paper5:lem:selected-compactness-defect-label}.  If the upper local
 \(L^3\) rows fail, then
@@ -18844,47 +19084,79 @@ alternative \textup{(ii)}.
 \label{paper9:lem:diffuse-shell-visible-residual}
 Let \((W_n,\widetilde P_n,a_n,b_n)\) be a realized shell-state sequence from
 \cref{paper9:thm:logarithmic-tail-support-transfer} on a fixed unit-shell model
-cylinder, and assume it lies away from the pressure/gauge/local-energy failure
-faces.  Suppose moreover that case \textup{(ii)} of
-\cref{paper9:thm:young-variance-strong-compactness} holds on a compact
-subcylinder \(Q_{2R,I}\), so that after passing to a subsequence
+cylinder \(Q_{\rm sh}\).  Assume that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the branch lies away from the pressure/gauge/local-energy failure faces,
+so the shell realization package supplies the local pressure splitting,
+repaired gauge coordinates, and local energy inequality on compact
+subcylinders of \(Q_{\rm sh}\);
+\item case \textup{(ii)} of \cref{paper9:thm:young-variance-strong-compactness}
+holds on compact subcylinders of \(Q_{\rm sh}\), so that after passing to a
+subsequence
 \[
   W_n\to W_\infty
-  \quad\text{strongly in }L^3(Q_{2R,I}).
+  \quad\text{strongly in }L^3_{\rm loc}(Q_{\rm sh});
 \]
-Set
+\item \(W_\infty\) carries positive local \(L^3\) mass on some compact
+subcylinder \(Q'\Subset Q_{\rm sh}\):
+\[
+\int_{Q'}|W_\infty|^3\,dy\,ds>0.
+\]
+\end{enumerate}
+Then there exists a basis test function \(\phi_j\) from the fixed countable
+local occupation chart on \(Q_{\rm sh}\) such that
+\[
+\liminf_{n\to\infty}\int_{Q_{\rm sh}}\phi_j\,|W_n|^3\,dy\,ds>0.
+\]
+Consequently, after setting
 \[
   U_n:=W_\infty,
   \qquad
-  S_n:=W_n-W_\infty.
+  S_n:=W_n-W_\infty,
 \]
-Then on every smaller compact subcylinder the augmented tuple
+the augmented tuple
 \[
   (W_n,\widetilde P_n,U_n,S_n,a_n,b_n)
 \]
 belongs to the local occupation-state framework of
 \cref{paper6a:lem:l3-profile-extraction-cited,paper6a:lem:critical-mass-decoupling}.
-Any positive nonretained local \(L^3\), pressure, or compactness defect of the
-shell sequence is therefore visible either as a residual coordinate/selected-time
-residual concentration measure in that augmented state space, or as an already
-named pressure/gauge/rough-core failure row.
+Hence every positive nonretained local mass/pressure defect that survives after
+subtracting the strong local limit is visible either as a residual coordinate in
+that augmented state space or as an already named pressure/gauge/rough-core
+failure row.  In particular, the shell branch legitimately enters the augmented
+residual coordinates of \cref{paper6a:thm:local-residual-exhaustion}.
 \end{lemma}
 
 \begin{proof}
+Choose a nonnegative \(\phi\in C_c^\infty(Q_{\rm sh})\) supported in \(Q'\) with
+\[
+\int_{Q_{\rm sh}}\phi|W_\infty|^3\,dy\,ds>0.
+\]
+Strong local \(L^3\)-convergence gives
+\[
+\int \phi|W_n|^3\,dy\,ds\to \int \phi|W_\infty|^3\,dy\,ds>0.
+\]
+Because the augmented local occupation-state topology is built from a fixed
+countable family of nonnegative compact test functions on \(Q_{\rm sh}\), choose
+\(\phi_j\) in that family so that \(\phi_j\) is supported in \(Q'\) and
+\(\int \phi_j|W_\infty|^3>0\).  Then
+\[
+\liminf_{n\to\infty}\int \phi_j|W_n|^3\,dy\,ds>0,
+\]
+which is the required visible occupation coordinate.
+
 By \cref{paper9:thm:logarithmic-tail-support-transfer}, the realized shell
-sequence is a represented local sequence on the fixed model cylinder: it
+sequence is a represented local sequence on the fixed model cylinder and hence
 satisfies the repaired-gauge equation, the local energy inequality, pressure
-reconstruction modulo functions of time, and the compact-cylinder bounds.  Since
-\(U_n\equiv W_\infty\) is constant in \(n\) and
-\(S_n=W_n-W_\infty\to0\) strongly in local \(L^3\), the same compact-cylinder
-estimates place \((W_n,U_n,S_n,a_n,b_n)\) in the augmented local topology of
-\cref{paper6a:lem:l3-profile-extraction-cited} on every smaller compact
-subcylinder.
+reconstruction modulo functions of time, and the compact-cylinder bounds on
+smaller compact windows.  Since \(U_n\equiv W_\infty\) and
+\(S_n=W_n-W_\infty\to0\) strongly in local \(L^3\), the tuple
+\((W_n,\widetilde P_n,U_n,S_n,a_n,b_n)\) belongs to the augmented local
+occupation-state framework on every smaller compact subcylinder.
 
 For the pressure, let \(\widetilde P_\infty^{\rm loc}\) be the local
 Calder\'on--Zygmund pressure generated by \(W_\infty\) on a slightly larger
-compact cylinder.  By
-\cref{paper5:lem:selected-compactness-aubin-lions}, either
+compact cylinder.  By \cref{paper5:lem:selected-compactness-aubin-lions}, either
 \[
   \widetilde P_n-c_{n,R_1}(s)-\widetilde P_\infty^{\rm loc}
   \to0
@@ -18892,42 +19164,56 @@ compact cylinder.  By
 \]
 modulo functions of time, or the branch has already entered the named
 pressure/exterior row.  Thus every surviving local pressure defect is visible in
-the same augmented local state space.
-
-Consequently, if a positive nonretained local diagnostic remains after passing
-to the strong local limit, then on a smaller compact subcylinder it is either a
-nonzero residual coordinate/selected-time concentration measure for \(S_n\), or
-one of the already named pressure/gauge/rough-core failure faces.  This is the
-required compatibility with
-\cref{paper6a:thm:local-residual-exhaustion}.
+the same augmented local state space.  Consequently, if a positive nonretained
+local diagnostic remains after subtracting the strong local limit, then on a
+smaller compact subcylinder it is either a nonzero residual coordinate for
+\(S_n\) in that augmented state space, or one of the already named
+pressure/gauge/rough-core failure faces.  This is exactly the interface needed
+to apply \cref{paper6a:thm:local-residual-exhaustion} on the diffuse shell
+branch.
 \end{proof}
 
-\begin{lemma}[Strong diffuse-tail limits create a named local row]
+\begin{lemma}[Strong diffuse-tail limits create a named row]
 \label{paper9:lem:strong-diffuse-tail-limit-row}
 Let \((W_n,\widetilde P_n)\) be a realized diffuse critical-tail extraction on a
-rebased unit-shell model cylinder, and suppose case \textup{(ii)} of
-\cref{paper9:thm:young-variance-strong-compactness} holds on a compact
-subcylinder \(Q_{2R}\).  Let
+rebased unit-shell model cylinder \(Q_{\rm sh}\), and suppose case \textup{(ii)} of
+\cref{paper9:thm:young-variance-strong-compactness} holds on compact
+subcylinders of \(Q_{\rm sh}\).  Let
 \[
   W_n\to W_\infty
-  \quad\text{strongly in }L^3(Q_{2R}).
+  \quad\text{strongly in }L^3_{\rm loc}(Q_{\rm sh}).
 \]
 Assume that the pressure/gauge/local-energy structure required to test the local
-CKN and bounded-window rows has not already failed.  If
-\(W_\infty\not\equiv0\), then after shrinking to a smaller compact subwindow one
+CKN, bounded-window, and occupation-state rows has not already failed.  If
+\(W_\infty\not\equiv0\), then after shrinking to a smaller compact shell
+subwindow one
 of the following occurs:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \(W_\infty\in L^\infty\) on that compact subwindow, so
 \cref{paper6:lem:bounded-window-local-regularization,paper6:thm:bounded-selected-window-physical-routing}
 route the branch to a named bounded-window/local row;
-\item \(W_\infty\) is not locally bounded on any smaller compact subwindow.
-Then the contrapositive of
+\item \(W_\infty\) has a singular point on that compact subwindow.  Then the
+contrapositive of
 \cref{paper8:thm:terminal-ckn-regularity} yields a compact subcylinder on which
 the local CKN quantity of \((W_\infty,\widetilde P_\infty)\) is positive.  Strong
 local convergence of the velocity and local pressure transfers a positive amount
 of this CKN quantity to \((W_n,\widetilde P_n)\), and
 \cref{paper6a:lem:terminal-local-critical-mass-routing} assigns a compact active,
 pressure, rough-core, or other named adjacent local row;
+\item \(W_\infty\) is regular on the chosen compact subwindow but carries
+positive local \(L^3\) mass that is only visible below the original retained
+activity level.  Then for some basis test function \(\phi_j\) from the fixed
+countable shell occupation chart and some dyadic level \(\eta_m\) from the
+predeclared activity ladder,
+\[
+\int_{Q_{\rm sh}}\phi_j|W_\infty|^3\,dy\,ds\ge \eta_m>0,
+\]
+and strong local \(L^3\)-convergence yields
+\[
+\liminf_{n\to\infty}\int_{Q_{\rm sh}}\phi_j|W_n|^3\,dy\,ds\ge \eta_m/2.
+\]
+Thus the shell support-transfer bookkeeping records a retained carrier at the
+predeclared lower activity level \(\eta_m\);
 \item the pressure/gauge/local-energy structure needed for the preceding tests
 fails on the chosen compact subwindow, in which case the first failed test is an
 already named local row.
@@ -18936,29 +19222,55 @@ already named local row.
 
 \begin{proof}
 Because the realized diffuse support profile is nonzero, there is a compact
-subcylinder of \(Q_{2R}\) on which \(W_\infty\) has positive \(L^3\) mass.  If
-\(W_\infty\) is bounded on a slightly smaller compact subwindow, then
+subcylinder \(Q'\Subset Q_{\rm sh}\) on which \(W_\infty\) has positive \(L^3\)
+mass.  If during passage to the limit the pressure atlas, repaired gauge, or
+local-energy structure breaks on a compact shell window, then the first failed
+row is already one of the named local failure rows.  This is
+alternative \textup{(iv)}.
+
+Assume henceforth that the local suitable structure survives on compact shell
+windows.  If \(W_\infty\) is bounded on a slightly smaller compact subwindow,
+then
 \cref{paper6:lem:bounded-window-local-regularization} applies directly and gives
 alternative \textup{(i)} unless a named remaining-activity row has already been
 detected, in which case we are done anyway.
 
-Assume next that \(W_\infty\) is not locally bounded on any such smaller compact
-subwindow.  If every sufficiently small compact subcylinder had CKN quantity
-below the threshold of \cref{paper8:thm:terminal-ckn-regularity}, then that
-theorem would imply local boundedness of \(W_\infty\), contrary to assumption.
-Hence there is a compact subcylinder on which the local CKN quantity of the
-limit is positive.  By the strong local \(L^3\) convergence and the pressure
-compactness conclusion of \cref{paper5:lem:selected-compactness-aubin-lions}, the
-same positive CKN quantity transfers to \((W_n,\widetilde P_n)\) for all large
-\(n\), unless pressure compactness fails first; such a pressure failure is
-alternative \textup{(iii)}.  In the non-failure case,
+Assume next that \(W_\infty\) is not bounded on the chosen compact shell
+subwindow.  Because a local suitable weak solution has open regular set, there is
+then a singular point on that subwindow.  If every sufficiently small compact
+subcylinder around that point had CKN quantity below the threshold of
+\cref{paper8:thm:terminal-ckn-regularity}, that theorem would imply local
+boundedness of \(W_\infty\), contradiction.  Hence there is a compact
+subcylinder on which the local CKN quantity of the limit is positive.  By the
+strong local \(L^3\) convergence and the pressure compactness conclusion of
+\cref{paper5:lem:selected-compactness-aubin-lions}, the same positive CKN
+quantity transfers to \((W_n,\widetilde P_n)\) for all large \(n\), unless
+pressure compactness fails first; such a pressure failure is
+alternative \textup{(iv)}.  In the non-failure case,
 \cref{paper6a:lem:terminal-local-critical-mass-routing} reads this positive local
 diagnostic as a named compact active/pressure/rough-core/adjacent row.  This is
 alternative \textup{(ii)}.
 
-Finally, if during these local tests the pressure atlas, repaired gauge, or
-local-energy structure breaks, then by definition the first failed row is one of
-the named local failure rows.  This is \textup{(iii)}.
+It remains to treat the case where \(W_\infty\) is regular on a compact shell
+subwindow and hence locally bounded after shrinking, but the bookkeeping of the
+original shell branch has not yet registered activity at the previously retained
+level.  Choose a nonnegative basis test function \(\phi_j\) from the fixed
+countable shell occupation chart, supported in such a subwindow, with
+\(\int \phi_j|W_\infty|^3>0\).  By the dyadic activity ladder there exists
+\(m\) such that
+\[
+0<\eta_m\le \int \phi_j|W_\infty|^3\,dy\,ds.
+\]
+Strong local \(L^3\)-convergence then gives
+\[
+\int \phi_j|W_n|^3\,dy\,ds\to \int \phi_j|W_\infty|^3\,dy\,ds,
+\]
+so \(\int \phi_j|W_n|^3\ge \eta_m/2\) for all large \(n\).  Thus the shell
+support-transfer mechanism records a retained local carrier at the predeclared
+activity level \(\eta_m\).  This is alternative \textup{(iii)}.
+
+Taking the first closed row in the ordered shell/local state space makes the
+four outcomes exclusive.  Therefore one of them occurs.
 \end{proof}
 
 \begin{theorem}[Coherent critical-tail closure]
@@ -18978,10 +19290,13 @@ compactness package fails and we immediately obtain a lower named local row, or
 else \(W_n\) is strongly compact in local \(L^3\) on rebased unit-shell
 windows.  Choose a compact unit-shell subwindow on which the strong local limit
 is nonzero.  By \cref{paper9:lem:strong-diffuse-tail-limit-row}, after shrinking
-that subwindow if necessary, either a named local row already appears, or the
-limit is bounded-window regularizable and any positive activity left outside the
-regularized region is one of the named remaining rows in
-\cref{paper6:lem:bounded-window-local-regularization}.
+that subwindow if necessary, either the limit is locally bounded and the
+bounded-window row closes the branch, or it has a singular point and the local
+critical-mass routing lemma places the branch in one of the already named local
+rows, or a smaller positive dyadic activity level is visible and the shell
+support-transfer bookkeeping records a retained carrier at that predeclared
+level, or the pressure/gauge/local-energy interface fails and gives the
+corresponding named failure row.
 
 If, after subtracting the strong local limit on such a compact subwindow, a
 positive nonretained shell remainder still survives, then
@@ -19552,7 +19867,8 @@ Integrating against \(a_-\) and using
 \label{paper6a:lem:admissible-drift-window-active-core}
 Let \(I_m=[\sigma_m,\sigma_m+1]\) be admissible selected terminal windows in the sense of
 \cref{paper6a:lem:terminal-unit-drift-window-admissibility}\,\textup{(A2)}.
-Then either the loss-of-retained-active-core row occurs, or, after passing to a
+Then either the retained spacetime activity floor fails (equivalently, the
+loss-of-retained-active-core row occurs), or, after passing to a
 subsequence, there are a compact cylinder
 \(Q_{r_*}=B_{r_*}\times I_{r_*}\Subset B_R\times(0,1)\) and \(\eta_*>0\) such
 that the represented sequence on \(I_m\) carries the retained active local mass
@@ -19573,10 +19889,10 @@ pressure/exterior row rather than retained here.
 The retained local critical-mass row in
 \cref{paper6a:lem:terminal-unit-drift-window-admissibility}\,\textup{(A2)} is
 interpreted by \cref{paper6a:lem:terminal-local-critical-mass-routing}.  If the
-lower active mass floor fails, the selected candidate is not a retained active
+retained spacetime activity floor fails, the selected candidate is not a retained active
 component; this is exactly the loss-of-retained-active-core row.
 \par
-If the lower active mass floor does not fail, then
+If the retained spacetime activity floor does not fail, then
 \cref{paper8:thm:active-profile-mass-floor} supplies a positive active local
 spacetime velocity floor on a compact subcylinder of the selected terminal window.  A
 finite cover of the retained compact core and the terminal maximality rule
@@ -19727,9 +20043,10 @@ not a new compact state-space object and cannot be a terminal first label.
 \par
 It remains to classify the retained compact sequence on these same admissible
 windows.  Apply
-\cref{paper6a:lem:admissible-drift-window-active-core}.  If the active-core
-floor is lost, the branch is in \textup{(T1)}.  Otherwise a fixed compact
-subcylinder carries a positive retained active local mass floor, so the
+\cref{paper6a:lem:admissible-drift-window-active-core}.  If the retained
+spacetime activity floor is lost, the branch is in \textup{(T1)}.  Otherwise a
+fixed compact subcylinder carries a positive retained local spacetime mass
+floor, so the
 structural reductions are applicable.
 Apply the minimal active-family extraction and the same-point/separated-point
 reductions given by
@@ -19803,7 +20120,7 @@ the retained perturbative remainder has been formed.
 \par
 Thus no local Type II branch can remain whose first and only unresolved label
 is thin negative drift.  The argument used only finite-window local estimates,
-occupation blocks, the retained active-core floor, and the ordered local
+occupation blocks, the retained spacetime activity floor, and the ordered local
 state-space partition; it did not use a global \(L^3\) bound, a whole-space
 profile decomposition, or a hidden conversion of diffuse drift into thick
 windows.
@@ -20873,8 +21190,9 @@ cylinders all satisfy the fixed lower CKN threshold.  Normalize the activity
 mass on each generation and record for every selected descendant its
 compactified relative scale-center coordinates inside the original bounded
 window, together with the rebased local occupation state on a fixed model
-cylinder and the usual failure faces for representation, pressure, gauge, and
-rough-core breakdown.  After passing to a subsequence in the generation index,
+cylinder and the usual failure faces for representation, pressure atlas, gauge
+chart, compact-upper, local-energy, and rough-core breakdown.  After passing
+to a subsequence in the generation index,
 these normalized tree measures converge weakly-* on a compact metrizable
 reselection state space.
 
@@ -20888,9 +21206,10 @@ fixed local carrier on the original reselection branch.
 \begin{proof}
 The compactified relative scale-center chart is compact by construction, and the
 rebased local-state factor is compact by the same local occupation-state
-compactness used throughout the bounded-window analysis once one records failure
-faces for loss of represented structure.  Hence the normalized tree measures are
-tight and possess weak-* limits.
+compactness used throughout the bounded-window analysis once one records
+failure faces for loss of represented structure, compact-upper control, local
+energy, pressure atlas, gauge chart, and rough-core breakdown.  Hence the
+normalized tree measures are tight and possess weak-* limits.
 
 Let \(\Theta\) be one such limit and let
 \(\mathfrak s\in\operatorname{supp}\Theta\).  Choose nested neighborhoods
@@ -20907,6 +21226,69 @@ property then forces actual descendants from the original tree to satisfy the
 same lower bound for all large \(m\).  Undoing the rebasing sends those
 descendants back to physical subcylinders of the original bounded window, and
 these subcylinders form a fixed local carrier on the reselection branch.
+\end{proof}
+
+\begin{lemma}[Diffuse reselection-tree row is closed]
+\label{paper10:lem:diffuse-reselection-tree-row-closed}
+Let an infinite bounded-window reselection tree be produced after a bounded
+selected-window region has been regularized.  Assume that the tree carries the
+fixed CKN lower threshold at each selected generation, but that no subsequence
+of descendants produces a fixed compact local carrier in the original
+reselection branch.
+
+Then the diffuse reselection-tree alternative is not terminal.  More precisely,
+after passing to the compactified reselection-tree state space of
+\Cref{paper10:lem:reselection-tree-support-realization}, one of the following
+named rows occurs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a representation, pressure atlas, gauge chart, compact-upper,
+  local-energy, or rough-core failure face;
+\item a same-point cascade, scale-collapse, or noncompact exterior row;
+\item a compact local carrier, contradicting the no-fixed-carrier case;
+\item a visible positive residual defect in the augmented local occupation-state
+  coordinates of \Cref{paper6a:thm:local-residual-exhaustion}, hence a
+  named adjacent local row or a retained comparable class already grouped
+  before the bounded-window reselection was declared.
+\end{enumerate}
+Consequently a diffuse bounded-window reselection tree cannot remain as a
+terminal physical Type II branch.
+\end{lemma}
+
+\begin{proof}
+Apply \Cref{paper10:lem:reselection-tree-support-realization}.  The normalized
+tree measures have a weak-* limit on a compact metrizable reselection state
+space, and every support point is realized by actual descendant cylinders from
+the original reselection tree.
+
+If a support point lies on a failure face for representation, pressure atlas,
+gauge chart, compact upper estimates, local energy, or rough-core control, then
+the corresponding named row occurs.  This is alternative \textup{(i)}.
+
+If the realized descendant centers and scales leave every compact relative
+scale-center chart, then the ordered relative scale-center partition gives
+scale-collapse or noncompact exterior behavior.  If they remain at the same
+physical point but form a strict infinite nested chain, the same-point cascade
+row occurs.  This is alternative \textup{(ii)}.
+
+If some realized support point carries positive compact local activity on a
+fixed model cylinder, then the support-realization lemma pulls this activity
+back to a fixed local carrier in the original reselection branch.  This
+contradicts the diffuse/no-fixed-carrier case.  This is alternative
+\textup{(iii)}.
+
+It remains to consider the genuinely diffuse case: the weak-* limit is nonzero,
+but no support point gives a fixed compact carrier and no failure face or
+scale-center boundary row has occurred.  The realized descendant states are
+then genuine local suitable states with the pressure/gauge/local-energy
+interfaces intact.  Their positive normalized defect is visible in the
+augmented local occupation-state coordinates used in
+\Cref{paper6a:thm:local-residual-exhaustion}.  Applying that theorem gives a
+named adjacent local row, unless the defect is a retained comparable class.
+The retained comparable class is impossible here, because comparable retained
+classes are grouped before the bounded-window row is declared and before the
+reselection tree is closed.  Hence only named adjacent rows remain.
+
+Thus the diffuse reselection-tree alternative is not terminal.
 \end{proof}
 
 \begin{lemma}[Bounded-window reselection is well-founded]
@@ -20932,7 +21314,7 @@ multibubble row, same-point cascade row, gauge-degenerate row, rough-core row,
 or retained terminal compact branch;
 \item the reselection process does not terminate finitely.  Then the selected
 centers and scales generate one of the infinite rows: same-point scale cascade,
-scale-collapse row, noncompact exterior row, or diffuse critical-tail row.
+scale-collapse row, noncompact exterior row, or diffuse reselection-tree row.
 \end{enumerate}
 \end{lemma}
 
@@ -20978,11 +21360,13 @@ actual descendant sequence with the corresponding rebased local PDE data.
 If some support point carried positive compact local activity, then the same
 lemma would convert that support point into a fixed local carrier on the
 original reselection branch, contrary to the case under consideration.  Hence
-every realized support profile is diffuse.  Since these support profiles are
-genuine rebased local states, \cref{paper9:lem:diffuse-critical-tail-row-closed}
-applies and identifies the limit as the diffuse critical-tail row, already named
-and closed.  Thus infinite reselection is not an unclassified possibility: it
-is exactly one of the named infinite rows.
+every realized support profile is diffuse.  If every realized support profile
+is diffuse and no fixed compact carrier is produced, then
+\Cref{paper10:lem:diffuse-reselection-tree-row-closed} applies.  It routes the
+diffuse reselection tree either to a named failure face, to a scale-center
+boundary row, or to a visible residual defect in the augmented local
+occupation-state coordinates.  Hence the infinite diffuse reselection tree is
+not terminal.
 \end{proof}
 
 \begin{theorem}[Bounded selected-window branch is physically routed]
@@ -21088,7 +21472,7 @@ limit appears, then \cref{paper3:lem:bounded-window-vmo-pressure} gives the
 local pressure regularity of the bounded limit, and
 \cref{paper10:lem:bounded-window-reselection-well-founded} shows that
 infinite reselection is not left open: it is routed to the same-point cascade,
-scale-collapse, noncompact exterior, or diffuse critical-tail rows.
+scale-collapse, noncompact exterior, or diffuse reselection-tree rows.
 \par
 If a nonzero bounded selected-window limit appears at this stage, the branch is
 not retained in the strict selected-window Type II row by
@@ -21601,6 +21985,7 @@ the existing closure theorems for the named adjacent rows are used.
 \end{proof}
 
 \begin{lemma}[Canonical identity-cost channel is always available on retained compact branches]
+\label{paper6:lem:canonical-identity-cost-available}
 \label{paper6:lem:canonical-cost-channel-available}
 \label{paper6:lem:canonical-cost-available}
 Let \(\omega\) be a retained compact branch that has passed the representation,
@@ -21861,7 +22246,7 @@ compact terminal cylinder the candidate fails to retain an active core in
 the sense of \cref{paper6a:lem:terminal-local-critical-mass-routing}, then
 the candidate enters one of the following closed adjacent rows:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item the lower active mass-floor failure, in which case the candidate is
+\item the retained spacetime activity-floor failure, in which case the candidate is
 not a retained terminal frame by the terminal selection rule and the
 state-space partition records the next available retained frame; if no velocity
 retained frame remains, the original CKN signal is pressure/exterior,
@@ -23028,8 +23413,9 @@ occurs, the branch has the repaired-gauge representation of
 \cref{def:c2-representation}.
 
 On that repaired-gauge branch, apply the local terminal critical-mass routing
-\cref{paper6a:lem:terminal-local-critical-mass-routing}.  A lower-mass failure
-means the candidate was not a retained active core; an upper local
+\cref{paper6a:lem:terminal-local-critical-mass-routing}.  Failure of the
+retained spacetime activity floor means the candidate was not a retained active
+core; an upper local
 \(L^3\)-failure produces a comparable retained class or an adjacent active
 label.  These are routed pre-compact-data exits unless they are grouped into
 the retained terminal component.  In the retained case the positive finite

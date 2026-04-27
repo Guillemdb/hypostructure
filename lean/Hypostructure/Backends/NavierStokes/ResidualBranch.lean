@@ -1,0 +1,4 @@
+import Hypostructure.Backends.NavierStokes.ResidualBranch.Basic
+import Hypostructure.Backends.NavierStokes.ResidualBranch.ImportFromSetup
+import Hypostructure.Backends.NavierStokes.ResidualBranch.Routing
+import Hypostructure.Backends.NavierStokes.ResidualBranch.FinalClosure

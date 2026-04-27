@@ -825,10 +825,29 @@ Diffuse-defect compactification &
 Concentration-set residual measure, observer compactification, and amenability of
 \(\mathbb R^3\rtimes\mathbb R\). &
 Generic closure.\\
-Critical-tail closure &
-Bounded-origin realization, affine quotient, hidden-scale compactness, and
-coherent-tail alternatives. &
-Final residual exclusion.\\
+Affine routing &
+Affine normalization dichotomy and retained oscillation functional. &
+Critical-tail closure.\\
+Coherent critical-tail closure &
+Bounded-origin realization and log-hull minimality. &
+Log-diffuse exclusion, Young exclusion, hidden-scale exclusion.\\
+Minimal mesoscopic reduction &
+Local quotient blow-down, corrected scaled pressure compactness, and variance
+Liouville theorem. &
+Log-diffuse exclusion.\\
+No hidden-scale variance &
+Minimal mesoscopic reduction and coherent closure. &
+Log-diffuse exclusion.\\
+Young branch exclusion &
+No hidden-scale variance and annular tightness by definition of \(\Cyoung\). &
+Log-diffuse exclusion.\\
+Log-diffuse branch exclusion &
+Log-window support profiles, no hidden-scale variance, and coherent closure. &
+Young branch exclusion except through the hidden-scale theorem.\\
+Complete critical-tail exclusion &
+Regenerated concentration routing, affine routing, log-diffuse exclusion, Young
+exclusion, and coherent closure. &
+Generic final assembly.\\
 Finite separated-profile exclusion &
 Diagonal lifting, finite directed graph recurrence, no atomic profile, and no
 infinite retained velocity concentration chain. &
@@ -1716,8 +1735,8 @@ are exterior or diffuse terminal remainders.  The paired decomposition
 concentration set rather than treating them as mutually exclusive alternatives.  The
 sole-source radiative cases are excluded by
 \Cref{thm:terminal-inactive-exclusion}, mixed compact--diffuse or
-compact--noncompact coexistence is excluded by
-\Cref{thm:no-mixed-compact-diffuse}, and infinite chains of retained concentrating descendants are excluded
+escaping noncompact coexistence is handled by
+\Cref{thm:no-mixed-compact-diffuse,lem:escaping-retained-recentering-routing}, and infinite chains of retained concentrating descendants are excluded
 by \Cref{thm:compact-active-descendant}.  Hence
 \Cref{cor:persistent-forces-active} leaves only a single retained concentrating
 terminal profile or a finite separated family of retained concentrating terminal
@@ -2024,11 +2043,11 @@ time translations \(T_{s_k}V\to W\), where \(W\) is stationary and
 concentration profile, then terminal concentration excludes it.
 \textbf{Link.}  \Cref{cor:R3-closure}.\\
 
-\(\Caff\) lower stratum &
+\(\Caff\) affine/parasitic routing row &
 \textbf{Criterion.}  The affine-normalized oscillation vanishes:
 \(\Phi(S_cU)=0\) for an admissible affine symmetry \(S_c\).
-\textbf{Exclusion.}  Oscillatory entry normalization forces retained residual
-profiles to keep positive non-affine oscillation after affine normalization.
+\textbf{Routing.}  Oscillatory entry normalization assigns such profiles to the
+affine/parasitic quotient row before retention.
 \textbf{Link.}  \Cref{thm:oscillatory-entry-normalization}.\\
 
 \(\Clogdiff\) critical tail &
@@ -3728,9 +3747,11 @@ following hold.
    loss of local compactness cannot be the sole locations of the retained
    compact velocity concentration
    \eqref{eq:R3S-retained-activity}.
-   \item Mixed compact--diffuse and compact--noncompact residual profiles, and
-   infinite chains of retained concentrating descendants, are impossible in the refined residual
-   class.
+   \item Mixed compact--diffuse residual profiles are impossible in the refined
+   residual class, while compact--noncompact configurations are routed by the
+   terminal recentering protocol to the diffuse, pressure/noncompact, or
+   critical-tail branches.  Infinite chains of retained concentrating
+   descendants are impossible as well.
    \item Finite separated families of retained velocity concentration profiles are
    impossible.
    \item Any remaining single retained velocity concentration profile is terminally
@@ -4151,25 +4172,29 @@ A covariant observer \(z\in Z\) is \(\eta\)-oscillatory for \(U\) if
 \[
    \actthree\bigl(U;\mathcal Q_1^{\rm cov}(z)\bigr)\ge\eta .
 \]
-On each compact observer window we fix a uniformly locally finite family of
-observer centers \(\{z_k\}\subset Z\), subordinate to a bounded-overlap
-covariant unit-cylinder cover.  The corresponding local oscillation measure on
-observer-center sets \(E\subset Z\) is
+Fix once and for all a proper covariant metric \(d_Z\) on \(Z\), and choose a
+separated covariant unit-net \(\{z_k\}_{k\in\mathbb N}\subset Z\) such that
+\[
+   Z\subset \bigcup_{k\in\mathbb N} B_Z(z_k,1/10),
+   \qquad
+   \#\{k:z_k\in B_Z(z,2)\}\le N_0
+\]
+for every \(z\in Z\).  The associated covariant unit cylinders therefore have
+bounded overlap with constant depending only on \(N_0\).  The oscillation
+measure on observer-center sets \(E\subset Z\) is the atomic measure on this
+fixed net,
 \[
    \mu_U^{\rm osc}(E)
    :=
    \sum_{z_k\in E}
       \actthree\bigl(U;\mathcal Q_1^{\rm cov}(z_k)\bigr) .
 \]
-For a sequence \(U_n\) we write \(\mu_n^{\rm osc}\) for this measure.  All
-uses of \(\mu_n^{\rm osc}\) are on compact observer-center windows or on
-specified escaping windows after restriction, so the bounded overlap gives uniform local
-finiteness.  Replacing the cover by another bounded-overlap covariant unit
-cover changes only harmless constants and never changes the alternatives
-``positive threshold,'' ``vanishing threshold,'' or ``diffuse defect.''  The
-concentration-set extraction uses \(\actthree\), because after parasitic-free
-normalization it detects genuine non-affine oscillation.  Mesoscopic cylinders use
-\(\oscsp\), equivalently the functional \(\mathcal A_n(z,r)\) of
+For a sequence \(U_n\) we write \(\mu_n^{\rm osc}\) for this measure.  The
+fixed packing constant \(N_0\) is used below in the moving-window estimate for
+escaping observer regions.  The concentration-set extraction uses \(\actthree\),
+because after parasitic-free normalization it detects genuine non-affine
+oscillation.  Mesoscopic cylinders use \(\oscsp\), equivalently the functional
+\(\mathcal A_n(z,r)\) of
 \Cref{def:multiscale-affine-oscillation}, because the minimal-scale quotient
 must ignore time-dependent homogeneous gauges.  Thus the concentration-set
 construction and the mesoscopic affine quotient are kept distinct.
@@ -6456,18 +6481,31 @@ has \(B\cap E_n=\varnothing\) for all sufficiently large \(n\).  Hence
 \(\lambda(B)=0\).  The additional unit-scale diffuseness assumption gives the
 stronger moving-window estimate
 \[
-   \sup_{z\in E_n}
+   \sup_{z\in Z}
       \lambda_n\bigl(B_Z(z,1)\bigr)
    \le
-   \frac{C}{m_0}
-   \sup_{\zeta\in E_n}
+   \frac{N_0}{m_0}
+   \sup_{\zeta\in E_n\cap\{z_k\}}
       \actthree(U_n;\mathcal Q_1^{\rm cov}(\zeta))
    \longrightarrow0 .
 \]
-Here \(B_Z(z,1)\) is any fixed unit ball for a proper metric on \(Z\),
-and \(C\) is the bounded-overlap constant of the observer cover.  The
-restriction \(\lambda_n=\mu_n^{\rm osc}\lfloor E_n/\mu_n^{\rm osc}(E_n)\) is
-why only cover centers lying in \(E_n\) enter the estimate.
+Indeed, \(\lambda_n\) is atomic on the fixed observer net of
+\Cref{def:observer-oscillation}, and every unit ball for \(d_Z\) contains at
+most \(N_0\) net points.  Therefore
+\[
+   \lambda_n\bigl(B_Z(z,1)\bigr)
+   =
+   \frac{1}{\mu_n^{\rm osc}(E_n)}
+   \sum_{z_k\in E_n\cap B_Z(z,1)}
+      \actthree\bigl(U_n;\mathcal Q_1^{\rm cov}(z_k)\bigr)
+   \le
+   \frac{N_0}{m_0}
+   \sup_{\zeta\in E_n\cap\{z_k\}}
+      \actthree\bigl(U_n;\mathcal Q_1^{\rm cov}(\zeta)\bigr).
+\]
+Equivalently, after replacing \(E_n\) by its net-cell representative, every
+unit observer ball contains at most \(N_0\) contributing atoms of
+\(\mu_n^{\rm osc}\).
 Therefore no positive unit-scale local oscillation profile is hidden inside the
 escaping windows.  The proof is local on the chosen observer windows and uses no
 global critical-mass or energy budget.
@@ -6538,6 +6576,10 @@ each defined on diffuse-defect candidates produced by
 \end{enumerate}
 The combined family is countable; let \(\{\mathcal O_k\}_{k\in\mathbb N}\)
 enumerate it after fixing a uniform bound \(\|\mathcal O_k\|_\infty\le C_k\).
+Fix also a countable dense subgroup \(G_{\mathbb Q}\subset G=\mathbb R^3\rtimes
+\mathbb R\), and enlarge the observable family by all rational pullbacks
+\(\mathcal O_k\circ q\), \(q\in G_{\mathbb Q}\).  The enlarged family is still
+countable and is again denoted by \(\{\mathcal O_k\}_{k\in\mathbb N}\).
 \end{definition}
 
 \begin{theorem}[Construction of the diffuse-defect compactification]
@@ -6578,17 +6620,36 @@ topology).  Set
 \(X_{\rm def}\) is compact metrizable as a closed subset of a compact
 metrizable space.
 
-The covariant action: for each \(g=(a,s)\in G\), the pullback of every
-observable \(\mathcal O_k\) by the covariant observer map \(T_aZ_s\) is
-again an observable in the chosen family
-(\Cref{def:diffuse-defect-observables} is closed under the rational
-\(G\)-action and is dense enough that the closure under \(G\) lies in the
-same product space after a permutation of coordinates).  Hence the map
-\(\sigma_g\colon \iota(\omega)\mapsto\iota(g\cdot\omega)\) extends
-continuously to \(X_{\rm def}\), and \((g,x)\mapsto\sigma_g(x)\) is jointly
-continuous because the rational orbit on the countable family of
-observables is dense in the natural \(G\)-orbit map and convergence in
-\(X_{\rm def}\) is coordinatewise.
+The covariant action is constructed in two steps.  First let
+\(G_{\mathbb Q}\subset G\) be the fixed countable dense subgroup from
+\Cref{def:diffuse-defect-observables}.  Because the observable family has been
+enlarged by all rational pullbacks, for every \(q\in G_{\mathbb Q}\) one has
+\[
+   (\mathcal O_k\circ q')(q\cdot\omega)=\mathcal O_k((q'q)\cdot\omega),
+   \qquad q'\in G_{\mathbb Q},
+\]
+so \(G_{\mathbb Q}\) acts on \(\mathcal X_0\) by coordinate permutation and
+hence continuously on \(X_{\rm def}\).
+
+Now fix a compact set \(C\Subset G\) and a basic observable \(\mathcal O_k\).
+By \Cref{lem:state-space-local-compactness,thm:covariant-observer-calculus},
+the orbit maps
+\[
+   g\longmapsto \mathcal O_k(g\cdot\omega)
+\]
+are continuous on \(C\) in the local state-space topology; since the realized
+normalized defect class is compact in that topology after embedding into the
+product compactification, these orbit maps are equicontinuous on \(C\),
+uniformly in realized states \(\omega\).  Hence, if \(q_j\to g\) in
+\(G_{\mathbb Q}\), then for every \(x\in X_{\rm def}\) the sequence
+\(\sigma_{q_j}x\) is Cauchy in the product metric on \(\mathcal X_0\).  Define
+\[
+   \sigma_gx:=\lim_{j\to\infty}\sigma_{q_j}x .
+\]
+The equicontinuity makes the limit independent of the approximating rational
+sequence and gives the group law by approximation from \(G_{\mathbb Q}\).
+The same argument, applied uniformly on compact subsets of \(G\times X_{\rm def}\),
+gives joint continuity of \((g,x)\mapsto\sigma_gx\).
 
 The sequence-realized class:
 \[
@@ -6982,7 +7043,7 @@ pairings
 \[
    \mathscr D_{n,F}[\psi]
    :=
-   -R_n^{-2}\iint
+   R_n^{-2}\iint
       \psi(x,s)\,
       \nabla_xV_n(x,s)^T
       \nabla_\xi^2F(V_n(x,s))
@@ -7027,21 +7088,28 @@ for \(F\in C^2(\overline{B_M})\) and \(\psi\in C_c^\infty\).  Each term is
 integrated by parts inside the chosen macroscopic annular cylinder where
 \(\psi\) has compact support.  The viscous term contributes
 \[
-   R_n^{-2}\!\iint F'(V_n)\Delta V_n\,\psi\,dx\,ds
-   =-R_n^{-2}\!\iint
-   \Bigl[
-      \psi\,\nabla_xV_n^T\nabla_\xi^2F(V_n)\nabla_xV_n
-      +\nabla_\xi F(V_n)\nabla_xV_n\cdot\nabla\psi
-   \Bigr]\,dx\,ds .
+   -R_n^{-2}\iint \psi\,\nabla_\xi F(V_n)\cdot\Delta V_n\,dx\,ds .
+\]
+Integrating by parts gives
+\[
+\begin{aligned}
+&-R_n^{-2}\iint \psi\,\nabla_\xi F(V_n)\cdot\Delta V_n\,dx\,ds \\
+&\quad =
+R_n^{-2}\iint
+\psi\,\nabla_xV_n^T\nabla_\xi^2F(V_n)\nabla_xV_n\,dx\,ds
++
+R_n^{-2}\iint
+\nabla_xF(V_n)\cdot\nabla\psi\,dx\,ds .
+\end{aligned}
 \]
 Since \(F'\) and \(F''\) are bounded on \(\overline{B_M}\), \(V_n\) is bounded
 by \(M\), and the local energy bound from
 \Cref{lem:local-energy-blow-down} gives \(R_n^{-2}\iint
-|\nabla V_n|^2\psi\,dx\,ds\le C\), the Hessian part has a subsequential
+|\nabla V_n|^2\psi\,dx\,ds\le C\), the Hessian term has a subsequential
 distributional limit on the countable test family; this is
-\(\mathscr D_F[\psi]\).  The remaining first-derivative part equals
-\(-R_n^{-2}\iint\nabla_xF(V_n)\cdot\nabla\psi\), which after integration by
-parts is \(R_n^{-2}\iint F(V_n)\Delta\psi=O(R_n^{-2})\) and tends to \(0\).
+\(\mathscr D_F[\psi]\).  The second term equals
+\(-R_n^{-2}\iint F(V_n)\Delta\psi\,dx\,ds\), hence is \(O(R_n^{-2})\) and
+tends to \(0\).
 
 The convective term, after the standard chain-rule manipulation, equals
 \[
@@ -7580,20 +7648,24 @@ by the lower-stratum closure theorems, then \(\mathcal D\) is impossible.
 \end{lemma}
 
 \begin{proof}
-It remains to verify that the selected logarithmic windows remain tied to the
-original defect even if their unnormalized mass tends to zero.
 Let \(\Lambda\) be the compactified logarithmic defect measure associated with
-\(\mathcal D\).  If \(\Lambda(\Tcrit\setminus\mathcal F)>0\), the concrete
-support-transfer lemma \Cref{lem:log-window-support-transfer} gives a nonzero
-log-window normalized support profile outside \(\mathcal F\).  This contradicts
-the hypothesis that every nonzero log-window normalized support profile lies in
+\(\mathcal D\).  Suppose that \(\Lambda(\Tcrit\setminus\mathcal F)>0\).  Since
+\(\mathcal F\) is closed, choose a compact set
+\[
+   K\subset \Tcrit\setminus\mathcal F
+\]
+with \(\Lambda(K)>0\).  Pick a support point
+\(x_*\in K\cap\supp\Lambda\).  By the definition of support in the compact
+log-window defect space and by
+\Cref{lem:log-window-support-transfer}, there are logarithmic windows \(I_n\)
+with \(\Lambda_n(I_n)>0\) whose normalized restrictions converge to a support
+profile represented by \(x_*\).  This limit profile lies in
+\(\Tcrit\setminus\mathcal F\), contradicting the hypothesis that every nonzero
+log-window normalized support profile of \(\mathcal D\) belongs to
 \(\mathcal F\).  Hence \(\Lambda\) is supported on \(\mathcal F\).  Since
-\(\mathcal F\) is closed under retained descendants and normalized support profiles and is already excluded,
-the original defect has no admissible surviving normalized support profile.  The
-fact that \(\lambda_n(I_n)\) may tend to zero does not affect the argument: the normalized
-restriction records a support profile of the original probability measure, and a
-positive original defect measure cannot be supported entirely on excluded
-closed alternatives.
+\(\mathcal F\) is closed under retained descendants and normalized support
+profiles, the original log-diffuse defect has no surviving mass outside
+\(\mathcal F\).
 \end{proof}
 
 \begin{theorem}[Logarithmic escape reduces to hidden-scale compactness]
@@ -7658,7 +7730,7 @@ annular descendants.  Hence \Cref{thm:log-diffuse-from-hidden-scale} reduces
 every nonzero log-diffuse defect to a descendant in
 \(\Cactive\cup\Caff\cup\Ccohcrit\).  The concentration alternative has been removed by
 terminal concentration-set extraction, the affine stratum by
-\Cref{thm:oscillatory-entry-normalization}, and the coherent critical-tail
+the routing theorem \Cref{thm:oscillatory-entry-normalization}, and the coherent critical-tail
 alternative by \Cref{cor:coherent-critical-tail-branch-closure}.  Hence no
 log-diffuse alternative remains.
 \end{proof}
@@ -8313,16 +8385,24 @@ restrictions to compact cylinders are precisely the local pressure gauges used
 in the Seregin topology.
 \end{proof}
 
-\begin{lemma}[Harmonic remainders in normalized pressure limits]
+\begin{lemma}[Harmonic remainders in normalized pressure limits with blow-down coefficient]
 \label{lem:local-harmonic-remainders-affine}
 Let \((U_n,\Pi_n)\) be a sequence of normalized profiles obtained from the
 whole-space representative in
 \Cref{lem:whole-space-riesz-pressure-covariance}, before applying any
-homogeneous velocity quotient.  Suppose that \(U_n\to U\) locally smoothly and
-that, after time-dependent gauges, \(\Pi_n\to\Pi\) locally in
-\(L^{3/2}\) or weakly in \(L^{3/2}\).  Then
+homogeneous velocity quotient.  Suppose that, before the affine quotient, each
+pressure representative has the form
 \[
-   \Pi(\cdot,s)-\mathcal R_i\mathcal R_j(U_iU_j)(\cdot,s)
+   \Pi_n(\cdot,s)
+   =
+   \kappa_n\mathcal R_i\mathcal R_j(U_{n,i}U_{n,j})(\cdot,s)+\alpha_n(s),
+\]
+where \(\kappa_n\to\kappa\in\{0,1\}\), with \(\kappa=1\) for natural-scale
+profiles and \(\kappa=0\) for spatial/logarithmic blow-downs.  If
+\(U_n\to U\) locally smoothly and, after time-dependent gauges,
+\(\Pi_n\to\Pi\) locally in \(L^{3/2}\) or weakly in \(L^{3/2}\), then
+\[
+   \Pi(\cdot,s)-\kappa\mathcal R_i\mathcal R_j(U_iU_j)(\cdot,s)
 \]
 is a time-dependent constant.  After the affine/parasitic quotient is applied,
 the only additional admissible harmonic pressure direction is a linear function
@@ -8332,31 +8412,33 @@ parasitic-free representative.
 \end{lemma}
 
 \begin{proof}
-Before the affine quotient, the pressure of each approximating profile is the
-whole-space Riesz representative, modulo a time gauge.  Since the velocities
-are uniformly bounded in \(L^\infty\), these representatives have uniformly
-bounded BMO seminorms on \(\mathbb R^3\):
+Before the affine quotient, set
 \[
-   \|\mathcal R_i\mathcal R_j(U_{n,i}U_{n,j})(\cdot,s)\|_{\mathrm{BMO}}
+   P_n^\ast(\cdot,s):=\kappa_n\mathcal R_i\mathcal R_j(U_{n,i}U_{n,j})(\cdot,s).
+\]
+Since the velocities are uniformly bounded in \(L^\infty\), these
+representatives have uniformly bounded BMO seminorms on \(\mathbb R^3\):
+\[
+   \|P_n^\ast(\cdot,s)\|_{\mathrm{BMO}}
    \le C M^2 .
 \]
-The BMO bound is invariant under the exact scalings and translations in
-\Cref{lem:whole-space-riesz-pressure-covariance}.  Hence, after passing to a
-subsequence at each fixed time interval and using a diagonal extraction, the
-whole-space representatives converge weakly-* in local BMO-duality to a
-whole-space BMO pressure \(P^\ast\), modulo time gauges.  The local
-\(L^{3/2}\)-pressure limit \(\Pi\) agrees with \(P^\ast\) on each compact
+The BMO bound is stable under the exact scalings and translations in
+\Cref{lem:whole-space-riesz-pressure-covariance}, and \(|\kappa_n|\le1\).  Hence,
+after passing to a subsequence at each fixed time interval and using a diagonal
+extraction, the representatives \(P_n^\ast\) converge weakly-* in local
+BMO-duality to a whole-space BMO pressure \(P^\ast\), modulo time gauges.  The
+local \(L^{3/2}\)-pressure limit \(\Pi\) agrees with \(P^\ast\) on each compact
 cylinder, up to the same time-dependent gauge, because both are local limits of
 the same normalized representatives.  Passing to the limit in the pressure
 Poisson equation gives
 \[
    -\Delta P^\ast(\cdot,s)
    =
-   \partial_i\partial_j(U_iU_j)(\cdot,s)
+   \kappa\,\partial_i\partial_j(U_iU_j)(\cdot,s)
 \]
 in distributions.  Thus the difference
 \[
-   h(\cdot,s):=P^\ast(\cdot,s)-\mathcal R_i\mathcal R_j(U_iU_j)(\cdot,s)
+   h(\cdot,s):=P^\ast(\cdot,s)-\kappa\mathcal R_i\mathcal R_j(U_iU_j)(\cdot,s)
 \]
 is harmonic in space and belongs to \(\mathrm{BMO}(\mathbb R^3)\) modulo an
 additive constant.  An entire harmonic BMO function is constant: indeed, for
@@ -8370,7 +8452,7 @@ John--Nirenberg control of mean oscillation give
 with \(C\) independent of \(R\); letting \(R\to\infty\) yields
 \(\nabla h(\cdot,s)=0\).  Since \(\Pi\) and \(P^\ast\) differ only by the local
 time gauge, before affine quotienting the difference between \(\Pi\) and
-\(\mathcal R_i\mathcal R_j(U_iU_j)\) is spatially constant.
+\(\kappa\mathcal R_i\mathcal R_j(U_iU_j)\) is spatially constant.
 
 Equivalently, if a non-affine harmonic component were present on some compact
 ball and time interval, elliptic regularity would give a point where a
@@ -8396,35 +8478,51 @@ remainders: only time gauges and, inside \(\Caff\), the explicit affine
 parasitic pressure direction are allowed.
 \end{proof}
 
-\begin{proposition}[Normalized pressure representation modulo affine parasitic modes]
+\begin{proposition}[Normalized pressure representation with blow-down coefficient]
 \label{prop:normalized-pressure-representation}
-Every normalized Seregin, terminal, covariant descendant, minimal-scale
-blow-down, or concentrating descendant profile used in the residual profile class is
-represented by a pressure of the form
+Every normalized pressure representative used in the residual profile class has
+the form
 \begin{equation}\label{eq:normalized-pressure-representation}
    \Pi(\cdot,s)
    =
-   \mathcal R_i\mathcal R_j(U_iU_j)(\cdot,s)
+   \kappa\,\mathcal R_i\mathcal R_j(U_iU_j)(\cdot,s)
    +\beta(s)\cdot y+\alpha(s),
 \end{equation}
-where \(\alpha\) is an arbitrary time gauge and
-\(\beta(s)\cdot y\) is the affine pressure paired with the spatially
-homogeneous parasitic velocity mode.  Outside the affine/parasitic stratum
-\(\Caff\), the representative is taken with \(\beta=0\).
+where \(\alpha\) is a time gauge, \(\beta(s)\cdot y\) is the affine pressure
+paired with the spatially homogeneous parasitic velocity mode, and the scalar
+\(\kappa\) is determined by the operation which produced the profile.
+
+For natural-scale Seregin profiles, terminal profiles, exact covariant
+descendants, and genuine parabolic concentrating descendants, \(\kappa=1\).
+For spatial/logarithmic blow-down limits with scale \(r_n\to\infty\) or
+\(R_n\to\infty\), \(\kappa=0\), because the finite-\(n\) representatives have
+coefficient \(r_n^{-1}\) or \(R_n^{-1}\).  Outside the affine/parasitic
+stratum \(\Caff\), the representative is taken with \(\beta=0\).
 \end{proposition}
 
 \begin{proof}
-The whole-space Riesz representative and its covariance under the exact
-operations are given by
-\Cref{lem:whole-space-riesz-pressure-covariance}.  The exclusion of
-non-affine harmonic pressure remainders in normalized limits is
-\Cref{lem:local-harmonic-remainders-affine}.  The only additional pressure
-direction created by affine/parasitic normalization is the explicit linear
-pressure paired with the homogeneous velocity gauge.  Hence
-\eqref{eq:normalized-pressure-representation} is the complete normalized
-pressure representation.  If \(\beta\ne0\) has a retained effect, the
-associated profile is assigned to \(\Caff\); in the parasitic-free representative
-used outside \(\Caff\), one sets \(\beta=0\).
+At natural scale the coefficient is \(1\) by the whole-space Riesz pressure
+representative and its covariance, recorded in
+\Cref{lem:whole-space-riesz-pressure-covariance}.  The exclusion of non-affine
+harmonic pressure remainders in normalized limits, with the limiting
+coefficient tracked explicitly, is
+\Cref{lem:local-harmonic-remainders-affine}.  Under the spatial/logarithmic
+blow-down \(x\mapsto r_nx\), the pressure is normalized as
+\[
+   Q_n(x,s)=r_n^{-1}\Pi_n(r_nx,s),
+\]
+so the non-affine Riesz part is
+\[
+   r_n^{-1}\mathcal R_i\mathcal R_j(V_{n,i}V_{n,j})(x,s).
+\]
+The same formula with \(R_n^{-1}\) holds for macroscopic critical-tail
+blow-downs.  The BMO bound for the Riesz representative gives local
+\(L^{3/2}\)-compactness modulo constants, and the prefactor tending to zero
+forces the non-affine Riesz part to vanish on compact blow-down windows.  The
+only possible surviving harmonic direction is affine, and that direction is
+precisely the affine/parasitic quotient.  This yields
+\eqref{eq:normalized-pressure-representation} with the stated values of
+\(\kappa\).
 \end{proof}
 
 \begin{lemma}[Scaled pressure compactness modulo affine gauges]
@@ -8496,19 +8594,19 @@ minimizing averages \(a_n(s)\) one also has
    \le C_{R,M,I}r_n^{-1}\to0 .
 \]
 
-By \Cref{prop:normalized-pressure-representation}, the only remaining pressure
-component in the normalized profile class is
-\[
-   \beta(s)\cdot y+\alpha(s).
-\]
-After scaling,
+By \Cref{prop:normalized-pressure-representation}, after the spatial blow-down
+the non-affine Riesz part carries the explicit coefficient \(r_n^{-1}\), while
+the only possible surviving harmonic component is affine.  After scaling,
 \[
    r_n^{-1}\bigl(\beta(s)\cdot r_nx+\alpha(s)\bigr)
    =
    \beta(s)\cdot x+r_n^{-1}\alpha(s),
 \]
-which is an affine function of \(x\).  Taking this function as \(L_n\), the
-remaining pressure is the scaled Leray representative already estimated
+which is an affine function of \(x\).  Taking
+\[
+   L_n(x,s):=\beta(s)\cdot x+a_n(s)+r_n^{-1}\alpha(s),
+\]
+the remaining pressure is the scaled non-affine Riesz representative already estimated
 above, and it tends to zero strongly in \(L^{3/2}(B_R\times I)\).  This proves
 \eqref{eq:scaled-pressure-compactness-affine}.  The minimal-scale pressure is used
 only up to the affine quotient described in
@@ -8548,8 +8646,9 @@ the second term tends to zero by weak-* convergence in \(L^\infty(K)\).
 \label{lem:first-bad-pressure-compactness}
 Let \(Q_n\) be as in \Cref{lem:first-bad-blowdown-equation}.  Assume in
 addition the \emph{normalized whole-space Riesz-pressure hypothesis}: each
-\(Q_n\) is the whole-space Riesz-pressure representative of the
-minimal-scale rescaled solution, normalized modulo the affine pressure
+\(Q_n\) is the scaled whole-space Riesz-pressure representative, with
+blow-down coefficient \(r_n^{-1}\), of the minimal-scale rescaled solution,
+normalized modulo the affine pressure
 gauges and modulo time-only functions in the sense of
 \Cref{def:pressure-gauge-affine-quotient} and the local pressure atlas
 imported in \Cref{thm:imported-setup-results}\,(3); equivalently, each
@@ -9041,13 +9140,16 @@ Suppose that hidden-scale variance fails.  By
 \Cref{lem:h2-failure-first-bad-scale}, either a unit concentrating observer is
 regenerated, the affine stratum is reached, or a minimal mesoscopic oscillation scale
 exists.  The first alternative contradicts concentration-set removal.  The affine
-alternative is removed by \Cref{thm:oscillatory-entry-normalization}.  In the
+alternative is routed by \Cref{thm:oscillatory-entry-normalization} to
+\(\Caff\), hence it does not produce a retained normalized residual
+representative.  In the
 third alternative,
 \Cref{thm:first-bad-mesoscopic-reduction} gives a descendant in
 \(\Cactive\cup\Caff\cup\Ccohcrit\).  The concentration case again contradicts
 concentration-set removal; the affine case is removed by
-\Cref{thm:oscillatory-entry-normalization}; and the coherent critical-tail
-case is closed by \Cref{cor:coherent-critical-tail-branch-closure}.  Thus all
+\Cref{thm:oscillatory-entry-normalization} by the same routing argument; and
+the coherent critical-tail case is closed by
+\Cref{cor:coherent-critical-tail-branch-closure}.  Thus all
 alternatives are impossible, and hidden-scale variance cannot fail.
 \end{proof}
 
@@ -9331,21 +9433,28 @@ classification.
 The critical-tail classification above is a classification theorem rather than
 an emptiness theorem.  The complete residual decomposition is closed by
 local lower-stratum exclusions together with the minimal mesoscopic-scale
-theorem \MesoscopicReductionTheorem.  That theorem first gives hidden-scale
-compactness through \Cref{thm:no-hidden-scale-variance-realized-defects}.  The
-log-diffuse alternative is reduced to hidden-scale compactness by the log-window
-descendant selection of \Cref{thm:log-diffuse-from-hidden-scale}; the Young
-alternative is reduced to it by the Fr\'echet--Kolmogorov/Young-measure equivalence in
-\Cref{lem:hidden-variance-young-obstruction}.  The critical-tail reduction theorem
-used in both reductions is \MesoscopicReductionTheorem.  These are local
+theorem \MesoscopicReductionTheorem.  First,
+\Cref{thm:oscillatory-entry-normalization} routes affine/parasitic profiles to
+the quotient stratum \(\Caff\).  Next,
+\Cref{cor:coherent-critical-tail-branch-closure} closes the coherent critical-tail
+row by bounded-origin realization and log-hull minimality, independently of the
+log-diffuse and hidden-scale arguments.  The minimal mesoscopic-scale theorem
+then gives hidden-scale compactness through
+\Cref{thm:no-hidden-scale-variance-realized-defects}.  The Young alternative is
+reduced to that compactness statement by the
+Fr\'echet--Kolmogorov/Young-measure equivalence in
+\Cref{lem:hidden-variance-young-obstruction}.  The log-diffuse alternative is
+reduced by log-window support-profile selection together with the same
+hidden-scale theorem and the already closed coherent row; see
+\Cref{thm:log-diffuse-from-hidden-scale,cor:log-diffuse-branch-exclusion}.  These are local
 statements about realized residual descendants; none is a global
 \(L^\infty_tL^3_x\), finite-energy-tail, or global CKN-budget estimate.
 
-\begin{theorem}[Oscillatory entry normalization]
+\begin{theorem}[Oscillatory entry normalization and affine routing]
 \label{thm:oscillatory-entry-normalization}
 Let \((U,\Pi)\) be a retained residual profile after the earlier lower classes
-recorded in the companion setup paper have been removed.  Then
-exactly one of the following holds:
+recorded in the companion setup paper have been removed.  Then every
+pre-quotient retained residual candidate satisfies exactly one of the following:
 \begin{enumerate}[label=\textup{(\roman*)}]
    \item after canonical affine/parasitic normalization and an admissible affine
    symmetry \(S_c\), the profile retains positive constant-in-time non-affine
@@ -9354,9 +9463,11 @@ exactly one of the following holds:
       \Phi(S_cU)>0;
    \]
    \item all spatial oscillations \(\oscsp(U;Q)\) vanish on compact cylinders,
-   and the profile belongs to the affine/parasitic quotient stratum \(\Caff\).
+   and the profile is assigned to the affine/parasitic quotient stratum
+   \(\Caff\).
 \end{enumerate}
-Consequently the retained normalized residual decomposition has
+Since \(\calR^\#(\calS;I,J)\) is defined after this affine/parasitic routing,
+the retained normalized residual decomposition has
 \[
    \Caff\cap\calR^\#(\calS;I,J)=\varnothing .
 \]
@@ -9365,11 +9476,12 @@ Consequently the retained normalized residual decomposition has
 \begin{proof}
 The dichotomy is \Cref{thm:affine-normalization-dichotomy}.  If all
 spatial oscillations \(\oscsp(U;Q)\) vanish on compact cylinders, then the profile
-is a spatially homogeneous quotient mode and belongs to \(\Caff\).  If this
-alternative is not available after lower-stratum removal, the parasitic-free
-representative has \(\Phi(S_cU)>0\) for an admissible affine symmetry \(S_c\).
-A profile in \(\Caff\) therefore cannot carry retained normalized residual
-concentration, so \(\Caff\cap\calR^\#(\calS;I,J)=\varnothing\).
+is a spatially homogeneous quotient mode and is routed to \(\Caff\).  If this
+alternative does not occur, the parasitic-free representative has
+\(\Phi(S_cU)>0\) for an admissible affine symmetry \(S_c\).  Thus every
+pre-quotient candidate is either retained with positive non-affine oscillation
+or assigned to \(\Caff\), and the normalized residual class
+\(\calR^\#(\calS;I,J)\) contains no representative lying in \(\Caff\).
 \end{proof}
 
 \begin{corollary}[Young alternative exclusion from minimal mesoscopic scale reduction]
@@ -9381,10 +9493,10 @@ concentration, so \(\Caff\cap\calR^\#(\calS;I,J)=\varnothing\).
 
 \begin{proof}
 Let a retained residual profile generate a nonzero Young critical-tail alternative.
-By \Cref{cor:log-diffuse-branch-exclusion}, the log-diffuse alternative is already
-empty, so the defect has a tight macroscopic annular realization.  Let \(W_n\)
-be the corresponding annular blow-down and \(\mathcal Y_{x,s}\) its Young
-measure.  By
+By definition of \(\Cyoung\), its logarithmic component is tight:
+\(\Lambda=0\), and the annular Young measure is non-Dirac on a set of positive
+macroscopic measure.  Let \(W_n\) be the corresponding annular blow-down and
+\(\mathcal Y_{x,s}\) its Young measure.  By
 \Cref{thm:first-bad-mesoscopic-reduction,thm:no-hidden-scale-variance-realized-defects},
 \(W_n\) has
 no hidden-scale variance on compact annular cylinders.  Hence
@@ -9767,8 +9879,16 @@ representative and hence
    Z_*(\rho,\cdot,\cdot)\to0
    \qquad\hbox{as }\rho\to-\infty .
 \]
-The lower-stratum alternatives are already removed before the coherent
-aperiodic row is closed.  In the remaining case \(0\in\mathcal H(Z_*)\).
+By the ordered definition of the coherent aperiodic stratum, the object under
+consideration is already inside the realized bounded-origin coherent hull.
+Hence alternative \textup{(ii)} of
+\Cref{lem:realized-amplitude-log-hull-heredity} is not an admissible
+\(\Capcrit\) object: if it occurred, the construction would have been routed
+earlier to regenerated concentration, the affine/parasitic quotient,
+log-diffuse escape, a critical-tail defect, or hidden-scale variance, and the
+profile would not have entered the coherent aperiodic row.  Therefore, for a
+profile genuinely lying in \(\Capcrit\), only alternative \textup{(i)}
+remains.  In that case \(0\in\mathcal H(Z_*)\).
 Minimality gives \(\mathcal H(Z_*)=\mathcal M\).  Since the zero profile is a
 closed invariant subsystem, \(\mathcal M=\{0\}\).  This contradicts the
 retained non-affine annular activity that makes the aperiodic coherent tail a
@@ -9808,8 +9928,9 @@ Young critical tail, coherent homogeneous tail, coherent log-periodic tail, or
 coherent aperiodic tail.
 
 Regenerated concentration contradicts terminal concentration-set removal.  The
-affine/parasitic alternative is impossible by
-\Cref{thm:oscillatory-entry-normalization}.  The log-diffuse alternative is
+affine/parasitic alternative is routed by
+\Cref{thm:oscillatory-entry-normalization} to \(\Caff\), hence it is not a
+retained normalized residual representative.  The log-diffuse alternative is
 impossible by \Cref{cor:log-diffuse-branch-exclusion}, and the Young
 alternative is impossible by \Cref{cor:young-branch-exclusion}.  The three coherent alternatives are impossible by
 \Cref{cor:coherent-critical-tail-branch-closure}.  All alternatives are
@@ -9820,27 +9941,16 @@ therefore impossible, so no such \(\mathcal T\) remains.
 \label{thm:no-mixed-compact-diffuse}
 Let \((U,\Pi)\) be a retained terminal profile in the refined residual class,
 after the affine normalization of \Cref{def:affine-constant-lower-stratum}.
-Then \(U\) cannot have a diffuse exterior oscillation remainder, nor an escaping retained noncompact
-recentering remainder, coexisting with its compact retained core.  Equivalently,
-the paired terminal configurations
+Then \(U\) cannot have a diffuse exterior oscillation remainder coexisting with
+its compact retained core.  Equivalently, the paired terminal configurations
 \[
    \hbox{one compact concentration core}+\mathcal R_{\rm diff},
-   \qquad
-   \hbox{one compact concentration core}+\mathcal R_{\rm noncomp},
 \]
 and their finite, infinite, or continuum concentration-set analogues do not occur in
 the refined residual class.
 \end{theorem}
 
 \begin{proof}
-The noncompact escaping case is local.  In this theorem the noncompact
-remainder is retained in the velocity or affine-oscillation sense.  If an
-escaping recentering with retained unit velocity concentration loses the local dissipation or
-pressure-gauge bounds in \Cref{def:terminal-measures}, then after its own local
-normalization it is a retained unit-velocity recentering sequence.  This
-contradicts \Cref{lem:retained-recentering-alternatives}.  Thus it remains to exclude a
-compact core plus diffuse exterior remainder.
-
 Assume that such a diffuse exterior remainder exists.  By the paired
 concentration-set decomposition \Cref{thm:terminal-exhaustion-main}, remove
 neighborhoods of the concentration set at every positive constant-in-time oscillation
@@ -9859,6 +9969,30 @@ The only remaining alternative is a critical diffuse tail.  By
 \(\mathcal T\in\Tcrit\).  This contradicts
 \Cref{cor:critical-tail-exclusion-complete}.  Hence no mixed compact--diffuse residual
 profile exists.
+\end{proof}
+
+\begin{lemma}[Escaping retained recenterings are routed by the terminal protocol]
+\label{lem:escaping-retained-recentering-routing}
+An escaping retained recentering coexisting with a compact retained core is not
+an immediate contradiction.  By
+\Cref{lem:retained-recentering-alternatives}, such a recentering is assigned to
+one of the following: a locally compact retained descendant, a diffuse exterior
+defect, a pressure/noncompact defect, or a critical-tail defect.  The locally
+compact case is recorded as a separated retained successor or a
+concentration-chain successor.  The diffuse, pressure/noncompact, and
+critical-tail branches are then handled by the corresponding terminal closure
+arguments.
+\end{lemma}
+
+\begin{proof}
+This is the routing content of
+\Cref{lem:retained-recentering-alternatives}.  Alternatives \textup{(i)} and
+\textup{(ii)} there produce locally compact descendants, which are precisely the
+separated-family or chain successors used in the terminal protocol.  Alternative
+\textup{(iii)} routes the escaping recentering to the diffuse,
+pressure/noncompact, or critical-tail terminal branch.  No contradiction is
+claimed at the classification stage; the contradiction appears only after the
+corresponding branch closure theorem is applied.
 \end{proof}
 
 \begin{definition}[Finite separated family of retained velocity concentration profiles]
@@ -9895,8 +10029,10 @@ concentration families are treated
 through local recentering and compactness.  Iterating retained tail limits from
 such a finite family has only local profile outcomes: an indecomposable
 retained velocity concentration profile, a mixed compact--diffuse or compact--noncompact
-successor, or a chain of retained concentrating descendants.  The mixed successors are excluded
-by \Cref{thm:no-mixed-compact-diffuse}; infinite chains of retained concentrating descendants and finite
+successor, or a chain of retained concentrating descendants.  The mixed
+compact--diffuse successors are excluded by \Cref{thm:no-mixed-compact-diffuse},
+while the compact--noncompact successors are routed by
+\Cref{lem:escaping-retained-recentering-routing}; infinite chains of retained concentrating descendants and finite
 loops are excluded by the compact recurrence theorem.
 
 \begin{definition}[Tail limits and terminal indecomposability]
@@ -10644,9 +10780,16 @@ realized by a terminal extraction of the original refined residual candidate,
 after passing to a subsequence and choosing the local pressure gauges supplied
 by the imported setup results.  The fact that the diffuse or
 noncompact profile is not the sole source of the original compact concentration
-does not exclude coexistence with the compact core \((U_j,\Pi_j)\).  The paired exclusion
-\Cref{thm:no-mixed-compact-diffuse} rules out exactly this coexistence in the
-refined residual class.  Therefore alternative (ii) cannot occur for a refined
+does not exclude coexistence with the compact core \((U_j,\Pi_j)\).  In the
+diffuse case, \Cref{thm:no-mixed-compact-diffuse} rules out exactly this
+coexistence in the refined residual class.  In the escaping noncompact case,
+\Cref{lem:escaping-retained-recentering-routing} shows that the profile is not
+an immediate contradiction but is routed to a locally compact retained
+descendant, a diffuse defect, a pressure/noncompact defect, or a critical-tail
+defect.  The locally compact routed case is recorded as a successor, so it does
+not belong to alternative \emph{(ii)}.  The diffuse, pressure/noncompact, and
+critical-tail routed cases are closed by the corresponding terminal branch
+arguments.  Therefore alternative \emph{(ii)} cannot occur for a refined
 residual family with retained local velocity concentration.
 \end{proof}
 
@@ -10902,8 +11045,9 @@ directed recentering relation contains a finite loop
 Repeating the loop periodically gives an infinite chain of retained concentrating descendants.  The
 nonconcentrating successor alternatives at each vertex are excluded by
 \Cref{lem:no-inactive-successor}, while coexistence of a compact core with a
-diffuse or noncompact remainder is handled separately by
-\Cref{thm:no-mixed-compact-diffuse}.  This proof is graph/recurrence based and
+diffuse remainder is handled by \Cref{thm:no-mixed-compact-diffuse} and an
+escaping noncompact recentering is routed by
+\Cref{lem:escaping-retained-recentering-routing}.  This proof is graph/recurrence based and
 does not use a global counting or mass budget.
 \end{proof}
 
@@ -10969,7 +11113,9 @@ separated family with retained velocity concentration, contradicting
 concentration or an escaping non-compact recentering sequence, the corresponding
 terminal extraction would be a mixed profile configuration consisting of the
 retained compact core \(U\) plus a diffuse or noncompact tail remainder.  This
-is excluded by \Cref{thm:no-mixed-compact-diffuse}.  Hence no retained
+is excluded in the diffuse case by \Cref{thm:no-mixed-compact-diffuse}, while
+the escaping noncompact case is routed by
+\Cref{lem:escaping-retained-recentering-routing}.  Hence no retained
 concentrating tail limit, diffuse exterior concentration, or escaping
 non-compact recentering sequence exists, and \(U\) is terminally
 indecomposable.
@@ -11062,17 +11208,18 @@ ordered alternatives:
    \item a finite separated family of retained velocity concentration profiles occurs;
    \item an infinite chain of retained concentrating descendants occurs;
    \item a diffuse exterior defect occurs after concentration-neighborhood removal;
+   \item a noncompact or pressure-gauge defect occurs;
    \item a critical-tail defect occurs;
-   \item an affine/parasitic quotient profile occurs;
+   \item affine/parasitic routing occurs into \(\Caff\);
    \item an indecomposable atomic concentration profile occurs and satisfies a
    sequence-\(L^3\) bound.
 \end{enumerate}
 Alternative \textup{(1)} is a reduction alternative: by descendant heredity it is
 iterated inside the same normalized profile class until one reaches
-\textup{(2)}, \textup{(3)}, a mixed diffuse/noncompact/critical-tail branch, or
-the atomic case \textup{(7)}.  Alternatives \textup{(2)}--\textup{(6)} are
+\textup{(2)}, \textup{(3)}, a mixed diffuse/noncompact/critical-tail branch, affine routing, or
+the atomic case \textup{(8)}.  Alternatives \textup{(2)}--\textup{(7)} are
 excluded by the preceding branch closures and local terminal arguments.
-Alternative \textup{(7)} is excluded by the endpoint bounded-mild ancient
+Alternative \textup{(8)} is excluded by the endpoint bounded-mild ancient
 Liouville theorem after finite terminal shift.  Hence no terminal residual
 profile satisfying the retained unit velocity concentration lower bound remains.
 \end{theorem}
@@ -11090,8 +11237,11 @@ reduction, and closure results in the order recorded in
 \Cref{tab:terminal-dependency-table}.  The pure radiative alternatives enter
 only as sole-source exclusions, and are used only in that form through
 \Cref{thm:terminal-inactive-exclusion}.  Coexistence of a compact concentration core
-with diffuse or noncompact tail remainder is separately ruled out by
-\Cref{thm:no-mixed-compact-diffuse}, using realized critical-tail rigidity
+with a diffuse tail remainder is ruled out by
+\Cref{thm:no-mixed-compact-diffuse}, while escaping noncompact recenterings are
+routed by \Cref{lem:escaping-retained-recentering-routing}.  Pressure-only or
+pressure/noncompact defects are assigned by
+\Cref{lem:no-pressure-only-retained-profile}.  Critical tails are closed by
 \Cref{thm:realized-critical-tail-rigidity,cor:critical-tail-exclusion-complete}.  Infinite concentration chains and finite
 recurrent loops are ruled out by the retained-chain recurrence theorem
 \Cref{thm:compact-active-descendant}, while finite separated concentration families are ruled out by
@@ -11236,9 +11386,12 @@ same ordered terminal extraction until it gives a finite separated family, an
 infinite active chain, a diffuse/noncompact/critical-tail remainder, or a single
 indecomposable retained profile.  Finite separated families are excluded by
 \Cref{thm:no-finite-separated-profile-family}, and infinite active chains by
-\Cref{thm:compact-active-descendant}.  Diffuse and noncompact remainders are
-excluded by
-\Cref{thm:terminal-inactive-exclusion,thm:no-mixed-compact-diffuse}; critical
+\Cref{thm:compact-active-descendant}.  Diffuse remainders are excluded by
+\Cref{thm:terminal-inactive-exclusion,thm:no-mixed-compact-diffuse}.  Escaping
+noncompact remainders are routed by
+\Cref{lem:retained-recentering-alternatives,lem:escaping-retained-recentering-routing}
+to the diffuse, pressure/noncompact, or critical-tail branches; those routed
+branches are closed by the corresponding theorems cited here.  Critical
 tails are excluded by
 \Cref{thm:realized-critical-tail-rigidity,cor:critical-tail-exclusion-complete}.
 The pressure-only case is assigned by
@@ -11269,16 +11422,16 @@ arrows are proved in this paper from local estimates:
    &\xrightarrow{\;\hbox{stationary-hull reduction + terminal assembly}\;}
    \varnothing,\\
 \Caff
-   &\xrightarrow{\;\hbox{affine/parasitic normalization}\;}
+   &\xrightarrow{\;\hbox{affine/parasitic routing}\;}
    \hbox{no retained normalized representative},\\
 \Clogdiff
    &\xrightarrow{\;\hbox{log-window support profiles + hidden-scale closure}\;}
    \varnothing,\\
 \Cyoung
-   &\xrightarrow{\;\hbox{minimal mesoscopic-scale reduction}\;}
+   &\xrightarrow{\;\hbox{hidden-scale variance exclusion}\;}
    \varnothing,\\
 \Chomcrit\cup\Clogper\cup\Capcrit
-   &\xrightarrow{\;\hbox{bounded-origin realization}\;}
+   &\xrightarrow{\;\hbox{bounded-origin realization + log-hull minimality}\;}
    \varnothing,\\
 \Cgen
    &\xrightarrow{\;\hbox{critical-tail closure, finite separation, sequence-}L^3\;}
@@ -11290,7 +11443,7 @@ after affine normalization through the non-affine oscillation functional
 \(\Phi\), is the common contradiction target in the complete ordered
 decomposition.
 
-Equivalently, the final exclusion is the composition of six steps:
+Equivalently, the final exclusion is the composition of seven ordered steps:
 \begin{enumerate}[label=\textup{(\arabic*)}]
    \item \emph{Entry step:} The setup paper supplies a positive local
    velocity concentration sequence; the endpoint weak Serrin local Type~I bounds
@@ -11310,22 +11463,25 @@ Equivalently, the final exclusion is the composition of six steps:
    \item \emph{Closed-strata step:} the small, stationary \(L^3\),
    tight, closed structured/decay, axisymmetric, rotational, and
    stationary-hull strata are excluded by the results cited above.
-   \item \emph{Lower-stratum step:} no retained normalized representative remains
-   in \(\Caff\), by oscillatory entry normalization.  The alternative
-   \(\Clogdiff\) is excluded by
-   log-window support-profile selection plus hidden-scale compactness; see
-   \Cref{cor:log-diffuse-branch-exclusion}.  The alternative \(\Cyoung\) is
-   excluded by the same hidden-scale compactness; see
-   \Cref{cor:young-branch-exclusion}.  The alternatives
-   \(\Chomcrit,\Clogper,\Capcrit\) are excluded by bounded-origin
-   realization of coherent critical tails.
+   \item \emph{Affine-routing step:} oscillatory entry normalization routes every
+   affine/parasitic representative to \(\Caff\), so no retained normalized
+   representative lies in that quotient row.
+   \item \emph{Coherent critical-tail step:} the coherent rows
+   \(\Chomcrit,\Clogper,\Capcrit\) are excluded by bounded-origin realization
+   and log-hull minimality, independently of the later hidden-scale/log-diffuse
+   arguments.
+   \item \emph{Hidden-scale step:} minimal mesoscopic reduction yields
+   \Cref{thm:no-hidden-scale-variance-realized-defects}.  This excludes the
+   Young branch \(\Cyoung\) by \Cref{cor:young-branch-exclusion} and, together
+   with log-window support-profile selection and the already closed coherent
+   rows, excludes \(\Clogdiff\) by \Cref{cor:log-diffuse-branch-exclusion}.
    \item \emph{Residual terminal step:} the generic residual is reduced
    by the paired concentration-set decomposition, diffuse-defect compactness,
    diffuse-defect trichotomy, critical-tail compactification, realized
    critical-tail rigidity, descendant heredity, recurrence for concentration chains, finite
    separated-family exclusion, and terminal indecomposability.
    \item \emph{Endpoint Liouville step:} a terminally indecomposable
-   retained profile either belongs to the affine/parasitic lower stratum
+   retained profile is either routed to the affine/parasitic lower stratum
    or has a parasitic-free bounded mild physical pullback with a backward
    \(L^3\)-bounded sequence.  In the latter case it is zero by
    Albritton--Barker.
@@ -11343,8 +11499,9 @@ class is reduced to the terminal stratification assembly theorem by \Cref{prop:R
 is empty by \Cref{cor:R2-closure}.  The stationary-hull class is reduced to
 the terminal stratification assembly theorem by
 \Cref{prop:R3-stationary-hull-reduction,prop:R3S-R3-terminal-reduction} and is
-empty by \Cref{cor:R3-closure}.  No retained normalized representative
-remains in \(\Caff\) by \Cref{thm:oscillatory-entry-normalization}.  The
+empty by \Cref{cor:R3-closure}.  The affine/parasitic quotient row
+\(\Caff\) contains no retained normalized representative by the routing theorem
+\Cref{thm:oscillatory-entry-normalization}.  The
 log-diffuse and Young branches are empty by
 \Cref{cor:log-diffuse-branch-exclusion,cor:young-branch-exclusion}.  The
 coherent critical-tail classes are empty by

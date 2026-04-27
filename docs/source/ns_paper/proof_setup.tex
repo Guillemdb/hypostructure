@@ -98,8 +98,8 @@ We prove the concentration, compactness, and Liouville reductions needed for a
 conditional exclusion of local pointwise Type I Navier--Stokes singularities.
 Starting from a finite-energy local pointwise Type I singular
 point, we obtain a raw extracted bounded centered Seregin ancient profile
-with positive compact local \(L^3\) velocity mass, then pass to the generated
-Seregin class with invariant local nonvanishing.  We define the
+with positive compact local \(L^3\) velocity mass, then pass to the raw
+generated Seregin state space with invariant local nonvanishing.  We define the
 small-amplitude, stationary \(L^3\), uniformly \(L^3\)-tight, and
 structure and decay classes, and prove their exclusion by
 perturbative, stationary, endpoint \(L^3\), and axisymmetric or
@@ -109,8 +109,8 @@ rests on the Albritton--Barker endpoint ancient Liouville theorem after a
 physical pullback on truncated ancient intervals.  The only conditional
 ingredient is the residual closure hypothesis \Cref{p1:hyp:no-remainder}.
 The final Type I exclusion is conditional on residual closure for the
-generated Seregin class
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) defined below.
+raw generated Seregin state space
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) defined below.
 \end{abstract}
 
 \maketitle
@@ -120,12 +120,20 @@ generated Seregin class
 
 The conditional local Type I reduction reduces a local
 pointwise Type I singularity to a raw extracted bounded centered ancient
-solution, then to a generated normalized Seregin limit with invariant local
+solution, then to a raw generated Seregin state with invariant local
 nonvanishing, and excludes the non-residual Liouville classes obtained from
 standard local compactness and explicit Liouville theorems.  The residual
 class is handled only by the residual-class hypothesis
 \Cref{p1:hyp:no-remainder}; no unconditional residual exclusion is claimed in
 this paper.
+
+The generated state space used in the final assembly is a raw local Seregin
+state space.  The projected mild formulation is not imposed on every raw
+generated state.  Instead, mildness is treated as a branch condition in those
+Liouville classes whose exclusion theorems require it.  Generated states not
+known to satisfy the full hypotheses of one of the explicit Liouville branches
+belong to the remaining class \(\calR(\calS)\), and are removed only by the
+residual closure hypothesis.
 
 The reduction has four components.  First, the local concentration theorem
 shows that a singular point carries positive Caffarelli--Kohn--Nirenberg
@@ -136,21 +144,21 @@ Second, the Type I blow-up analysis gives the admissible Seregin extraction:
 an admissible Type I extraction produces a raw smooth bounded ancient solution
 of the centered self-similar equation with positive compact local \(L^3\)
 velocity mass.  The compact mass is converted into invariant local
-nonvanishing before forming the generated descendant hull.  The paper then
-defines the Liouville classes and the residual class on that generated hull.
+nonvanishing before forming the raw generated descendant hull.  The paper then
+defines the Liouville classes and the residual class on that raw hull.
 
 Third, the uniformly tight analysis excludes nonzero uniformly \(L^3\)-tight
-generated normalized Seregin limits.  Boundedness plus uniform
+generated raw Seregin states that lie in the mild stratum.  Boundedness plus uniform
 \(L^3\)-tightness gives a backward sequence of finite critical norm after
 physical pullback, so the Albritton--Barker endpoint ancient Liouville theorem
 applies.  Fourth, the structured part gives the axisymmetric and
 perturbative weighted-vorticity exclusions used in the Liouville-class analysis.
 These results turn the corresponding structured hypotheses into the zero
 ancient solution, contradicting the invariant local nonvanishing retained by
-the generated Seregin class.
+the raw generated Seregin state space.
 
-Consequently, a generated normalized Seregin limit in
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) must either belong to one of the excluded
+Consequently, a generated raw Seregin state in
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) must either belong to one of the excluded
 Liouville classes or to the residual class.  The Type I contradiction is
 therefore conditional on the residual-class hypothesis
 \Cref{p1:hyp:no-remainder}.
@@ -170,10 +178,11 @@ Velocity epsilon criterion & imported from Gustafson--Kang--Tsai & singularity g
 Weak-Serrin Type I bridge & imported from Albritton--Barker, Lemma~2.5; used here & local Type I gives \(A,C,D,E\) bounds \\
 Terminal no-escape & proved here using Albritton--Barker & prevents mass from escaping into \(t=T\) \\
 Seregin extraction & proved here & produces a raw extracted centered ancient profile \\
-Generated closure & defined here & gives the state space for residual closure \\
+Raw generated closure & defined here & gives the ambient state space for residual closure \\
+Mild stratum & defined here & supplies the branch condition for mild Liouville theorems \\
 Tight \(L^3\) branch & proved here using Albritton--Barker, Theorem~1.2 & excludes a non-residual class \\
 Structured Liouville branches & imported theorem by theorem plus Type I constant removal & exclude the structured classes \\
-Residual closure & conditional input from the companion residual paper & removes \(\calR(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*))\) \\
+Residual closure & conditional input from the companion residual paper & removes \(\calR(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*))\) \\
 Contradiction & conditional on residual closure & rules out local pointwise Type I singularities \\
 \hline
 \end{tabular}
@@ -1700,7 +1709,7 @@ is regular.  More precisely, if such a point were singular, it would generate
 a raw extracted normalized Seregin ancient limit with compact spacetime
 nonvanishing; \Cref{p1:lem:compact-to-invariant-nonzero} would then give the
 invariant local nonvanishing used to form the associated generated descendant
-hull.  That hull would be exhausted by the Liouville alternatives and the
+hull.  That raw hull would be exhausted by the Liouville alternatives and the
 residual class removed by \Cref{p1:hyp:no-remainder}.
 \end{proposition}
 
@@ -1718,10 +1727,10 @@ terminal slice.
 By \cref{p0:lem:local-seregin-extraction}, the sequence generates a raw
 extracted normalized Seregin ancient limit \(V\).  By
 \Cref{p1:lem:compact-to-invariant-nonzero}, \(V\) satisfies the invariant
-local nonvanishing condition for some data \((R_0,\eta_*)\).  Form the
+local nonvanishing condition for some data \((R_0,\eta_*)\).  Form the raw
 generated descendant hull
 \[
-   \calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*).
+   \calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*).
 \]
 By construction, \(V\in\calS\).
 By the class exhaustion in
@@ -1732,7 +1741,7 @@ stationary, uniformly tight, and structure-and-decay Liouville results; the
 last of these is routed through \Cref{p3:thm:typeI-zero-hypotheses}.  The
 residual alternative is removed by the residual-class
 hypothesis applied to
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\).
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).
 This contradicts the generated nonvanishing guaranteed by
 \Cref{p1:cor:normalized-nonzero}.  Hence \(z_*\) is regular.
 \end{proof}
@@ -1763,7 +1772,7 @@ no-escape away from terminal slice\\
 \(\downarrow\) \Cref{p0:cor:paper0-local-typeI-admissible} / \Cref{p0:cor:auto-paperI-admissibility}\\
 admissible concentration sequence\\
 \(\downarrow\) \Cref{p0:lem:local-seregin-extraction} \emph{or} \Cref{p1:thm:extraction}\\
-raw extracted Seregin ancient limit, then generated normalized class (Part II)\\
+raw extracted Seregin ancient limit, then raw generated state space and mild strata (Part II)\\
 \(\downarrow\) class decomposition \Cref{p1:def:remaining-class}\\
 non-residual classes (excluded here) \(\cup\) residual class\\
 \(\downarrow\) \Cref{p1:hyp:no-remainder} (conditional residual closure hypothesis)\\
@@ -1782,7 +1791,7 @@ closure assumption is isolated in \Cref{p1:hyp:no-remainder}.
 An admissible finite-energy Type I singularity for the
 three-dimensional Navier--Stokes equations is first reduced to a raw extracted
 nonzero bounded ancient solution of the centered self-similar Navier--Stokes
-equation, and then to the generated normalized class used in the residual
+equation, and then to the raw generated state space used in the residual
 argument.  The
 construction keeps track of pressure gauges, local compactness, stability of
 the local energy inequality, and the velocity concentration supplied by local
@@ -1790,7 +1799,7 @@ Caffarelli--Kohn--Nirenberg theory.  It yields a smooth bounded ancient solution
 for the centered equation on \(\R^3\times\R\), together with a quantitative
 local \(L^3\) nonvanishing condition.
 
-The possible generated normalized Seregin ancient limits are organized by the
+The possible generated raw Seregin states are organized by the
 analytic hypotheses used in the class decomposition: small amplitude,
 stationary \(L^3\), uniform \(L^3\)-tightness, and structure or decay assumptions to which
 cited Liouville theorems apply.  The small-amplitude case is excluded by the bounded ancient
@@ -1801,7 +1810,7 @@ theorems force \(V\equiv0\).  The uniformly \(L^3\)-tight class is excluded in
 \Cref{p2:thm:tight-liouville}.  The residual class is handled only through the
 residual-class hypothesis \Cref{p1:hyp:no-remainder}.
 Consequently the Type I conclusion obtained from this extraction is conditional
-on that residual hypothesis within the generated finite-energy and local
+on that residual hypothesis within the raw generated finite-energy and local
 pointwise Type I extraction classes.
 
 \section{Introduction and main results}\label{p1:sec:introduction}
@@ -1872,7 +1881,7 @@ constant \(\eta_0>0\) such that
 
 No unconditional Liouville theorem is known for all bounded ancient solutions
 of \eqref{p1:eq:centered}.  The reduction therefore uses a finite decomposition
-based on explicit Liouville theorems.  A generated normalized Seregin limit is compared with the
+based on explicit Liouville theorems.  A generated raw Seregin state is compared with the
 following analytic classes:
 \[
    \calC_{\mathrm{small}},\qquad
@@ -1884,9 +1893,9 @@ following analytic classes:
 They denote, respectively, small amplitude, stationary \(L^3\), uniform
 \(L^3\)-tightness, and structure or decay hypotheses to which the cited
 Liouville theorems apply
-(\(\mathrm{sd}\)), and the complement of these four classes inside a generated
-descendant hull
-\(\calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\).  The last set carries no additional
+(\(\mathrm{sd}\)), and the complement of these four classes inside a raw
+generated descendant hull
+\(\calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).  The last set carries no additional
 analytic hypothesis; it is the remaining case after the stated Liouville
 alternatives have been removed.
 
@@ -1913,8 +1922,8 @@ and is a raw extracted normalized Seregin ancient limit with the compact
 spacetime \(L^3\) nonvanishing condition \eqref{p1:eq:nonvanishing}.
 \end{theorem}
 
-For a generated descendant hull
-\(\calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\), the class definitions give, for
+For a raw generated descendant hull
+\(\calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\), the class definitions give, for
 each \(V\in\calS\), the exhaustive alternative
 \[
    V\in
@@ -1956,7 +1965,7 @@ The resulting implication is
 \\
 \Downarrow
 \\
-\text{generated normalized Seregin limit with invariant nonvanishing}
+\text{raw generated Seregin state with invariant nonvanishing}
 \\
 \Downarrow
 \\
@@ -1988,26 +1997,26 @@ from the local concentration theory enters the blow-up construction.  The
 extraction first produces a raw extracted limit carrying the local \(L^3\)
 lower bound \eqref{p1:eq:nonvanishing}.  The subsequent hull construction uses
 \Cref{p1:lem:compact-to-invariant-nonzero} and
-\Cref{p1:lem:generated-closure-stability}, which provide the invariant
-nonvanishing and the bounded mild generated structure used by the class
-exclusions.  The uniformly \(L^3\)-tight Liouville theorem and the
-residual-class hypothesis are invoked only after this generated class is
+\Cref{p1:lem:raw-generated-closure-stability}, which provide the invariant
+nonvanishing and the raw generated structure.  Mildness is imposed only in the
+branch definitions that need it.  The uniformly \(L^3\)-tight Liouville theorem and the
+residual-class hypothesis are invoked only after this raw generated class is
 formed and the class exhaustion is applied.  The statement
 \cref{p1:thm:tight-liouville} follows from the endpoint \(L^3\) closure in
 \Cref{p2:thm:tight-liouville}, and \cref{p1:hyp:no-remainder} is the
 residual-class hypothesis for
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\).  The
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).  The
 structure and decay class is routed through
 \Cref{p3:thm:typeI-zero-hypotheses}, whose hypotheses are recorded in the
 structured Liouville section.  Thus the final Type I conclusion is conditional
 on the admissibility condition in \Cref{p0:cor:auto-paperI-admissibility}, the
-extraction theorem, the generated-class closure statements, the Liouville-class
+extraction theorem, the raw generated closure statements, the Liouville-class
 exclusions, and the residual-class hypothesis.
 
 \subsection{Two entry routes for the reduction}
 \label{p1:sec:two-entry-points}
 
-There are two routes to the same generated normalized Seregin class; they have
+There are two routes to the same raw generated Seregin state space; they have
 different hypotheses and first produce the same type of raw extracted ancient
 solution.
 \begin{enumerate}[label=\textup{(\arabic*)}]
@@ -2054,7 +2063,7 @@ the admissibility condition, scaling, pressure gauges, and local concentration.
 rescalings away from the terminal time and constructs the ancient suitable
 weak limit.  \Cref{p1:sec:nontriviality} proves persistence of concentration and
 nontriviality.  \Cref{p1:sec:seregin} derives the centered equation and defines
-raw extracted limits, generated normalized limits, and their collections.
+raw extracted limits, the raw generated state space, and its mild stratum.
 \Cref{p1:sec:classes} defines the
 Liouville classes and the remaining class.  \Cref{p1:sec:liouville} proves the
 class exclusions and the uniformly tight theorem.  \Cref{p1:sec:criterion} proves
@@ -3314,7 +3323,8 @@ Choose \(R_0>0\) and an interval \([a,b]\subset\R\) with
 Take \(\eta_*=\eta_{\rm raw}/(b-a)\).
 \end{proof}
 
-\begin{definition}[Generated Seregin class]
+\begin{definition}[Raw generated Seregin state space]
+\label{p1:def:raw-generated-seregin-space}
 \label{p1:def:seregin-collection}
 For a fixed triple \((u,p,z_*)\), fix invariant normalization data
 \((R_0,\eta_*)\) obtained from a raw extracted profile by
@@ -3333,17 +3343,16 @@ component associated with the extracted profile under consideration.  This avoid
 asserting any lower semicontinuity or uniform normalization across unrelated
 raw extractions.
 
-The \emph{generated descendant hull}
+The \emph{raw generated descendant hull}
 \[
-   \calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)
+   \calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
 \]
 is, by definition, the smallest class containing
 \(\calS_{\mathrm{raw}}(u,p,z_*)\) and closed under logarithmic time
 translations and locally smooth limits that retain:
 \begin{enumerate}[label=(\roman*)]
-\item the inherited global centered \(L^\infty\) bound;
-\item smoothness and the bounded mild centered ancient formulation on every
-finite time interval;
+\item the inherited centered \(L^\infty\) bound;
+\item smoothness and the centered local-pressure ancient formulation;
 \item the invariant local velocity nonvanishing condition
 \eqref{p1:eq:invariant-nonvanishing} with the fixed parameters
 \((R_0,\eta_*)\).
@@ -3352,54 +3361,100 @@ The class is closed under locally smooth limits that still satisfy the
 invariant \((R_0,\eta_*)\)-nonvanishing condition; no claim is made that
 this condition is lower semicontinuous under arbitrary uncentered locally
 smooth limits.  An element of
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) is called
-a \emph{generated normalized Seregin ancient limit}.  Unless the adjective
-``raw extracted'' is used, the phrase ``normalized Seregin ancient limit''
-below means an element of the generated class.  When the invariant
-normalization data are clear from the extracted profile under discussion, we
-write \(\calS_{\mathrm{gen}}(u,p,z_*)\) for
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\).  For notational economy,
-\(\calS(u,p,z_*)\) denotes this generated class.
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) is called
+a \emph{generated raw Seregin state}.  When the invariant normalization data
+are clear from the extracted profile under discussion, we write
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*)\) for
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).  For notational
+economy, \(\calS(u,p,z_*)\) denotes this raw generated class.
 \end{definition}
 
-\begin{remark}[Generated descendant hulls]
+\begin{definition}[Mild stratum of the generated state space]
+\label{p1:def:mild-stratum}
+The mild stratum of the raw generated state space is
+\[
+   \calS_{\mathrm{mild}}(u,p,z_*;R_0,\eta_*)
+   \subset
+   \calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
+\]
+consisting of those generated states \(V\) satisfying the finite-interval
+projected centered mild formulation, where
+\[
+   L=\Delta-\frac12y\cdot\nabla-\frac12,\qquad S(s)=e^{sL}.
+\]
+For every \(\sigma<\tau\),
+\[
+   V(\tau)
+   =
+   S(\tau-\sigma)V(\sigma)
+   -
+   \int_\sigma^\tau
+   S(\tau-s)\mathbb P\nabla\cdot(V\otimes V)(s)\,ds
+\]
+in the weak-* topology of \(L^\infty(\R^3)\).
+\end{definition}
+
+\begin{remark}[Raw generated descendant hulls]
 \label{p1:rem:generated-hull}
 No assertion is made here that an arbitrary locally smooth limit of translates
 is itself an extracted limit from the original physical sequence without a
-separate diagonal generation argument.  Instead, the generated
-descendant hull is included in the definition of the class to which
-the residual closure hypothesis is applied.  This is the class on which the
-residual set \(\calR(\calS)\) is formed in the final assembly.
+separate diagonal generation argument.  Instead, the raw generated descendant
+hull is included in the definition of the class to which the residual closure
+hypothesis is applied.  This is the class on which the residual set
+\(\calR(\calS)\) is formed in the final assembly.  The projected mild
+formulation is imposed only on the mild stratum, not on the whole raw hull.
 \end{remark}
 
-\begin{lemma}[Generated closure preserves normalized ancient structure]
-\label{p1:lem:generated-closure-stability}
+\begin{lemma}[Raw generated closure preserves normalized ancient structure]
+\label{p1:lem:raw-generated-closure-stability}
 Every element of
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) is a smooth bounded mild centered
-ancient solution, satisfies the inherited centered \(L^\infty\) bound, and
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) is a smooth bounded
+centered ancient local-pressure solution, satisfies the inherited centered
+\(L^\infty\) bound, and
 retains the time-translation invariant local \(L^3\) nonvanishing
 normalization \eqref{p1:eq:invariant-nonvanishing} with the fixed
 \((R_0,\eta_*)\).
 \end{lemma}
 
 \begin{proof}
-Raw extracted elements have these properties by
+Raw extracted elements have these raw properties by
 \Cref{p1:thm:extraction,p0:lem:local-seregin-extraction} together with
 \Cref{p1:lem:compact-to-invariant-nonzero}, which converts the raw compact
 cylinder mass lower bound into the invariant condition
 \eqref{p1:eq:invariant-nonvanishing}.  Logarithmic time translations
 preserve the autonomous centered equation, the centered
-\(L^\infty\) bound, smoothness, and the finite-interval mild formula; they
-also preserve the supremum on the left of
+\(L^\infty\) bound, smoothness, and the local-pressure formulation; they also
+preserve the supremum on the left of
 \eqref{p1:eq:invariant-nonvanishing}, since the supremum is over all
 \(\tau\in\R\).  For a locally smooth limit of such translates, smoothness
 and the equation pass by local convergence; the \(L^\infty\) bound passes
-by pointwise convergence; and the finite-interval Duhamel formula passes
-to the limit by the Oseen-kernel representation and the common
-\(L^\infty\) bound.  The generated hull is closed only under limits
-retaining the invariant nonvanishing condition with the fixed
-\((R_0,\eta_*)\), so \eqref{p1:eq:invariant-nonvanishing} remains part of
-the structure.
+by pointwise convergence.  The raw generated hull is closed only under limits
+retaining the invariant nonvanishing condition with the fixed \((R_0,\eta_*)\),
+so \eqref{p1:eq:invariant-nonvanishing} remains part of the structure.
+\end{proof}
+
+\begin{lemma}[Mild stratum stability]
+\label{p1:lem:mild-stratum-stability}
+The class \(\calS_{\mathrm{mild}}(u,p,z_*;R_0,\eta_*)\) is invariant under
+logarithmic time translations.  Moreover, locally smooth limits of elements of
+\(\calS_{\mathrm{mild}}\) with a common \(L^\infty\) bound remain in
+\(\calS_{\mathrm{mild}}\), provided the limiting state belongs to the raw
+generated hull and retains the fixed invariant nonvanishing normalization.
+\end{lemma}
+
+\begin{proof}
+Time translation preserves the finite-interval projected mild identity because
+the centered equation and the centered Stokes semigroup are autonomous.
+Consider a locally smooth sequence \(V_j\in\calS_{\mathrm{mild}}\) with a common
+\(L^\infty\) bound, converging locally smoothly to \(V\).  For fixed
+\(\sigma<\tau\), the linear term \(S(\tau-\sigma)V_j(\sigma)\) converges to
+\(S(\tau-\sigma)V(\sigma)\) in distributions and weak-* \(L^\infty_{\loc}\).
+The Duhamel terms pass to the limit against compactly supported test fields by
+the Oseen-kernel estimate in \Cref{p1:lem:centered-stokes-estimates}, the common
+\(L^\infty\) bound, and local smooth convergence of \(V_j\otimes V_j\).  Hence
+the projected mild formula holds for \(V\) on \([\sigma,\tau]\).  The remaining
+raw generated and nonvanishing requirements are part of the stated limiting
+hypotheses.
 \end{proof}
 
 \begin{remark}
@@ -3407,15 +3462,17 @@ The raw compact spacetime \(L^3\) nonvanishing condition is part of the
 normalization, not an additional hypothesis.  It is inherited from the
 selected velocity concentration and the no-escape condition through
 \cref{p1:lem:scale-selection,p1:prop:nonzero} for the finite-energy extraction,
-and through for the local pointwise
-Type I extraction.  The generated descendant hull uses the
+and, for the local pointwise Type I extraction, through
+\Cref{p0:lem:paper0-local-typeI-into-terminal-dichotomy,p0:lem:local-seregin-extraction}.
+The raw generated descendant hull uses the
 time-translation invariant consequence \eqref{p1:eq:invariant-nonvanishing};
-this is the nonzero normalization used below for generated limits.
+this is the nonzero normalization used below for generated raw states.
 \end{remark}
 
-\begin{corollary}[Generated normalized Seregin limits are nonzero]
+\begin{corollary}[Generated raw Seregin states are nonzero]
 \label{p1:cor:normalized-nonzero}
-Every generated normalized Seregin ancient limit satisfies the
+Every generated raw Seregin state in
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) satisfies the
 time-translation invariant local \(L^3\) nonvanishing condition
 \eqref{p1:eq:invariant-nonvanishing}; in particular it is not identically
 zero.
@@ -3430,7 +3487,7 @@ raw local pointwise Type I concentration sequence it is
 together with \Cref{p1:lem:compact-to-invariant-nonzero}.
 Generated closure elements retain
 \eqref{p1:eq:invariant-nonvanishing} by
-\Cref{p1:lem:generated-closure-stability}.
+\Cref{p1:lem:raw-generated-closure-stability}.
 \end{proof}
 
 \begin{proof}[Proof of \cref{p1:thm:extraction}]
@@ -3448,19 +3505,30 @@ smoothness, boundedness, and raw compact \(L^3\) nonvanishing are
 
 \section{Liouville classes and the remaining class}\label{p1:sec:classes}
 
-Fix a generated descendant hull \(\calS\) of generated normalized Seregin
-limits in the sense of \Cref{p1:def:seregin-collection}.  Complements below are taken
-relative to \(\calS\).  Structural conditions involving the unrenormalized
+Fix a raw generated descendant hull
+\[
+   \calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
+\]
+in the sense of \Cref{p1:def:raw-generated-seregin-space}.  Complements below
+are taken relative to this raw hull.  Write
+\[
+   \calS_{\mathrm{mild}}
+   =
+   \calS_{\mathrm{mild}}(u,p,z_*;R_0,\eta_*)
+\]
+for its mild stratum.  Structural conditions involving the unrenormalized
 ancient field refer to
 \[
    U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)).
 \]
 
 \begin{definition}[Small-amplitude class]\label{p1:def:small-class}
-Let \(\varepsilon_{\rm small}>0\) be the small-data Liouville constant for bounded
-ancient solutions of \eqref{p1:eq:centered}.  We say
+Let \(\varepsilon_{\rm small}>0\) be the small-data Liouville constant for
+bounded mild ancient solutions of \eqref{p1:eq:centered}.  We say
 \(V\in\calC_{\mathrm{small}}\) if
 \[
+   V\in\calS_{\mathrm{mild}}
+   \qquad\text{and}\qquad
    \|V\|_{L^\infty(\R^3\times\R)}\le \varepsilon_{\rm small}.
 \]
 \end{definition}
@@ -3476,22 +3544,27 @@ We say \(V\in\calC_{\mathrm{stat},L^3}\) if
 
 \begin{definition}[Uniformly \(L^3\)-tight class]\label{p1:def:tight-class}
 We say \(V\in\calC_{L^3\mathrm{-tight}}\) if
+\[
+   V\in\calS_{\mathrm{mild}}
+\]
+and
 \begin{equation}\label{p1:eq:L3-tightness}
    \lim_{R\to\infty}
    \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \end{equation}
 \end{definition}
 
-Every \(V\in\calS\) is bounded.  \Cref{p2:thm:tight-liouville} shows that, for such limits, the
-tail condition \eqref{p1:eq:L3-tightness} gives the endpoint sequence-\(L^3\)
-control needed after physical pullback; no separate
+Every \(V\in\calS\) is bounded.  \Cref{p2:thm:tight-liouville} shows that, for
+mild states, the tail condition \eqref{p1:eq:L3-tightness} gives the endpoint
+sequence-\(L^3\) control needed after physical pullback; no separate
 \(L^\infty_\tau L^3_y\) hypothesis is required for the tight-class exclusion.
 
 \begin{definition}[Structure and decay class]
 \label{p1:def:known-structure-decay-class}
-A generated normalized Seregin limit \(V\) belongs to
-\(\calC_{\mathrm{sd}}\) if its physical ancient representative \(U\) satisfies
-at least one of the following analytic hypotheses:
+A generated raw Seregin state \(V\in\calS_{\mathrm{raw\text{-}gen}}\) belongs
+to \(\calC_{\mathrm{sd}}\) if \(V\in\calS_{\mathrm{mild}}\) and its physical
+ancient representative \(U\) satisfies at least one of the following analytic
+hypotheses:
 \begin{enumerate}[label=(\roman*)]
 \item \(U\) is axisymmetric without swirl;
 \item \(U\) is axisymmetric and satisfies the pointwise scale-invariant bound
@@ -3524,8 +3597,8 @@ harmonic constant velocity mode, so zero vorticity gives zero velocity.
 Membership in \(\calC_{\mathrm{sd}}\) is checked profile by profile.  No
 closedness of the structural class under all generated limits is used in the
 final contradiction; whenever a generated limit satisfies one of the listed
-conditions, the corresponding Liouville theorem is applied directly to that
-profile.
+conditions and lies in the mild stratum, the corresponding Liouville theorem is
+applied directly to that profile.
 \end{remark}
 
 \begin{lemma}[Structural quantities under centering]
@@ -3554,7 +3627,7 @@ The remaining class is
 \[
    \calR(\calS)
    =
-   \calS
+   \calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
    \setminus
    \left(
       \calC_{\mathrm{small}}
@@ -3578,23 +3651,33 @@ the four named classes.''  The residual closure hypothesis
 the final contradiction.
 \end{remark}
 
+\begin{remark}[Non-mild states are residual unless otherwise classified]
+The ambient state space is the raw generated Seregin hull.  The explicit
+Liouville classes include exactly the hypotheses needed to invoke their
+corresponding Liouville theorems.  In particular, a generated state for which
+the projected mild formulation has not been established is not placed in the
+small, tight, or structure/decay Liouville classes merely because it satisfies
+the corresponding pointwise or tail condition.  Such a state lies in the
+remaining class unless it belongs to the stationary \(L^3\) branch.
+\end{remark}
+
 \begin{remark}[Single-profile versus collection-level tightness]
 \label{p1:rem:single-vs-collection}
-The exclusion of a single generated normalized Seregin limit in
+The exclusion of a single generated raw Seregin state in
 \(\calC_{L^3\mathrm{-tight}}\) uses only the single-profile tail condition
-together with boundedness, via \Cref{p2:thm:tight-liouville}.  The stronger
+together with mildness and boundedness, via \Cref{p2:thm:tight-liouville}.  The stronger
 collection-level tightness modulus appearing in
 \Cref{p2:def:tight-normalized-collection} is used only in the
 auxiliary compactness and minimal-element material of Part III; no hidden common
-modulus is imposed on individual generated normalized Seregin limits.
+modulus is imposed on individual generated raw Seregin states.
 \end{remark}
 
 \begin{proposition}[Exhaustion by defined classes]\label{p1:prop:exhaustion}
 Let
 \[
-   \calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)
+   \calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
 \]
-be a generated descendant hull.  Then every \(V\in\calS\) belongs either to
+be a raw generated descendant hull.  Then every \(V\in\calS\) belongs either to
 one of
 \[
    \calC_{\mathrm{small}},\qquad
@@ -3697,9 +3780,9 @@ representation.  They do not use boundedness of the Leray projector as a
 Calderon--Zygmund operator on \(L^\infty\).
 \end{remark}
 
-\begin{lemma}[Mild representation for generated normalized limits]
+\begin{lemma}[Mild representation for generated mild states]
 \label{p1:lem:mild-representation}
-Every generated normalized Seregin ancient limit satisfies, for all
+Every \(V\in\calS_{\mathrm{mild}}(u,p,z_*;R_0,\eta_*)\) satisfies, for all
 \(\Theta>0\),
 \[
    V(\tau)
@@ -3713,28 +3796,10 @@ Every generated normalized Seregin ancient limit satisfies, for all
 \end{lemma}
 
 \begin{proof}
-By \Cref{p1:lem:generated-closure-stability}, every generated normalized
-Seregin ancient limit is a smooth bounded centered ancient solution and
-satisfies the bounded mild formulation on finite time intervals.  On a finite interval
-\([\tau-\Theta,\tau]\), the tensor \(V\otimes V\) is bounded, so
-\cref{p1:lem:centered-stokes-estimates} makes the Duhamel integral finite in
-\(L^\infty\).  In the sense of solenoidal distributions, applying the Leray
-projector to \eqref{p1:eq:centered} removes the pressure and gives
-\[
-   \partial_\tau V=LV-\mathbb P\nabla\cdot(V\otimes V)
-\]
-on every finite interval.  Since \(V\) is smooth, the map
-\[
-   s\mapsto S(\tau-s)V(s)
-\]
-is differentiable as a tempered distribution for \(\tau-\Theta<s<\tau\), and
-\[
-   \frac{d}{ds}\bigl(S(\tau-s)V(s)\bigr)
-   =
-   -S(\tau-s)\mathbb P\nabla\cdot(V\otimes V)(s).
-\]
-Integrating this identity from \(\tau-\Theta\) to \(\tau\) gives the stated
-Duhamel formula.
+This is the finite-interval projected mild formulation in
+\Cref{p1:def:mild-stratum}, applied with \(\sigma=\tau-\Theta\).  The centered
+Stokes estimates in \Cref{p1:lem:centered-stokes-estimates} ensure that the
+Duhamel term is well-defined in weak-* \(L^\infty\).
 \end{proof}
 
 \begin{lemma}[Small bounded ancient Liouville theorem]\label{p1:lem:small-liouville}
@@ -3809,8 +3874,8 @@ stationary self-similar equation for \(W\).
 
 \begin{lemma}[Galilean-trivial normalized profiles vanish]
 \label{p1:lem:galilean-trivial-zero}
-Let \(U\) be the physical ancient representative of a generated normalized
-Seregin limit \(V\).  If \(U\) is spatially constant, or if a cited Liouville
+Let \(U\) be the physical ancient representative of a generated raw Seregin
+state \(V\) in the mild stratum.  If \(U\) is spatially constant, or if a cited Liouville
 theorem reduces \(U\) to a spatially constant solution in the Type I blow-up
 frame, then \(U\equiv0\) and hence \(V\equiv0\).
 \end{lemma}
@@ -3823,7 +3888,7 @@ semigroup fixes constants, so \(c(t)=c(s)\) for all \(s<t<0\).  Thus
 \[
    V(y,\tau)=e^{-\tau/2}c .
 \]
-Since generated normalized Seregin limits are bounded for all \(\tau\in\R\),
+Since generated raw Seregin states are bounded for all \(\tau\in\R\),
 letting \(\tau\to-\infty\) forces \(c=0\).  The Galilean-trivial alternatives used
 below are invoked only in this compatible Type I blow-up frame, so the same
 constant-removal argument applies.
@@ -3831,7 +3896,7 @@ constant-removal argument applies.
 
 \begin{theorem}[Small and stationary class exclusions]
 \label{p1:thm:classical-classes}
-Let \(V\) be a generated normalized Seregin ancient limit.  Then
+Let \(V\) be a generated raw Seregin state.  Then
 \[
    V\notin \calC_{\mathrm{small}},
    \qquad
@@ -3841,6 +3906,7 @@ Let \(V\) be a generated normalized Seregin ancient limit.  Then
 
 \begin{proof}
 If \(V\in\calC_{\mathrm{small}}\), then
+by definition \(V\in\calS_{\mathrm{mild}}\), and
 \cref{p1:lem:mild-representation,p1:lem:small-liouville} give \(V\equiv0\),
 contradicting the invariant nonvanishing normalization of
 \Cref{p1:cor:normalized-nonzero}.
@@ -3856,44 +3922,47 @@ gives the contradiction.
 
 \begin{theorem}[Uniformly tight \(L^3\) closure]
 \label{p1:thm:tight-liouville}
-No generated normalized Seregin ancient limit in a generated descendant hull
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) belongs to
+No generated raw Seregin state in a raw generated descendant hull
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) belongs to
 \(\calC_{L^3\mathrm{-tight}}\).
 \end{theorem}
 
 \begin{proof}
-Let \(V\) be a generated normalized Seregin ancient limit in
-\(\calC_{L^3\mathrm{-tight}}\).  By
-\Cref{p1:lem:generated-closure-stability}, \(V\) is a smooth bounded mild
-centered ancient solution and satisfies the invariant nonvanishing
-normalization of \Cref{p1:cor:normalized-nonzero}.  The tail-tightness
-condition is the hypothesis of \Cref{p2:thm:tight-liouville}; hence
-that theorem gives \(V\equiv0\), contradicting
+Let \(V\) be a generated raw Seregin state in
+\(\calC_{L^3\mathrm{-tight}}\).  By definition
+\(V\in\calS_{\mathrm{mild}}\) and satisfies the uniform tail condition.  Thus
+\Cref{p2:thm:tight-liouville} gives \(V\equiv0\), contradicting
 \Cref{p1:cor:normalized-nonzero}.
 \end{proof}
 
 \begin{theorem}[Structure and decay exclusions from Liouville theorems]
 \label{p1:thm:known-structure-decay-liouville}
-No nonzero generated normalized Seregin ancient limit belongs to
+No nonzero generated raw Seregin state belongs to
 \(\calC_{\mathrm{sd}}\).
 \end{theorem}
 
 \begin{proof}
-By \cref{p1:def:known-structure-decay-class}, membership in
-\(\calC_{\mathrm{sd}}\) means that the physical ancient representative
-\(U\) satisfies one of the hypotheses listed in
-\Cref{p3:thm:typeI-zero-hypotheses}.  By
-\Cref{p1:lem:generated-closure-stability}, the generated normalized profile is
-smooth and bounded; by \Cref{p2:lem:physical-mild}, its physical
-representative is mild on every finite terminal restriction.  Therefore
-\Cref{p3:thm:typeI-zero-hypotheses} applies and gives \(U\equiv0\).  Hence
-the centered profile \(V\equiv0\), contradicting the invariant nonvanishing
-normalization of \Cref{p1:cor:normalized-nonzero}.
+Let \(V\in\calC_{\mathrm{sd}}\).  By definition of the structure/decay class,
+\(V\in\calS_{\mathrm{mild}}\), and its physical representative
+\[
+   U(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t))
+\]
+satisfies one of the listed structural hypotheses.  The inherited centered
+\(L^\infty\) bound gives the physical Type I estimate
+\[
+   |U(x,t)|\le \|V\|_\infty(-t)^{-1/2}.
+\]
+By \Cref{p2:lem:physical-mild}, \(U\) satisfies the standard projected mild
+formulation on every finite terminal restriction, hence is a Type I ancient
+solution in the sense of \Cref{p3:def:typeI-ancient}.  Therefore
+\Cref{p3:thm:typeI-zero-hypotheses} gives \(U\equiv0\), and hence
+\(V\equiv0\), contradicting the invariant nonvanishing normalization of
+\Cref{p1:cor:normalized-nonzero}.
 \end{proof}
 
 \begin{proposition}[Exclusion of the Liouville classes]
 \label{p1:prop:known-class-exclusion}
-No generated normalized Seregin ancient limit can belong to
+No nonzero generated raw Seregin state can belong to
 \[
    \calC_{\mathrm{small}}
    \cup
@@ -3906,17 +3975,23 @@ No generated normalized Seregin ancient limit can belong to
 \end{proposition}
 
 \begin{proof}
-The small and stationary \(L^3\) classes are excluded by
-\cref{p1:thm:classical-classes}.  The uniformly tight class is excluded by
-\cref{p1:thm:tight-liouville}.  The structure and decay class is excluded by
-\cref{p1:thm:known-structure-decay-liouville}.
+If \(V\in\calC_{\mathrm{small}}\), then by definition
+\(V\in\calS_{\mathrm{mild}}\), and the small mild Liouville theorem applies.
+If \(V\in\calC_{\mathrm{stat},L^3}\), then the stationary self-similar profile
+equation and the stationary Leray theorem apply.  These two branches are
+excluded in \Cref{p1:thm:classical-classes}.  If
+\(V\in\calC_{L^3\mathrm{-tight}}\), then by definition
+\(V\in\calS_{\mathrm{mild}}\), so \Cref{p1:thm:tight-liouville} applies.  If
+\(V\in\calC_{\mathrm{sd}}\), then by definition \(V\in\calS_{\mathrm{mild}}\)
+and the physical representative satisfies the relevant Type I mild structural
+hypothesis, so \Cref{p1:thm:known-structure-decay-liouville} applies.
 \end{proof}
 
 \section{Residual closure hypothesis}\label{p1:sec:criterion}
 
-The preceding sections prove that every generated normalized Seregin ancient
-limit in a generated descendant hull associated with an admissible finite-energy
-Type I extraction or an admissible local pointwise Type I concentration
+The preceding sections prove that every generated raw Seregin state in a raw
+generated descendant hull associated with an admissible finite-energy Type I
+extraction or an admissible local pointwise Type I concentration
 sequence is either in one of the four non-residual Liouville classes or in the
 complement \(\calR(\calS)\).  The four non-residual classes
 (\(\calC_{\mathrm{small}}\), \(\calC_{\mathrm{stat},L^3}\),
@@ -3927,34 +4002,38 @@ preceding sections depends on the proof of residual closure; it is invoked
 only in \Cref{p1:thm:remaining-criterion} and in the final assembly
 \Cref{p1:thm:final-assembly}.
 
-\begin{hypothesis}[Residual closure for generated Seregin classes]
+\begin{hypothesis}[Residual closure for raw generated Seregin state spaces]
 \label{p1:hyp:no-remainder}
 For every finite-energy suitable weak solution \((u,p)\), every terminal point
 \(z_*=(x_*,T)\) satisfying the local pointwise Type I bound, and every
-generated descendant hull produced by admissible local Type I concentration
+raw generated descendant hull produced by admissible local Type I concentration
 sequences at \(z_*\) with invariant normalization data generated by a raw
 extracted profile,
 \[
-   \calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*),
+   \calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*),
 \]
 one has
 \[
-   \calR\bigl(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\bigr)=\varnothing .
+   \calR\bigl(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\bigr)=\varnothing .
 \]
-The same assertion is assumed for generated descendant hulls produced by
+The same assertion is assumed for raw generated descendant hulls produced by
 admissible finite-energy Type I extractions in the finite-energy criterion
 \Cref{p1:thm:remaining-criterion}.
+The residual class is formed after removing only those states satisfying the
+full hypotheses of the explicit Liouville branches.  Thus the residual closure
+hypothesis also removes any generated raw state for which projected mildness is
+not available and which is not covered by the stationary \(L^3\) branch.
 \end{hypothesis}
 
 \begin{remark}[Residual closure as a conditional assumption]
 \label{p1:rem:companion-paper}
 \Cref{p1:hyp:no-remainder} is the only residual-class assumption not established
 from the preceding compactness and Liouville arguments in this paper.  It concerns
-the generated descendant hull
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) after the ordered removal of the
+the raw generated descendant hull
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) after the ordered removal of the
 non-residual classes defined in \Cref{p1:sec:classes}.  The hypothesis is a
-conditional analytic statement about the same generated class of Seregin
-limits constructed here.  When this hypothesis is assumed,
+conditional analytic statement about the same raw generated state space
+constructed here.  When this hypothesis is assumed,
 \Cref{p1:thm:remaining-criterion} and
 \Cref{p1:thm:final-assembly} give the Type I exclusions within the stated
 finite-energy Type I extraction and local pointwise Type I concentration
@@ -3966,17 +4045,17 @@ sequence classes.  All uses of
 \label{p1:rem:paper-IV-interface}
 The companion residual paper is intended to prove
 \[
-   \calR\bigl(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\bigr)=\varnothing
+   \calR\bigl(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\bigr)=\varnothing
 \]
-for the generated descendant hull defined in
-\Cref{p1:def:seregin-collection}.  The final assembly is formulated only for
-this generated state space.
+for the raw generated descendant hull defined in
+\Cref{p1:def:raw-generated-seregin-space}.  The final assembly is formulated
+only for this raw generated state space.
 \end{remark}
 
 \begin{corollary}[Rigidity in the remaining case]\label{p1:cor:remainder-rigidity}
 Assume \Cref{p1:hyp:no-remainder}.
-For every generated descendant hull
-\(\calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) associated with admissible
+For every raw generated descendant hull
+\(\calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) associated with admissible
 finite-energy Type I extractions or admissible local pointwise Type I
 concentration sequences, every
 element of \(\calR(\calS)\) is
@@ -3987,22 +4066,22 @@ identically zero.
 The assertion follows directly from \cref{p1:hyp:no-remainder}.
 \end{proof}
 
-\begin{proposition}[Equivalence on generated normalized Seregin limits]
+\begin{proposition}[Equivalence on generated raw Seregin states]
 \label{p1:prop:remainder-equivalence}
-For generated descendant hulls of generated normalized Seregin limits, the
+For raw generated descendant hulls of generated raw Seregin states, the
 residual-class hypothesis \cref{p1:hyp:no-remainder} implies
 \cref{p1:cor:remainder-rigidity}.  Conversely, the corresponding rigidity
-assertion removes the remaining class from every generated descendant hull.
+assertion removes the remaining class from every raw generated descendant hull.
 \end{proposition}
 
 \begin{proof}
 If \cref{p1:hyp:no-remainder} holds, the rigidity statement follows immediately.
-Conversely, assume the residual rigidity assertion for every generated
+Conversely, assume the residual rigidity assertion for every raw generated
 descendant hull: every element of \(\calR(\calS)\) is identically
-zero.  If some generated descendant hull had \(V\in\calR(\calS)\),
+zero.  If some raw generated descendant hull had \(V\in\calR(\calS)\),
 the rigidity assertion would give \(V\equiv0\), directly contradicting the
 invariant nonvanishing normalization of \Cref{p1:cor:normalized-nonzero}.  Hence no
-nonzero generated normalized Seregin limit can remain in \(\calR(\calS)\).
+nonzero generated raw Seregin state can remain in \(\calR(\calS)\).
 \end{proof}
 
 \begin{proof}[Proof of \cref{p1:thm:remaining-criterion}]
@@ -4013,9 +4092,9 @@ Seregin ancient limit \(V\).  By
 \Cref{p1:lem:compact-to-invariant-nonzero}, \(V\) satisfies the invariant
 local nonvanishing condition.  Let
 \[
-   \calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)
+   \calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
 \]
-be the generated descendant hull associated with \(z_*\), the admissible
+be the raw generated descendant hull associated with \(z_*\), the admissible
 extraction scales, and the corresponding fixed invariant normalization
 component.  By construction, \(V\in\calS\).
 
@@ -4023,14 +4102,14 @@ By \cref{p1:prop:exhaustion}, either \(V\) belongs to one of the Liouville class
 or \(V\in\calR(\calS)\).  The first alternative is impossible by
 \cref{p1:prop:known-class-exclusion}.  The second alternative is impossible by
 \cref{p1:hyp:no-remainder}, applied to
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\).  Hence the assumed admissible finite-energy Type I
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).  Hence the assumed admissible finite-energy Type I
 singularity cannot exist.
 \end{proof}
 
 The preceding theorem is conditional on the residual-class hypothesis for the
-generated descendant hull associated with the finite-energy extraction.  The
+raw generated descendant hull associated with the finite-energy extraction.  The
 compactness construction, pressure normalization, compact-to-invariant
-nonvanishing passage, generated closure stability, and class exhaustion are
+nonvanishing passage, raw generated closure stability, and class exhaustion are
 established above, with the local velocity concentration result recorded in
 \cref{p1:prop:local-velocity-concentration}.  The structure and decay class is
 restricted to the assumptions in \cref{p1:def:known-structure-decay-class} and
@@ -4212,11 +4291,11 @@ Raw extractions in Part II produce the local lower bound
 \eqref{p1:eq:nonvanishing}.  By
 \Cref{p1:lem:compact-to-invariant-nonzero}, every raw extracted profile
 also satisfies the invariant local normalization used in
-\eqref{p2:eq:local-nonzero}.  The generated class
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) is closed under time translations and
+\eqref{p2:eq:local-nonzero}.  The raw generated class
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\) is closed under time translations and
 locally smooth limits only within this invariantly normalized class, so
 the closed normalized collections of \Cref{p2:def:closed-normalized}
-include every generated descendant hull as a special case (with
+include every raw generated descendant hull as a special case (with
 \((R_0,\eta_0)\) given by the raw extraction parameters of
 \Cref{p1:lem:compact-to-invariant-nonzero}).
 \end{remark}
@@ -4412,7 +4491,7 @@ hull is then organized into small, stationary \(L^3\), uniformly tight,
 structure and decay, and residual classes.
 The tight-class exclusion requires no additional compact-dynamical hypothesis:
 the uniformly \(L^3\)-tight class contains no
-nonzero generated normalized ancient limit.
+nonzero generated raw ancient state in the mild stratum.
 
 \subsection{Organization}
 
@@ -5783,25 +5862,27 @@ physical Navier--Stokes equations after translating the terminal time \(T\) to
 \end{lemma}
 
 \begin{proof}
-By \Cref{p2:lem:physical-pullback}, \(u\) is a smooth bounded classical solution
-on \(\R^3\times(-\infty,T]\).  Let \(s<t\le T\).  The classical equation on
-the finite slab \([s,t]\) gives, for every solenoidal
-\(\phi\in C_c^\infty(\R^3;\R^3)\), the weak Duhamel identity
+Let \(s<t\le T<0\), and set
 \[
-\begin{aligned}
-   \langle u(t),\phi\rangle
-   &=
-   \langle e^{(t-s)\Delta}u(s),\phi\rangle \\
-   &\quad
-   -
-   \int_s^t
-   \left\langle
-      e^{(t-r)\Delta}\mathbb P\divergence(u\otimes u)(r),
-      \phi
-   \right\rangle\,dr .
-\end{aligned}
+   \sigma=-\log(-s),\qquad \tau=-\log(-t).
 \]
-Equivalently,
+Then \(\sigma<\tau\).  Apply the centered mild formula for \(V\) on
+\([\sigma,\tau]\):
+\[
+   V(\tau)
+   =
+   S(\tau-\sigma)V(\sigma)
+   -
+   \int_\sigma^\tau
+   S(\tau-\alpha)\mathbb P\nabla\cdot(V\otimes V)(\alpha)\,d\alpha .
+\]
+Under the parabolic change of variables
+\[
+   u(x,t)=(-t)^{-1/2}V(x/\sqrt{-t},-\log(-t)),
+\]
+the Ornstein--Uhlenbeck--Stokes semigroup becomes the heat--Stokes semigroup,
+and the operator \(\mathbb P\nabla\cdot\) transforms by its usual parabolic
+homogeneity.  Therefore
 \[
    u(t)
    =
@@ -5810,12 +5891,11 @@ Equivalently,
    \int_s^t
    e^{(t-r)\Delta}\mathbb P\divergence(u\otimes u)(r)\,dr
 \]
-in the weak-* topology of \(L^\infty(\R^3)\).  The heat--Stokes kernel bound
-used in \Cref{p2:lem:centered-stokes-kernel} makes the integral finite on every
-finite interval because \(u\) is bounded on
-\(\R^3\times(-\infty,T]\).  Thus the restriction is a bounded mild ancient
-solution.  The time translate \(u_T(x,\sigma)=u(x,\sigma+T)\),
-\(\sigma\le0\), has the same property on \((-\infty,0]\).
+in the weak-* topology of \(L^\infty(\R^3)\).  Since \(t\le T<0\), the
+physical pullback is bounded on \(\R^3\times(-\infty,T]\), and the Oseen
+kernel estimate makes the Duhamel term finite on every finite interval.  Hence
+the restriction of \(u\) to \((-\infty,T]\), after translating \(T\) to \(0\),
+is a bounded mild ancient solution.
 \end{proof}
 
 \subsection{\texorpdfstring{Endpoint \(L^3\) ancient Liouville theorem}{Endpoint L3 ancient Liouville theorem}}
@@ -5938,9 +6018,9 @@ the fixed local nonvanishing normalization in \Cref{p2:thm:tight-liouville-intro
 
 \begin{definition}[Tight-class Liouville consequence]
 \label{p2:def:tight-class-input}
-The tight-class Liouville consequence is the assertion that no generated
-normalized Seregin ancient limit satisfying the invariant nonvanishing
-normalization of \Cref{p1:cor:normalized-nonzero} is uniformly \(L^3\)-tight.
+The tight-class Liouville consequence is the assertion that no generated raw
+Seregin state satisfying the invariant nonvanishing normalization of
+\Cref{p1:cor:normalized-nonzero} belongs to \(\calC_{L^3\mathrm{-tight}}\).
 \end{definition}
 
 \begin{corollary}[Tight-class consequence for the Type I reduction]
@@ -5949,22 +6029,17 @@ normalization of \Cref{p1:cor:normalized-nonzero} is uniformly \(L^3\)-tight.
 \end{corollary}
 
 \begin{proof}
-Suppose, contrary to \Cref{p2:def:tight-class-input}, that a generated
-normalized Seregin ancient limit \(V\) belongs to the uniformly
-\(L^3\)-tight class.  By the
-normalization of the generated class, \(V\) satisfies the invariant local
-velocity nonvanishing condition of \Cref{p1:cor:normalized-nonzero}; in
-particular \(V\not\equiv0\).  Since \(V\) is assumed uniformly
-\(L^3\)-tight, it satisfies the tail condition
+Suppose, contrary to \Cref{p2:def:tight-class-input}, that a generated raw
+Seregin state \(V\) belongs to \(\calC_{L^3\mathrm{-tight}}\).  By definition
+of \(\calC_{L^3\mathrm{-tight}}\), \(V\in\calS_{\mathrm{mild}}\) and satisfies
+the tail condition
 \[
    \lim_{R\to\infty}
    \sup_{\tau\in\R}\int_{|y|>R}|V(y,\tau)|^3\,dy=0 .
 \]
-By \Cref{p1:lem:mild-representation}, every generated normalized Seregin
-ancient limit is a bounded mild solution of the centered equation.  Therefore
 \Cref{p2:thm:tight-liouville} applies and gives \(V\equiv0\), contradicting
-\Cref{p1:cor:normalized-nonzero}.  Hence no generated normalized Seregin
-ancient limit can belong to the uniformly \(L^3\)-tight class.
+\Cref{p1:cor:normalized-nonzero}.  Hence no generated raw Seregin state can
+belong to \(\calC_{L^3\mathrm{-tight}}\).
 \end{proof}
 
 The tight-class consequence used in the Type I reduction is therefore proved
@@ -6547,9 +6622,9 @@ the no-swirl assumption in this branch.
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-The physical representative associated with a generated normalized Seregin
-limit has the required smoothness and boundedness by
-\Cref{p1:lem:generated-closure-stability}; on each finite terminal
+The physical representative associated with a generated raw Seregin state in
+the mild stratum has the required smoothness and boundedness by
+\Cref{p1:lem:raw-generated-closure-stability}; on each finite terminal
 restriction it is mild by \Cref{p2:lem:physical-mild}.  Membership in the
 no-swirl branch of \(\calC_{\mathrm{sd}}\) requires axisymmetry together
 with \(u_\theta\equiv0\), so the cited theorem applies to the physical
@@ -6594,9 +6669,10 @@ circulation-only assumptions are not included in this class.
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-Generated normalized Seregin limits give smooth bounded physical ancient
-representatives, and \Cref{p2:lem:physical-mild} gives the finite-terminal
-mild formulation.  The pointwise branch of \(\calC_{\mathrm{sd}}\) requires
+Generated raw Seregin states in the mild stratum give smooth bounded physical
+ancient representatives, and \Cref{p2:lem:physical-mild} gives the
+finite-terminal mild formulation.  The pointwise branch of
+\(\calC_{\mathrm{sd}}\) requires
 the full velocity bound \(r|u|\le C\), not merely a bound on the drift
 \(u^r e_r+u^z e_z\) or on the circulation \(\Gamma=ru_\theta\).  Thus the
 source hypotheses match the branch definition.
@@ -6641,10 +6717,10 @@ The no-swirl case \(u_\theta\equiv0\) is handled separately by
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-The physical representative associated with a generated normalized Seregin
-limit is smooth, bounded, axisymmetric in this branch, and mild on finite
-terminal restrictions by
-\Cref{p1:lem:generated-closure-stability,p2:lem:physical-mild}.  The defining
+The physical representative associated with a generated raw Seregin state in
+the mild stratum is smooth, bounded, axisymmetric in this branch, and mild on
+finite terminal restrictions by
+\Cref{p1:lem:raw-generated-closure-stability,p2:lem:physical-mild}.  The defining
 condition of the branch is precisely
 \(\Gamma=ru_\theta\in L_t^\infty L_x^p\), \(1\le p<\infty\).
 
@@ -6683,9 +6759,9 @@ representative is assumed \(z\)-periodic and satisfies the same bounded
 
 \smallskip
 \noindent\emph{Verification for our profile.}
-The physical representative associated with a generated normalized Seregin
-limit is smooth, bounded, and mild on finite terminal restrictions by
-\Cref{p1:lem:generated-closure-stability,p2:lem:physical-mild}.  In the
+The physical representative associated with a generated raw Seregin state in
+the mild stratum is smooth, bounded, and mild on finite terminal restrictions by
+\Cref{p1:lem:raw-generated-closure-stability,p2:lem:physical-mild}.  In the
 periodic branch the periodicity is imposed on the physical axial variable
 \(z\), not on the centered field.  A \(z\)-periodic physical whole-space
 representative descends to \(\R^2\times\mathbb T^1\).  A Navier--Stokes
@@ -6889,8 +6965,8 @@ membership in the stated small ball of \(L^2_\sigma(m)\).
 \noindent\emph{Verification for our profile.}
 The weighted-vorticity branch of \(\calC_{\mathrm{sd}}\) requires exactly the
 small-ball condition in \(C(\mathbb R;L^2_\sigma(m))\), with \(m>7/2\), for
-the rescaled vorticity associated with the generated normalized Seregin
-profile.  This places every forward time shift of the ancient trajectory in
+the rescaled vorticity associated with the generated raw Seregin state.  This
+places every forward time shift of the ancient trajectory in
 the small-data regime of the cited theorem.
 
 \smallskip
@@ -7020,9 +7096,11 @@ lower bound \eqref{p3:eq:weighted-coercive} gives \(w(\tau_0)=0\).  Since
 
 \subsection{Zero conclusions}
 
-\begin{theorem}[Zero conclusions for Type I blow-up limits]
+\begin{theorem}[Zero conclusions for structured Type I ancient solutions]
 \label{p3:thm:typeI-zero-hypotheses}
-The following hypotheses cannot hold for a nonzero Type I blow-up limit:
+Let \(U\) be a Type I ancient solution in the sense of
+\Cref{p3:def:typeI-ancient}.  If \(U\) satisfies one of the following
+hypotheses:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item axisymmetry and \(U_\theta\equiv0\);
 \item axisymmetry and the pointwise bound \(|U(x,t)|\le C/r\);
@@ -7034,25 +7112,32 @@ The following hypotheses cannot hold for a nonzero Type I blow-up limit:
 \item the Gallay--Wayne small weighted-vorticity condition, whenever the
 velocity is recovered from the corresponding vorticity by the Biot--Savart law.
 \end{enumerate}
+then \(U\equiv0\).
 \end{theorem}
 
 \begin{proof}
 Items (i)--(iv) are \Cref{p3:thm:axisymmetric-liouville}.  Item (v) is
 \Cref{p3:thm:weighted-vorticity-vanishing-intro}; since the velocity in that
 case is recovered from \(w\) by the Biot--Savart law, \(w\equiv0\) gives the
-zero velocity.  In each Type I case, the zero conclusion contradicts
+zero velocity.
+\end{proof}
+
+\begin{corollary}[Structured hypotheses cannot hold for nonzero Type I blow-up limits]
+\label{p3:cor:structured-hypotheses-nonzero-blowup}
+A nonzero Type I blow-up limit cannot satisfy any of the hypotheses in
+\Cref{p3:thm:typeI-zero-hypotheses}.
+\end{corollary}
+
+\begin{proof}
+If a nonzero Type I blow-up limit satisfied one of the hypotheses, then
+\Cref{p3:thm:typeI-zero-hypotheses} would give \(U\equiv0\), contradicting
 \Cref{p3:lem:nonzero-typeI-limit}.
 \end{proof}
 
 \subsection{Consequences for Type I blow-up arguments}
 
 \begin{proof}[Proof of \Cref{p3:thm:typeI-consequences}]
-The axisymmetric cases are ruled out by \Cref{p3:thm:axisymmetric-liouville}.  The
-perturbative weighted-vorticity case is ruled out by
-\Cref{p3:thm:weighted-vorticity-vanishing-intro} once the corresponding rescaled
-vorticity satisfies the small weighted condition; the Biot--Savart
-reconstruction then gives zero velocity.  These zero conclusions contradict
-the nontriviality of a Type I blow-up limit.
+The assertion is \Cref{p3:cor:structured-hypotheses-nonzero-blowup}.
 \end{proof}
 
 \begin{theorem}[Combined zero conclusion]
@@ -7100,7 +7185,7 @@ This part collects the preceding results and proves the local pointwise Type I
 exclusion conditional on the residual closure hypothesis.  The argument is
 linear: local concentration, local endpoint weak-Serrin no-escape, admissible
 local Type I concentration sequence, raw Seregin extraction, passage to the
-generated normalized class with invariant nonvanishing, exhaustion into
+raw generated state space with invariant nonvanishing, exhaustion into
 Liouville classes plus residual class, exclusion of the four non-residual
 classes, and residual closure.
 
@@ -7116,10 +7201,12 @@ the local pointwise Type I bound, for some \(\rho>0\),
   \sqrt{T-t}\,\|u(t)\|_{L^\infty(B_\rho(x_*))}<\infty .
 \]
 Assume the residual closure hypothesis \Cref{p1:hyp:no-remainder} holds for
-every generated descendant hull
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\) associated with invariant
-normalization data obtained from admissible local Type I concentration
-sequences at \(z_*\).
+every raw generated descendant hull
+\[
+   \calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
+\]
+associated with invariant normalization data obtained from admissible local
+Type I concentration sequences at \(z_*\).
 Then \(z_*\) is regular.
 \end{theorem}
 
@@ -7139,9 +7226,11 @@ The local pointwise Type I bound gives
    u\in L_t^{2,\infty}L_x^\infty(Q_\rho(z_*)).
 \]
 By the Albritton--Barker weak-Serrin Type I lemma, in the form proved in
-\Cref{p0:thm:local-weak-serrin-typeI}, the local Type I quantities
-\(A,C,D,E\) are bounded on smaller terminal cylinders.  Hence the rescaled
-sequence satisfies
+\Cref{p0:thm:local-weak-serrin-typeI}, for each \(0<\theta<1\) the local
+functional \(I(Q_{\theta\rho}(z_*))\) is finite on the compactly contained
+smaller terminal cylinder.  In particular, the local \(A\)-bound needed for the
+rescaled terminal no-escape estimate is uniform along the chosen small-scale
+sequence, and the rescaled sequence satisfies
 \[
    \lim_{\sigma\downarrow0}\sup_n
    \int_{-\sigma}^{0}\int_{B_1}|u_n|^3=0 .
@@ -7166,10 +7255,10 @@ time-translation invariant local \(L^3\) nonvanishing condition
 \emph{Step 4: class decomposition.}
 Let
 \[
-   \calS=\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)
+   \calS=\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)
 \]
-be the generated descendant hull formed with the fixed invariant normalization
-data obtained from the extracted profile \(V\).  By construction, the
+be the raw generated descendant hull formed with the fixed invariant
+normalization data obtained from the extracted profile \(V\).  By construction, the
 extracted profile \(V\) belongs to \(\calS\).  By \Cref{p1:prop:exhaustion},
 \[
    V\in
@@ -7186,16 +7275,18 @@ extracted profile \(V\) belongs to \(\calS\).  By \Cref{p1:prop:exhaustion},
 
 \emph{Step 5: contradiction.}
 The first four alternatives are excluded by
-\Cref{p1:prop:known-class-exclusion}.  The residual alternative is excluded
-by \Cref{p1:hyp:no-remainder}, applied to the generated descendant hull
-\(\calS_{\mathrm{gen}}(u,p,z_*;R_0,\eta_*)\).  No alternative is possible, contradicting
+\Cref{p1:prop:known-class-exclusion}; each class definition includes exactly
+the hypotheses needed by its corresponding Liouville theorem.  The residual
+alternative is excluded by \Cref{p1:hyp:no-remainder}, applied to the raw
+generated descendant hull
+\(\calS_{\mathrm{raw\text{-}gen}}(u,p,z_*;R_0,\eta_*)\).  No alternative is possible, contradicting
 the invariant nonvanishing normalization of \Cref{p1:cor:normalized-nonzero}.
 This contradiction proves that \(z_*\) is regular.
 \end{proof}
 
 \begin{remark}[Conditional conclusion]
 Assuming \Cref{p1:hyp:no-remainder}, \Cref{p1:thm:final-assembly} gives the
-local pointwise Type I exclusion within the stated generated local pointwise
+local pointwise Type I exclusion within the stated raw generated local pointwise
 Type I extraction class.
 \end{remark}
 

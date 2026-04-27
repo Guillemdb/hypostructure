@@ -1,0 +1,3 @@
+import Hypostructure.Backends.NavierStokes.ProofSetup
+import Hypostructure.Backends.NavierStokes.ProofSetup.DependencyGraph
+import Hypostructure.Backends.NavierStokes.ResidualBranch
